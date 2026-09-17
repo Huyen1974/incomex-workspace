@@ -1,1 +1,1 @@
-Native connector audit: version one.
+Native connector audit: version two; stale SHA must be rejected.
