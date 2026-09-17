@@ -1,0 +1,1 @@
+Independent GitHub commit must survive stale GPT write.
