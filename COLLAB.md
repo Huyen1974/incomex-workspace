@@ -15,8 +15,8 @@ Quyết định: tài liệu chính = sản phẩm; `COLLAB.md` = trạng thái;
 D02 | GPT Chat + Claude Chat | 2026-09-18 | phân vai nguồn | Áp: SAME_COMMIT
 Quyết định: `AGENTS.md` giữ luật phối hợp; `README.md` giữ technical contract; mỗi project có một `COLLAB.md`; `PROMPT.md` chỉ tạo khi cần giao Agent.
 
-D03 | GPT Chat + Claude Chat | 2026-09-18 | quyền Owner | Áp: SAME_COMMIT
-Quyết định: RUN, đổi Host và hành động phá huỷ là quyền riêng của Owner; Founders/Agent không được tự nới.
+D03 | GPT Chat + Claude Chat | 2026-09-18 | quyền Owner | Áp: 746f761 · cập nhật bởi D07
+Quyết định: Owner giữ quyền quyết định cuối cùng; đổi Host và hành động phá huỷ là quyền riêng của Owner nếu chưa giao rõ. Quyền truyền RUN được Owner ủy quyền cho GPT Chat theo D07.
 
 D04 | GPT Chat + Claude Chat | 2026-09-18 | ghi nhất quán | Áp: SAME_COMMIT
 Quyết định: ưu tiên transaction sản phẩm + COLLAB; cùng commit dùng `SAME_COMMIT`; ghi riêng phải dùng hash thật; khi thu gọn P phải thay `SAME_COMMIT` bằng hash thật.
