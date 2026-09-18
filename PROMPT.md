@@ -18,9 +18,9 @@ Hai đầu nối tự viết, cùng một repo `Huyen1974/incomex-workspace`:
 ## 2. Danh mục lỗi (đã đối chiếu mã nguồn; P0 làm trước)
 | Mã | Phía | Lỗi | Sửa | Mức |
 |---|---|---|---|---|
-| H01 | Claude | `fs_log`, `fs_diff` (fsroots.py ~1338, ~1361) không gọi `_freshen` như `fs_list/read/stat/search` | gọi `_freshen` và nối cảnh báo vào kết quả như `fs_read` | P0 |
-| H02 | Cả hai | độ tươi khác nhau: Claude đọc trễ tối đa 20 s (`FS_PULL_TTL_S`), GPT 2 s (`git_read_refresh_seconds`) | thống nhất ≤2 s, cấu hình được, ghi vào kết quả mỗi lần đọc: đã kéo lúc nào, HEAD nào | P0 |
-| H03 | GPT | dispatcher (workspace_tools.py ~639–648) loại riêng `workspace_stat` khỏi bước kéo | kéo như các lệnh đọc khác; worktree bẩn → không merge, trả `dirty:true` + HEAD local/remote | P0 |
+| H01 | Claude | `fs_log`, `fs_diff` (fsroots.py ~1338, ~1361) không gọi `_freshen` như `fs_list/read/stat/search` | `fs_log`/`fs_diff` phải **force-refresh remote ngay trước khi đọc**, không chỉ đi qua TTL cache; nối freshness/HEAD vào kết quả như các read tool | P0 |
+| H02 | Cả hai | độ tươi khác nhau: Claude đọc trễ tối đa 20 s (`FS_PULL_TTL_S`), GPT 2 s (`git_read_refresh_seconds`) | read thông thường có thể dùng cache cấu hình được ≤2 s; **mọi read quyết định an toàn/phiên bản** (`stat`, `log`, `diff`, kiểm READY và source trước `exec`) phải force-refresh. Kết quả Git read trả `source_head`/`refreshed_at` hoặc metadata tương đương | P0 |
+| H03 | GPT | dispatcher (workspace_tools.py ~639–648) loại riêng `workspace_stat` khỏi bước kéo | `workspace_stat` phải force-refresh remote trước khi trả version/HEAD; worktree bẩn → không merge, trả `dirty:true` + HEAD local/remote, không giả dữ liệu là fresh | P0 |
 | H04 | GPT | `git()` (~136–158) gom mọi lỗi thành `GIT_OPERATION_FAILED`, bỏ stderr, không ghi log | lỗi theo phase: fetch · fast-forward · add · diff-check · commit · push · rollback; detail an toàn (lệnh mạng che output, không URL/credential); ghi log vận hành có event id | P0 |
 | H05 | GPT | `git diff --cached --check` đang gom cả whitespace và conflict marker vào một chốt chặn cứng | Tách loại: trailing whitespace / blank-at-EOF → `warnings`, không chặn và không tự sửa bytes; **leftover conflict marker (`<<<<<<<`, `=======`, `>>>>>>>`) vẫn là hard error** với path:line:lý do rõ ràng | P0 |
 | H06 | GPT | transaction trả `changed=bool(after)` → no-op vẫn báo đổi | no-op → `changed:false`, `commit:null`, không push; hỗn hợp → chỉ tính file thật sự đổi | P0 |
@@ -50,7 +50,7 @@ Hai đầu nối tự viết, cùng một repo `Huyen1974/incomex-workspace`:
 ## 5. Nghiệm thu backend (Claude Code tự làm; không phải PASS ở client)
 - Commit thử thật chỉ nằm trong `_thu-nghiem/hardening-20260919/` của repo, file nhỏ, message `[Claude Code] TEST Hxx`; không xoá sau khi thử, liệt kê trong báo cáo. Không đụng `AGENTS.md`, `README.md`, `COLLAB.md`, `PROMPT.md`.
 - Gọi qua đúng đường mã của từng đầu nối (endpoint MCP nội bộ hoặc handler), không dùng git tay thay đầu nối.
-- A. Độ tươi chéo: GPT đang ở commit A; Claude đẩy B; không gọi đọc trung gian → GPT `stat`, `log`, `diff` thấy B ngay; `exec` chạy trên `source_head=B`. Chiều ngược: GPT đẩy → Claude `fs_log`, `fs_diff` thấy ngay.
+- A. Độ tươi chéo: GPT đang ở commit A; Claude đẩy B; **ngay lập tức, kể cả trong cửa sổ TTL**, không gọi đọc trung gian → GPT `stat`, `log`, `diff` thấy B; `exec` chạy trên `source_head=B`. Chiều ngược: GPT đẩy → Claude cold `fs_log`, `fs_diff` thấy B ngay. Test phải chứng minh safety-critical read không phụ thuộc cache TTL.
 - B. Snapshot: giữ khoá ghi nhiều file trong lúc `exec` bắt đầu chụp → chờ, hoặc trọn bản trước, hoặc trọn bản sau; không trạng thái lai.
 - C. Lỗi minh bạch: trailing whitespace và blank-at-EOF → ghi THÀNH CÔNG kèm `warnings`, bytes giữ nguyên; fixture có leftover conflict marker (`<<<<<<<` / `=======` / `>>>>>>>`) → bị CHẶN với mã/phase/path:line rõ; `expected_version` cũ; remote đã chạy trước; lỗi git giả lập → đúng phase, không còn `GIT_OPERATION_FAILED` chung khi đã biết nguyên nhân.
 - D. Transaction: no-op → `changed:false`, không commit; 2 file → đúng 1 commit; lỗi ở op thứ N → không file nào đổi; push bị từ chối → hoàn tác đủ; `diff(from_version)` sau transaction đọc được trước/sau.
