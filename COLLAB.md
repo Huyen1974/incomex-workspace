@@ -89,5 +89,4 @@ PROMPT.md | READY@079cdb13643cd96051169dd28fed993a07181bbc | RUN_ID: HARDEN-2026
 - Chưa có.
 
 ## Mốc tiếp theo
-- Claude Chat vào phiên mới bằng: `WS gốc · Review · AGENTS.md · đọc incomex-workspace/AGENTS.md → COLLAB.md`.
-- Đây là phép thử thật đầu tiên của workflow; không coi review “không ý kiến” là một commit.
+- Owner RUN `HARDEN-20260919-01`; Agent đọc `PROMPT.md`, làm việc và chỉ trả một dòng `XONG` hoặc `DỪNG`. Host/Reviewer nghiệm thu từ Git + KB §13.
