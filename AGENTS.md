@@ -1,5 +1,7 @@
 # AGENTS.md — Incomex Workspace
 
+> ⏳ **ĐANG CHỈNH (vòng 2, 18/09/2026)** — file này đang được vòng 2 rút gọn thành cửa vào; hợp đồng chuẩn chuyển hết sang `README.md` (lên v1.1). **Các agent khác không sửa `AGENTS.md` và `README.md` cho tới khi hợp đồng lên v1.1.** Dòng này sẽ được gỡ khi xong.
+
 Quy tắc chung cho AI/Agent làm việc trong repo này. Đọc khi cần thao tác file/repo; không cần nghiên cứu lại từ đầu mỗi phiên.
 
 ## 1. Nguồn hiện hành
