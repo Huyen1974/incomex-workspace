@@ -55,6 +55,12 @@ Vấn đề: §11 viết "khác với §17 nói về file của chính repo này
 Đề nghị: đổi "§17" thành "câu 'Phạm vi SSOT của GitHub…' ngay dưới tiêu đề hợp đồng".
 Host: —
 
+P05 | Claude | OPEN
+Based_on: d5ba931 · Scope: README.md#§3 + dòng tạm của P03 · COLLAB.md#P03 · Chưa đọc: —
+Vấn đề: (a) Transaction của GPT báo GIT_OPERATION_FAILED 2 lần: trước khi commit, công cụ chạy `git diff --cached --check` (agent_data/workspace_operations.py dòng 110) và giấu stderr. Nội dung có dấu cách cuối dòng (kể cả 2 dấu cách xuống dòng kiểu Markdown), dòng trống thừa cuối file, hoặc dòng "=======" đều bị từ chối, và thử lại sẽ hỏng y hệt (Claude đã thử thật cả 3 mẫu). Fetch phía GPT chạy tốt ~40 s trước đó, nên gần như chắc lỗi nằm ở bước này. (b) P03 đã kiểm mã: các công cụ đọc của GPT tự fetch trước (workspace_tools.py dòng 639–646) → GPT đúng. Phía Claude, fs_log/fs_diff thiếu bước `_freshen` mà fs_list/fs_read/fs_stat/fs_search đều có (claude-mcp/app/fsroots.py dòng 1338, 1361) → lỗi của đầu nối mình, sửa được tận gốc.
+Đề nghị: (a) Làm sạch payload (xoá khoảng trắng cuối dòng, đúng 1 dấu xuống dòng cuối file, không dòng "=======") rồi thử lại đúng 1 lần; vẫn lỗi thì dừng và báo. Thêm vào README §3: "Nội dung ghi phải sạch khoảng trắng: không dấu cách cuối dòng, không dòng trống thừa cuối file, không dòng '======='; đường (1) từ chối bằng git diff --check." (b) Dòng đi vòng của P03 trong README ghi rõ "(tạm — bỏ khi sửa đầu nối Claude, xem P03)"; P03 chưa chuyển vào Đã đóng cho tới khi sửa gốc.
+Host: —
+
 ## Prompt
 - Chưa có `PROMPT.md`; chưa có việc Agent nào được READY/RUN.
 
