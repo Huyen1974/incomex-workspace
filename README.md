@@ -9,9 +9,10 @@ Các file `acceptance/gpt-*` là bản sao kiểm thử ngày 17/09/2026, không
 
 **File thử — agent đừng đọc cả file:** `acceptance/gpt-*`, `acceptance/moved/*`, `acceptance-20260918-*.html` (~2,2 MB), `chatgpt-direct-upload-*.html` (~1,8 MB) là file thử của GPT (tác giả "AI via Incomex Workspace"), giữ nguyên chỗ vì GPT có thể còn dùng; chứng tích thử của Claude đã gom vào `_luu-tru-chung-tich-claude/` (xem INDEX.md trong đó, cũng không đọc). Đã kiểm file 314 KB và một dòng 2,21 MB, stale HEAD/SHA và commit chen ngang. App GPT cần Refresh để nhận đủ 20 tool; giữ nguyên URL/secret.
 
-## Shared Workspace Contract — v1.1, 2026-09-18
+## Shared Workspace Contract — v1.2, 2026-09-18
 
 > **Đây là NGUỒN LUẬT DUY NHẤT của repo này.** `AGENTS.md` chỉ là cửa vào trỏ về đây. Không tạo file luật thứ ba, không chép luật sang chỗ khác; cần thêm gì thì sửa chính mục này.
+> Đổi so với v1.1 (cùng ngày): thêm §11 — VPS là nguồn gốc duy nhất của MÃ; GitHub không còn đường ghi xuống VPS.
 > Đổi so với v1.0 (cùng ngày): thêm §0 ba đường ghi (kể cả GitHub native ghi thẳng), §7 quyền xoá, §8 file lớn/Unicode và §10 báo kết quả (gộp từ `AGENTS.md`, file đó nay chỉ trỏ về đây); §3 thêm luật thay-chuỗi; §4 ghi kết quả đo bảo vệ nhánh; §9 thêm hai dòng chi phí đo thật.
 
 Hai đầu nối độc lập (GPT: AgentData `workspace_*`; Claude: "Incomex VPS" `fs_*`) dùng chung nơi làm việc theo MỘT hợp đồng. Phạm vi SSOT của GitHub là các file **thuộc repo này**; KB, source các repo khác và file UI chưa quản lý trong repo không phải cùng nguồn.
@@ -42,5 +43,21 @@ Hai đầu nối độc lập (GPT: AgentData `workspace_*`; Claude: "Incomex VP
 8. **File lớn, Unicode, assets** — chỉ cần một phần thì đừng đưa cả file lớn vào ngữ cảnh. Qua VPS: đọc theo cửa sổ (`fs_read` với `max_bytes`/`start_line`/`start_char`) và định vị bằng `fs_search` trước. Qua GitHub native, file >1 MB: `fetch_file` lấy metadata/SHA → `fetch_blob` → cắt/tìm trong tool → chỉ đưa đoạn liên quan cho mô hình (`fetch_file(start_line/end_line)` có thể trả content RỖNG với file >1 MB — dùng blob thay thế). Giữ nguyên path/tên file Unicode kể cả dạng NFD: không tự normalize/rename; giữ relative path, assets và manifest liên quan nếu nhiệm vụ không yêu cầu đổi; không nhúng binary/base64 vào file text lớn.
 9. **Chi phí** — tìm rồi sửa ngay khi đủ ngữ cảnh; đọc theo cửa sổ; copy/move/transaction chạy server-side; kết quả dài có cursor/continuation, chỉ đọc tiếp khi cần. Đo thật 24 h (18/09/2026: 352 lượt gọi, 10,8 MB dữ liệu trả về): **soi bằng CHỮ trước, chỉ chụp ảnh khi thật sự phải nhìn hình** — `ui_screenshot` 479 KB/lần (16 ảnh = 7,5 MB ≈ 69% toàn bộ dữ liệu trả về) so với `ui_inspect` 2 KB/lần, rẻ hơn ~240 lần. **Ưu tiên thao tác chạy trên máy chủ** (`fs_stat` 293 B, `fs_copy` 261 B, `fs_transaction` 337 B) thay vì chuyển nội dung qua mô hình.
 10. **Báo kết quả** — chỉ báo PASS khi đã GỌI THẬT; không suy từ mã nguồn hay từ báo cáo cũ. Phân biệt rõ ba loại bằng chứng: (a) backend/CLI, (b) client Claude Chat/Cowork, (c) client ChatGPT/Work/Codex — gọi được qua CLI KHÔNG phải là PASS ở client thật. Nêu ngắn: file/path, branch/ref, version hoặc SHA trước/sau, phần đã đổi, kiểm tra đã chạy. Có giới hạn công cụ thì nói đúng giới hạn và cách đi vòng đã kiểm chứng.
+11. **Mã và runtime trên VPS — VPS là NGUỒN GỐC DUY NHẤT (chốt của chủ, 18/09/2026).** Mục này nói về MÃ, khác với §17 nói về file của chính repo này.
+
+    1. Mã và runtime trên VPS là nguồn gốc duy nhất. Mã trên VPS mới hơn GitHub rất nhiều.
+    2. Kho mã trên GitHub (`agent-data-test`, `web-test`) chỉ là **bản sao lưu · lịch sử tham khảo · nơi đọc lại**.
+    3. Không một workflow, webhook, runner hay lệnh kéo nào được triển khai hoặc ghi đè mã trên VPS.
+    4. Chiều **VPS → GitHub** được phép sau khi quét bí mật (cron `git-push-gh-daily-v2.sh`, 06:00 và 18:00, đẩy nhánh `vps-daily-*`).
+    5. Chiều **GitHub → VPS** chỉ được phép với repo này, vào đúng hai clone file làm việc dưới đây, và chỉ vào vùng KHÔNG thực thi.
+    6. VPS và GitHub khác nhau → **VPS là bản đúng**; không tự đồng bộ từ GitHub xuống.
+    7. Không `rsync --delete` từ GitHub vào vùng mã.
+    8. Không thông tin đăng nhập GitHub nào được có quyền root hay quyền ghi vào VPS.
+
+    **Muốn đổi mã thì làm thế nào?** Sửa trên VPS → dựng tại chỗ → đẩy bản sao lên GitHub. Không có đường nào khác.
+
+    **Ngoại lệ, nêu đích danh:** `Huyen1974/incomex-workspace` → `/opt/incomex/mcp-roots/gh` (đầu nối Claude) và `/opt/incomex/data/workspace-tools/github-workspace` (đầu nối GPT). Quyền đọc-ghi file làm việc; không thực thi; không chạm `/opt/incomex/docker`, compose, systemd hay runtime. Không mở rộng ngoại lệ sang kho khác.
+
+    **Trạng thái đường cắt 18/09/2026:** bí mật `VPS_SSH_KEY` đã xoá khỏi cả `agent-data-test` và `web-test` (không còn ở cấp kho, environment, dependabot, codespaces; không có tổ chức, không webhook, không self-hosted runner, không deploy key). Sáu workflow ghi xuống VPS đều `disabled_manually`. **File workflow và `VPS_HOST` được GIỮ NGUYÊN có chủ ý** theo yêu cầu của chủ: đấu lại = nạp lại một bí mật `VPS_SSH_KEY` + bật workflow, không phải dựng lại từ đầu.
 
 Hướng dẫn riêng từng đầu nối: GPT `docs/WORKSPACE_TOOLS.md` (repo agent-data); Claude `claude-mcp/00-NHAN-THU-MUC.md` + báo cáo KB `knowledge/current-state/reports/mcp-incomex-vps-nang-cap-fs-roots-2026-09-17.md` §12.
