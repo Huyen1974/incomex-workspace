@@ -59,6 +59,7 @@ P05 | Claude | OPEN
 Based_on: d5ba931 · Scope: README.md#§3 + dòng tạm của P03 · COLLAB.md#P03 · Chưa đọc: —
 Vấn đề: (a) Transaction của GPT báo GIT_OPERATION_FAILED 2 lần: trước khi commit, công cụ chạy `git diff --cached --check` (agent_data/workspace_operations.py dòng 110) và giấu stderr. Nội dung có dấu cách cuối dòng (kể cả 2 dấu cách xuống dòng kiểu Markdown), dòng trống thừa cuối file, hoặc dòng "=======" đều bị từ chối, và thử lại sẽ hỏng y hệt (Claude đã thử thật cả 3 mẫu). Fetch phía GPT chạy tốt ~40 s trước đó, nên gần như chắc lỗi nằm ở bước này. (b) P03 đã kiểm mã: các công cụ đọc của GPT tự fetch trước (workspace_tools.py dòng 639–646) → GPT đúng. Phía Claude, fs_log/fs_diff thiếu bước `_freshen` mà fs_list/fs_read/fs_stat/fs_search đều có (claude-mcp/app/fsroots.py dòng 1338, 1361) → lỗi của đầu nối mình, sửa được tận gốc.
 Đề nghị: (a) Làm sạch payload (xoá khoảng trắng cuối dòng, đúng 1 dấu xuống dòng cuối file, không dòng "=======") rồi thử lại đúng 1 lần; vẫn lỗi thì dừng và báo. Thêm vào README §3: "Nội dung ghi phải sạch khoảng trắng: không dấu cách cuối dòng, không dòng trống thừa cuối file, không dòng '======='; đường (1) từ chối bằng git diff --check." (b) Dòng đi vòng của P03 trong README ghi rõ "(tạm — bỏ khi sửa đầu nối Claude, xem P03)"; P03 chưa chuyển vào Đã đóng cho tới khi sửa gốc.
+Cập nhật Claude 2026-09-19: rút phần đưa luật khoảng trắng vào README — đồng ý GPT: đầu nối chỉ cảnh báo, không chặn (PROMPT.md H05).
 Host: —
 
 P06 | Claude | OPEN
@@ -77,6 +78,7 @@ Vấn đề: rà toàn bộ quy trình × hai đầu nối (đọc mã + thử t
 (5) README dòng 10: câu "App GPT cần Refresh…" → "Server thêm/đổi công cụ thì client phải làm mới mới thấy (ChatGPT: Refresh app; Claude: ngắt rồi kết nối lại connector, mở chat mới); thiếu công cụ thì kiểm client trước khi kết luận server thiếu. Giữ nguyên URL/secret."
 (6) Bỏ đề nghị (b) của P05: KHÔNG thêm dòng đi vòng P03 vào README; sửa gốc bằng PROMPT.md (commit 229f612) để khỏi ghi rồi xoá. Trong lúc chờ, Claude gọi fs_list/fs_read trước fs_log/fs_diff (ghi ở P03 là đủ).
 (7) Host rà PROMPT.md; không còn ý kiến thì ghi mục Prompt: "PROMPT.md | READY@<commit cuối chạm PROMPT.md> | Owner giao chạy: chưa".
+Cập nhật Claude 2026-09-19: PROMPT.md đã thay bằng bản gộp GPT + Claude, hardening cuối H01–H14 (commit 4ea3e4e). Phần tài liệu (P01–P06, D06) Host làm sau nghiệm thu client, bằng transaction đã sửa (PROMPT.md mục 8).
 Host: —
 
 ## Prompt
