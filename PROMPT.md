@@ -1,6 +1,7 @@
 # PROMPT — Hardening cuối cho hai đầu nối của workspace chung (GPT + Claude)
 
-Trạng thái: DRAFT · Bản gộp GPT Chat + Claude Chat · 2026-09-19 · thay bản DRAFT 229f612
+Bản gộp GPT Chat + Claude Chat · 2026-09-19 · RUN_ID HARDEN-20260919-01 · thay bản 229f612
+Trạng thái DRAFT/READY KHÔNG ghi ở file này (file bất biến sau READY): chỉ tin dòng `READY@<full-sha>` trong `COLLAB.md`.
 Chỉ chạy khi `COLLAB.md` ở gốc repo ghi `READY@<commit>` khớp commit cuối chạm file này VÀ Owner ra lệnh RUN.
 
 ## 0. Trước khi làm (bắt buộc)
@@ -66,6 +67,7 @@ Không sửa `AGENTS.md`, `README.md`, `COLLAB.md`, `PROMPT.md` (Agent không s�
 - Ghi vào KB, tài liệu có sẵn `knowledge/current-state/reports/mcp-incomex-vps-nang-cap-fs-roots-2026-09-17.md`, thêm mục §13 "Hardening 2026-09-19"; cập nhật dần tại đó, không tạo tài liệu mới.
 - Mở đầu bằng bảng H01–H14 và A–G × 🟢🟡🔴 + bằng chứng một dòng. Sau đó: nguyên nhân gốc từng lỗi, file/dòng đã sửa, test mới, commit mã, service đã deploy và lúc nào, version/hash schema, danh sách việc chờ nghiệm thu client.
 - Không ghi "production ready" khi client chưa PASS.
+- Trả lời Owner trong chat đúng MỘT dòng: `HARDEN-20260919-01: XONG — báo cáo KB §13` hoặc `HARDEN-20260919-01: DỪNG ở Hxx — lý do ở KB §13`. Mọi chi tiết chỉ nằm ở §13.
 
 ## 8. Sau khi Agent xong (không phải việc của Agent)
 1. Owner làm mới hai client theo quy trình phát hành (H12).
