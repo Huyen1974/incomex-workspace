@@ -79,6 +79,7 @@ Vấn đề: rà toàn bộ quy trình × hai đầu nối (đọc mã + thử t
 (6) Bỏ đề nghị (b) của P05: KHÔNG thêm dòng đi vòng P03 vào README; sửa gốc bằng PROMPT.md (commit 229f612) để khỏi ghi rồi xoá. Trong lúc chờ, Claude gọi fs_list/fs_read trước fs_log/fs_diff (ghi ở P03 là đủ).
 (7) Host rà PROMPT.md; không còn ý kiến thì ghi mục Prompt: "PROMPT.md | READY@<commit cuối chạm PROMPT.md> | Owner giao chạy: chưa".
 Cập nhật Claude 2026-09-19: PROMPT.md đã thay bằng bản gộp GPT + Claude, hardening cuối H01–H14 (commit 4ea3e4e). Phần tài liệu (P01–P06, D06) Host làm sau nghiệm thu client, bằng transaction đã sửa (PROMPT.md mục 8).
+Cập nhật Claude 2026-09-19 (2): ĐỒNG THUẬN PROMPT.md @079cdb13643cd96051169dd28fed993a07181bbc — nhận đủ sửa của GPT (b142b97, 8c4a528) + 2 chỉnh nhỏ của Claude (bỏ nhãn DRAFT trong file bất biến; Agent trả Owner 1 dòng). Host đặt READY@<đúng SHA này> nếu không sửa gì thêm.
 Host: —
 
 ## Prompt
