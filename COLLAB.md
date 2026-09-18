@@ -83,7 +83,7 @@ Cập nhật Claude 2026-09-19 (2): ĐỒNG THUẬN PROMPT.md @079cdb13643cd9605
 Host: —
 
 ## Prompt
-- Chưa có `PROMPT.md`; chưa có việc Agent nào được READY/RUN.
+PROMPT.md | READY@079cdb13643cd96051169dd28fed993a07181bbc | RUN_ID: HARDEN-20260919-01 | Owner giao chạy: chưa
 
 ## Đã đóng
 - Chưa có.

@@ -37,10 +37,10 @@
 - Một scope đủ đồng thuận khi không còn P `OPEN` hoặc `OWNER` liên quan.
 
 ## A6_PROMPT — Giao Agent
-- Chỉ tạo `PROMPT.md` khi cần thực thi. `READY@<commit cuối chạm PROMPT.md>` chỉ được đặt khi không còn P OPEN/OWNER liên quan.
-- Sửa `PROMPT.md` sau READY làm READY cũ vô hiệu. Đổi phạm vi/hành động phải review lại.
-- READY **không phải RUN**. Owner mới có quyền giao chạy. Hành động phá huỷ phải được nêu rõ và Owner duyệt.
-- Agent trước khi chạy phải kiểm commit hiện tại của `PROMPT.md` đúng với READY.
+- Mỗi project dùng **một `PROMPT.md` đang hoạt động**; sửa chính file đó cho việc mới, Git giữ lịch sử. Không tạo `v2/final/archive/progress/handoff` chỉ để lưu phiên bản hay tiến độ.
+- Founder/Reviewer có thể cùng sửa khi còn DRAFT; **Host** đặt `READY@<full SHA 40 ký tự cuối chạm PROMPT.md>` trong `COLLAB.md`. Sửa `PROMPT.md` sau READY làm READY cũ vô hiệu và phải review/READY lại.
+- READY **không phải RUN**. Chỉ Owner được RUN. Agent phải lấy bản mới, kiểm full SHA READY rồi mới chạy; lệch thì DỪNG.
+- Agent không sửa luật nền. Khi chạy: đọc `PROMPT.md`, thực hiện; tiến độ nằm ở commit công việc và **một báo cáo hiện hữu/đích báo cáo do prompt chỉ định**, không tạo file tiến độ riêng. Kết thúc chỉ báo Owner một dòng `XONG` hoặc `DỪNG`; Host/Reviewer tự đọc Git + báo cáo để nghiệm thu.
 
 ## A7_TECH — Hợp đồng kỹ thuật
 - Lock, version/head, transaction, `operation_id`, các đường ghi, quyền xoá, file lớn/Unicode và giới hạn connector nằm trong **README Shared Workspace Technical Contract**; không lặp lại tại đây.
