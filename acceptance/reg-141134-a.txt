@@ -1,4 +1,4 @@
-one
+ONE
 two
 three
 repeat
