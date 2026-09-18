@@ -9,11 +9,12 @@ Các file `acceptance/gpt-*` là bản sao kiểm thử ngày 17/09/2026, không
 
 **File thử — agent đừng đọc cả file:** `acceptance/gpt-*`, `acceptance/moved/*`, `acceptance-20260918-*.html` (~2,2 MB), `chatgpt-direct-upload-*.html` (~1,8 MB) là file thử của GPT (tác giả "AI via Incomex Workspace"), giữ nguyên chỗ vì GPT có thể còn dùng; chứng tích thử của Claude đã gom vào `_luu-tru-chung-tich-claude/` (xem INDEX.md trong đó, cũng không đọc). Đã kiểm file 314 KB và một dòng 2,21 MB, stale HEAD/SHA và commit chen ngang. App GPT cần Refresh để nhận đủ 20 tool; giữ nguyên URL/secret.
 
-## Shared Workspace Contract — v1.2, 2026-09-18
+## Shared Workspace Technical Contract — v1.3, 2026-09-18
 
-> **Đây là NGUỒN LUẬT DUY NHẤT của repo này.** `AGENTS.md` chỉ là cửa vào trỏ về đây. Không tạo file luật thứ ba, không chép luật sang chỗ khác; cần thêm gì thì sửa chính mục này.
+> **Phân vai nguồn chuẩn:** `AGENTS.md` = luật phối hợp/vai trò/workflow; README mục này = hợp đồng **kỹ thuật** của workspace/connector; `COLLAB.md` = trạng thái hiện hành của project. Không chép cùng một luật giữa các file.
+> Đổi so với v1.2 (cùng ngày): áp dụng `FOUNDERS_CONSENSUS_V1`, chuyển luật phối hợp sang `AGENTS.md`, giữ README làm technical contract; tạo `COLLAB.md` gốc để lưu quyết định/trạng thái. Các §0–§11 bên dưới vẫn là nguồn chuẩn cho cơ chế kỹ thuật.
 > Đổi so với v1.1 (cùng ngày): thêm §11 — VPS là nguồn gốc duy nhất của MÃ; GitHub không còn đường ghi xuống VPS.
-> Đổi so với v1.0 (cùng ngày): thêm §0 ba đường ghi (kể cả GitHub native ghi thẳng), §7 quyền xoá, §8 file lớn/Unicode và §10 báo kết quả (gộp từ `AGENTS.md`, file đó nay chỉ trỏ về đây); §3 thêm luật thay-chuỗi; §4 ghi kết quả đo bảo vệ nhánh; §9 thêm hai dòng chi phí đo thật.
+> Đổi so với v1.0 (cùng ngày): thêm §0 ba đường ghi (kể cả GitHub native ghi thẳng), §7 quyền xoá, §8 file lớn/Unicode và §10 báo kết quả; §3 thêm luật thay-chuỗi; §4 ghi kết quả đo bảo vệ nhánh; §9 thêm hai dòng chi phí đo thật.
 
 Hai đầu nối độc lập (GPT: AgentData `workspace_*`; Claude: "Incomex VPS" `fs_*`) dùng chung nơi làm việc theo MỘT hợp đồng. Phạm vi SSOT của GitHub là các file **thuộc repo này**; KB, source các repo khác và file UI chưa quản lý trong repo không phải cùng nguồn.
 
