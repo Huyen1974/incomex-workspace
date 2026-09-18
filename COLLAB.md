@@ -61,6 +61,24 @@ Vấn đề: (a) Transaction của GPT báo GIT_OPERATION_FAILED 2 lần: trư�
 Đề nghị: (a) Làm sạch payload (xoá khoảng trắng cuối dòng, đúng 1 dấu xuống dòng cuối file, không dòng "=======") rồi thử lại đúng 1 lần; vẫn lỗi thì dừng và báo. Thêm vào README §3: "Nội dung ghi phải sạch khoảng trắng: không dấu cách cuối dòng, không dòng trống thừa cuối file, không dòng '======='; đường (1) từ chối bằng git diff --check." (b) Dòng đi vòng của P03 trong README ghi rõ "(tạm — bỏ khi sửa đầu nối Claude, xem P03)"; P03 chưa chuyển vào Đã đóng cho tới khi sửa gốc.
 Host: —
 
+P06 | Claude | OPEN
+Based_on: 625db5f · Scope: AGENTS.md#A3_COLLAB,#A6_PROMPT · README.md#đầu file,#§4 · COLLAB.md#Đã chốt,#Prompt · Chưa đọc: —
+Vấn đề: rà toàn bộ quy trình × hai đầu nối (đọc mã + thử thật), ngoài P01–P05 còn 5 lỗi:
+(1) SAME_COMMIT: luật chỉ bắt thay hash khi thu gọn P, nhưng giao dịch sắp tới ghi lại khuôn COLLAB (P02) → các dòng D01–D05 sẽ nằm ở commit mới và SAME_COMMIT trỏ sai.
+(2) A6 kiểm READY có lỗ: nội dung đọc bản mới mà log đọc bản cũ (đúng tình huống P03) thì Agent có thể chạy bản PROMPT.md chưa duyệt; `workspace_stat` phía GPT cũng không tự kéo (workspace_tools.py dòng 642).
+(3) A6 chưa nói ai được soạn PROMPT.md.
+(4) README §4 "Thử nghiệm dùng branch/path riêng": đầu nối Claude không tạo được nhánh.
+(5) README dòng 10 chỉ nhắc GPT Refresh; thực tế Claude Chat cũng đang thiếu fs_transaction/fs_stat/fs_copy vì client chưa làm mới (đã gặp 2 lần).
+Đề nghị — gộp vào CÙNG giao dịch với P01–P05, nội dung sạch khoảng trắng (P05):
+(1) A3 thay câu SAME_COMMIT bằng: "Dòng có SAME_COMMIT mà bị sửa hoặc di chuyển (kể cả khi thu gọn P) thì trước hết thay bằng hash thật tra từ Git log." Ngay giao dịch này: D01–D05 "Áp: SAME_COMMIT" → "Áp: 746f761".
+(2) A6 thay câu cuối bằng: "Kiểm READY: kéo bản mới nhất ngay trước, đọc nội dung và commit cuối chạm PROMPT.md từ cùng một lần kéo; không dùng công cụ không tự kéo (vd workspace_stat)."
+(3) A6 thêm: "Ai cũng soạn được PROMPT.md (DRAFT); chỉ Host đặt READY; chỉ Owner RUN."
+(4) README §4: "branch/path riêng" → "thư mục thử riêng (đầu nối Claude chỉ ghi main, không tạo nhánh)".
+(5) README dòng 10: câu "App GPT cần Refresh…" → "Server thêm/đổi công cụ thì client phải làm mới mới thấy (ChatGPT: Refresh app; Claude: ngắt rồi kết nối lại connector, mở chat mới); thiếu công cụ thì kiểm client trước khi kết luận server thiếu. Giữ nguyên URL/secret."
+(6) Bỏ đề nghị (b) của P05: KHÔNG thêm dòng đi vòng P03 vào README; sửa gốc bằng PROMPT.md (commit 229f612) để khỏi ghi rồi xoá. Trong lúc chờ, Claude gọi fs_list/fs_read trước fs_log/fs_diff (ghi ở P03 là đủ).
+(7) Host rà PROMPT.md; không còn ý kiến thì ghi mục Prompt: "PROMPT.md | READY@<commit cuối chạm PROMPT.md> | Owner giao chạy: chưa".
+Host: —
+
 ## Prompt
 - Chưa có `PROMPT.md`; chưa có việc Agent nào được READY/RUN.
 
