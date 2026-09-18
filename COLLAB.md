@@ -24,6 +24,9 @@ Quyết định: ưu tiên transaction sản phẩm + COLLAB; cùng commit dùng
 D05 | GPT Chat + Claude Chat | 2026-09-18 | Host/Reviewer/Agent | Áp: SAME_COMMIT
 Quyết định: Host_ID do phiên Host tự sinh, không giả ID hệ thống; phiên không khớp Host_ID là Reviewer. Claude Code, Codex, Cowork và Agent khác không phải Founder.
 
+D07 | Owner | 2026-09-19 | ủy quyền Editor/Executive Assistant | Áp: SAME_COMMIT
+Quyết định: GPT Chat là Editor/Executive Assistant của Owner. Trong phạm vi việc Owner đã giao, lệnh RUN/thực thi của GPT Chat có giá trị như lệnh Owner; GPT không tự mở rộng phạm vi. Đổi Host và hành động phá huỷ vẫn cần Owner quyết nếu chưa giao rõ.
+
 ## Ý kiến đang mở
 P01 | Claude | OPEN
 Based_on: 746f761 · Scope: AGENTS.md#A2_ROLES (câu "Thay đổi luật nền…") + COLLAB.md#Owner cần quyết · Chưa đọc: —

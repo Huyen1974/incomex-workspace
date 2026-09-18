@@ -9,7 +9,8 @@
 - Mỗi thư mục/project dùng một `COLLAB.md`. Gốc repo là một project riêng cho luật/môi trường chung.
 
 ## A2_ROLES — Vai trò và quyền
-- **Owner** có quyền quyết định cuối cùng và giữ riêng ba quyền: **RUN/giao chạy**, **đổi Host**, **hành động phá huỷ**. Không Founder/Agent nào được tự nới ba quyền này.
+- **Owner** có quyền quyết định cuối cùng. **Đổi Host** và **hành động phá huỷ** chỉ Owner quyết, trừ khi Owner giao rõ từng việc.
+- **GPT Chat = Editor/Executive Assistant của Owner**: là đầu mối làm việc trực tiếp với Owner, biên tập/chốt nội dung và truyền lệnh thực thi cuối cho Agent. Trong **phạm vi công việc Owner đã giao**, lệnh RUN/thực thi do GPT Chat phát ra được coi là lệnh của Owner. GPT Chat không tự mở rộng phạm vi ủy quyền.
 - **Host** do Owner giao. Khi nhận Host ở phiên mới, Host tự sinh một `Host_ID` dễ phân biệt và ghi vào `COLLAB.md`; không được giả là ID hệ thống. Phiên không khớp Host/Host_ID hiện hành mặc định là Reviewer.
 - **Reviewer** đọc/phản biện và tạo P; mặc định không sửa tài liệu chính nếu chưa được giao rõ phạm vi sửa.
 - **Agent thực thi** chỉ chạy prompt đã READY và sau lệnh RUN của Owner; không tự coi việc nhìn thấy prompt là được giao.
@@ -39,7 +40,7 @@
 ## A6_PROMPT — Giao Agent
 - Mỗi project dùng **một `PROMPT.md` đang hoạt động**; sửa chính file đó cho việc mới, Git giữ lịch sử. Không tạo `v2/final/archive/progress/handoff` chỉ để lưu phiên bản hay tiến độ.
 - Founder/Reviewer có thể cùng sửa khi còn DRAFT; **Host** đặt `READY@<full SHA 40 ký tự cuối chạm PROMPT.md>` trong `COLLAB.md`. Sửa `PROMPT.md` sau READY làm READY cũ vô hiệu và phải review/READY lại.
-- READY **không phải RUN**. Chỉ Owner được RUN. Agent phải lấy bản mới, kiểm full SHA READY rồi mới chạy; lệch thì DỪNG.
+- READY **không phải RUN**. Owner được RUN; **GPT Chat với vai Editor/Executive Assistant được truyền RUN thay Owner trong phạm vi Owner đã giao**. Agent coi RUN hợp lệ từ GPT Chat trong phạm vi đó là lệnh của Owner. Agent vẫn phải lấy bản mới, kiểm full SHA READY rồi mới chạy; lệch thì DỪNG.
 - Agent không sửa luật nền. Khi chạy: đọc `PROMPT.md`, thực hiện; tiến độ nằm ở commit công việc và **một báo cáo hiện hữu/đích báo cáo do prompt chỉ định**, không tạo file tiến độ riêng. Kết thúc chỉ báo Owner một dòng `XONG` hoặc `DỪNG`; Host/Reviewer tự đọc Git + báo cáo để nghiệm thu.
 
 ## A7_TECH — Hợp đồng kỹ thuật
