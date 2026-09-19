@@ -22,6 +22,8 @@ Công cụ đang có: GPT 37 (26 workspace/ui/vps + 11 KB) · Claude 23 (11 fs_*
 
 ## 2. 29 năng lực — SỐ CHUẨN (trùng PROMPT R03 §2; nơi lưu lâu dài là tệp này)
 
+**Cách chấm:** một ô GPT/Claude chỉ 🟢 khi mọi root áp dụng đều PASS. Git SSOT: GPT=`workspace`, Claude=`gh`; `ui` là mirror nên mutation=N/A(D08/R04) trừ regression read/lock; `docs` read-only; code/runtime roots ngoài catalog tài liệu. Client binding chấm riêng GPT Chat, GPT Work, Claude Chat; client khác N/A nếu chưa bind.
+
 | # | Năng lực | Công cụ tham chiếu | GPT | Claude | Hôm nay GPT/Claude | Mục tiêu sau R03 |
 |---|---|---|---|---|---|---|
 | 1 | Liệt kê + phát hiện gốc và quyền | list_directory, directory_tree, get_repository_tree, list_allowed_directories | workspace_list | fs_list | 🟢/🟢 | 🟢/🟢 |
@@ -30,9 +32,9 @@ Công cụ đang có: GPT 37 (26 workspace/ui/vps + 11 KB) · Claude 23 (11 fs_*
 | 4 | Thông tin tệp | get_file_info | workspace_stat | fs_stat | 🟢/🟢 | 🟢/🟢 |
 | 5 | Thông tin thư mục + mã cây | (tham chiếu không có) | workspace_stat | fs_stat | 🟡/🔴 | 🟢/🟢 |
 | 6 | Lịch sử theo path, đi theo tệp khi dời | list_commits, search_commits, git_log | workspace_log | fs_log | 🟢/🟢 | 🟢/🟢 |
-| 7 | So bản, kể cả một path giữa hai phiên bản bất kỳ | get_commit, git_show, git_diff | workspace_diff | fs_diff | 🔴/🔴 (mới so từng commit / từ bản sao lưu) | 🟢/🟢 |
+| 7 | So file hoặc directory subtree giữa hai phiên bản bất kỳ | get_commit, git_show, git_diff | workspace_diff | fs_diff | 🔴/🔴 (mới so từng commit / từ bản sao lưu) | 🟢/🟢 |
 | 8 | Tạo tệp, cha chưa có | write_file + create_directory, create_or_update_file | workspace_write_new | fs_write | 🟡/🟢 | 🟢/🟢 |
-| 9 | Sửa từng khúc + sửa mọi chỗ khớp có đếm | edit_file | workspace_edit | fs_edit | 🔴/🔴 (chưa có replace_all) | 🟢/🟢 |
+| 9 | Sửa từng khúc + literal replace_all có đếm/expected_count | edit_file | workspace_edit | fs_edit | 🔴/🔴 (chưa có replace_all) | 🟢/🟢 |
 | 10 | Thay cả tệp có khoá | create_or_update_file (sha) | workspace_edit, workspace_transaction | fs_write, fs_transaction | 🟢/🔴 | 🟢/🟢 |
 | 11 | Chép tệp | (tham chiếu không có) | workspace_copy | fs_copy | 🟢/🟢 | 🟢/🟢 |
 | 12 | Chép thư mục | (tham chiếu không có) | workspace_copy | fs_copy | 🟡/🔴 | 🟢/🟢 |
@@ -42,16 +44,16 @@ Công cụ đang có: GPT 37 (26 workspace/ui/vps + 11 KB) · Claude 23 (11 fs_*
 | 16 | Xoá | delete_file | — | — | x/x | x/x (quyền Owner; dời vào lưu trữ) |
 | 17 | Nhập tệp đính kèm | (tham chiếu không có) | workspace_import_file | — | 🟡/x | 🟢/x (D10) |
 | 18 | Tải lện tệp lớn, nối tiếp được | (tham chiếu không có) | workspace_upload_* | — | 🟡/x | 🟢/x (D10) |
-| 19 | Xuất tệp ra | read_media_file | — | — | x/x | x/x (D10) |
-| 20 | Khoá đồng thời (tệp, cây, head; cả gốc ui) | create_or_update_file (sha) | expected_version/head | expected_version/head | 🟡/🔴 | 🟢/🟢 |
+| 19 | Xuất/tải/đóng gói backup ra máy hoặc GDrive | read_media_file | — | — | x/x | x/x (D10) |
+| 20 | Khoá/concurrency trên Git SSOT; BUSY/OVERLOADED không mutation | create_or_update_file (sha) | expected_version/head | expected_version/head | 🟡/🔴 | 🟢/🟢 |
 | 21 | Gọi lại không ghi đôi | (tham chiếu không có) | operation_id | operation_id | 🟡/🟢 | 🟢/🟢 |
 | 22 | Hỏng không để rác, không thư mục ma | (tham chiếu không có) | trong mọi lệnh ghi | trong mọi lệnh ghi | 🟡/🔴 | 🟢/🟢 |
 | 23 | Chặn đường nguy hiểm | list_allowed_directories | trong mọi lệnh | trong mọi lệnh | 🟢/🟢 | 🟢/🟢 |
 | 24 | Tên tiếng Việt không sinh đôi; hoa/thường trên Mac | (tham chiếu không có) | trong mọi lệnh | trong mọi lệnh | 🔴/🔴 | 🟢/🟢 (D09) |
-| 25 | Chính sách Git/cỡ/bí mật; đường ghi thứ ba chỉ đọc; từ chối text không UTF-8 | git_add, git_commit (nội bộ) | quét bí mật, trần cỡ | quét bí mật, trần cỡ | 🟡/🟢 (GitHub native còn ghi được) | 🟢/🟢 (D11, D12) |
+| 25 | Chính sách Git/cỡ/bí mật; AI direct-GitHub ngoài 2 MCP chỉ đọc; dirty-worktree; UTF-8 | git_add, git_commit (nội bộ) | quét bí mật, trần cỡ | quét bí mật, trần cỡ | 🟡/🟢 (GitHub native còn ghi được) | 🟢/🟢 (D11, D12) |
 | 26 | Độ tươi, chéo GPT↔Claude | git_status | tự kéo | tự kéo | 🟢/🟢 | 🟢/🟢 |
-| 27 | Chat nhận đúng bộ công cụ + schema | (tham chiếu không có) | 37 tool | 23 tool | 🟢/🟢 | 🟢/🟢 (sau đúng 1 lần refresh nếu schema đổi) |
-| 28 | Đọc bản cũ + khôi phục an toàn (tệp hiện hữu, path trống, nhiều tệp 1 commit) | git_show, get_file_contents(ref) + ghi có khoá | chưa có | chưa có | 🔴/🔴 | 🟢/🟢 |
+| 27 | Client thật nhận đúng tool/schema/metadata | (tham chiếu không có) | GPT Chat + Work | Claude Chat | cần nghiệm thu sau deploy | mỗi surface PASS hoặc N/A rõ; refresh/reconnect đúng 1 lần nếu đổi |
+| 28 | Đọc bản cũ + restore forward-commit; multi-file compensation không vi phạm no-delete | git_show, get_file_contents(ref) + ghi có khoá | chưa có | chưa có | 🔴/🔴 | 🟢/🟢 |
 | 29 | Đưa tài liệu GitHub sang VPS Owner View | (không thuộc FS/Git) | — | — | x/x | x/x (R04/D08) |
 
 ## 3. Công cụ mình có mà tham chiếu không có
