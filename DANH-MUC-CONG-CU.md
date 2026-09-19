@@ -13,8 +13,8 @@ Lập: Claude Chat · 2026-09-19 · theo yêu cầu Owner; GPT bổ sung bản 2
 | Liên quan việc của mình (tài liệu trong 1 repo, chỉ nhánh main, không PR/Issue) | **31** |
 | Không liên quan | **84** — lý do ở mục 4 |
 | Cổng quyết định của Incomex | **29 năng lực người dùng** (mục 2) |
-| GPT hôm nay | 🟢 11 · 🟡 11 (đã làm, chưa triển khai) · 🔴 4 · x 3 |
-| Claude hôm nay | 🟢 14 · 🔴 10 · x 5 |
+| GPT hôm nay | 🟢 10 · 🟡 11 (đã làm, chưa triển khai) · 🔴 4 · x 3 · #27 chưa chấm |
+| Claude hôm nay | 🟢 13 · 🔴 10 · x 5 · #27 chưa chấm |
 | Mục tiêu sau R03 | GPT 🟢 26 · x 3 — Claude 🟢 24 · x 5 — không còn ô thiếu |
 
 x = cố ý không làm, có số quyết định: xoá (quyền Owner) · xuất tệp và nhập trực tiếp từ sandbox Claude (D10) · Owner View (R04/D08).
