@@ -1,0 +1,1 @@
+K6 chiều ngược — Claude ghi ngay sau lượt GPT; commit cha phải là commit mới nhất của GPT, k6c.txt còn nguyên
