@@ -12,7 +12,7 @@ Lập: Claude Chat · 2026-09-19 · theo yêu cầu Owner. Nguồn chuẩn (đ�
 | Công cụ chuẩn cho GitHub qua MCP (3 bộ chính thức) | **115** = GitHub MCP 90 + Filesystem 13 + Git 12 |
 | Liên quan việc của mình (tài liệu trong 1 repo, chỉ nhánh main, không PR/Issue) | **31** |
 | Không liên quan (PR, Issue, Actions, Gist, thông báo, Project, sao, Copilot, nhánh, phát hành…) | **84** — lý do ở mục 4 |
-| 31 công cụ liên quan quy về | **26 năng lực** (mục 2) |
+| 31 công cụ chuẩn liên quan quy về | **26 năng lực chuẩn-derived**; audit người dùng bổ sung LARGE/RESUMABLE, HISTORICAL RESTORE và OWNER-VIEW PUBLISH BOUNDARY → **29 năng lực** |
 | GPT hôm nay | 🟢 15 · 🟡 8 (đã làm, chưa triển khai) · 🔴 1 · x 2 |
 | Claude hôm nay | 🟢 16 · 🔴 7 · x 3 |
 | Sau R03 (đã READY, chưa chạy) | GPT 🟢 24 · x 2 — Claude 🟢 23 · x 3 — không còn ô thiếu |
@@ -20,7 +20,9 @@ Lập: Claude Chat · 2026-09-19 · theo yêu cầu Owner. Nguồn chuẩn (đ�
 x = cố ý không làm theo quyết định (xoá là quyền Owner; D10 không mở cửa HTTP mới).
 Công cụ đang có: GPT 37 (26 workspace/ui/vps + 11 KB) · Claude 23 (11 fs_* + read_file/write_file + 2 PG + 4 Directus + vps_status + 3 ui).
 
-## 2. Bảng 26 năng lực (chuẩn → GPT → Claude)
+## 2. Bảng năng lực — 26 dòng từ chuẩn + 3 dòng đặc thù Incomex
+
+> Lưu ý: con số 115 là snapshot tham chiếu của ba server/repo chính thức tại ngày đọc, **không phải “mọi công cụ MCP trên đời”**. GitHub MCP cấu hình được theo toolset/tool và remote có tool bổ sung; các server tham chiếu cũng thay đổi theo thời gian. Cổng quyết định của Incomex là 29 năng lực người dùng bên dưới, không phải số tool bên ngoài.
 
 | # | Năng lực | Công cụ chuẩn tương ứng | GPT | Claude | Hôm nay GPT/Claude | Sau R03 |
 |---|---|---|---|---|---|---|
@@ -49,7 +51,10 @@ Công cụ đang có: GPT 37 (26 workspace/ui/vps + 11 KB) · Claude 23 (11 fs_*
 | 23 | Tên tiếng Việt không sinh đôi (NFC/NFD) | (chuẩn không có) | (trong mọi lệnh) | (trong mọi lệnh) | 🔴/🔴 | 🟢/🟢 (D09) |
 | 24 | Chính sách cỡ/nhị phân/bí mật | (chuẩn không có) | quét bí mật, trần cỡ | quét bí mật, trần cỡ | 🟢/🟢 | 🟢/🟢 (D11: gh chỉ tệp chữ) |
 | 25 | Độ tươi (luôn đọc bản mới nhất) | git_status | (tự kéo) | (tự kéo) | 🟢/🟢 | 🟢/🟢 |
-| 26 | Chat nhận đúng bộ công cụ | (chuẩn không có) | 37 tool | 23 tool | 🟢/🟢 | 🟢/🟢 (R03 không đổi schema) |
+| 26 | Chat nhận đúng bộ công cụ | (chuẩn không có) | 37 tool | 23 tool | 🟢/🟢 | kiểm lại theo tool count + input schema + description/annotations + build/fingerprint |
+| 27 | Upload lớn/resumable | (chuẩn không có) | workspace_upload_* | — | 🟢/x | 🟢/x (D10) |
+| 28 | Đọc lịch sử + khôi phục an toàn một tệp hiện hữu | git_show/get_file_contents(ref) + write guarded | **chưa có đường server-side restore** | **chưa có đường server-side restore** | 🔴/🔴 | phải PASS trong R03; forward commit, không reset/force, không relay file lớn qua model |
+| 29 | Publish tài liệu GitHub SSOT → VPS Owner View | (không thuộc FS/Git chuẩn) | copy/move hiện chỉ 1 root | fs_* hiện tách root | N/A/N/A | **N/A(R04/D08)** — lớp Owner View kế tiếp phải làm server-side, không coi là thiếu R03 |
 
 ## 3. Công cụ mình có mà chuẩn không có
 - Vì hai AI cùng ghi một repo: mã phiên bản cây, gọi lại không ghi đôi, nhiều thao tác = 1 commit, tự kéo bản mới, chặn tên sinh đôi.
