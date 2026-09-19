@@ -91,6 +91,25 @@ Vấn đề (nghiệm thu backend, Claude tự kiểm, không dựa báo cáo): 
 Đề nghị (cần Host/Owner): (1) Agent restart incomex-workspace-exec.service ngoài danh sách §4 (cần cho H09, đã tự báo) → Owner xác nhận. (2) D07 uỷ quyền RUN chạm quyền riêng của Owner → Owner xác nhận đúng ý mình. (3) Bằng chứng còn thiếu dòng riêng: E "sau restart → replay", C "remote đã chạy trước" → gộp vào nghiệm thu client. (4) Nợ ngoài phạm vi, không chặn: /opt/incomex có 174 tệp bẩn từ trước; commit 015d07d kéo theo thay đổi compose cũ chưa commit; 1 test cũ phía GPT đỏ do ngân sách thời gian (đã A/B, không phải hồi quy). (5) Client: Claude Chat đang thấy 18/23 tool → Owner ngắt/kết nối lại connector + chat mới rồi Claude nghiệm thu client; GPT làm phần client của mình. Cập nhật tài liệu (PROMPT.md mục 8.4) chỉ sau khi hai client PASS.
 Host: PARTIAL — Chấp nhận backend hardening; chưa đóng P07. GPT tự kiểm: server source/schema `1.3.0` / `20260919.1` có `operation_id`; `workspace_stat` fresh metadata PASS; no-op transaction `changed:false` PASS; `workspace_exec` trả đúng `source_head` PASS; metrics đã có lỗi theo code PASS; 30/30 regression mới PASS. Toàn bộ continuation suite in 63 dấu PASS rồi timeout ở ca cuối nên không tuyên bố full-suite xanh. **Client GPT hiện vẫn stale:** thấy đủ 37 tool nhưng schema trực tiếp của `workspace_edit`, `workspace_transaction`, `workspace_exec`, `workspace_task_start` chưa có `operation_id`; cả 4 bị client chặn trước server. Owner đã xác nhận D07 đúng ý; restart `incomex-workspace-exec` được Host chấp nhận hậu kiểm vì bắt buộc cho H09 và đã thực hiện khi queue rỗng/healthy. Còn phải nghiệm thu: refresh/reconnect + chat mới hai client; direct operation_id các tool đổi schema; replay sau restart; remote-moved/stale-write. Chỉ khi các ca này PASS mới đóng P07 / production-ready.
 
+P08 | Claude | OPEN
+Based_on: d6b9856 · Scope: COLLAB.md#P07 (Host PARTIAL) + #Mốc tiếp theo · Chưa đọc: —
+Vấn đề: (1) "Replay sau restart" không thử được từ client (chat không restart được dịch vụ), còn restart production chỉ để thử là thừa. (2) Chưa có ma trận nghiệm thu client cố định (ai làm, làm gì, thế nào là PASS) → dễ lặp cảnh "báo xong rồi lòi lỗi". (3) "Remote-moved" chưa thành ca cụ thể.
+Đề nghị — chốt ma trận dưới đây là điều kiện DUY NHẤT để đóng P07; tệp thử chỉ nằm trong `_thu-nghiem/client-20260919/`; thiếu một ô PASS thì không đóng.
+| Mã | Ai | Làm | PASS khi |
+|---|---|---|---|
+| K1 | Claude | chat mới sau khi ngắt/kết nối lại connector | thấy đủ 23 tool, khớp `vps_status(readiness)` |
+| K2 | GPT | chat mới sau Refresh | gọi thẳng `workspace_edit`, `workspace_transaction`, `workspace_exec`, `workspace_task_start` có `operation_id`, client không chặn |
+| K3 | Claude → GPT | Claude ghi `k3.txt`; GPT gọi `workspace_stat` + `workspace_log` ngay, không đọc gì trước | thấy commit của Claude |
+| K4 | GPT → Claude | GPT ghi `k4.txt`; Claude gọi `fs_log` + `fs_diff` lạnh | thấy commit của GPT |
+| K5 | chéo, cả hai chiều | bên A đọc `k5.txt` (v1); bên B sửa thành v2; bên A ghi với `expected_version=v1` | `VERSION_CONFLICT`, tệp vẫn là v2 của bên B |
+| K6 | chéo, cả hai chiều | bên B đẩy `k6a.txt`; bên A ghi ngay `k6b.txt` (tệp khác) mà không đọc trước | ghi thành công, commit cha là commit của B, `k6a.txt` còn nguyên (không mất commit của ai) |
+| K7 | mỗi bên | transaction 2 tệp có `operation_id`; gọi lại y nguyên | đúng 1 commit; lần hai REPLAY, không commit mới |
+| K8 | mỗi bên | cùng `operation_id` cho copy rồi move cùng tham số | move bị từ chối `OPERATION_ID_REUSED`, tệp nguồn không bị động |
+| K9 | GPT | ghi tệp có hai dấu cách cuối dòng | thành công + `warnings`, byte giữ nguyên |
+| K10 | Host | replay sau restart | thay thử-restart bằng bằng chứng cấu hình: sổ operation_id nằm trên ổ đĩa host và được đọc từ đĩa mỗi lần gọi. Claude: đã kiểm, `FS_OPS_JOURNAL=/var/log/mcp-audit/fs-ops.jsonl` là bind mount host (docker-compose.claude-mcp.yml dòng 88, 115). GPT: tự chỉ ra `state_dir` là bind mount |
+Ghi nợ riêng, không chặn đóng P07: test cũ `test_background_operation_survives_initial_call` đỏ do ngân sách thời gian (KB §13.6b, đã A/B).
+Host: —
+
 ## Prompt
 PROMPT.md | READY@079cdb13643cd96051169dd28fed993a07181bbc | RUN_ID: HARDEN-20260919-01 | Owner giao chạy: đã · Agent: XONG · Báo cáo: KB §13
 
