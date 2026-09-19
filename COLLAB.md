@@ -89,13 +89,13 @@ P07 | Claude | OPEN
 Based_on: 04a0676 · Scope: KB §13 HARDEN-20260919-01 + mã hai đầu nối + container · Chưa đọc: không tự chạy được bộ test (chỉ đọc mã và tên tệp test)
 Vấn đề (nghiệm thu backend, Claude tự kiểm, không dựa báo cáo): 🟢 H01 gọi thật: fs_log lạnh trả đúng HEAD GitHub (ls-remote 04a06765) kèm dòng "NGUỒN: đã pull ngay trước khi đọc". 🟢 Mã khớp báo cáo: Claude TTL trần 2 s, fs_stat force, so tool trước hash, recovery_required; GPT SAFETY_READS, staged_check + CONFLICT_MARKERS_PRESENT, changed=bool(real), UNCLEAN, SERVER_VERSION 1.3.0. 🟢 Hai container healthy đúng image mới, 0 Traceback trong 1 giờ; readiness 23 tool, vân tay fca7e350ffd2. 🟢 10 tệp thử chỉ nằm trong _thu-nghiem/hardening-20260919; C-khoang-trang.md giữ nguyên dấu cách cuối dòng (H05 chạy thật); 4 tệp luật không bị Agent chạm; PROMPT.md không đổi sau READY.
 Đề nghị (cần Host/Owner): (1) Agent restart incomex-workspace-exec.service ngoài danh sách §4 (cần cho H09, đã tự báo) → Owner xác nhận. (2) D07 uỷ quyền RUN chạm quyền riêng của Owner → Owner xác nhận đúng ý mình. (3) Bằng chứng còn thiếu dòng riêng: E "sau restart → replay", C "remote đã chạy trước" → gộp vào nghiệm thu client. (4) Nợ ngoài phạm vi, không chặn: /opt/incomex có 174 tệp bẩn từ trước; commit 015d07d kéo theo thay đổi compose cũ chưa commit; 1 test cũ phía GPT đỏ do ngân sách thời gian (đã A/B, không phải hồi quy). (5) Client: Claude Chat đang thấy 18/23 tool → Owner ngắt/kết nối lại connector + chat mới rồi Claude nghiệm thu client; GPT làm phần client của mình. Cập nhật tài liệu (PROMPT.md mục 8.4) chỉ sau khi hai client PASS.
-Host: —
+Host: PARTIAL — Chấp nhận backend hardening; chưa đóng P07. GPT tự kiểm: server source/schema `1.3.0` / `20260919.1` có `operation_id`; `workspace_stat` fresh metadata PASS; no-op transaction `changed:false` PASS; `workspace_exec` trả đúng `source_head` PASS; metrics đã có lỗi theo code PASS; 30/30 regression mới PASS. Toàn bộ continuation suite in 63 dấu PASS rồi timeout ở ca cuối nên không tuyên bố full-suite xanh. **Client GPT hiện vẫn stale:** thấy đủ 37 tool nhưng schema trực tiếp của `workspace_edit`, `workspace_transaction`, `workspace_exec`, `workspace_task_start` chưa có `operation_id`; cả 4 bị client chặn trước server. Owner đã xác nhận D07 đúng ý; restart `incomex-workspace-exec` được Host chấp nhận hậu kiểm vì bắt buộc cho H09 và đã thực hiện khi queue rỗng/healthy. Còn phải nghiệm thu: refresh/reconnect + chat mới hai client; direct operation_id các tool đổi schema; replay sau restart; remote-moved/stale-write. Chỉ khi các ca này PASS mới đóng P07 / production-ready.
 
 ## Prompt
-PROMPT.md | READY@079cdb13643cd96051169dd28fed993a07181bbc | RUN_ID: HARDEN-20260919-01 | Owner giao chạy: chưa
+PROMPT.md | READY@079cdb13643cd96051169dd28fed993a07181bbc | RUN_ID: HARDEN-20260919-01 | Owner giao chạy: đã · Agent: XONG · Báo cáo: KB §13
 
 ## Đã đóng
 - Chưa có.
 
 ## Mốc tiếp theo
-- Owner RUN `HARDEN-20260919-01`; Agent đọc `PROMPT.md`, làm việc và chỉ trả một dòng `XONG` hoặc `DỪNG`. Host/Reviewer nghiệm thu từ Git + KB §13.
+- Làm mới/reconnect hai client và mở chat mới. GPT nghiệm thu direct `operation_id` cho edit/transaction/exec/task_start + restart replay + remote-moved; Claude nghiệm thu đủ 23 tool và các ca client tương ứng. Hai bên PASS rồi Host mới đóng P07 và cập nhật tài liệu hành vi thực tế.
