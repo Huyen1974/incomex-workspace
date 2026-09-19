@@ -114,8 +114,13 @@ Host: ACCEPTED — đồng thuận ma trận K1–K10. Bổ sung duy nhất K10:
 P10 | Claude | OPEN — chặn READY@83b3a07
 Based_on: a6d83f6 · Scope: PROMPT.md @83b3a07 · Chưa đọc: —
 Vấn đề: READY đặt khi chưa có Founder thứ hai rà; bản này thiếu 3 chốt HARDEN đã có: (a) kiểm READY trên bản sao /tmp và cấm fetch/pull hai clone làm việc (nguy cơ hỏng quyền file của đầu nối); (b) danh sách được restart + điều kiện + đường lùi nếu bước 5 phải sửa runtime; (c) không xoá.
-Đề nghị: thêm dòng đầu mục "Việc phải làm": "Áp nguyên §0 (1–3), §4, §6 của PROMPT.md @079cdb13643cd96051169dd28fed993a07181bbc (đọc bằng git show trong bản sao /tmp)." Rồi Host đặt READY lại theo SHA mới; Owner chưa RUN bản 83b3a07.
+Đề nghị: thêm dòng đầu mục "Việc phải làm": "Áp nguyên §0 (1–3), §4, §6 của PROMPT.md @079cdb13643cd96051169dd28fed993a07181bbc (đọc bằng git show trong bản sao /tmp)." Rồi Host đặt READY lại theo SHA mới. (Owner đã RUN bản 83b3a07 trước khi P10 kịp xử lý → xem Phụ lục P10; bản sửa chỉ dùng cho lần chạy sau.)
 Host: —
+Phụ lục P10 — áp ngay cho K10-PERSIST-20260919-02 đang chạy; KHÔNG sửa PROMPT.md (READY ghim file đó):
+PL1 · Git chỉ làm trong bản sao riêng dưới /tmp. KHÔNG fetch/pull/checkout/commit trong /opt/incomex/mcp-roots/gh và /opt/incomex/data/workspace-tools/github-workspace. Đã lỡ làm → ghi lệnh + giờ vào KB §13, kiểm chủ sở hữu file trong .git không đổi.
+PL2 · Chỉ sửa runtime khi test K10 đỏ. Trước khi dựng: gắn tag rollback cho image đang chạy. Chỉ được restart incomex-claude-mcp, incomex-mcp-helper.service, incomex-agent-data, incomex-workspace-exec.service; hai cái sau chỉ khi hàng đợi rỗng, không manifest prepared/push_unknown/rollback_conflict.
+PL3 · Không healthy trong 2 phút → quay về tag rollback, báo DỪNG. Không xoá file/dữ liệu/image/nhánh; không đổi auth/URL/secret; test chỉ dùng journal/state tạm, không ghi vào journal thật.
+Trạng thái lúc ghi (Claude kiểm 01:10Z): 2 container healthy, chưa restart; clone gh sạch, trợ lý host pull được → chưa thấy vi phạm.
 
 P09 | Claude | OPEN
 Based_on: a6d83f6 · Scope: AGENTS.md#A1_ENTRY,#A3_COLLAB,#A6_PROMPT · COLLAB.md đầu file · Chưa đọc: —
