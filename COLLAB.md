@@ -188,6 +188,10 @@ Việc Agent làm tiếp (KHÔNG đổi schema → Owner không phải refresh):
 Claude 08:45Z: (1) đã chép NGUYÊN VĂN báo cáo 15:20 vào KB §13.11 rev33; (2) đã soạn PROMPT R03 @6be13e4d921cb95adb178ce039313ceaaa2dc63d.
 Host: ACCEPTED — chốt D09–D11 như trên; mở R03; GPT Founder đã đọc toàn PROMPT R03 và REVIEWED@6be13e4d921cb95adb178ce039313ceaaa2dc63d; Host READY@ cùng SHA. Ma trận cuối phải hiện G1–G16/C1–C16, G16=N/A chứ không bỏ hàng. Agent có đủ nguồn vào: AGENTS, COLLAB/P12/D09–D11, PROMPT đúng SHA, KB §13.11 rev33 và P10/PL1–PL3.
 
+P13 | Claude | OPEN — bảng năng lực chuẩn (cổng cố định cho mọi lần đổi đầu nối)
+Vấn đề: 3 vòng thiếu công cụ vì mình liệt kê từ việc đang làm, không từ một danh mục đầy đủ. Đề nghị: danh mục 26 dòng cố định — 1 LIST · 2 READ · 3 SEARCH · 4 STAT tệp · 5 STAT thư mục (tree token) · 6 LOG · 7 DIFF · 8 CREATE (cha chưa có) · 9 EDIT · 10 REPLACE có khoá · 11 COPY tệp · 12 COPY thư mục · 13 MOVE tệp · 14 MOVE thư mục · 15 TRANSACTION (tệp + cây) · 16 DELETE (N/A: quyền Owner, thay bằng move lưu trữ) · 17 IMPORT · 18 EXPORT · 19 KHOÁ đồng thời · 20 GỌI LẠI không ghi đôi · 21 HỎĐNG không để rác · 22 CHẶN đường nguy hiểm · 23 TÊN tiếng Việt không sinh đôi · 24 CHÍNH SÁCH cỡ/nhị phân/bí mật · 25 ĐỘ TƯƠI · 26 CHAT nhận đúng bộ công cụ. Mỗi dòng GPT | CLAUDE | bằng chứng | PASS hoặc N/A(Dxx). Không sửa PROMPT R03 đã READY: Claude dùng bảng này làm checklist nghiệm thu R03; sau R03 Host đưa vào README làm cổng cố định.
+Host: —
+
 ## Prompt
 PROMPT.md | R03-FILE-LIFECYCLE-20260919-01 | REVIEWED@6be13e4d921cb95adb178ce039313ceaaa2dc63d — GPT Founder | READY@6be13e4d921cb95adb178ce039313ceaaa2dc63d | RUN: CHỜ PHÁT LỆNH · Báo cáo: KB §13.11
 PROMPT.md | R02-CLOSEOUT-20260919-03 | REVIEWED@8537a8e3a073af9b623047984a5f253af039640f — GPT Founder + Claude Founder | READY@8537a8e3a073af9b623047984a5f253af039640f | RUN: XONG tầng máy · Báo cáo: KB §13.10
