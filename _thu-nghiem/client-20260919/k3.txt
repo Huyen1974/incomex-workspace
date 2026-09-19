@@ -1,0 +1,1 @@
+K3 Claude ghi; GPT gọi workspace_stat/log lạnh phải thấy commit này

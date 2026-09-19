@@ -1,0 +1,1 @@
+K6a Claude đẩy; GPT ghi ngay k6b.txt, commit cha phải là commit này
