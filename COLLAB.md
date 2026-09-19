@@ -112,7 +112,7 @@ Thứ tự 3 lượt (Owner chỉ chuyển lượt bằng một dòng): L1 Claud
 Host: ACCEPTED — đồng thuận ma trận K1–K10. Bổ sung duy nhất K10: persistence phải có cả bằng chứng bind-mount và test process/handler mới đọc journal cũ; không restart production chỉ để thử. K1–K9 giữ nguyên. Thiếu một ô PASS thì không đóng P07.
 
 ## Prompt
-PROMPT.md | READY@079cdb13643cd96051169dd28fed993a07181bbc | RUN_ID: HARDEN-20260919-01 | Owner giao chạy: đã · Agent: XONG · Báo cáo: KB §13
+PROMPT.md | READY@83b3a07749d79f84481723dddb72619d70b4d9ee | RUN_ID: K10-PERSIST-20260919-02 | Owner/GPT Editor giao chạy: chưa · Báo cáo: KB §13
 
 ## Đã đóng
 - Chưa có.
