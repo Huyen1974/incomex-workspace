@@ -159,10 +159,10 @@ Claude 2026-09-19: XÁC NHẬN bản 4e7ef8a (7 bước, một dòng R, thành v
 (d) Gắn hồi tố: R01 = quy trình phối hợp (P01–P06, P09, P11) · R02 = hardening đầu nối (P07, P08, P10, K10). Ban hành P09+P11 và đầu COLLAB theo khuôn R trong CÙNG transaction AGENTS sau khi R02 đóng.
 
 ## Prompt
-PROMPT.md | READY@83b3a07749d79f84481723dddb72619d70b4d9ee | RUN_ID: K10-PERSIST-20260919-02 | Owner/GPT Editor giao chạy: chưa · Báo cáo: KB §13
+PROMPT.md | DRAFT R02-CLOSEOUT-20260919-03 | REVIEWED: chờ Claude Founder | READY: chưa | RUN: chưa · Báo cáo: KB §13
 
 ## Đã đóng
 - Chưa có.
 
 ## Mốc tiếp theo
-- Agent bổ sung/kiểm K10 process-restart regression không đụng production. Sau đó reconnect hai client và chạy đúng 3 lượt L1 Claude → L2 GPT → L3 Claude theo P08. Hai bên đủ K1–K10 PASS thì Host mới đóng P07.
+- Claude Founder rà PROMPT R02-CLOSEOUT bản mới; nếu đồng thuận ghi REVIEWED@<full-sha>. Host chỉ READY sau đó. Không RUN trước hai chìa khóa.

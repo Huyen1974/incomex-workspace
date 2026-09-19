@@ -1,39 +1,43 @@
-# PROMPT — K10 persistence regression cho hai đầu nối
+# PROMPT — R02 đóng kết nối lần cuối
 
-RUN_ID: K10-PERSIST-20260919-02
+RUN_ID: R02-CLOSEOUT-20260919-03
 
-Chỉ chạy khi `COLLAB.md` ghi `READY@<full-sha>` khớp đúng commit cuối chạm `PROMPT.md` và có lệnh RUN hợp lệ từ Owner/GPT Editor.
+Chỉ chạy khi COLLAB ghi READY@<full-sha> đúng commit cuối chạm PROMPT.md và có RUN hợp lệ. Đây là lượt **đóng tầng máy** của R02; không được tuyên bố client/cross-client PASS.
 
 ## Mục tiêu
-Chốt K10 của P08 mà **không restart production chỉ để thử**: chứng minh journal `operation_id` của cả GPT và Claude sống qua một process/handler mới và replay đúng, không tạo commit/job/write mới.
+Sau lượt này không còn nợ kỹ thuật nào trong phạm vi connector có thể làm sai nghiệm thu. Phần còn lại duy nhất phải là K1–K9 trên hai chat thật.
 
 ## Việc phải làm
-1. Đọc `AGENTS.md`, `COLLAB.md` P07–P08 và KB §13 hiện hữu.
-2. Xác minh persistence:
-   - GPT: `state_dir()/operations.jsonl` nằm ngoài workspace, trên bind-mount host `/opt/incomex/data/workspace-tools`.
-   - Claude: `FS_OPS_JOURNAL` nằm trên bind-mount host.
-3. Với **mỗi đầu nối**, thêm regression test độc lập:
-   - process/handler A ghi một operation có `operation_id` vào journal persistent;
-   - kết thúc A, tạo **process/handler B mới** dùng cùng journal;
-   - B gọi lại cùng tool + cùng id + cùng payload;
-   - PASS khi nhận REPLAY/kết quả cũ và không sinh commit/job/write lần hai;
-   - cùng id + payload khác vẫn bị từ chối.
-4. Test dùng temp state/bản sao cô lập; không restart service production, không đụng dữ liệu business.
-5. Nếu test đỏ: sửa tối thiểu đúng lỗi K10, thêm test đỏ-trước → xanh-sau. Chỉ deploy/restart nếu runtime code thật sự thay đổi; nếu chỉ thêm test thì không deploy.
-6. Chạy regression liên quan của cả hai connector. Không tuyên bố client PASS; K1–K9 vẫn do Claude Chat/GPT Chat thực hiện.
-7. Cập nhật **chính KB §13 hiện hữu**, thêm mục K10: test nào, kết quả, commit mã/test, có/không sửa runtime. Không tạo report/progress/handoff mới.
-8. Không sửa `AGENTS.md`, `README.md`, `COLLAB.md`, `PROMPT.md`.
+1. Đọc AGENTS.md, COLLAB P07–P11 và KB §13 rev mới nhất. Áp PL1–PL3 của P10.
+2. **Commit chứng tích K10** vào đúng hai repo mã bằng stage theo đúng path; không đụng 171 file bẩn ngoài phạm vi:
+   - Claude: test_fsroots_persistence_k10_20260919.py
+   - GPT: test_persistence_k10_20260919.py
+3. **Làm test-harness đáng tin một lần:**
+   - Claude: có một lệnh chính thức chạy toàn bộ suite connector mà không sinh đỏ giả do env cấp module; sửa fixture/runner tối thiểu, không đổi runtime nếu không cần.
+   - GPT: bỏ phụ thuộc may rủi tải máy ở test background cũ; chờ theo điều kiện/tín hiệu với timeout hữu hạn phù hợp production. Chứng minh test cũ không còn lúc xanh lúc đỏ.
+4. **Audit minimum shared capability — không chạy theo số tool.** Cả hai chat phải có đường tương đương cho:
+   discover/list · read/search/stat · edit/create · diff/log · copy/move · multi-file transaction · expected version/head · freshness · idempotency.
+   Tool riêng từng client được phép khác. Thiếu năng lực bắt buộc thì sửa; không tạo tool trùng chỉ để bằng số lượng.
+5. **Audit schema/release gate:**
+   - ghi exact live tool surface + schema/version/hash của mỗi server;
+   - mọi tool có thay schema phải được phản ánh trong tools/list; operation_id đúng ở mọi entry point đã thiết kế;
+   - kiểm standard MCP version/listChanged hoặc cơ chế chuẩn mà server/client thực sự hỗ trợ; không phát minh workaround riêng nếu client không dùng;
+   - chốt quy tắc: thay schema => client cũ không được dùng để nghiệm thu; reconnect/refresh + chat mới là release gate.
+6. Tạo **một lệnh nghiệm thu chuẩn** cho mỗi connector bằng test/runner nằm trong repo mã hiện hữu (không tạo tài liệu mới). Một lệnh phải trả rõ PASS/FAIL cho regression + capability/schema checks. Nếu runner mới không cần thiết, ghi chính xác lệnh hiện hữu thay thế.
+7. Chạy lại toàn bộ regression bằng chính lệnh chuẩn và kiểm live server sau đó. Nếu phát hiện lỗi runtime: test đỏ trước, sửa tối thiểu, deploy theo PL2/PL3. Nếu không có lỗi runtime: không restart.
+8. Cập nhật **KB §13 hiện hữu**: bảng CODE / SERVER / CLIENT / CROSS. Agent chỉ được đánh PASS CODE+SERVER; CLIENT+CROSS phải để PENDING và ghi exact expected surface cho K1–K9.
+9. Không sửa AGENTS/README/COLLAB/PROMPT. Không xoá dữ liệu/nhánh/image, không đổi auth/URL/secret.
 
-## Điều kiện PASS
-K10 chỉ PASS khi cả GPT và Claude có:
-- persistent host journal/bind-mount được xác minh;
-- process/handler mới replay đúng từ journal cũ;
-- không commit/job/write lần hai;
-- khác payload bị từ chối;
-- regression liên quan xanh.
+## Điều kiện Agent được báo XONG
+- K10 tests đã commit.
+- Hai test suites chạy bằng quy trình ổn định, không đỏ giả đã biết.
+- Minimum capability đủ ở cả hai connector hoặc có BLOCK rõ.
+- Live server đúng schema/version/surface đã ghi.
+- Không còn nợ connector-side chưa xử lý; chỉ còn client refresh + K1–K9.
+- KB §13 có bằng chứng và không ghi "production ready".
 
 ## Trả lời Owner
-Chỉ một dòng:
-`K10-PERSIST-20260919-02: XONG — báo cáo KB §13`
+Một dòng:
+`R02-CLOSEOUT-20260919-03: XONG — chỉ còn client K1–K9; xem KB §13`
 hoặc
-`K10-PERSIST-20260919-02: DỪNG — lý do ở KB §13`
+`R02-CLOSEOUT-20260919-03: DỪNG — BLOCK ở KB §13`
