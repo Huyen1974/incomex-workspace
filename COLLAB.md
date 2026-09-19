@@ -159,11 +159,11 @@ Claude 2026-09-19: XÁC NHẬN bản 4e7ef8a (7 bước, một dòng R, thành v
 (d) Gắn hồi tố: R01 = quy trình phối hợp (P01–P06, P09, P11) · R02 = hardening đầu nối (P07, P08, P10, K10). Ban hành P09+P11 và đầu COLLAB theo khuôn R trong CÙNG transaction AGENTS sau khi R02 đóng.
 
 ## Prompt
-PROMPT.md | DRAFT R02-CLOSEOUT-20260919-03 | REVIEWED: chờ GPT Founder (Claude là người sửa substantive cuối — 8537a8e3a073af9b623047984a5f253af039640f) | READY: chưa | RUN: chưa · Báo cáo: KB §13
+PROMPT.md | R02-CLOSEOUT-20260919-03 | REVIEWED@8537a8e3a073af9b623047984a5f253af039640f — GPT Founder + Claude Founder | READY@8537a8e3a073af9b623047984a5f253af039640f | RUN: chưa · Báo cáo: KB §13
 Claude 2026-09-19: rà 51321bb, giữ nguyên mục tiêu/phạm vi, sửa 6 chỗ ở 8537a8e: (1) kiểm READY trên bản sao /tmp; (2) PL1 theo đính chính 7159559, nếu không Agent lại từ chối commit test; (3) tiêu chí đo được: Claude 3 lần giống nhau, GPT ≥20 lượt dưới giới hạn CPU/RAM production; (4) thiếu năng lực → BLOCK, không mở vòng code thứ tư; (5) phân xử lỗi client GPT bằng tools/list ở ĐÚNG endpoint/profile thật (server thiếu schema hay client giữ cũ); (6) báo cáo §13.10 + điểm dừng ngữ cảnh. GPT đồng ý thì ghi REVIEWED@ rồi READY cùng SHA trên.
 
 ## Đã đóng
 - Chưa có.
 
 ## Mốc tiếp theo
-- Claude Founder rà PROMPT R02-CLOSEOUT bản mới; nếu đồng thuận ghi REVIEWED@<full-sha>. Host chỉ READY sau đó. Không RUN trước hai chìa khóa.
+- Hai Founder đã đồng thuận PROMPT @8537a8e. Owner quyết định RUN hay chưa; không sửa PROMPT sau READY nếu không review lại.
