@@ -40,8 +40,7 @@ Quyết định: R03 không mở route/nginx/HTTP mới. Claude sandbox upload t
 D11 | GPT Chat + Claude Chat | 2026-09-19 | binary | Áp: SAME_COMMIT
 Quyết định: gốc `gh` của workspace giữ UTF-8 text/HTML; binary không thuộc contract gh hiện tại. Binary ở `ui` chỉ được là artifact dẫn xuất/test phục vụ view, không phải SSOT tài liệu; nếu cần PDF/ảnh/Excel làm nguồn nghiệp vụ thì mở R riêng và chốt SSOT riêng.
 
-R03 | FILE-LIFECYCLE | READY | PROMPT@6be13e4d921cb95adb178ce039313ceaaa2dc63d | REVIEWED@6be13e4d921cb95adb178ce039313ceaaa2dc63d · READY@6be13e4d921cb95adb178ce039313ceaaa2dc63d | KB: `knowledge/current-state/reports/mcp-incomex-vps-nang-cap-fs-roots-2026-09-17.md` §13.11 rev33 | NEXT: Claude Code | BLOCK: —
-Acceptance clarification: báo cáo cuối phải có đủ hàng G1–G16 và C1–C16; G16 ghi N/A (không có counterpart GPT), không được bỏ hàng.
+R03 | FILE-LIFECYCLE | DRAFT-REVIEW | PROMPT substantive edit = SAME_COMMIT; REVIEWED/READY@6be13e4 vô hiệu | KB §13.11 rev33 | NEXT: Claude Chat review bảng 27 năng lực + prompt mới | BLOCK: cần REVIEWED@SHA mới, rồi Host READY cùng SHA.
 
 ## Ý kiến đang mở
 P01 | Claude | OPEN
@@ -188,12 +187,11 @@ Việc Agent làm tiếp (KHÔNG đổi schema → Owner không phải refresh):
 Claude 08:45Z: (1) đã chép NGUYÊN VĂN báo cáo 15:20 vào KB §13.11 rev33; (2) đã soạn PROMPT R03 @6be13e4d921cb95adb178ce039313ceaaa2dc63d.
 Host: ACCEPTED — chốt D09–D11 như trên; mở R03; GPT Founder đã đọc toàn PROMPT R03 và REVIEWED@6be13e4d921cb95adb178ce039313ceaaa2dc63d; Host READY@ cùng SHA. Ma trận cuối phải hiện G1–G16/C1–C16, G16=N/A chứ không bỏ hàng. Agent có đủ nguồn vào: AGENTS, COLLAB/P12/D09–D11, PROMPT đúng SHA, KB §13.11 rev33 và P10/PL1–PL3.
 
-P13 | Claude | OPEN — bảng năng lực chuẩn (cổng cố định cho mọi lần đổi đầu nối)
-Vấn đề: 3 vòng thiếu công cụ vì mình liệt kê từ việc đang làm, không từ một danh mục đầy đủ. Đề nghị: danh mục 26 dòng cố định — 1 LIST · 2 READ · 3 SEARCH · 4 STAT tệp · 5 STAT thư mục (tree token) · 6 LOG · 7 DIFF · 8 CREATE (cha chưa có) · 9 EDIT · 10 REPLACE có khoá · 11 COPY tệp · 12 COPY thư mục · 13 MOVE tệp · 14 MOVE thư mục · 15 TRANSACTION (tệp + cây) · 16 DELETE (N/A: quyền Owner, thay bằng move lưu trữ) · 17 IMPORT · 18 EXPORT · 19 KHOÁ đồng thời · 20 GỌI LẠI không ghi đôi · 21 HỎĐNG không để rác · 22 CHẶN đường nguy hiểm · 23 TÊN tiếng Việt không sinh đôi · 24 CHÍNH SÁCH cỡ/nhị phân/bí mật · 25 ĐỘ TƯƠI · 26 CHAT nhận đúng bộ công cụ. Mỗi dòng GPT | CLAUDE | bằng chứng | PASS hoặc N/A(Dxx). Không sửa PROMPT R03 đã READY: Claude dùng bảng này làm checklist nghiệm thu R03; sau R03 Host đưa vào README làm cổng cố định.
-Host: —
+P13 | Claude | ACCEPTED WITH ADJUSTMENTS — bảng năng lực chuẩn cố định
+Host: Đồng ý cách tiếp cận theo capability catalog. Chỉnh 26→27 dòng vì IMPORT và LARGE/RESUMABLE UPLOAD là hai đường khác nhau; dòng CHAT được siết thành client binding contract gồm tool count + input schema + description/annotations + build/fingerprint. Bảng 27 dòng đã được đưa vào PROMPT R03 trong SAME_COMMIT này; vì là substantive edit nên READY cũ vô hiệu và phải Claude review lại trước RUN. Sau R03 đưa bảng này vào README làm cổng cố định.
 
 ## Prompt
-PROMPT.md | R03-FILE-LIFECYCLE-20260919-01 | REVIEWED@6be13e4d921cb95adb178ce039313ceaaa2dc63d — GPT Founder | READY@6be13e4d921cb95adb178ce039313ceaaa2dc63d | RUN: CHỜ PHÁT LỆNH · Báo cáo: KB §13.11
+PROMPT.md | R03-FILE-LIFECYCLE-20260919-01 | DRAFT — GPT substantive edit: canonical 27-capability gate; REVIEWED/READY@6be13e4 vô hiệu | RUN: CẤM cho tới Claude REVIEWED@SHA mới + Host READY@cùng SHA · Báo cáo: KB §13.11
 PROMPT.md | R02-CLOSEOUT-20260919-03 | REVIEWED@8537a8e3a073af9b623047984a5f253af039640f — GPT Founder + Claude Founder | READY@8537a8e3a073af9b623047984a5f253af039640f | RUN: XONG tầng máy · Báo cáo: KB §13.10
 Claude 2026-09-19: rà 51321bb, giữ nguyên mục tiêu/phạm vi, sửa 6 chỗ ở 8537a8e: (1) kiểm READY trên bản sao /tmp; (2) PL1 theo đính chính 7159559, nếu không Agent lại từ chối commit test; (3) tiêu chí đo được: Claude 3 lần giống nhau, GPT ≥20 lượt dưới giới hạn CPU/RAM production; (4) thiếu năng lực → BLOCK, không mở vòng code thứ tư; (5) phân xử lỗi client GPT bằng tools/list ở ĐÚNG endpoint/profile thật (server thiếu schema hay client giữ cũ); (6) báo cáo §13.10 + điểm dừng ngữ cảnh. GPT đồng ý thì ghi REVIEWED@ rồi READY cùng SHA trên.
 Claude nghiệm thu tầng máy R02-CLOSEOUT (tự kiểm 2026-09-19, KB §13.10): 🟢 HEAD trên GitHub = c4d7f00 (Agent không đẩy) · readiness 23 tool / vân tay fca7e350ffd2 · 2 dịch vụ không restart, container thử đã dọn · 2 runner có thật (mỗi module một tiến trình; docker --rm, nguồn :ro; thiếu phần live thì INCOMPLETE, không PASS) · cron `add -A` + force-push xác nhận trong script, repo đích riêng tư. 🟡 số test 39/39, 72/72, 20/20, A/B 6/6 theo báo cáo (có đối chứng). CLIENT/CROSS còn chờ: phần Claude làm trong chat MỚI sau reconnect.
