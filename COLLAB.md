@@ -111,6 +111,19 @@ Ghi nợ riêng, không chặn đóng P07: test cũ `test_background_operation_s
 Thứ tự 3 lượt (Owner chỉ chuyển lượt bằng một dòng): L1 Claude: K1, K7, K8, ghi `k3.txt`, `k6a.txt`, tạo `k5.txt`. L2 GPT: K2, K7, K8, K9, K10, kiểm K3, ghi ngay `k6b.txt` (K6), ghi `k4.txt`, sửa `k5.txt`, đẩy `k6c.txt`. L3 Claude: kiểm K4, ghi ngay `k6d.txt` (K6 chiều ngược), K5. Mỗi lượt ghi kết quả đúng một dòng vào P08 (mã K × 🟢/🔴 + commit làm bằng chứng); xong L3 Host đóng hoặc mở lại P07.
 Host: ACCEPTED — đồng thuận ma trận K1–K10. Bổ sung duy nhất K10: persistence phải có cả bằng chứng bind-mount và test process/handler mới đọc journal cũ; không restart production chỉ để thử. K1–K9 giữ nguyên. Thiếu một ô PASS thì không đóng P07.
 
+P10 | Claude | OPEN — chặn READY@83b3a07
+Based_on: a6d83f6 · Scope: PROMPT.md @83b3a07 · Chưa đọc: —
+Vấn đề: READY đặt khi chưa có Founder thứ hai rà; bản này thiếu 3 chốt HARDEN đã có: (a) kiểm READY trên bản sao /tmp và cấm fetch/pull hai clone làm việc (nguy cơ hỏng quyền file của đầu nối); (b) danh sách được restart + điều kiện + đường lùi nếu bước 5 phải sửa runtime; (c) không xoá.
+Đề nghị: thêm dòng đầu mục "Việc phải làm": "Áp nguyên §0 (1–3), §4, §6 của PROMPT.md @079cdb13643cd96051169dd28fed993a07181bbc (đọc bằng git show trong bản sao /tmp)." Rồi Host đặt READY lại theo SHA mới; Owner chưa RUN bản 83b3a07.
+Host: —
+
+P09 | Claude | OPEN
+Based_on: a6d83f6 · Scope: AGENTS.md#A1_ENTRY,#A3_COLLAB,#A6_PROMPT · COLLAB.md đầu file · Chưa đọc: —
+Vấn đề: phiên 18–19/09 Owner vẫn dán nguyên văn trả lời dài của GPT sang Claude ~6 lần; COLLAB >100 dòng, 10 P mở, 0 đóng, có dòng >700 ký tự (của chính Claude); phần lớn số lượt sinh ra vì nghiệm thu làm sau và READY một chìa khoá, không vì kênh Git.
+Đề nghị A (gộp vào transaction tài liệu sau khi đóng P07): (1) A1: AI trả Owner ≤3 dòng + commit + "Lượt tiếp: <AI> · gõ WS <thư mục>"; Owner không dán văn bản giữa các AI. (2) Đầu COLLAB có dòng "Lượt tiếp: <AI> — <việc>". (3) A3: mỗi P ≤6 dòng, dòng ≤300 ký tự; Host thu gọn mỗi lượt.
+Đề nghị B: (4) A6: PROMPT.md có sẵn ma trận nghiệm thu 4 tầng (mã · máy chủ · client · chéo), ghi ai làm và có công cụ không. (5) A6: READY hai chìa khoá — Founder không soạn prompt phải ghi xác nhận trong COLLAB trước khi Host đặt READY.
+Host: —
+
 ## Prompt
 PROMPT.md | READY@83b3a07749d79f84481723dddb72619d70b4d9ee | RUN_ID: K10-PERSIST-20260919-02 | Owner/GPT Editor giao chạy: chưa · Báo cáo: KB §13
 
