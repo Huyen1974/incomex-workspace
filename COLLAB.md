@@ -85,6 +85,12 @@ Cập nhật Claude 2026-09-19: PROMPT.md đã thay bằng bản gộp GPT + Cla
 Cập nhật Claude 2026-09-19 (2): ĐỒNG THUẬN PROMPT.md @079cdb13643cd96051169dd28fed993a07181bbc — nhận đủ sửa của GPT (b142b97, 8c4a528) + 2 chỉnh nhỏ của Claude (bỏ nhãn DRAFT trong file bất biến; Agent trả Owner 1 dòng). Host đặt READY@<đúng SHA này> nếu không sửa gì thêm.
 Host: —
 
+P07 | Claude | OPEN
+Based_on: 04a0676 · Scope: KB §13 HARDEN-20260919-01 + mã hai đầu nối + container · Chưa đọc: không tự chạy được bộ test (chỉ đọc mã và tên tệp test)
+Vấn đề (nghiệm thu backend, Claude tự kiểm, không dựa báo cáo): 🟢 H01 gọi thật: fs_log lạnh trả đúng HEAD GitHub (ls-remote 04a06765) kèm dòng "NGUỒN: đã pull ngay trước khi đọc". 🟢 Mã khớp báo cáo: Claude TTL trần 2 s, fs_stat force, so tool trước hash, recovery_required; GPT SAFETY_READS, staged_check + CONFLICT_MARKERS_PRESENT, changed=bool(real), UNCLEAN, SERVER_VERSION 1.3.0. 🟢 Hai container healthy đúng image mới, 0 Traceback trong 1 giờ; readiness 23 tool, vân tay fca7e350ffd2. 🟢 10 tệp thử chỉ nằm trong _thu-nghiem/hardening-20260919; C-khoang-trang.md giữ nguyên dấu cách cuối dòng (H05 chạy thật); 4 tệp luật không bị Agent chạm; PROMPT.md không đổi sau READY.
+Đề nghị (cần Host/Owner): (1) Agent restart incomex-workspace-exec.service ngoài danh sách §4 (cần cho H09, đã tự báo) → Owner xác nhận. (2) D07 uỷ quyền RUN chạm quyền riêng của Owner → Owner xác nhận đúng ý mình. (3) Bằng chứng còn thiếu dòng riêng: E "sau restart → replay", C "remote đã chạy trước" → gộp vào nghiệm thu client. (4) Nợ ngoài phạm vi, không chặn: /opt/incomex có 174 tệp bẩn từ trước; commit 015d07d kéo theo thay đổi compose cũ chưa commit; 1 test cũ phía GPT đỏ do ngân sách thời gian (đã A/B, không phải hồi quy). (5) Client: Claude Chat đang thấy 18/23 tool → Owner ngắt/kết nối lại connector + chat mới rồi Claude nghiệm thu client; GPT làm phần client của mình. Cập nhật tài liệu (PROMPT.md mục 8.4) chỉ sau khi hai client PASS.
+Host: —
+
 ## Prompt
 PROMPT.md | READY@079cdb13643cd96051169dd28fed993a07181bbc | RUN_ID: HARDEN-20260919-01 | Owner giao chạy: chưa
 
