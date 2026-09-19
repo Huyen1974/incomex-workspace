@@ -2,30 +2,31 @@
 
 RUN_ID: R02-CLOSEOUT-20260919-03
 
-Chỉ chạy khi COLLAB ghi READY@<full-sha> đúng commit cuối chạm PROMPT.md và có RUN hợp lệ. Đây là lượt **đóng tầng máy** của R02; không được tuyên bố client/cross-client PASS.
+Chỉ chạy khi COLLAB ghi READY@<full-sha> đúng commit cuối chạm PROMPT.md và có RUN hợp lệ. Kiểm READY trên bản sao riêng dưới /tmp (git clone repo công khai), so đủ 40 ký tự; lệch → DỪNG. Đây là lượt **đóng tầng máy** của R02; không được tuyên bố client/cross-client PASS.
 
 ## Mục tiêu
 Sau lượt này không còn nợ kỹ thuật nào trong phạm vi connector có thể làm sai nghiệm thu. Phần còn lại duy nhất phải là K1–K9 trên hai chat thật.
 
 ## Việc phải làm
-1. Đọc AGENTS.md, COLLAB P07–P11 và KB §13 rev mới nhất. Áp PL1–PL3 của P10.
-2. **Commit chứng tích K10** vào đúng hai repo mã bằng stage theo đúng path; không đụng 171 file bẩn ngoài phạm vi:
+1. Đọc AGENTS.md, COLLAB P07–P11 và KB §13 rev mới nhất. Áp PL1–PL3 của P10 **theo đính chính 7159559**: PL1 chỉ cấm fetch/pull/checkout/commit trên 2 clone làm việc (`/opt/incomex/mcp-roots/gh`, `/opt/incomex/data/workspace-tools/github-workspace`); repo mã VPS được commit cục bộ theo đúng path, không push/force-push.
+2. **Commit chứng tích K10** vào đúng hai repo mã bằng stage theo đúng path (cùng mọi tệp test/runner sửa ở bước 3); không đụng 171 file bẩn ngoài phạm vi:
    - Claude: test_fsroots_persistence_k10_20260919.py
    - GPT: test_persistence_k10_20260919.py
 3. **Làm test-harness đáng tin một lần:**
-   - Claude: có một lệnh chính thức chạy toàn bộ suite connector mà không sinh đỏ giả do env cấp module; sửa fixture/runner tối thiểu, không đổi runtime nếu không cần.
-   - GPT: bỏ phụ thuộc may rủi tải máy ở test background cũ; chờ theo điều kiện/tín hiệu với timeout hữu hạn phù hợp production. Chứng minh test cũ không còn lúc xanh lúc đỏ.
+   - Claude: có một lệnh chính thức chạy toàn bộ suite connector mà không sinh đỏ giả do env cấp module; sửa fixture/runner tối thiểu, không đổi runtime nếu không cần. Chứng minh: chạy lệnh đó 3 lần liên tiếp, kết quả giống nhau, 0 đỏ giả.
+   - GPT: bỏ phụ thuộc may rủi tải máy ở test background cũ; chờ theo điều kiện/tín hiệu với timeout hữu hạn phù hợp production. Chứng minh: chạy test đó ≥20 lượt liên tiếp trong container giới hạn CPU/RAM bằng đúng giới hạn container production (đọc bằng docker inspect) → 20/20 xanh.
 4. **Audit minimum shared capability — không chạy theo số tool.** Cả hai chat phải có đường tương đương cho:
    discover/list · read/search/stat · edit/create · diff/log · copy/move · multi-file transaction · expected version/head · freshness · idempotency.
-   Tool riêng từng client được phép khác. Thiếu năng lực bắt buộc thì sửa; không tạo tool trùng chỉ để bằng số lượng.
+   Tool riêng từng client được phép khác. Thiếu năng lực bắt buộc → BLOCK, ghi rõ; KHÔNG viết tính năng mới trong lượt này (không mở vòng code thứ tư); không tạo tool trùng chỉ để bằng số lượng.
 5. **Audit schema/release gate:**
    - ghi exact live tool surface + schema/version/hash của mỗi server;
    - mọi tool có thay schema phải được phản ánh trong tools/list; operation_id đúng ở mọi entry point đã thiết kế;
    - kiểm standard MCP version/listChanged hoặc cơ chế chuẩn mà server/client thực sự hỗ trợ; không phát minh workaround riêng nếu client không dùng;
    - chốt quy tắc: thay schema => client cũ không được dùng để nghiệm thu; reconnect/refresh + chat mới là release gate.
+   - **Phân xử lỗi client GPT đang thấy** (transaction bị chặn `operation_id`): gọi `tools/list` qua ĐÚNG URL mà client thật dùng (qua nginx, đúng profile của ChatGPT TEST20 và của connector claude.ai), không gọi thẳng container; lưu inputSchema của `workspace_edit`, `workspace_transaction`, `workspace_exec`, `workspace_task_start` và các `fs_*` ghi. Thiếu `operation_id` ở endpoint thật → lỗi server: test đỏ, sửa, deploy theo PL2/PL3. Có đủ → kết luận "client giữ schema cũ", chỉ còn reconnect. Không ghi URL/secret vào báo cáo.
 6. Tạo **một lệnh nghiệm thu chuẩn** cho mỗi connector bằng test/runner nằm trong repo mã hiện hữu (không tạo tài liệu mới). Một lệnh phải trả rõ PASS/FAIL cho regression + capability/schema checks. Nếu runner mới không cần thiết, ghi chính xác lệnh hiện hữu thay thế.
 7. Chạy lại toàn bộ regression bằng chính lệnh chuẩn và kiểm live server sau đó. Nếu phát hiện lỗi runtime: test đỏ trước, sửa tối thiểu, deploy theo PL2/PL3. Nếu không có lỗi runtime: không restart.
-8. Cập nhật **KB §13 hiện hữu**: bảng CODE / SERVER / CLIENT / CROSS. Agent chỉ được đánh PASS CODE+SERVER; CLIENT+CROSS phải để PENDING và ghi exact expected surface cho K1–K9.
+8. Cập nhật **KB §13 hiện hữu** (mục 13.10): bảng CODE / SERVER / CLIENT / CROSS. Agent chỉ được đánh PASS CODE+SERVER; CLIENT+CROSS phải để PENDING và ghi exact expected surface cho K1–K9. Ngữ cảnh chạm 60–70% → dừng ở ranh giới việc đã xong, ghi bàn giao vào 13.10.
 9. Không sửa AGENTS/README/COLLAB/PROMPT. Không xoá dữ liệu/nhánh/image, không đổi auth/URL/secret.
 
 ## Điều kiện Agent được báo XONG
