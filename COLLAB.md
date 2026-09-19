@@ -101,13 +101,14 @@ Vấn đề: (1) "Replay sau restart" không thử được từ client (chat kh
 | K2 | GPT | chat mới sau Refresh | gọi thẳng `workspace_edit`, `workspace_transaction`, `workspace_exec`, `workspace_task_start` có `operation_id`, client không chặn |
 | K3 | Claude → GPT | Claude ghi `k3.txt`; GPT gọi `workspace_stat` + `workspace_log` ngay, không đọc gì trước | thấy commit của Claude |
 | K4 | GPT → Claude | GPT ghi `k4.txt`; Claude gọi `fs_log` + `fs_diff` lạnh | thấy commit của GPT |
-| K5 | chéo, cả hai chiều | bên A đọc `k5.txt` (v1); bên B sửa thành v2; bên A ghi với `expected_version=v1` | `VERSION_CONFLICT`, tệp vẫn là v2 của bên B |
+| K5 | Claude cũ → GPT sửa | Claude tạo `k5.txt` (v1, ghi số version vào commit message); GPT sửa thành v2; Claude ghi với `expected_version=v1` | `VERSION_CONFLICT`, tệp vẫn là v2 của GPT. Chiều GPT cũ đã phủ bởi backend C + K6 (version hai bên khác định dạng, không dùng chéo được) |
 | K6 | chéo, cả hai chiều | bên B đẩy `k6a.txt`; bên A ghi ngay `k6b.txt` (tệp khác) mà không đọc trước | ghi thành công, commit cha là commit của B, `k6a.txt` còn nguyên (không mất commit của ai) |
 | K7 | mỗi bên | transaction 2 tệp có `operation_id`; gọi lại y nguyên | đúng 1 commit; lần hai REPLAY, không commit mới |
 | K8 | mỗi bên | cùng `operation_id` cho copy rồi move cùng tham số | move bị từ chối `OPERATION_ID_REUSED`, tệp nguồn không bị động |
 | K9 | GPT | ghi tệp có hai dấu cách cuối dòng | thành công + `warnings`, byte giữ nguyên |
 | K10 | Host | replay sau restart | thay thử-restart bằng bằng chứng cấu hình: sổ operation_id nằm trên ổ đĩa host và được đọc từ đĩa mỗi lần gọi. Claude: đã kiểm, `FS_OPS_JOURNAL=/var/log/mcp-audit/fs-ops.jsonl` là bind mount host (docker-compose.claude-mcp.yml dòng 88, 115). GPT: tự chỉ ra `state_dir` là bind mount |
 Ghi nợ riêng, không chặn đóng P07: test cũ `test_background_operation_survives_initial_call` đỏ do ngân sách thời gian (KB §13.6b, đã A/B).
+Thứ tự 3 lượt (Owner chỉ chuyển lượt bằng một dòng): L1 Claude: K1, K7, K8, ghi `k3.txt`, `k6a.txt`, tạo `k5.txt`. L2 GPT: K2, K7, K8, K9, K10, kiểm K3, ghi ngay `k6b.txt` (K6), ghi `k4.txt`, sửa `k5.txt`, đẩy `k6c.txt`. L3 Claude: kiểm K4, ghi ngay `k6d.txt` (K6 chiều ngược), K5. Mỗi lượt ghi kết quả đúng một dòng vào P08 (mã K × 🟢/🔴 + commit làm bằng chứng); xong L3 Host đóng hoặc mở lại P07.
 Host: —
 
 ## Prompt
