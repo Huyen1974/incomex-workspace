@@ -1,0 +1,1 @@
+K5 v1 — Claude tạo; GPT sẽ sửa thành v2; Claude ghi lại bằng version v1 phải bị VERSION_CONFLICT
