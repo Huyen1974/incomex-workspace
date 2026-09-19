@@ -22,7 +22,7 @@ Công cụ đang có: GPT 37 (26 workspace/ui/vps + 11 KB) · Claude 23 (11 fs_*
 
 ## 2. 29 năng lực — SỐ CHUẨN (trùng PROMPT R03 §2; nơi lưu lâu dài là tệp này)
 
-**Cách chấm:** một ô GPT/Claude chỉ 🟢 khi mọi root áp dụng đều PASS. Git SSOT: GPT=`workspace`, Claude=`gh`; `ui` là mirror nên mutation=N/A(D08/R04) trừ regression read/lock; `docs` read-only; code/runtime roots ngoài catalog tài liệu. Client binding chấm riêng GPT Chat, GPT Work, Claude Chat; client khác N/A nếu chưa bind.
+**Cách chấm:** một ô GPT/Claude chỉ 🟢 khi mọi root áp dụng đều PASS. Git SSOT: GPT=`workspace`, Claude=`gh`; `ui` là mirror nên mutation=N/A(D08/R04) trừ regression read/lock; `docs` read-only; code/runtime roots ngoài catalog tài liệu. Client binding chấm riêng: bắt buộc GPT Chat, GPT Work và Claude Code (Claude Code không được N/A); Claude Chat PASS chừng nào còn là surface đang dùng; client khác N/A nếu chưa bind.
 
 | # | Năng lực | Công cụ tham chiếu | GPT | Claude | Hôm nay GPT/Claude | Mục tiêu sau R03 |
 |---|---|---|---|---|---|---|
@@ -52,8 +52,8 @@ Công cụ đang có: GPT 37 (26 workspace/ui/vps + 11 KB) · Claude 23 (11 fs_*
 | 24 | Tên tiếng Việt không sinh đôi; hoa/thường trên Mac | (tham chiếu không có) | trong mọi lệnh | trong mọi lệnh | 🔴/🔴 | 🟢/🟢 (D09) |
 | 25 | Chính sách Git/cỡ/bí mật; AI direct-GitHub ngoài 2 MCP chỉ đọc; dirty-worktree; UTF-8 | git_add, git_commit (nội bộ) | quét bí mật, trần cỡ | quét bí mật, trần cỡ | 🟡/🟢 (GitHub native còn ghi được) | 🟢/🟢 (D11, D12) |
 | 26 | Độ tươi, chéo GPT↔Claude | git_status | tự kéo | tự kéo | 🟢/🟢 | 🟢/🟢 |
-| 27 | Client thật nhận đúng tool/schema/metadata | (tham chiếu không có) | GPT Chat + Work | Claude Chat | cần nghiệm thu sau deploy | mỗi surface PASS hoặc N/A rõ; refresh/reconnect đúng 1 lần nếu đổi |
-| 28 | Đọc bản cũ + restore forward-commit; multi-file compensation không vi phạm no-delete | git_show, get_file_contents(ref) + ghi có khoá | chưa có | chưa có | 🔴/🔴 | 🟢/🟢 |
+| 27 | Client thật nhận đúng tool/schema/metadata | (tham chiếu không có) | GPT Chat + Work | Claude Code (bắt buộc) + Claude Chat | cần nghiệm thu sau deploy | GPT Chat + GPT Work + Claude Code PASS (Claude Code không được N/A) · Claude Chat PASS nếu còn dùng · mỗi surface gọi tool thật · refresh/reconnect đúng 1 lần nếu đổi |
+| 28 | Đọc bản cũ + restore forward-commit; undo đảo đúng delta/hunks trên HEAD (không chồng lấn thì giữ, conflict → STOP toàn transaction, không fuzzy overwrite); multi-file = 1 compensation commit, không vi phạm no-delete | git_show, get_file_contents(ref) + ghi có khoá | chưa có | chưa có | 🔴/🔴 | 🟢/🟢 |
 | 29 | Đưa tài liệu GitHub sang VPS Owner View | (không thuộc FS/Git) | — | — | x/x | x/x (R04/D08) |
 
 ## 3. Công cụ mình có mà tham chiếu không có

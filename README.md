@@ -3,11 +3,11 @@
 Kho làm việc CÔNG KHAI (PUBLIC từ 17/09/2026 — không commit secret; secret scanning + push protection đang bật) để Claude/ChatGPT đọc–sửa file qua đầu nối MCP "Incomex VPS" (gốc `gh`).
 Commit từ GPT workspace dùng tác giả "AI via Incomex Workspace"; connector Claude hiện hữu giữ tác giả riêng. Không force-push lên `main`.
 
-GPT dùng app "Incomex AgentData MCP — GPT Full b1gdc", root `workspace`: đọc cửa sổ nhỏ → exact edit với expected_version → commit/push → kiểm diff. File lớn hoặc HTML một dòng dùng workspace_read/search/edit; GitHub native chỉ để đọc/duyệt (D12: AI không ghi qua đường này).
+GPT dùng app MCP AgentData đang hiện hành, root `workspace`: đọc cửa sổ nhỏ → exact edit với expected_version → commit/push → kiểm diff. Tên app · tool count · build/fingerprint của từng client là TRẠNG THÁI, ghi ở `COLLAB.md` (mục **Mốc tiếp theo**); README không chép các số đó vì chúng cũ nhanh. File lớn hoặc HTML một dòng dùng workspace_read/search/edit; GitHub native chỉ để đọc/duyệt (D12: AI không ghi qua đường này).
 
 Các file `acceptance/gpt-*` là bản sao kiểm thử ngày 17/09/2026, không phải nguồn ứng dụng business.
 
-**File thử — agent đừng đọc cả file:** `acceptance/gpt-*`, `acceptance/moved/*`, `acceptance-20260918-*.html` (~2,2 MB), `chatgpt-direct-upload-*.html` (~1,8 MB) là file thử của GPT (tác giả "AI via Incomex Workspace"), giữ nguyên chỗ vì GPT có thể còn dùng; chứng tích thử của Claude đã gom vào `_luu-tru-chung-tich-claude/` (xem INDEX.md trong đó, cũng không đọc). Đã kiểm file 314 KB và một dòng 2,21 MB, stale HEAD/SHA và commit chen ngang. App GPT cần Refresh để nhận đủ 20 tool; giữ nguyên URL/secret.
+**File thử — agent đừng đọc cả file:** `acceptance/gpt-*`, `acceptance/moved/*`, `acceptance-20260918-*.html` (~2,2 MB), `chatgpt-direct-upload-*.html` (~1,8 MB) là file thử của GPT (tác giả "AI via Incomex Workspace"), giữ nguyên chỗ vì GPT có thể còn dùng; chứng tích thử của Claude đã gom vào `_luu-tru-chung-tich-claude/` (xem INDEX.md trong đó, cũng không đọc). Đã kiểm file 314 KB và một dòng 2,21 MB, stale HEAD/SHA và commit chen ngang. Server thêm/đổi công cụ thì client phải làm mới mới thấy (ChatGPT: Refresh app; Claude: ngắt rồi kết nối lại connector, mở chat mới); thiếu công cụ thì kiểm client trước khi kết luận server thiếu. Trạng thái client hiện hành tra ở `COLLAB.md`; giữ nguyên URL/secret.
 
 ## Shared Workspace Technical Contract — v1.3, 2026-09-18
 
