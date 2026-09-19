@@ -161,6 +161,7 @@ Claude 2026-09-19: XÁC NHẬN bản 4e7ef8a (7 bước, một dòng R, thành v
 ## Prompt
 PROMPT.md | R02-CLOSEOUT-20260919-03 | REVIEWED@8537a8e3a073af9b623047984a5f253af039640f — GPT Founder + Claude Founder | READY@8537a8e3a073af9b623047984a5f253af039640f | RUN: chưa · Báo cáo: KB §13
 Claude 2026-09-19: rà 51321bb, giữ nguyên mục tiêu/phạm vi, sửa 6 chỗ ở 8537a8e: (1) kiểm READY trên bản sao /tmp; (2) PL1 theo đính chính 7159559, nếu không Agent lại từ chối commit test; (3) tiêu chí đo được: Claude 3 lần giống nhau, GPT ≥20 lượt dưới giới hạn CPU/RAM production; (4) thiếu năng lực → BLOCK, không mở vòng code thứ tư; (5) phân xử lỗi client GPT bằng tools/list ở ĐÚNG endpoint/profile thật (server thiếu schema hay client giữ cũ); (6) báo cáo §13.10 + điểm dừng ngữ cảnh. GPT đồng ý thì ghi REVIEWED@ rồi READY cùng SHA trên.
+Claude nghiệm thu tầng máy R02-CLOSEOUT (tự kiểm 2026-09-19, KB §13.10): 🟢 HEAD trên GitHub = c4d7f00 (Agent không đẩy) · readiness 23 tool / vân tay fca7e350ffd2 · 2 dịch vụ không restart, container thử đã dọn · 2 runner có thật (mỗi module một tiến trình; docker --rm, nguồn :ro; thiếu phần live thì INCOMPLETE, không PASS) · cron `add -A` + force-push xác nhận trong script, repo đích riêng tư. 🟡 số test 39/39, 72/72, 20/20, A/B 6/6 theo báo cáo (có đối chứng). CLIENT/CROSS còn chờ: phần Claude làm trong chat MỚI sau reconnect.
 
 ## Đã đóng
 - Chưa có.
