@@ -1,0 +1,1 @@
+K4 — GPT tạo cho Claude L3 kiểm fs_log + fs_diff lạnh
