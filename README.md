@@ -62,3 +62,12 @@ Hai đầu nối độc lập (GPT: AgentData `workspace_*`; Claude: "Incomex VP
     **Trạng thái đường cắt 18/09/2026:** bí mật `VPS_SSH_KEY` đã xoá khỏi cả `agent-data-test` và `web-test` (không còn ở cấp kho, environment, dependabot, codespaces; không có tổ chức, không webhook, không self-hosted runner, không deploy key). Sáu workflow ghi xuống VPS đều `disabled_manually`. **File workflow và `VPS_HOST` được GIỮ NGUYÊN có chủ ý** theo yêu cầu của chủ: đấu lại = nạp lại một bí mật `VPS_SSH_KEY` + bật workflow, không phải dựng lại từ đầu.
 
 Hướng dẫn riêng từng đầu nối: GPT `docs/WORKSPACE_TOOLS.md` (repo agent-data); Claude `claude-mcp/00-NHAN-THU-MUC.md` + báo cáo KB `knowledge/current-state/reports/mcp-incomex-vps-nang-cap-fs-roots-2026-09-17.md` §12.
+
+12. **Owner View — mirror HTML từ workspace ra VPS.** Quy tắc này áp cho artifact công việc của `incomex-workspace`, không thay đổi §11 về mã/runtime VPS.
+
+    1. Mỗi việc có một thư mục riêng và đúng một HTML chính đã khai báo (`view.html` mặc định hoặc path ghi trong `COLLAB.md`). Bản trong workspace/Git là bản nội dung chuẩn của việc.
+    2. VPS chỉ giữ **bản mirror tĩnh** của HTML chính để Owner xem bằng URL; mirror không phải nguồn chỉnh sửa thứ hai và không được dùng làm nơi AI sửa nội dung nghiệp vụ.
+    3. Nút **Cập nhật** là thao tác pull thủ công theo từng việc: chỉ lấy đúng HTML chính đã allowlist từ workspace/Git sang vùng Owner View rồi reload. Không tự đồng bộ nền, không kéo cả repo, không `rsync --delete`.
+    4. Vùng Owner View không được có quyền ghi vào mã/runtime, systemd, compose, secret hoặc thư mục dịch vụ. Nếu cần mã cho dịch vụ refresh/view thì mã đó tuân §11: sửa và vận hành trên VPS, không kéo mã runtime từ GitHub xuống.
+    5. File phụ (`COLLAB.md`, `PROMPT.md`, evidence, assets kỹ thuật) phục vụ AI/Agent; giao diện Owner mặc định chỉ cần dẫn tới HTML chính. Chỉ lộ thêm khi Owner yêu cầu.
+    6. Mẫu đích của mọi việc: **một việc → một thư mục → một HTML chính → một URL Owner View → một nút Cập nhật**.

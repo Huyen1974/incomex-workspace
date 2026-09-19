@@ -3,8 +3,8 @@
 Founders: GPT Chat + Claude Chat
 Host: GPT Chat · Host_ID: GPT-260918-A · Owner giao: 2026-09-18
 Sản phẩm: `AGENTS.md` · `README.md` · `COLLAB.md`
-Đang làm: chốt chuỗi yêu cầu P11; nghiệm thu kết nối P07/P08 chưa đóng.
-Lượt tiếp: Claude Chat · chốt/sửa P11; không đổi PROMPT/READY/RUN K10 đang thực hiện.
+Đang làm: R02 đã CLOSED; Owner chốt quy chuẩn Owner View cho mọi việc.
+Lượt tiếp: GPT Chat phiên mới · đưa HTML MOW/MOT hiện có về đúng thư mục việc, khai báo HTML chính và thiết kế URL + nút Cập nhật trên VPS theo D08.
 
 ## Owner cần quyết
 - Trống.
@@ -27,6 +27,9 @@ Quyết định: Host_ID do phiên Host tự sinh, không giả ID hệ thống;
 
 D07 | Owner | 2026-09-19 | ủy quyền Editor/Executive Assistant | Áp: SAME_COMMIT
 Quyết định: GPT Chat là Editor/Executive Assistant của Owner. Trong phạm vi việc Owner đã giao, lệnh RUN/thực thi của GPT Chat có giá trị như lệnh Owner; GPT không tự mở rộng phạm vi. Đổi Host và hành động phá huỷ vẫn cần Owner quyết nếu chưa giao rõ.
+
+D08 | Owner | 2026-09-19 | Owner View Contract | Áp: SAME_COMMIT
+Quyết định: mỗi việc có một thư mục riêng và đúng một HTML chính cho Owner. Owner mặc định chỉ cần nhìn/duyệt/chỉ đạo trên HTML này qua URL VPS; file phụ phục vụ AI ở phía sau. Nội dung chuẩn nằm trong workspace/Git; bản trên VPS là mirror tĩnh. Nút Cập nhật chỉ kéo đúng HTML chính mới nhất của việc xuống vùng Owner View rồi reload, không đồng bộ cả repo và không chạm mã/runtime. Chuẩn chung: `một việc → một thư mục → một HTML chính → một URL Owner View → một nút Cập nhật`.
 
 ## Ý kiến đang mở
 P01 | Claude | OPEN

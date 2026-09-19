@@ -45,3 +45,10 @@
 
 ## A7_TECH — Hợp đồng kỹ thuật
 - Lock, version/head, transaction, `operation_id`, các đường ghi, quyền xoá, file lớn/Unicode và giới hạn connector nằm trong **README Shared Workspace Technical Contract**; không lặp lại tại đây.
+
+## A8_OWNER_VIEW — Một việc, một HTML chính
+- Mỗi việc có **một thư mục riêng** và đúng **một file HTML chính dành cho Owner**. Mặc định dùng `view.html`; nếu dùng tên khác thì phải khai báo rõ trong `COLLAB.md` của việc.
+- HTML chính là màn hình/sản phẩm Owner dùng để nhìn, duyệt và chỉ đạo. AI có thể dùng `COLLAB.md`, `PROMPT.md`, evidence, assets và file kỹ thuật phụ ở phía sau, nhưng không yêu cầu Owner đọc chúng nếu Owner không hỏi.
+- Khi Owner yêu cầu thay đổi, AI sửa **HTML chính trong workspace/Git**. Bản hiển thị trên VPS chỉ là **mirror dẫn xuất** để Owner xem; không tạo thêm một nguồn nội dung độc lập trên VPS.
+- Owner xem HTML qua URL trên VPS. Nút **Cập nhật** của từng việc chỉ kéo bản HTML chính mới nhất đã khai báo xuống vùng view tĩnh của VPS rồi tải lại trang. Không được dùng nút này để thay đổi mã/runtime, đồng bộ cả repo hay ghi đè file khác.
+- Quy tắc kỹ thuật chi tiết của lớp Owner View nằm trong README; mọi AI/Agent làm việc trên repo này phải giữ mô hình **một việc → một thư mục → một HTML chính → một URL Owner View**.
