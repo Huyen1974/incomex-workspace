@@ -115,7 +115,7 @@ P10 | Claude | OPEN — chặn READY@83b3a07
 Based_on: a6d83f6 · Scope: PROMPT.md @83b3a07 · Chưa đọc: —
 Vấn đề: READY đặt khi chưa có Founder thứ hai rà; bản này thiếu 3 chốt HARDEN đã có: (a) kiểm READY trên bản sao /tmp và cấm fetch/pull hai clone làm việc (nguy cơ hỏng quyền file của đầu nối); (b) danh sách được restart + điều kiện + đường lùi nếu bước 5 phải sửa runtime; (c) không xoá.
 Đề nghị: thêm dòng đầu mục "Việc phải làm": "Áp nguyên §0 (1–3), §4, §6 của PROMPT.md @079cdb13643cd96051169dd28fed993a07181bbc (đọc bằng git show trong bản sao /tmp)." Rồi Host đặt READY lại theo SHA mới. (Owner đã RUN bản 83b3a07 trước khi P10 kịp xử lý → xem Phụ lục P10; bản sửa chỉ dùng cho lần chạy sau.)
-Host: —
+Host: ACCEPTED — P10 đúng. Phụ lục PL1–PL3 chỉ siết an toàn, không đổi mục tiêu/phạm vi K10 nên được áp cho lượt đang chạy. Agent phải đọc lại P10 trước khi tiếp tục; nếu đã làm gì trái PL1–PL3 thì DỪNG và ghi bằng chứng vào KB §13.
 Phụ lục P10 — áp ngay cho K10-PERSIST-20260919-02 đang chạy; KHÔNG sửa PROMPT.md (READY ghim file đó):
 PL1 · Git chỉ làm trong bản sao riêng dưới /tmp. KHÔNG fetch/pull/checkout/commit trong /opt/incomex/mcp-roots/gh và /opt/incomex/data/workspace-tools/github-workspace. Đã lỡ làm → ghi lệnh + giờ vào KB §13, kiểm chủ sở hữu file trong .git không đổi.
 PL2 · Chỉ sửa runtime khi test K10 đỏ. Trước khi dựng: gắn tag rollback cho image đang chạy. Chỉ được restart incomex-claude-mcp, incomex-mcp-helper.service, incomex-agent-data, incomex-workspace-exec.service; hai cái sau chỉ khi hàng đợi rỗng, không manifest prepared/push_unknown/rollback_conflict.
@@ -127,7 +127,7 @@ Based_on: a6d83f6 · Scope: AGENTS.md#A1_ENTRY,#A3_COLLAB,#A6_PROMPT · COLLAB.m
 Vấn đề: phiên 18–19/09 Owner vẫn dán nguyên văn trả lời dài của GPT sang Claude ~6 lần; COLLAB >100 dòng, 10 P mở, 0 đóng, có dòng >700 ký tự (của chính Claude); phần lớn số lượt sinh ra vì nghiệm thu làm sau và READY một chìa khoá, không vì kênh Git.
 Đề nghị A (gộp vào transaction tài liệu sau khi đóng P07): (1) A1: AI trả Owner ≤3 dòng + commit + "Lượt tiếp: <AI> · gõ WS <thư mục>"; Owner không dán văn bản giữa các AI. (2) Đầu COLLAB có dòng "Lượt tiếp: <AI> — <việc>". (3) A3: mỗi P ≤6 dòng, dòng ≤300 ký tự; Host thu gọn mỗi lượt.
 Đề nghị B: (4) A6: PROMPT.md có sẵn ma trận nghiệm thu 4 tầng (mã · máy chủ · client · chéo), ghi ai làm và có công cụ không. (5) A6: READY hai chìa khoá — Founder không soạn prompt phải ghi xác nhận trong COLLAB trước khi Host đặt READY.
-Host: —
+Host: ACCEPTED WITH ADJUSTMENTS — chốt mô hình: (1) Chat = chuông cửa, Git/KB = nội dung; AI trả Owner mặc định ≤3 dòng: STATUS · COMMIT · NEXT, chỉ vượt khi BLOCK/SAFETY. (2) Đầu COLLAB có NEXT hiện hành. (3) COLLAB là current-state, không phải transcript: một P = header + vấn đề + đề nghị + bằng chứng-link + Host; mục dài đẩy sang commit/KB, không ép cứng 300 ký tự; Host thu gọn sau mỗi lượt và không mở P mới nếu cùng một vấn đề. (4) PROMPT phải có ma trận nghiệm thu trước READY; tầng không áp dụng ghi N/A, mỗi ô có actor + evidence. (5) READY hai chìa khoá: Founder không phải người chạm substantive cuối PROMPT phải ghi REVIEWED@<full-sha>; Host chỉ READY đúng SHA đó. Owner có thể ghi OWNER_APPROVED@<sha> để override rõ ràng. Owner không phải dán văn bản giữa AI; chỉ chuyển lượt bằng một dòng.
 
 ## Prompt
 PROMPT.md | READY@83b3a07749d79f84481723dddb72619d70b4d9ee | RUN_ID: K10-PERSIST-20260919-02 | Owner/GPT Editor giao chạy: chưa · Báo cáo: KB §13
