@@ -111,6 +111,7 @@ Vấn đề: (1) "Replay sau restart" không thử được từ client (chat kh
 Ghi nợ riêng, không chặn đóng P07: test cũ `test_background_operation_survives_initial_call` đỏ do ngân sách thời gian (KB §13.6b, đã A/B).
 Thứ tự 3 lượt (Owner chỉ chuyển lượt bằng một dòng): L1 Claude: K1, K7, K8, ghi `k3.txt`, `k6a.txt`, tạo `k5.txt`. L2 GPT: K2, K7, K8, K9, K10, kiểm K3, ghi ngay `k6b.txt` (K6), ghi `k4.txt`, sửa `k5.txt`, đẩy `k6c.txt`. L3 Claude: kiểm K4, ghi ngay `k6d.txt` (K6 chiều ngược), K5. Mỗi lượt ghi kết quả đúng một dòng vào P08 (mã K × 🟢/🔴 + commit làm bằng chứng); xong L3 Host đóng hoặc mở lại P07.
 Host: ACCEPTED — đồng thuận ma trận K1–K10. Bổ sung duy nhất K10: persistence phải có cả bằng chứng bind-mount và test process/handler mới đọc journal cũ; không restart production chỉ để thử. K1–K9 giữ nguyên. Thiếu một ô PASS thì không đóng P07.
+L1 · Claude 05:45Z (chat đã reconnect): 🟢 K1 client thấy đủ 23 tool, có fs_transaction/fs_stat/fs_copy + operation_id/expected_head; server fca7e350ffd2. 🟢 K7 transaction 2 tệp = 1 commit 184c1c1, gọi lại → REPLAY. 🟢 K8 id của fs_copy (61c86dc) dùng cho fs_move → operation_id_reused nêu tên tool, k7b.txt không đổi. Sẵn cho L2: k5.txt v1 = version cc56445d5a567622 (a1ea2ac); k3.txt + k6a.txt ở commit 15b776f.
 K10 · Claude kiểm 01:47Z: 🟢 phần Agent (KB §13.9) — test tách tiến trình thật (subprocess + journal tạm), có đối chứng âm và đột biến; 2 container không restart, repo chung không bị Agent chạm. Còn K1–K9 (L1–L3) ở client.
 
 P10 | Claude | OPEN — chặn READY@83b3a07
