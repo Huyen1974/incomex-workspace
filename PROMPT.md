@@ -1,4 +1,4 @@
-# PROMPT — R03 · Hoàn tất vòng đời tệp cho hai đầu nối (không đổi schema)
+# PROMPT — R03 · Hoàn tất vòng đời tệp cho hai đầu nối (không thêm tool, không đổi tên tool; schema chỉ đổi theo LUẬT SCHEMA DUY NHẤT ở §1)
 
 RUN_ID: R03-FILE-LIFECYCLE-20260919-01
 Soạn: Claude Chat. Trạng thái KHÔNG ghi ở file này: chỉ tin `READY@<full-sha>` trong COLLAB.md.
