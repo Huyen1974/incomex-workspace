@@ -44,13 +44,13 @@ Hai đầu nối độc lập (GPT: AgentData `workspace_*`; Claude: "Incomex VP
 8. **File lớn, Unicode, assets** — chỉ cần một phần thì đừng đưa cả file lớn vào ngữ cảnh. Qua VPS: đọc theo cửa sổ (`fs_read` với `max_bytes`/`start_line`/`start_char`) và định vị bằng `fs_search` trước. Qua GitHub native, file >1 MB: `fetch_file` lấy metadata/SHA → `fetch_blob` → cắt/tìm trong tool → chỉ đưa đoạn liên quan cho mô hình (`fetch_file(start_line/end_line)` có thể trả content RỖNG với file >1 MB — dùng blob thay thế). Giữ nguyên path/tên file Unicode kể cả dạng NFD: không tự normalize/rename; giữ relative path, assets và manifest liên quan nếu nhiệm vụ không yêu cầu đổi; không nhúng binary/base64 vào file text lớn.
 9. **Chi phí** — tìm rồi sửa ngay khi đủ ngữ cảnh; đọc theo cửa sổ; copy/move/transaction chạy server-side; kết quả dài có cursor/continuation, chỉ đọc tiếp khi cần. Đo thật 24 h (18/09/2026: 352 lượt gọi, 10,8 MB dữ liệu trả về): **soi bằng CHỮ trước, chỉ chụp ảnh khi thật sự phải nhìn hình** — `ui_screenshot` 479 KB/lần (16 ảnh = 7,5 MB ≈ 69% toàn bộ dữ liệu trả về) so với `ui_inspect` 2 KB/lần, rẻ hơn ~240 lần. **Ưu tiên thao tác chạy trên máy chủ** (`fs_stat` 293 B, `fs_copy` 261 B, `fs_transaction` 337 B) thay vì chuyển nội dung qua mô hình.
 10. **Báo kết quả** — chỉ báo PASS khi đã GỌI THẬT; không suy từ mã nguồn hay từ báo cáo cũ. Phân biệt rõ ba loại bằng chứng: (a) backend/CLI, (b) client Claude Chat/Cowork, (c) client ChatGPT/Work/Codex — gọi được qua CLI KHÔNG phải là PASS ở client thật. Nêu ngắn: file/path, branch/ref, version hoặc SHA trước/sau, phần đã đổi, kiểm tra đã chạy. Có giới hạn công cụ thì nói đúng giới hạn và cách đi vòng đã kiểm chứng.
-11. **Mã và runtime trên VPS — VPS là NGUỒN GỐC DUY NHẤT (chốt của chủ, 18/09/2026).** Mục này nói về MÃ, khác với §17 nói về file của chính repo này.
+11. **MÃ/runtime — VPS là SSOT; NGHIÊM CẤM GitHub → VPS.** Mục này nói về MÃ, khác với §17 nói về file của chính repo này.
 
     1. Mã và runtime trên VPS là nguồn gốc duy nhất. Mã trên VPS mới hơn GitHub rất nhiều.
     2. Kho mã trên GitHub (`agent-data-test`, `web-test`) chỉ là **bản sao lưu · lịch sử tham khảo · nơi đọc lại**.
     3. Không một workflow, webhook, runner hay lệnh kéo nào được triển khai hoặc ghi đè mã trên VPS.
     4. Chiều **VPS → GitHub** được phép sau khi quét bí mật (cron `git-push-gh-daily-v2.sh`, 06:00 và 18:00, đẩy nhánh `vps-daily-*`).
-    5. Chiều **GitHub → VPS** chỉ được phép với repo này, vào đúng hai clone file làm việc dưới đây, và chỉ vào vùng KHÔNG thực thi.
+    5. **GitHub → VPS chỉ được phép cho TÀI LIỆU/artifact của `incomex-workspace` vào vùng KHÔNG thực thi**; tuyệt đối không áp dụng cho MÃ/runtime.
     6. VPS và GitHub khác nhau → **VPS là bản đúng**; không tự đồng bộ từ GitHub xuống.
     7. Không `rsync --delete` từ GitHub vào vùng mã.
     8. Không thông tin đăng nhập GitHub nào được có quyền root hay quyền ghi vào VPS.
@@ -63,7 +63,7 @@ Hai đầu nối độc lập (GPT: AgentData `workspace_*`; Claude: "Incomex VP
 
 Hướng dẫn riêng từng đầu nối: GPT `docs/WORKSPACE_TOOLS.md` (repo agent-data); Claude `claude-mcp/00-NHAN-THU-MUC.md` + báo cáo KB `knowledge/current-state/reports/mcp-incomex-vps-nang-cap-fs-roots-2026-09-17.md` §12.
 
-12. **Owner View — mirror HTML từ workspace ra VPS.** Quy tắc này áp cho artifact công việc của `incomex-workspace`, không thay đổi §11 về mã/runtime VPS.
+12. **TÀI LIỆU — GitHub/workspace là SSOT; VPS chỉ là Owner View/mirror.** Quy tắc này không thay đổi §11: MÃ/runtime tuyệt đối không đi từ GitHub xuống VPS.
 
     1. Mỗi việc có một thư mục riêng và đúng một HTML chính đã khai báo (`view.html` mặc định hoặc path ghi trong `COLLAB.md`). Bản trong workspace/Git là bản nội dung chuẩn của việc.
     2. VPS chỉ giữ **bản mirror tĩnh** của HTML chính để Owner xem bằng URL; mirror không phải nguồn chỉnh sửa thứ hai và không được dùng làm nơi AI sửa nội dung nghiệp vụ.
