@@ -106,10 +106,10 @@ Vấn đề: (1) "Replay sau restart" không thử được từ client (chat kh
 | K7 | mỗi bên | transaction 2 tệp có `operation_id`; gọi lại y nguyên | đúng 1 commit; lần hai REPLAY, không commit mới |
 | K8 | mỗi bên | cùng `operation_id` cho copy rồi move cùng tham số | move bị từ chối `OPERATION_ID_REUSED`, tệp nguồn không bị động |
 | K9 | GPT | ghi tệp có hai dấu cách cuối dòng | thành công + `warnings`, byte giữ nguyên |
-| K10 | Host | replay sau restart | thay thử-restart bằng bằng chứng cấu hình: sổ operation_id nằm trên ổ đĩa host và được đọc từ đĩa mỗi lần gọi. Claude: đã kiểm, `FS_OPS_JOURNAL=/var/log/mcp-audit/fs-ops.jsonl` là bind mount host (docker-compose.claude-mcp.yml dòng 88, 115). GPT: tự chỉ ra `state_dir` là bind mount |
+| K10 | Host + Agent | replay sau restart | không restart production chỉ để thử. PASS khi có đủ hai bằng chứng: (a) journal `operation_id` nằm trên bind-mount host/persistent state của cả hai phía; (b) regression tạo **process/handler mới** trên cùng journal rồi gọi lại cùng id + cùng payload và nhận REPLAY, không tạo commit/job mới |
 Ghi nợ riêng, không chặn đóng P07: test cũ `test_background_operation_survives_initial_call` đỏ do ngân sách thời gian (KB §13.6b, đã A/B).
 Thứ tự 3 lượt (Owner chỉ chuyển lượt bằng một dòng): L1 Claude: K1, K7, K8, ghi `k3.txt`, `k6a.txt`, tạo `k5.txt`. L2 GPT: K2, K7, K8, K9, K10, kiểm K3, ghi ngay `k6b.txt` (K6), ghi `k4.txt`, sửa `k5.txt`, đẩy `k6c.txt`. L3 Claude: kiểm K4, ghi ngay `k6d.txt` (K6 chiều ngược), K5. Mỗi lượt ghi kết quả đúng một dòng vào P08 (mã K × 🟢/🔴 + commit làm bằng chứng); xong L3 Host đóng hoặc mở lại P07.
-Host: —
+Host: ACCEPTED — đồng thuận ma trận K1–K10. Bổ sung duy nhất K10: persistence phải có cả bằng chứng bind-mount và test process/handler mới đọc journal cũ; không restart production chỉ để thử. K1–K9 giữ nguyên. Thiếu một ô PASS thì không đóng P07.
 
 ## Prompt
 PROMPT.md | READY@079cdb13643cd96051169dd28fed993a07181bbc | RUN_ID: HARDEN-20260919-01 | Owner giao chạy: đã · Agent: XONG · Báo cáo: KB §13
@@ -118,4 +118,4 @@ PROMPT.md | READY@079cdb13643cd96051169dd28fed993a07181bbc | RUN_ID: HARDEN-2026
 - Chưa có.
 
 ## Mốc tiếp theo
-- Làm mới/reconnect hai client và mở chat mới. GPT nghiệm thu direct `operation_id` cho edit/transaction/exec/task_start + restart replay + remote-moved; Claude nghiệm thu đủ 23 tool và các ca client tương ứng. Hai bên PASS rồi Host mới đóng P07 và cập nhật tài liệu hành vi thực tế.
+- Agent bổ sung/kiểm K10 process-restart regression không đụng production. Sau đó reconnect hai client và chạy đúng 3 lượt L1 Claude → L2 GPT → L3 Claude theo P08. Hai bên đủ K1–K10 PASS thì Host mới đóng P07.
