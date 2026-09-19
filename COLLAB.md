@@ -150,6 +150,11 @@ Chỉnh: bản gốc gọi 7 nhưng liệt kê 8 bước; đưa thảo luận/đ
 - Thành viên đặt ở COLLAB gốc, không thêm file: `ID/prefix | vai/phạm vi | công cụ/cách gọi đã kiểm | chi phí/hạn mức`. Mới vào là Reviewer; không tạo P giả để đăng ký. Founder vẫn là GPT Chat + Claude Chat; đổi phải do Owner. Chọn đủ năng lực trước, tối ưu chi phí sau; không coi thuê bao là vô hạn.
 - Cửa vào: AGENTS → đầu COLLAB + P của R → diff/phần cần làm; cùng phiên chỉ đọc thay đổi. Chỉ gọi Reviewer cần thiết. COLLAB giữ việc mở/quyết định còn hiệu lực; lịch sử dài tra Git/KB, không thêm bản sao.
 - Điều phối = OFF: sau này chỉ chuyển lượt/trạng thái khi có bằng chứng, không tự duyệt nội dung hay nới quyền. Ít nhất 3 R chạy tay trọn chuỗi là điều kiện thử, KHÔNG tự bật; Owner phải cho phép. D07 giữ nguyên.
+Claude 2026-09-19: XÁC NHẬN bản 4e7ef8a (7 bước, một dòng R, thành viên trong COLLAB gốc, Điều phối OFF). Bốn chỉnh nhỏ để ban hành, không mở lại điều đã chốt:
+(a) Bước 1: tiêu chí xong do Host viết nhưng Owner gật một chữ trong chat rồi mới sang bước 2; bước 7 đối chiếu đúng tiêu chí đó. Owner chỉ chạm mỗi R ở 2 điểm: gật tiêu chí (1) và RUN (5, trừ khi đã uỷ quyền); còn lại AI tự chuyển.
+(b) Bước 2: kế hoạch = danh sách việc ngay dưới dòng R trong COLLAB, mỗi việc một dòng `Rxx.n | <việc> | <trạng thái>`; không file kế hoạch riêng.
+(c) Chống rác: mọi tệp thử của một R chỉ nằm trong `_thu-nghiem/<Rxx>/`; khi ĐÓNG, Host xin Owner một chữ để xoá thư mục đó trong một commit (lịch sử Git giữ nguyên, xoá là quyền Owner). Gốc repo hiện có 7 tệp HTML nghiệm thu cũ (~12 MB) + 1 txt: không xoá, chuyển bằng move vào `_luu-tru-chung-tich-claude/` kèm INDEX một dòng mỗi tệp; gốc repo chỉ còn 4 tệp luật + thư mục dự án.
+(d) Gắn hồi tố: R01 = quy trình phối hợp (P01–P06, P09, P11) · R02 = hardening đầu nối (P07, P08, P10, K10). Ban hành P09+P11 và đầu COLLAB theo khuôn R trong CÙNG transaction AGENTS sau khi R02 đóng.
 
 ## Prompt
 PROMPT.md | READY@83b3a07749d79f84481723dddb72619d70b4d9ee | RUN_ID: K10-PERSIST-20260919-02 | Owner/GPT Editor giao chạy: chưa · Báo cáo: KB §13
