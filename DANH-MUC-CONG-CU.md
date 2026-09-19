@@ -28,7 +28,7 @@ Công cụ đang có: GPT 37 (26 workspace/ui/vps + 11 KB) · Claude 23 (11 fs_*
 |---|---|---|---|---|---|---|
 | 1 | Liệt kê + phát hiện gốc và quyền | list_directory, directory_tree, get_repository_tree, list_allowed_directories | workspace_list | fs_list | 🟢/🟢 | 🟢/🟢 |
 | 2 | Đọc giữ nguyên byte (BOM, CRLF, dòng rất dài, tệp vài MB) | read_text_file, read_multiple_files, get_file_contents | workspace_read, workspace_result_read | fs_read, read_file | 🟢/🟢 (BOM/CRLF chưa thử) | 🟢/🟢 |
-| 3 | Tìm | search_files, search_code | workspace_search | fs_search | 🟢/🟢 | 🟢/🟢 |
+| 3 | Tìm nội dung + tìm theo tên tệp | search_files, search_code | workspace_search | fs_search | 🟢/🟢 | 🟢/🟢 |
 | 4 | Thông tin tệp | get_file_info | workspace_stat | fs_stat | 🟢/🟢 | 🟢/🟢 |
 | 5 | Thông tin thư mục + mã cây | (tham chiếu không có) | workspace_stat | fs_stat | 🟡/🔴 | 🟢/🟢 |
 | 6 | Lịch sử theo path, đi theo tệp khi dời | list_commits, search_commits, git_log | workspace_log | fs_log | 🟢/🟢 | 🟢/🟢 |

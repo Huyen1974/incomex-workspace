@@ -3,7 +3,7 @@
 Kho làm việc CÔNG KHAI (PUBLIC từ 17/09/2026 — không commit secret; secret scanning + push protection đang bật) để Claude/ChatGPT đọc–sửa file qua đầu nối MCP "Incomex VPS" (gốc `gh`).
 Commit từ GPT workspace dùng tác giả "AI via Incomex Workspace"; connector Claude hiện hữu giữ tác giả riêng. Không force-push lên `main`.
 
-GPT dùng app "Incomex AgentData MCP — GPT Full b1gdc", root `workspace`: đọc cửa sổ nhỏ → exact edit với expected_version → commit/push → kiểm diff. File lớn hoặc HTML một dòng dùng workspace_read/search/edit; GitHub native dùng browse, PR/review và file nhỏ.
+GPT dùng app "Incomex AgentData MCP — GPT Full b1gdc", root `workspace`: đọc cửa sổ nhỏ → exact edit với expected_version → commit/push → kiểm diff. File lớn hoặc HTML một dòng dùng workspace_read/search/edit; GitHub native chỉ để đọc/duyệt (D12: AI không ghi qua đường này).
 
 Các file `acceptance/gpt-*` là bản sao kiểm thử ngày 17/09/2026, không phải nguồn ứng dụng business.
 
