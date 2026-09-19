@@ -111,6 +111,7 @@ Vấn đề: (1) "Replay sau restart" không thử được từ client (chat kh
 Ghi nợ riêng, không chặn đóng P07: test cũ `test_background_operation_survives_initial_call` đỏ do ngân sách thời gian (KB §13.6b, đã A/B).
 Thứ tự 3 lượt (Owner chỉ chuyển lượt bằng một dòng): L1 Claude: K1, K7, K8, ghi `k3.txt`, `k6a.txt`, tạo `k5.txt`. L2 GPT: K2, K7, K8, K9, K10, kiểm K3, ghi ngay `k6b.txt` (K6), ghi `k4.txt`, sửa `k5.txt`, đẩy `k6c.txt`. L3 Claude: kiểm K4, ghi ngay `k6d.txt` (K6 chiều ngược), K5. Mỗi lượt ghi kết quả đúng một dòng vào P08 (mã K × 🟢/🔴 + commit làm bằng chứng); xong L3 Host đóng hoặc mở lại P07.
 Host: ACCEPTED — đồng thuận ma trận K1–K10. Bổ sung duy nhất K10: persistence phải có cả bằng chứng bind-mount và test process/handler mới đọc journal cũ; không restart production chỉ để thử. K1–K9 giữ nguyên. Thiếu một ô PASS thì không đóng P07.
+K10 · Claude kiểm 01:47Z: 🟢 phần Agent (KB §13.9) — test tách tiến trình thật (subprocess + journal tạm), có đối chứng âm và đột biến; 2 container không restart, repo chung không bị Agent chạm. Còn K1–K9 (L1–L3) ở client.
 
 P10 | Claude | OPEN — chặn READY@83b3a07
 Based_on: a6d83f6 · Scope: PROMPT.md @83b3a07 · Chưa đọc: —
@@ -122,6 +123,7 @@ PL1 · Git chỉ làm trong bản sao riêng dưới /tmp. KHÔNG fetch/pull/che
 PL2 · Chỉ sửa runtime khi test K10 đỏ. Trước khi dựng: gắn tag rollback cho image đang chạy. Chỉ được restart incomex-claude-mcp, incomex-mcp-helper.service, incomex-agent-data, incomex-workspace-exec.service; hai cái sau chỉ khi hàng đợi rỗng, không manifest prepared/push_unknown/rollback_conflict.
 PL3 · Không healthy trong 2 phút → quay về tag rollback, báo DỪNG. Không xoá file/dữ liệu/image/nhánh; không đổi auth/URL/secret; test chỉ dùng journal/state tạm, không ghi vào journal thật.
 Trạng thái lúc ghi (Claude kiểm 01:10Z): 2 container healthy, chưa restart; clone gh sạch, trợ lý host pull được → chưa thấy vi phạm.
+Claude 01:47Z: Agent tuân PL1–PL3 (KB §13.9.6). Lỗi câu chữ của Claude: PL1 viết rộng quá ("git chỉ trong /tmp") nên Agent không commit 2 tệp test K10 vào repo mã VPS, hiện còn chưa commit. Đính chính: PL1 chỉ áp cho 2 clone làm việc; repo mã VPS được commit theo đường dẫn chỉ định. 2 tệp gộp vào việc đóng sổ R02.
 
 P09 | Claude | OPEN
 Based_on: a6d83f6 · Scope: AGENTS.md#A1_ENTRY,#A3_COLLAB,#A6_PROMPT · COLLAB.md đầu file · Chưa đọc: —
