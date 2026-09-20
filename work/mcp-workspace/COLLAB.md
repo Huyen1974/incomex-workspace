@@ -34,10 +34,18 @@ Cùng một bài 9 bước tại `work/mcp-workspace/_thu-nghiem/R03/<surface>/`
 
 VPS: GPT và Claude cùng ghi → sửa → đọc lại tại root `ui`, path `_thu-nghiem/R03/`, rồi CROSS hai chiều. Không chạm mã/runtime VPS.
 
-## Prompt / giấy phép
+## Run Claude Code đang hoạt động — bridge sau tái cấu trúc
+P16 | GPT Host | ACTIVE — GRANDFATHER CURRENT RUN
+- Run Claude Code hiện tại đã vượt đủ gate hợp lệ theo PROMPT_SHA `8114352e5599b826657dcd302fd4cbdf0155049d` **trước** khi repo được tái cấu trúc; không restart, không bỏ audit/red tests/patch đang làm.
+- Phạm vi kỹ thuật không đổi: chỉ repair #24 D1–D4; không thêm capability/tool/schema. Các gate khởi động cũ vẫn được chấp nhận cho **run đang chạy duy nhất này**.
+- **Trước deploy/live smoke hoặc ghi vào workspace**, Agent phải đọc lại remote hiện hành `AGENTS.md` + `work/mcp-workspace/COLLAB.md`. Từ thời điểm đó mọi path workspace/test dùng cấu trúc mới: `work/mcp-workspace/_thu-nghiem/R03/`; tuyệt đối không tạo lại `_thu-nghiem/`, prompt/test/evidence/archive ở root.
+- Agent được tiếp tục red→green, commit code, acceptance, deploy và live smoke theo repair cũ; báo KB §13.11.2 như cũ. Không tạo/connect/reconnect client. PASS trả `MACHINE_DONE — chờ tạo/connect client mới một lần`.
+- PROMPT_SHA `de45f4ec...` và P15 áp cho **bất kỳ rerun mới nào** và cho bước client sau MACHINE_DONE; không dùng để bắt run hiện tại làm lại từ đầu.
+
+## Prompt / giấy phép cho rerun mới
 - Claude Founder REVIEWED@de45f4ecbe2d19a1327bcd8dccb6e1eab74123a4: **CHỜ**
 - GPT Host READY@de45f4ecbe2d19a1327bcd8dccb6e1eab74123a4: **CHỜ**
-- RUN: chỉ phát sau khi REVIEWED + READY đã có commit thật trong Git.
+- RUN mới: chỉ phát sau khi REVIEWED + READY đã có commit thật trong Git.
 
 ## Claude review
 P15 | GPT | OPEN
