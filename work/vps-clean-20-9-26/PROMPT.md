@@ -1,14 +1,15 @@
-# PROMPT — VPSC · Khảo sát CHỈ ĐỌC: vì sao đĩa VPS đầy lại nhanh + danh sách dọn + đề xuất khoá vòi rò
+# PROMPT — VPSC · R1 Kiểm toán đĩa VPS (AUDIT / NO PRODUCTION MUTATION): vì sao đầy lại nhanh + sổ nguồn sinh + danh sách dọn đề xuất
 
 RUN_ID: VPSC-R1-20260920-01
-Soạn: Claude Chat (Host việc này), 2026-09-20. Owner giao: đánh giá vì sao đĩa VPS đầy nhanh; đề xuất dọn phần không dùng để có chỗ cài Graph DB. Trạng thái KHÔNG ghi ở file này: chỉ tin giấy phép trong `work/vps-clean-20-9-26/COLLAB.md`.
+Soạn: Claude Chat (Host việc này), 2026-09-20; đã sửa theo P01–P06 của GPT (xem COLLAB). Owner giao: đánh giá vì sao đĩa VPS đầy nhanh; đề xuất dọn phần không dùng để có chỗ cài Graph DB. Trạng thái KHÔNG ghi ở file này: chỉ tin giấy phép trong `work/vps-clean-20-9-26/COLLAB.md`.
 Chỉ chạy khi COLLAB đó có `REVIEWED@` của Founder không soạn (GPT) + Host `READY@` (hoặc `OWNER_APPROVED@`) đúng full SHA commit cuối chạm file này, cộng lệnh RUN hợp lệ.
-**Chế độ: CHỈ ĐỌC.** Không xoá, không sửa, không restart gì trên VPS. Không ghi gì vào repo workspace.
+**Chế độ: AUDIT / NO PRODUCTION MUTATION.** Không thay đổi runtime, config, data, service trên VPS. Chỉ được ghi đúng 2 nơi ở §2. Không ghi gì vào repo workspace. Mọi kết quả R1 mang nhãn `UNVERIFIED_R1` cho tới khi Host + thẩm tra độc lập kiểm xong.
 
 ## 0. Trước khi làm
 1. Clone repo công khai vào /tmp mới; kiểm giấy phép đủ 40 ký tự; thiếu/lệch → DỪNG.
 2. Đọc `AGENTS.md`, `work/vps-clean-20-9-26/COLLAB.md` + `view.html`, và KB `knowledge/current-state/reports/vps-clean-minimum-2026-07-24.md` — MỐC so sánh (số liệu, danh sách đã dọn, mọi chỗ cách ly ngày 24/07).
 3. Đọc dòng R03 trong `work/mcp-workspace/COLLAB.md`: đang deploy thì CHỜ xong mới đo; chưa CLOSED thì áp khoá chéo ở §2.
+4. Đo `df` ngay: Used ≥90% hoặc Available <8GB → chỉ làm phần nhẹ (§3 Docker/log/lsof, §5), bỏ scan toàn cây, báo số.
 
 ## 1. Bối cảnh (bạn không nhớ phiên trước)
 - Ổ `/dev/sda1` 96GB NVMe, Ubuntu 24.04, Docker; mã SSOT tại `/opt/incomex`.
@@ -21,55 +22,65 @@ Chỉ chạy khi COLLAB đó có `REVIEWED@` của Founder không soạn (GPT) +
   d) `/opt/incomex/context-pack-staging/`: gói 3 giờ/lần từ 11/09, 66 gói ~2MB, không xoá gói cũ.
   e) DB `directus_gov_test_20260602` (1,2GB) còn, dù tháng 7 xếp lịch drop.
   f) Không thấy giới hạn log (max-size) trong các compose đọc được.
-  g) Loại trừ sơ bộ: PG tổng ~3,4GB (max_wal_size 1GB, không replication slot, archive off); uptime-kuma 30MB; `backup-to-gdrive.sh` và `code-backup-to-gdrive.sh` có giữ-N bản local.
+  g) Loại trừ sơ bộ: PG tổng ~3,4GB (max_wal_size 1GB, không replication slot, archive off); uptime-kuma 30MB.
 
 ## 2. Luật cứng
-- CẤM tuyệt đối: rm, mv, truncate, ghi đè file; mọi docker rm/rmi/prune (kể cả builder prune); docker compose up/down/restart; journalctl --vacuum; apt clean/autoremove; git gc/prune; VACUUM; DROP; sửa cron/systemd/config; kill tiến trình. Không ngoại lệ, không "tiện tay".
+- CẤM tuyệt đối: rm, mv, truncate, ghi đè file; mọi docker rm/rmi/prune (kể cả builder prune), docker save/tag/pull/build; docker compose up/down/restart; journalctl --vacuum; apt clean/autoremove; git gc/prune; VACUUM; DROP; sửa cron/systemd/config; kill tiến trình; tải backup từ Drive về VPS; giải mã backup ra đĩa. Không ngoại lệ, không "tiện tay".
+- Ngưỡng: bất kỳ lúc nào Used ≥90% hoặc Available <8GB → DỪNG mọi scan nặng, báo số, không tự xoá gì.
 - du/find chạy `nice -n 19 ionice -c3`, luôn `-x`, có timeout; không quét /proc, /sys.
 - Không in nội dung .env, secret, backup mã hoá, dump — chỉ tên + dung lượng + thời gian.
-- Đĩa chạm ≥93% trong lúc làm → DỪNG, báo số, không tự xoá gì.
 - Không chắc → xếp `UNKNOWN_HOLD` + lý do. Không hỏi Owner.
-- Ràng buộc từ tháng 7 (còn hiệu lực): registry Google đã chết → image local-only không dựng lại được từ mã trên VPS = `RESCUE_BEFORE_DELETE`. Image đang chạy, và image là CHA của image đang chạy = KEEP. `postgres:16` dùng chung nhiều container. Cấm đề xuất `docker system prune -a`.
-- Khoá chéo R03 (khi chưa CLOSED): image đang chạy + tag rollback R03 (`claude-mcp-local:r03-*`, `agent-data-r03:*`) = `KEEP_ROLLBACK_UNTIL_R03_CLOSED`.
-- Chỉ ghi ra 2 nơi: (1) `/opt/incomex/evidence/VPSC-R1-20260920/` — output thô, KHÔNG đưa lên repo công khai; (2) KB theo §8.
+- **Hard-KEEP** (R1 không được xếp vào lớp xoá hay cách ly): container + image đang chạy và MỌI image cha của chúng; image Nuxt không tag đang chạy; tag rollback R03 (`claude-mcp-local:r03-*`, `agent-data-r03:*`) tới khi R03 CLOSED; `postgres:16` (dùng chung); volume đang gắn.
+- Registry Google đã chết → image local-only không dựng lại được từ mã trên VPS = `RESCUE_BEFORE_DELETE`. Cấm đề xuất `docker system prune -a`.
+- R03 chưa CLOSED: mọi đề xuất dọn/image/tag/rescue/restart có thể ảnh hưởng runtime hoặc rollback phải ghi rõ "chờ R03 CLOSED".
+- Chỉ ghi ra 2 nơi: (1) `/opt/incomex/evidence/VPSC-R1-20260920/` — tổng ≤200MB, lưu bảng tổng hợp chứ không lưu danh sách file thô toàn cây, đã che secret, có `INDEX.md` chỉ đường; KHÔNG đưa lên repo công khai; (2) KB theo §9.
 
-## 3. Đo tổng + đối soát — mọi con số phải cộng về được df
+## 3. Đo tổng + đối soát
 - `df -h /`, `df -i /`.
 - du theo tầng: `/` (depth 1); `/var/lib`, `/opt`, `/opt/incomex`, `/root`, `/home` (depth 2, gồm thư mục ẩn).
-- Docker: `docker system df -v`; `docker buildx du` (tổng + top 20); `docker ps -a -s` (lớp ghi từng container); du `/var/lib/docker` và `/var/lib/containerd` TÁCH RIÊNG — nói rõ có đếm trùng không, con số nào là thật, vì sao.
+- Docker: `docker system df -v`; `docker buildx du` (tổng + top 20); `docker ps -a -s` (lớp ghi từng container); du `/var/lib/docker` và `/var/lib/containerd` TÁCH RIÊNG.
 - Log: từng `*-json.log` (map ra tên container); `/etc/docker/daemon.json` + LogConfig từng container; `journalctl --disk-usage`; du `/var/log`.
-- File đã xoá nhưng tiến trình còn giữ: `lsof +L1` (tổng GB).
-- Đối soát: tổng các nhóm so với Used của df. Lệch >3GB → tìm ra phần lệch rồi mới kết luận.
+- File đã xoá nhưng còn bị giữ: `lsof +L1` (tổng GB).
+- Đối soát: du và df KHÔNG nhất thiết bằng nhau. Giải thích phần lệch bằng: file đã xoá còn mở, hardlink, file thưa (sparse), layer Docker dùng chung / đếm trùng docker–containerd, metadata và block dự trữ của filesystem. Lệch >3GB mà chưa giải thích → không kết luận.
 
-## 4. Tìm vòi rò — cái gì tăng từ 24/07, nhanh cỡ nào, cái gì sinh ra
-- `find / -xdev -type f -newerct 2026-07-24` (dùng ctime, KHÔNG mtime: `cp -a` giữ mtime cũ) → cộng bytes theo thư mục cấp 2–3; top 30 thư mục tăng mạnh nhất; top 50 file >100MB bất kể ngày.
-- Image/container/volume tạo sau 24/07: cộng GB. Vẽ chuỗi cha–con của image local (history/inspect) để biết tag nào gỡ được mà không đứt image đang chạy.
-- So từng nhóm với số trong báo cáo 24/07 → tăng bao nhiêu GB, quy ra GB/tháng.
-- Rà ĐỦ, không bỏ sót: `deploys/nuxt-output*` (đo trong 1 lần du, báo có hardlink không); image + build cache; lớp ghi container; log docker/journal/nginx; `backups/` local (số bản thật so với LOCAL_KEEP trong 2 script backup — thừa thì vì sao); `evidence/`, `staging/`, `tmp/`, `work/`, `artifacts/`, `exports/`, `context-pack*`; git (.git các repo, sổ git 5 phút của gốc ui, clone incomex-workspace, `mcp-roots`); node_modules/venv (nuxt-repo, agent-data-repo, venv-xlsx); công cụ AI trên VPS: `~/.claude`, `~/.codex`, `~/.gemini`, Hermes, `~/.npm`, `~/.cache` (gồm ms-playwright), pip cache; Qdrant storage + snapshots; PG data dir + pg_wal; swapfile, /tmp, /var/tmp, snap, apt cache, kernel cũ; 2 file >64MB trong `/opt/incomex`; mọi chỗ cách ly do mission 24/07 tạo (còn chiếm chỗ không).
-- Mỗi vòi: tiến trình sinh ra nó (script/cron/systemd/mission; đường dẫn + dòng), tần suất, vì sao không có hạn xoá.
-- Giải thích: vì sao `incomex-nuxt` chạy image không tag; compose đang tham chiếu gì; nếu compose recreate thì container lên image nào.
-- Đo lại df + các thư mục "nóng" ở CUỐI mission (ghi giờ) để thấy cái gì đang tăng ngay lúc này.
+## 4. Sổ nguồn sinh (Generator Registry) — trị tận gốc
+Bảng bắt buộc, mỗi dòng một nguồn sinh:
+`Nguồn sinh · path · trigger (cron/systemd/script/mission/agent) · tần suất · GB hiện tại · tăng từ 24/07 · GB/tháng · quy tắc giữ hiện có · tự dọn? · nguyên nhân rò · đề xuất khoá · chủ (dịch vụ/agent/mission chịu trách nhiệm)`
+Phủ ĐỦ các nhóm sau; nhóm nào không đo được vẫn có dòng ⚪ + lý do:
+Docker image · build cache · volume · lớp ghi container · bản rollback deploy (`deploys/nuxt-output*` — đo trong 1 lần du, báo có hardlink không) · log docker/journal/nginx/`/var/log` · backup local · `evidence/`, `staging/`, `tmp/`, `work/`, `artifacts/`, `exports/`, `context-pack*` · công cụ AI (`~/.claude`, `~/.codex`, `~/.gemini`, Hermes) · git clone/snapshot (.git các repo, sổ git 5 phút của gốc ui, clone incomex-workspace, `mcp-roots`) · npm/pip/playwright cache · node_modules/venv (nuxt-repo, agent-data-repo, venv-xlsx) · PostgreSQL + pg_wal · Qdrant storage + snapshots · swapfile, /tmp, /var/tmp, snap, apt cache, kernel cũ · 2 file >64MB trong `/opt/incomex` · mọi chỗ cách ly do mission 24/07 tạo.
+Cách đo "tăng từ 24/07": `find / -xdev -type f -newerct 2026-07-24` CHỈ để KHOANH VÙNG (ctime là lần đổi inode, không phải ngày tạo; dùng thay mtime vì `cp -a` giữ mtime cũ). Đối chứng bằng: btime (`stat -c %W` nếu filesystem hỗ trợ), CreatedAt của Docker, ngày trong tên file, log của trình sinh, số trong báo cáo 24/07.
+Kèm theo: top 30 thư mục tăng mạnh nhất; top 50 file >100MB; chuỗi cha–con của image local (history/inspect); giải thích vì sao `incomex-nuxt` chạy image không tag, compose đang tham chiếu gì, nếu compose recreate thì lên image nào; đo lại df + thư mục "nóng" ở CUỐI mission (ghi giờ).
 
-## 5. Manifest — phân loại từng ứng viên dọn
-Mỗi dòng: đường dẫn/ID · GB · lớp · bằng chứng an toàn · cái gì tham chiếu tới · cách lùi.
+## 5. Backup — chưa chứng minh đủ thì mọi file liên quan backup = `UNKNOWN_HOLD`
+1. Cron/systemd/script nào chạy backup (`backup-to-gdrive.sh`, `code-backup-to-gdrive.sh` và mọi cái khác tìm thấy).
+2. 5–10 lượt gần nhất mỗi loại: SUCCESS/FAIL, theo log và status marker.
+3. Bản remote mới nhất trên Google Drive: liệt kê CHỈ ĐỌC bằng công cụ/cấu hình sẵn có (không tải về, không xoá).
+4. Retention thực tế local và remote so với cấu hình (LOCAL_KEEP, REMOTE_KEEP…).
+5. Tồn dư `.tmp` / `.partial` / retry / staging.
+6. Backup có lồng backup, deploy, evidence, cache, node_modules không — đo phần lồng.
+7. Khôi phục: KHÔNG diễn tập restore trong R1 (đĩa 87%, restore tạm cần thêm GB, là việc DR riêng). Chỉ kiểm không tốn đĩa: sha256 khớp `.meta.json`; cấu trúc gói mã hoá đọc được (ví dụ `gpg --list-packets`, không giải mã ra đĩa); dẫn bằng chứng restore gần nhất (mission, ngày, kết quả). Bằng chứng cũ hơn 30 ngày → ghi rủi ro, đề xuất diễn tập sau khi dọn.
+
+## 6. Manifest — phân loại từng ứng viên dọn
+Mỗi dòng: đường dẫn/ID · GB · lớp · bằng chứng · cái gì tham chiếu/phụ thuộc · cách lùi · nhóm (để thẩm tra PASS/REVISE/BLOCK theo nhóm).
 Lớp: `DELETE_PROVEN_SAFE` · `QUARANTINE_FIRST` · `RESCUE_BEFORE_DELETE` · `KEEP_PRODUCTION` · `KEEP_ROLLBACK_UNTIL_<ngày|R03_CLOSED>` · `UNKNOWN_HOLD`.
-- PROVEN = có bằng chứng: grep đường dẫn/tag trong `/opt/incomex`, crontab, systemd, compose → 0 tham chiếu; có bản mới hơn; dựng lại được hoặc không cần.
-- Cộng: GB thu hồi nếu duyệt toàn bộ `DELETE_PROVEN_SAFE`; GB nếu duyệt thêm `QUARANTINE_FIRST`.
+- `DELETE_PROVEN_SAFE` chỉ khi đủ CẢ: (a) không container nào (kể cả đã dừng) dùng hoặc gắn; (b) không compose, systemd, cron (mọi user), script nào tham chiếu — grep theo path, tag VÀ digest trong `/opt/incomex`, `/etc`, crontab, unit systemd; (c) không phải rollback còn hạn, không là cha/phụ thuộc của thứ đang dùng; (d) có bản mới hơn hoặc dựng lại được, ghi cách làm; (e) không thuộc Hard-KEEP §2. Thiếu một điều → hạ lớp.
+- `RESCUE_BEFORE_DELETE`: ghi dung lượng ước tính khi cứu, nơi cất NGOÀI VPS (không cất lên chính ổ đang đầy), checksum sẽ kiểm, lệnh khôi phục. Chỉ lập kế hoạch — không save trong R1.
+- Cộng: GB thu hồi nếu duyệt toàn bộ `DELETE_PROVEN_SAFE`; GB nếu duyệt thêm `QUARANTINE_FIRST`; GB cần chỗ ngoài VPS để cứu.
 
-## 6. Đề xuất khoá vòi — CHỈ đề xuất, KHÔNG làm
-- Mỗi vòi: sửa ở đâu (script deploy / cron dọn định kỳ / luật cho agent), quy tắc giữ bằng con số (N bản / D ngày) + lý do. Đúng dạng: "rollback Nuxt giữ 3 bản mới nhất + bản mốc lớn", không chung chung.
+## 7. Đề xuất khoá vòi — CHỈ đề xuất, KHÔNG làm
+- Mỗi nguồn sinh ở §4: sửa ở đâu (script deploy / cron dọn định kỳ / luật cho agent), quy tắc giữ bằng con số (N bản / D ngày) + lý do. Đúng dạng: "rollback Nuxt giữ 3 bản mới nhất + bản mốc lớn", không chung chung.
 - Chuông đĩa 80% vàng / 90% đỏ — dùng lại công cụ có sẵn (uptime-kuma, cron hiện có) trước khi đề xuất cái mới.
 - Đích (T1–T2 trong `view.html`): trống ≥45GB (≤55%) VÀ tăng ≤3GB/tháng ngoài dữ liệu nghiệp vụ. Nói rõ đạt được không, thiếu bao nhiêu, cần gì thêm.
 
-## 7. Chỗ cho Graph — chỉ ước lượng
+## 8. Chỗ cho Graph — chỉ ước lượng
 Theo Điều 39 (dự thảo): Graph = Apache AGE, extension trong PG hiện có, không thêm DB riêng. Ước lượng: image postgres có AGE; dữ liệu graph dựa trên `universal_edges` (đo bảng + index); biên an toàn. Kết luận: sau dọn có đủ không.
 
-## 8. Báo cáo — ghi TRƯỚC khi trả Owner
-- Sửa KB `knowledge/current-state/reports/vps-clean-minimum-2026-07-24.md`: chèn mục "ĐỢT 2 — 20/09/2026 · VPSC-R1" lên ĐẦU, giữ nguyên phần cũ bên dưới. Không tạo tài liệu KB mới.
-- Thứ tự mục mới: (1) CHO OWNER ≤1 trang: tối đa 3 câu "anh cần quyết gì", mỗi câu kèm đề xuất PM; ma trận hàng = image · build cache · log · deploys/nuxt-output · backup local · công cụ AI · git/repo · PG · Qdrant · khác; cột = Hiện tại GB · Tăng từ 24/07 GB · GB/tháng · Tự dọn? · Thu hồi an toàn GB · Màu (🔴 rò mạnh · 🟡 cảnh báo · 🟢 ổn · ⚪ chưa đo · ✖ không cần); dòng cuối cộng dồn, khớp df. (2) CHO PM: top vòi rò + tiến trình gây ra + đề xuất khoá vòi; manifest đầy đủ. (3) KHO BẰNG CHỨNG: đường dẫn evidence + lệnh đã chạy.
+## 9. Báo cáo — ghi TRƯỚC khi trả Owner
+- Sửa KB `knowledge/current-state/reports/vps-clean-minimum-2026-07-24.md`: chèn mục "ĐỢT 2 — 20/09/2026 · VPSC-R1 · UNVERIFIED_R1" lên ĐẦU, giữ nguyên phần cũ bên dưới. Không tạo tài liệu KB mới.
+- Thứ tự mục mới: (1) CHO OWNER ≤1 trang: tối đa 3 câu "anh cần quyết gì", mỗi câu kèm đề xuất PM; ma trận hàng = nhóm nguồn sinh §4, cột = Hiện tại GB · Tăng từ 24/07 · GB/tháng · Tự dọn? · Thu hồi an toàn GB · Màu (🔴 rò mạnh · 🟡 cảnh báo · 🟢 ổn · ⚪ chưa đo · ✖ không cần); dòng cuối cộng dồn, đối soát với df. (2) CHO PM: Sổ nguồn sinh §4 · backup §5 · manifest §6 · khoá vòi §7 · Graph §8. (3) KHO BẰNG CHỨNG: đường dẫn + INDEX + tổng dung lượng evidence + lệnh đã chạy.
 - Viết để 3 tuần sau đọc vẫn hiểu; không kể nhật ký.
 - df lần cuối: chứng minh không thay đổi gì ngoài thư mục evidence và tài liệu KB. Thư mục evidence thuộc cây git đang theo dõi thì commit, ghi hash; không thì ghi rõ.
-- Trả Owner đúng một dòng: `VPSC-R1-20260920-01: XONG — <3 nguyên nhân chính kèm GB/tháng> · thu hồi an toàn <GB> · KB ĐỢT 2` hoặc `VPSC-R1-20260920-01: DỪNG ở <mục> — lý do ở KB ĐỢT 2`.
+- Trả Owner đúng một dòng: `VPSC-R1-20260920-01: XONG (UNVERIFIED_R1) — <3 nguồn sinh chính kèm GB/tháng> · thu hồi an toàn <GB> · KB ĐỢT 2` hoặc `VPSC-R1-20260920-01: DỪNG ở <mục> — lý do ở KB ĐỢT 2`.
 
-## 9. Sau Agent (không phải việc của Agent)
-Host tự đo lại bằng công cụ của mình (không tin báo cáo), đưa ma trận + danh sách dọn vào `view.html`, lên Owner cần quyết. Dọn + khoá vòi là lượt sau: sửa chính file này, review/READY lại.
+## 10. Sau Agent (không phải việc của Agent)
+VPSC.3: Host tự đo lại bằng công cụ của mình (không tin báo cáo) và lập đề xuất dọn theo nhóm trên `view.html`; GPT (hoặc Codex/Astra do GPT giao) thẩm tra độc lập, PASS/REVISE/BLOCK từng nhóm. VPSC.4: Owner duyệt các nhóm đã PASS. Dọn + khoá vòi là lượt sau: sửa chính file này, review/READY lại.

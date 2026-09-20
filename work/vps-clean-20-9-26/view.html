@@ -18,11 +18,11 @@ small{color:#666}
 </head>
 <body>
 <h1>Dọn đĩa VPS · 20/09/2026</h1>
-<p><span class="tag">DRAFT</span><span class="tag">Bước này chỉ đọc</span><span class="tag">Chưa chạm production</span></p>
+<p><span class="tag">DRAFT</span><span class="tag">Bước 2: kiểm toán, không đụng production</span><span class="tag">Chưa chạm production</span></p>
 
 <div class="box"><strong>Anh cần quyết hôm nay:</strong> đích sau khi dọn — <strong>đĩa trống ≥45GB và mỗi tháng tăng không quá 3GB</strong>. Đề xuất: <strong>gật</strong> (đủ chạy khoảng 1 năm không phải dọn tay). Anh chỉ cần gật hoặc lắc.</div>
 
-<div class="bar" id="TIEN-DO"><span class="now">▶ 1 Mở việc</span><span>□ 2 Khảo sát</span><span>□ 3 Anh duyệt danh sách</span><span>□ 4 Dọn + khoá vòi</span><span>□ 5 Theo dõi, đóng</span></div>
+<div class="bar" id="TIEN-DO"><span class="now">▶ 1 Mở việc</span><span>□ 2 Khảo sát</span><span>□ 3 Kiểm chéo</span><span>□ 4 Anh duyệt</span><span>□ 5 Dọn + khoá vòi</span><span>□ 6 Theo dõi, đóng</span></div>
 
 <h2 id="TINH-HINH">1. Tình hình — không phải mất một nửa, mà đã mất hết</h2>
 <table>
@@ -73,16 +73,18 @@ small{color:#666}
 <thead><tr><th>Việc</th><th>Làm gì</th><th>Ai</th><th>Khi nào</th></tr></thead>
 <tbody>
 <tr><td>VPSC.1</td><td>Mở việc + PROMPT khảo sát chỉ đọc.</td><td>Claude mở · GPT review</td><td>hôm nay</td></tr>
-<tr><td>VPSC.2</td><td>Cân từng góc kho, tìm vòi rò và cái gì sinh ra nó, lập danh sách dọn chia ngăn (xoá an toàn · cách ly trước · cứu trước rồi xoá · giữ). Không xoá gì.</td><td>Claude Code</td><td>ngay sau READY + RUN</td></tr>
-<tr><td>VPSC.3</td><td>Claude tự đo lại (không tin báo cáo), đưa ma trận + danh sách lên trang này; anh duyệt tổng.</td><td>Claude · anh</td><td>sau VPSC.2</td></tr>
-<tr><td>VPSC.4</td><td>Dọn (cứu trước, xoá sau) + khoá vòi, một prompt làm một lần.</td><td>Claude Code</td><td>sau khi anh duyệt và R03 đóng</td></tr>
-<tr><td>VPSC.5</td><td>Theo dõi 2 tuần theo T1–T5 → đóng việc; mở việc Graph.</td><td>Claude</td><td>—</td></tr>
+<tr><td>VPSC.2</td><td>Cân từng góc kho; lập sổ nguồn sinh (cái gì đẻ ra dữ liệu, bao lâu một lần, ai chịu trách nhiệm); kiểm backup; lập danh sách dọn chia ngăn. Không xoá, không đổi gì; báo cáo mang nhãn chưa thẩm tra.</td><td>Claude Code</td><td>ngay sau READY + RUN</td></tr>
+<tr><td>VPSC.3</td><td>Kiểm chéo: Claude tự đo lại (không tin báo cáo) và lập đề xuất dọn theo nhóm; GPT (hoặc Codex/Astra do GPT giao) thẩm tra độc lập, chấm từng nhóm PASS / sửa lại / chặn.</td><td>Claude · GPT</td><td>sau VPSC.2</td></tr>
+<tr><td>VPSC.4</td><td>Anh duyệt các nhóm đã PASS.</td><td>anh</td><td>sau VPSC.3</td></tr>
+<tr><td>VPSC.5</td><td>Dọn (cứu trước, xoá sau) + khoá vòi, một prompt làm một lần.</td><td>Claude Code</td><td>sau khi anh duyệt và R03 đóng</td></tr>
+<tr><td>VPSC.6</td><td>Theo dõi 2 tuần theo T1–T5 → đóng việc; mở việc Graph.</td><td>Claude</td><td>—</td></tr>
 </tbody>
 </table>
 
 <h2 id="KHONG-LAM">6. Không làm ở vòng này</h2>
 <ul>
-<li>Bước 2 không xoá, không sửa, không khởi động lại gì.</li>
+<li>Bước 2 không xoá, không sửa, không khởi động lại gì; chỉ ghi bằng chứng (≤200MB, để trên VPS) và báo cáo KB. Đĩa chạm 90% hoặc còn dưới 8GB thì dừng quét nặng.</li>
+<li>Không diễn tập khôi phục backup trong đợt này (tốn thêm đĩa); chỉ kiểm backup có chạy đều, có đủ bản, file còn nguyên.</li>
 <li>Không dùng lệnh dọn quét sạch (<code>docker system prune -a</code>) ở bất kỳ bước nào.</li>
 <li>Không cài Graph trong việc này. Theo Điều 39 (dự thảo), Graph là Apache AGE chạy ngay trong PostgreSQL hiện có — cần rất ít đĩa; thứ phải sửa là vòi rò. Việc Graph mở riêng khi T1–T2 đạt.</li>
 <li>Không nâng gói VPS: vòi rò ~13GB/tháng thì ổ lớn cỡ nào cũng đầy.</li>
