@@ -8,7 +8,7 @@ HTML chính: `view.html`
 VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/5 | DRAFT | NEXT: GPT review PROMPT.md | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R1-20260920-01` · khảo sát CHỈ ĐỌC · DRAFT.
-- PROMPT_SHA: SAME_COMMIT (Host ghi hash thật ngay sau commit mở việc).
+- **PROMPT_SHA = e50e95cb57e9d3cf527ef8e4c45fe81bb2e266f7** (commit cuối chạm `PROMPT.md`; REVIEWED/READY theo đúng mã này).
 
 ## Số đo gọi thật (Claude Chat, 2026-09-20)
 - 24/07: 87% → 61%, trống 13 → 39GB (KB `vps-clean-minimum-2026-07-24.md`).
