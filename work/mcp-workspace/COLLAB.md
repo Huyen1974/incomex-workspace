@@ -5,14 +5,14 @@ Host: GPT · Owner giao: 2026-09-20
 Mục tiêu cuối: GPT/Claude edit tự nhiên và ổn định qua MCP trên Git workspace + vùng VPS được phép ghi; kết thúc kết nối để quay lại công việc nghiệp vụ.
 
 ## R03 — trạng thái hiện hành
-R03 | FINAL-CLOSE E1–E4 | READY | NEXT: Claude Code RUN | BLOCK: —
+R03 | FINAL-CLOSE E1–E4 | RUN | NEXT: Claude Code → MACHINE_DONE | BLOCK: —
 
 - Repo đã tái cấu trúc: root chỉ còn `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 - Toàn bộ việc này nằm tại `work/mcp-workspace/`; test/chứng tích không còn rải ở root.
-- PROMPT hiện hành: `work/mcp-workspace/PROMPT.md`.
-- **PROMPT_SHA = de45f4ecbe2d19a1327bcd8dccb6e1eab74123a4**.
-- READY cũ `8114352...` hết hiệu lực vì PROMPT đã đổi path/nội dung theo chỉ đạo Owner.
-- Phạm vi repair vẫn khóa: chỉ lỗi #24 tên sinh đôi D1–D4; không thêm capability/tool/schema.
+- PROMPT hiện hành: `work/mcp-workspace/PROMPT.md` · `R03-FINAL-CLOSE-20260920-01`.
+- **PROMPT_SHA = d15eac28b2f8a843e2a4b267cee988fbf44446ba**.
+- **APPROVAL_COMMIT_SHA = cf2a6ef3ce700c8fdcdb9ad959c812540c66334b**.
+- Đây là lượt backend cuối E1–E4; không thêm capability/tool/schema. Sau `MACHINE_DONE` backend đóng băng tới hết nghiệm thu client.
 
 ## Client cuối — đã chốt
 - ChatGPT Pro hiện tại của Owner **không có Refresh app**.
@@ -35,7 +35,7 @@ Cùng một bài 9 bước tại `work/mcp-workspace/_thu-nghiem/R03/<surface>/`
 VPS: GPT và Claude cùng ghi → sửa → đọc lại tại root `ui`, path `_thu-nghiem/R03/`, rồi CROSS hai chiều. Không chạm mã/runtime VPS.
 
 ## Run Claude Code đang hoạt động — bridge sau tái cấu trúc
-P16 | GPT Host | ACTIVE — GRANDFATHER CURRENT RUN
+P16 | GPT Host | CLOSED — previous NAME-TWIN run MACHINE_DONE
 - Run Claude Code hiện tại đã vượt đủ gate hợp lệ theo PROMPT_SHA `8114352e5599b826657dcd302fd4cbdf0155049d` **trước** khi repo được tái cấu trúc; không restart, không bỏ audit/red tests/patch đang làm.
 - Phạm vi kỹ thuật không đổi: chỉ repair #24 D1–D4; không thêm capability/tool/schema. Các gate khởi động cũ vẫn được chấp nhận cho **run đang chạy duy nhất này**.
 - **Trước deploy/live smoke hoặc ghi vào workspace**, Agent phải đọc lại remote hiện hành `AGENTS.md` + `work/mcp-workspace/COLLAB.md`. Từ thời điểm đó mọi path workspace/test dùng cấu trúc mới: `work/mcp-workspace/_thu-nghiem/R03/`; tuyệt đối không tạo lại `_thu-nghiem/`, prompt/test/evidence/archive ở root.
@@ -46,7 +46,7 @@ P16 | GPT Host | ACTIVE — GRANDFATHER CURRENT RUN
 - PROMPT: `R03-FINAL-CLOSE-20260920-01`
 - GPT Founder REVIEWED@d15eac28b2f8a843e2a4b267cee988fbf44446ba — ACCEPT E1–E4; không thêm capability/tool/schema.
 - GPT Host READY@d15eac28b2f8a843e2a4b267cee988fbf44446ba.
-- RUN: chờ commit giấy phép này có thật trong Git; sau đó phát RUN kèm `APPROVAL_COMMIT_SHA`.
+- RUN: ACTIVE — `PROMPT_SHA=d15eac28b2f8a843e2a4b267cee988fbf44446ba` · `APPROVAL_COMMIT_SHA=cf2a6ef3ce700c8fdcdb9ad959c812540c66334b`.
 
 ## Claude review
 P15 | GPT | OPEN

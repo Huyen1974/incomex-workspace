@@ -7,7 +7,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/mcp-workspace/` · R03 · chốt MCP Git + VPS để quay lại công việc nghiệp vụ.
 - `work/jev-integration/` · PLAN-V01 · mở việc, đang lấy ý kiến hội đồng; chưa RUN triển khai.
 - `work/hermes-joint-workspace/` · HJW · Claude mở việc, chờ GPT review; nối Hermes khi R03 MACHINE_DONE.
-- NEXT: Claude Code run hiện tại tiếp tục theo bridge P16 tại `work/mcp-workspace/COLLAB.md` (commit `3117f3a247d41d6023683c9a1ea8ac6b8382b5ff`) → MACHINE_DONE → tạo/connect MCP app mới một lần → nghiệm thu cuối.
+- NEXT: Claude Code chạy `R03-FINAL-CLOSE-20260920-01` với `PROMPT_SHA=d15eac28b2f8a843e2a4b267cee988fbf44446ba`, `APPROVAL_COMMIT_SHA=cf2a6ef3ce700c8fdcdb9ad959c812540c66334b` → MACHINE_DONE/backend freeze → tạo/connect MCP app mới đúng một lần → nghiệm thu cuối.
 
 ## Quyết định Owner
 - DROOT01 · 2026-09-20 · Mọi công việc nằm dưới `work/<work-id>/`; không đặt prompt/test/evidence/archive của công việc ở root.
