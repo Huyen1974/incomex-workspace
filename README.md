@@ -5,7 +5,7 @@ Commit từ GPT workspace dùng tác giả "AI via Incomex Workspace"; connector
 
 GPT dùng app MCP AgentData đang hiện hành, root `workspace`: đọc cửa sổ nhỏ → exact edit với expected_version → commit/push → kiểm diff. Tên app · tool count · build/fingerprint của từng client là TRẠNG THÁI, ghi ở `COLLAB.md` của đúng công việc; README không chép các số đó vì chúng cũ nhanh. File lớn hoặc HTML một dòng dùng workspace_read/search/edit; GitHub native chỉ để đọc/duyệt (D12: AI không ghi qua đường này).
 
-**Cấu trúc repo dài hạn:** root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`; mọi công việc nằm ở `work/<work-id>/`. Test/chứng tích/archive phải nằm trong đúng thư mục công việc, không rải ở root.
+**Cấu trúc repo dài hạn:** root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`; mọi công việc nằm ở `work/<work-id>/`. Test/chứng tích/archive phải nằm trong đúng thư mục công việc, không rải ở root. **Cổng nghiệp vụ bắt buộc** theo `AGENTS.md#A0_OBJECTIVE`: `COLLAB.md` của mỗi việc phải mở đầu bằng mục tiêu/nhiệm vụ User đã xác nhận; chưa xác nhận thì chưa được lập kế hoạch hay thực thi.
 
 **Client binding:** trên tài khoản ChatGPT Pro hiện tại của Owner không có Refresh app. Chỉ sau khi server/tool/schema/build đã chốt mới tạo **một MCP app mới** trỏ đúng server hiện hữu, giữ nguyên URL/auth/secret, Scan Tools một lần và đối chiếu tool + schema + metadata/build với catalog trước khi Owner Connect bằng tay. Giữ app cũ làm rollback cho tới khi app mới PASS nghiệm thu thật. Phía Claude: reconnect connector và mở phiên mới khi cần. Thiếu công cụ phải kiểm client binding trước khi kết luận server thiếu.
 

@@ -1,6 +1,11 @@
 # COLLAB — vps-clean-20-9-26
 
-Việc: đĩa VPS đầy lại nhanh sau đợt dọn 24/07 → tìm vòi rò, dọn phần không dùng, khoá vòi, chừa chỗ cho Graph.
+## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
+- Mục tiêu: dọn VPS an toàn, không làm hỏng cơ chế hiện tại; tìm nguyên nhân ổ đĩa phình nhanh và đề xuất/xử lý cách chặn tăng trưởng để có chỗ cho công việc tiếp theo.
+- Nhiệm vụ/phạm vi: khảo sát trước, không mutation production ở vòng R1; Claude đề xuất, GPT/Codex kiểm chéo kỹ trước khi Owner duyệt bất kỳ dọn/xoá thật nào.
+- Tiêu chí xong: xác định được nguồn tăng dung lượng với bằng chứng, có phương án dọn + khoá vòi được kiểm chéo; mọi mutation chỉ diễn ra sau đúng cổng duyệt và có đường rollback/cứu trước xoá.
+- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20; D01 và yêu cầu an toàn/kiểm chéo của việc này.
+
 Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Owner 2026-09-20
 HTML chính: `view.html`
 

@@ -1,6 +1,11 @@
 # COLLAB — mow-mot-moit-mout
 
-Việc: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ file gốc Owner giao; gom tài liệu liên quan vào một kho thông tin có tổ chức để phục vụ rà soát và phát triển tiếp.
+## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
+- Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
+- Nhiệm vụ/phạm vi hiện tại: giữ nguyên file gốc; tạo `information/`, khảo sát/phân loại và copy các file cần thiết từ `/Users/nmhuyen/Desktop/quy trình`; chưa sửa nội dung HTML chính ở lượt gom tài liệu.
+- Tiêu chí xong của lượt hiện tại: tài liệu liên quan được copy có kiểm hash/mục lục, nguồn Mac không bị xoá/di chuyển, file gốc không bị sửa.
+- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20; D01–D05 của việc này.
+
 Host: GPT Chat · Host_ID: GPT-MMIM-260920-A · Owner giao: 2026-09-20
 HTML chính: `mow-mot-moit-mout.html`
 File gốc Owner giao: `mow-mot-moit-mout.html` · SHA-256 `f4aac30c492f104ec54ff7a03ace54ce70d802e2dd49a417ad9b7285897a050c` · import nguyên byte ở commit `569bb74300a15d05e455bf917fe4058f7f7fd499`.

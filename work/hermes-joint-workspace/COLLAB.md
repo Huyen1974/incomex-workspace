@@ -1,5 +1,11 @@
 # COLLAB — Hermes Joint Workspace
 
+## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
+- Mục tiêu: đưa Hermes vào workspace như một thành viên của hội đồng cùng GPT và Claude để cùng tham gia công việc theo lệnh điều hành.
+- Nhiệm vụ/phạm vi: kết nối Hermes qua Agent Data đang có, nghiệm thu khả năng làm việc chung an toàn; không mở đường ghi thứ ba hay đưa tài khoản GitHub Owner lên VPS.
+- Tiêu chí xong: Hermes đọc/ghi/chéo được theo cùng cơ chế đã audit, nghiệm thu T1–T6 đạt rồi mới cập nhật luật gốc về hội đồng 3 thành viên.
+- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20; DROOT02 và D01–D04 của việc này.
+
 Hội đồng: GPT · Claude · Hermes (Owner quyết 2026-09-20, ghi ở COLLAB gốc DROOT02). Trước mắt làm việc: GPT + Claude; Hermes vào khi HJW.3 PASS.
 Host: Claude Chat · Host_ID: CLAUDE-HJW-260920-A · mở việc theo lệnh Owner 2026-09-20
 HTML chính: `view.html`

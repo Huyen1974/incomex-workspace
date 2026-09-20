@@ -1,8 +1,13 @@
 # COLLAB — mcp-workspace
 
+## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
+- Mục tiêu: GPT và Claude có thể làm việc tự nhiên, ổn định qua MCP trên Git workspace và vùng VPS được phép ghi, không vào việc rồi mới phát hiện thiếu công cụ; kết thúc phần kết nối để quay lại công việc chính.
+- Nhiệm vụ/phạm vi: hoàn thiện/bind client, kiểm các thao tác thực tế thông thường cần cho công việc dài hạn và giữ backend an toàn; ca quá đặc biệt có thể giao Agent khi phát sinh.
+- Tiêu chí xong: GPT/Claude đọc–tạo–sửa–tìm–diff–copy/move thư mục và phối hợp Git/VPS ổn định bằng MCP; client hiện hành bind đúng; không còn blocker thông thường khi bắt đầu việc mới.
+- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner nhắc lại nhiều lần ngày 2026-09-20, gần nhất yêu cầu kiểm lần cuối để bắt tay vào việc.
+
 Founders: GPT Chat + Claude Chat
 Host: GPT · Owner giao: 2026-09-20
-Mục tiêu cuối: GPT/Claude edit tự nhiên và ổn định qua MCP trên Git workspace + vùng VPS được phép ghi; kết thúc kết nối để quay lại công việc nghiệp vụ.
 
 ## R03 — trạng thái hiện hành
 R03 | CLIENT-ONLY FINAL ACCEPTANCE | GPT PASS | NEXT: Claude reconnect/open phiên mới + smoke tối thiểu → CROSS → CLOSED | BLOCK: —

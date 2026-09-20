@@ -3,6 +3,13 @@
 **Luật phối hợp chung — FOUNDERS_CONSENSUS_V1 (GPT Chat + Claude Chat), 18/09/2026.**
 `AGENTS.md` quy định vai trò/workflow. [`README.md`](README.md), mục **Shared Workspace Technical Contract**, quy định cơ chế kỹ thuật. `COLLAB.md` của từng project giữ trạng thái hiện hành. Không chép cùng một luật sang nhiều nơi.
 
+## A0_OBJECTIVE — Cổng mục tiêu/nhiệm vụ User (BẮT BUỘC trước mọi việc)
+- Trong quy trình này, **User giao việc = Owner**. Mỗi `work/<work-id>/COLLAB.md` phải có **khối đầu tiên ngay sau tiêu đề** tên `## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC`, gồm tối thiểu: `Mục tiêu`, `Nhiệm vụ/phạm vi`, `Tiêu chí xong`, `Xác nhận User`.
+- **AI mở việc / AI được giao soạn thảo** có trách nhiệm nhắc lại mục tiêu + nhiệm vụ cho User và nhận **xác nhận rõ ràng của User** trước khi bắt đầu lập kế hoạch, thảo luận phương án, tạo `PROMPT.md`, phát RUN hoặc thực thi. Trước khi được xác nhận, AI chỉ được ghi nhận yêu cầu và hỏi/làm rõ dữ kiện cần thiết; không được tự suy diễn mục tiêu hay đi tiếp sang kế hoạch/thực thi.
+- Bất kỳ AI nào được chỉ định tham gia một việc đều phải đọc `AGENTS.md` rồi đọc **khối mục tiêu/nhiệm vụ ở đầu `COLLAB.md` của việc đó trước tiên**. Nếu `Xác nhận User = CHƯA XÁC NHẬN` thì dừng tại cổng A0.
+- Nếu User đổi mục tiêu/nhiệm vụ/phạm vi, Host phải cập nhật khối A0 của việc và xác nhận lại với User trước khi tiếp tục. Kế hoạch/PROMPT/READY/RUN nào mâu thuẫn với mục tiêu mới thì mất hiệu lực và phải rà lại.
+- Không được đẩy khối mục tiêu xuống dưới phần kế hoạch/trạng thái; mục tiêu của User luôn là phần nghiệp vụ đầu tiên mọi AI nhìn thấy trong từng thư mục công việc.
+
 ## A1_ENTRY — Cửa vào
 - Chat/Agent không được giả định đã tự nạp luật. Khi nhận câu `WS <thư mục|gốc> · <Host|Review> · <việc> · đọc AGENTS.md → <COLLAB.md>`, đọc file này trước, rồi `COLLAB.md` của project, sau đó chỉ đọc đúng scope cần làm.
 - Tài liệu chính là sản phẩm; `COLLAB.md` là trạng thái; Git giữ lịch sử; `PROMPT.md` chỉ có khi thật sự cần giao Agent.

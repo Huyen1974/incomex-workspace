@@ -1,5 +1,11 @@
 # COLLAB — JEV Integration
 
+## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
+- Mục tiêu: tích hợp JEV vào môi trường làm việc để phục vụ OpenAI trước, sau đó tái dùng cùng nền cho Claude, tránh dựng hai hệ riêng.
+- Nhiệm vụ/phạm vi: Bước 1 cho GPT Work + Codex và ChatGPT Chat nếu hỗ trợ; Bước 2 cho Claude Code CLI + Claude/Cowork + Claude Chat nếu hỗ trợ; phần nền dùng chung phải được chuẩn bị từ Bước 1.
+- Tiêu chí xong: kiến trúc/kế hoạch được hội đồng và User chốt trước RUN; triển khai từng bước dùng chung backend, không nhân đôi hạ tầng không cần thiết.
+- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20; D01–D02 của việc này.
+
 Host: GPT Chat
 Host_ID: GPT-JEV-20260920-A
 Owner giao mở việc: 2026-09-20
