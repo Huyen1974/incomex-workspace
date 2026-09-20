@@ -5,7 +5,7 @@ Host: GPT · Owner giao: 2026-09-20
 Mục tiêu cuối: GPT/Claude edit tự nhiên và ổn định qua MCP trên Git workspace + vùng VPS được phép ghi; kết thúc kết nối để quay lại công việc nghiệp vụ.
 
 ## R03 — trạng thái hiện hành
-R03 | CLIENT-ONLY FINAL ACCEPTANCE | BACKEND FROZEN | NEXT: tạo 1 app GPT mới → Scan → Owner Connect → 9 bước + VPS/CROSS → CLOSED | BLOCK: —
+R03 | CLIENT-ONLY FINAL ACCEPTANCE | GPT PASS | NEXT: Claude reconnect/open phiên mới + smoke tối thiểu → CROSS → CLOSED | BLOCK: —
 
 - Repo đã tái cấu trúc: root chỉ còn `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 - Toàn bộ việc này nằm tại `work/mcp-workspace/`; test/chứng tích không còn rải ở root.
@@ -40,6 +40,9 @@ PASS Scan khi đồng thời:
 Thiếu **một** mục: DỪNG trước Connect, không tạo app thứ hai, không để Owner test bằng tay. E3 `upload_begin` chặn tên sinh đôi là behavior backend, phải PASS trong MACHINE_DONE; không suy từ Scan schema.
 
 Cổng tương ứng phía Claude (Chat + Code), sau khi ngắt/kết nối lại và mở chat/phiên MỚI: `vps_status` mục readiness = build KB §13.11.3 · 23 tool · vân tay `4f1000e9aad3`; công cụ tải được có `fs_list.ref`, `fs_read.ref`, `fs_diff.from_version` + `to_version`, `fs_move.expected_version`; mô tả `fs_edit` nêu `replace_all`/`expected_count`. Thiếu ⇒ ngắt/kết nối lại rồi mở chat mới, không phải lỗi máy chủ.
+
+## GPT client mới — PASS thực tế
+App `Incomex MCP full all 2` bind thật 37 tools; app cũ không bind. Schema mới có `ref`, `replace_all/expected_count`, `from_ref/to_ref`, transaction `restore`, directory tree-version. GPT Chat đã gọi thật: create → replace_all(2) → diff theo ref → copy directory → move directory → read-back; tất cả PASS. VPS `ui`: create → edit → read-back PASS. App GPT mới đủ dùng công việc thường ngày; không kiểm thêm ca hiếm nếu không có lỗi thực tế.
 
 ## Nghiệm thu cuối sau client mới
 Cùng một bài 9 bước tại `work/mcp-workspace/_thu-nghiem/R03/<surface>/` cho GPT Chat, GPT Work, Claude Chat, Claude Code:
