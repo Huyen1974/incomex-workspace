@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | PROMPT_REVISED · OLD_READY_INVALID | NEXT: Host READY lại PROMPT rồi RUN lại MMIM.2; KHÔNG sửa HTML chính.
+MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | READY · RUN_OWNER_REISSUED | NEXT: Codex chạy MMIM.2 theo PROMPT mới; KHÔNG sửa HTML chính.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -41,8 +41,8 @@ Reviewer: Claude Chat · Based_on `39cc96d` / commit review `f5f97fc`. Host GPT 
 - —
 
 ## Giao Agent
-- READY@`6db6d6e31319008161e8b10f1e22b55b0a2b8f02` · **HẾT HIỆU LỰC** vì PROMPT đã sửa theo P02–P05.
-- RUN cũ cũng không dùng cho bản prompt mới cho tới khi Host đặt READY mới.
+- READY@`7d8e1df9e50cfdd5a4b7cfaf8c66cad9343e26f3` · commit cuối chạm `PROMPT.md` sau xử lý P02–P05.
+- RUN · GPT phát lại theo ủy quyền Owner hiện hành, đúng phạm vi D04–D07; thay RUN cũ đã mất hiệu lực khi prompt đổi.
 
 ## NEXT
-- Host lấy commit cuối chạm PROMPT mới → đặt READY mới → truyền RUN lại trong đúng phạm vi D04–D07.
+- Codex đọc AGENTS → COLLAB → PROMPT, kiểm READY SHA rồi thực hiện MMIM.2. Không sửa HTML chính, không đổi Owner View.
