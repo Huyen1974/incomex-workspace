@@ -8,7 +8,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | MOW–MOT–MOIT–MOUT | bước 1/2 | SOURCE_READY · PROMPT_DRAFT | NEXT: chốt READY rồi giao Codex khảo sát `/Users/nmhuyen/Desktop/quy trình`, đề xuất cấu trúc và copy tài liệu cần thiết vào `information/`; KHÔNG sửa HTML chính.
+MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | READY · RUN_OWNER | NEXT: Codex chạy MMIM.2 theo `PROMPT.md`; KHÔNG sửa HTML chính.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -19,10 +19,14 @@ MMIM | MOW–MOT–MOIT–MOUT | bước 1/2 | SOURCE_READY · PROMPT_DRAFT | NE
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
-- MMIM.2 | Codex khảo sát thư mục nguồn, đề xuất cấu trúc `information/`, copy + kiểm hash + lập mục lục | □ sau READY/RUN
+- MMIM.2 | Codex khảo sát thư mục nguồn, đề xuất cấu trúc `information/`, copy + kiểm hash + lập mục lục | ▶ READY/RUN
 
 ## Owner cần quyết
 - —
 
+## Giao Agent
+- READY@`6db6d6e31319008161e8b10f1e22b55b0a2b8f02` · commit cuối chạm `PROMPT.md`.
+- RUN · Owner giao trực tiếp trong chat ngày 2026-09-20; GPT truyền lệnh trong đúng phạm vi D04–D05.
+
 ## NEXT
-- Host chốt `READY@<SHA của commit cuối chạm PROMPT.md>`, sau đó RUN Codex theo `PROMPT.md`.
+- Codex đọc AGENTS → COLLAB → PROMPT, kiểm READY SHA rồi thực hiện MMIM.2.
