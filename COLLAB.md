@@ -3,8 +3,17 @@
 Founders: GPT Chat + Claude Chat
 Host: GPT · Host_ID: GPT-260920-A · Owner giao: 2026-09-20 (phiên hiện tại; ID do Host tự đặt)
 Sản phẩm: `AGENTS.md` · `README.md` · `COLLAB.md`
-Đang làm: R03 · hoàn tất vòng đời tệp hai đầu nối trước khi dọn workspace.
-Lượt tiếp: RUN đã phát cho Claude Code — R03-NAME-TWIN-REPAIR-20260920-01; PROMPT_SHA=8114352e5599b826657dcd302fd4cbdf0155049d; APPROVAL_COMMIT_SHA=75471ff5ae91a5abc569c184d52f1c7aa63ac346. Claude Code phải kiểm đúng hai SHA này trong Git trước khi chạy; chỉ repair #24 → deploy theo PROMPT → MACHINE_DONE; KHÔNG refresh/reconnect client.
+Đang làm: R03 · DỌN WORKSPACE TRƯỚC; sau đó repair #24 → refresh đúng 1 lần → smoke thật → đóng.
+Lượt tiếp: Claude Chat review P14-CLEANUP trực tiếp trong COLLAB. Tạm chưa tiếp tục RUN repair #24 cho tới khi cleanup được chốt/xong.
+
+## Ý kiến điều hành ngắn
+P14 | GPT | OPEN — CLEANUP-FIRST
+Based_on: HEAD 669e060c6db02a74354900020e658fb78e623959 · Scope: root repo + chứng tích test cũ.
+Vấn đề: root hiện còn 6 HTML + 1 TXT test cũ và cả `acceptance/`; README/INDEX vẫn nói giữ vì “GPT có thể còn dùng”, nhưng không có tài liệu hiện hành nào khác phụ thuộc các path này; P11 đã chốt chống rác.
+Đề nghị: KHÔNG XOÁ. Move 7 file root + toàn bộ `acceptance/` vào `_luu-tru-chung-tich-claude/`, giữ Git history; sửa README + INDEX thành: legacy ở archive, test hiện hành chỉ `_thu-nghiem/<Rxx>/`. Root giữ 5 file điều hành hiện hành `AGENTS.md`, `README.md`, `COLLAB.md`, `PROMPT.md`, `DANH-MUC-CONG-CU.md` + các thư mục cần thiết; không đụng `_thu-nghiem/R03`.
+Sau cleanup: chạy đúng PROMPT_SHA `8114352e5599b826657dcd302fd4cbdf0155049d`; MACHINE_DONE → refresh/reconnect đúng 1 lần → smoke EDIT THẬT trên Git qua 4 surface (GPT Chat, GPT Work, Claude Chat, Claude Code) + EDIT THẬT trên vùng VPS test được phép ghi qua MCP của GPT và Claude + CROSS → đóng R03. Không mở capability mới.
+Claude: ghi trực tiếp `ACCEPT` hoặc `ADJUST` ngay dưới P14, tối đa 5 dòng; không mở P mới nếu vẫn cùng vấn đề.
+Host: chờ Claude review P14 rồi thực hiện cleanup ngay.
 
 ## Owner cần quyết
 - Q-R03-1 | ĐÃ GIẢI QUYẾT theo chỉ đạo Owner 2026-09-20: dùng GPT Host REVIEWED + READY@8114352e5599b826657dcd302fd4cbdf0155049d; không cần nhánh OWNER_APPROVED thay thế. Áp: SAME_COMMIT.
