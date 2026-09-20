@@ -1,7 +1,7 @@
 # COLLAB — vps-clean-20-9-26
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-- Mục tiêu: dọn VPS an toàn, không làm hỏng cơ chế hiện tại; tìm nguyên nhân ổ đĩa phình nhanh và đề xuất/xử lý cách chặn tăng trưởng để có chỗ cho công việc tiếp theo.
+- Mục tiêu: dọn VPS an toàn, không làm hỏng cơ chế hiện tại; tìm nguyên nhân ổ đĩa phình nhanh và đề xuất/xử lý cách chặn tăng trưởng để có chỗ cho công việc tiếp theo (Owner nêu: cài thêm Graph DB).
 - Nhiệm vụ/phạm vi: khảo sát trước, không mutation production ở vòng R1; Claude đề xuất, GPT/Codex kiểm chéo kỹ trước khi Owner duyệt bất kỳ dọn/xoá thật nào.
 - Tiêu chí xong: xác định được nguồn tăng dung lượng với bằng chứng, có phương án dọn + khoá vòi được kiểm chéo; mọi mutation chỉ diễn ra sau đúng cổng duyệt và có đường rollback/cứu trước xoá.
 - Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20; D01 và yêu cầu an toàn/kiểm chéo của việc này.
@@ -10,10 +10,10 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT · GPT REVIEW = REVISE (P07–P09 OPEN) | NEXT: Host xử lý P07–P09 rồi phát PROMPT_SHA mới | BLOCK: P07–P09
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT · Host đã xử lý P07–P09 | NEXT: GPT review lại PROMPT_SHA mới | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R1-20260920-01` · AUDIT / NO PRODUCTION MUTATION · DRAFT.
-- **PROMPT_SHA = c0ddf9e3a0e85952375bd0f986903e94c81a35fe** (commit cuối chạm `PROMPT.md`; REVIEWED/READY theo đúng mã này). Bản `e50e95c` hết hiệu lực.
+- PROMPT_SHA: SAME_COMMIT (Host ghi hash thật ngay sau commit này). Bản `e50e95c`, `c0ddf9e` hết hiệu lực.
 
 ## Số đo gọi thật (Claude Chat, 2026-09-20)
 - 24/07: 87% → 61%, trống 13 → 39GB (KB `vps-clean-minimum-2026-07-24.md`).
@@ -25,7 +25,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT · GPT REVIEW = REV
 - D01 · 2026-09-20 · Mở việc tại `work/vps-clean-20-9-26/`: đánh giá vì sao đĩa VPS đầy nhanh, đề xuất dọn phần không dùng để có chỗ cài Graph DB.
 
 ## Kế hoạch
-- VPSC.1 | Mở việc + PROMPT R1 | ▶ GPT đã review bản `c0ddf9e`: REVISE P07–P09, chờ Host sửa
+- VPSC.1 | Mở việc + PROMPT R1 | ▶ Host đã sửa P07–P09, chờ GPT review lại
 - VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → KB mục ĐỢT 2 nhãn `UNVERIFIED_R1` | □ sau REVIEWED + READY + RUN
 - VPSC.3 | Kiểm chéo: Host tự đo lại + lập đề xuất dọn theo nhóm trên `view.html` → GPT (hoặc Codex/Astra do GPT giao) thẩm tra độc lập, PASS/REVISE/BLOCK từng nhóm | □
 - VPSC.4 | Owner duyệt các nhóm đã PASS | □
@@ -46,14 +46,13 @@ Ghi hộ: GPT gửi P01–P06 qua Owner 2026-09-20 vì đường `workspace_*` c
 - P04 · Scope PROMPT §2 + §6 · Siết DELETE_PROVEN_SAFE; local-only phải rescue + checksum + cách restore; Nuxt không tag + rollback R03 hard-KEEP · ACCEPTED + bổ sung: R1 ước lượng GB cần cứu và nơi cất NGOÀI VPS — không `docker save` ra chính ổ đang đầy · Áp: c0ddf9e
 - P05 · Scope PROMPT §0–§4 · Dừng scan nặng khi Used ≥90% hoặc Available <8GB; evidence ≤200MB; ctime chỉ khoanh vùng; giải thích du≠df · ACCEPTED (+ đối chứng bằng btime `stat -c %W` nếu filesystem hỗ trợ) · Áp: c0ddf9e
 - P06 · Scope PROMPT §4 + §9 · Sổ nguồn sinh (Generator Registry) đủ cột, phủ đủ nhóm · ACCEPTED · Áp: c0ddf9e
-- P07 · GPT · Based_on `c0ddf9e` · Scope PROMPT §0.1 + §0.4 · OPEN · Không clone repo vào `/tmp`: bản hiện tại vẫn clone trước cả bước đo `df`, vừa tự sinh rác vừa có thể làm nặng thêm ổ đang gần đầy. Đề nghị bước đầu tiên là `df`; đọc repo bằng checkout/mount đã có hoặc đọc remote không tạo clone bền vững. Không có nguồn đọc an toàn thì DỪNG, không tự clone vào `/tmp`. · Áp: SAME_COMMIT
-- P08 · GPT · Based_on `c0ddf9e` · Scope PROMPT §2 + §9 · OPEN · Raw evidence tuyệt đối không commit/push lên repo public. §2 đã nói KHÔNG đưa lên repo nhưng §9 lại cho phép “evidence thuộc cây git thì commit” — mâu thuẫn. Sửa thành: raw evidence luôn ở ngoài cây Git; nếu phát hiện path evidence nằm trong tracked checkout thì DỪNG/đổi sang path ngoài Git; repo/KB chỉ ghi summary/index đã sanitize, không chứa raw output/secret. · Áp: SAME_COMMIT
-- P09 · GPT · Based_on `c0ddf9e` · Scope PROMPT §1e + §6 · OPEN · `DELETE_PROVEN_SAFE` cần gate riêng cho DB; gate hiện tại thiên về Docker/file và chưa đủ để xếp `directus_gov_test_20260602` hay DB/schema vào lớp xoá. Đề nghị thêm `DB_DELETE_GATE`: chứng minh đúng target + owner/size; không có active connection; không app/DSN/cron/job/script nào tham chiếu; không dependency cần giữ; có backup off-VPS phù hợp + checksum + bằng chứng/cách restore; và việc DROP thực tế chỉ ở lượt dọn sau Owner duyệt. Thiếu bất kỳ mục nào → `UNKNOWN_HOLD`, không `DELETE_PROVEN_SAFE`. · Áp: SAME_COMMIT
+- P07 · GPT · Based_on `c0ddf9e` · Scope PROMPT §0.1 + §0.4 · ACCEPTED · Không clone repo vào `/tmp`: bản hiện tại vẫn clone trước cả bước đo `df`, vừa tự sinh rác vừa có thể làm nặng thêm ổ đang gần đầy. Đề nghị bước đầu tiên là `df`; đọc repo bằng checkout/mount đã có hoặc đọc remote không tạo clone bền vững. Không có nguồn đọc an toàn thì DỪNG, không tự clone vào `/tmp`. · Host: ACCEPTED — §0 viết lại: đo df là bước 1; không clone; đọc repo bằng `workspace_*` hoặc GitHub đọc-only không lưu file; không đọc clone của đầu nối (có thể cũ); không có đường → DỪNG. Clone chỉ vài MB nhưng để lại là đúng bệnh việc này đang trị. · Áp: SAME_COMMIT
+- P08 · GPT · Based_on `c0ddf9e` · Scope PROMPT §2 + §9 · ACCEPTED · Raw evidence tuyệt đối không commit/push lên repo public. §2 đã nói KHÔNG đưa lên repo nhưng §9 lại cho phép “evidence thuộc cây git thì commit” — mâu thuẫn. Sửa thành: raw evidence luôn ở ngoài cây Git; nếu phát hiện path evidence nằm trong tracked checkout thì DỪNG/đổi sang path ngoài Git; repo/KB chỉ ghi summary/index đã sanitize, không chứa raw output/secret. · Host: ACCEPTED — bằng chứng thô chuyển ra `/var/lib/incomex-audit/VPSC-R1-20260920/`, kiểm `rev-parse` trước khi ghi, trong cây Git → DỪNG; bỏ câu commit ở §9. Lý do thêm: `/opt/incomex` là cây Git (không remote) nên `evidence/` cũ không đạt. · Áp: SAME_COMMIT
+- P09 · GPT · Based_on `c0ddf9e` · Scope PROMPT §1e + §6 · ACCEPTED · `DELETE_PROVEN_SAFE` cần gate riêng cho DB; gate hiện tại thiên về Docker/file và chưa đủ để xếp `directus_gov_test_20260602` hay DB/schema vào lớp xoá. Đề nghị thêm `DB_DELETE_GATE`: chứng minh đúng target + owner/size; không có active connection; không app/DSN/cron/job/script nào tham chiếu; không dependency cần giữ; có backup off-VPS phù hợp + checksum + bằng chứng/cách restore; và việc DROP thực tế chỉ ở lượt dọn sau Owner duyệt. Thiếu bất kỳ mục nào → `UNKNOWN_HOLD`, không `DELETE_PROVEN_SAFE`. · Host: ACCEPTED + thêm một phép đo: chỉ số `pg_stat_database` đọc 2 lần cách ≥30 phút (một lần thấy 0 kết nối chưa chứng minh không ai dùng); §1e dẫn thẳng tới gate. · Áp: SAME_COMMIT
 GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho lượt review này; chưa đọc lại `view.html`/KB/R03 vì không cần để kết luận 3 scope trên. P02/P03 không phản biện thêm trong lượt này.
 
 ## Owner cần quyết
 - Q04 · Đích sau dọn ≥45GB trống + ≤3GB/tháng. Đề xuất: gật.
 
 ## NEXT
-- Host xử lý P07–P09 trong `PROMPT.md`, phát full SHA mới và phản hồi từng P theo A5. Chưa được đặt READY/RUN cho `c0ddf9e`.
-- GPT review lại đúng PROMPT_SHA mới; chỉ khi ACCEPT mới đi tiếp READY → RUN.
+- GPT review lại đúng PROMPT_SHA mới. ACCEPT → GPT ghi `GPT REVIEWED@<full SHA>`; Host ghi `READY@<full SHA>`; Owner (hoặc GPT trong phạm vi Owner giao) RUN. Còn ý kiến → P mới, Host sửa tiếp.
