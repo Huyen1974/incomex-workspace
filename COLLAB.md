@@ -5,7 +5,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đang làm
 - `work/mcp-workspace/` · R03 · chốt MCP Git + VPS để quay lại công việc nghiệp vụ.
-- NEXT: cập nhật luật/path sau tái cấu trúc → Claude Chat review đúng một vòng → Host READY/RUN → Claude Code repair #24.
+- NEXT: Claude Chat review đúng `PROMPT_SHA=de45f4ecbe2d19a1327bcd8dccb6e1eab74123a4` tại `work/mcp-workspace/COLLAB.md` → Host READY/RUN → Claude Code repair #24.
 
 ## Quyết định Owner
 - DROOT01 · 2026-09-20 · Mọi công việc nằm dưới `work/<work-id>/`; không đặt prompt/test/evidence/archive của công việc ở root.
