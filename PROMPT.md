@@ -2,11 +2,11 @@
 
 RUN_ID: R03-NAME-TWIN-REPAIR-20260920-01
 Soạn: Claude Chat — gộp đề xuất repair của GPT (Owner chuyển 2026-09-20) + 3 lỗi cùng loại Claude tìm thêm từ mã. Trạng thái KHÔNG ghi ở file này: chỉ tin `READY@<full-sha>` trong COLLAB.md.
-Chỉ chạy khi: `REVIEWED@` của Founder không soạn + Host `READY@` đúng commit cuối chạm file này + lệnh RUN hợp lệ.
+Chỉ chạy khi COLLAB.md có MỘT trong hai giấy phép, đúng full SHA commit cuối chạm file này: (a) `REVIEWED@` của Founder không soạn + Host `READY@`; hoặc (b) `OWNER_APPROVED@` (Owner override, COLLAB P09) — cộng lệnh RUN hợp lệ.
 Bản PROMPT R03 đã chạy (MACHINE_DONE) là `7d0521916bbc9705eade326b3dcbb00c30f81c53`; đọc bằng `git show 7d05219:PROMPT.md` trong bản sao /tmp. Điều gì file này không nói thì theo bản đó (§1 luật schema, §2 cổng 29 dòng, §4 client, §6 cấm).
 
 ## 0. Trước khi làm
-1. Clone repo công khai vào một thư mục /tmp mới; kiểm READY đủ 40 ký tự; lệch → DỪNG.
+1. Clone repo công khai vào một thư mục /tmp mới; kiểm giấy phép (a) hoặc (b) ở trên, đủ 40 ký tự; không có hoặc lệch → DỪNG.
 2. Đọc AGENTS.md, COLLAB.md (dòng R03, D09, mục Prompt: nhận định Claude Founder 2026-09-20 thay bản 10becaa), KB §13.11.1.
 3. PL1–PL3 của P10 (đính chính 7159559) vẫn áp; riêng mốc healthy theo §4 dưới đây.
 4. Mỗi lỗi: test ĐỎ trước (repo tạm), sửa, test XANH. Mọi commit dùng tiền tố `[Claude Code]`.
