@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Task Control View — hpml-view-for-user</title>
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;max-width:1100px;margin:0 auto;padding:28px;line-height:1.55;color:#1f2937}h1,h2{line-height:1.2}.box{border:1px solid #d1d5db;border-radius:12px;padding:18px;margin:16px 0}.goal{position:relative;background:#f8fafc}.tag{display:inline-block;border:1px solid #cbd5e1;border-radius:999px;padding:2px 9px;margin:2px;font-size:13px}table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid #e5e7eb;text-align:left;padding:9px;vertical-align:top}code{background:#f1f5f9;padding:2px 5px;border-radius:5px}
+</style>
+</head>
+<body>
+<h1>Task Control View — hpml-view-for-user</h1>
+<section class="box goal">
+<h2>1. Mục tiêu User</h2>
+<p>Xây <strong>Tasks now</strong> thành một lớp điều hành công việc mỏng trên VPS, dùng GitHub/<code>incomex-workspace</code> làm SSOT. Owner phải nhìn được mục tiêu, việc vừa hoàn tất + actor, bước tiếp theo nên giao cho ai; các khả năng “đang làm bởi ai” và phát hiện vi phạm chỉ thêm khi có bằng chứng đáng tin và không làm quy trình nặng lên.</p>
+<p>Nguyên tắc ưu tiên: <strong>tận dụng tối đa dấu vết tự nhiên đã có</strong> (commit/push, COLLAB, PROMPT, Git history); không bắt AI nhớ thêm thao tác báo cáo nếu máy đã suy ra được.</p>
+</section>
+<section class="box">
+<h2>2. Khung V1</h2>
+<p><span class="tag">GOAL</span><span class="tag">CONSENSUS</span><span class="tag">EXECUTION</span><span class="tag">VERIFY / DONE</span></p>
+<table>
+<tr><th>Khối</th><th>Cách làm mỏng</th></tr>
+<tr><td>Mục tiêu</td><td>Đọc A0 của <code>COLLAB.md</code>, pin trên cùng; không chép thành nguồn thứ hai.</td></tr>
+<tr><td>Vừa xong</td><td>Lấy từ commit gần nhất chạm thư mục task + actor/prefix commit.</td></tr>
+<tr><td>Tiếp theo</td><td>Suy từ cổng A0, P OPEN/OWNER, READY, RUN/Agent done, CLOSED trước khi thêm metadata mới.</td></tr>
+<tr><td>Cập nhật VPS</td><td>Dùng push/event thụ động cho tài liệu Owner View; tuyệt đối không dùng để deploy mã/runtime GitHub → VPS.</td></tr>
+<tr><td>UI</td><td>Tái sử dụng Knowledge 2 cột + vị trí Modules; search/filter nhẹ; Owner View được cô lập khi render.</td></tr>
+<tr><td>Kiểm soát</td><td>V1 chỉ cảnh báo luật cứng/máy xác định chắc chắn; enforcement sâu để V2.</td></tr>
+</table>
+</section>
+<section class="box">
+<h2>3. Trình tự</h2>
+<ol><li>GPT + Claude chốt ranh giới V1 và parser checkpoint.</li><li>Khảo sát đúng phần UI/nguồn Git cần tái dùng.</li><li>Làm vertical slice 2–3 task thật: index → event → refresh → UI.</li><li>Chỉ mở rộng search/filter/Done/validator nếu slice chứng minh cần.</li><li>V2 mới xét current actor từ harness, auto-dispatch và enforcement.</li></ol>
+</section>
+<section class="box">
+<h2>4. Trạng thái</h2>
+<p><strong>CONSENSUS.</strong> Chưa RUN production. Đang chờ Claude phản biện trực tiếp trong <code>COLLAB.md</code>.</p>
+</section>
+</body>
+</html>
