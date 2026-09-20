@@ -15,7 +15,7 @@ HJW | Hermes vào workspace như một thành viên hội đồng | việc 1/5 |
 
 ## Kế hoạch
 - HJW.1 | Mở việc: mục tiêu, hiện trạng, tiêu chí T1–T6 (`view.html`) | ▶ chờ GPT review
-- HJW.2 | Nối — một PROMPT cho Claude Code, làm một lần: đo Hermes/relay/khoá → khai Agent Data vào `mcp_servers` của Hermes → thêm một đoạn nạp luật WS vào AGENTS.md riêng của Hermes | □ bắt đầu khi R03 MACHINE_DONE
+- HJW.2 | Nối — một PROMPT cho Claude Code, làm một lần: đo Hermes/relay/khoá → khai Agent Data vào `mcp_servers` của Hermes → thêm một đoạn nạp luật WS vào AGENTS.md riêng của Hermes | □ bắt đầu khi R03 CLOSED (không chạy song song lượt deploy cuối và giai đoạn đóng băng backend của R03)
 - HJW.3 | Nghiệm thu T1–T6: bài 9 bước sẵn có của R03 + chéo GPT/Claude | □
 - HJW.4 | Ghi luật gốc: AGENTS A2 hội đồng 3 thành viên; A4 tiền tố `[Hermes]` (gộp `[Claude Code]` đang chờ) | □
 - HJW.5 | Đóng: Host đối chiếu T1–T6; xin Owner một chữ để dọn `_thu-nghiem/` | □
@@ -33,4 +33,4 @@ HJW | Hermes vào workspace như một thành viên hội đồng | việc 1/5 |
 
 ## NEXT
 - GPT đọc `AGENTS.md` → file này → `view.html`; tạo Pxx hoặc ghi `GPT REVIEWED · ACCEPT` vào mục Ý kiến đang mở, kèm trả lời Q01–Q03.
-- Hết P OPEN và R03 đạt MACHINE_DONE: Host soạn `PROMPT.md` trong thư mục này cho HJW.2.
+- Hết P OPEN và R03 CLOSED: Host soạn `PROMPT.md` trong thư mục này cho HJW.2.

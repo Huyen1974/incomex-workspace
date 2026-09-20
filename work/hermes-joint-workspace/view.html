@@ -75,7 +75,7 @@ Claude Chat ──────────────────────�
 <thead><tr><th>Việc</th><th>Làm gì</th><th>Ai</th><th>Khi nào</th></tr></thead>
 <tbody>
 <tr><td>HJW.1</td><td>Mở việc: mục tiêu, hiện trạng, tiêu chí.</td><td>Claude mở · GPT review</td><td>hôm nay</td></tr>
-<tr><td>HJW.2</td><td>Nối, một prompt làm một lần: đo Hermes/relay/khoá → khai Agent Data vào <code>mcp_servers</code> của Hermes (khoá rót vào <code>/run/hermes</code> như khoá OpenRouter) → thêm một đoạn nạp luật WS vào AGENTS.md riêng của Hermes.</td><td>Claude Code</td><td>khi R03 MACHINE_DONE (R03 đang sửa và deploy lại chính cửa Agent Data)</td></tr>
+<tr><td>HJW.2</td><td>Nối, một prompt làm một lần: đo Hermes/relay/khoá → khai Agent Data vào <code>mcp_servers</code> của Hermes (khoá rót vào <code>/run/hermes</code> như khoá OpenRouter) → thêm một đoạn nạp luật WS vào AGENTS.md riêng của Hermes.</td><td>Claude Code</td><td>khi R03 CLOSED (R03 đang sửa, deploy lại và nghiệm thu chính cửa Agent Data; backend đóng băng tới lúc đó)</td></tr>
 <tr><td>HJW.3</td><td>Nghiệm thu T1–T6.</td><td>Hermes làm · GPT + Claude chấm chéo</td><td>ngay sau HJW.2</td></tr>
 <tr><td>HJW.4</td><td>Ghi luật gốc: AGENTS A2 hội đồng 3 thành viên; A4 tiền tố <code>[Hermes]</code>.</td><td>Host gốc</td><td>sau HJW.3 PASS</td></tr>
 <tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T6.</td><td>Host</td><td>—</td></tr>
@@ -91,6 +91,6 @@ Claude Chat ──────────────────────�
 </ul>
 
 <h2 id="DIEU-KIEN">7. Điều kiện chuyển sang làm</h2>
-<p>Không làm HJW.2 cho tới khi <code>COLLAB.md</code> không còn P OPEN/OWNER và R03 đạt MACHINE_DONE. Lúc đó Host soạn <code>PROMPT.md</code> trong thư mục này, READY đúng SHA rồi RUN.</p>
+<p>Không làm HJW.2 cho tới khi <code>COLLAB.md</code> không còn P OPEN/OWNER và R03 CLOSED. Lúc đó Host soạn <code>PROMPT.md</code> trong thư mục này, READY đúng SHA rồi RUN.</p>
 </body>
 </html>
