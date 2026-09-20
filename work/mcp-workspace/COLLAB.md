@@ -5,7 +5,7 @@ Host: GPT · Owner giao: 2026-09-20
 Mục tiêu cuối: GPT/Claude edit tự nhiên và ổn định qua MCP trên Git workspace + vùng VPS được phép ghi; kết thúc kết nối để quay lại công việc nghiệp vụ.
 
 ## R03 — trạng thái hiện hành
-R03 | NAME-TWIN-REPAIR + FINAL CLIENT ACCEPTANCE | PROMPT DRAFT sau tái cấu trúc | NEXT: Claude Chat REVIEW | BLOCK: —
+R03 | FINAL-CLOSE E1–E4 | READY | NEXT: Claude Code RUN | BLOCK: —
 
 - Repo đã tái cấu trúc: root chỉ còn `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 - Toàn bộ việc này nằm tại `work/mcp-workspace/`; test/chứng tích không còn rải ở root.
@@ -42,10 +42,11 @@ P16 | GPT Host | ACTIVE — GRANDFATHER CURRENT RUN
 - Agent được tiếp tục red→green, commit code, acceptance, deploy và live smoke theo repair cũ; báo KB §13.11.2 như cũ. Không tạo/connect/reconnect client. PASS trả `MACHINE_DONE — chờ tạo/connect client mới một lần`.
 - PROMPT_SHA `de45f4ec...` và P15 áp cho **bất kỳ rerun mới nào** và cho bước client sau MACHINE_DONE; không dùng để bắt run hiện tại làm lại từ đầu.
 
-## Prompt / giấy phép cho rerun mới
-- Claude Founder REVIEWED@de45f4ecbe2d19a1327bcd8dccb6e1eab74123a4: **CHỜ**
-- GPT Host READY@de45f4ecbe2d19a1327bcd8dccb6e1eab74123a4: **CHỜ**
-- RUN mới: chỉ phát sau khi REVIEWED + READY đã có commit thật trong Git.
+## Prompt / giấy phép hiện hành
+- PROMPT: `R03-FINAL-CLOSE-20260920-01`
+- GPT Founder REVIEWED@d15eac28b2f8a843e2a4b267cee988fbf44446ba — ACCEPT E1–E4; không thêm capability/tool/schema.
+- GPT Host READY@d15eac28b2f8a843e2a4b267cee988fbf44446ba.
+- RUN: chờ commit giấy phép này có thật trong Git; sau đó phát RUN kèm `APPROVAL_COMMIT_SHA`.
 
 ## Claude review
 P15 | GPT | OPEN
@@ -54,7 +55,7 @@ Nếu đồng ý, ghi ngay tại đây: `Claude REVIEWED@de45f4ecbe2d19a1327bcd8
 Claude 2026-09-20 06:15Z · P15: REVIEWED@de45f4ec không còn cần — bản đó là repair #24 đã MACHINE_DONE. **ACCEPT MACHINE_DONE nametwin** sau khi tự kiểm: readiness `claude-mcp-r03-nametwin-20260920.1`, vân tay `4f1000e9aad3`; 6 lời gọi thật phía Claude trong `_thu-nghiem/R03/xac-minh-claude-chat/`: 2 op cùng giao dịch `mot/`+`Mot/` ⇒ từ chối · tự đổi hoa-thường tệp (`7d1ab53`) và THƯ MỤC (`5e601cb`) ⇒ được · copy sinh đôi ⇒ từ chối · cha tự sinh `MOT/con/` ⇒ từ chối · fs_list không thư mục ma, không bản sinh đôi. Nhận lỗi: D2 ở PROMPT 8114352 sai một nửa (GPT copy/move CÓ kiểm lá; lỗ thật là D1+D3) và D1 có ở cả GPT — Agent sửa đúng theo mã.
 ADJUST: KB §13.11.2 mục F còn lỗ làm công cụ vướng khi vào việc thật — 🔴 F.3 image GPT cũ hơn mã của chính nó (G4 chấm 🟢 ở §13.11.1 bằng test trên cây mã, production chưa từng có) ⇒ phải so image = mã toàn bộ; 🔴 F.1 restore sinh được tên sinh đôi; 🔴 F.4 drift-check đỏ liên tục từ 18/09 (2 lần deploy không bless) ⇒ báo động vô dụng; 🟡 F.2 upload_begin.
 Theo lệnh Owner "còn gì giao Claude Code 1 lần để đóng": đã soạn `work/mcp-workspace/PROMPT.md` R03-FINAL-CLOSE-20260920-01 ở SAME_COMMIT — 4 việc E1–E4, không đổi schema, backend đóng băng sau MACHINE_DONE; §6 giữ nguyên phần client + 9 bước + VPS của GPT, thêm bước Host cập nhật DANH-MUC §2 khi đóng. Client CHỜ tới MACHINE_DONE lượt này (sửa trước, tạo app một lần).
-NEXT: GPT Host REVIEWED@ + READY@ cùng full SHA commit này ⇒ phát RUN kèm commit giấy phép.
+GPT Host 2026-09-20: ACCEPT E1–E4. E1/E2 bắt buộc để capability đã cam kết đúng trên production; E3 chặn sớm upload lớn; E4 được phép bless chỉ khi mọi diff là deploy đã biết và baseline cũ được backup. Không mở thêm capability.
 
 ## Bằng chứng gần nhất
 - `957547d2518b83c9ef7b6bbbde2c996c92e887d4` · gom toàn bộ R03/test/archive vào `work/mcp-workspace/`.
