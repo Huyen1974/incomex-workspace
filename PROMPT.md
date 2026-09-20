@@ -1,82 +1,55 @@
-# PROMPT — R03 · Hoàn tất vòng đời tệp cho hai đầu nối (không thêm tool, không đổi tên tool; schema chỉ đổi theo LUẬT SCHEMA DUY NHẤT ở §1)
+# PROMPT — R03 · Sửa lớp lỗi #24 "tên sinh đôi" ở MỌI đường tạo tên, trước lần làm mới client cuối (không thêm tool, không đổi tên tool, không đổi input schema)
 
-RUN_ID: R03-FILE-LIFECYCLE-20260919-01
-Soạn: Claude Chat. Trạng thái KHÔNG ghi ở file này: chỉ tin `READY@<full-sha>` trong COLLAB.md.
-Chỉ chạy khi: COLLAB P12/P13 có Host ACCEPTED (D09–D12) + `REVIEWED@` của Founder không soạn + `READY@` đúng commit cuối chạm file này + lệnh RUN hợp lệ.
+RUN_ID: R03-NAME-TWIN-REPAIR-20260920-01
+Soạn: Claude Chat — gộp đề xuất repair của GPT (Owner chuyển 2026-09-20) + 3 lỗi cùng loại Claude tìm thêm từ mã. Trạng thái KHÔNG ghi ở file này: chỉ tin `READY@<full-sha>` trong COLLAB.md.
+Chỉ chạy khi: `REVIEWED@` của Founder không soạn + Host `READY@` đúng commit cuối chạm file này + lệnh RUN hợp lệ.
+Bản PROMPT R03 đã chạy (MACHINE_DONE) là `7d0521916bbc9705eade326b3dcbb00c30f81c53`; đọc bằng `git show 7d05219:PROMPT.md` trong bản sao /tmp. Điều gì file này không nói thì theo bản đó (§1 luật schema, §2 cổng 29 dòng, §4 client, §6 cấm).
 
 ## 0. Trước khi làm
-1. Kiểm READY trên bản sao riêng dưới /tmp (git clone repo công khai), so đủ 40 ký tự; lệch → DỪNG.
-2. Đọc AGENTS.md, COLLAB.md (R03, P12, P13, D09–D12), DANH-MUC-CONG-CU.md và KB §13.11 (báo cáo 15:20 nguyên văn + đính chính).
-3. Áp PL1–PL3 của P10 theo đính chính 7159559: không fetch/pull/checkout/commit trên 2 clone làm việc; repo mã VPS commit cục bộ theo path, không push/force-push; chỉ restart 4 dịch vụ của PL2 với đúng điều kiện; hỏng → quay về tag rollback.
-4. Mỗi việc: test đỏ trước, sửa, test xanh.
+1. Clone repo công khai vào một thư mục /tmp mới; kiểm READY đủ 40 ký tự; lệch → DỪNG.
+2. Đọc AGENTS.md, COLLAB.md (dòng R03, D09, mục Prompt: nhận định Claude Founder 2026-09-20 thay bản 10becaa), KB §13.11.1.
+3. PL1–PL3 của P10 (đính chính 7159559) vẫn áp; riêng mốc healthy theo §4 dưới đây.
+4. Mỗi lỗi: test ĐỎ trước (repo tạm), sửa, test XANH. Mọi commit dùng tiền tố `[Claude Code]`.
 
-## 1. Phạm vi cố định (không mở rộng ngoài 29 năng lực; không mở bề mặt HTTP mới)
-**LUẬT SCHEMA DUY NHẤT — áp cho cả file này, mục khác không được đặt luật khác:** (a) không thêm tool, không đổi tên tool; (b) schema CHỈ được đổi nếu thật sự BẮT BUỘC để đóng các capability mà chính §1 này cho phép — #7 (so hai phiên bản), #9 (sửa mọi chỗ khớp), #14/#20 trên **Git SSOT roots**, #28 RESTORE; (c) mọi schema change gộp trong ĐÚNG MỘT đợt cuối; (d) báo tool/schema/metadata diff kèm `CLIENT_REFRESH_REQUIRED=YES`, rồi refresh/reconnect client ĐÚNG MỘT LẦN cuối. Theo D08, `ui` là mirror: không đổi schema chỉ để đạt mutation-parity ở `ui`; phần publish thuộc #29/R04.
-GPT (đã code + test, chưa deploy — §13.11): G1, G2 (+G8 tree token), G3, G4, G7, G11/G15. Làm thêm:
-- D09 chặn sinh đôi NFC (xem dưới).
-- G5 guarded replace cho upload/import nếu làm được bằng backend; cần đổi schema → ghi BLOCKED + lý do, không đổi.
-- G6 kiểm resume sau restart (test, không restart production).
-Claude (claude-mcp/app/fsroots.py + helper):
-- C3 fs_copy nhận thư mục: đệ quy, đích chưa tồn tại, all-or-nothing, 1 commit, không theo symlink, quét bí mật từng tệp như copy tệp, có trần số tệp/dung lượng; op `copy` trong fs_transaction cũng nhận thư mục.
-- C4/C8 fs_stat(thư mục) trả tree token xác định (Git tree SHA hoặc tương đương), đổi khi bất kỳ tệp con đổi; fs_copy/fs_move và op transaction trên `gh` nhận guard phù hợp. Mutation-parity ở `ui` = N/A(D08/R04); chỉ chạy regression khoá/đọc hiện hữu, không đổi schema riêng cho `ui`.
-- C7 copy/move thư mục vào chính con/cha của nó → reject trước khi đổi gì.
-- C11/C15 sau move/transaction/rollback: prune thư mục rỗng trong phạm vi thao tác, xoá cha tự sinh khi rollback; fs_list chỉ hiện cái Git có. Thư mục ma hiện có `_thu-nghiem/audit-claude-20260919/a/b/c` phải biến mất nhờ chính cơ chế mới, không dọn tay.
-- C16 fs_write thay tệp đã tồn tại ở mọi kích thước, mọi gốc ghi → bắt buộc expected_version; lỗi chỉ cách lấy version. Tạo mới giữ nguyên.
-D09 (cả hai phía): không đổi byte, không rename tên có sẵn; tạo tên mới mà NFC trùng tên đã có khác byte → reject, chỉ ra tên có sẵn; đọc/stat theo byte, không có thì tra tương đương NFC duy nhất.
-N/A theo quyết định (ghi rõ trong ma trận, không để trống): C1, C6, C13, G13 (D10); C2 và phần gh-binary của G9/C9 (D11) — G9/C9 thu về "SHA binary giữ nguyên trên ui"; C10 không có bề mặt mới nhưng C3 phải qua secret scan; G16 không tồn tại (C16 chỉ phía Claude); C5 = C16 phía Claude; G12/C12 = mục 4.
+## 1. Vì sao có lượt này
+Tầng máy R03 chưa xanh: dòng #24 được chấm PASS nhưng chỉ đo ở MỘT đường tạo tên (tạo tệp mới). D09 + #24 áp cho MỌI đường làm xuất hiện tên mới. Bốn lỗi cùng một loại:
 
-## 2. Cổng năng lực chuẩn — 29 dòng, điều kiện trước deploy
-Đây là danh mục **cố định theo nhu cầu người dùng**, không sinh từ lỗi đang gặp. Một bảng `# | Năng lực | GPT | Claude | Bằng chứng | PASS/FAIL/N/A(Dxx/Rxx)` phải có đủ 29 dòng, không ô trống. **PASS chỉ hợp lệ khi PASS trên mọi root/client áp dụng**: Git SSOT = GPT `workspace`, Claude `gh`; `ui` mutation = N/A(D08/R04) trừ regression read/lock; `docs` read-only; code/runtime roots ngoài catalog tài liệu theo D08. Còn FAIL (trừ N/A có Dxx) → không deploy.
+| Mã | Phía | Lỗi | Bằng chứng |
+|---|---|---|---|
+| D1 | Claude | Đổi tên CHÍNH một tệp chỉ khác hoa-thường (`ban-sao.txt` → `Ban-Sao.txt`) bị từ chối `name_collision_case`: `_nfc_guard` (claude-mcp/app/fsroots.py) không biết đâu là nguồn nên coi chính nguồn là bản sinh đôi. Cũng chặn luôn đổi tên NFD → NFC chủ động. Áp cho fs_move và op move của fs_transaction | gọi thật 2 lần từ Claude Chat, 2026-09-20 |
+| D2 | GPT | `name_twin` chỉ được gọi ở write_new (workspace_tools.py ~872) và op write-new của transaction (workspace_operations.py ~224). Copy/move tệp và thư mục (`move_noreplace`, `expand_directories`), op copy/move của transaction, `workspace_import_file`, commit upload (workspace_transfer.py) KHÔNG kiểm ⇒ tạo được bản sinh đôi | đọc mã |
+| D3 | cả hai | Chỉ kiểm tên LÁ trong thư mục cha ĐÃ CÓ: `_nfc_guard` return khi cha chưa có (fsroots.py ~660); `name_twin` return khi listdir lỗi. Thư mục cha tự sinh (G1) không bao giờ được kiểm ⇒ đã có `cay/` vẫn tạo được `Cay/x.txt` (thư mục sinh đôi) | đọc mã |
+| D4 | Claude | op `write` tạo tệp MỚI trong `fs_transaction` (fsroots.py ~2185) không gọi `_nfc_guard`, trong khi fs_write, copy, move đều gọi | đọc mã |
 
-1. LIST/ROOT DISCOVERY — gọi không root phải thấy toàn bộ root + writable/read-only/mode; list path có pagination + Unicode; root không được cấp quyền phải reject.
-2. READ/TEXT FIDELITY — cửa sổ nhỏ, dòng rất dài, tệp text vài MB; bảo toàn UTF-8 BOM nếu có, CRLF/LF và trailing spaces, không tự normalize newline.
-3. SEARCH — literal + regex + context/pagination; THÊM tìm theo tên tệp/đường dẫn (glob) chứ không chỉ nội dung, cả hai phía.
-4. STAT FILE — bytes/hash/version/head/freshness.
-5. STAT DIRECTORY — deterministic tree token; descendant đổi → token đổi.
-6. LOG — lịch sử fresh, không bỏ commit mới; lọc theo path và đi theo tệp khi dời/đổi tên (follow), cả hai phía.
-7. DIFF — đúng path/version và fresh; THÊM so một **file hoặc directory subtree** giữa hai phiên bản bất kỳ (from=commit/version, to=commit hoặc HEAD) ở server, có phân trang, không relay cả tệp. Đây là thao tác Reviewer dùng hằng ngày (AGENTS A3: đọc thay đổi từ Based_on tới HEAD); hiện Claude chỉ xem từng commit, GPT chỉ so từ bản sao lưu sau sửa.
-8. CREATE — tạo tệp ở nested path khi mọi parent chưa tồn tại; rollback dọn parent tự sinh.
-9. EDIT — expected_version bắt buộc khi thay tệp; giữ byte ngoài vùng sửa, BOM/CRLF/LF/trailing spaces; warning không biến thành block sai. THÊM **literal replace_all** trả về số chỗ đã thay và từ chối nếu khác expected_count khi có truyền; cả hai phía (đổi một thuật ngữ trong HTML lớn). Regex SEARCH vẫn có ở #3; regex-replace không phải requirement R03.
-10. GUARDED REPLACE — thay toàn bộ tệp hiện hữu bằng expected_version, cả tệp nhỏ và HTML lớn; stale → reject, bản cũ nguyên; fidelity của bytes text theo #2.
-11. COPY FILE — nested destination, no overwrite, version/head guard, one commit.
-12. COPY DIRECTORY — recursive, one commit, no overlap; gặp symlink/gitlink/submodule ở bất kỳ cấp nào → reject (không follow và không tái tạo link); secret/policy scan từng tệp; cap file-count + total-bytes.
-13. MOVE FILE — nested destination, no overwrite, guard, source/dest đúng sau commit.
-14. MOVE DIRECTORY — recursive, one commit, overlap/self-descendant reject, guard, prune thư mục rỗng do thao tác tạo ra.
-15. TRANSACTION FILE+TREE — create/edit + copy/move file + copy/move directory; validate trước, đúng 1 commit, all-or-nothing; chỉ stage đúng file của thao tác, không cuốn file bẩn/không liên quan.
-16. DELETE — N/A theo luật Owner; connector không có delete, dùng move lưu trữ.
-17. IMPORT ATTACHMENT — GPT import_file: request identity/idempotency, guarded create/replace, backend fixture UTF-8 HTML 2–3 MB; Claude direct sandbox import = N/A(D10).
-18. LARGE/RESUMABLE UPLOAD — GPT begin/append/status/commit: chunk retry, lost response begin/commit, resume sau process/service-test restart, expiry/GC bằng TTL test; Claude direct upload = N/A(D10).
-19. EXPORT/DOWNLOAD/BACKUP — N/A(D10) trong R03; gồm cả đóng gói folder để tải máy/GDrive. Không mở HTTP surface mới; khi Owner cần sẽ mở R riêng.
-20. CONCURRENCY/LOCK — expected_head/version/tree-token trên Git SSOT roots; cùng-file/overlap → conflict an toàn, khác-file → giữ cả hai; client khác sửa descendant → stale token reject. Khi BUSY/OVERLOADED phải trả retry/backoff rõ và **không mutation nửa vời**.
-21. IDEMPOTENCY/LOST RESPONSE — mọi mutation liên quan write/edit/import/upload/copy/move/transaction: same request replay; same id khác payload reject; không duplicate commit/job/write.
-22. FAILURE/RECOVERY HYGIENE — push/conflict/failure rollback sạch; không ghost parent, temp, orphan session; session hết hạn được GC.
-23. DANGEROUS PATHS — `..`, absolute path, symlink/gitlink/submodule, `.git/**` và state/temp nội bộ của connector bị chặn; destination tồn tại không overwrite.
-24. UNICODE/NFC/PORTABILITY — giữ byte tên hiện hữu; D09 chặn tên mới NFC-equivalent khác byte; tên/path tiếng Việt thật PASS. Test thêm case-only collision (`A`/`a`): phải có chính sách rõ PASS hoặc BY-DESIGN, không để hành vi ngầm gây lỗi khi clone sang Mac.
-25. POLICY/GIT SAFETY — gh chỉ UTF-8 text/HTML theo D11; binary gh N/A; binary `ui` nếu test phải giữ SHA byte-for-byte; secret scan không bị bypass; caps cỡ/path-segment/tổng tài nguyên rõ; main chỉ fast-forward, không force-push, chỉ stage file của thao tác. Nếu clone có dirty state ngoài thao tác: tracked conflict → refuse/reconcile, untracked/unrelated → không được cuốn vào commit. Theo D12, **mọi AI direct GitHub path ngoài hai MCP đã audit là READ-ONLY**; Agent chỉ kiểm/document, không tự đổi quyền Owner. Text không phải UTF-8 → từ chối rõ, không thành chữ lỗi.
-26. FRESHNESS/CROSS-CLIENT — GPT↔Claude thấy commit/path mới ngay; sửa chéo làm stale guard hoạt động đúng; không cần chạy lại toàn K1–K10.
-27. CLIENT BINDING CONTRACT — nghiệm thu theo **client surface thực sự dùng**. Mục tiêu Owner là GPT và Claude Code edit thật trên GitHub, nên surface bắt buộc tối thiểu là **GPT Chat + GPT Work + Claude Code**: cả ba phải PASS, **Claude Code KHÔNG được ghi N/A**. Claude Chat tiếp tục PASS chừng nào còn là surface đang dùng. Cowork/Codex chỉ PASS nếu đã bind connector, nếu chưa thì N/A ghi rõ. Mỗi surface phải **gọi tool thật** (không suy từ backend/CLI, không suy từ surface khác) và xác nhận đúng tool count + input schema/required fields + description/annotations/fingerprint/build-id tương ứng; test ở chat/session mới sau refresh/reconnect. Báo riêng `TOOL_LIST_CHANGED`, `TOOL_INPUT_SCHEMA_CHANGED`, `TOOL_METADATA_CHANGED`; description/annotations đổi cũng tính là metadata đổi. Bất kỳ YES → `CLIENT_REFRESH_REQUIRED=YES` và client smoke chỉ sau đúng một refresh/recreate cuối cùng.
-28. HISTORICAL READ / SAFE RESTORE — đọc được file/subtree ở ref cũ và restore bằng **forward commit** có guard, không reset/force, không relay tệp lớn. Path hiện hữu → guarded replace; path trống → create-only để lấy lại file đã dời/đổi tên; nhiều restore op phải transaction 1 commit. **Không được hứa exact undo nếu lần cũ tạo file mới**, vì delete bị cấm: file do lần cũ tạo phải được move vào thư mục lưu trữ/undo trong cùng compensation commit (hoặc ghi N/A cần Owner delete), rồi restore phần còn lại. Hoàn tác = **đảo đúng delta/hunks của commit gốc trên HEAD hiện tại**, không chép đè ảnh chụp cũ, **không fuzzy overwrite**. KHÔNG dùng luật quá rộng “file có bất kỳ sửa đổi nào sau commit gốc thì STOP”: thay đổi phát sinh sau mà **không chồng lấn** hunk cần đảo → giữ nguyên, chỉ undo phần cũ; hunk conflict hoặc không chứng minh được an toàn → **STOP toàn transaction, không mutation nào**, liệt kê path/hunk vướng. Tệp mà lần cũ đã dời → move ngược khi safe, không tạo bản sao thứ hai; tệp được TẠO ở commit gốc vẫn theo luật no-delete → move vào vùng undo/lưu trữ. Nhiều tệp: validate TOÀN BỘ trước, rồi đúng **một** compensation commit. Cả GPT và Claude phải PASS.
-29. OWNER-VIEW PUBLISH BOUNDARY — hiện connector không có cross-root copy `workspace/gh → ui`; ghi **N/A(R04/D08)** trong R03, không coi PASS giả. R04 Owner View phải cung cấp đường server-side pull/copy đúng một HTML chính từ GitHub SSOT sang `ui` mirror, kiểm hash/size và không relay 2–3 MB qua model.
+D2–D4 cố ý chưa gọi thật từ chat: gọi thành công là tạo đúng bản sinh đôi trên repo công khai. Agent chứng minh bằng test đỏ trong repo tạm trước, rồi mới smoke sống.
 
-Ma trận G1–G16/C1–C16 của §13.11 vẫn phải xuất đầy đủ như evidence chi tiết; G16=N/A, không bỏ hàng. 29 dòng trên là **cổng cấp người dùng** để không còn phát hiện thiếu theo từng việc.
-Số thứ tự 29 dòng ở đây là SỐ CHUẨN; DANH-MUC-CONG-CU.md §2 dùng đúng số này và là nơi lưu lâu dài (PROMPT.md sẽ bị ghi đè ở việc sau).
+## 2. Luật đúng — một câu, áp mọi nơi, hai phía như nhau
+Mọi thao tác làm xuất hiện một tên mới trong gốc Git SSOT (tệp hay thư mục, KỂ CẢ thư mục cha tự sinh) phải so TỪNG thành phần mới của path với tên anh em trong cùng thư mục: trùng NFC mà khác byte, hoặc chỉ khác hoa-thường ⇒ từ chối, nêu tên đang có, không ghi gì. Ngoại lệ DUY NHẤT: thao tác MOVE (fs_move, workspace_move, op move của transaction, move ngược trong restore) bỏ qua đúng một tên — tên của chính nguồn trong thư mục cha của nguồn — nên tự đổi tên hoa-thường hoặc NFD → NFC được phép. COPY không bao giờ bỏ qua nguồn (nguồn còn nguyên ⇒ thành sinh đôi). Không tự normalize, không tự đổi tên, không đổi byte tên có sẵn. Hàm kiểm dùng chung cho mọi gốc ghi; nghiệm thu trên Git SSOT (Claude `gh`, GPT `workspace`), `ui` = N/A(D08).
 
-Các tool KB/UI/exec/task không đổi trong R03: không thêm dòng capability mới, nhưng full `run_acceptance.py` phải xác nhận không regression và tool count/build/fingerprint đúng.
+## 3. Việc phải làm
+1. **Liệt kê đường tạo tên từ MÃ, không từ trí nhớ**: grep mọi chỗ rename / makedirs / ghi tệp mới / write_blob ở cả hai đầu nối + trợ lý host. Lập bảng `entry point × {#24 sinh đôi mọi thành phần path, #23 path nguy hiểm, #10 bắt version khi thay tệp có sẵn, #25 chỉ text UTF-8 + quét bí mật}`; mỗi ô có test hoặc dòng mã làm bằng chứng. Ô #24 FAIL → sửa. Ô khác FAIL → sửa nếu chỉ cần backend; cần đổi schema → không sửa, DỪNG, ghi KB.
+2. **Test đỏ** (repo tạm, cả hai phía), tối thiểu:
+   - (a) move tệp tự đổi hoa-thường `ban-sao.txt` → `Ban-Sao.txt` ⇒ được; (b) move THƯ MỤC tự đổi hoa-thường `thu-muc/` → `Thu-Muc/` ⇒ được; (c) move tự đổi NFD → NFC ⇒ được.
+   - (d) move sang tên sinh đôi của một tệp KHÁC ⇒ từ chối; (e) COPY `ban-sao.txt` → `Ban-Sao.txt` ⇒ từ chối (đối chứng âm: copy không được bỏ qua nguồn).
+   - (f) tạo / copy / move / import / upload / op transaction vào `Cay/x.txt` khi đã có `cay/` ⇒ từ chối; tương tự thư mục khác nhau chỉ ở NFD/NFC.
+   - (g) op write tạo tệp mới sinh đôi trong transaction ⇒ từ chối; (h) op move trong transaction tự đổi hoa-thường ⇒ được.
+   - (i) gọi lại ca (a) cùng `operation_id` ⇒ REPLAY, không commit thứ hai; (j) mọi ca từ chối: HEAD, cây làm việc, journal y nguyên, không thư mục ma.
+3. **Sửa**: chỉ hàm kiểm + chỗ gọi. Không đổi tên tool, không đổi input schema. Mô tả tool chỉ sửa nếu đang nói sai (client chưa làm mới nên sửa mô tả lúc này không tốn thêm lần làm mới); báo đúng thực tế.
+4. `run_acceptance.py` hai phía + toàn bộ ca mới ⇒ PASS.
 
-## 3. Deploy — một lần cho cả hai
-Chỉ khi 29/29 dòng PASS hoặc N/A có Dxx/Rxx và G1–G16/C1–C16 không còn FAIL: gắn tag rollback cho image đang chạy mỗi bên; deploy agent-data + claude-mcp (+ helper nếu đổi); healthy trong 2 phút, không thì hoàn nguyên và DỪNG. Chạy lại `run_acceptance.py` hai bên → PASS. Không deploy lần hai trong R03 ngoài rollback.
+## 4. Deploy lần hai — chỉ cho đúng lượt này
+READY của file này là sự cho phép thay câu "Không deploy lần hai trong R03" của bản 7d05219, CHỈ cho lượt này. Gắn tag rollback mới cho image đang chạy mỗi bên (theo §13.11.1 là `claude-mcp-local:r03-20260920` và `agent-data-r03:20260920-lifecycle`; kiểm lại bằng docker inspect). Chỉ deploy bên có đổi mã (+ trợ lý host nếu đổi, đúng điều kiện PL2). Mốc healthy: ≤ 180 s tính từ `State.StartedAt` tới `Health.Status=healthy` (docker inspect/events, không tính thời gian build); ghi cả cấu hình healthcheck thật của từng container. Quá mốc → hoàn nguyên về tag rollback và DỪNG, không tự quyết "gần đủ". Sau deploy chạy lại `run_acceptance.py` hai bên ⇒ PASS.
 
-## 4. Client + cross smoke — R03 chưa đóng nếu chưa qua
-Agent chỉ hoàn tất **tầng máy**, không được tự tuyên bố R03 CLOSED.
-- Claude Code: là surface BẮT BUỘC của #27 — phải gọi tool thật qua đầu nối MCP nó bind, xác nhận tool count/schema/metadata/build-id, và chạy nhóm ca ghi tương ứng trên Git SSOT root của nó. Kết quả backend/CLI không thay được client PASS, và không gọi đó là Claude Chat PASS.
-- Claude Chat thật sau deploy/reconnect: copy dir 2 cấp = 1 commit; stat dir lấy token, sửa descendant rồi dùng token cũ → reject; ghi đè không version → reject; NFD collision → reject; move không ghost.
-- GPT Chat thật ở chat mới dùng Full All: nested create; recursive dir copy; stale tree-token reject; NFD collision reject; gọi `workspace_import_file` thật từ một attachment. Backend phải chứng minh HTML 2–3 MB; client ít nhất chứng minh attachment bind/call thật.
-- CROSS: GPT tạo nested tree → Claude cold-read thấy ngay; Claude sửa descendant → GPT dùng tree-token cũ reject; Claude move tree → GPT stat thấy path mới.
-- Nếu `CLIENT_REFRESH_REQUIRED=YES`, chỉ nghiệm thu sau một lần refresh/recreate cuối cùng GPT plugin + reconnect Claude; ghi tool count/build/fingerprint và metadata mới.
+## 5. Smoke sống sau deploy (chỉ trong `_thu-nghiem/R03/`, qua chính hai đầu nối)
+Chỉ chạy khi test đơn vị đã xanh. Claude `fs_move` `_thu-nghiem/R03/ban-sao.txt` → `_thu-nghiem/R03/Ban-Sao.txt` ⇒ được; GPT `workspace_move` một tệp tương tự do chính GPT tạo ⇒ được; mỗi phía ít nhất một ca từ chối thuộc D2/D3/D4 ⇒ từ chối, không tạo gì. Lỡ tạo ra bản sinh đôi ⇒ FAIL, DỪNG, KHÔNG xoá (xoá là quyền Owner).
 
-## 5. Báo cáo — bắt buộc TRƯỚC khi trả lời Owner
-Ghi nối tiếp KB §13.11: ma trận G1–G16/C1–C16, bảng 29 năng lực, deploy, flags client-contract, smoke mà Agent thực sự làm được. Chưa ghi KB thì không trả Owner.
-Agent chỉ trả một dòng: `R03-FILE-LIFECYCLE-20260919-01: MACHINE_DONE — client/cross còn mục 4 · KB §13.11` hoặc `...: DỪNG ở <ID/#> — lý do ở KB §13.11`. Chỉ Host sau client/cross thật mới được ghi R03 CLOSED.
+## 6. Báo cáo — ghi TRƯỚC khi trả Owner
+KB §13.11.2 (nối tiếp, không sửa §13.11.1): bảng entry point, đỏ → xanh, deploy (thời gian healthy từng container), cập nhật các dòng bảng 29 bị chạm (#8, #11–#15, #17, #18, #24, #28) và cờ:
+`TOOL_LIST_CHANGED=NO` · `TOOL_INPUT_SCHEMA_CHANGED=NO` (lượt này) · `TOOL_METADATA_CHANGED=<thực tế>` · build-id/vân tay mới · `CLIENT_REFRESH_REQUIRED=YES` (do đợt R03, CHƯA làm).
+Trả Owner đúng một dòng: `R03-NAME-TWIN-REPAIR-20260920-01: MACHINE_DONE — chờ làm mới client một lần · KB §13.11.2` hoặc `R03-NAME-TWIN-REPAIR-20260920-01: DỪNG ở <mã> — lý do ở KB §13.11.2`.
 
-## 6. Cấm / BY-DESIGN
-Không thêm tool, không đổi tên tool, không mở route/nginx mới; schema chỉ đổi theo **LUẬT SCHEMA DUY NHẤT ở §1** (bắt buộc để đóng capability §1 cho phép · gộp đúng một đợt cuối · báo diff + refresh/reconnect đúng một lần), ngoài phạm vi đó thì KHÔNG đổi; không connector-delete/host-shell/chmod/symlink-creation; không sửa AGENTS/README/COLLAB/PROMPT; không xoá dữ liệu/nhánh/image; không dọn repo trong R03. Git không lưu empty directory nên mkdir rỗng không phải capability; nested create phải tự tạo parent. Binary gh, Claude direct attachment và export HTTP là N/A theo D10/D11, không phải lỗi bị bỏ quên. Gặp gì ngoài dự kiến → DỪNG, ghi KB.
+## 7. Cấm
+Như §6 bản 7d05219. Thêm: không refresh/reconnect bất kỳ client nào; không sửa AGENTS/README/COLLAB/PROMPT/DANH-MUC; không dọn `_thu-nghiem/`; không mở rộng ngoài §2–§3. Gặp gì ngoài dự kiến → DỪNG, ghi KB.
+
+## 8. Sau Agent (không phải việc của Agent)
+Host cho làm mới client ĐÚNG MỘT LẦN rồi nghiệm thu #27 + §4 của bản 7d05219 ở chat/phiên MỚI (GPT Chat, GPT Work, Claude Code, Claude Chat), thêm 2 ca: tự đổi tên hoa-thường ⇒ được; copy sang tên sinh đôi ⇒ từ chối. Rồi CROSS. Chỉ sau đó Host mới đóng R03.
