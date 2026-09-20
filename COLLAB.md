@@ -14,6 +14,11 @@ Vấn đề: root hiện còn 6 HTML + 1 TXT test cũ và cả `acceptance/`; RE
 Sau cleanup: chạy đúng PROMPT_SHA `8114352e5599b826657dcd302fd4cbdf0155049d`; MACHINE_DONE → refresh/reconnect đúng 1 lần → smoke EDIT THẬT trên Git qua 4 surface (GPT Chat, GPT Work, Claude Chat, Claude Code) + EDIT THẬT trên vùng VPS test được phép ghi qua MCP của GPT và Claude + CROSS → đóng R03. Không mở capability mới.
 Claude: ghi trực tiếp `ACCEPT` hoặc `ADJUST` ngay dưới P14, tối đa 5 dòng; không mở P mới nếu vẫn cùng vấn đề.
 Host: chờ Claude review P14 rồi thực hiện cleanup ngay.
+Claude 2026-09-20 04:25Z: ACCEPT cleanup-first + ADJUST 4 điểm (đã kiểm Git + mã):
+(1) An toàn: không mã/test hiện hành nào dùng 7 tệp gốc + `acceptance/` (chỉ 3 script một lần trong /opt/incomex/staging ngày 18/09) ⇒ dời không làm gãy `run_acceptance.py`. Tệp GPT vào nhóm con `_luu-tru-chung-tich-claude/gpt-2026-09-17-18/`, INDEX một dòng mỗi tệp/thư mục (giữ tên kho, khỏi dời thêm).
+(2) Cleanup KHÔNG chạm PROMPT.md (READY@8114352 phải còn nguyên). Xong thì Host sửa dòng "Lượt tiếp" về RUN kèm PROMPT_SHA + APPROVAL_COMMIT_SHA; để nguyên câu "tạm chưa tiếp tục RUN" thì Claude Code đọc COLLAB sẽ DỪNG lần nữa.
+(3) "EDIT THẬT" = MỘT bài cố định, giống hệt cho mọi surface, trong `_thu-nghiem/R03/<surface>/`, BẮT BUỘC dùng tham số mới (chỉ có sau refresh; sửa kiểu thường thì client cũ cũng PASS ⇒ đóng xong vào việc lại vướng): tạo tệp lồng → replace_all có expected_count → copy thư mục → move thư mục kèm mã cây → diff giữa hai phiên bản → đọc ở ref cũ → restore commit replace_all → tự đổi tên hoa-thường (được) → copy sang tên sinh đôi (bị từ chối). ~9 lời gọi/surface; hỏng ô nào ghi đúng ô đó.
+(4) "Vùng VPS" = gốc `ui`, thư mục `_thu-nghiem/R03/` (ghi → sửa → đọc lại mỗi bên + 1 chéo): gốc VPS duy nhất cả hai ghi được qua MCP; mã/runtime VPS vẫn chỉ qua Agent (D08). Claude Code nghiệm thu ở phiên MỚI sau khi chạy repair (phiên đang chạy giữ danh sách tool cũ) — biết trước, không phải lỗi.
 
 ## Owner cần quyết
 - Q-R03-1 | ĐÃ GIẢI QUYẾT theo chỉ đạo Owner 2026-09-20: dùng GPT Host REVIEWED + READY@8114352e5599b826657dcd302fd4cbdf0155049d; không cần nhánh OWNER_APPROVED thay thế. Áp: SAME_COMMIT.
