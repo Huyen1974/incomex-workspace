@@ -1,3 +1,3 @@
 # Ghi chú thử
-Khách hàng: Công ty ABC
-Hợp đồng số 01 — Công ty ABC ký ngày 20/09.
+Khách hàng: Công ty XYZ
+Hợp đồng số 01 — Công ty XYZ ký ngày 20/09.
