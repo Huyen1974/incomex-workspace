@@ -7,6 +7,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/mcp-workspace/` · R03 · chốt MCP Git + VPS để quay lại công việc nghiệp vụ.
 - `work/jev-integration/` · PLAN-V01 · mở việc, đang lấy ý kiến hội đồng; chưa RUN triển khai.
 - `work/hermes-joint-workspace/` · HJW · Claude mở việc, chờ GPT review; nối Hermes khi R03 CLOSED.
+- `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - NEXT: R03 backend đã MACHINE_DONE/frozen. Tạo đúng MỘT MCP app GPT mới từ Full All hiện hữu → Scan theo cổng `work/mcp-workspace/COLLAB.md` → Owner Connect tay → reconnect Claude/open phiên mới → bài 9 bước × 4 surface + VPS/CROSS → CLOSED.
 
 ## Quyết định Owner

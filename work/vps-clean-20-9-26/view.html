@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dọn đĩa VPS · 20/09/2026</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:1120px;margin:36px auto;padding:0 22px;line-height:1.55;color:#171717}
+h1,h2{line-height:1.2}.tag{display:inline-block;border:1px solid #bbb;border-radius:999px;padding:3px 10px;margin-right:6px;font-size:13px}
+.box{border:1px solid #ddd;border-radius:12px;padding:16px 18px;margin:14px 0;background:#fafafa}
+table{border-collapse:collapse;width:100%;margin:12px 0}th,td{border:1px solid #ddd;padding:8px;vertical-align:top;text-align:left}
+.wrap{overflow-x:auto}
+.bar{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.bar span{flex:1;min-width:120px;border:1px solid #ccc;border-radius:8px;padding:8px;text-align:center;font-size:14px}
+.bar .now{background:#171717;color:#fff;border-color:#171717}
+.g{background:#dcf5e6}.y{background:#fdf1c7}.r{background:#fbd9da}.n{background:#eee;color:#555}.x{color:#999}
+small{color:#666}
+</style>
+</head>
+<body>
+<h1>Dọn đĩa VPS · 20/09/2026</h1>
+<p><span class="tag">DRAFT</span><span class="tag">Bước này chỉ đọc</span><span class="tag">Chưa chạm production</span></p>
+
+<div class="box"><strong>Anh cần quyết hôm nay:</strong> đích sau khi dọn — <strong>đĩa trống ≥45GB và mỗi tháng tăng không quá 3GB</strong>. Đề xuất: <strong>gật</strong> (đủ chạy khoảng 1 năm không phải dọn tay). Anh chỉ cần gật hoặc lắc.</div>
+
+<div class="bar" id="TIEN-DO"><span class="now">▶ 1 Mở việc</span><span>□ 2 Khảo sát</span><span>□ 3 Anh duyệt danh sách</span><span>□ 4 Dọn + khoá vòi</span><span>□ 5 Theo dõi, đóng</span></div>
+
+<h2 id="TINH-HINH">1. Tình hình — không phải mất một nửa, mà đã mất hết</h2>
+<table>
+<thead><tr><th>Mốc</th><th>Đã dùng</th><th>Còn trống</th></tr></thead>
+<tbody>
+<tr><td>Trước khi dọn (07/2026)</td><td>87%</td><td>13GB</td></tr>
+<tr><td>Sau khi dọn 24/07</td><td class="g">61%</td><td class="g">39GB</td></tr>
+<tr><td>20/09 sáng</td><td class="r">87% (83/96GB)</td><td class="r">14GB</td></tr>
+<tr><td>20/09 trưa</td><td class="r">87% (84/96GB)</td><td class="r">13GB</td></tr>
+</tbody>
+</table>
+<p>Nhịp trung bình gần nửa GB mỗi ngày; riêng hôm nay thêm khoảng 1GB trong 11 giờ. Giữ nhịp này thì <strong>khoảng 3 tuần là vào vùng nguy hiểm (≥95%)</strong>, lúc đó PostgreSQL và Docker bắt đầu lỗi.</p>
+
+<h2 id="NGHI-PHAM">2. Nghi phạm — đỏ rò mạnh · vàng cảnh báo · xanh ổn · xám chưa đo</h2>
+<div class="wrap"><table>
+<thead><tr><th>Nghi phạm</th><th>Bằng chứng</th><th>Màu</th></tr></thead>
+<tbody>
+<tr><td>Bản sao web (Nuxt) trước mỗi lần deploy</td><td>~67 bản trong <code>deploys/</code>; riêng 13–15/09 có 12 bản; không bản nào có hạn xoá</td><td class="r">đỏ</td></tr>
+<tr><td>Image Docker build lại liên tục</td><td>Mỗi lần build một tên mới, bản cũ nằm lại. Riêng đầu nối Claude build 6 lần trong 17–19/09, bản sau xây chồng lên bản trước. Đúng bệnh ~32GB hồi tháng 7</td><td class="r">đỏ</td></tr>
+<tr><td>Web đang chạy image không có tên</td><td>Phải ghim tên trước khi dọn, kẻo dọn nhầm</td><td class="y">vàng</td></tr>
+<tr><td>DB thử nghiệm 1,2GB</td><td>Tháng 7 đã xếp lịch xoá nhưng vẫn còn</td><td class="y">vàng</td></tr>
+<tr><td>Gói ngữ cảnh 3 giờ/lần</td><td>66 gói (~130MB), không xoá gói cũ — nhỏ nhưng cùng bệnh</td><td class="y">vàng</td></tr>
+<tr><td>Log container</td><td>Không thấy giới hạn kích thước</td><td class="y">vàng</td></tr>
+<tr><td>PostgreSQL</td><td>~3,4GB, đi ngang từ tháng 7; WAL có trần</td><td class="g">xanh</td></tr>
+<tr><td>Theo dõi (uptime-kuma) · script backup</td><td>30MB · backup có giữ N bản</td><td class="g">xanh</td></tr>
+<tr><td>Kho Docker · thư mục công cụ AI (Claude Code, Codex, Gemini, Hermes) · backup local</td><td>Công cụ của Claude Chat không nhìn vào được</td><td class="n">xám</td></tr>
+</tbody>
+</table></div>
+<p><strong>Cộng dồn:</strong> 2 đỏ · 4 vàng · 2 xanh · 1 nhóm xám lớn → bước 2 cân chính xác từng góc, tổng phải khớp số đĩa thật.</p>
+
+<h2 id="GOC-RE">3. Gốc rễ — một ví dụ</h2>
+<p>Mỗi lần sửa nhà, thợ chụp nguyên một bản sao căn phòng cất vào kho "phòng khi sửa hỏng". Chụp là đúng; nhưng không ai quy định giữ mấy bản, nên kho đầy. Tháng 7 mình khiêng rác ra mà chưa sửa thói quen, nên 2 tháng sau đầy lại. Lần này: dọn <strong>và</strong> gắn hạn dùng cho mọi bản sao, có người gác kho tự động, có chuông báo khi kho sắp đầy.</p>
+
+<h2 id="TIEU-CHI">4. Tiêu chí xong — đo thật mới PASS</h2>
+<table>
+<thead><tr><th>Mã</th><th>Tiêu chí</th></tr></thead>
+<tbody>
+<tr><td>T1 Chỗ trống</td><td>Sau dọn trống ≥45GB (dùng ≤55%).</td></tr>
+<tr><td>T2 Tốc độ</td><td>Theo dõi 2 tuần: tăng ≤3GB/tháng, không tính dữ liệu nghiệp vụ thật.</td></tr>
+<tr><td>T3 Hạn dùng</td><td>Mọi loại bản sao (bản web, image, gói ngữ cảnh, backup, log) có quy tắc giữ N bản / D ngày và được dọn tự động.</td></tr>
+<tr><td>T4 Chuông</td><td>Báo vàng ở 80%, đỏ ở 90%, dùng công cụ theo dõi đang có.</td></tr>
+<tr><td>T5 Không mất gì</td><td>Web và DB chạy bình thường; image không dựng lại được đã cứu trước khi xoá; bản lùi của R03 còn nguyên.</td></tr>
+</tbody>
+</table>
+
+<h2 id="KE-HOACH">5. Kế hoạch</h2>
+<table>
+<thead><tr><th>Việc</th><th>Làm gì</th><th>Ai</th><th>Khi nào</th></tr></thead>
+<tbody>
+<tr><td>VPSC.1</td><td>Mở việc + PROMPT khảo sát chỉ đọc.</td><td>Claude mở · GPT review</td><td>hôm nay</td></tr>
+<tr><td>VPSC.2</td><td>Cân từng góc kho, tìm vòi rò và cái gì sinh ra nó, lập danh sách dọn chia ngăn (xoá an toàn · cách ly trước · cứu trước rồi xoá · giữ). Không xoá gì.</td><td>Claude Code</td><td>ngay sau READY + RUN</td></tr>
+<tr><td>VPSC.3</td><td>Claude tự đo lại (không tin báo cáo), đưa ma trận + danh sách lên trang này; anh duyệt tổng.</td><td>Claude · anh</td><td>sau VPSC.2</td></tr>
+<tr><td>VPSC.4</td><td>Dọn (cứu trước, xoá sau) + khoá vòi, một prompt làm một lần.</td><td>Claude Code</td><td>sau khi anh duyệt và R03 đóng</td></tr>
+<tr><td>VPSC.5</td><td>Theo dõi 2 tuần theo T1–T5 → đóng việc; mở việc Graph.</td><td>Claude</td><td>—</td></tr>
+</tbody>
+</table>
+
+<h2 id="KHONG-LAM">6. Không làm ở vòng này</h2>
+<ul>
+<li>Bước 2 không xoá, không sửa, không khởi động lại gì.</li>
+<li>Không dùng lệnh dọn quét sạch (<code>docker system prune -a</code>) ở bất kỳ bước nào.</li>
+<li>Không cài Graph trong việc này. Theo Điều 39 (dự thảo), Graph là Apache AGE chạy ngay trong PostgreSQL hiện có — cần rất ít đĩa; thứ phải sửa là vòi rò. Việc Graph mở riêng khi T1–T2 đạt.</li>
+<li>Không nâng gói VPS: vòi rò ~13GB/tháng thì ổ lớn cỡ nào cũng đầy.</li>
+<li>Không đụng R03 đang nghiệm thu.</li>
+</ul>
+<p><small>Số đo: Claude Chat gọi thật <code>vps_status</code> (resources, containers), <code>fs_list</code> gốc code, <code>query_pg</code> ngày 2026-09-20. Mốc 24/07: KB <code>vps-clean-minimum-2026-07-24.md</code>. Bằng chứng thô của bước 2 để trên VPS, không đưa lên repo công khai.</small></p>
+</body>
+</html>
