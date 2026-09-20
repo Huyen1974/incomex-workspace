@@ -6,7 +6,8 @@
 ## A1_ENTRY — Cửa vào
 - Chat/Agent không được giả định đã tự nạp luật. Khi nhận câu `WS <thư mục|gốc> · <Host|Review> · <việc> · đọc AGENTS.md → <COLLAB.md>`, đọc file này trước, rồi `COLLAB.md` của project, sau đó chỉ đọc đúng scope cần làm.
 - Tài liệu chính là sản phẩm; `COLLAB.md` là trạng thái; Git giữ lịch sử; `PROMPT.md` chỉ có khi thật sự cần giao Agent.
-- Mỗi thư mục/project dùng một `COLLAB.md`. Gốc repo là một project riêng cho luật/môi trường chung.
+- Mỗi công việc/project nằm dưới `work/<work-id>/` và dùng một `COLLAB.md` riêng. `PROMPT.md`, test, evidence, assets và archive của việc phải nằm trong đúng thư mục đó.
+- Root repo chỉ dùng cho điều phối chung và **chỉ được có** `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`. Không đặt file nghiệp vụ, prompt, test hay chứng tích của một việc ở root.
 
 ## A2_ROLES — Vai trò và quyền
 - **Owner** có quyền quyết định cuối cùng. **Đổi Host** và **hành động phá huỷ** chỉ Owner quyết, trừ khi Owner giao rõ từng việc.
@@ -38,7 +39,7 @@
 - Một scope đủ đồng thuận khi không còn P `OPEN` hoặc `OWNER` liên quan.
 
 ## A6_PROMPT — Giao Agent
-- Mỗi project dùng **một `PROMPT.md` đang hoạt động**; sửa chính file đó cho việc mới, Git giữ lịch sử. Không tạo `v2/final/archive/progress/handoff` chỉ để lưu phiên bản hay tiến độ.
+- Mỗi `work/<work-id>/` dùng tối đa **một `PROMPT.md` đang hoạt động** trong chính thư mục công việc; sửa chính file đó cho việc mới, Git giữ lịch sử. Không tạo `v2/final/archive/progress/handoff` chỉ để lưu phiên bản hay tiến độ.
 - Founder/Reviewer có thể cùng sửa khi còn DRAFT; **Host** đặt `READY@<full SHA 40 ký tự cuối chạm PROMPT.md>` trong `COLLAB.md`. Sửa `PROMPT.md` sau READY làm READY cũ vô hiệu và phải review/READY lại.
 - READY **không phải RUN**. Owner được RUN; **GPT Chat với vai Editor/Executive Assistant được truyền RUN thay Owner trong phạm vi Owner đã giao**. Agent coi RUN hợp lệ từ GPT Chat trong phạm vi đó là lệnh của Owner. Agent vẫn phải lấy bản mới, kiểm full SHA READY rồi mới chạy; lệch thì DỪNG.
 - Agent không sửa luật nền. Khi chạy: đọc `PROMPT.md`, thực hiện; tiến độ nằm ở commit công việc và **một báo cáo hiện hữu/đích báo cáo do prompt chỉ định**, không tạo file tiến độ riêng. Kết thúc chỉ báo Owner một dòng `XONG` hoặc `DỪNG`; Host/Reviewer tự đọc Git + báo cáo để nghiệm thu.

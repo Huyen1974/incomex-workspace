@@ -2,12 +2,12 @@
 
 RUN_ID: R03-NAME-TWIN-REPAIR-20260920-01
 Soạn: Claude Chat — gộp đề xuất repair của GPT (Owner chuyển 2026-09-20) + 3 lỗi cùng loại Claude tìm thêm từ mã. Trạng thái KHÔNG ghi ở file này: chỉ tin `READY@<full-sha>` trong COLLAB.md.
-Chỉ chạy khi COLLAB.md có MỘT trong hai giấy phép, đúng full SHA commit cuối chạm file này: (a) `REVIEWED@` của Founder không soạn + Host `READY@`; hoặc (b) `OWNER_APPROVED@` (Owner override, COLLAB P09) — cộng lệnh RUN hợp lệ.
+Chỉ chạy khi `work/mcp-workspace/COLLAB.md` có MỘT trong hai giấy phép, đúng full SHA commit cuối chạm file này: (a) `REVIEWED@` của Founder không soạn + Host `READY@`; hoặc (b) `OWNER_APPROVED@` (Owner override, COLLAB P09) — cộng lệnh RUN hợp lệ.
 Bản PROMPT R03 đã chạy (MACHINE_DONE) là `7d0521916bbc9705eade326b3dcbb00c30f81c53`; đọc bằng `git show 7d05219:PROMPT.md` trong bản sao /tmp. Điều gì file này không nói thì theo bản đó (§1 luật schema, §2 cổng 29 dòng, §4 client, §6 cấm).
 
 ## 0. Trước khi làm
 1. Clone repo công khai vào một thư mục /tmp mới; kiểm giấy phép (a) hoặc (b) ở trên, đủ 40 ký tự; không có hoặc lệch → DỪNG.
-2. Đọc AGENTS.md, COLLAB.md (dòng R03, D09, mục Prompt: nhận định Claude Founder 2026-09-20 thay bản 10becaa), KB §13.11.1.
+2. Đọc `AGENTS.md`, `work/mcp-workspace/COLLAB.md`, KB §13.11.1.
 3. PL1–PL3 của P10 (đính chính 7159559) vẫn áp; riêng mốc healthy theo §4 dưới đây.
 4. Mỗi lỗi: test ĐỎ trước (repo tạm), sửa, test XANH. Mọi commit dùng tiền tố `[Claude Code]`.
 
@@ -40,16 +40,21 @@ Mọi thao tác làm xuất hiện một tên mới trong gốc Git SSOT (tệp 
 ## 4. Deploy lần hai — chỉ cho đúng lượt này
 READY của file này là sự cho phép thay câu "Không deploy lần hai trong R03" của bản 7d05219, CHỈ cho lượt này. Gắn tag rollback mới cho image đang chạy mỗi bên (theo §13.11.1 là `claude-mcp-local:r03-20260920` và `agent-data-r03:20260920-lifecycle`; kiểm lại bằng docker inspect). Chỉ deploy bên có đổi mã (+ trợ lý host nếu đổi, đúng điều kiện PL2). Mốc healthy: ≤ 180 s tính từ `State.StartedAt` tới `Health.Status=healthy` (docker inspect/events, không tính thời gian build); ghi cả cấu hình healthcheck thật của từng container. Quá mốc → hoàn nguyên về tag rollback và DỪNG, không tự quyết "gần đủ". Sau deploy chạy lại `run_acceptance.py` hai bên ⇒ PASS.
 
-## 5. Smoke sống sau deploy (chỉ trong `_thu-nghiem/R03/`, qua chính hai đầu nối)
+## 5. Smoke sống sau deploy (chỉ trong `work/mcp-workspace/_thu-nghiem/R03/`, qua chính hai đầu nối)
 Chỉ chạy khi test đơn vị đã xanh. Claude `fs_move` `_thu-nghiem/R03/ban-sao.txt` → `_thu-nghiem/R03/Ban-Sao.txt` ⇒ được; GPT `workspace_move` một tệp tương tự do chính GPT tạo ⇒ được; mỗi phía ít nhất một ca từ chối thuộc D2/D3/D4 ⇒ từ chối, không tạo gì. Lỡ tạo ra bản sinh đôi ⇒ FAIL, DỪNG, KHÔNG xoá (xoá là quyền Owner).
 
 ## 6. Báo cáo — ghi TRƯỚC khi trả Owner
 KB §13.11.2 (nối tiếp, không sửa §13.11.1): bảng entry point, đỏ → xanh, deploy (thời gian healthy từng container), cập nhật các dòng bảng 29 bị chạm (#8, #11–#15, #17, #18, #24, #28) và cờ:
-`TOOL_LIST_CHANGED=NO` · `TOOL_INPUT_SCHEMA_CHANGED=NO` (lượt này) · `TOOL_METADATA_CHANGED=<thực tế>` · build-id/vân tay mới · `CLIENT_REFRESH_REQUIRED=YES` (do đợt R03, CHƯA làm).
-Trả Owner đúng một dòng: `R03-NAME-TWIN-REPAIR-20260920-01: MACHINE_DONE — chờ làm mới client một lần · KB §13.11.2` hoặc `R03-NAME-TWIN-REPAIR-20260920-01: DỪNG ở <mã> — lý do ở KB §13.11.2`.
+`TOOL_LIST_CHANGED=NO` · `TOOL_INPUT_SCHEMA_CHANGED=NO` (lượt này) · `TOOL_METADATA_CHANGED=<thực tế>` · build-id/vân tay mới · `CLIENT_REBIND_REQUIRED=YES` (do đợt R03, CHƯA làm).
+Trả Owner đúng một dòng: `R03-NAME-TWIN-REPAIR-20260920-01: MACHINE_DONE — chờ tạo/connect client mới một lần · KB §13.11.2` hoặc `R03-NAME-TWIN-REPAIR-20260920-01: DỪNG ở <mã> — lý do ở KB §13.11.2`.
 
 ## 7. Cấm
-Như §6 bản 7d05219. Thêm: không refresh/reconnect bất kỳ client nào; không sửa AGENTS/README/COLLAB/PROMPT/DANH-MUC; không dọn `_thu-nghiem/`; không mở rộng ngoài §2–§3. Gặp gì ngoài dự kiến → DỪNG, ghi KB.
+Như §6 bản 7d05219. Thêm: không tạo/connect/reconnect bất kỳ client nào; không sửa `AGENTS.md`, `README.md`, `work/mcp-workspace/COLLAB.md`, `work/mcp-workspace/PROMPT.md`, `work/mcp-workspace/DANH-MUC-CONG-CU.md`; không dọn `work/mcp-workspace/_thu-nghiem/`; không mở rộng ngoài §2–§3. Gặp gì ngoài dự kiến → DỪNG, ghi KB.
 
 ## 8. Sau Agent (không phải việc của Agent)
-Host cho làm mới client ĐÚNG MỘT LẦN rồi nghiệm thu #27 + §4 của bản 7d05219 ở chat/phiên MỚI (GPT Chat, GPT Work, Claude Code, Claude Chat), thêm 2 ca: tự đổi tên hoa-thường ⇒ được; copy sang tên sinh đôi ⇒ từ chối. Rồi CROSS. Chỉ sau đó Host mới đóng R03.
+Chỉ khi Agent đã `MACHINE_DONE` và backend/build không còn thay đổi:
+1. **ChatGPT Pro của Owner:** không có Refresh app. Tạo đúng **một MCP app mới** từ MCP server Full All hiện hữu; không đổi URL/auth/secret. Scan Tools trước Connect; đối chiếu tool list, input schema, metadata/build và 29 capability trong `work/mcp-workspace/DANH-MUC-CONG-CU.md`. Thiếu/sai bất kỳ mục nào thì DỪNG trước Connect và sửa ở server, không tạo app nối tiếp.
+2. Owner Connect app mới bằng tay. Giữ app cũ làm rollback cho tới khi app mới PASS. GPT Chat + GPT Work phải mở phiên mới trên app mới. Claude reconnect connector và mở phiên mới; Claude Code mở phiên mới sau repair.
+3. Nghiệm thu cùng một bài 9 bước tại `work/mcp-workspace/_thu-nghiem/R03/<surface>/`: tạo tệp lồng → replace_all có expected_count → copy thư mục → move thư mục kèm tree/version guard → diff hai phiên bản → đọc ref cũ → restore commit replace_all → tự đổi tên hoa-thường phải được → copy sang tên sinh đôi phải bị từ chối. Chạy trên GPT Chat, GPT Work, Claude Chat, Claude Code.
+4. VPS: cả GPT và Claude ghi → sửa → đọc lại thật tại root `ui`, path `_thu-nghiem/R03/`, rồi một ca CROSS hai chiều. Không chạm mã/runtime VPS.
+PASS toàn bộ mới đóng R03; lỗi độc lập ngoài phạm vi ghi nợ, không mở thêm capability trong R03.

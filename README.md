@@ -3,9 +3,11 @@
 Kho làm việc CÔNG KHAI (PUBLIC từ 17/09/2026 — không commit secret; secret scanning + push protection đang bật) để Claude/ChatGPT đọc–sửa file qua đầu nối MCP "Incomex VPS" (gốc `gh`).
 Commit từ GPT workspace dùng tác giả "AI via Incomex Workspace"; connector Claude hiện hữu giữ tác giả riêng. Không force-push lên `main`.
 
-GPT dùng app MCP AgentData đang hiện hành, root `workspace`: đọc cửa sổ nhỏ → exact edit với expected_version → commit/push → kiểm diff. Tên app · tool count · build/fingerprint của từng client là TRẠNG THÁI, ghi ở `COLLAB.md` (mục **Mốc tiếp theo**); README không chép các số đó vì chúng cũ nhanh. File lớn hoặc HTML một dòng dùng workspace_read/search/edit; GitHub native chỉ để đọc/duyệt (D12: AI không ghi qua đường này).
+GPT dùng app MCP AgentData đang hiện hành, root `workspace`: đọc cửa sổ nhỏ → exact edit với expected_version → commit/push → kiểm diff. Tên app · tool count · build/fingerprint của từng client là TRẠNG THÁI, ghi ở `COLLAB.md` của đúng công việc; README không chép các số đó vì chúng cũ nhanh. File lớn hoặc HTML một dòng dùng workspace_read/search/edit; GitHub native chỉ để đọc/duyệt (D12: AI không ghi qua đường này).
 
-Chứng tích kiểm thử cũ của GPT/Claude đã gom dưới `_luu-tru-chung-tich-claude/`; agent không dùng cho công việc hiện hành. Test mới chỉ nằm trong `_thu-nghiem/<Rxx>/`. Server thêm/đổi công cụ thì client phải làm mới mới thấy (ChatGPT: Refresh app; Claude: ngắt rồi kết nối lại connector, mở chat mới); thiếu công cụ thì kiểm client trước khi kết luận server thiếu. Trạng thái client hiện hành tra ở `COLLAB.md`; giữ nguyên URL/secret.
+**Cấu trúc repo dài hạn:** root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`; mọi công việc nằm ở `work/<work-id>/`. Test/chứng tích/archive phải nằm trong đúng thư mục công việc, không rải ở root.
+
+**Client binding:** trên tài khoản ChatGPT Pro hiện tại của Owner không có Refresh app. Chỉ sau khi server/tool/schema/build đã chốt mới tạo **một MCP app mới** trỏ đúng server hiện hữu, giữ nguyên URL/auth/secret, Scan Tools một lần và đối chiếu tool + schema + metadata/build với catalog trước khi Owner Connect bằng tay. Giữ app cũ làm rollback cho tới khi app mới PASS nghiệm thu thật. Phía Claude: reconnect connector và mở phiên mới khi cần. Thiếu công cụ phải kiểm client binding trước khi kết luận server thiếu.
 
 ## Shared Workspace Technical Contract — v1.3, 2026-09-18
 
