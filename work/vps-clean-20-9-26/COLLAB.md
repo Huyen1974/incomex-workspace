@@ -5,7 +5,7 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT (đã sửa theo P01–P06) | NEXT: GPT review lại PROMPT_SHA mới | BLOCK: GPT mất đường ghi `workspace_*` (phía client; container agent-data vẫn healthy, không restart) → GPT trả lời qua Owner
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT · GPT REVIEW = REVISE (P07–P09 OPEN) | NEXT: Host xử lý P07–P09 rồi phát PROMPT_SHA mới | BLOCK: P07–P09
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R1-20260920-01` · AUDIT / NO PRODUCTION MUTATION · DRAFT.
 - **PROMPT_SHA = c0ddf9e3a0e85952375bd0f986903e94c81a35fe** (commit cuối chạm `PROMPT.md`; REVIEWED/READY theo đúng mã này). Bản `e50e95c` hết hiệu lực.
@@ -20,7 +20,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT (đã sửa theo P0
 - D01 · 2026-09-20 · Mở việc tại `work/vps-clean-20-9-26/`: đánh giá vì sao đĩa VPS đầy nhanh, đề xuất dọn phần không dùng để có chỗ cài Graph DB.
 
 ## Kế hoạch
-- VPSC.1 | Mở việc + PROMPT R1 | ▶ đã sửa theo P01–P06, chờ GPT review lại
+- VPSC.1 | Mở việc + PROMPT R1 | ▶ GPT đã review bản `c0ddf9e`: REVISE P07–P09, chờ Host sửa
 - VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → KB mục ĐỢT 2 nhãn `UNVERIFIED_R1` | □ sau REVIEWED + READY + RUN
 - VPSC.3 | Kiểm chéo: Host tự đo lại + lập đề xuất dọn theo nhóm trên `view.html` → GPT (hoặc Codex/Astra do GPT giao) thẩm tra độc lập, PASS/REVISE/BLOCK từng nhóm | □
 - VPSC.4 | Owner duyệt các nhóm đã PASS | □
@@ -41,11 +41,14 @@ Ghi hộ: GPT gửi P01–P06 qua Owner 2026-09-20 vì đường `workspace_*` c
 - P04 · Scope PROMPT §2 + §6 · Siết DELETE_PROVEN_SAFE; local-only phải rescue + checksum + cách restore; Nuxt không tag + rollback R03 hard-KEEP · ACCEPTED + bổ sung: R1 ước lượng GB cần cứu và nơi cất NGOÀI VPS — không `docker save` ra chính ổ đang đầy · Áp: c0ddf9e
 - P05 · Scope PROMPT §0–§4 · Dừng scan nặng khi Used ≥90% hoặc Available <8GB; evidence ≤200MB; ctime chỉ khoanh vùng; giải thích du≠df · ACCEPTED (+ đối chứng bằng btime `stat -c %W` nếu filesystem hỗ trợ) · Áp: c0ddf9e
 - P06 · Scope PROMPT §4 + §9 · Sổ nguồn sinh (Generator Registry) đủ cột, phủ đủ nhóm · ACCEPTED · Áp: c0ddf9e
-GPT còn một vòng phản biện (A5) cho P02, P03.
+- P07 · GPT · Based_on `c0ddf9e` · Scope PROMPT §0.1 + §0.4 · OPEN · Không clone repo vào `/tmp`: bản hiện tại vẫn clone trước cả bước đo `df`, vừa tự sinh rác vừa có thể làm nặng thêm ổ đang gần đầy. Đề nghị bước đầu tiên là `df`; đọc repo bằng checkout/mount đã có hoặc đọc remote không tạo clone bền vững. Không có nguồn đọc an toàn thì DỪNG, không tự clone vào `/tmp`. · Áp: SAME_COMMIT
+- P08 · GPT · Based_on `c0ddf9e` · Scope PROMPT §2 + §9 · OPEN · Raw evidence tuyệt đối không commit/push lên repo public. §2 đã nói KHÔNG đưa lên repo nhưng §9 lại cho phép “evidence thuộc cây git thì commit” — mâu thuẫn. Sửa thành: raw evidence luôn ở ngoài cây Git; nếu phát hiện path evidence nằm trong tracked checkout thì DỪNG/đổi sang path ngoài Git; repo/KB chỉ ghi summary/index đã sanitize, không chứa raw output/secret. · Áp: SAME_COMMIT
+- P09 · GPT · Based_on `c0ddf9e` · Scope PROMPT §1e + §6 · OPEN · `DELETE_PROVEN_SAFE` cần gate riêng cho DB; gate hiện tại thiên về Docker/file và chưa đủ để xếp `directus_gov_test_20260602` hay DB/schema vào lớp xoá. Đề nghị thêm `DB_DELETE_GATE`: chứng minh đúng target + owner/size; không có active connection; không app/DSN/cron/job/script nào tham chiếu; không dependency cần giữ; có backup off-VPS phù hợp + checksum + bằng chứng/cách restore; và việc DROP thực tế chỉ ở lượt dọn sau Owner duyệt. Thiếu bất kỳ mục nào → `UNKNOWN_HOLD`, không `DELETE_PROVEN_SAFE`. · Áp: SAME_COMMIT
+GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho lượt review này; chưa đọc lại `view.html`/KB/R03 vì không cần để kết luận 3 scope trên. P02/P03 không phản biện thêm trong lượt này.
 
 ## Owner cần quyết
 - Q04 · Đích sau dọn ≥45GB trống + ≤3GB/tháng. Đề xuất: gật.
 
 ## NEXT
-- GPT đọc lại `PROMPT.md` ở SHA mới (diff từ `e50e95c`): ghi `GPT REVIEWED@<full SHA> · ACCEPT` hoặc phản biện P02/P03. Chưa có lại đường ghi → trả lời qua Owner; Host ghi `GPT REVIEWED@<SHA> · qua Owner` (nguyên văn), rồi `READY@<SHA>`.
-- Sau READY: Owner (hoặc GPT trong phạm vi Owner giao) RUN.
+- Host xử lý P07–P09 trong `PROMPT.md`, phát full SHA mới và phản hồi từng P theo A5. Chưa được đặt READY/RUN cho `c0ddf9e`.
+- GPT review lại đúng PROMPT_SHA mới; chỉ khi ACCEPT mới đi tiếp READY → RUN.
