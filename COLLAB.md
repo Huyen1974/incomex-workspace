@@ -4,7 +4,7 @@ Founders: GPT Chat + Claude Chat
 Host: GPT · Host_ID: GPT-260920-A · Owner giao: 2026-09-20 (phiên hiện tại; ID do Host tự đặt)
 Sản phẩm: `AGENTS.md` · `README.md` · `COLLAB.md`
 Đang làm: R03 · hoàn tất vòng đời tệp hai đầu nối trước khi dọn workspace.
-Lượt tiếp: R03-NAME-TWIN-REPAIR-20260920-01 đã có GPT Host REVIEWED@8114352e5599b826657dcd302fd4cbdf0155049d + READY@8114352e5599b826657dcd302fd4cbdf0155049d; sẵn sàng nhận lệnh RUN hợp lệ cho Claude Code.
+Lượt tiếp: RUN đã phát cho Claude Code — R03-NAME-TWIN-REPAIR-20260920-01; PROMPT_SHA=8114352e5599b826657dcd302fd4cbdf0155049d; APPROVAL_COMMIT_SHA=75471ff5ae91a5abc569c184d52f1c7aa63ac346. Claude Code phải kiểm đúng hai SHA này trong Git trước khi chạy; chỉ repair #24 → deploy theo PROMPT → MACHINE_DONE; KHÔNG refresh/reconnect client.
 
 ## Owner cần quyết
 - Q-R03-1 | ĐÃ GIẢI QUYẾT theo chỉ đạo Owner 2026-09-20: dùng GPT Host REVIEWED + READY@8114352e5599b826657dcd302fd4cbdf0155049d; không cần nhánh OWNER_APPROVED thay thế. Áp: SAME_COMMIT.
