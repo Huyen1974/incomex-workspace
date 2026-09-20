@@ -5,6 +5,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đang làm
 - `work/mcp-workspace/` · R03 · chốt MCP Git + VPS để quay lại công việc nghiệp vụ.
+- `work/jev-integration/` · PLAN-V01 · mở việc, đang lấy ý kiến hội đồng; chưa RUN triển khai.
 - NEXT: Claude Code run hiện tại tiếp tục theo bridge P16 tại `work/mcp-workspace/COLLAB.md` (commit `3117f3a247d41d6023683c9a1ea8ac6b8382b5ff`) → MACHINE_DONE → tạo/connect MCP app mới một lần → nghiệm thu cuối.
 
 ## Quyết định Owner
