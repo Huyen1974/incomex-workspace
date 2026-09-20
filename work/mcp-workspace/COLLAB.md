@@ -20,6 +20,22 @@ R03 | FINAL-CLOSE E1–E4 | RUN | NEXT: Claude Code → MACHINE_DONE | BLOCK: �
 - Không đạt cổng Scan thì dừng trước Connect; không tạo chuỗi app mới.
 - Giữ app cũ rollback tới khi app mới PASS. Claude reconnect/open phiên mới sau backend cuối.
 
+## Cổng Scan MCP app mới — BẮT BUỘC trước Owner Connect
+Chỉ thực hiện sau `R03-FINAL-CLOSE ... MACHINE_DONE` và backend đã đóng băng. Scan đúng server Full All hiện hữu; **không đổi URL/auth/secret**.
+
+PASS Scan khi đồng thời:
+- tool count GPT = **37**;
+- `workspace_list` có `ref`;
+- `workspace_read` có `ref`;
+- `workspace_edit.edits[]` có `replace_all` + `expected_count`;
+- `workspace_diff` có `from_ref` + `to_ref`;
+- `workspace_transaction.operations[]` có variant `restore` với `version`, `path`, `archive_dir`, và edit variant vẫn có `replace_all` + `expected_count`;
+- metadata/description của `workspace_stat` nêu whole-tree version cho directory; `workspace_copy`/`workspace_move` nêu hỗ trợ cả directory bằng `expected_version` tree token;
+- các write tool đã có `operation_id` không được mất; tool list/name không đổi ngoài schema/metadata đã chốt;
+- build/fingerprint phải khớp báo cáo KB §13.11.3 của lượt final-close.
+
+Thiếu **một** mục: DỪNG trước Connect, không tạo app thứ hai, không để Owner test bằng tay. E3 `upload_begin` chặn tên sinh đôi là behavior backend, phải PASS trong MACHINE_DONE; không suy từ Scan schema.
+
 ## Nghiệm thu cuối sau client mới
 Cùng một bài 9 bước tại `work/mcp-workspace/_thu-nghiem/R03/<surface>/` cho GPT Chat, GPT Work, Claude Chat, Claude Code:
 1. tạo tệp trong thư mục lồng;
