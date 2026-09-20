@@ -20,6 +20,9 @@ R03 | CLIENT-ONLY FINAL ACCEPTANCE | BACKEND FROZEN | NEXT: tạo 1 app GPT mớ
 - Không đạt cổng Scan thì dừng trước Connect; không tạo chuỗi app mới.
 - Giữ app cũ rollback tới khi app mới PASS. Claude reconnect/open phiên mới sau backend cuối.
 
+## Bằng chứng app GPT hiện tại đã stale — không dùng nghiệm thu
+GPT Host kiểm trực tiếp trong phiên hiện tại sau backend freeze: app Full All vẫn thấy 37 tool nhưng schema client cũ, thiếu ít nhất `workspace_list.ref`, `workspace_read.ref`, `workspace_edit.edits[].replace_all/expected_count`, `workspace_diff.from_ref/to_ref`, transaction `restore`. Vì vậy app cũ chỉ giữ rollback; không dùng để chấm R03.
+
 ## Cổng Scan MCP app mới — BẮT BUỘC trước Owner Connect
 Chỉ thực hiện sau `R03-FINAL-CLOSE ... MACHINE_DONE` và backend đã đóng băng. Scan đúng server Full All hiện hữu; **không đổi URL/auth/secret**.
 
