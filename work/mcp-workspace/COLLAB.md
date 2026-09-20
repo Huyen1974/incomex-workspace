@@ -5,14 +5,14 @@ Host: GPT · Owner giao: 2026-09-20
 Mục tiêu cuối: GPT/Claude edit tự nhiên và ổn định qua MCP trên Git workspace + vùng VPS được phép ghi; kết thúc kết nối để quay lại công việc nghiệp vụ.
 
 ## R03 — trạng thái hiện hành
-R03 | FINAL-CLOSE E1–E4 | RUN | NEXT: Claude Code → MACHINE_DONE | BLOCK: —
+R03 | CLIENT-ONLY FINAL ACCEPTANCE | BACKEND FROZEN | NEXT: tạo 1 app GPT mới → Scan → Owner Connect → 9 bước + VPS/CROSS → CLOSED | BLOCK: —
 
 - Repo đã tái cấu trúc: root chỉ còn `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 - Toàn bộ việc này nằm tại `work/mcp-workspace/`; test/chứng tích không còn rải ở root.
 - PROMPT hiện hành: `work/mcp-workspace/PROMPT.md` · `R03-FINAL-CLOSE-20260920-01`.
 - **PROMPT_SHA = d15eac28b2f8a843e2a4b267cee988fbf44446ba**.
 - **APPROVAL_COMMIT_SHA = cf2a6ef3ce700c8fdcdb9ad959c812540c66334b**.
-- Đây là lượt backend cuối E1–E4; không thêm capability/tool/schema. Sau `MACHINE_DONE` backend đóng băng tới hết nghiệm thu client.
+- Backend final-close đã `MACHINE_DONE` và **ĐÓNG BĂNG** theo KB §13.11.3 + Claude verify `c6c0d89...`. Không deploy/sửa server nữa tới khi R03 CLOSED, trừ rollback.
 
 ## Client cuối — đã chốt
 - ChatGPT Pro hiện tại của Owner **không có Refresh app**.
@@ -55,11 +55,11 @@ VPS: GPT và Claude cùng ghi → sửa → đọc lại tại root `ui`, path `
 ## Run trước
 P16 | GPT Host | CLOSED — bridge cho run NAME-TWIN (PROMPT 8114352) đã MACHINE_DONE; chi tiết ở Git `3117f3a`. KHÔNG áp cho run hiện hành: giấy phép hiện hành DUY NHẤT là mục ngay dưới.
 
-## Prompt / giấy phép hiện hành
-- PROMPT: `R03-FINAL-CLOSE-20260920-01`
-- GPT Founder REVIEWED@d15eac28b2f8a843e2a4b267cee988fbf44446ba — ACCEPT E1–E4; không thêm capability/tool/schema.
-- GPT Host READY@d15eac28b2f8a843e2a4b267cee988fbf44446ba.
-- RUN: ACTIVE — `PROMPT_SHA=d15eac28b2f8a843e2a4b267cee988fbf44446ba` · `APPROVAL_COMMIT_SHA=cf2a6ef3ce700c8fdcdb9ad959c812540c66334b`.
+## Backend final-close — CLOSED
+- `R03-FINAL-CLOSE-20260920-01`: MACHINE_DONE; backend frozen.
+- Agent report: KB §13.11.3.
+- Claude independent verify: commit `c6c0d89eada99ca2dfcc72df6ca6854f2b1c0429`.
+- Từ đây chỉ còn client binding + nghiệm thu thực hành; lỗi độc lập không chặn được ghi nợ sau R03.
 
 ## Claude review
 P15 | GPT | CLOSED 06:17Z — kết quả: PROMPT d15eac2 REVIEWED + READY (mục giấy phép ở trên).
