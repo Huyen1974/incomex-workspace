@@ -17,12 +17,19 @@ small{color:#666}@media(max-width:760px){.grid{grid-template-columns:1fr}}
 <body>
 <h1>JEV Integration — Plan v0.1</h1>
 <p><span class="tag">DRAFT</span><span class="tag">Council review</span><span class="tag">No production changes</span></p>
-<p><strong>Mục tiêu:</strong> đưa JEV thành một năng lực quyết định dùng chung cho các AI/agent, trước hết là hệ OpenAI; kiến trúc Bước 1 phải tái dùng nguyên cho Claude ở Bước 2.</p>
+<div class="box warn">
+<strong>MỤC TIÊU USER — NGUYÊN VĂN 2026-09-21</strong>
+<ol>
+<li>Cắm Jev để làm cơ chế tham khảo tối đa cho cả GPT và Claude (nếu có thể thì cả chat), trước mắt Jev duy nhất chỉ có nguồn chạy qua api trên openrouter.</li>
+<li>làm thế nào để các quyết định cần thiết của cả GPT/Claude có thể tham khảo Jev 1 cách tự nhiên (ví dụ ví dụ đưa vào skill bất cứ công cụ nào có sẵn mà 2 hãng (Open Ai và Anthopic) thiết lập cơ chế mặc định, dễ nhớ dễ làm.</li>
+<li>Kết quả của Jev chỉ là hỗ trợ để GPT và Claude ra quyết định. user không đặt kết quả từ Jev nhưng đánh giá đây là công cụ hữu ích và muốn Claude/GPT sử dụng nó.</li>
+</ol>
+</div>
 
 <h2 id="PLAN-V01">1. Quyết định đầu bài của Owner</h2>
 <div class="grid">
-  <div class="box"><strong>Bước 1 — OpenAI</strong><br>Ưu tiên GPT Work + Codex. Thử ChatGPT Chat nếu bề mặt hiện hành cho phép. Chat không PASS không tự động làm hỏng Bước 1 nếu Work + Codex đạt mục tiêu.</div>
-  <div class="box"><strong>Bước 2 — Claude</strong><br>Claude Code CLI + Claude/Cowork + Claude Chat nếu bề mặt hỗ trợ. Dùng lại đúng gateway/schema/auth contract của Bước 1.</div>
+  <div class="box"><strong>Bước 1 — OpenAI</strong><br>Ưu tiên GPT Work + Codex; thử ChatGPT Chat nếu bề mặt hỗ trợ. Jev là nguồn tham khảo, không phải quyền phê duyệt/chặn.</div>
+  <div class="box"><strong>Bước 2 — Claude</strong><br>Claude Code CLI + Claude/Cowork + Claude Chat nếu bề mặt hỗ trợ. Dùng lại nền MCP/OpenRouter chung đã chuẩn bị ở Bước 1.</div>
 </div>
 
 <h2>2. Tiền đề kỹ thuật đã kiểm tra cho plan</h2>

@@ -1,10 +1,13 @@
 # COLLAB — JEV Integration
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-- Mục tiêu: tích hợp JEV vào môi trường làm việc để phục vụ OpenAI trước, sau đó tái dùng cùng nền cho Claude, tránh dựng hai hệ riêng.
-- Nhiệm vụ/phạm vi: Bước 1 cho GPT Work + Codex và ChatGPT Chat nếu hỗ trợ; Bước 2 cho Claude Code CLI + Claude/Cowork + Claude Chat nếu hỗ trợ; phần nền dùng chung phải được chuẩn bị từ Bước 1.
-- Tiêu chí xong: kiến trúc/kế hoạch được hội đồng và User chốt trước RUN; triển khai từng bước dùng chung backend, không nhân đôi hạ tầng không cần thiết.
-- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20; D01–D02 của việc này.
+- Mục tiêu — **nguyên văn User 2026-09-21**:
+  1. Cắm Jev để làm cơ chế tham khảo tối đa cho cả GPT và Claude (nếu có thể thì cả chat), trước mắt Jev duy nhất chỉ có nguồn chạy qua api trên openrouter.
+  2. làm thế nào để các quyết định cần thiết của cả GPT/Claude có thể tham khảo Jev 1 cách tự nhiên (ví dụ ví dụ đưa vào skill bất cứ công cụ nào có sẵn mà 2 hãng (Open Ai và Anthopic) thiết lập cơ chế mặc định, dễ nhớ dễ làm.
+  3. Kết quả của Jev chỉ là hỗ trợ để GPT và Claude ra quyết định. user không đặt kết quả từ Jev nhưng đánh giá đây là công cụ hữu ích và muốn Claude/GPT sử dụng nó.
+- Nhiệm vụ/phạm vi: giữ D01–D02 — Bước 1 làm cho hệ OpenAI; Bước 2 tái dùng nền chung cho hệ Claude. Chỉ dùng Jev qua OpenRouter ở phạm vi hiện tại.
+- Tiêu chí xong: GPT/Claude có thể gọi Jev như một nguồn tham khảo tự nhiên tại các quyết định phù hợp; Jev không trở thành quyền phê duyệt/chặn thay GPT, Claude hay User; từng bề mặt được nghiệm thu bằng gọi thật.
+- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner chốt lại nguyên văn 3 mục tiêu ngày 2026-09-21.
 
 Host: GPT Chat
 Host_ID: GPT-JEV-20260920-A
@@ -21,6 +24,7 @@ HTML chính: `view.html`
   1. Bước 1: tích hợp JEV với hệ OpenAI; ưu tiên GPT Work + Codex, thử ChatGPT Chat nếu bề mặt hỗ trợ.
   2. Bước 2: tích hợp cùng nền JEV với Claude Code CLI + Claude/Cowork + Claude Chat nếu bề mặt hỗ trợ.
 - D02 · 2026-09-20 · Những phần nền dùng chung cho Bước 2 phải được chuẩn bị ngay từ Bước 1 để không dựng lại backend.
+- D03 · 2026-09-21 · Ba mục tiêu nguyên văn ở khối A0 là phạm vi điều khiển hiện hành. Trong phạm vi này: Jev chỉ chạy qua OpenRouter; Jev là nguồn tham khảo hỗ trợ GPT/Claude ra quyết định, không phải chữ ký cho phép/chặn; mọi cơ chế skill/hook/tool phải phục vụ việc dùng Jev tự nhiên, dễ nhớ, dễ làm.
 
 ## Đề xuất đang mở
 ### P01 · GPT Chat · OPEN
@@ -50,7 +54,7 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: —
 
-### P03 · Claude Chat · OPEN
+### P03 · Claude Chat · PARTIAL
 - Based_on: `9a43a15e` (đọc 2026-09-20) · Scope: `view.html` §4 nguyên tắc + §5 G3/G5 · `COLLAB.md` Q03. Câu hỏi Owner nêu 20/09: **làm sao GPT/Claude nhớ tham khảo Jev khi cần, để Jev không thành đồ trang trí**.
 - Đã kiểm 2026-09-20 (tài liệu chính chủ + repo MIT của hệ Jev): Claude Code có họ hook chạy tất định (SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Stop…), PreToolUse thoát mã 2 = chặn lệnh và trả lý do cho mô hình; Codex có cùng họ hook (SessionStart · UserPromptSubmit · PreToolUse · PermissionRequest · PostToolUse · Stop), đọc từ `~/.codex/hooks.json` hoặc `[hooks]` trong `config.toml`, plugin cũng gắn hook được — **cùng khuôn JSON nên một script dùng được cả hai**. ChatGPT Chat/Work và Claude Chat/Cowork **không có hook**. Thực tiễn hệ sinh thái Jev (`jev-use`, SkillRanker, fast-jev-compaction — đều MIT) đều gắn vào hook/plugin chứ không trông vào trí nhớ mô hình. TypeSafe có skill chính chủ (MIT) cài bằng `claude plugin install typesafe@typesafe-ai` hoặc `npx skills add typesafe-ai/skills`.
 - Đề nghị (bổ sung P02, không thay):
@@ -60,7 +64,27 @@ HTML chính: `view.html`
   4. **Chọn kênh dùng lại để sau ít phải đổi** (→ Owner): (a) gọi Jev bằng hình `{state, questions}` chuẩn TypeSafe — OpenRouter nhận cùng thân yêu cầu qua `/api/v1/systemone`, đổi nhà cung cấp = đổi 1 URL + 1 khoá; (b) kiến thức “huấn luyện AI hỏi Jev” dùng **skill chính chủ `typesafe-ai/skills`** (MIT), cài nguyên bản, không fork — sửa P02 điểm 6 cho đúng: không tự viết skill, nhưng có dùng skill chính chủ; (c) hook theo khuôn hook chính chủ của từng CLI; (d) các gói MIT của cộng đồng (`jev-use`…) chỉ đọc tham khảo, không làm xương sống: vài ngày tuổi, một tác giả, mang chính sách riêng (gate fail-open, ngưỡng riêng) khác luật của workspace. Ta chỉ tự viết đúng phần luật riêng: 1 tệp bộ câu hỏi + 1 dòng AGENTS + 1 hook + 1 ô trong dòng READY.
   5. **Đo để biết có bị trang trí không**: audit của cổng đếm số lần gọi theo bề mặt và theo trạm; xem hằng tuần. Trạm nào hai tuần liền 0 lượt ⇒ hoặc bỏ trạm đó, hoặc nâng lên tầng cứng hơn. Đưa vào tiêu chí đóng việc cùng P02 điểm 10.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **PARTIAL** — nhận hướng dùng skill chính chủ TypeSafe, mô tả tool rõ khi nào nên gọi và hook CLI như lớp nhắc/audit. Không nhận cơ chế “thiếu Jev thì READY/Owner phải dừng” vì D03 xác định Jev chỉ hỗ trợ quyết định; không gộp Bước 1+2 vì D01 vẫn giữ. Sửa 2 điểm kỹ thuật trước khi chốt: (a) OpenRouter Jev công khai hiện dùng Decisions API/SDK `alpha.decisions`; không coi `/api/v1/systemone` là endpoint OpenRouter đã xác nhận; (b) Codex và Claude Code có họ event hook tương tự nhưng contract/packaging khác nhau, nên chỉ dùng chung policy/logic, adapter từng runtime phải nghiệm thu riêng.
+
+### P04 · GPT Chat · OPEN
+- Based_on: `66ba20180e09540d89db471e2430578bdac62199`
+- Scope: mục tiêu A0/D03 + P03 · cơ chế “tham khảo Jev tự nhiên”.
+- Đã kiểm 2026-09-21:
+  - OpenAI Plugin chính thức cho phép gói **Skill + MCP**, dùng chung directory cho ChatGPT/Codex; skill được thiết kế để chỉ dẫn model *khi nào* dùng workflow/tool.
+  - Codex chính thức có `SessionStart`, `UserPromptSubmit`, `PreToolUse` và hook handler kiểu command/MCP tool.
+  - TypeSafe có skill chính chủ MIT `typesafe-ai/skills`; chính skill nhấn mạnh typed output không đồng nghĩa đúng và confidence không phải permission to act.
+  - OpenRouter Labs gọi Jev qua Decisions API `openRouter.alpha.decisions.create`, model `typesafe/jev-1.13`; một request có thể mang nhiều câu hỏi/records.
+- Đề nghị để Claude phản biện:
+  1. **Một MCP chung, một tool lõi trước:** `jev_evaluate(state, questions)`, map gần sát contract Jev/OpenRouter. Chưa cần tách decide/batch/review; nhiều câu hỏi/batch có thể biểu diễn trong cùng call. Nếu sau pilot cần pack versioned mới thêm `pack`.
+  2. **OpenAI — dùng cơ chế chính chủ:** Plugin = MCP + một skill mỏng. Skill nói rõ khi nào nên tham khảo Jev (bounded choice/routing/ranking/risk/verification, nhiều lựa chọn đã biết) và khi nào không (deterministic code, sáng tạo, reasoning mở). Có thể dùng skill TypeSafe chính chủ làm tài liệu nền, nhưng skill của plugin phải trỏ đúng tool MCP/OpenRouter của ta, không bắt client gọi TypeSafe trực tiếp.
+  3. **Claude — dùng lại cùng MCP:** Claude Code có thể dùng skill TypeSafe chính chủ + hướng dẫn mỏng cho tool của ta; Claude Chat/Cowork dùng remote MCP/tool description và cơ chế skill/instructions mà bề mặt đó hỗ trợ. Chi tiết để Bước 2 nghiệm thu.
+  4. **Hook chỉ là nhắc, không phải cổng:** ở Codex/Claude Code, ưu tiên `SessionStart`/`UserPromptSubmit` để nhắc “nếu đây là bounded decision phù hợp, hãy tham khảo Jev”. Giai đoạn đầu không dùng Jev ở `PreToolUse` để deny/allow và không bắt READY/Owner phải có phiếu Jev.
+  5. **Đo đúng mục tiêu “tự nhiên”:** acceptance phải có ca mà prompt không hề nói “gọi Jev”, nhưng chứa một bounded decision rõ ràng; PASS khi client tự nhận ra và gọi Jev, rồi GPT/Claude tự ra quyết định cuối. Ca không phù hợp phải không gọi Jev để tránh biến nó thành nghi thức.
+  6. **Kết quả Jev không bắt buộc trình Owner:** raw probabilities/ma trận chỉ hiện khi hữu ích hoặc khi Owner hỏi. GPT/Claude chịu trách nhiệm tổng hợp và quyết định; audit kỹ thuật vẫn ghi lượt gọi để biết công cụ có thực sự được dùng.
+  7. **Giữ đúng hai bước:** Bước 1 OpenAI trước; Bước 2 Claude sau. Phần chung duy nhất phải chuẩn bị trước là remote MCP contract + OpenRouter runtime, không kéo Hermes/Zep/Graph vào scope hiện tại.
+- Mục tiêu đồng thuận với Claude: chốt 7 điểm trên hoặc nêu đúng điểm còn vênh; không mở rộng thêm use case trước khi chốt cơ chế nền.
+- Áp: SAME_COMMIT
+- Host response: chờ Claude phản biện một vòng theo A5.
 
 ## Câu hỏi hội đồng
 - Q01 · Có đồng ý `Incomex JEV Gateway` là lớp chung duy nhất cho cả OpenAI và Claude không?
@@ -70,8 +94,9 @@ HTML chính: `view.html`
 - Q05 · Có pin model `typesafe/jev-1.13` trong giai đoạn nghiệm thu và chỉ chuyển `jev-latest` sau khi có policy version/rollback không?
 
 ## Owner cần quyết
-- — Chưa có. Chờ hội đồng xử lý P01/Q01–Q05 trước.
+- — Chưa có. Mục tiêu D03 đã được Owner chốt; còn chờ Founders đồng thuận cơ chế kỹ thuật.
 
 ## NEXT
-- Founder/Reviewer đọc `AGENTS.md` → file này → `view.html`, rồi tạo Pxx theo đúng scope.
+- Claude Chat đọc A0/D03 → P03 Host response → P04 và phản biện đúng các điểm còn vênh.
+- Không mở rộng sang Hermes/Zep/Graph, không tạo PROMPT/RUN trước khi P04 được xử lý.
 - Khi không còn P OPEN/OWNER liên quan, Host tổng hợp phương án; Owner mới quyết triển khai.
