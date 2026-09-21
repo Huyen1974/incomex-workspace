@@ -4,6 +4,88 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## V2 — Codex hậu kiểm R2 · 21/09/2026 · executor=Codex Desktop qua SSH · write_path=workspace_*
+
+RUN_ID `VPSC-V2-20260921-01` · PROMPT@`abe38f1992a61dedd9f3a9a664a63b6356b19cc4` · OWNER_APPROVED/Host READY khớp; đầu vào workspace @`0f30322297547c8b99dcaf7123076961c4bddc9e`. Đọc AGENTS → COLLAB → PROMPT; đối chiếu R2, V1b và PROMPT R2 @`f701fc5ca09041d47752cc7c5bca46ab290e8043`. Số đo độc lập khoảng 11:06–11:12Z; giờ dưới đây là UTC, GiB = 1024³ byte. **MACHINE_DONE: PASS 3 / REVISE 3 / BLOCK 0.** Không chạy dọn/deploy/backup, không sửa dịch vụ hay ghi file lên VPS; không đọc tệp bí mật hoặc tham số tiến trình.
+
+### 1. CHO OWNER
+
+- **Phần dọn R2 đúng các danh sách kiểm được:** 63 tên Nuxt đã duyệt vắng; tập giữ đủ; 22 build thành công gần đây còn đủ; Qdrant còn 1 snapshot; bản cứu Drive khớp.
+- Trống cuối lượt **43,446GiB**, đĩa 55%; còn thiếu **1,554GiB** để đạt 45GiB. Đây là đo hiện tại, không tính lại lượng đã thu hồi.
+- **Chưa nghiệm thu tuyên bố “khoá 4/4”:** K1 đúng cấu trúc; B4 đúng chốt checksum nhưng còn lỗ ghi lỗi; hiệu lực thực tế K2 **chưa rõ**.
+- Mac có cả bản tài liệu cũ và bản tạm **trùng SHA256 với VPS, đã có K2**. Chưa có chứng cứ xác định đường gọi nào sẽ được dùng cho deploy kế tiếp.
+- Cuối lượt: 12 container, cả 10 container có healthcheck đều healthy; web 200, Directus ok, Qdrant green/20.183 points.
+- **HVU lại triển khai trong V2:** agent-data đổi từ image R03 sang `agent-data-hvu:b3-rerun-02` lúc 11:09Z; workspace thoáng lỗi 502 rồi đọc lại được. Không quy biến động này cho R2.
+- Các mục HOLD kiểm theo yêu cầu vẫn còn; Host xử lý C/D/F dưới đây trước khi xác nhận hoàn tất, rồi tiếp tục R3/V3 đã lên kế hoạch.
+
+### 2. Kết quả A–F
+
+| Mục | Kết quả | Chấm | Căn cứ và giới hạn |
+|---|---|---|---|
+| A · Dung lượng, dịch vụ | Cuối lượt dùng 56.221.696.000 byte, available 46.649.622.528 byte = 43,446GiB, 55%. 12 container; 10/10 healthcheck healthy. Qdrant green, 20.183 points; web ngoài qua nginx 200; Directus health 200/ok. | **PASS** | Đo trực tiếp. Đầu lượt có thêm một container thử HVU; agent-data chính được tạo lại giữa lượt, chi tiết F. PASS là trạng thái cuối lượt, không khẳng định không có gián đoạn. |
+| B · Danh sách dọn và bản cứu | A1/A2/A3/A4/B2/B3 đạt các kiểm tra bên dưới. | **PASS** | Đối chiếu tên V1b, nhật ký builder và đo hiện tại; không lấy số thu hồi R2 làm số đo V2. |
+| C · Ba script, cron, logrotate | File hiện hành khớp nội dung ở ba commit R2; cả ba `bash -n` trả 0. Chốt checksum trước DELETE đúng; K1 đủ ba luật, flock và log; K2 nằm sau kiểm deploy. Còn hai điểm cần sửa. | **REVISE** | B4: POST lỗi dưới `set -e` thoát trước nhánh ghi FAILED; lời hứa “mọi lỗi đều ghi FAILED” chưa đúng. K2: xếp hạng tên wildcard trước khi lọc tên hợp lệ có thể làm mất đủ ba bản hợp lệ được giữ. Xem §4. |
+| D · Nguồn tạo bản sao, hiệu lực K2 | Xác định được nơi `cp -a`, thời điểm sinh ba bản gần nhất; tìm thấy bản Mac tạm trùng VPS. **Chưa xác định bản nguồn thực sự được gọi trong ba lượt đó / deploy kế tiếp.** | **REVISE** | Auth chỉ chứng minh có SSH; journal/log tìm được chưa chứng minh gọi đường dẫn VPS hay truyền nội dung script từ Mac. Không chạy deploy để tạo bằng chứng. Không đủ căn cứ kết luận K2 hiệu lực hoặc không hiệu lực. |
+| E · HOLD ngoài phạm vi | N9 38 dump; N11 đủ 38/38 target; N12 đủ hai vùng và chín tên checkpoint; N13 DB và nhãn giữ còn; N14, backup Hermes, live Nuxt và 16 ID image N7/N8 còn. | **PASS** | Đây là kiểm sự tồn tại/tập tên và nhãn theo PROMPT, không phải chứng nhận mọi byte bên trong HOLD không thay đổi. |
+| F · HVU-B3 | Image B3 gốc vẫn còn, 425.146.049 byte (~0,396GiB theo Docker image size). Trong V2 agent-data chuyển sang B3 rerun, cuối lượt healthy. | **REVISE** | Mốc “đã rollback về R03” của R2 đúng với đầu lượt V2 nhưng không còn đúng ở cuối lượt. Host cần cập nhật điều phối HVU; không tự xoá image hoặc rollback trong V2. |
+
+### 3. Bằng chứng danh sách và HOLD
+
+**B · Đo lại:**
+
+- A1: `directus-out-0.log` tăng từ **1.029.316 → 1.057.671 byte**, mtime tiến lên trong lúc làm các kiểm tra khác: file nhỏ và tiếp tục được ghi, không cần chờ.
+- A2: `context-pack.tmp` còn **22 thư mục**, không tên nào ≤ `20260918-070009-403a50`. Đối chiếu nhật ký builder từ 18–21/09: **22/22 build có “generate DONE” mới hơn mốc đều còn**, không có build hiện tại nằm ngoài tập nhật ký. Ba ID có dòng bắt đầu nhưng không có “generate DONE” cũng không có thư mục: `20260919-220027-6b1672`, `20260920-070009-71e738`, `20260921-100008-2afc36`; không coi việc vắng ba ID chưa hoàn tất này là bằng chứng R2 xoá nhầm.
+- A3: 5/6 cache vắng; riêng `/root/.cache/pip` **15.392.768 byte (~14,68MiB)**, dưới 300MiB. Sáu đường dẫn đúng danh sách R2.
+- A4: đối chiếu đủ **72 tên manifest N3 V1b**: 63 tên được duyệt xoá đều vắng; **9 tên được giữ còn đủ**, cộng `nuxt-output` đang chạy thành **10 tên tổng cộng**. Không có `truoc-*` sinh sau R2. Lưu ý đếm: PROMPT R2 liệt kê tập GIỮ gồm cả live; cách viết “10 tên + nuxt-output” ở PROMPT V2 thừa một tên nếu đọc theo nghĩa 11.
+- B3: đúng một `production_documents-7363544529537161-2026-09-21-01-00-04.snapshot`, **236.036.608 byte**. Nhật ký backup gần nhất vẫn là 01:00Z hôm nay, trước B4; chưa có lượt Qdrant cron thật sau sửa.
+- B2: đọc đúng thư mục `rescue/vpsc-r2/` bằng rclone: bản `.snapshot.gpg` **175.333.216 byte**, meta **901 byte**; MD5 bản mã hoá **`b8180c2e93be512b7a14f624f45443be`**, khớp R2. Chỉ kiểm đối tượng/size/checksum; chưa diễn tập giải mã/khôi phục.
+
+**E · Đối chiếu HOLD:**
+
+- Postgres `/tmp`: **38 tệp .dump**. Toàn bộ **38 target N11** trong V1b còn, gồm cả `/opt/incomex/docker/directus-dump.sql`; không thiếu target nào.
+- N12: `pg-ngoai-vong-luan-chuyen`, `dieu44_v0_3_readobs_dryrun_rerun_20260516T230306Z` và **9 tên checkpoint** dưới vùng quản trị còn. Không đọc nội dung chúng.
+- N13: `directus_gov_test_20260602` còn, **1.260.534.807 byte**, bằng mốc V1b; nhãn dùng đúng `shobj_description` vẫn có **DEL-1D / DUNG XOA, DUNG DUNG VAO**. Nhãn thực tế viết không dấu; tìm riêng chuỗi “CẤM XOÁ” sẽ cho âm tính giả.
+- `/usr/local/lib/hermes-agent`, `/var/backups/hermes`, live `deploys/nuxt-output` còn; Nuxt healthy và web trả 200.
+- Image N7 **7/7**, N8 **9/9** ID V1b còn. Không cộng tổng Docker image size thành dung lượng có thể thu hồi vì các lớp có thể dùng chung.
+
+### 4. Mã khoá vòi: phần đạt và cần sửa
+
+**B4 — `scripts/qdrant-backup.sh` @`b97e5d3`:** xác thực tên snapshot, bản host >0, SHA256 host khớp `.checksum` đúng tên rồi mới DELETE đúng snapshot. Lỗi copy/checksum/DELETE đi vào `fail_keep`; không có xoá hàng loạt snapshot server theo tuổi. Lệnh giữ bảy ngày cuối script áp dụng bản host, không phải server-side.
+
+**V2-01 · REVISE:** POST đang nằm trong phép gán `SNAPSHOT=$(docker exec …)` dưới `set -euo pipefail`; nếu lệnh con trả khác 0, shell thoát ngay, không tới kiểm snapshot rỗng và không ghi FAILED vào `backup.log`. Server có thể đã tạo snapshot nhưng client nhận lỗi; snapshot được giữ nhưng thiếu dấu lỗi đã cam kết. Tương tự cần gom lỗi bất ngờ trước DELETE vào một đường báo lỗi an toàn. Đề nghị R3 bọc lỗi POST và các bước trước DELETE, bảo đảm thoát khác 0 + log FAILED + không DELETE; kiểm các nhánh lỗi bằng mô phỏng, không tạo/xoá snapshot production để thử.
+
+**K1 — `scripts/vps-retention.sh` @`0dc9379`:** đủ ngưỡng log 200MiB; giữ 22 build, tuổi hơn ba ngày, tránh builder và FD/cwd đang dùng; đúng sáu cache, cửa sổ 04:xx và ngưỡng 300MiB, tránh npm/pip/uv; `flock`; log hành động. Cron mỗi giờ phút 23, logrotate weekly/rotate 4. Journal xác nhận cron gọi lúc **10:23:01Z**. Không chạy lại script trong V2. Cửa sổ cache theo giờ máy: 04:23 CEST = 02:23Z vào ngày kiểm, không phải 04:23Z. Chưa có bằng chứng nhánh xoá thật sau sửa; chuyển V3.
+
+**K2 — `scripts/phai-cu/dung-va-trien-khai.sh` @`3180326`:** bước tỉa nằm sau các kiểm deploy, chỉ xoá tên vượt qua regex, lỗi xoá chỉ cảnh báo.
+
+**V2-02 · REVISE:** danh sách hiện dùng wildcard `nuxt-output.truoc-*` → sort → bỏ ba đầu → mới lọc regex. Nếu có tên không hợp lệ đứng đầu, chúng vẫn chiếm suất giữ; có thể còn dưới ba bản hợp lệ. Đề nghị lọc regex **trước** sort/chọn ba. Chưa thấy tên bất thường trong dữ liệu hiện tại nên chưa phát hiện thiệt hại thực tế.
+
+### 5. D · K2: truy nguồn thực tế
+
+| Bản sao | Birth time đo trên VPS (UTC) | Nhận xét |
+|---|---|---|
+| `nuxt-output.truoc-20260921-053858` | 03:42:46Z | Tên được tính trước bước build; không dùng mtime được `cp -a` giữ lại làm giờ sinh. |
+| `nuxt-output.truoc-20260921-093200` | 07:35:29Z | Có SSH quanh lượt triển khai. |
+| `nuxt-output.truoc-20260921-093648` | 07:40:27Z | Có SSH quanh lượt triển khai. |
+
+- VPS có `cp -a "$DICH" "$LUU"` ở bước 6; `DICH` và `LUU` trỏ vào vùng deploy VPS. Cả ba bản sinh **trước R2**, nên chúng không kiểm chứng bước K2 mới.
+- Trên Mac tìm được **hai bản**: bản tài liệu trong thư mục “bộ dựng lại” còn cũ, chưa có bước 8; bản tạm trong scratchpad của phiên triển khai **đã có bước 8**, SHA256 **`60cb1292daab3c388c29ba2b29255d84167a81ad990703de647b4353d0e16437`**, trùng chính xác bản VPS hiện hành. Không ghi đường dẫn chứa tên tài khoản vào repo.
+- Các log deploy tìm thấy ghi bước sao lưu của những lượt 13–15/09; không xác định nguồn script cho ba lượt 21/09. Trong cửa sổ journal 03:35–07:42Z không tìm được marker tên script/bản sao; auth log chỉ cung cấp thời điểm mở/đóng SSH, không phân biệt gọi file VPS và đẩy shell từ Mac.
+- **Kết luận: K2 chưa rõ hiệu lực trên đường triển khai thực tế.** Nhận xét R2 “Mac cũ hơn VPS” đúng với bản tài liệu cũ nhưng không đúng với mọi bản trên Mac. Chưa đủ chứng cứ gán cả ba lượt cho một bản nguồn cụ thể. Không suy từ việc có SSH hoặc từ hash hiện tại ra lịch sử gọi.
+- Host/R3 nên chốt một đường gọi bản chuẩn VPS và bảo vệ phía đích như kế hoạch P14; ghi phiên bản/hash script và kết quả tỉa vào log ở lượt deploy hợp lệ kế tiếp. Không dùng việc đồng bộ một bản Mac làm bằng chứng đã bao phủ mọi đường deploy.
+
+### 6. F và việc Host xử lý tiếp
+
+**HVU:** lúc 11:07Z agent-data chính vẫn ở `agent-data-r03:20260920-finalclose`; có thêm container thử dùng `agent-data-hvu:b3-rerun-02`. Agent-data chính được tạo lại **11:09:13Z**, start **11:09:16Z**, chuyển sang image rerun ID `726346ddbeb8…`. Lúc 11:11:47Z đã healthy và API kiểm được. Hai lần workspace đọc metadata gặp 502 trong khoảng chuyển đổi; sau đó đọc lại được qua cùng họ capability workspace. Image B3 ban đầu `e8f611700ee9…` còn, **425.146.049 byte**; image rerun **425.170.345 byte**. Đây là image size, không phải số byte tăng riêng trên đĩa.
+
+Host cần:
+1. Tiếp nhận V2-01/V2-02 vào R3; sửa kết luận R2 “4/4 đã khoá” khi nghiệm thu thành kết luận có điều kiện nêu trên. Giữ nguyên báo cáo lịch sử R2.
+2. Xác nhận phạm vi và trạng thái HVU hiện tại trước lượt mutation tiếp; không lấy mốc R03 đầu V2 làm trạng thái hiện hành.
+3. R3 làm phần đã được hoạch định: chốt đường K2/guard phía đích, vá lỗi backup và retention; N9/N11 chỉ cứu/xoá theo PROMPT riêng. V2 không cấp thêm quyền dọn.
+4. V3 kiểm cron Qdrant thật: thành công phải có checksum verified + DELETE đúng bản mới, số snapshot không tăng; kiểm K1 và deploy thật kế tiếp. SEC-01 tiếp tục theo kế hoạch hiện hữu sau lượt Drive cuối, không đọc lại bí mật để xác minh.
+
+---
+
 ## R2 — Dọn đợt 1 · 21/09/2026 · executor=Claude Code CLI · write_path=workspace_*
 
 RUN_ID `VPSC-R2-20260921-01` · PROMPT@f701fc5ca09041d47752cc7c5bca46ab290e8043 — đã kiểm: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã. Chạy 2 phiên: phiên 1 làm đợt A + B1; phiên 2 (phiên mới sạch) làm B4 + K1 + K2, ghi phần này, rồi B1 (kiểm lại) → B2 → B3. **Trạng thái: MACHINE_DONE — đợt A + đợt B (B1–B4) + K1 + K2 xong · KQ@VPSC-R2-20260921-01 XONG.** Phần 1 ghi ~10:27Z (`35e51b2`), cập nhật cuối ~10:40Z. Đơn vị GiB (1024³), giờ UTC.

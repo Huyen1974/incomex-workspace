@@ -55,7 +55,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | V2 Codex hậu kiểm R2 
 - VPSC.4 | Owner duyệt phạm vi mutation R2 | ✔ GPT REVIEWED + OWNER_APPROVED + Host READY @`f701fc5`
 - VPSC.5 | R2 dọn đợt 1 (N2/N4/N5/N3 + gỡ cổng Qdrant) + khoá 4 vòi → Codex hậu kiểm | MACHINE_DONE · R2 · xem BAO-CAO.md · KQ@VPSC-R2-20260921-01 XONG · trống 9,398→43,452GiB · thu hồi 34,207 · khoá 4/4 vòi; còn thiếu 1,548GiB tới 45 (đợt 2) · Áp: SAME_COMMIT
 - VPSC.5b | R3: bịt nốt vòi (P14 + Host) + đợt 2 (N9/N11 cứu ra ngoài rồi xoá tới ≥45GiB) — MỘT prompt | □ sau V2
-- VPSC.5v | Codex hậu kiểm R2 (V2, chỉ đọc) | ▶ chờ Owner phát RUN
+- VPSC.5v | Codex hậu kiểm R2 (V2, chỉ đọc) | MACHINE_DONE · V2 · PASS 3 / REVISE 3 / BLOCK 0 · K2 chưa rõ · xem BAO-CAO.md · KQ@VPSC-V2-20260921-01 XONG · Áp: SAME_COMMIT
 - VPSC.5c | V3: Codex hậu kiểm R3 + bằng chứng lượt chạy thật (cron Qdrant 03:00 giờ máy, K1, deploy Nuxt nếu có) | □
 - VPSC.5d | SEC-01: xoay token Drive + xoá transcript phiên 1 (Owner làm theo hướng dẫn từng bước; sau lần cuối còn dùng Drive) | □
 - VPSC.6 | Theo dõi 2 tuần theo T1–T6 → đóng; mở việc Graph | □
