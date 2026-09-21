@@ -4,7 +4,7 @@ Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
 ## Đang làm
-- `work/hpml-view-for-user/` · HVU-B2.1 · B2 XONG (`8d89757` runtime, `76c5490` KQ); P13 ACCEPTED, đang chốt sửa parser/UI/retention trước B3. B3 contract đã định nghĩa `Vừa làm` qua Git trailer + `Đang làm` qua gateway presence.
+- `work/hpml-view-for-user/` · HVU-B2.1 · READY@`27c53fe00f53c616f5422c639abf67e34843bb55` · B2 XONG; sửa parser/UI/retention trước B3. B3 contract đã định nghĩa `Vừa làm` qua Git trailer + `Đang làm` qua gateway presence.
 - `work/mcp-workspace/` · R03 · chốt MCP Git + VPS để quay lại công việc nghiệp vụ.
 - `work/jev-integration/` · PLAN-V01 · mở việc, đang lấy ý kiến hội đồng; chưa RUN triển khai.
 - `work/hermes-joint-workspace/` · HJW · Claude mở việc, chờ GPT review; nối Hermes khi R03 CLOSED.

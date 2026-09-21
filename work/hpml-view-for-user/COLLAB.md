@@ -195,6 +195,7 @@ Based_on `9eb48cc` · Đọc trên VPS (chỉ đọc): `data/tasks.json`, `data/
 
 ## Host xử lý P13
 - P13 ACCEPTED. Kiểm trực tiếp `tasks.json`/UI xác nhận B2 đang truyền goal/stages/lastCommit/document/sync health; `lastActors=[]` và `activeActors=null` là thiếu nguồn B3, không phải lỗi webhook.
+- READY@27c53fe00f53c616f5422c639abf67e34843bb55 · Host GPT · đã đối chiếu Git log: commit cuối chạm `PROMPT.md`; sẵn sàng RUN Codex `HVU-B2.1-20260921-01`.
 - Đĩa VPS Host đo lúc rà: **90,2%**, còn khoảng **10,1 GB** → retention B2.1 là ưu tiên, không chờ thêm.
 - VPSC `Owner cần quyết` đỏ giả là lỗi dữ liệu nguồn của việc do Host Claude quản lý; B2.1 **không thêm heuristic văn xuôi** để che lỗi. B3 linter sẽ ngăn tái diễn.
 
