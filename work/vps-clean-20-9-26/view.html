@@ -18,11 +18,11 @@ small{color:#666}
 </head>
 <body>
 <h1>Dọn đĩa VPS · 20/09/2026</h1>
-<p><span class="tag">Kiểm chéo xong · chờ anh duyệt dọn</span><span class="tag">Bước 2: kiểm toán, không đụng production</span><span class="tag">Chưa chạm production</span></p>
+<p><span class="tag">Đã dọn đợt 1 · đang hậu kiểm</span><span class="tag">Bước 2: kiểm toán, không đụng production</span><span class="tag">Chưa chạm production</span></p>
 
-<div class="box"><strong>Anh cần quyết:</strong> cho dọn đợt 1 — cắt log Directus, xoá 979 bản dựng tạm, 6 thư mục cache, 63 bản sao web cũ, và ~159 bản chụp Qdrant cũ <em>sau khi</em> đã cứu 1 bản mới nhất ra ngoài VPS có kiểm tra; đồng thời cài người gác kho tự động để không đầy lại. Đề xuất: <strong>gật</strong>. Dự kiến đĩa trống 9,5 → ~43GB; đợt 2 (cứu rồi xoá dump cũ) đưa lên trên 45GB.</div>
+<div class="box"><strong>Đã dọn đợt 1:</strong> ổ 91% → 55%, trống 9,4 → 44GB; 4 vòi lớn đã khoá (Qdrant, bản sao web, log Directus, bản dựng tạm). <strong>Chưa đóng việc:</strong> Codex hậu kiểm → bịt nốt các vòi nhỏ + đưa ổ lên trên 45GB → đổi mã Drive bị lộ. <strong>Việc anh làm:</strong> dán lệnh hậu kiểm cho Codex.</div>
 
-<div class="bar" id="TIEN-DO"><span>✔ 1 Mở việc</span><span>✔ 2 Khảo sát</span><span>✔ 3 Kiểm chéo</span><span class="now">▶ 4 Anh duyệt</span><span>□ 5 Dọn + khoá vòi</span><span>□ 6 Theo dõi, đóng</span></div>
+<div class="bar" id="TIEN-DO"><span>✔ 1 Mở việc</span><span>✔ 2 Khảo sát</span><span>✔ 3 Kiểm chéo</span><span>✔ 4 Anh duyệt</span><span class="now">▶ 5 Dọn + khoá vòi</span><span>□ 6 Theo dõi, đóng</span></div>
 
 <h2 id="TINH-HINH">1. Tình hình — không phải mất một nửa, mà đã mất hết</h2>
 <table>
@@ -34,6 +34,7 @@ small{color:#666}
 <tr><td>20/09 trưa</td><td class="r">87% (84/96GB)</td><td class="r">13GB</td></tr>
 <tr><td>21/09 sáng</td><td class="r">88% (84/96GB)</td><td class="r">13GB</td></tr>
 <tr><td>21/09 trưa</td><td class="r">91% (87/96GB)</td><td class="r">9,5GB</td></tr>
+<tr><td>21/09 chiều — sau dọn đợt 1</td><td class="g">55% (53/96GB)</td><td class="g">44GB</td></tr>
 </tbody>
 </table>
 <p>Nhịp trung bình gần nửa GB mỗi ngày; riêng hôm nay thêm khoảng 1GB trong 11 giờ. Giữ nhịp này thì <strong>khoảng 3 tuần là vào vùng nguy hiểm (≥95%)</strong>, lúc đó PostgreSQL và Docker bắt đầu lỗi.</p>
