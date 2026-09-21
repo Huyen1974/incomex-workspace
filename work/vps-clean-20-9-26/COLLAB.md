@@ -10,11 +10,12 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | GPT REVIEWED · ACCEPT | NEXT: Host READY đúng SHA rồi phát RUN mới cho Claude Code | BLOCK: —
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 2/6 | READY@7ce1cbd | NEXT: Owner phát RUN cho Claude Code | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R1-20260920-01` · AUDIT / NO PRODUCTION MUTATION · DRAFT.
 - **PROMPT_SHA = 7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65** (commit cuối chạm `PROMPT.md`; REVIEWED/READY theo đúng mã này). Bản `e50e95c`, `c0ddf9e`, `88ec658`, `69b42a7` hết hiệu lực.
 - **GPT REVIEWED@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65 · ACCEPT** — đã kiểm D04 + P12 ở đầu file/§0/§2/§9/§10 và luật DROOT06/README §12; không mở P mới. R1 chỉ khảo sát + báo cáo, không dọn/xoá/mutation production.
+- **Host READY@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65** — Claude Chat (CLAUDE-VPSC-260920-A), 2026-09-21. Đã xác minh: commit cuối chạm `PROMPT.md` = `7ce1cbd`; `GPT REVIEWED@` trùng mã.
 - **GPT REVIEW_INVALID@69b42a75db565027b6b15d3f8e3cfe6902c90aee** (trước là ACCEPT_PROMPT; mất hiệu lực vì Host sửa PROMPT theo D04 + P12 ngày 21/09) — đã kiểm P10 trong A0 + PROMPT §1/§4/§7/§9 và đầu ra R1; không mở thêm P về PROMPT. P11 chỉ thuộc `view.html`; nếu Host chỉ sửa view và không chạm PROMPT thì review SHA này vẫn giữ hiệu lực.
 - **Host READY_INVALID@69b42a75db565027b6b15d3f8e3cfe6902c90aee** (vô hiệu 21/09 vì D04 + P12) — Claude Chat (CLAUDE-VPSC-260920-A), 2026-09-21. Đối chiếu trước khi đặt: commit cuối chạm `PROMPT.md` vẫn là `69b42a7` (commit này chỉ sửa view + COLLAB); `GPT REVIEWED@` trùng đúng mã; P01–P11 đã đóng; Q04 CLOSED. Đầu vào (DROOT04): đĩa 84/96GB, trống 13GB (> ngưỡng dừng 8GB); R03 đang CLIENT-ONLY, không deploy → R1 chạy được, khoá chéo R03 vẫn áp. Mọi sửa `PROMPT.md` sau mốc này huỷ cả REVIEWED lẫn READY.
 - Host kiểm lại ngay trước RUN (2026-09-21 ~02:40Z): `PROMPT.md` vẫn bản của `69b42a7` (version không đổi); view đã sửa đúng P11 (ô đầu, thanh bước 2, VPSC.6 T1–T6); R03 vẫn CLIENT-ONLY, không deploy; đĩa 84/96GB, trống 13GB (> ngưỡng dừng 8GB). READY này sau đó đã vô hiệu (D04 + P12).
@@ -35,8 +36,8 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | GPT REVIEWED · ACCEPT | 
 - D04 · 2026-09-21 · Owner: báo cáo của agent phải nằm trên repo. Căn cứ: README §12 (tài liệu SSOT = GitHub/workspace) + AGENTS A6 (Host nghiệm thu qua Git + báo cáo đích). Host chốt: một file báo cáo sống `work/vps-clean-20-9-26/BAO-CAO.md` cho mọi lượt (R1 → thẩm tra Codex → dọn), lượt mới chèn lên đầu; chỉ chứa bản đã làm sạch (repo công khai); bằng chứng thô vẫn ở VPS ngoài Git (Q01); KB 24/07 chỉ đọc làm mốc. Thay Q02.
 
 ## Kế hoạch
-- VPSC.1 | Mở việc + PROMPT R1 | ▶ mở lại: Host đã áp D04 + P12, chờ GPT review SHA mới
-- VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → `BAO-CAO.md` trên repo, nhãn `UNVERIFIED_R1` | □ chưa RUN
+- VPSC.1 | Mở việc + PROMPT R1 | ✔ xong: GPT REVIEWED + Host READY @`7ce1cbd`
+- VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → `BAO-CAO.md` trên repo, nhãn `UNVERIFIED_R1` | ▶ chờ Owner phát RUN
 - VPSC.3 | Kiểm chéo: Host tự đo lại + lập đề xuất dọn theo nhóm trên `view.html` → Codex thẩm tra độc lập theo D03 (GPT soạn đề bài, Claude review), PASS/REVISE/BLOCK từng nhóm | □
 - VPSC.4 | Owner duyệt các nhóm đã PASS | □
 - VPSC.5 | Dọn (cứu trước, xoá sau) + khoá vòi — MỘT PROMPT làm một lần (sửa chính `PROMPT.md`) | □ sau VPSC.4 và R03 CLOSED
@@ -65,7 +66,7 @@ Ghi hộ: GPT gửi P01–P06 qua Owner 2026-09-20 vì đường `workspace_*` c
 GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho lượt review trước; lượt P10 đã đọc PROMPT hiện hành `88ec658` và `view.html` T1–T5.
 
 ## Owner cần quyết
-- Không có quyết định chờ Owner. Việc Owner: chuyển GPT duyệt PROMPT_SHA mới; KHÔNG dán lệnh RUN cũ.
+- Không có quyết định chờ Owner. Việc Owner: phát RUN cho Claude Code.
 - Q04 · CLOSED · Owner 2026-09-21 giao nhóm kỹ thuật quyết. Chốt kỹ thuật: giữ mục tiêu ≥45GB trống; bỏ `≤3GB/tháng` khỏi tiêu chí PASS và dùng nó như ngưỡng đỏ. PASS theo D02/P10: non-business phải bounded/steady-state, hoặc offload/purge có kiểm soát.
 
 ## NEXT
