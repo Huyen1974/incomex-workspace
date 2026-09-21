@@ -1,6 +1,6 @@
-# PROMPT — HVU.B3 · Vừa làm + Đang làm tự động theo từng việc
+# PROMPT — HVU.B3-RERUN · Vừa làm + Đang làm tự động theo từng việc
 
-RUN_ID: HVU-B3-20260921-01
+RUN_ID: HVU-B3-RERUN-20260921-02
 Host: GPT Chat · `GPT-HVU-20260921-A`
 Executor_Surface: Codex/GPT Work
 Mục tiêu/semantics chuẩn: AGENTS A9 + `work/hpml-view-for-user/COLLAB.md` §0 và Contract B3.
@@ -11,7 +11,8 @@ Mục tiêu/semantics chuẩn: AGENTS A9 + `work/hpml-view-for-user/COLLAB.md` �
 3. B2/B2.1 đang production và đã PASS: không redesign UI, không thay webhook/backstop/retention nếu không cần cho adapter B3.
 4. Khảo sát runtime thật của cả hai gateway trước khi sửa: Claude gateway/FastMCP và Agent-data JSON-RPC. Ghi rollback point từng gateway. Không đoán client identity.
 5. Mã/runtime là VPS SSOT theo README §11; workspace chỉ giữ tài liệu điều hành.
-6. BẮT BUỘC P16: pre/post tools/list canonical hash, schema/hash, serverInfo/version, auth/URL và tool request/response/error semantics phải giữ nguyên; không bump version. Nếu không thể làm B3 mà giữ public contract → DỪNG/rollback. Deploy Agent-data trước, live read+write PASS rồi mới Claude gateway.
+6. BẮT BUỘC P16/P17: pre/post tools/list canonical hash, schema/hash, serverInfo/version, auth/URL và tool request/response/error semantics phải giữ nguyên; không bump version. Git author attribution được phép đổi theo §3 vì không đổi client-visible MCP contract. Deploy Agent-data trước, PASS rồi mới Claude gateway.
+7. **State machine rollout, không được tự diễn giải:** sau mỗi deploy chỉ quan sát container/health. `STARTING` = compose đã hoàn tất, container còn running và chưa healthy, elapsed <5 phút → KHÔNG gọi MCP, KHÔNG rollback, KHÔNG cancel/restart/chạy compose chồng; poll health 5–10s. `TỐT` = healthy ổn định 2 lần liên tiếp cách nhau >=10s, sau đó initialize/tools/list/serverInfo giống baseline và live read + live write PASS. `HỎNG` = container exited/dead, hoặc >=5 phút chưa healthy, hoặc đã healthy ổn định nhưng contract khác / live read-write fail 3 lần liên tiếp trong 30s. Chỉ khi HỎNG mới rollback bằng đúng MỘT lệnh đã ghi trước; sau rollback cũng chờ healthy theo cùng state machine rồi mới báo.
 
 ## 1. Mục tiêu đo được
 Sau B3, dashboard phải tự trả lời theo từng `work/<id>/`:
@@ -31,13 +32,14 @@ AI/User không phải thêm bước báo tay, heartbeat Git hay tiền tố comm
 - Không map cứng sang GPT/Claude/Codex/Hermes. Display label = nhãn thật đã thấy; nếu hai client trùng nhãn thì coi cùng surface, không tự bịa cách tách.
 - Tạo `surface_key` server-side ổn định từ provenance/label để state dùng key an toàn; UI chỉ thấy display label đã sanitize.
 
-## 3. Vừa làm — provenance memory per task, không đổi Git
-- **Không đổi Git author/message.** Sau write operation commit + push thành công, transport/post-result hook ghi provenance `{work_id, commit_sha, surface_key, label, at, gateway}`.
-- Store persistent nhưng bounded: tối thiểu last-writer record/task; có thể giữ vài record debug nhưng phải có trần. Không lịch sử vô hạn.
-- Async queue/job: identity/work_ids đi bằng hidden server metadata, không thêm field tool schema; terminal success có commit mới ghi provenance.
-- B2 `sync.py`: commit mới nhất chạm task = C. Provenance task có `commit_sha=C` → `lastActors=[label]`; không khớp → unknown/xám. Commit SSH/legacy mới vì vậy tự làm actor cũ mất hiệu lực.
+## 3. Vừa làm — Git author là SSOT per task
+- Tại mọi đường commit của hai gateway, **author name = display label server-side**; caller không truyền/điều khiển author. **Giữ nguyên author email cố định hiện có của từng gateway** và giữ nguyên commit message/committer policy hiện hành.
+- Agent-data hiện có 3 điểm commit; Claude gateway phải rà đủ mọi helper/đường commit hiện hành. Gom helper nếu an toàn để không sót, nhưng không đổi tool schema/result.
+- Async queue/job phải mang hidden identity từ request/session tới worker để commit dùng đúng author; không thêm input field cho AI.
+- B2 `sync.py`: lấy commit mới nhất chạm task và đọc `%an` + `%ae`. Chỉ khi `%ae` thuộc email gateway đã cấu hình thì `lastActors=[%an]`; email khác → unknown/xám. Không parse `[GPT]`, `[Claude]` hay subject.
 - **Per-task persistence bắt buộc:** task A không đổi last actor khi commit task B. Không TTL. Commit tiếp theo chạm A mới thay A.
-- Không parse `[GPT]`, `[Claude]`, subject hay author legacy để đoán actor.
+- Bỏ/không triển khai `writers/provenance` ledger bền trên VPS. Candidate đã có `hvu_signals.py` thì chỉ giữ phần session identity/presence cần cho §4.
+- H12: author attribution là Git metadata server-side, không làm client cần rediscover tools. Có thể làm rõ comment H12 theo câu này; **không đổi `CONNECTOR_SCHEMA_VERSION`/`SERVER_VERSION`**.
 
 ## 4. Đang làm — presence per surface × task
 - Tạo một helper chung `extract_work_ids(tool,args)`: chỉ nhận path rõ `work/<id>/...`; transaction/copy/move có thể ra nhiều id; list/search toàn `work/` không đánh dấu.
@@ -48,7 +50,7 @@ AI/User không phải thêm bước báo tay, heartbeat Git hay tiền tố comm
 - TTL mặc định 10 phút. Presence mất sau reboot là chấp nhận được.
 
 ## 5. Truyền xuống UI
-- `Vừa làm`: B2 ghép commit Git với provenance theo SHA; webhook thường vài giây, backstop <=15 phút.
+- `Vừa làm`: B2 đọc Git author name/email của commit cuối chạm task; webhook thường vài giây, backstop <=15 phút.
 - `Đang làm`: xuất một state/public JSON chỉ đọc đã sanitize (hoặc endpoint read-only cùng host), atomic và bounded. UI poll 15–30 giây.
 - UI bảng Tình trạng không còn 6 hàng hard-code: union các display label thật đã gặp ở last actor hoặc presence; nhãn chưa biết hiện nguyên văn. Có thể có alias hiển thị đẹp nhưng alias không quyết identity.
 - Dưới bảng phải hiện đúng ghi chú:
@@ -61,7 +63,7 @@ AI/User không phải thêm bước báo tay, heartbeat Git hay tiền tố comm
 P16 yêu cầu giữ nguyên tool output/behavior contract. Không thêm warning/linter vào tool result trong B3. Việc này mở riêng sau nếu cần.
 
 ## 7. Acceptance — bắt buộc kiểm thực tế
-1. **Contract freeze:** pre/post tools/list canonical hash + schema/hash + serverInfo/version giống hệt ở từng gateway; auth/URL và tool result/error semantics không đổi. Regression B2/B2.1 vẫn PASS.
+1. **Contract freeze:** pre/post tools/list canonical hash + schema/hash + serverInfo/version giống hệt ở từng gateway; auth/URL và tool result/error semantics không đổi. Git author name được phép khác theo client label, email gateway phải giữ nguyên. Regression B2/B2.1 vẫn PASS.
 2. Identity: ghi lại nhãn thật quan sát được sau deploy. Synthetic test chỉ chứng minh code; không được dùng thay live identity.
 3. Có ít nhất một live call qua Agent-data gateway và một live call qua Claude gateway. Nếu Agent không tự tạo được live call ở surface kia, triển khai code + synthetic test và ghi rõ `LIVE_CROSS_SURFACE_PENDING`; Host sẽ gọi thật sau, không giả PASS.
 4. **Memory per-task:** X commit task A → A last=X; Y commit task B → A vẫn X, B=Y; Z commit A → A=Z.
@@ -69,11 +71,11 @@ P16 yêu cầu giữ nguyên tool output/behavior contract. Không thêm warning
 6. TTL test dùng cấu hình rút ngắn trong môi trường test → tự xám; production giữ 10 phút.
 7. Hai surface cùng active trên A: commit của X không được xoá Y.
 8. Presence không tạo commit, không làm `data/revisions` tăng, state có trần kích thước/GC entry cũ.
-9. Commit legacy/unknown/SSH không có provenance matching SHA → actor unknown; không giữ/gán nhầm surface.
+9. Commit legacy/unknown/SSH có author email không thuộc gateway → actor unknown; không giữ/gán nhầm surface.
 10. Nginx/build/health check và rollback point PASS trước deploy.
 
 ## 8. Báo cáo
 - Không tạo progress file mới.
 - Cập nhật COLLAB việc này: nhãn client thật đã thấy, runtime refs, acceptance PASS/OPEN.
-- Ghi `KQ@HVU-B3-20260921-01 XONG` chỉ khi core actor + presence đã chạy production và acceptance có bằng chứng; nếu cross-surface live còn chờ thì dùng `DỪNG` hoặc trạng thái OPEN phù hợp, không gọi XONG giả.
+- Ghi `KQ@HVU-B3-RERUN-20260921-02 XONG` chỉ khi core actor + presence đã chạy production và acceptance có bằng chứng; nếu cross-surface live còn chờ thì ghi `KQ@HVU-B3-RERUN-20260921-02 DỪNG · LIVE_CROSS_SURFACE_PENDING`, không gọi XONG giả.
 - Kết thúc một dòng: `XONG · HVU.B3 · <refs>` hoặc `DỪNG · HVU.B3 · <lý do>`.
