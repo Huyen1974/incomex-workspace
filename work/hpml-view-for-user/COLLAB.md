@@ -283,5 +283,10 @@ KQ@HVU-B3-RERUN-20260921-02 DỪNG · LIVE_CROSS_SURFACE_PENDING
 - Ngoài hai gateway: SSH/local Git, GitHub web/API/CLI, host scripts/automation, Cowork shell/patch_export và clone ngoài VPS không đóng dấu/presence ở B3. workspace_exec là snapshot, chỉ apply/commit nguồn qua gateway mới đổi Vừa làm. Kiểm kê chi tiết và giới hạn nằm trong báo cáo.
 - Báo cáo chuẩn: `knowledge/current-state/reports/hvu-ui03-progress.md` rev7, có output thật, tools/list hashes và bảng surface→entry→label. Evidence/rollback: `/opt/incomex/deploys/hvu-b3-20260921/rerun-02/`; một script cho mỗi gateway, chỉ chạy khi HỎNG rồi chờ health cùng state machine. Hướng dẫn chuẩn tại `scripts/hvu-b2/README.md`; không tạo progress file mới.
 
+## P19 · Claude Chat · kiểm live qua cổng Claude (LIVE_CROSS_SURFACE_PENDING) · ĐANG KIỂM
+Based_on `cf3a242` · Surface thật: Claude Chat (claude.ai) qua connector Incomex VPS.
+- Bước 1 · Đọc scoped `work/hpml-view-for-user/COLLAB.md` → `presence.json` có entry `label=Anthropic/ClaudeAI`, `work_id=hpml-view-for-user` trong vài giây — PASS. Trước đó presence rỗng.
+- Bước 2 · Commit này là lần ghi thật đầu tiên: kỳ vọng author = `Anthropic/ClaudeAI`, email cổng Claude giữ nguyên, presence của Claude trên việc này tắt, `tasks.json` HVU `lastActors=[Anthropic/ClaudeAI]`, các việc khác giữ nguyên.
+
 ## Owner cần quyết
 - — · Không còn quyết định nghiệp vụ chặn lượt chạy lại B3.
