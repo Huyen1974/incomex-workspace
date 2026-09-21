@@ -169,7 +169,7 @@ HTML chính: `view.html`
 - Áp: `9ec2025`
 - Host response: **ACCEPTED** — nhận toàn bộ 4 sửa của Claude; không còn hiệu chỉnh nào trước RUN. PROMPT cuối chạm tại `9ec2025b7d6eaef79602304868bab8e93cb7293a`.
 
-### P10 · Claude Chat · OPEN — Agent DỪNG ở cổng chỉ-đọc vì quyền phiên, không phải lỗi thiết kế
+### P10 · Claude Chat · ACCEPTED — Agent DỪNG ở cổng chỉ-đọc vì quyền phiên, không phải lỗi thiết kế
 - Based_on: `25a7927f` · Scope: báo cáo Claude Code 21/09 16:19 (Owner chuyển) · PROMPT §0, J3, §3, §5.
 - Nhận định: cơ chế kiểm quyền tự động của chính Claude Code chặn 3 lệnh SSH đọc production. Cổng đã xanh gần hết: READY đúng SHA; read-gate `workspace_*` PASS; root qua SSH; `typesafe-mcp` v0.4.2 checksum khớp; `mcp-proxy` 0.12.0 có; `/run/hermes/or.env` có 5 biến ⇒ `jev-gw` không được đọc file này (đúng J3); nguồn khoá = GSM `openrouter-api-key-main` + mẫu script GSM→`/run/<svc>/` sẵn có; mẫu Kuma 17/09 sẵn có; port 8792 trống; không còn process thử của Hermes. Agent làm đúng: dừng trước mutation, không ghi `KQ@… DỪNG`.
 - Đề nghị Host:
@@ -179,7 +179,7 @@ HTML chính: `view.html`
   4. Executor thực tế = Claude Code CLI trên Mac, SSH root vào VPS; năng lực như nhau. Ghi chú tại đây, **không sửa `PROMPT.md`** (sửa là mất READY).
   5. Chống lặp lại: thêm một dòng vào hợp đồng kỹ thuật README — lượt RUN hạ tầng dùng Claude Code trên Mac cần allow rule SSH này; Host kiểm ở HOST INPUT GATE, không để Agent phát hiện giữa lượt.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **ACCEPTED/PARTIAL** — chọn cách 1: tiếp tục chính phiên sau khi Owner thêm allow `Bash(ssh contabo:*)`; không sửa PROMPT/READY, không mở phiên mới. Chấp nhận executor thực tế = Claude Code trên Mac → SSH root VPS. Chấp nhận quyền bless Config Guard chỉ khi diff đúng duy nhất thay đổi RUN này và smoke PASS; có lệch khác thì không bless. P10.5 chỉ nhận nguyên tắc chung “Host kiểm permission của Executor_Surface trước RUN”; **không ghi cứng alias/rule `contabo` vào README toàn hệ thống** vì đây là cấu hình riêng máy Mac/user. Sau lượt này mới đề xuất sửa luật chung nếu cần.
 
 ## Câu hỏi hội đồng
 - Q01 · **RESOLVED:** dùng một cổng JEV chung.
@@ -194,6 +194,7 @@ HTML chính: `view.html`
 
 ## READY / NEXT
 - `READY@9ec2025b7d6eaef79602304868bab8e93cb7293a` · RUN_ID `JEV-B1-OPENAI-20260921-01` · Reviewer Claude ACCEPT tại P09.
-- Owner/GPT có thể RUN Claude Code đúng `work/jev-integration/PROMPT.md`; Agent phải kiểm READY SHA trước mutation.
+- Phiên RUN hiện tại đã qua phần lớn cổng và đang tạm dừng ở permission local của Claude Code; **không coi là KQ DỪNG**.
+- Owner thêm allow `Bash(ssh contabo:*)` ở User settings rồi nhắn chính phiên: `tiếp` kèm quyền bless Config Guard có điều kiện ghi ở P10.
 - Claude Chat giám sát/nghiệm thu MACHINE_DONE trước client acceptance OpenAI.
 - Chỉ khi JEV.B1 OpenAI DONE mới chuyển sang task riêng `work/hermes-joint-workspace/`.
