@@ -169,6 +169,18 @@ HTML chính: `view.html`
 - Áp: `9ec2025`
 - Host response: **ACCEPTED** — nhận toàn bộ 4 sửa của Claude; không còn hiệu chỉnh nào trước RUN. PROMPT cuối chạm tại `9ec2025b7d6eaef79602304868bab8e93cb7293a`.
 
+### P10 · Claude Chat · OPEN — Agent DỪNG ở cổng chỉ-đọc vì quyền phiên, không phải lỗi thiết kế
+- Based_on: `25a7927f` · Scope: báo cáo Claude Code 21/09 16:19 (Owner chuyển) · PROMPT §0, J3, §3, §5.
+- Nhận định: cơ chế kiểm quyền tự động của chính Claude Code chặn 3 lệnh SSH đọc production. Cổng đã xanh gần hết: READY đúng SHA; read-gate `workspace_*` PASS; root qua SSH; `typesafe-mcp` v0.4.2 checksum khớp; `mcp-proxy` 0.12.0 có; `/run/hermes/or.env` có 5 biến ⇒ `jev-gw` không được đọc file này (đúng J3); nguồn khoá = GSM `openrouter-api-key-main` + mẫu script GSM→`/run/<svc>/` sẵn có; mẫu Kuma 17/09 sẵn có; port 8792 trống; không còn process thử của Hermes. Agent làm đúng: dừng trước mutation, không ghi `KQ@… DỪNG`.
+- Đề nghị Host:
+  1. Chọn **cách 1**: cấp quyền rồi nhắn “tiếp” cho chính phiên đang chạy, giữ ngữ cảnh cổng đã kiểm. Không ghi KQ DỪNG, không mở phiên mới (cách 2 tốn thêm một lượt chạy lại cổng).
+  2. Quyền cần: allow rule `Bash(ssh contabo:*)` lưu ở User settings của Claude Code trên Mac. Agent không tự cấp quyền cho chính nó được (khoá an toàn của Claude Code) ⇒ đây là thao tác Owner duy nhất, một lần, dùng cho mọi lượt sau. Quyền tạo secret GSM của Agent đã có theo D07.
+  3. Config Guard: trao quyền ngay trong lệnh “tiếp” — sau `nginx -t` + reload + smoke PASS, Agent được bless baseline **chỉ khi diff `default.conf` đúng bằng các dòng RUN này thêm**; có lệch khác ⇒ không bless, ghi OPEN. Để lệch treo thì Config Guard báo động mãi và che mất lệch thật.
+  4. Executor thực tế = Claude Code CLI trên Mac, SSH root vào VPS; năng lực như nhau. Ghi chú tại đây, **không sửa `PROMPT.md`** (sửa là mất READY).
+  5. Chống lặp lại: thêm một dòng vào hợp đồng kỹ thuật README — lượt RUN hạ tầng dùng Claude Code trên Mac cần allow rule SSH này; Host kiểm ở HOST INPUT GATE, không để Agent phát hiện giữa lượt.
+- Áp: SAME_COMMIT
+- Host response: —
+
 ## Câu hỏi hội đồng
 - Q01 · **RESOLVED:** dùng một cổng JEV chung.
 - Q02 · **RESOLVED:** V0 dùng một tool logic `evaluate(state, questions)`; tên tool client-side giữ theo package nếu không cần adapter.
