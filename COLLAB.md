@@ -4,7 +4,7 @@ Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
 ## Đang làm
-- `work/hpml-view-for-user/` · HVU-DATA01/B2 · READY@`98656c0938f78d2196f102444120cd37d3baea4f` · UI03 đã chạy; giao Agent nối dữ liệu tự đổ 60 giây + last-good/retry; B3 actor-surface làm riêng sau B2.
+- `work/hpml-view-for-user/` · HVU-B2 · READY@98656c0 vô hiệu do Claude P12 áp 4 nguyên tắc Owner (webhook push làm chuông + backstop 15′; định nghĩa trạng thái) · chờ Host đối chiếu + READY lại; B3 actor-surface làm riêng sau B2.
 - `work/mcp-workspace/` · R03 · chốt MCP Git + VPS để quay lại công việc nghiệp vụ.
 - `work/jev-integration/` · PLAN-V01 · mở việc, đang lấy ý kiến hội đồng; chưa RUN triển khai.
 - `work/hermes-joint-workspace/` · HJW · Claude mở việc, chờ GPT review; nối Hermes khi R03 CLOSED.
@@ -23,7 +23,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - DROOT04 · 2026-09-21 · **HOST INPUT GATE:** Host chịu trách nhiệm đủ đầu vào và phải đưa agent về đúng workspace/ref trước khi làm. Môi trường quen thuộc không cần PRECHECK riêng; có thể gộp gate chỉ đọc ở đầu RUN, nhưng agent chỉ được mutation sau khi đọc đúng AGENTS → COLLAB → PROMPT và kiểm các đầu vào cụ thể của việc. Không tạo thủ tục lặp lại cho năng lực môi trường đã nghiệm thu.
 - DROOT05 · 2026-09-21 · **OWNER VIEW V1:** bỏ webhook/event-driven; dùng bản sao workspace chỉ-đọc cập nhật `git pull --ff-only` theo nhu cầu (nút Cập nhật hoặc mở trang khi index cũ >~10 phút). `COLLAB.md` gốc có `Đang làm/Đã xong` làm dấu Now/Done. Owner View được lấy HTML chính + asset cần hiển thị; file điều phối/phụ không public mặc định. MÃ/runtime vẫn tuyệt đối theo §11.
 - DROOT06 · 2026-09-21 · **CAPABILITY-FIRST / ROLE-SEPARATE:** hạ tầng và connector đã setup/nghiệm thu là năng lực dùng chung cho mọi bề mặt thực sự bind được; không chia quyền kỹ thuật theo OpenAI/Claude. Vai trò Host/Reviewer/Agent gán riêng theo bề mặt cụ thể (GPT Chat/Work/Codex, Claude Chat/Cowork/Code CLI, Hermes…). Host phải ghi Executor_Surface + Write_Path, và giám sát kết quả qua SSOT/hạ tầng chung.
-- DROOT07 · 2026-09-21 · **OWNER VIEW AUTO-DATA, thay DROOT05 về cadence:** UI03 đã có. Dữ liệu/tài liệu tự đồng bộ từ `main` bằng kiểm tra 60 giây; HEAD không đổi thì thoát, HEAD đổi mới dựng snapshot. Task tự phát hiện từ `work/*/COLLAB.md`; root `Đã xong` chỉ đánh dấu Done. Publish nguyên tử + last-good; lỗi giữ bản tốt cuối và tự retry. Chỉ dữ liệu tự đổ; mã/app `view.html` vẫn triển khai có kiểm soát theo §11. Webhook chỉ xét sau nếu 60 giây chưa đủ.
+- DROOT07 · 2026-09-21 · **OWNER VIEW AUTO-DATA, thay DROOT05 về cadence:** UI03 đã có. Dữ liệu/tài liệu tự đồng bộ từ `main` bằng **GitHub webhook `push` (chuông báo) + backstop 15 phút** — cập nhật 21/09 theo 4 nguyên tắc Owner (tự động tối đa, không chạy vô ích, dùng cơ chế GitHub, rủi ro vừa đủ), thay kiểm 60 giây; HEAD không đổi thì thoát, HEAD đổi mới dựng snapshot. Task tự phát hiện từ `work/*/COLLAB.md`; root `Đã xong` chỉ đánh dấu Done. Publish nguyên tử + last-good; lỗi giữ bản tốt cuối và tự retry. Chỉ dữ liệu tự đổ; mã/app `view.html` vẫn triển khai có kiểm soát theo §11.
 
 ## Owner cần quyết
 - —

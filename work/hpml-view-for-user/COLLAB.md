@@ -43,7 +43,7 @@ HTML chính: `view.html`
 ## Trạng thái
 
 - HVU-DATA01/B2 · Host đã chốt P11, A9 + README §12 + prompt B2; mục tiêu là dữ liệu tự đổ 60 giây, HEAD không đổi thì không rebuild, lỗi giữ last-good và tự retry.
-- READY@98656c0938f78d2196f102444120cd37d3baea4f · Host GPT · commit cuối chạm `PROMPT.md` đã đối chiếu bằng Git log; sẵn sàng RUN HVU.B2.
+- ~~READY@98656c0938f78d2196f102444120cd37d3baea4f~~ · VÔ HIỆU theo A6: Claude sửa `PROMPT.md` trong P12. Host đối chiếu diff P12 → READY@<commit cuối chạm PROMPT> → RUN HVU.B2.
 
 - HVU-UI03 · Đã lên KB và kiểm tra: hai tab; sidebar ×0.8; 4 thanh; 6 actor × 2 cột; MOT HTML nguyên bản hiển thị trong tab Nội dung. HTML commit c2e27f322511c8b6337d399fc6a68ca2855c8b47, hash cabea1d8ac04cb5a8e895ec12a62907b6dd7c7d690d30f134049260bd7bdc112. KB, UI mirror, MOT mirror đều HTTP200. Runtime shell không đổi. Đồng bộ webhook/snapshot còn mở, chưa triển khai; contract tại ui-assembly/README.md. Evidence: knowledge/current-state/reports/hvu-ui03-progress.md.
 
@@ -160,6 +160,12 @@ Based_on `19ed1df` · Scope: yêu cầu Owner 21/09 “HTML và thông tin tự 
 - Cadence: timer 60 giây là **check**, không phải copy lại 60 giây/lần. HEAD không đổi → thoát. HEAD đổi → rebuild/publish snapshot; UI đang mở poll dữ liệu 60 giây.
 - Publish contract: lock + không hạ revision + validate trước publish + last-good. Fetch/parse/copy lỗi giữ dữ liệu cũ, ghi `syncStatus=error/stale`, tự retry lượt kế tiếp. Không để một lần lỗi làm trắng dashboard.
 - B1 đã đưa thành A9/README §12. B2 dùng PROMPT hiện hành. B3 chuẩn hoá `Surface:` ở cổng ghi chỉ mở sau khi B2 PASS để không ảnh hưởng các connector đang dùng.
+
+## P12 · Claude · áp 4 nguyên tắc Owner 21/09 vào B2 · OPEN (chờ Host đối chiếu diff + READY lại)
+Based_on `e7ccb71` · Sửa trực tiếp trong cùng một commit: PROMPT §1/§2A/§2B/§2C/§2D/§3/§4/§5, AGENTS A9, README §12.3/§12.5/§12.7, root DROOT07. Giữ nguyên kiến trúc B2 của Host: scanner `work/*/COLLAB.md`, snapshot + last-good, UI tự nạp, `view.html` không tự deploy.
+- **NT1 + NT2 (tự động · không chạy vô ích · dùng cơ chế GitHub):** kiểm 60 giây = 1.440 lượt/ngày, gần như tất cả vô ích → **GitHub webhook `push` làm chuông + backstop 15 phút** (96 lượt/ngày); mỗi lượt `git ls-remote` trước, không fetch/ghi gì khi không đổi. UI chỉ poll file trạng thái nhỏ, tải `tasks.json` khi revision đổi. Nhật ký giao/giao lại chuông dùng sẵn trang Recent Deliveries của GitHub, không tự dựng.
+- **NT3 (định nghĩa rõ):** A9 bỏ đọc trạng thái P — thực địa 5 việc ghi P theo nhiều kiểu (`· OPEN ·`, `**PARTIAL**`, `REJECTED trong lượt này`, `Host response: …`, `Trạng thái: **ACCEPTED**`, tiêu đề `## P11 … · ACCEPTED`) → đọc P là đoán văn xuôi. Thay bằng `## Owner cần quyết` (có sẵn ở mọi việc) làm dấu đỏ "chờ Owner" cho giai đoạn hiện hành. Thêm định nghĩa đúng chữ cho A0/READY/RUN_ID/KQ/Đã xong; định nghĩa `fresh/stale/error` ở README §12.5.
+- **NT4 (rủi ro vừa đủ):** `git fetch` tự kiểm SHA → hỏng đường truyền không ra dữ liệu sai; chuông chỉ rung, lượt nào cũng đọc HEAD thật → chuông giả/lặp/trễ vô hại, không cần chống trùng hay xếp thứ tự; thiếu quyền đăng ký webhook thì backstop vẫn tự đổ, agent ghi hướng dẫn cho Owner, không chặn B2.
 
 ## Owner cần quyết
 - — · Không còn quyết định nghiệp vụ chặn B2.
