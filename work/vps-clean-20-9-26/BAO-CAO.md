@@ -4,6 +4,75 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## R2 — Dọn đợt 1 · 21/09/2026 · executor=Claude Code CLI · write_path=workspace_*
+
+RUN_ID `VPSC-R2-20260921-01` · PROMPT@f701fc5ca09041d47752cc7c5bca46ab290e8043 — đã kiểm: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã. Chạy 2 phiên: phiên 1 làm đợt A + B1; phiên 2 (phiên mới sạch) làm B4 + K1 + K2, ghi phần này, rồi B1 (kiểm lại) → B2 → B3. **Trạng thái: ĐANG LÀM — A + B4 + K1 + K2 xong; B1/B2/B3 đang làm.** Đơn vị GiB (1024³), giờ UTC.
+
+### 1. CHO OWNER
+
+- Đĩa trống: **9,398 → 16,244GiB** sau đợt A (phiên 1); đầu phiên 2 đo 16,083; sau B4/K1/K2 đo **16,094GiB** (84%).
+- Thu hồi đợt A: **6,846GiB** (dự kiến ~6,8, trong ngưỡng 15%) — log Directus, 979 build tạm, cache, 63 bản sao web cũ.
+- Khoá vòi: **4/4 đã sửa/cài** — Qdrant (B4), bản sao Nuxt (K2), log Directus + context-pack.tmp + cache (K1, người gác kho chạy mỗi giờ). B4/K2 chỉ `bash -n`, chưa có lượt chạy thật.
+- Còn lại của R2: gỡ ~159 bản chụp Qdrant cũ (~27,36GiB) sau khi đưa 1 bản mới nhất ra ngoài VPS — **đang làm**.
+- Mục tiêu 45GiB trống: hiện còn thiếu **28,906GiB**; B3 bù ~27,36 → dự kiến còn thiếu ~1,5GiB cho đợt 2.
+- Health không đổi: 12 container (10 có healthcheck đều healthy), Qdrant `production_documents` 20181 điểm green, web 200, Directus ok.
+- Một sự cố NGOÀI R2 trong phiên 2 (10:20–10:25Z): bên khác thay image HVU-B3 cho agent-data rồi quay lại image cũ — xem §6.
+
+### 2. Bảng thu hồi
+
+| Nhóm | Dự kiến | Thực | Số mục | Kiểm chỉ-đọc phiên 2 · health |
+|---|---:|---:|---|---|
+| A1 · N2 log pm2 Directus (cắt về 0 tại chỗ) | ~1,32 | trong tổng A | 1 file | log còn ~0,36MiB, pm2 vẫn ghi tiếp (mtime mới) |
+| A2 · N4 context-pack.tmp ≤ `20260918-070009-403a50` | ~1,44 | trong tổng A | 979 | 0 build ≤ mốc; còn 22 build, 43MiB |
+| A3 · N5 cache (6 thư mục) | ~1,42 | trong tổng A | 6 | 5/6 vắng; `/root/.cache/pip` đã tái sinh 15MiB (dưới trần 300MiB của K1) |
+| A4 · N3 bản sao Nuxt | ~2,6 | trong tổng A | 63 | còn đúng 10 tên = tập GIỮ của PROMPT, 0 tên lạ |
+| **Tổng đợt A** | ~6,8 | **6,846** | | trống 9,398→16,244; 12 container; Qdrant 20181 green |
+| B1 · chọn bản cứu | — | PASS (phiên 1) | — | kiểm lại: đang làm |
+| B2 · đưa ra ngoài VPS | — | đang làm | — | |
+| B3 · xoá snapshot server-side | ~27,3 | đang làm | ~159/160 | hiện 160 bản, 27,580GiB |
+| B4 · K1 · K2 (khoá vòi) | 0 | 0 | K1 chạy thử: 0 | health không đổi (đo 10:25Z) |
+
+Phiên 1 chỉ để lại số tổng của đợt A, không tách từng nhóm; phiên 2 không đo lại bằng cách tạo lại dữ liệu. K1 chạy thử: **"không có gì để làm"**, rc=0 — Host dự kiến 1–2 build quá hạn, nhưng lúc chạy chỉ có đúng 22 build nên luật "luôn giữ 22 build mới nhất" che hết; đó là luật chạy đúng, không phải lệch.
+
+### 3. Script đã sửa/tạo (git cục bộ `/opt/incomex`, không remote)
+
+| File | Commit | Nội dung |
+|---|---|---|
+| `scripts/qdrant-backup.sh` (B4) | `b97e5d3` | Bản cũ = HEAD trước đó (file đã được theo dõi, sạch). Sau `docker cp`: tên snapshot phải đúng dạng Qdrant sinh; file host >0 byte; sha256 khớp file `.checksum` Qdrant tạo cho ĐÚNG snapshot đó → mới `DELETE …/snapshots/<tên>?wait=true`; bước nào lỗi → ghi FAILED vào `backup.log`, GIỮ snapshot server-side, thoát 1. Không có xoá hàng loạt theo tuổi (V1-01). Sửa kèm lỗi cũ: `if [ $? -eq 0 ]` sau lệnh dưới `set -e` làm nhánh FAILED không bao giờ chạy. Khoá Qdrant cho lệnh DELETE truyền bằng biến môi trường, không nằm trên dòng lệnh. |
+| `scripts/phai-cu/dung-va-trien-khai.sh` (K2) | `3180326` | Thêm bước 8, chỉ chạy khi deploy đã qua mọi kiểm: giữ 3 `nuxt-output.truoc-*` mới nhất theo tên (gồm bản vừa sao), xoá `truoc-*` cũ hơn; tên phải khớp `nuxt-output.truoc-YYYYMMDD-HHMMSS`; không đụng tên khác; xoá lỗi chỉ cảnh báo. Không chạy deploy để thử; `bash -n` PASS; nếu chạy lúc này sẽ xoá 0 (đang có đúng 3). |
+| `scripts/vps-retention.sh` (K1, mới) | `0dc9379` | Đúng 3 luật: (a) log pm2 trong container Directus >200MiB → cắt về 0 tại chỗ; (b) `context-pack.tmp`: xoá build không còn file nào mới hơn 3 ngày, luôn giữ 22 build mới nhất theo tên, bỏ qua thư mục có tiến trình mở file/cwd, bỏ cả lượt nếu builder đang chạy; (c) 6 thư mục cache của A3: chỉ lượt 04:xx giờ máy và khi không có npm/pip/uv chạy; thư mục >300MiB thì xoá. `flock` chống chạy chồng. Mỗi hành động 1 dòng vào `/var/log/incomex/vps-retention.log`; không có gì thì không ghi. |
+
+`/etc/cron.d/vps-retention` (ngoài git, root 644):
+
+```
+# VPSC-R2 K1 2026-09-21 (Claude Code) · nguoi gac kho: /opt/incomex/scripts/vps-retention.sh — dung 3 quy tac a/b/c, xem dau script.
+# Gio = gio may (CEST; cron Ubuntu bo qua CRON_TZ). Quy tac (c) chi chay o luot 04:23. Tat nguoi gac kho: xoa file nay.
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+23 * * * * root /opt/incomex/scripts/vps-retention.sh >/dev/null 2>>/var/log/incomex/vps-retention.log
+```
+
+`/etc/logrotate.d/incomex` (ngoài git; không có bản nguồn trong `/opt/incomex`): thêm đúng 1 dòng `/var/log/incomex/vps-retention.log` vào khối sẵn có `weekly · rotate 4 · compress` (cùng khối `backup.log` Qdrant/MySQL) = giữ 4 tuần. `logrotate -d` nhận file. Hoàn tác: xoá đúng dòng đó.
+
+### 4. Bản cứu Qdrant
+
+Đang làm (B1 kiểm lại → B2).
+
+### 5. Việc để lượt sau
+
+- Đợt 2: N9/N11 cứu ra ngoài VPS rồi xoá; N6–N8 sau R03 CLOSED; Hermes G22/G23 (chủ Hermes); `backup-to-gdrive.sh` còn nhánh xoá snapshot khi tải lỗi (V1-01).
+- Hậu kiểm B4 ở lượt cron thật đầu tiên (03:00 giờ máy 22/09): `backup.log` phải có dòng `sha256 verified … deleted server-side`; số snapshot server-side không tăng.
+- Phần POST cũ của `qdrant-backup.sh` vẫn đặt khoá Qdrant trong đối số lệnh (thấy qua bảng tiến trình) — ngoài phạm vi R2, đề xuất sửa cùng lúc vá `backup-to-gdrive.sh`.
+- Bản sao `scripts/phai-cu/` trên máy Mac giờ cũ hơn VPS (thêm bước 8 của K2) — đồng bộ khi chạm.
+
+### 6. Sự cố và bẫy đã gặp
+
+- Phiên 1: bộ an toàn chặn cả phiên vì transcript của phiên đó đã chứa bí mật; không bí mật nào vào repo; đã có SEC-01 ở COLLAB.
+- Phiên 2 · HVU-B3 chạy song song, trái điều kiện vận hành của READY: 10:20:37Z container agent-data được tạo lại bằng image `agent-data-hvu:b3-20260921` (build 10:18:49Z), 10:21:34Z tạo lại lần nữa, ~10:23Z quay về `agent-data-r03:20260920-finalclose`, healthy lại 10:24:55Z. R2 không gây ra (R2 chỉ `docker exec` python đọc API Qdrant). Đo lại 10:25Z: health = mốc. Host cần xác nhận HVU-B3 dừng hẳn tới khi R2 xong.
+- Bẫy của chính agent: một lệnh gộp có liệt kê tham số tiến trình bị bộ phân quyền từ chối — đúng, vì dòng lệnh của `qdrant-backup.sh` mang khoá Qdrant; đã đổi sang chỉ đếm theo tên tiến trình.
+
+---
+
 ## V1b — Codex hoàn tất thẩm tra · 21/09/2026 · executor=Codex Desktop qua SSH · write_path=workspace_*
 
 RUN_ID `VPSC-V1B-20260921-01` · PROMPT@7ad18cf486bc6e77c07c7235dd6599b099a8ec3a, đã kiểm đúng commit cuối chạm file và OWNER_APPROVED/READY. Đầu vào repo @a15cfff1fdc441b9a630b79335c1ee75e9513905; kiểm R03 lại khi kết thúc, vẫn chưa CLOSED. **MACHINE_DONE — hoàn tất phần thẩm tra bổ sung; chưa triển khai dọn.** Số đo 21/09 khoảng 08:22–08:37Z. Đơn vị GiB; chỗ kế thừa V1/R1 được ghi rõ, không coi là đo mới.

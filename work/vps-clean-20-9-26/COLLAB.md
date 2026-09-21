@@ -51,7 +51,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R2 READY@f701fc5 | NEXT: 
 - VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → `BAO-CAO.md` trên repo, nhãn `UNVERIFIED_R1` | MACHINE_DONE · UNVERIFIED_R1 · xem BAO-CAO.md
 - VPSC.3 | Codex thẩm tra độc lập R1 → V1 + V1b trong `BAO-CAO.md` | MACHINE_DONE · V1b · KQ@VPSC-V1B-20260921-01 XONG · PASS 6 / REVISE 3 / BLOCK 6; thu hồi đã kiểm ~4,185GiB (N2/N4/N5); nguồn +2,94GiB chủ yếu cứu hộ/cập nhật Hermes, thêm deploy web; chưa dọn · Áp: SAME_COMMIT
 - VPSC.4 | Owner duyệt phạm vi mutation R2 | ✔ GPT REVIEWED + OWNER_APPROVED + Host READY @`f701fc5`
-- VPSC.5 | R2 dọn đợt 1 (N2/N4/N5/N3 + gỡ cổng Qdrant) + khoá 4 vòi → Codex hậu kiểm | ▶ chờ Owner phát RUN
+- VPSC.5 | R2 dọn đợt 1 (N2/N4/N5/N3 + gỡ cổng Qdrant) + khoá 4 vòi → Codex hậu kiểm | IN_PROGRESS · A+B4+K1+K2 xong · B1/B2/B3 đang làm (phiên 2) · xem BAO-CAO.md mục R2 · Áp: SAME_COMMIT
 - VPSC.5b | Đợt 2: N9/N11 cứu ra ngoài VPS rồi xoá; N6–N8 sau R03 CLOSED | □
 - VPSC.6 | Theo dõi 2 tuần theo T1–T6 → đóng; mở việc Graph | □
 
