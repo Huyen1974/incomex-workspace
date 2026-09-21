@@ -1,6 +1,6 @@
 # Nguồn lắp ráp bản phác thảo Task html view
 
-Trạng thái: UI draft, Owner đang chỉnh; không dùng thư mục này để deploy runtime VPS.
+Trạng thái: UI draft, Owner đang chỉnh trực tiếp tại https://vps.incomexsaigoncorp.vn/knowledge/modules (Owner cho đưa lên ngay ngày 21/09/2026). Không dùng thư mục này để deploy runtime VPS. HTML chính được mirror vào vùng tài liệu /ui-preview/hpml-view-for-user/view.html. Cấu hình màu có storageKey riêng để chế độ tối của KB không làm chữ bản nháp biến mất trên nền trắng.
 
 - `app.vue`: bố cục và dữ liệu minh họa; dùng UAccordion/UButton/UInput/UBadge/UAlert của Nuxt UI.
 - `app.config.ts`: màu violet/slate theo Agency OS hiện có.
