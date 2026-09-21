@@ -11,6 +11,9 @@ UI03 + B2, 21/09/2026. Runtime source hiện hành là VPS `/opt/incomex/docker/
 
 Tái dùng dependencies web-test/web: Nuxt 3.20.2, Nuxt UI 2, esbuild. `nuxt generate` rồi `node pack.mjs`. Kiểm tra browser; ghi source + HTML qua workspace tools expected version/head. Không commit node_modules/.nuxt/.output. Runtime shell VPS giữ nguyên; mirror HTML nguyên tử, đối chiếu hash.
 
+## B2.1 — cập nhật từ runtime VPS
+Dòng Gần nhất đọc thời gian và subject từ `lastCommit`, không suy actor. Parser A9 xét mọi READY đủ 40 hex khớp PROMPT; KQ đúng RUN ưu tiên XONG. READY chưa có KQ ghi trung tính `READY hợp lệ · chưa có KQ`. Sau publish giữ current + 2 revision trước; HTML bất biến không đổi dùng hardlink khi an toàn. Last-good được mang sang snapshot mới trước GC; tham chiếu last-good cũ luôn được bảo vệ. GC chỉ dọn thư mục revision đúng 40 hex, không theo symlink, không chạm documents legacy hoặc bare Git. Cảnh báo asset gộp count + tối đa 3 ví dụ. Webhook/backstop/UI03 không đổi; B3 chưa làm.
+
 ## Contract đấu nối — HVU-DATA01/B2
 GitHub `main` là SSOT dữ liệu. UI03 là khung đã có; B2 chỉ thay fixture bằng snapshot sống.
 - Tự phát hiện task từ mọi `work/*/COLLAB.md`; root `## Đã xong` chỉ đánh dấu Done.
