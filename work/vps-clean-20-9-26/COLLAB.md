@@ -10,12 +10,14 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 2/6 | READY@7ce1cbd | NEXT: Owner phát RUN cho Claude Code | BLOCK: —
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 3/6 | V1 Codex · OWNER_APPROVED + READY | NEXT: Owner phát RUN cho Codex | BLOCK: —
 
-- PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R1-20260920-01` · AUDIT / NO PRODUCTION MUTATION · DRAFT.
-- **PROMPT_SHA = 7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65** (commit cuối chạm `PROMPT.md`; REVIEWED/READY theo đúng mã này). Bản `e50e95c`, `c0ddf9e`, `88ec658`, `69b42a7` hết hiệu lực.
+- PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-V1-20260921-01` · Codex thẩm tra độc lập R1 · AUDIT / NO PRODUCTION MUTATION.
+- **PROMPT_SHA: SAME_COMMIT** (Host ghi hash thật ngay sau commit này). PROMPT R1 `7ce1cbd` đã chạy xong.
+- **OWNER_APPROVED@SAME_COMMIT** — Owner giao trực tiếp Host chỉ đạo Codex rà soát (D06, 21/09); việc chỉ đọc. **Host READY@SAME_COMMIT**.
+- Host kiểm R1 (21/09): đã đọc đủ `BAO-CAO.md` mục R1; nguyên nhân #1 tự xác minh qua mã — `scripts/qdrant-backup.sh` tạo snapshot, `docker cp` ra host, chỉ xoá bản ở host >7 ngày, không gọi DELETE server-side; `backup-to-gdrive.sh` có DELETE. Các số còn lại chờ Codex.
 - **GPT REVIEWED@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65 · ACCEPT** — đã kiểm D04 + P12 ở đầu file/§0/§2/§9/§10 và luật DROOT06/README §12; không mở P mới. R1 chỉ khảo sát + báo cáo, không dọn/xoá/mutation production.
-- **Host READY@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65** — Claude Chat (CLAUDE-VPSC-260920-A), 2026-09-21. Đã xác minh: commit cuối chạm `PROMPT.md` = `7ce1cbd`; `GPT REVIEWED@` trùng mã.
+- **Host READY@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65** (đã dùng cho R1, R1 xong 21/09) — Claude Chat (CLAUDE-VPSC-260920-A), 2026-09-21. Đã xác minh: commit cuối chạm `PROMPT.md` = `7ce1cbd`; `GPT REVIEWED@` trùng mã.
 - **GPT REVIEW_INVALID@69b42a75db565027b6b15d3f8e3cfe6902c90aee** (trước là ACCEPT_PROMPT; mất hiệu lực vì Host sửa PROMPT theo D04 + P12 ngày 21/09) — đã kiểm P10 trong A0 + PROMPT §1/§4/§7/§9 và đầu ra R1; không mở thêm P về PROMPT. P11 chỉ thuộc `view.html`; nếu Host chỉ sửa view và không chạm PROMPT thì review SHA này vẫn giữ hiệu lực.
 - **Host READY_INVALID@69b42a75db565027b6b15d3f8e3cfe6902c90aee** (vô hiệu 21/09 vì D04 + P12) — Claude Chat (CLAUDE-VPSC-260920-A), 2026-09-21. Đối chiếu trước khi đặt: commit cuối chạm `PROMPT.md` vẫn là `69b42a7` (commit này chỉ sửa view + COLLAB); `GPT REVIEWED@` trùng đúng mã; P01–P11 đã đóng; Q04 CLOSED. Đầu vào (DROOT04): đĩa 84/96GB, trống 13GB (> ngưỡng dừng 8GB); R03 đang CLIENT-ONLY, không deploy → R1 chạy được, khoá chéo R03 vẫn áp. Mọi sửa `PROMPT.md` sau mốc này huỷ cả REVIEWED lẫn READY.
 - Host kiểm lại ngay trước RUN (2026-09-21 ~02:40Z): `PROMPT.md` vẫn bản của `69b42a7` (version không đổi); view đã sửa đúng P11 (ô đầu, thanh bước 2, VPSC.6 T1–T6); R03 vẫn CLIENT-ONLY, không deploy; đĩa 84/96GB, trống 13GB (> ngưỡng dừng 8GB). READY này sau đó đã vô hiệu (D04 + P12).
@@ -35,11 +37,12 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 2/6 | READY@7ce1cbd | NEXT: Own
 - D03 · 2026-09-21 · Owner: giao Claude Code CLI chạy R1, sau đó chuyển **Codex giám sát** — Codex là bên thẩm tra độc lập ở VPSC.3 (PASS/REVISE/BLOCK từng nhóm). Để giữ độc lập: GPT (bên thẩm tra) soạn đề bài cho Codex bằng cách sửa chính `PROMPT.md` sau khi R1 xong, Claude review; Codex chỉ đọc, không mutation.
 - D04 · 2026-09-21 · Owner: báo cáo của agent phải nằm trên repo. Căn cứ: README §12 (tài liệu SSOT = GitHub/workspace) + AGENTS A6 (Host nghiệm thu qua Git + báo cáo đích). Host chốt: một file báo cáo sống `work/vps-clean-20-9-26/BAO-CAO.md` cho mọi lượt (R1 → thẩm tra Codex → dọn), lượt mới chèn lên đầu; chỉ chứa bản đã làm sạch (repo công khai); bằng chứng thô vẫn ở VPS ngoài Git (Q01); KB 24/07 chỉ đọc làm mốc. Thay Q02.
 - D05 · 2026-09-21 · Owner: agent KHÔNG chờ lần đọc DB thứ 3 (mốc 30 phút của DB_DELETE_GATE), hoàn tất báo cáo ngay để Codex xác minh. Host: an toàn vì DB duy nhất trong diện xét (`directus_gov_test_20260602`) đã rơi `UNKNOWN_HOLD` do chưa có bản off-VPS (điều kiện e) — lần đọc 3 không đổi kết luận. Không đổi phạm vi khác của PROMPT.
+- D06 · 2026-09-21 · Owner: Host soạn và chỉ đạo Codex thẩm tra trực tiếp, không thêm vòng hội ý (thay phần "GPT soạn đề bài" của D03). Độc lập giữ bằng đề bài: Codex tự đo lại, không chép số R1, chấm PASS/REVISE/BLOCK từng nhóm. GPT vẫn có thể mở P nếu thấy sai.
 
 ## Kế hoạch
 - VPSC.1 | Mở việc + PROMPT R1 | ✔ xong: GPT REVIEWED + Host READY @`7ce1cbd`
 - VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → `BAO-CAO.md` trên repo, nhãn `UNVERIFIED_R1` | MACHINE_DONE · UNVERIFIED_R1 · xem BAO-CAO.md
-- VPSC.3 | Kiểm chéo: Host tự đo lại + lập đề xuất dọn theo nhóm trên `view.html` → Codex thẩm tra độc lập theo D03 (GPT soạn đề bài, Claude review), PASS/REVISE/BLOCK từng nhóm | □
+- VPSC.3 | Codex thẩm tra độc lập R1 (D06): tự đo lại, PASS/REVISE/BLOCK từng nhóm → mục V1 trong `BAO-CAO.md`; sau đó Host đối chiếu + hội đồng chốt | ▶ chờ Owner phát RUN
 - VPSC.4 | Owner duyệt các nhóm đã PASS | □
 - VPSC.5 | Dọn (cứu trước, xoá sau) + khoá vòi — MỘT PROMPT làm một lần (sửa chính `PROMPT.md`) | □ sau VPSC.4 và R03 CLOSED
 - VPSC.6 | Theo dõi 2 tuần theo T1–T6 → đóng; mở việc Graph | □
@@ -67,9 +70,9 @@ Ghi hộ: GPT gửi P01–P06 qua Owner 2026-09-20 vì đường `workspace_*` c
 GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho lượt review trước; lượt P10 đã đọc PROMPT hiện hành `88ec658` và `view.html` T1–T5.
 
 ## Owner cần quyết
-- Không có quyết định chờ Owner. Việc Owner: phát RUN cho Claude Code.
+- Không có quyết định chờ Owner. Việc Owner: phát RUN cho Codex.
 - Q04 · CLOSED · Owner 2026-09-21 giao nhóm kỹ thuật quyết. Chốt kỹ thuật: giữ mục tiêu ≥45GB trống; bỏ `≤3GB/tháng` khỏi tiêu chí PASS và dùng nó như ngưỡng đỏ. PASS theo D02/P10: non-business phải bounded/steady-state, hoặc offload/purge có kiểm soát.
 
 ## NEXT
-- Host xác minh commit cuối chạm `PROMPT.md` vẫn là `7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65`, ghi `READY@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65`, rồi phát RUN mới cho Claude Code. Không sửa PROMPT thêm trước RUN.
-- Sau R1: Host tự đo lại → Codex thẩm tra độc lập theo D03 → hội đồng thống nhất → Owner duyệt → mới sang lượt dọn thật.
+- Owner phát RUN cho Codex (Codex CLI trên VPS) theo `PROMPT.md` V1. Codex trả một dòng XONG/DỪNG.
+- Sau V1: Host đối chiếu R1 + V1 → view.html → hội đồng chốt → Owner duyệt → PROMPT lượt dọn thật.
