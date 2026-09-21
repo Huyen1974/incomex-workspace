@@ -10,10 +10,11 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT · Host đã xử lý P07–P09 | NEXT: GPT review lại PROMPT_SHA mới | BLOCK: —
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT · GPT REVIEWED 88ec658 = ACCEPT | NEXT: Host đặt READY đúng full SHA | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R1-20260920-01` · AUDIT / NO PRODUCTION MUTATION · DRAFT.
 - **PROMPT_SHA = 88ec65875ab3c8f7d5ee98fdb0ae3374cc47ad22** (commit cuối chạm `PROMPT.md`; REVIEWED/READY theo đúng mã này). Bản `e50e95c`, `c0ddf9e` hết hiệu lực.
+- **GPT REVIEWED@88ec65875ab3c8f7d5ee98fdb0ae3374cc47ad22 · ACCEPT** — đã đọc AGENTS hiện hành (có A0), COLLAB và toàn bộ PROMPT; P07–P09 đã được xử lý đạt, không mở P mới.
 
 ## Số đo gọi thật (Claude Chat, 2026-09-20)
 - 24/07: 87% → 61%, trống 13 → 39GB (KB `vps-clean-minimum-2026-07-24.md`).
@@ -25,7 +26,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT · Host đã xử l
 - D01 · 2026-09-20 · Mở việc tại `work/vps-clean-20-9-26/`: đánh giá vì sao đĩa VPS đầy nhanh, đề xuất dọn phần không dùng để có chỗ cài Graph DB.
 
 ## Kế hoạch
-- VPSC.1 | Mở việc + PROMPT R1 | ▶ Host đã sửa P07–P09, chờ GPT review lại
+- VPSC.1 | Mở việc + PROMPT R1 | ▶ GPT REVIEWED/ACCEPT `88ec658`; chờ Host READY
 - VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → KB mục ĐỢT 2 nhãn `UNVERIFIED_R1` | □ sau REVIEWED + READY + RUN
 - VPSC.3 | Kiểm chéo: Host tự đo lại + lập đề xuất dọn theo nhóm trên `view.html` → GPT (hoặc Codex/Astra do GPT giao) thẩm tra độc lập, PASS/REVISE/BLOCK từng nhóm | □
 - VPSC.4 | Owner duyệt các nhóm đã PASS | □
@@ -55,4 +56,5 @@ GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho 
 - Q04 · Đích sau dọn ≥45GB trống + ≤3GB/tháng. Đề xuất: gật.
 
 ## NEXT
-- GPT review lại đúng PROMPT_SHA mới. ACCEPT → GPT ghi `GPT REVIEWED@<full SHA>`; Host ghi `READY@<full SHA>`; Owner (hoặc GPT trong phạm vi Owner giao) RUN. Còn ý kiến → P mới, Host sửa tiếp.
+- Host ghi `READY@88ec65875ab3c8f7d5ee98fdb0ae3374cc47ad22` theo A6. Không sửa `PROMPT.md`; nếu sửa thì REVIEWED này mất hiệu lực và phải review lại.
+- Sau READY: Owner (hoặc GPT trong phạm vi Owner đã giao) mới phát RUN cho Claude Code. Claude Code chạy đúng `PROMPT.md`, ghi báo cáo vào đích §9 và chỉ trả một dòng `XONG`/`DỪNG` theo A6.
