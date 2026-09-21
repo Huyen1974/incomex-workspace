@@ -4,7 +4,7 @@ Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
 ## Đang làm
-- `work/hpml-view-for-user/` · HVU-DATA01 · UI03 đã chạy; Host chốt P11 và đang giao B2 nối dữ liệu tự đổ 60 giây + last-good/retry; B3 actor-surface làm riêng sau B2.
+- `work/hpml-view-for-user/` · HVU-DATA01/B2 · READY@`98656c0938f78d2196f102444120cd37d3baea4f` · UI03 đã chạy; giao Agent nối dữ liệu tự đổ 60 giây + last-good/retry; B3 actor-surface làm riêng sau B2.
 - `work/mcp-workspace/` · R03 · chốt MCP Git + VPS để quay lại công việc nghiệp vụ.
 - `work/jev-integration/` · PLAN-V01 · mở việc, đang lấy ý kiến hội đồng; chưa RUN triển khai.
 - `work/hermes-joint-workspace/` · HJW · Claude mở việc, chờ GPT review; nối Hermes khi R03 CLOSED.
