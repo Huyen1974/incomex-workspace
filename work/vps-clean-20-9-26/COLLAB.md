@@ -13,8 +13,8 @@ HTML chính: `view.html`
 VPSC | Dọn đĩa VPS + khoá vòi rò | việc 3/6 | V1b Codex · OWNER_APPROVED + READY | NEXT: Owner phát RUN V1b cho Codex | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-V1B-20260921-01` · Codex hoàn tất thẩm tra · AUDIT / NO PRODUCTION MUTATION.
-- **PROMPT_SHA: SAME_COMMIT** (Host ghi hash thật ngay sau commit này). V1 `3131bde` đã chạy (DỪNG · V1_LIMITED).
-- **OWNER_APPROVED@SAME_COMMIT** (D06 + D07) · **Host READY@SAME_COMMIT**. Host preflight trước READY (DROOT04, 21/09 ~08:15Z): đĩa 87/96GB, 91%, trống 9,5GB (> sàn 3GiB của D07); Executor_Surface = Codex Desktop qua SSH (đã chạy được ở V1); Write_Path `workspace_*` (đã ghi được ở V1); R03 CLIENT-ONLY, không deploy; 12 container healthy.
+- **PROMPT_SHA = 7ad18cf486bc6e77c07c7235dd6599b099a8ec3a** (commit cuối chạm `PROMPT.md`). V1 `3131bde` đã chạy (DỪNG · V1_LIMITED).
+- **OWNER_APPROVED@7ad18cf486bc6e77c07c7235dd6599b099a8ec3a** (D06 + D07) · **Host READY@7ad18cf486bc6e77c07c7235dd6599b099a8ec3a**. Host preflight trước READY (DROOT04, 21/09 ~08:15Z): đĩa 87/96GB, 91%, trống 9,5GB (> sàn 3GiB của D07); Executor_Surface = Codex Desktop qua SSH (đã chạy được ở V1); Write_Path `workspace_*` (đã ghi được ở V1); R03 CLIENT-ONLY, không deploy; 12 container healthy.
 - V1 (lịch sử): PROMPT_SHA `3131bdee21a080a6fdfb5138ca72c2b7b3d30a38` · OWNER_APPROVED + READY đã dùng.
 - Host kiểm R1 (21/09): đã đọc đủ `BAO-CAO.md` mục R1; nguyên nhân #1 tự xác minh qua mã — `scripts/qdrant-backup.sh` tạo snapshot, `docker cp` ra host, chỉ xoá bản ở host >7 ngày, không gọi DELETE server-side; `backup-to-gdrive.sh` có DELETE. Các số còn lại chờ Codex.
 - **GPT REVIEWED@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65 · ACCEPT** — đã kiểm D04 + P12 ở đầu file/§0/§2/§9/§10 và luật DROOT06/README §12; không mở P mới. R1 chỉ khảo sát + báo cáo, không dọn/xoá/mutation production.
