@@ -61,7 +61,7 @@ Hướng dẫn riêng từng đầu nối: GPT `docs/WORKSPACE_TOOLS.md` (repo a
 
     1. Mỗi việc có một thư mục riêng và đúng một HTML chính đã khai báo (`view.html` mặc định hoặc path ghi trong `COLLAB.md`). Bản trong workspace/Git là bản nội dung chuẩn của việc.
     2. VPS chỉ giữ **bản mirror tĩnh** của HTML chính để Owner xem bằng URL; mirror không phải nguồn chỉnh sửa thứ hai và không được dùng làm nơi AI sửa nội dung nghiệp vụ.
-    3. Nút **Cập nhật** là thao tác pull thủ công theo từng việc: chỉ lấy đúng HTML chính đã allowlist từ workspace/Git sang vùng Owner View rồi reload. Không tự đồng bộ nền, không kéo cả repo, không `rsync --delete`.
+    3. Owner View làm mới **theo nhu cầu**, không đồng bộ nền: nút **Cập nhật** hoặc lần mở trang khi index cũ quá ~10 phút được phép `git pull --ff-only` vào một bản sao chỉ-đọc riêng rồi làm mới gói tài liệu của đúng công việc (HTML chính + asset tương đối cần để hiển thị). `COLLAB.md` có thể được parser đọc để sinh mục tiêu/trạng thái nhưng `COLLAB.md`, `PROMPT.md`, evidence và file phụ không được liệt kê/link công khai mặc định. Không webhook/cron ở V1, không `rsync --delete`, không dùng cơ chế này cho mã/runtime.
     4. Vùng Owner View không được có quyền ghi vào mã/runtime, systemd, compose, secret hoặc thư mục dịch vụ. Nếu cần mã cho dịch vụ refresh/view thì mã đó tuân §11: sửa và vận hành trên VPS, không kéo mã runtime từ GitHub xuống.
     5. File phụ (`COLLAB.md`, `PROMPT.md`, evidence, assets kỹ thuật) phục vụ AI/Agent; giao diện Owner mặc định chỉ cần dẫn tới HTML chính. Chỉ lộ thêm khi Owner yêu cầu.
     6. Mẫu đích của mọi việc: **một việc → một thư mục → một HTML chính → một URL Owner View → một nút Cập nhật**.

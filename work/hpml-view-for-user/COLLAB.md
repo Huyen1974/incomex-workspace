@@ -13,16 +13,16 @@
 2. Trên KB, dùng vị trí menu **Modules** làm **Tasks now**; khu vực này dùng bố cục 2 cột kiểu Knowledge: trái = danh sách task, phải = Task Control View/HTML của task đang chọn; có tìm kiếm/filter đủ dùng.
 3. Không xoá dữ liệu/bảng/mã Modules chỉ để đổi giao diện. V1 ưu tiên gỡ/ẩn entry giao diện và tái sử dụng khung UI hiện có; thay đổi production chỉ RUN riêng sau khi kế hoạch được chốt.
 4. Task Control View phải tổ chức được tối thiểu các checkpoint chung: **GOAL → CONSENSUS → EXECUTION → VERIFY/DONE**. Việc đặc thù có thể có checkpoint con sau này nhưng không làm phức tạp khung chung.
-5. Tín hiệu cập nhật ưu tiên thụ động: khi AI/Agent hoàn tất việc và commit/push như quy trình hiện tại, GitHub event là tín hiệu để VPS cập nhật task liên quan. Không yêu cầu AI gọi thêm một API chỉ để báo “đã xong”.
-6. V1 ưu tiên trả lời chắc chắn hai câu: **(a) vừa làm xong cái gì, bởi ai? (b) tiếp theo cần ai xử lý?**. “Ai đang làm real-time?” chỉ hiển thị khi có bằng chứng đáng tin (ví dụ harness đã dispatch); không dựng cơ chế heartbeat/check-in riêng chỉ để có trường này.
-7. Kiểm soát tuân thủ V1 chỉ kiểm các lỗi máy móc/chắc chắn (ví dụ A0 chưa xác nhận nhưng đã RUN, READY lệch SHA, cấu trúc bắt buộc sai, nhiều Owner View...). Không dựng AI giám sát AI hay enforcement phức tạp ở vòng đầu.
+5. V1 **không dùng webhook**. Dấu vết commit/push vẫn là nguồn nhận biết “vừa xong”; VPS làm mới bản sao tài liệu theo nhu cầu bằng `git pull --ff-only` khi Owner bấm **Cập nhật** hoặc mở trang khi index cũ quá ~10 phút. Không yêu cầu AI gọi thêm API hay thực hiện bước báo trạng thái riêng.
+6. V1 chỉ ưu tiên trả lời chắc chắn hai câu: **(a) vừa làm xong cái gì, bởi ai? (b) tiếp theo cần ai xử lý?**. Bỏ trường “ai đang làm real-time” khỏi V1; harness/current actor để V2.
+7. V1 không dựng validator riêng. Script index chỉ gắn cảnh báo cho **hai lỗi cứng**: (a) A0 chưa xác nhận nhưng đã có READY/RUN; (b) `READY@SHA` không khớp commit cuối chạm `PROMPT.md`. Enforcement sâu để V2.
 8. Công việc đã DONE/CLOSED không cần di chuyển folder; trạng thái dẫn xuất để UI tách `Now`/`Done`, giữ ID và link ổn định.
 
 **Tiêu chí xong V1**
 - Owner mở `Tasks now` và với mỗi việc thấy mục tiêu ở đầu, trạng thái/checkpoint, hoạt động gần nhất + actor, và gợi ý/đích xử lý tiếp theo dựa trên dữ liệu Git hiện hữu.
 - Mỗi việc có một view; danh sách lớn vẫn tìm/lọc được mà không thêm database hay task manager mới nếu chưa cần.
 - GitHub/workspace vẫn là SSOT; cache/index trên VPS có thể dựng lại từ Git, không có dữ liệu nghiệp vụ độc lập chỉ tồn tại trên VPS.
-- Cơ chế cập nhật không đòi AI nhớ thêm báo cáo thủ công ngoài những việc repo hiện đã bắt buộc.
+- Cơ chế cập nhật không đòi AI nhớ thêm báo cáo thủ công ngoài những việc repo hiện đã bắt buộc; không webhook/heartbeat/START-STOP riêng ở V1.
 - Kiến trúc đủ mỏng để có thể triển khai/điều chỉnh nhanh; tính năng nào phá nguyên tắc này được phép hoãn sang V2.
 
 **Xác nhận User:** **ĐÃ XÁC NHẬN** — Owner xác nhận và yêu cầu ghi mục tiêu + giải pháp lên repo ngày 2026-09-21; tiếp tục lấy ý kiến Claude trước khi chốt triển khai.
@@ -34,7 +34,8 @@ HTML chính: `view.html`
 
 ## Trạng thái
 - HVU00 · 2026-09-20 · Đã mở công việc và ghi nhận mục tiêu ban đầu.
-- HVU01 · 2026-09-21 · Owner đã xác nhận mục tiêu mở rộng: từ HTML viewer thành Task Control View mỏng; đang ở **CONSENSUS**, chưa tạo `PROMPT.md`, chưa RUN/triển khai production.
+- HVU01 · 2026-09-21 · Owner đã xác nhận mục tiêu mở rộng: từ HTML viewer thành Task Control View mỏng.
+- HVU02 · 2026-09-21 · GPT xử lý P05–P08: đồng thuận V1 pull-on-demand, không webhook; đã soạn `PROMPT.md`, chưa RUN production.
 - Các P01–P04 của Claude bên dưới được giữ làm đầu vào thực địa; Claude cần review lại trên mục tiêu HVU01.
 
 ## Kế hoạch nguyên tắc V1 — để hội đồng phản biện
@@ -45,47 +46,43 @@ HTML chính: `view.html`
 - VPS chỉ giữ cache/index dẫn xuất (ví dụ `tasks-index.json` hoặc tương đương); mất cache phải dựng lại được.
 
 ### K2 · Mục tiêu luôn ở trên cùng, không bắt AI chép đôi
-- Wrapper của `Tasks now` đọc A0 từ `COLLAB.md` và pin phần MỤC TIÊU phía trên Owner View.
-- `view.html` vẫn là HTML chính của việc nhưng không phải tự duy trì thêm một bản mục tiêu khác nếu renderer đã đọc A0.
+- Script index đọc A0 của từng `COLLAB.md` và đưa nguyên dữ liệu mục tiêu cần hiển thị vào `tasks-index.json`; UI pin mục tiêu từ JSON phía trên Owner View.
+- Không có parser/wrapper thứ hai và không yêu cầu `view.html` chép lại mục tiêu.
 
-### K3 · Event thụ động trước, metadata thủ công sau
-- GitHub `push`/commit là tín hiệu tự nhiên “có việc vừa thay đổi”; dùng webhook/event tương đương để báo VPS cập nhật đúng task thay vì polling toàn repo hoặc yêu cầu AI báo thêm.
-- Event chỉ dùng cho **tài liệu/trạng thái Owner View**, không dùng để deploy/ghi đè mã runtime từ GitHub xuống VPS; mã/runtime vẫn theo README §11.
-- Cơ chế refresh tự động tài liệu này là thay đổi so với README §12.3 hiện đang mô tả nút Cập nhật thủ công; nếu hội đồng đồng thuận thì mới lập D ở gốc và xin Owner chốt thay đổi technical contract trước RUN.
+### K3 · Cập nhật on-demand, không webhook
+- Dùng **một clone chỉ-đọc riêng** cho Owner View, không dùng clone connector đang có quyền ghi/push. Refresh bằng `git pull --ff-only` khi Owner bấm Cập nhật hoặc khi mở trang mà index cũ >~10 phút; dùng lock để tránh pull/index đồng thời.
+- Một script duy nhất sinh lại `tasks-index.json`; không webhook, không cron, không queue, không secret GitHub mới ở V1.
+- Đây chỉ là đường tài liệu. Mã/runtime của KB/nginx vẫn là VPS SSOT và tuân README §11.
 
-### K4 · Suy trạng thái từ dấu vết hiện có
-Ưu tiên parser đơn giản, deterministic:
-- A0 `CHƯA XÁC NHẬN` → `GOAL / Next: Owner`.
-- Có P `OPEN/OWNER` → `CONSENSUS`; `OWNER` → `Next: Owner`; P mở của Reviewer → Host/Reviewer tiếp tục theo luật hiện hành.
-- `PROMPT READY@SHA` hợp lệ → sẵn sàng `EXECUTION / Next: Agent` khi có RUN.
-- Dấu vết Agent hoàn tất + nghiệm thu → `VERIFY`; `CLOSED/DONE` → `DONE`.
-- “Last done/by whom” ưu tiên lấy từ commit gần nhất chạm `work/<id>/`, kết hợp prefix `[GPT]/[Claude]/[Owner]/...` và nội dung commit.
-- Chỉ khi parser không đủ mới cân nhắc thêm **một metadata tối thiểu**; không bắt mọi AI duy trì một bảng trạng thái song song.
+### K4 · Parser chỉ đọc dấu hiệu luật đã bắt buộc
+- Chỉ đọc 4 dấu hiệu: (1) `Xác nhận User: ĐÃ/CHƯA XÁC NHẬN`; (2) trạng thái P `OPEN/OWNER/ACCEPTED/PARTIAL/REJECTED`; (3) `READY@<40 ký tự>` và commit cuối chạm `PROMPT.md`; (4) `git log -1 -- work/<id>/` cho commit gần nhất.
+- `Next actor`: **Owner** nếu A0 chưa xác nhận hoặc có P `OWNER`; **Agent** nếu READY hợp lệ — nhưng phải ghi rõ `WAITING RUN`, không được hiểu READY là RUN; **Host** trong các trường hợp còn lại. Thiếu dấu hiệu thì hiện `?`, không đoán văn xuôi.
+- `Now/Done` lấy từ hai mục `## Đang làm` / `## Đã xong` của `COLLAB.md` gốc; không di chuyển folder/URL.
+- Mọi nhãn suy ra phải kèm bằng chứng thô tối thiểu: hash + thời gian + subject commit hoặc dòng gate tương ứng.
 
-### K5 · `Current actor` là best-effort ở V1
-- Không tạo heartbeat, lock hay thao tác START/STOP mới chỉ để biết AI đang làm.
-- Khi harness/dispatcher sau này giao việc tự động, harness có thể cung cấp `current actor` đáng tin mà AI không phải nhớ báo.
-- V1 chấp nhận để trống/`unknown` nếu không có bằng chứng chắc chắn.
+### K5 · Bỏ `Current actor` khỏi V1
+- UI V1 không có ô `current actor`; thay bằng `commit gần nhất: actor · thời gian · hash/subject`.
+- Harness/dispatcher có thể cung cấp current actor ở V2 mà không bắt AI nhớ START/STOP.
 
-### K6 · Kiểm tra quy trình chỉ bằng luật cứng trước
-- Validator nhẹ có thể báo `OK/WARN/BLOCK` cho các điều kiện xác định được máy móc: A0, READY SHA, số Owner View, cấu trúc bắt buộc, trạng thái mâu thuẫn...
-- Ban đầu chỉ hiển thị cảnh báo. Chưa dùng GitHub Actions/required checks để chặn commit cho tới khi đo thấy validator ổn định và thực sự hữu ích.
+### K6 · Không có validator riêng ở V1
+- Chính script index kiểm hai lỗi cứng ở §0.7 và đưa `warning` vào JSON; UI chỉ hiển thị cảnh báo.
+- Không GitHub Actions/required checks/chặn commit ở V1.
 
 ### K7 · UI tái sử dụng tối đa
-- Tái sử dụng layout Knowledge 2 cột và vị trí menu Modules; chỉ thêm component/data adapter nhỏ cần thiết.
-- Cột trái: task name/id + stage + next + hoạt động gần nhất; filter tối thiểu `Now / Waiting Owner / Waiting AI / Agent / Done` + search theo tên/id/mục tiêu.
-- Cột phải: Mục tiêu pin trên cùng → checkpoint/last activity/next/warning → Owner View trong iframe sandbox hoặc cơ chế cô lập tương đương.
-- Không xoá bảng/dữ liệu/mã Modules trong V1; nếu menu `Tasks` cũ gây trùng nghĩa thì xử lý ở mức menu sau khi Owner/chủ thiết kế chốt, giữ route/data rollback được.
+- Tái sử dụng layout Knowledge 2 cột và vị trí menu Modules; chỉ thêm phần dữ liệu/component cần thiết.
+- Cột trái: task name/id + stage nếu xác định được + next actor + commit gần nhất; chỉ có `Now / Done` và một ô search theo metadata/mục tiêu. Không full-text HTML ở V1.
+- Cột phải: Mục tiêu từ index ở trên cùng → stage/next/commit/warning/evidence → Owner View; việc thiếu HTML hiện `Chưa có view`.
+- Không xoá bảng/dữ liệu/routes Modules. Entry Modules trên menu được thay bằng `Tasks now`; route cũ giữ lại để rollback/liên kết cũ không gãy. `Tasks` cũ không thuộc phạm vi xoá ở V1.
 
 ### K8 · Trình tự triển khai ngắn
-1. Chốt mục tiêu + parser/checkpoint + ranh giới V1 với GPT/Claude (Hermes tham gia khi connector sẵn sàng).
-2. Khảo sát đúng phần KB/UI + nguồn Git cần tái sử dụng; chọn phương án ít mã nhất.
-3. Làm một vertical slice cho 2–3 task thật: index → push/event → refresh → UI 2 cột.
-4. Nếu slice ổn mới mở rộng search/filter, Done và validator nhẹ.
-5. Sau nghiệm thu mới cân nhắc V2: current actor từ harness, auto-dispatch, required checks/enforcement sâu.
+1. Agent kiểm đầu vào theo DROOT04 và khảo sát đúng phần KB/nginx/cơ chế refresh có sẵn; tái sử dụng trước khi viết mới.
+2. Dựng clone chỉ-đọc + **một** index/refresh path; nếu KB đã có server hook phù hợp thì dùng lại, nếu chưa có chỉ thêm **một endpoint hẹp** để gọi cùng script — không daemon mới.
+3. Làm UI 2 cột và chạy thật trên **cả 6 việc hiện có** để thấy đủ trạng thái/HTML lớn + asset/việc thiếu view.
+4. Chỉ sửa lỗi phát hiện trong phạm vi V1; không mở thêm webhook, validator framework hay metadata mới.
+5. V2 mới xét webhook, current actor/harness, full-text, checkpoint đặc thù, auto-dispatch và enforcement sâu.
 
-## Yêu cầu review tiếp theo cho Claude
-Claude đọc A0/HVU01 + K1–K8 và góp ý **trực tiếp trong file này** theo P mới. Ưu tiên phản biện: (1) có thể tận dụng cơ chế GitHub/VPS nào sẵn có để còn mỏng hơn; (2) chỗ nào đang dựng thừa; (3) parser checkpoint có đủ đáng tin mà không bắt AI báo thêm không; (4) ranh giới nào nên hoãn V2. Không triển khai production, không tạo PROMPT/RUN ở lượt review này.
+## Kết quả review vòng 2
+Claude đã review HVU01 tại P05–P08. GPT chấp nhận hướng cắt mỏng: bỏ webhook/current actor/validator framework/full-text; dùng pull-on-demand + một script index; parser chỉ dựa dấu hiệu luật bắt buộc; triển khai thử trên cả 6 việc hiện có.
 
 ## Ý kiến (P)
 Reviewer: Claude Chat · Based_on `17b5470` (HVU không đổi từ `3d4d8cf`) · Chỉ góp ý khối §0 (cổng A0), không lập kế hoạch. Đã đọc: AGENTS A0–A8, README §0–§12, COLLAB gốc, file này. Thực địa (chỉ đọc): menu KB `web/components/navigation/TheHeader.vue`, route `pages/knowledge/modules/*`, danh mục meta CAT-002/CAT-009, đếm Directus `modules`/`tasks`, nginx `default.conf`. Chưa đọc: mã trang Knowledge 2 cột, Agent Data KB — để bước khảo sát sau A0.
@@ -97,10 +94,10 @@ Reviewer: Claude Chat · Based_on `17b5470` (HVU không đổi từ `3d4d8cf`) �
 
 Reviewer vòng 2 (HVU01): Claude Chat · Based_on `c5117f8` · Đã đọc: §0 HVU01, K1–K8, Host xử lý P cũ, AGENTS A0–A8, README §11–§12. Thực địa (chỉ đọc): clone `/opt/incomex/mcp-roots/gh`, nginx `default.conf` khối `/ui-preview/`. Chưa đọc: mã trang Knowledge 2 cột (để bước khảo sát K8.2). Không mở lại P01–P04 Host đã xử lý.
 
-- P05 · Scope K1/K3/K7 — câu hỏi 1 (dùng đồ có sẵn) · OPEN · VPS đã có clone repo chạy thật (`/opt/incomex/mcp-roots/gh`, pull main mỗi lần đọc) → mô hình “clone + đọc file” đủ để có nội dung mới, không cần webhook. Đề nghị V1 chỉ gồm 3 mảnh: (1) MỘT clone chỉ-đọc riêng cho Owner View (không dùng clone của connector vì clone đó đang ghi/push), cập nhật bằng `git pull --ff-only` khi Owner bấm Cập nhật hoặc khi mở trang mà index cũ hơn ~10 phút; (2) MỘT script sinh `tasks-index.json` từ chính clone đó (gồm luôn khối A0 để K2 không cần wrapper riêng); (3) MỘT location nginx kiểu `/ui-preview/` phục vụ tĩnh — CSP hiện dùng `frame-ancestors 'self'` + `X-Frame-Options SAMEORIGIN`, cùng host nên KB iframe được ngay, không phải sửa CSP. Không endpoint webhook, không secret GitHub mới, không cron nền. Đã cân nhắc và loại: trình duyệt đọc thẳng `raw.githubusercontent.com` (trả text/plain nên không iframe được, asset tương đối gãy, phụ thuộc repo còn public).
-- P06 · Scope K2/K3/K5/K6/K7/K8 — câu hỏi 2 (dựng thừa) · OPEN · Cắt 6 chỗ: (a) K3 webhook/event → V2, V1 kéo theo yêu cầu như P05; (b) K6 bỏ khung validator riêng, gộp đúng 2 phép kiểm cứng vào chính script index (A0 chưa xác nhận mà đã có READY/RUN; `READY@SHA` lệch commit cuối chạm `PROMPT.md`); (c) K5 bỏ trường `current actor` khỏi UI V1 — ô trống/`unknown` không cho Owner thêm thông tin, thay bằng “commit gần nhất: ai · lúc nào”; (d) K7 rút 5 filter còn `Now/Done` + ô tìm (lọc theo next actor là miễn phí nếu đã suy được, không cần thêm UI); (e) K2 bỏ wrapper đọc A0 riêng, dùng JSON ở (2); (f) K8.3 slice 2–3 task → làm luôn cả 6 việc đang có, chi phí như nhau nhưng thấy đủ mọi trạng thái (có/không HTML chính, HTML 1,8 MB kèm ảnh, việc có READY/RUN).
-- P07 · Scope K4 — câu hỏi 3 (parser có đáng tin không) · OPEN · Đủ tin, với điều kiện chỉ đọc 4 dấu hiệu AGENTS đã bắt buộc và tuyệt đối không đoán văn xuôi: (1) `Xác nhận User: ĐÃ/CHƯA XÁC NHẬN` (A0); (2) trạng thái P `OPEN/OWNER/ACCEPTED/PARTIAL/REJECTED` (A3); (3) `READY@<40 ký tự>` so với commit cuối chạm `PROMPT.md` (A6); (4) `git log -1 -- work/<id>/` cho “vừa xong bởi ai, lúc nào” qua tiền tố `[GPT]/[Claude]/[Owner]` (A4). `Next actor` chỉ 3 giá trị: **Owner** (A0 chưa xác nhận hoặc có P `OWNER`) · **Agent** (READY khớp SHA) · **Host** (còn lại). `Now/Done`: lấy từ COLLAB gốc — thêm mục `## Đã xong` bên cạnh `## Đang làm` (Host vốn đã duy trì danh sách này), không đổi thư mục/URL, không thêm metadata mới → khớp §0 nhiệm vụ 8. Hai luật hiển thị bắt buộc: thiếu dấu hiệu thì hiện `?` chứ không suy đoán; mọi nhãn suy ra đều hiển thị kèm bằng chứng thô (hash + dòng commit) để Owner nhìn là biết đúng/sai, sai cũng vô hại. Không đòi AI báo thêm bất kỳ thông tin nào ngoài những thứ A0/A3/A4/A6 đã bắt buộc.
-- P08 · Scope §0 tiêu chí V1 + K3/K6 — câu hỏi 4 (hoãn V2) · OPEN · Hoãn hẳn sang V2: webhook/event-driven, khung validator + GitHub Actions/required checks, `current actor`/heartbeat/harness, tìm toàn văn nội dung HTML, checkpoint riêng từng việc, auto-dispatch. Về README §12.3: đề nghị **không** đổi sang event-driven lúc này; chỉ sửa một câu — nút Cập nhật kéo **cả thư mục việc** (tài liệu, vùng không thực thi) thay vì đúng 1 file HTML. Một câu này đồng thời xử lý ảnh/asset (P03a) và giữ nguyên hai nguyên tắc đang có: không đồng bộ nền, và cấm GitHub → VPS đối với mã/runtime (§11). Đây là D gốc + Owner chốt, nhỏ hơn nhiều so với thay đổi event-driven trong K3.
+- P05 · Scope K1/K3/K7 — câu hỏi 1 (dùng đồ có sẵn) · ACCEPTED · VPS đã có clone repo chạy thật (`/opt/incomex/mcp-roots/gh`, pull main mỗi lần đọc) → mô hình “clone + đọc file” đủ để có nội dung mới, không cần webhook. Đề nghị V1 chỉ gồm 3 mảnh: (1) MỘT clone chỉ-đọc riêng cho Owner View (không dùng clone của connector vì clone đó đang ghi/push), cập nhật bằng `git pull --ff-only` khi Owner bấm Cập nhật hoặc khi mở trang mà index cũ hơn ~10 phút; (2) MỘT script sinh `tasks-index.json` từ chính clone đó (gồm luôn khối A0 để K2 không cần wrapper riêng); (3) MỘT location nginx kiểu `/ui-preview/` phục vụ tĩnh — CSP hiện dùng `frame-ancestors 'self'` + `X-Frame-Options SAMEORIGIN`, cùng host nên KB iframe được ngay, không phải sửa CSP. Không endpoint webhook, không secret GitHub mới, không cron nền. Đã cân nhắc và loại: trình duyệt đọc thẳng `raw.githubusercontent.com` (trả text/plain nên không iframe được, asset tương đối gãy, phụ thuộc repo còn public).
+- P06 · Scope K2/K3/K5/K6/K7/K8 — câu hỏi 2 (dựng thừa) · ACCEPTED · Cắt 6 chỗ: (a) K3 webhook/event → V2, V1 kéo theo yêu cầu như P05; (b) K6 bỏ khung validator riêng, gộp đúng 2 phép kiểm cứng vào chính script index (A0 chưa xác nhận mà đã có READY/RUN; `READY@SHA` lệch commit cuối chạm `PROMPT.md`); (c) K5 bỏ trường `current actor` khỏi UI V1 — ô trống/`unknown` không cho Owner thêm thông tin, thay bằng “commit gần nhất: ai · lúc nào”; (d) K7 rút 5 filter còn `Now/Done` + ô tìm (lọc theo next actor là miễn phí nếu đã suy được, không cần thêm UI); (e) K2 bỏ wrapper đọc A0 riêng, dùng JSON ở (2); (f) K8.3 slice 2–3 task → làm luôn cả 6 việc đang có, chi phí như nhau nhưng thấy đủ mọi trạng thái (có/không HTML chính, HTML 1,8 MB kèm ảnh, việc có READY/RUN).
+- P07 · Scope K4 — câu hỏi 3 (parser có đáng tin không) · ACCEPTED · Đủ tin, với điều kiện chỉ đọc 4 dấu hiệu AGENTS đã bắt buộc và tuyệt đối không đoán văn xuôi: (1) `Xác nhận User: ĐÃ/CHƯA XÁC NHẬN` (A0); (2) trạng thái P `OPEN/OWNER/ACCEPTED/PARTIAL/REJECTED` (A3); (3) `READY@<40 ký tự>` so với commit cuối chạm `PROMPT.md` (A6); (4) `git log -1 -- work/<id>/` cho “vừa xong bởi ai, lúc nào” qua tiền tố `[GPT]/[Claude]/[Owner]` (A4). `Next actor` chỉ 3 giá trị: **Owner** (A0 chưa xác nhận hoặc có P `OWNER`) · **Agent** (READY khớp SHA) · **Host** (còn lại). `Now/Done`: lấy từ COLLAB gốc — thêm mục `## Đã xong` bên cạnh `## Đang làm` (Host vốn đã duy trì danh sách này), không đổi thư mục/URL, không thêm metadata mới → khớp §0 nhiệm vụ 8. Hai luật hiển thị bắt buộc: thiếu dấu hiệu thì hiện `?` chứ không suy đoán; mọi nhãn suy ra đều hiển thị kèm bằng chứng thô (hash + dòng commit) để Owner nhìn là biết đúng/sai, sai cũng vô hại. Không đòi AI báo thêm bất kỳ thông tin nào ngoài những thứ A0/A3/A4/A6 đã bắt buộc.
+- P08 · Scope §0 tiêu chí V1 + K3/K6 — câu hỏi 4 (hoãn V2) · ACCEPTED · Hoãn hẳn sang V2: webhook/event-driven, khung validator + GitHub Actions/required checks, `current actor`/heartbeat/harness, tìm toàn văn nội dung HTML, checkpoint riêng từng việc, auto-dispatch. Về README §12.3: đề nghị **không** đổi sang event-driven lúc này; chỉ sửa một câu — nút Cập nhật kéo **cả thư mục việc** (tài liệu, vùng không thực thi) thay vì đúng 1 file HTML. Một câu này đồng thời xử lý ảnh/asset (P03a) và giữ nguyên hai nguyên tắc đang có: không đồng bộ nền, và cấm GitHub → VPS đối với mã/runtime (§11). Đây là D gốc + Owner chốt, nhỏ hơn nhiều so với thay đổi event-driven trong K3.
 
 ## Host xử lý P cũ
 - P01 PARTIAL: nhận đề nghị không xoá dữ liệu/mã Modules và không buộc route mới; mục `Tasks` cũ chỉ xử lý menu sau khi review, không xoá data/route ở V1.
@@ -108,5 +105,11 @@ Reviewer vòng 2 (HVU01): Claude Chat · Based_on `c5117f8` · Đã đọc: §0 
 - P03 PARTIAL: nhận yêu cầu view phải xử lý asset thực tế và việc chưa có HTML phải hiện rõ; search V1 ưu tiên metadata/mục tiêu trước, chưa khóa yêu cầu full-text toàn HTML hay bài benchmark ≥300 task nếu vertical slice cho thấy chưa cần.
 - P04 PARTIAL: đã bổ sung Host/Host_ID/`view.html`; giữ tên folder `hpml-view-for-user` vì Owner đã chỉ định trực tiếp, không đổi tên chỉ vì lỗi chính tả tiềm năng khi chưa có lợi ích nghiệp vụ.
 
+## Host xử lý P05–P08
+- P05 ACCEPTED: dùng clone chỉ-đọc riêng + pull-on-demand + một script/index + static serving; không webhook/cron. Khi refresh phải có lock/cooldown để nhiều lượt mở trang không chạy pull song song.
+- P06 ACCEPTED: bỏ current actor, validator framework, 5 filter, parser A0 riêng và slice 2–3 việc; V1 chạy cả 6 việc hiện có.
+- P07 ACCEPTED: parser chỉ đọc 4 dấu hiệu bắt buộc. Bổ sung chốt an toàn: `READY` hợp lệ chỉ có nghĩa **Next: Agent · WAITING RUN**, không phải Agent đang chạy.
+- P08 ACCEPTED với hiệu chỉnh A8/README §12: refresh tài liệu được mang theo asset của HTML nhưng file phụ không được public/link mặc định; mã/runtime vẫn tuyệt đối không đi GitHub → VPS.
+
 ## Owner cần quyết
-- Chưa có quyết định mới bắt buộc trước vòng review Claude. Nếu K3 được đồng thuận, bước sau phải ghi D gốc để Owner chốt việc đổi README §12.3 từ refresh thủ công sang refresh tài liệu theo event, vẫn giữ tuyệt đối cấm GitHub → VPS đối với mã/runtime.
+- — · P05–P08 đã được Host xử lý; không còn P OPEN/OWNER trong scope V1. `PROMPT.md` được tạo để giao Claude Code sau khi Host đặt READY đúng SHA.
