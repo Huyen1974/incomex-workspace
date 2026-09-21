@@ -145,7 +145,7 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: **ACCEPTED WITH TECHNICAL CORRECTION** — nhận 1–4. Với §2, xác nhận `typesafe-mcp` hiện là stdio MCP nên cần bridge remote có sẵn cho ChatGPT/Work; Agent phải khảo sát/ghim bridge thay vì tự viết. Với §5, package có usage guidance nhúng trong MCP nhưng chưa xác nhận có Agent Skill chuẩn mở đi kèm; vì vậy giữ một `SKILL.md` mỏng của Incomex, tái dùng hướng dẫn upstream và chỉ bổ sung khi nào hỏi/khi nào không/Jev chỉ tham khảo. Secret theo D07 = GSM.
 
-### P08 · Claude Chat · OPEN — prompt Claude Code GPT soạn trong chat 21/09 (sau `HERMES-REVIEW-RESPONSE.md`)
+### P08 · Claude Chat · ACCEPTED — prompt Claude Code GPT soạn trong chat 21/09 (sau `HERMES-REVIEW-RESPONSE.md`)
 - Based_on: `74b3a58` · Scope: `HERMES-REVIEW-RESPONSE.md` + prompt Owner chuyển qua chat (Phần A/B/C) · đối chiếu A2, A6, A9, luật Owner về hành động phá huỷ.
 - Kết luận: **chưa dùng được nguyên trạng**. Nội dung kỹ thuật phần lớn đúng; sai ở khuôn và phạm vi:
   1. Soạn ngoài repo ⇒ không có `PROMPT.md` / `READY@SHA` / `RUN_ID` / `KQ@` (A6, A9): agent không kiểm được bản, Task view không theo dõi được.
@@ -155,7 +155,7 @@ HTML chính: `view.html`
 - Thứ tự chạy đề nghị: một lệnh RUN cho Claude Code, hai PROMPT tuần tự — JEV Bước 1 trước, HJW sau — để lượt HJW cắm luôn cổng JEV vừa dựng vào Hermes, không sửa cấu hình Hermes hai lần.
 - Nhỏ: gộp `HERMES-REVIEW-RESPONSE.md` vào `HERMES-REVIEW.md` khi Host sửa lần tới (một lượt review, một tệp).
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **ACCEPTED** — nhận đủ 4 chỉnh sửa: prompt nằm trong repo; JEV tách khỏi HJW; cổng đầu lượt chỉ-đọc không được dừng/xoá process; audit + dựng gộp một RUN. Theo chỉ đạo Owner mới nhất, **không chạy hai PROMPT trong một lệnh**: hoàn tất/accept JEV.B1 trước, rồi HJW mới mở RUN riêng.
 
 ## Câu hỏi hội đồng
 - Q01 · **RESOLVED:** dùng một cổng JEV chung.
@@ -169,6 +169,7 @@ HTML chính: `view.html`
 - — Không có điểm kiến trúc mới cần Owner quyết; D01–D08 đủ phạm vi.
 
 ## NEXT
-- **TRƯỚC RUN:** gửi `HERMES-REVIEW.md` cho Hermes để lấy ý kiến độc lập trên hạ tầng VPS thật.
-- Hermes chỉ review/đề xuất, chưa triển khai. Kết quả Hermes được đưa lại hội đồng; nếu không phát hiện blocker thực chất thì Host mới soạn `PROMPT.md` Bước 1 và đặt READY theo A6.
-- Không mở rộng sang Zep/Graph/Cognee trong lượt JEV này.
+- `PROMPT.md` JEV.B1 đã được Host soạn DRAFT trên repo theo P08.
+- **Claude Chat giám sát:** đọc đúng PROMPT.md mới + P08; nếu không có P mới thì ghi REVIEWED/ACCEPT theo A5. Host chỉ đặt READY sau review này.
+- Sau READY + RUN: Claude Code thực hiện JEV.B1; Claude Chat nghiệm thu MACHINE_DONE trước client acceptance.
+- Chỉ khi JEV.B1 OpenAI DONE mới chuyển sang task riêng `work/hermes-joint-workspace/`.
