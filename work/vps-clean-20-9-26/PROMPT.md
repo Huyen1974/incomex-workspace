@@ -1,45 +1,38 @@
-# PROMPT — VPSC · V1 Codex thẩm tra độc lập báo cáo R1 (AUDIT / NO PRODUCTION MUTATION)
+# PROMPT — VPSC · V1b Codex hoàn tất thẩm tra (AUDIT / NO PRODUCTION MUTATION)
 
-RUN_ID: VPSC-V1-20260921-01
-Soạn: Claude Chat (Host), 2026-09-21, theo D06 (Owner giao Host chỉ đạo Codex trực tiếp). Trạng thái chỉ tin `work/vps-clean-20-9-26/COLLAB.md`. Chỉ chạy khi COLLAB có `READY@`/`OWNER_APPROVED@` đúng full SHA commit cuối chạm file này + lệnh RUN.
-**Executor_Surface = Codex CLI chạy trên VPS (có shell).** Không có shell VPS → DỪNG.
-**Write_Path:** `workspace_*` (Agent Data); phiên không bind thì `fs_*` ("Incomex VPS"). Cấm git/GitHub native để ghi; không clone repo.
-**Mục đích:** biết CHẮC điều gì đang làm đầy đĩa trước khi dọn. Bạn là người chấm độc lập: tự đo lại, KHÔNG chép số của R1, KHÔNG coi kết luận R1 là đúng.
+RUN_ID: VPSC-V1B-20260921-01
+Soạn: Claude Chat (Host), 21/09/2026, theo D06 + D07. Trạng thái chỉ tin `work/vps-clean-20-9-26/COLLAB.md`. Chỉ chạy khi COLLAB có `OWNER_APPROVED@`/`READY@` đúng full SHA commit cuối chạm file này + lệnh RUN.
+**Executor_Surface = Codex Desktop điều khiển shell VPS qua SSH** (đúng bề mặt V1 đã dùng).
+**Write_Path = `workspace_*`** (V1 đã ghi thành công qua đường này); dự phòng `fs_*`. Cấm git/GitHub native để ghi; không clone.
+**Vì sao có lượt này:** V1 dừng ở chế độ đo nhẹ vì đĩa 91% chạm ngưỡng 90% Host đặt. Ngưỡng đó đặt sai chỗ: quét chỉ đọc (du/find/grep/inspect) không làm đầy đĩa; thứ phải chặn khi đĩa gần đầy là GHI. D07 sửa như §1. Lượt này CHỈ làm phần V1 còn dở, không lặp phần V1 đã xác nhận.
 
 ## 0. Cổng
-1. `df -h /` trước tiên; Used ≥90% hoặc trống <8GB → chỉ đo nhẹ, báo số.
-2. Đúng một read-gate: đọc `work/vps-clean-20-9-26/COLLAB.md` qua Write_Path; fail → DỪNG, nêu tool đã thử.
-3. Giấy phép: full SHA commit cuối chạm file này (không so HEAD repo) phải khớp COLLAB; lệch → DỪNG.
-4. Đọc `work/vps-clean-20-9-26/BAO-CAO.md` mục R1 — đối tượng thẩm tra.
+1. `df -h /` và `df -B1 /` một lần. Available <3GiB → DỪNG ngay, báo số.
+2. Đúng một read-gate: đọc `work/vps-clean-20-9-26/COLLAB.md` qua Write_Path; fail → DỪNG.
+3. Giấy phép: full SHA commit cuối chạm file này (không so HEAD repo) khớp COLLAB; lệch → DỪNG.
+4. Đọc `BAO-CAO.md` mục V1 (việc còn dở) và mục R1 (đối tượng thẩm tra).
 
 ## 1. Luật cứng
-- CẤM: rm/mv/truncate/ghi đè file; mọi docker rm/rmi/prune/save/tag/build; compose up/down/restart; DROP/VACUUM; sửa cron/systemd/config; gọi API xoá của Qdrant; kill tiến trình hệ thống; tải backup về VPS; giải mã backup.
-- KHÔNG chờ/sleep, không đo lặp theo thời gian: mỗi phép đo làm một lần (D05).
-- Không in secret, nội dung .env/config, nội dung dump. Bằng chứng thô (nếu cần) ở `/var/lib/incomex-audit/VPSC-V1-20260921/`, ≤50MB, ngoài mọi cây Git.
-- Chỉ ghi repo 2 chỗ: mục mới trong `BAO-CAO.md` + dòng `VPSC.3` trong COLLAB. Không sửa mục R1, `PROMPT.md`, `view.html`.
-- Mục tiêu thời lượng ≤45 phút.
+- Giữ nguyên danh sách CẤM của V1: không xoá/sửa/truncate/restart/DROP/prune/save/tag/build; không gọi API xoá Qdrant; không tải/giải mã backup; không sửa cron/systemd/config; không kill tiến trình hệ thống.
+- Ngưỡng (D07): quét chỉ đọc được phép tới khi Available còn ≥3GiB. KHÔNG ghi file nào lên VPS, kể cả bằng chứng thô (giữ trong output phiên như V1). Mọi du/find chạy `nice -n 19 ionice -c3`, luôn `-x`, có timeout.
+- Không chờ/sleep; mỗi phép đo một lần.
+- Chỉ ghi repo: chèn mục V1b lên đầu `BAO-CAO.md` + dòng `VPSC.3` trong COLLAB. Không sửa mục V1, R1, `PROMPT.md`, `view.html`.
+- Mục tiêu ≤45 phút.
 
-## 2. Việc cần thẩm tra
-A. **Tổng:** df; du tầng 1; lớp ghi của `incomex-qdrant`, `postgres`, `incomex-directus` trong kho containerd. Tổng có khớp df không.
-B. **4 nguyên nhân rò R1 nêu** — tự chứng minh hoặc bác bằng số + đọc script:
-  1. Bản chụp Qdrant kẹt trong container: đếm + GB; `scripts/qdrant-backup.sh` có/không xoá bản chụp server-side (so với `backup-to-gdrive.sh`).
-  2. Bản sao Nuxt `deploys/nuxt-output.*`: đếm + GB; script deploy có/không tỉa.
-  3. Log pm2 trong container Directus: GB + tốc độ.
-  4. `context-pack.tmp`: đếm + GB; có/không dọn.
-  Thêm: có nguồn tăng nào ≥0,5GB mà R1 bỏ sót?
-C. **Chấm từng nhóm N1–N15** của manifest R1: PASS / REVISE / BLOCK + một câu lý do. Bắt buộc:
-  - N1: xác nhận bản Qdrant mới nhất có ở host (7 ngày) VÀ có trong gói Drive gần nhất (đọc meta/log, không tải về); xác nhận xoá qua API không cần restart.
-  - N3, N9, N11: grep TỪNG tên/đường dẫn trong `/opt/incomex`, `/etc`, crontab mọi user, unit systemd; có tham chiếu đang chạy → BLOCK phần đó.
-  - N7, N8: xác nhận không phải cha của image đang chạy (so RootFS).
-  - N13 (DB thử): chỉ xác nhận vẫn `UNKNOWN_HOLD`; không đo theo thời gian.
-D. **Con số thu hồi:** R1 ghi `DELETE_PROVEN_SAFE` ~34,4GB — tính lại theo các nhóm bạn PASS.
+## 2. Việc còn dở của V1
+A. **Đối soát tổng:** `du -x` tầng 1; tách trong `/var/lib/containerd`: lớp ghi `incomex-qdrant`, `postgres`, `incomex-directus`, snapshot image, blob; `lsof +L1`. Tổng khớp df (lệch >3GiB phải giải thích).
+B. **Phần tăng +2,94GiB từ 04:10Z đến 07:48Z ngày 21/09:** `find / -xdev -newermt '2026-09-21 04:10Z'` (và `-newerct`) cộng theo thư mục; nêu nguồn sinh (script/mission/việc nào — kể cả build/deploy web và lớp view của việc khác sáng 21/09). Nếu là nguồn mới chưa có trong R1 → thêm vào sổ nguồn sinh.
+C. **GB đo độc lập** cho N3 (mọi dạng tên `nuxt-output.*` và `nuxt-output-*`), N4, N5.
+D. **Grep TỪNG tên/đường dẫn** của N3, N9, N11 trong `/opt/incomex` (trừ chính thư mục đích và `context-pack*`), `/etc`, crontab mọi user, unit systemd. Kết quả theo từng tên: 0 tham chiếu / có tham chiếu (file:dòng). N11 phải ra danh sách tên cụ thể, không wildcard.
+E. **Chấm lại N1–N15** khi đã có số đủ. N1 giữ BLOCK nếu chưa có bằng chứng bản Qdrant ngoài VPS — việc làm ra bằng chứng đó (V1-01) thuộc lượt dọn, không phải lượt này.
+F. **Con số:** tổng thu hồi đã kiểm (chỉ nhóm PASS) và số GiB cần thu hồi để đạt 45GiB trống từ df hiện tại.
 
-## 3. Báo cáo — ghi TRƯỚC khi trả Owner
-- Chèn lên ĐẦU `BAO-CAO.md` mục "V1 — Codex thẩm tra · <ngày> · executor=Codex CLI · write_path=<…>", giữ nguyên mục R1.
-- Thứ tự: (1) CHO OWNER ≤10 dòng: R1 đúng/sai ở đâu; 4 nguyên nhân xác nhận hay bác; GB thu hồi an toàn đã kiểm. (2) Bảng N1–N15: Nhóm · GB R1 · GB V1 · Kết luận · Lý do; chênh >10% hoặc >0,5GB phải nói rõ. (3) Bỏ sót (nếu có). (4) Kho bằng chứng.
+## 3. Báo cáo
+- Chèn lên ĐẦU `BAO-CAO.md` mục "V1b — Codex hoàn tất thẩm tra · <ngày> · executor=Codex Desktop qua SSH · write_path=<…>".
+- Thứ tự: (1) CHO OWNER ≤10 dòng; (2) bảng N1–N15 cập nhật: GB V1b · Kết luận · Lý do; (3) nguồn của +2,94GiB; (4) bằng chứng.
 - Repo công khai: không secret/token, IP/tên miền nội bộ, ID Google Drive, tên tài khoản, output lệnh thô.
-- Sửa dòng `VPSC.3` trong COLLAB thành `MACHINE_DONE · V1 · xem BAO-CAO.md` (có expected_version; không gộp được thì tách 2 commit theo A4).
-- Trả đúng một dòng: `XONG · VPSC-V1 · executor=Codex CLI · write_path=<…> · PASS <n> / REVISE <n> / BLOCK <n> · thu hồi đã kiểm <GB> · xem BAO-CAO.md` hoặc `DỪNG · VPSC-V1 · <mục> · <lý do>`.
+- Sửa dòng `VPSC.3` trong COLLAB thành `MACHINE_DONE · V1b · xem BAO-CAO.md` (hoặc `STOPPED · <lý do>`), có expected_version.
+- Trả đúng một dòng: `XONG · VPSC-V1B · executor=Codex Desktop qua SSH · write_path=<…> · PASS <n> / REVISE <n> / BLOCK <n> · thu hồi đã kiểm <GiB> · nguồn +2,94GiB: <…> · xem BAO-CAO.md` hoặc `DỪNG · VPSC-V1B · <mục> · <lý do>`.
 
 ## 4. Sau Codex (không phải việc của Codex)
-Host đối chiếu R1 + V1, đưa phần đã thống nhất lên `view.html`; hội đồng chốt; Owner duyệt; lượt dọn thật là PROMPT sau.
+Host gộp R1 + V1 + V1b và V1-01…V1-06 thành đề bài lượt dọn; hội đồng chốt; Owner duyệt.

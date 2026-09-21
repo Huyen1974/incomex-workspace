@@ -10,11 +10,12 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 3/6 | V1 Codex · OWNER_APPROVED + READY | NEXT: Owner phát RUN cho Codex | BLOCK: —
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 3/6 | V1b Codex · OWNER_APPROVED + READY | NEXT: Owner phát RUN V1b cho Codex | BLOCK: —
 
-- PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-V1-20260921-01` · Codex thẩm tra độc lập R1 · AUDIT / NO PRODUCTION MUTATION.
-- **PROMPT_SHA = 3131bdee21a080a6fdfb5138ca72c2b7b3d30a38** (commit cuối chạm `PROMPT.md`). PROMPT R1 `7ce1cbd` đã chạy xong.
-- **OWNER_APPROVED@3131bdee21a080a6fdfb5138ca72c2b7b3d30a38** — Owner giao trực tiếp Host chỉ đạo Codex rà soát (D06, 21/09); việc chỉ đọc. **Host READY@3131bdee21a080a6fdfb5138ca72c2b7b3d30a38**.
+- PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-V1B-20260921-01` · Codex hoàn tất thẩm tra · AUDIT / NO PRODUCTION MUTATION.
+- **PROMPT_SHA: SAME_COMMIT** (Host ghi hash thật ngay sau commit này). V1 `3131bde` đã chạy (DỪNG · V1_LIMITED).
+- **OWNER_APPROVED@SAME_COMMIT** (D06 + D07) · **Host READY@SAME_COMMIT**. Host preflight trước READY (DROOT04, 21/09 ~08:15Z): đĩa 87/96GB, 91%, trống 9,5GB (> sàn 3GiB của D07); Executor_Surface = Codex Desktop qua SSH (đã chạy được ở V1); Write_Path `workspace_*` (đã ghi được ở V1); R03 CLIENT-ONLY, không deploy; 12 container healthy.
+- V1 (lịch sử): PROMPT_SHA `3131bdee21a080a6fdfb5138ca72c2b7b3d30a38` · OWNER_APPROVED + READY đã dùng.
 - Host kiểm R1 (21/09): đã đọc đủ `BAO-CAO.md` mục R1; nguyên nhân #1 tự xác minh qua mã — `scripts/qdrant-backup.sh` tạo snapshot, `docker cp` ra host, chỉ xoá bản ở host >7 ngày, không gọi DELETE server-side; `backup-to-gdrive.sh` có DELETE. Các số còn lại chờ Codex.
 - **GPT REVIEWED@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65 · ACCEPT** — đã kiểm D04 + P12 ở đầu file/§0/§2/§9/§10 và luật DROOT06/README §12; không mở P mới. R1 chỉ khảo sát + báo cáo, không dọn/xoá/mutation production.
 - **Host READY@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65** (đã dùng cho R1, R1 xong 21/09) — Claude Chat (CLAUDE-VPSC-260920-A), 2026-09-21. Đã xác minh: commit cuối chạm `PROMPT.md` = `7ce1cbd`; `GPT REVIEWED@` trùng mã.
@@ -38,6 +39,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 3/6 | V1 Codex · OWNER_APPROVE
 - D04 · 2026-09-21 · Owner: báo cáo của agent phải nằm trên repo. Căn cứ: README §12 (tài liệu SSOT = GitHub/workspace) + AGENTS A6 (Host nghiệm thu qua Git + báo cáo đích). Host chốt: một file báo cáo sống `work/vps-clean-20-9-26/BAO-CAO.md` cho mọi lượt (R1 → thẩm tra Codex → dọn), lượt mới chèn lên đầu; chỉ chứa bản đã làm sạch (repo công khai); bằng chứng thô vẫn ở VPS ngoài Git (Q01); KB 24/07 chỉ đọc làm mốc. Thay Q02.
 - D05 · 2026-09-21 · Owner: agent KHÔNG chờ lần đọc DB thứ 3 (mốc 30 phút của DB_DELETE_GATE), hoàn tất báo cáo ngay để Codex xác minh. Host: an toàn vì DB duy nhất trong diện xét (`directus_gov_test_20260602`) đã rơi `UNKNOWN_HOLD` do chưa có bản off-VPS (điều kiện e) — lần đọc 3 không đổi kết luận. Không đổi phạm vi khác của PROMPT.
 - D06 · 2026-09-21 · Owner: Host soạn và chỉ đạo Codex thẩm tra trực tiếp, không thêm vòng hội ý (thay phần "GPT soạn đề bài" của D03). Độc lập giữ bằng đề bài: Codex tự đo lại, không chép số R1, chấm PASS/REVISE/BLOCK từng nhóm. GPT vẫn có thể mở P nếu thấy sai.
+- D07 · 2026-09-21 · Owner: Host phải tuân thủ quy định đã đặt, bảo đảm đầu vào đủ trước khi giao, không để tắc. Host nhận 2 lỗi ở V1: (1) đặt READY mà không đo lại df — đĩa đã 91%, vượt ngưỡng 90% do chính Host đặt; (2) ghi Executor_Surface "Codex CLI trên VPS" trong khi bề mặt thật là Codex Desktop qua SSH. Sửa: ngưỡng chỉ chặn GHI, quét chỉ đọc được tới khi còn ≥3GiB; Executor_Surface ghi đúng bề mặt thật; mỗi READY có dòng preflight (df, executor, write_path, R03). V1-01…V1-06 của Codex: ACCEPTED, đưa vào đề bài lượt dọn.
 
 ## Kế hoạch
 - VPSC.1 | Mở việc + PROMPT R1 | ✔ xong: GPT REVIEWED + Host READY @`7ce1cbd`
@@ -70,9 +72,9 @@ Ghi hộ: GPT gửi P01–P06 qua Owner 2026-09-20 vì đường `workspace_*` c
 GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho lượt review trước; lượt P10 đã đọc PROMPT hiện hành `88ec658` và `view.html` T1–T5.
 
 ## Owner cần quyết
-- Không có quyết định chờ Owner. Việc Owner: phát RUN cho Codex.
+- Không có quyết định chờ Owner. Việc Owner: phát RUN V1b cho Codex.
 - Q04 · CLOSED · Owner 2026-09-21 giao nhóm kỹ thuật quyết. Chốt kỹ thuật: giữ mục tiêu ≥45GB trống; bỏ `≤3GB/tháng` khỏi tiêu chí PASS và dùng nó như ngưỡng đỏ. PASS theo D02/P10: non-business phải bounded/steady-state, hoặc offload/purge có kiểm soát.
 
 ## NEXT
-- Owner phát RUN cho Codex (Codex CLI trên VPS) theo `PROMPT.md` V1. Codex trả một dòng XONG/DỪNG.
-- Sau V1: Host đối chiếu R1 + V1 → view.html → hội đồng chốt → Owner duyệt → PROMPT lượt dọn thật.
+- Owner phát RUN V1b cho Codex (Codex Desktop qua SSH) theo `PROMPT.md`. Codex trả một dòng XONG/DỪNG.
+- Sau V1b: Host gộp R1 + V1 + V1b + V1-01…V1-06 → đề bài lượt dọn → hội đồng chốt → Owner duyệt.

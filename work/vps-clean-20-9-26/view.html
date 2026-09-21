@@ -20,7 +20,7 @@ small{color:#666}
 <h1>Dọn đĩa VPS · 20/09/2026</h1>
 <p><span class="tag">Khảo sát xong · đang kiểm chéo</span><span class="tag">Bước 2: kiểm toán, không đụng production</span><span class="tag">Chưa chạm production</span></p>
 
-<div class="box"><strong>Kết quả khảo sát (chưa thẩm tra):</strong> đĩa đầy vì dữ liệu vận hành, dữ liệu nghiệp vụ chỉ 2,5GB. Thủ phạm chính: script sao lưu Qdrant quên xoá bản chụp bên trong Qdrant (~28GB, +6,6GB/tháng). Dọn an toàn ước ~34GB → đĩa trống ~47GB. Chi tiết: <code>BAO-CAO.md</code>. <strong>Việc anh làm:</strong> dán lệnh cho Codex thẩm tra.</div>
+<div class="box"><strong>Kiểm chéo lần 1 dừng giữa chừng</strong> vì đĩa lên 91% (lỗi đặt ngưỡng của Host, đã sửa). Codex đã xác nhận: Qdrant giữ 160 bản chụp 27,6GB và script không xoá — thủ phạm chính. Chưa đủ bằng chứng để xoá: cần chứng minh có bản sao Qdrant ngoài VPS trước. <strong>Việc anh làm:</strong> dán lệnh V1b cho Codex để làm nốt phần còn dở.</div>
 
 <div class="bar" id="TIEN-DO"><span>✔ 1 Mở việc</span><span>✔ 2 Khảo sát</span><span class="now">▶ 3 Kiểm chéo</span><span>□ 4 Anh duyệt</span><span>□ 5 Dọn + khoá vòi</span><span>□ 6 Theo dõi, đóng</span></div>
 
@@ -33,6 +33,7 @@ small{color:#666}
 <tr><td>20/09 sáng</td><td class="r">87% (83/96GB)</td><td class="r">14GB</td></tr>
 <tr><td>20/09 trưa</td><td class="r">87% (84/96GB)</td><td class="r">13GB</td></tr>
 <tr><td>21/09 sáng</td><td class="r">88% (84/96GB)</td><td class="r">13GB</td></tr>
+<tr><td>21/09 trưa</td><td class="r">91% (87/96GB)</td><td class="r">9,5GB</td></tr>
 </tbody>
 </table>
 <p>Nhịp trung bình gần nửa GB mỗi ngày; riêng hôm nay thêm khoảng 1GB trong 11 giờ. Giữ nhịp này thì <strong>khoảng 3 tuần là vào vùng nguy hiểm (≥95%)</strong>, lúc đó PostgreSQL và Docker bắt đầu lỗi.</p>
