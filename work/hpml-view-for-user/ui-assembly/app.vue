@@ -1,46 +1,39 @@
 <script setup>
-const query = ref('')
-const selected = ref('hpml-view-for-user')
-const tasks = ['hpml-view-for-user','hermes-joint-workspace','jev-integration','mcp-workspace','mow-mot-moit-mout','vps-clean-20-9-26']
-const filtered = computed(() => tasks.filter(t => t.includes(query.value.toLowerCase())))
-const items = [
- { label: 'Mục tiêu', summary: 'Biết mục tiêu, biết trạng thái để điều hành hiệu quả', slot: 'goal', defaultOpen: true },
- { label: 'Tiến độ', summary: '② Kế hoạch · Đang cùng User thiết kế UI', slot: 'progress' },
- { label: 'Tình trạng', summary: 'Đang thiết kế · Chờ User chỉnh bản phác thảo', slot: 'activity', defaultOpen: true },
- { label: 'Nội dung công việc', summary: 'HTML chính của công việc', slot: 'document' }
-]
-const stages = ['Tạo việc · Thống nhất mục tiêu','Thống nhất kế hoạch','Triển khai','Nghiệm thu theo mục tiêu']
+const query=ref(''), selected=ref('hpml-view-for-user')
+const tasks=['hpml-view-for-user','hermes-joint-workspace','jev-integration','mcp-workspace','mow-mot-moit-mout','vps-clean-20-9-26']
+const filtered=computed(()=>tasks.filter(t=>t.includes(query.value.toLowerCase())))
+const draft=computed(()=>selected.value==='hpml-view-for-user')
+const tabs=[{label:'Kiểm soát',slot:'control'},{label:'Nội dung công việc',slot:'content'}]
+const items=[{label:'Mục tiêu',slot:'goal',defaultOpen:true},{label:'Tiến độ',slot:'progress'},{label:'Tình trạng',slot:'activity',defaultOpen:true}]
+const stageNames=['Tạo việc · Thống nhất mục tiêu','Thống nhất kế hoạch','Triển khai','Nghiệm thu theo mục tiêu']
+const states={pending:'Chưa làm',done:'Đã xong',blocked:'Đang tắc',changing:'Đang điều chỉnh',unknown:'Chưa có dữ liệu'}
+const stages=computed(()=>stageNames.map((label,i)=>({label,state:draft.value?['done','changing','pending','pending'][i]:'unknown'})))
+const team=[{id:'gpt-chat',label:'Chat GPT'},{id:'gpt-work',label:'Codex / GPT Work'},{id:'claude-chat',label:'Chat Claude'},{id:'claude-work',label:'Claude Code CLI / Cowork'},{id:'hermes-chat',label:'Hermes Chat'},{id:'hermes-code',label:'Hermes Code'}]
+// UI fixture only. Replace the whole snapshot on a newer source revision; never accumulate dots.
+const snapshot=computed(()=>({lastActors:draft.value?['gpt-work']:[],activeActors:[]}))
+const documents={'mow-mot-moit-mout':'/ui-preview/hpml-view-for-user/documents/mow-mot-moit-mout.html'}
+const documentUrl=computed(()=>documents[selected.value])
+const dotLabel=(actor,column)=>`${actor.label} · ${column==='lastActors'?'Vừa làm':'Đang làm'}: ${snapshot.value[column].includes(actor.id)?'Có tín hiệu trong mẫu UI':'Chưa có tín hiệu'}`
 </script>
 <template>
- <div class="min-h-screen bg-white text-slate-900">
-  <header class="border-b border-slate-200 px-6 py-3 flex items-center justify-between gap-3"><div class="flex items-center gap-4"><span class="font-semibold">INCOMEX</span><span class="text-slate-300">/</span><span class="text-sm text-slate-600">Knowledge</span><span class="text-slate-300">/</span><span class="text-sm font-medium">Task html view</span></div><UBadge color="gray" variant="soft">Bản phác thảo · Chưa nối dữ liệu</UBadge></header>
-  <div class="px-6 py-5 max-w-[1600px] mx-auto">
-   <div class="flex justify-between items-center mb-5 gap-4"><div><h1 class="text-xl font-semibold">Task html view</h1><p class="text-sm text-slate-500 mt-1">Mục tiêu rõ · Nắm tình trạng · Biết bước tiếp theo</p></div><UButton color="gray" variant="outline" disabled title="Bản phác thảo chưa kết nối GitHub">Cập nhật</UButton></div>
-   <div class="task-layout grid grid-cols-1 gap-6 items-start">
-    <aside class="min-w-0 lg:sticky lg:top-5">
-     <UInput v-model="query" placeholder="Tìm công việc…" aria-label="Tìm công việc" size="lg" />
-     <div class="flex items-center justify-between mt-4 mb-2"><h2 class="text-sm font-semibold">Công việc trong repo</h2><span class="text-xs text-slate-500">{{ filtered.length }} việc</span></div>
-     <nav aria-label="Danh sách công việc" class="space-y-1">
-      <UButton v-for="task in filtered" :key="task" :color="selected === task ? 'primary' : 'gray'" :variant="selected === task ? 'soft' : 'ghost'" block :ui="{ base: 'justify-start text-left' }" class="px-3 py-3 !justify-start" size="lg" @click="selected = task"><span class="min-w-0"><span class="block break-words font-medium">{{ task }}</span><span class="block mt-1 text-xs font-normal text-slate-500">{{ task === 'hpml-view-for-user' ? 'Kế hoạch · Đang thiết kế UI với User' : 'Chưa nạp tình trạng trong bản phác thảo' }}</span></span></UButton>
-      <p v-if="!filtered.length" class="p-3 text-sm text-slate-500">Không có công việc khớp tên.</p>
-     </nav><p class="mt-5 pt-4 border-t text-xs text-slate-400">Nguồn danh sách: incomex-workspace / work</p>
-    </aside>
-    <main class="min-w-0">
-     <div class="mb-4"><h2 class="text-xl font-semibold break-words">{{ selected }}</h2><p class="text-xs text-slate-500 mt-2">{{ selected === 'hpml-view-for-user' ? 'Đang thiết kế giao diện · Chưa triển khai' : 'Chỉ minh họa việc chuyển công việc' }}</p></div>
-     <UAccordion v-if="selected === 'hpml-view-for-user'" :items="items" multiple :ui="{ wrapper: 'flex flex-col w-full gap-3', container: 'border border-slate-200 rounded-lg overflow-hidden', item: { padding: 'px-4 pb-4 pt-1', color: 'text-slate-700' } }">
-      <template #default="{ item, open }"><UButton color="gray" variant="ghost" class="w-full rounded-none p-4" :ui="{ base: 'justify-between text-left' }"><span class="min-w-0"><span class="block text-sm font-semibold text-slate-900">{{ item.label }}</span><span class="block text-xs font-normal text-slate-500 mt-1">{{ item.summary }}</span></span><span class="ml-3 text-slate-400 text-lg" aria-hidden="true">{{ open ? '−' : '+' }}</span></UButton></template>
-      <template #goal><p class="text-base leading-relaxed">View dễ nhìn cho User để biết mục tiêu, biết trạng thái, giúp điều hành hiệu quả.</p><p class="mt-3 text-sm font-medium">Lắp ráp tối đa, hạn chế code mới tối đa.</p><p class="mt-3 text-xs text-slate-500">Theo yêu cầu User trong phiên thiết kế này. Bản chạy thật đọc mục tiêu từ nguồn GitHub.</p></template>
-      <template #progress><ol class="space-y-3"><li v-for="(stage, i) in stages" :key="stage" class="flex items-start gap-3"><UBadge :color="i === 1 ? 'primary' : 'gray'" :variant="i === 1 ? 'solid' : 'soft'">{{ i + 1 }}</UBadge><div><p :class="i === 1 ? 'font-semibold text-violet-700' : ''">{{ stage }}</p><p v-if="i === 1" class="text-xs text-slate-500 mt-1">Đang chỉnh bố cục cùng User</p><p v-if="i === 0" class="text-xs text-slate-500 mt-1">User đã đồng ý mục tiêu và khung 2 cột</p></div></li></ol><p class="text-xs text-slate-500 mt-4">Khi điều chỉnh, ghi rõ ngay tại giai đoạn tương ứng.</p></template>
-      <template #activity><div class="divide-y divide-slate-100"><div class="py-3"><p class="text-xs font-medium text-slate-500">CHAT · Ý KIẾN GẦN NHẤT</p><p class="mt-1 text-sm">Chưa nạp dữ liệu</p><p class="text-xs text-slate-400 mt-1">GPT Chat · Claude Chat · Hermes Chat</p></div><div class="py-3"><p class="text-xs font-medium text-slate-500">THỰC HIỆN · KẾT QUẢ GẦN NHẤT</p><p class="mt-1 text-sm">Chưa nạp dữ liệu</p><p class="text-xs text-slate-400 mt-1">Codex / GPT Work · Claude Cowork · Claude Code CLI</p></div><div class="py-3 flex justify-between gap-4 text-sm"><span class="text-slate-500">Ai đang làm?</span><span>Chưa có tín hiệu</span></div><div class="pt-3 text-sm"><span class="font-medium">Tiếp theo: </span>User xem và chỉnh bản phác thảo</div></div></template>
-      <template #document><p class="text-sm leading-relaxed">Nội dung HTML chính của công việc hiển thị tại đây. Khi cần đọc rộng hơn, thu gọn Mục tiêu, Tiến độ và Tình trạng ở phía trên.</p><p class="mt-3 text-xs text-slate-500">Bản này chỉ thử bố cục và thao tác, chưa nạp nội dung các công việc khác.</p></template>
-     </UAccordion>
-     <UAlert v-else color="gray" title="Chưa nạp nội dung" description="Bản phác thảo tập trung vào hpml-view-for-user. Chọn lại công việc đó để thử mở và thu gọn các mục." />
-    </main>
-   </div>
-  </div>
- </div>
+<div class="min-h-screen bg-white text-slate-900"><div class="px-6 py-3 max-w-[1600px] mx-auto">
+<header class="flex justify-between items-center mb-3 gap-3"><h1 class="text-lg font-semibold">Task html view</h1><UBadge color="gray" variant="soft" size="xs">Mẫu UI · Chưa nối trạng thái GitHub</UBadge></header>
+<div class="task-layout grid grid-cols-1 gap-6 items-start">
+<aside class="min-w-0 lg:sticky lg:top-3"><UInput v-model="query" placeholder="Tìm công việc…" aria-label="Tìm công việc" size="sm"/><div class="flex justify-between mt-3 mb-1 text-xs text-slate-500"><h2 class="font-semibold">Công việc</h2><span>{{filtered.length}}</span></div>
+<nav aria-label="Danh sách công việc" class="space-y-0.5"><UButton v-for="task in filtered" :key="task" :color="selected===task?'primary':'gray'" :variant="selected===task?'soft':'ghost'" block :ui="{base:'justify-start text-left'}" class="px-2.5 py-2 !justify-start" size="sm" @click="selected=task"><span class="min-w-0"><span class="block break-words font-medium">{{task}}</span><span class="block mt-0.5 text-[11px] font-normal text-slate-500">{{task==='hpml-view-for-user'?'Đang chỉnh giao diện':task==='mow-mot-moit-mout'?'Có HTML công việc':'Chưa nối trạng thái'}}</span></span></UButton><p v-if="!filtered.length" class="p-2 text-sm text-slate-500">Không có công việc khớp tên.</p></nav></aside>
+<main class="min-w-0"><h2 class="text-base font-semibold break-words mb-2">{{selected}}</h2>
+<UTabs :items="tabs" :ui="{wrapper:'relative space-y-3',list:{height:'h-9',tab:{height:'h-7',size:'text-sm'}}}">
+<template #control><UAccordion :key="selected" :items="items" multiple :ui="{wrapper:'flex flex-col w-full gap-2',container:'border border-slate-200 rounded-lg overflow-hidden',item:{padding:'px-3 pb-3 pt-0',color:'text-slate-700'}}">
+<template #default="{item,open}"><div class="flex items-center gap-3 px-3 py-2 bg-slate-50/60"><UButton color="gray" variant="ghost" class="!p-0 hover:!bg-transparent" :class="item.slot!=='progress'?'flex-1':''" :ui="{base:'justify-between text-left'}"><span class="text-sm font-semibold text-slate-900">{{item.label}}</span><span class="ml-2 text-slate-400" aria-hidden="true">{{open?'−':'+'}}</span></UButton><div v-if="item.slot==='progress'" class="flex-1 grid grid-cols-4 gap-1.5" aria-label="Bốn giai đoạn công việc"><UTooltip v-for="(stage,i) in stages" :key="stage.label" :text="`${i+1}. ${stage.label} — ${states[stage.state]}`" class="w-full"><button type="button" class="stage-hit w-full" :title="`${i+1}. ${stage.label} — ${states[stage.state]}`" :aria-label="`${i+1}. ${stage.label} — ${states[stage.state]}`"><span class="stage-bar" :class="`state-${stage.state}`"/></button></UTooltip></div></div></template>
+<template #goal><template v-if="draft"><p class="text-sm leading-5">View dễ nhìn để biết mục tiêu, biết trạng thái, giúp User điều hành hiệu quả.</p><p class="mt-1 text-sm">Lắp ráp tối đa, hạn chế code mới tối đa.</p></template><p v-else class="text-sm text-slate-500">Chưa nạp mục tiêu từ nguồn GitHub.</p></template>
+<template #progress><ol class="space-y-1 text-xs"><li v-for="(stage,i) in stages" :key="stage.label" class="flex justify-between gap-3"><span>{{i+1}}. {{stage.label}}</span><span class="text-slate-500">{{states[stage.state]}}</span></li></ol><p class="mt-2 text-[11px] text-slate-500">Xám: chưa làm · Xanh: đã xong · Đỏ: đang tắc · Vàng cam: điều chỉnh. Màu đang minh họa bố cục.</p></template>
+<template #activity><table class="w-full text-sm" aria-label="Tình trạng sáu thành viên"><thead><tr class="text-xs text-slate-500 border-b border-slate-100"><th class="text-left font-normal pb-1.5">Thành viên</th><th class="font-normal pb-1.5 w-20">Vừa làm</th><th class="font-normal pb-1.5 w-20">Đang làm</th></tr></thead><tbody><tr v-for="actor in team" :key="actor.id" class="border-b last:border-0 border-slate-100"><th scope="row" class="text-left font-normal py-1.5">{{actor.label}}</th><td v-for="column in ['lastActors','activeActors']" :key="column" class="text-center py-1.5"><span class="status-dot" :class="{active:snapshot[column].includes(actor.id)}" role="img" :aria-label="dotLabel(actor,column)" :title="dotLabel(actor,column)" tabindex="0"/></td></tr></tbody></table><p class="text-[11px] text-slate-500 mt-2">Chấm xanh: có tín hiệu · Chấm xám: chưa có tín hiệu. Đây là mẫu UI.</p></template>
+</UAccordion><details class="mt-3 text-xs text-slate-500"><summary class="cursor-pointer">Ghi chú đấu nối dữ liệu</summary><div class="mt-2 space-y-2 leading-5"><p>GitHub là nguồn chuẩn. Webhook báo có bản mới; VPS lấy HTML và trạng thái của cùng một phiên bản, rồi thay toàn bộ bản hiển thị.</p><p>Tiến độ: 4 giai đoạn, mỗi giai đoạn có trạng thái và ghi chú. Tình trạng: người vừa làm, người đang làm, thời điểm nhận, phiên bản nguồn. Bản mới thay bản cũ, không cộng dồn chấm xanh.</p><p>Không có tín hiệu đang làm thì để xám; không suy ra từ người push. Chỉ áp dụng bản mới của đúng công việc. Cơ chế đồng bộ chưa bật.</p></div></details></template>
+<template #content><template v-if="documentUrl"><div class="flex justify-between items-center gap-3 text-xs text-slate-500 mb-2"><span>HTML nguyên bản từ GitHub · Bản đã lấy về</span><UButton :to="documentUrl" target="_blank" color="gray" variant="ghost" size="xs">Mở rộng ↗</UButton></div><iframe :key="documentUrl" :src="documentUrl" :title="`Nội dung ${selected}`" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" class="document-frame w-full border border-slate-200 rounded-lg bg-white"/></template><UAlert v-else color="gray" title="Chưa có HTML nội dung được nối vào" description="Tab này dành trọn cột phải cho trang HTML của công việc. Chọn mow-mot-moit-mout để xem HTML hiện có trên GitHub."/></template>
+</UTabs></main></div></div></div>
 </template>
 <style>
-/* Knowledge: 4 equal tracks, 24px gaps. Sidebar = 1.5 times its original track. */
-@media(min-width:1024px){.task-layout{grid-template-columns:calc((100% - 72px)/4 * 1.5) minmax(0,1fr)}}
+/* Existing Knowledge track x 1.5, reduced by 20% = x 1.2. */
+@media(min-width:1024px){.task-layout{grid-template-columns:calc((100% - 72px)/4 * 1.2) minmax(0,1fr)}}
+.stage-hit{display:flex;align-items:center;min-height:24px;border-radius:6px}.stage-hit:focus-visible,.status-dot:focus-visible{outline:2px solid #007aff;outline-offset:3px}.stage-bar{display:block;width:100%;height:6px;border-radius:999px;background:#e5e5ea}.state-done{background:#34c759}.state-blocked{background:#ff3b30}.state-changing{background:#ff9f0a}.status-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#e5e5ea;vertical-align:middle}.status-dot.active{background:#34c759}.document-frame{height:calc(100dvh - 230px);min-height:520px}
 </style>
