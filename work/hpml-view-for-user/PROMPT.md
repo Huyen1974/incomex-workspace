@@ -59,12 +59,8 @@ Dữ liệu tối thiểu mỗi task:
 - `id/name`;
 - `bucket`: `Now|Done|?`;
 - khối mục tiêu A0 để UI hiển thị đầu tiên;
-- `stage` theo khung §0.4, suy đúng bảng sau và đặt bảng ở MỘT chỗ đầu script kèm chú thích (nâng cấp khung sau này = sửa đúng bảng này, không đụng chỗ khác): `GOAL` = A0 `CHƯA XÁC NHẬN` · `CONSENSUS` = A0 đã xác nhận và chưa có READY hợp lệ · `EXECUTION` = READY hợp lệ (luôn kèm `waiting_run=true`; RUN không có dấu hiệu máy đọc nên không suy Agent đang chạy) · `DONE` = việc nằm trong `## Đã xong` của COLLAB gốc · `VERIFY` = V1 chưa có dấu hiệu máy đọc, không suy · thiếu dữ kiện → `?`;
-- `next_actor` theo đúng luật:
-  - A0 chưa xác nhận hoặc có P `OWNER` → `Owner`;
-  - READY hợp lệ → `Agent`, nhưng kèm `waiting_run=true`; **READY không phải RUN**;
-  - còn lại → `Host`;
-  - thiếu dữ kiện cần thiết → `?`.
+- `stage` theo khung §0.4, suy đúng bảng sau và đặt bảng ở MỘT chỗ đầu script kèm chú thích (nâng cấp khung sau này = sửa đúng bảng này, không đụng chỗ khác). **Thứ tự ưu tiên bắt buộc:** `DONE` nếu việc nằm trong `## Đã xong` của COLLAB gốc → nếu chưa DONE thì `GOAL` khi A0 `CHƯA XÁC NHẬN` → `EXECUTION` khi READY hợp lệ (luôn kèm `waiting_run=true`; RUN không có dấu hiệu máy đọc nên không suy Agent đang chạy) → `CONSENSUS` khi A0 đã xác nhận và chưa có READY hợp lệ → `VERIFY` = V1 chưa có dấu hiệu máy đọc, không suy → thiếu dữ kiện = `?`;
+- `next_actor` theo đúng luật, cũng theo thứ tự ưu tiên: việc thuộc `## Đã xong` → `—` (không còn bước tiếp theo mặc định); nếu chưa DONE thì A0 chưa xác nhận hoặc có P `OWNER` → `Owner`; READY hợp lệ → `Agent` kèm `waiting_run=true` (**READY không phải RUN**); còn lại → `Host`; thiếu dữ kiện cần thiết → `?`.
 - `last_commit`: hash, timestamp, subject, actor từ prefix hợp lệ nếu có; actor không chắc → `?`;
 - `html_main`: path khai báo trong COLLAB hoặc mặc định `view.html`; `exists=true/false`;
 - `evidence` tối thiểu để Owner kiểm lại nhãn suy ra.
@@ -90,7 +86,7 @@ Không dựng validator framework.
 Cột trái:
 - task name/id;
 - stage nếu chắc chắn;
-- `Next: Owner|Agent|Host|?`;
+- `Next: —|Owner|Agent|Host|?`;
 - commit gần nhất: actor · thời gian;
 - chỉ hai tab/filter `Now` / `Done` + một ô search metadata/mục tiêu. Không full-text nội dung HTML.
 
