@@ -243,3 +243,14 @@ HTML chính: `view.html`
 - **Artifact của RUN** (§1: stop/xoá/khôi phục chỉ khi Owner quyết): `/opt/jev/`; user `jev-gw`; `/usr/local/sbin/jev-gw-key-fetch`, `/usr/local/sbin/jev-gw-health`; `/etc/systemd/system/jev-gw.service`, `jev-gw-health.service`, `jev-gw-health.timer`; ufw rule 8792; `default.conf` (backup `/var/lib/incomex-config-guard-v0/rollback/nginx-default-conf.JEV-B1-OPENAI-20260921-01-nginx.pre`, sha `a3b54658…`); Kuma monitor #19; `/opt/incomex/scripts/ensure-jev-gw-kuma-monitor.sh`; GSM `jev-mcp-path-secret` (v1 bỏ, v2 đang dùng); scratch `/var/tmp/jev-gate-20260921/` + `/root/incomex-config-changes/JEV-B1-OPENAI-20260921-01-nginx/`.
 - **Rollback đề xuất** (Owner quyết): `systemctl disable --now jev-gw-health.timer jev-gw.service` → `incomex-config-apply-v0 --target-id nginx-default-conf` với file `.pre` ở trên làm candidate → `ufw delete allow from 172.18.0.0/16 to any port 8792 proto tcp` → xoá Kuma monitor #19 → gỡ `/opt/jev`, 2 script, 3 unit, user `jev-gw`.
 - **Cho bước client (§9, GPT Host + Owner):** URL `https://vps.incomexsaigoncorp.vn/jev-mcp/<SECRET>/mcp`, auth None, tool `evaluate`. Lấy `<SECRET>` trên VPS bằng `gcloud secrets versions access latest --secret=jev-mcp-path-secret --project=github-chatgpt-ggcloud` (không dán vào repo/chat công khai). Skill: `work/jev-integration/SKILL.md` (`name: jev-reference`).
+
+## KQ — JEV-SEC01 · Claude Code
+- `KQ@JEV-SEC01 XONG` · 2026-09-21 · Owner đồng ý. Executor: Claude Code CLI trên Mac (gcloud tài khoản Owner) + SSH root VPS (chỉ đọc/kiểm).
+- **Đã làm (duy nhất):** `gcloud secrets versions disable 1 --secret=jev-mcp-path-secret` (~11:02Z). Không delete secret, không thêm/đổi/rotate v2, không restart `jev-gw`, không sửa nginx.
+- **Kiểm — PASS** (đo ngay sau disable, đo lại 14:53Z):
+  - GSM: v1 `DISABLED`, access v1 bị từ chối; v2 `ENABLED`, `latest` → 2.
+  - `jev-gw` active từ 10:20:59Z; tên named-server trong `/run/jev/servers.json` khớp sha256 của v2, không khớp v1 ⇒ đang dùng v2.
+  - Health: `jev-gw-health` UP `typesafe/jev-1.13-20260917`, Kuma #19 status=1.
+  - URL v2 public: initialize 200 → `evaluate` 200, có `answers` (`is_destructive.noul=0.99`), model `typesafe/jev-1.13-20260917`.
+  - URL v1 public: initialize + evaluate → 404 (giá trị v1 chỉ giữ trong bộ nhớ trước khi disable, để thử).
+- Không in/ghi giá trị secret hay URL ở đâu (so bằng sha256; URL chỉ đi qua stdin của curl). URL v2 đầy đủ đã được đưa vào clipboard Mac của Owner theo yêu cầu lượt trước.
