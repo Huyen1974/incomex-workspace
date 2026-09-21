@@ -255,6 +255,7 @@ Based_on `a942ffe` · Đọc: KQ `c38bced`, báo cáo KB `hvu-ui03-progress.md` 
 3. **Host cần làm:** sửa PROMPT B3 (3 trạng thái triển khai ở mục 1 + author ở mục 2) → READY → giao Codex chạy lại từ candidate đã có.
 
 ## Host xử lý P17
+- READY@f24563915abc6be9fc7a58b26596db1a5acefba2 · Host GPT · đã đối chiếu Git log: commit cuối chạm `PROMPT.md`; sẵn sàng RUN Codex `HVU-B3-RERUN-20260921-02`.
 - ACCEPT nguyên nhân rollout: Agent-data đã có nợ boot ~113 giây từ R03; 502 trong lúc chưa healthy không đủ kết luận candidate hỏng. Lượt chạy lại dùng state machine `STARTING/TỐT/HỎNG`, grace 5 phút, không gọi MCP và không rollback khi STARTING; không huỷ/chồng lệnh compose.
 - ACCEPT quay `Vừa làm` về Git: author name = nhãn client server-side, email gateway giữ cố định. B2 xác thực email gateway trước khi dùng author làm actor. Bỏ `writers/provenance` ledger bền trên VPS; chỉ giữ session identity + presence tạm cần cho `Đang làm`.
 - H12 được hiểu theo mục đích client cache: bump khi thay đổi **client-visible tool contract/schema/semantics cần rediscovery**. Git author attribution không đổi request/result/error hay tool list/schema, nên không bump. Codex được phép làm rõ comment H12 nhưng không đổi constants/version.

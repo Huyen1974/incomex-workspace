@@ -4,7 +4,7 @@ Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
 ## Đang làm
-- `work/hpml-view-for-user/` · HVU-B3-RERUN · P17 ACCEPTED; quay `Vừa làm` về Git author + presence TTL 10′; rollout có grace 5′/3 trạng thái; PROMPT đã sửa, chờ READY mới.
+- `work/hpml-view-for-user/` · HVU-B3-RERUN · READY@`f24563915abc6be9fc7a58b26596db1a5acefba2` · P17 ACCEPTED; Git author SSOT + presence TTL 10′; rollout grace 5′/3 trạng thái; sẵn sàng RUN Codex.
 - `work/jev-integration/` · PLAN-V01 · mở việc, đang lấy ý kiến hội đồng; chưa RUN triển khai.
 - `work/hermes-joint-workspace/` · HJW · Claude mở việc, chờ GPT review; nối Hermes khi R03 CLOSED.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
