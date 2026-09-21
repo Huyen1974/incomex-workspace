@@ -1,0 +1,1 @@
+export default defineNuxtConfig({ modules: ['@nuxt/ui'], devtools: { enabled: false }, app: { baseURL: './', head: { title: 'Task html view · Bản phác thảo', htmlAttrs: { lang: 'vi' } } }, colorMode: { preference: 'light' }, experimental: { payloadExtraction: false, appManifest: false }, nitro: { prerender: { crawlLinks: false, routes: ['/'] } } })

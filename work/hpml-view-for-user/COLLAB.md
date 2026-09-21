@@ -2,6 +2,8 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 
+**Chỉ đạo UI mới nhất của Owner — 21/09/2026 (HVU-UI01):** ĐÃ XÁC NHẬN trực tiếp trong phiên Codex: “view dễ nhìn cho User để biết mục tiêu, biết trạng thái giúp điều hành hiệu quả”; lắp ráp tối đa, hạn chế code mới tối đa. Owner đồng ý 2 cột; cột trái bằng 150% cột KB Knowledge. Mục tiêu, Tiến độ và các mục nội dung được mở/thu gọn để tiết kiệm diện tích. Nhãn menu theo chỉ đạo: **Task html view**. Phạm vi giao Codex là **phác thảo UI để Owner chỉnh**, chưa RUN HVU.R1/production. Yêu cầu mới này ưu tiên hơn phần cũ yêu cầu mục tiêu luôn mở: tiêu đề và dòng tóm tắt luôn thấy, nội dung đầy đủ có thể thu gọn.
+
 **Mục tiêu cốt lõi**
 - Xây `Tasks now` thành một **Task Control View mỏng** cho Owner trên VPS, không chỉ là nơi xem HTML. GitHub/`incomex-workspace` vẫn là SSOT của tài liệu, mục tiêu, kế hoạch và trạng thái công việc; VPS chỉ hiển thị/cache dẫn xuất.
 - Giúp Owner điều hành hàng chục rồi hàng trăm việc song song mà không phải nhớ nhiều: nhìn vào một nơi phải biết **mục tiêu**, **cái gì vừa xong bởi ai**, **bước tiếp theo nên giao cho ai**; nếu có thể thì biết **ai đang làm**, và về sau phát hiện được các **vi phạm quy trình máy có thể xác định chắc chắn**.
@@ -33,6 +35,10 @@ Owner giao mở việc: 2026-09-20
 HTML chính: `view.html`
 
 ## Trạng thái
+
+- HVU-UI01 · 2026-09-21 · Codex theo yêu cầu trực tiếp Owner: đã lắp bản phác thảo tương tác bằng Nuxt UI hiện có (UAccordion/UButton/UInput/UBadge/UAlert), theme violet/slate của Agency OS. HTML chính đã lưu tại commit `04226cc4a3e337fd96c126d81bb0a6fca6cc0204`, SHA256 `54984ef64a9564ce58c784c4cca0e43355ee1d8d5c487de0add533c406f7007c`. Nguồn lắp ráp tại `ui-assembly/` (đọc README trước). Đây là prototype: tên 6 việc lấy từ repo; chưa nối trạng thái/live actor; không suy diễn trạng thái các việc khác. Chưa thay đổi runtime/VPS và không phát RUN.
+- HVU-UI01 evidence: Nuxt 3.20.2 generate exit 0; browser 1366×900 hiển thị 2 cột; thao tác Mục tiêu: expanded→collapsed; Tiến độ: collapsed→expanded; tìm “mcp” hiển thị “1 việc”; browser console error/warn = []; bản HTML tự chứa 360917 bytes. Source Knowledge hiện local `web/pages/knowledge/[...slug].vue`: 4 track, gap 24px; cột trái mới = 1.5 × ((chiều rộng khung − 72px)/4). Đây là đối chiếu source local, chưa xác minh kích thước production. Các quyết định UI đã chốt ở trên; hình thức chi tiết đang chờ Owner chỉnh. Nút Cập nhật vô hiệu trong prototype.
+- HVU-UI01 lưu ý điều hành: READY HVU.R1 bên dưới là mốc lịch sử trước lượt thiết kế UI này; không tự chạy prompt cũ như thể đã chứa các yêu cầu UI mới. Host cần cập nhật/review prompt theo thiết kế được Owner chốt trước RUN. Host/Host_ID hiện hành không thay đổi.
 - HVU00 · 2026-09-20 · Đã mở công việc và ghi nhận mục tiêu ban đầu.
 - HVU01 · 2026-09-21 · Owner đã xác nhận mục tiêu mở rộng: từ HTML viewer thành Task Control View mỏng.
 - HVU02 · 2026-09-21 · GPT xử lý P05–P08: đồng thuận V1 pull-on-demand, không webhook; `PROMPT.md` đã soạn và kiểm.
