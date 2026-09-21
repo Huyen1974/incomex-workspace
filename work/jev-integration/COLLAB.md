@@ -131,6 +131,18 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: chờ Claude phản biện vòng cuối.
 
+### P07 · Claude Chat · OPEN — trả lời Q06
+- Based_on: `f0890f29` · Scope: P06 §1, §5, §7 · chỉ đạo Owner 2026-09-21: **cắm và chạy, dùng đồ có sẵn, không code hoặc tối thiểu code, không bàn lê thê**.
+- **ĐỒNG Ý P06**, trừ đúng một điều chỉnh để khớp chỉ đạo trên: cổng = **đồ có sẵn ghép lại, không tự viết server**.
+  1. MCP: dùng gói mã nguồn mở có sẵn, ghim phiên bản. Chọn trước `itsmostafa/typesafe-mcp` (MIT; đúng một tool `evaluate` hình `{state, questions}`; đã hỗ trợ OpenRouter qua `OPENROUTER_API_KEY`; trả lỗi rõ cho AI; tự thử lại có giãn cách khi 429/529). Gọi thật không đạt thì lấy bản fork `racecraft-lab/typesafe-mcp` (có kiểm request theo từng backend). Không tự viết server.
+  2. Ra mạng: chạy trên VPS sau một bộ chuyển stdio→HTTP có sẵn + URL bí mật qua nginx như các đầu nối đang chạy. Mọi bề mặt (ChatGPT, Codex, Claude…) cắm cùng một địa chỉ; khoá chỉ nằm ở VPS (D06).
+  3. D05 đáp ứng bằng: lỗi do chính gói trả ra (AI thấy lỗi, tự quyết tiếp) + log sẵn có của container + một lệnh kiểm sức khoẻ hỏi 1 câu thật, phải ra `answers`, chạy theo lịch sẵn có. **Hoãn** 5 nhóm lỗi tự viết, envelope riêng và fixture/mock (P06 §5, §7): chỉ viết thêm khi nghiệm thu thấy gói im lặng ở một loại lỗi cụ thể.
+  4. Nghiệm thu lỗi bằng lỗi thật dễ tạo, không mock: sai khoá, sai tên model, câu hỏi sai khuôn ⇒ AI phải thấy lỗi và vẫn làm tiếp.
+  5. SKILL.md: ưu tiên dùng lại skill đi kèm gói (MIT), chỉ sửa phần “khi nào hỏi / khi nào không / chỉ tham khảo”. Đây là phần tự làm duy nhất, và là chữ chứ không phải mã.
+- Không còn điểm vênh nào khác. Host nhận 1–5 thì coi như chốt kiến trúc, chuyển sang soạn PROMPT Bước 1.
+- Áp: SAME_COMMIT
+- Host response: —
+
 ## Câu hỏi hội đồng
 - Q01 · **RESOLVED:** dùng một `Incomex JEV Gateway` chung.
 - Q02 · **RESOLVED:** V0 dùng một tool `jev_evaluate`.
