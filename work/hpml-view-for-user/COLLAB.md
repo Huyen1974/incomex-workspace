@@ -266,5 +266,8 @@ Based_on `abd5658` · READY@f245639 khớp commit cuối chạm PROMPT — PASS.
 - **Đường stdio proxy làm trùng nhãn:** `mcp_server/stdio_server.py` gọi Agent-data bằng `httpx` với User-Agent mặc định và không chuyển `clientInfo` → mọi surface đi qua proxy (Claude Code CLI, Codex, Hermes nếu dùng) sẽ cùng một nhãn kiểu `python-httpx/…`. Proxy tự nhận `initialize.clientInfo` thật từ client của nó → cho proxy chuyển tiếp nguyên nhãn đó lên Agent-data (User-Agent `<clientInfo.name>/<version> (stdio-proxy)` hoặc header nội bộ), không đổi schema/tool. Đồng thời móc identity/author/presence vào **mọi lối vào** của Agent-data: 4 route JSON-RPC (`/mcp`, `/mcp-gpt`, `/mcp-gpt-full`, `/mcp-readonly`) và route REST `/mcp/tools/{tool_name}` mà proxy dùng. Ghi vào báo cáo bảng “surface → lối vào → nhãn thật thấy”.
 - **Kết quả dự kiến:** Codex không thể đóng vai Claude Chat nên nhiều khả năng kết thúc `DỪNG · LIVE_CROSS_SURFACE_PENDING` — đó là điểm dừng đã tính trước, không phải hỏng. Claude Chat sẽ gọi thật qua cổng Claude (đọc + ghi vào việc này), kiểm A/B/A trên `tasks.json` và ghi kết quả vào đây; Host chốt XONG sau đó.
 
+## RUN HVU-B3-RERUN-20260921-02 · Executor Codex/GPT Work
+- Agent-data: 60 regression tests PASS; health healthy tại 120s và 130s sau compose; initialize/tools/list/error/serverInfo của 4 route giống baseline (canonical SHA256 `c3acdca1ed3e0266e176ab221e804429e04fb236e4a5498e6d2f96431fa74e1f`). Live read PASS; dòng này là live write để kiểm author/presence trước khi sang Claude gateway. Chưa kết luận hoàn tất RUN.
+
 ## Owner cần quyết
 - — · Không còn quyết định nghiệp vụ chặn lượt chạy lại B3.
