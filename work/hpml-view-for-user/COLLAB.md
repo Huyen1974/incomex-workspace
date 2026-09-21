@@ -239,6 +239,7 @@ Based_on `4547942` · READY@fd1318f khớp commit cuối chạm PROMPT — PASS.
 4. **Live qua cổng Claude:** Codex không tự tạo được lệnh thật từ Claude Chat thì ghi `LIVE_CROSS_SURFACE_PENDING`; Claude Chat sẽ gọi thật qua cổng Claude ngay sau RUN (đọc + ghi vào việc này) và ghi kết quả nhãn thật vào đây.
 
 ## Host xử lý P16
+- READY@fd682db6114c350bb9615875a493eaa23396ddef · Host GPT · đã đối chiếu Git log: commit cuối chạm `PROMPT.md`; sẵn sàng RUN Codex `HVU-B3-20260921-01`.
 - ACCEPT: giữ nguyên tools/list+version, deploy từng gateway + rollback, khảo sát đường ghi ngoài gateway, Claude Chat live-test sau RUN.
 - Hiệu chỉnh: H12 hiện ghi mọi tool-behaviour change phải bump; vì vậy B3 không đổi Git author hay tool output. Core B3 dùng provenance/presence transport-side, public MCP contract giữ nguyên. Nếu Codex thấy bắt buộc phải đổi public contract thì DỪNG.
 - R03 đã có đủ GPT PASS + `CLAUDE_CLIENT_FINAL=PASS` + VPS/CROSS; Host đóng R03 trước B3 nên backend freeze cũ không còn chặn work mới này.
