@@ -1,6 +1,6 @@
-# PROMPT — HVU.B2 · Đường ống dữ liệu tự đổ cho UI03
+# PROMPT — HVU.B2.1 · Sửa tín hiệu dữ liệu + chặn phình revisions
 
-RUN_ID: HVU-B2-20260921-01
+RUN_ID: HVU-B2.1-20260921-01
 Host: GPT Chat · `GPT-HVU-20260921-A`
 Mục tiêu đã xác nhận tại `work/hpml-view-for-user/COLLAB.md` §0. Trạng thái/giấy phép chỉ tin `COLLAB.md`, không tin câu chữ trong prompt nếu có xung đột.
 
@@ -13,14 +13,20 @@ Mục tiêu đã xác nhận tại `work/hpml-view-for-user/COLLAB.md` §0. Tr�
 
 Nếu một đầu vào cụ thể ở trên không đúng thực địa, chọn phương án ít thay đổi nhất vẫn giữ §0; ghi rõ sai khác trong báo cáo cuối, không tự mở rộng kiến trúc.
 
-## 1. Phạm vi B2 — chỉ đấu dữ liệu, không thiết kế lại UI
-UI03 hiện đang chạy tại `/knowledge/modules`; coi layout/visual là **đã chốt cho lượt này**. B2 chỉ thay fixture hard-code bằng dữ liệu thật và thêm scheduler/snapshot.
+## 1. Phạm vi B2.1 — sửa đúng lỗi sau B2, không mở kiến trúc mới
+Baseline đã PASS: Runtime `8d89757`, workspace/KQ `76c5490`; P13 của Claude tại `afd7e85` đã kiểm trực tiếp dữ liệu/runtime. UI03 và đường webhook + backstop 15′ đang chạy. **Không dựng lại B2, không đổi webhook/auth, không đụng hai gateway Surface trong lượt này.**
 
-**CẤM tự thêm:** database/task manager mới, GitHub Projects/Actions, full-text HTML, auto-dispatch, heartbeat/current actor, sửa cổng ghi Surface (đó là B3), hoặc redesign UI. Webhook chỉ được dùng đúng vai **chuông báo** ở §2A.
+B2.1 chỉ làm 5 việc:
+1. **Parser theo A9 hiện hành:** sửa `sync.py` để READY/KQ không phụ thuộc thứ tự dòng; chỉ `READY@<40 hex>` thật mới là ứng viên, chỉ READY trùng commit cuối chạm PROMPT là hợp lệ; READY cũ lệch SHA không cảnh báo; KQ phải khớp RUN_ID hiện hành, nếu cùng RUN có cả XONG/DỪNG thì XONG thắng. Không đọc trạng thái P.
+2. **UI hiển thị dữ liệu đã có:** trong Tình trạng thêm `Gần nhất: <thời gian> · <subject commit>` từ `lastCommit`, không suy actor. Khi Kế hoạch đã `done` nhưng chưa có KQ hiện hành, note Triển khai phải nói trung tính `READY hợp lệ · chưa có KQ` (không khẳng định Agent đang/chưa chạy; B3 mới biết presence).
+3. **Chặn phình đĩa revisions:** sau publish thành công giữ đúng 3 revision publish gần nhất gồm current + 2 previous; bảo vệ current/staging/last-good đang được tham chiếu, chỉ xoá cache dẫn xuất cũ. Tài liệu không đổi giữa hai revision thì dùng hardlink nếu cùng filesystem và file bất biến; tuyệt đối không hardlink file sẽ sửa in-place. Thư mục `documents/` legacy UI03 giữ nguyên. Trước/sau GC đo count + bytes.
+4. **Giảm cảnh báo ồn:** các cảnh báo asset MMIM cùng loại gộp thành một dòng có count + tối đa vài ví dụ; không đổi quyết định MMIM về ảnh ngoài Git.
+5. **Không làm B3:** `lastActors` có thể vẫn rỗng và `activeActors` vẫn null; đây là kết quả đúng cho tới lượt B3.
 
-Mọi commit mới trên `main` đều là revision dữ liệu hợp lệ để mirror; không cần marker publish riêng. Chỉ DỮ LIỆU/tài liệu tự đổ. `view.html` app/KB/nginx/script/timer là runtime theo README §11 và phải sửa/deploy tại VPS rồi mirror mã theo quy trình runtime hiện hữu.
+Do đĩa VPS đã đo ở lượt Host là **90,2%**, B2.1 phải ưu tiên retention/GC an toàn; không tạo thêm fixture lớn hay benchmark giả.
 
-## 2. Đường ống tự đổ bắt buộc
+## 2. Baseline B2 đang chạy — giữ nguyên trừ chỗ B2.1 yêu cầu
+Các mục dưới đây là contract regression của B2; chỉ sửa tối thiểu để đáp ứng §1.
 ### A. Nguồn và kích hoạt — theo 4 nguyên tắc Owner 21/09 (tự động tối đa · không chạy vô ích · dùng cơ chế GitHub · rủi ro vừa đủ)
 - Dùng **một clone chỉ-đọc riêng** của `Huyen1974/incomex-workspace`, ngoài web root và ngoài clone connector ghi/push. Không credential có quyền push; ưu tiên anonymous read nếu repo vẫn public.
 - **Một đường đồng bộ duy nhất** = một systemd oneshot (tái dùng scheduler hiện hữu nếu phù hợp). Mỗi lượt: lock → `git ls-remote origin main` → bằng `publishedRevision` thì chỉ cập nhật `lastCheckedAt` rồi thoát (không fetch, không dựng, không chép) → khác thì fetch + dựng snapshot từ đúng HEAD đó → publish xong kiểm lại `ls-remote`; HEAD lại đổi trong lúc dựng thì chạy thêm một vòng.
@@ -58,11 +64,20 @@ Giữ nguyên UI03 (2 tab, sidebar, 4 thanh, 6 actor × 2 cột). Chỉ thay ngu
 - mục tiêu/stages/currentStage lấy từ JSON; không diễn giải lại bằng AI;
 - tab Nội dung dùng `documentPath` của task; thiếu file → `Chưa có view`;
 - `lastActors` thay nguyên snapshot mới, không cộng dồn; `activeActors` null/không tín hiệu thì xám;
+- hiển thị thêm `Gần nhất: <giờ> · <subject commit>` từ `lastCommit` dù actor chưa biết; không biến Git author/prefix chung thành surface;
 - hiển thị badge nhỏ `fresh/stale/error` + revision/thời điểm khi cần để Owner biết dữ liệu có lạc hậu không;
 - nút Cập nhật chỉ force refetch static JSON trong browser ở B2, không tạo endpoint ghi mới.
 
-## 4. Kiểm thử bắt buộc
-1. Production `/knowledge/modules` vẫn giữ UI03, nhưng không còn fixture hard-code; console không có lỗi mới do B2.
+## 4. Kiểm thử bắt buộc B2.1
+A. Kiểm parser trên cả 6 việc: không còn false READY do câu văn `READY@<sha>`; VPSC/JEV/MMIM phải khớp A9 hiện hành bằng đối chiếu độc lập với Git log/PROMPT, không hard-code màu mong muốn.
+B. `lastCommit` phải hiện dòng `Gần nhất` trên UI; không có Surface thì 6 ô actor vẫn xám là PASS.
+C. Cảnh báo MMIM asset được gộp, không còn hàng chục dòng trùng loại.
+D. `data/revisions/` sau GC chỉ còn 3 revision publish gần nhất (trừ staging đang chạy nếu có); current/last-good mở được. Đo bytes trước/sau. Hai document không đổi giữa revision phải chia sẻ inode/hardlink nếu điều kiện an toàn cho phép.
+E. Webhook, backstop 15′, last-good, atomic publish và UI auto-refresh không regression.
+F. Không sửa gateway, không thêm Surface/presence trong B2.1.
+
+Regression B2 vẫn phải giữ:
+1. Production `/knowledge/modules` vẫn giữ UI03, không có lỗi console mới do B2.1.
 2. 6 task hiện có được tự discover; task thiếu HTML vẫn hiện. Danh sách không phụ thuộc root `Đang làm`.
 3. A0 và 4 thanh của ít nhất các trạng thái khác nhau khớp AGENTS A9; `KQ` sai RUN_ID không được dùng.
 4. HEAD không đổi: hai lượt timer liên tiếp không rebuild/copy documents; chứng minh bằng log/hash/mtime thích hợp.
@@ -74,13 +89,12 @@ Giữ nguyên UI03 (2 tab, sidebar, 4 thanh, 6 actor × 2 cột). Chỉ thay ngu
 10. `nginx -t`, build/test/health check PASS trước/ sau deploy; runtime rollback point ghi rõ.
 11. Chuông không chữ ký/sai chữ ký → bị từ chối; 3 chuông hợp lệ liên tiếp khi HEAD không đổi → không dựng lại, không hạ revision.
 
-## 5. Ranh giới B3/B4 — KHÔNG làm trong lượt này
-- B3: chuẩn hoá `Surface:` tự động tại hai cổng ghi để phân biệt GPT Chat/Codex/Claude Chat/Claude Code/Hermes; chỉ mở sau B2 PASS.
-- B4: `Đang làm` theo activity/harness; chỉ mở nếu dùng thật thấy cần.
+## 5. Ranh giới B3 — KHÔNG làm trong lượt B2.1
+B3 sẽ gộp cả **Vừa làm + Đang làm**, vì cùng cần nhận dạng surface tại gateway. B2.1 không sửa gateway, auth hay client binding.
 
 ## 6. An toàn, báo cáo, kết thúc
 - Không redesign UI, không xoá data/routes Modules/Tasks, không force/reset, không `rsync --delete` repo.
 - Scheduler/sync script/nginx/Nuxt là runtime: sửa và test tại VPS theo README §11; mirror mã về repo runtime hiện hành, không kéo mã runtime từ incomex-workspace xuống.
 - Dữ liệu mirror là disposable/cache; GitHub workspace vẫn SSOT.
-- Sau khi PASS, cập nhật `work/hpml-view-for-user/COLLAB.md` với runtime refs + test; ghi đúng một dòng `KQ@HVU-B2-20260921-01 XONG`. Nếu phải dừng, ghi `KQ@HVU-B2-20260921-01 DỪNG` + lý do ngắn. Không tạo file tiến độ mới.
-- Kết thúc trả Owner một dòng: `XONG · HVU.B2 · <runtime/workspace refs>` hoặc `DỪNG · HVU.B2 · <lý do>`.
+- Sau khi PASS, cập nhật `work/hpml-view-for-user/COLLAB.md` với runtime refs + test; ghi đúng một dòng `KQ@HVU-B2.1-20260921-01 XONG`. Nếu phải dừng, ghi `KQ@HVU-B2.1-20260921-01 DỪNG` + lý do ngắn. Không tạo file tiến độ mới.
+- Kết thúc trả Owner một dòng: `XONG · HVU.B2.1 · <runtime/workspace refs>` hoặc `DỪNG · HVU.B2.1 · <lý do>`.

@@ -2,7 +2,7 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 
-**HVU-DATA01 · Owner 21/09/2026 — chỉ đạo mới nhất:** UI03 hiện đã có và được coi là khung xong. Mục tiêu tiếp theo là **đấu đường ống để task/HTML/mục tiêu/tiến độ tự đổ và tự cập nhật tối đa**, không yêu cầu User/AI nhớ bấm hay báo thêm nếu Git đã có dấu vết. Mọi commit mới trên `main` đều đủ điều kiện trở thành dữ liệu mới; VPS kiểm mỗi 60 giây nhưng **HEAD không đổi thì thoát ngay**. HEAD đổi → dựng snapshot mới; chỉ publish khi snapshot hợp lệ. Lỗi → giữ last-good, hiện stale/error, tự retry ở lượt kế tiếp. Task mới tự phát hiện từ `work/*/COLLAB.md`; không phụ thuộc AI nhớ thêm dòng vào root. Chỉ dữ liệu/tài liệu tự đổ; khung app/runtime không tự deploy từ GitHub. B3 nhận diện chính xác 6 surface tách riêng sau khi B2 ổn.
+**HVU-SIGNAL01 · Owner 21/09/2026 — chỉ đạo mới nhất:** B2 đã chạy thật: webhook GitHub + backstop 15′ tự đổ task/mục tiêu/tiến độ/HTML xuống VPS. Việc còn lại là (1) B2.1 sửa các lệch parser/UI/retention đã đo được và (2) B3 làm hai tín hiệu cốt lõi **Vừa làm** và **Đang làm** hoàn toàn tự động, không bắt AI/User báo tay. `Vừa làm` phải bền đến commit tiếp theo của chính task; `Đang làm` là presence tạm thời từ hoạt động tool, không được suy từ commit. Thiếu bằng chứng surface thì để xám, không đoán.
 
 **HVU-UI03 · Owner 21/09/2026 — chỉ đạo trước:** Thu cột trái 20% so UI02 (=120% cột Knowledge), giảm khoảng cách dòng. Hai tab Kiểm soát (Mục tiêu/Tiến độ/Tình trạng) và Nội dung công việc (nguyên HTML như MOT). Tiến độ: 4 thanh bo tròn luôn thấy, tooltip; xám chưa làm, xanh xong, đỏ tắc, vàng cam điều chỉnh. Tình trạng: Chat GPT, Codex/GPT Work, Chat Claude, Claude Code CLI/Cowork, Hermes Chat, Hermes Code × hai cột Vừa làm/Đang làm. Chấm xanh theo snapshot mới nhất; bản mới thay cũ, không tích lũy hoặc tự hết màu theo thời gian. Thiếu tín hiệu không suy đoán.
 
@@ -21,8 +21,8 @@
 2. Trên KB, dùng vị trí menu **Modules** làm **Tasks now**; khu vực này dùng bố cục 2 cột kiểu Knowledge: trái = danh sách task, phải = Task Control View/HTML của task đang chọn; có tìm kiếm/filter đủ dùng.
 3. Không xoá dữ liệu/bảng/mã Modules chỉ để đổi giao diện. V1 ưu tiên gỡ/ẩn entry giao diện và tái sử dụng khung UI hiện có; thay đổi production chỉ RUN riêng sau khi kế hoạch được chốt.
 4. Task Control View phải tổ chức được tối thiểu các checkpoint chung: **GOAL → CONSENSUS → EXECUTION → VERIFY/DONE**. Việc đặc thù có thể có checkpoint con sau này nhưng không làm phức tạp khung chung.
-5. V1 **không dùng webhook**. Dấu vết commit/push vẫn là nguồn nhận biết “vừa xong”; VPS làm mới bản sao tài liệu theo nhu cầu bằng `git pull --ff-only` khi Owner bấm **Cập nhật** hoặc mở trang khi index cũ quá ~10 phút. Không yêu cầu AI gọi thêm API hay thực hiện bước báo trạng thái riêng.
-6. V1 chỉ ưu tiên trả lời chắc chắn hai câu: **(a) vừa làm xong cái gì, bởi ai? (b) tiếp theo cần ai xử lý?**. Bỏ trường “ai đang làm real-time” khỏi V1; harness/current actor để V2.
+5. B2 dùng GitHub webhook `push` làm chuông + backstop 15′; dữ liệu thật luôn fetch từ `main`, last-good/atomic publish đã kiểm chứng. AI/User không có bước publish thủ công.
+6. Dashboard phải trả lời tự động: **ai vừa làm task này?** và **ai đang làm task này?**. Đây là mục tiêu B3, không còn để V2. `Vừa làm` lấy từ surface được gateway đóng dấu vào commit; `Đang làm` lấy từ activity/presence ở gateway với TTL, không tạo commit giả.
 7. V1 không dựng validator riêng. Script index chỉ gắn cảnh báo cho **hai lỗi cứng**: (a) A0 chưa xác nhận nhưng đã có READY/RUN; (b) `READY@SHA` không khớp commit cuối chạm `PROMPT.md`. Enforcement sâu để V2.
 8. Công việc đã DONE/CLOSED không cần di chuyển folder; trạng thái dẫn xuất để UI tách `Now`/`Done`, giữ ID và link ổn định.
 
@@ -177,7 +177,7 @@ Based_on `e7ccb71` · Sửa trực tiếp trong cùng một commit: PROMPT §1/�
 - READY@376b72b845fc72bfaa84e69c1aa886340d46bf3a · Host GPT · đã đối chiếu Git log: đây là commit cuối chạm `PROMPT.md`; sẵn sàng RUN Codex cho `HVU-B2-20260921-01`.
 - Executor_Surface=`Codex/GPT Work`; Write_Path runtime=`VPS SSH/deploy path hiện hữu theo README §11`, tài liệu workspace=`workspace_*` có expected version/head. Không đổi đường ghi MCP chung trong B2.
 
-## P13 · Claude · kiểm tín hiệu thật sau B2 · OPEN
+## P13 · Claude · kiểm tín hiệu thật sau B2 · ACCEPTED
 Based_on `9eb48cc` · Đọc trên VPS (chỉ đọc): `data/tasks.json`, `data/sync-status.json`, `data/revisions/`, `scripts/hvu-b2/sync.py`, unit systemd, route `owner-view-webhook`. Kiểm sống: commit `9eb48cc` (07:55:18, việc VPSC) được publish trong cùng phút.
 
 **Đúng thiết kế:** chuông webhook có chữ ký + socket (không tốn khi rảnh) · backstop 15′ · `ls-remote` trước, không fetch khi không đổi · JSON nguyên tử · không hạ revision · cô lập lỗi từng việc · 6 việc tự phát hiện · mục tiêu A0 đổ nguyên văn · HTML 4 việc đổ đúng, việc thiếu HTML hiện “chưa có view” · HVU Triển khai XONG → Nghiệm thu vàng · MMIM đỏ “chờ Owner” đúng (P01 thật).
@@ -191,7 +191,21 @@ Based_on `9eb48cc` · Đọc trên VPS (chỉ đọc): `data/tasks.json`, `data/
 6. **Cảnh báo ồn:** MMIM 25 dòng “Asset không có trong Git” (đúng quyết định MMIM H01–H02) → gộp một dòng kèm số lượng.
 7. **Nội dung (Host, không RUN):** §0 HVU còn câu cũ “V1 không dùng webhook…”, nay hiển thị ngay đầu view → dọn §0 cho khớp thực tế.
 
-**B3 — RUN kế tiếp sau B2.1, đụng 2 cổng ghi (tách lượt vì mọi AI đang dùng hai cổng này):** (a) cổng ghi tự đóng trailer `Surface: <id>` theo token/MCP clientInfo (khảo sát giá trị thật trước khi map 6 id) → sáng **Vừa làm**; (b) cổng ghi/đọc ghi mốc hoạt động (surface × work-id, tối đa 1 lần/phút) vào một file tĩnh nhỏ → **Đang làm** = có hoạt động trong 10 phút, không thấy = xám (gộp B4 vào đây vì cùng hai cổng); (c) khi AI ghi `COLLAB.md`, cổng chạy chính bộ đọc A9 và trả một dòng nhắc nếu sai chuẩn READY/KQ/`Owner cần quyết` — không chặn. AI không phải nhớ thêm gì.
+**B3 — RUN kế tiếp sau B2.1, đụng hai gateway nên phải có acceptance riêng:** xem contract Host bên dưới.
+
+## Host xử lý P13
+- P13 ACCEPTED. Kiểm trực tiếp `tasks.json`/UI xác nhận B2 đang truyền goal/stages/lastCommit/document/sync health; `lastActors=[]` và `activeActors=null` là thiếu nguồn B3, không phải lỗi webhook.
+- Đĩa VPS Host đo lúc rà: **90,2%**, còn khoảng **10,1 GB** → retention B2.1 là ưu tiên, không chờ thêm.
+- VPSC `Owner cần quyết` đỏ giả là lỗi dữ liệu nguồn của việc do Host Claude quản lý; B2.1 **không thêm heuristic văn xuôi** để che lỗi. B3 linter sẽ ngăn tái diễn.
+
+## Contract B3 — Vừa làm + Đang làm, tự động hoàn toàn
+1. **Nhận dạng surface tại gateway, không tin AI tự khai:** ID cố định `gpt-chat`, `gpt-work`, `claude-chat`, `claude-work`, `hermes-chat`, `hermes-code`. Trước mutation phải khảo sát giá trị thật của auth context / MCP `initialize.clientInfo` / route cho từng surface đang nối. Chỉ map khi dấu hiệu ổn định và duy nhất; collision/không phân biệt được → `unknown`, tuyệt đối không đoán từ Git author, commit prefix hay User-Agent tự do. Nếu cần tách credential, dùng secret store hiện hữu và chỉ yêu cầu Owner reconnect ở surface thực sự không thể phân biệt bằng metadata sẵn có.
+2. **Vừa làm = tín hiệu bền trong Git:** tại mọi commit do gateway tạo, server loại/ghi đè mọi trailer `Surface:` do caller tự chèn rồi tự append trailer chuẩn `Surface: <surface_id>`. Sau push thành công, B2 webhook tự kéo commit mới; `sync.py` đọc trailer của commit cuối chạm `work/<id>/` → `lastActors=[surface]`. Tín hiệu giữ nguyên cho task đó cho tới commit tiếp theo chạm task; commit mới không xác định surface → actor trở về xám/unknown, không giữ nhầm actor cũ.
+3. **Đang làm = presence tạm trên VPS, KHÔNG qua Git:** mọi tool call có path rõ dưới `work/<id>/` cập nhật `(surface, work_id, last_seen)`; list/search toàn `work/` không xác định task thì không đánh dấu. Tool/job async đã gắn work-id và còn queued/running được coi active theo heartbeat hiện hữu; terminal thì ngừng. Gateway rate-limit phát presence tối đa 1 lần/30 giây cho mỗi `(surface,work-id)` để tránh I/O.
+4. **Truyền presence:** dùng một state/endpoint nội bộ nhỏ trên VPS (tái dùng dịch vụ hiện có; không tạo task DB nghiệp vụ). UI lấy `presence` riêng với snapshot Git: poll khoảng **15–30 giây**. `Đang làm` xanh nếu `last_seen` ≤ **10 phút** hoặc job còn running; quá TTL → xám, nghĩa là “không có tín hiệu gần đây”, không khẳng định AI đã dừng. Presence được phép mất khi reboot và tự hình thành lại.
+5. **Tần suất:** `Vừa làm` cập nhật vài giây sau commit qua webhook, fallback ≤15′; `Đang làm` cập nhật mục tiêu ≤30–60 giây, UI poll 15–30 giây; TTL 10′. Hai kênh độc lập nên không tạo commit giả chỉ để giữ màu xanh.
+6. **Nhắc chuẩn thụ động:** khi gateway chuẩn bị commit `COLLAB.md`, chạy cùng parser A9 ở chế độ warning-only; sai READY/KQ/`Owner cần quyết` thì trả warning trong tool result, không block commit. AI không phải nhớ thêm một checklist.
+7. **Acceptance B3:** phải chứng minh bằng gọi thật ít nhất một surface GPT và một surface Claude; surface không phân biệt được phải báo `unknown` chứ không giả PASS. Kiểm commit có trailer server-side, spoof trailer bị ghi đè; `Vừa làm` đổi theo commit kế tiếp; presence sáng khi gọi tool đúng task và tự xám sau TTL cấu hình test rút ngắn; không tăng commit/Git do presence; không tạo tăng trưởng đĩa tuyến tính.
 
 ## Owner cần quyết
-- — · Không còn quyết định nghiệp vụ chặn B2. Nếu Agent không có quyền đăng ký webhook, backstop 15 phút vẫn chạy; chỉ hướng dẫn Owner bật webhook sau, không lộ secret.
+- — · Không có quyết định nghiệp vụ chặn B2.1. B3 đã có contract nhưng chỉ tạo PROMPT/RUN sau B2.1 PASS.
