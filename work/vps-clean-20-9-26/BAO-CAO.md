@@ -4,6 +4,81 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## V1 — Codex thẩm tra · 21/09/2026 · executor=Codex Desktop qua SSH (shell VPS) · write_path=workspace_*
+
+RUN_ID `VPSC-V1-20260921-01` · PROMPT@3131bdee21a080a6fdfb5138ca72c2b7b3d30a38 (đã kiểm commit cuối chạm PROMPT, khớp OWNER_APPROVED + READY). Based_on repo `76c5490fe8088a9cb18af7722da8235fb0840220`. **Kết quả: DỪNG / V1_LIMITED — chưa hoàn tất thẩm tra để duyệt dọn.** Đo nhẹ trực tiếp 21/09/2026 khoảng 07:48–07:53Z, không lấy số R1 làm số V1. Đơn vị GB dưới đây = GiB.
+
+### 1. CHO OWNER
+
+- **Chưa nên duyệt triển khai toàn bộ phương án R1.** Đĩa hiện 91%, dùng 86,39GiB, trống **9,41GiB**; vượt ngưỡng chỉ đo nhẹ của PROMPT.
+- Xác nhận độc lập Qdrant giữ **160 snapshot, 27,58GiB** và script hằng ngày không xoá snapshot server-side.
+- Xác nhận script deploy sao Nuxt không tỉa; builder context-pack chép sang staging nhưng không dọn nguồn tạm. Log Directus hiện **1,316GiB**; chưa đo được tốc độ tăng độc lập.
+- **N1 chưa qua cổng cứu hộ:** bản host mới nhất ngày 21/09; gói Drive được phản ánh trong meta/log ngày 20/09. Meta không có danh mục/checksum từng snapshot.
+- Phát hiện script Drive vẫn xoá snapshot tạm sau khi tải thất bại; trạng thái PASS/COMPLETE không chứng minh đầy đủ thành phần Qdrant. Cần sửa điều kiện thành công trước khi dùng làm bằng chứng xoá.
+- Ngay cả giả sử thu hồi đủ 34,4GiB của R1, hiện chỉ đạt **43,81GiB trống**, chưa đạt mục tiêu 45GiB.
+- Đã kiểm RootFS của từng image N7/N8: không là tiền tố image đang chạy, không container nào dùng trực tiếp; vẫn phải giữ cổng R03/cứu hộ.
+- **PASS 1 / REVISE 6 / BLOCK 8. PASS duy nhất là giữ N14, không phải cho xoá. Thu hồi được xác nhận đủ điều kiện xoá: 0GiB.**
+- Không xoá/sửa dữ liệu, không restart, không chạy dọn, không tải/giải mã backup. Chỉ ghi báo cáo này và dòng VPSC.3.
+
+### 2. Kết quả N1–N15
+
+PASS = khuyến nghị của nhóm đã được xác minh trong phạm vi nêu; PASS cho HOLD không được cộng vào thu hồi. REVISE = cần sửa phương án/bổ sung bằng chứng; BLOCK = chưa được mở cổng xoá. Dấu “—” là **chưa đo**, không phải 0 và không sao chép số R1.
+
+| Nhóm | GB R1 | GB V1 | Kết luận | Lý do |
+|---|---:|---:|---|---|
+| N1 Qdrant | 27,6 | 27,581 (allocated) | BLOCK | 160 snapshot được đếm trực tiếp; host có 8 bản 14–21/09, bản 21/09 là 236.036.608 byte. Chưa chứng minh snapshot mới nhất có trong gói Drive; meta chỉ cấp gói, script có nhánh bỏ qua lỗi tải. Không duyệt xoá toàn bộ theo bằng chứng hiện có. |
+| N2 Log Directus | 1,3 | 1,316 | REVISE | stat file xác nhận kích thước; container tạo 23/07. Chưa kiểm độc lập cấu hình xoay log/file descriptor và chưa có tốc độ đo độc lập. “Hằng ngày, nếu >100MB thì truncate” không tạo trần 100MB giữa hai lượt; cần quy tắc xoay/cắt có trần và kiểm sau thao tác. |
+| N3 Bản sao Nuxt | 2,7 | — | BLOCK | Đếm 66 thư mục khớp `nuxt-output.*`; còn tên dạng `nuxt-output-*`. R1 dùng tổng nhiều dạng tên nên không được so số lượng như cùng một tập. Chưa grep từng target qua mã, /etc, crontab mọi user và systemd; chưa chốt danh sách 3 bản gần nhất + bản mốc. Không quét sâu ở 91%. |
+| N4 context-pack.tmp | 1,45 | — | REVISE | 1.001 thư mục, 979 có mtime thư mục >3 ngày; **không đồng nghĩa 979 thư mục an toàn để xoá**. R1 ghi ~990 ứng viên. Phải kiểm nội dung mới nhất/trạng thái job và loại lượt đang chạy; builder xác nhận thiếu dọn nguồn tạm. Chưa đo GB độc lập. |
+| N5 Cache | ~1,4 | — | REVISE | Chưa đo lại block có thể thu hồi/working set. Dọn theo tháng chưa chứng minh trần 1GB; cần chỉ rõ công cụ/chủ cache, giữ browser runtime và loại hardlink trước khi tính dung lượng. |
+| N6 Build cache | 0,4 | — | BLOCK | R03 hiện CLIENT-ONLY FINAL ACCEPTANCE, chưa CLOSED. Chưa xác minh lại GC/thu hồi thực tế của backend build. |
+| N7 7 image trung gian | ≤0,5 | — | BLOCK | Kiểm riêng đủ 7 ID: không container dùng, RootFS không là tiền tố của image đang chạy. R03 chưa CLOSED; quan hệ lớp đúng không thay thế quyền bỏ rollback hoặc chứng minh số GB thu hồi. |
+| N8 9 image local-only | ~2–3 | — | BLOCK | Kiểm riêng đủ 9 ID: không container dùng, RootFS không là tiền tố của image đang chạy. Chưa có bằng chứng rescue off-VPS và load/khôi phục cho đúng tập image, không cộng GB ước lượng vào số an toàn. |
+| N9 Dump cũ postgres | 4,1 | — | BLOCK | Chưa grep từng tên qua đầy đủ các nguồn tham chiếu bắt buộc; chưa có cứu hộ kiểm được. Cần manifest chính xác và tách khỏi N10 để không trùng file .sql. |
+| N10 SQL tạm | 0,14 | — | REVISE | Chưa kiểm từng file/job đang dùng và ranh giới N9; tuổi >7 ngày không tự chứng minh file dùng một lần. Quy tắc phải loại job đang chạy và giữ/quarantine đúng manifest. |
+| N11 Tồn dư mission | ~5,5 | — | BLOCK | Chưa grep từng tên/đường dẫn; danh sách hiện còn wildcard và “…” nên chưa phải manifest xoá. Cần loại chính xác N12 và mọi file/dữ liệu còn phụ thuộc, rồi cứu hộ. |
+| N12 Giữ theo nhãn | ~1,0 | — | BLOCK | Giữ nguyên UNKNOWN_HOLD; chưa kiểm độc lập từng nhãn/checkpoint. Không đưa các mục này vào purge chung theo tuổi hay toàn thư mục cha. |
+| N13 DB thử | 1,2 | 1,174 | REVISE | DB còn tồn tại: 1.260.534.807 byte. Giữ UNKNOWN_HOLD, không đo chuỗi theo thời gian. Kiểm chuỗi chính xác “CẤM XOÁ” trong comment trả false; chưa chứng minh nhãn bị gỡ (có thể khác cách viết). Cần đối chiếu nhãn DEL-1; chưa có bằng chứng đủ gate backup/dependency để xoá. |
+| N14 Hermes cũ | 3,0 | — | PASS (giữ) | Đọc launcher thực tế: lệnh hermes vẫn exec venv dưới `/usr/local/lib/hermes-agent`. Xác nhận phải giữ; chưa duyệt chuyển launcher/hợp nhất/xoá. Không tính dung lượng thu hồi. |
+| N15 Alpine/kernel | ~0,3 | — | REVISE | Chưa kiểm tham chiếu Alpine, kernel dự phòng và cơ chế tự dọn; tiếp tục HOLD, chưa được tính vào thu hồi. |
+
+**Phạm vi chưa hoàn tất:** không chạy du tầng 1, quét lớp ghi containerd, tổng file mở đã xoá, grep toàn bộ tham chiếu N3/N9/N11 hoặc rà toàn đĩa tìm nguồn ≥0,5GiB, vì cổng 91% chỉ cho đo nhẹ. Không xác nhận lại đối soát du–df hoặc tổng BUSINESS/operational của R1. Phiên thực tế là Codex Desktop điều khiển shell VPS qua SSH, **không phải Codex CLI chạy trực tiếp trên VPS như nhãn yêu cầu**; ghi rõ sai khác, không giả lập executor. Trước lượt tiếp cần Host phản ánh đúng bề mặt thực thi vào đề bài.
+
+### 3. Các hiệu chỉnh bắt buộc trước đề bài dọn
+
+**V1-01 · Backup Qdrant phải chứng minh đủ thành phần và thất bại thì dừng.** Mã VPS `scripts/backup-to-gdrive.sh:258–274` cho phép list/create lỗi qua `|| true`; tải snapshot lỗi chỉ ghi WARN rồi vẫn gọi DELETE. Lượt mới nhất đọc được có thông báo snapshot + upload hoàn tất, không thấy WARN tải lỗi; điều đó **không phải bằng chứng đã kiểm payload**. Meta config không có inventory từng snapshot, payload đã che. Không suy “backup hằng ngày PASS” thành “snapshot cần giữ đã có ngoài VPS”. Cần manifest gồm collection, tên/thời điểm/size/checksum snapshot, liên kết với gói off-VPS và xác minh khôi phục phù hợp trên máy ngoài VPS; không tải về ổ đang đầy. Bản host ngày 21/09 và gói ngày 20/09 là hai mốc khác nhau, không diễn đạt là cùng bản mới nhất.
+
+Chỉnh đề xuất vá `qdrant-backup.sh`: chỉ DELETE đúng snapshot sau khi sao chép thành công và kiểm tính toàn vẹn; nếu một bước lỗi thì giữ bản nguồn + báo lỗi. Không thêm xoá mọi snapshot >1 ngày vô điều kiện, vì có thể xoá bản duy nhất của lượt backup thất bại. Chốt retention theo tập đã được chứng minh có bản cứu, loại snapshot đang tạo/tải. Qdrant có API riêng [xoá snapshot collection](https://api.qdrant.tech/v-1-18-x/api-reference/snapshots/delete-snapshot?explorer=true); đó là thao tác API, không phải lệnh restart. V1 không gọi DELETE và chưa kiểm thời gian thu hồi block thực tế.
+
+**V1-02 · Tính lại dung lượng mục tiêu từ số hiện tại và tránh cộng trùng.** df chính xác: tổng 102.888.095.744 byte, dùng 92.765.503.488, available 10.105.815.040. Dùng tăng **2,94GiB** so với số cuối R1 04:10Z; nguyên nhân chưa được đối soát, không quy thành tốc độ tăng ổn định. Muốn đạt 45GiB từ mốc này cần thu hồi ròng ít nhất **35,59GiB**, chưa tính phát sinh/tạm trong khi thao tác. Theo giả thiết R1 34,4GiB cũng chỉ đạt 43,81GiB. Phải dùng available thực tế, không lấy tổng trừ used bỏ qua reserved space. N9/N10 phải tách tập .sql; N11/N12 phải tách vùng có nhãn; image chia sẻ layer chỉ tính phần vật lý thực sự có thể giải phóng.
+
+**V1-03 · Chốt manifest và bảo vệ rollback/job đang chạy.** N3 phải liệt kê chính xác cả dạng tên chấm và gạch ngang, chỉ rõ bản mốc; R1 vừa nói “1 bản mốc” vừa cho tối đa 2 nên trần 4×45MB chưa nhất quán. N3/N9/N11 bắt buộc kiểm từng tên qua đủ nguồn tham chiếu của PROMPT; grep thư mục cha không thay thế được. N4/N10 kiểm job/lock và thời điểm ghi nội dung, không chỉ tuổi thư mục. Đặt kiểm tra lại target ngay trước mutation để tránh deploy/backup chen ngang. R03 chưa CLOSED nên giữ nguyên cổng rollback/build cache.
+
+**V1-04 · Phân biệt lịch dọn với trần bảo đảm.** Cron cắt log khi >100MB một lần/ngày cho phép tăng thêm cả ngày; dọn cache hằng tháng không chứng minh ≤1GB. Snapshot còn giữ ≤1 ngày không có steady-state 0 tuyệt đối và còn peak lúc tạo/sao chép. TTL 30 ngày cho mission không đồng nghĩa local 0 khi vẫn có mission mới. Bổ sung budget, kiểm tần suất/overshoot, xử lý khi job dọn hoặc offload lỗi và đỉnh dung lượng tạm; tính lại tổng mức ổn định thay vì giữ nguyên con số 34,5GiB của R1.
+
+**V1-05 · Không xoá mù dữ liệu phục hồi công cụ hoặc lịch sử.** TTL `transactions/jobs/results` cần chủ workspace xác nhận riêng từng loại, giữ job đang chạy và journal/idempotency còn cần khôi phục. Không áp purge chung cho toàn cây workspace-tools. `git gc` không tự hạn chế dung lượng lịch sử còn được tham chiếu; `--prune=now` cũng không nên trở thành quy tắc mặc định khi còn tiến trình ghi. Các đề xuất này cần được cụ thể hoá trong đề bài sau, chưa triển khai.
+
+**V1-06 · Cứu hộ ngoài VPS theo bộ có thể khôi phục.** N8/N9/N11 cần kiểm thành công mọi chặng nén/mã hoá/upload, checksum và đối tượng hoàn chỉnh trước xoá nguồn; có kế hoạch khôi phục kiểm được, không tạo gói cứu lớn trên VPS. Retention Drive giữ theo bộ artifact + meta và tính riêng lưu lượng nạp hằng tháng với tổng dung lượng lưu ổn định; “tăng ròng ~0” không có nghĩa “không tải thêm dữ liệu”. Tôn trọng nhãn giữ/mission còn mở trước mọi TTL chung.
+
+**Bốn nguyên nhân R1:** (1) xác nhận cơ chế rò Qdrant và GB; (2) xác nhận mã deploy thiếu tỉa, chưa xác nhận GB; (3) xác nhận file pm2 lớn, chưa xác nhận độc lập tốc độ hay toàn bộ cấu hình rotation; (4) xác nhận builder không dọn nguồn và số thư mục, chưa xác nhận GB/tốc độ. Chưa đủ căn cứ nói R1 không bỏ sót nguồn ≥0,5GiB; chênh df 2,94GiB là phần còn mở.
+
+### 4. Bằng chứng và giới hạn
+
+Bằng chứng mới lấy trực tiếp qua shell VPS, giữ trong output công cụ của phiên; **không tạo kho raw hoặc file tạm mới trên VPS**, không đọc lại số raw R1 để thay phép đo. Repo chỉ có tóm tắt đã làm sạch:
+
+- E01: df, thời gian UTC, danh sách container/trạng thái; phép đo đầu đã báo 91%. Có thêm một df byte trong bước định danh để tính chính xác; đây là lặp ngoài yêu cầu “mỗi phép đo một lần”, không dùng làm chuỗi đo tốc độ và không có sleep.
+- E02: liệt kê metadata một tầng snapshot Qdrant: 160 file snapshot; tổng snapshot/checksum 29.613.664.768 byte logic, **29.615.128.576 byte cấp phát**; danh sách 8 bản host.
+- E03: stat duy nhất log pm2: 1.413.027.126 byte logic, 2.759.832 block ×512; ngày tạo container 23/07. Không đọc nội dung log truy cập.
+- E04: liệt kê một tầng deploy/context-pack và đọc mã trực tiếp `qdrant-backup.sh`, `backup-to-gdrive.sh`, `dung-va-trien-khai.sh`, `dot-context-pack-build.sh`; chỉ xuất nhánh liên quan đã che thông tin nhạy cảm.
+- E05: Docker inspect container + image metadata, đối chiếu đủ từng ID N7/N8 với RootFS image đang chạy và tham chiếu của cả container dừng.
+- E06: meta staging config ngày 20/09, status PASS/COMPLETE, chỉ báo điều kiện từ đoạn log lượt mới nhất; **không truy cập/list Drive trực tiếp, không checksum payload hoặc giải mã**.
+- E07: đọc launcher Hermes; truy vấn metadata DB thử bằng phiên read-only. Lần kết nối đầu bằng role mặc định không thành công; lần dùng role cấu hình của container thành công, không đo activity theo thời gian.
+- E08: trạng thái R03 đọc từ `work/mcp-workspace/COLLAB.md` ở cùng Based_on; vẫn chưa CLOSED.
+
+**NEXT cho Host:** xử lý V1-01–V1-06 và điều kiện nguồn đĩa tăng, chốt đúng executor/phạm vi phép đo nhẹ để hoàn tất những mục còn thiếu; chưa dùng báo cáo giới hạn này làm giấy duyệt dọn. Không ghi MACHINE_DONE vì phép thẩm tra tổng và grep bắt buộc chưa hoàn tất.
+
+---
+
 ## R1 — 09/2026 · UNVERIFIED_R1 · executor=Claude Code CLI · write_path=workspace_*
 
 RUN_ID `VPSC-R1-20260920-01` · PROMPT@`7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65` (khớp READY) · đo 2026-09-21 03:26Z → 04:11Z · chế độ AUDIT / NO PRODUCTION MUTATION.
