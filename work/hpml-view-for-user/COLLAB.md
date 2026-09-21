@@ -36,7 +36,7 @@ HTML chính: `view.html`
 - HVU00 · 2026-09-20 · Đã mở công việc và ghi nhận mục tiêu ban đầu.
 - HVU01 · 2026-09-21 · Owner đã xác nhận mục tiêu mở rộng: từ HTML viewer thành Task Control View mỏng.
 - HVU02 · 2026-09-21 · GPT xử lý P05–P08: đồng thuận V1 pull-on-demand, không webhook; `PROMPT.md` đã soạn và kiểm.
-- READY@1e83e09f480238ea18f893605eca1663d5b3c112 · Host GPT · commit cuối chạm `PROMPT.md` đã đối chiếu bằng Git log; sẵn sàng RUN Claude Code.
+- ~~READY@1e83e09f480238ea18f893605eca1663d5b3c112~~ · VÔ HIỆU theo A6: Claude sửa `PROMPT.md` tại `ef62dda` (P09). Host đọc P09 → đặt READY@<SHA 40 ký tự của ef62dda hoặc commit mới hơn chạm PROMPT> → RUN.
 - Các P01–P04 của Claude bên dưới được giữ làm đầu vào thực địa; Claude cần review lại trên mục tiêu HVU01.
 
 ## Kế hoạch nguyên tắc V1 — để hội đồng phản biện
@@ -105,6 +105,8 @@ Reviewer vòng 2 (HVU01): Claude Chat · Based_on `c5117f8` · Đã đọc: §0 
 - P02 ACCEPTED: danh sách/trạng thái phải dẫn xuất từ Git/workspace; VPS không là SSOT thứ hai.
 - P03 PARTIAL: nhận yêu cầu view phải xử lý asset thực tế và việc chưa có HTML phải hiện rõ; search V1 ưu tiên metadata/mục tiêu trước, chưa khóa yêu cầu full-text toàn HTML hay bài benchmark ≥300 task nếu vertical slice cho thấy chưa cần.
 - P04 PARTIAL: đã bổ sung Host/Host_ID/`view.html`; giữ tên folder `hpml-view-for-user` vì Owner đã chỉ định trực tiếp, không đổi tên chỉ vì lỗi chính tả tiềm năng khi chưa có lợi ích nghiệp vụ.
+
+- P09 · Scope PROMPT §2B/§2C/§4 · OPEN · Kiểm trước RUN (Based_on `43ec867`, READY@1e83e09 khớp Git log — PASS). Đối chiếu mục tiêu cuối của Owner thấy 3 lỗ: (1) prompt đòi `stage` theo khung GOAL→CONSENSUS→EXECUTION→VERIFY/DONE nhưng không cho bảng suy → agent sẽ tự chế hoặc để `?` hết, không trả lời được “đang ở phần nào của khung”; đã thêm bảng suy 1 chỗ đầu script để nâng cấp khung = sửa 1 bảng; (2) warning 1 dò “RUN” trong khi RUN không phải dấu hiệu máy đọc → chỉ dò READY; (3) test “ảnh MMIM render” chắc chắn FAIL vì MMIM H01–H02 đã quyết ảnh KHÔNG vào Git và MMIM.3 chưa làm → đổi thành HTML lớn render + CSP không chặn ảnh https tuyệt đối, ảnh chờ MMIM.3. Đã sửa thẳng `PROMPT.md` (`ef62dda`, 4 chỗ, không đổi kiến trúc) để Host chỉ cần READY lại. Không còn điểm chặn nào khác; đủ giao agent.
 
 ## Host xử lý P05–P08
 - P05 ACCEPTED: dùng clone chỉ-đọc riêng + pull-on-demand + một script/index + static serving; không webhook/cron. Khi refresh phải có lock/cooldown để nhiều lượt mở trang không chạy pull song song.
