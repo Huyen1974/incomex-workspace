@@ -157,7 +157,7 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: **ACCEPTED** — nhận đủ 4 chỉnh sửa: prompt nằm trong repo; JEV tách khỏi HJW; cổng đầu lượt chỉ-đọc không được dừng/xoá process; audit + dựng gộp một RUN. Theo chỉ đạo Owner mới nhất, **không chạy hai PROMPT trong một lệnh**: hoàn tất/accept JEV.B1 trước, rồi HJW mới mở RUN riêng.
 
-### P09 · Claude Chat · OPEN — REVIEWED · ACCEPT `PROMPT.md` sau 4 sửa trực tiếp
+### P09 · Claude Chat · ACCEPTED — REVIEWED · ACCEPT `PROMPT.md` sau 4 sửa trực tiếp
 - Based_on: `69953ef` · Scope: `PROMPT.md` JEV.B1 toàn văn (§0–§9) · đối chiếu A0, D01–D08, P08, A2/A6/A9, luật Owner về hành động phá huỷ.
 - Đạt: cổng chỉ-đọc đầu lượt; không kill process Hermes; `typesafe-mcp` ghim bản + checksum; `mcp-proxy` ghim, hỏng thì DỪNG; path-secret không lộ; health phải có `answers`; không gọi LLM để kiểm; `KQ@RUN_ID` đúng A9; phần sau-Agent tách rõ; **không lẫn việc nào của HJW** (Hermes chỉ xuất hiện ở nguồn khoá và process thử chỉ-liệt-kê).
 - Claude đã sửa thẳng DRAFT theo A6 (Reviewer được cùng sửa khi còn DRAFT), commit `9ec2025`, 4 điểm:
@@ -167,7 +167,7 @@ HTML chính: `view.html`
   4. §6 — `SKILL.md` đúng chuẩn mở Agent Skills; `description` viết theo tình huống cần dùng vì đây là phần luôn nằm trong ngữ cảnh AI (mục tiêu A0 số 2).
 - **Claude REVIEWED · ACCEPT cho `PROMPT.md` tại commit `9ec2025`.** Host nhận 4 sửa thì đặt `READY@<full SHA của 9ec2025>`, không cần vòng review nữa. Host không nhận điểm nào thì sửa lại đúng điểm đó và ghi lý do; A5 áp dụng.
 - Áp: `9ec2025`
-- Host response: —
+- Host response: **ACCEPTED** — nhận toàn bộ 4 sửa của Claude; không còn hiệu chỉnh nào trước RUN. PROMPT cuối chạm tại `9ec2025b7d6eaef79602304868bab8e93cb7293a`.
 
 ## Câu hỏi hội đồng
 - Q01 · **RESOLVED:** dùng một cổng JEV chung.
@@ -180,8 +180,8 @@ HTML chính: `view.html`
 ## Owner cần quyết
 - — Không có điểm kiến trúc mới cần Owner quyết; D01–D08 đủ phạm vi.
 
-## NEXT
-- `PROMPT.md` JEV.B1 đã được Host soạn DRAFT trên repo theo P08.
-- **Claude Chat giám sát:** đọc đúng PROMPT.md mới + P08; nếu không có P mới thì ghi REVIEWED/ACCEPT theo A5. Host chỉ đặt READY sau review này.
-- Sau READY + RUN: Claude Code thực hiện JEV.B1; Claude Chat nghiệm thu MACHINE_DONE trước client acceptance.
+## READY / NEXT
+- `READY@9ec2025b7d6eaef79602304868bab8e93cb7293a` · RUN_ID `JEV-B1-OPENAI-20260921-01` · Reviewer Claude ACCEPT tại P09.
+- Owner/GPT có thể RUN Claude Code đúng `work/jev-integration/PROMPT.md`; Agent phải kiểm READY SHA trước mutation.
+- Claude Chat giám sát/nghiệm thu MACHINE_DONE trước client acceptance OpenAI.
 - Chỉ khi JEV.B1 OpenAI DONE mới chuyển sang task riêng `work/hermes-joint-workspace/`.
