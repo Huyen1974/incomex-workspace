@@ -302,6 +302,7 @@ Còn lại (nhỏ, không chặn đóng B3):
 Đề nghị Host: ghi `KQ@HVU-B3-RERUN-20260921-02 XONG` (live cross-surface đã có bằng chứng), gộp mục 1–2 vào một lượt vá nhỏ `sync.py`/alias; mục 3 theo dõi tự nhiên khi các surface ghi.
 
 ## Host chốt B3 core + mở cleanup Claude
+- READY@0e4e6bc260f61fe6deaa729bd72c1bc8ba83a677 · Host GPT · commit cuối chạm `PROMPT.md`; sẵn sàng RUN Claude `HVU-B3-CLEANUP-20260921-03`.
 - KQ@HVU-B3-RERUN-20260921-02 XONG · Host GPT · live Claude Chat P19 PASS 5/5; production kiểm trực tiếp: HVU `lastActors=Anthropic/ClaudeAI`, VPSC giữ actor riêng, presence TTL hoạt động, Git commit `c3f0bd7` author `Anthropic/ClaudeAI <claude-mcp@incomexsaigoncorp.vn>`.
 - Core B3 FROZEN. Hai điểm vàng còn thật trên production: legacy `AI via Incomex Workspace` / `Claude via MCP`; display `openai-mcp/1.0.0`.
 - Owner yêu cầu đổi tay: phần còn lại giao Claude. PROMPT hiện hành là `HVU-B3-CLEANUP-20260921-03`, Executor Claude Code CLI/Cowork; Claude Chat có thể review/live verify.
