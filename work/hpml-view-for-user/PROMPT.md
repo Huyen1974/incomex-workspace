@@ -59,7 +59,7 @@ Dữ liệu tối thiểu mỗi task:
 - `id/name`;
 - `bucket`: `Now|Done|?`;
 - khối mục tiêu A0 để UI hiển thị đầu tiên;
-- `stage` nếu có bằng chứng chắc chắn, không chắc → `?`;
+- `stage` theo khung §0.4, suy đúng bảng sau và đặt bảng ở MỘT chỗ đầu script kèm chú thích (nâng cấp khung sau này = sửa đúng bảng này, không đụng chỗ khác): `GOAL` = A0 `CHƯA XÁC NHẬN` · `CONSENSUS` = A0 đã xác nhận và chưa có READY hợp lệ · `EXECUTION` = READY hợp lệ (luôn kèm `waiting_run=true`; RUN không có dấu hiệu máy đọc nên không suy Agent đang chạy) · `DONE` = việc nằm trong `## Đã xong` của COLLAB gốc · `VERIFY` = V1 chưa có dấu hiệu máy đọc, không suy · thiếu dữ kiện → `?`;
 - `next_actor` theo đúng luật:
   - A0 chưa xác nhận hoặc có P `OWNER` → `Owner`;
   - READY hợp lệ → `Agent`, nhưng kèm `waiting_run=true`; **READY không phải RUN**;
@@ -70,14 +70,14 @@ Dữ liệu tối thiểu mỗi task:
 - `evidence` tối thiểu để Owner kiểm lại nhãn suy ra.
 
 Chỉ hai warning V1:
-1. A0 chưa xác nhận nhưng đã có READY/RUN;
+1. A0 chưa xác nhận nhưng đã có READY (RUN không phải dấu hiệu máy đọc, không dò trong văn xuôi);
 2. `READY@SHA` không khớp commit cuối chạm `PROMPT.md`.
 
 Không dựng validator framework.
 
 ### C. Static Owner View
 - Tận dụng clone chỉ-đọc hoặc một mirror tài liệu dẫn xuất tối thiểu; chọn cách ít copy/mã nhất sau khảo sát.
-- Relative asset của HTML chính phải hoạt động, gồm ca `mow-mot-moit-mout` HTML lớn + ảnh.
+- Relative asset của HTML chính phải hoạt động. Riêng `mow-mot-moit-mout`: theo MMIM H01–H02, ảnh/binary KHÔNG vào Git mà sẽ ở kho static HTTPS dùng chung (MMIM.3, chưa làm) → V1 chỉ cần HTML lớn render được và CSP không chặn ảnh URL tuyệt đối https; ảnh MMIM chưa hiện không phải lỗi của HVU, ghi nhận và đi tiếp.
 - Không directory listing; không public/link mặc định `.git`, `COLLAB.md`, `PROMPT.md`, evidence hay file điều phối. Parser được đọc COLLAB nội bộ nhưng UI chỉ hiển thị phần A0/status cần thiết.
 - Tái dùng CSP/nginx hiện có nếu tương thích. Owner View phải render cô lập (iframe sandbox hoặc cơ chế tương đương) mà không phá asset hiện hành.
 
@@ -109,7 +109,7 @@ Chạy thật trên cả 6 việc hiện có, tối thiểu xác nhận:
 - `last_commit` đúng hash/subject/time so với `git log`;
 - READY hợp lệ/lệch được phân biệt đúng ở việc có PROMPT;
 - việc thiếu HTML hiện `Chưa có view`;
-- HTML lớn + asset tương đối của MMIM render được;
+- HTML lớn của MMIM render được; cơ chế asset tương đối kiểm bằng asset có sẵn trong repo nếu có, chưa có thì ghi “chưa kiểm được”, không tự tạo file thử;
 - search metadata/mục tiêu hoạt động;
 - manual Cập nhật hoạt động;
 - stale >~10 phút chỉ tạo tối đa một refresh nhờ lock/cooldown;
