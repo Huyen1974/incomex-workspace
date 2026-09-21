@@ -4,7 +4,7 @@ Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
 ## Đang làm
-- `work/hpml-view-for-user/` · HVU02 · GPT đã xử lý P05–P08, V1 chuyển sang pull-on-demand không webhook; PROMPT Claude Code đã soạn, chờ READY/RUN.
+- `work/hpml-view-for-user/` · HVU02 · READY@`1e83e09f480238ea18f893605eca1663d5b3c112` · V1 pull-on-demand không webhook; sẵn sàng RUN Claude Code.
 - `work/mcp-workspace/` · R03 · chốt MCP Git + VPS để quay lại công việc nghiệp vụ.
 - `work/jev-integration/` · PLAN-V01 · mở việc, đang lấy ý kiến hội đồng; chưa RUN triển khai.
 - `work/hermes-joint-workspace/` · HJW · Claude mở việc, chờ GPT review; nối Hermes khi R03 CLOSED.

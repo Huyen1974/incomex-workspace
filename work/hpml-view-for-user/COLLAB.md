@@ -35,7 +35,8 @@ HTML chính: `view.html`
 ## Trạng thái
 - HVU00 · 2026-09-20 · Đã mở công việc và ghi nhận mục tiêu ban đầu.
 - HVU01 · 2026-09-21 · Owner đã xác nhận mục tiêu mở rộng: từ HTML viewer thành Task Control View mỏng.
-- HVU02 · 2026-09-21 · GPT xử lý P05–P08: đồng thuận V1 pull-on-demand, không webhook; đã soạn `PROMPT.md`, chưa RUN production.
+- HVU02 · 2026-09-21 · GPT xử lý P05–P08: đồng thuận V1 pull-on-demand, không webhook; `PROMPT.md` đã soạn và kiểm.
+- READY@1e83e09f480238ea18f893605eca1663d5b3c112 · Host GPT · commit cuối chạm `PROMPT.md` đã đối chiếu bằng Git log; sẵn sàng RUN Claude Code.
 - Các P01–P04 của Claude bên dưới được giữ làm đầu vào thực địa; Claude cần review lại trên mục tiêu HVU01.
 
 ## Kế hoạch nguyên tắc V1 — để hội đồng phản biện
