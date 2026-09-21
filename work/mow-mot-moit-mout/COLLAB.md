@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | READY · RUN_OWNER_REISSUED | NEXT: Codex vào đúng repo incomex-workspace, cập nhật main an toàn, đọc AGENTS → COLLAB → PROMPT; gate PASS thì chạy MMIM.2.
+MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | PROMPT_DRAFT · CLAUDE_REVIEW_REQUIRED · NO_RUN | Host đã sửa kiến trúc: text vào Git, binary không vào Git; chờ Claude review/đồng thuận trước READY cuối.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -24,10 +24,11 @@ MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | READY · RUN_OWNER_REISSUED | NEX
 - D06 · 2026-09-20 · `work/mow-mot-moit-mout/mow-mot-moit-mout.html` là bản làm việc chuẩn của việc này; các bản HTML trên Mac chỉ đọc/đối chiếu, không chép đè.
 - D07 · 2026-09-20 · Owner chấp nhận repo/tài liệu việc này có thể công khai để ưu tiên tốc độ và chất lượng; không đưa credential, dữ liệu cá nhân nhạy cảm hoặc nội dung không công khai không cần thiết lên repo.
 - D09 · 2026-09-21 · Áp dụng DROOT04 cho MMIM.2: Host không tách PRECHECK riêng cho môi trường Codex đã dùng nhiều lần; RUN phải bắt đầu bằng việc vào đúng repo `incomex-workspace`, cập nhật `main` an toàn và đọc AGENTS → COLLAB → PROMPT. Chỉ mutation sau khi gate đầu vào của chính MMIM.2 PASS.
+- D10 · 2026-09-21 · Owner yêu cầu Host sửa gói cuối, sau đó chuyển Claude review để đạt đồng thuận; **chưa READY/RUN Codex trước review Claude**.
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
-- MMIM.2 | Codex khảo sát thư mục nguồn, đề xuất cấu trúc `information/`, copy + kiểm hash + lập mục lục | ▶ READY/RUN
+- MMIM.2 | Codex khảo sát thư mục nguồn, copy text/lightweight + inventory binary + lập mục lục | ◐ DRAFT · chờ Claude review
 
 ## Ý kiến (P)
 Reviewer: Claude Chat · Based_on `39cc96d` / commit review `f5f97fc`. Host GPT đã đối chiếu lại HTML chính và README §12 trước khi xử lý.
@@ -38,17 +39,23 @@ Reviewer: Claude Chat · Based_on `39cc96d` / commit review `f5f97fc`. Host GPT 
 - P04 · Scope đúng bản · **ACCEPTED** · bản repo `mow-mot-moit-mout.html` là working SSOT của việc; Mac read-only. Codex đọc các sổ chỉ đường nếu có, so SHA bản Mac và SHA nguồn được HTML ghi; lệch thì ghi divergence, không chép đè.
 - P05 · Scope UI runtime · **ACCEPTED** · UI đang chạy lấy VPS root `ui` làm thực địa theo A8; bản HTML/JS/CSS tương ứng trên Mac không được xếp CURRENT. Nếu cần đối chiếu thì LEGACY/MAC_RUNTIME_COPY; MMIM.2 không fetch runtime VPS.
 
+## Phương án Host chờ Claude review
+- H01 · **Text/Binary split:** Git chỉ giữ HTML, tài liệu text/lightweight, README, `assets-manifest.json` và LINK-MAP; ảnh/binary không commit Git, không base64.
+- H02 · **Shared assets ngoài Git:** sau MMIM.2, publish binary một lần vào kho static HTTPS dùng chung để GPT/Claude/Codex/Hermes và Owner View cùng đọc bằng URL tuyệt đối. Ưu tiên tái dùng hạ tầng static hiện có; không mở dự án sửa MCP/connector. Repo giữ SHA/bytes/URL làm SSOT metadata. Cơ chế/path publish cụ thể phải được Claude phản biện trước khi Host chốt MMIM.3.
+- H03 · MMIM.2 không được DỪNG chỉ vì connector không nhập binary; binary pass ở lượt này = định vị + SHA/bytes + manifest/link-map.
+
 ## Owner cần quyết
-- P01 · Xác nhận mục tiêu toàn việc (A0): “thiết kế chuẩn các UI, chuẩn quy trình tạo và khai báo thành công MOW/MOT/MOIT/MOUT/Field”; tiêu chí xong = mỗi đối tượng có UI chuẩn Owner chốt + quy trình tạo/khai báo viết thành bước + ≥1 lần khai báo thật thành công có bằng chứng. Đề xuất: GẬT → Host mở D08 + sửa §0; MMIM.2 không phải chạy lại.
+- P01 · Xác nhận mục tiêu toàn việc (A0): “thiết kế chuẩn các UI, chuẩn quy trình tạo và khai báo thành công MOW/MOT/MOIT/MOUT/Field”; tiêu chí xong = mỗi đối tượng có UI chuẩn Owner chốt + quy trình tạo/khai báo viết thành bước + ≥1 lần khai báo thật thành công có bằng chứng. P01 không chặn Claude review/MMIM.2 hiện tại.
 
 ## Sự cố / bài học Host
-- I01 · 2026-09-21 · Codex trả: `DỪNG · MMIM.2 · Workspace hiện tại không có work/mow-mot-moit-mout/COLLAB.md và PROMPT.md; không thể xác minh ba gate bắt buộc. Chưa thay đổi file nào.`
-- Kết luận Host: repo SSOT qua MCP vẫn có đủ file và READY; lỗi là Host đã phát RUN khi chưa xác minh **workspace phía Codex** có đúng checkout/ref và có đọc được nguồn Mac hay không. Đây là lỗi preflight của Host, không phải lỗi agent.
+- I01 · 2026-09-21 · Codex trả: `DỪNG · MMIM.2 · Workspace hiện tại không có work/mow-mot-moit-mout/COLLAB.md và PROMPT.md; không thể xác minh ba gate bắt buộc. Chưa thay đổi file nào.` → Host đã sửa bootstrap/input gate.
+- I02 · 2026-09-21 · Codex trả: `DỪNG · MMIM.2 · Gate công cụ ghi chưa đạt: README §0/D12 cấm AI push bằng Git/CLI; connector hiện có chưa có đường nhập ảnh nhị phân từ Mac đáp ứng giao dịch bắt buộc. Chưa tạo information/ hoặc sửa nguồn, HTML, COLLAB.`
+- Kết luận Host I02: prompt sai kiến trúc khi bắt binary đi vào Git. Sửa nguyên nhân gốc: MMIM.2 không đưa binary vào Git; chỉ inventory/hash. Shared-assets ngoài Git là bước riêng sau consensus, không sửa connector.
 
 ## Giao Agent
-- READY@`7d8e1df9e50cfdd5a4b7cfaf8c66cad9343e26f3` vẫn còn hiệu lực vì chưa ai sửa `PROMPT.md`.
-- RUN · Owner xác nhận 2026-09-21 có thể giao lại Codex; Host phát lại theo DROOT04/D09.
-- Bootstrap bắt buộc trong chính RUN: vào đúng repo `incomex-workspace` → cập nhật `main` an toàn/không force → đọc `AGENTS.md` → `work/mow-mot-moit-mout/COLLAB.md` → `PROMPT.md` → kiểm HTML SHA và đích `information/`. PASS thì tiếp tục MMIM.2; FAIL thì DỪNG trước mutation.
+- READY@`7d8e1df9e50cfdd5a4b7cfaf8c66cad9343e26f3` → **HẾT HIỆU LỰC** vì Host đã sửa `PROMPT.md` sau I02.
+- **NO RUN** theo D10. Chờ Claude review bản prompt mới và H01–H03.
 
 ## NEXT
-- Codex thực hiện MMIM.2 theo PROMPT hiện hành. Không sửa HTML chính, không đổi Owner View, không tự mở rộng P01.
+- Claude Chat đọc `AGENTS.md` → file này → `PROMPT.md`, review đúng scope: kiến trúc text/binary, shared-assets ngoài Git, D12/write path, tiêu chí hoàn tất MMIM.2.
+- Nếu không còn P OPEN/OWNER chặn MMIM.2: Host hòa giải, đặt READY@SHA mới và soạn lệnh RUN cuối để Owner giao Codex.
