@@ -20,6 +20,7 @@ Chỉ chạy khi `work/jev-integration/COLLAB.md` có `READY@<40 SHA>` đúng co
    - `mcp-proxy==0.12.0` + `mcp==1.27.1` giữ initialize/tools/list/schema/isError qua streamable HTTP stateless;
    - route path-secret của `gpt-mcp` hiện hành;
    - chỉ liệt kê **TÊN biến** trong `/run/hermes/or.env`, tuyệt đối không in value;
+   - xác định Hermes nhận khoá OpenRouter từ nguồn nào (GSM hay nguồn khác) — chỉ ghi tên nguồn, không in giá trị;
    - port `172.18.0.1:8792` còn trống; nếu không, chọn port trống liền kề và ghi lại;
    - liệt kê process/listener thử nghiệm Hermes còn sống nếu có; **không kill/dừng/xoá** chúng trong cổng.
 5. Sai khác thiết kế trọng yếu hoặc bằng chứng không tái lập được → DỪNG, ghi đúng blocker; không “sửa cho chạy” bằng kiến trúc mới.
@@ -42,7 +43,7 @@ KHÔNG làm:
 - không mở direct Git write;
 - không đổi luật nền AGENTS/README trong RUN này.
 
-Rollback chỉ được stop/disable/remove **artifact mới do RUN này tạo** và khôi phục đúng backup nginx của RUN này. Không đụng dịch vụ khác.
+Thất bại sau khi đã tạo artifact: **DỪNG, giữ nguyên hiện trạng, báo đúng danh sách artifact đã tạo**. Route/service mới không ảnh hưởng dịch vụ khác vì nginx chỉ reload sau `nginx -t` PASS. Stop/disable/xoá artifact hay khôi phục backup nginx là hành động phá huỷ: **chỉ làm khi Owner quyết**, Host đề xuất lệnh rollback cụ thể. Không đụng dịch vụ khác.
 
 ## 2. Dựng runtime bằng đồ có sẵn
 
@@ -60,9 +61,9 @@ Rollback chỉ được stop/disable/remove **artifact mới do RUN này tạo**
 - Nếu mcp-proxy không tái lập được trên máy thật → DỪNG và báo; không tự chuyển sang bridge khác trong cùng RUN trừ khi COLLAB đã ghi phương án dự phòng được Host duyệt.
 
 ### J3 · secret OpenRouter
-- Không tạo OpenRouter key mới.
-- Nếu `/run/hermes/or.env` chỉ chứa `OPENROUTER_API_KEY` + metadata vô hại cần thiết, có thể tái dùng qua group/read permission tối thiểu.
-- Nếu file chứa secret khác không liên quan: **không** cho jev-gw đọc toàn file. Dùng pattern GSM → tmpfs/env riêng đã audit để đưa đúng `OPENROUTER_API_KEY` vào process; không in/copy value.
+- Không tạo OpenRouter key mới. **Không đổi quyền/chủ sở hữu file của Hermes**: `/run/hermes/*` là tmpfs, sửa quyền sẽ mất sau khởi động lại và là đụng vào dịch vụ khác.
+- Mặc định: `jev-gw` lấy khoá từ **cùng nguồn Hermes đang dùng** (xác định ở cổng chỉ-đọc) theo pattern GSM → tmpfs riêng (ví dụ `/run/jev/`) → env của process, chỉ đúng `OPENROUTER_API_KEY`; phải còn sau khởi động lại VPS.
+- Nguồn đó không phải GSM: đưa đúng khoá vào GSM theo D07 rồi làm như trên. Không in/copy value ra nơi khác.
 - Nếu phải tạo/lưu secret mới vì lý do kỹ thuật, source of truth = GSM theo D07; không plaintext trong repo hoặc file bền vững.
 - Không log env/value.
 
@@ -70,7 +71,7 @@ Rollback chỉ được stop/disable/remove **artifact mới do RUN này tạo**
 - Chạy trên host/systemd, không nhét vào network `claude_mcp_net`.
 - Ưu tiên dedicated service user ít quyền; chỉ cần đọc credential cần thiết và chạy bridge/binary.
 - Service bind nội bộ, không public trực tiếp.
-- Restart/stop chỉ chính `jev-gw` do RUN này tạo.
+- Chỉ được start/restart chính `jev-gw` do RUN này tạo để áp cấu hình; không stop/disable/xoá (xem §1).
 
 ## 3. Remote route cho OpenAI
 - Nginx chỉ thêm route mới; không sửa semantics route hiện hữu.
@@ -101,11 +102,13 @@ Sau service, trước khi coi machine done:
 - Probe phải đi qua MCP path/runtime thật: initialize → evaluate → parse `answers`.
 - PASS chỉ khi có `answers`.
 - Fail phải exit non-zero + journald message ngắn, không chứa state/secret.
-- Nếu có thể tái dùng Uptime Kuma push/monitor theo pattern audit hiện có mà không cần mở credential rộng, nối vào; nếu việc tạo monitor cần một cơ chế chưa audit thì **không tự mở rộng** — giữ timer+journal và ghi OPEN cho Host. Client tool error vẫn phải nổi ngay theo từng call.
+- **Báo động tới người vận hành là bắt buộc**: nối Uptime Kuma push theo pattern đã có (Hermes đã xác nhận pattern tồn tại) để health DOWN hiện ở Kuma, không chỉ nằm trong journal không ai đọc. Chỉ khi cổng chỉ-đọc chứng minh không dùng được pattern đó mà không mở credential rộng thì giữ timer+journal và ghi OPEN cho Host. Client tool error vẫn phải nổi ngay theo từng call.
 - Không gọi LLM cho health check.
 
 ## 6. SKILL.md — cơ chế nhớ tự nhiên
 Tạo `work/jev-integration/SKILL.md` qua Write_Path, ngắn và dùng được lại ở Bước 2.
+
+Đúng **chuẩn mở Agent Skills** để ChatGPT, Codex và Claude cùng nạp được: frontmatter `name: jev-reference` + `description`. `description` là phần duy nhất luôn nằm sẵn trong ngữ cảnh của AI, nên phải viết theo **tình huống cần dùng** (ví dụ: “Dùng khi phải chọn, xếp hạng, phân loại hoặc kiểm tra theo tiêu chí/tập lựa chọn đã biết…”), không viết theo tên công cụ; tối đa 1024 ký tự. Thân skill ngắn. Mượn chữ từ TypeSafe thì ghi nguồn MIT.
 
 Nội dung tối thiểu:
 - JEV = nguồn tham khảo cho bounded decisions, không phải authority.
