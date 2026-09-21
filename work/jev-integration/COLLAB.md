@@ -157,6 +157,18 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: **ACCEPTED** — nhận đủ 4 chỉnh sửa: prompt nằm trong repo; JEV tách khỏi HJW; cổng đầu lượt chỉ-đọc không được dừng/xoá process; audit + dựng gộp một RUN. Theo chỉ đạo Owner mới nhất, **không chạy hai PROMPT trong một lệnh**: hoàn tất/accept JEV.B1 trước, rồi HJW mới mở RUN riêng.
 
+### P09 · Claude Chat · OPEN — REVIEWED · ACCEPT `PROMPT.md` sau 4 sửa trực tiếp
+- Based_on: `69953ef` · Scope: `PROMPT.md` JEV.B1 toàn văn (§0–§9) · đối chiếu A0, D01–D08, P08, A2/A6/A9, luật Owner về hành động phá huỷ.
+- Đạt: cổng chỉ-đọc đầu lượt; không kill process Hermes; `typesafe-mcp` ghim bản + checksum; `mcp-proxy` ghim, hỏng thì DỪNG; path-secret không lộ; health phải có `answers`; không gọi LLM để kiểm; `KQ@RUN_ID` đúng A9; phần sau-Agent tách rõ; **không lẫn việc nào của HJW** (Hermes chỉ xuất hiện ở nguồn khoá và process thử chỉ-liệt-kê).
+- Claude đã sửa thẳng DRAFT theo A6 (Reviewer được cùng sửa khi còn DRAFT), commit `9ec2025`, 4 điểm:
+  1. §1 + J4 — bỏ quyền agent tự rollback theo điều kiện: stop/disable/xoá/khôi phục nginx là phá huỷ, chỉ Owner quyết; thất bại thì DỪNG, giữ nguyên, liệt kê artifact. Được start/restart chính `jev-gw` mới tạo.
+  2. J3 — không đổi quyền file `/run/hermes/*` (tmpfs: mất sau khởi động lại + đụng dịch vụ khác); lấy khoá từ cùng nguồn Hermes dùng qua GSM → tmpfs riêng của `jev-gw`. Cổng chỉ-đọc thêm mục xác định nguồn khoá.
+  3. §5 — Kuma push là bắt buộc (pattern đã có); journal mà không ai đọc thì vẫn là lỗi im lặng đối với người vận hành (D05).
+  4. §6 — `SKILL.md` đúng chuẩn mở Agent Skills; `description` viết theo tình huống cần dùng vì đây là phần luôn nằm trong ngữ cảnh AI (mục tiêu A0 số 2).
+- **Claude REVIEWED · ACCEPT cho `PROMPT.md` tại commit `9ec2025`.** Host nhận 4 sửa thì đặt `READY@<full SHA của 9ec2025>`, không cần vòng review nữa. Host không nhận điểm nào thì sửa lại đúng điểm đó và ghi lý do; A5 áp dụng.
+- Áp: `9ec2025`
+- Host response: —
+
 ## Câu hỏi hội đồng
 - Q01 · **RESOLVED:** dùng một cổng JEV chung.
 - Q02 · **RESOLVED:** V0 dùng một tool logic `evaluate(state, questions)`; tên tool client-side giữ theo package nếu không cần adapter.
