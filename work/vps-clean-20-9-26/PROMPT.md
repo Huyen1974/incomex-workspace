@@ -20,14 +20,13 @@ Soạn: Claude Chat (Host), 21/09/2026, từ P14 + P15 (GPT) + V2 (Codex: V2-01,
 - Xoá theo danh sách tên; in số dự kiến và số thực trước mỗi nhóm; lệch → DỪNG nhóm đó.
 - Sau mỗi Phase: đo lại §0.5; health xấu đi → DỪNG.
 
-## Phase 0 — SEC-01: xoay token Drive (Owner ngồi máy ~5 phút)
-0.1 Xác định remote rclone Drive mà `backup-to-gdrive.sh`, `code-backup-to-gdrive.sh`, backup Lark dùng: chỉ in TÊN remote và TÊN file cấu hình. Kiểm remote có client riêng không bằng `grep -c` dòng `client_id` có giá trị (chỉ in số): >0 → DỪNG Phase 0 (cần hướng dẫn riêng).
-0.2 Nạp token cũ vào biến shell con (không in). Trên Mac chạy `rclone authorize "drive"` (thiếu rclone thì cài qua Homebrew) và nhắn Owner đúng một câu: **"Trình duyệt vừa mở: anh đăng nhập đúng tài khoản Google chứa thư mục backup rồi bấm Cho phép (Allow)."** Token mới đi thẳng qua pipe/SSH vào `rclone config update <remote> token …` trên VPS, không in.
-0.3 Kiểm token mới: liệt kê đích backup mã hoá (chỉ in số đối tượng).
-0.4 Thu hồi token cũ bằng endpoint thu hồi OAuth của Google (giá trị từ biến ở 0.2). Kiểm lại 0.3. Nếu token mới cũng mất hiệu lực → làm lại 0.2 đúng MỘT lần (Owner bấm Cho phép lần nữa) → kiểm lại. KHÔNG thu hồi bằng cách gỡ toàn bộ quyền ứng dụng trong tài khoản Google (có thể cắt cả máy khác dùng rclone).
-0.5 File cấu hình rclone khác trên VPS còn giữ đúng token cũ (so bằng băm, không in) → cập nhật token mới.
-0.6 Chỉ sau khi 0.4 xác nhận token cũ đã bị thu hồi: trên Mac tìm file dữ liệu/transcript/scratchpad của Claude Code có chứa token cũ (`grep -rlF` với giá trị từ biến, chỉ in tên file) → xoá các file đó; báo số file đã xoá (không ghi đường dẫn có tên tài khoản vào repo).
-0.7 Phase 0 lỗi hoặc bị chặn → KHÔNG làm Phase 2 và 3 (dùng Drive); vẫn làm Phase 1; ghi `STOPPED · Phase 0`.
+## Phase 0 — SEC-01: chuyển Drive sang khoá OAuth riêng (P16 · Owner ngồi máy ~15 phút)
+0.1 Xác định remote rclone Drive mà `backup-to-gdrive.sh`, `code-backup-to-gdrive.sh`, backup Lark dùng: chỉ in TÊN remote và TÊN file cấu hình. Đếm remote đã có `client_id` riêng (`grep -c`, chỉ in số).
+0.2 **CẤM trong R3:** gọi endpoint thu hồi OAuth của Google; gỡ quyền ứng dụng trong tài khoản Google; cấp token mới bằng client dùng chung của rclone. (Thu hồi có thể làm chết mọi token cùng project, kể cả máy khác; client chung của rclone đang bị ngừng trong 2026.)
+0.3 **Remote đang dùng client chung → chuyển sang client riêng, có Owner cùng làm:** hướng dẫn Owner tạo client OAuth riêng trong Google Cloud Console — mở đúng từng trang trên Mac bằng `open <URL>`, mỗi bước một câu ngắn, chờ Owner báo xong rồi mới sang bước kế: (a) chọn/tạo project; (b) bật Google Drive API; (c) màn hình đồng ý: tài khoản Google Workspace chọn **Nội bộ (Internal)**; nếu là Gmail cá nhân chọn External rồi **Publish (đưa lên production)** — KHÔNG để ở chế độ Testing vì token sẽ hết hạn sau 7 ngày; (d) tạo OAuth client loại **Desktop app**, tải file JSON về thư mục Tải về (Downloads). Agent đọc file JSON vào biến (không in) → cập nhật đúng các remote ở 0.1 sang client đó → chạy `rclone authorize "drive" <client_id> <client_secret>` trên Mac, nhắn Owner đúng một câu **"Trình duyệt vừa mở: anh đăng nhập đúng tài khoản Google chứa thư mục backup rồi bấm Cho phép (Allow)."** → token đi thẳng qua pipe/SSH vào `rclone config update <remote> token …`, không in. Xong thì xoá file JSON khỏi Downloads.
+0.4 **Remote đã có client riêng →** chỉ cấp lại token đúng client đó như cuối 0.3.
+0.5 Kiểm trên mọi remote vừa đổi: liệt kê đích backup mã hoá (chỉ in số đối tượng). PASS → `SEC-01 = MIGRATED · PENDING_REVOKE` và được làm Phase 2–3. Việc gỡ quyền cũ + xoá transcript chứa token cũ là việc Owner làm sau R3 theo hướng dẫn Host (P16 c/d) — R3 KHÔNG xoá transcript.
+0.6 Owner không làm được lúc này, hoặc 0.3–0.5 lỗi/bị chặn → `SEC-01 = PENDING_CLIENT`, giữ nguyên cấu hình cũ (nếu đã đổi dở thì trả về bản cũ và kiểm lại đọc được), KHÔNG làm Phase 2–3; vẫn làm Phase 1.
 
 ## Phase 1 — Bịt vòi trên VPS (không cần Drive)
 1.1 **V2-01 · `scripts/qdrant-backup.sh` fail-closed:** mọi lỗi từ POST tạo snapshot tới DELETE đều ghi `FAILED` vào `backup.log`, thoát ≠0 và không DELETE (bọc từng bước hoặc trap). Khoá Qdrant không nằm trên dòng lệnh (truyền qua stdin/biến môi trường). Mô phỏng đủ nhánh lỗi POST / copy / checksum / DELETE.
@@ -43,12 +42,12 @@ Soạn: Claude Chat (Host), 21/09/2026, từ P14 + P15 (GPT) + V2 (Codex: V2-01,
 1.4 **Cảnh báo đĩa (T4) — chỉ đọc:** `disk-monitor.sh` và uptime-kuma hiện có gửi được báo đến Owner không (không cấu hình mới, không đọc mật khẩu); ghi kết quả.
 1.5 **Ghi ngay** mục R3 phần 1 lên đầu `BAO-CAO.md` + dòng `VPSC.5b` = `IN_PROGRESS · Phase 0/1 xong`.
 
-## Phase 2 — Drive: fail-closed + hạn giữ (chỉ khi Phase 0 PASS)
+## Phase 2 — Drive: fail-closed + hạn giữ (chỉ khi SEC-01 = MIGRATED)
 2.1 **`scripts/backup-to-gdrive.sh` fail-closed:** nhánh snapshot Qdrant — list/create/tải lỗi thì KHÔNG DELETE snapshot nguồn và trạng thái lượt không được là PASS; chỉ DELETE sau khi tải xong và kích thước >0. Khoá Qdrant khỏi dòng lệnh. Mô phỏng nhánh lỗi; không chạy backup thật.
 2.2 **Hạn giữ ở đích Drive** (thêm vào `backup-to-gdrive.sh`, chạy SAU khi lượt upload mới đã kiểm xong; lỗi tỉa chỉ cảnh báo): thư mục backup mã hoá chính giữ **30 bộ ngày gần nhất + bộ cuối mỗi tháng trong 12 tháng** (một bộ = artifact + meta cùng lượt; không bao giờ xoá bộ mới nhất); `rescue/vpsc-r2/` xoá sau 2026-10-21; `rescue/vpsc-r3/` giữ 12 tháng. Tính trước trần dự kiến ở đích (GB) và so với dung lượng Drive còn trống.
 2.3 **Tỉa Drive lần đầu:** chạy thử không xoá (in tên + số bộ sẽ xoá; dự kiến ~30 bộ từ 20/07 tới ~20/08, giữ bộ cuối 31/07); lệch nhiều → DỪNG. Khớp → chạy thật, kiểm số bộ còn lại.
 
-## Phase 3 — Đợt 2: cứu N9/N11 ra ngoài rồi xoá (chỉ khi Phase 0 PASS)
+## Phase 3 — Đợt 2: cứu N9/N11 ra ngoài rồi xoá (chỉ khi SEC-01 = MIGRATED)
 3.1 Danh sách đúng tên từ V1b: **N9** = các target trong bảng "N9 — kết quả theo từng tên" (trong `/tmp` của container postgres); **N11** = 38 target của V1b TRỪ `/root/agent-runs`, `backups/mysql/backup.log` và mọi mục N12. In số lượng + tổng byte trước; lệch với V1b/V2 → DỪNG nhóm.
 3.2 Cứu từng nhóm: luồng `tar` → nén → mã hoá bằng đúng khoá công khai của backup → `rclone rcat` vào `rescue/vpsc-r3/<nhóm>.tar.gz.gpg`; md5 luồng = md5 phía Drive; kèm manifest nhỏ (tên + byte từng mục). Dùng `--tpslimit` để tránh giới hạn tốc độ. Không tạo file lớn trên VPS.
 3.3 Chỉ xoá nhóm sau khi md5 khớp; xoá đúng danh sách; kiểm lại.
@@ -59,7 +58,7 @@ Soạn: Claude Chat (Host), 21/09/2026, từ P14 + P15 (GPT) + V2 (Codex: V2-01,
 - Cập nhật mục "R3 — Bịt nốt vòi + đợt 2 · <ngày> · executor=Claude Code CLI · write_path=<…>" ở đầu `BAO-CAO.md`: (1) CHO OWNER ≤8 dòng: SEC-01 xong chưa; df trước/sau; vòi nào đã có hai khoá; Drive đã có hạn giữ chưa. (2) Bảng vòi: tên · khoá nơi sinh · khoá nơi chứa · trần · trạng thái. (3) Script/commit/cron. (4) Bản cứu N9/N11: tên, byte, md5 (không ID Drive). (5) Việc còn lại: N6–N8 sau R03 (chủ R03); TTL `workspace-tools` (chủ agent-data); kết quả T4.
 - Repo công khai: không secret/token, IP/tên miền nội bộ, ID Google Drive, tên tài khoản, output lệnh thô.
 - Sửa dòng `VPSC.5b` thành `MACHINE_DONE · R3 · xem BAO-CAO.md` hoặc `STOPPED · <Phase/bước> · <lý do>`.
-- Trả đúng một dòng: `XONG · VPSC-R3 · SEC-01 <xong|chưa> · trống <trước>→<sau>GiB · vòi hai khoá <n>/<tổng> · Drive hạn giữ <có|chưa> · xem BAO-CAO.md` hoặc `DỪNG · VPSC-R3 · <Phase/bước> · <lý do>`.
+- Trả đúng một dòng: `XONG · VPSC-R3 · SEC-01 <MIGRATED·PENDING_REVOKE|PENDING_CLIENT> · trống <trước>→<sau>GiB · vòi hai khoá <n>/<tổng> · Drive hạn giữ <có|chưa> · xem BAO-CAO.md` hoặc `DỪNG · VPSC-R3 · <Phase/bước> · <lý do>`.
 
 ## 5. Sau R3 (không phải việc của agent)
 Codex V3 chỉ đọc, sau ít nhất một lượt cron Qdrant thật + một vòng người gác: kiểm trigger thật, hai khoá, hạn giữ Drive, df. PASS → VPSC.6 theo dõi 2 tuần.
