@@ -13,8 +13,8 @@ HTML chính: `view.html`
 VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | V2 Codex hậu kiểm R2 · OWNER_APPROVED + READY | NEXT: Owner phát RUN V2 cho Codex | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-V2-20260921-01` · Codex hậu kiểm R2 · AUDIT / NO PRODUCTION MUTATION.
-- **PROMPT_SHA: SAME_COMMIT** (Host ghi hash thật ngay sau commit này).
-- **OWNER_APPROVED@SAME_COMMIT** (D06: Host chỉ đạo Codex trực tiếp; Owner 21/09 "điều hành tiếp") · **Host READY@SAME_COMMIT** — preflight (21/09 ~11:10Z): đĩa 53/96GB, 55%, trống 44GB; 12 container healthy, agent-data về lại image `agent-data-r03:20260920-finalclose`; Executor Codex Desktop qua SSH (đã chạy V1/V1b); Write_Path `workspace_*` (R2 đã ghi được sau khi HVU-B3 rollback); R03 CLIENT-ONLY; V2 chỉ đọc.
+- **PROMPT_SHA = abe38f1992a61dedd9f3a9a664a63b6356b19cc4** (commit cuối chạm `PROMPT.md`).
+- **OWNER_APPROVED@abe38f1992a61dedd9f3a9a664a63b6356b19cc4** (D06: Host chỉ đạo Codex trực tiếp; Owner 21/09 "điều hành tiếp") · **Host READY@abe38f1992a61dedd9f3a9a664a63b6356b19cc4** — preflight (21/09 ~11:10Z): đĩa 53/96GB, 55%, trống 44GB; 12 container healthy, agent-data về lại image `agent-data-r03:20260920-finalclose`; Executor Codex Desktop qua SSH (đã chạy V1/V1b); Write_Path `workspace_*` (R2 đã ghi được sau khi HVU-B3 rollback); R03 CLIENT-ONLY; V2 chỉ đọc.
 - R2 (lịch sử): PROMPT_SHA `f701fc5ca09041d47752cc7c5bca46ab290e8043` · GPT REVIEWED + OWNER_APPROVED + READY đã dùng · KQ XONG. **Host tự đo sau R2 (21/09 ~11:10Z):** 91% → 55%, trống 9,4 → 44GB. Ghi nhận: HVU-B3 đã chạy chen 10:20–10:25Z trái điều kiện vận hành của READY; agent R2 xử lý đúng (đợi ổn định, kiểm health rồi mới làm B2/B3).
 - **GPT REVIEWED@f701fc5ca09041d47752cc7c5bca46ab290e8043 · ACCEPT** — đã kiểm A1–A4 + B1–B4 + K1–K2, gate dừng/health, phạm vi HOLD và đường deploy Nuxt thực tế; không mở P mới. R2 đủ để Owner duyệt mutation.
 - **OWNER_APPROVED@f701fc5ca09041d47752cc7c5bca46ab290e8043** — Owner 21/09: "giao cho Claude Code CLI prompt bạn vừa soạn" (gật Q05).
