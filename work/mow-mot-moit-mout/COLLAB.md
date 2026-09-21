@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | READY · RUN_OWNER_REISSUED | NEXT: Codex chạy MMIM.2 theo PROMPT mới; KHÔNG sửa HTML chính.
+MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | READY · RUN_SUSPENDED · HOST_PREFLIGHT_REQUIRED | Codex đã DỪNG vì workspace thực thi không thấy COLLAB/PROMPT; chưa mutation. NEXT: precheck môi trường Codex, Host xác minh đủ đầu vào rồi mới RUN lại.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -23,6 +23,7 @@ MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | READY · RUN_OWNER_REISSUED | NEX
 - D05 · 2026-09-20 · Lượt Codex này chỉ khảo sát, phân loại và copy tài liệu; không được sửa, đổi tên hoặc tái cấu trúc `mow-mot-moit-mout.html`, không xoá/di chuyển nguồn trên Mac.
 - D06 · 2026-09-20 · `work/mow-mot-moit-mout/mow-mot-moit-mout.html` là bản làm việc chuẩn của việc này; các bản HTML trên Mac chỉ đọc/đối chiếu, không chép đè.
 - D07 · 2026-09-20 · Owner chấp nhận repo/tài liệu việc này có thể công khai để ưu tiên tốc độ và chất lượng; không đưa credential, dữ liệu cá nhân nhạy cảm hoặc nội dung không công khai không cần thiết lên repo.
+- D09 · 2026-09-21 · Áp dụng DROOT04 cho MMIM.2: READY không đủ để RUN; Host phải xác minh chính môi trường Codex có đầy đủ workspace/ref, file/source, tool/quyền và đích ghi trước khi phát RUN.
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
@@ -40,9 +41,15 @@ Reviewer: Claude Chat · Based_on `39cc96d` / commit review `f5f97fc`. Host GPT 
 ## Owner cần quyết
 - P01 · Xác nhận mục tiêu toàn việc (A0): “thiết kế chuẩn các UI, chuẩn quy trình tạo và khai báo thành công MOW/MOT/MOIT/MOUT/Field”; tiêu chí xong = mỗi đối tượng có UI chuẩn Owner chốt + quy trình tạo/khai báo viết thành bước + ≥1 lần khai báo thật thành công có bằng chứng. Đề xuất: GẬT → Host mở D08 + sửa §0; MMIM.2 không phải chạy lại.
 
+## Sự cố / bài học Host
+- I01 · 2026-09-21 · Codex trả: `DỪNG · MMIM.2 · Workspace hiện tại không có work/mow-mot-moit-mout/COLLAB.md và PROMPT.md; không thể xác minh ba gate bắt buộc. Chưa thay đổi file nào.`
+- Kết luận Host: repo SSOT qua MCP vẫn có đủ file và READY; lỗi là Host đã phát RUN khi chưa xác minh **workspace phía Codex** có đúng checkout/ref và có đọc được nguồn Mac hay không. Đây là lỗi preflight của Host, không phải lỗi agent.
+
 ## Giao Agent
-- READY@`7d8e1df9e50cfdd5a4b7cfaf8c66cad9343e26f3` · commit cuối chạm `PROMPT.md` sau xử lý P02–P05.
-- RUN · GPT phát lại theo ủy quyền Owner hiện hành, đúng phạm vi D04–D07; thay RUN cũ đã mất hiệu lực khi prompt đổi.
+- READY@`7d8e1df9e50cfdd5a4b7cfaf8c66cad9343e26f3` vẫn còn hiệu lực vì chưa ai sửa `PROMPT.md`.
+- RUN trước: **SUSPENDED / không phát lại** cho tới khi HOST PREFLIGHT PASS theo DROOT04.
+- Lượt kế tiếp phải là PRECHECK read-only từ chính môi trường Codex; PRECHECK không được tạo/sửa/copy/commit file.
 
 ## NEXT
-- Codex đọc AGENTS → COLLAB → PROMPT, kiểm READY SHA rồi thực hiện MMIM.2. Không sửa HTML chính, không đổi Owner View.
+- Xác minh phía Codex: repo root/remote/branch/HEAD; sự tồn tại và khả năng đọc AGENTS/COLLAB/PROMPT/HTML; khả năng đọc `/Users/nmhuyen/Desktop/quy trình`; tool/quyền cần thiết; đích `information/` chưa có xung đột.
+- Host đối chiếu kết quả với SSOT. Chỉ sau PASS mới phát RUN MMIM.2.
