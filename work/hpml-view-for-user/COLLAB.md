@@ -269,5 +269,7 @@ Based_on `abd5658` · READY@f245639 khớp commit cuối chạm PROMPT — PASS.
 ## RUN HVU-B3-RERUN-20260921-02 · Executor Codex/GPT Work
 - Agent-data: 60 regression tests PASS; health healthy tại 120s và 130s sau compose; initialize/tools/list/error/serverInfo của 4 route giống baseline (canonical SHA256 `c3acdca1ed3e0266e176ab221e804429e04fb236e4a5498e6d2f96431fa74e1f`). Live read PASS; dòng này là live write để kiểm author/presence trước khi sang Claude gateway. Chưa kết luận hoàn tất RUN.
 
+- Claude gateway: contract giống baseline; 90 regression tests + isolated Git A/B/A PASS. Dòng này được ghi qua HTTP MCP thật bằng client kiểm thử có nhãn `HVU synthetic protocol client`; KHÔNG thay thế Claude Chat thật (LIVE_CROSS_SURFACE_PENDING).
+
 ## Owner cần quyết
 - — · Không còn quyết định nghiệp vụ chặn lượt chạy lại B3.
