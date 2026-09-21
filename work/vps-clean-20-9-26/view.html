@@ -18,11 +18,11 @@ small{color:#666}
 </head>
 <body>
 <h1>Dọn đĩa VPS · 20/09/2026</h1>
-<p><span class="tag">Khảo sát xong · đang kiểm chéo</span><span class="tag">Bước 2: kiểm toán, không đụng production</span><span class="tag">Chưa chạm production</span></p>
+<p><span class="tag">Kiểm chéo xong · chờ anh duyệt dọn</span><span class="tag">Bước 2: kiểm toán, không đụng production</span><span class="tag">Chưa chạm production</span></p>
 
-<div class="box"><strong>Kiểm chéo lần 1 dừng giữa chừng</strong> vì đĩa lên 91% (lỗi đặt ngưỡng của Host, đã sửa). Codex đã xác nhận: Qdrant giữ 160 bản chụp 27,6GB và script không xoá — thủ phạm chính. Chưa đủ bằng chứng để xoá: cần chứng minh có bản sao Qdrant ngoài VPS trước. <strong>Việc anh làm:</strong> dán lệnh V1b cho Codex để làm nốt phần còn dở.</div>
+<div class="box"><strong>Anh cần quyết:</strong> cho dọn đợt 1 — cắt log Directus, xoá 979 bản dựng tạm, 6 thư mục cache, 63 bản sao web cũ, và ~159 bản chụp Qdrant cũ <em>sau khi</em> đã cứu 1 bản mới nhất ra ngoài VPS có kiểm tra; đồng thời cài người gác kho tự động để không đầy lại. Đề xuất: <strong>gật</strong>. Dự kiến đĩa trống 9,5 → ~43GB; đợt 2 (cứu rồi xoá dump cũ) đưa lên trên 45GB.</div>
 
-<div class="bar" id="TIEN-DO"><span>✔ 1 Mở việc</span><span>✔ 2 Khảo sát</span><span class="now">▶ 3 Kiểm chéo</span><span>□ 4 Anh duyệt</span><span>□ 5 Dọn + khoá vòi</span><span>□ 6 Theo dõi, đóng</span></div>
+<div class="bar" id="TIEN-DO"><span>✔ 1 Mở việc</span><span>✔ 2 Khảo sát</span><span>✔ 3 Kiểm chéo</span><span class="now">▶ 4 Anh duyệt</span><span>□ 5 Dọn + khoá vòi</span><span>□ 6 Theo dõi, đóng</span></div>
 
 <h2 id="TINH-HINH">1. Tình hình — không phải mất một nửa, mà đã mất hết</h2>
 <table>
