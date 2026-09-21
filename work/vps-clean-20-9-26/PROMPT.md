@@ -1,16 +1,18 @@
 # PROMPT — VPSC · R1 Kiểm toán đĩa VPS (AUDIT / NO PRODUCTION MUTATION): vì sao đầy lại nhanh + sổ nguồn sinh + danh sách dọn đề xuất
 
 RUN_ID: VPSC-R1-20260920-01
-Soạn: Claude Chat (Host việc này), 2026-09-20; đã sửa theo P01–P10 của GPT (xem COLLAB). Owner giao: đánh giá vì sao đĩa VPS đầy nhanh; đề xuất dọn phần không dùng để có chỗ cài Graph DB. Trạng thái KHÔNG ghi ở file này: chỉ tin giấy phép trong `work/vps-clean-20-9-26/COLLAB.md`.
+Soạn: Claude Chat (Host việc này), 2026-09-20; đã sửa theo P01–P12 + D04 (xem COLLAB). Owner giao: đánh giá vì sao đĩa VPS đầy nhanh; đề xuất dọn phần không dùng để có chỗ cài Graph DB. Trạng thái KHÔNG ghi ở file này: chỉ tin giấy phép trong `work/vps-clean-20-9-26/COLLAB.md`.
 Chỉ chạy khi COLLAB đó có `REVIEWED@` của Founder không soạn (GPT) + Host `READY@` (hoặc `OWNER_APPROVED@`) đúng full SHA commit cuối chạm file này, cộng lệnh RUN hợp lệ.
-**Chế độ: AUDIT / NO PRODUCTION MUTATION.** Không thay đổi runtime, config, data, service trên VPS. Chỉ được ghi đúng 2 nơi ở §2. Không ghi gì vào repo workspace. Mọi kết quả R1 mang nhãn `UNVERIFIED_R1` cho tới khi Host + thẩm tra độc lập kiểm xong.
+**Chế độ: AUDIT / NO PRODUCTION MUTATION.** Không thay đổi runtime, config, data, service trên VPS. Chỉ được ghi đúng 3 chỗ ở §2: thư mục bằng chứng thô ngoài Git trên VPS, file báo cáo `work/vps-clean-20-9-26/BAO-CAO.md` trên repo, và một dòng trạng thái VPSC.2 trong COLLAB. Mọi kết quả R1 mang nhãn `UNVERIFIED_R1` cho tới khi Host + thẩm tra độc lập kiểm xong.
 
-## 0. Trước khi làm
+## 0. Trước khi làm — cổng đầu vào (DROOT04/DROOT06)
 1. Đo `df -h /` TRƯỚC mọi việc khác: Used ≥90% hoặc Available <8GB → chỉ làm phần nhẹ (§3 Docker/log/lsof, §5), bỏ scan toàn cây, báo số.
-2. KHÔNG clone repo (không vào /tmp hay bất kỳ đâu). Đọc repo bằng đường không ghi đĩa: (a) công cụ `workspace_*` của Agent Data (đường đã audit); hoặc (b) GitHub đọc-only qua API/raw (repo công khai), không lưu file. Không đọc thẳng các clone của đầu nối (`mcp-roots/gh`, `data/workspace-tools/…`) vì có thể cũ. Không có đường đọc an toàn → DỪNG.
-3. Kiểm giấy phép: full SHA 40 ký tự của commit cuối chạm file này (lấy bằng log theo path qua đường đọc ở bước 2) phải khớp `READY@`/`OWNER_APPROVED@` trong COLLAB; thiếu/lệch → DỪNG.
-4. Đọc `AGENTS.md` (A0 trước tiên), `work/vps-clean-20-9-26/COLLAB.md` (khối 0 trước tiên) + `view.html`, và KB `knowledge/current-state/reports/vps-clean-minimum-2026-07-24.md` — MỐC so sánh (số liệu, danh sách đã dọn, mọi chỗ cách ly ngày 24/07).
-5. Đọc dòng R03 trong `work/mcp-workspace/COLLAB.md`: đang deploy thì CHỜ xong mới đo; chưa CLOSED thì áp khoá chéo ở §2.
+2. **Executor_Surface = Claude Code CLI** (chạy trên VPS).
+3. **Write_Path** theo capability đã audit (README §0/D12), không theo hãng: ưu tiên `workspace_*` (Agent Data); nếu chính phiên này không bind `workspace_*` nhưng bind `fs_*` ("Incomex VPS") đã audit thì dùng `fs_*`. Mọi đọc/ghi repo đi qua đúng family đã chọn, không đổi family giữa chừng. CẤM `git add/commit/push`, GitHub native/App/API/CLI để ghi repo. KHÔNG clone repo (không vào /tmp hay bất kỳ đâu); không đọc thẳng các clone của đầu nối (`mcp-roots/gh`, `data/workspace-tools/…`).
+4. Gọi đúng MỘT read-gate của Write_Path đã chọn: đọc `work/vps-clean-20-9-26/COLLAB.md` (`workspace_read` hoặc `fs_read`). Gate fail → DỪNG trước mọi việc, nêu tool đã thử. Ghi `WRITE_PATH=<workspace_*|fs_*>` vào báo cáo.
+5. Kiểm giấy phép: full SHA 40 ký tự của commit cuối chạm file này (log theo path qua Write_Path) phải khớp `READY@`/`OWNER_APPROVED@` trong COLLAB — so với commit cuối chạm PROMPT, KHÔNG so với HEAD repo; thiếu/lệch → DỪNG.
+6. Đọc `AGENTS.md` (A0 trước tiên) → README §0/§12 → `work/vps-clean-20-9-26/COLLAB.md` (khối 0 trước tiên) + `view.html`, và KB `knowledge/current-state/reports/vps-clean-minimum-2026-07-24.md` — MỐC so sánh, CHỈ ĐỌC (số liệu, danh sách đã dọn, mọi chỗ cách ly ngày 24/07).
+7. Đọc dòng R03 trong `work/mcp-workspace/COLLAB.md`: đang deploy thì CHỜ xong mới đo; chưa CLOSED thì áp khoá chéo ở §2.
 
 ## 1. Bối cảnh (bạn không nhớ phiên trước)
 - **Chính sách storage của Owner (D02, 21/09/2026)** — khung để phân loại và kết luận: VPS chỉ giữ dữ liệu nghiệp vụ + phần runtime thật sự cần để chạy. Dữ liệu vận hành KHÔNG được tăng vô hạn: cần giữ dài thì đưa ra ngoài VPS (Drive/off-VPS) kèm hạn giữ; tái tạo được thì đặt TTL rồi xoá tại chỗ — không mang rác sang Drive để đổi chỗ vòi rò. `3GB/tháng ngoài nghiệp vụ` là NGƯỠNG ĐỎ phải điều tra, không phải mức được phép.
@@ -35,7 +37,8 @@ Chỉ chạy khi COLLAB đó có `REVIEWED@` của Founder không soạn (GPT) +
 - **Hard-KEEP** (R1 không được xếp vào lớp xoá hay cách ly): container + image đang chạy và MỌI image cha của chúng; image Nuxt không tag đang chạy; tag rollback R03 (`claude-mcp-local:r03-*`, `agent-data-r03:*`) tới khi R03 CLOSED; `postgres:16` (dùng chung); volume đang gắn.
 - Registry Google đã chết → image local-only không dựng lại được từ mã trên VPS = `RESCUE_BEFORE_DELETE`. Cấm đề xuất `docker system prune -a`.
 - R03 chưa CLOSED: mọi đề xuất dọn/image/tag/rescue/restart có thể ảnh hưởng runtime hoặc rollback phải ghi rõ "chờ R03 CLOSED".
-- Chỉ ghi ra 2 nơi: (1) bằng chứng thô tại `/var/lib/incomex-audit/VPSC-R1-20260920/` — LUÔN ngoài mọi cây Git: trước khi ghi, `git -C <thư mục cha gần nhất đã có> rev-parse --is-inside-work-tree` phải báo KHÔNG nằm trong work tree; nằm trong → DỪNG. Tổng ≤200MB, lưu bảng tổng hợp chứ không lưu danh sách file thô toàn cây, đã che secret, có `INDEX.md`. Không bao giờ commit/push, không chép vào repo nào; (2) KB theo §9 — chỉ bản tóm tắt + index đã làm sạch, không raw output, không secret.
+- Chỉ ghi ra 3 chỗ: (1) bằng chứng thô tại `/var/lib/incomex-audit/VPSC-R1-20260920/` — LUÔN ngoài mọi cây Git: trước khi ghi, `git -C <thư mục cha gần nhất đã có> rev-parse --is-inside-work-tree` phải báo KHÔNG nằm trong work tree; nằm trong → DỪNG. Tổng ≤200MB, lưu bảng tổng hợp chứ không lưu danh sách file thô toàn cây, đã che secret, có `INDEX.md`. Không bao giờ commit/push, không chép vào repo nào; (2) repo: `work/vps-clean-20-9-26/BAO-CAO.md` theo §9 — bản tóm tắt đã làm sạch; (3) repo: đúng một dòng trạng thái `VPSC.2` trong `COLLAB.md` (§9). Không sửa `PROMPT.md`, `view.html`, `AGENTS.md`, `README.md` hay file nào khác; không ghi KB.
+- Repo CÔNG KHAI: `BAO-CAO.md` chỉ chứa số liệu tổng hợp, tên nhóm, đường dẫn, tên image/container/DB và GB. KHÔNG ghi: secret/token/khoá, nội dung .env/config, IP hay tên miền nội bộ, ID thư mục/tệp Google Drive, tên tài khoản, dữ liệu người thật, output lệnh thô. Nghi ngờ → để ở bằng chứng thô trên VPS, báo cáo chỉ dẫn đường tới đó.
 
 ## 3. Đo tổng + đối soát
 - `df -h /`, `df -i /`.
@@ -83,11 +86,14 @@ Lớp: `DELETE_PROVEN_SAFE` · `QUARANTINE_FIRST` · `RESCUE_BEFORE_DELETE` · `
 Theo Điều 39 (dự thảo): Graph = Apache AGE, extension trong PG hiện có, không thêm DB riêng. Ước lượng: image postgres có AGE; dữ liệu graph dựa trên `universal_edges` (đo bảng + index); biên an toàn. Kết luận: sau dọn có đủ không.
 
 ## 9. Báo cáo — ghi TRƯỚC khi trả Owner
-- Sửa KB `knowledge/current-state/reports/vps-clean-minimum-2026-07-24.md`: chèn mục "ĐỢT 2 — 09/2026 · VPSC-R1 · UNVERIFIED_R1" lên ĐẦU, giữ nguyên phần cũ bên dưới. Không tạo tài liệu KB mới.
+- Tạo (nếu chưa có) hoặc sửa `work/vps-clean-20-9-26/BAO-CAO.md` — tài liệu báo cáo DUY NHẤT của việc này cho mọi lượt (R1 → thẩm tra Codex → dọn); lượt mới chèn mục mới lên ĐẦU, giữ nguyên mục cũ. Mục của lượt này có tiêu đề "R1 — 09/2026 · UNVERIFIED_R1 · executor=Claude Code CLI · write_path=<…>". Ghi qua Write_Path đã chọn; commit nghiệp vụ `[Claude] VPSC.2 · work/vps-clean-20-9-26/BAO-CAO.md · R1 kiểm toán đĩa (executor=Claude Code CLI)`. KB 24/07 chỉ đọc, không ghi.
 - Thứ tự mục mới: (1) CHO OWNER ≤1 trang: tối đa 3 câu "anh cần quyết gì", mỗi câu kèm đề xuất PM; ma trận hàng = nhóm nguồn sinh §4, cột = LOẠI · Hiện tại GB · Tăng từ 24/07 · GB/tháng · Bounded? (trần local / đưa ra ngoài / TTL / `FAIL_UNBOUNDED`) · Mức ổn định dự kiến GB · Thu hồi an toàn GB · Màu (🔴 rò mạnh hoặc `FAIL_UNBOUNDED` · 🟡 cảnh báo · 🟢 ổn · ⚪ chưa đo · ✖ không cần); cộng dồn theo từng LOẠI rồi tổng, đối soát với df. Ngay dưới ma trận: hai con số tách bạch — dung lượng NGHIỆP VỤ và dung lượng VẬN HÀNH (hôm nay, và mức ổn định dự kiến sau khi áp trần). (2) CHO PM: Sổ nguồn sinh §4 · backup §5 · manifest §6 · khoá vòi §7 · Graph §8. (3) KHO BẰNG CHỨNG: đường dẫn + INDEX + tổng dung lượng evidence + lệnh đã chạy.
 - Viết để 3 tuần sau đọc vẫn hiểu; không kể nhật ký.
-- df lần cuối: chứng minh không thay đổi gì ngoài thư mục bằng chứng và tài liệu KB. Không commit/push bằng chứng thô ở bất kỳ đâu; không để lại file tạm nào ngoài thư mục bằng chứng.
-- Trả Owner đúng một dòng: `VPSC-R1-20260920-01: XONG (UNVERIFIED_R1) — <3 nguồn sinh chính kèm GB/tháng> · thu hồi an toàn <GB> · KB ĐỢT 2` hoặc `VPSC-R1-20260920-01: DỪNG ở <mục> — lý do ở KB ĐỢT 2`.
+- df lần cuối: chứng minh không thay đổi gì trên VPS ngoài thư mục bằng chứng. Không commit/push bằng chứng thô ở bất kỳ đâu; không để lại file tạm nào ngoài thư mục bằng chứng.
+- Cập nhật COLLAB: CHỈ sửa dòng kế hoạch `VPSC.2` thành `MACHINE_DONE · UNVERIFIED_R1 · xem BAO-CAO.md` (hoặc `STOPPED · <lý do ngắn>`), có expected_version; không sửa dòng khác.
+- Sau khi ghi repo: đọc lại `BAO-CAO.md` + diff commit, xác nhận chỉ đúng 2 file (`BAO-CAO.md`, `COLLAB.md`) thay đổi và máy quét bí mật không chặn.
+- Timeout/`OUTCOME_UNKNOWN`/`RECOVERY_REQUIRED`: đọc lại/journal/commit trước, retry cùng idempotency key; không ghi mù. Ghi repo thất bại hẳn sau khi đã kiểm toán xong → để báo cáo tại `/var/lib/incomex-audit/VPSC-R1-20260920/BAO-CAO.md` và DỪNG kèm đường dẫn đó (Host chuyển lên repo).
+- Trả Owner đúng một dòng: `XONG · VPSC-R1 · executor=Claude Code CLI · write_path=<workspace_*|fs_*> · UNVERIFIED_R1 · <3 nguồn sinh chính kèm GB/tháng> · thu hồi an toàn <GB> · xem work/vps-clean-20-9-26/BAO-CAO.md` hoặc `DỪNG · VPSC-R1 · <mục> · <lý do cụ thể>`.
 
 ## 10. Sau Agent (không phải việc của Agent)
-VPSC.3: Host tự đo lại bằng công cụ của mình (không tin báo cáo) và lập đề xuất dọn theo nhóm trên `view.html`; GPT (hoặc Codex/Astra do GPT giao) thẩm tra độc lập, PASS/REVISE/BLOCK từng nhóm. VPSC.4: Owner duyệt các nhóm đã PASS. Dọn + khoá vòi là lượt sau: sửa chính file này, review/READY lại.
+VPSC.3: Host tự đo lại bằng công cụ của mình (không tin báo cáo), đưa phần đã kiểm vào `view.html`; Codex thẩm tra độc lập theo D03 (GPT soạn đề bài, Claude review), PASS/REVISE/BLOCK từng nhóm, kết quả là mục mới trong chính `BAO-CAO.md`. VPSC.4: Owner duyệt các nhóm đã PASS. Dọn + khoá vòi là lượt sau: sửa chính file này, review/READY lại.
