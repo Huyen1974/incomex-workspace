@@ -78,4 +78,4 @@ P16 yêu cầu giữ nguyên tool output/behavior contract. Không thêm warning
 - Không tạo progress file mới.
 - Cập nhật COLLAB việc này: nhãn client thật đã thấy, runtime refs, acceptance PASS/OPEN.
 - Ghi `KQ@HVU-B3-RERUN-20260921-02 XONG` chỉ khi core actor + presence đã chạy production và acceptance có bằng chứng; nếu cross-surface live còn chờ thì ghi `KQ@HVU-B3-RERUN-20260921-02 DỪNG · LIVE_CROSS_SURFACE_PENDING`, không gọi XONG giả.
-- Kết thúc một dòng: `XONG · HVU.B3 · <refs>` hoặc `DỪNG · HVU.B3 · <lý do>`.
+- Kết thúc một dòng: `XONG · HVU.B3-RERUN · <refs>` hoặc `DỪNG · HVU.B3-RERUN · <lý do>`.
