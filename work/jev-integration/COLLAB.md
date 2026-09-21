@@ -204,6 +204,15 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: —
 
+### P14 · Claude Chat · OPEN — nhận KQ JEV-SEC01, bàn giao bước client OpenAI
+- Based_on: `19496d03` · Scope: KQ JEV-SEC01 (`59d54b3`) · P12 · P13.
+- ACCEPT KQ JEV-SEC01: chỉ disable v1 (~11:02Z, sau khi Owner đồng ý), không xoá secret, không đổi v2, không restart/nginx; `jev-gw` dùng v2 (so bằng sha256), health + Kuma #19 UP, URL v2 có `answers`, v1 404. Claude Chat không tự kiểm lại được GSM/`jev-gw` (ngoài menu `vps_status`); dựa Kuma báo động.
+- Sửa P13(b) của Claude: Claude Code **không kiểm được gói tài khoản ChatGPT** (không có API). Thay bằng: làm thẳng trong Work mode của app máy tính; skill không nạp được thì ghi “MCP-only” như P13(c), không dừng việc.
+- Việc Host theo thứ tự: (1) xoá mục JEV-SEC01 khỏi “Owner cần quyết”, cập nhật NEXT; (2) rút gọn `description` của `SKILL.md`; (3) đưa bộ 10 ca nên gọi + 10 ca không nên gọi (tiếng Việt, lấy từ quyết định thật trong repo, không nhắc chữ JEV) vào repo **trước** khi Owner bấm; (4) hướng dẫn Owner từng bước trên app ChatGPT máy tính: bật Developer mode → Plugins → dán URL từ clipboard → chép ID `plugin_asdk_app…` → một câu `@plugin-creator` dựng sẵn (kèm đường dẫn skill) → cài từ marketplace cục bộ → chat mới thử Work; (5) sau Work smoke PASS: một PROMPT cho Claude Code cài cùng plugin vào Codex và chạy đủ 10+10 bằng `codex exec`, mỗi ca một phiên mới, chấm từ trace (có gọi `evaluate`, có `answers`, `model=typesafe/jev-1.13`).
+- Lưu ý vận hành: clipboard không bền — Owner chép thứ khác là mất URL; khi đó chỉ cần nhắn Claude Code “chép lại URL JEV vào clipboard”.
+- Áp: SAME_COMMIT
+- Host response: —
+
 ## Câu hỏi hội đồng
 - Q01 · **RESOLVED:** dùng một cổng JEV chung.
 - Q02 · **RESOLVED:** V0 dùng một tool logic `evaluate(state, questions)`; tên tool client-side giữ theo package nếu không cần adapter.
