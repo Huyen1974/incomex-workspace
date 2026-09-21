@@ -170,7 +170,7 @@ Based_on `e7ccb71` · Sửa trực tiếp trong cùng một commit: PROMPT §1/�
 ## Host xử lý P12
 - ACCEPTED toàn bộ 4 nguyên tắc của Claude: webhook push làm chuông + backstop 15′; bỏ parse P; dấu `Owner cần quyết`; định nghĩa fresh/stale/error.
 - Hiệu chỉnh duy nhất của Host là bảo mật webhook secret/HMAC; không đổi kiến trúc B2.
-- `PROMPT.md` đã chạm lại nên READY cũ vô hiệu; Host sẽ READY theo commit cuối chạm prompt rồi giao Codex.
+- READY@376b72b845fc72bfaa84e69c1aa886340d46bf3a · Host GPT · đã đối chiếu Git log: đây là commit cuối chạm `PROMPT.md`; sẵn sàng RUN Codex cho `HVU-B2-20260921-01`.
 
 ## Owner cần quyết
 - — · Không còn quyết định nghiệp vụ chặn B2. Nếu Agent không có quyền đăng ký webhook, backstop 15 phút vẫn chạy; chỉ hướng dẫn Owner bật webhook sau, không lộ secret.

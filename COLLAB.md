@@ -4,7 +4,7 @@ Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
 ## Đang làm
-- `work/hpml-view-for-user/` · HVU-B2 · P12 ACCEPTED; webhook push làm chuông + backstop 15′ + trạng thái A9 đã chốt, thêm hardening secret/HMAC; chờ READY mới rồi RUN Codex. B3 actor-surface làm riêng sau B2.
+- `work/hpml-view-for-user/` · HVU-B2 · READY@`376b72b845fc72bfaa84e69c1aa886340d46bf3a` · P12 ACCEPTED; webhook push làm chuông + backstop 15′ + trạng thái A9 + hardening secret/HMAC; sẵn sàng RUN Codex. B3 actor-surface làm riêng sau B2.
 - `work/mcp-workspace/` · R03 · chốt MCP Git + VPS để quay lại công việc nghiệp vụ.
 - `work/jev-integration/` · PLAN-V01 · mở việc, đang lấy ý kiến hội đồng; chưa RUN triển khai.
 - `work/hermes-joint-workspace/` · HJW · Claude mở việc, chờ GPT review; nối Hermes khi R03 CLOSED.
