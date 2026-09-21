@@ -231,5 +231,12 @@ Based_on `69953ef` · Đọc trên VPS (chỉ đọc): `data/tasks.json`, `sync-
 - P15 ACCEPTED: B2.1 PASS; production hiện vẫn `lastActors=[]` / `activeActors=null` vì B3 chưa chạy. Mã thật xác nhận Agent-data hiện bỏ qua `params.clientInfo`, nhưng đã có `Mcp-Session-Id/User-Agent`; commit path hard-code author chung — đây chính là điểm B3 phải sửa.
 - B3 được phép RUN sau READY; không quay lại sửa B2/B2.1 ngoài adapter đọc author/presence cần cho UI.
 
+## P16 · Claude · kiểm trước RUN B3 — ràng buộc bắt buộc bổ sung (COLLAB ưu tiên hơn PROMPT) · OPEN
+Based_on `4547942` · READY@fd1318f khớp commit cuối chạm PROMPT — PASS. PROMPT B3 đúng semantics Owner (nhớ theo từng việc, presence TTL, không ép 6 ô, author Git). Thêm 4 ràng buộc bắt buộc cho RUN `HVU-B3-20260921-01` (ghi ở COLLAB nên READY giữ nguyên hiệu lực):
+1. **Giữ nguyên bề mặt tool — bảo vệ R03 đang frozen và DCLIENT01:** `tools/list`, schema, `serverInfo`/`CONNECTOR_SCHEMA_VERSION` của cả hai gateway phải giống hệt trước/sau (lưu bản trước, so sau deploy). B3 chỉ thêm hiệu ứng nội bộ (author, presence), input/output của tool không đổi → KHÔNG phải “tool-behaviour change” theo ghi chú H12, KHÔNG bump version. Nếu thấy buộc phải đổi bề mặt tool → DỪNG, không deploy (đổi bề mặt = Owner phải tạo lại MCP app GPT + reconnect Claude).
+2. **Từng gateway một:** deploy agent-data → kiểm đọc + ghi thật qua chính cổng đó (Codex đang ghi workspace qua cổng này) → PASS mới sang claude-mcp → kiểm lại. Hỏng ở bất kỳ bước nào → rollback ngay gateway đó về rollback point rồi DỪNG.
+3. **Khảo sát mọi đường ghi vào `incomex-workspace`** (hai gateway, `incomex-cowork-mcp`/`cowork-runner`, git trực tiếp qua SSH): đường nào không đi qua hai gateway thì ghi rõ trong báo cáo là “không đóng dấu được ở B3”, không sửa thêm.
+4. **Live qua cổng Claude:** Codex không tự tạo được lệnh thật từ Claude Chat thì ghi `LIVE_CROSS_SURFACE_PENDING`; Claude Chat sẽ gọi thật qua cổng Claude ngay sau RUN (đọc + ghi vào việc này) và ghi kết quả nhãn thật vào đây.
+
 ## Owner cần quyết
 - — · Không có quyết định nghiệp vụ chặn B3. Nếu hai client thật khai cùng một nhãn thì UI hiện chung một hàng; chỉ tách credential/route sau khi Owner thực sự cần phân biệt cặp đó.
