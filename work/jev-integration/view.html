@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JEV Integration — Plan v0.1</title>
+<title>JEV Integration — Plan v0.2</title>
 <style>
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:1120px;margin:36px auto;padding:0 22px;line-height:1.55;color:#171717}
 h1,h2{line-height:1.2}.tag{display:inline-block;border:1px solid #bbb;border-radius:999px;padding:3px 10px;margin-right:6px;font-size:13px}
@@ -15,7 +15,7 @@ small{color:#666}@media(max-width:760px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<h1>JEV Integration — Plan v0.1</h1>
+<h1>JEV Integration — Plan v0.2</h1>
 <p><span class="tag">DRAFT</span><span class="tag">Council review</span><span class="tag">No production changes</span></p>
 <div class="box warn">
 <strong>MỤC TIÊU USER — NGUYÊN VĂN 2026-09-21</strong>
@@ -76,63 +76,72 @@ Skill + MCP                           Skill/instructions + same MCP
 <li><strong>Pin version khi nghiệm thu.</strong> Đề xuất pin <code>typesafe/jev-1.13</code>; chỉ dùng alias latest sau khi có version policy và rollback.</li>
 </ol>
 
-<h2>5. Bước 1 — Plan thực hiện sau khi hội đồng đồng thuận</h2>
+<h2>5. Bước 1 — Plan v0.2 sau khi hội đồng đồng thuận</h2>
 <table>
 <thead><tr><th>Gate</th><th>Việc</th><th>Đầu ra/tiêu chí</th></tr></thead>
 <tbody>
-<tr><td>G1 Contract</td><td>Chốt schema MCP tối thiểu, auth, provider adapter, log/audit.</td><td>Không phụ thuộc OpenAI/Claude.</td></tr>
-<tr><td>G2 Gateway spike</td><td>Dựng gateway nhỏ trên runtime VPS và gọi thật OpenRouter JEV.</td><td><code>jev_decide</code> và <code>jev_batch</code> trả structured result đúng contract.</td></tr>
-<tr><td>G3 OpenAI plugin</td><td>Tạo plugin cá nhân từ gateway; thêm Skill hướng dẫn khi nào gọi/không gọi JEV.</td><td>Plugin scan đúng tool/schema; chưa publish công khai.</td></tr>
-<tr><td>G4 GPT Work</td><td>Bind plugin, gọi thật decision + batch.</td><td>PASS client-side, không suy từ server.</td></tr>
-<tr><td>G5 Codex</td><td>Bind cùng plugin/gateway, gọi thật từ Codex.</td><td>PASS client-side. Hook review chưa bắt buộc ở v0 nếu hội đồng chưa chốt Q03.</td></tr>
-<tr><td>G6 ChatGPT Chat</td><td>Kiểm tra plugin có bind/call được trong chat thường hay không.</td><td>PASS nếu gọi thật; nếu không hỗ trợ bề mặt thì ghi UNSUPPORTED/OPEN, không giả FAIL backend.</td></tr>
-<tr><td>G7 Acceptance</td><td>Đối chiếu kết quả, latency, batch, lỗi/timeout, audit record.</td><td>Work + Codex PASS là lõi; Chat theo D01 là best-effort.</td></tr>
+<tr><td>G1 Contract</td><td>Chốt remote MCP và đúng một tool <code>jev_evaluate(state, questions)</code>.</td><td>Contract trung lập client, OpenRouter/model chỉ nằm ở runtime gateway.</td></tr>
+<tr><td>G2 Gateway</td><td>Dựng gateway mỏng, pin <code>typesafe/jev-1.13</code>, gọi thật OpenRouter.</td><td>Health PASS chỉ khi nhận/parsing được <code>answers</code> thật.</td></tr>
+<tr><td>G3 Observability</td><td>Validation + error taxonomy + structured log/health.</td><td>Mọi lỗi đều rõ là <code>unavailable</code>; không success giả, không fallback/retry mù.</td></tr>
+<tr><td>G4 OpenAI plugin</td><td>Plugin = MCP + một SKILL.md mỏng dạy khi nào nên/không nên tham khảo Jev.</td><td>Skill/tool description đủ để model tự gọi mà prompt không nhắc tên Jev.</td></tr>
+<tr><td>G5 GPT Work</td><td>Bind và gọi thật.</td><td>Client-side PASS.</td></tr>
+<tr><td>G6 Codex</td><td>Bind cùng gateway; hook nếu dùng chỉ nhắc/audit.</td><td>Client-side PASS; không deny/allow bằng Jev ở V0.</td></tr>
+<tr><td>G7 ChatGPT Chat</td><td>Thử cùng plugin nếu bề mặt bind được.</td><td>Kết luận bằng gọi thật, không suy từ tài liệu.</td></tr>
+<tr><td>G8 Acceptance</td><td>10 ca nên gọi + 10 ca không nên gọi mỗi bề mặt; thêm test lỗi có chủ đích.</td><td>≥7/10 tự gọi đúng; ≤2/10 gọi thừa; lỗi phải được phát hiện và AI vẫn tự quyết.</td></tr>
 </tbody>
 </table>
 
-<h2>6. Tool contract tối thiểu đề xuất</h2>
+<h2>6. Tool contract V0</h2>
 <div class="box">
-<strong>jev_decide</strong><br>
-Một state + một bộ câu hỏi/decision spec versioned → structured choices/probabilities.
-</div>
-<div class="box">
-<strong>jev_batch</strong><br>
-Nhiều records + một decision spec versioned → batch structured decisions.
-</div>
-<div class="box warn">
-<strong>jev_review — chưa chốt</strong><br>
-Có thể thêm cho action review/risk. Hội đồng cần quyết nên làm ngay ở Bước 1 hay để sau khi hai tool lõi đã ổn.
+<strong>jev_evaluate(state, questions)</strong><br>
+Một cửa duy nhất cho decision/batch/review. Gateway chịu trách nhiệm chuyển đổi/validate shape theo OpenRouter và trả structured answers hoặc trạng thái unavailable rõ ràng.
 </div>
 
-<h2>7. Chuẩn bị chung cho Bước 2 ngay từ Bước 1</h2>
+<h2>7. Cơ chế nhớ tự nhiên</h2>
 <ul>
-<li>Remote MCP endpoint công khai/được bảo vệ theo chuẩn mà Claude có thể kết nối về sau.</li>
-<li>Schema tool không dùng khái niệm riêng của GPT/Codex.</li>
-<li>Provider adapter giữ OpenRouter ở phía server; client không biết API vendor phía sau.</li>
-<li>Decision spec có ID + version; không nhúng rule cố định trong prompt của một client.</li>
-<li>Audit format thống nhất: request/decision id, model version, decision spec version, kết quả/probabilities, lỗi và latency; không log secret.</li>
+<li><strong>Một SKILL.md chuẩn mở</strong> viết ở Bước 1 và tái dùng ở Bước 2: khi nào nên hỏi Jev, khi nào không, cách đặt câu hỏi, và nguyên tắc “Jev chỉ để tham khảo”.</li>
+<li>Tool description cũng ghi ngắn gọn điều kiện dùng để các bề mặt chat/work luôn nhìn thấy.</li>
+<li>Codex/Claude Code có thể thêm SessionStart/UserPromptSubmit hook adapter riêng để nhắc/audit; không dùng hook làm cổng bắt buộc ở V0.</li>
 </ul>
 
-<h2>8. Chưa làm ở vòng này</h2>
+<h2>8. Observability first — lỗi phát hiện thế nào, phát hiện rồi làm gì?</h2>
+<table>
+<thead><tr><th>Loại</th><th>Phát hiện</th><th>Xử lý V0</th></tr></thead>
+<tbody>
+<tr><td>Request sai</td><td>Local schema/shape validation</td><td>Trả <code>INVALID_REQUEST</code>; model có thể sửa câu hỏi, không gọi OpenRouter vô ích.</td></tr>
+<tr><td>Auth/config/model/endpoint</td><td>HTTP/content-type + không có answers thật</td><td>Đánh health degraded, log rõ; trả <code>AUTH_OR_CONFIG</code>; AI tiếp tục không có Jev.</td></tr>
+<tr><td>Quota/rate limit</td><td>Provider error/status</td><td>Trả <code>QUOTA_OR_RATE_LIMIT</code>; không chặn công việc.</td></tr>
+<tr><td>Timeout/5xx</td><td>Timeout/provider failure</td><td>Trả <code>UPSTREAM_OR_TIMEOUT</code>; V0 không retry mù.</td></tr>
+<tr><td>Response sai/rỗng/HTML</td><td>Parse + bắt buộc có answers đúng contract</td><td>Trả <code>INVALID_RESPONSE</code>; không bao giờ coi HTTP 200 là PASS nếu không có Jev answer.</td></tr>
+</tbody>
+</table>
+<p>Telemetry tối thiểu: số lượt gọi, success/error class, model, latency và request id nếu có. Không cần tách OpenRouter key/routing chỉ để thống kê; gateway tự đếm được.</p>
+
+<h2>9. Provider và chi phí — cố ý không tối ưu sớm</h2>
 <ul>
-<li>Không tích hợp Zep/Graph/Cognee vào cùng task.</li>
-<li>Không làm JEV thành enforcement/guardrail cho production ngay.</li>
+<li>V0 chỉ dùng OpenRouter vì đó là đường thực tế hiện có.</li>
+<li>Không dựng fallback Vercel/Cloudflare/TypeSafe trực tiếp và không tranh luận provider trong pilot.</li>
+<li>Không bắt buộc key/hạn mức riêng cho Jev; chọn secret path hiện có an toàn và ít công nhất khi triển khai.</li>
+<li>Nếu production dùng nhiều hoặc độ tin cậy/chi phí làm phát sinh nhu cầu thật, lúc đó mới cân nhắc direct API/tách key/routing.</li>
+</ul>
+
+<h2>10. Calibration và nghiệm thu</h2>
+<ul>
+<li>Tập acceptance bằng tiếng Việt; prompt không nhắc chữ “Jev”.</li>
+<li>Chỉ lấy một phần nhỏ để so Việt/Anh nếu cần chỉnh skill; không dựng benchmark 40–60 ca riêng và không dùng nó làm gate huỷ dự án.</li>
+<li>Test lỗi có chủ đích bằng fixture/mock để chứng minh gateway phát hiện lỗi và trả unavailable đúng contract.</li>
+<li>Kết quả Jev không bắt buộc trình Owner; GPT/Claude tổng hợp và tự chịu trách nhiệm quyết định cuối.</li>
+</ul>
+
+<h2>11. Chưa làm ở vòng này</h2>
+<ul>
+<li>Không tích hợp Zep/Graph/Cognee/Hermes vào scope JEV hiện tại.</li>
+<li>Không dùng Jev làm enforcement/guardrail production.</li>
 <li>Không sửa TEST20/Full All.</li>
-<li>Không tạo Codex hook bắt buộc trước khi hội đồng quyết Q03.</li>
-<li>Không bắt đầu Claude Bước 2 trước khi contract gateway Bước 1 ổn định.</li>
+<li>Không tối ưu provider, routing hoặc chi phí trước khi có usage thật.</li>
 </ul>
 
-<h2>9. Câu hỏi cần hội đồng phản biện</h2>
-<ol>
-<li>Gateway chung có đúng là boundary lâu dài hay nên để client gọi OpenRouter trực tiếp?</li>
-<li>Hai tool lõi đã đủ cho v0 chưa?</li>
-<li>Codex hook nên làm ngay hay chỉ sau khi MCP cơ bản PASS?</li>
-<li>ChatGPT Chat không bind được plugin thì Bước 1 có chốt với Work + Codex không? Đề xuất: có.</li>
-<li>Pin 1.13 khi nghiệm thu hay dùng latest ngay? Đề xuất: pin 1.13.</li>
-<li>Auth giữa client và gateway nên là gì để dùng lại được cho cả OpenAI và Claude?</li>
-</ol>
-
-<h2>10. Điều kiện chuyển từ bàn sang làm</h2>
-<p>Không triển khai cho tới khi các P liên quan trong <code>COLLAB.md</code> không còn trạng thái OPEN/OWNER và Owner quyết thực hiện. Lúc đó mới tạo/chuẩn hóa <code>PROMPT.md</code>, READY theo đúng SHA rồi RUN.</p>
+<h2>12. Điều kiện chuyển từ bàn sang làm</h2>
+<p>Claude phản biện P06 vòng cuối. Nếu không còn điểm vênh thực chất, Host đóng các P còn mở, cập nhật plan cuối và mới chuẩn bị <code>PROMPT.md</code> cho Bước 1 theo A6.</p>
 </body>
 </html>

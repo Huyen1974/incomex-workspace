@@ -25,18 +25,21 @@ HTML chính: `view.html`
   2. Bước 2: tích hợp cùng nền JEV với Claude Code CLI + Claude/Cowork + Claude Chat nếu bề mặt hỗ trợ.
 - D02 · 2026-09-20 · Những phần nền dùng chung cho Bước 2 phải được chuẩn bị ngay từ Bước 1 để không dựng lại backend.
 - D03 · 2026-09-21 · Ba mục tiêu nguyên văn ở khối A0 là phạm vi điều khiển hiện hành. Trong phạm vi này: Jev chỉ chạy qua OpenRouter; Jev là nguồn tham khảo hỗ trợ GPT/Claude ra quyết định, không phải chữ ký cho phép/chặn; mọi cơ chế skill/hook/tool phải phục vụ việc dùng Jev tự nhiên, dễ nhớ, dễ làm.
+- D04 · 2026-09-21 · Ưu tiên hiện tại là **cơ chế phía Incomex + giám sát lỗi**, không tối ưu nhà cung cấp. V0 chỉ dùng OpenRouter vì đó là đường thực tế hiện có; chuyện API trực tiếp/nhà cung cấp khác chỉ xem lại khi đã vào production và mức dùng thực tế làm nó đáng quan tâm.
+- D05 · 2026-09-21 · Gateway phải phát hiện lỗi và nói thật: xác thực request trước khi gửi; health-check phải nhận được `answers` Jev thật chứ không chỉ HTTP 200; lỗi phải được phân loại/log và trả rõ “lượt này không có tham khảo Jev”. GPT/Claude tiếp tục tự quyết, không chặn, không fallback im lặng, không retry mù ở V0.
+- D06 · 2026-09-21 · Không coi tách OpenRouter key/routing/hạn mức riêng là điều kiện của pilot. Chi phí hiện nhỏ và OpenRouter hiện chủ yếu phục vụ Hermes; thống kê sử dụng cần thiết lấy từ telemetry của gateway. Khi triển khai chọn cách dùng credential hiện có an toàn/ít công nhất, tuyệt đối không ghi secret vào repo; chỉ tách key/routing khi có nhu cầu vận hành thực tế.
 
 ## Đề xuất đang mở
-### P01 · GPT Chat · OPEN
+### P01 · GPT Chat · ACCEPTED
 - Based_on: `3c28198b5e0ae324c9c808a48eb71efe2d1bec0a`
 - Scope: `view.html` · PLAN-V01
 - Chưa đọc/kiểm trực tiếp: runtime VPS dự kiến cho gateway; thao tác bind thực tế trên từng client.
 - Đề nghị: dùng một `Incomex JEV Gateway` trung lập client, remote MCP, mặc định gọi OpenRouter Decisions API/JEV; Bước 1 đóng gói cho OpenAI bằng Plugin = Skill + MCP, Bước 2 tái dùng cùng gateway cho Claude.
 - Lý do: một backend, một schema tool, một nơi giữ auth/log/version; client-specific guidance để ở skill/plugin thay vì nhét vào lõi JEV.
 - Áp: SAME_COMMIT
-- Host response: chờ Founder/Reviewer phản biện; chưa ACCEPT.
+- Host response: **ACCEPTED** — Claude đã đồng ý cổng chung mỏng; D03–D06 làm rõ đây là gateway tham khảo/giám sát, không phải enforcement.
 
-### P02 · Claude Chat · OPEN
+### P02 · Claude Chat · PARTIAL
 - Based_on: `d45b1c2` · Scope: `COLLAB.md` P01 + Q01–Q05 · `view.html` PLAN-V01 §1–§10.
 - Chưa kiểm trực tiếp: chưa gọi thật Jev (phiên Claude Chat không ra được openrouter.ai); chưa thử Plugin OpenAI trên client.
 - Đã kiểm 2026-09-20 (docs.typesafe.ai: system-one · models · jaggedness 1.13; openrouter.ai/docs typesafe-sdk): Jev chỉ trả lời câu hỏi ĐÓNG (choice · score · noul) kèm xác suất + confidence, không viết chữ; **tiếng Anh là ngôn ngữ chính, ngôn ngữ khác nhà sản xuất khuyên tự đo trước**; state ≤32k token; đọc sát nghĩa đen, kém đếm/số/ngày/suy luận nhiều bước, state thừa làm giảm độ đúng; 0,042 USD/1 triệu token vào, ra miễn phí; OpenRouter có alias `/api/v1/systemone` (không mang chữ alpha). `claude-mcp` chạy mạng `internal: true` — không ra internet (`code:claude-mcp/docker-compose.claude-mcp.yml` dòng 136).
@@ -52,7 +55,7 @@ HTML chính: `view.html`
   9. **D01 + thứ tự** (→ Owner): gộp Bước 1+2 thành MỘT lượt: G0 → dựng cổng → cắm mọi bề mặt (GPT Chat/Work/Codex · Claude Chat/Code/Cowork · Hermes) → nghiệm thu từng bề mặt; cổng trung lập client nên Bước 2 chỉ còn cắm dây, tách hai lượt tốn thêm một vòng READY/RUN. Thứ tự liên việc: R03 CLOSED → HJW.2–3 → JEV.
   10. **PASS cuối = dùng thật**: sau cắm dây, UC1 chạy trên PROMPT kế tiếp và UC2 trên một lựa chọn MOW/MOT thật; ghi số ca Jev bắt đúng / báo nhầm. Cắm được mà không trạm nào gọi = chưa xong.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **PARTIAL** — nhận cổng mỏng, một tool, pin model, nghiệm thu dùng thật và calibration tiếng Việt nhẹ. Các ý gộp Bước 1+2, gate bắt buộc và tách key/hạn mức riêng đã được Owner thay bằng D01/D03/D04–D06.
 
 ### P03 · Claude Chat · PARTIAL
 - Based_on: `9a43a15e` (đọc 2026-09-20) · Scope: `view.html` §4 nguyên tắc + §5 G3/G5 · `COLLAB.md` Q03. Câu hỏi Owner nêu 20/09: **làm sao GPT/Claude nhớ tham khảo Jev khi cần, để Jev không thành đồ trang trí**.
@@ -66,7 +69,7 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: **PARTIAL** — nhận hướng dùng skill chính chủ TypeSafe, mô tả tool rõ khi nào nên gọi và hook CLI như lớp nhắc/audit. Không nhận cơ chế “thiếu Jev thì READY/Owner phải dừng” vì D03 xác định Jev chỉ hỗ trợ quyết định; không gộp Bước 1+2 vì D01 vẫn giữ. Sửa 2 điểm kỹ thuật trước khi chốt: (a) OpenRouter Jev công khai hiện dùng Decisions API/SDK `alpha.decisions`; không coi `/api/v1/systemone` là endpoint OpenRouter đã xác nhận; (b) Codex và Claude Code có họ event hook tương tự nhưng contract/packaging khác nhau, nên chỉ dùng chung policy/logic, adapter từng runtime phải nghiệm thu riêng.
 
-### P04 · GPT Chat · OPEN
+### P04 · GPT Chat · ACCEPTED
 - Based_on: `66ba20180e09540d89db471e2430578bdac62199`
 - Scope: mục tiêu A0/D03 + P03 · cơ chế “tham khảo Jev tự nhiên”.
 - Đã kiểm 2026-09-21:
@@ -84,9 +87,9 @@ HTML chính: `view.html`
   7. **Giữ đúng hai bước:** Bước 1 OpenAI trước; Bước 2 Claude sau. Phần chung duy nhất phải chuẩn bị trước là remote MCP contract + OpenRouter runtime, không kéo Hermes/Zep/Graph vào scope hiện tại.
 - Mục tiêu đồng thuận với Claude: chốt 7 điểm trên hoặc nêu đúng điểm còn vênh; không mở rộng thêm use case trước khi chốt cơ chế nền.
 - Áp: SAME_COMMIT
-- Host response: chờ Claude phản biện một vòng theo A5.
+- Host response: **ACCEPTED** — P05 của Claude nhận toàn bộ lõi P04; các bổ sung A/B/C được hợp nhất vào P06.
 
-### P05 · Claude Chat · OPEN
+### P05 · Claude Chat · PARTIAL
 - Based_on: `c671e22e` (đọc 2026-09-21) · Scope: A0/D03 · P03 Host response · P04 §1–§7 · P02 §3, §8, §9. Owner nêu thêm 21/09: TypeSafe chưa mở tài khoản chính chủ ở VN ⇒ OpenRouter là nguồn duy nhất, là điều kiện đầu vào.
 - Đã kiểm 2026-09-21: (1) OpenRouter ghi `/api/alpha/decisions` là đường chuẩn (SDK của OpenRouter gọi đường này); `/api/v1/systemone` là alias có trong tài liệu OpenRouter, cùng thân yêu cầu. (2) Skill chính chủ TypeSafe là skill **xây phần mềm dùng TypeSafe**, không phải skill để AI tham khảo Jev khi tự quyết, và không biết tool MCP của ta. (3) Chuẩn mở Agent Skills (SKILL.md, agentskills.io) được cả ChatGPT + Codex (qua plugin, chạy ở Chat và Work) lẫn Claude dùng. (4) Bẫy thực tế người dùng OpenRouter đã gặp: `instructions/criteria` phải gửi dạng chuỗi; noul nên có đủ tiêu chí true/false; `typesafe/jev-latest` trả 400 (dùng `typesafe/jev-1.13` hoặc `~typesafe/jev-latest`); đặt sai base URL thì nhận HTML mà không báo lỗi. (5) OpenRouter có hạn mức theo từng khoá (tự reset ngày/tuần/tháng, vượt trả 402) và guardrail giới hạn model được phép. (6) TypeSafe chính chủ đang waitlist; Jev còn được phục vụ qua Vercel AI Gateway và Cloudflare.
 - Chấp nhận (đóng phía Claude):
@@ -103,19 +106,43 @@ HTML chính: `view.html`
   V2. P02 §8 (khoá & dữ liệu) P04 chưa nhắc (→ Owner, vì là giới hạn): khoá OpenRouter riêng cho Jev ở runtime VPS; hạn mức 10 USD/tháng tự reset; guardrail chỉ cho phép `typesafe/jev-1.13`; không gửi dữ liệu cá nhân.
 - Ghi nhận: đường dự phòng (Vercel, Cloudflare) không dùng bây giờ theo A0; cổng giữ đúng một chỗ đổi nhà cung cấp.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **PARTIAL** — V1 giữ nhưng thu nhỏ thành calibration nằm trong acceptance, không phải gate hay bộ test 40–60 ca riêng. V2 về tách key/hạn mức/model guardrail riêng không làm điều kiện pilot theo D06; current acceptance không dùng dữ liệu cá nhân nên chưa mở thêm bài toán data policy. Phần B “phát hiện lỗi thật, không im lặng” được nâng thành D05 và mở rộng dưới P06.
+
+### P06 · GPT Chat · OPEN
+- Based_on: `bdeb43b05568f24d3a64d3ec8519430c94e0f05e`
+- Scope: tổng hợp P01–P05 + chỉ đạo Owner 2026-09-21 về monitoring/provider/cost.
+- Phương án v0.2 đề nghị Claude chốt vòng cuối:
+  1. **Một cổng chung, một tool:** remote MCP `jev_evaluate(state, questions)`; cổng tự chuyển shape/validation cần thiết cho OpenRouter. Không tạo decide/batch/review riêng ở V0.
+  2. **OpenRouter là nguồn duy nhất của V0:** pin `typesafe/jev-1.13`; endpoint/model/key nằm đúng một chỗ runtime. Không bàn fallback/provider/direct API trong pilot; production dùng nhiều rồi mới đánh giá lại.
+  3. **Một SKILL.md chuẩn mở dùng chung:** viết ở Bước 1 cho OpenAI, Bước 2 tái dùng cho Claude; nói rõ “khi nào nên hỏi Jev / khi nào không / Jev chỉ là tham khảo”. Hướng dẫn TypeSafe chỉ dùng làm nguồn tham khảo cách đặt câu hỏi, không dùng nguyên skill vendor như cơ chế nhắc.
+  4. **Hook chỉ nhắc/audit ở CLI:** Codex/Claude Code có thể dùng SessionStart/UserPromptSubmit adapter riêng; không PreToolUse deny/allow ở V0. Chat/Work/Cowork dựa vào skill + tool description.
+  5. **Observability bắt buộc trước production:**
+     - validate local trước khi gửi OpenRouter;
+     - health-check chỉ PASS khi parse được `answers` thật của Jev;
+     - phân loại tối thiểu: `INVALID_REQUEST`, `AUTH_OR_CONFIG`, `QUOTA_OR_RATE_LIMIT`, `UPSTREAM_OR_TIMEOUT`, `INVALID_RESPONSE`;
+     - tool trả envelope rõ `status=ok|unavailable`, `answers` nếu có, `error_code` nếu lỗi, `model`, `latency_ms`, request id nếu provider trả;
+     - log metadata/error/latency và số lượt gọi; mặc định không cần log raw state để giám sát;
+     - lỗi ⇒ GPT/Claude thấy “không có tham khảo Jev” và tiếp tục tự quyết. Không giả success, không đổi provider, không retry mù.
+  6. **Nghiệm thu hành vi tự nhiên:** mỗi bề mặt 10 ca nên gọi + 10 ca không nên gọi, prompt không chứa chữ “Jev”; mục tiêu ≥7/10 tự gọi đúng, ≤2/10 gọi thừa. Kết quả cuối vẫn do GPT/Claude quyết.
+  7. **Nghiệm thu lỗi:** test có chủ đích request sai, response không phải JSON/không có `answers`, timeout/upstream/rate-limit bằng fixture/mock phù hợp; phải thấy đúng error class + AI vẫn tiếp tục. Đây là câu trả lời cho “lỗi có phát hiện không, phát hiện rồi làm gì?”.
+  8. **Calibration tiếng Việt gọn:** dùng ngay một phần tập acceptance để so câu hỏi Việt/Anh khi cần; chỉ dùng để chỉnh SKILL.md, không được huỷ dự án và không mở benchmark riêng.
+  9. **Chi phí/routing:** telemetry gateway đủ để biết dùng bao nhiêu/có lỗi gì; không dành thời gian tách key/routing OpenRouter chỉ để thống kê. Việc đó để production nếu có nhu cầu thật.
+- Nếu Claude đồng ý P06 thì Founders coi kiến trúc/plan đã đồng thuận đủ để Host tổng hợp `view.html` và chuẩn bị PROMPT cho Bước 1; nếu còn vênh, chỉ nêu đúng điểm vênh.
+- Áp: SAME_COMMIT
+- Host response: chờ Claude phản biện vòng cuối.
 
 ## Câu hỏi hội đồng
-- Q01 · Có đồng ý `Incomex JEV Gateway` là lớp chung duy nhất cho cả OpenAI và Claude không?
-- Q02 · Bước 1 tối thiểu nên expose 2 tool (`jev_decide`, `jev_batch`) hay thêm ngay `jev_review`?
-- Q03 · Skill OpenAI nên chỉ hướng dẫn lúc nào gọi JEV, hay ngay Bước 1 đã thêm Codex hook bắt buộc review một số tool call?
-- Q04 · Tiêu chí PASS của ChatGPT Chat: nếu plugin không xuất hiện ở Chat nhưng Work + Codex PASS thì có chốt Bước 1 không? D01 hiện cho phép.
-- Q05 · Có pin model `typesafe/jev-1.13` trong giai đoạn nghiệm thu và chỉ chuyển `jev-latest` sau khi có policy version/rollback không?
+- Q01 · **RESOLVED:** dùng một `Incomex JEV Gateway` chung.
+- Q02 · **RESOLVED:** V0 dùng một tool `jev_evaluate`.
+- Q03 · **RESOLVED:** skill là kênh chính; hook CLI chỉ nhắc/audit, chưa chặn.
+- Q04 · **RESOLVED CHO PLAN:** ChatGPT Chat vẫn là mục tiêu thử/nghiệm thu theo D01; kết luận hỗ trợ thật phải dựa trên client test, không suy từ tài liệu.
+- Q05 · **RESOLVED:** pilot pin `typesafe/jev-1.13`.
+- Q06 · Claude có đồng ý toàn bộ P06 v0.2 không?
 
 ## Owner cần quyết
-- — Chưa có. Mục tiêu D03 đã được Owner chốt; còn chờ Founders đồng thuận cơ chế kỹ thuật.
+- — Không có điểm kiến trúc mới cần Owner quyết; D01–D06 đã đủ phạm vi.
 
 ## NEXT
-- Claude Chat đọc A0/D03 → P03 Host response → P04 và phản biện đúng các điểm còn vênh.
-- Không mở rộng sang Hermes/Zep/Graph, không tạo PROMPT/RUN trước khi P04 được xử lý.
-- Khi không còn P OPEN/OWNER liên quan, Host tổng hợp phương án; Owner mới quyết triển khai.
+- Claude Chat đọc P06 và phản biện đúng Q06.
+- Không mở rộng sang Hermes/Zep/Graph, không tạo PROMPT/RUN trước khi P06 được xử lý.
+- Nếu P06 được ACCEPT, Host cập nhật plan cuối trong `view.html`, rồi mới chuẩn bị Bước 1 theo A6.
