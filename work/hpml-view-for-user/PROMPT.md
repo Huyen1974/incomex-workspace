@@ -8,7 +8,7 @@ Reviewer_Surface: Claude Chat
 ## 0. Trạng thái nền — KHÔNG mở lại core B3
 B2/B2.1/B3 core đã chạy production và live Claude Chat PASS 5/5 (P19). Core được coi là FROZEN:
 - `Vừa làm` = Git author gateway của commit cuối chạm riêng task, không TTL.
-- `Đang làm` = presence surface×task TTL 600s; commit clear đúng cặp; call sau sáng lại.
+- `Đang làm` = **latest-only presence per task**, TTL 600s; activity mới hơn thay ngay activity cũ của cùng task. Mỗi task tối đa một `Đang làm`. Commit clear chỉ khi surface commit vẫn là latest; call sau sáng lại.
 - tools/list/schema/serverInfo/version/auth/URL giữ nguyên.
 - rollout theo STARTING/TỐT/HỎNG của DROOT10.
 
@@ -26,16 +26,27 @@ Kết quả:
 
 Không mở rộng blacklist bằng heuristic.
 
-## 2. Chuẩn hoá tên HIỂN THỊ, không đổi identity
-Raw label/surface_key vẫn giữ nguyên trong state. Chỉ UI display alias:
-- bỏ **suffix version ở cuối** khi đúng mẫu kiểu `/1.0.0`, `/0.155.0-alpha.9.2`, `/v2.3.4+build`;
-- quy tắc gợi ý: trailing `/v?\d+(?:\.\d+)+(?:[-+][0-9A-Za-z.-]+)?$`;
-- `openai-mcp/1.0.0` → `openai-mcp`;
-- **không** làm đổi `Anthropic/ClaudeAI` hay nhãn có slash không phải version.
+## 2. Tên hiển thị cho User — chỉ dùng bảng A9
+Không tự viết regex/map thứ hai trong UI. `sync.py`/adapter đọc **Bảng phiên dịch người làm** tại AGENTS A9 và xuất mapping/display data cho UI.
+- `Anthropic/ClaudeAI*` → `Claude Chat`.
+- `claude-code*` → `Claude Code`.
+- `codex*` → `Codex`.
+- `openai-mcp*` → `GPT Chat`.
+- `Claude via MCP` / `AI via Incomex Workspace` → legacy trước B3: unknown/xám, không tạo hàng.
+- nhãn lạ → `Chưa rõ`; tooltip/title phải cho xem raw label.
 
-Alias chỉ presentation; identity và clear/TTL vẫn dùng raw surface_key.
+UI Tình trạng của **task đang chọn** chỉ render union của actor `Vừa làm` và actor `Đang làm`; tối đa 2 hàng, hoặc 1 hàng nếu cùng actor. Không render danh sách global mọi surface đã từng thấy.
 
-## 3. Audit + hoàn tất stdio proxy cho Claude Code/Cowork/Hermes
+## 3. Đổi `Đang làm` thành latest-only + audit stdio proxy
+### 3A. Latest-only presence — bắt buộc theo chỉ đạo Owner
+- Store/runtime không được giữ nhiều actor active cho cùng `work_id` ở output hiệu lực. Mỗi task có một record latest `{surface_key,label,last_seen}` hoặc logic tương đương.
+- Tool activity scoped task với timestamp mới hơn → thay ngay record cũ của task, bất kể surface cũ còn trong TTL.
+- TTL 600s áp cho record latest; quá TTL → không actor đang làm.
+- Commit của surface S trên task A: chỉ clear active A nếu record latest hiện vẫn là S và không có `last_seen` mới hơn event commit; nếu actor khác/newer đã thay thì giữ nguyên.
+- Nếu store nội bộ vẫn cần nhiều record vì job bookkeeping, file/API `presence.json` và UI **chỉ được xuất latest max(last_seen) per task**; ưu tiên đơn giản hoá store nếu an toàn.
+- Regression bắt buộc: A signal task X → A active; B signal X mới hơn → chỉ B active ngay; A signal Y không ảnh hưởng X; TTL chỉ xám B khi hết hạn.
+
+### 3B. Audit + hoàn tất stdio proxy cho Claude Code/Cowork/Hermes
 P18/Codex cho biết canonical `mcp_server/stdio_server.py` đã được sửa để forward client identity, nhưng **các bản cài/process cũ có thể chưa nạp bản mới**.
 
 Claude phải khảo sát thực địa, không đoán:
@@ -94,11 +105,11 @@ Không dựng gateway thứ ba, không hook toàn hệ thống, không thay auth
 Bắt buộc:
 1. `tasks.json`: legacy names không còn trong `lastActors`; task legacy thành unknown.
 2. UI không còn hàng `AI via Incomex Workspace` / `Claude via MCP`.
-3. UI display `openai-mcp/1.0.0` thành `openai-mcp`, raw presence vẫn giữ full label.
+3. UI display theo A9: `openai-mcp/1.0.0` → `GPT Chat`, `claude-code/...` → `Claude Code`, `Anthropic/ClaudeAI` → `Claude Chat`, `codex...` → `Codex`; raw label chỉ ở tooltip/debug.
 4. Claude Code live acceptance §4 PASS hoặc ghi chính xác giới hạn restart.
 5. P19 Claude Chat vẫn không regression: `Anthropic/ClaudeAI` hợp lệ.
 6. B2 webhook/backstop/3-revision retention/last-good vẫn PASS.
-7. B3 presence không tạo commit; state bounded.
+7. B3 presence không tạo commit; state bounded; **mỗi task tối đa một actor `Đang làm`** và tín hiệu mới thay tín hiệu cũ ngay.
 8. Public MCP contract/version không đổi.
 9. Không synthetic commit mới vào main.
 10. UI/nginx/services healthy.
