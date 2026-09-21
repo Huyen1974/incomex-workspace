@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | READY · RUN_SUSPENDED · HOST_PREFLIGHT_REQUIRED | Codex đã DỪNG vì workspace thực thi không thấy COLLAB/PROMPT; chưa mutation. NEXT: precheck môi trường Codex, Host xác minh đủ đầu vào rồi mới RUN lại.
+MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | READY · RUN_OWNER_REISSUED | NEXT: Codex vào đúng repo incomex-workspace, cập nhật main an toàn, đọc AGENTS → COLLAB → PROMPT; gate PASS thì chạy MMIM.2.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -23,7 +23,7 @@ MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | READY · RUN_SUSPENDED · HOST_PR
 - D05 · 2026-09-20 · Lượt Codex này chỉ khảo sát, phân loại và copy tài liệu; không được sửa, đổi tên hoặc tái cấu trúc `mow-mot-moit-mout.html`, không xoá/di chuyển nguồn trên Mac.
 - D06 · 2026-09-20 · `work/mow-mot-moit-mout/mow-mot-moit-mout.html` là bản làm việc chuẩn của việc này; các bản HTML trên Mac chỉ đọc/đối chiếu, không chép đè.
 - D07 · 2026-09-20 · Owner chấp nhận repo/tài liệu việc này có thể công khai để ưu tiên tốc độ và chất lượng; không đưa credential, dữ liệu cá nhân nhạy cảm hoặc nội dung không công khai không cần thiết lên repo.
-- D09 · 2026-09-21 · Áp dụng DROOT04 cho MMIM.2: READY không đủ để RUN; Host phải xác minh chính môi trường Codex có đầy đủ workspace/ref, file/source, tool/quyền và đích ghi trước khi phát RUN.
+- D09 · 2026-09-21 · Áp dụng DROOT04 cho MMIM.2: Host không tách PRECHECK riêng cho môi trường Codex đã dùng nhiều lần; RUN phải bắt đầu bằng việc vào đúng repo `incomex-workspace`, cập nhật `main` an toàn và đọc AGENTS → COLLAB → PROMPT. Chỉ mutation sau khi gate đầu vào của chính MMIM.2 PASS.
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
@@ -47,9 +47,8 @@ Reviewer: Claude Chat · Based_on `39cc96d` / commit review `f5f97fc`. Host GPT 
 
 ## Giao Agent
 - READY@`7d8e1df9e50cfdd5a4b7cfaf8c66cad9343e26f3` vẫn còn hiệu lực vì chưa ai sửa `PROMPT.md`.
-- RUN trước: **SUSPENDED / không phát lại** cho tới khi HOST PREFLIGHT PASS theo DROOT04.
-- Lượt kế tiếp phải là PRECHECK read-only từ chính môi trường Codex; PRECHECK không được tạo/sửa/copy/commit file.
+- RUN · Owner xác nhận 2026-09-21 có thể giao lại Codex; Host phát lại theo DROOT04/D09.
+- Bootstrap bắt buộc trong chính RUN: vào đúng repo `incomex-workspace` → cập nhật `main` an toàn/không force → đọc `AGENTS.md` → `work/mow-mot-moit-mout/COLLAB.md` → `PROMPT.md` → kiểm HTML SHA và đích `information/`. PASS thì tiếp tục MMIM.2; FAIL thì DỪNG trước mutation.
 
 ## NEXT
-- Xác minh phía Codex: repo root/remote/branch/HEAD; sự tồn tại và khả năng đọc AGENTS/COLLAB/PROMPT/HTML; khả năng đọc `/Users/nmhuyen/Desktop/quy trình`; tool/quyền cần thiết; đích `information/` chưa có xung đột.
-- Host đối chiếu kết quả với SSOT. Chỉ sau PASS mới phát RUN MMIM.2.
+- Codex thực hiện MMIM.2 theo PROMPT hiện hành. Không sửa HTML chính, không đổi Owner View, không tự mở rộng P01.
