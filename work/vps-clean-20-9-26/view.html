@@ -18,11 +18,11 @@ small{color:#666}
 </head>
 <body>
 <h1>Dọn đĩa VPS · 20/09/2026</h1>
-<p><span class="tag">DRAFT — chờ duyệt lại</span><span class="tag">Bước 2: kiểm toán, không đụng production</span><span class="tag">Chưa chạm production</span></p>
+<p><span class="tag">ĐÃ CHỐT để chạy khảo sát</span><span class="tag">Bước 2: kiểm toán, không đụng production</span><span class="tag">Chưa chạm production</span></p>
 
-<div class="box"><strong>Anh cần quyết hôm nay:</strong> đích sau khi dọn — <strong>đĩa trống ≥45GB và mỗi tháng tăng không quá 3GB</strong>. Đề xuất: <strong>gật</strong> (đủ chạy khoảng 1 năm không phải dọn tay). Anh chỉ cần gật hoặc lắc.</div>
+<div class="box"><strong>Anh không cần quyết thêm trước khảo sát.</strong> Mục tiêu dung lượng: sau dọn trống ≥45GB. Đạt hay không được đo bằng việc mọi nguồn vận hành đều có trần (T2); mức tăng 3GB/tháng ngoài nghiệp vụ chỉ là đèn đỏ phải điều tra. <strong>Việc anh làm:</strong> dán lệnh chạy khảo sát cho Claude Code.</div>
 
-<div class="bar" id="TIEN-DO"><span class="now">▶ 1 Mở việc</span><span>□ 2 Khảo sát</span><span>□ 3 Kiểm chéo</span><span>□ 4 Anh duyệt</span><span>□ 5 Dọn + khoá vòi</span><span>□ 6 Theo dõi, đóng</span></div>
+<div class="bar" id="TIEN-DO"><span>✔ 1 Mở việc</span><span class="now">▶ 2 Khảo sát</span><span>□ 3 Kiểm chéo</span><span>□ 4 Anh duyệt</span><span>□ 5 Dọn + khoá vòi</span><span>□ 6 Theo dõi, đóng</span></div>
 
 <h2 id="TINH-HINH">1. Tình hình — không phải mất một nửa, mà đã mất hết</h2>
 <table>
@@ -76,10 +76,10 @@ small{color:#666}
 <tbody>
 <tr><td>VPSC.1</td><td>Mở việc + PROMPT khảo sát chỉ đọc.</td><td>Claude mở · GPT review</td><td>hôm nay</td></tr>
 <tr><td>VPSC.2</td><td>Cân từng góc kho; lập sổ nguồn sinh (cái gì đẻ ra dữ liệu, bao lâu một lần, ai chịu trách nhiệm); kiểm backup; lập danh sách dọn chia ngăn. Không xoá, không đổi gì; báo cáo mang nhãn chưa thẩm tra.</td><td>Claude Code</td><td>ngay sau READY + RUN</td></tr>
-<tr><td>VPSC.3</td><td>Kiểm chéo: Claude tự đo lại (không tin báo cáo) và lập đề xuất dọn theo nhóm; GPT (hoặc Codex/Astra do GPT giao) thẩm tra độc lập, chấm từng nhóm PASS / sửa lại / chặn.</td><td>Claude · GPT</td><td>sau VPSC.2</td></tr>
+<tr><td>VPSC.3</td><td>Kiểm chéo: Claude tự đo lại (không tin báo cáo) và lập đề xuất dọn theo nhóm; Codex thẩm tra độc lập (GPT soạn đề bài cho Codex, Claude duyệt), chấm từng nhóm PASS / sửa lại / chặn.</td><td>Claude · Codex</td><td>sau VPSC.2</td></tr>
 <tr><td>VPSC.4</td><td>Anh duyệt các nhóm đã PASS.</td><td>anh</td><td>sau VPSC.3</td></tr>
 <tr><td>VPSC.5</td><td>Dọn (cứu trước, xoá sau) + khoá vòi, một prompt làm một lần.</td><td>Claude Code</td><td>sau khi anh duyệt và R03 đóng</td></tr>
-<tr><td>VPSC.6</td><td>Theo dõi 2 tuần theo T1–T5 → đóng việc; mở việc Graph.</td><td>Claude</td><td>—</td></tr>
+<tr><td>VPSC.6</td><td>Theo dõi 2 tuần theo T1–T6 → đóng việc; mở việc Graph.</td><td>Claude</td><td>—</td></tr>
 </tbody>
 </table>
 

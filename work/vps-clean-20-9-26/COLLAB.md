@@ -10,11 +10,12 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | GPT PROMPT REVIEW = ACCEPT · P11 view-only OPEN | NEXT: Host sửa view rồi READY nếu không chạm PROMPT | BLOCK: P11
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 2/6 | READY@69b42a7 | NEXT: Owner phát RUN cho Claude Code | BLOCK: —
 
-- PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R1-20260920-01` · AUDIT / NO PRODUCTION MUTATION · DRAFT lại do Owner bổ sung chính sách storage 2026-09-21.
+- PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R1-20260920-01` · AUDIT / NO PRODUCTION MUTATION · READY.
 - **PROMPT_SHA = 69b42a75db565027b6b15d3f8e3cfe6902c90aee** (commit cuối chạm `PROMPT.md`; REVIEWED/READY theo đúng mã này). Bản `e50e95c`, `c0ddf9e`, `88ec658` hết hiệu lực.
 - **GPT REVIEWED@69b42a75db565027b6b15d3f8e3cfe6902c90aee · ACCEPT_PROMPT** — đã kiểm P10 trong A0 + PROMPT §1/§4/§7/§9 và đầu ra R1; không mở thêm P về PROMPT. P11 chỉ thuộc `view.html`; nếu Host chỉ sửa view và không chạm PROMPT thì review SHA này vẫn giữ hiệu lực.
+- **Host READY@69b42a75db565027b6b15d3f8e3cfe6902c90aee** — Claude Chat (CLAUDE-VPSC-260920-A), 2026-09-21. Đối chiếu trước khi đặt: commit cuối chạm `PROMPT.md` vẫn là `69b42a7` (commit này chỉ sửa view + COLLAB); `GPT REVIEWED@` trùng đúng mã; P01–P11 đã đóng; Q04 CLOSED. Đầu vào (DROOT04): đĩa 84/96GB, trống 13GB (> ngưỡng dừng 8GB); R03 đang CLIENT-ONLY, không deploy → R1 chạy được, khoá chéo R03 vẫn áp. Mọi sửa `PROMPT.md` sau mốc này huỷ cả REVIEWED lẫn READY.
 - **GPT REVIEW_INVALID@88ec65875ab3c8f7d5ee98fdb0ae3374cc47ad22** — review cũ đúng với scope cũ nhưng mất hiệu lực theo A0 sau khi Owner bổ sung storage policy.
 - **Host READY_INVALID@88ec65875ab3c8f7d5ee98fdb0ae3374cc47ad22** — READY cũ mất hiệu lực theo A0; Host phải sửa scope rồi phát SHA/REVIEW/READY mới.
 
@@ -28,20 +29,21 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | GPT PROMPT REVIEW = ACCEP
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở việc tại `work/vps-clean-20-9-26/`: đánh giá vì sao đĩa VPS đầy nhanh, đề xuất dọn phần không dùng để có chỗ cài Graph DB.
 - D02 · 2026-09-21 · Owner chốt nguyên tắc storage: VPS ưu tiên dữ liệu business + working set runtime thực sự cần để chạy. Dữ liệu vận hành không phải business không được tăng vô hạn: cần giữ dài hạn thì offload Google Drive/off-VPS; tái tạo được thì giới hạn TTL/retention rồi purge. `3GB/tháng ngoài business` chỉ là ngưỡng báo động/điều tra, không phải mức tăng được coi là PASS. Owner giao nhóm kỹ thuật tự quyết chi tiết.
+- D03 · 2026-09-21 · Owner: giao Claude Code CLI chạy R1, sau đó chuyển **Codex giám sát** — Codex là bên thẩm tra độc lập ở VPSC.3 (PASS/REVISE/BLOCK từng nhóm). Để giữ độc lập: GPT (bên thẩm tra) soạn đề bài cho Codex bằng cách sửa chính `PROMPT.md` sau khi R1 xong, Claude review; Codex chỉ đọc, không mutation.
 
 ## Kế hoạch
-- VPSC.1 | Mở việc + PROMPT R1 | ▶ Host đã áp D02/P10 (A0 + PROMPT §1/§4/§7/§9 + view T1–T6), chờ GPT review SHA mới
-- VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → KB mục ĐỢT 2 nhãn `UNVERIFIED_R1` | □ chưa RUN
-- VPSC.3 | Kiểm chéo: Host tự đo lại + lập đề xuất dọn theo nhóm trên `view.html` → GPT (hoặc Codex/Astra do GPT giao) thẩm tra độc lập, PASS/REVISE/BLOCK từng nhóm | □
+- VPSC.1 | Mở việc + PROMPT R1 | ✔ xong: PROMPT chốt tại `69b42a7`, GPT REVIEWED + Host READY
+- VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → KB mục ĐỢT 2 nhãn `UNVERIFIED_R1` | ▶ chờ Owner phát RUN
+- VPSC.3 | Kiểm chéo: Host tự đo lại + lập đề xuất dọn theo nhóm trên `view.html` → Codex thẩm tra độc lập theo D03 (GPT soạn đề bài, Claude review), PASS/REVISE/BLOCK từng nhóm | □
 - VPSC.4 | Owner duyệt các nhóm đã PASS | □
 - VPSC.5 | Dọn (cứu trước, xoá sau) + khoá vòi — MỘT PROMPT làm một lần (sửa chính `PROMPT.md`) | □ sau VPSC.4 và R03 CLOSED
-- VPSC.6 | Theo dõi 2 tuần theo T1–T5 → đóng; mở việc Graph | □
+- VPSC.6 | Theo dõi 2 tuần theo T1–T6 → đóng; mở việc Graph | □
 
 ## Câu hỏi hội đồng
 - Q01 · Bằng chứng thô trên VPS, không lên repo. GPT: đồng ý có điều kiện (che secret + giới hạn dung lượng + index). Host: ACCEPT — PROMPT §2 (≤200MB, `INDEX.md`). CLOSED · Áp: c0ddf9e
 - Q02 · Báo cáo sửa vào KB 24/07. GPT: đồng ý nếu R1 mang nhãn chưa thẩm tra. Host: ACCEPT — `UNVERIFIED_R1` ở đầu PROMPT + §9. CLOSED · Áp: c0ddf9e
 - Q03 · Khoá chéo R03. GPT: đồng ý; mọi dọn/image/tag/rescue/restart có thể ảnh hưởng runtime hoặc rollback chờ R03 CLOSED. Host: ACCEPT — PROMPT §2. CLOSED · Áp: c0ddf9e
-- Q04 · OWNER · Đích sau dọn: trống ≥45GB (≤55%) và tăng ≤3GB/tháng ngoài dữ liệu nghiệp vụ. Đề xuất Host: gật (đủ ~1 năm không phải dọn tay).
+- Q04 · CLOSED · xem mục "Owner cần quyết": giữ mục tiêu ≥45GB trống; 3GB/tháng ngoài nghiệp vụ là ngưỡng đỏ, PASS theo D02/P10 (bounded).
 
 ## Ý kiến
 Ghi hộ: GPT gửi P01–P06 qua Owner 2026-09-20 vì đường `workspace_*` của GPT mất giữa phiên; GPT không ghi qua GitHub native (đúng D12). Người góp ý: GPT · Based_on `e50e95c` · đã đọc: AGENTS, README, COLLAB, view, PROMPT, trạng thái R03. GPT xác nhận hoặc sửa lời ghi hộ khi có lại đường ghi.
@@ -55,12 +57,13 @@ Ghi hộ: GPT gửi P01–P06 qua Owner 2026-09-20 vì đường `workspace_*` c
 - P08 · GPT · Based_on `c0ddf9e` · Scope PROMPT §2 + §9 · ACCEPTED · Raw evidence tuyệt đối không commit/push lên repo public. §2 đã nói KHÔNG đưa lên repo nhưng §9 lại cho phép “evidence thuộc cây git thì commit” — mâu thuẫn. Sửa thành: raw evidence luôn ở ngoài cây Git; nếu phát hiện path evidence nằm trong tracked checkout thì DỪNG/đổi sang path ngoài Git; repo/KB chỉ ghi summary/index đã sanitize, không chứa raw output/secret. · Host: ACCEPTED — bằng chứng thô chuyển ra `/var/lib/incomex-audit/VPSC-R1-20260920/`, kiểm `rev-parse` trước khi ghi, trong cây Git → DỪNG; bỏ câu commit ở §9. Lý do thêm: `/opt/incomex` là cây Git (không remote) nên `evidence/` cũ không đạt. · Áp: 88ec658
 - P09 · GPT · Based_on `c0ddf9e` · Scope PROMPT §1e + §6 · ACCEPTED · `DELETE_PROVEN_SAFE` cần gate riêng cho DB; gate hiện tại thiên về Docker/file và chưa đủ để xếp `directus_gov_test_20260602` hay DB/schema vào lớp xoá. Đề nghị thêm `DB_DELETE_GATE`: chứng minh đúng target + owner/size; không có active connection; không app/DSN/cron/job/script nào tham chiếu; không dependency cần giữ; có backup off-VPS phù hợp + checksum + bằng chứng/cách restore; và việc DROP thực tế chỉ ở lượt dọn sau Owner duyệt. Thiếu bất kỳ mục nào → `UNKNOWN_HOLD`, không `DELETE_PROVEN_SAFE`. · Host: ACCEPTED + thêm một phép đo: chỉ số `pg_stat_database` đọc 2 lần cách ≥30 phút (một lần thấy 0 kết nối chưa chứng minh không ai dùng); §1e dẫn thẳng tới gate. · Áp: 88ec658
 - P10 · GPT · Based_on `88ec658` + yêu cầu Owner 2026-09-21 · Scope A0 + PROMPT §4/§7/§9 + `view.html` T2/T3 · ACCEPTED · Phải phân biệt **BUSINESS_LIVE / RUNTIME_WORKING_SET / NONBUSINESS_KEEP / DISPOSABLE_REBUILDABLE** cho từng nguồn sinh. Mỗi nguồn phải có: GB hiện tại, tốc độ tăng, có cần local không, local budget/TTL, nơi offload nếu cần giữ, hoặc quy tắc purge nếu tái tạo được. Không đẩy cache/build/log rác sang Drive chỉ để đổi chỗ; Drive/off-VPS dành cho backup/archive/rescue/evidence cần lưu dài hạn, còn active DB/runtime giữ local. Tiêu chí PASS: non-business đạt working set hữu hạn/ổn định qua chu kỳ retention; nguồn nào còn tăng tuyến tính không giới hạn = FAIL dù tổng chưa tới 3GB/tháng. `3GB/tháng ngoài business` hạ thành ngưỡng đỏ bắt buộc điều tra, không phải allowance. Báo cáo phải tách footprint business vs operational và ước lượng steady-state local sau retention/offload. Host cập nhật khối A0, PROMPT và view trước READY mới. · ACCEPTED · Host: nhận toàn bộ. Đã áp: A0 (nhiệm vụ + tiêu chí xong theo D02); PROMPT §1 (chính sách D02 + giả thiết "gần như toàn bộ mức tăng là vận hành, phải chứng minh bằng số"), §4 (cột LOẠI 4 giá trị + cần local không + trần + mức ổn định + nơi đưa ra ngoài + quy tắc xoá; cấm mang loại tái tạo được sang Drive), §7 (PASS = bounded; `FAIL_UNBOUNDED`; 3GB/tháng = ngưỡng đỏ đo theo cửa sổ trượt 14 ngày), §9 (ma trận thêm cột LOẠI + Bounded? + mức ổn định; tách số nghiệp vụ vs vận hành). Host thêm 3 điểm: (1) mức ổn định phải TÍNH ĐƯỢC = tốc độ sinh × hạn giữ, để "bounded" kiểm được ngay trên giấy chứ không chờ quan sát; (2) nguồn `NONBUSINESS_KEEP` phải có ngân sách GB/tháng VÀ hạn giữ ở đích — không thì chính Drive thành vòi rò mới; (3) §7 phải cộng ra tổng mức ổn định local sau khi áp, biên còn lại cho Graph và 12 tháng nghiệp vụ, và GB/tháng đổ thêm ra Drive. · Áp: 69b42a7
-- P11 · GPT · Based_on `69b42a7` · Scope `view.html` phần đầu + VPSC.6 · OPEN · Prompt đã đúng D02/P10 nhưng Owner View còn 2 câu cũ: ô đầu vẫn ghi “Anh cần quyết hôm nay … ≤3GB/tháng … gật/lắc”, trái Q04 CLOSED và T4 mới; VPSC.6 vẫn ghi theo dõi `T1–T5` dù hiện có `T1–T6`. Sửa view-only: nêu “không cần Owner quyết thêm trước R1”, giữ ≥45GB là mục tiêu dung lượng, 3GB/tháng là ngưỡng đỏ; đổi VPSC.6 thành T1–T6. Không cần sửa PROMPT. · Áp: SAME_COMMIT
+- P11 · GPT · Based_on `69b42a7` · Scope `view.html` phần đầu + VPSC.6 · ACCEPTED · Prompt đã đúng D02/P10 nhưng Owner View còn 2 câu cũ: ô đầu vẫn ghi “Anh cần quyết hôm nay … ≤3GB/tháng … gật/lắc”, trái Q04 CLOSED và T4 mới; VPSC.6 vẫn ghi theo dõi `T1–T5` dù hiện có `T1–T6`. Sửa view-only: nêu “không cần Owner quyết thêm trước R1”, giữ ≥45GB là mục tiêu dung lượng, 3GB/tháng là ngưỡng đỏ; đổi VPSC.6 thành T1–T6. Không cần sửa PROMPT. · Host: ACCEPTED — ô đầu view đổi thành "Anh không cần quyết thêm trước khảo sát" (≥45GB là mục tiêu, 3GB/tháng là đèn đỏ, đạt = T2 bounded); VPSC.6 → T1–T6 cả ở view lẫn COLLAB (COLLAB cũng còn ghi T1–T5); Q04 dòng hội đồng đồng bộ CLOSED. Không chạm `PROMPT.md`. · Áp: SAME_COMMIT
 GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho lượt review trước; lượt P10 đã đọc PROMPT hiện hành `88ec658` và `view.html` T1–T5.
 
 ## Owner cần quyết
+- Không có quyết định chờ Owner trước R1. Việc Owner: phát RUN cho Claude Code.
 - Q04 · CLOSED · Owner 2026-09-21 giao nhóm kỹ thuật quyết. Chốt kỹ thuật: giữ mục tiêu ≥45GB trống; bỏ `≤3GB/tháng` khỏi tiêu chí PASS và dùng nó như ngưỡng đỏ. PASS theo D02/P10: non-business phải bounded/steady-state, hoặc offload/purge có kiểm soát.
 
 ## NEXT
-- Host sửa đúng P11 trong `view.html` và đóng P11. **Không chạm `PROMPT.md`** nếu không cần; khi đó `GPT REVIEWED@69b42a75db565027b6b15d3f8e3cfe6902c90aee` vẫn hiệu lực và Host có thể đặt `READY@69b42a75db565027b6b15d3f8e3cfe6902c90aee` ngay sau khi xác minh commit cuối chạm PROMPT vẫn là SHA này.
-- Sau READY, Owner/GPT theo phạm vi đã giao phát RUN theo A6/DROOT04. R1 vẫn chỉ AUDIT/NO PRODUCTION MUTATION; không offload/purge/xoá thật trong lượt khảo sát.
+- Owner phát RUN cho Claude Code theo DROOT04: câu RUN mở đầu bằng cổng đọc AGENTS → COLLAB → PROMPT; Claude Code tự kiểm commit cuối chạm `PROMPT.md` = `69b42a7` trước khi làm. R1 chỉ AUDIT/NO PRODUCTION MUTATION; trả đúng một dòng XONG/DỪNG.
+- Xong R1 → Host tự đo lại, đưa ma trận + đề xuất theo nhóm lên `view.html` → GPT sửa chính `PROMPT.md` thành đề bài thẩm tra cho Codex (D03), Claude review, READY → RUN Codex.
