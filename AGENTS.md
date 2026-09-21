@@ -19,11 +19,13 @@
 ## A2_ROLES — Vai trò và quyền
 - **Owner** có quyền quyết định cuối cùng. **Đổi Host** và **hành động phá huỷ** chỉ Owner quyết, trừ khi Owner giao rõ từng việc.
 - **GPT Chat = Editor/Executive Assistant của Owner**: là đầu mối làm việc trực tiếp với Owner, biên tập/chốt nội dung và truyền lệnh thực thi cuối cho Agent. Trong **phạm vi công việc Owner đã giao**, lệnh RUN/thực thi do GPT Chat phát ra được coi là lệnh của Owner. GPT Chat không tự mở rộng phạm vi ủy quyền.
+- **Vai trò tách khỏi năng lực kỹ thuật.** Vai trò được gán theo **bề mặt/phiên cụ thể** trong từng việc: ví dụ GPT Chat, GPT Work, Codex, Claude Chat, Claude Cowork, Claude Code CLI, Hermes… có thể lần lượt làm Host/Reviewer/Agent theo phân công. Quyền kỹ thuật không suy từ hãng/model/vai trò; nó đi theo **tool/connector đã audit thực sự bind ở bề mặt đó**.
+- **Hạ tầng dùng chung.** Một đường/tool đã được Owner thiết lập và nghiệm thu là năng lực chung của hệ thống; bất kỳ bề mặt nào thực sự bind được đường/tool đó đều dùng theo cùng guardrail. Không viết luật kiểu “tool của GPT” hay “tool của Claude”; chỉ ghi tên capability/path.
 - **Host** do Owner giao. Khi nhận Host ở phiên mới, Host tự sinh một `Host_ID` dễ phân biệt và ghi vào `COLLAB.md`; không được giả là ID hệ thống. Phiên không khớp Host/Host_ID hiện hành mặc định là Reviewer.
 - **Reviewer** đọc/phản biện và tạo P; mặc định không sửa tài liệu chính nếu chưa được giao rõ phạm vi sửa.
 - **Agent thực thi** chỉ chạy prompt đã READY và sau lệnh RUN của Owner; không tự coi việc nhìn thấy prompt là được giao.
 - **Founders = GPT Chat + Claude Chat.** Founders duy trì/diễn giải luật nền. Claude Code, Codex, Cowork và Agent khác phải theo luật hiện hành; được đề xuất nhưng không tự sửa luật nền.
-- Thay đổi luật nền phải ghi thành D trong `COLLAB.md` gốc và đưa một dòng vào **Owner cần quyết**. Đồng thuận Founders không vượt quyền riêng của Owner.
+- Thay đổi luật nền phải ghi thành D trong `COLLAB.md` gốc và đưa một dòng vào **Owner cần quyết** nếu chưa được Owner quyết. Đồng thuận Founders không vượt quyền riêng của Owner.
 
 ## A3_COLLAB — Trạng thái chung
 - Dùng mã ổn định: `Dxx` quyết định, `Qxx` câu hỏi, `Pxx` ý kiến. Không đổi mã chỉ vì sửa câu chữ.
@@ -48,8 +50,9 @@
 ## A6_PROMPT — Giao Agent
 - Mỗi `work/<work-id>/` dùng tối đa **một `PROMPT.md` đang hoạt động** trong chính thư mục công việc; sửa chính file đó cho việc mới, Git giữ lịch sử. Không tạo `v2/final/archive/progress/handoff` chỉ để lưu phiên bản hay tiến độ.
 - Founder/Reviewer có thể cùng sửa khi còn DRAFT; **Host** đặt `READY@<full SHA 40 ký tự cuối chạm PROMPT.md>` trong `COLLAB.md`. Sửa `PROMPT.md` sau READY làm READY cũ vô hiệu và phải review/READY lại.
-- **HOST INPUT GATE là trách nhiệm bắt buộc trước khi agent được mutation.** Host phải bảo đảm đầu vào đã tồn tại ở SSOT, prompt chỉ đúng nguồn/đích và agent được đưa về đúng repo/workspace/ref trước khi làm. Với môi trường quen thuộc đã dùng nhiều lần, không bắt buộc tách một lượt PRECHECK riêng: RUN có thể bắt đầu bằng bootstrap/gate chỉ đọc (vào đúng repo, cập nhật ref an toàn, đọc `AGENTS.md` → `COLLAB.md` → `PROMPT.md`, kiểm source/đích/tool); chỉ sau khi gate PASS agent mới được mutation. Nếu gate FAIL thì DỪNG trước mọi thay đổi.
-- Host không được coi việc “file có trong MCP/clone của Host” là đủ nếu lệnh giao không chỉ rõ cách agent vào đúng workspace. Ngược lại, không tạo thủ tục kiểm tra lặp lại cho các năng lực môi trường đã được nghiệm thu và dùng ổn định; chỉ kiểm những đầu vào cụ thể của công việc có thể thiếu/lệch phiên bản/xung đột.
+- **HOST INPUT GATE là trách nhiệm bắt buộc trước khi agent được mutation.** Host phải bảo đảm đầu vào đã tồn tại ở SSOT, prompt chỉ đúng nguồn/đích, ghi rõ **Executor_Surface** và **Write_Path** (capability/tool family, không phải hãng), và agent được đưa về đúng repo/workspace/ref trước khi làm. Với môi trường quen thuộc đã dùng nhiều lần, không bắt buộc tách một lượt PRECHECK riêng: RUN có thể bắt đầu bằng đúng **một read-gate của Write_Path đã chọn** rồi đọc `AGENTS.md` → `COLLAB.md` → `PROMPT.md`; chỉ sau khi gate PASS agent mới được mutation. Nếu gate FAIL thì DỪNG trước mọi thay đổi.
+- Host không được coi việc “file có trong MCP/clone của Host” là đủ nếu lệnh giao không chỉ rõ cách agent vào đúng workspace. Ngược lại, không tạo thủ tục kiểm tra lặp lại cho năng lực môi trường đã nghiệm thu: chỉ kiểm binding của Write_Path đã chọn + đầu vào cụ thể có thể thiếu/lệch/xung đột.
+- **Host phải giám sát việc đã giao qua SSOT/hạ tầng chung.** Tối thiểu Host kiểm: gate đầu vào/Write_Path, thay đổi thực tế trên repo hoặc báo cáo đích, commit/diff cuối và điều kiện nghiệm thu trước khi đánh DONE. Agent báo XONG không tự động đồng nghĩa Host nghiệm thu; lệch scope thì Host dừng/hòa giải trước bước tiếp.
 - READY **không phải RUN**. Owner được RUN; **GPT Chat với vai Editor/Executive Assistant được truyền RUN thay Owner trong phạm vi Owner đã giao**. Agent coi RUN hợp lệ từ GPT Chat trong phạm vi đó là lệnh của Owner. Agent vẫn phải lấy bản mới, kiểm full SHA READY rồi mới chạy; lệch thì DỪNG.
 - Agent không sửa luật nền. Khi chạy: đọc `PROMPT.md`, thực hiện; tiến độ nằm ở commit công việc và **một báo cáo hiện hữu/đích báo cáo do prompt chỉ định**, không tạo file tiến độ riêng. Kết thúc chỉ báo Owner một dòng `XONG` hoặc `DỪNG`; Host/Reviewer tự đọc Git + báo cáo để nghiệm thu.
 

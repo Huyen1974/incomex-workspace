@@ -4,13 +4,16 @@
 Owner đã giao việc này ngày 2026-09-20. Đây là lượt THU THẬP / TỔ CHỨC TÀI LIỆU, không phải lượt sửa sản phẩm.
 
 Trước khi làm:
-1. Đọc `AGENTS.md` ở root repo.
-2. Đọc `work/mow-mot-moit-mout/COLLAB.md`, đặc biệt khối §0.
-3. Đọc toàn bộ prompt này.
-4. Kiểm tra commit READY trong COLLAB đúng là commit cuối chạm `PROMPT.md`. Nếu lệch: DỪNG.
+1. **Executor_Surface = Codex.**
+2. Chọn **Write_Path theo capability đã audit, không theo hãng**: ưu tiên `workspace_*`; nếu chính phiên Codex không bind `workspace_*` nhưng bind `fs_*` đã audit thì dùng `fs_*`. Cấm dùng Git/CLI/native/API để ghi repo.
+3. Gọi đúng **MỘT read-gate** của Write_Path đã chọn để đọc `work/mow-mot-moit-mout/COLLAB.md` (`workspace_read` hoặc `fs_read` tương ứng). Ghi `WRITE_PATH=<workspace_*|fs_*>` vào báo cáo. Gate fail → DỪNG ngay trước khảo sát/mutation và nêu tool đã thử.
+4. Đọc `AGENTS.md` → README §0/D12 → `work/mow-mot-moit-mout/COLLAB.md` (đặc biệt §0) → toàn bộ prompt này.
+5. Kiểm tra `READY@<SHA>` trong COLLAB bằng **commit cuối chạm `PROMPT.md`**, KHÔNG so với HEAD repo. Nếu không khớp: DỪNG.
 
-Nguồn trên Mac:
+Nguồn trên Mac, ưu tiên đúng path Owner giao:
 `/Users/nmhuyen/Desktop/quy trình`
+
+Nếu lookup fail do Unicode/path: resolve thư mục cùng tên dưới `/Users/nmhuyen/Desktop` trước; sau đó mới thử Documents/Google Drive cục bộ. Nếu có >1 candidate, đối chiếu sổ chỉ đường/marker/SHA đã biết; không chọn chỉ vì trùng tên. Ghi path thực dùng vào README.
 
 Đích duy nhất của lượt MMIM.2:
 `work/mow-mot-moit-mout/information/`
@@ -58,6 +61,8 @@ Rà theo bốn lớp:
 
 Không copy mù toàn bộ thư mục. Không lấy `.git`, `node_modules`, cache/temp, file hệ thống, file không liên quan hoặc bản sao trùng hash.
 
+**Text lớn:** file text >100 KB KHÔNG relay toàn nội dung qua model và KHÔNG copy vào Git trong MMIM.2. Chỉ ghi metadata `kind=large_text · source_mac · bytes · sha256 · state=PENDING_LARGE_TEXT` vào `assets-manifest.json`/README để xử lý cùng external/shared-assets sau.
+
 ## 3. Cách tổ chức — Codex tự đề xuất
 Codex được quyền quyết định cây bên trong `information/` sau khi khảo sát thật, với các chốt:
 - ít tầng, tên dễ hiểu;
@@ -68,7 +73,7 @@ Codex được quyền quyết định cây bên trong `information/` sau khi kh
 
 Không tạo file tiến độ. Hai file điều khiển bắt buộc trong `information/` là:
 - `README.md` — inventory/link-map/quyết định phân loại;
-- `assets-manifest.json` — chỉ metadata/hash/địa chỉ của binary, không chứa binary/base64.
+- `assets-manifest.json` — metadata/hash/địa chỉ của binary **và text >100 KB**, không chứa binary/base64 hay nội dung text lớn.
 
 ## 4. README bắt buộc
 README tối thiểu có:
@@ -96,7 +101,7 @@ Không copy:
 
 Tên người/tên công ty hoặc thông tin nghiệp vụ đã công khai không tự động bị loại nếu thực sự cần cho tài liệu công việc. Với xlsx/docx/pdf nghi có dữ liệu nhạy cảm, mở kiểm nội dung trước khi copy; không quyết định chỉ từ tên file.
 
-Nếu một file >50 MB hoặc tổng phần dự định copy >250 MB: không đưa file lớn đó vào commit ngay; ghi README và tiếp tục các file khác để Host quyết, tránh làm chậm toàn lượt.
+Ngưỡng relay/copy của MMIM.2: text >100 KB/file đi `PENDING_LARGE_TEXT`; binary luôn external inventory. Không dùng ngưỡng 50/250 MB để chờ đến lúc quá muộn.
 
 Các chốt khác:
 - CẤM sửa nội dung/format/metadata/tên/vị trí `mow-mot-moit-mout.html`.
@@ -104,7 +109,7 @@ Các chốt khác:
 - Chỉ COPY **text/tài liệu nhẹ** từ Mac sang `information/`; binary/ảnh chỉ inventory/hash, không commit Git.
 - Không đụng VPS/runtime/production và không tự publish shared-assets trong MMIM.2.
 - Không ghi đè file đích khác nội dung.
-- Với file text đã copy: hash nguồn = hash đích mới PASS. Với binary: PASS của MMIM.2 = đã định vị + bytes/SHA + manifest/link-map, không phải đã upload.
+- Với text nhỏ đã copy: ưu tiên hash nguồn = hash đích. Nếu connector chuẩn hoá newline/BOM nhưng nội dung text tương đương, ghi `NORMALIZED_BY_TRANSPORT` + SHA nguồn/đích + loại chuẩn hoá; không retry vòng lặp. Với binary/text >100 KB: PASS của MMIM.2 = định vị + bytes/SHA + manifest/link-map, không phải đã upload.
 
 ## 6. Đúng bản và kiểm trước khi kết thúc
 Bắt buộc:
@@ -112,16 +117,20 @@ Bắt buộc:
   `f4aac30c492f104ec54ff7a03ace54ce70d802e2dd49a417ad9b7285897a050c`.
 - Nếu thấy bản gốc Mac `quy trình/từ thực tế đã làm.html`, tính SHA và ghi vào README. Nếu khác SHA repo: KHÔNG copy đè hoặc “hòa giải”; repo vẫn là bản làm việc chuẩn, ghi divergence để Host xử lý.
 - Bản cùng tên nằm trong thư mục con mà tài liệu đã đánh dấu cũ không được dùng làm current.
-- Không có thay đổi ngoài:
+- Mutation **do chính Codex tạo** không được nằm ngoài:
   - `work/mow-mot-moit-mout/information/**`
   - và cập nhật trạng thái `work/mow-mot-moit-mout/COLLAB.md`.
+  Thay đổi chen ngang của việc khác/HEAD repo không tự làm MMIM.2 fail; xử lý bằng version/head guard của Write_Path đã chọn.
 - mỗi file text đã copy có hash nguồn = hash đích;
 - `assets-manifest.json` phủ toàn bộ binary được HTML/file manifest tham chiếu; mỗi entry có source tồn tại hoặc trạng thái `MISSING` rõ ràng;
 - README phản ánh file thật, không ghi “đã copy/upload” từ suy đoán.
 
-## 7. Ghi Git, commit và báo cáo
-- Tuân thủ AGENTS/README/D12: **không dùng Git/CLI/native API để ghi/push repo**. Mọi mutation repo phải đi qua connector/đường ghi đã được phép. Việc connector không nhập được binary từ Mac **không phải blocker**, vì MMIM.2 cấm đưa binary vào Git.
-- Nếu một tài liệu text không thể nhập qua đường ghi được phép, ghi inventory `OMITTED_TOOL_LIMITATION` và tiếp tục các phần độc lập; chỉ DỪNG toàn lượt nếu đó là tài liệu bắt buộc đến mức không thể lập inventory/link-map đúng.
+## 7. Ghi Git, retry và báo cáo
+- **Write_Path của MMIM.2 phải là một trong hai capability đã audit:** `workspace_*` (primary) hoặc `fs_*` (fallback nếu bind). Dùng transaction/write/edit của **cùng family đã qua read-gate** để tạo `information/**` và cập nhật COLLAB. Không chuyển family giữa chừng trừ khi Host phát RUN mới.
+- **CẤM** `git add/commit/push`, tạo branch để lách luật, GitHub native/App/API/CLI để ghi repo. Git/CLI chỉ đọc nếu cần.
+- Việc không nhập được binary/text >100 KB **không phải blocker**, vì MMIM.2 chỉ inventory chúng.
+- Nếu text nhỏ cần copy nhưng Write_Path không có thao tác tạo file phù hợp: ghi `OMITTED_TOOL_LIMITATION` và tiếp tục phần độc lập; chỉ DỪNG nếu thiếu file đó làm inventory/link-map sai bản chất.
+- Khi tool trả timeout/`OUTCOME_UNKNOWN`/`RECOVERY_REQUIRED`: **read-back/journal/commit trước**, dùng cùng idempotency key nếu retry được; không ghi lại mù.
 
 Khi hoàn tất:
 - ghi `information/` + cập nhật COLLAB đúng workflow repo bằng đường ghi được phép;
@@ -129,7 +138,7 @@ Khi hoàn tất:
 - không tự nghiệm thu nghiệp vụ, không sửa HTML chính, không sửa Owner View, không upload binary.
 
 Thông báo cuối:
-`XONG · MMIM.2 · text=<số file>/<dung lượng> · binary_inventory=<số file>/<dung lượng> · main_html_sha=PASS · xem information/README.md`
+`XONG · MMIM.2 · executor=Codex · write_path=<workspace_*|fs_*> · text=<số file>/<dung lượng> · external_inventory=<số file>/<dung lượng> · main_html_sha=PASS · xem information/README.md`
 
 Nếu không truy cập được Mac, conflict/secret không xử lý an toàn, hoặc hash HTML repo thay đổi:
 `DỪNG · MMIM.2 · <lý do cụ thể>`

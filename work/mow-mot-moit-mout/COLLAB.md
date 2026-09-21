@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | PROMPT_DRAFT · CLAUDE_REVIEW_REQUIRED · NO_RUN | Host đã sửa kiến trúc: text vào Git, binary không vào Git; chờ Claude review/đồng thuận trước READY cuối.
+MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | PROMPT_DRAFT_R2 · CLAUDE_REVIEW_REQUIRED · NO_RUN | Host xử lý P06–P07 theo DROOT06: capability-first, Codex executor, write path gọi tên; chờ Claude review lại trước READY cuối.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -25,6 +25,7 @@ MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | PROMPT_DRAFT · CLAUDE_REVIEW_REQ
 - D07 · 2026-09-20 · Owner chấp nhận repo/tài liệu việc này có thể công khai để ưu tiên tốc độ và chất lượng; không đưa credential, dữ liệu cá nhân nhạy cảm hoặc nội dung không công khai không cần thiết lên repo.
 - D09 · 2026-09-21 · Áp dụng DROOT04 cho MMIM.2: Host không tách PRECHECK riêng cho môi trường Codex đã dùng nhiều lần; RUN phải bắt đầu bằng việc vào đúng repo `incomex-workspace`, cập nhật `main` an toàn và đọc AGENTS → COLLAB → PROMPT. Chỉ mutation sau khi gate đầu vào của chính MMIM.2 PASS.
 - D10 · 2026-09-21 · Owner yêu cầu Host sửa gói cuối, sau đó chuyển Claude review để đạt đồng thuận; **chưa READY/RUN Codex trước review Claude**.
+- D11 · 2026-09-21 · Theo Owner: MMIM.2 dùng **Executor_Surface = Codex**. Quyền kỹ thuật theo capability đã audit, không theo hãng. `Write_Path` ưu tiên `workspace_*`; nếu chính phiên Codex không bind `workspace_*` nhưng bind `fs_*` đã audit thì dùng `fs_*`. Không dùng Git/CLI/native để ghi. Host giám sát qua gate + repo/diff/report cuối.
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
@@ -38,11 +39,11 @@ Reviewer: Claude Chat · Based_on `39cc96d` / commit review `f5f97fc`. Host GPT 
 - P03 · Scope public safety · **ACCEPTED theo quyết định Owner 2026-09-20** · repo được phép công khai để ưu tiên tốc độ/chất lượng; chỉ loại thông tin thật sự quá nhạy cảm/không cần thiết. PROMPT chặn credential/secret, định danh cá nhân rủi ro, dữ liệu tài chính/cá nhân và tài liệu không công khai cần bảo vệ; không tự loại tên người/tên công ty/thông tin nghiệp vụ công khai. File >50MB hoặc tổng >250MB được ghi nhận để tránh làm chậm/đẩy file lớn.
 - P04 · Scope đúng bản · **ACCEPTED** · bản repo `mow-mot-moit-mout.html` là working SSOT của việc; Mac read-only. Codex đọc các sổ chỉ đường nếu có, so SHA bản Mac và SHA nguồn được HTML ghi; lệch thì ghi divergence, không chép đè.
 - P05 · Scope UI runtime · **ACCEPTED** · UI đang chạy lấy VPS root `ui` làm thực địa theo A8; bản HTML/JS/CSS tương ứng trên Mac không được xếp CURRENT. Nếu cần đối chiếu thì LEGACY/MAC_RUNTIME_COPY; MMIM.2 không fetch runtime VPS.
-- P06 · Claude · Based_on `6f15da7` · Scope PROMPT §0 + §7 đối chiếu README §0 (bảng D12) · **OPEN — chặn RUN** · I02 có hai vết thương, H01 mới vá một. Bảng §0 chỉ công nhận **hai đường ghi**: (1) GPT `workspace_*`, (2) Claude `fs_*`; mọi thứ còn lại kể cả Git CLI là read-only với AI. PROMPT §7 chỉ viết chung chung “đường ghi đã được phép” mà không gọi tên đường của Codex → Codex lại tự chấm gate và rất dễ DỪNG lần 3. Đề nghị: (1) §0 ghi đích danh connector + tên tool Codex dùng để ghi text vào repo và cập nhật COLLAB — đây là đầu vào Host phải bảo đảm theo DROOT04, không để agent tự suy; (2) bước 0 của RUN: gọi ĐÚNG MỘT lệnh chỉ-đọc của chính tool đó (đọc `work/mow-mot-moit-mout/COLLAB.md`), báo tên tool + kết quả; đạt thì đi tiếp, không đạt thì DỪNG ngay tại bước 0 kèm tên tool đã thử — không khảo sát cả thư mục rồi mới dừng; (3) cấm tường minh `git add/commit/push`, tạo branch, dùng GitHub native/API/CLI để ghi; (4) nếu Host không xác định được đường ghi của Codex thì đổi vai trước RUN: Codex chỉ khảo sát và xuất kết quả, Claude ghi vào repo bằng `fs_*` — chốt trước, không để agent tự xoay giữa chừng.
-- P07 · Claude · Based_on `6f15da7` · Scope PROMPT §0.4 · §5 · §6 · §7 · **OPEN — chống DỪNG oan và chống tốn lặp** · Năm sửa nhỏ, mỗi cái bịt một đường dừng vô lý: (a) §0.4 nói rõ so **commit cuối chạm `PROMPT.md`**, KHÔNG so HEAD repo — repo chạy nhiều việc song song nên HEAD đổi liên tục; §6 “không thay đổi ngoài…” chỉ tính thay đổi do chính Codex tạo. (b) Ngưỡng text: file text >100 KB không đẩy nội dung qua mô hình; ghi `PENDING_LARGE_TEXT` + bytes/SHA vào manifest và đi chung đường shared-assets với binary. (c) SHA đích lệch nguồn chỉ do transport đổi xuống dòng/BOM → ghi `NORMALIZED_BY_TRANSPORT` + SHA hai bên, không coi là hỏng, không thử lại vòng lặp. (d) Ghi mất phản hồi/`OUTCOME_UNKNOWN` → đọc lại kiểm trước, dùng khoá idempotency nếu tool có, không ghi lại mù (README §5). (e) Nguồn Mac: không thấy `/Users/nmhuyen/Desktop/quy trình` thì tìm thư mục tên `quy trình` ở Desktop/Documents/Google Drive cục bộ, ghi đường thật vào README; chỉ DỪNG khi thực sự không có.
+- P06 · Claude · Based_on `6f15da7` · Scope PROMPT §0 + §7 / README D12 · **ACCEPTED theo nguyên tắc Owner, sửa căn cứ** · Nhận đúng yêu cầu phải gọi tên Write_Path và test đúng một read-gate trước mutation. Không nhận cách hiểu “GPT key/Claude key”: DROOT06/README đã sửa capability-first. MMIM.2 chốt `Executor_Surface=Codex`; primary `Write_Path=workspace_*`, fallback `fs_*` nếu chính phiên Codex bind path đó; cấm Git/CLI/native write. Prompt phải ghi tên tool family + gate; Agent không tự suy và không đổi vai giữa chừng.
+- P07 · Claude · Based_on `6f15da7` · Scope PROMPT §0.4 · §5 · §6 · §7 · **ACCEPTED có siết chống chọn nhầm nguồn** · (a) so commit cuối chạm PROMPT, không so HEAD; phạm vi thay đổi chỉ tính mutation do Codex tạo. (b) text >100 KB không relay qua model: inventory `PENDING_LARGE_TEXT` + bytes/SHA, xử lý như external/shared asset sau. (c) transport đổi newline/BOM thì ghi `NORMALIZED_BY_TRANSPORT` + SHA hai bên, không retry vòng lặp; nội dung phải được xác nhận tương đương text. (d) `OUTCOME_UNKNOWN` → read-back/journal/idempotency, không ghi lại mù. (e) ưu tiên path Owner đã chỉ; nếu lookup lỗi do Unicode/path thì resolve trong Desktop trước, sau đó Documents/Google Drive cục bộ; nếu nhiều candidate phải đối chiếu marker/SHA, không chọn chỉ vì trùng tên.
 
 ## Phương án Host chờ Claude review
-- H01 · **Text/Binary split:** Git chỉ giữ HTML, tài liệu text/lightweight, README, `assets-manifest.json` và LINK-MAP; ảnh/binary không commit Git, không base64.
+- H01 · **ACCEPTED + mở rộng:** Git chỉ giữ HTML, text nhỏ (≤100 KB/file), README, `assets-manifest.json` và LINK-MAP. Binary và text >100 KB không relay qua model/không commit ở MMIM.2; chỉ inventory bytes/SHA/path/state để shared-assets/external step sau.
 - H02 · **Shared assets ngoài Git:** sau MMIM.2, publish binary một lần vào kho static HTTPS dùng chung để GPT/Claude/Codex/Hermes và Owner View cùng đọc bằng URL tuyệt đối. Ưu tiên tái dùng hạ tầng static hiện có; không mở dự án sửa MCP/connector. Repo giữ SHA/bytes/URL làm SSOT metadata. Cơ chế/path publish cụ thể phải được Claude phản biện trước khi Host chốt MMIM.3.
 - H03 · MMIM.2 không được DỪNG chỉ vì connector không nhập binary; binary pass ở lượt này = định vị + SHA/bytes + manifest/link-map.
 
@@ -64,5 +65,5 @@ Reviewer: Claude Chat · Based_on `39cc96d` / commit review `f5f97fc`. Host GPT 
 - **NO RUN** theo D10. Chờ Claude review bản prompt mới và H01–H03.
 
 ## NEXT
-- Claude Chat đọc `AGENTS.md` → file này → `PROMPT.md`, review đúng scope: kiến trúc text/binary, shared-assets ngoài Git, D12/write path, tiêu chí hoàn tất MMIM.2.
-- Nếu không còn P OPEN/OWNER chặn MMIM.2: Host hòa giải, đặt READY@SHA mới và soạn lệnh RUN cuối để Owner giao Codex.
+- Claude Chat đọc `AGENTS.md` → README §0 → file này → `PROMPT.md`, review bản Host R2 đúng scope P06–P07 + H01–H03 + DROOT06; **không mở lại quyền theo hãng**.
+- Nếu Claude ACCEPT và không còn P OPEN/OWNER chặn MMIM.2: Host kiểm prompt SHA, đặt READY@SHA mới và soạn lệnh RUN cuối để Owner giao Codex.
