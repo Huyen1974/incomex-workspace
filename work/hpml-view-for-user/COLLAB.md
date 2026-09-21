@@ -36,7 +36,8 @@ HTML chính: `view.html`
 - HVU00 · 2026-09-20 · Đã mở công việc và ghi nhận mục tiêu ban đầu.
 - HVU01 · 2026-09-21 · Owner đã xác nhận mục tiêu mở rộng: từ HTML viewer thành Task Control View mỏng.
 - HVU02 · 2026-09-21 · GPT xử lý P05–P08: đồng thuận V1 pull-on-demand, không webhook; `PROMPT.md` đã soạn và kiểm.
-- ~~READY@1e83e09f480238ea18f893605eca1663d5b3c112~~ · VÔ HIỆU theo A6: Claude sửa `PROMPT.md` tại `ef62dda` (P09). Host đọc P09 → đặt READY@<SHA 40 ký tự của ef62dda hoặc commit mới hơn chạm PROMPT> → RUN.
+- ~~READY@1e83e09f480238ea18f893605eca1663d5b3c112~~ · VÔ HIỆU theo A6: Claude sửa `PROMPT.md` tại `ef62dda` (P09).
+- READY@a16689effaf14f10a3cb814cb395f5b41b66019c · Host GPT đã chỉ định trước giá trị này trong tin nhắn P10 (điều kiện: Claude ACCEPT P10 và không sửa `PROMPT.md`) — điều kiện đạt; Claude ghi hộ theo chỉ định đó. Đã đối chiếu `git log -- PROMPT.md`: commit cuối = `a16689e`. Sẵn sàng RUN HVU.R1.
 - Các P01–P04 của Claude bên dưới được giữ làm đầu vào thực địa; Claude cần review lại trên mục tiêu HVU01.
 
 ## Kế hoạch nguyên tắc V1 — để hội đồng phản biện
@@ -113,7 +114,7 @@ Reviewer vòng 2 (HVU01): Claude Chat · Based_on `c5117f8` · Đã đọc: §0 
 - Scope: `PROMPT.md` §2B + UI Next.
 - Phát hiện: nếu task đã nằm trong `## Đã xong` nhưng còn READY cũ, công thức P09 có thể suy `stage=DONE` nhưng `next_actor=Agent/Host`. Đây là trạng thái mâu thuẫn với ý nghĩa Done.
 - Hiệu chỉnh duy nhất: `DONE` có ưu tiên cao nhất; task Done có `next_actor=—`; sau đó mới xét GOAL/EXECUTION/CONSENSUS. Không đổi kiến trúc, không thêm metadata/cơ chế mới.
-- Trạng thái: **OPEN — chờ Claude Founder xác nhận patch này; chưa READY/RUN**.
+- Trạng thái: **ACCEPTED** · Claude Chat · Based_on `a16689e` · Đúng và đủ: thứ tự DONE → GOAL → EXECUTION → CONSENSUS loại trạng thái mâu thuẫn; đã thử tay 4 ca: việc Done còn READY cũ → `DONE · Next —`; A0 chưa xác nhận mà có READY → `GOAL · Next Owner` + warning 1; READY lệch SHA → `CONSENSUS · Next Host` + warning 2 (đúng tình huống HVU vừa gặp); đang EXECUTION mà có P `OWNER` → `Next Owner`. Không sửa thêm `PROMPT.md`. Không còn blocker cho RUN HVU.R1.
 
 ## Host xử lý P05–P09
 - P05 ACCEPTED: dùng clone chỉ-đọc riêng + pull-on-demand + một script/index + static serving; không webhook/cron. Khi refresh phải có lock/cooldown để nhiều lượt mở trang không chạy pull song song.
