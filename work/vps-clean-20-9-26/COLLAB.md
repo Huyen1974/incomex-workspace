@@ -10,10 +10,12 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 DRAFT | NEXT: GPT review R3 + Owner gật Q06 | BLOCK: —
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 DRAFT · OWNER_APPROVED | NEXT: GPT review R3 → Host READY → RUN | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R3-20260921-01` · SEC-01 + bịt nốt vòi + đợt 2 · **CÓ MUTATION** · DRAFT.
 - **PROMPT_SHA = fb182de5e79ac1ecda0ec41ec279ff72f3e2068c** (commit cuối chạm `PROMPT.md`). Cần đủ ba: `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` (preflight gồm NO_CONCURRENT_VPS_MUTATION).
+- **OWNER_APPROVED@fb182de5e79ac1ecda0ec41ec279ff72f3e2068c** — Owner 21/09: "Cần chốt dứt điểm việc clean này, bịt hết các đầu dò và có chế độ tự xoá hợp lý … toàn rác làm phình" (gật Q06).
+- **Host đối soát 21/09 ~11:40Z (chỉ đọc, theo đề nghị GPT):** đoạn log Owner chuyển (B4/K1/K2 với commit `b97e5d3`/`3180326`/`0dc9379`) là log R2 phiên 2, KHÔNG phải R3. Bằng chứng: `qdrant-backup.sh` sửa lần cuối 10:19Z, `dung-va-trien-khai.sh` 10:20Z, `vps-retention.sh` 10:21Z (đúng cửa sổ R2 phiên 2), `backup-to-gdrive.sh` vẫn 2026-08-02; `BAO-CAO.md` chưa có mục R3; `VPSC.5b` vẫn DRAFT. **R3 chưa bắt đầu, không có mutation ngoài quy trình, không cần rollback.**
 - V2 (lịch sử): PROMPT_SHA `abe38f1992a61dedd9f3a9a664a63b6356b19cc4` · OWNER_APPROVED + READY đã dùng · KQ XONG PASS 3 / REVISE 3 / BLOCK 0.
 - **OWNER_APPROVED@abe38f1992a61dedd9f3a9a664a63b6356b19cc4** (D06: Host chỉ đạo Codex trực tiếp; Owner 21/09 "điều hành tiếp") · **Host READY@abe38f1992a61dedd9f3a9a664a63b6356b19cc4** — preflight (21/09 ~11:10Z): đĩa 53/96GB, 55%, trống 44GB; 12 container healthy, agent-data về lại image `agent-data-r03:20260920-finalclose`; Executor Codex Desktop qua SSH (đã chạy V1/V1b); Write_Path `workspace_*` (R2 đã ghi được sau khi HVU-B3 rollback); R03 CLIENT-ONLY; V2 chỉ đọc.
 - R2 (lịch sử): PROMPT_SHA `f701fc5ca09041d47752cc7c5bca46ab290e8043` · GPT REVIEWED + OWNER_APPROVED + READY đã dùng · KQ XONG. **Host tự đo sau R2 (21/09 ~11:10Z):** 91% → 55%, trống 9,4 → 44GB. Ghi nhận: HVU-B3 đã chạy chen 10:20–10:25Z trái điều kiện vận hành của READY; agent R2 xử lý đúng (đợi ổn định, kiểm health rồi mới làm B2/B3).
@@ -87,11 +89,11 @@ Ghi hộ: GPT gửi P01–P06 qua Owner 2026-09-20 vì đường `workspace_*` c
 GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho lượt review trước; lượt P10 đã đọc PROMPT hiện hành `88ec658` và `view.html` T1–T5.
 
 ## Owner cần quyết
-- Q06 · OWNER · Cho chạy R3: (1) xoay mã Google Drive đã lộ — anh ngồi máy ~5 phút đầu để bấm "Cho phép" trên trình duyệt; (2) sửa 3 script + mở rộng người gác kho; (3) tỉa backup cũ trên Drive: giữ 30 ngày gần nhất + mỗi tháng 1 bản trong 12 tháng (xoá ~30 bộ cũ 20/07–20/08); (4) cứu rồi xoá dump cũ N9/N11 (~9GB). Đề xuất Host: **gật**. Trong lúc R3 chạy không giao việc khác đụng VPS (đặc biệt HVU).
+- Q06 · CLOSED · Owner gật 21/09 ("cần chốt dứt điểm") — Cho chạy R3: (1) xoay mã Google Drive đã lộ — anh ngồi máy ~5 phút đầu để bấm "Cho phép" trên trình duyệt; (2) sửa 3 script + mở rộng người gác kho; (3) tỉa backup cũ trên Drive: giữ 30 ngày gần nhất + mỗi tháng 1 bản trong 12 tháng (xoá ~30 bộ cũ 20/07–20/08); (4) cứu rồi xoá dump cũ N9/N11 (~9GB). Đề xuất Host: **gật**. Trong lúc R3 chạy không giao việc khác đụng VPS (đặc biệt HVU).
 - Q05 · CLOSED · Owner gật 21/09 — Cho chạy R2 (xoá/cắt thật đúng danh sách trong `PROMPT.md`: log Directus, 979 build tạm, 6 thư mục cache, 63 bản sao web cũ, ~159 bản chụp Qdrant cũ sau khi đã cứu 1 bản mới nhất ra ngoài VPS) + cài người gác kho tự động. Đề xuất Host: **gật**. Dự kiến trống 9,5 → ~43GiB; đợt 2 đưa lên >45GiB.
 - Q04 · CLOSED · Owner 2026-09-21 giao nhóm kỹ thuật quyết. Chốt kỹ thuật: giữ mục tiêu ≥45GB trống; bỏ `≤3GB/tháng` khỏi tiêu chí PASS và dùng nó như ngưỡng đỏ. PASS theo D02/P10: non-business phải bounded/steady-state, hoặc offload/purge có kiểm soát.
 
 ## NEXT
-- GPT review PROMPT R3 → `GPT REVIEWED@<full SHA>`.
-- Owner gật Q06 → Host preflight (gồm NO_CONCURRENT_VPS_MUTATION) + `OWNER_APPROVED@` + `READY@` → câu RUN cho Claude Code CLI (Owner ngồi máy 5 phút đầu).
+- GPT review PROMPT R3 `fb182de…` → `GPT REVIEWED@<full SHA>`.
+- Host preflight (gồm NO_CONCURRENT_VPS_MUTATION) + `READY@` → câu RUN cho Claude Code CLI ở phiên mới sạch (Owner ngồi máy 5 phút đầu để bấm Cho phép).
 - Sau R3: V3 Codex sau lượt cron thật → VPSC.6.
