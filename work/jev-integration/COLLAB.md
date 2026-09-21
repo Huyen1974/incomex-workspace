@@ -182,6 +182,21 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: **ACCEPTED/PARTIAL** — chọn cách 1: tiếp tục chính phiên sau khi Owner thêm allow `Bash(ssh contabo:*)`; không sửa PROMPT/READY, không mở phiên mới. Chấp nhận executor thực tế = Claude Code trên Mac → SSH root VPS. Chấp nhận quyền bless Config Guard chỉ khi diff đúng duy nhất thay đổi RUN này và smoke PASS; có lệch khác thì không bless. P10.5 chỉ nhận nguyên tắc chung “Host kiểm permission của Executor_Surface trước RUN”; **không ghi cứng alias/rule `contabo` vào README toàn hệ thống** vì đây là cấu hình riêng máy Mac/user. Sau lượt này mới đề xuất sửa luật chung nếu cần.
 
+### P12 · GPT Chat · OPEN — xử lý MACHINE_DONE + chuyển sang client-side OpenAI
+- Based_on: `a942ffe059a6f4f35088d7349e8ab768411591e2` + báo cáo Supervisor Claude do Owner chuyển 21/09.
+- Scope: KQ backend JEV.B1 + SKILL.md + client acceptance OpenAI.
+- Host assessment:
+  1. **Backend MACHINE_DONE: ACCEPT.** Không mở thêm mutation server trong JEV.B1 trừ đúng việc disable secret v1 nếu Owner gật.
+  2. **Secret v1:** đã lộ trong 1 dòng access log nhưng route hiện chỉ nhận v2; v1 không còn dùng. Đề nghị Owner cho Agent **disable GSM version 1** của `jev-mcp-path-secret`; không delete secret, không rotate lại v2.
+  3. **Root cause logging:** catch-all access log có thể ghi secret-path khi request lệch route; đây là lỗ hạ tầng dùng chung, không mở rộng JEV. Ghi follow-up riêng sau client acceptance; không sửa gpt-mcp/nginx chung trong lượt này.
+  4. **SKILL description:** chuẩn Agent Skills/OpenAI giới hạn 1024 **characters**, không phải bytes. Description hiện ~847 chars nên hợp lệ. Tuy nhiên trước khi package, Host sẽ rút xuống ~500–650 chars để giảm metadata token mà không đổi semantics.
+  5. **Model pin:** server không ép model; acceptance client phải kiểm mọi tool call tự phát đều truyền `model=typesafe/jev-1.13`. Nếu client thường xuyên bỏ model thì mới mở vòng wrapper/server enforcement sau pilot.
+  6. **Client architecture:** dùng **một OpenAI Plugin = MCP connection + skill `jev-reference`**, theo plugin directory chung của ChatGPT/Codex. Tránh cấu hình Codex local riêng trước khi plugin path được thử; chỉ fallback local MCP nếu plugin không bind trên Codex.
+  7. **Acceptance tiết kiệm:** không bắt Owner gõ 20 lượt/surface. Dùng batch test trong 1–2 prompts/surface nhưng vẫn có 10 ca nên gọi + 10 ca không nên gọi; Codex có thể tự chạy full set, Work/Chat chạy cùng bộ theo batch. Chấm tool trace + model arg, không dựa vào model tự kể.
+  8. **Concurrency:** sự cố HVU-B3 chạy song song không làm hỏng JEV nhưng là rủi ro vận hành. Trước mutation production tiếp theo, Host dùng Task Control View hiện có để tránh hai lượt cùng chạm runtime; chưa thêm luật nền mới.
+- Áp: SAME_COMMIT
+- Host response: chờ Owner quyết duy nhất việc disable GSM v1; các mục còn lại là phương án Host cho bước client-side.
+
 ## Câu hỏi hội đồng
 - Q01 · **RESOLVED:** dùng một cổng JEV chung.
 - Q02 · **RESOLVED:** V0 dùng một tool logic `evaluate(state, questions)`; tên tool client-side giữ theo package nếu không cần adapter.
@@ -191,14 +206,13 @@ HTML chính: `view.html`
 - Q06 · **RESOLVED:** Claude đồng ý P06 với điều chỉnh “off-the-shelf first”; Host nhận tại D08/P07.
 
 ## Owner cần quyết
-- — Không có điểm kiến trúc mới cần Owner quyết; D01–D08 đủ phạm vi.
+- JEV-SEC01 · **Đề nghị ĐỒNG Ý:** cho Agent disable GSM **version 1** của `jev-mcp-path-secret` vì giá trị này từng lọt vào access log và đã bị thay bằng v2. Chỉ disable v1; không delete secret, không đổi v2 đang chạy.
 
 ## READY / NEXT
-- `READY@9ec2025b7d6eaef79602304868bab8e93cb7293a` · RUN_ID `JEV-B1-OPENAI-20260921-01` · Reviewer Claude ACCEPT tại P09.
-- Phiên RUN hiện tại đã qua phần lớn cổng và đang tạm dừng ở permission local của Claude Code; **không coi là KQ DỪNG**.
-- Owner thêm allow `Bash(ssh contabo:*)` ở User settings rồi nhắn chính phiên: `tiếp` kèm quyền bless Config Guard có điều kiện ghi ở P10.
-- Claude Chat giám sát/nghiệm thu MACHINE_DONE trước client acceptance OpenAI.
-- Chỉ khi JEV.B1 OpenAI DONE mới chuyển sang task riêng `work/hermes-joint-workspace/`.
+- Backend `JEV-B1-OPENAI-20260921-01`: **MACHINE_DONE · Host ACCEPT** theo KQ `a942ffe`; chờ đúng 1 cleanup Owner là JEV-SEC01.
+- Sau JEV-SEC01: rút gọn description `SKILL.md` không đổi semantics → tạo/connect **một OpenAI Plugin = MCP + Skill** → test Work trước, Chat và Codex sau trên cùng plugin.
+- Client PASS phải xác nhận gọi thật `evaluate`, có `answers`, và tool call truyền `model=typesafe/jev-1.13`; sau đó mới chạy bộ natural-trigger 10 nên gọi + 10 không nên gọi theo batch.
+- Chỉ khi OpenAI client acceptance DONE mới chuyển sang task riêng `work/hermes-joint-workspace/`.
 
 ## KQ — JEV-B1-OPENAI-20260921-01 · Claude Code
 - `KQ@JEV-B1-OPENAI-20260921-01 XONG` · MACHINE_DONE 2026-09-21 ~12:30 CEST · chờ Claude Chat review + client acceptance OpenAI (PROMPT §9). Bằng chứng dưới đây là backend/CLI (README §10a), **chưa** phải PASS client ChatGPT/Codex.
