@@ -11,17 +11,16 @@ UI03, 21/09/2026. Owner chỉnh trực tiếp tại https://vps.incomexsaigoncor
 
 Tái dùng dependencies web-test/web: Nuxt 3.20.2, Nuxt UI 2, esbuild. `nuxt generate` rồi `node pack.mjs`. Kiểm tra browser; ghi source + HTML qua workspace tools expected version/head. Không commit node_modules/.nuxt/.output. Runtime shell VPS giữ nguyên; mirror HTML nguyên tử, đối chiếu hash.
 
-## Contract đấu nối — thiết kế, chưa chạy
-GitHub là SSOT. Snapshot cho từng work-id chứa:
-- sourceRevision: commit SHA; receivedAt: thời điểm VPS nhận thành công; syncStatus: fresh/stale/error.
-- goal: nội dung mục tiêu lấy từ nguồn đã thống nhất, không AI diễn giải lại.
-- stages: đúng 4 ID goal/plan/execute/accept, mỗi mục state pending/done/blocked/changing/unknown + note. Trạng thái và giai đoạn hiện tại tách biệt; currentStage xác định đang ở đâu. Unknown không giả làm chưa làm; tooltip ghi rõ. Mẫu hiện tại goal=done, plan=changing, còn lại pending.
-- lastActors: danh sách ID vừa có đóng góp được xác nhận trong snapshot mới nhất của công việc; activeActors: null nếu chưa có bằng chứng, [] nếu nguồn xác nhận không ai làm, hoặc danh sách ID đang làm. Không suy đang làm từ một commit.
-- actors: gpt-chat = Chat GPT; gpt-work = Codex/GPT Work; claude-chat = Chat Claude; claude-work = Claude Code CLI/Cowork; hermes-chat = Hermes Chat; hermes-code = Hermes Code. Không dùng Git pusher dùng chung để đoán actor. Ưu tiên dấu vết actor/Executor_Surface có sẵn trong COLLAB/tool execution.
-- documentPath: HTML chính đã khai báo trong công việc; nội dung và metadata cùng sourceRevision. Assets được khai báo rõ trước khi mirror.
+## Contract đấu nối — HVU-DATA01/B2
+GitHub `main` là SSOT dữ liệu. UI03 là khung đã có; B2 chỉ thay fixture bằng snapshot sống.
+- Tự phát hiện task từ mọi `work/*/COLLAB.md`; root `## Đã xong` chỉ đánh dấu Done.
+- Scheduler kiểm remote HEAD mỗi 60 giây. HEAD không đổi → thoát; HEAD đổi → đọc một revision nhất quán, dựng snapshot rồi publish nguyên tử. Webhook chưa cần; chỉ xét nếu sau dùng thật thấy 60 giây quá chậm.
+- Snapshot tối thiểu: `sourceRevision`, `generatedAt/receivedAt`, `syncStatus`, goal A0 nguyên văn, 4 stage theo AGENTS A9, currentStage, lastActors/activeActors, documentPath + documentRevision. Thiếu tín hiệu → unknown/null, không đoán.
+- `lastActors`: B2 chỉ dùng bằng chứng surface rõ ràng đã tồn tại; không suy từ Git author/pusher dùng chung. `activeActors` để null khi chưa có nguồn đáng tin. B3 mới chuẩn hoá dấu `Surface:` tại cổng ghi.
+- HTML chính của công việc được mirror như **dữ liệu**, không chạy/build app từ repo. `view.html` của Task html view là app/runtime và vẫn deploy có kiểm soát theo README §11.
+- Last-good bắt buộc: lock, không hạ revision, validate trước publish. Fetch/parse/copy lỗi → giữ snapshot tốt cuối, cập nhật health `error/stale`, tự retry lượt sau. Một task lỗi hiện warning/unknown nếu có thể; không làm trắng toàn dashboard.
+- UI đang mở đọc lại snapshot/health mỗi khoảng 60 giây; khi `sourceRevision` đổi thì thay toàn snapshot của task, không cộng dồn chấm xanh.
 
-Webhook chỉ là tín hiệu tải lại, không phải nguồn trạng thái nghiệp vụ. Luồng dự kiến: xác thực chữ ký GitHub/repo/branch → chống trùng delivery + lock → đọc HEAD mới nhất, chỉ work-id bị ảnh hưởng → dựng snapshot/HTML cùng revision → đổi bản nguyên tử → trình duyệt nạp snapshot mới. Không chạy mã runtime/build từ repo tài liệu. Webhook trễ/trùng không hạ phiên bản; cập nhật việc A không xóa tín hiệu việc B. Thay nguyên lastActors/activeActors của việc liên quan, không cộng dồn xanh. Không tự tắt màu theo đồng hồ; lỗi nhận giữ bản tốt cuối và hiển thị stale. Kiểm tra định kỳ bù webhook thất lạc; lịch cụ thể chốt khi triển khai qua hạ tầng hiện hữu. Khi tab mở, cần cơ chế nạp snapshot mới để người dùng không phải reload.
-
-Ưu tiên tái dùng receiver/job/kiểm tra hiện có. Chưa tạo webhook, chưa có snapshot backend, chưa tự đồng bộ. UI hiện chỉ có fixture có nhãn và bản HTML MOT đã lấy về. Tình trạng đang làm để xám cho đến khi có nguồn đáng tin. COLLAB ghi phần còn mở, Owner đang chỉnh UI.
+B2 là đường ống tự đổ. B3 actor-surface và B4 webhook/active actor chỉ mở sau khi B2 chạy ổn.
 
 Tham chiếu: https://developer.apple.com/design/human-interface-guidelines/color ; https://docs.github.com/en/webhooks/using-webhooks/best-practices-for-using-webhooks

@@ -2,7 +2,9 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 
-**HVU-UI03 · Owner 21/09/2026 — chỉ đạo mới nhất:** Thu cột trái 20% so UI02 (=120% cột Knowledge), giảm khoảng cách dòng. Hai tab Kiểm soát (Mục tiêu/Tiến độ/Tình trạng) và Nội dung công việc (nguyên HTML như MOT). Tiến độ: 4 thanh bo tròn luôn thấy, tooltip; xám chưa làm, xanh xong, đỏ tắc, vàng cam điều chỉnh. Tình trạng: Chat GPT, Codex/GPT Work, Chat Claude, Claude Code CLI/Cowork, Hermes Chat, Hermes Code × hai cột Vừa làm/Đang làm. Chấm xanh theo snapshot mới nhất; bản mới thay cũ, không tích lũy hoặc tự hết màu theo thời gian. Thiếu tín hiệu không suy đoán.
+**HVU-DATA01 · Owner 21/09/2026 — chỉ đạo mới nhất:** UI03 hiện đã có và được coi là khung xong. Mục tiêu tiếp theo là **đấu đường ống để task/HTML/mục tiêu/tiến độ tự đổ và tự cập nhật tối đa**, không yêu cầu User/AI nhớ bấm hay báo thêm nếu Git đã có dấu vết. Mọi commit mới trên `main` đều đủ điều kiện trở thành dữ liệu mới; VPS kiểm mỗi 60 giây nhưng **HEAD không đổi thì thoát ngay**. HEAD đổi → dựng snapshot mới; chỉ publish khi snapshot hợp lệ. Lỗi → giữ last-good, hiện stale/error, tự retry ở lượt kế tiếp. Task mới tự phát hiện từ `work/*/COLLAB.md`; không phụ thuộc AI nhớ thêm dòng vào root. Chỉ dữ liệu/tài liệu tự đổ; khung app/runtime không tự deploy từ GitHub. B3 nhận diện chính xác 6 surface tách riêng sau khi B2 ổn.
+
+**HVU-UI03 · Owner 21/09/2026 — chỉ đạo trước:** Thu cột trái 20% so UI02 (=120% cột Knowledge), giảm khoảng cách dòng. Hai tab Kiểm soát (Mục tiêu/Tiến độ/Tình trạng) và Nội dung công việc (nguyên HTML như MOT). Tiến độ: 4 thanh bo tròn luôn thấy, tooltip; xám chưa làm, xanh xong, đỏ tắc, vàng cam điều chỉnh. Tình trạng: Chat GPT, Codex/GPT Work, Chat Claude, Claude Code CLI/Cowork, Hermes Chat, Hermes Code × hai cột Vừa làm/Đang làm. Chấm xanh theo snapshot mới nhất; bản mới thay cũ, không tích lũy hoặc tự hết màu theo thời gian. Thiếu tín hiệu không suy đoán.
 
 **Đấu nối UI03 (thiết kế, chưa bật):** Owner định hướng webhook thay quyết định không-webhook cũ bên dưới. Webhook xác thực báo nguồn đổi → VPS lấy HEAD đúng repo/branch, dựng HTML + metadata cùng revision cho từng work-id; chống trùng, lock, không ghi đè bởi sự kiện cũ; kiểm tra định kỳ bù sự kiện thất lạc. Không suy actor từ tài khoản push dùng chung; đang làm chỉ sáng nếu có bằng chứng. Chi tiết mapping ở ui-assembly/README.md. Lượt UI03 triển khai UI và HTML MOT nguồn thật; webhook/trạng thái vẫn chưa nối.
 
@@ -51,7 +53,7 @@ HTML chính: `view.html`
 - HVU01 · 2026-09-21 · Owner đã xác nhận mục tiêu mở rộng: từ HTML viewer thành Task Control View mỏng.
 - HVU02 · 2026-09-21 · GPT xử lý P05–P08: đồng thuận V1 pull-on-demand, không webhook; `PROMPT.md` đã soạn và kiểm.
 - ~~READY@1e83e09f480238ea18f893605eca1663d5b3c112~~ · VÔ HIỆU theo A6: Claude sửa `PROMPT.md` tại `ef62dda` (P09).
-- READY@a16689effaf14f10a3cb814cb395f5b41b66019c · Host GPT đã chỉ định trước giá trị này trong tin nhắn P10 (điều kiện: Claude ACCEPT P10 và không sửa `PROMPT.md`) — điều kiện đạt; Claude ghi hộ theo chỉ định đó. Đã đối chiếu `git log -- PROMPT.md`: commit cuối = `a16689e`. Sẵn sàng RUN HVU.R1.
+- ~~READY@a16689effaf14f10a3cb814cb395f5b41b66019c~~ · MỐC LỊCH SỬ của HVU.R1 trước UI03; không còn là giấy phép RUN sau khi Owner/Codex đã dựng UI03 và scope chuyển sang HVU-DATA01/B2.
 - Các P01–P04 của Claude bên dưới được giữ làm đầu vào thực địa; Claude cần review lại trên mục tiêu HVU01.
 
 ## Kế hoạch nguyên tắc V1 — để hội đồng phản biện
@@ -137,7 +139,7 @@ Reviewer vòng 2 (HVU01): Claude Chat · Based_on `c5117f8` · Đã đọc: §0 
 - P08 ACCEPTED với hiệu chỉnh A8/README §12: refresh tài liệu được mang theo asset của HTML nhưng file phụ không được public/link mặc định; mã/runtime vẫn tuyệt đối không đi GitHub → VPS.
 - P09 ACCEPTED: 3 vá của Claude đúng mục tiêu và không đổi kiến trúc; Host chỉ thêm cạnh biên P10 về ưu tiên DONE trước khi READY lại.
 
-## P11 · Claude · đấu nối dữ liệu tự đổ cho UI03 · OPEN
+## P11 · Claude · đấu nối dữ liệu tự đổ cho UI03 · ACCEPTED
 Based_on `19ed1df` · Scope: yêu cầu Owner 21/09 “HTML và thông tin tự đổ xuống VPS, tự đấu nối” trên bản UI03 Codex đã dựng.
 
 **Thực địa (chỉ đọc):** KB `/knowledge/modules` = vỏ Nuxt iframe `/ui-preview/hpml-view-for-user/view.html` (sandbox `allow-scripts allow-same-origin`). Mọi dữ liệu trong view đang gắn cứng ở `ui-assembly/app.vue` (6 tên việc, mục tiêu, 4 thanh, chấm actor, map tài liệu) → chưa có chỗ cho dữ liệu “đổ vào”. Mirror tĩnh chép tay tại `docker/nginx/static/ui-preview/hpml-view-for-user/`; nginx `/ui-preview/` bật `disable_symlinks` → phải chép file, không symlink clone. Chưa có webhook receiver nào. Hai cổng ghi Git đóng author cố định (`Claude via MCP`; `AI via Incomex Workspace` — GPT Chat, Codex và Claude Code CLI cùng đi cổng này); Codex commit không có tiền tố `[..]` → author/tiền tố không tách được 6 actor. READY@a16689e (HVU.R1) là mốc cũ theo ghi chú UI01.
@@ -150,6 +152,11 @@ Based_on `19ed1df` · Scope: yêu cầu Owner 21/09 “HTML và thông tin tự 
 
 **Host cần làm trước RUN 1:** gạch READY@a16689e thành mốc lịch sử (nếu không, chính view sẽ hiện HVU “chờ Agent” sai); viết B1 vào AGENTS/README; sửa tại chỗ `PROMPT.md` cho RUN B2 (một tài liệu, không tạo file mới).
 
+## Host xử lý P11 / thiết kế B2
+- ACCEPTED cả 3 hướng của Claude, với hiệu chỉnh giảm phụ thuộc thao tác tay: task discovery quét trực tiếp `work/*/COLLAB.md`; root chỉ đánh dấu Done.
+- Cadence: timer 60 giây là **check**, không phải copy lại 60 giây/lần. HEAD không đổi → thoát. HEAD đổi → rebuild/publish snapshot; UI đang mở poll dữ liệu 60 giây.
+- Publish contract: lock + không hạ revision + validate trước publish + last-good. Fetch/parse/copy lỗi giữ dữ liệu cũ, ghi `syncStatus=error/stale`, tự retry lượt kế tiếp. Không để một lần lỗi làm trắng dashboard.
+- B1 đã đưa thành A9/README §12. B2 dùng PROMPT hiện hành. B3 chuẩn hoá `Surface:` ở cổng ghi chỉ mở sau khi B2 PASS để không ảnh hưởng các connector đang dùng.
+
 ## Owner cần quyết
-- P11 · Claude đề xuất CÓ cả ba: (1) bộ hẹn giờ 1 phút trước, webhook để sau nếu cần; (2) chỉ dữ liệu tự đổ, `view.html` vẫn triển khai tay; (3) thêm dòng `KQ@<RUN> XONG|DỪNG` làm dấu hiệu chuẩn của bước Triển khai.
-- — · Không có quyết định nghiệp vụ mới. Chỉ chờ Claude xác nhận P10; sau đó Host đặt READY theo commit cuối chạm `PROMPT.md` và RUN.
+- — · Không còn quyết định nghiệp vụ chặn B2.

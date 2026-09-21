@@ -66,3 +66,14 @@
 - Khi Owner yêu cầu thay đổi, AI sửa **HTML chính trong workspace/Git**. Bản hiển thị trên VPS chỉ là **mirror dẫn xuất** để Owner xem; không tạo thêm một nguồn nội dung độc lập trên VPS.
 - Owner xem HTML qua URL trên VPS. Cơ chế **Cập nhật** chỉ được làm mới gói tài liệu Owner View của đúng công việc theo README §12; tuyệt đối không dùng để thay đổi mã/runtime, deploy từ GitHub hay ghi đè vùng dịch vụ.
 - Quy tắc kỹ thuật chi tiết của lớp Owner View nằm trong README; mọi AI/Agent làm việc trên repo này phải giữ mô hình **một việc → một thư mục → một HTML chính → một URL Owner View**.
+
+## A9_TASK_SIGNAL — Khung tín hiệu máy đọc cho Task Control View
+- Mục đích: User nhìn dashboard biết việc đang ở đâu mà **không bắt AI nhớ thêm nhiều thao tác báo cáo**. Bộ đồng bộ tự phát hiện mọi `work/*/COLLAB.md`; tạo đúng thư mục việc + A0 là đủ để việc xuất hiện. Root `COLLAB.md` chỉ là dấu `Đã xong`/điều phối, không phải điều kiện để task mới được phát hiện.
+- Khung chung có 4 giai đoạn, dùng đúng 5 trạng thái UI: `pending · done · blocked · changing · unknown`. Không suy từ văn xuôi ngoài dấu hiệu quy định:
+  1. **Mục tiêu**: A0 `ĐÃ XÁC NHẬN` → `done`; `CHƯA XÁC NHẬN` → `changing`; thiếu/không đọc được → `unknown`.
+  2. **Kế hoạch**: nếu Mục tiêu chưa `done` → `pending`; P hiện hành `OWNER` → `blocked`; P hiện hành `OPEN` → `changing`; `READY@<SHA>` hợp lệ theo A6 → `done`; còn lại → `unknown`.
+  3. **Triển khai**: nếu Kế hoạch chưa `done` → `pending`; `KQ@<RUN_ID> DỪNG` → `blocked`; `KQ@<RUN_ID> XONG` → `done`; READY hợp lệ nhưng chưa có KQ của RUN hiện hành → `changing`; còn lại → `unknown`.
+  4. **Nghiệm thu**: việc nằm trong root `## Đã xong` → `done` và ưu tiên cao nhất; có `KQ@<RUN_ID> XONG` nhưng chưa vào `Đã xong` → `changing`; chưa có KQ XONG → `pending`; thiếu dữ kiện → `unknown`.
+- `KQ@<RUN_ID> XONG|DỪNG` là **dấu hiệu mới duy nhất**. `<RUN_ID>` phải khớp RUN_ID hiện hành trong `PROMPT.md`; kết quả RUN cũ không được dùng cho prompt mới. Agent ghi/cập nhật dòng KQ trong cùng lượt hoàn tất/báo cáo đã được prompt yêu cầu, không tạo thêm file tiến độ hay một lượt báo riêng; sau đó vẫn trả Owner một dòng XONG/DỪNG theo A6.
+- `currentStage` là giai đoạn đầu tiên chưa `done`; `Đã xong` ở root luôn thắng mọi READY/KQ cũ. Thiếu tín hiệu → `unknown`, không đoán.
+- `Vừa làm` chỉ sáng khi có bằng chứng actor/surface rõ ràng; không suy actor từ Git author/pusher dùng chung. `Đang làm` không suy từ commit. Chuẩn hoá surface tự động tại cổng ghi là việc riêng sau khi đường ống dữ liệu ổn định.

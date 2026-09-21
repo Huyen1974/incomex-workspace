@@ -1,6 +1,6 @@
-# PROMPT — HVU.R1 · Task Control View V1
+# PROMPT — HVU.B2 · Đường ống dữ liệu tự đổ cho UI03
 
-RUN_ID: HVU-R1-20260921-01
+RUN_ID: HVU-B2-20260921-01
 Host: GPT Chat · `GPT-HVU-20260921-A`
 Mục tiêu đã xác nhận tại `work/hpml-view-for-user/COLLAB.md` §0. Trạng thái/giấy phép chỉ tin `COLLAB.md`, không tin câu chữ trong prompt nếu có xung đột.
 
@@ -13,119 +13,71 @@ Mục tiêu đã xác nhận tại `work/hpml-view-for-user/COLLAB.md` §0. Tr�
 
 Nếu một đầu vào cụ thể ở trên không đúng thực địa, chọn phương án ít thay đổi nhất vẫn giữ §0; ghi rõ sai khác trong báo cáo cuối, không tự mở rộng kiến trúc.
 
-## 1. Phạm vi V1 đã chốt
-V1 phải cực mỏng. **CẤM tự thêm**: webhook, cron nền, queue, database/task manager mới, GitHub Projects, GitHub Actions/required checks, current-actor heartbeat/START-STOP, full-text HTML, auto-dispatch, checkpoint riêng từng loại việc.
+## 1. Phạm vi B2 — chỉ đấu dữ liệu, không thiết kế lại UI
+UI03 hiện đang chạy tại `/knowledge/modules`; coi layout/visual là **đã chốt cho lượt này**. B2 chỉ thay fixture hard-code bằng dữ liệu thật và thêm scheduler/snapshot.
 
-Dùng tối đa Git + cấu trúc repo hiện hữu. AI/Agent không có thao tác báo trạng thái mới.
+**CẤM tự thêm:** webhook, database/task manager mới, GitHub Projects/Actions, full-text HTML, auto-dispatch, heartbeat/current actor, sửa cổng ghi Surface (đó là B3), hoặc redesign UI.
 
-Hiện có 6 việc phải kiểm thử thật:
-- `work/hermes-joint-workspace/`
-- `work/hpml-view-for-user/`
-- `work/jev-integration/`
-- `work/mcp-workspace/`
-- `work/mow-mot-moit-mout/`
-- `work/vps-clean-20-9-26/`
+Mọi commit mới trên `main` đều là revision dữ liệu hợp lệ để mirror; không cần marker publish riêng. Chỉ DỮ LIỆU/tài liệu tự đổ. `view.html` app/KB/nginx/script/timer là runtime theo README §11 và phải sửa/deploy tại VPS rồi mirror mã theo quy trình runtime hiện hữu.
 
-Không tự tạo `view.html` cho việc đang thiếu HTML chính; UI phải hiện `Chưa có view`.
+## 2. Đường ống tự đổ bắt buộc
+### A. Nguồn và trigger
+- Dùng **một clone chỉ-đọc riêng** của `Huyen1974/incomex-workspace`, ngoài web root và ngoài clone connector ghi/push. Không credential có quyền push; ưu tiên anonymous read nếu repo vẫn public.
+- Tái dùng scheduler hiện hữu nếu phù hợp; nếu không có, thêm tối đa **một systemd oneshot + timer** cho B2. Mỗi 60 giây: lock → kiểm/fetch `origin/main` → nếu HEAD bằng revision đã xử lý thì thoát nhanh, không rebuild/copy documents → nếu HEAD mới thì dựng snapshot từ đúng HEAD đó.
+- Nút **Cập nhật** trên UI không cần backend riêng ở B2: nó đọc lại snapshot/health ngay. UI đang mở tự poll dữ liệu khoảng 60 giây. Webhook để B4 nếu độ trễ này thực tế không đủ.
 
-## 2. Kiến trúc đích tối thiểu
-### A. Một clone chỉ-đọc cho Owner View
-- Tạo **một** clone riêng của `Huyen1974/incomex-workspace`, không dùng clone GPT/Claude connector đang ghi/push.
-- Clone này chỉ fetch/pull; không cấu hình credential có quyền push. Repo hiện public nên ưu tiên fetch anonymous nếu thực địa phù hợp.
-- Refresh bằng `git pull --ff-only`, có lock để không chạy pull/index song song.
-- Không background sync. Hai trigger duy nhất:
-  1. Owner bấm **Cập nhật**;
-  2. mở `Tasks now` và index cũ hơn khoảng 10 phút.
-- Nếu KB đã có server hook/endpoint an toàn có thể gọi script thì tái sử dụng. Nếu chưa có, chỉ thêm **một endpoint same-origin hẹp** cho refresh/index; không dựng daemon/service mới nếu không thật cần. Endpoint phải có lock/cooldown phía server để nhiều lượt mở trang không tạo pull storm.
+### B. Tự phát hiện task + parser
+- Task discovery = mọi thư mục `work/*/` có `COLLAB.md`. Không phụ thuộc root `## Đang làm` để task mới xuất hiện.
+- Root `## Đã xong` chỉ đánh dấu Done; task không nằm `Đã xong` mặc định bucket `Now`.
+- Parse A0, P, READY, `RUN_ID`, `KQ@<RUN_ID>`, HTML chính đã khai báo/default và Git log. **Bảng trạng thái duy nhất là AGENTS A9**; script không tạo bảng luật thứ hai khác nghĩa.
+- `KQ` chỉ tính khi RUN_ID khớp prompt hiện hành. READY/KQ cũ không được làm task Done đổi ngược trạng thái.
+- `lastActors`: B2 chỉ dùng actor/surface có bằng chứng rõ trong COLLAB/commit prefix hiện hữu; không chắc → không sáng. `activeActors=null` ở B2. Không suy 6 surface từ Git author/pusher dùng chung.
 
-### B. Một script index/refresh
-Một script duy nhất đọc clone và sinh `tasks-index.json`. Không có parser thứ hai.
+### C. Snapshot/publication
+Sinh dữ liệu dưới vùng static hiện hữu của `hpml-view-for-user`, tối thiểu:
+- `data/tasks.json`: revision nguồn + danh sách task + goal nguyên A0 + 4 stages/currentStage + lastActors/activeActors + document URL/status + warnings/evidence cần cho UI.
+- `data/sync-status.json`: `lastCheckedAt`, `lastSuccessAt`, `sourceRevision`, `publishedRevision`, `status=fresh|stale|error`, `consecutiveFailures`, lỗi đã sanitize.
+- mirror HTML chính của từng task vào vùng documents; không public `.git`, `COLLAB.md`, `PROMPT.md`, evidence hay directory listing. Task thiếu HTML vẫn xuất hiện và UI ghi `Chưa có view`.
 
-Nguồn chuẩn:
-- root `COLLAB.md`: hai mục `## Đang làm` / `## Đã xong` → `Now/Done`;
-- từng `work/<id>/COLLAB.md`;
-- `PROMPT.md` nếu có;
-- `git log` của clone.
+**Không được để mixed/half snapshot:** dùng staging + validate + publish nguyên tử hoặc cơ chế tương đương; tasks JSON/document references phải cùng revision logic. Không hạ revision nếu lượt cũ/trễ hoàn tất sau lượt mới.
 
-Chỉ parser 4 dấu hiệu luật bắt buộc:
-1. `Xác nhận User: ĐÃ XÁC NHẬN` / `CHƯA XÁC NHẬN`;
-2. P status: `OPEN`, `OWNER`, `ACCEPTED`, `PARTIAL`, `REJECTED`;
-3. `READY@<40 SHA>` và commit cuối chạm `PROMPT.md`;
-4. `git log -1 -- work/<id>/` cho commit gần nhất.
+### D. Lỗi và tự phục hồi
+- Remote/fetch lỗi, parse lỗi toàn snapshot, copy/validate lỗi → **không thay last-good**; cập nhật health `error/stale` bằng ghi nguyên tử, tự retry ở phút kế tiếp.
+- HEAD không đổi nhưng timer chạy thành công → được cập nhật `lastCheckedAt`/health nhỏ; không rebuild documents.
+- Một task hỏng mà vẫn cô lập được → publish các task khác, task đó `unknown` + warning và giữ document last-good nếu có; không làm trắng dashboard.
+- Nếu scheduler không chạy/health không đổi quá khoảng 3 phút → UI phải hiển thị `stale`; dữ liệu cũ vẫn xem được.
+- Không force reset, không `rsync --delete` repo, không để lỗi mạng làm xoá document đang phục vụ.
 
-Không suy đoán từ văn xuôi ngoài các dấu hiệu trên.
-
-Dữ liệu tối thiểu mỗi task:
-- `id/name`;
-- `bucket`: `Now|Done|?`;
-- khối mục tiêu A0 để UI hiển thị đầu tiên;
-- `stage` theo khung §0.4, suy đúng bảng sau và đặt bảng ở MỘT chỗ đầu script kèm chú thích (nâng cấp khung sau này = sửa đúng bảng này, không đụng chỗ khác). **Thứ tự ưu tiên bắt buộc:** `DONE` nếu việc nằm trong `## Đã xong` của COLLAB gốc → nếu chưa DONE thì `GOAL` khi A0 `CHƯA XÁC NHẬN` → `EXECUTION` khi READY hợp lệ (luôn kèm `waiting_run=true`; RUN không có dấu hiệu máy đọc nên không suy Agent đang chạy) → `CONSENSUS` khi A0 đã xác nhận và chưa có READY hợp lệ → `VERIFY` = V1 chưa có dấu hiệu máy đọc, không suy → thiếu dữ kiện = `?`;
-- `next_actor` theo đúng luật, cũng theo thứ tự ưu tiên: việc thuộc `## Đã xong` → `—` (không còn bước tiếp theo mặc định); nếu chưa DONE thì A0 chưa xác nhận hoặc có P `OWNER` → `Owner`; READY hợp lệ → `Agent` kèm `waiting_run=true` (**READY không phải RUN**); còn lại → `Host`; thiếu dữ kiện cần thiết → `?`.
-- `last_commit`: hash, timestamp, subject, actor từ prefix hợp lệ nếu có; actor không chắc → `?`;
-- `html_main`: path khai báo trong COLLAB hoặc mặc định `view.html`; `exists=true/false`;
-- `evidence` tối thiểu để Owner kiểm lại nhãn suy ra.
-
-Chỉ hai warning V1:
-1. A0 chưa xác nhận nhưng đã có READY (RUN không phải dấu hiệu máy đọc, không dò trong văn xuôi);
-2. `READY@SHA` không khớp commit cuối chạm `PROMPT.md`.
-
-Không dựng validator framework.
-
-### C. Static Owner View
-- Tận dụng clone chỉ-đọc hoặc một mirror tài liệu dẫn xuất tối thiểu; chọn cách ít copy/mã nhất sau khảo sát.
-- Relative asset của HTML chính phải hoạt động. Riêng `mow-mot-moit-mout`: theo MMIM H01–H02, ảnh/binary KHÔNG vào Git mà sẽ ở kho static HTTPS dùng chung (MMIM.3, chưa làm) → V1 chỉ cần HTML lớn render được và CSP không chặn ảnh URL tuyệt đối https; ảnh MMIM chưa hiện không phải lỗi của HVU, ghi nhận và đi tiếp.
-- Không directory listing; không public/link mặc định `.git`, `COLLAB.md`, `PROMPT.md`, evidence hay file điều phối. Parser được đọc COLLAB nội bộ nhưng UI chỉ hiển thị phần A0/status cần thiết.
-- Tái dùng CSP/nginx hiện có nếu tương thích. Owner View phải render cô lập (iframe sandbox hoặc cơ chế tương đương) mà không phá asset hiện hành.
-
-## 3. UI `Tasks now`
-- Dùng vị trí menu **Modules** để hiển thị **Tasks now**.
-- Không xoá bảng/data/routes Modules. Giữ đường cũ để rollback và không làm gãy link Discovery.
-- Không xoá menu/data `Tasks` cũ trong lượt này nếu không bắt buộc kỹ thuật; ghi nhận nếu UI gây trùng nghĩa để Owner quyết sau.
-- Tái sử dụng layout Knowledge 2 cột.
-
-Cột trái:
-- task name/id;
-- stage nếu chắc chắn;
-- `Next: —|Owner|Agent|Host|?`;
-- commit gần nhất: actor · thời gian;
-- chỉ hai tab/filter `Now` / `Done` + một ô search metadata/mục tiêu. Không full-text nội dung HTML.
-
-Cột phải, đúng thứ tự:
-1. **MỤC TIÊU User** từ A0/index — luôn ở trên cùng;
-2. stage / next actor / warning / evidence commit;
-3. Owner View HTML;
-4. nếu không có HTML → `Chưa có view`.
-
-Có nút **Cập nhật** dùng cùng refresh path; mở trang chỉ tự refresh nếu index >~10 phút.
+## 3. Nối UI03 hiện có vào snapshot
+Giữ nguyên UI03 (2 tab, sidebar, 4 thanh, 6 actor × 2 cột). Chỉ thay nguồn dữ liệu:
+- bỏ mảng 6 task/mục tiêu/stage/snapshot/documents hard-code trong `ui-assembly/app.vue`;
+- fetch snapshot + health static với cache-bust/no-cache phù hợp; poll khoảng 60 giây;
+- task mới trong JSON tự xuất hiện, không cần sửa app;
+- mục tiêu/stages/currentStage lấy từ JSON; không diễn giải lại bằng AI;
+- tab Nội dung dùng `documentPath` của task; thiếu file → `Chưa có view`;
+- `lastActors` thay nguyên snapshot mới, không cộng dồn; `activeActors` null/không tín hiệu thì xám;
+- hiển thị badge nhỏ `fresh/stale/error` + revision/thời điểm khi cần để Owner biết dữ liệu có lạc hậu không;
+- nút Cập nhật chỉ force refetch static JSON trong browser ở B2, không tạo endpoint ghi mới.
 
 ## 4. Kiểm thử bắt buộc
-Chạy thật trên cả 6 việc hiện có, tối thiểu xác nhận:
-- danh sách 6 việc xuất hiện đúng Now/Done theo root COLLAB;
-- A0/mục tiêu của từng việc đọc được hoặc báo thiếu rõ ràng;
-- `last_commit` đúng hash/subject/time so với `git log`;
-- READY hợp lệ/lệch được phân biệt đúng ở việc có PROMPT;
-- việc thiếu HTML hiện `Chưa có view`;
-- HTML lớn của MMIM render được; cơ chế asset tương đối kiểm bằng asset có sẵn trong repo nếu có, chưa có thì ghi “chưa kiểm được”, không tự tạo file thử;
-- search metadata/mục tiêu hoạt động;
-- manual Cập nhật hoạt động;
-- stale >~10 phút chỉ tạo tối đa một refresh nhờ lock/cooldown;
-- nginx config test PASS trước reload; KB build/test/health check PASS sau deploy;
-- route/data Modules cũ không bị xoá.
+1. Production `/knowledge/modules` vẫn giữ UI03, nhưng không còn fixture hard-code; console không có lỗi mới do B2.
+2. 6 task hiện có được tự discover; task thiếu HTML vẫn hiện. Danh sách không phụ thuộc root `Đang làm`.
+3. A0 và 4 thanh của ít nhất các trạng thái khác nhau khớp AGENTS A9; `KQ` sai RUN_ID không được dùng.
+4. HEAD không đổi: hai lượt timer liên tiếp không rebuild/copy documents; chứng minh bằng log/hash/mtime thích hợp.
+5. Tạo một commit workspace vô hại/đã có thật sau mốc baseline rồi xác nhận trong ≤ khoảng 60–120 giây `sourceRevision`/mục tiêu hoặc metadata tương ứng cập nhật trên VPS mà không bấm tay.
+6. UI đang mở tự nhận revision mới mà không reload toàn trang.
+7. HTML lớn MMIM vẫn mở được; ảnh ngoài Git chưa có không chặn B2.
+8. Failure test **chỉ trong môi trường/cấu hình cô lập hoặc cách an toàn không phá production**: sync lỗi phải giữ last-good; lượt sau thành công tự hồi phục. Không cố gây outage thật chỉ để test.
+9. Nếu health không cập nhật >3 phút, UI hiển thị stale nhưng vẫn đọc được last-good.
+10. `nginx -t`, build/test/health check PASS trước/ sau deploy; runtime rollback point ghi rõ.
 
-Không tạo benchmark giả 300 task ở V1.
+## 5. Ranh giới B3/B4 — KHÔNG làm trong lượt này
+- B3: chuẩn hoá `Surface:` tự động tại hai cổng ghi để phân biệt GPT Chat/Codex/Claude Chat/Claude Code/Hermes; chỉ mở sau B2 PASS.
+- B4: `Đang làm` theo activity/harness và webhook push-trigger; chỉ mở nếu dùng thật thấy cần.
 
-## 5. An toàn và rollback
-- Trước sửa runtime/config: ghi lại commit/version/file hiện hành và cách rollback.
-- Không delete data/table/routes legacy; không `rsync --delete`.
-- Nginx: `nginx -t` trước reload; fail → không reload.
-- Nuxt: build/test trước khi thay bản chạy; fail → giữ production cũ.
-- Refresh clone lỗi mạng/FF conflict → giữ index/view cuối cùng, UI báo stale/error; không reset/force.
-- Script/index lỗi một task → task đó hiện `?`/warning; không làm sập toàn trang.
-- Không force-push, không force-reset, không thay secret/auth hiện hữu nếu không thật sự cần.
-
-## 6. Báo cáo và kết thúc
-- Không tạo file progress/handoff mới.
-- Báo cáo Owner duy nhất trong repo là **cập nhật phần trạng thái/kết quả trong `work/hpml-view-for-user/view.html`** sau khi triển khai/test, gồm: URL Tasks now, thành phần đã tái sử dụng, file/runtime đã đổi, test 6 việc, rollback point, phần hoãn V2.
-- Commit mã/runtime theo quy ước repo mã hiện hữu; commit workspace nếu cần theo `AGENTS.md` và không trộn file ngoài scope.
-- Không tự sửa mục tiêu A0 hay luật nền ngoài những gì prompt này đã được READY cho phép.
-- Kết thúc trả đúng một dòng cho Owner: `XONG · HVU.R1 · <commit/runtime refs>` hoặc `DỪNG · HVU.R1 · <lý do>`.
+## 6. An toàn, báo cáo, kết thúc
+- Không redesign UI, không xoá data/routes Modules/Tasks, không force/reset, không `rsync --delete` repo.
+- Scheduler/sync script/nginx/Nuxt là runtime: sửa và test tại VPS theo README §11; mirror mã về repo runtime hiện hành, không kéo mã runtime từ incomex-workspace xuống.
+- Dữ liệu mirror là disposable/cache; GitHub workspace vẫn SSOT.
+- Sau khi PASS, cập nhật `work/hpml-view-for-user/COLLAB.md` với runtime refs + test; ghi đúng một dòng `KQ@HVU-B2-20260921-01 XONG`. Nếu phải dừng, ghi `KQ@HVU-B2-20260921-01 DỪNG` + lý do ngắn. Không tạo file tiến độ mới.
+- Kết thúc trả Owner một dòng: `XONG · HVU.B2 · <runtime/workspace refs>` hoặc `DỪNG · HVU.B2 · <lý do>`.
