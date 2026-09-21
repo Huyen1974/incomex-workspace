@@ -2,6 +2,10 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 
+**HVU-UI03 · Owner 21/09/2026 — chỉ đạo mới nhất:** Thu cột trái 20% so UI02 (=120% cột Knowledge), giảm khoảng cách dòng. Hai tab Kiểm soát (Mục tiêu/Tiến độ/Tình trạng) và Nội dung công việc (nguyên HTML như MOT). Tiến độ: 4 thanh bo tròn luôn thấy, tooltip; xám chưa làm, xanh xong, đỏ tắc, vàng cam điều chỉnh. Tình trạng: Chat GPT, Codex/GPT Work, Chat Claude, Claude Code CLI/Cowork, Hermes Chat, Hermes Code × hai cột Vừa làm/Đang làm. Chấm xanh theo snapshot mới nhất; bản mới thay cũ, không tích lũy hoặc tự hết màu theo thời gian. Thiếu tín hiệu không suy đoán.
+
+**Đấu nối UI03 (thiết kế, chưa bật):** Owner định hướng webhook thay quyết định không-webhook cũ bên dưới. Webhook xác thực báo nguồn đổi → VPS lấy HEAD đúng repo/branch, dựng HTML + metadata cùng revision cho từng work-id; chống trùng, lock, không ghi đè bởi sự kiện cũ; kiểm tra định kỳ bù sự kiện thất lạc. Không suy actor từ tài khoản push dùng chung; đang làm chỉ sáng nếu có bằng chứng. Chi tiết mapping ở ui-assembly/README.md. Lượt UI03 triển khai UI và HTML MOT nguồn thật; webhook/trạng thái vẫn chưa nối.
+
 **Chỉ đạo UI mới nhất của Owner — 21/09/2026 (HVU-UI01):** ĐÃ XÁC NHẬN trực tiếp trong phiên Codex: “view dễ nhìn cho User để biết mục tiêu, biết trạng thái giúp điều hành hiệu quả”; lắp ráp tối đa, hạn chế code mới tối đa. Owner đồng ý 2 cột; cột trái bằng 150% cột KB Knowledge. Mục tiêu, Tiến độ và các mục nội dung được mở/thu gọn để tiết kiệm diện tích. Nhãn menu theo chỉ đạo: **Task html view**. Phạm vi giao Codex là **phác thảo UI để Owner chỉnh**, chưa RUN HVU.R1/production. Yêu cầu mới này ưu tiên hơn phần cũ yêu cầu mục tiêu luôn mở: tiêu đề và dòng tóm tắt luôn thấy, nội dung đầy đủ có thể thu gọn.
 
 **Mục tiêu cốt lõi**
