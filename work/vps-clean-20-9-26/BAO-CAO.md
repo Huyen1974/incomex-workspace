@@ -6,17 +6,17 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ## R2 — Dọn đợt 1 · 21/09/2026 · executor=Claude Code CLI · write_path=workspace_*
 
-RUN_ID `VPSC-R2-20260921-01` · PROMPT@f701fc5ca09041d47752cc7c5bca46ab290e8043 — đã kiểm: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã. Chạy 2 phiên: phiên 1 làm đợt A + B1; phiên 2 (phiên mới sạch) làm B4 + K1 + K2, ghi phần này, rồi B1 (kiểm lại) → B2 → B3. **Trạng thái: ĐANG LÀM — A + B4 + K1 + K2 xong; B1/B2/B3 đang làm.** Đơn vị GiB (1024³), giờ UTC.
+RUN_ID `VPSC-R2-20260921-01` · PROMPT@f701fc5ca09041d47752cc7c5bca46ab290e8043 — đã kiểm: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã. Chạy 2 phiên: phiên 1 làm đợt A + B1; phiên 2 (phiên mới sạch) làm B4 + K1 + K2, ghi phần này, rồi B1 (kiểm lại) → B2 → B3. **Trạng thái: MACHINE_DONE — đợt A + đợt B (B1–B4) + K1 + K2 xong · KQ@VPSC-R2-20260921-01 XONG.** Phần 1 ghi ~10:27Z (`35e51b2`), cập nhật cuối ~10:40Z. Đơn vị GiB (1024³), giờ UTC.
 
 ### 1. CHO OWNER
 
-- Đĩa trống: **9,398 → 16,244GiB** sau đợt A (phiên 1); đầu phiên 2 đo 16,083; sau B4/K1/K2 đo **16,094GiB** (84%).
-- Thu hồi đợt A: **6,846GiB** (dự kiến ~6,8, trong ngưỡng 15%) — log Directus, 979 build tạm, cache, 63 bản sao web cũ.
-- Khoá vòi: **4/4 đã sửa/cài** — Qdrant (B4), bản sao Nuxt (K2), log Directus + context-pack.tmp + cache (K1, người gác kho chạy mỗi giờ). B4/K2 chỉ `bash -n`, chưa có lượt chạy thật.
-- Còn lại của R2: gỡ ~159 bản chụp Qdrant cũ (~27,36GiB) sau khi đưa 1 bản mới nhất ra ngoài VPS — **đang làm**.
-- Mục tiêu 45GiB trống: hiện còn thiếu **28,906GiB**; B3 bù ~27,36 → dự kiến còn thiếu ~1,5GiB cho đợt 2.
-- Health không đổi: 12 container (10 có healthcheck đều healthy), Qdrant `production_documents` 20181 điểm green, web 200, Directus ok.
-- Một sự cố NGOÀI R2 trong phiên 2 (10:20–10:25Z): bên khác thay image HVU-B3 cho agent-data rồi quay lại image cũ — xem §6.
+- Đĩa trống: **9,398 → 43,452GiB** (91% → 55%).
+- Thu hồi: đợt A **6,846GiB** + B3 **27,361GiB** = **34,207GiB** (ròng 34,054 — chênh ~0,15GiB là tăng nền giữa hai phiên).
+- Khoá vòi **4/4**: Qdrant (B4), bản sao Nuxt (K2), log Directus + context-pack.tmp + cache (K1, cron mỗi giờ; lượt cron thật đầu 10:23Z: không có gì để làm, không lỗi).
+- Bản Qdrant mới nhất đã nằm ngoài VPS (mã hoá, md5 khớp); server-side còn đúng 1 bản (0,22GiB).
+- Mục tiêu 45GiB trống: còn thiếu **1,548GiB** → đợt 2 (N9/N11 cứu rồi xoá).
+- Health không đổi: 12 container (10 có healthcheck đều healthy), Qdrant green, `points_count` không đổi trong B3, web 200, Directus ok.
+- Host cần biết 2 việc (§6): HVU-B3 chạy song song 10:20–10:25Z rồi tự dừng/rollback; B2 phải thử lại 1 lần do Drive giới hạn tốc độ.
 
 ### 2. Bảng thu hồi
 
@@ -27,10 +27,11 @@ RUN_ID `VPSC-R2-20260921-01` · PROMPT@f701fc5ca09041d47752cc7c5bca46ab290e8043 
 | A3 · N5 cache (6 thư mục) | ~1,42 | trong tổng A | 6 | 5/6 vắng; `/root/.cache/pip` đã tái sinh 15MiB (dưới trần 300MiB của K1) |
 | A4 · N3 bản sao Nuxt | ~2,6 | trong tổng A | 63 | còn đúng 10 tên = tập GIỮ của PROMPT, 0 tên lạ |
 | **Tổng đợt A** | ~6,8 | **6,846** | | trống 9,398→16,244; 12 container; Qdrant 20181 green |
-| B1 · chọn bản cứu | — | PASS (phiên 1) | — | kiểm lại: đang làm |
-| B2 · đưa ra ngoài VPS | — | đang làm | — | |
-| B3 · xoá snapshot server-side | ~27,3 | đang làm | ~159/160 | hiện 160 bản, 27,580GiB |
+| B1 · chọn bản cứu | — | PASS (phiên 1) · kiểm lại PASS | 1 bản | sha256 bản host = `.checksum` Qdrant |
+| B2 · đưa ra ngoài VPS | — | PASS (lần thử 2) | 1 + meta | md5 luồng mã hoá = md5 Drive; byte khớp |
+| B3 · xoá snapshot server-side | ~27,3 | **27,360** (df +27,361) | 159/160 | còn 1 bản; `points_count` 20183 trước = sau, green |
 | B4 · K1 · K2 (khoá vòi) | 0 | 0 | K1 chạy thử: 0 | health không đổi (đo 10:25Z) |
+| **Tổng R2** | ~34,1 | **34,207** | | trống 9,398→43,452; 12 container; web 200; Directus ok (đo 10:38Z) |
 
 Phiên 1 chỉ để lại số tổng của đợt A, không tách từng nhóm; phiên 2 không đo lại bằng cách tạo lại dữ liệu. K1 chạy thử: **"không có gì để làm"**, rc=0 — Host dự kiến 1–2 build quá hạn, nhưng lúc chạy chỉ có đúng 22 build nên luật "luôn giữ 22 build mới nhất" che hết; đó là luật chạy đúng, không phải lệch.
 
@@ -56,7 +57,12 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 ### 4. Bản cứu Qdrant
 
-Đang làm (B1 kiểm lại → B2).
+- **Bản rõ:** snapshot `production_documents-7363544529537161-2026-09-21-01-00-04.snapshot` (collection `production_documents`, 2026-09-21 01:00:04Z theo tên), bản host `qdrant_2026-09-21_0300.snapshot`, **236.036.608 byte**, sha256 `b6328a739b46810438963dcb01d0e9b892f75691ec3e428d62392181e6303049` = `.checksum` Qdrant tạo cho đúng snapshot đó (B1 kiểm ở cả hai phiên; `backup.log` xác nhận ánh xạ tên).
+- **Bản mã hoá:** OpenPGP bằng đúng khoá công khai người nhận của `backup-to-gdrive.sh` (vân tay khoá khớp trước khi mã hoá; gói đầu của đối tượng trên Drive đúng keyid người nhận), truyền thẳng `gpg | tee | rclone rcat` — không file lớn trên VPS. Đích: thư mục con `rescue/vpsc-r2/` của đích backup mã hoá, cùng remote rclone. Đối tượng `<tên snapshot>.gpg` **175.333.216 byte**; md5 luồng lúc gửi = md5 phía Drive (`rclone md5sum`) = **`b8180c2e93be512b7a14f624f45443be`** — khớp; byte gửi = byte Drive.
+- **Meta** `<tên snapshot>.gpg.meta.json` (901 byte): collection, tên snapshot, thời điểm, byte + sha256 bản rõ, byte + md5 bản mã hoá, người nhận, `payload: REDACTED`.
+- **Khôi phục** (chưa diễn tập ở R2): tải về máy giữ khoá bí mật → `gpg --decrypt` → kiểm sha256 = giá trị trên → nạp lại qua API recover/upload snapshot của Qdrant.
+- **Hạn giữ trên Drive:** `backup-to-gdrive.sh` chỉ đếm tệp cấp đầu của tiền tố; `code-backup-to-gdrive.sh` chỉ xoá tệp khớp mẫu `<repo>_…_ICT.tar.gz` trong thư mục riêng ⇒ không job nào tự xoá bản cứu. Bản cứu CHƯA có hạn giữ — Host chốt (D02).
+- Server-side sau B3: còn đúng bản này; từ 22/09 B4 sẽ xoá bản mỗi ngày sau khi kiểm, nên server-side dự kiến chỉ còn bản cũ này (0,22GiB) + 0 bản mới.
 
 ### 5. Việc để lượt sau
 
@@ -64,11 +70,16 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 - Hậu kiểm B4 ở lượt cron thật đầu tiên (03:00 giờ máy 22/09): `backup.log` phải có dòng `sha256 verified … deleted server-side`; số snapshot server-side không tăng.
 - Phần POST cũ của `qdrant-backup.sh` vẫn đặt khoá Qdrant trong đối số lệnh (thấy qua bảng tiến trình) — ngoài phạm vi R2, đề xuất sửa cùng lúc vá `backup-to-gdrive.sh`.
 - Bản sao `scripts/phai-cu/` trên máy Mac giờ cũ hơn VPS (thêm bước 8 của K2) — đồng bộ khi chạm.
+- Chốt hạn giữ bản cứu `rescue/vpsc-r2/` trên Drive (đề xuất: xoá khi B4 đã chạy đúng ≥7 lượt và đợt 2 xong). Bản server-side còn lại (21/09) cũng có thể xoá sau đó.
+- Remote rclone của backup đang dùng OAuth client dùng chung nên dễ bị Drive giới hạn tốc độ (xem B2) — đề xuất client riêng, ngoài phạm vi R2.
 
 ### 6. Sự cố và bẫy đã gặp
 
 - Phiên 1: bộ an toàn chặn cả phiên vì transcript của phiên đó đã chứa bí mật; không bí mật nào vào repo; đã có SEC-01 ở COLLAB.
-- Phiên 2 · HVU-B3 chạy song song, trái điều kiện vận hành của READY: 10:20:37Z container agent-data được tạo lại bằng image `agent-data-hvu:b3-20260921` (build 10:18:49Z), 10:21:34Z tạo lại lần nữa, ~10:23Z quay về `agent-data-r03:20260920-finalclose`, healthy lại 10:24:55Z. R2 không gây ra (R2 chỉ `docker exec` python đọc API Qdrant). Đo lại 10:25Z: health = mốc. Host cần xác nhận HVU-B3 dừng hẳn tới khi R2 xong.
+- Phiên 2 · HVU-B3 chạy song song, trái điều kiện vận hành của READY: 10:20:37Z container agent-data được tạo lại bằng image `agent-data-hvu:b3-20260921` (build 10:18:49Z), 10:21:34Z tạo lại lần nữa, ~10:23Z quay về `agent-data-r03:20260920-finalclose`, healthy lại 10:24:55Z. R2 không gây ra (R2 chỉ `docker exec` python đọc API Qdrant). Đo lại 10:25Z: health = mốc. Repo ghi HVU.B3 DỪNG + rollback đã kiểm (`c38bced`, `64cd576`). Agent để agent-data ổn định ~13 phút, kiểm healthy + không sự kiện mới rồi mới làm B2/B3; B3 kiểm healthy ngay trước khi xoá. R2 xong ~10:38Z — HVU-B3 có thể tiếp tục theo Host.
+- B2 lần 1 (10:30–10:32Z): `rclone rcat` bị Google Drive trả 403 `rateLimitExceeded` (hạn mức truy vấn/phút của OAuth client dùng chung); gpg/tee OK; đã kiểm không có đối tượng dở trên Drive. Thử lại đúng MỘT lần cùng thao tác, chỉ thêm `--drive-chunk-size 64M --tpslimit 4 --low-level-retries 30` (ít request hơn, kiên nhẫn hơn) → PASS sau 19s. Không đổi đích, khoá hay kiểm tra nào.
+- B3: `points_count` 20181 (10:25Z) → 20183 lúc bắt đầu B3 = dữ liệu nghiệp vụ ghi thêm bình thường; trong B3 không đổi (20183 trước = sau).
+- K1: lượt cron thật đầu tiên 12:23 giờ máy (10:23Z) đã chạy (syslog có CMD); log 0 byte = không có gì để làm, không lỗi.
 - Bẫy của chính agent: một lệnh gộp có liệt kê tham số tiến trình bị bộ phân quyền từ chối — đúng, vì dòng lệnh của `qdrant-backup.sh` mang khoá Qdrant; đã đổi sang chỉ đếm theo tên tiến trình.
 
 ---
