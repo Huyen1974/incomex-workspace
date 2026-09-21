@@ -18,11 +18,11 @@ small{color:#666}
 </head>
 <body>
 <h1>Dọn đĩa VPS · 20/09/2026</h1>
-<p><span class="tag">ĐÃ CHỐT để chạy</span><span class="tag">Bước 2: kiểm toán, không đụng production</span><span class="tag">Chưa chạm production</span></p>
+<p><span class="tag">DRAFT — chờ duyệt lại</span><span class="tag">Bước 2: kiểm toán, không đụng production</span><span class="tag">Chưa chạm production</span></p>
 
 <div class="box"><strong>Anh cần quyết hôm nay:</strong> đích sau khi dọn — <strong>đĩa trống ≥45GB và mỗi tháng tăng không quá 3GB</strong>. Đề xuất: <strong>gật</strong> (đủ chạy khoảng 1 năm không phải dọn tay). Anh chỉ cần gật hoặc lắc.</div>
 
-<div class="bar" id="TIEN-DO"><span>✔ 1 Mở việc</span><span class="now">▶ 2 Khảo sát</span><span>□ 3 Kiểm chéo</span><span>□ 4 Anh duyệt</span><span>□ 5 Dọn + khoá vòi</span><span>□ 6 Theo dõi, đóng</span></div>
+<div class="bar" id="TIEN-DO"><span class="now">▶ 1 Mở việc</span><span>□ 2 Khảo sát</span><span>□ 3 Kiểm chéo</span><span>□ 4 Anh duyệt</span><span>□ 5 Dọn + khoá vòi</span><span>□ 6 Theo dõi, đóng</span></div>
 
 <h2 id="TINH-HINH">1. Tình hình — không phải mất một nửa, mà đã mất hết</h2>
 <table>
@@ -32,6 +32,7 @@ small{color:#666}
 <tr><td>Sau khi dọn 24/07</td><td class="g">61%</td><td class="g">39GB</td></tr>
 <tr><td>20/09 sáng</td><td class="r">87% (83/96GB)</td><td class="r">14GB</td></tr>
 <tr><td>20/09 trưa</td><td class="r">87% (84/96GB)</td><td class="r">13GB</td></tr>
+<tr><td>21/09 sáng</td><td class="r">88% (84/96GB)</td><td class="r">13GB</td></tr>
 </tbody>
 </table>
 <p>Nhịp trung bình gần nửa GB mỗi ngày; riêng hôm nay thêm khoảng 1GB trong 11 giờ. Giữ nhịp này thì <strong>khoảng 3 tuần là vào vùng nguy hiểm (≥95%)</strong>, lúc đó PostgreSQL và Docker bắt đầu lỗi.</p>
@@ -61,10 +62,11 @@ small{color:#666}
 <thead><tr><th>Mã</th><th>Tiêu chí</th></tr></thead>
 <tbody>
 <tr><td>T1 Chỗ trống</td><td>Sau dọn trống ≥45GB (dùng ≤55%).</td></tr>
-<tr><td>T2 Tốc độ</td><td>Theo dõi 2 tuần: tăng ≤3GB/tháng, không tính dữ liệu nghiệp vụ thật.</td></tr>
-<tr><td>T3 Hạn dùng</td><td>Mọi loại bản sao (bản web, image, gói ngữ cảnh, backup, log) có quy tắc giữ N bản / D ngày và được dọn tự động.</td></tr>
-<tr><td>T4 Chuông</td><td>Báo vàng ở 80%, đỏ ở 90%, dùng công cụ theo dõi đang có.</td></tr>
+<tr><td>T2 Có trần</td><td>Mọi nguồn không phải dữ liệu nghiệp vụ đều phải có trần: giữ N bản / D ngày, kích thước ổn định tính được = tốc độ sinh × hạn giữ. Còn một nguồn tăng đều mãi là chưa đạt, dù mới vài trăm MB.</td></tr>
+<tr><td>T3 Đúng chỗ</td><td>Dữ liệu nghiệp vụ và phần đang cần để chạy thì ở lại VPS. Thứ phải giữ dài mà không cần chạy (bản sao lưu, bản cứu, bằng chứng) đưa ra ngoài VPS, có hạn giữ và trần ở đích. Thứ tái tạo được (build cache, log cũ, tạm) xoá tại chỗ — không mang rác sang Drive.</td></tr>
+<tr><td>T4 Chuông</td><td>Báo vàng ở 80%, đỏ ở 90%, dùng công cụ theo dõi đang có. Riêng mức tăng 3GB/tháng ngoài nghiệp vụ là đèn đỏ phải điều tra, không phải mức được phép.</td></tr>
 <tr><td>T5 Không mất gì</td><td>Web và DB chạy bình thường; image không dựng lại được đã cứu trước khi xoá; bản lùi của R03 còn nguyên.</td></tr>
+<tr><td>T6 Nhìn ra hai phần</td><td>Báo cáo tách rõ dung lượng nghiệp vụ và dung lượng vận hành, kèm mức ổn định dự kiến sau khi áp trần — để biết phần nào là làm ăn thật, phần nào là máy tự đẻ ra.</td></tr>
 </tbody>
 </table>
 
@@ -88,6 +90,7 @@ small{color:#666}
 <li>Không xoá database nào trong đợt này. Database có cổng kiểm riêng: không ai đang dùng, không chương trình nào trỏ tới, đã có bản sao ngoài VPS — thiếu một điều là giữ.</li>
 <li>Không dùng lệnh dọn quét sạch (<code>docker system prune -a</code>) ở bất kỳ bước nào.</li>
 <li>Không cài Graph trong việc này. Theo Điều 39 (dự thảo), Graph là Apache AGE chạy ngay trong PostgreSQL hiện có — cần rất ít đĩa; thứ phải sửa là vòi rò. Việc Graph mở riêng khi T1–T2 đạt.</li>
+<li>Không mang thứ tái tạo được (build cache, log cũ, tạm) sang Google Drive — đó là đổi chỗ vòi rò, không phải khoá vòi.</li>
 <li>Không nâng gói VPS: vòi rò ~13GB/tháng thì ổ lớn cỡ nào cũng đầy.</li>
 <li>Không đụng R03 đang nghiệm thu.</li>
 </ul>

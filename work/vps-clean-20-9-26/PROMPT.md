@@ -1,7 +1,7 @@
 # PROMPT — VPSC · R1 Kiểm toán đĩa VPS (AUDIT / NO PRODUCTION MUTATION): vì sao đầy lại nhanh + sổ nguồn sinh + danh sách dọn đề xuất
 
 RUN_ID: VPSC-R1-20260920-01
-Soạn: Claude Chat (Host việc này), 2026-09-20; đã sửa theo P01–P09 của GPT (xem COLLAB). Owner giao: đánh giá vì sao đĩa VPS đầy nhanh; đề xuất dọn phần không dùng để có chỗ cài Graph DB. Trạng thái KHÔNG ghi ở file này: chỉ tin giấy phép trong `work/vps-clean-20-9-26/COLLAB.md`.
+Soạn: Claude Chat (Host việc này), 2026-09-20; đã sửa theo P01–P10 của GPT (xem COLLAB). Owner giao: đánh giá vì sao đĩa VPS đầy nhanh; đề xuất dọn phần không dùng để có chỗ cài Graph DB. Trạng thái KHÔNG ghi ở file này: chỉ tin giấy phép trong `work/vps-clean-20-9-26/COLLAB.md`.
 Chỉ chạy khi COLLAB đó có `REVIEWED@` của Founder không soạn (GPT) + Host `READY@` (hoặc `OWNER_APPROVED@`) đúng full SHA commit cuối chạm file này, cộng lệnh RUN hợp lệ.
 **Chế độ: AUDIT / NO PRODUCTION MUTATION.** Không thay đổi runtime, config, data, service trên VPS. Chỉ được ghi đúng 2 nơi ở §2. Không ghi gì vào repo workspace. Mọi kết quả R1 mang nhãn `UNVERIFIED_R1` cho tới khi Host + thẩm tra độc lập kiểm xong.
 
@@ -13,9 +13,10 @@ Chỉ chạy khi COLLAB đó có `REVIEWED@` của Founder không soạn (GPT) +
 5. Đọc dòng R03 trong `work/mcp-workspace/COLLAB.md`: đang deploy thì CHỜ xong mới đo; chưa CLOSED thì áp khoá chéo ở §2.
 
 ## 1. Bối cảnh (bạn không nhớ phiên trước)
+- **Chính sách storage của Owner (D02, 21/09/2026)** — khung để phân loại và kết luận: VPS chỉ giữ dữ liệu nghiệp vụ + phần runtime thật sự cần để chạy. Dữ liệu vận hành KHÔNG được tăng vô hạn: cần giữ dài thì đưa ra ngoài VPS (Drive/off-VPS) kèm hạn giữ; tái tạo được thì đặt TTL rồi xoá tại chỗ — không mang rác sang Drive để đổi chỗ vòi rò. `3GB/tháng ngoài nghiệp vụ` là NGƯỠNG ĐỎ phải điều tra, không phải mức được phép.
 - Ổ `/dev/sda1` 96GB NVMe, Ubuntu 24.04, Docker; mã SSOT tại `/opt/incomex`.
 - 24/07/2026 mission VPS-CLEAN-MINIMUM dọn 87% → 61% (trống 13 → 39GB, thu 27,4GB).
-- 20/09: ~01Z 83/96GB (trống 14GB); ~12Z 84/96GB (trống 13GB) — thêm ~1GB trong ~11 giờ, trùng lượt build R03 final-close. Nhịp TB từ 24/07 ≈ 0,45GB/ngày: toàn bộ phần đã dọn bị ăn lại.
+- 20/09: ~01Z 83/96GB (trống 14GB); ~12Z 84/96GB (trống 13GB) — thêm ~1GB trong ~11 giờ, trùng lượt build R03 final-close. 21/09 ~02Z: 84/96GB, 88%, trống 13GB. Nhịp TB từ 24/07 ≈ 0,45GB/ngày (~13–14GB/tháng): toàn bộ phần đã dọn bị ăn lại. Hệ gần như chưa có dữ liệu nghiệp vụ mới ⇒ giả thiết công tác: gần như toàn bộ mức tăng là dữ liệu vận hành — phải chứng minh hoặc bác bằng số ở §4.
 - Nghi vấn Claude Chat đã thấy (CHƯA đo GB — bạn đo):
   a) `/opt/incomex/deploys/`: ~67 bản sao `nuxt-output.*` (sao 1 bản mỗi lần deploy Nuxt; 12 bản chỉ trong 13–15/09), không hạn xoá.
   b) Image build lại liên tục với tag mới (`agent-data-r03:*`, `claude-mcp-local:*`, `claude-kb-local:*`); claude-mcp có 6 Dockerfile mới trong 17–19/09, mỗi bản FROM tag trước (chuỗi cha–con). Bệnh ~32GB image tháng 7; phần "giữ N tag / dọn sau deploy" của W2 dường như chưa từng làm.
@@ -46,7 +47,10 @@ Chỉ chạy khi COLLAB đó có `REVIEWED@` của Founder không soạn (GPT) +
 
 ## 4. Sổ nguồn sinh (Generator Registry) — trị tận gốc
 Bảng bắt buộc, mỗi dòng một nguồn sinh:
-`Nguồn sinh · path · trigger (cron/systemd/script/mission/agent) · tần suất · GB hiện tại · tăng từ 24/07 · GB/tháng · quy tắc giữ hiện có · tự dọn? · nguyên nhân rò · đề xuất khoá · chủ (dịch vụ/agent/mission chịu trách nhiệm)`
+`Nguồn sinh · path · LOẠI · trigger (cron/systemd/script/mission/agent) · tần suất · GB hiện tại · tăng từ 24/07 · GB/tháng · có cần nằm trên VPS không (lý do 1 câu) · trần local đề xuất (N bản / D ngày / GB) · mức ổn định tính ra (= tốc độ sinh × hạn giữ) · nếu phải giữ dài: nơi đưa ra ngoài + ngân sách GB/tháng ở đích + hạn giữ ở đích · nếu tái tạo được: quy tắc xoá tại chỗ · quy tắc giữ hiện có · tự dọn? · nguyên nhân rò · chủ (dịch vụ/agent/mission chịu trách nhiệm)`
+LOẠI chọn đúng một trong bốn: `BUSINESS_LIVE` (dữ liệu nghiệp vụ thật) · `RUNTIME_WORKING_SET` (thứ hệ thống đang cần để chạy: image đang chạy và cha của nó, volume đang gắn, DB sống) · `NONBUSINESS_KEEP` (phải giữ dài nhưng không cần nằm trên VPS: backup, archive, bản cứu, bằng chứng) · `DISPOSABLE_REBUILDABLE` (tái tạo được: build cache, log cũ, tmp, artifact, clone/cache công cụ).
+Chấm cho mọi nguồn KHÔNG phải `BUSINESS_LIVE`: phải kết thúc ở một trong ba trạng thái — (1) có trần local, mức ổn định tính được từ tốc độ sinh × hạn giữ; (2) đưa ra ngoài VPS, có hạn giữ VÀ ngân sách ở đích; (3) xoá tại chỗ theo TTL. Nguồn nào không rơi vào ba trạng thái đó — tức còn tăng đều theo thời gian — ghi thẳng `FAIL_UNBOUNDED`, dù hiện mới vài trăm MB.
+Cấm đề xuất mang `DISPOSABLE_REBUILDABLE` sang Drive: đó là đổi chỗ vòi rò, không phải khoá.
 Phủ ĐỦ các nhóm sau; nhóm nào không đo được vẫn có dòng ⚪ + lý do:
 Docker image · build cache · volume · lớp ghi container · bản rollback deploy (`deploys/nuxt-output*` — đo trong 1 lần du, báo có hardlink không) · log docker/journal/nginx/`/var/log` · backup local · `evidence/`, `staging/`, `tmp/`, `work/`, `artifacts/`, `exports/`, `context-pack*` · công cụ AI (`~/.claude`, `~/.codex`, `~/.gemini`, Hermes) · git clone/snapshot (.git các repo, sổ git 5 phút của gốc ui, clone incomex-workspace, `mcp-roots`) · npm/pip/playwright cache · node_modules/venv (nuxt-repo, agent-data-repo, venv-xlsx) · PostgreSQL + pg_wal · Qdrant storage + snapshots · swapfile, /tmp, /var/tmp, snap, apt cache, kernel cũ · 2 file >64MB trong `/opt/incomex` · mọi chỗ cách ly do mission 24/07 tạo.
 Cách đo "tăng từ 24/07": `find / -xdev -type f -newerct 2026-07-24` CHỈ để KHOANH VÙNG (ctime là lần đổi inode, không phải ngày tạo; dùng thay mtime vì `cp -a` giữ mtime cũ). Đối chứng bằng: btime (`stat -c %W` nếu filesystem hỗ trợ), CreatedAt của Docker, ngày trong tên file, log của trình sinh, số trong báo cáo 24/07.
@@ -72,14 +76,15 @@ Lớp: `DELETE_PROVEN_SAFE` · `QUARANTINE_FIRST` · `RESCUE_BEFORE_DELETE` · `
 ## 7. Đề xuất khoá vòi — CHỈ đề xuất, KHÔNG làm
 - Mỗi nguồn sinh ở §4: sửa ở đâu (script deploy / cron dọn định kỳ / luật cho agent), quy tắc giữ bằng con số (N bản / D ngày) + lý do. Đúng dạng: "rollback Nuxt giữ 3 bản mới nhất + bản mốc lớn", không chung chung.
 - Chuông đĩa 80% vàng / 90% đỏ — dùng lại công cụ có sẵn (uptime-kuma, cron hiện có) trước khi đề xuất cái mới.
-- Đích (T1–T2 trong `view.html`): trống ≥45GB (≤55%) VÀ tăng ≤3GB/tháng ngoài dữ liệu nghiệp vụ. Nói rõ đạt được không, thiếu bao nhiêu, cần gì thêm.
+- Đích (T1–T3 trong `view.html`): (a) sau dọn trống ≥45GB (≤55%); (b) MỌI nguồn không phải nghiệp vụ đều bounded — có trần local tính được, hoặc đưa ra ngoài có hạn giữ, hoặc tự xoá theo TTL; còn một nguồn `FAIL_UNBOUNDED` là chưa đạt, dù tổng tăng nhỏ; (c) `3GB/tháng ngoài nghiệp vụ` chỉ là ngưỡng đỏ để điều tra, đo theo cửa sổ trượt 14 ngày — không được dùng làm mức "đạt".
+- Cộng lại và báo: tổng mức ổn định local dự kiến sau khi áp mọi trần/TTL/offload (GB); so với ổ 96GB; biên còn lại cho Graph và cho 12 tháng tăng trưởng nghiệp vụ; tổng GB/tháng sẽ đổ thêm ra ngoài VPS và đích đó có chịu nổi không (dung lượng Drive còn trống, thời gian đẩy mỗi lượt).
 
 ## 8. Chỗ cho Graph — chỉ ước lượng
 Theo Điều 39 (dự thảo): Graph = Apache AGE, extension trong PG hiện có, không thêm DB riêng. Ước lượng: image postgres có AGE; dữ liệu graph dựa trên `universal_edges` (đo bảng + index); biên an toàn. Kết luận: sau dọn có đủ không.
 
 ## 9. Báo cáo — ghi TRƯỚC khi trả Owner
-- Sửa KB `knowledge/current-state/reports/vps-clean-minimum-2026-07-24.md`: chèn mục "ĐỢT 2 — 20/09/2026 · VPSC-R1 · UNVERIFIED_R1" lên ĐẦU, giữ nguyên phần cũ bên dưới. Không tạo tài liệu KB mới.
-- Thứ tự mục mới: (1) CHO OWNER ≤1 trang: tối đa 3 câu "anh cần quyết gì", mỗi câu kèm đề xuất PM; ma trận hàng = nhóm nguồn sinh §4, cột = Hiện tại GB · Tăng từ 24/07 · GB/tháng · Tự dọn? · Thu hồi an toàn GB · Màu (🔴 rò mạnh · 🟡 cảnh báo · 🟢 ổn · ⚪ chưa đo · ✖ không cần); dòng cuối cộng dồn, đối soát với df. (2) CHO PM: Sổ nguồn sinh §4 · backup §5 · manifest §6 · khoá vòi §7 · Graph §8. (3) KHO BẰNG CHỨNG: đường dẫn + INDEX + tổng dung lượng evidence + lệnh đã chạy.
+- Sửa KB `knowledge/current-state/reports/vps-clean-minimum-2026-07-24.md`: chèn mục "ĐỢT 2 — 09/2026 · VPSC-R1 · UNVERIFIED_R1" lên ĐẦU, giữ nguyên phần cũ bên dưới. Không tạo tài liệu KB mới.
+- Thứ tự mục mới: (1) CHO OWNER ≤1 trang: tối đa 3 câu "anh cần quyết gì", mỗi câu kèm đề xuất PM; ma trận hàng = nhóm nguồn sinh §4, cột = LOẠI · Hiện tại GB · Tăng từ 24/07 · GB/tháng · Bounded? (trần local / đưa ra ngoài / TTL / `FAIL_UNBOUNDED`) · Mức ổn định dự kiến GB · Thu hồi an toàn GB · Màu (🔴 rò mạnh hoặc `FAIL_UNBOUNDED` · 🟡 cảnh báo · 🟢 ổn · ⚪ chưa đo · ✖ không cần); cộng dồn theo từng LOẠI rồi tổng, đối soát với df. Ngay dưới ma trận: hai con số tách bạch — dung lượng NGHIỆP VỤ và dung lượng VẬN HÀNH (hôm nay, và mức ổn định dự kiến sau khi áp trần). (2) CHO PM: Sổ nguồn sinh §4 · backup §5 · manifest §6 · khoá vòi §7 · Graph §8. (3) KHO BẰNG CHỨNG: đường dẫn + INDEX + tổng dung lượng evidence + lệnh đã chạy.
 - Viết để 3 tuần sau đọc vẫn hiểu; không kể nhật ký.
 - df lần cuối: chứng minh không thay đổi gì ngoài thư mục bằng chứng và tài liệu KB. Không commit/push bằng chứng thô ở bất kỳ đâu; không để lại file tạm nào ngoài thư mục bằng chứng.
 - Trả Owner đúng một dòng: `VPSC-R1-20260920-01: XONG (UNVERIFIED_R1) — <3 nguồn sinh chính kèm GB/tháng> · thu hồi an toàn <GB> · KB ĐỢT 2` hoặc `VPSC-R1-20260920-01: DỪNG ở <mục> — lý do ở KB ĐỢT 2`.

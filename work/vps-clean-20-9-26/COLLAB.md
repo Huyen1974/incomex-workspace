@@ -2,24 +2,25 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 - Mục tiêu: dọn VPS an toàn, không làm hỏng cơ chế hiện tại; tìm nguyên nhân ổ đĩa phình nhanh và đề xuất/xử lý cách chặn tăng trưởng để có chỗ cho công việc tiếp theo (Owner nêu: cài thêm Graph DB).
-- Nhiệm vụ/phạm vi: khảo sát trước, không mutation production ở vòng R1; Claude đề xuất, GPT/Codex kiểm chéo kỹ trước khi Owner duyệt bất kỳ dọn/xoá thật nào.
-- Tiêu chí xong: xác định được nguồn tăng dung lượng với bằng chứng, có phương án dọn + khoá vòi được kiểm chéo; mọi mutation chỉ diễn ra sau đúng cổng duyệt và có đường rollback/cứu trước xoá.
-- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20; D01 và yêu cầu an toàn/kiểm chéo của việc này.
+- Nhiệm vụ/phạm vi: khảo sát trước, không mutation production ở vòng R1; Claude đề xuất, GPT/Codex kiểm chéo kỹ trước khi Owner duyệt bất kỳ dọn/xoá thật nào. Theo D02: phân biệt dữ liệu nghiệp vụ / runtime đang cần / phải giữ dài (đưa ra ngoài VPS) / tái tạo được (đặt TTL rồi xoá tại chỗ, không mang sang Drive).
+- Tiêu chí xong: xác định được nguồn tăng dung lượng với bằng chứng; MỌI nguồn không phải nghiệp vụ đều bounded (có trần local tính được, hoặc đưa ra ngoài có hạn giữ, hoặc tự xoá theo TTL) — còn nguồn tăng tuyến tính là chưa đạt dù tổng nhỏ; phương án dọn + khoá vòi được kiểm chéo; mọi mutation chỉ sau đúng cổng duyệt và có đường rollback/cứu trước xoá.
+- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 (D01) và bổ sung chính sách storage 2026-09-21 (D02); Host đã đưa D02 vào `PROMPT.md` và `view.html` (T1–T6).
 
 Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Owner 2026-09-20
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 mở lại | DRAFT · OWNER STORAGE POLICY mới | NEXT: Host cập nhật A0 + PROMPT/view theo P10, rồi review/READY lại | BLOCK: RUN cũ không còn hiệu lực
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT · Host đã áp D02/P10 vào A0 + PROMPT + view | NEXT: GPT review PROMPT_SHA mới | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R1-20260920-01` · AUDIT / NO PRODUCTION MUTATION · DRAFT lại do Owner bổ sung chính sách storage 2026-09-21.
-- **PROMPT_SHA hiện vẫn = 88ec65875ab3c8f7d5ee98fdb0ae3374cc47ad22**, nhưng chưa phản ánh P10 nên KHÔNG RUN.
+- **PROMPT_SHA: SAME_COMMIT** (Host ghi hash thật ngay sau commit này). Bản `e50e95c`, `c0ddf9e`, `88ec658` hết hiệu lực.
 - **GPT REVIEW_INVALID@88ec65875ab3c8f7d5ee98fdb0ae3374cc47ad22** — review cũ đúng với scope cũ nhưng mất hiệu lực theo A0 sau khi Owner bổ sung storage policy.
 - **Host READY_INVALID@88ec65875ab3c8f7d5ee98fdb0ae3374cc47ad22** — READY cũ mất hiệu lực theo A0; Host phải sửa scope rồi phát SHA/REVIEW/READY mới.
 
 ## Số đo gọi thật (Claude Chat, 2026-09-20)
 - 24/07: 87% → 61%, trống 13 → 39GB (KB `vps-clean-minimum-2026-07-24.md`).
 - 20/09 ~01Z: 83/96GB, trống 14GB · ~12Z: 84/96GB, trống 13GB (+~1GB trong ~11 giờ, trùng lượt build R03 final-close).
+- 21/09 ~02Z: 84/96GB, 88%, trống 13GB (Claude Chat đo lại trước khi áp P10).
 - Nhịp TB ~0,45GB/ngày → ~3 tuần chạm 95%.
 - Nguồn: `vps_status` resources/containers · `fs_list` gốc code · `query_pg`. Nghi phạm: `view.html` §2.
 
@@ -28,7 +29,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 mở lại | DRAFT · OWNER
 - D02 · 2026-09-21 · Owner chốt nguyên tắc storage: VPS ưu tiên dữ liệu business + working set runtime thực sự cần để chạy. Dữ liệu vận hành không phải business không được tăng vô hạn: cần giữ dài hạn thì offload Google Drive/off-VPS; tái tạo được thì giới hạn TTL/retention rồi purge. `3GB/tháng ngoài business` chỉ là ngưỡng báo động/điều tra, không phải mức tăng được coi là PASS. Owner giao nhóm kỹ thuật tự quyết chi tiết.
 
 ## Kế hoạch
-- VPSC.1 | Mở việc + PROMPT R1 | ▶ mở lại theo D02/P10; READY `88ec658` đã vô hiệu, chờ Host cập nhật + review/READY mới
+- VPSC.1 | Mở việc + PROMPT R1 | ▶ Host đã áp D02/P10 (A0 + PROMPT §1/§4/§7/§9 + view T1–T6), chờ GPT review SHA mới
 - VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → KB mục ĐỢT 2 nhãn `UNVERIFIED_R1` | □ chưa RUN
 - VPSC.3 | Kiểm chéo: Host tự đo lại + lập đề xuất dọn theo nhóm trên `view.html` → GPT (hoặc Codex/Astra do GPT giao) thẩm tra độc lập, PASS/REVISE/BLOCK từng nhóm | □
 - VPSC.4 | Owner duyệt các nhóm đã PASS | □
@@ -52,13 +53,12 @@ Ghi hộ: GPT gửi P01–P06 qua Owner 2026-09-20 vì đường `workspace_*` c
 - P07 · GPT · Based_on `c0ddf9e` · Scope PROMPT §0.1 + §0.4 · ACCEPTED · Không clone repo vào `/tmp`: bản hiện tại vẫn clone trước cả bước đo `df`, vừa tự sinh rác vừa có thể làm nặng thêm ổ đang gần đầy. Đề nghị bước đầu tiên là `df`; đọc repo bằng checkout/mount đã có hoặc đọc remote không tạo clone bền vững. Không có nguồn đọc an toàn thì DỪNG, không tự clone vào `/tmp`. · Host: ACCEPTED — §0 viết lại: đo df là bước 1; không clone; đọc repo bằng `workspace_*` hoặc GitHub đọc-only không lưu file; không đọc clone của đầu nối (có thể cũ); không có đường → DỪNG. Clone chỉ vài MB nhưng để lại là đúng bệnh việc này đang trị. · Áp: 88ec658
 - P08 · GPT · Based_on `c0ddf9e` · Scope PROMPT §2 + §9 · ACCEPTED · Raw evidence tuyệt đối không commit/push lên repo public. §2 đã nói KHÔNG đưa lên repo nhưng §9 lại cho phép “evidence thuộc cây git thì commit” — mâu thuẫn. Sửa thành: raw evidence luôn ở ngoài cây Git; nếu phát hiện path evidence nằm trong tracked checkout thì DỪNG/đổi sang path ngoài Git; repo/KB chỉ ghi summary/index đã sanitize, không chứa raw output/secret. · Host: ACCEPTED — bằng chứng thô chuyển ra `/var/lib/incomex-audit/VPSC-R1-20260920/`, kiểm `rev-parse` trước khi ghi, trong cây Git → DỪNG; bỏ câu commit ở §9. Lý do thêm: `/opt/incomex` là cây Git (không remote) nên `evidence/` cũ không đạt. · Áp: 88ec658
 - P09 · GPT · Based_on `c0ddf9e` · Scope PROMPT §1e + §6 · ACCEPTED · `DELETE_PROVEN_SAFE` cần gate riêng cho DB; gate hiện tại thiên về Docker/file và chưa đủ để xếp `directus_gov_test_20260602` hay DB/schema vào lớp xoá. Đề nghị thêm `DB_DELETE_GATE`: chứng minh đúng target + owner/size; không có active connection; không app/DSN/cron/job/script nào tham chiếu; không dependency cần giữ; có backup off-VPS phù hợp + checksum + bằng chứng/cách restore; và việc DROP thực tế chỉ ở lượt dọn sau Owner duyệt. Thiếu bất kỳ mục nào → `UNKNOWN_HOLD`, không `DELETE_PROVEN_SAFE`. · Host: ACCEPTED + thêm một phép đo: chỉ số `pg_stat_database` đọc 2 lần cách ≥30 phút (một lần thấy 0 kết nối chưa chứng minh không ai dùng); §1e dẫn thẳng tới gate. · Áp: 88ec658
-- P10 · GPT · Based_on `88ec658` + yêu cầu Owner 2026-09-21 · Scope A0 + PROMPT §4/§7/§9 + `view.html` T2/T3 · OPEN · Phải phân biệt **BUSINESS_LIVE / RUNTIME_WORKING_SET / NONBUSINESS_KEEP / DISPOSABLE_REBUILDABLE** cho từng nguồn sinh. Mỗi nguồn phải có: GB hiện tại, tốc độ tăng, có cần local không, local budget/TTL, nơi offload nếu cần giữ, hoặc quy tắc purge nếu tái tạo được. Không đẩy cache/build/log rác sang Drive chỉ để đổi chỗ; Drive/off-VPS dành cho backup/archive/rescue/evidence cần lưu dài hạn, còn active DB/runtime giữ local. Tiêu chí PASS: non-business đạt working set hữu hạn/ổn định qua chu kỳ retention; nguồn nào còn tăng tuyến tính không giới hạn = FAIL dù tổng chưa tới 3GB/tháng. `3GB/tháng ngoài business` hạ thành ngưỡng đỏ bắt buộc điều tra, không phải allowance. Báo cáo phải tách footprint business vs operational và ước lượng steady-state local sau retention/offload. Host cập nhật khối A0, PROMPT và view trước READY mới. · Áp: SAME_COMMIT
+- P10 · GPT · Based_on `88ec658` + yêu cầu Owner 2026-09-21 · Scope A0 + PROMPT §4/§7/§9 + `view.html` T2/T3 · ACCEPTED · Phải phân biệt **BUSINESS_LIVE / RUNTIME_WORKING_SET / NONBUSINESS_KEEP / DISPOSABLE_REBUILDABLE** cho từng nguồn sinh. Mỗi nguồn phải có: GB hiện tại, tốc độ tăng, có cần local không, local budget/TTL, nơi offload nếu cần giữ, hoặc quy tắc purge nếu tái tạo được. Không đẩy cache/build/log rác sang Drive chỉ để đổi chỗ; Drive/off-VPS dành cho backup/archive/rescue/evidence cần lưu dài hạn, còn active DB/runtime giữ local. Tiêu chí PASS: non-business đạt working set hữu hạn/ổn định qua chu kỳ retention; nguồn nào còn tăng tuyến tính không giới hạn = FAIL dù tổng chưa tới 3GB/tháng. `3GB/tháng ngoài business` hạ thành ngưỡng đỏ bắt buộc điều tra, không phải allowance. Báo cáo phải tách footprint business vs operational và ước lượng steady-state local sau retention/offload. Host cập nhật khối A0, PROMPT và view trước READY mới. · ACCEPTED · Host: nhận toàn bộ. Đã áp: A0 (nhiệm vụ + tiêu chí xong theo D02); PROMPT §1 (chính sách D02 + giả thiết "gần như toàn bộ mức tăng là vận hành, phải chứng minh bằng số"), §4 (cột LOẠI 4 giá trị + cần local không + trần + mức ổn định + nơi đưa ra ngoài + quy tắc xoá; cấm mang loại tái tạo được sang Drive), §7 (PASS = bounded; `FAIL_UNBOUNDED`; 3GB/tháng = ngưỡng đỏ đo theo cửa sổ trượt 14 ngày), §9 (ma trận thêm cột LOẠI + Bounded? + mức ổn định; tách số nghiệp vụ vs vận hành). Host thêm 3 điểm: (1) mức ổn định phải TÍNH ĐƯỢC = tốc độ sinh × hạn giữ, để "bounded" kiểm được ngay trên giấy chứ không chờ quan sát; (2) nguồn `NONBUSINESS_KEEP` phải có ngân sách GB/tháng VÀ hạn giữ ở đích — không thì chính Drive thành vòi rò mới; (3) §7 phải cộng ra tổng mức ổn định local sau khi áp, biên còn lại cho Graph và 12 tháng nghiệp vụ, và GB/tháng đổ thêm ra Drive. · Áp: SAME_COMMIT
 GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho lượt review trước; lượt P10 đã đọc PROMPT hiện hành `88ec658` và `view.html` T1–T5.
 
 ## Owner cần quyết
 - Q04 · CLOSED · Owner 2026-09-21 giao nhóm kỹ thuật quyết. Chốt kỹ thuật: giữ mục tiêu ≥45GB trống; bỏ `≤3GB/tháng` khỏi tiêu chí PASS và dùng nó như ngưỡng đỏ. PASS theo D02/P10: non-business phải bounded/steady-state, hoặc offload/purge có kiểm soát.
 
 ## NEXT
-- **KHÔNG dùng câu RUN cũ.** Host cập nhật khối A0 theo D02, sửa chính `PROMPT.md` và `view.html` theo P10; mọi sửa PROMPT phải phát full SHA mới.
-- Vì GPT là người mở P10, sau khi Host sửa: GPT review SHA mới; ACCEPT → Host READY SHA mới → mới phát RUN Claude Code.
-- R1 vẫn chỉ AUDIT/NO PRODUCTION MUTATION; không offload/purge/xoá thật trong lượt khảo sát.
+- GPT review PROMPT_SHA mới (diễn giải P10 ở §1/§4/§7/§9 + A0 + view T1–T6). ACCEPT → GPT ghi `GPT REVIEWED@<full SHA>`; Host ghi `READY@<full SHA>`; Owner phát RUN theo DROOT04 (RUN mở đầu bằng cổng đọc AGENTS → COLLAB → PROMPT rồi mới làm).
+- R1 vẫn chỉ AUDIT/NO PRODUCTION MUTATION; không offload/purge/xoá thật trong lượt khảo sát — R1 chỉ phân loại và đề xuất trần/TTL/đích đưa ra ngoài.
