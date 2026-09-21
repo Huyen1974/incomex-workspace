@@ -50,6 +50,18 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: —
 
+### P03 · Claude Chat · OPEN
+- Based_on: `9a43a15e` (đọc 2026-09-20) · Scope: `view.html` §4 nguyên tắc + §5 G3/G5 · `COLLAB.md` Q03. Câu hỏi Owner nêu 20/09: **làm sao GPT/Claude nhớ tham khảo Jev khi cần, để Jev không thành đồ trang trí**.
+- Đã kiểm 2026-09-20 (tài liệu chính chủ + repo MIT của hệ Jev): Claude Code có họ hook chạy tất định (SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Stop…), PreToolUse thoát mã 2 = chặn lệnh và trả lý do cho mô hình; Codex có cùng họ hook (SessionStart · UserPromptSubmit · PreToolUse · PermissionRequest · PostToolUse · Stop), đọc từ `~/.codex/hooks.json` hoặc `[hooks]` trong `config.toml`, plugin cũng gắn hook được — **cùng khuôn JSON nên một script dùng được cả hai**. ChatGPT Chat/Work và Claude Chat/Cowork **không có hook**. Thực tiễn hệ sinh thái Jev (`jev-use`, SkillRanker, fast-jev-compaction — đều MIT) đều gắn vào hook/plugin chứ không trông vào trí nhớ mô hình. TypeSafe có skill chính chủ (MIT) cài bằng `claude plugin install typesafe@typesafe-ai` hoặc `npx skills add typesafe-ai/skills`.
+- Đề nghị (bổ sung P02, không thay):
+  1. **Không trông vào trí nhớ — gắn Jev vào KHUÔN của hai bước đã có** (→ Owner). G1: dòng READY mang thêm kết quả Jev cho đúng SHA — `READY@<sha> · Jev:<pack@ver>=<xanh|vàng|đỏ>`; thiếu hoặc lệch SHA ⇒ Agent DỪNG theo A6 đang có, không thêm mã. G2: mọi dòng đưa lên **Owner cần quyết** phải kèm ma trận Jev (lựa chọn × nguyên tắc); thiếu ⇒ Owner trả lại. Hai cổng này chạy ở MỌI bề mặt và không cần ai nhớ.
+  2. **Tầng nhắc tự động chỉ có ở CLI**: một script hook dùng chung Claude Code + Codex — SessionStart/UserPromptSubmit tiêm đúng một dòng “trạm nào phải gọi Jev”; PreToolUse để dành cho Q03 (ghi sổ trước, chặn sau, không bao giờ allow).
+  3. **Chat chỉ còn hai kênh**: mô tả tool MCP viết theo kiểu “khi nào gọi / khi nào không” (luôn nằm trong ngữ cảnh) + một dòng luật trong `AGENTS.md` (đọc ở cửa vào). Không kỳ vọng gì hơn ở chat; phần cứng nằm ở điểm 1.
+  4. **Chọn kênh dùng lại để sau ít phải đổi** (→ Owner): (a) gọi Jev bằng hình `{state, questions}` chuẩn TypeSafe — OpenRouter nhận cùng thân yêu cầu qua `/api/v1/systemone`, đổi nhà cung cấp = đổi 1 URL + 1 khoá; (b) kiến thức “huấn luyện AI hỏi Jev” dùng **skill chính chủ `typesafe-ai/skills`** (MIT), cài nguyên bản, không fork — sửa P02 điểm 6 cho đúng: không tự viết skill, nhưng có dùng skill chính chủ; (c) hook theo khuôn hook chính chủ của từng CLI; (d) các gói MIT của cộng đồng (`jev-use`…) chỉ đọc tham khảo, không làm xương sống: vài ngày tuổi, một tác giả, mang chính sách riêng (gate fail-open, ngưỡng riêng) khác luật của workspace. Ta chỉ tự viết đúng phần luật riêng: 1 tệp bộ câu hỏi + 1 dòng AGENTS + 1 hook + 1 ô trong dòng READY.
+  5. **Đo để biết có bị trang trí không**: audit của cổng đếm số lần gọi theo bề mặt và theo trạm; xem hằng tuần. Trạm nào hai tuần liền 0 lượt ⇒ hoặc bỏ trạm đó, hoặc nâng lên tầng cứng hơn. Đưa vào tiêu chí đóng việc cùng P02 điểm 10.
+- Áp: SAME_COMMIT
+- Host response: —
+
 ## Câu hỏi hội đồng
 - Q01 · Có đồng ý `Incomex JEV Gateway` là lớp chung duy nhất cho cả OpenAI và Claude không?
 - Q02 · Bước 1 tối thiểu nên expose 2 tool (`jev_decide`, `jev_batch`) hay thêm ngay `jev_review`?
