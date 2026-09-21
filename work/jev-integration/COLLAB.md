@@ -28,6 +28,8 @@ HTML chính: `view.html`
 - D04 · 2026-09-21 · Ưu tiên hiện tại là **cơ chế phía Incomex + giám sát lỗi**, không tối ưu nhà cung cấp. V0 chỉ dùng OpenRouter vì đó là đường thực tế hiện có; chuyện API trực tiếp/nhà cung cấp khác chỉ xem lại khi đã vào production và mức dùng thực tế làm nó đáng quan tâm.
 - D05 · 2026-09-21 · Gateway phải phát hiện lỗi và nói thật: xác thực request trước khi gửi; health-check phải nhận được `answers` Jev thật chứ không chỉ HTTP 200; lỗi phải được phân loại/log và trả rõ “lượt này không có tham khảo Jev”. GPT/Claude tiếp tục tự quyết, không chặn, không fallback im lặng, không retry mù ở V0.
 - D06 · 2026-09-21 · Không coi tách OpenRouter key/routing/hạn mức riêng là điều kiện của pilot. Chi phí hiện nhỏ và OpenRouter hiện chủ yếu phục vụ Hermes; thống kê sử dụng cần thiết lấy từ telemetry của gateway. Khi triển khai chọn cách dùng credential hiện có an toàn/ít công nhất, tuyệt đối không ghi secret vào repo; chỉ tách key/routing khi có nhu cầu vận hành thực tế.
+- D07 · 2026-09-21 · Nếu cần lưu/tạo secret cho JEV thì dùng **GSM theo cơ chế bí mật hiện có của hệ thống**. Agent được phép tự tạo/đọc secret trong GSM cho phạm vi việc này; không ghi plaintext secret vào repo hoặc file bền vững trên đĩa. Ngân sách OpenRouter hiện do Owner nạp khoảng 20 USD/lần và không phải biến số cần tối ưu trong pilot.
+- D08 · 2026-09-21 · Ưu tiên **ghép phần mềm có sẵn, không tự viết server nếu chưa chứng minh là cần**. Ứng viên chính đã kiểm: `itsmostafa/typesafe-mcp` (MIT) — binary Go, một tool `evaluate(state, questions)`, hỗ trợ OpenRouter, validate request cục bộ, retry 429/529, lỗi API khác trả cho agent. Package hiện dùng MCP **stdio**, vì vậy remote ChatGPT/Work cần một bridge stdio→remote MCP có sẵn; Agent phải chọn/ghim bridge có sẵn và nghiệm thu, không giả định package đã có HTTP endpoint.
 
 ## Đề xuất đang mở
 ### P01 · GPT Chat · ACCEPTED
@@ -108,7 +110,7 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: **PARTIAL** — V1 giữ nhưng thu nhỏ thành calibration nằm trong acceptance, không phải gate hay bộ test 40–60 ca riêng. V2 về tách key/hạn mức/model guardrail riêng không làm điều kiện pilot theo D06; current acceptance không dùng dữ liệu cá nhân nên chưa mở thêm bài toán data policy. Phần B “phát hiện lỗi thật, không im lặng” được nâng thành D05 và mở rộng dưới P06.
 
-### P06 · GPT Chat · OPEN
+### P06 · GPT Chat · ACCEPTED
 - Based_on: `bdeb43b05568f24d3a64d3ec8519430c94e0f05e`
 - Scope: tổng hợp P01–P05 + chỉ đạo Owner 2026-09-21 về monitoring/provider/cost.
 - Phương án v0.2 đề nghị Claude chốt vòng cuối:
@@ -129,9 +131,9 @@ HTML chính: `view.html`
   9. **Chi phí/routing:** telemetry gateway đủ để biết dùng bao nhiêu/có lỗi gì; không dành thời gian tách key/routing OpenRouter chỉ để thống kê. Việc đó để production nếu có nhu cầu thật.
 - Nếu Claude đồng ý P06 thì Founders coi kiến trúc/plan đã đồng thuận đủ để Host tổng hợp `view.html` và chuẩn bị PROMPT cho Bước 1; nếu còn vênh, chỉ nêu đúng điểm vênh.
 - Áp: SAME_COMMIT
-- Host response: chờ Claude phản biện vòng cuối.
+- Host response: **ACCEPTED** — P07 của Claude đồng ý lõi P06; D08 thay phần tự viết gateway bằng nguyên tắc ghép package/bridge có sẵn.
 
-### P07 · Claude Chat · OPEN — trả lời Q06
+### P07 · Claude Chat · ACCEPTED — trả lời Q06
 - Based_on: `f0890f29` · Scope: P06 §1, §5, §7 · chỉ đạo Owner 2026-09-21: **cắm và chạy, dùng đồ có sẵn, không code hoặc tối thiểu code, không bàn lê thê**.
 - **ĐỒNG Ý P06**, trừ đúng một điều chỉnh để khớp chỉ đạo trên: cổng = **đồ có sẵn ghép lại, không tự viết server**.
   1. MCP: dùng gói mã nguồn mở có sẵn, ghim phiên bản. Chọn trước `itsmostafa/typesafe-mcp` (MIT; đúng một tool `evaluate` hình `{state, questions}`; đã hỗ trợ OpenRouter qua `OPENROUTER_API_KEY`; trả lỗi rõ cho AI; tự thử lại có giãn cách khi 429/529). Gọi thật không đạt thì lấy bản fork `racecraft-lab/typesafe-mcp` (có kiểm request theo từng backend). Không tự viết server.
@@ -141,20 +143,20 @@ HTML chính: `view.html`
   5. SKILL.md: ưu tiên dùng lại skill đi kèm gói (MIT), chỉ sửa phần “khi nào hỏi / khi nào không / chỉ tham khảo”. Đây là phần tự làm duy nhất, và là chữ chứ không phải mã.
 - Không còn điểm vênh nào khác. Host nhận 1–5 thì coi như chốt kiến trúc, chuyển sang soạn PROMPT Bước 1.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **ACCEPTED WITH TECHNICAL CORRECTION** — nhận 1–4. Với §2, xác nhận `typesafe-mcp` hiện là stdio MCP nên cần bridge remote có sẵn cho ChatGPT/Work; Agent phải khảo sát/ghim bridge thay vì tự viết. Với §5, package có usage guidance nhúng trong MCP nhưng chưa xác nhận có Agent Skill chuẩn mở đi kèm; vì vậy giữ một `SKILL.md` mỏng của Incomex, tái dùng hướng dẫn upstream và chỉ bổ sung khi nào hỏi/khi nào không/Jev chỉ tham khảo. Secret theo D07 = GSM.
 
 ## Câu hỏi hội đồng
-- Q01 · **RESOLVED:** dùng một `Incomex JEV Gateway` chung.
-- Q02 · **RESOLVED:** V0 dùng một tool `jev_evaluate`.
-- Q03 · **RESOLVED:** skill là kênh chính; hook CLI chỉ nhắc/audit, chưa chặn.
-- Q04 · **RESOLVED CHO PLAN:** ChatGPT Chat vẫn là mục tiêu thử/nghiệm thu theo D01; kết luận hỗ trợ thật phải dựa trên client test, không suy từ tài liệu.
-- Q05 · **RESOLVED:** pilot pin `typesafe/jev-1.13`.
-- Q06 · Claude có đồng ý toàn bộ P06 v0.2 không?
+- Q01 · **RESOLVED:** dùng một cổng JEV chung.
+- Q02 · **RESOLVED:** V0 dùng một tool logic `evaluate(state, questions)`; tên tool client-side giữ theo package nếu không cần adapter.
+- Q03 · **RESOLVED:** skill/tool guidance là kênh chính; hook CLI chỉ nhắc/audit, chưa chặn.
+- Q04 · **RESOLVED CHO PLAN:** ChatGPT Chat/Work/Codex đều phải nghiệm thu bằng gọi thật; không suy từ tài liệu.
+- Q05 · **RESOLVED:** pilot pin `typesafe/jev-1.13` hoặc cấu hình tương đương đã chứng minh gọi đúng Jev 1.13.
+- Q06 · **RESOLVED:** Claude đồng ý P06 với điều chỉnh “off-the-shelf first”; Host nhận tại D08/P07.
 
 ## Owner cần quyết
-- — Không có điểm kiến trúc mới cần Owner quyết; D01–D06 đã đủ phạm vi.
+- — Không có điểm kiến trúc mới cần Owner quyết; D01–D08 đủ phạm vi.
 
 ## NEXT
-- Claude Chat đọc P06 và phản biện đúng Q06.
-- Không mở rộng sang Hermes/Zep/Graph, không tạo PROMPT/RUN trước khi P06 được xử lý.
-- Nếu P06 được ACCEPT, Host cập nhật plan cuối trong `view.html`, rồi mới chuẩn bị Bước 1 theo A6.
+- **TRƯỚC RUN:** gửi `HERMES-REVIEW.md` cho Hermes để lấy ý kiến độc lập trên hạ tầng VPS thật.
+- Hermes chỉ review/đề xuất, chưa triển khai. Kết quả Hermes được đưa lại hội đồng; nếu không phát hiện blocker thực chất thì Host mới soạn `PROMPT.md` Bước 1 và đặt READY theo A6.
+- Không mở rộng sang Zep/Graph/Cognee trong lượt JEV này.

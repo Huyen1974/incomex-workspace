@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JEV Integration — Plan v0.2</title>
+<title>JEV Integration — Plan v0.3</title>
 <style>
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:1120px;margin:36px auto;padding:0 22px;line-height:1.55;color:#171717}
 h1,h2{line-height:1.2}.tag{display:inline-block;border:1px solid #bbb;border-radius:999px;padding:3px 10px;margin-right:6px;font-size:13px}
@@ -15,7 +15,7 @@ small{color:#666}@media(max-width:760px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<h1>JEV Integration — Plan v0.2</h1>
+<h1>JEV Integration — Plan v0.3</h1>
 <p><span class="tag">DRAFT</span><span class="tag">Council review</span><span class="tag">No production changes</span></p>
 <div class="box warn">
 <strong>MỤC TIÊU USER — NGUYÊN VĂN 2026-09-21</strong>
@@ -117,7 +117,15 @@ Một cửa duy nhất cho decision/batch/review. Gateway chịu trách nhiệm 
 </table>
 <p>Telemetry tối thiểu: số lượt gọi, success/error class, model, latency và request id nếu có. Không cần tách OpenRouter key/routing chỉ để thống kê; gateway tự đếm được.</p>
 
-<h2>9. Provider và chi phí — cố ý không tối ưu sớm</h2>
+<h2>9. Triển khai V0 — off-the-shelf first</h2>
+<ul>
+<li>Ưu tiên <code>itsmostafa/typesafe-mcp</code> đã kiểm tra: MIT, binary Go, một tool <code>evaluate</code>, hỗ trợ OpenRouter, validate local và retry 429/529.</li>
+<li>Package hiện là MCP <strong>stdio</strong>; để ChatGPT/Work dùng chung cần bridge stdio→remote MCP có sẵn. Agent phải khảo sát/ghim bridge, không tự viết server.</li>
+<li>Package có usage guidance nhúng trong MCP; vẫn giữ một <code>SKILL.md</code> mỏng của Incomex để hướng dẫn khi nào gọi/khi nào không/Jev chỉ tham khảo.</li>
+<li>Nếu cần secret, lưu trong <strong>GSM</strong> theo pattern hiện có; runtime chỉ nhận qua env/tmpfs, không plaintext bền vững.</li>
+</ul>
+
+<h2>10. Provider và chi phí — cố ý không tối ưu sớm</h2>
 <ul>
 <li>V0 chỉ dùng OpenRouter vì đó là đường thực tế hiện có.</li>
 <li>Không dựng fallback Vercel/Cloudflare/TypeSafe trực tiếp và không tranh luận provider trong pilot.</li>
@@ -125,7 +133,7 @@ Một cửa duy nhất cho decision/batch/review. Gateway chịu trách nhiệm 
 <li>Nếu production dùng nhiều hoặc độ tin cậy/chi phí làm phát sinh nhu cầu thật, lúc đó mới cân nhắc direct API/tách key/routing.</li>
 </ul>
 
-<h2>10. Calibration và nghiệm thu</h2>
+<h2>11. Calibration và nghiệm thu</h2>
 <ul>
 <li>Tập acceptance bằng tiếng Việt; prompt không nhắc chữ “Jev”.</li>
 <li>Chỉ lấy một phần nhỏ để so Việt/Anh nếu cần chỉnh skill; không dựng benchmark 40–60 ca riêng và không dùng nó làm gate huỷ dự án.</li>
@@ -133,7 +141,7 @@ Một cửa duy nhất cho decision/batch/review. Gateway chịu trách nhiệm 
 <li>Kết quả Jev không bắt buộc trình Owner; GPT/Claude tổng hợp và tự chịu trách nhiệm quyết định cuối.</li>
 </ul>
 
-<h2>11. Chưa làm ở vòng này</h2>
+<h2>12. Chưa làm ở vòng này</h2>
 <ul>
 <li>Không tích hợp Zep/Graph/Cognee/Hermes vào scope JEV hiện tại.</li>
 <li>Không dùng Jev làm enforcement/guardrail production.</li>
@@ -141,7 +149,7 @@ Một cửa duy nhất cho decision/batch/review. Gateway chịu trách nhiệm 
 <li>Không tối ưu provider, routing hoặc chi phí trước khi có usage thật.</li>
 </ul>
 
-<h2>12. Điều kiện chuyển từ bàn sang làm</h2>
-<p>Claude phản biện P06 vòng cuối. Nếu không còn điểm vênh thực chất, Host đóng các P còn mở, cập nhật plan cuối và mới chuẩn bị <code>PROMPT.md</code> cho Bước 1 theo A6.</p>
+<h2>13. Cửa cuối trước triển khai</h2>
+<p>Founders đã đồng thuận kiến trúc. Trước khi tạo <code>PROMPT.md</code>/READY/RUN, Owner gửi <code>HERMES-REVIEW.md</code> cho Hermes review trên VPS thật. Nếu Hermes không phát hiện blocker thực chất, Host mới soạn prompt triển khai Bước 1 theo A6.</p>
 </body>
 </html>
