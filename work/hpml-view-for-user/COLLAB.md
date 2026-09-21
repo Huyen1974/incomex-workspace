@@ -177,5 +177,21 @@ Based_on `e7ccb71` · Sửa trực tiếp trong cùng một commit: PROMPT §1/�
 - READY@376b72b845fc72bfaa84e69c1aa886340d46bf3a · Host GPT · đã đối chiếu Git log: đây là commit cuối chạm `PROMPT.md`; sẵn sàng RUN Codex cho `HVU-B2-20260921-01`.
 - Executor_Surface=`Codex/GPT Work`; Write_Path runtime=`VPS SSH/deploy path hiện hữu theo README §11`, tài liệu workspace=`workspace_*` có expected version/head. Không đổi đường ghi MCP chung trong B2.
 
+## P13 · Claude · kiểm tín hiệu thật sau B2 · OPEN
+Based_on `9eb48cc` · Đọc trên VPS (chỉ đọc): `data/tasks.json`, `data/sync-status.json`, `data/revisions/`, `scripts/hvu-b2/sync.py`, unit systemd, route `owner-view-webhook`. Kiểm sống: commit `9eb48cc` (07:55:18, việc VPSC) được publish trong cùng phút.
+
+**Đúng thiết kế:** chuông webhook có chữ ký + socket (không tốn khi rảnh) · backstop 15′ · `ls-remote` trước, không fetch khi không đổi · JSON nguyên tử · không hạ revision · cô lập lỗi từng việc · 6 việc tự phát hiện · mục tiêu A0 đổ nguyên văn · HTML 4 việc đổ đúng, việc thiếu HTML hiện “chưa có view” · HVU Triển khai XONG → Nghiệm thu vàng · MMIM đỏ “chờ Owner” đúng (P01 thật).
+
+**Lệch — đề xuất B2.1 (cùng runtime B2, một RUN):**
+1. **Vừa làm 0/6:** `sync.py` chỉ nhận tiền tố `[Codex]`/`[Claude Chat]`/… nhưng commit thật ghi `[GPT]`, `[Claude]`, `docs(hvu):` → không bao giờ khớp. Đúng nguyên tắc không đoán; muốn sáng phải B3, không bắt AI nhớ tiền tố.
+2. **Hoạt động gần nhất có trong JSON (`lastCommit`) nhưng UI không hiện** → thêm một dòng “Gần nhất: <giờ> · <dòng commit>” trong Tình trạng (dữ liệu thô, không suy actor). READY hợp lệ mà chưa có KQ → ghi chú thanh Triển khai “Chờ giao RUN”.
+3. **Kế hoạch sai 2/6** do định nghĩa READY “dòng cuối cùng” (lỗi chữ của Claude ở P12): VPSC ghi READY mới ở trên, READY cũ ở dưới → parser lấy READY cũ, Kế hoạch không xanh dù READY@3131bde hợp lệ; jev: câu văn “READY@<sha>” bị coi là READY hỏng → `unknown` + cảnh báo giả (MMIM cũng cảnh báo giả vì câu “đặt READY@SHA mới”). **Đã sửa A9 ngay trong commit này:** READY/KQ không phụ thuộc thứ tự dòng; `READY@` không đủ 40 hex không phải READY; READY lệch SHA không cảnh báo; KQ cùng RUN thì XONG thắng DỪNG. `sync.py` sửa theo.
+4. **Chờ Owner giả ở VPSC:** mục `## Owner cần quyết` ghi “- Không có quyết định chờ Owner…” + dòng Q04 CLOSED thay vì `- —` → đỏ giả. Host VPSC sửa dữ liệu; chống tái diễn đưa vào B3(c).
+5. **Phình đĩa:** mỗi commit của BẤT KỲ việc nào tạo một `revisions/<sha>/` chép đủ tài liệu ≈ 1,9 MB; `sync.py` không có bước dọn (6 thư mục sau 25 phút). Nhịp commit hiện nay ≈ vài chục–trăm MB/ngày trong khi đĩa VPS đang 87%. Sửa: publish xong giữ 3 revision gần nhất, xoá cũ hơn (dữ liệu dẫn xuất, dựng lại được từ Git); tài liệu không đổi thì hardlink từ revision trước. Thư mục `documents/` cũ của UI03 giữ nguyên.
+6. **Cảnh báo ồn:** MMIM 25 dòng “Asset không có trong Git” (đúng quyết định MMIM H01–H02) → gộp một dòng kèm số lượng.
+7. **Nội dung (Host, không RUN):** §0 HVU còn câu cũ “V1 không dùng webhook…”, nay hiển thị ngay đầu view → dọn §0 cho khớp thực tế.
+
+**B3 — RUN kế tiếp sau B2.1, đụng 2 cổng ghi (tách lượt vì mọi AI đang dùng hai cổng này):** (a) cổng ghi tự đóng trailer `Surface: <id>` theo token/MCP clientInfo (khảo sát giá trị thật trước khi map 6 id) → sáng **Vừa làm**; (b) cổng ghi/đọc ghi mốc hoạt động (surface × work-id, tối đa 1 lần/phút) vào một file tĩnh nhỏ → **Đang làm** = có hoạt động trong 10 phút, không thấy = xám (gộp B4 vào đây vì cùng hai cổng); (c) khi AI ghi `COLLAB.md`, cổng chạy chính bộ đọc A9 và trả một dòng nhắc nếu sai chuẩn READY/KQ/`Owner cần quyết` — không chặn. AI không phải nhớ thêm gì.
+
 ## Owner cần quyết
 - — · Không còn quyết định nghiệp vụ chặn B2. Nếu Agent không có quyền đăng ký webhook, backstop 15 phút vẫn chạy; chỉ hướng dẫn Owner bật webhook sau, không lộ secret.
