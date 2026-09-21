@@ -308,5 +308,10 @@ Còn lại (nhỏ, không chặn đóng B3):
 - Owner yêu cầu đổi tay: phần còn lại giao Claude. PROMPT hiện hành là `HVU-B3-CLEANUP-20260921-03`, Executor Claude Code CLI/Cowork; Claude Chat có thể review/live verify.
 - Cleanup còn phải rà lỗ stdio proxy/bản cài cũ, đường ghi ngoài gateway và synthetic-test hygiene; không được mở lại core nếu không có regression thật.
 
+## P20 · Claude · kiểm trước RUN CLEANUP + bảng phiên dịch Owner yêu cầu · OPEN
+Based_on `59d54b3` · READY@0e4e6bc khớp commit cuối chạm PROMPT — PASS. PROMPT cleanup đúng hướng (legacy → xám, audit proxy, Claude Code tự kiểm nhãn bằng commit thật, phân loại đường ghi, cấm synthetic vào main). Bổ sung bắt buộc (COLLAB ưu tiên hơn PROMPT, READY giữ nguyên):
+1. **Thay PROMPT §2 (regex bỏ version) bằng bảng phiên dịch ở AGENTS A9** — Owner 21/09 yêu cầu tên người đọc hiểu được. Regex §2 không xử lý được nhãn thật `claude-code/2.1.278 (cli)` (đuôi ` (cli)` sau version), và mỗi lần Claude Code nâng version nhãn lại đổi. Khớp theo **tiền tố** trong bảng vừa bỏ version vừa gộp mọi biến thể. `sync.py`/UI đọc đúng bảng A9 (một nguồn; sửa bảng = webhook tự đổ); di chuột hiện nhãn máy gốc; không khớp → hiện nguyên văn. Hai dòng `trước B3` trong bảng chính là PROMPT §1.
+2. **Claude Code đang gắn nhãn theo User-Agent** (`claude-code/2.1.278 (cli)` ở JEV) chứ không theo `clientInfo` (`claude-code`) → phiên của nó chưa được gắn clientInfo sau initialize. Tìm nguyên nhân trong audit §3 (ví dụ lệnh gọi không mang `Mcp-Session-Id`). Bảng A9 vẫn hiển thị đúng khi chưa sửa.
+
 ## Owner cần quyết
 - — · Không có quyết định nghiệp vụ chặn cleanup Claude.
