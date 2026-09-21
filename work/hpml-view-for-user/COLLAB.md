@@ -42,6 +42,8 @@ HTML chính: `view.html`
 
 ## Trạng thái
 
+- HVU.B2 · Codex/GPT Work · RUN HVU-B2-20260921-01: pipeline đã hoạt động, đang đóng hồ sơ nghiệm thu. Webhook 682624761 → `/api/knowledge/owner-view-webhook`; một systemd oneshot, socket + backstop 15 phút; anonymous bare clone riêng. Sáu việc tự discover, thiếu HTML vẫn hiện; A9 không parse P. Kiểm thật: chữ ký thiếu/sai 401, ba chuông hợp lệ 202 với fetch/build/copy=0 khi HEAD không đổi; push bcc69d2b25360cb068d1dab8bfb32f6475fa7cab tự publish và browser tự nhận không reload. Tám test cô lập PASS (KQ đúng RUN, không P, Done, lỗi/khôi phục, no-op, discovery, không hạ revision); stale 36 phút vẫn thấy sáu việc. KQ cuối chỉ ghi sau backup/runtime refs hoàn tất.
+
 - HVU-DATA01/B2 · Host đã chốt P11, A9 + README §12 + prompt B2; mục tiêu là dữ liệu tự đổ 60 giây, HEAD không đổi thì không rebuild, lỗi giữ last-good và tự retry.
 - ~~READY@98656c0938f78d2196f102444120cd37d3baea4f~~ · VÔ HIỆU theo A6: Claude sửa `PROMPT.md` trong P12. Host đối chiếu diff P12 → READY@<commit cuối chạm PROMPT> → RUN HVU.B2.
 
