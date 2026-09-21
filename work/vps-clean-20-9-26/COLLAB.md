@@ -10,10 +10,11 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT · đích báo cáo lên repo (D04) + Executor_Surface/Write_Path (P12) | NEXT: GPT review PROMPT_SHA mới | BLOCK: READY cũ đã vô hiệu — không dùng lệnh RUN cũ
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | GPT REVIEWED · ACCEPT | NEXT: Host READY đúng SHA rồi phát RUN mới cho Claude Code | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R1-20260920-01` · AUDIT / NO PRODUCTION MUTATION · DRAFT.
 - **PROMPT_SHA = 7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65** (commit cuối chạm `PROMPT.md`; REVIEWED/READY theo đúng mã này). Bản `e50e95c`, `c0ddf9e`, `88ec658`, `69b42a7` hết hiệu lực.
+- **GPT REVIEWED@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65 · ACCEPT** — đã kiểm D04 + P12 ở đầu file/§0/§2/§9/§10 và luật DROOT06/README §12; không mở P mới. R1 chỉ khảo sát + báo cáo, không dọn/xoá/mutation production.
 - **GPT REVIEW_INVALID@69b42a75db565027b6b15d3f8e3cfe6902c90aee** (trước là ACCEPT_PROMPT; mất hiệu lực vì Host sửa PROMPT theo D04 + P12 ngày 21/09) — đã kiểm P10 trong A0 + PROMPT §1/§4/§7/§9 và đầu ra R1; không mở thêm P về PROMPT. P11 chỉ thuộc `view.html`; nếu Host chỉ sửa view và không chạm PROMPT thì review SHA này vẫn giữ hiệu lực.
 - **Host READY_INVALID@69b42a75db565027b6b15d3f8e3cfe6902c90aee** (vô hiệu 21/09 vì D04 + P12) — Claude Chat (CLAUDE-VPSC-260920-A), 2026-09-21. Đối chiếu trước khi đặt: commit cuối chạm `PROMPT.md` vẫn là `69b42a7` (commit này chỉ sửa view + COLLAB); `GPT REVIEWED@` trùng đúng mã; P01–P11 đã đóng; Q04 CLOSED. Đầu vào (DROOT04): đĩa 84/96GB, trống 13GB (> ngưỡng dừng 8GB); R03 đang CLIENT-ONLY, không deploy → R1 chạy được, khoá chéo R03 vẫn áp. Mọi sửa `PROMPT.md` sau mốc này huỷ cả REVIEWED lẫn READY.
 - Host kiểm lại ngay trước RUN (2026-09-21 ~02:40Z): `PROMPT.md` vẫn bản của `69b42a7` (version không đổi); view đã sửa đúng P11 (ô đầu, thanh bước 2, VPSC.6 T1–T6); R03 vẫn CLIENT-ONLY, không deploy; đĩa 84/96GB, trống 13GB (> ngưỡng dừng 8GB). READY này sau đó đã vô hiệu (D04 + P12).
@@ -68,5 +69,5 @@ GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho 
 - Q04 · CLOSED · Owner 2026-09-21 giao nhóm kỹ thuật quyết. Chốt kỹ thuật: giữ mục tiêu ≥45GB trống; bỏ `≤3GB/tháng` khỏi tiêu chí PASS và dùng nó như ngưỡng đỏ. PASS theo D02/P10: non-business phải bounded/steady-state, hoặc offload/purge có kiểm soát.
 
 ## NEXT
-- GPT review PROMPT_SHA mới (phạm vi thay đổi: đầu file, §0, §2, §9, §10 theo D04 + P12). ACCEPT → GPT ghi `GPT REVIEWED@<full SHA>`; Host ghi `READY@<full SHA>` và đưa Owner câu RUN mới (ghi rõ Executor_Surface + Write_Path).
-- Sau R1: Host tự đo lại, đưa phần đã kiểm lên `view.html` → GPT sửa chính `PROMPT.md` thành đề bài thẩm tra cho Codex (D03), Claude review, READY → RUN Codex; kết quả Codex là mục mới trong `BAO-CAO.md`.
+- Host xác minh commit cuối chạm `PROMPT.md` vẫn là `7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65`, ghi `READY@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65`, rồi phát RUN mới cho Claude Code. Không sửa PROMPT thêm trước RUN.
+- Sau R1: Host tự đo lại → Codex thẩm tra độc lập theo D03 → hội đồng thống nhất → Owner duyệt → mới sang lượt dọn thật.
