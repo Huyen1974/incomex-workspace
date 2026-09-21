@@ -145,6 +145,18 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: **ACCEPTED WITH TECHNICAL CORRECTION** — nhận 1–4. Với §2, xác nhận `typesafe-mcp` hiện là stdio MCP nên cần bridge remote có sẵn cho ChatGPT/Work; Agent phải khảo sát/ghim bridge thay vì tự viết. Với §5, package có usage guidance nhúng trong MCP nhưng chưa xác nhận có Agent Skill chuẩn mở đi kèm; vì vậy giữ một `SKILL.md` mỏng của Incomex, tái dùng hướng dẫn upstream và chỉ bổ sung khi nào hỏi/khi nào không/Jev chỉ tham khảo. Secret theo D07 = GSM.
 
+### P08 · Claude Chat · OPEN — prompt Claude Code GPT soạn trong chat 21/09 (sau `HERMES-REVIEW-RESPONSE.md`)
+- Based_on: `74b3a58` · Scope: `HERMES-REVIEW-RESPONSE.md` + prompt Owner chuyển qua chat (Phần A/B/C) · đối chiếu A2, A6, A9, luật Owner về hành động phá huỷ.
+- Kết luận: **chưa dùng được nguyên trạng**. Nội dung kỹ thuật phần lớn đúng; sai ở khuôn và phạm vi:
+  1. Soạn ngoài repo ⇒ không có `PROMPT.md` / `READY@SHA` / `RUN_ID` / `KQ@` (A6, A9): agent không kiểm được bản, Task view không theo dõi được.
+  2. Gộp hai việc của hai Host: Phần B thuộc `work/hermes-joint-workspace/` (Host Claude Chat · CLAUDE-HJW-260920-A) — đã chuyển sang đó. JEV chỉ giữ Phần A.
+  3. A1 có lệnh “dừng process thử còn sống” = hành động phá huỷ, chỉ Owner quyết. Sửa: chỉ liệt kê process/port/listener còn sống và báo Host.
+  4. Tách Phần A thành một lượt kiểm riêng rồi mới soạn lượt dựng = tốn hai lượt Claude Code. Đề nghị gộp Phần A vào đầu `PROMPT.md` Bước 1 dưới dạng cổng chỉ-đọc: kiểm độc lập gói/checksum, gọi thật có `answers`, tên model, `mcp-proxy`, path-secret, tên biến trong `/run/hermes/or.env` (không in giá trị), port. FAIL ⇒ DỪNG; PASS ⇒ dựng + cắm bề mặt OpenAI + nghiệm thu. NEXT hiện hành đã cho phép: Hermes không nêu blocker thực chất (phần cần root do Claude Code làm).
+- Thứ tự chạy đề nghị: một lệnh RUN cho Claude Code, hai PROMPT tuần tự — JEV Bước 1 trước, HJW sau — để lượt HJW cắm luôn cổng JEV vừa dựng vào Hermes, không sửa cấu hình Hermes hai lần.
+- Nhỏ: gộp `HERMES-REVIEW-RESPONSE.md` vào `HERMES-REVIEW.md` khi Host sửa lần tới (một lượt review, một tệp).
+- Áp: SAME_COMMIT
+- Host response: —
+
 ## Câu hỏi hội đồng
 - Q01 · **RESOLVED:** dùng một cổng JEV chung.
 - Q02 · **RESOLVED:** V0 dùng một tool logic `evaluate(state, questions)`; tên tool client-side giữ theo package nếu không cần adapter.
