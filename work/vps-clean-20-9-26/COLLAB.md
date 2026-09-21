@@ -44,7 +44,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 3/6 | V1b Codex · OWNER_APPROV
 ## Kế hoạch
 - VPSC.1 | Mở việc + PROMPT R1 | ✔ xong: GPT REVIEWED + Host READY @`7ce1cbd`
 - VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → `BAO-CAO.md` trên repo, nhãn `UNVERIFIED_R1` | MACHINE_DONE · UNVERIFIED_R1 · xem BAO-CAO.md
-- VPSC.3 | Codex thẩm tra độc lập R1 → mục V1 trong `BAO-CAO.md` | BLOCKED · V1_LIMITED · KQ@VPSC-V1-20260921-01 DỪNG · đĩa 91%: chỉ đo nhẹ; PASS 1 (giữ N14) / REVISE 6 / BLOCK 8; chưa hoàn tất grep/đối soát, thu hồi đủ gate 0GiB; Host xử lý V1-01–V1-06 · Áp: SAME_COMMIT
+- VPSC.3 | Codex thẩm tra độc lập R1 → V1 + V1b trong `BAO-CAO.md` | MACHINE_DONE · V1b · KQ@VPSC-V1B-20260921-01 XONG · PASS 6 / REVISE 3 / BLOCK 6; thu hồi đã kiểm ~4,185GiB (N2/N4/N5); nguồn +2,94GiB chủ yếu cứu hộ/cập nhật Hermes, thêm deploy web; chưa dọn · Áp: SAME_COMMIT
 - VPSC.4 | Owner duyệt các nhóm đã PASS | □
 - VPSC.5 | Dọn (cứu trước, xoá sau) + khoá vòi — MỘT PROMPT làm một lần (sửa chính `PROMPT.md`) | □ sau VPSC.4 và R03 CLOSED
 - VPSC.6 | Theo dõi 2 tuần theo T1–T6 → đóng; mở việc Graph | □
