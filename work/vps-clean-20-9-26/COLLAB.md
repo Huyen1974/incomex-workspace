@@ -10,11 +10,12 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT · GPT REVIEWED 88ec658 = ACCEPT | NEXT: Host đặt READY đúng full SHA | BLOCK: —
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 2/6 | READY@88ec658 | NEXT: Owner phát RUN cho Claude Code | BLOCK: —
 
-- PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R1-20260920-01` · AUDIT / NO PRODUCTION MUTATION · DRAFT.
+- PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R1-20260920-01` · AUDIT / NO PRODUCTION MUTATION · READY.
 - **PROMPT_SHA = 88ec65875ab3c8f7d5ee98fdb0ae3374cc47ad22** (commit cuối chạm `PROMPT.md`; REVIEWED/READY theo đúng mã này). Bản `e50e95c`, `c0ddf9e` hết hiệu lực.
 - **GPT REVIEWED@88ec65875ab3c8f7d5ee98fdb0ae3374cc47ad22 · ACCEPT** — đã đọc AGENTS hiện hành (có A0), COLLAB và toàn bộ PROMPT; P07–P09 đã được xử lý đạt, không mở P mới.
+- **Host READY@88ec65875ab3c8f7d5ee98fdb0ae3374cc47ad22** — Claude Chat (CLAUDE-VPSC-260920-A), 2026-09-20. Đối chiếu trước khi đặt: commit cuối chạm `PROMPT.md` = `88ec658` (không ai sửa sau đó); `GPT REVIEWED@` trùng đúng mã này; P01–P09 đã đóng. Mọi sửa `PROMPT.md` sau mốc này huỷ cả REVIEWED lẫn READY, phải làm lại vòng duyệt.
 
 ## Số đo gọi thật (Claude Chat, 2026-09-20)
 - 24/07: 87% → 61%, trống 13 → 39GB (KB `vps-clean-minimum-2026-07-24.md`).
@@ -26,8 +27,8 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 1/6 | DRAFT · GPT REVIEWED 88e
 - D01 · 2026-09-20 · Mở việc tại `work/vps-clean-20-9-26/`: đánh giá vì sao đĩa VPS đầy nhanh, đề xuất dọn phần không dùng để có chỗ cài Graph DB.
 
 ## Kế hoạch
-- VPSC.1 | Mở việc + PROMPT R1 | ▶ GPT REVIEWED/ACCEPT `88ec658`; chờ Host READY
-- VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → KB mục ĐỢT 2 nhãn `UNVERIFIED_R1` | □ sau REVIEWED + READY + RUN
+- VPSC.1 | Mở việc + PROMPT R1 | ✔ xong: PROMPT chốt tại `88ec658`, GPT REVIEWED + Host READY
+- VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → KB mục ĐỢT 2 nhãn `UNVERIFIED_R1` | ▶ chờ Owner phát RUN
 - VPSC.3 | Kiểm chéo: Host tự đo lại + lập đề xuất dọn theo nhóm trên `view.html` → GPT (hoặc Codex/Astra do GPT giao) thẩm tra độc lập, PASS/REVISE/BLOCK từng nhóm | □
 - VPSC.4 | Owner duyệt các nhóm đã PASS | □
 - VPSC.5 | Dọn (cứu trước, xoá sau) + khoá vòi — MỘT PROMPT làm một lần (sửa chính `PROMPT.md`) | □ sau VPSC.4 và R03 CLOSED
@@ -56,5 +57,5 @@ GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho 
 - Q04 · Đích sau dọn ≥45GB trống + ≤3GB/tháng. Đề xuất: gật.
 
 ## NEXT
-- Host ghi `READY@88ec65875ab3c8f7d5ee98fdb0ae3374cc47ad22` theo A6. Không sửa `PROMPT.md`; nếu sửa thì REVIEWED này mất hiệu lực và phải review lại.
-- Sau READY: Owner (hoặc GPT trong phạm vi Owner đã giao) mới phát RUN cho Claude Code. Claude Code chạy đúng `PROMPT.md`, ghi báo cáo vào đích §9 và chỉ trả một dòng `XONG`/`DỪNG` theo A6.
+- Owner phát RUN cho Claude Code (Host đã đưa sẵn câu lệnh). Claude Code chạy đúng `PROMPT.md@88ec658`: tự kiểm commit cuối chạm file khớp READY, không clone, bằng chứng thô ngoài mọi cây Git, không mutation production, không DROP, không dọn thật; ghi KB theo §9 nhãn `UNVERIFIED_R1`; trả đúng một dòng `XONG`/`DỪNG`.
+- Xong R1 → Host mở VPSC.3: tự đo lại, lập đề xuất dọn theo nhóm trên `view.html`, rồi GPT (hoặc Codex/Astra do GPT giao) thẩm tra độc lập PASS/REVISE/BLOCK từng nhóm.
