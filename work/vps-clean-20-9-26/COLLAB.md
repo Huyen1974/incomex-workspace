@@ -13,8 +13,8 @@ HTML chính: `view.html`
 VPSC | Dọn đĩa VPS + khoá vòi rò | việc 3/6 | V1 Codex · OWNER_APPROVED + READY | NEXT: Owner phát RUN cho Codex | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-V1-20260921-01` · Codex thẩm tra độc lập R1 · AUDIT / NO PRODUCTION MUTATION.
-- **PROMPT_SHA: SAME_COMMIT** (Host ghi hash thật ngay sau commit này). PROMPT R1 `7ce1cbd` đã chạy xong.
-- **OWNER_APPROVED@SAME_COMMIT** — Owner giao trực tiếp Host chỉ đạo Codex rà soát (D06, 21/09); việc chỉ đọc. **Host READY@SAME_COMMIT**.
+- **PROMPT_SHA = 3131bdee21a080a6fdfb5138ca72c2b7b3d30a38** (commit cuối chạm `PROMPT.md`). PROMPT R1 `7ce1cbd` đã chạy xong.
+- **OWNER_APPROVED@3131bdee21a080a6fdfb5138ca72c2b7b3d30a38** — Owner giao trực tiếp Host chỉ đạo Codex rà soát (D06, 21/09); việc chỉ đọc. **Host READY@3131bdee21a080a6fdfb5138ca72c2b7b3d30a38**.
 - Host kiểm R1 (21/09): đã đọc đủ `BAO-CAO.md` mục R1; nguyên nhân #1 tự xác minh qua mã — `scripts/qdrant-backup.sh` tạo snapshot, `docker cp` ra host, chỉ xoá bản ở host >7 ngày, không gọi DELETE server-side; `backup-to-gdrive.sh` có DELETE. Các số còn lại chờ Codex.
 - **GPT REVIEWED@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65 · ACCEPT** — đã kiểm D04 + P12 ở đầu file/§0/§2/§9/§10 và luật DROOT06/README §12; không mở P mới. R1 chỉ khảo sát + báo cáo, không dọn/xoá/mutation production.
 - **Host READY@7ce1cbd389a9ca54e12d74cf2f8aeb6306334c65** (đã dùng cho R1, R1 xong 21/09) — Claude Chat (CLAUDE-VPSC-260920-A), 2026-09-21. Đã xác minh: commit cuối chạm `PROMPT.md` = `7ce1cbd`; `GPT REVIEWED@` trùng mã.
