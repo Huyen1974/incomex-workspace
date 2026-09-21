@@ -4,16 +4,15 @@ Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
 ## Đang làm
-- `work/hpml-view-for-user/` · HVU-B3 · READY@`fd1318fff0f476108160b4dc95d856086905d141` · B2/B2.1 PASS; P14–P15 ACCEPTED. `Vừa làm` per-task không TTL; `Đang làm` presence TTL 10′; sẵn sàng RUN Codex.
-- `work/mcp-workspace/` · R03 · chốt MCP Git + VPS để quay lại công việc nghiệp vụ.
+- `work/hpml-view-for-user/` · HVU-B3 · P16 ACCEPTED với hiệu chỉnh provenance nội bộ để giữ MCP contract; R03 CLOSED; PROMPT B3 đã sửa, chờ READY mới.
 - `work/jev-integration/` · PLAN-V01 · mở việc, đang lấy ý kiến hội đồng; chưa RUN triển khai.
 - `work/hermes-joint-workspace/` · HJW · Claude mở việc, chờ GPT review; nối Hermes khi R03 CLOSED.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
-- NEXT: R03 backend đã MACHINE_DONE/frozen. Tạo đúng MỘT MCP app GPT mới từ Full All hiện hữu → Scan theo cổng `work/mcp-workspace/COLLAB.md` → Owner Connect tay → reconnect Claude/open phiên mới → bài 9 bước × 4 surface + VPS/CROSS → CLOSED.
+- NEXT: R03 đã CLOSED; tiếp tục các việc nghiệp vụ. HJW.2 được mở khoá theo điều kiện của chính việc.
 
 ## Đã xong
-- —
+- `work/mcp-workspace/` · R03 CLOSED 2026-09-21 · GPT client PASS · Claude client PASS · VPS/CROSS PASS.
 
 ## Quyết định Owner
 - DROOT01 · 2026-09-20 · Mọi công việc nằm dưới `work/<work-id>/`; không đặt prompt/test/evidence/archive của công việc ở root.
@@ -24,7 +23,8 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - DROOT05 · 2026-09-21 · **OWNER VIEW V1:** bỏ webhook/event-driven; dùng bản sao workspace chỉ-đọc cập nhật `git pull --ff-only` theo nhu cầu (nút Cập nhật hoặc mở trang khi index cũ >~10 phút). `COLLAB.md` gốc có `Đang làm/Đã xong` làm dấu Now/Done. Owner View được lấy HTML chính + asset cần hiển thị; file điều phối/phụ không public mặc định. MÃ/runtime vẫn tuyệt đối theo §11.
 - DROOT06 · 2026-09-21 · **CAPABILITY-FIRST / ROLE-SEPARATE:** hạ tầng và connector đã setup/nghiệm thu là năng lực dùng chung cho mọi bề mặt thực sự bind được; không chia quyền kỹ thuật theo OpenAI/Claude. Vai trò Host/Reviewer/Agent gán riêng theo bề mặt cụ thể (GPT Chat/Work/Codex, Claude Chat/Cowork/Code CLI, Hermes…). Host phải ghi Executor_Surface + Write_Path, và giám sát kết quả qua SSOT/hạ tầng chung.
 - DROOT07 · 2026-09-21 · **OWNER VIEW AUTO-DATA, thay DROOT05 về cadence:** UI03 đã có. Dữ liệu/tài liệu tự đồng bộ từ `main` bằng **GitHub webhook `push` (chuông báo) + backstop 15 phút** — cập nhật 21/09 theo 4 nguyên tắc Owner (tự động tối đa, không chạy vô ích, dùng cơ chế GitHub, rủi ro vừa đủ), thay kiểm 60 giây; HEAD không đổi thì thoát, HEAD đổi mới dựng snapshot. Task tự phát hiện từ `work/*/COLLAB.md`; root `Đã xong` chỉ đánh dấu Done. Publish nguyên tử + last-good; lỗi giữ bản tốt cuối và tự retry. Chỉ dữ liệu tự đổ; mã/app `view.html` vẫn triển khai có kiểm soát theo §11.
-- DROOT08 · 2026-09-21 · **ACTOR SIGNAL PER TASK:** `Vừa làm` là author/surface của commit gateway thành công gần nhất chạm đúng task, không TTL và chỉ commit sau chạm cùng task mới thay; `Đang làm` là presence gateway theo `surface × task`, TTL 10 phút, không đi qua Git. Commit thành công clear presence của chính surface/task; task khác không ảnh hưởng. UI phải ghi chú nghĩa hai tín hiệu và không suy từ Git author chung/prefix tự do.
+- DROOT08 · 2026-09-21 · **ACTOR SIGNAL PER TASK:** `Vừa làm` là surface có commit gateway thành công gần nhất chạm đúng task, không TTL và chỉ commit sau chạm cùng task mới thay; provenance được gateway ghi nội bộ theo commit SHA/task, **không đổi Git author/tool contract**. `Đang làm` là presence gateway theo `surface × task`, TTL 10 phút, không đi qua Git. Commit thành công clear presence của chính surface/task; task khác không ảnh hưởng.
+- DROOT09 · 2026-09-21 · **R03 CLOSED + B3 CONTRACT FREEZE:** R03 đã nghiệm thu GPT/Claude/VPS/CROSS và CLOSED. B3 được phép thêm observability transport-side nhưng phải giữ nguyên tools/list, schema/hash, serverInfo/version, auth/URL, tool request/response/error semantics và Git author/message. Nếu không làm được mà phải đổi public MCP contract thì DỪNG, không bump/reconnect tự động.
 
 ## Owner cần quyết
 - —

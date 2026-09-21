@@ -10,14 +10,14 @@ Founders: GPT Chat + Claude Chat
 Host: GPT · Owner giao: 2026-09-20
 
 ## R03 — trạng thái hiện hành
-R03 | CLIENT-ONLY FINAL ACCEPTANCE | GPT PASS | NEXT: Claude reconnect/open phiên mới + smoke tối thiểu → CROSS → CLOSED | BLOCK: —
+R03 | CLOSED · 2026-09-21 | GPT CLIENT PASS | CLAUDE_CLIENT_FINAL PASS | VPS/CROSS PASS | BLOCK: —
 
 - Repo đã tái cấu trúc: root chỉ còn `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 - Toàn bộ việc này nằm tại `work/mcp-workspace/`; test/chứng tích không còn rải ở root.
 - PROMPT hiện hành: `work/mcp-workspace/PROMPT.md` · `R03-FINAL-CLOSE-20260920-01`.
 - **PROMPT_SHA = d15eac28b2f8a843e2a4b267cee988fbf44446ba**.
 - **APPROVAL_COMMIT_SHA = cf2a6ef3ce700c8fdcdb9ad959c812540c66334b**.
-- Backend final-close đã `MACHINE_DONE` và **ĐÓNG BĂNG** theo KB §13.11.3 + Claude verify `c6c0d89...`. Không deploy/sửa server nữa tới khi R03 CLOSED, trừ rollback.
+- Backend final-close đã `MACHINE_DONE` và được đóng băng tới nghiệm thu client. Claude Chat sau đó ghi `CLAUDE_CLIENT_FINAL=PASS` (commit `d45b1c2`) với Git/VPS/CROSS thật; Host đóng R03 ngày 2026-09-21. Thay đổi backend sau mốc này thuộc work mới và phải có rollback/contract riêng.
 
 ## Client cuối — đã chốt
 - ChatGPT Pro hiện tại của Owner **không có Refresh app**.
@@ -85,6 +85,12 @@ NỢ sau R03, không chặn: mô tả import_file · `run_acceptance.py` GPT m�
 NEXT (Host): chuyển R03 sang bước client — GPT tạo ĐÚNG MỘT app mới → Scan theo cổng → Owner Connect; Claude ngắt/kết nối lại + chat/phiên mới theo cổng phía Claude (Claude hướng dẫn Owner từng bước khi tới lượt); rồi 9 bước × 4 nơi + VPS + CROSS. Backend đóng băng: không deploy, không HJW.2 tới khi R03 CLOSED.
 Claude 2026-09-20 11:09Z · **CLAUDE_CLIENT_FINAL=PASS** (Claude Chat). Không cần ngắt/kết nối lại: phiên này đã nạp đúng bộ mới — 23 tool; `fs_list.ref`, `fs_read.ref`, `fs_diff.from_version`/`to_version`, `fs_stat` mã cây thư mục, `fs_copy`/`fs_move` thư mục + `expected_version`, `fs_edit` replace_all/expected_count, `fs_transaction` op restore (claude.ai nạp danh sách tool theo từng chat; chỉ khi thiếu tham số mới cần kết nối lại). Gọi thật trong `_thu-nghiem/R03/claude-final/`: tạo lồng `fa2de24` → replace_all đúng 2 chỗ `1a1f96d` → diff giữa 2 phiên bản → đọc ref cũ → copy thư mục có mã cây `915a42f` → move thư mục có mã cây `1e64a66` → đọc lại ⇒ đúng. Tệp lớn: chép 2,2 MB phía máy chủ `e393eda` rồi sửa MỘT chỗ `504c2b0` — chỉ gửi ~50 byte, kích thước sau = trước + 26 B, không tải cả tệp. VPS `ui`: ghi `e1020e2` → sửa `37f3bdc` → đọc lại ⇒ đúng. CROSS: thấy ngay commit smoke của GPT (`39f53f4`). Hoàn tác đã thử thật ở 10:32Z.
 NEXT (Host): đóng R03 — cập nhật `DANH-MUC-CONG-CU.md` §2 về kết quả cuối, chuyển các NỢ sau R03 thành việc Agent làm khi cần; mở khoá HJW.2.
+
+## Host đóng R03 · 2026-09-21
+- GPT client mới PASS 37 tools + schema + Git/VPS thật.
+- Claude Chat `CLAUDE_CLIENT_FINAL=PASS` tại `d45b1c266fe28b636776f1df6bb855b360fd5e6c`: tạo/sửa/diff/ref/copy/move/tệp 2,2MB/VPS/CROSS gọi thật.
+- CROSS thấy commit GPT `39f53f4`; restore/rollback đã thử. Không còn blocker của mục tiêu R03.
+- Nợ sau R03 là maintenance độc lập, không mở lại R03.
 
 ## Bằng chứng gần nhất
 - `957547d2518b83c9ef7b6bbbde2c996c92e887d4` · gom toàn bộ R03/test/archive vào `work/mcp-workspace/`.
