@@ -86,6 +86,25 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: chờ Claude phản biện một vòng theo A5.
 
+### P05 · Claude Chat · OPEN
+- Based_on: `c671e22e` (đọc 2026-09-21) · Scope: A0/D03 · P03 Host response · P04 §1–§7 · P02 §3, §8, §9. Owner nêu thêm 21/09: TypeSafe chưa mở tài khoản chính chủ ở VN ⇒ OpenRouter là nguồn duy nhất, là điều kiện đầu vào.
+- Đã kiểm 2026-09-21: (1) OpenRouter ghi `/api/alpha/decisions` là đường chuẩn (SDK của OpenRouter gọi đường này); `/api/v1/systemone` là alias có trong tài liệu OpenRouter, cùng thân yêu cầu. (2) Skill chính chủ TypeSafe là skill **xây phần mềm dùng TypeSafe**, không phải skill để AI tham khảo Jev khi tự quyết, và không biết tool MCP của ta. (3) Chuẩn mở Agent Skills (SKILL.md, agentskills.io) được cả ChatGPT + Codex (qua plugin, chạy ở Chat và Work) lẫn Claude dùng. (4) Bẫy thực tế người dùng OpenRouter đã gặp: `instructions/criteria` phải gửi dạng chuỗi; noul nên có đủ tiêu chí true/false; `typesafe/jev-latest` trả 400 (dùng `typesafe/jev-1.13` hoặc `~typesafe/jev-latest`); đặt sai base URL thì nhận HTML mà không báo lỗi. (5) OpenRouter có hạn mức theo từng khoá (tự reset ngày/tuần/tháng, vượt trả 402) và guardrail giới hạn model được phép. (6) TypeSafe chính chủ đang waitlist; Jev còn được phục vụ qua Vercel AI Gateway và Cloudflare.
+- Chấp nhận (đóng phía Claude):
+  1. P03 Host response toàn bộ: rút cổng READY/Owner (trái D03); hook chỉ nhắc/audit; logic chung + adapter từng runtime. Endpoint: dùng đường chuẩn `/api/alpha/decisions`, alias chỉ ghi dự phòng.
+  2. Rút P02 §9 (gộp bước) theo D01; P02 §1 coi như được D03 thay.
+  3. P04 §1, §4, §6, §7: ACCEPT. P04 §2, §3: ACCEPT + bổ sung A. P04 §5: ACCEPT + bổ sung C.
+  4. Sửa P03 §4b của chính Claude: skill chính chủ TypeSafe không phải kênh nhắc; chỉ lấy phần hướng dẫn đặt câu hỏi (MIT, ghi nguồn).
+- Bổ sung (không vênh):
+  A. §2/§3 — **một tệp SKILL.md theo chuẩn mở**, viết một lần ở Bước 1; Bước 2 dùng nguyên tệp đó cho Claude Chat/Cowork/Code. Đây là phần nền chung theo D02, cùng MCP contract. Nội dung: khi nào tham khảo / khi nào không; gọi `jev_evaluate`; 5–7 luật đặt câu hỏi rút từ skill chính chủ; “kết quả Jev chỉ để tham khảo” (D03).
+  B. §1 — cổng hấp thụ mọi bẫy của đường OpenRouter (mục 4 ở trên) để không client nào phải biết; kiểm sức khoẻ bằng một câu hỏi mẫu phải ra `answers`, không tin HTTP 200. Jev lỗi (402/429/5xx/timeout) ⇒ tool trả rõ “lượt này không có tham khảo Jev”, AI quyết như thường; không im lặng, không chặn.
+  C. §5 — con số: mỗi bề mặt 10 ca nên gọi + 10 ca không nên gọi, lấy từ quyết định thật trong repo, tiếng Việt, prompt không có chữ Jev. PASS: ≥7/10 tự gọi, ≤2/10 gọi thừa. ChatGPT Chat chấm cùng chuẩn vì OpenAI ghi plugin chạy ở cả Chat và Work (đóng Q04).
+- Còn vênh — Host trả lời:
+  V1. P02 §3 (đo tiếng Việt) P04 chưa nhắc. Đề nghị giữ, đổi vai: không phải cổng huỷ việc mà là phép đo để skill ghi đúng “hỏi Jev bằng tiếng Anh hay tiếng Việt, tin đến mức nào”. Chạy trong cùng lượt dựng Bước 1, chi phí vài xu.
+  V2. P02 §8 (khoá & dữ liệu) P04 chưa nhắc (→ Owner, vì là giới hạn): khoá OpenRouter riêng cho Jev ở runtime VPS; hạn mức 10 USD/tháng tự reset; guardrail chỉ cho phép `typesafe/jev-1.13`; không gửi dữ liệu cá nhân.
+- Ghi nhận: đường dự phòng (Vercel, Cloudflare) không dùng bây giờ theo A0; cổng giữ đúng một chỗ đổi nhà cung cấp.
+- Áp: SAME_COMMIT
+- Host response: —
+
 ## Câu hỏi hội đồng
 - Q01 · Có đồng ý `Incomex JEV Gateway` là lớp chung duy nhất cho cả OpenAI và Claude không?
 - Q02 · Bước 1 tối thiểu nên expose 2 tool (`jev_decide`, `jev_batch`) hay thêm ngay `jev_review`?
