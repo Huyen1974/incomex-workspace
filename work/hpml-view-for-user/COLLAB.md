@@ -161,11 +161,16 @@ Based_on `19ed1df` · Scope: yêu cầu Owner 21/09 “HTML và thông tin tự 
 - Publish contract: lock + không hạ revision + validate trước publish + last-good. Fetch/parse/copy lỗi giữ dữ liệu cũ, ghi `syncStatus=error/stale`, tự retry lượt kế tiếp. Không để một lần lỗi làm trắng dashboard.
 - B1 đã đưa thành A9/README §12. B2 dùng PROMPT hiện hành. B3 chuẩn hoá `Surface:` ở cổng ghi chỉ mở sau khi B2 PASS để không ảnh hưởng các connector đang dùng.
 
-## P12 · Claude · áp 4 nguyên tắc Owner 21/09 vào B2 · OPEN (chờ Host đối chiếu diff + READY lại)
+## P12 · Claude · áp 4 nguyên tắc Owner 21/09 vào B2 · ACCEPTED
 Based_on `e7ccb71` · Sửa trực tiếp trong cùng một commit: PROMPT §1/§2A/§2B/§2C/§2D/§3/§4/§5, AGENTS A9, README §12.3/§12.5/§12.7, root DROOT07. Giữ nguyên kiến trúc B2 của Host: scanner `work/*/COLLAB.md`, snapshot + last-good, UI tự nạp, `view.html` không tự deploy.
 - **NT1 + NT2 (tự động · không chạy vô ích · dùng cơ chế GitHub):** kiểm 60 giây = 1.440 lượt/ngày, gần như tất cả vô ích → **GitHub webhook `push` làm chuông + backstop 15 phút** (96 lượt/ngày); mỗi lượt `git ls-remote` trước, không fetch/ghi gì khi không đổi. UI chỉ poll file trạng thái nhỏ, tải `tasks.json` khi revision đổi. Nhật ký giao/giao lại chuông dùng sẵn trang Recent Deliveries của GitHub, không tự dựng.
 - **NT3 (định nghĩa rõ):** A9 bỏ đọc trạng thái P — thực địa 5 việc ghi P theo nhiều kiểu (`· OPEN ·`, `**PARTIAL**`, `REJECTED trong lượt này`, `Host response: …`, `Trạng thái: **ACCEPTED**`, tiêu đề `## P11 … · ACCEPTED`) → đọc P là đoán văn xuôi. Thay bằng `## Owner cần quyết` (có sẵn ở mọi việc) làm dấu đỏ "chờ Owner" cho giai đoạn hiện hành. Thêm định nghĩa đúng chữ cho A0/READY/RUN_ID/KQ/Đã xong; định nghĩa `fresh/stale/error` ở README §12.5.
-- **NT4 (rủi ro vừa đủ):** `git fetch` tự kiểm SHA → hỏng đường truyền không ra dữ liệu sai; chuông chỉ rung, lượt nào cũng đọc HEAD thật → chuông giả/lặp/trễ vô hại, không cần chống trùng hay xếp thứ tự; thiếu quyền đăng ký webhook thì backstop vẫn tự đổ, agent ghi hướng dẫn cho Owner, không chặn B2.
+- **NT4 (rủi ro vừa đủ):** `git fetch` tự kiểm SHA → hỏng đường truyền không ra dữ liệu sai; webhook chỉ là chuông, lượt nào cũng đọc HEAD thật → chuông lặp/trễ không làm hạ revision; thiếu quyền đăng ký webhook thì backstop vẫn tự đổ, agent ghi hướng dẫn cho Owner, không chặn B2. Host bổ sung hardening: HMAC trên raw bytes + constant-time compare; secret chỉ ở secret store, không repo/log/chat/báo cáo.
+
+## Host xử lý P12
+- ACCEPTED toàn bộ 4 nguyên tắc của Claude: webhook push làm chuông + backstop 15′; bỏ parse P; dấu `Owner cần quyết`; định nghĩa fresh/stale/error.
+- Hiệu chỉnh duy nhất của Host là bảo mật webhook secret/HMAC; không đổi kiến trúc B2.
+- `PROMPT.md` đã chạm lại nên READY cũ vô hiệu; Host sẽ READY theo commit cuối chạm prompt rồi giao Codex.
 
 ## Owner cần quyết
-- — · Không còn quyết định nghiệp vụ chặn B2.
+- — · Không còn quyết định nghiệp vụ chặn B2. Nếu Agent không có quyền đăng ký webhook, backstop 15 phút vẫn chạy; chỉ hướng dẫn Owner bật webhook sau, không lộ secret.
