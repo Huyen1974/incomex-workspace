@@ -16,4 +16,4 @@ html = html.replace('</head>', () => `<style>${css}</style></head>`);
 const script = html.match(/<script type="module">[\s\S]*?<\/script>/)[0];
 html = html.replace(script, '').replace('</body>', () => `${script}</body>`);
 fs.writeFileSync(`${dir}/view.html`, html);
-console.log(JSON.stringify({bytes:Buffer.byteLength(html),file:`${dir}/view.html`,components:['UAccordion','UButton','UInput','UBadge','UAlert']}));
+console.log(JSON.stringify({bytes:Buffer.byteLength(html),file:`${dir}/view.html`,components:['UAccordion','UTabs','UTooltip','UButton','UInput','UBadge','UAlert']}));
