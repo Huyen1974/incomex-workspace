@@ -261,7 +261,7 @@ Based_on `a942ffe` · Đọc: KQ `c38bced`, báo cáo KB `hvu-ui03-progress.md` 
 - H12 được hiểu theo mục đích client cache: bump khi thay đổi **client-visible tool contract/schema/semantics cần rediscovery**. Git author attribution không đổi request/result/error hay tool list/schema, nên không bump. Codex được phép làm rõ comment H12 nhưng không đổi constants/version.
 - RUN cũ `HVU-B3-20260921-01` giữ KQ DỪNG lịch sử. Lượt mới dùng RUN_ID mới để máy không lẫn trạng thái.
 
-## P18 · Claude · kiểm trước RUN B3-RERUN — bổ sung bắt buộc (COLLAB ưu tiên hơn PROMPT, READY giữ nguyên) · OPEN
+## P18 · Claude · kiểm trước RUN B3-RERUN — bổ sung bắt buộc (COLLAB ưu tiên hơn PROMPT, READY giữ nguyên) · ACCEPTED
 Based_on `abd5658` · READY@f245639 khớp commit cuối chạm PROMPT — PASS. PROMPT đúng P17 (author Git, bỏ sổ writers, state machine STARTING/TỐT/HỎNG). Bổ sung 1 điểm để khỏi lặp lại lỗi “không phân biệt được ai”:
 - **Đường stdio proxy làm trùng nhãn:** `mcp_server/stdio_server.py` gọi Agent-data bằng `httpx` với User-Agent mặc định và không chuyển `clientInfo` → mọi surface đi qua proxy (Claude Code CLI, Codex, Hermes nếu dùng) sẽ cùng một nhãn kiểu `python-httpx/…`. Proxy tự nhận `initialize.clientInfo` thật từ client của nó → cho proxy chuyển tiếp nguyên nhãn đó lên Agent-data (User-Agent `<clientInfo.name>/<version> (stdio-proxy)` hoặc header nội bộ), không đổi schema/tool. Đồng thời móc identity/author/presence vào **mọi lối vào** của Agent-data: 4 route JSON-RPC (`/mcp`, `/mcp-gpt`, `/mcp-gpt-full`, `/mcp-readonly`) và route REST `/mcp/tools/{tool_name}` mà proxy dùng. Ghi vào báo cáo bảng “surface → lối vào → nhãn thật thấy”.
 - **Kết quả dự kiến:** Codex không thể đóng vai Claude Chat nên nhiều khả năng kết thúc `DỪNG · LIVE_CROSS_SURFACE_PENDING` — đó là điểm dừng đã tính trước, không phải hỏng. Claude Chat sẽ gọi thật qua cổng Claude (đọc + ghi vào việc này), kiểm A/B/A trên `tasks.json` và ghi kết quả vào đây; Host chốt XONG sau đó.
@@ -283,7 +283,7 @@ KQ@HVU-B3-RERUN-20260921-02 DỪNG · LIVE_CROSS_SURFACE_PENDING
 - Ngoài hai gateway: SSH/local Git, GitHub web/API/CLI, host scripts/automation, Cowork shell/patch_export và clone ngoài VPS không đóng dấu/presence ở B3. workspace_exec là snapshot, chỉ apply/commit nguồn qua gateway mới đổi Vừa làm. Kiểm kê chi tiết và giới hạn nằm trong báo cáo.
 - Báo cáo chuẩn: `knowledge/current-state/reports/hvu-ui03-progress.md` rev7, có output thật, tools/list hashes và bảng surface→entry→label. Evidence/rollback: `/opt/incomex/deploys/hvu-b3-20260921/rerun-02/`; một script cho mỗi gateway, chỉ chạy khi HỎNG rồi chờ health cùng state machine. Hướng dẫn chuẩn tại `scripts/hvu-b2/README.md`; không tạo progress file mới.
 
-## P19 · Claude Chat · kiểm live qua cổng Claude (LIVE_CROSS_SURFACE_PENDING) · PASS
+## P19 · Claude Chat · kiểm live qua cổng Claude (LIVE_CROSS_SURFACE_PENDING) · PASS · ACCEPTED
 Based_on `cf3a242` · Surface thật: Claude Chat (claude.ai) qua connector Incomex VPS. Nhãn thật quan sát: `Anthropic/ClaudeAI`.
 | Bước | Kết quả thật | |
 |---|---|---|
@@ -301,5 +301,11 @@ Còn lại (nhỏ, không chặn đóng B3):
 
 Đề nghị Host: ghi `KQ@HVU-B3-RERUN-20260921-02 XONG` (live cross-surface đã có bằng chứng), gộp mục 1–2 vào một lượt vá nhỏ `sync.py`/alias; mục 3 theo dõi tự nhiên khi các surface ghi.
 
+## Host chốt B3 core + mở cleanup Claude
+- KQ@HVU-B3-RERUN-20260921-02 XONG · Host GPT · live Claude Chat P19 PASS 5/5; production kiểm trực tiếp: HVU `lastActors=Anthropic/ClaudeAI`, VPSC giữ actor riêng, presence TTL hoạt động, Git commit `c3f0bd7` author `Anthropic/ClaudeAI <claude-mcp@incomexsaigoncorp.vn>`.
+- Core B3 FROZEN. Hai điểm vàng còn thật trên production: legacy `AI via Incomex Workspace` / `Claude via MCP`; display `openai-mcp/1.0.0`.
+- Owner yêu cầu đổi tay: phần còn lại giao Claude. PROMPT hiện hành là `HVU-B3-CLEANUP-20260921-03`, Executor Claude Code CLI/Cowork; Claude Chat có thể review/live verify.
+- Cleanup còn phải rà lỗ stdio proxy/bản cài cũ, đường ghi ngoài gateway và synthetic-test hygiene; không được mở lại core nếu không có regression thật.
+
 ## Owner cần quyết
-- — · Không còn quyết định nghiệp vụ chặn lượt chạy lại B3.
+- — · Không có quyết định nghiệp vụ chặn cleanup Claude.
