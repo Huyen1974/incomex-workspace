@@ -10,11 +10,13 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 4/6 | R2 GPT REVIEWED · ACCEPT | NEXT: Owner duyệt Q05 → Host preflight + READY → RUN Claude Code CLI | BLOCK: Q05
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R2 READY@f701fc5 | NEXT: Owner phát RUN cho Claude Code CLI | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R2-20260921-01` · Dọn đợt 1 + khoá 4 vòi · **CÓ MUTATION** · DRAFT.
 - **PROMPT_SHA = f701fc5ca09041d47752cc7c5bca46ab290e8043** (commit cuối chạm `PROMPT.md`). Cần đủ ba: `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` (có preflight).
 - **GPT REVIEWED@f701fc5ca09041d47752cc7c5bca46ab290e8043 · ACCEPT** — đã kiểm A1–A4 + B1–B4 + K1–K2, gate dừng/health, phạm vi HOLD và đường deploy Nuxt thực tế; không mở P mới. R2 đủ để Owner duyệt mutation.
+- **OWNER_APPROVED@f701fc5ca09041d47752cc7c5bca46ab290e8043** — Owner 21/09: "giao cho Claude Code CLI prompt bạn vừa soạn" (gật Q05).
+- **Host READY@f701fc5ca09041d47752cc7c5bca46ab290e8043** — preflight (DROOT04, 21/09 ~09:20Z): commit cuối chạm `PROMPT.md` = `f701fc5`; GPT REVIEWED + OWNER_APPROVED trùng mã; đĩa 87/96GB, 91%, trống 9,4GB (> sàn 3GiB); 12 container healthy; Executor_Surface Claude Code CLI trên VPS (đã chạy R1); Write_Path `workspace_*` (đã ghi ở R1/V1/V1b); R03 CLIENT-ONLY, R2 không đụng image. Điều kiện vận hành: KHÔNG chạy song song HVU-B3 (sửa cổng Workspace = Write_Path của R2, và có thể build image trên đĩa 91%) — R2 trước, B3 sau.
 - V1b (lịch sử): PROMPT_SHA `7ad18cf486bc6e77c07c7235dd6599b099a8ec3a` · OWNER_APPROVED + READY đã dùng. Host preflight trước READY (DROOT04, 21/09 ~08:15Z): đĩa 87/96GB, 91%, trống 9,5GB (> sàn 3GiB của D07); Executor_Surface = Codex Desktop qua SSH (đã chạy được ở V1); Write_Path `workspace_*` (đã ghi được ở V1); R03 CLIENT-ONLY, không deploy; 12 container healthy.
 - V1 (lịch sử): PROMPT_SHA `3131bdee21a080a6fdfb5138ca72c2b7b3d30a38` · OWNER_APPROVED + READY đã dùng.
 - Host kiểm R1 (21/09): đã đọc đủ `BAO-CAO.md` mục R1; nguyên nhân #1 tự xác minh qua mã — `scripts/qdrant-backup.sh` tạo snapshot, `docker cp` ra host, chỉ xoá bản ở host >7 ngày, không gọi DELETE server-side; `backup-to-gdrive.sh` có DELETE. Các số còn lại chờ Codex.
@@ -46,8 +48,8 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 4/6 | R2 GPT REVIEWED · ACCEPT
 - VPSC.1 | Mở việc + PROMPT R1 | ✔ xong: GPT REVIEWED + Host READY @`7ce1cbd`
 - VPSC.2 | Claude Code chạy R1 (kiểm toán, không đụng production) → `BAO-CAO.md` trên repo, nhãn `UNVERIFIED_R1` | MACHINE_DONE · UNVERIFIED_R1 · xem BAO-CAO.md
 - VPSC.3 | Codex thẩm tra độc lập R1 → V1 + V1b trong `BAO-CAO.md` | MACHINE_DONE · V1b · KQ@VPSC-V1B-20260921-01 XONG · PASS 6 / REVISE 3 / BLOCK 6; thu hồi đã kiểm ~4,185GiB (N2/N4/N5); nguồn +2,94GiB chủ yếu cứu hộ/cập nhật Hermes, thêm deploy web; chưa dọn · Áp: SAME_COMMIT
-- VPSC.4 | Owner duyệt phạm vi mutation R2 | ▶ chờ GPT review + Owner gật
-- VPSC.5 | R2 dọn đợt 1 (N2/N4/N5/N3 + gỡ cổng Qdrant) + khoá 4 vòi → Codex hậu kiểm | □ sau VPSC.4 (R2 không đụng image/R03)
+- VPSC.4 | Owner duyệt phạm vi mutation R2 | ✔ GPT REVIEWED + OWNER_APPROVED + Host READY @`f701fc5`
+- VPSC.5 | R2 dọn đợt 1 (N2/N4/N5/N3 + gỡ cổng Qdrant) + khoá 4 vòi → Codex hậu kiểm | ▶ chờ Owner phát RUN
 - VPSC.5b | Đợt 2: N9/N11 cứu ra ngoài VPS rồi xoá; N6–N8 sau R03 CLOSED | □
 - VPSC.6 | Theo dõi 2 tuần theo T1–T6 → đóng; mở việc Graph | □
 
@@ -75,7 +77,7 @@ Ghi hộ: GPT gửi P01–P06 qua Owner 2026-09-20 vì đường `workspace_*` c
 GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho lượt review trước; lượt P10 đã đọc PROMPT hiện hành `88ec658` và `view.html` T1–T5.
 
 ## Owner cần quyết
-- Q05 · OWNER · Cho chạy R2 (xoá/cắt thật đúng danh sách trong `PROMPT.md`: log Directus, 979 build tạm, 6 thư mục cache, 63 bản sao web cũ, ~159 bản chụp Qdrant cũ sau khi đã cứu 1 bản mới nhất ra ngoài VPS) + cài người gác kho tự động. Đề xuất Host: **gật**. Dự kiến trống 9,5 → ~43GiB; đợt 2 đưa lên >45GiB.
+- Q05 · CLOSED · Owner gật 21/09 — Cho chạy R2 (xoá/cắt thật đúng danh sách trong `PROMPT.md`: log Directus, 979 build tạm, 6 thư mục cache, 63 bản sao web cũ, ~159 bản chụp Qdrant cũ sau khi đã cứu 1 bản mới nhất ra ngoài VPS) + cài người gác kho tự động. Đề xuất Host: **gật**. Dự kiến trống 9,5 → ~43GiB; đợt 2 đưa lên >45GiB.
 - Q04 · CLOSED · Owner 2026-09-21 giao nhóm kỹ thuật quyết. Chốt kỹ thuật: giữ mục tiêu ≥45GB trống; bỏ `≤3GB/tháng` khỏi tiêu chí PASS và dùng nó như ngưỡng đỏ. PASS theo D02/P10: non-business phải bounded/steady-state, hoặc offload/purge có kiểm soát.
 
 ## NEXT
