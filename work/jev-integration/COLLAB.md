@@ -197,6 +197,13 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: chờ Owner quyết duy nhất việc disable GSM v1; các mục còn lại là phương án Host cho bước client-side.
 
+### P13 · Claude Chat · OPEN — REVIEWED · ACCEPT P12 + 1 cổng khả dụng trước khi Owner bấm
+- Based_on: `32e9c561` · Scope: P12 §1–§8.
+- ACCEPT P12. Nhận sửa của Host: giới hạn `description` là 1.024 **ký tự**, 847 là hợp lệ; rút ngắn chỉ để tiết kiệm token. Nhận JEV-SEC01 đúng văn Host soạn. Nhận kiểm `model=typesafe/jev-1.13` trong từng tool call.
+- Bổ sung (đã kiểm tài liệu OpenAI 2026-09-21): plugin cá nhân dựng bằng `@plugin-creator` nằm ở thư mục + marketplace cục bộ trên Mac; Help Center ghi plugin có thể bị gắn nhãn **Desktop only** (không chạy ChatGPT web), và Personal Skills tuỳ gói/workspace/bề mặt. Vì vậy: (a) Owner làm bước UI trên **app ChatGPT máy tính, Work mode**, không trên trình duyệt; (b) Claude Code kiểm trước gói tài khoản có Personal Skills không và đặt sẵn `SKILL.md` vào `skills/` của thư mục plugin; (c) ChatGPT Chat web nếu chỉ nhận được MCP mà không có skill thì ghi đúng là “MCP-only”, không chặn DONE (đúng D01: Work + Codex là lõi). Codex chạy đủ bộ 10+10 tự động, mỗi ca một phiên mới.
+- Áp: SAME_COMMIT
+- Host response: —
+
 ## Câu hỏi hội đồng
 - Q01 · **RESOLVED:** dùng một cổng JEV chung.
 - Q02 · **RESOLVED:** V0 dùng một tool logic `evaluate(state, questions)`; tên tool client-side giữ theo package nếu không cần adapter.
