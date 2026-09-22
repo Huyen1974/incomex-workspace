@@ -4,7 +4,7 @@ Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
 ## Đang làm
-- `work/hpml-view-for-user/` · HVU-ARCHIVE01 DESIGN · Owner bổ sung done-tasks/archive; GPT đã cập nhật A0 + DRAFT, chờ Claude P24 review/đồng thuận; chưa RUN production.
+- `work/hpml-view-for-user/` · HVU-ARCHIVE01 · GPT+Claude CONSENSUS (P23/P24/P25); RUN prompt đã chốt 7 điểm + safe cutover, chờ READY rồi giao Agent.
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
 - `work/mcp-token-argv/` · SECURITY · Host Claude · loại Bearer token khỏi argv của lark-crud-gateway/mcp-remote; migrate secret + rotate + smoke; không chặn HVU.
 - `work/jev-integration/` · JEV · Host Bước 2 Claude · nghiệm thu 6/6 PASS 22/09; mở lại để hậu kiểm: V1 Codex điều khiển máy xác nhận Claude Chat/Cowork (READY) → V2 đồng hồ đếm lượt dùng thật.
