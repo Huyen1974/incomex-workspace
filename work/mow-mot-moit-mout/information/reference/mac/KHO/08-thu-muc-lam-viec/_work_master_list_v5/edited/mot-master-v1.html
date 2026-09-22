@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOT — Danh sách task đã đúc</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./mot-theme-v1.css?v=17">
+<style>body.mot{background:#f5f5f7}.wrap{max-width:1240px;margin:0 auto;padding:24px 28px 130px}</style>
+</head>
+<body class="mot" data-region="motmaster.app">
+<div class="topbar" data-region="motmaster.topbar">
+  <div class="logo" data-region="motmaster.topbar.brand"><span class="logo-dot"></span>MOT · Danh sách<span class="vbadge" data-region="motmaster.topbar.badge">task đã đúc</span></div>
+  <span class="tb-spacer"></span>
+  <a class="tb-link" href="./mot-dashboard-v1.html" data-region="motmaster.topbar.open">Mở MOT</a>
+  <a class="tb-link" href="./master-hub.html" style="margin-left:14px" data-region="motmaster.topbar.hub">Master tổng →</a>
+</div>
+<div class="wrap" data-region="motmaster.content"><div id="master-root" data-region="motmaster.list.host"></div></div>
+<script>
+window.MASTER_CONFIG={
+  mother:'MOT', noun:'task', itemBase:'/t/',
+  sub:'Mọi loại task MOT sinh ra đều đăng ký tại đây, neo vào cây 7 tầng.',
+  principle:'Cùng một khuôn danh sách với MOW/MOUT. Task neo ở Công việc (T1) hoặc Nhiệm vụ (T2) — tự suy đường về phòng ban/công ty/lĩnh vực.',
+  createUrl:'./mot-studio-v1.html', createLabel:'Tạo task (MOT Studio)',
+  items:[
+    {code:'TSK-0001',name:'Xác nhận nhận đủ nguyên liệu',anchor:'CV Nhập kệ',date:'11/06/2026',maker:{t:'human',n:'Huyền'},status:'active',links:{moit:1,mout:1}},
+    {code:'TSK-0002',name:'Nhập kết quả QC lô sản xuất',anchor:'CV Lấy mẫu QC',date:'14/06/2026',maker:{t:'human',n:'Minh'},status:'active',links:{moit:1,mout:1}},
+    {code:'TSK-0003',name:'Chuẩn bị hồ sơ xuất khẩu',anchor:'QT Xuất khẩu',date:'06/06/2026',maker:{t:'human',n:'Hùng'},status:'active',links:{moit:2,mout:1}},
+    {code:'TSK-0004',name:'Đề xuất cải tiến đóng gói',anchor:'QT Bán hàng B2B',date:'05/06/2026',maker:{t:'human',n:'Huyền'},status:'paused',links:{moit:1,mout:0}},
+    {code:'TSK-0005',name:'Lập phiếu chi theo khoản mục',anchor:'QT Thu chi',date:'09/06/2026',maker:{t:'dot',n:'fn_phieu_chi'},status:'active',links:{moit:1,mout:1}},
+    {code:'TSK-0006',name:'Duyệt bảng lương kỳ tháng',anchor:'QT Tính lương',date:'04/06/2026',maker:{t:'human',n:'Lan'},status:'active',links:{moit:2,mout:1}},
+    {code:'TSK-0007',name:'Kiểm kê tồn kho cuối kỳ',anchor:'QT Nhập kho',date:'03/06/2026',maker:{t:'dot',n:'fn_kiem_ke'},status:'archived',links:{moit:1,mout:1}}
+  ]
+};
+</script>
+<script src="./master-list.js?v=5"></script>
+<script src="./eco-nav.js?v=3"></script>
+</body>
+</html>
+
+<script src="./eco-nav.js?v=6"></script>
+
+<script>(function(){fetch('./eco-nav.js?ts='+Date.now()).then(function(r){return r.text();}).then(function(t){(0,eval)(t);}).catch(function(){});})();</script>

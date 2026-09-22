@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master tổng — Tổng hợp 4 Mẹ</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./mot-theme-v1.css?v=17">
+<style>
+body.mot{background:#f5f5f7}.wrap{max-width:1240px;margin:0 auto;padding:24px 28px 130px}
+.qlinks{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.qlink{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:99px;border:1px solid rgba(0,0,0,.12);background:#fff;font-size:12px;font-weight:600;color:#515154;text-decoration:none}
+.qlink:hover{border-color:#86868b;background:#fafafa}
+.qlink .d{width:8px;height:8px;border-radius:50%}
+.qlink .d.mow{background:#3f7d12}.qlink .d.mot{background:#0066cc}.qlink .d.mout{background:#8a4dc8}
+</style>
+</head>
+<body class="mot">
+<div class="topbar">
+  <div class="logo"><span class="logo-dot"></span>Master tổng<span class="vbadge">tổng hợp 4 Mẹ</span></div>
+  <span class="tb-spacer"></span>
+  <a class="tb-link" href="./mow-unified-canvas-v2.html">MOW</a>
+  <a class="tb-link" href="./mot-dashboard-v1.html" style="margin-left:14px">MOT</a>
+  <a class="tb-link" href="./mout-builder-v3.html" style="margin-left:14px">MOUT</a>
+</div>
+<div class="wrap">
+  <div class="qlinks">
+    <span style="font-size:11px;color:#86868b;font-weight:600;align-self:center">Đọc từng list con:</span>
+    <a class="qlink" href="./mow-master-v1.html"><span class="d mow"></span>MOW đã đúc</a>
+    <a class="qlink" href="./mot-master-v1.html"><span class="d mot"></span>MOT đã đúc</a>
+    <a class="qlink" href="./mout-home-v1.html"><span class="d mout"></span>MOUT đã đúc</a>
+  </div>
+  <div id="master-root"></div>
+</div>
+<script>
+/* Ghép 4 list con → 1 danh sách tổng theo thời gian. MOIT: chưa có. */
+function mapItems(arr,mother,key,editBase,urlBase,useSlug){
+  return arr.map(function(it){
+    var id=useSlug?it.slug:it.code;
+    it.mother=mother; it.motherKey=key;
+    it.editUrl=editBase+(editBase.indexOf('?')>=0?'&':'?')+'edit='+encodeURIComponent(id);
+    it.url=urlBase+id;
+    return it;
+  });
+}
+var MOW=[
+  {code:'WF-0001',name:'Quy trình Nhập kho',anchor:'QT Nhập kho',date:'10/06/2026',maker:{t:'human',n:'Tâm'},status:'active',links:{mot:4,moit:1,mout:2}},
+  {code:'WF-0002',name:'Quy trình Bán hàng B2B',anchor:'QT Bán hàng B2B',date:'12/06/2026',maker:{t:'human',n:'Huyền'},status:'active',links:{mot:5,moit:2,mout:1}},
+  {code:'WF-0003',name:'Quy trình Kiểm tra chất lượng',anchor:'QT Kiểm tra CL',date:'08/06/2026',maker:{t:'human',n:'Minh'},status:'active',links:{mot:3,moit:1,mout:1}},
+  {code:'WF-0004',name:'Quy trình Xuất khẩu',anchor:'QT Xuất khẩu',date:'05/06/2026',maker:{t:'human',n:'Hùng'},status:'paused',links:{mot:6,moit:3,mout:1}},
+  {code:'WF-0005',name:'Quy trình Tính lương',anchor:'QT Tính lương',date:'04/06/2026',maker:{t:'human',n:'Lan'},status:'active',links:{mot:6,moit:2,mout:1}},
+  {code:'WF-0006',name:'Quy trình Thu chi',anchor:'QT Thu chi',date:'09/06/2026',maker:{t:'dot',n:'fn_thu_chi'},status:'active',links:{mot:3,moit:1,mout:1}},
+  {code:'WF-0007',name:'Quy trình Kho tổng (phòng)',anchor:'P. Kho SG',date:'02/06/2026',maker:{t:'human',n:'Tâm'},status:'archived',links:{mot:2,moit:0,mout:1}}
+];
+var MOT=[
+  {code:'TSK-0001',name:'Xác nhận nhận đủ nguyên liệu',anchor:'CV Nhập kệ',date:'11/06/2026',maker:{t:'human',n:'Huyền'},status:'active',links:{moit:1,mout:1}},
+  {code:'TSK-0002',name:'Nhập kết quả QC lô sản xuất',anchor:'CV Lấy mẫu QC',date:'14/06/2026',maker:{t:'human',n:'Minh'},status:'active',links:{moit:1,mout:1}},
+  {code:'TSK-0003',name:'Chuẩn bị hồ sơ xuất khẩu',anchor:'QT Xuất khẩu',date:'06/06/2026',maker:{t:'human',n:'Hùng'},status:'active',links:{moit:2,mout:1}},
+  {code:'TSK-0004',name:'Đề xuất cải tiến đóng gói',anchor:'QT Bán hàng B2B',date:'05/06/2026',maker:{t:'human',n:'Huyền'},status:'paused',links:{moit:1,mout:0}},
+  {code:'TSK-0005',name:'Lập phiếu chi theo khoản mục',anchor:'QT Thu chi',date:'09/06/2026',maker:{t:'dot',n:'fn_phieu_chi'},status:'active',links:{moit:1,mout:1}},
+  {code:'TSK-0006',name:'Duyệt bảng lương kỳ tháng',anchor:'QT Tính lương',date:'04/06/2026',maker:{t:'human',n:'Lan'},status:'active',links:{moit:2,mout:1}},
+  {code:'TSK-0007',name:'Kiểm kê tồn kho cuối kỳ',anchor:'QT Nhập kho',date:'03/06/2026',maker:{t:'dot',n:'fn_kiem_ke'},status:'archived',links:{moit:1,mout:1}}
+];
+var MOUT=[
+  {code:'RPT-0001',slug:'rpt_doanh_thu_theo_khach',name:'Doanh thu theo khách hàng',anchor:'QT Bán hàng B2B',date:'12/06/2026',maker:{t:'human',n:'Huyền'},status:'active',links:{mot:5,moit:2}},
+  {code:'RPT-0002',slug:'rpt_nhap_kho_theo_lo',name:'Nhập kho theo lô',anchor:'QT Nhập kho',date:'10/06/2026',maker:{t:'dot',n:'fn_nhap_kho'},status:'active',links:{mot:4,moit:1}},
+  {code:'RPT-0003',slug:'rpt_ty_le_loi_qc_theo_ca',name:'Tỷ lệ lỗi QC theo ca',anchor:'CV Lấy mẫu QC',date:'14/06/2026',maker:{t:'human',n:'Minh'},status:'active',links:{mot:3,moit:1}},
+  {code:'RPT-0004',slug:'rpt_cong_no_phai_thu',name:'Công nợ phải thu toàn công ty',anchor:'Incomex Tân Bình',date:'01/06/2026',maker:{t:'human',n:'Kế toán trưởng'},status:'active',links:{mot:8,moit:3}},
+  {code:'RPT-0005',slug:'rpt_ton_kho_can_han',name:'Tồn kho cận hạn',anchor:'P. Kho SG',date:'15/06/2026',maker:{t:'dot',n:'fn_ton_can_han'},status:'paused',links:{mot:2,moit:0}},
+  {code:'RPT-0006',slug:'rpt_bang_luong_ky_thang',name:'Bảng lương kỳ tháng',anchor:'QT Tính lương',date:'05/06/2026',maker:{t:'human',n:'Lan'},status:'active',links:{mot:6,moit:2}},
+  {code:'RPT-0007',slug:'rpt_tri_gia_to_khai_xnk',name:'Trị giá tờ khai XNK',anchor:'CM Khai hải quan',date:'11/06/2026',maker:{t:'human',n:'Hùng'},status:'active',links:{mot:4,moit:2}},
+  {code:'RPT-0008',slug:'rpt_thu_chi_theo_khoan_muc',name:'Thu chi theo khoản mục',anchor:'CM Thu chi',date:'09/06/2026',maker:{t:'dot',n:'fn_thu_chi'},status:'active',links:{mot:3,moit:1}},
+  {code:'RPT-0009',slug:'rpt_doanh_thu_linh_vuc_tm',name:'Doanh thu toàn Lĩnh vực Thương mại',anchor:'Thương mại',date:'02/06/2026',maker:{t:'human',n:'Ban GĐ'},status:'active',links:{mot:12,moit:5}},
+  {code:'RPT-0010',slug:'rpt_nhap_kho_chi_tiet_ke',name:'Nhập kho chi tiết theo kệ',anchor:'CV Nhập kệ',date:'13/06/2026',maker:{t:'human',n:'Tâm'},status:'archived',links:{mot:2,moit:1}}
+];
+var ALL=[].concat(
+  mapItems(MOW,'MOW','mow','./mow-unified-canvas-v2.html','/w/',false),
+  mapItems(MOT,'MOT','mot','./mot-studio-v1.html','/t/',false),
+  mapItems(MOUT,'MOUT','mout','./mout-builder-v3.html','/r/',true)
+);
+function dkey(d){var p=d.split('/');return p[2]+('0'+p[1]).slice(-2)+('0'+p[0]).slice(-2);}
+ALL.sort(function(a,b){return dkey(b.date)-dkey(a.date);});
+window.MASTER_CONFIG={
+  title:'Master tổng — Tổng hợp 4 Mẹ (theo thời gian)',
+  mother:'Master', noun:'bản đã đúc', showMother:true,
+  sub:'Ghép 4 list con của MOW · MOT · MOUT (MOIT sắp có) theo thứ tự thời gian. Đầy đủ bộ lọc 7 tầng + Mẹ + trạng thái, và nút sửa ✎.',
+  principle:'Có thể đọc từng list con ở mỗi Mẹ, hoặc đọc tổng hợp tại đây. Mọi nơi cùng một bộ lọc chuẩn theo 7 tầng + trạng thái.',
+  items:ALL
+};
+</script>
+<script src="./master-list.js?v=4"></script>
+<script src="./eco-nav.js?v=3"></script>
+</body>
+</html>
+
+<script src="./eco-nav.js?v=6"></script>
+
+<script>(function(){fetch('./eco-nav.js?ts='+Date.now()).then(function(r){return r.text();}).then(function(t){(0,eval)(t);}).catch(function(){});})();</script>

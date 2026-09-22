@@ -1,0 +1,170 @@
+{
+  "sourceUnique": 143,
+  "domUnique": 143,
+  "missing": [],
+  "extra": [],
+  "errors": [
+    "mot-master-v1.html: console Failed to load resource: the server responded with a status of 404 (File not found)"
+  ],
+  "checks": {
+    "mot": {
+      "t3": "CM Xuất nhập kho",
+      "t2": "QT Nhập kho",
+      "t1": "CV Nhập kệ",
+      "missingT1": "·",
+      "path": "Sản xuất/Incomex Sài Gòn/Khối Vận hành SG/P. Kho SG/CM Xuất nhập kho/QT Nhập kho/CV Nhập kệ/Xác nhận nhận đủ nguyên liệu"
+    },
+    "mout": {
+      "t1Missing": "·",
+      "t1Present": "CV Lấy mẫu QC",
+      "pathMissing": "Thương mại/Incomex Tân Bình/Khối Kinh doanh TB/P. Bán hàng TB/CM Bán hàng/QT Bán hàng B2B/·/Doanh thu theo khách hàng",
+      "pathPresent": "Sản xuất/Incomex Sài Gòn/Khối Vận hành SG/P. QC SG/CM Kiểm tra CL/QT Kiểm tra CL/CV Lấy mẫu QC/Tỷ lệ lỗi QC theo ca"
+    },
+    "drawer": {
+      "tierRows": 7,
+      "itemRows": 1,
+      "values": [
+        "Thương mại",
+        "Incomex Tân Bình",
+        "Khối Kinh doanh TB",
+        "P. Bán hàng TB",
+        "CM Bán hàng",
+        "QT Bán hàng B2B",
+        "·",
+        "Doanh thu theo khách hàng"
+      ]
+    },
+    "treePath": "Thương mại / Incomex Tân Bình / · / · / · / · / · / Công nợ phải thu toàn công ty",
+    "moit": {
+      "t2": "QT Nhập kho",
+      "t1": "·",
+      "path": "Sản xuất/Incomex Sài Gòn/Khối Vận hành SG/P. Kho SG/CM Xuất nhập kho/QT Nhập kho/·/Phiếu nhập kho — xác nhận nhận đủ"
+    }
+  },
+  "states": [
+    {
+      "state": "mot-master-v1.html:list",
+      "count": 68
+    },
+    {
+      "state": "mot-master-v1.html:drawer",
+      "count": 88
+    },
+    {
+      "state": "mot-master-v1.html:tree",
+      "count": 102
+    },
+    {
+      "state": "mot-master-v1.html:tree-empty",
+      "count": 89
+    },
+    {
+      "state": "mot-master-v1.html:list-empty",
+      "count": 70
+    },
+    {
+      "state": "mow-master-v1.html:list",
+      "count": 68
+    },
+    {
+      "state": "mow-master-v1.html:drawer",
+      "count": 88
+    },
+    {
+      "state": "mow-master-v1.html:tree",
+      "count": 102
+    },
+    {
+      "state": "mow-master-v1.html:tree-empty",
+      "count": 89
+    },
+    {
+      "state": "mow-master-v1.html:list-empty",
+      "count": 70
+    },
+    {
+      "state": "mout-home-v1.html:list",
+      "count": 68
+    },
+    {
+      "state": "mout-home-v1.html:drawer",
+      "count": 88
+    },
+    {
+      "state": "mout-home-v1.html:tree",
+      "count": 102
+    },
+    {
+      "state": "mout-home-v1.html:tree-empty",
+      "count": 89
+    },
+    {
+      "state": "mout-home-v1.html:list-empty",
+      "count": 70
+    },
+    {
+      "state": "moit-master-v1.html:list",
+      "count": 68
+    },
+    {
+      "state": "moit-master-v1.html:drawer",
+      "count": 88
+    },
+    {
+      "state": "moit-master-v1.html:tree",
+      "count": 102
+    },
+    {
+      "state": "moit-master-v1.html:tree-empty",
+      "count": 89
+    },
+    {
+      "state": "moit-master-v1.html:list-empty",
+      "count": 70
+    },
+    {
+      "state": "master-hub.html:list",
+      "count": 71
+    },
+    {
+      "state": "master-hub.html:drawer",
+      "count": 91
+    },
+    {
+      "state": "master-hub.html:tree",
+      "count": 106
+    },
+    {
+      "state": "master-hub.html:tree-empty",
+      "count": 92
+    },
+    {
+      "state": "master-hub.html:list-empty",
+      "count": 71
+    },
+    {
+      "state": "master-list-quy-trinh-v1.html:list",
+      "count": 68
+    },
+    {
+      "state": "master-list-quy-trinh-v1.html:drawer",
+      "count": 121
+    },
+    {
+      "state": "master-list-quy-trinh-v1.html:process",
+      "count": 121
+    },
+    {
+      "state": "master-list-quy-trinh-v1.html:tree",
+      "count": 135
+    },
+    {
+      "state": "master-list-quy-trinh-v1.html:tree-empty",
+      "count": 122
+    },
+    {
+      "state": "master-list-quy-trinh-v1.html:list-empty",
+      "count": 103
+    }
+  ]
+}

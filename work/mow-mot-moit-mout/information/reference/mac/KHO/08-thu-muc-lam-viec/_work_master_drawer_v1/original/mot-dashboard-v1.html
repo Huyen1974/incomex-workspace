@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOT — Bàn làm việc · v1.7</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./mot-theme-v1.css?v=17">
+</head>
+<body class="mot" data-region="mot.app">
+
+  <!-- Topbar -->
+  <div class="topbar" data-region="mot.topbar">
+    <div class="logo" data-region="mot.topbar.brand"><span class="logo-dot"></span>MOT<span class="vbadge" data-region="mot.topbar.version">v1.7 · draft</span></div>
+    <span class="tb-date" id="tb-date" data-region="mot.topbar.date"></span>
+    <span class="tb-spacer"></span>
+    <a class="tb-link" href="./mot-studio-v1.html" data-region="mot.topbar.studio">Studio ↗</a>
+    <span class="tb-user" id="tb-user" data-region="mot.topbar.user"></span>
+  </div>
+
+  <!-- Shell: trái = danh sách việc (lọc ẩn trong kính lúp) · phải = khung task 4 vùng -->
+  <div class="shell" data-region="mot.workspace">
+    <aside class="sidebar" id="sidebar" data-region="mot.sidebar"></aside>
+    <div class="main" data-region="mot.main">
+      <div class="main-inner" id="main-inner" data-region="mot.main.content"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" data-region="mot.toast"></div>
+
+  <script src="./mot-data-v1.js?v=17"></script>
+  <script src="./mot-render-v1.js?v=17"></script>
+  <script src="./mot-app-v1.js?v=17"></script>
+</body>
+</html>
+
+<script src="./eco-nav.js?v=1"></script>
+
+<script src="./eco-nav.js?v=6"></script>
+
+<script>(function(){fetch('./eco-nav.js?ts='+Date.now()).then(function(r){return r.text();}).then(function(t){(0,eval)(t);}).catch(function(){});})();</script>
+
+<script>(function(){var s=document.createElement('script');s.src='./mot-enhance.js?ts='+Date.now();document.body.appendChild(s);})();</script>

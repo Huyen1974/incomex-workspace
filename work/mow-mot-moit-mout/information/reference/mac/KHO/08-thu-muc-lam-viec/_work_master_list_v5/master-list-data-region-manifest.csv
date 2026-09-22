@@ -1,0 +1,9 @@
+ma,pham_vi,nhom,mo_ta,vi_tri_source,occurrence,trang_thai
+"master.drawer.hierarchy.item","DUNG_CHUNG","GIAO DIỆN","Đoạn cuối đường dẫn trong drawer; luôn là tên cụ thể của bản đang xem","master-list.js:228","SINGLE","BUILT"
+"master.list.header.t1","DUNG_CHUNG","GIAO DIỆN","Tiêu đề cột Công việc T1 trong bảng danh sách dùng chung","master-list.js:268","SINGLE","BUILT"
+"master.list.header.t2","DUNG_CHUNG","GIAO DIỆN","Tiêu đề cột Nhiệm vụ T2 trong bảng danh sách dùng chung","master-list.js:268","SINGLE","BUILT"
+"master.list.header.t3","DUNG_CHUNG","GIAO DIỆN","Tiêu đề cột Chuyên môn T3 trong bảng danh sách dùng chung","master-list.js:266","SINGLE","BUILT"
+"master.list.row.t1","DUNG_CHUNG","GIAO DIỆN","Giá trị Công việc T1 của một dòng; tầng khuyết hiển thị dấu chấm giữa","master-list.js:282","REPEATABLE","BUILT"
+"master.list.row.t2","DUNG_CHUNG","GIAO DIỆN","Giá trị Nhiệm vụ T2 của một dòng; tầng khuyết hiển thị dấu chấm giữa","master-list.js:282","REPEATABLE","BUILT"
+"master.list.row.t3","DUNG_CHUNG","GIAO DIỆN","Giá trị Chuyên môn T3 của một dòng; tầng khuyết hiển thị dấu chấm giữa","master-list.js:280","REPEATABLE","BUILT"
+"master.tree.item.path","DUNG_CHUNG","GIAO DIỆN","Đường dẫn đủ 8 đoạn của một mục trong dạng cây: T7 đến T1 rồi tên cụ thể","master-list.js:217","REPEATABLE","BUILT"

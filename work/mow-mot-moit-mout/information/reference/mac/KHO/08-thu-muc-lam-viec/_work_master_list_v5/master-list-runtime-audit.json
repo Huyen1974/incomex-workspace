@@ -1,0 +1,564 @@
+{
+  "generatedAt": "2026-07-17T10:04:53.037Z",
+  "sourceSnapshot": "7e09569",
+  "boundary": {
+    "sharedPrefix": "master.",
+    "edited": [
+      "master-list.js",
+      "mot-master-v1.html",
+      "mow-master-v1.html",
+      "mout-home-v1.html",
+      "moit-master-v1.html",
+      "master-hub.html"
+    ],
+    "excluded": [
+      "eco-nav.js",
+      "shell.*"
+    ],
+    "consumers": [
+      "mot-master-v1.html",
+      "mow-master-v1.html",
+      "mout-home-v1.html",
+      "moit-master-v1.html",
+      "master-hub.html",
+      "master-list-quy-trinh-v1.html"
+    ]
+  },
+  "source": {
+    "count": 143,
+    "sha256": "af6f51afbbc15a3374139a87109e4791eba390cf986b3d2db161e0752d6b2df6",
+    "codes": [
+      "master.drawer",
+      "master.drawer.actions",
+      "master.drawer.actions.edit",
+      "master.drawer.actions.open",
+      "master.drawer.backdrop",
+      "master.drawer.body",
+      "master.drawer.close",
+      "master.drawer.code",
+      "master.drawer.header",
+      "master.drawer.hierarchy",
+      "master.drawer.hierarchy.item",
+      "master.drawer.hierarchy.list",
+      "master.drawer.hierarchy.name",
+      "master.drawer.hierarchy.row",
+      "master.drawer.hierarchy.tier",
+      "master.drawer.identity",
+      "master.drawer.info",
+      "master.drawer.info.label",
+      "master.drawer.info.row",
+      "master.drawer.info.value",
+      "master.drawer.links",
+      "master.drawer.links.count",
+      "master.drawer.links.description",
+      "master.drawer.links.grid",
+      "master.drawer.links.item",
+      "master.drawer.links.mother",
+      "master.drawer.name",
+      "master.drawer.section.title",
+      "master.filters.tier",
+      "master.filters.tier.item",
+      "master.header",
+      "master.header.principle",
+      "master.header.principle.marker",
+      "master.header.principle.text",
+      "master.header.summary",
+      "master.header.title",
+      "master.list",
+      "master.list.body",
+      "master.list.empty",
+      "master.list.header",
+      "master.list.header.anchor",
+      "master.list.header.code",
+      "master.list.header.date",
+      "master.list.header.edit",
+      "master.list.header.index",
+      "master.list.header.maker",
+      "master.list.header.mother",
+      "master.list.header.name",
+      "master.list.header.open",
+      "master.list.header.path",
+      "master.list.header.row",
+      "master.list.header.status",
+      "master.list.header.t1",
+      "master.list.header.t2",
+      "master.list.header.t3",
+      "master.list.row",
+      "master.list.row.anchor",
+      "master.list.row.code",
+      "master.list.row.date",
+      "master.list.row.edit",
+      "master.list.row.edit.button",
+      "master.list.row.empty",
+      "master.list.row.index",
+      "master.list.row.maker",
+      "master.list.row.maker.dot",
+      "master.list.row.maker.dot.badge",
+      "master.list.row.maker.human",
+      "master.list.row.maker.human.avatar",
+      "master.list.row.mother",
+      "master.list.row.mother.tag",
+      "master.list.row.name",
+      "master.list.row.open",
+      "master.list.row.path",
+      "master.list.row.specialty",
+      "master.list.row.status",
+      "master.list.row.status.marker",
+      "master.list.row.t1",
+      "master.list.row.t2",
+      "master.list.row.t3",
+      "master.list.scroll",
+      "master.list.table",
+      "master.process",
+      "master.process.group",
+      "master.process.group.agent",
+      "master.process.group.name",
+      "master.process.header",
+      "master.process.person",
+      "master.process.source",
+      "master.process.summary",
+      "master.process.summary.path",
+      "master.process.summary.total",
+      "master.process.table",
+      "master.process.table.body",
+      "master.process.table.column.executor",
+      "master.process.table.column.index",
+      "master.process.table.column.minutes",
+      "master.process.table.column.name",
+      "master.process.table.column.note",
+      "master.process.table.column.recipient",
+      "master.process.table.column.trigger",
+      "master.process.table.header",
+      "master.process.table.wrap",
+      "master.process.tabs",
+      "master.process.tabs.add",
+      "master.process.tabs.view",
+      "master.process.task",
+      "master.process.task.executor",
+      "master.process.task.index",
+      "master.process.task.minutes",
+      "master.process.task.name",
+      "master.process.task.note",
+      "master.process.task.recipient",
+      "master.process.task.trigger",
+      "master.process.title",
+      "master.tools",
+      "master.tools.create",
+      "master.tools.mother",
+      "master.tools.search",
+      "master.tools.search.icon",
+      "master.tools.search.input",
+      "master.tools.status",
+      "master.tools.view",
+      "master.tools.view.list",
+      "master.tools.view.tree",
+      "master.tree",
+      "master.tree.empty",
+      "master.tree.group",
+      "master.tree.group.body",
+      "master.tree.group.count",
+      "master.tree.group.expander",
+      "master.tree.group.header",
+      "master.tree.group.name",
+      "master.tree.group.path",
+      "master.tree.groups",
+      "master.tree.help",
+      "master.tree.item",
+      "master.tree.item.code",
+      "master.tree.item.edit",
+      "master.tree.item.mother",
+      "master.tree.item.name",
+      "master.tree.item.open",
+      "master.tree.item.path",
+      "master.tree.item.status"
+    ]
+  },
+  "runtime": {
+    "count": 143,
+    "codes": [
+      "master.drawer",
+      "master.drawer.actions",
+      "master.drawer.actions.edit",
+      "master.drawer.actions.open",
+      "master.drawer.backdrop",
+      "master.drawer.body",
+      "master.drawer.close",
+      "master.drawer.code",
+      "master.drawer.header",
+      "master.drawer.hierarchy",
+      "master.drawer.hierarchy.item",
+      "master.drawer.hierarchy.list",
+      "master.drawer.hierarchy.name",
+      "master.drawer.hierarchy.row",
+      "master.drawer.hierarchy.tier",
+      "master.drawer.identity",
+      "master.drawer.info",
+      "master.drawer.info.label",
+      "master.drawer.info.row",
+      "master.drawer.info.value",
+      "master.drawer.links",
+      "master.drawer.links.count",
+      "master.drawer.links.description",
+      "master.drawer.links.grid",
+      "master.drawer.links.item",
+      "master.drawer.links.mother",
+      "master.drawer.name",
+      "master.drawer.section.title",
+      "master.filters.tier",
+      "master.filters.tier.item",
+      "master.header",
+      "master.header.principle",
+      "master.header.principle.marker",
+      "master.header.principle.text",
+      "master.header.summary",
+      "master.header.title",
+      "master.list",
+      "master.list.body",
+      "master.list.empty",
+      "master.list.header",
+      "master.list.header.anchor",
+      "master.list.header.code",
+      "master.list.header.date",
+      "master.list.header.edit",
+      "master.list.header.index",
+      "master.list.header.maker",
+      "master.list.header.mother",
+      "master.list.header.name",
+      "master.list.header.open",
+      "master.list.header.path",
+      "master.list.header.row",
+      "master.list.header.status",
+      "master.list.header.t1",
+      "master.list.header.t2",
+      "master.list.header.t3",
+      "master.list.row",
+      "master.list.row.anchor",
+      "master.list.row.code",
+      "master.list.row.date",
+      "master.list.row.edit",
+      "master.list.row.edit.button",
+      "master.list.row.empty",
+      "master.list.row.index",
+      "master.list.row.maker",
+      "master.list.row.maker.dot",
+      "master.list.row.maker.dot.badge",
+      "master.list.row.maker.human",
+      "master.list.row.maker.human.avatar",
+      "master.list.row.mother",
+      "master.list.row.mother.tag",
+      "master.list.row.name",
+      "master.list.row.open",
+      "master.list.row.path",
+      "master.list.row.specialty",
+      "master.list.row.status",
+      "master.list.row.status.marker",
+      "master.list.row.t1",
+      "master.list.row.t2",
+      "master.list.row.t3",
+      "master.list.scroll",
+      "master.list.table",
+      "master.process",
+      "master.process.group",
+      "master.process.group.agent",
+      "master.process.group.name",
+      "master.process.header",
+      "master.process.person",
+      "master.process.source",
+      "master.process.summary",
+      "master.process.summary.path",
+      "master.process.summary.total",
+      "master.process.table",
+      "master.process.table.body",
+      "master.process.table.column.executor",
+      "master.process.table.column.index",
+      "master.process.table.column.minutes",
+      "master.process.table.column.name",
+      "master.process.table.column.note",
+      "master.process.table.column.recipient",
+      "master.process.table.column.trigger",
+      "master.process.table.header",
+      "master.process.table.wrap",
+      "master.process.tabs",
+      "master.process.tabs.add",
+      "master.process.tabs.view",
+      "master.process.task",
+      "master.process.task.executor",
+      "master.process.task.index",
+      "master.process.task.minutes",
+      "master.process.task.name",
+      "master.process.task.note",
+      "master.process.task.recipient",
+      "master.process.task.trigger",
+      "master.process.title",
+      "master.tools",
+      "master.tools.create",
+      "master.tools.mother",
+      "master.tools.search",
+      "master.tools.search.icon",
+      "master.tools.search.input",
+      "master.tools.status",
+      "master.tools.view",
+      "master.tools.view.list",
+      "master.tools.view.tree",
+      "master.tree",
+      "master.tree.empty",
+      "master.tree.group",
+      "master.tree.group.body",
+      "master.tree.group.count",
+      "master.tree.group.expander",
+      "master.tree.group.header",
+      "master.tree.group.name",
+      "master.tree.group.path",
+      "master.tree.groups",
+      "master.tree.help",
+      "master.tree.item",
+      "master.tree.item.code",
+      "master.tree.item.edit",
+      "master.tree.item.mother",
+      "master.tree.item.name",
+      "master.tree.item.open",
+      "master.tree.item.path",
+      "master.tree.item.status"
+    ],
+    "stateCount": 31,
+    "states": [
+      {
+        "state": "mot-master-v1.html:list",
+        "masterCount": 68
+      },
+      {
+        "state": "mot-master-v1.html:drawer",
+        "masterCount": 88
+      },
+      {
+        "state": "mot-master-v1.html:tree",
+        "masterCount": 102
+      },
+      {
+        "state": "mot-master-v1.html:tree-empty",
+        "masterCount": 89
+      },
+      {
+        "state": "mot-master-v1.html:list-empty",
+        "masterCount": 70
+      },
+      {
+        "state": "mow-master-v1.html:list",
+        "masterCount": 68
+      },
+      {
+        "state": "mow-master-v1.html:drawer",
+        "masterCount": 88
+      },
+      {
+        "state": "mow-master-v1.html:tree",
+        "masterCount": 102
+      },
+      {
+        "state": "mow-master-v1.html:tree-empty",
+        "masterCount": 89
+      },
+      {
+        "state": "mow-master-v1.html:list-empty",
+        "masterCount": 70
+      },
+      {
+        "state": "mout-home-v1.html:list",
+        "masterCount": 68
+      },
+      {
+        "state": "mout-home-v1.html:drawer",
+        "masterCount": 88
+      },
+      {
+        "state": "mout-home-v1.html:tree",
+        "masterCount": 102
+      },
+      {
+        "state": "mout-home-v1.html:tree-empty",
+        "masterCount": 89
+      },
+      {
+        "state": "mout-home-v1.html:list-empty",
+        "masterCount": 70
+      },
+      {
+        "state": "moit-master-v1.html:list",
+        "masterCount": 68
+      },
+      {
+        "state": "moit-master-v1.html:drawer",
+        "masterCount": 88
+      },
+      {
+        "state": "moit-master-v1.html:tree",
+        "masterCount": 102
+      },
+      {
+        "state": "moit-master-v1.html:tree-empty",
+        "masterCount": 89
+      },
+      {
+        "state": "moit-master-v1.html:list-empty",
+        "masterCount": 70
+      },
+      {
+        "state": "master-hub.html:list",
+        "masterCount": 71
+      },
+      {
+        "state": "master-hub.html:drawer",
+        "masterCount": 91
+      },
+      {
+        "state": "master-hub.html:tree",
+        "masterCount": 106
+      },
+      {
+        "state": "master-hub.html:tree-empty",
+        "masterCount": 92
+      },
+      {
+        "state": "master-hub.html:list-empty",
+        "masterCount": 71
+      },
+      {
+        "state": "master-list-quy-trinh-v1.html:list",
+        "masterCount": 68
+      },
+      {
+        "state": "master-list-quy-trinh-v1.html:drawer",
+        "masterCount": 121
+      },
+      {
+        "state": "master-list-quy-trinh-v1.html:process",
+        "masterCount": 121
+      },
+      {
+        "state": "master-list-quy-trinh-v1.html:tree",
+        "masterCount": 135
+      },
+      {
+        "state": "master-list-quy-trinh-v1.html:tree-empty",
+        "masterCount": 122
+      },
+      {
+        "state": "master-list-quy-trinh-v1.html:list-empty",
+        "masterCount": 103
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "mot-master-v1.html: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked.",
+      "mow-master-v1.html: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked.",
+      "mout-home-v1.html: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked.",
+      "moit-master-v1.html: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked.",
+      "master-hub.html: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked.",
+      "master-list-quy-trinh-v1.html: Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap' violates the following Content Security Policy directive: \"style-src 'self' 'unsafe-inline'\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked."
+    ]
+  },
+  "diff": {
+    "missingInDom": [],
+    "extraInDom": []
+  },
+  "cache": {
+    "fixedVersion": {
+      "mot-master-v1.html": "5",
+      "mow-master-v1.html": "5",
+      "mout-home-v1.html": "5",
+      "moit-master-v1.html": "5",
+      "master-hub.html": "5"
+    },
+    "noCacheConsumers": {
+      "master-list-quy-trinh-v1.html": true
+    }
+  },
+  "change": {
+    "before": 135,
+    "after": 143,
+    "newCodes": [
+      "master.drawer.hierarchy.item",
+      "master.list.header.t1",
+      "master.list.header.t2",
+      "master.list.header.t3",
+      "master.list.row.t1",
+      "master.list.row.t2",
+      "master.list.row.t3",
+      "master.tree.item.path"
+    ]
+  },
+  "functional": {
+    "mot": {
+      "labels": [
+        "Chuyên môn (T3)",
+        "Nhiệm vụ (T2)",
+        "Công việc (T1)"
+      ],
+      "first": [
+        "CM Xuất nhập kho",
+        "QT Nhập kho",
+        "CV Nhập kệ"
+      ],
+      "missingT1": "·",
+      "fullPath": "Sản xuất/Incomex Sài Gòn/Khối Vận hành SG/P. Kho SG/CM Xuất nhập kho/QT Nhập kho/CV Nhập kệ/Xác nhận nhận đủ nguyên liệu"
+    },
+    "mout": {
+      "labels": [
+        "Chuyên môn (T3)",
+        "Nhiệm vụ (T2)",
+        "Công việc (T1)"
+      ],
+      "missingT1": "·",
+      "presentT1": "CV Lấy mẫu QC",
+      "bothMissing": [
+        "·",
+        "·"
+      ],
+      "missingPath": "Thương mại/Incomex Tân Bình/Khối Kinh doanh TB/P. Bán hàng TB/CM Bán hàng/QT Bán hàng B2B/·/Doanh thu theo khách hàng",
+      "presentPath": "Sản xuất/Incomex Sài Gòn/Khối Vận hành SG/P. QC SG/CM Kiểm tra CL/QT Kiểm tra CL/CV Lấy mẫu QC/Tỷ lệ lỗi QC theo ca"
+    },
+    "drawer": {
+      "tierRows": 7,
+      "itemRows": 1,
+      "values": [
+        "Thương mại",
+        "Incomex Tân Bình",
+        "Khối Kinh doanh TB",
+        "P. Bán hàng TB",
+        "CM Bán hàng",
+        "QT Bán hàng B2B",
+        "·",
+        "Doanh thu theo khách hàng"
+      ]
+    },
+    "treePath": "Thương mại / Incomex Tân Bình / · / · / · / · / · / Công nợ phải thu toàn công ty",
+    "moit": {
+      "labels": [
+        "Chuyên môn (T3)",
+        "Nhiệm vụ (T2)",
+        "Công việc (T1)"
+      ],
+      "t2": "QT Nhập kho",
+      "t1": "·",
+      "fullPath": "Sản xuất/Incomex Sài Gòn/Khối Vận hành SG/P. Kho SG/CM Xuất nhập kho/QT Nhập kho/·/Phiếu nhập kho — xác nhận nhận đủ"
+    },
+    "hubMotherCount": 24,
+    "processCount": 76
+  },
+  "checks": {
+    "source143": true,
+    "dom143": true,
+    "zeroDiff": true,
+    "newCodesPresent": true,
+    "cacheV5": true,
+    "motT1": true,
+    "moutMissingAndPresent": true,
+    "moutT2T1CanBothBeMissing": true,
+    "moitMissingT1": true,
+    "drawer8": true,
+    "finalName": true,
+    "processStillWorks": true,
+    "hubStillWorks": true,
+    "runtimeClean": true
+  }
+}

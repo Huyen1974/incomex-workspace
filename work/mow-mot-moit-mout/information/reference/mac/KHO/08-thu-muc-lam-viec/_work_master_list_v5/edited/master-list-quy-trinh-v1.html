@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="cache-control" content="no-cache"><meta http-equiv="expires" content="0">
+<title>Master list quy trình</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./mot-theme-v1.css?v=17">
+<style>body.mot{background:#f5f5f7}.wrap{max-width:1240px;margin:0 auto;padding:24px 28px 130px}</style>
+</head>
+<body class="mot">
+<div class="topbar">
+  <div class="logo"><span class="logo-dot"></span>Master · Danh sách<span class="vbadge">quy trình</span></div>
+  <span class="tb-spacer"></span>
+  <a class="tb-link" href="./mow-unified-canvas-v2.html">Mở MOW Canvas</a>
+  <a class="tb-link" href="./master-hub.html" style="margin-left:14px">Master tổng →</a>
+</div>
+<div class="wrap"><div id="master-root"></div></div>
+<script>
+window.MASTER_CONFIG={
+  title:'Master list quy trình',
+  mother:'MOW', noun:'quy trình', itemBase:'/w/',
+  sub:'Mọi quy trình (nhiệm vụ, T2) đã đúc đăng ký tại đây, neo vào cây 7 tầng. Bấm một dòng để xem chi tiết (view admin).',
+  principle:'Cùng một khuôn danh sách với MOT/MOUT. Quy trình neo ở Nhiệm vụ (T2) — tự suy đường về chuyên môn / phòng ban / công ty / lĩnh vực. Bộ lọc 7 tầng nối tầng: chọn một tầng thì các tầng khác tự lọc theo cha–con.',
+  createUrl:'./mow-unified-canvas-v2.html', createLabel:'Tạo quy trình (MOW Canvas)',
+  items:[
+    {code:'WF-0001',name:'Xử lý hồ sơ xuất khẩu',anchor:'QT Xuất khẩu',date:'31/05/2026',maker:{t:'human',n:'Nguyễn Hà'},status:'active',links:{mot:4,moit:3,mout:1},
+     steps:[
+      {name:'Tiếp nhận',lam:'Full auto',bao:'—',agent:true,items:[
+        {n:'Nhận đơn',min:2,trig:'Submit form "Đơn XK" → webhook'},
+        {n:'Nhập hệ thống',min:30,trig:'Hồ sơ mới tạo'},
+        {n:'Xếp nhóm',min:8,trig:'Hồ sơ đã nhập'}]},
+      {name:'Duyệt & phát hành',lam:'Lê Minh',bao:'Kế toán trưởng',agent:false,items:[
+        {n:'Duyệt hồ sơ',min:20,trig:'Đã xếp nhóm'},
+        {n:'Phát hành chứng từ',min:10,trig:'Đã duyệt'}]}
+     ]},
+    {code:'WF-0002',name:'Thu chi tự động (Kaizen)',anchor:'QT Thu chi',date:'12/06/2026',maker:{t:'dot',n:'fn_thu_chi'},status:'active',links:{mot:2,moit:1,mout:1},
+     steps:[
+      {name:'Gom giao dịch',lam:'Full auto',bao:'—',agent:true,items:[{n:'Gom giao dịch ngân hàng',min:15,trig:'Cron 08:00'}]},
+      {name:'Đối soát & ghi sổ',lam:'Agent',bao:'Kế toán trưởng',agent:true,items:[{n:'Đối soát',min:20,trig:'Có bảng tạm'},{n:'Ghi bút toán',min:10,trig:'Đối soát xong'}]}
+     ]},
+    {code:'WF-0003',name:'Nhập kho & kiểm đếm hàng về',anchor:'QT Nhập kho',date:'18/04/2026',maker:{t:'human',n:'Trần Dũng'},status:'active',links:{mot:2,moit:1,mout:0},
+     steps:[
+      {name:'Nhận thông báo',lam:'Full auto',bao:'—',agent:true,items:[{n:'Nhận thông báo hàng về',min:1,trig:'Webhook cảng'}]},
+      {name:'Kiểm đếm',lam:'Trần Dũng',bao:'Quản đốc kho',agent:false,items:[{n:'Kiểm đếm & nhập kho',min:120,trig:'Hàng tới kho'}]}
+     ]},
+    {code:'WF-0004',name:'Kiểm tra chất lượng lô sản xuất',anchor:'QT Kiểm tra CL',date:'09/06/2026',maker:{t:'human',n:'Minh'},status:'active',links:{mot:3,moit:2,mout:1},
+     steps:[
+      {name:'Lấy mẫu',lam:'Minh',bao:'—',agent:false,items:[{n:'Lấy mẫu QC',min:15,trig:'Có lô mới'}]},
+      {name:'Kiểm & kết luận',lam:'Minh',bao:'Trưởng QC',agent:false,items:[{n:'Chạy kiểm',min:45,trig:'Có mẫu'},{n:'Nhập kết quả',min:10,trig:'Kiểm xong'}]}
+     ]},
+    {code:'WF-0005',name:'Bán hàng B2B & báo giá',anchor:'QT Bán hàng B2B',date:'05/06/2026',maker:{t:'human',n:'Huyền'},status:'paused',links:{mot:2,moit:1,mout:1},
+     steps:[
+      {name:'Tiếp nhận yêu cầu',lam:'Huyền',bao:'—',agent:false,items:[{n:'Nhận yêu cầu báo giá',min:10,trig:'Khách gửi form'}]},
+      {name:'Báo giá & chốt',lam:'Huyền',bao:'Trưởng phòng KD',agent:false,items:[{n:'Lập báo giá',min:30,trig:'Đủ thông tin'}]}
+     ]},
+    {code:'WF-0006',name:'Tính lương kỳ tháng',anchor:'QT Tính lương',date:'04/06/2026',maker:{t:'dot',n:'fn_tinh_luong'},status:'active',links:{mot:2,moit:2,mout:1},
+     steps:[
+      {name:'Tổng hợp công',lam:'Agent',bao:'—',agent:true,items:[{n:'Gom chấm công',min:20,trig:'Chốt kỳ'}]},
+      {name:'Tính & duyệt',lam:'Lan',bao:'Giám đốc',agent:false,items:[{n:'Tính lương',min:25,trig:'Có dữ liệu công'},{n:'Duyệt bảng lương',min:15,trig:'Tính xong'}]}
+     ]},
+    {code:'WF-0007',name:'Đề xuất cải tiến → quy trình',anchor:'QT Bán hàng B2B',date:'20/06/2026',maker:{t:'human',n:'Ban Kaizen'},status:'paused',links:{mot:2,moit:1,mout:0},
+     steps:[
+      {name:'Tiếp nhận đề xuất',lam:'Full auto',bao:'Ban Kaizen',agent:true,items:[{n:'Vào khu tạm',min:1,trig:'Gửi đề xuất'}]},
+      {name:'Duyệt đề xuất',lam:'Trưởng ban Kaizen',bao:'Người đề xuất',agent:false,items:[{n:'Duyệt / từ chối',min:30,trig:'Có đề xuất mới'}]}
+     ]}
+  ]
+};
+</script>
+<script>(function(){fetch('./master-list.js?ts='+Date.now()).then(function(r){return r.text();}).then(function(t){(0,eval)(t);}).catch(function(){});})();</script>
+<script>(function(){fetch('./eco-nav.js?ts='+Date.now()).then(function(r){return r.text();}).then(function(t){(0,eval)(t);}).catch(function(){});})();</script>
+</body>
+</html>
