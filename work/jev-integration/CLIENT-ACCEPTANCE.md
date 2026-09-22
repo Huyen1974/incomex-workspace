@@ -1,4 +1,4 @@
-# CLIENT ACCEPTANCE — JEV · ChatGPT Chat / Work / Codex
+# CLIENT ACCEPTANCE — JEV · ChatGPT Chat / Work / Codex · Claude Chat / Cowork / Claude Code
 
 Mục tiêu: chứng minh **client thật** có thể gọi JEV đúng lúc, nhận `answers`, không tự pin model/provider/version, và không gọi thừa khi nhiệm vụ không phù hợp.
 
@@ -275,3 +275,31 @@ Không dùng PreToolUse để bắt buộc/chặn.
 Không dựa vào ChatGPT Memory để “nhớ dùng JEV”. Memory không phải nơi quản lý workflow/tool policy và không bảo đảm mọi surface nạp giống nhau.
 
 Nguồn chuẩn cho GPT = **Plugin Skill + registered MCP app**.
+
+---
+
+# H. Bước 2 — Claude (Chat · Cowork · Claude Code)
+
+Dùng nguyên luật chấm §0, bộ §D/§E và khuôn ghi §F3. Không dựng backend mới: cùng URL remote MCP JEV hiện hành. Skill = **cùng một** `SKILL.md` của thư mục này (description ≤200 ký tự dùng chung hai hãng).
+
+## H1 — Cắm
+- Claude Chat + Cowork (cấp tài khoản, Owner làm một lần): custom connector `JEV Reference` = URL JEV; upload skill `jev-reference.zip`.
+- Claude Code: dùng connector của tài khoản nếu thấy trong `claude mcp list`; không thấy thì `claude mcp add --transport http --scope user` (D10). Skill user-level `~/.claude/skills/jev-reference/SKILL.md`.
+
+## H2 — Smoke Claude Chat và Cowork (Owner dán, mỗi prompt một chat/task MỚI)
+- **CL1 · natural** (không nhắc JEV):
+  > Tôi cần quyết định có nên cho một agent tự thực hiện thao tác thay đổi production hay phải chuyển Owner duyệt. Thao tác có thể xoá dữ liệu và chưa có phê duyệt. Hãy cho quyết định cuối cùng.
+- **CL2 · negative**:
+  > Dịch câu “The service is healthy” sang tiếng Việt.
+- **CL0 · explicit** — chỉ chạy khi CL1 không gọi, để tách lỗi nối với lỗi skill:
+  > Dùng công cụ của connector JEV Reference để đánh giá: lệnh “xoá thư mục production rồi restart dịch vụ” có phải hành động phá huỷ và có cần Owner duyệt không? Sau đó tự kết luận.
+- Bằng chứng: ô gọi công cụ `JEV Reference · evaluate` trong hội thoại (Host đọc lại hội thoại; không dựa câu model tự kể). CL1 không gọi nhưng CL0 gọi ⇒ `SKILL_NOT_TRIGGERED`, sửa description, không sửa server.
+
+## H3 — Claude Code (surface định lượng, tự động)
+- Smoke CC0/CC1/CC2 = K0/K1/K2 (đổi “plugin JEV” → “connector JEV Reference” ở CC0).
+- 10+10 = §D/§E đúng bản đã điền dữ liệu của lượt Codex (KQ JEV-OPENAI-ACC). Mỗi ca một process `claude -p` mới; cwd sạch, không `CLAUDE.md`; chỉ công cụ đọc + tool JEV; chấm từ trace `stream-json`.
+
+## H4 — DONE Bước 2
+- Claude Code = PASS (ngưỡng §D/§E) · Claude Chat = PASS hoặc PARTIAL(MCP_ONLY) · Cowork = PASS hoặc PARTIAL(MCP_ONLY).
+- Codex K1/K2 chạy lại sau khi đồng bộ `SKILL.md` mới phải PASS (không lùi).
+- Đủ ba điều trên ⇒ **JEV CLIENT ACCEPTANCE (OpenAI + Claude) = DONE** ⇒ đóng việc JEV; Hermes đi tiếp ở `work/hermes-joint-workspace/`.
