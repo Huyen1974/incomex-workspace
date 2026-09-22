@@ -387,5 +387,11 @@ KQ@HVU-B3-CLEANUP-20260921-03 XONG
 - OPEN trong báo cáo (Cowork/Hermes FIRST_USE_PENDING, throttle/publish granularity, mirror UI03 lịch sử) là maintenance/first-use, không chặn mục tiêu HVU. Core B2/B2.1/B3 + cleanup được coi CLOSED.
 - Cảnh báo bảo mật Bearer token trong argv của `lark-crud-gateway`/`mcp-remote` được tách sang `work/mcp-token-argv/`, Host Claude xử lý; không mở lại HVU.
 
+## P22 · Claude Chat · kiểm độc lập sau CLEANUP · PASS + 2 việc nhỏ cho Host
+Based_on `5e0d469` · Chỉ đọc trên VPS + 1 lần đọc thật qua cổng Claude.
+- **Dữ liệu đang phục vụ đúng A9:** 3 việc commit cuối là tên cổng cũ → `lastActors=[]` (xám); còn lại hiện `GPT Chat/Work`, `Claude Code CLI`, `Claude Chat/Cowork`; việc mới `mcp-token-argv` tự xuất hiện; app có `Chưa rõ` cho nhãn lạ. Author commit mới đã là `claude-code`, `openai-mcp` (hết đuôi version).
+- **Latest-only live giữa hai surface thật:** JEV đang `Claude Code CLI` (gen 1) → Claude Chat đọc JEV → `presence.json` còn đúng 1 entry `Claude Chat/Cowork` (gen 2), Claude Code bị thay ngay không chờ TTL — PASS. `fs_stat` không tính là hoạt động (chỉ đọc/ghi) — hợp lý.
+- **Việc nhỏ cho Host (không mở lại HVU core):** (1) OPEN #6 “clone trên Mac chỉ dựa vào trí nhớ Claude Code” → chốt kỹ thuật tự nhiên của Git: `git remote set-url --push origin no_push` trên clone Mac (đọc vẫn được, push thẳng bị chặn, mọi ghi phải qua cổng để được đóng dấu; đảo lại được bằng một lệnh); (2) OPEN #5 bản mirror `ui-assembly/` + `view.html` trong repo đang là UI03 cũ → chép một chiều từ runtime VPS lên (đúng §11) hoặc ghi rõ “bản tham khảo UI03, không phải nguồn”, kèm dọn dòng §0 HVU-UI03 (P21).
+
 ## Owner cần quyết
 - —
