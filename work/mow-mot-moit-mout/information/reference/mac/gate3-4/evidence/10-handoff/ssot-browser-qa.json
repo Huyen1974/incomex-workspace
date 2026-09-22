@@ -1,0 +1,17 @@
+{
+  "candidate_sha256": "35032ef8e303acc403860a55fae43f10f1cf3a9d426ac131d1c02ca6bd28438f",
+  "method": "CUA actual rendered DOM and geometry; one selector correction from role button to native summary text",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "owner_height": 640,
+  "owner_top": 95.6953125,
+  "owner_bottom": 735.6953125,
+  "owner_rows": 8,
+  "whole_page_horizontal_overflow": false,
+  "owner_details_initially_closed": true,
+  "D08_opened_and_read": "DECIDED PM — Ghi nhận thời lượng xử lý; Gate5 NOT STARTED",
+  "D04_opened_and_read": "WAITING OWNER; PM recommendation only",
+  "scope": "Approximately one screen for Owner main content; page header adds96px. No screenshot or mobile/full browser matrix claimed. Existing search/reveal script preserved byte-identically."
+}

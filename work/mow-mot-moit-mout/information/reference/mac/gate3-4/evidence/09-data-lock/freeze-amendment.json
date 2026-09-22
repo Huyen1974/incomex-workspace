@@ -1,0 +1,29 @@
+{
+  "at": "2026-09-11T10:36:59.606612+00:00",
+  "denominator": 177,
+  "type_corrections": {
+    "MOW.step_ids": [
+      "ordered UUID[]",
+      "ordered string keys scoped by MOW Version",
+      "Actual C05 and fresh drafts use locally unique step keys; identity = MOW Version UUID + step key. No independent global UUID was observed."
+    ],
+    "Feedback.id": [
+      "uuid",
+      "integer",
+      "Existing feedbacks key is integer; native Flow bridge keeps a separate UUID action receipt."
+    ],
+    "Draft.feedback_id": [
+      "uuid|null",
+      "integer|null",
+      "Native FK now points to the integer feedback key, not its UUID action receipt."
+    ],
+    "Version.source_revision": [
+      "integer",
+      "integer|null",
+      "MOW publication records originating Draft revision; initial admission or derivation from an immutable Version has no editable source revision. Its source Version/provenance is retained."
+    ]
+  },
+  "no_fact_removed": true,
+  "MOUT_consumer_ref": "Remains UNKNOWN: actual value is a description, not a resolved consumer ref. No type relaxation to hide it.",
+  "Runtime_executor": "AUTO service is known. HMITL executor cannot be inferred from the actor who submitted a record; remains UNKNOWN for full frozen Pilot."
+}

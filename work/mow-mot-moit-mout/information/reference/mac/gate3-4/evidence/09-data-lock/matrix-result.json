@@ -1,0 +1,43 @@
+{
+  "pilot": "D08 Ghi nhận thời lượng xử lý",
+  "denominator": 177,
+  "original_freeze": 172,
+  "freeze_additions": 5,
+  "removed_facts": 0,
+  "type_amendments": {
+    "MOW.step_ids": [
+      "ordered UUID[]",
+      "ordered string keys scoped by MOW Version",
+      "Actual C05 and fresh drafts use locally unique step keys; identity = MOW Version UUID + step key. No independent global UUID was observed."
+    ],
+    "Feedback.id": [
+      "uuid",
+      "integer",
+      "Existing feedbacks key is integer; native Flow bridge keeps a separate UUID action receipt."
+    ],
+    "Draft.feedback_id": [
+      "uuid|null",
+      "integer|null",
+      "Native FK now points to the integer feedback key, not its UUID action receipt."
+    ],
+    "Version.source_revision": [
+      "integer",
+      "integer|null",
+      "MOW publication records originating Draft revision; initial admission or derivation from an immutable Version has no editable source revision. Its source Version/provenance is retained."
+    ]
+  },
+  "count_unit": "semantic fact class, not physical columns, implementations, or complete production mappings",
+  "mapped_in_lab": 171,
+  "unknown": 6,
+  "unknown_facts": [
+    "MOUT.consumer_ref",
+    "MOUT.context",
+    "Runtime.executor",
+    "Runtime.handoff",
+    "Runtime.input",
+    "Runtime.task_instance_id"
+  ],
+  "production_source_adoption": "NOT CLAIMED. Lab generic Definition/Version tables are prototypes, not an order to create parallel production truth. Existing information_unit/unit_version remains a candidate storage backend requiring domain/profile/authority mapping.",
+  "new_required_rule": "NEW_REQUIRED_LOGICAL_DECLARATION names missing semantic facts/profiles. Per-fact I0–I5 proposal is included. It does not assert a new production table is necessary or approved.",
+  "exit": "BLOCKED BY DATA-AUTHORITY"
+}

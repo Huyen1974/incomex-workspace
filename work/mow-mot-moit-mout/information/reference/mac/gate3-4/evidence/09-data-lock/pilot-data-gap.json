@@ -1,0 +1,2392 @@
+{
+  "columns": [
+    {
+      "table_name": "forms",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "key",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "title",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "schema",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "system_fields",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "profile_ref",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "submit_label",
+      "data_type": "character varying",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "on_success",
+      "data_type": "character varying",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "success_message",
+      "data_type": "character varying",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'pilot'::character varying"
+    },
+    {
+      "table_name": "forms",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'draft'::character varying"
+    },
+    {
+      "table_name": "forms",
+      "column_name": "user_created",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "date_created",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "user_updated",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "date_updated",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "submit_config",
+      "data_type": "json",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "forms",
+      "column_name": "last_request",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "forms",
+      "column_name": "profile_version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "lab_checkpoint",
+      "column_name": "id",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_checkpoint",
+      "column_name": "mow_ref",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_checkpoint",
+      "column_name": "phase",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_checkpoint",
+      "column_name": "next_action",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_checkpoint",
+      "column_name": "search_brief",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_checkpoint",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'pilot'::character varying"
+    },
+    {
+      "table_name": "lab_checkpoint",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'draft'::character varying"
+    },
+    {
+      "table_name": "lab_checkpoint",
+      "column_name": "user_created",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_checkpoint",
+      "column_name": "date_created",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_checkpoint",
+      "column_name": "user_updated",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_checkpoint",
+      "column_name": "date_updated",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_contracts",
+      "column_name": "id",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_contracts",
+      "column_name": "version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_contracts",
+      "column_name": "source_concept",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_contracts",
+      "column_name": "content",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_definitions",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_definitions",
+      "column_name": "family",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_definitions",
+      "column_name": "meaning",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_definitions",
+      "column_name": "owner",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_definitions",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'active'::character varying"
+    },
+    {
+      "table_name": "lab_definitions",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'pilot'::character varying"
+    },
+    {
+      "table_name": "lab_definitions",
+      "column_name": "revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "lab_definitions",
+      "column_name": "last_request",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_definitions",
+      "column_name": "user_created",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_definitions",
+      "column_name": "date_created",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_definitions",
+      "column_name": "user_updated",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_definitions",
+      "column_name": "date_updated",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "intent_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "title",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "family",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'draft'::character varying"
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "content",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "search_brief",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "source_version",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "feedback_id",
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "reason",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'pilot'::character varying"
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "last_request",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "user_created",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "date_created",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "user_updated",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "date_updated",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "definition_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "approval_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "published_version",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_drafts",
+      "column_name": "release_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "draft_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "draft_revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "closure_hash",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "kind",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "readiness",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "snapshot",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "results",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "revoked",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "last_request",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "user_created",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "date_created",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_evidence",
+      "column_name": "source_evidence",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_feedbacks",
+      "column_name": "id",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "nextval('lab_feedbacks_id_seq'::regclass)"
+    },
+    {
+      "table_name": "lab_feedbacks",
+      "column_name": "content",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_feedbacks",
+      "column_name": "linked_entity_ref",
+      "data_type": "character varying",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_feedbacks",
+      "column_name": "entity_type",
+      "data_type": "character varying",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_feedbacks",
+      "column_name": "feedback_type",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_feedbacks",
+      "column_name": "context_snippet",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_feedbacks",
+      "column_name": "metadata",
+      "data_type": "json",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_feedbacks",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_feedbacks",
+      "column_name": "user_created",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_feedbacks",
+      "column_name": "date_created",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_fields",
+      "column_name": "id",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_fields",
+      "column_name": "source_concept",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_fields",
+      "column_name": "contract_ref",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_intents",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_intents",
+      "column_name": "sentence",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_intents",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'pending'::character varying"
+    },
+    {
+      "table_name": "lab_intents",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'pilot'::character varying"
+    },
+    {
+      "table_name": "lab_intents",
+      "column_name": "revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "lab_intents",
+      "column_name": "last_request",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_intents",
+      "column_name": "user_created",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_intents",
+      "column_name": "date_created",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_intents",
+      "column_name": "user_updated",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_intents",
+      "column_name": "date_updated",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_material_links",
+      "column_name": "form_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_material_links",
+      "column_name": "profile_ref",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_material_links",
+      "column_name": "profile_version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_material_links",
+      "column_name": "field_ref",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_material_links",
+      "column_name": "contract_ref",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_material_links",
+      "column_name": "contract_version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_material_links",
+      "column_name": "section",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_material_links",
+      "column_name": "position",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_material_links",
+      "column_name": "presentation",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "parent_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "parent_revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "slot",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "search_brief",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "owner_role",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'waiting'::character varying"
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "result_ref",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "checkpoint",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'pilot'::character varying"
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "last_request",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "user_created",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "date_created",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "user_updated",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_missing",
+      "column_name": "date_updated",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mot",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mot",
+      "column_name": "name",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mot",
+      "column_name": "form_ref",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mot",
+      "column_name": "form_version",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mot",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'pilot'::character varying"
+    },
+    {
+      "table_name": "lab_mot",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'draft'::character varying"
+    },
+    {
+      "table_name": "lab_mot",
+      "column_name": "user_created",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mot",
+      "column_name": "date_created",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mot",
+      "column_name": "user_updated",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mot",
+      "column_name": "date_updated",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mow",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mow",
+      "column_name": "name",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mow",
+      "column_name": "mot_ref",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mow",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'pilot'::character varying"
+    },
+    {
+      "table_name": "lab_mow",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'draft'::character varying"
+    },
+    {
+      "table_name": "lab_mow",
+      "column_name": "user_created",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mow",
+      "column_name": "date_created",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mow",
+      "column_name": "user_updated",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_mow",
+      "column_name": "date_updated",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_profile_materials",
+      "column_name": "profile_ref",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_profile_materials",
+      "column_name": "profile_version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_profile_materials",
+      "column_name": "field_ref",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_profile_materials",
+      "column_name": "contract_ref",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_profile_materials",
+      "column_name": "contract_version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_profile_materials",
+      "column_name": "section",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_profile_materials",
+      "column_name": "required",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_profile_materials",
+      "column_name": "scope",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_profiles",
+      "column_name": "id",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_profiles",
+      "column_name": "version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_profiles",
+      "column_name": "joi_description",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_readiness_lines",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_readiness_lines",
+      "column_name": "evidence_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_readiness_lines",
+      "column_name": "draft_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_readiness_lines",
+      "column_name": "draft_revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_readiness_lines",
+      "column_name": "step",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_readiness_lines",
+      "column_name": "item",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_readiness_lines",
+      "column_name": "label",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_readiness_lines",
+      "column_name": "value",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_readiness_lines",
+      "column_name": "source",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_readiness_lines",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_attempts",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_attempts",
+      "column_name": "instance_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_attempts",
+      "column_name": "job_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_attempts",
+      "column_name": "queue_retry_count",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_attempts",
+      "column_name": "capability_version",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_attempts",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_attempts",
+      "column_name": "result",
+      "data_type": "jsonb",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_attempts",
+      "column_name": "server_request",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_attempts",
+      "column_name": "error",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_attempts",
+      "column_name": "process_id",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_attempts",
+      "column_name": "started_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "lab_runtime_attempts",
+      "column_name": "finished_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_bindings",
+      "column_name": "id",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_bindings",
+      "column_name": "release_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_bindings",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_bindings",
+      "column_name": "active",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "lab_runtime_bindings",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_bindings",
+      "column_name": "revision",
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_bindings",
+      "column_name": "last_request",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_events",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_events",
+      "column_name": "occurrence",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_events",
+      "column_name": "case_id",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_events",
+      "column_name": "payload_hash",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_events",
+      "column_name": "payload",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_events",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "lab_runtime_instances",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_instances",
+      "column_name": "event_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_instances",
+      "column_name": "release_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_instances",
+      "column_name": "job_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_instances",
+      "column_name": "record_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_instances",
+      "column_name": "request_key",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_instances",
+      "column_name": "actor_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_instances",
+      "column_name": "disposition",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'queued'::text"
+    },
+    {
+      "table_name": "lab_runtime_instances",
+      "column_name": "result",
+      "data_type": "jsonb",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_runtime_instances",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "lab_runtime_instances",
+      "column_name": "finished_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "duration_minutes",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "note",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "form_ref",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "form_version",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'pilot'::character varying"
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'draft'::character varying"
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "user_created",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "date_created",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "user_updated",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "date_updated",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "last_request",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "form_revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "lab_task_records",
+      "column_name": "review_required",
+      "data_type": "boolean",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_test_releases",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_test_releases",
+      "column_name": "version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_test_releases",
+      "column_name": "content_hash",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_test_releases",
+      "column_name": "snapshot",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_test_releases",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "lab_test_releases",
+      "column_name": "source_draft",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_test_releases",
+      "column_name": "approval_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_test_releases",
+      "column_name": "test_evidence",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_test_releases",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_test_releases",
+      "column_name": "revision",
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_test_releases",
+      "column_name": "last_request",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "definition_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "family",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "meaning",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "parameters",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "refs",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "digest",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'published'::character varying"
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "provenance",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "scope",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'pilot'::character varying"
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "1"
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "last_request",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "user_created",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "date_created",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "user_updated",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_versions",
+      "column_name": "date_updated",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_receipts",
+      "column_name": "actor",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_receipts",
+      "column_name": "request_key",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_receipts",
+      "column_name": "payload_hash",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_receipts",
+      "column_name": "server_request",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_receipts",
+      "column_name": "collection",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_receipts",
+      "column_name": "resource_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_receipts",
+      "column_name": "revision",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_receipts",
+      "column_name": "response",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_receipts",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "lab_write_routes",
+      "column_name": "action",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_routes",
+      "column_name": "collection",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_routes",
+      "column_name": "profile_ref",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_routes",
+      "column_name": "profile_version",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_routes",
+      "column_name": "enabled",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_routes",
+      "column_name": "allow_create",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_routes",
+      "column_name": "input_fields",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_routes",
+      "column_name": "fixed_values",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_routes",
+      "column_name": "validate_fields",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_routes",
+      "column_name": "material_sections",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_routes",
+      "column_name": "contract_attributes",
+      "data_type": "json",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "lab_write_routes",
+      "column_name": "form_reference",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": null
+    }
+  ],
+  "constraints": [
+    {
+      "source": "forms",
+      "conname": "forms_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_mot",
+      "conname": "lab_mot_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_mow",
+      "conname": "lab_mow_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_contracts",
+      "conname": "lab_contracts_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_profiles",
+      "conname": "lab_profiles_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_fields",
+      "conname": "lab_fields_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_checkpoint",
+      "conname": "lab_checkpoint_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_task_records",
+      "conname": "lab_task_records_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_fields",
+      "conname": "lab_fields_contract_ref_foreign",
+      "definition": "FOREIGN KEY (contract_ref) REFERENCES lab_contracts(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "forms",
+      "conname": "forms_profile_ref_foreign",
+      "definition": "FOREIGN KEY (profile_ref) REFERENCES lab_profiles(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_mot",
+      "conname": "lab_mot_form_ref_foreign",
+      "definition": "FOREIGN KEY (form_ref) REFERENCES forms(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_mow",
+      "conname": "lab_mow_mot_ref_foreign",
+      "definition": "FOREIGN KEY (mot_ref) REFERENCES lab_mot(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_checkpoint",
+      "conname": "lab_checkpoint_mow_ref_foreign",
+      "definition": "FOREIGN KEY (mow_ref) REFERENCES lab_mow(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_task_records",
+      "conname": "lab_task_records_form_ref_foreign",
+      "definition": "FOREIGN KEY (form_ref) REFERENCES forms(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_write_routes",
+      "conname": "lab_write_routes_pkey",
+      "definition": "PRIMARY KEY (action)"
+    },
+    {
+      "source": "lab_contracts",
+      "conname": "contract_exact_identity",
+      "definition": "UNIQUE (id, version, source_concept)"
+    },
+    {
+      "source": "lab_profiles",
+      "conname": "profile_exact_version",
+      "definition": "UNIQUE (id, version)"
+    },
+    {
+      "source": "forms",
+      "conname": "form_profile_identity",
+      "definition": "UNIQUE (id, profile_ref, profile_version)"
+    },
+    {
+      "source": "forms",
+      "conname": "form_profile_exact",
+      "definition": "FOREIGN KEY (profile_ref, profile_version) REFERENCES lab_profiles(id, version)"
+    },
+    {
+      "source": "lab_profile_materials",
+      "conname": "lab_profile_materials_pkey",
+      "definition": "PRIMARY KEY (profile_ref, profile_version, field_ref, contract_ref, contract_version)"
+    },
+    {
+      "source": "lab_profile_materials",
+      "conname": "lab_profile_materials_field_ref_fkey",
+      "definition": "FOREIGN KEY (field_ref) REFERENCES lab_fields(id)"
+    },
+    {
+      "source": "lab_profile_materials",
+      "conname": "lab_profile_materials_profile_ref_profile_version_fkey",
+      "definition": "FOREIGN KEY (profile_ref, profile_version) REFERENCES lab_profiles(id, version)"
+    },
+    {
+      "source": "lab_profile_materials",
+      "conname": "lab_profile_materials_contract_ref_contract_version_field__fkey",
+      "definition": "FOREIGN KEY (contract_ref, contract_version, field_ref) REFERENCES lab_contracts(id, version, source_concept)"
+    },
+    {
+      "source": "lab_material_links",
+      "conname": "lab_material_links_position_check",
+      "definition": "CHECK ((\"position\" >= 0))"
+    },
+    {
+      "source": "lab_material_links",
+      "conname": "lab_material_links_pkey",
+      "definition": "PRIMARY KEY (form_id, field_ref)"
+    },
+    {
+      "source": "lab_material_links",
+      "conname": "lab_material_links_form_id_section_position_key",
+      "definition": "UNIQUE (form_id, section, \"position\")"
+    },
+    {
+      "source": "lab_material_links",
+      "conname": "lab_material_links_form_id_profile_ref_profile_version_fkey",
+      "definition": "FOREIGN KEY (form_id, profile_ref, profile_version) REFERENCES forms(id, profile_ref, profile_version)"
+    },
+    {
+      "source": "lab_material_links",
+      "conname": "lab_material_links_profile_ref_profile_version_field_ref_c_fkey",
+      "definition": "FOREIGN KEY (profile_ref, profile_version, field_ref, contract_ref, contract_version) REFERENCES lab_profile_materials(profile_ref, profile_version, field_ref, contract_ref, contract_version)"
+    },
+    {
+      "source": "lab_write_receipts",
+      "conname": "lab_write_receipts_revision_check",
+      "definition": "CHECK ((revision > 0))"
+    },
+    {
+      "source": "lab_write_receipts",
+      "conname": "lab_write_receipts_pkey",
+      "definition": "PRIMARY KEY (actor, request_key)"
+    },
+    {
+      "source": "lab_write_receipts",
+      "conname": "lab_write_receipts_server_request_key",
+      "definition": "UNIQUE (server_request)"
+    },
+    {
+      "source": "lab_write_receipts",
+      "conname": "lab_write_receipts_actor_fkey",
+      "definition": "FOREIGN KEY (actor) REFERENCES directus_users(id)"
+    },
+    {
+      "source": "lab_test_releases",
+      "conname": "lab_test_releases_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_test_releases",
+      "conname": "lab_test_releases_version_key",
+      "definition": "UNIQUE (version)"
+    },
+    {
+      "source": "lab_runtime_bindings",
+      "conname": "lab_runtime_bindings_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_runtime_bindings",
+      "conname": "lab_runtime_bindings_release_id_fkey",
+      "definition": "FOREIGN KEY (release_id) REFERENCES lab_test_releases(id)"
+    },
+    {
+      "source": "lab_runtime_bindings",
+      "conname": "lab_runtime_bindings_actor_id_fkey",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES directus_users(id)"
+    },
+    {
+      "source": "lab_runtime_events",
+      "conname": "lab_runtime_events_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_runtime_events",
+      "conname": "lab_runtime_events_occurrence_key",
+      "definition": "UNIQUE (occurrence)"
+    },
+    {
+      "source": "lab_runtime_instances",
+      "conname": "lab_runtime_instances_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_runtime_instances",
+      "conname": "lab_runtime_instances_event_id_key",
+      "definition": "UNIQUE (event_id)"
+    },
+    {
+      "source": "lab_runtime_instances",
+      "conname": "lab_runtime_instances_job_id_key",
+      "definition": "UNIQUE (job_id)"
+    },
+    {
+      "source": "lab_runtime_instances",
+      "conname": "lab_runtime_instances_record_id_key",
+      "definition": "UNIQUE (record_id)"
+    },
+    {
+      "source": "lab_runtime_instances",
+      "conname": "lab_runtime_instances_request_key_key",
+      "definition": "UNIQUE (request_key)"
+    },
+    {
+      "source": "lab_runtime_instances",
+      "conname": "lab_runtime_instances_event_id_fkey",
+      "definition": "FOREIGN KEY (event_id) REFERENCES lab_runtime_events(id)"
+    },
+    {
+      "source": "lab_runtime_instances",
+      "conname": "lab_runtime_instances_release_id_fkey",
+      "definition": "FOREIGN KEY (release_id) REFERENCES lab_test_releases(id)"
+    },
+    {
+      "source": "lab_runtime_instances",
+      "conname": "lab_runtime_instances_actor_id_fkey",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES directus_users(id)"
+    },
+    {
+      "source": "lab_runtime_attempts",
+      "conname": "lab_runtime_attempts_status_check",
+      "definition": "CHECK ((status = ANY (ARRAY['running'::text, 'succeeded'::text, 'failed'::text])))"
+    },
+    {
+      "source": "lab_runtime_attempts",
+      "conname": "lab_runtime_attempts_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_runtime_attempts",
+      "conname": "lab_runtime_attempts_instance_id_queue_retry_count_key",
+      "definition": "UNIQUE (instance_id, queue_retry_count)"
+    },
+    {
+      "source": "lab_runtime_attempts",
+      "conname": "lab_runtime_attempts_instance_id_fkey",
+      "definition": "FOREIGN KEY (instance_id) REFERENCES lab_runtime_instances(id)"
+    },
+    {
+      "source": "lab_intents",
+      "conname": "lab_intents_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_definitions",
+      "conname": "lab_definitions_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_versions",
+      "conname": "lab_versions_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_drafts",
+      "conname": "lab_drafts_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_missing",
+      "conname": "lab_missing_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_versions",
+      "conname": "lab_versions_definition_id_foreign",
+      "definition": "FOREIGN KEY (definition_id) REFERENCES lab_definitions(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_drafts",
+      "conname": "lab_drafts_intent_id_foreign",
+      "definition": "FOREIGN KEY (intent_id) REFERENCES lab_intents(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_drafts",
+      "conname": "lab_drafts_source_version_foreign",
+      "definition": "FOREIGN KEY (source_version) REFERENCES lab_versions(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_missing",
+      "conname": "lab_missing_parent_id_foreign",
+      "definition": "FOREIGN KEY (parent_id) REFERENCES lab_drafts(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_missing",
+      "conname": "lab_missing_result_ref_foreign",
+      "definition": "FOREIGN KEY (result_ref) REFERENCES lab_versions(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_intents",
+      "conname": "lab_intents_user_created_foreign",
+      "definition": "FOREIGN KEY (user_created) REFERENCES directus_users(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_definitions",
+      "conname": "lab_definitions_user_created_foreign",
+      "definition": "FOREIGN KEY (user_created) REFERENCES directus_users(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_versions",
+      "conname": "lab_versions_user_created_foreign",
+      "definition": "FOREIGN KEY (user_created) REFERENCES directus_users(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_drafts",
+      "conname": "lab_drafts_user_created_foreign",
+      "definition": "FOREIGN KEY (user_created) REFERENCES directus_users(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_missing",
+      "conname": "lab_missing_user_created_foreign",
+      "definition": "FOREIGN KEY (user_created) REFERENCES directus_users(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_versions",
+      "conname": "lab_version_number",
+      "definition": "UNIQUE (definition_id, version)"
+    },
+    {
+      "source": "lab_drafts",
+      "conname": "lab_intent_draft",
+      "definition": "UNIQUE (intent_id, version)"
+    },
+    {
+      "source": "lab_missing",
+      "conname": "lab_missing_slot",
+      "definition": "UNIQUE (parent_id, parent_revision, slot)"
+    },
+    {
+      "source": "lab_evidence",
+      "conname": "lab_evidence_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_evidence",
+      "conname": "lab_evidence_draft_id_foreign",
+      "definition": "FOREIGN KEY (draft_id) REFERENCES lab_drafts(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_evidence",
+      "conname": "lab_evidence_user_created_foreign",
+      "definition": "FOREIGN KEY (user_created) REFERENCES directus_users(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_readiness_lines",
+      "conname": "lab_readiness_lines_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_readiness_lines",
+      "conname": "lab_readiness_lines_evidence_id_foreign",
+      "definition": "FOREIGN KEY (evidence_id) REFERENCES lab_evidence(id) ON DELETE CASCADE"
+    },
+    {
+      "source": "lab_drafts",
+      "conname": "lab_drafts_definition_id_foreign",
+      "definition": "FOREIGN KEY (definition_id) REFERENCES lab_definitions(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_drafts",
+      "conname": "lab_drafts_approval_id_foreign",
+      "definition": "FOREIGN KEY (approval_id) REFERENCES lab_evidence(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_drafts",
+      "conname": "lab_drafts_published_version_foreign",
+      "definition": "FOREIGN KEY (published_version) REFERENCES lab_versions(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_drafts",
+      "conname": "lab_drafts_release_id_foreign",
+      "definition": "FOREIGN KEY (release_id) REFERENCES lab_test_releases(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_evidence",
+      "conname": "lab_evidence_source_evidence_foreign",
+      "definition": "FOREIGN KEY (source_evidence) REFERENCES lab_evidence(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_test_releases",
+      "conname": "lab_test_releases_source_draft_foreign",
+      "definition": "FOREIGN KEY (source_draft) REFERENCES lab_drafts(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_test_releases",
+      "conname": "lab_test_releases_approval_id_foreign",
+      "definition": "FOREIGN KEY (approval_id) REFERENCES lab_evidence(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_test_releases",
+      "conname": "lab_test_releases_test_evidence_foreign",
+      "definition": "FOREIGN KEY (test_evidence) REFERENCES lab_evidence(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_definitions",
+      "conname": "lab_definitions_owner_foreign",
+      "definition": "FOREIGN KEY (owner) REFERENCES directus_roles(id) ON DELETE RESTRICT"
+    },
+    {
+      "source": "lab_feedbacks",
+      "conname": "lab_feedbacks_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "source": "lab_drafts",
+      "conname": "lab_drafts_feedback_id_foreign",
+      "definition": "FOREIGN KEY (feedback_id) REFERENCES lab_feedbacks(id) ON DELETE RESTRICT"
+    }
+  ],
+  "static_input_probe": {
+    "status": 403,
+    "response": {
+      "errors": [
+        {
+          "message": "Action, target and input must match pinned instance semantics.",
+          "extensions": {
+            "code": "PIN_CONTEXT_MISMATCH",
+            "server_request_id": "31325b05-40b0-4b53-b0f7-0b4566e79103"
+          }
+        }
+      ]
+    },
+    "expected": "403 PIN_CONTEXT_MISMATCH: current release capability.input is literal and immutable; this is a protected boundary, not a successful dynamic HMITL submission",
+    "observed": true,
+    "existing_record_unchanged": true
+  },
+  "human_runtime_links": {
+    "human_records": 14,
+    "linked_runtime_records": 0
+  },
+  "runtime_instance_columns": [
+    "id",
+    "event_id",
+    "release_id",
+    "job_id",
+    "record_id",
+    "request_key",
+    "actor_id",
+    "disposition",
+    "result",
+    "created_at",
+    "finished_at"
+  ],
+  "required_unknown_facts": [
+    "Runtime.task_instance_id",
+    "Runtime.input",
+    "Runtime.handoff",
+    "MOUT.context"
+  ],
+  "evidence_scope": "Runtime.input and MOUT.context are known for the one-AUTO slice only; unresolved for the frozen one-HMITL→AUTO Pilot. Do not identify Workflow Instance with Task Instance or request payload with authoritative input context.",
+  "I0_I5_elimination_for_gap": {
+    "I0": "Current kernel has one instance/record/action and literal released input; production tasks assigned_to is text with no exact Task/MOT/Release context FK observed.",
+    "I1": "FK/new columns can name Task/Context, but cannot alter guard static input comparison or create authenticated dynamic task assignment by themselves.",
+    "I2": "Native Flow runs after this guard input comparison; native policies/Flow can enforce a resolved task but cannot invent its canonical release-bound task context here.",
+    "I3": "Existing generic UI can display rows; UI cannot become task/assignment/input authority.",
+    "I4": "pg-boss owns delivery/ACK, not semantic Task Context; no new package proposed.",
+    "I5": "Native composition proved feedback integer-key bridge and lifecycle; current guarded dynamic task-input entry still rejects before native provider composition.",
+    "next": "PM admit Task Instance/Task Context source and a bounded generic input-binding adapter proof preserving old exact releases. No per-workflow code or new UI page."
+  }
+}

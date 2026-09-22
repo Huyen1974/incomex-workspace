@@ -1,0 +1,164 @@
+[
+  {
+    "action": "review",
+    "id": "f89a1f1d-ce52-42e6-b02f-29804bf1cef0",
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "f89a1f1d-ce52-42e6-b02f-29804bf1cef0",
+        "draft_id": "ca51f9b9-2cb2-4a89-b081-43927711709c",
+        "draft_revision": 2,
+        "closure_hash": "70c6658c9f3de73ffe25de5fd97cd29583f955c9eece289db5dd56c32e031b70",
+        "kind": "REVIEW",
+        "status": "PASS",
+        "readiness": [],
+        "snapshot": {},
+        "results": [
+          {
+            "scope": "TEST profile drift validation"
+          }
+        ],
+        "expires_at": "2026-09-11T11:22:10.997Z",
+        "revoked": false,
+        "scope": "pilot",
+        "revision": 1,
+        "last_request": "777d9e00-8195-46ff-b237-b4bc29e27d56",
+        "user_created": "44a21a94-5d21-4d01-b0fa-951682596551",
+        "date_created": "2026-09-11T10:22:12.959Z",
+        "source_evidence": "fda153af-8158-4558-bea5-c1f06486927d"
+      },
+      "meta": {
+        "server_request_id": "777d9e00-8195-46ff-b237-b4bc29e27d56",
+        "logical_request_id": "548a2a38-6b28-4cdc-bc55-1b8b3493d5bb",
+        "action": "review",
+        "business_version": "editable-draft/main",
+        "instance_id": null,
+        "release_hash": null,
+        "revision": 1,
+        "transaction_id": "3161",
+        "backend_pid": 1127
+      },
+      "replayed": false
+    }
+  },
+  {
+    "action": "approve",
+    "id": "3b8cd3a0-00c8-4235-95af-b25c63c3aa87",
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "3b8cd3a0-00c8-4235-95af-b25c63c3aa87",
+        "draft_id": "ca51f9b9-2cb2-4a89-b081-43927711709c",
+        "draft_revision": 2,
+        "closure_hash": "70c6658c9f3de73ffe25de5fd97cd29583f955c9eece289db5dd56c32e031b70",
+        "kind": "APPROVE",
+        "status": "PASS",
+        "readiness": [],
+        "snapshot": {},
+        "results": [
+          {
+            "scope": "TEST profile drift validation"
+          }
+        ],
+        "expires_at": "2026-09-11T11:22:13.170Z",
+        "revoked": false,
+        "scope": "pilot",
+        "revision": 1,
+        "last_request": "8e1694c6-71ff-495a-a8ea-8dc460464d32",
+        "user_created": "44a21a94-5d21-4d01-b0fa-951682596551",
+        "date_created": "2026-09-11T10:22:13.757Z",
+        "source_evidence": "f89a1f1d-ce52-42e6-b02f-29804bf1cef0"
+      },
+      "meta": {
+        "server_request_id": "8e1694c6-71ff-495a-a8ea-8dc460464d32",
+        "logical_request_id": "1fdaf9c6-51b7-44b0-93a7-ec4dbe09c66b",
+        "action": "approve",
+        "business_version": "editable-draft/main",
+        "instance_id": null,
+        "release_hash": null,
+        "revision": 1,
+        "transaction_id": "3162",
+        "backend_pid": 1127
+      },
+      "replayed": false
+    }
+  },
+  {
+    "action": "publish",
+    "id": "ca51f9b9-2cb2-4a89-b081-43927711709c",
+    "status": 400,
+    "body": {
+      "errors": [
+        {
+          "message": "Validation failed for field \"c05_current\". Value has to be \"[object Object]\".",
+          "extensions": {
+            "code": "FAILED_VALIDATION",
+            "server_request_id": "8c52fd72-108e-4bd0-9b97-c00516db5219"
+          }
+        }
+      ]
+    },
+    "case": "changed duration-output-v1 denies new publish",
+    "pass_case": true
+  },
+  {
+    "action": "publish",
+    "id": "ca51f9b9-2cb2-4a89-b081-43927711709c",
+    "status": 400,
+    "body": {
+      "errors": [
+        {
+          "message": "Validation failed for field \"c05_current\". Value has to be \"[object Object]\".",
+          "extensions": {
+            "code": "FAILED_VALIDATION",
+            "server_request_id": "83adb2a5-2196-491c-9820-858d771782d5"
+          }
+        }
+      ]
+    },
+    "case": "changed C04.search-brief-v1 denies new publish",
+    "pass_case": true
+  },
+  {
+    "action": "revoke-approval",
+    "id": "3b8cd3a0-00c8-4235-95af-b25c63c3aa87",
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "3b8cd3a0-00c8-4235-95af-b25c63c3aa87",
+        "draft_id": "ca51f9b9-2cb2-4a89-b081-43927711709c",
+        "draft_revision": 2,
+        "closure_hash": "70c6658c9f3de73ffe25de5fd97cd29583f955c9eece289db5dd56c32e031b70",
+        "kind": "APPROVE",
+        "status": "PASS",
+        "readiness": [],
+        "snapshot": {},
+        "results": [
+          {
+            "scope": "TEST profile drift validation"
+          }
+        ],
+        "expires_at": "2026-09-11T11:22:13.170Z",
+        "revoked": true,
+        "scope": "pilot",
+        "revision": 2,
+        "last_request": "937cd31d-139d-4ad2-8228-f0f603e649cb",
+        "user_created": "44a21a94-5d21-4d01-b0fa-951682596551",
+        "date_created": "2026-09-11T10:22:13.757Z",
+        "source_evidence": "f89a1f1d-ce52-42e6-b02f-29804bf1cef0"
+      },
+      "meta": {
+        "server_request_id": "937cd31d-139d-4ad2-8228-f0f603e649cb",
+        "logical_request_id": "9d482bd0-ec1a-4e2a-a2e3-2f582010d8a0",
+        "action": "revoke-approval",
+        "business_version": "editable-draft/main",
+        "instance_id": null,
+        "release_hash": null,
+        "revision": 2,
+        "transaction_id": "3169",
+        "backend_pid": 1127
+      },
+      "replayed": false
+    }
+  }
+]

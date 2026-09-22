@@ -1,0 +1,22 @@
+{
+  "at": "2026-09-11T11:12:08.385565+00:00",
+  "main_sha256": "35032ef8e303acc403860a55fae43f10f1cf3a9d426ac131d1c02ca6bd28438f",
+  "all_cited_current_extracted_files_exist": true,
+  "broken_internal_or_relative_file_links": [],
+  "external_Codex_href_after": 0,
+  "absolute_historical_local_links": "14 checked separately, all exist",
+  "planned_only_target": "Gate3-4-v1.6.18-bang-chung.zip",
+  "main_write_count": 1,
+  "snapshot_identical": true,
+  "all_342_ids_unique": true,
+  "workshop_actual_files": [
+    "README.md",
+    "fixture.js",
+    "index.html",
+    "reuse-provenance.json",
+    "reused-patterns.css",
+    "workshop.css",
+    "workshop.js"
+  ],
+  "packaging_scope": "Entire current proof in one ZIP; only cited report/data/evidence files extracted for project links. ZIP is review bundle, not portable whole historical website."
+}

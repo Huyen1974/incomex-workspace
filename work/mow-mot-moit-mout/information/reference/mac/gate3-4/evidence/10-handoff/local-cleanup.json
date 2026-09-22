@@ -1,0 +1,67 @@
+{
+  "at": "2026-09-11T11:01:50.803097+00:00",
+  "removed": [
+    {
+      "name": "ui",
+      "bytes": 197337878
+    },
+    {
+      "name": "ui-private.json",
+      "bytes": 334
+    },
+    {
+      "name": "agent-a",
+      "bytes": 4838
+    },
+    {
+      "name": "agent-b",
+      "bytes": 4838
+    },
+    {
+      "name": "agent-a-resume",
+      "bytes": 5049
+    },
+    {
+      "name": "agent-b-resume",
+      "bytes": 5049
+    },
+    {
+      "name": "lab-source",
+      "bytes": 174913
+    },
+    {
+      "name": "ui-dev.log",
+      "bytes": 4034619
+    },
+    {
+      "name": "ui-transport-live.jsonl",
+      "bytes": 14598
+    },
+    {
+      "name": "candidate-sources.jsonl",
+      "bytes": 29200
+    },
+    {
+      "name": "check-native-condition.mjs",
+      "bytes": 1043
+    },
+    {
+      "name": "read-native-condition.mjs",
+      "bytes": 360
+    },
+    {
+      "name": "prepare-ui.py",
+      "bytes": 1201
+    },
+    {
+      "name": "read-candidate-sources.py",
+      "bytes": 1358
+    }
+  ],
+  "owned_local_ports_stopped": {
+    "18558": true,
+    "18559": true
+  },
+  "source_workspaces_removed": false,
+  "note": "SSOT staging helpers retained until one-write/package QA; historical evidence retained."
+}

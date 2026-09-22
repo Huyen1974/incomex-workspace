@@ -1,0 +1,59 @@
+[
+  {
+    "id": "duration-minute-v1",
+    "version": 1,
+    "source_concept": "field.so_phut",
+    "meaning": "Thời lượng dự kiến của MỘT task",
+    "subject": "task",
+    "datatype": "integer",
+    "unit": "minute",
+    "operation": "input",
+    "write_target": "lab_task_records.duration_minutes",
+    "required": true,
+    "source_revision": "E05 snapshot 2026-09-08 sha256 in retrieval corpus",
+    "provenance": {
+      "meaning": "PM accepted TEST ONLY fixture in 2026-09-09 command; related source concept kept provisional",
+      "datatype_target": "TEST ONLY lab fixture; not asserted to be existing legacy semantic contract",
+      "permission": "authenticated Directus lab policy, not caller allowed boolean"
+    },
+    "status": "TEST_ONLY"
+  },
+  {
+    "id": "created-at-v1",
+    "version": 1,
+    "source_concept": "field.ngay_lap",
+    "meaning": "Mốc tạo bản ghi do hệ thống tự ghi",
+    "subject": "record",
+    "datatype": "timestamp",
+    "unit": "N/A",
+    "operation": "system-created",
+    "write_target": "lab_task_records.date_created",
+    "required": true,
+    "source_revision": "E05 snapshot 2026-09-08 sha256 in retrieval corpus",
+    "provenance": {
+      "meaning": "PM accepted TEST ONLY fixture in 2026-09-09 command; related source concept kept provisional",
+      "datatype_target": "TEST ONLY lab fixture; not asserted to be existing legacy semantic contract",
+      "permission": "authenticated Directus lab policy, not caller allowed boolean"
+    },
+    "status": "TEST_ONLY"
+  },
+  {
+    "id": "note-v1",
+    "version": 1,
+    "source_concept": "field.ghi_chu",
+    "meaning": "Ghi chú tùy chọn cho một task",
+    "subject": "task",
+    "datatype": "text",
+    "unit": "N/A",
+    "operation": "input",
+    "write_target": "lab_task_records.note",
+    "required": false,
+    "source_revision": "E05 snapshot 2026-09-08 sha256 in retrieval corpus",
+    "provenance": {
+      "meaning": "PM accepted TEST ONLY fixture in 2026-09-09 command; related source concept kept provisional",
+      "datatype_target": "TEST ONLY lab fixture; not asserted to be existing legacy semantic contract",
+      "permission": "authenticated Directus lab policy, not caller allowed boolean"
+    },
+    "status": "TEST_ONLY"
+  }
+]

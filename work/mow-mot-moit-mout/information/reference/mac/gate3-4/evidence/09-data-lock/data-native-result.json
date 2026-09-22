@@ -1,0 +1,34 @@
+{
+  "draft_id": "ca51f9b9-2cb2-4a89-b081-43927711709c",
+  "revision": 2,
+  "profiles": [
+    {
+      "id": "record-input-v1",
+      "version": 1,
+      "digest": "f7f7e45b6ae6b7783ed8e1e70da87b4edfc14a4de40ec375484237f27e4639c8"
+    },
+    {
+      "id": "duration-output-v1",
+      "version": 1,
+      "digest": "3ee7c5267e0a9a584416ccc1ed055fc9b0996a6779bae6e907297663cd66cc94"
+    }
+  ],
+  "capability_version": "72b4753e-62eb-450b-9521-68d1bd5a836f",
+  "mot_version": "3cf959d7-2ca3-409b-8afa-c71f182061c1",
+  "search_required_key_negative": {
+    "status": 422,
+    "body": {
+      "errors": [
+        {
+          "message": "\"search_brief.unit\" is required",
+          "extensions": {
+            "code": "CONTRACT_INVALID",
+            "server_request_id": "4581f21d-4f73-4f78-808d-e84049e09722"
+          }
+        }
+      ]
+    },
+    "pass": true
+  },
+  "legacy_note": "Original head proofs retained with their old declared tool/profile contract. No claim that these native schema repairs were made by the original fresh Agents."
+}
