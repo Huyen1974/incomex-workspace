@@ -4,7 +4,7 @@ Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
 ## Đang làm
-- `work/hpml-view-for-user/` · HVU-VPSARCHIVE01 · READY@`282d926cfaebdeba4cd6d2a291c41bc9e20327a8` · P29–P32 consensus; clean RUN prompt; Executor Claude Code CLI; sẵn sàng RUN.
+- `work/hpml-view-for-user/` · HVU-VPSARCHIVE01 · RUN XONG 22/09 (Claude Code CLI; báo cáo + KQ trong COLLAB việc) · chờ Host nghiệm thu · HVU vẫn Now.
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
 - `work/mcp-token-argv/` · SECURITY · Host Claude · loại Bearer token khỏi argv của lark-crud-gateway/mcp-remote; migrate secret + rotate + smoke; không chặn HVU.
 - `work/hermes-joint-workspace/` · HJW · Host GPT · A0 xác nhận lại 22/09: thêm Secret Boundary cho VPS/GSM + khai thác always-on/API/webhook/Telegram; hiện ở HJW.2A DESIGN, chưa RUN production.
@@ -28,6 +28,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - DROOT09 · 2026-09-21 · **R03 CLOSED + B3 CONTRACT FREEZE:** R03 đã nghiệm thu GPT/Claude/VPS/CROSS và CLOSED. B3 phải giữ nguyên tools/list, schema/hash, serverInfo/version, auth/URL và tool request/response/error semantics. **Ngoại lệ đã chốt:** Git author name là metadata attribution được gateway đặt theo nhãn client server-side, email gateway giữ nguyên; thay author không yêu cầu bump/reconnect vì client không cần rediscover contract.
 - DROOT10 · 2026-09-21 · **DEPLOY HEALTH GATE:** service sau deploy có tối đa 5 phút STARTING; trong STARTING cấm MCP smoke/cấm rollback. Chỉ TỐT sau healthy ổn định + contract + live read/write PASS; chỉ HỎNG khi timeout/dead hoặc đã healthy mà acceptance fail. Rollback một lệnh duy nhất, không huỷ/chồng compose.
 - DROOT11 · 2026-09-22 · **ARCHIVE FOLDER-STATE** (HVU-ARCHIVE01; A0 Owner xác nhận trực tiếp 22/09, consensus P23–P29): `work/<id>/` = Now, `work/done-tasks/<id>/` = Done; vị trí thư mục là nguồn trạng thái duy nhất, root không giữ danh sách Done. Đóng/Mở lại = Git move nguyên thư mục, giữ id + lịch sử; hai lệnh chuẩn `Đóng <id>` / `Mở lại <id>` theo AGENTS A9. Owner View tìm xuyên Now + Done theo id + tên + toàn bộ A0; URL tài liệu key theo task-id.
+- DROOT12 · 2026-09-22 · **VPS EVIDENCE ARCHIVE** (HVU-VPSARCHIVE01; A0 Owner nguyên văn 22/09, consensus P29–P32): hồ sơ VPS không-runtime của việc ở `/opt/incomex/work/<id>/` (Now) / `/opt/incomex/work/done-tasks/<id>/` (Done), sync tự đổi tên theo Git, không xoá; runtime/secret/đường cứu hộ hiện hành ở ngoài kho; `deploys` chỉ chuyển mục `ARCHIVE_SAFE` sau kiểm kê. Web mặc định chỉ Now + `Đã xong (N)` gập; link theo việc `/knowledge/modules?task=<id>`. Không tạo nguồn trạng thái mới (AGENTS A8).
 
 ## Owner cần quyết
 - —
