@@ -1,0 +1,28 @@
+{
+  "sealed_at": "2026-09-11T09:54:59.954922+00:00",
+  "status": "PASS_BOUNDED_SYNTHETIC",
+  "runtime_authority_cases": {
+    "passed": 32,
+    "total": 32
+  },
+  "native_publish_target_inspection": {
+    "name": "publish declaration does not create or mutate Binding",
+    "pass": true,
+    "write_targets": [
+      "lab_test_releases",
+      "lab_versions"
+    ],
+    "scope": "native operation source plus separate publish/activate receipts; no standalone inter-action snapshot claimed"
+  },
+  "happy_path": "nonadmin REVIEW → APPROVE → PUBLISH immutable MOW Version/Release → separate ACTIVATE → actual queue/Flow result",
+  "test": "17/17 machine cases incl actual selected C05 parameter profiles",
+  "frozen_regression": "17/17, same current guard + unchanged worker",
+  "D04": "WAITING OWNER",
+  "limitations": [
+    "AUTO-only executed slice; no HMITL orchestration or real assignment acceptance",
+    "Publish no auto-activate shown by native write-target inspection and separate action receipts, not an inter-action PG snapshot",
+    "Lab SQL fault injection restores sources; native API enforcement tested separately",
+    "One-MOT immutable closure; production source admission remains phase9",
+    "A failed assertion expected a nested native error field name; actual error flattened to parent. Rerun matched author UUID and forbidden-value reason. Initial failure retained."
+  ]
+}

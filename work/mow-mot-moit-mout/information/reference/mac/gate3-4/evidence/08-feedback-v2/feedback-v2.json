@@ -1,0 +1,344 @@
+{
+  "actions": [
+    {
+      "action": "feedback",
+      "id": "418d3017-45e5-42c7-b589-20733a5a5b2f",
+      "status": 200,
+      "body": {
+        "data": {
+          "id": "418d3017-45e5-42c7-b589-20733a5a5b2f",
+          "draft_id": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+          "draft_revision": 5,
+          "closure_hash": "86488697781e49993790f75c040720ccfaa6c380775c4e05bd7f67e694bd7ad4",
+          "kind": "FEEDBACK",
+          "status": "RECORDED",
+          "readiness": [],
+          "snapshot": {
+            "feedback_id": 2,
+            "source_version": "4c26ea6e-5c97-4029-b8fd-11248fa6822d",
+            "run_id": "b84f242f-e2c6-448c-9ed2-ef71c6b45560"
+          },
+          "results": [],
+          "expires_at": "2026-09-11T14:00:21.592Z",
+          "revoked": false,
+          "scope": "pilot",
+          "revision": 1,
+          "last_request": "e2827dd7-d544-4611-9dbf-bb2be56b11f9",
+          "user_created": "e9b47c64-672a-4be8-9976-fa40fa7b68e3",
+          "date_created": "2026-09-11T10:00:24.975Z",
+          "source_evidence": "72c7b53e-1195-42c4-b3fe-44e0395e4c33"
+        },
+        "meta": {
+          "server_request_id": "e2827dd7-d544-4611-9dbf-bb2be56b11f9",
+          "logical_request_id": "0649d430-07fb-46f3-b44e-1dc9c0f569ba",
+          "action": "feedback",
+          "business_version": "editable-draft/main",
+          "instance_id": null,
+          "release_hash": null,
+          "revision": 1,
+          "transaction_id": "2949",
+          "backend_pid": 1127
+        },
+        "replayed": false
+      }
+    },
+    {
+      "action": "definition",
+      "id": "026d44bd-1cd2-420e-b973-682b5925205a",
+      "status": 200,
+      "body": {
+        "data": {
+          "id": "026d44bd-1cd2-420e-b973-682b5925205a",
+          "family": "Condition",
+          "meaning": "Biến thể thử nghiệm: đánh dấu xem xét khi vượt 90 phút",
+          "owner": "b5b470a5-3a08-498c-97ea-0ebfa2ac241e",
+          "status": "active",
+          "scope": "pilot",
+          "revision": 1,
+          "last_request": "2b8a82d5-c253-4e81-acea-a8931f1991cb",
+          "user_created": "66695233-5f52-41c7-be99-f974e4ad2d54",
+          "date_created": "2026-09-11T10:00:25.853Z",
+          "user_updated": null,
+          "date_updated": null
+        },
+        "meta": {
+          "server_request_id": "2b8a82d5-c253-4e81-acea-a8931f1991cb",
+          "logical_request_id": "b07eaf13-91b4-4776-b720-b93f22f42779",
+          "action": "definition",
+          "business_version": "editable-draft/main",
+          "instance_id": null,
+          "release_hash": null,
+          "revision": 1,
+          "transaction_id": "2950",
+          "backend_pid": 1127
+        },
+        "replayed": false
+      }
+    },
+    {
+      "action": "version",
+      "id": "428a4eb4-ef10-44c6-9c16-b520ec5b6196",
+      "status": 200,
+      "body": {
+        "data": {
+          "id": "428a4eb4-ef10-44c6-9c16-b520ec5b6196",
+          "definition_id": "026d44bd-1cd2-420e-b973-682b5925205a",
+          "family": "Condition",
+          "version": 1,
+          "meaning": "Vượt 90 phút thì cần xem xét; đúng90 không vượt",
+          "parameters": {
+            "operator": "_gt",
+            "field_ref": "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+            "threshold": 90,
+            "unit": "minute",
+            "output_field_ref": "b8756a04-b301-42e4-a791-2e3b98532b6a",
+            "false_outcome": false,
+            "filter": {
+              "duration_minutes": {
+                "_gt": 90
+              }
+            }
+          },
+          "refs": [
+            "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+            "b8756a04-b301-42e4-a791-2e3b98532b6a"
+          ],
+          "digest": "4c76446121badb3aa56cc6633635f64cda5d7defa6bb52a0757b72e52767c9f5",
+          "status": "published",
+          "provenance": {
+            "feedback_id": 2,
+            "source_version": "c15adbf9-c5d5-4369-b893-f508683481f6",
+            "variant_reason": "Different declared threshold; preserve exact 60-minute Definition meaning and V1 unchanged",
+            "compatible_90_variants_found": 0
+          },
+          "scope": "pilot",
+          "revision": 1,
+          "last_request": "79a51c11-b42f-4243-b6c3-eac8d7eca6d4",
+          "user_created": "66695233-5f52-41c7-be99-f974e4ad2d54",
+          "date_created": "2026-09-11T10:00:26.850Z",
+          "user_updated": null,
+          "date_updated": null
+        },
+        "meta": {
+          "server_request_id": "79a51c11-b42f-4243-b6c3-eac8d7eca6d4",
+          "logical_request_id": "63707253-e93d-46af-9a81-84d3babc165d",
+          "action": "version",
+          "business_version": "editable-draft/main",
+          "instance_id": null,
+          "release_hash": null,
+          "revision": 1,
+          "transaction_id": "2951",
+          "backend_pid": 1127
+        },
+        "replayed": false
+      }
+    },
+    {
+      "action": "draft",
+      "id": "ca51f9b9-2cb2-4a89-b081-43927711709c",
+      "status": 200,
+      "body": {
+        "data": {
+          "id": "ca51f9b9-2cb2-4a89-b081-43927711709c",
+          "intent_id": "75691f3d-ff92-46f6-b0ba-085ce66c9aa5",
+          "title": "Quy trình ghi nhận thời lượng xử lý",
+          "family": "MOW",
+          "version": 2,
+          "status": "draft",
+          "content": {
+            "steps": [
+              {
+                "id": "step-1-human-duration-entry",
+                "order": 1,
+                "mot_ref": "677df08c-3dd5-4ccc-a189-46c126bb8bff",
+                "start": {
+                  "trigger_ref": "8b3f61fc-1aaa-41f1-b61e-d3fabceea130"
+                },
+                "condition_ref": null
+              },
+              {
+                "id": "step-2-auto-review-flag",
+                "order": 2,
+                "mot_ref": "4f56d26e-de29-4f9d-9f01-a65c09010f22",
+                "start": {
+                  "previous_step": "step-1-human-duration-entry",
+                  "dependency": "completion",
+                  "requires_outputs": [
+                    "duration_minutes",
+                    "date_created"
+                  ],
+                  "condition": "after successful record save",
+                  "join": "then"
+                },
+                "condition_ref": "428a4eb4-ef10-44c6-9c16-b520ec5b6196"
+              }
+            ],
+            "refs": [
+              "18c23c3a-c8e7-418b-99db-5998f64078df",
+              "2e2f6ac6-caa8-4099-83e7-4c37e3f19690",
+              "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+              "4f56d26e-de29-4f9d-9f01-a65c09010f22",
+              "5539f704-cba3-4c4b-ab88-7741d18314cb",
+              "59b79193-7978-4e01-99e7-aca8dddf878f",
+              "677df08c-3dd5-4ccc-a189-46c126bb8bff",
+              "72fd9674-f34d-43dd-a7cb-2d2d5371b176",
+              "756a9da6-31bd-45d4-89c7-ada389b51f21",
+              "8b3f61fc-1aaa-41f1-b61e-d3fabceea130",
+              "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338",
+              "b8756a04-b301-42e4-a791-2e3b98532b6a",
+              "428a4eb4-ef10-44c6-9c16-b520ec5b6196"
+            ],
+            "missing_slots": [],
+            "notes": "Resolved the condition binding with published Condition c15adbf9-c5d5-4369-b893-f508683481f6 version 1 (digest bc05d25b8feadd0e5c662c46c1e87842f7ae3cc7b6e2dc6ffa3f0afa63bede8a). Draft remains unactivated and unpublished."
+          },
+          "search_brief": {
+            "feedback_id": 2,
+            "reuse": "12 exact Versions reused; one declared Condition variant admitted after no compatible90 found"
+          },
+          "source_version": "4c26ea6e-5c97-4029-b8fd-11248fa6822d",
+          "feedback_id": 2,
+          "reason": "Synthetic feedback comparison 60→90; not a claimed business improvement",
+          "scope": "pilot",
+          "revision": 1,
+          "last_request": "795aedb3-09f8-44cd-9060-974f50bb8535",
+          "user_created": "e9b47c64-672a-4be8-9976-fa40fa7b68e3",
+          "date_created": "2026-09-11T10:00:27.875Z",
+          "user_updated": null,
+          "date_updated": null,
+          "definition_id": "74c4d879-d75e-40aa-a7ef-caa30736e94b",
+          "approval_id": null,
+          "published_version": null,
+          "release_id": null
+        },
+        "meta": {
+          "server_request_id": "795aedb3-09f8-44cd-9060-974f50bb8535",
+          "logical_request_id": "b0f434a2-0ee0-4f48-ba91-954f7fe8fdba",
+          "action": "draft",
+          "business_version": "editable-draft/main",
+          "instance_id": null,
+          "release_hash": null,
+          "revision": 1,
+          "transaction_id": "2952",
+          "backend_pid": 1127
+        },
+        "replayed": false
+      }
+    }
+  ],
+  "feedback": {
+    "id": 2,
+    "content": "Trong bản thử tiếp theo, chỉ đánh dấu cần xem xét khi thời lượng vượt 90 phút để so sánh với ngưỡng 60 phút.",
+    "linked_entity_ref": "4c26ea6e-5c97-4029-b8fd-11248fa6822d",
+    "entity_type": "MOW",
+    "feedback_type": "improvement",
+    "context_snippet": "Completed synthetic test run; no business improvement measurement",
+    "metadata": {
+      "source_version": "4c26ea6e-5c97-4029-b8fd-11248fa6822d",
+      "run_id": "b84f242f-e2c6-448c-9ed2-ef71c6b45560",
+      "release_id": "c8bda5e2-35a1-439e-9575-6137ca3f844e",
+      "source_draft": "47775731-9db1-4a91-860d-1b2fcab2a97e"
+    },
+    "status": "open",
+    "user_created": null,
+    "date_created": "2026-09-11T10:00:22.767Z"
+  },
+  "action_receipt_id": "418d3017-45e5-42c7-b589-20733a5a5b2f",
+  "draft": {
+    "id": "ca51f9b9-2cb2-4a89-b081-43927711709c",
+    "intent_id": "75691f3d-ff92-46f6-b0ba-085ce66c9aa5",
+    "title": "Quy trình ghi nhận thời lượng xử lý",
+    "family": "MOW",
+    "version": 2,
+    "status": "draft",
+    "content": {
+      "steps": [
+        {
+          "id": "step-1-human-duration-entry",
+          "order": 1,
+          "mot_ref": "677df08c-3dd5-4ccc-a189-46c126bb8bff",
+          "start": {
+            "trigger_ref": "8b3f61fc-1aaa-41f1-b61e-d3fabceea130"
+          },
+          "condition_ref": null
+        },
+        {
+          "id": "step-2-auto-review-flag",
+          "order": 2,
+          "mot_ref": "4f56d26e-de29-4f9d-9f01-a65c09010f22",
+          "start": {
+            "previous_step": "step-1-human-duration-entry",
+            "dependency": "completion",
+            "requires_outputs": [
+              "duration_minutes",
+              "date_created"
+            ],
+            "condition": "after successful record save",
+            "join": "then"
+          },
+          "condition_ref": "428a4eb4-ef10-44c6-9c16-b520ec5b6196"
+        }
+      ],
+      "refs": [
+        "18c23c3a-c8e7-418b-99db-5998f64078df",
+        "2e2f6ac6-caa8-4099-83e7-4c37e3f19690",
+        "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+        "4f56d26e-de29-4f9d-9f01-a65c09010f22",
+        "5539f704-cba3-4c4b-ab88-7741d18314cb",
+        "59b79193-7978-4e01-99e7-aca8dddf878f",
+        "677df08c-3dd5-4ccc-a189-46c126bb8bff",
+        "72fd9674-f34d-43dd-a7cb-2d2d5371b176",
+        "756a9da6-31bd-45d4-89c7-ada389b51f21",
+        "8b3f61fc-1aaa-41f1-b61e-d3fabceea130",
+        "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338",
+        "b8756a04-b301-42e4-a791-2e3b98532b6a",
+        "428a4eb4-ef10-44c6-9c16-b520ec5b6196"
+      ],
+      "missing_slots": [],
+      "notes": "Resolved the condition binding with published Condition c15adbf9-c5d5-4369-b893-f508683481f6 version 1 (digest bc05d25b8feadd0e5c662c46c1e87842f7ae3cc7b6e2dc6ffa3f0afa63bede8a). Draft remains unactivated and unpublished."
+    },
+    "search_brief": {
+      "feedback_id": 2,
+      "reuse": "12 exact Versions reused; one declared Condition variant admitted after no compatible90 found"
+    },
+    "source_version": "4c26ea6e-5c97-4029-b8fd-11248fa6822d",
+    "feedback_id": 2,
+    "reason": "Synthetic feedback comparison 60→90; not a claimed business improvement",
+    "scope": "pilot",
+    "revision": 1,
+    "last_request": "795aedb3-09f8-44cd-9060-974f50bb8535",
+    "user_created": "e9b47c64-672a-4be8-9976-fa40fa7b68e3",
+    "date_created": "2026-09-11T10:00:27.875Z",
+    "user_updated": null,
+    "date_updated": null,
+    "definition_id": "74c4d879-d75e-40aa-a7ef-caa30736e94b",
+    "approval_id": null,
+    "published_version": null,
+    "release_id": null
+  },
+  "test": {
+    "entry": "compile command; all tests generated from template/contracts and run/scored without per-test clicks",
+    "evidence_id": "18e12c08-7853-4518-bcaa-2700a12b7d7e",
+    "draft_id": "ca51f9b9-2cb2-4a89-b081-43927711709c",
+    "draft_revision": 1,
+    "closure_hash": "94f9cbef2a2fbf978ace110e38ca7086654b6ae863967bca850f0644e9eecacf",
+    "passed": 17,
+    "total": 17,
+    "status": "PASS",
+    "formal_gate5": "NOT STARTED",
+    "material_staleness_enforcement": "requires lifecycle step7; this compile only pins exact revision/hash"
+  },
+  "V1_unchanged": true,
+  "V2_inherited_approval": null,
+  "V2_inherited_release": null,
+  "reused_versions": 12,
+  "new_variant": {
+    "definition_id": "026d44bd-1cd2-420e-b973-682b5925205a",
+    "version_id": "428a4eb4-ef10-44c6-9c16-b520ec5b6196"
+  },
+  "native_flows": [
+    "28fbe39b-4c19-469b-981d-62c2d3311a9c",
+    "d36a6add-b82a-44a9-885d-e704b3da53e5"
+  ],
+  "measurement": "NOT MEASURABLE YET: synthetic boundaries are correctness, not human effort/business benefit; O3 NOT VERIFIED",
+  "feedback_storage": "Existing feedbacks integer-key/content/metadata schema subset cloned only in lab; UUID write receipt is distinct from integer feedback ID, no new guard code"
+}

@@ -1,0 +1,953 @@
+[
+  {
+    "name": "P1 queued V1 after main changed / new occurrence V2",
+    "pass": true,
+    "actual": {
+      "v1": {
+        "instance": {
+          "id": "868ac60b-97f3-4082-9214-db227ef86315",
+          "event_id": "5b46a793-0e10-4918-8cef-fa9aefaf9fc4",
+          "release_id": "205e94dc-4cc2-4587-84a4-28294d5be197",
+          "job_id": "4333c939-0f23-4b2f-bd6a-d066ab1d665c",
+          "record_id": "4c53df53-775a-48d1-8520-a06131016c56",
+          "request_key": "bfe62d51-1e73-4250-bb72-16a11433fa38",
+          "actor_id": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+          "disposition": "succeeded",
+          "result": {
+            "data": {
+              "id": "4c53df53-775a-48d1-8520-a06131016c56",
+              "note": "TEST internal result V1",
+              "scope": "pilot",
+              "status": "draft",
+              "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+              "revision": 1,
+              "date_created": "2026-09-11T08:56:25.662Z",
+              "date_updated": null,
+              "form_version": "release:205e94dc-4cc2-4587-84a4-28294d5be197",
+              "last_request": "8f7db274-e732-4ef1-9783-4cb32f02e415",
+              "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+              "user_updated": null,
+              "form_revision": 3,
+              "review_required": null,
+              "duration_minutes": 5
+            },
+            "meta": {
+              "action": "record",
+              "revision": 1,
+              "backend_pid": 1127,
+              "instance_id": "868ac60b-97f3-4082-9214-db227ef86315",
+              "release_hash": "385949e8cb1638156865f9c08e534cbeed500c19861e4113a790032a387b7f26",
+              "transaction_id": "2038",
+              "business_version": "release:205e94dc-4cc2-4587-84a4-28294d5be197",
+              "server_request_id": "8f7db274-e732-4ef1-9783-4cb32f02e415",
+              "logical_request_id": "bfe62d51-1e73-4250-bb72-16a11433fa38"
+            },
+            "replayed": false
+          },
+          "created_at": "2026-09-11T08:56:11.369298+00:00",
+          "finished_at": "2026-09-11T08:56:25.777834+00:00"
+        },
+        "job": {
+          "id": "4333c939-0f23-4b2f-bd6a-d066ab1d665c",
+          "state": "completed",
+          "retry_count": 0,
+          "output": {
+            "attempt_id": "8eea39d6-ebc6-48f1-9168-33cef18fa70c",
+            "instance_id": "868ac60b-97f3-4082-9214-db227ef86315",
+            "server_request": "8f7db274-e732-4ef1-9783-4cb32f02e415"
+          }
+        },
+        "attempts": [
+          {
+            "id": "8eea39d6-ebc6-48f1-9168-33cef18fa70c",
+            "instance_id": "868ac60b-97f3-4082-9214-db227ef86315",
+            "job_id": "4333c939-0f23-4b2f-bd6a-d066ab1d665c",
+            "queue_retry_count": 0,
+            "capability_version": "guarded-write@1",
+            "status": "succeeded",
+            "result": {
+              "data": {
+                "id": "4c53df53-775a-48d1-8520-a06131016c56",
+                "note": "TEST internal result V1",
+                "scope": "pilot",
+                "status": "draft",
+                "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+                "revision": 1,
+                "date_created": "2026-09-11T08:56:25.662Z",
+                "date_updated": null,
+                "form_version": "release:205e94dc-4cc2-4587-84a4-28294d5be197",
+                "last_request": "8f7db274-e732-4ef1-9783-4cb32f02e415",
+                "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+                "user_updated": null,
+                "form_revision": 3,
+                "review_required": null,
+                "duration_minutes": 5
+              },
+              "meta": {
+                "action": "record",
+                "revision": 1,
+                "backend_pid": 1127,
+                "instance_id": "868ac60b-97f3-4082-9214-db227ef86315",
+                "release_hash": "385949e8cb1638156865f9c08e534cbeed500c19861e4113a790032a387b7f26",
+                "transaction_id": "2038",
+                "business_version": "release:205e94dc-4cc2-4587-84a4-28294d5be197",
+                "server_request_id": "8f7db274-e732-4ef1-9783-4cb32f02e415",
+                "logical_request_id": "bfe62d51-1e73-4250-bb72-16a11433fa38"
+              },
+              "replayed": false
+            },
+            "server_request": "8f7db274-e732-4ef1-9783-4cb32f02e415",
+            "error": null,
+            "process_id": 1,
+            "started_at": "2026-09-11T08:56:23.83009+00:00",
+            "finished_at": "2026-09-11T08:56:25.777834+00:00"
+          }
+        ],
+        "effects": 1,
+        "record": {
+          "id": "4c53df53-775a-48d1-8520-a06131016c56",
+          "duration_minutes": 5,
+          "note": "TEST internal result V1",
+          "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+          "form_version": "release:205e94dc-4cc2-4587-84a4-28294d5be197",
+          "scope": "pilot",
+          "status": "draft",
+          "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+          "date_created": "2026-09-11T08:56:25.662+00:00",
+          "user_updated": null,
+          "date_updated": null,
+          "revision": 1,
+          "last_request": "8f7db274-e732-4ef1-9783-4cb32f02e415",
+          "form_revision": 3,
+          "review_required": null
+        },
+        "receipts": 1
+      },
+      "v2": {
+        "instance": {
+          "id": "8e4e49e8-44a9-49c7-8b4f-8beb85909b44",
+          "event_id": "660802cb-e9f0-4c1f-b811-faf9f63a30ca",
+          "release_id": "6621f044-4ce0-4ae6-8719-2bb0765a6875",
+          "job_id": "f515441c-3368-4ed8-b6f0-4376b826a348",
+          "record_id": "435ee56b-8775-4917-af0c-81e939f97c05",
+          "request_key": "61544b7e-ec25-4e9b-9138-2f98c72811ee",
+          "actor_id": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+          "disposition": "succeeded",
+          "result": {
+            "data": {
+              "id": "435ee56b-8775-4917-af0c-81e939f97c05",
+              "note": "TEST internal result V2",
+              "scope": "pilot",
+              "status": "draft",
+              "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+              "revision": 1,
+              "date_created": "2026-09-11T08:56:28.586Z",
+              "date_updated": null,
+              "form_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+              "last_request": "8abd1f24-da43-495f-a49e-b1162755479b",
+              "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+              "user_updated": null,
+              "form_revision": 4,
+              "review_required": null,
+              "duration_minutes": 150
+            },
+            "meta": {
+              "action": "record",
+              "revision": 1,
+              "backend_pid": 1127,
+              "instance_id": "8e4e49e8-44a9-49c7-8b4f-8beb85909b44",
+              "release_hash": "fe3174d85a152735488b834ee0b1d205db176e89e4095ad7d1cb6ba2bfaa1d7e",
+              "transaction_id": "2046",
+              "business_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+              "server_request_id": "8abd1f24-da43-495f-a49e-b1162755479b",
+              "logical_request_id": "61544b7e-ec25-4e9b-9138-2f98c72811ee"
+            },
+            "replayed": false
+          },
+          "created_at": "2026-09-11T08:56:21.452504+00:00",
+          "finished_at": "2026-09-11T08:56:28.876187+00:00"
+        },
+        "job": {
+          "id": "f515441c-3368-4ed8-b6f0-4376b826a348",
+          "state": "completed",
+          "retry_count": 0,
+          "output": {
+            "attempt_id": "5ab7fb78-4b66-49a7-98d0-d0c2cfd61d22",
+            "instance_id": "8e4e49e8-44a9-49c7-8b4f-8beb85909b44",
+            "server_request": "8abd1f24-da43-495f-a49e-b1162755479b"
+          }
+        },
+        "attempts": [
+          {
+            "id": "5ab7fb78-4b66-49a7-98d0-d0c2cfd61d22",
+            "instance_id": "8e4e49e8-44a9-49c7-8b4f-8beb85909b44",
+            "job_id": "f515441c-3368-4ed8-b6f0-4376b826a348",
+            "queue_retry_count": 0,
+            "capability_version": "guarded-write@1",
+            "status": "succeeded",
+            "result": {
+              "data": {
+                "id": "435ee56b-8775-4917-af0c-81e939f97c05",
+                "note": "TEST internal result V2",
+                "scope": "pilot",
+                "status": "draft",
+                "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+                "revision": 1,
+                "date_created": "2026-09-11T08:56:28.586Z",
+                "date_updated": null,
+                "form_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+                "last_request": "8abd1f24-da43-495f-a49e-b1162755479b",
+                "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+                "user_updated": null,
+                "form_revision": 4,
+                "review_required": null,
+                "duration_minutes": 150
+              },
+              "meta": {
+                "action": "record",
+                "revision": 1,
+                "backend_pid": 1127,
+                "instance_id": "8e4e49e8-44a9-49c7-8b4f-8beb85909b44",
+                "release_hash": "fe3174d85a152735488b834ee0b1d205db176e89e4095ad7d1cb6ba2bfaa1d7e",
+                "transaction_id": "2046",
+                "business_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+                "server_request_id": "8abd1f24-da43-495f-a49e-b1162755479b",
+                "logical_request_id": "61544b7e-ec25-4e9b-9138-2f98c72811ee"
+              },
+              "replayed": false
+            },
+            "server_request": "8abd1f24-da43-495f-a49e-b1162755479b",
+            "error": null,
+            "process_id": 1,
+            "started_at": "2026-09-11T08:56:25.838112+00:00",
+            "finished_at": "2026-09-11T08:56:28.876187+00:00"
+          }
+        ],
+        "effects": 1,
+        "record": {
+          "id": "435ee56b-8775-4917-af0c-81e939f97c05",
+          "duration_minutes": 150,
+          "note": "TEST internal result V2",
+          "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+          "form_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+          "scope": "pilot",
+          "status": "draft",
+          "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+          "date_created": "2026-09-11T08:56:28.586+00:00",
+          "user_updated": null,
+          "date_updated": null,
+          "revision": 1,
+          "last_request": "8abd1f24-da43-495f-a49e-b1162755479b",
+          "form_revision": 4,
+          "review_required": null
+        },
+        "receipts": 1
+      },
+      "main": 4
+    }
+  },
+  {
+    "name": "P4 current profile >=100 does not reinterpret V1=5",
+    "pass": true,
+    "actual": {
+      "pinned_profile": {
+        "engine": "joi@17.13.3",
+        "profile": {
+          "id": "record-input-v1",
+          "version": 1,
+          "joi_description": {
+            "type": "object",
+            "flags": {
+              "unknown": false
+            },
+            "keys": {
+              "duration_minutes": {
+                "type": "number",
+                "flags": {
+                  "presence": "required"
+                },
+                "rules": [
+                  {
+                    "name": "integer"
+                  },
+                  {
+                    "name": "min",
+                    "args": {
+                      "limit": 0
+                    }
+                  }
+                ]
+              },
+              "note": {
+                "type": "string",
+                "allow": [
+                  null,
+                  ""
+                ]
+              }
+            }
+          }
+        }
+      },
+      "current_profile": {
+        "id": "record-input-v1",
+        "version": 1,
+        "joi_description": {
+          "type": "object",
+          "flags": {
+            "unknown": false
+          },
+          "keys": {
+            "duration_minutes": {
+              "type": "number",
+              "flags": {
+                "presence": "required"
+              },
+              "rules": [
+                {
+                  "name": "integer"
+                },
+                {
+                  "name": "min",
+                  "args": {
+                    "limit": 100
+                  }
+                }
+              ]
+            },
+            "note": {
+              "type": "string",
+              "allow": [
+                null,
+                ""
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "duplicate occurrence reuses instance/job/effect",
+    "pass": true,
+    "actual": {
+      "original": "868ac60b-97f3-4082-9214-db227ef86315",
+      "duplicate": "868ac60b-97f3-4082-9214-db227ef86315",
+      "state": {
+        "instance": {
+          "id": "868ac60b-97f3-4082-9214-db227ef86315",
+          "event_id": "5b46a793-0e10-4918-8cef-fa9aefaf9fc4",
+          "release_id": "205e94dc-4cc2-4587-84a4-28294d5be197",
+          "job_id": "4333c939-0f23-4b2f-bd6a-d066ab1d665c",
+          "record_id": "4c53df53-775a-48d1-8520-a06131016c56",
+          "request_key": "bfe62d51-1e73-4250-bb72-16a11433fa38",
+          "actor_id": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+          "disposition": "succeeded",
+          "result": {
+            "data": {
+              "id": "4c53df53-775a-48d1-8520-a06131016c56",
+              "note": "TEST internal result V1",
+              "scope": "pilot",
+              "status": "draft",
+              "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+              "revision": 1,
+              "date_created": "2026-09-11T08:56:25.662Z",
+              "date_updated": null,
+              "form_version": "release:205e94dc-4cc2-4587-84a4-28294d5be197",
+              "last_request": "8f7db274-e732-4ef1-9783-4cb32f02e415",
+              "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+              "user_updated": null,
+              "form_revision": 3,
+              "review_required": null,
+              "duration_minutes": 5
+            },
+            "meta": {
+              "action": "record",
+              "revision": 1,
+              "backend_pid": 1127,
+              "instance_id": "868ac60b-97f3-4082-9214-db227ef86315",
+              "release_hash": "385949e8cb1638156865f9c08e534cbeed500c19861e4113a790032a387b7f26",
+              "transaction_id": "2038",
+              "business_version": "release:205e94dc-4cc2-4587-84a4-28294d5be197",
+              "server_request_id": "8f7db274-e732-4ef1-9783-4cb32f02e415",
+              "logical_request_id": "bfe62d51-1e73-4250-bb72-16a11433fa38"
+            },
+            "replayed": false
+          },
+          "created_at": "2026-09-11T08:56:11.369298+00:00",
+          "finished_at": "2026-09-11T08:56:25.777834+00:00"
+        },
+        "job": {
+          "id": "4333c939-0f23-4b2f-bd6a-d066ab1d665c",
+          "state": "completed",
+          "retry_count": 0,
+          "output": {
+            "attempt_id": "8eea39d6-ebc6-48f1-9168-33cef18fa70c",
+            "instance_id": "868ac60b-97f3-4082-9214-db227ef86315",
+            "server_request": "8f7db274-e732-4ef1-9783-4cb32f02e415"
+          }
+        },
+        "attempts": [
+          {
+            "id": "8eea39d6-ebc6-48f1-9168-33cef18fa70c",
+            "instance_id": "868ac60b-97f3-4082-9214-db227ef86315",
+            "job_id": "4333c939-0f23-4b2f-bd6a-d066ab1d665c",
+            "queue_retry_count": 0,
+            "capability_version": "guarded-write@1",
+            "status": "succeeded",
+            "result": {
+              "data": {
+                "id": "4c53df53-775a-48d1-8520-a06131016c56",
+                "note": "TEST internal result V1",
+                "scope": "pilot",
+                "status": "draft",
+                "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+                "revision": 1,
+                "date_created": "2026-09-11T08:56:25.662Z",
+                "date_updated": null,
+                "form_version": "release:205e94dc-4cc2-4587-84a4-28294d5be197",
+                "last_request": "8f7db274-e732-4ef1-9783-4cb32f02e415",
+                "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+                "user_updated": null,
+                "form_revision": 3,
+                "review_required": null,
+                "duration_minutes": 5
+              },
+              "meta": {
+                "action": "record",
+                "revision": 1,
+                "backend_pid": 1127,
+                "instance_id": "868ac60b-97f3-4082-9214-db227ef86315",
+                "release_hash": "385949e8cb1638156865f9c08e534cbeed500c19861e4113a790032a387b7f26",
+                "transaction_id": "2038",
+                "business_version": "release:205e94dc-4cc2-4587-84a4-28294d5be197",
+                "server_request_id": "8f7db274-e732-4ef1-9783-4cb32f02e415",
+                "logical_request_id": "bfe62d51-1e73-4250-bb72-16a11433fa38"
+              },
+              "replayed": false
+            },
+            "server_request": "8f7db274-e732-4ef1-9783-4cb32f02e415",
+            "error": null,
+            "process_id": 1,
+            "started_at": "2026-09-11T08:56:23.83009+00:00",
+            "finished_at": "2026-09-11T08:56:25.777834+00:00"
+          }
+        ],
+        "effects": 1,
+        "record": {
+          "id": "4c53df53-775a-48d1-8520-a06131016c56",
+          "duration_minutes": 5,
+          "note": "TEST internal result V1",
+          "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+          "form_version": "release:205e94dc-4cc2-4587-84a4-28294d5be197",
+          "scope": "pilot",
+          "status": "draft",
+          "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+          "date_created": "2026-09-11T08:56:25.662+00:00",
+          "user_updated": null,
+          "date_updated": null,
+          "revision": 1,
+          "last_request": "8f7db274-e732-4ef1-9783-4cb32f02e415",
+          "form_revision": 3,
+          "review_required": null
+        },
+        "receipts": 1
+      }
+    }
+  },
+  {
+    "name": "P2 current native permission revoke blocks pinned action",
+    "pass": true,
+    "actual": {
+      "instance": {
+        "id": "f1df74e6-d889-4f9d-adee-7a9d45aa5dfb",
+        "event_id": "9884e76e-02a6-40c5-8425-fc1d447cda76",
+        "release_id": "6621f044-4ce0-4ae6-8719-2bb0765a6875",
+        "job_id": "a54e7026-ce2c-46ca-b1f4-cf270d2c87ad",
+        "record_id": "0e30b5c3-1354-4ee7-ae10-d8ece041b664",
+        "request_key": "57c0e8cf-4b0a-4221-99c7-a29ffbe2e0ce",
+        "actor_id": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+        "disposition": "auth_blocked",
+        "result": null,
+        "created_at": "2026-09-11T08:56:35.521208+00:00",
+        "finished_at": null
+      },
+      "job": {
+        "id": "a54e7026-ce2c-46ca-b1f4-cf270d2c87ad",
+        "state": "failed",
+        "retry_count": 0,
+        "output": {
+          "code": "FORBIDDEN",
+          "disposition": "auth_blocked"
+        }
+      },
+      "attempts": [
+        {
+          "id": "3eb77c59-c5eb-449a-b5fa-b392e58929fc",
+          "instance_id": "f1df74e6-d889-4f9d-adee-7a9d45aa5dfb",
+          "job_id": "a54e7026-ce2c-46ca-b1f4-cf270d2c87ad",
+          "queue_retry_count": 0,
+          "capability_version": "guarded-write@1",
+          "status": "failed",
+          "result": null,
+          "server_request": null,
+          "error": "FORBIDDEN",
+          "process_id": 1,
+          "started_at": "2026-09-11T08:56:37.827139+00:00",
+          "finished_at": "2026-09-11T08:56:39.476439+00:00"
+        }
+      ],
+      "effects": 0,
+      "record": null,
+      "receipts": 0
+    }
+  },
+  {
+    "name": "P3 transient native retry then success",
+    "pass": true,
+    "actual": {
+      "instance": {
+        "id": "40bb5aa0-807a-4c67-a54f-c5f56e2cd4c8",
+        "event_id": "ef59fcc1-3244-40ec-a4f5-c47efec9b92d",
+        "release_id": "6621f044-4ce0-4ae6-8719-2bb0765a6875",
+        "job_id": "bc0823de-91c3-40fa-9677-e1f65ed1a57d",
+        "record_id": "bdea0462-33fa-4da6-badd-b1f524298ac7",
+        "request_key": "6b82daa7-e94b-4e78-863e-a9df62bc8080",
+        "actor_id": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+        "disposition": "succeeded",
+        "result": {
+          "data": {
+            "id": "bdea0462-33fa-4da6-badd-b1f524298ac7",
+            "note": "TEST internal result V2",
+            "scope": "pilot",
+            "status": "draft",
+            "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+            "revision": 1,
+            "date_created": "2026-09-11T08:56:47.162Z",
+            "date_updated": null,
+            "form_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+            "last_request": "13f0b681-faab-4955-a4be-3d3583db9825",
+            "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+            "user_updated": null,
+            "form_revision": 4,
+            "review_required": null,
+            "duration_minutes": 150
+          },
+          "meta": {
+            "action": "record",
+            "revision": 1,
+            "backend_pid": 1127,
+            "instance_id": "40bb5aa0-807a-4c67-a54f-c5f56e2cd4c8",
+            "release_hash": "fe3174d85a152735488b834ee0b1d205db176e89e4095ad7d1cb6ba2bfaa1d7e",
+            "transaction_id": "2077",
+            "business_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+            "server_request_id": "13f0b681-faab-4955-a4be-3d3583db9825",
+            "logical_request_id": "6b82daa7-e94b-4e78-863e-a9df62bc8080"
+          },
+          "replayed": false
+        },
+        "created_at": "2026-09-11T08:56:42.365386+00:00",
+        "finished_at": "2026-09-11T08:56:47.195386+00:00"
+      },
+      "job": {
+        "id": "bc0823de-91c3-40fa-9677-e1f65ed1a57d",
+        "state": "completed",
+        "retry_count": 1,
+        "output": {
+          "attempt_id": "aac0acb7-a8c4-4201-bc65-d726678ae777",
+          "instance_id": "40bb5aa0-807a-4c67-a54f-c5f56e2cd4c8",
+          "server_request": "13f0b681-faab-4955-a4be-3d3583db9825"
+        }
+      },
+      "attempts": [
+        {
+          "id": "c2d73087-9f2b-4b40-80b9-97ba69b10b23",
+          "instance_id": "40bb5aa0-807a-4c67-a54f-c5f56e2cd4c8",
+          "job_id": "bc0823de-91c3-40fa-9677-e1f65ed1a57d",
+          "queue_retry_count": 0,
+          "capability_version": "guarded-write@1",
+          "status": "failed",
+          "result": null,
+          "server_request": null,
+          "error": "TRANSIENT_UNAVAILABLE",
+          "process_id": 1,
+          "started_at": "2026-09-11T08:56:43.986123+00:00",
+          "finished_at": "2026-09-11T08:56:45.090251+00:00"
+        },
+        {
+          "id": "aac0acb7-a8c4-4201-bc65-d726678ae777",
+          "instance_id": "40bb5aa0-807a-4c67-a54f-c5f56e2cd4c8",
+          "job_id": "bc0823de-91c3-40fa-9677-e1f65ed1a57d",
+          "queue_retry_count": 1,
+          "capability_version": "guarded-write@1",
+          "status": "succeeded",
+          "result": {
+            "data": {
+              "id": "bdea0462-33fa-4da6-badd-b1f524298ac7",
+              "note": "TEST internal result V2",
+              "scope": "pilot",
+              "status": "draft",
+              "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+              "revision": 1,
+              "date_created": "2026-09-11T08:56:47.162Z",
+              "date_updated": null,
+              "form_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+              "last_request": "13f0b681-faab-4955-a4be-3d3583db9825",
+              "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+              "user_updated": null,
+              "form_revision": 4,
+              "review_required": null,
+              "duration_minutes": 150
+            },
+            "meta": {
+              "action": "record",
+              "revision": 1,
+              "backend_pid": 1127,
+              "instance_id": "40bb5aa0-807a-4c67-a54f-c5f56e2cd4c8",
+              "release_hash": "fe3174d85a152735488b834ee0b1d205db176e89e4095ad7d1cb6ba2bfaa1d7e",
+              "transaction_id": "2077",
+              "business_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+              "server_request_id": "13f0b681-faab-4955-a4be-3d3583db9825",
+              "logical_request_id": "6b82daa7-e94b-4e78-863e-a9df62bc8080"
+            },
+            "replayed": false
+          },
+          "server_request": "13f0b681-faab-4955-a4be-3d3583db9825",
+          "error": null,
+          "process_id": 1,
+          "started_at": "2026-09-11T08:56:46.124556+00:00",
+          "finished_at": "2026-09-11T08:56:47.195386+00:00"
+        }
+      ],
+      "effects": 1,
+      "record": {
+        "id": "bdea0462-33fa-4da6-badd-b1f524298ac7",
+        "duration_minutes": 150,
+        "note": "TEST internal result V2",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+        "scope": "pilot",
+        "status": "draft",
+        "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+        "date_created": "2026-09-11T08:56:47.162+00:00",
+        "user_updated": null,
+        "date_updated": null,
+        "revision": 1,
+        "last_request": "13f0b681-faab-4955-a4be-3d3583db9825",
+        "form_revision": 4,
+        "review_required": null
+      },
+      "receipts": 1
+    }
+  },
+  {
+    "name": "P3 permanent validation has no pointless retry",
+    "pass": true,
+    "actual": {
+      "instance": {
+        "id": "27b3a921-61a7-4040-adc5-dfc2de8a8334",
+        "event_id": "64a900a1-f68b-4310-9298-12eaa70f22d0",
+        "release_id": "8803ac7a-0e08-4d76-970a-7920cd16d90e",
+        "job_id": "154a9ed5-9761-4d43-a21f-01d099fd78b4",
+        "record_id": "7dced022-5aa6-4baa-98b7-8753bd9d1476",
+        "request_key": "b30f96b9-9ae9-424b-acc8-bfa040ec39d3",
+        "actor_id": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+        "disposition": "permanent_failure",
+        "result": null,
+        "created_at": "2026-09-11T08:56:51.50824+00:00",
+        "finished_at": null
+      },
+      "job": {
+        "id": "154a9ed5-9761-4d43-a21f-01d099fd78b4",
+        "state": "failed",
+        "retry_count": 0,
+        "output": {
+          "code": "CONTRACT_INVALID",
+          "disposition": "permanent_failure"
+        }
+      },
+      "attempts": [
+        {
+          "id": "1862bcdd-f83e-4c8f-b8dc-a7c65ba07c1a",
+          "instance_id": "27b3a921-61a7-4040-adc5-dfc2de8a8334",
+          "job_id": "154a9ed5-9761-4d43-a21f-01d099fd78b4",
+          "queue_retry_count": 0,
+          "capability_version": "guarded-write@1",
+          "status": "failed",
+          "result": null,
+          "server_request": null,
+          "error": "CONTRACT_INVALID",
+          "process_id": 1,
+          "started_at": "2026-09-11T08:56:53.074614+00:00",
+          "finished_at": "2026-09-11T08:56:54.109414+00:00"
+        }
+      ],
+      "effects": 0,
+      "record": null,
+      "receipts": 0
+    }
+  },
+  {
+    "name": "P3 unknown effect stops automatic retry",
+    "pass": true,
+    "actual": {
+      "instance": {
+        "id": "0c42b77f-2457-4c1a-9a7f-bd450513a87e",
+        "event_id": "59b5ef24-eae6-4bcf-b6f9-c6a8abd18151",
+        "release_id": "6621f044-4ce0-4ae6-8719-2bb0765a6875",
+        "job_id": "74f3d38c-e170-475b-91e0-a761c425b342",
+        "record_id": "e3993987-cff1-4f6f-aba9-93f88c9aa62c",
+        "request_key": "20842729-5fa7-4faa-ae63-8cc3191c30fe",
+        "actor_id": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+        "disposition": "reconcile_required",
+        "result": null,
+        "created_at": "2026-09-11T08:56:57.402872+00:00",
+        "finished_at": null
+      },
+      "job": {
+        "id": "74f3d38c-e170-475b-91e0-a761c425b342",
+        "state": "failed",
+        "retry_count": 0,
+        "output": {
+          "code": "EFFECT_UNKNOWN",
+          "disposition": "reconcile_required"
+        }
+      },
+      "attempts": [
+        {
+          "id": "907ad5b9-98ae-4798-bcca-499b4f320e61",
+          "instance_id": "0c42b77f-2457-4c1a-9a7f-bd450513a87e",
+          "job_id": "74f3d38c-e170-475b-91e0-a761c425b342",
+          "queue_retry_count": 0,
+          "capability_version": "guarded-write@1",
+          "status": "failed",
+          "result": null,
+          "server_request": null,
+          "error": "EFFECT_UNKNOWN",
+          "process_id": 1,
+          "started_at": "2026-09-11T08:56:58.911805+00:00",
+          "finished_at": "2026-09-11T08:57:00.070466+00:00"
+        }
+      ],
+      "effects": 1,
+      "record": {
+        "id": "e3993987-cff1-4f6f-aba9-93f88c9aa62c",
+        "duration_minutes": 150,
+        "note": "TEST internal result V2",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+        "scope": "pilot",
+        "status": "draft",
+        "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+        "date_created": "2026-09-11T08:56:59.971+00:00",
+        "user_updated": null,
+        "date_updated": null,
+        "revision": 1,
+        "last_request": "f50b7cae-31d8-4bb3-b3ad-4703dfeffcba",
+        "form_revision": 4,
+        "review_required": null
+      },
+      "receipts": 1
+    }
+  },
+  {
+    "name": "P3 reconcile committed receipt+effect, no retry needed",
+    "pass": true,
+    "actual": {
+      "receipt": {
+        "actor": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+        "request_key": "20842729-5fa7-4faa-ae63-8cc3191c30fe",
+        "payload_hash": "a217f3e66cbf49a3882603fe6a34be53401077fd56f16fa94f4b135a7a6cd4a6",
+        "server_request": "f50b7cae-31d8-4bb3-b3ad-4703dfeffcba",
+        "collection": "lab_task_records",
+        "resource_id": "e3993987-cff1-4f6f-aba9-93f88c9aa62c",
+        "revision": 1,
+        "response": {
+          "data": {
+            "id": "e3993987-cff1-4f6f-aba9-93f88c9aa62c",
+            "note": "TEST internal result V2",
+            "scope": "pilot",
+            "status": "draft",
+            "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+            "revision": 1,
+            "date_created": "2026-09-11T08:56:59.971Z",
+            "date_updated": null,
+            "form_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+            "last_request": "f50b7cae-31d8-4bb3-b3ad-4703dfeffcba",
+            "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+            "user_updated": null,
+            "form_revision": 4,
+            "review_required": null,
+            "duration_minutes": 150
+          },
+          "meta": {
+            "action": "record",
+            "revision": 1,
+            "backend_pid": 1127,
+            "instance_id": "0c42b77f-2457-4c1a-9a7f-bd450513a87e",
+            "release_hash": "fe3174d85a152735488b834ee0b1d205db176e89e4095ad7d1cb6ba2bfaa1d7e",
+            "transaction_id": "2099",
+            "business_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+            "server_request_id": "f50b7cae-31d8-4bb3-b3ad-4703dfeffcba",
+            "logical_request_id": "20842729-5fa7-4faa-ae63-8cc3191c30fe"
+          },
+          "replayed": false
+        },
+        "created_at": "2026-09-11T08:56:59.86282+00:00"
+      },
+      "readback": {
+        "id": "e3993987-cff1-4f6f-aba9-93f88c9aa62c",
+        "duration_minutes": 150,
+        "note": "TEST internal result V2",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "release:6621f044-4ce0-4ae6-8719-2bb0765a6875",
+        "scope": "pilot",
+        "status": "draft",
+        "user_created": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+        "date_created": "2026-09-11T08:56:59.971Z",
+        "user_updated": null,
+        "date_updated": null,
+        "revision": 1,
+        "last_request": "f50b7cae-31d8-4bb3-b3ad-4703dfeffcba",
+        "form_revision": 4,
+        "review_required": null
+      },
+      "decision": "EFFECT_CONFIRMED; no re-send. Queue delivery remains failed; controlled reconcile-completion is distinct and not silently ACKed."
+    }
+  },
+  {
+    "name": "human-editor cannot mutate release",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "You don't have permission to access collection \"lab_test_releases\" or it does not exist. Queried in root.",
+            "extensions": {
+              "reason": "You don't have permission to access collection \"lab_test_releases\" or it does not exist. Queried in root.",
+              "code": "FORBIDDEN"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "service-author cannot mutate release",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "You don't have permission to access collection \"lab_test_releases\" or it does not exist. Queried in root.",
+            "extensions": {
+              "reason": "You don't have permission to access collection \"lab_test_releases\" or it does not exist. Queried in root.",
+              "code": "FORBIDDEN"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "gate0_worker release SQL denied",
+    "pass": true,
+    "actual": {
+      "returncode": 3,
+      "error": "ERROR:  42501: permission denied for table lab_test_releases\nLOCATION:  aclcheck_error, aclchk.c:2812\n"
+    }
+  },
+  {
+    "name": "gate0_producer release SQL denied",
+    "pass": true,
+    "actual": {
+      "returncode": 3,
+      "error": "ERROR:  42501: permission denied for table lab_test_releases\nLOCATION:  aclcheck_error, aclchk.c:2812\n"
+    }
+  },
+  {
+    "name": "native form bypass",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "Use the governed write action.",
+            "extensions": {
+              "code": "WRITE_GATE_REQUIRED"
+            }
+          }
+        ]
+      },
+      "effects_v1": 1
+    }
+  },
+  {
+    "name": "native record bypass",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "Use the governed write action.",
+            "extensions": {
+              "code": "WRITE_GATE_REQUIRED"
+            }
+          }
+        ]
+      },
+      "effects_v1": 1
+    }
+  },
+  {
+    "name": "runtime context spoof",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "Runtime target, actor and request must resolve from governed instance.",
+            "extensions": {
+              "code": "INSTANCE_CONTEXT_DENIED",
+              "server_request_id": "94f361bc-c4d9-45b3-aadd-9bb260ec59ec"
+            }
+          }
+        ]
+      },
+      "effects_v1": 1
+    }
+  },
+  {
+    "name": "runtime caller profile injection",
+    "pass": true,
+    "actual": {
+      "status": 400,
+      "body": {
+        "errors": [
+          {
+            "message": "Expected UUID resource/request, explicit revision, and data.",
+            "extensions": {
+              "code": "INVALID_ENVELOPE",
+              "server_request_id": "85fe0287-9718-4b9d-ad82-8788e3d216f4"
+            }
+          }
+        ]
+      },
+      "effects_v1": 1
+    }
+  },
+  {
+    "name": "D07 inactive binding stops new occurrence admission",
+    "pass": true,
+    "actual": {
+      "returncode": 1,
+      "error": "Traceback (most recent call last):\n  File \"/var/tmp/proof-g34r2-20260911-01a07f1f/runtime-control.py\", line 23, in <module>\n    else: print(call(args,input=sys.stdin.read() if mode=='emit' else None))\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/var/tmp/proof-g34r2-20260911-01a07f1f/runtime-control.py\", line 8, in call\n    if p.returncode:raise RuntimeError(p.stderr[:1800]+p.stdout[:1200])\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: file:///proof/runtime/kernel.mjs:33\n    if (!binding) throw new Error('BINDING_UNRESOLVED');\n                        ^\n\nError: BINDING_UNRESOLVED\n    at file:///proof/runtime/kernel.mjs:33:25\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async transaction (file:///proof/runtime/kernel.mjs:18:53)\n    at async file:///proof/runtime/kernel.mjs:87:26\n\nNode.js v22.23.2\n\n",
+      "historical_effect": 1
+    }
+  }
+]

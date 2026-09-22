@@ -1,0 +1,9 @@
+# Native lifecycle policy cho TEST Pilot
+
+Không approval engine mới. Tái dùng lab_evidence cho TEST/REVIEW/APPROVE/RETURN/REJECT, thêm self-FK source_evidence; actor/date do native audit cấp. REVIEW tham chiếu MACHINE_TEST; APPROVE tham chiếu REVIEW. Native current nonadmin policies tách author, reviewer/approver, publisher và activator. SoD: author không tự review/approve. Permission revocation áp dụng action mới; approval revoked/expired chặn Publish/Activate. RETURN/REJECT chặn revision hiện tại, phải sửa Draft rồi test/review lại.
+
+PUBLISH dùng cổng ghi khóa Draft/CAS hiện có, native blocking Flow đọc TEST/APPROVAL/current Draft và physical/provider state, tạo immutable Version + Release trong cùng transaction; sau đó cập nhật status/readback Draft. Chỉ các Flow-owned derived values được ghi, không caller-supplied release JSON. Publish không tạo binding. ACTIVATE qua cổng ghi cho binding, chỉ exact Release đã publish và approval còn hiệu lực. DEACTIVATE chỉ chặn lượt mới, giữ old instance pin.
+
+TEST policy, không chức danh thật/D04. Không production. Đóng thử bounded AUTO-only với synthetic human write; full HMITL orchestration thuộc Formal Gate5. Published Version/Release không có business update/delete policy; worker/producer SQL chỉ read. Native Flow config không business-writable; current source hashes được lưu để review.
+
+I0: existing APR lacks exact digest/expiry in inspected source, not an equivalent authority source. I1: native FK/UNIQUE, PG transaction/CAS already in gate. I2: native roles/policies, filter Flow, item-read/create, transform; no Script. I3: same generic UI reads result, no new Pilot page. I4: existing Joi/pg-boss only. I5: compose the existing gate and append evidence; no new queue/approval engine. This policy proposal is test-only, submitted for PM review.

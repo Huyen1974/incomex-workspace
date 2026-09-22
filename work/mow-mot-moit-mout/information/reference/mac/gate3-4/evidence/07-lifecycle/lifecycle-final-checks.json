@@ -1,0 +1,28 @@
+[
+  {
+    "name": "author with actual native approver grant cannot self APPROVE",
+    "pass": true,
+    "status": 400,
+    "response": {
+      "errors": [
+        {
+          "message": "Validation failed for field \"parent\". Value can't be \"e9b47c64-672a-4be8-9976-fa40fa7b68e3\".",
+          "extensions": {
+            "code": "FAILED_VALIDATION",
+            "server_request_id": "d8830a3f-3351-4eca-87c9-600e112359e5"
+          }
+        }
+      ]
+    },
+    "fixture_note": "negative Draft revision temporarily restored to isolate SoD; restored afterwards"
+  },
+  {
+    "name": "publish declaration does not create or mutate Binding",
+    "pass": true,
+    "write_targets": [
+      "lab_test_releases",
+      "lab_versions"
+    ],
+    "scope": "native operation source plus separate publish/activate receipts; no standalone inter-action snapshot claimed"
+  }
+]

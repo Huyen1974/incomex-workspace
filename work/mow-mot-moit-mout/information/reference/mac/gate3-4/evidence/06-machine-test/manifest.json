@@ -1,0 +1,16 @@
+{
+  "compile-run.log": "337083bc7d51fa9accfb157450ee1e4aa5e5c9ad1595a34f011fb03100c3a539",
+  "compile-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "gateway-transcript.jsonl": "0c6fb658b8ecde5bc391517ca5a53c0322daf10d2bcd2b72a4981c6c7be6297a",
+  "guard-install.json": "4b2ca80bafdfe9743738d33979e9f559f0143bd939538e29b597fe2b1e19a3e0",
+  "guard-install.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "machine-result.json": "2777f33d8dcf2aba24d12e9ceb73233ab675e41d221b1708c04ecfe6584b48e7",
+  "output-incomplete-after.json": "ef03522ba31623bfd798c86beee9946f15b62f7bfb75ee0e9814749ed95121dd",
+  "output-incomplete-before.json": "8d007ca170c9a36c764815e1af9579552d996f6fb9e73ea85a92bb40d6cc7d3e",
+  "output-incomplete-before.log": "5b80c00b8908c909f7a438b049fc9d349538390a39b77a15428c0d71ec8e48f1",
+  "output-incomplete-before.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output-validation-change-plan.md": "3c6b49b2a081d37260635fc040c81362e646b2d88e3eee367d7e00ec56662866",
+  "pg-after.json": "7b6688df60ef3477a7511941e476aeb8a4af8499a8be8d7c5068ad481d2d27a5",
+  "result.json": "97ca114b4203eded751c60930254b96c206fa1a196d3087d43e5977a14094667",
+  "scope.md": "5aa8887ff7d3c3c9f43958dd26e5c749f799a6689e75e76ae16f8dadaaaf948f"
+}

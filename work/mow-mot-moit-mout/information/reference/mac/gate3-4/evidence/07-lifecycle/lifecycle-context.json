@@ -1,0 +1,362 @@
+{
+  "happy": {
+    "test": "72c7b53e-1195-42c4-b3fe-44e0395e4c33",
+    "draft": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+    "revision": 4,
+    "actions": [
+      {
+        "action": "review",
+        "id": "52ef951d-ed8b-4081-bf00-c988d656121a",
+        "envelope": {
+          "request_id": "1ad46413-1ecd-432d-b815-874b5f20c7ee",
+          "expected_revision": 0,
+          "data": {
+            "draft_id": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+            "draft_revision": 4,
+            "closure_hash": "86488697781e49993790f75c040720ccfaa6c380775c4e05bd7f67e694bd7ad4",
+            "source_evidence": "72c7b53e-1195-42c4-b3fe-44e0395e4c33",
+            "expires_at": "2026-09-11T11:44:21.960051+00:00",
+            "results": [
+              {
+                "decision": "TEST review",
+                "authority": "current native policy; no production Owner acceptance"
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "body": {
+          "data": {
+            "id": "52ef951d-ed8b-4081-bf00-c988d656121a",
+            "draft_id": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+            "draft_revision": 4,
+            "closure_hash": "86488697781e49993790f75c040720ccfaa6c380775c4e05bd7f67e694bd7ad4",
+            "kind": "REVIEW",
+            "status": "PASS",
+            "readiness": [],
+            "snapshot": {},
+            "results": [
+              {
+                "decision": "TEST review",
+                "authority": "current native policy; no production Owner acceptance"
+              }
+            ],
+            "expires_at": "2026-09-11T11:44:21.960Z",
+            "revoked": false,
+            "scope": "pilot",
+            "revision": 1,
+            "last_request": "92484a33-87d4-4d01-a2cd-612d849df0fe",
+            "user_created": "44a21a94-5d21-4d01-b0fa-951682596551",
+            "date_created": "2026-09-11T09:44:22.888Z",
+            "source_evidence": "72c7b53e-1195-42c4-b3fe-44e0395e4c33"
+          },
+          "meta": {
+            "server_request_id": "92484a33-87d4-4d01-a2cd-612d849df0fe",
+            "logical_request_id": "1ad46413-1ecd-432d-b815-874b5f20c7ee",
+            "action": "review",
+            "business_version": "editable-draft/main",
+            "instance_id": null,
+            "release_hash": null,
+            "revision": 1,
+            "transaction_id": "2666",
+            "backend_pid": 1127
+          },
+          "replayed": false
+        }
+      },
+      {
+        "action": "approve",
+        "id": "2fb256a2-c8eb-4da2-9de3-a5ae0fbc19df",
+        "envelope": {
+          "request_id": "4d52c330-e3be-4474-ad39-0e91400a77b3",
+          "expected_revision": 0,
+          "data": {
+            "draft_id": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+            "draft_revision": 4,
+            "closure_hash": "86488697781e49993790f75c040720ccfaa6c380775c4e05bd7f67e694bd7ad4",
+            "source_evidence": "52ef951d-ed8b-4081-bf00-c988d656121a",
+            "expires_at": "2026-09-11T11:44:23.069834+00:00",
+            "results": [
+              {
+                "decision": "TEST approve",
+                "authority": "current native policy; no production Owner acceptance"
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "body": {
+          "data": {
+            "id": "2fb256a2-c8eb-4da2-9de3-a5ae0fbc19df",
+            "draft_id": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+            "draft_revision": 4,
+            "closure_hash": "86488697781e49993790f75c040720ccfaa6c380775c4e05bd7f67e694bd7ad4",
+            "kind": "APPROVE",
+            "status": "PASS",
+            "readiness": [],
+            "snapshot": {},
+            "results": [
+              {
+                "decision": "TEST approve",
+                "authority": "current native policy; no production Owner acceptance"
+              }
+            ],
+            "expires_at": "2026-09-11T11:44:23.069Z",
+            "revoked": false,
+            "scope": "pilot",
+            "revision": 1,
+            "last_request": "7cd63139-8984-4ae1-8597-56b46cfe7971",
+            "user_created": "44a21a94-5d21-4d01-b0fa-951682596551",
+            "date_created": "2026-09-11T09:44:23.975Z",
+            "source_evidence": "52ef951d-ed8b-4081-bf00-c988d656121a"
+          },
+          "meta": {
+            "server_request_id": "7cd63139-8984-4ae1-8597-56b46cfe7971",
+            "logical_request_id": "4d52c330-e3be-4474-ad39-0e91400a77b3",
+            "action": "approve",
+            "business_version": "editable-draft/main",
+            "instance_id": null,
+            "release_hash": null,
+            "revision": 1,
+            "transaction_id": "2667",
+            "backend_pid": 1127
+          },
+          "replayed": false
+        }
+      },
+      {
+        "action": "publish",
+        "id": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+        "envelope": {
+          "request_id": "e93d9a37-9471-4f42-9937-280af2e25242",
+          "expected_revision": 4,
+          "data": {
+            "approval_id": "2fb256a2-c8eb-4da2-9de3-a5ae0fbc19df",
+            "status": "published"
+          }
+        },
+        "status": 200,
+        "body": {
+          "data": {
+            "id": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+            "intent_id": "75691f3d-ff92-46f6-b0ba-085ce66c9aa5",
+            "title": "Quy tr\u00ecnh ghi nh\u1eadn th\u1eddi l\u01b0\u1ee3ng x\u1eed l\u00fd",
+            "family": "MOW",
+            "version": 1,
+            "status": "published",
+            "content": {
+              "steps": [
+                {
+                  "id": "step-1-human-duration-entry",
+                  "order": 1,
+                  "mot_ref": "677df08c-3dd5-4ccc-a189-46c126bb8bff",
+                  "start": {
+                    "trigger_ref": "8b3f61fc-1aaa-41f1-b61e-d3fabceea130"
+                  },
+                  "condition_ref": null
+                },
+                {
+                  "id": "step-2-auto-review-flag",
+                  "order": 2,
+                  "mot_ref": "4f56d26e-de29-4f9d-9f01-a65c09010f22",
+                  "start": {
+                    "previous_step": "step-1-human-duration-entry",
+                    "dependency": "completion",
+                    "requires_outputs": [
+                      "duration_minutes",
+                      "date_created"
+                    ],
+                    "condition": "after successful record save",
+                    "join": "then"
+                  },
+                  "condition_ref": "c15adbf9-c5d5-4369-b893-f508683481f6"
+                }
+              ],
+              "refs": [
+                "18c23c3a-c8e7-418b-99db-5998f64078df",
+                "2e2f6ac6-caa8-4099-83e7-4c37e3f19690",
+                "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+                "4f56d26e-de29-4f9d-9f01-a65c09010f22",
+                "5539f704-cba3-4c4b-ab88-7741d18314cb",
+                "59b79193-7978-4e01-99e7-aca8dddf878f",
+                "677df08c-3dd5-4ccc-a189-46c126bb8bff",
+                "72fd9674-f34d-43dd-a7cb-2d2d5371b176",
+                "756a9da6-31bd-45d4-89c7-ada389b51f21",
+                "8b3f61fc-1aaa-41f1-b61e-d3fabceea130",
+                "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338",
+                "b8756a04-b301-42e4-a791-2e3b98532b6a",
+                "c15adbf9-c5d5-4369-b893-f508683481f6"
+              ],
+              "missing_slots": [],
+              "notes": "Resolved the condition binding with published Condition c15adbf9-c5d5-4369-b893-f508683481f6 version 1 (digest bc05d25b8feadd0e5c662c46c1e87842f7ae3cc7b6e2dc6ffa3f0afa63bede8a). Draft remains unactivated and unpublished."
+            },
+            "search_brief": {
+              "requirements": [
+                {
+                  "kind": "input",
+                  "requested": "Ng\u01b0\u1eddi th\u1ef1c hi\u1ec7n nh\u1eadp s\u1ed1 ph\u00fat",
+                  "decision": "reused",
+                  "refs": [
+                    "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+                    "487d8c64-c15b-4d89-897c-6c4c258d04ad"
+                  ]
+                },
+                {
+                  "kind": "input",
+                  "requested": "Ng\u01b0\u1eddi th\u1ef1c hi\u1ec7n nh\u1eadp ghi ch\u00fa",
+                  "decision": "reused",
+                  "refs": [
+                    "756a9da6-31bd-45d4-89c7-ada389b51f21",
+                    "5539f704-cba3-4c4b-ab88-7741d18314cb"
+                  ]
+                },
+                {
+                  "kind": "system",
+                  "requested": "H\u1ec7 th\u1ed1ng l\u01b0u th\u1eddi \u0111i\u1ec3m",
+                  "decision": "reused",
+                  "refs": [
+                    "59b79193-7978-4e01-99e7-aca8dddf878f",
+                    "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4"
+                  ]
+                },
+                {
+                  "kind": "condition",
+                  "requested": "Khi th\u1eddi l\u01b0\u1ee3ng v\u01b0\u1ee3t 60 ph\u00fat th\u00ec \u0111\u00e1nh d\u1ea5u c\u1ea7n xem x\u00e9t",
+                  "decision": "reused",
+                  "refs": [
+                    "c15adbf9-c5d5-4369-b893-f508683481f6",
+                    "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+                    "b8756a04-b301-42e4-a791-2e3b98532b6a"
+                  ]
+                }
+              ],
+              "candidate_comparison": [
+                {
+                  "candidate": "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+                  "fit": "matches human entry for minutes/note/system-created timestamp",
+                  "decision": "reuse"
+                },
+                {
+                  "candidate": "d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+                  "fit": "matches auto review flag evaluation and now has exact condition binding",
+                  "decision": "reuse"
+                },
+                {
+                  "candidate": "756a9da6-31bd-45d4-89c7-ada389b51f21",
+                  "fit": "published MOIT matches required input fields",
+                  "decision": "reuse"
+                },
+                {
+                  "candidate": "27348608-bd97-4cad-bd46-8755fd9493a1",
+                  "fit": "published MOUT exposes duration, note, timestamp and review flag",
+                  "decision": "reuse"
+                },
+                {
+                  "candidate": "c15adbf9-c5d5-4369-b893-f508683481f6",
+                  "fit": "published Condition version 1 exactly represents duration_minutes > 60, with 60 minutes not over threshold, and outputs review_required true",
+                  "decision": "reuse"
+                }
+              ],
+              "reuse_decision": "Reuse published materials for trigger, fields, form, guidance, MOUT, human-entry MOT, auto-evaluation MOT, NTGV, capability, and the exact published Condition for duration_minutes > 60. No unresolved content slots remain in this draft.",
+              "provenance": {
+                "catalog_reads": [
+                  "lab_versions published limit 50",
+                  "lab_definitions limit 50",
+                  "forms limit 50",
+                  "lab_versions searches: duration, Condition, 60",
+                  "resume read lab_versions c15adbf9-c5d5-4369-b893-f508683481f6"
+                ],
+                "assigned_intent": "75691f3d-ff92-46f6-b0ba-085ce66c9aa5",
+                "applied_missing": "b3f28ca9-3c08-4f43-939f-2ba6a3495600",
+                "applied_condition_identity": {
+                  "uuid": "c15adbf9-c5d5-4369-b893-f508683481f6",
+                  "version": 1,
+                  "digest": "bc05d25b8feadd0e5c662c46c1e87842f7ae3cc7b6e2dc6ffa3f0afa63bede8a"
+                }
+              }
+            },
+            "source_version": null,
+            "feedback_id": null,
+            "reason": "Bind shared canonical MOW Definition before tested publication; not published yet",
+            "scope": "pilot",
+            "revision": 5,
+            "last_request": "282aab89-91fe-481e-aa5a-4693bdd2331d",
+            "user_created": "e9b47c64-672a-4be8-9976-fa40fa7b68e3",
+            "date_created": "2026-09-11T07:20:33.464Z",
+            "user_updated": "1d329d42-e7ab-434f-99cc-e01d091bba58",
+            "date_updated": "2026-09-11T09:44:25.869Z",
+            "definition_id": "74c4d879-d75e-40aa-a7ef-caa30736e94b",
+            "approval_id": "2fb256a2-c8eb-4da2-9de3-a5ae0fbc19df",
+            "published_version": "4c26ea6e-5c97-4029-b8fd-11248fa6822d",
+            "release_id": "c8bda5e2-35a1-439e-9575-6137ca3f844e"
+          },
+          "meta": {
+            "server_request_id": "282aab89-91fe-481e-aa5a-4693bdd2331d",
+            "logical_request_id": "e93d9a37-9471-4f42-9937-280af2e25242",
+            "action": "publish",
+            "business_version": "editable-draft/main",
+            "instance_id": null,
+            "release_hash": null,
+            "revision": 5,
+            "transaction_id": "2668",
+            "backend_pid": 1127
+          },
+          "replayed": false
+        }
+      },
+      {
+        "action": "activate",
+        "id": "79a33593-d328-4f67-a7a6-a814cad5e918",
+        "envelope": {
+          "request_id": "ee5a0d93-5d32-467b-be48-18922e1d52f7",
+          "expected_revision": 0,
+          "data": {
+            "release_id": "c8bda5e2-35a1-439e-9575-6137ca3f844e",
+            "active": true
+          }
+        },
+        "status": 200,
+        "body": {
+          "data": {
+            "id": "79a33593-d328-4f67-a7a6-a814cad5e918",
+            "release_id": "c8bda5e2-35a1-439e-9575-6137ca3f844e",
+            "actor_id": "df7b755b-dd24-4d66-b178-a9908ad35fd2",
+            "active": true,
+            "scope": "pilot",
+            "revision": 1,
+            "last_request": "eb4612cf-b920-4f35-a84e-6905c90c3e1b"
+          },
+          "meta": {
+            "server_request_id": "eb4612cf-b920-4f35-a84e-6905c90c3e1b",
+            "logical_request_id": "ee5a0d93-5d32-467b-be48-18922e1d52f7",
+            "action": "activate",
+            "business_version": "editable-draft/main",
+            "instance_id": null,
+            "release_hash": null,
+            "revision": 1,
+            "transaction_id": "2669",
+            "backend_pid": 1127
+          },
+          "replayed": false
+        }
+      }
+    ],
+    "approval_id": "2fb256a2-c8eb-4da2-9de3-a5ae0fbc19df",
+    "release_id": "c8bda5e2-35a1-439e-9575-6137ca3f844e",
+    "version_id": "4c26ea6e-5c97-4029-b8fd-11248fa6822d",
+    "binding_id": "79a33593-d328-4f67-a7a6-a814cad5e918"
+  },
+  "completed_run": {
+    "utc": "2026-09-11T09:49:51.927Z",
+    "pid": 1,
+    "event": "event_committed",
+    "event_id": "f983d7e3-d0c9-40b5-8119-fa35da252d54",
+    "instance_id": "b84f242f-e2c6-448c-9ed2-ef71c6b45560",
+    "job_id": "64ab070c-9d5e-4d38-8a44-4d7fe3df9acf",
+    "release_id": "c8bda5e2-35a1-439e-9575-6137ca3f844e",
+    "duplicate": false
+  },
+  "negative_draft": "4a73357e-ebf3-4325-a559-5c0dc1f5baaa",
+  "negative_test": "49eeb343-475b-4529-8160-088a601674bc",
+  "negative_approval": "0468fc47-37ba-4ace-8c69-b3012cc23962"
+}
