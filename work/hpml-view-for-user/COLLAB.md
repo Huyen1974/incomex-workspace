@@ -4,7 +4,7 @@
 
 **HVU-SIGNAL01 · Owner 21/09/2026 — chỉ đạo mới nhất:** B2 đã chạy thật: webhook GitHub + backstop 15′ tự đổ task/mục tiêu/tiến độ/HTML xuống VPS. Việc còn lại là (1) B2.1 sửa các lệch parser/UI/retention đã đo được và (2) B3 làm hai tín hiệu cốt lõi **Vừa làm** và **Đang làm** hoàn toàn tự động, không bắt AI/User báo tay. `Vừa làm` phải bền đến commit tiếp theo của chính task; `Đang làm` là presence tạm thời từ hoạt động tool, không được suy từ commit. Thiếu bằng chứng surface thì để xám, không đoán.
 
-**HVU-UI03 · Owner 21/09/2026 — chỉ đạo trước:** Thu cột trái 20% so UI02 (=120% cột Knowledge), giảm khoảng cách dòng. Hai tab Kiểm soát (Mục tiêu/Tiến độ/Tình trạng) và Nội dung công việc (nguyên HTML như MOT). Tiến độ: 4 thanh bo tròn luôn thấy, tooltip; xám chưa làm, xanh xong, đỏ tắc, vàng cam điều chỉnh. Tình trạng: Chat GPT, Codex/GPT Work, Chat Claude, Claude Code CLI/Cowork, Hermes Chat, Hermes Code × hai cột Vừa làm/Đang làm. Chấm xanh theo snapshot mới nhất; bản mới thay cũ, không tích lũy hoặc tự hết màu theo thời gian. Thiếu tín hiệu không suy đoán.
+**HVU-UI03 · Owner 21/09/2026 — chỉ đạo trước:** Thu cột trái 20% so UI02 (=120% cột Knowledge), giảm khoảng cách dòng. Hai tab Kiểm soát (Mục tiêu/Tiến độ/Tình trạng) và Nội dung công việc (nguyên HTML như MOT). Tiến độ: 4 thanh bo tròn luôn thấy, tooltip; xám chưa làm, xanh xong, đỏ tắc, vàng cam điều chỉnh. Tình trạng (lịch sử UI03, đã được DROOT08/P20/P21 thay thế): runtime hiện chỉ hiển thị người liên quan của task đang chọn; `Vừa làm` = lần ghi gần nhất, `Đang làm` = activity mới nhất còn hiệu lực ≤10 phút, mỗi task tối đa một `Đang làm`. Thiếu tín hiệu không suy đoán.
 
 **Đấu nối UI03 (thiết kế, chưa bật):** Owner định hướng webhook thay quyết định không-webhook cũ bên dưới. Webhook xác thực báo nguồn đổi → VPS lấy HEAD đúng repo/branch, dựng HTML + metadata cùng revision cho từng work-id; chống trùng, lock, không ghi đè bởi sự kiện cũ; kiểm tra định kỳ bù sự kiện thất lạc. Không suy actor từ tài khoản push dùng chung; đang làm chỉ sáng nếu có bằng chứng. Chi tiết mapping ở ui-assembly/README.md. Lượt UI03 triển khai UI và HTML MOT nguồn thật; webhook/trạng thái vẫn chưa nối.
 
@@ -381,5 +381,11 @@ Based_on `dc2edf7` · READY@630a19e khớp commit cuối chạm PROMPT — PASS.
 
 KQ@HVU-B3-CLEANUP-20260921-03 XONG
 
+## Host GPT nghiệm thu độc lập · CLOSED 2026-09-22
+- ACCEPT. Repo/KQ: cleanup commit `9f8b070` + live-report `e8af389`; Git thật của `e8af389` có author `claude-code <ai-workspace@incomexsaigoncorp.vn>`.
+- Production kiểm trực tiếp: `sync-status=fresh`; `tasks.json` có bảng tên A9, legacy actor bị loại; HVU `lastActorNames=[Claude Code CLI]`; `presence.json` mỗi task tối đa một record latest + generation; UI HVU chỉ hiện `Claude Code CLI` (Vừa làm) và `GPT Chat/Work` (Đang làm), ghi chú ngắn đúng P21.
+- OPEN trong báo cáo (Cowork/Hermes FIRST_USE_PENDING, throttle/publish granularity, mirror UI03 lịch sử) là maintenance/first-use, không chặn mục tiêu HVU. Core B2/B2.1/B3 + cleanup được coi CLOSED.
+- Cảnh báo bảo mật Bearer token trong argv của `lark-crud-gateway`/`mcp-remote` được tách sang `work/mcp-token-argv/`, Host Claude xử lý; không mở lại HVU.
+
 ## Owner cần quyết
-- — · Không có quyết định nghiệp vụ chặn cleanup Claude.
+- —
