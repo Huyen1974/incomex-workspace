@@ -237,11 +237,21 @@ HTML chính: `view.html`
 - Backend `JEV-B1-OPENAI-20260921-01`: **MACHINE_DONE · Host ACCEPT**. JEV-SEC01 XONG.
 - Work smoke: explicit PASS · natural PASS · negative PASS.
 - Chat smoke: explicit PASS · natural PASS · negative PASS.
-- Codex smoke: explicit PASS · negative PASS · natural K1 PASS (retest phiên mới, sau Skill `e2a9f35`). ⇒ **Smoke acceptance OpenAI Work/Chat/Codex: ĐÓNG.**
+- Codex smoke: explicit PASS · natural PASS · negative PASS.
 - `jev-gw-health` version-agnostic: **XONG 2026-09-22** (xem KQ JEV-HEALTH-VA).
-- Codex acceptance 10+10: **PASS** (xem KQ JEV-OPENAI-ACC) ⇒ **OPENAI JEV CLIENT ACCEPTANCE = DONE**.
-- NEXT: Bước 2 Claude/Hermes — chưa làm, chờ Host giao.
-- Chỉ khi OpenAI client acceptance DONE mới chuyển sang Bước 2 Claude/Hermes theo kế hoạch.
+- Codex acceptance 10+10: **PASS** — `POSITIVE_TRIGGER=10/10`, `FALSE_TRIGGER=0/10`, `MODEL_ARG_ABSENT=10/10`, `ANSWERS=10/10`.
+- **OPENAI JEV CLIENT ACCEPTANCE = DONE.** Theo `CLIENT-ACCEPTANCE.md` mới, không cần chạy thêm Work/Chat 10+10.
+- NEXT: **Bước 2 Claude**, theo thứ tự Claude Chat → Cowork → Claude Code; tái dùng đúng remote JEV Gateway hiện tại, không dựng backend mới. Connector trước, Skill sau, rồi smoke explicit/natural/negative. Claude Code là surface định lượng 10+10 nếu smoke PASS.
+- Hermes giữ task riêng `work/hermes-joint-workspace/`; chỉ mở sau Claude JEV DONE.
+
+### P16 · GPT Chat · ACCEPTED — đóng OpenAI, mở Bước 2 Claude
+- Based_on: `KQ@JEV-OPENAI-ACC XONG` / commit `848a9f4`, Work/Chat/Codex smoke PASS, health version-agnostic PASS.
+- Quyết định Host: **OpenAI DONE**. Codex 10+10 là bằng chứng định lượng; Work/Chat smoke 3 chiều là đủ, không chạy thêm 10+10 thủ công.
+- Bước 2 Claude dùng cùng endpoint remote MCP hiện hành. Không sửa VPS/gateway/provider/model/version.
+- Claude Chat/Cowork: thêm custom remote connector `JEV Reference`; upload/bật custom Skill có cùng body logic nhưng metadata Claude riêng, description <=200 ký tự, không chứa model/version hay URL bí mật.
+- Claude Code: dùng cùng connector nếu surface nhìn thấy; nếu không thì mới cấu hình remote MCP riêng. Skill dùng cơ chế `.claude/skills/jev-reference/SKILL.md`, cùng semantics, không chứa URL bí mật.
+- Acceptance: Chat → Cowork → Claude Code, mỗi surface smoke explicit/natural/negative; nếu cả 3 PASS thì Claude Code chạy 10+10 định lượng. Hermes chỉ sau Claude DONE.
+- Host response: **ACCEPTED**.
 
 ## KQ — JEV-B1-OPENAI-20260921-01 · Claude Code
 - `KQ@JEV-B1-OPENAI-20260921-01 XONG` · MACHINE_DONE 2026-09-21 ~12:30 CEST · chờ Claude Chat review + client acceptance OpenAI (PROMPT §9). Bằng chứng dưới đây là backend/CLI (README §10a), **chưa** phải PASS client ChatGPT/Codex.
