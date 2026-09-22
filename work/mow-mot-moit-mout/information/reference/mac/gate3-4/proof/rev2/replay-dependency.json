@@ -1,0 +1,5 @@
+{
+  "file": "../runtime/dependencies.tar.gz",
+  "sha256": "505b14e9276ac4455abc3662e9ebc9b6e2de6ec8aada3d7bbd5d3da85908987e",
+  "source": "existing Gate2 native pg/pg-boss dependency bundle; package-lock.json retained; no new product dependency"
+}
