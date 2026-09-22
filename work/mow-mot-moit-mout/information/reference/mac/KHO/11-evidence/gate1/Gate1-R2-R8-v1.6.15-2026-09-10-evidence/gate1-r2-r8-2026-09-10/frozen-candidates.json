@@ -1,0 +1,468 @@
+{
+  "frozen_at": "2026-09-10T12:53:12.046308+00:00",
+  "expected_candidates": 41,
+  "URL_candidates": 40,
+  "source_groups": 1,
+  "discovery_boundary": "U01/U05–U28 + current eco-nav and direct seed hrefs + one filename inventory of web/pages and relevant components. No whole-repo body search. R1 reused by acceptance; C40 is the single cross-object runtime overlap.",
+  "candidates": [
+    {
+      "id": "C01",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html",
+      "U": [
+        "U01"
+      ],
+      "reviews": "R2–R8",
+      "reason_included": "Library tổng, đối chiếu menu/entry",
+      "type": "URL"
+    },
+    {
+      "id": "C02",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html",
+      "U": [
+        "U05"
+      ],
+      "reviews": "R2",
+      "reason_included": "MOT library theo SSOT",
+      "type": "URL"
+    },
+    {
+      "id": "C03",
+      "url": "https://vps.incomexsaigoncorp.vn/admin-new-modt?tang=T1&che-do=de-xuat",
+      "U": [
+        "U06",
+        "U14",
+        "U17",
+        "U19",
+        "U27"
+      ],
+      "reviews": "R2,R4,R6,R7",
+      "reason_included": "Task editor và embedded Field/NTGV/readiness",
+      "type": "URL"
+    },
+    {
+      "id": "C04",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modt-builder-v1.html",
+      "U": [
+        "U06",
+        "U15",
+        "U16"
+      ],
+      "reviews": "R2,R5",
+      "reason_included": "Task expert assembly, trigger/condition binding",
+      "type": "URL"
+    },
+    {
+      "id": "C05",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html",
+      "U": [
+        "U07",
+        "U24",
+        "U25"
+      ],
+      "reviews": "R2,R8",
+      "reason_included": "Task runtime/dashboard/handoff",
+      "type": "URL"
+    },
+    {
+      "id": "C06",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html",
+      "U": [
+        "U08"
+      ],
+      "reviews": "R3",
+      "reason_included": "MOIT library đã có URL",
+      "type": "URL"
+    },
+    {
+      "id": "C07",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-form-v1.html",
+      "U": [
+        "U09",
+        "U14"
+      ],
+      "reviews": "R3,R4",
+      "reason_included": "Layout/Field selection",
+      "type": "URL"
+    },
+    {
+      "id": "C08",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-builder-v1.html",
+      "U": [
+        "U10",
+        "U15",
+        "U16"
+      ],
+      "reviews": "R3,R5",
+      "reason_included": "MOIT DB binding/expert",
+      "type": "URL"
+    },
+    {
+      "id": "C09",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html",
+      "U": [
+        "U11"
+      ],
+      "reviews": "R3",
+      "reason_included": "MOUT library",
+      "type": "URL"
+    },
+    {
+      "id": "C10",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-builder-v3.html",
+      "U": [
+        "U12"
+      ],
+      "reviews": "R3",
+      "reason_included": "Current menu report layout",
+      "type": "URL"
+    },
+    {
+      "id": "C11",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modut-builder-v1.html",
+      "U": [
+        "U13",
+        "U15",
+        "U16"
+      ],
+      "reviews": "R3,R5",
+      "reason_included": "Report binding/schedule/expert",
+      "type": "URL"
+    },
+    {
+      "id": "C12",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/duyet-ntgv-v1.html",
+      "U": [
+        "U17",
+        "U22"
+      ],
+      "reviews": "R6,R7",
+      "reason_included": "Assignment rule approval",
+      "type": "URL"
+    },
+    {
+      "id": "C13",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-danh-tu-v1.html",
+      "U": [
+        "U18"
+      ],
+      "reviews": "R4",
+      "reason_included": "Table/data dictionary reference",
+      "type": "URL"
+    },
+    {
+      "id": "C14",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/qa-runner.html",
+      "U": [
+        "U21"
+      ],
+      "reviews": "R7",
+      "reason_included": "Existing test tooling; do not run tests",
+      "type": "URL"
+    },
+    {
+      "id": "C15",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-gopy-list-v1.html",
+      "U": [
+        "U26"
+      ],
+      "reviews": "R7",
+      "reason_included": "Feedback and decision record",
+      "type": "URL"
+    },
+    {
+      "id": "C16",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/bat-dau-o-day.html",
+      "U": [
+        "U28"
+      ],
+      "reviews": "R7",
+      "reason_included": "Onboarding navigation",
+      "type": "URL"
+    },
+    {
+      "id": "C17",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-he-thong.html",
+      "U": [
+        "U28"
+      ],
+      "reviews": "R7",
+      "reason_included": "System process Help",
+      "type": "URL"
+    },
+    {
+      "id": "C18",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-process-v1.html",
+      "U": [
+        "U28"
+      ],
+      "reviews": "R2,R7",
+      "reason_included": "Task lifecycle Help",
+      "type": "URL"
+    },
+    {
+      "id": "C19",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-studio-v1.html",
+      "U": [
+        "U28",
+        "U06",
+        "U09"
+      ],
+      "reviews": "R2,R3,R7",
+      "reason_included": "Shared component workshop from menu",
+      "type": "URL"
+    },
+    {
+      "id": "C20",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-dataflow-v1.html",
+      "U": [
+        "U10",
+        "U28"
+      ],
+      "reviews": "R3,R7",
+      "reason_included": "MOIT declaration/data path specification",
+      "type": "URL"
+    },
+    {
+      "id": "C21",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-builder-v2.html",
+      "U": [
+        "U12"
+      ],
+      "reviews": "R3",
+      "reason_included": "Legacy duplicate explicitly in nav source match set",
+      "type": "URL"
+    },
+    {
+      "id": "C22",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-dot-table-v1.html",
+      "U": [
+        "U13"
+      ],
+      "reviews": "R3",
+      "reason_included": "Older report execution variant in nav source match set",
+      "type": "URL"
+    },
+    {
+      "id": "C23",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-tang1-v1.html?che-do=de-xuat",
+      "U": [
+        "U06",
+        "U28"
+      ],
+      "reviews": "R2,R7",
+      "reason_included": "Legacy T1 directly linked by onboarding source",
+      "type": "URL"
+    },
+    {
+      "id": "C24",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/guide.html",
+      "U": [
+        "U28",
+        "U20"
+      ],
+      "reviews": "R7",
+      "reason_included": "Agent Help and reusable asset inventory from menu",
+      "type": "URL"
+    },
+    {
+      "id": "C25",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/he-thong-thiet-ke.html",
+      "U": [
+        "U18",
+        "U28"
+      ],
+      "reviews": "R4,R7",
+      "reason_included": "Data contract design map from menu",
+      "type": "URL"
+    },
+    {
+      "id": "C26",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/he-thong-dau-noi.html",
+      "U": [
+        "U18",
+        "U28"
+      ],
+      "reviews": "R4,R7",
+      "reason_included": "UI↔PG connection map from menu",
+      "type": "URL"
+    },
+    {
+      "id": "C27",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/constitution-new-index.html",
+      "U": [
+        "U20",
+        "U28"
+      ],
+      "reviews": "R7",
+      "reason_included": "Organization/system context view from menu",
+      "type": "URL"
+    },
+    {
+      "id": "C28",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-sua-re.html",
+      "U": [
+        "U26",
+        "U28"
+      ],
+      "reviews": "R7",
+      "reason_included": "Cheap-change lifecycle directly linked in source",
+      "type": "URL"
+    },
+    {
+      "id": "C29",
+      "url": "https://vps.incomexsaigoncorp.vn/knowledge/registries",
+      "U": [
+        "U14",
+        "U15",
+        "U16",
+        "U18",
+        "U20"
+      ],
+      "reviews": "R4,R5,R7",
+      "reason_included": "Existing generic registry page source/meta_catalog",
+      "type": "URL"
+    },
+    {
+      "id": "C30",
+      "url": "https://vps.incomexsaigoncorp.vn/knowledge/registries/all",
+      "U": [
+        "U14",
+        "U15",
+        "U16",
+        "U18"
+      ],
+      "reviews": "R4,R5",
+      "reason_included": "Generic all-entity library page source",
+      "type": "URL"
+    },
+    {
+      "id": "C31",
+      "url": "https://vps.incomexsaigoncorp.vn/knowledge/workflows",
+      "U": [
+        "U24",
+        "U23"
+      ],
+      "reviews": "R8,R7",
+      "reason_included": "Existing workflow list page source",
+      "type": "URL"
+    },
+    {
+      "id": "C32",
+      "url": "https://vps.incomexsaigoncorp.vn/knowledge/current-tasks",
+      "U": [
+        "U07",
+        "U24",
+        "U25"
+      ],
+      "reviews": "R2,R8",
+      "reason_included": "Existing task inbox page source",
+      "type": "URL"
+    },
+    {
+      "id": "C33",
+      "url": "https://vps.incomexsaigoncorp.vn/approval-desk",
+      "U": [
+        "U22",
+        "U23"
+      ],
+      "reviews": "R7",
+      "reason_included": "Existing generic approval page source, two local route candidates",
+      "type": "URL"
+    },
+    {
+      "id": "C34",
+      "url": "https://vps.incomexsaigoncorp.vn/reports",
+      "U": [
+        "U11",
+        "U13"
+      ],
+      "reviews": "R3",
+      "reason_included": "Existing DirectusTable/report live count route source",
+      "type": "URL"
+    },
+    {
+      "id": "C35",
+      "url": "https://vps.incomexsaigoncorp.vn/help",
+      "U": [
+        "U20",
+        "U28"
+      ],
+      "reviews": "R7",
+      "reason_included": "Existing Guidance library page source",
+      "type": "URL"
+    },
+    {
+      "id": "C36",
+      "url": "https://vps.incomexsaigoncorp.vn/admin/users",
+      "U": [
+        "U19"
+      ],
+      "reviews": "R6",
+      "reason_included": "Existing People view uses Directus users source; auth limitation allowed",
+      "type": "URL"
+    },
+    {
+      "id": "C37",
+      "url": "https://vps.incomexsaigoncorp.vn/admin/knowledge-tree",
+      "U": [
+        "U20"
+      ],
+      "reviews": "R7",
+      "reason_included": "Existing tree management route source",
+      "type": "URL"
+    },
+    {
+      "id": "C38",
+      "url": "https://vps.incomexsaigoncorp.vn/knowledge-tree",
+      "U": [
+        "U20"
+      ],
+      "reviews": "R7",
+      "reason_included": "Existing context tree route source; compare role/duplication",
+      "type": "URL"
+    },
+    {
+      "id": "C39",
+      "url": "https://vps.incomexsaigoncorp.vn/admin-new-modt?tang=T1&cau-hinh=nguyen-tac-giao-viec",
+      "U": [
+        "U17",
+        "U19"
+      ],
+      "reviews": "R6",
+      "reason_included": "Direct linked NTGV handoff route with same-context question",
+      "type": "URL"
+    },
+    {
+      "id": "C40",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T2&che-do=van-hanh",
+      "U": [
+        "U24",
+        "U25"
+      ],
+      "reviews": "R8",
+      "reason_included": "One R1 overlap permitted for cross-object runtime comparison",
+      "type": "URL"
+    },
+    {
+      "id": "S01",
+      "url": null,
+      "U": [
+        "U09",
+        "U10",
+        "U11",
+        "U12",
+        "U13"
+      ],
+      "reviews": "R3",
+      "reason_included": "Existing generic Form/UForm/FormCustom and DirectusTable renderer source + Gate0 accepted fixture evidence; no standalone URL assumed",
+      "type": "SOURCE_GROUP",
+      "paths": [
+        "web/components/blocks/Form.vue",
+        "web/components/base/UForm.vue",
+        "web/components/base/FormCustom.vue",
+        "web/components/base/DirectusTable.vue"
+      ]
+    }
+  ],
+  "overflow_policy": "Direct script dependencies and detail states are evidence, not extra candidate apps. New app routes go OVERFLOW unless material to role/gap conclusion; any additions recorded explicitly."
+}

@@ -1,0 +1,146 @@
+Browser tab: 14, Title: "Reports - Incomex AI Portal", URL: "https://vps.incomexsaigoncorp.vn/reports".
+1 AXWebArea Reports - Incomex AI Portal, URL: vps.incomexsaigoncorp.vn/reports
+	2 container
+		3 container
+			4 container
+				5 link Description: Incomex AI Portal, Value: vps.incomexsaigoncorp.vn/
+				6 container Global
+					7 link Description: Knowledge, Value: vps.incomexsaigoncorp.vn/knowledge
+					8 link Description: Modules, Value: vps.incomexsaigoncorp.vn/knowledge/modules
+					9 link Description: Tasks, Value: vps.incomexsaigoncorp.vn/knowledge/current-tasks
+					10 link Description: Reports, Value: vps.incomexsaigoncorp.vn/reports
+					11 link Description: Workflows, Value: vps.incomexsaigoncorp.vn/knowledge/workflows
+					12 link Description: Registries, Value: vps.incomexsaigoncorp.vn/knowledge/registries
+					13 link Description: Pivot, Value: vps.incomexsaigoncorp.vn/knowledge/pivot
+					14 link Description: Laws, Value: vps.incomexsaigoncorp.vn/knowledge/laws
+				15 button Theme
+				16 link Description: Let's Talk, Value: vps.incomexsaigoncorp.vn/contact-us
+				17 link Description: Login, Value: vps.incomexsaigoncorp.vn/auth/signin
+			18 heading Reports, Value: 1
+				19 text Reports
+			20 text Danh sách báo cáo. Bấm một dòng để mở báo cáo tương ứng.
+			21 text Tìm kiếm
+			22 text field (settable)
+			23 container
+				24 heading Reports Home, Value: 3
+					25 text Reports Home
+				26 button Làm mới
+				27 table
+					28 row
+						29 cell
+							30 text STT
+						31 cell
+							32 container
+								33 text STT  ↑
+						34 cell
+							35 text Tên báo cáo
+						36 cell
+							37 text Loài
+						38 cell
+							39 text Đường dẫn
+						40 cell
+							41 text Tổng
+							42 button
+								43 image
+					44 row
+						45 cell
+							46 text 1
+							47 button
+								48 image
+						49 cell
+							50 text 1
+						51 cell
+							52 text Balo — Function
+						53 cell
+							54 text Balo
+						55 cell
+							56 text /reports/report-balo-function
+						57 cell
+							58 text 654
+					59 row
+						60 cell
+							61 text 2
+						62 cell
+							63 text 2
+						64 cell
+							65 text Balo — Table
+						66 cell
+							67 text Balo
+						68 cell
+							69 text /reports/report-balo-table
+						70 cell
+							71 text 385
+					72 row
+						73 cell
+							74 text 3
+						75 cell
+							76 text 3
+						77 cell
+							78 text Balo — Trigger
+						79 cell
+							80 text Balo
+						81 cell
+							82 text /reports/report-balo-trigger
+						83 cell
+							84 text 410
+					85 row
+						86 cell
+							87 text 4
+						88 cell
+							89 text 4
+						90 cell
+							91 text Balo — View
+						92 cell
+							93 text Balo
+						94 cell
+							95 text /reports/report-balo-view
+						96 cell
+							97 text 699
+					98 row
+						99 cell
+							100 text 5
+						101 cell
+							102 text 5
+						103 cell
+							104 text Loài
+						105 cell
+							106 text SSOT
+						107 cell
+							108 text /reports/report-loai
+						109 cell
+							110 text 42
+					111 row
+						112 cell
+							113 text 6
+						114 cell
+							115 text 6
+						116 cell
+							117 text PG Census
+						118 cell
+							119 text PG
+						120 cell
+							121 text /reports/report-pg
+						122 cell
+							123 text 12
+				124 text 6 bản ghi
+				125 button (disabled) Prev
+				126 button 1
+				127 button (disabled) Next
+			128 container
+				129 link vps.incomexsaigoncorp.vn/
+				130 button Theme
+				131 heading MENU, Value: 2
+					132 text MENU
+				133 link vps.incomexsaigoncorp.vn/
+				134 link vps.incomexsaigoncorp.vn/knowledge
+				135 link vps.incomexsaigoncorp.vn/tools
+				136 link vps.incomexsaigoncorp.vn/admin
+				137 text Copyright © 1988 - 2026 
+				138 link Description: Incomex AI Portal. , Value: vps.incomexsaigoncorp.vn/
+				139 text All rights reserved.  Site powered by 
+				140 link Description: Directus , Value: directus.io/?ref=agencyos_footer
+				141 text and 
+				142 link Description: Nuxt , Value: nuxt.com/?ref=agencyos_footer
+				143 text .
+
+The focused UI element is 1 AXWebArea Reports - Incomex AI Portal, URL: vps.incomexsaigoncorp.vn/reports

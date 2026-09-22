@@ -1,0 +1,177 @@
+{
+  "at": "2026-09-10T13:42:56.829796+00:00",
+  "pre_ssot_review_complete": true,
+  "status": "PASS bounded review completeness; not product/runtime acceptance",
+  "checks": [
+    {
+      "check": "Frozen set immutable",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "41 candidates exact IDs and order",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "13 questions populated for every candidate",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Every row evidence file exists",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "28 U rows fully accounted",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "39 URL browser attempts, QA-runner excluded",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Recheck indexed local product source hashes",
+      "pass": true,
+      "detail": {
+        "files": 21
+      }
+    },
+    {
+      "check": "Rule evidence hash: rules/incomex-rules-before.md",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Local rule source unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Rule evidence hash: rules/law-01-foundation-principles.md",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Rule evidence hash: rules/constitution.md",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "AGENTS source unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Accepted prior package manifests rechecked",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Deliverable canonical-role-map.md",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Deliverable duplicate-disposition.md",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Deliverable ai-first-assessment.md",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Deliverable gap-compression.md",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Deliverable d04-owner-proposal.md",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Deliverable platform-freeze.md",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Deliverable rules/RULE-SYNC-01-preparation.md",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Deliverable rules/RULE-SYNC-01-proposed.patch",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Deliverable scope-and-limitations.md",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Deliverable bao-cao-pm.md",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "5 patterns / 8 groups",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "A–F ownership review",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Exactly one D04 proposal, with alternatives",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "HTML IDs/anchors/scripts/styles preserved",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "State D03 decided and R2–R8 submitted",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "No stale active review pointers",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Reviewed U rows have current disposition",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Gate1 remains DOING; later Gates not started",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Visual QA supplied",
+      "pass": true,
+      "detail": null
+    }
+  ],
+  "reviewer": "Codex main process, source review + independent artifact assertions + browser visual inspection",
+  "ssot_stage_sha256": "d46c36f7862a93c86c123fd3f30aa5147b121a38159f24da3d14605f63464ab4",
+  "ssot_write_complete": true,
+  "limitations": "scope-and-limitations.md",
+  "final_ssot_verification": {
+    "writes": 1,
+    "target_snapshot_backup_hashes": "PASS"
+  }
+}

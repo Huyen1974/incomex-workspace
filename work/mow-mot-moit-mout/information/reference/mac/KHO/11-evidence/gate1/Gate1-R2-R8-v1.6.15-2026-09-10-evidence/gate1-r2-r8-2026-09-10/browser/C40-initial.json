@@ -1,0 +1,124 @@
+{
+  "buttons": [
+    {
+      "disabled": false,
+      "text": "Thường",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Đề xuất",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Vận hành",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Quản trị ⚠",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "✕ Thoát",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T7 - Lĩnh vực2",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T6 - Công ty2",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T5 - Khối3",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T4 - Phòng ban3",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T3 - Chuyên môn3",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T2 - Nhiệm vụ6",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T1 - Công việc3",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Khuôn mẫu",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Vận hành",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "✕",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "✕",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Huỷ",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Gửi đề xuất",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOW ▾Quy trình",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOT ▾Công việc",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOIT ▾Nhập liệu",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOUT ▾Báo cáo",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Master ▾Tổng 4 Mẹ",
+      "title": ""
+    }
+  ],
+  "forms": 0,
+  "links": [],
+  "text": "MOW Unified Canvas\nv2\nDRAFT · mock data\nThường\nĐề xuất\nVận hành\nQuản trị ⚠\nThương mại quốc tế\n›\nIncomex Sài Gòn\n›\nKinh doanh\n›\nNhân sự\n›\nTuyển dụng\n›\nNhiệm vụ/Workflow\nT7 - Lĩnh vực\n2\nT6 - Công ty\n2\nT5 - Khối\n3\nT4 - Phòng ban\n3\nT3 - Chuyên môn\n3\nT2 - Nhiệm vụ\n6\nT1 - Công việc\n3\nNHIỆM VỤ/WORKFLOW → CÔNG VIỆC\nKhuôn mẫu\nVận hành\nNV01\nTiếp nhận\nT01\nNhận đơn\nT02\nNhập hệ thống\nT03\nXếp nhóm\nNH\nNguyễn Hà\n31/5\nNV02\nSàng lọc\nT04\nKiểm tra ĐK\nT05\nĐánh giá sơ bộ\nTL\nTrần Long\n1/6\nNV03\nPhỏng vấn\nT06\nLên lịch PV\nT07\nPV vòng 1\nT08\nPV vòng 2\n··· +3 nữa\nPD\nPhạm Dũng\n29/5\nNV04\nThu hồ sơ\nT12\nThu thập GT\nT13\nXác minh bằng cấp\nT14\nKiểm tra lý lịch\n··· +2 nữa\nChưa giao\nNV05\nĐào tạo\nT17\nNgoại ngữ\nT18\nKỹ năng\nT19\nVăn hoá Nhật\nLV\nLê Vy\n10/6\nNV06\nXuất cảnh\nT20\nVisa\nT21\nBay\nT22\nLễ tiễn\nHT\nHoàng Trang\n20/6\nCHI TIẾT CÔNG VIỆC · T1\n—\n—\n✕\nDRAFT · MOW Unified Canvas v2 · SSOT\n4 MẸ\nMOW\n▾\nQuy trình\nMOT\n▾\nCông việc\nMOIT\n▾\nNhập liệu\nMOUT\n▾\nBáo cáo\nMaster\n▾\nTổng 4 Mẹ",
+  "title": "MOW · T2 · Vận hành — Incomex",
+  "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T2&che-do=van-hanh"
+}

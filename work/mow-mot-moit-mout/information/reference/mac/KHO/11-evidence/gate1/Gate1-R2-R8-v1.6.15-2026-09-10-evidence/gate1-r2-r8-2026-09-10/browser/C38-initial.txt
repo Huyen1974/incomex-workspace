@@ -1,0 +1,545 @@
+Browser tab: 14, Title: "Knowledge Tree - Incomex AI Portal", URL: "https://vps.incomexsaigoncorp.vn/knowledge-tree".
+1 AXWebArea Knowledge Tree - Incomex AI Portal, URL: vps.incomexsaigoncorp.vn/knowledge-tree
+	2 container
+		3 container
+			4 link Description: Incomex AI Portal, Value: vps.incomexsaigoncorp.vn/
+			5 container Global
+				6 link Description: Knowledge, Value: vps.incomexsaigoncorp.vn/knowledge
+				7 link Description: Modules, Value: vps.incomexsaigoncorp.vn/knowledge/modules
+				8 link Description: Tasks, Value: vps.incomexsaigoncorp.vn/knowledge/current-tasks
+				9 link Description: Reports, Value: vps.incomexsaigoncorp.vn/reports
+				10 link Description: Workflows, Value: vps.incomexsaigoncorp.vn/knowledge/workflows
+				11 link Description: Registries, Value: vps.incomexsaigoncorp.vn/knowledge/registries
+				12 link Description: Pivot, Value: vps.incomexsaigoncorp.vn/knowledge/pivot
+				13 link Description: Laws, Value: vps.incomexsaigoncorp.vn/knowledge/laws
+			14 link Description: Let's Talk, Value: vps.incomexsaigoncorp.vn/contact-us
+			15 link Description: Login, Value: vps.incomexsaigoncorp.vn/auth/signin
+		16 heading Knowledge Tree, Value: 1
+			17 text Knowledge Tree
+		18 text Browse and manage your knowledge base in a hierarchical structure
+		19 button + New Root Folder
+		20 button Refresh
+		21 heading Document Tree, Value: 2
+			22 text Document Tree
+		23 content list
+			24 container
+				25 image
+				26 text 00 - KB Upload Probe (O5 Release/Live-Production Planning)
+				27 button Move
+					28 image
+			29 container
+				30 image
+				31 text 00 — Axis-Proposal & Authorization Operating-Substrate Design — Overview & Control (design-only, READ-ONLY, no COMMIT, 2026-06-02)
+				32 button Move
+					33 image
+			34 container
+				35 image
+				36 text 00 — Deferred Substrate Completion: Overview & State Recovery (SB-10 aux + SB-2 recursive/gap views BUILT+VERIFIED+INERT, test-mode, 2026-06-02)
+				37 button Move
+					38 image
+			39 container
+				40 image
+				41 text 00 — Điều 45 Full Queue Orchestration Design Pack DP1-DP7 — Summary
+				42 button Move
+					43 image
+			44 container
+				45 image
+				46 text 00 — Điều 45 PG-Native Queue Law Draft — Summary (v0.2.1)
+				47 button Move
+					48 image
+			49 container
+				50 image
+				51 text 00 — Điều 45 Phase 1 Minimal Job Substrate LIVE APPLY — Summary (PASS, 2026-05-26)
+				52 button Move
+					53 image
+			54 container
+				55 image
+				56 text 00 — F-1 Coverage Dry-Run: Overview & State Recovery (PASS; read-only; 3-collection subset; zero mutation; entry==exit; activation NO-GO; 2026-06-02)
+				57 button Move
+					58 image
+			59 container
+				60 image
+				61 text 00 — G1 Candidate Registry Activation Closure Campaign — Overview & Control
+				62 button Move
+					63 image
+			64 container
+				65 image
+				66 text 00 — Human Ratification Handoff: Overview & State Recovery (READY_FOR_HUMAN; BUILD NO-GO)
+				67 button Move
+					68 image
+			69 container
+				70 image
+				71 text 00 — IU CUT Điều 39 VERIFY_MARK Root Cause + Contract Fix — Summary
+				72 button Move
+					73 image
+			74 container
+				75 image
+				76 text 00 — One-Roof Governance Clause Review & Hardening — Overview & Control (2026-06-01)
+				77 button Move
+					78 image
+			79 container
+				80 image
+				81 text 00 — One-Roof Governance Concept Canon — Index & Control (Round 4 Concept Patch, 2026-06-01)
+				82 button Move
+					83 image
+			84 container
+				85 image
+				86 text 00 — One-Roof Governance Decision Pack — Overview & Control (2026-06-01)
+				87 button Move
+					88 image
+			89 container
+				90 image
+				91 text 00 — One-Roof Governance Hardening Revision (All Domains, All Axes) — Overview & Control (2026-06-01)
+				92 button Move
+					93 image
+			94 container
+				95 image
+				96 text 00 — One-Roof Governance Law Hardening Finalization (Round 4) — Overview & Control (2026-06-01)
+				97 button Move
+					98 image
+			99 container
+				100 image
+				101 text 00 — Operational Readiness & Activation Boundary: Overview & State Recovery (PASS design/build-prep; substrate live+inert; NO activation; 2026-06-02)
+				102 button Move
+					103 image
+			104 container
+				105 image
+				106 text 00 — Overview & Control (P0/P1 Count-Integrity + View Rehearsal)
+				107 button Move
+					108 image
+			109 container
+				110 image
+				111 text 00 — Overview & Control Tower: IU Limited-Pilot / CR / KG / Design-Recon / Authority Mega-Bundle (2026-05-28)
+				112 button Move
+					113 image
+			114 container
+				115 image
+				116 text 00 — Overview & Control Tower: IU Pilot / CR / KG / Recon / Authority Live-Assembly SuperBundle (2026-05-28)
+				117 button Move
+					118 image
+			119 container
+				120 image
+				121 text 00 — Overview & Control: Full-Stack Governance Alignment Audit for Registries-Pivot Grouping
+				122 button Move
+					123 image
+			124 container
+				125 image
+				126 text 00 — Overview & Control: Governance Alignment Follow-up Fact-Finding (Registries-Pivot)
+				127 button Move
+					128 image
+			129 container
+				130 image
+				131 text 00 — Overview & State Recovery (Auth-Model Ratification Intake)
+				132 button Move
+					133 image
+			134 container
+				135 image
+				136 text 00 — Overview & State Recovery (RE-RUN + PUBLISH)
+				137 button Move
+					138 image
+			139 container
+				140 image
+				141 text 00 — Overview & State Recovery (READ ME FIRST)
+				142 button Move
+					143 image
+			144 container
+				145 image
+				146 text 00 — Overview, Gate0, Reuse-First Verdict (Registries-Pivot OS Agency: Count-Integrity / Orphan-Phantom / Label / Pin)
+				147 button Move
+					148 image
+			149 container
+				150 image
+				151 text 00 — Overview, State Recovery & Test-Mode Authority (Phase-1 Test-Mode Build, 2026-06-02)
+				152 button Move
+					153 image
+			154 container
+				155 image
+				156 text 00 — Package Index (VERIFIED v2)
+				157 button Move
+					158 image
+			159 container
+				160 image
+				161 text 00 — Patch Canonical Design (One-Roof Concepts, Round 4) — Overview & Control (2026-06-01)
+				162 button Move
+					163 image
+			164 container
+				165 image
+				166 text 00 — Phase 0 Activation-Sequencing SuperCampaign — Overview &amp; Control Tower (2026-05-29, rev2 corrected)
+				167 button Move
+					168 image
+			169 container
+				170 image
+				171 text 00 — Phase 0 Human-Activation & Config-Only Readiness Campaign — Overview & Control Tower
+				172 button Move
+					173 image
+			174 container
+				175 image
+				176 text 00 — Phase0 Human-Gate Execution Session & First Config Drafts Mega-Campaign — Overview & Control Tower
+				177 button Move
+					178 image
+			179 container
+				180 image
+				181 text 00 — READ ME FIRST — One-Roof Governance Implementation Index (2026-06-01)
+				182 button Move
+					183 image
+			184 container
+				185 image
+				186 text 00 — Readme First
+				187 button Move
+					188 image
+			189 container
+				190 image
+				191 text 00 — Readme First
+				192 button Move
+					193 image
+			194 container
+				195 image
+				196 text 00 — Readme First
+				197 button Move
+					198 image
+			199 container
+				200 image
+				201 text 00 — README First
+				202 button Move
+					203 image
+			204 container
+				205 image
+				206 text 00 — README FIRST — Birth Fix Next-Cycle Verification / Trigger Reconciliation / RP Hygiene
+				207 button Move
+					208 image
+			209 container
+				210 image
+				211 text 00 — Readme First — Full RP Process×Trigger / UI / Officialization / dot:kg / Content / Production Closeout (2026-06-04)
+				212 button Move
+					213 image
+			214 container
+				215 image
+				216 text 00 — Readme First — RP Dynamic Layer Graph + Count Contract Finalize 2026-06-03
+				217 button Move
+					218 image
+			219 container
+				220 image
+				221 text 00 — Readme First — RP Parent Graph Commit + Aggregate Pivots 2026-06-03
+				222 button Move
+					223 image
+			224 container
+				225 image
+				226 text 00 — Readme First — Terminal 2 Read-Only Audit (RP Process×Trigger Closeout) 2026-06-04
+				227 button Move
+					228 image
+			229 container
+				230 image
+				231 text 00 — Readme First — TOTAL RP Process×Trigger Officialization / UI / dot:kg / Content / Final Acceptance (2026-06-04)
+				232 button Move
+					233 image
+			234 container
+				235 image
+				236 text 00 — Readme First — Workflow Orphan Remediation → Process Candidates
+				237 button Move
+					238 image
+			239 container
+				240 image
+				241 text 00 — README First (agent_api contract/dispatcher macro)
+				242 button Move
+					243 image
+			244 container
+				245 image
+				246 text 00 — README First (Backlog Remediation Stage-2)
+				247 button Move
+					248 image
+			249 container
+				250 image
+				251 text 00 — Readme First (DOT Runner / Dry-Run / UI / Registration Readiness)
+				252 button Move
+					253 image
+			254 container
+				255 image
+				256 text 00 — README First (Governed Officialization Closeout)
+				257 button Move
+					258 image
+			259 container
+				260 image
+				261 text 00 — Readme First (Process Axis AI-Review / Action-Panel / Delegation Closeout)
+				262 button Move
+					263 image
+			264 container
+				265 image
+				266 text 00 — Readme First (Process Discovery Closeout)
+				267 button Move
+					268 image
+			269 container
+				270 image
+				271 text 00 — README First (RP Count/Substrate Fix + Registryization Generator + FullPop v2)
+				272 button Move
+					273 image
+			274 container
+				275 image
+				276 text 00 — README First (RP Supertrack 2026-06-05)
+				277 button Move
+					278 image
+			279 container
+				280 image
+				281 text 00 — README First (RP UI Operator Deploy + Decorated Generator + Final Acceptance)
+				282 button Move
+					283 image
+			284 container
+				285 image
+				286 text 00 — Readme First: Authority/Birth/Truth Control-Plane P0 Remediation
+				287 button Move
+					288 image
+			289 container
+				290 image
+				291 text 00 — README First: Information-Piece Topic/Axis Registries-Pivot Design
+				292 button Move
+					293 image
+			294 container
+				295 image
+				296 text 00 — Readme First: RP Generator Parity Fix + Contract Replace + UI Deploy Standby
+				297 button Move
+					298 image
+			299 container
+				300 image
+				301 text 00 — README First: RP Process Coverage UI/Owner/Canon/Content Closeout (2026-06-04)
+				302 button Move
+					303 image
+			304 container
+				305 image
+				306 text 00 — Registries-Pivot OS Agency — Master Design v0.1 (canonical)
+				307 button Move
+					308 image
+			309 container
+				310 image
+				311 text 00 — Registries/Pivot OS Agency Surface Master Design — Index
+				312 button Move
+					313 image
+			314 container
+				315 image
+				316 text 00 — RP Governance Attach & Mapping Build — README FIRST
+				317 button Move
+					318 image
+			319 container
+				320 image
+				321 text 00 — RP Governance/Birth/Synthetic-Axis Final Readiness — README First
+				322 button Move
+					323 image
+			324 container
+				325 image
+				326 text 00 — RP Production API Operator Fix / UI Truth / Smoke — Readme First
+				327 button Move
+					328 image
+			329 container
+				330 image
+				331 text 00 — System-Wide PG-Native Queue Law + Readiness Survey — Summary
+				332 button Move
+					333 image
+			334 container
+				335 image
+				336 text 00 · IU CUT operational pipeline runtime hardening · PASS · 2026-05-27
+				337 button Move
+					338 image
+			339 container
+				340 image
+				341 text 00 · README First — Authority-Independent Total Closeout (2026-06-05)
+				342 button Move
+					343 image
+			344 container
+				345 image
+				346 text 00 · README First — T2 RP Canonical Contract Design Alignment & Technical Spec (2026-06-05)
+				347 button Move
+					348 image
+			349 container
+				350 image
+				351 text 00 README — RP Automation Actuation / REALRUN Closeout (2026-06-05)
+				352 button Move
+					353 image
+			354 container
+				355 image
+				356 text 00 README FIRST — RP Adapter / Automation Reality / No-Blind-Spot Closeout (2026-06-05)
+				357 button Move
+					358 image
+			359 container
+				360 image
+				361 text 00 README First — RP Count Reliability Macro 2026-06-05
+				362 button Move
+					363 image
+			364 container
+				365 image
+				366 text 00 Summary — VERIFY_MARK CUT-Readiness Gate Design + Fix (PASS, 2026-05-27)
+				367 button Move
+					368 image
+			369 container
+				370 image
+				371 text 00-empty — folder marker for label-rules
+				372 button Move
+					373 image
+			374 container
+				375 image
+				376 text 00-index-c1-lego-dryrun-plan-hardening-no-prod-write-2026-06-22.md
+				377 button Move
+					378 image
+			379 container
+				380 image
+				381 text 00-index.md
+				382 button Move
+					383 image
+			384 container
+				385 image
+				386 text 00-readme-first.md
+				387 button Move
+					388 image
+			389 container
+				390 image
+				391 text 00-readme-first.md
+				392 button Move
+					393 image
+			394 container
+				395 image
+				396 text 00a-SSOT-source-of-truth-classification-2026-06-22.md
+				397 button Move
+					398 image
+			399 container
+				400 image
+				401 text 01 - Current Release & Runtime State
+				402 button Move
+					403 image
+			404 container
+				405 image
+				406 text 01 — 13:00 UTC Cycle Verification (PASS, 5 cycles)
+				407 button Move
+					408 image
+			409 container
+				410 image
+				411 text 01 — Authority Artifact Scan (Branch A)
+				412 button Move
+					413 image
+			414 container
+				415 image
+				416 text 01 — Authority Bypass Root Cause & Containment
+				417 button Move
+					418 image
+			419 container
+				420 image
+				421 text 01 — Authority Conditional Execution Harness
+				422 button Move
+					423 image
+			424 container
+				425 image
+				426 text 01 — Authority Decision Inventory & Principal Decision Queue
+				427 button Move
+					428 image
+			429 container
+				430 image
+				431 text 01 — BEFORE official-runtime snapshot + reuse-first re-confirm
+				432 button Move
+					433 image
+			434 container
+				435 image
+				436 text 01 — Current APR-0415 Approval State (read-only)
+				437 button Move
+					438 image
+			439 container
+				440 image
+				441 text 01 — Current authorize_build_step + handler architecture (VPS SSOT) 2026-06-23
+				442 button Move
+					443 image
+			444 container
+				445 image
+				446 text 01 — Current State & Controlling Sources (priority-ordered) (2026-06-01)
+				447 button Move
+					448 image
+			449 container
+				450 image
+				451 text 01 — Deferred Substrate Completion: Live Preflight (Hard Gate 0) & Rollback Plan (2026-06-02)
+				452 button Move
+					453 image
+			454 container
+				455 image
+				456 text 01 — Design Foundation and Điều 45 Compliance
+				457 button Move
+					458 image
+			459 container
+				460 image
+				461 text 01 — Dual-Path Baseline
+				462 button Move
+					463 image
+			464 container
+				465 image
+				466 text 01 — Dual-Path Baseline + Drift Lock
+				467 button Move
+					468 image
+			469 container
+				470 image
+				471 text 01 — Dual-path Baseline + OOM Incident Recheck
+				472 button Move
+					473 image
+			474 container
+				475 image
+				476 text 01 — Dual-Path Baseline + OOM Stability
+				477 button Move
+					478 image
+			479 container
+				480 image
+				481 text 01 — Dual-Path Live Drift Audit
+				482 button Move
+					483 image
+			484 container
+				485 image
+				486 text 01 — Dual-Path Live State & Drift Audit (2026-06-04)
+				487 button Move
+					488 image
+			489 container
+				490 image
+				491 text 01 — Dual-Path Live State & Drift Verification (2026-06-04)
+				492 button Move
+					493 image
+			494 container
+				495 image
+				496 text 01 — Dual-Path Live Verification & Drift Lock
+				497 button Move
+					498 image
+			499 container
+				500 image
+				501 text 01 — Dual-Path Live-State Verification
+				502 button Move
+					503 image
+			504 container
+				505 image
+				506 text 01 · Current-State Read-Only Check (live evidence, 2026-06-05)
+				507 button Move
+					508 image
+			509 container
+				510 image
+				511 text 01 · Dual-Path Live State & Drift Audit
+				512 button Move
+					513 image
+			514 container
+				515 image
+				516 text 01 Dual-Path Live Verification — RP Count Reliability 2026-06-05
+				517 button Move
+					518 image
+			519 container
+				520 image
+				521 text 01-current-state-and-source-readback-2026-06-22.md
+				522 button Move
+					523 image
+		524 container
+			525 heading Details, Value: 2
+				526 text Details
+			527 text Select a node to view details
+		528 container
+			529 link vps.incomexsaigoncorp.vn/
+			530 heading MENU, Value: 2
+				531 text MENU
+			532 link vps.incomexsaigoncorp.vn/
+			533 link vps.incomexsaigoncorp.vn/knowledge
+			534 link vps.incomexsaigoncorp.vn/tools
+			535 link vps.incomexsaigoncorp.vn/admin
+			536 text Copyright © 1988 - 2026 
+			537 link Description: Incomex AI Portal. , Value: vps.incomexsaigoncorp.vn/
+			538 text All rights reserved.  Site powered by 
+			539 link Description: Directus , Value: directus.io/?ref=agencyos_footer
+			540 text and 
+			541 link Description: Nuxt , Value: nuxt.com/?ref=agencyos_footer
+			542 text .
+
+The focused UI element is 1 AXWebArea Knowledge Tree - Incomex AI Portal, URL: vps.incomexsaigoncorp.vn/knowledge-tree
