@@ -10,10 +10,13 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 phiên 2 · OWNER_APPROVED + READY | NEXT: Owner mở Claude Code chế độ không hỏi quyền (D08) + RUN phiên 2 | BLOCK: —
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 XONG · R4 khép việc OWNER_APPROVED + READY | NEXT: Owner gỡ quyền "rclone" cũ trong tài khoản Google → RUN R4 → V3 Codex sau cron đêm | BLOCK: —
 
-- PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R3-20260921-01` · SEC-01 + bịt nốt vòi + đợt 2 · **CÓ MUTATION** · DRAFT.
-- **PROMPT_SHA = dd216dff830a426199bd57491bb83a114490c127** (R3 phiên 2: tiếp từ Phase 1.3 + Phase 4 Kuma + Phase 5 hoàn tất SEC-01; Phase 1–3 giữ nguyên).
+- PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R4-20260922-01` · khép việc: build cache + báo image + dọn dấu vết SEC-01 · CÓ MUTATION nhỏ.
+- **PROMPT_SHA: SAME_COMMIT**.
+- **OWNER_APPROVED@SAME_COMMIT** (D08) · **Host READY@SAME_COMMIT** — preflight 22/09 ~11:20Z: đĩa 44/96GB, 45%, trống 53GB; 12 container healthy; Executor + Write_Path đã chạy ở R3.
+- **Host kiểm R3 (22/09 ~11:20Z):** đã đọc mục R3 trong `BAO-CAO.md`; tự đo 45%, trống 53GB (khớp 52,784GiB agent báo); 12 container healthy. R3 đạt: vượt 45GiB, Drive có hạn giữ, cảnh báo đĩa qua Telegram hoạt động lại, mọi vòi trong bảng §3e có trần. Còn: gỡ quyền client chung (Owner) + dọn dấu vết, build cache chưa có trần, image chờ R03.
+- R3 (lịch sử): **PROMPT_SHA `dd216dff830a426199bd57491bb83a114490c127`** · OWNER_APPROVED + READY đã dùng · KQ XONG.
 - **OWNER_APPROVED@dd216dff830a426199bd57491bb83a114490c127** (D08) · **Host READY@dd216dff830a426199bd57491bb83a114490c127** — preflight 22/09 ~10:30Z: đĩa 55%, trống 43,3GiB; 12 container healthy; Phase 0/1.1/1.2 đã xác minh qua báo cáo `63c8d68`; Executor Claude Code CLI trên Mac → SSH (đã chạy phiên 1); Write_Path `workspace_*`. GPT REVIEWED@f249b90 vẫn là cơ sở cho Phase 1–3; phần thêm (Phase 4–5, chế độ chạy) do Owner uỷ quyền trực tiếp (A6: OWNER_APPROVED) — GPT có thể mở P sau, không chặn.
 - R3 phiên 1 (lịch sử): **PROMPT_SHA = f249b90f9a5d84bce5295f22b7628fd716fe5ba3** (sau P16). Bản `fb182de` hết hiệu lực — OWNER_APPROVED@fb182de chuyển sang SHA mới vì chỉ đổi Phase 0 theo P16, không mở rộng phạm vi Owner đã gật (Q06). Cần đủ ba: `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` (preflight gồm NO_CONCURRENT_VPS_MUTATION).
 - **OWNER_APPROVED@f249b90f9a5d84bce5295f22b7628fd716fe5ba3** — chuyển từ OWNER_APPROVED@fb182de (Q06 "cần chốt dứt điểm"); bản mới chỉ đổi Phase 0 theo P16, phạm vi không rộng hơn.
@@ -65,7 +68,8 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 phiên 2 · OWNER_APPR
 - VPSC.5 | R2 dọn đợt 1 (N2/N4/N5/N3 + gỡ cổng Qdrant) + khoá 4 vòi → Codex hậu kiểm | MACHINE_DONE · R2 · xem BAO-CAO.md · KQ@VPSC-R2-20260921-01 XONG · trống 9,398→43,452GiB · thu hồi 34,207 · khoá 4/4 vòi; còn thiếu 1,548GiB tới 45 (đợt 2) · Áp: SAME_COMMIT
 - VPSC.5b | ▶ phiên 2 READY (tiếp từ Phase 1.3 + Phase 4 Kuma + Phase 5 SEC-01) · R3: SEC-01 trước + bịt nốt vòi (fail-closed, hai khoá, hạn giữ Drive) + đợt 2 (N9/N11 cứu rồi xoá tới >45GiB) — MỘT prompt | MACHINE_DONE · R3 · xem BAO-CAO.md · SEC-01 MIGRATED·PENDING_REVOKE (VPS + mount Mac đã client riêng; gỡ quyền "rclone" cũ = việc Owner, rồi xoá 1 transcript + cấu hình cũ) · trống 43,366→52,784GiB · người gác (d)–(i) `4e7bc81`/`a2f4754` · Drive fail-closed + hạn giữ `1864e3e` (tỉa 34 bộ, 17,73→8,53GiB) · N9/N11 + 126 SQL cứu rồi xoá (9,23GiB) · Kuma #10/#11 UP `c5b7615` (sửa 2 / còn 0) · vòi hai khoá 2/5 · KQ@VPSC-R3-20260921-01 XONG · Áp: SAME_COMMIT
 - VPSC.5v | Codex hậu kiểm R2 (V2, chỉ đọc) | MACHINE_DONE · V2 · PASS 3 / REVISE 3 / BLOCK 0 · K2 chưa rõ · xem BAO-CAO.md · KQ@VPSC-V2-20260921-01 XONG · Áp: SAME_COMMIT
-- VPSC.5c | V3: Codex hậu kiểm R3 + bằng chứng lượt chạy thật (cron Qdrant 03:00 giờ máy, K1, deploy Nuxt nếu có) | □
+- VPSC.5c | V3: Codex hậu kiểm R3 + R4 + bằng chứng lượt chạy thật (backup Drive 20:37 giờ máy 22/09, cron Qdrant 03:00 giờ máy 23/09, người gác, Kuma, deploy Nuxt nếu có) | □ sau R4
+- VPSC.5e | R4 khép việc: khoá build cache (tỉa tuần, giữ ≤5GiB) + báo image (không xoá; luật giữ giao chủ R03) + dọn dấu vết SEC-01 sau khi Owner gỡ quyền cũ | ▶ READY, chờ Owner gỡ quyền + RUN
 - VPSC.5d | SEC-01: xoay token Drive + xoá transcript phiên 1 | → gộp vào R3 Phase 0 theo P15(5): xoay TRƯỚC lần dùng Drive kế tiếp
 - VPSC.6 | Theo dõi 2 tuần theo T1–T6 → đóng; mở việc Graph | □
 
@@ -107,6 +111,8 @@ GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho 
 - **Không đụng:** `hvu-b3-20260921`, `hvu-b3-cleanup-20260922`, runtime `sr-mow-d30d31` cho tới khi có migration riêng chứng minh an toàn.
 
 ## NEXT
+- Owner gỡ quyền ứng dụng "rclone" (client chung) trong tài khoản Google (3 cú bấm, Host hướng dẫn) → RUN R4 (Claude Code, chế độ D08) → V3 Codex sau 03:00 giờ máy 23/09 → VPSC.6 theo dõi 2 tuần → đóng.
+- Giao chủ R03 (GPT): luật giữ image sau R03 CLOSED — mỗi dịch vụ giữ image đang chạy + chuỗi cha + 2 bản trước. Giao chủ agent-data (GPT): TTL `workspace-tools`.
 - **R3 phiên 2:** Owner mở Claude Code chế độ không hỏi quyền (D08) và dán lệnh RUN phiên 2; trong lúc chạy không giao HVU/việc khác đụng VPS.
 - Host preflight lại ngay trước RUN: df/health, `NO_CONCURRENT_VPS_MUTATION`, Executor_Surface/Write_Path, commit cuối chạm PROMPT vẫn `f249b90f9a5d84bce5295f22b7628fd716fe5ba3`; đạt → ghi `READY@f249b90f9a5d84bce5295f22b7628fd716fe5ba3`.
 - RUN Claude Code CLI bằng **phiên mới sạch**. Owner ngồi máy phần Phase 0; không giao HVU hay việc khác mutation VPS trong cửa sổ R3.

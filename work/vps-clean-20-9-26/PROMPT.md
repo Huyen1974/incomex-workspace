@@ -1,83 +1,39 @@
-# PROMPT — VPSC · R3 Bịt nốt vòi + đợt 2 lấy chỗ (CÓ MUTATION — chỉ đúng danh sách trong file này)
+# PROMPT — VPSC · R4 Khép việc: khoá build cache + báo image + dọn dấu vết SEC-01 (CÓ MUTATION nhỏ)
 
-RUN_ID: VPSC-R3-20260921-01
-Soạn: Claude Chat (Host), 21/09/2026, từ P14 + P15 (GPT) + V2 (Codex: V2-01, V2-02, D, F) + Host (hai khoá cho mỗi vòi, hạn giữ Drive chính, vòi nhỏ). Trạng thái chỉ tin `work/vps-clean-20-9-26/COLLAB.md`. Chỉ chạy khi COLLAB có đủ `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` đúng full SHA commit cuối chạm file này, và lệnh RUN.
-**Executor_Surface = Claude Code CLI trên máy Mac, điều khiển shell root VPS qua SSH** (đúng bề mặt R2). **Write_Path = `workspace_*`**; dự phòng `fs_*`. Cấm git/GitHub native để ghi repo workspace; không clone.
-**Nguyên tắc:** chỉ làm đúng mục có tên. Không tự quyết thêm. Ghi báo cáo TRƯỚC khi sang phần có rủi ro (§3). Mỗi vòi có HAI khoá: khoá ở nơi sinh (script) + người gác ở nơi chứa (`vps-retention.sh`).
-
-## Lượt tiếp (phiên 2, 22/09/2026) — đọc trước
-- Phase 0, 1.1, 1.2 ĐÃ XONG ở phiên 1 (báo cáo `63c8d68`; commit cục bộ `330360e`, `4eac699`; SEC-01 = MIGRATED). KHÔNG làm lại. Bắt đầu từ **Phase 1.3** (bản nháp + thử khô ở `/var/lib/incomex-audit/VPSC-R3-20260922/`), rồi 1.5 → Phase 2 → Phase 3 → Phase 4 → Phase 5.
-- Số dự kiến lượt đầu của người gác (theo thử khô): (e) 2 pack Git tạm Hermes ~0,29GiB · (f) 1 thư mục JSONL Lark ~1,1GiB · (g) ~244 log cũ. Lệch >20% hoặc xuất hiện loại mục khác → DỪNG trước khi xoá.
-- **Uỷ quyền D08:** Owner cho phép chạy phiên này ở chế độ không hỏi quyền từng lệnh; mọi luật cứng trong file này vẫn nguyên hiệu lực và thay cho van tự động. Trước MỖI thay đổi: ghi trạng thái trước + cách lùi; sau thay đổi: kiểm health (§0.5); xấu đi → lùi ngay và DỪNG. Không làm hỏng thứ đang chạy là ưu tiên số 1.
-- Cổng §0 vẫn chạy đủ (NO_CONCURRENT: có RUN khác đang đụng VPS → chờ ≤15 phút rồi DỪNG).
-- Báo cáo: CẬP NHẬT mục R3 đã có trong `BAO-CAO.md` (không tạo mục mới); dòng `VPSC.5b` cập nhật cuối.
+RUN_ID: VPSC-R4-20260922-01
+Soạn: Claude Chat (Host), 22/09/2026, sau R3 (`KQ@VPSC-R3-20260921-01 XONG`). Theo D08 (Owner uỷ quyền). Tham khảo JEV (`typesafe/jev-1.13`): build cache → tự tỉa có trần (0,99); image → chỉ báo cho tới khi chủ R03 đặt luật (0,79); khoá thứ hai Qdrant → không cần (0,47, tin cậy thấp; Host chốt: đủ vì 2 khoá nơi sinh fail-closed đã PASS lượt thật + cảnh báo đĩa 80%). Trạng thái chỉ tin COLLAB. Chỉ chạy khi COLLAB có `OWNER_APPROVED@` + Host `READY@` đúng full SHA commit cuối chạm file này + lệnh RUN.
+**Executor_Surface = Claude Code CLI trên Mac → shell root VPS qua SSH.** **Write_Path = `workspace_*`**; dự phòng `fs_*`. Không clone, không ghi repo bằng git.
+**Chế độ (D08):** không hỏi quyền từng lệnh; luật cứng dưới đây thay cho van tự động. Trước mỗi thay đổi ghi trạng thái cũ + cách lùi; sau đó kiểm health; xấu đi → lùi ngay và DỪNG. Không làm hỏng thứ đang chạy là ưu tiên số 1.
 
 ## 0. Cổng
-1. `df -B1 /`; Available <3GiB → DỪNG.
-2. Read-gate COLLAB qua Write_Path; giấy phép khớp full SHA commit cuối chạm PROMPT.md (không so HEAD); lệch → DỪNG.
-3. **NO_CONCURRENT_VPS_MUTATION:** không có tiến trình `docker build/compose/pull`; container `incomex-agent-data` đã tạo ≥10 phút và healthy; COLLAB gốc và COLLAB các việc khác không có RUN đang chạy đụng VPS. Không đạt → chờ tối đa 15 phút rồi DỪNG. Trước mỗi phần (Phase) kiểm lại agent-data không bị tạo lại; bị tạo lại → không làm phần kế, ghi lý do. KHÔNG tự rollback/xoá image của việc khác.
-4. Đọc `BAO-CAO.md` mục V2 (V2-01, V2-02, D, F), R2, V1b (bảng N9/N11 theo tên).
-5. Chụp trạng thái trước: df; 12 container + health; `production_documents` status + `points_count` + số snapshot server-side; web 200; Directus health.
-6. Không có tiến trình backup/deploy/builder đang chạy (đếm theo tên).
+1. `df -B1 /`; read-gate COLLAB; giấy phép khớp SHA (commit cuối chạm PROMPT, không so HEAD); lệch → DỪNG.
+2. NO_CONCURRENT: không có `docker build/compose/pull`; không RUN khác đang đụng VPS; không build đang chạy. Không đạt → chờ ≤15 phút rồi DỪNG.
+3. Chụp trạng thái trước: df; 12 container + health; web 200; Directus health; Qdrant green.
 
 ## 1. Luật cứng
-- Không restart/recreate container; không docker rm/rmi/prune/build/save/pull; không DROP/VACUUM. Không đụng N6–N8 (image/build cache — chờ R03 CLOSED), N12–N15, DB thử, `/var/backups/hermes/snapshot-truoc-update` (G21), `/root/agent-runs`, `backups/mysql/backup.log`.
-- **Luật bí mật:** không in bất kỳ token/khoá nào ra màn hình hay vào file ngoài đúng file cấu hình đích; bí mật chỉ đi qua pipe hoặc biến trong shell con. Không cat/grep/head/less/sed-in `rclone.conf`, `.env`, `secrets/` (ngoại lệ duy nhất: `grep -c` chỉ in số đếm); không `rclone config show`, `env`, `set -x`; không liệt kê tham số tiến trình.
-- Sửa script: commit git cục bộ `/opt/incomex` trước/sau, `bash -n`, kiểm nhánh lỗi bằng mô phỏng (thay lệnh bằng stub trả lỗi). KHÔNG chạy backup/deploy thật, không tạo/xoá snapshot thật để thử.
-- Xoá theo danh sách tên; in số dự kiến và số thực trước mỗi nhóm; lệch → DỪNG nhóm đó.
-- Sau mỗi Phase: đo lại §0.5; health xấu đi → DỪNG.
+- KHÔNG xoá/tag/untag bất kỳ image nào; không `docker image prune`, `docker system prune`; không restart/recreate container. Không đụng image rollback R03 hay image đang chạy (kể cả image không tag của Nuxt).
+- Luật bí mật như R3: không in token/khoá; bí mật chỉ qua biến/pipe; chỉ dừng tiến trình theo PID.
+- Sửa script: commit git cục bộ `/opt/incomex` trước/sau, `bash -n`, mô phỏng nhánh lỗi.
 
-## Phase 0 — SEC-01: chuyển Drive sang khoá OAuth riêng (P16 · Owner ngồi máy ~15 phút)
-0.1 Xác định remote rclone Drive mà `backup-to-gdrive.sh`, `code-backup-to-gdrive.sh`, backup Lark dùng: chỉ in TÊN remote và TÊN file cấu hình. Đếm remote đã có `client_id` riêng (`grep -c`, chỉ in số).
-0.2 **CẤM trong R3:** gọi endpoint thu hồi OAuth của Google; gỡ quyền ứng dụng trong tài khoản Google; cấp token mới bằng client dùng chung của rclone. (Thu hồi có thể làm chết mọi token cùng project, kể cả máy khác; client chung của rclone đang bị ngừng trong 2026.)
-0.3 **Remote đang dùng client chung → chuyển sang client riêng, có Owner cùng làm:** hướng dẫn Owner tạo client OAuth riêng trong Google Cloud Console — mở đúng từng trang trên Mac bằng `open <URL>`, mỗi bước một câu ngắn, chờ Owner báo xong rồi mới sang bước kế: (a) chọn/tạo project; (b) bật Google Drive API; (c) màn hình đồng ý: tài khoản Google Workspace chọn **Nội bộ (Internal)**; nếu là Gmail cá nhân chọn External rồi **Publish (đưa lên production)** — KHÔNG để ở chế độ Testing vì token sẽ hết hạn sau 7 ngày; (d) tạo OAuth client loại **Desktop app**, tải file JSON về thư mục Tải về (Downloads). Agent đọc file JSON vào biến (không in) → cập nhật đúng các remote ở 0.1 sang client đó → chạy `rclone authorize "drive" <client_id> <client_secret>` trên Mac, nhắn Owner đúng một câu **"Trình duyệt vừa mở: anh đăng nhập đúng tài khoản Google chứa thư mục backup rồi bấm Cho phép (Allow)."** → token đi thẳng qua pipe/SSH vào `rclone config update <remote> token …`, không in. Xong thì xoá file JSON khỏi Downloads.
-0.4 **Remote đã có client riêng →** chỉ cấp lại token đúng client đó như cuối 0.3.
-0.5 Kiểm trên mọi remote vừa đổi: liệt kê đích backup mã hoá (chỉ in số đối tượng). PASS → `SEC-01 = MIGRATED · PENDING_REVOKE` và được làm Phase 2–3. Việc gỡ quyền cũ + xoá transcript chứa token cũ là việc Owner làm sau R3 theo hướng dẫn Host (P16 c/d) — R3 KHÔNG xoá transcript.
-0.6 Owner không làm được lúc này, hoặc 0.3–0.5 lỗi/bị chặn → `SEC-01 = PENDING_CLIENT`, giữ nguyên cấu hình cũ (nếu đã đổi dở thì trả về bản cũ và kiểm lại đọc được), KHÔNG làm Phase 2–3; vẫn làm Phase 1.
+## A — Khoá build cache (loại tái tạo được)
+A1 Đo build cache hiện tại (tổng + phần có thể thu hồi).
+A2 Thêm luật (j) vào `scripts/vps-retention.sh`: mỗi Chủ nhật lúc 04:xx, nếu không có build đang chạy → tỉa build cache giữ tối đa **5GiB** (lệnh prune của builder với giới hạn giữ dung lượng; chỉ build cache, không image/container/volume). Ghi log mỗi lần.
+A3 Chạy luật (j) thật một lần ngay; đo trước/sau; health không đổi.
 
-## Phase 1 — Bịt vòi trên VPS (không cần Drive)
-1.1 **V2-01 · `scripts/qdrant-backup.sh` fail-closed:** mọi lỗi từ POST tạo snapshot tới DELETE đều ghi `FAILED` vào `backup.log`, thoát ≠0 và không DELETE (bọc từng bước hoặc trap). Khoá Qdrant không nằm trên dòng lệnh (truyền qua stdin/biến môi trường). Mô phỏng đủ nhánh lỗi POST / copy / checksum / DELETE.
-1.2 **V2-02 · `scripts/phai-cu/dung-va-trien-khai.sh`:** lọc regex `nuxt-output.truoc-YYYYMMDD-HHMMSS` TRƯỚC → sort → giữ 3. Thêm: mỗi lần deploy ghi sha256 của chính script vào log deploy (để biết đường deploy thật).
-1.3 **Mở rộng người gác `scripts/vps-retention.sh`** (giữ a/b/c, thêm đúng các luật sau; mỗi luật bỏ lượt nếu tiến trình liên quan đang chạy):
-  (d) bản sao Nuxt ở nơi chứa: trong `deploys/`, chỉ tên khớp `nuxt-output.truoc-YYYYMMDD-HHMMSS`: giữ 3 mới nhất theo tên, xoá phần còn lại; không đụng tên khác.
-  (e) Hermes: `/var/lib/hermes/.hermes/backups` giữ 5 file mới nhất (G22); `tmp_pack_*` trong `.git/objects/pack` của hai bản cài Hermes, cũ hơn 1 ngày và không có tiến trình git → xoá (G23).
-  (f) Lark: thư mục JSONL giải nén của một lượt → xoá khi lượt đó đã có tar.gz + dấu `.offsite-ok` (đọc đúng cấu trúc từ `s177-lark-backup-prune-local`; không sửa script Lark).
-  (g) `/var/log/incomex/hc-executor*-*.log` cũ hơn 30 ngày → xoá.
-  (h) `/var/lib/incomex-audit/*` cũ hơn 30 ngày → xoá.
-  (i) `/tmp/*.sql` trong container postgres cũ hơn 7 ngày → xoá — **viết sẵn nhưng TẮT**, chỉ bật ở 3.4 sau khi N9 đã cứu.
-  Chạy thử 1 lần (chưa có (i)): ghi tên từng mục bị xoá — lượt đầu có thể xoá pack tạm Hermes và JSONL Lark cũ: đó là luật chạy đúng.
-1.4 **Cảnh báo đĩa (T4) — chỉ đọc:** `disk-monitor.sh` và uptime-kuma hiện có gửi được báo đến Owner không (không cấu hình mới, không đọc mật khẩu); ghi kết quả.
-1.5 **Ghi ngay** mục R3 phần 1 lên đầu `BAO-CAO.md` + dòng `VPSC.5b` = `IN_PROGRESS · Phase 0/1 xong`.
+## B — Báo image (không xoá)
+B1 Thêm luật (k) vào người gác: mỗi ngày ghi 1 dòng vào log: tổng dung lượng image, số image không container nào dùng, số tag theo từng dịch vụ. Không xoá gì.
+B2 Ghi vào báo cáo: số liệu hiện tại + đề xuất luật giữ cho chủ R03 áp sau khi R03 CLOSED: mỗi dịch vụ giữ image đang chạy + chuỗi cha của nó + 2 bản trước; còn lại gỡ.
 
-## Phase 2 — Drive: fail-closed + hạn giữ (chỉ khi SEC-01 = MIGRATED)
-2.1 **`scripts/backup-to-gdrive.sh` fail-closed:** nhánh snapshot Qdrant — list/create/tải lỗi thì KHÔNG DELETE snapshot nguồn và trạng thái lượt không được là PASS; chỉ DELETE sau khi tải xong và kích thước >0. Khoá Qdrant khỏi dòng lệnh. Mô phỏng nhánh lỗi; không chạy backup thật.
-2.2 **Hạn giữ ở đích Drive** (thêm vào `backup-to-gdrive.sh`, chạy SAU khi lượt upload mới đã kiểm xong; lỗi tỉa chỉ cảnh báo): thư mục backup mã hoá chính giữ **30 bộ ngày gần nhất + bộ cuối mỗi tháng trong 12 tháng** (một bộ = artifact + meta cùng lượt; không bao giờ xoá bộ mới nhất); `rescue/vpsc-r2/` xoá sau 2026-10-21; `rescue/vpsc-r3/` giữ 12 tháng. Tính trước trần dự kiến ở đích (GB) và so với dung lượng Drive còn trống.
-2.3 **Tỉa Drive lần đầu:** chạy thử không xoá (in tên + số bộ sẽ xoá; dự kiến ~30 bộ từ 20/07 tới ~20/08, giữ bộ cuối 31/07); lệch nhiều → DỪNG. Khớp → chạy thật, kiểm số bộ còn lại.
+## C — Dọn dấu vết SEC-01 (chỉ khi token cũ đã vô hiệu)
+C1 Kiểm token cũ đã bị thu hồi chưa: dùng bản cấu hình cũ `rclone.conf.pre-VPSC-R3-*` (VPS) thử một lệnh đọc nhỏ — chỉ in OK/LỖI.
+C2 Còn đọc được (Owner chưa gỡ quyền) → bỏ qua C3, ghi `SEC-01 = PENDING_REVOKE`.
+C3 Đã vô hiệu → xoá 1 file transcript Claude Code trên Mac còn chứa token cũ (so khớp bằng biến, chỉ in số file) → xoá 2 bản cấu hình cũ (VPS, Mac) → kiểm backup VPS đọc được Drive + mount Mac đọc được → `SEC-01 = REVOKED`.
 
-## Phase 3 — Đợt 2: cứu N9/N11 ra ngoài rồi xoá (chỉ khi SEC-01 = MIGRATED)
-3.1 Danh sách đúng tên từ V1b: **N9** = các target trong bảng "N9 — kết quả theo từng tên" (trong `/tmp` của container postgres); **N11** = 38 target của V1b TRỪ `/root/agent-runs`, `backups/mysql/backup.log` và mọi mục N12. In số lượng + tổng byte trước; lệch với V1b/V2 → DỪNG nhóm.
-3.2 Cứu từng nhóm: luồng `tar` → nén → mã hoá bằng đúng khoá công khai của backup → `rclone rcat` vào `rescue/vpsc-r3/<nhóm>.tar.gz.gpg`; md5 luồng = md5 phía Drive; kèm manifest nhỏ (tên + byte từng mục). Dùng `--tpslimit` để tránh giới hạn tốc độ. Không tạo file lớn trên VPS.
-3.3 Chỉ xoá nhóm sau khi md5 khớp; xoá đúng danh sách; kiểm lại.
-3.4 N9 xong → bật luật (i) trong người gác; commit.
-3.5 df: mục tiêu trống >45GiB.
-
-## Phase 4 — Kuma: cảnh báo đĩa (T4) + monitor lỗi (Owner giao D08)
-4.1 Liệt kê monitor Uptime Kuma đang DOWN/PENDING: chỉ tên + loại + lỗi gần nhất (qua giao diện Kuma trên trình duyệt Mac hoặc đọc DB chỉ đọc). Không in token, URL push hay mật khẩu.
-4.2 "Disk Usage" (push): cho `disk-monitor.sh` đẩy trạng thái lên đúng monitor này mỗi lần chạy — đĩa dùng <80% → up; ≥80% → down kèm số % (Kuma báo Telegram khi đổi trạng thái). URL push lấy từ cấu hình Kuma, giữ trong biến hoặc tệp quyền 600, không in. Commit git cục bộ. Kiểm: monitor chuyển UP.
-4.3 Monitor DOWN khác: chỉ sửa khi nguyên nhân ở phía mình và sửa được mà không đụng dịch vụ đang chạy (script/cron đẩy bị mất, URL kiểm cũ sau đổi đường dẫn…); sửa monitor qua giao diện Kuma; ghi trạng thái trước/sau từng monitor. KHÔNG xoá monitor, KHÔNG restart Kuma hay container. Nguyên nhân nằm ở dịch vụ khác → chỉ ghi báo cáo.
-
-## Phase 5 — Hoàn tất SEC-01 (làm cuối cùng)
-5.1 Tìm mọi nơi agent truy cập sẵn được (Mac; VPS; VPS2 nếu đã có SSH sẵn) đang dùng remote Google Drive bằng client chung (`client_id` rỗng — chỉ in số đếm).
-5.2 Chuyển từng nơi sang client riêng đã tạo (dùng lại client_id/secret từ cấu hình VPS, truyền qua stdin, không in); cấp token nếu cần (agent tự bấm màn cho phép theo uỷ quyền D08); kiểm đọc được; mount Drive trên Mac lên lại và đọc được. Chỉ dừng tiến trình theo PID, không `pkill` theo tên.
-5.3 Khi mọi nơi đã chuyển: vào trang quản lý quyền của tài khoản Google, gỡ quyền ứng dụng "rclone" (client chung) → kiểm lại VPS + Mac vẫn đọc được bằng client riêng. Còn nơi chưa chuyển được → KHÔNG gỡ, ghi `PENDING_REVOKE` + tên nơi đó.
-5.4 Sau khi gỡ: nạp token cũ từ bản cấu hình cũ vào biến → tìm và xoá file transcript/scratchpad Claude Code trên Mac có chứa nó (chỉ in số file) → xoá bản cấu hình cũ trên VPS.
-5.5 File cấu hình rclone trên VPS đổi quyền 600 nếu mọi tiến trình dùng nó chạy bằng root (kiểm crontab/unit theo user); không thì giữ và báo.
-
-## 4. Báo cáo
-- Cập nhật mục "R3 — Bịt nốt vòi + đợt 2 · <ngày> · executor=Claude Code CLI · write_path=<…>" ở đầu `BAO-CAO.md`: (1) CHO OWNER ≤8 dòng: SEC-01 xong chưa; df trước/sau; vòi nào đã có hai khoá; Drive đã có hạn giữ chưa. (2) Bảng vòi: tên · khoá nơi sinh · khoá nơi chứa · trần · trạng thái. (3) Script/commit/cron. (4) Bản cứu N9/N11: tên, byte, md5 (không ID Drive). (5) Việc còn lại: N6–N8 sau R03 (chủ R03); TTL `workspace-tools` (chủ agent-data); kết quả T4.
+## 2. Báo cáo
+- Chèn mục "R4 — Khép việc · <ngày> · executor=Claude Code CLI · write_path=<…>" lên ĐẦU `BAO-CAO.md`: (1) CHO OWNER ≤6 dòng; (2) build cache trước/sau + luật (j); (3) số liệu image + đề xuất cho chủ R03; (4) SEC-01.
 - Repo công khai: không secret/token, IP/tên miền nội bộ, ID Google Drive, tên tài khoản, output lệnh thô.
-- Sửa dòng `VPSC.5b` thành `MACHINE_DONE · R3 · xem BAO-CAO.md` hoặc `STOPPED · <Phase/bước> · <lý do>`.
-- Trả đúng một dòng: `XONG · VPSC-R3 · SEC-01 <REVOKED|MIGRATED·PENDING_REVOKE|PENDING_CLIENT> · Kuma <sửa n / còn n> · trống <trước>→<sau>GiB · vòi hai khoá <n>/<tổng> · Drive hạn giữ <có|chưa> · xem BAO-CAO.md` hoặc `DỪNG · VPSC-R3 · <Phase/bước> · <lý do>`.
+- Sửa dòng `VPSC.5e` trong COLLAB thành `MACHINE_DONE · R4 · …` hoặc `STOPPED · <bước> · <lý do>`.
+- Trả đúng một dòng: `XONG · VPSC-R4 · build cache <trước>→<sau>GiB · image <tổng>GiB (chỉ báo) · SEC-01 <REVOKED|PENDING_REVOKE> · trống <GiB> · xem BAO-CAO.md` hoặc `DỪNG · VPSC-R4 · <bước> · <lý do>`.
 
-## 5. Sau R3 (không phải việc của agent)
-Codex V3 chỉ đọc, sau ít nhất một lượt cron Qdrant thật + một vòng người gác: kiểm trigger thật, hai khoá, hạn giữ Drive, df. PASS → VPSC.6 theo dõi 2 tuần.
+## 3. Sau R4 (không phải việc của agent)
+Codex V3 chỉ đọc sau lượt backup Drive 20:37 giờ máy 22/09 và cron Qdrant 03:00 giờ máy 23/09: kiểm lượt chạy thật của mọi script mới + người gác + Kuma + df. PASS → VPSC.6 theo dõi 2 tuần → đóng việc.
