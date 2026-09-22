@@ -1,0 +1,16 @@
+{
+  "version": "v1.6.18",
+  "source": "pilot-critical-matrix.json",
+  "rule": "Business semantics in admitted Version; native policies current; release snapshot immutable; read models and transport profiles are derived, not new business meaning. Lab prototypes do not authorize duplicate production registries.",
+  "open_facts": [
+    "MOUT.consumer_ref",
+    "MOUT.context",
+    "Runtime.executor",
+    "Runtime.handoff",
+    "Runtime.input",
+    "Runtime.task_instance_id"
+  ],
+  "legacy_field_warning": "Old duration-minute-v1 describes planned task duration. Reuse transport/datatype/unit/physical target only; semantic equivalence to newly requested processing duration is not assumed.",
+  "where_used": "native FK reverse reads + exact snapshot/reference traversal; JSON references are not called physical FK",
+  "D04": "WAITING OWNER"
+}

@@ -1,0 +1,15 @@
+{
+  "source": "/Users/nmhuyen/.codex/attachments/ed0d2fcd-0e2b-43ab-8e9b-129d3804a48f/pasted-text.txt",
+  "source_sha256": "2b158f837d1cbb354a716edc1a1110f2345b69746e2cd7505447a47b7f7bcfef",
+  "supplement": "Owner message forwarding six Fible 5.1 additions plus retained prohibitions and scoped lazy reopening",
+  "D04": "WAITING OWNER; quoted recommendation is not Owner acceptance",
+  "rules": "Owner authorizes sequential isolated-lab proof and two fresh sessions; no production mutations. AGENTS no-background-agent default is overridden only for specifically requested fresh-session proof. Runtime lab and evidence are not production design acceptance.",
+  "kb_revisions": {
+    "operating-rules": 51,
+    "constitution": 45,
+    "law-01": 13,
+    "vps-operating-rules": 2
+  },
+  "kb_read_limit": "Current connector get_document returns truncated excerpt; revisions equal prior full-read v17 receipts. Do not claim freshly fetched full documents.",
+  "main_writes": 0
+}

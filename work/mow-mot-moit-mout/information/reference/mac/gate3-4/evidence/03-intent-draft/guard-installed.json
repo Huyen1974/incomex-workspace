@@ -1,0 +1,16 @@
+{
+  "image": "directus/directus@sha256:23f2f526599bff1746121fd7e4e1101744661c7ce35d90370a738bc5c48bea3e",
+  "runtime": {
+    "node": "v22.14.0",
+    "directus": "11.5.1",
+    "api": "25.0.1",
+    "joi": "17.13.3"
+  },
+  "health": {
+    "status": 503,
+    "body": "{\"status\":\"error\"}",
+    "limitation": "SMTP deliberately points to closed container loopback port; email health may be degraded. Network has no external egress. No flows/integrations copied."
+  },
+  "extension_sha256": "7db7d334cca977763c93270df062db3958919e4c5ecff6a22033c0e556750685",
+  "only_lab_directus_replaced": true
+}

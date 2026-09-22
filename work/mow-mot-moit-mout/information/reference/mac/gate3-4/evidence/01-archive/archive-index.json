@@ -1,0 +1,110 @@
+[
+  {
+    "gate": "gate0",
+    "archive": "KHO/11-evidence/gate0/Proof-A-2026-09-09-evidence.zip",
+    "sha256": "5c30b646fdbea2a7814daa5e29495100212f81da58f802ee8bc4ea4d793f76f9",
+    "old_path": "/Users/nmhuyen/Documents/Codex/2026-09-08/ch/outputs/Proof-A-2026-09-09-evidence.zip",
+    "extracted": "KHO/11-evidence/gate0/Proof-A-2026-09-09-evidence",
+    "zip_entries": 59,
+    "manifest_hashes_verified": 58,
+    "extracted_files": 8,
+    "status": "PM accepted bounded design/proof scope; historical archive",
+    "accepted_date": "2026-09-10; source acceptance recorded in SSOT/PM history"
+  },
+  {
+    "gate": "gate0",
+    "archive": "KHO/11-evidence/gate0/Proof-AB-2026-09-09-evidence.zip",
+    "sha256": "470248acd554b384ce860be769d46b14c6a406cf2c32e988f290793e1941c3fd",
+    "old_path": "/Users/nmhuyen/Documents/Codex/2026-09-08/ch/outputs/Proof-AB-2026-09-09-evidence.zip",
+    "extracted": "KHO/11-evidence/gate0/Proof-AB-2026-09-09-evidence",
+    "zip_entries": 94,
+    "manifest_hashes_verified": 93,
+    "extracted_files": 8,
+    "status": "PM accepted bounded design/proof scope; historical archive",
+    "accepted_date": "2026-09-10; source acceptance recorded in SSOT/PM history"
+  },
+  {
+    "gate": "gate0",
+    "archive": "KHO/11-evidence/gate0/Proof-Cong-Ghi-2026-09-10-evidence.zip",
+    "sha256": "dd9b0ddd450f56c21b3c104cc5e127a729e8402675bdbc6eb8fd24a26679d641",
+    "old_path": "/Users/nmhuyen/Documents/Codex/2026-09-08/ch/outputs/Proof-Cong-Ghi-2026-09-10-evidence.zip",
+    "extracted": "KHO/11-evidence/gate0/Proof-Cong-Ghi-2026-09-10-evidence",
+    "zip_entries": 134,
+    "manifest_hashes_verified": 133,
+    "extracted_files": 15,
+    "status": "PM accepted bounded design/proof scope; historical archive",
+    "accepted_date": "2026-09-10; source acceptance recorded in SSOT/PM history"
+  },
+  {
+    "gate": "gate0",
+    "archive": "KHO/11-evidence/gate0/Proof-Gate0-UI-Runtime-2026-09-10-evidence.zip",
+    "sha256": "dab8377fa2f41e317183c935fe1bb54b55cc70057e59b69b75e586a66c09fc1f",
+    "old_path": "/Users/nmhuyen/Documents/Codex/2026-09-08/ch/outputs/Proof-Gate0-UI-Runtime-2026-09-10-evidence.zip",
+    "extracted": "KHO/11-evidence/gate0/Proof-Gate0-UI-Runtime-2026-09-10-evidence",
+    "zip_entries": 200,
+    "manifest_hashes_verified": 199,
+    "extracted_files": 23,
+    "status": "PM accepted bounded design/proof scope; historical archive",
+    "accepted_date": "2026-09-10; source acceptance recorded in SSOT/PM history"
+  },
+  {
+    "gate": "gate1",
+    "archive": "KHO/11-evidence/gate1/R1-MOW-Gate1-v1.6.14-2026-09-10-evidence.zip",
+    "sha256": "abc9591cee794da2b69d8c9213c1b66e37cbad5803ac963432a2b456166b1013",
+    "old_path": "/Users/nmhuyen/Documents/Codex/2026-09-08/ch/outputs/R1-MOW-Gate1-v1.6.14-2026-09-10-evidence.zip",
+    "extracted": "KHO/11-evidence/gate1/R1-MOW-Gate1-v1.6.14-2026-09-10-evidence",
+    "zip_entries": 140,
+    "manifest_hashes_verified": 139,
+    "extracted_files": 5,
+    "status": "PM accepted bounded design/proof scope; historical archive",
+    "accepted_date": "2026-09-11"
+  },
+  {
+    "gate": "gate1",
+    "archive": "KHO/11-evidence/gate1/Gate1-R2-R8-v1.6.15-2026-09-10-evidence.zip",
+    "sha256": "33e6c7beb9f6d9b1c212c77eef69705bd1a21626d0d1e7b3151855064242556d",
+    "old_path": "/Users/nmhuyen/Documents/Codex/2026-09-08/ch/outputs/Gate1-R2-R8-v1.6.15-2026-09-10-evidence.zip",
+    "extracted": "KHO/11-evidence/gate1/Gate1-R2-R8-v1.6.15-2026-09-10-evidence",
+    "zip_entries": 690,
+    "manifest_hashes_verified": 1027,
+    "extracted_files": 19,
+    "status": "PM accepted bounded design/proof scope; historical archive",
+    "accepted_date": "2026-09-11"
+  },
+  {
+    "gate": "gate2",
+    "archive": "KHO/11-evidence/gate2/Gate2-R9-v1.6.16-2026-09-11-evidence.zip",
+    "sha256": "5b6afafe8a38a8f74063fb3b85f3d8ab40fb8d529a85b296e8a1959d74e8408f",
+    "old_path": "/Users/nmhuyen/Documents/Codex/2026-09-08/ch/outputs/Gate2-R9-v1.6.16-2026-09-11-evidence.zip",
+    "extracted": "KHO/11-evidence/gate2/Gate2-R9-v1.6.16-2026-09-11-evidence",
+    "zip_entries": 495,
+    "manifest_hashes_verified": 0,
+    "extracted_files": 10,
+    "status": "PM accepted bounded design/proof scope; historical archive",
+    "accepted_date": "2026-09-11"
+  },
+  {
+    "gate": "gate3-4",
+    "archive": "KHO/11-evidence/gate3-4/Gate3-4-v1.6.17-bang-chung.zip",
+    "sha256": "4b4adae67a07447811477a4a11addd9ba59c6bf56d63d4df6c212c8b55278509",
+    "old_path": "/Users/nmhuyen/Desktop/quy trình/Gate3-4-v1.6.17-bang-chung.zip",
+    "extracted": "KHO/11-evidence/gate3-4/Gate3-4-v1.6.17-bang-chung",
+    "zip_entries": 179,
+    "manifest_hashes_verified": 178,
+    "extracted_files": 179,
+    "status": "BOUNDED ACCEPTED; whole Gate3/4 not accepted",
+    "accepted_date": "2026-09-11"
+  },
+  {
+    "gate": "gate0",
+    "archive": "KHO/11-evidence/gate0/historical-cited-reports.zip",
+    "sha256": "fe0f4f768f29e21ad5a106362346631d53036c9ceb3b96e7816b2decbc350d1f",
+    "old_path": "/Users/nmhuyen/Documents/Codex/2026-09-08/ch/outputs",
+    "extracted": "KHO/11-evidence/gate0/historical-cited-reports",
+    "zip_entries": 3,
+    "manifest_hashes_verified": 2,
+    "extracted_files": 2,
+    "status": "HISTORICAL ONLY, supplementary cited reports",
+    "accepted_date": "not a new acceptance"
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "version": "v1.6.18",
+  "scope": "current LAB, production adoption separate",
+  "hard_relations": [
+    "Version.definition_id→Definition",
+    "Definition.owner→Directus Role",
+    "Draft.intent_id→Intent",
+    "Draft.definition_id→Definition",
+    "Draft.source_version→Version",
+    "Draft.feedback_id(integer)→Feedback",
+    "Missing.parent_id→Draft",
+    "Missing.result_ref→Version",
+    "Evidence.draft_id→Draft",
+    "Evidence.source_evidence→Evidence",
+    "Release.source_draft→Draft",
+    "Release.approval_id/test_evidence→Evidence",
+    "Binding.release_id→Release",
+    "Runtime.instance.event_id→Event",
+    "Runtime.instance.release_id→Release",
+    "Attempt.instance_id→Instance"
+  ],
+  "equivalent_checks_pending_PM_acceptance": [
+    "C05 Version parameters exact UUID/family/scope/digest traversal",
+    "Capability IO profile id/version/digest and native current profile comparison",
+    "Release semantic closure/hash and runtime exact pin",
+    "Feedback metadata source/run validated by native Flow then business mutation denied"
+  ],
+  "missing": [
+    "MOUT.consumer_ref",
+    "MOUT.context",
+    "Runtime.executor",
+    "Runtime.handoff",
+    "Runtime.input",
+    "Runtime.task_instance_id"
+  ],
+  "raw_constraints": "../evidence/09-data-lock/pilot-data-gap.json#constraints",
+  "old_18_relation_map": "../../KHO/11-evidence/gate3-4/Gate3-4-v1.6.17-bang-chung/gate3-4/data/relation-map.json"
+}
