@@ -358,3 +358,15 @@ HTML chính: `view.html`
 - FINAL: **FAIL** theo PROMPT §4 — T1 PASS; Chat chỉ 1/2 câu cần gọi, Q3 không gọi (đạt); Cowork 2/2 câu cần gọi, Q3 không gọi (đạt). Sáu ca đã chạy đủ; DỪNG nghiệm thu, chưa được đóng việc.
 - Đề xuất cho Host (chưa triển khai): đọc trace Chat Q1 và đối chiếu cơ chế nạp skill với Cowork Q1; xử lý riêng việc Chat không kích hoạt trước khi chạy lại đúng câu Q1 và kiểm hồi quy. V2 bộ đếm lượt dùng thật vẫn chưa triển khai, thuộc lượt tiếp theo trong mục Trạng thái; không suy từ lượt kiểm này rằng Claude luôn nhớ tham khảo JEV.
 - Áp: SAME_COMMIT.
+
+## KQ — JEV-B2-VERIFY-CODEX-20260922-02
+- `KQ@JEV-B2-VERIFY-CODEX-20260922-02 DỪNG` · 2026-09-22 07:42–07:49 UTC · Executor: Codex computer use trên Mac Owner.
+- Read-gate `workspace_*` PASS; A0 đã xác nhận; READY khớp commit cuối chạm PROMPT `1899d503b5d88cac0154b6e906f9804c13eee386`.
+- S1: **NEW sẵn** · mô tả hiện: “Luôn hỏi JEV (tool evaluate) trước khi chốt: chọn 1 trong N,”; trang Customize → Skills → jev-reference hiển thị v3, Enable skill ON. Không Save/update/gỡ vì bản mới đã có.
+- Chat Q1: **skill có · evaluate có (1 call) · lỗi không**. UI hiển thị đọc `/mnt/skills/plugins/jev-reference/SKILL.md`, tìm JEV evaluate, rồi Evaluate. Response thật có answers.pick=Y, confidence=1, needs_state_check=0.87, id `gen-dec-1790063005-zkT7xZj3hjE56AC1Q4C7`. Đã chụp ảnh khối công cụ và Response; không lưu vào repo. Chat `2583e2da-779c-4c74-b617-f77d729941d9`.
+- Giới hạn Q1: Claude có gọi Recalled memory và Relevant chats tìm “bridge stateless Accept header” trước Evaluate. Lời gọi JEV thật được xác nhận, nhưng không coi bài này độc lập với lịch sử cũ; cần Q4 mới để bổ sung bằng chứng.
+- Chat Q2: **skill có · evaluate có · chưa kiểm xong Response thô**. Đã hoàn tất câu trả lời, mở khối Read a file / loaded tools / used JEV Reference integration, thấy bước đọc skill và Evaluate; mở Request và chụp ảnh cùng bảng kết quả. Chưa cuộn được tới Response để xác minh không lỗi, nên chưa chấm PASS đầy đủ. Chat `e49ed0ce-bb96-4824-9c01-04a888d93ebc`.
+- Chat Q3, Q4: **CHƯA CHẠY**. Cowork Q1, Q3: **CHƯA CHẠY**. Không dùng kết quả RUN -01 thay cho các ca này.
+- Bất thường: trong lúc kiểm Q2, app nhiều lần chuyển sang chat gốc ngoài thao tác của Agent; công cụ báo “The user changed '/Applications/Claude.app'”. Đã lấy lại trạng thái trước thao tác; lần quan sát cuối cửa sổ ở một công việc khác. Tạm dừng điều khiển để không giành cửa sổ/nhập nhầm; đã hỏi Owner để nguyên Claude trong lúc kiểm, chưa nhận phản hồi. Theo PROMPT §1 “Bất thường ngoài kịch bản ⇒ DỪNG, ghi lại”.
+- FINAL: **CHƯA ĐỦ BẰNG CHỨNG / chưa PASS** (gián đoạn thao tác, không kết luận lỗi JEV). Tiếp tục cùng RUN bằng cách kiểm Response Q2 hiện hữu, rồi chạy Chat Q3/Q4 và Cowork Q1/Q3 đúng nguyên văn; không cần chạy lại Q1/Q2 đã gửi. Không sửa setting, skill, connector, không gửi thêm tin trong các ca thử.
+- Áp: SAME_COMMIT.
