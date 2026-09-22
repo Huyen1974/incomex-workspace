@@ -1,0 +1,225 @@
+Browser tab: 14, Title: "MOIT Builder — khai biểu mẫu nhập · v1", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-builder-v1.html".
+1 AXWebArea MOIT Builder — khai biểu mẫu nhập · v1, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-builder-v1.html
+	2 container
+		3 text MOIT Builder khai biểu mẫu nhập · v1
+		4 link Description: Kiến trúc, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-dataflow-v1.html
+		5 link Description: Bộ công cụ MOT, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-studio-v1.html
+	6 heading MOIT — khai biểu mẫu nhập, sinh ra bản ghi để người thực hiện, Value: 2
+		7 text MOIT — khai biểu mẫu nhập, sinh ra bản ghi để người thực hiện
+	8 container
+		9 text Khác MOUT (đọc & hiện), MOIT  sinh ra form chạy được : khi đủ  điều kiện  +  trigger , một  bản ghi  được tạo, gắn  người thực hiện  +  thời điểm , rồi MOT giao tới dashboard. Mọi ô đã nhập đều sửa lại được bất cứ lúc nào (bút ✎ hoặc gõ thẳng).
+	10 container targetCollSec
+		11 text ▤ BẢNG ĐÍCH — CHỌN TRƯỚC table-first: chọn BẢNG rồi mới khai CỘT/khóa ngoại
+		12 text field (settable) targetCollInp
+		13 text Cột ◇ và khóa ngoại ◈ bên dưới là của BẢNG này. Danh sách bảng thật lấy từ Directus (phase agent).
+	14 text 1
+	15 text NHẬP GÌ?
+	16 text trường nhập từ bộ công cụ MOT
+	17 container inpList
+		18 image
+		19 button ✎, Help: Sửa tên trường
+		20 text field (settable) Xác nhận đã nhận đủ
+		21 text F06
+		22 button BB, Help: Bắt buộc
+		23 button ✕
+		24 image
+		25 button ✎, Help: Sửa tên trường
+		26 text field (settable) Số kiện thực nhận
+		27 text F01
+		28 button BB, Help: Bắt buộc
+		29 button ✕
+		30 image
+		31 button ✎, Help: Sửa tên trường
+		32 text field (settable) Ảnh phiếu nhập
+		33 text F08
+		34 button BB, Help: Bắt buộc
+		35 button ✕
+	36 button ＋ Thêm trường nhập (KIT MOT: F01–F10, E01/E02)
+	37 container
+		38 text ⠿ Kéo 6 chấm đổi thứ tự · ✎ hoặc bấm vào nhãn để sửa tên ·  BB  = bắt buộc.
+	39 container refSec
+		40 text ◈ NHẬP KHÓA NGOẠI trỏ tới bảng khác — chọn bản ghi (FK)
+		41 text Chưa có trường khóa ngoại. Bấm ＋ để thêm.
+		42 button ＋ Thêm trường khóa ngoại, ID: addRefBtn
+		43 container
+			44 text ◈ khác ◇ giá trị: trường trỏ sang bảng khác — người dùng  tìm & chọn bản ghi  (hoặc tạo mới). Lưu xuống là  khóa phụ (FK) . Chung 1 engine cho MOT & MOIT.
+	45 container saveModeSec
+		46 text ◉ NƠI LƯU DỮ LIỆU chọn 1 trạng thái — sửa rẻ
+		47 container smToggle
+			48 button ⬇ Lưu thẳng DB bảng nghiệp vụ qua DOT
+				49 text ⬇ Lưu thẳng DB
+				50 text bảng nghiệp vụ qua DOT
+			51 button ⏸ Lưu tạm — chờ xử lý hộp lưu tạm (danh sách đợi)
+				52 text ⏸ Lưu tạm — chờ xử lý
+				53 text hộp lưu tạm (danh sách đợi)
+		54 container smNote
+			55 text ⬇ Ghi thẳng  bảng nghiệp vụ  qua DOT (dữ liệu đã chuẩn, được phép chính thức).
+	56 text 2
+	57 text GẮN VỚI GÌ?
+	58 text điều kiện để bản ghi xuất hiện
+	59 button Đơn giản · qua UI, ID: tbS
+	60 button Phức tạp · DOT/script, ID: tbC
+	61 container cSimple
+		62 text Các điều kiện thỏa mãn theo:
+		63 button và, ID: cAnd
+		64 button hoặc, ID: cOr
+		65 container condList
+			66 container
+				67 text — chọn trường (trống = bỏ qua) —
+				68 button ×
+			69 container
+				70 text — chọn trường (trống = bỏ qua) —
+				71 button ×
+			72 container
+				73 text — chọn trường (trống = bỏ qua) —
+				74 button ×
+			75 container
+				76 text — chọn trường (trống = bỏ qua) —
+				77 button ×
+			78 container
+				79 text — chọn trường (trống = bỏ qua) —
+				80 button ×
+		81 container
+			82 text Nối DB lấy trường (7 tầng) + lọc y hệt MOUT. Đây chỉ là  khung ;  bản ghi chỉ xuất hiện khi đủ điều kiện .
+	83 text 3
+	84 text TRIGGER?
+	85 text mô tả kích hoạt — người chuyên môn đọc & sửa
+	86 container trigBoxes
+		87 container
+			88 text Trigger 1 (thời gian / lịch) ✎
+		89 text entry area (settable) Khi QC lô trước = Đạt → bật bản ghi nhập kho
+		90 container
+			91 text Trigger 2 (output task trước) ✎
+		92 text entry area (settable) Hằng ngày 06:00 nếu có lệnh nhập chờ
+		93 container
+			94 text Trigger 3 (thủ công) ✎
+		95 text entry area (settable)
+	96 text Cơ sở để code chạy theo. 3 loại gợi ý: thời gian/lịch · output task trước · thủ công.
+	97 text 4
+	98 text GẮN BẢN GHI
+	99 text đủ hết → MOT giao tới dashboard
+	100 text Người thực hiện
+	101 text field (settable) Value: Theo phòng ban (tự gán), ID: bPic
+	102 text Thời điểm
+	103 text field (settable) Value: Khi trigger bật · hạn +1 ngày, ID: bWhen
+	104 text Neo 7 tầng
+	105 text QT Nhập kho
+	106 container
+		107 text Bản ghi gắn liền:  người thực hiện  ·  thời điểm  ·  điều kiện  ·  trigger . Thỏa hết MOT mới gắn & giao việc.
+	108 text field (settable) Value: Phiếu nhập kho — xác nhận nhận đủ, ID: fTitle
+	109 button ✎, Help: Sửa tên
+	110 button ⚡ Đúc biểu mẫu
+	111 text MOIT-F-0001
+	112 text T2
+	113 text QT Nhập kho
+	114 text 👤 Theo phòng ban (tự gán)
+	115 text VIỆC CẦN LÀM — NHẬP LIỆU
+	116 container formZone
+		117 container
+			118 text Xác nhận  *
+		119 button Xác nhận đã nhận đủ
+		120 container
+			121 text Số kiện thực nhận  *
+		122 container
+			123 text field (settable)
+			124 text đơn vị
+		125 text Ảnh phiếu nhập
+		126 text ＋ Kéo thả tệp hoặc bấm chọn
+	127 container
+		128 text Bản ghi chỉ sinh khi:  điều kiện [(chưa đặt điều kiện)]  +  trigger [2 mô tả] thỏa mãn → MOT gắn người thực hiện & giao việc.
+	129 text {
+  "form_id": "moit_phieu_nhap_kho_xac_nhan_nhan_du",
+  "title": "Phiếu nhập kho — xác nhận nhận đủ",
+  "kind": "input_table",
+  "anchor": "QT Nhập kho",
+  "inputs": [
+    {
+      "kit": "F06",
+      "type": "confirm",
+      "label": "Xác nhận đã nhận đủ",
+      "required": true
+    },
+    {
+      "kit": "F01",
+      "type": "number",
+      "label": "Số kiện thực nhận",
+      "required": true
+    },
+    {
+      "kit": "F08",
+      "type": "file",
+      "label": "Ảnh phiếu nhập",
+      "required": false
+    }
+  ],
+  "conditions": {
+    "mode": "simple",
+    "connector": "và",
+    "rules": []
+  },
+  "trigger": {
+    "descriptions": [
+      "Khi QC lô trước = Đạt → bật bản ghi nhập kho",
+      "Hằng ngày 06:00 nếu có lệnh nhập chờ"
+    ]
+  },
+  "binding": {
+    "executor": "Theo phòng ban (tự gán)",
+    "when": "Khi trigger bật · hạn +1 ngày",
+    "emits_record_when": "conditions AND trigger satisfied",
+    "delivered_via": "MOT → dashboard"
+  },
+  "reference_inputs": [],
+  "target_collection": null,
+  "value_fields": [
+    {
+      "collection": null,
+      "column": "xac_nhan_da_nhan_du",
+      "label": "Xác nhận đã nhận đủ"
+    },
+    {
+      "collection": null,
+      "column": "so_kien_thuc_nhan",
+      "label": "Số kiện thực nhận"
+    },
+    {
+      "collection": null,
+      "column": "anh_phieu_nhap",
+      "label": "Ảnh phiếu nhập"
+    }
+  ],
+  "save_shape": {
+    "GHI 1 dòng bảng chính": {
+      "_table": "moit_phieu_nhap_kho_xac_nhan_nhan_du",
+      "xac_nhan_da_nhan_du": null,
+      "so_kien_thuc_nhan": null,
+      "anh_phieu_nhap": null
+    }
+  },
+  "save_mode": "commit",
+  "save_target": "bảng nghiệp vụ (commit qua DOT)"
+}
+	130 container 4 Mẹ + Master
+		131 text 4 MẸ
+		132 button MOW ▾ Quy trình
+			133 text MOW
+			134 text ▾
+			135 text Quy trình
+		136 button MOT ▾ Công việc
+			137 text MOT
+			138 text ▾
+			139 text Công việc
+		140 button MOIT ▾ Nhập liệu
+			141 text MOIT
+			142 text ▾
+			143 text Nhập liệu
+		144 button MOUT ▾ Báo cáo
+			145 text MOUT
+			146 text ▾
+			147 text Báo cáo
+		148 button Master ▾ Tổng 4 Mẹ
+			149 text Master
+			150 text ▾
+			151 text Tổng 4 Mẹ
+
+The focused UI element is 1 AXWebArea MOIT Builder — khai biểu mẫu nhập · v1, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-builder-v1.html

@@ -1,0 +1,101 @@
+Duyệt NTGV
+duyệt nguyên tắc giao việc
+Help
+Quy trình phê duyệt NTGV
+Sau khi người thực hiện tạo NTGV mới, hệ thống cần chuyển qua màn hình này để lãnh đạo phê duyệt.
+Chỉ khi được phê duyệt pháp lý (có cờ riêng), hệ thống DOT mới thực hiện việc đấu nối tự động.
+Để trống: chưa gửi · Đề xuất màu vàng nhạt: đang chờ duyệt · Phê duyệt màu xanh: được phép đấu nối.
+Cột Phê duyệt nối với DB để các màn hình khác tự đọc trạng thái; không nhập lại bằng tay.
+Duyệt NTGV — Danh sách chờ phê duyệt
+Danh sách nguyên tắc giao việc chờ phê duyệt.  ·  0 nguyên tắc giao việc · 0 đang chạy  ·  ✎ đầu dòng = sửa khuôn
+Nguyên tắc giao việc mới phải được phê duyệt trước khi áp dụng.
+⌕
+Người thực hiện
+Người được BC
+Người chuyển tiếp
+Lĩnh vực: tất cả
+Công ty: tất cả
+Khối: tất cả
+Phòng ban: tất cả
+Chuyên môn: tất cả
+Nhiệm vụ: tất cả
+Công việc: tất cả
+	NẾU	THÌ
+
+Mã
+?
+	
+Điều kiện 1
+?
+	
+and
+/or
+	
+Điều kiện 2
+?
+	
+and
+/or
+	
+Điều kiện 3
+?
+	
+Người
+thực hiện
+?
+	
+Người được
+báo cáo
+?
+	
+Người được
+chuyển tiếp
+?
+	
+Đề
+xuất
+?
+	
+Phê
+duyệt
+?
+	
+Ghi chú
+?
+
+NTGV01	
+Nháp: chọn trường =
+Nháp: chọn giá trị
+	and	
+Nháp: chọn trường =
+Nháp: chọn giá trị
+	and	
+Nháp: chọn trường =
+Nháp: chọn giá trị
+	
+Nháp: chọn nhân sự
+	
+Nháp: chọn nhân sự / quy tắc
+	
+Nháp: chọn nhân sự / quy tắc
+	Đã đề xuất	
+Chờ duyệt
+Phê duyệt
+	Nháp: thêm ghi chú
+×
+4 MẸ
+MOW
+▾
+Quy trình
+MOT
+▾
+Công việc
+MOIT
+▾
+Nhập liệu
+MOUT
+▾
+Báo cáo
+Master
+▾
+Tổng 4 Mẹ

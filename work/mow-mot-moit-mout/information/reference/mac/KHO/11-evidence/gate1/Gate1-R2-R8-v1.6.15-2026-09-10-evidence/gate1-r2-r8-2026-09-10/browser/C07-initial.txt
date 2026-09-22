@@ -1,0 +1,233 @@
+Browser tab: 14, Title: "MOIT — tạo form nhập liệu (view) · v1", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-form-v1.html".
+1 AXWebArea MOIT — tạo form nhập liệu (view) · v1, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-form-v1.html
+	2 container
+		3 text MOIT tạo form nhập liệu · v1
+		4 link Description: MODIT (để chạy), Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-builder-v1.html
+		5 link Description: Bộ công cụ MOT, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-studio-v1.html
+	6 heading MOIT — tạo form nhập liệu (giao diện để xem & thao tác), Value: 2
+		7 text MOIT — tạo form nhập liệu (giao diện để xem & thao tác)
+	8 container
+		9 text Giống MOUT tạo báo cáo, đây tạo  form nhập : chọn trường + sắp  giao diện linh hoạt theo hàng  (mỗi hàng 1–4 ô) → ra ngay  view người dùng thao tác . Đây là phần  UI/sản phẩm cuối ; muốn nó  chạy thật  (kết nối DB, điều kiện, trigger) thì sang  MODIT .
+	10 text 1
+	11 text TRƯỜNG NHẬP
+	12 text từ bộ công cụ MOT
+	13 container inpList
+		14 image
+		15 button ✎, Help: Sửa nhãn
+		16 text field (settable) Số kiện thực nhận
+		17 text F01
+		18 button BB, Help: Bắt buộc
+		19 button ↔, Help: Ô rộng cả hàng
+		20 button ✕
+		21 image
+		22 button ✎, Help: Sửa nhãn
+		23 text field (settable) Khối lượng (kg)
+		24 text F01
+		25 button BB, Help: Bắt buộc
+		26 button ↔, Help: Ô rộng cả hàng
+		27 button ✕
+		28 image
+		29 button ✎, Help: Sửa nhãn
+		30 text field (settable) Ngày nhận
+		31 text F02
+		32 button BB, Help: Bắt buộc
+		33 button ↔, Help: Ô rộng cả hàng
+		34 button ✕
+		35 image
+		36 button ✎, Help: Sửa nhãn
+		37 text field (settable) Kho nhập
+		38 text F04
+		39 button BB, Help: Bắt buộc
+		40 button ↔, Help: Ô rộng cả hàng
+		41 button ✕
+		42 image
+		43 button ✎, Help: Sửa nhãn
+		44 text field (settable) Ảnh phiếu nhập
+		45 text F08
+		46 button BB, Help: Bắt buộc
+		47 button ↔, Help: Ô rộng cả hàng
+		48 button ✕
+		49 image
+		50 button ✎, Help: Sửa nhãn
+		51 text field (settable) Ghi chú
+		52 text F05
+		53 button BB, Help: Bắt buộc
+		54 button ↔, Help: Ô rộng cả hàng
+		55 button ✕
+		56 image
+		57 button ✎, Help: Sửa nhãn
+		58 text field (settable) Xác nhận đã nhận đủ
+		59 text F06
+		60 button BB, Help: Bắt buộc
+		61 button ↔, Help: Ô rộng cả hàng
+		62 button ✕
+	63 button ＋ Thêm trường (KIT: F01–F10, E01/E02)
+	64 container
+		65 text ⠿ kéo đổi thứ tự · ✎ sửa nhãn ·  BB  bắt buộc ·  ↔  ô rộng cả hàng.
+	66 text 2
+	67 text KHUNG SẮP XẾP
+	68 text mỗi hàng mấy ô
+	69 container laySw
+		70 button L1 1 ô / hàng
+			71 text L1
+			72 text 1 ô / hàng
+		73 button L2 2 ô / hàng
+			74 text L2
+			75 text 2 ô / hàng
+		76 button L3 3 ô / hàng
+			77 text L3
+			78 text 3 ô / hàng
+		79 button L4 4 ô / hàng
+			80 text L4
+			81 text 4 ô / hàng
+	82 text Một format duy nhất — chỉ chọn số ô/hàng, hệ thống tự xếp (như MOT Studio).
+	83 text 3
+	84 text BƯỚC TIẾP
+	85 container
+		86 text Form view này mới là  giao diện . Để biến thành chạy được (nối cột DB, điều kiện, trigger, người thực hiện) → mở 
+		87 link Description: MODIT · biến MOIT chạy được, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-builder-v1.html
+		88 text .
+	89 text ?
+	90 text HƯỚNG DẪN
+	91 text tuỳ chọn · cập nhật tay
+	92 text Văn bản
+	93 text entry area (settable) gdText
+	94 text Sơ đồ / Ảnh (mô tả)
+	95 text field (settable) gdDiagram
+	96 text Audio (mô tả)
+	97 text field (settable) gdAudio
+	98 text Video (mô tả)
+	99 text field (settable) gdVideo
+	100 text Các bước (mỗi dòng 1)
+	101 text entry area (settable) gdSteps
+	102 text ↓ Người dùng cuối sẽ thấy (ẩn sau nút):
+	103 container gdPrev
+		104 button 📖 Hướng dẫn chưa có ▾
+			105 text 📖
+			106 text Hướng dẫn
+			107 text chưa có
+			108 text ▾
+		109 text Chưa có hướng dẫn cho mục này. (Có thể bỏ trống — hoàn toàn tuỳ chọn.)
+	110 text field (settable) Value: Phiếu nhập kho — nhập thực tế, ID: fTitle
+	111 button ✎, Help: Sửa tên
+	112 button ⚡ Lưu form
+	113 text MOIT-FORM-0001
+	114 text Khung L2 · 2 ô/hàng
+	115 text 7 trường · 5 bắt buộc
+	116 text VIỆC CẦN LÀM — NHẬP LIỆU
+	117 container formZone
+		118 container
+			119 text Số kiện thực nhận  *
+		120 container
+			121 text field (settable)
+			122 text đơn vị
+		123 container
+			124 text Khối lượng (kg)  *
+		125 container
+			126 text field (settable)
+			127 text đơn vị
+		128 container
+			129 text Ngày nhận  *
+		130 text field (settable)
+		131 container
+			132 text Kho nhập  *
+		133 pop up button (collapsed, settable) Value: — chọn —, Secondary Actions: Expand
+			134 menu
+				135 (selected) — chọn —
+		136 text Ảnh phiếu nhập
+		137 text ＋ Kéo thả tệp hoặc bấm chọn
+		138 text Ghi chú
+		139 text entry area (settable)
+		140 button Xác nhận đã nhận đủ
+	141 text Người thực hiện điền xong rồi bấm Hoàn thành (gán ở MODIT).
+	142 button Hoàn thành
+	143 text HƯỚNG DẪN
+	144 button 📖 Hướng dẫn chưa có ▾
+		145 text 📖
+		146 text Hướng dẫn
+		147 text chưa có
+		148 text ▾
+	149 text {
+  "kind": "moit_form_view",
+  "form_id": "moit_phieu_nhap_kho_nhap_thuc_te",
+  "title": "Phiếu nhập kho — nhập thực tế",
+  "layout": {
+    "per_row": 2
+  },
+  "fields": [
+    {
+      "kit": "F01",
+      "type": "number",
+      "label": "Số kiện thực nhận",
+      "required": true,
+      "full_width": false
+    },
+    {
+      "kit": "F01",
+      "type": "number",
+      "label": "Khối lượng (kg)",
+      "required": true,
+      "full_width": false
+    },
+    {
+      "kit": "F02",
+      "type": "date",
+      "label": "Ngày nhận",
+      "required": true,
+      "full_width": false
+    },
+    {
+      "kit": "F04",
+      "type": "select",
+      "label": "Kho nhập",
+      "required": true,
+      "full_width": false
+    },
+    {
+      "kit": "F08",
+      "type": "file",
+      "label": "Ảnh phiếu nhập",
+      "required": false,
+      "full_width": true
+    },
+    {
+      "kit": "F05",
+      "type": "textarea",
+      "label": "Ghi chú",
+      "required": false,
+      "full_width": true
+    },
+    {
+      "kit": "F06",
+      "type": "confirm",
+      "label": "Xác nhận đã nhận đủ",
+      "required": true,
+      "full_width": true
+    }
+  ],
+  "note": "Đây là VIEW (form_schema). Kết nối DB + điều kiện + trigger ở MODIT (moit-builder)."
+}
+	150 container 4 Mẹ + Master
+		151 text 4 MẸ
+		152 button MOW ▾ Quy trình
+			153 text MOW
+			154 text ▾
+			155 text Quy trình
+		156 button MOT ▾ Công việc
+			157 text MOT
+			158 text ▾
+			159 text Công việc
+		160 button MOIT ▾ Nhập liệu
+			161 text MOIT
+			162 text ▾
+			163 text Nhập liệu
+		164 button MOUT ▾ Báo cáo
+			165 text MOUT
+			166 text ▾
+			167 text Báo cáo
+		168 button Master ▾ Tổng 4 Mẹ
+			169 text Master
+			170 text ▾
+			171 text Tổng 4 Mẹ
+
+The focused UI element is 1 AXWebArea MOIT — tạo form nhập liệu (view) · v1, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-form-v1.html

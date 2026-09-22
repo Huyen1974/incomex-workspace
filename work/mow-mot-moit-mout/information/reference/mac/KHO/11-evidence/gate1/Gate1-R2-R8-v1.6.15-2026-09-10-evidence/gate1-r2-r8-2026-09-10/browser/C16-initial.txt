@@ -1,0 +1,761 @@
+Browser tab: 14, Title: "Bắt đầu ở đây — Hệ thống quy trình Incomex", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/bat-dau-o-day.html".
+1 AXWebArea Bắt đầu ở đây — Hệ thống quy trình Incomex, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/bat-dau-o-day.html
+	2 container
+		3 text Bắt đầu ở đây bản dựng khung · 02/09
+		4 link Description: Xưởng vẽ, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html
+	5 heading Bạn mới vào. Bắt đầu từ đây., Value: 1
+		6 text Bạn mới vào. Bắt đầu từ đây.
+	7 container
+		8 text Trang này làm hai việc.  Một:  chỉ cho người mới đi từ đầu đến cuối mà không cần hỏi ai.  Hai:  chính nó là bảng theo dõi — ô nào ghi  CHƯA CÓ  là việc hệ thống còn thiếu, trang tự đếm ở cuối.
+	9 container
+		10 text Ở đây có  hai loại quy trình , và lẫn hai loại này là nguồn gốc của mọi lộn xộn.
+		11 text Loại 1 — quy trình HỆ THỐNG:  quy trình để  tạo ra công cụ . Khai một quy trình mới, khai một công việc, thêm một trường, thêm một trigger. Đây là thứ  đang phải xây .
+		12 text Loại 2 — quy trình CHUYÊN MÔN:  quy trình  chạy trên công cụ đó . Nhập kho, tuyển dụng, phái cử. Đây là  dữ liệu  của hệ thống, không phải hệ thống.
+	13 heading Vì sao phải liệt kê loại 1 trước, Value: 4
+		14 text Vì sao phải liệt kê loại 1 trước
+	15 container
+		16 text Thứ tự làm là:  ① UI → ② hợp đồng thông tin → ③ danh mục trường → ④ bảng . Nhưng muốn biết  cần bao nhiêu UI  thì phải biết trước  có bao nhiêu quy trình hệ thống  và mỗi quy trình đi qua những màn nào.
+	17 text Chưa có danh sách loại 1 thì mọi tính toán về số bảng, số trường đều là đoán.
+	18 container
+		19 text Phần I dưới đây chính là danh sách đó.  Nó là “cái đầu tiên” — thứ phải có trước tất cả.
+	20 text ✱
+	21 heading Bốn từ cần biết trước, Value: 3
+		22 text Bốn từ cần biết trước
+	23 text Biết bốn từ này là đọc được mọi thứ phía sau.
+	24 text Quy trình
+	25 text ≈ công thức nấu ăn
+	26 text Các bước theo thứ tự để làm xong một việc lớn. Ví dụ “Quy trình nhập kho” gồm 6 bước.
+	27 text Công việc (task)
+	28 text ≈ một bước trong công thức
+	29 container
+		30 text Một bước, giao cho  một người , có hạn. Cái hiện ra trên bàn làm việc chính là cái này.
+	31 text MOIT — bảng nhập
+	32 text ≈ tờ khai phải điền
+	33 container
+		34 text Phần việc của bạn. Từ một ô đến vài chục ô.  Mỗi công việc có đúng một bảng nhập.
+	35 text MOUT — bảng báo cáo
+	36 text ≈ bảng tra để quyết định
+	37 text Thông tin kèm theo, chỉ để đọc. Ví dụ tồn kho hiện tại, để biết nên nhập bao nhiêu.
+	38 container
+		39 text Một câu nhớ cả bốn:  Quy trình gồm nhiều  công việc ; mỗi công việc có  một bảng để điền  và  vài bảng để tra .
+	40 text PHẦN I
+	41 heading Quy trình HỆ THỐNG — làm ra công cụ, Value: 2
+		42 text Quy trình HỆ THỐNG — làm ra công cụ
+	43 container
+		44 text Trả lời các câu hỏi cơ bản nhất:  khai một quy trình mới thì làm sao? khai một công việc thì làm sao? thêm một trường thì làm sao? thêm một trigger thì làm sao? sửa và xoá thì thế nào?
+		45 text Mỗi câu trả lời gồm:  các bước  ·  đi qua UI nào  ·  đã có chưa .
+	46 text I.0
+	47 heading Khuôn chung — mọi thứ tạo ra đều đi qua sáu bước này, Value: 3
+		48 text Khuôn chung — mọi thứ tạo ra đều đi qua sáu bước này
+	49 container
+		50 text Không có 12 quy trình khác nhau. Chỉ có  một khuôn , và 12 thứ đi qua nó. Khác nhau chỉ ở bước ① và ②.
+	51 text ① Khai báo
+	52 text Nó tên gì, thuộc về đâu, gồm những gì.
+	53 text →
+	54 text ② Nối dữ liệu
+	55 text Lấy ở bảng nào, ghi vào cột nào, ai làm, khi nào chạy.
+	56 text →
+	57 text ③ Test tự động
+	58 container
+		59 text Máy tự sinh ca thử và chấm.  Không bắt người bấm tay.
+	60 text →
+	61 text ④ Xin duyệt
+	62 text Đưa vào hàng chờ, kèm bằng chứng test đã đạt.
+	63 text →
+	64 text ⑤ Duyệt
+	65 text Ba dấu: nghiệp vụ · kỹ thuật · pháp lý.
+	66 text →
+	67 text ⑥ Ban hành
+	68 text Bản mới lên thay, bản cũ nghỉ hưu.
+	69 heading Ba thao tác — chỉ khác nhau ở điểm xuất phát, Value: 4
+		70 text Ba thao tác — chỉ khác nhau ở điểm xuất phát
+	71 table
+		72 row
+			73 cell
+				74 text THAO TÁC
+			75 cell
+				76 text THỰC CHẤT LÀ GÌ
+		77 row
+			78 cell
+				79 text TẠO
+			80 cell
+				81 text Đi khuôn 6 bước từ trang trắng.
+		82 row
+			83 cell
+				84 text SỬA
+			85 cell
+				86 text Nhân bản  bản đang chạy thành bản mới, sửa trên bản mới, rồi đi lại đúng 6 bước.  Không bao giờ sửa đè lên bản đang chạy  — vì có người đang làm việc dở trên bản đó.
+		87 row
+			88 cell
+				89 text XOÁ
+			90 cell
+				91 text Không xoá thật.  Cho nghỉ hưu : tắt nhưng giữ nguyên, bật lại được. Lượt đang chạy dở vẫn dùng bản cũ cho tới khi xong.
+	92 container
+		93 text Vì sao gom về một khuôn:  vì nếu mỗi thứ một quy trình riêng thì có 12 × 3 = 36 quy trình phải nhớ, 36 chỗ để sai. Một khuôn thì chỉ cần nhớ một lần, và  sửa khuôn là sửa cho cả 12 thứ  — đúng nghĩa sửa rẻ.
+	94 text I.1
+	95 heading Mười hai thứ có thể tạo ra — và màn hình của chúng, Value: 3
+		96 text Mười hai thứ có thể tạo ra — và màn hình của chúng
+	97 container
+		98 text Mỗi thứ cần  hai màn : một màn  danh sách  (xem có gì, tìm, mở ra sửa) và một màn  bàn làm  (khai báo và nối dữ liệu). Bốn màn còn lại dùng chung cho cả 12.
+	99 table
+		100 row
+			101 cell
+				102 text #
+			103 cell
+				104 text THỨ TẠO RA
+			105 cell
+				106 text MÀN DANH SÁCH
+			107 cell
+				108 text MÀN BÀN LÀM
+			109 cell
+				110 text GHI CHÚ
+		111 row
+			112 cell
+				113 text 1
+			114 cell
+				115 text Quy trình
+			116 cell
+				117 link Description: mow-master, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-v1.html
+				118 text 3 bản
+			119 cell
+				120 link Description: canvas, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html
+				121 text  + 
+				122 link Description: MODW, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modw-builder-v1.html
+				123 text nút Đúc là demo
+			124 cell
+				125 text Có cả hai màn. Chưa ghi thật.
+		126 row
+			127 cell
+				128 text 2
+			129 cell
+				130 text Công việc (task)
+			131 cell
+				132 link Description: mot-master, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html
+				133 text có
+			134 cell
+				135 link Description: MODT, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modt-builder-v1.html
+				136 text  / 
+				137 link Description: New MODT, Value: vps.incomexsaigoncorp.vn/admin-new-modt
+				138 text 2 bản
+			139 cell
+				140 text Chưa chốt bàn nào là chuẩn.
+		141 row
+			142 cell
+				143 text 3
+			144 cell
+				145 text MOIT — bảng nhập
+			146 cell
+				147 link Description: moit-master, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html
+				148 text có
+			149 cell
+				150 link Description: form, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-form-v1.html
+				151 text  + 
+				152 link Description: MODIT, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-builder-v1.html
+				153 text có
+			154 cell
+				155 text Đầy đủ nhất trong 12.
+		156 row
+			157 cell
+				158 text 4
+			159 cell
+				160 text MOUT — bảng báo cáo
+			161 cell
+				162 link Description: mout-home, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html
+				163 text có
+			164 cell
+				165 link Description: v3, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-builder-v3.html
+				166 text  + 
+				167 link Description: MODUT, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modut-builder-v1.html
+				168 text v2 còn sót
+			169 cell
+				170 text Gỡ v2 khỏi menu.
+		171 row
+			172 cell
+				173 text 5
+			174 cell
+				175 text Trường (field)
+			176 cell
+				177 text CHƯA CÓ
+			178 cell
+				179 text CHƯA CÓ
+			180 cell
+				181 text Nặng nhất.  ~2.000 trường mà không có nơi xem, không có đường xin thêm.
+		182 row
+			183 cell
+				184 text 6
+			185 cell
+				186 text Trigger
+			187 cell
+				188 text CHƯA CÓ
+			189 cell
+				190 text nằm lẫn trong MODT/MODIT
+			191 cell
+				192 text Khai được nhưng  không có nơi quản lý tập trung  — không biết đang có bao nhiêu trigger, cái nào bật cái nào tắt.
+		193 row
+			194 cell
+				195 text 7
+			196 cell
+				197 text Nguyên tắc giao việc
+			198 cell
+				199 text CHƯA CÓ
+			200 cell
+				201 link Description: trong New MODT, Value: vps.incomexsaigoncorp.vn/admin-new-modt
+				202 text  + 
+				203 link Description: màn duyệt, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/duyet-ntgv-v1.html
+				204 text một nửa
+			205 cell
+				206 text Có bàn khai và bàn duyệt, thiếu danh sách toàn bộ luật.
+		207 row
+			208 cell
+				209 text 8
+			210 cell
+				211 text Điều kiện
+			212 cell
+				213 text CHƯA CÓ
+			214 cell
+				215 text nằm lẫn trong các builder
+			216 cell
+				217 text Không tái dùng được vì không có nơi tra.
+		218 row
+			219 cell
+				220 text 9
+			221 cell
+				222 text Bảng dữ liệu
+			223 cell
+				224 link Description: rà 120 danh từ, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-danh-tu-v1.html
+				225 text là bản rà, không phải màn quản lý
+			226 cell
+				227 text CHƯA CÓ
+			228 cell
+				229 text Thiếu đường xin thêm bảng ⇒ người ta sẽ sửa tay vào cơ sở dữ liệu.
+		230 row
+			231 cell
+				232 text 10
+			233 cell
+				234 text Người & vai
+			235 cell
+				236 text CHƯA CÓ
+			237 cell
+				238 text CHƯA CÓ
+			239 cell
+				240 text Chặn cả hệ.  Không có nguồn người thì không giao việc được.
+		241 row
+			242 cell
+				243 text 11
+			244 cell
+				245 text Nút trong cây 7 tầng
+			246 cell
+				247 text xem được trong bộ lọc
+			248 cell
+				249 link Description: MODW, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modw-builder-v1.html
+				250 text một nửa
+			251 cell
+				252 text Thêm phòng ban mới thì làm ở đâu — chưa rõ.
+		253 row
+			254 cell
+				255 text 12
+			256 cell
+				257 text Hướng dẫn
+			258 cell
+				259 text CHƯA CÓ
+			260 cell
+				261 text CHƯA CÓ
+			262 cell
+				263 text Video / ảnh / các bước gắn vào từng việc.
+	264 heading Bốn màn dùng chung — cả 12 thứ đều cần, hiện chưa có cái nào đủ, Value: 4
+		265 text Bốn màn dùng chung — cả 12 thứ đều cần, hiện chưa có cái nào đủ
+	266 table
+		267 row
+			268 cell
+				269 text MÀN DÙNG CHUNG
+			270 cell
+				271 text TRẠNG THÁI
+			272 cell
+				273 text VÌ SAO THIẾU THÌ CẢ 12 THỨ ĐỀU KẸT
+		274 row
+			275 cell
+				276 text Bàn test tự động
+			277 cell
+				278 text một nửa
+			279 cell
+				280 link Description: qa-runner, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/qa-runner.html
+				281 text  kiểm giao diện có trôi không,  không kiểm nghiệp vụ . Không có bàn test thì bước ③ của khuôn chung trống.
+		282 row
+			283 cell
+				284 text Hàng chờ duyệt
+			285 cell
+				286 text chỉ có cho NTGV
+			287 cell
+				288 text 11 thứ còn lại không có đường xin duyệt.
+		289 row
+			290 cell
+				291 text Ban hành ba dấu
+			292 cell
+				293 text CHƯA CÓ
+			294 cell
+				295 text Không ban hành được thì mọi thứ dừng ở trạng thái nháp vĩnh viễn.
+		296 row
+			297 cell
+				298 text Lịch sử phiên bản
+			299 cell
+				300 text CHƯA CÓ
+			301 cell
+				302 text Không xem được bản cũ, không quay lui được, không biết ai đổi gì lúc nào.
+	303 text I.2
+	304 heading Trả lời từng câu hỏi cơ bản, Value: 3
+		305 text Trả lời từng câu hỏi cơ bản
+	306 text Đây là những câu một nhân viên mới sẽ hỏi trong tuần đầu.
+	307 text 1 · Khai một quy trình mới thì làm sao?
+	308 content list
+		309 container
+			310 AXListMarker 1. 
+			311 text Mở 
+			312 link Description: Canvas quy trình, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html
+			313 text , đặt tên, chọn nó thuộc phòng ban nào.
+		314 container
+			315 AXListMarker 2. 
+			316 text Vẽ các bước theo thứ tự. Mỗi bước sẽ thành một công việc.
+		317 container
+			318 AXListMarker 3. 
+			319 text Với từng bước: chọn công việc đã có, hoặc tạo mới (xem câu 2).
+		320 container
+			321 AXListMarker 4. 
+			322 text Khai khi nào quy trình khởi động — 
+			323 link Description: MODW, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modw-builder-v1.html
+			324 text .
+		325 container
+			326 AXListMarker 5. 
+			327 text Test → xin duyệt → ban hành.
+	328 text Trạng thái:
+	329 text  bước 1–4 làm được trên màn hình. Bước 5 
+	330 text CHƯA CÓ
+	331 text  — nút Đúc mới chỉ báo thử.
+	332 container
+		333 text 2 · Khai một công việc mới thì làm sao? Và làm sao  biết chắc  nó đổ đúng người?
+	334 content list
+		335 container
+			336 AXListMarker 1. 
+			337 text Mở bàn tạo công việc, đặt tên, chọn nó thuộc quy trình nào, bước thứ mấy.
+		338 container
+			339 AXListMarker 2. 
+			340 text Gắn  một  bảng nhập (MOIT) và  không hoặc nhiều  bảng báo cáo (MOUT).
+		341 container
+			342 AXListMarker 3. 
+			343 text Khai luật giao việc:  NẾU điều kiện … THÌ giao cho … .
+		344 container
+			345 AXListMarker 4. 
+			346 text Khai khi nào việc xuất hiện (trigger), hạn bao lâu, hỏng thì xử lý ra sao.
+		347 container
+			348 AXListMarker 5. 
+			349 text Test  → xin duyệt → ban hành.
+	350 text Trạng thái:
+	351 text  bước 1–4 có 
+	352 text nhưng hai bàn khác nhau
+	353 text . Bước 5 là vấn đề lớn — xem ngay dưới.
+	354 heading Test “đổ đúng người” — bắt người bấm tay là sai từ gốc, Value: 4
+		355 text Test “đổ đúng người” — bắt người bấm tay là sai từ gốc
+	356 container
+		357 text Một công việc có thể có tới 50 luật giao việc. Bắt người dựng ngồi thử từng luật là  không thể làm nổi , và thử xong cũng không ai tin.
+	358 text Cách đúng — máy tự chấm:
+	359 content list
+		360 container
+			361 AXListMarker 1. 
+			362 text Người dựng khai N luật.  Chỉ khai, không thử.
+		363 container
+			364 AXListMarker 2. 
+			365 text Máy  tự sinh N tình huống mẫu  — mỗi luật một tình huống khớp đúng vế NẾU của nó.
+		366 container
+			367 AXListMarker 3. 
+			368 text Máy chạy bộ giao việc trên từng tình huống, ghi lại người thực nhận.
+		369 container
+			370 AXListMarker 4. 
+			371 text Máy so người thực nhận với người đã khai ở vế THÌ.
+		372 container
+			373 AXListMarker 5. 
+			374 text Người dựng chỉ  nhìn một bảng kết quả , không bấm gì.
+	375 text Bảng đó phải bắt được bốn loại lỗi:
+	376 table
+		377 row
+			378 cell
+				379 text LỖI
+			380 cell
+				381 text NGHĨA LÀ GÌ
+		382 row
+			383 cell
+				384 text Giao sai người
+			385 cell
+				386 text Luật khai giao cho A nhưng máy giao cho B.
+		387 row
+			388 cell
+				389 text Hai luật chồng nhau
+			390 cell
+				391 text Cùng một tình huống khớp hai luật, không biết theo luật nào.
+		392 row
+			393 cell
+				394 text Luật chết
+			395 cell
+				396 text Không tình huống nào khớp được — luật viết ra không bao giờ chạy.
+		397 row
+			398 cell
+				399 text Lọt lưới
+			400 cell
+				401 text Có tình huống không luật nào khớp — việc sinh ra mà không ai nhận.
+	402 container
+		403 text Trạng thái:  CHƯA CÓ .  Nút Test trên bàn hiện tại chỉ đổi giao diện sang dấu ✓ và điền ba người cố định —  nó không chạy phép kiểm nào cả .
+	404 text 3 · Tạo một bảng nhập (MOIT) hoặc bảng báo cáo (MOUT) thì làm sao?
+	405 content list
+		406 container
+			407 AXListMarker 1. 
+			408 text Chọn  bảng đích  trước — dữ liệu sẽ ghi vào đâu. (Luật: bảng trước, cột sau.)
+		409 container
+			410 AXListMarker 2. 
+			411 text Chọn các trường cần điền từ  thư viện trường . Trường chưa có trong thư viện thì không kéo lên được — phải đi xin thêm, xem câu 4.
+		412 container
+			413 AXListMarker 3. 
+			414 text Xếp bố cục theo hàng, mỗi hàng 1–4 ô.
+		415 container
+			416 AXListMarker 4. 
+			417 text Nối từng ô tới đúng cột trong bảng đích; khai ô nào bắt buộc, ô nào kiểm gì.
+		418 container
+			419 AXListMarker 5. 
+			420 text Chọn đường ghi:  ghi thẳng  hay  vào hàng chờ duyệt .
+		421 container
+			422 AXListMarker 6. 
+			423 text Test → duyệt → ban hành.
+	424 text Trạng thái:
+	425 text  bước 1–5 
+	426 text có
+	427 text . Bước 6 
+	428 text chưa
+	429 text .
+	430 heading Ba việc khó hơn khai báo — và chưa có màn nào lo, Value: 4
+		431 text Ba việc khó hơn khai báo — và chưa có màn nào lo
+	432 table
+		433 row
+			434 cell
+				435 text VIỆC
+			436 cell
+				437 text TRẠNG THÁI
+			438 cell
+				439 text PHẢI KIỂM ĐƯỢC ĐIỀU GÌ
+		440 row
+			441 cell
+				442 text Đấu trigger đúng
+			443 cell
+				444 text CHƯA CÓ
+			445 cell
+				446 text Bắn một sự kiện giả vào hệ. Trigger có bật không? Có bật  thừa  cái nào không? Có bật  hai lần  cho một sự kiện không?
+		447 row
+			448 cell
+				449 text Gọi đúng bảng nhập
+			450 cell
+				451 text CHƯA CÓ
+			452 cell
+				453 text Việc hiện ra có kèm đúng bảng nhập đã gắn không, hay gọi nhầm bảng của công việc khác?
+		454 row
+			455 cell
+				456 text Ghi đúng cột
+			457 cell
+				458 text CHƯA CÓ
+			459 cell
+				460 text Điền một giá trị thử, đọc lại từ cơ sở dữ liệu — có đúng ô đó, đúng kiểu, đúng bảng không?
+	461 container
+		462 text Ba việc này  phải nằm trong bước ③ của khuôn chung , chạy tự động, không hỏi người dùng câu nào.
+	463 text 4 · Thêm một trường thì làm sao?
+	464 content list
+		465 container
+			466 AXListMarker 1. 
+			467 text Đang dựng form, phát hiện thiếu ô → bấm  “báo thiếu”  ngay tại dòng đó. Hệ tự ghi: thiếu ở form nào, bảng nào, ai báo.
+		468 container
+			469 AXListMarker 2. 
+			470 text Hệ  tự tìm trường tương tự  đã có — so tên, tên gọi khác, mô tả, kiểu dữ liệu, bảng đang dùng. Tránh đẻ ra hai trường cùng nghĩa khác tên.
+		471 container
+			472 AXListMarker 3. 
+			473 text Nếu đã có trường tương tự → dùng lại, hết chuyện.
+		474 container
+			475 AXListMarker 4. 
+			476 text Nếu thật sự chưa có → vào hàng chờ, người có thẩm quyền duyệt.
+		477 container
+			478 AXListMarker 5. 
+			479 text Duyệt xong → hệ đổi cấu trúc bảng,  có đường lùi  nếu hỏng.
+		480 container
+			481 AXListMarker 6. 
+			482 text Trường mới vào thư viện → quay lại form, kéo lên dùng.
+	483 text Trạng thái: 
+	484 text CHƯA CÓ toàn bộ
+	485 text .
+	486 text  Hiện “tìm trường tương tự” chỉ tra một danh sách viết cứng trong mã trang, không đọc dữ liệu thật.
+	487 container
+		488 text Thiếu THÊM TRƯỜNG và thiếu THÊM BẢNG khác nhau:  thêm trường thì nhẹ. Thêm  bảng  là đổi cấu trúc lớn —  phải có người duyệt về kỹ thuật , có đường tiến và đường lùi. Hai loại đi chung một cửa vào, nhưng tách hai đường xử lý.
+	489 text 5 · Thêm và quản lý trigger thì làm sao?
+	490 text Trigger có 
+	491 text ba loại
+	492 text : theo 
+	493 text sự kiện
+	494 text  (có đơn hàng mới) · theo 
+	495 text lịch
+	496 text  (8h sáng thứ Hai) · 
+	497 text thủ công
+	498 text  (bấm nút).
+	499 content list
+		500 container
+			501 AXListMarker 1. 
+			502 text Khai trigger một lần ở  nơi quản lý trigger  — đặt tên, chọn loại, khai điều kiện.
+		503 container
+			504 AXListMarker 2. 
+			505 text Gắn  trigger đó vào quy trình hoặc vào một bước. Một trigger gắn được nhiều nơi.
+		506 container
+			507 AXListMarker 3. 
+			508 text Test: bắn sự kiện giả, xem có bật đúng chỗ không, có bật thừa không.
+		509 container
+			510 AXListMarker 4. 
+			511 text Bật / tắt / sửa / cho nghỉ hưu —  không xoá thật , vì có lượt đang chạy dựa vào nó.
+	512 text Trạng thái: 
+	513 text CHƯA CÓ nơi quản lý
+	514 text .
+	515 text  Hiện trigger khai lẫn bên trong từng bàn, nên 
+	516 text không ai biết cả hệ đang có bao nhiêu trigger
+	517 text , cái nào đang bật. Đây là chỗ dễ sinh ra việc chạy hai lần hoặc không chạy mà không ai biết.
+	518 text 6 · Sửa và xoá thì thế nào — cho tất cả những thứ trên?
+	519 text Giống nhau cho cả 12 thứ, vì dùng chung khuôn:
+	520 content list
+		521 container
+			522 AXListMarker 1. 
+			523 text Sửa  = mở bản đang chạy → bấm “tạo bản mới từ bản này” → sửa trên bản mới → test → duyệt → ban hành. Bản cũ tự nghỉ hưu.
+		524 container
+			525 AXListMarker 2. 
+			526 text Xoá  = bấm “cho nghỉ hưu”. Hệ hỏi lại nếu còn lượt đang chạy dùng bản đó.
+		527 container
+			528 AXListMarker 3. 
+			529 text Khôi phục  = mở lịch sử phiên bản, bật lại bản cũ — nhưng phải kiểm còn tương thích không.
+	530 text Trạng thái: 
+	531 text CHƯA CÓ
+	532 text .
+	533 text  Chưa có màn lịch sử phiên bản, chưa có nút nghỉ hưu, chưa có kiểm “còn ai đang dùng bản này không”.
+	534 text I.3
+	535 heading Vậy cần bao nhiêu màn hình?, Value: 3
+		536 text Vậy cần bao nhiêu màn hình?
+	537 text Bây giờ mới trả lời được câu này — vì đã có danh sách quy trình hệ thống.
+	538 table
+		539 row
+			540 cell
+				541 text LOẠI MÀN
+			542 cell
+				543 text CẦN
+			544 cell
+				545 text ĐÃ CÓ
+			546 cell
+				547 text THIẾU
+		548 row
+			549 cell
+				550 text Danh sách — 12 thứ × 1 màn
+			551 cell
+				552 text 12
+			553 cell
+				554 text 5
+			555 cell
+				556 text 7
+		557 row
+			558 cell
+				559 text Bàn làm — 12 thứ × 1 màn
+			560 cell
+				561 text 12
+			562 cell
+				563 text 6
+			564 cell
+				565 text 6
+		566 row
+			567 cell
+				568 text Dùng chung — test · duyệt · ban hành · lịch sử
+			569 cell
+				570 text 4
+			571 cell
+				572 text 0
+			573 cell
+				574 text 4
+		575 row
+			576 cell
+				577 text Cộng Phần I
+			578 cell
+				579 text 28
+			580 cell
+				581 text 11
+			582 cell
+				583 text 17
+	584 container
+		585 text Đọc con số này:  hệ mới có  11 trên 28 màn  của Phần I —  39% . Và 17 màn còn thiếu  không phải màn phụ : thiếu bàn test thì không ai dám ban hành; thiếu quản lý trường và trigger thì mọi thứ khai bằng tay, không kiểm được.
+	586 text PHẦN II
+	587 heading Quy trình CHUYÊN MÔN — dùng công cụ, Value: 2
+		588 text Quy trình CHUYÊN MÔN — dùng công cụ
+	589 container
+		590 text Khi Phần I xong, đây là thứ chạy trên nó: nhập kho, tuyển dụng, phái cử… Người dùng cuối chỉ nhìn thấy phần này.
+		591 text Đây là dữ liệu của hệ thống, không phải hệ thống.
+	592 text A
+	593 heading Tôi làm việc, Value: 3
+		594 text Tôi làm việc
+	595 text Nhánh của hầu hết nhân viên. Người mới chỉ cần đi hết nhánh này.
+	596 link Description: 1 Mở bàn làm việc“Hôm nay tôi phải làm gì?” — danh sách việc của riêng bạn, đèn màu báo hạn. CÓ, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html
+	597 link Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html, Description: 2 Xem việc thuộc quy trình nào, đang ở bước mấyĐầu thẻ ghi “Bước 4/6”.Hụt: bấm vào không mở được quy trình để xem toàn cảnh. MỘT NỬA
+	598 link Description: 3 Đọc thông tin tham khảoSố liệu để bạn quyết định.Hụt: đang là dữ liệu mẫu. MỘT NỬA, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html
+	599 link Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-form-v1.html, Description: 4 Điền bảng nhập và bấm Hoàn thànhCó bộ đếm “Bắt buộc 3/5”.Hụt: bấm xong chưa ghi xuống cơ sở dữ liệu. MỘT NỬA
+	600 text 5
+	601 text Bàn giao cho bước sau
+	602 text “Tôi xong rồi thì ai làm tiếp, tôi giao lại cái gì?”
+	603 text Chưa có màn nào, và chưa có định nghĩa chung thế nào là “xong đủ để bàn giao”.
+	604 text CHƯA CÓ
+	605 text 6
+	606 text Bị trả lại để sửa
+	607 text “Người kiểm bảo tôi làm thiếu — sửa ở đâu?”
+	608 text Chưa có vòng kiểm và trả lại.
+	609 text CHƯA CÓ
+	610 link Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-gopy-list-v1.html, Description: 7 Góp ý khi thấy bước nào vô lýGõ một dòng ngay tại việc đang làm.Hụt: màn hình còn bắt điền nhiều ô, trái nguyên tắc “một dòng”. MỘT NỬA
+	611 text B
+	612 heading Tôi theo dõi, Value: 3
+		613 text Tôi theo dõi
+	614 container
+		615 text Nhánh của tổ trưởng, trưởng phòng.  Trống nhất cả hệ.
+	616 text 1
+	617 text Xem các lượt đang chạy
+	618 text “Quy trình nhập kho hôm nay chạy mấy lượt, đang tới bước nào?”
+	619 text Chưa có. Không nhìn thấy lượt chạy thì câu “máy hiểu quy trình” chưa chứng minh được.
+	620 text CHƯA CÓ
+	621 text 2
+	622 text Xem ai đang giữ việc gì, việc nào quá hạn
+	623 text “Ai đang làm chậm, chậm ở bước nào?”
+	624 text Chưa có.
+	625 text CHƯA CÓ
+	626 text 3
+	627 text Dừng · chạy tiếp · huỷ · chạy lại một lượt
+	628 text “Lượt này chạy sai rồi, dừng lại.”
+	629 text Chưa có. Không dừng được thì không ai dám cho chạy thật.
+	630 text CHƯA CÓ
+	631 text D
+	632 heading Tôi cải tiến, Value: 3
+		633 text Tôi cải tiến
+	634 container
+		635 text Vòng sửa — chỗ quyết định hệ có  sửa rẻ  được hay không.
+	636 link Description: 1 Đọc sổ góp ýMọi góp ý từ bốn Mẹ đổ về một sổ. CÓ, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-gopy-list-v1.html
+	637 text 2
+	638 text Gộp góp ý và ghi lại quyết định sửa gì
+	639 text “Năm người cùng kêu bước 3 — sửa bước 3.”
+	640 text Cố ý để con người quyết, nhưng vẫn cần chỗ ghi lại quyết định đó.
+	641 text CHƯA CÓ
+	642 link Description: 3 Làm bản mới từ bản cũNhân bản, không sửa đè lên bản đang chạy. CÓ, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?che-do=de-xuat
+	643 text 4
+	644 text Cho bản cũ nghỉ hưu, bản mới lên thay
+	645 text Bản cũ tắt nhưng giữ nguyên, bật lại được.
+	646 text Chưa có. Đang chạy dở mà đổi bản thì việc sẽ lẫn hai phiên bản.
+	647 text CHƯA CÓ
+	648 text ▣
+	649 heading Đếm lại — hệ đang ở đâu, Value: 3
+		650 text Đếm lại — hệ đang ở đâu
+	651 text Phần II tự đếm từ các bước ở trên. Phần I đếm ở mục I.3.
+	652 text 3
+	653 text bước Phần II chạy được
+	654 text 4
+	655 text làm được một nửa
+	656 text 7
+	657 text chưa có gì
+	658 text 11/28
+	659 text màn Phần I đã có
+	660 heading Ba con số, đừng lẫn, Value: 4
+		661 text Ba con số, đừng lẫn
+	662 table
+		663 row
+			664 cell
+				665 text CON SỐ
+			666 cell
+				667 text NÓ ĐO CÁI GÌ
+			668 cell
+				669 text DÙNG ĐỂ LÀM GÌ
+		670 row
+			671 cell
+				672 text 92%
+			673 cell
+				674 text Mục trong sổ hợp đồng đã dựng
+			675 cell
+				676 text Đo  giao diện đã vẽ . Không nói được hệ dùng được chưa.
+		677 row
+			678 cell
+				679 text 11/28
+			680 cell
+				681 text Màn hình của Phần I
+			682 cell
+				683 text Đo  công cụ đã đủ chưa . Đây là con số quan trọng nhất lúc này.
+		684 row
+			685 cell c-lbl
+				686 text 3/14
+			687 cell
+				688 text Bước của Phần II
+			689 cell
+				690 text Đo  người dùng đi được bao xa . Chỉ có ý nghĩa sau khi Phần I xong.
+	691 text →
+	692 heading Việc tiếp theo, Value: 3
+		693 text Việc tiếp theo
+	694 container
+		695 text Phần I trước, Phần II sau.  Không phải vì Phần I quan trọng hơn, mà vì  Phần II là dữ liệu chạy trên Phần I  — chưa có công cụ thì không có gì để chạy.
+	696 text Trong Phần I, ba thứ chặn nặng nhất:
+	697 table
+		698 row
+			699 cell
+				700 text #
+			701 cell
+				702 text VIỆC
+			703 cell
+				704 text VÌ SAO NÓ CHẶN
+		705 row
+			706 cell
+				707 text 1
+			708 cell
+				709 text Bàn test tự động
+			710 cell
+				711 text Là bước ③ của khuôn chung —  cả 12 thứ đều đi qua nó . Chưa có thì không thứ gì ban hành được, và người dựng phải test tay, điều đã xác định là sai từ gốc.
+		712 row
+			713 cell
+				714 text 2
+			715 cell
+				716 text Quản lý trường  — danh sách + xin thêm
+			717 cell
+				718 text Không có thì mọi bảng nhập bị chặn ở bước chọn trường, và người ta sẽ sửa tay vào cơ sở dữ liệu.
+		719 row
+			720 cell
+				721 text 3
+			722 cell
+				723 text Quản lý trigger
+			724 cell
+				725 text Không có nơi tập trung thì không ai biết hệ đang có bao nhiêu trigger, cái nào bật. Đây là chỗ sinh ra chạy hai lần hoặc không chạy mà không ai biết.
+	726 container
+		727 text Nguồn người  đứng ngoài ba việc trên vì nó không phải màn hình — nó là câu hỏi cần Owner trả lời: công ty đã có bảng nhân sự chính thức chưa?
+	728 text ✦
+	729 heading Nghiệp vụ phái cử nhánh riêng · dựng song song, Value: 3
+		730 text Nghiệp vụ phái cử nhánh riêng · dựng song song
+	731 container
+		732 text Phái cử đang dựng  riêng và song song , hiện chạy trên Google Sheet. Khi nó xong, ta đã có sẵn: các loại bảng thật, danh mục trường thật, người thật, quy trình thật.
+	733 container
+		734 text Nối vào lúc đó.  Nối sớm hơn thì hai bên cùng dở dang, sửa một bên vỡ bên kia. Nối muộn hơn thì mất cơ hội kiểm chứng bộ khuôn bằng một nghiệp vụ thật.
+	735 container
+		736 text Trang này ở đâu.  Đặt tạm tại  /ui-preview/mcp-writes/bat-dau-o-day.html  vì đó là nơi agent có quyền ghi. Đích là  /knowledge/workflows  — chuyển sang chỉ là đổi đường dẫn. Tài liệu thiết kế đầy đủ ở máy Owner:  ~/Desktop/quy trình/00-NGUON-THIET-KE.html .
+	737 container 4 Mẹ + Master
+		738 text 4 MẸ
+		739 button MOW ▾ Quy trình
+			740 text MOW
+			741 text ▾
+			742 text Quy trình
+		743 button MOT ▾ Công việc
+			744 text MOT
+			745 text ▾
+			746 text Công việc
+		747 button MOIT ▾ Nhập liệu
+			748 text MOIT
+			749 text ▾
+			750 text Nhập liệu
+		751 button MOUT ▾ Báo cáo
+			752 text MOUT
+			753 text ▾
+			754 text Báo cáo
+		755 button Master ▾ Tổng 4 Mẹ
+			756 text Master
+			757 text ▾
+			758 text Tổng 4 Mẹ
+
+The focused UI element is 1 AXWebArea Bắt đầu ở đây — Hệ thống quy trình Incomex, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/bat-dau-o-day.html

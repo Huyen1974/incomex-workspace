@@ -1,0 +1,241 @@
+Browser tab: 14, Title: "MODUT — biến MOUT thành chạy được · v1", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modut-builder-v1.html".
+1 AXWebArea MODUT — biến MOUT thành chạy được · v1, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modut-builder-v1.html
+	2 container
+		3 text MODUT biến MOUT thành chạy được · v1
+		4 link Description: MOUT (tạo báo cáo), Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-builder-v3.html
+		5 link Description: Danh sách MOUT, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html
+	6 heading MODUT — lắp ráp để một báo cáo MOUT tự chạy, Value: 2
+		7 text MODUT — lắp ráp để một báo cáo MOUT tự chạy
+	8 container
+		9 text Con của MOUT (có chữ D — thiết kế để chạy). MOUT tạo  khung báo cáo ; MODUT  định nghĩa miền dữ liệu + nối hàm số liệu ra DB , đặt  kỳ + lịch/trigger , chốt  người nhận ,  neo 7 tầng  và  đường dẫn + xuất file  → báo cáo tự sinh & phân phối.
+	10 text 1
+	11 text BÁO CÁO NGUỒN
+	12 text khung từ MOUT
+	13 text Chọn báo cáo
+	14 pop up button (collapsed, settable) Value: RPT-0001 · Doanh thu theo khách hàng, ID: rSel, Secondary Actions: Expand
+		15 menu
+			16 (selected) RPT-0001 · Doanh thu theo khách hàng
+			17 RPT-0002 · Nhập kho theo lô
+			18 RPT-0004 · Công nợ phải thu toàn công ty
+			19 RPT-0003 · Tỷ lệ lỗi QC theo ca
+	20 text 6 cột · neo: QT Bán hàng B2B
+	21 text ◆
+	22 text MIỀN DỮ LIỆU (ĐẤU RA DB)
+	23 text 2 mặt + nguồn
+	24 text Mô tả
+	25 text field (settable) Value: Nữ đã nhập học — tuần trước, ID: dsText
+	26 text Mã đọc
+	27 text field (settable) Value: gioi='nu' AND su_kien='nhap_hoc' AND ky=tuan_truoc(), ID: dsCode
+	28 text Nguồn (DB)
+	29 pop up button (collapsed, settable) Value: Đơn hàng (Bán hàng) · col_don_hang, ID: dsSrc, Secondary Actions: Expand
+		30 menu
+			31 (selected) Đơn hàng (Bán hàng) · col_don_hang
+			32 Học sinh (Tuyển sinh) · col_hoc_sinh
+			33 Tồn kho · col_ton_kho
+			34 Công nợ · col_cong_no
+			35 Kết quả QC · col_qc
+			36 Chấm công · col_cham_cong
+	37 container
+		38 text Miền dữ liệu =  2 mặt : 1 câu mô tả cho người đọc + 1 mã đọc (điều kiện/hàm).  Nguồn (DB)  = collection thật để đấu nối — ĐỌC qua Directus, GHI qua DOT (không chạm PG thẳng).  Đây là chỗ biến báo cáo thành hiện thực.
+	39 text 2
+	40 text HÀM SỐ LIỆU (DOT)
+	41 text kéo số thật
+	42 text Hàm
+	43 pop up button (collapsed, settable) Value: fn_doanh_thu_theo_khach · Doanh thu theo khách, ID: fnSel, Secondary Actions: Expand
+		44 menu
+			45 (selected) fn_doanh_thu_theo_khach · Doanh thu theo khách
+			46 fn_nhap_kho_theo_lo · Nhập kho theo lô
+			47 fn_cong_no_phai_thu · Công nợ phải thu
+			48 fn_ty_le_loi_qc · Tỷ lệ lỗi QC
+			49 fn_ton_kho_hien_tai · Tồn kho hiện tại
+	50 text Hàm tổng hợp đã duyệt (DOT Function Registry). Hàm chạy TRÊN miền dữ liệu ở trên để ra số thật.
+	51 text 3
+	52 text KỲ & LỊCH CHẠY
+	53 text Kỳ báo cáo
+	54 pop up button (collapsed, settable) Value: Tháng này, ID: perSel, Secondary Actions: Expand
+		55 menu
+			56 Hôm nay
+			57 Tuần này
+			58 (selected) Tháng này
+			59 Tháng trước
+			60 Quý này
+			61 Năm nay
+	62 text Lịch chạy
+	63 pop up button (collapsed, settable) Value: Hàng ngày 06:00, ID: schSel, Secondary Actions: Expand
+		64 menu
+			65 Không (mở là chạy)
+			66 Hàng giờ
+			67 (selected) Hàng ngày 06:00
+			68 Hàng tuần (T2)
+			69 Hàng tháng (ngày cuối)
+	70 container schTxt
+		71 text Kỳ  Tháng này  · lịch  mỗi ngày 06:00  (0 6 * * *)
+	72 text 4
+	73 text TRIGGER SỰ KIỆN
+	74 text nhiều · ngoài lịch
+	75 container trigList
+		76 pop up button (collapsed, settable) Value: TRG-101 · Chốt sổ tháng, Secondary Actions: Expand
+			77 menu
+				78 (selected) TRG-101 · Chốt sổ tháng
+				79 TRG-102 · Cron lịch
+				80 TRG-103 · Khi có duyệt
+				81 TRG-104 · Output task trước
+				82 TRG-105 · Thủ công
+		83 pop up button (collapsed, settable) Value: COND-201 · Có phát sinh trong kỳ, Secondary Actions: Expand
+			84 menu
+				85 (không cần)
+				86 (selected) COND-201 · Có phát sinh trong kỳ
+				87 COND-202 · Giá trị > ngưỡng
+				88 COND-203 · Có cảnh báo đỏ
+		89 button ✕
+		90 text entry area (settable) Khi chốt sổ tháng → chạy báo cáo doanh thu
+	91 button ＋ Thêm trigger sự kiện
+	92 text Vd: khi chốt sổ tháng → chạy ngay. Mã trigger + mã điều kiện + mô tả.
+	93 text 5
+	94 text NGƯỜI NHẬN BÁO CÁO
+	95 text có thể nhiều · tự đọc bộ phận
+	96 container recipChips
+		97 text Ban GĐ Ban giám đốc
+		98 button ×
+		99 text Thảo Bán hàng
+		100 button ×
+	101 button ＋ Thêm người nhận
+	102 text 6
+	103 text NEO 7 TẦNG + XUẤT
+	104 text Neo 7 tầng
+	105 text QT Bán hàng B2B
+	106 text Xuất file
+	107 checkbox (settable, integer) Description:  Excel (.xlsx), Value: 1, ID: exX
+	108 checkbox (settable, integer) Description:  CSV, Value: 1, ID: exC
+	109 text ?
+	110 text HƯỚNG DẪN
+	111 text tuỳ chọn · cập nhật tay
+	112 text Văn bản
+	113 text entry area (settable) gdText
+	114 text Sơ đồ / Ảnh (mô tả)
+	115 text field (settable) gdDiagram
+	116 text Audio (mô tả)
+	117 text field (settable) gdAudio
+	118 text Video (mô tả)
+	119 text field (settable) gdVideo
+	120 text Các bước (mỗi dòng 1)
+	121 text entry area (settable) gdSteps
+	122 text ↓ Người dùng cuối sẽ thấy (ẩn sau nút):
+	123 container gdPrev
+		124 button 📖 Hướng dẫn chưa có ▾
+			125 text 📖
+			126 text Hướng dẫn
+			127 text chưa có
+			128 text ▾
+		129 text Chưa có hướng dẫn cho mục này. (Có thể bỏ trống — hoàn toàn tuỳ chọn.)
+	130 text Bản đúc — báo cáo chạy được
+	131 button ⚡ Đúc & lên lịch
+	132 text T2 · Nhiệm vụ
+	133 text Doanh thu theo khách hàng
+	134 container cBread
+		135 text Thương mại › Incomex Tân Bình › Khối Kinh doanh TB › P. Bán hàng TB › CM Bán hàng › QT Bán hàng B2B
+	136 container cBody
+		137 text MIỀN DỮ LIỆU
+		138 text Nữ đã nhập học — tuần trước
+		139 text gioi='nu' AND su_kien='nhap_hoc' AND ky=tuan_truoc()
+		140 container
+			141 text nguồn DB:  col_don_hang  · đọc qua Directus, ghi qua DOT
+		142 text HÀM SỐ LIỆU
+		143 text fn_doanh_thu_theo_khach
+		144 text KỲ · LỊCH
+		145 container
+			146 text Tháng này · mỗi ngày 06:00  0 6 * * *
+		147 text TRIGGER
+		148 container
+			149 text TRG-101 COND-201  Khi chốt sổ tháng → chạy báo cáo doanh thu
+		150 text NGƯỜI NHẬN
+		151 container
+			152 text Ban GĐ · Ban giám đốc Thảo · Bán hàng
+		153 text ĐƯỜNG DẪN
+		154 text /r/doanh_thu_theo_khach_hang .xlsx .csv
+	155 text HƯỚNG DẪN
+	156 button 📖 Hướng dẫn chưa có ▾
+		157 text 📖
+		158 text Hướng dẫn
+		159 text chưa có
+		160 text ▾
+	161 text {
+  "kind": "modut_runnable_report",
+  "report_ref": "RPT-0001",
+  "data_scope": {
+    "text": "Nữ đã nhập học — tuần trước",
+    "code": "gioi='nu' AND su_kien='nhap_hoc' AND ky=tuan_truoc()",
+    "source_collection": "col_don_hang",
+    "read_via": "Directus",
+    "write_via": "DOT/gateway"
+  },
+  "data": {
+    "fn": "fn_doanh_thu_theo_khach",
+    "params": {
+      "ky": "month"
+    }
+  },
+  "anchor": "QT Bán hàng B2B",
+  "derived_path": [
+    "Thương mại",
+    "Incomex Tân Bình",
+    "Khối Kinh doanh TB",
+    "P. Bán hàng TB",
+    "CM Bán hàng",
+    "QT Bán hàng B2B"
+  ],
+  "period": "month",
+  "schedule": "daily",
+  "cron": "0 6 * * *",
+  "triggers": [
+    {
+      "trigger_code": "TRG-101",
+      "condition_code": "COND-201",
+      "description": "Khi chốt sổ tháng → chạy báo cáo doanh thu"
+    }
+  ],
+  "report_recipients": [
+    {
+      "id": "NV07",
+      "name": "Ban GĐ",
+      "dept": "Ban giám đốc"
+    },
+    {
+      "id": "NV08",
+      "name": "Thảo",
+      "dept": "Bán hàng"
+    }
+  ],
+  "output": {
+    "url": "/r/doanh_thu_theo_khach_hang",
+    "export": [
+      "xlsx",
+      "csv"
+    ],
+    "saved": true
+  }
+}
+	162 container 4 Mẹ + Master
+		163 text 4 MẸ
+		164 button MOW ▾ Quy trình
+			165 text MOW
+			166 text ▾
+			167 text Quy trình
+		168 button MOT ▾ Công việc
+			169 text MOT
+			170 text ▾
+			171 text Công việc
+		172 button MOIT ▾ Nhập liệu
+			173 text MOIT
+			174 text ▾
+			175 text Nhập liệu
+		176 button MOUT ▾ Báo cáo
+			177 text MOUT
+			178 text ▾
+			179 text Báo cáo
+		180 button Master ▾ Tổng 4 Mẹ
+			181 text Master
+			182 text ▾
+			183 text Tổng 4 Mẹ
+
+The focused UI element is 1 AXWebArea MODUT — biến MOUT thành chạy được · v1, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modut-builder-v1.html

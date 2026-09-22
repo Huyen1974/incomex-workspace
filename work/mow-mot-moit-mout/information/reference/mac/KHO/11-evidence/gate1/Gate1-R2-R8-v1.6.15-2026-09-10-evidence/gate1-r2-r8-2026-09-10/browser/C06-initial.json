@@ -1,0 +1,100 @@
+{
+  "buttons": [
+    {
+      "disabled": false,
+      "text": "Bảng",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Theo cây 7 tầng",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    }
+  ],
+  "forms": 0,
+  "links": [
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-form-v1.html",
+      "text": "Tạo form (MOIT)"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html",
+      "text": "Master tổng →"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-form-v1.html",
+      "text": "＋ Tạo form (MOIT)"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html?chi-tiet=MOIT-F-0001",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html?chi-tiet=MOIT-F-0002",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html?chi-tiet=MOIT-F-0003",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html?chi-tiet=MOIT-F-0004",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html?chi-tiet=MOIT-F-0005",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html?chi-tiet=MOIT-F-0006",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html?chi-tiet=MOIT-F-0007",
+      "text": "mở chi tiết ›"
+    }
+  ],
+  "text": "MOIT · Danh sách\nbiểu mẫu đã đúc\nTạo form (MOIT)\nMaster tổng →\nMOIT — Danh sách biểu mẫu đã đúc\nMọi biểu mẫu nhập MOIT đã đúc đều đăng ký tại đây, neo vào cây 7 tầng.  ·  7 biểu mẫu · 5 đang chạy  ·  ✎ đầu dòng = sửa khuôn\nCùng một khuôn danh sách với MOT/MOW/MOUT — học một lần dùng mọi nơi. Biểu mẫu = form nhập đã đúc; muốn chạy thật (nối DB, điều kiện, trigger, người thực hiện) thì sang MODIT.\n＋ Tạo form (MOIT)\n⌕\nMọi trạng thái\nĐang chạy\nTạm dừng\nLưu trữ\nBảng\nTheo cây 7 tầng\nLĩnh vực: tất cả\nDịch vụ\nSản xuất\nThương mại\nCông ty: tất cả\nIncomex Cần Thơ\nIncomex Sài Gòn\nIncomex Tân Bình\nKhối: tất cả\nKhối Hỗ trợ CT\nKhối Kinh doanh TB\nKhối Tài chính SG\nKhối Vận hành SG\nPhòng ban: tất cả\nP. Bán hàng TB\nP. Kế toán SG\nP. Kho SG\nP. Nhân sự CT\nP. QC SG\nP. XNK TB\nChuyên môn: tất cả\nCM Bán hàng\nCM Khai hải quan\nCM Kiểm tra CL\nCM Thu chi\nCM Tiền lương\nCM Xuất nhập kho\nNhiệm vụ: tất cả\nQT Bán hàng B2B\nQT Kiểm tra CL\nQT Nhập kho\nQT Thu chi\nQT Tính lương\nQT Xuất khẩu\nCông việc: tất cả\nSỬA\t#\tMÃ\tTÊN\tCHUYÊN MÔN (T3)\tNHIỆM VỤ (T2)\tCÔNG VIỆC (T1)\tTRẠNG THÁI\t\n✎\t1\tMOIT-F-0001\tPhiếu nhập kho — xác nhận nhận đủ\tCM Xuất nhập kho\tQT Nhập kho\t·\t\nĐang chạy\tmở chi tiết ›\n✎\t2\tMOIT-F-0002\tPhiếu kiểm tra chất lượng lô\tCM Kiểm tra CL\tQT Kiểm tra CL\t·\t\nĐang chạy\tmở chi tiết ›\n✎\t3\tMOIT-F-0003\tĐơn đặt hàng B2B\tCM Bán hàng\tQT Bán hàng B2B\t·\t\nĐang chạy\tmở chi tiết ›\n✎\t4\tMOIT-F-0004\tPhiếu chi\tCM Thu chi\tQT Thu chi\t·\t\nĐang chạy\tmở chi tiết ›\n✎\t5\tMOIT-F-0005\tTờ khai xuất khẩu\tCM Khai hải quan\tQT Xuất khẩu\t·\t\nTạm dừng\tmở chi tiết ›\n✎\t6\tMOIT-F-0006\tGhi nhận phản ánh chất lượng\tCM Kiểm tra CL\tQT Kiểm tra CL\t·\t\nĐang chạy\tmở chi tiết ›\n✎\t7\tMOIT-F-0007\tBảng chấm công\tCM Tiền lương\tQT Tính lương\t·\t\nLưu trữ\tmở chi tiết ›\n×",
+  "title": "MOIT — Danh sách biểu mẫu đã đúc",
+  "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html"
+}

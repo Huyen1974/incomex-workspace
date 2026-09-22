@@ -1,0 +1,178 @@
+{
+  "buttons": [
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa tên trường"
+    },
+    {
+      "disabled": false,
+      "text": "BB",
+      "title": "Bắt buộc"
+    },
+    {
+      "disabled": false,
+      "text": "✕",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa tên trường"
+    },
+    {
+      "disabled": false,
+      "text": "BB",
+      "title": "Bắt buộc"
+    },
+    {
+      "disabled": false,
+      "text": "✕",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa tên trường"
+    },
+    {
+      "disabled": false,
+      "text": "BB",
+      "title": "Bắt buộc"
+    },
+    {
+      "disabled": false,
+      "text": "✕",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "＋ Thêm trường nhập (KIT MOT: F01–F10, E01/E02)",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "＋ Thêm trường khóa ngoại",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "⬇ Lưu thẳng DBbảng nghiệp vụ qua DOT",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "⏸ Lưu tạm — chờ xử lýhộp lưu tạm (danh sách đợi)",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Đơn giản · qua UI",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Phức tạp · DOT/script",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "và",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "hoặc",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa tên"
+    },
+    {
+      "disabled": false,
+      "text": "⚡ Đúc biểu mẫu",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Xác nhận đã nhận đủ",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOW ▾Quy trình",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOT ▾Công việc",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOIT ▾Nhập liệu",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOUT ▾Báo cáo",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Master ▾Tổng 4 Mẹ",
+      "title": ""
+    }
+  ],
+  "forms": 0,
+  "links": [
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-dataflow-v1.html",
+      "text": "Kiến trúc"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-studio-v1.html",
+      "text": "Bộ công cụ MOT"
+    }
+  ],
+  "text": "MOIT Builder\nkhai biểu mẫu nhập · v1\nKiến trúc\nBộ công cụ MOT\nMOIT — khai biểu mẫu nhập, sinh ra bản ghi để người thực hiện\n\nKhác MOUT (đọc & hiện), MOIT sinh ra form chạy được: khi đủ điều kiện + trigger, một bản ghi được tạo, gắn người thực hiện + thời điểm, rồi MOT giao tới dashboard. Mọi ô đã nhập đều sửa lại được bất cứ lúc nào (bút ✎ hoặc gõ thẳng).\n\n▤\nBẢNG ĐÍCH — CHỌN TRƯỚC\ntable-first: chọn BẢNG rồi mới khai CỘT/khóa ngoại\nCột ◇ và khóa ngoại ◈ bên dưới là của BẢNG này. Danh sách bảng thật lấy từ Directus (phase agent).\n1\nNHẬP GÌ?\ntrường nhập từ bộ công cụ MOT\n✎\nF06\nBB\n✕\n✎\nF01\nBB\n✕\n✎\nF08\nBB\n✕\n＋ Thêm trường nhập (KIT MOT: F01–F10, E01/E02)\n⠿ Kéo 6 chấm đổi thứ tự · ✎ hoặc bấm vào nhãn để sửa tên · BB = bắt buộc.\n◈\nNHẬP KHÓA NGOẠI\ntrỏ tới bảng khác — chọn bản ghi (FK)\nChưa có trường khóa ngoại. Bấm ＋ để thêm.\n＋ Thêm trường khóa ngoại\n◈ khác ◇ giá trị: trường trỏ sang bảng khác — người dùng tìm & chọn bản ghi (hoặc tạo mới). Lưu xuống là khóa phụ (FK). Chung 1 engine cho MOT & MOIT.\n◉\nNƠI LƯU DỮ LIỆU\nchọn 1 trạng thái — sửa rẻ\n⬇ Lưu thẳng DB\nbảng nghiệp vụ qua DOT\n⏸ Lưu tạm — chờ xử lý\nhộp lưu tạm (danh sách đợi)\n⬇ Ghi thẳng bảng nghiệp vụ qua DOT (dữ liệu đã chuẩn, được phép chính thức).\n2\nGẮN VỚI GÌ?\nđiều kiện để bản ghi xuất hiện\nĐơn giản · qua UI\nPhức tạp · DOT/script\nCác điều kiện thỏa mãn theo:\nvà\nhoặc\n— chọn trường (trống = bỏ qua) —\n×\n— chọn trường (trống = bỏ qua) —\n×\n— chọn trường (trống = bỏ qua) —\n×\n— chọn trường (trống = bỏ qua) —\n×\n— chọn trường (trống = bỏ qua) —\n×\nNối DB lấy trường (7 tầng) + lọc y hệt MOUT. Đây chỉ là khung; bản ghi chỉ xuất hiện khi đủ điều kiện.\n3\nTRIGGER?\nmô tả kích hoạt — người chuyên môn đọc & sửa\nTrigger 1\n(thời gian / lịch)\n✎\nTrigger 2\n(output task trước)\n✎\nTrigger 3\n(thủ công)\n✎\nCơ sở để code chạy theo. 3 loại gợi ý: thời gian/lịch · output task trước · thủ công.\n4\nGẮN BẢN GHI\nđủ hết → MOT giao tới dashboard\nNgười thực hiện\nThời điểm\nNeo 7 tầng\nQT Nhập kho\nBản ghi gắn liền: người thực hiện · thời điểm · điều kiện · trigger. Thỏa hết MOT mới gắn & giao việc.\n✎\n⚡ Đúc biểu mẫu\nMOIT-F-0001\nT2\nQT Nhập kho\n👤 Theo phòng ban (tự gán)\nVIỆC CẦN LÀM — NHẬP LIỆU\nXác nhận *\nXác nhận đã nhận đủ\nSố kiện thực nhận *\nđơn vị\nẢnh phiếu nhập\n＋ Kéo thả tệp hoặc bấm chọn\nBản ghi chỉ sinh khi: điều kiện [(chưa đặt điều kiện)] + trigger [2 mô tả] thỏa mãn → MOT gắn người thực hiện & giao việc.\n{\n  \"form_id\": \"moit_phieu_nhap_kho_xac_nhan_nhan_du\",\n  \"title\": \"Phiếu nhập kho — xác nhận nhận đủ\",\n  \"kind\": \"input_table\",\n  \"anchor\": \"QT Nhập kho\",\n  \"inputs\": [\n    {\n      \"kit\": \"F06\",\n      \"type\": \"confirm\",\n      \"label\": \"Xác nhận đã nhận đủ\",\n      \"required\": true\n    },\n    {\n      \"kit\": \"F01\",\n      \"type\": \"number\",\n      \"label\": \"Số kiện thực nhận\",\n      \"required\": true\n    },\n    {\n      \"kit\": \"F08\",\n      \"type\": \"file\",\n      \"label\": \"Ảnh phiếu nhập\",\n      \"required\": false\n    }\n  ],\n  \"conditions\": {\n    \"mode\": \"simple\",\n    \"connector\": \"và\",\n    \"rules\": []\n  },\n  \"trigger\": {\n    \"descriptions\": [\n      \"Khi QC lô trước = Đạt → bật bản ghi nhập kho\",\n      \"Hằng ngày 06:00 nếu có lệnh nhập chờ\"\n    ]\n  },\n  \"binding\": {\n    \"executor\": \"Theo phòng ban (tự gán)\",\n    \"when\": \"Khi trigger bật · hạn +1 ngày\",\n    \"emits_record_when\": \"conditions AND trigger satisfied\",\n    \"delivered_via\": \"MOT → dashboard\"\n  },\n  \"reference_inputs\": [],\n  \"target_collection\": null,\n  \"value_fields\": [\n    {\n      \"collection\": null,\n      \"column\": \"xac_nhan_da_nhan_du\",\n      \"label\": \"Xác nhận đã nhận đủ\"\n    },\n    {\n      \"collection\": null,\n      \"column\": \"so_kien_thuc_nhan\",\n      \"label\": \"Số kiện thực nhận\"\n    },\n    {\n      \"collection\": null,\n      \"column\": \"anh_phieu_nhap\",\n      \"label\": \"Ảnh phiếu nhập\"\n    }\n  ],\n  \"save_shape\": {\n    \"GHI 1 dòng bảng chính\": {\n      \"_table\": \"moit_phieu_nhap_kho_xac_nhan_nhan_du\",\n      \"xac_nhan_da_nhan_du\": null,\n      \"so_kien_thuc_nhan\": null,\n      \"anh_phieu_nhap\": null\n    }\n  },\n  \"save_mode\": \"commit\",\n  \"save_target\": \"bảng nghiệp vụ (commit qua DOT)\"\n}\n4 MẸ\nMOW\n▾\nQuy trình\nMOT\n▾\nCông việc\nMOIT\n▾\nNhập liệu\nMOUT\n▾\nBáo cáo\nMaster\n▾\nTổng 4 Mẹ",
+  "title": "MOIT Builder — khai biểu mẫu nhập · v1",
+  "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-builder-v1.html"
+}

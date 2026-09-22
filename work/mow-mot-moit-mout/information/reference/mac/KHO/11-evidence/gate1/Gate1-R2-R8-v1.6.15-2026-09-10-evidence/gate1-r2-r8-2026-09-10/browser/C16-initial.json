@@ -1,0 +1,143 @@
+{
+  "buttons": [
+    {
+      "disabled": false,
+      "text": "MOW ▾Quy trình",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOT ▾Công việc",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOIT ▾Nhập liệu",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOUT ▾Báo cáo",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Master ▾Tổng 4 Mẹ",
+      "title": ""
+    }
+  ],
+  "forms": 0,
+  "links": [
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html",
+      "text": "Xưởng vẽ"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-v1.html",
+      "text": "mow-master"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html",
+      "text": "canvas"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modw-builder-v1.html",
+      "text": "MODW"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html",
+      "text": "mot-master"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modt-builder-v1.html",
+      "text": "MODT"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/admin-new-modt",
+      "text": "New MODT"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html",
+      "text": "moit-master"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-form-v1.html",
+      "text": "form"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-builder-v1.html",
+      "text": "MODIT"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html",
+      "text": "mout-home"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-builder-v3.html",
+      "text": "v3"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modut-builder-v1.html",
+      "text": "MODUT"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/admin-new-modt",
+      "text": "trong New MODT"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/duyet-ntgv-v1.html",
+      "text": "màn duyệt"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-danh-tu-v1.html",
+      "text": "rà 120 danh từ"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modw-builder-v1.html",
+      "text": "MODW"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/qa-runner.html",
+      "text": "qa-runner"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html",
+      "text": "Canvas quy trình"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modw-builder-v1.html",
+      "text": "MODW"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html",
+      "text": "1\n      Mở bàn làm việc“Hôm nay tôi phải làm gì?” — danh sách việc của riêng bạn, đèn màu báo hạn.\n      CÓ"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html",
+      "text": "2\n      Xem việc thuộc quy trình nào, đang ở bước mấyĐầu thẻ ghi “Bước 4/6”.Hụt: bấm vào không mở được quy trình để xem toàn cảnh.\n      MỘT NỬA"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html",
+      "text": "3\n      Đọc thông tin tham khảoSố liệu để bạn quyết định.Hụt: đang là dữ liệu mẫu.\n      MỘT NỬA"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-form-v1.html",
+      "text": "4\n      Điền bảng nhập và bấm Hoàn thànhCó bộ đếm “Bắt buộc 3/5”.Hụt: bấm xong chưa ghi xuống cơ sở dữ liệu.\n      MỘT NỬA"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-gopy-list-v1.html",
+      "text": "7\n      Góp ý khi thấy bước nào vô lýGõ một dòng ngay tại việc đang làm.Hụt: màn hình còn bắt điền nhiều ô, trái nguyên tắc “một dòng”.\n      MỘT NỬA"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-gopy-list-v1.html",
+      "text": "1\n      Đọc sổ góp ýMọi góp ý từ bốn Mẹ đổ về một sổ.\n      CÓ"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?che-do=de-xuat",
+      "text": "3\n      Làm bản mới từ bản cũNhân bản, không sửa đè lên bản đang chạy.\n      CÓ"
+    }
+  ],
+  "text": "Bắt đầu ở đây\nbản dựng khung · 02/09\nXưởng vẽ\nBạn mới vào. Bắt đầu từ đây.\n\nTrang này làm hai việc. Một: chỉ cho người mới đi từ đầu đến cuối mà không cần hỏi ai. Hai: chính nó là bảng theo dõi — ô nào ghi CHƯA CÓ là việc hệ thống còn thiếu, trang tự đếm ở cuối.\n\nỞ đây có hai loại quy trình, và lẫn hai loại này là nguồn gốc của mọi lộn xộn.\n\nLoại 1 — quy trình HỆ THỐNG: quy trình để tạo ra công cụ. Khai một quy trình mới, khai một công việc, thêm một trường, thêm một trigger. Đây là thứ đang phải xây.\n\nLoại 2 — quy trình CHUYÊN MÔN: quy trình chạy trên công cụ đó. Nhập kho, tuyển dụng, phái cử. Đây là dữ liệu của hệ thống, không phải hệ thống.\nVì sao phải liệt kê loại 1 trước\n\nThứ tự làm là: ① UI → ② hợp đồng thông tin → ③ danh mục trường → ④ bảng. Nhưng muốn biết cần bao nhiêu UI thì phải biết trước có bao nhiêu quy trình hệ thống và mỗi quy trình đi qua những màn nào.\n\nChưa có danh sách loại 1 thì mọi tính toán về số bảng, số trường đều là đoán.\n\nPhần I dưới đây chính là danh sách đó. Nó là “cái đầu tiên” — thứ phải có trước tất cả.\n\n✱\nBốn từ cần biết trước\nBiết bốn từ này là đọc được mọi thứ phía sau.\nQuy trình\n≈ công thức nấu ăn\nCác bước theo thứ tự để làm xong một việc lớn. Ví dụ “Quy trình nhập kho” gồm 6 bước.\nCông việc (task)\n≈ một bước trong công thức\nMột bước, giao cho một người, có hạn. Cái hiện ra trên bàn làm việc chính là cái này.\nMOIT — bảng nhập\n≈ tờ khai phải điền\nPhần việc của bạn. Từ một ô đến vài chục ô. Mỗi công việc có đúng một bảng nhập.\nMOUT — bảng báo cáo\n≈ bảng tra để quyết định\nThông tin kèm theo, chỉ để đọc. Ví dụ tồn kho hiện tại, để biết nên nhập bao nhiêu.\n\nMột câu nhớ cả bốn: Quy trình gồm nhiều công việc; mỗi công việc có một bảng để điền và vài bảng để tra.\n\nPHẦN I\nQuy trình HỆ THỐNG — làm ra công cụ\n\nTrả lời các câu hỏi cơ bản nhất: khai một quy trình mới thì làm sao? khai một công việc thì làm sao? thêm một trường thì làm sao? thêm một trigger thì làm sao? sửa và xoá thì thế nào?\nMỗi câu trả lời gồm: các bước · đi qua UI nào · đã có chưa.\n\nI.0\nKhuôn chung — mọi thứ tạo ra đều đi qua sáu bước này\nKhông có 12 quy trình khác nhau. Chỉ có một khuôn, và 12 thứ đi qua nó. Khác nhau chỉ ở bước ① và ②.\n① Khai báo\nNó tên gì, thuộc về đâu, gồm những gì.\n→\n② Nối dữ liệu\nLấy ở bảng nào, ghi vào cột nào, ai làm, khi nào chạy.\n→\n③ Test tự động\nMáy tự sinh ca thử và chấm. Không bắt người bấm tay.\n→\n④ Xin duyệt\nĐưa vào hàng chờ, kèm bằng chứng test đã đạt.\n→\n⑤ Duyệt\nBa dấu: nghiệp vụ · kỹ thuật · pháp lý.\n→\n⑥ Ban hành\nBản mới lên thay, bản cũ nghỉ hưu.\nBa thao tác — chỉ khác nhau ở điểm xuất phát\nTHAO TÁC\tTHỰC CHẤT LÀ GÌ\nTẠO\tĐi khuôn 6 bước từ trang trắng.\nSỬA\tNhân bản bản đang chạy thành bản mới, sửa trên bản mới, rồi đi lại đúng 6 bước. Không bao giờ sửa đè lên bản đang chạy — vì có người đang làm việc dở trên bản đó.\nXOÁ\tKhông xoá thật. Cho nghỉ hưu: tắt nhưng giữ nguyên, bật lại được. Lượt đang chạy dở vẫn dùng bản cũ cho tới khi xong.\n\nVì sao gom về một khuôn: vì nếu mỗi thứ một quy trình riêng thì có 12 × 3 = 36 quy trình phải nhớ, 36 chỗ để sai. Một khuôn thì chỉ cần nhớ một lần, và sửa khuôn là sửa cho cả 12 thứ — đúng nghĩa sửa rẻ.\n\nI.1\nMười hai thứ có thể tạo ra — và màn hình của chúng\nMỗi thứ cần hai màn: một màn danh sách (xem có gì, tìm, mở ra sửa) và một màn bàn làm (khai báo và nối dữ liệu). Bốn màn còn lại dùng chung cho cả 12.\n#\tTHỨ TẠO RA\tMÀN DANH SÁCH\tMÀN BÀN LÀM\tGHI CHÚ\n1\tQuy trình\tmow-master 3 bản\tcanvas + MODW nút Đúc là demo\tCó cả hai màn. Chưa ghi thật.\n2\tCông việc (task)\tmot-master có\tMODT / New MODT 2 bản\tChưa chốt bàn nào là chuẩn.\n3\tMOIT — bảng nhập\tmoit-master có\tform + MODIT có\tĐầy đủ nhất trong 12.\n4\tMOUT — bảng báo cáo\tmout-home có\tv3 + MODUT v2 còn sót\tGỡ v2 khỏi menu.\n5\tTrường (field)\tCHƯA CÓ\tCHƯA CÓ\tNặng nhất. ~2.000 trường mà không có nơi xem, không có đường xin thêm.\n6\tTrigger\tCHƯA CÓ\tnằm lẫn trong MODT/MODIT\tKhai được nhưng không có nơi quản lý tập trung — không biết đang có bao nhiêu trigger, cái nào bật cái nào tắt.\n7\tNguyên tắc giao việc\tCHƯA CÓ\ttrong New MODT + màn duyệt một nửa\tCó bàn khai và bàn duyệt, thiếu danh sách toàn bộ luật.\n8\tĐiều kiện\tCHƯA CÓ\tnằm lẫn trong các builder\tKhông tái dùng được vì không có nơi tra.\n9\tBảng dữ liệu\trà 120 danh từ là bản rà, không phải màn quản lý\tCHƯA CÓ\tThiếu đường xin thêm bảng ⇒ người ta sẽ sửa tay vào cơ sở dữ liệu.\n10\tNgười & vai\tCHƯA CÓ\tCHƯA CÓ\tChặn cả hệ. Không có nguồn người thì không giao việc được.\n11\tNút trong cây 7 tầng\txem được trong bộ lọc\tMODW một nửa\tThêm phòng ban mới thì làm ở đâu — chưa rõ.\n12\tHướng dẫn\tCHƯA CÓ\tCHƯA CÓ\tVideo / ảnh / các bước gắn vào từng việc.\nBốn màn dùng chung — cả 12 thứ đều cần, hiện chưa có cái nào đủ\nMÀN DÙNG CHUNG\tTRẠNG THÁI\tVÌ SAO THIẾU THÌ CẢ 12 THỨ ĐỀU KẸT\nBàn test tự động\tmột nửa\tqa-runner kiểm giao diện có trôi không, không kiểm nghiệp vụ. Không có bàn test thì bước ③ của khuôn chung trống.\nHàng chờ duyệt\tchỉ có cho NTGV\t11 thứ còn lại không có đường xin duyệt.\nBan hành ba dấu\tCHƯA CÓ\tKhông ban hành được thì mọi thứ dừng ở trạng thái nháp vĩnh viễn.\nLịch sử phiên bản\tCHƯA CÓ\tKhông xem được bản cũ, không quay lui được, không biết ai đổi gì lúc nào.\nI.2\nTrả lời từng câu hỏi cơ bản\nĐây là những câu một nhân viên mới sẽ hỏi trong tuần đầu.\n1 · Khai một quy trình mới thì làm sao?\nMở Canvas quy trình, đặt tên, chọn nó thuộc phòng ban nào.\nVẽ các bước theo thứ tự. Mỗi bước sẽ thành một công việc.\nVới từng bước: chọn công việc đã có, hoặc tạo mới (xem câu 2).\nKhai khi nào quy trình khởi động — MODW.\nTest → xin duyệt → ban hành.\nTrạng thái: bước 1–4 làm được trên màn hình. Bước 5 CHƯA CÓ — nút Đúc mới chỉ báo thử.\n2 · Khai một công việc mới thì làm sao? Và làm sao biết chắc nó đổ đúng người?\nMở bàn tạo công việc, đặt tên, chọn nó thuộc quy trình nào, bước thứ mấy.\nGắn một bảng nhập (MOIT) và không hoặc nhiều bảng báo cáo (MOUT).\nKhai luật giao việc: NẾU điều kiện … THÌ giao cho ….\nKhai khi nào việc xuất hiện (trigger), hạn bao lâu, hỏng thì xử lý ra sao.\nTest → xin duyệt → ban hành.\nTrạng thái: bước 1–4 có nhưng hai bàn khác nhau. Bước 5 là vấn đề lớn — xem ngay dưới.\nTest “đổ đúng người” — bắt người bấm tay là sai từ gốc\n\nMột công việc có thể có tới 50 luật giao việc. Bắt người dựng ngồi thử từng luật là không thể làm nổi, và thử xong cũng không ai tin.\n\nCách đúng — máy tự chấm:\n\nNgười dựng khai N luật. Chỉ khai, không thử.\nMáy tự sinh N tình huống mẫu — mỗi luật một tình huống khớp đúng vế NẾU của nó.\nMáy chạy bộ giao việc trên từng tình huống, ghi lại người thực nhận.\nMáy so người thực nhận với người đã khai ở vế THÌ.\nNgười dựng chỉ nhìn một bảng kết quả, không bấm gì.\n\nBảng đó phải bắt được bốn loại lỗi:\n\nLỖI\tNGHĨA LÀ GÌ\nGiao sai người\tLuật khai giao cho A nhưng máy giao cho B.\nHai luật chồng nhau\tCùng một tình huống khớp hai luật, không biết theo luật nào.\nLuật chết\tKhông tình huống nào khớp được — luật viết ra không bao giờ chạy.\nLọt lưới\tCó tình huống không luật nào khớp — việc sinh ra mà không ai nhận.\n\nTrạng thái: CHƯA CÓ. Nút Test trên bàn hiện tại chỉ đổi giao diện sang dấu ✓ và điền ba người cố định — nó không chạy phép kiểm nào cả.\n\n3 · Tạo một bảng nhập (MOIT) hoặc bảng báo cáo (MOUT) thì làm sao?\nChọn bảng đích trước — dữ liệu sẽ ghi vào đâu. (Luật: bảng trước, cột sau.)\nChọn các trường cần điền từ thư viện trường. Trường chưa có trong thư viện thì không kéo lên được — phải đi xin thêm, xem câu 4.\nXếp bố cục theo hàng, mỗi hàng 1–4 ô.\nNối từng ô tới đúng cột trong bảng đích; khai ô nào bắt buộc, ô nào kiểm gì.\nChọn đường ghi: ghi thẳng hay vào hàng chờ duyệt.\nTest → duyệt → ban hành.\nTrạng thái: bước 1–5 có. Bước 6 chưa.\nBa việc khó hơn khai báo — và chưa có màn nào lo\nVIỆC\tTRẠNG THÁI\tPHẢI KIỂM ĐƯỢC ĐIỀU GÌ\nĐấu trigger đúng\tCHƯA CÓ\tBắn một sự kiện giả vào hệ. Trigger có bật không? Có bật thừa cái nào không? Có bật hai lần cho một sự kiện không?\nGọi đúng bảng nhập\tCHƯA CÓ\tViệc hiện ra có kèm đúng bảng nhập đã gắn không, hay gọi nhầm bảng của công việc khác?\nGhi đúng cột\tCHƯA CÓ\tĐiền một giá trị thử, đọc lại từ cơ sở dữ liệu — có đúng ô đó, đúng kiểu, đúng bảng không?\n\nBa việc này phải nằm trong bước ③ của khuôn chung, chạy tự động, không hỏi người dùng câu nào.\n\n4 · Thêm một trường thì làm sao?\nĐang dựng form, phát hiện thiếu ô → bấm “báo thiếu” ngay tại dòng đó. Hệ tự ghi: thiếu ở form nào, bảng nào, ai báo.\nHệ tự tìm trường tương tự đã có — so tên, tên gọi khác, mô tả, kiểu dữ liệu, bảng đang dùng. Tránh đẻ ra hai trường cùng nghĩa khác tên.\nNếu đã có trường tương tự → dùng lại, hết chuyện.\nNếu thật sự chưa có → vào hàng chờ, người có thẩm quyền duyệt.\nDuyệt xong → hệ đổi cấu trúc bảng, có đường lùi nếu hỏng.\nTrường mới vào thư viện → quay lại form, kéo lên dùng.\nTrạng thái: CHƯA CÓ toàn bộ. Hiện “tìm trường tương tự” chỉ tra một danh sách viết cứng trong mã trang, không đọc dữ liệu thật.\nThiếu THÊM TRƯỜNG và thiếu THÊM BẢNG khác nhau: thêm trường thì nhẹ. Thêm bảng là đổi cấu trúc lớn — phải có người duyệt về kỹ thuật, có đường tiến và đường lùi. Hai loại đi chung một cửa vào, nhưng tách hai đường xử lý.\n5 · Thêm và quản lý trigger thì làm sao?\nTrigger có ba loại: theo sự kiện (có đơn hàng mới) · theo lịch (8h sáng thứ Hai) · thủ công (bấm nút).\nKhai trigger một lần ở nơi quản lý trigger — đặt tên, chọn loại, khai điều kiện.\nGắn trigger đó vào quy trình hoặc vào một bước. Một trigger gắn được nhiều nơi.\nTest: bắn sự kiện giả, xem có bật đúng chỗ không, có bật thừa không.\nBật / tắt / sửa / cho nghỉ hưu — không xoá thật, vì có lượt đang chạy dựa vào nó.\nTrạng thái: CHƯA CÓ nơi quản lý. Hiện trigger khai lẫn bên trong từng bàn, nên không ai biết cả hệ đang có bao nhiêu trigger, cái nào đang bật. Đây là chỗ dễ sinh ra việc chạy hai lần hoặc không chạy mà không ai biết.\n6 · Sửa và xoá thì thế nào — cho tất cả những thứ trên?\nGiống nhau cho cả 12 thứ, vì dùng chung khuôn:\nSửa = mở bản đang chạy → bấm “tạo bản mới từ bản này” → sửa trên bản mới → test → duyệt → ban hành. Bản cũ tự nghỉ hưu.\nXoá = bấm “cho nghỉ hưu”. Hệ hỏi lại nếu còn lượt đang chạy dùng bản đó.\nKhôi phục = mở lịch sử phiên bản, bật lại bản cũ — nhưng phải kiểm còn tương thích không.\nTrạng thái: CHƯA CÓ. Chưa có màn lịch sử phiên bản, chưa có nút nghỉ hưu, chưa có kiểm “còn ai đang dùng bản này không”.\nI.3\nVậy cần bao nhiêu màn hình?\nBây giờ mới trả lời được câu này — vì đã có danh sách quy trình hệ thống.\nLOẠI MÀN\tCẦN\tĐÃ CÓ\tTHIẾU\nDanh sách — 12 thứ × 1 màn\t12\t5\t7\nBàn làm — 12 thứ × 1 màn\t12\t6\t6\nDùng chung — test · duyệt · ban hành · lịch sử\t4\t0\t4\nCộng Phần I\t28\t11\t17\n\nĐọc con số này: hệ mới có 11 trên 28 màn của Phần I — 39%. Và 17 màn còn thiếu không phải màn phụ: thiếu bàn test thì không ai dám ban hành; thiếu quản lý trường và trigger thì mọi thứ khai bằng tay, không kiểm được.\n\nPHẦN II\nQuy trình CHUYÊN MÔN — dùng công cụ\n\nKhi Phần I xong, đây là thứ chạy trên nó: nhập kho, tuyển dụng, phái cử… Người dùng cuối chỉ nhìn thấy phần này.\nĐây là dữ liệu của hệ thống, không phải hệ thống.\n\nA\nTôi làm việc\nNhánh của hầu hết nhân viên. Người mới chỉ cần đi hết nhánh này.\n1\nMở bàn làm việc“Hôm nay tôi phải làm gì?” — danh sách việc của riêng bạn, đèn màu báo hạn.\nCÓ\n2\nXem việc thuộc quy trình nào, đang ở bước mấyĐầu thẻ ghi “Bước 4/6”.Hụt: bấm vào không mở được quy trình để xem toàn cảnh.\nMỘT NỬA\n3\nĐọc thông tin tham khảoSố liệu để bạn quyết định.Hụt: đang là dữ liệu mẫu.\nMỘT NỬA\n4\nĐiền bảng nhập và bấm Hoàn thànhCó bộ đếm “Bắt buộc 3/5”.Hụt: bấm xong chưa ghi xuống cơ sở dữ liệu.\nMỘT NỬA\n5\nBàn giao cho bước sau“Tôi xong rồi thì ai làm tiếp, tôi giao lại cái gì?”Chưa có màn nào, và chưa có định nghĩa chung thế nào là “xong đủ để bàn giao”.\nCHƯA CÓ\n6\nBị trả lại để sửa“Người kiểm bảo tôi làm thiếu — sửa ở đâu?”Chưa có vòng kiểm và trả lại.\nCHƯA CÓ\n7\nGóp ý khi thấy bước nào vô lýGõ một dòng ngay tại việc đang làm.Hụt: màn hình còn bắt điền nhiều ô, trái nguyên tắc “một dòng”.\nMỘT NỬA\nB\nTôi theo dõi\nNhánh của tổ trưởng, trưởng phòng. Trống nhất cả hệ.\n1\nXem các lượt đang chạy“Quy trình nhập kho hôm nay chạy mấy lượt, đang tới bước nào?”Chưa có. Không nhìn thấy lượt chạy thì câu “máy hiểu quy trình” chưa chứng minh được.\nCHƯA CÓ\n2\nXem ai đang giữ việc gì, việc nào quá hạn“Ai đang làm chậm, chậm ở bước nào?”Chưa có.\nCHƯA CÓ\n3\nDừng · chạy tiếp · huỷ · chạy lại một lượt“Lượt này chạy sai rồi, dừng lại.”Chưa có. Không dừng được thì không ai dám cho chạy thật.\nCHƯA CÓ\nD\nTôi cải tiến\nVòng sửa — chỗ quyết định hệ có sửa rẻ được hay không.\n1\nĐọc sổ góp ýMọi góp ý từ bốn Mẹ đổ về một sổ.\nCÓ\n2\nGộp góp ý và ghi lại quyết định sửa gì“Năm người cùng kêu bước 3 — sửa bước 3.”Cố ý để con người quyết, nhưng vẫn cần chỗ ghi lại quyết định đó.\nCHƯA CÓ\n3\nLàm bản mới từ bản cũNhân bản, không sửa đè lên bản đang chạy.\nCÓ\n4\nCho bản cũ nghỉ hưu, bản mới lên thayBản cũ tắt nhưng giữ nguyên, bật lại được.Chưa có. Đang chạy dở mà đổi bản thì việc sẽ lẫn hai phiên bản.\nCHƯA CÓ\n▣\nĐếm lại — hệ đang ở đâu\nPhần II tự đếm từ các bước ở trên. Phần I đếm ở mục I.3.\n3\nbước Phần II chạy được\n4\nlàm được một nửa\n7\nchưa có gì\n11/28\nmàn Phần I đã có\nBa con số, đừng lẫn\nCON SỐ\tNÓ ĐO CÁI GÌ\tDÙNG ĐỂ LÀM GÌ\n92%\tMục trong sổ hợp đồng đã dựng\tĐo giao diện đã vẽ. Không nói được hệ dùng được chưa.\n11/28\tMàn hình của Phần I\tĐo công cụ đã đủ chưa. Đây là con số quan trọng nhất lúc này.\n3/14\tBước của Phần II\tĐo người dùng đi được bao xa. Chỉ có ý nghĩa sau khi Phần I xong.\n→\nViệc tiếp theo\n\nPhần I trước, Phần II sau. Không phải vì Phần I quan trọng hơn, mà vì Phần II là dữ liệu chạy trên Phần I — chưa có công cụ thì không có gì để chạy.\n\nTrong Phần I, ba thứ chặn nặng nhất:\n\n#\tVIỆC\tVÌ SAO NÓ CHẶN\n1\tBàn test tự động\tLà bước ③ của khuôn chung — cả 12 thứ đều đi qua nó. Chưa có thì không thứ gì ban hành được, và người dựng phải test tay, điều đã xác định là sai từ gốc.\n2\tQuản lý trường — danh sách + xin thêm\tKhông có thì mọi bảng nhập bị chặn ở bước chọn trường, và người ta sẽ sửa tay vào cơ sở dữ liệu.\n3\tQuản lý trigger\tKhông có nơi tập trung thì không ai biết hệ đang có bao nhiêu trigger, cái nào bật. Đây là chỗ sinh ra chạy hai lần hoặc không chạy mà không ai biết.\n\nNguồn người đứng ngoài ba việc trên vì nó không phải màn hình — nó là câu hỏi cần Owner trả lời: công ty đã có bảng nhân sự chính thức chưa?\n\n✦\nNghiệp vụ phái cửnhánh riêng · dựng song song\n\nPhái cử đang dựng riêng và song song, hiện chạy trên Google Sheet. Khi nó xong, ta đã có sẵn: các loại bảng thật, danh mục trường thật, người thật, quy trình thật.\n\nNối vào lúc đó. Nối sớm hơn thì hai bên cùng dở dang, sửa một bên vỡ bên kia. Nối muộn hơn thì mất cơ hội kiểm chứng bộ khuôn bằng một nghiệp vụ thật.\n\nTrang này ở đâu. Đặt tạm tại /ui-preview/mcp-writes/bat-dau-o-day.html vì đó là nơi agent có quyền ghi. Đích là /knowledge/workflows — chuyển sang chỉ là đổi đường dẫn. Tài liệu thiết kế đầy đủ ở máy Owner: ~/Desktop/quy trình/00-NGUON-THIET-KE.html.\n\n4 MẸ\nMOW\n▾\nQuy trình\nMOT\n▾\nCông việc\nMOIT\n▾\nNhập liệu\nMOUT\n▾\nBáo cáo\nMaster\n▾\nTổng 4 Mẹ",
+  "title": "Bắt đầu ở đây — Hệ thống quy trình Incomex",
+  "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/bat-dau-o-day.html"
+}

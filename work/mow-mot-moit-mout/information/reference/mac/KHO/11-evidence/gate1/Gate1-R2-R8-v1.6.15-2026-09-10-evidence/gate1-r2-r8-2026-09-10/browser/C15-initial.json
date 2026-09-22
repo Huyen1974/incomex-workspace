@@ -1,0 +1,109 @@
+{
+  "buttons": [
+    {
+      "disabled": false,
+      "text": "Bảng",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Theo cây 7 tầng",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Help",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Mở chi tiết góp ý này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Mở chi tiết góp ý này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Mở chi tiết góp ý này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Mở chi tiết góp ý này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Mở chi tiết góp ý này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Mở chi tiết góp ý này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Mở chi tiết góp ý này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Mở chi tiết góp ý này"
+    }
+  ],
+  "forms": 0,
+  "links": [
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html",
+      "text": "Nơi gửi góp ý →"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html",
+      "text": "Nháp 2 →"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?che-do=de-xuat",
+      "text": "＋ Gửi góp ý"
+    },
+    {
+      "href": "javascript:void 0",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "javascript:void 0",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "javascript:void 0",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "javascript:void 0",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "javascript:void 0",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "javascript:void 0",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "javascript:void 0",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "javascript:void 0",
+      "text": "mở chi tiết ›"
+    }
+  ],
+  "text": "MOW · Góp ý cải tiến\nKHUNG · chưa nối bảng\nNơi gửi góp ý →\nNháp 2 →\nKHUNG danh sách để nhìn cho dễ — dữ liệu là MẪU, chưa nối bảng thật. Người góp ý chỉ gõ một ô text; mọi cột dưới đây đều do hệ tự gắn, trừ Tình trạng (admin đặt trên UI).\nGóp ý cải tiến — sổ chung 4 tầng\nMọi góp ý từ MOW · MOT · MOIT · MOUT đều đổ về đây (neo vào cây 7 tầng). Một dòng = một lần góp ý.  ·  8 góp ý · 4 mới chưa xem\n＋ Gửi góp ý\n⌕\nMọi Mẹ\nMOW\nMOT\nMOIT\nMOUT\nMọi tình trạng\nMới\nĐã xem\nĐã gộp\nĐã thành thiết kế\nBỏ\nBảng\nTheo cây 7 tầng\nHelp\nLĩnh vực: tất cả\nSản xuất\nThương mại\nCông ty: tất cả\nIncomex Sài Gòn\nIncomex Tân Bình\nKhối: tất cả\nKhối Kinh doanh TB\nKhối Vận hành SG\nPhòng ban: tất cả\nP. Bán hàng TB\nP. Kho SG\nChuyên môn: tất cả\nCM Bán hàng\nCM Xuất nhập kho\nNhiệm vụ: tất cả\nQT Bán hàng B2B\nQT Nhập kho\nCông việc: tất cả\nSỬA\t#\tMÃ GÓP Ý\tVỊ TRÍ GÓP Ý\tNGƯỜI GÓP Ý\tTÌNH TRẠNG\tTHỜI GIAN\t\n✎\t1\tGY-0001\tMOWQT Nhập kho · bước 3 Đối chiếu tồn kho\nneo: bước-lượt RUN-1042/S3\n“Bước này đang bắt nhập lại số lô mà bước trước đã nhập rồi.”\n\tLan · P. Kế toán\t\nMới\nĐã xem\nĐã gộp\nĐã thành thiết kế\nBỏ\nLượt thiết kế TK-0007 — đã phát hành v4\n\t19/07/2026 09:12\n2 ngày\n\tmở chi tiết ›\n✎\t2\tGY-0002\tMOTCông việc Đối chiếu tồn kho\nneo: bước-lượt RUN-1051/S3\n“Việc này giao cho tôi nhưng đúng ra phải là bên kho làm.”\n\tMinh · P. Kế toán\t\nMới\nĐã xem\nĐã gộp\nĐã thành thiết kế\nBỏ\nLượt thiết kế TK-0009 — đang dựng\n\t20/07/2026 10:15\n1 ngày\n\tmở chi tiết ›\n✎\t3\tGY-0003\tMOITForm nhập kho thực tế\nneo: bước-lượt RUN-1051/S6\n“Form thiếu ô ghi chú khi hàng về thiếu, giờ phải gọi điện báo.”\n\tHùng · P. Kho SG\t\nMới\nĐã xem\nĐã gộp\nĐã thành thiết kế\nBỏ\n\t20/07/2026 16:40\n1 ngày\n\tmở chi tiết ›\n✎\t4\tGY-0004\tMOUTBáo cáo tồn kho theo lô\nneo: bước-lượt RUN-1049/S5\n“Báo cáo tồn kho không có cột đơn vị vận chuyển, phải tra sang chỗ khác.”\n\tTâm · Trưởng P. Kho SG\t\nMới\nĐã xem\nĐã gộp\nĐã thành thiết kế\nBỏ\n\t21/07/2026 08:20\n0 ngày chưa xem\n\tmở chi tiết ›\n✎\t5\tGY-0005\tMOWQT Nhập kho · bước 4 Đối chiếu đơn mua\nneo: bước-lượt RUN-1052/S4\n“Đối chiếu đơn mua và đối chiếu tồn kho nên làm cùng lúc cho nhanh.”\n\tLan · P. Kế toán\t\nMới\nĐã xem\nĐã gộp\nĐã thành thiết kế\nBỏ\n\t21/07/2026 10:05\n0 ngày chưa xem\n\tmở chi tiết ›\n✎\t6\tGY-0006\tMOTViệc dự phòng Chờ kiểm đếm\nneo: cây 7 tầng · T3 CM Xuất nhập kho\n“Chờ kiểm đếm 15 phút là quá lâu, thực tế chỉ mất 5.”\n\tHùng · P. Kho SG\t\nMới\nĐã xem\nĐã gộp\nĐã thành thiết kế\nBỏ\n\t12/07/2026 11:30\n9 ngày chưa xem\n\tmở chi tiết ›\n✎\t7\tGY-0007\tMOITForm kiểm đếm nhập kho\nneo: bước-lượt RUN-1044/S3\n“Ô số lượng nên cho nhập số lẻ, hàng rời không tròn thùng.”\n\tMinh · P. Kho SG\t\nMới\nĐã xem\nĐã gộp\nĐã thành thiết kế\nBỏ\n\t08/07/2026 09:02\n13 ngày chưa xem\n\tmở chi tiết ›\n✎\t8\tGY-0008\tMOWQT Bán hàng B2B · bước 7\nneo: bước-lượt RUN-0880/S7\n“Bỏ bước xác nhận cuối đi, trùng với bước duyệt ở trên.”\n\tHuyền · P. Kinh doanh\t\nMới\nĐã xem\nĐã gộp\nĐã thành thiết kế\nBỏ\nlý do bỏ: Hai bước khác nhau: bước 7 là xác nhận giao hàng, bước duyệt là duyệt giá. Giữ lại để người sau khỏi góp lại y hệt.\n\t02/07/2026 15:55\n19 ngày\n\tmở chi tiết ›",
+  "title": "MOW · Danh sách Góp ý cải tiến (KHUNG)",
+  "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-gopy-list-v1.html"
+}

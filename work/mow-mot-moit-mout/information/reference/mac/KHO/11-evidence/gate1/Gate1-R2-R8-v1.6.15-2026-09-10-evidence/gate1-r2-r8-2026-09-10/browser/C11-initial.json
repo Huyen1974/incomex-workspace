@@ -1,0 +1,93 @@
+{
+  "buttons": [
+    {
+      "disabled": false,
+      "text": "✕",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "＋ Thêm trigger sự kiện",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "＋ Thêm người nhận",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "📖 Hướng dẫn chưa có▾",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "⚡ Đúc & lên lịch",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "📖 Hướng dẫn chưa có▾",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOW ▾Quy trình",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOT ▾Công việc",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOIT ▾Nhập liệu",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOUT ▾Báo cáo",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Master ▾Tổng 4 Mẹ",
+      "title": ""
+    }
+  ],
+  "forms": 0,
+  "links": [
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-builder-v3.html",
+      "text": "MOUT (tạo báo cáo)"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html",
+      "text": "Danh sách MOUT"
+    }
+  ],
+  "text": "MODUT\nbiến MOUT thành chạy được · v1\nMOUT (tạo báo cáo)\nDanh sách MOUT\nMODUT — lắp ráp để một báo cáo MOUT tự chạy\n\nCon của MOUT (có chữ D — thiết kế để chạy). MOUT tạo khung báo cáo; MODUT định nghĩa miền dữ liệu + nối hàm số liệu ra DB, đặt kỳ + lịch/trigger, chốt người nhận, neo 7 tầng và đường dẫn + xuất file → báo cáo tự sinh & phân phối.\n\n1\nBÁO CÁO NGUỒN\nkhung từ MOUT\nChọn báo cáo\nRPT-0001 · Doanh thu theo khách hàng\nRPT-0002 · Nhập kho theo lô\nRPT-0004 · Công nợ phải thu toàn công ty\nRPT-0003 · Tỷ lệ lỗi QC theo ca\n6 cột · neo: QT Bán hàng B2B\n◆\nMIỀN DỮ LIỆU (ĐẤU RA DB)\n2 mặt + nguồn\nMô tả\nMã đọc\nNguồn (DB)\nĐơn hàng (Bán hàng) · col_don_hang\nHọc sinh (Tuyển sinh) · col_hoc_sinh\nTồn kho · col_ton_kho\nCông nợ · col_cong_no\nKết quả QC · col_qc\nChấm công · col_cham_cong\nMiền dữ liệu = 2 mặt: 1 câu mô tả cho người đọc + 1 mã đọc (điều kiện/hàm). Nguồn (DB) = collection thật để đấu nối — ĐỌC qua Directus, GHI qua DOT (không chạm PG thẳng). Đây là chỗ biến báo cáo thành hiện thực.\n2\nHÀM SỐ LIỆU (DOT)\nkéo số thật\nHàm\nfn_doanh_thu_theo_khach · Doanh thu theo khách\nfn_nhap_kho_theo_lo · Nhập kho theo lô\nfn_cong_no_phai_thu · Công nợ phải thu\nfn_ty_le_loi_qc · Tỷ lệ lỗi QC\nfn_ton_kho_hien_tai · Tồn kho hiện tại\nHàm tổng hợp đã duyệt (DOT Function Registry). Hàm chạy TRÊN miền dữ liệu ở trên để ra số thật.\n3\nKỲ & LỊCH CHẠY\nKỳ báo cáo\nHôm nay\nTuần này\nTháng này\nTháng trước\nQuý này\nNăm nay\nLịch chạy\nKhông (mở là chạy)\nHàng giờ\nHàng ngày 06:00\nHàng tuần (T2)\nHàng tháng (ngày cuối)\nKỳ Tháng này · lịch mỗi ngày 06:00 (0 6 * * *)\n4\nTRIGGER SỰ KIỆN\nnhiều · ngoài lịch\nTRG-101 · Chốt sổ tháng\nTRG-102 · Cron lịch\nTRG-103 · Khi có duyệt\nTRG-104 · Output task trước\nTRG-105 · Thủ công\n(không cần)\nCOND-201 · Có phát sinh trong kỳ\nCOND-202 · Giá trị > ngưỡng\nCOND-203 · Có cảnh báo đỏ\n✕\n＋ Thêm trigger sự kiện\nVd: khi chốt sổ tháng → chạy ngay. Mã trigger + mã điều kiện + mô tả.\n5\nNGƯỜI NHẬN BÁO CÁO\ncó thể nhiều · tự đọc bộ phận\nBan GĐ\nBan giám đốc\n×\nThảo\nBán hàng\n×\n＋ Thêm người nhận\n6\nNEO 7 TẦNG + XUẤT\nNeo 7 tầng\nQT Bán hàng B2B\nXuất file\n Excel (.xlsx)\n CSV\n?\nHƯỚNG DẪN\ntuỳ chọn · cập nhật tay\nVăn bản\nSơ đồ / Ảnh (mô tả)\nAudio (mô tả)\nVideo (mô tả)\nCác bước (mỗi dòng 1)\n↓ Người dùng cuối sẽ thấy (ẩn sau nút):\n📖\nHướng dẫn\nchưa có\n▾\n\nChưa có hướng dẫn cho mục này. (Có thể bỏ trống — hoàn toàn tuỳ chọn.)\n\nBản đúc — báo cáo chạy được\n⚡ Đúc & lên lịch\nT2 · Nhiệm vụ\nDoanh thu theo khách hàng\nThương mại›Incomex Tân Bình›Khối Kinh doanh TB›P. Bán hàng TB›CM Bán hàng›QT Bán hàng B2B\nMIỀN DỮ LIỆU\nNữ đã nhập học — tuần trước\ngioi='nu' AND su_kien='nhap_hoc' AND ky=tuan_truoc()\nnguồn DB: col_don_hang · đọc qua Directus, ghi qua DOT\nHÀM SỐ LIỆU\nfn_doanh_thu_theo_khach\nKỲ · LỊCH\nTháng này · mỗi ngày 06:00 0 6 * * *\nTRIGGER\nTRG-101 COND-201 Khi chốt sổ tháng → chạy báo cáo doanh thu\nNGƯỜI NHẬN\nBan GĐ\n· Ban giám đốc\nThảo\n· Bán hàng\nĐƯỜNG DẪN\n/r/doanh_thu_theo_khach_hang\n.xlsx\n.csv\nHƯỚNG DẪN\n📖\nHướng dẫn\nchưa có\n▾\n{\n  \"kind\": \"modut_runnable_report\",\n  \"report_ref\": \"RPT-0001\",\n  \"data_scope\": {\n    \"text\": \"Nữ đã nhập học — tuần trước\",\n    \"code\": \"gioi='nu' AND su_kien='nhap_hoc' AND ky=tuan_truoc()\",\n    \"source_collection\": \"col_don_hang\",\n    \"read_via\": \"Directus\",\n    \"write_via\": \"DOT/gateway\"\n  },\n  \"data\": {\n    \"fn\": \"fn_doanh_thu_theo_khach\",\n    \"params\": {\n      \"ky\": \"month\"\n    }\n  },\n  \"anchor\": \"QT Bán hàng B2B\",\n  \"derived_path\": [\n    \"Thương mại\",\n    \"Incomex Tân Bình\",\n    \"Khối Kinh doanh TB\",\n    \"P. Bán hàng TB\",\n    \"CM Bán hàng\",\n    \"QT Bán hàng B2B\"\n  ],\n  \"period\": \"month\",\n  \"schedule\": \"daily\",\n  \"cron\": \"0 6 * * *\",\n  \"triggers\": [\n    {\n      \"trigger_code\": \"TRG-101\",\n      \"condition_code\": \"COND-201\",\n      \"description\": \"Khi chốt sổ tháng → chạy báo cáo doanh thu\"\n    }\n  ],\n  \"report_recipients\": [\n    {\n      \"id\": \"NV07\",\n      \"name\": \"Ban GĐ\",\n      \"dept\": \"Ban giám đốc\"\n    },\n    {\n      \"id\": \"NV08\",\n      \"name\": \"Thảo\",\n      \"dept\": \"Bán hàng\"\n    }\n  ],\n  \"output\": {\n    \"url\": \"/r/doanh_thu_theo_khach_hang\",\n    \"export\": [\n      \"xlsx\",\n      \"csv\"\n    ],\n    \"saved\": true\n  }\n}\n4 MẸ\nMOW\n▾\nQuy trình\nMOT\n▾\nCông việc\nMOIT\n▾\nNhập liệu\nMOUT\n▾\nBáo cáo\nMaster\n▾\nTổng 4 Mẹ",
+  "title": "MODUT — biến MOUT thành chạy được · v1",
+  "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modut-builder-v1.html"
+}

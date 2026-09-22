@@ -1,0 +1,152 @@
+{
+  "buttons": [
+    {
+      "disabled": false,
+      "text": "Bảng",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Theo cây 7 tầng",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "✎",
+      "title": "Sửa khuôn này"
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOW ▾Quy trình",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOT ▾Công việc",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOIT ▾Nhập liệu",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOUT ▾Báo cáo",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Master ▾Tổng 4 Mẹ",
+      "title": ""
+    }
+  ],
+  "forms": 0,
+  "links": [
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-builder-v3.html",
+      "text": "Mở MOUT Builder"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html",
+      "text": "Master tổng →"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-builder-v3.html",
+      "text": "＋ Tạo báo cáo"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html?chi-tiet=RPT-0001",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html?chi-tiet=RPT-0002",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html?chi-tiet=RPT-0003",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html?chi-tiet=RPT-0004",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html?chi-tiet=RPT-0005",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html?chi-tiet=RPT-0006",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html?chi-tiet=RPT-0007",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html?chi-tiet=RPT-0008",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html?chi-tiet=RPT-0009",
+      "text": "mở chi tiết ›"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html?chi-tiet=RPT-0010",
+      "text": "mở chi tiết ›"
+    }
+  ],
+  "text": "MOUT · Danh sách\nbáo cáo đã đúc\nMở MOUT Builder\nMaster tổng →\nMOUT — Danh sách báo cáo đã đúc\nMọi báo cáo MOUT đúc ra đều đăng ký tại đây, neo vào cây 7 tầng.  ·  10 báo cáo · 8 đang chạy  ·  ✎ đầu dòng = sửa khuôn\nNgười lập là DOT (tự động) hay người — chỉ nhập yêu cầu; phần còn lại là hệ thống quản lý. Cùng một khuôn danh sách với MOW/MOT.\n＋ Tạo báo cáo\n⌕\nMọi trạng thái\nĐang chạy\nTạm dừng\nLưu trữ\nBảng\nTheo cây 7 tầng\nLĩnh vực: tất cả\nDịch vụ\nSản xuất\nThương mại\nCông ty: tất cả\nIncomex Cần Thơ\nIncomex Sài Gòn\nIncomex Tân Bình\nKhối: tất cả\nKhối Hỗ trợ CT\nKhối Kinh doanh TB\nKhối Tài chính SG\nKhối Vận hành SG\nPhòng ban: tất cả\nP. Bán hàng TB\nP. Kế toán SG\nP. Kho SG\nP. Nhân sự CT\nP. QC SG\nP. XNK TB\nChuyên môn: tất cả\nCM Bán hàng\nCM Khai hải quan\nCM Kiểm tra CL\nCM Thu chi\nCM Tiền lương\nCM Xuất nhập kho\nNhiệm vụ: tất cả\nQT Bán hàng B2B\nQT Kiểm tra CL\nQT Nhập kho\nQT Tính lương\nCông việc: tất cả\nCV Lấy mẫu QC\nCV Nhập kệ\nSỬA\t#\tMÃ\tTÊN\tCHUYÊN MÔN (T3)\tNHIỆM VỤ (T2)\tCÔNG VIỆC (T1)\tTRẠNG THÁI\t\n✎\t1\tRPT-0001\tDoanh thu theo khách hàng\tCM Bán hàng\tQT Bán hàng B2B\t·\t\nĐang chạy\tmở chi tiết ›\n✎\t2\tRPT-0002\tNhập kho theo lô\tCM Xuất nhập kho\tQT Nhập kho\t·\t\nĐang chạy\tmở chi tiết ›\n✎\t3\tRPT-0003\tTỷ lệ lỗi QC theo ca\tCM Kiểm tra CL\tQT Kiểm tra CL\tCV Lấy mẫu QC\t\nĐang chạy\tmở chi tiết ›\n✎\t4\tRPT-0004\tCông nợ phải thu toàn công ty\t·\t·\t·\t\nĐang chạy\tmở chi tiết ›\n✎\t5\tRPT-0005\tTồn kho cận hạn\t·\t·\t·\t\nTạm dừng\tmở chi tiết ›\n✎\t6\tRPT-0006\tBảng lương kỳ tháng\tCM Tiền lương\tQT Tính lương\t·\t\nĐang chạy\tmở chi tiết ›\n✎\t7\tRPT-0007\tTrị giá tờ khai XNK\tCM Khai hải quan\t·\t·\t\nĐang chạy\tmở chi tiết ›\n✎\t8\tRPT-0008\tThu chi theo khoản mục\tCM Thu chi\t·\t·\t\nĐang chạy\tmở chi tiết ›\n✎\t9\tRPT-0009\tDoanh thu toàn Lĩnh vực Thương mại\t·\t·\t·\t\nĐang chạy\tmở chi tiết ›\n✎\t10\tRPT-0010\tNhập kho chi tiết theo kệ\tCM Xuất nhập kho\tQT Nhập kho\tCV Nhập kệ\t\nLưu trữ\tmở chi tiết ›\n×\n4 MẸ\nMOW\n▾\nQuy trình\nMOT\n▾\nCông việc\nMOIT\n▾\nNhập liệu\nMOUT\n▾\nBáo cáo\nMaster\n▾\nTổng 4 Mẹ",
+  "title": "MOUT — Danh sách báo cáo đã đúc",
+  "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html"
+}
