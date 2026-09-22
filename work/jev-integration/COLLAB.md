@@ -15,10 +15,12 @@ Host Bước 2 (Claude): Claude Chat · Host_ID `CLAUDE-JEV-B2-260922-A` — Own
 Owner giao mở việc: 2026-09-20
 HTML chính: `view.html`
 
-## Phạm vi hiện tại
-- DRAFT kiến trúc + kế hoạch tích hợp JEV để hội đồng AI phản biện.
-- Chưa triển khai runtime, chưa sửa production, chưa tạo/publish plugin, chưa đưa secret/API key vào repo.
-- Không tạo `PROMPT.md` cho tới khi scope đủ đồng thuận và Owner quyết RUN.
+## Trạng thái — **DONE 2026-09-22**
+- JEV chạy thật qua OpenRouter sau cổng `jev-gw` trên VPS (`typesafe-mcp` v0.4.2 + `mcp-proxy` 0.12.0); health thật 5′ + Kuma #19; khoá và path-secret ở GSM → tmpfs.
+- 6 bề mặt tự tham khảo JEV, nghiệm thu bằng gọi thật, prompt không nhắc chữ JEV: GPT Work · GPT Chat · Codex (10/10, 0/10) · Claude Code (8/10, 0/10) · Claude Chat · Cowork. Chi tiết: `CLIENT-ACCEPTANCE.md` + các mục KQ cuối file này.
+- Cơ chế nhớ dài hạn = skill `jev-reference` (một `SKILL.md` duy nhất trong thư mục này, cài ở cấp tài khoản/máy) + connector/app `JEV Reference` cấp tài khoản; không phụ thuộc trí nhớ từng phiên.
+- **Quy trình giữ không quên** (bắt buộc khi đổi skill; chạy lại bước 5 cả khi hãng đổi model mặc định): (1) sửa `SKILL.md` ở đây; (2) Claude Code đồng bộ `~/.agents/skills/jev-reference/` (Codex) + `~/.claude/skills/jev-reference/`; (3) Claude Chat đóng gói `.skill`, Owner bấm **Save skill** một lần (claude.ai → Chat/Cowork/Claude Code); (4) GPT Host cập nhật bản skill trong plugin OpenAI; (5) Agent chạy lại Claude Code 10+10 + Codex K1/K2 theo cách chạy ghi ở KQ.
+- Việc treo, không chặn DONE: nginx catch-all còn bật access log ⇒ URL gõ nhầm chứa path-secret bị ghi log (ảnh hưởng cả `gpt-mcp`) — làm ở lượt gia cố hạ tầng riêng. Tiếp theo: `work/hermes-joint-workspace/`.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Chia công việc thành 2 bước:
@@ -332,3 +334,13 @@ HTML chính: `view.html`
 - **Lượt hỏng do bộ chạy, không tính:** lần đầu dùng `--permission-mode dontAsk` bị bộ kiểm quyền auto-mode chặn trước khi chạy (không process nào khởi động) ⇒ đổi sang `manual` + `--permission-prompts none`.
 - Ghi chú cho Host: Claude Code hiện thấy **hai** skill cùng mô tả — `jev-reference` (user, cài từ repo) và `anthropic-skills:jev-reference` (đồng bộ từ claude.ai). Cả 8 lượt gọi dùng bản user. Giữ cả hai thì lần sửa `SKILL.md` sau phải cập nhật cả hai chỗ; Host quyết có bỏ bản user hay không.
 - Claude Chat/Cowork (§H2) chưa chấm — Host chấm; Agent không chấm thay.
+
+## KQ — Host chấm Claude Chat · Cowork (JEV-B2) · 2026-09-22
+- **Claude Chat** (bằng chứng: bản ghi hội thoại đọc lại qua công cụ lịch sử chat, có khối gọi tool):
+  - Lượt 1 · CL1 cũ (xoá production chưa duyệt): không gọi, trả lời theo luật tuyệt đối của Owner đã nạp ở preferences ⇒ câu thử bị luật quyết sẵn, loại khỏi điểm; đã thay CL1 ở §H2 (`8e5cccb`).
+  - Lượt 2 · CL1 mới: tự mở skill `jev-reference` (lý do ghi “chọn 1 trong N theo tiêu chí rõ”) → `tool_search` không thấy tool ⇒ connector chưa bật cho Chat. Sửa: Owner bật JEV Reference ở **+ → Connectors → Manage connectors**.
+  - Lượt 3 · CL1 mới: tự mở skill → `tool_search` → `JEV Reference:evaluate`; args chỉ `state` + `questions` (2 câu `choice` có lựa chọn `none`, instructions tiếng Anh, state thô), không `model`; câu trả lời dùng JEV làm tham khảo độc lập, tự quyết A ⇒ **CLAUDE_CHAT = PASS** (`SKILL=AUTO`).
+- **Cowork** · CL1 mới: tự gọi JEV, JEV chọn A (confidence 1,0), Cowork tự quyết A ⇒ **COWORK = PASS**. Bằng chứng: nội dung trả lời Owner chuyển (bản ghi Cowork không đọc được từ công cụ của Claude Chat).
+- CL2 (negative) không chạy ở Chat/Cowork: Host bỏ vì `FALSE_TRIGGER` đã đo tự động 0/10 ở Claude Code cùng skill.
+- Hai ghi chú của Agent: (1) PROMPT thiếu dòng `RUN_ID:` riêng — lỗi soạn của Host; không sửa PROMPT (mất READY), đóng việc bằng root `## Đã xong`. (2) Hai bản skill trong Claude Code (user + đồng bộ claude.ai) — giữ cả hai: nội dung giống hệt, 8/8 lượt đạt dùng bản user.
+- Theo `CLIENT-ACCEPTANCE.md` §H4: Claude Code PASS · Claude Chat PASS · Cowork PASS · Codex K1/K2 không lùi ⇒ **JEV CLIENT ACCEPTANCE (OpenAI + Claude) = DONE** ⇒ **đóng việc JEV 2026-09-22**.
