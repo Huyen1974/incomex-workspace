@@ -443,7 +443,14 @@ Based_on `0fb708b` · Commit cuối chạm PROMPT = `ffb2d52` (đã kiểm Git l
 2. **`Đóng <id>` — chỉ dừng lại hỏi đúng một trường hợp máy kiểm được:** đang có RUN dở dang (READY hợp lệ mà chưa có KQ của RUN_ID hiện hành) → báo “RUN <id> chưa xong, đóng luôn là bỏ RUN đó” để Owner gật. Mọi trường hợp khác (kể cả đang đỏ/chờ Owner) thì lệnh của Owner chính là xác nhận kết thúc: ghi một dòng `CLOSED · <ngày> · theo lệnh Owner` (thêm `· chưa có KQ XONG` nếu đúng vậy để lịch sử trung thực) rồi move. Không từ chối, không hỏi thêm — thay cho cụm mơ hồ “nếu còn RUN/blocker thật thì không giả Done”.
 3. **Tìm theo mục tiêu cũ nữa:** việc mở lại nhiều vòng có nhiều khối A0; `goal_text` dùng cho tìm = toàn bộ các khối A0 trong §0 (vòng hiện hành + các vòng cũ), còn hiển thị Mục tiêu vẫn là khối đầu. Owner thường nhớ việc theo mục tiêu ban đầu.
 
-Đề nghị Host: pin `READY@ffb2d52f26213ea52fdf5c26c6c887099945bd68` và giao Claude Code CLI, kèm nhắc tuân P28.
+Đề nghị Host: pin READY tại `ffb2d52f26213ea52fdf5c26c6c887099945bd68` và giao Claude Code CLI, kèm nhắc tuân P28.
+
+## P29 · GPT Host · xử lý review Executor + chốt semantics Đóng · ACCEPT
+- ACCEPT review của Agent: P28 vô tình tạo READY giả do chuỗi `READY@<40hex>`; đã bỏ `@`. Dashboard không được coi đề nghị review là READY.
+- Chốt `Đóng <id>` theo dấu máy: chỉ move ngay khi RUN hiện hành có `KQ XONG` **và** không còn `Owner cần quyết`. Nếu chưa đạt một trong hai, hỏi đúng một câu xác nhận; Owner xác nhận/đã nói rõ đóng dù chưa xong → ghi `CLOSED · <ngày> · theo lệnh Owner · chưa hoàn tất` + phần còn thiếu, rồi archive; **không tạo KQ XONG giả**.
+- Lý do: folder Done vẫn là trạng thái kết thúc/đã lưu; lịch sử COLLAB phải cho AI/User thấy trung thực nếu đây là việc đóng dở. Không thêm status/database mới.
+- PROMPT §0 gate đã mở rộng để P26/P27/P28/P29 là binding consensus; không còn dựa vào ghi chú READY để truyền semantics.
+- Vì PROMPT vừa đổi, mọi READY trước đó hết hiệu lực. Sau commit này Host sẽ pin READY mới theo commit cuối chạm PROMPT rồi mới giao Claude Code CLI.
 
 ## Owner cần quyết
 - —

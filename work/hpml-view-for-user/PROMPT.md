@@ -9,7 +9,7 @@ Write_Path: runtime VPS theo README §11 + workspace MCP cho Git docs/move
 ## 0. Gate trước mutation
 1. Đọc AGENTS.md → root COLLAB.md → work/hpml-view-for-user/COLLAB.md → PROMPT này → README §11–§12.
 2. Commit cuối chạm PROMPT phải khớp READY trong COLLAB; lệch → DỪNG.
-3. P23 + P24 + Host P25 là consensus bắt buộc. Không redesign B2/B3 ngoài archive scope.
+3. P23/P24/P25 + P26/P27/P28 + Host P29 là consensus bắt buộc. Không redesign B2/B3 ngoài archive scope.
 4. Baseline trước sửa: source HEAD, sync-status/tasks.json, số task/bucket, document URLs, retention=3, webhook/backstop health, B3 presence, runtime commits + rollback point.
 5. Không đổi hai gateway/MCP schema/version/auth. Không restart gateway; P24 yêu cầu guard ở publisher/presence layer.
 
@@ -85,7 +85,7 @@ Tái dùng UI hiện tại:
 ## 5. Lifecycle hai chiều + A9 / README / root rules — chỉ cập nhật sau cutover thành công
 ### 5.1 Hai lệnh chuẩn cho người và AI
 Ghi vào AGENTS/A9 khi cutover PASS:
-- `Đóng <id>` = intent kết thúc + archive. Host/AI phải đảm bảo/ghi trạng thái kết thúc phù hợp (KQ/CLOSED hoặc Owner closure) rồi mới move `work/<id>/` → `work/done-tasks/<id>/`; nếu còn RUN/blocker thật thì không giả Done, báo ngắn lý do.
+- `Đóng <id>` = intent kết thúc + archive. Máy kiểm hai dấu hiệu trước move: (a) RUN_ID hiện hành đã có `KQ@<RUN_ID> XONG`; (b) `## Owner cần quyết` không còn dòng chờ. Nếu cả hai đạt → move ngay, không hỏi. Nếu thiếu một trong hai → hỏi đúng **một câu** nêu phần chưa hoàn tất và xin Owner xác nhận đóng. Nếu Owner xác nhận, hoặc ngay từ câu lệnh đã nói rõ `đóng luôn/bỏ việc này dù chưa xong` (ngữ nghĩa tương đương), ghi `CLOSED · <ngày> · theo lệnh Owner · chưa hoàn tất` và ghi ngắn phần còn thiếu (ví dụ `chưa có KQ XONG`/`còn Owner wait`) rồi move. Không hỏi lặp. Lịch sử phải trung thực; không tự tạo `KQ XONG` giả.
 - `Mở lại <id>` = move `work/done-tasks/<id>/` → `work/<id>/` **và tạo một khối A0 vòng mới ở đầu §0**. Lịch sử A0 cũ giữ nguyên phía dưới.
   - Nếu User chỉ nói bare `Mở lại <id>`: A0 mới ghi `Xác nhận User: CHƯA XÁC NHẬN`, UI Mục tiêu phải về trạng thái điều chỉnh/vàng; Host hỏi ngắn mục tiêu sửa/nâng cấp trước khi plan/RUN.
   - Nếu cùng câu User đã nói rõ mục tiêu (`Mở lại <id> để ...` hoặc ngữ nghĩa tương đương): dùng nguyên ý User làm A0 mới và coi đó là xác nhận trực tiếp; không hỏi lại câu đã có đáp án.
