@@ -1,0 +1,75 @@
+Browser tab: 2, Title: "127.0.0.1:3017", URL: "http://127.0.0.1:3017/".
+1 AXWebArea 127.0.0.1:3017/
+	2 container
+		3 heading Gate2 · lab Nuxt 4 / PG 16.15 / Directus 11.5.1, Value: 1
+			4 text Gate2 · lab Nuxt 4 / PG 16.15 / Directus 11.5.1
+		5 text Directus 12: chưa vượt bài thử quyền chi tiết do giới hạn giấy phép. Đây là phép thử thành phần độc lập. Ghi nhận thời lượng dự kiến · khai báo revision 4 · SSR
+		70 text Đã lưu. Dữ liệu đã được đọc lại từ hệ thống.
+		6 container
+			7 text Thời lượng dự kiến (phút)
+			8 stepper (settable, integer) Thời lượng dự kiến (phút), Value: 150, ID: v-0-1
+			9 text Ghi chú
+			10 text entry area (settable) Ghi chú, Value: Gate3–4: kiểm tra đọc/ghi bằng giao diện dùng lại, ID: v-0-2
+			11 button Submit
+		71 button Đọc bản hiện hành để đối chiếu / nhập lại
+		72 button Gửi lại yêu cầu vừa lưu
+		12 text Tìm kiếm
+		13 text field (settable)
+		14 checkbox Chỉ xem đã sao, Value: 0
+			15 image
+			16 text Chỉ xem đã sao
+		17 text 0 đã sao
+		18 heading Contract dùng lại · TEST ONLY, Value: 3
+			19 text Contract dùng lại · TEST ONLY
+		20 button Làm mới
+		21 table
+			22 row
+				23 cell
+					24 text STT
+				25 cell
+					26 container
+						27 text ID  ↑
+				28 cell
+					29 text Khái niệm nguồn
+				30 cell
+					31 text Phiên bản
+			32 row
+				33 cell
+					34 checkbox Description: Đánh dấu sao dòng này, Value: 0
+						35 image
+				36 cell
+					37 text 1
+				38 cell
+					39 text created-at-v1
+				40 cell
+					41 text field.ngay_lap
+				42 cell
+					43 text 1
+			44 row
+				45 cell
+					46 checkbox Description: Đánh dấu sao dòng này, Value: 0
+						47 image
+				48 cell
+					49 text 2
+				50 cell
+					51 text duration-minute-v1
+				52 cell
+					53 text field.so_phut
+				54 cell
+					55 text 1
+			56 row
+				57 cell
+					58 checkbox Description: Đánh dấu sao dòng này, Value: 0
+						59 image
+				60 cell
+					61 text 3
+				62 cell
+					63 text note-v1
+				64 cell
+					65 text field.ghi_chu
+				66 cell
+					67 text 1
+		68 button (disabled) Trước
+		69 button (disabled) Tiếp
+
+The focused UI element is 11 button Submit

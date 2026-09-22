@@ -1,0 +1,347 @@
+{
+  "id": "d559b143-a0a3-4f0f-b088-c87b5f57cde9",
+  "version": 2,
+  "digest": "4970caf784f1c0908b62bae49a9b9397436e66e54457d4c7f109d0a02e23f00e",
+  "snapshot": {
+    "test_only": true,
+    "closure_mode": "selected-reachable-immutable-snapshot",
+    "form": {
+      "id": "16a85219-1758-59f5-acef-e7d752edb36c",
+      "revision": 4,
+      "scope": "pilot",
+      "schema": [
+        {
+          "name": "duration_minutes",
+          "label": "Thời lượng dự kiến (phút)",
+          "type": "number",
+          "field_ref": "field.so_phut",
+          "contract_ref": "duration-minute-v1",
+          "contract_version": 1,
+          "subject": "task",
+          "datatype": "integer",
+          "unit": "minute",
+          "operation": "input",
+          "write_target": "lab_task_records.duration_minutes",
+          "required": true
+        },
+        {
+          "name": "note",
+          "label": "Ghi chú",
+          "type": "textarea",
+          "field_ref": "field.ghi_chu",
+          "contract_ref": "note-v1",
+          "contract_version": 1,
+          "subject": "task",
+          "datatype": "text",
+          "unit": "N/A",
+          "operation": "input",
+          "write_target": "lab_task_records.note",
+          "required": false
+        }
+      ],
+      "system_fields": [
+        {
+          "name": "date_created",
+          "label": "Ngày tạo — hệ thống ghi",
+          "type": "datetime-local",
+          "field_ref": "field.ngay_lap",
+          "contract_ref": "created-at-v1",
+          "contract_version": 1,
+          "subject": "record",
+          "datatype": "timestamp",
+          "unit": "N/A",
+          "operation": "system-created",
+          "write_target": "lab_task_records.date_created",
+          "required": true
+        }
+      ],
+      "profile_ref": "form-contract-profile-v2",
+      "profile_version": 2,
+      "submit_config": {
+        "action_path": "/proof-write/record/",
+        "read_path": "/items/lab_task_records/",
+        "fixed_input": {
+          "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+          "form_version": "main"
+        },
+        "revision_input": "form_revision"
+      }
+    },
+    "field_contracts": [
+      {
+        "id": "duration-minute-v1",
+        "version": 1,
+        "source_concept": "field.so_phut",
+        "content": {
+          "id": "duration-minute-v1",
+          "version": 1,
+          "source_concept": "field.so_phut",
+          "meaning": "Thời lượng dự kiến của MỘT task",
+          "subject": "task",
+          "datatype": "integer",
+          "unit": "minute",
+          "operation": "input",
+          "write_target": "lab_task_records.duration_minutes",
+          "required": true,
+          "source_revision": "E05 snapshot 2026-09-08 sha256 in retrieval corpus",
+          "provenance": {
+            "meaning": "PM accepted TEST ONLY fixture in 2026-09-09 command; related source concept kept provisional",
+            "datatype_target": "TEST ONLY lab fixture; not asserted to be existing legacy semantic contract",
+            "permission": "authenticated Directus lab policy, not caller allowed boolean"
+          },
+          "status": "TEST_ONLY"
+        }
+      },
+      {
+        "id": "created-at-v1",
+        "version": 1,
+        "source_concept": "field.ngay_lap",
+        "content": {
+          "id": "created-at-v1",
+          "version": 1,
+          "source_concept": "field.ngay_lap",
+          "meaning": "Mốc tạo bản ghi do hệ thống tự ghi",
+          "subject": "record",
+          "datatype": "timestamp",
+          "unit": "N/A",
+          "operation": "system-created",
+          "write_target": "lab_task_records.date_created",
+          "required": true,
+          "source_revision": "E05 snapshot 2026-09-08 sha256 in retrieval corpus",
+          "provenance": {
+            "meaning": "PM accepted TEST ONLY fixture in 2026-09-09 command; related source concept kept provisional",
+            "datatype_target": "TEST ONLY lab fixture; not asserted to be existing legacy semantic contract",
+            "permission": "authenticated Directus lab policy, not caller allowed boolean"
+          },
+          "status": "TEST_ONLY"
+        }
+      },
+      {
+        "id": "note-v1",
+        "version": 1,
+        "source_concept": "field.ghi_chu",
+        "content": {
+          "id": "note-v1",
+          "version": 1,
+          "source_concept": "field.ghi_chu",
+          "meaning": "Ghi chú tùy chọn cho một task",
+          "subject": "task",
+          "datatype": "text",
+          "unit": "N/A",
+          "operation": "input",
+          "write_target": "lab_task_records.note",
+          "required": false,
+          "source_revision": "E05 snapshot 2026-09-08 sha256 in retrieval corpus",
+          "provenance": {
+            "meaning": "PM accepted TEST ONLY fixture in 2026-09-09 command; related source concept kept provisional",
+            "datatype_target": "TEST ONLY lab fixture; not asserted to be existing legacy semantic contract",
+            "permission": "authenticated Directus lab policy, not caller allowed boolean"
+          },
+          "status": "TEST_ONLY"
+        }
+      }
+    ],
+    "mow": {
+      "id": "1e1bae69-69e0-5502-927f-0913891ed78b",
+      "name": "Thử ghi nhận thời lượng dự kiến",
+      "mot_ref": "51ac625c-071f-5998-8e07-09bd61613184",
+      "scope": "pilot",
+      "status": "draft",
+      "user_created": "019acf9e-cd43-4ef2-9214-cfdcd462b856",
+      "date_created": "2026-09-11T04:24:31.953+00:00",
+      "user_updated": null,
+      "date_updated": null
+    },
+    "mot": {
+      "id": "51ac625c-071f-5998-8e07-09bd61613184",
+      "name": "Ghi nhận thời lượng một task",
+      "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+      "form_version": "main",
+      "scope": "pilot",
+      "status": "draft",
+      "user_created": "019acf9e-cd43-4ef2-9214-cfdcd462b856",
+      "date_created": "2026-09-11T04:24:31.759+00:00",
+      "user_updated": null,
+      "date_updated": null
+    },
+    "semantics": {
+      "MOUT": {
+        "id": "mout.1",
+        "family": "MOUT",
+        "version": 1,
+        "meaning": "output meaning and consumer contract",
+        "owner": "output-design",
+        "scope": "pilot",
+        "parameters": {
+          "field_bindings": [
+            "field.duration@1"
+          ],
+          "consumer_ref": "internal-receipt@1",
+          "completion_required": true
+        },
+        "refs": [],
+        "compatibility": "exact-version-only",
+        "validation_profile": "C05.MOUT",
+        "requiredness": "required",
+        "provenance": "synthetic-contract-proof"
+      },
+      "Trigger": {
+        "id": "trigger.1",
+        "family": "Trigger",
+        "version": 1,
+        "meaning": "occurrence qualification, not dispatch engine",
+        "owner": "event-design",
+        "scope": "pilot",
+        "parameters": {
+          "event_type": "manual",
+          "dedup_basis": "occurrence_id",
+          "predicate_ref": "condition@1"
+        },
+        "refs": [],
+        "compatibility": "exact-version-only",
+        "validation_profile": "C05.Trigger",
+        "requiredness": "required",
+        "provenance": "synthetic-contract-proof"
+      },
+      "Condition": {
+        "id": "condition.1",
+        "family": "Condition",
+        "version": 1,
+        "meaning": "typed predicate definition, parameters belong binding",
+        "owner": "rule-design",
+        "scope": "pilot",
+        "parameters": {
+          "operator": "gte",
+          "field_ref": "field.duration@1",
+          "threshold_minutes": 0
+        },
+        "refs": [],
+        "compatibility": "exact-version-only",
+        "validation_profile": "C05.Condition",
+        "requiredness": "required",
+        "provenance": "synthetic-contract-proof"
+      },
+      "NTGV": {
+        "id": "ntgv.1",
+        "family": "NTGV",
+        "version": 1,
+        "meaning": "assignment resolution only; no People/policy mutation",
+        "owner": "assignment-design",
+        "scope": "pilot",
+        "parameters": {
+          "executor_selector": "current-service",
+          "delegate_selector": "none",
+          "next_task_executor_selector": "none",
+          "report_recipient_selector": "none",
+          "handoff_contact_selector": "none",
+          "owner_decision": "D04_PENDING"
+        },
+        "refs": [],
+        "compatibility": "exact-version-only",
+        "validation_profile": "C05.NTGV",
+        "requiredness": "required",
+        "provenance": "synthetic-contract-proof"
+      },
+      "Guidance": {
+        "id": "guidance.1",
+        "family": "Guidance",
+        "version": 1,
+        "meaning": "contextual instruction without write authority",
+        "owner": "guidance-design",
+        "scope": "pilot",
+        "parameters": {
+          "text": "Enter elapsed minutes",
+          "applies_to": "field.duration@1",
+          "grants_permission": "never"
+        },
+        "refs": [],
+        "compatibility": "exact-version-only",
+        "validation_profile": "C05.Guidance",
+        "requiredness": "required",
+        "provenance": "synthetic-contract-proof"
+      }
+    },
+    "validator": {
+      "engine": "joi@17.13.3",
+      "profile": {
+        "id": "record-input-v1",
+        "version": 1,
+        "joi_description": {
+          "type": "object",
+          "flags": {
+            "unknown": false
+          },
+          "keys": {
+            "duration_minutes": {
+              "type": "number",
+              "flags": {
+                "presence": "required"
+              },
+              "rules": [
+                {
+                  "name": "integer"
+                },
+                {
+                  "name": "min",
+                  "args": {
+                    "limit": 100
+                  }
+                }
+              ]
+            },
+            "note": {
+              "type": "string",
+              "allow": [
+                null,
+                ""
+              ]
+            }
+          }
+        }
+      }
+    },
+    "route": {
+      "action": "record",
+      "collection": "lab_task_records",
+      "profile_ref": "record-input-v1",
+      "profile_version": 1,
+      "enabled": true,
+      "allow_create": true,
+      "input_fields": [
+        "duration_minutes",
+        "note",
+        "form_ref",
+        "form_version",
+        "form_revision",
+        "scope",
+        "status"
+      ],
+      "fixed_values": {
+        "scope": "pilot",
+        "status": "draft",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "release:d559b143-a0a3-4f0f-b088-c87b5f57cde9"
+      },
+      "validate_fields": [
+        "duration_minutes",
+        "note"
+      ],
+      "material_sections": [],
+      "contract_attributes": [],
+      "form_reference": true
+    },
+    "capability": {
+      "key": "guarded-write@1",
+      "implementation_sha256": "d0b4f168060bc513b8156f2c013df407be3e92cf0dc989a843c811776e9bad82",
+      "guard_sha256": "7db7d334cca977763c93270df062db3958919e4c5ecff6a22033c0e556750685",
+      "action_path": "/proof-write/record/",
+      "input": {
+        "duration_minutes": 150,
+        "note": "TEST internal result V2",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "release:d559b143-a0a3-4f0f-b088-c87b5f57cde9",
+        "form_revision": 4
+      }
+    }
+  }
+}

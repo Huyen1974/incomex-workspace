@@ -1,0 +1,18 @@
+{
+  "status": "VERIFIED",
+  "zip": "/Users/nmhuyen/Desktop/quy trình/Gate3-4-v1.6.17-bang-chung.zip",
+  "zip_bytes": 1619347,
+  "zip_sha256": "4b4adae67a07447811477a4a11addd9ba59c6bf56d63d4df6c212c8b55278509",
+  "manifest_files_verified": 178,
+  "zip_entries": 179,
+  "snapshot_byte_identical_main": true,
+  "ssot_main_writes": 1,
+  "ssot_sha256": "5aa4cd113325239dd3082a525c767a6296ccc19e7fd711a4aed2191722c138f3",
+  "new_ssot_links_missing": [],
+  "local_readme_inventory_files": 168,
+  "all_json_parsed": true,
+  "contract_results_and_mapping_counts_match": true,
+  "no_temporary_or_node_modules_in_zip": true,
+  "qa_exit": "FAIL B/C; no exit request",
+  "outside_zip_reason": "This checksum receipt is outside its own ZIP to avoid recursive checksum."
+}

@@ -1,0 +1,112 @@
+{
+  "version": "1.6.17",
+  "date": "2026-09-11",
+  "verdict": "BLOCKED BY DATA-AUTHORITY + LIFECYCLE-AUTHORITY",
+  "gate2": "PM ACCEPT WITH FOLLOW-UP / DONE (design only)",
+  "gate3": "DOING / PARTIAL",
+  "gate4": "DOING / PARTIAL",
+  "gate5_7": "NOT STARTED",
+  "outcomes": "O1–O3 NOT VERIFIED",
+  "decisions": {
+    "D04": "WAITING OWNER; A recommendation only",
+    "D05": "SEMANTICS DECIDED PM; actual policy/roles not invented",
+    "D06": "DECIDED PM",
+    "D07": "DECIDED PM"
+  },
+  "proof": {
+    "contract_shape": {
+      "passed": 112,
+      "cases": 112,
+      "profiles": 28,
+      "families": 11,
+      "source": "evidence/contract-shape-final.json"
+    },
+    "runtime": {
+      "passed": 17,
+      "cases": 17,
+      "source": "evidence/final-closure/runtime-proof-results.json"
+    },
+    "boundary": {
+      "passed": 29,
+      "cases": 29,
+      "source": "evidence/boundary-proof-results.json"
+    },
+    "reference_integrity": {
+      "passed": 30,
+      "cases": 30,
+      "source": "evidence/extra-contract-results.json"
+    },
+    "lifecycle_mechanism": {
+      "passed": 10,
+      "cases": 10,
+      "source": "evidence/lifecycle-proof-results.json"
+    },
+    "nuxt": "build + browser session/Form submit/readback/Table + SSR PASS on bridge; current UI2/Image1 with known audit risk",
+    "pg_minor": "actual metadata five DB; synthetic GiST+dump/restore pass"
+  },
+  "closure": {
+    "V1": {
+      "material_count": 16,
+      "reachable": 16,
+      "all_refs_resolved": true,
+      "no_main_latest_refs": true,
+      "node_digests_valid": true,
+      "root": "MOW:1e1bae69-69e0-5502-927f-0913891ed78b@release-local",
+      "entry": "TEST-scope-evidence@1",
+      "scope": "One-MOT internal AUTO, all executed meaning is selected in exact snapshot. Multi-step branching/external consumers still outside proof."
+    },
+    "V2": {
+      "material_count": 17,
+      "reachable": 17,
+      "all_refs_resolved": true,
+      "no_main_latest_refs": true,
+      "node_digests_valid": true,
+      "root": "MOW:1e1bae69-69e0-5502-927f-0913891ed78b@release-local",
+      "entry": "TEST-scope-evidence@1",
+      "scope": "One-MOT internal AUTO, all executed meaning is selected in exact snapshot. Multi-step branching/external consumers still outside proof."
+    }
+  },
+  "mapping": {
+    "contract_leaf_rows": 385,
+    "not_physical_new_column_count": true,
+    "disposition_counts": {
+      "NEW_REQUIRED": 44,
+      "REUSE_EXISTING_AUTHORITATIVE": 4,
+      "REUSE_WITH_MAPPING": 26,
+      "UNKNOWN_NEEDS_EVIDENCE": 311
+    },
+    "typed_relations": 18,
+    "lazy_mapping": {
+      "mappings": 1,
+      "usages": 2
+    },
+    "status": "Source domain mappings not locked; every unknown owned, not silently new table approval"
+  },
+  "code": [
+    {
+      "component": "extension/index.js",
+      "baseline_lines": 163,
+      "candidate_lines": 180,
+      "added": 23,
+      "removed": 6,
+      "sha256": "7db7d334cca977763c93270df062db3958919e4c5ecff6a22033c0e556750685",
+      "tier": "I6 generic adapter modification; maintenance burden, not declaration",
+      "production_deployed": false
+    },
+    {
+      "component": "runtime/kernel.mjs",
+      "baseline_lines": 92,
+      "candidate_lines": 105,
+      "added": 21,
+      "removed": 8,
+      "sha256": "d0b4f168060bc513b8156f2c013df407be3e92cf0dc989a843c811776e9bad82",
+      "tier": "I6 generic adapter modification; maintenance burden, not declaration",
+      "production_deployed": false
+    }
+  ],
+  "production_writes": 0,
+  "ssot_main_writes": 1,
+  "handoff": "README + BAO-CAO-GUI-PM.md + one ZIP with SSOT snapshot, sanitized proofs and manifest; user manually transfers to ChatGPT",
+  "source_lock": "NOT LOCKED: 311 unknown contract-source mappings; 44 NEW_REQUIRED proposals lack complete per-fact reuse elimination. Fixtures do not prove actual authority.",
+  "ssot_sha256": "5aa4cd113325239dd3082a525c767a6296ccc19e7fd711a4aed2191722c138f3"
+}
