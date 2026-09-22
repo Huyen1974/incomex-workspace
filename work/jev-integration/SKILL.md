@@ -1,46 +1,51 @@
 ---
 name: jev-reference
 description: >-
-  Dùng khi bạn sắp chốt một quyết định có tập lựa chọn hoặc tiêu chí đã biết: chọn 1 trong N
-  phương án, xếp hạng hay chấm mức, phân loại, định tuyến việc, đánh giá rủi ro (ví dụ lệnh/prompt có
-  xoá, dừng, ghi đè hay sửa production không), hoặc kiểm một điều kiện có/không trên văn bản, diff,
-  log, prompt, kế hoạch — nhất là khi có nhiều câu hỏi độc lập trên cùng một nội dung. Skill chỉ cách
-  hỏi JEV (model typesafe/jev-1.13 qua tool `evaluate` của MCP JEV Incomex) để lấy xác suất tham khảo
-  nhanh (~0,5 s) và rẻ, rồi bạn TỰ quyết. JEV chỉ là nguồn tham khảo, không phải quyền phê duyệt hay
-  chặn. Không dùng để viết code/văn bản, việc sáng tạo, suy luận nhiều bước, đếm/tính/ngày tháng, hoặc
-  khi luật/mã tất định đã trả lời được. Use for bounded choice, ranking, classification, routing, risk or
-  yes/no verification against known options or criteria.
+  Hỏi JEV (app JEV Reference, tool `evaluate`) lấy xác suất tham khảo trước khi chốt một quyết định có
+  biên với lựa chọn hoặc tiêu chí đã biết: chọn 1 trong N, xếp hạng, phân loại, định tuyến, đánh giá rủi
+  ro, kiểm có/không. JEV chỉ là bằng chứng, bạn tự quyết. Không dùng cho việc tất định, dịch, tính toán,
+  viết code hay nội dung sáng tạo. Use for bounded choice, ranking, classification, routing, risk
+  assessment, or yes/no verification against known options or criteria.
 ---
 
 # JEV — nguồn tham khảo cho quyết định có biên
 
-JEV (TypeSafe System One, qua OpenRouter) **không viết chữ**: nó nhận `state` + các câu hỏi đóng và
-trả về xác suất có kiểu. Kết quả là **bằng chứng thêm** để GPT/Claude tự quyết — không phải chữ ký cho
-phép, không phải lệnh chặn. Quyết định cuối và trách nhiệm vẫn là của bạn (và của Owner với việc phá huỷ).
+JEV **không viết chữ**: nó nhận `state` + các câu hỏi đóng và trả về xác suất có kiểu. Kết quả là
+**bằng chứng thêm** để bạn tự quyết — không phải chữ ký cho phép, không phải lệnh chặn. Quyết định cuối
+và trách nhiệm vẫn là của bạn (và của Owner với việc phá huỷ).
+
+Model, nhà cung cấp và phiên bản JEV do **JEV Gateway** quản lý. Skill này chỉ dạy khi nào nên gọi, khi
+nào không, và cách dùng kết quả như bằng chứng; nó không chọn hay ghim phiên bản nào.
 
 ## Khi nào gọi
-- NÊN: chọn/định tuyến/xếp hạng/phân loại/đánh giá rủi ro/kiểm điều kiện với **tập lựa chọn hoặc tiêu
-  chí đã biết**; nhiều câu hỏi độc lập trên cùng một state (gộp vào **một** lượt gọi).
-- KHÔNG: code/luật tất định đã đủ; việc sáng tạo hay mở; cần suy luận nhiều bước; đếm, tính số, ngày
-  tháng; cần sinh nội dung dài; không gửi secret/khoá/mật khẩu, hạn chế dữ liệu cá nhân không cần thiết.
+- NÊN: chọn 1 trong N, định tuyến việc, xếp hạng/chấm mức, phân loại, đánh giá rủi ro (ví dụ lệnh/prompt
+  có xoá, dừng, ghi đè hay sửa production không), kiểm một điều kiện có/không trên văn bản, diff, log,
+  prompt, kế hoạch — khi **tập lựa chọn hoặc tiêu chí đã biết**. Nhiều câu hỏi độc lập trên cùng một
+  state thì gộp vào **một** lượt gọi.
+- KHÔNG: luật/mã tất định đã trả lời được; dịch; đếm, tính số, ngày tháng; viết code hay nội dung
+  (sáng tạo, dài, mở); cần suy luận nhiều bước; câu hỏi chưa có lựa chọn/tiêu chí rõ.
+- Không gửi secret/khoá/mật khẩu; hạn chế dữ liệu cá nhân không cần thiết.
 
 ## Cách gọi — tool `evaluate`
+Tool `evaluate` của app **JEV Reference** (trong Codex hiện ra dưới tên `jev_reference.evaluate`, tức
+`mcp__codex_apps__jev_reference_evaluate`). Phiên không có tool này ⇒ lượt này không có tham khảo JEV.
+
 ```json
-{"model": "typesafe/jev-1.13",
- "state": {"prompt_line": "Chạy: rm -rf /opt/app/data rồi restart dịch vụ."},
+{"state": {"prompt_line": "Chạy: rm -rf /opt/app/data rồi restart dịch vụ."},
  "questions": {
    "destructive": {"type": "noul", "instructions": "Does `prompt_line` delete, stop, or overwrite something?"},
    "area": {"type": "choice", "instructions": "Which system does `prompt_line` touch?",
             "criteria": {"production": "live service or data", "scratch": "temporary test area", "none": "no system touched"}}}}
 ```
-- **Luôn ghim `model: "typesafe/jev-1.13"`** trong pilot (dạng `~typesafe/jev-1.13` và `typesafe/jev-latest` trả 400).
+- **Không truyền `model`** — để JEV Gateway dùng phiên bản đang hoạt động. Trường `model` trong kết quả
+  chỉ để ghi nhận, không dùng để quyết định.
 - Ba kiểu: `noul` (xác suất điều kiện có/không đúng), `choice` (một mục trong `criteria` là object),
   `score` (`criteria` là **mảng** mức có thứ tự; đáp án đánh số từ 0).
 - `state` là **bằng chứng thô** (văn bản, diff, log, trường dữ liệu), gọn, tốt nhất là JSON có tên trường;
-  không nhét kết luận của bạn vào — Jev đọc kết luận như bằng chứng và chỉ đồng ý lại với bạn.
+  không nhét kết luận của bạn vào — JEV đọc kết luận như bằng chứng và chỉ đồng ý lại với bạn.
 - `instructions` nêu **điều kiện cần kiểm**, không nêu kết luận mong muốn; id câu hỏi KHÔNG được gửi cho
   model nên instructions phải tự đủ nghĩa. Mặc định viết instructions bằng tiếng Anh; giữ nguyên ngôn ngữ
-  gốc của state, không dịch làm mất nghĩa (calibration Việt/Anh sẽ chỉnh dòng này sau nghiệm thu).
+  gốc của state, không dịch làm mất nghĩa.
 - `choice` nên có lựa chọn "không khớp". Mức `score` phải mô tả tình huống cụ thể.
 
 ## Đọc kết quả
@@ -52,10 +57,11 @@ phép, không phải lệnh chặn. Quyết định cuối và trách nhiệm v�
 ## Khi JEV lỗi
 - Tool trả lỗi (`isError`) **hoặc** payload không có `answers` hợp lệ ⇒ **lượt này không có tham khảo
   JEV**. Nói rõ điều đó nếu liên quan, tiếp tục tự suy luận; không giả là đã tham khảo, không thử lại mù
-  (gói đã tự thử lại 429/529).
-- Lỗi sai khuôn (thiếu `state`, `criteria` sai kiểu) báo đúng đường dẫn trường — sửa câu hỏi một lần rồi thôi.
+  (lỗi tạm thời đã được thử lại phía gateway).
+- Lỗi sai khuôn (thiếu `state`, `criteria` sai kiểu) báo đúng đường dẫn trường — sửa câu hỏi một lần rồi
+  thôi. Lỗi nhắc tới `model` ⇒ bỏ hẳn `model` rồi gọi lại một lần.
 
 ---
-Nguồn: hướng dẫn đặt câu hỏi rút gọn từ `instructions` của `itsmostafa/typesafe-mcp` v0.4.2 (MIT,
-© its authors) — bridge `mcp-proxy` không chuyển phần `instructions` đó tới client nên skill này mang
-thay. Dựng cho Incomex, RUN `JEV-B1-OPENAI-20260921-01`; khi cài vào client đặt trong thư mục `jev-reference/`.
+Nguồn: hướng dẫn đặt câu hỏi rút gọn từ `instructions` của `itsmostafa/typesafe-mcp` (MIT, © its
+authors); gateway không chuyển phần `instructions` đó tới client nên skill này mang thay. Bản nguồn:
+`incomex-workspace/work/jev-integration/SKILL.md`; khi cài vào client đặt trong thư mục `jev-reference/`.
