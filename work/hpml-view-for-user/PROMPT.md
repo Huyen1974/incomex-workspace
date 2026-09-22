@@ -1,83 +1,103 @@
-# PROMPT — HVU.ARCHIVE01 · RUN done-tasks archive
+# PROMPT — HVU.VPSARCHIVE01 · DRAFT VPS gọn như GitHub
 
-RUN_ID: HVU-ARCHIVE01-RUN-20260922-01
+STATUS: DRAFT · CHỈ REVIEW/ĐỒNG THUẬN · KHÔNG RUN PRODUCTION
+RUN_ID: HVU-VPSARCHIVE01-DESIGN-20260922-01
 Host: GPT Chat
-Reviewer: Claude Chat · P24 ACCEPT
-Executor_Surface: Claude Code CLI
-Write_Path: runtime VPS theo README §11 + workspace MCP cho Git docs/move
+Reviewer: Claude Chat
+Executor_Surface dự kiến: Claude Code CLI
 
-## 0. Gate trước mutation
-1. Đọc AGENTS.md → root COLLAB.md → work/hpml-view-for-user/COLLAB.md → PROMPT này → README §11–§12.
-2. Commit cuối chạm PROMPT phải khớp READY trong COLLAB; lệch → DỪNG.
-3. P23/P24/P25 + P26/P27/P28 + Host P29 là consensus bắt buộc. Không redesign B2/B3 ngoài archive scope.
-4. Baseline trước sửa: source HEAD, sync-status/tasks.json, số task/bucket, document URLs, retention=3, webhook/backstop health, B3 presence, runtime commits + rollback point.
-5. Không đổi hai gateway/MCP schema/version/auth. Không restart gateway; P24 yêu cầu guard ở publisher/presence layer.
+## 0. Mục tiêu Owner đã xác nhận
+Hai mục tiêu phải đạt đồng thời:
+1. **Hàng ngày nhìn gọn:** Task html view mặc định chỉ cho Owner thấy vài chục việc đang làm; việc cũ không được tràn danh sách.
+2. **Lịch sử không mất:** việc đã xong vẫn có hồ sơ trên VPS để giữ, tìm, bàn lại, mở lại/nâng cấp; xoá chỉ khi Owner quyết riêng.
 
-## 1. Contract mới đã đồng thuận
-Một nguồn trạng thái duy nhất = vị trí folder:
-- `work/<task-id>/` = **Now / Đang làm**.
-- `work/done-tasks/<task-id>/` = **Done / Đã xong**.
-- `done-tasks` là reserved container, không bao giờ là task-id.
-- GitHub/workspace là SSOT. VPS source clone tự phản ánh Git; không có lệnh move riêng bên VPS.
-- Owner View tìm/xem được cả Now và Done. Public document/cache URL tiếp tục key theo `task-id`, không theo source folder, để move không gãy link.
-- Root `## Đã xong` sau migration không còn là state source; chỉ để đúng một dòng chỉ sang `work/done-tasks/`.
+GitHub/workspace vẫn là SSOT của task/doc; runtime/service VPS vẫn giữ nguyên SSOT hiện hành. Pha này chỉ tổ chức **hồ sơ/evidence không phải runtime** trên VPS và UI hiển thị.
 
-## 2. B2 sync.py — bắt buộc sửa đủ các hard-code P24
-### 2.1 Discovery + identity hiển thị
-Không recursive scan.
-- `task-id` luôn là tên folder task, giữ ổn định qua archive/reopen.
-- `title` cho người đọc lấy theo thứ tự: dòng `Tên việc: <...>` ngay sau H1 nếu có → phần sau `# COLLAB — ...` → fallback `task-id`. `Tên việc:` là metadata quen thuộc, tùy chọn cho task cũ; không bắt migrate toàn bộ trong RUN này. Với task mới về sau nên tạo `Tên việc:` dễ đọc.
-- `goal_text` = khối A0 hiện hành ở đầu §0, dùng cho search.
-- Now: đúng regex một tầng `work/[^/]+/COLLAB.md`, nhưng loại `work/done-tasks/COLLAB.md`/reserved container.
-- Done: đúng regex một tầng `work/done-tasks/[^/]+/COLLAB.md`.
-- Discovery phải trả record tối thiểu `{id, folder, bucket}`; mọi bước sau dùng `folder`, không dựng lại `'work/'+task_id+'/'`.
-- Nếu cùng task-id xuất hiện ở cả Now và Done: **Now thắng + warning**, không fail toàn publish.
+## 1. Host review P29 Claude — ACCEPT WITH REFINEMENTS
+### A. Web gọn mặc định — ACCEPT
+- Khi ô search rỗng: render danh sách **Now בלבד** + một control duy nhất `Đã xong (N)` đang gập.
+- Bấm control mới mở danh sách Done; không cần page mới.
+- Khi search có chữ: tìm xuyên Now + Done theo logic hiện có id/title/A0; Done match phải xuất hiện dù control đang gập.
+- Clear search → trở lại chế độ mặc định Now + `Đã xong (N)`.
+- N = đúng số task bucket Done trong tasks.json.
 
-### 2.2 Ba chỗ hard-code đã nêu ở P24
-Rà mã thật và sửa mọi chỗ tương đương, tối thiểu:
-- build/parser đang dựng `work/<id>/...`;
-- `copy_document`/HTML/asset path;
-- loại trừ app HVU.
-Không patch theo số dòng cứng; patch theo semantics để source hiện hành có thể lệch dòng.
+### B. Hai tủ hồ sơ VPS — ACCEPT
+Dùng đúng cấu trúc:
+- `/opt/incomex/work/<task-id>/` = hồ sơ task đang Now.
+- `/opt/incomex/work/done-tasks/<task-id>/` = hồ sơ task Done.
 
-### 2.3 HTML chính / document copy
-- `HTML chính` có thể là tên file tương đối hoặc path đầy đủ ở cả hai vùng.
-- Normalize/strip đúng prefix task folder thật; không giả định prefix `work/<id>/`.
-- Public output vẫn `documents/<task-id>/...`.
-- Done task phải giữ HTML/assets/history như trước move.
+Chỉ chứa **task evidence/history không phải runtime**: log chẩn đoán, báo cáo/bằng chứng, before/after, export/snapshot, artifact rollback đã archive-safe.
+Không chứa/không move:
+- runtime đang chạy;
+- systemd/nginx/container/live build đang được tham chiếu;
+- secret;
+- gói rollback còn là đường cứu hộ đang hoạt động.
 
-### 2.4 HVU app exclusion
-Không dùng hằng path `work/hpml-view-for-user/view.html`.
-Nhận diện app runtime theo **task-id == hpml-view-for-user AND filename == view.html** (hoặc semantic tương đương độc lập bucket).
-Khi HVU vào Done, app không được copy nhầm thành document.
+Không cần tạo folder rỗng cho mọi task; tạo lazily khi task thật sự có hồ sơ VPS.
 
-### 2.5 Bucket / root legacy
-- `bucket=Now|Done` lấy từ folder.
-- Bỏ root `## Đã xong` khỏi logic state.
-- READY/KQ/A0/parser dùng COLLAB/PROMPT ở `folder` hiện tại.
-- READY hợp lệ = SHA trùng commit cuối chạm PROMPT tại path hiện tại.
-- Move archive/reopen chạm PROMPT → READY cũ tự invalid, không thêm heuristic.
+### C. Tự đi hai chiều theo Git — ACCEPT
+Tái dùng chính B2 sync sau khi publish thành công:
+- Task Now: nếu chỉ có `.../done-tasks/<id>/` → atomic rename về `.../work/<id>/`.
+- Task Done: nếu chỉ có `.../work/<id>/` → atomic rename vào `.../work/done-tasks/<id>/`.
+- Không có cả hai → no-op.
+- Có cả hai → warning + không overwrite/merge tự động.
+- Chỉ được rename **bên trong /opt/incomex/work**; tuyệt đối không tự quét/move từ `/opt/incomex/deploys` hay vùng runtime khác.
+- Không delete tự động. Xoá = hành động Owner riêng.
 
-## 3. Presence publisher — guard archive, KHÔNG đụng gateway
-P24 đã xác nhận gateway parse `work/done-tasks/X` thành work_id `done-tasks`; không sửa gateway vì frozen.
+### D. KHÔNG thêm `VPS_Evidence:` vào từng PROMPT
+P29 đề xuất mỗi PROMPT có line đường dẫn; Host đổi để giảm duplicate:
+- evidence path suy ra 100% từ `task-id + bucket`, nên **không ghi lặp vào PROMPT**.
+- Sau RUN PASS, AGENTS A8/A9 chỉ cần một rule chung về `/opt/incomex/work`.
+- tasks.json có thể xuất `vpsEvidencePath` dạng derived data, hoặc UI tự derive từ id+bucket; chọn cách ít code nhất.
+- Trang detail hiển thị `Hồ sơ VPS: <path>` nếu folder tồn tại; nếu chưa có thì `Hồ sơ VPS: chưa có`. Không biến path thành state source thứ hai.
 
-Sửa lớp `presence.py`/publisher:
-- chỉ xuất active entry nếu `work_id` tồn tại trong `tasks.json` **và bucket=Now**;
-- do đó tự loại `done-tasks`, Done task, id lạ;
-- Done task luôn `Đang làm = null`;
-- `Vừa làm` Done vẫn đọc từ Git commit của **folder thật** để có thể hiện người vừa đóng.
-- Reopen về `work/<id>` thì future activity lại hiện bình thường.
-Giữ latest-only/no-resurrection semantics hiện hành.
+### E. Cleanup lịch sử `/opt/incomex/deploys` — AUDIT TRƯỚC, KHÔNG MOVE THEO TÊN
+Một lần cho HVU:
+- inventory các `hvu-*`/file liên quan đã nêu ở P29;
+- phân loại từng item:
+  1. `LIVE_RUNTIME` → giữ nguyên;
+  2. `ACTIVE_RECOVERY` (đường rollback còn được dùng/tham chiếu) → giữ nguyên cho tới khi safe;
+  3. `ARCHIVE_SAFE` → có thể move vào `/opt/incomex/work/hpml-view-for-user/history/`.
+- Chỉ move ARCHIVE_SAFE có bằng chứng nguồn/task rõ.
+- Không đoán item mơ hồ; để nguyên + liệt kê.
+- Sau move, mọi rollback script được chuyển phải vẫn callable ở path mới; test syntax + dependency/path, và cập nhật pointer/report nếu cần.
+- Gói rollback của **chính RUN VPSARCHIVE01** ở vùng deploy hiện hành cho tới acceptance; chỉ archive sau khi không còn là active recovery.
 
-## 4. UI + tìm lại để nâng cấp
-Tái dùng UI hiện tại:
-- Search phải tìm xuyên cả Now + Done và khớp **id + title + goal_text**; không full-text HTML. Nếu dễ, normalize Unicode/hoa-thường và dấu tiếng Việt (`đ→d`) để User nhớ từ gần đúng vẫn tìm được.
-- Danh sách/master list giữ cả hai; xếp Now trước, Done sau hoặc nhóm rõ ràng bằng nhãn hiện có.
-- Hiển thị **title dễ đọc** là chính, `task-id` nhỏ bên dưới/tooltip để người và AI dùng cùng một khóa.
-- Trang detail có một dòng lệnh chuẩn + nút Copy dùng clipboard client-side, không backend mới:
-  - Now: `Đóng <task-id>`
-  - Done: `Mở lại <task-id>`
-- Copy phải ra đúng chuỗi máy/AI hiểu; không thêm prose vào clipboard.
+### F. Link theo task-id — ACCEPT + làm rõ
+- Link tới “một việc” không dùng raw Git path `work/.../` vì archive/reopen làm đổi path.
+- Owner View cần deep-link ổn định theo task-id. Nếu app đã support thì tái dùng; nếu chưa, thêm cách tối thiểu như `?task=<id>`.
+- Sửa `jev-gw.service Documentation=` đang 404 sang deep-link task JEV ổn định; reload daemon nếu cần nhưng không restart service nếu Documentation-only.
+- Các doc mới từ nay ưu tiên task-id/deep-link; không rewrite lịch sử cũ hàng loạt.
+
+## 2. Đồng bộ source Git trên VPS
+Source clone/read-only mirror đã đi theo GitHub `work/done-tasks/`; giữ nguyên cơ chế này.
+**Không tạo sync thứ hai cho mã/tài liệu nguồn.**
+`/opt/incomex/work` ở pha này chỉ là kho hồ sơ VPS/evidence, không thay GitHub SSOT.
+
+## 3. Acceptance đề xuất
+Bắt buộc chứng minh:
+1. initial web/search rỗng: chỉ Now + một dòng `Đã xong (N)`; không render hàng trăm Done.
+2. expand Done → thấy Done; search một từ thuộc Done khi đang gập → tìm ra đúng Done.
+3. clear search → trở về gọn.
+4. tạo fixture evidence A Now trong `/opt/incomex/work/A`; đổi bucket fixture → reconcile move hai chiều; conflict both-sides → warning/no overwrite; không delete.
+5. live/runtime paths không bị move.
+6. một item HVU `ARCHIVE_SAFE` được migrate thật + evidence rollback/path PASS; item active/mơ hồ giữ nguyên.
+7. detail hiển thị đúng evidence path/“chưa có”.
+8. stable deep-link `task-id` mở được JEV/HVU cả Now/Done; `Documentation=JEV` hết 404.
+9. B2 webhook/backstop/last-good/retention/presence regression PASS.
+10. disk/state bounded; không daemon/scheduler mới.
+
+## 4. Claude cần review
+Claude Chat ghi P31 vào COLLAB:
+- ACCEPT/CHANGE A–F.
+- Đặc biệt phản biện 3 refinement Host:
+  1. bỏ `VPS_Evidence` khỏi từng PROMPT và derive path;
+  2. sync chỉ rename trong `/opt/incomex/work`, cleanup `/deploys` phải audit-safe;
+  3. stable deep-link theo task-id, không raw Git path.
+- Kiểm có blocker kỹ thuật nào khiến evidence rename sau publish không an toàn.
+- Nếu không blocker, đề nghị Host chuyển DRAFT thành RUN và pin READY cho Claude Code CLI.
+
+Không mutation runtime ở lượt review này.
 - Không tạo page/database/archive UI mới.
 - Bấm task Done vẫn mở đúng detail/document URL theo task-id.
 - Không thay actor naming/presence semantics.

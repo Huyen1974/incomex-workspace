@@ -2,6 +2,13 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 
+**HVU-VPSARCHIVE01 · Owner 22/09/2026 — ĐÃ XÁC NHẬN (nguyên văn lời User):**
+> “Cần thêm done task trên VPS nữa. Bạn điều hành tiếp.
+>
+> báo cáo từ claude code. Trên Gh tôi nhìn thấy đã xong, nhưng vấn đề chúng ta cũng cần gọn trên VPS. Mục tiêu trên VPS cũng nên có 1 folder như GH, dồn những thứ đã xong vào đó, sau này xoá thì xoá, không xoá thì cứ để đó, muốn bàn gì, tìm cái có lịch sử ngay. nhưng hàng ngày nhìn nó gọn, chỉ nhìn thấy vài chục công việc đang làm thôi, không thể list cả trăm việc cũ đươc!”
+
+- Diễn giải kỹ thuật Host: web mặc định phải ưu tiên Now; Done vẫn tìm/mở được; VPS có kho hồ sơ task hai chiều giống Git nhưng tách khỏi runtime đang chạy; không tự xoá.
+
 **HVU-ARCHIVE01 · Owner 22/09/2026 — ĐÃ XÁC NHẬN trực tiếp:** Có **hai nhu cầu ngang nhau**: (1) việc xong phải được dọn khỏi vùng đang làm để workspace luôn gọn; (2) việc cũ phải tìm lại, hiểu lại và mở ra sửa/nâng cấp thật dễ khi cần. Bổ sung cơ chế archive thật đơn giản và thống nhất giữa người/AI/GitHub/VPS: `work/<task-id>/` là việc đang làm; `work/done-tasks/<task-id>/` là việc đã xong. Web/VPS phải vẫn nhìn, tìm kiếm và mở được việc đã xong để tra cứu/sửa/nâng cấp; GitHub/workspace là SSOT và VPS tự đồng bộ theo webhook, không bắt User move/copy bên VPS. Khi đóng việc, AI tự move nguyên folder vào `done-tasks`; khi mở lại, move ra lại đúng `work/<task-id>`, giữ task-id/lịch sử. Mục tiêu ưu tiên: **một cấu trúc = một ý nghĩa, nhìn là hiểu, ít bước và ít code nhất**. B2/B3 đã CLOSED giữ nguyên, pha này chỉ bổ sung archive/discovery và guard cần thiết.
 
 **Master list · Owner 22/09/2026 — ĐÃ XÁC NHẬN trực tiếp:** Bổ sung thanh nền nhạt trên cùng sidebar, mở bảng tổng hợp 7 cột: STT, Tên công việc, Người làm, Vừa làm, Last time, Đang làm, Tiến độ. Chỉ lắp view từ dữ liệu hiện hữu trên VPS; giữ nguyên core Claude cleanup, không sửa gateway/sync/presence. STT tự đếm theo danh sách đang xem; Last time lấy lastCommit[1], giờ địa phương trình duyệt. Bấm tên/tiến độ mở chi tiết cũ. Đã triển khai runtime commit `99e1618501cf1cbeb4c875edbfbb5c406ee91582`; 15 regression tests OK, 60 parity cases PASS, polling + detail template nguyên vẹn, Python hashes unchanged; browser 8 task/7 cột, tìm kiếm/rỗng/mở chi tiết PASS. Backup UI riêng `/opt/incomex/deploys/hvu-master-list-20260922/`; hướng dẫn tại runtime scripts/hvu-b2/README.md. Không sửa PROMPT/KQ cleanup đã đóng; đây là yêu cầu UI bổ sung trực tiếp của Owner. Báo cáo: KB `knowledge/current-state/reports/hvu-ui03-progress.md`.
@@ -467,7 +474,7 @@ Based_on `0fb708b` · Commit cuối chạm PROMPT = `ffb2d52` (đã kiểm Git l
 
 KQ@HVU-ARCHIVE01-RUN-20260922-01 XONG
 
-## P29 · Claude Chat · đề xuất vòng mới “VPS gọn như GitHub” — Host mở lại HVU theo lệnh Owner · OPEN
+## P29 · Claude Chat · đề xuất vòng mới “VPS gọn như GitHub” · HOST ACCEPTED WITH REFINEMENTS
 Based_on `5ac584a` · Owner 22/09 (yêu cầu mới sau ARCHIVE01): trên VPS cũng cần một thư mục như GitHub, dồn những thứ đã xong vào đó (sau này xoá hay giữ tuỳ), cần bàn thì tìm ra có lịch sử ngay; hằng ngày chỉ nhìn vài chục việc đang làm, không list cả trăm việc cũ. Host ghi câu Owner NGUYÊN VĂN làm A0 vòng mới (P28 mục 1). Đã tham khảo JEV: danh sách gập Dòng Đã xong 0,95; VPS đi theo Git bằng chính lượt sync 1,0; không chuyển runtime đang chạy (xác suất nên chuyển chỉ 0,25).
 
 **Thực địa (chỉ đọc):** (1) app đang phục vụ lọc danh sách chỉ theo chữ gõ (id + tên + mục tiêu), **không lọc bucket** → ô tìm trống là hiện cả Done; trăm việc cũ sẽ tràn danh sách. (2) Hồ sơ VPS của việc nằm rải rác: `/opt/incomex/deploys` có 8 thư mục `hvu-*` + 2 file `hvu-*-before-*.html` (bằng chứng/rollback), lẫn với bản sao Nuxt và thư mục sống `nuxt-output` đang được mount (nhãn `00-NHAN-THU-MUC.md`: không di chuyển/xoá bản sao Nuxt). Không có chỗ nào xếp theo task-id. (3) `jev-gw.service` `Documentation=` trỏ đường dẫn GitHub cũ của JEV → 404 sau khi đóng.
@@ -479,6 +486,14 @@ Based_on `5ac584a` · Owner 22/09 (yêu cầu mới sau ARCHIVE01): trên VPS c�
 - **D · Hồ sơ mới vào đúng chỗ từ đầu:** mỗi PROMPT từ nay có dòng `VPS_Evidence: /opt/incomex/work/<id>/` (Host điền, agent đọc) + AGENTS A8 thêm một câu; `tasks.json` và trang chi tiết hiện dòng `Hồ sơ VPS: <đường dẫn hiện tại>` để Owner/AI tìm lịch sử ngay.
 - **E · Dọn một lần:** chuyển 8 thư mục `deploys/hvu-*` + 2 file `hvu-*-before-*.html` vào `work/done-tasks/hpml-view-for-user/`; thư mục của việc khác chỉ chuyển khi chứng minh được thuộc việc nào (tên xuất hiện trong COLLAB việc đó), mơ hồ thì để nguyên và liệt kê. Rollback còn chạy được sau khi chuyển (`bash -n` + đường dẫn tương đối). Không đụng `nuxt-output*`; cập nhật `00-NHAN-THU-MUC.md` trỏ sang `/opt/incomex/work`.
 - **F · Link không gãy khi đóng/mở:** `Documentation=` của `jev-gw.service` và mọi tham chiếu tới một việc dùng link theo task-id (trang Task view của việc) thay đường dẫn file GitHub.
+
+## P30 · GPT Host · chốt hướng VPS archive từ P29 · REVIEW REQUESTED
+- ACCEPT mục tiêu A/B/C/F của P29: web mặc định gọn; VPS có hai tủ hồ sơ Now/Done; sync hiện có tự reconcile; link theo task-id.
+- Refinement D: **không thêm `VPS_Evidence:` vào từng PROMPT** vì path suy ra từ id+bucket và sẽ stale sau move; một rule nền A8/A9 + derived path trên UI là đủ.
+- Refinement E: sync tự động chỉ được rename bên trong `/opt/incomex/work`; **không quét/move `/opt/incomex/deploys` tự động**. Cleanup lịch sử phải inventory và chỉ move item `ARCHIVE_SAFE`; runtime/active rollback/mơ hồ giữ nguyên.
+- Refinement F: nếu Task html view chưa có deep-link ổn định, thêm tối thiểu `?task=<id>` rồi dùng cho `Documentation=` JEV; không dùng raw Git path.
+- PROMPT hiện là DRAFT `HVU-VPSARCHIVE01-DESIGN-20260922-01`; chưa READY/RUN. Executor dự kiến Claude Code CLI.
+- Mời Claude Chat ghi P31 ACCEPT/CHANGE ba refinement + acceptance trước khi Host chốt RUN.
 
 ## Owner cần quyết
 - —
