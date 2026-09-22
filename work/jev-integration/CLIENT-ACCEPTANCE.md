@@ -1,13 +1,13 @@
 # CLIENT ACCEPTANCE — JEV · ChatGPT Chat / Work / Codex
 
-Mục tiêu: chứng minh **client thật** có thể gọi JEV đúng lúc, nhận `answers`, truyền đúng `model=typesafe/jev-1.13`, và không gọi thừa khi nhiệm vụ không phù hợp.
+Mục tiêu: chứng minh **client thật** có thể gọi JEV đúng lúc, nhận `answers`, không tự pin model/provider/version, và không gọi thừa khi nhiệm vụ không phù hợp.
 
 ## 0. Luật chấm chung
 
 Chỉ PASS khi có bằng chứng tool/plugin trace hoặc server-side evidence tương ứng:
 1. Có gọi tool `evaluate`.
 2. Tool result có `answers` hợp lệ.
-3. Tool arguments có `model=typesafe/jev-1.13`.
+3. Tool arguments **không truyền `model`**; provider/model/version do JEV Gateway/upstream quản lý.
 4. GPT/Codex tự đưa ra quyết định cuối; không coi JEV là authority.
 
 **Không chấp nhận** câu model tự kể “tôi đã hỏi JEV” nếu không có tool trace.
@@ -35,7 +35,7 @@ Prompt:
 
 PASS:
 - exactly/at least one `evaluate` call;
-- model arg = `typesafe/jev-1.13`;
+- không truyền `model`;
 - result có `answers`;
 - câu trả lời cuối phân biệt rõ “JEV tham khảo” và quyết định của GPT.
 
@@ -49,7 +49,7 @@ Prompt:
 
 PASS mục tiêu:
 - Work tự gọi `evaluate` mà prompt không nhắc JEV/tool/plugin;
-- đúng model + có answers.
+- không truyền `model` + có `answers`.
 
 Nếu không gọi:
 - chưa kết luận backend lỗi;
@@ -74,7 +74,7 @@ Prompt:
 
 PASS:
 - `evaluate` được gọi;
-- model = `typesafe/jev-1.13`;
+- không truyền `model`;
 - có answers.
 
 ## C1 — Natural trigger
@@ -85,7 +85,7 @@ Prompt:
 
 PASS mục tiêu:
 - tự gọi JEV dù không nhắc tên;
-- đúng model + answers.
+- không truyền `model` + có `answers`.
 
 Nếu Chat không nạp Skill nhưng explicit C0 PASS:
 - ghi `CHAT=MCP_ONLY`;
@@ -114,7 +114,7 @@ Prompt:
 
 PASS:
 - trace có `evaluate`;
-- model = `typesafe/jev-1.13`;
+- không truyền `model`;
 - có answers;
 - không tạo/sửa file.
 
@@ -174,7 +174,7 @@ Mỗi ca chạy trong context sạch nếu có thể. Prompt **không chứa ch�
 
 PASS mục tiêu tổng:
 - ≥ 7/10 ca có call `evaluate`;
-- 100% call thực tế dùng `model=typesafe/jev-1.13`;
+- 100% call thực tế **không truyền `model`**;
 - call thành công có `answers`.
 
 ---
@@ -219,7 +219,7 @@ Mỗi surface:
 - `SKILL=AUTO|MCP_ONLY|UNAVAILABLE`
 - `POSITIVE_TRIGGER=x/10`
 - `FALSE_TRIGGER=x/10`
-- `MODEL_PIN=x/x`
+- `MODEL_ARG_ABSENT=x/x`
 - `ANSWERS=x/x`
 - `FINAL=PASS|PARTIAL|FAIL`
 
@@ -239,7 +239,7 @@ Core DONE của OpenAI:
 Skill là nơi duy nhất chứa logic:
 - khi nào nên gọi;
 - khi nào không;
-- luôn pin `typesafe/jev-1.13`;
+- không truyền `model`; provider/model/version do gateway quản lý;
 - JEV chỉ tham khảo;
 - thiếu `answers` = unavailable.
 
