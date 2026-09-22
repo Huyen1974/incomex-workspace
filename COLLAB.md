@@ -11,7 +11,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/hermes-joint-workspace/` · HJW · Host GPT · A0 xác nhận lại 22/09: thêm Secret Boundary cho VPS/GSM + khai thác always-on/API/webhook/Telegram; hiện ở HJW.2A DESIGN, chưa RUN production.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
-- NEXT: HJW.2A: Claude phản biện P02 + D08/D09 + Q04–Q06 và đối chiếu GSM audit; chỉ sau khi thiết kế đủ đồng thuận mới sang HJW.2B PROMPT/READY/RUN.
+- NEXT: HJW.2A: GPT Host xử lý P03 (Claude đã phản biện 22/09; READY HJW.2B chờ thêm KQ GSM-A1); chỉ sau khi thiết kế đủ đồng thuận mới sang HJW.2B PROMPT/READY/RUN.
 
 ## Đã xong
 - `work/mcp-workspace/` · R03 CLOSED 2026-09-21 · GPT client PASS · Claude client PASS · VPS/CROSS PASS.
