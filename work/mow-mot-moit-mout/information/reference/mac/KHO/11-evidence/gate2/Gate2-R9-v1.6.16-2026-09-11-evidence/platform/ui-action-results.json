@@ -1,0 +1,248 @@
+[
+  {
+    "utc": "2026-09-11T02:47:41.223Z",
+    "browser_trace": "e384460b-bc71-4e59-8169-23e47c792db7",
+    "method": "POST",
+    "path": "/proof-write/record/5006a97b-5f56-4049-b5eb-b7e383ff08e2",
+    "request": {
+      "request_id": "56ebd160-3823-45cd-b15f-7d6fbf76d0b8",
+      "expected_revision": 0,
+      "data": {
+        "duration_minutes": "37",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "form_revision": 7
+      }
+    },
+    "status": 422,
+    "response": {
+      "errors": [
+        {
+          "message": "\"duration_minutes\" must be a number",
+          "extensions": {
+            "code": "CONTRACT_INVALID",
+            "server_request_id": "6723a3f8-53b1-4e0f-86b5-aeedd796521a"
+          }
+        }
+      ]
+    },
+    "session_present": true
+  },
+  {
+    "utc": "2026-09-11T02:48:02.848Z",
+    "browser_trace": "d0406fae-9726-4324-9893-89b2fc803321",
+    "method": "POST",
+    "path": "/proof-write/record/5006a97b-5f56-4049-b5eb-b7e383ff08e2",
+    "request": {
+      "request_id": "f860fc2f-9b60-49b3-9042-fd7d8b62138b",
+      "expected_revision": 0,
+      "data": {
+        "duration_minutes": 38,
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "form_revision": 7
+      }
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "5006a97b-5f56-4049-b5eb-b7e383ff08e2",
+        "duration_minutes": 38,
+        "note": null,
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "scope": "pilot",
+        "status": "draft",
+        "user_created": "ffd1fe98-619d-4789-baeb-a488c6a2dc99",
+        "date_created": "2026-09-11T02:48:02.767Z",
+        "user_updated": null,
+        "date_updated": null,
+        "revision": 1,
+        "last_request": "7e87e888-ba98-4c0f-be88-ca9462a3e847",
+        "form_revision": 7
+      },
+      "meta": {
+        "server_request_id": "7e87e888-ba98-4c0f-be88-ca9462a3e847",
+        "logical_request_id": "f860fc2f-9b60-49b3-9042-fd7d8b62138b",
+        "action": "record",
+        "business_version": "editable-draft/main",
+        "revision": 1,
+        "transaction_id": "1376",
+        "backend_pid": 166
+      },
+      "replayed": false
+    },
+    "session_present": true
+  },
+  {
+    "utc": "2026-09-11T02:50:57.113Z",
+    "browser_trace": "658c04fd-db32-4f3a-aa7f-68feaff6fe7e",
+    "method": "POST",
+    "path": "/proof-write/record/5006a97b-5f56-4049-b5eb-b7e383ff08e2",
+    "request": {
+      "request_id": "d55578c8-339d-4281-9df4-3950ea9dd340",
+      "expected_revision": 1,
+      "data": {
+        "duration_minutes": 39,
+        "note": "Khai báo thêm trường, renderer không đổi",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "form_revision": 8
+      }
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "5006a97b-5f56-4049-b5eb-b7e383ff08e2",
+        "duration_minutes": 39,
+        "note": "Khai báo thêm trường, renderer không đổi",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "scope": "pilot",
+        "status": "draft",
+        "user_created": "ffd1fe98-619d-4789-baeb-a488c6a2dc99",
+        "date_created": "2026-09-11T02:48:02.767Z",
+        "user_updated": "ffd1fe98-619d-4789-baeb-a488c6a2dc99",
+        "date_updated": "2026-09-11T02:50:56.829Z",
+        "revision": 2,
+        "last_request": "4efe7622-a95d-4a99-a28c-de52c927d7b2",
+        "form_revision": 8
+      },
+      "meta": {
+        "server_request_id": "4efe7622-a95d-4a99-a28c-de52c927d7b2",
+        "logical_request_id": "d55578c8-339d-4281-9df4-3950ea9dd340",
+        "action": "record",
+        "business_version": "editable-draft/main",
+        "revision": 2,
+        "transaction_id": "1406",
+        "backend_pid": 166
+      },
+      "replayed": false
+    },
+    "session_present": true
+  },
+  {
+    "utc": "2026-09-11T02:55:09.364Z",
+    "browser_trace": "b2055af7-4cd6-4ffb-985a-8db41e912e16",
+    "method": "POST",
+    "path": "/proof-write/record/5006a97b-5f56-4049-b5eb-b7e383ff08e2",
+    "request": {
+      "request_id": "39319dab-4ae1-4ff9-8cfa-2b1867b267cf",
+      "expected_revision": 2,
+      "data": {
+        "duration_minutes": 39,
+        "note": "Nội dung người dùng đang nhập phải được giữ khi xung đột",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "form_revision": 8
+      }
+    },
+    "status": 409,
+    "response": {
+      "errors": [
+        {
+          "message": "Expected revision does not match the locked resource.",
+          "extensions": {
+            "code": "REVISION_CONFLICT",
+            "server_request_id": "c3212794-e753-477c-baa1-2a596b123875"
+          }
+        }
+      ]
+    },
+    "session_present": true
+  },
+  {
+    "utc": "2026-09-11T02:58:37.765Z",
+    "browser_trace": "d9c8d0dc-106f-4e6f-99cf-b345be64853d",
+    "method": "POST",
+    "path": "/proof-write/record/5006a97b-5f56-4049-b5eb-b7e383ff08e2",
+    "request": {
+      "request_id": "68139a49-76cd-4f26-8b1d-c0d2faa4b82a",
+      "expected_revision": 3,
+      "data": {
+        "duration_minutes": 39,
+        "note": "Đã đối chiếu bản mới và bổ sung lại ý kiến",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "form_revision": 8
+      }
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "5006a97b-5f56-4049-b5eb-b7e383ff08e2",
+        "duration_minutes": 39,
+        "note": "Đã đối chiếu bản mới và bổ sung lại ý kiến",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "scope": "pilot",
+        "status": "draft",
+        "user_created": "ffd1fe98-619d-4789-baeb-a488c6a2dc99",
+        "date_created": "2026-09-11T02:48:02.767Z",
+        "user_updated": "ffd1fe98-619d-4789-baeb-a488c6a2dc99",
+        "date_updated": "2026-09-11T02:58:37.636Z",
+        "revision": 4,
+        "last_request": "4b8939b1-bf9a-4bdf-8adc-5990613e1466",
+        "form_revision": 8
+      },
+      "meta": {
+        "server_request_id": "4b8939b1-bf9a-4bdf-8adc-5990613e1466",
+        "logical_request_id": "68139a49-76cd-4f26-8b1d-c0d2faa4b82a",
+        "action": "record",
+        "business_version": "editable-draft/main",
+        "revision": 4,
+        "transaction_id": "1511",
+        "backend_pid": 166
+      },
+      "replayed": false
+    },
+    "session_present": true
+  },
+  {
+    "utc": "2026-09-11T03:03:51.228Z",
+    "browser_trace": "77c1bbc5-d5b0-4a71-b249-033c11b0062e",
+    "method": "POST",
+    "path": "/proof-write/record/5006a97b-5f56-4049-b5eb-b7e383ff08e2",
+    "request": {
+      "request_id": "68139a49-76cd-4f26-8b1d-c0d2faa4b82a",
+      "expected_revision": 3,
+      "data": {
+        "duration_minutes": 39,
+        "note": "Đã đối chiếu bản mới và bổ sung lại ý kiến",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "form_revision": 8
+      }
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "5006a97b-5f56-4049-b5eb-b7e383ff08e2",
+        "note": "Đã đối chiếu bản mới và bổ sung lại ý kiến",
+        "scope": "pilot",
+        "status": "draft",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "revision": 4,
+        "date_created": "2026-09-11T02:48:02.767Z",
+        "date_updated": "2026-09-11T02:58:37.636Z",
+        "form_version": "main",
+        "last_request": "4b8939b1-bf9a-4bdf-8adc-5990613e1466",
+        "user_created": "ffd1fe98-619d-4789-baeb-a488c6a2dc99",
+        "user_updated": "ffd1fe98-619d-4789-baeb-a488c6a2dc99",
+        "form_revision": 8,
+        "duration_minutes": 39
+      },
+      "meta": {
+        "action": "record",
+        "revision": 4,
+        "backend_pid": 166,
+        "transaction_id": "1511",
+        "business_version": "editable-draft/main",
+        "server_request_id": "4b8939b1-bf9a-4bdf-8adc-5990613e1466",
+        "logical_request_id": "68139a49-76cd-4f26-8b1d-c0d2faa4b82a"
+      },
+      "replayed": true
+    },
+    "session_present": true
+  }
+]

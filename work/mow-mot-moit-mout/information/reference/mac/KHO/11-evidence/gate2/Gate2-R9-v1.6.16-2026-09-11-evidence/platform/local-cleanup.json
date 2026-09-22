@@ -1,0 +1,17 @@
+{
+  "processes": [
+    {
+      "role": "server_pid",
+      "pid": 10224,
+      "command": "/Users/nmhuyen/Documents/Codex/2026-09-08/ch/work/gate2/node-v24.21.0-darwin-arm64/bin/node /Users/nmhuyen/Documents/Codex/2026-09-08/ch/work/gate2/ui/.output/server/index.mjs",
+      "stop_sent": true
+    },
+    {
+      "role": "tunnel_pid",
+      "pid": 10078,
+      "command": "ssh -N -o ExitOnForwardFailure=yes -L 127.0.0.1:18057:172.20.0.3:8055 vps2",
+      "stop_sent": true
+    }
+  ],
+  "synthetic_ui_credentials_deleted": true
+}

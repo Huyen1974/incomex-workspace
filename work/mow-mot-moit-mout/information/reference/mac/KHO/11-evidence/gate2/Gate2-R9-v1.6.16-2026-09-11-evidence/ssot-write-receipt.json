@@ -1,0 +1,16 @@
+{
+  "at": "2026-09-11T03:38:11.282154+00:00",
+  "main_file": "/Users/nmhuyen/Desktop/quy trình/cấu trúc hệ thống.html",
+  "backup": "/Users/nmhuyen/Desktop/quy trình/backup/cau-truc-he-thong-v1.6.15-truoc-gate2-r9-2026-09-11.html",
+  "before_version": "v1.6.15",
+  "after_version": "v1.6.16",
+  "before_sha256": "d46c36f7862a93c86c123fd3f30aa5147b121a38159f24da3d14605f63464ab4",
+  "after_sha256": "e802f944e6c5ddfe4067947468145021e77e4164244e1d4ad59bd55252bad3f5",
+  "backup_sha256": "d46c36f7862a93c86c123fd3f30aa5147b121a38159f24da3d14605f63464ab4",
+  "main_file_writes_this_task": 1,
+  "readback_matches_staged": true,
+  "snapshot_matches_main": true,
+  "bytes": 520152,
+  "original_scripts_and_styles_unchanged": true,
+  "gate2": "SUBMITTED / PM REVIEW; not DONE"
+}

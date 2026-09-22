@@ -1,0 +1,117 @@
+{
+  "at": "2026-09-11T03:40:59.247641+00:00",
+  "result": "15/15 scoped QA checks passed",
+  "checks": [
+    {
+      "id": "QA01_SOURCE_HASHES",
+      "passed": true,
+      "details": {
+        "gate1_input": 689,
+        "remote_and_official_verified": {
+          "platform/remote-target": 39,
+          "platform/remote-bridge": 98,
+          "platform": 11
+        },
+        "code_inventory_verified": 31,
+        "package_hashes": "Full manifest and ZIP verified after creation; companion integrity receipt is authoritative."
+      }
+    },
+    {
+      "id": "QA02_NO_PRODUCTION_MUTATION",
+      "passed": true,
+      "details": "Execution scope: isolated synthetic labs and read-only production metadata/source. Authorized exceptions:2local rule files,2KB source documents,local SSOT. No production app data/schema/deploy/restart; no legal registration or key activation."
+    },
+    {
+      "id": "QA03_DEMO_UNCHANGED",
+      "passed": true,
+      "details": "5containers and2safeGET; does not prove full demo regression; owned lab/private resources removed."
+    },
+    {
+      "id": "QA04_SSOT_ONE_WRITE",
+      "passed": true,
+      "details": {
+        "at": "2026-09-11T03:38:11.282154+00:00",
+        "main_file": "/Users/nmhuyen/Desktop/quy trình/cấu trúc hệ thống.html",
+        "backup": "/Users/nmhuyen/Desktop/quy trình/backup/cau-truc-he-thong-v1.6.15-truoc-gate2-r9-2026-09-11.html",
+        "before_version": "v1.6.15",
+        "after_version": "v1.6.16",
+        "before_sha256": "d46c36f7862a93c86c123fd3f30aa5147b121a38159f24da3d14605f63464ab4",
+        "after_sha256": "e802f944e6c5ddfe4067947468145021e77e4164244e1d4ad59bd55252bad3f5",
+        "backup_sha256": "d46c36f7862a93c86c123fd3f30aa5147b121a38159f24da3d14605f63464ab4",
+        "main_file_writes_this_task": 1,
+        "readback_matches_staged": true,
+        "snapshot_matches_main": true,
+        "bytes": 520152,
+        "original_scripts_and_styles_unchanged": true,
+        "gate2": "SUBMITTED / PM REVIEW; not DONE"
+      }
+    },
+    {
+      "id": "QA05_NO_CURRENT_GATE1_DOING",
+      "passed": true,
+      "details": "Only dated HISTORICAL rows retain old Gate1 DOING; old IDs/script/style preserved."
+    },
+    {
+      "id": "QA06_R2_R8_ACCEPTANCE_SYNC",
+      "passed": true,
+      "details": "Current Review R1–R8 accepted, object cards, W003, role map and U evidence rows synchronized; underlying10/09 implementation findings retained."
+    },
+    {
+      "id": "QA07_D04_ONE_CURRENT_STATUS",
+      "passed": true,
+      "details": "WAITING OWNER before Gate3 semantic contract lock and real assignment Pilot; recommendation A, not Gate2 design blocker; no Owner acceptance/grants."
+    },
+    {
+      "id": "QA08_EIGHT_GROUPS",
+      "passed": true,
+      "details": "8 IDs/titles +12 detailed attributes each;96fields; contract-readiness has24answered questions, formal locks deferred Gate3–4."
+    },
+    {
+      "id": "QA09_FIVE_PATTERNS",
+      "passed": true,
+      "details": "Same object/package/scope/context in all5patterns; one runtime fixture, evidence JSON copy separately."
+    },
+    {
+      "id": "QA10_R9_11_WALKTHROUGHS",
+      "passed": true,
+      "details": "Final-source happy +10 checkpoint negatives; blocked advance then recovery/end. Simulated machine stages, no full runtime claim."
+    },
+    {
+      "id": "QA11_WORKSHOP_LINKS_SCREENSHOTS",
+      "passed": true,
+      "details": {
+        "workshop_jpegs_valid": 23,
+        "html_assets_exist": [
+          "reused-patterns.css",
+          "workshop.css",
+          "fixture.js",
+          "workshop.js"
+        ],
+        "SSOT_DOM_ids": 340,
+        "static_ids": 339,
+        "note": "One pre-existing script inserts runtime DOM ID; no duplicate. Browser Owner/Gate views visually inspected. CUA JPEG captures renamed from .png to .jpg without changing bytes, see image-format receipt."
+      }
+    },
+    {
+      "id": "QA12_PLATFORM_EVIDENCE",
+      "passed": true,
+      "details": "TARGET PARTIAL evidence not mislabelled full-target PASS; official sources, scoped feature403,bridge66+rollback,Nuxt module/session gaps,real pin failure,PGrestore,exactfollow-up linked."
+    },
+    {
+      "id": "QA13_RULE_SOURCE_OUTCOME",
+      "passed": true,
+      "details": "Native revisions12→13/44→45; fresh-read/patch/read-back receipts; local2files hashes match committedsource. Authority unchanged."
+    },
+    {
+      "id": "QA14_NO_FALSE_OUTCOME_VERIFIED",
+      "passed": true,
+      "details": "O1–O3 remain NOT VERIFIED; function heatmap unchanged; bounded lab/workshop evidence separate."
+    },
+    {
+      "id": "QA15_NO_FALSE_GATE2_DONE",
+      "passed": true,
+      "details": "Gate2 SUBMITTED; PM alone accepts exit; Gate3–7 NOT STARTED."
+    }
+  ],
+  "limits": "QA validates artifact/evidence/submission; does not certify production readiness, Owner policy or full target stack."
+}
