@@ -100,6 +100,12 @@ GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho 
 - Q05 · CLOSED · Owner gật 21/09 — Cho chạy R2 (xoá/cắt thật đúng danh sách trong `PROMPT.md`: log Directus, 979 build tạm, 6 thư mục cache, 63 bản sao web cũ, ~159 bản chụp Qdrant cũ sau khi đã cứu 1 bản mới nhất ra ngoài VPS) + cài người gác kho tự động. Đề xuất Host: **gật**. Dự kiến trống 9,5 → ~43GiB; đợt 2 đưa lên >45GiB.
 - Q04 · CLOSED · Owner 2026-09-21 giao nhóm kỹ thuật quyết. Chốt kỹ thuật: giữ mục tiêu ≥45GB trống; bỏ `≤3GB/tháng` khỏi tiêu chí PASS và dùng nó như ngưỡng đỏ. PASS theo D02/P10: non-business phải bounded/steady-state, hoặc offload/purge có kiểm soát.
 
+## Handoff từ HVU · AFTER R3 ONLY · không đổi PROMPT/READY hiện hành
+- Mục này **không thuộc RUN R3 hiện hành** và không được mutation song song. Chỉ xử lý sau khi R3/V3 gate cho phép VPS mutation tiếp theo.
+- **H1 · Config Guard drift B3:** `incomex-config-drift-check.service` fail do target `mcp-compose` baseline còn `claude-mcp-local:r03-finalclose-20260920`, trong khi production B3 đã live-PASS và đang dùng `claude-mcp-local:hvu-b3-rerun-02-final`. Không rollback image đã nghiệm thu. Khi tới lượt: verify compose/runtime hiện tại đúng ref B3 đã accepted → dùng đúng cổng `incomex-config-apply-v0`/config-guard audited để bless/update baseline → yêu cầu `mcp-compose MATCH` và drift-check sạch; không thay MCP contract/version/auth.
+- **H2 · HVU archive recovery cũ:** `/opt/incomex/deploys/hvu-archive01-20260922` đã hết vai trò active recovery sau `HVU-VPSARCHIVE01` PASS + HVU CLOSED. Trước move phải quét lại unit/compose/nginx/timer/symlink/pointer; nếu vẫn không reference thì phân loại `ARCHIVE_SAFE` và move cùng filesystem vào `/opt/incomex/work/done-tasks/hpml-view-for-user/history/deploys/`, cập nhật pointer còn sống, hash trước/sau. Nếu còn reference → giữ nguyên, không ép.
+- **Không đụng:** `hvu-b3-20260921`, `hvu-b3-cleanup-20260922`, runtime `sr-mow-d30d31` cho tới khi có migration riêng chứng minh an toàn.
+
 ## NEXT
 - **R3 phiên 2:** Owner mở Claude Code chế độ không hỏi quyền (D08) và dán lệnh RUN phiên 2; trong lúc chạy không giao HVU/việc khác đụng VPS.
 - Host preflight lại ngay trước RUN: df/health, `NO_CONCURRENT_VPS_MUTATION`, Executor_Surface/Write_Path, commit cuối chạm PROMPT vẫn `f249b90f9a5d84bce5295f22b7628fd716fe5ba3`; đạt → ghi `READY@f249b90f9a5d84bce5295f22b7628fd716fe5ba3`.

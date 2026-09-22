@@ -544,5 +544,13 @@ Based_on `7c8743a` · Owner 22/09: “phân tích còn vấn đề gì thì xử
 - **Còn lại, không chặn đóng:** (1) `deploys/hvu-b3-20260921` — đường cứu hộ duy nhất của hai gateway B3, giữ đúng; (2) `deploys/hvu-b3-cleanup-20260922` — rollback dùng đường dẫn tuyệt đối, giữ; (3) `deploys/hvu-archive01-20260922` — hết vai trò cứu hộ khi HVU đóng, chuyển vào `history/` ở lần có agent chạm VPS kế tiếp (Claude Chat chỉ đọc VPS); (4) `/opt/incomex/work/sr-mow-d30d31` là runtime cũ còn chạy (state cập nhật hôm nay) nằm sẵn trong kho từ trước — không trùng task-id nên sync không đụng; không dời runtime đang chạy; (5) nút Copy cần Owner bấm thử một lần.
 - CLOSED · 2026-09-22 · theo lệnh Owner · KQ XONG · không còn chờ Owner. Commit này dời `work/hpml-view-for-user/` → `work/done-tasks/hpml-view-for-user/`; sync tự dời hồ sơ VPS tương ứng.
 
+## P33 · GPT Host · nghiệm thu cuối sau P32 · FINAL CLOSED
+- Repo/Git: commit đóng `947a53c58ed7fbccf9be24d70834eb24a787c15b`; HVU nằm đúng `work/done-tasks/hpml-view-for-user/`; root không còn HVU trong `Đang làm`.
+- Production kiểm độc lập: `sync-status=fresh` đúng revision `947a53c…`; web search rỗng chỉ **5 Now + `Đã xong (3)`** ở cả sidebar và Master list; `tasks.json` cho HVU `bucket=Done`, 4/4 stage done, `activeActors=null`, `KQ@HVU-VPSARCHIVE01-RUN-20260922-01 XONG`, evidence path `/opt/incomex/work/done-tasks/hpml-view-for-user/` tồn tại.
+- VPS health liên quan: agent-data/nuxt/directus/qdrant/postgres healthy, HTTP UI/agent-data 200. `incomex-config-drift-check.service` vẫn failed nhưng là **drift có sẵn từ B3**: production Claude MCP đã nghiệm thu ở image `claude-mcp-local:hvu-b3-rerun-02-final`, baseline guard còn image R03 cũ. Không rollback production đã PASS; hướng đúng là verify current compose rồi bless baseline qua config-guard audited path. JEV tham khảo cũng chọn hướng này.
+- Giữ nguyên đúng: `deploys/hvu-b3-20260921` (recovery duy nhất B3), `deploys/hvu-b3-cleanup-20260922` (rollback path tuyệt đối/chưa xác nhận safe), runtime `sr-mow-d30d31` đang chạy. Nút Copy đã được kiểm logic/chuỗi; không giữ task mở chỉ để Owner thử clipboard thủ công.
+- Hai housekeeping không còn là blocker HVU được chuyển sang `work/vps-clean-20-9-26/` sau R3: (1) audit rồi cất `deploys/hvu-archive01-20260922` nếu vẫn ARCHIVE_SAFE; (2) verify B3 current compose rồi bless `mcp-compose` baseline để drift-check về sạch. Không đổi PROMPT/READY VPSC hiện hành.
+- **Kết luận: HVU FINAL CLOSED. Không mở lại trừ khi Owner có mục tiêu nâng cấp mới và dùng `Mở lại hpml-view-for-user để …`.**
+
 ## Owner cần quyết
 - —
