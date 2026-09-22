@@ -209,9 +209,9 @@ Theo thứ tự:
 Chỉ khi smoke PASS mới chạy 10+10.
 
 ## F2 — Full acceptance
-- Codex: tự động hóa 10+10, mỗi ca context/session sạch nếu khả thi; chấm từ trace.
-- Work: chạy 10+10 theo batch nhỏ nhưng tách từng item rõ, không cần Owner gõ từng ca.
-- Chat: full 10+10 chỉ nếu Skill tự trigger; nếu MCP-only thì C0/C2 + vài natural probes là đủ để ghi rõ giới hạn surface.
+- **Codex là surface định lượng:** tự động hóa 10+10, mỗi ca context/session sạch nếu khả thi; chấm từ trace thật.
+- **Work và Chat:** smoke 3 chiều explicit + natural + negative là đủ cho core acceptance khi Codex 10+10 PASS. Không bắt Owner chạy lại 10+10 thủ công trên từng surface.
+- Chỉ chạy full 10+10 trên Work/Chat khi có regression hoặc cần chẩn đoán khác biệt surface.
 
 ## F3 — Kết quả cần ghi
 Mỗi surface:
