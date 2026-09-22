@@ -20,15 +20,17 @@ small{color:#666}
 <h1>Hermes Joint Workspace</h1>
 <p><span class="tag">HOST REVIEW</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Host: GPT Chat</span><span class="tag">Chưa chạm production</span></p>
 
-<div class="box"><strong>Anh cần quyết hôm nay:</strong> không có. Owner đã chuyển Host sang GPT Chat. GPT đã đọc luật repo + Planning Guide + Operating Rules và ghi P02; bước kế tiếp là Claude phản biện một vòng rồi Host mới chốt prompt HJW.2.</div>
+<div class="box"><strong>Anh cần quyết hôm nay:</strong> không có. Owner đã bổ sung 2 đầu bài bắt buộc: <strong>secret boundary cho Hermes/VPS</strong> và <strong>khai thác đầy đủ lợi thế always-on/API/webhook/Telegram</strong>. HJW đang ở bước thiết kế hội đồng; chưa được RUN production.</div>
 
 <div class="bar" id="TIEN-DO"><span class="g">✓ 1 Mở việc</span><span class="now">▶ 2 Nối</span><span>□ 3 Nghiệm thu</span><span>□ 4 Ghi luật</span><span>□ 5 Đóng</span></div>
 
-<h2 id="MUC-TIEU">1. Mục tiêu — Owner quyết 2026-09-20</h2>
+<h2 id="MUC-TIEU">1. Mục tiêu — Owner cập nhật 2026-09-22</h2>
 <ol>
-<li><strong>Hermes là thành viên đầy đủ</strong> của hội đồng GPT · Claude · Hermes. Được làm gì hay không là do <strong>lệnh điều hành</strong>, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.</li>
-<li><strong>Kênh Agent Data</strong> (<code>workspace_*</code>, cùng cửa Claude Code đang dùng), vì Hermes nằm ngay trên VPS. Không đưa tài khoản GitHub của anh lên VPS; không mở cửa ghi thứ ba.</li>
-<li><strong>Cách làm:</strong> tham gia · an toàn · tận dụng tối đa cái đang có · hạn chế xây mới · nhanh nhất, không sa đà.</li>
+<li><strong>Hermes là thành viên đầy đủ</strong> của hội đồng GPT · Claude · Hermes; tùy phân công có thể làm Host/Reviewer/Agent như các surface khác.</li>
+<li><strong>Không chỉ parity:</strong> Hermes sống 24/7 trên VPS và chạy API nên phải tận dụng các năng lực khác GPT/Claude: webhook, scheduler/backstop, API workflow, long-running watch/retry và Telegram với Owner.</li>
+<li><strong>Secret boundary:</strong> vì Hermes nằm trên VPS, không mặc định cho process Hermes/VPS quyền truy cập rộng Google Secret Manager. Hội đồng phải thiết kế cơ chế cấp đúng secret tối thiểu, rotation/revoke/failure rõ ràng và đối chiếu kết quả GSM audit trước khi triển khai.</li>
+<li><strong>Kênh workspace:</strong> tiếp tục dùng Agent Data <code>workspace_*</code> đã audit; không mở cửa ghi Git thứ ba, không đưa tài khoản GitHub Owner lên VPS.</li>
+<li><strong>Cách làm:</strong> Assembly First · thiết kế trước triển khai · tự động nhưng tiết kiệm token/tài nguyên · không dựng framework mới nếu hạ tầng hiện có đủ.</li>
 </ol>
 <p><small>Ví dụ: repo là nhà kho. Không thành viên nào mở kho bằng thẻ cá nhân của anh; ai cũng đi qua quầy bảo vệ trên VPS (giữ chìa riêng của kho, ghi sổ, chặn hai người sửa chồng). Hermes ở sẵn trong toà nhà nên chỉ cần đi qua đúng quầy đó.</small></p>
 
@@ -69,6 +71,8 @@ Claude Chat ──────────────────────�
 <tr><td>T6 Chi phí</td><td>Đo được Hermes đang chạy model gì và tốn bao nhiêu mỗi lượt.</td></tr>
 <tr><td>T7 Tự thức</td><td>Khi có assignment máy đọc mới dành cho Hermes, webhook/backstop đánh thức đúng một lần; push không liên quan không gọi LLM Hermes.</td></tr>
 <tr><td>T8 Vượt quyền</td><td>Hermes STOP, ghi blocker và báo Owner qua Telegram; không tự mở scope hay tự vượt gate.</td></tr>
+<tr><td>T9 Secret boundary</td><td>Hermes không giữ quyền GSM rộng/không cần thiết; đường cấp secret tối thiểu, rotation/revoke và failure/compromise được review + test theo threat model.</td></tr>
+<tr><td>T10 Automation value</td><td>Webhook/assignment, scheduler/backstop, API action, retry/dedup và Telegram notification/handoff được thiết kế và nghiệm thu đủ để chứng minh lợi thế always-on thực tế.</td></tr>
 </tbody>
 </table>
 
@@ -77,8 +81,9 @@ Claude Chat ──────────────────────�
 <thead><tr><th>Việc</th><th>Làm gì</th><th>Ai</th><th>Khi nào</th></tr></thead>
 <tbody>
 <tr><td>HJW.1</td><td>Mở việc: mục tiêu, hiện trạng, tiêu chí.</td><td>Claude mở · GPT review</td><td>✓ xong</td></tr>
-<tr><td>HJW.2</td><td>Một prompt cấu hình phía Hermes: dùng cửa <code>workspace_*</code> đã audit qua relay nội bộ; nạp luật workspace; cắm JEV đã có; tái dùng webhook/backstop nhưng chỉ wake theo assignment máy đọc rõ ràng và chống trùng. Không sửa backend Agent Data, không dựng server/framework mới.</td><td>Claude Code CLI thực thi · GPT Host · Claude phản biện</td><td>sau khi P02 được review/đóng</td></tr>
-<tr><td>HJW.3</td><td>Nghiệm thu T1–T8 bằng chạy thật, gồm tự thức, chống wake thừa, stale-write reject, blocker vượt quyền và attribution Hermes.</td><td>Hermes làm · GPT + Claude chấm chéo</td><td>ngay sau HJW.2</td></tr>
+<tr><td>HJW.2A — Design</td><td><strong>Không mutation production.</strong> Hội đồng chốt: ma trận năng lực always-on; assignment lifecycle; trigger/action/retry/dedup/cost/observability; Telegram/handoff; secret threat model trên VPS dựa trên GSM audit; ranh giới việc Hermes tự làm và việc phải chuyển GPT/Claude/Owner.</td><td>GPT Host tổng hợp · Claude phản biện</td><td>▶ hiện hành</td></tr>
+<tr><td>HJW.2B — Implement</td><td>Sau khi 2A đồng thuận mới cấu hình Hermes: <code>workspace_*</code> qua relay nội bộ, luật workspace, JEV, assignment wake/webhook/backstop, Telegram và secret path đã duyệt. Assembly First, không mở đường ghi thứ ba.</td><td>Claude Code CLI thực thi · GPT Host giám sát</td><td>sau HJW.2A</td></tr>
+<tr><td>HJW.3</td><td>Nghiệm thu T1–T10 bằng chạy thật, gồm self-wake, chống wake thừa, stale-write, retry/dedup, Telegram, blocker vượt quyền, attribution và secret rotation/boundary.</td><td>Hermes làm · GPT + Claude chấm chéo</td><td>ngay sau HJW.2B</td></tr>
 <tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>sau HJW.3 PASS</td></tr>
 <tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T8.</td><td>Host</td><td>—</td></tr>
 </tbody>
@@ -87,12 +92,12 @@ Claude Chat ──────────────────────�
 <h2 id="KHONG-LAM">6. Không làm ở vòng này</h2>
 <ul>
 <li>Không dựng server/MCP mới, không sửa mã Agent Data.</li>
-<li>Không tách khoá riêng cho Hermes (hội đồng xét ở Q03).</li>
+<li>Không mặc định cấp cho Hermes quyền Google Secret Manager trực tiếp/rộng; secret path phải qua thiết kế HJW.2A.</li>
 <li>Không mở cửa ghi thứ ba, không đưa tài khoản của anh lên VPS.</li>
 <li>Không đánh thức Hermes trên mọi push. Chỉ assignment máy đọc hợp lệ mới được gọi LLM; backstop dùng cùng logic và chống trùng.</li>
 </ul>
 
 <h2 id="DIEU-KIEN">7. Điều kiện chuyển sang làm</h2>
-<p>R03 đã CLOSED và JEV đã DONE. HJW.2 chỉ chuyển sang RUN sau khi Claude phản biện P02, <code>COLLAB.md</code> không còn P OPEN/OWNER liên quan, Host chốt <code>PROMPT.md</code>, ghi đúng Executor_Surface + Write_Path, READY đúng SHA rồi Owner/GPT Chat truyền RUN.</p>
+<p>R03 đã CLOSED và JEV đã DONE, nhưng Owner yêu cầu <strong>thiết kế đầy đủ trước</strong>. HJW.2A phải được GPT + Claude review, gồm secret boundary và automation portfolio. Chỉ sau đó Host mới được tạo PROMPT HJW.2B, READY đúng SHA rồi Owner/GPT Chat truyền RUN.</p>
 </body>
 </html>

@@ -7,10 +7,10 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
 - `work/mcp-token-argv/` · SECURITY · Host Claude · loại Bearer token khỏi argv của lark-crud-gateway/mcp-remote; migrate secret + rotate + smoke; không chặn HVU.
 - `work/jev-integration/` · JEV · Host Bước 2 Claude · nghiệm thu 6/6 PASS 22/09; mở lại để hậu kiểm: V1 Codex điều khiển máy xác nhận Claude Chat/Cowork (READY) → V2 đồng hồ đếm lượt dùng thật.
-- `work/hermes-joint-workspace/` · HJW · Host GPT · A0 mở rộng đã xác nhận; JEV DONE + R03 CLOSED; P02 Host đã ghi, chờ Claude phản biện một vòng trước khi chốt PROMPT HJW.2.
+- `work/hermes-joint-workspace/` · HJW · Host GPT · A0 xác nhận lại 22/09: thêm Secret Boundary cho VPS/GSM + khai thác always-on/API/webhook/Telegram; hiện ở HJW.2A DESIGN, chưa RUN production.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
-- NEXT: R03 đã CLOSED; tiếp tục các việc nghiệp vụ. HJW.2: Claude phản biện P02 → GPT Host chốt PROMPT → READY/RUN theo A6.
+- NEXT: HJW.2A: Claude phản biện P02 + D08/D09 + Q04–Q06 và đối chiếu GSM audit; chỉ sau khi thiết kế đủ đồng thuận mới sang HJW.2B PROMPT/READY/RUN.
 
 ## Đã xong
 - `work/hpml-view-for-user/` · CLOSED 2026-09-22 · B2/B2.1/B3 + cleanup PASS production; latest-only presence + tên User quen thuộc; Host GPT verify độc lập.
