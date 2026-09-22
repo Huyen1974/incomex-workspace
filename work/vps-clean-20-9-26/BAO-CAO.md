@@ -4,6 +4,98 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## R4b — Khép việc · 22–23/09/2026 · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=workspace_* · KQ STOPPED · 4.4
+
+RUN_ID `VPSC-R4B-20260923-01` · PROMPT@`0a08377d915f0dae0417e63175728e0d3de60282` — cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `OWNER_APPROVED@` + Host `READY@` cùng mã; đã đọc AGENTS → COLLAB (A0, D08–D10, H1) → PROMPT. Chạy 22:43–23:03Z ngày 22/09 (= 05:43–06:03 ngày 23/09 giờ VN). NO_CONCURRENT_VPS_MUTATION đạt ở đầu mỗi phần (không build/compose/pull/deploy; StartedAt mọi container ≤ 21:30:05Z).
+
+### (1) CHO OWNER
+- Phần 1–3 **xong**: dấu vết chìa Drive cũ đã dọn (chìa cũ đã chết, chìa mới chạy tốt); người gác kho có thêm báo image hằng ngày (chỉ xem); 2 dịch vụ hỏng do Docker sập 22/09 đã chạy lại → **failed 4 → 2** (2 cái còn lại là của hệ điều hành từ tháng 2, vô hại).
+- 🔴 **Phần 4 (đổi giờ VPS sang GMT+7) DỪNG, VPS vẫn giờ Đức, không đổi gì.** Lý do: 4 lịch hẹn giờ systemd của incomex có chế độ "chạy bù" (`Persistent=true`) — luật an toàn P17 bắt dừng. Bảng quy đổi toàn bộ lịch đã làm sẵn và tự kiểm (đúng 100%) để Host quyết lượt sau.
+- Phát hiện quan trọng: **cron trên VPS bỏ qua `CRON_TZ`** — dòng Qdrant ghi `CRON_TZ=UTC 0 3` thực chạy 01:00Z; code-backup ghi giờ VN thực chạy giờ Đức. Mọi lịch cron đang chạy theo giờ Đức.
+- Nguyên nhân 11 container không tự lên sau sập 22/09: Docker chưa bật `live-restore`. Đề xuất bật (cần Owner duyệt, lượt riêng).
+- SEC-01 còn 1 file cho Host phân loại (báo cáo cài đặt 17/09 trên Mac chứa chìa cũ đã chết).
+
+### (2) SEC-01 = CLEAN_PARTIAL · CHO_HOST_PHAN_LOAI
+| Bước | Kết quả |
+|---|---|
+| 1.1 bản cấu hình cũ | VPS 1 (`/root/.config/rclone/rclone.conf.pre-VPSC-R3-*`), Mac 1 (`~/.local/share/drive-workspace/rclone.conf.pre-VPSC-R3-*`; cấu hình rclone của mount Mac nằm ở đây, không ở `~/.config/rclone`) |
+| 1.2 thử chìa cũ | VPS: LỖI rc=1, có dấu hiệu lỗi xác thực · Mac (remote của mount): LỖI rc=1, có dấu hiệu lỗi xác thực ⇒ **chìa cũ đã chết ở cả hai** |
+| 1.3 chìa mới trước xoá | VPS `lsf` rc=0 · mount Mac đọc được |
+| 1.4 kiểm kê `grep -rlF` | Nạp **cả hai bộ token cũ** (Mac-cũ + VPS-cũ; refresh + access) vào biến, không in. Phạm vi Mac: `~/.claude/`, thư mục cấu hình rclone (cả `~/.config/rclone` và `~/.local/share/drive-workspace`), `~/Downloads`; VPS: `/root`, `/var/lib/incomex-audit/`, `/opt/incomex/work`. Khớp: (a) 2 bản cấu hình cũ; (b) đúng 1 transcript `~/.claude/projects/-Users-nmhuyen/af62d7d8-….jsonl` (sửa 21/09, không phải phiên đang chạy) — khớp bộ token **VPS-cũ**; **thêm** `~/.local/share/drive-workspace/setup-report.txt` (17/09) — khớp refresh token Mac-cũ |
+| Xoá | (b) transcript → (a) 2 bản cấu hình cũ. **GIỮ** `setup-report.txt` (ngoài danh sách được tự xoá) |
+| 1.5 sau xoá | grep lại bộ Mac-cũ: chỉ còn `setup-report.txt`; bộ VPS-cũ: 2 file từng khớp đều không còn tồn tại (nguồn token VPS-cũ duy nhất chính là bản cấu hình vừa xoá nên không grep lại được bằng chính token đó — phạm vi kiểm kê trước xoá chỉ có 2 file này). Chìa mới: VPS rc=0, mount Mac rc=0 |
+
+Đề xuất cho Host: `setup-report.txt` là báo cáo cài mount 17/09, chứa refresh token đã chết — xoá cả file hoặc xoá dòng token; không ảnh hưởng mount (mount đọc `rclone.conf` hiện hành).
+
+### (3) Image + luật (k)
+| Bước | Kết quả | Git cục bộ `/opt/incomex` |
+|---|---|---|
+| 2.1 | `scripts/vps-retention.sh` = nội dung `c5b7615` (sha256 khớp) | HEAD `e9bb42b` |
+| 2.2 thêm (k) | Chỉ thêm 49 dòng, 0 dòng sửa/xoá; (a)–(i) giữ từng byte. Lượt **21Z** hằng ngày (cổng `date -u +%H`, trùng lượt `:23` của cron người gác, khác 03Z); `--chi-k` chạy riêng; tham số khác → rc=2. Chỉ dùng `docker image ls` / `ps` / `inspect` / `info`. Kho thật = `du` trên thư mục gốc Docker + `/var/lib/containerd` (image store là containerd snapshotter) | `45d5bc3` (trước `e9bb42b`) |
+| 2.3 thử khô | `bash -n` đạt; bản sao thử (log/khoá riêng, mọi `rm` đổi thành echo, `docker`/`date` giả): thường → đúng 1 dòng; có containerd → cộng thư mục; socket lỗi → `(k) LOI …` rc=0; cả script lúc 21Z → có (k), 20Z → không; tham số sai → rc=2 | — |
+| 2.4 chạy thật `--chi-k` | 1 dòng log, 4 giây; health không đổi | — |
+
+Số hôm nay (22/09 22:54Z): **49 image · 37 không container nào dùng · kho thật 10,746GiB** · Size danh nghĩa cộng từ `docker image ls` = 42,93GiB (đếm lặp lớp dùng chung, chỉ để tham khảo) · tag nhiều nhất: claude-mcp-local 22, agent-data-hardening 7, agent-data-local 6, agent-data-r03 5. Không xoá/tag/untag gì.
+
+### (4) Dịch vụ failed (4 → 2) + chẩn đoán `unless-stopped`
+| Unit | Nguyên nhân | Xử lý |
+|---|---|---|
+| `incomex-kuma-push.service` | Docker sập: unit `Requires=docker` bị dừng 21:25:45Z, systemd kéo lại 21:26:09Z khi container Kuma chưa lên (lên 21:29:58Z) → `docker exec` lỗi → fail-closed | `reset-failed` + `start` 1 lần → active/exited, Result=success; file token tmpfs 5 biến, nội dung không đổi; `kuma-push.sh cron`/`disk` rc=0. **Không disable** |
+| `incomex-config-drift-check.service` | Đúng H1: baseline `mcp-compose` còn image `r03-finalclose-20260920`; file compose sống + container chạy `hvu-b3-rerun-02-final` (khác duy nhất dòng `image:`; file đã commit ở `12afa84` HVU B3) | Cổng audited `incomex-config-apply-v0` (registry `post_action=NONE`), mutation `VPSC-R4B-H1-20260923`, ứng viên = bản sao byte-y-hệt file sống → **APPLIED** (baseline FRESH, LIVE_PASS, rollback NONE). Nội dung file sống không đổi (chỉ đổi inode do rename nguyên tử; không container nào bind-mount file này), owner/mode giữ, container claude-mcp không đổi. Drift-check chạy lại: **34/34 MATCH · CLEAN**. Không đổi image/compose/container/MCP contract |
+| `cloud-init.service` | Hỏng từ lần boot đầu 12/02/2026 (module bootcmd lúc cấp máy) — không liên quan | Không sửa |
+| `systemd-networkd-wait-online.service` | Từ boot 12/02: `eth0` kẹt trạng thái "configuring" quá hạn chờ, mạng vẫn chạy — không liên quan | Không sửa |
+
+**Vì sao 11/12 container `unless-stopped` không tự lên (chỉ đọc journal):** `/etc/docker/daemon.json` không có `live-restore`. dockerd panic 21:25:43Z → systemd bật lại 21:25:45Z → lúc "Restoring containers" daemon mới gặp 11 container còn chạy dưới shim của daemon cũ, dừng/kill chúng (exit 0/143) và đánh dấu `hasBeenManuallyStopped=true` → 11 dòng `ShouldRestart failed … error="restart canceled"` → `unless-stopped` coi như bị dừng tay nên không bật lại. **Đề xuất 1 phương án:** thêm `"live-restore": true` vào `daemon.json`, áp bằng `systemctl reload docker` (SIGHUP, không restart container) — container sống qua lần dockerd sập/nâng cấp. Cần Owner duyệt, làm ở lượt riêng; R4b không đụng.
+
+### (5) Múi giờ — STOPPED · 4.4 · giữ Europe/Berlin (không đổi file nào)
+- **Cron có tôn trọng `CRON_TZ` không? KHÔNG.** Gói `cron 3.0pl1-184ubuntu2`. Bằng chứng log: Qdrant (`CRON_TZ=UTC`, `0 3`) chạy thật 03:00:01+02:00 = 01:00Z bốn ngày 19–22/09; code-backup (`CRON_TZ=Asia/Ho_Chi_Minh`, `0 8,12,15,20`) chạy 08/12/15/20 **giờ Đức**; changelog Debian cron có `No-multiple-timezones.patch`. ⇒ mọi dòng cron (kể cả dưới `CRON_TZ=`) đều chạy theo giờ máy. Báo cáo R3 gọi Qdrant "03:00 giờ máy" là đúng thực tế; dòng `CRON_TZ=UTC` gây hiểu nhầm.
+- **Bảng quy đổi** (hồ sơ `41-bang-quy-doi.tsv`, tự kiểm bằng mô phỏng 14 ngày: tập thời điểm UTC trước = sau cho **mọi** dòng; không dòng nào "không quy đổi được"). Tóm tắt (giờ máy Đức CEST → giờ VN):
+
+| Nhóm | Cũ → mới | UTC giữ |
+|---|---|---|
+| backup Drive chính | `37 20 * * *` → `37 1 * * *` | 18:37Z |
+| code-backup | `0 8,12,15,20` → `0 1,13,17,20` | 06,10,13,18Z |
+| pg-backup | `27 2` → `27 7` | 00:27Z |
+| Qdrant | `0 3` → `0 8` | 01:00Z |
+| dot-* hằng ngày (02:30…06:00, 21:00, 21:30) | +5 giờ (21:00 → 2, 21:30 → 2:30) | như cũ |
+| dot-* Chủ nhật (02:00, 03:00, 03:30, 04:00) | +5 giờ, vẫn Chủ nhật | như cũ |
+| `*/3` (hc-executor, scanner, context-pack của user incomex) | `*/3` → `2-23/3` | đổi pha đúng |
+| `*/6` (reconcile, cron-integrity, sr-mow) · `*/12` certbot | `5-23/6` · `5-23/12` | đổi pha đúng |
+| git-push | `0 6,18` → `0 11,23` | 04,16Z |
+| `/etc/crontab` daily/weekly/monthly · e2scrub · sysstat 23:59 · certbot-renew · context-pack-retention | +5 giờ | như cũ |
+| mỗi phút/5'/10'/giờ (phái cử, kuma-push, người gác :23, pivot…) | không đổi | — |
+| 4 dòng pivot có cổng nội tuyến `H=$(date +%H)` bỏ "02"/"20" | đổi sang `date -u +%H` bỏ "00"/"18" | như cũ |
+| người gác (c) `date +%H` = "04" | `date -u +%H` = "02" | như cũ |
+
+  Bảng tính cho giờ hè Đức (CEST, tới 25/10/2026); nếu áp sau 25/10 thì là +6 giờ.
+- **Timer systemd incomex có `OnCalendar` theo giờ máy (phải sửa):** `hermes-safe-update` 23:15 `Persistent=false` (qua được cổng) · **`incomex-cowork-audit-retention` `daily`, `mcp-writes-git-gc` `Sun 04:30`, `process-discovery-policy-scan` 06:30, `wf-universal-scanner` 04:10 — cả 4 `Persistent=true`** · `ui-preview-notebook-daily` 04:00 (disabled). Không ảnh hưởng: `s177-lark-backup` (`… UTC` cố định), `incomex-hvu-sync` (`*:0/15`), các timer khoảng cách (drift-check, hvu-presence, jev-gw-health, mcp-writes-snapshot/perms).
+- **Cổng P17 (4.4): có timer phải sửa mà `Persistent=true` ⇒ DỪNG phần 4, giữ Europe/Berlin, không sửa crontab/cron.d/timer/script, không `timedatectl`.** Tham khảo JEV (`typesafe/jev-1.13`) đọc đúng luật + danh sách timer: `stop_keep_berlin` 0,99.
+- Container mang giờ host: **không có** (không container nào mount `/etc/localtime`/`/etc/timezone`; Qdrant `TZ=Etc/UTC`) ⇒ đổi giờ sau này không ảnh hưởng container.
+- Tên file backup theo ngày: đổi giờ chỉ làm đồng hồ máy nhảy **tới** 5 giờ (không lùi) ⇒ không có hai lượt ra cùng tên; riêng backup Drive 18:37Z sẽ nhảy từ tên ngày D sang D+2 (bỏ trống 1 tên), không ghi đè.
+- Đề xuất cho Host (chọn 1 khi phát lại): viết 4 timer `Persistent=true` thành `OnCalendar=… UTC` (vd `daily` → `*-*-* 22:00:00 UTC`) kèm chứng minh tính toán mốc gần nhất ≤ LAST thật, rồi nới P17 cho đúng 4 timer này; hoặc đổi giờ + sửa timer trong cùng một khối và chấp nhận rủi ro bắn bù đã tính. Cả hai là quyết định của Host/Owner.
+
+### (6) Trạng thái trước / sau
+| | Trước (22:44Z) | Sau (23:02Z) |
+|---|---|---|
+| Đĩa | 45% · trống 52,734GiB | 45% · trống 52,728GiB |
+| Container | 12; 10/10 healthy | 12; 10/10 healthy; StartedAt không đổi (không restart/recreate) |
+| Qdrant `production_documents` | green · 20.187 points · 1 snapshot | green · 20.187 points · 1 snapshot |
+| Web · Directus | 200 · ok | 200 · ok |
+| systemd failed | 4 (cloud-init, networkd-wait-online, config-drift-check, kuma-push) | 2 (cloud-init, networkd-wait-online) |
+| Múi giờ | Europe/Berlin (CEST) | Europe/Berlin (CEST) — không đổi |
+| Config Guard | DRIFT (mcp-compose) | CLEAN 34/34 |
+
+**4b — hai tính năng phải sống (kiểm cuối, không có lần đổi giờ nào):** Kuma → Telegram: container Kuma running/healthy; `/etc/cron.d/kuma-push` nguyên (`*/10`); `kuma-push.sh cron|disk` rc=0; đọc chỉ-đọc trên **bản sao** `kuma.db` (bind-mount phía host, không `docker cp`): #10 Cron Heartbeat và #11 Disk Usage có heartbeat **UP** mới lúc 23:01:54Z; `incomex-kuma-push.service` active. Không gửi Telegram thử. Backup Drive: sha256 cấu hình rclone hiện hành trước = sau; crontab root/incomex, `/etc/crontab`, `/etc/cron.d/*`, 13 file timer = bản chụp đầu phần 4 (không đổi); `rclone lsf` bằng cấu hình hiện hành rc=0; lượt phái cử 22:56Z `LAM TUOI XONG rc=0`; mount Drive trên Mac đọc được.
+
+### (7) Đường lùi + hồ sơ
+- Hồ sơ: `/var/lib/incomex-audit/VPSC-R4B-20260923/` (304K, ngoài Git). Lý do không dùng `/opt/incomex/work/vps-clean-20-9-26/R4b/`: `/opt/incomex/work` nằm trong cây git cục bộ đang theo dõi (không bị ignore) — đúng nhánh thay thế của PROMPT 0.4. Luật (h) sẽ tự xoá hồ sơ sau 30 ngày không đổi.
+- Phần 1: không có đường lùi (dấu vết của chìa đã chết).
+- Phần 2: `cd /opt/incomex && git revert 45d5bc3` (hoặc chép `vps-retention.sh.truoc-R4B`, sha256 kèm theo).
+- Phần 3: kuma-push không cần lùi (chỉ chạy lại oneshot). H1: `lui-h1.sh` trong hồ sơ (trả baseline cũ `5ead598…`, sẽ lại DRIFT như trước; không đụng runtime). Cổng cũng tự giữ bản trước ở rollback dir của config-guard.
+- Phần 4: không đổi gì nên không cần lùi. Bản chụp mọi lịch trước phần 4 + sha256: `p4-ban-cu/`; bảng quy đổi `41-bang-quy-doi.tsv` + công cụ tự kiểm `quy-doi.py`.
+
+---
+
 ## R4 — Khép việc · 22/09/2026 · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=workspace_* · KQ STOPPED · A3
 
 RUN_ID `VPSC-R4-20260922-01` · PROMPT@`f4d496e7393659be03635a33edb575d7d717c06b` — cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `OWNER_APPROVED@` + Host `READY@` cùng mã. Preflight 21:23Z: đĩa 45%, trống 52,761GiB; không có build/compose/pull đang chạy; 12 container, 10/10 healthcheck healthy; web 200; Directus ok; Qdrant green 20.187 points.
