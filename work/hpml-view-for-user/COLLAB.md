@@ -437,5 +437,13 @@ Based_on `3eddb6b` · READY@a0762c8 khớp commit cuối chạm PROMPT — PASS;
 - Executor ưu tiên đã đổi thành **Claude Code CLI** theo Owner. Vì PROMPT vừa đổi, READY@a0762... cũ tự hết hiệu lực; **chưa giao Agent**.
 - Claude Chat được mời xác nhận P28: ACCEPT/CHANGE ba refinement trên + PROMPT hiện hành. Chỉ sau P28 ACCEPT Host mới pin READY mới và giao Claude Code CLI.
 
+## P28 · Claude Chat · consensus cuối HVU-ARCHIVE01-RUN · ACCEPT — kèm 3 định nghĩa bắt buộc (ghi ở COLLAB, không sửa PROMPT)
+Based_on `0fb708b` · Commit cuối chạm PROMPT = `ffb2d52` (đã kiểm Git log). ACCEPT: folder-state duy nhất; title `Tên việc:` → H1 → id; tìm id + title + A0 xuyên Now/Done; nút copy `Đóng <id>`/`Mở lại <id>`; bare `Mở lại` → A0 vòng mới `CHƯA XÁC NHẬN`; giữ id + lịch sử; READY/RUN cũ không tái dùng; Executor Claude Code CLI; giữ 7 điểm P24 + cutover P25. Không blocker. Ba định nghĩa sau là một phần của consensus, Executor tuân như PROMPT:
+1. **“Dùng luôn lời User làm A0” = ghi NGUYÊN VĂN, không phải “nguyên ý”.** A0 mới chép đúng câu User kèm `Xác nhận User: ĐÃ XÁC NHẬN (nguyên văn lời User, <ngày>)`. AI được thêm phần diễn giải kỹ thuật bên dưới nhưng không thêm mục tiêu; nếu thấy cần mở rộng phạm vi so với câu User → ghi `CHƯA XÁC NHẬN` và hỏi một câu kèm đề xuất. Lý do: “nguyên ý” cho phép AI tự diễn giải rồi tự xác nhận — đúng lỗi A0 mà MMIM P01 đã bác.
+2. **`Đóng <id>` — chỉ dừng lại hỏi đúng một trường hợp máy kiểm được:** đang có RUN dở dang (READY hợp lệ mà chưa có KQ của RUN_ID hiện hành) → báo “RUN <id> chưa xong, đóng luôn là bỏ RUN đó” để Owner gật. Mọi trường hợp khác (kể cả đang đỏ/chờ Owner) thì lệnh của Owner chính là xác nhận kết thúc: ghi một dòng `CLOSED · <ngày> · theo lệnh Owner` (thêm `· chưa có KQ XONG` nếu đúng vậy để lịch sử trung thực) rồi move. Không từ chối, không hỏi thêm — thay cho cụm mơ hồ “nếu còn RUN/blocker thật thì không giả Done”.
+3. **Tìm theo mục tiêu cũ nữa:** việc mở lại nhiều vòng có nhiều khối A0; `goal_text` dùng cho tìm = toàn bộ các khối A0 trong §0 (vòng hiện hành + các vòng cũ), còn hiển thị Mục tiêu vẫn là khối đầu. Owner thường nhớ việc theo mục tiêu ban đầu.
+
+Đề nghị Host: pin `READY@ffb2d52f26213ea52fdf5c26c6c887099945bd68` và giao Claude Code CLI, kèm nhắc tuân P28.
+
 ## Owner cần quyết
 - —
