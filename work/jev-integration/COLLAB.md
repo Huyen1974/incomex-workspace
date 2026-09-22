@@ -345,3 +345,16 @@ HTML chính: `view.html`
 - CL2 (negative) không chạy ở Chat/Cowork: Host bỏ vì `FALSE_TRIGGER` đã đo tự động 0/10 ở Claude Code cùng skill.
 - Hai ghi chú của Agent: (1) PROMPT thiếu dòng `RUN_ID:` riêng — lỗi soạn của Host; không sửa PROMPT (mất READY), đóng việc bằng root `## Đã xong`. (2) Hai bản skill trong Claude Code (user + đồng bộ claude.ai) — giữ cả hai: nội dung giống hệt, 8/8 lượt đạt dùng bản user.
 - Theo `CLIENT-ACCEPTANCE.md` §H4: Claude Code PASS · Claude Chat PASS · Cowork PASS · Codex K1/K2 không lùi ⇒ **JEV CLIENT ACCEPTANCE (OpenAI + Claude) = DONE** ⇒ **đóng việc JEV 2026-09-22**.
+
+## KQ — JEV-B2-VERIFY-CODEX-20260922-01
+- `KQ@JEV-B2-VERIFY-CODEX-20260922-01 DỪNG` · 2026-09-22 07:13–07:25 UTC · Executor: Codex computer use trên Mac Owner.
+- Cổng đầu vào: đọc bản chung qua `workspace_*`, root `workspace`, HEAD `ea1df3e402221628d56225e145a91bb4b2e82959`; READY và commit cuối chạm PROMPT cùng là `8b1bd96769068cfe312b5a5bccb2ebe9c7a46d3c`. Clone Mac cũ được nhận diện và không dùng để thực thi/ghi.
+- T1: lần 1 ON · hành động không · lần 2 ON; kiểm bổ sung sau cả sáu bài thử, từ Cowork về Chat mới: ON. Không bật/tắt hay sửa cấu hình.
+- Chat: Q1 **skill không · evaluate không · không có lỗi công cụ hiển thị · không nói tham khảo JEV**; Q2 **skill có · evaluate có (1 call) · lỗi không · có nói tham khảo**; Q3 **skill không · evaluate không · lỗi không · không nói tham khảo**. Q1 chọn Y nhưng chỉ có khối suy nghĩ, không có khối đọc skill/tìm tool/evaluate; không được tính PASS chỉ vì chọn đúng.
+- Cowork: Q1 **skill có · evaluate có (1 call) · lỗi không · có nói tham khảo**; Q2 **skill có · evaluate có (1 call) · lỗi không · có nói tham khảo**; Q3 **skill không · evaluate không · lỗi không · không nói tham khảo**.
+- Bằng chứng: thao tác UI thật, mỗi câu đúng nguyên văn PROMPT và một phiên mới, Opus 5 Extra, đợi hoàn tất rồi mở khối hoạt động/Request/Response; đã chụp ảnh câu trả lời và khối công cụ để đối chiếu, không đưa ảnh vào repo. Không có yêu cầu xin quyền JEV trong cả sáu ca. Ba call có phản hồi TypeSafe thực: Chat Q2 trả đủ 5 nhãn; Cowork Q1 trả Y + risk_reject_clients=0.88; Cowork Q2 trả đủ 5 nhãn.
+- Định danh phiên để Host truy nguồn (không phải địa chỉ connector): Chat Q1 `bca4e545-b014-47ba-b9ce-fb939ff948f4`; Q2 `1dc9af8f-eb24-4db0-8882-f4adcc66aa29`; Q3 `91a47aa6-cf07-4a10-b36d-86e3168949ae`. Cowork Q1 `cse_01RkwrciKGaR8vdzZk6aqrCk`; Q2 `cse_01NChRGdqPxNmJKicUUSJeTk`; Q3 `cse_01WtZTVmPY4mkMXqnc5iF7Bf`.
+- Bất thường/giới hạn: **Chat Q1 bỏ qua JEV dù connector ON**; chưa xác định nguyên nhân, không quy thành lỗi kết nối vì Chat Q2 gọi thành công. Không thử lại để thay điểm, không sửa skill/connector theo giới hạn PROMPT §1. Không chạy lại Claude Code trong RUN này; kết quả 8/10, 0/10 phía trên thuộc lượt cũ.
+- FINAL: **FAIL** theo PROMPT §4 — T1 PASS; Chat chỉ 1/2 câu cần gọi, Q3 không gọi (đạt); Cowork 2/2 câu cần gọi, Q3 không gọi (đạt). Sáu ca đã chạy đủ; DỪNG nghiệm thu, chưa được đóng việc.
+- Đề xuất cho Host (chưa triển khai): đọc trace Chat Q1 và đối chiếu cơ chế nạp skill với Cowork Q1; xử lý riêng việc Chat không kích hoạt trước khi chạy lại đúng câu Q1 và kiểm hồi quy. V2 bộ đếm lượt dùng thật vẫn chưa triển khai, thuộc lượt tiếp theo trong mục Trạng thái; không suy từ lượt kiểm này rằng Claude luôn nhớ tham khảo JEV.
+- Áp: SAME_COMMIT.
