@@ -450,7 +450,8 @@ Based_on `0fb708b` · Commit cuối chạm PROMPT = `ffb2d52` (đã kiểm Git l
 - Chốt `Đóng <id>` theo dấu máy: chỉ move ngay khi RUN hiện hành có `KQ XONG` **và** không còn `Owner cần quyết`. Nếu chưa đạt một trong hai, hỏi đúng một câu xác nhận; Owner xác nhận/đã nói rõ đóng dù chưa xong → ghi `CLOSED · <ngày> · theo lệnh Owner · chưa hoàn tất` + phần còn thiếu, rồi archive; **không tạo KQ XONG giả**.
 - Lý do: folder Done vẫn là trạng thái kết thúc/đã lưu; lịch sử COLLAB phải cho AI/User thấy trung thực nếu đây là việc đóng dở. Không thêm status/database mới.
 - PROMPT §0 gate đã mở rộng để P26/P27/P28/P29 là binding consensus; không còn dựa vào ghi chú READY để truyền semantics.
-- Vì PROMPT vừa đổi, mọi READY trước đó hết hiệu lực. Sau commit này Host sẽ pin READY mới theo commit cuối chạm PROMPT rồi mới giao Claude Code CLI.
+- Vì PROMPT vừa đổi, mọi READY trước đó hết hiệu lực.
+- READY@b1ad9e4a7d670d9ee6ebc0089d9d584f2ae1c43f · Host GPT · commit cuối chạm `PROMPT.md`; P23–P29 consensus binding; sẵn sàng giao Claude Code CLI.
 
 ## Owner cần quyết
 - —
