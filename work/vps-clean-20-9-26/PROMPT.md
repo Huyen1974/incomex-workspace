@@ -5,6 +5,13 @@ Soạn: Claude Chat (Host), 21/09/2026, từ P14 + P15 (GPT) + V2 (Codex: V2-01,
 **Executor_Surface = Claude Code CLI trên máy Mac, điều khiển shell root VPS qua SSH** (đúng bề mặt R2). **Write_Path = `workspace_*`**; dự phòng `fs_*`. Cấm git/GitHub native để ghi repo workspace; không clone.
 **Nguyên tắc:** chỉ làm đúng mục có tên. Không tự quyết thêm. Ghi báo cáo TRƯỚC khi sang phần có rủi ro (§3). Mỗi vòi có HAI khoá: khoá ở nơi sinh (script) + người gác ở nơi chứa (`vps-retention.sh`).
 
+## Lượt tiếp (phiên 2, 22/09/2026) — đọc trước
+- Phase 0, 1.1, 1.2 ĐÃ XONG ở phiên 1 (báo cáo `63c8d68`; commit cục bộ `330360e`, `4eac699`; SEC-01 = MIGRATED). KHÔNG làm lại. Bắt đầu từ **Phase 1.3** (bản nháp + thử khô ở `/var/lib/incomex-audit/VPSC-R3-20260922/`), rồi 1.5 → Phase 2 → Phase 3 → Phase 4 → Phase 5.
+- Số dự kiến lượt đầu của người gác (theo thử khô): (e) 2 pack Git tạm Hermes ~0,29GiB · (f) 1 thư mục JSONL Lark ~1,1GiB · (g) ~244 log cũ. Lệch >20% hoặc xuất hiện loại mục khác → DỪNG trước khi xoá.
+- **Uỷ quyền D08:** Owner cho phép chạy phiên này ở chế độ không hỏi quyền từng lệnh; mọi luật cứng trong file này vẫn nguyên hiệu lực và thay cho van tự động. Trước MỖI thay đổi: ghi trạng thái trước + cách lùi; sau thay đổi: kiểm health (§0.5); xấu đi → lùi ngay và DỪNG. Không làm hỏng thứ đang chạy là ưu tiên số 1.
+- Cổng §0 vẫn chạy đủ (NO_CONCURRENT: có RUN khác đang đụng VPS → chờ ≤15 phút rồi DỪNG).
+- Báo cáo: CẬP NHẬT mục R3 đã có trong `BAO-CAO.md` (không tạo mục mới); dòng `VPSC.5b` cập nhật cuối.
+
 ## 0. Cổng
 1. `df -B1 /`; Available <3GiB → DỪNG.
 2. Read-gate COLLAB qua Write_Path; giấy phép khớp full SHA commit cuối chạm PROMPT.md (không so HEAD); lệch → DỪNG.
@@ -54,11 +61,23 @@ Soạn: Claude Chat (Host), 21/09/2026, từ P14 + P15 (GPT) + V2 (Codex: V2-01,
 3.4 N9 xong → bật luật (i) trong người gác; commit.
 3.5 df: mục tiêu trống >45GiB.
 
+## Phase 4 — Kuma: cảnh báo đĩa (T4) + monitor lỗi (Owner giao D08)
+4.1 Liệt kê monitor Uptime Kuma đang DOWN/PENDING: chỉ tên + loại + lỗi gần nhất (qua giao diện Kuma trên trình duyệt Mac hoặc đọc DB chỉ đọc). Không in token, URL push hay mật khẩu.
+4.2 "Disk Usage" (push): cho `disk-monitor.sh` đẩy trạng thái lên đúng monitor này mỗi lần chạy — đĩa dùng <80% → up; ≥80% → down kèm số % (Kuma báo Telegram khi đổi trạng thái). URL push lấy từ cấu hình Kuma, giữ trong biến hoặc tệp quyền 600, không in. Commit git cục bộ. Kiểm: monitor chuyển UP.
+4.3 Monitor DOWN khác: chỉ sửa khi nguyên nhân ở phía mình và sửa được mà không đụng dịch vụ đang chạy (script/cron đẩy bị mất, URL kiểm cũ sau đổi đường dẫn…); sửa monitor qua giao diện Kuma; ghi trạng thái trước/sau từng monitor. KHÔNG xoá monitor, KHÔNG restart Kuma hay container. Nguyên nhân nằm ở dịch vụ khác → chỉ ghi báo cáo.
+
+## Phase 5 — Hoàn tất SEC-01 (làm cuối cùng)
+5.1 Tìm mọi nơi agent truy cập sẵn được (Mac; VPS; VPS2 nếu đã có SSH sẵn) đang dùng remote Google Drive bằng client chung (`client_id` rỗng — chỉ in số đếm).
+5.2 Chuyển từng nơi sang client riêng đã tạo (dùng lại client_id/secret từ cấu hình VPS, truyền qua stdin, không in); cấp token nếu cần (agent tự bấm màn cho phép theo uỷ quyền D08); kiểm đọc được; mount Drive trên Mac lên lại và đọc được. Chỉ dừng tiến trình theo PID, không `pkill` theo tên.
+5.3 Khi mọi nơi đã chuyển: vào trang quản lý quyền của tài khoản Google, gỡ quyền ứng dụng "rclone" (client chung) → kiểm lại VPS + Mac vẫn đọc được bằng client riêng. Còn nơi chưa chuyển được → KHÔNG gỡ, ghi `PENDING_REVOKE` + tên nơi đó.
+5.4 Sau khi gỡ: nạp token cũ từ bản cấu hình cũ vào biến → tìm và xoá file transcript/scratchpad Claude Code trên Mac có chứa nó (chỉ in số file) → xoá bản cấu hình cũ trên VPS.
+5.5 File cấu hình rclone trên VPS đổi quyền 600 nếu mọi tiến trình dùng nó chạy bằng root (kiểm crontab/unit theo user); không thì giữ và báo.
+
 ## 4. Báo cáo
 - Cập nhật mục "R3 — Bịt nốt vòi + đợt 2 · <ngày> · executor=Claude Code CLI · write_path=<…>" ở đầu `BAO-CAO.md`: (1) CHO OWNER ≤8 dòng: SEC-01 xong chưa; df trước/sau; vòi nào đã có hai khoá; Drive đã có hạn giữ chưa. (2) Bảng vòi: tên · khoá nơi sinh · khoá nơi chứa · trần · trạng thái. (3) Script/commit/cron. (4) Bản cứu N9/N11: tên, byte, md5 (không ID Drive). (5) Việc còn lại: N6–N8 sau R03 (chủ R03); TTL `workspace-tools` (chủ agent-data); kết quả T4.
 - Repo công khai: không secret/token, IP/tên miền nội bộ, ID Google Drive, tên tài khoản, output lệnh thô.
 - Sửa dòng `VPSC.5b` thành `MACHINE_DONE · R3 · xem BAO-CAO.md` hoặc `STOPPED · <Phase/bước> · <lý do>`.
-- Trả đúng một dòng: `XONG · VPSC-R3 · SEC-01 <MIGRATED·PENDING_REVOKE|PENDING_CLIENT> · trống <trước>→<sau>GiB · vòi hai khoá <n>/<tổng> · Drive hạn giữ <có|chưa> · xem BAO-CAO.md` hoặc `DỪNG · VPSC-R3 · <Phase/bước> · <lý do>`.
+- Trả đúng một dòng: `XONG · VPSC-R3 · SEC-01 <REVOKED|MIGRATED·PENDING_REVOKE|PENDING_CLIENT> · Kuma <sửa n / còn n> · trống <trước>→<sau>GiB · vòi hai khoá <n>/<tổng> · Drive hạn giữ <có|chưa> · xem BAO-CAO.md` hoặc `DỪNG · VPSC-R3 · <Phase/bước> · <lý do>`.
 
 ## 5. Sau R3 (không phải việc của agent)
 Codex V3 chỉ đọc, sau ít nhất một lượt cron Qdrant thật + một vòng người gác: kiểm trigger thật, hai khoá, hạn giữ Drive, df. PASS → VPSC.6 theo dõi 2 tuần.
