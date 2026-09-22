@@ -4,7 +4,7 @@ Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
 ## Đang làm
-- `work/hpml-view-for-user/` · HVU-B3-CLEANUP · READY@`630a19e0c2a3f274137aff2f145d9311fb4e5f1a` · Executor Claude Code CLI; latest-only `Đang làm` + tên User ngắn + cleanup legacy + audit proxy/đường ghi.
+- `work/hpml-view-for-user/` · HVU-B3-CLEANUP · READY@`c9d44b3f93d055b2628af882aa954c414537e3f9` · Executor Claude Code CLI; latest-only không sống lại + tên User quen thuộc + cleanup legacy + audit proxy/đường ghi.
 - `work/jev-integration/` · PLAN-V01 · mở việc, đang lấy ý kiến hội đồng; chưa RUN triển khai.
 - `work/hermes-joint-workspace/` · HJW · Claude mở việc, chờ GPT review; nối Hermes khi R03 CLOSED.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
