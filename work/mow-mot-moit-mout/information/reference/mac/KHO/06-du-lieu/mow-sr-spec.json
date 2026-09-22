@@ -1,0 +1,71 @@
+{
+ "artifact": "mow-sr-spec",
+ "source": {
+  "ui_source": "mow-unified-canvas-v2.html",
+  "source_fetch": "?v=cache-bust",
+  "source_file_bytes": 112591
+ },
+ "sr_spec_hash": "fbac7e93",
+ "sr_spec_hash_full_sha256": "fbac7e937f90136c886faa2c354beeadc9caeca36a546966469dc42830a96fac",
+ "scan_id": "a1a3405232977a92745d086529821d2887bace5d427ec960d0cc1a3f044f6de6",
+ "SR_SPEC": {
+  "ui_id": "mow-unified-canvas-v2",
+  "ui_file": "mow-unified-canvas-v2.html",
+  "ui_roots": [
+   "def",
+   "TIERS",
+   "TLABEL",
+   "AVC",
+   "SLC",
+   "FC",
+   "TIPS",
+   "ICON_MAP"
+  ],
+  "fields": {
+   "node": [
+    "id",
+    "code",
+    "title",
+    "tl",
+    "auto",
+    "pc",
+    "p",
+    "ch",
+    "ai",
+    "t",
+    "inst",
+    "det",
+    "name"
+   ],
+   "inst": [
+    "av",
+    "name",
+    "sla",
+    "stl",
+    "prog"
+   ],
+   "det": [
+    "iu",
+    "type",
+    "sla",
+    "who",
+    "trigger",
+    "out",
+    "hist"
+   ]
+  },
+  "biz_roots": [
+   "D",
+   "NODES",
+   "T2_WORK",
+   "T1_DETAIL",
+   "HItems"
+  ],
+  "ignore_roots": [
+   "st",
+   "editSt",
+   "_addCtx",
+   "newNode"
+  ]
+ }
+}

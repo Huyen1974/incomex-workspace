@@ -1,0 +1,9 @@
+ma,pham_vi,nhom,mo_ta,vi_tri_source,occurrence,trang_thai
+moitmaster.app,RIENG_MOIT_MASTER,GIAO DIỆN,MOIT Master / Ứng dụng (toàn màn hình danh sách biểu mẫu MOIT đã đúc),moit-master-v1.html:10,SINGLE,BUILT
+moitmaster.topbar,RIENG_MOIT_MASTER,GIAO DIỆN,MOIT Master / Thanh đầu trang riêng,moit-master-v1.html:11,SINGLE,BUILT
+moitmaster.topbar.brand,RIENG_MOIT_MASTER,GIAO DIỆN,MOIT Master / Tên trang MOIT Danh sách,moit-master-v1.html:12,SINGLE,BUILT
+moitmaster.topbar.badge,RIENG_MOIT_MASTER,GIAO DIỆN,MOIT Master / Nhãn biểu mẫu đã đúc,moit-master-v1.html:12,SINGLE,BUILT
+moitmaster.topbar.open,RIENG_MOIT_MASTER,GIAO DIỆN,MOIT Master / Điều hướng tới tạo form MOIT,moit-master-v1.html:14,SINGLE,BUILT
+moitmaster.topbar.hub,RIENG_MOIT_MASTER,GIAO DIỆN,MOIT Master / Điều hướng tới Master tổng,moit-master-v1.html:15,SINGLE,BUILT
+moitmaster.content,RIENG_MOIT_MASTER,GIAO DIỆN,MOIT Master / Nội dung chính,moit-master-v1.html:17,SINGLE,BUILT
+moitmaster.list.host,RIENG_MOIT_MASTER,GIAO DIỆN,MOIT Master / Điểm gắn khuôn danh sách dùng chung,moit-master-v1.html:17,SINGLE,BUILT

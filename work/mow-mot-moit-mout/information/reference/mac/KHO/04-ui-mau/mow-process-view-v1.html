@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOW · Drawer quy trình — Khu A bảng 5 cột (v2)</title>
+<style>
+:root{--ink:#1d1d1f;--ink2:#3a3a3c;--ink3:#6e6e73;--ink4:#a1a1a6;--line:#e6e6e8;--line2:#ededf0;--bg:#f5f5f7;--card:#fff;--ok:#3b6d11;--okbg:#f2f8ea;--okline:#cfe3a8;--red:#c0392b;--amber:#7a5c00;--amberbg:#fff7e0}
+*{box-sizing:border-box}body{font-family:-apple-system,system-ui,'Be Vietnam Pro',sans-serif;background:#e9e9ec;color:var(--ink);margin:0;padding:20px}
+.drawer{max-width:1160px;margin:0 auto;background:var(--card);border-radius:16px;box-shadow:0 12px 48px rgba(0,0,0,.18);overflow:hidden}
+.dhd{padding:16px 22px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:10px}
+.dhd .code{font-family:ui-monospace,monospace;font-size:11px;color:var(--ink4)}
+.dhd .name{font-size:18px;font-weight:700;margin-top:2px}
+.dhd .x{margin-left:auto;color:var(--ink4);font-size:20px;cursor:pointer}
+.body{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;padding:18px 22px 22px}
+.zt{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.badge{margin-left:auto;font-size:11px;font-weight:600;color:var(--amber);background:var(--amberbg);border:1px solid #f0d68a;border-radius:7px;padding:3px 10px}
+.start{background:var(--okbg);border:1px solid var(--okline);border-left:3px solid #639922;border-radius:12px;padding:12px 14px;margin-bottom:16px}
+.start .lead{font-size:13px;font-weight:700;color:#2f5109;margin-bottom:9px}
+.start .row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mini{background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px 11px}
+.mini .k{font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ink4);margin-bottom:4px}
+.mini .v{font-size:12px;color:var(--ink3)}
+.seclbl{font-size:13px;font-weight:700;margin-bottom:6px}.seclbl .q{font-weight:500;color:var(--ink4);font-size:11.5px;margin-left:6px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead th{text-align:left;color:var(--ink4);font-size:10px;text-transform:uppercase;letter-spacing:.4px;font-weight:700;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:10px 10px;border-bottom:1px solid var(--line2)}
+tbody tr:hover{background:#fafafa}tbody tr:hover .macode{opacity:1}
+.macode{font-family:ui-monospace,monospace;font-size:10px;color:var(--ink4);opacity:0;margin-left:6px}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;cursor:help;vertical-align:middle;margin-right:5px}
+.flow{color:var(--ink2)}
+.buf td{color:var(--red)}
+.endrow{padding:9px 14px;font-size:11.5px;color:var(--ink3);background:#fafafa;border-radius:9px;margin-top:12px;display:flex;align-items:center;gap:8px}
+.endrow .lb{opacity:.55;text-transform:uppercase;letter-spacing:.4px;font-size:10px}
+.tots{display:flex;gap:10px;margin-top:12px}
+.tot{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 13px;font-size:11.5px}.tot b{font-size:14px}.tot .lb{color:var(--ink3)}
+.zb{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;align-self:start}
+.zb .h{font-size:15px;font-weight:700;margin-bottom:12px}
+.pl{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ink4);margin:14px 0 8px}
+.tier{display:flex;align-items:center;gap:11px;padding:5px 0}
+.tchip{font-size:10px;font-weight:700;color:#fff;background:#8a8a8e;border-radius:6px;padding:2px 7px;min-width:26px;text-align:center}
+.tier.q .tchip{background:#639922}.tier.q .nm{font-weight:700}.tier .ql{margin-left:auto;font-size:11px;color:#3b6d11;font-weight:600}
+.pg{display:inline-flex;font-family:ui-monospace,monospace;font-size:11px;color:var(--ink2);background:var(--bg);border-radius:6px;padding:3px 9px;margin:0 6px 6px 0}
+.legend{max-width:1160px;margin:12px auto 0;font-size:11.5px;color:var(--ink3);line-height:1.7}.legend b{color:var(--ink2);font-weight:600}
+</style>
+</head>
+<body>
+<div class="drawer" data-region="master.drawer.process">
+  <div class="dhd">
+    <div><div class="code">WF-0001</div><div class="name" data-region="master.drawer.process.title">Quy trình Nhập kho</div></div>
+    <div class="x">×</div>
+  </div>
+  <div class="body">
+    <!-- KHU A -->
+    <div>
+      <div class="zt">Quy trình vận hành <span class="badge" data-region="master.drawer.process.readiness.status">⚠ 7 điểm cần bổ sung để chạy</span></div>
+      <div class="start" data-region="master.drawer.process.start">
+        <div class="lead">▶ Bắt đầu quy trình</div>
+        <div class="row">
+          <div class="mini"><div class="k">Trigger khởi động</div><div class="v" data-region="master.drawer.process.start.trigger">Chưa có trong nguồn chuẩn (SSOT)</div></div>
+          <div class="mini"><div class="k">Điều kiện để chạy</div><div class="v" data-region="master.drawer.process.start.condition">Chưa chốt yêu cầu điều kiện</div></div>
+          <div class="mini"><div class="k">Hàng đợi đầu vào</div><div class="v" data-region="master.drawer.process.start.queue">Chưa có trong nguồn chuẩn (SSOT)</div></div>
+        </div>
+      </div>
+      <div class="seclbl">Công việc trong nhiệm vụ <span class="q">· theo đúng thứ tự vận hành · chỉ xem</span></div>
+      <table data-region="master.drawer.process.sequence">
+        <thead><tr><th style="width:32px">#</th><th>Tên việc</th><th style="width:56px" class="num">Phút</th><th style="width:140px">Chạy khi</th></tr></thead>
+        <tbody>
+          <tr data-region="master.drawer.process.task">
+            <td data-region="master.drawer.process.task.order" style="color:var(--ink4)">1</td>
+            <td data-region="master.drawer.process.task.name">Nhận yêu cầu<span class="macode" data-region="master.drawer.process.task.code">TSK-1042</span></td>
+            <td class="num" data-region="master.drawer.process.task.time.exec">5</td>
+            <td><span class="dot" style="background:#185FA5" title="TRG-01 · Có lệnh nhập kho" data-region="master.drawer.process.task.trigger.dot"></span><span class="flow" data-region="master.drawer.process.task.relation">ngay</span></td>
+          </tr>
+          <tr data-region="master.drawer.process.task">
+            <td style="color:var(--ink4)">2</td><td>Kiểm tra điều kiện<span class="macode">TSK-1043</span></td><td class="num">10</td>
+            <td><span class="dot" style="background:#185FA5" title="TRG-01 · Có lệnh nhập kho"></span><span class="flow">sau #1</span></td>
+          </tr>
+          <tr data-region="master.drawer.process.task">
+            <td style="color:var(--ink4)">3</td><td>Nhập kho thực tế<span class="macode">TSK-1044</span></td><td class="num">30</td>
+            <td><span class="dot" style="background:#BA7517" title="TRG-07 · Lịch 06:00"></span><span class="flow">ngay</span></td>
+          </tr>
+          <tr class="buf" data-region="master.drawer.process.task">
+            <td style="font-weight:700">B</td><td>Chờ kiểm đếm <span style="font-size:10.5px">(dự phòng)</span></td><td class="num">15</td>
+            <td>chỉ tính giờ · không làm</td>
+          </tr>
+          <tr data-region="master.drawer.process.task">
+            <td style="color:var(--ink4)">4</td><td>Phát tín hiệu hoàn thành<span class="macode">TSK-1045</span></td><td class="num">1</td>
+            <td><span class="dot" style="background:#185FA5" title="TRG-01 · Có lệnh nhập kho"></span><span class="flow">sau #3</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="endrow" data-region="master.drawer.process.exit">
+        <span class="lb">◀ kết thúc quy trình · trigger ra</span>
+        <span class="dot" style="background:#1D9E75" title="TRG-12 · Sang bước xuất kho" data-region="master.drawer.process.exit.trigger.dot"></span>
+        <span data-region="master.drawer.process.exit.trigger">Phát tín hiệu sang quy trình Xuất kho</span>
+      </div>
+      <div class="tots" data-region="master.drawer.process.totals">
+        <div class="tot" data-region="master.drawer.process.totals.accumulated"><span class="lb">Cộng dồn</span> <b>61'</b> <span style="color:var(--ink4)">(dự phòng 15')</span></div>
+        <div class="tot" data-region="master.drawer.process.totals.assigned"><span class="lb">Chỉ định</span> <b>60'</b></div>
+      </div>
+    </div>
+    <!-- KHU B (giữ nguyên) -->
+    <div class="zb" data-region="master.drawer.support">
+      <div class="h">Hỗ trợ vận hành</div>
+      <div class="pl">Đường dẫn 7 tầng + tên cụ thể</div>
+      <div data-region="master.drawer.support.hierarchy">
+        <div class="tier"><span class="tchip">T7</span><span class="nm">Sản xuất</span></div>
+        <div class="tier"><span class="tchip">T6</span><span class="nm">Incomex Sài Gòn</span></div>
+        <div class="tier"><span class="tchip">T5</span><span class="nm">Khối Vận hành SG</span></div>
+        <div class="tier"><span class="tchip">T4</span><span class="nm">P. Kho SG</span></div>
+        <div class="tier"><span class="tchip">T3</span><span class="nm">CM Xuất nhập kho</span></div>
+        <div class="tier q"><span class="tchip">T2</span><span class="nm">QT Nhập kho</span><span class="ql">node quản lý</span></div>
+        <div class="tier"><span class="tchip">T1</span><span class="nm">·</span></div>
+        <div class="tier"><span class="tchip" style="background:#c7c7cc">Tên</span><span class="nm">Quy trình Nhập kho</span></div>
+      </div>
+      <div class="pl">Bảng PG kết nối</div>
+      <div data-region="master.drawer.support.pg_tables"><span class="pg">workflow_template</span><span class="pg">workflow_task_membership</span></div>
+    </div>
+  </div>
+</div>
+<div class="legend"><b>Khu A gọn (5 cột, mã ẩn):</b> STT · Tên việc · Phút · Chạy khi (+ mã hiện khi di chuột). Chấm cùng màu = chung trigger, di chuột → mã+tên trigger (SSOT); “ngay/sau #n” = thời điểm; dòng <span style="color:var(--red)">đỏ</span> = dự phòng. Chi tiết từng việc (trigger/điều kiện/hàng đợi/tín hiệu/3 vai/bản ghi) đẩy vào LỚP TRONG — bấm việc mới xem.</div>
+</body>
+</html>
