@@ -1,0 +1,97 @@
+{
+  "bodyOverflow": false,
+  "capabilityRows": [
+    {
+      "cells": 6,
+      "fit": "PLAUSIBLE",
+      "name": "Identity / version"
+    },
+    {
+      "cells": 6,
+      "fit": "PLAUSIBLE",
+      "name": "Reuse / search"
+    },
+    {
+      "cells": 6,
+      "fit": "PLAUSIBLE",
+      "name": "Definition CRUD / versioning"
+    },
+    {
+      "cells": 6,
+      "fit": "PLAUSIBLE",
+      "name": "Binding / parameters"
+    },
+    {
+      "cells": 6,
+      "fit": "PLAUSIBLE",
+      "name": "Context resolution"
+    },
+    {
+      "cells": 6,
+      "fit": "PLAUSIBLE",
+      "name": "Permission"
+    },
+    {
+      "cells": 6,
+      "fit": "PLAUSIBLE",
+      "name": "Validation / diff"
+    },
+    {
+      "cells": 6,
+      "fit": "PLAUSIBLE",
+      "name": "AUTO executor"
+    },
+    {
+      "cells": 6,
+      "fit": "PLAUSIBLE",
+      "name": "Input / form"
+    },
+    {
+      "cells": 6,
+      "fit": "UNKNOWN",
+      "name": "Runtime Instance / Attempt"
+    },
+    {
+      "cells": 6,
+      "fit": "UNKNOWN",
+      "name": "Durable wait / resume"
+    },
+    {
+      "cells": 6,
+      "fit": "UNKNOWN",
+      "name": "Retry / idempotency"
+    },
+    {
+      "cells": 6,
+      "fit": "PLAUSIBLE",
+      "name": "Event / correlation"
+    },
+    {
+      "cells": 6,
+      "fit": "UNKNOWN",
+      "name": "Audit / observation"
+    }
+  ],
+  "decisionCells": 4,
+  "fea01": "FEA-F01RELATION_INTEGRITY_GAPE02: Directus có relation metadata cho workflow tables, nhưng pg_constraint mẫu của workflows / workflow_steps / workflow_step_relations chỉ trả 1 PK, không FK.PG canonical core; Directus relation façade; where-used / impact / retire an toàn.Rủi ro: impact analysis dựa trên metadata text thay vì integrity thật → sửa hoặc retire một object có thể phá quan hệ mà không nơi nào chặn.Không kết luận mọi Directus relation bắt buộc phải có FK vật lý — hai lớp có vai trò khác nhau. Luật: material canonical relation phải có hard integrity ở PG hoặc một contract tương đương được PM chấp thuận, và quan hệ phục vụ where-used/impact/retire phải machine-queryable, không chỉ là metadata text. Không thêm FK production ở Gate0. Bounded mapping/FK ở A/B đã PM ACCEPT; hard integrity và migration model toàn hệ vẫn cần Gate3–4. Owner: PM · Gate3–4 · OPEN full coverage, không Gate0 blocker",
+  "ids": 333,
+  "title": "Cấu trúc hệ thống — Bức tranh cho Owner · v1.6.14",
+  "uiCells": [
+    {
+      "cells": 3,
+      "id": "u02"
+    },
+    {
+      "cells": 3,
+      "id": "u03"
+    },
+    {
+      "cells": 3,
+      "id": "u04"
+    }
+  ],
+  "viewport": {
+    "height": 720,
+    "width": 1280
+  }
+}

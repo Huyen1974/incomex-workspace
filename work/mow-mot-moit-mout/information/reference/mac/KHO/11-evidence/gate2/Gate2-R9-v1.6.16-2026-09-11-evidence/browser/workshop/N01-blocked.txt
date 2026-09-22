@@ -1,0 +1,188 @@
+Browser tab: 2, Title: "Gate2 · Workshop quy trình thời lượng", URL: "http://127.0.0.1:8890/".
+1 AXWebArea Gate2 · Workshop quy trình thời lượng, URL: 127.0.0.1:8890/
+	2 container master-root
+		3 container
+			4 text GATE2 · WORKSHOP THIẾT KẾ · 11/09/2026
+			5 heading Từ ý tưởng đến quy trình có thể vận hành, Value: 1
+				6 text Từ ý tưởng đến quy trình có thể vận hành
+			7 text Một gói ngữ cảnh, năm góc nhìn. Dữ liệu và quyết định dưới đây đều là mô phỏng. Gate1: PM ACCEPT / DONE về phân vai UI · Gate2: SUBMITTED / PM REVIEW · D04: WAITING OWNER trước Gate3 / Pilot giao việc thật · O1–O3: NOT VERIFIED.
+		8 container Điều khiển workshop
+			9 text Tình huống kiểm tra
+			10 pop up button (collapsed, settable) Tình huống kiểm tra, Value: N01 · Tìm chưa đủ / nghĩa mơ hồ, ID: scenario, Secondary Actions: Expand
+				11 menu
+					12 Happy path · từ ý tưởng đến cải tiến
+					13 (selected) N01 · Tìm chưa đủ / nghĩa mơ hồ
+					14 N02 · Thiếu nguyên liệu
+					15 N03 · Bản cũ / xung đột
+					16 N04 · Caller không đủ quyền
+					17 N05 · Thiếu assignee / ủy quyền hết hạn
+					18 N06 · Kiểm thử không đạt
+					19 N07 · Duyệt bị từ chối / hết hạn
+					20 N08 · AUTO lỗi / retry
+					21 N09 · Thiếu output
+					22 N10 · Deactivate / retire còn where-used
+			23 button Bắt đầu tình huống, ID: reset
+			24 text Điều khiển này dành cho người diễn tập; không phải thao tác runtime của người dùng.
+		25 container Description: Ngữ cảnh chung, ID: context
+			112 text Ghi nhận và tổng hợp thời lượng xử lý
+			113 text TEST.MOW.duration-001  · MOW
+			114 text TEST.PKG.duration-001
+			115 text v1 · revision 1
+			116 text TEST.ops
+			117 text Owner: TEST.owner.mow
+			118 text Quay lại đúng gói
+			119 text P02 / TEST.MOW.duration-001 / gói đang rà
+			120 text Kế hoạch pin TEST.RELEASE.duration-v1
+		35 container Description: Năm pattern dùng chung, ID: patterns
+			121 checkbox P01 · Thư viện / Master, Value: 1
+			122 checkbox P02 · Không gian rà soát, Value: 0
+			123 checkbox P03 · Editor đúng owner, Value: 0
+			124 checkbox P04 · Bàn làm việc runtime, Value: 0
+			125 checkbox P05 · Vòng đời / Help / phản hồi, Value: 0
+		41 container
+			126 text N01 · BƯỚC 2/19
+			43 heading Tìm và đối chiếu nguyên liệu, Value: 2, ID: stage-title
+				127 text Tìm và đối chiếu nguyên liệu
+			128 text Catalog exact + near, completeness và where-used; chưa đủ nguồn thì không kết luận none.
+			129 text Máy · mô phỏng
+		130 container error
+			131 heading N01 · INCOMPLETE_SEARCH / AMBIGUOUS, Value: 3
+				132 text N01 · INCOMPLETE_SEARCH / AMBIGUOUS
+			133 text Nguồn catalog thứ hai timeout; hai alias cùng tên khác đơn vị. Không được tạo mới từ kết quả này.
+			134 container
+				135 text Máy:  Máy thử lại nguồn có quyền, so subject/unit; nếu vẫn còn hai nghĩa hợp lệ thì hỏi H2 shortlist.
+			136 container
+				137 text Resume:  Giữ intent/package; quay lại search có completeness và lý do chọn.
+			138 button Chọn nghĩa minute sau khi nguồn đã đủ (H2 · TEST), ID: repair
+		139 container
+			140 heading Nguyên liệu đã tìm trong phạm vi TEST, Value: 3
+				141 text Nguyên liệu đã tìm trong phạm vi TEST
+			142 text Nguồn fixture đầy đủ trong lượt happy; không phải kết quả tìm toàn hệ production. Exact không có nghĩa mọi quyền/lifecycle đều đã phù hợp. Tìm thủ công (tùy chọn) 
+			143 text field (settable) Tìm thủ công (tùy chọn) , ID: catalog-search
+			144 table
+				145 row
+					146 cell
+						147 text NGUYÊN LIỆU
+					148 cell
+						149 text FAMILY · VERSION
+					150 cell
+						151 text KẾT QUẢ
+					152 cell
+						153 text NGHĨA / DÙNG TẠI
+				154 row
+					155 cell
+						156 text Thời lượng dự kiến
+						157 text field.so_phut
+					158 cell
+						159 text Field · v1
+					160 cell
+						161 text exact
+					162 cell
+						163 text task · integer · minute · input
+						164 text Where-used: TEST.MOIT.duration-v1, TEST.MOT.capture-v1
+				165 row
+					166 cell
+						167 text Ngày tạo hệ thống
+						168 text field.ngay_lap
+					169 cell
+						170 text Field · v1
+					171 cell
+						172 text exact
+					173 cell
+						174 text record · timestamp · server-created
+						175 text Where-used: TEST.MOIT.duration-v1
+				176 row
+					177 cell
+						178 text Ghi chú
+						179 text field.ghi_chu
+					180 cell
+						181 text Field · v1
+					182 cell
+						183 text exact
+					184 cell
+						185 text task · text · input
+						186 text Where-used: TEST.MOIT.duration-v2
+				187 row
+					188 cell
+						189 text Form ghi thời lượng
+						190 text TEST.MOIT.duration
+					191 cell
+						192 text MOIT · v1
+					193 cell
+						194 text exact
+					195 cell
+						196 text form layout + field bindings
+						197 text Where-used: TEST.MOT.capture-v1
+				198 row
+					199 cell
+						200 text Kết quả tổng hợp thời lượng
+						201 text TEST.MOUT.duration
+					202 cell
+						203 text MOUT · v1
+					204 cell
+						205 text exact
+					206 cell
+						207 text read-only result reference
+						208 text Where-used: TEST.MOT.summary-v1
+				209 row
+					210 cell
+						211 text Yêu cầu đã được nộp
+						212 text TEST.TRIGGER.submitted
+					213 cell
+						214 text Trigger · v1
+					215 cell
+						216 text exact
+					217 cell
+						218 text business event definition ≠ occurrence
+						219 text Where-used: TEST.MOW.duration-v1
+				220 row
+					221 cell
+						222 text Quy tắc người thực hiện TEST
+						223 text TEST.NTGV.ops
+					224 cell
+						225 text NTGV · v1
+					226 cell
+						227 text exact
+					228 cell
+						229 text synthetic rule; D04 chưa Owner ACCEPT
+						230 text Where-used: TEST.MOT.capture-v1
+				231 row
+					232 cell
+						233 text Thời lượng lớn hơn 60 phút
+						234 text TEST.COND.over60
+					235 cell
+						236 text Condition · v1
+					237 cell
+						238 text Thiếu — request owner
+					239 cell
+						240 text field.so_phut > 60 minute
+						241 text Where-used: TEST.MOW.duration-v1
+		85 container
+			242 text Bước tiếp bị chặn. Xem nguyên nhân và đường phục hồi ở trên.
+			87 button (disabled) Diễn bước máy: tìm nguyên liệu, ID: advance
+		88 container
+			89 heading Số đo của lượt diễn tập, Value: 2
+				90 text Số đo của lượt diễn tập
+			91 container metrics
+				243 text 0
+				244 text Quyết định H1–H5
+				245 text 0
+				246 text Nộp HMITL
+				247 text 0
+				248 text Chuyển màn tùy chọn
+				249 text 0
+				250 text Tìm tay
+				251 text 0
+				252 text Nhập raw ID
+				253 text 0
+				254 text Nhập lại máy biết
+				255 text 0
+				256 text Tool stage mô phỏng
+				257 text 0
+				258 text Mất context
+			108 text Đếm hành vi trong prototype. Nút “Diễn bước máy” mô phỏng tool call và được tính riêng; chưa đo hiệu suất Agent hoặc người dùng production.
+		109 button (collapsed) Đối chiếu kỹ thuật: ngữ cảnh, trace và giới hạn, Secondary Actions: Expand
+			110 text Đối chiếu kỹ thuật: ngữ cảnh, trace và giới hạn
+		111 text Chủ sở hữu dữ liệu đích là PG và các cổng được quản trị. Mọi nội dung trên trang này là TEST ONLY, kể cả chữ “đạt”, “đã duyệt” hoặc “hoàn thành”.
+
+The focused UI element is 23 button Bắt đầu tình huống, ID: reset

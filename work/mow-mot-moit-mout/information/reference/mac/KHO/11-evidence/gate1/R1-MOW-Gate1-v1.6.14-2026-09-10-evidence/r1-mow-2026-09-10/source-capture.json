@@ -1,0 +1,72 @@
+[
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-v1.html",
+    "effective_url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-v1.html",
+    "status": 200,
+    "tls_verify_result": 0,
+    "bytes": 3246,
+    "sha256": "aa67c272c9c40ece17c827435715e5a9417d679f4d4d487ba20e490c729866aa",
+    "file": "source/mow-master-v1.html",
+    "utc": "2026-09-10T10:40:36.860188+00:00"
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-process-draft-v1.html",
+    "effective_url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-process-draft-v1.html",
+    "status": 200,
+    "tls_verify_result": 0,
+    "bytes": 5300,
+    "sha256": "6bce690c20312c60f7bd09aa53f8749b60371f2253ccf864c9f95e415d273951",
+    "file": "source/mow-process-draft-v1.html",
+    "utc": "2026-09-10T10:40:36.863124+00:00"
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html",
+    "effective_url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html",
+    "status": 200,
+    "tls_verify_result": 0,
+    "bytes": 5017,
+    "sha256": "84b4fb60a48a9ea85973801ae444fc4837b4a34b79bb1a99fc6de7f31e1d0ca9",
+    "file": "source/mow-master-nhap2-v1.html",
+    "utc": "2026-09-10T10:40:36.877018+00:00"
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-list-quy-trinh-v1.html",
+    "effective_url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-list-quy-trinh-v1.html",
+    "status": 200,
+    "tls_verify_result": 0,
+    "bytes": 5931,
+    "sha256": "f81b7d4f8b35ea86aa03c2fc6d5d0c51a3c78b23cc3b2b2ef9698002d3bce3d7",
+    "file": "source/master-list-quy-trinh-v1.html",
+    "utc": "2026-09-10T10:40:37.812759+00:00"
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html",
+    "effective_url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html",
+    "status": 200,
+    "tls_verify_result": 0,
+    "bytes": 154935,
+    "sha256": "9693149f28d2578e5cf88ab853be38c6b51476613f31332f217d6e9d62b9a1b2",
+    "file": "source/mow-unified-canvas-v2.html",
+    "utc": "2026-09-10T10:40:38.935184+00:00"
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modw-builder-v1.html",
+    "effective_url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/modw-builder-v1.html",
+    "status": 200,
+    "tls_verify_result": 0,
+    "bytes": 22028,
+    "sha256": "452ccdb828a18877ca1bb9658a32e44206e7ae7bd5236c830a5ac60606ffb8dc",
+    "file": "source/modw-builder-v1.html",
+    "utc": "2026-09-10T10:40:38.437009+00:00"
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/admin-new-modt?tang=T2",
+    "effective_url": "https://vps.incomexsaigoncorp.vn/admin-new-modt?tang=T2",
+    "status": 200,
+    "tls_verify_result": 0,
+    "bytes": 229634,
+    "sha256": "00db08d7c82d9abb3c4b2ecc0f1ba4c72281f51dfca55296355daf9f84175d9e",
+    "file": "source/admin-new-modt.html",
+    "utc": "2026-09-10T10:40:58.200365+00:00"
+  }
+]

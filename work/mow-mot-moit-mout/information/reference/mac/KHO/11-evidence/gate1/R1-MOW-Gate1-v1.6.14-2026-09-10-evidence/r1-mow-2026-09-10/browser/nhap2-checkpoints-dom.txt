@@ -1,0 +1,175 @@
+MOW · Danh sách
+NHÁP 2 · sắp xếp lại
+Nháp 1 (giữ nguyên) →
+Bản thật →
+NHÁP 2 — ngắn gọn bằng cách sắp xếp lại. Không cắt nghiệp vụ. Drawer chỉ trả lời 3 câu; quy trình, dữ liệu và bằng chứng nằm ở Mặt bàn.
+CHƯA PHÁT HÀNH · 1/14
+Mở mặt bàn Nháp 2
+MOW — Danh sách quy trình đã đúc
+Mọi quy trình MOW sinh ra đều đăng ký tại đây, neo vào cây 7 tầng.  ·  7 quy trình · 5 đang chạy  ·  ✎ đầu dòng = sửa khuôn
+NHÁP 2: sắp xếp lại cho ngắn gọn; không cắt bất kỳ nghiệp vụ thực tế nào.
+＋ Tạo quy trình (MOW)
+⌕
+Mọi trạng thái
+Đang chạy
+Tạm dừng
+Lưu trữ
+Mọi vai trò
+Đủ vai trò
+Thiếu vai trò
+Bảng
+Theo cây 7 tầng
+Help
+Mặt bàn Nháp 2
+Lĩnh vực: tất cả
+Dịch vụ
+Sản xuất
+Thương mại
+Công ty: tất cả
+Incomex Cần Thơ
+Incomex Sài Gòn
+Incomex Tân Bình
+Khối: tất cả
+Khối Hỗ trợ CT
+Khối Kinh doanh TB
+Khối Tài chính SG
+Khối Vận hành SG
+Phòng ban: tất cả
+P. Bán hàng TB
+P. Kế toán SG
+P. Kho SG
+P. Nhân sự CT
+P. QC SG
+P. XNK TB
+Chuyên môn: tất cả
+CM Bán hàng
+CM Khai hải quan
+CM Kiểm tra CL
+CM Thu chi
+CM Tiền lương
+CM Xuất nhập kho
+Nhiệm vụ: tất cả
+QT Bán hàng B2B
+QT Kiểm tra CL
+QT Nhập kho
+QT Thu chi
+QT Tính lương
+QT Xuất khẩu
+Công việc: tất cả
+SỬA	#	MÃ	TÊN	CHUYÊN MÔN (T3)	NHIỆM VỤ (T2)	CÔNG VIỆC (T1)	MÁY / MỤC TIÊU	
+Vai trò
+?
+	TRẠNG THÁI	
+✎	1	WF-0001	Quy trình Nhập kho	CM Xuất nhập kho	QT Nhập kho	4	50% / 75%	✓	
+Đang chạy	mở chi tiết ›
+✎	2	WF-0002	Quy trình Bán hàng B2B	CM Bán hàng	QT Bán hàng B2B	5	50% / 75%	Thiếu (3)	
+Đang chạy	mở chi tiết ›
+✎	3	WF-0003	Quy trình Kiểm tra chất lượng	CM Kiểm tra CL	QT Kiểm tra CL	3	50% / 75%	Thiếu (2)	
+Đang chạy	mở chi tiết ›
+✎	4	WF-0004	Quy trình Xuất khẩu	CM Khai hải quan	QT Xuất khẩu	6	50% / 75%	Thiếu (1)	
+Tạm dừng	mở chi tiết ›
+✎	5	WF-0005	Quy trình Tính lương	CM Tiền lương	QT Tính lương	6	50% / 75%	✓	
+Đang chạy	mở chi tiết ›
+✎	6	WF-0006	Quy trình Thu chi	CM Thu chi	QT Thu chi	3	50% / 75%	Thiếu (3)	
+Đang chạy	mở chi tiết ›
+✎	7	WF-0007	Quy trình Kho tổng (phòng)	·	·	2	50% / 75%	Thiếu (1), (2), (3)	
+Lưu trữ	mở chi tiết ›
+Mặt bàn thiết kế Nháp 2
+
+Yêu cầu → quy trình → rồi mới tới hợp đồng, bảng, UI và mã.
+
+×
+1 trang chốt
+Luồng nghiệp vụ
+Dữ liệu & sự kiện
+Vận hành
+14 checkpoint
+Tổ chức & archive
+Một cổng, hai lớp: 10 luật nghiệp vụ máy kiểm + 14 checkpoint bằng chứng. Thiếu một lớp đều không phát hành.
+10 luật nghiệp vụ A1–B10
+LUẬT	CANH ĐIỀU GÌ	NẰM Ở ĐÂU	KẾT QUẢ MẪU
+A1	Việc hỏng có đường đi
+Mỗi ACTION có failure mode; dừng phải có người nhận, chuyển sự cố phải trỏ quy trình ACTIVE.	contract.steps[].failure + workflow failure targets	Đạt
+A2	Bàn giao liên quy trình
+Khớp signal, mang FK bản ghi, bắt buộc ACK và có trạng thái WAITING_ACK nhìn thấy được.	contract.handoff + runtime handoff state	Đạt
+A3	Dữ liệu đầu vào từng bước
+Mỗi input trỏ output của bước nguồn; thiếu thì BLOCK_AND_NOTIFY tới người có trách nhiệm.	steps[].required_inputs/outputs	Đạt
+A4	Nhân bản và bật lại an toàn
+Đối chiếu đủ tập bước, hash hành vi và bằng chứng compatibility khi rollback.	clone_proof	Đạt
+A5	Đủ ba dấu có bằng chứng
+Business + Technical + Legal; dấu kỹ thuật phải trỏ verification run và suite version.	approvals[]	Đạt
+B6	Từ chối có đường về hữu hạn
+Approval quay về bước định trước; quá max_rounds chuyển người quản lý.	approval step.reject	Đạt
+B7	Tỷ lệ tự động hóa tính được
+Thực tế 50% (2/4), mục tiêu 75%; loại WAIT_ONLY khỏi mẫu số.	actor_kind của bước + desired_automation_ratio	Đạt
+B8	WAIT_ONLY không sinh việc giả
+WAIT_ONLY có phút, không actor, không input và không xuất hiện trong dependency edge.	step.kind=WAIT_ONLY	Đạt
+B9	Có một sổ việc nằm im
+Một view gom đủ 5 loại kẹt; mỗi dòng có owner và tuổi, có fallback owner cấp quy trình.	MOW.VIEW.STALLED_WORK	Đạt
+B10	Mã người đặt đọc được
+Mã đối tượng do máy cấp. Mã người đặt theo SCOPE.TYPE.NAME, ví dụ MOW.RULE.FAILURE · MOW.EVT.STEP_ASSIGNED; chỉ chứa thuộc tính bất biến.	component_codes	Đạt
+
+Thử cổng phát hành
+
+14 checkpoint bằng chứng
+1/14 điểm đang có bằng chứng trong dữ liệu mẫu. “Chờ nguồn” không được coi là đạt.
+MÃ	CÂU HỎI	CHỦ	BẰNG CHỨNG HIỆN TẠI
+R01	Định danh không trùng
+Mã quy trình, phiên bản và bước có duy nhất không?	MOW	Đạt
+7 mẫu đang có mã riêng.
+R02	Một bản đang chạy
+Mỗi quy trình chỉ có đúng một phiên bản ACTIVE không?	MOW	Chờ nguồn
+Dữ liệu mẫu chưa có registry phiên bản thật.
+R03	Bước đủ thông tin
+Mỗi bước có tên, loại, thứ tự và thời gian chuẩn không?	MOW	Chờ nguồn
+Bảng xem có dữ liệu mẫu; SSOT chưa nối.
+R04	Quan hệ không vòng
+Mọi nối tiếp/song song/fan-in có cạnh thật và không tạo vòng không?	MOW	Chờ nguồn
+Phải có step_dependency; không lưu danh sách trong một ô.
+R05	Điểm bắt đầu
+Trigger, điều kiện và hàng đợi lúc vào đã rõ chưa?	MOW	Chờ nguồn
+UI đang báo chỗ chờ.
+R06	Đầu vào/đầu ra thật
+Mỗi dữ liệu nghiệp vụ có khóa ngoại thật tới bản ghi nguồn không?	MOT/MOIT/MOUT	Chờ nguồn
+Không dùng mã tổng quát hay text giả khóa ngoại.
+R07	Đúng một người nhận việc
+Công việc có được đẩy tới đúng người/agent, không tranh việc ở hàng đợi chung không?	MOT + nguồn người	Chờ nguồn
+Nguồn người chính thức chưa chốt.
+R08	Ba vai người
+Thực hiện, báo cáo và làm thay đã xác định chưa?	Nguồn người	Chờ nguồn
+Chỉ giữ mã người; hồ sơ người do hệ ngoài quản.
+R09	Thời gian đủ nghĩa
+Có phút chuẩn, phút đệm và mốc hạn để so với thực tế không?	MOW/MOT	Chờ nguồn
+Khái niệm đã tách; dữ liệu thật chưa nối.
+R10	Chạy lặp an toàn
+Retry, timeout và chống chạy trùng đã có quy tắc không?	Engine	Chờ nguồn
+Phải chứng minh bằng test trước phát hành.
+R11	Dừng và phục hồi
+Tạm dừng, hủy, làm lại và quay về có đường an toàn không?	Engine	Chờ nguồn
+Không suy trạng thái hiện tại từ log.
+R12	Quyền và thay đổi
+Ai được sửa, duyệt, phát hành và chuyển phiên bản đã rõ chưa?	MOW	Chờ nguồn
+Đã chừa hợp đồng change/approve/verify; chưa gán quyền thật.
+R13	Sự kiện đủ phân tích
+Mỗi lần đổi quan trọng có ai, lúc nào, kết quả, lý do và trước/sau không?	Engine	Chờ nguồn
+Đã chốt cấu trúc sổ sự kiện; engine chưa ghi thật.
+R14	Chứng minh đầu-cuối
+Đã chạy thử từ trigger tới kết quả và đối chiếu tải người chưa?	Vận hành	Chờ nguồn
+Cần test với dữ liệu thật và nguồn người thật.
+×
+4 MẸ
+MOW
+▾
+Quy trình
+MOT
+▾
+Công việc
+MOIT
+▾
+Nhập liệu
+MOUT
+▾
+Báo cáo
+Master
+▾
+Tổng 4 Mẹ

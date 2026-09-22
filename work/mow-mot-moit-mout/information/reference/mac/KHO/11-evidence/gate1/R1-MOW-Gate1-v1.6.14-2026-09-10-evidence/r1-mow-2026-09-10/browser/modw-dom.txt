@@ -1,0 +1,156 @@
+MODW
+biến MOW thành chạy được · v1
+MOW canvas
+Danh sách MOW
+MODW — công cụ biến một node MOW thành chạy được
+
+Đề xuất nâng cao của MOW: lắp một node ở bất kỳ tầng T1–T7, chốt bố (T trên nó), người thực hiện & người nhận báo cáo (tự đọc bộ phận từ bảng nhân sự), lưu ở kho nào, và thời gian. Thiết kế chung mọi tầng — T2/T1 dùng nhiều nhất.
+
+1
+NODE & TẦNG
+Tên node
+Tầng
+T7 · Lĩnh vực
+T6 · Công ty
+T5 · Khối
+T4 · Phòng ban
+T3 · Chuyên môn
+T2 · Nhiệm vụ
+T1 · Công việc
+2
+BỐ (T TRÊN NÓ)
+T7 không có bố
+Bố (T3)
+CM Xuất nhập kho
+Chốt quan hệ cha-con → hệ thống tự suy cả đường lên Lĩnh vực.
+3
+NGƯỜI THỰC HIỆN
+có thể nhiều · tự đọc bộ phận
+Tâm
+Kho
+×
+Huyền
+Kho
+×
+＋ Thêm người thực hiện
+4
+NGƯỜI NHẬN BÁO CÁO
+có thể nhiều
+Dũng
+QC
+×
+＋ Thêm người nhận
+5
+LƯU Ở BẢNG NÀO (KHO)
+1 bảng = mặc định · nhiều thì chọn
+Phiếu nhập kho
+phieu_nhap
+mặc định
+Tồn kho
+ton_kho
+Kết quả QC
+ket_qua_qc
+Đơn hàng
+don_hang
+Phiếu chi
+phieu_chi
+Chấm công
+cham_cong
+Mặc định 1 kho. Nếu thông tin nằm ở 2 kho → tick thêm.
+6
+THỜI GIAN THỰC HIỆN
+có thì tính — chủ yếu T2/T1
+Khi nào
+?
+HƯỚNG DẪN
+tuỳ chọn · cập nhật tay
+Văn bản
+Sơ đồ / Ảnh (mô tả)
+Audio (mô tả)
+Video (mô tả)
+Các bước (mỗi dòng 1)
+↓ Người dùng cuối sẽ thấy (ẩn sau nút):
+📖
+Hướng dẫn
+chưa có
+▾
+
+Chưa có hướng dẫn cho mục này. (Có thể bỏ trống — hoàn toàn tuỳ chọn.)
+
+Bản đúc node
+⚡ Đúc node
+T2 · Nhiệm vụ
+QT Nhập kho
+Sản xuất›Incomex Sài Gòn›Khối Vận hành SG›P. Kho SG›CM Xuất nhập kho›QT Nhập kho
+BỐ
+CM Xuất nhập kho
+NGƯỜI THỰC HIỆN
+Tâm
+· Kho
+Huyền
+· Kho
+NHẬN BÁO CÁO
+Dũng
+· QC
+LƯU Ở KHO
+Phiếu nhập kho
+THỜI GIAN
+Khi có lệnh nhập · hạn +1 ngày
+HƯỚNG DẪN
+📖
+Hướng dẫn
+chưa có
+▾
+{
+  "kind": "modw_node",
+  "node": "QT Nhập kho",
+  "tier": "T2",
+  "parent": "CM Xuất nhập kho",
+  "executors": [
+    {
+      "id": "NV05",
+      "name": "Tâm",
+      "dept": "Kho"
+    },
+    {
+      "id": "NV01",
+      "name": "Huyền",
+      "dept": "Kho"
+    }
+  ],
+  "report_recipients": [
+    {
+      "id": "NV09",
+      "name": "Dũng",
+      "dept": "QC"
+    }
+  ],
+  "store_collections": [
+    "phieu_nhap"
+  ],
+  "default_store": "phieu_nhap",
+  "when": "Khi có lệnh nhập · hạn +1 ngày",
+  "derived_path": [
+    "Sản xuất",
+    "Incomex Sài Gòn",
+    "Khối Vận hành SG",
+    "P. Kho SG",
+    "CM Xuất nhập kho"
+  ]
+}
+4 MẸ
+MOW
+▾
+Quy trình
+MOT
+▾
+Công việc
+MOIT
+▾
+Nhập liệu
+MOUT
+▾
+Báo cáo
+Master
+▾
+Tổng 4 Mẹ

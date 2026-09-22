@@ -1,0 +1,25 @@
+Browser tab: 6, Title: "NHÁP 2 — MOW Master List (sắp xếp lại, không cắt nghiệp vụ)", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
++	271 container 4 Mẹ + Master
++		272 text 4 MẸ
++		273 button MOW ▾ Quy trình
++			274 text MOW
++			275 text ▾
++			276 text Quy trình
++		277 button MOT ▾ Công việc
++			278 text MOT
++			279 text ▾
++			280 text Công việc
++		281 button MOIT ▾ Nhập liệu
++			282 text MOIT
++			283 text ▾
++			284 text Nhập liệu
++		285 button MOUT ▾ Báo cáo
++			286 text MOUT
++			287 text ▾
++			288 text Báo cáo
++		289 button Master ▾ Tổng 4 Mẹ
++			290 text Master
++			291 text ▾
++			292 text Tổng 4 Mẹ
+The focused UI element is 0 AXWebArea NHÁP 2 — MOW Master List (sắp xếp lại, không cắt nghiệp vụ), URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html
