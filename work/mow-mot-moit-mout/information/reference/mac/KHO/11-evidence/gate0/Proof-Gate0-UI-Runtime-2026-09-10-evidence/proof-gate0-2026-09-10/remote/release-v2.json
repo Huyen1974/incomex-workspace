@@ -1,0 +1,1096 @@
+{
+  "id": "f514dae7-a624-4a8f-a1da-edce253cfced",
+  "version": 2,
+  "hash": "3f649a3eb4285da085222999e45df0fbf8548ac498c41483a05816d4d3579fb6",
+  "snapshot": {
+    "test_only": true,
+    "mow": {
+      "id": "1e1bae69-69e0-5502-927f-0913891ed78b",
+      "name": "Thử ghi nhận thời lượng dự kiến",
+      "mot_ref": "51ac625c-071f-5998-8e07-09bd61613184",
+      "scope": "pilot",
+      "status": "draft",
+      "user_created": "7dccd03d-2726-4e26-990c-e0d1258e1121",
+      "date_created": "2026-09-10T06:42:19.377+00:00",
+      "user_updated": null,
+      "date_updated": null,
+      "test_version": 2
+    },
+    "mot": {
+      "id": "51ac625c-071f-5998-8e07-09bd61613184",
+      "name": "Ghi nhận thời lượng một task",
+      "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+      "form_version": "main",
+      "scope": "pilot",
+      "status": "draft",
+      "user_created": "7dccd03d-2726-4e26-990c-e0d1258e1121",
+      "date_created": "2026-09-10T06:42:19.183+00:00",
+      "user_updated": null,
+      "date_updated": null,
+      "test_version": 2,
+      "mode": "AUTO"
+    },
+    "form": {
+      "id": "16a85219-1758-59f5-acef-e7d752edb36c",
+      "key": "proof-duration",
+      "title": "Ghi nhận thời lượng dự kiến",
+      "schema": [
+        {
+          "name": "duration_minutes",
+          "label": "Thời lượng dự kiến (phút)",
+          "type": "number",
+          "field_ref": "field.so_phut",
+          "contract_ref": "duration-minute-v1",
+          "contract_version": 1,
+          "subject": "task",
+          "datatype": "integer",
+          "unit": "minute",
+          "operation": "input",
+          "write_target": "lab_task_records.duration_minutes",
+          "required": true
+        },
+        {
+          "name": "note",
+          "label": "Ghi chú",
+          "type": "textarea",
+          "field_ref": "field.ghi_chu",
+          "contract_ref": "note-v1",
+          "contract_version": 1,
+          "subject": "task",
+          "datatype": "text",
+          "unit": "N/A",
+          "operation": "input",
+          "write_target": "lab_task_records.note",
+          "required": false
+        }
+      ],
+      "system_fields": [
+        {
+          "name": "date_created",
+          "label": "Ngày tạo — hệ thống ghi",
+          "type": "datetime-local",
+          "field_ref": "field.ngay_lap",
+          "contract_ref": "created-at-v1",
+          "contract_version": 1,
+          "subject": "record",
+          "datatype": "timestamp",
+          "unit": "N/A",
+          "operation": "system-created",
+          "write_target": "lab_task_records.date_created",
+          "required": true
+        }
+      ],
+      "profile_ref": "form-contract-profile-v2",
+      "submit_label": "Lưu bản nháp",
+      "on_success": "message",
+      "success_message": "Đã lưu dữ liệu thử",
+      "scope": "pilot",
+      "status": "draft",
+      "user_created": "7dccd03d-2726-4e26-990c-e0d1258e1121",
+      "date_created": "2026-09-10T06:42:18.989+00:00",
+      "user_updated": "7dccd03d-2726-4e26-990c-e0d1258e1121",
+      "date_updated": "2026-09-10T06:52:48.258+00:00",
+      "submit_config": {
+        "action_path": "/proof-write/record/",
+        "read_path": "/items/lab_task_records/",
+        "fixed_input": {
+          "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+          "form_version": "main"
+        },
+        "revision_input": "form_revision"
+      },
+      "revision": 3,
+      "last_request": "02d7ec8c-9630-43e6-a5ff-c2d9a1f97d7f",
+      "profile_version": 2
+    },
+    "contracts": [
+      {
+        "id": "created-at-v1",
+        "version": 1,
+        "source_concept": "field.ngay_lap",
+        "content": {
+          "id": "created-at-v1",
+          "version": 1,
+          "source_concept": "field.ngay_lap",
+          "meaning": "Mốc tạo bản ghi do hệ thống tự ghi",
+          "subject": "record",
+          "datatype": "timestamp",
+          "unit": "N/A",
+          "operation": "system-created",
+          "write_target": "lab_task_records.date_created",
+          "required": true,
+          "source_revision": "E05 snapshot 2026-09-08 sha256 in retrieval corpus",
+          "provenance": {
+            "meaning": "PM accepted TEST ONLY fixture in 2026-09-09 command; related source concept kept provisional",
+            "datatype_target": "TEST ONLY lab fixture; not asserted to be existing legacy semantic contract",
+            "permission": "authenticated Directus lab policy, not caller allowed boolean"
+          },
+          "status": "TEST_ONLY"
+        }
+      },
+      {
+        "id": "duration-minute-v1",
+        "version": 1,
+        "source_concept": "field.so_phut",
+        "content": {
+          "id": "duration-minute-v1",
+          "version": 1,
+          "source_concept": "field.so_phut",
+          "meaning": "Thời lượng dự kiến của MỘT task",
+          "subject": "task",
+          "datatype": "integer",
+          "unit": "minute",
+          "operation": "input",
+          "write_target": "lab_task_records.duration_minutes",
+          "required": true,
+          "source_revision": "E05 snapshot 2026-09-08 sha256 in retrieval corpus",
+          "provenance": {
+            "meaning": "PM accepted TEST ONLY fixture in 2026-09-09 command; related source concept kept provisional",
+            "datatype_target": "TEST ONLY lab fixture; not asserted to be existing legacy semantic contract",
+            "permission": "authenticated Directus lab policy, not caller allowed boolean"
+          },
+          "status": "TEST_ONLY"
+        }
+      },
+      {
+        "id": "note-v1",
+        "version": 1,
+        "source_concept": "field.ghi_chu",
+        "content": {
+          "id": "note-v1",
+          "version": 1,
+          "source_concept": "field.ghi_chu",
+          "meaning": "Ghi chú tùy chọn cho một task",
+          "subject": "task",
+          "datatype": "text",
+          "unit": "N/A",
+          "operation": "input",
+          "write_target": "lab_task_records.note",
+          "required": false,
+          "source_revision": "E05 snapshot 2026-09-08 sha256 in retrieval corpus",
+          "provenance": {
+            "meaning": "PM accepted TEST ONLY fixture in 2026-09-09 command; related source concept kept provisional",
+            "datatype_target": "TEST ONLY lab fixture; not asserted to be existing legacy semantic contract",
+            "permission": "authenticated Directus lab policy, not caller allowed boolean"
+          },
+          "status": "TEST_ONLY"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "id": "field.ghi_chu",
+        "source_concept": "field.ghi_chu",
+        "contract_ref": "note-v1"
+      },
+      {
+        "id": "field.ngay_lap",
+        "source_concept": "field.ngay_lap",
+        "contract_ref": "created-at-v1"
+      },
+      {
+        "id": "field.so_phut",
+        "source_concept": "field.so_phut",
+        "contract_ref": "duration-minute-v1"
+      }
+    ],
+    "profiles": [
+      {
+        "id": "form-contract-profile-v1",
+        "version": 1,
+        "joi_description": {
+          "type": "object",
+          "flags": {
+            "unknown": false,
+            "presence": "required"
+          },
+          "keys": {
+            "schema": {
+              "type": "array",
+              "flags": {
+                "presence": "required"
+              },
+              "rules": [
+                {
+                  "name": "min",
+                  "args": {
+                    "limit": 1
+                  }
+                },
+                {
+                  "name": "max",
+                  "args": {
+                    "limit": 2
+                  }
+                },
+                {
+                  "name": "unique",
+                  "args": {
+                    "comparator": "field_ref"
+                  }
+                }
+              ],
+              "items": [
+                {
+                  "type": "object",
+                  "flags": {
+                    "unknown": false
+                  },
+                  "keys": {
+                    "subject": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "task"
+                      ]
+                    },
+                    "datatype": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "integer"
+                      ]
+                    },
+                    "unit": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "minute"
+                      ]
+                    },
+                    "operation": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "input"
+                      ]
+                    },
+                    "write_target": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "lab_task_records.duration_minutes"
+                      ]
+                    },
+                    "required": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        true
+                      ]
+                    },
+                    "contract_ref": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "duration-minute-v1"
+                      ]
+                    },
+                    "contract_version": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        1
+                      ]
+                    },
+                    "field_ref": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "field.so_phut"
+                      ]
+                    },
+                    "name": {
+                      "type": "string",
+                      "flags": {
+                        "presence": "required"
+                      }
+                    },
+                    "label": {
+                      "type": "string",
+                      "flags": {
+                        "presence": "required"
+                      }
+                    },
+                    "type": {
+                      "type": "string",
+                      "flags": {
+                        "presence": "required"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "flags": {
+                    "unknown": false
+                  },
+                  "keys": {
+                    "subject": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "task"
+                      ]
+                    },
+                    "datatype": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "text"
+                      ]
+                    },
+                    "unit": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "N/A"
+                      ]
+                    },
+                    "operation": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "input"
+                      ]
+                    },
+                    "write_target": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "lab_task_records.note"
+                      ]
+                    },
+                    "required": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        false
+                      ]
+                    },
+                    "contract_ref": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "note-v1"
+                      ]
+                    },
+                    "contract_version": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        1
+                      ]
+                    },
+                    "field_ref": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "field.ghi_chu"
+                      ]
+                    },
+                    "name": {
+                      "type": "string",
+                      "flags": {
+                        "presence": "required"
+                      }
+                    },
+                    "label": {
+                      "type": "string",
+                      "flags": {
+                        "presence": "required"
+                      }
+                    },
+                    "type": {
+                      "type": "string",
+                      "flags": {
+                        "presence": "required"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "system_fields": {
+              "type": "array",
+              "flags": {
+                "presence": "required"
+              },
+              "rules": [
+                {
+                  "name": "length",
+                  "args": {
+                    "limit": 1
+                  }
+                }
+              ],
+              "items": [
+                {
+                  "type": "object",
+                  "flags": {
+                    "unknown": false
+                  },
+                  "keys": {
+                    "subject": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "record"
+                      ]
+                    },
+                    "datatype": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "timestamp"
+                      ]
+                    },
+                    "unit": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "N/A"
+                      ]
+                    },
+                    "operation": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "system-created"
+                      ]
+                    },
+                    "write_target": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "lab_task_records.date_created"
+                      ]
+                    },
+                    "required": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        true
+                      ]
+                    },
+                    "contract_ref": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "created-at-v1"
+                      ]
+                    },
+                    "contract_version": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        1
+                      ]
+                    },
+                    "field_ref": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "field.ngay_lap"
+                      ]
+                    },
+                    "name": {
+                      "type": "string",
+                      "flags": {
+                        "presence": "required"
+                      }
+                    },
+                    "label": {
+                      "type": "string",
+                      "flags": {
+                        "presence": "required"
+                      }
+                    },
+                    "type": {
+                      "type": "string",
+                      "flags": {
+                        "presence": "required"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "form-contract-profile-v2",
+        "version": 2,
+        "joi_description": {
+          "type": "object",
+          "flags": {
+            "unknown": false,
+            "presence": "required"
+          },
+          "keys": {
+            "schema": {
+              "type": "array",
+              "flags": {
+                "presence": "required"
+              },
+              "rules": [
+                {
+                  "name": "min",
+                  "args": {
+                    "limit": 1
+                  }
+                },
+                {
+                  "name": "max",
+                  "args": {
+                    "limit": 2
+                  }
+                },
+                {
+                  "name": "unique",
+                  "args": {
+                    "comparator": "field_ref"
+                  }
+                }
+              ],
+              "items": [
+                {
+                  "type": "object",
+                  "flags": {
+                    "unknown": false,
+                    "presence": "required"
+                  },
+                  "keys": {
+                    "subject": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "task"
+                      ]
+                    },
+                    "datatype": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "integer"
+                      ]
+                    },
+                    "unit": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "minute"
+                      ]
+                    },
+                    "operation": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "input"
+                      ]
+                    },
+                    "write_target": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "lab_task_records.duration_minutes"
+                      ]
+                    },
+                    "required": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        true
+                      ]
+                    },
+                    "contract_ref": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "duration-minute-v1"
+                      ]
+                    },
+                    "contract_version": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        1
+                      ]
+                    },
+                    "field_ref": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "field.so_phut"
+                      ]
+                    },
+                    "name": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "duration_minutes"
+                      ]
+                    },
+                    "label": {
+                      "type": "string",
+                      "flags": {
+                        "presence": "required"
+                      }
+                    },
+                    "type": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "number"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "flags": {
+                    "unknown": false
+                  },
+                  "keys": {
+                    "subject": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "task"
+                      ]
+                    },
+                    "datatype": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "text"
+                      ]
+                    },
+                    "unit": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "N/A"
+                      ]
+                    },
+                    "operation": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "input"
+                      ]
+                    },
+                    "write_target": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "lab_task_records.note"
+                      ]
+                    },
+                    "required": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        false
+                      ]
+                    },
+                    "contract_ref": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "note-v1"
+                      ]
+                    },
+                    "contract_version": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        1
+                      ]
+                    },
+                    "field_ref": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "field.ghi_chu"
+                      ]
+                    },
+                    "name": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "note"
+                      ]
+                    },
+                    "label": {
+                      "type": "string",
+                      "flags": {
+                        "presence": "required"
+                      }
+                    },
+                    "type": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "textarea"
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            "system_fields": {
+              "type": "array",
+              "flags": {
+                "presence": "required"
+              },
+              "rules": [
+                {
+                  "name": "length",
+                  "args": {
+                    "limit": 1
+                  }
+                }
+              ],
+              "items": [
+                {
+                  "type": "object",
+                  "flags": {
+                    "unknown": false,
+                    "presence": "required"
+                  },
+                  "keys": {
+                    "subject": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "record"
+                      ]
+                    },
+                    "datatype": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "timestamp"
+                      ]
+                    },
+                    "unit": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "N/A"
+                      ]
+                    },
+                    "operation": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "system-created"
+                      ]
+                    },
+                    "write_target": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "lab_task_records.date_created"
+                      ]
+                    },
+                    "required": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        true
+                      ]
+                    },
+                    "contract_ref": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "created-at-v1"
+                      ]
+                    },
+                    "contract_version": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        1
+                      ]
+                    },
+                    "field_ref": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "field.ngay_lap"
+                      ]
+                    },
+                    "name": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "date_created"
+                      ]
+                    },
+                    "label": {
+                      "type": "string",
+                      "flags": {
+                        "presence": "required"
+                      }
+                    },
+                    "type": {
+                      "type": "any",
+                      "flags": {
+                        "only": true,
+                        "presence": "required"
+                      },
+                      "allow": [
+                        "datetime-local"
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "lenient-decoy-v1",
+        "version": 1,
+        "joi_description": {
+          "type": "object",
+          "flags": {
+            "unknown": true
+          }
+        }
+      },
+      {
+        "id": "record-input-v1",
+        "version": 1,
+        "joi_description": {
+          "type": "object",
+          "flags": {
+            "unknown": false
+          },
+          "keys": {
+            "duration_minutes": {
+              "type": "number",
+              "flags": {
+                "presence": "required"
+              },
+              "rules": [
+                {
+                  "name": "integer"
+                },
+                {
+                  "name": "min",
+                  "args": {
+                    "limit": 0
+                  }
+                }
+              ]
+            },
+            "note": {
+              "type": "string",
+              "allow": [
+                null,
+                ""
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "capability": {
+      "key": "guarded-write@1",
+      "implementation_sha256": "6b8cb139f9e41f350e650a31aaf34855ab8f0a8bfb37bb30e9160809f367c57e",
+      "action_path": "/proof-write/record/",
+      "input": {
+        "duration_minutes": 35,
+        "note": "AUTO internal result from TEST release V2",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "form_revision": 3
+      }
+    }
+  },
+  "ui_source_record_id": "6a619d18-d95f-4630-8d5e-c1660ab56c60",
+  "binding": "pilot-auto"
+}

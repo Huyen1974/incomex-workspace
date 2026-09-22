@@ -1,0 +1,343 @@
+{
+  "utc": "2026-09-10T07:15:34.079137+00:00",
+  "database": {
+    "version": "PostgreSQL 16.13 (Debian 16.13-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+    "collation": "en_US.utf8",
+    "encoding": "UTF8"
+  },
+  "native_queue_schema": [
+    {
+      "relname": "job_pkey",
+      "relkind": "I"
+    },
+    {
+      "relname": "queue_stats_i1",
+      "relkind": "I"
+    },
+    {
+      "relname": "queue_stats_pkey",
+      "relkind": "I"
+    },
+    {
+      "relname": "bam_pkey",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_common_i1",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_common_i10",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_common_i11",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_common_i2",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_common_i3",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_common_i4",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_common_i6",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_common_i7",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_common_i8",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_common_i9",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_common_pkey",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_dep_parent_idx",
+      "relkind": "i"
+    },
+    {
+      "relname": "job_dependency_pkey",
+      "relkind": "i"
+    },
+    {
+      "relname": "queue_pkey",
+      "relkind": "i"
+    },
+    {
+      "relname": "queue_stats_20260910_name_captured_on_deferred_count_queued_idx",
+      "relkind": "i"
+    },
+    {
+      "relname": "queue_stats_20260910_pkey",
+      "relkind": "i"
+    },
+    {
+      "relname": "queue_stats_20260911_name_captured_on_deferred_count_queued_idx",
+      "relkind": "i"
+    },
+    {
+      "relname": "queue_stats_20260911_pkey",
+      "relkind": "i"
+    },
+    {
+      "relname": "schedule_pkey",
+      "relkind": "i"
+    },
+    {
+      "relname": "subscription_pkey",
+      "relkind": "i"
+    },
+    {
+      "relname": "version_pkey",
+      "relkind": "i"
+    },
+    {
+      "relname": "warning_i1",
+      "relkind": "i"
+    },
+    {
+      "relname": "warning_pkey",
+      "relkind": "i"
+    },
+    {
+      "relname": "job",
+      "relkind": "p"
+    },
+    {
+      "relname": "queue_stats",
+      "relkind": "p"
+    },
+    {
+      "relname": "bam",
+      "relkind": "r"
+    },
+    {
+      "relname": "job_common",
+      "relkind": "r"
+    },
+    {
+      "relname": "job_dependency",
+      "relkind": "r"
+    },
+    {
+      "relname": "queue",
+      "relkind": "r"
+    },
+    {
+      "relname": "queue_stats_20260910",
+      "relkind": "r"
+    },
+    {
+      "relname": "queue_stats_20260911",
+      "relkind": "r"
+    },
+    {
+      "relname": "schedule",
+      "relkind": "r"
+    },
+    {
+      "relname": "subscription",
+      "relkind": "r"
+    },
+    {
+      "relname": "version",
+      "relkind": "r"
+    },
+    {
+      "relname": "warning",
+      "relkind": "r"
+    }
+  ],
+  "role_acl": [
+    {
+      "rolname": "gate0_producer",
+      "relname": "job",
+      "can_select": true,
+      "can_insert": true,
+      "can_update": false,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_producer",
+      "relname": "job_common",
+      "can_select": true,
+      "can_insert": true,
+      "can_update": false,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_producer",
+      "relname": "lab_runtime_attempts",
+      "can_select": false,
+      "can_insert": false,
+      "can_update": false,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_producer",
+      "relname": "lab_runtime_bindings",
+      "can_select": true,
+      "can_insert": false,
+      "can_update": false,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_producer",
+      "relname": "lab_runtime_events",
+      "can_select": true,
+      "can_insert": true,
+      "can_update": false,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_producer",
+      "relname": "lab_runtime_instances",
+      "can_select": true,
+      "can_insert": true,
+      "can_update": false,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_producer",
+      "relname": "lab_task_records",
+      "can_select": false,
+      "can_insert": false,
+      "can_update": false,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_producer",
+      "relname": "lab_test_releases",
+      "can_select": true,
+      "can_insert": false,
+      "can_update": false,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_worker",
+      "relname": "job",
+      "can_select": true,
+      "can_insert": true,
+      "can_update": true,
+      "can_delete": true
+    },
+    {
+      "rolname": "gate0_worker",
+      "relname": "job_common",
+      "can_select": true,
+      "can_insert": true,
+      "can_update": true,
+      "can_delete": true
+    },
+    {
+      "rolname": "gate0_worker",
+      "relname": "lab_runtime_attempts",
+      "can_select": true,
+      "can_insert": true,
+      "can_update": true,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_worker",
+      "relname": "lab_runtime_bindings",
+      "can_select": true,
+      "can_insert": false,
+      "can_update": false,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_worker",
+      "relname": "lab_runtime_events",
+      "can_select": true,
+      "can_insert": false,
+      "can_update": false,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_worker",
+      "relname": "lab_runtime_instances",
+      "can_select": true,
+      "can_insert": false,
+      "can_update": true,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_worker",
+      "relname": "lab_task_records",
+      "can_select": false,
+      "can_insert": false,
+      "can_update": false,
+      "can_delete": false
+    },
+    {
+      "rolname": "gate0_worker",
+      "relname": "lab_test_releases",
+      "can_select": true,
+      "can_insert": false,
+      "can_update": false,
+      "can_delete": false
+    }
+  ],
+  "role_flags": [
+    {
+      "rolname": "gate0_worker",
+      "rolsuper": false,
+      "rolcreatedb": false,
+      "rolcreaterole": false,
+      "rolbypassrls": false,
+      "database_create": false
+    },
+    {
+      "rolname": "gate0_producer",
+      "rolsuper": false,
+      "rolcreatedb": false,
+      "rolcreaterole": false,
+      "rolbypassrls": false,
+      "database_create": false
+    }
+  ],
+  "business_identity": [
+    {
+      "id": "1b6279f9-6999-4afd-b4bf-63848df9ef88",
+      "email": "human-outsider@proof.example.com",
+      "role": "fd46a50e-9301-4760-a314-7f99bc767608",
+      "status": "active"
+    },
+    {
+      "id": "9ee7f882-fa5b-44e9-8ddf-86c03537f6ca",
+      "email": "human-editor@proof.example.com",
+      "role": "3773c76b-7cf0-49f6-976e-8a6f9a809cc2",
+      "status": "active"
+    },
+    {
+      "id": "7dccd03d-2726-4e26-990c-e0d1258e1121",
+      "email": "service-author@proof.example.com",
+      "role": "e4a91db1-3e7e-45ad-bf48-a891b679ed09",
+      "status": "active"
+    }
+  ],
+  "source_hashes": {
+    "extension/index.js": "7b408fef5be59bd11a6b288a7a79dfac1191eaead9000ab9bd0f54ec33514775",
+    "extension/app.js": "b30abf9c106c77870c461add7d49922dc6eb74462a85d8fa5c886ab7bac86017",
+    "extension/package.json": "a24837e8299a734d0b7d2c8e5567d2a859ba9acce6e84c7a65bdb5769976d57a",
+    "runtime/kernel.mjs": "6b8cb139f9e41f350e650a31aaf34855ab8f0a8bfb37bb30e9160809f367c57e",
+    "runtime/package.json": "2e43b041d532d6ba43efc7022041fc557dcbf2eb111789bbd7f1e4528ff1518b",
+    "runtime/package-lock.json": "0b933a270703a555b8162cab6faaabaddaa5baf31de60584ef78c124fa63a488"
+  },
+  "worker_process": "PID                 PPID                USER                COMMAND\n2472669             2472643             ubuntu              node kernel.mjs\n"
+}

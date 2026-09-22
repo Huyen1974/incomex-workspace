@@ -1,0 +1,21 @@
+{
+  "seed_collections_identities_profiles_ms": 20796.918268315494,
+  "profile_configuration_r2_continuation_ms": 4897.0263176597655,
+  "profile_preparation_total": "NOT MEASURED; r2 is unfinished-stage continuation, not all preparation",
+  "environment_provision_total": "NOT MEASURED; first readiness timed out, see execution-logs/provision-log.jsonl and corrections.md",
+  "request_log_count": 309,
+  "request_utc_first": "2026-09-10T04:12:04.564210+00:00",
+  "request_utc_last": "2026-09-10T04:46:33.339161+00:00",
+  "gate_http_cases_with_elapsed": 64,
+  "gate_http_median_ms": 522.0401287078857,
+  "gate_http_min_ms": 265.26403427124023,
+  "gate_http_max_ms": 1922.7266311645508,
+  "timing_scope": "Harness-observed HTTP latency on resource-limited lab; concurrent case has separate trace. No throughput/load inference. This is not complete idea-to-Draft time.",
+  "debug_total_time": "NOT MEASURED; historical scripts/errors retained",
+  "agent_judgment_count": "NOT MEASURED",
+  "model_calls_tokens": "NOT MEASURED",
+  "human_active_effort": "NOT MEASURED",
+  "new_owner_questions": 0,
+  "independent_fresh_agents": 1,
+  "declarative_percentage": "NOT MEASURED; no 98% inference"
+}

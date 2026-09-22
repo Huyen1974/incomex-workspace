@@ -1,0 +1,257 @@
+{
+  "valid-add-existing-note": {
+    "method": "POST",
+    "path": "/proof-write/form/16a85219-1758-59f5-acef-e7d752edb36c",
+    "input": {
+      "request_id": "bc10e3c2-caeb-5d35-ada5-631875ef5dd2",
+      "expected_revision": 2,
+      "data": {
+        "schema": [
+          {
+            "name": "duration_minutes",
+            "label": "Thời lượng dự kiến (phút)",
+            "type": "number",
+            "field_ref": "field.so_phut",
+            "contract_ref": "duration-minute-v1",
+            "contract_version": 1,
+            "subject": "task",
+            "datatype": "integer",
+            "unit": "minute",
+            "operation": "input",
+            "write_target": "lab_task_records.duration_minutes",
+            "required": true
+          },
+          {
+            "name": "note",
+            "label": "Ghi chú",
+            "type": "textarea",
+            "field_ref": "field.ghi_chu",
+            "contract_ref": "note-v1",
+            "contract_version": 1,
+            "subject": "task",
+            "datatype": "text",
+            "unit": "N/A",
+            "operation": "input",
+            "write_target": "lab_task_records.note",
+            "required": false
+          }
+        ]
+      }
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "key": "proof-duration",
+        "title": "Ghi nhận thời lượng dự kiến",
+        "schema": [
+          {
+            "name": "duration_minutes",
+            "label": "Thời lượng dự kiến (phút)",
+            "type": "number",
+            "field_ref": "field.so_phut",
+            "contract_ref": "duration-minute-v1",
+            "contract_version": 1,
+            "subject": "task",
+            "datatype": "integer",
+            "unit": "minute",
+            "operation": "input",
+            "write_target": "lab_task_records.duration_minutes",
+            "required": true
+          },
+          {
+            "name": "note",
+            "label": "Ghi chú",
+            "type": "textarea",
+            "field_ref": "field.ghi_chu",
+            "contract_ref": "note-v1",
+            "contract_version": 1,
+            "subject": "task",
+            "datatype": "text",
+            "unit": "N/A",
+            "operation": "input",
+            "write_target": "lab_task_records.note",
+            "required": false
+          }
+        ],
+        "system_fields": [
+          {
+            "name": "date_created",
+            "label": "Ngày tạo — hệ thống ghi",
+            "type": "datetime-local",
+            "field_ref": "field.ngay_lap",
+            "contract_ref": "created-at-v1",
+            "contract_version": 1,
+            "subject": "record",
+            "datatype": "timestamp",
+            "unit": "N/A",
+            "operation": "system-created",
+            "write_target": "lab_task_records.date_created",
+            "required": true
+          }
+        ],
+        "profile_ref": "form-contract-profile-v2",
+        "submit_label": "Lưu bản nháp",
+        "on_success": "message",
+        "success_message": "Đã lưu dữ liệu thử",
+        "scope": "pilot",
+        "status": "draft",
+        "user_created": "3781824e-14e1-4de7-b6ab-860babe71ac1",
+        "date_created": "2026-09-10T04:14:18.262Z",
+        "user_updated": "3781824e-14e1-4de7-b6ab-860babe71ac1",
+        "date_updated": "2026-09-10T04:30:40.681Z",
+        "revision": 3,
+        "last_request": "397866fb-4df5-4d1a-9a7b-d4326372f3b3",
+        "profile_version": 2
+      },
+      "meta": {
+        "server_request_id": "397866fb-4df5-4d1a-9a7b-d4326372f3b3",
+        "logical_request_id": "bc10e3c2-caeb-5d35-ada5-631875ef5dd2",
+        "action": "form",
+        "business_version": "editable-draft/main",
+        "revision": 3,
+        "transaction_id": "1314",
+        "backend_pid": 222
+      },
+      "replayed": false
+    }
+  },
+  "record-human-valid": {
+    "method": "POST",
+    "path": "/proof-write/record/54f0ec7e-b78b-5a35-aafe-301d1a538c6b",
+    "input": {
+      "request_id": "a460a58f-1cd4-5317-8acd-168ddaa65e9c",
+      "expected_revision": 0,
+      "data": {
+        "duration_minutes": 35,
+        "note": "Test by human",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "form_revision": 6
+      }
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "54f0ec7e-b78b-5a35-aafe-301d1a538c6b",
+        "duration_minutes": 35,
+        "note": "Test by human",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "scope": "pilot",
+        "status": "draft",
+        "user_created": "0725e66f-7ad3-4a2f-80f1-9f84b8931882",
+        "date_created": "2026-09-10T04:31:46.030Z",
+        "user_updated": null,
+        "date_updated": null,
+        "revision": 1,
+        "last_request": "42a8ea38-8c53-42f0-894d-3d088da4ac06",
+        "form_revision": 6
+      },
+      "meta": {
+        "server_request_id": "42a8ea38-8c53-42f0-894d-3d088da4ac06",
+        "logical_request_id": "a460a58f-1cd4-5317-8acd-168ddaa65e9c",
+        "action": "record",
+        "business_version": "editable-draft/main",
+        "revision": 1,
+        "transaction_id": "1349",
+        "backend_pid": 223
+      },
+      "replayed": false
+    }
+  },
+  "same-logical-request-replay": {
+    "method": "POST",
+    "path": "/proof-write/record/54f0ec7e-b78b-5a35-aafe-301d1a538c6b",
+    "input": {
+      "request_id": "a460a58f-1cd4-5317-8acd-168ddaa65e9c",
+      "expected_revision": 0,
+      "data": {
+        "duration_minutes": 35,
+        "note": "Test by human",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "form_revision": 6
+      }
+    },
+    "status": 200,
+    "response": {
+      "data": {
+        "id": "54f0ec7e-b78b-5a35-aafe-301d1a538c6b",
+        "note": "Test by human",
+        "scope": "pilot",
+        "status": "draft",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "revision": 1,
+        "date_created": "2026-09-10T04:31:46.030Z",
+        "date_updated": null,
+        "form_version": "main",
+        "last_request": "42a8ea38-8c53-42f0-894d-3d088da4ac06",
+        "user_created": "0725e66f-7ad3-4a2f-80f1-9f84b8931882",
+        "user_updated": null,
+        "form_revision": 6,
+        "duration_minutes": 35
+      },
+      "meta": {
+        "action": "record",
+        "revision": 1,
+        "backend_pid": 223,
+        "transaction_id": "1349",
+        "business_version": "editable-draft/main",
+        "server_request_id": "42a8ea38-8c53-42f0-894d-3d088da4ac06",
+        "logical_request_id": "a460a58f-1cd4-5317-8acd-168ddaa65e9c"
+      },
+      "replayed": true
+    }
+  },
+  "same-key-different-payload": {
+    "method": "POST",
+    "path": "/proof-write/record/54f0ec7e-b78b-5a35-aafe-301d1a538c6b",
+    "input": {
+      "request_id": "a460a58f-1cd4-5317-8acd-168ddaa65e9c",
+      "expected_revision": 0,
+      "data": {
+        "duration_minutes": 99,
+        "note": "Test by human",
+        "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+        "form_version": "main",
+        "form_revision": 6
+      }
+    },
+    "status": 409,
+    "response": {
+      "errors": [
+        {
+          "message": "Request key already names different input.",
+          "extensions": {
+            "code": "IDEMPOTENCY_CONFLICT",
+            "server_request_id": "c15e6f7b-18be-4dd1-af0d-d76d3fa163b3"
+          }
+        }
+      ]
+    }
+  },
+  "sequential-writer-B-stale": {
+    "method": "POST",
+    "path": "/proof-write/form/16a85219-1758-59f5-acef-e7d752edb36c",
+    "input": {
+      "request_id": "59578323-e6d0-5697-a206-2c91ac1b3135",
+      "expected_revision": 4,
+      "data": {
+        "title": "Writer B must conflict"
+      }
+    },
+    "status": 409,
+    "response": {
+      "errors": [
+        {
+          "message": "Expected revision does not match the locked resource.",
+          "extensions": {
+            "code": "REVISION_CONFLICT",
+            "server_request_id": "2d7a4646-c896-492d-8d92-d6f343a00e1c"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "status": 503,
+  "body": {
+    "status": "error",
+    "releaseId": "11.5.1",
+    "serviceId": "http://127.0.0.1:18055",
+    "checks": {
+      "pg:responseTime": [
+        {
+          "status": "ok",
+          "componentType": "datastore",
+          "observedUnit": "ms",
+          "observedValue": 18.266,
+          "threshold": 150
+        }
+      ],
+      "pg:connectionsAvailable": [
+        {
+          "status": "ok",
+          "componentType": "datastore",
+          "observedValue": 2
+        }
+      ],
+      "pg:connectionsUsed": [
+        {
+          "status": "ok",
+          "componentType": "datastore",
+          "observedValue": 0
+        }
+      ],
+      "storage:local:responseTime": [
+        {
+          "status": "ok",
+          "componentType": "objectstore",
+          "observedValue": 16.216,
+          "observedUnit": "ms",
+          "threshold": 750
+        }
+      ],
+      "email:connection": [
+        {
+          "status": "error",
+          "componentType": "email",
+          "output": {
+            "errno": -111,
+            "code": "ESOCKET",
+            "syscall": "connect",
+            "address": "127.0.0.1",
+            "port": 9,
+            "command": "CONN"
+          }
+        }
+      ]
+    }
+  }
+}
