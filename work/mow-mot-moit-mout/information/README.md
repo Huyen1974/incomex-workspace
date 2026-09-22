@@ -1,75 +1,67 @@
-# Kho tham khảo — MOW · MOT · MOIT · MOUT
+# MOW · MOT · MOIT · MOUT — mục lục tham khảo
 
-> **THAM KHẢO · Owner giao 23/09/2026.** Lưu công sức thiết kế, thống kê, thử nghiệm và rà soát đã làm; các thiết kế này đang được làm lại. Không coi các chữ CURRENT, SSOT, PASS hoặc hướng dẫn trong bản cũ là quyết định hiện hành.
+**Đọc file này trước. Không quét toàn bộ kho cũ.** Chọn đúng câu hỏi → mở đúng nguồn. HTML làm việc chính vẫn là `../mow-mot-moit-mout.html`, giữ nguyên.
 
-**Đã đưa lên: 888 tài liệu nguyên bản, 87,874,934 bytes.** **Ảnh không đưa lên GitHub theo Owner 23/09/2026**; chỉ giữ thông tin nguồn/hash để tra cứu. Còn 97 Excel/Word, 10,507,371 bytes, chưa đưa lên vì đường ghi connector chỉ nhận UTF-8. Không tuyên bố đã chuyển hết.
+**Trạng thái dọn 23/09:** mục lục nhẹ đã được tổ chức lại. Đã chuẩn bị loại 888 bản tham khảo cũ (87.874.934 bytes) khỏi cây hiện tại; **chưa xóa**, đang chờ đường ghi được phép. Bản đầy đủ vẫn có trong lịch sử Git và trên Mac. Không đưa ảnh hoặc cả lô Office/backup lên repo.
 
-## Bắt đầu ở đây
+## 1. UI đang chạy — mở trên VPS
 
-| Cần xem | Tài liệu |
+Nguồn runtime là VPS, không dùng bản chép Mac để kết luận UI hiện hành. Kiểm 23/09: các URL dưới trả HTTP 200 và tiêu đề phù hợp; đây chỉ là kiểm đường dẫn, **không** xác nhận nhãn/config/PG hay quy trình đã chạy đúng.
+
+| Cần xem | Link |
 |---|---|
-| Thiết kế tổng thể cũ — Owner ưu tiên | [cấu trúc hệ thống.html](reference/mac/ca%CC%82%CC%81u%20tru%CC%81c%20he%CC%A3%CC%82%20tho%CC%82%CC%81ng.html) |
-| Bản đồ bước và UI/Agent — Owner ưu tiên | [BAN-DO-BUOC-UI-AGENT.html](reference/mac/BAN-DO-BUOC-UI-AGENT.html) |
-| Nguồn quyết định thiết kế cũ | [00-NGUON-THIET-KE.html](reference/mac/00-NGUON-THIET-KE.html) |
-| Mẫu hành trình tạo quy trình | [TAO-MOT-QUY-TRINH.html](reference/mac/TAO-MOT-QUY-TRINH.html) |
-| Workshop mô phỏng — đọc README trước | [workshop/README.md](reference/mac/workshop/README.md) |
-| Chỉ đường kho lịch sử | [KHO/00-CANH-BAO-DOC-TRUOC.txt](reference/mac/KHO/00-CANH-BAO-DOC-TRUOC.txt) |
-| Báo cáo, khái niệm và quy tắc | [KHO/02-tai-lieu](reference/mac/KHO/02-tai-lieu) |
-| Mục lục bằng chứng các vòng Gate | [KHO/11-evidence/INDEX.md](reference/mac/KHO/11-evidence/INDEX.md) |
-| Hồ sơ Gate3–4 | [gate3-4/README.md](reference/mac/gate3-4/README.md) |
+| Kanban dùng chung | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T2&che-do=thuong) |
+| Duyệt NTGV | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/duyet-ntgv-v1.html) |
+| MOIT · Config | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-config-v1.html) |
+| MOIT · Master | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html) |
+| MOIT · Studio | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-studio-v1.html) |
+| MOT · Bàn làm việc | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html) |
+| MOT · Master | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html) |
+| MOT · Studio | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-studio-v1.html) |
+| MOUT · Builder | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-builder-v3.html) |
+| Góp ý / cải tiến | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-gopy-list-v1.html) |
+| MOW · Master | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html) |
+| MOW · 14 checkpoint | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-nhap2-checkpoints.html) |
+| MOW · Dữ liệu / sự kiện | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-nhap2-data-events.html) |
+| MOW · hướng dẫn/bản nháp | [Mở VPS](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-process-draft-v1.html) |
 
-## Cách dùng
+## 2. Nguồn thiết kế — chỉ mở khi cần đối chiếu
 
-- HTML chính của dự án vẫn là `../mow-mot-moit-mout.html`; không bị sửa, đổi tên hay chép đè bằng bản Mac.
-- Trước khi dùng một kết luận cũ, đối chiếu yêu cầu Owner và hồ sơ hiện hành. Giữ các bản lịch sử khác nhau khi nội dung khác; chỉ bỏ bản trùng hash.
-- UI đang chạy: nguồn hiện hành là **VPS root `ui`**. Mọi bản chép HTML/JS/CSS runtime ở đây chỉ là `MAC_COPY_ONLY`; không deploy, không thực thi script và không dùng làm bằng chứng runtime hiện tại.
-- Các ảnh/file-local trong HTML giữ nguyên địa chỉ. Một số liên kết vốn đã gãy trên Mac hoặc trỏ tới file chưa chuyển; kho này chưa phải gói website tự chạy đầy đủ.
+Các link sau cố định theo commit, giữ nguyên nguồn nhưng không đặt thêm bản sao trong phần đọc thường xuyên. Hai tài liệu đầu vẫn được bảo toàn đầy đủ; **chưa chứng minh chúng có bản tương đương trên VPS**, nên không thay bằng link UI khác. Không coi nhãn “SSOT/current/PASS” trong tài liệu cũ là quyết định hiện tại.
 
-## Cấu trúc và truy nguồn
+| Cần tìm | Nguồn nguyên bản |
+|---|---|
+| Cấu trúc hệ thống — nguồn thiết kế cũ | [Đọc đúng nguồn](https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac/ca%CC%82%CC%81u%20tru%CC%81c%20he%CC%A3%CC%82%20tho%CC%82%CC%81ng.html) |
+| Bản đồ bước UI–Agent — nguồn thiết kế cũ | [Đọc đúng nguồn](https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac/BAN-DO-BUOC-UI-AGENT.html) |
+| Các quyết định thiết kế cũ | [Đọc đúng nguồn](https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac/00-NGUON-THIET-KE.html) |
+| Mẫu tạo một quy trình | [Đọc đúng nguồn](https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac/TAO-MOT-QUY-TRINH.html) |
+| Cách hiểu bốn lớp MOW/MOT/MOIT/MOUT (22/07) | [Đọc đúng nguồn](https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac/KHO/02-tai-lieu/BUC-TRANH-4-LOP-MOW.md) |
+| Luật tái dùng Master list (22/07) | [Đọc đúng nguồn](https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac/KHO/02-tai-lieu/LUAT-nhan-ban-master-list.md) |
+| Trạng thái Gate3–4 và giới hạn proof (11–12/09) | [Đọc đúng nguồn](https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac/gate3-4/BAO-CAO-GUI-PM.md) |
+| Sáu khoảng trống Task/Context/consumer (lịch sử) | [Đọc đúng nguồn](https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac/gate3-4/REVIEW.md) |
+| Hồ sơ bản đồ Pha B và chỗ còn mở (12/09) | [Đọc đúng nguồn](https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac/KHO/11-evidence/ban-do-buoc/pha-b-v1.6.20/README.md) |
+| Giới hạn của workshop mô phỏng | [Đọc đúng nguồn](https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac/workshop/README.md) |
+| Chỉ mục bằng chứng lịch sử | [Đọc đúng nguồn](https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac/KHO/11-evidence/INDEX.md) |
 
-```text
-information/
-  README.md             Điểm vào và trạng thái tổng
-  inventory.json        Toàn bộ nguồn → đích/bản giữ/lý do bỏ, bytes, SHA-256
-  link-map.json         Tham chiếu HTML chính → nguồn tìm được/đích/chờ
-  binary-pending.json   Chỉ Excel/Word còn chờ đường chuyển
-  reference/mac/        Tài liệu giữ nguyên cây tương đối và byte nguồn
-```
+## 3. Những điều dễ hiểu sai từ hồ sơ cũ
 
-Tên Unicode của tài liệu được giữ để truy vết. Không stage/commit file ảnh vào Git; ảnh vẫn ở Mac, chưa có URL dùng chung. Nếu sau này được giao publish ảnh ngoài Git, dùng tên ASCII và cập nhật LINK-MAP. Các file Office còn chờ dự kiến dùng `reference/binary/<sha12>-<tên-ASCII>`. Chưa sửa các đường dẫn HTML.
+- Bốn lớp khái niệm/list/chi tiết/config là cách mô tả nghiệp vụ cũ, không đồng nghĩa bốn loại UI mới phải xây. Luật Master list nhấn mạnh tái dùng khuôn; thông số triển khai tháng 7 phải kiểm lại trên VPS.
+- Báo cáo Gate3–4 v1.6.18 ghi **177 fact, 6 UNKNOWN, 171 mapping trong LAB**. Không được biến thành “171 mapping production đã đạt”; các con số test chỉ chứng minh lát cắt thử nghiệm đã nêu.
+- Sáu khoảng trống được nêu lúc đó: Task Instance, người thực hiện HMITL, input động, bàn giao/output-receipt, MOUT context và consumer ref. Đây là danh sách để kiểm lại, không khẳng định lỗi vẫn còn hiện nay.
+- Lời dẫn cập nhật 12/09 đã mở lại Gate1 completeness, Gate2 PARTIAL và tạm dừng khóa Gate3–4; D04 đã được nhận về nghĩa vai. Không làm theo câu “NEXT” cũ ở thân báo cáo nếu mâu thuẫn lời dẫn mới.
+- Workshop là mô phỏng TEST; không dùng trạng thái UI/mô phỏng làm bằng chứng runtime. Thiết kế đang được Owner chỉ đạo làm lại, không tự chuyển kết luận tham khảo thành quyết định.
 
-## Kiểm kê
+## 4. Tìm thêm mà không đọc rác
 
-| Trạng thái | Số file nguồn | Bytes nguồn |
-|---|---:|---:|
-| `COPIED` | 888 | 87874934 |
-| `DUPLICATE` | 138 | 6796847 |
-| `DUPLICATE_BINARY` | 4 | 1941443 |
-| `DUPLICATE_MAIN_HTML` | 1 | 1827486 |
-| `EXCLUDED_IMAGE_BY_OWNER` | 239 | 37756450 |
-| `OMITTED_ARCHIVE_CONTAINER` | 14 | 81736359 |
-| `OMITTED_CODE_OR_TEMP` | 291 | 4086164 |
-| `OMITTED_MACHINE_OR_SENSITIVE` | 139 | 36097154 |
-| `OMITTED_RUNTIME_OR_RAW_DATA` | 334 | 83080680 |
-| `OMITTED_SYSTEM` | 8 | 71712 |
-| `PENDING_BINARY_REVIEW` | 2 | 2918055 |
-| `PENDING_BINARY_WRITE_PATH` | 97 | 10507371 |
+- `inventory.json`: chỉ các nguồn quan trọng, hash và phạm vi dọn; mở nguồn lớn khi có câu hỏi cụ thể.
+- `link-map.json`: URL VPS đã kiểm + metadata 16 ảnh gốc; không chứa ảnh hoặc mã UI.
+- `binary-pending.json`: hủy kế hoạch tải cả lô Office; giữ địa chỉ sổ hợp đồng và hai đề bài gốc ở Mac để đọc có mục đích.
+- [Toàn bộ inventory cũ — chỉ tra khi cần](https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/inventory.json) và [cây nguồn tại commit đã lưu](https://github.com/Huyen1974/incomex-workspace/tree/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac). Không tạo thêm thư mục archive trong repo để chuyển rác từ chỗ này sang chỗ khác.
 
-`COPIED`: đã commit/push và đọc lại hash từ Git. `DUPLICATE`: chỉ giữ một bản trong kho, tra `kept_source`/`destination`. `DUPLICATE_MAIN_HTML`: nội dung đã nằm ở HTML chính. `PENDING_BINARY_WRITE_PATH`: Excel/Word chờ đường ghi phù hợp; chưa có ngoại lệ Git trực tiếp. `EXCLUDED_IMAGE_BY_OWNER`: toàn bộ 239 đường nguồn ảnh (207 nội dung khác nhau) được loại khỏi kế hoạch Git, không phải phần thiếu cần upload. Các nhãn `OMITTED_*` nêu lý do từng file; không suy rằng mọi file bị loại đều có secret. Gói ZIP không công khai nguyên khối vì lẫn mã/log/snapshot; phần tài liệu giải nén đã được chọn riêng. PDF đã bỏ cũ và file gzip chưa được xét để công khai, giữ trạng thái chờ riêng.
+## 5. Dung lượng và phần còn lại
 
-## Kiểm tra và giới hạn
+Mục tiêu cây `information/` sau dọn: chỉ bốn file chỉ dẫn/metadata ở trên. 888 file nguồn cũ (backup, bản chép UI, transcript, ma trận/test/snapshot theo vòng) chuyển sang **tra cứu bằng lịch sử Git**, không chép lại và không sửa nguồn Mac.
 
-- **888/888 file đã copy:** SHA-256 nguồn = blob đọc lại từ GitHub. Mỗi file có hash và commit nhập trong inventory.
-- **2155/2155 file nguồn:** hash cuối lượt bằng đầu lượt; không ghi/xóa/di chuyển nguồn Mac.
-- **HTML chính:** SHA-256 `f4aac30c492f104ec54ff7a03ace54ce70d802e2dd49a417ad9b7285897a050c` trước/sau không đổi.
-- **Manifest ảnh:** 16/16 ảnh nguồn tồn tại, đúng bytes và hash ghi trong manifest; ảnh được giữ ngoài Git theo quyết định Owner, không chờ upload vào repo.
-- SHA nguồn được HTML nhắc: `TAO-MOT-QUY-TRINH.html`: MATCH; Mac `f6563893552f84250fe6f9f83e7d6b77609ffb1a8c9be344a76a4186e321ed14`, HTML ghi `f6563893552f84250fe6f9f83e7d6b77609ffb1a8c9be344a76a4186e321ed14`. Không thay nguồn để làm khớp.
-- Bản Mac Owner chỉ: `từ thực tế/từ thực tế đã làm.html`: `f4aac30c492f104ec54ff7a03ace54ce70d802e2dd49a417ad9b7285897a050c` — MATCH so với HTML chính; không chép đè. Bản ở gốc `quy trình/từ thực tế đã làm.html` không còn ở vị trí cũ.
-- Đã chạy secret scan không gọi xác thực credential; rà thêm dạng key/JWT/URL chứa token và nội dung ảnh/Office trích xuất. Các cảnh báo SHA/base64 của scanner được kiểm theo ngữ cảnh; connector secret guard chạy trên mọi lượt ghi. File mã có chuỗi kết nối không được đưa lên.
-- **Chưa nghiệm thu nghiệp vụ, chưa kiểm render toàn bộ HTML, chưa sửa link, chưa fetch/chạm runtime VPS.** Tư liệu có thể mâu thuẫn, lạc hậu hoặc tự báo PASS; đó là lịch sử cần đánh giá lại.
-- Đường ghi: `workspace_*`, có expected HEAD/version, operation_id và push non-force. Một lượt gặp khóa Git tạm thời: kiểm lại clean/HEAD không đổi, gửi lại cùng operation_id và đọc lại hash thành công; không xóa khóa thủ công.
-- **Việc còn mở:** chuyển 97 Excel/Word bằng đường được phép (chưa được cấp ngoại lệ Git trực tiếp); quyết định riêng cho PDF/gzip cũ; rà nội dung thiết kế mới và sửa liên kết HTML ở lượt được giao sau. P01 không được tự chốt.
+Xóa khỏi cây hiện tại giảm dung lượng checkout và thời gian/token đọc; **không xóa byte khỏi lịch sử Git**. Git nén/delta, nên 87,9 MB file không đồng nghĩa 87,9 MB dung lượng lưu repo. Chưa rewrite history/force-push, chưa tuyên bố giảm dung lượng GitHub thực tế. Muốn xóa lịch sử phải quyết riêng vì ảnh hưởng link commit và các công việc chung.
 
-## Ảnh nhúng có sẵn trong bản HTML lưu trữ
-
-Kiểm 23/09: 3 HTML tham khảo nguyên bản đã đưa lên có ảnh nhúng `data:image`, tổng chuỗi nhúng khoảng 12,22 MB. Đây là byte có sẵn trong nguồn, không phải file ảnh rời đã upload. Chưa bóc/xóa ảnh hoặc viết lại lịch sử Git vì sẽ thay bản lưu và hash nguồn. Không thêm ảnh nhúng mới. Ghi nhận để cân nhắc bản tham khảo nhẹ ở lượt riêng; HTML chính vẫn nguyên vẹn.
+JEV đã được hỏi trước khi chốt cách phân loại; kết quả hỗ trợ giữ link VPS cho runtime và link lịch sử cho nguồn thiết kế/bằng chứng. Quyết định và trách nhiệm vẫn thuộc người thực hiện. Dọn nội dung đã được Owner giao; bước xóa thực tế vướng README repo §0/D12 và §7: connector không có delete, Git trực tiếp cần ngoại lệ. HTML chính, ảnh trên Mac và VPS giữ nguyên.
