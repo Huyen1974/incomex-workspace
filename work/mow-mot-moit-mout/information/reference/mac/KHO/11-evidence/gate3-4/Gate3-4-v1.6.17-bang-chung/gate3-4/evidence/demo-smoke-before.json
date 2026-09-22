@@ -1,0 +1,18 @@
+[
+  {
+    "url": "http://127.0.0.1/",
+    "status": 308,
+    "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "location": "https://127.0.0.1/",
+    "scope": "safe GET, no redirect followed; not full demo regression"
+  },
+  {
+    "url": "http://127.0.0.1:8080/",
+    "status": 302,
+    "body_sha256": "ad010e834a4850a7fc6320649bde603f417202572e3470cdbfb6a5a231d19bf9",
+    "bytes": 354,
+    "location": "http://127.0.0.1:8080/login",
+    "scope": "safe GET, no redirect followed; not full demo regression"
+  }
+]

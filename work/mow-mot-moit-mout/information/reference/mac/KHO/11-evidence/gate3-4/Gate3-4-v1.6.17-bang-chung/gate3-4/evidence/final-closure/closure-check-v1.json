@@ -1,0 +1,10 @@
+{
+  "material_count": 16,
+  "reachable": 16,
+  "all_refs_resolved": true,
+  "no_main_latest_refs": true,
+  "node_digests_valid": true,
+  "root": "MOW:1e1bae69-69e0-5502-927f-0913891ed78b@release-local",
+  "entry": "TEST-scope-evidence@1",
+  "scope": "One-MOT internal AUTO, all executed meaning is selected in exact snapshot. Multi-step branching/external consumers still outside proof."
+}

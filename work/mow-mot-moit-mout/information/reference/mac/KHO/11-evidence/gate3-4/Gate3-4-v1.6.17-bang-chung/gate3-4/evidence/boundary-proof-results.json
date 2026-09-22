@@ -1,0 +1,608 @@
+[
+  {
+    "name": "P6 MOW-binding allowed composition write MOT",
+    "pass": true,
+    "actual": {
+      "status": 200,
+      "readback": {
+        "id": "1d1c43d2-50a1-49a6-96e2-0cca9bc5d7e7",
+        "kind": "MOW-binding",
+        "revision": 2,
+        "last_request": "0604b3a3-4091-4970-bb1a-a156157cfdec",
+        "scope": "pilot",
+        "status": "draft",
+        "content": {
+          "mot_ref": "mot@1",
+          "trigger_binding": "trigger-binding@1",
+          "condition_binding": "condition-binding@1"
+        }
+      }
+    }
+  },
+  {
+    "name": "P6 MOW-binding cannot cross into MOT",
+    "pass": true,
+    "actual": {
+      "status": 422,
+      "body": {
+        "errors": [
+          {
+            "message": "\"content.mot_definition\" is not allowed",
+            "extensions": {
+              "code": "CONTRACT_INVALID",
+              "server_request_id": "df5fd21d-5d28-4b86-8213-3b67029d737e"
+            }
+          }
+        ]
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "P6 native global MOT write denied",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+            "extensions": {
+              "reason": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+              "code": "FORBIDDEN"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "P6 MOT-binding allowed composition write MOIT",
+    "pass": true,
+    "actual": {
+      "status": 200,
+      "readback": {
+        "id": "9aa14c07-c1e7-44af-b1ee-0984f4e8a135",
+        "kind": "MOT-binding",
+        "revision": 2,
+        "last_request": "89dedace-9b7a-49a2-8a10-f5c7fb5877dc",
+        "scope": "pilot",
+        "status": "draft",
+        "content": {
+          "moit_ref": "moit@1",
+          "mout_ref": "mout@1",
+          "ntgv_ref": "ntgv@1"
+        }
+      }
+    }
+  },
+  {
+    "name": "P6 MOT-binding cannot cross into MOIT",
+    "pass": true,
+    "actual": {
+      "status": 422,
+      "body": {
+        "errors": [
+          {
+            "message": "\"content.moit_definition\" is not allowed",
+            "extensions": {
+              "code": "CONTRACT_INVALID",
+              "server_request_id": "bae4e4b6-7d2e-4d63-8059-e5842b5e4583"
+            }
+          }
+        ]
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "P6 native global MOIT write denied",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+            "extensions": {
+              "reason": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+              "code": "FORBIDDEN"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "P6 MOT-binding allowed composition write MOUT",
+    "pass": true,
+    "actual": {
+      "status": 200,
+      "readback": {
+        "id": "9aa14c07-c1e7-44af-b1ee-0984f4e8a135",
+        "kind": "MOT-binding",
+        "revision": 3,
+        "last_request": "1a670d83-2208-470b-b2f1-e6c7a1be43dc",
+        "scope": "pilot",
+        "status": "draft",
+        "content": {
+          "moit_ref": "moit@1",
+          "mout_ref": "mout@1",
+          "ntgv_ref": "ntgv@1"
+        }
+      }
+    }
+  },
+  {
+    "name": "P6 MOT-binding cannot cross into MOUT",
+    "pass": true,
+    "actual": {
+      "status": 422,
+      "body": {
+        "errors": [
+          {
+            "message": "\"content.mout_definition\" is not allowed",
+            "extensions": {
+              "code": "CONTRACT_INVALID",
+              "server_request_id": "7e467278-031b-467b-85e0-f03294375f39"
+            }
+          }
+        ]
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "P6 native global MOUT write denied",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+            "extensions": {
+              "reason": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+              "code": "FORBIDDEN"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "P6 MOIT-layout allowed composition write Field",
+    "pass": true,
+    "actual": {
+      "status": 200,
+      "readback": {
+        "id": "77b4068f-0198-45e3-a719-2673fc7be922",
+        "kind": "MOIT-layout",
+        "revision": 2,
+        "last_request": "c655e6f2-e9a8-4a33-9b65-01d05bd36d49",
+        "scope": "pilot",
+        "status": "draft",
+        "content": {
+          "layout": "grid",
+          "field_ref": "field@1"
+        }
+      }
+    }
+  },
+  {
+    "name": "P6 MOIT-layout cannot cross into Field",
+    "pass": true,
+    "actual": {
+      "status": 422,
+      "body": {
+        "errors": [
+          {
+            "message": "\"content.unit\" is not allowed",
+            "extensions": {
+              "code": "CONTRACT_INVALID",
+              "server_request_id": "1abeed7e-8c27-41f1-9cb1-06c32d8bb57a"
+            }
+          }
+        ]
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "P6 native global Field write denied",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+            "extensions": {
+              "reason": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+              "code": "FORBIDDEN"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "P6 Trigger-binding allowed composition write Trigger",
+    "pass": true,
+    "actual": {
+      "status": 200,
+      "readback": {
+        "id": "856328ab-57d6-4cd2-a246-4a848760fec6",
+        "kind": "Trigger-binding",
+        "revision": 2,
+        "last_request": "8fb09a42-8afa-4b23-a657-2f539fbe8be3",
+        "scope": "pilot",
+        "status": "draft",
+        "content": {
+          "threshold_minutes": 5,
+          "trigger_ref": "trigger@1"
+        }
+      }
+    }
+  },
+  {
+    "name": "P6 Trigger-binding cannot cross into Trigger",
+    "pass": true,
+    "actual": {
+      "status": 422,
+      "body": {
+        "errors": [
+          {
+            "message": "\"content.global_trigger\" is not allowed",
+            "extensions": {
+              "code": "CONTRACT_INVALID",
+              "server_request_id": "28c82a4d-9c80-4bb7-bf70-9d2f91e35780"
+            }
+          }
+        ]
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "P6 native global Trigger write denied",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+            "extensions": {
+              "reason": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+              "code": "FORBIDDEN"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "P6 Condition-binding allowed composition write Condition",
+    "pass": true,
+    "actual": {
+      "status": 200,
+      "readback": {
+        "id": "9591d534-6d95-49d6-8a7e-257d9a81a018",
+        "kind": "Condition-binding",
+        "revision": 2,
+        "last_request": "01cd69da-2762-4453-adf8-a49f9d5c55a3",
+        "scope": "pilot",
+        "status": "draft",
+        "content": {
+          "threshold_minutes": 5,
+          "condition_ref": "condition@1"
+        }
+      }
+    }
+  },
+  {
+    "name": "P6 Condition-binding cannot cross into Condition",
+    "pass": true,
+    "actual": {
+      "status": 422,
+      "body": {
+        "errors": [
+          {
+            "message": "\"content.global_condition\" is not allowed",
+            "extensions": {
+              "code": "CONTRACT_INVALID",
+              "server_request_id": "df37d5bc-f2df-4a78-b960-9c88218e7bb9"
+            }
+          }
+        ]
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "P6 native global Condition write denied",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+            "extensions": {
+              "reason": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+              "code": "FORBIDDEN"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "P6 NTGV-binding allowed composition write People",
+    "pass": true,
+    "actual": {
+      "status": 200,
+      "readback": {
+        "id": "40b8072c-b66b-44c8-8fcb-36f5c12b2e17",
+        "kind": "NTGV-binding",
+        "revision": 2,
+        "last_request": "d0a5a9fe-5aae-4345-ba77-002ccd2275ad",
+        "scope": "pilot",
+        "status": "draft",
+        "content": {
+          "executor_selector": "current-service",
+          "report_recipient_selector": "none"
+        }
+      }
+    }
+  },
+  {
+    "name": "P6 NTGV-binding cannot cross into People",
+    "pass": true,
+    "actual": {
+      "status": 422,
+      "body": {
+        "errors": [
+          {
+            "message": "\"content.people\" is not allowed",
+            "extensions": {
+              "code": "CONTRACT_INVALID",
+              "server_request_id": "0a6af110-6978-4196-a0e0-fd54044160be"
+            }
+          }
+        ]
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "P6 native global People write denied",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+            "extensions": {
+              "reason": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+              "code": "FORBIDDEN"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "P6 NTGV-binding allowed composition write Delegation",
+    "pass": true,
+    "actual": {
+      "status": 200,
+      "readback": {
+        "id": "40b8072c-b66b-44c8-8fcb-36f5c12b2e17",
+        "kind": "NTGV-binding",
+        "revision": 3,
+        "last_request": "47844a58-3a87-47df-8688-b622a7977908",
+        "scope": "pilot",
+        "status": "draft",
+        "content": {
+          "executor_selector": "current-service",
+          "report_recipient_selector": "none"
+        }
+      }
+    }
+  },
+  {
+    "name": "P6 NTGV-binding cannot cross into Delegation",
+    "pass": true,
+    "actual": {
+      "status": 422,
+      "body": {
+        "errors": [
+          {
+            "message": "\"content.delegation\" is not allowed",
+            "extensions": {
+              "code": "CONTRACT_INVALID",
+              "server_request_id": "7155fcac-26a4-4809-82d5-c99187906394"
+            }
+          }
+        ]
+      },
+      "unchanged": true
+    }
+  },
+  {
+    "name": "P6 native global Delegation write denied",
+    "pass": true,
+    "actual": {
+      "status": 403,
+      "body": {
+        "errors": [
+          {
+            "message": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+            "extensions": {
+              "reason": "You don't have permission to access collection \"lab_semantic_defs_b\" or it does not exist. Queried in root.",
+              "code": "FORBIDDEN"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "P5 late result revision-change",
+    "pass": true,
+    "actual": {
+      "status": 409,
+      "body": {
+        "errors": [
+          {
+            "message": "Expected revision does not match the locked resource.",
+            "extensions": {
+              "code": "REVISION_CONFLICT",
+              "server_request_id": "a0a51c6c-7f05-4181-8d99-4701b8fcd936"
+            }
+          }
+        ]
+      },
+      "current_parent": {
+        "id": "d57275ac-57a4-439e-8308-a181df59d70a",
+        "kind": "Parent",
+        "revision": 2,
+        "last_request": "7d1fb18e-c4d8-47a5-9a77-010700a0e56f",
+        "scope": "pilot",
+        "status": "draft",
+        "content": {
+          "slot": "input",
+          "material_ref": "new-context"
+        }
+      },
+      "request": {
+        "id": "d8ae0d70-9263-4d1f-92df-bfdc1e44414e",
+        "parent_id": "d57275ac-57a4-439e-8308-a181df59d70a",
+        "parent_revision": 1,
+        "slot": "input",
+        "request_provenance": "missing-ingredient:revision-change",
+        "returned_material": "field.duration@1",
+        "result_state": "review-required"
+      },
+      "resume": "explicit context re-read and review; do not reuse obsolete envelope"
+    }
+  },
+  {
+    "name": "P5 late result slot-change",
+    "pass": true,
+    "actual": {
+      "status": 409,
+      "body": {
+        "errors": [
+          {
+            "message": "Expected revision does not match the locked resource.",
+            "extensions": {
+              "code": "REVISION_CONFLICT",
+              "server_request_id": "ee5c0973-f416-4ad1-b547-f8554074917b"
+            }
+          }
+        ]
+      },
+      "current_parent": {
+        "id": "d57275ac-57a4-439e-8308-a181df59d70a",
+        "kind": "Parent",
+        "revision": 3,
+        "last_request": "df132f97-4952-4897-98c5-2861b31724d6",
+        "scope": "pilot",
+        "status": "draft",
+        "content": {
+          "slot": "other-slot",
+          "material_ref": "new-context"
+        }
+      },
+      "request": {
+        "id": "90940fd5-ab82-48c9-8d37-f7e854681d50",
+        "parent_id": "d57275ac-57a4-439e-8308-a181df59d70a",
+        "parent_revision": 2,
+        "slot": "input",
+        "request_provenance": "missing-ingredient:slot-change",
+        "returned_material": "field.duration@1",
+        "result_state": "review-required"
+      },
+      "resume": "explicit context re-read and review; do not reuse obsolete envelope"
+    }
+  },
+  {
+    "name": "P5 late result cancelled",
+    "pass": true,
+    "actual": {
+      "status": 409,
+      "body": {
+        "errors": [
+          {
+            "message": "Expected revision does not match the locked resource.",
+            "extensions": {
+              "code": "REVISION_CONFLICT",
+              "server_request_id": "99640d0d-68a6-48ce-a342-c6fbc59ed94d"
+            }
+          }
+        ]
+      },
+      "current_parent": {
+        "id": "d57275ac-57a4-439e-8308-a181df59d70a",
+        "kind": "Parent",
+        "revision": 4,
+        "last_request": "85504486-ec15-47a4-b2b3-eb7c8236ea1f",
+        "scope": "pilot",
+        "status": "cancelled",
+        "content": {
+          "slot": "other-slot",
+          "material_ref": "new-context"
+        }
+      },
+      "request": {
+        "id": "b8344a04-9a94-41f1-b8f1-650d5eb56bf8",
+        "parent_id": "d57275ac-57a4-439e-8308-a181df59d70a",
+        "parent_revision": 3,
+        "slot": "other-slot",
+        "request_provenance": "missing-ingredient:cancelled",
+        "returned_material": "field.duration@1",
+        "result_state": "review-required"
+      },
+      "resume": "explicit context re-read and review; do not reuse obsolete envelope"
+    }
+  },
+  {
+    "name": "P5 reviewed resume uses current slot+revision",
+    "pass": true,
+    "actual": {
+      "status": 200,
+      "readback": {
+        "id": "d57275ac-57a4-439e-8308-a181df59d70a",
+        "kind": "Parent",
+        "revision": 6,
+        "last_request": "0c6d176e-4b88-4527-a5dd-957d29af09c1",
+        "scope": "pilot",
+        "status": "draft",
+        "content": {
+          "slot": "input",
+          "material_ref": "field.duration@1"
+        }
+      },
+      "limitation": "TEST reviewer identity, not Owner/production acceptance; automated approval policy not implemented"
+    }
+  },
+  {
+    "name": "Gate4 lazy second use reuses canonical mapping",
+    "pass": true,
+    "actual": {
+      "mappings": 1,
+      "usages": 2,
+      "mapping": {
+        "semantic_id": "field.duration",
+        "semantic_version": 1,
+        "physical_address": "LAB.proof_ab.public.lab_task_records.duration_minutes",
+        "owner_ref": "semantic-data",
+        "provenance": "actual catalog metadata + Field contract v1"
+      }
+    }
+  }
+]

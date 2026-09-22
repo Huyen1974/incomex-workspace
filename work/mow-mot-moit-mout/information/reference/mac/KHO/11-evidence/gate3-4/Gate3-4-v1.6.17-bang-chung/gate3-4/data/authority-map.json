@@ -1,0 +1,65 @@
+[
+  {
+    "fact": "Identity/role/policy/current permission",
+    "authority": "Directus native records in PG and native ItemsService resolution",
+    "mirror": "Nuxt session selector/prefill only",
+    "consumer": "guard ItemsService",
+    "retire_candidate": "Any worker/Nuxt copy of permission grant; never pinned"
+  },
+  {
+    "fact": "Field meaning/type/unit",
+    "authority": "Admitted versioned semantic contract; LAB lab_contracts content",
+    "mirror": "Form layout metadata; Joi compiled description",
+    "consumer": "guard compares exact catalog; runtime closure contains selected version",
+    "retire_candidate": "Current forms.main or unadmitted candidate label as runtime meaning"
+  },
+  {
+    "fact": "Runtime effective semantics",
+    "authority": "LAB immutable release snapshot selected at occurrence admission",
+    "mirror": "queue payload carries instance ID only; UI displays",
+    "consumer": "worker/guard exact pin",
+    "retire_candidate": "runtime forms.main check; fixed in candidate"
+  },
+  {
+    "fact": "Binding active/current release",
+    "authority": "LAB lab_runtime_bindings row",
+    "mirror": "event payload selector not authority",
+    "consumer": "transactional producer SELECT→instance→native enqueue",
+    "retire_candidate": "binding_registry code treated as release binding by name only"
+  },
+  {
+    "fact": "Effect/receipt/revision",
+    "authority": "Guarded PG transaction + native audit",
+    "mirror": "Nuxt success message, worker result reference",
+    "consumer": "reconciliation and readback",
+    "retire_candidate": "ack before durable effect; retry unknown outcome"
+  },
+  {
+    "fact": "Queue delivery/retry/ACK",
+    "authority": "pg-boss12.30.0 native queue",
+    "mirror": "lab_runtime_attempts business observation only",
+    "consumer": "generic worker callback",
+    "retire_candidate": "job_queue dual enqueue for same occurrence; no production retirement authorized"
+  },
+  {
+    "fact": "Error classification",
+    "authority": "C08 declaration constrained to actual adapter mapping",
+    "mirror": "UI human-readable message, worker native job result",
+    "consumer": "pg-boss perJobResults failed/deadletter",
+    "retire_candidate": "throw every error into retry loop"
+  },
+  {
+    "fact": "Assignment responsibility",
+    "authority": "D04 Owner pending; People/Role/Delegation stay distinct current sources",
+    "mirror": "NTGV selectors only",
+    "consumer": "future governed resolver; LAB fixed synthetic actor",
+    "retire_candidate": "report_recipient implicitly treated as executor"
+  },
+  {
+    "fact": "Test/review/approve/publish/activate",
+    "authority": "PM D05 distinct actions + future admitted policy/evidence ledger",
+    "mirror": "UI readiness summary not approval",
+    "consumer": "Gate3 contract fixture only, production transitions not proven",
+    "retire_candidate": "published implies active or test pass means Owner acceptance"
+  }
+]

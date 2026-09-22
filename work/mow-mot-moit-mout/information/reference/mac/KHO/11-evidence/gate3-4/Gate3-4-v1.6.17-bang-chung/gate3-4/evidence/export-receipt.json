@@ -1,0 +1,70 @@
+{
+  "owned_lab": "proof-g34-20260911-01a07f1f",
+  "verified_files": [
+    {
+      "file": "runtime-proof-results.json",
+      "sha256": "67041d77a2e89f6a12e786dc0a72364c7d2eb9c547f6990be37e403a2620a48c"
+    },
+    {
+      "file": "boundary-proof-results.json",
+      "sha256": "fe2fc745a39777e05c582877183f0a5a4a21cc49200d73c31440472de5fd22bb"
+    },
+    {
+      "file": "extra-contract-results.json",
+      "sha256": "98f18f8a1e2fab082fa05349f273c9483a078855557b177a837d5b57ef9a1280"
+    },
+    {
+      "file": "lifecycle-proof-results.json",
+      "sha256": "3b6f6b2e65d7b204312a41a393b015a153d6d37ab9679080e08880099d9eb349"
+    },
+    {
+      "file": "contract-shape-results.json",
+      "sha256": "499bdb8a8a9b85d5dff5c4660e55ada6f43e96efa7f94b3ba64f737244145c4a"
+    },
+    {
+      "file": "release-v1.json",
+      "sha256": "7e17914000c661a61addf52adf2bc95847bb775dca179899d431d921a3f476c9"
+    },
+    {
+      "file": "release-v2.json",
+      "sha256": "a73dd0bfcb3a90feb16755fa66982aa1f87fe85d75e8b4ed61644b3aca0797fe"
+    },
+    {
+      "file": "release-v3.json",
+      "sha256": "dc7572a9885fff3681196ac1aff18601afcdfe6920de42740c54be2bfbace225"
+    },
+    {
+      "file": "lab.json",
+      "sha256": "32798d0d72a5d09e518d574d574f1f1d5e8d3ef3c61104066899c3bc01c34ef3"
+    },
+    {
+      "file": "before.json",
+      "sha256": "bf4de4d14a926f628b03d1df59ef3ab658a5f17297b50a5b78ff633f3762d552"
+    },
+    {
+      "file": "demo-smoke-before.json",
+      "sha256": "3041863d848cacd64065caef01b5b498f2a82f8adac1ae43e356c8a7c32112b7"
+    },
+    {
+      "file": "pg-minor-restore-results.json",
+      "sha256": "88dfed02ebfaf41fae21b8eb5138b53f99bf971e4a319777f1510c53bd845b13"
+    },
+    {
+      "file": "guard-installed.json",
+      "sha256": "bca185df39c8bd323687ff372d0de5368e9ed99a77fbe769a192849603cbb773"
+    },
+    {
+      "file": "lab-final-metadata.json",
+      "sha256": "4234ef71ca7ab51b376e1b8333c03010ff8e78b7880c6d44efd62507e9f860a2"
+    },
+    {
+      "file": "runtime-worker.log",
+      "sha256": "6767e2ab9143294a8e1f0657f2cddaa87bd9e055e65813dc62a04cf58fd886e0"
+    },
+    {
+      "file": "runtime-proxy.log",
+      "sha256": "d3535778b631874cca72727c5e69e8918a9fb529163f69b9438c56e4ace09e46"
+    }
+  ],
+  "excluded": "credentials/env/auth token/private dump/node_modules; all fixture identities synthetic"
+}

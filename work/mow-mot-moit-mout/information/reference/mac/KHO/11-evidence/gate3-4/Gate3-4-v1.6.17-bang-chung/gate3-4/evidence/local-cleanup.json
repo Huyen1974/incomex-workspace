@@ -1,0 +1,22 @@
+{
+  "temporary_work_removed": true,
+  "approximate_temporary_bytes_removed": 16730674,
+  "removed_metadata_files": [],
+  "removed_oneoff_or_redundant_helpers": [
+    "stage-ssot.py (exact diff retained)",
+    "intervening-writer.py",
+    "regression-subset.py",
+    "observe-lab.py",
+    "final-capture.py",
+    "resume-runtime.py",
+    "empty cleanup.stderr.txt"
+  ],
+  "private_ui_config_removed": true,
+  "local_nuxt_and_ssh_tunnel": "stopped after browser proof",
+  "static_preview": "stopped after prewrite browser QA",
+  "proof_sources_kept": "Needed to review/reproduce tests; not disposable simply because a test passed.",
+  "lab_cleanup_receipts": [
+    "cleanup.json",
+    "final-closure/cleanup.json"
+  ]
+}

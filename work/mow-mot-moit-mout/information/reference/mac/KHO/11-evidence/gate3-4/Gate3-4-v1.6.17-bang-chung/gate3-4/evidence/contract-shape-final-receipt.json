@@ -1,0 +1,11 @@
+{
+  "engine": "joi@17.13.3",
+  "environment": "Local Node24.21.0, same Joi version as native Directus11.5.1; final C01 declaration-only correction; runtime code unchanged from both labs",
+  "reason": "Version is immutable: no edit_revision/activation in Version; those remain Draft/Binding. Two negative cases added.",
+  "hashes": {
+    "contracts/contracts.json": "a16b88ddc5af2f3501ea509040bebced068f25f26b055439078b935e925e64ee",
+    "contracts/cases.json": "e112810e48e2c622ccf5122474a8b39cdfde4e3b36ffdf5459e2088e15f1186d",
+    "proof/check-contracts.cjs": "2233b60aac8e41864bc1c55af0c25fe032d019babcfe953fa64b10526e3db3a7",
+    "evidence/validator-test-package-lock.json": "91232f23a5417777bd1a3dfa2658250b9b751e38cedcf2bf7b40788917ce0749"
+  }
+}

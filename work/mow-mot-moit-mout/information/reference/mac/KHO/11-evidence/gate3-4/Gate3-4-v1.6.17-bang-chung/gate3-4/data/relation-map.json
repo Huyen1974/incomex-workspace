@@ -1,0 +1,110 @@
+[
+  {
+    "relation": "Definition→Versions",
+    "source": "unit_version.unit_id → information_unit.id",
+    "classification": "authoritative hard relation",
+    "evidence_and_limit": "FK+UNIQUE(unit_id,version_seq) actual; information-unit domain only. Workflow-family semantic mapping is UNKNOWN until domain equivalence/reuse is verified."
+  },
+  {
+    "relation": "MOW Version→Step Bindings",
+    "source": "workflow_steps.workflow_id → workflows.id",
+    "classification": "Directus metadata only",
+    "evidence_and_limit": "No physical FK on workflow_steps; lab_mow→lab_mot physical FK is bounded fixture, not proof production versioned binding."
+  },
+  {
+    "relation": "Step→MOT Version",
+    "source": "workflow_steps.config",
+    "classification": "missing",
+    "evidence_and_limit": "No typed immutable MOT version ref verified; lab_step binding surface requires versioned ref admission."
+  },
+  {
+    "relation": "MOT→MOIT/MOUT/NTGV/Capability",
+    "source": "lab_mot.form_ref / lab_test_releases.snapshot",
+    "classification": "accepted equivalent enforcement",
+    "evidence_and_limit": "Lab MOIT ID FK + exact selected snapshot/hash; production reusable MOT refs missing."
+  },
+  {
+    "relation": "MOIT/MOUT/Condition→Field",
+    "source": "forms.schema / lab_material_links",
+    "classification": "accepted equivalent enforcement",
+    "evidence_and_limit": "Lab exact composite FK+profile allowlist. Production forms.schema JSON has no equivalent semantic FK proven."
+  },
+  {
+    "relation": "Trigger/Condition/NTGV Definition→Binding",
+    "source": "workflow_step_relations.condition_expression",
+    "classification": "missing",
+    "evidence_and_limit": "Text expression is not typed version relation; lab generic binding profile prevents cross-surface edit."
+  },
+  {
+    "relation": "People→Role",
+    "source": "directus_users.role → directus_roles.id",
+    "classification": "authoritative hard relation",
+    "evidence_and_limit": "Read constraints in production-mapping; native identity/role grant semantics only."
+  },
+  {
+    "relation": "Role/User→Policy",
+    "source": "directus_access.role/user/policy",
+    "classification": "authoritative hard relation",
+    "evidence_and_limit": "Native grant junction. NTGV cannot write it."
+  },
+  {
+    "relation": "Delegation→People/scope/expiry",
+    "source": "process_axis_delegation.delegate_actor/scope/expiry/status",
+    "classification": "discovered/inferred",
+    "evidence_and_limit": "Text actor/scope and domain CHECK; no People FK/current assignment integration proven. D04 pending."
+  },
+  {
+    "relation": "Release→material closure",
+    "source": "lab_test_releases.snapshot/content_hash",
+    "classification": "accepted equivalent enforcement",
+    "evidence_and_limit": "Exact bounded fixture snapshot + denied update/delete to business/worker/producer; production release closure compiler/admission missing."
+  },
+  {
+    "relation": "Binding→Release",
+    "source": "lab_runtime_bindings.release_id",
+    "classification": "authoritative hard relation",
+    "evidence_and_limit": "LAB physical FK; production binding_registry is read-source mapping, NOT active-release binding."
+  },
+  {
+    "relation": "Instance→Binding/Release",
+    "source": "lab_runtime_instances.release_id / event.payload.binding",
+    "classification": "accepted equivalent enforcement",
+    "evidence_and_limit": "LAB release FK, event FK; binding name captured in event JSON, no independent binding revision column yet."
+  },
+  {
+    "relation": "Task Instance→MOT Version",
+    "source": "lab_runtime_instances→release.snapshot.mot",
+    "classification": "accepted equivalent enforcement",
+    "evidence_and_limit": "One-MOT slice task==instance; multi-task relation not implemented."
+  },
+  {
+    "relation": "Attempt→Task+Capability",
+    "source": "lab_runtime_attempts.instance_id/capability_version",
+    "classification": "accepted equivalent enforcement",
+    "evidence_and_limit": "LAB instance FK + worker exact capability hash; production job_queue.attempts is counter, not attempt identity/history."
+  },
+  {
+    "relation": "Output→consumer/handoff",
+    "source": "lab_task_records / lab_write_receipts.response",
+    "classification": "accepted equivalent enforcement",
+    "evidence_and_limit": "Internal result only; external consumer ACK not proven and remains Gate6/7 scope."
+  },
+  {
+    "relation": "Missing request→parent/slot/revision",
+    "source": "lab_missing_requests.parent_id/slot/parent_revision",
+    "classification": "authoritative hard relation",
+    "evidence_and_limit": "LAB parent FK + generic gate CAS; provenance retained, late result review required."
+  },
+  {
+    "relation": "supersedes/replaces",
+    "source": "unit_version.unit_id/version_seq",
+    "classification": "discovered/inferred",
+    "evidence_and_limit": "Ordering not explicit supersedes edge across reusable families; schema addition or admitted mapping required."
+  },
+  {
+    "relation": "where-used semantic→physical→usage",
+    "source": "sua_re_ui_khai_niem_nhap.concept_id / lab_lazy_mapping+lab_lazy_usage",
+    "classification": "authoritative hard relation",
+    "evidence_and_limit": "Production candidate concept usage FK exists; not accepted semantic contract. LAB UNIQUE map + FK usage proves second-use dedup."
+  }
+]
