@@ -4,6 +4,36 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## KẾT — Đóng việc · 23/09/2026 · Host (Claude Chat) · CLOSED theo lệnh Owner (D11)
+
+### Cho Owner (30 giây)
+| Hạng mục | Trạng thái | Số / bằng chứng |
+|---|---|---|
+| Đĩa VPS | 🟢 | 88% → 45%; trống 13 → 52,7GiB (Host đo lại 22/09 ~23:50Z) |
+| Vòi rò không phải nghiệp vụ | 🟢 5/5 có trần | 2 vòi hai khoá (bản sao Nuxt, JSONL Lark) + 3 vòi một khoá có trần (Qdrant, Hermes, log/bằng chứng/SQL tạm); người gác `vps-retention.sh` tự chạy |
+| Dữ liệu không cần trên VPS → Google Drive | 🟢 | backup mã hoá mỗi đêm 18:37Z, hạn giữ 30 bộ + 1 bộ/tháng trong 12 tháng; đêm 22/09 đã chạy thật bằng chìa mới (DB ~125MB + cấu hình ~179MB) |
+| Báo động về máy Owner | 🟢 | Kuma "Disk Usage" (≥80%) + "Cron Heartbeat" → Telegram, UP sau R4b |
+| Chìa Drive cũ (SEC-01) | 🟢 | chìa cũ đã chết (thử: lỗi xác thực); VPS + Mac dùng chìa riêng; transcript + 2 cấu hình cũ đã xoá |
+| Dịch vụ lỗi | 🟢 | 4 → 2 (2 cái còn lại của hệ điều hành từ 02/2026, vô hại); Config Guard 34/34 sạch |
+| Image Docker | 🟡 có canh | 10,7GiB, tăng theo mỗi lần build; báo hằng ngày (luật k) + báo động 80%; luật giữ giao chủ R03 (D10) |
+| Đổi múi giờ GMT+7 | ✖ bỏ | Owner 23/09: không cần (D11); VPS giữ giờ Đức, không đổi gì |
+
+### Host hậu kiểm chỉ đọc (thay V3 Codex + 2 tuần theo dõi, theo D11)
+- `vps_status` 22/09 ~23:50Z: đĩa 45,0%, trống ~52,7GiB; 6 container lõi healthy, StartedAt không đổi từ lần khôi phục 22/09 21:30Z; failed = `cloud-init`, `systemd-networkd-wait-online`.
+- Google Drive: bộ backup `…20260922T183701Z` (DB + cấu hình + meta) có mặt, tạo 18:38Z — lượt đêm đầu tiên sau đổi chìa.
+- Đối chiếu R4b §4b: Kuma #10/#11 UP sau lượt; cấu hình rclone hiện hành không đổi; phái cử chạy rc=0; không file lạ nào còn trong thư mục việc trên repo.
+- Lưới dài hạn thay cho theo dõi 2 tuần: Kuma báo đĩa ≥80% qua Telegram + dòng báo image hằng ngày trong `/var/log/incomex/vps-retention.log`.
+
+### Chuyển giao (không thuộc việc này, không chặn đóng)
+1. Docker `live-restore` — để lần dockerd sập sau container không nằm im (nguyên nhân: R4b §4). Nên làm một lượt nhỏ riêng.
+2. Chủ R03 (GPT): luật giữ image + build cache; cấm `docker buildx/builder` trên VPS (D10).
+3. Handoff HVU H2: chuyển `/opt/incomex/deploys/hvu-archive01-20260922` về kho done-tasks (chưa làm; đĩa đủ, không gấp).
+4. Chủ agent-data: TTL `workspace-tools`. 5. Kuma: Resend Interval = 0 (báo 1 lần khi đổi trạng thái). 6. Project Google Cloud cũ "Github-chatgpt" ~31 nghìn đồng/tháng.
+7. `setup-report.txt` trên Mac chứa token đã chết — Host phân loại: vô hại, giữ; muốn xoá lúc nào cũng được (không ảnh hưởng mount).
+8. Ghi nhớ kỹ thuật: cron máy này BỎ QUA `CRON_TZ` — mọi dòng chạy theo giờ Đức (dòng `CRON_TZ=UTC` của Qdrant gây hiểu nhầm). Bảng quy đổi GMT+7 có sẵn trong hồ sơ R4b (tự xoá sau 30 ngày theo luật h); cần đổi giờ sau này thì làm lại từ R4b §5.
+
+---
+
 ## R4b — Khép việc · 22–23/09/2026 · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=workspace_* · KQ STOPPED · 4.4
 
 RUN_ID `VPSC-R4B-20260923-01` · PROMPT@`0a08377d915f0dae0417e63175728e0d3de60282` — cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `OWNER_APPROVED@` + Host `READY@` cùng mã; đã đọc AGENTS → COLLAB (A0, D08–D10, H1) → PROMPT. Chạy 22:43–23:03Z ngày 22/09 (= 05:43–06:03 ngày 23/09 giờ VN). NO_CONCURRENT_VPS_MUTATION đạt ở đầu mỗi phần (không build/compose/pull/deploy; StartedAt mọi container ≤ 21:30:05Z).
