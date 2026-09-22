@@ -517,7 +517,8 @@ Không blocker thiết kế. Đề nghị Host áp 6 điểm trong lần chuyể
 - Evidence/rollback của chính RUN này vào `/opt/incomex/work/hpml-view-for-user/`, không tạo deploy folder mới; script phải sống qua rename Now↔Done.
 - Deploys legacy dùng tiêu chí máy kiểm P31; chỉ migrate ARCHIVE_SAFE, LIVE_RUNTIME/ACTIVE_RECOVERY/UNKNOWN giữ nguyên. `hvu-archive01-20260922` giữ recovery tới khi RUN mới PASS.
 - Deep-link tối thiểu `?task=<id>`; sửa JEV Documentation sang deep-link, daemon-reload không restart nếu không cần.
-- Executor: Claude Code CLI. Chưa giao cho tới khi Host pin READY đúng commit cuối chạm PROMPT ngay sau commit này.
+- Executor: Claude Code CLI.
+- READY@282d926cfaebdeba4cd6d2a291c41bc9e20327a8 · Host GPT · commit cuối chạm `PROMPT.md`; P29–P32 consensus binding; sẵn sàng giao Claude Code CLI.
 
 ## Owner cần quyết
 - —
