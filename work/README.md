@@ -2,10 +2,10 @@
 
 Mọi công việc dài hạn nằm dưới thư mục này. Mỗi thư mục con trực tiếp là một việc/project độc lập và có `COLLAB.md` riêng; `PROMPT.md` chỉ có khi cần giao Agent. Test, evidence, assets và archive phải nằm trong đúng thư mục công việc, không đặt ở root repo.
 
-Quy ước: `work/<work-id>/...`. Root repo chỉ giữ `AGENTS.md`, `README.md`, `COLLAB.md` và `work/`.
+Quy ước: `work/<work-id>/...`. Việc đã xong: `work/done-tasks/<work-id>/...` (tên `done-tasks` dành riêng; đóng/mở lại = move nguyên thư mục theo `AGENTS.md#A9_TASK_SIGNAL`). Root repo chỉ giữ `AGENTS.md`, `README.md`, `COLLAB.md` và `work/`.
 
 ## Mẫu bắt buộc ở đầu mỗi `work/<work-id>/COLLAB.md`
-Ngay sau dòng tiêu đề `# COLLAB — <work-id>`, phải là:
+Ngay sau dòng tiêu đề `# COLLAB — <work-id>` (và dòng tuỳ chọn `Tên việc: <tên dễ đọc>`), phải là:
 
 ```md
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
