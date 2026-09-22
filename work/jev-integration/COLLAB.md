@@ -11,6 +11,7 @@
 
 Host: GPT Chat
 Host_ID: GPT-JEV-20260920-A
+Host Bước 2 (Claude): Claude Chat · Host_ID `CLAUDE-JEV-B2-260922-A` — Owner giao 2026-09-22 (D10)
 Owner giao mở việc: 2026-09-20
 HTML chính: `view.html`
 
@@ -31,6 +32,7 @@ HTML chính: `view.html`
 - D07 · 2026-09-21 · Nếu cần lưu/tạo secret cho JEV thì dùng **GSM theo cơ chế bí mật hiện có của hệ thống**. Agent được phép tự tạo/đọc secret trong GSM cho phạm vi việc này; không ghi plaintext secret vào repo hoặc file bền vững trên đĩa. Ngân sách OpenRouter hiện do Owner nạp khoảng 20 USD/lần và không phải biến số cần tối ưu trong pilot.
 - D08 · 2026-09-21 · Ưu tiên **ghép phần mềm có sẵn, không tự viết server nếu chưa chứng minh là cần**. Ứng viên chính đã kiểm: `itsmostafa/typesafe-mcp` (MIT) — binary Go, một tool `evaluate(state, questions)`, hỗ trợ OpenRouter, validate request cục bộ, retry 429/529, lỗi API khác trả cho agent. Package hiện dùng MCP **stdio**, vì vậy remote ChatGPT/Work cần một bridge stdio→remote MCP có sẵn; Agent phải chọn/ghim bridge có sẵn và nghiệm thu, không giả định package đã có HTTP endpoint.
 - D09 · 2026-09-21 · **Chọn PA1 cho path-secret JEV:** secret sinh/lưu trong GSM, materialize vào tmpfs riêng của `jev-gw`, dùng làm named-server/path của `mcp-proxy`; nginx chỉ proxy generic `/jev-mcp/<X>/mcp` sang bridge, không ghi giá trị secret vào file bền vững. Sai secret phải 404/chặn trước khi tới `evaluate`/OpenRouter. Không proxy `/status` ra public; nếu `/status` chỉ thấy trong mạng bridge nội bộ thì chấp nhận cho pilot, nhưng nếu Agent phát hiện nó public hoặc reachable từ mạng không tin cậy thì DỪNG và báo Host trước mutation production.
+- D10 · 2026-09-22 · Owner giao **Claude Chat điều hành Bước 2 (Claude Chat · Cowork · Claude Code)** để đóng việc; GPT Chat vẫn là Host việc JEV. Trong ủy quyền “cần đồng ý gì thì đồng ý” của Owner: (a) **một** `SKILL.md` dùng chung hai hãng, description ≤200 ký tự, đồng bộ về các bản đã cài phía OpenAI và chạy lại Codex K1/K2; (b) nếu Claude Code không thấy connector tài khoản thì URL JEV được nằm trong cấu hình Claude Code user-level trên Mac của Owner (chỉ user đọc; không repo/VPS/log).
 
 ## Đề xuất đang mở
 ### P01 · GPT Chat · ACCEPTED
@@ -241,7 +243,7 @@ HTML chính: `view.html`
 - `jev-gw-health` version-agnostic: **XONG 2026-09-22** (xem KQ JEV-HEALTH-VA).
 - Codex acceptance 10+10: **PASS** — `POSITIVE_TRIGGER=10/10`, `FALSE_TRIGGER=0/10`, `MODEL_ARG_ABSENT=10/10`, `ANSWERS=10/10`.
 - **OPENAI JEV CLIENT ACCEPTANCE = DONE.** Theo `CLIENT-ACCEPTANCE.md` mới, không cần chạy thêm Work/Chat 10+10.
-- NEXT: **Bước 2 Claude**, theo thứ tự Claude Chat → Cowork → Claude Code; tái dùng đúng remote JEV Gateway hiện tại, không dựng backend mới. Connector trước, Skill sau, rồi smoke explicit/natural/negative. Claude Code là surface định lượng 10+10 nếu smoke PASS.
+- **Bước 2 Claude · `READY@d955c6f6316326fecf03e5177176cc445eab1376`** · RUN_ID `JEV-B2-CLAUDE-20260922-01` · Host Bước 2 = Claude Chat (D10). Trình tự: Agent Phần A (đồng bộ skill + Codex K1/K2 + zip + clipboard) → Owner cắm 2 thứ trên claude.ai → Agent Phần B (Claude Code smoke + 10+10) → Owner dán smoke CL1/CL2 vào Claude Chat và Cowork (§H2) → Host chấm → DONE theo `CLIENT-ACCEPTANCE.md` §H4 → đóng việc.
 - Hermes giữ task riêng `work/hermes-joint-workspace/`; chỉ mở sau Claude JEV DONE.
 
 ### P16 · GPT Chat · ACCEPTED — đóng OpenAI, mở Bước 2 Claude
