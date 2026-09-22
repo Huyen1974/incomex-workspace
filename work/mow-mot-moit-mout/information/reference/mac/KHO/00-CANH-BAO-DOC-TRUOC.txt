@@ -1,0 +1,46 @@
+==========================================================
+KHO NAY LA LICH SU VA BANG CHUNG
+KHO KHONG MO TA TRANG THAI HIEN HANH
+==========================================================
+Cap nhat: 02/09/2026
+
+MOT NGUON CHO MOI LOAI THONG TIN:
+
+  Quyet dinh thiet ke  -> 00-NGUON-THIET-KE.html      (thu muc goc)
+  Hop dong thong tin   -> SO-HOP-DONG-THONG-TIN.xlsx  (thu muc goc)
+  Ma dang chay         -> kho ma / VPS
+  Du lieu nghiep vu    -> PostgreSQL
+  Menu 4 Me            -> eco-nav.js tren VPS
+  Lich su + bang chung -> KHO/ (thu muc nay)
+
+CACH DUNG KHO NAY:
+
+  DUOC dung lam BANG CHUNG YEU CAU. Cac file Word goc trong
+  08-thu-muc-lam-viec/z Tai lieu/ van la can cu goc cua ca du an:
+    - de bai quan ly quy trinh.docx  (22/06) = de bai goc
+    - Mau viet quy trinh.docx        (07/07) = 7 truong bat buoc
+
+  KHONG dung lam MO TA TRANG THAI HIEN HANH. Moi quyet dinh
+  hien hanh phai duoc hop nhat ve 00-NGUON-THIET-KE.html.
+  Neu kho va tai lieu chinh noi khac nhau -> TIN TAI LIEU CHINH.
+
+CAC FILE DA TUNG LAM AGENT DOC SAI:
+
+  02-tai-lieu/00-DOC-TRUOC.md
+      LOI THOI. Ghi "ban tren VPS moi la ban dung".
+      SAI. Ban dung la 00-NGUON-THIET-KE.html o thu muc goc.
+
+  03-excel/
+      KHONG CON BAN LIVE. Van con 21 file backup 17-18/07 -
+      giu lam lich su vi so SSOT khong nam trong Git.
+      Ban dang dung da chuyen ra thu muc goc.
+
+  08-thu-muc-lam-viec/_work_*/
+      Cac cap original/edited la CHUOI BANG CHUNG cua tung vong.
+      KHONG xoa. Nhung KHONG phai thiet ke hien hanh.
+      Vi du new-modt-v1.html: tu ghi "DRAFT - du lieu mau",
+      nut Test chua chay phep kiem that, catalog field viet cung
+      trong JS, trang thai duyet luu trong sessionStorage.
+
+  09-ban-bo/
+      File da bo. Khong dung.
