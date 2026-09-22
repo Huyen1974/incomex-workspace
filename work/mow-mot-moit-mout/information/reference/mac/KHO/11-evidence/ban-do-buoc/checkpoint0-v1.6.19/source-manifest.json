@@ -1,0 +1,100 @@
+[
+  {
+    "id": "G2",
+    "path": "KHO/11-evidence/gate2/Gate2-R9-v1.6.16-2026-09-11-evidence/design/gate2-design.md",
+    "sha256": "351d60a1e07e24237cedb974f2004bf90c8e8ebfe368b7406abf61851e5619ef",
+    "bytes": 43001,
+    "scope": "Thiết kế có phạm vi; triển khai và completeness chưa được suy thành PASS."
+  },
+  {
+    "id": "LIMIT",
+    "path": "KHO/11-evidence/gate2/Gate2-R9-v1.6.16-2026-09-11-evidence/design/contract-readiness.md",
+    "sha256": "06f1f6368d2ff32b730830297ceea4aa7c4e97ebb657cb9f578f26574c467c7b",
+    "bytes": 8451,
+    "scope": "Câu hỏi cũ đối chiếu current D04–D08; không nhập lại trạng thái quyết định cũ."
+  },
+  {
+    "id": "M16",
+    "path": "KHO/11-evidence/gate1/Gate1-R2-R8-v1.6.15-2026-09-10-evidence/gate1-r2-r8-2026-09-10/source/3ad13eab35-mot-process-v1.html",
+    "sha256": "439056e2d2e4754afc64181128374a5c5b4a06b49856d6fa961d2ca0f9aac32e",
+    "bytes": 23773,
+    "scope": "Source lịch sử chỉ đọc; nội dung không được coi là chức năng hiện có. Bản lưu có thể khác mốc 02/09."
+  },
+  {
+    "id": "OLD",
+    "path": "KHO/11-evidence/ban-do-buoc/checkpoint0-v1.6.19/source-design-v2.9.html",
+    "sha256": "d2084204ccd4478394626482f9461c87bf7f92b14da4dd1cda66f14b275c9e6a",
+    "bytes": 201140,
+    "scope": "Phục hồi yêu cầu, không dùng số %/số bảng hoặc lộ trình tháng 9 cũ làm hiện trạng."
+  },
+  {
+    "id": "PM",
+    "path": "KHO/11-evidence/ban-do-buoc/checkpoint0-v1.6.19/pm-command.md",
+    "sha256": "397138f38e08130d99e6b250793b65cf4891bbe790daf887b8d0550e30bd03a6",
+    "bytes": 45044,
+    "scope": "Chỉ đạo hiện hành; D04 đã Owner ACCEPT; danh sách bước chưa được Owner xác nhận."
+  },
+  {
+    "id": "R1",
+    "path": "KHO/11-evidence/gate1/R1-MOW-Gate1-v1.6.14-2026-09-10-evidence/r1-mow-2026-09-10/README.md",
+    "sha256": "23a24d4c4d00600f317aae9624207056412482801df83416f5ead9918aff1d4d",
+    "bytes": 18281,
+    "scope": "Acceptance role có phạm vi; không chứng minh toàn bộ UI đủ."
+  },
+  {
+    "id": "R28",
+    "path": "KHO/11-evidence/gate1/Gate1-R2-R8-v1.6.15-2026-09-10-evidence/gate1-r2-r8-2026-09-10/README.md",
+    "sha256": "37357442b2a45a82218745bf162131d9c9fbca60502f1312b5a3ed016aac622c",
+    "bytes": 6731,
+    "scope": "41 candidate/5 pattern là inventory lịch sử; Pha A không mở lại audit control."
+  },
+  {
+    "id": "R9",
+    "path": "KHO/11-evidence/gate2/Gate2-R9-v1.6.16-2026-09-11-evidence/design/r9-walkthrough.md",
+    "sha256": "7f47beeecf43b7850fb67becccbd5bcf8b4c8b8ad062ca6c489d2b27dc5b2e07",
+    "bytes": 11063,
+    "scope": "Mô phỏng composition; không runtime proof."
+  },
+  {
+    "id": "REV2",
+    "path": "KHO/11-evidence/gate3-4/Gate3-4-v1.6.18-bang-chung/gate3-4/REVIEW.md",
+    "sha256": "01c6aa9d18bf6b7baf602572040abfbe70bf57ad586c91b252f5a7f7985033a1",
+    "bytes": 7060,
+    "scope": "Lab đã dọn; proof bounded được bảo toàn, không service đang sống; không phải toàn bộ gap hệ thống."
+  },
+  {
+    "id": "SS",
+    "path": "KHO/11-evidence/ban-do-buoc/checkpoint0-v1.6.19/ssot-source-v1.6.18.html",
+    "sha256": "35032ef8e303acc403860a55fae43f10f1cf3a9d426ac131d1c02ca6bd28438f",
+    "bytes": 532745,
+    "scope": "Nguồn yêu cầu; lưu nguyên bản trước cập nhật v1.6.19. Các nhãn D04/Gate1 cũ được PM v2 thay thế."
+  },
+  {
+    "id": "START",
+    "path": "KHO/11-evidence/gate1/Gate1-R2-R8-v1.6.15-2026-09-10-evidence/gate1-r2-r8-2026-09-10/source/693de0ed58-bat-dau-o-day.html",
+    "sha256": "f73331664d87dd5c7d89c1948edfdf65a16cf64cc4e7e891c4f71eabbf3dba13",
+    "bytes": 40975,
+    "scope": "Source lịch sử chỉ đọc; nội dung không được coi là chức năng hiện có. Bản lưu có thể khác mốc 02/09."
+  },
+  {
+    "id": "SYS",
+    "path": "KHO/11-evidence/gate1/Gate1-R2-R8-v1.6.15-2026-09-10-evidence/gate1-r2-r8-2026-09-10/source/5b5df4bc22-quy-trinh-he-thong.html",
+    "sha256": "4c5f69d5c1f49479837e17cd304ace2d370eb4a430b7b893c564f8144e2a20fd",
+    "bytes": 32189,
+    "scope": "Source lịch sử chỉ đọc; nội dung không được coi là chức năng hiện có. Bản lưu có thể khác mốc 02/09."
+  },
+  {
+    "id": "XLS",
+    "path": "KHO/11-evidence/ban-do-buoc/checkpoint0-v1.6.19/workbook-source.json",
+    "sha256": "5ef7ee73a14ea2c934372bb7c4ea2a14b60cceb27465b23698885c1995932ae9",
+    "bytes": 108991,
+    "scope": "Định nghĩa 2–56; khung_object 2–19; quy_trinh 3–163; SO_HOP_DONG169–205/436–452/1148–1155; hướng dẫn160–164/234/243–268. Đọc yêu cầu, chưa audit control."
+  },
+  {
+    "id": "XLS-ORIGINAL",
+    "path": "SO-HOP-DONG-THONG-TIN.xlsx",
+    "sha256": "507a4fd57377e34dd417638ed3284946e714895e9766cf6c1f7c331fc4cb4f46",
+    "bytes": 202655,
+    "scope": "read-only selected requirement rows; no workbook edit"
+  }
+]

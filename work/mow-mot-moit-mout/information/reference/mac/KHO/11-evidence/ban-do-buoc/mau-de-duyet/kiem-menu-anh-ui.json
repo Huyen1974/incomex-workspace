@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-12",
+  "readOnly": true,
+  "reviewLog": [
+    {
+      "action": "Mở Ai làm & ai nhận, chỉ xem",
+      "state": "Browser tab: 15, Title: \"MOW · T1 · Đề xuất — Incomex\", URL: \"https://vps.incomexsaigoncorp.vn/admin-new-modt?tang=T1&che-do=de-xuat\".\nThere has been no change in the accessibility tree.\nThe focused UI element is 247 button (expanded) 04 Ai làm & ai nhận Khai một lần, hệ thống tự gán theo điều kiện Nháp thiết kế ⌄, Secondary Actions: Collapse"
+    },
+    {
+      "action": "Xem Chạy & kết thúc, không đổi cấu hình",
+      "state": "Browser tab: 15, Title: \"MOW · T1 · Đề xuất — Incomex\", URL: \"https://vps.incomexsaigoncorp.vn/admin-new-modt?tang=T1&che-do=de-xuat\".\nThere has been no change in the accessibility tree.\nThe focused UI element is 253 button (expanded) 05 Chạy & kết thúc Khai hai đầu của một lần chạy Nháp thiết kế ⌄, Secondary Actions: Collapse"
+    },
+    {
+      "action": "Xem C40 chế độ Vận hành, không chạy lượt",
+      "state": "Browser tab: 15, Title: \"MOW · T2 · Vận hành — Incomex\", URL: \"https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T2&che-do=van-hanh\".\nThere has been no change in the accessibility tree.\nThe focused UI element is 1 AXWebArea MOW · T2 · Vận hành — Incomex, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T2&che-do=van-hanh"
+    },
+    {
+      "action": "Tìm lại tên ví dụ để chụp đủ độ phân giải, không ghi dữ liệu",
+      "state": "Browser tab: 17, Title: \"MOW — Danh sách quy trình đã đúc\", URL: \"https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-v1.html\".\nThere has been no change in the accessibility tree.\nThe focused UI element is 14 text field (settable) Value: Ghi nhận thời lượng xử lý, ID: mlQ"
+    }
+  ]
+}

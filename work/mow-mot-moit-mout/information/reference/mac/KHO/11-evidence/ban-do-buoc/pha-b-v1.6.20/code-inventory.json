@@ -1,0 +1,31 @@
+{
+  "product_code_changed": 0,
+  "workshop_code_changed": 0,
+  "document_code": [
+    {
+      "file": "check-phase-b.js",
+      "lines": 12
+    },
+    {
+      "file": "stage-phase-b-ssot.py",
+      "lines": 84
+    },
+    {
+      "file": "build-phase-b.py",
+      "lines": 416
+    },
+    {
+      "file": "render-phase-b.py",
+      "lines": 111
+    },
+    {
+      "file": "verify-phase-b.py",
+      "lines": 82
+    },
+    {
+      "file": "prepare-handoff.py",
+      "lines": 78
+    }
+  ],
+  "no_zero_code_claim": "HTML/generation/QA are document code. No new product code or runtime actions."
+}

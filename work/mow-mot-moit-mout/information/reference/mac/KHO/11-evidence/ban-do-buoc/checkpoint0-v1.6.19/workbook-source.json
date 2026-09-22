@@ -1,0 +1,3898 @@
+[
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 2,
+    "values": [
+      "nguoi_thuc_hien",
+      "Người thực hiện",
+      "người",
+      "Người ĐƯỢC GIAO làm công việc, HOẶC phải CHỊU TRÁCH NHIỆM về nó.",
+      "Khác 'người phê duyệt' (chỉ ký) và 'người nhận báo cáo' (chỉ nhận).",
+      "người phụ trách; phụ trách; assignee; loại thực hiện",
+      "gộp theo bản chất",
+      "BUILT",
+      "Gộp phụ trách(MOW)+thực hiện(MODW) = 1 khái niệm.",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 3,
+    "values": [
+      "nguoi_nhan_bao_cao",
+      "Người nhận báo cáo",
+      "người",
+      "Các CẤP QUẢN LÝ mặc nhiên nhận báo cáo (thống kê, chậm muộn). CÓ THỂ NHIỀU người.",
+      "QUYỀN: truy cập TOÀN BỘ phần việc của người thực hiện. Khác: không làm, chỉ nhận.",
+      "recipient; người nhận",
+      "",
+      "BUILT",
+      "Quyền xem toàn bộ việc của người thực hiện.",
+      "nguoi_thuc_hien"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 4,
+    "values": [
+      "nguoi_phe_duyet",
+      "Người phê duyệt",
+      "người",
+      "Người CHỈ ĐỊNH phê duyệt quy trình cần duyệt. Chỉ XEM XÉT + BẤM DUYỆT.",
+      "KHÔNG chỉ là trường — là MẮT XÍCH LUỒNG: thiếu tín hiệu duyệt → quy trình DỪNG.",
+      "approver",
+      "",
+      "NOT_BUILT",
+      "ĐẦU CHỜ KESTRA: tín hiệu duyệt = TRIGGER bước sau.",
+      "nguoi_thuc_hien"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 5,
+    "values": [
+      "nguoi_chuyen_giao",
+      "Người chuyển giao trách nhiệm",
+      "người",
+      "CHUYỂN GIAO trách nhiệm cho người KHÁC người được chỉ định ban đầu.",
+      "'người làm thay' và 'người chuyển tiếp' là CÙNG cái này — chỉ khác tên gọi.",
+      "người làm thay; người chuyển tiếp",
+      "",
+      "NOT_BUILT",
+      "Luồng: #1 đề xuất → cấp trên duyệt → #2 thay vai #1.",
+      "nguoi_phe_duyet; nguoi_thuc_hien"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 6,
+    "values": [
+      "tg_thuc_thi",
+      "Thời gian thực thi (phút)",
+      "thời gian",
+      "Tổng số phút thực hiện MỘT task ở T1.",
+      "Cấp T1 (từng việc). Khác cộng dồn (T2).",
+      "exectime; nWhen",
+      "",
+      "BUILT",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 7,
+    "values": [
+      "tg_cong_don",
+      "Thời gian cộng dồn (phút)",
+      "thời gian",
+      "Cộng tổng thời gian TỪNG VIỆC → thời gian một NHIỆM VỤ/WF ở T2.",
+      "Owner: BẬT MẶC ĐỊNH → checkbox accumulate bỏ.",
+      "tổng giờ",
+      "",
+      "BUILT",
+      "Checkbox accumulate → TO_REMOVE.",
+      "tg_thuc_thi; tg_phat_sinh"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 8,
+    "values": [
+      "tg_phat_sinh",
+      "Thời gian phát sinh (phút)",
+      "thời gian",
+      "Việc phát sinh SAU, bất định — nhập CẢ TÊN + SỐ PHÚT. Cộng dồn vào tg_cong_don nhưng NHÃN RIÊNG.",
+      "Nhãn riêng để cộng RIÊNG (phục vụ phân tích dữ liệu).",
+      "buffer; dự phòng",
+      "",
+      "BUILT",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 9,
+    "values": [
+      "tg_chi_dinh",
+      "Thời gian chỉ định cho nhiệm vụ",
+      "thời gian",
+      "BỔ THẲNG cả quy trình 'X phút' (không tính lắt nhắt từng việc).",
+      "Giá trị ~ tg_cong_don NHƯNG cách đặt khác → KHÔNG GỘP, dùng cả hai.",
+      "",
+      "",
+      "NOT_BUILT",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 10,
+    "values": [
+      "han_hoan_thanh",
+      "Hạn hoàn thành",
+      "thời gian",
+      "Ngày/giờ/phút CỤ THỂ việc phải xong. Quá hạn → hệ đếm giờ quá hạn.",
+      "SLA hiện tại.",
+      "SLA; sla_light",
+      "",
+      "BUILT",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 11,
+    "values": [
+      "tien_do",
+      "Tiến độ hoàn thành",
+      "thời gian",
+      "(hạn − now) → liệt kê việc SẮP ĐẾN HẠN → nhắc, đẩy ưu tiên.",
+      "Thời gian TÍNH TOÁN, không nhập tay.",
+      "progress",
+      "",
+      "BUILT",
+      "ĐẦU CHỜ: đầu vào quy trình CẢNH BÁO; checkpoint = trigger.",
+      "han_hoan_thanh; so_phut_qua_han"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 12,
+    "values": [
+      "so_phut_qua_han",
+      "Số phút quá hạn",
+      "thời gian",
+      "Thời gian quá hạn của việc/nhiệm vụ.",
+      "Tính đa chiều: theo CÔNG VIỆC / NHÂN VIÊN / BỘ PHẬN (trừ thi đua).",
+      "overdue",
+      "",
+      "NOT_BUILT",
+      "Đầu vào cảnh báo + thi đua.",
+      "han_hoan_thanh; tien_do"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 13,
+    "values": [
+      "quy_trinh",
+      "Quy trình (T2)",
+      "quy trình",
+      "MẸ, gồm nhiều công việc con (VD 'Tiếp nhận đơn hàng' → nhiều việc con).",
+      "Khác công việc (T1); quy trình là mẹ. T2 xuống T1 BỔ SUNG thuộc tính (trigger, người thực hiện, phê duyệt).",
+      "nhiệm vụ; workflow; WF",
+      "",
+      "BUILT",
+      "",
+      "cong_viec"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 14,
+    "values": [
+      "cong_viec",
+      "Công việc (T1)",
+      "quy trình",
+      "CON của quy trình; một bước thực thi cụ thể.",
+      "T1 có thêm trigger/người thực hiện/phê duyệt mà T2 không có.",
+      "task; đầu việc",
+      "",
+      "BUILT",
+      "",
+      "quy_trinh"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 15,
+    "values": [
+      "ma_node",
+      "Mã (định danh)",
+      "quy trình",
+      "Mã MÁY đọc của thực thể (T01, NV01). CHUẨN: mọi thực thể 7 tầng đều có MÃ.",
+      "MÃ ẨN trên UI (máy đọc); người đọc TÊN.",
+      "mã công việc; mã quy trình; code; det.code",
+      "",
+      "BUILT",
+      "Thuộc tính chuẩn mọi tầng.",
+      "ten_node"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 16,
+    "values": [
+      "ten_node",
+      "Tên",
+      "quy trình",
+      "Tên NGƯỜI đọc ('Nhận đơn'). CHUẨN: mọi thực thể 7 tầng đều có TÊN.",
+      "Tên HIỆN trên UI; mã ẨN để người tập trung vào chữ.",
+      "tên công việc; tên quy trình; tên node",
+      "",
+      "BUILT",
+      "Thuộc tính chuẩn mọi tầng.",
+      "ma_node"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 17,
+    "values": [
+      "loai_task",
+      "Loại task",
+      "quy trình",
+      "Phân loại bản chất của bước/công việc.",
+      "",
+      "task type",
+      "",
+      "BUILT",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 18,
+    "values": [
+      "tang_node",
+      "Tầng của node",
+      "quy trình",
+      "Node thuộc tầng nào trong 7 tầng (T7–T1).",
+      "",
+      "tier",
+      "",
+      "BUILT",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 19,
+    "values": [
+      "trang_thai_node",
+      "Trạng thái node",
+      "quy trình",
+      "Trạng thái của node (chấm màu xanh/xám/…).",
+      "",
+      "",
+      "",
+      "BUILT",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 20,
+    "values": [
+      "trigger",
+      "Trigger",
+      "quy trình",
+      "Điều kiện/sự kiện làm công việc BẮT ĐẦU.",
+      "ĐÃ có ở T2 nhưng CHƯA ĐỦ để chạy thật (cần thêm hàng đợi + điều kiện).",
+      "",
+      "",
+      "BUILT",
+      "Đầu chờ Kestra.",
+      "hang_doi; dieu_kien_chay; tin_hieu_ra"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 21,
+    "values": [
+      "output",
+      "Output",
+      "quy trình",
+      "Kết quả/đầu ra công việc tạo ra khi hoàn thành.",
+      "",
+      "kết quả",
+      "",
+      "BUILT",
+      "",
+      "tin_hieu_ra"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 22,
+    "values": [
+      "chen_node",
+      "Chèn node",
+      "quy trình",
+      "HÀNH ĐỘNG thêm node mới vào chuỗi (đầu/giữa/cuối).",
+      "",
+      "thêm node",
+      "",
+      "BUILT",
+      "hành động.",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 23,
+    "values": [
+      "duc_node",
+      "Đúc node",
+      "quy trình",
+      "HÀNH ĐỘNG bấm để đúc — biến khai báo MOW thành bản CHẠY ĐƯỢC.",
+      "Cái MÁY DẬP (khác 'khuôn' = sản phẩm).",
+      "cast; App.cast",
+      "",
+      "BUILT",
+      "MODW.",
+      "khuon"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 24,
+    "values": [
+      "khuon",
+      "Khuôn đúc (bản khai báo chạy được)",
+      "quy trình",
+      "SẢN PHẨM đúc ra — khuôn khai báo để chạy HÀNG LOẠT.",
+      "Cái KHUÔN (khác 'đúc node' = hành động).",
+      "khuôn JSON; bản khai báo chạy được; moldJson",
+      "",
+      "BUILT",
+      "Tên UI 'Khuôn đúc'; JSON là kỹ thuật (note).",
+      "duc_node"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 25,
+    "values": [
+      "hang_doi",
+      "Hàng đợi",
+      "quy trình",
+      "Quy trình/việc CHỜ đến lượt chạy.",
+      "Bắt buộc để chạy thật; MOW/MOT CHƯA thiết kế.",
+      "queue",
+      "",
+      "NOT_BUILT",
+      "ĐẦU CHỜ KESTRA.",
+      "trigger; dieu_kien_chay"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 26,
+    "values": [
+      "dieu_kien_chay",
+      "Điều kiện chạy",
+      "quy trình",
+      "Có trigger rồi VẪN CHƯA ĐỦ — phải thoả điều kiện mới chạy.",
+      "",
+      "",
+      "",
+      "NOT_BUILT",
+      "ĐẦU CHỜ KESTRA.",
+      "trigger"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 27,
+    "values": [
+      "tin_hieu_ra",
+      "Tín hiệu ra",
+      "quy trình",
+      "Quy trình XONG → phát tín hiệu → KHỞI ĐỘNG quy trình TIẾP THEO.",
+      "",
+      "signal out",
+      "",
+      "NOT_BUILT",
+      "ĐẦU CHỜ KESTRA.",
+      "output; trigger"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 28,
+    "values": [
+      "de_xuat_cai_tien",
+      "Đề xuất cải tiến",
+      "đề xuất",
+      "Người đề xuất sửa quy trình đang chạy (thêm/xóa/đổi vị trí/sửa tên/thêm chi tiết) để đề xuất thay đổi. Cơ bản (⚙) và NÂNG CAO cùng tư duy — nâng cao chỉ nhập NHIỀU thông tin hơn.",
+      "DEDUP: cùng NỘI DUNG + cùng NGƯỜI = tính 1, lấy bản ĐỀ XUẤT CUỐI.",
+      "đề xuất nâng cao; cải tiến",
+      "cùng nội dung+người→1, bản cuối",
+      "BUILT",
+      "",
+      "loai_thao_tac_de_xuat; noi_dung_de_xuat"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 29,
+    "values": [
+      "loai_thao_tac_de_xuat",
+      "Loại thao tác đề xuất",
+      "đề xuất",
+      "Kiểu thay đổi: thêm ô (đầu/giữa/cuối) · xóa · đổi vị trí (kéo thả) · sửa tên · thêm chi tiết (tầng dưới) · chỉnh thời gian.",
+      "",
+      "",
+      "",
+      "BUILT",
+      "",
+      "chen_node; vi_tri_de_xuat"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 30,
+    "values": [
+      "noi_dung_de_xuat",
+      "Nội dung / ý tưởng đề xuất",
+      "đề xuất",
+      "Lý do/mục đích — mang tính Ý TƯỞNG (chưa phải thiết kế chi tiết).",
+      "",
+      "",
+      "",
+      "BUILT",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 31,
+    "values": [
+      "nguoi_de_xuat",
+      "Người đề xuất",
+      "đề xuất",
+      "AI đề xuất — bắt NGẦM khi gửi (không có khu hiển thị riêng).",
+      "",
+      "tạo đề xuất",
+      "",
+      "BUILT",
+      "Thông tin ngầm.",
+      "nguoi_thuc_hien"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 32,
+    "values": [
+      "thoi_gian_de_xuat",
+      "Thời gian đề xuất",
+      "đề xuất",
+      "LÚC NÀO đề xuất — bắt NGẦM khi gửi.",
+      "",
+      "",
+      "",
+      "BUILT",
+      "Thông tin ngầm.",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 33,
+    "values": [
+      "vi_tri_de_xuat",
+      "Vị trí đề xuất",
+      "đề xuất",
+      "Ở ĐÂU: node nào, LIỀN TRƯỚC/LIỀN SAU là gì, thứ tự trong danh sách. Người chỉ RÊ CHUỘT kéo (C lên trên B), NHƯNG hệ PHẢI bắt thành hợp đồng RÕ ('C liền trước B').",
+      "Hợp đồng DỄ SÓT — phải tường minh.",
+      "",
+      "",
+      "BUILT",
+      "Ngầm nhưng PHẢI rõ ràng.",
+      "quan_he_cha_con"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 34,
+    "values": [
+      "trang_thai_da_xem_xet",
+      "Trạng thái: đã xem xét chưa (như email đã đọc)",
+      "đề xuất",
+      "Đề xuất vừa gửi HIỂN THỊ trên view riêng người đề xuất (ô đổi màu…), LƯU MÃI đến khi admin bấm XEM XÉT → về bình thường (đọc bản chính thức đã duyệt). Cho người đề xuất biết đã ĐẾN VÒNG xem xét chưa.",
+      "Chỉ báo 'đến vòng xem xét', KHÔNG phải kết quả duyệt/bác (vòng sau).",
+      "trạng thái tạm thời; nháp riêng",
+      "",
+      "BUILT hiển thị / NOT_BUILT clear",
+      "Cơ chế như email đã đọc.",
+      "xem_xet_de_xuat"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 35,
+    "values": [
+      "gui_de_xuat",
+      "Gửi đề xuất",
+      "đề xuất",
+      "Chốt gửi bản đề xuất vào danh sách chờ xem xét (bắt ngầm người/thời gian/vị trí).",
+      "",
+      "",
+      "",
+      "BUILT",
+      "",
+      "danh_sach_de_xuat; nguoi_de_xuat; thoi_gian_de_xuat; vi_tri_de_xuat"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 36,
+    "values": [
+      "sua_xoa_de_xuat",
+      "Sửa / xóa đề xuất nháp",
+      "đề xuất",
+      "Sửa hoặc xóa bản đề xuất mới.",
+      "",
+      "",
+      "",
+      "BUILT",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 37,
+    "values": [
+      "phan_hoi_de_xuat",
+      "Phản hồi người đề xuất",
+      "đề xuất",
+      "Màn CẢM ƠN sau gửi (đã có). Thông báo CHẤP NHẬN / TỪ CHỐI = quy trình SAU.",
+      "",
+      "cảm ơn; xác nhận gửi",
+      "",
+      "BUILT cảm ơn / NOT_BUILT báo KQ",
+      "",
+      "trang_thai_de_xuat"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 38,
+    "values": [
+      "danh_sach_de_xuat",
+      "Danh sách đề xuất tổng hợp",
+      "đề xuất",
+      "Gom MỌI đề xuất về 1 NƠI để admin xem xét từng cái. Nơi thông tin ngầm HỘI TỤ. Áp DEDUP (cùng nội dung+người→1, bản cuối).",
+      "",
+      "",
+      "",
+      "NOT_BUILT",
+      "Hội tụ + dedup.",
+      "nguoi_de_xuat; thoi_gian_de_xuat; vi_tri_de_xuat"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 39,
+    "values": [
+      "trang_thai_de_xuat",
+      "Trạng thái đề xuất",
+      "đề xuất",
+      "KẾT QUẢ xử lý: chờ xem xét / chấp nhận / từ chối.",
+      "Khác 'đã xem xét chưa' (chỉ báo đến vòng).",
+      "",
+      "",
+      "NOT_BUILT",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 40,
+    "values": [
+      "xem_xet_de_xuat",
+      "Xem xét đề xuất",
+      "đề xuất",
+      "Admin bấm XEM XÉT (như đọc email) → xác nhận/làm rõ · bàn bạc · hoặc thiết kế lại. Bấm xong → clear 'đã xem xét' cho người đề xuất.",
+      "",
+      "",
+      "",
+      "NOT_BUILT",
+      "",
+      "trang_thai_da_xem_xet"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 41,
+    "values": [
+      "duyet_de_xuat",
+      "Duyệt đề xuất",
+      "đề xuất",
+      "Chấp nhận đề xuất.",
+      "",
+      "",
+      "",
+      "NOT_BUILT",
+      "",
+      "nguoi_phe_duyet"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 42,
+    "values": [
+      "tu_choi_de_xuat",
+      "Từ chối đề xuất",
+      "đề xuất",
+      "Bác đề xuất.",
+      "",
+      "",
+      "",
+      "NOT_BUILT",
+      "",
+      "nguoi_phe_duyet"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 43,
+    "values": [
+      "don_vi_to_chuc",
+      "Đơn vị tổ chức (nút cây org)",
+      "tổ chức",
+      "MỘT loại nút tự tham chiếu CHA: {mã, tên/nhãn, cha, tầng, phụ trách, nhận báo cáo, theo khuôn nào}. T7 Lĩnh vực→T3 Chuyên môn đều loại này, chỉ khác TẦNG (tang_node) — KHÔNG phải 5 loại riêng.",
+      "'Công ty' có thêm nhãn domain/i18n/mã số thuế nhưng vẫn là NÚT cùng cây. T2/T1 tách riêng (quy_trinh/cong_viec) vì mang hợp đồng thực thi.",
+      "tier.linh_vuc; tier.cong_ty; tier.khoi; tier.phong_ban; tier.chuyen_mon; cap_to_chuc_t7; cap_to_chuc_t6; cap_to_chuc_t5; cap_to_chuc_t4; cap_to_chuc_t3; lĩnh vực; công ty; khối; phòng ban; chuyên môn",
+      "gộp 5 tầng→1 loại + tầng là thuộc tính",
+      "BUILT",
+      "Thêm công ty = thêm mấy nhãn (nhân bản nhãn, KHÔNG copy công thức).",
+      "tang_node; quy_trinh; cong_viec"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 44,
+    "values": [
+      "gan_khuon_don_vi",
+      "Gán khuôn cho đơn vị (ai dùng khuôn nào)",
+      "quy trình",
+      "Nút QUẢN TRỊ: đơn vị nào dùng khuôn/biến thể nào. Mặc định dùng TẤT; admin gán A cho công ty này, A' cho kia. Sửa A → đơn vị gán A đổi theo; gán A' không hề hấn.",
+      "Khác 'khuôn' (sản phẩm). Đây là SỔ ĐĂNG KÝ 'ai nấu tờ công thức nào'.",
+      "ai dùng khuôn nào; sổ đăng ký khuôn",
+      "",
+      "NOT_BUILT",
+      "Cần cho khuôn–đúc. Phiên PG.",
+      "khuon; bien_the_giong_loai; don_vi_to_chuc"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 45,
+    "values": [
+      "bien_the_giong_loai",
+      "Biến thể cùng giống loài (A ↔ A')",
+      "quy trình",
+      "Đánh dấu: A và A' là 2 quy trình ĐỘC LẬP trên máy nhưng CÙNG GỐC/GIỐNG LOÀI (để sau phân tích/so sánh). VD phở Bắc / phở Nam — cùng là phở, 2 tờ công thức riêng.",
+      "KHÁC nhiều-cha: nhiều-cha = nhiều phòng DÍNH CHUNG 1 nút; biến thể = mỗi bên 1 nút RIÊNG, tách được.",
+      "cùng giống loài; A phẩy; variant",
+      "",
+      "NOT_BUILT",
+      "Cơ chế đánh dấu. Phiên PG.",
+      "gan_khuon_don_vi; khuon"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 46,
+    "values": [
+      "muc_con",
+      "Mục / bước con (chi tiết trong thẻ)",
+      "quy trình",
+      "Mục/bước con hiển thị BÊN TRONG một thẻ — là NODE CON ở tầng dưới. Thêm/xóa/đổi thứ tự mục con = thao tác (ghi ở cột hanh_dong).",
+      "Là node con cùng loại nút; khác 'công việc T1' ở GÓC NHÌN con-trong-thẻ. Trạng thái dùng chung trang_thai_node.",
+      "chi tiết; bước con; ô con; row; timetable_row; them_muc; xoa_muc; doi_thu_tu_muc",
+      "concept=đối tượng; thao tác ở hanh_dong",
+      "BUILT",
+      "Gộp them/xoa/doi_thu_tu/timetable_row vào đây; trang_thai_muc_con→trang_thai_node.",
+      "cong_viec; vi_tri_de_xuat; trang_thai_node"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 47,
+    "values": [
+      "quan_he_cha_con",
+      "Quan hệ cha-con (parent_id)",
+      "quy trình",
+      "Quan hệ CHA (parent) của node. MODW là NGUỒN parent_id; MOW đã khai cấu trúc cha-con, MODW chỉ ĐIỀU CHỈNH/đổi bố (mặc định gán MOW).",
+      "RELATION cấu trúc (node.cha) → PG lưu quan hệ; khác thuộc tính nội dung. Đã khai ở MOW.",
+      "chon_bo; bố; parent; đan họ",
+      "",
+      "NOT_BUILT",
+      "Owner 16/7 — hoãn concept-hoá tới phiên hợp đồng thông tin/PG. concept_kind provisional.",
+      "don_vi_to_chuc; quy_trinh; cong_viec"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 48,
+    "values": [
+      "kho_luu",
+      "Kho lưu (bảng/collection lưu dữ liệu)",
+      "quy trình",
+      "Node dữ liệu lưu ở bảng/collection nào. MODW khai NHẸ (nơi lưu quan hệ); lưu NHIỀU bảng thật nằm ở MOT/MOIT/MOUT.",
+      "Nơi PERSIST dữ liệu node. MOW không có (chỉ vẽ luồng). Multi-table + phân luồng (≥2 bảng) chờ PG.",
+      "kho; bảng lưu; store; collection",
+      "",
+      "NOT_BUILT",
+      "Owner 16/7 — hoãn tới phiên PG; gắn nhiều bảng chủ yếu ở MOT/MOIT/MOUT. concept_kind provisional.",
+      "quy_trinh"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 49,
+    "values": [
+      "phu_thuoc_viec",
+      "Phụ thuộc giữa việc",
+      "quy trình",
+      "Quan hệ SONG SONG / NỐI TIẾP giữa các việc trong 1 quy trình (việc B chờ việc A xong mới chạy).",
+      "Hiện chỉ NGẦM ĐỊNH nối tiếp theo thứ tự mảng — CHƯA có field depends_on rõ.",
+      "song song;nối tiếp;depends_on",
+      "",
+      "REVIEW",
+      "THIẾU — lộ khi rà drawer quy trình 2026-07-18",
+      "hierarchy_node(T1)"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 50,
+    "values": [
+      "vai_lam_thay",
+      "Vai làm thay / chuyển tiếp",
+      "người",
+      "Người LÀM THAY khi người thực hiện vắng; hoặc CHUYỂN TIẾP/uỷ quyền việc.",
+      "Khác 'thực hiện' và 'báo cáo' — vai thứ 3+.",
+      "làm thay;chuyển tiếp;uỷ quyền",
+      "",
+      "REVIEW",
+      "THIẾU — mới có thực hiện+báo cáo",
+      "nguoi_thuc_hien"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 51,
+    "values": [
+      "trigger_khoi_dong_qt",
+      "Trigger khởi động quy trình",
+      "quy trình",
+      "Trigger BẮT ĐẦU cả quy trình (cấp T2), khác trigger từng việc. SSOT 1 nơi → cả hệ thống chạy theo.",
+      "Khác 'trigger' (từng việc).",
+      "trigger quy trình;entry trigger",
+      "",
+      "REVIEW",
+      "THIẾU/mờ — cần tách SSOT",
+      "trigger;hang_doi"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 52,
+    "values": [
+      "ma_ban_ghi",
+      "Mã bản ghi (việc thật)",
+      "quy trình",
+      "Phân biệt ĐỊNH NGHĨA (mã việc — so việc-với-việc) và BẢN GHI THẬT: mã việc + bản ghi cụ thể X + người E được giao = 1 VIỆC thật đang chạy.",
+      "Mã hiện tại mới là ĐỊNH NGHĨA; thiếu MÃ BẢN GHI (instance).",
+      "instance;record;việc thật",
+      "",
+      "REVIEW",
+      "THIẾU lớn — lộ khi bàn UI quy trình 2026-07-18",
+      "viec_ban_ghi"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 53,
+    "values": [
+      "trigger_task_map",
+      "Gán trigger vào việc",
+      "quy trình",
+      "1 trigger bắn tới N việc; mỗi việc cần trigger + điều kiện. Chung/riêng trigger; 'ngay' vs 'sau việc X' tuỳ điều kiện đủ chưa.",
+      "Chưa có cấu trúc: trigger→[việc], mỗi việc (trigger,điều kiện).",
+      "",
+      "",
+      "REVIEW",
+      "THIẾU — cần cho UI luồng",
+      "trigger_khoi_dong_qt;run_condition;phu_thuoc_viec"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 54,
+    "values": [
+      "viec_may_lam",
+      "Việc do máy/Agent làm",
+      "quy trình",
+      "Việc do MÁY/Agent tự làm (auto). Admin cần thấy CẢ việc máy + việc người để tư duy phân bổ (máy sẽ làm TĂNG, người GIẢM).",
+      "Khác việc do người làm.",
+      "auto;agent;DOT",
+      "",
+      "REVIEW",
+      "Bảng phải liệt kê cả việc máy",
+      "nguoi_thuc_hien"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 55,
+    "values": [
+      "task_du_phong",
+      "Task dự phòng thời gian",
+      "thời gian",
+      "Một TASK đặc biệt: đỏ, KHÔNG làm gì, chỉ TÍNH GIỜ. Giờ dự phòng tính trong tổng nhưng TÁCH RIÊNG để thống kê. Hiếm (vd 1/50 việc).",
+      "Coi như 1 dòng việc bình thường + nhãn riêng.",
+      "buffer;phát sinh",
+      "",
+      "REVIEW",
+      "Sửa hiểu sai 'dự phòng' 2026-07-18",
+      "tg_phat_sinh"
+    ]
+  },
+  {
+    "sheet": "dinh_nghia_khai_niem",
+    "row": 56,
+    "values": [
+      "ma_trigger",
+      "Mã trigger (SSOT)",
+      "quy trình",
+      "Trigger có MÃ + tên, quản lý ở 1 BẢNG RIÊNG (SSOT). UI chỉ hiện CHẤM MÀU; di chuột → tra mã+tên từ bảng này. Sửa 1 nơi → mọi nơi đồng bộ.",
+      "Chấm màu = hiển thị; mã trigger = dữ liệu SSOT.",
+      "trigger code;bảng trigger",
+      "",
+      "REVIEW",
+      "Khái niệm mới (chấm màu + SSOT) 2026-07-18",
+      "trigger;trigger_khoi_dong_qt"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 2,
+    "values": [
+      "hierarchy_node",
+      "Nut cay (identity)",
+      "Don vi T7-T3 + quy_trinh T2 + cong_viec T1 = 1 loai nut tu-tham-chieu cha",
+      "CHAC",
+      "CHUA CHOT",
+      "T7-T2: 1 cha (parent_id); T1: xem membership",
+      "don_vi_to_chuc;quy_trinh;cong_viec;ma_node;ten_node;tang_node;trang_thai_node;quan_he_cha_con",
+      "Codex#3: identity CHAC nhung 1 bang hay nhieu subtype CHUA CHOT"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 3,
+    "values": [
+      "process_task_membership",
+      "Noi quy trinh <-> cong viec",
+      "T2 workflow <-> T1 task",
+      "CHAC",
+      "CHUA CHOT",
+      "N:M (T1 dung lai nhieu QT)",
+      "quy_trinh;cong_viec",
+      "MOI (Codex chan 2): T1 nhieu cha -> khong the parent_id don"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 4,
+    "values": [
+      "person_assignment",
+      "Gan nguoi <-> node <-> vai",
+      "thuc hien/nhan bao cao/phe duyet/chuyen giao",
+      "CHAC",
+      "CHUA CHOT",
+      "N:M",
+      "nguoi_thuc_hien;nguoi_nhan_bao_cao;nguoi_phe_duyet;nguoi_chuyen_giao",
+      ""
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 5,
+    "values": [
+      "template",
+      "Khuon (quy trinh mau)",
+      "ve 1 lan, duc nhieu ban",
+      "CHAC",
+      "CHUA CHOT",
+      "1 khuon -> N ban duc",
+      "khuon",
+      "MOI (Codex chan 2)"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 6,
+    "values": [
+      "variant",
+      "Bien the A/A' cung giong loai",
+      "2 QT doc lap cung goc",
+      "CHAC",
+      "CHUA CHOT",
+      "A<->A' cung ho",
+      "bien_the_giong_loai",
+      "MOI"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 7,
+    "values": [
+      "template_assignment",
+      "Gan khuon cho don vi",
+      "don vi nao dung khuon/bien-the nao",
+      "CHAC",
+      "CHUA CHOT",
+      "N:M (don vi <-> khuon)",
+      "gan_khuon_don_vi",
+      "MOI (Codex chan 2)"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 8,
+    "values": [
+      "time_plan",
+      "Ke hoach thoi gian (PLANNED)",
+      "bang gio: thuc thi/cong don/phat sinh/han/tien do",
+      "CHAC-ish",
+      "CHUA CHOT",
+      "nhung hay bang rieng: CHUA CHOT",
+      "tg_thuc_thi;tg_cong_don;tg_phat_sinh;tg_chi_dinh;han_hoan_thanh;tien_do;so_phut_qua_han",
+      "Codex#5: khung chi PLANNED; actual execution CHO-MOT"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 9,
+    "values": [
+      "store_binding",
+      "Node <-> kho luu",
+      "node luu o collection nao",
+      "NHE",
+      "CHUA CHOT",
+      "N:M + default_store optional",
+      "kho_luu",
+      "Codex#4: nhieu store, khong phai 1 noi"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 10,
+    "values": [
+      "proposal",
+      "De xuat (aggregate/data)",
+      "noi dung + vi tri + provenance",
+      "CHAC",
+      "CHUA CHOT",
+      "1 proposal -> N thay doi",
+      "de_xuat_cai_tien;noi_dung_de_xuat;vi_tri_de_xuat;nguoi_de_xuat;thoi_gian_de_xuat;loai_thao_tac_de_xuat",
+      "Codex#2: tach khoi command/event"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 11,
+    "values": [
+      "command",
+      "Lenh xu ly (hanh vi)",
+      "them/sua/gui/duyet/tu choi/chon/duc",
+      "CHAC",
+      "CHUA CHOT",
+      "KHONG mac nhien la bang",
+      "duc_node;chen_node;gui_de_xuat;sua_xoa_de_xuat;duyet_de_xuat;tu_choi_de_xuat;xem_xet_de_xuat",
+      "Codex#2: command != table"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 12,
+    "values": [
+      "event_audit",
+      "Bang chung phat sinh",
+      "trang thai xem xet/ket qua/phan hoi/lich su",
+      "CHAC-ish",
+      "CHUA CHOT",
+      "luu khi can truy vet",
+      "trang_thai_da_xem_xet;trang_thai_de_xuat;phan_hoi_de_xuat;danh_sach_de_xuat",
+      "Codex#2: event = bang chung, luu khi can"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 13,
+    "values": [
+      "execution_wiring",
+      "Dau noi chay (Kestra)",
+      "trigger/hang doi/dieu kien/tin hieu ra",
+      "CHO-Kestra",
+      "CHUA CHOT",
+      "dau cho",
+      "trigger;hang_doi;dieu_kien_chay;tin_hieu_ra;output",
+      "DAU CHO Kestra — chua thiet ke"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 14,
+    "values": [
+      "data_nang_that",
+      "[placeholder] du lieu noi dung nang",
+      "noi dung that nhieu bang",
+      "CHO-MOT",
+      "CHUA CHOT",
+      "-",
+      "-",
+      "CHO MOT/MOIT/MOUT — chua ve duoc"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 15,
+    "values": [
+      "process_dependency",
+      "Phụ thuộc việc (song song/nối tiếp)",
+      "Quan hệ task_A → task_B trong 1 quy trình; loại: song song / nối tiếp",
+      "CHUA CHOT",
+      "CHUA CHOT",
+      "FK: quy_trinh + task (hierarchy_node T1); bộ (A,B,loai)",
+      "phu_thuoc_viec",
+      "THIẾU — lộ khi rà drawer quy trình 2026-07-18"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 16,
+    "values": [
+      "process_start_trigger",
+      "Trigger khởi động quy trình (SSOT)",
+      "1 bảng trigger BẮT ĐẦU quy trình; sửa 1 nơi → mọi nơi chạy theo",
+      "CHUA CHOT",
+      "CHUA CHOT",
+      "FK: quy_trinh → trigger",
+      "trigger_khoi_dong_qt;trigger",
+      "SSOT-đồng bộ (quy_trinh PHẦN 10)"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 17,
+    "values": [
+      "run_condition",
+      "Điều kiện chạy quy trình (SSOT)",
+      "Có trigger VẪN cần đủ điều kiện mới chạy; 1 bảng điều kiện",
+      "CHUA CHOT",
+      "CHUA CHOT",
+      "FK: quy_trinh → điều kiện",
+      "dieu_kien_chay",
+      "SSOT-đồng bộ"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 18,
+    "values": [
+      "task_component",
+      "Thành phần của task (form + báo cáo)",
+      "1 task T1 cắm 1 form nhập MOIT + báo cáo tham khảo MOUT; drawer 2-khu dùng lại renderer",
+      "CHUA CHOT",
+      "CHUA CHOT",
+      "task(T1) 1:N component; thuộc-task qua khóa",
+      "moit;mout;nguoi_thuc_hien",
+      "Task#24: MOIT/MOUT là thành phần của task"
+    ]
+  },
+  {
+    "sheet": "khung_object",
+    "row": 19,
+    "values": [
+      "viec_ban_ghi",
+      "Việc thật (instance)",
+      "1 VIỆC thật = định-nghĩa-việc (mã) + bản ghi cụ thể + người được giao + thời điểm. Đây là cái xuất hiện ở dashboard MOT.",
+      "CHUA CHOT",
+      "CHUA CHOT",
+      "FK: task-def(hierarchy_node T1) + bản ghi + người (bảng nhân sự SSOT)",
+      "ma_ban_ghi;nguoi_thuc_hien",
+      "THIẾU lớn — định nghĩa vs bản ghi; lộ khi bàn UI 2026-07-18"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 3,
+    "values": [
+      "LOẠI A",
+      "—",
+      "UI ĐÃ THIẾT KẾ XONG (>10 UI ≈50% khối lượng) — gắn-SAU: dò→spec→chạy→trọng tài",
+      "🔴 ƯU TIÊN · mục tiêu 1 LƯỢT/UI"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 4,
+    "values": [
+      "LOẠI B",
+      "—",
+      "UI DỰNG MỚI (MOT + tương lai) — gắn-LÚC-DỰNG",
+      "🟡 chi phí ~0 · chuẩn phải sẵn"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 5,
+    "values": [
+      "Vì sao MOW 8 lượt",
+      "—",
+      "KHÔNG phải gắn-sau khó, mà VỪA LÀM VỪA ĐẺ LUẬT (pilot→L3/L4→L2→map→OCC:all→trọng tài)",
+      "Giờ luật ĐỦ → UI thứ 2 KHÔNG khám phá lại"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 6,
+    "values": [
+      "══ PHẦN 1 — LOẠI A: 5 BƯỚC (1 lượt/UI) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 7,
+    "values": [
+      "B1",
+      "CW",
+      "Quét cây khu vực UI (Chrome + đọc source), đi hết màn/chế độ/modal → điền cột C Excel (prefix đúng)",
+      "Danh sách mã + đánh dấu nút cây/chưa dựng"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 8,
+    "values": [
+      "B2",
+      "CW",
+      "Map TRỌN spec MỘT LẦN theo 5 luật. ĐẾM MATCHES từng anchor trên FILE LIVE",
+      "1 spec/UI (KHÔNG chia mẻ vụn như MOW)"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 9,
+    "values": [
+      "B3",
+      "Desktop",
+      "Soi spec (Owner KHÔNG soi code — soi cũng không ra lỗi)",
+      "Duyệt / bắt lỗi"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 10,
+    "values": [
+      "B4",
+      "Claude Code",
+      "Chạy spec → ui-preview-git snapshot",
+      "Commit"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 11,
+    "values": [
+      "B5",
+      "CW",
+      "Nghiệm thu (grep + byte-check) → TRỌNG TÀI (code ↔ Excel)",
+      "0 thiếu"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 12,
+    "values": [
+      "Bất biến",
+      "—",
+      "NGƯỜI SỬA (Claude Code) ≠ NGƯỜI KIỂM (CW)",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 13,
+    "values": [
+      "CHỐT an toàn",
+      "—",
+      "UI thứ 2 tốn >2 lượt → DỪNG, xem lại quy trình",
+      "chống lặp thảm họa 8 lượt"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 14,
+    "values": [
+      "══ 5 LUẬT GẮN MÃ (không đẻ luật mới) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 15,
+    "values": [
+      "L1",
+      "—",
+      "Template sinh nhiều bản, khác DỮ LIỆU → GỘP 1 mã",
+      "tab/chip/card"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 16,
+    "values": [
+      "L2",
+      "—",
+      "Widget dùng chung nhưng khác Ý NGHĨA → truyền mã qua THAM SỐ",
+      "mkSec 4 nhóm"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 17,
+    "values": [
+      "L3",
+      "—",
+      "Thẻ tĩnh / chuỗi template → data-region=\"...\" literal",
+      "banner/field"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 18,
+    "values": [
+      "L4",
+      "—",
+      "Thẻ DOM (mk/createElement) → setAttribute NGAY SAU dòng tạo",
+      "card/nút"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 19,
+    "values": [
+      "L5",
+      "—",
+      "Nút cây (gom nhánh, không phải khu hiển thị) → KHÔNG gắn, đánh dấu Excel",
+      "mow/normal/propose"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 20,
+    "values": [
+      "RANH GIỚI L1/L2",
+      "—",
+      "Hỏi \"các bản khác nhau ở DỮ LIỆU hay Ý NGHĨA?\" — khác dữ liệu→gộp; khác ý nghĩa→giữ",
+      "chỗ SAI nhiều nhất"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 21,
+    "values": [
+      "2 CA ĐÃ SAI",
+      "—",
+      "(1) 3 nút chèn: gộp=SAI, giữ 3 (prev/next khác) — Owner bắt. (2) 7 tier: gộp=SAI, giữ 7 (7 cấp org) — CW bắt",
+      "áp luật đúng HÌNH THỨC, sai BẢN CHẤT"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 22,
+    "values": [
+      "══ 6 BÀI HỌC KỸ THUẬT (đọc trước khi map) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 23,
+    "values": [
+      "1",
+      "—",
+      "ĐẾM OPEN-TAG (<button class=\"x\"), KHÔNG đếm substring (dính CSS + selector JS → đếm DƯ)",
+      "Desktop mắc, CW bắt"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 24,
+    "values": [
+      "2",
+      "—",
+      "Helper → 1 chuỗi (render N) · Copy-paste → N chuỗi (OCC:all)",
+      "mvx-grip=1 · mvx-del=3"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 25,
+    "values": [
+      "3",
+      "—",
+      "KHÔNG giả định code DRY — ĐẾM trên file live",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 26,
+    "values": [
+      "4",
+      "—",
+      "MATCHES là chốt cứu mạng — khớp ≠ số spec → DỪNG, BÁO",
+      "cứu 2 lần: go(normal), mvx-del"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 27,
+    "values": [
+      "5",
+      "—",
+      "Anchor phải DÀI (createElement(button) mỏng → bám dòng kế tiếp)",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 28,
+    "values": [
+      "6",
+      "—",
+      "Template nội suy → dùng MAP (const REG={..literal..}) để grep thấy literal",
+      "LAYER_REGION"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 29,
+    "values": [
+      "══ 3 KIỂU MẺ + NGHIỆM THU ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 30,
+    "values": [
+      "STRING",
+      "Claude Code",
+      "Chèn attr vào chuỗi HTML",
+      "Byte-check SHA trùng (strip→gốc)"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 31,
+    "values": [
+      "DOM",
+      "Claude Code",
+      "setAttribute sau dòng tạo",
+      "Byte-check + grep 2 dạng"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 32,
+    "values": [
+      "ĐỔI LOGIC",
+      "Claude Code",
+      "Thêm tham số / tách biến / map",
+      "SHA KHÔNG trùng là BÌNH THƯỜNG → MỞ UI THẬT · chạy RIÊNG"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 33,
+    "values": [
+      "══ TRỌNG TÀI (BẮT BUỘC — CẢ 2 LOẠI, 1 lần/UI) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 34,
+    "values": [
+      "Cơ chế",
+      "máy",
+      "grep data-region trong CODE ↔ cột C EXCEL (mã \"đã liệt kê\") → TRỪ 2 danh sách",
+      "THIẾU / THỪA"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 35,
+    "values": [
+      "Xử THIẾU",
+      "CW",
+      "element CÓ thật → gắn bổ sung · element KHÔNG có → \"chưa dựng\" (KHÔNG bịa thẻ)",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 36,
+    "values": [
+      "Xử THỪA",
+      "CW",
+      "khu mới chưa ghi → thêm Excel · nút bỏ → \"cần xoá\"",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 37,
+    "values": [
+      "Bằng chứng sống",
+      "—",
+      "Bắt sót layer.badge ở mẻ #4 (gắn lên NÚT TAB, quên BADGE) — CC+CW+Desktop đều không thấy, DOM vẫn PASS",
+      "Máy trừ list bắt ngay"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 38,
+    "values": [
+      "Token",
+      "—",
+      "Trọng tài TỐN token (grep nhiều file) → chạy 1 LẦN/UI, KHÔNG lặp",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 39,
+    "values": [
+      "══ PHẦN 2 — LOẠI B: GẮN-LÚC-DỰNG (chi phí ~0) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 40,
+    "values": [
+      "Chuẩn bị 1",
+      "Owner+CW",
+      "⭐ CÂY-KHU-VỰC-TRƯỚC-CODE-SAU: vẽ cột C (hợp đồng) TRƯỚC → dựng UI theo cây → mã sẵn",
+      "Đòn bẩy sâu nhất"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 41,
+    "values": [
+      "Chuẩn bị 2",
+      "CW",
+      "Chốt prefix (PHẦN hệ mã)",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 42,
+    "values": [
+      "Chuẩn bị 3",
+      "CW",
+      "Tra SỔ KHÁI NIỆM GỐC — dùng lại concept có sẵn (nguoi_phu_trach, sla, them_node...)",
+      "KHÔNG đẻ concept mới"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 43,
+    "values": [
+      "R1",
+      "CW",
+      "Gắn data-region NGAY lúc viết thẻ",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 44,
+    "values": [
+      "R2",
+      "CW",
+      "MỘT cách dựng cho một loại thẻ (ưu tiên chuỗi innerHTML → grep dễ)",
+      "MOW nửa mk nửa innerHTML → đẻ 5 luật"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 45,
+    "values": [
+      "R3",
+      "CW",
+      "Widget dùng chung → nhận mã qua THAM SỐ",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 46,
+    "values": [
+      "R4",
+      "CW",
+      "KHÔNG copy-paste → gom HELPER",
+      "mvx-del lặp 3 chỗ = bài học"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 47,
+    "values": [
+      "R5",
+      "CW",
+      "Template lặp → nội suy qua MAP (grep thấy literal)",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 48,
+    "values": [
+      "R6",
+      "CW",
+      "Mỗi hành động = 1 lệnh ghi dữ liệu (nhập tối thiểu, thông tin tối đa)",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 49,
+    "values": [
+      "R7",
+      "CW",
+      "Dữ liệu có id + parent_id + order NGAY từ đầu",
+      "MOW nợ 4 lỗ hổng vì thiếu"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 50,
+    "values": [
+      "Nghiệm thu B",
+      "CW",
+      "grep ↔ cây khu vực + mở UI + snapshot (KHÔNG cần Claude Code) + TRỌNG TÀI",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 51,
+    "values": [
+      "══ PHẦN 3 — HỆ MÃ ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 52,
+    "values": [
+      "shell.*",
+      "—",
+      "dùng chung MỌI UI (dock, nav) — gắn 1 LẦN, không gắn lại",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 53,
+    "values": [
+      "mow./mot./moit./mout.*",
+      "—",
+      "4 Mẹ",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 54,
+    "values": [
+      "modw./modt./modit./modut.*",
+      "—",
+      "4 công cụ thiết kế",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 55,
+    "values": [
+      "Nguyên tắc",
+      "—",
+      "\"Nằm trong AI thì mang tên người đó\" (MOIT trong MOT → mot.input.*)",
+      "áp khi làm tới, không đoán"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 56,
+    "values": [
+      "Quy tắc mã",
+      "—",
+      "chữ thường · không dấu · nối bằng dấu CHẤM · không / - khoảng trắng",
+      "modw.cast.button"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 57,
+    "values": [
+      "══ PHẦN 4 — ĐỊA CHỈ vs KHÁI NIỆM (chống double) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 58,
+    "values": [
+      "data-region",
+      "—",
+      "ĐỊA CHỈ — nhiều cửa = nhiều mã, GIỮ RIÊNG",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 59,
+    "values": [
+      "concept_key",
+      "—",
+      "KHÁI NIỆM — nhiều cửa cùng trỏ về → MỘT",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 60,
+    "values": [
+      "Nguyên tắc",
+      "—",
+      "GOM KHÁI NIỆM, KHÔNG GOM MÃ (gom mã=mất địa chỉ · không gom kn=DOUBLE 76/173/158/143)",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 61,
+    "values": [
+      "Ranh giới",
+      "—",
+      "node (UPDATE, có id) ≠ node_moi (INSERT, chưa id) — khác bản chất PG, KHÔNG gom",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 62,
+    "values": [
+      "tac_dong_du_lieu",
+      "—",
+      "thực_thể/trường/hành_động_ghi → VÀO PG · điều_hướng → KHÔNG vào PG (nhưng GIỮ mã)",
+      "hợp đồng TEO xuống phần thật"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 63,
+    "values": [
+      "══ PHẦN 5 — CÔNG CỤ + BẪY ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 64,
+    "values": [
+      "Cuốn sổ Git",
+      "—",
+      "ui-preview-git snapshot \"lý do\" (NGAY sau mỗi đợt) · git-dir /var/lib/incomex/ui-preview-notebook.git",
+      "LUÔN dùng ui-preview-git, KHÔNG git -C"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 65,
+    "values": [
+      "Soi sổ (không shell)",
+      "CW",
+      "/opt/incomex/docs/ui-preview-notebook/ → HEARTBEAT · auto-commit.log · HISTORY.txt",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 66,
+    "values": [
+      "Excel hợp đồng",
+      "CW quản",
+      "hop-dong-thong-tin-sua-re.xlsx: ui_cay_ma_khu_vuc · sua_re_khai_niem_nhap · HELP · quy_trinh",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 67,
+    "values": [
+      "Spec mẫu",
+      "CW",
+      "/opt/incomex/docs/mcp-writes/ui-preview-regions-*.txt (copy làm khuôn)",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 68,
+    "values": [
+      "BẪY 1",
+      "—",
+      "Connector VPS CHẶN file có emoji (nhận nhầm binary) → đọc qua Chrome fetch",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 69,
+    "values": [
+      "BẪY 2",
+      "—",
+      "Chrome hay TREO → báo Owner bật lại, ĐỪNG im lặng đi vòng",
+      "nút thắt CW — cân nhắc đường grep VPS tin cậy"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 70,
+    "values": [
+      "BẪY 3",
+      "—",
+      "mvx-v3.js không tự-resync (?v=3 cache) → DOM 0 region là BÌNH THƯỜNG. Cơ chế kiểm là grep FILE",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 71,
+    "values": [
+      "BẪY 4",
+      "—",
+      "Không snapshot mà sửa tiếp → bản trung gian MẤT (backstop chỉ 24h). VPS=SSOT, không push/CI",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 72,
+    "values": [
+      "══ PHẦN 6 — THỨ TỰ + DANH SÁCH UI (đo 13/7) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 73,
+    "values": [
+      "✅ XONG",
+      "—",
+      "mow-unified-canvas-v2.html (~101 mã, 4 commit) · eco-nav.js (3 shell.dock.*, dùng chung)",
+      "KHÉP"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 74,
+    "values": [
+      "🔴 Loại A chờ",
+      "CW",
+      "modw-builder(20KB) → modt(21) → moit-builder(31) → modut(28) → mout(41) → moit-form(18) → mow-master(2.7?)",
+      "1 lượt/UI"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 75,
+    "values": [
+      "🟡 Loại B",
+      "—",
+      "mot-dashboard(1.5KB=VỎ RỖNG chưa dựng) → dựng theo PHẦN 2",
+      "MOT là trung tâm (T1)"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 76,
+    "values": [
+      "🎯 Đích",
+      "—",
+      "Sau gắn mã hết: lọc concept → hợp đồng thông tin → 2 bảng PG",
+      "bỏ điều_hướng, giữ thực_thể+trường+hành_động"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 77,
+    "values": [
+      "══ PHẦN 7 — GHI NỢ / ĐÃ BỎ / ĐIỀU HÀNH ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 78,
+    "values": [
+      "Nợ [dọn UI]",
+      "—",
+      "Xoá 2 nút Khuôn/Vận hành (nút chết) · dựng shell.dot · gom mvx-del helper",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 79,
+    "values": [
+      "Nợ [thiết kế data]",
+      "—",
+      "4 lỗ hổng (id/parent_id/order/chèn-tên) · CÂY-KHÔNG-PHẢI-CÂY · modal thiếu _userMoved/_roleChanged · chuyển cha",
+      "phiên LỚN, đừng trộn"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 80,
+    "values": [
+      "ĐÃ BỎ",
+      "—",
+      "Đếm UI lấy số · scanner tự động · blind-check · auto-commit 1-2 phút · deploy GitHub · pilot bọc-ngoài",
+      "đừng đề xuất lại"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 81,
+    "values": [
+      "ĐIỀU HÀNH",
+      "—",
+      "Nghĩ rộng làm hẹp · thêm-sau-đắt→ngay/rẻ→hoãn · đừng thả sạn rồi chế máy tìm · bảo vệ sự đơn giản · cắt lượt-qua-tay không cắt chốt-an-toàn · bàn xong PHẢI GHI",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 82,
+    "values": [
+      "Nợ [SỔ KHÁI NIỆM GỐC]",
+      "—",
+      "sua_re_khai_niem_nhap có schema 9 cột nhưng 0 dòng. Sổ usage cũ 76 dòng = 76 key RIÊNG LẺ (chưa gom = double) + lỗi thời (76≠106 mã). 2 naming lệch: cũ dạng khu vực (action.keo_sap_xep) vs mới nghiệp vụ (doi_thu_tu_muc).",
+      "PHIÊN RIÊNG (Hợp đồng thông tin)"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 83,
+    "values": [
+      "  → phải làm",
+      "—",
+      "RECONCILE 2 hệ + Owner định naming canonical + concept_kind (taxonomy). ⚠️ ĐỪNG dump khai_niem_chung vào sổ gốc bừa → đẻ HỆ THỨ BA.",
+      "sau khi gắn mã hết UI"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 84,
+    "values": [
+      "  → tạm thời",
+      "CW",
+      "Dùng cột khai_niem_chung (ui_cay_ma_khu_vuc) làm tham chiếu tái dùng concept — đủ chặn double khi làm UI mới.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 85,
+    "values": [
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 86,
+    "values": [
+      "BÀI HỌC — SIẾT KHÁI NIỆM",
+      "Owner",
+      "① ĐỊNH NGHĨA TỪ KHÁI NIỆM, không soi mã trước. Mã chỉ cho biết UI ĐANG CÓ GÌ, không cho biết NGHIỆP VỤ CẦN GÌ.",
+      "Chỉ soi mã khi không kết luận được từ khái niệm."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 87,
+    "values": [
+      "",
+      "",
+      "② BẰNG CHỨNG: siết 2 nhóm → lộ 4 KHÁI NIỆM THIẾU (người phê duyệt · chuyển giao · thời gian chỉ định · số phút quá hạn). Soi mã thì KHÔNG BAO GIỜ lộ.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 88,
+    "values": [
+      "",
+      "",
+      "③ CẢNH BÁO TỪ NGỮ: cùng bản chất có NHIỀU TÊN GỌI. 'người làm thay' = 'người chuyển tiếp' = chuyển giao trách nhiệm. Hỏi BẢN CHẤT, đừng dừng ở TÊN GỌI. Tên khác → aliases.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 89,
+    "values": [
+      "",
+      "",
+      "④ LỌC NHIỀU CHIỀU, khoanh nhóm nhỏ mà bàn → thiếu LÒI RA NGAY.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 90,
+    "values": [
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 91,
+    "values": [
+      "THAY ĐỔI QUY TRÌNH — TRÌNH CONCEPT KÈM ẢNH",
+      "Owner",
+      "TỪ NAY mọi lần trình Owner siết concept BẮT BUỘC kèm ẢNH + KHOANH VÙNG, KHÔNG dùng bảng chữ. Owner: 'Nhìn ảnh hiểu ngay, nhìn mô tả không hiểu.'",
+      "Dùng 10 ảnh MOW + Codex đánh số."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 92,
+    "values": [
+      "BÀI HỌC — SIẾT LỘ KHÁI NIỆM THIẾU",
+      "",
+      "Siết nhóm QUY TRÌNH lộ thêm 3 khái niệm thiếu: hàng đợi · điều kiện chạy · tín hiệu ra (đầu chờ Kestra). Cộng nhóm NGƯỜI = 7 khái niệm mà soi mã KHÔNG BAO GIỜ thấy.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 93,
+    "values": [
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 94,
+    "values": [
+      "═══ QUY TRÌNH SỬA RẺ HỢP ĐỒNG THÔNG TIN (thêm/bớt 1 hợp đồng — làm TỪ MOW) ═══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 95,
+    "values": [
+      "NGUYÊN TẮC VÀNG",
+      "Owner",
+      "Ưu tiên QUY TRÌNH thêm/bớt RẺ hơn là cố enumerate HOÀN HẢO. Rà kỹ mấy vẫn có thể thiếu/thừa → miễn mỗi lần thêm/bớt 1 hợp đồng thật ĐƠN GIẢN.",
+      "Process > perfection."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 96,
+    "values": [
+      "NỀN — vì sao rẻ",
+      "",
+      "Mỗi hợp đồng = 1 ANCHOR ổn định (UI→data-region=cột C; dữ liệu ngầm→concept_key), không đổi theo nhãn/màu/bố cục. TRỌNG TÀI grep data-region↔cột C TỰ phát hiện thêm/bớt. Mọi khu (cả OUT) đều trong bản đồ. Dropdown từ điển chống đẻ tên.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 97,
+    "values": [
+      "THÊM 1 hợp đồng · B1",
+      "CW",
+      "MỚI hay ĐÃ CÓ? Hỏi BẢN CHẤT (không dừng ở tên gọi) → soi aliases trong sổ. ĐÃ CÓ → thêm alias, XONG.",
+      "chống đẻ concept trùng"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 98,
+    "values": [
+      "· B2",
+      "CW",
+      "Thêm 1 DÒNG vào bản đồ: đặt mã + 6 cột phân loại (dropdown) + pham_vi + trang_thai + anchor_scope.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 99,
+    "values": [
+      "· B3",
+      "CW",
+      "Concept MỚI → thêm 1 DÒNG vào sổ định nghĩa (tên chính thức + aliases + bản chất).",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 100,
+    "values": [
+      "· B4",
+      "Claude Code",
+      "UI thật → gắn data-region 1 dòng.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 101,
+    "values": [
+      "· B5",
+      "CW",
+      "TRỌNG TÀI xác nhận grep = cột C. XONG.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 102,
+    "values": [
+      "BỚT 1 hợp đồng · B1",
+      "CW",
+      "KHÔNG xóa dòng → đánh dấu trang_thai = TO_REMOVE / DEPRECATED (giữ lịch sử).",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 103,
+    "values": [
+      "· B2",
+      "Claude Code",
+      "UI đã gắn → gỡ data-region 1 dòng.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 104,
+    "values": [
+      "· B3",
+      "CW",
+      "TRỌNG TÀI xác nhận mã biến mất; usage → không-hiện-hành.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 105,
+    "values": [
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 106,
+    "values": [
+      "═══ LUẬT VỆ SINH FILE (Owner — file = SỔ CÔNG THỨC MỚI NHẤT, không thành thùng rác) ═══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 107,
+    "values": [
+      "Luật 1 — MỘT chỗ ở",
+      "",
+      "Mỗi thứ 1 SSOT: định nghĩa→dinh_nghia_khai_niem; quy trình→quy_trinh; vì sao→huong_dan. KHÔNG chép lại nhiều tab.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 108,
+    "values": [
+      "Luật 2 — GHI ĐÈ không GHI CHỒNG",
+      "",
+      "Quyết định mới thay cũ → sửa TẠI CHỖ + ghi 'thay … ngày…', XOÁ dòng cũ. Cấm 2 dòng mâu thuẫn cùng sống.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 109,
+    "values": [
+      "Luật 3 — Tách LỊCH SỬ khỏi phần SỐNG",
+      "",
+      "Cái xong/lỗi thời → dồn sang Plan_luu_tru. Tab đang dùng chỉ chứa cái ĐANG ĐÚNG.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 110,
+    "values": [
+      "Luật 4 — Liếc mỗi lần mở",
+      "",
+      "Thấy trùng/mâu thuẫn/lỗi thời → dọn NGAY, đừng đợi tủ đầy.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 111,
+    "values": [
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 112,
+    "values": [
+      "NỢ DỌN huong_dan (chờ Owner gật reorg)",
+      "—",
+      "Dời HOW-trùng (→quy_trinh) + LỊCH SỬ đã xong (→Plan_luu_tru); giữ lại chỉ VÌ SAO. Làm SAU khi khép sổ khái niệm MOW.",
+      "chờ Owner"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 113,
+    "values": [
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 114,
+    "values": [
+      "═══ KHUÔN NGHIỆM THU 1 UI (áp cho MODW + 6 UI sau — 'chuẩn xong' khi nào) ═══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 115,
+    "values": [
+      "NT1 — data-region",
+      "",
+      "TRỌNG TÀI grep code SỐNG 3-file ↔ cột C = 0 THIẾU. ⚠️ Phải grep code SỐNG; không truy được code → ghi 'dựa lần sạch gần nhất', KHÔNG tính đã tái kiểm.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 116,
+    "values": [
+      "NT2 — phủ khu",
+      "",
+      "Mọi khu có concept (khai_niem_chung) HOẶC đánh dấu OUT — 0 khu chưa phân loại.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 117,
+    "values": [
+      "NT3 — cột chính đầy",
+      "",
+      "ban_chat_khu · doi_tuong[hoặc OUT] · mo_ta_thuc_te · pham_vi · anchor_scope · trang_thai: 0 ô cứu-người trống.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 118,
+    "values": [
+      "NT4 — ảnh",
+      "",
+      "Mọi màn/state có ảnh trong man_hinh; siết concept KÈM ảnh khoanh vùng.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 119,
+    "values": [
+      "NT5 — 3 loại tài liệu tách bạch",
+      "",
+      "định nghĩa→dinh_nghia_khai_niem · quy trình→quy_trinh · vì sao→huong_dan (luật vệ sinh #1).",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 120,
+    "values": [
+      "NT6 — chống trùng",
+      "",
+      "Concept mới qua lật-gần-giống (quét sổ+bản đồ+sổ cũ). ⚠️ Máy chỉ ra ỨNG VIÊN; quyết TRÙNG/KHÔNG bằng RANH GIỚI (bản chất), KHÔNG bằng tên chung. Anh em cùng họ (thời gian thực thi/cộng dồn…) chung từ nhưng khác ranh giới → KHÔNG trùng.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 121,
+    "values": [
+      "→ ĐẠT CẢ 6 = UI 'CHUẨN XONG'",
+      "",
+      "MODW + 6 UI sau chỉ ÁP checklist này, không tranh luận lại 'thế nào là xong'.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 122,
+    "values": [
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 123,
+    "values": [
+      "Luật 5 — HOW-SSOT",
+      "",
+      "quy_trinh = SSOT của HOW (cách làm). huong_dan chỉ chứa VÌ SAO + HOW-chi-tiết THAM CHIẾU. Khi 2 nơi LỆCH → TIN quy_trinh.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 124,
+    "values": [
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 125,
+    "values": [
+      "KHUÔN ĐÃ SELF-TEST trên MOW (2026-07-14)",
+      "",
+      "NT2/3/4 PASS sạch; NT1 dựa trọng tài sạch (chưa grep lại được); NT5 SSOT=quy_trinh (Luật 5); NT6 siết chặt (ranh giới, không tên) sau khi lộ 14 cặp anh-em-cùng-họ báo oan.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 126,
+    "values": [
+      "══ TRỌNG TÀI CHUẨN — câu lệnh tái dùng 7 UI (thêm 15/7; bản [^)]* Desktop gật 15/7 · bản robust CW nâng cấp + Desktop HẬU-KIỂM 16/7) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 127,
+    "values": [
+      "Câu lệnh",
+      "máy",
+      "{ grep -o 'data-region=\"<PREFIX>\\.[^\"]*\"' <FILES> | sed 's/.*=\"//; s/\"$//';\n  grep \"setAttribute('data-region'\" <FILES> | grep -o \"'<PREFIX>\\.[^']*'\" | tr -d \"'\"; } | sort -u",
+      "thay <PREFIX> <FILES> · ↔ {ma_khu LIKE '<PREFIX>.%' AND anchor_scope=DOM AND trang_thai=BUILT} · comm -3 rỗng = 0 thiếu/thừa"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 128,
+    "values": [
+      "Vì sao 2 dạng",
+      "",
+      "Quét CẢ attr nháy kép (data-region=\"…\") + setAttribute nháy đơn — L1 huong_dan. Mã DOM/runtime nằm ở setAttribute nên dạng nháy kép SÓT.",
+      "Bài học B3: câu lệnh cũ chỉ nháy kép → sót 4 mã DOM MODW; trọng tài B5 mới lộ."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 129,
+    "values": [
+      "Cảnh báo",
+      "",
+      "Dòng 2 bắt MỌI mã nháy đơn trên dòng có setAttribute('data-region' → tránh bẫy ')' trong biểu thức (root-fix cảnh báo Desktop). Giả định: 1 setAttribute/dòng.",
+      "UI sau nếu setAttribute trải nhiều dòng → chỉnh."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 130,
+    "values": [
+      "Luật vệ sinh #5 — SOI-LẠI BẢN NÂNG CẤP",
+      "—",
+      "Người-làm cải một thứ ĐÃ qua người-kiểm → bản MỚI phải được người-kiểm soi lại TRƯỚC khi ghi 'đã duyệt/đã gật'. KHÔNG tự dán nhãn duyệt cho bản người-kiểm chưa thấy.",
+      "'Desktop gật' = dấu bảo chứng; đặt sai thời điểm thì lần sau không ai kiểm lại. (Bài học 16/7: câu lệnh trọng tài robust.)"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 131,
+    "values": [
+      "CẢNH BÁO Loại B (mot-dashboard)",
+      "—",
+      "Quy trình gắn-LÚC-DỰNG (Loại B) CHƯA chạy thực tế lần nào. Khi tới mot-dashboard → SELF-TEST khuôn 1 lượt (như MOW), ĐỪNG cho là trơn như Loại A.",
+      "Desktop 16/7."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 132,
+    "values": [
+      "NỢ DỌN MOW+MODW (lam 1 the sau — Owner 16/7)",
+      "—",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 133,
+    "values": [
+      " · 1. Xoa 4 ma chet trong code MOW",
+      "Claude Code",
+      "view.template · view.ops · iu_ref · accumulate (Excel da TO_REMOVE, code chua go)",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 134,
+    "values": [
+      " · 2. Sua modw.build.time",
+      "CW",
+      "trigger/han (nWhen), KHONG phai tg_thuc_thi — sua o cot khai_niem/mo_ta",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 135,
+    "values": [
+      " · 3. Sua modw.preview.bread",
+      "CW",
+      "GIAO DIEN/OUT — hien dang de nham THONG_TIN/IN",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 136,
+    "values": [
+      "══ PHẦN 7 — LUẬT CHỐT vòng MOW-master (2026-07-17) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 137,
+    "values": [
+      "Luật ?v= (cache)",
+      "CW+Codex",
+      "Không đổi ?v= vô cớ. Khi NỘI DUNG file dùng chung (JS/CSS) đổi → BẮT BUỘC bump version ĐỒNG LOẠT trên mọi trang nạp bằng URL cố định; nội dung file giữ nguyên khi chỉ bump.",
+      "Trang dùng ?ts=/no-cache thì MIỄN. Vá v3→v4 vòng này là ví dụ."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 138,
+    "values": [
+      "97 vs 135 (khuôn master)",
+      "CW+Codex",
+      "master-list.js có 135 mã. Mỗi trang master chỉ render SUBSET tuỳ dữ liệu: 97 khu cơ bản + 33 master.process.* (cần steps) + 5 *.mother (cần showMother). 135 = union LIÊN TRANG.",
+      "Đăng ký 135 MỘT LẦN ở vùng DÙNG CHUNG. ĐỪNG đòi mỗi trang = 135."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 139,
+    "values": [
+      "Cạm bẫy khi verify khuôn chung",
+      "CW",
+      "fetch('...?ts='+Date.now(),{cache:'no-store'}) rồi delete window.__qvInit TRƯỚC khi eval; không thì khối process tự chặn → đếm hụt 33 mã.",
+      "Áp dụng mọi vòng master (MOUT-master…)."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 140,
+    "values": [
+      "Thứ tự Mẹ trong SO_HOP_DONG",
+      "CW+Codex",
+      "Cột 'me' = vùng sở hữu. Thứ tự chuẩn: DÙNG CHUNG → MOW → MOT → MOIT → MOUT. KHÔNG sort A–Z (đảo thứ tự Mẹ).",
+      "Thêm dòng: điền 'me' rồi sort theo (me, sub-UI). master.* KHÔNG chép lại vào từng Mẹ."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 141,
+    "values": [
+      "══ PHẦN 8 — QUY TRÌNH GẮN-TRƯỚC cho UI DỰNG MỚI (đảo vai, 2026-07-17) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 142,
+    "values": [
+      "UI dựng mới = LOẠI B",
+      "CW+Codex",
+      "CW DỰNG UI + đặt data-region SẴN lúc dựng + xuất manifest ngay. Codex DEPLOY lên VPS + runtime-audit ĐỘC LẬP xác nhận source=DOM=manifest, không lẫn chéo. CW điền sổ (người ghi sổ DUY NHẤT).",
+      "Bỏ hẳn vòng 'gắn-sau'. Giữ người-sửa≠người-kiểm (đảo vai: CW sửa, Codex kiểm)."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 143,
+    "values": [
+      "Nguyên tắc thiết kế list",
+      "CW",
+      "Nhất quán khuôn các Mẹ khác: danh sách 'đã đúc' TÁI DÙNG master-list.js (mượn master.*), chỉ thêm vỏ riêng <me>master.* (vd moitmaster.*). HẠN CHẾ sinh khái niệm mới.",
+      "Owner duyệt UI khi show được."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 144,
+    "values": [
+      "══ PHẦN 9 — TRIẾT LÝ THIẾT KẾ UI: '1 FORM · 1 KIỂU · DÙNG MỌI NƠI' (2026-07-17) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 145,
+    "values": [
+      "Luật gốc",
+      "Owner",
+      "Một form/báo cáo/UI thiết kế MỘT LẦN (ở Studio) → xuất hiện Y HỆT ở MỌI NƠI: độc lập · cắm vào MOT · trong drawer master-list. KHÔNG dựng lại, KHÔNG đổi vị trí/hình.",
+      "Máy đổi vị trí = vô cảm; NGƯỜI = học lại từ đầu."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 146,
+    "values": [
+      "Mỗi loại 1 kiểu",
+      "Owner",
+      "Mỗi loại UI chỉ 1 KIỂU duy nhất. Cần dạng khác → thêm ở STUDIO, không đẻ biến thể tại chỗ. Ít concept = đào tạo rẻ, người nhận ra sai/thiếu nhanh.",
+      "Tái dùng tối đa, hạn chế khái niệm mới tuyệt đối."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 147,
+    "values": [
+      "Áp cho drawer master-list",
+      "CW+Codex",
+      "Drawer = 2 khu cố định cho cả 4 list (MOW/MOT/MOIT/MOUT). Khu A = NHÚNG đúng render form/báo cáo từ Studio (không layout drawer riêng). Khu B = khối hỗ trợ dùng lại (đường dẫn 7 tầng · trigger/hàng đợi · 3 vai người · bảng PG).",
+      "MOT không có form riêng — dùng lại form MOIT của task. MOUT cắm MOT: vài info hoặc 1 bảng, đều là thiết kế Studio dùng lại."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 148,
+    "values": [
+      "══ PHẦN 10 — NGUYÊN TẮC SSOT-ĐỒNG BỘ (PG-first · native · driven) (2026-07-18) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 149,
+    "values": [
+      "Luật 1 SSOT",
+      "Owner",
+      "Mỗi SỰ THẬT (người·vai·trigger·điều kiện·thời gian…) sống ở ĐÚNG 1 bảng SSOT. Nơi khác ĐỌC qua khóa ngoại — KHÔNG chép giá trị.",
+      "Sửa ở SSOT → cả hệ thống đồng bộ TỰ ĐỘNG, không sợ chỗ nào lệch."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 150,
+    "values": [
+      "VD đồng bộ",
+      "Owner",
+      "Đổi trưởng phòng A→B ở bảng nhân sự → mọi quy trình do trưởng phòng điều hành tự cập nhật (không còn chỗ nào là A). Trigger/điều kiện khởi động quy trình cũng vậy: sửa 1 nơi → cả hệ thống chạy theo.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 151,
+    "values": [
+      "PG-first",
+      "Owner",
+      "Tận dụng TỐI ĐA tính năng PG (khóa chính/ngoại · view · function · trigger DB) để lo đồng bộ ở tầng DB. Thiết kế SỐ BẢNG phù hợp, khóa chính/ngoại rõ ràng. PG native/driven.",
+      "Đồng bộ giải ở DB, không rải rác ở UI."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 152,
+    "values": [
+      "UI 'nhìn là thấy'",
+      "Owner",
+      "Màn tổng hợp (nhất là drawer quy trình) trình bày theo THỨ TỰ VẬN HÀNH: bắt đầu bằng gì → tiếp gì → còn THIẾU gì để chạy. Người hiểu-logic (không cần giỏi kỹ thuật) nhìn ra vấn đề ngay.",
+      "UI thiết kế hợp lý = tự lộ vấn đề."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 153,
+    "values": [
+      "Ghi đủ MỐI QUAN HỆ",
+      "Owner",
+      "Mọi dữ liệu (kể cả giờ dự phòng) phải lưu ĐỦ quan hệ: từ việc gì · ai làm · khi nào · điều kiện gì. Có quan hệ mới THỐNG KÊ nhiều chiều + CẢI TIẾN + TỰ CẬP NHẬT được.",
+      "(2026-07-18)"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 154,
+    "values": [
+      "UI 2 lớp + Apple-simple",
+      "Owner",
+      "Lớp NGOÀI (master-list) = bảng 5 cột cực gọn (STT·mã·tên·phút·luồng) giữ đơn giản kiểu MOW. Lớp TRONG = chi tiết đầy đủ, BẤM mới xem. Đơn giản tối đa, tận dụng tư duy thường của người → ít đào tạo.",
+      "Admin xử cả chục ngàn quy trình → phải gọn."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 155,
+    "values": [
+      "══ PHẦN 11 — QUY TẮC HIỂN THỊ UI QUY TRÌNH (lớp ngoài · bảng việc gọn) (2026-07-18) ══",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 156,
+    "values": [
+      "★ Luật GHI-KHI-NÓNG",
+      "Owner",
+      "Vừa thiết kế vừa GHI nguyên tắc/quyết định NGAY (khi còn nóng) vào Excel (đúng sheet) + README trong code từng phần. Đọc lại là hiểu logic ngay, KHÔNG viết lại sau.",
+      "Bài học: UI cũ bàn nhiều nhưng đọc lại không hiểu hết."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 157,
+    "values": [
+      "Chỉ show cái CẦN, ẩn cái máy đọc",
+      "Owner",
+      "Mã việc = id quản lý master task (5000+ việc), CHỈ MÁY đọc → ẨN, di chuột mới hiện (MOW cố ý làm vậy). Người phải nhìn gọn nhất để não tập trung vào thông tin cần.",
+      "Visible lớp ngoài: STT · Tên việc · Phút · Luồng · (ô bản ghi)."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 158,
+    "values": [
+      "Trigger = chấm màu + SSOT",
+      "CW+Owner",
+      "Trigger quản lý ở 1 BẢNG RIÊNG (SSOT). Chấm màu = danh tính trigger (cùng màu = chung trigger). DI CHUỘT vào chấm → hiện đang dùng trigger nào (đọc từ SSOT — máy & người đều hiểu). Bảng màu có THỨ TỰ (màu nào trước/sau) để quy trình dài không loạn.",
+      "CẦN quy định palette thứ tự (mục còn mở)."
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 159,
+    "values": [
+      "Luồng = ngay / sau Vxx",
+      "CW",
+      "Cột luồng: 'ngay' = đủ điều kiện chạy liền khi trigger đến; 'sau Vxx' = đợi việc đó xong mới đủ điều kiện. = (trigger_task_map + run_condition + phu_thuoc_viec).",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 160,
+    "values": [
+      "Dòng dự phòng = đỏ",
+      "Owner",
+      "Task dự phòng thời gian = 1 dòng ĐỎ, không làm, chỉ tính giờ (tách riêng để thống kê).",
+      "concept task_du_phong"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 161,
+    "values": [
+      "Trigger vào/ra = dòng mờ",
+      "Owner",
+      "Trigger VÀO = dòng mờ TRÊN CÙNG (xảy ra trước việc 1). Trigger RA = dòng mờ DƯỚI CÙNG. Màu nhạt để mắt không bị hút. Học Apple: đơn giản, ai cũng hiểu.",
+      ""
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 162,
+    "values": [
+      "2 tổng góc phải-trên",
+      "Owner",
+      "Tổng CỘNG DỒN cả quy trình + Thời gian CHỈ ĐỊNH cả quy trình, đặt góc phải trên.",
+      "tg_cong_don; tg_chi_dinh"
+    ]
+  },
+  {
+    "sheet": "quy_trinh",
+    "row": 163,
+    "values": [
+      "Ô MÃ BẢN GHI (bên phải, chờ)",
+      "Owner",
+      "Dành 1 ô bên phải cho MÃ BẢN GHI (instance): RỖNG ở view định-nghĩa (master); HIỆN khi xem danh sách cụ thể. 1 việc có thể dùng NHIỀU khóa ngoại — cái nào dùng thì hiện. Có khi 10 việc chung 1 bản ghi. Quy trình hiện TOÀN BỘ khóa phụ của quy trình; việc hiện khóa phụ của việc.",
+      "object viec_ban_ghi; concept ma_ban_ghi"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 169,
+    "values": [
+      "master.drawer.process.start.trigger",
+      "DỮ LIỆU",
+      "Trigger khởi động cấp quy trình",
+      "occurrence=CONDITIONAL",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:402 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 170,
+    "values": [
+      "master.drawer.process.start.condition",
+      "DỮ LIỆU",
+      "Điều kiện để quy trình được chạy",
+      "occurrence=CONDITIONAL",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:403 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 171,
+    "values": [
+      "master.drawer.process.start.queue",
+      "DỮ LIỆU",
+      "Hàng đợi đầu vào của quy trình",
+      "occurrence=CONDITIONAL",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:404 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 172,
+    "values": [
+      "master.drawer.process.sequence",
+      "GIAO DIỆN",
+      "Chuỗi công việc theo thứ tự vận hành",
+      "occurrence=CONDITIONAL",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:407 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 173,
+    "values": [
+      "master.drawer.process.task",
+      "GIAO DIỆN",
+      "Một công việc trong chuỗi vận hành",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:376 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 174,
+    "values": [
+      "master.drawer.process.task.order",
+      "GIAO DIỆN",
+      "Số thứ tự vận hành của công việc",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:377 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 175,
+    "values": [
+      "master.drawer.process.task.name",
+      "DỮ LIỆU",
+      "Tên công việc",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:379 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 176,
+    "values": [
+      "master.drawer.process.task.relation",
+      "DỮ LIỆU",
+      "Quan hệ khởi đầu nối tiếp hoặc song song",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:379 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 177,
+    "values": [
+      "master.drawer.process.task.dependency",
+      "DỮ LIỆU",
+      "Công việc hoặc tín hiệu mà việc này phụ thuộc",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:380 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 178,
+    "values": [
+      "master.drawer.process.task.wiring",
+      "GIAO DIỆN",
+      "Khối nối vận hành của một công việc",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:381 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 179,
+    "values": [
+      "master.drawer.process.task.trigger",
+      "DỮ LIỆU",
+      "Trigger của công việc",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:382 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 180,
+    "values": [
+      "master.drawer.process.task.condition",
+      "DỮ LIỆU",
+      "Điều kiện chạy của công việc",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:383 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 181,
+    "values": [
+      "master.drawer.process.task.queue",
+      "DỮ LIỆU",
+      "Hàng đợi của công việc",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:384 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 182,
+    "values": [
+      "master.drawer.process.task.signal",
+      "DỮ LIỆU",
+      "Tín hiệu ra của công việc",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:385 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 183,
+    "values": [
+      "master.drawer.process.task.roles",
+      "GIAO DIỆN",
+      "Khối ba vai người của công việc",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:387 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 184,
+    "values": [
+      "master.drawer.process.task.role",
+      "GIAO DIỆN",
+      "Một chip vai người",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:388 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 185,
+    "values": [
+      "master.drawer.process.task.role.label",
+      "GIAO DIỆN",
+      "Nhãn vai thực hiện báo cáo hoặc làm thay",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:388 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 186,
+    "values": [
+      "master.drawer.process.task.role.value",
+      "DỮ LIỆU",
+      "Người hoặc Agent được gán vai",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:388 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 187,
+    "values": [
+      "master.drawer.process.task.time",
+      "GIAO DIỆN",
+      "Khối thời gian của một công việc",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:391 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 188,
+    "values": [
+      "master.drawer.process.task.time.exec",
+      "DỮ LIỆU",
+      "Phút thực thi của công việc",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:392 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 189,
+    "values": [
+      "master.drawer.process.task.time.buffer",
+      "DỮ LIỆU",
+      "Phút dự phòng phát sinh của công việc",
+      "occurrence=REPEATABLE",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:393 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 190,
+    "values": [
+      "master.drawer.process.totals",
+      "GIAO DIỆN",
+      "Khối tổng thời gian của quy trình",
+      "occurrence=CONDITIONAL",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:412 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 191,
+    "values": [
+      "master.drawer.process.totals.assigned",
+      "DỮ LIỆU",
+      "Phút chỉ định cho cả quy trình tg_chi_dinh",
+      "occurrence=CONDITIONAL",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:417 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 192,
+    "values": [
+      "master.drawer.process.readiness",
+      "GIAO DIỆN",
+      "Khối còn thiếu gì để quy trình chạy",
+      "occurrence=CONDITIONAL",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:419 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 193,
+    "values": [
+      "master.drawer.process.readiness.status",
+      "DỮ LIỆU",
+      "Trạng thái và số điểm cần bổ sung",
+      "occurrence=CONDITIONAL",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:420 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 194,
+    "values": [
+      "master.drawer.process.readiness.item",
+      "GIAO DIỆN",
+      "Một dòng kiểm tra mức sẵn sàng",
+      "occurrence=REPEATABLE(7)",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:421 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 195,
+    "values": [
+      "master.drawer.process.readiness.item.ok",
+      "GIAO DIỆN",
+      "Dấu đạt của một điều kiện sẵn sàng",
+      "occurrence=CONDITIONAL",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:421 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 196,
+    "values": [
+      "master.drawer.process.readiness.item.missing",
+      "GIAO DIỆN",
+      "Dấu còn thiếu của một điều kiện sẵn sàng",
+      "occurrence=CONDITIONAL",
+      "",
+      "",
+      "BUILT",
+      "DÙNG CHUNG (drawer quy trình v2 — dùng lại UI MOW nâng cao, mượn mow.propose.advanced.timetable.*) | mvx-v3.js:421 | snap 59ab442",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 197,
+    "values": [
+      "master.drawer.process.title",
+      "GIAO DIỆN",
+      "Tên quy trình ở đầu lớp ngoài",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "NOT_BUILT",
+      "DÙNG CHUNG (thiết kế CW gắn-trước: mow-process-view-v1.html — lớp ngoài quy trình) — chờ Codex tích hợp vào master-list.js + audit",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 198,
+    "values": [
+      "master.drawer.process.sub",
+      "GIAO DIỆN",
+      "Dòng phụ: tầng + gợi ý bấm việc xem chi tiết",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "NOT_BUILT",
+      "DÙNG CHUNG (thiết kế CW gắn-trước: mow-process-view-v1.html — lớp ngoài quy trình) — chờ Codex tích hợp vào master-list.js + audit",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 199,
+    "values": [
+      "master.drawer.process.totals.accumulated",
+      "DỮ LIỆU",
+      "Tổng thời gian cộng dồn cả quy trình",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "NOT_BUILT",
+      "DÙNG CHUNG (thiết kế CW gắn-trước: mow-process-view-v1.html — lớp ngoài quy trình) — chờ Codex tích hợp vào master-list.js + audit",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 200,
+    "values": [
+      "master.drawer.process.start.trigger.dot",
+      "GIAO DIỆN",
+      "Chấm màu trigger vào (di chuột hiện mã trigger SSOT)",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "NOT_BUILT",
+      "DÙNG CHUNG (thiết kế CW gắn-trước: mow-process-view-v1.html — lớp ngoài quy trình) — chờ Codex tích hợp vào master-list.js + audit",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 201,
+    "values": [
+      "master.drawer.process.task.code",
+      "DỮ LIỆU",
+      "Mã quản lý của việc — ẩn, di chuột mới hiện (chỉ máy đọc)",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "NOT_BUILT",
+      "DÙNG CHUNG (thiết kế CW gắn-trước: mow-process-view-v1.html — lớp ngoài quy trình) — chờ Codex tích hợp vào master-list.js + audit",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 202,
+    "values": [
+      "master.drawer.process.task.trigger.dot",
+      "GIAO DIỆN",
+      "Chấm màu trigger của việc (cùng màu = chung trigger; hover hiện mã)",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "NOT_BUILT",
+      "DÙNG CHUNG (thiết kế CW gắn-trước: mow-process-view-v1.html — lớp ngoài quy trình) — chờ Codex tích hợp vào master-list.js + audit",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 203,
+    "values": [
+      "master.drawer.process.task.record",
+      "DỮ LIỆU",
+      "Ô bản ghi của việc (khóa ngoại/miếng thông tin việc dùng; rỗng ở bản định-nghĩa)",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "NOT_BUILT",
+      "DÙNG CHUNG (thiết kế CW gắn-trước: mow-process-view-v1.html — lớp ngoài quy trình) — chờ Codex tích hợp vào master-list.js + audit",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 204,
+    "values": [
+      "master.drawer.process.exit",
+      "GIAO DIỆN",
+      "Khối trigger ra cấp quy trình (dòng mờ dưới cùng)",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "NOT_BUILT",
+      "DÙNG CHUNG (thiết kế CW gắn-trước: mow-process-view-v1.html — lớp ngoài quy trình) — chờ Codex tích hợp vào master-list.js + audit",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 205,
+    "values": [
+      "master.drawer.process.exit.trigger",
+      "DỮ LIỆU",
+      "Trigger đi ra khỏi quy trình",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "NOT_BUILT",
+      "DÙNG CHUNG (thiết kế CW gắn-trước: mow-process-view-v1.html — lớp ngoài quy trình) — chờ Codex tích hợp vào master-list.js + audit",
+      "DÙNG CHUNG"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 436,
+    "values": [
+      "data.mow.org_hierarchy",
+      "DỮ LIỆU",
+      "Cây tổ chức T7–T3",
+      "Nút nối T7→T6→T5→T4→T3; mỗi con có 1 cha trực tiếp; không tạo vòng; chỉ nối 2 tầng liền.",
+      "hierarchy_node",
+      "don_vi_to_chuc;quan_he_cha_con",
+      "NOT_BUILT",
+      "Hợp đồng QUAN HỆ — vô hình (không có khu UI). Nghiệp vụ chốt; PG dịch sau.",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 437,
+    "values": [
+      "data.mow.specialty_workflow",
+      "DỮ LIỆU",
+      "Chuyên môn (T3) dùng quy trình (T2)",
+      "T3 gắn T2 bằng quan hệ riêng. CHỜ CHỐT: 1 quy trình có nhiều chuyên môn/đơn vị cùng dùng không? Có → quan hệ GÁN, không phải parent_id đơn.",
+      "",
+      "quy_trinh",
+      "NOT_BUILT",
+      "CHỜ CHỐT dùng-chung. Vô hình.",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 438,
+    "values": [
+      "data.mow.workflow_task",
+      "DỮ LIỆU",
+      "Quy trình (T2) dùng công việc (T1)",
+      "T2 có nhiều T1; 1 T1 thuộc nhiều T2 (N:M); mỗi lần gắn có THỨ TỰ riêng; gỡ khỏi 1 quy trình ≠ xoá công việc.",
+      "process_task_membership",
+      "quy_trinh;cong_viec",
+      "NOT_BUILT",
+      "Vô hình.",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 439,
+    "values": [
+      "data.mow.node_execution",
+      "DỮ LIỆU",
+      "Node T2/T1 chạy được (nghiệp vụ)",
+      "Node chạy được = {TRIGGER vào · VAI TRÒ thực hiện (không phải người cụ thể) · TÍN HIỆU ra · thời gian}. Tín hiệu ra → kích hoạt node/quy trình kế = CHỜ CHỐT (Kestra).",
+      "execution_wiring",
+      "trigger;tin_hieu_ra;nguoi_thuc_hien;hang_doi;dieu_kien_chay;tg_thuc_thi",
+      "NOT_BUILT",
+      "Trigger/vai tro/tin hieu (Owner bo sung). Lien quan person_assignment. Vo hinh.",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 440,
+    "values": [
+      "data.mow.t1_mot_task",
+      "DỮ LIỆU",
+      "T1 MOW liên kết Task MOT",
+      "T1 là công việc nghiệp vụ được Task MOT tham chiếu khi chạy; trạng thái chạy thật THUỘC MOT, MOW chỉ xem nhanh. 1 T1 sinh bao nhiêu Task qua các lần chạy = CHỜ CHỐT.",
+      "",
+      "cong_viec",
+      "NOT_BUILT",
+      "Ranh giới MOW<->MOT; không thiết kế PG ở bước này. Vô hình.",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 441,
+    "values": [
+      "behavior.mow.change_relation",
+      "HÀNH VI",
+      "Thêm/chuyển/gỡ quan hệ node",
+      "Thêm/chuyển/đổi thứ tự/gỡ node: đúng tầng, chống vòng; gỡ liên kết KHÔNG đồng nghĩa xoá đối tượng.",
+      "",
+      "chen_node;quan_he_cha_con",
+      "NOT_BUILT",
+      "Luật an toàn chống xoá nhầm dữ liệu dùng chung. Vô hình.",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 442,
+    "values": [
+      "mowmaster.app",
+      "GIAO DIỆN",
+      "Toàn bộ màn hình danh sách quy trình MOW đã đúc",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MOW Master | nguồn mow-master-v1.html:10 | runtime 1 trang: 97+8; master.* liên trang: 135 | snapshots 81b265c/43ebcd1",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 443,
+    "values": [
+      "mowmaster.content",
+      "GIAO DIỆN",
+      "Nội dung chính của trang MOW Master",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MOW Master | nguồn mow-master-v1.html:17 | runtime 1 trang: 97+8; master.* liên trang: 135 | snapshots 81b265c/43ebcd1",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 444,
+    "values": [
+      "mowmaster.list.host",
+      "GIAO DIỆN",
+      "Điểm gắn khuôn danh sách dùng chung vào trang MOW",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MOW Master | nguồn mow-master-v1.html:17 | runtime 1 trang: 97+8; master.* liên trang: 135 | snapshots 81b265c/43ebcd1",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 445,
+    "values": [
+      "mowmaster.topbar",
+      "GIAO DIỆN",
+      "Thanh đầu trang riêng của MOW Master",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MOW Master | nguồn mow-master-v1.html:11 | runtime 1 trang: 97+8; master.* liên trang: 135 | snapshots 81b265c/43ebcd1",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 446,
+    "values": [
+      "mowmaster.topbar.badge",
+      "GIAO DIỆN",
+      "Nhãn quy trình đã đúc",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MOW Master | nguồn mow-master-v1.html:12 | runtime 1 trang: 97+8; master.* liên trang: 135 | snapshots 81b265c/43ebcd1",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 447,
+    "values": [
+      "mowmaster.topbar.brand",
+      "GIAO DIỆN",
+      "Tên trang MOW Danh sách",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MOW Master | nguồn mow-master-v1.html:12 | runtime 1 trang: 97+8; master.* liên trang: 135 | snapshots 81b265c/43ebcd1",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 448,
+    "values": [
+      "mowmaster.topbar.hub",
+      "GIAO DIỆN",
+      "Điều hướng tới Master tổng",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MOW Master | nguồn mow-master-v1.html:15 | runtime 1 trang: 97+8; master.* liên trang: 135 | snapshots 81b265c/43ebcd1",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 449,
+    "values": [
+      "mowmaster.topbar.open",
+      "GIAO DIỆN",
+      "Điều hướng tới bàn làm việc MOW",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MOW Master | nguồn mow-master-v1.html:14 | runtime 1 trang: 97+8; master.* liên trang: 135 | snapshots 81b265c/43ebcd1",
+      "MOW"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 450,
+    "values": [
+      "mot.run.condition",
+      "DỮ LIỆU",
+      "MOT/ Chạy/ Điều kiện chạy",
+      "Có trigger rồi vẫn chưa đủ; phải thoả điều kiện mới chạy.",
+      "execution_wiring",
+      "dieu_kien_chay",
+      "NOT_BUILT",
+      "",
+      "MOT"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 451,
+    "values": [
+      "mot.run.queue",
+      "DỮ LIỆU",
+      "MOT/ Chạy/ Hàng đợi",
+      "Quy trình/việc chờ đến lượt chạy.",
+      "execution_wiring",
+      "hang_doi",
+      "NOT_BUILT",
+      "",
+      "MOT"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 452,
+    "values": [
+      "mot.run.signal_out",
+      "DỮ LIỆU",
+      "MOT/ Chạy/ Tín hiệu ra",
+      "Quy trình xong → phát tín hiệu → khởi động quy trình tiếp theo.",
+      "execution_wiring",
+      "tin_hieu_ra",
+      "NOT_BUILT",
+      "",
+      "MOT"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 1148,
+    "values": [
+      "modut.run.card.header",
+      "GIAO DIỆN",
+      "MODUT / Bản đúc chạy được / Thẻ báo cáo / Đầu mục",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MODUT | modut-builder-v1.html:126 | snap f4534ac",
+      "MOUT"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 1149,
+    "values": [
+      "modut.run.card.header.bread",
+      "DỮ LIỆU",
+      "MODUT / Bản đúc chạy được / Thẻ báo cáo / Đầu mục / Đường 7 tầng",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MODUT | modut-builder-v1.html:127 | snap f4534ac",
+      "MOUT"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 1150,
+    "values": [
+      "modut.run.card.header.name",
+      "DỮ LIỆU",
+      "MODUT / Bản đúc chạy được / Thẻ báo cáo / Đầu mục / Tên",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MODUT | modut-builder-v1.html:126 | snap f4534ac",
+      "MOUT"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 1151,
+    "values": [
+      "modut.run.card.header.tier",
+      "DỮ LIỆU",
+      "MODUT / Bản đúc chạy được / Thẻ báo cáo / Đầu mục / Tầng",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MODUT | modut-builder-v1.html:126 | snap f4534ac",
+      "MOUT"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 1152,
+    "values": [
+      "modut.run.cast",
+      "HÀNH VI",
+      "MODUT / Bản đúc chạy được / Đúc và lên lịch",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MODUT | modut-builder-v1.html:124 | snap f4534ac | DEMO: chỉ mở alert; chưa đăng ký output_table_registry, chưa tạo lịch/trigger hoặc phân phối thật. Cấu hình khác mới cập nhật preview + JSON, chưa lưu PG/Directus.",
+      "MOUT"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 1153,
+    "values": [
+      "modut.run.json",
+      "DỮ LIỆU",
+      "MODUT / Bản đúc chạy được / JSON bản đúc",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MODUT | modut-builder-v1.html:130 | snap f4534ac",
+      "MOUT"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 1154,
+    "values": [
+      "modut.run.title",
+      "GIAO DIỆN",
+      "MODUT / Bản đúc chạy được / Tiêu đề",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MODUT | modut-builder-v1.html:124 | snap f4534ac",
+      "MOUT"
+    ]
+  },
+  {
+    "sheet": "SO_HOP_DONG",
+    "row": 1155,
+    "values": [
+      "modut.run.top",
+      "GIAO DIỆN",
+      "MODUT / Bản đúc chạy được / Thanh đầu",
+      "occurrence=SINGLE",
+      "",
+      "",
+      "BUILT",
+      "RIÊNG MODUT | modut-builder-v1.html:124 | snap f4534ac",
+      "MOUT"
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 160,
+    "values": [
+      "Template lặp KHÔNG tự động = L1. PHẢI hỏi: các bản khác nhau ở DỮ LIỆU hay Ý NGHĨA? Khác dữ liệu→gộp (L1); khác ý nghĩa→giữ riêng (L2)."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 161,
+    "values": [
+      "CA 1 (Owner bắt): 3 nút chèn ô before/middle/after — cùng element plus-l nhưng openAddModal prev/next KHÁC → 3 tình huống nghiệp vụ → GIỮ 3."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 162,
+    "values": [
+      "CA 2 (CW bắt, Desktop nhận sai): 7 tier T1..T7 (TIERS.map) — 7 CẤP TỔ CHỨC khác bản chất (Lĩnh vực→Công ty→...→Task), thành 7 loại thực thể PG (trigger CHỈ ở T2) → GIỮ 7. Y hệt 4 nhóm drawer (cùng widget mkSec, 4 khái niệm)."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 163,
+    "values": [
+      "→ Cả 2 lần: nhìn thấy 1 template rồi áp L1, QUÊN hỏi câu phân biệt = lỗi 'đúng hình thức, sai bản chất' — nguy hiểm nhất. Gộp nhầm = mất khái niệm nghiệp vụ = xương sống hợp đồng."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 164,
+    "values": [
+      ""
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 234,
+    "values": [
+      "• NGƯỜI PHÊ DUYỆT = MẮT XÍCH LUỒNG, không chỉ là trường: thiếu tín hiệu duyệt → quy trình DỪNG, bước sau KHÔNG chạy. → ĐẦU CHỜ KESTRA: tín hiệu duyệt = TRIGGER."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 243,
+    "values": [
+      "• ADMIN phải thấy CẢ việc-NGƯỜI làm và việc-AGENT làm (lý do toggle người↔AI mow.node.ai_toggle) — để tư duy logic + đảm bảo quy trình chạy thật."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 244,
+    "values": [
+      "• ĐẦU CHỜ KESTRA — quy trình chạy thật cần: TRIGGER + HÀNG ĐỢI + ĐIỀU KIỆN CHẠY + TÍN HIỆU RA (+ tín hiệu phê duyệt ở nhóm NGƯỜI). Chưa thiết kế trong MOW/MOT nhưng ĐÃ CÓ MÃ (NOT_BUILT). Tới phiên Kestra = NGUỒN, không thiết kế lại."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 245,
+    "values": [
+      "• IU Ref (IU-T-001): thiết kế BỊA, không trỏ đâu → BỎ (TO_REMOVE). Nếu sau trỏ tới thứ thật (vd form MOIT) phải định nghĩa lại."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 246,
+    "values": [
+      ""
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 247,
+    "values": [
+      "════ ĐỀ XUẤT — TRIẾT LÝ & HỢP ĐỒNG (Owner mô tả trực tiếp) ════"
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 248,
+    "values": [
+      "• TRIẾT LÝ: người đề xuất nhập TỐI THIỂU (dễ như chơi game); hệ chuyển tải TỐI ĐA thông tin đến admin = ĐẠT."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 249,
+    "values": [
+      "• Đề xuất = chỉ THÔNG TIN + Ý TƯỞNG (chưa phải thiết kế). Cần quy trình XEM XÉT sau (xác nhận/bàn bạc/thiết kế lại)."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 250,
+    "values": [
+      "• Cơ bản + nâng cao = 1 khái niệm. DEDUP: cùng nội dung + cùng người = 1, lấy bản CUỐI."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 251,
+    "values": [
+      "• THÔNG TIN NGẦM bắt tự động lúc gửi (không có khu riêng): người · thời gian · vị trí · nội dung-ý tưởng."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 252,
+    "values": [
+      "• VỊ TRÍ là hợp đồng DỄ SÓT: người chỉ RÊ CHUỘT kéo (C lên trên B), hệ PHẢI bắt thành hợp đồng RÕ ('C liền trước B' / thứ tự mới)."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 253,
+    "values": [
+      "• TRẠNG THÁI 'đã xem xét chưa' (như EMAIL đã đọc): đề xuất hiển thị trên view riêng người đề xuất, LƯU MÃI đến khi admin bấm XEM XÉT → về bình thường. Báo người đề xuất đã ĐẾN VÒNG xem xét (KHÔNG phải kết quả — vòng sau)."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 254,
+    "values": [
+      "• QUAN HỆ NHIỀU-NHIỀU (lưu để tính toán, dữ liệu quý): 1 người → nhiều đề xuất; 1 quy trình → nhiều người đề xuất."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 255,
+    "values": [
+      "• ĐẤU NỐI downstream (chưa dựng): danh sách tổng hợp · trạng thái · xem xét · duyệt/từ chối · phản hồi chấp nhận/từ chối."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 256,
+    "values": [
+      ""
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 257,
+    "values": [
+      "════ BỨC TRANH TOÀN CẢNH — KHUÔN–ĐÚC & LINH HỒN SỬA RẺ (Owner, đọc TRƯỚC khi làm) ════"
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 258,
+    "values": [
+      "1. CÂY ORG = MỘT loại nút tự tham chiếu CHA (KHÔNG phải 5–7 bảng). Mỗi nút = {mã, tên/nhãn, cha là ai, tầng mấy, ai phụ trách, ai nhận báo cáo, theo khuôn nào}. T7 Lĩnh vực→T3 Chuyên môn cùng loại, chỉ khác TẦNG. Thêm 1 công ty = 'thêm mấy cái nhãn', không đẻ loại mới."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 259,
+    "values": [
+      "2. KHUÔN–ĐÚC (ví dụ công thức bếp tổng): quy trình = tờ CÔNG THỨC viết 1 lần ở bếp tổng. Mỗi công ty/phòng = 1 chi nhánh nấu theo — biển hiệu/đầu bếp riêng (nhãn/người riêng), món ăn cùng công thức. SỬA công thức ở bếp tổng → 100 chi nhánh đổi theo (sửa 1 quy trình → 100 phòng Sales theo)."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 260,
+    "values": [
+      "   ⚠️ Bản đúc KHÔNG phải bản sao CHẾT: nó là bản RIÊNG TRỎ VỀ khuôn SỐNG. Sửa khuôn → hình dạng mọi bản đổi; nhãn/người mỗi bản tự giữ. (Copy cứng thì sửa gốc không lan — SAI ý.)"
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 261,
+    "values": [
+      "3. BIẾN THỂ A/A' (phở Bắc / phở Nam): 2 quy trình ĐỘC LẬP trên máy, ghi chú 'cùng giống loài'. Nút quản trị 'ai dùng khuôn nào' (mặc định dùng tất, admin gán). Sửa A → mọi công ty gán A đổi; gán A' không hề hấn. Ngược lại tương tự."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 262,
+    "values": [
+      "4. KHÁC 'nhiều-cha thảm hoạ': nhiều-cha = nhiều phòng DÍNH CHUNG 1 nút (không tách được). Khuôn–đúc = mỗi phòng 1 nút RIÊNG cùng 1 công thức (VẪN tách riêng được). Đừng lẫn 2 chiều này."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 263,
+    "values": [
+      "5. LINH HỒN SỬA RẺ: 'thứ duy nhất không đổi là MỌI THỨ SẼ ĐỔI'. Đích KHÔNG phải vẽ đúng hết HÔM NAY, mà làm việc SỬA NGÀY MAI rẻ. Cố enumerate hoàn hảo = PHẢN linh hồn. Đầu tư vào CON ĐƯỜNG SỬA, không vào bản vẽ một thời điểm."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 264,
+    "values": [
+      "6. BA MỤC TIÊU (đúng thứ tự): (1) chỗ ghi chép để cải tiến [ĐANG làm: sổ khái niệm + đề xuất] → (2) quy trình thêm/sửa/xoá 1 hợp đồng cho RẺ [ĐANG vá] → (3) đưa khung vào PG để QUAN HỆ tự rà + tự đồng bộ ('sửa A → máy biết 12 công ty dùng A, A' không liên quan') [chuẩn bị tư duy, CHƯA làm]."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 265,
+    "values": [
+      "→ Chi tiết quy trình: tab quy_trinh. Định nghĩa khái niệm: tab dinh_nghia_khai_niem. (Không chép lại ở đây — luật vệ sinh #1.)"
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 266,
+    "values": [
+      "════ KIẾN TRÚC LƯU DỮ LIỆU THEO MẸ (Owner 2026-07-16) ════"
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 267,
+    "values": [
+      "• MODW = chủ yếu KHAI BÁO THỨ TỰ / quan hệ → chạy thẳng vào TABLE QUAN HỆ (cha-con). T2 khi liên quan thì thêm liên kết trigger / người / hàng đợi / Kestra."
+    ]
+  },
+  {
+    "sheet": "huong_dan",
+    "row": 268,
+    "values": [
+      "• MOW = khai báo quản lý CHA-CON (cấu trúc); riêng T2 thêm trigger / hàng đợi / Kestra / nhân sự."
+    ]
+  }
+]

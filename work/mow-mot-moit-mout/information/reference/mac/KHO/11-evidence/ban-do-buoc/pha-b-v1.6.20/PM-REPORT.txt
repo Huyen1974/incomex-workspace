@@ -1,0 +1,15 @@
+Đã tiếp tục Pha B theo chỉ đạo Owner ngày 12/09/2026. SSOT v1.6.20 và bản đồ dùng cùng dataset; giữ 87 bước duy nhất, 12 nhóm × 4 luồng và 987 lượt gắn bước vào nhóm/luồng.
+
+Trong 63 bước cần UI trực tiếp: 0 đủ toàn yêu cầu, 51 thiếu thông tin/control, 10 chưa có UI phù hợp, 2 chưa xác minh. 24 bước máy không cần form nhập riêng nhưng có nơi quan sát. Con số 0 đủ trọn bước không phủ nhận những bố cục và proof lab đã có.
+
+Đề nghị 30 vùng/trạng thái dùng chung: 22 sửa/ghép, 7 thiết kế bù, 1 xác minh nguồn; không phải 30 trang mới. 48 hồ sơ ứng viên có trùng trang ở mode khác: đề nghị 15 CHỐT / 26 NHÁP / 1 CÔNG CỤ / 6 BỎ. PM chưa quyết; chưa sửa hoặc xóa UI.
+
+Bảng có 10 mục công cụ/source. Chưa có đường tự động đầy đủ được chứng minh cho 87 bước. 84 bước dẫn asset/primitive/source một phần; 3 bước chưa dẫn primitive phù hợp (batch, purge, bảo đảm nguồn/khả năng phục hồi). Cả 87 bước có hướng tận dụng nhưng chưa tích hợp/kiểm đủ. Lab đã dọn; runbook T0 chưa là dịch vụ tự nhận/tiếp tục việc.
+
+Có 11 nhóm gap hợp đồng, đối chiếu 177 fact Pilot và 385 leaf lịch sử. 171/177 mapping là LAB, 119 khai báo logic không là 119 bảng. Sáu bảng có snapshot cột/ràng buộc; chưa đủ kết luận số bảng tối ưu hoặc bảng mới.
+
+Đã rà tám đường đi và chín nhóm phát hiện ngược thiết kế. Giữ nguyên Factory, 23 INV, ownership và tám dòng bằng chứng Kịch bản 0. Sửa hai lỗi chỉ mục Checkpoint0: hàng heatmap trỏ lệch nhóm và nhãn Ban hành bị tách từ. Mẫu số87/987 không đổi.
+
+Còn blocker bản đồ: nguồn23 bước chưa phục hồi nguyên văn9 hàng. Trang hiện hành vẫn trùng bản14 hàng (A7+B3+D4). Cần PM/supervisor tìm snapshot đúng hoặc xác lập disposition; chưa báo toàn gói completeness PASS. Tự kiểm offline không thay kiểm hình thức trên trình duyệt hoặc review độc lập.
+
+D04 giữ OWNER ACCEPT11/09. Gate0 bounded giữ nguyên; Gate1 DOING, Gate2 PARTIAL, Gate3/4 PARTIAL và tạm dừng khóa cuối; Gate5–7 chưa mở. Không product code/DDL/DML/deploy/lab mới. Mở HTML để đọc hoặc gửi một ZIP chứa snapshot/nguồn/ảnh/checks/manifest cho PM.

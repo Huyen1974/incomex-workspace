@@ -1,0 +1,1449 @@
+{
+  "status": "PASS_STATIC_AND_DOCUMENT_LOGIC; COMPLETENESS_BLOCKER_REMAINS",
+  "passed": 278,
+  "total": 278,
+  "checks": [
+    {
+      "check": "Scope87/987 unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Step semantics retained",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Family flow membership retained",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Explicit Owner continuation and frozen hash",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Crosswalk preserved 248rows",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Complete cards87",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Source assurance not HR",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "7 derived readiness items",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Ten tool sources exist",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Every Agent link has bounded tool entry",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "No full automation overclaim",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Surface30 with requirement consumers",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Only four proposal labels",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Retire has replacement and conditions",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "All candidates sources or explicit source-only",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "8 logical walks present",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Historical source blocker not hidden",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "177facts reverse traced",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Fact trace exact bidirectional",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Leaf trace uses declared contract",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "385leaf reverse traced",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "11contract gaps linked to steps",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Table counts grounded",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "UI denominator arithmetic",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Asset primitive arithmetic",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Condition/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Condition/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Condition/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Condition/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Condition/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Condition/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Condition/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Condition/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Condition/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Publish visible Condition",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Field/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Field/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Field/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Field/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Field/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Field/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Field/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Field/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Field/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Publish visible Field",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Guide/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Guide/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Guide/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Guide/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Guide/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Guide/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Guide/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Guide/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Guide/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Publish visible Guide",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOIT/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOIT/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOIT/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOIT/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOIT/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOIT/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOIT/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOIT/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOIT/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Publish visible MOIT",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOT/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOT/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOT/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOT/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOT/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOT/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOT/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOT/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOT/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Publish visible MOT",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOUT/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOUT/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOUT/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOUT/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOUT/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOUT/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOUT/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOUT/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOUT/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Publish visible MOUT",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOW/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOW/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOW/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOW/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOW/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOW/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOW/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOW/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap MOW/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Publish visible MOW",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap NTGV/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap NTGV/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap NTGV/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap NTGV/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap NTGV/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap NTGV/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap NTGV/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap NTGV/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap NTGV/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Publish visible NTGV",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Org/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Org/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Org/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Org/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Org/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Org/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Org/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Org/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Org/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Publish visible Org",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap People/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap People/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap People/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap People/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap People/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap People/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap People/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap People/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap People/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Publish visible People",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Table/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Table/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Table/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Table/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Table/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Table/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Table/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Table/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Table/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Publish visible Table",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Trigger/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Trigger/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Trigger/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Trigger/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Trigger/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Trigger/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Trigger/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Trigger/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap Trigger/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Publish visible Trigger",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Heatmap108 no green claims",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "HTML dataset byte content matches",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "HTML87 cards",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Unique IDs map/SSOT",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT343IDs preserved",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT heatmap keyed rows108",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT row label/key MOW",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOW/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOW/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOW/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOW/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOW/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOW/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOW/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOW/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOW/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT row label/key MOT",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOT/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOT/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOT/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOT/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOT/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOT/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOT/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOT/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOT/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT row label/key MOIT",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOIT/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOIT/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOIT/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOIT/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOIT/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOIT/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOIT/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOIT/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOIT/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT row label/key MOUT",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOUT/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOUT/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOUT/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOUT/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOUT/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOUT/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOUT/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOUT/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link MOUT/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT row label/key Field",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Field/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Field/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Field/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Field/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Field/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Field/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Field/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Field/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Field/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT row label/key Table",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Table/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Table/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Table/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Table/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Table/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Table/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Table/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Table/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Table/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT row label/key Trigger",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Trigger/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Trigger/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Trigger/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Trigger/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Trigger/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Trigger/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Trigger/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Trigger/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Trigger/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT row label/key Condition",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Condition/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Condition/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Condition/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Condition/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Condition/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Condition/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Condition/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Condition/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Condition/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT row label/key NTGV",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link NTGV/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link NTGV/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link NTGV/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link NTGV/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link NTGV/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link NTGV/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link NTGV/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link NTGV/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link NTGV/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT row label/key People",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link People/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link People/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link People/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link People/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link People/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link People/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link People/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link People/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link People/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT row label/key Guide",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Guide/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Guide/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Guide/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Guide/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Guide/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Guide/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Guide/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Guide/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Guide/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT row label/key Org",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Org/Tìm",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Org/Tạo",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Org/Lắp",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Org/Test",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Org/Duyệt",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Org/Ban hành",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Org/Run",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Org/Sửa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "SSOT deep link Org/Ngừng",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Internal anchors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "Local map/SSOT links except planned handoff files",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "All inline images exist",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Document controls navigation/filter only",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "Dataset hash in both artifacts",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "26 protected regions unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "D04 no new wait in current cockpit",
+      "pass": true,
+      "detail": null
+    }
+  ],
+  "counts": {
+    "candidate_count": 48,
+    "candidate_proposals": {
+      "BỎ": 6,
+      "CHỐT": 15,
+      "CÔNG CỤ": 1,
+      "NHÁP": 26
+    },
+    "contract_gaps": 11,
+    "full_automation_proven": 0,
+    "information_groups": 261,
+    "no_separate_ui": 24,
+    "primitive_or_source_partial": 84,
+    "proposal_not_integrated": 87,
+    "source_blockers": 1,
+    "surface_count": 30,
+    "surface_treatment": {
+      "SỬA/GHÉP": 22,
+      "THIẾT KẾ BÙ": 7,
+      "XÁC MINH NGUỒN": 1
+    },
+    "table_with_column_snapshot": 6,
+    "tool_entries": 10,
+    "ui_absent": 10,
+    "ui_enough": 0,
+    "ui_missing": 51,
+    "ui_required": 63,
+    "ui_unverified": 2,
+    "unique": 87,
+    "without_cited_primitive": 3
+  },
+  "dataset_sha256": "c3fbd7447c961ba5b2b6fa619187face6c4cf25296945a37e90e7347e5acd32f",
+  "manual_logic_review": {
+    "walks": 8,
+    "surface_groups": 30,
+    "source_assertions": "Archived source/component plus8image visual inspections; not live runtime audit",
+    "corrections": [
+      "Sửa lỗi metadata Ban/hành bị tách, sinh lại cột Ban hành từ đúng nhãn; sửa heatmap SSOT join theo familykey thay zip thứ tự alphabet với hàng UI. Không đổi87/987; đây là sửa chỉ mục, không scope amendment.",
+      "Tự rà đối chiếu lại source-operation với nguồn Checkpoint0: đây là backup/restore/capacity, không yêu cầu sửa nguồn người. Đã sửa mapping sang operations trước bàn giao; không đổi87bước hoặc987lượt.",
+      "Bổ sung deadline/retry MOT, default/visibility MOIT, lưu nháp nhập liệu và reportperiod/formula theo mục tiêu nguồn; không thêm step.",
+      "Rà currentHTTP bat-dau xác nhận hash trùng snapshot14; không phục hồi9hàng thiếu bằng suy đoán."
+    ]
+  },
+  "limits": [
+    "Một blocker độ phủ lịch sử:9hàng trong nguồn23 chưa phục hồi, currentHTTP trùngsnapshot14; không báo toàn gói completenessPASS.",
+    "Mọi87bước hiện có đã có hàng thôngtin/tool/candidate/test; self-review không thay supervisorindependentreview.",
+    "Chưa realbrowserQA bảnđồ: fileURL bị côngcụ chặn ở lượt trước; không dùngserver/alternatebrowser để vượtchặn. Lượt này kiểm tài liệu offline/static/functions, không runtime.",
+    "Không product code/DDL/DML/migration/deploy/restart/Flow execution; code mới chỉ dựng/kiểm tài liệu.",
+    "Lab đã dọn; không toolproduction mới được chứng minh. Không đóngGate1/2/3/4, Gate5–7 chưa mở."
+  ],
+  "independent_review": "NOT PERFORMED",
+  "browser_visual": "NOT PERFORMED; prior file URL policy block not circumvented"
+}
