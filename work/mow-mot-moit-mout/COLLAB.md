@@ -2,9 +2,9 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 - Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
-- Nhiệm vụ/phạm vi hiện tại (Owner giao lại 23/09/2026): đưa các tài liệu có giá trị trong `/Users/nmhuyen/Desktop/quy trình` lên `information/` làm kho THAM KHẢO cho dự án dài hạn và hội đồng AI; ưu tiên nguyên bản `cấu trúc hệ thống.html` và `BAN-DO-BUOC-UI-AGENT.html`. Các thiết kế cũ đang làm lại, không coi là chuẩn hiện hành. Giữ nguyên nguồn Mac và HTML chính.
+- Nhiệm vụ/phạm vi hiện tại (Owner giao lại 23/09/2026): đưa các tài liệu có giá trị trong `/Users/nmhuyen/Desktop/quy trình` lên `information/` làm kho THAM KHẢO cho dự án dài hạn và hội đồng AI; ưu tiên nguyên bản `cấu trúc hệ thống.html` và `BAN-DO-BUOC-UI-AGENT.html`. Các thiết kế cũ đang làm lại, không coi là chuẩn hiện hành. Giữ nguyên nguồn Mac và HTML chính. Theo bổ sung Owner 23/09: không đưa file ảnh lên GitHub; ảnh chỉ lưu metadata/tham chiếu.
 - Tiêu chí xong của lượt hiện tại: tài liệu liên quan được copy có kiểm hash/mục lục, nguồn Mac không bị xoá/di chuyển, file gốc không bị sửa.
-- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12 của việc này.
+- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D13 của việc này.
 
 Host: GPT Chat · Host_ID: GPT-MMIM-260920-A · Owner giao: 2026-09-20
 HTML chính: `mow-mot-moit-mout.html`
@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | REFERENCE_TEXT_PUBLISHED · BINARY_WRITE_PATH_PENDING · 23/09/2026 | Đã đưa 888 tài liệu/87.874.934 bytes lên GitHub; nguồn–đích SHA PASS. Còn 304 ảnh/Excel/Word/46.090.145 bytes đã chuẩn bị, chờ đường ghi được phép. Xem information/README.md.
+MMIM | REFERENCE_TEXT_PUBLISHED · BINARY_WRITE_PATH_PENDING · 23/09/2026 | Đã đưa 888 tài liệu/87.874.934 bytes lên GitHub; nguồn–đích SHA PASS. Ảnh không đưa lên Git theo D13. Còn 97 Excel/Word/10.507.371 bytes chờ đường ghi được phép. Xem information/README.md.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -28,6 +28,8 @@ MMIM | REFERENCE_TEXT_PUBLISHED · BINARY_WRITE_PATH_PENDING · 23/09/2026 | Đ�
 - D11 · 2026-09-21 · Theo Owner: MMIM.2 dùng **Executor_Surface = Codex**. Quyền kỹ thuật theo capability đã audit, không theo hãng. `Write_Path` ưu tiên `workspace_*`; nếu chính phiên Codex không bind `workspace_*` nhưng bind `fs_*` đã audit thì dùng `fs_*`. Không dùng Git/CLI/native để ghi. Host giám sát qua gate + repo/diff/report cuối.
 
 - D12 · 2026-09-23 · Owner trực tiếp yêu cầu đưa các file có giá trị từ Mac lên GitHub thành kho tham khảo dài hạn; đặc biệt hai HTML thiết kế nêu trên. Thực hiện yêu cầu mới bằng `workspace_*` đã đọc-gate PASS; không chạy PROMPT MMIM.2 nháp, không tự chốt P01. Không đưa credential/dữ liệu nhạy cảm lên public. Hai HTML lớn truyền bằng mã giữa công cụ, không tái tạo nội dung qua mô hình. · Áp: SAME_COMMIT.
+
+- D13 · 2026-09-23 · Owner: “Ảnh thì không nên chuyển lên Gh vì nó làm nhanh làm đầy repo nhé.” Loại toàn bộ file ảnh khỏi kế hoạch Git; chỉ giữ metadata/hash/nguồn trong inventory và LINK-MAP. Chưa publish ảnh nơi khác, chưa sửa đường dẫn HTML; quyết định này không cấp ngoại lệ Git trực tiếp cho Office. · Áp: SAME_COMMIT.
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
@@ -58,7 +60,7 @@ Claude REVIEWED@2d673a370a030e2b679d161132cb908f897b9503 · **ACCEPT có điều
 - H03 · **ACCEPT**: đúng nguyên nhân gốc của I02 về phần binary.
 
 ## Owner cần quyết
-- Q01 · Kho tham khảo 23/09: cho phép ngoại lệ D12 một lần để Codex commit/push bằng Git trực tiếp đúng 304 ảnh/Excel/Word trong `information/binary-pending.json` (46.090.145 bytes), kèm cập nhật inventory/README/COLLAB? Đã chuẩn bị nguyên byte, kiểm hash, trích nội dung Office/OCR ảnh và quét bí mật; chưa ghi binary lên repo. Không force, không sửa nguồn/HTML chính, chỉ phạm vi kho tham khảo. Hoặc cung cấp capability nhập binary đã audit để thực hiện cùng gói.
+- Q01 · Chỉ còn 97 Excel/Word, 10.507.371 bytes trong `information/binary-pending.json`, chờ capability nhập binary đã audit hoặc ngoại lệ D12 một lần của Owner. Đề nghị cũ gồm 304 file được thu hẹp theo D13; 207 ảnh khác nhau không chuyển vào Git. Chưa có chấp thuận ngoại lệ Git trực tiếp.
 - P01 · Xác nhận mục tiêu toàn việc (A0): “thiết kế chuẩn các UI, chuẩn quy trình tạo và khai báo thành công MOW/MOT/MOIT/MOUT/Field”; tiêu chí xong = mỗi đối tượng có UI chuẩn Owner chốt + quy trình tạo/khai báo viết thành bước + ≥1 lần khai báo thật thành công có bằng chứng. P01 không chặn Claude review/MMIM.2 hiện tại.
 
 ## Sự cố / bài học Host
@@ -74,8 +76,10 @@ Claude REVIEWED@2d673a370a030e2b679d161132cb908f897b9503 · **ACCEPT có điều
 - Executor_Surface: Codex · Write_Path: `workspace_*` · read-gate PASS. Theo lệnh trực tiếp Owner mới, không chạy PROMPT MMIM.2 nháp và không tự đặt READY cho bản nháp.
 - Đã commit/push 888 tài liệu nguyên byte, 87.874.934 bytes; gồm cả hai HTML ưu tiên. Commit nhập cuối: `42e2db1ce50dd42563351aa252145fed541ffa76`; các commit nhập từng file nằm trong `information/inventory.json`.
 - Đọc lại blob Git: 888/888 SHA nguồn = đích. Kiểm lại 2.155/2.155 file Mac: hash không đổi. HTML chính SHA `f4aac30c492f104ec54ff7a03ace54ce70d802e2dd49a417ad9b7285897a050c` giữ nguyên.
-- 304 binary/46.090.145 bytes sẵn sàng, chưa publish; 16/16 ảnh manifest nguồn đúng hash/bytes. Phần bỏ/chờ/trùng ghi trong inventory; không tuyên bố đã chuyển hết, không nghiệm thu nghiệp vụ, không chạm VPS/runtime.
+- Sau D13: 97 Excel/Word/10.507.371 bytes chưa publish; 207 ảnh khác nhau/35.582.774 bytes không đưa lên Git. 16/16 ảnh manifest nguồn đúng hash/bytes; chỉ giữ metadata. Phần bỏ/chờ/trùng ghi trong inventory; không tuyên bố đã chuyển hết, không nghiệm thu nghiệp vụ, không chạm VPS/runtime.
 - Mục lục, inventory và LINK-MAP: `information/README.md`. · Áp: SAME_COMMIT.
 
+- Ghi nhận dung lượng: 3 HTML tham khảo đã lưu nguyên bản chứa khoảng 12,22 MB chuỗi ảnh nhúng. Đề xuất cân nhắc bản nhẹ ở lượt riêng; chưa sửa bản lưu, HTML chính hoặc lịch sử Git.
+
 ## NEXT
-- Giải quyết Q01 về đường chuyển binary rồi đưa nốt gói đã chuẩn bị; giữ nguyên HTML chính. Không tự mở rộng P01 hoặc sửa luật nền.
+- Giải quyết Q01 cho 97 Excel/Word; không chuyển ảnh lên Git theo D13; giữ nguyên HTML chính. Không tự mở rộng P01 hoặc sửa luật nền.

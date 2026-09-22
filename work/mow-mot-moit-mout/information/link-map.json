@@ -89,177 +89,177 @@
       "old_src": "Từ thực tế đã làm/assets/images/IMG-001-man-hinh-nhin-cau-truc-he-thong-co-gi-nam-o-dau.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-001-man-hinh-nhin-cau-truc-he-thong-co-gi-nam-o-dau.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-001-man-hinh-nhin-cau-truc-he-thong-co-gi-nam-o-dau.png",
       "bytes": 358015,
       "sha256": "c761865772aacfaca83f18d347fd5e63bfca919cadd401a4e9a12ed3115af364",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-002-hai-chi-tiet-rieng-o-tang-2-vi-sao-can-ca-hai-anh.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-002-hai-chi-tiet-rieng-o-tang-2-vi-sao-can-ca-hai-anh.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-002-hai-chi-tiet-rieng-o-tang-2-vi-sao-can-ca-hai-anh.png",
       "bytes": 12323,
       "sha256": "98033a0c908f5894b98fb6de4a381d846d4930443f13c3371d1de0dd0475a508",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-003-bieu-tuong-cua-quy-trinh-duoc-suy-tu-cac-task.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-003-bieu-tuong-cua-quy-trinh-duoc-suy-tu-cac-task.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-003-bieu-tuong-cua-quy-trinh-duoc-suy-tu-cac-task.png",
       "bytes": 38075,
       "sha256": "317190aead0adfec05c9354f2893988083ae59c18893d7e7dd547b2292094515",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-004-bon-che-do-o-goc-phai-cung-mot-he-thong-nhung-nhin-theo-muc-dich-khac-nhau.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-004-bon-che-do-o-goc-phai-cung-mot-he-thong-nhung-nhin-theo-muc-dich-khac-nhau.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-004-bon-che-do-o-goc-phai-cung-mot-he-thong-nhung-nhin-theo-muc-dich-khac-nhau.png",
       "bytes": 52576,
       "sha256": "aabe559010f014befb52488b42ee431fd74f85844b04bcd4bbbe80740f52beec",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-005-de-xuat-them-moi-hoac-bao-cho-can-sua-ngay-tai-noi-dang-nhin.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-005-de-xuat-them-moi-hoac-bao-cho-can-sua-ngay-tai-noi-dang-nhin.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-005-de-xuat-them-moi-hoac-bao-cho-can-sua-ngay-tai-noi-dang-nhin.png",
       "bytes": 44056,
       "sha256": "a574432791603a8eb888a528f428a3933f6504c05dd8e853b4823b5d481f16f3",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-006-man-hinh-de-xuat-cai-tien-sua-thu-ngay-tren-ban-dang-nhin-chua-dung-vao-cau-truc-chin.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-006-man-hinh-de-xuat-cai-tien-sua-thu-ngay-tren-ban-dang-nhin-chua-dung-vao-cau-truc-chin.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-006-man-hinh-de-xuat-cai-tien-sua-thu-ngay-tren-ban-dang-nhin-chua-dung-vao-cau-truc-chin.png",
       "bytes": 125151,
       "sha256": "bf8b1084beef050db27c65a80dd4cf4e6efc1defbb381b9c41b8bfeafbccfbfa",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-007-cot-thu-hai-cua-moi-hang-ai-thuc-hien-task.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-007-cot-thu-hai-cua-moi-hang-ai-thuc-hien-task.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-007-cot-thu-hai-cua-moi-hang-ai-thuc-hien-task.png",
       "bytes": 6008,
       "sha256": "46d5ebe1486304481235f1c263a9c8bc65c422b11a413d8591e53ecf90ae0d3d",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-008-mat-cuoi-con-nguoi-lam.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-008-mat-cuoi-con-nguoi-lam.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-008-mat-cuoi-con-nguoi-lam.png",
       "bytes": 5676,
       "sha256": "684ef2d56133eb24fa172a02e5c7a1febedea1bc3d815ff416b9a55eb980ab3b",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-009-de-xuat-nang-cao-do-thoi-gian-ghi-lich-su-cai-tien-va-tao-du-lieu-quan-tri.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-009-de-xuat-nang-cao-do-thoi-gian-ghi-lich-su-cai-tien-va-tao-du-lieu-quan-tri.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-009-de-xuat-nang-cao-do-thoi-gian-ghi-lich-su-cai-tien-va-tao-du-lieu-quan-tri.png",
       "bytes": 218520,
       "sha256": "e7ee893d936fe81b3fdac13719b06a680f772b528501e9441861bd864e8fbf0d",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-010-mow-van-hanh-toi-dang-co-nhung-quy-trinh-nao-va-chung-dang-o-trang-thai-nao.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-010-mow-van-hanh-toi-dang-co-nhung-quy-trinh-nao-va-chung-dang-o-trang-thai-nao.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-010-mow-van-hanh-toi-dang-co-nhung-quy-trinh-nao-va-chung-dang-o-trang-thai-nao.png",
       "bytes": 172001,
       "sha256": "5a699d23adea624e3dfce90285297af1727293a51d3fdc09fcb7cc2f0144e2fa",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-011-mow-quan-tri-admin-quan-ly-toan-bo-quy-trinh-va-biet-ngay-quy-trinh-nao-da-du-de-chay.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-011-mow-quan-tri-admin-quan-ly-toan-bo-quy-trinh-va-biet-ngay-quy-trinh-nao-da-du-de-chay.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-011-mow-quan-tri-admin-quan-ly-toan-bo-quy-trinh-va-biet-ngay-quy-trinh-nao-da-du-de-chay.png",
       "bytes": 427665,
       "sha256": "8fd745eeb37171b1c8fb95ecd32214526ccda04231209bdfe3493ad0619f94ae",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-012-mot-ban-lam-viec-thoi-gian-thuc-cua-tung-nguoi.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-012-mot-ban-lam-viec-thoi-gian-thuc-cua-tung-nguoi.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-012-mot-ban-lam-viec-thoi-gian-thuc-cua-tung-nguoi.png",
       "bytes": 657956,
       "sha256": "7723b5e0163481f5d0031bda6c6a560172b4395a6c577e6ca7257364844604c1",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-013-7-t1-de-xuat-ban-chuan-hoa-de-mot-task-co-the-chay.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-013-7-t1-de-xuat-ban-chuan-hoa-de-mot-task-co-the-chay.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-013-7-t1-de-xuat-ban-chuan-hoa-de-mot-task-co-the-chay.png",
       "bytes": 673804,
       "sha256": "9051321321d9701bfce8f392e95d32ebe1f62d88d041cd18aff2bd4b20b8f2e2",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-014-7-3-phan-duoi-khung-config-chuan-cua-mot-task-so-nhom-khong-co-dinh.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-014-7-3-phan-duoi-khung-config-chuan-cua-mot-task-so-nhom-khong-co-dinh.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-014-7-3-phan-duoi-khung-config-chuan-cua-mot-task-so-nhom-khong-co-dinh.png",
       "bytes": 634899,
       "sha256": "4f104e9e9caa7a54ac916da309ce848384e0b293ccd6cd01bad65a3707309fdb",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-015-duyet-ntgv.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-015-duyet-ntgv.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-015-duyet-ntgv.png",
       "bytes": 145991,
       "sha256": "060a0a46c31fcf3f452ceac977a904be7c0e76a4a2227f938dad038ee819e456",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "Từ thực tế đã làm/assets/images/IMG-016-7-4-1-mot-studio-chuan-hoa-cach-moit-va-mout-hien-ben-trong-mot-task.png",
       "source_mac": "/Users/nmhuyen/Desktop/quy trình/backup từ thực tế đã làm/assets/images/IMG-016-7-4-1-mot-studio-chuan-hoa-cach-moit-va-mout-hien-ben-trong-mot-task.png",
       "destination": null,
-      "proposed_destination": "direct-dependency/source-assets/assets/images/IMG-016-7-4-1-mot-studio-chuan-hoa-cach-moit-va-mout-hien-ben-trong-mot-task.png",
       "bytes": 298050,
       "sha256": "f5f79075a1eb8fa9816474b69c3fbc6bd4aeab2ce05455e45293826336d53d52",
-      "state": "PENDING_BINARY_WRITE_PATH",
+      "state": "EXCLUDED_IMAGE_BY_OWNER",
       "original_path_exists": false,
-      "note": "Khớp nguồn/định danh; đường cũ giữ nguyên, chưa vá HTML."
+      "note": "Không đưa ảnh lên GitHub theo Owner 23/09; nguồn Mac giữ nguyên. Chưa publish nơi khác hoặc sửa HTML.",
+      "shared_url": null
     },
     {
       "old_src": "cấu trúc hệ thống.html",
@@ -349,5 +349,6 @@
       "image_id": "IMG-016",
       "pass": true
     }
-  ]
+  ],
+  "image_policy": "NO_IMAGE_FILES_IN_GIT_BY_OWNER_2026-09-23"
 }
