@@ -1,0 +1,92 @@
+[
+  {
+    "step": 1,
+    "before": "Ý tưởng của con người",
+    "after": "Tìm và đối chiếu nguyên liệu"
+  },
+  {
+    "step": 2,
+    "before": "Tìm và đối chiếu nguyên liệu",
+    "after": "Lập bản nháp và nhận diện thiếu"
+  },
+  {
+    "step": 3,
+    "before": "Lập bản nháp và nhận diện thiếu",
+    "after": "Yêu cầu bổ sung Condition"
+  },
+  {
+    "step": 4,
+    "before": "Yêu cầu bổ sung Condition",
+    "after": "Rà chuyên môn tại owner Condition"
+  },
+  {
+    "step": 5,
+    "before": "Rà chuyên môn tại owner Condition",
+    "after": "Rà chuyên môn tại owner Condition"
+  },
+  {
+    "step": 6,
+    "before": "Rà chuyên môn tại owner Condition",
+    "after": "Duyệt nguyên liệu mới"
+  },
+  {
+    "step": 7,
+    "before": "Duyệt nguyên liệu mới",
+    "after": "Máy tiếp nhận và quay lại gói"
+  },
+  {
+    "step": 8,
+    "before": "Máy tiếp nhận và quay lại gói",
+    "after": "Khai báo và đọc lại revision 2"
+  },
+  {
+    "step": 9,
+    "before": "Khai báo và đọc lại revision 2",
+    "after": "Diff, tác động và readiness"
+  },
+  {
+    "step": 10,
+    "before": "Diff, tác động và readiness",
+    "after": "Chạy bộ kiểm của bản nháp"
+  },
+  {
+    "step": 11,
+    "before": "Chạy bộ kiểm của bản nháp",
+    "after": "Xin duyệt đúng bản và đúng quyền"
+  },
+  {
+    "step": 12,
+    "before": "Xin duyệt đúng bản và đúng quyền",
+    "after": "Phát hành rồi gắn active binding"
+  },
+  {
+    "step": 13,
+    "before": "Phát hành rồi gắn active binding",
+    "after": "Occurrence sinh instance"
+  },
+  {
+    "step": 14,
+    "before": "Occurrence sinh instance",
+    "after": "Người thực hiện ghi nhận thời lượng"
+  },
+  {
+    "step": 15,
+    "before": "Người thực hiện ghi nhận thời lượng",
+    "after": "Worker xử lý AUTO"
+  },
+  {
+    "step": 16,
+    "before": "Worker xử lý AUTO",
+    "after": "Kiểm output và kết thúc"
+  },
+  {
+    "step": 17,
+    "before": "Kiểm output và kết thúc",
+    "after": "Góp ý từ đúng ngữ cảnh"
+  },
+  {
+    "step": 18,
+    "before": "Góp ý từ đúng ngữ cảnh",
+    "after": "Lập version cải tiến"
+  }
+]
