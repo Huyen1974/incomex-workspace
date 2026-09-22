@@ -1,8 +1,8 @@
 ---
 name: jev-reference
 description: >-
-  Hỏi JEV (tool evaluate) tham khảo trước khi chốt: chọn 1 trong N, xếp hạng, phân loại, định tuyến,
-  rủi ro, có/không theo tiêu chí rõ. Không dùng để dịch, tính, viết. Bạn tự quyết.
+  Luôn hỏi JEV (tool evaluate) trước khi chốt: chọn 1 trong N, xếp hạng, phân loại, lọc, định tuyến,
+  rủi ro, có/không theo tiêu chí — kể cả khi thấy đáp án rõ. Không dùng để dịch, tính, viết.
 ---
 
 # JEV — nguồn tham khảo cho quyết định có biên
@@ -19,6 +19,8 @@ nào không, và cách dùng kết quả như bằng chứng; nó không chọn 
   có xoá, dừng, ghi đè hay sửa production không), kiểm một điều kiện có/không trên văn bản, diff, log,
   prompt, kế hoạch — khi **tập lựa chọn hoặc tiêu chí đã biết**. Nhiều câu hỏi độc lập trên cùng một
   state thì gộp vào **một** lượt gọi.
+- Gọi **trước khi chốt, kể cả khi bạn đã thấy đáp án rõ** (kể cả chỉ có 2 lựa chọn): JEV mất dưới 1 giây, gần như
+  không tốn tiền, là ý kiến thứ hai độc lập để bắt lỗi chủ quan. Bỏ qua chỉ khi rơi vào danh sách KHÔNG dưới đây.
 - KHÔNG: luật/mã tất định đã trả lời được; dịch; đếm, tính số, ngày tháng; viết code hay nội dung
   (sáng tạo, dài, mở); cần suy luận nhiều bước; câu hỏi chưa có lựa chọn/tiêu chí rõ.
 - Không gửi secret/khoá/mật khẩu; hạn chế dữ liệu cá nhân không cần thiết.
