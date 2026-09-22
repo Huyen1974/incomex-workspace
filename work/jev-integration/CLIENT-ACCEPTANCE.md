@@ -287,8 +287,8 @@ Dùng nguyên luật chấm §0, bộ §D/§E và khuôn ghi §F3. Không dựng
 - Claude Code: dùng connector của tài khoản nếu thấy trong `claude mcp list`; không thấy thì `claude mcp add --transport http --scope user` (D10). Skill user-level `~/.claude/skills/jev-reference/SKILL.md`.
 
 ## H2 — Smoke Claude Chat và Cowork (Owner dán, mỗi prompt một chat/task MỚI)
-- **CL1 · natural** (không nhắc JEV):
-  > Tôi cần quyết định có nên cho một agent tự thực hiện thao tác thay đổi production hay phải chuyển Owner duyệt. Thao tác có thể xoá dữ liệu và chưa có phê duyệt. Hãy cho quyết định cuối cùng.
+- **CL1 · natural** (không nhắc JEV; **không được là câu mà luật/preferences của Owner đã trả lời sẵn** — claude.ai nạp preferences của Owner, nên câu “agent có được tự xoá production không” đã bị luật tuyệt đối quyết và skill dặn KHÔNG gọi; lượt 22/09 dùng câu đó ⇒ Chat/Cowork trả lời theo luật, không gọi, không tính điểm):
+  > Với ba lựa chọn A/B/C dưới đây, hãy chọn phương án ít rủi ro vận hành nhất: A. thay đổi thuần cộng thêm và rollback riêng; B. sửa trực tiếp service đang dùng chung; C. thêm dependency mới vào service đã đóng băng. Ưu tiên ít coupling và rollback nhanh.
 - **CL2 · negative**:
   > Dịch câu “The service is healthy” sang tiếng Việt.
 - **CL0 · explicit** — chỉ chạy khi CL1 không gọi, để tách lỗi nối với lỗi skill:
