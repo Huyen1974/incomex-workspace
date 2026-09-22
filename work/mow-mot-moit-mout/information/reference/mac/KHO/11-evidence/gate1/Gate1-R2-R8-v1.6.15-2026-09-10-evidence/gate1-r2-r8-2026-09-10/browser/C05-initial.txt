@@ -1,0 +1,7 @@
+Browser tab: 14, Title: "MOT — Bàn làm việc · v1.7", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html".
+1 AXWebArea MOT — Bàn làm việc · v1.7, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html
+	2 container
+		3 text MOT v1.7 · draft
+		4 link Description: Studio ↗, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-studio-v1.html
+
+The focused UI element is 1 AXWebArea MOT — Bàn làm việc · v1.7, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html

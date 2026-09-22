@@ -1,0 +1,638 @@
+Browser tab: 13, Title: "Master tổng — Tổng hợp 4 Mẹ", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html".
+0 AXWebArea Master tổng — Tổng hợp 4 Mẹ, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html
+	1 container
+		2 text Master tổng tổng hợp 4 Mẹ
+		3 link Description: MOW, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html
+		4 link Description: MOT, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html
+		5 link Description: MOUT, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-builder-v3.html
+	6 text Đọc từng list con:
+	7 link Description: MOW đã đúc, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-v1.html
+	8 link Description: MOT đã đúc, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html
+	9 link Description: MOUT đã đúc, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-home-v1.html
+	10 container master-root
+		11 heading Master tổng — Tổng hợp 4 Mẹ (theo thời gian), Value: 1
+			12 text Master tổng — Tổng hợp 4 Mẹ (theo thời gian)
+		13 container mlSub
+			14 text Ghép 4 list con của MOW · MOT · MOUT (MOIT sắp có) theo thứ tự thời gian. Đầy đủ bộ lọc 7 tầng + Mẹ + trạng thái, và nút sửa ✎.  ·   24  bản đã đúc ·  18  đang chạy  ·   ✎ đầu dòng = sửa khuôn
+		15 text Có thể đọc từng list con ở mỗi Mẹ, hoặc đọc tổng hợp tại đây. Mọi nơi cùng một bộ lọc chuẩn theo 7 tầng + trạng thái.
+		16 container
+			17 text ⌕
+			18 text field (settable) mlQ
+		19 pop up button (collapsed, settable) Value: Mọi Mẹ, ID: mlMother, Secondary Actions: Expand
+			20 menu
+				21 (selected) Mọi Mẹ
+				22 MOW
+				23 MOT
+				24 MOUT
+				25 MOIT
+		26 pop up button (collapsed, settable) Value: Mọi trạng thái, ID: mlStatus, Secondary Actions: Expand
+			27 menu
+				28 (selected) Mọi trạng thái
+				29 Đang chạy
+				30 Tạm dừng
+				31 Lưu trữ
+		32 button Bảng, ID: mlVL
+		33 button Theo cây 7 tầng, ID: mlVT
+		34 container mlTier
+			35 pop up button (collapsed, settable) Value: Lĩnh vực: tất cả, ID: mltT7, Secondary Actions: Expand
+				36 menu
+					37 (selected) Lĩnh vực: tất cả
+					38 Dịch vụ
+					39 Sản xuất
+					40 Thương mại
+			41 pop up button (collapsed, settable) Value: Công ty: tất cả, ID: mltT6, Secondary Actions: Expand
+				42 menu
+					43 (selected) Công ty: tất cả
+					44 Incomex Cần Thơ
+					45 Incomex Sài Gòn
+					46 Incomex Tân Bình
+			47 pop up button (collapsed, settable) Value: Khối: tất cả, ID: mltT5, Secondary Actions: Expand
+				48 menu
+					49 (selected) Khối: tất cả
+					50 Khối Hỗ trợ CT
+					51 Khối Kinh doanh TB
+					52 Khối Tài chính SG
+					53 Khối Vận hành SG
+			54 pop up button (collapsed, settable) Value: Phòng ban: tất cả, ID: mltT4, Secondary Actions: Expand
+				55 menu
+					56 (selected) Phòng ban: tất cả
+					57 P. Bán hàng TB
+					58 P. Kế toán SG
+					59 P. Kho SG
+					60 P. Nhân sự CT
+					61 P. QC SG
+					62 P. XNK TB
+			63 pop up button (collapsed, settable) Value: Chuyên môn: tất cả, ID: mltT3, Secondary Actions: Expand
+				64 menu
+					65 (selected) Chuyên môn: tất cả
+					66 CM Bán hàng
+					67 CM Khai hải quan
+					68 CM Kiểm tra CL
+					69 CM Thu chi
+					70 CM Tiền lương
+					71 CM Xuất nhập kho
+			72 pop up button (collapsed, settable) Value: Nhiệm vụ: tất cả, ID: mltT2, Secondary Actions: Expand
+				73 menu
+					74 (selected) Nhiệm vụ: tất cả
+					75 QT Bán hàng B2B
+					76 QT Kiểm tra CL
+					77 QT Nhập kho
+					78 QT Thu chi
+					79 QT Tính lương
+					80 QT Xuất khẩu
+			81 pop up button (collapsed, settable) Value: Công việc: tất cả, ID: mltT1, Secondary Actions: Expand
+				82 menu
+					83 (selected) Công việc: tất cả
+					84 CV Lấy mẫu QC
+					85 CV Nhập kệ
+		86 table mlTbl
+			87 row
+				88 cell
+					89 text SỬA
+				90 cell
+					91 text #
+				92 cell
+					93 text MẸ
+				94 cell
+					95 text MÃ
+				96 cell
+					97 text TÊN
+				98 cell
+					99 text CHUYÊN MÔN (T3)
+				100 cell
+					101 text NHIỆM VỤ (T2)
+				102 cell
+					103 text CÔNG VIỆC (T1)
+				104 cell
+					105 text TRẠNG THÁI
+			106 row
+				107 cell
+					108 button ✎, Help: Sửa khuôn này
+				109 cell
+					110 text 1
+				111 cell
+					112 text MOUT
+				113 cell
+					114 text RPT-0005
+				115 cell
+					116 text Tồn kho cận hạn
+				117 cell
+					118 text ·
+				119 cell
+					120 text ·
+				121 cell
+					122 text ·
+				123 cell
+					124 text Tạm dừng
+				125 cell
+					126 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=RPT-0005
+			127 row
+				128 cell
+					129 button ✎, Help: Sửa khuôn này
+				130 cell
+					131 text 2
+				132 cell
+					133 text MOT
+				134 cell
+					135 text TSK-0002
+				136 cell
+					137 text Nhập kết quả QC lô sản xuất
+				138 cell
+					139 text CM Kiểm tra CL
+				140 cell
+					141 text QT Kiểm tra CL
+				142 cell
+					143 text CV Lấy mẫu QC
+				144 cell
+					145 text Đang chạy
+				146 cell
+					147 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=TSK-0002
+			148 row
+				149 cell
+					150 button ✎, Help: Sửa khuôn này
+				151 cell
+					152 text 3
+				153 cell
+					154 text MOUT
+				155 cell
+					156 text RPT-0003
+				157 cell
+					158 text Tỷ lệ lỗi QC theo ca
+				159 cell
+					160 text CM Kiểm tra CL
+				161 cell
+					162 text QT Kiểm tra CL
+				163 cell
+					164 text CV Lấy mẫu QC
+				165 cell
+					166 text Đang chạy
+				167 cell
+					168 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=RPT-0003
+			169 row
+				170 cell
+					171 button ✎, Help: Sửa khuôn này
+				172 cell
+					173 text 4
+				174 cell
+					175 text MOUT
+				176 cell
+					177 text RPT-0010
+				178 cell
+					179 text Nhập kho chi tiết theo kệ
+				180 cell
+					181 text CM Xuất nhập kho
+				182 cell
+					183 text QT Nhập kho
+				184 cell
+					185 text CV Nhập kệ
+				186 cell
+					187 text Lưu trữ
+				188 cell
+					189 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=RPT-0010
+			190 row
+				191 cell
+					192 button ✎, Help: Sửa khuôn này
+				193 cell
+					194 text 5
+				195 cell
+					196 text MOW
+				197 cell
+					198 text WF-0002
+				199 cell
+					200 text Quy trình Bán hàng B2B
+				201 cell
+					202 text CM Bán hàng
+				203 cell
+					204 text QT Bán hàng B2B
+				205 cell
+					206 text ·
+				207 cell
+					208 text Đang chạy
+				209 cell
+					210 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=WF-0002
+			211 row
+				212 cell
+					213 button ✎, Help: Sửa khuôn này
+				214 cell
+					215 text 6
+				216 cell
+					217 text MOUT
+				218 cell
+					219 text RPT-0001
+				220 cell
+					221 text Doanh thu theo khách hàng
+				222 cell
+					223 text CM Bán hàng
+				224 cell
+					225 text QT Bán hàng B2B
+				226 cell
+					227 text ·
+				228 cell
+					229 text Đang chạy
+				230 cell
+					231 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=RPT-0001
+			232 row
+				233 cell
+					234 button ✎, Help: Sửa khuôn này
+				235 cell
+					236 text 7
+				237 cell
+					238 text MOT
+				239 cell
+					240 text TSK-0001
+				241 cell
+					242 text Xác nhận nhận đủ nguyên liệu
+				243 cell
+					244 text CM Xuất nhập kho
+				245 cell
+					246 text QT Nhập kho
+				247 cell
+					248 text CV Nhập kệ
+				249 cell
+					250 text Đang chạy
+				251 cell
+					252 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=TSK-0001
+			253 row
+				254 cell
+					255 button ✎, Help: Sửa khuôn này
+				256 cell
+					257 text 8
+				258 cell
+					259 text MOUT
+				260 cell
+					261 text RPT-0007
+				262 cell
+					263 text Trị giá tờ khai XNK
+				264 cell
+					265 text CM Khai hải quan
+				266 cell
+					267 text ·
+				268 cell
+					269 text ·
+				270 cell
+					271 text Đang chạy
+				272 cell
+					273 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=RPT-0007
+			274 row
+				275 cell
+					276 button ✎, Help: Sửa khuôn này
+				277 cell
+					278 text 9
+				279 cell
+					280 text MOW
+				281 cell
+					282 text WF-0001
+				283 cell
+					284 text Quy trình Nhập kho
+				285 cell
+					286 text CM Xuất nhập kho
+				287 cell
+					288 text QT Nhập kho
+				289 cell
+					290 text ·
+				291 cell
+					292 text Đang chạy
+				293 cell
+					294 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=WF-0001
+			295 row
+				296 cell
+					297 button ✎, Help: Sửa khuôn này
+				298 cell
+					299 text 10
+				300 cell
+					301 text MOUT
+				302 cell
+					303 text RPT-0002
+				304 cell
+					305 text Nhập kho theo lô
+				306 cell
+					307 text CM Xuất nhập kho
+				308 cell
+					309 text QT Nhập kho
+				310 cell
+					311 text ·
+				312 cell
+					313 text Đang chạy
+				314 cell
+					315 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=RPT-0002
+			316 row
+				317 cell
+					318 button ✎, Help: Sửa khuôn này
+				319 cell
+					320 text 11
+				321 cell
+					322 text MOW
+				323 cell
+					324 text WF-0006
+				325 cell
+					326 text Quy trình Thu chi
+				327 cell
+					328 text CM Thu chi
+				329 cell
+					330 text QT Thu chi
+				331 cell
+					332 text ·
+				333 cell
+					334 text Đang chạy
+				335 cell
+					336 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=WF-0006
+			337 row
+				338 cell
+					339 button ✎, Help: Sửa khuôn này
+				340 cell
+					341 text 12
+				342 cell
+					343 text MOT
+				344 cell
+					345 text TSK-0005
+				346 cell
+					347 text Lập phiếu chi theo khoản mục
+				348 cell
+					349 text CM Thu chi
+				350 cell
+					351 text QT Thu chi
+				352 cell
+					353 text ·
+				354 cell
+					355 text Đang chạy
+				356 cell
+					357 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=TSK-0005
+			358 row
+				359 cell
+					360 button ✎, Help: Sửa khuôn này
+				361 cell
+					362 text 13
+				363 cell
+					364 text MOUT
+				365 cell
+					366 text RPT-0008
+				367 cell
+					368 text Thu chi theo khoản mục
+				369 cell
+					370 text CM Thu chi
+				371 cell
+					372 text ·
+				373 cell
+					374 text ·
+				375 cell
+					376 text Đang chạy
+				377 cell
+					378 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=RPT-0008
+			379 row
+				380 cell
+					381 button ✎, Help: Sửa khuôn này
+				382 cell
+					383 text 14
+				384 cell
+					385 text MOW
+				386 cell
+					387 text WF-0003
+				388 cell
+					389 text Quy trình Kiểm tra chất lượng
+				390 cell
+					391 text CM Kiểm tra CL
+				392 cell
+					393 text QT Kiểm tra CL
+				394 cell
+					395 text ·
+				396 cell
+					397 text Đang chạy
+				398 cell
+					399 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=WF-0003
+			400 row
+				401 cell
+					402 button ✎, Help: Sửa khuôn này
+				403 cell
+					404 text 15
+				405 cell
+					406 text MOT
+				407 cell
+					408 text TSK-0003
+				409 cell
+					410 text Chuẩn bị hồ sơ xuất khẩu
+				411 cell
+					412 text CM Khai hải quan
+				413 cell
+					414 text QT Xuất khẩu
+				415 cell
+					416 text ·
+				417 cell
+					418 text Đang chạy
+				419 cell
+					420 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=TSK-0003
+			421 row
+				422 cell
+					423 button ✎, Help: Sửa khuôn này
+				424 cell
+					425 text 16
+				426 cell
+					427 text MOW
+				428 cell
+					429 text WF-0004
+				430 cell
+					431 text Quy trình Xuất khẩu
+				432 cell
+					433 text CM Khai hải quan
+				434 cell
+					435 text QT Xuất khẩu
+				436 cell
+					437 text ·
+				438 cell
+					439 text Tạm dừng
+				440 cell
+					441 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=WF-0004
+			442 row
+				443 cell
+					444 button ✎, Help: Sửa khuôn này
+				445 cell
+					446 text 17
+				447 cell
+					448 text MOT
+				449 cell
+					450 text TSK-0004
+				451 cell
+					452 text Đề xuất cải tiến đóng gói
+				453 cell
+					454 text CM Bán hàng
+				455 cell
+					456 text QT Bán hàng B2B
+				457 cell
+					458 text ·
+				459 cell
+					460 text Tạm dừng
+				461 cell
+					462 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=TSK-0004
+			463 row
+				464 cell
+					465 button ✎, Help: Sửa khuôn này
+				466 cell
+					467 text 18
+				468 cell
+					469 text MOUT
+				470 cell
+					471 text RPT-0006
+				472 cell
+					473 text Bảng lương kỳ tháng
+				474 cell
+					475 text CM Tiền lương
+				476 cell
+					477 text QT Tính lương
+				478 cell
+					479 text ·
+				480 cell
+					481 text Đang chạy
+				482 cell
+					483 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=RPT-0006
+			484 row
+				485 cell
+					486 button ✎, Help: Sửa khuôn này
+				487 cell
+					488 text 19
+				489 cell
+					490 text MOW
+				491 cell
+					492 text WF-0005
+				493 cell
+					494 text Quy trình Tính lương
+				495 cell
+					496 text CM Tiền lương
+				497 cell
+					498 text QT Tính lương
+				499 cell
+					500 text ·
+				501 cell
+					502 text Đang chạy
+				503 cell
+					504 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=WF-0005
+			505 row
+				506 cell
+					507 button ✎, Help: Sửa khuôn này
+				508 cell
+					509 text 20
+				510 cell
+					511 text MOT
+				512 cell
+					513 text TSK-0006
+				514 cell
+					515 text Duyệt bảng lương kỳ tháng
+				516 cell
+					517 text CM Tiền lương
+				518 cell
+					519 text QT Tính lương
+				520 cell
+					521 text ·
+				522 cell
+					523 text Đang chạy
+				524 cell
+					525 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=TSK-0006
+			526 row
+				527 cell
+					528 button ✎, Help: Sửa khuôn này
+				529 cell
+					530 text 21
+				531 cell
+					532 text MOT
+				533 cell
+					534 text TSK-0007
+				535 cell
+					536 text Kiểm kê tồn kho cuối kỳ
+				537 cell
+					538 text CM Xuất nhập kho
+				539 cell
+					540 text QT Nhập kho
+				541 cell
+					542 text ·
+				543 cell
+					544 text Lưu trữ
+				545 cell
+					546 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=TSK-0007
+			547 row
+				548 cell
+					549 button ✎, Help: Sửa khuôn này
+				550 cell
+					551 text 22
+				552 cell
+					553 text MOW
+				554 cell
+					555 text WF-0007
+				556 cell
+					557 text Quy trình Kho tổng (phòng)
+				558 cell
+					559 text ·
+				560 cell
+					561 text ·
+				562 cell
+					563 text ·
+				564 cell
+					565 text Lưu trữ
+				566 cell
+					567 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=WF-0007
+			568 row
+				569 cell
+					570 button ✎, Help: Sửa khuôn này
+				571 cell
+					572 text 23
+				573 cell
+					574 text MOUT
+				575 cell
+					576 text RPT-0009
+				577 cell
+					578 text Doanh thu toàn Lĩnh vực Thương mại
+				579 cell
+					580 text ·
+				581 cell
+					582 text ·
+				583 cell
+					584 text ·
+				585 cell
+					586 text Đang chạy
+				587 cell
+					588 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=RPT-0009
+			589 row
+				590 cell
+					591 button ✎, Help: Sửa khuôn này
+				592 cell
+					593 text 24
+				594 cell
+					595 text MOUT
+				596 cell
+					597 text RPT-0004
+				598 cell
+					599 text Công nợ phải thu toàn công ty
+				600 cell
+					601 text ·
+				602 cell
+					603 text ·
+				604 cell
+					605 text ·
+				606 cell
+					607 text Đang chạy
+				608 cell
+					609 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html?chi-tiet=RPT-0004
+	610 container
+		611 heading Value: 3, ID: mlDwName
+		612 button ×, ID: mlDwX
+	613 container 4 Mẹ + Master
+		614 text 4 MẸ
+		615 button MOW ▾ Quy trình
+			616 text MOW
+			617 text ▾
+			618 text Quy trình
+		619 button MOT ▾ Công việc
+			620 text MOT
+			621 text ▾
+			622 text Công việc
+		623 button MOIT ▾ Nhập liệu
+			624 text MOIT
+			625 text ▾
+			626 text Nhập liệu
+		627 button MOUT ▾ Báo cáo
+			628 text MOUT
+			629 text ▾
+			630 text Báo cáo
+		631 button Master ▾ Tổng 4 Mẹ
+			632 text Master
+			633 text ▾
+			634 text Tổng 4 Mẹ
+
+The focused UI element is 0 AXWebArea Master tổng — Tổng hợp 4 Mẹ, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html

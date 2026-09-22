@@ -1,0 +1,302 @@
+Browser tab: 14, Title: "MOT — Danh sách task đã đúc", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html?chi-tiet=TSK-0001".
+1 AXWebArea MOT — Danh sách task đã đúc, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html?chi-tiet=TSK-0001
+	2 container
+		3 text MOT · Danh sách task đã đúc
+		4 link Description: Mở MOT, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html
+		5 link Description: Master tổng →, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html
+	6 container master-root
+		7 heading MOT — Danh sách task đã đúc, Value: 1
+			8 text MOT — Danh sách task đã đúc
+		9 container mlSub
+			10 text Mọi loại task MOT sinh ra đều đăng ký tại đây, neo vào cây 7 tầng.  ·   7  task ·  5  đang chạy  ·   ✎ đầu dòng = sửa khuôn
+		11 text Cùng một khuôn danh sách với MOW/MOUT. Task neo ở Công việc (T1) hoặc Nhiệm vụ (T2) — tự suy đường về phòng ban/công ty/lĩnh vực.
+		12 link Description: ＋ Tạo task (MOT Studio), Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-studio-v1.html
+		13 container
+			14 text ⌕
+			15 text field (settable) mlQ
+		16 pop up button (collapsed, settable) Value: Mọi trạng thái, ID: mlStatus, Secondary Actions: Expand
+			17 menu
+				18 (selected) Mọi trạng thái
+				19 Đang chạy
+				20 Tạm dừng
+				21 Lưu trữ
+		22 pop up button (collapsed, settable) Value: Mọi vai trò, ID: mlRoles, Secondary Actions: Expand
+			23 menu
+				24 (selected) Mọi vai trò
+				25 Đủ vai trò
+				26 Thiếu vai trò
+		27 button Bảng, ID: mlVL
+		28 button Theo cây 7 tầng, ID: mlVT
+		29 container mlTier
+			30 pop up button (collapsed, settable) Value: Lĩnh vực: tất cả, ID: mltT7, Secondary Actions: Expand
+				31 menu
+					32 (selected) Lĩnh vực: tất cả
+					33 Dịch vụ
+					34 Sản xuất
+					35 Thương mại
+			36 pop up button (collapsed, settable) Value: Công ty: tất cả, ID: mltT6, Secondary Actions: Expand
+				37 menu
+					38 (selected) Công ty: tất cả
+					39 Incomex Cần Thơ
+					40 Incomex Sài Gòn
+					41 Incomex Tân Bình
+			42 pop up button (collapsed, settable) Value: Khối: tất cả, ID: mltT5, Secondary Actions: Expand
+				43 menu
+					44 (selected) Khối: tất cả
+					45 Khối Hỗ trợ CT
+					46 Khối Kinh doanh TB
+					47 Khối Tài chính SG
+					48 Khối Vận hành SG
+			49 pop up button (collapsed, settable) Value: Phòng ban: tất cả, ID: mltT4, Secondary Actions: Expand
+				50 menu
+					51 (selected) Phòng ban: tất cả
+					52 P. Bán hàng TB
+					53 P. Kế toán SG
+					54 P. Kho SG
+					55 P. Nhân sự CT
+					56 P. QC SG
+					57 P. XNK TB
+			58 pop up button (collapsed, settable) Value: Chuyên môn: tất cả, ID: mltT3, Secondary Actions: Expand
+				59 menu
+					60 (selected) Chuyên môn: tất cả
+					61 CM Bán hàng
+					62 CM Khai hải quan
+					63 CM Kiểm tra CL
+					64 CM Thu chi
+					65 CM Tiền lương
+					66 CM Xuất nhập kho
+			67 pop up button (collapsed, settable) Value: Nhiệm vụ: tất cả, ID: mltT2, Secondary Actions: Expand
+				68 menu
+					69 (selected) Nhiệm vụ: tất cả
+					70 QT Bán hàng B2B
+					71 QT Kiểm tra CL
+					72 QT Nhập kho
+					73 QT Thu chi
+					74 QT Tính lương
+					75 QT Xuất khẩu
+			76 pop up button (collapsed, settable) Value: Công việc: tất cả, ID: mltT1, Secondary Actions: Expand
+				77 menu
+					78 (selected) Công việc: tất cả
+					79 CV Lấy mẫu QC
+					80 CV Nhập kệ
+		81 table mlTbl
+			82 row
+				83 cell
+					84 text SỬA
+				85 cell
+					86 text #
+				87 cell
+					88 text MÃ
+				89 cell
+					90 text TÊN
+				91 cell
+					92 text CHUYÊN MÔN (T3)
+				93 cell
+					94 text NHIỆM VỤ (T2)
+				95 cell
+					96 text CÔNG VIỆC (T1)
+				97 cell
+					98 text Vai trò
+					99 button Hướng dẫn cột Vai trò: (1) người thực hiện, (2) người được báo cáo, (3) người chuyển tiếp.
+				100 cell
+					101 text TRẠNG THÁI
+			102 row
+				103 cell
+					104 button ✎, Help: Sửa khuôn này
+				105 cell
+					106 text 1
+				107 cell
+					108 text TSK-0001
+				109 cell
+					110 text Xác nhận nhận đủ nguyên liệu
+				111 cell
+					112 text CM Xuất nhập kho
+				113 cell
+					114 text QT Nhập kho
+				115 cell
+					116 text CV Nhập kệ
+				117 cell
+					118 text ✓
+				119 cell
+					120 text Đang chạy
+				121 cell
+					122 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html?chi-tiet=TSK-0001
+			123 row
+				124 cell
+					125 button ✎, Help: Sửa khuôn này
+				126 cell
+					127 text 2
+				128 cell
+					129 text TSK-0002
+				130 cell
+					131 text Nhập kết quả QC lô sản xuất
+				132 cell
+					133 text CM Kiểm tra CL
+				134 cell
+					135 text QT Kiểm tra CL
+				136 cell
+					137 text CV Lấy mẫu QC
+				138 cell
+					139 text Thiếu (3)
+				140 cell
+					141 text Đang chạy
+				142 cell
+					143 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html?chi-tiet=TSK-0002
+			144 row
+				145 cell
+					146 button ✎, Help: Sửa khuôn này
+				147 cell
+					148 text 3
+				149 cell
+					150 text TSK-0003
+				151 cell
+					152 text Chuẩn bị hồ sơ xuất khẩu
+				153 cell
+					154 text CM Khai hải quan
+				155 cell
+					156 text QT Xuất khẩu
+				157 cell
+					158 text ·
+				159 cell
+					160 text Thiếu (2)
+				161 cell
+					162 text Đang chạy
+				163 cell
+					164 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html?chi-tiet=TSK-0003
+			165 row
+				166 cell
+					167 button ✎, Help: Sửa khuôn này
+				168 cell
+					169 text 4
+				170 cell
+					171 text TSK-0004
+				172 cell
+					173 text Đề xuất cải tiến đóng gói
+				174 cell
+					175 text CM Bán hàng
+				176 cell
+					177 text QT Bán hàng B2B
+				178 cell
+					179 text ·
+				180 cell
+					181 text Thiếu (1)
+				182 cell
+					183 text Tạm dừng
+				184 cell
+					185 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html?chi-tiet=TSK-0004
+			186 row
+				187 cell
+					188 button ✎, Help: Sửa khuôn này
+				189 cell
+					190 text 5
+				191 cell
+					192 text TSK-0005
+				193 cell
+					194 text Lập phiếu chi theo khoản mục
+				195 cell
+					196 text CM Thu chi
+				197 cell
+					198 text QT Thu chi
+				199 cell
+					200 text ·
+				201 cell
+					202 text ✓
+				203 cell
+					204 text Đang chạy
+				205 cell
+					206 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html?chi-tiet=TSK-0005
+			207 row
+				208 cell
+					209 button ✎, Help: Sửa khuôn này
+				210 cell
+					211 text 6
+				212 cell
+					213 text TSK-0006
+				214 cell
+					215 text Duyệt bảng lương kỳ tháng
+				216 cell
+					217 text CM Tiền lương
+				218 cell
+					219 text QT Tính lương
+				220 cell
+					221 text ·
+				222 cell
+					223 text Thiếu (3)
+				224 cell
+					225 text Đang chạy
+				226 cell
+					227 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html?chi-tiet=TSK-0006
+			228 row
+				229 cell
+					230 button ✎, Help: Sửa khuôn này
+				231 cell
+					232 text 7
+				233 cell
+					234 text TSK-0007
+				235 cell
+					236 text Kiểm kê tồn kho cuối kỳ
+				237 cell
+					238 text CM Xuất nhập kho
+				239 cell
+					240 text QT Nhập kho
+				241 cell
+					242 text ·
+				243 cell
+					244 text Thiếu (1), (2), (3)
+				245 cell
+					246 text Lưu trữ
+				247 cell
+					248 link Description: mở chi tiết ›, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html?chi-tiet=TSK-0007
+	249 container
+		250 text TSK-0001
+		251 heading Xác nhận nhận đủ nguyên liệu, Value: 3, ID: mlDwName
+			252 text Xác nhận nhận đủ nguyên liệu
+		253 button ×, ID: mlDwX
+		254 container mlDwB
+			255 container
+				256 heading MOIT + MOUT của task, Value: 4
+					257 text MOIT + MOUT của task
+				258 text hợp đồng task
+			259 container
+				260 heading Hỗ trợ vận hành, Value: 4
+					261 text Hỗ trợ vận hành
+				262 heading ĐƯỜNG DẪN 7 TẦNG + TÊN CỤ THỂ, Value: 5
+					263 text ĐƯỜNG DẪN 7 TẦNG + TÊN CỤ THỂ
+				264 text T7 Sản xuất T6 Incomex Sài Gòn T5 Khối Vận hành SG T4 P. Kho SG T3 CM Xuất nhập kho T2 QT Nhập kho T1 CV Nhập kệ
+				265 text node quản lý
+				266 text Tên Xác nhận nhận đủ nguyên liệu
+				267 heading TRIGGER · HÀNG ĐỢI · ĐIỀU KIỆN, Value: 5
+					268 text TRIGGER · HÀNG ĐỢI · ĐIỀU KIỆN
+				269 text Trigger bắt đầu Nhận việc từ quy trình Hàng đợi task.ready Điều kiện Đủ trường bắt buộc
+				270 heading 3 VAI NGƯỜI, Value: 5
+					271 text 3 VAI NGƯỜI
+				272 text Thực hiện Huyền Báo cáo Quản lý trực tiếp Làm thay Chưa gán
+				273 heading BẢNG PG KẾT NỐI, Value: 5
+					274 text BẢNG PG KẾT NỐI
+				275 text task_instance input_record output_reference
+			276 link Description: ✎ Sửa khuôn này, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-studio-v1.html?edit=TSK-0001
+			277 link Description: Mở task ↗, Value: vps.incomexsaigoncorp.vn/t/tsk-0001
+	278 container 4 Mẹ + Master
+		279 text 4 MẸ
+		280 button MOW ▾ Quy trình
+			281 text MOW
+			282 text ▾
+			283 text Quy trình
+		284 button MOT ▾ Công việc
+			285 text MOT
+			286 text ▾
+			287 text Công việc
+		288 button MOIT ▾ Nhập liệu
+			289 text MOIT
+			290 text ▾
+			291 text Nhập liệu
+		292 button MOUT ▾ Báo cáo
+			293 text MOUT
+			294 text ▾
+			295 text Báo cáo
+		296 button Master ▾ Tổng 4 Mẹ
+			297 text Master
+			298 text ▾
+			299 text Tổng 4 Mẹ
+
+The focused UI element is 122 link Description: mở chi tiết ›, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html?chi-tiet=TSK-0001

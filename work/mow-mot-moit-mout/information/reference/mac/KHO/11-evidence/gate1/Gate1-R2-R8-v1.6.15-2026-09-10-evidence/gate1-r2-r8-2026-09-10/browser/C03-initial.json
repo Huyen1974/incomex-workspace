@@ -1,0 +1,359 @@
+{
+  "buttons": [
+    {
+      "disabled": false,
+      "text": "Thường",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Đề xuất",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Vận hành",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Quản trị ⚠",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "✕ Thoát",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T7 - Lĩnh vực2",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T6 - Công ty2",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T5 - Khối3",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T4 - Phòng ban3",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T3 - Chuyên môn3",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T2 - Nhiệm vụ6",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "T1 - Công việc3",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Khuôn mẫu",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Vận hành",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "—",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "—",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": "Nếu Test không tìm được người thực hiện, bấm để báo tình trạng ra ngoài"
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": "Nếu Test không tìm được người được báo cáo, bấm để báo tình trạng ra ngoài"
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": "Nếu Test không tìm được người chuyển tiếp, bấm để báo tình trạng ra ngoài"
+    },
+    {
+      "disabled": false,
+      "text": "Thiếu Field → bấm vào đây",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Thiếu Table → bấm vào đây",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "—",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "—",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "—",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": "Nếu Test không tìm được người thực hiện, bấm để báo tình trạng ra ngoài"
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": "Nếu Test không tìm được người được báo cáo, bấm để báo tình trạng ra ngoài"
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": "Nếu Test không tìm được người chuyển tiếp, bấm để báo tình trạng ra ngoài"
+    },
+    {
+      "disabled": false,
+      "text": "Thiếu Field → bấm vào đây",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Thiếu Table → bấm vào đây",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Help",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Nháp: chọn trường =Nháp: chọn giá trị",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "and",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Nháp: chọn trường =Nháp: chọn giá trị",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "and",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Nháp: chọn trường =Nháp: chọn giá trị",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Nháp: chọn nhân sự",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Nháp: chọn nhân sự / quy tắc",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Nháp: chọn nhân sự / quy tắc",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Đề xuất",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "＋ Thêm nguyên tắc",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "?",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "?",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "?",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "?",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "?",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "?",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "＋ Thêm cách xác định",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "?",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "?",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "?",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "?",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "?",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "?",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Huỷ",
+      "title": ""
+    },
+    {
+      "disabled": true,
+      "text": "Chọn",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "×",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Huỷ",
+      "title": ""
+    },
+    {
+      "disabled": true,
+      "text": "Chọn",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "✕",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "✕",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Huỷ",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Gửi đề xuất",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOW ▾Quy trình",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOT ▾Công việc",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOIT ▾Nhập liệu",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOUT ▾Báo cáo",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Master ▾Tổng 4 Mẹ",
+      "title": ""
+    }
+  ],
+  "forms": 0,
+  "links": [],
+  "text": "New MODT · Admin\nv1\nDRAFT · mock data\nThường\nĐề xuất\nVận hành\nQuản trị ⚠\n✏️\nChế độ Đề xuất — Cải tiến quy trình\nMọi thay đổi tạo đề xuất, không sửa DB trực tiếp.\n✕ Thoát\nThương mại quốc tế\n›\nIncomex Sài Gòn\n›\nKinh doanh\n›\nNhân sự\n›\nTuyển dụng\n›\nTiếp nhận\n›\nCông việc\nT7 - Lĩnh vực\n2\nT6 - Công ty\n2\nT5 - Khối\n3\nT4 - Phòng ban\n3\nT3 - Chuyên môn\n3\nT2 - Nhiệm vụ\n6\nT1 - Công việc\n3\nNHẬN ĐƠN → CHI TIẾT\nKhuôn mẫu\nVận hành\nNhập liệu - MOIT\n?\nForm tiếp nhận\nWebhook trigger\nMOUT - Tham khảo\n?\nNgười nhận\nSĐT\nLần gọi gần nhất\nGHI VÀO\nNội dung chuyên môn\n?\n\t\nCollection\n?\n\t\nField\n?\n\t\nCheck field tương tự\n?\n\t\nĐịa chỉ dữ liệu\n?\n\t\nKiểu dữ liệu\n?\n\t\nHợp đồng JSON\n?\n\t\nTest\n?\n\t\nTình trạng\n?\n\t\nGhi chú\n?\n\n\nForm tiếp nhận\n\tNháp: chọn collection\tNháp: chọn field\t\tNháp: collection.field\tNháp: kiểu dữ liệu\t\n{\"collection\":\"applications\",\"field\":\"form_payload\",\"address\":\"applications.form_payload\",\"type\":\"json\",\"required\":true,\"description\":\"Ví dụ hợp đồng dữ liệu dài: trạng thái thường chỉ hiện một đoạn ngắn; khi bấm vào ô, toàn bộ hàng tự mở theo nội dung dài nhất mà không đổi độ rộng cột.\",\"validation\":{\"schema\":\"candidate_intake_v1\",\"required_fields\":[\"full_name\",\"phone_number\",\"submitted_at\"]},\"source\":{\"mode\":\"MOIT\",\"trigger\":\"form_submitted\"}}\n\t—\tChưa kết nối\tNháp: thêm ghi chú\n\nWebhook trigger\n\tNháp: chọn collection\tNháp: chọn field\t\tNháp: collection.field\tNháp: kiểu dữ liệu\t\n{ }\n\t—\tChưa kết nối\tNháp: thêm ghi chú\nĐỌC RA\nNội dung chuyên môn\n?\n\t\nCollection\n?\n\t\nField\n?\n\t\nCheck field tương tự\n?\n\t\nĐịa chỉ dữ liệu\n?\n\t\nKiểu dữ liệu\n?\n\t\nHợp đồng JSON\n?\n\t\nTest\n?\n\t\nTình trạng\n?\n\t\nGhi chú\n?\n\n\nNgười nhận\n\tNháp: chọn collection\tNháp: chọn field\t\tNháp: collection.field\tNháp: kiểu dữ liệu\t\n{ }\n\t—\tChưa kết nối\tNháp: thêm ghi chú\n\nSĐT\n\tNháp: chọn collection\tNháp: chọn field\t\tNháp: collection.field\tNháp: kiểu dữ liệu\t\n{ }\n\t—\tChưa kết nối\tNháp: thêm ghi chú\n\nLần gọi gần nhất\n\tNháp: chọn collection\tNháp: chọn field\t\tNháp: collection.field\tNháp: kiểu dữ liệu\t\n{ }\n\t—\tChưa kết nối\tNháp: thêm ghi chú\nCẤU HÌNH ĐỂ TASK CHẠY\n· mở phần nào, khai phần đó\n03\nNguyên tắc giao việc\nKhai một lần, hệ thống áp dụng tự động\nHelp\nNháp thiết kế\n⌄\n04\nAi làm & ai nhận\nKhai một lần, hệ thống tự gán theo điều kiện\nNháp thiết kế\n⌄\n05\nChạy & kết thúc\nKhai hai đầu của một lần chạy\nNháp thiết kế\n⌄\nCHI TIẾT CÔNG VIỆC · T1\n—\n—\n✕\nDRAFT · MOW Unified Canvas v2 · SSOT\n4 MẸ\nMOW\n▾\nQuy trình\nMOT\n▾\nCông việc\nMOIT\n▾\nNhập liệu\nMOUT\n▾\nBáo cáo\nMaster\n▾\nTổng 4 Mẹ",
+  "title": "MOW · T1 · Đề xuất — Incomex",
+  "url": "https://vps.incomexsaigoncorp.vn/admin-new-modt?tang=T1&che-do=de-xuat"
+}

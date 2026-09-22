@@ -1,0 +1,30 @@
+{
+  "checks": {
+    "V1_duration_only": true,
+    "V2_note_visible": true,
+    "36_hashes_unchanged": true,
+    "actual_human_guard_create": true,
+    "invalid_integer_rejected": true,
+    "wrong_datatype_rejected": true,
+    "stale_409": true,
+    "draft_retained_at_409": true,
+    "next_http_after_conflict_explicit_read": true,
+    "manual_resolution_new_key_revision": true,
+    "exact_retry_same_request_and_revision": true,
+    "reopen_final_values": true
+  },
+  "all_pass": true,
+  "logical_create": "b20ab5e3-43dc-40c6-954b-c4d9695bd60b",
+  "record_id": "6a619d18-d95f-4630-8d5e-c1660ab56c60",
+  "final_revision": 4,
+  "guard_post_counts": {
+    "200": 4,
+    "422": 2,
+    "409": 1
+  },
+  "conflict_then_explicit_read_utc": [
+    "2026-09-10T07:03:12.729Z",
+    "2026-09-10T07:03:36.394Z"
+  ],
+  "scope": "Browser human-editor proxy identity; production auth/login integration and automatic merge not proved. First failed empty-fill action yielded an extra valid revision2; preserved in corrections."
+}

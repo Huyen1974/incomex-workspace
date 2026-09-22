@@ -1,0 +1,117 @@
+MOIT · Danh sách
+biểu mẫu đã đúc
+Tạo form (MOIT)
+Master tổng →
+MOIT — Danh sách biểu mẫu đã đúc
+Mọi biểu mẫu nhập MOIT đã đúc đều đăng ký tại đây, neo vào cây 7 tầng.  ·  7 biểu mẫu · 5 đang chạy  ·  ✎ đầu dòng = sửa khuôn
+Cùng một khuôn danh sách với MOT/MOW/MOUT — học một lần dùng mọi nơi. Biểu mẫu = form nhập đã đúc; muốn chạy thật (nối DB, điều kiện, trigger, người thực hiện) thì sang MODIT.
+＋ Tạo form (MOIT)
+⌕
+Mọi trạng thái
+Đang chạy
+Tạm dừng
+Lưu trữ
+Bảng
+Theo cây 7 tầng
+Lĩnh vực: tất cả
+Dịch vụ
+Sản xuất
+Thương mại
+Công ty: tất cả
+Incomex Cần Thơ
+Incomex Sài Gòn
+Incomex Tân Bình
+Khối: tất cả
+Khối Hỗ trợ CT
+Khối Kinh doanh TB
+Khối Tài chính SG
+Khối Vận hành SG
+Phòng ban: tất cả
+P. Bán hàng TB
+P. Kế toán SG
+P. Kho SG
+P. Nhân sự CT
+P. QC SG
+P. XNK TB
+Chuyên môn: tất cả
+CM Bán hàng
+CM Khai hải quan
+CM Kiểm tra CL
+CM Thu chi
+CM Tiền lương
+CM Xuất nhập kho
+Nhiệm vụ: tất cả
+QT Bán hàng B2B
+QT Kiểm tra CL
+QT Nhập kho
+QT Thu chi
+QT Tính lương
+QT Xuất khẩu
+Công việc: tất cả
+SỬA	#	MÃ	TÊN	CHUYÊN MÔN (T3)	NHIỆM VỤ (T2)	CÔNG VIỆC (T1)	TRẠNG THÁI	
+✎	1	MOIT-F-0001	Phiếu nhập kho — xác nhận nhận đủ	CM Xuất nhập kho	QT Nhập kho	·	
+Đang chạy	mở chi tiết ›
+✎	2	MOIT-F-0002	Phiếu kiểm tra chất lượng lô	CM Kiểm tra CL	QT Kiểm tra CL	·	
+Đang chạy	mở chi tiết ›
+✎	3	MOIT-F-0003	Đơn đặt hàng B2B	CM Bán hàng	QT Bán hàng B2B	·	
+Đang chạy	mở chi tiết ›
+✎	4	MOIT-F-0004	Phiếu chi	CM Thu chi	QT Thu chi	·	
+Đang chạy	mở chi tiết ›
+✎	5	MOIT-F-0005	Tờ khai xuất khẩu	CM Khai hải quan	QT Xuất khẩu	·	
+Tạm dừng	mở chi tiết ›
+✎	6	MOIT-F-0006	Ghi nhận phản ánh chất lượng	CM Kiểm tra CL	QT Kiểm tra CL	·	
+Đang chạy	mở chi tiết ›
+✎	7	MOIT-F-0007	Bảng chấm công	CM Tiền lương	QT Tính lương	·	
+Lưu trữ	mở chi tiết ›
+MOIT-F-0001
+Phiếu nhập kho — xác nhận nhận đủ
+×
+Form nhập thật
+schema mẫu vòng 1
+Phiếu nhập kho — xác nhận nhận đủ
+Mã tham chiếu*
+Ngày thực hiện*
+📅
+Số lượng
+đơn vị
+Xác nhận*
+Tôi đã kiểm tra thông tin
+Hỗ trợ vận hành
+ĐƯỜNG DẪN 7 TẦNG + TÊN CỤ THỂ
+T7
+Sản xuất
+T6
+Incomex Sài Gòn
+T5
+Khối Vận hành SG
+T4
+P. Kho SG
+T3
+CM Xuất nhập kho
+T2
+QT Nhập kho
+T1
+·
+Tên
+Phiếu nhập kho — xác nhận nhận đủ
+BẢNG PG KẾT NỐI
+input_form_registry
+input_record
+✎ Sửa khuôn này
+Mở biểu mẫu ↗
+4 MẸ
+MOW
+▾
+Quy trình
+MOT
+▾
+Công việc
+MOIT
+▾
+Nhập liệu
+MOUT
+▾
+Báo cáo
+Master
+▾
+Tổng 4 Mẹ

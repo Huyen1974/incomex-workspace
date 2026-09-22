@@ -1,0 +1,125 @@
+Browser tab: 14, Title: "MOT — Bàn làm việc · v1.7", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html".
+1 AXWebArea MOT — Bàn làm việc · v1.7, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html
+	2 container
+		3 text MOT v1.7 · draft
+		5 text Thứ 5, 10/9/2026
+		6 link Description: ? Trợ giúp, Value: javascript:void%200
+		4 link Description: Studio ↗, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-studio-v1.html
+		7 container tb-user
+			8 text H Huyền
+	9 container sidebar
+		10 text Công việc 6
+		11 button Tìm kiếm & lọc
+			12 image
+		13 button Công việc 6
+			14 text Công việc
+			15 text 6
+		16 button Hoàn thành 1
+			17 text Hoàn thành
+			18 text 1
+		19 button MOT-2599 XS Hôm qua 16:00 Xác nhận lịch giao hàng với Saigon Co.op QT Bán hàng B2B · Bước 5/7
+			20 text MOT-2599
+			21 text XS
+			22 text Hôm qua 16:00
+			23 text Xác nhận lịch giao hàng với Saigon Co.op
+			24 text QT Bán hàng B2B · Bước 5/7
+		25 button MOT-2604 XS 09:30 Xác nhận đã nhận đủ nguyên liệu lô NL-0605 QT Nhập kho · Bước 4/6
+			26 text MOT-2604
+			27 text XS
+			28 text 09:30
+			29 text Xác nhận đã nhận đủ nguyên liệu lô NL-0605
+			30 text QT Nhập kho · Bước 4/6
+		31 button MOT-2605 S 11:00 Báo cáo tình trạng máy ép M-02 sau ca sáng QT Bảo trì TPM · Bước 1/3
+			32 text MOT-2605
+			33 text S
+			34 text 11:00
+			35 text Báo cáo tình trạng máy ép M-02 sau ca sáng
+			36 text QT Bảo trì TPM · Bước 1/3
+		37 button MOT-2606 M 14:00 Nhập kết quả QC lô sản xuất SX-2605 QT Kiểm tra chất lượng · Bước 3/5
+			38 text MOT-2606
+			39 text M
+			40 text 14:00
+			41 text Nhập kết quả QC lô sản xuất SX-2605
+			42 text QT Kiểm tra chất lượng · Bước 3/5
+		43 button MOT-2607 L Th 2 08/06 Chuẩn bị hồ sơ xuất khẩu đơn PO-1182 QT Xuất khẩu · Bước 7/9
+			44 text MOT-2607
+			45 text L
+			46 text Th 2 08/06
+			47 text Chuẩn bị hồ sơ xuất khẩu đơn PO-1182
+			48 text QT Xuất khẩu · Bước 7/9
+		49 button MOT-2608 S Th 3 09/06 Đóng góp cải tiến: bước dán nhãn trong QT Đóng gói QT Đóng gói · Sau hoàn thành
+			50 text MOT-2608
+			51 text S
+			52 text Th 3 09/06
+			53 text Đóng góp cải tiến: bước dán nhãn trong QT Đóng gói
+			54 text QT Đóng gói · Sau hoàn thành
+		55 container
+			56 button Đề xuất cải tiến
+			57 button Góp ý
+			58 button ☰ Danh mục khác
+				59 text ☰
+				60 text Danh mục khác
+	61 container tcard
+		62 text MOT-2599 QT Bán hàng B2B ·  Bước 5/7
+		63 text XS
+		64 text H Huyền
+		65 text Xác nhận lịch giao hàng với Saigon Co.op
+		66 text Phòng ban:  Kinh doanh Khách hàng:  Saigon Co.op Đơn hàng:  PO-1175 Hạn:  16:00 hôm qua ✍ PHẦN VIỆC CỦA BẠN Bắt buộc  0/2
+		67 container
+			68 text Ghi nhận liên hệ *
+		69 text ⧉ E02 · Liên hệ khách hàng · contacts / log form nhúng
+		70 container
+			71 text Người liên hệ *
+		72 text field (settable)
+		73 text SĐT / kênh
+		74 text field (settable)
+		75 container
+			76 text Kết quả *
+		77 button Gặp được
+		78 button Hẹn gọi lại
+		79 button Không liên lạc được
+		80 text Ngày giao đã chốt Nhập nếu đã chốt hoặc dời
+		81 container
+			82 text field (settable)
+			83 button 📅, Help: Chọn trên lịch
+			84 date field (settable)
+				85 container
+					86 stepper
+					87 stepper
+					88 stepper
+				89 pop up button Show date picker
+		90 text Còn thiếu mục bắt buộc — bấm Hoàn thành sẽ chỉ chỗ cần điền
+		91 button (disabled) Sửa lại
+		92 button Hoàn thành ✓
+		93 text 📋 THÔNG TIN THAM KHẢO
+		94 heading LIÊN HỆ, Value: 4
+			95 text LIÊN HỆ
+		96 text Người nhận C. Thảo — phòng mua SĐT 0903 552 *** Lần gọi gần nhất 03/06 — không nghe máy
+		97 button ❓ Hướng dẫn thực hiện (chỉ cần khi làm lần đầu) ▾
+			98 text ❓ Hướng dẫn thực hiện
+			99 text (chỉ cần khi làm lần đầu)
+			100 text ▾
+	101 container 4 Mẹ + Master
+		102 text 4 MẸ
+		103 button MOW ▾ Quy trình
+			104 text MOW
+			105 text ▾
+			106 text Quy trình
+		107 button MOT ▾ Công việc
+			108 text MOT
+			109 text ▾
+			110 text Công việc
+		111 button MOIT ▾ Nhập liệu
+			112 text MOIT
+			113 text ▾
+			114 text Nhập liệu
+		115 button MOUT ▾ Báo cáo
+			116 text MOUT
+			117 text ▾
+			118 text Báo cáo
+		119 button Master ▾ Tổng 4 Mẹ
+			120 text Master
+			121 text ▾
+			122 text Tổng 4 Mẹ
+
+The focused UI element is 1 AXWebArea MOT — Bàn làm việc · v1.7, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html

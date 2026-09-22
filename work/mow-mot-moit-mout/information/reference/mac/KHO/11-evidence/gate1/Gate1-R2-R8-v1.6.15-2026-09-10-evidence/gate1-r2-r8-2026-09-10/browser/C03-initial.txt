@@ -1,0 +1,294 @@
+Browser tab: 14, Title: "MOW · T1 · Đề xuất — Incomex", URL: "https://vps.incomexsaigoncorp.vn/admin-new-modt?tang=T1&che-do=de-xuat".
+1 AXWebArea MOW · T1 · Đề xuất — Incomex, URL: vps.incomexsaigoncorp.vn/admin-new-modt?tang=T1&che-do=de-xuat
+	2 container
+		3 text New MODT · Admin v1 DRAFT · mock data
+		4 button Thường
+		5 button Đề xuất
+		6 button Vận hành
+		7 button Quản trị ⚠
+	8 container bp
+		9 text ✏️
+		10 text Chế độ Đề xuất — Cải tiến quy trình
+		11 text Mọi thay đổi tạo đề xuất, không sửa DB trực tiếp.
+		12 button ✕ Thoát
+	13 container bc
+		14 text Thương mại quốc tế
+		15 text ›
+		16 text Incomex Sài Gòn
+		17 text ›
+		18 text Kinh doanh
+		19 text ›
+		20 text Nhân sự
+		21 text ›
+		22 text Tuyển dụng
+		23 text ›
+		24 text Tiếp nhận
+		25 text › Công việc
+	26 container tabs
+		27 button T7 - Lĩnh vực 2
+			28 text T7 - Lĩnh vực
+			29 text 2
+		30 button T6 - Công ty 2
+			31 text T6 - Công ty
+			32 text 2
+		33 button T5 - Khối 3
+			34 text T5 - Khối
+			35 text 3
+		36 button T4 - Phòng ban 3
+			37 text T4 - Phòng ban
+			38 text 3
+		39 button T3 - Chuyên môn 3
+			40 text T3 - Chuyên môn
+			41 text 3
+		42 button T2 - Nhiệm vụ 6
+			43 text T2 - Nhiệm vụ
+			44 text 6
+		45 button T1 - Công việc 3
+			46 text T1 - Công việc
+			47 text 3
+	48 text NHẬN ĐƠN → CHI TIẾT
+	49 button Khuôn mẫu, ID: vmt
+	50 button Vận hành, ID: vmi
+	51 container nodes-wrap
+		52 container Nhập liệu và thông tin tham khảo
+			53 container Nhập liệu - MOIT
+				54 container
+					55 text Nhập liệu - MOIT
+					56 button Hướng dẫn Nhập liệu - MOIT: Phần các công việc cần nhập liệu.
+				57 text Form tiếp nhận Webhook trigger
+				58 button Đề xuất cải tiến Nhập liệu - MOIT
+					59 text Đề xuất cải tiến Nhập liệu - MOIT
+			60 container Thông tin tham khảo cho Nhận đơn
+				61 container
+					62 text MOUT - Tham khảo
+					63 button Hướng dẫn MOUT - Tham khảo: Các thông tin tham khảo cần thiết để có đủ ngữ cảnh thực hiện MOIT.
+				64 text Người nhận SĐT Lần gọi gần nhất
+				65 button Đề xuất cải tiến MOUT - Tham khảo
+					66 text Đề xuất cải tiến MOUT - Tham khảo
+		67 container Bảng kết nối dữ liệu chuyên môn
+			68 container Nhập liệu - MOIT
+				69 table
+					70 row
+						71 cell
+							72 text GHI VÀO
+							73 container
+								74 text Nội dung chuyên môn
+								75 button Hướng dẫn cột Nội dung chuyên môn: Nội dung nghiệp vụ cụ thể mà dòng này cần ghi vào hoặc đọc ra.
+						76 cell
+							77 text Collection
+							78 button Hướng dẫn cột Collection: Collection nguồn hoặc đích trong hệ dữ liệu. Dòng chữ nghiêng hiện tại chỉ là dữ liệu nháp để duyệt thiết kế.
+						79 cell
+							80 text Field
+							81 button Hướng dẫn cột Field: Field nằm trong Collection tương ứng. Khi chưa nối dữ liệu, giá trị chữ nghiêng chỉ là nháp.
+						82 cell
+							83 text Check field tương tự
+							84 button Hướng dẫn cột Check field tương tự: Bật ô này để quét các Field có tên hoặc khái niệm gần với Field đang chọn. Kết quả hiện ở vùng Field tương tự bên dưới để con người đối chiếu label và ghi chú trước khi chốt.
+						85 cell
+							86 text Địa chỉ dữ liệu
+							87 button Hướng dẫn cột Địa chỉ dữ liệu: Địa chỉ đầy đủ theo dạng collection.field. Sau khi nối, hệ thống tự ghép từ Collection và Field.
+						88 cell
+							89 text Kiểu dữ liệu
+							90 button Hướng dẫn cột Kiểu dữ liệu: Kiểu dữ liệu dự kiến của Field, ví dụ text, number, date hoặc json.
+						91 cell
+							92 text Hợp đồng JSON
+							93 button Hướng dẫn cột Hợp đồng JSON: Cấu trúc JSON mà dòng dữ liệu phải tuân theo khi ghi hoặc đọc.
+						94 cell
+							95 text Test
+							96 button Hướng dẫn cột Test: — là chưa test; ✓ xanh là đã chạy và đạt. Về sau trạng thái tự đọc từ bảng quản lý kết quả test, không nhập tay tại đây.
+						97 cell
+							98 text Tình trạng
+							99 button Hướng dẫn cột Tình trạng: Tình trạng kết nối hiện tại của dòng dữ liệu, ví dụ chưa kết nối hoặc đã hoạt động.
+						100 cell
+							101 text Ghi chú
+							102 button Hướng dẫn cột Ghi chú: Ghi chú phục vụ duyệt thiết kế. Chữ nghiêng màu nhạt là nội dung nháp, chưa phải dữ liệu chính thức.
+					103 row Mở chi tiết hàng Form tiếp nhận
+						104 cell
+							105 text Form tiếp nhận
+						106 cell
+							107 text Nháp: chọn collection
+						108 cell
+							109 text Nháp: chọn field
+						110 cell
+							111 checkbox (settable, integer) Description: Check Field tương tự cho Form tiếp nhận, Value: 0
+						112 cell
+							113 text Nháp: collection.field
+						114 cell
+							115 text Nháp: kiểu dữ liệu
+						116 cell
+							117 text {"collection":"applications","field":"form_payload","address":"applications.form_payload","type":"json","required":true,"description":"Ví dụ hợp đồng dữ liệu dài: trạng thái thường chỉ hiện một đoạn ngắn; khi bấm vào ô, toàn bộ hàng tự mở theo nội dung dài nhất mà không đổi độ rộng cột.","validation":{"schema":"candidate_intake_v1","required_fields":["full_name","phone_number","submitted_at"]},"source":{"mode":"MOIT","trigger":"form_submitted"}}
+						118 cell
+							119 button Chưa test
+						120 cell
+							121 text Chưa kết nối
+						122 cell
+							123 text Nháp: thêm ghi chú
+					124 row Mở chi tiết hàng Webhook trigger
+						125 cell
+							126 text Webhook trigger
+						127 cell
+							128 text Nháp: chọn collection
+						129 cell
+							130 text Nháp: chọn field
+						131 cell
+							132 checkbox (settable, integer) Description: Check Field tương tự cho Webhook trigger, Value: 0
+						133 cell
+							134 text Nháp: collection.field
+						135 cell
+							136 text Nháp: kiểu dữ liệu
+						137 cell
+							138 text { }
+						139 cell
+							140 button Chưa test
+						141 cell
+							142 text Chưa kết nối
+						143 cell
+							144 text Nháp: thêm ghi chú
+			145 container MOUT - Tham khảo
+				146 table
+					147 row
+						148 cell
+							149 text ĐỌC RA
+							150 container
+								151 text Nội dung chuyên môn
+								152 button Hướng dẫn cột Nội dung chuyên môn: Nội dung nghiệp vụ cụ thể mà dòng này cần ghi vào hoặc đọc ra.
+						153 cell
+							154 text Collection
+							155 button Hướng dẫn cột Collection: Collection nguồn hoặc đích trong hệ dữ liệu. Dòng chữ nghiêng hiện tại chỉ là dữ liệu nháp để duyệt thiết kế.
+						156 cell
+							157 text Field
+							158 button Hướng dẫn cột Field: Field nằm trong Collection tương ứng. Khi chưa nối dữ liệu, giá trị chữ nghiêng chỉ là nháp.
+						159 cell
+							160 text Check field tương tự
+							161 button Hướng dẫn cột Check field tương tự: Bật ô này để quét các Field có tên hoặc khái niệm gần với Field đang chọn. Kết quả hiện ở vùng Field tương tự bên dưới để con người đối chiếu label và ghi chú trước khi chốt.
+						162 cell
+							163 text Địa chỉ dữ liệu
+							164 button Hướng dẫn cột Địa chỉ dữ liệu: Địa chỉ đầy đủ theo dạng collection.field. Sau khi nối, hệ thống tự ghép từ Collection và Field.
+						165 cell
+							166 text Kiểu dữ liệu
+							167 button Hướng dẫn cột Kiểu dữ liệu: Kiểu dữ liệu dự kiến của Field, ví dụ text, number, date hoặc json.
+						168 cell
+							169 text Hợp đồng JSON
+							170 button Hướng dẫn cột Hợp đồng JSON: Cấu trúc JSON mà dòng dữ liệu phải tuân theo khi ghi hoặc đọc.
+						171 cell
+							172 text Test
+							173 button Hướng dẫn cột Test: — là chưa test; ✓ xanh là đã chạy và đạt. Về sau trạng thái tự đọc từ bảng quản lý kết quả test, không nhập tay tại đây.
+						174 cell
+							175 text Tình trạng
+							176 button Hướng dẫn cột Tình trạng: Tình trạng kết nối hiện tại của dòng dữ liệu, ví dụ chưa kết nối hoặc đã hoạt động.
+						177 cell
+							178 text Ghi chú
+							179 button Hướng dẫn cột Ghi chú: Ghi chú phục vụ duyệt thiết kế. Chữ nghiêng màu nhạt là nội dung nháp, chưa phải dữ liệu chính thức.
+					180 row Mở chi tiết hàng Người nhận
+						181 cell
+							182 text Người nhận
+						183 cell
+							184 text Nháp: chọn collection
+						185 cell
+							186 text Nháp: chọn field
+						187 cell
+							188 checkbox (settable, integer) Description: Check Field tương tự cho Người nhận, Value: 0
+						189 cell
+							190 text Nháp: collection.field
+						191 cell
+							192 text Nháp: kiểu dữ liệu
+						193 cell
+							194 text { }
+						195 cell
+							196 button Chưa test
+						197 cell
+							198 text Chưa kết nối
+						199 cell
+							200 text Nháp: thêm ghi chú
+					201 row Mở chi tiết hàng SĐT
+						202 cell
+							203 text SĐT
+						204 cell
+							205 text Nháp: chọn collection
+						206 cell
+							207 text Nháp: chọn field
+						208 cell
+							209 checkbox (settable, integer) Description: Check Field tương tự cho SĐT, Value: 0
+						210 cell
+							211 text Nháp: collection.field
+						212 cell
+							213 text Nháp: kiểu dữ liệu
+						214 cell
+							215 text { }
+						216 cell
+							217 button Chưa test
+						218 cell
+							219 text Chưa kết nối
+						220 cell
+							221 text Nháp: thêm ghi chú
+					222 row Mở chi tiết hàng Lần gọi gần nhất
+						223 cell
+							224 text Lần gọi gần nhất
+						225 cell
+							226 text Nháp: chọn collection
+						227 cell
+							228 text Nháp: chọn field
+						229 cell
+							230 checkbox (settable, integer) Description: Check Field tương tự cho Lần gọi gần nhất, Value: 0
+						231 cell
+							232 text Nháp: collection.field
+						233 cell
+							234 text Nháp: kiểu dữ liệu
+						235 cell
+							236 text { }
+						237 cell
+							238 button Chưa test
+						239 cell
+							240 text Chưa kết nối
+						241 cell
+							242 text Nháp: thêm ghi chú
+		243 container
+			244 text CẤU HÌNH ĐỂ TASK CHẠY · mở phần nào, khai phần đó
+			245 button (collapsed) 03 Nguyên tắc giao việc Khai một lần, hệ thống áp dụng tự động Help Nháp thiết kế ⌄, Secondary Actions: Expand
+				246 text 03
+				247 text Nguyên tắc giao việc
+				248 text Khai một lần, hệ thống áp dụng tự động
+				249 button (collapsed) Help, Secondary Actions: Expand
+				250 text Nháp thiết kế
+				251 text ⌄
+			252 button (collapsed) 04 Ai làm & ai nhận Khai một lần, hệ thống tự gán theo điều kiện Nháp thiết kế ⌄, Secondary Actions: Expand
+				253 text 04
+				254 text Ai làm & ai nhận
+				255 text Khai một lần, hệ thống tự gán theo điều kiện
+				256 text Nháp thiết kế
+				257 text ⌄
+			258 button (collapsed) 05 Chạy & kết thúc Khai hai đầu của một lần chạy Nháp thiết kế ⌄, Secondary Actions: Expand
+				259 text 05
+				260 text Chạy & kết thúc
+				261 text Khai hai đầu của một lần chạy
+				262 text Nháp thiết kế
+				263 text ⌄
+	264 container tp
+		265 text CHI TIẾT CÔNG VIỆC · T1
+		266 text —
+		267 text —
+		268 button ✕
+	269 text DRAFT · MOW Unified Canvas v2 · SSOT
+	270 container 4 Mẹ + Master
+		271 text 4 MẸ
+		272 button MOW ▾ Quy trình
+			273 text MOW
+			274 text ▾
+			275 text Quy trình
+		276 button MOT ▾ Công việc
+			277 text MOT
+			278 text ▾
+			279 text Công việc
+		280 button MOIT ▾ Nhập liệu
+			281 text MOIT
+			282 text ▾
+			283 text Nhập liệu
+		284 button MOUT ▾ Báo cáo
+			285 text MOUT
+			286 text ▾
+			287 text Báo cáo
+		288 button Master ▾ Tổng 4 Mẹ
+			289 text Master
+			290 text ▾
+			291 text Tổng 4 Mẹ
+
+The focused UI element is 1 AXWebArea MOW · T1 · Đề xuất — Incomex, URL: vps.incomexsaigoncorp.vn/admin-new-modt?tang=T1&che-do=de-xuat
