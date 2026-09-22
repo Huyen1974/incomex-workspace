@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOW — Danh sách quy trình (NHÁP · bảng gọn)</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./mot-theme-v1.css?v=17">
+<style>body.mot{background:#f5f5f7}.wrap{max-width:1240px;margin:0 auto;padding:14px 28px 130px}
+.draftbar{max-width:1240px;margin:10px auto 0;padding:9px 16px;background:#fdf9ed;border:1px solid #efe3c4;border-radius:10px;font-size:12.5px;color:#a89257}</style>
+</head>
+<body class="mot" data-region="mowmaster.app">
+<div class="topbar" data-region="mowmaster.topbar">
+  <div class="logo" data-region="mowmaster.topbar.brand"><span class="logo-dot"></span>MOW · Danh sách<span class="vbadge">NHÁP · bảng gọn</span></div>
+  <span class="tb-spacer"></span>
+  <a class="tb-link" href="./mow-master-nhap2-v1.html">Nháp 2 →</a>
+  <a class="tb-link" href="./mow-master-v1.html">Bản thật →</a>
+</div>
+<div class="draftbar">MỚI: <b>CHUẨN VIẾT MỘT QUY TRÌNH</b> — ngoài các bước, bắt buộc khai <b>điểm bắt đầu</b> và <b>điểm kết thúc</b>, cực ngắn. Thiếu hai đầu thì giữa các quy trình đẻ ra <b>khoảng trống</b>: cả hai quy trình đều đúng mà công việc vẫn không chạy. Kèm luật <b>"không chắc đúng = sai"</b> và thứ tự <b>yêu cầu → quy trình → còn lại</b>.</div>
+<div class="wrap" data-region="mowmaster.content"><div id="master-root" data-region="mowmaster.list.host"></div></div>
+<script>
+window.MASTER_CONFIG={
+  mother:'MOW', noun:'quy trình', itemBase:'/w/',
+  sub:'Mọi quy trình MOW sinh ra đều đăng ký tại đây, neo vào cây 7 tầng.',
+  principle:'NHÁP 1 — TỪ ĐIỂN nghiệp vụ đã duyệt. Giữ nguyên làm mốc so sánh cho Nháp 2.',
+  createUrl:'./mow-unified-canvas-v2.html', createLabel:'Tạo quy trình (MOW)',
+  items:[
+    {code:'WF-0001',name:'Quy trình Nhập kho',anchor:'QT Nhập kho',date:'10/06/2026',maker:{t:'human',n:'Tâm'},status:'active',links:{mot:4,moit:1,mout:2}},
+    {code:'WF-0002',name:'Quy trình Bán hàng B2B',anchor:'QT Bán hàng B2B',date:'12/06/2026',maker:{t:'human',n:'Huyền'},status:'active',links:{mot:5,moit:2,mout:1}},
+    {code:'WF-0003',name:'Quy trình Kiểm tra chất lượng',anchor:'QT Kiểm tra CL',date:'08/06/2026',maker:{t:'human',n:'Minh'},status:'active',links:{mot:3,moit:1,mout:1}},
+    {code:'WF-0004',name:'Quy trình Xuất khẩu',anchor:'QT Xuất khẩu',date:'05/06/2026',maker:{t:'human',n:'Hùng'},status:'paused',links:{mot:6,moit:3,mout:1}},
+    {code:'WF-0005',name:'Quy trình Tính lương',anchor:'QT Tính lương',date:'04/06/2026',maker:{t:'human',n:'Lan'},status:'active',links:{mot:6,moit:2,mout:1}},
+    {code:'WF-0006',name:'Quy trình Thu chi',anchor:'QT Thu chi',date:'09/06/2026',maker:{t:'dot',n:'fn_thu_chi'},status:'active',links:{mot:3,moit:1,mout:1}},
+    {code:'WF-0007',name:'Quy trình Kho tổng (phòng)',anchor:'P. Kho SG',date:'02/06/2026',maker:{t:'human',n:'Tâm'},status:'archived',links:{mot:2,moit:0,mout:1}}
+  ]
+};
+</script>
+<script src="./mot-render-v1.js?v=18"></script>
+<script src="./mvx-v3.js?v=4"></script>
+<script src="./master-drawer-view-v1.js?v=3"></script>
+<script src="./mow-help-doc.js?v=18"></script>
+<script src="./mow-drawer-scope.js?v=11"></script>
+<script src="./incomex-book-v1.js?v=11"></script>
+<script src="./mow-lifecycle-data.js?v=3"></script>
+<script src="./mow-testplan-data.js?v=5"></script>
+<script src="./mow-process-drawer-draft.js?v=20"></script>
+<script src="./mow-drawer-help-render.js?v=1"></script>
+<script src="./mow-drawer-chain.js?v=3"></script>
+<script src="./mow-drawer-version.js?v=2"></script>
+<script src="./mow-drawer-relations.js?v=3"></script>
+<script src="./mow-drawer-lifecycle.js?v=5"></script>
+<script src="./mow-readiness.js?v=2"></script>
+<script src="./mow-selfprocess-run.js?v=1"></script>
+<script src="./mow-selfprocess.js?v=3"></script>
+<script src="./incomex-ma-quy-uoc.js?v=1"></script>
+<!-- NAP CUOI, dung thu tu. Cac file nay sua BOOK / MOW_READINESS / MOW_TESTPLAN
+     nen phai chay SAU cac file goc. chot-so roi chot-so-v2 la hai buoc cuoi. -->
+<script src="./mow-testplan-v4.js?v=2"></script>
+<script src="./incomex-dashboard-model.js?v=1"></script>
+<script src="./incomex-du-kien-so-cap.js?v=1"></script>
+<script src="./incomex-bang-su-kien.js?v=1"></script>
+<script src="./incomex-khoa-ngoai.js?v=1"></script>
+<script src="./incomex-khung-nhin.js?v=1"></script>
+<script src="./incomex-ngang-doc.js?v=1"></script>
+<script src="./incomex-chot-cach-tiep-can.js?v=1"></script>
+<script src="./incomex-pg-first.js?v=1"></script>
+<script src="./incomex-pg-first-v2.js?v=1"></script>
+<script src="./incomex-chot-so.js?v=1"></script>
+<script src="./incomex-chot-so-v2.js?v=1"></script>
+<script src="./incomex-chuan-viet-quy-trinh.js?v=1"></script>
+<script src="./mow-list-exec.js?v=2"></script>
+<script src="./master-list.js?v=7"></script>
+<script>(function(){fetch('./eco-nav.js?ts='+Date.now()).then(function(r){return r.text();}).then(function(t){(0,eval)(t);}).catch(function(){});})();</script>
+</body>
+</html>

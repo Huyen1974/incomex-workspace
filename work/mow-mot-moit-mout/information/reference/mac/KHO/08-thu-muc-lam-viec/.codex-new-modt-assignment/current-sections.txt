@@ -1,0 +1,662 @@
+      '.new-modt-config-module__state{font-size:10.5px;font-weight:600;color:#9a9aa0;background:#f5f5f6;border-radius:999px;padding:4px 9px}',
+      '.new-modt-config-module__help-slot{min-width:0}',
+      '.new-modt-config-module__help-button{height:24px;padding:0 9px;border:1px solid #e1e1e4;border-radius:999px;background:#fff;color:#8e8e93;font:500 10px/1 "Be Vietnam Pro",system-ui,sans-serif;cursor:pointer}',
+      '.new-modt-config-module__help-button:hover,.new-modt-config-module__help-button[aria-expanded="true"]{border-color:#a9bf95;color:#5f8f38;background:#f8fbf5}',
+      '.new-modt-config-module__help-panel{display:none;position:absolute;right:38px;top:48px;z-index:80;width:min(520px,calc(100% - 76px));padding:13px 14px;border:1px solid #e1e1e4;border-radius:10px;background:#fff;box-shadow:0 14px 38px rgba(0,0,0,.14);font-family:"Be Vietnam Pro",system-ui,sans-serif;color:#69696e}',
+      '.new-modt-config-module__help-panel.is-open{display:grid;gap:9px}',
+      '.new-modt-config-module__help-title{font-size:11px;font-weight:650;color:#525256}',
+      '.new-modt-config-module__help-line{font-size:10px;font-weight:300;line-height:1.5}',
+      '.new-modt-config-module__help-line strong{font-weight:650}',
+      '.new-modt-config-module__help-line--block strong{color:#b42318}',
+      '.new-modt-config-module__help-line--warning strong{color:#a56a00}',
+      '.new-modt-config-module__chevron{font-size:13px;color:#aaa;transition:transform .18s ease}',
+      '.new-modt-config-module[open] .new-modt-config-module__chevron{transform:rotate(180deg)}',
+      '.new-modt-config-module__body{border-top:1px solid rgba(0,0,0,.055);overflow-x:auto}',
+      '.new-modt-rule-grid{display:grid;grid-template-columns:minmax(150px,1.05fr) minmax(270px,2.2fr) minmax(190px,1.4fr) 58px 112px minmax(170px,1.2fr);min-width:1000px}',
+      '.new-modt-rule-grid__head{height:42px;display:flex;align-items:center;gap:6px;padding:0 12px;border-right:1px solid rgba(0,0,0,.045);border-bottom:1px solid rgba(0,0,0,.055);background:#fbfbfc;color:#a2a2a7;font-size:10px;font-weight:700}',
+      '.new-modt-rule-grid__head:last-child{border-right:0}',
+      '.new-modt-rule-grid__help{position:relative;display:inline-grid;place-items:center;width:15px;height:15px;border:1px solid #d4d4d8;border-radius:50%;font-size:9px;font-weight:700;color:#b0b0b5;background:#fff;cursor:help;flex:0 0 auto}',
+      '.new-modt-rule-grid__help::after{content:attr(data-tip);position:absolute;left:50%;top:calc(100% + 8px);transform:translateX(-50%);width:230px;padding:9px 10px;border:1px solid #e1e1e4;border-radius:8px;background:#fff;color:#626267;font-size:10.5px;font-weight:400;line-height:1.5;white-space:normal;box-shadow:0 10px 24px rgba(0,0,0,.12);opacity:0;visibility:hidden;z-index:50;pointer-events:none}',
+      '.new-modt-rule-grid__head:first-child .new-modt-rule-grid__help::after{left:-8px;transform:none}',
+      '.new-modt-rule-grid__help:hover::after,.new-modt-rule-grid__help:focus::after{opacity:1;visibility:visible}',
+      '.new-modt-rule-grid__cell{min-height:48px;padding:8px 12px;border-right:1px solid rgba(0,0,0,.045);border-bottom:1px solid rgba(0,0,0,.05);font-size:11px;line-height:1.45;background:#fff;display:flex;align-items:flex-start}',
+      '.new-modt-rule-grid__cell:nth-child(6n){border-right:0}',
+      '.new-modt-rule-grid__cell--subject{font-weight:700;color:#515155;align-items:center}',
+      '.new-modt-rule-grid__cell--condition,.new-modt-rule-grid__cell--result{color:#6e6e73}',
+      '.new-modt-rule-lines{display:grid;width:100%}',
+      '.new-modt-rule-line{min-height:24px;display:flex;align-items:center;gap:7px}',
+      '.new-modt-rule-line+.new-modt-rule-line{border-top:1px dashed #ececef}',
+      '.new-modt-rule-line__lead{font-size:9px;font-weight:700;color:#9ab681;text-transform:uppercase;min-width:24px}',
+      '.new-modt-rule-line__value{font-size:10.5px;color:#69696e}',
+      '.new-modt-rule-grid__cell--test{align-items:center;justify-content:center;font-weight:700;color:#c2c2c7}',
+      '.new-modt-rule-grid__cell--test.is-passed{color:#27ae60}',
+      '.new-modt-rule-grid__cell--status{align-items:center;color:#929297;gap:6px}',
+      '.new-modt-rule-grid__cell--status::before{content:"";width:7px;height:7px;border-radius:50%;background:#c9c9cd;flex:0 0 auto}',
+      '.new-modt-rule-grid__cell--note{color:#aaaab0;font-style:italic}',
+      '.new-modt-config-module__foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 12px;background:#fcfcfc}',
+      '.new-modt-config-module__add{border:0;background:transparent;color:#5e9c2b;font:inherit;font-size:10.5px;font-weight:700;cursor:pointer;padding:4px 6px}',
+      '.new-modt-config-module__foot-note{font-size:10px;color:#b0b0b5;font-style:italic}',
+      '.new-modt-assignment-rule-card{border:0;border-radius:0;box-shadow:none}',
+      '.new-modt-config-module[data-module-id="assignment_rule"] .new-modt-config-module__body,.new-modt-assignment-rule-card,.new-modt-assignment-rule-card .t1-mapping-card__scroll{height:auto!important;max-height:none!important;overflow:visible!important}',
+      '.new-modt-assignment-rule-table{width:100%;min-width:0;height:auto;table-layout:fixed;font-family:"Be Vietnam Pro","SF Pro Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}',
+      '.new-modt-assignment-rule-table th{font-size:9.5px!important;line-height:1.25;font-weight:650!important;color:#a1a1a6!important}',
+      '.new-modt-assignment-rule-table td{height:auto!important;min-height:38px;padding:6px 8px!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;overflow-wrap:anywhere;vertical-align:top;font-size:10.5px!important;line-height:1.35;font-weight:300!important}',
+      '.new-modt-assignment-rule-table th{padding:5px!important}',
+      '.new-modt-assignment-rule-table .t1-mapping-table__head{gap:3px;padding:0 2px}',
+      '.new-modt-assignment-rule-table .t1-mapping-table__head-label{font-size:9.5px;line-height:1.25;font-weight:650}',
+      '.new-modt-assignment-rule-table .t1-mapping-table__help{width:14px;height:14px;font-size:8px;flex-basis:14px}',
+      '.new-modt-assignment-rule-table .t1-mapping-table__tip{font-family:"Be Vietnam Pro","SF Pro Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-weight:300}',
+      '.new-modt-assignment-rule-table td.new-modt-assignment-rule-table__code{color:#77777c!important;font-size:10.5px!important;font-style:normal!important;font-weight:300!important;letter-spacing:-.1px}',
+      '.new-modt-assignment-rule-table__connector{padding:6px 2px!important;text-align:center;vertical-align:top!important}',
+      '.new-modt-assignment-rule-table__connector-header{padding:5px 1px!important}',
+      '.new-modt-assignment-rule-table__connector-header .t1-mapping-table__head{position:relative;gap:0;padding:0;justify-content:center}',
+      '.new-modt-assignment-rule-table__connector-header .t1-mapping-table__head-label{font-size:9.5px;line-height:1.05;letter-spacing:-.25px;text-align:center;white-space:normal}',
+      '.new-modt-assignment-rule-table__connector-header .t1-mapping-table__help{position:absolute;right:0;top:-8px;width:10px;height:10px;font-size:6.5px;flex-basis:10px;opacity:.65}',
+      '.new-modt-assignment-rule-table__connector-toggle{appearance:none;border:0;background:transparent;padding:0;color:#8e8e93;font:300 10.5px/1.35 "Be Vietnam Pro","SF Pro Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;cursor:pointer;text-transform:lowercase}',
+      '.new-modt-assignment-rule-table__connector-toggle:hover,.new-modt-assignment-rule-table__connector-toggle:focus{color:#5f8f38;outline:none;text-decoration:underline;text-underline-offset:2px}',
+      '.new-modt-assignment-rule-table__condition{display:grid;gap:2px;color:#a1a1a6;font-style:italic;font-weight:300}',
+      '.new-modt-assignment-rule-table__condition-field{display:block;color:#9b9ba0}',
+      '.new-modt-assignment-rule-table__condition-value{display:block;color:#b7b7bc}',
+      '.new-modt-assignment-rule-table__condition-trigger{display:block;width:100%;border:0;background:transparent;padding:0;text-align:left;font:inherit;cursor:pointer}',
+      '.new-modt-assignment-rule-table__condition-trigger:hover .new-modt-assignment-rule-table__condition-field{color:#6f963f}',
+      '.new-modt-condition-picker{display:none;position:fixed;inset:0;z-index:900}',
+      '.new-modt-condition-picker.is-open{display:block}',
+      '.new-modt-condition-picker__backdrop{position:absolute;inset:0;background:rgba(30,30,32,.28);backdrop-filter:blur(2px)}',
+      '.new-modt-condition-picker__dialog{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(920px,calc(100vw - 48px));max-height:calc(100vh - 64px);display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:#fff;border:1px solid #e4e4e7;border-radius:14px;box-shadow:0 24px 70px rgba(0,0,0,.2);overflow:hidden}',
+      '.new-modt-condition-picker__head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 16px;border-bottom:1px solid #ececef}',
+      '.new-modt-condition-picker__title{font-size:13px;font-weight:650;color:#4f4f53}',
+      '.new-modt-condition-picker__sub{font-size:10px;font-weight:300;color:#a1a1a6;margin-top:2px}',
+      '.new-modt-condition-picker__close{border:0;background:transparent;color:#999;font-size:16px;cursor:pointer}',
+      '.new-modt-condition-picker__body{display:grid;grid-template-columns:minmax(330px,.9fr) minmax(390px,1.1fr);min-height:420px;overflow:hidden}',
+      '.new-modt-condition-picker__pane{min-width:0;display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden}',
+      '.new-modt-condition-picker__pane+.new-modt-condition-picker__pane{border-left:1px solid #ececef}',
+      '.new-modt-condition-picker__pane-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;background:#fbfbfc;border-bottom:1px solid #eeeeef}',
+      '.new-modt-condition-picker__step{font-size:9.5px;font-weight:650;color:#77777c;text-transform:uppercase;letter-spacing:.35px}',
+      '.new-modt-condition-picker__search{width:190px;height:28px;border:1px solid #e1e1e4;border-radius:6px;padding:0 9px;font:300 10.5px/1 "Be Vietnam Pro",system-ui,sans-serif;color:#555;background:#fff;outline:none}',
+      '.new-modt-condition-picker__search:focus{border-color:#9fbd87}',
+      '.new-modt-condition-picker__table-wrap{overflow:auto}',
+      '.new-modt-condition-picker__table{width:100%;border-collapse:collapse;table-layout:fixed;font-family:"Be Vietnam Pro",system-ui,sans-serif}',
+      '.new-modt-condition-picker__table th{position:sticky;top:0;z-index:1;padding:7px 8px;background:#fdfdfe;border-bottom:1px solid #eeeef0;color:#a1a1a6;font-size:9.5px;font-weight:650;text-align:left}',
+      '.new-modt-condition-picker__table td{padding:8px;border-bottom:1px solid #f0f0f2;color:#66666b;font-size:10.5px;font-weight:300;line-height:1.35}',
+      '.new-modt-condition-picker__row{cursor:pointer}',
+      '.new-modt-condition-picker__row:hover td{background:#f8faf6}',
+      '.new-modt-condition-picker__row.is-selected td{background:#eff6e9;color:#496d2c}',
+      '.new-modt-condition-picker__row--all td{background:#fbfcf9;color:#5f7f43}',
+      '.new-modt-condition-picker__all-code{font-weight:650!important;color:#5f8f38!important}',
+      '.new-modt-condition-picker__muted{color:#aaaab0!important;font-size:9.5px!important}',
+      '.new-modt-condition-picker__empty{padding:24px!important;text-align:center;color:#aaa!important;font-style:italic}',
+      '.new-modt-condition-picker__foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border-top:1px solid #ececef;background:#fcfcfc}',
+      '.new-modt-condition-picker__note{font-size:9.5px;font-weight:300;color:#9c9ca1}',
+      '.new-modt-condition-picker__note.is-error{color:#b42318;font-weight:500}',
+      '.new-modt-condition-picker__actions{display:flex;gap:7px}',
+      '.new-modt-condition-picker__button{height:31px;padding:0 13px;border:1px solid #d9d9dd;border-radius:7px;background:#fff;color:#666;font:500 10.5px/1 "Be Vietnam Pro",system-ui,sans-serif;cursor:pointer}',
+      '.new-modt-condition-picker__button--primary{border-color:#67a332;background:#67a332;color:#fff}',
+      '.new-modt-condition-picker__button--primary:disabled{border-color:#d8d8dc;background:#e9e9eb;color:#aaa;cursor:not-allowed}',
+      '@media(max-width:760px){.new-modt-condition-picker__body{grid-template-columns:1fr;overflow:auto}.new-modt-condition-picker__pane+.new-modt-condition-picker__pane{border-left:0;border-top:1px solid #ececef}.new-modt-condition-picker__pane{min-height:310px}}',
+      '.new-modt-assignment-rule-table th{height:44px!important;min-height:44px!important;max-height:44px!important}',
+      '.new-modt-assignment-rule-table .new-modt-assignment-rule-table__groups th{height:28px!important;min-height:28px!important;max-height:28px!important;text-align:center;vertical-align:middle;color:#8e8e93}',
+      '.new-modt-assignment-rule-table__code{white-space:nowrap!important}',
+      '@media(max-width:820px){.new-modt-config-module__summary{grid-template-columns:34px 1fr auto auto 18px}.new-modt-config-module__subtitle{display:none}.new-modt-config-module__help-panel{right:16px;width:calc(100% - 32px)}}'
+    ].join('');
+    document.head.appendChild(style);
+  }
+
+  function help(label, key) {
+    return '<span class="new-modt-rule-grid__head">' + esc(label)
+      + '<button type="button" class="new-modt-rule-grid__help" aria-label="Hướng dẫn '
+      + esc(label) + '" data-tip="' + esc(HELP[key]) + '">?</button></span>';
+  }
+
+  function lineList(values, lead) {
+    return '<span class="new-modt-rule-lines">' + values.map(function (value) {
+      return '<span class="new-modt-rule-line"><span class="new-modt-rule-line__lead">'
+        + esc(lead) + '</span><span class="new-modt-rule-line__value">' + esc(value)
+        + '</span></span>';
+    }).join('') + '</span>';
+  }
+
+  function cell(className, html) {
+    return '<span class="new-modt-rule-grid__cell ' + className + '">' + html + '</span>';
+  }
+
+  var ASSIGNMENT_RULE_COLUMNS = [
+    {
+      key: 'rule_code',
+      label: 'Mã',
+      help: 'Mỗi hàng là một nguyên tắc giao việc độc lập. Mã ổn định NTGV01, NTGV02... được giữ nguyên khi sửa nội dung.',
+      placeholder: 'NTGV01'
+    },
+    {
+      key: 'anchor_1',
+      label: 'Điều kiện 1',
+      help: 'Điều kiện thứ nhất gồm hai dòng: dòng trên chọn trường và dấu bằng; dòng dưới chọn giá trị. Trường phải đứng trước các điều kiện sau theo thứ tự bảng gốc.',
+      placeholder: 'Nháp: chọn trường'
+    },
+    {
+      key: 'connector_1',
+      label: 'AND/OR',
+      help: 'Quan hệ giữa điều kiện 1 và điều kiện 2. Mặc định là AND; có thể đổi thành OR.',
+      placeholder: 'AND'
+    },
+    {
+      key: 'anchor_2',
+      label: 'Điều kiện 2',
+      help: 'Điều kiện thứ hai, không bắt buộc, gồm hai dòng: trường và dấu bằng ở trên, giá trị ở dưới. Phải đứng sau điều kiện 1 theo thứ tự bảng gốc.',
+      placeholder: 'Nháp: chọn trường'
+    },
+    {
+      key: 'connector_2',
+      label: 'AND/OR',
+      help: 'Quan hệ giữa điều kiện 2 và điều kiện 3. Mặc định là AND; có thể đổi thành OR.',
+      placeholder: 'AND'
+    },
+    {
+      key: 'condition',
+      label: 'Điều kiện 3',
+      help: 'Điều kiện thứ ba, không bắt buộc, gồm hai dòng: trường và dấu bằng ở trên, giá trị ở dưới. Sai thứ tự bảng gốc thì không được lưu.',
+      placeholder: 'Nháp: chọn trường'
+    },
+    {
+      key: 'executor',
+      label: 'Người thực hiện',
+      labelHtml: 'Người<br>thực hiện',
+      help: 'Chọn từ danh sách nhân sự chung; có thể chọn một người hoặc cả một bộ phận. Không xác định được Người thực hiện là lỗi BLOCK, Task không được chạy.',
+      placeholder: 'Nháp: chọn nhân sự'
+    },
+    {
+      key: 'reporter',
+      label: 'Người được báo cáo',
+      labelHtml: 'Người được<br>báo cáo',
+      help: 'Có thể dùng chung điều kiện với Người thực hiện hoặc tạo nguyên tắc riêng tổng quát hơn. Thiếu Người được báo cáo chỉ CẢNH BÁO, không chặn Task.',
+      placeholder: 'Nháp: chọn nhân sự / quy tắc'
+    },
+    {
+      key: 'forwarder',
+      label: 'Người được chuyển tiếp',
+      labelHtml: 'Người được<br>chuyển tiếp',
+      help: 'Có thể dùng chung điều kiện với Người thực hiện hoặc tạo nguyên tắc riêng tổng quát hơn. Thiếu Người được chuyển tiếp chỉ CẢNH BÁO, không chặn Task.',
+      placeholder: 'Nháp: chọn nhân sự / quy tắc'
+    },
+    {
+      key: 'note',
+      label: 'Ghi chú',
+      help: 'Ghi chú phục vụ duyệt thiết kế. Chữ nghiêng màu nhạt là nội dung nháp, chưa phải dữ liệu chính thức.',
+      placeholder: 'Nháp: thêm ghi chú'
+    }
+  ];
+
+  var CONDITION_FIELD_CATALOG = [
+    { order: 1, code: 'T7', name: 'Lĩnh vực', source: 'Cây 7 tầng' },
+    { order: 2, code: 'T6', name: 'Công ty', source: 'Cây 7 tầng' },
+    { order: 3, code: 'T5', name: 'Khối', source: 'Cây 7 tầng' },
+    { order: 4, code: 'T4', name: 'Bộ phận', source: 'Cây 7 tầng' },
+    { order: 5, code: 'T3', name: 'Chuyên môn', source: 'Cây 7 tầng' },
+    { order: 6, code: 'T2', name: 'Quy trình', source: 'Danh sách quy trình' },
+    { order: 7, code: 'T1', name: 'Công việc', source: 'Danh sách công việc' },
+    { order: 8, code: 'NGHIEP_DOAN', name: 'Nghiệp đoàn', source: 'Danh sách đối tác' },
+    { order: 9, code: 'XI_NGHIEP', name: 'Xí nghiệp', source: 'Danh sách đối tác' },
+    { order: 10, code: 'KHACH_HANG', name: 'Khách hàng', source: 'Danh sách đối tác' }
+  ];
+
+  var CONDITION_VALUE_SAMPLE = {
+    T7: [
+      { code: 'LV01', name: 'Thương mại quốc tế', path: 'T7' },
+      { code: 'LV02', name: 'Dịch vụ kỹ thuật', path: 'T7' }
+    ],
+    T6: [
+      { code: 'CT01', name: 'Incomex Sài Gòn', path: 'Thương mại quốc tế / T6' },
+      { code: 'CT02', name: 'Incomex Logistics', path: 'Thương mại quốc tế / T6' }
+    ],
+    T5: [
+      { code: 'K01', name: 'Kinh doanh', path: 'Incomex Sài Gòn / T5' },
+      { code: 'K02', name: 'Backend', path: 'Incomex Sài Gòn / T5' }
+    ],
+    T4: [
+      { code: 'NB4', name: 'Phòng hồ sơ', path: 'Incomex Sài Gòn / Kinh doanh / T4' },
+      { code: 'NB5', name: 'Phòng phiên dịch', path: 'Incomex Sài Gòn / Kinh doanh / T4' },
+      { code: 'NB6', name: 'Phòng phỏng vấn', path: 'Incomex Sài Gòn / Kinh doanh / T4' }
+    ],
+    T3: [
+      { code: 'CM01', name: 'Tuyển dụng', path: 'Nhân sự / T3' },
+      { code: 'CM02', name: 'Đào tạo', path: 'Nhân sự / T3' }
+      { code: 'CM02', name: 'Đào tạo', path: 'Nhân sự / T3' }
+    ],
+    T2: [
+      { code: 'WF-0001', name: 'Tiếp nhận hồ sơ', path: 'Tuyển dụng / T2' },
+      { code: 'WF-0002', name: 'Phỏng vấn', path: 'Tuyển dụng / T2' },
+      { code: 'WF-0003', name: 'Thu hồ sơ', path: 'Tuyển dụng / T2' }
+    ],
+    T1: [
+      { code: 'TSK-0001', name: 'Nhận đơn', path: 'Tiếp nhận hồ sơ / T1' },
+      { code: 'TSK-0002', name: 'Nhập hệ thống', path: 'Tiếp nhận hồ sơ / T1' },
+      { code: 'TSK-0003', name: 'Xếp nhóm', path: 'Tiếp nhận hồ sơ / T1' }
+    ],
+    NGHIEP_DOAN: [
+      { code: 'JSJ', name: 'Nghiệp đoàn JSJ', path: 'Đối tác / Nghiệp đoàn' },
+      { code: 'JSC', name: 'Nghiệp đoàn JSC', path: 'Đối tác / Nghiệp đoàn' }
+    ],
+    XI_NGHIEP: [
+      { code: 'XN001', name: 'Xí nghiệp Tokyo', path: 'Đối tác / Xí nghiệp' },
+      { code: 'XN002', name: 'Xí nghiệp Osaka', path: 'Đối tác / Xí nghiệp' }
+    ],
+    KHACH_HANG: [
+      { code: 'KH001', name: 'Khách hàng A', path: 'Đối tác / Khách hàng' },
+      { code: 'KH002', name: 'Khách hàng B', path: 'Đối tác / Khách hàng' }
+    ]
+  };
+
+  function assignmentRuleHead(column) {
+    var isConnector = column.key.indexOf('connector_') === 0;
+    var label = isConnector
+      ? '<span aria-hidden="true">and<br>/or</span>'
+      : column.labelHtml || esc(column.label);
+    if (isConnector) {
+      return '<span class="t1-mapping-table__head">'
+        + '<span class="t1-mapping-table__head-label">' + label + '</span></span>';
+    }
+    return '<span class="t1-mapping-table__head">'
+      + '<span class="t1-mapping-table__head-label">' + label + '</span>'
+      + '<span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột '
+      + esc(column.label) + ': ' + esc(column.help) + '">?</span>'
+      + '<span class="t1-mapping-table__tip" role="tooltip">' + esc(column.help) + '</span>'
+      + '</span>';
+  }
+
+  function renderConditionFieldRows() {
+    return CONDITION_FIELD_CATALOG.map(function (field) {
+      return '<tr class="new-modt-condition-picker__row" data-field-code="' + esc(field.code) + '">'
+        + '<td style="width:36px">' + esc(String(field.order).padStart(2, '0')) + '</td>'
+        + '<td>' + esc(field.name) + '</td>'
+        + '<td class="new-modt-condition-picker__muted">' + esc(field.code) + '</td>'
+        + '<td class="new-modt-condition-picker__muted">' + esc(field.source) + '</td></tr>';
+    }).join('');
+  }
+
+  function renderConditionPicker() {
+    return '<section class="new-modt-condition-picker" aria-hidden="true">'
+      + '<div class="new-modt-condition-picker__backdrop" data-action="condition-close"></div>'
+      + '<div class="new-modt-condition-picker__dialog" role="dialog" aria-modal="true" aria-label="Chọn điều kiện">'
+      + '<div class="new-modt-condition-picker__head"><div>'
+      + '<div class="new-modt-condition-picker__title">Chọn điều kiện</div>'
+      + '<div class="new-modt-condition-picker__sub">Chọn trường trước; bảng giá trị tự đọc đúng nguồn dữ liệu</div>'
+      + '</div><button type="button" class="new-modt-condition-picker__close" data-action="condition-close" aria-label="Đóng">×</button></div>'
+      + '<div class="new-modt-condition-picker__body">'
+      + '<section class="new-modt-condition-picker__pane"><div class="new-modt-condition-picker__pane-head">'
+      + '<span class="new-modt-condition-picker__step">1 · Chọn trường</span>'
+      + '<span class="new-modt-condition-picker__note">Tối đa 15 trường chuẩn</span></div>'
+      + '<div class="new-modt-condition-picker__table-wrap"><table class="new-modt-condition-picker__table">'
+      + '<thead><tr><th style="width:40px">STT</th><th>Tên trường</th><th style="width:92px">Mã</th><th style="width:125px">Nguồn</th></tr></thead>'
+      + '<tbody>' + renderConditionFieldRows() + '</tbody></table></div></section>'
+      + '<section class="new-modt-condition-picker__pane"><div class="new-modt-condition-picker__pane-head">'
+      + '<span class="new-modt-condition-picker__step">2 · Chọn giá trị</span>'
+      + '<input class="new-modt-condition-picker__search" type="search" placeholder="Tìm mã hoặc tên..." disabled></div>'
+      + '<div class="new-modt-condition-picker__table-wrap"><table class="new-modt-condition-picker__table">'
+      + '<thead><tr><th style="width:90px">Mã</th><th>Giá trị</th><th style="width:180px">Đường dẫn / phạm vi</th></tr></thead>'
+      + '<tbody class="new-modt-condition-picker__values"><tr><td colspan="3" class="new-modt-condition-picker__empty">Chọn một trường ở bảng bên trái</td></tr></tbody>'
+      + '</table></div></section></div>'
+      + '<div class="new-modt-condition-picker__foot">'
+      + '<span class="new-modt-condition-picker__note" data-role="condition-picker-note">ALL = mọi giá trị hợp lệ · nguồn dài tìm và phân trang trên máy chủ.</span>'
+      + '<div class="new-modt-condition-picker__actions">'
+      + '<button type="button" class="new-modt-condition-picker__button" data-action="condition-close">Huỷ</button>'
+      + '<button type="button" class="new-modt-condition-picker__button new-modt-condition-picker__button--primary" data-action="condition-choose" disabled>Chọn</button>'
+      + '</div></div></div></section>';
+  }
+
+  function renderConditionValueRows(fieldCode, query) {
+    var needle = String(query || '').trim().toLowerCase();
+    var field = CONDITION_FIELD_CATALOG.find(function (item) {
+      return item.code === fieldCode;
+    });
+    var values = field
+      ? [{
+          code: 'ALL',
+          name: 'Tất cả ' + field.name.toLowerCase(),
+          path: 'Giá trị hệ thống · áp dụng cho mọi giá trị hợp lệ',
+          isAll: true
+        }].concat(CONDITION_VALUE_SAMPLE[fieldCode] || [])
+      : [];
+    values = values.filter(function (value) {
+      return !needle
+        || value.code.toLowerCase().indexOf(needle) !== -1
+        || value.name.toLowerCase().indexOf(needle) !== -1
+        || value.path.toLowerCase().indexOf(needle) !== -1;
+    });
+    if (!values.length) {
+      return '<tr><td colspan="3" class="new-modt-condition-picker__empty">Không tìm thấy giá trị phù hợp</td></tr>';
+    }
+    return values.map(function (value) {
+      return '<tr class="new-modt-condition-picker__row'
+        + (value.isAll ? ' new-modt-condition-picker__row--all' : '')
+        + '" data-value-code="' + esc(value.code) + '"'
+        + ' data-value-name="' + esc(value.name) + '"><td'
+        + (value.isAll ? ' class="new-modt-condition-picker__all-code"' : '')
+        + '>' + esc(value.code) + '</td>'
+        + '<td>' + esc(value.name) + '</td><td class="new-modt-condition-picker__muted">'
+        + esc(value.path) + '</td></tr>';
+    }).join('');
+  }
+
+  function renderAssignmentRuleRow(ruleCode) {
+    var cells = ASSIGNMENT_RULE_COLUMNS.map(function (column) {
+      var isConnector = column.key.indexOf('connector_') === 0;
+      var isCondition = column.key === 'anchor_1' || column.key === 'anchor_2' || column.key === 'condition';
+      var className = column.key === 'rule_code'
+        ? 'new-modt-assignment-rule-table__code'
+        : isConnector
+          ? 'new-modt-assignment-rule-table__connector'
+          : 't1-mapping-table__empty t1-mapping-table__placeholder';
+      var content = isConnector
+        ? '<button type="button" class="new-modt-assignment-rule-table__connector-toggle" '
+          + 'data-value="AND" aria-label="Đang chọn AND; bấm để đổi AND hoặc OR">and</button>'
+        : isCondition
+          ? '<button type="button" class="new-modt-assignment-rule-table__condition-trigger" data-condition-key="'
+            + esc(column.key) + '"><span class="new-modt-assignment-rule-table__condition">'
+            + '<span class="new-modt-assignment-rule-table__condition-field">Nháp: chọn trường =</span>'
+            + '<span class="new-modt-assignment-rule-table__condition-value">Nháp: chọn giá trị</span></span></button>'
+        : column.key === 'rule_code' ? esc(ruleCode) : esc(column.placeholder);
+      return '<td class="' + className + '" data-machine-field="'
+        + esc(column.key) + '">' + content + '</td>';
+    }).join('');
+    return '<tr class="t1-mapping-table__row" data-region="modtnew.task_config.assignment_rule.row">'
+      + cells + '</tr>';
+  }
+
+  function renderAssignmentRuleTable() {
+    var headers = ASSIGNMENT_RULE_COLUMNS.map(function (column) {
+      var headerClass = column.key.indexOf('connector_') === 0
+        ? ' class="new-modt-assignment-rule-table__connector-header"'
+        : '';
+      return '<th scope="col"' + headerClass + ' data-region="modtnew.task_config.assignment_rule.header.'
+        + esc(column.key) + '">' + assignmentRuleHead(column) + '</th>';
+    }).join('');
+    return '<section class="t1-mapping-card new-modt-assignment-rule-card" data-region="modtnew.task_config.assignment_rule.table">'
+      + '<div class="t1-mapping-card__scroll">'
+      + '<table class="t1-mapping-table new-modt-assignment-rule-table">'
+      + '<colgroup><col style="width:5%"><col style="width:12.25%"><col style="width:3.5%">'
+      + '<col style="width:12.25%"><col style="width:3.5%"><col style="width:15.5%">'
+      + '<col style="width:10.5%"><col style="width:14%"><col style="width:14%">'
+      + '<col style="width:9.5%"></colgroup>'
+      + '<thead><tr class="new-modt-assignment-rule-table__groups">'
+      + '<th aria-hidden="true"></th><th colspan="5" scope="colgroup">NẾU</th><th colspan="4" scope="colgroup">THÌ</th>'
+      + '</tr><tr>' + headers + '</tr></thead>'
+      + '<tbody class="new-modt-assignment-rule-table__body">' + renderAssignmentRuleRow('NTGV01')
+      + '</tbody></table></div></section>';
+  }
+
+  function renderModule(module, taskKey) {
+    var isOpen = !!(openState[taskKey] && openState[taskKey][module.id]);
+    var rows = module.rows.map(function (row) {
+      return cell('new-modt-rule-grid__cell--subject', esc(row.subject))
+        + cell('new-modt-rule-grid__cell--condition', lineList(row.when, module.lead || 'Nếu'))
+        + cell('new-modt-rule-grid__cell--result', lineList(row.then, 'Thì'))
+        + cell('new-modt-rule-grid__cell--test' + (row.test === 'passed' ? ' is-passed' : ''), row.test === 'passed' ? '✓' : '—')
+        + cell('new-modt-rule-grid__cell--status', esc(row.status))
+        + cell('new-modt-rule-grid__cell--note', esc(row.note));
+    }).join('');
+    var body = module.id === 'assignment_rule'
+      ? renderAssignmentRuleTable()
+      : '<div class="new-modt-rule-grid" data-region="modtnew.task_config.' + esc(module.id) + '.rules">'
+        + help('Nội dung', 'subject') + help('Khi nào áp dụng', 'when') + help('Thì hệ thống làm', 'then')
+        + help('Test', 'test') + help('Tình trạng', 'status') + help('Ghi chú', 'note')
+        + rows + '</div>';
+    var helpSlot = module.id === 'assignment_rule'
+      ? '<span class="new-modt-config-module__help-slot"><button type="button" '
+        + 'class="new-modt-config-module__help-button" data-action="module-help" '
+        + 'aria-expanded="false">Help</button></span>'
+      : '<span class="new-modt-config-module__help-slot"></span>';
+    var helpPanel = module.id === 'assignment_rule'
+      ? '<div class="new-modt-config-module__help-panel" data-role="module-help-panel">'
+        + '<div class="new-modt-config-module__help-title">Hướng dẫn Nguyên tắc giao việc</div>'
+        + '<div class="new-modt-config-module__help-line">Một hàng = một nguyên tắc. Cùng điều kiện: điền nhiều vai trò trong một hàng. Khác điều kiện: thêm hàng riêng và chỉ điền vai trò cần áp dụng.</div>'
+        + '<div class="new-modt-config-module__help-line new-modt-config-module__help-line--block"><strong>BLOCK</strong> · Điều kiện sai thứ tự · Không xác định được Người thực hiện.</div>'
+        + '<div class="new-modt-config-module__help-line new-modt-config-module__help-line--warning"><strong>CẢNH BÁO</strong> · Thiếu Người được báo cáo hoặc Người được chuyển tiếp.</div>'
+        + '<div class="new-modt-config-module__help-line">ALL = mọi giá trị hợp lệ của trường, không gồm giá trị trống. Tối đa 50 nguyên tắc mỗi trang.</div>'
+        + '</div>'
+      : '';
+
+    return '<details class="new-modt-config-module" data-module-id="' + esc(module.id)
+      + '" data-region="modtnew.task_config.' + esc(module.id) + '"' + (isOpen ? ' open' : '') + '>'
+      + '<summary class="new-modt-config-module__summary" data-region="modtnew.task_config.'
+      + esc(module.id) + '.toggle">'
+      + '<span class="new-modt-config-module__number">' + esc(module.number) + '</span>'
+      + '<span class="new-modt-config-module__title">' + esc(module.title) + '</span>'
+      + '<span class="new-modt-config-module__subtitle">' + esc(module.subtitle) + '</span>'
+      + helpSlot
+      + '<span class="new-modt-config-module__state">Nháp thiết kế</span>'
+      + '<span class="new-modt-config-module__chevron">⌄</span></summary>' + helpPanel
+      + '<div class="new-modt-config-module__body">'
+      + body
+      + '<div class="new-modt-config-module__foot">'
+      + (module.allowAdd
+        ? '<button type="button" class="new-modt-config-module__add" data-action="add-rule">＋ '
+          + (module.id === 'assignment_rule' ? 'Thêm nguyên tắc' : 'Thêm cách xác định') + '</button>'
+        : '<span class="new-modt-config-module__foot-note">Các dòng cố định · chỉ khai giá trị</span>')
+      + '<span class="new-modt-config-module__foot-note">'
+      + (module.id === 'assignment_rule'
+        ? '1/50'
+        : 'DRAFT · dữ liệu mẫu để duyệt thiết kế, chưa ghi hệ thống thật')
+      + '</span>'
+      + '</div></div></details>';
+  }
+
+  function mount(root, task) {
+    if (!root || root.querySelector(':scope > .new-modt-task-config')) return;
+    ensureStyle();
+    var taskKey = task && (task.code || task.title) ? String(task.code || task.title) : 'T1';
+    if (!openState[taskKey]) openState[taskKey] = Object.create(null);
+
+    var host = document.createElement('section');
+    host.className = 'new-modt-task-config';
+    host.setAttribute('data-region', 'modtnew.task_config');
+    host.innerHTML = '<div class="new-modt-task-config__label">Cấu hình để Task chạy'
+      + '<span class="new-modt-task-config__draft">· mở phần nào, khai phần đó</span></div>'
+      + MODULES.map(function (module) { return renderModule(module, taskKey); }).join('')
+      + renderConditionPicker();
+
+    host.querySelectorAll('.new-modt-config-module').forEach(function (details) {
+      details.addEventListener('toggle', function () {
+        openState[taskKey][details.getAttribute('data-module-id')] = details.open;
+      });
+    });
+
+    host.querySelectorAll('[data-action="module-help"]').forEach(function (button) {
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var moduleElement = button.closest('.new-modt-config-module');
+        var panel = moduleElement.querySelector('[data-role="module-help-panel"]');
+        var shouldOpen = !panel.classList.contains('is-open');
+        moduleElement.open = true;
+        panel.classList.toggle('is-open', shouldOpen);
+        button.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+      });
+    });
+
+    var picker = host.querySelector('.new-modt-condition-picker');
+    var pickerValues = picker.querySelector('.new-modt-condition-picker__values');
+    var pickerSearch = picker.querySelector('.new-modt-condition-picker__search');
+    var pickerChoose = picker.querySelector('[data-action="condition-choose"]');
+    var pickerNote = picker.querySelector('[data-role="condition-picker-note"]');
+    var activeConditionTrigger = null;
+    var selectedField = null;
+    var selectedValue = null;
+
+    function closeConditionPicker() {
+      picker.classList.remove('is-open');
+      picker.setAttribute('aria-hidden', 'true');
+    }
+
+    function bindValueRows() {
+      pickerValues.querySelectorAll('[data-value-code]').forEach(function (row) {
+        row.addEventListener('click', function () {
+          pickerValues.querySelectorAll('.is-selected').forEach(function (item) {
+            item.classList.remove('is-selected');
+          });
+          row.classList.add('is-selected');
+          selectedValue = {
+            code: row.getAttribute('data-value-code'),
+            name: row.getAttribute('data-value-name')
+          };
+          pickerChoose.disabled = false;
+        });
+      });
+    }
+
+    function showValues(query) {
+      pickerValues.innerHTML = renderConditionValueRows(selectedField ? selectedField.code : '', query);
+      selectedValue = null;
+      pickerChoose.disabled = true;
+      bindValueRows();
+    }
+
+    function bindAssignmentRuleRow(row) {
+      row.querySelectorAll('.new-modt-assignment-rule-table__connector-toggle').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var nextValue = button.getAttribute('data-value') === 'AND' ? 'OR' : 'AND';
+          button.setAttribute('data-value', nextValue);
+          button.setAttribute('aria-label', 'Đang chọn ' + nextValue + '; bấm để đổi AND hoặc OR');
+          button.textContent = nextValue.toLowerCase();
+        });
+      });
+      row.querySelectorAll('.new-modt-assignment-rule-table__condition-trigger').forEach(function (button) {
+        button.addEventListener('click', function () {
+        activeConditionTrigger = button;
+        selectedField = null;
+        selectedValue = null;
+        pickerSearch.value = '';
+        pickerSearch.disabled = true;
+        pickerChoose.disabled = true;
+        pickerNote.classList.remove('is-error');
+        pickerNote.textContent = 'ALL = mọi giá trị hợp lệ · nguồn dài tìm và phân trang trên máy chủ.';
+        picker.querySelectorAll('.is-selected').forEach(function (item) {
+          item.classList.remove('is-selected');
+        });
+        pickerValues.innerHTML = '<tr><td colspan="3" class="new-modt-condition-picker__empty">Chọn một trường ở bảng bên trái</td></tr>';
+        picker.classList.add('is-open');
+        picker.setAttribute('aria-hidden', 'false');
+        });
+      });
+    }
+
+    host.querySelectorAll('.new-modt-assignment-rule-table__body .t1-mapping-table__row').forEach(bindAssignmentRuleRow);
+
+    picker.querySelectorAll('[data-field-code]').forEach(function (row) {
+      row.addEventListener('click', function () {
+        picker.querySelectorAll('[data-field-code].is-selected').forEach(function (item) {
+          item.classList.remove('is-selected');
+        });
+        row.classList.add('is-selected');
+        selectedField = CONDITION_FIELD_CATALOG.find(function (field) {
+          return field.code === row.getAttribute('data-field-code');
+        });
+        pickerSearch.disabled = false;
+        pickerSearch.value = '';
+        showValues('');
+        pickerSearch.focus();
+      });
+    });
+
+    pickerSearch.addEventListener('input', function () {
+      showValues(pickerSearch.value);
+    });
+
+    picker.querySelectorAll('[data-action="condition-close"]').forEach(function (button) {
+      button.addEventListener('click', closeConditionPicker);
+    });
+
+    pickerChoose.addEventListener('click', function () {
+      if (!activeConditionTrigger || !selectedField || !selectedValue) return;
+      var conditionKeys = ['anchor_1', 'anchor_2', 'condition'];
+      var currentIndex = conditionKeys.indexOf(activeConditionTrigger.getAttribute('data-condition-key'));
+      var activeRuleRow = activeConditionTrigger.closest('.t1-mapping-table__row');
+      var conditionTriggers = conditionKeys.map(function (key) {
+        return activeRuleRow.querySelector('.new-modt-assignment-rule-table__condition-trigger[data-condition-key="' + key + '"]');
+      });
+      var previousOrder = currentIndex > 0
+        ? Number(conditionTriggers[currentIndex - 1].getAttribute('data-field-order') || 0)
+        : 0;
+      var nextOrder = currentIndex < conditionTriggers.length - 1
+        ? Number(conditionTriggers[currentIndex + 1].getAttribute('data-field-order') || 0)
+        : 0;
+      var isExactDuplicate = conditionTriggers.some(function (trigger, index) {
+        return index !== currentIndex
+          && trigger.getAttribute('data-field-code') === selectedField.code
+          && trigger.getAttribute('data-value-code') === selectedValue.code;
+      });
+      var hasAllOverlap = conditionTriggers.some(function (trigger, index) {
+        var existingValue = trigger.getAttribute('data-value-code');
+        return index !== currentIndex
+          && trigger.getAttribute('data-field-code') === selectedField.code
+          && (existingValue === 'ALL' || selectedValue.code === 'ALL');
+      });
+      if (isExactDuplicate) {
+        pickerNote.classList.add('is-error');
+        pickerNote.textContent = 'Điều kiện này đã được chọn trong cùng nguyên tắc.';
+        return;
+      }
+      if (hasAllOverlap) {
+        pickerNote.classList.add('is-error');
+        pickerNote.textContent = 'ALL đã bao phủ toàn bộ trường này; không chọn thêm giá trị cùng trường trong một nguyên tắc.';
+        return;
+      }
+      if ((previousOrder && selectedField.order < previousOrder)
+        || (nextOrder && selectedField.order > nextOrder)) {
+        pickerNote.classList.add('is-error');
+        pickerNote.textContent = 'Sai thứ tự bảng gốc. Hãy chọn lại Điều kiện 1 → 2 → 3 theo thứ tự tăng dần.';
+        return;
+      }
+      activeConditionTrigger.querySelector('.new-modt-assignment-rule-table__condition-field').textContent =
+        selectedField.name + ' =';
+      activeConditionTrigger.querySelector('.new-modt-assignment-rule-table__condition-value').textContent =
+        selectedValue.code + ' · ' + selectedValue.name;
+      activeConditionTrigger.setAttribute('data-field-order', String(selectedField.order));
+      activeConditionTrigger.setAttribute('data-field-code', selectedField.code);
+      activeConditionTrigger.setAttribute('data-value-code', selectedValue.code);
+      activeConditionTrigger.setAttribute('data-match-mode', selectedValue.code === 'ALL' ? 'ALL' : 'EXACT');
+      closeConditionPicker();
+    });
+
+    host.querySelectorAll('[data-action="add-rule"]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var moduleElement = button.closest('.new-modt-config-module');
+        var note = button.parentElement.querySelector('.new-modt-config-module__foot-note');
+        if (moduleElement && moduleElement.getAttribute('data-module-id') === 'assignment_rule') {
+          var tableBody = moduleElement.querySelector('.new-modt-assignment-rule-table__body');
+          var currentCount = tableBody.querySelectorAll('.t1-mapping-table__row').length;
+          if (currentCount >= 50) {
+            note.textContent = '50/50';
+            return;
+          }
+          var nextCode = 'NTGV' + String(currentCount + 1).padStart(2, '0');
+          tableBody.insertAdjacentHTML('beforeend', renderAssignmentRuleRow(nextCode));
+          bindAssignmentRuleRow(tableBody.lastElementChild);
+          note.textContent = String(currentCount + 1) + '/50';
+          return;
+        }
+        note.textContent = 'Bản nháp: nút thêm dòng sẽ được nối sau khi chốt cách khai báo.';
+      });
+    });
+
+    root.appendChild(host);
+  }
+
+  window.NEW_MODT_TASK_CONFIG = {
+    mount: mount,
+    schema: MODULES,
+    conditionFieldCatalog: CONDITION_FIELD_CATALOG,
+    conditionAllCode: 'ALL',
+    conditionAllSemantics: 'Mọi giá trị hợp lệ của trường; không bao gồm giá trị trống. Điều kiện cụ thể ưu tiên hơn ALL.'
+  };
+}());
+
+</script>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <defs>
+    <filter id="bs" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04 0.05" numOctaves="3" seed="9" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  <symbol id="ic-improve" viewBox="0 0 64 64"><g filter="url(#bs)" opacity="0.84"><path d="M32 8 C19 8 13 18 13 27 C13 35 18 40 22 44 L22 51 L42 51 L42 44 C46 40 51 35 51 27 C51 18 45 8 32 8 Z" fill="none" stroke="#6b7280" stroke-width="5.5" stroke-linejoin="round"/><line x1="22" y1="54" x2="42" y2="54" stroke="#6b7280" stroke-width="5" stroke-linecap="round"/><line x1="25" y1="59" x2="39" y2="59" stroke="#6b7280" stroke-width="4.5" stroke-linecap="round"/><path d="M23 21 Q27 15 33 18" stroke="#b0b8c4" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.7"/></g></symbol>
