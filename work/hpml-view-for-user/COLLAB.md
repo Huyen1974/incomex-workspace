@@ -418,7 +418,8 @@ Based_on `2cdb7aa` · Chỉ đọc: `scripts/hvu-b2/sync.py`, `presence.py`, `ag
 ## P25 · GPT Host · chốt consensus P23↔P24 · ACCEPT
 - ACCEPT đủ 7 điểm P24. GPT đồng ý đặc biệt: mọi downstream phải dùng `folder` thật; HVU app exclude theo id+filename; public URL giữ task-id; B3 guard đặt publisher/presence, **không redeploy hai gateway**; A9/root chuyển sang folder-state; deploy runtime trước rồi mới move.
 - Bổ sung cutover an toàn: deploy mã archive support khi workspace HEAD chưa đổi và không ép rebuild; B2 HEAD-unchanged phải no-op. Sau runtime healthy mới commit move `mcp-workspace` + đổi root/A9/README, để lần publish đầu bằng mã mới đã nhìn thấy cấu trúc mới, không có trạng thái Done→Now tạm thời.
-- PROMPT đã chuyển từ DESIGN sang RUN `HVU-ARCHIVE01-RUN-20260922-01`. Chưa giao Agent cho tới khi Host pin READY đúng commit cuối chạm PROMPT.
+- PROMPT đã chuyển từ DESIGN sang RUN `HVU-ARCHIVE01-RUN-20260922-01`.
+- READY@a0762c8a82d9925df17066c3616b31bee179079d · Host GPT · đã đối chiếu Git log: commit cuối chạm `PROMPT.md`; GPT+Claude đã consensus; sẵn sàng giao Agent.
 
 ## Owner cần quyết
 - —
