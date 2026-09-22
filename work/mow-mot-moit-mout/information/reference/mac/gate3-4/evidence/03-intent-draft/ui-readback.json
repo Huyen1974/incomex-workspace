@@ -1,0 +1,25 @@
+{
+  "existing_page": "/Users/nmhuyen/Documents/Codex/2026-08-19/ng-d-n-th-c-t/web-test/web/pages/knowledge/workflows/index.vue",
+  "reused_sha256": "4dc0131bd1bb0c9eff5f27c5421aef867e99b0da83f786404f42b782ef59052b",
+  "authored_ui_page_lines": 0,
+  "host": "Nuxt built-in page host; lab config adds component naming alias only",
+  "registry": "table_registry.tbl_workflow_list -> lab_drafts",
+  "seen_in_browser": [
+    {
+      "id": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+      "title": "Quy trình ghi nhận thời lượng xử lý",
+      "version": 1,
+      "revision": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "60ec867f-1729-4b67-a074-5caceb691c17",
+      "title": "Quy trình ghi nhận thời lượng xử lý",
+      "version": 1,
+      "revision": 1,
+      "status": "waiting"
+    }
+  ],
+  "trigger_for_readback": "Existing Làm mới button, after agent writes",
+  "limitation": "No automatic push/live refresh proven. Existing detail row link remains legacy; P02 editing not proven. This proves P01 generic library readback, not whole human end-to-end UI."
+}

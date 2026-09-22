@@ -1,0 +1,34 @@
+{
+  "step": 4,
+  "status": "PASS bounded fresh resume; not automatic production dispatcher",
+  "checks": {
+    "two_fresh_resumes": true,
+    "same_published_condition": true,
+    "missing_slots_cleared": true,
+    "same_reuse_plus_condition": true,
+    "original_parent_revision_preserved": true,
+    "material_owner_only": true,
+    "native_negative_cases": true
+  },
+  "condition_version": "c15adbf9-c5d5-4369-b893-f508683481f6",
+  "drafts": [
+    {
+      "id": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+      "revision": 2
+    },
+    {
+      "id": "60ec867f-1729-4b67-a074-5caceb691c17",
+      "revision": 2
+    }
+  ],
+  "fixes": [
+    "Native Condition needs explicit _and with one nested leaf per branch; multiple sibling predicates ignored. Tested positive/negative native library and real gate.",
+    "One executable catch-normalization line preserves native array validation errors as HTTP400/FAILED_VALIDATION instead of500."
+  ],
+  "failed_attempts_preserved": true,
+  "checkpoint_authority": "Parent Draft status/content/revision is completion truth; missing.status=resolved records fulfilled resource request. checkpoint is restart hint, must re-read parent; historical nested WAIT text is not authority.",
+  "formal_machine_readiness": "NOT YET RUN; fresh agents explicitly did not claim it",
+  "guard_sha256": "d0a8cecb8076ae724e343c3e3b2814c897fa190b3d27f1c46cffba0fd93ead96",
+  "runtime_regression_due": true,
+  "at": "2026-09-11T08:04:14.379849+00:00"
+}

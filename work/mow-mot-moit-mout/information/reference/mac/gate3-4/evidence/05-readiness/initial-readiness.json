@@ -1,0 +1,370 @@
+[
+  {
+    "draft": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+    "revision": 2,
+    "evidence_id": "a91894d8-6351-4e0a-982e-2da2684feb6f",
+    "closure_hash": "010d5b9e5392c1c29405ddc2f0a8bdb7034e65debe4503cd9330ae08a60c5587",
+    "status": "FAIL",
+    "problems": [
+      {
+        "name": "native form declares note",
+        "detail": {
+          "form": "16a85219-1758-59f5-acef-e7d752edb36c",
+          "revision": 2,
+          "field": "note"
+        }
+      },
+      {
+        "name": "MOT completion satisfies MOUT",
+        "detail": {
+          "mot": "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+          "mot_completion": [
+            "duration_minutes",
+            "date_created"
+          ],
+          "mout": "27348608-bd97-4cad-bd46-8755fd9493a1",
+          "mout_required": [
+            "duration_minutes",
+            "date_created",
+            "review_required"
+          ]
+        }
+      },
+      {
+        "name": "physical output review_required",
+        "detail": {
+          "mapping": "lab_task_records.review_required",
+          "schema": null
+        }
+      },
+      {
+        "name": "AUTO exact executable Capability binding",
+        "detail": {
+          "capability_ref": "bb6361b9-6caf-455f-87d5-a13292b1fdf2",
+          "binding": null,
+          "registered": null
+        }
+      },
+      {
+        "name": "MOT completion satisfies MOUT",
+        "detail": {
+          "mot": "d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+          "mot_completion": [
+            "review_required"
+          ],
+          "mout": "27348608-bd97-4cad-bd46-8755fd9493a1",
+          "mout_required": [
+            "duration_minutes",
+            "date_created",
+            "review_required"
+          ]
+        }
+      },
+      {
+        "name": "physical output review_required",
+        "detail": {
+          "mapping": "lab_task_records.review_required",
+          "schema": null
+        }
+      }
+    ],
+    "readiness": [
+      {
+        "step": 1,
+        "item": 1,
+        "label": "Bước",
+        "value": "1 · step-1-human-duration-entry",
+        "source": "lab_drafts/47775731-9db1-4a91-860d-1b2fcab2a97e#content.steps",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 1,
+        "item": 2,
+        "label": "Nhiệm vụ",
+        "value": "Người thực hiện nhập số phút và ghi chú; hệ thống lưu thời điểm",
+        "source": "lab_versions/fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 1,
+        "item": 3,
+        "label": "Trigger",
+        "value": "Người dùng bắt đầu một lần ghi nhận",
+        "source": "8b3f61fc-1aaa-41f1-b61e-d3fabceea130",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 1,
+        "item": 4,
+        "label": "Ai làm",
+        "value": "current authenticated task executor",
+        "source": "72fd9674-f34d-43dd-a7cb-2d2d5371b176",
+        "status": "SYNTHETIC; D04 PENDING"
+      },
+      {
+        "step": 1,
+        "item": 5,
+        "label": "Yêu cầu sản phẩm hoàn thành",
+        "value": "duration_minutes, date_created, review_required",
+        "source": "27348608-bd97-4cad-bd46-8755fd9493a1 + fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+        "status": "WAIT"
+      },
+      {
+        "step": 1,
+        "item": 6,
+        "label": "Ghi/lưu ở đâu",
+        "value": "Biểu mẫu ghi nhận thời lượng và ghi chú → guarded internal task result",
+        "source": "756a9da6-31bd-45d4-89c7-ada389b51f21; action record",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 1,
+        "item": 7,
+        "label": "Lưu ý",
+        "value": "Ghi số phút nguyên không âm; ghi chú tùy chọn. Không nhập thời điểm.",
+        "source": "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 2,
+        "item": 1,
+        "label": "Bước",
+        "value": "2 · step-2-auto-review-flag",
+        "source": "lab_drafts/47775731-9db1-4a91-860d-1b2fcab2a97e#content.steps",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 2,
+        "item": 2,
+        "label": "Nhiệm vụ",
+        "value": "Máy đánh giá Condition được bind từ quy trình và lưu cờ cần xem xét",
+        "source": "lab_versions/d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 2,
+        "item": 3,
+        "label": "Trigger",
+        "value": "Sau khi bước 1 hoàn thành và có duration_minutes, date_created",
+        "source": "MOW topology + MOT trước/completion",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 2,
+        "item": 4,
+        "label": "Ai làm",
+        "value": "Đánh giá điều kiện khai báo bằng Directus native filter và ghi kết quả nội bộ",
+        "source": "bb6361b9-6caf-455f-87d5-a13292b1fdf2",
+        "status": "WAIT"
+      },
+      {
+        "step": 2,
+        "item": 5,
+        "label": "Yêu cầu sản phẩm hoàn thành",
+        "value": "duration_minutes, date_created, review_required",
+        "source": "27348608-bd97-4cad-bd46-8755fd9493a1 + d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+        "status": "WAIT"
+      },
+      {
+        "step": 2,
+        "item": 6,
+        "label": "Ghi/lưu ở đâu",
+        "value": "guarded internal task result",
+        "source": "27348608-bd97-4cad-bd46-8755fd9493a1",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 2,
+        "item": 7,
+        "label": "Lưu ý",
+        "value": "Ghi số phút nguyên không âm; ghi chú tùy chọn. Không nhập thời điểm.",
+        "source": "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338",
+        "status": "RESOLVED"
+      }
+    ]
+  },
+  {
+    "draft": "60ec867f-1729-4b67-a074-5caceb691c17",
+    "revision": 2,
+    "evidence_id": "a05b3999-c6ed-43e9-80c5-baef2113c83d",
+    "closure_hash": "57b54e08778ffe378cfe4eba25ab5db1c1f0d0efbff1a8899f97a4199912e9d0",
+    "status": "FAIL",
+    "problems": [
+      {
+        "name": "native form declares note",
+        "detail": {
+          "form": "16a85219-1758-59f5-acef-e7d752edb36c",
+          "revision": 2,
+          "field": "note"
+        }
+      },
+      {
+        "name": "MOT completion satisfies MOUT",
+        "detail": {
+          "mot": "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+          "mot_completion": [
+            "duration_minutes",
+            "date_created"
+          ],
+          "mout": "27348608-bd97-4cad-bd46-8755fd9493a1",
+          "mout_required": [
+            "duration_minutes",
+            "date_created",
+            "review_required"
+          ]
+        }
+      },
+      {
+        "name": "physical output review_required",
+        "detail": {
+          "mapping": "lab_task_records.review_required",
+          "schema": null
+        }
+      },
+      {
+        "name": "AUTO exact executable Capability binding",
+        "detail": {
+          "capability_ref": "bb6361b9-6caf-455f-87d5-a13292b1fdf2",
+          "binding": null,
+          "registered": null
+        }
+      },
+      {
+        "name": "MOT completion satisfies MOUT",
+        "detail": {
+          "mot": "d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+          "mot_completion": [
+            "review_required"
+          ],
+          "mout": "27348608-bd97-4cad-bd46-8755fd9493a1",
+          "mout_required": [
+            "duration_minutes",
+            "date_created",
+            "review_required"
+          ]
+        }
+      },
+      {
+        "name": "physical output review_required",
+        "detail": {
+          "mapping": "lab_task_records.review_required",
+          "schema": null
+        }
+      }
+    ],
+    "readiness": [
+      {
+        "step": 1,
+        "item": 1,
+        "label": "Bước",
+        "value": "1 · enter_duration_note",
+        "source": "lab_drafts/60ec867f-1729-4b67-a074-5caceb691c17#content.steps",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 1,
+        "item": 2,
+        "label": "Nhiệm vụ",
+        "value": "Người thực hiện nhập số phút và ghi chú; hệ thống lưu thời điểm",
+        "source": "lab_versions/fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 1,
+        "item": 3,
+        "label": "Trigger",
+        "value": "Người dùng bắt đầu một lần ghi nhận",
+        "source": "8b3f61fc-1aaa-41f1-b61e-d3fabceea130",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 1,
+        "item": 4,
+        "label": "Ai làm",
+        "value": "current authenticated task executor",
+        "source": "72fd9674-f34d-43dd-a7cb-2d2d5371b176",
+        "status": "SYNTHETIC; D04 PENDING"
+      },
+      {
+        "step": 1,
+        "item": 5,
+        "label": "Yêu cầu sản phẩm hoàn thành",
+        "value": "duration_minutes, date_created, review_required",
+        "source": "27348608-bd97-4cad-bd46-8755fd9493a1 + fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+        "status": "WAIT"
+      },
+      {
+        "step": 1,
+        "item": 6,
+        "label": "Ghi/lưu ở đâu",
+        "value": "Biểu mẫu ghi nhận thời lượng và ghi chú → guarded internal task result",
+        "source": "756a9da6-31bd-45d4-89c7-ada389b51f21; action record",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 1,
+        "item": 7,
+        "label": "Lưu ý",
+        "value": "Ghi số phút nguyên không âm; ghi chú tùy chọn. Không nhập thời điểm.",
+        "source": "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 2,
+        "item": 1,
+        "label": "Bước",
+        "value": "2 · mark_review_required_when_over_60",
+        "source": "lab_drafts/60ec867f-1729-4b67-a074-5caceb691c17#content.steps",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 2,
+        "item": 2,
+        "label": "Nhiệm vụ",
+        "value": "Máy đánh giá Condition được bind từ quy trình và lưu cờ cần xem xét",
+        "source": "lab_versions/d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 2,
+        "item": 3,
+        "label": "Trigger",
+        "value": "Sau khi bước 1 hoàn thành và có duration_minutes, date_created",
+        "source": "MOW topology + MOT trước/completion",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 2,
+        "item": 4,
+        "label": "Ai làm",
+        "value": "Đánh giá điều kiện khai báo bằng Directus native filter và ghi kết quả nội bộ",
+        "source": "bb6361b9-6caf-455f-87d5-a13292b1fdf2",
+        "status": "WAIT"
+      },
+      {
+        "step": 2,
+        "item": 5,
+        "label": "Yêu cầu sản phẩm hoàn thành",
+        "value": "duration_minutes, date_created, review_required",
+        "source": "27348608-bd97-4cad-bd46-8755fd9493a1 + d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+        "status": "WAIT"
+      },
+      {
+        "step": 2,
+        "item": 6,
+        "label": "Ghi/lưu ở đâu",
+        "value": "guarded internal task result",
+        "source": "27348608-bd97-4cad-bd46-8755fd9493a1",
+        "status": "RESOLVED"
+      },
+      {
+        "step": 2,
+        "item": 7,
+        "label": "Lưu ý",
+        "value": "Ghi số phút nguyên không âm; ghi chú tùy chọn. Không nhập thời điểm.",
+        "source": "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338",
+        "status": "RESOLVED"
+      }
+    ]
+  }
+]

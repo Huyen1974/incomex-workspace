@@ -1,0 +1,9 @@
+# Corrections và giới hạn bước 5
+
+Initial C05_READINESS FAIL giữ nguyên trong PG và file; ba nguyên nhân độc lập là form thiếu note, physical output thiếu review_required, Capability chưa có provider binding. Hai lỗi so MOT completion với MOUT là lỗi checker/fixture: SSOT INV08/D02 đã quy định MOUT tham khảo, không làm completion authority. C05 v17 cũng chứa sai ownership này. Đã sửa C05 và dựng checker lại; không trình bày initial MOUT assertions như chân lý.
+
+Sửa bằng form declaration v2, native field, 4 version mới (MOUT, Capability, HMITL MOT, AUTO MOT), không sửa 13 published versions cũ. Draft A/B revision2→3 do harness khai báo sửa sau proof fresh; không gán việc này cho fresh Agent. MOUT mới chỉ giữ read source/context; MOT giữ result/completion/storage. Freeze amendment tăng172→177, không xóa fact.
+
+Flow native ban đầu bị unique reject edge: hai nhánh không được dùng chung đích reject; sửa bằng hai Transform terminal giống nhau. Một lần cấu hình gặp native503 under pressure sau restart; Flow inactive được dọn rồi tạo lại. Smoke có hai lỗi harness trước thực thi (service không được đọc catalog; restart worker chưa tồn tại), sửa lần lượt bằng readonly fixture query và start/restart theo actual owned state. Ba boundary cuối chạy thật qua native queue→guard→Flow→record:59=false,60=false,61=true.
+
+Guard normalize native error arrays + optional exact provider configuration hash check/row shared locks. Không có business field/threshold/Pilot ID trong guard. Provider Flow là khai báo, không Script operation. Source thay đổi → runtime regression còn phải thực hiện bước7. 7-item PASS ở đây chỉ là resolved candidate refs/physical/provider trong synthetic context; không đủ một mình để Publish/Activate. Full canonical ingestion validation, lifecycle authority và HMITL runtime chưa được chứng minh bởi bước này.

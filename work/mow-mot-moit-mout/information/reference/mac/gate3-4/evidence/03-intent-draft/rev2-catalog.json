@@ -1,0 +1,307 @@
+[
+  {
+    "definition_id": "067e0905-107b-4ccf-a5c1-e7dca87bcb3c",
+    "family": "Field",
+    "version": 1,
+    "meaning": "Thời lượng xử lý nhập bằng số phút nguyên không âm",
+    "parameters": {
+      "subject": "processing duration",
+      "datatype": "integer",
+      "unit": "minute",
+      "domain_min": 0,
+      "operation": "input",
+      "physical_mapping": "lab_task_records.duration_minutes",
+      "required": true
+    },
+    "refs": [],
+    "provenance": {
+      "source": "v17 contracts and accepted bounded input/runtime primitive; TEST seed, not production approval",
+      "seed_key": "minutes"
+    },
+    "status": "published",
+    "scope": "pilot",
+    "digest": "73afcd0d52c382f8dec5142283e661f9369d86dd7cb76203c1a5b02163c94e47",
+    "id": "487d8c64-c15b-4d89-897c-6c4c258d04ad"
+  },
+  {
+    "definition_id": "145aa718-ca38-4f77-b454-0493df5bc7b8",
+    "family": "Field",
+    "version": 1,
+    "meaning": "Ghi chú tùy chọn của người thực hiện",
+    "parameters": {
+      "subject": "processing note",
+      "datatype": "string",
+      "unit": "none",
+      "operation": "input",
+      "physical_mapping": "lab_task_records.note",
+      "required": false
+    },
+    "refs": [],
+    "provenance": {
+      "source": "v17 contracts and accepted bounded input/runtime primitive; TEST seed, not production approval",
+      "seed_key": "note"
+    },
+    "status": "published",
+    "scope": "pilot",
+    "digest": "19d87868608f5e512fcceafdb6dd48f83e0b7c2d8f968bab67034bfa2eb0a687",
+    "id": "5539f704-cba3-4c4b-ab88-7741d18314cb"
+  },
+  {
+    "definition_id": "bb3db7b9-ac0e-443f-bedd-626515110a6d",
+    "family": "Field",
+    "version": 1,
+    "meaning": "Thời điểm hệ thống lưu bản ghi; không cho người nhập giả mạo",
+    "parameters": {
+      "subject": "record creation time",
+      "datatype": "timestamp",
+      "unit": "UTC",
+      "operation": "system-created",
+      "physical_mapping": "lab_task_records.date_created",
+      "required": true
+    },
+    "refs": [],
+    "provenance": {
+      "source": "v17 contracts and accepted bounded input/runtime primitive; TEST seed, not production approval",
+      "seed_key": "created"
+    },
+    "status": "published",
+    "scope": "pilot",
+    "digest": "6c94ae5cf7716d699e9c8fcbb05866b7f479f02a40f33ee8ab2c2026807ea7fa",
+    "id": "59b79193-7978-4e01-99e7-aca8dddf878f"
+  },
+  {
+    "definition_id": "297bdbb8-2d24-40be-85a0-7958ebd511d2",
+    "family": "Field",
+    "version": 1,
+    "meaning": "Kết quả cần xem xét",
+    "parameters": {
+      "subject": "review required",
+      "datatype": "boolean",
+      "unit": "none",
+      "operation": "system-computed",
+      "physical_mapping": "lab_task_records.review_required",
+      "required": true
+    },
+    "refs": [],
+    "provenance": {
+      "source": "v17 contracts and accepted bounded input/runtime primitive; TEST seed, not production approval",
+      "seed_key": "reviewflag"
+    },
+    "status": "published",
+    "scope": "pilot",
+    "digest": "749185f764ded49bd00f2a20b33cb7b2b3a427fb548dec0b5bef466dae5bf072",
+    "id": "b8756a04-b301-42e4-a791-2e3b98532b6a"
+  },
+  {
+    "definition_id": "76ea20df-e76e-4b24-a7c2-96bedf254092",
+    "family": "Guidance",
+    "version": 1,
+    "meaning": "Nhập số phút nguyên; ghi chú có thể bỏ trống; thời điểm do hệ thống lưu",
+    "parameters": {
+      "text": "Ghi số phút nguyên không âm; ghi chú tùy chọn. Không nhập thời điểm.",
+      "applies_to": "HMITL duration entry",
+      "grants_permission": false
+    },
+    "refs": [],
+    "provenance": {
+      "source": "v17 contracts and accepted bounded input/runtime primitive; TEST seed, not production approval",
+      "seed_key": "guidance"
+    },
+    "status": "published",
+    "scope": "pilot",
+    "digest": "cc929c4196e23756ddc5c54ca3b59775dc8c3af9176f3c4fc4e3b6d90b035e75",
+    "id": "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338"
+  },
+  {
+    "definition_id": "74c7d184-3acd-43f1-9f8e-acfab5eba8bc",
+    "family": "NTGV",
+    "version": 1,
+    "meaning": "Người được giao task nhập kết quả của mình; vai trò tổng hợp TEST",
+    "parameters": {
+      "executor_selector": "current authenticated task executor",
+      "delegate_selector": null,
+      "next_task_executor_selector": "synthetic-auto",
+      "owner_decision": "D04 WAITING OWNER; mechanism only, no real assignment lock"
+    },
+    "refs": [],
+    "provenance": {
+      "source": "v17 contracts and accepted bounded input/runtime primitive; TEST seed, not production approval",
+      "seed_key": "assignment"
+    },
+    "status": "published",
+    "scope": "pilot",
+    "digest": "e1f70e28997c5a4e4d023d9aa4235913778d9581baf0be2655234ada5acc2b95",
+    "id": "72fd9674-f34d-43dd-a7cb-2d2d5371b176"
+  },
+  {
+    "definition_id": "aad8629f-8bbc-4555-936d-150448904e4c",
+    "family": "Trigger",
+    "version": 1,
+    "meaning": "Người dùng bắt đầu một lần ghi nhận",
+    "parameters": {
+      "event_type": "manual.start",
+      "dedup_basis": "occurrence_id",
+      "predicate_ref": null
+    },
+    "refs": [],
+    "provenance": {
+      "source": "v17 contracts and accepted bounded input/runtime primitive; TEST seed, not production approval",
+      "seed_key": "manual"
+    },
+    "status": "published",
+    "scope": "pilot",
+    "digest": "367edc51a478510e90b6408305d215355a8907d6e1d6e28f2d635665df0379d1",
+    "id": "8b3f61fc-1aaa-41f1-b61e-d3fabceea130"
+  },
+  {
+    "definition_id": "86c5c2cf-7168-4c07-90c2-5de8caa155d6",
+    "family": "MOIT",
+    "version": 1,
+    "meaning": "Biểu mẫu ghi nhận thời lượng và ghi chú",
+    "parameters": {
+      "field_bindings": [
+        "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+        "5539f704-cba3-4c4b-ab88-7741d18314cb",
+        "59b79193-7978-4e01-99e7-aca8dddf878f"
+      ],
+      "layout": {
+        "native_form_id": "16a85219-1758-59f5-acef-e7d752edb36c"
+      },
+      "submit_target": "record",
+      "profile_ref": "record-input-v1"
+    },
+    "refs": [
+      "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+      "5539f704-cba3-4c4b-ab88-7741d18314cb",
+      "59b79193-7978-4e01-99e7-aca8dddf878f"
+    ],
+    "provenance": {
+      "source": "v17 contracts and accepted bounded input/runtime primitive; TEST seed, not production approval",
+      "seed_key": "entryform"
+    },
+    "status": "published",
+    "scope": "pilot",
+    "digest": "d7f95996cde1c9c93e5326ad3461a9b40ce6bbc0629e7d0ad06baf2df649fef7",
+    "id": "756a9da6-31bd-45d4-89c7-ada389b51f21"
+  },
+  {
+    "definition_id": "bc6ca118-0298-47cd-86ca-5119af3ec21a",
+    "family": "MOUT",
+    "version": 1,
+    "meaning": "Đọc lại thời lượng, ghi chú, thời điểm và cờ cần xem xét",
+    "parameters": {
+      "field_bindings": [
+        "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+        "5539f704-cba3-4c4b-ab88-7741d18314cb",
+        "59b79193-7978-4e01-99e7-aca8dddf878f",
+        "b8756a04-b301-42e4-a791-2e3b98532b6a"
+      ],
+      "consumer_ref": "next step and human result view",
+      "completion_required": [
+        "duration_minutes",
+        "date_created",
+        "review_required"
+      ],
+      "storage_target": "guarded internal task result"
+    },
+    "refs": [
+      "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+      "5539f704-cba3-4c4b-ab88-7741d18314cb",
+      "59b79193-7978-4e01-99e7-aca8dddf878f",
+      "b8756a04-b301-42e4-a791-2e3b98532b6a"
+    ],
+    "provenance": {
+      "source": "v17 contracts and accepted bounded input/runtime primitive; TEST seed, not production approval",
+      "seed_key": "receipt"
+    },
+    "status": "published",
+    "scope": "pilot",
+    "digest": "da7f0f7b068da5917596e44ee8771cb207dfe2b4a3b1192513c085c2e49f99fb",
+    "id": "27348608-bd97-4cad-bd46-8755fd9493a1"
+  },
+  {
+    "definition_id": "3fb35903-45b2-4604-aeac-14ccc3b904aa",
+    "family": "Capability",
+    "version": 1,
+    "meaning": "Đánh giá điều kiện khai báo bằng Directus native filter và ghi kết quả nội bộ",
+    "parameters": {
+      "implementation": "Directus native condition operation + native ItemsService",
+      "effect_class": "internal write",
+      "input_profile": "typed duration record + exact Condition ref",
+      "output_profile": "review_required boolean",
+      "retry_policy": "accepted bounded pg-boss policy; no external effects"
+    },
+    "refs": [],
+    "provenance": {
+      "source": "v17 contracts and accepted bounded input/runtime primitive; TEST seed, not production approval",
+      "seed_key": "nativefilter"
+    },
+    "status": "published",
+    "scope": "pilot",
+    "digest": "17c68927b5360e9cd27c21caa682de3c15f40fba3a9a38ce5380368375838b22",
+    "id": "bb6361b9-6caf-455f-87d5-a13292b1fdf2"
+  },
+  {
+    "definition_id": "81f489f1-534b-4058-a3d6-60e6acb0e22e",
+    "family": "MOT",
+    "version": 1,
+    "meaning": "Người thực hiện nhập số phút và ghi chú; hệ thống lưu thời điểm",
+    "parameters": {
+      "mode": "HMITL",
+      "moit_ref": "756a9da6-31bd-45d4-89c7-ada389b51f21",
+      "mout_ref": "27348608-bd97-4cad-bd46-8755fd9493a1",
+      "ntgv_ref": "72fd9674-f34d-43dd-a7cb-2d2d5371b176",
+      "capability_ref": null,
+      "completion": [
+        "duration_minutes",
+        "date_created"
+      ],
+      "guidance_ref": "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338"
+    },
+    "refs": [
+      "756a9da6-31bd-45d4-89c7-ada389b51f21",
+      "27348608-bd97-4cad-bd46-8755fd9493a1",
+      "72fd9674-f34d-43dd-a7cb-2d2d5371b176",
+      "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338"
+    ],
+    "provenance": {
+      "source": "v17 contracts and accepted bounded input/runtime primitive; TEST seed, not production approval",
+      "seed_key": "humanentry"
+    },
+    "status": "published",
+    "scope": "pilot",
+    "digest": "b3db75981ecc1828b5a2ea2b3281b2d7151557f67216fb210508a9acab6698e5",
+    "id": "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4"
+  },
+  {
+    "definition_id": "fc861c96-5bcf-42a6-9a1c-7ec6fbfd42be",
+    "family": "MOT",
+    "version": 1,
+    "meaning": "Máy đánh giá Condition được bind từ quy trình và lưu cờ cần xem xét",
+    "parameters": {
+      "mode": "AUTO",
+      "moit_ref": null,
+      "mout_ref": "27348608-bd97-4cad-bd46-8755fd9493a1",
+      "ntgv_ref": null,
+      "capability_ref": "bb6361b9-6caf-455f-87d5-a13292b1fdf2",
+      "condition_binding_required": true,
+      "completion": [
+        "review_required"
+      ],
+      "guidance_ref": "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338"
+    },
+    "refs": [
+      "27348608-bd97-4cad-bd46-8755fd9493a1",
+      "bb6361b9-6caf-455f-87d5-a13292b1fdf2",
+      "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338"
+    ],
+    "provenance": {
+      "source": "v17 contracts and accepted bounded input/runtime primitive; TEST seed, not production approval",
+      "seed_key": "autoevaluate"
+    },
+    "status": "published",
+    "scope": "pilot",
+    "digest": "c561d6e4e1ae65ce3c6fee9dd54af2c59fd7c9ff196057c4e81d5dcdc2409e6d",
+    "id": "d2821a8f-632b-4698-92c7-0ecc7cb1f43c"
+  }
+]

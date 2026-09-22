@@ -1,0 +1,164 @@
+[
+  {
+    "run": "agent-a",
+    "commands": [
+      {
+        "command": "/bin/zsh -lc \"sed -n '1,260p' TOOL-CONTRACT.md\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"sed -n '1,240p' work.json\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"pwd && rg --files -g 'work.json' -g 'TOOL-CONTRACT.md'\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_intents\\\",\\\"id\\\":\\\"75691f3d-ff92-46f6-b0ba-085ce66c9aa5\\\"}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_versions\\\",\\\"query\\\":{\\\"search\\\":\\\"thời lượng phút ghi chú thời điểm xem xét\\\",\\\"limit\\\":20}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"forms\\\",\\\"query\\\":{\\\"search\\\":\\\"thời lượng phút ghi chú\\\",\\\"limit\\\":20}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_definitions\\\",\\\"query\\\":{\\\"search\\\":\\\"thời lượng phút ghi chú thời điểm xem xét\\\",\\\"limit\\\":20}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_definitions\\\",\\\"query\\\":{\\\"limit\\\":50,\\\"sort\\\":[\\\"family\\\"]}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"forms\\\",\\\"query\\\":{\\\"limit\\\":50}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_versions\\\",\\\"query\\\":{\\\"filter\\\":{\\\"status\\\":{\\\"_eq\\\":\\\"published\\\"}},\\\"limit\\\":50,\\\"sort\\\":[\\\"family\\\",\\\"version\\\"]}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_versions\\\",\\\"query\\\":{\\\"filter\\\":{\\\"status\\\":{\\\"_eq\\\":\\\"published\\\"}},\\\"limit\\\":50}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_definitions\\\",\\\"query\\\":{\\\"limit\\\":50}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_versions\\\",\\\"query\\\":{\\\"search\\\":\\\"duration\\\",\\\"limit\\\":20}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_versions\\\",\\\"query\\\":{\\\"search\\\":\\\"60\\\",\\\"limit\\\":20}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_definitions\\\",\\\"query\\\":{\\\"search\\\":\\\"Condition điều kiện vượt 60\\\",\\\"limit\\\":20}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_versions\\\",\\\"query\\\":{\\\"search\\\":\\\"Condition\\\",\\\"limit\\\":20}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'uuidgen; uuidgen; uuidgen; uuidgen'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"write\\\",\\\"action\\\":\\\"draft\\\",\\\"id\\\":\\\"47775731-9db1-4a91-860d-1b2fcab2a97e\\\",\\\"request_id\\\":\\\"c5654805-13f6-439a-9583-9b43720d0364\\\",\\\"expected_revision\\\":0,\\\"data\\\":{\\\"intent_id\\\":\\\"75691f3d-ff92-46f6-b0ba-085ce66c9aa5\\\",\\\"title\\\":\\\"Quy trình ghi nhận thời lượng xử lý\\\",\\\"family\\\":\\\"MOW\\\",\\\"version\\\":1,\\\"status\\\":\\\"waiting\\\",\\\"content\\\":{\\\"steps\\\":[{\\\"id\\\":\\\"step-1-human-duration-entry\\\",\\\"order\\\":1,\\\"mot_ref\\\":\\\"fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4\\\",\\\"start\\\":{\\\"trigger_ref\\\":\\\"8b3f61fc-1aaa-41f1-b61e-d3fabceea130\\\"},\\\"condition_ref\\\":null},{\\\"id\\\":\\\"step-2-auto-review-flag\\\",\\\"order\\\":2,\\\"mot_ref\\\":\\\"d2821a8f-632b-4698-92c7-0ecc7cb1f43c\\\",\\\"start\\\":{\\\"previous_step\\\":\\\"step-1-human-duration-entry\\\",\\\"dependency\\\":\\\"completion\\\",\\\"requires_outputs\\\":[\\\"duration_minutes\\\",\\\"date_created\\\"],\\\"condition\\\":\\\"after successful record save\\\",\\\"join\\\":\\\"then\\\"},\\\"condition_ref\\\":null}],\\\"refs\\\":[\\\"8b3f61fc-1aaa-41f1-b61e-d3fabceea130\\\",\\\"fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4\\\",\\\"756a9da6-31bd-45d4-89c7-ada389b51f21\\\",\\\"27348608-bd97-4cad-bd46-8755fd9493a1\\\",\\\"72fd9674-f34d-43dd-a7cb-2d2d5371b176\\\",\\\"a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338\\\",\\\"487d8c64-c15b-4d89-897c-6c4c258d04ad\\\",\\\"5539f704-cba3-4c4b-ab88-7741d18314cb\\\",\\\"59b79193-7978-4e01-99e7-aca8dddf878f\\\",\\\"d2821a8f-632b-4698-92c7-0ecc7cb1f43c\\\",\\\"bb6361b9-6caf-455f-87d5-a13292b1fdf2\\\",\\\"b8756a04-b301-42e4-a791-2e3b98532b6a\\\"],\\\"missing_slots\\\":[\\\"content.steps[1].condition_ref\\\"],\\\"notes\\\":\\\"Draft stops at WAIT because the exact published Condition for duration_minutes > 60 was not found. The auto MOT requires a condition binding before readiness.\\\"},\\\"search_brief\\\":{\\\"requirements\\\":[{\\\"kind\\\":\\\"input\\\",\\\"requested\\\":\\\"Người thực hiện nhập số phút\\\",\\\"decision\\\":\\\"reused\\\",\\\"refs\\\":[\\\"fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4\\\",\\\"487d8c64-c15b-4d89-897c-6c4c258d04ad\\\"]},{\\\"kind\\\":\\\"input\\\",\\\"requested\\\":\\\"Người thực hiện nhập ghi chú\\\",\\\"decision\\\":\\\"reused\\\",\\\"refs\\\":[\\\"756a9da6-31bd-45d4-89c7-ada389b51f21\\\",\\\"5539f704-cba3-4c4b-ab88-7741d18314cb\\\"]},{\\\"kind\\\":\\\"system\\\",\\\"requested\\\":\\\"Hệ thống lưu thời điểm\\\",\\\"decision\\\":\\\"reused\\\",\\\"refs\\\":[\\\"59b79193-7978-4e01-99e7-aca8dddf878f\\\",\\\"fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4\\\"]},{\\\"kind\\\":\\\"condition\\\",\\\"requested\\\":\\\"Khi thời lượng vượt 60 phút thì đánh dấu cần xem xét\\\",\\\"decision\\\":\\\"unresolved\\\",\\\"refs\\\":[\\\"d2821a8f-632b-4698-92c7-0ecc7cb1f43c\\\",\\\"b8756a04-b301-42e4-a791-2e3b98532b6a\\\"]}],\\\"candidate_comparison\\\":[{\\\"candidate\\\":\\\"fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4\\\",\\\"fit\\\":\\\"matches human entry for minutes/note/system-created timestamp\\\",\\\"decision\\\":\\\"reuse\\\"},{\\\"candidate\\\":\\\"d2821a8f-632b-4698-92c7-0ecc7cb1f43c\\\",\\\"fit\\\":\\\"matches auto review flag evaluation but requires exact condition binding\\\",\\\"decision\\\":\\\"reuse with missing condition_ref\\\"},{\\\"candidate\\\":\\\"756a9da6-31bd-45d4-89c7-ada389b51f21\\\",\\\"fit\\\":\\\"published MOIT matches required input fields\\\",\\\"decision\\\":\\\"reuse\\\"},{\\\"candidate\\\":\\\"27348608-bd97-4cad-bd46-8755fd9493a1\\\",\\\"fit\\\":\\\"published MOUT exposes duration, note, timestamp and review flag\\\",\\\"decision\\\":\\\"reuse\\\"}],\\\"reuse_decision\\\":\\\"Reuse published materials for trigger, fields, form, guidance, MOUT, human-entry MOT, auto-evaluation MOT, NTGV and capability. No compatible published Condition for duration_minutes > 60 was found, so draft remains waiting.\\\",\\\"provenance\\\":{\\\"catalog_reads\\\":[\\\"lab_versions published limit 50\\\",\\\"lab_definitions limit 50\\\",\\\"forms limit 50\\\",\\\"lab_versions searches: duration, Condition, 60\\\"],\\\"assigned_intent\\\":\\\"75691f3d-ff92-46f6-b0ba-085ce66c9aa5\\\"}},\\\"reason\\\":\\\"Missing exact published Condition for duration_minutes > 60; no publish or activation requested.\\\"}}' | python3 tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"printf '%s\\\\n' '{\\\"op\\\":\\\"write\\\",\\\"action\\\":\\\"missing\\\",\\\"id\\\":\\\"b3f28ca9-3c08-4f43-939f-2ba6a3495600\\\",\\\"request_id\\\":\\\"3056b7b8-3017-4695-817c-b889e3486502\\\",\\\"expected_revision\\\":0,\\\"data\\\":{\\\"parent_id\\\":\\\"47775731-9db1-4a91-860d-1b2fcab2a97e\\\",\\\"parent_revision\\\":1,\\\"slot\\\":\\\"content.steps[1].condition_ref\\\",\\\"search_brief\\\":{\\\"requirement\\\":{\\\"family\\\":\\\"Condition\\\",\\\"meaning\\\":\\\"duration_minutes > 60 marks review_required true\\\",\\\"requested_by_intent\\\":\\\"75691f3d-ff92-46f6-b0ba-085ce66c9aa5\\\",\\\"needed_for_step\\\":\\\"step-2-auto-review-flag\\\"},\\\"searched\\\":{\\\"lab_versions\\\":[\\\"search: thời lượng phút ghi chú thời điểm xem xét\\\",\\\"filter: status published limit 50\\\",\\\"search: 60\\\",\\\"search: Condition\\\",\\\"search: duration\\\"],\\\"lab_definitions\\\":[\\\"limit 50\\\",\\\"search: Condition điều kiện vượt 60\\\"],\\\"forms\\\":[\\\"search: thời lượng phút ghi chú\\\",\\\"limit 50\\\"]},\\\"candidate_comparison\\\":[{\\\"candidate\\\":\\\"d2821a8f-632b-4698-92c7-0ecc7cb1f43c\\\",\\\"family\\\":\\\"MOT\\\",\\\"decision\\\":\\\"reuse as evaluator only; not a Condition\\\"},{\\\"candidate\\\":\\\"b8756a04-b301-42e4-a791-2e3b98532b6a\\\",\\\"family\\\":\\\"Field\\\",\\\"decision\\\":\\\"reuse as output flag only; not threshold logic\\\"},{\\\"candidate\\\":\\\"487d8c64-c15b-4d89-897c-6c4c258d04ad\\\",\\\"family\\\":\\\"Field\\\",\\\"decision\\\":\\\"reuse as left operand/input only; not threshold logic\\\"}],\\\"reuse_decision\\\":\\\"No exact published Condition UUID compatible with duration_minutes > 60 was found. Create or publish a Condition resource before applying it to this draft.\\\"},\\\"owner_role\\\":\\\"synthetic-material-owner\\\",\\\"status\\\":\\\"waiting\\\",\\\"checkpoint\\\":{\\\"draft_id\\\":\\\"47775731-9db1-4a91-860d-1b2fcab2a97e\\\",\\\"draft_revision\\\":1,\\\"intent_id\\\":\\\"75691f3d-ff92-46f6-b0ba-085ce66c9aa5\\\",\\\"blocked_slot\\\":\\\"content.steps[1].condition_ref\\\",\\\"required_result\\\":\\\"Published Condition version whose semantics are exactly duration_minutes > 60 and whose result drives review_required true for the auto evaluation MOT.\\\",\\\"resume_steps\\\":[\\\"Re-read draft 47775731-9db1-4a91-860d-1b2fcab2a97e and this missing record.\\\",\\\"Read the published Condition result_ref supplied here or search catalog again for a compatible published Condition.\\\",\\\"If the draft revision is still 1 and the missing record is waiting, update content.steps[1].condition_ref with the published Condition UUID, add it to refs, clear missing_slots, and move draft readiness according to contract.\\\"],\\\"reused_refs\\\":[\\\"8b3f61fc-1aaa-41f1-b61e-d3fabceea130\\\",\\\"fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4\\\",\\\"756a9da6-31bd-45d4-89c7-ada389b51f21\\\",\\\"27348608-bd97-4cad-bd46-8755fd9493a1\\\",\\\"72fd9674-f34d-43dd-a7cb-2d2d5371b176\\\",\\\"a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338\\\",\\\"487d8c64-c15b-4d89-897c-6c4c258d04ad\\\",\\\"5539f704-cba3-4c4b-ab88-7741d18314cb\\\",\\\"59b79193-7978-4e01-99e7-aca8dddf878f\\\",\\\"d2821a8f-632b-4698-92c7-0ecc7cb1f43c\\\",\\\"bb6361b9-6caf-455f-87d5-a13292b1fdf2\\\",\\\"b8756a04-b301-42e4-a791-2e3b98532b6a\\\"],\\\"status\\\":\\\"WAIT_NO_PUBLISHED_CONDITION\\\"}}}' | python3 tool.py\"",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "run": "agent-b",
+    "commands": [
+      {
+        "command": "/bin/zsh -lc \"pwd && rg --files -g 'work.json' -g 'TOOL-CONTRACT.md' -g 'AGENTS.md'\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'ls -la'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"sed -n '1,220p' work.json\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"sed -n '1,220p' TOOL-CONTRACT.md\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"sed -n '1,220p' tool.py\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"sed -n '1,220p' prompt.txt\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 tool.py <<'JSON'\n{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_intents\\\",\\\"id\\\":\\\"777260ac-5c3f-4cea-a672-ed64a7e1b73e\\\"}\nJSON\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 tool.py <<'JSON'\n{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"forms\\\",\\\"query\\\":{\\\"fields\\\":[\\\"id\\\",\\\"title\\\",\\\"content\\\",\\\"revision\\\"],\\\"limit\\\":100,\\\"sort\\\":[\\\"title\\\"]}}\nJSON\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 tool.py <<'JSON'\n{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_versions\\\",\\\"query\\\":{\\\"fields\\\":[\\\"id\\\",\\\"definition_id\\\",\\\"family\\\",\\\"version\\\",\\\"status\\\",\\\"title\\\",\\\"digest\\\",\\\"content\\\",\\\"revision\\\"],\\\"limit\\\":100,\\\"sort\\\":[\\\"family\\\",\\\"title\\\",\\\"-version\\\"]}}\nJSON\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 tool.py <<'JSON'\n{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_definitions\\\",\\\"query\\\":{\\\"fields\\\":[\\\"id\\\",\\\"family\\\",\\\"title\\\",\\\"owner_role\\\",\\\"description\\\",\\\"revision\\\"],\\\"limit\\\":100,\\\"sort\\\":[\\\"family\\\",\\\"title\\\"]}}\nJSON\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 tool.py <<'JSON'\n{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_versions\\\",\\\"query\\\":{\\\"filter\\\":{\\\"status\\\":{\\\"_eq\\\":\\\"published\\\"}},\\\"limit\\\":100}}\nJSON\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 tool.py <<'JSON'\n{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_definitions\\\",\\\"query\\\":{\\\"limit\\\":100}}\nJSON\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 tool.py <<'JSON'\n{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"forms\\\",\\\"query\\\":{\\\"limit\\\":100}}\nJSON\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 tool.py <<'JSON'\n{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_versions\\\",\\\"query\\\":{\\\"search\\\":\\\"60\\\",\\\"limit\\\":20}}\nJSON\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 tool.py <<'JSON'\n{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_versions\\\",\\\"query\\\":{\\\"search\\\":\\\"xem xét\\\",\\\"limit\\\":20}}\nJSON\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 tool.py <<'JSON'\n{\\\"op\\\":\\\"read\\\",\\\"collection\\\":\\\"lab_definitions\\\",\\\"query\\\":{\\\"search\\\":\\\"60\\\",\\\"limit\\\":20}}\nJSON\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc 'uuidgen && uuidgen && uuidgen && uuidgen'",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 tool.py <<'JSON'\n{\n  \\\"op\\\": \\\"write\\\",\n  \\\"action\\\": \\\"draft\\\",\n  \\\"id\\\": \\\"60ec867f-1729-4b67-a074-5caceb691c17\\\",\n  \\\"request_id\\\": \\\"5aa6e4fa-d6cf-448c-853f-68eff4d5cbac\\\",\n  \\\"expected_revision\\\": 0,\n  \\\"data\\\": {\n    \\\"intent_id\\\": \\\"777260ac-5c3f-4cea-a672-ed64a7e1b73e\\\",\n    \\\"title\\\": \\\"Quy trình ghi nhận thời lượng xử lý\\\",\n    \\\"family\\\": \\\"MOW\\\",\n    \\\"version\\\": 1,\n    \\\"status\\\": \\\"waiting\\\",\n    \\\"content\\\": {\n      \\\"intent_summary\\\": \\\"Người thực hiện nhập số phút xử lý và ghi chú; hệ thống lưu thời điểm; nếu thời lượng vượt 60 phút thì đánh dấu cần xem xét.\\\",\n      \\\"steps\\\": [\n        {\n          \\\"id\\\": \\\"enter_duration_note\\\",\n          \\\"order\\\": 1,\n          \\\"mot_ref\\\": \\\"fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4\\\",\n          \\\"start\\\": {\n            \\\"trigger_ref\\\": \\\"8b3f61fc-1aaa-41f1-b61e-d3fabceea130\\\"\n          },\n          \\\"condition_ref\\\": null\n        },\n        {\n          \\\"id\\\": \\\"mark_review_required_when_over_60\\\",\n          \\\"order\\\": 2,\n          \\\"mot_ref\\\": \\\"d2821a8f-632b-4698-92c7-0ecc7cb1f43c\\\",\n          \\\"start\\\": {\n            \\\"previous_step\\\": \\\"enter_duration_note\\\",\n            \\\"dependency\\\": \\\"completion\\\",\n            \\\"requires_outputs\\\": [\\\"duration_minutes\\\", \\\"date_created\\\"],\n            \\\"condition\\\": \\\"run after entry is saved; bind unresolved duration_minutes > 60 condition before readiness\\\",\n            \\\"join\\\": \\\"single\\\"\n          },\n          \\\"condition_ref\\\": null\n        }\n      ],\n      \\\"refs\\\": [\n        \\\"8b3f61fc-1aaa-41f1-b61e-d3fabceea130\\\",\n        \\\"fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4\\\",\n        \\\"d2821a8f-632b-4698-92c7-0ecc7cb1f43c\\\",\n        \\\"756a9da6-31bd-45d4-89c7-ada389b51f21\\\",\n        \\\"27348608-bd97-4cad-bd46-8755fd9493a1\\\",\n        \\\"72fd9674-f34d-43dd-a7cb-2d2d5371b176\\\",\n        \\\"a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338\\\",\n        \\\"bb6361b9-6caf-455f-87d5-a13292b1fdf2\\\",\n        \\\"487d8c64-c15b-4d89-897c-6c4c258d04ad\\\",\n        \\\"5539f704-cba3-4c4b-ab88-7741d18314cb\\\",\n        \\\"59b79193-7978-4e01-99e7-aca8dddf878f\\\",\n        \\\"b8756a04-b301-42e4-a791-2e3b98532b6a\\\"\n      ],\n      \\\"missing_slots\\\": [\n        \\\"steps.mark_review_required_when_over_60.condition_ref\\\"\n      ]\n    },\n    \\\"search_brief\\\": {\n      \\\"requirements\\\": [\n        {\\\"slot\\\": \\\"entry_trigger\\\", \\\"requested\\\": \\\"Người dùng bắt đầu một lần ghi nhận\\\", \\\"decision\\\": \\\"reused\\\", \\\"ref\\\": \\\"8b3f61fc-1aaa-41f1-b61e-d3fabceea130\\\"},\n        {\\\"slot\\\": \\\"human_entry_mot\\\", \\\"requested\\\": \\\"Người thực hiện nhập số phút và ghi chú; hệ thống lưu thời điểm\\\", \\\"decision\\\": \\\"reused\\\", \\\"ref\\\": \\\"fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4\\\"},\n        {\\\"slot\\\": \\\"auto_review_mot\\\", \\\"requested\\\": \\\"Khi thời lượng vượt 60 phút thì đánh dấu cần xem xét\\\", \\\"decision\\\": \\\"reused_partial\\\", \\\"ref\\\": \\\"d2821a8f-632b-4698-92c7-0ecc7cb1f43c\\\", \\\"unresolved\\\": \\\"exact Condition version for duration_minutes > 60\\\"},\n        {\\\"slot\\\": \\\"threshold_condition\\\", \\\"requested\\\": \\\"duration_minutes > 60\\\", \\\"decision\\\": \\\"unresolved\\\", \\\"ref\\\": null}\n      ],\n      \\\"candidate_comparison\\\": [\n        {\\\"candidate\\\": \\\"fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4\\\", \\\"fit\\\": \\\"matches manual entry, duration, optional note, system timestamp\\\", \\\"decision\\\": \\\"reuse\\\"},\n        {\\\"candidate\\\": \\\"d2821a8f-632b-4698-92c7-0ecc7cb1f43c\\\", \\\"fit\\\": \\\"matches auto review flag computation but explicitly requires a bound Condition\\\", \\\"decision\\\": \\\"reuse with missing condition\\\"},\n        {\\\"candidate\\\": \\\"published catalog search for 60 / xem xét\\\", \\\"fit\\\": \\\"found review flag field and auto MOT, but no exact threshold Condition definition/version\\\", \\\"decision\\\": \\\"create missing checkpoint\\\"}\n      ],\n      \\\"reuse_decision\\\": \\\"Do not duplicate compatible published materials; MOW draft references exact TEST published UUIDs and waits only on threshold condition.\\\",\n      \\\"provenance\\\": {\n        \\\"intent_revision\\\": 1,\n        \\\"catalog_reads\\\": [\\\"lab_definitions\\\", \\\"lab_versions\\\", \\\"forms\\\"],\n        \\\"note\\\": \\\"Published lab_versions are TEST resources, not production acceptance. Native form read showed draft form 16a85219-1758-59f5-acef-e7d752edb36c with duration/system timestamp fields; published MOIT/MOUT refs carry the optional note binding.\\\"\n      }\n    },\n    \\\"reason\\\": \\\"WAIT because no exact published Condition ref for duration_minutes > 60 was available in the governed catalog. No publish or activation performed.\\\"\n  }\n}\nJSON\"",
+        "exit_code": 0
+      },
+      {
+        "command": "/bin/zsh -lc \"python3 tool.py <<'JSON'\n{\n  \\\"op\\\": \\\"write\\\",\n  \\\"action\\\": \\\"missing\\\",\n  \\\"id\\\": \\\"08023199-d531-4f9b-a478-3234d88a533f\\\",\n  \\\"request_id\\\": \\\"462f61ea-c09b-4730-a42b-b1c113bf555b\\\",\n  \\\"expected_revision\\\": 0,\n  \\\"data\\\": {\n    \\\"parent_id\\\": \\\"60ec867f-1729-4b67-a074-5caceb691c17\\\",\n    \\\"parent_revision\\\": 1,\n    \\\"slot\\\": \\\"steps.mark_review_required_when_over_60.condition_ref\\\",\n    \\\"search_brief\\\": {\n      \\\"requirement\\\": \\\"Exact published Condition lab_version for duration_minutes > 60 that can bind to auto MOT d2821a8f-632b-4698-92c7-0ecc7cb1f43c and set review_required true when exceeded.\\\",\n      \\\"requested_by_intent\\\": \\\"Khi thời lượng vượt 60 phút thì đánh dấu cần xem xét.\\\",\n      \\\"candidate_comparison\\\": [\n        {\\\"candidate\\\": \\\"bb6361b9-6caf-455f-87d5-a13292b1fdf2\\\", \\\"family\\\": \\\"Capability\\\", \\\"decision\\\": \\\"not sufficient alone\\\", \\\"reason\\\": \\\"Can evaluate a declared condition but is not the exact threshold condition resource.\\\"},\n        {\\\"candidate\\\": \\\"b8756a04-b301-42e4-a791-2e3b98532b6a\\\", \\\"family\\\": \\\"Field\\\", \\\"decision\\\": \\\"reused as output only\\\", \\\"reason\\\": \\\"Defines review_required output field, not threshold semantics.\\\"},\n        {\\\"candidate\\\": \\\"catalog searches: lab_versions search=60, lab_definitions search=60, lab_versions search=xem xét\\\", \\\"decision\\\": \\\"no compatible exact Condition found\\\", \\\"reason\\\": \\\"Search returned no threshold Condition definition/version.\\\"}\n      ],\n      \\\"reuse_decision\\\": \\\"Existing AUTO MOT is reusable only after a compatible Condition version is published or otherwise supplied as a governed result_ref.\\\",\n      \\\"provenance\\\": {\n        \\\"parent_draft\\\": \\\"60ec867f-1729-4b67-a074-5caceb691c17\\\",\n        \\\"parent_revision\\\": 1,\n        \\\"intent_id\\\": \\\"777260ac-5c3f-4cea-a672-ed64a7e1b73e\\\",\n        \\\"intent_revision\\\": 1\n      }\n    },\n    \\\"owner_role\\\": \\\"synthetic-material-owner\\\",\n    \\\"status\\\": \\\"waiting\\\",\n    \\\"checkpoint\\\": {\n      \\\"resume_action\\\": \\\"Re-read intent 777260ac-5c3f-4cea-a672-ed64a7e1b73e and draft 60ec867f-1729-4b67-a074-5caceb691c17. If this missing record has a published result_ref for an exact duration_minutes > 60 Condition and parent revision is still compatible, update draft step mark_review_required_when_over_60.condition_ref and remove the missing slot; otherwise keep WAIT.\\\",\n      \\\"needed_resource\\\": {\n        \\\"family\\\": \\\"Condition\\\",\n        \\\"semantics\\\": \\\"duration_minutes > 60\\\",\n        \\\"input_field_ref\\\": \\\"487d8c64-c15b-4d89-897c-6c4c258d04ad\\\",\n        \\\"operator\\\": \\\"_gt\\\",\n        \\\"threshold\\\": 60,\n        \\\"expected_output_field_ref\\\": \\\"b8756a04-b301-42e4-a791-2e3b98532b6a\\\",\n        \\\"consumer_mot_ref\\\": \\\"d2821a8f-632b-4698-92c7-0ecc7cb1f43c\\\"\n      },\n      \\\"reused_refs\\\": [\n        \\\"8b3f61fc-1aaa-41f1-b61e-d3fabceea130\\\",\n        \\\"fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4\\\",\n        \\\"d2821a8f-632b-4698-92c7-0ecc7cb1f43c\\\",\n        \\\"756a9da6-31bd-45d4-89c7-ada389b51f21\\\",\n        \\\"27348608-bd97-4cad-bd46-8755fd9493a1\\\",\n        \\\"72fd9674-f34d-43dd-a7cb-2d2d5371b176\\\",\n        \\\"a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338\\\",\n        \\\"bb6361b9-6caf-455f-87d5-a13292b1fdf2\\\",\n        \\\"487d8c64-c15b-4d89-897c-6c4c258d04ad\\\",\n        \\\"5539f704-cba3-4c4b-ab88-7741d18314cb\\\",\n        \\\"59b79193-7978-4e01-99e7-aca8dddf878f\\\",\n        \\\"b8756a04-b301-42e4-a791-2e3b98532b6a\\\"\n      ],\n      \\\"stop_state\\\": \\\"Draft/WAIT; no publish or activation.\\\"\n    }\n  }\n}\nJSON\"",
+        "exit_code": 0
+      }
+    ]
+  }
+]

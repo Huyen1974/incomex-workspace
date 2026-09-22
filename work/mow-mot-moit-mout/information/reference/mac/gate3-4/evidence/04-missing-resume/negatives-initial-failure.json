@@ -1,0 +1,155 @@
+[
+  {
+    "case": "cross-owner intent cannot be claimed",
+    "status": 403,
+    "pass": true,
+    "body": {
+      "errors": [
+        {
+          "message": "You don't have permission to access this.",
+          "extensions": {
+            "code": "FORBIDDEN",
+            "server_request_id": "ad62218d-4a49-4479-8b42-6c414ced9531"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stale parent CAS rejected before resume",
+    "status": 409,
+    "pass": true,
+    "body": {
+      "errors": [
+        {
+          "message": "Expected revision does not match the locked resource.",
+          "extensions": {
+            "code": "REVISION_CONFLICT",
+            "server_request_id": "b2783974-9f5f-4cf8-985d-f6cd6c78872e"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "missing request creation validates actual parent revision",
+    "status": 500,
+    "pass": true,
+    "body": {
+      "errors": [
+        {
+          "message": "The write transaction failed.",
+          "extensions": {
+            "code": "INTERNAL_ERROR",
+            "server_request_id": "c492ac43-e9a1-430b-9163-64ef6d26d6f1"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "existing missing context cannot be retargeted",
+    "status": 200,
+    "pass": false,
+    "body": {
+      "data": {
+        "id": "b3f28ca9-3c08-4f43-939f-2ba6a3495600",
+        "parent_id": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+        "parent_revision": 1,
+        "slot": "different-slot",
+        "search_brief": {
+          "requirement": {
+            "family": "Condition",
+            "meaning": "duration_minutes > 60 marks review_required true",
+            "requested_by_intent": "75691f3d-ff92-46f6-b0ba-085ce66c9aa5",
+            "needed_for_step": "step-2-auto-review-flag"
+          },
+          "searched": {
+            "lab_versions": [
+              "search: thời lượng phút ghi chú thời điểm xem xét",
+              "filter: status published limit 50",
+              "search: 60",
+              "search: Condition",
+              "search: duration"
+            ],
+            "lab_definitions": [
+              "limit 50",
+              "search: Condition điều kiện vượt 60"
+            ],
+            "forms": [
+              "search: thời lượng phút ghi chú",
+              "limit 50"
+            ]
+          },
+          "candidate_comparison": [
+            {
+              "candidate": "d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+              "family": "MOT",
+              "decision": "reuse as evaluator only; not a Condition"
+            },
+            {
+              "candidate": "b8756a04-b301-42e4-a791-2e3b98532b6a",
+              "family": "Field",
+              "decision": "reuse as output flag only; not threshold logic"
+            },
+            {
+              "candidate": "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+              "family": "Field",
+              "decision": "reuse as left operand/input only; not threshold logic"
+            }
+          ],
+          "reuse_decision": "No exact published Condition UUID compatible with duration_minutes > 60 was found. Create or publish a Condition resource before applying it to this draft."
+        },
+        "owner_role": "synthetic-material-owner",
+        "status": "waiting",
+        "result_ref": null,
+        "checkpoint": {
+          "draft_id": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+          "draft_revision": 1,
+          "intent_id": "75691f3d-ff92-46f6-b0ba-085ce66c9aa5",
+          "blocked_slot": "content.steps[1].condition_ref",
+          "required_result": "Published Condition version whose semantics are exactly duration_minutes > 60 and whose result drives review_required true for the auto evaluation MOT.",
+          "resume_steps": [
+            "Re-read draft 47775731-9db1-4a91-860d-1b2fcab2a97e and this missing record.",
+            "Read the published Condition result_ref supplied here or search catalog again for a compatible published Condition.",
+            "If the draft revision is still 1 and the missing record is waiting, update content.steps[1].condition_ref with the published Condition UUID, add it to refs, clear missing_slots, and move draft readiness according to contract."
+          ],
+          "reused_refs": [
+            "8b3f61fc-1aaa-41f1-b61e-d3fabceea130",
+            "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+            "756a9da6-31bd-45d4-89c7-ada389b51f21",
+            "27348608-bd97-4cad-bd46-8755fd9493a1",
+            "72fd9674-f34d-43dd-a7cb-2d2d5371b176",
+            "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338",
+            "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+            "5539f704-cba3-4c4b-ab88-7741d18314cb",
+            "59b79193-7978-4e01-99e7-aca8dddf878f",
+            "d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+            "bb6361b9-6caf-455f-87d5-a13292b1fdf2",
+            "b8756a04-b301-42e4-a791-2e3b98532b6a"
+          ],
+          "status": "WAIT_NO_PUBLISHED_CONDITION"
+        },
+        "scope": "pilot",
+        "revision": 2,
+        "last_request": "a4497708-837b-4bfe-84f0-13dfedb56e7c",
+        "user_created": "e9b47c64-672a-4be8-9976-fa40fa7b68e3",
+        "date_created": "2026-09-11T07:21:02.168Z",
+        "user_updated": "e9b47c64-672a-4be8-9976-fa40fa7b68e3",
+        "date_updated": "2026-09-11T07:32:19.741Z"
+      },
+      "meta": {
+        "server_request_id": "a4497708-837b-4bfe-84f0-13dfedb56e7c",
+        "logical_request_id": "1e4f10bc-3caf-41b3-a322-a1eb8d95a653",
+        "action": "missing",
+        "business_version": "editable-draft/main",
+        "instance_id": null,
+        "release_hash": null,
+        "revision": 2,
+        "transaction_id": "1583",
+        "backend_pid": 138
+      },
+      "replayed": false
+    }
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "failure": "Native generateJoi handles one leaf per filter: multiple nested siblings were ignored. Explicit AND of single-leaf predicates verified; dotted keys fail positive checks.",
+  "restored_via_gate": {
+    "id": "b3f28ca9-3c08-4f43-939f-2ba6a3495600",
+    "revision": 5,
+    "slot": "content.steps[1].condition_ref"
+  },
+  "updated_native_operation": {
+    "id": "47ee60ef-68b2-40c3-a5c2-2f1f4b32ee09",
+    "options": {
+      "filter": {
+        "_and": [
+          {
+            "original": {
+              "parent_id": {
+                "_eq": "{{$trigger.payload.parent_id}}"
+              }
+            }
+          },
+          {
+            "original": {
+              "parent_revision": {
+                "_eq": "{{$trigger.payload.parent_revision}}"
+              }
+            }
+          },
+          {
+            "original": {
+              "slot": {
+                "_eq": "{{$trigger.payload.slot}}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

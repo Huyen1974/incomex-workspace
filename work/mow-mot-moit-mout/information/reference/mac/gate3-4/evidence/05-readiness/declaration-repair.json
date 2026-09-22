@@ -1,0 +1,472 @@
+{
+  "new_versions": [
+    {
+      "id": "18c23c3a-c8e7-418b-99db-5998f64078df",
+      "definition_id": "bc6ca118-0298-47cd-86ca-5119af3ec21a",
+      "family": "MOUT",
+      "version": 2,
+      "meaning": "Tham khảo bản ghi thời lượng, ghi chú, thời điểm và kết quả theo quyền hiện hành",
+      "parameters": {
+        "read_source": "lab_task_records",
+        "field_bindings": [
+          "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+          "5539f704-cba3-4c4b-ab88-7741d18314cb",
+          "59b79193-7978-4e01-99e7-aca8dddf878f",
+          "b8756a04-b301-42e4-a791-2e3b98532b6a"
+        ],
+        "context": "record_id from current task/instance; native current read permissions",
+        "consumer_ref": "human reference/result view",
+        "read_only": true
+      },
+      "refs": [
+        "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+        "5539f704-cba3-4c4b-ab88-7741d18314cb",
+        "59b79193-7978-4e01-99e7-aca8dddf878f",
+        "b8756a04-b301-42e4-a791-2e3b98532b6a"
+      ],
+      "digest": "92b5cbf5659e126723d2dd52fb66f6cb8584f9b3b54950fa20ce17ee5bb42c82",
+      "status": "published",
+      "provenance": {
+        "source_version": "27348608-bd97-4cad-bd46-8755fd9493a1",
+        "reason": "C05 readiness failures repaired by declarations; TEST current material-owner, not production acceptance",
+        "readiness_evidence": "initial two revision2 C05_READINESS FAIL"
+      },
+      "scope": "pilot",
+      "revision": 1,
+      "last_request": "7fa344fd-4f17-4a61-8275-ce9089e0736a",
+      "user_created": "66695233-5f52-41c7-be99-f974e4ad2d54",
+      "date_created": "2026-09-11T08:27:30.788Z",
+      "user_updated": null,
+      "date_updated": null
+    },
+    {
+      "id": "2e2f6ac6-caa8-4099-83e7-4c37e3f19690",
+      "definition_id": "3fb35903-45b2-4604-aeac-14ccc3b904aa",
+      "family": "Capability",
+      "version": 2,
+      "meaning": "Đánh giá điều kiện khai báo bằng Directus native filter và ghi kết quả nội bộ",
+      "parameters": {
+        "implementation": "Directus native condition operation + native ItemsService",
+        "effect_class": "internal write",
+        "input_profile": "typed duration record + exact Condition ref",
+        "output_profile": "review_required boolean",
+        "retry_policy": "accepted bounded pg-boss policy; no external effects",
+        "provider_binding": {
+          "flow_id": "1157ae47-9fc8-456f-856d-f88816a47d64",
+          "digest": "0be0caf212d442c17b9fb43224c07a4da9f12a70b07a91c3449f9481c6a8ccd7",
+          "engine": "Directus native Flow 11.5.1"
+        },
+        "output_mapping": {
+          "review_required": "native condition true/false"
+        }
+      },
+      "refs": [],
+      "digest": "486714555f5be1b94b03031082d55fc264db6e966f33e2d81f63783f1afb7e50",
+      "status": "published",
+      "provenance": {
+        "source_version": "bb6361b9-6caf-455f-87d5-a13292b1fdf2",
+        "reason": "C05 readiness failures repaired by declarations; TEST current material-owner, not production acceptance",
+        "readiness_evidence": "initial two revision2 C05_READINESS FAIL"
+      },
+      "scope": "pilot",
+      "revision": 1,
+      "last_request": "69827ad2-a567-4c49-bd27-3d0ee7955824",
+      "user_created": "66695233-5f52-41c7-be99-f974e4ad2d54",
+      "date_created": "2026-09-11T08:27:30.909Z",
+      "user_updated": null,
+      "date_updated": null
+    },
+    {
+      "id": "677df08c-3dd5-4ccc-a189-46c126bb8bff",
+      "definition_id": "81f489f1-534b-4058-a3d6-60e6acb0e22e",
+      "family": "MOT",
+      "version": 2,
+      "meaning": "Người thực hiện nhập số phút và ghi chú; hệ thống lưu thời điểm",
+      "parameters": {
+        "mode": "HMITL",
+        "moit_ref": "756a9da6-31bd-45d4-89c7-ada389b51f21",
+        "mout_ref": "18c23c3a-c8e7-418b-99db-5998f64078df",
+        "ntgv_ref": "72fd9674-f34d-43dd-a7cb-2d2d5371b176",
+        "capability_ref": null,
+        "completion": [
+          "duration_minutes",
+          "date_created"
+        ],
+        "guidance_ref": "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338",
+        "output_contract": {
+          "field_bindings": [
+            "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+            "5539f704-cba3-4c4b-ab88-7741d18314cb",
+            "59b79193-7978-4e01-99e7-aca8dddf878f"
+          ],
+          "completion_required": [
+            "duration_minutes",
+            "date_created"
+          ],
+          "storage_target": "guarded internal task record, produced by MOIT submit",
+          "inherited_fields": []
+        }
+      },
+      "refs": [
+        "756a9da6-31bd-45d4-89c7-ada389b51f21",
+        "18c23c3a-c8e7-418b-99db-5998f64078df",
+        "72fd9674-f34d-43dd-a7cb-2d2d5371b176",
+        "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338"
+      ],
+      "digest": "b36dc115d26f778941f4710b323485d9919bd36c307067a6c3e25916e6cf19f9",
+      "status": "published",
+      "provenance": {
+        "source_version": "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+        "reason": "C05 readiness failures repaired by declarations; TEST current material-owner, not production acceptance",
+        "readiness_evidence": "initial two revision2 C05_READINESS FAIL"
+      },
+      "scope": "pilot",
+      "revision": 1,
+      "last_request": "ee10951d-26f9-499d-a742-77ba39923e7e",
+      "user_created": "66695233-5f52-41c7-be99-f974e4ad2d54",
+      "date_created": "2026-09-11T08:27:31.205Z",
+      "user_updated": null,
+      "date_updated": null
+    },
+    {
+      "id": "4f56d26e-de29-4f9d-9f01-a65c09010f22",
+      "definition_id": "fc861c96-5bcf-42a6-9a1c-7ec6fbfd42be",
+      "family": "MOT",
+      "version": 2,
+      "meaning": "Máy đánh giá Condition được bind từ quy trình và lưu cờ cần xem xét",
+      "parameters": {
+        "mode": "AUTO",
+        "moit_ref": null,
+        "mout_ref": "18c23c3a-c8e7-418b-99db-5998f64078df",
+        "ntgv_ref": null,
+        "capability_ref": "2e2f6ac6-caa8-4099-83e7-4c37e3f19690",
+        "condition_binding_required": true,
+        "completion": [
+          "review_required"
+        ],
+        "guidance_ref": "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338",
+        "output_contract": {
+          "field_bindings": [
+            "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+            "5539f704-cba3-4c4b-ab88-7741d18314cb",
+            "59b79193-7978-4e01-99e7-aca8dddf878f",
+            "b8756a04-b301-42e4-a791-2e3b98532b6a"
+          ],
+          "completion_required": [
+            "duration_minutes",
+            "date_created",
+            "review_required"
+          ],
+          "storage_target": "same internal task record with computed result",
+          "inherited_fields": [
+            "duration_minutes",
+            "date_created"
+          ]
+        }
+      },
+      "refs": [
+        "18c23c3a-c8e7-418b-99db-5998f64078df",
+        "2e2f6ac6-caa8-4099-83e7-4c37e3f19690",
+        "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338"
+      ],
+      "digest": "d9a3349ef1749da01f1b44cd25e4956143db2ae5f0fd58faf3c0981bb1cdec80",
+      "status": "published",
+      "provenance": {
+        "source_version": "d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+        "reason": "C05 readiness failures repaired by declarations; TEST current material-owner, not production acceptance",
+        "readiness_evidence": "initial two revision2 C05_READINESS FAIL"
+      },
+      "scope": "pilot",
+      "revision": 1,
+      "last_request": "4580cc0b-315f-4fa9-8bd8-592f336ec0b5",
+      "user_created": "66695233-5f52-41c7-be99-f974e4ad2d54",
+      "date_created": "2026-09-11T08:27:31.318Z",
+      "user_updated": null,
+      "date_updated": null
+    }
+  ],
+  "updated_drafts": [
+    {
+      "id": "47775731-9db1-4a91-860d-1b2fcab2a97e",
+      "intent_id": "75691f3d-ff92-46f6-b0ba-085ce66c9aa5",
+      "title": "Quy trình ghi nhận thời lượng xử lý",
+      "family": "MOW",
+      "version": 1,
+      "status": "draft",
+      "content": {
+        "steps": [
+          {
+            "id": "step-1-human-duration-entry",
+            "order": 1,
+            "mot_ref": "677df08c-3dd5-4ccc-a189-46c126bb8bff",
+            "start": {
+              "trigger_ref": "8b3f61fc-1aaa-41f1-b61e-d3fabceea130"
+            },
+            "condition_ref": null
+          },
+          {
+            "id": "step-2-auto-review-flag",
+            "order": 2,
+            "mot_ref": "4f56d26e-de29-4f9d-9f01-a65c09010f22",
+            "start": {
+              "previous_step": "step-1-human-duration-entry",
+              "dependency": "completion",
+              "requires_outputs": [
+                "duration_minutes",
+                "date_created"
+              ],
+              "condition": "after successful record save",
+              "join": "then"
+            },
+            "condition_ref": "c15adbf9-c5d5-4369-b893-f508683481f6"
+          }
+        ],
+        "refs": [
+          "18c23c3a-c8e7-418b-99db-5998f64078df",
+          "2e2f6ac6-caa8-4099-83e7-4c37e3f19690",
+          "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+          "4f56d26e-de29-4f9d-9f01-a65c09010f22",
+          "5539f704-cba3-4c4b-ab88-7741d18314cb",
+          "59b79193-7978-4e01-99e7-aca8dddf878f",
+          "677df08c-3dd5-4ccc-a189-46c126bb8bff",
+          "72fd9674-f34d-43dd-a7cb-2d2d5371b176",
+          "756a9da6-31bd-45d4-89c7-ada389b51f21",
+          "8b3f61fc-1aaa-41f1-b61e-d3fabceea130",
+          "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338",
+          "b8756a04-b301-42e4-a791-2e3b98532b6a",
+          "c15adbf9-c5d5-4369-b893-f508683481f6"
+        ],
+        "missing_slots": [],
+        "notes": "Resolved the condition binding with published Condition c15adbf9-c5d5-4369-b893-f508683481f6 version 1 (digest bc05d25b8feadd0e5c662c46c1e87842f7ae3cc7b6e2dc6ffa3f0afa63bede8a). Draft remains unactivated and unpublished."
+      },
+      "search_brief": {
+        "requirements": [
+          {
+            "kind": "input",
+            "requested": "Người thực hiện nhập số phút",
+            "decision": "reused",
+            "refs": [
+              "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+              "487d8c64-c15b-4d89-897c-6c4c258d04ad"
+            ]
+          },
+          {
+            "kind": "input",
+            "requested": "Người thực hiện nhập ghi chú",
+            "decision": "reused",
+            "refs": [
+              "756a9da6-31bd-45d4-89c7-ada389b51f21",
+              "5539f704-cba3-4c4b-ab88-7741d18314cb"
+            ]
+          },
+          {
+            "kind": "system",
+            "requested": "Hệ thống lưu thời điểm",
+            "decision": "reused",
+            "refs": [
+              "59b79193-7978-4e01-99e7-aca8dddf878f",
+              "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4"
+            ]
+          },
+          {
+            "kind": "condition",
+            "requested": "Khi thời lượng vượt 60 phút thì đánh dấu cần xem xét",
+            "decision": "reused",
+            "refs": [
+              "c15adbf9-c5d5-4369-b893-f508683481f6",
+              "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+              "b8756a04-b301-42e4-a791-2e3b98532b6a"
+            ]
+          }
+        ],
+        "candidate_comparison": [
+          {
+            "candidate": "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+            "fit": "matches human entry for minutes/note/system-created timestamp",
+            "decision": "reuse"
+          },
+          {
+            "candidate": "d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+            "fit": "matches auto review flag evaluation and now has exact condition binding",
+            "decision": "reuse"
+          },
+          {
+            "candidate": "756a9da6-31bd-45d4-89c7-ada389b51f21",
+            "fit": "published MOIT matches required input fields",
+            "decision": "reuse"
+          },
+          {
+            "candidate": "27348608-bd97-4cad-bd46-8755fd9493a1",
+            "fit": "published MOUT exposes duration, note, timestamp and review flag",
+            "decision": "reuse"
+          },
+          {
+            "candidate": "c15adbf9-c5d5-4369-b893-f508683481f6",
+            "fit": "published Condition version 1 exactly represents duration_minutes > 60, with 60 minutes not over threshold, and outputs review_required true",
+            "decision": "reuse"
+          }
+        ],
+        "reuse_decision": "Reuse published materials for trigger, fields, form, guidance, MOUT, human-entry MOT, auto-evaluation MOT, NTGV, capability, and the exact published Condition for duration_minutes > 60. No unresolved content slots remain in this draft.",
+        "provenance": {
+          "catalog_reads": [
+            "lab_versions published limit 50",
+            "lab_definitions limit 50",
+            "forms limit 50",
+            "lab_versions searches: duration, Condition, 60",
+            "resume read lab_versions c15adbf9-c5d5-4369-b893-f508683481f6"
+          ],
+          "assigned_intent": "75691f3d-ff92-46f6-b0ba-085ce66c9aa5",
+          "applied_missing": "b3f28ca9-3c08-4f43-939f-2ba6a3495600",
+          "applied_condition_identity": {
+            "uuid": "c15adbf9-c5d5-4369-b893-f508683481f6",
+            "version": 1,
+            "digest": "bc05d25b8feadd0e5c662c46c1e87842f7ae3cc7b6e2dc6ffa3f0afa63bede8a"
+          }
+        }
+      },
+      "source_version": null,
+      "feedback_id": null,
+      "reason": "C05 repair: restore INV08: MOUT read-only, MOT owns output contract; exact native provider. Owner synthetic declaration correction after fresh proof; not an Agent autonomous action.",
+      "scope": "pilot",
+      "revision": 3,
+      "last_request": "5ea974e9-d76a-4e0c-b109-97270acceb71",
+      "user_created": "e9b47c64-672a-4be8-9976-fa40fa7b68e3",
+      "date_created": "2026-09-11T07:20:33.464Z",
+      "user_updated": "e9b47c64-672a-4be8-9976-fa40fa7b68e3",
+      "date_updated": "2026-09-11T08:27:33.018Z"
+    },
+    {
+      "id": "60ec867f-1729-4b67-a074-5caceb691c17",
+      "intent_id": "777260ac-5c3f-4cea-a672-ed64a7e1b73e",
+      "title": "Quy trình ghi nhận thời lượng xử lý",
+      "family": "MOW",
+      "version": 1,
+      "status": "draft",
+      "content": {
+        "intent_summary": "Người thực hiện nhập số phút xử lý và ghi chú; hệ thống lưu thời điểm; nếu thời lượng vượt 60 phút thì đánh dấu cần xem xét.",
+        "steps": [
+          {
+            "id": "enter_duration_note",
+            "order": 1,
+            "mot_ref": "677df08c-3dd5-4ccc-a189-46c126bb8bff",
+            "start": {
+              "trigger_ref": "8b3f61fc-1aaa-41f1-b61e-d3fabceea130"
+            },
+            "condition_ref": null
+          },
+          {
+            "id": "mark_review_required_when_over_60",
+            "order": 2,
+            "mot_ref": "4f56d26e-de29-4f9d-9f01-a65c09010f22",
+            "start": {
+              "previous_step": "enter_duration_note",
+              "dependency": "completion",
+              "requires_outputs": [
+                "duration_minutes",
+                "date_created"
+              ],
+              "condition": "run after entry is saved; apply Condition c15adbf9-c5d5-4369-b893-f508683481f6 (duration_minutes > 60)",
+              "join": "single"
+            },
+            "condition_ref": "c15adbf9-c5d5-4369-b893-f508683481f6"
+          }
+        ],
+        "refs": [
+          "18c23c3a-c8e7-418b-99db-5998f64078df",
+          "2e2f6ac6-caa8-4099-83e7-4c37e3f19690",
+          "487d8c64-c15b-4d89-897c-6c4c258d04ad",
+          "4f56d26e-de29-4f9d-9f01-a65c09010f22",
+          "5539f704-cba3-4c4b-ab88-7741d18314cb",
+          "59b79193-7978-4e01-99e7-aca8dddf878f",
+          "677df08c-3dd5-4ccc-a189-46c126bb8bff",
+          "72fd9674-f34d-43dd-a7cb-2d2d5371b176",
+          "756a9da6-31bd-45d4-89c7-ada389b51f21",
+          "8b3f61fc-1aaa-41f1-b61e-d3fabceea130",
+          "a5e7fccf-ffb4-4c7d-82e0-3df6c13a2338",
+          "b8756a04-b301-42e4-a791-2e3b98532b6a",
+          "c15adbf9-c5d5-4369-b893-f508683481f6"
+        ],
+        "missing_slots": []
+      },
+      "search_brief": {
+        "requirements": [
+          {
+            "slot": "entry_trigger",
+            "requested": "Người dùng bắt đầu một lần ghi nhận",
+            "decision": "reused",
+            "ref": "8b3f61fc-1aaa-41f1-b61e-d3fabceea130"
+          },
+          {
+            "slot": "human_entry_mot",
+            "requested": "Người thực hiện nhập số phút và ghi chú; hệ thống lưu thời điểm",
+            "decision": "reused",
+            "ref": "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4"
+          },
+          {
+            "slot": "auto_review_mot",
+            "requested": "Khi thời lượng vượt 60 phút thì đánh dấu cần xem xét",
+            "decision": "reused",
+            "ref": "d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+            "condition_ref": "c15adbf9-c5d5-4369-b893-f508683481f6"
+          },
+          {
+            "slot": "threshold_condition",
+            "requested": "duration_minutes > 60",
+            "decision": "reused_from_resolved_missing",
+            "ref": "c15adbf9-c5d5-4369-b893-f508683481f6",
+            "identity": {
+              "version": 1,
+              "digest": "bc05d25b8feadd0e5c662c46c1e87842f7ae3cc7b6e2dc6ffa3f0afa63bede8a"
+            }
+          }
+        ],
+        "candidate_comparison": [
+          {
+            "candidate": "fff27c3f-c1f2-48c9-85b8-e2d8b23c86f4",
+            "fit": "matches manual entry, duration, optional note, system timestamp",
+            "decision": "reuse"
+          },
+          {
+            "candidate": "d2821a8f-632b-4698-92c7-0ecc7cb1f43c",
+            "fit": "matches auto review flag computation when bound to exact threshold Condition c15adbf9-c5d5-4369-b893-f508683481f6",
+            "decision": "reuse"
+          },
+          {
+            "candidate": "c15adbf9-c5d5-4369-b893-f508683481f6",
+            "fit": "published pilot Condition version 1, digest bc05d25b8feadd0e5c662c46c1e87842f7ae3cc7b6e2dc6ffa3f0afa63bede8a; meaning says duration greater than 60 minutes requires review and exactly 60 does not exceed threshold; parameters bind field 487d8c64-c15b-4d89-897c-6c4c258d04ad with operator _gt and threshold 60 to output b8756a04-b301-42e4-a791-2e3b98532b6a",
+            "decision": "reuse from resolved missing"
+          }
+        ],
+        "reuse_decision": "Do not duplicate compatible published materials; MOW draft references exact TEST published UUIDs including resolved threshold Condition. Draft remains unpublished and inactive.",
+        "provenance": {
+          "intent_revision": 1,
+          "draft_revision_applied_from": 1,
+          "missing_id": "08023199-d531-4f9b-a478-3234d88a533f",
+          "missing_revision": 2,
+          "result_ref": "c15adbf9-c5d5-4369-b893-f508683481f6",
+          "result_version": 1,
+          "result_digest": "bc05d25b8feadd0e5c662c46c1e87842f7ae3cc7b6e2dc6ffa3f0afa63bede8a",
+          "catalog_reads": [
+            "lab_intents",
+            "lab_drafts",
+            "lab_missing",
+            "lab_versions",
+            "lab_definitions"
+          ],
+          "note": "Published lab_versions are TEST resources, not production acceptance; checks here verify catalog contents and parent/slot/revision compatibility only, not machine readiness/tests."
+        }
+      },
+      "source_version": null,
+      "feedback_id": null,
+      "reason": "C05 repair: restore INV08: MOUT read-only, MOT owns output contract; exact native provider. Owner synthetic declaration correction after fresh proof; not an Agent autonomous action.",
+      "scope": "pilot",
+      "revision": 3,
+      "last_request": "267b39f6-44ec-415a-be7a-7e741e903a35",
+      "user_created": "47b32987-a7fc-4170-af70-b1fdcb73ced6",
+      "date_created": "2026-09-11T07:20:40.238Z",
+      "user_updated": "47b32987-a7fc-4170-af70-b1fdcb73ced6",
+      "date_updated": "2026-09-11T08:27:34.921Z"
+    }
+  ],
+  "published_originals_unchanged": true
+}

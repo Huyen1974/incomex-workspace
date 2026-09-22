@@ -1,0 +1,177 @@
+{
+  "binding": {
+    "flow_id": "1157ae47-9fc8-456f-856d-f88816a47d64",
+    "digest": "0be0caf212d442c17b9fb43224c07a4da9f12a70b07a91c3449f9481c6a8ccd7",
+    "engine": "Directus native Flow 11.5.1"
+  },
+  "material": {
+    "flow": {
+      "id": "1157ae47-9fc8-456f-856d-f88816a47d64",
+      "status": "active",
+      "trigger": "event",
+      "accountability": "all",
+      "options": {
+        "type": "filter",
+        "scope": [
+          "items.create"
+        ],
+        "collections": [
+          "lab_task_records"
+        ],
+        "return": "$last"
+      },
+      "operation": "9dc192d8-8e30-4b97-b92b-04db24d251c0"
+    },
+    "operations": [
+      {
+        "id": "419771c4-4023-417c-a90f-5e24d3d465b3",
+        "key": "has_condition",
+        "type": "condition",
+        "options": {
+          "filter": {
+            "release": {
+              "snapshot": {
+                "native_condition": {
+                  "_nnull": true
+                }
+              }
+            }
+          }
+        },
+        "resolve": "a5050dad-c8ea-4537-9a9f-5789f0c6ccca",
+        "reject": "765f961a-9c62-4628-bcac-204d267a7c5f"
+      },
+      {
+        "id": "765f961a-9c62-4628-bcac-204d267a7c5f",
+        "key": "unchanged_legacy",
+        "type": "transform",
+        "options": {
+          "json": "{{input}}"
+        },
+        "resolve": null,
+        "reject": null
+      },
+      {
+        "id": "84453c0f-94b4-4a43-8304-b1eaf29289e4",
+        "key": "release",
+        "type": "item-read",
+        "options": {
+          "collection": "lab_test_releases",
+          "permissions": "$full",
+          "key": "{{instances[0].release_id}}"
+        },
+        "resolve": "419771c4-4023-417c-a90f-5e24d3d465b3",
+        "reject": null
+      },
+      {
+        "id": "918b8d28-f018-43b8-beca-4f598f017d22",
+        "key": "yes",
+        "type": "transform",
+        "options": {
+          "json": {
+            "duration_minutes": "{{input.duration_minutes}}",
+            "note": "{{input.note}}",
+            "form_ref": "{{input.form_ref}}",
+            "form_version": "{{input.form_version}}",
+            "form_revision": "{{input.form_revision}}",
+            "scope": "{{input.scope}}",
+            "status": "{{input.status}}",
+            "id": "{{input.id}}",
+            "revision": "{{input.revision}}",
+            "last_request": "{{input.last_request}}",
+            "review_required": true
+          }
+        },
+        "resolve": null,
+        "reject": null
+      },
+      {
+        "id": "9dc192d8-8e30-4b97-b92b-04db24d251c0",
+        "key": "input",
+        "type": "transform",
+        "options": {
+          "json": "{{$trigger.payload}}"
+        },
+        "resolve": "bfa3a69f-e1e8-464e-95a8-ca8301296231",
+        "reject": null
+      },
+      {
+        "id": "a27313d2-d968-43fe-85c4-82d71928891b",
+        "key": "unchanged",
+        "type": "transform",
+        "options": {
+          "json": "{{input}}"
+        },
+        "resolve": null,
+        "reject": null
+      },
+      {
+        "id": "a5050dad-c8ea-4537-9a9f-5789f0c6ccca",
+        "key": "evaluate",
+        "type": "condition",
+        "options": {
+          "filter": "{{release.snapshot.native_condition}}"
+        },
+        "resolve": "918b8d28-f018-43b8-beca-4f598f017d22",
+        "reject": "b9c25b20-487a-4e2e-ab10-261ccd917028"
+      },
+      {
+        "id": "b52bb432-bfe9-4427-9f49-cb2900ca8101",
+        "key": "has_instance",
+        "type": "condition",
+        "options": {
+          "filter": {
+            "count(instances)": {
+              "_gt": 0
+            }
+          }
+        },
+        "resolve": "84453c0f-94b4-4a43-8304-b1eaf29289e4",
+        "reject": "a27313d2-d968-43fe-85c4-82d71928891b"
+      },
+      {
+        "id": "b9c25b20-487a-4e2e-ab10-261ccd917028",
+        "key": "no",
+        "type": "transform",
+        "options": {
+          "json": {
+            "duration_minutes": "{{input.duration_minutes}}",
+            "note": "{{input.note}}",
+            "form_ref": "{{input.form_ref}}",
+            "form_version": "{{input.form_version}}",
+            "form_revision": "{{input.form_revision}}",
+            "scope": "{{input.scope}}",
+            "status": "{{input.status}}",
+            "id": "{{input.id}}",
+            "revision": "{{input.revision}}",
+            "last_request": "{{input.last_request}}",
+            "review_required": false
+          }
+        },
+        "resolve": null,
+        "reject": null
+      },
+      {
+        "id": "bfa3a69f-e1e8-464e-95a8-ca8301296231",
+        "key": "instances",
+        "type": "item-read",
+        "options": {
+          "collection": "lab_runtime_instances",
+          "permissions": "$full",
+          "query": {
+            "filter": {
+              "record_id": {
+                "_eq": "{{input.id}}"
+              }
+            },
+            "limit": 1
+          }
+        },
+        "resolve": "b52bb432-bfe9-4427-9f49-cb2900ca8101",
+        "reject": null
+      }
+    ]
+  },
+  "output_field": "review_required",
+  "scope": "existing guarded internal record path; exact instance release supplies condition; no Script operation"
+}
