@@ -2,9 +2,9 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 - Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
-- Nhiệm vụ/phạm vi hiện tại: giữ nguyên file gốc; tạo `information/`, khảo sát/phân loại và copy các file cần thiết từ `/Users/nmhuyen/Desktop/quy trình`; chưa sửa nội dung HTML chính ở lượt gom tài liệu.
+- Nhiệm vụ/phạm vi hiện tại (Owner giao lại 23/09/2026): đưa các tài liệu có giá trị trong `/Users/nmhuyen/Desktop/quy trình` lên `information/` làm kho THAM KHẢO cho dự án dài hạn và hội đồng AI; ưu tiên nguyên bản `cấu trúc hệ thống.html` và `BAN-DO-BUOC-UI-AGENT.html`. Các thiết kế cũ đang làm lại, không coi là chuẩn hiện hành. Giữ nguyên nguồn Mac và HTML chính.
 - Tiêu chí xong của lượt hiện tại: tài liệu liên quan được copy có kiểm hash/mục lục, nguồn Mac không bị xoá/di chuyển, file gốc không bị sửa.
-- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20; D01–D05 của việc này.
+- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12 của việc này.
 
 Host: GPT Chat · Host_ID: GPT-MMIM-260920-A · Owner giao: 2026-09-20
 HTML chính: `mow-mot-moit-mout.html`
@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | PROMPT_DRAFT_R2 · CLAUDE_REVIEW_REQUIRED · NO_RUN | Host xử lý P06–P07 theo DROOT06: capability-first, Codex executor, write path gọi tên; chờ Claude review lại trước READY cuối.
+MMIM | REFERENCE_COLLECTION_RUNNING · 23/09/2026 | Codex thực hiện yêu cầu Owner mới; hai tài liệu ưu tiên + mục lục được nhập trước, các nhóm còn lại đang khảo sát/chuyển. Xem information/README.md.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -26,6 +26,8 @@ MMIM | MOW–MOT–MOIT–MOUT | bước 2/2 | PROMPT_DRAFT_R2 · CLAUDE_REVIEW_
 - D09 · 2026-09-21 · Áp dụng DROOT04 cho MMIM.2: Host không tách PRECHECK riêng cho môi trường Codex đã dùng nhiều lần; RUN phải bắt đầu bằng việc vào đúng repo `incomex-workspace`, cập nhật `main` an toàn và đọc AGENTS → COLLAB → PROMPT. Chỉ mutation sau khi gate đầu vào của chính MMIM.2 PASS.
 - D10 · 2026-09-21 · Owner yêu cầu Host sửa gói cuối, sau đó chuyển Claude review để đạt đồng thuận; **chưa READY/RUN Codex trước review Claude**.
 - D11 · 2026-09-21 · Theo Owner: MMIM.2 dùng **Executor_Surface = Codex**. Quyền kỹ thuật theo capability đã audit, không theo hãng. `Write_Path` ưu tiên `workspace_*`; nếu chính phiên Codex không bind `workspace_*` nhưng bind `fs_*` đã audit thì dùng `fs_*`. Không dùng Git/CLI/native để ghi. Host giám sát qua gate + repo/diff/report cuối.
+
+- D12 · 2026-09-23 · Owner trực tiếp yêu cầu đưa các file có giá trị từ Mac lên GitHub thành kho tham khảo dài hạn; đặc biệt hai HTML thiết kế nêu trên. Thực hiện yêu cầu mới bằng `workspace_*` đã đọc-gate PASS; không chạy PROMPT MMIM.2 nháp, không tự chốt P01. Không đưa credential/dữ liệu nhạy cảm lên public. Hai HTML lớn truyền bằng mã giữa công cụ, không tái tạo nội dung qua mô hình. · Áp: SAME_COMMIT.
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
