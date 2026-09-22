@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | REFERENCE_COLLECTION_RUNNING · 23/09/2026 | Codex thực hiện yêu cầu Owner mới; hai tài liệu ưu tiên + mục lục được nhập trước, các nhóm còn lại đang khảo sát/chuyển. Xem information/README.md.
+MMIM | REFERENCE_TEXT_PUBLISHED · BINARY_WRITE_PATH_PENDING · 23/09/2026 | Đã đưa 888 tài liệu/87.874.934 bytes lên GitHub; nguồn–đích SHA PASS. Còn 304 ảnh/Excel/Word/46.090.145 bytes đã chuẩn bị, chờ đường ghi được phép. Xem information/README.md.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -58,6 +58,7 @@ Claude REVIEWED@2d673a370a030e2b679d161132cb908f897b9503 · **ACCEPT có điều
 - H03 · **ACCEPT**: đúng nguyên nhân gốc của I02 về phần binary.
 
 ## Owner cần quyết
+- Q01 · Kho tham khảo 23/09: cho phép ngoại lệ D12 một lần để Codex commit/push bằng Git trực tiếp đúng 304 ảnh/Excel/Word trong `information/binary-pending.json` (46.090.145 bytes), kèm cập nhật inventory/README/COLLAB? Đã chuẩn bị nguyên byte, kiểm hash, trích nội dung Office/OCR ảnh và quét bí mật; chưa ghi binary lên repo. Không force, không sửa nguồn/HTML chính, chỉ phạm vi kho tham khảo. Hoặc cung cấp capability nhập binary đã audit để thực hiện cùng gói.
 - P01 · Xác nhận mục tiêu toàn việc (A0): “thiết kế chuẩn các UI, chuẩn quy trình tạo và khai báo thành công MOW/MOT/MOIT/MOUT/Field”; tiêu chí xong = mỗi đối tượng có UI chuẩn Owner chốt + quy trình tạo/khai báo viết thành bước + ≥1 lần khai báo thật thành công có bằng chứng. P01 không chặn Claude review/MMIM.2 hiện tại.
 
 ## Sự cố / bài học Host
@@ -65,10 +66,16 @@ Claude REVIEWED@2d673a370a030e2b679d161132cb908f897b9503 · **ACCEPT có điều
 - I02 · 2026-09-21 · Codex trả: `DỪNG · MMIM.2 · Gate công cụ ghi chưa đạt: README §0/D12 cấm AI push bằng Git/CLI; connector hiện có chưa có đường nhập ảnh nhị phân từ Mac đáp ứng giao dịch bắt buộc. Chưa tạo information/ hoặc sửa nguồn, HTML, COLLAB.`
 - Kết luận Host I02: prompt sai kiến trúc khi bắt binary đi vào Git. Sửa nguyên nhân gốc: MMIM.2 không đưa binary vào Git; chỉ inventory/hash. Shared-assets ngoài Git là bước riêng sau consensus, không sửa connector.
 
-## Giao Agent
+## Giao Agent — lịch sử prompt MMIM.2 trước yêu cầu mới 23/09
 - READY@`7d8e1df9e50cfdd5a4b7cfaf8c66cad9343e26f3` → **HẾT HIỆU LỰC** vì Host đã sửa `PROMPT.md` sau I02.
 - **NO RUN** theo D10. Chờ Claude review bản prompt mới và H01–H03.
 
+## Kết quả yêu cầu kho tham khảo 23/09/2026
+- Executor_Surface: Codex · Write_Path: `workspace_*` · read-gate PASS. Theo lệnh trực tiếp Owner mới, không chạy PROMPT MMIM.2 nháp và không tự đặt READY cho bản nháp.
+- Đã commit/push 888 tài liệu nguyên byte, 87.874.934 bytes; gồm cả hai HTML ưu tiên. Commit nhập cuối: `42e2db1ce50dd42563351aa252145fed541ffa76`; các commit nhập từng file nằm trong `information/inventory.json`.
+- Đọc lại blob Git: 888/888 SHA nguồn = đích. Kiểm lại 2.155/2.155 file Mac: hash không đổi. HTML chính SHA `f4aac30c492f104ec54ff7a03ace54ce70d802e2dd49a417ad9b7285897a050c` giữ nguyên.
+- 304 binary/46.090.145 bytes sẵn sàng, chưa publish; 16/16 ảnh manifest nguồn đúng hash/bytes. Phần bỏ/chờ/trùng ghi trong inventory; không tuyên bố đã chuyển hết, không nghiệm thu nghiệp vụ, không chạm VPS/runtime.
+- Mục lục, inventory và LINK-MAP: `information/README.md`. · Áp: SAME_COMMIT.
+
 ## NEXT
-- Claude Chat đọc `AGENTS.md` → README §0 → file này → `PROMPT.md`, review bản Host R2 đúng scope P06–P07 + H01–H03 + DROOT06; **không mở lại quyền theo hãng**.
-- Nếu Claude ACCEPT và không còn P OPEN/OWNER chặn MMIM.2: Host kiểm prompt SHA, đặt READY@SHA mới và soạn lệnh RUN cuối để Owner giao Codex.
+- Giải quyết Q01 về đường chuyển binary rồi đưa nốt gói đã chuẩn bị; giữ nguyên HTML chính. Không tự mở rộng P01 hoặc sửa luật nền.
