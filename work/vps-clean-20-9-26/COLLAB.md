@@ -10,11 +10,12 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 GPT REVIEWED · ACCEPT + OWNER_APPROVED | NEXT: Host preflight + READY → RUN phiên Claude Code sạch | BLOCK: —
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 READY@f249b90 | NEXT: Owner phát RUN R3 cho Claude Code CLI (phiên mới sạch) | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R3-20260921-01` · SEC-01 + bịt nốt vòi + đợt 2 · **CÓ MUTATION** · DRAFT.
 - **PROMPT_SHA = f249b90f9a5d84bce5295f22b7628fd716fe5ba3** (sau P16). Bản `fb182de` hết hiệu lực — OWNER_APPROVED@fb182de chuyển sang SHA mới vì chỉ đổi Phase 0 theo P16, không mở rộng phạm vi Owner đã gật (Q06). Cần đủ ba: `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` (preflight gồm NO_CONCURRENT_VPS_MUTATION).
 - **OWNER_APPROVED@f249b90f9a5d84bce5295f22b7628fd716fe5ba3** — chuyển từ OWNER_APPROVED@fb182de (Q06 "cần chốt dứt điểm"); bản mới chỉ đổi Phase 0 theo P16, phạm vi không rộng hơn.
+- **Host READY@f249b90f9a5d84bce5295f22b7628fd716fe5ba3** — preflight (DROOT04, 22/09): commit cuối chạm `PROMPT.md` = `f249b90`; GPT REVIEWED + OWNER_APPROVED trùng mã; đĩa 53/96GB, 55%, trống 44GB (qua đêm không phình lại); 12 container healthy; NO_CONCURRENT_VPS_MUTATION đạt (agent-data + claude-mcp không bị tạo lại trong ~15 giờ); Executor Claude Code CLI trên Mac → SSH (đã chạy R1/R2); Write_Path `workspace_*` (đã ghi ở R1/R2/V2). Điều kiện vận hành: Owner ngồi máy Phase 0; không giao HVU/việc khác mutation VPS trong lúc R3 chạy.
 - **GPT REVIEWED@f249b90f9a5d84bce5295f22b7628fd716fe5ba3 · ACCEPT** — đã đối chiếu diff `fb182de→f249b90`: chỉ Phase 0/P16 thay đổi; Phase 1–3 giữ nguyên. Phase 0 mới cấm auto-revoke/shared-client reauth, chỉ cho Drive phases khi `SEC-01=MIGRATED`; các gate fail-closed, NO_CONCURRENT_VPS_MUTATION, N9/N11 rescue-before-delete và V3 hậu kiểm vẫn đầy đủ. Không mở P mới.
 - **OWNER_APPROVED@fb182de5e79ac1ecda0ec41ec279ff72f3e2068c** — Owner 21/09: "Cần chốt dứt điểm việc clean này, bịt hết các đầu dò và có chế độ tự xoá hợp lý … toàn rác làm phình" (gật Q06).
 - **Host đối soát 21/09 ~11:40Z (chỉ đọc, theo đề nghị GPT):** đoạn log Owner chuyển (B4/K1/K2 với commit `b97e5d3`/`3180326`/`0dc9379`) là log R2 phiên 2, KHÔNG phải R3. Bằng chứng: `qdrant-backup.sh` sửa lần cuối 10:19Z, `dung-va-trien-khai.sh` 10:20Z, `vps-retention.sh` 10:21Z (đúng cửa sổ R2 phiên 2), `backup-to-gdrive.sh` vẫn 2026-08-02; `BAO-CAO.md` chưa có mục R3; `VPSC.5b` vẫn DRAFT. **R3 chưa bắt đầu, không có mutation ngoài quy trình, không cần rollback.**
@@ -59,7 +60,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 GPT REVIEWED · ACCEPT
 - VPSC.3 | Codex thẩm tra độc lập R1 → V1 + V1b trong `BAO-CAO.md` | MACHINE_DONE · V1b · KQ@VPSC-V1B-20260921-01 XONG · PASS 6 / REVISE 3 / BLOCK 6; thu hồi đã kiểm ~4,185GiB (N2/N4/N5); nguồn +2,94GiB chủ yếu cứu hộ/cập nhật Hermes, thêm deploy web; chưa dọn · Áp: SAME_COMMIT
 - VPSC.4 | Owner duyệt phạm vi mutation R2 | ✔ GPT REVIEWED + OWNER_APPROVED + Host READY @`f701fc5`
 - VPSC.5 | R2 dọn đợt 1 (N2/N4/N5/N3 + gỡ cổng Qdrant) + khoá 4 vòi → Codex hậu kiểm | MACHINE_DONE · R2 · xem BAO-CAO.md · KQ@VPSC-R2-20260921-01 XONG · trống 9,398→43,452GiB · thu hồi 34,207 · khoá 4/4 vòi; còn thiếu 1,548GiB tới 45 (đợt 2) · Áp: SAME_COMMIT
-- VPSC.5b | R3: SEC-01 trước + bịt nốt vòi (fail-closed, hai khoá, hạn giữ Drive) + đợt 2 (N9/N11 cứu rồi xoá tới >45GiB) — MỘT prompt | ▶ DRAFT, chờ GPT review + Owner gật Q06
+- VPSC.5b | R3: SEC-01 trước + bịt nốt vòi (fail-closed, hai khoá, hạn giữ Drive) + đợt 2 (N9/N11 cứu rồi xoá tới >45GiB) — MỘT prompt | ▶ READY@f249b90, chờ Owner phát RUN
 - VPSC.5v | Codex hậu kiểm R2 (V2, chỉ đọc) | MACHINE_DONE · V2 · PASS 3 / REVISE 3 / BLOCK 0 · K2 chưa rõ · xem BAO-CAO.md · KQ@VPSC-V2-20260921-01 XONG · Áp: SAME_COMMIT
 - VPSC.5c | V3: Codex hậu kiểm R3 + bằng chứng lượt chạy thật (cron Qdrant 03:00 giờ máy, K1, deploy Nuxt nếu có) | □
 - VPSC.5d | SEC-01: xoay token Drive + xoá transcript phiên 1 | → gộp vào R3 Phase 0 theo P15(5): xoay TRƯỚC lần dùng Drive kế tiếp
