@@ -10,7 +10,7 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 DRAFT · OWNER_APPROVED | NEXT: Host sửa duy nhất Phase 0 OAuth theo P16 → GPT review → READY → RUN | BLOCK: P16
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 · P16 đã sửa @f249b90 · OWNER_APPROVED | NEXT: GPT review f249b90 → Host READY → RUN | BLOCK: chờ GPT REVIEWED
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R3-20260921-01` · SEC-01 + bịt nốt vòi + đợt 2 · **CÓ MUTATION** · DRAFT.
 - **PROMPT_SHA = f249b90f9a5d84bce5295f22b7628fd716fe5ba3** (sau P16). Bản `fb182de` hết hiệu lực — OWNER_APPROVED@fb182de chuyển sang SHA mới vì chỉ đổi Phase 0 theo P16, không mở rộng phạm vi Owner đã gật (Q06). Cần đủ ba: `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` (preflight gồm NO_CONCURRENT_VPS_MUTATION).
