@@ -33,12 +33,12 @@ small{color:#666}@media(max-width:760px){.grid{grid-template-columns:1fr}}
 <tr><td>GPT Work</td><td>🟢</td><td>🟢</td><td>🟢</td><td>smoke 3 chiều</td></tr>
 <tr><td>GPT Chat</td><td>🟢</td><td>🟢</td><td>🟢</td><td>smoke 3 chiều</td></tr>
 <tr><td>Codex</td><td>🟢 10/10</td><td>🟢 0/10</td><td>🟢 10/10</td><td>20 ca tự động + thử lại sau khi đổi skill</td></tr>
-<tr><td>Claude Code</td><td>🟢 8/10</td><td>🟢 0/10</td><td>🟢 8/8</td><td>20 ca tự động</td></tr>
-<tr><td>Claude Chat</td><td>🟢</td><td>—</td><td>🟢</td><td>đọc lại bản ghi hội thoại</td></tr>
-<tr><td>Cowork</td><td>🟢</td><td>—</td><td>🟢</td><td>nội dung trả lời</td></tr>
+<tr><td>Claude Code</td><td>🟢 10/10 (+2/2 ca 2 lựa chọn)</td><td>🟢 0/10</td><td>🟢 12/12</td><td>20+2 ca tự động</td></tr>
+<tr><td>Claude Chat</td><td>🟢 chọn/phân loại · 🟡 ca quá hiển nhiên → đã thêm dòng nhắc thường trực</td><td>🟢</td><td>🟢</td><td>đọc lại bản ghi hội thoại</td></tr>
+<tr><td>Cowork</td><td>🟢 2/2</td><td>🟢</td><td>🟢</td><td>Codex nhìn ô công cụ</td></tr>
 </table>
 <ul>
-<li><strong>Vì sao AI nhớ lâu dài:</strong> tờ hướng dẫn <code>jev-reference</code> (một <code>SKILL.md</code> duy nhất trong thư mục này) và công cụ <code>JEV Reference</code> nằm ở cấp tài khoản/máy, không nằm trong trí nhớ từng cuộc chat — mọi phiên mới đều có.</li>
+<li><strong>Vì sao AI nhớ lâu dài — 3 lớp:</strong> (1) tờ hướng dẫn <code>jev-reference</code> (một <code>SKILL.md</code> duy nhất) + công cụ <code>JEV Reference</code> ở cấp tài khoản/máy; (2) một dòng nhắc thường trực trong trí nhớ Claude (Chat) và cuối <code>~/.claude/CLAUDE.md</code> (Claude Code) — luôn nằm trước mắt AI, kể cả việc dễ; (3) <strong>Kuma #20 “JEV dùng thật (14 ngày)”</strong> đỏ khi 14 ngày không ai dùng.</li>
 <li><strong>Giữ không quên:</strong> mỗi khi sửa tờ hướng dẫn hoặc hãng đổi model, agent tự chạy lại bộ thử (Claude Code 20 ca, Codex 2 ca); Owner chỉ bấm <em>Save skill</em> một lần. Quy trình chi tiết: <code>COLLAB.md</code> mục Trạng thái.</li>
 <li><strong>Máy chủ:</strong> cổng JEV trên VPS (<code>typesafe-mcp v0.4.2</code> + <code>mcp-proxy 0.12.0</code>), khoá và đường dẫn bí mật ở GSM, kiểm sức khoẻ thật 5 phút/lần báo về Uptime Kuma.</li>
 <li><strong>Việc treo (không chặn):</strong> gia cố log nginx để URL gõ nhầm không ghi lại đường dẫn bí mật. <strong>Tiếp theo:</strong> Hermes vào hội đồng (<code>work/hermes-joint-workspace/</code>).</li>
