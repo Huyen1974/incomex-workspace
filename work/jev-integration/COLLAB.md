@@ -237,8 +237,9 @@ HTML chính: `view.html`
 - Backend `JEV-B1-OPENAI-20260921-01`: **MACHINE_DONE · Host ACCEPT**. JEV-SEC01 XONG.
 - Work smoke: explicit PASS · natural PASS · negative PASS.
 - Chat smoke: explicit PASS · natural PASS · negative PASS.
-- Codex smoke trước Skill: explicit PASS · negative PASS · natural chưa gọi. User-level Skill `jev-reference` đã cài và Codex Desktop/CLI đã nhận tại `e2a9f35`; **retest duy nhất K1 trong một phiên Codex mới**.
-- Nếu K1 PASS: giao Claude Code sửa `jev-gw-health` thành version-agnostic (PASS dựa trên `answers`, model chỉ telemetry), rồi chạy acceptance 10+10 theo `CLIENT-ACCEPTANCE.md`.
+- Codex smoke: explicit PASS · negative PASS · natural K1 PASS (retest phiên mới, sau Skill `e2a9f35`). ⇒ **Smoke acceptance OpenAI Work/Chat/Codex: ĐÓNG.**
+- `jev-gw-health` version-agnostic: **XONG 2026-09-22** (xem KQ JEV-HEALTH-VA).
+- NEXT: acceptance 10+10 theo `CLIENT-ACCEPTANCE.md` (lượt riêng, chưa chạy).
 - Chỉ khi OpenAI client acceptance DONE mới chuyển sang Bước 2 Claude/Hermes theo kế hoạch.
 
 ## KQ — JEV-B1-OPENAI-20260921-01 · Claude Code
@@ -274,3 +275,14 @@ HTML chính: `view.html`
   - URL v2 public: initialize 200 → `evaluate` 200, có `answers` (`is_destructive.noul=0.99`), model `typesafe/jev-1.13-20260917`.
   - URL v1 public: initialize + evaluate → 404 (giá trị v1 chỉ giữ trong bộ nhớ trước khi disable, để thử).
 - Không in/ghi giá trị secret hay URL ở đâu (so bằng sha256; URL chỉ đi qua stdin của curl). URL v2 đầy đủ đã được đưa vào clipboard Mac của Owner theo yêu cầu lượt trước.
+
+## KQ — JEV-HEALTH-VA · Claude Code
+- `KQ@JEV-HEALTH-VA XONG` · 2026-09-22 ~02:25Z · một việc duy nhất: `/usr/local/sbin/jev-gw-health` thành version-agnostic (không thuộc registry Config Guard ⇒ sửa trực tiếp; backup `/var/backups/jev-gw-health.20260922-pre-version-agnostic`, sha `bd625109…` → mới `35bee2e8…`).
+- Đổi: bỏ `PIN` + lớp lỗi `MODEL_MISMATCH`; probe **không truyền `model`**; UP ⇔ MCP initialize + `tools/call evaluate` thành công, không `isError`, có `answers.is_destructive.noul` ∈ [0,1]. `model` (nếu có) chỉ là telemetry: lọc ký tự an toàn, cắt ≤48, thiếu = `-`, chỉ vào dòng log + Kuma msg.
+- Không đổi: gateway `jev-gw`, provider, secret, nginx, unit/timer, plugin, Skill.
+- Kiểm — PASS:
+  - Fixture (`JEV_HEALTH_NO_PUSH=1`, 127.0.0.1): thiếu `answers` → DOWN `NO_ANSWERS`; `answers={}` → DOWN `NO_ANSWERS`; model lạ `jev-9.99…` → UP (bản cũ DOWN giả `MODEL_MISMATCH`); không có `model` → UP `model=-`; model rác 300 ký tự → UP, log cắt 48 ký tự an toàn. Fixture xác nhận bản mới không gửi `model`.
+  - Probe thật `systemctl start jev-gw-health` 02:23:47Z: UP, 516 ms, `kuma=ok`; Kuma #19 heartbeat status=1 cùng thời điểm.
+  - Quét theo giá trị path-secret: journal health + msg Kuma = 0.
+- Rollback (Owner quyết): `install -m 755 /var/backups/jev-gw-health.20260922-pre-version-agnostic /usr/local/sbin/jev-gw-health`.
+- Không chạy 10+10 trong lượt này.
