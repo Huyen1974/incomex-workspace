@@ -25,8 +25,8 @@ Giờ trong báo cáo: UTC (Z). Sau phần 4, "giờ máy" = giờ VN.
 1.1 Tìm bản cấu hình cũ `rclone.conf.pre-VPSC-R3-*` trên VPS (cạnh cấu hình rclone của root) và trên Mac (cạnh cấu hình rclone của user). Chỉ in đường dẫn + số lượng.
 1.2 Thử chìa cũ bằng từng bản cũ: `rclone --config <bản cũ> lsf <remote>: --max-depth 1` (VPS: remote `gdrive-backup`; Mac: lấy tên bằng `listremotes`). Bỏ stdout; stderr giữ trong biến. Chỉ in OK/LỖI + mã thoát + có/không dấu hiệu lỗi xác thực (đếm `invalid_grant|unauthorized|401` trong biến). **Còn OK ở bất kỳ bản nào → `SEC-01 = PENDING_REVOKE`, bỏ 1.3–1.5.**
 1.3 Kiểm chìa mới còn sống TRƯỚC khi xoá: VPS `rclone lsf gdrive-backup: --max-depth 1` bằng cấu hình hiện hành → OK; Mac: mount `drive-workspace` (launchd) đọc được một thư mục. Lỗi → DỪNG phần 1, không xoá gì.
-1.4 Xoá dấu vết: nạp token cũ từ bản cấu hình cũ vào biến (không in). `grep -rlF` trong: Mac `~/.claude/`, thư mục cấu hình rclone của user, `~/Downloads`; VPS `/root`, `/var/lib/incomex-audit/`, hồ sơ việc này. Loại trừ cấu hình hiện hành. Nếu khớp file transcript của chính phiên đang chạy → DỪNG phần 1, báo. Tổng 1–5 file → xoá các file đó rồi xoá 2 bản cấu hình cũ. >5 file → không xoá, ghi danh sách đường dẫn vào báo cáo. Sau đó grep lại phải = 0. (Không có đường lùi: đây là dấu vết của chìa đã chết.)
-1.5 Kiểm lại như 1.3 → `SEC-01 = REVOKED_CLEAN`.
+1.4 Xoá dấu vết — **CHỈ tự xoá đúng các artifact đã định danh (P17):** (a) 2 bản cấu hình cũ `rclone.conf.pre-VPSC-R3-*` (VPS, Mac) đã chứng minh chìa cũ chết ở 1.2; (b) transcript Claude Code cũ trên Mac trong `~/.claude/projects/` chứa token cũ (phiên R2 21/09 — đúng 1 file theo bàn giao). Cách làm: nạp token cũ từ bản cấu hình cũ vào biến (không in); `grep -rlF` để KIỂM KÊ trong: Mac `~/.claude/`, thư mục cấu hình rclone của user, `~/Downloads`; VPS `/root`, `/var/lib/incomex-audit/`, hồ sơ việc này; loại trừ cấu hình hiện hành. Xoá (b) chỉ khi đúng 1 file transcript `.jsonl` dưới `~/.claude/projects/`, KHÔNG phải phiên đang chạy, sửa lần cuối trước 22/09; rồi xoá (a). **Mọi file khớp khác (kể cả transcript thứ hai) → GIỮ NGUYÊN**, ghi đường dẫn đã làm sạch + loại file vào báo cáo, đặt `SEC-01 = CLEAN_PARTIAL · CHO_HOST_PHAN_LOAI`, không xoá thêm. Khớp transcript của chính phiên đang chạy → DỪNG phần 1. Sau khi xoá: grep lại chỉ còn đúng các file đã báo giữ. (Không có đường lùi cho (a)(b): dấu vết của chìa đã chết.)
+1.5 Kiểm lại như 1.3 → `SEC-01 = REVOKED_CLEAN` (không còn file khớp nào) hoặc `CLEAN_PARTIAL · CHO_HOST_PHAN_LOAI`.
 
 ## Phần 2 — Báo image hằng ngày (chỉ lệnh xem)
 2.1 Kiểm `scripts/vps-retention.sh` hiện hành = nội dung `c5b7615` (commit lùi `e9bb42b`); lệch → DỪNG phần 2. **Không dùng bản `vps-retention.sh.r4-sua`** (chứa luật (j) đã bỏ).
@@ -50,7 +50,7 @@ Bối cảnh: Berlin đang CEST = UTC+2 (tới 25/10/2026); VN = UTC+7 → giờ
 4.1 Kiểm kê (chỉ đọc) → bảng trong hồ sơ, gồm:
    - crontab của root và mọi user;
    - `/etc/cron.d/*`, `/etc/crontab`, file incomex trong `/etc/cron.{hourly,daily,weekly,monthly}`;
-   - systemd timer (`systemctl list-timers --all` + file trong `/etc/systemd/system`, user timer nếu có);
+   - systemd timer (`systemctl list-timers --all` + file trong `/etc/systemd/system`, user timer nếu có); với MỖI timer incomex ghi: `OnCalendar` (có hậu tố múi giờ hay không), `OnBootSec/OnUnitActiveSec`, `Persistent=`, `RandomizedDelaySec`, LAST và NEXT quy UTC (`systemctl show -p LastTriggerUSec,NextElapseUSecRealtime`). Timer chỉ dùng khoảng cách (OnBootSec/OnUnitActiveSec) hoặc OnCalendar có múi cố định (vd `UTC`) → không bị đổi giờ ảnh hưởng, KHÔNG sửa;
    - biến múi giờ: `/etc/environment`, `/etc/default/cron`, `scripts/cron-env.sh`, dòng `CRON_TZ=`/`TZ=` trong crontab;
    - script có cổng giờ bên trong dùng giờ máy (`date +%H/%u/%w/%a/%d` không `-u`, không `TZ=`; đã biết: `scripts/vps-retention.sh` dòng `date +%H` = "04");
    - container mang múi giờ host (Mounts có `/etc/localtime`|`/etc/timezone`, Env có `TZ`).
@@ -60,12 +60,13 @@ Bối cảnh: Berlin đang CEST = UTC+2 (tới 25/10/2026); VN = UTC+7 → giờ
    - Container mang múi giờ host: KHÔNG restart/recreate. Chỉ ghi bảng: container nào sẽ đổi giờ ở lần tạo lại sau, container nào có lịch bên trong bị ảnh hưởng.
    - Lịch trong container (Directus flow, pg_cron, Kuma) theo múi của container: không đổi, chỉ ghi nếu thấy.
    - File incomex trong `/etc/cron.daily…`: ghi bảng, không đổi.
-4.4 Chuẩn bị (chưa áp): lưu bản cũ (crontab từng user, `/etc/cron.d`, unit timer, script) vào hồ sơ + sha256; soạn sẵn bản mới. Soạn `lui-mui-gio.sh`: trả `Europe/Berlin` + khôi phục đúng các file cũ + restart cron + `daemon-reload`. Thử khô nó (in bước, không chạy). Sửa script: commit git cục bộ.
+4.4 Chuẩn bị (chưa áp): lưu bản cũ (crontab từng user, `/etc/cron.d`, unit timer, script) vào hồ sơ + sha256; soạn sẵn bản mới. Soạn `lui-mui-gio.sh`: trả `Europe/Berlin` + khôi phục đúng các file cũ + restart cron + `daemon-reload` (cùng luật timer bên dưới, không restart timer). Thử khô nó (in bước, không chạy). Sửa script: commit git cục bộ.
+   - **Cổng timer (P17), trước khi áp:** với mỗi timer incomex có `OnCalendar` theo giờ máy (phải sửa): nếu `Persistent=true`, hoặc không chứng minh được bằng tính toán rằng sau khi sửa + `daemon-reload` timer sẽ KHÔNG bắn ngay/bắn bù (mốc lịch gần nhất theo OnCalendar mới quy UTC ≤ LAST thật; NEXT mới quy UTC = NEXT cũ) → **DỪNG phần 4, giữ Europe/Berlin, không đổi gì** (phần 1–3 vẫn giữ kết quả). Không dùng `systemctl restart <timer>` làm mặc định.
 4.5 Chọn phút áp: theo bảng không có job nào (kể cả `*/10` như kuma-push, phái cử ~10 phút/lần) trong ±5 phút; không có tiến trình backup/rclone/deploy đang chạy; khoá `flock` của cron phái cử không bị giữ.
-4.6 Áp liền một khối (<2 phút): cài crontab/cron.d/timer/script mới → `timedatectl set-timezone Asia/Ho_Chi_Minh` → restart dịch vụ cron (chỉ cron) → `systemctl daemon-reload` → restart các timer đã sửa.
+4.6 Áp liền một khối (<2 phút): cài crontab/cron.d/timer/script mới → `timedatectl set-timezone Asia/Ho_Chi_Minh` → restart dịch vụ cron (chỉ cron) → `systemctl daemon-reload`. **Không restart timer.** Ngay sau đó đọc `NextElapseUSecRealtime` + `LastTriggerUSec` từng timer incomex: LAST không đổi (không bắn ngoài lịch) và NEXT quy UTC = trước; NEXT chưa cập nhật hoặc sai → chạy `lui-mui-gio.sh` → DỪNG (không dùng restart timer để ép).
 4.7 Kiểm:
    - `timedatectl` = Asia/Ho_Chi_Minh (+07).
-   - `systemctl list-timers`: NEXT (quy UTC) của từng timer incomex = trước khi đổi; không timer nào bắn ngoài lịch.
+   - `systemctl list-timers`: NEXT (quy UTC) của từng timer incomex = trước khi đổi; LastTrigger không đổi và journal không có lượt chạy nào của unit được timer kích trong cửa sổ áp (không catch-up).
    - Crontab mới khớp bảng 4.3; log cron không có lỗi.
    - Health như cổng 3; lượt đẩy Kuma #10 kế tiếp OK.
    - Sai bất kỳ điểm nào → chạy `lui-mui-gio.sh` → kiểm lại → DỪNG.
@@ -87,7 +88,7 @@ Bối cảnh: Berlin đang CEST = UTC+2 (tới 25/10/2026); VN = UTC+7 → giờ
 - COLLAB:
   - Sửa dòng `VPSC.5f` thành `MACHINE_DONE · R4b · …` hoặc `STOPPED · <phần.bước> · <lý do>`.
   - Ngay dưới, thêm đúng một dòng `KQ@VPSC-R4B-20260923-01 XONG` hoặc `KQ@VPSC-R4B-20260923-01 DỪNG`. XONG = phần 1–4 không STOPPED (`H1 = CHO_CONG` hoặc `SEC-01 = PENDING_REVOKE` vẫn là XONG, kèm ghi chú).
-- Trả Owner đúng một dòng: `XONG · VPSC-R4b · SEC-01 <REVOKED_CLEAN|PENDING_REVOKE> · image <GiB> (báo hằng ngày) · failed <trước>→<sau> · múi giờ <Asia/Ho_Chi_Minh|giữ Berlin> · trống <GiB> · xem BAO-CAO.md` hoặc `DỪNG · VPSC-R4b · <phần.bước> · <lý do>`.
+- Trả Owner đúng một dòng: `XONG · VPSC-R4b · SEC-01 <REVOKED_CLEAN|CLEAN_PARTIAL|PENDING_REVOKE> · image <GiB> (báo hằng ngày) · failed <trước>→<sau> · múi giờ <Asia/Ho_Chi_Minh|giữ Berlin> · trống <GiB> · xem BAO-CAO.md` hoặc `DỪNG · VPSC-R4b · <phần.bước> · <lý do>`.
 
 ## 6. Sau R4b (không phải việc của agent)
 Codex V3 chỉ đọc sau một đêm chạy thật: backup Drive 18:37Z (= 01:37 VN), Qdrant, người gác (a)–(i) + (k), Kuma, lịch sau đổi giờ, df. PASS → VPSC.6 theo dõi 2 tuần → đóng việc.
