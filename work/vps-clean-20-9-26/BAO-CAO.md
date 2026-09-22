@@ -4,6 +4,62 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## R4 — Khép việc · 22/09/2026 · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=workspace_* · KQ STOPPED · A3
+
+RUN_ID `VPSC-R4-20260922-01` · PROMPT@`f4d496e7393659be03635a33edb575d7d717c06b` — cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `OWNER_APPROVED@` + Host `READY@` cùng mã. Preflight 21:23Z: đĩa 45%, trống 52,761GiB; không có build/compose/pull đang chạy; 12 container, 10/10 healthcheck healthy; web 200; Directus ok; Qdrant green 20.187 points.
+
+### (1) CHO OWNER
+- 🔴 **R4 DỪNG sau A3.** Trong lúc soạn luật (j), agent gõ tay một lệnh chẩn đoán (`docker buildx history ls --filter status=running`) → **dockerd 29.2.1 panic lúc 21:25:43Z**; systemd bật lại dockerd nhưng **11/12 container không tự lên** (dù restart policy `unless-stopped`) → web, Directus, MCP gián đoạn **~4 phút 22 giây** (tới 21:30:05Z).
+- Agent đã `docker start` lại đúng 11 container đó (không recreate, cùng image, cùng cấu hình). 21:33Z: 12 container, 10/10 healthy, web 200, Directus ok, Qdrant green 20.187 points (trước = sau), đĩa không đổi.
+- Theo D08 "xấu đi → lùi và DỪNG": script người gác **đã lùi về đúng bản trước R4** (sha256 khớp); (a)–(i) chạy như cũ. B chỉ báo số. **C không chạy → SEC-01 vẫn PENDING_REVOKE** (chưa kiểm token cũ).
+- Build cache hiện 0,823GiB (dưới trần 5GiB, không có gì để tỉa) nhưng **chưa có khoá** vì đã lùi. Image 10,0GiB, 37/49 image không container nào dùng.
+- Cần Host: phát lại R4 với bản sửa đã soạn sẵn (bỏ hẳn lời gọi `buildx history`) + xem vì sao `unless-stopped` không tự bật container sau khi dockerd sập (có thể làm lần sập sau kéo dài).
+
+### (2) Build cache + luật (j)
+| Bước | Kết quả | Git cục bộ `/opt/incomex` |
+|---|---|---|
+| A1 đo | 149 bản ghi · 883.823.740 byte = **0,823GiB** · 0 bản ghi đang dùng | — |
+| A2 cài (j) + (k) vào `scripts/vps-retention.sh` | `bash -n` đạt. Thử khô (log/khoá riêng, prune thay bằng echo) PASS: nhánh thường; socket Docker lỗi → `(j) LOI…` / `(k) LOI…`; tiến trình `docker build` giả → bỏ lượt; `docker compose up --build` giả → bỏ lượt; lệnh docker khác → chạy; cổng giờ đúng (CN 04 → j; 05 → k; T7 04 và T2 23 → không gì); tham số sai → rc=2. (a)–(i) giữ nguyên từng byte (+72 dòng, −0) | `0bf7d0c` (trước `c5b7615`) |
+| A3 chạy thật `--chi-j` 21:28Z | trước = sau 883.823.740 byte (dưới trần, prune không xoá gì); df không đổi; 1 dòng log | — |
+| Sự cố | panic dockerd lúc 21:25:43Z — xem (1) | — |
+| Lùi (21:32Z) | `git revert`; sha256 script = bản trước R4 | `e9bb42b` |
+
+- **Nguyên nhân (journal dockerd):** nil pointer trong buildkit `llbsolver.parseFilter` (`history.go:1195`) khi gọi ListenBuildHistory có filter. Cùng lệnh không `--filter` chạy ~6 lần sau đó không sao. **Bẫy mới: không dùng `docker buildx history ls --filter` trên daemon này.** Lệnh đó không nằm trong bản đã cài lúc sập (chạy tay khi soạn).
+- **Bản sửa cho lượt sau** (VPS, ngoài Git): `/var/lib/incomex-audit/VPSC-R4-20260922/vps-retention.sh.r4-sua` = `0bf7d0c` bỏ hẳn lời gọi `buildx history`; gác build còn: không tiến trình docker build/bake/buildctl/compose `--build` + mọi bản ghi cache `InUse=0`.
+- **Thiết kế (j):** Chủ nhật lượt 04:xx giờ máy; có build → bỏ lượt; `docker builder prune -f --max-used-space 5GiB` (chỉ build cache, không image/container/volume); mỗi lần 1 dòng log `/var/log/incomex/vps-retention.log`. **(k):** lượt 05:xx hằng ngày 1 dòng log (không xoá). Chạy tay riêng: `--chi-j` / `--chi-k`.
+
+### (3) Image — chỉ báo, không xoá/tag/untag gì
+Tổng (LayersSize) 10.739.626.567 byte = **10,002GiB** · 49 image · 12 đang chạy · **37 không container nào dùng** · 0 image không tag.
+
+| Dịch vụ | Image | Tag | Đang chạy | Không dùng | Phần riêng của image không dùng |
+|---|---|---|---|---|---|
+| agent-data (mọi repo `agent-data-*`) | 20 | 28 | 1 | 19 | 8,112GiB |
+| claude-mcp | 14 | 22 | 1 | 13 | 0,923GiB |
+| claude-kb | 3 | 4 | 1 | 2 | 0,123GiB |
+| cowork-runner · cowork-mcp | 2 · 2 | 2 · 2 | 1 · 1 | 1 · 1 | 0,064 · 0,062GiB |
+| alpine | 1 | 1 | 0 | 1 | 0,012GiB |
+| 7 dịch vụ còn lại (executor, kuma, postgres, nuxt, nginx, qdrant, directus) | 1 mỗi dịch vụ | 1 | 1 | 0 | 0 |
+
+- **Số thu hồi được CHƯA CHẮC:** Docker báo reclaimable 759.009.149 byte (0,707GiB); cộng phần riêng từng image không dùng ra 9,3GiB. Hai phép đo lệch nhau (kho image containerd — bẫy R1) ⇒ chỉ biết số thật khi đo `du` thư mục snapshot containerd trước/sau lúc gỡ.
+- **Đề xuất cho chủ R03 (áp sau khi R03 CLOSED):** mỗi dịch vụ giữ image đang chạy + chuỗi cha của nó + 2 bản trước; còn lại gỡ. Với số hiện tại: agent-data 20 → ~3 (+ cha), claude-mcp 14 → ~3, claude-kb/cowork-* giữ nguyên, alpine gỡ được.
+- **Lưu ý cho chủ R03:** image đang chạy của agent-data và claude-mcp là bản HVU-B3 (`…b3-rerun-02-final`), khác baseline R03 ⇒ "2 bản trước" phải chứa image rollback R03 (`agent-data-r03:20260920-finalclose`, `claude-mcp-local:r03-finalclose-20260920`). Các image nền (`agent-data-workspace-base`, `agent-data-local:latest`) có thể là cha của chuỗi đang chạy — xác minh trước khi gỡ.
+
+### (4) SEC-01
+C **không chạy** (R4 dừng ở A theo D08). **SEC-01 = PENDING_REVOKE** (chưa thử token cũ). Không đọc/in cấu hình rclone. 2 bản cấu hình cũ (VPS, Mac) + 1 transcript còn nguyên, chờ lượt sau.
+
+### Trạng thái trước / sau
+| | Trước (21:23Z) | Sau (21:33Z) |
+|---|---|---|
+| Đĩa | 45% · trống 52,761GiB | 45% · trống 52,766GiB |
+| Container | 12; 10/10 healthy | 12; 10/10 healthy (11 container start lại 21:29:43–21:30:05Z) |
+| Qdrant `production_documents` | green · 20.187 points · 1 snapshot | green · 20.187 points · 1 snapshot |
+| Web · Directus | 200 · ok | 200 · ok |
+| Script người gác | `c5b7615` | `e9bb42b` (nội dung = `c5b7615`) |
+
+Bằng chứng thô: `/var/lib/incomex-audit/VPSC-R4-20260922/` trên VPS (ngoài Git; luật (h) tự dọn sau 30 ngày). V3 Codex lưu ý: mọi container có `StartedAt` mới 22/09 21:29–21:30Z là do lần khôi phục này, không phải deploy.
+
+---
+
 ## R3 — Bịt nốt vòi + đợt 2 · 22/09/2026 · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=workspace_*
 
 RUN_ID `VPSC-R3-20260921-01` · PROMPT@`f249b90f9a5d84bce5295f22b7628fd716fe5ba3` — cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã; read-gate `workspace_*` PASS. Phiên 1 dừng ở Phase 1.3 (bộ phân quyền tự động của Claude Code chặn lượt cài + chạy thật người gác kho; agent không lách). **Phiên 2** (PROMPT@`dd216dff830a426199bd57491bb83a114490c127`, `OWNER_APPROVED@` + Host `READY@` cùng mã, D08 chạy không hỏi quyền từng lệnh; cổng §0 đạt 10:18–10:21Z: trống 43,258GiB, 12 container / 10 healthy, không build/backup/deploy đang chạy, agent-data không bị tạo lại từ 21/09 11:26Z, HVU-VPSARCHIVE01 mới READY chưa chạy). **Trạng thái: MACHINE_DONE · Phase 0–5 xong, trừ 5.3–5.4 (gỡ quyền ứng dụng "rclone" cũ trong tài khoản Google = việc Owner, §3d) · `KQ@VPSC-R3-20260921-01 XONG`.** Phiên 2 kết thúc ~11:00Z. Giờ UTC, GiB = 1024³ byte.
