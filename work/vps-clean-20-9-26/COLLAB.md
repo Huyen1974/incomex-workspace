@@ -10,11 +10,12 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 · P16 đã sửa @f249b90 · OWNER_APPROVED | NEXT: GPT review f249b90 → Host READY → RUN | BLOCK: chờ GPT REVIEWED
+VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 GPT REVIEWED · ACCEPT + OWNER_APPROVED | NEXT: Host preflight + READY → RUN phiên Claude Code sạch | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R3-20260921-01` · SEC-01 + bịt nốt vòi + đợt 2 · **CÓ MUTATION** · DRAFT.
 - **PROMPT_SHA = f249b90f9a5d84bce5295f22b7628fd716fe5ba3** (sau P16). Bản `fb182de` hết hiệu lực — OWNER_APPROVED@fb182de chuyển sang SHA mới vì chỉ đổi Phase 0 theo P16, không mở rộng phạm vi Owner đã gật (Q06). Cần đủ ba: `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` (preflight gồm NO_CONCURRENT_VPS_MUTATION).
 - **OWNER_APPROVED@f249b90f9a5d84bce5295f22b7628fd716fe5ba3** — chuyển từ OWNER_APPROVED@fb182de (Q06 "cần chốt dứt điểm"); bản mới chỉ đổi Phase 0 theo P16, phạm vi không rộng hơn.
+- **GPT REVIEWED@f249b90f9a5d84bce5295f22b7628fd716fe5ba3 · ACCEPT** — đã đối chiếu diff `fb182de→f249b90`: chỉ Phase 0/P16 thay đổi; Phase 1–3 giữ nguyên. Phase 0 mới cấm auto-revoke/shared-client reauth, chỉ cho Drive phases khi `SEC-01=MIGRATED`; các gate fail-closed, NO_CONCURRENT_VPS_MUTATION, N9/N11 rescue-before-delete và V3 hậu kiểm vẫn đầy đủ. Không mở P mới.
 - **OWNER_APPROVED@fb182de5e79ac1ecda0ec41ec279ff72f3e2068c** — Owner 21/09: "Cần chốt dứt điểm việc clean này, bịt hết các đầu dò và có chế độ tự xoá hợp lý … toàn rác làm phình" (gật Q06).
 - **Host đối soát 21/09 ~11:40Z (chỉ đọc, theo đề nghị GPT):** đoạn log Owner chuyển (B4/K1/K2 với commit `b97e5d3`/`3180326`/`0dc9379`) là log R2 phiên 2, KHÔNG phải R3. Bằng chứng: `qdrant-backup.sh` sửa lần cuối 10:19Z, `dung-va-trien-khai.sh` 10:20Z, `vps-retention.sh` 10:21Z (đúng cửa sổ R2 phiên 2), `backup-to-gdrive.sh` vẫn 2026-08-02; `BAO-CAO.md` chưa có mục R3; `VPSC.5b` vẫn DRAFT. **R3 chưa bắt đầu, không có mutation ngoài quy trình, không cần rollback.**
 - V2 (lịch sử): PROMPT_SHA `abe38f1992a61dedd9f3a9a664a63b6356b19cc4` · OWNER_APPROVED + READY đã dùng · KQ XONG PASS 3 / REVISE 3 / BLOCK 0.
@@ -96,6 +97,6 @@ GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho 
 - Q04 · CLOSED · Owner 2026-09-21 giao nhóm kỹ thuật quyết. Chốt kỹ thuật: giữ mục tiêu ≥45GB trống; bỏ `≤3GB/tháng` khỏi tiêu chí PASS và dùng nó như ngưỡng đỏ. PASS theo D02/P10: non-business phải bounded/steady-state, hoặc offload/purge có kiểm soát.
 
 ## NEXT
-- Host sửa **duy nhất Phase 0** theo P16; không đổi Phase 1–3. Ghi PROMPT_SHA mới.
-- GPT review SHA mới; ACCEPT → Host preflight (gồm NO_CONCURRENT_VPS_MUTATION) + `READY@` → RUN Claude Code CLI phiên mới sạch.
+- Host preflight lại ngay trước RUN: df/health, `NO_CONCURRENT_VPS_MUTATION`, Executor_Surface/Write_Path, commit cuối chạm PROMPT vẫn `f249b90f9a5d84bce5295f22b7628fd716fe5ba3`; đạt → ghi `READY@f249b90f9a5d84bce5295f22b7628fd716fe5ba3`.
+- RUN Claude Code CLI bằng **phiên mới sạch**. Owner ngồi máy phần Phase 0; không giao HVU hay việc khác mutation VPS trong cửa sổ R3.
 - Sau R3: V3 Codex sau lượt cron thật → VPSC.6.
