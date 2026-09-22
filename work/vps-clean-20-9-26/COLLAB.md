@@ -60,7 +60,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 READY@f249b90 | NEXT: 
 - VPSC.3 | Codex thẩm tra độc lập R1 → V1 + V1b trong `BAO-CAO.md` | MACHINE_DONE · V1b · KQ@VPSC-V1B-20260921-01 XONG · PASS 6 / REVISE 3 / BLOCK 6; thu hồi đã kiểm ~4,185GiB (N2/N4/N5); nguồn +2,94GiB chủ yếu cứu hộ/cập nhật Hermes, thêm deploy web; chưa dọn · Áp: SAME_COMMIT
 - VPSC.4 | Owner duyệt phạm vi mutation R2 | ✔ GPT REVIEWED + OWNER_APPROVED + Host READY @`f701fc5`
 - VPSC.5 | R2 dọn đợt 1 (N2/N4/N5/N3 + gỡ cổng Qdrant) + khoá 4 vòi → Codex hậu kiểm | MACHINE_DONE · R2 · xem BAO-CAO.md · KQ@VPSC-R2-20260921-01 XONG · trống 9,398→43,452GiB · thu hồi 34,207 · khoá 4/4 vòi; còn thiếu 1,548GiB tới 45 (đợt 2) · Áp: SAME_COMMIT
-- VPSC.5b | R3: SEC-01 trước + bịt nốt vòi (fail-closed, hai khoá, hạn giữ Drive) + đợt 2 (N9/N11 cứu rồi xoá tới >45GiB) — MỘT prompt | ▶ READY@f249b90, chờ Owner phát RUN
+- VPSC.5b | R3: SEC-01 trước + bịt nốt vòi (fail-closed, hai khoá, hạn giữ Drive) + đợt 2 (N9/N11 cứu rồi xoá tới >45GiB) — MỘT prompt | STOPPED · Phase 1.3 · bộ phân quyền tự động của Claude Code chặn lượt cài + chạy người gác kho (xoá thật), agent không lách · đã xong: SEC-01 MIGRATED·PENDING_REVOKE, 1.1 `330360e`, 1.2 `4eac699`, 1.4 T4 (không có đường báo) · tiếp từ 1.3 khi Owner cho phép · xem BAO-CAO.md · KQ@VPSC-R3-20260921-01 DỪNG · Áp: `63c8d68`
 - VPSC.5v | Codex hậu kiểm R2 (V2, chỉ đọc) | MACHINE_DONE · V2 · PASS 3 / REVISE 3 / BLOCK 0 · K2 chưa rõ · xem BAO-CAO.md · KQ@VPSC-V2-20260921-01 XONG · Áp: SAME_COMMIT
 - VPSC.5c | V3: Codex hậu kiểm R3 + bằng chứng lượt chạy thật (cron Qdrant 03:00 giờ máy, K1, deploy Nuxt nếu có) | □
 - VPSC.5d | SEC-01: xoay token Drive + xoá transcript phiên 1 | → gộp vào R3 Phase 0 theo P15(5): xoay TRƯỚC lần dùng Drive kế tiếp
