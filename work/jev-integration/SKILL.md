@@ -1,11 +1,8 @@
 ---
 name: jev-reference
 description: >-
-  Hỏi JEV (app JEV Reference, tool `evaluate`) lấy xác suất tham khảo trước khi chốt một quyết định có
-  biên với lựa chọn hoặc tiêu chí đã biết: chọn 1 trong N, xếp hạng, phân loại, định tuyến, đánh giá rủi
-  ro, kiểm có/không. JEV chỉ là bằng chứng, bạn tự quyết. Không dùng cho việc tất định, dịch, tính toán,
-  viết code hay nội dung sáng tạo. Use for bounded choice, ranking, classification, routing, risk
-  assessment, or yes/no verification against known options or criteria.
+  Hỏi JEV (tool evaluate) tham khảo trước khi chốt: chọn 1 trong N, xếp hạng, phân loại, định tuyến,
+  rủi ro, có/không theo tiêu chí rõ. Không dùng để dịch, tính, viết. Bạn tự quyết.
 ---
 
 # JEV — nguồn tham khảo cho quyết định có biên
@@ -27,8 +24,9 @@ nào không, và cách dùng kết quả như bằng chứng; nó không chọn 
 - Không gửi secret/khoá/mật khẩu; hạn chế dữ liệu cá nhân không cần thiết.
 
 ## Cách gọi — tool `evaluate`
-Tool `evaluate` của app **JEV Reference** (trong Codex hiện ra dưới tên `jev_reference.evaluate`, tức
-`mcp__codex_apps__jev_reference_evaluate`). Phiên không có tool này ⇒ lượt này không có tham khảo JEV.
+Tool `evaluate` của connector/app **JEV Reference**. Tên hiển thị tuỳ client: Codex `jev_reference.evaluate`
+(`mcp__codex_apps__jev_reference_evaluate`); Claude Code `mcp__<tên server>__evaluate`; Claude Chat/Cowork:
+connector JEV Reference → `evaluate`. Phiên không có tool này ⇒ lượt này không có tham khảo JEV.
 
 ```json
 {"state": {"prompt_line": "Chạy: rm -rf /opt/app/data rồi restart dịch vụ."},
