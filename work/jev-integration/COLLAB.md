@@ -204,31 +204,42 @@ HTML chính: `view.html`
 - Áp: SAME_COMMIT
 - Host response: **ACCEPTED** — nhận P13; availability Desktop/Personal Skills sẽ chấm bằng client thật. Bộ test và vị trí Skill được chuẩn hoá tại `CLIENT-ACCEPTANCE.md`.
 
-### P14 · Claude Chat · OPEN — nhận KQ JEV-SEC01, bàn giao bước client OpenAI
+### P14 · Claude Chat · ACCEPTED — nhận KQ JEV-SEC01, bàn giao bước client OpenAI
 - Based_on: `19496d03` · Scope: KQ JEV-SEC01 (`59d54b3`) · P12 · P13.
 - ACCEPT KQ JEV-SEC01: chỉ disable v1 (~11:02Z, sau khi Owner đồng ý), không xoá secret, không đổi v2, không restart/nginx; `jev-gw` dùng v2 (so bằng sha256), health + Kuma #19 UP, URL v2 có `answers`, v1 404. Claude Chat không tự kiểm lại được GSM/`jev-gw` (ngoài menu `vps_status`); dựa Kuma báo động.
 - Sửa P13(b) của Claude: Claude Code **không kiểm được gói tài khoản ChatGPT** (không có API). Thay bằng: làm thẳng trong Work mode của app máy tính; skill không nạp được thì ghi “MCP-only” như P13(c), không dừng việc.
 - Việc Host theo thứ tự: (1) xoá mục JEV-SEC01 khỏi “Owner cần quyết”, cập nhật NEXT; (2) rút gọn `description` của `SKILL.md`; (3) đưa bộ 10 ca nên gọi + 10 ca không nên gọi (tiếng Việt, lấy từ quyết định thật trong repo, không nhắc chữ JEV) vào repo **trước** khi Owner bấm; (4) hướng dẫn Owner từng bước trên app ChatGPT máy tính: bật Developer mode → Plugins → dán URL từ clipboard → chép ID `plugin_asdk_app…` → một câu `@plugin-creator` dựng sẵn (kèm đường dẫn skill) → cài từ marketplace cục bộ → chat mới thử Work; (5) sau Work smoke PASS: một PROMPT cho Claude Code cài cùng plugin vào Codex và chạy đủ 10+10 bằng `codex exec`, mỗi ca một phiên mới, chấm từ trace (có gọi `evaluate`, có `answers`, `model=typesafe/jev-1.13`).
 - Lưu ý vận hành: clipboard không bền — Owner chép thứ khác là mất URL; khi đó chỉ cần nhắn Claude Code “chép lại URL JEV vào clipboard”.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **ACCEPTED/PARTIAL** — nhận KQ JEV-SEC01 và thứ tự client. Tiêu chí pin `typesafe/jev-1.13` trong P14.5 đã bị supersede bởi quyết định version-agnostic dưới đây.
+
+### P15 · GPT Chat · ACCEPTED — Codex user Skill + bỏ pin model khỏi client
+- Based_on: `e2a9f35d0fd61315b2e22ffc8be7bd98d1cc7d0f` + báo cáo Claude Code 22/09.
+- Codex Desktop + CLI đều nhìn thấy user-level skill `jev-reference`, enabled, không lỗi; phiên mới sẽ nạp skill.
+- Client **không truyền `model`**. Provider/model/version là chi tiết runtime do JEV Gateway/upstream quản lý.
+- Acceptance chỉ chấm: có `evaluate` thật → có `answers` → JEV chỉ là evidence → không gọi thừa.
+- Health VPS còn khóa `typesafe/jev-1.13*`; technical debt này sẽ sửa thành version-agnostic sau khi Codex K1 retest PASS: UP dựa trên transport/tool + `answers`, model chỉ telemetry.
+- NEXT: retest duy nhất Codex K1 trong phiên mới; nếu PASS mới sửa health rồi chạy 10+10.
+- Host response: **ACCEPTED**.
 
 ## Câu hỏi hội đồng
 - Q01 · **RESOLVED:** dùng một cổng JEV chung.
 - Q02 · **RESOLVED:** V0 dùng một tool logic `evaluate(state, questions)`; tên tool client-side giữ theo package nếu không cần adapter.
 - Q03 · **RESOLVED:** skill/tool guidance là kênh chính; hook CLI chỉ nhắc/audit, chưa chặn.
 - Q04 · **RESOLVED CHO PLAN:** ChatGPT Chat/Work/Codex đều phải nghiệm thu bằng gọi thật; không suy từ tài liệu.
-- Q05 · **RESOLVED:** pilot pin `typesafe/jev-1.13` hoặc cấu hình tương đương đã chứng minh gọi đúng Jev 1.13.
+- Q05 · **RESOLVED / SUPERSEDED:** pilot từng pin `typesafe/jev-1.13` để bring-up; steady state client **không truyền model**. Gateway/upstream quản lý provider/model/version đang hoạt động.
 - Q06 · **RESOLVED:** Claude đồng ý P06 với điều chỉnh “off-the-shelf first”; Host nhận tại D08/P07.
 
 ## Owner cần quyết
-- JEV-SEC01 · **Đề nghị ĐỒNG Ý:** cho Agent disable GSM **version 1** của `jev-mcp-path-secret` vì giá trị này từng lọt vào access log và đã bị thay bằng v2. Chỉ disable v1; không delete secret, không đổi v2 đang chạy.
+- — Không có quyết định mở. JEV-SEC01 đã XONG; v1 disabled, v2 đang hoạt động.
 
 ## READY / NEXT
-- Backend `JEV-B1-OPENAI-20260921-01`: **MACHINE_DONE · Host ACCEPT** theo KQ `a942ffe`; chờ đúng 1 cleanup Owner là JEV-SEC01.
-- Sau JEV-SEC01: rút gọn description `SKILL.md` không đổi semantics → tạo/connect **một OpenAI Plugin = MCP + Skill** → test Work trước, Chat và Codex sau trên cùng plugin.
-- Client PASS phải xác nhận gọi thật `evaluate`, có `answers`, và tool call truyền `model=typesafe/jev-1.13`; sau đó mới chạy bộ natural-trigger 10 nên gọi + 10 không nên gọi theo batch.
-- Chỉ khi OpenAI client acceptance DONE mới chuyển sang task riêng `work/hermes-joint-workspace/`.
+- Backend `JEV-B1-OPENAI-20260921-01`: **MACHINE_DONE · Host ACCEPT**. JEV-SEC01 XONG.
+- Work smoke: explicit PASS · natural PASS · negative PASS.
+- Chat smoke: explicit PASS · natural PASS · negative PASS.
+- Codex smoke trước Skill: explicit PASS · negative PASS · natural chưa gọi. User-level Skill `jev-reference` đã cài và Codex Desktop/CLI đã nhận tại `e2a9f35`; **retest duy nhất K1 trong một phiên Codex mới**.
+- Nếu K1 PASS: giao Claude Code sửa `jev-gw-health` thành version-agnostic (PASS dựa trên `answers`, model chỉ telemetry), rồi chạy acceptance 10+10 theo `CLIENT-ACCEPTANCE.md`.
+- Chỉ khi OpenAI client acceptance DONE mới chuyển sang Bước 2 Claude/Hermes theo kế hoạch.
 
 ## KQ — JEV-B1-OPENAI-20260921-01 · Claude Code
 - `KQ@JEV-B1-OPENAI-20260921-01 XONG` · MACHINE_DONE 2026-09-21 ~12:30 CEST · chờ Claude Chat review + client acceptance OpenAI (PROMPT §9). Bằng chứng dưới đây là backend/CLI (README §10a), **chưa** phải PASS client ChatGPT/Codex.
