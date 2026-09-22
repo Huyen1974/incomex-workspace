@@ -1,0 +1,159 @@
+Browser tab: 5, Title: "MOW — Danh sách quy trình (NHÁP · bảng gọn)", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-process-draft-v1.html?chi-tiet=WF-0001".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 254-476
+~0 AXWebArea MOW — Danh sách quy trình (NHÁP · bảng gọn), URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-process-draft-v1.html?chi-tiet=WF-0001
++		254 text WF-0001
+~		230 heading Quy trình Nhập kho, Value: 3, ID: mlDwName
++			255 text Quy trình Nhập kho
++		256 container mlDwB
++			257 container
++				258 heading Quy trình vận hành, Value: 4
++					259 text Quy trình vận hành
++				260 button (collapsed) ⚠ còn 17 điểm cần bổ sung để chạy ▾, Secondary Actions: Expand
++				261 container Bản xem chỉ đọc
++					262 text ◀ LIỀN TRƯỚC Đây là quy trình  ĐẦU  của chuyên môn CM Xuất nhập kho — không có quy trình liền trước. ⓘ
++					263 button (collapsed) ▶ Bắt đầu quy trình MOW quản · sửa được ▸, Secondary Actions: Expand
++						264 text ▶ Bắt đầu quy trình
++						265 text MOW quản · sửa được
++						266 text ▸
++					267 container
++						268 text Công việc trong nhiệm vụ  · MOW quản · di chuột vào tên cột để xem hướng dẫn
++					269 table
++						270 row
++							271 cell
++								272 text #
++							273 cell
++								274 text LOẠI
++							275 cell
++								276 text TÊN VIỆC
++							277 cell
++								278 text AUTO
++							279 cell
++								280 text PHÚT
++							281 cell
++								282 text CÙNG TRIGGER
++							283 cell
++								284 text LÀM //
++						285 row
++							286 cell
++								287 text 1
++							288 cell
++								289 text Nhận yêu cầu nhập —
++							290 cell
++								291 text 5
++						292 row
++							293 cell
++								294 text 2
++							295 cell
++								296 text Kiểm tra chứng từ —
++							297 cell
++								298 text 8
++						299 row
++							300 cell
++								301 text 3
++							302 cell
++								303 text Đối chiếu tồn kho —
++							304 cell
++								305 text 6
++							306 cell
++								307 text // #2
++						308 row
++							309 cell
++								310 text 4
++							311 cell
++								312 text Đối chiếu đơn mua —
++							313 cell
++								314 text 6
++							315 cell
++								316 text // #3
++						317 row
++							318 cell
++								319 text 5
++							320 cell
++								321 text Phê duyệt nhập kho —
++							322 cell
++								323 text 10
++						324 row
++							325 cell
++								326 text 6
++							327 cell
++								328 text Nhập kho thực tế —
++							329 cell
++								330 text 30
++						331 row
++							332 cell
++								333 text B
++							334 cell
++								335 text Chờ kiểm đếm  (dự phòng · chỉ tính giờ, không làm)
++							336 cell
++								337 text 15
++						338 row
++							339 cell
++								340 text 7
++							341 cell
++								342 text Cập nhật hệ thống kho —
++							343 cell
++								344 text 3
++						345 row
++							346 cell
++								347 text 8
++							348 cell
++								349 text Phát tín hiệu hoàn thành —
++							350 cell
++								351 text 1
++					352 text ◀ KẾT THÚC QUY TRÌNH · TRIGGER RA Chuyển sang quy trình Xuất kho
++					353 container
++						354 text Cộng dồn 69' (dự phòng 15')
++					355 container
++						356 text Chỉ định —
++					357 container
++						358 text Máy làm 4/8
++					359 text LIỀN SAU ▶ Quy trình Xuất kho · CM Xuất nhập kho ⓘ
++					360 text Kiểm chéo: trigger RA "Chuyển sang quy trình Xuất kho" phải khớp trigger VÀO của Quy trình Xuất kho — chưa đối chiếu được vì chưa nối bảng trigger.
++			361 container
++				362 heading Hỗ trợ vận hành· chỉ đọc — MOW quản ở cột trái, Value: 4
++					363 text Hỗ trợ vận hành · chỉ đọc — MOW quản ở cột trái
++				364 button (expanded) QUẢN LÝ PHIÊN BẢN QUY TRÌNH Ⓘ ▸, Secondary Actions: Collapse
++					365 text QUẢN LÝ PHIÊN BẢN QUY TRÌNH
++					366 text Ⓘ
++					367 text ▸
++				368 button (expanded) QUAN HỆ PHỤ THUỘC Ⓘ ▸, Secondary Actions: Collapse
++					369 text QUAN HỆ PHỤ THUỘC
++					370 text Ⓘ
++					371 text ▸
++				372 button (expanded) VÒNG ĐỜI THAY ĐỔI Ⓘ ▸, Secondary Actions: Collapse
++					373 text VÒNG ĐỜI THAY ĐỔI
++					374 text Ⓘ
++					375 text ▸
++				376 button (expanded) DANH MỤC TEST KỸ THUẬT Ⓘ ▸, Secondary Actions: Collapse
++					377 text DANH MỤC TEST KỸ THUẬT
++					378 text Ⓘ
++					379 text ▸
++				380 button (collapsed) ĐƯỜNG DẪN 7 TẦNG + TÊN CỤ THỂ Ⓘ ▸, Secondary Actions: Expand
++					381 text ĐƯỜNG DẪN 7 TẦNG + TÊN CỤ THỂ
++					382 text Ⓘ
++					383 text ▸
++				384 button (collapsed) BẢNG PG KẾT NỐI Ⓘ ▸, Secondary Actions: Expand
++					385 text BẢNG PG KẾT NỐI
++					386 text Ⓘ
++					387 text ▸
++				388 button (collapsed) DANH SÁCH KHOÁ NGOẠI Ⓘ ▸, Secondary Actions: Expand
++					389 text DANH SÁCH KHOÁ NGOẠI
++					390 text Ⓘ
++					391 text ▸
++				392 button (collapsed) HELP · QUY TRÌNH (MOW) Ⓘ ▸, Secondary Actions: Expand
++					393 text HELP · QUY TRÌNH (MOW)
++					394 text Ⓘ
++					395 text ▸
++				396 button (collapsed) QUY TRÌNH CỦA MOW Ⓘ ▸, Secondary Actions: Expand
++					397 text QUY TRÌNH CỦA MOW
++					398 text Ⓘ
++					399 text ▸
++				400 button (collapsed) DỮ LIỆU GHI LẠI Ⓘ ▸, Secondary Actions: Expand
++					401 text DỮ LIỆU GHI LẠI
++					402 text Ⓘ
++					403 text ▸
++			404 link Description: ✎ Sửa khuôn này, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?edit=WF-0001
++			405 link 🔒 Mở quy trình — đang khoá
++				406 text 🔒 Mở quy trình — đang khoá
+The focused UI element is 114 link Description: mở chi tiết ›, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-process-draft-v1.html?chi-tiet=WF-0001

@@ -1,0 +1,306 @@
+[
+  {
+    "U": "U01",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C01"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U02",
+    "status": "PM ACCEPT R1 / D03 DECIDED",
+    "candidates": [],
+    "evidence": "accepted/R1/README.md",
+    "limitation": "R1 only; not re-reviewed except C40 runtime context"
+  },
+  {
+    "U": "U03",
+    "status": "PM ACCEPT R1 / D03 DECIDED",
+    "candidates": [],
+    "evidence": "accepted/R1/README.md",
+    "limitation": "R1 only; not re-reviewed except C40 runtime context"
+  },
+  {
+    "U": "U04",
+    "status": "PM ACCEPT R1 / D03 DECIDED",
+    "candidates": [],
+    "evidence": "accepted/R1/README.md",
+    "limitation": "R1 only; not re-reviewed except C40 runtime context"
+  },
+  {
+    "U": "U05",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C02"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U06",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C03",
+      "C04",
+      "C19",
+      "C23"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U07",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C05",
+      "C32"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U08",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C06"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U09",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C07",
+      "C19",
+      "S01"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U10",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C08",
+      "C20",
+      "S01"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U11",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C09",
+      "C34",
+      "S01"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U12",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C10",
+      "C21",
+      "S01"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U13",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C11",
+      "C22",
+      "C34",
+      "S01"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U14",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C03",
+      "C07",
+      "C29",
+      "C30"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U15",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C04",
+      "C08",
+      "C11",
+      "C29",
+      "C30"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U16",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C04",
+      "C08",
+      "C11",
+      "C29",
+      "C30"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U17",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C03",
+      "C12",
+      "C39"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U18",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C13",
+      "C25",
+      "C26",
+      "C29",
+      "C30"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U19",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C03",
+      "C36",
+      "C39"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U20",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C24",
+      "C27",
+      "C29",
+      "C35",
+      "C37",
+      "C38"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U21",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C14"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "C14 source only; auto-run intentionally not executed"
+  },
+  {
+    "U": "U22",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C12",
+      "C33"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U23",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C31",
+      "C33"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U24",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C05",
+      "C31",
+      "C32",
+      "C40"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U25",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C05",
+      "C32",
+      "C40"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U26",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C15",
+      "C28"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U27",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C03"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  },
+  {
+    "U": "U28",
+    "status": "REVIEW COMPLETE / SUBMITTED",
+    "candidates": [
+      "C16",
+      "C17",
+      "C18",
+      "C19",
+      "C20",
+      "C23",
+      "C24",
+      "C25",
+      "C26",
+      "C27",
+      "C28",
+      "C35"
+    ],
+    "evidence": "structured-candidates.md",
+    "limitation": "See candidate-specific truth and gap"
+  }
+]

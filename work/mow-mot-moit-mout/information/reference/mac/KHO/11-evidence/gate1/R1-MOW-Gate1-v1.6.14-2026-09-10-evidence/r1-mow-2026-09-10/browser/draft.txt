@@ -1,0 +1,25 @@
+Browser tab: 5, Title: "MOW — Danh sách quy trình (NHÁP · bảng gọn)", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-process-draft-v1.html".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
++	232 container 4 Mẹ + Master
++		233 text 4 MẸ
++		234 button MOW ▾ Quy trình
++			235 text MOW
++			236 text ▾
++			237 text Quy trình
++		238 button MOT ▾ Công việc
++			239 text MOT
++			240 text ▾
++			241 text Công việc
++		242 button MOIT ▾ Nhập liệu
++			243 text MOIT
++			244 text ▾
++			245 text Nhập liệu
++		246 button MOUT ▾ Báo cáo
++			247 text MOUT
++			248 text ▾
++			249 text Báo cáo
++		250 button Master ▾ Tổng 4 Mẹ
++			251 text Master
++			252 text ▾
++			253 text Tổng 4 Mẹ
+The focused UI element is 0 AXWebArea MOW — Danh sách quy trình (NHÁP · bảng gọn), URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-process-draft-v1.html

@@ -1,0 +1,175 @@
+[
+  {
+    "path": "web/pages/knowledge/registries/index.vue",
+    "exists": true,
+    "sha256": "7f128abca02c4e1c1130c01336f0a46173e58747e8f6f326446c2804e25ae078",
+    "hits": [
+      "2: import { readItems } from '@directus/sdk';",
+      "105: const { data: registryData } = useAsyncData(",
+      "110: readItems('meta_catalog' as any, {",
+      "186: const { data: compositionData } = useAsyncData(",
+      "190: return await $fetch<any>('/api/registry/composition');",
+      "339: const { data: recentChangelog } = useAsyncData(",
+      "345: readItems('registry_changelog' as any, {",
+      "352: readItems('meta_catalog' as any, {",
+      "414: const { data: healthData } = useAsyncData(",
+      "418: const resp = await $fetch<any>('/api/registry/health');",
+      "428: const { data: unmanagedData } = useAsyncData(",
+      "432: const resp = await $fetch<any>('/api/registry/unmanaged');",
+      "442: const { data: systemIssuesData } = useAsyncData(",
+      "446: const resp = await $fetch<any>('/api/registry/system-issues');",
+      "456: const { data: dotToolsCount } = useAsyncData(",
+      "461: readItems('dot_tools' as any, { fields: ['id'], limit: -1 }),",
+      "472: const { data: speciesData } = useAsyncData(",
+      "478: readItems('entity_species' as any, {",
+      "484: readItems('birth_registry' as any, {"
+    ]
+  },
+  {
+    "path": "web/pages/knowledge/registries/all/index.vue",
+    "exists": true,
+    "sha256": "10f3e332d14c1695d9af4f6fe6b6f27f3ff2c2cc2f688f23fa2473d42c619f1b",
+    "hits": [
+      "2: import { readItems } from '@directus/sdk';",
+      "19: workflows: { codeField: 'process_code', nameField: 'title', entityType: 'workflow' },",
+      "20: workflow_steps: { codeField: 'code', nameField: 'title', entityType: 'workflow_step' },",
+      "21: workflow_change_requests: { codeField: 'code', nameField: 'title', entityType: 'wcr' },",
+      "36: const { data: catalogEntries } = useAsyncData(",
+      "40: readItems('meta_catalog' as any, {",
+      "76: const { data: allAtoms, status: loadStatus } = useAsyncData(",
+      "79: // Fetch catalog inline to avoid SSR race condition with separate useAsyncData",
+      "81: readItems('meta_catalog' as any, {",
+      "99: readItems(col as any, {"
+    ]
+  },
+  {
+    "path": "web/pages/knowledge/workflows/index.vue",
+    "exists": true,
+    "sha256": "4dc0131bd1bb0c9eff5f27c5421aef867e99b0da83f786404f42b782ef59052b",
+    "hits": [
+      "24: table-id=\"tbl_workflow_list\"",
+      "25: :row-link=\"(item: any) => `/knowledge/workflows/${item.id}`\""
+    ]
+  },
+  {
+    "path": "web/pages/knowledge/current-tasks/index.vue",
+    "exists": true,
+    "sha256": "bbf3d13ac7c8d333eb68aea5da0a43aff080d323c5be4c86f05b1851bb26b725",
+    "hits": [
+      "2: import type { TaskStatus, TaskPriority } from '~/types/tasks';",
+      "3: import { TASK_STATUS_META, TASK_PRIORITY_META } from '~/types/tasks';",
+      "42: table-id=\"tbl_tasks_list\""
+    ]
+  },
+  {
+    "path": "web/pages/approval-desk.vue",
+    "exists": true,
+    "sha256": "e607a90d6642a54215db2c050771d56ac22dc3d2f1a886a04196a4988ee45d98",
+    "hits": [
+      "3: middleware: 'auth'",
+      "21: await $directus.request($directus.updateItem('knowledge_documents', documentId, { status: 'published' }));",
+      "34: <h1 class=\"text-lg font-semibold\">Approval Desk</h1>"
+    ]
+  },
+  {
+    "path": "web/pages/approval-desk/index.vue",
+    "exists": true,
+    "sha256": "65c674d2e0d1b228085934a167f9629308d91cf04be1e6423a19cffcb60b176b",
+    "hits": [
+      "2: import type { ContentRequestView, ContentRequestStatus } from '~/types';",
+      "3: import { CONTENT_REQUEST_STATUS_META, isOverdue } from '~/types/content-requests';",
+      "6: title: 'Approval Desk',",
+      "16: } = await useAsyncData(",
+      "27: const selectedStatus = ref<ContentRequestStatus[]>(['awaiting_review', 'awaiting_approval']);",
+      "45: if (!['awaiting_review', 'awaiting_approval'].includes(task.status)) return false;",
+      "66: { value: 'awaiting_approval', label: 'Awaiting Approval' },",
+      "90: if (!['awaiting_review', 'awaiting_approval'].includes(task.status)) return false;",
+      "99: <h1 class=\"text-3xl font-bold text-gray-900 dark:text-white\">Approval Desk</h1>",
+      "175: :to=\"`/approval-desk/${row.id}`\"",
+      "203: :to=\"`/approval-desk/${row.id}`\""
+    ]
+  },
+  {
+    "path": "web/pages/reports/index.vue",
+    "exists": true,
+    "sha256": "29ff46e109d80522e5963dc2850529ef132aff529a211dff5cd1d44bb482bf02",
+    "hits": [
+      "10: // is the Home table-id; every column, link and report list comes from data",
+      "13: import { readItems } from '@directus/sdk';",
+      "14: import { fetchDirectusCount, type FieldConfig } from '~/composables/useDirectusTable';",
+      "28: const { data: totalsByRoute, refresh: refreshTotalsByRoute } = await useAsyncData('report-home-totals', async () => {",
+      "30: readItems('table_registry' as any, {",
+      "45: ? await $fetch<{ count: number }>('/api/reports/live', {",
+      "80: <SharedDirectusTable table-id=\"tbl_report_home\" :append-fields=\"appendFields\" @refreshed=\"refreshTotalsByRoute\">"
+    ]
+  },
+  {
+    "path": "web/pages/help/index.vue",
+    "exists": true,
+    "sha256": "a120fc245198205d862846495e83ad7d2b9d45200abee8ea9e7c74dc33ed3625",
+    "hits": []
+  },
+  {
+    "path": "web/pages/admin/users.vue",
+    "exists": true,
+    "sha256": "b157f0e1c694491c620e6650e7e9474efd4f3ca675a7c3c087d4a1da44d75e7e",
+    "hits": [
+      "6: <UButton icon=\"i-heroicons-arrow-up-tray\" color=\"gray\" label=\"Bulk Import CSV\" @click=\"triggerFileInput\" />",
+      "31: middleware: 'auth'",
+      "69: const { data: users, pending, error } = await useAsyncData('users', async () => {",
+      "70: return $directus.request($directus.readItems('directus_users', {"
+    ]
+  },
+  {
+    "path": "web/pages/admin/knowledge-tree.vue",
+    "exists": true,
+    "sha256": "42e2362a1e5f183e5671427a0a9e118479129ce661ec5a2b502c58eb9d905c6b",
+    "hits": [
+      "3: middleware: 'auth'",
+      "9: const { data: documents, pending, error } = await useAsyncData('knowledge-tree', async () => {",
+      "11: return $directus.request($directus.readItems('knowledge_documents', {"
+    ]
+  },
+  {
+    "path": "web/pages/knowledge-tree/index.vue",
+    "exists": true,
+    "sha256": "1971fd0c217d218de760052d139121c391f27a8f24e870cc323267e1926aa4be",
+    "hits": [
+      "2: import type { KnowledgeTreeNode, KnowledgeDocument } from '~/types';",
+      "3: import {",
+      "21: } = await useAsyncData('knowledge-tree', async () => {"
+    ]
+  },
+  {
+    "path": "web/components/blocks/Form.vue",
+    "exists": true,
+    "sha256": "2cf27f02776bae1cff4a82da8860a93fd496261ad676c9fd0ac0324ebd0c7d50",
+    "hits": [
+      "2: import type { BlockForm, Form } from '~/types';"
+    ]
+  },
+  {
+    "path": "web/components/base/UForm.vue",
+    "exists": true,
+    "sha256": "17a653ff1f02f9c617c8e7f855ce81ab4d37c6cb8e8bd1599e98d1cb3417c7da",
+    "hits": [
+      "2: import type { Form } from '~/types';",
+      "3: import type { FormError } from '@nuxt/ui/dist/runtime/types';",
+      "30: createItem('inbox', {"
+    ]
+  },
+  {
+    "path": "web/components/base/FormCustom.vue",
+    "exists": false
+  },
+  {
+    "path": "web/components/base/DirectusTable.vue",
+    "exists": false
+  },
+  {
+    "path": "web/package.json",
+    "exists": true,
+    "sha256": "134588fb872cc2568ecd49a8728d9e1970bd66c768f248bae95f85a3230e6f85",
+    "hits": []
+  }
+]

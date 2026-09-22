@@ -1,0 +1,76 @@
+MOW Unified Canvas
+v2
+DRAFT · mock data
+Thường
+Đề xuất
+Vận hành
+Quản trị ⚠
+Thương mại quốc tế
+›
+Incomex Sài Gòn
+›
+Kinh doanh
+›
+Phòng ban
+T7 - Lĩnh vực
+2
+T6 - Công ty
+2
+T5 - Khối
+3
+T4 - Phòng ban
+3
+T3 - Chuyên môn
+3
+T2 - Nhiệm vụ
+6
+T1 - Công việc
+3
+PHÒNG BAN → CHUYÊN MÔN
+Khuôn mẫu
+Vận hành
+PB01
+Nhân sự
+CM01
+Tuyển dụng
+CM02
+Đào tạo
+CM03
+Phúc lợi
+PB02
+Tài chính
+CM04
+Kế toán
+CM05
+Thu chi
+CM06
+Báo cáo
+PB03
+Vận hành
+CM07
+Mua hàng
+CM08
+Logistics
+CM09
+Kho
+CHI TIẾT CÔNG VIỆC · T1
+—
+—
+✕
+DRAFT · MOW Unified Canvas v2 · SSOT
+4 MẸ
+MOW
+▾
+Quy trình
+MOT
+▾
+Công việc
+MOIT
+▾
+Nhập liệu
+MOUT
+▾
+Báo cáo
+Master
+▾
+Tổng 4 Mẹ

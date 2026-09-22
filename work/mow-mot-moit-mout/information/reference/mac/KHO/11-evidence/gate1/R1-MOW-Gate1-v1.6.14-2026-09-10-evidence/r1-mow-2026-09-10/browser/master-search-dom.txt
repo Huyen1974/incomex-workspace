@@ -1,0 +1,48 @@
+MOW · Danh sách
+quy trình đã đúc
+Mở MOW
+Master tổng →
+MOW — Danh sách quy trình đã đúc
+Mọi quy trình MOW sinh ra đều đăng ký tại đây, neo vào cây 7 tầng.  ·  7 quy trình · 5 đang chạy  ·  ✎ đầu dòng = sửa khuôn
+Cùng một khuôn danh sách với MOT/MOUT — học một lần dùng mọi nơi. Quy trình = node Nhiệm vụ (T2) trong cây 7 tầng.
+＋ Tạo quy trình (MOW)
+⌕
+Mọi trạng thái
+Đang chạy
+Tạm dừng
+Lưu trữ
+Bảng
+Theo cây 7 tầng
+Lĩnh vực: tất cả
+Sản xuất
+Công ty: tất cả
+Incomex Sài Gòn
+Khối: tất cả
+Khối Vận hành SG
+Phòng ban: tất cả
+P. Kho SG
+Chuyên môn: tất cả
+CM Xuất nhập kho
+Nhiệm vụ: tất cả
+QT Nhập kho
+Công việc: tất cả
+SỬA	#	MÃ	TÊN	CHUYÊN MÔN (T3)	NHIỆM VỤ (T2)	CÔNG VIỆC (T1)	TRẠNG THÁI	
+✎	1	WF-0001	Quy trình Nhập kho	CM Xuất nhập kho	QT Nhập kho	·	
+Đang chạy	mở chi tiết ›
+×
+4 MẸ
+MOW
+▾
+Quy trình
+MOT
+▾
+Công việc
+MOIT
+▾
+Nhập liệu
+MOUT
+▾
+Báo cáo
+Master
+▾
+Tổng 4 Mẹ

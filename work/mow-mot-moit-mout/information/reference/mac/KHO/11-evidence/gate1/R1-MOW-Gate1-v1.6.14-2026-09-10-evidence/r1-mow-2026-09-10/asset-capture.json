@@ -1,0 +1,546 @@
+[
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-render-v1.js?v=18",
+    "parents": [
+      "source/mow-master-v1.html",
+      "source/mow-process-draft-v1.html",
+      "source/mow-master-nhap2-v1.html",
+      "source/master-list-quy-trinh-v1.html"
+    ],
+    "file": "source/mot-render-v1.js_v-18",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "a56beced841e526d8ba31f192d2e6ea3c2c7c54a974ad4eea86c0c57186f88e8",
+    "bytes": 19913
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mvx-v3.js?v=4",
+    "parents": [
+      "source/mow-master-v1.html",
+      "source/mow-process-draft-v1.html",
+      "source/mow-master-nhap2-v1.html",
+      "source/master-list-quy-trinh-v1.html"
+    ],
+    "file": "source/mvx-v3.js_v-4",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "5de7b8949ef53f43ed10cb3742323d1e1d1eb2c7a1b209eb36f93e52cd3f5842",
+    "bytes": 47048
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-drawer-view-v1.js?v=3",
+    "parents": [
+      "source/mow-master-v1.html",
+      "source/mow-process-draft-v1.html",
+      "source/mow-master-nhap2-v1.html",
+      "source/master-list-quy-trinh-v1.html"
+    ],
+    "file": "source/master-drawer-view-v1.js_v-3",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "5ea25050c0c88b83f90e0d6ac2cf375c7eaffc75353fed05b553df36433b49b7",
+    "bytes": 14711
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-list.js?v=15",
+    "parents": [
+      "source/mow-master-v1.html",
+      "source/mow-master-nhap2-v1.html"
+    ],
+    "file": "source/master-list.js_v-15",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "e34a3febab5f63786ffa4fab1f2dea376bc980951f48e265232da21161467c60",
+    "bytes": 41659
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/eco-nav.js?v=3",
+    "parents": [
+      "source/mow-master-v1.html"
+    ],
+    "file": "source/eco-nav.js_v-3",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "446dbf41f5027c1e939954da078f1f3823ce6af4b9d08747e17ae02288e4d5df",
+    "bytes": 26892
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/eco-nav.js?v=6",
+    "parents": [
+      "source/mow-master-v1.html",
+      "source/mow-unified-canvas-v2.html",
+      "source/modw-builder-v1.html",
+      "source/admin-new-modt.html"
+    ],
+    "file": "source/eco-nav.js_v-6",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "446dbf41f5027c1e939954da078f1f3823ce6af4b9d08747e17ae02288e4d5df",
+    "bytes": 26892
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/eco-nav.js",
+    "parents": [
+      "source/mow-master-v1.html",
+      "source/mow-process-draft-v1.html",
+      "source/mow-master-nhap2-v1.html",
+      "source/master-list-quy-trinh-v1.html",
+      "source/mow-unified-canvas-v2.html",
+      "source/modw-builder-v1.html",
+      "source/admin-new-modt.html"
+    ],
+    "file": "source/eco-nav.js",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "446dbf41f5027c1e939954da078f1f3823ce6af4b9d08747e17ae02288e4d5df",
+    "bytes": 26892
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-help-doc.js?v=18",
+    "parents": [
+      "source/mow-process-draft-v1.html",
+      "source/mow-master-nhap2-v1.html"
+    ],
+    "file": "source/mow-help-doc.js_v-18",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "e91f3f29c486e40de6425f2157289ddc873ad43a236f5311658519b05723f0a9",
+    "bytes": 54312
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-drawer-scope.js?v=11",
+    "parents": [
+      "source/mow-process-draft-v1.html",
+      "source/mow-master-nhap2-v1.html"
+    ],
+    "file": "source/mow-drawer-scope.js_v-11",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "a1b0826ec0c4a9a675e88415461714b38cbcd8b7c83f20f78234a00ad0b88a67",
+    "bytes": 43135
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-book-v1.js?v=11",
+    "parents": [
+      "source/mow-process-draft-v1.html",
+      "source/mow-master-nhap2-v1.html"
+    ],
+    "file": "source/incomex-book-v1.js_v-11",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "217b68003c44c32a54758619253785b1605e79c74d2886690f661b910f32b0cf",
+    "bytes": 110652
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-lifecycle-data.js?v=3",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/mow-lifecycle-data.js_v-3",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "365f6abc2af1fdf3a8f4bb45e6fc659609cdfc035245292fd1c472dfc3c3c02f",
+    "bytes": 14981
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-testplan-data.js?v=5",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/mow-testplan-data.js_v-5",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "c2cd8b358f47bd87315d42afe034dcb2752784b407eee4cffea1b7c229b8718b",
+    "bytes": 23913
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-process-drawer-draft.js?v=20",
+    "parents": [
+      "source/mow-process-draft-v1.html",
+      "source/mow-master-nhap2-v1.html"
+    ],
+    "file": "source/mow-process-drawer-draft.js_v-20",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "0facd8996a4e325991221fd4640b2d6a2ecaf8b67251ccd9a5f215086f8dad0f",
+    "bytes": 30606
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-drawer-help-render.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/mow-drawer-help-render.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "7338de537721e376e862f55b1c3ead2ade6a07a14e1391ef5e8fc0975a4e71f2",
+    "bytes": 3408
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-drawer-chain.js?v=3",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/mow-drawer-chain.js_v-3",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "086f9460fcbcdfeab8d9e76f626e4494f6ab829afd4c06732e0d60990652599c",
+    "bytes": 4033
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-drawer-version.js?v=2",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/mow-drawer-version.js_v-2",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "f54877e6dda282b431b1b5641fdc8851cc9e46750b0bcc41434b1e380d176bd8",
+    "bytes": 4732
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-drawer-relations.js?v=3",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/mow-drawer-relations.js_v-3",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "947cbf428e9c365586cb3cc7788888a0923990dec4cfd915e307b57078d59e56",
+    "bytes": 3215
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-drawer-lifecycle.js?v=5",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/mow-drawer-lifecycle.js_v-5",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "65a734062c4ebb9c0c6bee382eba3274d1f28abf243b032f763624ec58246609",
+    "bytes": 20546
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-readiness.js?v=2",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/mow-readiness.js_v-2",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "e98c64c36b1769c44fcdf072eaa6c5778d1bf7f773ec13ee037da7916e86f0ee",
+    "bytes": 18503
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-selfprocess-run.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/mow-selfprocess-run.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "d0661c2160838114b44b3d8621c66273259e6ac1a0474a2a7ee6920357260d42",
+    "bytes": 9322
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-selfprocess.js?v=3",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/mow-selfprocess.js_v-3",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "c3d931dccadb4fc0191828823606723c28f2924348ed7871e91694ac63470075",
+    "bytes": 16171
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-ma-quy-uoc.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-ma-quy-uoc.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "a29c8c13bf060a0ad80458992478991c46a5f902ec9ae226d6696604256cc807",
+    "bytes": 6934
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-testplan-v4.js?v=2",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/mow-testplan-v4.js_v-2",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "cd787b1225209098dd0e56f1e255d5f0f0627d83c25c580f66bec20f019735f2",
+    "bytes": 10676
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-dashboard-model.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-dashboard-model.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "ffa27ace7bb5a33a3f1f6d377fd256b318f7aec313dbfbd53edc2e92243c35b2",
+    "bytes": 9761
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-du-kien-so-cap.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-du-kien-so-cap.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "9cd428f6439a07d8c5f9c5bc5fa26710fcd87030356a2f40c076a8d32db637f8",
+    "bytes": 10453
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-bang-su-kien.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-bang-su-kien.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "50ce0f8e399926d678aea3c2e3713d338cd9e65e09e79e4a9360168e4867f359",
+    "bytes": 11689
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-khoa-ngoai.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-khoa-ngoai.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "37ca379164f66cc1c8cc46d6b3d3dd7bb8a28376365a387886070df07ba3fd29",
+    "bytes": 13908
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-khung-nhin.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-khung-nhin.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "349d96a5e584b68fb76eed55bcde0938cca92a8b336503a5ce9417eef01aa400",
+    "bytes": 6503
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-ngang-doc.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-ngang-doc.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "ff894b06cf22f050813d7b9657a0e189e4a8d36175a114bc266a4415d422cec8",
+    "bytes": 7197
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-chot-cach-tiep-can.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-chot-cach-tiep-can.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "6431cad9a9dce91974946d0ae00622ae0e143e936093c9e4a043e50b4528fb7d",
+    "bytes": 7205
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-pg-first.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-pg-first.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "e449ebd50dc338a582327d1169eb983efd2685297e847d28d7fd0649a2496c00",
+    "bytes": 5637
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-pg-first-v2.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-pg-first-v2.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "48187f2b1c6020488765c26ad9f930ca5866eccf1e7f99dee0673632027347f7",
+    "bytes": 4519
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-chot-so.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-chot-so.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "ae274c1c12d05e70a7b0fc9dbf837249ba8c3548018b791c6cd3bcce48ff1208",
+    "bytes": 12863
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-chot-so-v2.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-chot-so-v2.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "6bd478e274432f262f0218f44580334688dae85e6b7bb9f4c862cef6ac271694",
+    "bytes": 7030
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/incomex-chuan-viet-quy-trinh.js?v=1",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/incomex-chuan-viet-quy-trinh.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "818bd152fe4b9337dc95e2adba21f60e3c011b84b9a903aa2cc094e5677ad635",
+    "bytes": 4806
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-list-exec.js?v=2",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/mow-list-exec.js_v-2",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "3a6820e37f2c45afd1231e0aa737d0fb1042fc30d2a852a4c120b3e6dfbafa95",
+    "bytes": 7831
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-list.js?v=7",
+    "parents": [
+      "source/mow-process-draft-v1.html"
+    ],
+    "file": "source/master-list.js_v-7",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "e34a3febab5f63786ffa4fab1f2dea376bc980951f48e265232da21161467c60",
+    "bytes": 41659
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/nhap2-core.js?v=6",
+    "parents": [
+      "source/mow-master-nhap2-v1.html"
+    ],
+    "file": "source/nhap2-core.js_v-6",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "8bd277b8d88686f115a6c91c6c4d7990d527fb2e6868414f0dcba7f7c93d170c",
+    "bytes": 33080
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/nhap2-render.js?v=5",
+    "parents": [
+      "source/mow-master-nhap2-v1.html"
+    ],
+    "file": "source/nhap2-render.js_v-5",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "dddeb121a0398ba38fd3c9bad067ce7f6191e1228149652998af24530df85929",
+    "bytes": 25217
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-list.js",
+    "parents": [
+      "source/master-list-quy-trinh-v1.html"
+    ],
+    "file": "source/master-list.js",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "e34a3febab5f63786ffa4fab1f2dea376bc980951f48e265232da21161467c60",
+    "bytes": 41659
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-t1-work-standard-v1.js?v=1",
+    "parents": [
+      "source/mow-unified-canvas-v2.html",
+      "source/admin-new-modt.html"
+    ],
+    "file": "source/mow-t1-work-standard-v1.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "2edbc1d3bde93f7254a660a926e900ad2f60916a08327c0296eb4a4d559450d1",
+    "bytes": 11856
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mvx-v3.js?v=9",
+    "parents": [
+      "source/mow-unified-canvas-v2.html",
+      "source/admin-new-modt.html"
+    ],
+    "file": "source/mvx-v3.js_v-9",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "5de7b8949ef53f43ed10cb3742323d1e1d1eb2c7a1b209eb36f93e52cd3f5842",
+    "bytes": 47048
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/eco-nav.js?v=1",
+    "parents": [
+      "source/mow-unified-canvas-v2.html",
+      "source/admin-new-modt.html"
+    ],
+    "file": "source/eco-nav.js_v-1",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "446dbf41f5027c1e939954da078f1f3823ce6af4b9d08747e17ae02288e4d5df",
+    "bytes": 26892
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-canvas-url-v1.js?v=4",
+    "parents": [
+      "source/mow-unified-canvas-v2.html",
+      "source/admin-new-modt.html"
+    ],
+    "file": "source/mow-canvas-url-v1.js_v-4",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "441165a5874eaa180f139039be0271dabd16e385a81941775cb9e6100837c94d",
+    "bytes": 3226
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/eco-nav.js?v=4",
+    "parents": [
+      "source/modw-builder-v1.html"
+    ],
+    "file": "source/eco-nav.js_v-4",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "446dbf41f5027c1e939954da078f1f3823ce6af4b9d08747e17ae02288e4d5df",
+    "bytes": 26892
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/guide-dock.js",
+    "parents": [
+      "source/modw-builder-v1.html"
+    ],
+    "file": "source/guide-dock.js",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "a7e7be751ebad2dff235ca64de558abad66225c6366c58de69e52c6baade3b9d",
+    "bytes": 4220
+  },
+  {
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ntgv-rule-table-v1.js?v=5",
+    "parents": [
+      "source/admin-new-modt.html"
+    ],
+    "file": "source/ntgv-rule-table-v1.js_v-5",
+    "status": 200,
+    "tls_verify_result": 0,
+    "sha256": "6e7efaccc9c0f6bbb5e153e031c53ba0f7280b26a328c767c62f9adf24dd6e08",
+    "bytes": 16775
+  }
+]
