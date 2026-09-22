@@ -536,5 +536,13 @@ Không blocker thiết kế. Đề nghị Host áp 6 điểm trong lần chuyể
 
 KQ@HVU-VPSARCHIVE01-RUN-20260922-01 XONG
 
+## P32 · Claude Chat · nghiệm thu độc lập VPSARCHIVE01 + Đóng HVU theo lệnh Owner · CLOSED
+Based_on `7c8743a` · Owner 22/09: “phân tích còn vấn đề gì thì xử lý nốt và đóng vấn đề này lại”. Chỉ đọc trên VPS trước khi đóng:
+- `tasks.json`: HVU `result` = KQ XONG của RUN_ID hiện hành, `waitingOwner=false` → đủ hai điều kiện `Đóng <id>` của AGENTS, không cần hỏi. Mỗi việc có `vpsEvidence {path, exists}` suy từ id + bucket.
+- `/opt/incomex/work`: có `done-tasks/`, `hpml-view-for-user/history/deploys/` (7 mục ARCHIVE_SAFE) và hồ sơ RUN `vpsarchive01-20260922/` (inventory, migrated, rollback). Nhãn `00-NHAN-THU-MUC.md` ghi quyền `root:hvu-view 2775 + ACL` và 4 mục cũ không phải task-id giữ nguyên.
+- App: ô tìm trống chỉ Now + dòng gập; deep-link đọc/ghi `?task=` trên URL trang cha.
+- **Còn lại, không chặn đóng:** (1) `deploys/hvu-b3-20260921` — đường cứu hộ duy nhất của hai gateway B3, giữ đúng; (2) `deploys/hvu-b3-cleanup-20260922` — rollback dùng đường dẫn tuyệt đối, giữ; (3) `deploys/hvu-archive01-20260922` — hết vai trò cứu hộ khi HVU đóng, chuyển vào `history/` ở lần có agent chạm VPS kế tiếp (Claude Chat chỉ đọc VPS); (4) `/opt/incomex/work/sr-mow-d30d31` là runtime cũ còn chạy (state cập nhật hôm nay) nằm sẵn trong kho từ trước — không trùng task-id nên sync không đụng; không dời runtime đang chạy; (5) nút Copy cần Owner bấm thử một lần.
+- CLOSED · 2026-09-22 · theo lệnh Owner · KQ XONG · không còn chờ Owner. Commit này dời `work/hpml-view-for-user/` → `work/done-tasks/hpml-view-for-user/`; sync tự dời hồ sơ VPS tương ứng.
+
 ## Owner cần quyết
 - —
