@@ -1,9 +1,0 @@
-{
-  "status": "HANDOFF_COMPLETE — MATERIAL DATA BLOCKER RETAINED",
-  "at": "2026-09-11T11:10:19.546949+00:00",
-  "ssot_main_writes": 1,
-  "ssot_sha256": "35032ef8e303acc403860a55fae43f10f1cf3a9d426ac131d1c02ca6bd28438f",
-  "production_writes": 0,
-  "data_exit": false,
-  "boundaries": "All available authorized proof and evidence packaged;6 unresolved fact classes + production source proposals remain for PM. No automatic READY/D04-only pending claim."
-}

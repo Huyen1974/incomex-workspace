@@ -1,1 +1,0 @@
-{"ping": "200", "health": {"status": 503, "body": "{\"status\":\"error\"}", "limitation": "SMTP deliberately points to closed container loopback port; email health may be degraded. Network has no external egress. No flows/integrations copied."}, "versions": {"node": "v22.14.0", "directus": "11.5.1", "api": "25.0.1", "joi": "17.13.3"}}

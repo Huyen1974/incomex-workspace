@@ -1,8 +1,0 @@
-Browser tab: 1, Title: "127.0.0.1:18087/?duration_minutes=37", URL: "http://127.0.0.1:18087/?duration_minutes=37".
-1 AXWebArea 127.0.0.1:18087/?duration_minutes=37
-	2 container
-		3 heading Gate2 · lab Nuxt 4 / PG 16.15 / Directus 11.5.1, Value: 1
-			4 text Gate2 · lab Nuxt 4 / PG 16.15 / Directus 11.5.1
-		5 text Directus 12: chưa vượt bài thử quyền chi tiết do giới hạn giấy phép. Đây là phép thử thành phần độc lập.
-		6 button Đăng nhập người thử tổng hợp
-		7 text Chưa có phiên hợp lệ: 403

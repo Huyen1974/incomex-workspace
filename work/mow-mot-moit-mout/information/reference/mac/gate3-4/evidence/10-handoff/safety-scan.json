@@ -1,6 +1,0 @@
-{
-  "files_scanned": 431,
-  "credential_pattern_findings": [],
-  "structured_value_candidates": [],
-  "limit": "Heuristic public-text scan, not a universal secret detector. Native authenticated synthetic UUIDs/labels are intentionally retained; credentials/private files excluded."
-}

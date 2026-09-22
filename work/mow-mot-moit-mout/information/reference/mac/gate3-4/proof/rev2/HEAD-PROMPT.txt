@@ -1,1 +1,0 @@
-Process the assigned PG work entry in work.json using TOOL-CONTRACT.md. Fulfil the user intent through the governed lab tools; preserve a durable checkpoint if anything is missing. Do not read other project files or prior sessions. Do not ask a human to choose the next tool. Stop at Draft/WAIT; no publish or activation. Report the persisted outcome and limitations.

@@ -107,11 +107,13 @@
   "full_inventory_on_demand": "https://github.com/Huyen1974/incomex-workspace/blob/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/inventory.json",
   "historical_tree_on_demand": "https://github.com/Huyen1974/incomex-workspace/tree/b2666914babf884670d80597d639609681f9d3ea/work/mow-mot-moit-mout/information/reference/mac",
   "cleanup": {
-    "state": "PREPARED_PENDING_ALLOWED_DELETE_PATH",
+    "state": "COMPLETED",
     "remove_subtree": "work/mow-mot-moit-mout/information/reference/",
     "remove_files": 888,
     "remove_bytes": 87874934,
-    "method": "normal deletion commit; keep Git history and Mac originals; no force push"
+    "method": "normal deletion commit; keep Git history and Mac originals; no force push",
+    "authorization": "D15: Owner approved one-time direct Git exception, 2026-09-23",
+    "verification": "888/888 files matched SHA-256 and preserved historical Git blobs; 11/11 selected Mac sources unchanged; main HTML SHA-256 unchanged"
   },
   "review": {
     "jev_model": "typesafe/jev-1.13-20260917",

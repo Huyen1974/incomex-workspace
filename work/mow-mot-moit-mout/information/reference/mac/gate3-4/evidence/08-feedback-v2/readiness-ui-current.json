@@ -1,8 +1,0 @@
-{
-  "evidence_id": "18e12c08-7853-4518-bcaa-2700a12b7d7e",
-  "draft_id": "ca51f9b9-2cb2-4a89-b081-43927711709c",
-  "revision": 1,
-  "rows": 14,
-  "new_ui_code_lines": 0,
-  "refresh": "explicit disposable read-model rebuild, no background live sync claimed"
-}

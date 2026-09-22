@@ -1,3 +1,0 @@
-Browser tab: 4, Title: "MOW — Danh sách quy trình đã đúc", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-v1.html".
-There has been no change in the accessibility tree.
-The focused UI element is 0 AXWebArea MOW — Danh sách quy trình đã đúc, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-v1.html

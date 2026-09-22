@@ -1,3 +1,0 @@
-Browser tab: 3, Title: "MOW · T4 · Thường — Incomex", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T4&che-do=thuong".
-There has been no change in the accessibility tree.
-The focused UI element is 0 AXWebArea MOW · T4 · Thường — Incomex, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T4&che-do=thuong

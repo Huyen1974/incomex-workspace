@@ -4,7 +4,7 @@
 - Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
 - Nhiệm vụ/phạm vi hiện tại (Owner 23/09/2026): tổ chức kho tham khảo nhẹ nhất nhưng truy được nguồn; dọn phần cũ/trùng, dùng link VPS cho UI đang chạy, dùng link commit cố định cho tài liệu thiết kế/bằng chứng chưa có bản tương đương đã xác minh trên VPS. Không đưa ảnh, không nhập cả lô Office/backup; giữ nguyên Mac và HTML chính.
 - Tiêu chí xong: bốn file mục lục/metadata thay kho 888 bản chép ở cây hiện tại; nguồn quan trọng truy được qua link/hash/lịch sử; kiểm link VPS, không mất nguồn Mac/HTML chính, báo đúng dung lượng cây và giới hạn lịch sử Git.
-- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D14 của việc này.
+- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D15 của việc này.
 
 Host: GPT Chat · Host_ID: GPT-MMIM-260920-A · Owner giao: 2026-09-20
 HTML chính: `mow-mot-moit-mout.html`
@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | LIGHTWEIGHT_INDEX_PUBLISHED · DELETE_WRITE_PATH_PENDING · 23/09/2026 | Đã rà/JEV và soạn kho bốn file gọn; chuẩn bị loại đúng 888 file reference/ khỏi cây hiện tại, giữ lịch sử. Chưa xóa; xem information/README.md.
+MMIM | LIGHTWEIGHT_REFERENCE_COMPLETE · 23/09/2026 | Đã loại đúng 888 file reference/ khỏi cây hiện tại, giữ bốn file mục lục/metadata và toàn bộ lịch sử. 888/888 hash nguồn lưu PASS; HTML chính nguyên vẹn. Xem information/README.md.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -32,6 +32,8 @@ MMIM | LIGHTWEIGHT_INDEX_PUBLISHED · DELETE_WRITE_PATH_PENDING · 23/09/2026 | 
 - D13 · 2026-09-23 · Owner: “Ảnh thì không nên chuyển lên Gh vì nó làm nhanh làm đầy repo nhé.” Loại toàn bộ file ảnh khỏi kế hoạch Git; chỉ giữ metadata/hash/nguồn trong inventory và LINK-MAP. Chưa publish ảnh nơi khác, chưa sửa đường dẫn HTML; quyết định này không cấp ngoại lệ Git trực tiếp cho Office. · Áp: SAME_COMMIT.
 
 - D14 · 2026-09-23 · Owner yêu cầu dọn cũ/trùng, không thiếu nguồn nhưng nhẹ nhất và ít tốn token; UI thiết kế đã có trên VPS chỉ giữ link, có thể tham khảo JEV. Hủy đề nghị upload lô 97 Office ở Q01. Bản nguyên gốc được tra qua commit cố định, không gom vào archive khác trong repo. Không đổi HTML chính/Mac/VPS hoặc rewrite lịch sử. · Áp: SAME_COMMIT.
+
+- D15 · 2026-09-23 · Owner: “Đồng ý cho ngoại lệ. Làm cho gọn trên Git nhưng không miss thông tin quan trọng đã làm là được”. Chấp thuận Q02: dùng Git trực tiếp một lần để xóa đúng 888 file `information/reference/**`, cập nhật mục lục/COLLAB, commit/push thường; giữ HTML chính, nguồn Mac, VPS và lịch sử Git. · Áp: SAME_COMMIT.
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
@@ -62,7 +64,6 @@ Claude REVIEWED@2d673a370a030e2b679d161132cb908f897b9503 · **ACCEPT có điều
 - H03 · **ACCEPT**: đúng nguyên nhân gốc của I02 về phần binary.
 
 ## Owner cần quyết
-- Q02 · Cần ngoại lệ D12 một lần để Git trực tiếp xóa đúng `work/mow-mot-moit-mout/information/reference/**` (888 file, 87.874.934 bytes; hash đã lập danh sách), kèm cập nhật bốn file mục lục và COLLAB. Connector hiện chỉ edit/move, không delete. Chỉ commit/push thường, không force/rewrite lịch sử; giữ HTML chính, nguồn Mac và VPS. Nội dung dọn đã được Owner giao; chưa có ngoại lệ đường ghi.
 - P01 · Xác nhận mục tiêu toàn việc (A0): “thiết kế chuẩn các UI, chuẩn quy trình tạo và khai báo thành công MOW/MOT/MOIT/MOUT/Field”; tiêu chí xong = mỗi đối tượng có UI chuẩn Owner chốt + quy trình tạo/khai báo viết thành bước + ≥1 lần khai báo thật thành công có bằng chứng. P01 không chặn Claude review/MMIM.2 hiện tại.
 
 ## Sự cố / bài học Host
@@ -76,19 +77,19 @@ Claude REVIEWED@2d673a370a030e2b679d161132cb908f897b9503 · **ACCEPT có điều
 
 ## Lịch sử nhập kho trước D14 (không phải chỉ dẫn đọc hiện hành)
 - Executor_Surface: Codex · Write_Path: `workspace_*` · read-gate PASS. Theo lệnh trực tiếp Owner mới, không chạy PROMPT MMIM.2 nháp và không tự đặt READY cho bản nháp.
-- Đã commit/push 888 tài liệu nguyên byte, 87.874.934 bytes; gồm cả hai HTML ưu tiên. Commit nhập cuối: `42e2db1ce50dd42563351aa252145fed541ffa76`; các commit nhập từng file nằm trong `information/inventory.json`.
+- Đã commit/push 888 tài liệu nguyên byte, 87.874.934 bytes; gồm cả hai HTML ưu tiên. Commit nhập cuối: `42e2db1ce50dd42563351aa252145fed541ffa76`; các commit nhập từng file nằm trong inventory lịch sử tại `b2666914babf884670d80597d639609681f9d3ea` (link ở README).
 - Đọc lại blob Git: 888/888 SHA nguồn = đích. Kiểm lại 2.155/2.155 file Mac: hash không đổi. HTML chính SHA `f4aac30c492f104ec54ff7a03ace54ce70d802e2dd49a417ad9b7285897a050c` giữ nguyên.
 - Sau D13: 97 Excel/Word/10.507.371 bytes chưa publish; 207 ảnh khác nhau/35.582.774 bytes không đưa lên Git. 16/16 ảnh manifest nguồn đúng hash/bytes; chỉ giữ metadata. Phần bỏ/chờ/trùng ghi trong inventory; không tuyên bố đã chuyển hết, không nghiệm thu nghiệp vụ, không chạm VPS/runtime.
 - Mục lục, inventory và LINK-MAP: `information/README.md`. · Áp: SAME_COMMIT.
 
-- Ghi nhận dung lượng: 3 HTML tham khảo đã lưu nguyên bản chứa khoảng 12,22 MB chuỗi ảnh nhúng. Đề xuất cân nhắc bản nhẹ ở lượt riêng; chưa sửa bản lưu, HTML chính hoặc lịch sử Git.
+- Ghi nhận dung lượng: 3 HTML tham khảo đã lưu nguyên bản chứa khoảng 12,22 MB chuỗi ảnh nhúng. Đã loại ba bản chép đó cùng lô 888 khỏi cây hiện tại theo D15; bản lưu lịch sử không sửa.
 
 ## Kết quả rà dọn D14
 - JEV: `gen-dec-1790115453-3T8Uh0LawUeGYjT756bc`, model do gateway trả `typesafe/jev-1.13-20260917`; năm nhóm đều ưu tiên link lịch sử hoặc VPS, không giữ toàn bộ bản chép trong phần đọc hằng ngày.
 - 15 URL kiểm GET TLS, HTTP 200; mục lục giữ 14 link không trùng (URL Kanban trơn gộp vào URL Owner có query). Đây không phải nghiệm thu chức năng/UI/PG. Web reader và browser connector không dùng được; curl kiểm đọc thành công, không ghi VPS.
 - Link tài liệu gốc cố định tại `b2666914babf884670d80597d639609681f9d3ea`; hai tài liệu thiết kế quan trọng vẫn truy nguyên byte. Không giả định URL UI là bản thay thế cho tài liệu.
-- Kế hoạch xóa chính xác: 888 file/87.874.934 bytes dưới `information/reference/`. Xóa cây không thu hồi lịch sử Git; không hứa giảm dung lượng lưu GitHub tương ứng. Ở thời điểm rà, clone local báo object rời 4,49 MiB + pack 10,71 MiB; API GitHub trả size 1.824 KiB có thể cập nhật chậm, không dùng làm số tiết kiệm.
-- Bốn file chỉ dẫn/metadata đã thay bằng bản gọn; xóa file thực tế chờ Q02. Không chuyển rác sang archive trong repo. · Áp: SAME_COMMIT.
+- Đã xóa chính xác: 888 file/87.874.934 bytes dưới `information/reference/`. Xóa cây không thu hồi lịch sử Git; không hứa giảm dung lượng lưu GitHub tương ứng. Ở thời điểm rà, clone local báo object rời 4,49 MiB + pack 10,71 MiB; API GitHub trả size 1.824 KiB có thể cập nhật chậm, không dùng làm số tiết kiệm.
+- Bốn file chỉ dẫn/metadata đã thay bằng bản gọn; hoàn tất xóa theo D15. Kiểm trước xóa: 888/888 file khớp manifest SHA-256, blob hiện tại bằng blob lịch sử; 11/11 nguồn Mac được chọn khớp SHA. HTML chính khớp SHA đầy đủ ghi ở đầu hồ sơ. Không chuyển rác sang archive trong repo. · Áp: SAME_COMMIT.
 
 ## NEXT
-- Thực hiện xóa 888 file bằng đường được Owner cho phép, rồi đọc lại Git, kiểm scope/HTML/hash và báo số file/bytes còn lại. Không upload ảnh hoặc lô Office, không tự mở P01.
+- Lượt dọn kho hoàn tất. Khi cần tham khảo, đọc information/README.md rồi mở đúng link VPS/nguồn lịch sử. P01 vẫn chờ Owner; không mở rộng trong lượt này.

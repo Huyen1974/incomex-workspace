@@ -2,7 +2,7 @@
 
 **Đọc file này trước. Không quét toàn bộ kho cũ.** Chọn đúng câu hỏi → mở đúng nguồn. HTML làm việc chính vẫn là `../mow-mot-moit-mout.html`, giữ nguyên.
 
-**Trạng thái dọn 23/09:** mục lục nhẹ đã được tổ chức lại. Đã chuẩn bị loại 888 bản tham khảo cũ (87.874.934 bytes) khỏi cây hiện tại; **chưa xóa**, đang chờ đường ghi được phép. Bản đầy đủ vẫn có trong lịch sử Git và trên Mac. Không đưa ảnh hoặc cả lô Office/backup lên repo.
+**Trạng thái dọn 23/09: hoàn tất.** Đã loại đúng 888 bản tham khảo cũ (87.874.934 bytes) khỏi cây hiện tại; chỉ giữ bốn file chỉ dẫn/metadata. Đã kiểm SHA-256 của toàn bộ 888 bản với nguồn lưu trong lịch sử Git. Bản đầy đủ vẫn có trong lịch sử Git và trên Mac. Không đưa ảnh hoặc cả lô Office/backup lên repo.
 
 ## 1. UI đang chạy — mở trên VPS
 
@@ -60,8 +60,8 @@ Các link sau cố định theo commit, giữ nguyên nguồn nhưng không đ�
 
 ## 5. Dung lượng và phần còn lại
 
-Mục tiêu cây `information/` sau dọn: chỉ bốn file chỉ dẫn/metadata ở trên. 888 file nguồn cũ (backup, bản chép UI, transcript, ma trận/test/snapshot theo vòng) chuyển sang **tra cứu bằng lịch sử Git**, không chép lại và không sửa nguồn Mac.
+Cây `information/` sau dọn: chỉ bốn file chỉ dẫn/metadata ở trên. 888 file nguồn cũ (backup, bản chép UI, transcript, ma trận/test/snapshot theo vòng) chuyển sang **tra cứu bằng lịch sử Git**, không chép lại và không sửa nguồn Mac.
 
 Xóa khỏi cây hiện tại giảm dung lượng checkout và thời gian/token đọc; **không xóa byte khỏi lịch sử Git**. Git nén/delta, nên 87,9 MB file không đồng nghĩa 87,9 MB dung lượng lưu repo. Chưa rewrite history/force-push, chưa tuyên bố giảm dung lượng GitHub thực tế. Muốn xóa lịch sử phải quyết riêng vì ảnh hưởng link commit và các công việc chung.
 
-JEV đã được hỏi trước khi chốt cách phân loại; kết quả hỗ trợ giữ link VPS cho runtime và link lịch sử cho nguồn thiết kế/bằng chứng. Quyết định và trách nhiệm vẫn thuộc người thực hiện. Dọn nội dung đã được Owner giao; bước xóa thực tế vướng README repo §0/D12 và §7: connector không có delete, Git trực tiếp cần ngoại lệ. HTML chính, ảnh trên Mac và VPS giữ nguyên.
+JEV đã được hỏi trước khi chốt cách phân loại; kết quả hỗ trợ giữ link VPS cho runtime và link lịch sử cho nguồn thiết kế/bằng chứng. Quyết định và trách nhiệm vẫn thuộc người thực hiện. Owner đã cấp ngoại lệ D15 một lần cho Git trực tiếp để xóa đúng 888 bản tham khảo, cập nhật mục lục và COLLAB; dùng commit/push thường, giữ toàn bộ lịch sử. HTML chính, ảnh trên Mac và VPS giữ nguyên.

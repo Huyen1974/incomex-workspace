@@ -1,1 +1,0 @@
-Bootstrap attempt 1 started before dependency transfer finished and failed at archive extraction (EOFError), before seed. Transfer completed; attempt 2 extracts exact same archive and runs normal bootstrap. This is harness sequencing error, not product proof failure. No production action.

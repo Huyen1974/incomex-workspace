@@ -1,9 +1,0 @@
-ma,pham_vi,nhom,mo_ta,vi_tri_source,occurrence,trang_thai
-"mouthome.app","RIENG_MOUT_HOME","GIAO DIỆN","Toàn bộ màn hình danh sách báo cáo MOUT đã đúc","mout-home-v1.html:10","SINGLE","BUILT"
-"mouthome.content","RIENG_MOUT_HOME","GIAO DIỆN","Nội dung chính của trang MOUT Home","mout-home-v1.html:17","SINGLE","BUILT"
-"mouthome.list.host","RIENG_MOUT_HOME","GIAO DIỆN","Điểm gắn khuôn danh sách dùng chung vào trang MOUT","mout-home-v1.html:17","SINGLE","BUILT"
-"mouthome.topbar","RIENG_MOUT_HOME","GIAO DIỆN","Thanh đầu trang riêng của MOUT Home","mout-home-v1.html:11","SINGLE","BUILT"
-"mouthome.topbar.badge","RIENG_MOUT_HOME","GIAO DIỆN","Nhãn báo cáo đã đúc","mout-home-v1.html:12","SINGLE","BUILT"
-"mouthome.topbar.brand","RIENG_MOUT_HOME","GIAO DIỆN","Tên trang MOUT Danh sách","mout-home-v1.html:12","SINGLE","BUILT"
-"mouthome.topbar.hub","RIENG_MOUT_HOME","GIAO DIỆN","Điều hướng tới Master tổng","mout-home-v1.html:15","SINGLE","BUILT"
-"mouthome.topbar.open","RIENG_MOUT_HOME","GIAO DIỆN","Điều hướng tới MOUT Builder","mout-home-v1.html:14","SINGLE","BUILT"

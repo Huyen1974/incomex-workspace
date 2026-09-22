@@ -1,1 +1,0 @@
-The original workflow library page was first copied to app.vue and definePageMeta failed there. Corrected by placing the unchanged file at its original pages/knowledge/workflows/index.vue path and using the Nuxt built-in page host (no authored app/page). This is lab mounting configuration, not a UI component change.

@@ -1,5 +1,0 @@
-{
-  "utc": "2026-09-09T02:28:14.918996+00:00",
-  "host_available_bytes": 6155030528,
-  "stats": "proof-a-20260909-01a07f1f\t0.00%\t66.16MiB / 512MiB\nelearning_web\t0.00%\t16.46MiB / 7.755GiB\ncms_queue\t0.00%\t29.89MiB / 7.755GiB\ncms_app\t0.01%\t42.56MiB / 7.755GiB\ncms_mysql\t0.21%\t303.9MiB / 7.755GiB\ncms_nginx\t0.00%\t4.84MiB / 7.755GiB\n"
-}

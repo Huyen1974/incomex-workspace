@@ -1,9 +1,0 @@
-{
-  "evidence_id": "5bc6cf72-4712-4f84-ac2f-69ba219078bf",
-  "draft_id": "60ec867f-1729-4b67-a074-5caceb691c17",
-  "revision": 3,
-  "rows": 14,
-  "business_write_permissions": 0,
-  "new_ui_code_lines": 0,
-  "projection": "TEST read model generated from stored readiness evidence. Rebuild on new evidence; no automatic refresh worker claimed."
-}
