@@ -3,6 +3,14 @@
 Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
+## Handoff phiên mới · 2026-09-23
+- **Nguồn chuẩn:** đọc `AGENTS.md` → root `COLLAB.md` → `COLLAB.md` của đúng việc. Không dựa vào lịch sử chat cũ nếu Git đã có trạng thái mới hơn. Tài liệu/workspace = GitHub SSOT; runtime = VPS SSOT.
+- **Ưu tiên 1 · VPSC** — `work/vps-clean-20-9-26/` · Host Claude. Hiện `R4b` đã `OWNER_APPROVED + READY` với RUN_ID `VPSC-R4B-20260923-01`, PROMPT_SHA `fbb28bb85969ebdedf683e557ce134686fdbbde7`. Mục tiêu khép việc clean: dọn dấu SEC-01 còn lại sau khi xác nhận credential cũ chết; báo image hằng ngày chỉ-read; sửa failed services được nêu; đổi timezone VPS sang `Asia/Ho_Chi_Minh` nhưng giữ nguyên **thời điểm chạy thật** của lịch. NEXT: Owner RUN R4b → Codex V3 sau một đêm trigger thật → VPSC.6 theo dõi/đóng. Không mở lại audit nguyên nhân đĩa.
+- **Ưu tiên 2 · GSM** — `work/gsm-access-audit/` · Host Claude. Mục tiêu: tìm caller/tần suất Google Secret Manager và tồn kho version; phân biệt phí access với phí storage. PROMPT `GSM-A1-20260922-01` chỉ-read đã `READY@e1b4b36d1ed8b38215ac4dae9900ddfb53d03edd`; NEXT: Owner/GPT phát RUN cho Claude Code CLI. Không mutation GSM ở vòng này.
+- **Ưu tiên 3 · HJW** — `work/hermes-joint-workspace/` · Host GPT. Đang ở HJW.2A DESIGN; tiếp tục theo `COLLAB.md` của việc sau khi hai việc trên không còn chặn. Không tự suy từ chat cũ.
+- **Quy ước Google:** không tạo thêm Google Cloud project/service. Project còn giữ là `github-chatgpt-ggcloud`; Google không phải runtime/SSOT. Drive chỉ là offsite backup; GSM là secret store cho tới khi có quyết định khác.
+- **Cửa vào phiên mới:** `WS gốc · Host GPT · tiếp quản phiên 2026-09-23 · đọc AGENTS.md → COLLAB.md · làm theo mục Handoff phiên mới; trước khi thao tác một việc phải đọc COLLAB.md của việc đó.`
+
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
 - `work/mcp-token-argv/` · SECURITY · Host Claude · loại Bearer token khỏi argv của lark-crud-gateway/mcp-remote; migrate secret + rotate + smoke; không chặn HVU.
