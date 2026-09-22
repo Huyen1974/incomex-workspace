@@ -1,0 +1,587 @@
+[
+  {
+    "case": "valid-v1",
+    "expected_status": [
+      200
+    ],
+    "status": 200,
+    "business_and_success_audit_unchanged": false,
+    "pass": true
+  },
+  {
+    "case": "valid-add-existing-note",
+    "expected_status": [
+      200
+    ],
+    "status": 200,
+    "business_and_success_audit_unchanged": false,
+    "pass": true
+  },
+  {
+    "case": "fake-contract",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "null-contract",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "missing-contract",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "wrong-real-contract",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "wrong-field",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "fake-field",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "wrong-version",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "wrong-unit",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "wrong-operation",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "wrong-target",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "unknown-subject",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "wrong-datatype",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "note-only",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "null-materials",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "missing-system-material",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "duplicate-material",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "bad-merged-fragment",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "lenient-profile",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "wrong-profile-version",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "outside-scope",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "publish-spoof",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "spoof-actor",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "spoof-user-created",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "caller-date-created",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "caller-server-revision",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "caller-correlation",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "outsider-through-gate",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "missing-expected-revision",
+    "expected_status": [
+      400
+    ],
+    "status": 400,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "null-expected-revision",
+    "expected_status": [
+      400
+    ],
+    "status": 400,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "human-valid-partial-merge",
+    "expected_status": [
+      200
+    ],
+    "status": 200,
+    "business_and_success_audit_unchanged": false,
+    "pass": true
+  },
+  {
+    "case": "sequential-writer-A",
+    "expected_status": [
+      200
+    ],
+    "status": 200,
+    "business_and_success_audit_unchanged": false,
+    "pass": true
+  },
+  {
+    "case": "sequential-writer-B-stale",
+    "expected_status": [
+      409
+    ],
+    "status": 409,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "concurrent-writers",
+    "pass": true
+  },
+  {
+    "case": "native-item-patch",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "native-query-emit-events",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "native-version-query-patch",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "native-create",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "native-bulk-update",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "native-bulk-create",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "native-delete",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "native-version-create",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "native-version-save",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "native-version-promote",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "native-version-metadata",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "catalog-write",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "mow-write",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "record-native-create",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "graphql-bypass",
+    "status": 200,
+    "pass": true
+  },
+  {
+    "case": "record-human-valid",
+    "expected_status": [
+      200
+    ],
+    "status": 200,
+    "business_and_success_audit_unchanged": false,
+    "pass": true
+  },
+  {
+    "case": "same-logical-request-replay",
+    "expected_status": [
+      200
+    ],
+    "status": 200,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "same-key-different-payload",
+    "expected_status": [
+      409
+    ],
+    "status": 409,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "record-missing-duration",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "record-null-duration",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "record-negative",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "record-fraction",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "record-type-string",
+    "expected_status": [
+      422
+    ],
+    "status": 422,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "record-stale-form",
+    "expected_status": [
+      409
+    ],
+    "status": 409,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "record-service-update",
+    "expected_status": [
+      200
+    ],
+    "status": 200,
+    "business_and_success_audit_unchanged": false,
+    "pass": true
+  },
+  {
+    "case": "record-native-update",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "arbitrary-table-action",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "record-human-date-spoof",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "record-outsider",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "native-version-read",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  },
+  {
+    "case": "link-write",
+    "expected_status": [
+      403
+    ],
+    "status": 403,
+    "business_and_success_audit_unchanged": true,
+    "pass": true
+  }
+]

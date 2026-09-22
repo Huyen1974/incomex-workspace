@@ -1,0 +1,152 @@
+/* TEST ONLY generic write gate. One standard Directus endpoint extension.
+ * Uses native ItemsService accountability/events inside the supplied PG transaction.
+ * Direct writes are closed by the transaction capability filter below.
+ * Rules/targets/profiles/material permissions are governed PG configuration, not caller code.
+ */
+import { createHash, randomUUID } from 'node:crypto';
+import { createRequire } from 'node:module';
+import { realpathSync } from 'node:fs';
+const apiRequire = createRequire(realpathSync('/directus/node_modules/@directus/api/package.json'));
+const Joi = apiRequire('joi');
+const { createError } = await import(apiRequire.resolve('@directus/errors'));
+
+const GateError = createError('WRITE_GATE_REQUIRED', 'Use the governed write action.', 403);
+const activeTransactions = new WeakSet();
+const canonical = (value) => {
+  if (Array.isArray(value)) return value.map(canonical);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(Object.keys(value).sort().map((key) => [key, canonical(value[key])]));
+  }
+  return value;
+};
+const digest = (value) => createHash('sha256').update(JSON.stringify(canonical(value))).digest('hex');
+const fail = (status, code, message) => {
+  const error = new Error(message);
+  Object.assign(error, { status, code });
+  throw error;
+};
+const envelope = Joi.object({
+  request_id: Joi.string().guid().required(),
+  expected_revision: Joi.number().integer().min(0).required(),
+  data: Joi.object().min(1).required(),
+}).unknown(false);
+
+export default {
+  id: 'proof-write',
+  handler(router, { database, services, getSchema, emitter, logger }) {
+    const { ItemsService } = services;
+    const guard = async (payload, meta, context) => {
+      const route = await context.database('lab_write_routes').where('collection', meta.collection).first();
+      if (route && !activeTransactions.has(context.database)) throw new GateError();
+      return payload;
+    };
+    for (const event of ['items.create', 'items.update', 'items.delete']) emitter.onFilter(event, guard);
+
+    router.post('/:action/:id', async (req, res) => {
+      const serverRequest = randomUUID();
+      res.setHeader('X-Request-ID', serverRequest);
+      try {
+        if (!req.accountability?.user || req.accountability.admin) {
+          fail(403, 'BUSINESS_IDENTITY_REQUIRED', 'An authenticated non-admin business identity is required.');
+        }
+        const parsed = envelope.validate(req.body, { convert: false, abortEarly: false });
+        if (parsed.error || Joi.string().guid().validate(req.params.id).error) {
+          fail(400, 'INVALID_ENVELOPE', 'Expected UUID resource/request, explicit revision, and data.');
+        }
+        const body = parsed.value;
+        const inputHash = digest({ action: req.params.action, id: req.params.id, body });
+        const schema = await getSchema();
+        const result = await database.transaction(async (trx) => {
+          await trx.raw("SET LOCAL lock_timeout = '8s'");
+          await trx.raw("SET LOCAL statement_timeout = '15s'");
+          const actor = req.accountability.user;
+          const route = await trx('lab_write_routes').where({ action: req.params.action, enabled: true }).first();
+          if (!route) fail(403, 'ACTION_DENIED', 'This write action is not enabled.');
+          const service = new ItemsService(route.collection, {
+            accountability: req.accountability,
+            schema,
+            knex: trx,
+          });
+          // Serialize the same logical request, including retries for a not-yet-created item.
+          await trx.raw('SELECT pg_advisory_xact_lock(hashtextextended(?, 0))', [actor + ':' + body.request_id]);
+          const receipt = await trx('lab_write_receipts').where({ actor, request_key: body.request_id }).first();
+          if (receipt) {
+            if (receipt.payload_hash !== inputHash) fail(409, 'IDEMPOTENCY_CONFLICT', 'Request key already names different input.');
+            await service.readOne(req.params.id); // Re-check current read authority before replay.
+            return { ...receipt.response, replayed: true };
+          }
+          const current = await trx(route.collection).where('id', req.params.id).forUpdate().first();
+          if (current) await service.readOne(req.params.id);
+          const revision = current?.revision ?? 0;
+          if (body.expected_revision !== revision) fail(409, 'REVISION_CONFLICT', 'Expected revision does not match the locked resource.');
+          if (!current && !route.allow_create) fail(403, 'CREATE_DENIED', 'Creation is not enabled for this action.');
+          const allowed = new Set(route.input_fields);
+          if (Object.keys(body.data).some((key) => !allowed.has(key))) {
+            fail(403, 'FIELD_DENIED', 'Input contains a field outside the write action.');
+          }
+          const merged = { ...(current ?? {}), ...body.data };
+          for (const [key, value] of Object.entries(route.fixed_values)) {
+            if (merged[key] !== undefined && merged[key] !== value) fail(422, 'FIXED_CONTEXT', 'Object context/profile cannot be changed by the caller.');
+            merged[key] = value;
+          }
+          const profile = await trx('lab_profiles').where({ id: route.profile_ref, version: route.profile_version }).first();
+          if (!profile) fail(422, 'PROFILE_UNRESOLVED', 'The governed profile/version is unavailable.');
+          const validationInput = Object.fromEntries(route.validate_fields.map((key) => [key, merged[key]]));
+          const validation = Joi.build(profile.joi_description).validate(validationInput, { convert: false, abortEarly: false });
+          if (validation.error) fail(422, 'CONTRACT_INVALID', validation.error.details.map((d) => d.message).join('; '));
+
+          let links = [];
+          if (route.material_sections.length) {
+            const permitted = await trx('lab_profile_materials').where({ profile_ref: route.profile_ref, profile_version: route.profile_version });
+            for (const section of route.material_sections) {
+              for (const [position, field] of merged[section].entries()) {
+                const material = permitted.find((m) => m.field_ref === field.field_ref && m.contract_ref === field.contract_ref && m.contract_version === field.contract_version && m.section === section);
+                if (!material || material.scope !== merged.scope) fail(422, 'MATERIAL_DENIED', 'Field/contract/version/scope is not permitted by this profile.');
+                const contract = await trx('lab_contracts').where({ id: field.contract_ref, version: field.contract_version, source_concept: field.field_ref }).first();
+                if (!contract) fail(422, 'CONTRACT_UNRESOLVED', 'Exact Field and contract version do not resolve.');
+                for (const key of route.contract_attributes) {
+                  if (field[key] !== contract.content[key]) fail(422, 'CONTRACT_MISMATCH', 'Input material disagrees with authoritative catalog.');
+                }
+                links.push({ form_id: req.params.id, profile_ref: route.profile_ref, profile_version: route.profile_version, field_ref: field.field_ref, contract_ref: field.contract_ref, contract_version: field.contract_version, section, position, presentation: { name: field.name, label: field.label, type: field.type } });
+              }
+            }
+            for (const required of permitted.filter((m) => m.required)) {
+              if (!links.some((m) => m.field_ref === required.field_ref && m.section === required.section)) {
+                fail(422, 'REQUIRED_MATERIAL', 'The form is missing a required material.');
+              }
+            }
+          }
+          if (route.form_reference) {
+            const form = await trx('forms').where('id', merged.form_ref).forShare().first();
+            if (!form || form.scope !== merged.scope || merged.form_version !== 'main' || merged.form_revision !== form.revision) {
+              fail(409, 'FORM_REVISION_CONFLICT', 'Submission must identify the current editable draft revision.');
+            }
+          }
+          const persistedInput = Object.fromEntries(route.input_fields.filter((key) => key in merged).map((key) => [key, merged[key]]));
+          const update = { ...persistedInput, ...route.fixed_values, revision: revision + 1, last_request: serverRequest };
+          const transaction = (await trx.raw('SELECT txid_current()::text AS id, pg_backend_pid() AS pid')).rows[0];
+          activeTransactions.add(trx);
+          try {
+            if (current) await service.updateOne(req.params.id, update);
+            else await service.createOne({ ...update, id: req.params.id });
+          } finally {
+            activeTransactions.delete(trx);
+          }
+          if (route.material_sections.length) {
+            await trx('lab_material_links').where('form_id', req.params.id).delete();
+            await trx('lab_material_links').insert(links);
+          }
+          const stored = await service.readOne(req.params.id);
+          const response = { data: stored, meta: { server_request_id: serverRequest, logical_request_id: body.request_id, action: route.action, business_version: 'editable-draft/main', revision: stored.revision, transaction_id: transaction.id, backend_pid: transaction.pid }, replayed: false };
+          await trx('lab_write_receipts').insert({ actor, request_key: body.request_id, payload_hash: inputHash, server_request: serverRequest, collection: route.collection, resource_id: req.params.id, revision: stored.revision, response: JSON.stringify(response) });
+          return response;
+        });
+        res.status(200).json(result);
+      } catch (error) {
+        const status = error.status ?? (error.code === 'FORBIDDEN' ? 403 : 500);
+        logger.warn({ event: 'proof-write-rejected', server_request: serverRequest, actor: req.accountability?.user ?? null, code: error.code ?? 'INTERNAL_ERROR' });
+        res.status(status).json({ errors: [{ message: status === 500 ? 'The write transaction failed.' : error.message, extensions: { code: error.code ?? 'INTERNAL_ERROR', server_request_id: serverRequest } }] });
+      }
+    });
+  },
+};

@@ -1,0 +1,683 @@
+{
+  "scope": "Proof A retrieval slice SUBMITTED / PM REVIEW; not all Proof A or Gate0 acceptance",
+  "cells": [
+    {
+      "corpus": "small",
+      "mode": "a0",
+      "candidate_count": 14,
+      "eligible_count_each_case": [
+        14
+      ],
+      "known_target_hits_top5": 8,
+      "positive_queries": 12,
+      "known_single_target_hit_percent": 66.66666666666667,
+      "multi_target_recall": "NOT MEASURED: exhaustive relevant sets unavailable in expanded metadata",
+      "missed_cases": [
+        "B05",
+        "B07",
+        "B08",
+        "B14"
+      ],
+      "average_shortlist_size_all16": 0.625,
+      "warm_psql_query_median_ms": 3.0004999999999997,
+      "warm_psql_query_p95_ms": 71.818,
+      "first_pass_median_ms": 5.0965,
+      "explain_execution_median_ms": 1.203,
+      "query_samples": 96,
+      "cache": "first pass not claimed cold; subsequent 5 warm repeats",
+      "all_query_ms_sum": 838.204,
+      "harness_wall_ms": 1402.2289430722594,
+      "harness_nonquery_residual_ms": 564.0249430722595,
+      "retrieval_llm_calls": 0,
+      "retrieval_llm_tokens": 0,
+      "false_reuse": "NOT MEASURED",
+      "false_new": "NOT MEASURED",
+      "needs_decision_rate": "NOT MEASURED",
+      "reuse_decisions": 0,
+      "new_decisions": 0,
+      "admission_resolutions": 0
+    },
+    {
+      "corpus": "small",
+      "mode": "a1",
+      "candidate_count": 14,
+      "eligible_count_each_case": [
+        14
+      ],
+      "known_target_hits_top5": 12,
+      "positive_queries": 12,
+      "known_single_target_hit_percent": 100.0,
+      "multi_target_recall": "NOT MEASURED: exhaustive relevant sets unavailable in expanded metadata",
+      "missed_cases": [],
+      "average_shortlist_size_all16": 2.625,
+      "warm_psql_query_median_ms": 5.421,
+      "warm_psql_query_p95_ms": 54.579,
+      "first_pass_median_ms": 5.9825,
+      "explain_execution_median_ms": 5.6295,
+      "query_samples": 96,
+      "cache": "first pass not claimed cold; subsequent 5 warm repeats",
+      "all_query_ms_sum": 1035.0680000000007,
+      "harness_wall_ms": 1637.1335480362177,
+      "harness_nonquery_residual_ms": 602.065548036217,
+      "retrieval_llm_calls": 0,
+      "retrieval_llm_tokens": 0,
+      "false_reuse": "NOT MEASURED",
+      "false_new": "NOT MEASURED",
+      "needs_decision_rate": "NOT MEASURED",
+      "reuse_decisions": 0,
+      "new_decisions": 0,
+      "admission_resolutions": 0
+    },
+    {
+      "corpus": "expanded",
+      "mode": "a0",
+      "candidate_count": 1452,
+      "eligible_count_each_case": [
+        1452
+      ],
+      "known_target_hits_top5": 8,
+      "positive_queries": 12,
+      "known_single_target_hit_percent": 66.66666666666667,
+      "multi_target_recall": "NOT MEASURED: exhaustive relevant sets unavailable in expanded metadata",
+      "missed_cases": [
+        "B05",
+        "B07",
+        "B08",
+        "B14"
+      ],
+      "average_shortlist_size_all16": 0.625,
+      "warm_psql_query_median_ms": 10.7805,
+      "warm_psql_query_p95_ms": 81.937,
+      "first_pass_median_ms": 9.685500000000001,
+      "explain_execution_median_ms": 11.0565,
+      "query_samples": 96,
+      "cache": "first pass not claimed cold; subsequent 5 warm repeats",
+      "all_query_ms_sum": 2296.322,
+      "harness_wall_ms": 3018.221723847091,
+      "harness_nonquery_residual_ms": 721.8997238470911,
+      "retrieval_llm_calls": 0,
+      "retrieval_llm_tokens": 0,
+      "false_reuse": "NOT MEASURED",
+      "false_new": "NOT MEASURED",
+      "needs_decision_rate": "NOT MEASURED",
+      "reuse_decisions": 0,
+      "new_decisions": 0,
+      "admission_resolutions": 0
+    },
+    {
+      "corpus": "expanded",
+      "mode": "a1",
+      "candidate_count": 1452,
+      "eligible_count_each_case": [
+        1452
+      ],
+      "known_target_hits_top5": 12,
+      "positive_queries": 12,
+      "known_single_target_hit_percent": 100.0,
+      "multi_target_recall": "NOT MEASURED: exhaustive relevant sets unavailable in expanded metadata",
+      "missed_cases": [],
+      "average_shortlist_size_all16": 3.5,
+      "warm_psql_query_median_ms": 79.92699999999999,
+      "warm_psql_query_p95_ms": 109.365,
+      "first_pass_median_ms": 86.07499999999999,
+      "explain_execution_median_ms": 78.88300000000001,
+      "query_samples": 96,
+      "cache": "first pass not claimed cold; subsequent 5 warm repeats",
+      "all_query_ms_sum": 7074.903999999999,
+      "harness_wall_ms": 8435.359343886375,
+      "harness_nonquery_residual_ms": 1360.4553438863768,
+      "retrieval_llm_calls": 0,
+      "retrieval_llm_tokens": 0,
+      "false_reuse": "NOT MEASURED",
+      "false_new": "NOT MEASURED",
+      "needs_decision_rate": "NOT MEASURED",
+      "reuse_decisions": 0,
+      "new_decisions": 0,
+      "admission_resolutions": 0
+    }
+  ],
+  "rank_changes": [
+    {
+      "mode": "a0",
+      "case_id": "B01",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:5"
+      ],
+      "expanded_shortlist": [
+        "provisional:5"
+      ]
+    },
+    {
+      "mode": "a0",
+      "case_id": "B02",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:5"
+      ],
+      "expanded_shortlist": [
+        "provisional:5"
+      ]
+    },
+    {
+      "mode": "a0",
+      "case_id": "B03",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:5"
+      ],
+      "expanded_shortlist": [
+        "provisional:5"
+      ]
+    },
+    {
+      "mode": "a0",
+      "case_id": "B04",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:5"
+      ],
+      "expanded_shortlist": [
+        "provisional:5"
+      ]
+    },
+    {
+      "mode": "a0",
+      "case_id": "B05",
+      "small_known_target_rank": null,
+      "expanded_known_target_rank": null,
+      "small_shortlist": [],
+      "expanded_shortlist": []
+    },
+    {
+      "mode": "a0",
+      "case_id": "B06",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:1"
+      ],
+      "expanded_shortlist": [
+        "provisional:1"
+      ]
+    },
+    {
+      "mode": "a0",
+      "case_id": "B07",
+      "small_known_target_rank": null,
+      "expanded_known_target_rank": null,
+      "small_shortlist": [],
+      "expanded_shortlist": []
+    },
+    {
+      "mode": "a0",
+      "case_id": "B08",
+      "small_known_target_rank": null,
+      "expanded_known_target_rank": null,
+      "small_shortlist": [],
+      "expanded_shortlist": []
+    },
+    {
+      "mode": "a0",
+      "case_id": "B09",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:14"
+      ],
+      "expanded_shortlist": [
+        "provisional:14"
+      ]
+    },
+    {
+      "mode": "a0",
+      "case_id": "B10",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:12"
+      ],
+      "expanded_shortlist": [
+        "provisional:12"
+      ]
+    },
+    {
+      "mode": "a0",
+      "case_id": "B11",
+      "small_known_target_rank": null,
+      "expanded_known_target_rank": null,
+      "small_shortlist": [],
+      "expanded_shortlist": []
+    },
+    {
+      "mode": "a0",
+      "case_id": "B12",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:13"
+      ],
+      "expanded_shortlist": [
+        "provisional:13"
+      ]
+    },
+    {
+      "mode": "a0",
+      "case_id": "B13",
+      "small_known_target_rank": null,
+      "expanded_known_target_rank": null,
+      "small_shortlist": [
+        "provisional:5"
+      ],
+      "expanded_shortlist": [
+        "provisional:5"
+      ]
+    },
+    {
+      "mode": "a0",
+      "case_id": "B14",
+      "small_known_target_rank": null,
+      "expanded_known_target_rank": null,
+      "small_shortlist": [],
+      "expanded_shortlist": []
+    },
+    {
+      "mode": "a0",
+      "case_id": "B15",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:9"
+      ],
+      "expanded_shortlist": [
+        "provisional:9"
+      ]
+    },
+    {
+      "mode": "a0",
+      "case_id": "B16",
+      "small_known_target_rank": null,
+      "expanded_known_target_rank": null,
+      "small_shortlist": [],
+      "expanded_shortlist": []
+    },
+    {
+      "mode": "a1",
+      "case_id": "B01",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:5",
+        "provisional:14"
+      ],
+      "expanded_shortlist": [
+        "provisional:5",
+        "provisional:14",
+        "legacy:1069",
+        "legacy:1148"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B02",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:5",
+        "provisional:14",
+        "provisional:3",
+        "provisional:6"
+      ],
+      "expanded_shortlist": [
+        "provisional:5",
+        "provisional:14",
+        "provisional:3",
+        "provisional:6",
+        "legacy:51"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B03",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:5",
+        "provisional:14",
+        "provisional:3",
+        "provisional:6"
+      ],
+      "expanded_shortlist": [
+        "provisional:5",
+        "provisional:14",
+        "provisional:3",
+        "provisional:6",
+        "legacy:51"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B04",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:5",
+        "provisional:14",
+        "provisional:3",
+        "provisional:6"
+      ],
+      "expanded_shortlist": [
+        "provisional:5",
+        "provisional:14",
+        "provisional:3",
+        "provisional:6",
+        "legacy:51"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B05",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:5",
+        "provisional:6",
+        "provisional:14"
+      ],
+      "expanded_shortlist": [
+        "provisional:5",
+        "provisional:6",
+        "provisional:14"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B06",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:1"
+      ],
+      "expanded_shortlist": [
+        "provisional:1",
+        "legacy:1035",
+        "legacy:1218",
+        "legacy:1307"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B07",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:5",
+        "provisional:6",
+        "provisional:14"
+      ],
+      "expanded_shortlist": [
+        "provisional:5",
+        "provisional:6",
+        "provisional:14"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B08",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:5",
+        "provisional:14"
+      ],
+      "expanded_shortlist": [
+        "provisional:5",
+        "provisional:14"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B09",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:14",
+        "provisional:5",
+        "provisional:3"
+      ],
+      "expanded_shortlist": [
+        "provisional:14",
+        "provisional:5",
+        "legacy:293",
+        "provisional:3"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B10",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:12",
+        "provisional:11"
+      ],
+      "expanded_shortlist": [
+        "provisional:12",
+        "provisional:11"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B11",
+      "small_known_target_rank": null,
+      "expanded_known_target_rank": null,
+      "small_shortlist": [
+        "provisional:12"
+      ],
+      "expanded_shortlist": [
+        "provisional:12"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B12",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:13"
+      ],
+      "expanded_shortlist": [
+        "provisional:13",
+        "legacy:96",
+        "legacy:135",
+        "legacy:245",
+        "legacy:257"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B13",
+      "small_known_target_rank": null,
+      "expanded_known_target_rank": null,
+      "small_shortlist": [
+        "provisional:5",
+        "provisional:14",
+        "provisional:3",
+        "provisional:6"
+      ],
+      "expanded_shortlist": [
+        "provisional:5",
+        "provisional:14",
+        "provisional:3",
+        "provisional:6",
+        "legacy:51"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B14",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:6",
+        "provisional:7",
+        "provisional:11"
+      ],
+      "expanded_shortlist": [
+        "provisional:6",
+        "provisional:7",
+        "provisional:11"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B15",
+      "small_known_target_rank": 1,
+      "expanded_known_target_rank": 1,
+      "small_shortlist": [
+        "provisional:9",
+        "provisional:10",
+        "provisional:12",
+        "provisional:1",
+        "provisional:2"
+      ],
+      "expanded_shortlist": [
+        "provisional:9",
+        "legacy:107",
+        "provisional:10",
+        "provisional:12",
+        "provisional:1"
+      ]
+    },
+    {
+      "mode": "a1",
+      "case_id": "B16",
+      "small_known_target_rank": null,
+      "expanded_known_target_rank": null,
+      "small_shortlist": [],
+      "expanded_shortlist": []
+    }
+  ],
+  "synthetic_guards": [
+    {
+      "case_id": "S01",
+      "purpose": "same label, different subject/meaning",
+      "expected": "REUSE_BLOCKED_CONTRACT_MISMATCH",
+      "actual": "REUSE_BLOCKED_CONTRACT_MISMATCH",
+      "pass": true,
+      "kind": "TEST ONLY generic contract guard; not authenticated system admission"
+    },
+    {
+      "case_id": "S02",
+      "purpose": "same subject/name, different units",
+      "expected": "REUSE_BLOCKED_CONTRACT_MISMATCH",
+      "actual": "REUSE_BLOCKED_CONTRACT_MISMATCH",
+      "pass": true,
+      "kind": "TEST ONLY generic contract guard; not authenticated system admission"
+    },
+    {
+      "case_id": "S03",
+      "purpose": "missing structured contract",
+      "expected": "NEEDS_DECISION",
+      "actual": "NEEDS_DECISION",
+      "pass": true,
+      "kind": "TEST ONLY generic contract guard; not authenticated system admission"
+    },
+    {
+      "case_id": "S04",
+      "purpose": "denied caller must yield no candidate",
+      "expected": "DENIED_NO_CANDIDATE",
+      "actual": "DENIED_NO_CANDIDATE",
+      "pass": true,
+      "kind": "TEST ONLY generic contract guard; not authenticated system admission"
+    },
+    {
+      "case_id": "S05",
+      "purpose": "same MOIT family adds an already existing Field",
+      "expected": "NEW_VERSION_REQUIRED_REUSE_EXISTING_FIELDS",
+      "actual": "NEW_VERSION_REQUIRED_REUSE_EXISTING_FIELDS",
+      "pass": true,
+      "kind": "TEST ONLY generic contract guard; not authenticated system admission"
+    },
+    {
+      "case_id": "S06",
+      "purpose": "positive compatible contract control",
+      "expected": "CONTRACT_COMPATIBLE_ONLY",
+      "actual": "CONTRACT_COMPATIBLE_ONLY",
+      "pass": true,
+      "kind": "TEST ONLY generic contract guard; not authenticated system admission"
+    }
+  ],
+  "limits": [
+    "E06 known regression set, not held-out",
+    "Only 12 fixed positive queries; B11/B12/B13/B16 excluded as original",
+    "Expanded relevant sets incomplete; top5 known-target retention not exhaustive Recall@5/precision",
+    "14 provisional concepts lack structured contract_ref/promotion; 1438 legacy rows are not canonical Field Definitions",
+    "No production T1 admission, gateway write, MOW authoring, Nuxt render, T0 resume, runtime or 98% AI target measured"
+  ],
+  "llm_and_human_accounting": {
+    "lookup_calls": 0,
+    "lookup_tokens": 0,
+    "preparation": "Codex session parsed preserved E06 labels, selected fixed generic SQL and authored 6 synthetic guard cases",
+    "preparation_calls_tokens": "NOT MEASURED; session-level telemetry unavailable",
+    "fresh_human_labeling_sessions": 0,
+    "new_owner_metadata_or_adjudication_requests": 0,
+    "human_active_effort_minutes": "NOT MEASURED, not zero",
+    "domain_adjudication": "Not performed; unknown relevant legacy IDs remain unjudged",
+    "metadata_added_to_source": 0,
+    "aliases_added": 0
+  },
+  "not_measured": [
+    "full admission false-reuse/false-new/NEEDS_DECISION",
+    "intent→published MOW: NOT COMPLETED",
+    "98% AI declaration share",
+    "UI synchronization",
+    "T0 checkpoint/resume",
+    "runtime"
+  ],
+  "expanded_top5_contains_legacy_cases": [
+    "B01",
+    "B02",
+    "B03",
+    "B04",
+    "B06",
+    "B09",
+    "B12",
+    "B13",
+    "B15"
+  ],
+  "counterexamples": [
+    {
+      "case_id": "B11",
+      "query": "ngày sửa đổi",
+      "retrieved_candidate": "field.ngay_lap",
+      "observed": "A1 returns creation-date concept from text that explicitly says it is not modification date",
+      "admission_implication": "Lexical candidate is not equivalent meaning; auto-reuse by top1 would be wrong. No admission executed."
+    },
+    {
+      "case_id": "B12",
+      "query": "trạng thái",
+      "retrieved_candidate": "field.trang_thai_quy_trinh",
+      "observed": "Definition lifecycle returned; runtime-instance meaning remains ambiguous",
+      "admission_implication": "Need subject/contract/context; no auto-reuse."
+    },
+    {
+      "case_id": "B13",
+      "query": "phút",
+      "retrieved_candidate": "field.so_phut",
+      "observed": "Minutes candidate retrieved while preserved safety context asks hours",
+      "admission_implication": "Retrieval text omits requested unit; separate structured brief/contract required."
+    }
+  ],
+  "timing_limitations": [
+    "Both logical corpora stored in one 1466-row lab table with corpus filter; no search index. Small timings include scanning the co-hosted table.",
+    "A1 normalized strings/tsvector precomputed in lab; prep time NOT MEASURED after instrumentation repair.",
+    "0.5 CPU quota and shared VPS2 workload; no cache flush, no claim production throughput.",
+    "6 guard SELECTs ran as a separate small lab session; OS/background contention not isolated."
+  ],
+  "interpretation": "Lexical promising for bounded candidate retrieval; top1 equivalence/admission unsafe without structured context/contract. No vector necessary to recover these known targets, but no generalization claim."
+}

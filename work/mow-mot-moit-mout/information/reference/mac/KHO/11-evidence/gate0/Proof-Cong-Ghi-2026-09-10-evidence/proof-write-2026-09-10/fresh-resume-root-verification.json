@@ -1,0 +1,170 @@
+{
+  "all_pass": true,
+  "checks": [
+    {
+      "check": "fresh preserved forms",
+      "pass": true
+    },
+    {
+      "check": "fresh preserved lab_mot",
+      "pass": true
+    },
+    {
+      "check": "fresh preserved lab_mow",
+      "pass": true
+    },
+    {
+      "check": "fresh preserved lab_fields",
+      "pass": true
+    },
+    {
+      "check": "fresh preserved lab_contracts",
+      "pass": true
+    },
+    {
+      "check": "fresh preserved lab_profiles",
+      "pass": true
+    },
+    {
+      "check": "fresh preserved lab_profile_materials",
+      "pass": true
+    },
+    {
+      "check": "fresh preserved lab_material_links",
+      "pass": true
+    },
+    {
+      "check": "fresh preserved directus_versions",
+      "pass": true
+    },
+    {
+      "check": "same single record, revision2 to3",
+      "pass": true
+    },
+    {
+      "check": "only intended note and server metadata changed",
+      "pass": true
+    },
+    {
+      "check": "exactly one additional lab_write_receipts",
+      "pass": true
+    },
+    {
+      "check": "exactly one additional activity",
+      "pass": true
+    },
+    {
+      "check": "exactly one additional revisions",
+      "pass": true
+    },
+    {
+      "check": "server correlation maps to native activity and actor",
+      "pass": true
+    },
+    {
+      "check": "independent request committed once",
+      "pass": true
+    }
+  ],
+  "changed_record_fields": [
+    "note",
+    "date_updated",
+    "revision",
+    "last_request"
+  ],
+  "added": {
+    "lab_write_receipts": [
+      {
+        "actor": "3781824e-14e1-4de7-b6ab-860babe71ac1",
+        "request_key": "ece5b9f2-507d-40ea-b272-39f77f5b8333",
+        "payload_hash": "533db713caa3bfa660343e4605c38c074d8004bd5141ea5d29f8bca0188320c6",
+        "server_request": "03c2b595-13c5-4942-87fe-4c10e51786a8",
+        "collection": "lab_task_records",
+        "resource_id": "54f0ec7e-b78b-5a35-aafe-301d1a538c6b",
+        "revision": 3,
+        "response": {
+          "data": {
+            "id": "54f0ec7e-b78b-5a35-aafe-301d1a538c6b",
+            "note": "Service continuation on same record | Fresh independent session resumed from checkpoint proof-write-resume on 2026-09-10.",
+            "scope": "pilot",
+            "status": "draft",
+            "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+            "revision": 3,
+            "date_created": "2026-09-10T04:31:46.030Z",
+            "date_updated": "2026-09-10T04:37:23.201Z",
+            "form_version": "main",
+            "last_request": "03c2b595-13c5-4942-87fe-4c10e51786a8",
+            "user_created": "0725e66f-7ad3-4a2f-80f1-9f84b8931882",
+            "user_updated": "3781824e-14e1-4de7-b6ab-860babe71ac1",
+            "form_revision": 6,
+            "duration_minutes": 35
+          },
+          "meta": {
+            "action": "record",
+            "revision": 3,
+            "backend_pid": 223,
+            "transaction_id": "1385",
+            "business_version": "editable-draft/main",
+            "server_request_id": "03c2b595-13c5-4942-87fe-4c10e51786a8",
+            "logical_request_id": "ece5b9f2-507d-40ea-b272-39f77f5b8333"
+          },
+          "replayed": false
+        },
+        "created_at": "2026-09-10T04:37:22.996365+00:00"
+      }
+    ],
+    "activity": [
+      {
+        "id": 219,
+        "action": "update",
+        "user": "3781824e-14e1-4de7-b6ab-860babe71ac1",
+        "timestamp": "2026-09-10T04:37:23.206+00:00",
+        "ip": "172.19.0.1",
+        "user_agent": "Python-urllib/3.12",
+        "collection": "lab_task_records",
+        "item": "54f0ec7e-b78b-5a35-aafe-301d1a538c6b",
+        "origin": null
+      }
+    ],
+    "revisions": [
+      {
+        "id": 182,
+        "activity": 219,
+        "collection": "lab_task_records",
+        "item": "54f0ec7e-b78b-5a35-aafe-301d1a538c6b",
+        "data": {
+          "id": "54f0ec7e-b78b-5a35-aafe-301d1a538c6b",
+          "duration_minutes": 35,
+          "note": "Service continuation on same record | Fresh independent session resumed from checkpoint proof-write-resume on 2026-09-10.",
+          "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+          "form_version": "main",
+          "scope": "pilot",
+          "status": "draft",
+          "user_created": "0725e66f-7ad3-4a2f-80f1-9f84b8931882",
+          "date_created": "2026-09-10T04:31:46.030Z",
+          "user_updated": "3781824e-14e1-4de7-b6ab-860babe71ac1",
+          "date_updated": "2026-09-10T04:37:23.201Z",
+          "revision": 3,
+          "last_request": "03c2b595-13c5-4942-87fe-4c10e51786a8",
+          "form_revision": 6
+        },
+        "delta": {
+          "duration_minutes": 35,
+          "note": "Service continuation on same record | Fresh independent session resumed from checkpoint proof-write-resume on 2026-09-10.",
+          "form_ref": "16a85219-1758-59f5-acef-e7d752edb36c",
+          "form_version": "main",
+          "scope": "pilot",
+          "status": "draft",
+          "revision": 3,
+          "last_request": "03c2b595-13c5-4942-87fe-4c10e51786a8",
+          "form_revision": 6,
+          "user_updated": "3781824e-14e1-4de7-b6ab-860babe71ac1",
+          "date_updated": "2026-09-10T04:37:23.201Z"
+        },
+        "parent": null,
+        "version": null
+      }
+    ]
+  },
+  "scope": "Root compared direct PG before-resume with final capture independently of fresh Agent API read-back."
+}

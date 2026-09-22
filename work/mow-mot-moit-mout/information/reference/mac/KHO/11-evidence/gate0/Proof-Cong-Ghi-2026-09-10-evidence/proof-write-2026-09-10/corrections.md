@@ -1,0 +1,16 @@
+# Corrections giữ nguyên trước/sau
+
+- Tái hiện hai FAIL cũ trước sửa: baseline-results.json; không đổi expected.
+- Harness provision được dùng lại có EMAIL_TRANSPORT=json, nhưng exact Directus11.5.1 mailer chỉ nhận smtp/sendmail/ses/mailgun. API đã lên, health bị degraded do mail. Không gọi full health PASS. Lúc gắn guard, đổi riêng lab sang SMTP loopback port9 đóng; email vẫn bị chặn và health có thể degraded đúng chủ ý. Không cài mail server/transport hay mở egress để làm xanh health. Lỗi readiness lần đầu giữ nguyên log.
+- GET /permissions của exact API có cả permission hệ thống dẫn xuất không có id. Script cấu hình r1 đã xử lý permission có ID rồi dừng ở row dẫn xuất; r2 chỉ tiếp tục phần chưa xong và bỏ row không ID. Không seed lại hoặc tạo thêm version. HTTP log giữ toàn bộ thay đổi trước lỗi; configure-guard-r1.py.txt giữ nguồn gốc, configured.json là trạng thái cuối.
+- Source exact items update filter nằm trước transaction mặc định, nên không chọn một filter SELECT-so-sánh rồi để UPDATE ngoài transaction. Dùng một endpoint extension tiêu chuẩn; native event filter cùng component chỉ nhận transaction do endpoint giữ trong WeakSet nội bộ, caller không tự khai biến allowed/cờ bypass.
+- Native version/save chỉ cần read version ở controller/service. Xóa riêng update permission là chưa đủ; candidate xóa cả read/create/update của pilot identities và kiểm direct save/promote với version ID thật. Native content version không dùng làm immutable release hoặc guarded editor của pilot.
+
+- Extension boot r1: bare import @directus/errors không resolve từ thư mục mount với cấu trúc pnpm của exact image. Chưa chạy suite. R2 resolve cùng dependency qua package path thực của @directus/api bằng Node createRequire/realpath; không cài package hoặc sửa logic expected. Giữ index r1 và freeze r1. Package @directus/api có version nội bộ25.0.1, không dùng nó thay version sản phẩm Directus11.5.1; ghi cả hai actual.
+
+- R2 chỉ qua được anonymous readiness; suite dừng trước request ghi đầu do observer JSON đọc một dòng trong output JSON nhiều dòng. Sửa parser lấy toàn JSON, không đổi case/expected. Đồng thời đọc extension manager exact xác nhận endpoint context emitter là local-to-extensions, không core; chuyển phần filter sang hook registration chuẩn trong cùng một bundle partial=false, dùng chung WeakSet. Endpoint từ chối đăng ký nếu hook chưa đăng ký. Bật EXTENSIONS_MUST_LOAD=true theo exact source để lỗi load dừng lab app. Không coi endpoint-only r2 đã bảo vệ được native writes.
+
+- Khi thu evidence, Agent đọc JSON trước khi SCP 12,4MB hoàn tất và gặp parse error. Dừng đúng tiến trình SCP của artifact này, chuyển file gzip và chỉ đọc sau exit0. Không tác động kết quả trên VPS; manifest transfer hash sẽ kiểm bytes gốc. Đây là lỗi điều phối evidence, không lỗi cổng.
+- Ba bảng phụ dùng composite PK được PG quản lý và Directus schema inspector bỏ qua; không coi chúng là collection đã quản trị được trong Data Studio. Native API link-write403 đã đo; quản trị canonical catalog/links ngoài fixture còn chưa nghiệm thu.
+
+- Hậu kiểm offline có một lệnh in tên keys nhầm baseline list thành dict và dừng sau khi đã in UI/cleanup. Đã đọc lại đúng kiểu list: hai baseline status200. Không sửa raw/expected hoặc kết quả server; không là test failure.

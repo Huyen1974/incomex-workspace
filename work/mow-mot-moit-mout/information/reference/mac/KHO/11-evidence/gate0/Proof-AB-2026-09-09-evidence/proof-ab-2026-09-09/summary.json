@@ -1,0 +1,257 @@
+{
+  "date": "2026-09-09",
+  "status": "SUBMITTED / PM REVIEW / PARTIAL",
+  "retrieval_previous": "PM ACCEPT / DONE per new command; separate PM review file not available",
+  "material_requests": 6,
+  "reuse_decisions": 4,
+  "unique_reused_fields": 3,
+  "needs_decision": 2,
+  "new_fields": 0,
+  "new_form_content_versions": 1,
+  "false_reuse": {
+    "numerator": 0,
+    "denominator": 4,
+    "scope": "supervised Agent decisions, TEST ONLY labeled contracts; not gateway safety"
+  },
+  "false_new": "N/A no new-field decisions",
+  "new_owner_questions": 0,
+  "lookup_llm_calls": 0,
+  "lookup_llm_tokens": 0,
+  "parse_review_llm_calls": "NOT MEASURED",
+  "total_tokens": "NOT MEASURED",
+  "human_effort": "NOT MEASURED",
+  "intent_to_draft_elapsed": "NOT MEASURED",
+  "prepared_declaration_to_draft_harness_ms": 3738.635790999979,
+  "seed_config_ms": 26103.97574491799,
+  "intent_to_published": "NOT COMPLETED",
+  "validator": {
+    "valid_accepted": 2,
+    "invalid_rejected": 11,
+    "server_wired": false
+  },
+  "original_integration_cases": [
+    {
+      "case": "draft-form",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "draft-mot",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "draft-mow",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "readback-form",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "human-allow",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "human-deny",
+      "status": 403,
+      "pass": true
+    },
+    {
+      "case": "out-of-scope",
+      "status": 400,
+      "pass": true
+    },
+    {
+      "case": "spoof-identity",
+      "status": 403,
+      "pass": true
+    },
+    {
+      "case": "caller-created-date",
+      "status": 403,
+      "pass": true
+    },
+    {
+      "case": "bad-duration-type",
+      "status": 400,
+      "pass": true
+    },
+    {
+      "case": "negative-duration",
+      "status": 400,
+      "pass": true
+    },
+    {
+      "case": "missing-duration",
+      "status": 400,
+      "pass": true
+    },
+    {
+      "case": "null-duration",
+      "status": 400,
+      "pass": true
+    },
+    {
+      "case": "service-allow",
+      "status": 200,
+      "pass": true
+    },
+    {
+      "case": "service-publish-deny",
+      "status": 400,
+      "pass": true
+    },
+    {
+      "case": "fake-reference-gateway",
+      "status": 400,
+      "pass": true
+    },
+    {
+      "case": "same-request-retry",
+      "status": 400,
+      "pass": true
+    },
+    {
+      "case": "stale-revision",
+      "status": 200,
+      "pass": false
+    },
+    {
+      "case": "nested-fake-contract-gateway",
+      "status": 200,
+      "pass": false
+    },
+    {
+      "case": "native-content-version-create",
+      "status": 400,
+      "pass": false
+    },
+    {
+      "case": "checkpoint-persist",
+      "status": 200,
+      "pass": true
+    }
+  ],
+  "gateway_unresolved_failures": [
+    "stale If-Match accepted and mutated item",
+    "nested fake contract_ref accepted and stored"
+  ],
+  "native_content_version_final": "PASS scoped after recorded r1-r3 corrections; draft delta not immutable release",
+  "retry": "PARTIAL stable ID prevents duplicate; no idempotent replay/race proof",
+  "fresh_agent_resume": "PASS bounded; business hash unchanged; fork_turns none",
+  "ui": "NOT RUN; current source mapping gap; Nuxt lab not booted",
+  "runtime": "NOT RUN; C triage only",
+  "c1": "NOT FIT CURRENT inspected composition; untraced dynamic bridge UNKNOWN",
+  "c2_recommendation": "pg-boss 12.30.0 candidate only, not installed",
+  "code_inventory": {
+    "new_product_components": 0,
+    "new_adapters": 0,
+    "new_runners": 0,
+    "new_vue_or_pages": 0,
+    "new_harness_files": 14,
+    "harness_lines": 504,
+    "files": [
+      {
+        "file": "author-declaration.py",
+        "lines": 31,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "capture-evidence.py",
+        "lines": 25,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "cleanup-lab.py",
+        "lines": 39,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "lab-client.py",
+        "lines": 32,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "prepare-fixture.py",
+        "lines": 49,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "provision-lab.py",
+        "lines": 64,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "resume-readonly.py",
+        "lines": 16,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "run-integration.py",
+        "lines": 67,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "run-retrieval.py",
+        "lines": 23,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "seed-lab.py",
+        "lines": 78,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "validate-profile.cjs",
+        "lines": 10,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "version-native-r2.py",
+        "lines": 19,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "version-policy-r3.py",
+        "lines": 32,
+        "type": "test/preparation/observation harness; not product"
+      },
+      {
+        "file": "version-save-r4.py",
+        "lines": 19,
+        "type": "test/preparation/observation harness; not product"
+      }
+    ],
+    "test_collections": 8,
+    "test_fields": 3,
+    "test_contracts": 3,
+    "test_profile": 1,
+    "copied_retrieval_sql_files": 2,
+    "limits": "Counts include preparation, lab provisioning, evidence and cleanup. Historical failed script versions (.py.txt) are retained separately and not double-counted. SQL reused from accepted proof is not new product code.",
+    "document_editing_script": {
+      "file": "ssot-update-script.py.txt",
+      "lines": 90,
+      "type": "local evidence/SSOT editing only; excluded from 14 lab harness files"
+    },
+    "count_basis": "Saved lab harness files only; not total source lines sampled/generated throughout session. Inline shell/read-only source queries and document generation/packaging commands are additional preparation, not product code."
+  },
+  "cleanup": {
+    "owned_resources_removed": true,
+    "private_directory_removed": true,
+    "demo_process_unchanged": true,
+    "smoke_unchanged": true,
+    "full_application_regression": false
+  },
+  "project_status": {
+    "Factory": "DONE",
+    "FEAS": "PARTIAL",
+    "Gate0": "DOING",
+    "O1-O3": "NOT VERIFIED",
+    "R1": "NOT OPENED"
+  },
+  "one_next_pm_decision": "Assign a bounded same-slice proof for gateway contract and expected-revision enforcement, including native version save; existing configuration/relations/validation/authority before adapter."
+}
