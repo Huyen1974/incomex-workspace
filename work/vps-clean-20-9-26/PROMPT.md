@@ -36,7 +36,7 @@ Giờ trong báo cáo: UTC (Z). Sau phần 4, "giờ máy" = giờ VN.
 
 ## Phần 3 — Dịch vụ systemd failed
 3.1 `systemctl --failed`. Với từng unit: `systemctl status`, `journalctl -u <unit> -n 80`, đọc file unit (+ timer) và script nó gọi. Phân loại nguyên nhân: Docker sập 22/09 21:25Z / cấu hình / bản cũ trùng chức năng / hệ điều hành.
-3.2 `incomex-kuma-push.service`: nếu là bản cũ trùng `/etc/cron.d/kuma-push` (cron R3 đẩy Kuma #10/#11 mỗi 10 phút bằng `scripts/kuma-push.sh`) → chép unit (+ timer) vào hồ sơ; `systemctl disable --now` timer/unit cũ; `reset-failed`; **không xoá file unit**; viết lệnh lùi. Nếu là dịch vụ riêng còn cần → lỗi chỉ do Docker sập thì chạy lại 1 lần; lỗi khác thì sửa nhỏ (có bản cũ + lùi) hoặc báo cáo. Sau đó: `kuma-push.sh cron` và `kuma-push.sh disk` rc=0.
+3.2 `incomex-kuma-push.service`: **KHÔNG disable, KHÔNG xoá.** Host đã tra: đây là unit nạp token push Uptime Kuma từ `kuma.db` vào tmpfs (`ExecStart=/usr/local/sbin/incomex-kuma-push-fetch`), các monitor nhịp tim khác phụ thuộc nó — KHÁC với `/etc/cron.d/kuma-push` của R3 (đọc token ở `/etc/incomex/kuma-push/`). Hai cơ chế đều cần. Làm: đọc journal → nếu lỗi do container Kuma chưa lên lúc Docker sập 22/09 21:25–21:30Z (hoặc lỗi tạm khác) → kiểm container Kuma đang chạy → `systemctl reset-failed` + `systemctl start` 1 lần → phải active/exited thành công. Lỗi khác → không sửa, báo cáo nguyên nhân. Sau đó: `kuma-push.sh cron` và `kuma-push.sh disk` rc=0.
 3.3 `incomex-config-drift-check.service`: đối chiếu Handoff H1 trong COLLAB. Nếu đúng H1 (baseline `mcp-compose` còn `claude-mcp-local:r03-finalclose-20260920`, runtime chạy `claude-mcp-local:hvu-b3-rerun-02-final`):
    - Xác minh bằng `docker inspect` rằng runtime claude-mcp đang chạy đúng image B3.
    - Tìm cổng audited `incomex-config-apply-v0` / config-guard. Có cổng → dùng đúng cổng đó để cập nhật baseline. Chỉ đổi baseline: không đổi image/compose/container, không đổi MCP contract. Sau đó chạy drift-check 1 lần, phải MATCH/sạch.
@@ -69,6 +69,10 @@ Bối cảnh: Berlin đang CEST = UTC+2 (tới 25/10/2026); VN = UTC+7 → giờ
    - Crontab mới khớp bảng 4.3; log cron không có lỗi.
    - Health như cổng 3; lượt đẩy Kuma #10 kế tiếp OK.
    - Sai bất kỳ điểm nào → chạy `lui-mui-gio.sh` → kiểm lại → DỪNG.
+
+## 4b. HAI TÍNH NĂNG PHẢI SỐNG SAU LƯỢT (kiểm cuối cùng; hỏng cái nào → lùi phần gây ra → DỪNG)
+- **Kuma → Telegram (cảnh báo về máy Owner):** không đụng container Kuma, cấu hình Kuma, thông báo Telegram. Cuối lượt: container Kuma running; `/etc/cron.d/kuma-push` còn nguyên (`*/10` không đổi); `kuma-push.sh cron|disk` rc=0; đọc chỉ-đọc trên BẢN SAO `kuma.db` (không mở file đang chạy) → monitor #10 "Cron Heartbeat" và #11 "Disk Usage" có heartbeat UP mới sau lần đổi giờ; `incomex-kuma-push.service` không failed. Không gửi thông báo Telegram thử.
+- **Backup lên Google Drive (cron):** cấu hình rclone hiện hành không bị sửa (sha256 trước = sau); mọi job backup Drive (backup chính, code-backup, chuỗi Lark, phái cử) còn trong lịch với thời điểm UTC trước = sau (bảng 4.3); `rclone lsf gdrive-backup:` bằng cấu hình hiện hành OK; lượt phái cử ~10 phút kế tiếp sau đổi giờ rc=0; mount Drive trên Mac đọc được. Tên file backup theo ngày sẽ nhảy +5 giờ: kiểm không có trường hợp hai lượt ra cùng tên (ghi đè) — có nguy cơ → không đổi giờ, DỪNG phần 4.
 
 ## 5. Báo cáo + ghi repo
 - Chèn mục "R4b — Khép việc · <ngày> · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=<…> · KQ <XONG|STOPPED · bước>" lên ĐẦU `BAO-CAO.md`, gồm:
