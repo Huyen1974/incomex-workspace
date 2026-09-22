@@ -1,0 +1,3382 @@
+Browser tab: 14, Title: "Danh mục hệ thống - Incomex AI Portal", URL: "https://vps.incomexsaigoncorp.vn/knowledge/registries".
+1 AXWebArea Danh mục hệ thống - Incomex AI Portal, URL: vps.incomexsaigoncorp.vn/knowledge/registries
+	2 container
+		3 container
+			4 link Description: Incomex AI Portal, Value: vps.incomexsaigoncorp.vn/
+			5 container Global
+				6 link Description: Knowledge, Value: vps.incomexsaigoncorp.vn/knowledge
+				7 link Description: Modules, Value: vps.incomexsaigoncorp.vn/knowledge/modules
+				8 link Description: Tasks, Value: vps.incomexsaigoncorp.vn/knowledge/current-tasks
+				9 link Description: Reports, Value: vps.incomexsaigoncorp.vn/reports
+				10 link Description: Workflows, Value: vps.incomexsaigoncorp.vn/knowledge/workflows
+				11 link Description: Registries, Value: vps.incomexsaigoncorp.vn/knowledge/registries
+				12 link Description: Pivot, Value: vps.incomexsaigoncorp.vn/knowledge/pivot
+				13 link Description: Laws, Value: vps.incomexsaigoncorp.vn/knowledge/laws
+			14 button Theme
+			15 link Description: Let's Talk, Value: vps.incomexsaigoncorp.vn/contact-us
+			16 link Description: Login, Value: vps.incomexsaigoncorp.vn/auth/signin
+		17 link Description: ← Trung tâm tri thức, Value: vps.incomexsaigoncorp.vn/knowledge
+		18 text LAYER 1
+		19 heading Danh mục hệ thống, Value: 1
+			20 text Danh mục hệ thống
+		21 text Meta-Catalog — Danh mục sống, đếm realtime bằng PG trigger. Click vào tên để xem chi tiết.
+		22 link Description: All Entities, Value: vps.incomexsaigoncorp.vn/knowledge/registries/all
+		23 link Description: Taxonomy 6x6, Value: vps.incomexsaigoncorp.vn/knowledge/registries/taxonomy
+		24 link Description: Entity Matrix, Value: vps.incomexsaigoncorp.vn/knowledge/registries/matrix
+		25 link Description: Species Matrix, Value: vps.incomexsaigoncorp.vn/knowledge/registries/species
+		26 link Description: Changelog, Value: vps.incomexsaigoncorp.vn/knowledge/registries/changelog
+		27 table
+			28 row
+				29 cell
+					30 text STT
+				31 cell
+					32 text Code
+				33 cell
+					34 text Tên
+				35 cell
+					36 text Lớp
+				37 cell
+					38 text Số lượng
+				39 cell
+					40 text Thành phần
+				41 cell
+					42 text +
+				43 cell
+					44 text -
+				45 cell
+					46 text Mồ côi
+				47 cell
+					48 text Xác minh
+			49 row
+				50 cell
+					51 text 1
+				52 cell
+					53 link Description: CAT-ALL, Value: vps.incomexsaigoncorp.vn/knowledge/registries/CAT-ALL
+				54 cell
+					55 link Description: Tổng nguyên tử, Value: vps.incomexsaigoncorp.vn/knowledge/registries/CAT-ALL
+				56 cell
+					57 text Nguyên tử
+				58 cell
+					59 text 2141909
+				60 cell
+					61 text 20 loài
+				62 cell
+					63 text +2108920
+				64 cell
+					65 text 0
+				66 cell
+					67 text 0
+				68 cell
+					69 text ✅
+			70 row
+				71 cell
+					72 text 2
+				73 cell
+					74 link Description: CAT-MOL, Value: vps.incomexsaigoncorp.vn/knowledge/registries/CAT-MOL
+				75 cell
+					76 link Description: Tổng phân tử, Value: vps.incomexsaigoncorp.vn/knowledge/registries/CAT-MOL
+				77 cell
+					78 text Phân tử
+				79 cell
+					80 text 843
+				81 cell
+					82 text 11 loài
+				83 cell
+					84 text +198
+				85 cell
+					86 text 0
+				87 cell
+					88 text 0
+				89 cell
+					90 text ✅
+			91 row
+				92 cell
+					93 text 3
+				94 cell
+					95 link Description: CAT-CMP, Value: vps.incomexsaigoncorp.vn/knowledge/registries/CAT-CMP
+				96 cell
+					97 link Description: Tổng hợp chất, Value: vps.incomexsaigoncorp.vn/knowledge/registries/CAT-CMP
+				98 cell
+					99 text Hợp chất
+				100 cell
+					101 text 447
+				102 cell
+					103 text 8 loài
+				104 cell
+					105 text +126
+				106 cell
+					107 text 0
+				108 cell
+					109 text 0
+				110 cell
+					111 text ✅
+			112 row
+				113 cell
+					114 text 4
+				115 cell
+					116 link Description: CAT-MAT, Value: vps.incomexsaigoncorp.vn/knowledge/registries/CAT-MAT
+				117 cell
+					118 link Description: Tổng vật liệu, Value: vps.incomexsaigoncorp.vn/knowledge/registries/CAT-MAT
+				119 cell
+					120 text Vật liệu
+				121 cell
+					122 text 0
+				123 cell
+					124 text —
+				125 cell
+					126 text 0
+				127 cell
+					128 text 0
+				129 cell
+					130 text 0
+				131 cell
+					132 text ✅
+			133 row
+				134 cell
+					135 text 5
+				136 cell
+					137 link Description: CAT-PRD, Value: vps.incomexsaigoncorp.vn/knowledge/registries/CAT-PRD
+				138 cell
+					139 link Description: Tổng sản phẩm, Value: vps.incomexsaigoncorp.vn/knowledge/registries/CAT-PRD
+				140 cell
+					141 text Sản phẩm
+				142 cell
+					143 text 0
+				144 cell
+					145 text —
+				146 cell
+					147 text 0
+				148 cell
+					149 text 0
+				150 cell
+					151 text 0
+				152 cell
+					153 text ✅
+			154 row
+				155 cell
+					156 text 6
+				157 cell
+					158 link Description: CAT-BLD, Value: vps.incomexsaigoncorp.vn/knowledge/registries/CAT-BLD
+				159 cell
+					160 link Description: Tổng công trình, Value: vps.incomexsaigoncorp.vn/knowledge/registries/CAT-BLD
+				161 cell
+					162 text Công trình
+				163 cell
+					164 text 0
+				165 cell
+					166 text —
+				167 cell
+					168 text 0
+				169 cell
+					170 text 0
+				171 cell
+					172 text 0
+				173 cell
+					174 text ✅
+			175 row
+				176 cell
+					177 text 7
+				178 cell
+					179 link Description: CAT-SPE, Value: vps.incomexsaigoncorp.vn/knowledge/registries/species
+				180 cell
+					181 link Description: Phân loại loài(42 loài), Value: vps.incomexsaigoncorp.vn/knowledge/registries/species
+				182 cell
+					183 text Phân loại
+				184 cell
+					185 text 229424
+				186 cell
+					187 text 42 loài
+				188 cell
+					189 text 0
+				190 cell
+					191 text 0
+				192 cell
+					193 text 0
+				194 cell
+					195 text ✅
+			196 row
+				197 cell
+					198 text 8
+				199 cell
+					200 link Description: CAT-ORP, Value: vps.incomexsaigoncorp.vn/knowledge/registries/health
+				201 cell
+					202 link Description: Mồ côi (Orphan), Value: vps.incomexsaigoncorp.vn/knowledge/registries/health
+				203 cell
+					204 text Sức khỏe
+				205 cell
+					206 text 26
+				207 cell
+					208 text —
+				209 cell
+					210 text 0
+				211 cell
+					212 text 0
+				213 cell
+					214 text 1218964
+				215 cell
+					216 text ❌
+			217 row
+				218 cell
+					219 text 9
+				220 cell
+					221 link Description: CAT-PHA, Value: vps.incomexsaigoncorp.vn/knowledge/registries/health
+				222 cell
+					223 link Description: Phantom, Value: vps.incomexsaigoncorp.vn/knowledge/registries/health
+				224 cell
+					225 text Sức khỏe
+				226 cell
+					227 text 10
+				228 cell
+					229 text —
+				230 cell
+					231 text 0
+				232 cell
+					233 text 0
+				234 cell
+					235 text 0
+				236 cell
+					237 text ❌
+			238 row
+				239 cell
+					240 text 10
+				241 cell
+					242 link Description: CAT-UNM, Value: vps.incomexsaigoncorp.vn/knowledge/registries/unmanaged
+				243 cell
+					244 link Description: Không quản trị, Value: vps.incomexsaigoncorp.vn/knowledge/registries/unmanaged
+				245 cell
+					246 text Tham khảo
+				247 cell
+					248 text 127
+				249 cell
+					250 text —
+				251 cell
+					252 text 0
+				253 cell
+					254 text 0
+				255 cell
+					256 text 0
+				257 cell
+					258 text ✅
+			259 row
+				260 cell
+					261 text 11
+				262 cell
+					263 link Description: CAT-017, Value: vps.incomexsaigoncorp.vn/knowledge/registries/system_issue
+				264 cell
+					265 link Description: Vấn đề Hệ thống, Value: vps.incomexsaigoncorp.vn/knowledge/registries/system_issue
+				266 cell
+					267 text Sức khỏe
+				268 cell
+					269 text 226580
+				270 cell
+					271 text 8 nhóm
+				272 cell
+					273 text 0
+				274 cell
+					275 text 0
+				276 cell
+					277 text 220244
+				278 cell
+					279 text ❌
+			280 row
+				281 cell
+					282 text 12
+				283 cell
+					284 text CAT-006
+				285 cell
+					286 link Description: DOT Tools, Value: vps.incomexsaigoncorp.vn/knowledge/registries/dot_tool
+				287 cell
+					288 text Nguyên tử
+				289 cell
+					290 text 314
+				291 cell
+					292 text —
+				293 cell
+					294 text +163
+				295 cell
+					296 text 0
+				297 cell
+					298 text 0
+				299 cell
+					300 text ✅
+			301 row
+				302 cell
+					303 text 13
+				304 cell
+					305 text CAT-010
+				306 cell
+					307 link Description: Agents, Value: vps.incomexsaigoncorp.vn/knowledge/registries/agent
+				308 cell
+					309 text Nguyên tử
+				310 cell
+					311 text 6
+				312 cell
+					313 text —
+				314 cell
+					315 text 0
+				316 cell
+					317 text 0
+				318 cell
+					319 text 0
+				320 cell
+					321 text ✅
+			322 row
+				323 cell
+					324 text 14
+				325 cell
+					326 text CAT-011
+				327 cell
+					328 link Description: Checkpoint Types, Value: vps.incomexsaigoncorp.vn/knowledge/registries/checkpoint_type
+				329 cell
+					330 text Nguyên tử
+				331 cell
+					332 text 31
+				333 cell
+					334 text —
+				335 cell
+					336 text 0
+				337 cell
+					338 text 0
+				339 cell
+					340 text 0
+				341 cell
+					342 text ✅
+			343 row
+				344 cell
+					345 text 15
+				346 cell
+					347 text CAT-013
+				348 cell
+					349 link Description: Entity Dependencies, Value: vps.incomexsaigoncorp.vn/knowledge/registries/entity_dependency
+				350 cell
+					351 text Nguyên tử
+				352 cell
+					353 text 142
+				354 cell
+					355 text —
+				356 cell
+					357 text 0
+				358 cell
+					359 text 0
+				360 cell
+					361 text 0
+				362 cell
+					363 text ✅
+			364 row
+				365 cell
+					366 text 16
+				367 cell
+					368 text CAT-019
+				369 cell
+					370 link Description: Trigger Registry, Value: vps.incomexsaigoncorp.vn/knowledge/registries/trigger
+				371 cell
+					372 text Nguyên tử
+				373 cell
+					374 text 107
+				375 cell
+					376 text —
+				377 cell
+					378 text 0
+				379 cell
+					380 text 0
+				381 cell
+					382 text 0
+				383 cell
+					384 text ✅
+			385 row
+				386 cell
+					387 text 17
+				388 cell
+					389 text CAT-020
+				390 cell
+					391 link Description: Loai thuc the, Value: vps.incomexsaigoncorp.vn/knowledge/registries/collection
+				392 cell
+					393 text Nguyên tử
+				394 cell
+					395 text 42
+				396 cell
+					397 text —
+				398 cell
+					399 text +7
+				400 cell
+					401 text 0
+				402 cell
+					403 text 0
+				404 cell
+					405 text ✅
+			406 row
+				407 cell
+					408 text 18
+				409 cell
+					410 text CAT-021
+				411 cell
+					412 link Description: Species-Collection Map, Value: vps.incomexsaigoncorp.vn/knowledge/registries/collection
+				413 cell
+					414 text Nguyên tử
+				415 cell
+					416 text 164
+				417 cell
+					418 text —
+				419 cell
+					420 text +18
+				421 cell
+					422 text 0
+				423 cell
+					424 text 0
+				425 cell
+					426 text ✅
+			427 row
+				428 cell
+					429 text 19
+				430 cell
+					431 text CAT-022
+				432 cell
+					433 link Description: Hang doi kiem dinh, Value: vps.incomexsaigoncorp.vn/knowledge/registries/collection
+				434 cell
+					435 text Nguyên tử
+				436 cell
+					437 text 1
+				438 cell
+					439 text —
+				440 cell
+					441 text 0
+				442 cell
+					443 text 0
+				444 cell
+					445 text 0
+				446 cell
+					447 text ✅
+			448 row
+				449 cell
+					450 text 20
+				451 cell
+					452 text CAT-023
+				453 cell
+					454 link Description: So khai sinh, Value: vps.incomexsaigoncorp.vn/knowledge/registries/collection
+				455 cell
+					456 text Nguyên tử
+				457 cell
+					458 text 1218737
+				459 cell
+					460 text —
+				461 cell
+					462 text +1197688
+				463 cell
+					464 text 0
+				465 cell
+					466 text 0
+				467 cell
+					468 text ✅
+			469 row
+				470 cell
+					471 text 21
+				472 cell
+					473 text CAT-026
+				474 cell
+					475 link Description: agent_views, Value: vps.incomexsaigoncorp.vn/knowledge/registries/ai_support
+				476 cell
+					477 text Nguyên tử
+				478 cell
+					479 text 28
+				480 cell
+					481 text —
+				482 cell
+					483 text +2
+				484 cell
+					485 text 0
+				486 cell
+					487 text 0
+				488 cell
+					489 text ✅
+			490 row
+				491 cell
+					492 text 22
+				493 cell
+					494 text CAT-027
+				495 cell
+					496 link Description: ai_discussion_comments, Value: vps.incomexsaigoncorp.vn/knowledge/registries/ai_support
+				497 cell
+					498 text Nguyên tử
+				499 cell
+					500 text 17
+				501 cell
+					502 text —
+				503 cell
+					504 text 0
+				505 cell
+					506 text 0
+				507 cell
+					508 text 0
+				509 cell
+					510 text ✅
+			511 row
+				512 cell
+					513 text 23
+				514 cell
+					515 text CAT-028
+				516 cell
+					517 link Description: ai_discussions, Value: vps.incomexsaigoncorp.vn/knowledge/registries/ai_support
+				518 cell
+					519 text Nguyên tử
+				520 cell
+					521 text 7
+				522 cell
+					523 text —
+				524 cell
+					525 text 0
+				526 cell
+					527 text 0
+				528 cell
+					529 text 0
+				530 cell
+					531 text ✅
+			532 row
+				533 cell
+					534 text 24
+				535 cell
+					536 text CAT-029
+				537 cell
+					538 link Description: ai_tasks, Value: vps.incomexsaigoncorp.vn/knowledge/registries/ai_support
+				539 cell
+					540 text Nguyên tử
+				541 cell
+					542 text 0
+				543 cell
+					544 text —
+				545 cell
+					546 text 0
+				547 cell
+					548 text 0
+				549 cell
+					550 text 0
+				551 cell
+					552 text ✅
+			553 row
+				554 cell
+					555 text 25
+				556 cell
+					557 text CAT-031
+				558 cell
+					559 link Description: block_button, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				560 cell
+					561 text Nguyên tử
+				562 cell
+					563 text 0
+				564 cell
+					565 text —
+				566 cell
+					567 text 0
+				568 cell
+					569 text 0
+				570 cell
+					571 text 0
+				572 cell
+					573 text ✅
+			574 row
+				575 cell
+					576 text 26
+				577 cell
+					578 text CAT-032
+				579 cell
+					580 link Description: block_button_group, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				581 cell
+					582 text Nguyên tử
+				583 cell
+					584 text 0
+				585 cell
+					586 text —
+				587 cell
+					588 text 0
+				589 cell
+					590 text 0
+				591 cell
+					592 text 0
+				593 cell
+					594 text ✅
+			595 row
+				596 cell
+					597 text 27
+				598 cell
+					599 text CAT-033
+				600 cell
+					601 link Description: block_button_groups, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				602 cell
+					603 text Nguyên tử
+				604 cell
+					605 text 0
+				606 cell
+					607 text —
+				608 cell
+					609 text 0
+				610 cell
+					611 text 0
+				612 cell
+					613 text 0
+				614 cell
+					615 text ✅
+			616 row
+				617 cell
+					618 text 28
+				619 cell
+					620 text CAT-034
+				621 cell
+					622 link Description: block_buttons, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				623 cell
+					624 text Nguyên tử
+				625 cell
+					626 text 0
+				627 cell
+					628 text —
+				629 cell
+					630 text 0
+				631 cell
+					632 text 0
+				633 cell
+					634 text 0
+				635 cell
+					636 text ✅
+			637 row
+				638 cell
+					639 text 29
+				640 cell
+					641 text CAT-035
+				642 cell
+					643 link Description: block_columns, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				644 cell
+					645 text Nguyên tử
+				646 cell
+					647 text 0
+				648 cell
+					649 text —
+				650 cell
+					651 text 0
+				652 cell
+					653 text 0
+				654 cell
+					655 text 0
+				656 cell
+					657 text ✅
+			658 row
+				659 cell
+					660 text 30
+				661 cell
+					662 text CAT-036
+				663 cell
+					664 link Description: block_columns_rows, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				665 cell
+					666 text Nguyên tử
+				667 cell
+					668 text 0
+				669 cell
+					670 text —
+				671 cell
+					672 text 0
+				673 cell
+					674 text 0
+				675 cell
+					676 text 0
+				677 cell
+					678 text ✅
+			679 row
+				680 cell
+					681 text 31
+				682 cell
+					683 text CAT-037
+				684 cell
+					685 link Description: block_cta, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				686 cell
+					687 text Nguyên tử
+				688 cell
+					689 text 0
+				690 cell
+					691 text —
+				692 cell
+					693 text 0
+				694 cell
+					695 text 0
+				696 cell
+					697 text 0
+				698 cell
+					699 text ✅
+			700 row
+				701 cell
+					702 text 32
+				703 cell
+					704 text CAT-038
+				705 cell
+					706 link Description: block_divider, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				707 cell
+					708 text Nguyên tử
+				709 cell
+					710 text 0
+				711 cell
+					712 text —
+				713 cell
+					714 text 0
+				715 cell
+					716 text 0
+				717 cell
+					718 text 0
+				719 cell
+					720 text ✅
+			721 row
+				722 cell
+					723 text 33
+				724 cell
+					725 text CAT-039
+				726 cell
+					727 link Description: block_faqs, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				728 cell
+					729 text Nguyên tử
+				730 cell
+					731 text 0
+				732 cell
+					733 text —
+				734 cell
+					735 text 0
+				736 cell
+					737 text 0
+				738 cell
+					739 text 0
+				740 cell
+					741 text ✅
+			742 row
+				743 cell
+					744 text 34
+				745 cell
+					746 text CAT-040
+				747 cell
+					748 link Description: block_form, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				749 cell
+					750 text Nguyên tử
+				751 cell
+					752 text 0
+				753 cell
+					754 text —
+				755 cell
+					756 text 0
+				757 cell
+					758 text 0
+				759 cell
+					760 text 0
+				761 cell
+					762 text ✅
+			763 row
+				764 cell
+					765 text 35
+				766 cell
+					767 text CAT-041
+				768 cell
+					769 link Description: block_gallery, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				770 cell
+					771 text Nguyên tử
+				772 cell
+					773 text 0
+				774 cell
+					775 text —
+				776 cell
+					777 text 0
+				778 cell
+					779 text 0
+				780 cell
+					781 text 0
+				782 cell
+					783 text ✅
+			784 row
+				785 cell
+					786 text 36
+				787 cell
+					788 text CAT-042
+				789 cell
+					790 link Description: block_gallery_files, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				791 cell
+					792 text Nguyên tử
+				793 cell
+					794 text 0
+				795 cell
+					796 text —
+				797 cell
+					798 text 0
+				799 cell
+					800 text 0
+				801 cell
+					802 text 0
+				803 cell
+					804 text ✅
+			805 row
+				806 cell
+					807 text 37
+				808 cell
+					809 text CAT-043
+				810 cell
+					811 link Description: block_hero, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				812 cell
+					813 text Nguyên tử
+				814 cell
+					815 text 1
+				816 cell
+					817 text —
+				818 cell
+					819 text 0
+				820 cell
+					821 text 0
+				822 cell
+					823 text 0
+				824 cell
+					825 text ✅
+			826 row
+				827 cell
+					828 text 38
+				829 cell
+					830 text CAT-044
+				831 cell
+					832 link Description: block_html, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				833 cell
+					834 text Nguyên tử
+				835 cell
+					836 text 0
+				837 cell
+					838 text —
+				839 cell
+					840 text 0
+				841 cell
+					842 text 0
+				843 cell
+					844 text 0
+				845 cell
+					846 text ✅
+			847 row
+				848 cell
+					849 text 39
+				850 cell
+					851 text CAT-045
+				852 cell
+					853 link Description: block_library, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				854 cell
+					855 text Nguyên tử
+				856 cell
+					857 text 5
+				858 cell
+					859 text —
+				860 cell
+					861 text 0
+				862 cell
+					863 text 0
+				864 cell
+					865 text 0
+				866 cell
+					867 text ✅
+			868 row
+				869 cell
+					870 text 40
+				871 cell
+					872 text CAT-046
+				873 cell
+					874 link Description: block_logocloud, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				875 cell
+					876 text Nguyên tử
+				877 cell
+					878 text 0
+				879 cell
+					880 text —
+				881 cell
+					882 text 0
+				883 cell
+					884 text 0
+				885 cell
+					886 text 0
+				887 cell
+					888 text ✅
+			889 row
+				890 cell
+					891 text 41
+				892 cell
+					893 text CAT-047
+				894 cell
+					895 link Description: block_logocloud_logos, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				896 cell
+					897 text Nguyên tử
+				898 cell
+					899 text 0
+				900 cell
+					901 text —
+				902 cell
+					903 text 0
+				904 cell
+					905 text 0
+				906 cell
+					907 text 0
+				908 cell
+					909 text ✅
+			910 row
+				911 cell
+					912 text 42
+				913 cell
+					914 text CAT-048
+				915 cell
+					916 link Description: block_quote, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				917 cell
+					918 text Nguyên tử
+				919 cell
+					920 text 0
+				921 cell
+					922 text —
+				923 cell
+					924 text 0
+				925 cell
+					926 text 0
+				927 cell
+					928 text 0
+				929 cell
+					930 text ✅
+			931 row
+				932 cell
+					933 text 43
+				934 cell
+					935 text CAT-049
+				936 cell
+					937 link Description: block_richtext, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				938 cell
+					939 text Nguyên tử
+				940 cell
+					941 text 1
+				942 cell
+					943 text —
+				944 cell
+					945 text 0
+				946 cell
+					947 text 0
+				948 cell
+					949 text 0
+				950 cell
+					951 text ✅
+			952 row
+				953 cell
+					954 text 44
+				955 cell
+					956 text CAT-050
+				957 cell
+					958 link Description: blocks, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				959 cell
+					960 text Nguyên tử
+				961 cell
+					962 text 0
+				963 cell
+					964 text —
+				965 cell
+					966 text 0
+				967 cell
+					968 text 0
+				969 cell
+					970 text 0
+				971 cell
+					972 text ✅
+			973 row
+				974 cell
+					975 text 45
+				976 cell
+					977 text CAT-051
+				978 cell
+					979 link Description: block_step_items, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				980 cell
+					981 text Nguyên tử
+				982 cell
+					983 text 0
+				984 cell
+					985 text —
+				986 cell
+					987 text 0
+				988 cell
+					989 text 0
+				990 cell
+					991 text 0
+				992 cell
+					993 text ✅
+			994 row
+				995 cell
+					996 text 46
+				997 cell
+					998 text CAT-052
+				999 cell
+					1000 link Description: block_steps, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				1001 cell
+					1002 text Nguyên tử
+				1003 cell
+					1004 text 0
+				1005 cell
+					1006 text —
+				1007 cell
+					1008 text 0
+				1009 cell
+					1010 text 0
+				1011 cell
+					1012 text 0
+				1013 cell
+					1014 text ✅
+			1015 row
+				1016 cell
+					1017 text 47
+				1018 cell
+					1019 text CAT-053
+				1020 cell
+					1021 link Description: block_team, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				1022 cell
+					1023 text Nguyên tử
+				1024 cell
+					1025 text 0
+				1026 cell
+					1027 text —
+				1028 cell
+					1029 text 0
+				1030 cell
+					1031 text 0
+				1032 cell
+					1033 text 0
+				1034 cell
+					1035 text ✅
+			1036 row
+				1037 cell
+					1038 text 48
+				1039 cell
+					1040 text CAT-054
+				1041 cell
+					1042 link Description: block_testimonials, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				1043 cell
+					1044 text Nguyên tử
+				1045 cell
+					1046 text 0
+				1047 cell
+					1048 text —
+				1049 cell
+					1050 text 0
+				1051 cell
+					1052 text 0
+				1053 cell
+					1054 text 0
+				1055 cell
+					1056 text ✅
+			1057 row
+				1058 cell
+					1059 text 49
+				1060 cell
+					1061 text CAT-055
+				1062 cell
+					1063 link Description: block_testimonial_slider_items, Value: vps.incomexsaigoncorp.vn/knowledge/registries/cms_block
+				1064 cell
+					1065 text Nguyên tử
+				1066 cell
+					1067 text 0
+				1068 cell
+					1069 text —
+				1070 cell
+					1071 text 0
+				1072 cell
+					1073 text 0
+				1074 cell
+					1075 text 0
+				1076 cell
+					1077 text ✅
+			1078 row
+				1079 cell
+					1080 text 50
+				1081 cell
+					1082 text CAT-056
+				1083 cell
+					1084 link Description: block_video, Value: …
+				1085 cell
+					1086 text Nguyên tử
+				1087 cell
+					1088 text 0
+				1089 cell
+					1090 text —
+				1091 cell
+					1092 text 0
+				1093 cell
+					1094 text 0
+				1095 cell
+					1096 text 0
+				1097 cell
+					1098 text ✅
+			1099 row
+				1100 cell
+					1101 text 51
+				1102 cell
+					1103 text CAT-061
+				1104 cell
+					1105 link Description: comments, Value: …
+				1106 cell
+					1107 text Nguyên tử
+				1108 cell
+					1109 text 0
+				1110 cell
+					1111 text —
+				1112 cell
+					1113 text 0
+				1114 cell
+					1115 text 0
+				1116 cell
+					1117 text 0
+				1118 cell
+					1119 text ✅
+			1120 row
+				1121 cell
+					1122 text 52
+				1123 cell
+					1124 text CAT-065
+				1125 cell
+					1126 link Description: derived_objects_registry, Value: …
+				1127 cell
+					1128 text Nguyên tử
+				1129 cell
+					1130 text 7
+				1131 cell
+					1132 text —
+				1133 cell
+					1134 text 0
+				1135 cell
+					1136 text 0
+				1137 cell
+					1138 text 0
+				1139 cell
+					1140 text ✅
+			1141 row
+				1142 cell
+					1143 text 53
+				1144 cell
+					1145 text CAT-066
+				1146 cell
+					1147 link Description: directus_fields, Value: …
+				1148 cell
+					1149 text Nguyên tử
+				1150 cell
+					1151 text 1497
+				1152 cell
+					1153 text —
+				1154 cell
+					1155 text +131
+				1156 cell
+					1157 text 0
+				1158 cell
+					1159 text 0
+				1160 cell
+					1161 text ✅
+			1162 row
+				1163 cell
+					1164 text 54
+				1165 cell
+					1166 text CAT-067
+				1167 cell
+					1168 link Description: doc_reviews, Value: …
+				1169 cell
+					1170 text Nguyên tử
+				1171 cell
+					1172 text 3
+				1173 cell
+					1174 text —
+				1175 cell
+					1176 text 0
+				1177 cell
+					1178 text 0
+				1179 cell
+					1180 text 0
+				1181 cell
+					1182 text ✅
+			1183 row
+				1184 cell
+					1185 text 55
+				1186 cell
+					1187 text CAT-068
+				1188 cell
+					1189 link Description: entity_labels, Value: …
+				1190 cell
+					1191 text Nguyên tử
+				1192 cell
+					1193 text 906629
+				1194 cell
+					1195 text —
+				1196 cell
+					1197 text +901425
+				1198 cell
+					1199 text 0
+				1200 cell
+					1201 text 0
+				1202 cell
+					1203 text ✅
+			1204 row
+				1205 cell
+					1206 text 56
+				1207 cell
+					1208 text CAT-072
+				1209 cell
+					1210 link Description: governance_docs, Value: …
+				1211 cell
+					1212 text Nguyên tử
+				1213 cell
+					1214 text 12
+				1215 cell
+					1216 text —
+				1217 cell
+					1218 text 0
+				1219 cell
+					1220 text 0
+				1221 cell
+					1222 text 0
+				1223 cell
+					1224 text ✅
+			1225 row
+				1226 cell
+					1227 text 57
+				1228 cell
+					1229 text CAT-078
+				1230 cell
+					1231 link Description: knowledge_documents, Value: …
+				1232 cell
+					1233 text Nguyên tử
+				1234 cell
+					1235 text 9621
+				1236 cell
+					1237 text —
+				1238 cell
+					1239 text +9208
+				1240 cell
+					1241 text 0
+				1242 cell
+					1243 text 0
+				1244 cell
+					1245 text ✅
+			1246 row
+				1247 cell
+					1248 text 58
+				1249 cell
+					1250 text CAT-079
+				1251 cell
+					1252 link Description: label_rules, Value: …
+				1253 cell
+					1254 text Nguyên tử
+				1255 cell
+					1256 text 38
+				1257 cell
+					1258 text —
+				1259 cell
+					1260 text 0
+				1261 cell
+					1262 text 0
+				1263 cell
+					1264 text 0
+				1265 cell
+					1266 text ✅
+			1267 row
+				1268 cell
+					1269 text 59
+				1270 cell
+					1271 text CAT-1000
+				1272 cell
+					1273 link Description: DOT Domains, Value: …
+				1274 cell
+					1275 text Nguyên tử
+				1276 cell
+					1277 text 46
+				1278 cell
+					1279 text —
+				1280 cell
+					1281 text +46
+				1282 cell
+					1283 text 0
+				1284 cell
+					1285 text 0
+				1286 cell
+					1287 text ✅
+			1288 row
+				1289 cell
+					1290 text 60
+				1291 cell
+					1292 text CAT-1001
+				1293 cell
+					1294 link Description: Collection Groups, Value: …
+				1295 cell
+					1296 text Nguyên tử
+				1297 cell
+					1298 text 9
+				1299 cell
+					1300 text —
+				1301 cell
+					1302 text +9
+				1303 cell
+					1304 text 0
+				1305 cell
+					1306 text 0
+				1307 cell
+					1308 text ✅
+			1309 row
+				1310 cell
+					1311 text 61
+				1312 cell
+					1313 text CAT-1002
+				1314 cell
+					1315 link Description: Field Standards, Value: …
+				1316 cell
+					1317 text Nguyên tử
+				1318 cell
+					1319 text 11
+				1320 cell
+					1321 text —
+				1322 cell
+					1323 text +11
+				1324 cell
+					1325 text 0
+				1326 cell
+					1327 text 0
+				1328 cell
+					1329 text ✅
+			1330 row
+				1331 cell
+					1332 text 62
+				1333 cell
+					1334 text CAT-1003
+				1335 cell
+					1336 link Description: DOT Coverage Required, Value: …
+				1337 cell
+					1338 text Nguyên tử
+				1339 cell
+					1340 text 11
+				1341 cell
+					1342 text —
+				1343 cell
+					1344 text +11
+				1345 cell
+					1346 text 0
+				1347 cell
+					1348 text 0
+				1349 cell
+					1350 text ✅
+			1351 row
+				1352 cell
+					1353 text 63
+				1354 cell
+					1355 text CAT-1004
+				1356 cell
+					1357 link Description: DOT Domain Rules, Value: …
+				1358 cell
+					1359 text Nguyên tử
+				1360 cell
+					1361 text 67
+				1362 cell
+					1363 text —
+				1364 cell
+					1365 text +67
+				1366 cell
+					1367 text 0
+				1368 cell
+					1369 text 0
+				1370 cell
+					1371 text ✅
+			1372 row
+				1373 cell
+					1374 text 64
+				1375 cell
+					1376 text CAT-1005
+				1377 cell
+					1378 link Description: Field Type Equivalences, Value: …
+				1379 cell
+					1380 text Nguyên tử
+				1381 cell
+					1382 text 4
+				1383 cell
+					1384 text —
+				1385 cell
+					1386 text +4
+				1387 cell
+					1388 text 0
+				1389 cell
+					1390 text 0
+				1391 cell
+					1392 text ✅
+			1393 row
+				1394 cell
+					1395 text 65
+				1396 cell
+					1397 text CAT-119
+				1398 cell
+					1399 link Description: _permissions_backup_s132c, Value: …
+				1400 cell
+					1401 text Nguyên tử
+				1402 cell
+					1403 text 39
+				1404 cell
+					1405 text —
+				1406 cell
+					1407 text 0
+				1408 cell
+					1409 text 0
+				1410 cell
+					1411 text 0
+				1412 cell
+					1413 text ✅
+			1414 row
+				1415 cell
+					1416 text 66
+				1417 cell
+					1418 text CAT-126
+				1419 cell
+					1420 link Description: taxonomy_facets, Value: …
+				1421 cell
+					1422 text Nguyên tử
+				1423 cell
+					1424 text 10
+				1425 cell
+					1426 text —
+				1427 cell
+					1428 text +4
+				1429 cell
+					1430 text 0
+				1431 cell
+					1432 text 0
+				1433 cell
+					1434 text ✅
+			1435 row
+				1436 cell
+					1437 text 67
+				1438 cell
+					1439 text CAT-127
+				1440 cell
+					1441 link Description: taxonomy_matrix, Value: …
+				1442 cell
+					1443 text Nguyên tử
+				1444 cell
+					1445 text 36
+				1446 cell
+					1447 text —
+				1448 cell
+					1449 text 0
+				1450 cell
+					1451 text 0
+				1452 cell
+					1453 text 0
+				1454 cell
+					1455 text ✅
+			1456 row
+				1457 cell
+					1458 text 68
+				1459 cell
+					1460 text CAT-130
+				1461 cell
+					1462 link Description: universal_edges, Value: …
+				1463 cell
+					1464 text Nguyên tử
+				1465 cell
+					1466 text 2269
+				1467 cell
+					1468 text —
+				1469 cell
+					1470 text +98
+				1471 cell
+					1472 text 0
+				1473 cell
+					1474 text 0
+				1475 cell
+					1476 text ✅
+			1477 row
+				1478 cell
+					1479 text 69
+				1480 cell
+					1481 text CAT-131
+				1482 cell
+					1483 link Description: universal_rule_registry, Value: …
+				1484 cell
+					1485 text Nguyên tử
+				1486 cell
+					1487 text 10
+				1488 cell
+					1489 text —
+				1490 cell
+					1491 text 0
+				1492 cell
+					1493 text 0
+				1494 cell
+					1495 text 0
+				1496 cell
+					1497 text ✅
+			1498 row
+				1499 cell
+					1500 text 70
+				1501 cell
+					1502 text CAT-132
+				1503 cell
+					1504 link Description: universal_rule_run_results, Value: …
+				1505 cell
+					1506 text Nguyên tử
+				1507 cell
+					1508 text 130
+				1509 cell
+					1510 text —
+				1511 cell
+					1512 text 0
+				1513 cell
+					1514 text 0
+				1515 cell
+					1516 text 0
+				1517 cell
+					1518 text ✅
+			1519 row
+				1520 cell
+					1521 text 71
+				1522 cell
+					1523 text CAT-133
+				1524 cell
+					1525 link Description: universal_rule_runs, Value: …
+				1526 cell
+					1527 text Nguyên tử
+				1528 cell
+					1529 text 13
+				1530 cell
+					1531 text —
+				1532 cell
+					1533 text 0
+				1534 cell
+					1535 text 0
+				1536 cell
+					1537 text 0
+				1538 cell
+					1539 text ✅
+			1540 row
+				1541 cell
+					1542 text 72
+				1543 cell
+					1544 text CAT-134
+				1545 cell
+					1546 link Description: universal_rule_violations, Value: …
+				1547 cell
+					1548 text Nguyên tử
+				1549 cell
+					1550 text 1741
+				1551 cell
+					1552 text —
+				1553 cell
+					1554 text 0
+				1555 cell
+					1556 text 0
+				1557 cell
+					1558 text 0
+				1559 cell
+					1560 text ✅
+			1561 row
+				1562 cell
+					1563 text 73
+				1564 cell
+					1565 text CAT-996
+				1566 cell
+					1567 link Description: APR Action Types, Value: …
+				1568 cell
+					1569 text Nguyên tử
+				1570 cell
+					1571 text 14
+				1572 cell
+					1573 text —
+				1574 cell
+					1575 text +14
+				1576 cell
+					1577 text 0
+				1578 cell
+					1579 text 0
+				1580 cell
+					1581 text ✅
+			1582 row
+				1583 cell
+					1584 text 74
+				1585 cell
+					1586 text CAT-997
+				1587 cell
+					1588 link Description: APR Request Types, Value: …
+				1589 cell
+					1590 text Nguyên tử
+				1591 cell
+					1592 text 14
+				1593 cell
+					1594 text —
+				1595 cell
+					1596 text +14
+				1597 cell
+					1598 text 0
+				1599 cell
+					1600 text 0
+				1601 cell
+					1602 text ✅
+			1603 row
+				1604 cell
+					1605 text 75
+				1606 cell
+					1607 text CMT
+				1608 cell
+					1609 link Description: Bình luận, Value: …
+				1610 cell
+					1611 text Nguyên tử
+				1612 cell
+					1613 text 75
+				1614 cell
+					1615 text —
+				1616 cell
+					1617 text 0
+				1618 cell
+					1619 text 0
+				1620 cell
+					1621 text 0
+				1622 cell
+					1623 text ✅
+			1624 row
+				1625 cell
+					1626 text 76
+				1627 cell
+					1628 text CAT-000
+				1629 cell
+					1630 link Description: Danh mục hệ thống, Value: …
+				1631 cell
+					1632 text Phân tử
+				1633 cell
+					1634 text 169
+				1635 cell
+					1636 text —
+				1637 cell
+					1638 text +17
+				1639 cell
+					1640 text 0
+				1641 cell
+					1642 text 0
+				1643 cell
+					1644 text ✅
+			1645 row
+				1646 cell
+					1647 text 77
+				1648 cell
+					1649 text CAT-001
+				1650 cell
+					1651 link Description: Bảng UI, Value: …
+				1652 cell
+					1653 text Phân tử
+				1654 cell
+					1655 text 28
+				1656 cell
+					1657 text —
+				1658 cell
+					1659 text +8
+				1660 cell
+					1661 text 0
+				1662 cell
+					1663 text 0
+				1664 cell
+					1665 text ✅
+			1666 row
+				1667 cell
+					1668 text 78
+				1669 cell
+					1670 text CAT-004
+				1671 cell
+					1672 link Description: Bước quy trình, Value: …
+				1673 cell
+					1674 text Phân tử
+				1675 cell
+					1676 text 105
+				1677 cell
+					1678 text —
+				1679 cell
+					1680 text +35
+				1681 cell
+					1682 text 0
+				1683 cell
+					1684 text 0
+				1685 cell
+					1686 text ✅
+			1687 row
+				1688 cell
+					1689 text 79
+				1690 cell
+					1691 text CAT-007
+				1692 cell
+					1693 link Description: Pages/Routes, Value: …
+				1694 cell
+					1695 text Phân tử
+				1696 cell
+					1697 text 37
+				1698 cell
+					1699 text —
+				1700 cell
+					1701 text 0
+				1702 cell
+					1703 text 0
+				1704 cell
+					1705 text 0
+				1706 cell
+					1707 text ✅
+			1708 row
+				1709 cell
+					1710 text 80
+				1711 cell
+					1712 text CAT-008
+				1713 cell
+					1714 link Description: Collections, Value: …
+				1715 cell
+					1716 text Phân tử
+				1717 cell
+					1718 text 168
+				1719 cell
+					1720 text —
+				1721 cell
+					1722 text +23
+				1723 cell
+					1724 text 0
+				1725 cell
+					1726 text 0
+				1727 cell
+					1728 text ✅
+			1729 row
+				1730 cell
+					1731 text 81
+				1732 cell
+					1733 text CAT-012
+				1734 cell
+					1735 link Description: Checkpoint Sets, Value: …
+				1736 cell
+					1737 text Phân tử
+				1738 cell
+					1739 text 2
+				1740 cell
+					1741 text —
+				1742 cell
+					1743 text 0
+				1744 cell
+					1745 text 0
+				1746 cell
+					1747 text 0
+				1748 cell
+					1749 text ✅
+			1750 row
+				1751 cell
+					1752 text 82
+				1753 cell
+					1754 text CAT-024
+				1755 cell
+					1756 link Description: Pivot Definitions, Value: …
+				1757 cell
+					1758 text Phân tử
+				1759 cell
+					1760 text 39
+				1761 cell
+					1762 text —
+				1763 cell
+					1764 text +12
+				1765 cell
+					1766 text 0
+				1767 cell
+					1768 text 0
+				1769 cell
+					1770 text ✅
+			1771 row
+				1772 cell
+					1773 text 83
+				1774 cell
+					1775 text CAT-030
+				1776 cell
+					1777 link Description: billing, Value: …
+				1778 cell
+					1779 text Phân tử
+				1780 cell
+					1781 text 0
+				1782 cell
+					1783 text —
+				1784 cell
+					1785 text 0
+				1786 cell
+					1787 text 0
+				1788 cell
+					1789 text 0
+				1790 cell
+					1791 text ✅
+			1792 row
+				1793 cell
+					1794 text 84
+				1795 cell
+					1796 text CAT-057
+				1797 cell
+					1798 link Description: categories, Value: …
+				1799 cell
+					1800 text Phân tử
+				1801 cell
+					1802 text 1
+				1803 cell
+					1804 text —
+				1805 cell
+					1806 text 0
+				1807 cell
+					1808 text 0
+				1809 cell
+					1810 text 0
+				1811 cell
+					1812 text ✅
+			1813 row
+				1814 cell
+					1815 text 85
+				1816 cell
+					1817 text CAT-058
+				1818 cell
+					1819 link Description: checkpoint_rules, Value: …
+				1820 cell
+					1821 text Phân tử
+				1822 cell
+					1823 text 7
+				1824 cell
+					1825 text —
+				1826 cell
+					1827 text 0
+				1828 cell
+					1829 text 0
+				1830 cell
+					1831 text 0
+				1832 cell
+					1833 text ✅
+			1834 row
+				1835 cell
+					1836 text 86
+				1837 cell
+					1838 text CAT-059
+				1839 cell
+					1840 link Description: checkpoint_set_items, Value: …
+				1841 cell
+					1842 text Phân tử
+				1843 cell
+					1844 text 6
+				1845 cell
+					1846 text —
+				1847 cell
+					1848 text 0
+				1849 cell
+					1850 text 0
+				1851 cell
+					1852 text 0
+				1853 cell
+					1854 text ✅
+			1855 row
+				1856 cell
+					1857 text 87
+				1858 cell
+					1859 text CAT-060
+				1860 cell
+					1861 link Description: checkpoint_type_overrides, Value: …
+				1862 cell
+					1863 text Phân tử
+				1864 cell
+					1865 text 0
+				1866 cell
+					1867 text —
+				1868 cell
+					1869 text 0
+				1870 cell
+					1871 text 0
+				1872 cell
+					1873 text 0
+				1874 cell
+					1875 text ✅
+			1876 row
+				1877 cell
+					1878 text 88
+				1879 cell
+					1880 text CAT-062
+				1881 cell
+					1882 link Description: contacts, Value: …
+				1883 cell
+					1884 text Phân tử
+				1885 cell
+					1886 text 0
+				1887 cell
+					1888 text —
+				1889 cell
+					1890 text 0
+				1891 cell
+					1892 text 0
+				1893 cell
+					1894 text 0
+				1895 cell
+					1896 text ✅
+			1897 row
+				1898 cell
+					1899 text 89
+				1900 cell
+					1901 text CAT-063
+				1902 cell
+					1903 link Description: content_requests, Value: …
+				1904 cell
+					1905 text Phân tử
+				1906 cell
+					1907 text 2
+				1908 cell
+					1909 text —
+				1910 cell
+					1911 text 0
+				1912 cell
+					1913 text 0
+				1914 cell
+					1915 text 0
+				1916 cell
+					1917 text ✅
+			1918 row
+				1919 cell
+					1920 text 90
+				1921 cell
+					1922 text CAT-064
+				1923 cell
+					1924 link Description: conversations, Value: …
+				1925 cell
+					1926 text Phân tử
+				1927 cell
+					1928 text 0
+				1929 cell
+					1930 text —
+				1931 cell
+					1932 text 0
+				1933 cell
+					1934 text 0
+				1935 cell
+					1936 text 0
+				1937 cell
+					1938 text ✅
+			1939 row
+				1940 cell
+					1941 text 91
+				1942 cell
+					1943 text CAT-069
+				1944 cell
+					1945 link Description: feedbacks, Value: …
+				1946 cell
+					1947 text Phân tử
+				1948 cell
+					1949 text 9
+				1950 cell
+					1951 text —
+				1952 cell
+					1953 text 0
+				1954 cell
+					1955 text 0
+				1956 cell
+					1957 text 0
+				1958 cell
+					1959 text ✅
+			1960 row
+				1961 cell
+					1962 text 92
+				1963 cell
+					1964 text CAT-070
+				1965 cell
+					1966 link Description: forms, Value: …
+				1967 cell
+					1968 text Phân tử
+				1969 cell
+					1970 text 0
+				1971 cell
+					1972 text —
+				1973 cell
+					1974 text 0
+				1975 cell
+					1976 text 0
+				1977 cell
+					1978 text 0
+				1979 cell
+					1980 text ✅
+			1981 row
+				1982 cell
+					1983 text 93
+				1984 cell
+					1985 text CAT-071
+				1986 cell
+					1987 link Description: globals, Value: …
+				1988 cell
+					1989 text Phân tử
+				1990 cell
+					1991 text 1
+				1992 cell
+					1993 text —
+				1994 cell
+					1995 text 0
+				1996 cell
+					1997 text 0
+				1998 cell
+					1999 text 0
+				2000 cell
+					2001 text ✅
+			2002 row
+				2003 cell
+					2004 text 94
+				2005 cell
+					2006 text CAT-073
+				2007 cell
+					2008 link Description: help, Value: …
+				2009 cell
+					2010 text Phân tử
+				2011 cell
+					2012 text 0
+				2013 cell
+					2014 text —
+				2015 cell
+					2016 text 0
+				2017 cell
+					2018 text 0
+				2019 cell
+					2020 text 0
+				2021 cell
+					2022 text ✅
+			2023 row
+				2024 cell
+					2025 text 95
+				2026 cell
+					2027 text CAT-074
+				2028 cell
+					2029 link Description: help_articles, Value: …
+				2030 cell
+					2031 text Phân tử
+				2032 cell
+					2033 text 3
+				2034 cell
+					2035 text —
+				2036 cell
+					2037 text 0
+				2038 cell
+					2039 text 0
+				2040 cell
+					2041 text 0
+				2042 cell
+					2043 text ✅
+			2044 row
+				2045 cell
+					2046 text 96
+				2047 cell
+					2048 text CAT-075
+				2049 cell
+					2050 link Description: help_collections, Value: …
+				2051 cell
+					2052 text Phân tử
+				2053 cell
+					2054 text 2
+				2055 cell
+					2056 text —
+				2057 cell
+					2058 text 0
+				2059 cell
+					2060 text 0
+				2061 cell
+					2062 text 0
+				2063 cell
+					2064 text ✅
+			2065 row
+				2066 cell
+					2067 text 97
+				2068 cell
+					2069 text CAT-076
+				2070 cell
+					2071 link Description: help_feedback, Value: …
+				2072 cell
+					2073 text Phân tử
+				2074 cell
+					2075 text 0
+				2076 cell
+					2077 text —
+				2078 cell
+					2079 text 0
+				2080 cell
+					2081 text 0
+				2082 cell
+					2083 text 0
+				2084 cell
+					2085 text ✅
+			2086 row
+				2087 cell
+					2088 text 98
+				2089 cell
+					2090 text CAT-077
+				2091 cell
+					2092 link Description: inbox, Value: …
+				2093 cell
+					2094 text Phân tử
+				2095 cell
+					2096 text 0
+				2097 cell
+					2098 text —
+				2099 cell
+					2100 text 0
+				2101 cell
+					2102 text 0
+				2103 cell
+					2104 text 0
+				2105 cell
+					2106 text ✅
+			2107 row
+				2108 cell
+					2109 text 99
+				2110 cell
+					2111 text CAT-080
+				2112 cell
+					2113 link Description: languages, Value: …
+				2114 cell
+					2115 text Phân tử
+				2116 cell
+					2117 text 8
+				2118 cell
+					2119 text —
+				2120 cell
+					2121 text 0
+				2122 cell
+					2123 text 0
+				2124 cell
+					2125 text 0
+				2126 cell
+					2127 text ✅
+			2128 row
+				2129 cell
+					2130 text 100
+				2131 cell
+					2132 text CAT-082
+				2133 cell
+					2134 link Description: messages, Value: …
+				2135 cell
+					2136 text Phân tử
+				2137 cell
+					2138 text 0
+				2139 cell
+					2140 text —
+				2141 cell
+					2142 text 0
+				2143 cell
+					2144 text 0
+				2145 cell
+					2146 text 0
+				2147 cell
+					2148 text ✅
+			2149 row
+				2150 cell
+					2151 text 101
+				2152 cell
+					2153 text CAT-083
+				2154 cell
+					2155 link Description: navigation, Value: …
+				2156 cell
+					2157 text Phân tử
+				2158 cell
+					2159 text 2
+				2160 cell
+					2161 text —
+				2162 cell
+					2163 text 0
+				2164 cell
+					2165 text 0
+				2166 cell
+					2167 text 0
+				2168 cell
+					2169 text ✅
+			2170 row
+				2171 cell
+					2172 text 102
+				2173 cell
+					2174 text CAT-084
+				2175 cell
+					2176 link Description: navigation_items, Value: …
+				2177 cell
+					2178 text Phân tử
+				2179 cell
+					2180 text 6
+				2181 cell
+					2182 text —
+				2183 cell
+					2184 text +1
+				2185 cell
+					2186 text 0
+				2187 cell
+					2188 text 0
+				2189 cell
+					2190 text ✅
+			2191 row
+				2192 cell
+					2193 text 103
+				2194 cell
+					2195 text CAT-085
+				2196 cell
+					2197 link Description: navigation_navigation_items, Value: …
+				2198 cell
+					2199 text Phân tử
+				2200 cell
+					2201 text 2
+				2202 cell
+					2203 text —
+				2204 cell
+					2205 text 0
+				2206 cell
+					2207 text 0
+				2208 cell
+					2209 text 0
+				2210 cell
+					2211 text ✅
+			2212 row
+				2213 cell
+					2214 text 104
+				2215 cell
+					2216 text CAT-086
+				2217 cell
+					2218 link Description: organization_addresses, Value: …
+				2219 cell
+					2220 text Phân tử
+				2221 cell
+					2222 text 0
+				2223 cell
+					2224 text —
+				2225 cell
+					2226 text 0
+				2227 cell
+					2228 text 0
+				2229 cell
+					2230 text 0
+				2231 cell
+					2232 text ✅
+			2233 row
+				2234 cell
+					2235 text 105
+				2236 cell
+					2237 text CAT-087
+				2238 cell
+					2239 link Description: organizations, Value: …
+				2240 cell
+					2241 text Phân tử
+				2242 cell
+					2243 text 0
+				2244 cell
+					2245 text —
+				2246 cell
+					2247 text 0
+				2248 cell
+					2249 text 0
+				2250 cell
+					2251 text 0
+				2252 cell
+					2253 text ✅
+			2254 row
+				2255 cell
+					2256 text 106
+				2257 cell
+					2258 text CAT-088
+				2259 cell
+					2260 link Description: organizations_contacts, Value: …
+				2261 cell
+					2262 text Phân tử
+				2263 cell
+					2264 text 0
+				2265 cell
+					2266 text —
+				2267 cell
+					2268 text 0
+				2269 cell
+					2270 text 0
+				2271 cell
+					2272 text 0
+				2273 cell
+					2274 text ✅
+			2275 row
+				2276 cell
+					2277 text 107
+				2278 cell
+					2279 text CAT-113
+				2280 cell
+					2281 link Description: page_blocks, Value: …
+				2282 cell
+					2283 text Phân tử
+				2284 cell
+					2285 text 2
+				2286 cell
+					2287 text —
+				2288 cell
+					2289 text 0
+				2290 cell
+					2291 text 0
+				2292 cell
+					2293 text 0
+				2294 cell
+					2295 text ✅
+			2296 row
+				2297 cell
+					2298 text 108
+				2299 cell
+					2300 text CAT-114
+				2301 cell
+					2302 link Description: pages, Value: …
+				2303 cell
+					2304 text Phân tử
+				2305 cell
+					2306 text 3
+				2307 cell
+					2308 text —
+				2309 cell
+					2310 text 0
+				2311 cell
+					2312 text 0
+				2313 cell
+					2314 text 0
+				2315 cell
+					2316 text ✅
+			2317 row
+				2318 cell
+					2319 text 109
+				2320 cell
+					2321 text CAT-115
+				2322 cell
+					2323 link Description: pages_blocks, Value: …
+				2324 cell
+					2325 text Phân tử
+				2326 cell
+					2327 text 0
+				2328 cell
+					2329 text —
+				2330 cell
+					2331 text 0
+				2332 cell
+					2333 text 0
+				2334 cell
+					2335 text 0
+				2336 cell
+					2337 text ✅
+			2338 row
+				2339 cell
+					2340 text 110
+				2341 cell
+					2342 text CAT-117
+				2343 cell
+					2344 link Description: pages_projects, Value: …
+				2345 cell
+					2346 text Phân tử
+				2347 cell
+					2348 text 0
+				2349 cell
+					2350 text —
+				2351 cell
+					2352 text 0
+				2353 cell
+					2354 text 0
+				2355 cell
+					2356 text 0
+				2357 cell
+					2358 text ✅
+			2359 row
+				2360 cell
+					2361 text 111
+				2362 cell
+					2363 text CAT-118
+				2364 cell
+					2365 link Description: pages_translations, Value: …
+				2366 cell
+					2367 text Phân tử
+				2368 cell
+					2369 text 0
+				2370 cell
+					2371 text —
+				2372 cell
+					2373 text 0
+				2374 cell
+					2375 text 0
+				2376 cell
+					2377 text 0
+				2378 cell
+					2379 text ✅
+			2380 row
+				2381 cell
+					2382 text 112
+				2383 cell
+					2384 text CAT-120
+				2385 cell
+					2386 link Description: post_gallery_items, Value: …
+				2387 cell
+					2388 text Phân tử
+				2389 cell
+					2390 text 0
+				2391 cell
+					2392 text —
+				2393 cell
+					2394 text 0
+				2395 cell
+					2396 text 0
+				2397 cell
+					2398 text 0
+				2399 cell
+					2400 text ✅
+			2401 row
+				2402 cell
+					2403 text 113
+				2404 cell
+					2405 text CAT-121
+				2406 cell
+					2407 link Description: posts, Value: …
+				2408 cell
+					2409 text Phân tử
+				2410 cell
+					2411 text 2
+				2412 cell
+					2413 text —
+				2414 cell
+					2415 text 0
+				2416 cell
+					2417 text 0
+				2418 cell
+					2419 text 0
+				2420 cell
+					2421 text ✅
+			2422 row
+				2423 cell
+					2424 text 114
+				2425 cell
+					2426 text CAT-122
+				2427 cell
+					2428 link Description: redirects, Value: …
+				2429 cell
+					2430 text Phân tử
+				2431 cell
+					2432 text 0
+				2433 cell
+					2434 text —
+				2435 cell
+					2436 text 0
+				2437 cell
+					2438 text 0
+				2439 cell
+					2440 text 0
+				2441 cell
+					2442 text ✅
+			2443 row
+				2444 cell
+					2445 text 115
+				2446 cell
+					2447 text CAT-123
+				2448 cell
+					2449 link Description: sales, Value: …
+				2450 cell
+					2451 text Phân tử
+				2452 cell
+					2453 text 0
+				2454 cell
+					2455 text —
+				2456 cell
+					2457 text 0
+				2458 cell
+					2459 text 0
+				2460 cell
+					2461 text 0
+				2462 cell
+					2463 text ✅
+			2464 row
+				2465 cell
+					2466 text 116
+				2467 cell
+					2468 text CAT-124
+				2469 cell
+					2470 link Description: seo, Value: …
+				2471 cell
+					2472 text Phân tử
+				2473 cell
+					2474 text 0
+				2475 cell
+					2476 text —
+				2477 cell
+					2478 text 0
+				2479 cell
+					2480 text 0
+				2481 cell
+					2482 text 0
+				2483 cell
+					2484 text ✅
+			2485 row
+				2486 cell
+					2487 text 117
+				2488 cell
+					2489 text CAT-125
+				2490 cell
+					2491 link Description: task_checkpoints, Value: …
+				2492 cell
+					2493 text Phân tử
+				2494 cell
+					2495 text 9
+				2496 cell
+					2497 text —
+				2498 cell
+					2499 text 0
+				2500 cell
+					2501 text 0
+				2502 cell
+					2503 text 0
+				2504 cell
+					2505 text ✅
+			2506 row
+				2507 cell
+					2508 text 118
+				2509 cell
+					2510 text CAT-128
+				2511 cell
+					2512 link Description: team, Value: …
+				2513 cell
+					2514 text Phân tử
+				2515 cell
+					2516 text 0
+				2517 cell
+					2518 text —
+				2519 cell
+					2520 text 0
+				2521 cell
+					2522 text 0
+				2523 cell
+					2524 text 0
+				2525 cell
+					2526 text ✅
+			2527 row
+				2528 cell
+					2529 text 119
+				2530 cell
+					2531 text CAT-129
+				2532 cell
+					2533 link Description: testimonials, Value: …
+				2534 cell
+					2535 text Phân tử
+				2536 cell
+					2537 text 0
+				2538 cell
+					2539 text —
+				2540 cell
+					2541 text 0
+				2542 cell
+					2543 text 0
+				2544 cell
+					2545 text 0
+				2546 cell
+					2547 text ✅
+			2548 row
+				2549 cell
+					2550 text 120
+				2551 cell
+					2552 text CAT-137
+				2553 cell
+					2554 link Description: website, Value: …
+				2555 cell
+					2556 text Phân tử
+				2557 cell
+					2558 text 0
+				2559 cell
+					2560 text —
+				2561 cell
+					2562 text 0
+				2563 cell
+					2564 text 0
+				2565 cell
+					2566 text 0
+				2567 cell
+					2568 text ✅
+			2569 row
+				2570 cell
+					2571 text 121
+				2572 cell
+					2573 text CAT-139
+				2574 cell
+					2575 link Description: workflow_step_relations, Value: …
+				2576 cell
+					2577 text Phân tử
+				2578 cell
+					2579 text 80
+				2580 cell
+					2581 text —
+				2582 cell
+					2583 text 0
+				2584 cell
+					2585 text 0
+				2586 cell
+					2587 text 0
+				2588 cell
+					2589 text ✅
+			2590 row
+				2591 cell
+					2592 text 122
+				2593 cell
+					2594 text CAT-152
+				2595 cell
+					2596 link Description: pivot_results, Value: …
+				2597 cell
+					2598 text Phân tử
+				2599 cell
+					2600 text 150
+				2601 cell
+					2602 text —
+				2603 cell
+					2604 text +102
+				2605 cell
+					2606 text 0
+				2607 cell
+					2608 text 0
+				2609 cell
+					2610 text ✅
+			2611 row
+				2612 cell
+					2613 text 123
+				2614 cell
+					2615 text CAT-002
+				2616 cell
+					2617 link Description: Modules, Value: …
+				2618 cell
+					2619 text Hợp chất
+				2620 cell
+					2621 text 5
+				2622 cell
+					2623 text —
+				2624 cell
+					2625 text 0
+				2626 cell
+					2627 text 0
+				2628 cell
+					2629 text 0
+				2630 cell
+					2631 text ✅
+			2632 row
+				2633 cell
+					2634 text 124
+				2635 cell
+					2636 text CAT-003
+				2637 cell
+					2638 link Description: Quy trình, Value: …
+				2639 cell
+					2640 text Hợp chất
+				2641 cell
+					2642 text 3
+				2643 cell
+					2644 text —
+				2645 cell
+					2646 text +1
+				2647 cell
+					2648 text 0
+				2649 cell
+					2650 text 0
+				2651 cell
+					2652 text ✅
+			2653 row
+				2654 cell
+					2655 text 125
+				2656 cell
+					2657 text CAT-005
+				2658 cell
+					2659 link Description: Đề xuất thay đổi, Value: …
+				2660 cell
+					2661 text Hợp chất
+				2662 cell
+					2663 text 3
+				2664 cell
+					2665 text —
+				2666 cell
+					2667 text 0
+				2668 cell
+					2669 text 0
+				2670 cell
+					2671 text 0
+				2672 cell
+					2673 text ✅
+			2674 row
+				2675 cell
+					2676 text 126
+				2677 cell
+					2678 text CAT-009
+				2679 cell
+					2680 link Description: Tasks, Value: …
+				2681 cell
+					2682 text Hợp chất
+				2683 cell
+					2684 text 10
+				2685 cell
+					2686 text —
+				2687 cell
+					2688 text +1
+				2689 cell
+					2690 text 0
+				2691 cell
+					2692 text 0
+				2693 cell
+					2694 text ✅
+			2695 row
+				2696 cell
+					2697 text 127
+				2698 cell
+					2699 text CAT-025
+				2700 cell
+					2701 link Description: Yeu cau Phe duyet, Value: …
+				2702 cell
+					2703 text Hợp chất
+				2704 cell
+					2705 text 232
+				2706 cell
+					2707 text —
+				2708 cell
+					2709 text +71
+				2710 cell
+					2711 text 0
+				2712 cell
+					2713 text 0
+				2714 cell
+					2715 text ✅
+			2716 row
+				2717 cell
+					2718 text 128
+				2719 cell
+					2720 text CAT-089
+				2721 cell
+					2722 link Description: os_activities, Value: …
+				2723 cell
+					2724 text Hợp chất
+				2725 cell
+					2726 text 0
+				2727 cell
+					2728 text —
+				2729 cell
+					2730 text 0
+				2731 cell
+					2732 text 0
+				2733 cell
+					2734 text 0
+				2735 cell
+					2736 text ✅
+			2737 row
+				2738 cell
+					2739 text 129
+				2740 cell
+					2741 text CAT-090
+				2742 cell
+					2743 link Description: os_activity_contacts, Value: …
+				2744 cell
+					2745 text Hợp chất
+				2746 cell
+					2747 text 0
+				2748 cell
+					2749 text —
+				2750 cell
+					2751 text 0
+				2752 cell
+					2753 text 0
+				2754 cell
+					2755 text 0
+				2756 cell
+					2757 text ✅
+			2758 row
+				2759 cell
+					2760 text 130
+				2761 cell
+					2762 text CAT-091
+				2763 cell
+					2764 link Description: os_deal_contacts, Value: …
+				2765 cell
+					2766 text Hợp chất
+				2767 cell
+					2768 text 0
+				2769 cell
+					2770 text —
+				2771 cell
+					2772 text 0
+				2773 cell
+					2774 text 0
+				2775 cell
+					2776 text 0
+				2777 cell
+					2778 text ✅
+			2779 row
+				2780 cell
+					2781 text 131
+				2782 cell
+					2783 text CAT-092
+				2784 cell
+					2785 link Description: os_deals, Value: …
+				2786 cell
+					2787 text Hợp chất
+				2788 cell
+					2789 text 0
+				2790 cell
+					2791 text —
+				2792 cell
+					2793 text 0
+				2794 cell
+					2795 text 0
+				2796 cell
+					2797 text 0
+				2798 cell
+					2799 text ✅
+			2800 row
+				2801 cell
+					2802 text 132
+				2803 cell
+					2804 text CAT-093
+				2805 cell
+					2806 link Description: os_deal_stages, Value: …
+				2807 cell
+					2808 text Hợp chất
+				2809 cell
+					2810 text 0
+				2811 cell
+					2812 text —
+				2813 cell
+					2814 text 0
+				2815 cell
+					2816 text 0
+				2817 cell
+					2818 text 0
+				2819 cell
+					2820 text ✅
+			2821 row
+				2822 cell
+					2823 text 133
+				2824 cell
+					2825 text CAT-094
+				2826 cell
+					2827 link Description: os_email_templates, Value: …
+				2828 cell
+					2829 text Hợp chất
+				2830 cell
+					2831 text 0
+				2832 cell
+					2833 text —
+				2834 cell
+					2835 text 0
+				2836 cell
+					2837 text 0
+				2838 cell
+					2839 text 0
+				2840 cell
+					2841 text ✅
+			2842 row
+				2843 cell
+					2844 text 134
+				2845 cell
+					2846 text CAT-095
+				2847 cell
+					2848 link Description: os_expenses, Value: …
+				2849 cell
+					2850 text Hợp chất
+				2851 cell
+					2852 text 0
+				2853 cell
+					2854 text —
+				2855 cell
+					2856 text 0
+				2857 cell
+					2858 text 0
+				2859 cell
+					2860 text 0
+				2861 cell
+					2862 text ✅
+			2863 row
+				2864 cell
+					2865 text 135
+				2866 cell
+					2867 text CAT-096
+				2868 cell
+					2869 link Description: os_invoice_items, Value: …
+				2870 cell
+					2871 text Hợp chất
+				2872 cell
+					2873 text 0
+				2874 cell
+					2875 text —
+				2876 cell
+					2877 text 0
+				2878 cell
+					2879 text 0
+				2880 cell
+					2881 text 0
+				2882 cell
+					2883 text ✅
+			2884 row
+				2885 cell
+					2886 text 136
+				2887 cell
+					2888 text CAT-097
+				2889 cell
+					2890 link Description: os_invoices, Value: …
+				2891 cell
+					2892 text Hợp chất
+				2893 cell
+					2894 text 0
+				2895 cell
+					2896 text —
+				2897 cell
+					2898 text 0
+				2899 cell
+					2900 text 0
+				2901 cell
+					2902 text 0
+				2903 cell
+					2904 text ✅
+			2905 row
+				2906 cell
+					2907 text 137
+				2908 cell
+					2909 text CAT-098
+				2910 cell
+					2911 link Description: os_items, Value: …
+				2912 cell
+					2913 text Hợp chất
+				2914 cell
+					2915 text 0
+				2916 cell
+					2917 text —
+				2918 cell
+					2919 text 0
+				2920 cell
+					2921 text 0
+				2922 cell
+					2923 text 0
+				2924 cell
+					2925 text ✅
+			2926 row
+				2927 cell
+					2928 text 138
+				2929 cell
+					2930 text CAT-099
+				2931 cell
+					2932 link Description: os_payments, Value: …
+				2933 cell
+					2934 text Hợp chất
+				2935 cell
+					2936 text 0
+				2937 cell
+					2938 text —
+				2939 cell
+					2940 text 0
+				2941 cell
+					2942 text 0
+				2943 cell
+					2944 text 0
+				2945 cell
+					2946 text ✅
+			2947 row
+				2948 cell
+					2949 text 139
+				2950 cell
+					2951 text CAT-100
+				2952 cell
+					2953 link Description: os_payment_terms, Value: …
+				2954 cell
+					2955 text Hợp chất
+				2956 cell
+					2957 text 0
+				2958 cell
+					2959 text —
+				2960 cell
+					2961 text 0
+				2962 cell
+					2963 text 0
+				2964 cell
+					2965 text 0
+				2966 cell
+					2967 text ✅
+			2968 row
+				2969 cell
+					2970 text 140
+				2971 cell
+					2972 text CAT-101
+				2973 cell
+					2974 link Description: os_project_contacts, Value: …
+				2975 cell
+					2976 text Hợp chất
+				2977 cell
+					2978 text 0
+				2979 cell
+					2980 text —
+				2981 cell
+					2982 text 0
+				2983 cell
+					2984 text 0
+				2985 cell
+					2986 text 0
+				2987 cell
+					2988 text ✅
+			2989 row
+				2990 cell
+					2991 text 141
+				2992 cell
+					2993 text CAT-102
+				2994 cell
+					2995 link Description: os_projects, Value: …
+				2996 cell
+					2997 text Hợp chất
+				2998 cell
+					2999 text 0
+				3000 cell
+					3001 text —
+				3002 cell
+					3003 text 0
+				3004 cell
+					3005 text 0
+				3006 cell
+					3007 text 0
+				3008 cell
+					3009 text ✅
+			3010 row
+				3011 cell
+					3012 text 142
+				3013 cell
+					3014 text CAT-103
+				3015 cell
+					3016 link Description: os_project_templates, Value: …
+				3017 cell
+					3018 text Hợp chất
+				3019 cell
+					3020 text 0
+				3021 cell
+					3022 text —
+				3023 cell
+					3024 text 0
+				3025 cell
+					3026 text 0
+				3027 cell
+					3028 text 0
+				3029 cell
+					3030 text ✅
+			3031 row
+				3032 cell
+					3033 text 143
+				3034 cell
+					3035 text CAT-104
+				3036 cell
+					3037 link Description: os_project_updates, Value: …
+				3038 cell
+					3039 text Hợp chất
+				3040 cell
+					3041 text 0
+				3042 cell
+					3043 text —
+				3044 cell
+					3045 text 0
+				3046 cell
+					3047 text 0
+				3048 cell
+					3049 text 0
+				3050 cell
+					3051 text ✅
+			3052 row
+				3053 cell
+					3054 text 144
+				3055 cell
+					3056 text CAT-105
+				3057 cell
+					3058 link Description: os_proposal_approvals, Value: …
+				3059 cell
+					3060 text Hợp chất
+				3061 cell
+					3062 text 0
+				3063 cell
+					3064 text —
+				3065 cell
+					3066 text 0
+				3067 cell
+					3068 text 0
+				3069 cell
+					3070 text 0
+				3071 cell
+					3072 text ✅
+			3073 row
+				3074 cell
+					3075 text 145
+				3076 cell
+					3077 text CAT-106
+				3078 cell
+					3079 link Description: os_proposal_blocks, Value: …
+				3080 cell
+					3081 text Hợp chất
+				3082 cell
+					3083 text 0
+				3084 cell
+					3085 text —
+				3086 cell
+					3087 text 0
+				3088 cell
+					3089 text 0
+				3090 cell
+					3091 text 0
+				3092 cell
+					3093 text ✅
+			3094 row
+				3095 cell
+					3096 text 146
+				3097 cell
+					3098 text CAT-107
+				3099 cell
+					3100 link Description: os_proposal_contacts, Value: …
+				3101 cell
+					3102 text Hợp chất
+				3103 cell
+					3104 text 0
+				3105 cell
+					3106 text —
+				3107 cell
+					3108 text 0
+				3109 cell
+					3110 text 0
+				3111 cell
+					3112 text 0
+				3113 cell
+					3114 text ✅
+			3115 row
+				3116 cell
+					3117 text 147
+				3118 cell
+					3119 text CAT-108
+				3120 cell
+					3121 link Description: os_proposals, Value: …
+				3122 cell
+					3123 text Hợp chất
+				3124 cell
+					3125 text 0
+				3126 cell
+					3127 text —
+				3128 cell
+					3129 text 0
+				3130 cell
+					3131 text 0
+				3132 cell
+					3133 text 0
+				3134 cell
+					3135 text ✅
+			3136 row
+				3137 cell
+					3138 text 148
+				3139 cell
+					3140 text CAT-109
+				3141 cell
+					3142 link Description: os_settings, Value: …
+				3143 cell
+					3144 text Hợp chất
+				3145 cell
+					3146 text 0
+				3147 cell
+					3148 text —
+				3149 cell
+					3150 text 0
+				3151 cell
+					3152 text 0
+				3153 cell
+					3154 text 0
+				3155 cell
+					3156 text ✅
+			3157 row
+				3158 cell
+					3159 text 149
+				3160 cell
+					3161 text CAT-110
+				3162 cell
+					3163 link Description: os_task_files, Value: …
+				3164 cell
+					3165 text Hợp chất
+				3166 cell
+					3167 text 0
+				3168 cell
+					3169 text —
+				3170 cell
+					3171 text 0
+				3172 cell
+					3173 text 0
+				3174 cell
+					3175 text 0
+				3176 cell
+					3177 text ✅
+			3178 row
+				3179 cell
+					3180 text 150
+				3181 cell
+					3182 text CAT-111
+				3183 cell
+					3184 link Description: os_tasks, Value: …
+				3185 cell
+					3186 text Hợp chất
+				3187 cell
+					3188 text 0
+				3189 cell
+					3190 text —
+				3191 cell
+					3192 text 0
+				3193 cell
+					3194 text 0
+				3195 cell
+					3196 text 0
+				3197 cell
+					3198 text ✅
+			3199 row
+				3200 cell
+					3201 text 151
+				3202 cell
+					3203 text CAT-112
+				3204 cell
+					3205 link Description: os_tax_rates, Value: …
+				3206 cell
+					3207 text Hợp chất
+				3208 cell
+					3209 text 0
+				3210 cell
+					3211 text —
+				3212 cell
+					3213 text 0
+				3214 cell
+					3215 text 0
+				3216 cell
+					3217 text 0
+				3218 cell
+					3219 text ✅
+			3220 row
+				3221 cell
+					3222 text 152
+				3223 cell
+					3224 text CAT-138
+				3225 cell
+					3226 link Description: workflow_categories, Value: …
+				3227 cell
+					3228 text Hợp chất
+				3229 cell
+					3230 text 5
+				3231 cell
+					3232 text —
+				3233 cell
+					3234 text +2
+				3235 cell
+					3236 text 0
+				3237 cell
+					3238 text 0
+				3239 cell
+					3240 text ✅
+			3241 row
+				3242 cell
+					3243 text 153
+				3244 cell
+					3245 text CAT-140
+				3246 cell
+					3247 link Description: law_catalog, Value: …
+				3248 cell
+					3249 text Hợp chất
+				3250 cell
+					3251 text 5
+				3252 cell
+					3253 text —
+				3254 cell
+					3255 text 0
+				3256 cell
+					3257 text 0
+				3258 cell
+					3259 text 0
+				3260 cell
+					3261 text ✅
+			3262 row
+				3263 cell
+					3264 text 154
+				3265 cell
+					3266 text CAT-142
+				3267 cell
+					3268 link Description: measurement_registry, Value: …
+				3269 cell
+					3270 text Hợp chất
+				3271 cell
+					3272 text 142
+				3273 cell
+					3274 text —
+				3275 cell
+					3276 text +9
+				3277 cell
+					3278 text 0
+				3279 cell
+					3280 text 0
+				3281 cell
+					3282 text ✅
+			3283 row
+				3284 cell
+					3285 text 155
+				3286 cell
+					3287 text CAT-998
+				3288 cell
+					3289 link Description: APR Approvals, Value: …
+				3290 cell
+					3291 text Hợp chất
+				3292 cell
+					3293 text 42
+				3294 cell
+					3295 text —
+				3296 cell
+					3297 text +42
+				3298 cell
+					3299 text 0
+				3300 cell
+					3301 text 0
+				3302 cell
+					3303 text ✅
+			3304 row
+				3305 cell
+					3306 text 156
+				3307 cell
+					3308 text SYS-CVG
+				3309 cell
+					3310 link Description: Phạm vi Kiểm tra, Value: …
+				3311 cell
+					3312 text Vật liệu
+				3313 cell
+					3314 text 314
+				3315 cell
+					3316 text —
+				3317 cell
+					3318 text 0
+				3319 cell
+					3320 text 0
+				3321 cell
+					3322 text 0
+				3323 cell
+					3324 text ✅
+		3325 heading Nhật ký hệ thống, Value: 2
+			3326 text Nhật ký hệ thống
+		3327 table
+			3328 row
+				3329 cell
+					3330 text Code
+				3331 cell
+					3332 text Tên
+				3333 cell
+					3334 text Số lượng
+				3335 cell
+					3336 text Mồ côi
+			3337 row
+				3338 cell
+					3339 text CAT-081
+				3340 cell
+					3341 link Description: lifecycle_log, Value: …
+				3342 cell
+					3343 text 851
+				3344 cell
+					3345 text 0
+			3346 row
+				3347 cell
+					3348 text CAT-116
+				3349 cell
+					3350 link Description: pages_blog, Value: …
+				3351 cell
+					3352 text 1
+				3353 cell
+					3354 text 0
+			3355 row
+				3356 cell
+					3357 text CAT-141
+				3358 cell
+					3359 link Description: measurement_log, Value: …
+				3360 cell
+					3361 text 53896
+				3362 cell
+					3363 text 0
+		3364 container
+			3365 link …
+			3366 button Theme
+			3367 heading MENU, Value: 2
+				3368 text MENU
+			3369 link …
+			3370 link …
+			3371 link …
+			3372 link …
+			3373 text Copyright © 1988 - 2026 
+			3374 link Description: Incomex AI Portal. , Value: …
+			3375 text All rights reserved.  Site powered by 
+			3376 link Description: Directus , Value: …
+			3377 text and 
+			3378 link Description: Nuxt , Value: …
+			3379 text .
+
+The focused UI element is 1 AXWebArea Danh mục hệ thống - Incomex AI Portal, URL: vps.incomexsaigoncorp.vn/knowledge/registries

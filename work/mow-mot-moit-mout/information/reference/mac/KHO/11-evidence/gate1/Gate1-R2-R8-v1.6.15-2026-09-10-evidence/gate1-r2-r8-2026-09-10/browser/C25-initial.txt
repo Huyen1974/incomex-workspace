@@ -1,0 +1,683 @@
+Browser tab: 14, Title: "Bản đồ hợp đồng dữ liệu — Hệ UI 4 Mẹ", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/he-thong-thiet-ke.html".
+1 AXWebArea Bản đồ hợp đồng dữ liệu — Hệ UI 4 Mẹ, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/he-thong-thiet-ke.html
+	2 heading Bản đồ hợp đồng dữ liệu, Value: 1
+		3 text Bản đồ hợp đồng dữ liệu
+	4 text Hệ UI 4 Mẹ — Incomex Saigon · manifest v5.3 (+kestra_heads + directus_capabilities + integrity_contract + pre_dot_birth_blockers) · cập nhật 2026-07-02
+	5 button ⬇︎ Xuất JSON, ID: expJson
+	6 button ⬇︎ Xuất MD, ID: expMd
+	7 container rtb
+		8 text 🚧 Ranh giới runtime — UI 4 Mẹ là nơi KHAI KHUÔN, KHÔNG phải nơi CHẠY. Runtime đi qua Directus / DOT / Kestra.
+		9 text ĐỌC: PG → Directus → Nuxt/UI
+		10 text GHI: UI → DOT/gateway → validate/gate → ghi PG (hoặc tạo đề xuất chờ duyệt) → phát event
+		11 text KESTRA (đầu chờ, chưa dựng): workflow đã duyệt → Kestra execution → tới bước người làm: tạo task MOT qua DOT → người làm xong: DOT ghi event/trạng thái → Kestra resume bước tiếp
+		12 container
+			13 text Lớp:  PG · Directus · Nuxt/UI · DOT/gateway · Kestra  |   4 luồng:  design-time · approval-time · runtime · analytics-time
+	14 container
+		15 text 📐 Đây là  HỢP ĐỒNG nhìn TỪ PHÍA UI : các con số là  yêu cầu  UI đặt ra cho database.  Không phải  trạng thái PG hiện tại — PG chưa có cũng không sao, Agent sẽ dựng theo hợp đồng (qua Đ0-G + Điều 32).
+	16 container kpis
+		17 text 23
+		18 text Bảng UI cần — bảng hợp đồng
+		19 text 228
+		20 text Tổng cột — cột phải thiết kế
+		21 text 63
+		22 text Lượt trạng thái — trên các bảng
+		23 text 18
+		24 text Mặt UI — trang sinh/đọc
+		25 text 21
+		26 text Cần Agent dựng — bảng (giả thuyết)
+	27 container contract (showing 0-500 of 850 items)
+		28 heading design Khuôn thiết kế — do builder (MOD*) đúc ra, Value: 2
+			29 text design Khuôn thiết kế — do builder (MOD*) đúc ra
+		30 text ui_anchor_7tier CHUNG GIẢ THUYẾT · agent dựng
+		31 text Cây 7 tầng (T1→T7) — neo quản lý cho mọi khuôn; suy đường tổ tiên.
+		32 text TRẠNG THÁI (2)
+		33 text active archived
+		34 text CỘT (8)
+		35 text 🔑 id int 🔑 tier int(1..7) parent_id int 🔑 code text name text path_cache text owner_mother text status enum
+		36 text AI ĐỌC / GHI
+		37 text mout-build  · R moit-form  · R modit  · R modut  · R modw  · R modt  · R master-hub  · R ui_field_catalog MOIT·MOUT GIẢ THUYẾT · agent dựng
+		38 text Thư viện ~2000 trường (nguồn picker cột/báo cáo & trường nhập). Chia cụm theo 7 tầng.
+		39 text TRẠNG THÁI (3)
+		40 text draft active archived
+		41 text CỘT (12)
+		42 text 🔑 code text 🔑 name text group_anchor fk 7tier data_type enum widget enum unit text validation json is_required_default bool owner_mother text status enum 🔑 collection text (BẢNG chứa cột) — chọn TRƯỚC 🔑 column text (CỘT trong bảng) — chọn SAU
+		43 text AI ĐỌC / GHI
+		44 text mout-build  · R moit-form  · R modit  · R modut  · R ui_condition CHUNG GIẢ THUYẾT · agent dựng
+		45 text Điều kiện = HÀM. Hai mặt: mô tả lời + mã lọc (SQL/DOT).
+		46 text TRẠNG THÁI (3)
+		47 text draft active archived
+		48 text CỘT (7)
+		49 text 🔑 code text name text 🔑 description_text text 🔑 filter_code text params json owner_mother text status enum
+		50 text AI ĐỌC / GHI
+		51 text modit · RW modut · RW modw  · R modt  · R ui_trigger CHUNG GIẢ THUYẾT · agent dựng
+		52 text Kích hoạt: sự kiện / thời gian / thủ công. Thiếu → DOT tạo trước (Đ0-G).
+		53 text TRẠNG THÁI (4)
+		54 text draft active paused archived
+		55 text CỘT (7)
+		56 text 🔑 code text name text 🔑 type enum(event|time|manual) definition json condition_ref fk condition description_text text status enum
+		57 text AI ĐỌC / GHI
+		58 text modit · RW modut · RW modw · RW modt · RW ui_guidance CHUNG GIẢ THUYẾT · agent dựng
+		59 text Hướng dẫn đa phương tiện gắn theo từng item (text/ảnh/audio/video/các bước).
+		60 text TRẠNG THÁI (2)
+		61 text draft active
+		62 text CỘT (8)
+		63 text 🔑 target_kind enum 🔑 target_ref text text text diagram_url text audio_url text video_url text steps json status enum
+		64 text AI ĐỌC / GHI
+		65 text mot-board  · R moit-form · RW mout-build · RW modit · RW modut · RW modw · RW modt · RW ui_input_form MOIT GIẢ THUYẾT · agent dựng
+		66 text Khuôn form nhập (MODIT đúc). Bố cục linh hoạt theo hàng + buộc bản ghi + điều kiện + trigger.
+		67 text TRẠNG THÁI (4)
+		68 text draft active paused archived
+		69 text CỘT (15)
+		70 text 🔑 code text 🔑 name text anchor_7tier fk 🔑 target_collection text field_set json layout json(rows/cols) routing enum(direct|queue) record_binding json condition_refs fk[] trigger_refs fk[] guidance_ref fk executors fk[] recipients fk[] creator text status enum
+		71 text AI ĐỌC / GHI
+		72 text moit-form  · R modit  · W mot-board  · R ui_output_table MOUT GIẢ THUYẾT · agent dựng
+		73 text Khuôn báo cáo (MODUT đúc). Cột chọn + ≤5 lọc + thời gian + tổng (cột/hàng) + đúc URL/Excel + phân phối.
+		74 text TRẠNG THÁI (4)
+		75 text draft active paused archived
+		76 text CỘT (17)
+		77 text 🔑 code text 🔑 name text anchor_7tier fk columns json data_fn text filter_set json(≤5) period enum(absolute|recurring) schedule_cron text sum_cols json sum_rows bool trigger_refs fk[] recipients fk[] export_formats enum[] guidance_ref fk creator text status enum data_scope json{scope_text,scope_code,source_collection}
+		78 text AI ĐỌC / GHI
+		79 text mout-build  · R modut  · W ui_workflow_node MOW GIẢ THUYẾT · agent dựng
+		80 text Khuôn node quy trình (MODW đúc). Bố + người thực hiện/nhận + kho lưu + thời gian + trigger.
+		81 text TRẠNG THÁI (4)
+		82 text draft active paused archived
+		83 text CỘT (13)
+		84 text 🔑 code text 🔑 name text tier int parent_node fk executors fk[] recipients fk[] store_collections text[] when json trigger_refs fk[] guidance_ref fk creator text status enum business_object fk ui_business_object (học sinh/đơn hàng/hợp đồng)
+		85 text AI ĐỌC / GHI
+		86 text mow-canvas  · R modw  · W ui_task MOT GIẢ THUYẾT · agent dựng
+		87 text Khuôn task (MODT đúc). Form nhập + trường báo cáo + trigger + người + thời gian.
+		88 text TRẠNG THÁI (4)
+		89 text draft active paused archived
+		90 text CỘT (13)
+		91 text 🔑 code text 🔑 name text anchor_7tier fk input_form_ref fk report_field_set json trigger_refs fk[] when json executors fk[] recipients fk[] guidance_ref fk creator text status enum business_object fk ui_business_object (học sinh/đơn hàng/hợp đồng)
+		92 text AI ĐỌC / GHI
+		93 text mot-studio  · R modt  · W mot-board  · R ui_business_object CHUNG GIẢ THUYẾT · agent dựng
+		94 text Danh mục ĐỐI TƯỢNG NGHIỆP VỤ (học sinh, đơn hàng, hợp đồng, khách hàng…). Task/form/report buộc vào 1 đối tượng cụ thể qua khóa → dữ liệu không rối.
+		95 text TRẠNG THÁI (2)
+		96 text active archived
+		97 text CỘT (9)
+		98 text 🔑 code text 🔑 name text 🔑 collection text (bảng bản ghi) 🔑 pk text (khóa chính) label_field text owner_mother text status enum pk_type enum(uuid|bigint|text) is_core_business bool (thực thể nghiệp vụ ≠ bảng hệ thống)
+		99 text AI ĐỌC / GHI
+		100 text modit  · R modt  · R modw  · R modut  · R
+		101 heading runtime Dữ liệu chạy thật — instance / log, Value: 2
+			102 text runtime Dữ liệu chạy thật — instance / log
+		103 text ui_collection_* MOIT GIẢ THUYẾT · agent dựng
+		104 text HỌ bảng nghiệp vụ — nơi form ghi bản ghi thật (mỗi target_collection 1 bảng). Số cột tuỳ miền.
+		105 text TRẠNG THÁI (1)
+		106 text theo miền (vd: nháp/chốt/huỷ)
+		107 text CỘT (6)
+		108 text 🔑 id pk …cột nghiệp vụ… (động) _form_ref fk _created_by text _created_at ts _state enum
+		109 text AI ĐỌC / GHI
+		110 text moit-form · RW mot-board · RW mout-build  · R modut  · R ui_record_binding MOIT GIẢ THUYẾT · agent dựng
+		111 text Định vị bản ghi cụ thể để nhập/sửa (create/update/upsert).
+		112 text TRẠNG THÁI (2)
+		113 text active disabled
+		114 text CỘT (12)
+		115 text 🔑 form_ref fk 🔑 target_collection text selector json mode enum(create|update|upsert) status enum stored_column text (cột FK lưu giá trị) ref_entity fk ui_business_object (chọn từ bảng nào) relation_role fk ui_relation_role bind_mode enum(manual|derived|fixed|context) derive_from fk ui_relation (nguồn khi bind_mode=derived) pick_filter json (lọc danh sách chọn) autofill_targets fk[] (chọn record → tự điền reference phụ thuộc)
+		116 text AI ĐỌC / GHI
+		117 text modit  · W moit-form  · R mot-board  · R ui_task_instance MOT GIẢ THUYẾT · agent dựng
+		118 text Task ĐANG CHẠY trên Bàn làm việc. Đây là bảng MOT dashboard đọc/ghi mỗi ngày.
+		119 text TRẠNG THÁI (4)
+		120 text open in_progress done revised
+		121 text CỘT (15)
+		122 text 🔑 id pk 🔑 task_ref fk anchor_7tier fk values json 🔑 state enum executor fk started_at ts completed_at ts revised_count int correlation_id text (đầu chờ Kestra) workflow_run_id
+	123 heading Các mặt UI — nơi sinh ra / đọc dữ liệu, Value: 2
+		124 text Các mặt UI — nơi sinh ra / đọc dữ liệu
+	125 container surfaces
+		126 heading MOW · Quy trình, Value: 3
+			127 text MOW · Quy trình
+		128 text design Thiết kế quy trình (Canvas) assembler MODW · Biến MOW chạy được list Danh sách đã đúc (MOW)
+		129 heading MOT · Công việc, Value: 3
+			130 text MOT · Công việc
+		131 text runtime Bàn làm việc design Bộ công cụ · Studio assembler MODT · Biến MOT chạy được list Danh sách đã đúc (MOT)
+		132 heading MOIT · Nhập liệu, Value: 3
+			133 text MOIT · Nhập liệu
+		134 text design MOIT · Tạo form nhập liệu assembler MODIT · Biến MOIT chạy được doc Kiến trúc input → DB
+		135 heading MOUT · Báo cáo, Value: 3
+			136 text MOUT · Báo cáo
+		137 text design MOUT · Tạo báo cáo assembler MODUT · Biến MOUT chạy được list Danh sách đã đúc (MOUT)
+		138 heading Master · Tổng 4 Mẹ, Value: 3
+			139 text Master · Tổng 4 Mẹ
+		140 text list Tổng hợp 4 Mẹ tool Bản đồ hợp đồng (hệ thống) tool Ma trận đấu nối UI↔PG tool Guide cho Agent doc Ma trận đa chiều · Hiến pháp
+	141 heading Chuẩn "Business Contract" mỗi mặt UI nên khai, Value: 2
+		142 text Chuẩn "Business Contract" mỗi mặt UI nên khai
+	143 container bcFields
+		144 text actor (ai dùng) in (đường vào) out (đường ra) states events[] (phát sự kiện gì) recipients (người nhận) needs_approval? (Điều 32) spawns_task? (sinh task MOT) spawns_report? mother_links[] (liên thông mẹ) needs_kestra? write_via (DOT/Directus, KHÔNG PG thẳng)
+	145 heading Ma trận Action → Event (mỗi action phải phát sự kiện), Value: 2
+		146 text Ma trận Action → Event (mỗi action phải phát sự kiện)
+	147 table
+		148 row
+			149 cell
+				150 text MẶT UI
+			151 cell
+				152 text ACTION
+			153 cell
+				154 text EVENT
+			155 cell
+				156 text ACTOR
+			157 cell
+				158 text CẦN DUYỆT
+			159 cell
+				160 text SINH TASK
+			161 cell
+				162 text KESTRA
+		163 row
+			164 cell
+				165 text mot-board
+			166 cell
+				167 text Hoàn thành task
+			168 cell
+				169 text task.completed
+			170 cell
+				171 text người thực hiện
+			172 cell
+				173 text false
+			174 cell
+				175 text false
+			176 cell
+				177 text resume flow
+		178 row
+			179 cell
+				180 text mot-board
+			181 cell
+				182 text Sửa lại
+			183 cell
+				184 text task.reopened
+			185 cell
+				186 text người thực hiện
+			187 cell
+				188 text false
+			189 cell
+				190 text false
+			191 cell
+				192 text —
+		193 row
+			194 cell
+				195 text moit-form
+			196 cell
+				197 text Submit form
+			198 cell
+				199 text record.created|updated
+			200 cell
+				201 text người nhập
+			202 cell
+				203 text nếu routing=queue
+			204 cell
+				205 text true
+			206 cell
+				207 text —
+		208 row
+			209 cell
+				210 text mout-build
+			211 cell
+				212 text Đúc báo cáo
+			213 cell
+				214 text report.cast
+			215 cell
+				216 text người tạo
+			217 cell
+				218 text false
+			219 cell
+				220 text false
+			221 cell
+				222 text —
+		223 row
+			224 cell
+				225 text modit
+			226 cell
+				227 text Đúc form (publish)
+			228 cell
+				229 text form.published
+			230 cell
+				231 text thiết kế
+			232 cell
+				233 text true
+			234 cell
+				235 text false
+			236 cell
+				237 text —
+		238 row
+			239 cell
+				240 text modw
+			241 cell
+				242 text Đúc node (publish)
+			243 cell
+				244 text workflow.published
+			245 cell
+				246 text thiết kế
+			247 cell
+				248 text true
+			249 cell
+				250 text false
+			251 cell
+				252 text compile flow
+		253 row
+			254 cell
+				255 text modut
+			256 cell
+				257 text Đúc & lên lịch
+			258 cell
+				259 text report.scheduled
+			260 cell
+				261 text thiết kế
+			262 cell
+				263 text true
+			264 cell
+				265 text false
+			266 cell
+				267 text —
+	268 heading Ma trận Mother-Link (luồng nghiệp vụ giữa 4 Mẹ), Value: 2
+		269 text Ma trận Mother-Link (luồng nghiệp vụ giữa 4 Mẹ)
+	270 table
+		271 row
+			272 cell
+				273 text TỪ
+			274 cell
+				275 text ĐẾN
+			276 cell
+				277 text Ý NGHĨA
+			278 cell
+				279 text QUA
+			280 cell
+				281 text EVENT
+			282 cell
+				283 text KESTRA
+		284 row
+			285 cell
+				286 text MOW
+			287 cell
+				288 text MOT
+			289 cell
+				290 text quy trình sinh task
+			291 cell
+				292 text workflow step → tạo task
+			293 cell
+				294 text task.created
+			295 cell
+				296 text có
+		297 row
+			298 cell
+				299 text MOT
+			300 cell
+				301 text MOW
+			302 cell
+				303 text hoàn thành task → chuyển bước
+			304 cell
+				305 text task.completed
+			306 cell
+				307 text workflow.advanced
+			308 cell
+				309 text có
+		310 row
+			311 cell
+				312 text MOT
+			313 cell
+				314 text MOIT
+			315 cell
+				316 text task mở form nhập liệu
+			317 cell
+				318 text task.input_form_ref
+			319 cell
+				320 text —
+			321 cell
+				322 text —
+		323 row
+			324 cell
+				325 text MOIT
+			326 cell
+				327 text MOT
+			328 cell
+				329 text nhập liệu sinh/cập nhật việc
+			330 cell
+				331 text record.created → trigger
+			332 cell
+				333 text task.created|updated
+			334 cell
+				335 text —
+		336 row
+			337 cell
+				338 text MOUT
+			339 cell
+				340 text MOT
+			341 cell
+				342 text báo cáo sinh việc xử lý
+			343 cell
+				344 text report.cast → trigger
+			345 cell
+				346 text task.created
+			347 cell
+				348 text —
+		349 row
+			350 cell
+				351 text MOD*
+			352 cell
+				353 text Duyệt
+			354 cell
+				355 text đề xuất / duyệt / publish
+			356 cell
+				357 text approval_requests (Điều 32)
+			358 cell
+				359 text change.requested
+			360 cell
+				361 text —
+		362 row
+			363 cell
+				364 text Tất cả
+			365 cell
+				366 text Master
+			367 cell
+				368 text bản đã đúc
+			369 cell
+				370 text ui_cast_registry
+			371 cell
+				372 text cast.registered
+			373 cell
+				374 text —
+	375 heading Requirement Coverage — yêu cầu gốc (5/17 done · còn lại partial/giả thuyết), Value: 2
+		376 text Requirement Coverage — yêu cầu gốc
+		377 text (5/17 done · còn lại partial/giả thuyết)
+	378 table
+		379 row
+			380 cell
+				381 text MÃ
+			382 cell
+				383 text YÊU CẦU
+			384 cell
+				385 text ĐÁP ỨNG Ở
+			386 cell
+				387 text TRẠNG THÁI
+		388 row
+			389 cell
+				390 text R-ASSIGN
+			391 cell
+				392 text Giao việc đúng người, đúng thời điểm
+			393 cell
+				394 text MOT / MODT
+			395 cell
+				396 text partial
+		397 row
+			398 cell
+				399 text R-NOMEM
+			400 cell
+				401 text Người làm KHÔNG cần nhớ quy trình (hướng dẫn tại chỗ)
+			402 cell
+				403 text MOT + guide
+			404 cell
+				405 text partial
+		406 row
+			407 cell
+				408 text R-CONFIRM
+			409 cell
+				410 text Bấm xác nhận khi làm xong
+			411 cell
+				412 text mot-board
+			413 cell
+				414 text done
+		415 row
+			416 cell
+				417 text R-PROPOSAL
+			418 cell
+				419 text Mọi thay đổi tạo đề xuất, lưu vĩnh viễn
+			420 cell
+				421 text gate approval
+			422 cell
+				423 text hypothesis
+		424 row
+			425 cell
+				426 text R-PA1
+			427 cell
+				428 text PA1: duyệt ý kiến rồi mới tạo thử
+			429 cell
+				430 text approval
+			431 cell
+				432 text hypothesis
+		433 row
+			434 cell
+				435 text R-PA2
+			436 cell
+				437 text PA2: tạo thử rồi duyệt
+			438 cell
+				439 text approval
+			440 cell
+				441 text hypothesis
+		442 row
+			443 cell
+				444 text R-FREEZE
+			445 cell
+				446 text Đóng băng / chờ nhiều chữ ký
+			447 cell
+				448 text approval
+			449 cell
+				450 text hypothesis
+		451 row
+			452 cell
+				453 text R-EVENTS
+			454 cell
+				455 text Mọi event thành dữ liệu → phân tích năng suất/tiết kiệm
+			456 cell
+				457 text ui_event
+			458 cell
+				459 text hypothesis
+		460 row
+			461 cell
+				462 text R-REPORT-OWNER
+			463 cell
+				464 text Báo cáo có người nhận / chịu trách nhiệm
+			465 cell
+				466 text MODUT recipients
+			467 cell
+				468 text done
+		469 row
+			470 cell
+				471 text R-DATASCOPE
+			472 cell
+				473 text Báo cáo có MIỀN DỮ LIỆU (mô tả+mã) + nguồn DB
+			474 cell
+				475 text MOUT/MODUT
+			476 cell
+				477 text done
+		478 row
+			479 cell
+				480 text R-RECORD
+			481 cell
+				482 text Input buộc vào BẢN GHI cụ thể (khóa chính/phụ)
+			483 cell
+				484 text MODIT record_binding
+			485 cell
+				486 text partial
+		487 row
+			488 cell
+				489 text R-BIZOBJ
+			490 cell
+				491 text Task/node gắn ĐỐI TƯỢNG NGHIỆP VỤ cụ thể
+			492 cell
+				493 text MODW/MODT
+			494 cell
+				495 text partial
+		496 row
+			497 cell
+				498 text R-MASTER
+			499 cell
+				500 text Master tổng hợp đủ 4 Mẹ
+			501 cell
+				502 text master-hub
+			503 cell
+				504 text done
+		505 row
+			506 cell
+				507 text R-CHEAP
+			508 cell
+				509 text Việc SỬA phải rẻ (append + render-from-manifest + QA)
+			510 cell
+				511 text công cụ
+			512 cell
+				513 text done
+		514 row
+			515 cell
+				516 text R-TABLE-FIRST
+			517 cell
+				518 text Nhập liệu chọn BẢNG trước rồi CỘT; MOT-entry + MOIT cùng 1 chuẩn (1 engine, 2 hình hài)
+			519 cell
+				520 text MOIT/MODIT + MOT
+			521 cell
+				522 text partial
+		523 row
+			524 cell
+				525 text R-INPUT-KIND
+			526 cell
+				527 text Trường nhập phân 2 loại reference(khóa phụ, multi)/value; nhập nhiều bước theo bản ghi đã biết/chưa biết
+			528 cell
+				529 text MOIT/MODIT + MOT
+			530 cell
+				531 text partial
+		532 row
+			533 cell
+				534 text R-CONFORMANCE
+			535 cell
+				536 text Bộ kiểm phải PHÁT HIỆN UI lệch hợp đồng (self-declare UI_CONTRACT + conformance), không chỉ kiểm nội bộ các artifact
+			537 cell
+				538 text qa-runner + builders
+			539 cell
+				540 text partial
+	541 heading Công cụ phối hợp, Value: 2
+		542 text Công cụ phối hợp
+	543 container tools
+		544 container
+			545 text 🚨  Bảng kiểm hồi quy + dò lệch
+		546 text Máy dò khói: chạy mọi hợp đồng đã chốt → đèn xanh/đỏ. Có suite "Đồng bộ 3 thực thể" DÒ LỆCH UI↔Bản đồ↔Ma trận + quét vi phạm UI→PG. Chạy TRƯỚC & SAU mỗi thay đổi.
+		547 link Description: qa-runner.html, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/qa-runner.html
+		548 container
+			549 text 🗺️  Bản đồ hợp đồng dữ liệu
+		550 text Hệ thống CÓ GÌ + cần tương tác bao nhiêu bảng/trạng thái/cột + ranh giới runtime. Render từ manifest này.
+		551 link Description: he-thong-thiet-ke.html, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/he-thong-thiet-ke.html
+		552 container
+			553 text 🔌  Ma trận đấu nối UI↔PG
+		554 text Tình trạng từng bảng qua 4 nấc: khai báo → PG có bảng → đấu nối OK → đã test. Tự tính khoảng trống.
+		555 link Description: he-thong-dau-noi.html, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/he-thong-dau-noi.html
+		556 container
+			557 text 📖  Guide cho Agent
+		558 text Cửa vào: đọc đầu tiên để hiểu hệ thống, ranh giới runtime, công cụ, luật, cách làm việc mà không phá đồ cũ.
+		559 link Description: guide.html, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/guide.html
+		560 container
+			561 text 🧭  Menu chung (eco-nav)
+		562 text 1 nguồn menu, tự đồng bộ mọi trang. Chữ ký __ECO_SIG + __ECO_APPS để QA so nhất quán/dò lệch.
+		563 link Description: eco-nav.js, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/eco-nav.js
+		564 container
+			565 text 📋  Khuôn danh sách đã đúc
+		566 text Renderer dùng chung cho mọi Danh sách + Master hub.
+		567 link Description: master-list.js, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-list.js
+		568 container
+			569 text 💡  Component hướng dẫn
+		570 text Hướng dẫn đa phương tiện gắn vào builder/UI.
+		571 link Description: guide.js, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/guide.js
+	572 heading Luật bất biến (agent phải tuân), Value: 2
+		573 text Luật bất biến (agent phải tuân)
+	574 container laws
+		575 text Chỉ thêm qua lớp phủ
+		576 text ADD-ONLY
+		577 text Tính năng mới viết vào file *-enhance.js / trang mới. KHÔNG viết đè code cũ.
+		578 text Đóng băng lõi
+		579 text CORE-FREEZE
+		580 text Không sửa trực tiếp: mot-app-v1.js, mot-render-v1.js, master-list.js, eco-nav.js. Chỉ thêm hook chỉ-đọc, có ghi chú.
+		581 text Một nguồn, sửa 1 chỗ
+		582 text SINGLE-SRC
+		583 text Menu, hợp đồng, danh sách… mỗi thứ 1 nguồn duy nhất (eco-nav APPS, system-manifest, master-list). Cấm bản sao.
+		584 text UI tự khai báo binding
+		585 text SELF-DECLARE
+		586 text Trang UI khai window.UI_CONTRACT ngay tại chỗ (bảng nào, đọc/ghi). DOT-HARVEST gom về manifest; bộ dò lệch so khớp.
+		587 text UI không ghi thẳng PG
+		588 text NO-DIRECT-PG
+		589 text UI khai khuôn, KHÔNG chạy. ĐỌC qua Directus; GHI nghiệp vụ qua DOT/gateway (validate + gate + event). CẤM mô tả UI→PG là luồng chuẩn.
+		590 text Tách ghi giá trị ⟂ vẽ lại
+		591 text DECOUPLE
+		592 text Commit/persist KHÔNG kéo theo full re-render. Nguồn gốc lỗi nuốt-click.
+		593 text Không nút chết
+		594 text NO-DEAD-BTN
+		595 text Nút hành động luôn cho phản hồi: hoặc chạy, hoặc chỉ rõ còn thiếu gì. Cấm nút xám im lặng.
+		596 text Buộc đúng bảng SOT
+		597 text SOT-BIND
+		598 text Mỗi connector buộc đúng 1 bảng nguồn-sự-thật; thiếu → DOT tạo trước rồi mới nối.
+		599 text Cổng khai sinh Đ0-G
+		600 text D0-G
+		601 text Mọi entity mới phải có bản khai sinh (birth_registry) trước khi bind.
+		602 text Cổng duyệt Điều 32
+		603 text APPROVE
+		604 text Mọi thay đổi hệ thống qua cổng phê duyệt duy nhất (approval_requests).
+		605 text PG là sự thật
+		606 text PG-FIRST
+		607 text PG = nguồn sự thật; DOT = lớp thực thi (ghi/đọc/hàm/trigger); Nuxt chỉ render.
+		608 text Definition of Done
+		609 text VERIFY
+		610 text Mỗi thay đổi: chạy qa-runner trước & sau (gồm suite dò lệch); chỉ "xong" khi xanh hết + cái mới xanh.
+		611 text Kiểm mới = NỐI THÊM
+		612 text QA-APPEND
+		613 text Thêm phép kiểm QA bằng cách append QAC(...) vào qa-contracts.js — KHÔNG viết lại harness qa-runner. Cỗ máy đứng yên, hợp đồng cứ nối thêm.
+		614 text Kiểm phải TẤT ĐỊNH
+		615 text QA-STRUCTURAL
+		616 text Phép kiểm đọc dữ liệu cấu trúc (DOM/JSON/biến), CẤM "đoán chữ" heuristic → tránh đỏ giả (bài học vòng NO-DIRECT-PG).
+		617 text Ưu tiên nối thêm
+		618 text APPEND-FIRST
+		619 text Thay đổi nên là NỐI THÊM vào vùng append / file phụ, hạn chế ghi đè file lớn. File nhỏ + tách dữ liệu khỏi cỗ máy = sửa rẻ.
+		620 text Quy ước khóa
+		621 text KEY-CONVENTION
+		622 container
+			623 text PK kỹ thuật id bất biến; cột [role_] _id ⇒ FK có role tới entity. code nghiệp vụ = unique, không dùng làm PK.
+		624 text Quan hệ suy ra + tách logic/vật lý
+		625 text REL-DERIVED
+		626 text FK suy từ quy ước, không khai tay (trừ ngoại lệ). Relation logic trỏ entity_code; DOT-REL resolve → collection+pk.
+		627 text FK cứng đi chậm
+		628 text FK-PROMOTION
+		629 text db_fk chỉ tạo khi entity đã khai sinh + không mơ hồ + kiểu khớp + orphan_count=0 + duyệt Điều 32 + có rollback. DOT-REL KHÔNG tự ALTER.
+		630 text Quan hệ cần query → link table
+		631 text NO-ARRAY-FK
+		632 container
+			633 text n-n cần query/integrity dùng bảng trung gian  __ _link, KHÔNG nhét array ID. (Danh sách config nhẹ vẫn dùng json/array được.)
+		634 text 2 tầng khóa: bảng vs bản ghi
+		635 text RECORD-BIND
+		636 text Tầng bảng = ui_relation (thiết kế). Tầng bản ghi = giá trị FK thật + trường reference (chọn/suy bản ghi). Dữ liệu ăn theo bản ghi.
+		637 text Nhập liệu: BẢNG trước, CỘT sau
+		638 text TABLE-FIRST
+		639 text Mỗi trường nhập chốt target_collection (bảng/đối tượng) TRƯỚC rồi mới chọn cột từ bảng đó (hoặc cột bảng liên quan qua ui_relation + bản ghi đã khóa). MOT-nhập-liệu và MOIT/MODIT dùng CHUNG 1 engine ui_input_form (2 hình hài) — sửa 1 lần được cả 2.
+		640 text Trường nhập = reference | value; nhập qua nhiều bước
+		641 text INPUT-KIND
+		642 text Loại A reference = ghi khóa phụ (chọn bản ghi bảng khác, có thể multi→link table). Loại B value = ghi giá trị cột. Cùng 1 bản ghi nhập qua nhiều bước (chưa biết→create, đã biết→update; khóa phụ đã set thì không hỏi lại).
+		643 text Đọc rẻ (nén định kỳ)
+		644 text READ-CHEAP
+		645 text Thêm bằng APPEND (rẻ) làm NGUỒN THÔ rậm dần. Để ĐỌC rẻ: (a) đọc bản MERGED qua nút "Xuất JSON" trên Bản đồ; (b) ĐỊNH KỲ NÉN (squash) các khối append về định nghĩa gốc sạch — KHÔNG đổi hành vi, chạy QA phải vẫn xanh. Claude/Agent TỰ nén khi thấy nguồn rậm, không cần nhắc.
+		646 text UI phải KHỚP hợp đồng — lệch phải LỘ
+		647 text CONFORMANCE
+		648 text Đổi hợp đồng mà UI CHƯA theo thì hệ phải CẢNH BÁO, KHÔNG im lặng. Mỗi mặt UI khai window.UI_CONTRACT (điều nó THỰC HIỆN); bộ kiểm so với hợp đồng; requirement chưa đủ ở UI (partial/hypothesis) phải HIỆN RÕ như khoảng trống. Luồng soi: UI (thiết kế) → D (design) → danh sách hợp đồng.
+		649 text Khóa ngoại trỏ người phải khai BẢN CHẤT (actor/recipient/approver/subject)
+		650 text REL-ROLE-KIND
+		651 text Tránh gộp người-thực-hiện với người-nhận-báo-cáo — 2 bản chất khác, downstream khác.
+		652 text Không DOT-BIRTH khi pre_dot_birth_blockers chưa xong
+		653 text PRE-BIRTH-GATE
+		654 text Đúc bảng/dữ liệu thật khi hợp đồng chưa chốt = nợ đắt nhất.
+	655 container foot
+		656 text Nguồn duy nhất: 
+		657 text system-manifest.js
+		658 text  (có vùng append cho thay đổi rẻ). Muốn đổi → sửa 1 file đó, mọi trang tự cập nhật. PG có thể CHƯA có các bảng này — không sao. Agent sẽ tạo theo hợp đồng (qua Đ0-G + cổng duyệt).
+	659 container 4 Mẹ + Master
+		660 text 4 MẸ
+		661 button MOW ▾ Quy trình
+			662 text MOW
+			663 text ▾
+			664 text Quy trình
+		665 button MOT ▾ Công việc
+			666 text MOT
+			667 text ▾
+			668 text Công việc
+		669 button MOIT ▾ Nhập liệu
+			670 text MOIT
+			671 text ▾
+			672 text Nhập liệu
+		673 button MOUT ▾ Báo cáo
+			674 text MOUT
+			675 text ▾
+			676 text Báo cáo
+		677 button Master ▾ Tổng 4 Mẹ
+			678 text Master
+			679 text ▾
+			680 text Tổng 4 Mẹ
+
+The focused UI element is 1 AXWebArea Bản đồ hợp đồng dữ liệu — Hệ UI 4 Mẹ, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/he-thong-thiet-ke.html

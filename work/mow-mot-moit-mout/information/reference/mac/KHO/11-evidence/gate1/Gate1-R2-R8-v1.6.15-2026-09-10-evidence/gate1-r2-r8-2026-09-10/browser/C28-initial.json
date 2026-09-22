@@ -1,0 +1,37 @@
+{
+  "buttons": [],
+  "forms": 0,
+  "links": [
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/guide.html",
+      "text": "Guide"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html",
+      "text": "Master tổng →"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/guide.html",
+      "text": "guide.htmlCửa vào cho agent — đọc trước khi làm."
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/SUA-RE-README.md",
+      "text": "SUA-RE-README.mdHướng dẫn vận hành cho agent (checklist 6 bước)."
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/he-thong-thiet-ke.html",
+      "text": "he-thong-thiet-ke.htmlBản đồ hợp đồng — nhịp KHAI."
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/he-thong-dau-noi.html",
+      "text": "he-thong-dau-noi.htmlMa trận UI↔PG — nhịp ÁP (pha sau)."
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/qa-runner.html",
+      "text": "qa-runner.htmlMáy kiểm — nhịp ÁP (hiện tại)."
+    }
+  ],
+  "text": "SỬA RẺ\nquy trình + sổ khái niệm\nGuide\nMaster tổng →\nVòng SỬA RẺ — sáu bước\nCách rẻ nhất để nhãn/khái niệm trong hệ khớp nhau: mỗi UI tự KÊ đầu mối của mình, máy khử-trùng + khớp sổ, người chỉ chốt ca khó.\n1 · KHAI-UI\n\nNgười thiết kế dựng một UI (surface) — bảng, form, danh sách…\n\nAi: người thiết kế · Công cụ: he-thong-thiet-ke.html\n2 · KÊ-UI\n\nLập bảng kê khái niệm cho UI đó vào ui-contracts.js: mỗi đầu mối thông tin = 1 item (tên tại UI + công dụng + nơi dùng).\n\nAi: người/agent dựng UI · Công cụ: ui-contracts.js\n3 · KHỬ-TRÙNG nội bộ\n\nGộp các nhãn CÙNG nghĩa trong CÙNG một UI (duplicate_group) trước khi đối chiếu sổ.\n\nAi: máy · Công cụ: duplicate_group trong bảng kê\n4 · KHỚP-SỔ tổng\n\nKhớp mỗi khái niệm vào Sổ: trúng id/alias → matched; chưa có → candidate; mơ hồ/dễ nhầm → review.\n\nAi: máy gợi ý · Công cụ: concept-ledger.js\n5 · CHỐT (người)\n\nCa candidate/review ra Hàng chờ chốt — Owner quyết ngay (có sẵn near_concepts, không phải mở sổ tìm).\n\nAi: Owner · Công cụ: khối Hàng chờ chốt bên dưới\n6 · ÁP+KIỂM\n\nSổ/bảng kê cập nhật → trang tự đổi (không sửa HTML). Chạy qa-runner xác nhận không vỡ.\n\nAi: máy kiểm · Công cụ: qa-runner.html\nUI mới hoặc sửa lớn KHÔNG nộp bảng kê = CHƯA nghiệm thu.\nSố \"Dùng\" đếm máy từ bảng kê — không nhập tay.\nThang 4 nấc phân loại (bước KHỚP-SỔ tổng)\nauto_match — trùng id/alias, máy gợi ý gộp\nnew_candidate — chưa có trong sổ, gợi ý tạo thẻ\nneeds_review — mơ hồ, cần người xem\nconflict — chạm ranh giới thẻ khác, PHẢI người quyết\nVí dụ A — auto_match: nhãn \"Người phụ trách\" ≈ alias của role.nguoi_thuc_hien → máy gợi ý gộp (2 vòng đầu chưa tự ghi).\nVí dụ B — conflict: nhãn \"Người nhận hàng\" KHÔNG gộp vào role.nguoi_nhan_bao_cao — ranh giới thẻ chặn (người nhận hàng = người thực hiện của bước nhận). Ca này đi thẳng Owner.\nForm ca review — 5 nút:\nGộp\nTạo mới\nAlias\nTách\nHoãn\n2 vòng đầu: máy chỉ GỢI Ý, chưa tự ghi sổ; Owner duyệt rồi mới nâng tự động (chỉnh #3).\nSổ đang ở chế độ SHADOW — chưa vào canonical (không ở SYS.canonical.core_files, không đụng system-manifest.js); sẽ canonicalize ở task riêng sau khi chạy ổn (chỉnh #1).\nTra Sổ khái niệm\nLớp 1 = danh sách; bấm một dòng → Lớp 2 (drawer) hiện đủ thẻ. Render trực tiếp từ window.CONCEPTS (concept-ledger.js, nạp cache-bust động). Sửa sổ → reload là đổi. Không hardcode thẻ/loại trong trang.\nĐang nạp sổ…\nQuy ước đặt ID — render từ window.CONCEPTS.id_rules\nĐang nạp…\nHàng chờ chốt\nMọi đầu mối chưa khớp chắc vào sổ (candidate = chưa có thẻ · review = mơ hồ/dễ nhầm), gom từ mọi bảng kê UI. Kèm near_concepts (thẻ gần nhất + vì sao + độ tin) để Owner quyết ngay, không phải mở sổ tìm.\nĐang nạp bảng kê…\nBảng kê theo UI — gắn bằng đúng 1 dòng renderUIContract('master-list-quy-trinh-v1', el)\nCông cụ bảng kê là ĐỘC LẬP, lắp được vào mọi UI. Đây là surface pilot đầu tiên (master-list quy trình).\nĐang nạp bảng kê…\nBản đồ công cụ trong vòng\nMỗi công cụ đứng ở một nhịp của vòng SỬA RẺ.\nguide.html\nCửa vào cho agent — đọc trước khi làm.\nSUA-RE-README.md\nHướng dẫn vận hành cho agent (checklist 6 bước).\nhe-thong-thiet-ke.html\nBản đồ hợp đồng — nhịp KHAI.\nhe-thong-dau-noi.html\nMa trận UI↔PG — nhịp ÁP (pha sau).\nqa-runner.html\nMáy kiểm — nhịp ÁP (hiện tại).\nui-preview-WRITE-PATH.md — ghi chú đường ghi (docroot bind-mount). Nằm ngoài web, đọc trên VPS: /opt/incomex/docs/ui-preview-WRITE-PATH.md",
+  "title": "Quy trình SỬA RẺ — Sổ khái niệm",
+  "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-sua-re.html"
+}

@@ -1,0 +1,353 @@
+Browser tab: 14, Title: "Matrix / Stamp / Constitution New — UI Design Preview", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/constitution-new-index.html".
+1 AXWebArea Matrix / Stamp / Constitution New — UI Design Preview, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/constitution-new-index.html
+	2 text LAWS-NEW · CONSTITUTION-NEW · MATRIX / STAMP GOVERNANCE
+	3 text DRAFT
+	4 text NON-AUTHORIZING
+	5 text UI DESIGN PREVIEW
+	6 heading Hiến pháp Ma trận — Matrix / Stamp Governance, Value: 1
+		7 text Hiến pháp Ma trận — Matrix / Stamp Governance
+	8 container
+		9 text Ma trận chỉ có  4 chiều định vị . Công thức, DOT và Governance state là  3 lớp vận hành  của ô, không phải chiều mới.
+		10 text 7 thành phần đọc một ô = 4 chiều định vị (1–4) + 3 lớp vận hành (5–7).
+	11 container
+		12 text Mọi object mới đi qua  kho tạm/candidate  trước; chỉ promote sang  canonical  khi đủ checker/stamp/owner gate.
+	13 container
+		14 text UI này thiết kế  DB-ready : hiện dùng mock/config, sau này map sang PG → Directus → MODW, không nhúng business logic trong UI.
+	15 button Mô phỏng ô
+	16 button Kiểm tra readiness
+	17 button Xem khai báo workflow
+	18 button Mở preview MODW
+	19 container f1
+		20 container
+			21 text [1] Định vị ô ma trận — 4 chiều thật
+		22 text đủ thiếu nhẹ lỗi chưa rõ
+		23 container
+			24 text Chiều  1–4  (định vị) ghép ra  cell_id = Tầng × Loài × Kho × Miền . Quan hệ là graph riêng; Năng lực/Task/Người là overlay — không phải chiều.
+		25 container
+			26 text 1 Tầng lắp ráp
+		27 text 6 bậc: Nguyên tử → Phân tử → Hợp chất → Vật liệu → Thành phẩm → Hệ con/Công trình (bậc lắp ráp, không phải tầng UI/API/DB).
+		28 pop up button (collapsed, settable) Value: — chọn tầng —, ID: s-tang, Secondary Actions: Expand
+			29 menu
+				30 (selected) — chọn tầng —
+				31 atom · Nguyên tử
+				32 molecule · Phân tử
+				33 compound · Hợp chất
+				34 material · Vật liệu
+				35 product · Thành phẩm
+				36 building · Hệ con / Công trình
+		37 container
+			38 text 2 Loài
+		39 text Loài = bản chất đối tượng; không phải trạng thái, không phải workflow status.
+		40 pop up button (disabled, collapsed, settable) Value: — chọn tầng trước —, ID: s-loai, Secondary Actions: Expand
+			41 menu
+				42 (disabled) — chọn tầng trước —
+		43 container
+			44 text 3 Kho
+		45 text Mặc định việc mới vào kho tạm. Canonical chỉ xuất hiện sau promote.
+		46 pop up button (collapsed, settable) Value: — mọi kho —, ID: s-kho, Secondary Actions: Expand
+			47 menu
+				48 (selected) — mọi kho —
+				49 Kho tạm / Candidate
+				50 Kho chính / Managed
+				51 Canonical / Kernel
+		52 container
+			53 text 4 Miền chuyên môn
+		54 text Miền = jurisdiction/domain nghiệp vụ, không phải người phụ trách cá nhân.
+		55 pop up button (collapsed, settable) Value: — mọi miền —, ID: s-domain, Secondary Actions: Expand
+			56 menu
+				57 (selected) — mọi miền —
+				58 Khai sinh
+				59 Governance
+				60 Collection
+				61 DOT
+				62 IU
+				63 Event
+				64 Law
+				65 Data
+				66 Customer
+				67 DevGovernance
+		68 button ↺ Xoá lựa chọn
+		69 button → Promote readiness
+		70 button → Khai báo workflow
+	71 text Object Card — thẻ căn cước của ô/candidate
+	72 container objcard
+		73 text MATRIX ADDRESS (CHIỀU 1–4)
+		74 text Chọn Tầng + Loài ở khung [1]…
+	75 container f2
+		76 container
+			77 text [2] Governance & Promote Readiness
+		78 container
+			79 text Mức governance được tính từ  stamp/checker/evidence , không phải người dùng tự khai.
+		80 text Mức 1: Kho tạm / Candidate
+		81 text làm nhanh, sai thì xóa
+		82 content list
+			83 container
+				84 AXListMarker • 
+				85 text cho phép tạo candidate
+			86 container
+				87 AXListMarker • 
+				88 text có TEMP_ID
+			89 container
+				90 AXListMarker • 
+				91 text mô phỏng / sửa / xóa
+			92 container
+				93 AXListMarker • 
+				94 text chưa canonical, chưa birth chính thức
+		95 container
+			96 text Yêu cầu:  TEMP_ID_STAMP
+		97 text Mức 2: Promotion Gate
+		98 text kiểm cục bộ, fail-closed
+		99 content list
+			100 container
+				101 AXListMarker • 
+				102 text cần checker
+			103 container
+				104 AXListMarker • 
+				105 text cần IO / validation / rollback proof
+			106 container
+				107 AXListMarker • 
+				108 text fail-closed nếu thiếu
+		109 container
+			110 text Precond:  TEMP_ID · CELL · IO · VALIDATION · ROLLBACK  → Output:  BIRTH · PROMOTE
+		111 text Mức 3: Canonical / Kernel
+		112 text việc nguy hiểm
+		113 content list
+			114 container
+				115 AXListMarker • 
+				116 text qua Owner/Council gate (Đ32) nếu cần
+			117 container
+				118 AXListMarker • 
+				119 text có BIRTH/PROMOTE stamp
+			120 container
+				121 AXListMarker • 
+				122 text có rollback/evidence (proven)
+		123 container
+			124 text Canonical:  BIRTH · CELL · IO · VALIDATION · ROLLBACK · PROMOTE  (+  GOV/OWNER  high-risk)
+		125 text PROMOTE READINESS — CỦA Ô ĐANG CHỌN
+		126 text Chọn một ô ở khung [1] để tính readiness.
+	127 container f3
+		128 container
+			129 text [3] Workflow Declaration Preview
+		130 container
+			131 text Từ một ô ma trận/candidate, hệ thống  khai báo  một workflow để MODW quản lý. Đây là  preview khai báo  — không chạy workflow engine thật.
+		132 text KHAI BÁO (DECLARATION FIELDS)
+		133 container decl
+			134 text WORKFLOW_KEY
+			135 container
+				136 text wf. .v0
+			137 text WORKFLOW_NAME
+			138 text (chọn ô)
+			139 text MATRIX_CELL_ADDRESS
+			140 text (chọn ô)
+			141 text WORK_OBJECT_TYPE
+			142 text workflow_run
+			143 text INPUT_CONTRACT
+			144 text IO.in.v0 (spec-only)
+			145 text OUTPUT_CONTRACT
+			146 text IO.out.v0 (spec-only)
+			147 text FORMULA_REF
+			148 text formula.spec-only
+			149 text DOT_REFS
+			150 text assemble/check/promote/rollback = DOT_SPEC_ONLY
+			151 text REQUIRED_STAMPS
+			152 text TEMP_ID·CELL·IO·VALIDATION·ROLLBACK → BIRTH·PROMOTE
+			153 text GOVERNANCE_LEVEL
+			154 text L1 Candidate
+			155 text MODW_ROUTE
+			156 text /modw/preview
+			157 text EVIDENCE_CONTRACT
+			158 text expected·artifact·verifier·pass/fail·rollback
+			159 text STATUS
+			160 text DRAFT · PROMOTE_BLOCKED
+		161 text CÁC BƯỚC MẪU (STEP LIST)
+		162 container steps
+			163 text 1
+			164 text Create candidate in temp store
+			165 text system pass evidence: TEMP_ID · → attach cell
+			166 text 2
+			167 text Attach matrix cell
+			168 text ai partial evidence: CELL_STAMP · → validate IO
+			169 text 3
+			170 text Validate IO contract
+			171 text checker missing evidence: IO_STAMP · → check formula
+			172 text 4
+			173 text Run/check formula spec
+			174 text checker missing evidence: formula spec · → DOT check
+			175 text 5
+			176 text Run DOT check
+			177 text dot missing evidence: VALIDATION_STAMP · → build evidence
+			178 text 6
+			179 text Build evidence pack
+			180 text system missing evidence: evidence_pack · → submit
+			181 text 7
+			182 text Submit promote proposal / open MODW
+			183 text human missing evidence: PROMOTE proposal · → MODW
+		184 button Mở trong MODW (preview)
+		185 button Copy contract
+		186 container
+			187 text MODW sẽ là  Work Detail Workbench  quản lý prompt, report, comment, evidence, queue signal và proposal của workflow này. CTA chỉ mô phỏng — không gọi hệ thật.
+	188 container f4
+		189 container
+			190 text [4] MODW Binding Preview
+		191 container
+			192 text Matrix UI  định vị và kiểm soát candidate . MODW quản lý chi tiết quá trình làm thật. Hai phần nối qua  Work Object / correlation chain , không thay thế nhau.
+		193 table
+			194 row
+				195 cell
+					196 text Matrix / Stamp UI
+				197 cell
+					198 text MODW (Work Detail Workbench)
+			199 row
+				200 cell
+					201 text Matrix cell address
+				202 cell
+					203 text Work Object context
+			204 row
+				205 cell
+					206 text Candidate object
+				207 cell
+					208 text Work item / workflow run
+			209 row
+				210 cell
+					211 text Công thức (Formula)
+				212 cell
+					213 text Step / block definition
+			214 row
+				215 cell
+					216 text DOT refs
+				217 cell
+					218 text Executor / check / promote / rollback binding
+			219 row
+				220 cell
+					221 text Stamps
+				222 cell
+					223 text Governance gates
+			224 row
+				225 cell
+					226 text Evidence pack
+				227 cell
+					228 text MODW Evidence tab
+			229 row
+				230 cell
+					231 text Comments / handoff
+				232 cell
+					233 text MODW Handoff Room
+			234 row
+				235 cell
+					236 text Promote proposal
+				237 cell
+					238 text MODW Proposal / Approval flow
+		239 container
+			240 text Liên kết qua  correlation_id · trace_id · parent_run_id . MODW/MOT  không phải executor  (Đ45) — chỉ điều phối, executor là DOT/Agent/Hermes/Codex/PG_worker/external_worker.
+	241 container f5
+		242 container
+			243 text [5] DB / Data Contract Preview
+		244 container
+			245 text Data object mẫu ( conceptual contract ) để UI và Council cùng hiểu.  Chưa phải quyết định tạo bảng.
+		246 container
+			247 button Copy contract
+			248 text {
+  "matrix_cell": {
+    "layer": "Material",
+    "species": "WorkflowDefinition",
+    "store": "candidate",
+    "domain": "DevGovernance"
+  },
+  "operational_overlay": {
+    "formula_ref": "formula.spec-only",
+    "dot_refs": {
+      "assemble": "DOT_SPEC_ONLY",
+      "check": "DOT_SPEC_ONLY",
+      "promote": "DOT_SPEC_ONLY",
+      "rollback": "DOT_SPEC_ONLY"
+    },
+    "stamps": {
+      "TEMP_ID_STAMP": "ok",
+      "CELL_STAMP": "missing",
+      "IO_STAMP": "missing",
+      "VALIDATION_STAMP": "missing",
+      "ROLLBACK_STAMP": "missing",
+      "BIRTH_STAMP": "not_applicable_until_promote",
+      "PROMOTE_STAMP": "not_applicable_until_promote"
+    }
+  },
+  "modw_binding": {
+    "work_object_id": "preview-only",
+    "correlation_id": "preview-only",
+    "route": "/modw/preview"
+  },
+  "readiness": {
+    "state": "PROMOTE_BLOCKED",
+    "reason": "No checker, no lane"
+  }
+}
+		249 text Tên field/table ở đây là conceptual. Tên bảng thật phải qua PG/Directus scan, reuse matrix, birth gate, owner gate và proposal/DOT.
+	250 text F0–F5 / FX — readiness layer (build-order lens)
+	251 container
+		252 text Không phải chiều, không phải dropdown. Chỉ là  lăng kính thứ-tự-phụ-thuộc  để biết phần nào đã khảo sát, phần nào còn HOLD/PARTIAL. DRAFT · non-authorizing.
+	253 container fstrip
+		254 text F0
+		255 text Source / Authority / Evidence
+		256 text HOLD
+		257 text authority order UNKNOWN
+		258 text F1
+		259 text Birth / Identity Root + Registries / Matrix Classification
+		260 text PARTIAL
+		261 text cell_id chưa giải · 6-vs-7 conflict
+		262 text F2
+		263 text Information Unit / Smart Brick + Temp Store / Candidate
+		264 text HOLD
+		265 text iu_staging = HOLD-1
+		266 text F3
+		267 text IO Contract + Formula + Assembly / DOT
+		268 text PARTIAL
+		269 text IO/formula/DOT coverage GAP
+		270 text F4
+		271 text Stamp Lifecycle + Checker / Promote / Rollback
+		272 text HOLD
+		273 text atomic promote HOLD-2 · checker chưa viết
+		274 text F5
+		275 text Scanner / Observability + Runtime Safety
+		276 text HOLD
+		277 text scanner chưa implement
+		278 text FX
+		279 text Governance One Roof (cross-cutting F0–F5)
+		280 text CROSS-CUT
+		281 text không tầng riêng · authority UNKNOWN
+	282 heading Điều 39 / Knowledge Graph, Value: 3
+		283 text Điều 39 / Knowledge Graph
+	284 container
+		285 text KG là lớp  intelligence / provenance / recommendation / XAI  (gợi ý quan hệ · dependency · provenance · explainability · anti-pattern).  Không  phải runtime engine,  không  phải nguồn sự thật,  không  phải checker bắt buộc,  không  phải executor,  không  quyết định promote. (Đ39 enacted nhưng runtime-EMPTY.)
+	286 text Bản đồ 6 tầng
+	287 text Ví dụ bánh xe tuyết
+	288 text Quan hệ (graph)
+	289 text Lỗi đỏ
+	290 text GCOS Mapping
+	291 container
+		292 text Matrix / Stamp / Constitution New  — track 
+		293 text laws-new/constitution-new
+		294 text . ⚠ DRAFT · NON-AUTHORIZING · UI DESIGN PREVIEW — không write DB, không execute production, không enact. Documentary ≠ live proof.
+	295 container 4 Mẹ + Master
+		296 text 4 MẸ
+		297 button MOW ▾ Quy trình
+			298 text MOW
+			299 text ▾
+			300 text Quy trình
+		301 button MOT ▾ Công việc
+			302 text MOT
+			303 text ▾
+			304 text Công việc
+		305 button MOIT ▾ Nhập liệu
+			306 text MOIT
+			307 text ▾
+			308 text Nhập liệu
+		309 button MOUT ▾ Báo cáo
+			310 text MOUT
+			311 text ▾
+			312 text Báo cáo
+		313 button Master ▾ Tổng 4 Mẹ
+			314 text Master
+			315 text ▾
+			316 text Tổng 4 Mẹ
+
+The focused UI element is 1 AXWebArea Matrix / Stamp / Constitution New — UI Design Preview, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/constitution-new-index.html

@@ -1,0 +1,269 @@
+{
+  "buttons": [
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Close",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": " Chỉ xem đã sao ",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Làm mới",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": "Đánh dấu sao dòng này"
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": "Đánh dấu sao dòng này"
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": "Đánh dấu sao dòng này"
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": "Đánh dấu sao dòng này"
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": "Đánh dấu sao dòng này"
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": "Đánh dấu sao dòng này"
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": "Đánh dấu sao dòng này"
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": "Đánh dấu sao dòng này"
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": "Đánh dấu sao dòng này"
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": "Đánh dấu sao dòng này"
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": true,
+      "text": "Trước",
+      "title": ""
+    },
+    {
+      "disabled": true,
+      "text": "Tiếp",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    }
+  ],
+  "forms": 0,
+  "links": [
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/",
+      "text": "Incomex AI Portal"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge",
+      "text": "Knowledge"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/modules",
+      "text": "Modules"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/current-tasks",
+      "text": "Tasks"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/reports",
+      "text": "Reports"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/workflows",
+      "text": "Workflows"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries",
+      "text": "Registries"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/pivot",
+      "text": "Pivot"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/laws",
+      "text": "Laws"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/contact-us",
+      "text": "Let's Talk"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/auth/signin",
+      "text": "Login"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/",
+      "text": ""
+    },
+    {
+      "href": "",
+      "text": ""
+    },
+    {
+      "href": "",
+      "text": ""
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/",
+      "text": ""
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge",
+      "text": ""
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/tools",
+      "text": ""
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/admin",
+      "text": ""
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/",
+      "text": "Incomex AI Portal. "
+    },
+    {
+      "href": "https://www.directus.io/?ref=agencyos_footer",
+      "text": " Directus "
+    },
+    {
+      "href": "https://www.nuxt.com/?ref=agencyos_footer",
+      "text": " Nuxt "
+    }
+  ],
+  "text": "Incomex AI Portal\nKnowledge\nModules\nTasks\nReports\nWorkflows\nRegistries\nPivot\nLaws\nLet's Talk\nLogin\nTask Manager\n\nSuper Session collaborative task management\n\nTìm kiếm\nStatus\nTất cả\nDraft\nActive\nIn Review\nCompleted\nArchived\nBộ lọc theo cột\nName\nPriority\nAssigned To\nChỉ xem đã sao\n0 đã sao\nDanh sách tasks\nLàm mới\n\tSTT\tName\n\tStatus\n\tPriority\n\tAssigned To\n\tDeadline\n\tUpdated\n\n\n\t1\n\tTASK-013: Mission 3.5 Automation Hardening\t\nActive\n\t\nHigh\n\tclaude_code\t-\tN/A\n\n\t2\n\tTask Orchestration Module (M-005)\t\nActive\n\t\nHigh\n\tClaude Desktop\t-\tN/A\n\n\t3\n\tAuto Tester Module (M-004)\t\nActive\n\t-\tUnassigned\t-\tN/A\n\n\t4\n\tS146-M2: Fix v_registry_counts stale TABLE→VIEW\t\ndone\n\t\nCritical\n\tCLI\t-\t29/03/2026\n\n\t5\n\tS145-M5: Fix Registries Accuracy TD-432\t\ndone\n\t\nCritical\n\tCLI\t-\t28/03/2026\n\n\t6\n\tWorkflow Module (M-002)\t\nActive\n\t-\tclaude_code\t-\t05/03/2026\n\n\t7\n\tTable Module (M-003)\t\nActive\n\t-\tUnassigned\t-\t05/03/2026\n\n\t8\n\tP43: Xay dung Super Session Task Manager\t\nActive\n\t\nHigh\n\tclaude\t25/02/2026\t02/03/2026\n\n\t9\n\tComment Module (M-001)\t\nActive\n\t\nHigh\n\tUnassigned\t-\t28/02/2026\n\n\t10\n\t[PLAN] WEB Integration Sprint — Nuxt ↔ Agency OS ↔ Directus\t\nDraft\n\t\nHigh\n\tUnassigned\t-\t27/02/2026\n\nTrước\nTiếp\nMENU\nCopyright © 1988 - 2026 Incomex AI Portal. All rights reserved.\n Site powered by Directus and Nuxt .",
+  "title": "Task Manager - Incomex AI Portal",
+  "url": "https://vps.incomexsaigoncorp.vn/knowledge/current-tasks"
+}

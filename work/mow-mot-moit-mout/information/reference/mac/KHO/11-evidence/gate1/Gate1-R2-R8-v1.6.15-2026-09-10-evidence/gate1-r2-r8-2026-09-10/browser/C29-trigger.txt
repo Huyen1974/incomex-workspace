@@ -1,0 +1,44 @@
+Browser tab: 14, Title: "Trigger Registry - Incomex AI Portal", URL: "https://vps.incomexsaigoncorp.vn/knowledge/registries/trigger".
+1 AXWebArea Trigger Registry - Incomex AI Portal, URL: vps.incomexsaigoncorp.vn/knowledge/registries/trigger
+	2 container
+		3 container
+			4 container
+				5 link Description: Incomex AI Portal, Value: vps.incomexsaigoncorp.vn/
+				6 container Global
+					7 link Description: Knowledge, Value: vps.incomexsaigoncorp.vn/knowledge
+					8 link Description: Modules, Value: vps.incomexsaigoncorp.vn/knowledge/modules
+					9 link Description: Tasks, Value: vps.incomexsaigoncorp.vn/knowledge/current-tasks
+					10 link Description: Reports, Value: vps.incomexsaigoncorp.vn/reports
+					11 link Description: Workflows, Value: vps.incomexsaigoncorp.vn/knowledge/workflows
+					12 link Description: Registries, Value: vps.incomexsaigoncorp.vn/knowledge/registries
+					13 link Description: Pivot, Value: vps.incomexsaigoncorp.vn/knowledge/pivot
+					14 link Description: Laws, Value: vps.incomexsaigoncorp.vn/knowledge/laws
+				15 button Theme
+				16 link Description: Let's Talk, Value: vps.incomexsaigoncorp.vn/contact-us
+				17 link Description: Login, Value: vps.incomexsaigoncorp.vn/auth/signin
+			18 link Description: ← Danh mục hệ thống, Value: vps.incomexsaigoncorp.vn/knowledge/registries
+			19 text LAYER 3
+			20 heading Trigger Registry, Value: 1
+				21 text Trigger Registry
+			22 text Active 107 items
+			23 container
+				24 text CAT-019  · Model A — Directus SSOT
+			25 text Chưa có bảng registry cho loại "trigger". Vui lòng liên hệ admin.
+			26 container
+				27 link vps.incomexsaigoncorp.vn/
+				28 button Theme
+				29 heading MENU, Value: 2
+					30 text MENU
+				31 link vps.incomexsaigoncorp.vn/
+				32 link vps.incomexsaigoncorp.vn/knowledge
+				33 link vps.incomexsaigoncorp.vn/tools
+				34 link vps.incomexsaigoncorp.vn/admin
+				35 text Copyright © 1988 - 2026 
+				36 link Description: Incomex AI Portal. , Value: vps.incomexsaigoncorp.vn/
+				37 text All rights reserved.  Site powered by 
+				38 link Description: Directus , Value: directus.io/?ref=agencyos_footer
+				39 text and 
+				40 link Description: Nuxt , Value: nuxt.com/?ref=agencyos_footer
+				41 text .
+
+The focused UI element is 1 AXWebArea Trigger Registry - Incomex AI Portal, URL: vps.incomexsaigoncorp.vn/knowledge/registries/trigger

@@ -1,0 +1,84 @@
+{
+  "buttons": [
+    {
+      "disabled": false,
+      "text": "Mô phỏng ô",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Kiểm tra readiness",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Xem khai báo workflow",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Mở preview MODW",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "↺ Xoá lựa chọn",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "→ Promote readiness",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "→ Khai báo workflow",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Mở trong MODW (preview)",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Copy contract",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Copy contract",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOW ▾Quy trình",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOT ▾Công việc",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOIT ▾Nhập liệu",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "MOUT ▾Báo cáo",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Master ▾Tổng 4 Mẹ",
+      "title": ""
+    }
+  ],
+  "forms": 0,
+  "links": [],
+  "text": "LAWS-NEW · CONSTITUTION-NEW · MATRIX / STAMP GOVERNANCE\nDRAFT\nNON-AUTHORIZING\nUI DESIGN PREVIEW\nHiến pháp Ma trận — Matrix / Stamp Governance\nMa trận chỉ có 4 chiều định vị. Công thức, DOT và Governance state là 3 lớp vận hành của ô, không phải chiều mới.\n7 thành phần đọc một ô = 4 chiều định vị (1–4) + 3 lớp vận hành (5–7).\nMọi object mới đi qua kho tạm/candidate trước; chỉ promote sang canonical khi đủ checker/stamp/owner gate.\nUI này thiết kế DB-ready: hiện dùng mock/config, sau này map sang PG → Directus → MODW, không nhúng business logic trong UI.\nMô phỏng ô\nKiểm tra readiness\nXem khai báo workflow\nMở preview MODW\n[1]Định vị ô ma trận — 4 chiều thật\nđủ\nthiếu nhẹ\nlỗi\nchưa rõ\nChiều 1–4 (định vị) ghép ra cell_id = Tầng × Loài × Kho × Miền. Quan hệ là graph riêng; Năng lực/Task/Người là overlay — không phải chiều.\n1Tầng lắp ráp\n6 bậc: Nguyên tử → Phân tử → Hợp chất → Vật liệu → Thành phẩm → Hệ con/Công trình (bậc lắp ráp, không phải tầng UI/API/DB).\n— chọn tầng —\natom · Nguyên tử\nmolecule · Phân tử\ncompound · Hợp chất\nmaterial · Vật liệu\nproduct · Thành phẩm\nbuilding · Hệ con / Công trình\n2Loài\nLoài = bản chất đối tượng; không phải trạng thái, không phải workflow status.\n— chọn tầng trước —\n3Kho\nMặc định việc mới vào kho tạm. Canonical chỉ xuất hiện sau promote.\n— mọi kho —\nKho tạm / Candidate\nKho chính / Managed\nCanonical / Kernel\n4Miền chuyên môn\nMiền = jurisdiction/domain nghiệp vụ, không phải người phụ trách cá nhân.\n— mọi miền —\nKhai sinh\nGovernance\nCollection\nDOT\nIU\nEvent\nLaw\nData\nCustomer\nDevGovernance\n↺ Xoá lựa chọn\n→ Promote readiness\n→ Khai báo workflow\nObject Card — thẻ căn cước của ô/candidate\nMATRIX ADDRESS (CHIỀU 1–4)\nChọn Tầng + Loài ở khung [1]…\n[2]Governance & Promote Readiness\nMức governance được tính từ stamp/checker/evidence, không phải người dùng tự khai.\nMức 1: Kho tạm / Candidate\nlàm nhanh, sai thì xóa\ncho phép tạo candidate\ncó TEMP_ID\nmô phỏng / sửa / xóa\nchưa canonical, chưa birth chính thức\nYêu cầu: TEMP_ID_STAMP\nMức 2: Promotion Gate\nkiểm cục bộ, fail-closed\ncần checker\ncần IO / validation / rollback proof\nfail-closed nếu thiếu\nPrecond: TEMP_ID · CELL · IO · VALIDATION · ROLLBACK → Output: BIRTH · PROMOTE\nMức 3: Canonical / Kernel\nviệc nguy hiểm\nqua Owner/Council gate (Đ32) nếu cần\ncó BIRTH/PROMOTE stamp\ncó rollback/evidence (proven)\nCanonical: BIRTH · CELL · IO · VALIDATION · ROLLBACK · PROMOTE (+ GOV/OWNER high-risk)\nPROMOTE READINESS — CỦA Ô ĐANG CHỌN\nChọn một ô ở khung [1] để tính readiness.\n[3]Workflow Declaration Preview\nTừ một ô ma trận/candidate, hệ thống khai báo một workflow để MODW quản lý. Đây là preview khai báo — không chạy workflow engine thật.\nKHAI BÁO (DECLARATION FIELDS)\nWORKFLOW_KEY\nwf..v0\nWORKFLOW_NAME\n(chọn ô)\nMATRIX_CELL_ADDRESS\n(chọn ô)\nWORK_OBJECT_TYPE\nworkflow_run\nINPUT_CONTRACT\nIO.in.v0 (spec-only)\nOUTPUT_CONTRACT\nIO.out.v0 (spec-only)\nFORMULA_REF\nformula.spec-only\nDOT_REFS\nassemble/check/promote/rollback = DOT_SPEC_ONLY\nREQUIRED_STAMPS\nTEMP_ID·CELL·IO·VALIDATION·ROLLBACK → BIRTH·PROMOTE\nGOVERNANCE_LEVEL\nL1 Candidate\nMODW_ROUTE\n/modw/preview\nEVIDENCE_CONTRACT\nexpected·artifact·verifier·pass/fail·rollback\nSTATUS\nDRAFT · PROMOTE_BLOCKED\nCÁC BƯỚC MẪU (STEP LIST)\n1\nCreate candidate in temp store\nsystem\npass\nevidence: TEMP_ID\n· → attach cell\n2\nAttach matrix cell\nai\npartial\nevidence: CELL_STAMP\n· → validate IO\n3\nValidate IO contract\nchecker\nmissing\nevidence: IO_STAMP\n· → check formula\n4\nRun/check formula spec\nchecker\nmissing\nevidence: formula spec\n· → DOT check\n5\nRun DOT check\ndot\nmissing\nevidence: VALIDATION_STAMP\n· → build evidence\n6\nBuild evidence pack\nsystem\nmissing\nevidence: evidence_pack\n· → submit\n7\nSubmit promote proposal / open MODW\nhuman\nmissing\nevidence: PROMOTE proposal\n· → MODW\nMở trong MODW (preview)\nCopy contract\n\nMODW sẽ là Work Detail Workbench quản lý prompt, report, comment, evidence, queue signal và proposal của workflow này. CTA chỉ mô phỏng — không gọi hệ thật.\n\n[4]MODW Binding Preview\nMatrix UI định vị và kiểm soát candidate. MODW quản lý chi tiết quá trình làm thật. Hai phần nối qua Work Object / correlation chain, không thay thế nhau.\nMatrix / Stamp UI\tMODW (Work Detail Workbench)\nMatrix cell address\tWork Object context\nCandidate object\tWork item / workflow run\nCông thức (Formula)\tStep / block definition\nDOT refs\tExecutor / check / promote / rollback binding\nStamps\tGovernance gates\nEvidence pack\tMODW Evidence tab\nComments / handoff\tMODW Handoff Room\nPromote proposal\tMODW Proposal / Approval flow\n\nLiên kết qua correlation_id · trace_id · parent_run_id. MODW/MOT không phải executor (Đ45) — chỉ điều phối, executor là DOT/Agent/Hermes/Codex/PG_worker/external_worker.\n\n[5]DB / Data Contract Preview\nData object mẫu (conceptual contract) để UI và Council cùng hiểu. Chưa phải quyết định tạo bảng.\nCopy contract\n{\n  \"matrix_cell\": {\n    \"layer\": \"Material\",\n    \"species\": \"WorkflowDefinition\",\n    \"store\": \"candidate\",\n    \"domain\": \"DevGovernance\"\n  },\n  \"operational_overlay\": {\n    \"formula_ref\": \"formula.spec-only\",\n    \"dot_refs\": {\n      \"assemble\": \"DOT_SPEC_ONLY\",\n      \"check\": \"DOT_SPEC_ONLY\",\n      \"promote\": \"DOT_SPEC_ONLY\",\n      \"rollback\": \"DOT_SPEC_ONLY\"\n    },\n    \"stamps\": {\n      \"TEMP_ID_STAMP\": \"ok\",\n      \"CELL_STAMP\": \"missing\",\n      \"IO_STAMP\": \"missing\",\n      \"VALIDATION_STAMP\": \"missing\",\n      \"ROLLBACK_STAMP\": \"missing\",\n      \"BIRTH_STAMP\": \"not_applicable_until_promote\",\n      \"PROMOTE_STAMP\": \"not_applicable_until_promote\"\n    }\n  },\n  \"modw_binding\": {\n    \"work_object_id\": \"preview-only\",\n    \"correlation_id\": \"preview-only\",\n    \"route\": \"/modw/preview\"\n  },\n  \"readiness\": {\n    \"state\": \"PROMOTE_BLOCKED\",\n    \"reason\": \"No checker, no lane\"\n  }\n}\n\nTên field/table ở đây là conceptual. Tên bảng thật phải qua PG/Directus scan, reuse matrix, birth gate, owner gate và proposal/DOT.\n\nF0–F5 / FX — readiness layer (build-order lens)\nKhông phải chiều, không phải dropdown. Chỉ là lăng kính thứ-tự-phụ-thuộc để biết phần nào đã khảo sát, phần nào còn HOLD/PARTIAL. DRAFT · non-authorizing.\nF0\nSource / Authority / Evidence\nHOLD\nauthority order UNKNOWN\nF1\nBirth / Identity Root + Registries / Matrix Classification\nPARTIAL\ncell_id chưa giải · 6-vs-7 conflict\nF2\nInformation Unit / Smart Brick + Temp Store / Candidate\nHOLD\niu_staging = HOLD-1\nF3\nIO Contract + Formula + Assembly / DOT\nPARTIAL\nIO/formula/DOT coverage GAP\nF4\nStamp Lifecycle + Checker / Promote / Rollback\nHOLD\natomic promote HOLD-2 · checker chưa viết\nF5\nScanner / Observability + Runtime Safety\nHOLD\nscanner chưa implement\nFX\nGovernance One Roof (cross-cutting F0–F5)\nCROSS-CUT\nkhông tầng riêng · authority UNKNOWN\nĐiều 39 / Knowledge Graph\n\nKG là lớp intelligence / provenance / recommendation / XAI (gợi ý quan hệ · dependency · provenance · explainability · anti-pattern). Không phải runtime engine, không phải nguồn sự thật, không phải checker bắt buộc, không phải executor, không quyết định promote. (Đ39 enacted nhưng runtime-EMPTY.)\n\nBản đồ 6 tầng\nVí dụ bánh xe tuyết\nQuan hệ (graph)\nLỗi đỏ\nGCOS Mapping\nMatrix / Stamp / Constitution New — track laws-new/constitution-new.\n⚠ DRAFT · NON-AUTHORIZING · UI DESIGN PREVIEW — không write DB, không execute production, không enact. Documentary ≠ live proof.\n4 MẸ\nMOW\n▾\nQuy trình\nMOT\n▾\nCông việc\nMOIT\n▾\nNhập liệu\nMOUT\n▾\nBáo cáo\nMaster\n▾\nTổng 4 Mẹ",
+  "title": "Matrix / Stamp / Constitution New — UI Design Preview",
+  "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/constitution-new-index.html"
+}

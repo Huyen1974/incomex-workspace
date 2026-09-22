@@ -1,0 +1,4569 @@
+Browser tab: 14, Title: "Tổng nguyên tử — Tất cả thực thể - Incomex AI Portal", URL: "https://vps.incomexsaigoncorp.vn/knowledge/registries/all".
+1 AXWebArea Tổng nguyên tử — Tất cả thực thể - Incomex AI Portal, URL: vps.incomexsaigoncorp.vn/knowledge/registries/all
+	2 container
+		3 container
+			4 container
+				5 link Description: Incomex AI Portal, Value: vps.incomexsaigoncorp.vn/
+				6 container Global
+					7 link Description: Knowledge, Value: vps.incomexsaigoncorp.vn/knowledge
+					8 link Description: Modules, Value: vps.incomexsaigoncorp.vn/knowledge/modules
+					9 link Description: Tasks, Value: vps.incomexsaigoncorp.vn/knowledge/current-tasks
+					10 link Description: Reports, Value: vps.incomexsaigoncorp.vn/reports
+					11 link Description: Workflows, Value: vps.incomexsaigoncorp.vn/knowledge/workflows
+					12 link Description: Registries, Value: vps.incomexsaigoncorp.vn/knowledge/registries
+					13 link Description: Pivot, Value: vps.incomexsaigoncorp.vn/knowledge/pivot
+					14 link Description: Laws, Value: vps.incomexsaigoncorp.vn/knowledge/laws
+				15 button Theme
+				16 link Description: Let's Talk, Value: vps.incomexsaigoncorp.vn/contact-us
+				17 link Description: Login, Value: vps.incomexsaigoncorp.vn/auth/signin
+			18 link Description: ← Danh mục hệ thống, Value: vps.incomexsaigoncorp.vn/knowledge/registries
+			19 heading Tổng nguyên tử, Value: 1
+				20 text Tổng nguyên tử
+			21 text 1023  items
+			22 text Tất cả thực thể across 45 loại
+			23 text field (settable)
+			24 pop up button (collapsed, settable) Value: Tất cả loại, Secondary Actions: Expand
+				25 menu
+					26 (selected) Tất cả loại
+					27 Agents
+					28 measurement_registry
+					29 Checkpoint Sets
+					30 Checkpoint Types
+					31 So khai sinh
+					32 DOT Tools
+					33 Entity Dependencies
+					34 Modules
+					35 Pages/Routes
+					36 Bảng UI
+					37 Tasks
+					38 Đề xuất thay đổi
+					39 workflow_categories
+					40 workflow_step_relations
+			41 pop up button (collapsed, settable) Value: Tất cả nhóm, Secondary Actions: Expand
+				42 menu
+					43 (selected) Tất cả nhóm
+					44 Cấu trúc
+					45 Quy trình
+					46 Công cụ
+					47 Dữ liệu
+					48 Giám sát
+			49 container
+				50 table (showing 0-500 of 1024 items)
+					51 row
+						52 cell
+							53 button Mã
+						54 cell
+							55 button Tên
+						56 cell
+							57 button Loại
+						58 cell
+							59 button Phân nhóm
+					60 row
+						61 cell
+							62 text CAT-000
+						63 cell
+							64 text Danh mục hệ thống
+						65 cell
+							66 text measurement_registry
+						67 cell
+							68 text Cấu trúc
+					69 row
+						70 cell
+							71 text CAT-001
+						72 cell
+							73 text Bảng UI
+						74 cell
+							75 text measurement_registry
+						76 cell
+							77 text Cấu trúc
+					78 row
+						79 cell
+							80 text CAT-002
+						81 cell
+							82 text Modules
+						83 cell
+							84 text measurement_registry
+						85 cell
+							86 text Cấu trúc
+					87 row
+						88 cell
+							89 text CAT-003
+						90 cell
+							91 text Quy trình
+						92 cell
+							93 text measurement_registry
+						94 cell
+							95 text Cấu trúc
+					96 row
+						97 cell
+							98 text CAT-004
+						99 cell
+							100 text Bước quy trình
+						101 cell
+							102 text measurement_registry
+						103 cell
+							104 text Cấu trúc
+					105 row
+						106 cell
+							107 text CAT-005
+						108 cell
+							109 text Đề xuất thay đổi
+						110 cell
+							111 text measurement_registry
+						112 cell
+							113 text Cấu trúc
+					114 row
+						115 cell
+							116 text CAT-006
+						117 cell
+							118 text DOT Tools
+						119 cell
+							120 text measurement_registry
+						121 cell
+							122 text Cấu trúc
+					123 row
+						124 cell
+							125 text CAT-007
+						126 cell
+							127 text Pages/Routes
+						128 cell
+							129 text measurement_registry
+						130 cell
+							131 text Cấu trúc
+					132 row
+						133 cell
+							134 text CAT-008
+						135 cell
+							136 text Collections
+						137 cell
+							138 text measurement_registry
+						139 cell
+							140 text Cấu trúc
+					141 row
+						142 cell
+							143 text CAT-009
+						144 cell
+							145 text Tasks
+						146 cell
+							147 text measurement_registry
+						148 cell
+							149 text Cấu trúc
+					150 row
+						151 cell
+							152 text CAT-010
+						153 cell
+							154 text Agents
+						155 cell
+							156 text measurement_registry
+						157 cell
+							158 text Cấu trúc
+					159 row
+						160 cell
+							161 text CAT-011
+						162 cell
+							163 text Checkpoint Types
+						164 cell
+							165 text measurement_registry
+						166 cell
+							167 text Cấu trúc
+					168 row
+						169 cell
+							170 text CAT-012
+						171 cell
+							172 text Checkpoint Sets
+						173 cell
+							174 text measurement_registry
+						175 cell
+							176 text Cấu trúc
+					177 row
+						178 cell
+							179 text CAT-013
+						180 cell
+							181 text Entity Dependencies
+						182 cell
+							183 text measurement_registry
+						184 cell
+							185 text Cấu trúc
+					186 row
+						187 cell
+							188 text CAT-014
+						189 cell
+							190 text Table Proposals
+						191 cell
+							192 text measurement_registry
+						193 cell
+							194 text Cấu trúc
+					195 row
+						196 cell
+							197 text CAT-015
+						198 cell
+							199 text Checkpoint Instances
+						200 cell
+							201 text measurement_registry
+						202 cell
+							203 text Cấu trúc
+					204 row
+						205 cell
+							206 text CAT-016
+						207 cell
+							208 text Nhật ký thay đổi
+						209 cell
+							210 text measurement_registry
+						211 cell
+							212 text Cấu trúc
+					213 row
+						214 cell
+							215 text CAT-017
+						216 cell
+							217 text Vấn đề hệ thống
+						218 cell
+							219 text measurement_registry
+						220 cell
+							221 text Cấu trúc
+					222 row
+						223 cell
+							224 text CAT-018
+						225 cell
+							226 text Nhãn hệ thống
+						227 cell
+							228 text measurement_registry
+						229 cell
+							230 text Cấu trúc
+					231 row
+						232 cell
+							233 text CAT-019
+						234 cell
+							235 text Trigger Registry
+						236 cell
+							237 text measurement_registry
+						238 cell
+							239 text Cấu trúc
+					240 row
+						241 cell
+							242 text CAT-020
+						243 cell
+							244 text Loai thuc the
+						245 cell
+							246 text measurement_registry
+						247 cell
+							248 text Cấu trúc
+					249 row
+						250 cell
+							251 text CAT-021
+						252 cell
+							253 text Species-Collection Map
+						254 cell
+							255 text measurement_registry
+						256 cell
+							257 text Cấu trúc
+					258 row
+						259 cell
+							260 text CAT-022
+						261 cell
+							262 text Hang doi kiem dinh
+						263 cell
+							264 text measurement_registry
+						265 cell
+							266 text Cấu trúc
+					267 row
+						268 cell
+							269 text CAT-023
+						270 cell
+							271 text So khai sinh
+						272 cell
+							273 text measurement_registry
+						274 cell
+							275 text Cấu trúc
+					276 row
+						277 cell
+							278 text CAT-024
+						279 cell
+							280 text Pivot Definitions
+						281 cell
+							282 text measurement_registry
+						283 cell
+							284 text Cấu trúc
+					285 row
+						286 cell
+							287 text CAT-025
+						288 cell
+							289 text Yeu cau Phe duyet
+						290 cell
+							291 text measurement_registry
+						292 cell
+							293 text Cấu trúc
+					294 row
+						295 cell
+							296 text CAT-026
+						297 cell
+							298 text agent_views
+						299 cell
+							300 text measurement_registry
+						301 cell
+							302 text Cấu trúc
+					303 row
+						304 cell
+							305 text CAT-027
+						306 cell
+							307 text ai_discussion_comments
+						308 cell
+							309 text measurement_registry
+						310 cell
+							311 text Cấu trúc
+					312 row
+						313 cell
+							314 text CAT-028
+						315 cell
+							316 text ai_discussions
+						317 cell
+							318 text measurement_registry
+						319 cell
+							320 text Cấu trúc
+					321 row
+						322 cell
+							323 text CAT-029
+						324 cell
+							325 text ai_tasks
+						326 cell
+							327 text measurement_registry
+						328 cell
+							329 text Cấu trúc
+					330 row
+						331 cell
+							332 text CAT-030
+						333 cell
+							334 text billing
+						335 cell
+							336 text measurement_registry
+						337 cell
+							338 text Cấu trúc
+					339 row
+						340 cell
+							341 text CAT-031
+						342 cell
+							343 text block_button
+						344 cell
+							345 text measurement_registry
+						346 cell
+							347 text Cấu trúc
+					348 row
+						349 cell
+							350 text CAT-032
+						351 cell
+							352 text block_button_group
+						353 cell
+							354 text measurement_registry
+						355 cell
+							356 text Cấu trúc
+					357 row
+						358 cell
+							359 text CAT-033
+						360 cell
+							361 text block_button_groups
+						362 cell
+							363 text measurement_registry
+						364 cell
+							365 text Cấu trúc
+					366 row
+						367 cell
+							368 text CAT-034
+						369 cell
+							370 text block_buttons
+						371 cell
+							372 text measurement_registry
+						373 cell
+							374 text Cấu trúc
+					375 row
+						376 cell
+							377 text CAT-035
+						378 cell
+							379 text block_columns
+						380 cell
+							381 text measurement_registry
+						382 cell
+							383 text Cấu trúc
+					384 row
+						385 cell
+							386 text CAT-036
+						387 cell
+							388 text block_columns_rows
+						389 cell
+							390 text measurement_registry
+						391 cell
+							392 text Cấu trúc
+					393 row
+						394 cell
+							395 text CAT-037
+						396 cell
+							397 text block_cta
+						398 cell
+							399 text measurement_registry
+						400 cell
+							401 text Cấu trúc
+					402 row
+						403 cell
+							404 text CAT-038
+						405 cell
+							406 text block_divider
+						407 cell
+							408 text measurement_registry
+						409 cell
+							410 text Cấu trúc
+					411 row
+						412 cell
+							413 text CAT-039
+						414 cell
+							415 text block_faqs
+						416 cell
+							417 text measurement_registry
+						418 cell
+							419 text Cấu trúc
+					420 row
+						421 cell
+							422 text CAT-040
+						423 cell
+							424 text block_form
+						425 cell
+							426 text measurement_registry
+						427 cell
+							428 text Cấu trúc
+					429 row
+						430 cell
+							431 text CAT-041
+						432 cell
+							433 text block_gallery
+						434 cell
+							435 text measurement_registry
+						436 cell
+							437 text Cấu trúc
+					438 row
+						439 cell
+							440 text CAT-042
+						441 cell
+							442 text block_gallery_files
+						443 cell
+							444 text measurement_registry
+						445 cell
+							446 text Cấu trúc
+					447 row
+						448 cell
+							449 text CAT-043
+						450 cell
+							451 text block_hero
+						452 cell
+							453 text measurement_registry
+						454 cell
+							455 text Cấu trúc
+					456 row
+						457 cell
+							458 text CAT-044
+						459 cell
+							460 text block_html
+						461 cell
+							462 text measurement_registry
+						463 cell
+							464 text Cấu trúc
+					465 row
+						466 cell
+							467 text CAT-045
+						468 cell
+							469 text block_library
+						470 cell
+							471 text measurement_registry
+						472 cell
+							473 text Cấu trúc
+					474 row
+						475 cell
+							476 text CAT-046
+						477 cell
+							478 text block_logocloud
+						479 cell
+							480 text measurement_registry
+						481 cell
+							482 text Cấu trúc
+					483 row
+						484 cell
+							485 text CAT-047
+						486 cell
+							487 text block_logocloud_logos
+						488 cell
+							489 text measurement_registry
+						490 cell
+							491 text Cấu trúc
+					492 row
+						493 cell
+							494 text CAT-048
+						495 cell
+							496 text block_quote
+						497 cell
+							498 text measurement_registry
+						499 cell
+							500 text Cấu trúc
+					501 row
+						502 cell
+							503 text CAT-049
+						504 cell
+							505 text block_richtext
+						506 cell
+							507 text measurement_registry
+						508 cell
+							509 text Cấu trúc
+					510 row
+						511 cell
+							512 text CAT-050
+						513 cell
+							514 text blocks
+						515 cell
+							516 text measurement_registry
+						517 cell
+							518 text Cấu trúc
+					519 row
+						520 cell
+							521 text CAT-051
+						522 cell
+							523 text block_step_items
+						524 cell
+							525 text measurement_registry
+						526 cell
+							527 text Cấu trúc
+					528 row
+						529 cell
+							530 text CAT-052
+						531 cell
+							532 text block_steps
+						533 cell
+							534 text measurement_registry
+						535 cell
+							536 text Cấu trúc
+					537 row
+						538 cell
+							539 text CAT-053
+						540 cell
+							541 text block_team
+						542 cell
+							543 text measurement_registry
+						544 cell
+							545 text Cấu trúc
+					546 row
+						547 cell
+							548 text CAT-054
+						549 cell
+							550 text block_testimonials
+						551 cell
+							552 text measurement_registry
+						553 cell
+							554 text Cấu trúc
+					555 row
+						556 cell
+							557 text CAT-055
+						558 cell
+							559 text block_testimonial_slider_items
+						560 cell
+							561 text measurement_registry
+						562 cell
+							563 text Cấu trúc
+					564 row
+						565 cell
+							566 text CAT-056
+						567 cell
+							568 text block_video
+						569 cell
+							570 text measurement_registry
+						571 cell
+							572 text Cấu trúc
+					573 row
+						574 cell
+							575 text CAT-057
+						576 cell
+							577 text categories
+						578 cell
+							579 text measurement_registry
+						580 cell
+							581 text Cấu trúc
+					582 row
+						583 cell
+							584 text CAT-058
+						585 cell
+							586 text checkpoint_rules
+						587 cell
+							588 text measurement_registry
+						589 cell
+							590 text Cấu trúc
+					591 row
+						592 cell
+							593 text CAT-059
+						594 cell
+							595 text checkpoint_set_items
+						596 cell
+							597 text measurement_registry
+						598 cell
+							599 text Cấu trúc
+					600 row
+						601 cell
+							602 text CAT-060
+						603 cell
+							604 text checkpoint_type_overrides
+						605 cell
+							606 text measurement_registry
+						607 cell
+							608 text Cấu trúc
+					609 row
+						610 cell
+							611 text CAT-061
+						612 cell
+							613 text comments
+						614 cell
+							615 text measurement_registry
+						616 cell
+							617 text Cấu trúc
+					618 row
+						619 cell
+							620 text CAT-062
+						621 cell
+							622 text contacts
+						623 cell
+							624 text measurement_registry
+						625 cell
+							626 text Cấu trúc
+					627 row
+						628 cell
+							629 text CAT-063
+						630 cell
+							631 text content_requests
+						632 cell
+							633 text measurement_registry
+						634 cell
+							635 text Cấu trúc
+					636 row
+						637 cell
+							638 text CAT-064
+						639 cell
+							640 text conversations
+						641 cell
+							642 text measurement_registry
+						643 cell
+							644 text Cấu trúc
+					645 row
+						646 cell
+							647 text CAT-065
+						648 cell
+							649 text derived_objects_registry
+						650 cell
+							651 text measurement_registry
+						652 cell
+							653 text Cấu trúc
+					654 row
+						655 cell
+							656 text CAT-066
+						657 cell
+							658 text directus_fields
+						659 cell
+							660 text measurement_registry
+						661 cell
+							662 text Cấu trúc
+					663 row
+						664 cell
+							665 text CAT-067
+						666 cell
+							667 text doc_reviews
+						668 cell
+							669 text measurement_registry
+						670 cell
+							671 text Cấu trúc
+					672 row
+						673 cell
+							674 text CAT-068
+						675 cell
+							676 text entity_labels
+						677 cell
+							678 text measurement_registry
+						679 cell
+							680 text Cấu trúc
+					681 row
+						682 cell
+							683 text CAT-069
+						684 cell
+							685 text feedbacks
+						686 cell
+							687 text measurement_registry
+						688 cell
+							689 text Cấu trúc
+					690 row
+						691 cell
+							692 text CAT-070
+						693 cell
+							694 text forms
+						695 cell
+							696 text measurement_registry
+						697 cell
+							698 text Cấu trúc
+					699 row
+						700 cell
+							701 text CAT-071
+						702 cell
+							703 text globals
+						704 cell
+							705 text measurement_registry
+						706 cell
+							707 text Cấu trúc
+					708 row
+						709 cell
+							710 text CAT-072
+						711 cell
+							712 text governance_docs
+						713 cell
+							714 text measurement_registry
+						715 cell
+							716 text Cấu trúc
+					717 row
+						718 cell
+							719 text CAT-073
+						720 cell
+							721 text help
+						722 cell
+							723 text measurement_registry
+						724 cell
+							725 text Cấu trúc
+					726 row
+						727 cell
+							728 text CAT-074
+						729 cell
+							730 text help_articles
+						731 cell
+							732 text measurement_registry
+						733 cell
+							734 text Cấu trúc
+					735 row
+						736 cell
+							737 text CAT-075
+						738 cell
+							739 text help_collections
+						740 cell
+							741 text measurement_registry
+						742 cell
+							743 text Cấu trúc
+					744 row
+						745 cell
+							746 text CAT-076
+						747 cell
+							748 text help_feedback
+						749 cell
+							750 text measurement_registry
+						751 cell
+							752 text Cấu trúc
+					753 row
+						754 cell
+							755 text CAT-077
+						756 cell
+							757 text inbox
+						758 cell
+							759 text measurement_registry
+						760 cell
+							761 text Cấu trúc
+					762 row
+						763 cell
+							764 text CAT-078
+						765 cell
+							766 text knowledge_documents
+						767 cell
+							768 text measurement_registry
+						769 cell
+							770 text Cấu trúc
+					771 row
+						772 cell
+							773 text CAT-079
+						774 cell
+							775 text label_rules
+						776 cell
+							777 text measurement_registry
+						778 cell
+							779 text Cấu trúc
+					780 row
+						781 cell
+							782 text CAT-080
+						783 cell
+							784 text languages
+						785 cell
+							786 text measurement_registry
+						787 cell
+							788 text Cấu trúc
+					789 row
+						790 cell
+							791 text CAT-081
+						792 cell
+							793 text lifecycle_log
+						794 cell
+							795 text measurement_registry
+						796 cell
+							797 text Cấu trúc
+					798 row
+						799 cell
+							800 text CAT-082
+						801 cell
+							802 text messages
+						803 cell
+							804 text measurement_registry
+						805 cell
+							806 text Cấu trúc
+					807 row
+						808 cell
+							809 text CAT-083
+						810 cell
+							811 text navigation
+						812 cell
+							813 text measurement_registry
+						814 cell
+							815 text Cấu trúc
+					816 row
+						817 cell
+							818 text CAT-084
+						819 cell
+							820 text navigation_items
+						821 cell
+							822 text measurement_registry
+						823 cell
+							824 text Cấu trúc
+					825 row
+						826 cell
+							827 text CAT-085
+						828 cell
+							829 text navigation_navigation_items
+						830 cell
+							831 text measurement_registry
+						832 cell
+							833 text Cấu trúc
+					834 row
+						835 cell
+							836 text CAT-086
+						837 cell
+							838 text organization_addresses
+						839 cell
+							840 text measurement_registry
+						841 cell
+							842 text Cấu trúc
+					843 row
+						844 cell
+							845 text CAT-087
+						846 cell
+							847 text organizations
+						848 cell
+							849 text measurement_registry
+						850 cell
+							851 text Cấu trúc
+					852 row
+						853 cell
+							854 text CAT-088
+						855 cell
+							856 text organizations_contacts
+						857 cell
+							858 text measurement_registry
+						859 cell
+							860 text Cấu trúc
+					861 row
+						862 cell
+							863 text CAT-089
+						864 cell
+							865 text os_activities
+						866 cell
+							867 text measurement_registry
+						868 cell
+							869 text Cấu trúc
+					870 row
+						871 cell
+							872 text CAT-090
+						873 cell
+							874 text os_activity_contacts
+						875 cell
+							876 text measurement_registry
+						877 cell
+							878 text Cấu trúc
+					879 row
+						880 cell
+							881 text CAT-091
+						882 cell
+							883 text os_deal_contacts
+						884 cell
+							885 text measurement_registry
+						886 cell
+							887 text Cấu trúc
+					888 row
+						889 cell
+							890 text CAT-092
+						891 cell
+							892 text os_deals
+						893 cell
+							894 text measurement_registry
+						895 cell
+							896 text Cấu trúc
+					897 row
+						898 cell
+							899 text CAT-093
+						900 cell
+							901 text os_deal_stages
+						902 cell
+							903 text measurement_registry
+						904 cell
+							905 text Cấu trúc
+					906 row
+						907 cell
+							908 text CAT-094
+						909 cell
+							910 text os_email_templates
+						911 cell
+							912 text measurement_registry
+						913 cell
+							914 text Cấu trúc
+					915 row
+						916 cell
+							917 text CAT-095
+						918 cell
+							919 text os_expenses
+						920 cell
+							921 text measurement_registry
+						922 cell
+							923 text Cấu trúc
+					924 row
+						925 cell
+							926 text CAT-096
+						927 cell
+							928 text os_invoice_items
+						929 cell
+							930 text measurement_registry
+						931 cell
+							932 text Cấu trúc
+					933 row
+						934 cell
+							935 text CAT-097
+						936 cell
+							937 text os_invoices
+						938 cell
+							939 text measurement_registry
+						940 cell
+							941 text Cấu trúc
+					942 row
+						943 cell
+							944 text CAT-098
+						945 cell
+							946 text os_items
+						947 cell
+							948 text measurement_registry
+						949 cell
+							950 text Cấu trúc
+					951 row
+						952 cell
+							953 text CAT-099
+						954 cell
+							955 text os_payments
+						956 cell
+							957 text measurement_registry
+						958 cell
+							959 text Cấu trúc
+					960 row
+						961 cell
+							962 text CAT-100
+						963 cell
+							964 text os_payment_terms
+						965 cell
+							966 text measurement_registry
+						967 cell
+							968 text Cấu trúc
+					969 row
+						970 cell
+							971 text CAT-1000
+						972 cell
+							973 text DOT Domains
+						974 cell
+							975 text measurement_registry
+						976 cell
+							977 text Cấu trúc
+					978 row
+						979 cell
+							980 text CAT-1001
+						981 cell
+							982 text Collection Groups
+						983 cell
+							984 text measurement_registry
+						985 cell
+							986 text Cấu trúc
+					987 row
+						988 cell
+							989 text CAT-1002
+						990 cell
+							991 text Field Standards
+						992 cell
+							993 text measurement_registry
+						994 cell
+							995 text Cấu trúc
+					996 row
+						997 cell
+							998 text CAT-1003
+						999 cell
+							1000 text DOT Coverage Required
+						1001 cell
+							1002 text measurement_registry
+						1003 cell
+							1004 text Cấu trúc
+					1005 row
+						1006 cell
+							1007 text CAT-1004
+						1008 cell
+							1009 text DOT Domain Rules
+						1010 cell
+							1011 text measurement_registry
+						1012 cell
+							1013 text Cấu trúc
+					1014 row
+						1015 cell
+							1016 text CAT-1005
+						1017 cell
+							1018 text Field Type Equivalences
+						1019 cell
+							1020 text measurement_registry
+						1021 cell
+							1022 text Cấu trúc
+					1023 row
+						1024 cell
+							1025 text CAT-1006
+						1026 cell
+							1027 text APR action types
+						1028 cell
+							1029 text measurement_registry
+						1030 cell
+							1031 text Cấu trúc
+					1032 row
+						1033 cell
+							1034 text CAT-1007
+						1035 cell
+							1036 text APR request types
+						1037 cell
+							1038 text measurement_registry
+						1039 cell
+							1040 text Cấu trúc
+					1041 row
+						1042 cell
+							1043 text CAT-1008
+						1044 cell
+							1045 text APR approvals ledger
+						1046 cell
+							1047 text measurement_registry
+						1048 cell
+							1049 text Cấu trúc
+					1050 row
+						1051 cell
+							1052 text CAT-1009
+						1053 cell
+							1054 text Admin fallback log
+						1055 cell
+							1056 text measurement_registry
+						1057 cell
+							1058 text Cấu trúc
+					1059 row
+						1060 cell
+							1061 text CAT-101
+						1062 cell
+							1063 text os_project_contacts
+						1064 cell
+							1065 text measurement_registry
+						1066 cell
+							1067 text Cấu trúc
+					1068 row
+						1069 cell
+							1070 text CAT-1010
+						1071 cell
+							1072 text Law version verification log
+						1073 cell
+							1074 text measurement_registry
+						1075 cell
+							1076 text Cấu trúc
+					1077 row
+						1078 cell
+							1079 text CAT-102
+						1080 cell
+							1081 text os_projects
+						1082 cell
+							1083 text measurement_registry
+						1084 cell
+							1085 text Cấu trúc
+					1086 row
+						1087 cell
+							1088 text CAT-103
+						1089 cell
+							1090 text os_project_templates
+						1091 cell
+							1092 text measurement_registry
+						1093 cell
+							1094 text Cấu trúc
+					1095 row
+						1096 cell
+							1097 text CAT-104
+						1098 cell
+							1099 text os_project_updates
+						1100 cell
+							1101 text measurement_registry
+						1102 cell
+							1103 text Cấu trúc
+					1104 row
+						1105 cell
+							1106 text CAT-105
+						1107 cell
+							1108 text os_proposal_approvals
+						1109 cell
+							1110 text measurement_registry
+						1111 cell
+							1112 text Cấu trúc
+					1113 row
+						1114 cell
+							1115 text CAT-106
+						1116 cell
+							1117 text os_proposal_blocks
+						1118 cell
+							1119 text measurement_registry
+						1120 cell
+							1121 text Cấu trúc
+					1122 row
+						1123 cell
+							1124 text CAT-107
+						1125 cell
+							1126 text os_proposal_contacts
+						1127 cell
+							1128 text measurement_registry
+						1129 cell
+							1130 text Cấu trúc
+					1131 row
+						1132 cell
+							1133 text CAT-108
+						1134 cell
+							1135 text os_proposals
+						1136 cell
+							1137 text measurement_registry
+						1138 cell
+							1139 text Cấu trúc
+					1140 row
+						1141 cell
+							1142 text CAT-109
+						1143 cell
+							1144 text os_settings
+						1145 cell
+							1146 text measurement_registry
+						1147 cell
+							1148 text Cấu trúc
+					1149 row
+						1150 cell
+							1151 text CAT-110
+						1152 cell
+							1153 text os_task_files
+						1154 cell
+							1155 text measurement_registry
+						1156 cell
+							1157 text Cấu trúc
+					1158 row
+						1159 cell
+							1160 text CAT-111
+						1161 cell
+							1162 text os_tasks
+						1163 cell
+							1164 text measurement_registry
+						1165 cell
+							1166 text Cấu trúc
+					1167 row
+						1168 cell
+							1169 text CAT-112
+						1170 cell
+							1171 text os_tax_rates
+						1172 cell
+							1173 text measurement_registry
+						1174 cell
+							1175 text Cấu trúc
+					1176 row
+						1177 cell
+							1178 text CAT-113
+						1179 cell
+							1180 text page_blocks
+						1181 cell
+							1182 text measurement_registry
+						1183 cell
+							1184 text Cấu trúc
+					1185 row
+						1186 cell
+							1187 text CAT-114
+						1188 cell
+							1189 text pages
+						1190 cell
+							1191 text measurement_registry
+						1192 cell
+							1193 text Cấu trúc
+					1194 row
+						1195 cell
+							1196 text CAT-115
+						1197 cell
+							1198 text pages_blocks
+						1199 cell
+							1200 text measurement_registry
+						1201 cell
+							1202 text Cấu trúc
+					1203 row
+						1204 cell
+							1205 text CAT-116
+						1206 cell
+							1207 text pages_blog
+						1208 cell
+							1209 text measurement_registry
+						1210 cell
+							1211 text Cấu trúc
+					1212 row
+						1213 cell
+							1214 text CAT-117
+						1215 cell
+							1216 text pages_projects
+						1217 cell
+							1218 text measurement_registry
+						1219 cell
+							1220 text Cấu trúc
+					1221 row
+						1222 cell
+							1223 text CAT-118
+						1224 cell
+							1225 text pages_translations
+						1226 cell
+							1227 text measurement_registry
+						1228 cell
+							1229 text Cấu trúc
+					1230 row
+						1231 cell
+							1232 text CAT-119
+						1233 cell
+							1234 text _permissions_backup_s132c
+						1235 cell
+							1236 text measurement_registry
+						1237 cell
+							1238 text Cấu trúc
+					1239 row
+						1240 cell
+							1241 text CAT-120
+						1242 cell
+							1243 text post_gallery_items
+						1244 cell
+							1245 text measurement_registry
+						1246 cell
+							1247 text Cấu trúc
+					1248 row
+						1249 cell
+							1250 text CAT-121
+						1251 cell
+							1252 text posts
+						1253 cell
+							1254 text measurement_registry
+						1255 cell
+							1256 text Cấu trúc
+					1257 row
+						1258 cell
+							1259 text CAT-122
+						1260 cell
+							1261 text redirects
+						1262 cell
+							1263 text measurement_registry
+						1264 cell
+							1265 text Cấu trúc
+					1266 row
+						1267 cell
+							1268 text CAT-123
+						1269 cell
+							1270 text sales
+						1271 cell
+							1272 text measurement_registry
+						1273 cell
+							1274 text Cấu trúc
+					1275 row
+						1276 cell
+							1277 text CAT-124
+						1278 cell
+							1279 text seo
+						1280 cell
+							1281 text measurement_registry
+						1282 cell
+							1283 text Cấu trúc
+					1284 row
+						1285 cell
+							1286 text CAT-125
+						1287 cell
+							1288 text task_checkpoints
+						1289 cell
+							1290 text measurement_registry
+						1291 cell
+							1292 text Cấu trúc
+					1293 row
+						1294 cell
+							1295 text CAT-126
+						1296 cell
+							1297 text taxonomy_facets
+						1298 cell
+							1299 text measurement_registry
+						1300 cell
+							1301 text Cấu trúc
+					1302 row
+						1303 cell
+							1304 text CAT-127
+						1305 cell
+							1306 text taxonomy_matrix
+						1307 cell
+							1308 text measurement_registry
+						1309 cell
+							1310 text Cấu trúc
+					1311 row
+						1312 cell
+							1313 text CAT-128
+						1314 cell
+							1315 text team
+						1316 cell
+							1317 text measurement_registry
+						1318 cell
+							1319 text Cấu trúc
+					1320 row
+						1321 cell
+							1322 text CAT-129
+						1323 cell
+							1324 text testimonials
+						1325 cell
+							1326 text measurement_registry
+						1327 cell
+							1328 text Cấu trúc
+					1329 row
+						1330 cell
+							1331 text CAT-130
+						1332 cell
+							1333 text universal_edges
+						1334 cell
+							1335 text measurement_registry
+						1336 cell
+							1337 text Cấu trúc
+					1338 row
+						1339 cell
+							1340 text CAT-131
+						1341 cell
+							1342 text universal_rule_registry
+						1343 cell
+							1344 text measurement_registry
+						1345 cell
+							1346 text Cấu trúc
+					1347 row
+						1348 cell
+							1349 text CAT-132
+						1350 cell
+							1351 text universal_rule_run_results
+						1352 cell
+							1353 text measurement_registry
+						1354 cell
+							1355 text Cấu trúc
+					1356 row
+						1357 cell
+							1358 text CAT-133
+						1359 cell
+							1360 text universal_rule_runs
+						1361 cell
+							1362 text measurement_registry
+						1363 cell
+							1364 text Cấu trúc
+					1365 row
+						1366 cell
+							1367 text CAT-134
+						1368 cell
+							1369 text universal_rule_violations
+						1370 cell
+							1371 text measurement_registry
+						1372 cell
+							1373 text Cấu trúc
+					1374 row
+						1375 cell
+							1376 text CAT-135
+						1377 cell
+							1378 text v_registry_counts
+						1379 cell
+							1380 text measurement_registry
+						1381 cell
+							1382 text Cấu trúc
+					1383 row
+						1384 cell
+							1385 text CAT-136
+						1386 cell
+							1387 text v_registry_summary
+						1388 cell
+							1389 text measurement_registry
+						1390 cell
+							1391 text Cấu trúc
+					1392 row
+						1393 cell
+							1394 text CAT-137
+						1395 cell
+							1396 text website
+						1397 cell
+							1398 text measurement_registry
+						1399 cell
+							1400 text Cấu trúc
+					1401 row
+						1402 cell
+							1403 text CAT-138
+						1404 cell
+							1405 text workflow_categories
+						1406 cell
+							1407 text measurement_registry
+						1408 cell
+							1409 text Cấu trúc
+					1410 row
+						1411 cell
+							1412 text CAT-139
+						1413 cell
+							1414 text workflow_step_relations
+						1415 cell
+							1416 text measurement_registry
+						1417 cell
+							1418 text Cấu trúc
+					1419 row
+						1420 cell
+							1421 text CAT-140
+						1422 cell
+							1423 text law_catalog
+						1424 cell
+							1425 text measurement_registry
+						1426 cell
+							1427 text Cấu trúc
+					1428 row
+						1429 cell
+							1430 text CAT-141
+						1431 cell
+							1432 text measurement_log
+						1433 cell
+							1434 text measurement_registry
+						1435 cell
+							1436 text Cấu trúc
+					1437 row
+						1438 cell
+							1439 text CAT-142
+						1440 cell
+							1441 text measurement_registry
+						1442 cell
+							1443 text measurement_registry
+						1444 cell
+							1445 text Cấu trúc
+					1446 row
+						1447 cell
+							1448 text CAT-152
+						1449 cell
+							1450 text pivot_results
+						1451 cell
+							1452 text measurement_registry
+						1453 cell
+							1454 text Cấu trúc
+					1455 row
+						1456 cell
+							1457 text CAT-996
+						1458 cell
+							1459 text APR Action Types
+						1460 cell
+							1461 text measurement_registry
+						1462 cell
+							1463 text Cấu trúc
+					1464 row
+						1465 cell
+							1466 text CAT-997
+						1467 cell
+							1468 text APR Request Types
+						1469 cell
+							1470 text measurement_registry
+						1471 cell
+							1472 text Cấu trúc
+					1473 row
+						1474 cell
+							1475 text CAT-998
+						1476 cell
+							1477 text APR Approvals
+						1478 cell
+							1479 text measurement_registry
+						1480 cell
+							1481 text Cấu trúc
+					1482 row
+						1483 cell
+							1484 text CAT-999
+						1485 cell
+							1486 text Chưa phân loại
+						1487 cell
+							1488 text measurement_registry
+						1489 cell
+							1490 text Cấu trúc
+					1491 row
+						1492 cell
+							1493 text CAT-ALL
+						1494 cell
+							1495 text Tổng nguyên tử
+						1496 cell
+							1497 text measurement_registry
+						1498 cell
+							1499 text Cấu trúc
+					1500 row
+						1501 cell
+							1502 text CAT-BLD
+						1503 cell
+							1504 text Tổng công trình
+						1505 cell
+							1506 text measurement_registry
+						1507 cell
+							1508 text Cấu trúc
+					1509 row
+						1510 cell
+							1511 text CAT-CMP
+						1512 cell
+							1513 text Tổng hợp chất
+						1514 cell
+							1515 text measurement_registry
+						1516 cell
+							1517 text Cấu trúc
+					1518 row
+						1519 cell
+							1520 text CAT-COL
+						1521 cell
+							1522 text Tổng Collections
+						1523 cell
+							1524 text measurement_registry
+						1525 cell
+							1526 text Cấu trúc
+					1527 row
+						1528 cell
+							1529 text CAT-DOT
+						1530 cell
+							1531 text Tổng DOT Tools
+						1532 cell
+							1533 text measurement_registry
+						1534 cell
+							1535 text Cấu trúc
+					1536 row
+						1537 cell
+							1538 text CAT-MAT
+						1539 cell
+							1540 text Tổng vật liệu
+						1541 cell
+							1542 text measurement_registry
+						1543 cell
+							1544 text Cấu trúc
+					1545 row
+						1546 cell
+							1547 text CAT-MOL
+						1548 cell
+							1549 text Tổng phân tử
+						1550 cell
+							1551 text measurement_registry
+						1552 cell
+							1553 text Cấu trúc
+					1554 row
+						1555 cell
+							1556 text CAT-PRD
+						1557 cell
+							1558 text Tổng sản phẩm
+						1559 cell
+							1560 text measurement_registry
+						1561 cell
+							1562 text Cấu trúc
+					1563 row
+						1564 cell
+							1565 text CAT-SPE
+						1566 cell
+							1567 text Tổng loài
+						1568 cell
+							1569 text measurement_registry
+						1570 cell
+							1571 text Cấu trúc
+					1572 row
+						1573 cell
+							1574 text CMT
+						1575 cell
+							1576 text Bình luận
+						1577 cell
+							1578 text measurement_registry
+						1579 cell
+							1580 text Cấu trúc
+					1581 row
+						1582 cell
+							1583 text tbl_balo_function
+						1584 cell
+							1585 text Balo — Function
+						1586 cell
+							1587 text Bảng UI
+						1588 cell
+							1589 text Cấu trúc
+					1590 row
+						1591 cell
+							1592 text tbl_balo_table
+						1593 cell
+							1594 text Balo — Table
+						1595 cell
+							1596 text Bảng UI
+						1597 cell
+							1598 text Cấu trúc
+					1599 row
+						1600 cell
+							1601 text tbl_balo_trigger
+						1602 cell
+							1603 text Balo — Trigger
+						1604 cell
+							1605 text Bảng UI
+						1606 cell
+							1607 text Cấu trúc
+					1608 row
+						1609 cell
+							1610 text tbl_balo_view
+						1611 cell
+							1612 text Balo — View
+						1613 cell
+							1614 text Bảng UI
+						1615 cell
+							1616 text Cấu trúc
+					1617 row
+						1618 cell
+							1619 text tbl_checkpoint_instances
+						1620 cell
+							1621 text Checkpoint Instances
+						1622 cell
+							1623 text Bảng UI
+						1624 cell
+							1625 text Cấu trúc
+					1626 row
+						1627 cell
+							1628 text tbl_event_outbox
+						1629 cell
+							1630 text Hộp thư sự kiện
+						1631 cell
+							1632 text Bảng UI
+						1633 cell
+							1634 text Cấu trúc
+					1635 row
+						1636 cell
+							1637 text tbl_loai
+						1638 cell
+							1639 text Loài
+						1640 cell
+							1641 text Bảng UI
+						1642 cell
+							1643 text Cấu trúc
+					1644 row
+						1645 cell
+							1646 text tbl_meta_catalog
+						1647 cell
+							1648 text Danh mục hệ thống
+						1649 cell
+							1650 text Bảng UI
+						1651 cell
+							1652 text Cấu trúc
+					1653 row
+						1654 cell
+							1655 text tbl_modules_list
+						1656 cell
+							1657 text Danh sách modules
+						1658 cell
+							1659 text Bảng UI
+						1660 cell
+							1661 text Cấu trúc
+					1662 row
+						1663 cell
+							1664 text tbl_proposals_list
+						1665 cell
+							1666 text Danh sách đề xuất bảng
+						1667 cell
+							1668 text Bảng UI
+						1669 cell
+							1670 text Cấu trúc
+					1671 row
+						1672 cell
+							1673 text tbl_registry_agents
+						1674 cell
+							1675 text Agents
+						1676 cell
+							1677 text Bảng UI
+						1678 cell
+							1679 text Cấu trúc
+					1680 row
+						1681 cell
+							1682 text tbl_registry_changelog
+						1683 cell
+							1684 text Nhật ký thay đổi
+						1685 cell
+							1686 text Bảng UI
+						1687 cell
+							1688 text Cấu trúc
+					1689 row
+						1690 cell
+							1691 text tbl_registry_checkpoint_sets
+						1692 cell
+							1693 text Checkpoint Sets Registry
+						1694 cell
+							1695 text Bảng UI
+						1696 cell
+							1697 text Cấu trúc
+					1698 row
+						1699 cell
+							1700 text tbl_registry_checkpoint_types
+						1701 cell
+							1702 text Checkpoint Types Registry
+						1703 cell
+							1704 text Bảng UI
+						1705 cell
+							1706 text Cấu trúc
+					1707 row
+						1708 cell
+							1709 text tbl_registry_collections
+						1710 cell
+							1711 text Collections
+						1712 cell
+							1713 text Bảng UI
+						1714 cell
+							1715 text Cấu trúc
+					1716 row
+						1717 cell
+							1718 text tbl_registry_dot_tools
+						1719 cell
+							1720 text DOT Tools
+						1721 cell
+							1722 text Bảng UI
+						1723 cell
+							1724 text Cấu trúc
+					1725 row
+						1726 cell
+							1727 text tbl_registry_entity_dependencies
+						1728 cell
+							1729 text Entity Dependencies
+						1730 cell
+							1731 text Bảng UI
+						1732 cell
+							1733 text Cấu trúc
+					1734 row
+						1735 cell
+							1736 text tbl_registry_modules
+						1737 cell
+							1738 text Modules
+						1739 cell
+							1740 text Bảng UI
+						1741 cell
+							1742 text Cấu trúc
+					1743 row
+						1744 cell
+							1745 text tbl_registry_ui_pages
+						1746 cell
+							1747 text Pages/Routes
+						1748 cell
+							1749 text Bảng UI
+						1750 cell
+							1751 text Cấu trúc
+					1752 row
+						1753 cell
+							1754 text tbl_report_home
+						1755 cell
+							1756 text Reports Home
+						1757 cell
+							1758 text Bảng UI
+						1759 cell
+							1760 text Cấu trúc
+					1761 row
+						1762 cell
+							1763 text tbl_report_pg
+						1764 cell
+							1765 text PG Census
+						1766 cell
+							1767 text Bảng UI
+						1768 cell
+							1769 text Cấu trúc
+					1770 row
+						1771 cell
+							1772 text tbl_system_issues
+						1773 cell
+							1774 text Vấn đề hệ thống
+						1775 cell
+							1776 text Bảng UI
+						1777 cell
+							1778 text Cấu trúc
+					1779 row
+						1780 cell
+							1781 text tbl_table_registry
+						1782 cell
+							1783 text Danh sách bảng UI
+						1784 cell
+							1785 text Bảng UI
+						1786 cell
+							1787 text Cấu trúc
+					1788 row
+						1789 cell
+							1790 text tbl_tasks_list
+						1791 cell
+							1792 text Danh sách tasks
+						1793 cell
+							1794 text Bảng UI
+						1795 cell
+							1796 text Cấu trúc
+					1797 row
+						1798 cell
+							1799 text tbl_wcr_list
+						1800 cell
+							1801 text Danh sách đề xuất thay đổi
+						1802 cell
+							1803 text Bảng UI
+						1804 cell
+							1805 text Cấu trúc
+					1806 row
+						1807 cell
+							1808 text tbl_workflow_list
+						1809 cell
+							1810 text Danh sách quy trình
+						1811 cell
+							1812 text Bảng UI
+						1813 cell
+							1814 text Cấu trúc
+					1815 row
+						1816 cell
+							1817 text tbl_workflow_steps
+						1818 cell
+							1819 text Bảng bước chi tiết
+						1820 cell
+							1821 text Bảng UI
+						1822 cell
+							1823 text Cấu trúc
+					1824 row
+						1825 cell
+							1826 text tbl_workflow_timeline
+						1827 cell
+							1828 text Bảng rút gọn tiến trình
+						1829 cell
+							1830 text Bảng UI
+						1831 cell
+							1832 text Cấu trúc
+					1833 row
+						1834 cell
+							1835 text MOD-001
+						1836 cell
+							1837 text Comment System
+						1838 cell
+							1839 text Modules
+						1840 cell
+							1841 text Công cụ
+					1842 row
+						1843 cell
+							1844 text MOD-002
+						1845 cell
+							1846 text Workflow Engine
+						1847 cell
+							1848 text Modules
+						1849 cell
+							1850 text Công cụ
+					1851 row
+						1852 cell
+							1853 text MOD-003
+						1854 cell
+							1855 text Table Registry
+						1856 cell
+							1857 text Modules
+						1858 cell
+							1859 text Công cụ
+					1860 row
+						1861 cell
+							1862 text MOD-004
+						1863 cell
+							1864 text Tester
+						1865 cell
+							1866 text Modules
+						1867 cell
+							1868 text Công cụ
+					1869 row
+						1870 cell
+							1871 text MOD-005
+						1872 cell
+							1873 text Task Orchestration
+						1874 cell
+							1875 text Modules
+						1876 cell
+							1877 text Công cụ
+					1878 row
+						1879 cell
+							1880 text WF-001
+						1881 cell
+							1882 text Quy trình duyệt công việc
+						1883 cell
+							1884 text workflow_categories
+						1885 cell
+							1886 text Quy trình
+					1887 row
+						1888 cell
+							1889 text WF-002
+						1890 cell
+							1891 text Quy trình xử lý đơn hàng xuất khẩu (60 bước)
+						1892 cell
+							1893 text workflow_categories
+						1894 cell
+							1895 text Quy trình
+					1896 row
+						1897 cell
+							1898 text WF-003
+						1899 cell
+							1900 text Quy trình phái cử lao động sang Nhật Bản
+						1901 cell
+							1902 text workflow_categories
+						1903 cell
+							1904 text Quy trình
+					1905 row
+						1906 cell
+							1907 text ND-0001
+						1908 cell
+							1909 text Task Submitted
+						1910 cell
+							1911 text workflow_step_relations
+						1912 cell
+							1913 text Quy trình
+					1914 row
+						1915 cell
+							1916 text ND-0014
+						1917 cell
+							1918 text Nhận email đơn hàng
+						1919 cell
+							1920 text workflow_step_relations
+						1921 cell
+							1922 text Quy trình
+					1923 row
+						1924 cell
+							1925 text PC-010
+						1926 cell
+							1927 text Cấu hình công ty phái cử
+						1928 cell
+							1929 text workflow_step_relations
+						1930 cell
+							1931 text Quy trình
+					1932 row
+						1933 cell
+							1934 text PC-020
+						1935 cell
+							1936 text Người ký theo thời kỳ
+						1937 cell
+							1938 text workflow_step_relations
+						1939 cell
+							1940 text Quy trình
+					1941 row
+						1942 cell
+							1943 text ND-0002
+						1944 cell
+							1945 text Review Task
+						1946 cell
+							1947 text workflow_step_relations
+						1948 cell
+							1949 text Quy trình
+					1950 row
+						1951 cell
+							1952 text ND-0007
+						1953 cell
+							1954 text AI Review
+						1955 cell
+							1956 text workflow_step_relations
+						1957 cell
+							1958 text Quy trình
+					1959 row
+						1960 cell
+							1961 text PC-030
+						1962 cell
+							1963 text Ngày nghỉ lễ năm mới
+						1964 cell
+							1965 text workflow_step_relations
+						1966 cell
+							1967 text Quy trình
+					1968 row
+						1969 cell
+							1970 text ND-0017
+						1971 cell
+							1972 text Đơn hàng hợp lệ?
+						1973 cell
+							1974 text workflow_step_relations
+						1975 cell
+							1976 text Quy trình
+					1977 row
+						1978 cell
+							1979 text ND-0020
+						1980 cell
+							1981 text Nhập thông tin đơn hàng
+						1982 cell
+							1983 text workflow_step_relations
+						1984 cell
+							1985 text Quy trình
+					1986 row
+						1987 cell
+							1988 text PC-040
+						1989 cell
+							1990 text Thêm nghiệp đoàn
+						1991 cell
+							1992 text workflow_step_relations
+						1993 cell
+							1994 text Quy trình
+					1995 row
+						1996 cell
+							1997 text ND-0003
+						1998 cell
+							1999 text Approved?
+						2000 cell
+							2001 text workflow_step_relations
+						2002 cell
+							2003 text Quy trình
+					2004 row
+						2005 cell
+							2006 text PC-050
+						2007 cell
+							2008 text Hiệp định mới / gia hạn
+						2009 cell
+							2010 text workflow_step_relations
+						2011 cell
+							2012 text Quy trình
+					2013 row
+						2014 cell
+							2015 text ND-0015
+						2016 cell
+							2017 text AI phân loại đơn hàng
+						2018 cell
+							2019 text workflow_step_relations
+						2020 cell
+							2021 text Quy trình
+					2022 row
+						2023 cell
+							2024 text ND-0008
+						2025 cell
+							2026 text Pass?
+						2027 cell
+							2028 text workflow_step_relations
+						2029 cell
+							2030 text Quy trình
+					2031 row
+						2032 cell
+							2033 text ND-0004
+						2034 cell
+							2035 text Approved
+						2036 cell
+							2037 text workflow_step_relations
+						2038 cell
+							2039 text Quy trình
+					2040 row
+						2041 cell
+							2042 text ND-0013
+						2043 cell
+							2044 text Trưởng phòng duyệt đơn
+						2045 cell
+							2046 text workflow_step_relations
+						2047 cell
+							2048 text Quy trình
+					2049 row
+						2050 cell
+							2051 text PC-060
+						2052 cell
+							2053 text Thêm xí nghiệp
+						2054 cell
+							2055 text workflow_step_relations
+						2056 cell
+							2057 text Quy trình
+					2058 row
+						2059 cell
+							2060 text ND-0009
+						2061 cell
+							2062 text Approve
+						2063 cell
+							2064 text workflow_step_relations
+						2065 cell
+							2066 text Quy trình
+					2067 row
+						2068 cell
+							2069 text ND-0019
+						2070 cell
+							2071 text Gửi xác nhận khách hàng
+						2072 cell
+							2073 text workflow_step_relations
+						2074 cell
+							2075 text Quy trình
+					2076 row
+						2077 cell
+							2078 text PC-070
+						2079 cell
+							2080 text Mở đơn hàng mới
+						2081 cell
+							2082 text workflow_step_relations
+						2083 cell
+							2084 text Quy trình
+					2085 row
+						2086 cell
+							2087 text PC-080
+						2088 cell
+							2089 text Kết quả đăng ký hợp đồng cung ứng
+						2090 cell
+							2091 text workflow_step_relations
+						2092 cell
+							2093 text Quy trình
+					2094 row
+						2095 cell
+							2096 text ND-0011
+						2097 cell
+							2098 text Khách hàng VIP?
+						2099 cell
+							2100 text workflow_step_relations
+						2101 cell
+							2102 text Quy trình
+					2103 row
+						2104 cell
+							2105 text ND-0005
+						2106 cell
+							2107 text Rejected
+						2108 cell
+							2109 text workflow_step_relations
+						2110 cell
+							2111 text Quy trình
+					2112 row
+						2113 cell
+							2114 text ND-0016
+						2115 cell
+							2116 text Cập nhật CRM
+						2117 cell
+							2118 text workflow_step_relations
+						2119 cell
+							2120 text Quy trình
+					2121 row
+						2122 cell
+							2123 text PC-090
+						2124 cell
+							2125 text Xác nhận đã đăng website
+						2126 cell
+							2127 text workflow_step_relations
+						2128 cell
+							2129 text Quy trình
+					2130 row
+						2131 cell
+							2132 text ND-0010
+						2133 cell
+							2134 text Request Changes
+						2135 cell
+							2136 text workflow_step_relations
+						2137 cell
+							2138 text Quy trình
+					2139 row
+						2140 cell
+							2141 text ND-0006
+						2142 cell
+							2143 text Prepare Decision Packet
+						2144 cell
+							2145 text workflow_step_relations
+						2146 cell
+							2147 text Quy trình
+					2148 row
+						2149 cell
+							2150 text ND-0018
+						2151 cell
+							2152 text Truy vấn tồn kho
+						2153 cell
+							2154 text workflow_step_relations
+						2155 cell
+							2156 text Quy trình
+					2157 row
+						2158 cell
+							2159 text PC-100
+						2160 cell
+							2161 text Người lao động vào nguồn
+						2162 cell
+							2163 text workflow_step_relations
+						2164 cell
+							2165 text Quy trình
+					2166 row
+						2167 cell
+							2168 text ND-0012
+						2169 cell
+							2170 text Đủ hàng tồn kho?
+						2171 cell
+							2172 text workflow_step_relations
+						2173 cell
+							2174 text Quy trình
+					2175 row
+						2176 cell
+							2177 text PC-110
+						2178 cell
+							2179 text Thi tuyển & kết quả
+						2180 cell
+							2181 text workflow_step_relations
+						2182 cell
+							2183 text Quy trình
+					2184 row
+						2185 cell
+							2186 text ND-0021
+						2187 cell
+							2188 text AI dự báo nhu cầu
+						2189 cell
+							2190 text workflow_step_relations
+						2191 cell
+							2192 text Quy trình
+					2193 row
+						2194 cell
+							2195 text PC-120
+						2196 cell
+							2197 text ★ Kết quả thư phái cử — mốc gốc D0
+						2198 cell
+							2199 text workflow_step_relations
+						2200 cell
+							2201 text Quy trình
+					2202 row
+						2203 cell
+							2204 text ND-0023
+						2205 cell
+							2206 text Đặt hàng bổ sung
+						2207 cell
+							2208 text workflow_step_relations
+						2209 cell
+							2210 text Quy trình
+					2211 row
+						2212 cell
+							2213 text PC-130
+						2214 cell
+							2215 text Lập lớp giáo dục định hướng
+						2216 cell
+							2217 text workflow_step_relations
+						2218 cell
+							2219 text Quy trình
+					2220 row
+						2221 cell
+							2222 text PC-140
+						2223 cell
+							2224 text Hồ sơ ngoại · nhân thân mở rộng
+						2225 cell
+							2226 text workflow_step_relations
+						2227 cell
+							2228 text Quy trình
+					2229 row
+						2230 cell
+							2231 text ND-0029
+						2232 cell
+							2233 text Chờ nhà cung cấp xác nhận
+						2234 cell
+							2235 text workflow_step_relations
+						2236 cell
+							2237 text Quy trình
+					2238 row
+						2239 cell
+							2240 text ND-0024
+						2241 cell
+							2242 text Cập nhật số lượng tồn kho
+						2243 cell
+							2244 text workflow_step_relations
+						2245 cell
+							2246 text Quy trình
+					2247 row
+						2248 cell
+							2249 text PC-150
+						2250 cell
+							2251 text Hồ sơ ngoại · giấy tờ
+						2252 cell
+							2253 text workflow_step_relations
+						2254 cell
+							2255 text Quy trình
+					2256 row
+						2257 cell
+							2258 text PC-160
+						2259 cell
+							2260 text Điểm danh
+						2261 cell
+							2262 text workflow_step_relations
+						2263 cell
+							2264 text Quy trình
+					2265 row
+						2266 cell
+							2267 text ND-0026
+						2268 cell
+							2269 text Giám đốc duyệt đặt hàng
+						2270 cell
+							2271 text workflow_step_relations
+						2272 cell
+							2273 text Quy trình
+					2274 row
+						2275 cell
+							2276 text ND-0027
+						2277 cell
+							2278 text Tạo hóa đơn
+						2279 cell
+							2280 text workflow_step_relations
+						2281 cell
+							2282 text Quy trình
+					2283 row
+						2284 cell
+							2285 text PC-170
+						2286 cell
+							2287 text Nhập điểm thi
+						2288 cell
+							2289 text workflow_step_relations
+						2290 cell
+							2291 text Quy trình
+					2292 row
+						2293 cell
+							2294 text ND-0022
+						2295 cell
+							2296 text Kiểm tra công nợ
+						2297 cell
+							2298 text workflow_step_relations
+						2299 cell
+							2300 text Quy trình
+					2301 row
+						2302 cell
+							2303 text PC-180
+						2304 cell
+							2305 text Cấp giấy chứng nhận
+						2306 cell
+							2307 text workflow_step_relations
+						2308 cell
+							2309 text Quy trình
+					2310 row
+						2311 cell
+							2312 text PC-190
+						2313 cell
+							2314 text Khoá tiếng Nhật
+						2315 cell
+							2316 text workflow_step_relations
+						2317 cell
+							2318 text Quy trình
+					2319 row
+						2320 cell
+							2321 text ND-0025
+						2322 cell
+							2323 text Gửi hóa đơn cho khách
+						2324 cell
+							2325 text workflow_step_relations
+						2326 cell
+							2327 text Quy trình
+					2328 row
+						2329 cell
+							2330 text PC-200
+						2331 cell
+							2332 text COE & Visa
+						2333 cell
+							2334 text workflow_step_relations
+						2335 cell
+							2336 text Quy trình
+					2337 row
+						2338 cell
+							2339 text ND-0028
+						2340 cell
+							2341 text AI kiểm tra rủi ro thanh toán
+						2342 cell
+							2343 text workflow_step_relations
+						2344 cell
+							2345 text Quy trình
+					2346 row
+						2347 cell
+							2348 text PC-210
+						2349 cell
+							2350 text Chờ xuất cảnh quá hạn
+						2351 cell
+							2352 text workflow_step_relations
+						2353 cell
+							2354 text Quy trình
+					2355 row
+						2356 cell
+							2357 text ND-0030
+						2358 cell
+							2359 text Kế toán trưởng duyệt
+						2360 cell
+							2361 text workflow_step_relations
+						2362 cell
+							2363 text Quy trình
+					2364 row
+						2365 cell
+							2366 text ND-0031
+						2367 cell
+							2368 text Song song xử lý thuế & phí
+						2369 cell
+							2370 text workflow_step_relations
+						2371 cell
+							2372 text Quy trình
+					2373 row
+						2374 cell
+							2375 text PC-220
+						2376 cell
+							2377 text ★ Ngày xuất cảnh
+						2378 cell
+							2379 text workflow_step_relations
+						2380 cell
+							2381 text Quy trình
+					2382 row
+						2383 cell
+							2384 text ND-0035
+						2385 cell
+							2386 text Thu thập chứng từ thuế
+						2387 cell
+							2388 text workflow_step_relations
+						2389 cell
+							2390 text Quy trình
+					2391 row
+						2392 cell
+							2393 text PC-230
+						2394 cell
+							2395 text Khai báo xuất cảnh với Dolab
+						2396 cell
+							2397 text workflow_step_relations
+						2398 cell
+							2399 text Quy trình
+					2400 row
+						2401 cell
+							2402 text ND-0036
+						2403 cell
+							2404 text Ghi nhận thanh toán
+						2405 cell
+							2406 text workflow_step_relations
+						2407 cell
+							2408 text Quy trình
+					2409 row
+						2410 cell
+							2411 text PC-240
+						2412 cell
+							2413 text Về nước & thanh lý
+						2414 cell
+							2415 text workflow_step_relations
+						2416 cell
+							2417 text Quy trình
+					2418 row
+						2419 cell
+							2420 text ND-0037
+						2421 cell
+							2422 text Đối soát ngân hàng?
+						2423 cell
+							2424 text workflow_step_relations
+						2425 cell
+							2426 text Quy trình
+					2427 row
+						2428 cell
+							2429 text PC-250
+						2430 cell
+							2431 text Kiểm và lưu hồ sơ theo đơn hàng
+						2432 cell
+							2433 text workflow_step_relations
+						2434 cell
+							2435 text Quy trình
+					2436 row
+						2437 cell
+							2438 text ND-0039
+						2439 cell
+							2440 text Ban giám đốc duyệt khoản lớn
+						2441 cell
+							2442 text workflow_step_relations
+						2443 cell
+							2444 text Quy trình
+					2445 row
+						2446 cell
+							2447 text PC-260
+						2448 cell
+							2449 text Thông báo tuyển & yêu cầu thi tuyển
+						2450 cell
+							2451 text workflow_step_relations
+						2452 cell
+							2453 text Quy trình
+					2454 row
+						2455 cell
+							2456 text ND-0032
+						2457 cell
+							2458 text Lập phiếu xuất kho
+						2459 cell
+							2460 text workflow_step_relations
+						2461 cell
+							2462 text Quy trình
+					2463 row
+						2464 cell
+							2465 text PC-270
+						2466 cell
+							2467 text Thông báo trúng tuyển & cam kết chờ
+						2468 cell
+							2469 text workflow_step_relations
+						2470 cell
+							2471 text Quy trình
+					2472 row
+						2473 cell
+							2474 text PC-280
+						2475 cell
+							2476 text Đề xuất công nhận hoàn thành
+						2477 cell
+							2478 text workflow_step_relations
+						2479 cell
+							2480 text Quy trình
+					2481 row
+						2482 cell
+							2483 text ND-0038
+						2484 cell
+							2485 text Chọn hàng từ kho
+						2486 cell
+							2487 text workflow_step_relations
+						2488 cell
+							2489 text Quy trình
+					2490 row
+						2491 cell
+							2492 text PC-290
+						2493 cell
+							2494 text Quyết định công nhận
+						2495 cell
+							2496 text workflow_step_relations
+						2497 cell
+							2498 text Quy trình
+					2499 row
+						2500 cell
+							2501 text ND-0033
+						2502 cell
+							2503 text Hàng đặc biệt?
+						2504 cell
+							2505 text workflow_step_relations
+						2506 cell
+							2507 text Quy trình
+					2508 row
+						2509 cell
+							2510 text ND-0034
+						2511 cell
+							2512 text AI tối ưu đóng gói
+						2513 cell
+							2514 text workflow_step_relations
+						2515 cell
+							2516 text Quy trình
+					2517 row
+						2518 cell
+							2519 text PC-300
+						2520 cell
+							2521 text Quản lý ngoài nước
+						2522 cell
+							2523 text workflow_step_relations
+						2524 cell
+							2525 text Quy trình
+					2526 row
+						2527 cell
+							2528 text ND-0040
+						2529 cell
+							2530 text Chuẩn bị chứng từ XK
+						2531 cell
+							2532 text workflow_step_relations
+						2533 cell
+							2534 text Quy trình
+					2535 row
+						2536 cell
+							2537 text PC-310
+						2538 cell
+							2539 text Đòi phí quản lý & thanh toán
+						2540 cell
+							2541 text workflow_step_relations
+						2542 cell
+							2543 text Quy trình
+					2544 row
+						2545 cell
+							2546 text ND-0041
+						2547 cell
+							2548 text Song song kiểm hàng & chứng từ
+						2549 cell
+							2550 text workflow_step_relations
+						2551 cell
+							2552 text Quy trình
+					2553 row
+						2554 cell
+							2555 text PC-320
+						2556 cell
+							2557 text Nộp Quỹ Hỗ trợ việc làm ngoài nước
+						2558 cell
+							2559 text workflow_step_relations
+						2560 cell
+							2561 text Quy trình
+					2562 row
+						2563 cell
+							2564 text PC-330
+						2565 cell
+							2566 text Báo cáo định kỳ
+						2567 cell
+							2568 text workflow_step_relations
+						2569 cell
+							2570 text Quy trình
+					2571 row
+						2572 cell
+							2573 text ND-0049
+						2574 cell
+							2575 text Dán nhãn mã vạch
+						2576 cell
+							2577 text workflow_step_relations
+						2578 cell
+							2579 text Quy trình
+					2580 row
+						2581 cell
+							2582 text ND-0043
+						2583 cell
+							2584 text Quét kiểm tra mã vạch
+						2585 cell
+							2586 text workflow_step_relations
+						2587 cell
+							2588 text Quy trình
+					2589 row
+						2590 cell
+							2591 text PC-340
+						2592 cell
+							2593 text Giám sát tiến độ & cảnh báo
+						2594 cell
+							2595 text workflow_step_relations
+						2596 cell
+							2597 text Quy trình
+					2598 row
+						2599 cell
+							2600 text ND-0044
+						2601 cell
+							2602 text Chờ xe vận chuyển
+						2603 cell
+							2604 text workflow_step_relations
+						2605 cell
+							2606 text Quy trình
+					2607 row
+						2608 cell
+							2609 text PC-350
+						2610 cell
+							2611 text Cải tiến quy trình
+						2612 cell
+							2613 text workflow_step_relations
+						2614 cell
+							2615 text Quy trình
+					2616 row
+						2617 cell
+							2618 text ND-0050
+						2619 cell
+							2620 text Quản lý kho duyệt xuất
+						2621 cell
+							2622 text workflow_step_relations
+						2623 cell
+							2624 text Quy trình
+					2625 row
+						2626 cell
+							2627 text ND-0042
+						2628 cell
+							2629 text Lấy mẫu kiểm tra
+						2630 cell
+							2631 text workflow_step_relations
+						2632 cell
+							2633 text Quy trình
+					2634 row
+						2635 cell
+							2636 text ND-0048
+						2637 cell
+							2638 text AI phân tích chất lượng
+						2639 cell
+							2640 text workflow_step_relations
+						2641 cell
+							2642 text Quy trình
+					2643 row
+						2644 cell
+							2645 text ND-0045
+						2646 cell
+							2647 text Kiểm tra ngoại quan
+						2648 cell
+							2649 text workflow_step_relations
+						2650 cell
+							2651 text Quy trình
+					2652 row
+						2653 cell
+							2654 text ND-0047
+						2655 cell
+							2656 text Đạt tiêu chuẩn?
+						2657 cell
+							2658 text workflow_step_relations
+						2659 cell
+							2660 text Quy trình
+					2661 row
+						2662 cell
+							2663 text ND-0046
+						2664 cell
+							2665 text QC manager duyệt
+						2666 cell
+							2667 text workflow_step_relations
+						2668 cell
+							2669 text Quy trình
+					2670 row
+						2671 cell
+							2672 text ND-0051
+						2673 cell
+							2674 text Ghi nhận kết quả QC
+						2675 cell
+							2676 text workflow_step_relations
+						2677 cell
+							2678 text Quy trình
+					2679 row
+						2680 cell
+							2681 text ND-0060
+						2682 cell
+							2683 text AI so sánh lịch sử CL
+						2684 cell
+							2685 text workflow_step_relations
+						2686 cell
+							2687 text Quy trình
+					2688 row
+						2689 cell
+							2690 text ND-0053
+						2691 cell
+							2692 text Cập nhật báo cáo CL
+						2693 cell
+							2694 text workflow_step_relations
+						2695 cell
+							2696 text Quy trình
+					2697 row
+						2698 cell
+							2699 text ND-0054
+						2700 cell
+							2701 text Đóng gói theo quy cách
+						2702 cell
+							2703 text workflow_step_relations
+						2704 cell
+							2705 text Quy trình
+					2706 row
+						2707 cell
+							2708 text ND-0059
+						2709 cell
+							2710 text Cân đo đóng gói
+						2711 cell
+							2712 text workflow_step_relations
+						2713 cell
+							2714 text Quy trình
+					2715 row
+						2716 cell
+							2717 text ND-0055
+						2718 cell
+							2719 text Song song booking tàu & bảo hiểm
+						2720 cell
+							2721 text workflow_step_relations
+						2722 cell
+							2723 text Quy trình
+					2724 row
+						2725 cell
+							2726 text ND-0056
+						2727 cell
+							2728 text Lập vận đơn
+						2729 cell
+							2730 text workflow_step_relations
+						2731 cell
+							2732 text Quy trình
+					2733 row
+						2734 cell
+							2735 text ND-0058
+						2736 cell
+							2737 text In chứng từ vận chuyển
+						2738 cell
+							2739 text workflow_step_relations
+						2740 cell
+							2741 text Quy trình
+					2742 row
+						2743 cell
+							2744 text ND-0052
+						2745 cell
+							2746 text Container đúng quy cách?
+						2747 cell
+							2748 text workflow_step_relations
+						2749 cell
+							2750 text Quy trình
+					2751 row
+						2752 cell
+							2753 text ND-0057
+						2754 cell
+							2755 text Chờ thông quan
+						2756 cell
+							2757 text workflow_step_relations
+						2758 cell
+							2759 text Quy trình
+					2760 row
+						2761 cell
+							2762 text ND-0061
+						2763 cell
+							2764 text Giao hàng cho hãng tàu
+						2765 cell
+							2766 text workflow_step_relations
+						2767 cell
+							2768 text Quy trình
+					2769 row
+						2770 cell
+							2771 text ND-0064
+						2772 cell
+							2773 text Đại diện XK duyệt giao hàng
+						2774 cell
+							2775 text workflow_step_relations
+						2776 cell
+							2777 text Quy trình
+					2778 row
+						2779 cell
+							2780 text ND-0067
+						2781 cell
+							2782 text Gửi thông báo giao hàng
+						2783 cell
+							2784 text workflow_step_relations
+						2785 cell
+							2786 text Quy trình
+					2787 row
+						2788 cell
+							2789 text ND-0065
+						2790 cell
+							2791 text AI tổng hợp báo cáo
+						2792 cell
+							2793 text workflow_step_relations
+						2794 cell
+							2795 text Quy trình
+					2796 row
+						2797 cell
+							2798 text ND-0063
+						2799 cell
+							2800 text Cập nhật trạng thái đơn hàng
+						2801 cell
+							2802 text workflow_step_relations
+						2803 cell
+							2804 text Quy trình
+					2805 row
+						2806 cell
+							2807 text ND-0066
+						2808 cell
+							2809 text Lưu trữ chứng từ
+						2810 cell
+							2811 text workflow_step_relations
+						2812 cell
+							2813 text Quy trình
+					2814 row
+						2815 cell
+							2816 text ND-0068
+						2817 cell
+							2818 text Đơn hàng hoàn tất?
+						2819 cell
+							2820 text workflow_step_relations
+						2821 cell
+							2822 text Quy trình
+					2823 row
+						2824 cell
+							2825 text ND-0062
+						2826 cell
+							2827 text AI phân tích hiệu suất đơn
+						2828 cell
+							2829 text workflow_step_relations
+						2830 cell
+							2831 text Quy trình
+					2832 row
+						2833 cell
+							2834 text ND-0070
+						2835 cell
+							2836 text Đóng đơn hàng
+						2837 cell
+							2838 text workflow_step_relations
+						2839 cell
+							2840 text Quy trình
+					2841 row
+						2842 cell
+							2843 text ND-0069
+						2844 cell
+							2845 text Ban giám đốc duyệt báo cáo tổng
+						2846 cell
+							2847 text workflow_step_relations
+						2848 cell
+							2849 text Quy trình
+					2850 row
+						2851 cell
+							2852 text WCR-001
+						2853 cell
+							2854 text Insert preparation step after review task
+						2855 cell
+							2856 text Đề xuất thay đổi
+						2857 cell
+							2858 text Quy trình
+					2859 row
+						2860 cell
+							2861 text WCR-002
+						2862 cell
+							2863 text Insert AI review block before approval gateway
+						2864 cell
+							2865 text Đề xuất thay đổi
+						2866 cell
+							2867 text Quy trình
+					2868 row
+						2869 cell
+							2870 text WCR-003
+						2871 cell
+							2872 text Integrity orphan step test
+						2873 cell
+							2874 text Đề xuất thay đổi
+						2875 cell
+							2876 text Quy trình
+					2877 row
+						2878 cell
+							2879 text DOT-001
+						2880 cell
+							2881 text dot-agent-down
+						2882 cell
+							2883 text DOT Tools
+						2884 cell
+							2885 text Công cụ
+					2886 row
+						2887 cell
+							2888 text DOT-002
+						2889 cell
+							2890 text dot-agent-status
+						2891 cell
+							2892 text DOT Tools
+						2893 cell
+							2894 text Công cụ
+					2895 row
+						2896 cell
+							2897 text DOT-003
+						2898 cell
+							2899 text dot-agent-up
+						2900 cell
+							2901 text DOT Tools
+						2902 cell
+							2903 text Công cụ
+					2904 row
+						2905 cell
+							2906 text DOT-004
+						2907 cell
+							2908 text dot-ai-bridge-check
+						2909 cell
+							2910 text DOT Tools
+						2911 cell
+							2912 text Công cụ
+					2913 row
+						2914 cell
+							2915 text DOT-005
+						2916 cell
+							2917 text dot-ai-connect-all
+						2918 cell
+							2919 text DOT Tools
+						2920 cell
+							2921 text Công cụ
+					2922 row
+						2923 cell
+							2924 text DOT-006
+						2925 cell
+							2926 text dot-ai-gateway-setup
+						2927 cell
+							2928 text DOT Tools
+						2929 cell
+							2930 text Công cụ
+					2931 row
+						2932 cell
+							2933 text DOT-007
+						2934 cell
+							2935 text dot-ai-manifest
+						2936 cell
+							2937 text DOT Tools
+						2938 cell
+							2939 text Công cụ
+					2940 row
+						2941 cell
+							2942 text DOT-008
+						2943 cell
+							2944 text dot-ai-start
+						2945 cell
+							2946 text DOT Tools
+						2947 cell
+							2948 text Công cụ
+					2949 row
+						2950 cell
+							2951 text DOT-009
+						2952 cell
+							2953 text dot-ai-status
+						2954 cell
+							2955 text DOT Tools
+						2956 cell
+							2957 text Công cụ
+					2958 row
+						2959 cell
+							2960 text DOT-010
+						2961 cell
+							2962 text dot-ai-user-setup
+						2963 cell
+							2964 text DOT Tools
+						2965 cell
+							2966 text Công cụ
+					2967 row
+						2968 cell
+							2969 text DOT-011
+						2970 cell
+							2971 text dot-apply
+						2972 cell
+							2973 text DOT Tools
+						2974 cell
+							2975 text Công cụ
+					2976 row
+						2977 cell
+							2978 text DOT-012
+						2979 cell
+							2980 text dot-arch-check
+						2981 cell
+							2982 text DOT Tools
+						2983 cell
+							2984 text Công cụ
+					2985 row
+						2986 cell
+							2987 text DOT-013
+						2988 cell
+							2989 text dot-auth
+						2990 cell
+							2991 text DOT Tools
+						2992 cell
+							2993 text Công cụ
+					2994 row
+						2995 cell
+							2996 text DOT-014
+						2997 cell
+							2998 text dot-backup
+						2999 cell
+							3000 text DOT Tools
+						3001 cell
+							3002 text Công cụ
+					3003 row
+						3004 cell
+							3005 text DOT-015
+						3006 cell
+							3007 text dot-catalog-sync
+						3008 cell
+							3009 text DOT Tools
+						3010 cell
+							3011 text Công cụ
+					3012 row
+						3013 cell
+							3014 text DOT-016
+						3015 cell
+							3016 text dot-claude-restart
+						3017 cell
+							3018 text DOT Tools
+						3019 cell
+							3020 text Công cụ
+					3021 row
+						3022 cell
+							3023 text DOT-017
+						3024 cell
+							3025 text dot-clean-data
+						3026 cell
+							3027 text DOT Tools
+						3028 cell
+							3029 text Công cụ
+					3030 row
+						3031 cell
+							3032 text DOT-018
+						3033 cell
+							3034 text dot-content-approve
+						3035 cell
+							3036 text DOT Tools
+						3037 cell
+							3038 text Công cụ
+					3039 row
+						3040 cell
+							3041 text DOT-019
+						3042 cell
+							3043 text dot-content-create
+						3044 cell
+							3045 text DOT Tools
+						3046 cell
+							3047 text Công cụ
+					3048 row
+						3049 cell
+							3050 text DOT-020
+						3051 cell
+							3052 text dot-content-delete
+						3053 cell
+							3054 text DOT Tools
+						3055 cell
+							3056 text Công cụ
+					3057 row
+						3058 cell
+							3059 text DOT-021
+						3060 cell
+							3061 text dot-content-list
+						3062 cell
+							3063 text DOT Tools
+						3064 cell
+							3065 text Công cụ
+					3066 row
+						3067 cell
+							3068 text DOT-022
+						3069 cell
+							3070 text dot-content-update
+						3071 cell
+							3072 text DOT Tools
+						3073 cell
+							3074 text Công cụ
+					3075 row
+						3076 cell
+							3077 text DOT-023
+						3078 cell
+							3079 text dot-cost-audit
+						3080 cell
+							3081 text DOT Tools
+						3082 cell
+							3083 text Công cụ
+					3084 row
+						3085 cell
+							3086 text DOT-024
+						3087 cell
+							3088 text dot-e2e-test
+						3089 cell
+							3090 text DOT Tools
+						3091 cell
+							3092 text Công cụ
+					3093 row
+						3094 cell
+							3095 text DOT-025
+						3096 cell
+							3097 text dot-env-backup
+						3098 cell
+							3099 text DOT Tools
+						3100 cell
+							3101 text Công cụ
+					3102 row
+						3103 cell
+							3104 text DOT-026
+						3105 cell
+							3106 text dot-env-restore
+						3107 cell
+							3108 text DOT Tools
+						3109 cell
+							3110 text Công cụ
+					3111 row
+						3112 cell
+							3113 text DOT-027
+						3114 cell
+							3115 text dot-field-duplicate-check
+						3116 cell
+							3117 text DOT Tools
+						3118 cell
+							3119 text Công cụ
+					3120 row
+						3121 cell
+							3122 text DOT-028
+						3123 cell
+							3124 text dot-fix-gap3
+						3125 cell
+							3126 text DOT Tools
+						3127 cell
+							3128 text Công cụ
+					3129 row
+						3130 cell
+							3131 text DOT-029
+						3132 cell
+							3133 text dot-fix-knowledge-permissions
+						3134 cell
+							3135 text DOT Tools
+						3136 cell
+							3137 text Công cụ
+					3138 row
+						3139 cell
+							3140 text DOT-030
+						3141 cell
+							3142 text dot-fix-permissions
+						3143 cell
+							3144 text DOT Tools
+						3145 cell
+							3146 text Công cụ
+					3147 row
+						3148 cell
+							3149 text DOT-031
+						3150 cell
+							3151 text dot-flow-setup-registry-sync
+						3152 cell
+							3153 text DOT Tools
+						3154 cell
+							3155 text Công cụ
+					3156 row
+						3157 cell
+							3158 text DOT-032
+						3159 cell
+							3160 text dot-flow-setup-sync
+						3161 cell
+							3162 text DOT Tools
+						3163 cell
+							3164 text Công cụ
+					3165 row
+						3166 cell
+							3167 text DOT-033
+						3168 cell
+							3169 text dot-flow-setup-tasks-sync
+						3170 cell
+							3171 text DOT Tools
+						3172 cell
+							3173 text Công cụ
+					3174 row
+						3175 cell
+							3176 text DOT-034
+						3177 cell
+							3178 text dot-gemini-setup
+						3179 cell
+							3180 text DOT Tools
+						3181 cell
+							3182 text Công cụ
+					3183 row
+						3184 cell
+							3185 text DOT-035
+						3186 cell
+							3187 text dot-gpt-copy-spec
+						3188 cell
+							3189 text DOT Tools
+						3190 cell
+							3191 text Công cụ
+					3192 row
+						3193 cell
+							3194 text DOT-036
+						3195 cell
+							3196 text dot-gpt-setup
+						3197 cell
+							3198 text DOT Tools
+						3199 cell
+							3200 text Công cụ
+					3201 row
+						3202 cell
+							3203 text DOT-037
+						3204 cell
+							3205 text dot-health-check
+						3206 cell
+							3207 text DOT Tools
+						3208 cell
+							3209 text Công cụ
+					3210 row
+						3211 cell
+							3212 text DOT-038
+						3213 cell
+							3214 text dot-hook-deploy
+						3215 cell
+							3216 text DOT Tools
+						3217 cell
+							3218 text Công cụ
+					3219 row
+						3220 cell
+							3221 text DOT-039
+						3222 cell
+							3223 text dot-knowledge-info
+						3224 cell
+							3225 text DOT Tools
+						3226 cell
+							3227 text Công cụ
+					3228 row
+						3229 cell
+							3230 text DOT-040
+						3231 cell
+							3232 text dot-knowledge-ingest
+						3233 cell
+							3234 text DOT Tools
+						3235 cell
+							3236 text Công cụ
+					3237 row
+						3238 cell
+							3239 text DOT-041
+						3240 cell
+							3241 text dot-knowledge-ingest-batch
+						3242 cell
+							3243 text DOT Tools
+						3244 cell
+							3245 text Công cụ
+					3246 row
+						3247 cell
+							3248 text DOT-042
+						3249 cell
+							3250 text dot-knowledge-search
+						3251 cell
+							3252 text DOT Tools
+						3253 cell
+							3254 text Công cụ
+					3255 row
+						3256 cell
+							3257 text DOT-043
+						3258 cell
+							3259 text dot-knowledge-sync
+						3260 cell
+							3261 text DOT Tools
+						3262 cell
+							3263 text Công cụ
+					3264 row
+						3265 cell
+							3266 text DOT-044
+						3267 cell
+							3268 text dot-knowledge-sync-agentdata
+						3269 cell
+							3270 text DOT Tools
+						3271 cell
+							3272 text Công cụ
+					3273 row
+						3274 cell
+							3275 text DOT-045
+						3276 cell
+							3277 text dot-knowledge-sync-github
+						3278 cell
+							3279 text DOT Tools
+						3280 cell
+							3281 text Công cụ
+					3282 row
+						3283 cell
+							3284 text DOT-046
+						3285 cell
+							3286 text dot-local-down
+						3287 cell
+							3288 text DOT Tools
+						3289 cell
+							3290 text Công cụ
+					3291 row
+						3292 cell
+							3293 text DOT-047
+						3294 cell
+							3295 text dot-local-logs
+						3296 cell
+							3297 text DOT Tools
+						3298 cell
+							3299 text Công cụ
+					3300 row
+						3301 cell
+							3302 text DOT-048
+						3303 cell
+							3304 text dot-local-restart
+						3305 cell
+							3306 text DOT Tools
+						3307 cell
+							3308 text Công cụ
+					3309 row
+						3310 cell
+							3311 text DOT-049
+						3312 cell
+							3313 text dot-local-status
+						3314 cell
+							3315 text DOT Tools
+						3316 cell
+							3317 text Công cụ
+					3318 row
+						3319 cell
+							3320 text DOT-050
+						3321 cell
+							3322 text dot-local-up
+						3323 cell
+							3324 text DOT Tools
+						3325 cell
+							3326 text Công cụ
+					3327 row
+						3328 cell
+							3329 text DOT-051
+						3330 cell
+							3331 text dot-mcp-config-claude
+						3332 cell
+							3333 text DOT Tools
+						3334 cell
+							3335 text Công cụ
+					3336 row
+						3337 cell
+							3338 text DOT-052
+						3339 cell
+							3340 text dot-mcp-status
+						3341 cell
+							3342 text DOT Tools
+						3343 cell
+							3344 text Công cụ
+					3345 row
+						3346 cell
+							3347 text DOT-053
+						3348 cell
+							3349 text dot-mcp-stdio-restart
+						3350 cell
+							3351 text DOT Tools
+						3352 cell
+							3353 text Công cụ
+					3354 row
+						3355 cell
+							3356 text DOT-054
+						3357 cell
+							3358 text dot-mcp-verify
+						3359 cell
+							3360 text DOT Tools
+						3361 cell
+							3362 text Công cụ
+					3363 row
+						3364 cell
+							3365 text DOT-055
+						3366 cell
+							3367 text dot-metadata-audit
+						3368 cell
+							3369 text DOT Tools
+						3370 cell
+							3371 text Công cụ
+					3372 row
+						3373 cell
+							3374 text DOT-056
+						3375 cell
+							3376 text dot-metadata-fill
+						3377 cell
+							3378 text DOT Tools
+						3379 cell
+							3380 text Công cụ
+					3381 row
+						3382 cell
+							3383 text DOT-057
+						3384 cell
+							3385 text dot-nav-remove-item
+						3386 cell
+							3387 text DOT Tools
+						3388 cell
+							3389 text Công cụ
+					3390 row
+						3391 cell
+							3392 text DOT-058
+						3393 cell
+							3394 text dot-ops-status
+						3395 cell
+							3396 text DOT Tools
+						3397 cell
+							3398 text Công cụ
+					3399 row
+						3400 cell
+							3401 text DOT-059
+						3402 cell
+							3403 text dot-permission-ensure
+						3404 cell
+							3405 text DOT Tools
+						3406 cell
+							3407 text Công cụ
+					3408 row
+						3409 cell
+							3410 text DOT-060
+						3411 cell
+							3412 text dot-permissions-setup
+						3413 cell
+							3414 text DOT Tools
+						3415 cell
+							3416 text Công cụ
+					3417 row
+						3418 cell
+							3419 text DOT-061
+						3420 cell
+							3421 text dot-registry-populate
+						3422 cell
+							3423 text DOT Tools
+						3424 cell
+							3425 text Công cụ
+					3426 row
+						3427 cell
+							3428 text DOT-062
+						3429 cell
+							3430 text dot-rollback
+						3431 cell
+							3432 text DOT Tools
+						3433 cell
+							3434 text Công cụ
+					3435 row
+						3436 cell
+							3437 text DOT-063
+						3438 cell
+							3439 text dot-schema-apply
+						3440 cell
+							3441 text DOT Tools
+						3442 cell
+							3443 text Công cụ
+					3444 row
+						3445 cell
+							3446 text DOT-064
+						3447 cell
+							3448 text dot-schema-blog-ensure
+						3449 cell
+							3450 text DOT Tools
+						3451 cell
+							3452 text Công cụ
+					3453 row
+						3454 cell
+							3455 text DOT-065
+						3456 cell
+							3457 text dot-schema-checkpoints-ensure
+						3458 cell
+							3459 text DOT Tools
+						3460 cell
+							3461 text Công cụ
+					3462 row
+						3463 cell
+							3464 text DOT-066
+						3465 cell
+							3466 text dot-schema-comments-extend
+						3467 cell
+							3468 text DOT Tools
+						3469 cell
+							3470 text Công cụ
+					3471 row
+						3472 cell
+							3473 text DOT-067
+						3474 cell
+							3475 text dot-schema-diff
+						3476 cell
+							3477 text DOT Tools
+						3478 cell
+							3479 text Công cụ
+					3480 row
+						3481 cell
+							3482 text DOT-068
+						3483 cell
+							3484 text dot-schema-ensure
+						3485 cell
+							3486 text DOT Tools
+						3487 cell
+							3488 text Công cụ
+					3489 row
+						3490 cell
+							3491 text DOT-069
+						3492 cell
+							3493 text dot-schema-feedback-ensure
+						3494 cell
+							3495 text DOT Tools
+						3496 cell
+							3497 text Công cụ
+					3498 row
+						3499 cell
+							3500 text DOT-070
+						3501 cell
+							3502 text dot-schema-knowledge-ensure
+						3503 cell
+							3504 text DOT Tools
+						3505 cell
+							3506 text Công cụ
+					3507 row
+						3508 cell
+							3509 text DOT-071
+						3510 cell
+							3511 text dot-schema-meta-catalog-ensure
+						3512 cell
+							3513 text DOT Tools
+						3514 cell
+							3515 text Công cụ
+					3516 row
+						3517 cell
+							3518 text DOT-072
+						3519 cell
+							3520 text dot-schema-navigation-ensure
+						3521 cell
+							3522 text DOT Tools
+						3523 cell
+							3524 text Công cụ
+					3525 row
+						3526 cell
+							3527 text DOT-073
+						3528 cell
+							3529 text dot-schema-redirects-ensure
+						3530 cell
+							3531 text DOT Tools
+						3532 cell
+							3533 text Công cụ
+					3534 row
+						3535 cell
+							3536 text DOT-074
+						3537 cell
+							3538 text dot-schema-registry-collections-ensure
+						3539 cell
+							3540 text DOT Tools
+						3541 cell
+							3542 text Công cụ
+					3543 row
+						3544 cell
+							3545 text DOT-075
+						3546 cell
+							3547 text dot-schema-snapshot
+						3548 cell
+							3549 text DOT Tools
+						3550 cell
+							3551 text Công cụ
+					3552 row
+						3553 cell
+							3554 text DOT-076
+						3555 cell
+							3556 text dot-schema-table-proposals-ensure
+						3557 cell
+							3558 text DOT Tools
+						3559 cell
+							3560 text Công cụ
+					3561 row
+						3562 cell
+							3563 text DOT-077
+						3564 cell
+							3565 text dot-schema-table-registry-ensure
+						3566 cell
+							3567 text DOT Tools
+						3568 cell
+							3569 text Công cụ
+					3570 row
+						3571 cell
+							3572 text DOT-078
+						3573 cell
+							3574 text dot-schema-tasks-ensure
+						3575 cell
+							3576 text DOT Tools
+						3577 cell
+							3578 text Công cụ
+					3579 row
+						3580 cell
+							3581 text DOT-079
+						3582 cell
+							3583 text dot-schema-workflow-categories-ensure
+						3584 cell
+							3585 text DOT Tools
+						3586 cell
+							3587 text Công cụ
+					3588 row
+						3589 cell
+							3590 text DOT-080
+						3591 cell
+							3592 text dot-schema-workflow-governance-ensure
+						3593 cell
+							3594 text DOT Tools
+						3595 cell
+							3596 text Công cụ
+					3597 row
+						3598 cell
+							3599 text DOT-081
+						3600 cell
+							3601 text dot-schema-workflows-ensure
+						3602 cell
+							3603 text DOT Tools
+						3604 cell
+							3605 text Công cụ
+					3606 row
+						3607 cell
+							3608 text DOT-082
+						3609 cell
+							3610 text dot-seed-agency-os
+						3611 cell
+							3612 text DOT Tools
+						3613 cell
+							3614 text Công cụ
+					3615 row
+						3616 cell
+							3617 text DOT-083
+						3618 cell
+							3619 text dot-seed-knowledge-test
+						3620 cell
+							3621 text DOT Tools
+						3622 cell
+							3623 text Công cụ
+					3624 row
+						3625 cell
+							3626 text DOT-084
+						3627 cell
+							3628 text dot-spider
+						3629 cell
+							3630 text DOT Tools
+						3631 cell
+							3632 text Công cụ
+					3633 row
+						3634 cell
+							3635 text DOT-085
+						3636 cell
+							3637 text dot-start-all
+						3638 cell
+							3639 text DOT Tools
+						3640 cell
+							3641 text Công cụ
+					3642 row
+						3643 cell
+							3644 text DOT-086
+						3645 cell
+							3646 text dot-sync-check
+						3647 cell
+							3648 text DOT Tools
+						3649 cell
+							3650 text Công cụ
+					3651 row
+						3652 cell
+							3653 text DOT-087
+						3654 cell
+							3655 text dot-test-login
+						3656 cell
+							3657 text DOT Tools
+						3658 cell
+							3659 text Công cụ
+					3660 row
+						3661 cell
+							3662 text DOT-088
+						3663 cell
+							3664 text dot-token
+						3665 cell
+							3666 text DOT Tools
+						3667 cell
+							3668 text Công cụ
+					3669 row
+						3670 cell
+							3671 text DOT-089
+						3672 cell
+							3673 text dot-vector-audit
+						3674 cell
+							3675 text DOT Tools
+						3676 cell
+							3677 text Công cụ
+					3678 row
+						3679 cell
+							3680 text DOT-090
+						3681 cell
+							3682 text dot-vector-audit-schedule
+						3683 cell
+							3684 text DOT Tools
+						3685 cell
+							3686 text Công cụ
+					3687 row
+						3688 cell
+							3689 text DOT-091
+						3690 cell
+							3691 text dot-verify
+						3692 cell
+							3693 text DOT Tools
+						3694 cell
+							3695 text Công cụ
+					3696 row
+						3697 cell
+							3698 text DOT-092
+						3699 cell
+							3700 text dot-verify-ai-connections
+						3701 cell
+							3702 text DOT Tools
+						3703 cell
+							3704 text Công cụ
+					3705 row
+						3706 cell
+							3707 text DOT-093
+						3708 cell
+							3709 text dot-web28-complete
+						3710 cell
+							3711 text DOT Tools
+						3712 cell
+							3713 text Công cụ
+					3714 row
+						3715 cell
+							3716 text DOT-094
+						3717 cell
+							3718 text dot-flow-setup-auto-id
+						3719 cell
+							3720 text DOT Tools
+						3721 cell
+							3722 text Công cụ
+					3723 row
+						3724 cell
+							3725 text DOT-095
+						3726 cell
+							3727 text dot-orphan-scan
+						3728 cell
+							3729 text DOT Tools
+						3730 cell
+							3731 text Công cụ
+					3732 row
+						3733 cell
+							3734 text DOT-096
+						3735 cell
+							3736 text dot-registry-diff
+						3737 cell
+							3738 text DOT Tools
+						3739 cell
+							3740 text Công cụ
+					3741 row
+						3742 cell
+							3743 text DOT-097
+						3744 cell
+							3745 text dot-schema-checkpoint-node-identity
+						3746 cell
+							3747 text DOT Tools
+						3748 cell
+							3749 text Công cụ
+					3750 row
+						3751 cell
+							3752 text DOT-098
+						3753 cell
+							3754 text dot-dependency-scan
+						3755 cell
+							3756 text DOT Tools
+						3757 cell
+							3758 text Công cụ
+					3759 row
+						3760 cell
+							3761 text DOT-099
+						3762 cell
+							3763 text dot-fill-tool-descriptions
+						3764 cell
+							3765 text DOT Tools
+						3766 cell
+							3767 text Công cụ
+					3768 row
+						3769 cell
+							3770 text DOT-100
+						3771 cell
+							3772 text dot-flow-setup-count-refresh
+						3773 cell
+							3774 text DOT Tools
+						3775 cell
+							3776 text Công cụ
+					3777 row
+						3778 cell
+							3779 text DOT-101
+						3780 cell
+							3781 text dot-layer3-audit
+						3782 cell
+							3783 text DOT Tools
+						3784 cell
+							3785 text Công cụ
+					3786 row
+						3787 cell
+							3788 text DOT-102
+						3789 cell
+							3790 text dot-registries-verify
+						3791 cell
+							3792 text DOT Tools
+						3793 cell
+							3794 text Công cụ
+					3795 row
+						3796 cell
+							3797 text DOT-103
+						3798 cell
+							3799 text dot-registry-count-refresh
+						3800 cell
+							3801 text DOT Tools
+						3802 cell
+							3803 text Công cụ
+					3804 row
+						3805 cell
+							3806 text DOT-104
+						3807 cell
+							3808 text dot-registry-integrity-check
+						3809 cell
+							3810 text DOT Tools
+						3811 cell
+							3812 text Công cụ
+					3813 row
+						3814 cell
+							3815 text DOT-105
+						3816 cell
+							3817 text dot-schema-entity-dependencies-ensure
+						3818 cell
+							3819 text DOT Tools
+						3820 cell
+							3821 text Công cụ
+					3822 row
+						3823 cell
+							3824 text DOT-106
+						3825 cell
+							3826 text dot-selftest-registries
+						3827 cell
+							3828 text DOT Tools
+						3829 cell
+							3830 text Công cụ
+					3831 row
+						3832 cell
+							3833 text DOT-107
+						3834 cell
+							3835 text dot-schema-registry-changelog-ensure
+						3836 cell
+							3837 text DOT Tools
+						3838 cell
+							3839 text Công cụ
+					3840 row
+						3841 cell
+							3842 text DOT-108
+						3843 cell
+							3844 text dot-flow-setup-changelog
+						3845 cell
+							3846 text DOT Tools
+						3847 cell
+							3848 text Công cụ
+					3849 row
+						3850 cell
+							3851 text DOT-109
+						3852 cell
+							3853 text dot-production-truth-gate
+						3854 cell
+							3855 text DOT Tools
+						3856 cell
+							3857 text Công cụ
+					3858 row
+						3859 cell
+							3860 text DOT-110
+						3861 cell
+							3862 text dot-coverage-inspector
+						3863 cell
+							3864 text DOT Tools
+						3865 cell
+							3866 text Công cụ
+					3867 row
+						3868 cell
+							3869 text DOT-111
+						3870 cell
+							3871 text dot-entity-deprecate
+						3872 cell
+							3873 text DOT Tools
+						3874 cell
+							3875 text Công cụ
+					3876 row
+						3877 cell
+							3878 text DOT-112
+						3879 cell
+							3880 text dot-entity-retire
+						3881 cell
+							3882 text DOT Tools
+						3883 cell
+							3884 text Công cụ
+					3885 row
+						3886 cell
+							3887 text DOT-113
+						3888 cell
+							3889 text dot-pivot-declare
+						3890 cell
+							3891 text DOT Tools
+						3892 cell
+							3893 text Công cụ
+					3894 row
+						3895 cell
+							3896 text DOT-114
+						3897 cell
+							3898 text dot-pivot-health
+						3899 cell
+							3900 text DOT Tools
+						3901 cell
+							3902 text Công cụ
+					3903 row
+						3904 cell
+							3905 text DOT-115
+						3906 cell
+							3907 text dot-orphan-scanner
+						3908 cell
+							3909 text DOT Tools
+						3910 cell
+							3911 text Công cụ
+					3912 row
+						3913 cell
+							3914 text DOT-116
+						3915 cell
+							3916 text dot-misclass-scanner
+						3917 cell
+							3918 text DOT Tools
+						3919 cell
+							3920 text Công cụ
+					3921 row
+						3922 cell
+							3923 text DOT-117
+						3924 cell
+							3925 text dot-audit-create
+						3926 cell
+							3927 text DOT Tools
+						3928 cell
+							3929 text Công cụ
+					3930 row
+						3931 cell
+							3932 text DOT-118
+						3933 cell
+							3934 text dot-birth-backfill
+						3935 cell
+							3936 text DOT Tools
+						3937 cell
+							3938 text Công cụ
+					3939 row
+						3940 cell
+							3941 text DOT-119
+						3942 cell
+							3943 text dot-birth-trigger-setup
+						3944 cell
+							3945 text DOT Tools
+						3946 cell
+							3947 text Công cụ
+					3948 row
+						3949 cell
+							3950 text DOT-120
+						3951 cell
+							3952 text dot-collection-register
+						3953 cell
+							3954 text DOT Tools
+						3955 cell
+							3956 text Công cụ
+					3957 row
+						3958 cell
+							3959 text DOT-121
+						3960 cell
+							3961 text dot-id-collision-check
+						3962 cell
+							3963 text DOT Tools
+						3964 cell
+							3965 text Công cụ
+					3966 row
+						3967 cell
+							3968 text DOT-122
+						3969 cell
+							3970 text dot-inspect-pen
+						3971 cell
+							3972 text DOT Tools
+						3973 cell
+							3974 text Công cụ
+					3975 row
+						3976 cell
+							3977 text DOT-123
+						3978 cell
+							3979 text dot-label-trigger-setup
+						3980 cell
+							3981 text DOT Tools
+						3982 cell
+							3983 text Công cụ
+					3984 row
+						3985 cell
+							3986 text DOT-124
+						3987 cell
+							3988 text dot-layer-integrity-audit
+						3989 cell
+							3990 text DOT Tools
+						3991 cell
+							3992 text Công cụ
+					3993 row
+						3994 cell
+							3995 text DOT-125
+						3996 cell
+							3997 text dot-migration-s127d-legacy-origin
+						3998 cell
+							3999 text DOT Tools
+						4000 cell
+							4001 text Công cụ
+					4002 row
+						4003 cell
+							4004 text DOT-126
+						4005 cell
+							4006 text dot-migration-s128b-dead-links
+						4007 cell
+							4008 text DOT Tools
+						4009 cell
+							4010 text Công cụ
+					4011 row
+						4012 cell
+							4013 text DOT-127
+						4014 cell
+							4015 text dot-pg-audit-ensure
+						4016 cell
+							4017 text DOT Tools
+						4018 cell
+							4019 text Công cụ
+					4020 row
+						4021 cell
+							4022 text DOT-128
+						4023 cell
+							4024 text dot-pg-triggers-ensure
+						4025 cell
+							4026 text DOT Tools
+						4027 cell
+							4028 text Công cụ
+					4029 row
+						4030 cell
+							4031 text DOT-129
+						4032 cell
+							4033 text dot-pg-views-ensure
+						4034 cell
+							4035 text DOT Tools
+						4036 cell
+							4037 text Công cụ
+					4038 row
+						4039 cell
+							4040 text DOT-130
+						4041 cell
+							4042 text dot-registry-baseline-set
+						4043 cell
+							4044 text DOT Tools
+						4045 cell
+							4046 text Công cụ
+					4047 row
+						4048 cell
+							4049 text DOT-131
+						4050 cell
+							4051 text dot-registry-crosscheck
+						4052 cell
+							4053 text DOT Tools
+						4054 cell
+							4055 text Công cụ
+					4056 row
+						4057 cell
+							4058 text DOT-132
+						4059 cell
+							4060 text dot-registry-set-atom-groups
+						4061 cell
+							4062 text DOT Tools
+						4063 cell
+							4064 text Công cụ
+					4065 row
+						4066 cell
+							4067 text DOT-133
+						4068 cell
+							4069 text dot-schema-birth-registry-ensure
+						4070 cell
+							4071 text DOT Tools
+						4072 cell
+							4073 text Công cụ
+					4074 row
+						4075 cell
+							4076 text DOT-134
+						4077 cell
+							4078 text dot-schema-comments-ensure
+						4079 cell
+							4080 text DOT Tools
+						4081 cell
+							4082 text Công cụ
+					4083 row
+						4084 cell
+							4085 text DOT-135
+						4086 cell
+							4087 text dot-schema-dot-origin-ensure
+						4088 cell
+							4089 text DOT Tools
+						4090 cell
+							4091 text Công cụ
+					4092 row
+						4093 cell
+							4094 text DOT-136
+						4095 cell
+							4096 text dot-schema-meta-catalog-add-atom-group
+						4097 cell
+							4098 text DOT Tools
+						4099 cell
+							4100 text Công cụ
+					4101 row
+						4102 cell
+							4103 text DOT-137
+						4104 cell
+							4105 text dot-schema-meta-catalog-add-baseline
+						4106 cell
+							4107 text DOT Tools
+						4108 cell
+							4109 text Công cụ
+					4110 row
+						4111 cell
+							4112 text DOT-138
+						4113 cell
+							4114 text dot-schema-meta-catalog-add-composition
+						4115 cell
+							4116 text DOT Tools
+						4117 cell
+							4118 text Công cụ
+					4119 row
+						4120 cell
+							4121 text DOT-139
+						4122 cell
+							4123 text dot-schema-species-ensure
+						4124 cell
+							4125 text DOT Tools
+						4126 cell
+							4127 text Công cụ
+					4128 row
+						4129 cell
+							4130 text DOT-140
+						4131 cell
+							4132 text dot-schema-species-tree-ensure
+						4133 cell
+							4134 text DOT Tools
+						4135 cell
+							4136 text Công cụ
+					4137 row
+						4138 cell
+							4139 text DOT-141
+						4140 cell
+							4141 text dot-schema-system-issues-ensure
+						4142 cell
+							4143 text DOT Tools
+						4144 cell
+							4145 text Công cụ
+					4146 row
+						4147 cell
+							4148 text DOT-142
+						4149 cell
+							4150 text dot-schema-taxonomy-ensure
+						4151 cell
+							4152 text DOT Tools
+						4153 cell
+							4154 text Công cụ
+					4155 row
+						4156 cell
+							4157 text DOT-143
+						4158 cell
+							4159 text dot-schema-taxonomy-pg-apply
+						4160 cell
+							4161 text DOT Tools
+						4162 cell
+							4163 text Công cụ
+					4164 row
+						4165 cell
+							4166 text DOT-144
+						4167 cell
+							4168 text dot-schema-trigger-registry-ensure
+						4169 cell
+							4170 text DOT Tools
+						4171 cell
+							4172 text Công cụ
+					4173 row
+						4174 cell
+							4175 text DOT-145
+						4176 cell
+							4177 text dot-species-map
+						4178 cell
+							4179 text DOT Tools
+						4180 cell
+							4181 text Công cụ
+					4182 row
+						4183 cell
+							4184 text DOT-146
+						4185 cell
+							4186 text dot-species-register
+						4187 cell
+							4188 text DOT Tools
+						4189 cell
+							4190 text Công cụ
+					4191 row
+						4192 cell
+							4193 text DOT-147
+						4194 cell
+							4195 text dot-update-tool-categories-vn
+						4196 cell
+							4197 text DOT Tools
+						4198 cell
+							4199 text Công cụ
+					4200 row
+						4201 cell
+							4202 text DOT-148
+						4203 cell
+							4204 text dot-task-create
+						4205 cell
+							4206 text DOT Tools
+						4207 cell
+							4208 text Công cụ
+					4209 row
+						4210 cell
+							4211 text DOT-149
+						4212 cell
+							4213 text dot-task-update
+						4214 cell
+							4215 text DOT Tools
+						4216 cell
+							4217 text Công cụ
+					4218 row
+						4219 cell
+							4220 text DOT-150
+						4221 cell
+							4222 text dot-task-list
+						4223 cell
+							4224 text DOT Tools
+						4225 cell
+							4226 text Công cụ
+					4227 row
+						4228 cell
+							4229 text DOT-151
+						4230 cell
+							4231 text dot-task-close
+						4232 cell
+							4233 text DOT Tools
+						4234 cell
+							4235 text Công cụ
+					4236 row
+						4237 cell
+							4238 text DOT-152
+						4239 cell
+							4240 text dot-accuracy-verify
+						4241 cell
+							4242 text DOT Tools
+						4243 cell
+							4244 text Công cụ
+					4245 row
+						4246 cell
+							4247 text DOT-307
+						4248 cell
+							4249 text dot-pivot-virtual-create
+						4250 cell
+							4251 text DOT Tools
+						4252 cell
+							4253 text Công cụ
+					4254 row
+						4255 cell
+							4256 text DOT-308
+						4257 cell
+							4258 text dot-cron-pivot-setup
+						4259 cell
+							4260 text DOT Tools
+						4261 cell
+							4262 text Công cụ
+					4263 row
+						4264 cell
+							4265 text DOT-309
+						4266 cell
+							4267 text dot-apr-propose
+						4268 cell
+							4269 text DOT Tools
+						4270 cell
+							4271 text Công cụ
+					4272 row
+						4273 cell
+							4274 text DOT-310
+						4275 cell
+							4276 text dot-apr-execute
+						4277 cell
+							4278 text DOT Tools
+						4279 cell
+							4280 text Công cụ
+					4281 row
+						4282 cell
+							4283 text DOT-311
+						4284 cell
+							4285 text dot-apr-health
+						4286 cell
+							4287 text DOT Tools
+						4288 cell
+							4289 text Công cụ
+					4290 row
+						4291 cell
+							4292 text DOT-HEALTH-DOT
+						4293 cell
+							4294 text dot-dot-health
+						4295 cell
+							4296 text DOT Tools
+						4297 cell
+							4298 text Công cụ
+					4299 row
+						4300 cell
+							4301 text DOT-COVERAGE
+						4302 cell
+							4303 text dot-dot-coverage
+						4304 cell
+							4305 text DOT Tools
+						4306 cell
+							4307 text Công cụ
+					4308 row
+						4309 cell
+							4310 text DOT-REGISTER
+						4311 cell
+							4312 text dot-dot-register
+						4313 cell
+							4314 text DOT Tools
+						4315 cell
+							4316 text Công cụ
+					4317 row
+						4318 cell
+							4319 text DOT-COL-CREATE
+						4320 cell
+							4321 text dot-collection-create
+						4322 cell
+							4323 text DOT Tools
+						4324 cell
+							4325 text Công cụ
+					4326 row
+						4327 cell
+							4328 text DOT-COL-HEALTH
+						4329 cell
+							4330 text dot-collection-health
+						4331 cell
+							4332 text DOT Tools
+						4333 cell
+							4334 text Công cụ
+					4335 row
+						4336 cell
+							4337 text DOT-COL-SYNC
+						4338 cell
+							4339 text dot-collection-field-sync
+						4340 cell
+							4341 text DOT Tools
+						4342 cell
+							4343 text Công cụ
+					4344 row
+						4345 cell
+							4346 text DOT-312
+						4347 cell
+							4348 text dot-matrix-declare
+						4349 cell
+							4350 text DOT Tools
+						4351 cell
+							4352 text Công cụ
+					4353 row
+						4354 cell
+							4355 text DOT-313
+						4356 cell
+							4357 text dot-matrix-update
+						4358 cell
+							4359 text DOT Tools
+						4360 cell
+							4361 text Công cụ
+					4362 row
+						4363 cell
+							4364 text DOT-314
+						4365 cell
+							4366 text dot-matrix-retire
+						4367 cell
+							4368 text DOT Tools
+						4369 cell
+							4370 text Công cụ
+					4371 row
+						4372 cell
+							4373 text DOT-315
+						4374 cell
+							4375 text dot-matrix-health
+						4376 cell
+							4377 text DOT Tools
+						4378 cell
+							4379 text Công cụ
+					4380 row
+						4381 cell
+							4382 text DOT_BIRTH_BACKFILL
+						4383 cell
+							4384 text dot-birth-backfill
+						4385 cell
+							4386 text DOT Tools
+						4387 cell
+							4388 text Công cụ
+					4389 row
+						4390 cell
+							4391 text DOT_BIRTH_TRIGGER_SETUP
+						4392 cell
+							4393 text dot-birth-trigger-setup
+						4394 cell
+							4395 text DOT Tools
+						4396 cell
+							4397 text Công cụ
+					4398 row
+						4399 cell
+							4400 text DOT_COLLECTION_CREATE
+						4401 cell
+							4402 text dot-collection-create
+						4403 cell
+							4404 text DOT Tools
+						4405 cell
+							4406 text Công cụ
+					4407 row
+						4408 cell
+							4409 text DOT_COLLECTION_FIELD_SYNC
+						4410 cell
+							4411 text dot-collection-field-sync
+						4412 cell
+							4413 text DOT Tools
+						4414 cell
+							4415 text Công cụ
+					4416 row
+						4417 cell
+							4418 text DOT_COLLECTION_HEALTH
+						4419 cell
+							4420 text dot-collection-health
+						4421 cell
+							4422 text DOT Tools
+						4423 cell
+							4424 text Công cụ
+					4425 row
+						4426 cell
+							4427 text DOT_COLLECTION_REGISTER
+						4428 cell
+							4429 text dot-collection-register
+						4430 cell
+							4431 text DOT Tools
+						4432 cell
+							4433 text Công cụ
+					4434 row
+						4435 cell
+							4436 text DOT_FIELD_DUPLICATE_CHECK
+						4437 cell
+							4438 text dot-field-duplicate-check
+						4439 cell
+							4440 text DOT Tools
+						4441 cell
+							4442 text Công cụ
+					4443 row
+						4444 cell
+							4445 text DOT_MIGRATION_S127D_LEGACY_ORIGIN
+						4446 cell
+							4447 text dot-migration-s127d-legacy-origin
+						4448 cell
+							4449 text DOT Tools
+						4450 cell
+							4451 text Công cụ
+					4452 row
+						4453 cell
+							4454 text DOT_MIGRATION_S128B_DEAD_LINKS
+						4455 cell
+							4456 text dot-migration-s128b-dead-links
+						4457 cell
+							4458 text DOT Tools
+						4459 cell
+							4460 text Công cụ
+					4461 row
+						4462 cell
+							4463 text DOT_MIGRATION_S155_P1B
+						4464 cell
+							4465 text dot-migration-s155-p1b
+						4466 cell
+							4467 text DOT Tools
+						4468 cell
+							4469 text Công cụ
+					4470 row
+						4471 cell
+							4472 text DOT_SCHEMA_APPLY
+						4473 cell
+							4474 text dot-schema-apply
+						4475 cell
+							4476 text DOT Tools
+						4477 cell
+							4478 text Công cụ
+					4479 row
+						4480 cell
+							4481 text DOT_SCHEMA_BIRTH_REGISTRY_ENSURE
+						4482 cell
+							4483 text dot-schema-birth-registry-ensure
+						4484 cell
+							4485 text DOT Tools
+						4486 cell
+							4487 text Công cụ
+					4488 row
+						4489 cell
+							4490 text DOT_SCHEMA_BLOG_ENSURE
+						4491 cell
+							4492 text dot-schema-blog-ensure
+						4493 cell
+							4494 text DOT Tools
+						4495 cell
+							4496 text Công cụ
+					4497 row
+						4498 cell
+							4499 text DOT_SCHEMA_CHECKPOINT_NODE_IDENTITY
+						4500 cell
+							4501 text dot-schema-checkpoint-node-identity
+						4502 cell
+							4503 text DOT Tools
+						4504 cell
+							4505 text Công cụ
+					4506 row
+						4507 cell
+							4508 text DOT_SCHEMA_CHECKPOINTS_ENSURE
+						4509 cell
+							4510 text dot-schema-checkpoints-ensure
+						4511 cell
+							4512 text DOT Tools
+						4513 cell
+							4514 text Công cụ
+					4515 row
+						4516 cell
+							4517 text DOT_SCHEMA_COMMENTS_ENSURE
+						4518 cell
+							4519 text dot-schema-comments-ensure
+						4520 cell
+							4521 text DOT Tools
+						4522 cell
+							4523 text Công cụ
+					4524 row
+						4525 cell
+							4526 text DOT_SCHEMA_COMMENTS_EXTEND
+						4527 cell
+							4528 text dot-schema-comments-extend
+						4529 cell
+							4530 text DOT Tools
+						4531 cell
+							4532 text Công cụ
+					4533 row
+						4534 cell
+							4535 text DOT_SCHEMA_DIFF
+						4536 cell
+							4537 text dot-schema-diff
+						4538 cell
+							4539 text DOT Tools
+						4540 cell
+							4541 text Công cụ
+					4542 row
+						4543 cell
+							4544 text DOT_SCHEMA_DOT_ORIGIN_ENSURE
+						4545 cell
+							4546 text dot-schema-dot-origin-ensure
+						4547 cell
+							4548 text DOT Tools
+						4549 cell
+							4550 text Công cụ
+			4551 container
+				4552 link vps.incomexsaigoncorp.vn/
+				4553 button Theme
+				4554 heading MENU, Value: 2
+					4555 text MENU
+				4556 link vps.incomexsaigoncorp.vn/
+				4557 link vps.incomexsaigoncorp.vn/knowledge
+				4558 link vps.incomexsaigoncorp.vn/tools
+				4559 link vps.incomexsaigoncorp.vn/admin
+				4560 text Copyright © 1988 - 2026 
+				4561 link Description: Incomex AI Portal. , Value: vps.incomexsaigoncorp.vn/
+				4562 text All rights reserved.  Site powered by 
+				4563 link Description: Directus , Value: directus.io/?ref=agencyos_footer
+				4564 text and 
+				4565 link Description: Nuxt , Value: nuxt.com/?ref=agencyos_footer
+				4566 text .
+
+The focused UI element is 1 AXWebArea Tổng nguyên tử — Tất cả thực thể - Incomex AI Portal, URL: vps.incomexsaigoncorp.vn/knowledge/registries/all

@@ -1,0 +1,134 @@
+Browser tab: 14, Title: "MOIT — Làm sao input CHẠY THẬT vào DB (kiến trúc)", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-dataflow-v1.html".
+1 AXWebArea MOIT — Làm sao input CHẠY THẬT vào DB (kiến trúc), URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-dataflow-v1.html
+	2 container
+		3 text MOIT · Kiến trúc input chạy thật vào DB
+		4 link Description: MOIT Builder, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-builder-v1.html
+		5 link Description: Bộ công cụ MOT, Value: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-studio-v1.html
+	6 heading MOIT — làm sao UI linh hoạt lại ghi thẳng được vào DB?, Value: 1
+		7 text MOIT — làm sao UI linh hoạt lại ghi thẳng được vào DB?
+	8 container
+		9 text Câu hỏi cốt lõi: một thiết kế nhập liệu  linh hoạt như Studio  (kéo trường, đặt mấy cột mỗi hàng) làm sao  nối thẳng vào DB  và đẩy data vào sau khi Submit —  chạy thật  chứ không chỉ đẹp?
+	10 container
+		11 text Tin tốt:  lớp kết nối  đã có sẵn trong DB production  — không phải xây mới. Soi schema thật thấy:  field_registry ,  input_form_registry ,  binding_registry ,  collection_field_standards ,  trigger_registry . Việc của ta là cho UI  đọc/ghi  đúng các registry này.
+	12 text ① THIẾT KẾ (DESIGN-TIME) — STUDIO/MOIT BUILDER GHI VÀO 2 REGISTRY
+	13 heading field_registry, Value: 4
+		14 text field_registry
+	15 container
+		16 text Mỗi trường = 1 cột DB đã duyệt:  collection_code.name  ·  data_type  ·  interface  (widget Studio) ·  validation  ·  is_required  · owner=GOV-MOIT.
+	17 heading input_form_registry, Value: 4
+		18 text input_form_registry
+	19 container
+		20 text 1 form =  field_set  (thứ tự trường) +  form_schema  (layout: cụm + mấy cột/hàng) +  target_collection  +  routing  (direct/queue).
+	21 text ↓
+	22 text ② LẮP RÁP — DOT ASSEMBLY (KHÔNG PHẢI NUXT)
+	23 heading DOT đọc 2 registry → render contract, Value: 4
+		24 text DOT đọc 2 registry → render contract
+	25 text Kiểm field đã duyệt, ghép cấu trúc form + validation + layout. Thiếu field trong registry → không lắp được (chặn ngay từ thiết kế).
+	26 text ↓
+	27 text ③ CHẠY (RUN-TIME) — NUXT CHỈ RENDER
+	28 heading <MOITForm formId> · zero logic, Value: 4
+		29 text <MOITForm formId> · zero logic
+	30 container
+		31 text Nuxt fetch contract → render widget theo layout. Người nhập → Submit → gom  { field_code: value } . Nuxt KHÔNG ghi DB (Điều 28).
+	32 text ↓
+	33 text ④ GHI — DOT EXECUTOR (DOT-PAIR, ĐIỀU 33/NT12/NT13)
+	34 heading Validate (PG) → map field→cột → ghi, Value: 4
+		35 text Validate (PG) → map field→cột → ghi
+	36 container
+		37 text DOT kiểm lại theo  field_registry.validation , ánh xạ mỗi field_code → đúng cột, ghi qua DOT-pair (có audit, idempotent). Rẽ theo  routing :
+	38 text ↓
+	39 heading direct Ghi thẳng, Value: 4
+		40 text direct Ghi thẳng
+	41 container
+		42 text INSERT thẳng vào  target_collection  — bảng DB thật. Dùng khi cán bộ chuyên môn nhập số liệu thật.
+	43 heading queue Chờ xử lý, Value: 4
+		44 text queue Chờ xử lý
+	45 container
+		46 text INSERT vào  staging  + phát event → quy trình MOW duyệt/xử lý → mới nạp vào  target_collection .
+	47 container
+		48 text Vì sao UI linh hoạt vẫn nối thẳng được DB: Layout  (form_schema: mấy cột/hàng, cụm)  tách rời Binding  (field_registry: cột + kiểu + validation). Sắp xếp lại giao diện bao nhiêu tuỳ ý —  đường data vào DB không đổi , vì mỗi widget mang theo field_code trỏ cứng tới cột. Đây đúng nguyên lý "khung tách số liệu" của MOUT.
+	49 heading 3 câu hỏi của bạn → đã có chỗ trả lời, Value: 2
+		50 text 3 câu hỏi của bạn → đã có chỗ trả lời
+	51 table
+		52 row
+			53 cell
+				54 text VẤN ĐỀ BẠN NÊU
+			55 cell
+				56 text GIẢI BẰNG CÁI ĐÃ CÓ
+		57 row
+			58 cell
+				59 text 1.1 Tái dùng Studio nhất quán
+			60 cell
+				61 text Đúng. Widget Studio = 
+				62 text field_registry.interface
+				63 text  + template Điều 28.
+		64 row
+			65 cell
+				66 text 1.2 Trường phải có trong DB trước
+			67 cell
+				68 text Chính là 
+				69 text field_registry
+				70 text  (status=active, trỏ cột thật). Chưa đăng ký → không kéo lên form được.
+		71 row
+			72 cell
+				73 text 1.3 Lớp kết nối UI ↔ DB
+			74 cell
+				75 text field_registry
+				76 text  (field↔cột+widget+validation) + 
+				77 text input_form_registry
+				78 text  (form=trường+layout+target+routing) + DOT assembly + DOT ghi. Layout tách binding.
+		79 row
+			80 cell
+				81 text 1.4 Hai đường ghi nhất quán
+			82 cell
+				83 text 1 cờ 
+				84 text routing
+				85 text  (direct/queue) trong form contract — y hệt cơ chế 2 đường của MOT.
+	86 heading Giải từng bước (đề xuất), Value: 2
+		87 text Giải từng bước (đề xuất)
+	88 container
+		89 text 1 1
+	90 text Bước 1 — Buộc "Nhập gì?" vào field_registry (UI, làm ngay)
+	91 container
+		92 text Đổi picker trong MOIT builder: mỗi trường nhập = 1 field đã đăng ký (hiện cột DB + widget + validation + bắt buộc), thay nhãn tự do. Thêm công tắc  routing direct/queue  + hiện  target_collection .
+	93 container
+		94 text 2 2
+	95 text Bước 2 — Layout trong form_schema (tái dùng Studio L1–L4)
+	96 text Khai mấy cột/hàng + cụm vào form_schema; chứng minh layout ≠ binding.
+	97 container
+		98 text 3 3
+	99 text Bước 3 — Spec DOT assembly + DOT write
+	100 text Hợp đồng: đọc 2 registry → render contract; executor: {field_code:value}+routing → INSERT direct/staging. (Đặc tả, chưa code.)
+	101 container
+		102 text 4 4
+	103 text Bước 4 — Validation từ field_registry hiện trên form
+	104 text required/min-max/regex/enum/cross-field chạy ở PG trước khi ghi.
+	105 container
+		106 text 5 5
+	107 text Bước 5 — Trigger → sinh bản ghi → MOT giao việc
+	108 container
+		109 text Nối ô mô tả trigger với  trigger_registry  + workflow tạo bản ghi, gán người thực hiện theo tier/role.
+	110 container 4 Mẹ + Master
+		111 text 4 MẸ
+		112 button MOW ▾ Quy trình
+			113 text MOW
+			114 text ▾
+			115 text Quy trình
+		116 button MOT ▾ Công việc
+			117 text MOT
+			118 text ▾
+			119 text Công việc
+		120 button MOIT ▾ Nhập liệu
+			121 text MOIT
+			122 text ▾
+			123 text Nhập liệu
+		124 button MOUT ▾ Báo cáo
+			125 text MOUT
+			126 text ▾
+			127 text Báo cáo
+		128 button Master ▾ Tổng 4 Mẹ
+			129 text Master
+			130 text ▾
+			131 text Tổng 4 Mẹ
+
+The focused UI element is 1 AXWebArea MOIT — Làm sao input CHẠY THẬT vào DB (kiến trúc), URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-dataflow-v1.html

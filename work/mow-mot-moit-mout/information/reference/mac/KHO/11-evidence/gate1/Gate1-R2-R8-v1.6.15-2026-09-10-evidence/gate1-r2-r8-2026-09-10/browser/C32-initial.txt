@@ -1,0 +1,300 @@
+Browser tab: 14, Title: "Task Manager - Incomex AI Portal", URL: "https://vps.incomexsaigoncorp.vn/knowledge/current-tasks".
+1 AXWebArea Task Manager - Incomex AI Portal, URL: vps.incomexsaigoncorp.vn/knowledge/current-tasks
+	2 container
+		3 container
+			4 container
+				5 link Description: Incomex AI Portal, Value: vps.incomexsaigoncorp.vn/
+				6 container Global
+					7 link Description: Knowledge, Value: vps.incomexsaigoncorp.vn/knowledge
+					8 link Description: Modules, Value: vps.incomexsaigoncorp.vn/knowledge/modules
+					9 link Description: Tasks, Value: vps.incomexsaigoncorp.vn/knowledge/current-tasks
+					10 link Description: Reports, Value: vps.incomexsaigoncorp.vn/reports
+					11 link Description: Workflows, Value: vps.incomexsaigoncorp.vn/knowledge/workflows
+					12 link Description: Registries, Value: vps.incomexsaigoncorp.vn/knowledge/registries
+					13 link Description: Pivot, Value: vps.incomexsaigoncorp.vn/knowledge/pivot
+					14 link Description: Laws, Value: vps.incomexsaigoncorp.vn/knowledge/laws
+				15 button Theme
+				16 link Description: Let's Talk, Value: vps.incomexsaigoncorp.vn/contact-us
+				17 link Description: Login, Value: vps.incomexsaigoncorp.vn/auth/signin
+			18 heading Task Manager, Value: 1
+				19 text Task Manager
+			20 text Super Session collaborative task management
+			21 text Tìm kiếm
+			22 text field (settable)
+			23 text Status
+			24 pop up button (collapsed, settable) Value: Tất cả, Secondary Actions: Expand
+				25 menu
+					26 (selected) Tất cả
+					27 Draft
+					28 Active
+					29 In Review
+					30 Completed
+					31 Archived
+			32 heading Bộ lọc theo cột, Value: 4
+				33 text Bộ lọc theo cột
+			34 text Name
+			35 text field (settable)
+			36 text Priority
+			37 text field (settable)
+			38 text Assigned To
+			39 text field (settable)
+			40 checkbox Chỉ xem đã sao, Value: 0
+				41 image
+				42 text Chỉ xem đã sao
+			43 text 0 đã sao
+			44 container
+				45 heading Danh sách tasks, Value: 3
+					46 text Danh sách tasks
+				47 button Làm mới
+				48 table
+					49 row
+						50 cell
+							51 text STT
+						52 cell
+							53 text Name
+							54 button
+								55 image
+						56 cell
+							57 text Status
+							58 button
+								59 image
+						60 cell
+							61 text Priority
+							62 button
+								63 image
+						64 cell
+							65 text Assigned To
+							66 button
+								67 image
+						68 cell
+							69 text Deadline
+							70 button
+								71 image
+						72 cell
+							73 text Updated
+							74 button
+								75 image
+							76 button
+								77 image
+					78 row
+						79 cell
+							80 checkbox Description: Đánh dấu sao dòng này, Value: 0
+								81 image
+						82 cell
+							83 text 1
+							84 button
+								85 image
+							86 button
+								87 image
+						88 cell
+							89 text TASK-013: Mission 3.5 Automation Hardening
+						90 cell
+							91 text Active
+						92 cell
+							93 text High
+						94 cell
+							95 text claude_code
+						96 cell
+							97 text -
+						98 cell
+							99 text N/A
+					100 row
+						101 cell
+							102 checkbox Description: Đánh dấu sao dòng này, Value: 0
+								103 image
+						104 cell
+							105 text 2
+							106 button
+								107 image
+						108 cell
+							109 text Task Orchestration Module (M-005)
+						110 cell
+							111 text Active
+						112 cell
+							113 text High
+						114 cell
+							115 text Claude Desktop
+						116 cell
+							117 text -
+						118 cell
+							119 text N/A
+					120 row
+						121 cell
+							122 checkbox Description: Đánh dấu sao dòng này, Value: 0
+								123 image
+						124 cell
+							125 text 3
+							126 button
+								127 image
+						128 cell
+							129 text Auto Tester Module (M-004)
+						130 cell
+							131 text Active
+						132 cell
+							133 text -
+						134 cell
+							135 text Unassigned
+						136 cell
+							137 text -
+						138 cell
+							139 text N/A
+					140 row
+						141 cell
+							142 checkbox Description: Đánh dấu sao dòng này, Value: 0
+								143 image
+						144 cell
+							145 text 4
+							146 button
+								147 image
+						148 cell
+							149 text S146-M2: Fix v_registry_counts stale TABLE→VIEW
+						150 cell
+							151 text done
+						152 cell
+							153 text Critical
+						154 cell
+							155 text CLI
+						156 cell
+							157 text -
+						158 cell
+							159 text 29/03/2026
+					160 row
+						161 cell
+							162 checkbox Description: Đánh dấu sao dòng này, Value: 0
+								163 image
+						164 cell
+							165 text 5
+							166 button
+								167 image
+						168 cell
+							169 text S145-M5: Fix Registries Accuracy TD-432
+						170 cell
+							171 text done
+						172 cell
+							173 text Critical
+						174 cell
+							175 text CLI
+						176 cell
+							177 text -
+						178 cell
+							179 text 28/03/2026
+					180 row
+						181 cell
+							182 checkbox Description: Đánh dấu sao dòng này, Value: 0
+								183 image
+						184 cell
+							185 text 6
+							186 button
+								187 image
+						188 cell
+							189 text Workflow Module (M-002)
+						190 cell
+							191 text Active
+						192 cell
+							193 text -
+						194 cell
+							195 text claude_code
+						196 cell
+							197 text -
+						198 cell
+							199 text 05/03/2026
+					200 row
+						201 cell
+							202 checkbox Description: Đánh dấu sao dòng này, Value: 0
+								203 image
+						204 cell
+							205 text 7
+							206 button
+								207 image
+						208 cell
+							209 text Table Module (M-003)
+						210 cell
+							211 text Active
+						212 cell
+							213 text -
+						214 cell
+							215 text Unassigned
+						216 cell
+							217 text -
+						218 cell
+							219 text 05/03/2026
+					220 row
+						221 cell
+							222 checkbox Description: Đánh dấu sao dòng này, Value: 0
+								223 image
+						224 cell
+							225 text 8
+							226 button
+								227 image
+						228 cell
+							229 text P43: Xay dung Super Session Task Manager
+						230 cell
+							231 text Active
+						232 cell
+							233 text High
+						234 cell
+							235 text claude
+						236 cell
+							237 text 25/02/2026
+						238 cell
+							239 text 02/03/2026
+					240 row
+						241 cell
+							242 checkbox Description: Đánh dấu sao dòng này, Value: 0
+								243 image
+						244 cell
+							245 text 9
+							246 button
+								247 image
+						248 cell
+							249 text Comment Module (M-001)
+						250 cell
+							251 text Active
+						252 cell
+							253 text High
+						254 cell
+							255 text Unassigned
+						256 cell
+							257 text -
+						258 cell
+							259 text 28/02/2026
+					260 row
+						261 cell
+							262 checkbox Description: Đánh dấu sao dòng này, Value: 0
+								263 image
+						264 cell
+							265 text 10
+							266 button
+								267 image
+						268 cell
+							269 text [PLAN] WEB Integration Sprint — Nuxt ↔ Agency OS ↔ Directus
+						270 cell
+							271 text Draft
+						272 cell
+							273 text High
+						274 cell
+							275 text Unassigned
+						276 cell
+							277 text -
+						278 cell
+							279 text 27/02/2026
+				280 button (disabled) Trước
+				281 button (disabled) Tiếp
+			282 container
+				283 link vps.incomexsaigoncorp.vn/
+				284 button Theme
+				285 heading MENU, Value: 2
+					286 text MENU
+				287 link vps.incomexsaigoncorp.vn/
+				288 link vps.incomexsaigoncorp.vn/knowledge
+				289 link vps.incomexsaigoncorp.vn/tools
+				290 link vps.incomexsaigoncorp.vn/admin
+				291 text Copyright © 1988 - 2026 
+				292 link Description: Incomex AI Portal. , Value: vps.incomexsaigoncorp.vn/
+				293 text All rights reserved.  Site powered by 
+				294 link Description: Directus , Value: directus.io/?ref=agencyos_footer
+				295 text and 
+				296 link Description: Nuxt , Value: nuxt.com/?ref=agencyos_footer
+				297 text .
+
+The focused UI element is 1 AXWebArea Task Manager - Incomex AI Portal, URL: vps.incomexsaigoncorp.vn/knowledge/current-tasks

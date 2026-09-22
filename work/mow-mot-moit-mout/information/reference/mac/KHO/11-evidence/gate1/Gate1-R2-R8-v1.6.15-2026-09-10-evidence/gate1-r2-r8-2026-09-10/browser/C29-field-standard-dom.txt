@@ -1,0 +1,23 @@
+Incomex AI Portal
+Knowledge
+Modules
+Tasks
+Reports
+Workflows
+Registries
+Pivot
+Laws
+Let's Talk
+Login
+← Danh mục hệ thống
+LAYER 3
+Field Standards
+Active
+11 items
+
+CAT-1002 · Model A — Directus SSOT
+
+Chưa có bảng registry cho loại "collection_field_standard". Vui lòng liên hệ admin.
+MENU
+Copyright © 1988 - 2026 Incomex AI Portal. All rights reserved.
+ Site powered by Directus and Nuxt .

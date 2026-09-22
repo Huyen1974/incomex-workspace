@@ -1,0 +1,813 @@
+{
+  "buttons": [
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "Close",
+      "title": ""
+    },
+    {
+      "disabled": false,
+      "text": "",
+      "title": ""
+    }
+  ],
+  "forms": 0,
+  "links": [
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/",
+      "text": "Incomex AI Portal"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge",
+      "text": "Knowledge"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/modules",
+      "text": "Modules"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/current-tasks",
+      "text": "Tasks"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/reports",
+      "text": "Reports"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/workflows",
+      "text": "Workflows"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries",
+      "text": "Registries"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/pivot",
+      "text": "Pivot"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/laws",
+      "text": "Laws"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/contact-us",
+      "text": "Let's Talk"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/auth/signin",
+      "text": "Login"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge",
+      "text": " ← Trung tâm tri thức "
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/all",
+      "text": "All Entities"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/taxonomy",
+      "text": "Taxonomy 6x6"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/matrix",
+      "text": "Entity Matrix"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/species",
+      "text": "Species Matrix"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/changelog",
+      "text": "Changelog"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/CAT-ALL",
+      "text": "CAT-ALL"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/CAT-ALL",
+      "text": "Tổng nguyên tử"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/CAT-MOL",
+      "text": "CAT-MOL"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/CAT-MOL",
+      "text": "Tổng phân tử"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/CAT-CMP",
+      "text": "CAT-CMP"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/CAT-CMP",
+      "text": "Tổng hợp chất"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/CAT-MAT",
+      "text": "CAT-MAT"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/CAT-MAT",
+      "text": "Tổng vật liệu"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/CAT-PRD",
+      "text": "CAT-PRD"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/CAT-PRD",
+      "text": "Tổng sản phẩm"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/CAT-BLD",
+      "text": "CAT-BLD"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/CAT-BLD",
+      "text": "Tổng công trình"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/species",
+      "text": "CAT-SPE"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/species",
+      "text": "Phân loại loài(42 loài)"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/health",
+      "text": "CAT-ORP"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/health",
+      "text": "Mồ côi (Orphan)"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/health",
+      "text": "CAT-PHA"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/health",
+      "text": "Phantom"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/unmanaged",
+      "text": "CAT-UNM"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/unmanaged",
+      "text": "Không quản trị"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/system_issue",
+      "text": "CAT-017"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/system_issue",
+      "text": "Vấn đề Hệ thống"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/dot_tool",
+      "text": "DOT Tools"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/agent",
+      "text": "Agents"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/checkpoint_type",
+      "text": "Checkpoint Types"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/entity_dependency",
+      "text": "Entity Dependencies"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/trigger",
+      "text": "Trigger Registry"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/collection",
+      "text": "Loai thuc the"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/collection",
+      "text": "Species-Collection Map"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/collection",
+      "text": "Hang doi kiem dinh"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/collection",
+      "text": "So khai sinh"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/ai_support",
+      "text": "agent_views"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/ai_support",
+      "text": "ai_discussion_comments"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/ai_support",
+      "text": "ai_discussions"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/ai_support",
+      "text": "ai_tasks"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_button"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_button_group"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_button_groups"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_buttons"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_columns"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_columns_rows"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_cta"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_divider"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_faqs"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_form"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_gallery"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_gallery_files"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_hero"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_html"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_library"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_logocloud"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_logocloud_logos"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_quote"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_richtext"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "blocks"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_step_items"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_steps"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_team"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_testimonials"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_testimonial_slider_items"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/cms_block",
+      "text": "block_video"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/ai_support",
+      "text": "comments"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/governance_infra",
+      "text": "derived_objects_registry"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/directus_field",
+      "text": "directus_fields"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/ai_support",
+      "text": "doc_reviews"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/junction_table",
+      "text": "entity_labels"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/governance_infra",
+      "text": "governance_docs"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/ai_support",
+      "text": "knowledge_documents"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/governance_infra",
+      "text": "label_rules"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/dot_domain",
+      "text": "DOT Domains"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/collection_group",
+      "text": "Collection Groups"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/collection_field_standard",
+      "text": "Field Standards"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/dot_coverage",
+      "text": "DOT Coverage Required"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/dot_domain_rule",
+      "text": "DOT Domain Rules"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/field_type_equiv",
+      "text": "Field Type Equivalences"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/system_backup",
+      "text": "_permissions_backup_s132c"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/label_facet",
+      "text": "taxonomy_facets"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/junction_table",
+      "text": "taxonomy_matrix"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/governance_infra",
+      "text": "universal_edges"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/governance_infra",
+      "text": "universal_rule_registry"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/governance_infra",
+      "text": "universal_rule_run_results"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/governance_infra",
+      "text": "universal_rule_runs"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/governance_infra",
+      "text": "universal_rule_violations"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/apr_action_type",
+      "text": "APR Action Types"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/apr_request_type",
+      "text": "APR Request Types"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/comment",
+      "text": "Bình luận"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/catalog",
+      "text": "Danh mục hệ thống"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/table",
+      "text": "Bảng UI"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/workflow_step",
+      "text": "Bước quy trình"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/page",
+      "text": "Pages/Routes"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/collection",
+      "text": "Collections"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/checkpoint_set",
+      "text": "Checkpoint Sets"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/pivot_definition",
+      "text": "Pivot Definitions"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/business_support",
+      "text": "billing"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "categories"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/checkpoint_support",
+      "text": "checkpoint_rules"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/checkpoint_support",
+      "text": "checkpoint_set_items"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/checkpoint_support",
+      "text": "checkpoint_type_overrides"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/business_support",
+      "text": "contacts"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/business_support",
+      "text": "content_requests"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/business_support",
+      "text": "conversations"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/business_support",
+      "text": "feedbacks"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "forms"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "globals"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/help_center",
+      "text": "help"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/help_center",
+      "text": "help_articles"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/help_center",
+      "text": "help_collections"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/help_center",
+      "text": "help_feedback"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/business_support",
+      "text": "inbox"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "languages"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/business_support",
+      "text": "messages"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "navigation"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "navigation_items"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "navigation_navigation_items"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/business_support",
+      "text": "organization_addresses"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/business_support",
+      "text": "organizations"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/business_support",
+      "text": "organizations_contacts"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_page",
+      "text": "page_blocks"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_page",
+      "text": "pages"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_page",
+      "text": "pages_blocks"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_page",
+      "text": "pages_projects"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_page",
+      "text": "pages_translations"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "post_gallery_items"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "posts"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "redirects"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/business_support",
+      "text": "sales"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "seo"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/checkpoint_support",
+      "text": "task_checkpoints"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "team"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "testimonials"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_content",
+      "text": "website"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/workflow_step",
+      "text": "workflow_step_relations"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/pivot_result",
+      "text": "pivot_results"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/module",
+      "text": "Modules"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/workflow",
+      "text": "Quy trình"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/wcr",
+      "text": "Đề xuất thay đổi"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/task",
+      "text": "Tasks"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/approval_request",
+      "text": "Yeu cau Phe duyet"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_activities"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_activity_contacts"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_deal_contacts"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_deals"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_deal_stages"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_email_templates"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_expenses"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_invoice_items"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_invoices"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_items"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_payments"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_payment_terms"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_project_contacts"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_projects"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_project_templates"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_project_updates"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_proposal_approvals"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_proposal_blocks"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_proposal_contacts"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_proposals"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_settings"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_task_files"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_tasks"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/os_crm",
+      "text": "os_tax_rates"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/workflow",
+      "text": "workflow_categories"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/entity_rule",
+      "text": "law_catalog"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/catalog",
+      "text": "measurement_registry"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/apr_approval",
+      "text": "APR Approvals"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/dot_tool",
+      "text": "Phạm vi Kiểm tra"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/system_log",
+      "text": "lifecycle_log"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/website_page",
+      "text": "pages_blog"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge/registries/system_log",
+      "text": "measurement_log"
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/",
+      "text": ""
+    },
+    {
+      "href": "",
+      "text": ""
+    },
+    {
+      "href": "",
+      "text": ""
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/",
+      "text": ""
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/knowledge",
+      "text": ""
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/tools",
+      "text": ""
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/admin",
+      "text": ""
+    },
+    {
+      "href": "https://vps.incomexsaigoncorp.vn/",
+      "text": "Incomex AI Portal. "
+    },
+    {
+      "href": "https://www.directus.io/?ref=agencyos_footer",
+      "text": " Directus "
+    },
+    {
+      "href": "https://www.nuxt.com/?ref=agencyos_footer",
+      "text": " Nuxt "
+    }
+  ],
+  "text": "Incomex AI Portal\nKnowledge\nModules\nTasks\nReports\nWorkflows\nRegistries\nPivot\nLaws\nLet's Talk\nLogin\n← Trung tâm tri thức\nLAYER 1\nDanh mục hệ thống\n\nMeta-Catalog — Danh mục sống, đếm realtime bằng PG trigger. Click vào tên để xem chi tiết.\n\nAll Entities\nTaxonomy 6x6\nEntity Matrix\nSpecies Matrix\nChangelog\nSTT\tCode\tTên\tLớp\tSố lượng\tThành phần\t+\t-\tMồ côi\tXác minh\n1\tCAT-ALL\tTổng nguyên tử\tNguyên tử\t2141909\t20 loài\t+2108920\t0\t0\t✅\n2\tCAT-MOL\tTổng phân tử\tPhân tử\t843\t11 loài\t+198\t0\t0\t✅\n3\tCAT-CMP\tTổng hợp chất\tHợp chất\t447\t8 loài\t+126\t0\t0\t✅\n4\tCAT-MAT\tTổng vật liệu\tVật liệu\t0\t—\t0\t0\t0\t✅\n5\tCAT-PRD\tTổng sản phẩm\tSản phẩm\t0\t—\t0\t0\t0\t✅\n6\tCAT-BLD\tTổng công trình\tCông trình\t0\t—\t0\t0\t0\t✅\n7\tCAT-SPE\tPhân loại loài(42 loài)\tPhân loại\t229424\t42 loài\t0\t0\t0\t✅\n8\tCAT-ORP\tMồ côi (Orphan)\tSức khỏe\t26\t—\t0\t0\t1218964\t❌\n9\tCAT-PHA\tPhantom\tSức khỏe\t10\t—\t0\t0\t0\t❌\n10\tCAT-UNM\tKhông quản trị\tTham khảo\t127\t—\t0\t0\t0\t✅\n11\tCAT-017\tVấn đề Hệ thống\tSức khỏe\t226580\t8 nhóm\t0\t0\t220244\t❌\n12\tCAT-006\tDOT Tools\tNguyên tử\t314\t—\t+163\t0\t0\t✅\n13\tCAT-010\tAgents\tNguyên tử\t6\t—\t0\t0\t0\t✅\n14\tCAT-011\tCheckpoint Types\tNguyên tử\t31\t—\t0\t0\t0\t✅\n15\tCAT-013\tEntity Dependencies\tNguyên tử\t142\t—\t0\t0\t0\t✅\n16\tCAT-019\tTrigger Registry\tNguyên tử\t107\t—\t0\t0\t0\t✅\n17\tCAT-020\tLoai thuc the\tNguyên tử\t42\t—\t+7\t0\t0\t✅\n18\tCAT-021\tSpecies-Collection Map\tNguyên tử\t164\t—\t+18\t0\t0\t✅\n19\tCAT-022\tHang doi kiem dinh\tNguyên tử\t1\t—\t0\t0\t0\t✅\n20\tCAT-023\tSo khai sinh\tNguyên tử\t1218737\t—\t+1197688\t0\t0\t✅\n21\tCAT-026\tagent_views\tNguyên tử\t28\t—\t+2\t0\t0\t✅\n22\tCAT-027\tai_discussion_comments\tNguyên tử\t17\t—\t0\t0\t0\t✅\n23\tCAT-028\tai_discussions\tNguyên tử\t7\t—\t0\t0\t0\t✅\n24\tCAT-029\tai_tasks\tNguyên tử\t0\t—\t0\t0\t0\t✅\n25\tCAT-031\tblock_button\tNguyên tử\t0\t—\t0\t0\t0\t✅\n26\tCAT-032\tblock_button_group\tNguyên tử\t0\t—\t0\t0\t0\t✅\n27\tCAT-033\tblock_button_groups\tNguyên tử\t0\t—\t0\t0\t0\t✅\n28\tCAT-034\tblock_buttons\tNguyên tử\t0\t—\t0\t0\t0\t✅\n29\tCAT-035\tblock_columns\tNguyên tử\t0\t—\t0\t0\t0\t✅\n30\tCAT-036\tblock_columns_rows\tNguyên tử\t0\t—\t0\t0\t0\t✅\n31\tCAT-037\tblock_cta\tNguyên tử\t0\t—\t0\t0\t0\t✅\n32\tCAT-038\tblock_divider\tNguyên tử\t0\t—\t0\t0\t0\t✅\n33\tCAT-039\tblock_faqs\tNguyên tử\t0\t—\t0\t0\t0\t✅\n34\tCAT-040\tblock_form\tNguyên tử\t0\t—\t0\t0\t0\t✅\n35\tCAT-041\tblock_gallery\tNguyên tử\t0\t—\t0\t0\t0\t✅\n36\tCAT-042\tblock_gallery_files\tNguyên tử\t0\t—\t0\t0\t0\t✅\n37\tCAT-043\tblock_hero\tNguyên tử\t1\t—\t0\t0\t0\t✅\n38\tCAT-044\tblock_html\tNguyên tử\t0\t—\t0\t0\t0\t✅\n39\tCAT-045\tblock_library\tNguyên tử\t5\t—\t0\t0\t0\t✅\n40\tCAT-046\tblock_logocloud\tNguyên tử\t0\t—\t0\t0\t0\t✅\n41\tCAT-047\tblock_logocloud_logos\tNguyên tử\t0\t—\t0\t0\t0\t✅\n42\tCAT-048\tblock_quote\tNguyên tử\t0\t—\t0\t0\t0\t✅\n43\tCAT-049\tblock_richtext\tNguyên tử\t1\t—\t0\t0\t0\t✅\n44\tCAT-050\tblocks\tNguyên tử\t0\t—\t0\t0\t0\t✅\n45\tCAT-051\tblock_step_items\tNguyên tử\t0\t—\t0\t0\t0\t✅\n46\tCAT-052\tblock_steps\tNguyên tử\t0\t—\t0\t0\t0\t✅\n47\tCAT-053\tblock_team\tNguyên tử\t0\t—\t0\t0\t0\t✅\n48\tCAT-054\tblock_testimonials\tNguyên tử\t0\t—\t0\t0\t0\t✅\n49\tCAT-055\tblock_testimonial_slider_items\tNguyên tử\t0\t—\t0\t0\t0\t✅\n50\tCAT-056\tblock_video\tNguyên tử\t0\t—\t0\t0\t0\t✅\n51\tCAT-061\tcomments\tNguyên tử\t0\t—\t0\t0\t0\t✅\n52\tCAT-065\tderived_objects_registry\tNguyên tử\t7\t—\t0\t0\t0\t✅\n53\tCAT-066\tdirectus_fields\tNguyên tử\t1497\t—\t+131\t0\t0\t✅\n54\tCAT-067\tdoc_reviews\tNguyên tử\t3\t—\t0\t0\t0\t✅\n55\tCAT-068\tentity_labels\tNguyên tử\t906629\t—\t+901425\t0\t0\t✅\n56\tCAT-072\tgovernance_docs\tNguyên tử\t12\t—\t0\t0\t0\t✅\n57\tCAT-078\tknowledge_documents\tNguyên tử\t9621\t—\t+9208\t0\t0\t✅\n58\tCAT-079\tlabel_rules\tNguyên tử\t38\t—\t0\t0\t0\t✅\n59\tCAT-1000\tDOT Domains\tNguyên tử\t46\t—\t+46\t0\t0\t✅\n60\tCAT-1001\tCollection Groups\tNguyên tử\t9\t—\t+9\t0\t0\t✅\n61\tCAT-1002\tField Standards\tNguyên tử\t11\t—\t+11\t0\t0\t✅\n62\tCAT-1003\tDOT Coverage Required\tNguyên tử\t11\t—\t+11\t0\t0\t✅\n63\tCAT-1004\tDOT Domain Rules\tNguyên tử\t67\t—\t+67\t0\t0\t✅\n64\tCAT-1005\tField Type Equivalences\tNguyên tử\t4\t—\t+4\t0\t0\t✅\n65\tCAT-119\t_permissions_backup_s132c\tNguyên tử\t39\t—\t0\t0\t0\t✅\n66\tCAT-126\ttaxonomy_facets\tNguyên tử\t10\t—\t+4\t0\t0\t✅\n67\tCAT-127\ttaxonomy_matrix\tNguyên tử\t36\t—\t0\t0\t0\t✅\n68\tCAT-130\tuniversal_edges\tNguyên tử\t2269\t—\t+98\t0\t0\t✅\n69\tCAT-131\tuniversal_rule_registry\tNguyên tử\t10\t—\t0\t0\t0\t✅\n70\tCAT-132\tuniversal_rule_run_results\tNguyên tử\t130\t—\t0\t0\t0\t✅\n71\tCAT-133\tuniversal_rule_runs\tNguyên tử\t13\t—\t0\t0\t0\t✅\n72\tCAT-134\tuniversal_rule_violations\tNguyên tử\t1741\t—\t0\t0\t0\t✅\n73\tCAT-996\tAPR Action Types\tNguyên tử\t14\t—\t+14\t0\t0\t✅\n74\tCAT-997\tAPR Request Types\tNguyên tử\t14\t—\t+14\t0\t0\t✅\n75\tCMT\tBình luận\tNguyên tử\t75\t—\t0\t0\t0\t✅\n76\tCAT-000\tDanh mục hệ thống\tPhân tử\t169\t—\t+17\t0\t0\t✅\n77\tCAT-001\tBảng UI\tPhân tử\t28\t—\t+8\t0\t0\t✅\n78\tCAT-004\tBước quy trình\tPhân tử\t105\t—\t+35\t0\t0\t✅\n79\tCAT-007\tPages/Routes\tPhân tử\t37\t—\t0\t0\t0\t✅\n80\tCAT-008\tCollections\tPhân tử\t168\t—\t+23\t0\t0\t✅\n81\tCAT-012\tCheckpoint Sets\tPhân tử\t2\t—\t0\t0\t0\t✅\n82\tCAT-024\tPivot Definitions\tPhân tử\t39\t—\t+12\t0\t0\t✅\n83\tCAT-030\tbilling\tPhân tử\t0\t—\t0\t0\t0\t✅\n84\tCAT-057\tcategories\tPhân tử\t1\t—\t0\t0\t0\t✅\n85\tCAT-058\tcheckpoint_rules\tPhân tử\t7\t—\t0\t0\t0\t✅\n86\tCAT-059\tcheckpoint_set_items\tPhân tử\t6\t—\t0\t0\t0\t✅\n87\tCAT-060\tcheckpoint_type_overrides\tPhân tử\t0\t—\t0\t0\t0\t✅\n88\tCAT-062\tcontacts\tPhân tử\t0\t—\t0\t0\t0\t✅\n89\tCAT-063\tcontent_requests\tPhân tử\t2\t—\t0\t0\t0\t✅\n90\tCAT-064\tconversations\tPhân tử\t0\t—\t0\t0\t0\t✅\n91\tCAT-069\tfeedbacks\tPhân tử\t9\t—\t0\t0\t0\t✅\n92\tCAT-070\tforms\tPhân tử\t0\t—\t0\t0\t0\t✅\n93\tCAT-071\tglobals\tPhân tử\t1\t—\t0\t0\t0\t✅\n94\tCAT-073\thelp\tPhân tử\t0\t—\t0\t0\t0\t✅\n95\tCAT-074\thelp_articles\tPhân tử\t3\t—\t0\t0\t0\t✅\n96\tCAT-075\thelp_collections\tPhân tử\t2\t—\t0\t0\t0\t✅\n97\tCAT-076\thelp_feedback\tPhân tử\t0\t—\t0\t0\t0\t✅\n98\tCAT-077\tinbox\tPhân tử\t0\t—\t0\t0\t0\t✅\n99\tCAT-080\tlanguages\tPhân tử\t8\t—\t0\t0\t0\t✅\n100\tCAT-082\tmessages\tPhân tử\t0\t—\t0\t0\t0\t✅\n101\tCAT-083\tnavigation\tPhân tử\t2\t—\t0\t0\t0\t✅\n102\tCAT-084\tnavigation_items\tPhân tử\t6\t—\t+1\t0\t0\t✅\n103\tCAT-085\tnavigation_navigation_items\tPhân tử\t2\t—\t0\t0\t0\t✅\n104\tCAT-086\torganization_addresses\tPhân tử\t0\t—\t0\t0\t0\t✅\n105\tCAT-087\torganizations\tPhân tử\t0\t—\t0\t0\t0\t✅\n106\tCAT-088\torganizations_contacts\tPhân tử\t0\t—\t0\t0\t0\t✅\n107\tCAT-113\tpage_blocks\tPhân tử\t2\t—\t0\t0\t0\t✅\n108\tCAT-114\tpages\tPhân tử\t3\t—\t0\t0\t0\t✅\n109\tCAT-115\tpages_blocks\tPhân tử\t0\t—\t0\t0\t0\t✅\n110\tCAT-117\tpages_projects\tPhân tử\t0\t—\t0\t0\t0\t✅\n111\tCAT-118\tpages_translations\tPhân tử\t0\t—\t0\t0\t0\t✅\n112\tCAT-120\tpost_gallery_items\tPhân tử\t0\t—\t0\t0\t0\t✅\n113\tCAT-121\tposts\tPhân tử\t2\t—\t0\t0\t0\t✅\n114\tCAT-122\tredirects\tPhân tử\t0\t—\t0\t0\t0\t✅\n115\tCAT-123\tsales\tPhân tử\t0\t—\t0\t0\t0\t✅\n116\tCAT-124\tseo\tPhân tử\t0\t—\t0\t0\t0\t✅\n117\tCAT-125\ttask_checkpoints\tPhân tử\t9\t—\t0\t0\t0\t✅\n118\tCAT-128\tteam\tPhân tử\t0\t—\t0\t0\t0\t✅\n119\tCAT-129\ttestimonials\tPhân tử\t0\t—\t0\t0\t0\t✅\n120\tCAT-137\twebsite\tPhân tử\t0\t—\t0\t0\t0\t✅\n121\tCAT-139\tworkflow_step_relations\tPhân tử\t80\t—\t0\t0\t0\t✅\n122\tCAT-152\tpivot_results\tPhân tử\t150\t—\t+102\t0\t0\t✅\n123\tCAT-002\tModules\tHợp chất\t5\t—\t0\t0\t0\t✅\n124\tCAT-003\tQuy trình\tHợp chất\t3\t—\t+1\t0\t0\t✅\n125\tCAT-005\tĐề xuất thay đổi\tHợp chất\t3\t—\t0\t0\t0\t✅\n126\tCAT-009\tTasks\tHợp chất\t10\t—\t+1\t0\t0\t✅\n127\tCAT-025\tYeu cau Phe duyet\tHợp chất\t232\t—\t+71\t0\t0\t✅\n128\tCAT-089\tos_activities\tHợp chất\t0\t—\t0\t0\t0\t✅\n129\tCAT-090\tos_activity_contacts\tHợp chất\t0\t—\t0\t0\t0\t✅\n130\tCAT-091\tos_deal_contacts\tHợp chất\t0\t—\t0\t0\t0\t✅\n131\tCAT-092\tos_deals\tHợp chất\t0\t—\t0\t0\t0\t✅\n132\tCAT-093\tos_deal_stages\tHợp chất\t0\t—\t0\t0\t0\t✅\n133\tCAT-094\tos_email_templates\tHợp chất\t0\t—\t0\t0\t0\t✅\n134\tCAT-095\tos_expenses\tHợp chất\t0\t—\t0\t0\t0\t✅\n135\tCAT-096\tos_invoice_items\tHợp chất\t0\t—\t0\t0\t0\t✅\n136\tCAT-097\tos_invoices\tHợp chất\t0\t—\t0\t0\t0\t✅\n137\tCAT-098\tos_items\tHợp chất\t0\t—\t0\t0\t0\t✅\n138\tCAT-099\tos_payments\tHợp chất\t0\t—\t0\t0\t0\t✅\n139\tCAT-100\tos_payment_terms\tHợp chất\t0\t—\t0\t0\t0\t✅\n140\tCAT-101\tos_project_contacts\tHợp chất\t0\t—\t0\t0\t0\t✅\n141\tCAT-102\tos_projects\tHợp chất\t0\t—\t0\t0\t0\t✅\n142\tCAT-103\tos_project_templates\tHợp chất\t0\t—\t0\t0\t0\t✅\n143\tCAT-104\tos_project_updates\tHợp chất\t0\t—\t0\t0\t0\t✅\n144\tCAT-105\tos_proposal_approvals\tHợp chất\t0\t—\t0\t0\t0\t✅\n145\tCAT-106\tos_proposal_blocks\tHợp chất\t0\t—\t0\t0\t0\t✅\n146\tCAT-107\tos_proposal_contacts\tHợp chất\t0\t—\t0\t0\t0\t✅\n147\tCAT-108\tos_proposals\tHợp chất\t0\t—\t0\t0\t0\t✅\n148\tCAT-109\tos_settings\tHợp chất\t0\t—\t0\t0\t0\t✅\n149\tCAT-110\tos_task_files\tHợp chất\t0\t—\t0\t0\t0\t✅\n150\tCAT-111\tos_tasks\tHợp chất\t0\t—\t0\t0\t0\t✅\n151\tCAT-112\tos_tax_rates\tHợp chất\t0\t—\t0\t0\t0\t✅\n152\tCAT-138\tworkflow_categories\tHợp chất\t5\t—\t+2\t0\t0\t✅\n153\tCAT-140\tlaw_catalog\tHợp chất\t5\t—\t0\t0\t0\t✅\n154\tCAT-142\tmeasurement_registry\tHợp chất\t142\t—\t+9\t0\t0\t✅\n155\tCAT-998\tAPR Approvals\tHợp chất\t42\t—\t+42\t0\t0\t✅\n156\tSYS-CVG\tPhạm vi Kiểm tra\tVật liệu\t314\t—\t0\t0\t0\t✅\nNhật ký hệ thống\nCode\tTên\tSố lượng\tMồ côi\nCAT-081\tlifecycle_log\t851\t0\nCAT-116\tpages_blog\t1\t0\nCAT-141\tmeasurement_log\t53896\t0\nMENU\nCopyright © 1988 - 2026 Incomex AI Portal. All rights reserved.\n Site powered by Directus and Nuxt .",
+  "title": "Danh mục hệ thống - Incomex AI Portal",
+  "url": "https://vps.incomexsaigoncorp.vn/knowledge/registries"
+}

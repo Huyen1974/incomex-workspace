@@ -1,0 +1,426 @@
+Browser tab: 14, Title: "Ma trận tình trạng đấu nối UI ↔ PG", URL: "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/he-thong-dau-noi.html".
+1 AXWebArea Ma trận tình trạng đấu nối UI ↔ PG, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/he-thong-dau-noi.html
+	2 heading Ma trận tình trạng đấu nối UI ↔ PG, Value: 1
+		3 text Ma trận tình trạng đấu nối UI ↔ PG
+	4 text Nguồn hợp đồng: manifest v5.3 (+kestra_heads + directus_capabilities + integrity_contract + pre_dot_birth_blockers) · Trạng thái cập nhật: 2026-06-30 (seed (chưa đo PG — chờ Agent))
+	5 container
+		6 text 🔌 Mỗi bảng UI cần đi qua 4 nấc:  Khai báo UI → PG có bảng → Đấu nối OK → Đã test . Nấc  Khai báo  tự động (từ hợp đồng UI). Ba nấc sau do  Agent đo PG thật rồi ghi  vào  binding-status.js . Thêm bảng mới ở hợp đồng → tự hiện 1 dòng "chưa đấu" ở đây.
+	7 container kpis
+		8 text 23
+		9 text bảng UI cần đấu
+		10 text 2/23
+		11 text PG đã có bảng
+		12 text 0/23
+		13 text đã đấu nối OK
+		14 text 0/23
+		15 text đã test
+		16 text 0/23
+		17 text HOÀN CHỈNH (0%)
+		18 text 23
+		19 text CÒN KHOẢNG TRỐNG
+	20 container filt
+		21 button Tất cả (23)
+		22 button Chưa đấu (21)
+		23 button Đang đấu (2)
+		24 button Hoàn chỉnh (0)
+	25 table
+		26 row
+			27 cell
+				28 text BẢNG UI
+			29 cell
+				30 text ① KHAI BÁO UI
+			31 cell
+				32 text ② PG CÓ BẢNG
+			33 cell
+				34 text ③ ĐẤU NỐI OK
+			35 cell
+				36 text ④ ĐÃ TEST
+			37 cell
+				38 text TÌNH TRẠNG
+		39 container rows
+			40 row
+				41 cell
+					42 container
+						43 text ui_anchor_7tier design
+					44 text CHUNG
+				45 cell
+					46 text ✓ auto
+				47 cell
+					48 text • chưa
+				49 cell
+					50 text • chưa
+				51 cell
+					52 text • chưa
+				53 cell
+					54 text Chưa đấu
+			55 row
+				56 cell
+					57 container
+						58 text ui_field_catalog design
+					59 text MOIT·MOUT
+				60 cell
+					61 text ✓ auto
+				62 cell
+					63 text • chưa
+				64 cell
+					65 text • chưa
+				66 cell
+					67 text • chưa
+				68 cell
+					69 text Chưa đấu
+			70 row
+				71 cell
+					72 container
+						73 text ui_condition design
+					74 text CHUNG
+				75 cell
+					76 text ✓ auto
+				77 cell
+					78 text • chưa
+				79 cell
+					80 text • chưa
+				81 cell
+					82 text • chưa
+				83 cell
+					84 text Chưa đấu
+			85 row
+				86 cell
+					87 container
+						88 text ui_trigger design
+					89 text CHUNG
+					90 text PG có trigger_registry — agent xác nhận có khớp hợp đồng không
+				91 cell
+					92 text ✓ auto
+				93 cell
+					94 text • chưa
+				95 cell
+					96 text • chưa
+				97 cell
+					98 text • chưa
+				99 cell
+					100 text Chưa đấu
+			101 row
+				102 cell
+					103 container
+						104 text ui_guidance design
+					105 text CHUNG
+				106 cell
+					107 text ✓ auto
+				108 cell
+					109 text • chưa
+				110 cell
+					111 text • chưa
+				112 cell
+					113 text • chưa
+				114 cell
+					115 text Chưa đấu
+			116 row
+				117 cell
+					118 container
+						119 text ui_input_form design
+					120 text MOIT
+				121 cell
+					122 text ✓ auto
+				123 cell
+					124 text • chưa
+				125 cell
+					126 text • chưa
+				127 cell
+					128 text • chưa
+				129 cell
+					130 text Chưa đấu
+			131 row
+				132 cell
+					133 container
+						134 text ui_output_table design
+					135 text MOUT
+				136 cell
+					137 text ✓ auto
+				138 cell
+					139 text • chưa
+				140 cell
+					141 text • chưa
+				142 cell
+					143 text • chưa
+				144 cell
+					145 text Chưa đấu
+			146 row
+				147 cell
+					148 container
+						149 text ui_workflow_node design
+					150 text MOW
+				151 cell
+					152 text ✓ auto
+				153 cell
+					154 text • chưa
+				155 cell
+					156 text • chưa
+				157 cell
+					158 text • chưa
+				159 cell
+					160 text Chưa đấu
+			161 row
+				162 cell
+					163 container
+						164 text ui_task design
+					165 text MOT
+				166 cell
+					167 text ✓ auto
+				168 cell
+					169 text • chưa
+				170 cell
+					171 text • chưa
+				172 cell
+					173 text • chưa
+				174 cell
+					175 text Chưa đấu
+			176 row
+				177 cell
+					178 container
+						179 text ui_collection_* runtime
+					180 text MOIT
+					181 text Họ bảng động — đo theo từng target_collection
+				182 cell
+					183 text ✓ auto
+				184 cell
+					185 text • chưa
+				186 cell
+					187 text • chưa
+				188 cell
+					189 text • chưa
+				190 cell
+					191 text Chưa đấu
+			192 row
+				193 cell
+					194 container
+						195 text ui_record_binding runtime
+					196 text MOIT
+				197 cell
+					198 text ✓ auto
+				199 cell
+					200 text • chưa
+				201 cell
+					202 text • chưa
+				203 cell
+					204 text • chưa
+				205 cell
+					206 text Chưa đấu
+			207 row
+				208 cell
+					209 container
+						210 text ui_task_instance runtime
+					211 text MOT
+					212 text MOT dashboard đã chạy ở UI (mock) — chưa nối PG
+				213 cell
+					214 text ✓ auto
+				215 cell
+					216 text • chưa
+				217 cell
+					218 text • chưa
+				219 cell
+					220 text • chưa
+				221 cell
+					222 text Chưa đấu
+			223 row
+				224 cell
+					225 container
+						226 text ui_report_run runtime
+					227 text MOUT
+				228 cell
+					229 text ✓ auto
+				230 cell
+					231 text • chưa
+				232 cell
+					233 text • chưa
+				234 cell
+					235 text • chưa
+				236 cell
+					237 text Chưa đấu
+			238 row
+				239 cell
+					240 container
+						241 text ui_distribution runtime
+					242 text MOUT·MOT
+				243 cell
+					244 text ✓ auto
+				245 cell
+					246 text • chưa
+				247 cell
+					248 text • chưa
+				249 cell
+					250 text • chưa
+				251 cell
+					252 text Chưa đấu
+			253 row
+				254 cell
+					255 container
+						256 text ui_cast_registry gate
+					257 text MASTER
+				258 cell
+					259 text ✓ auto
+				260 cell
+					261 text • chưa
+				262 cell
+					263 text • chưa
+				264 cell
+					265 text • chưa
+				266 cell
+					267 text Chưa đấu
+			268 row
+				269 cell
+					270 container
+						271 text birth_registry gate
+					272 text GATE
+					273 text Backend đã có (Đ0-G)
+				274 cell
+					275 text ✓ auto
+				276 cell
+					277 text ✓ xong
+				278 cell
+					279 text • chưa
+				280 cell
+					281 text • chưa
+				282 cell
+					283 text Đang đấu
+			284 row
+				285 cell
+					286 container
+						287 text approval_requests gate
+					288 text GATE
+					289 text Backend đã có (Điều 32)
+				290 cell
+					291 text ✓ auto
+				292 cell
+					293 text ✓ xong
+				294 cell
+					295 text • chưa
+				296 cell
+					297 text • chưa
+				298 cell
+					299 text Đang đấu
+			300 row
+				301 cell
+					302 container
+						303 text qa_contract_registry gate
+					304 text CÔNG CỤ
+					305 text Bảng công cụ — nguồn là qa-contracts.js; Agent dựng ở PG sau (DOT-QA-HARVEST)
+				306 cell
+					307 text ✓ auto
+				308 cell
+					309 text • chưa
+				310 cell
+					311 text • chưa
+				312 cell
+					313 text • chưa
+				314 cell
+					315 text Chưa đấu
+			316 row
+				317 cell
+					318 container
+						319 text ui_business_object design
+					320 text CHUNG
+					321 text Đối tượng nghiệp vụ (học sinh/đơn hàng…) — buộc record qua khóa
+				322 cell
+					323 text ✓ auto
+				324 cell
+					325 text • chưa
+				326 cell
+					327 text • chưa
+				328 cell
+					329 text • chưa
+				330 cell
+					331 text Chưa đấu
+			332 row
+				333 cell
+					334 container
+						335 text ui_event runtime
+					336 text CHUNG
+					337 text Sự kiện analytics — ánh xạ event_type_registry backend
+				338 cell
+					339 text ✓ auto
+				340 cell
+					341 text • chưa
+				342 cell
+					343 text • chưa
+				344 cell
+					345 text • chưa
+				346 cell
+					347 text Chưa đấu
+			348 row
+				349 cell
+					350 container
+						351 text ui_relation gate
+					352 text CHUNG
+					353 text Đồ thị khóa — DOT-REL tự điền; FK cứng promote qua Điều 32
+				354 cell
+					355 text ✓ auto
+				356 cell
+					357 text • chưa
+				358 cell
+					359 text • chưa
+				360 cell
+					361 text • chưa
+				362 cell
+					363 text Chưa đấu
+			364 row
+				365 cell
+					366 container
+						367 text ui_relation_role gate
+					368 text CHUNG
+					369 text Từ điển role có kiểm soát
+				370 cell
+					371 text ✓ auto
+				372 cell
+					373 text • chưa
+				374 cell
+					375 text • chưa
+				376 cell
+					377 text • chưa
+				378 cell
+					379 text Chưa đấu
+			380 row
+				381 cell
+					382 container
+						383 text ui_input_inbox runtime
+					384 text MOIT
+					385 text Hộp lưu tạm (staging) — nơi input save_mode=staging đổ vào; downstream (DOT/event/Kestra) subscribe. Agent dựng PG sau.
+				386 cell
+					387 text ✓ auto
+				388 cell
+					389 text • chưa
+				390 cell
+					391 text • chưa
+				392 cell
+					393 text • chưa
+				394 cell
+					395 text Chưa đấu
+	396 text ① tự động từ hợp đồng UI
+	397 text ② ③ ④ do Agent đo PG ghi vào binding-status.js
+	398 container foot
+		399 text Khi đấu nối thật: Agent đo PG → sửa 
+		400 text binding-status.js
+		401 text  (done/pending) → ma trận này tự cập nhật. Khoảng trống = số bảng chưa "Hoàn chỉnh". Mục tiêu: kéo về 0.
+	402 container 4 Mẹ + Master
+		403 text 4 MẸ
+		404 button MOW ▾ Quy trình
+			405 text MOW
+			406 text ▾
+			407 text Quy trình
+		408 button MOT ▾ Công việc
+			409 text MOT
+			410 text ▾
+			411 text Công việc
+		412 button MOIT ▾ Nhập liệu
+			413 text MOIT
+			414 text ▾
+			415 text Nhập liệu
+		416 button MOUT ▾ Báo cáo
+			417 text MOUT
+			418 text ▾
+			419 text Báo cáo
+		420 button Master ▾ Tổng 4 Mẹ
+			421 text Master
+			422 text ▾
+			423 text Tổng 4 Mẹ
+
+The focused UI element is 1 AXWebArea Ma trận tình trạng đấu nối UI ↔ PG, URL: vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/he-thong-dau-noi.html
