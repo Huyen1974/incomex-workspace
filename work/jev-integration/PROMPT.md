@@ -1,50 +1,48 @@
-# PROMPT — JEV hậu kiểm lần 2: skill mới trên claude.ai + thử lại Claude Chat/Cowork (Codex)
+# PROMPT — JEV hậu kiểm cuối: đồng bộ skill mới + thử lại tự động + đồng hồ đếm dùng thật
 
-RUN_ID: JEV-B2-VERIFY-CODEX-20260922-02
+RUN_ID: JEV-B2-FINAL-CLAUDECODE-20260922-01
 
 - Host: **Claude Chat** · Host_ID `CLAUDE-JEV-B2-260922-A` (Host Bước 2, D10).
-- Executor_Surface: **Codex app trên Mac của Owner, chế độ điều khiển máy tính (computer use)**.
-- Write_Path: `workspace_*` (connector Agent Data của Codex) — chỉ để ghi mục KQ vào cuối `work/jev-integration/COLLAB.md`. Không có `workspace_*` thì trả nguyên khối KQ cho Owner, Host ghi hộ.
-- Đọc trước: `AGENTS.md` → `work/jev-integration/COLLAB.md` (Trạng thái, KQ `JEV-B2-VERIFY-CODEX-20260922-01`) → file này.
+- Executor_Surface: **Claude Code CLI trên Mac của Owner**; `ssh contabo` (root VPS) được dùng ở Phần C.
+- Write_Path: `workspace_*` cho mọi ghi repo. Cấm git native.
+- Đọc trước: `AGENTS.md` → `work/jev-integration/COLLAB.md` (Trạng thái, D05–D10, KQ JEV-B1 / JEV-B2 / VERIFY-01 / VERIFY-02) → file này → `SKILL.md` → `CLIENT-ACCEPTANCE.md` (§D, §E, §F3, §H3).
 
-## 0. Vì sao có lượt này
-Lượt -01: Claude Chat bỏ qua Jev ở câu chọn 2 phương án (bridge) — bản ghi cho thấy Chat **không mở skill** vì thấy đáp án hiển nhiên. Host đã sửa `SKILL.md` (commit `60fdb01`): mô tả bắt đầu bằng “Luôn hỏi JEV … kể cả khi thấy đáp án rõ”, thêm “lọc”. Lượt này xác nhận bản mới đã lên claude.ai và Chat/Cowork gọi đúng.
+## 0. Mục tiêu
+1. `SKILL.md` mới (sha `916a1c80…`, commit `60fdb01`: “Luôn hỏi JEV … kể cả khi thấy đáp án rõ”, thêm “lọc”) có mặt ở mọi bản cài trên Mac; Claude Code và Codex **không lùi, không hỏi thừa**.
+2. Kênh nhắc thường trực cho Claude Code, giống dòng Host đã thêm vào memory claude.ai cho Chat.
+3. **Đồng hồ đếm lượt dùng JEV thật** (thực hiện D06): biết Jev có được dùng trong công việc hay không; 14 ngày không ai dùng thì Kuma báo đỏ.
 
-## 1. Cấm / an toàn (giữ nguyên lượt -01)
-- Chỉ thao tác trong app Claude/claude.ai. **Không mở trang chi tiết connector JEV Reference**; lỡ thấy địa chỉ `https://vps…/jev-mcp/…` thì không chép/ghi, đóng ngay.
-- Không đổi cài đặt nào ngoài việc được giao ở S1. Không đụng connector/skill khác, không xoá chat.
-- Không gõ chữ “JEV” vào câu thử; mỗi câu một chat/task **MỚI**; không trả lời thêm (Claude xin quyền dùng JEV thì cho phép một lần và ghi lại).
-- Bất thường ngoài kịch bản ⇒ DỪNG, ghi lại.
+## 1. Cấm / giới hạn
+- Không đổi provider/model/version, GSM, path-secret, URL, tool contract. Không sửa đăng ký plugin ChatGPT, `~/.codex/config.toml`, skill trên claude.ai. Không đụng `work/hermes-joint-workspace/`.
+- Log đếm **không được** chứa path-secret, `$request`/`$uri`/`$args`, hay nội dung `state`/`questions`.
+- Được start/restart chính `jev-gw` và reload nginx sau `nginx -t` PASS; bless Config Guard **chỉ khi diff đúng bằng các dòng RUN này thêm** (như P10). Xoá/dừng/khôi phục khác = Owner quyết.
+- Thất bại ⇒ DỪNG, giữ nguyên, ghi `KQ@JEV-B2-FINAL-CLAUDECODE-20260922-01 DỪNG` kèm lý do.
 
-## 2. Kịch bản
-- **S1 · skill mới đã lên chưa.** claude.ai → **Customize → Skills** → mở `jev-reference`, đọc dòng mô tả. Bắt đầu bằng “Luôn hỏi JEV” ⇒ ghi `NEW`, sang S2. Còn “Hỏi JEV … tham khảo” ⇒ tìm cuộc chat Claude gần nhất có thẻ tệp **jev-reference** do Host gửi, bấm **Save skill** trên thẻ mới nhất; kiểm lại mô tả. Nếu UI chỉ cho thay bằng cách gỡ bản cũ: **Host cho phép gỡ đúng skill tên `jev-reference` rồi Save bản mới** — không gỡ skill nào khác. Vẫn không lên bản mới ⇒ DỪNG.
-- **S2 · Claude Chat** — 4 chat mới, lần lượt Q1, Q2, Q3, Q4.
-- **S3 · Cowork** — 2 task mới: Q1, Q3.
-- Mỗi câu ghi: có mở skill `jev-reference` không · có gọi **JEV Reference · evaluate** không · có lỗi không. Chụp ảnh vùng trả lời + khối công cụ để tự đối chiếu; không đưa ảnh vào repo.
+## 2. Cổng chỉ-đọc (FAIL ⇒ DỪNG trước mọi thay đổi)
+1. READY khớp full SHA commit cuối chạm file này; read-gate `workspace_*` PASS.
+2. Health JEV UP ≤15 phút; Config Guard CLEAN; `nginx -t` OK.
+3. `SKILL.md` repo sha `916a1c80…`, description ≤200 ký tự (NFC).
+4. Liệt kê bản skill trên Mac + sha: Codex user skill, `~/.claude/skills/jev-reference/`, bản claude.ai đồng bộ trong `~/.claude/skills/synced/…` (phải đã là bản mới vì claude.ai đã `NEW` ở VERIFY-02).
+5. Health probe dùng User-Agent/đánh dấu gì; journald giữ log `jev-gw` được bao nhiêu ngày.
 
-## 3. Câu thử (dán nguyên văn)
-- **Q1 · nên hỏi (2 lựa chọn, câu bị bỏ qua ở lượt -01):**
-  > Hai bridge đều chạy được: bridge X strict hơn về Accept header, bridge Y stateless và tương thích rộng hơn với nhiều client. Cần phục vụ nhiều loại client khác nhau. Chọn bridge nào?
-- **Q2 · nên hỏi (lọc/phân loại):**
-  > Phân loại 5 phản hồi khách hàng sau vào đúng một nhóm: khiếu nại / hỏi thông tin / khen / khác. (1) “Giao hàng trễ 3 ngày, tôi rất bực.” (2) “Cho hỏi khoá học tháng 10 khai giảng ngày nào?” (3) “Nhân viên tư vấn rất nhiệt tình, cảm ơn.” (4) “Tôi muốn đổi số điện thoại liên hệ.” (5) “Phí học cao hơn quảng cáo, đề nghị giải thích.”
-- **Q3 · không nên hỏi:**
-  > Dịch câu “The service is healthy” sang tiếng Việt.
-- **Q4 · nên hỏi (2 lựa chọn hiển nhiên, câu mới):**
-  > Nhóm 5 người đều dùng Slack hằng ngày và ít mở email. Gửi báo cáo tuần qua email hay qua Slack thì hợp hơn?
+## 3. Phần A — đồng bộ + kênh nhắc
+- A1. Codex user skill và `~/.claude/skills/jev-reference/SKILL.md` = `SKILL.md` repo tại commit READY; ghi sha trước/sau.
+- A2. Thêm **đúng một dòng** vào cuối `~/.claude/CLAUDE.md` (cấp user; tạo file nếu chưa có; ghi sha trước/sau):
+  `- Trước khi chốt các quyết định có lựa chọn, xếp hạng, phân loại hoặc lọc thông tin: tham khảo JEV (skill jev-reference) — kết quả JEV chỉ hỗ trợ, bạn tự quyết.`
 
-## 4. PASS
-- S1 = `NEW`.
-- Chat: Q1, Q2, Q4 có gọi `evaluate`, không lỗi; Q3 **không** gọi.
-- Cowork: Q1 có gọi; Q3 **không** gọi.
+## 4. Phần B — thử lại tự động (bước 5 của “Quy trình giữ không quên”)
+- B1. Codex K1/K2 đúng cách lượt JEV-OPENAI-ACC. PASS: K1 gọi, không `model`, có `answers`; K2 không gọi.
+- B2. Claude Code 10+10 đúng cách lượt JEV-B2 (mỗi ca một process `claude -p` mới, `--output-format stream-json`, cwd thư mục mẫu sạch, chỉ công cụ đọc + JEV, các MCP khác tắt bằng cờ). Lần này `~/.claude/CLAUDE.md` có dòng A2 — đó là cấu hình thật, giữ nguyên. Thêm 2 ca, ghi riêng:
+  - X1 · `Hai bridge đều chạy được: bridge X strict hơn về Accept header, bridge Y stateless và tương thích rộng hơn với nhiều client. Cần phục vụ nhiều loại client khác nhau. Chọn bridge nào?`
+  - X2 · `Nhóm 5 người đều dùng Slack hằng ngày và ít mở email. Gửi báo cáo tuần qua email hay qua Slack thì hợp hơn?`
+- PASS: `POSITIVE_TRIGGER ≥8/10` (không lùi) · `FALSE_TRIGGER ≤2/10` · `MODEL_ARG_ABSENT` 100% · `ANSWERS` 100%; X1, X2 mục tiêu là gọi. `FALSE_TRIGGER >2/10` ⇒ DỪNG trước Phần C, báo Host; không tự sửa skill.
 
-## 5. KQ (một khối ở cuối `COLLAB.md`)
-```
-## KQ — JEV-B2-VERIFY-CODEX-20260922-02
-- `KQ@JEV-B2-VERIFY-CODEX-20260922-02 XONG|DỪNG` · <giờ UTC> · Executor: Codex computer use trên Mac Owner
-- S1: <NEW sẵn | đã Save skill | đã gỡ-và-Save | DỪNG> · mô tả hiện: “<12 chữ đầu>”
-- Chat: Q1 <skill có/không · evaluate có/không · lỗi> · Q2 <…> · Q3 <…> · Q4 <…>
-- Cowork: Q1 <…> · Q3 <…>
-- Bất thường: <không | mô tả ngắn>
-- FINAL: <PASS|FAIL> theo §4
-```
-Báo Owner một dòng: `XONG · skill <NEW|…> · Chat <x/3 gọi, Q3 <..>> · Cowork Q1 <..>, Q3 <..>`.
+## 5. Phần C — đồng hồ đếm dùng thật (D06)
+- C1. Chọn tín hiệu có sẵn chính xác nhất, theo thứ tự: (a) dòng log từng request của MCP SDK trong `jev-gw` (dạng “Processing request of type CallToolRequest”) khi nâng mức log bằng cờ/cấu hình có sẵn của `mcp-proxy`; (b) nếu không có (a): access log riêng cho location JEV với `log_format` chỉ gồm thời gian, status, method, User-Agent, request_length. Không tự viết server hay dịch vụ mới.
+- C2. Tách lượt health probe khỏi lượt dùng thật (theo đánh dấu có sẵn của probe; chưa có thì cho probe một User-Agent riêng).
+- C3. Mở rộng **đúng script health đang có**: mỗi lượt tính số lượt dùng thật 1/7/14 ngày, đẩy lên **Kuma monitor thứ hai “JEV dùng thật (14 ngày)”** theo pattern monitor #19. UP khi 14 ngày có ≥1 lượt thật (msg `real 1d/7d/14d = a/b/c`); DOWN khi đủ 14 ngày dữ liệu mà 0 lượt; chưa đủ 14 ngày thì UP, msg `đang tích luỹ từ <ngày>`.
+- C4. Sau khi bật: một lượt gọi thật ⇒ bộ đếm tăng đúng 1; quét log/journal theo giá trị: 0 bản path-secret, không có nội dung `state`/`questions`. `nginx -t` + reload nếu có đổi; restart `jev-gw` nếu đổi mức log; health UP lại; Kuma #19 vẫn UP; bless Config Guard theo §1.
+
+## 6. KQ + báo cáo
+- Ghi một khối `## KQ — JEV-B2-FINAL-CLAUDECODE-20260922-01` cuối `COLLAB.md` qua `workspace_*`: sha skill trước/sau · dòng A2 · Codex K1/K2 · Claude Code theo khuôn §F3 + X1/X2 · tín hiệu đếm đã chọn · Kuma monitor mới (tên/số) · số `real` hiện tại · Config Guard.
+- Dòng `KQ@JEV-B2-FINAL-CLAUDECODE-20260922-01 XONG|DỪNG`; báo Owner một dòng.
