@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GSM Access Audit</title>
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;max-width:980px;margin:40px auto;padding:0 20px;line-height:1.55}
+h1,h2{margin-bottom:.4em}.box{border:1px solid #9995;border-radius:12px;padding:18px;margin:16px 0}
+table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #9995;padding:10px;text-align:left;vertical-align:top}
+.small{opacity:.75}.status{font-weight:700}
+</style>
+</head>
+<body>
+<h1>GSM Access Audit</h1>
+<p class="status">Trạng thái: MỞ VIỆC · audit read-only trước · chưa thay production</p>
+
+<div class="box">
+<h2>Mục tiêu Owner</h2>
+<p>Tìm chính xác service/script/process nào đang gọi Google Secret Manager, gọi bao nhiêu và vì sao; loại các lượt gọi vô lý để giảm phụ thuộc Google, quota/latency/rủi ro và chi phí nếu có.</p>
+<p><strong>Không tối ưu nhầm:</strong> chi phí Google đang quan sát hiện chủ yếu/tất cả là <em>Secret version replica storage</em>, chưa phải bằng chứng access calls đang gây khoản khoảng 2 USD/tháng.</p>
+</div>
+
+<div class="box">
+<h2>5 bước</h2>
+<table>
+<tr><th>Bước</th><th>Việc</th><th>Trạng thái</th></tr>
+<tr><td>1</td><td>Inventory mọi caller GSM</td><td>Chưa làm</td></tr>
+<tr><td>2</td><td>Đo caller → secret → trigger → calls/ngày/tháng</td><td>Chưa làm</td></tr>
+<tr><td>3</td><td>Thiết kế startup cache / TTL / rotation hợp lý</td><td>Chưa làm</td></tr>
+<tr><td>4</td><td>Review + Owner duyệt</td><td>Chưa làm</td></tr>
+<tr><td>5</td><td>Triển khai, đo lại, đóng</td><td>Chưa làm</td></tr>
+</table>
+</div>
+
+<div class="box">
+<h2>Định hướng</h2>
+<p>Ứng viên mặc định: đọc secret lúc service khởi động, giữ trong memory và pin version cụ thể. Process sống dài chỉ refresh theo TTL hoặc sự kiện rotation nếu thật sự cần. Không áp “1 lần/ngày” trước khi đo.</p>
+<p>Không tạo thêm Google Cloud project/service trong việc này. VPS vẫn là SSOT của mã/runtime.</p>
+</div>
+
+<p class="small">Cửa vào cho AI: đọc AGENTS.md → work/gsm-access-audit/COLLAB.md → README.md.</p>
+</body>
+</html>
