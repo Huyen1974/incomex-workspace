@@ -467,5 +467,18 @@ Based_on `0fb708b` · Commit cuối chạm PROMPT = `ffb2d52` (đã kiểm Git l
 
 KQ@HVU-ARCHIVE01-RUN-20260922-01 XONG
 
+## P29 · Claude Chat · đề xuất vòng mới “VPS gọn như GitHub” — Host mở lại HVU theo lệnh Owner · OPEN
+Based_on `5ac584a` · Owner 22/09 (yêu cầu mới sau ARCHIVE01): trên VPS cũng cần một thư mục như GitHub, dồn những thứ đã xong vào đó (sau này xoá hay giữ tuỳ), cần bàn thì tìm ra có lịch sử ngay; hằng ngày chỉ nhìn vài chục việc đang làm, không list cả trăm việc cũ. Host ghi câu Owner NGUYÊN VĂN làm A0 vòng mới (P28 mục 1). Đã tham khảo JEV: danh sách gập Dòng Đã xong 0,95; VPS đi theo Git bằng chính lượt sync 1,0; không chuyển runtime đang chạy (xác suất nên chuyển chỉ 0,25).
+
+**Thực địa (chỉ đọc):** (1) app đang phục vụ lọc danh sách chỉ theo chữ gõ (id + tên + mục tiêu), **không lọc bucket** → ô tìm trống là hiện cả Done; trăm việc cũ sẽ tràn danh sách. (2) Hồ sơ VPS của việc nằm rải rác: `/opt/incomex/deploys` có 8 thư mục `hvu-*` + 2 file `hvu-*-before-*.html` (bằng chứng/rollback), lẫn với bản sao Nuxt và thư mục sống `nuxt-output` đang được mount (nhãn `00-NHAN-THU-MUC.md`: không di chuyển/xoá bản sao Nuxt). Không có chỗ nào xếp theo task-id. (3) `jev-gw.service` `Documentation=` trỏ đường dẫn GitHub cũ của JEV → 404 sau khi đóng.
+
+**Đề xuất — một RUN:**
+- **A · Web gọn mỗi ngày:** ô tìm trống → chỉ hiện việc đang làm + một dòng gập `Đã xong (N)` bấm mở; có chữ trong ô tìm → tìm cả hai.
+- **B · Kho hồ sơ VPS theo đúng cấu trúc GitHub:** `/opt/incomex/work/<id>/` (đang làm) và `/opt/incomex/work/done-tasks/<id>/` (đã xong). Chỉ chứa **hồ sơ** (bằng chứng, rollback, bản trước khi sửa, log). **Runtime đang chạy ở nguyên chỗ** (script systemd, trang web, cấu hình nginx, container) — chuyển là gãy dịch vụ.
+- **C · Tự đi theo GitHub, không ai phải nhớ:** chính lượt sync đang chạy khi GitHub đổi, sau khi publish, đối chiếu: việc Done mà hồ sơ VPS còn ở `work/<id>/` → đổi tên sang `work/done-tasks/<id>/`; mở lại thì ngược lại. Chỉ đổi tên bên trong `/opt/incomex/work`, không xoá, không chạm nơi khác; trùng tên → cảnh báo, giữ nguyên. Xoá hồ sơ cũ = Owner quyết từng lần.
+- **D · Hồ sơ mới vào đúng chỗ từ đầu:** mỗi PROMPT từ nay có dòng `VPS_Evidence: /opt/incomex/work/<id>/` (Host điền, agent đọc) + AGENTS A8 thêm một câu; `tasks.json` và trang chi tiết hiện dòng `Hồ sơ VPS: <đường dẫn hiện tại>` để Owner/AI tìm lịch sử ngay.
+- **E · Dọn một lần:** chuyển 8 thư mục `deploys/hvu-*` + 2 file `hvu-*-before-*.html` vào `work/done-tasks/hpml-view-for-user/`; thư mục của việc khác chỉ chuyển khi chứng minh được thuộc việc nào (tên xuất hiện trong COLLAB việc đó), mơ hồ thì để nguyên và liệt kê. Rollback còn chạy được sau khi chuyển (`bash -n` + đường dẫn tương đối). Không đụng `nuxt-output*`; cập nhật `00-NHAN-THU-MUC.md` trỏ sang `/opt/incomex/work`.
+- **F · Link không gãy khi đóng/mở:** `Documentation=` của `jev-gw.service` và mọi tham chiếu tới một việc dùng link theo task-id (trang Task view của việc) thay đường dẫn file GitHub.
+
 ## Owner cần quyết
 - —
