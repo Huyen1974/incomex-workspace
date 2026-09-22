@@ -1,0 +1,25 @@
+{
+  "at": "2026-09-11T21:16:08.693705+00:00",
+  "version": "v1.6.20",
+  "ssot_write_count": 1,
+  "before_sha256": "5d05e877591934a96c4b0545e26eaec9f1a72538bce92ba16f095d061d6a7dfc",
+  "after_sha256": "3b19770512bd31e53c935cd0ce55d940e1bafcfc69f1ba8904e44484e5e9e6aa",
+  "map_before_sha256": "395aa9ff3b1ccc0dc3b2bda99535e8d863819d8dbd02ef6e655169e7c2efef98",
+  "map_after_sha256": "311a37f5c7bd0c62276c5157033dbd3d10f12850cb72fd5cda5d1d5075d99df7",
+  "backup": "KHO/10-backup-tai-lieu/cau-truc-he-thong-v1.6.19-truoc-ban-do-pha-b-2026-09-12.html",
+  "dataset_sha256": "c3fbd7447c961ba5b2b6fa619187face6c4cf25296945a37e90e7347e5acd32f",
+  "current_readback": "MATCH_STAGED_BYTES",
+  "concurrent_write_check": "CURRENT_HASH_MATCHED_BEFORE_ALL_WRITES",
+  "documents_updated": [
+    "workshop/README.md",
+    "gate3-4/README.md",
+    "gate3-4/BAO-CAO-GUI-PM.md",
+    "gate3-4/REVIEW.md",
+    "gate3-4/GATE5-PLAN.md",
+    "gate3-4/SUPERVISOR-REVIEW-INPUT.md",
+    "KHO/11-evidence/INDEX.md"
+  ],
+  "preserved_rev2_zip_sha256": "a30f12bc3ea2a2014155a2e581181c21509278d3e1ecac8e137fbc9ae7d04d55",
+  "gates": "Gate1DOING/Gate2PARTIAL/Gate3-4PARTIAL; no Gate exit",
+  "status": "PHA_B_SUBMITTED; historical9rowblocker remains"
+}

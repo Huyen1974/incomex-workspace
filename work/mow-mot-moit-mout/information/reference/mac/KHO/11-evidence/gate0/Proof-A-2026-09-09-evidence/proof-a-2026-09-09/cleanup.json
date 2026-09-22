@@ -1,0 +1,61 @@
+{
+  "utc": "2026-09-09T02:32:46.756294+00:00",
+  "deleted_owned_resources": [
+    "proof-a-20260909-01a07f1f",
+    "proof-a-20260909-01a07f1f-net",
+    "proof-a-20260909-01a07f1f-data",
+    "/var/tmp/proof-a-20260909-01a07f1f"
+  ],
+  "demo_checks": [
+    {
+      "name": "/elearning_web",
+      "same_id": true,
+      "same_image": true,
+      "same_started_at": true,
+      "same_restart_count": true,
+      "status": "running",
+      "health": null
+    },
+    {
+      "name": "/cms_queue",
+      "same_id": true,
+      "same_image": true,
+      "same_started_at": true,
+      "same_restart_count": true,
+      "status": "running",
+      "health": null
+    },
+    {
+      "name": "/cms_app",
+      "same_id": true,
+      "same_image": true,
+      "same_started_at": true,
+      "same_restart_count": true,
+      "status": "running",
+      "health": null
+    },
+    {
+      "name": "/cms_mysql",
+      "same_id": true,
+      "same_image": true,
+      "same_started_at": true,
+      "same_restart_count": true,
+      "status": "running",
+      "health": "healthy"
+    },
+    {
+      "name": "/cms_nginx",
+      "same_id": true,
+      "same_image": true,
+      "same_started_at": true,
+      "same_restart_count": true,
+      "status": "running",
+      "health": null
+    }
+  ],
+  "remaining_labeled_containers": "",
+  "remaining_labeled_networks": "",
+  "remaining_labeled_volumes": "",
+  "cached_image": "Exact postgres digest left cached; image has no work ownership label, no prune performed",
+  "interpretation": "No demo container restart/replacement observed. This is resource/process observation, not an application regression test."
+}

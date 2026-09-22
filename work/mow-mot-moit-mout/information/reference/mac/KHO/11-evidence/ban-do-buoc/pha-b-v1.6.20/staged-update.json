@@ -1,0 +1,33 @@
+{
+  "areas": [
+    "owner-gates",
+    "checkpoint0-current",
+    "owner-decisions",
+    "owner-cockpit",
+    "current-review",
+    "pm-control-panel",
+    "next-action",
+    "w003",
+    "w004",
+    "w005-gate34-work",
+    "w003-card",
+    "w004-card",
+    "decisions",
+    "decision-o01",
+    "gate1",
+    "gate2",
+    "gate3",
+    "gate4",
+    "gate34-contract-lock",
+    "gate2-design-package",
+    "object-status",
+    "gate-control",
+    "decision-log",
+    "sources"
+  ],
+  "dataset_sha256": "c3fbd7447c961ba5b2b6fa619187face6c4cf25296945a37e90e7347e5acd32f",
+  "original_ids": 343,
+  "result_ids": 343,
+  "protected_regions": 26,
+  "ssot_writes_so_far": 0
+}

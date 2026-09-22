@@ -1,0 +1,32 @@
+{
+  "utc": "2026-09-09T02:45:01.041928+00:00",
+  "source_path": "/Users/nmhuyen/Desktop/quy trình/cấu trúc hệ thống.html",
+  "backup_path": "/Users/nmhuyen/Desktop/quy trình/backup/cau-truc-he-thong-v1.6.9-truoc-proof-a-2026-09-09.html",
+  "before_version": "1.6.9",
+  "after_version": "1.6.10",
+  "before_sha256": "94cadbe4bd5a6f97f6d0d8407a3b8045b3cbcf17b465552a3a0d308f19d6a758",
+  "backup_sha256": "94cadbe4bd5a6f97f6d0d8407a3b8045b3cbcf17b465552a3a0d308f19d6a758",
+  "after_sha256": "7cd44d675bed2fff179b74d9ded190af50627406db7abda257a67ec838111621",
+  "readback_sha256": "7cd44d675bed2fff179b74d9ded190af50627406db7abda257a67ec838111621",
+  "before_bytes": 484820,
+  "after_bytes": 488862,
+  "before_lines": 1481,
+  "after_lines": 1485,
+  "ssot_writes": 1,
+  "status": "retrieval SUBMITTED / PM REVIEW; full Proof A not accepted",
+  "preserved": "Factory DONE; FEAS PARTIAL; Gate0 DOING; B/C unrun; original Owner outcomes unchanged",
+  "qa": {
+    "errors": [],
+    "unclosed": [],
+    "duplicate_ids": [],
+    "broken_fragments": [],
+    "removed_ids": [],
+    "ids": 332,
+    "original_ids": 332,
+    "scripts_unchanged": true,
+    "styles_unchanged": true,
+    "bytes": 488862,
+    "lines": 1485,
+    "visual_review": "Proof A section reviewed in browser: table legible, four cells visible, no clipping at desktop viewport. Product UI/runtime not tested."
+  }
+}

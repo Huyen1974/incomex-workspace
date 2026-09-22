@@ -1,0 +1,19 @@
+{
+  "frozen_utc": "2026-09-09T02:25:27.734856+00:00",
+  "revision": "r1",
+  "before_benchmark": true,
+  "files": {
+    "corpus-small.json": "ec6e782aff2f62aef162498a4ec114dd67e1a0b10acd63d9e7f1d15ed3fa0617",
+    "corpus-expanded.json": "1be72781cbe5f9c1b702fe5c6bb6922fe06ce44c68e134c541a7bca0bbdf6b0a",
+    "queries-e06.json": "3ea61547e026df4edb5443786e3e7bf6dcc79b0e1edb613a0d3968ee7ac31161",
+    "labels-e06.json": "81ebf2c17f1645286964e4fc4c062a652f539eac94f5c360a1a6621362760a00",
+    "search-config.json": "8a43e53b1aab0cb73f7ef46dba138e45e652a8ad70605bcc9b1f9382ef381f13",
+    "search-a0.sql": "bda301ec4494226eb060a56b4ab5995ceb9371df13c2744b8fc3fb25218bbc73",
+    "search-a1.sql": "a1210b7e05bcd336393b7038a5ed2f4160620f1806b13db2165213795e265b95",
+    "lab-schema.sql": "44ec3129a68f2d5c28e1865ed27e96803562aec67c5e35dd04202e7a274b8584",
+    "run-harness.py": "a25c55915d782b784333bb7a4647639a60119e4386e72d6a7d8939b1863e93b8",
+    "safety-fixture.json": "fb42a1e4abec7ba5e970d0dcb1cfb2e2e7d78fd9fc072c1474b88090a37ec656",
+    "safety-guard.sql": "159215a6653a097803646530cad499e892541e4410317a2a0e385bc31c22f680"
+  },
+  "source": "original E06 script, snapshot and labels; no candidate-by-candidate LLM calls; no tuning after results"
+}

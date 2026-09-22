@@ -1,0 +1,19 @@
+{
+  "status": "PASS_CURRENT_READBACK_AND_PACKAGE_PREFLIGHT",
+  "ssot_writes": 1,
+  "current_direct_file_links_checked": 1202,
+  "missing_direct_current_links": [],
+  "workshop_files_indexed": 7,
+  "workshop_product_files_unchanged": [
+    "reused-patterns.css",
+    "workshop.css",
+    "workshop.js",
+    "fixture.js",
+    "index.html",
+    "reuse-provenance.json"
+  ],
+  "dataset_sha256": "c3fbd7447c961ba5b2b6fa619187face6c4cf25296945a37e90e7347e5acd32f",
+  "protected_regions": 26,
+  "document_QA": "278staticchecks + offline48flows/108cells/87deeplinks; no realbrowser/runtime/independentclaim",
+  "portable_limit": "ZIP snapshot preserves exact rootHTML bytes. Its download-this-ZIP link points to original project package; archive cannot contain itself. Historical source HTMLs are original snapshots, not live sites; only current map/SSOT direct evidence links are required for review."
+}

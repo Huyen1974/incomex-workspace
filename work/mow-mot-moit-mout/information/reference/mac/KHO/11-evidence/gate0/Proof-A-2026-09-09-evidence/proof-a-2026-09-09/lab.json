@@ -1,0 +1,21 @@
+{
+  "utc": "2026-09-09T02:21:22.701700+00:00",
+  "name": "proof-a-20260909-01a07f1f",
+  "label": "codex.work=proof-a-20260909-01a07f1f",
+  "image_reference": "postgres@sha256:57c55aefb81a937d21171b7c2266264b5552cb1a4f90459bbdfc417a36883a4d",
+  "image_id": "sha256:57c55aefb81a937d21171b7c2266264b5552cb1a4f90459bbdfc417a36883a4d",
+  "repo_digests": [
+    "postgres@sha256:57c55aefb81a937d21171b7c2266264b5552cb1a4f90459bbdfc417a36883a4d"
+  ],
+  "network": "proof-a-20260909-01a07f1f-net",
+  "network_internal": true,
+  "published_ports": {},
+  "volume": "proof-a-20260909-01a07f1f-data",
+  "volume_backing": "tmpfs, max 256MiB",
+  "memory_limit_bytes": 536870912,
+  "nano_cpus": 500000000,
+  "pids_limit": 96,
+  "database": "proof_a",
+  "lab_credential": "new random credential, not exported",
+  "tcp_listener": "disabled; access via docker exec Unix socket only"
+}

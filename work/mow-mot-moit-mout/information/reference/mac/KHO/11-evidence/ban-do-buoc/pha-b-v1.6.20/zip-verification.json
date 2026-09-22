@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "zip": "KHO/11-evidence/ban-do-buoc/Ban-do-pha-B-v1.6.20-bang-chung.zip",
+  "zip_bytes": 45857102,
+  "zip_sha256": "ecd02ab613a772827e114bd1bae078de5056be98663956ae897a237df7deee39",
+  "hashed_members": 358,
+  "zip_entries": 359,
+  "CRC": "PASS",
+  "every_manifest_hash": "MATCH",
+  "root_HTML_SSOT": "EXACT_CURRENT_BYTES",
+  "scope": "Integrity/readback only; one historical source blocker remains. No browser/runtime/independent acceptance."
+}

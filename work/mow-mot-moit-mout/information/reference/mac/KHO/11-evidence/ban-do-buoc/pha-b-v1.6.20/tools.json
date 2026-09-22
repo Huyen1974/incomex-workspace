@@ -1,0 +1,112 @@
+{
+  "gate": {
+    "id": "gate",
+    "name": "POST /proof-write/:action/:id",
+    "level": "ĐÃ CHẠY LAB · ĐÃ DỌN",
+    "source": "gate3-4/proof/rev2/extension/index.js",
+    "inputs": "action/id + request_id + expected_revision + data; instance_id khi runtime",
+    "outputs": "record read-back + revision + transaction/receipt; 403/409/422",
+    "authority": "Non-admin accountability; route/profile/field allowlist PG; CAS, effect+receipt+audit một transaction",
+    "caller": "UI/Agent/service đã cấp quyền tổng hợp trong lab",
+    "limit": "Không endpoint production đang sống; input runtime bị so với literal đã pin. Không tự đáp ứng input HMITL→AUTO nhiều task."
+  },
+  "transport": {
+    "id": "transport",
+    "name": "tool.py · read / write intent,draft,missing",
+    "level": "ĐÃ CHẠY LAB · ĐÃ DỌN",
+    "source": "gate3-4/proof/rev2/agent-tool-server.py",
+    "inputs": "JSON read collection/id/query; write action/id/revision/request/data",
+    "outputs": "HTTP status + body từ Directus; 7 collection allowlist",
+    "authority": "agent-a/agent-b synthetic; không caller identity/PG trực tiếp",
+    "caller": "Phiên Agent được người/harness khởi chạy",
+    "limit": "Adapter SSH/stdin có đường dẫn lab; chưa dispatcher. TOOL-CONTRACT.md còn feedback_id UUID, khác integer ở bằng chứng cuối: cần đồng bộ trước tái dùng."
+  },
+  "api": {
+    "id": "api",
+    "name": "Directus GET /items/{collection} · filter/search/fields/limit",
+    "level": "ĐÃ ĐỌC SNAPSHOT · CURRENT CHƯA XÁC MINH",
+    "source": "KHO/11-evidence/gate1/Gate1-R2-R8-v1.6.15-2026-09-10-evidence/gate1-r2-r8-2026-09-10/native-source/web/composables/useDirectusTable.ts",
+    "inputs": "Collection/profile được phép + filter/sort/pagination",
+    "outputs": "Rows/count theo cùng filter; metadata/relations chỉ phần đã cấp quyền",
+    "authority": "Accountability tại server; SDK không cấp quyền mới",
+    "caller": "Generic table hoặc Agent client được quản trị",
+    "limit": "Có source/SSR lịch sử và native read lab; chưa chứng minh semantic catalog phủ hết family. Không gọi aggregate count là toàn bộ nguồn đã tìm."
+  },
+  "t0": {
+    "id": "t0",
+    "name": "Runbook T0 · intent→search→Draft→WAIT/resume",
+    "level": "RUNBOOK + PROOF LAB",
+    "source": "gate3-4/evidence/03-intent-draft/T0-RUNBOOK-CANDIDATE.md",
+    "inputs": "Intent PG; bounded published catalog; parent/revision/request khi resume",
+    "outputs": "Search Brief, reuse12refs, Draft, Missing; fresh resume cùng parent",
+    "authority": "Chỉ reuse TEST catalog có nghĩa phù hợp; không quyền publish",
+    "caller": "Agent suy luận; con người/harness khởi chạy phiên",
+    "limit": "Hai phiên và replay cùng fixture; chưa hàng đợi tự nhận intent, tự resume/timeouts/batch trên toàn catalog."
+  },
+  "compiler": {
+    "id": "compiler",
+    "name": "compile-readiness.py / compile-and-test.py",
+    "level": "HARNESS ĐÃ CHẠY LAB",
+    "source": "gate3-4/proof/rev2/compile-readiness.py",
+    "inputs": "Draft + refs + exact profile/provider + suite",
+    "outputs": "7 mục×2 bước; evidence theo revision/digest; machine cuối17/17",
+    "authority": "Lab client/permission tổng hợp; schema shape không thay semantic/runtime check",
+    "caller": "Người vận hành harness; chưa tool product đăng ký",
+    "limit": "Không compiler toàn bộ graph/join hoặc mọi family; không dùng C14 UI test thay business suite."
+  },
+  "validator": {
+    "id": "validator",
+    "name": "Joi.build(profile).validate(merged state)",
+    "level": "THƯ VIỆN ĐÃ TÍCH HỢP LAB",
+    "source": "gate3-4/contracts/contracts.json",
+    "inputs": "Governed profile đúng version + dữ liệu đã merge",
+    "outputs": "Shape errors/valid; 40 profile116/116 cases ở Rev2",
+    "authority": "Profile do chủ quản; caller không chọn tùy ý; convert:false",
+    "caller": "Cổng ghi/compiler lab",
+    "limit": "Joi17.13.3 từ Directus11.5.1; không tự kiểm nghĩa tương đương, permission hoặc toàn graph."
+  },
+  "worker": {
+    "id": "worker",
+    "name": "pg-boss worker · delivery/retry/ack + guarded effect",
+    "level": "ĐÃ CHẠY LAB · ĐÃ DỌN",
+    "source": "gate3-4/proof/runtime/kernel.mjs",
+    "inputs": "Occurrence + pinned release + capability/input + effect key",
+    "outputs": "Attempt/receipt/output; same occurrence cùng instance",
+    "authority": "Service synthetic qua guard; pg-boss giữ claim/retry/ack",
+    "caller": "Worker khi lab được mở; không UI Done",
+    "limit": "Một AUTO/internal effect; không đủ TaskInstance/handoff/HMITL. Kiểm source path thực trước khi dùng; không chạy lại trong lượt này."
+  },
+  "flows": {
+    "id": "flows",
+    "name": "Native Flow · lifecycle/resume/feedback actions",
+    "level": "ĐÃ CHẠY LAB · ĐÃ DỌN",
+    "source": "gate3-4/proof/rev2/configure-lifecycle-flows.py",
+    "inputs": "Exact draft/revision/evidence/current authority + transition",
+    "outputs": "Approval/Test/Publish/Activate tách nhau; results32/32synthetic",
+    "authority": "Current grants/SoD/expiry/revoke trong policy TEST",
+    "caller": "Guard/Flow của lab; Agent không tự ký thay người",
+    "limit": "9 native Flows không Run Script; không deployment hoặc policy production; feedbackV2 chưa publish/activate."
+  },
+  "pg-native": {
+    "id": "pg-native",
+    "name": "fn_iu_create / fn_iu_create_edit_draft / fn_iu_apply_edit_draft",
+    "level": "SOURCE PG ĐÃ ĐỌC · CHƯA KIỂM TARGET",
+    "source": "gate3-4/evidence/09-data-lock/production-candidate-sources.jsonl",
+    "inputs": "canonical_address/body/title/actor hoặc draft_id",
+    "outputs": "IU/version mới; stale/no_change/invariant results",
+    "authority": "Phải xác minh wrapper accountability/GRANT; p_actor chuỗi không chứng minh caller được phép",
+    "caller": "Chưa xác minh public tool để Agent gọi đúng quyền",
+    "limit": "Native asset đáng ưu tiên trước lab registry mới. Domain văn bản/enacted khác Factory release; không gọi thẳng bằng SQL để lấp gap."
+  },
+  "kb": {
+    "id": "kb",
+    "name": "MCP AgentData search_knowledge",
+    "level": "ĐANG TRUY CẬP ĐƯỢC · CHỈ TRA TÀI LIỆU",
+    "source": "KHO/11-evidence/ban-do-buoc/pha-b-v1.6.20/knowledge-search.json",
+    "inputs": "query, limit",
+    "outputs": "Đoạn tài liệu + document_id/provenance",
+    "authority": "Connector session; kết quả retrieved không là quyền ghi PG",
+    "caller": "Agent đã gọi đọc ngày12/09",
+    "limit": "Lần tìm nguồn23 bước không trả đúng snapshot. Không dùng vector score thay reuse/admission hoặc Qdrant làm business truth."
+  }
+}

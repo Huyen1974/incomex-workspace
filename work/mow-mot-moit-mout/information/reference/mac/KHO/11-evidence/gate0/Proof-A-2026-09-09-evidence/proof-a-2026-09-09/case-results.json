@@ -1,0 +1,2146 @@
+[
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B01",
+    "query": "field.so_phut",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5"
+    ],
+    "returned_keys": [
+      "field.so_phut"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 6.419,
+    "query_warm_median_ms": 3.119,
+    "explain": {
+      "planning_ms": 1.923,
+      "execution_ms": 1.462,
+      "shared_hit_blocks": 292,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B02",
+    "query": "phút",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5"
+    ],
+    "returned_keys": [
+      "field.so_phut"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 8.043,
+    "query_warm_median_ms": 2.604,
+    "explain": {
+      "planning_ms": 0.442,
+      "execution_ms": 1.29,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B03",
+    "query": "PHÚT",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5"
+    ],
+    "returned_keys": [
+      "field.so_phut"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 2.032,
+    "query_warm_median_ms": 2.975,
+    "explain": {
+      "planning_ms": 0.305,
+      "execution_ms": 1.219,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B04",
+    "query": "  phút  ",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5"
+    ],
+    "returned_keys": [
+      "field.so_phut"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 3.638,
+    "query_warm_median_ms": 3.214,
+    "explain": {
+      "planning_ms": 0.382,
+      "execution_ms": 2.173,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B05",
+    "query": "so phut thuc hien",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": null,
+    "hit": false,
+    "eligible_count": 14,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 5.172,
+    "query_warm_median_ms": 3.587,
+    "explain": {
+      "planning_ms": 2.524,
+      "execution_ms": 2.373,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B06",
+    "query": "WF",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:1"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:1"
+    ],
+    "returned_keys": [
+      "workflow"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 3.2,
+    "query_warm_median_ms": 3.538,
+    "explain": {
+      "planning_ms": 0.44,
+      "execution_ms": 1.533,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B07",
+    "query": "Số phút thưc hiện",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": null,
+    "hit": false,
+    "eligible_count": 14,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 3.222,
+    "query_warm_median_ms": 2.591,
+    "explain": {
+      "planning_ms": 0.297,
+      "execution_ms": 1.062,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B08",
+    "query": "thời lượng một task",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": null,
+    "hit": false,
+    "eligible_count": 14,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 7.58,
+    "query_warm_median_ms": 2.516,
+    "explain": {
+      "planning_ms": 0.28,
+      "execution_ms": 1.357,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B09",
+    "query": "Tổng phút",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:14"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:14"
+    ],
+    "returned_keys": [
+      "field.tong_phut_congdon"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 45.651,
+    "query_warm_median_ms": 3.027,
+    "explain": {
+      "planning_ms": 0.326,
+      "execution_ms": 1.011,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B10",
+    "query": "ngày tạo",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:12"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:12"
+    ],
+    "returned_keys": [
+      "field.ngay_lap"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 2.249,
+    "query_warm_median_ms": 2.374,
+    "explain": {
+      "planning_ms": 0.29,
+      "execution_ms": 1.288,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B11",
+    "query": "ngày sửa đổi",
+    "positive_denominator": false,
+    "known_target_ids": [],
+    "known_target_rank": null,
+    "hit": null,
+    "eligible_count": 14,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 2.383,
+    "query_warm_median_ms": 2.376,
+    "explain": {
+      "planning_ms": 0.298,
+      "execution_ms": 0.84,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B12",
+    "query": "trạng thái",
+    "positive_denominator": false,
+    "known_target_ids": [
+      "provisional:13"
+    ],
+    "known_target_rank": 1,
+    "hit": null,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:13"
+    ],
+    "returned_keys": [
+      "field.trang_thai_quy_trinh"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 7.154,
+    "query_warm_median_ms": 2.435,
+    "explain": {
+      "planning_ms": 0.258,
+      "execution_ms": 0.73,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B13",
+    "query": "phút",
+    "positive_denominator": false,
+    "known_target_ids": [],
+    "known_target_rank": null,
+    "hit": null,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5"
+    ],
+    "returned_keys": [
+      "field.so_phut"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 5.464,
+    "query_warm_median_ms": 3.808,
+    "explain": {
+      "planning_ms": 0.322,
+      "execution_ms": 1.055,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B14",
+    "query": "người nhận hàng",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:6"
+    ],
+    "known_target_rank": null,
+    "hit": false,
+    "eligible_count": 14,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 4.223,
+    "query_warm_median_ms": 4.068,
+    "explain": {
+      "planning_ms": 0.287,
+      "execution_ms": 1.082,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B15",
+    "query": "khoi",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:9"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:9"
+    ],
+    "returned_keys": [
+      "org.khoi"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 6.499,
+    "query_warm_median_ms": 3.123,
+    "explain": {
+      "planning_ms": 0.26,
+      "execution_ms": 0.996,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a0",
+    "case_id": "B16",
+    "query": "CCCD",
+    "positive_denominator": false,
+    "known_target_ids": [],
+    "known_target_rank": null,
+    "hit": null,
+    "eligible_count": 14,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 5.021,
+    "query_warm_median_ms": 2.666,
+    "explain": {
+      "planning_ms": 0.256,
+      "execution_ms": 1.187,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B01",
+    "query": "field.so_phut",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5",
+      "provisional:14"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "field.tong_phut_congdon"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 21.751,
+    "query_warm_median_ms": 6.202,
+    "explain": {
+      "planning_ms": 2.323,
+      "execution_ms": 5.921,
+      "shared_hit_blocks": 327,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B02",
+    "query": "phút",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5",
+      "provisional:14",
+      "provisional:3",
+      "provisional:6"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "field.tong_phut_congdon",
+      "task",
+      "role.nguoi_thuc_hien"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 5.274,
+    "query_warm_median_ms": 4.57,
+    "explain": {
+      "planning_ms": 0.715,
+      "execution_ms": 2.956,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B03",
+    "query": "PHÚT",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5",
+      "provisional:14",
+      "provisional:3",
+      "provisional:6"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "field.tong_phut_congdon",
+      "task",
+      "role.nguoi_thuc_hien"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 62.139,
+    "query_warm_median_ms": 9.688,
+    "explain": {
+      "planning_ms": 1.513,
+      "execution_ms": 4.31,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B04",
+    "query": "  phút  ",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5",
+      "provisional:14",
+      "provisional:3",
+      "provisional:6"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "field.tong_phut_congdon",
+      "task",
+      "role.nguoi_thuc_hien"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 5.363,
+    "query_warm_median_ms": 5.38,
+    "explain": {
+      "planning_ms": 0.615,
+      "execution_ms": 3.381,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B05",
+    "query": "so phut thuc hien",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5",
+      "provisional:6",
+      "provisional:14"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "role.nguoi_thuc_hien",
+      "field.tong_phut_congdon"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 4.903,
+    "query_warm_median_ms": 5.878,
+    "explain": {
+      "planning_ms": 3.31,
+      "execution_ms": 54.412,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B06",
+    "query": "WF",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:1"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:1"
+    ],
+    "returned_keys": [
+      "workflow"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 4.144,
+    "query_warm_median_ms": 4.809,
+    "explain": {
+      "planning_ms": 0.668,
+      "execution_ms": 8.536,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B07",
+    "query": "Số phút thưc hiện",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5",
+      "provisional:6",
+      "provisional:14"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "role.nguoi_thuc_hien",
+      "field.tong_phut_congdon"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 10.855,
+    "query_warm_median_ms": 5.609,
+    "explain": {
+      "planning_ms": 0.587,
+      "execution_ms": 69.398,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B08",
+    "query": "thời lượng một task",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5",
+      "provisional:14"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "field.tong_phut_congdon"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 21.58,
+    "query_warm_median_ms": 4.998,
+    "explain": {
+      "planning_ms": 0.74,
+      "execution_ms": 11.588,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B09",
+    "query": "Tổng phút",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:14"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:14",
+      "provisional:5",
+      "provisional:3"
+    ],
+    "returned_keys": [
+      "field.tong_phut_congdon",
+      "field.so_phut",
+      "task"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 10.65,
+    "query_warm_median_ms": 5.492,
+    "explain": {
+      "planning_ms": 0.644,
+      "execution_ms": 2.883,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B10",
+    "query": "ngày tạo",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:12"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:12",
+      "provisional:11"
+    ],
+    "returned_keys": [
+      "field.ngay_lap",
+      "role.nguoi_lap"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 41.24,
+    "query_warm_median_ms": 4.36,
+    "explain": {
+      "planning_ms": 0.664,
+      "execution_ms": 2.539,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B11",
+    "query": "ngày sửa đổi",
+    "positive_denominator": false,
+    "known_target_ids": [],
+    "known_target_rank": null,
+    "hit": null,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:12"
+    ],
+    "returned_keys": [
+      "field.ngay_lap"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 4.275,
+    "query_warm_median_ms": 4.958,
+    "explain": {
+      "planning_ms": 0.576,
+      "execution_ms": 4.548,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B12",
+    "query": "trạng thái",
+    "positive_denominator": false,
+    "known_target_ids": [
+      "provisional:13"
+    ],
+    "known_target_rank": 1,
+    "hit": null,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:13"
+    ],
+    "returned_keys": [
+      "field.trang_thai_quy_trinh"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 6.461,
+    "query_warm_median_ms": 5.682,
+    "explain": {
+      "planning_ms": 4.052,
+      "execution_ms": 2.635,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B13",
+    "query": "phút",
+    "positive_denominator": false,
+    "known_target_ids": [],
+    "known_target_rank": null,
+    "hit": null,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:5",
+      "provisional:14",
+      "provisional:3",
+      "provisional:6"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "field.tong_phut_congdon",
+      "task",
+      "role.nguoi_thuc_hien"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 5.504,
+    "query_warm_median_ms": 5.22,
+    "explain": {
+      "planning_ms": 0.949,
+      "execution_ms": 5.338,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B14",
+    "query": "người nhận hàng",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:6"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:6",
+      "provisional:7",
+      "provisional:11"
+    ],
+    "returned_keys": [
+      "role.nguoi_thuc_hien",
+      "role.nguoi_nhan_bao_cao",
+      "role.nguoi_lap"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 5.481,
+    "query_warm_median_ms": 5.368,
+    "explain": {
+      "planning_ms": 0.659,
+      "execution_ms": 7.852,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B15",
+    "query": "khoi",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:9"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 14,
+    "shortlist": [
+      "provisional:9",
+      "provisional:10",
+      "provisional:12",
+      "provisional:1",
+      "provisional:2"
+    ],
+    "returned_keys": [
+      "org.khoi",
+      "field.duong_dan_7_tang",
+      "field.ngay_lap",
+      "workflow",
+      "workflow.step"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 6.526,
+    "query_warm_median_ms": 5.528,
+    "explain": {
+      "planning_ms": 0.706,
+      "execution_ms": 7.439,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "small",
+    "mode": "a1",
+    "case_id": "B16",
+    "query": "CCCD",
+    "positive_denominator": false,
+    "known_target_ids": [],
+    "known_target_rank": null,
+    "hit": null,
+    "eligible_count": 14,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 5.433,
+    "query_warm_median_ms": 4.138,
+    "explain": {
+      "planning_ms": 0.75,
+      "execution_ms": 6.287,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B01",
+    "query": "field.so_phut",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5"
+    ],
+    "returned_keys": [
+      "field.so_phut"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 9.941,
+    "query_warm_median_ms": 20.48,
+    "explain": {
+      "planning_ms": 3.897,
+      "execution_ms": 13.228,
+      "shared_hit_blocks": 292,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B02",
+    "query": "phút",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5"
+    ],
+    "returned_keys": [
+      "field.so_phut"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 54.89,
+    "query_warm_median_ms": 10.713,
+    "explain": {
+      "planning_ms": 0.393,
+      "execution_ms": 32.526,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B03",
+    "query": "PHÚT",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5"
+    ],
+    "returned_keys": [
+      "field.so_phut"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 6.641,
+    "query_warm_median_ms": 56.755,
+    "explain": {
+      "planning_ms": 0.409,
+      "execution_ms": 68.121,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B04",
+    "query": "  phút  ",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5"
+    ],
+    "returned_keys": [
+      "field.so_phut"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 5.949,
+    "query_warm_median_ms": 10.848,
+    "explain": {
+      "planning_ms": 0.357,
+      "execution_ms": 91.049,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B05",
+    "query": "so phut thuc hien",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": null,
+    "hit": false,
+    "eligible_count": 1452,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 27.948,
+    "query_warm_median_ms": 9.811,
+    "explain": {
+      "planning_ms": 0.309,
+      "execution_ms": 9.208,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B06",
+    "query": "WF",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:1"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:1"
+    ],
+    "returned_keys": [
+      "workflow"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 58.877,
+    "query_warm_median_ms": 8.941,
+    "explain": {
+      "planning_ms": 0.328,
+      "execution_ms": 10.645,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B07",
+    "query": "Số phút thưc hiện",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": null,
+    "hit": false,
+    "eligible_count": 1452,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 17.49,
+    "query_warm_median_ms": 6.756,
+    "explain": {
+      "planning_ms": 0.33,
+      "execution_ms": 7.868,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B08",
+    "query": "thời lượng một task",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": null,
+    "hit": false,
+    "eligible_count": 1452,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 18.308,
+    "query_warm_median_ms": 6.599,
+    "explain": {
+      "planning_ms": 0.346,
+      "execution_ms": 6.143,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B09",
+    "query": "Tổng phút",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:14"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:14"
+    ],
+    "returned_keys": [
+      "field.tong_phut_congdon"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 7.124,
+    "query_warm_median_ms": 10.479,
+    "explain": {
+      "planning_ms": 0.345,
+      "execution_ms": 7.144,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B10",
+    "query": "ngày tạo",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:12"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:12"
+    ],
+    "returned_keys": [
+      "field.ngay_lap"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 6.221,
+    "query_warm_median_ms": 11.855,
+    "explain": {
+      "planning_ms": 0.476,
+      "execution_ms": 5.849,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B11",
+    "query": "ngày sửa đổi",
+    "positive_denominator": false,
+    "known_target_ids": [],
+    "known_target_rank": null,
+    "hit": null,
+    "eligible_count": 1452,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 6.129,
+    "query_warm_median_ms": 11.127,
+    "explain": {
+      "planning_ms": 0.348,
+      "execution_ms": 70.318,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B12",
+    "query": "trạng thái",
+    "positive_denominator": false,
+    "known_target_ids": [
+      "provisional:13"
+    ],
+    "known_target_rank": 1,
+    "hit": null,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:13"
+    ],
+    "returned_keys": [
+      "field.trang_thai_quy_trinh"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 10.206,
+    "query_warm_median_ms": 14.874,
+    "explain": {
+      "planning_ms": 0.298,
+      "execution_ms": 11.468,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B13",
+    "query": "phút",
+    "positive_denominator": false,
+    "known_target_ids": [],
+    "known_target_rank": null,
+    "hit": null,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5"
+    ],
+    "returned_keys": [
+      "field.so_phut"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 9.43,
+    "query_warm_median_ms": 6.976,
+    "explain": {
+      "planning_ms": 2.062,
+      "execution_ms": 8.155,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B14",
+    "query": "người nhận hàng",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:6"
+    ],
+    "known_target_rank": null,
+    "hit": false,
+    "eligible_count": 1452,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 10.42,
+    "query_warm_median_ms": 9.384,
+    "explain": {
+      "planning_ms": 0.306,
+      "execution_ms": 6.918,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B15",
+    "query": "khoi",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:9"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:9"
+    ],
+    "returned_keys": [
+      "org.khoi"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 6.748,
+    "query_warm_median_ms": 15.475,
+    "explain": {
+      "planning_ms": 0.341,
+      "execution_ms": 59.122,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a0",
+    "case_id": "B16",
+    "query": "CCCD",
+    "positive_denominator": false,
+    "known_target_ids": [],
+    "known_target_rank": null,
+    "hit": null,
+    "eligible_count": 1452,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 7.925,
+    "query_warm_median_ms": 66.137,
+    "explain": {
+      "planning_ms": 0.349,
+      "execution_ms": 18.114,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B01",
+    "query": "field.so_phut",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5",
+      "provisional:14",
+      "legacy:1069",
+      "legacy:1148"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "field.tong_phut_congdon",
+      "table_registry.fields",
+      "collection_registry.field_count"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "legacy_field_metadata",
+      "legacy_field_metadata"
+    ],
+    "query_first_pass_ms": 126.989,
+    "query_warm_median_ms": 78.83,
+    "explain": {
+      "planning_ms": 2.355,
+      "execution_ms": 83.589,
+      "shared_hit_blocks": 327,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B02",
+    "query": "phút",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5",
+      "provisional:14",
+      "provisional:3",
+      "provisional:6",
+      "legacy:51"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "field.tong_phut_congdon",
+      "task",
+      "role.nguoi_thuc_hien",
+      "block_quote.subtitle"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "legacy_field_metadata"
+    ],
+    "query_first_pass_ms": 86.047,
+    "query_warm_median_ms": 76.277,
+    "explain": {
+      "planning_ms": 0.608,
+      "execution_ms": 25.432,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B03",
+    "query": "PHÚT",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5",
+      "provisional:14",
+      "provisional:3",
+      "provisional:6",
+      "legacy:51"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "field.tong_phut_congdon",
+      "task",
+      "role.nguoi_thuc_hien",
+      "block_quote.subtitle"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "legacy_field_metadata"
+    ],
+    "query_first_pass_ms": 93.772,
+    "query_warm_median_ms": 79.468,
+    "explain": {
+      "planning_ms": 0.628,
+      "execution_ms": 74.48,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B04",
+    "query": "  phút  ",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5",
+      "provisional:14",
+      "provisional:3",
+      "provisional:6",
+      "legacy:51"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "field.tong_phut_congdon",
+      "task",
+      "role.nguoi_thuc_hien",
+      "block_quote.subtitle"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "legacy_field_metadata"
+    ],
+    "query_first_pass_ms": 86.103,
+    "query_warm_median_ms": 78.024,
+    "explain": {
+      "planning_ms": 0.839,
+      "execution_ms": 79.631,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B05",
+    "query": "so phut thuc hien",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5",
+      "provisional:6",
+      "provisional:14"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "role.nguoi_thuc_hien",
+      "field.tong_phut_congdon"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 117.572,
+    "query_warm_median_ms": 83.739,
+    "explain": {
+      "planning_ms": 0.655,
+      "execution_ms": 35.713,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B06",
+    "query": "WF",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:1"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:1",
+      "legacy:1035",
+      "legacy:1218",
+      "legacy:1307"
+    ],
+    "returned_keys": [
+      "workflow",
+      "workflows.process_code",
+      "entity_dependencies.target_code",
+      "comments.entity_code"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "legacy_field_metadata",
+      "legacy_field_metadata",
+      "legacy_field_metadata"
+    ],
+    "query_first_pass_ms": 86.593,
+    "query_warm_median_ms": 27.159,
+    "explain": {
+      "planning_ms": 1.257,
+      "execution_ms": 72.035,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B07",
+    "query": "Số phút thưc hiện",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5",
+      "provisional:6",
+      "provisional:14"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "role.nguoi_thuc_hien",
+      "field.tong_phut_congdon"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 86.003,
+    "query_warm_median_ms": 85.248,
+    "explain": {
+      "planning_ms": 0.958,
+      "execution_ms": 81.959,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B08",
+    "query": "thời lượng một task",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:5"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5",
+      "provisional:14"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "field.tong_phut_congdon"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 99.134,
+    "query_warm_median_ms": 93.619,
+    "explain": {
+      "planning_ms": 0.726,
+      "execution_ms": 89.582,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B09",
+    "query": "Tổng phút",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:14"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:14",
+      "provisional:5",
+      "legacy:293",
+      "provisional:3"
+    ],
+    "returned_keys": [
+      "field.tong_phut_congdon",
+      "field.so_phut",
+      "os_invoices.subtotal",
+      "task"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "legacy_field_metadata",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 189.106,
+    "query_warm_median_ms": 28.002,
+    "explain": {
+      "planning_ms": 0.684,
+      "execution_ms": 36.473,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B10",
+    "query": "ngày tạo",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:12"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:12",
+      "provisional:11"
+    ],
+    "returned_keys": [
+      "field.ngay_lap",
+      "role.nguoi_lap"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 78.292,
+    "query_warm_median_ms": 82.809,
+    "explain": {
+      "planning_ms": 0.706,
+      "execution_ms": 78.135,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B11",
+    "query": "ngày sửa đổi",
+    "positive_denominator": false,
+    "known_target_ids": [],
+    "known_target_rank": null,
+    "hit": null,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:12"
+    ],
+    "returned_keys": [
+      "field.ngay_lap"
+    ],
+    "candidate_kinds": [
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 27.886,
+    "query_warm_median_ms": 81.782,
+    "explain": {
+      "planning_ms": 0.636,
+      "execution_ms": 80.389,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B12",
+    "query": "trạng thái",
+    "positive_denominator": false,
+    "known_target_ids": [
+      "provisional:13"
+    ],
+    "known_target_rank": 1,
+    "hit": null,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:13",
+      "legacy:96",
+      "legacy:135",
+      "legacy:245",
+      "legacy:257"
+    ],
+    "returned_keys": [
+      "field.trang_thai_quy_trinh",
+      "pages.status",
+      "forms.status",
+      "contacts.status",
+      "os_projects.status"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "legacy_field_metadata",
+      "legacy_field_metadata",
+      "legacy_field_metadata",
+      "legacy_field_metadata"
+    ],
+    "query_first_pass_ms": 75.232,
+    "query_warm_median_ms": 79.055,
+    "explain": {
+      "planning_ms": 0.659,
+      "execution_ms": 29.825,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B13",
+    "query": "phút",
+    "positive_denominator": false,
+    "known_target_ids": [],
+    "known_target_rank": null,
+    "hit": null,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:5",
+      "provisional:14",
+      "provisional:3",
+      "provisional:6",
+      "legacy:51"
+    ],
+    "returned_keys": [
+      "field.so_phut",
+      "field.tong_phut_congdon",
+      "task",
+      "role.nguoi_thuc_hien",
+      "block_quote.subtitle"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept",
+      "legacy_field_metadata"
+    ],
+    "query_first_pass_ms": 28.915,
+    "query_warm_median_ms": 84.257,
+    "explain": {
+      "planning_ms": 0.627,
+      "execution_ms": 81.332,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B14",
+    "query": "người nhận hàng",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:6"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:6",
+      "provisional:7",
+      "provisional:11"
+    ],
+    "returned_keys": [
+      "role.nguoi_thuc_hien",
+      "role.nguoi_nhan_bao_cao",
+      "role.nguoi_lap"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 81.261,
+    "query_warm_median_ms": 34.233,
+    "explain": {
+      "planning_ms": 0.661,
+      "execution_ms": 82.507,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B15",
+    "query": "khoi",
+    "positive_denominator": true,
+    "known_target_ids": [
+      "provisional:9"
+    ],
+    "known_target_rank": 1,
+    "hit": true,
+    "eligible_count": 1452,
+    "shortlist": [
+      "provisional:9",
+      "legacy:107",
+      "provisional:10",
+      "provisional:12",
+      "provisional:1"
+    ],
+    "returned_keys": [
+      "org.khoi",
+      "pages_blocks.hide_block",
+      "field.duong_dan_7_tang",
+      "field.ngay_lap",
+      "workflow"
+    ],
+    "candidate_kinds": [
+      "provisional_concept",
+      "legacy_field_metadata",
+      "provisional_concept",
+      "provisional_concept",
+      "provisional_concept"
+    ],
+    "query_first_pass_ms": 90.002,
+    "query_warm_median_ms": 77.864,
+    "explain": {
+      "planning_ms": 0.612,
+      "execution_ms": 23.339,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  },
+  {
+    "corpus": "expanded",
+    "mode": "a1",
+    "case_id": "B16",
+    "query": "CCCD",
+    "positive_denominator": false,
+    "known_target_ids": [],
+    "known_target_rank": null,
+    "hit": null,
+    "eligible_count": 1452,
+    "shortlist": [],
+    "returned_keys": [],
+    "candidate_kinds": [],
+    "query_first_pass_ms": 27.556,
+    "query_warm_median_ms": 75.225,
+    "explain": {
+      "planning_ms": 0.895,
+      "execution_ms": 82.12,
+      "shared_hit_blocks": 286,
+      "shared_read_blocks": 0
+    },
+    "admission": "NOT MEASURED",
+    "expanded_label_limit": "Unjudged legacy hits are not counted false-positive or new relevant labels"
+  }
+]

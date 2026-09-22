@@ -1,0 +1,188 @@
+[
+  {
+    "case_id": "B01",
+    "relevant_ids": [
+      "provisional:5"
+    ],
+    "included_in_positive_hit_denominator": true,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "exact key",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B02",
+    "relevant_ids": [
+      "provisional:5"
+    ],
+    "included_in_positive_hit_denominator": true,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "exact alias",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B03",
+    "relevant_ids": [
+      "provisional:5"
+    ],
+    "included_in_positive_hit_denominator": true,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "case",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B04",
+    "relevant_ids": [
+      "provisional:5"
+    ],
+    "included_in_positive_hit_denominator": true,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "whitespace",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B05",
+    "relevant_ids": [
+      "provisional:5"
+    ],
+    "included_in_positive_hit_denominator": true,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "no accent",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B06",
+    "relevant_ids": [
+      "provisional:1"
+    ],
+    "included_in_positive_hit_denominator": true,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "abbreviation",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B07",
+    "relevant_ids": [
+      "provisional:5"
+    ],
+    "included_in_positive_hit_denominator": true,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "typo",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B08",
+    "relevant_ids": [
+      "provisional:5"
+    ],
+    "included_in_positive_hit_denominator": true,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "same meaning new wording",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B09",
+    "relevant_ids": [
+      "provisional:14"
+    ],
+    "included_in_positive_hit_denominator": true,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "near family distinct",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B10",
+    "relevant_ids": [
+      "provisional:12"
+    ],
+    "included_in_positive_hit_denominator": true,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "alias date",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B11",
+    "relevant_ids": [],
+    "included_in_positive_hit_denominator": false,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "different meaning",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B12",
+    "relevant_ids": [
+      "provisional:13"
+    ],
+    "included_in_positive_hit_denominator": false,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "ambiguous runtime-state brief",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B13",
+    "relevant_ids": [],
+    "included_in_positive_hit_denominator": false,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "requested unit hours",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B14",
+    "relevant_ids": [
+      "provisional:6"
+    ],
+    "included_in_positive_hit_denominator": true,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "meaning in description",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B15",
+    "relevant_ids": [
+      "provisional:9"
+    ],
+    "included_in_positive_hit_denominator": true,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "approved unaccent alias",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  },
+  {
+    "case_id": "B16",
+    "relevant_ids": [],
+    "included_in_positive_hit_denominator": false,
+    "expected_basis": "preserved E06 source-text retrieval label; not PM-approved admission label",
+    "case_type": "catalog coverage unknown",
+    "legacy_relevance_exhaustive": false,
+    "admission_label": null,
+    "admission_status": "NOT MEASURED: no complete structured contract/authority in source"
+  }
+]
