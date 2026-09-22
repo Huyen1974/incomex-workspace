@@ -330,5 +330,37 @@ Based_on `dc2edf7` · READY@630a19e khớp commit cuối chạm PROMPT — PASS.
 - UI task đang chọn vẫn tối đa 2 hàng liên quan (`Vừa làm`, `Đang làm`); ghi chú dưới bảng phải ngắn: `Vừa làm: lần ghi gần nhất` · `Đang làm: hoạt động mới nhất ≤10 phút`.
 - Dòng lịch sử HVU-UI03 “6 actor × 2 cột...” là mốc cũ, cleanup phải không dùng nó làm contract runtime hiện hành.
 
+## RUN HVU-B3-CLEANUP-20260921-03 · Executor Claude Code CLI
+- Gate PASS: commit cuối chạm `PROMPT.md` = `c9d44b3f93d055b2628af882aa954c414537e3f9` = READY của Host. Làm theo PROMPT + P20 + P21. Core `Vừa làm` (Git author) giữ nguyên; **hai gateway không sửa, không restart** (image `agent-data-hvu:b3-rerun-02-final` / `claude-mcp-local:hvu-b3-rerun-02-final`, chạy từ 21/09 11:26Z/11:29Z; HEAD agent `b0b768e`, claude `12afa84`, sạch) ⇒ tools/list, schema, serverInfo/version, auth, URL không đổi.
+- Runtime VPS `nuxt-repo/scripts/hvu-b2` commit `5794b33` (backup VPS→web-test theo cron 06h/18h có sẵn):
+  1. **§1+§2 tên:** `sync.py` đọc DUY NHẤT bảng A9 cùng revision → `tasks.json.actorNames` + `lastActorNames`. Legacy `Claude via MCP` / `AI via Incomex Workspace` khớp **chính xác** → không actor: hermes-joint-workspace, mcp-workspace, mow-mot-moit-mout nay `[]`, UI “Chưa có tín hiệu”. `Claude via MCP 2` → `Chưa rõ` (không heuristic). `openai-mcp/1.0.0`→GPT Chat/Work, `claude-code/2.1.278 (cli)`→Claude Code CLI, `Anthropic/ClaudeAI`→Claude Chat/Cowork, `codex-mcp-client`→Codex, lạ→`Chưa rõ`; bảng hỏng → cảnh báo + `Chưa rõ`. UI không giữ bảng thứ hai.
+  2. **§3A latest-only thật:** `presence.py` giữ MỘT register/việc `{current{surface_key,label,last_seen}, generation, cleared}` tại `/var/lib/incomex-hvu-presence/register.json` (systemd StateDirectory, 0600, chỉ nhãn/thời gian). Chỉ mẫu **mới hơn current và mới hơn tombstone** mới chiếm register (đổi surface → generation+1). Clear = tombstone: (a) mẫu của chính current biến mất (gateway pop khi commit); (b) commit gateway cuối của việc = hoạt động cuối của surface đó rồi clear (+1 giây vì `%cI` tính giây). Bản bị thay/clear không bao giờ quay lại; TTL 600s chỉ xám, không fallback. Store cặp của gateway + queue chỉ là sổ mẫu. `presence.json` ≤1 entry/việc + `display`.
+  3. **UI** (`ui/app.vue` → `view.html` sha256 `285dcedc…`): việc đang chọn chỉ hiện `Vừa làm` ∪ `Đang làm` (≤2 hàng, cùng người thì 1 hàng); tên theo A9, nhãn máy chỉ ở tooltip; dưới bảng đúng 2 dòng `Vừa làm: lần ghi gần nhất` · `Đang làm: hoạt động mới nhất ≤10 phút`; bỏ danh sách nhãn toàn cục.
+  4. **Test:** 15 unittest PASS (11 B2/B2.1 + 4 B3) + webhook 7 assertions PASS. Regression bắt buộc: A→X ⇒ A; B→X ⇒ chỉ B; B commit X ⇒ X trống; A không có hoạt động mới ⇒ vẫn trống dù A còn trong TTL; A read X ⇒ A sáng mới (generation 3); A→Y độc lập; hết TTL không fallback; lỡ mẫu + pop hỏng ⇒ tombstone commit thắng; commit cũ không xoá hoạt động mới hơn; job kết thúc không fallback; giới hạn; nguồn chỉ đọc; legacy chính xác; bảng A9 thật đọc từ clone ẩn danh.
+  5. Rollback một lệnh: `/opt/incomex/deploys/hvu-b3-cleanup-20260922/rollback.sh` (bản trước ở `before/`).
+- **Kiểm production (DOM view thật):** HVU = `GPT Chat/Work` (Vừa làm, tooltip `openai-mcp/1.0.0`) + `Claude Code CLI` (Đang làm, tooltip `claude-code`); VPSC = `Claude Chat/Cowork` + `Claude Code CLI`; không còn chữ legacy; badge fresh; view/data/KB HTTP 200; sync/socket/timer/presence active; đĩa 55%.
+
+**§3B bảng surface/proxy (đo thật 22/09):**
+
+| surface | entrypoint/config | proxy path/hash | route | identity forwarding | live label | action |
+|---|---|---|---|---|---|---|
+| Claude Code CLI | `~/.claude.json` agent-data `type:http` | không proxy | agent-data `/api/mcp` JSON-RPC | clientInfo gắn theo dấu vân tay route+host+UA (agent-data không cấp `Mcp-Session-Id`); >1h không gọi ⇒ rơi về UA `claude-code/<ver> (cli)` = nguyên nhân P20.2 | `claude-code` | không (A9 tiền tố vẫn đúng) |
+| Claude Code CLI qua connector claude.ai | connector Incomex VPS | — | Claude gateway `/mcp` | SDK clientInfo | `claude-code` | không |
+| Claude Chat | connector claude.ai | — | Claude gateway `/mcp` | SDK clientInfo | `Anthropic/ClaudeAI` (P19) | không |
+| Claude Desktop / Cowork (MCP local) | `claude_desktop_config.json` agent-data → venv + `agent-data-test/mcp_server/stdio_server.py` | trước `1e26b83d…` (03/04, không forward, tool legacy); nay `13cbb884…` = canonical VPS | cũ: REST `/kb/*`; mới: JSON-RPC `/mcp` cho `workspace_*` | mới: `X-MCP-Client-Info` + `Mcp-Session-Id` mỗi request | smoke process mới độc lập: store nhận `claude-code-smoke` (không chạm work/ ⇒ không presence, không commit) | ĐÃ cập nhật bản cài; 2 tiến trình Desktop đang chạy vẫn bản cũ ⇒ `FIRST_USE_PENDING`, không restart app. Rollback: `git -C agent-data-test checkout -- mcp_server/stdio_server.py` |
+| Codex | `~/.codex/config.toml` agent-data `url` | không proxy | agent-data `/api/mcp` | clientInfo | `codex-mcp-client` | không |
+| GPT Chat/Work | connector ChatGPT | — | `/mcp-gpt*` | UA/clientInfo | `openai-mcp` · `openai-mcp/1.0.0` | không |
+| Hermes | VPS `/var/lib/hermes/.hermes/config.yaml` không có `mcp_servers`; skill KB gọi REST localhost | — | không vào workspace | — | chưa có | `FIRST_USE_PENDING` |
+
+**§5 đường ghi vào `incomex-workspace`:**
+- NORMAL_AI_PATH qua gateway (tự bắt actor/presence): agent-data `workspace_*` (GPT Chat/Work, Codex, Claude Code CLI, Claude Desktop sau proxy mới); Claude gateway `fs_*` root `gh` + host helper (Claude Chat/Cowork, Claude Code qua connector claude.ai).
+- NORMAL_AI_PATH ngoài gateway — lỗ thật: clone Mac `~/projects/incomex-workspace` + `git push`: `e2a9f35` “[Claude] JEV-SKILL” (22/09) mang author Owner `nmhuyen@gmail.com` ⇒ unknown đúng luật nhưng mất actor. Cấu hình mỏng lượt này: ghi quy tắc bền cho Claude Code CLI (bộ nhớ Claude Code trên Mac): sửa workspace qua `workspace_*`, không commit/push từ clone local. Không đổi quyền push, không hook (Owner vẫn dùng đường này).
+- ADMIN/EXCEPTION_PATH: SSH/git trực tiếp trên VPS; GitHub web/API/`gh`; Hermes root shell; host scripts (cron `incomex-workspace-status` chỉ đọc, không commit). Commit qua đây hiện unknown là đúng.
+- NOT_A_SOURCE_WRITE: `workspace_exec` (snapshot); Cowork runner shell/`patch_export` (patch trong projection, chỉ thành nguồn khi áp qua gateway); KB `upload/update_document` (không phải repo này); presence/register (không Git).
+
+**§6 synthetic:** 2 commit synthetic cũ (`6888bc4`, `bc71e01`) giữ nguyên, không rewrite. Hai script đã gây ra (`deploys/hvu-b3-20260921/rerun-02/live-claude.py`, `live-claude-final.py`) có guard dòng đầu ⇒ chạy là thoát `RETIRED`; bản gốc ở `before/`. Test gateway + B2/B3 đều repo tạm/fixture. Lượt này không có commit synthetic nào vào main.
+
+**§4 Claude Code tự kiểm nhãn thật:** bước 1 PASS: read scoped qua agent-data ⇒ mẫu `claude-code × hpml-view-for-user`, `presence.json` HVU = `Claude Code CLI`. Bước 2 = chính commit này (công việc thật); bước 3–6 ghi ở commit kế tiếp sau khi đo.
+
 ## Owner cần quyết
 - — · Không có quyết định nghiệp vụ chặn cleanup Claude.
