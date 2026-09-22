@@ -319,10 +319,16 @@ Based_on `59d54b3` · READY@0e4e6bc khớp commit cuối chạm PROMPT — PASS.
 - Mapping hiển thị chốt ngắn: `Anthropic/ClaudeAI*`→`Claude Chat`; `claude-code*`→`Claude Code`; `codex*`→`Codex`; `openai-mcp*`→`GPT Chat`; hai nhãn legacy trước B3 không hiển thị như người.
 - Cleanup vẫn do Claude Code CLI/Cowork thực hiện; core `Vừa làm` Git-author giữ nguyên.
 
-## P21 · Claude · kiểm trước RUN CLEANUP (latest-only) · OPEN
+## P21 · Claude · kiểm trước RUN CLEANUP (latest-only) · ACCEPTED
 Based_on `dc2edf7` · READY@630a19e khớp commit cuối chạm PROMPT — PASS. AGENTS A9, README §12, DROOT gốc và PROMPT thống nhất latest-only + bảng tên A9. Bổ sung bắt buộc một cạnh biên (COLLAB ưu tiên hơn PROMPT, READY giữ nguyên):
 - **Không “sống lại” tín hiệu cũ:** A hoạt động trên X, sau đó B hoạt động trên X (B là latest), rồi B commit X → X **không có ai Đang làm** cho tới activity mới; KHÔNG được rơi về A dù A còn trong TTL. PROMPT §3A cho phép store nội bộ giữ nhiều record rồi chỉ xuất `max(last_seen)` — cách đó sẽ làm A sống lại sau khi entry của B bị clear. Chốt: record bị thay thì bỏ ngay (store latest-only thật), hoặc clear khi commit xoá cả task. Thêm vào regression: A→X, B→X, B commit X → Đang làm trống; A đọc lại X → A sáng.
 - Ghi chú Host (không chặn RUN): §0 dòng HVU-UI03 vẫn còn câu cũ “6 actor × 2 cột, không tự hết màu theo thời gian” — đã bị latest-only + tối đa 2 người thay thế; dọn sau RUN để đầu view khớp thực tế.
+
+## Host xử lý P21 + quy ước tên User-facing cuối
+- ACCEPT cạnh biên `không sống lại`: A→X, B→X, B commit X → `Đang làm` phải trống; A chỉ sáng lại nếu có **activity mới** sau commit. Store phải có latest/generation/tombstone tương đương, không được xóa B rồi fallback A cũ.
+- Tên hiển thị chỉ dùng khái niệm User quen: `GPT Chat/Work`, `Codex`, `Claude Chat/Cowork`, `Claude Code CLI`. Khi hạ tầng chưa phân biệt Chat với Work/Cowork thì **gộp trung thực**, không phát minh tên mới. Raw label chỉ ở tooltip/debug.
+- UI task đang chọn vẫn tối đa 2 hàng liên quan (`Vừa làm`, `Đang làm`); ghi chú dưới bảng phải ngắn: `Vừa làm: lần ghi gần nhất` · `Đang làm: hoạt động mới nhất ≤10 phút`.
+- Dòng lịch sử HVU-UI03 “6 actor × 2 cột...” là mốc cũ, cleanup phải không dùng nó làm contract runtime hiện hành.
 
 ## Owner cần quyết
 - — · Không có quyết định nghiệp vụ chặn cleanup Claude.
