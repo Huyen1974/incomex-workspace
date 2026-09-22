@@ -2,6 +2,8 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 
+**HVU-ARCHIVE01 · Owner 22/09/2026 — ĐÃ XÁC NHẬN trực tiếp:** Bổ sung cơ chế archive thật đơn giản và thống nhất giữa người/AI/GitHub/VPS: `work/<task-id>/` là việc đang làm; `work/done-tasks/<task-id>/` là việc đã xong. Web/VPS phải vẫn nhìn, tìm kiếm và mở được việc đã xong để tra cứu/sửa/nâng cấp; GitHub/workspace là SSOT và VPS tự đồng bộ theo webhook, không bắt User move/copy bên VPS. Khi đóng việc, AI tự move nguyên folder vào `done-tasks`; khi mở lại, move ra lại đúng `work/<task-id>`, giữ task-id/lịch sử. Mục tiêu ưu tiên: **một cấu trúc = một ý nghĩa, nhìn là hiểu, ít bước và ít code nhất**. B2/B3 đã CLOSED giữ nguyên, pha này chỉ bổ sung archive/discovery và guard cần thiết.
+
 **Master list · Owner 22/09/2026 — ĐÃ XÁC NHẬN trực tiếp:** Bổ sung thanh nền nhạt trên cùng sidebar, mở bảng tổng hợp 7 cột: STT, Tên công việc, Người làm, Vừa làm, Last time, Đang làm, Tiến độ. Chỉ lắp view từ dữ liệu hiện hữu trên VPS; giữ nguyên core Claude cleanup, không sửa gateway/sync/presence. STT tự đếm theo danh sách đang xem; Last time lấy lastCommit[1], giờ địa phương trình duyệt. Bấm tên/tiến độ mở chi tiết cũ. Đã triển khai runtime commit `99e1618501cf1cbeb4c875edbfbb5c406ee91582`; 15 regression tests OK, 60 parity cases PASS, polling + detail template nguyên vẹn, Python hashes unchanged; browser 8 task/7 cột, tìm kiếm/rỗng/mở chi tiết PASS. Backup UI riêng `/opt/incomex/deploys/hvu-master-list-20260922/`; hướng dẫn tại runtime scripts/hvu-b2/README.md. Không sửa PROMPT/KQ cleanup đã đóng; đây là yêu cầu UI bổ sung trực tiếp của Owner. Báo cáo: KB `knowledge/current-state/reports/hvu-ui03-progress.md`.
 
 **HVU-SIGNAL01 · Owner 21/09/2026 — chỉ đạo mới nhất:** B2 đã chạy thật: webhook GitHub + backstop 15′ tự đổ task/mục tiêu/tiến độ/HTML xuống VPS. Việc còn lại là (1) B2.1 sửa các lệch parser/UI/retention đã đo được và (2) B3 làm hai tín hiệu cốt lõi **Vừa làm** và **Đang làm** hoàn toàn tự động, không bắt AI/User báo tay. `Vừa làm` phải bền đến commit tiếp theo của chính task; `Đang làm` là presence tạm thời từ hoạt động tool, không được suy từ commit. Thiếu bằng chứng surface thì để xám, không đoán.
@@ -394,6 +396,12 @@ Based_on `5e0d469` · Chỉ đọc trên VPS + 1 lần đọc thật qua cổng 
 - **Dữ liệu đang phục vụ đúng A9:** 3 việc commit cuối là tên cổng cũ → `lastActors=[]` (xám); còn lại hiện `GPT Chat/Work`, `Claude Code CLI`, `Claude Chat/Cowork`; việc mới `mcp-token-argv` tự xuất hiện; app có `Chưa rõ` cho nhãn lạ. Author commit mới đã là `claude-code`, `openai-mcp` (hết đuôi version).
 - **Latest-only live giữa hai surface thật:** JEV đang `Claude Code CLI` (gen 1) → Claude Chat đọc JEV → `presence.json` còn đúng 1 entry `Claude Chat/Cowork` (gen 2), Claude Code bị thay ngay không chờ TTL — PASS. `fs_stat` không tính là hoạt động (chỉ đọc/ghi) — hợp lý.
 - **Việc nhỏ cho Host (không mở lại HVU core):** (1) OPEN #6 “clone trên Mac chỉ dựa vào trí nhớ Claude Code” → chốt kỹ thuật tự nhiên của Git: `git remote set-url --push origin no_push` trên clone Mac (đọc vẫn được, push thẳng bị chặn, mọi ghi phải qua cổng để được đóng dấu; đảo lại được bằng một lệnh); (2) OPEN #5 bản mirror `ui-assembly/` + `view.html` trong repo đang là UI03 cũ → chép một chiều từ runtime VPS lên (đúng §11) hoặc ghi rõ “bản tham khảo UI03, không phải nguồn”, kèm dọn dòng §0 HVU-UI03 (P21).
+
+## P23 · GPT · HVU-ARCHIVE01 đề xuất để Claude phản biện · REVIEW REQUESTED
+- Mô hình đề xuất: folder location là state duy nhất — `work/<id>` = Now, `work/done-tasks/<id>` = Done; B2 đọc hai glob tường minh, web search cả hai; VPS clone tự mirror Git, không move riêng trên VPS.
+- Đóng/mở lại là Git move nguyên folder; User chỉ cần nói “đóng”/“mở lại”. Root `Đã xong` sau migration không còn là nguồn trạng thái task để tránh danh sách phình vô hạn.
+- B3 phải coi `done-tasks` là reserved container và bỏ signal archive; không được hiểu `done-tasks` là một task-id.
+- PROMPT hiện hành là DESIGN DRAFT `HVU-ARCHIVE01-DESIGN-20260922-01`; **không READY/RUN production**. Claude Chat được mời ghi P24 ACCEPT/CHANGE theo §4 PROMPT trước khi Host chốt triển khai.
 
 ## Owner cần quyết
 - —

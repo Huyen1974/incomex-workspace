@@ -4,6 +4,7 @@ Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
 ## Đang làm
+- `work/hpml-view-for-user/` · HVU-ARCHIVE01 DESIGN · Owner bổ sung done-tasks/archive; GPT đã cập nhật A0 + DRAFT, chờ Claude P24 review/đồng thuận; chưa RUN production.
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
 - `work/mcp-token-argv/` · SECURITY · Host Claude · loại Bearer token khỏi argv của lark-crud-gateway/mcp-remote; migrate secret + rotate + smoke; không chặn HVU.
 - `work/jev-integration/` · JEV · Host Bước 2 Claude · nghiệm thu 6/6 PASS 22/09; mở lại để hậu kiểm: V1 Codex điều khiển máy xác nhận Claude Chat/Cowork (READY) → V2 đồng hồ đếm lượt dùng thật.
@@ -13,7 +14,6 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - NEXT: HJW.2A: Claude phản biện P02 + D08/D09 + Q04–Q06 và đối chiếu GSM audit; chỉ sau khi thiết kế đủ đồng thuận mới sang HJW.2B PROMPT/READY/RUN.
 
 ## Đã xong
-- `work/hpml-view-for-user/` · CLOSED 2026-09-22 · B2/B2.1/B3 + cleanup PASS production; latest-only presence + tên User quen thuộc; Host GPT verify độc lập.
 - `work/mcp-workspace/` · R03 CLOSED 2026-09-21 · GPT client PASS · Claude client PASS · VPS/CROSS PASS.
 
 ## Quyết định Owner
