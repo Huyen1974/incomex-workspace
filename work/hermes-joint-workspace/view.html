@@ -18,11 +18,11 @@ small{color:#666}
 </head>
 <body>
 <h1>Hermes Joint Workspace</h1>
-<p><span class="tag">DRAFT</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Chưa chạm production</span></p>
+<p><span class="tag">HOST REVIEW</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Host: GPT Chat</span><span class="tag">Chưa chạm production</span></p>
 
-<div class="box"><strong>Anh cần quyết hôm nay:</strong> không có. Hội đồng (GPT + Claude) đang góp ý bản mở việc này.</div>
+<div class="box"><strong>Anh cần quyết hôm nay:</strong> không có. Owner đã chuyển Host sang GPT Chat. GPT đã đọc luật repo + Planning Guide + Operating Rules và ghi P02; bước kế tiếp là Claude phản biện một vòng rồi Host mới chốt prompt HJW.2.</div>
 
-<div class="bar" id="TIEN-DO"><span class="now">▶ 1 Mở việc</span><span>□ 2 Nối</span><span>□ 3 Nghiệm thu</span><span>□ 4 Ghi luật</span><span>□ 5 Đóng</span></div>
+<div class="bar" id="TIEN-DO"><span class="g">✓ 1 Mở việc</span><span class="now">▶ 2 Nối</span><span>□ 3 Nghiệm thu</span><span>□ 4 Ghi luật</span><span>□ 5 Đóng</span></div>
 
 <h2 id="MUC-TIEU">1. Mục tiêu — Owner quyết 2026-09-20</h2>
 <ol>
@@ -64,9 +64,11 @@ Claude Chat ──────────────────────�
 <tr><td>T1 Đọc</td><td>Hermes đọc được mọi file, luôn là bản mới nhất.</td></tr>
 <tr><td>T2 Ghi</td><td>Chạy đủ bài 9 bước của R03 tại <code>work/hermes-joint-workspace/_thu-nghiem/hermes/</code>.</td></tr>
 <tr><td>T3 Chéo</td><td>GPT/Claude thấy ngay commit của Hermes và ngược lại; ghi bằng version cũ bị từ chối.</td></tr>
-<tr><td>T4 Tên</td><td>Commit của Hermes mang tiền tố <code>[Hermes]</code>.</td></tr>
+<tr><td>T4 Tên</td><td>Commit của Hermes mang tiền tố <code>[Hermes]</code> và attribution qua gateway đủ phân biệt Hermes trong tín hiệu <code>Vừa làm/Đang làm</code>.</td></tr>
 <tr><td>T5 Gọi</td><td>Anh gõ câu <code>WS …</code> vào Telegram → Hermes đọc AGENTS → COLLAB, làm đúng việc, trả tối đa 3 dòng STATUS · COMMIT · NEXT.</td></tr>
 <tr><td>T6 Chi phí</td><td>Đo được Hermes đang chạy model gì và tốn bao nhiêu mỗi lượt.</td></tr>
+<tr><td>T7 Tự thức</td><td>Khi có assignment máy đọc mới dành cho Hermes, webhook/backstop đánh thức đúng một lần; push không liên quan không gọi LLM Hermes.</td></tr>
+<tr><td>T8 Vượt quyền</td><td>Hermes STOP, ghi blocker và báo Owner qua Telegram; không tự mở scope hay tự vượt gate.</td></tr>
 </tbody>
 </table>
 
@@ -74,11 +76,11 @@ Claude Chat ──────────────────────�
 <table>
 <thead><tr><th>Việc</th><th>Làm gì</th><th>Ai</th><th>Khi nào</th></tr></thead>
 <tbody>
-<tr><td>HJW.1</td><td>Mở việc: mục tiêu, hiện trạng, tiêu chí.</td><td>Claude mở · GPT review</td><td>hôm nay</td></tr>
-<tr><td>HJW.2</td><td>Nối, một prompt làm một lần: đo Hermes/relay/khoá → khai Agent Data vào <code>mcp_servers</code> của Hermes (khoá rót vào <code>/run/hermes</code> như khoá OpenRouter) → thêm một đoạn nạp luật WS vào AGENTS.md riêng của Hermes.</td><td>Claude Code</td><td>khi R03 CLOSED (R03 đang sửa, deploy lại và nghiệm thu chính cửa Agent Data; backend đóng băng tới lúc đó)</td></tr>
-<tr><td>HJW.3</td><td>Nghiệm thu T1–T6.</td><td>Hermes làm · GPT + Claude chấm chéo</td><td>ngay sau HJW.2</td></tr>
-<tr><td>HJW.4</td><td>Ghi luật gốc: AGENTS A2 hội đồng 3 thành viên; A4 tiền tố <code>[Hermes]</code>.</td><td>Host gốc</td><td>sau HJW.3 PASS</td></tr>
-<tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T6.</td><td>Host</td><td>—</td></tr>
+<tr><td>HJW.1</td><td>Mở việc: mục tiêu, hiện trạng, tiêu chí.</td><td>Claude mở · GPT review</td><td>✓ xong</td></tr>
+<tr><td>HJW.2</td><td>Một prompt cấu hình phía Hermes: dùng cửa <code>workspace_*</code> đã audit qua relay nội bộ; nạp luật workspace; cắm JEV đã có; tái dùng webhook/backstop nhưng chỉ wake theo assignment máy đọc rõ ràng và chống trùng. Không sửa backend Agent Data, không dựng server/framework mới.</td><td>Claude Code CLI thực thi · GPT Host · Claude phản biện</td><td>sau khi P02 được review/đóng</td></tr>
+<tr><td>HJW.3</td><td>Nghiệm thu T1–T8 bằng chạy thật, gồm tự thức, chống wake thừa, stale-write reject, blocker vượt quyền và attribution Hermes.</td><td>Hermes làm · GPT + Claude chấm chéo</td><td>ngay sau HJW.2</td></tr>
+<tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>sau HJW.3 PASS</td></tr>
+<tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T8.</td><td>Host</td><td>—</td></tr>
 </tbody>
 </table>
 
@@ -87,10 +89,10 @@ Claude Chat ──────────────────────�
 <li>Không dựng server/MCP mới, không sửa mã Agent Data.</li>
 <li>Không tách khoá riêng cho Hermes (hội đồng xét ở Q03).</li>
 <li>Không mở cửa ghi thứ ba, không đưa tài khoản của anh lên VPS.</li>
-<li>Không bật Hermes làm Điều phối tự động (P11: cần ít nhất 3 việc chạy tay trọn chuỗi và anh cho phép).</li>
+<li>Không đánh thức Hermes trên mọi push. Chỉ assignment máy đọc hợp lệ mới được gọi LLM; backstop dùng cùng logic và chống trùng.</li>
 </ul>
 
 <h2 id="DIEU-KIEN">7. Điều kiện chuyển sang làm</h2>
-<p>Không làm HJW.2 cho tới khi <code>COLLAB.md</code> không còn P OPEN/OWNER và R03 CLOSED. Lúc đó Host soạn <code>PROMPT.md</code> trong thư mục này, READY đúng SHA rồi RUN.</p>
+<p>R03 đã CLOSED và JEV đã DONE. HJW.2 chỉ chuyển sang RUN sau khi Claude phản biện P02, <code>COLLAB.md</code> không còn P OPEN/OWNER liên quan, Host chốt <code>PROMPT.md</code>, ghi đúng Executor_Surface + Write_Path, READY đúng SHA rồi Owner/GPT Chat truyền RUN.</p>
 </body>
 </html>
