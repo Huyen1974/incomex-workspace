@@ -6,17 +6,18 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ## R3 — Bịt nốt vòi + đợt 2 · 22/09/2026 · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=workspace_*
 
-RUN_ID `VPSC-R3-20260921-01` · PROMPT@`f249b90f9a5d84bce5295f22b7628fd716fe5ba3` — cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã; read-gate `workspace_*` PASS. Phiên 1 dừng ở Phase 1.3 (bộ phân quyền tự động của Claude Code chặn lượt cài + chạy thật người gác kho; agent không lách). **Phiên 2** (PROMPT@`dd216dff830a426199bd57491bb83a114490c127`, `OWNER_APPROVED@` + Host `READY@` cùng mã, D08 chạy không hỏi quyền từng lệnh; cổng §0 đạt 10:18–10:21Z: trống 43,258GiB, 12 container / 10 healthy, không build/backup/deploy đang chạy, agent-data không bị tạo lại từ 21/09 11:26Z, HVU-VPSARCHIVE01 mới READY chưa chạy). **Trạng thái: IN_PROGRESS · Phase 0/1 xong — đang Phase 2.** Giờ UTC, GiB = 1024³ byte.
+RUN_ID `VPSC-R3-20260921-01` · PROMPT@`f249b90f9a5d84bce5295f22b7628fd716fe5ba3` — cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã; read-gate `workspace_*` PASS. Phiên 1 dừng ở Phase 1.3 (bộ phân quyền tự động của Claude Code chặn lượt cài + chạy thật người gác kho; agent không lách). **Phiên 2** (PROMPT@`dd216dff830a426199bd57491bb83a114490c127`, `OWNER_APPROVED@` + Host `READY@` cùng mã, D08 chạy không hỏi quyền từng lệnh; cổng §0 đạt 10:18–10:21Z: trống 43,258GiB, 12 container / 10 healthy, không build/backup/deploy đang chạy, agent-data không bị tạo lại từ 21/09 11:26Z, HVU-VPSARCHIVE01 mới READY chưa chạy). **Trạng thái: MACHINE_DONE · Phase 0–5 xong, trừ 5.3–5.4 (gỡ quyền ứng dụng "rclone" cũ trong tài khoản Google = việc Owner, §3d) · `KQ@VPSC-R3-20260921-01 XONG`.** Phiên 2 kết thúc ~11:00Z. Giờ UTC, GiB = 1024³ byte.
 
 ### 1. CHO OWNER
 
-- **SEC-01 = MIGRATED · PENDING_REVOKE:** backup Drive đã chạy bằng khoá OAuth riêng (project mới, External + **In production** ⇒ token không hết hạn sau 7 ngày). Đọc thư mục backup mã hoá bằng khoá mới: 130 đối tượng = đúng số đo bằng khoá cũ; lượt phái cử 09:55Z và code-backup 10:00Z đã chạy thật bằng khoá mới, thành công. Chưa thu hồi gì.
-- Đĩa trống: **43,366 → 43,261GiB** (lượt này chưa dọn gì; chênh là tăng nền trong ~8 giờ).
-- Vòi hai khoá mới trong lượt này: **0/5** — Qdrant: khoá nơi sinh fail-closed ✔; bản sao Nuxt: khoá nơi sinh ✔; khoá nơi chứa (d) + Hermes/Lark/log/bằng chứng (e)–(h) đã viết và thử khô, **chưa cài** (bị chặn).
-- Drive hạn giữ: **chưa** (Phase 2 chưa làm). Đợt 2 N9/N11: **chưa** (Phase 3).
-- Cảnh báo đĩa (T4): **không có đường báo nào tới Owner đang chạy** — monitor Kuma "Disk Usage" đứng DOWN từ 07/04 (§5).
-- ⚠ Mount Drive trên máy Mac cũng dùng client chung của rclone: khi anh gỡ quyền "rclone" cũ trong tài khoản Google thì mount Mac mất quyền theo — chuyển mount Mac sang client riêng trước (§6).
-- Chạy tiếp: anh cho phép Claude Code thao tác xoá của người gác kho, rồi phát RUN tiếp **từ Phase 1.3** (không làm lại Phase 0, 1.1, 1.2).
+- **SEC-01 = MIGRATED · PENDING_REVOKE:** backup trên VPS và mount Drive trên máy Mac đều đã chạy bằng khoá OAuth riêng (External + In production); không còn nơi nào agent thấy được dùng client chung của rclone (VPS2 không cài rclone). **Việc của anh:** gỡ quyền ứng dụng "rclone" cũ trong tài khoản Google (agent không tự sửa cài đặt bảo mật tài khoản) — hướng dẫn §3d; xong thì một lượt ngắn xoá 1 file transcript còn chứa token cũ + 2 bản cấu hình cũ.
+- Đĩa trống: **43,366 → 52,784GiB** (55% → 45%) — vượt mục tiêu 45GiB. Phiên 2 thu 9,53GiB: người gác 0,305 + N9 4,201 + N11 5,029.
+- Vòi hai khoá: **2/5** (bản sao Nuxt, JSONL Lark); 3 vòi còn lại có 1 khoá và đều đã có trần — Qdrant: 2 script nơi sinh fail-closed; Hermes, log/bằng chứng/SQL tạm: người gác nơi chứa (§3e).
+- Drive hạn giữ: **có** — 30 bộ gần nhất + bộ cuối mỗi tháng trong 12 tháng; tỉa lần đầu 34 bộ (20/07–22/08), đích mã hoá 17,73 → 8,53GiB (file vào Thùng rác Drive, Google tự dọn sau 30 ngày).
+- Đợt 2: N9 (1.952 mục) + N11 (68 mục) + 126 file SQL tạm đã cứu ra Drive (mã hoá, md5 khớp) rồi mới xoá; giữ `/root/agent-runs`, `backup.log*`, N12.
+- Cảnh báo đĩa (T4): **đã có** — Kuma "Disk Usage" + "Cron Heartbeat" UP lại (chết từ 04/2026 do script đẩy bị gỡ nhầm khi nâng Kuma); đĩa ≥80% → Telegram. Kuma: sửa 2, còn 0 monitor đang bật bị lỗi.
+- ⚠ Lark: giữ bản JSONL mới nhất (1,1GiB) vì cổng ghi Lark đọc nó — xoá là khoá ghi Lark (§3, dòng 1.3).
+- Lượt chạy thật đầu của script mới: backup Drive 20:37 giờ máy 22/09, Qdrant 03:00 giờ máy 23/09 → V3 kiểm.
 
 ### 2. Phase 0 — SEC-01: chuyển Drive sang khoá OAuth riêng
 
@@ -34,41 +35,103 @@ RUN_ID `VPSC-R3-20260921-01` · PROMPT@`f249b90f9a5d84bce5295f22b7628fd716fe5ba3
 | 1.1 · V2-01 `scripts/qdrant-backup.sh` fail-closed | ✔ | `330360e` (trước `b97e5d3`, sạch) | `trap ERR` + một hàm `fail()` ghi `FAILED: stage=<bước>` vào `backup.log`, thoát 1, không DELETE; khoá Qdrant qua biến môi trường cho cả POST lẫn DELETE. Mô phỏng bằng `docker` giả, 10 nhánh: thành công → rc 0, 1 POST + 1 DELETE, log đúng dòng `sha256 verified … deleted server-side`; POST lỗi / rỗng, cp lỗi / rỗng, checksum thiếu / lệch, DELETE lỗi / `false`, `.env` thiếu → rc 1, đúng **một** dòng FAILED, **không DELETE** (trừ chính bước DELETE); khoá không xuất hiện trong argv. Không tạo/xoá snapshot thật. |
 | 1.2 · V2-02 `scripts/phai-cu/dung-va-trien-khai.sh` | ✔ | `4eac699` (trước `3180326`, sạch) | Bước 8 lọc tên hợp lệ **trước** sort/giữ 3. Mô phỏng 5 bản hợp lệ + 3 tên lạ sắp trước: bản cũ **xoá cả 5 bản hợp lệ** (kể cả bản vừa sao), bản mới giữ 3 mới nhất, không đụng tên lạ. Mỗi lần chạy ghi đường dẫn + sha256 của chính script vào `/var/log/incomex/nuxt-deploy.log` (mới, thêm vào logrotate weekly/rotate 4); script đẩy qua stdin (không phải file) ghi `NONE`. sha256 bản mới `0a6e83f97d2ed44689cf59af30180e8c62478f9ea9386080a945d37551c293a0`. Không chạy deploy. |
 | 1.3 · người gác `scripts/vps-retention.sh` (d)–(i) | ✔ (phiên 2) | `4e7bc81` (trước `0dc9379`, sạch) | (a)(b)(c) giữ nguyên từng byte. Phiên 1 chỉ thử khô rồi bị chặn. Phiên 2 thử khô lại trên dữ liệu thật: (d) 0 · (e) G22 0 (đúng 5 file) / G23 2 pack Git tạm 0,292GiB · (f) 0 · (g) 244 log `hc-executor*` >30 ngày · (h) 0 · (i) viết sẵn, TẮT. Chạy thật 1 lượt **= thử khô**, 0 lỗi, trống +0,305GiB; health không đổi. **Sửa (f) so với bản nháp phiên 1:** luôn giữ thư mục JSONL mới nhất + thư mục mà `daily/_latest_manifest.json` trỏ tới — cổng ghi Lark có backup (`lark-client/lark_client/backup_gate.py`, cửa sổ 96 giờ) đọc `_manifest.json` trong đó; bản nháp sẽ xoá `daily/<21/09>` (1,1GiB) ngay lượt đầu và sau mỗi lượt backup ⇒ khoá ghi Lark. Mô phỏng (f) 3 ca PASS (con trỏ = bản mới nhất; con trỏ = bản cũ hơn; mất con trỏ → bỏ luật). JEV tham khảo: `keep_latest` 0,58. Hệ quả: không lấy lại 1,1GiB đó; Lark tại chỗ bounded = 1 thư mục JSONL + 1 tar.gz (script Lark tự tỉa sau `.offsite-ok`; (f) là khoá thứ hai). 2 thư mục JSONL tháng 8 (~1,1MB) không có tar.gz nên cả hai khoá đều giữ — tồn dư tĩnh. `/etc/cron.d/vps-retention` chỉ sửa dòng chú thích. |
-| 1.4 · T4 cảnh báo đĩa | đã đọc | — | §5 |
+| 1.4 · T4 cảnh báo đĩa | đã đọc → sửa ở Phase 4 (§3c) | — | §5 |
 | 1.5 · báo cáo | mục này (phiên 2 ghi ~10:30Z) | — | — |
 
 Hậu kiểm B4 R2: lượt cron thật 03:00 giờ máy 22/09 **PASS** — `backup.log` có `sha256 verified … deleted server-side`; server-side vẫn đúng 1 snapshot (bản 21/09). Lần chạy thật đầu của bản `330360e`: cron 03:00 giờ máy 23/09.
 
+### 3a. Phase 2 — Drive: fail-closed + hạn giữ (SEC-01 = MIGRATED)
+
+| Bước | Kết quả | Commit git cục bộ `/opt/incomex` | Kiểm |
+|---|---|---|---|
+| 2.1 · `scripts/backup-to-gdrive.sh` fail-closed nhánh Qdrant | ✔ | `1864e3e` (trước `23627bb`, sạch) | Lỗi cũ: lỗi liệt kê collection bị `2>&1` trộn thông báo lỗi vào danh sách tên; tải lỗi vẫn DELETE (`\|\| true`); lượt vẫn PASS; khoá Qdrant nằm trên dòng lệnh `curl`. Sửa: liệt kê/tạo/tải/kiểm lỗi → **không DELETE** snapshot đó (giữ server-side, ghi tên vào log), lượt = `FAIL · QDRANT_SNAPSHOT_DEGRADED` (DB + gói cấu hình vẫn lên Drive), Kuma down, không tỉa Drive; DELETE chỉ sau khi tải xong, >0 byte, sha256 = checksum Qdrant trả khi tạo; khoá qua stdin (`curl -K -`). Thêm: sau upload so md5 Drive = md5 tại chỗ cho 2 artifact, lệch → `FAIL · UPLOAD_VERIFY_MD5_MISMATCH`. Mô phỏng (`docker`/`curl`/`rclone` giả): thành công, liệt kê/tạo/tải/rỗng/checksum/DELETE lỗi, không IP, thiếu khoá, md5 lệch, lỗi liệt kê lúc tỉa — **103/103 PASS**, khoá không vào argv ở mọi ca. Kiểm thật chỉ đọc: khoá thật khớp mẫu, `curl -K -` liệt kê đúng 2 collection, md5 Drive = md5 bản staging mới nhất. Không chạy backup thật. |
+| 2.2 · hạn giữ ở đích Drive | ✔ | `1864e3e` | Chạy sau khi lượt PASS (upload đã kiểm md5); lỗi tỉa chỉ cảnh báo. Thư mục mã hoá chính giữ **30 bộ gần nhất + bộ cuối mỗi tháng trong 12 tháng**, không bao giờ xoá bộ mới nhất; một bộ = db + cfg + 2 meta cùng mốc giờ; chỉ đụng tên đúng mẫu (14 bản thường cũ ở gốc Drive và tên lạ không đụng). `rescue/vpsc-r2/` xoá sau 2026-10-21; `rescue/vpsc-r3/` giữ 12 tháng. Chạy riêng được: `--retention-dry-run` / `--retention-apply`. Mô phỏng 420 bộ giả → còn đúng 40 bộ = kỳ vọng tính độc lập. **Trần dự kiến:** ~0,28GiB/bộ × tối đa 41 bộ ≈ **11,5GiB** (+ bản cứu R3 ~7,1GiB giữ 12 tháng) so với Drive còn trống **~4,95TiB** — dư. |
+| 2.3 · tỉa lần đầu | ✔ | — | Thử khô: 65 bộ → giữ 31 (30 bộ 23/08–21/09 + bộ cuối tháng 31/07), xoá **34 bộ = 136 file** (20/07–22/08; ngày 24/07 có 2 bộ); rclone thử khô nhận đúng 136. PROMPT dự kiến ~30 bộ 20/07→~20/08, giữ 31/07 — khớp (+4 bộ do thêm 2 ngày và 1 ngày chạy 2 lần). Chạy thật: 136/136 xoá, còn 0 trong danh sách; còn 31 bộ = 62 `.gpg`; đích mã hoá 17,73 → **8,53GiB**. Drive xoá vào Thùng rác (`use_trash` mặc định) ⇒ quota giảm sau khi Google tự dọn (30 ngày) — cũng là đường lùi 30 ngày. |
+
+### 3b. Phase 3 — đợt 2: cứu N9/N11 rồi xoá
+
+- **Cổng:** HVU-VPSARCHIVE01 đã chạy trên VPS song song trong phiên này (xong 10:36Z; chỉ đụng `/opt/incomex/work` và `deploys/hvu-*`, không trùng vùng R3). Trước Phase 3 kiểm lại: agent-data/claude-mcp không bị tạo lại, không build ⇒ tiếp.
+- **Danh sách đúng tên V1b:** N9 = 1.952 target trong `/tmp` container postgres (`/tmp` nằm trong lớp ghi container, không bind ra host); N11 = 38 − `/root/agent-runs` = 37 target, trong đó thư mục `backups/mysql` chỉ lấy 32 file dump và **giữ** `backup.log*` (logrotate). Không target nào trùng N12; không container bind, không tiến trình mở, không cron/systemd nhắc tới.
+- **Đo trước:** N9 1.952/1.952 có mặt, 4,150GiB (V1b 4,202 — lệch −1,2%, do đo byte thật thay vì khối cấp phát); N11 37/37, 5,027GiB (V1b 5,146 − `agent-runs` 0,097 = 5,049; lệch −0,4%) ⇒ trong ngưỡng.
+- **Cứu (3.2):** luồng `tar | gzip -1 | gpg` (đúng khoá công khai của backup, kiểm vân tay trước) `| rclone rcat` vào `rescue/vpsc-r3/`; không tạo file lớn trên VPS; song song liệt kê luồng tar để đối chiếu số mục + byte với danh sách đo trước; md5 luồng = md5 phía Drive; kèm `<nhóm>.manifest.tsv` (tên + byte từng target) và `<nhóm>.meta.json`.
+
+| Bản cứu (`rescue/vpsc-r3/`) | Target | Mục trong tar | Byte file gốc | Byte mã hoá | md5 bản mã hoá |
+|---|---:|---:|---:|---:|---|
+| `n9-postgres-tmp.tar.gz.gpg` | 1.952 | 19.351 | 4.456.164.143 | 3.043.101.322 | `408e2f6406995b45de014d3d4109f4cb` |
+| `n9x-postgres-tmp-sql.tar.gz.gpg` | 126 | 126 | 1.188.041 | 200.361 | `e75763ecd712668307fd3953834f0fde` |
+| `n11-mission.tar.gz.gpg` | 68 | 1.039 | 5.397.612.126 | 4.403.158.993 | `e9cead8b6b2b989807f1264fc5984f91` |
+
+- `n9x` = 126 file `.sql` >7 ngày trong `/tmp` postgres **ngoài** danh sách N9: luật (i) sẽ xoá chúng nên cứu trước khi bật (i) (A0: cứu trước xoá).
+- **Xoá (3.3):** chỉ sau md5 khớp; ngay trước khi xoá kiểm lại không tiến trình nào mở. N9: 1.952 xoá, còn 0 (`/tmp` còn 917 mục ngoài danh sách, không đụng), trống +4,201GiB. N11: 68 xoá, còn 0; `backups/mysql/backup.log*` và `/root/agent-runs` còn; trống +5,029GiB. Postgres `pg_isready` OK; health không đổi.
+- **3.4:** bật luật (i) — `a2f4754`; chạy 1 lượt: xoá đúng 126 file (= số đã cứu), còn 0.
+- **3.5:** trống **52,784GiB > 45GiB** ✔.
+- Khôi phục: tải đối tượng về máy giữ khoá bí mật → `gpg --decrypt | tar -xz`; đối chiếu `manifest.tsv`.
+
+### 3c. Phase 4 — Uptime Kuma (T4 + monitor lỗi)
+
+- **4.1 (đọc DB, chỉ đọc):** 20 monitor; đang bật mà không UP: **#10 "Cron Heartbeat"** (push, DOWN từ 08/04/2026) và **#11 "Disk Usage"** (push, DOWN từ 07/04/2026); #13 "PG Backup Workflow" đã tắt (không tính). 1 kênh Telegram, cả hai monitor có nối.
+- **Nguyên nhân (phía mình):** 07/04/2026 nâng Uptime Kuma 1.23 → 2.2; commit `995e8bb` gỡ `cron-heartbeat-push.sh` + `disk-push.sh` + dòng cron vì tưởng Kuma 2 tự báo — nhưng monitor push vẫn chờ được đẩy ⇒ DOWN mãi; Kuma chỉ báo khi đổi trạng thái ⇒ 5 tháng không có cảnh báo đĩa.
+- **Sửa (4.2 + 4.3):** script mới `scripts/kuma-push.sh` (`cron` → #10 up; `disk` → #11: đĩa <80% up, ≥80% **down kèm %**), gọi từ `/etc/cron.d/kuma-push` mỗi 10 phút và từ cuối `disk-monitor.sh` mỗi lần chạy. Đẩy 10 phút/lần nhỏ hơn khoảng chờ của monitor (30/60 phút) ⇒ không chập chờn mà không phải sửa monitor (giao diện Kuma đòi đăng nhập — agent không nhập mật khẩu). Token đọc từ DB Kuma vào `/etc/incomex/kuma-push/` (700/600), không nằm trong script; URL đi qua stdin của `curl`. Không ghi PostgreSQL (bản cũ có ghi — bỏ), không sửa/xoá monitor, không restart Kuma. Commit `c5b7615`. Mô phỏng 7/7 PASS (gồm nhánh down, token không vào argv).
+- **Kiểm:** #10 UP ("cron OK"), #11 UP ("OK disk 51%" lúc đẩy; sau dọn 45%); Kuma gửi Telegram "UP" cho 2 monitor này. Kết quả **sửa 2 / còn 0** monitor đang bật bị lỗi.
+- Lưu ý: cả 20 monitor có Resend Interval = 0 (báo đúng một lần khi đổi trạng thái) — chưa đổi (cần đăng nhập Kuma).
+
+### 3d. Phase 5 — hoàn tất SEC-01
+
+- **5.1:** VPS — 1 remote Drive (đã client riêng từ Phase 0); **Mac — 1 remote (mount `drive-workspace`) dùng client chung**; VPS2 — không cài rclone. Bản sao cấu hình cũ trên VPS/Mac không tính (giữ để lùi).
+- **5.2 (Mac):** số liệu dung lượng tài khoản hai phía trùng khít ⇒ cùng tài khoản Google; cache mount rảnh (0 chờ tải). Sao lưu cấu hình Mac (600) → dừng job launchd theo nhãn → ghi `client_id`/`client_secret`/`token` của client riêng (lấy từ cấu hình VPS, đi qua pipe SSH → Python, không in; không cần màn đồng ý mới) → kiểm đọc Drive (hết cảnh báo client chung) → bật lại job: mount lên, đọc được, cùng số mục gốc. Chỉ dừng qua launchd/PID.
+- **5.3 — CHƯA LÀM (việc Owner):** gỡ quyền ứng dụng "rclone" trong tài khoản Google là sửa cài đặt bảo mật tài khoản — agent không tự làm. Mọi nơi agent thấy đã chuyển sang client riêng, nên gỡ lúc này không làm hỏng backup VPS lẫn mount Mac. **Hướng dẫn:** đăng nhập đúng tài khoản chứa thư mục backup → *Tài khoản Google → Bảo mật → Kết nối với ứng dụng và dịch vụ bên thứ ba* → chọn **rclone** (không phải ứng dụng mới tạo ở Phase 0) → *Xoá mọi kết nối*. Nếu còn máy/thiết bị khác dùng rclone với tài khoản này mà agent không thấy, máy đó sẽ mất quyền — chuyển trước.
+- **5.4 — chờ 5.3:** sau khi gỡ: xoá **1 file** transcript Claude Code trên Mac còn chứa token cũ của VPS (đếm bằng so khớp trong biến, không in; token cũ của mount Mac: 0 file), rồi xoá 2 bản cấu hình cũ `rclone.conf.pre-VPSC-R3-*` (VPS, Mac; 600).
+- **5.5:** `rclone.conf` trên VPS 644 → **600** (mọi cron/unit dùng nó chạy root; rclone vẫn đọc được).
+- ⇒ **SEC-01 = MIGRATED · PENDING_REVOKE** (chờ Owner làm 5.3).
+
+### 3e. Bảng vòi (sau R3)
+
+| Vòi | Khoá nơi sinh | Khoá nơi chứa | Trần | Trạng thái |
+|---|---|---|---|---|
+| Snapshot Qdrant server-side | `qdrant-backup.sh` (`330360e`) + `backup-to-gdrive.sh` (`1864e3e`), cả hai fail-closed | — | 1 bản cũ 0,22GiB; lượt đúng không để lại bản nào; lượt lỗi giữ snapshot + báo FAILED/Kuma down | 1 khoá (2 nơi sinh) |
+| Bản sao Nuxt `nuxt-output.truoc-*` | K2 `4eac699` | (d) `4e7bc81` | 3 bản × ~43MB | **2 khoá** |
+| JSONL backup Lark | `s177-lark-backup-prune-local` (sẵn có) | (f) `4e7bc81`, giữ bản mới nhất | 1 thư mục JSONL ~1,1GiB + 1 tar.gz | **2 khoá** |
+| Backup ZIP / pack Git tạm Hermes | — (chủ Hermes) | (e) G22 giữ 5 file · G23 pack tạm >1 ngày | ~0,25GiB | 1 khoá |
+| Log `hc-executor*`, bằng chứng mission, SQL tạm postgres | — | (g) 30 ngày · (h) 30 ngày · (i) 7 ngày | theo TTL | 1 khoá |
+| Đích Drive mã hoá | hạn giữ trong `backup-to-gdrive.sh` | — | ~11,5GiB | bounded |
+| (R2) log pm2 Directus · context-pack.tmp · cache | — | (a)(b)(c) `0dc9379` | ≤200MiB · 22 build · ≤300MiB/thư mục | 1 khoá |
+
+Vòi hai khoá **2/5** (năm vòi của R3: Qdrant, bản sao Nuxt, Lark, Hermes, log/bằng chứng/SQL). Mọi vòi trong bảng đều có ít nhất một khoá ⇒ có trần theo D02; N6–N8 (image/build cache) chưa có — chờ R03.
+
 ### 4. Trạng thái trước / sau
 
-| | Trước (02:25Z) | Sau (10:02Z) |
-|---|---|---|
-| Đĩa | trống 43,366GiB · 55% | trống 43,261GiB · 55% |
-| Container | 12; 10/10 healthcheck healthy | 12; 10/10 healthy; 0 unhealthy |
-| Qdrant `production_documents` | green · 20.186 points · 1 snapshot server-side | green · 20.187 points · 1 snapshot |
-| Web · Directus | 200 · ok | 200 · ok |
-| agent-data | không bị tạo lại trong lượt | như trước |
+| | Trước phiên 1 (02:25Z) | Sau phiên 1 (10:02Z) | Sau phiên 2 (11:00Z) |
+|---|---|---|---|
+| Đĩa | trống 43,366GiB · 55% | trống 43,261GiB · 55% | trống **52,784GiB · 45%** |
+| Container | 12; 10/10 healthcheck healthy | 12; 10/10 healthy; 0 unhealthy | 12; 10/10 healthy; 0 unhealthy |
+| Qdrant `production_documents` | green · 20.186 points · 1 snapshot server-side | green · 20.187 points · 1 snapshot | green · 20.187 points · 1 snapshot |
+| Web · Directus | 200 · ok | 200 · ok | 200 · ok |
+| agent-data | không bị tạo lại trong lượt | như trước | không bị tạo lại (từ 21/09 11:26Z) |
+| Kuma: monitor đang bật không UP | — | 2 (#10, #11) | 0 |
 
-### 5. T4 — cảnh báo đĩa (chỉ đọc)
+### 5. T4 — cảnh báo đĩa
 
-- `disk-monitor.sh` (cron mỗi giờ, ngưỡng 85%): chỉ ghi log + ảnh chụp tại chỗ (REPORT-ONLY); dòng đẩy lên Kuma đã bị comment.
-- Kuma có monitor push "Disk Usage" nối kênh Telegram (bật, mặc định), nhưng script đẩy `disk-push.sh` không còn (log cuối 07/04: *Permission denied*). Monitor DOWN liên tục từ 07/04/2026 09:00Z; Kuma chỉ báo khi đổi trạng thái ⇒ từ đó Owner không nhận cảnh báo đĩa nào.
-- ⇒ **T4 chưa đạt.** Đề xuất (không làm trong R3): cho `disk-monitor.sh` đẩy trạng thái lên đúng monitor này.
+- **Phiên 1 (chỉ đọc):** `disk-monitor.sh` (cron mỗi giờ, ngưỡng 85%) chỉ ghi log + ảnh chụp tại chỗ; monitor push "Disk Usage" nối Telegram nhưng script đẩy `disk-push.sh` không còn ⇒ DOWN liên tục từ 07/04/2026; Kuma chỉ báo khi đổi trạng thái ⇒ Owner không nhận cảnh báo đĩa nào.
+- **Phiên 2 (Phase 4, §3c):** đĩa ≥80% → #11 down kèm % → Telegram; mất đẩy >60 phút (cron/máy chết) → #10/#11 down → Telegram. **T4 đạt** (điều kiện: Kuma + Telegram chạy).
 
 ### 6. Sự cố và lưu ý
 
 - **Điều phối:** trong lúc chờ Owner (khoảng 02:30–09:35Z) HVU-B3-CLEANUP và HVU-ARCHIVE01 đã chạy trên VPS, trái điều kiện vận hành của READY. R3 chưa mutation gì trong khoảng đó (chỉ tạo thư mục bằng chứng); trước khi đổi cấu hình rclone đã kiểm lại: không còn RUN nào đang chạy, agent-data không bị tạo lại, không build.
 - **Mac:** để dừng lượt `rclone authorize` đang chờ, agent dùng `pkill -x rclone` — dừng luôn tiến trình rclone của mount Drive trên Mac (tác vụ launchd *drive-workspace*); launchd tự bật lại sau vài giây, mount lên lại. Từ đó chỉ dừng theo PID.
-- **Mount Drive trên Mac dùng client chung rclone** (`client_id` trống) ⇒ trước khi gỡ quyền "rclone" cũ (P16 c/d) phải chuyển mount Mac sang client riêng (có thể dùng chính client Desktop mới), nếu không mount Mac mất quyền.
-- File cấu hình rclone trên VPS đang quyền 644 (user khác trên máy đọc được token) — giữ nguyên (ngoài phạm vi), đề xuất 600. Bản cấu hình cũ (token cũ) lưu cạnh nó, quyền 600, làm đường lùi — xoá sau khi Owner gỡ quyền cũ.
-- Bằng chứng thô + bản nháp/thử khô 1.3: `/var/lib/incomex-audit/VPSC-R3-20260922/` (700, ngoài Git).
+- **Mount Drive trên Mac dùng client chung rclone** — phiên 2 đã chuyển sang client riêng (§3d 5.2).
+- File cấu hình rclone trên VPS: phiên 2 đổi 644 → 600 (5.5). Bản cấu hình cũ (token cũ) trên VPS và Mac, quyền 600, là đường lùi — xoá sau khi Owner gỡ quyền cũ (5.4).
+- **Điều phối phiên 2:** HVU-VPSARCHIVE01 chạy trên VPS song song (xong 10:36Z), trái điều kiện "không việc khác đụng VPS". Không trùng vùng; agent-data không bị tạo lại; R3 kiểm lại trước Phase 3 rồi mới đi tiếp.
+- **Lark (f):** bản nháp phiên 1 sẽ khoá ghi Lark (xoá bản JSONL mới nhất mà `backup_gate.py` đọc) — đã sửa trước khi cài (§3, dòng 1.3).
+- **Kuma:** giao diện đòi đăng nhập ⇒ không sửa monitor qua giao diện; thay bằng nhịp đẩy 10 phút (§3c).
+- **Mac:** một lượt `find` trong thư mục nhà đi vào cả thư mục mount Drive (gọi API liệt kê) — dừng sau ~2 phút, mount không ảnh hưởng; sau đó chỉ tìm ở vị trí cấu hình đã biết.
+- Bằng chứng thô, bản nháp, mô phỏng, danh sách + manifest bản cứu: `/var/lib/incomex-audit/VPSC-R3-20260922/` (700, ngoài Git; người gác (h) tự xoá sau 30 ngày).
 
 ### 7. Việc còn lại
 
-- **Tiếp RUN từ Phase 1.3** sau khi Owner cho phép thao tác xoá: cài người gác (d)–(h) (bản nháp đã thử khô) + chạy thật 1 lần, đối chiếu số dự kiến → 1.5 → Phase 2 (`backup-to-gdrive.sh` fail-closed + hạn giữ Drive + tỉa lần đầu) → Phase 3 (N9/N11 cứu rồi xoá, bật (i)).
-- Owner sau R3: gỡ quyền cũ + xoá transcript phiên R2-1 theo hướng dẫn Host (P16 c/d) — lưu ý mount Mac ở §6.
-- N6–N8 sau R03 CLOSED (chủ R03); TTL `workspace-tools` (chủ agent-data); T4 (§5).
-- V3: kiểm lượt cron Qdrant 03:00 giờ máy 23/09 (bản `330360e`) + deploy Nuxt thật kế tiếp (`nuxt-deploy.log` phải có sha256 script).
+- **Owner:** 5.3 gỡ quyền ứng dụng "rclone" cũ (hướng dẫn §3d) → báo Host; sau đó một lượt ngắn làm 5.4 (xoá 1 transcript + 2 bản cấu hình cũ) ⇒ `SEC-01 = REVOKED`.
+- **V3 (Codex, chỉ đọc):** lượt `backup-to-gdrive.sh` thật đầu tiên 20:37 giờ máy 22/09 (phải `PASS` + `Upload verified` + dòng `[RETENTION][DRIVE]`; Kuma "PG Backup GDrive" UP); lượt Qdrant 03:00 giờ máy 23/09 (bản `330360e`); người gác mỗi giờ phút :23 (`/var/log/incomex/vps-retention.log`); Kuma #10/#11 giữ UP; deploy Nuxt thật kế tiếp (`nuxt-deploy.log` có sha256 script).
+- N6–N8 (image/build cache) sau R03 CLOSED (chủ R03); TTL `workspace-tools` (chủ agent-data); khoá nơi sinh G22/G23 (chủ Hermes); Resend Interval Kuma (cần đăng nhập Kuma).
+- Mục "Handoff từ HVU" (H1/H2) trong COLLAB — ngoài R3, không đụng trong lượt này.
 
 ---
 
