@@ -245,6 +245,7 @@ HTML chính: `view.html`
 - **OPENAI JEV CLIENT ACCEPTANCE = DONE.** Theo `CLIENT-ACCEPTANCE.md` mới, không cần chạy thêm Work/Chat 10+10.
 - **Bước 2 Claude · `READY@d955c6f6316326fecf03e5177176cc445eab1376`** · RUN_ID `JEV-B2-CLAUDE-20260922-01` · Host Bước 2 = Claude Chat (D10). Trình tự: Agent Phần A (đồng bộ skill + Codex K1/K2 + zip + clipboard) → Owner cắm 2 thứ trên claude.ai → Agent Phần B (Claude Code smoke + 10+10) → Owner dán smoke CL1/CL2 vào Claude Chat và Cowork (§H2) → Host chấm → DONE theo `CLIENT-ACCEPTANCE.md` §H4 → đóng việc.
 - Hermes giữ task riêng `work/hermes-joint-workspace/`; chỉ mở sau Claude JEV DONE.
+- Ghi nhận 2026-09-22 (Host Bước 2): URL JEV v2 đầy đủ hiện trong ảnh chụp hộp thoại connector Owner gửi vào hội thoại riêng với Claude Chat. Tác động thấp: URL chỉ gọi được `evaluate` (không đọc/ghi dữ liệu nào), giới hạn 5 r/s. **Không xoay mã** (xoay = cắm lại mọi bề mặt); chỉ xoay nếu ảnh/URL bị chia sẻ ra ngoài hoặc OpenRouter có lượt gọi lạ.
 
 ### P16 · GPT Chat · ACCEPTED — đóng OpenAI, mở Bước 2 Claude
 - Based_on: `KQ@JEV-OPENAI-ACC XONG` / commit `848a9f4`, Work/Chat/Codex smoke PASS, health version-agnostic PASS.
