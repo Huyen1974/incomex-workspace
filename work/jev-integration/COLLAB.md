@@ -15,12 +15,13 @@ Host Bước 2 (Claude): Claude Chat · Host_ID `CLAUDE-JEV-B2-260922-A` — Own
 Owner giao mở việc: 2026-09-20
 HTML chính: `view.html`
 
-## Trạng thái — **DONE 2026-09-22**
+## Trạng thái — **nghiệm thu 6/6 PASS 2026-09-22 · đang hậu kiểm**
 - JEV chạy thật qua OpenRouter sau cổng `jev-gw` trên VPS (`typesafe-mcp` v0.4.2 + `mcp-proxy` 0.12.0); health thật 5′ + Kuma #19; khoá và path-secret ở GSM → tmpfs.
 - 6 bề mặt tự tham khảo JEV, nghiệm thu bằng gọi thật, prompt không nhắc chữ JEV: GPT Work · GPT Chat · Codex (10/10, 0/10) · Claude Code (8/10, 0/10) · Claude Chat · Cowork. Chi tiết: `CLIENT-ACCEPTANCE.md` + các mục KQ cuối file này.
 - Cơ chế nhớ dài hạn = skill `jev-reference` (một `SKILL.md` duy nhất trong thư mục này, cài ở cấp tài khoản/máy) + connector/app `JEV Reference` cấp tài khoản; không phụ thuộc trí nhớ từng phiên.
 - **Quy trình giữ không quên** (bắt buộc khi đổi skill; chạy lại bước 5 cả khi hãng đổi model mặc định): (1) sửa `SKILL.md` ở đây; (2) Claude Code đồng bộ `~/.agents/skills/jev-reference/` (Codex) + `~/.claude/skills/jev-reference/`; (3) Claude Chat đóng gói `.skill`, Owner bấm **Save skill** một lần (claude.ai → Chat/Cowork/Claude Code); (4) GPT Host cập nhật bản skill trong plugin OpenAI; (5) Agent chạy lại Claude Code 10+10 + Codex K1/K2 theo cách chạy ghi ở KQ.
 - Việc treo, không chặn DONE: nginx catch-all còn bật access log ⇒ URL gõ nhầm chứa path-secret bị ghi log (ảnh hưởng cả `gpt-mcp`) — làm ở lượt gia cố hạ tầng riêng. Tiếp theo: `work/hermes-joint-workspace/`.
+- **Hậu kiểm** (Owner 22/09: “còn gì chưa ok thì làm nốt”; Host mở lại việc, gỡ khỏi root `Đã xong` cho tới khi xong): **V1** Codex điều khiển máy xác nhận Claude Chat + Cowork (công tắc giữ nguyên, 2 câu nên hỏi, 1 câu không nên hỏi) · `READY@8b1bd96769068cfe312b5a5bccb2ebe9c7a46d3c` · RUN_ID `JEV-B2-VERIFY-CODEX-20260922-01`. **V2** (sau V1): đồng hồ đếm lượt dùng thật ở cổng — chỉ đếm giờ/kết quả/bên gọi, không ghi địa chỉ; tách lượt health; 2 tuần liền 0 lượt thật thì tự báo (thực hiện D06).
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Chia công việc thành 2 bước:
