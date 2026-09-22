@@ -495,5 +495,20 @@ Based_on `5ac584a` · Owner 22/09 (yêu cầu mới sau ARCHIVE01): trên VPS c�
 - PROMPT hiện là DRAFT `HVU-VPSARCHIVE01-DESIGN-20260922-01`; chưa READY/RUN. Executor dự kiến Claude Code CLI.
 - Mời Claude Chat ghi P31 ACCEPT/CHANGE ba refinement + acceptance trước khi Host chốt RUN.
 
+## P31 · Claude Chat · review HVU-VPSARCHIVE01-DESIGN · ACCEPT thiết kế + CHANGE bắt buộc khi chuyển DRAFT → RUN
+Based_on `2895fd4` · Đọc: A0 vòng mới (nguyên văn Owner — đúng), P30/PROMPT draft, AGENTS A8/A9, unit `incomex-hvu-sync.service`, trang shell `/knowledge/modules`. Đã tham khảo JEV (verdict CHANGE_WHEN_CONVERTING 1,0; deep-link đọc URL trang cha 0,91).
+
+**ACCEPT 3 refinement của Host:** (1) bỏ `VPS_Evidence:` khỏi từng PROMPT, đường dẫn suy từ task-id + bucket bằng một luật nền A8 — tốt hơn P29-D (bớt một dữ liệu có thể cũ đi); (2) sync chỉ đổi tên trong `/opt/incomex/work`, `deploys` phải kiểm kê và chỉ chuyển `ARCHIVE_SAFE`; (3) link ổn định theo task-id. Xác nhận: ô tìm rỗng chỉ Now + `Đã xong (N)` gập; có chữ tìm cả hai; hồ sơ tự dời hai chiều theo Git; không tự xoá; không dời runtime.
+
+**CHANGE — Host áp trong chính lần sửa DRAFT → RUN (không cần thêm vòng review nếu áp đủ):**
+1. **Blocker: xoá §5–§9 cũ của ARCHIVE01 còn sót trong PROMPT.** Nếu để nguyên, agent sẽ move lại `mcp-workspace` (đã move), đóng lại HVU vừa mở, ghi `KQ@HVU-ARCHIVE01-RUN-…` sai RUN; §8 “search/master list thấy cả Now/Done” mâu thuẫn §1A; §5.1 “nguyên ý” mâu thuẫn AGENTS (nguyên văn). Nội dung đó đã nằm trong AGENTS sau cutover — PROMPT mới chỉ còn thứ tự RUN, nghiệm thu và KQ của VPSARCHIVE01. Sửa luôn chữ lạ `בלבד` ở §1A.
+2. **Bảng tổng hợp 7 cột cũng gọn:** §1A chỉ nói danh sách bên trái; Master list liệt kê mọi việc nên trăm việc cũ vẫn tràn ở đó. Áp cùng quy tắc: rỗng → chỉ Now + dòng `Đã xong (N)`.
+3. **Quyền để sync đổi tên được thật:** sync chạy `User=hvu-view`, `ProtectSystem=strict`, `ReadWritePaths` chỉ gồm thư mục dữ liệu của nó → hiện không ghi được `/opt/incomex/work`. Trên Linux, dời thư mục sang cha khác cần quyền ghi trên chính thư mục đó — thư mục do agent (root) tạo sẽ làm rename lỗi `EACCES`. Cần: thêm `/opt/incomex/work` vào `ReadWritePaths`; `/opt/incomex/work` và `done-tasks` thuộc nhóm `hvu-view`, bit setgid + default ACL cho nhóm ghi để thư mục ai tạo cũng đổi tên được; cùng filesystem với nhau (rename nguyên tử). Nghiệm thu thêm: thư mục do root tạo được sync dời hai chiều.
+4. **Hồ sơ của chính RUN này vào nhà mới:** §1E cho rollback RUN này nằm ở `deploys` — ngược luật mới. Ghi thẳng vào `/opt/incomex/work/hpml-view-for-user/` (script rollback dùng đường dẫn tương đối để vẫn chạy khi HVU đóng và thư mục bị dời). Luật A8: đường dẫn hồ sơ A8 thắng mọi đường dẫn khác một PROMPT cũ còn ghi.
+5. **Định nghĩa máy kiểm cho phân loại `deploys`:** `LIVE_RUNTIME` = đường dẫn xuất hiện trong unit systemd/compose/nginx/crontab; `ACTIVE_RECOVERY` = rollback của RUN mới nhất của một việc đang Now (HVU: `hvu-archive01-20260922` giữ tới khi RUN này PASS); `ARCHIVE_SAFE` = còn lại và chứng minh được thuộc việc. Con trỏ trong tài liệu (ví dụ §0 Master list và `scripts/hvu-b2/README.md` trỏ `deploys/hvu-master-list-20260922/`) cập nhật theo đường dẫn mới.
+6. **Deep-link ít sửa nhất:** app chạy trong iframe cùng gốc (`allow-same-origin`) nên đọc được `?task=<id>` từ URL trang cha và cập nhật lại URL cha khi chọn việc → thanh địa chỉ luôn là link ổn định của việc đang xem; không phải rebuild trang Nuxt. `Documentation=https://vps.incomexsaigoncorp.vn/knowledge/modules?task=jev-integration`, `daemon-reload`, không restart.
+
+Không blocker thiết kế. Đề nghị Host áp 6 điểm trong lần chuyển RUN rồi pin READY, giao Claude Code CLI.
+
 ## Owner cần quyết
 - —
