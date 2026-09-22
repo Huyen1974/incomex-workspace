@@ -3,7 +3,7 @@
 RUN_ID: HVU-ARCHIVE01-RUN-20260922-01
 Host: GPT Chat
 Reviewer: Claude Chat · P24 ACCEPT
-Executor_Surface: Codex/GPT Work
+Executor_Surface: Claude Code CLI
 Write_Path: runtime VPS theo README §11 + workspace MCP cho Git docs/move
 
 ## 0. Gate trước mutation
@@ -23,8 +23,11 @@ Một nguồn trạng thái duy nhất = vị trí folder:
 - Root `## Đã xong` sau migration không còn là state source; chỉ để đúng một dòng chỉ sang `work/done-tasks/`.
 
 ## 2. B2 sync.py — bắt buộc sửa đủ các hard-code P24
-### 2.1 Discovery
+### 2.1 Discovery + identity hiển thị
 Không recursive scan.
+- `task-id` luôn là tên folder task, giữ ổn định qua archive/reopen.
+- `title` cho người đọc lấy theo thứ tự: dòng `Tên việc: <...>` ngay sau H1 nếu có → phần sau `# COLLAB — ...` → fallback `task-id`. `Tên việc:` là metadata quen thuộc, tùy chọn cho task cũ; không bắt migrate toàn bộ trong RUN này. Với task mới về sau nên tạo `Tên việc:` dễ đọc.
+- `goal_text` = khối A0 hiện hành ở đầu §0, dùng cho search.
 - Now: đúng regex một tầng `work/[^/]+/COLLAB.md`, nhưng loại `work/done-tasks/COLLAB.md`/reserved container.
 - Done: đúng regex một tầng `work/done-tasks/[^/]+/COLLAB.md`.
 - Discovery phải trả record tối thiểu `{id, folder, bucket}`; mọi bước sau dùng `folder`, không dựng lại `'work/'+task_id+'/'`.
@@ -66,15 +69,31 @@ Sửa lớp `presence.py`/publisher:
 - Reopen về `work/<id>` thì future activity lại hiện bình thường.
 Giữ latest-only/no-resurrection semantics hiện hành.
 
-## 4. UI
+## 4. UI + tìm lại để nâng cấp
 Tái dùng UI hiện tại:
-- Search phải tìm xuyên cả Now + Done.
+- Search phải tìm xuyên cả Now + Done và khớp **id + title + goal_text**; không full-text HTML. Nếu dễ, normalize Unicode/hoa-thường và dấu tiếng Việt (`đ→d`) để User nhớ từ gần đúng vẫn tìm được.
 - Danh sách/master list giữ cả hai; xếp Now trước, Done sau hoặc nhóm rõ ràng bằng nhãn hiện có.
+- Hiển thị **title dễ đọc** là chính, `task-id` nhỏ bên dưới/tooltip để người và AI dùng cùng một khóa.
+- Trang detail có một dòng lệnh chuẩn + nút Copy dùng clipboard client-side, không backend mới:
+  - Now: `Đóng <task-id>`
+  - Done: `Mở lại <task-id>`
+- Copy phải ra đúng chuỗi máy/AI hiểu; không thêm prose vào clipboard.
 - Không tạo page/database/archive UI mới.
 - Bấm task Done vẫn mở đúng detail/document URL theo task-id.
 - Không thay actor naming/presence semantics.
 
-## 5. A9 / README / root rules — chỉ cập nhật sau cutover thành công
+## 5. Lifecycle hai chiều + A9 / README / root rules — chỉ cập nhật sau cutover thành công
+### 5.1 Hai lệnh chuẩn cho người và AI
+Ghi vào AGENTS/A9 khi cutover PASS:
+- `Đóng <id>` = intent kết thúc + archive. Host/AI phải đảm bảo/ghi trạng thái kết thúc phù hợp (KQ/CLOSED hoặc Owner closure) rồi mới move `work/<id>/` → `work/done-tasks/<id>/`; nếu còn RUN/blocker thật thì không giả Done, báo ngắn lý do.
+- `Mở lại <id>` = move `work/done-tasks/<id>/` → `work/<id>/` **và tạo một khối A0 vòng mới ở đầu §0**. Lịch sử A0 cũ giữ nguyên phía dưới.
+  - Nếu User chỉ nói bare `Mở lại <id>`: A0 mới ghi `Xác nhận User: CHƯA XÁC NHẬN`, UI Mục tiêu phải về trạng thái điều chỉnh/vàng; Host hỏi ngắn mục tiêu sửa/nâng cấp trước khi plan/RUN.
+  - Nếu cùng câu User đã nói rõ mục tiêu (`Mở lại <id> để ...` hoặc ngữ nghĩa tương đương): dùng nguyên ý User làm A0 mới và coi đó là xác nhận trực tiếp; không hỏi lại câu đã có đáp án.
+- User gọi mơ hồ bằng tên/nội dung: AI tìm theo **id + title + A0 goal** ở cả Now/Done. Đúng 1 kết quả → nhắc lại `title (id)` rồi thực hiện. Nhiều kết quả → hỏi xác nhận đúng một lựa chọn/mã; không tự đoán.
+- Move giữ nguyên id/Git history. READY/RUN cũ không tự tái sử dụng sau reopen; parser đối chiếu PROMPT path/commit hiện tại như §2.5.
+
+### 5.2 Luật nguồn trạng thái
+
 Sau khi runtime hỗ trợ archive và pilot PASS:
 - A9/README: discovery = hai glob tường minh; `done-tasks` reserved; Done = folder location.
 - Root DROOT07/luật liên quan: bỏ “root Đã xong đánh dấu Done”; thêm quyết định archive folder-state.

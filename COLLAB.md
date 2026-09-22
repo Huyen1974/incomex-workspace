@@ -4,7 +4,7 @@ Host: GPT · Owner giao: 2026-09-20
 Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`.
 
 ## Đang làm
-- `work/hpml-view-for-user/` · HVU-ARCHIVE01 · READY@`a0762c8a82d9925df17066c3616b31bee179079d` · GPT+Claude CONSENSUS P23/P24/P25; RUN chốt 7 điểm + safe cutover; sẵn sàng Agent.
+- `work/hpml-view-for-user/` · HVU-ARCHIVE01 · Owner bổ sung mục tiêu hai chiều; P26 HOST ACCEPTED + P27 refinements; Executor dự kiến Claude Code CLI; chờ Claude P28 consensus cuối, chưa READY/RUN.
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
 - `work/mcp-token-argv/` · SECURITY · Host Claude · loại Bearer token khỏi argv của lark-crud-gateway/mcp-remote; migrate secret + rotate + smoke; không chặn HVU.
 - `work/hermes-joint-workspace/` · HJW · Host GPT · A0 xác nhận lại 22/09: thêm Secret Boundary cho VPS/GSM + khai thác always-on/API/webhook/Telegram; hiện ở HJW.2A DESIGN, chưa RUN production.
