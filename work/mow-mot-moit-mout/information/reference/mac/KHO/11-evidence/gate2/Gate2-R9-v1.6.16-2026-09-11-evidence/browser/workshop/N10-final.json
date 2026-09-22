@@ -1,0 +1,114 @@
+{
+  "actions": [
+    {
+      "before": "Lập version cải tiến",
+      "label": "Diễn bước máy: lập nháp version 2",
+      "after": "Đã đi hết happy path thiết kế",
+      "advanced": true
+    }
+  ],
+  "final": {
+    "scenario": "N10",
+    "context": {
+      "object_ref": "TEST.MOW.duration-001",
+      "name": "Ghi nhận và tổng hợp thời lượng xử lý",
+      "family": "MOW",
+      "definition_version": 2,
+      "draft_revision": 3,
+      "scope": "TEST.ops",
+      "owner": "TEST.owner.mow",
+      "package_ref": "TEST.PKG.duration-001",
+      "return_context": "P02 / TEST.MOW.duration-001 / gói đang rà",
+      "release_ref": "TEST.RELEASE.duration-v1",
+      "instance_ref": "TEST.INSTANCE.duration-001",
+      "attempt_ref": "TEST.ATTEMPT.auto-001"
+    },
+    "metrics": {
+      "Quyết định H1–H5": 1,
+      "Nộp HMITL": 0,
+      "Chuyển màn tùy chọn": 0,
+      "Tìm tay": 0,
+      "Nhập raw ID": 0,
+      "Nhập lại máy biết": 0,
+      "Tool stage mô phỏng": 1,
+      "Mất context": 0
+    },
+    "stage": "finished",
+    "negative": null,
+    "recovered": 1,
+    "trace": [
+      {
+        "n": 1,
+        "at": "2026-09-11T03:10:15.020Z",
+        "event": "start-scenario",
+        "actor": "test_operator",
+        "detail": "N10",
+        "stage": "improve",
+        "pattern": "P02",
+        "object": "TEST.MOW.duration-001",
+        "package": "TEST.PKG.duration-001",
+        "scope": "TEST.ops",
+        "version": 1,
+        "revision": 2,
+        "release": "TEST.RELEASE.duration-v1",
+        "instance": "TEST.INSTANCE.duration-001",
+        "attempt": 1,
+        "blocked": true
+      },
+      {
+        "n": 2,
+        "at": "2026-09-11T03:10:16.887Z",
+        "event": "negative-resolved",
+        "actor": "H4",
+        "detail": "N10: Return improvement draft; không thay pin instancev1, không xóa vật cũ.",
+        "stage": "improve",
+        "pattern": "P02",
+        "object": "TEST.MOW.duration-001",
+        "package": "TEST.PKG.duration-001",
+        "scope": "TEST.ops",
+        "version": 1,
+        "revision": 2,
+        "release": "TEST.RELEASE.duration-v1",
+        "instance": "TEST.INSTANCE.duration-001",
+        "attempt": 1,
+        "blocked": false
+      },
+      {
+        "n": 3,
+        "at": "2026-09-11T03:10:17.520Z",
+        "event": "stage-completed",
+        "actor": "machine",
+        "detail": "Lập version cải tiến",
+        "stage": "improve",
+        "pattern": "P02",
+        "object": "TEST.MOW.duration-001",
+        "package": "TEST.PKG.duration-001",
+        "scope": "TEST.ops",
+        "version": 1,
+        "revision": 2,
+        "release": "TEST.RELEASE.duration-v1",
+        "instance": "TEST.INSTANCE.duration-001",
+        "attempt": 1,
+        "blocked": false
+      },
+      {
+        "n": 4,
+        "at": "2026-09-11T03:10:17.520Z",
+        "event": "stage-entered",
+        "actor": "machine_navigation",
+        "detail": "",
+        "stage": "finished",
+        "pattern": "P02",
+        "object": "TEST.MOW.duration-001",
+        "package": "TEST.PKG.duration-001",
+        "scope": "TEST.ops",
+        "version": 2,
+        "revision": 3,
+        "release": "TEST.RELEASE.duration-v1",
+        "instance": "TEST.INSTANCE.duration-001",
+        "attempt": 1,
+        "blocked": false
+      }
+    ]
+  }
+}

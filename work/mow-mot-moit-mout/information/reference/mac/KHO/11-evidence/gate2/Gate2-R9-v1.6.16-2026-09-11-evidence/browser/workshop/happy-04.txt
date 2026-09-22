@@ -1,0 +1,85 @@
+Browser tab: 2, Title: "Gate2 · Workshop quy trình thời lượng", URL: "http://127.0.0.1:8890/".
+0 AXWebArea Gate2 · Workshop quy trình thời lượng, URL: 127.0.0.1:8890/
+	1 container master-root
+		2 container
+			3 text GATE2 · WORKSHOP THIẾT KẾ · 11/09/2026
+			4 heading Từ ý tưởng đến quy trình có thể vận hành, Value: 1
+				5 text Từ ý tưởng đến quy trình có thể vận hành
+			6 text Một gói ngữ cảnh, năm góc nhìn. Dữ liệu và quyết định dưới đây đều là mô phỏng. Gate1: PM ACCEPT / DONE về phân vai UI · Gate2: SUBMITTED / PM REVIEW · D04: WAITING OWNER trước Gate3 / Pilot giao việc thật · O1–O3: NOT VERIFIED.
+		7 container Điều khiển workshop
+			8 text Tình huống kiểm tra
+			9 pop up button (collapsed, settable) Tình huống kiểm tra, Value: Happy path · từ ý tưởng đến cải tiến, ID: scenario, Secondary Actions: Expand
+				10 menu
+					11 (selected) Happy path · từ ý tưởng đến cải tiến
+					12 N01 · Tìm chưa đủ / nghĩa mơ hồ
+					13 N02 · Thiếu nguyên liệu
+					14 N03 · Bản cũ / xung đột
+					15 N04 · Caller không đủ quyền
+					16 N05 · Thiếu assignee / ủy quyền hết hạn
+					17 N06 · Kiểm thử không đạt
+					18 N07 · Duyệt bị từ chối / hết hạn
+					19 N08 · AUTO lỗi / retry
+					20 N09 · Thiếu output
+					21 N10 · Deactivate / retire còn where-used
+			22 button Bắt đầu tình huống, ID: reset
+			23 text Điều khiển này dành cho người diễn tập; không phải thao tác runtime của người dùng.
+		24 container Description: Ngữ cảnh chung, ID: context
+			130 text Ghi nhận và tổng hợp thời lượng xử lý
+			131 text TEST.MOW.duration-001  · MOW
+			132 text TEST.PKG.duration-001
+			133 text v1 · revision 1
+			134 text TEST.ops
+			135 text Owner: TEST.owner.mow
+			136 text Quay lại đúng gói
+			137 text P02 / TEST.MOW.duration-001 / gói đang rà
+			138 text Instance cũ giữ TEST.RELEASE.duration-v1
+		34 container Description: Năm pattern dùng chung, ID: patterns
+			139 checkbox P01 · Thư viện / Master, Value: 0
+			140 checkbox P02 · Không gian rà soát, Value: 0
+			141 checkbox P03 · Editor đúng owner, Value: 1
+			142 checkbox P04 · Bàn làm việc runtime, Value: 0
+			143 checkbox P05 · Vòng đời / Help / phản hồi, Value: 0
+		40 container
+			144 text HAPPY · BƯỚC 5/19
+			42 heading Rà chuyên môn tại owner Condition, Value: 2, ID: stage-title
+				145 text Rà chuyên môn tại owner Condition
+			146 text Owner kiểm subject, unit, operator và threshold; không sửa Field global từ MOW.
+			147 text H3
+		129 container content
+			148 container
+				149 heading Owner editor · Condition, Value: 3
+					150 text Owner editor · Condition
+				151 text Owner TEST.owner.condition Định nghĩa TEST.COND.over60 · version1 Đầu vào field.so_phut · integer · minute Biểu thức khai báo operator > · threshold 60 Write scope Chỉ Condition definition; không sửa global Field Gate3 chọn DSL/operator trong cơ chế có sẵn trước code. Không nhúng biểu thức SQL tự do vào Nuxt.
+			152 container
+				153 heading Gói cha vẫn được giữ, Value: 3
+					154 text Gói cha vẫn được giữ
+				155 text Package TEST.PKG.duration-001 Parent TEST.MOW.duration-001 Slot condition.after-capture Request TEST.REQ.condition-001 Return P02 / TEST.MOW.duration-001 / gói đang rà Field owner → Condition owner → MOW binding
+		84 container
+			156 text Quyết định người có lý do; không tạo authority hoặc trạng thái production.
+			86 button Chấp nhận nghĩa >60 phút (H3 · TEST), ID: advance
+		87 container
+			88 heading Số đo của lượt diễn tập, Value: 2
+				89 text Số đo của lượt diễn tập
+			90 container metrics
+				157 text 1
+				158 text Quyết định H1–H5
+				159 text 0
+				160 text Nộp HMITL
+				161 text 0
+				162 text Chuyển màn tùy chọn
+				163 text 0
+				164 text Tìm tay
+				165 text 0
+				166 text Nhập raw ID
+				167 text 0
+				168 text Nhập lại máy biết
+				169 text 3
+				170 text Tool stage mô phỏng
+				171 text 0
+				172 text Mất context
+			107 text Đếm hành vi trong prototype. Nút “Diễn bước máy” mô phỏng tool call và được tính riêng; chưa đo hiệu suất Agent hoặc người dùng production.
+		108 button (collapsed) Đối chiếu kỹ thuật: ngữ cảnh, trace và giới hạn, Secondary Actions: Expand
+			109 text Đối chiếu kỹ thuật: ngữ cảnh, trace và giới hạn
+		110 text Chủ sở hữu dữ liệu đích là PG và các cổng được quản trị. Mọi nội dung trên trang này là TEST ONLY, kể cả chữ “đạt”, “đã duyệt” hoặc “hoàn thành”.
+
+The focused UI element is 86 button Chấp nhận nghĩa >60 phút (H3 · TEST), ID: advance

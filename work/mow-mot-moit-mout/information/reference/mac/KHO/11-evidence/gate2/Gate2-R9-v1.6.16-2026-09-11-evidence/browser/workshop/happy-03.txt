@@ -1,0 +1,105 @@
+Browser tab: 2, Title: "Gate2 · Workshop quy trình thời lượng", URL: "http://127.0.0.1:8890/".
+0 AXWebArea Gate2 · Workshop quy trình thời lượng, URL: 127.0.0.1:8890/
+	1 container master-root
+		2 container
+			3 text GATE2 · WORKSHOP THIẾT KẾ · 11/09/2026
+			4 heading Từ ý tưởng đến quy trình có thể vận hành, Value: 1
+				5 text Từ ý tưởng đến quy trình có thể vận hành
+			6 text Một gói ngữ cảnh, năm góc nhìn. Dữ liệu và quyết định dưới đây đều là mô phỏng. Gate1: PM ACCEPT / DONE về phân vai UI · Gate2: SUBMITTED / PM REVIEW · D04: WAITING OWNER trước Gate3 / Pilot giao việc thật · O1–O3: NOT VERIFIED.
+		7 container Điều khiển workshop
+			8 text Tình huống kiểm tra
+			9 pop up button (collapsed, settable) Tình huống kiểm tra, Value: Happy path · từ ý tưởng đến cải tiến, ID: scenario, Secondary Actions: Expand
+				10 menu
+					11 (selected) Happy path · từ ý tưởng đến cải tiến
+					12 N01 · Tìm chưa đủ / nghĩa mơ hồ
+					13 N02 · Thiếu nguyên liệu
+					14 N03 · Bản cũ / xung đột
+					15 N04 · Caller không đủ quyền
+					16 N05 · Thiếu assignee / ủy quyền hết hạn
+					17 N06 · Kiểm thử không đạt
+					18 N07 · Duyệt bị từ chối / hết hạn
+					19 N08 · AUTO lỗi / retry
+					20 N09 · Thiếu output
+					21 N10 · Deactivate / retire còn where-used
+			22 button Bắt đầu tình huống, ID: reset
+			23 text Điều khiển này dành cho người diễn tập; không phải thao tác runtime của người dùng.
+		24 container Description: Ngữ cảnh chung, ID: context
+			130 text Ghi nhận và tổng hợp thời lượng xử lý
+			131 text TEST.MOW.duration-001  · MOW
+			132 text TEST.PKG.duration-001
+			133 text v1 · revision 1
+			134 text TEST.ops
+			135 text Owner: TEST.owner.mow
+			136 text Quay lại đúng gói
+			137 text P02 / TEST.MOW.duration-001 / gói đang rà
+			138 text Instance cũ giữ TEST.RELEASE.duration-v1
+		34 container Description: Năm pattern dùng chung, ID: patterns
+			139 checkbox P01 · Thư viện / Master, Value: 0
+			140 checkbox P02 · Không gian rà soát, Value: 0
+			141 checkbox P03 · Editor đúng owner, Value: 0
+			142 checkbox P04 · Bàn làm việc runtime, Value: 0
+			143 checkbox P05 · Vòng đời / Help / phản hồi, Value: 1
+		40 container
+			144 text HAPPY · BƯỚC 4/19
+			42 heading Yêu cầu bổ sung Condition, Value: 2, ID: stage-title
+				145 text Yêu cầu bổ sung Condition
+			146 text Request giữ package, slot, owner và return context; chưa gửi cho người thật.
+			147 text Máy · mô phỏng
+		129 container content
+			148 container
+				149 heading Readiness · diff · impact · test, Value: 3
+					150 text Readiness · diff · impact · test
+				151 text Packet TEST.PKG.duration-001 / revision 1 Diff Draft: một Condition còn thiếu Impact MOW binding, MOIT preview, MOT input; Field meaning không đổi Evidence Chưa chạy cho revision 1 Nguồn TEST.SUITE.duration-v1 / dependency digest rev1
+			152 container
+				153 heading Approval → publish → activate, Value: 3
+					154 text Approval → publish → activate
+				155 text Approval ingredient Chưa có Approval workflow Chưa có decision hợp lệ Published release Chưa phát hành Active binding Chưa kích hoạt Gate2 SUBMITTED / PM REVIEW · chưa PM ACCEPT
+			156 container
+				157 heading Request / owner / resume, Value: 3
+					158 text Request / owner / resume
+				159 container
+					160 text Request TEST.REQ.condition-001
+				161 container
+					162 text Owner TEST.owner.condition
+				163 container
+					164 text State pending / missing ingredient
+				165 container
+					166 text Return P02 / TEST.MOW.duration-001 / gói đang rà
+				167 heading Help và phản hồi, Value: 3
+					168 text Help và phản hồi
+				169 container
+					170 text Help TEST.GUIDE.duration-v1 · applies_to releasev1
+				171 container
+					172 text Drift Khớp fixture releasev1
+				173 text Ý kiến cải tiến
+				174 text entry area (settable) Ý kiến cải tiến, Value: Bổ sung hướng dẫn khi nhập ghi chú, ID: feedback
+				175 text Tự gắn object / scope / revision / instance / release; không nhập raw ID.
+		84 container
+			176 text Điều khiển kiểm thử mô phỏng một tool stage. Đường sản phẩm đích phải do máy tự chạy.
+			86 button Diễn bước máy: gửi request nội bộ TEST, ID: advance
+		87 container
+			88 heading Số đo của lượt diễn tập, Value: 2
+				89 text Số đo của lượt diễn tập
+			90 container metrics
+				177 text 1
+				178 text Quyết định H1–H5
+				179 text 0
+				180 text Nộp HMITL
+				181 text 0
+				182 text Chuyển màn tùy chọn
+				183 text 0
+				184 text Tìm tay
+				185 text 0
+				186 text Nhập raw ID
+				187 text 0
+				188 text Nhập lại máy biết
+				189 text 2
+				190 text Tool stage mô phỏng
+				191 text 0
+				192 text Mất context
+			107 text Đếm hành vi trong prototype. Nút “Diễn bước máy” mô phỏng tool call và được tính riêng; chưa đo hiệu suất Agent hoặc người dùng production.
+		108 button (collapsed) Đối chiếu kỹ thuật: ngữ cảnh, trace và giới hạn, Secondary Actions: Expand
+			109 text Đối chiếu kỹ thuật: ngữ cảnh, trace và giới hạn
+		110 text Chủ sở hữu dữ liệu đích là PG và các cổng được quản trị. Mọi nội dung trên trang này là TEST ONLY, kể cả chữ “đạt”, “đã duyệt” hoặc “hoàn thành”.
+
+The focused UI element is 86 button Diễn bước máy: gửi request nội bộ TEST, ID: advance
