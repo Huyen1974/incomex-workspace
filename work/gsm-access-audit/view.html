@@ -5,40 +5,93 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GSM Access Audit</title>
 <style>
-body{font-family:system-ui,-apple-system,sans-serif;max-width:980px;margin:40px auto;padding:0 20px;line-height:1.55}
-h1,h2{margin-bottom:.4em}.box{border:1px solid #9995;border-radius:12px;padding:18px;margin:16px 0}
-table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #9995;padding:10px;text-align:left;vertical-align:top}
-.small{opacity:.75}.status{font-weight:700}
+:root{--bg:#fff;--fg:#1d1d1f;--mut:#6e6e73;--line:#d9d9de;--card:#f7f7f9;--xanh:#2f9e44;--vang:#e0a100;--do:#e03131;--xam:#adb5bd;--now:#1c7ed6}
+@media (prefers-color-scheme:dark){:root{--bg:#141416;--fg:#f2f2f4;--mut:#a1a1a8;--line:#34343a;--card:#1d1d21}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:0 0 10px}
+.mut{color:var(--mut);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0}
+.quyet{border-left:6px solid var(--now)}
+.bar{display:flex;gap:6px}
+.bar div{flex:1;padding:8px 6px;border-radius:8px;text-align:center;font-size:13px;background:rgba(173,181,189,.25)}
+.bar .xong{background:var(--xanh);color:#fff}
+.bar .dang{background:var(--now);color:#fff;font-weight:700}
+.wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+th{font-size:12px;color:var(--mut);font-weight:600}
+td.o{text-align:center;font-weight:700;white-space:nowrap}
+.xanh{background:rgba(47,158,68,.22)}
+.vang{background:rgba(224,161,0,.25)}
+.do{background:rgba(224,49,49,.22)}
+.xam{color:var(--mut);background:rgba(173,181,189,.15)}
+.x{color:var(--mut)}
+tr.tong td{font-weight:700;border-bottom:2px solid var(--fg)}
+.leg span{display:inline-block;padding:1px 8px;border-radius:4px;margin:0 6px 4px 0;font-size:12px}
+code{font-size:12.5px;word-break:break-all}
 </style>
 </head>
-<body>
-<h1>GSM Access Audit</h1>
-<p class="status">Trạng thái: MỞ VIỆC · audit read-only trước · chưa thay production</p>
+<body><main>
+<h1>GSM Access Audit — ai đang mở "két khoá" Google, mở bao nhiêu lần</h1>
+<p class="mut" id="trang-thai">Trạng thái: PROMPT GSM-A1 (chỉ đọc) READY · chờ RUN · cập nhật 22/09/2026 · Host: Claude Chat</p>
 
-<div class="box">
-<h2>Mục tiêu Owner</h2>
-<p>Tìm chính xác service/script/process nào đang gọi Google Secret Manager, gọi bao nhiêu và vì sao; loại các lượt gọi vô lý để giảm phụ thuộc Google, quota/latency/rủi ro và chi phí nếu có.</p>
-<p><strong>Không tối ưu nhầm:</strong> chi phí Google đang quan sát hiện chủ yếu/tất cả là <em>Secret version replica storage</em>, chưa phải bằng chứng access calls đang gây khoản khoảng 2 USD/tháng.</p>
+<section class="card quyet" id="quyet">
+<h2>Hôm nay anh cần quyết</h2>
+<p><strong>Không có gì cần quyết.</strong> Chỉ cần RUN: dán dòng sau cho Claude Code CLI trên Mac.</p>
+<p><code>RUN GSM-A1-20260922-01 · WS work/gsm-access-audit · Agent · đọc AGENTS.md → work/gsm-access-audit/COLLAB.md → PROMPT.md</code></p>
+<p class="mut">Audit chỉ đọc: không đổi dịch vụ, không đổi khoá, không bật tính năng Google nào.</p>
+</section>
+
+<section class="card" id="tien-do">
+<h2>Tiến độ</h2>
+<div class="bar">
+<div class="dang">1–2 · Kiểm kê + đo ▶</div>
+<div>3 · Thiết kế giảm</div>
+<div>4 · Duyệt</div>
+<div>5 · Làm + đo lại</div>
 </div>
+</section>
 
-<div class="box">
-<h2>5 bước</h2>
-<table>
-<tr><th>Bước</th><th>Việc</th><th>Trạng thái</th></tr>
-<tr><td>1</td><td>Inventory mọi caller GSM</td><td>Chưa làm</td></tr>
-<tr><td>2</td><td>Đo caller → secret → trigger → calls/ngày/tháng</td><td>Chưa làm</td></tr>
-<tr><td>3</td><td>Thiết kế startup cache / TTL / rotation hợp lý</td><td>Chưa làm</td></tr>
-<tr><td>4</td><td>Review + Owner duyệt</td><td>Chưa làm</td></tr>
-<tr><td>5</td><td>Triển khai, đo lại, đóng</td><td>Chưa làm</td></tr>
-</table>
-</div>
+<section class="card" id="vi-du">
+<h2>Hiểu nhanh bằng một ví dụ: thuê két ở ngân hàng</h2>
+<p>GSM giống dãy két thuê ở ngân hàng. <strong>Tiền thuê</strong> tính theo số ngăn đang giữ: mỗi phiên bản khoá là 1 ngăn, 6 ngăn đầu miễn phí, sau đó khoảng 0,06 USD/ngăn/tháng. <strong>Mở két lấy khoá</strong> là một lượt gọi: 10.000 lượt/tháng đầu miễn phí. Mỗi lần đổi khoá mà không huỷ bản cũ là thuê thêm một ngăn — ngăn đã "khoá lại" (disable) vẫn tính tiền.</p>
+<p>Hoá đơn khoảng 2 USD/tháng hiện thấy nằm ở <strong>tiền thuê ngăn</strong>, chưa phải ở lượt mở két. Audit đo cả hai: ai mở két, bao lâu một lần, và đang giữ bao nhiêu ngăn thừa.</p>
+</section>
 
-<div class="box">
-<h2>Định hướng</h2>
-<p>Ứng viên mặc định: đọc secret lúc service khởi động, giữ trong memory và pin version cụ thể. Process sống dài chỉ refresh theo TTL hoặc sự kiện rotation nếu thật sự cần. Không áp “1 lần/ngày” trước khi đo.</p>
-<p>Không tạo thêm Google Cloud project/service trong việc này. VPS vẫn là SSOT của mã/runtime.</p>
-</div>
+<section class="card" id="ma-tran">
+<h2>Ma trận người gọi</h2>
+<p class="leg"><span class="do">đỏ · thừa/vô ích</span><span class="vang">vàng · giảm được</span><span class="xanh">xanh · hợp lý</span><span class="xam">xám · chưa đo</span><span class="x">x · không còn chạy</span></p>
+<div class="wrap"><table>
+<tr><th>#</th><th>Người gọi</th><th>Chạy thật?</th><th>Khi nào gọi</th><th>Lượt/ngày</th><th>Đánh giá</th><th>Đề xuất</th></tr>
+<tr class="tong"><td></td><td>TỔNG (cộng từ dưới lên · đối chiếu số đo Google)</td><td class="o xam">?</td><td></td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>1</td><td>Trợ lý host MCP — nạp deploy key</td><td class="o xam">?</td><td>mỗi lần dịch vụ khởi động</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>2</td><td>Hermes — nạp khoá</td><td class="o xam">?</td><td>mỗi lần dịch vụ khởi động</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>3</td><td>Cổng Jev — nạp 2 khoá</td><td class="o xam">?</td><td>mỗi lần dịch vụ khởi động</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>4</td><td>Kiểm tra sức khoẻ Jev (5 phút/lần) — cần soi kỹ</td><td class="o xam">?</td><td>có thể mỗi vòng</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>5</td><td>Thư viện Lark — khi thiếu biến trong .env</td><td class="o xam">?</td><td>mỗi tiến trình Lark</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>6</td><td>Khoá mã hoá backup Lark</td><td class="o xam">?</td><td>mỗi lần dựng dịch vụ ghi</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>7</td><td>Script backup Lark</td><td class="o xam">?</td><td>theo lịch backup</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>8</td><td>Lệnh DOT khôi phục/kiểm thử</td><td class="o xam">?</td><td>chạy tay (tháng 7)</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>9</td><td>Script lưu báo cáo KB của agent</td><td class="o xam">?</td><td>mỗi lần agent gọi</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>10</td><td>2 script kiểm toàn vẹn (đã gỡ 24/07)</td><td class="o xam">?</td><td>hằng giờ / 6 giờ</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>11</td><td>Đẩy mã lên GitHub hằng ngày (bản cũ)</td><td class="o xam">?</td><td>không còn lịch</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>12</td><td>Mã Google Cloud cũ (Functions/Run)</td><td class="o xam">?</td><td>chỉ khi còn deploy</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>13</td><td>Máy Mac — agent/app đọc khoá khi làm việc</td><td class="o xam">?</td><td>tay · mỗi lần mở app</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr><td>14</td><td>Gateway Lark (việc mcp-token-argv đang chuyển khoá về GSM)</td><td class="o xam">?</td><td>mỗi lần dịch vụ khởi động</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+</table></div>
+</section>
 
-<p class="small">Cửa vào cho AI: đọc AGENTS.md → work/gsm-access-audit/COLLAB.md → README.md.</p>
-</body>
+<section class="card" id="tien">
+<h2>Tiền</h2>
+<div class="wrap"><table>
+<tr><th>Khoản</th><th>Miễn phí mỗi tháng</th><th>Hiện tại</th><th>Sau tối ưu (đề xuất)</th></tr>
+<tr><td>Lượt mở két (Access)</td><td>10.000 lượt</td><td class="o xam">?</td><td class="o xam">?</td></tr>
+<tr><td>Thuê ngăn (version đang giữ)</td><td>6 version</td><td class="o xam">? · ~2 USD (D02)</td><td class="o xam">?</td></tr>
+</table></div>
+</section>
+
+<p class="mut">Chi tiết + bằng chứng: README.md §8. Cửa vào cho AI: AGENTS.md → work/gsm-access-audit/COLLAB.md → PROMPT.md.</p>
+</main></body>
 </html>

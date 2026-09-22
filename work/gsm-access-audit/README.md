@@ -76,7 +76,7 @@ Nguồn chính thức:
 
 ## 7. Deliverable vòng audit
 
-Không cần tài liệu dài. Kết quả GSM.1–GSM.3 nên gom vào **một mục mới trong file này** hoặc `view.html`:
+Không cần tài liệu dài. Kết quả GSM.1–GSM.3 gom vào **§8 của file này** (chi tiết + bằng chứng) và `view.html` (màn hình Owner):
 - top callers;
 - calls/month hiện tại;
 - root cause của call thừa;
@@ -86,3 +86,32 @@ Không cần tài liệu dài. Kết quả GSM.1–GSM.3 nên gom vào **một m
 - rủi ro/rollback.
 
 Không tạo thêm file progress/archive nếu không cần.
+
+## 8. Kết quả GSM-A1 — khung cố định (agent điền, giữ nguyên tiêu đề 8.1–8.7)
+
+Trạng thái: CHƯA CHẠY · RUN_ID `GSM-A1-20260922-01` · đề bài: `PROMPT.md`
+
+### 8.1 Cho Owner (≤ 6 dòng)
+- Tổng lượt Access/tháng · so với 10.000 miễn phí · tiền do lượt gọi:
+- Tiền do lưu trữ version:
+- Top 3 caller:
+- Có "rỉ máu" không, ở đâu:
+- Đề xuất chính (một câu):
+
+### 8.2 Ma trận caller
+| # | Caller | Secret | Kích hoạt | Lượt/ngày (đo · ước) | Nguồn số | Màu | GSM sập thì sao |
+|---|---|---|---|---:|---|---|---|
+
+### 8.3 Tồn kho version (tiền lưu trữ)
+| Secret | Replication | Version tính tiền | Mới nhất | Cũ nhất còn giữ | Còn nơi dùng? | Đề xuất |
+|---|---|---:|---|---|---|---|
+
+### 8.4 Đối chiếu A (metric Google) ↔ B (dựng từ mã)
+| Nhãn tài khoản | A: lượt/30 ngày | B: lượt/30 ngày | Lệch | Ghi chú |
+|---|---:|---:|---:|---|
+
+### 8.5 Trả lời 8 câu bắt buộc (COLLAB)
+
+### 8.6 Nháp GSM.3 (chưa làm)
+
+### 8.7 Chưa đo được + lý do
