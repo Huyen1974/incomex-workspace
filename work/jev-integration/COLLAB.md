@@ -239,7 +239,8 @@ HTML chính: `view.html`
 - Chat smoke: explicit PASS · natural PASS · negative PASS.
 - Codex smoke: explicit PASS · negative PASS · natural K1 PASS (retest phiên mới, sau Skill `e2a9f35`). ⇒ **Smoke acceptance OpenAI Work/Chat/Codex: ĐÓNG.**
 - `jev-gw-health` version-agnostic: **XONG 2026-09-22** (xem KQ JEV-HEALTH-VA).
-- NEXT: acceptance 10+10 theo `CLIENT-ACCEPTANCE.md` (lượt riêng, chưa chạy).
+- Codex acceptance 10+10: **PASS** (xem KQ JEV-OPENAI-ACC) ⇒ **OPENAI JEV CLIENT ACCEPTANCE = DONE**.
+- NEXT: Bước 2 Claude/Hermes — chưa làm, chờ Host giao.
 - Chỉ khi OpenAI client acceptance DONE mới chuyển sang Bước 2 Claude/Hermes theo kế hoạch.
 
 ## KQ — JEV-B1-OPENAI-20260921-01 · Claude Code
@@ -286,3 +287,16 @@ HTML chính: `view.html`
   - Quét theo giá trị path-secret: journal health + msg Kuma = 0.
 - Rollback (Owner quyết): `install -m 755 /var/backups/jev-gw-health.20260922-pre-version-agnostic /usr/local/sbin/jev-gw-health`.
 - Không chạy 10+10 trong lượt này.
+
+## KQ — JEV-OPENAI-ACC · Claude Code
+- `KQ@JEV-OPENAI-ACC XONG` · 2026-09-22 03:08–03:15Z · Codex acceptance 10+10 theo `CLIENT-ACCEPTANCE.md` §D/§E (sha `5be6184d…`, không đổi trong lúc chạy). Không sửa VPS, gateway, plugin, Skill, cấu hình production; `~/.codex/config.toml` không đổi.
+- **Codex:** `CONNECTIVITY=PASS` · `SKILL=AUTO` · `POSITIVE_TRIGGER=10/10` · `FALSE_TRIGGER=0/10` · `MODEL_ARG_ABSENT=10/10` · `ANSWERS=10/10` · `FINAL=PASS`.
+  - P01–P10: mỗi ca đúng 1 call `codex_apps / jev_reference.evaluate` (`readOnlyHint=true`), `completed`; arguments chỉ `state` + `questions`, quét đệ quy không có khoá `model`; result có `answers`, 10 id upstream `gen-dec-*` khác nhau. Trước khi gọi, Codex tự đọc `~/.agents/skills/jev-reference/SKILL.md`.
+  - N01–N10: 0 call MCP nào; chỉ N04 chạy `rg --files` để liệt kê README.md.
+  - JEV chỉ là tham khảo: P01 JEV trả `insufficient`, Codex vẫn tự chọn package; P08 JEV trả chat/chat/chat, Codex tự chia Chat/Codex/Claude Code.
+- **Chấm từ trace thật**, không dựa lời Codex tự kể: rollout Mac `~/.codex/sessions/2026/09/22/rollout-2026-09-22T10-08-42-…` → `…T10-15-19-…` (20 file, giờ máy +07), mục `McpToolCall`, đối chiếu luồng `codex exec --json`: khớp 20/20.
+- **Cách chạy:** mỗi ca một process `codex exec` mới, dùng binary Codex của app Desktop `0.155.0-alpha.9.2`, `gpt-6-astra`/low như lượt K1, memories tắt. `--sandbox read-only`; cwd là thư mục mẫu 3 README.md, hash cây trước/sau 20/20 không đổi, 0 `file_change`. Chỉ trong lượt thử: tắt MCP `agent-data`/`directus`/`node_repl` (có tool ghi) và cấp `-c apps.<JEV app>.tools."jev_reference.evaluate".approval_mode="approve"`, vì exec không có người bấm Allow. Tất cả truyền bằng `-c`, không ghi vào config.
+- **Lệch so với văn bản tài liệu:** mọi prompt có thêm tiền tố “Không sửa file.” như K0–K2. P09 bỏ chữ “JEV” (“Cổng dịch vụ tham khảo báo health DOWN…”) để đúng yêu cầu prompt không nhắc JEV. N01/N02/N06/N07/N08 được điền dữ liệu cụ thể: đoạn văn, câu, 5 dòng log, 2 SHA lệch ký tự cuối, CSV 3 dòng.
+- **Lượt hỏng do bộ chạy, loại khỏi điểm:** P01 lần 1 và P02 chạy dở. Codex đã tự gọi nhưng exec từ chối (“MCP tool call requires approval, but approval policy is never”), chưa tới gateway. Sau khi sửa bộ chạy, chạy lại đủ 20 ca trong phiên sạch.
+- Theo lệnh Host: Work smoke PASS + Chat smoke PASS + Codex 10+10 PASS ⇒ **OPENAI JEV CLIENT ACCEPTANCE = DONE**. Ghi chú: §F2 còn mục Work 10+10 theo batch; lượt này không chạy mục đó.
+- Không làm Bước 2 Claude.
