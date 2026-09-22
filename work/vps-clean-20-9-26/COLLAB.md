@@ -13,8 +13,8 @@ HTML chính: `view.html`
 VPSC | Dọn đĩa VPS + khoá vòi rò | việc 5/6 | R3 XONG · R4 khép việc OWNER_APPROVED + READY | NEXT: Owner gỡ quyền "rclone" cũ trong tài khoản Google → RUN R4 → V3 Codex sau cron đêm | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R4-20260922-01` · khép việc: build cache + báo image + dọn dấu vết SEC-01 · CÓ MUTATION nhỏ.
-- **PROMPT_SHA: SAME_COMMIT**.
-- **OWNER_APPROVED@SAME_COMMIT** (D08) · **Host READY@SAME_COMMIT** — preflight 22/09 ~11:20Z: đĩa 44/96GB, 45%, trống 53GB; 12 container healthy; Executor + Write_Path đã chạy ở R3.
+- **PROMPT_SHA = f4d496e7393659be03635a33edb575d7d717c06b**.
+- **OWNER_APPROVED@f4d496e7393659be03635a33edb575d7d717c06b** (D08) · **Host READY@f4d496e7393659be03635a33edb575d7d717c06b** — preflight 22/09 ~11:20Z: đĩa 44/96GB, 45%, trống 53GB; 12 container healthy; Executor + Write_Path đã chạy ở R3.
 - **Host kiểm R3 (22/09 ~11:20Z):** đã đọc mục R3 trong `BAO-CAO.md`; tự đo 45%, trống 53GB (khớp 52,784GiB agent báo); 12 container healthy. R3 đạt: vượt 45GiB, Drive có hạn giữ, cảnh báo đĩa qua Telegram hoạt động lại, mọi vòi trong bảng §3e có trần. Còn: gỡ quyền client chung (Owner) + dọn dấu vết, build cache chưa có trần, image chờ R03.
 - R3 (lịch sử): **PROMPT_SHA `dd216dff830a426199bd57491bb83a114490c127`** · OWNER_APPROVED + READY đã dùng · KQ XONG.
 - **OWNER_APPROVED@dd216dff830a426199bd57491bb83a114490c127** (D08) · **Host READY@dd216dff830a426199bd57491bb83a114490c127** — preflight 22/09 ~10:30Z: đĩa 55%, trống 43,3GiB; 12 container healthy; Phase 0/1.1/1.2 đã xác minh qua báo cáo `63c8d68`; Executor Claude Code CLI trên Mac → SSH (đã chạy phiên 1); Write_Path `workspace_*`. GPT REVIEWED@f249b90 vẫn là cơ sở cho Phase 1–3; phần thêm (Phase 4–5, chế độ chạy) do Owner uỷ quyền trực tiếp (A6: OWNER_APPROVED) — GPT có thể mở P sau, không chặn.
