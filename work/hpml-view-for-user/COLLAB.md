@@ -362,5 +362,24 @@ Based_on `dc2edf7` · READY@630a19e khớp commit cuối chạm PROMPT — PASS.
 
 **§4 Claude Code tự kiểm nhãn thật:** bước 1 PASS: read scoped qua agent-data ⇒ mẫu `claude-code × hpml-view-for-user`, `presence.json` HVU = `Claude Code CLI`. Bước 2 = chính commit này (công việc thật); bước 3–6 ghi ở commit kế tiếp sau khi đo.
 
+| Bước | Kết quả thật | |
+|---|---|---|
+| 1 read scoped | agent-data mẫu `claude-code × hpml-view-for-user`; UI Đang làm = Claude Code CLI | PASS |
+| 2 commit báo cáo thật | `9f8b070` qua `workspace_edit` | PASS |
+| 3 Git metadata | author `claude-code <ai-workspace@incomexsaigoncorp.vn>`; committer giữ chính sách cũ | PASS |
+| 4 webhook/B2 | `sync-status` = `9f8b070` sau ~6 giây; HVU `lastActors` `openai-mcp/1.0.0` → `claude-code` (`lastActorNames` Claude Code CLI) | PASS |
+| 5 clear sau commit | register HVU `current=null`, tombstone = giờ commit +1s. Mẫu cũ `claude-code × HVU` trong store Claude gateway (413 giây, còn TTL) **không sống lại** | PASS |
+| 6 read lại | sáng lại ≤ 30 giây, generation 1→2 | PASS |
+
+**Còn OPEN thật (không chặn XONG):**
+1. Claude Desktop/Cowork (MCP local): proxy mới đã cài, `FIRST_USE_PENDING` tới lần Desktop mở lại server. Nhãn clientInfo thật của Desktop chưa quan sát; nếu không khớp tiền tố A9 sẽ hiện `Chưa rõ` → Host thêm một dòng bảng A9 khi thấy nhãn (luật nền, Claude Code không tự sửa).
+2. Hermes: không có `mcp_servers` ⇒ `FIRST_USE_PENDING`.
+3. Độ mịn còn lại: gateway throttle 30s/cặp (core frozen) + nhịp publish 15s; hoạt động cùng giây sau commit, hoặc của surface khác trong lúc writer đang ghi, tính là trước commit.
+4. Claude Code mất binding clientInfo sau 1h idle (UA fallback) — hiển thị vẫn đúng nhờ A9; muốn hết phải đổi agent-data (cấp `Mcp-Session-Id`/TTL) = core, không làm.
+5. Mirror workspace `ui-assembly/` + `work/hpml-view-for-user/view.html` vẫn là bản UI03 (lệch từ trước B2; không phải input deploy) — Host quyết có đồng bộ không. Dòng §0 HVU-UI03 cũ (P21) Host dọn.
+6. Đường clone Mac chỉ dựa vào quy tắc bộ nhớ Claude Code, không có chốt kỹ thuật.
+
+KQ@HVU-B3-CLEANUP-20260921-03 XONG
+
 ## Owner cần quyết
 - — · Không có quyết định nghiệp vụ chặn cleanup Claude.
