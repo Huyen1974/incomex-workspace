@@ -1,63 +1,70 @@
-# PROMPT — HVU-DEEPLINK01 · DRAFT FOR CLAUDE REVIEW · NO RUN
+# PROMPT — HVU-DEEPLINK01 · DRAFT R2 FOR CLAUDE REVIEW · NO RUN
 
 ## 0. Trạng thái / gate
-Đây là **yêu cầu bổ sung trong task hiện có** `work/hpml-view-for-user/`. Không tạo task mới.
+Đây là **yêu cầu bổ sung của task hiện có** `work/hpml-view-for-user/`. Không tạo task mới.
 
-Bản này **chưa giao Claude Code CLI**. Thứ tự bắt buộc:
-1. GPT Host tập hợp yêu cầu.
-2. Claude Chat review/phản biện trực tiếp bản này.
-3. Host xử lý các P của Claude.
-4. Chỉ khi GPT Host + Claude Chat **đồng thuận, không còn P OPEN/OWNER liên quan**, Host mới đổi prompt sang READY và phát RUN cho Claude Code CLI.
+**Chưa giao Claude Code CLI.** Chỉ READY/RUN sau khi Claude Chat review lại R2 và GPT Host + Claude Chat đồng thuận, không còn P OPEN/OWNER liên quan.
 
-Trước bước 4: **NO RUN / NO AGENT MUTATION**.
+## 1. Mục tiêu Owner — phạm vi chung
+Làm URL của `https://vps.incomexsaigoncorp.vn/knowledge/modules` phản ánh đủ vị trí User đang xem để **chỉ cần gửi URL là người/AI mở được đúng chỗ**, tối thiểu:
+- đúng task;
+- đúng tab/view của Task html view;
+- nếu đang ở nội dung công việc: đúng khu vực/bảng/mục con khi phần đó có định danh ổn định.
 
-## 1. Mục tiêu
-Làm URL của `https://vps.incomexsaigoncorp.vn/knowledge/modules` phản ánh đúng vị trí User đang xem, để chỉ cần gửi URL là người/AI mở được **đúng task → đúng tab/khu vực → đúng bảng/mục con**, không phải giải thích lại vị trí.
+Đây là **năng lực chung của Task html view**, không phải chức năng riêng cho MOW/MOT/MMIM. MOW/MOT có thể dùng làm fixture kiểm thử nhưng **không được trở thành dependency, contract hay lý do sửa task khác**.
 
-Giữ tương thích deep-link hiện có:
+Giữ tương thích:
 `?task=<task-id>`
 
-Mở rộng tối thiểu bằng các mã/ID ổn định, ví dụ:
-`?task=mow-mot-moit-mout&view=step&section=mot&detail=MOT01`
+Contract ưu tiên tối giản để Claude review:
+`?task=<task-id>&view=control|content&at=<stable-id>`
 
-Tên tham số cụ thể có thể Claude đề nghị điều chỉnh nếu code hiện tại đã có convention tốt hơn, nhưng phải giữ nguyên mục tiêu: URL đủ để định vị chính xác và có thể copy/share.
+Trong đó `at` chỉ là mã/ID ổn định của vị trí bên trong nội dung; không suy từ STT hoặc text hiển thị.
 
-## 2. Nguyên tắc xử lý
-- Ưu tiên **thay đổi frontend nhỏ nhất**, tận dụng `URLSearchParams` + History API/cơ chế route hiện hữu.
-- Không redesign Task html view.
-- Không đổi database, MCP/connector, sync/presence/B2/B3 nếu không có bằng chứng bắt buộc.
-- Không suy vị trí bằng text hiển thị/STT; dùng **ID/code ổn định**.
-- Khi User đổi tab/khu vực/mục con, URL cập nhật tương ứng mà không reload toàn trang nếu không cần.
-- Khi mở URL trực tiếp, UI phải khôi phục đúng vị trí được mã hóa.
-- URL sai hoặc ID đã mất phải fallback an toàn, không làm hỏng trang.
-- Back/Forward phải phục hồi hợp lý nếu cơ chế hiện tại cho phép bằng thay đổi nhỏ.
-- Giữ `task=<id>` là khóa task hiện hành.
+## 2. Hai chiều bắt buộc của mục tiêu
+Phải phân biệt và đáp ứng cả hai:
+1. **URL → UI:** mở URL đã chia sẻ thì phục hồi đúng task/view/vị trí.
+2. **UI → URL:** khi User đổi task/view hoặc đi tới một khu vực/bảng/mục con mà hệ thống có thể nhận biết an toàn, URL phải cập nhật để nút Copy link/địa chỉ hiện tại thật sự chia sẻ được vị trí đó.
 
-## 3. Ranh giới hệ thống
-- Runtime viewer trên VPS là SSOT theo AGENTS/README §11; read-gate code production trước khi sửa.
-- GitHub task này chỉ giữ yêu cầu/evidence; không dùng repo copy để ghi đè runtime.
-- Không sửa nghiệp vụ/Step của `mow-mot-moit-mout` từ prompt HVU.
-- Nếu cần child/iframe relay để truyền vị trí xuống HTML công việc, chỉ bổ sung phần tối thiểu tương thích sandbox hiện tại; không nới security như `allow-same-origin`.
-- Không mở task phụ cho deep-link.
+Không được coi việc “đã biết sẵn `at` rồi gắn hash để mở” là đủ nếu UI không có cách cập nhật `at` khi User đang điều hướng.
 
-## 4. Acceptance tối thiểu
+Nếu với HTML con hiện tại không có cơ chế chung để biết vị trí sâu mà không sửa tài liệu con, Claude phải ghi rõ **giới hạn kỹ thuật của V1** và đề xuất cách nhỏ nhất; không được lấy một file MMIM có `revealHash()` làm giả định cho mọi task.
+
+## 3. Nguyên tắc làm nhỏ
+- Ưu tiên frontend nhỏ nhất; tận dụng `URLSearchParams`, History API và fragment/hash chuẩn của trình duyệt khi đủ.
+- `replaceState` được ưu tiên nếu không cần tạo lịch sử; không thêm `popstate` nếu không dùng `pushState`.
+- Query phải được validate/normalize; dựng URL bằng API chuẩn, không nối chuỗi không kiểm soát.
+- Không redesign UI.
+- Không đổi database, MCP/connector, sync/presence/B2/B3.
+- Không thêm message listener/postMessage/handshake nếu production không thật sự cần.
+- Không nới sandbox/`allow-same-origin`.
+- Deep-link không được tạo presence “Đang làm”.
+- Không sửa MOW/MOT/MMIM trong RUN này.
+- Không mở task phụ.
+
+## 4. Acceptance
 A1. `?task=<id>` cũ vẫn mở đúng task.
-A2. URL có task + tab/view mở đúng tab.
-A3. URL có thêm section/detail mở đúng khu vực/mục con.
-A4. Thao tác trên UI làm URL thay đổi đúng.
-A5. Copy URL sang cửa sổ mới vẫn định vị đúng.
-A6. Back/Forward không làm state lệch hoặc vỡ.
-A7. Query/ID không hợp lệ fallback an toàn.
-A8. Không regression Master list, search, Now/Done, task detail, B2/B3/presence.
-A9. Không thay đổi public MCP contract/auth và không làm yếu sandbox/security.
+A2. `task + view` mở đúng tab/view.
+A3. Khi có `at=<stable-id>` hợp lệ, mở đúng vị trí tương ứng; ID không tồn tại thì fallback an toàn.
+A4. Đổi task/view trên UI làm URL cập nhật đúng.
+A5. Với vị trí sâu mà viewer nhận biết được, UI cập nhật `at`; nếu production chưa có tín hiệu chung để nhận biết thì phải báo giới hạn, không giả PASS nhờ riêng MMIM.
+A6. Copy link mở ở cửa sổ mới phục hồi đúng trạng thái mà URL đã mã hóa.
+A7. Done task vẫn mở đúng qua deep-link, tự hiện đúng nhóm nếu cần.
+A8. `view=content` nhưng không có tài liệu thì fallback về control/trạng thái hợp lệ.
+A9. Query được làm sạch; không chèn HTML/script/path traversal.
+A10. Không thêm message listener hoặc nới sandbox nếu không cần.
+A11. Không làm đổi presence/“Đang làm”.
+A12. Không regression Master list, search, Now/Done, detail, B2/B3.
+A13. Nếu có nút **Copy link**, nó phải sao chép đúng URL hiện tại sau khi state đã đồng bộ.
+A14. MOW/MOT/MMIM chỉ được dùng làm fixture kiểm thử; production solution phải không phụ thuộc chúng.
 
-## 5. Yêu cầu Claude Chat review trước RUN
-Claude Chat chỉ review, **không thực thi**. Cần trả lời ngắn:
-- Contract URL trên có đủ để đạt mục tiêu “gửi link là định vị được ngay” chưa?
-- Có phần nào đang phức tạp quá so với code production thực tế không?
-- Có regression/security edge case nào phải thêm vào acceptance không?
-- Đề nghị ACCEPT hoặc CHANGE cụ thể; ghi P vào `COLLAB.md`.
+## 5. Yêu cầu Claude Chat review R2
+Claude Chat **chỉ review, không RUN**:
+1. Xác nhận R2 đã tách hẳn scope HVU khỏi MOW/MOT/MMIM chưa.
+2. Xác nhận contract `task + view + at` có đủ cho năng lực chung không.
+3. Kiểm tra riêng điểm **UI → URL**: production hiện có tín hiệu chung nào để xác định `at` khi User đi sâu trong iframe hay không; nếu không, ghi giới hạn và giải pháp tối thiểu thay vì dựa riêng vào MMIM.
+4. ACCEPT hoặc CHANGE cụ thể và ghi vào `COLLAB.md`.
 
-Chỉ sau khi Host xử lý review và đạt đồng thuận mới xác định Executor_Surface/Write_Path/read-gate và chuyển READY cho Claude Code CLI.
+Chỉ sau ACCEPT/consensus mới chuyển READY cho Claude Code CLI.
 
-Kết thúc DRAFT: **NO RUN**.
+Kết thúc R2: **NO RUN**.

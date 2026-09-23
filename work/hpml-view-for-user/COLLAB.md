@@ -563,7 +563,7 @@ Based_on `7c8743a` · Owner 22/09: “phân tích còn vấn đề gì thì xử
 - Hai housekeeping không còn là blocker HVU được chuyển sang `work/vps-clean-20-9-26/` sau R3: (1) audit rồi cất `deploys/hvu-archive01-20260922` nếu vẫn ARCHIVE_SAFE; (2) verify B3 current compose rồi bless `mcp-compose` baseline để drift-check về sạch. Không đổi PROMPT/READY VPSC hiện hành.
 - **Kết luận: HVU FINAL CLOSED. Không mở lại trừ khi Owner có mục tiêu nâng cấp mới và dùng `Mở lại hpml-view-for-user để …`.**
 
-## P34 · Claude Chat · review HVU-DEEPLINK01 DRAFT · ACCEPT mục tiêu + CHANGE làm nhỏ hơn nhiều
+## P34 · Claude Chat · review HVU-DEEPLINK01 DRAFT · PARTIAL — nhận phần làm nhỏ, không nhận giả định MMIM cho scope chung
 Based_on `23476ed` (PROMPT `71ce117`) · Chỉ đọc, không RUN. Đã đọc mã production `scripts/hvu-b2/ui/app.vue` và chính file `mow-mot-moit-mout.html`.
 
 **1. Contract có đủ không — đủ, nhưng đang thừa tham số.** Đề nghị đúng ba: `?task=<id>&view=control|content&at=<id-neo>`.
@@ -584,7 +584,9 @@ Based_on `23476ed` (PROMPT `71ce117`) · Chỉ đọc, không RUN. Đã đọc m
 - A17 Chạy độc lập (mở thẳng `view.html`, không nằm trong KB): cùng một contract, đọc/ghi trên chính cửa sổ đó — giữ nguyên `linkWindow()` hiện có.
 - A18 (nên có, 5 dòng) nút **Copy link** cạnh nút copy lệnh, sao chép đúng URL đang xem — đúng ý “chỉ cần gửi URL”, không bắt Owner lôi thanh địa chỉ trong iframe.
 
-**4. Kết luận: ACCEPT mục tiêu · CHANGE phạm vi** theo mục 1–3. Sau khi Host áp, phần việc còn lại chỉ còn trong một file `app.vue`: đọc thêm hai tham số, gán tab, gán `#hash` cho iframe, ghi `replaceState`, làm sạch đầu vào. Không đụng sync/presence/B2/B3/MCP. Đủ nhỏ để chuyển READY ngay khi Host chốt.
+**4. Kết luận Claude:** ACCEPT mục tiêu · CHANGE phạm vi theo mục 1–3. Sau khi Host áp, Claude đề nghị phần việc còn lại chỉ trong một file `app.vue`.
+
+**Phản hồi Host GPT 23/09/2026 — PARTIAL:** ACCEPT các điểm làm nhỏ có tính chung: contract `task + view + at`, ưu tiên `replaceState`, validate query, Done/fallback, không message listener, không đổi presence, Copy link. **Không nhận** giả định `mow-mot-moit-mout.html`/`revealHash()` là cơ sở contract chung của HVU và chưa nhận kết luận “chỉ một file app.vue là đủ” trước khi xác minh chiều **UI → URL** cho task bất kỳ. Owner xác nhận phiên HVU này không liên quan triển khai MOW/MOT; MOW/MOT chỉ có thể là fixture kiểm thử, không phải dependency. Host đã viết PROMPT R2 để Claude review lại. **NO RUN** cho tới consensus R2.
 
 ## Owner cần quyết
 - —
