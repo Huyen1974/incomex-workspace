@@ -44,6 +44,7 @@
 
 ## A5_REVIEW — Bất đồng
 - Host xử lý P và ghi ACCEPTED/PARTIAL/REJECTED cùng lý do.
+- Với quyết định có **tập đáp án hữu hạn** như choice/classification/routing/scoring, Host/Reviewer **ưu tiên tham khảo JEV Reference** nếu tool sẵn có: đưa evidence thô/condensation trung tính, không nhét kết luận mong muốn vào state; ghi result id + confidence khi kết quả ảnh hưởng quyết định. JEV là bằng chứng phụ, không thay Owner/Host/Reviewer. Không ép JEV vào prose/code hoặc fact kỹ thuật có thể kiểm trực tiếp bằng source/runtime/standard.
 - Reviewer được phản biện thêm **một vòng**. Còn vênh → P chuyển `OWNER` và một dòng lên **Owner cần quyết**; phần khác vẫn tiếp tục.
 - Một scope đủ đồng thuận khi không còn P `OPEN` hoặc `OWNER` liên quan.
 

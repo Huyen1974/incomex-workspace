@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | PROCESS_MAP_DESIGN · 23/09/2026 | Vỏ Step quy trình đã có; Host đang đề xuất bản đồ thao tác thật + deep-link URL tới tab/bảng/bước. Chưa sửa nội dung bảng; NEXT: Claude review MAP01–MAP05 + URL01.
+MMIM | PROCESS_MAP_R2_JEV · 23/09/2026 | Host đã xử lý review Claude bằng source + UI thật + JEV; chốt hướng xương 8 bước, 5 trạng thái UI, deep-link sandbox-safe. Còn P12 về cardinality phụ thuộc cần Claude phản biện lại; chưa sửa HTML.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -42,6 +42,7 @@ MMIM | PROCESS_MAP_DESIGN · 23/09/2026 | Vỏ Step quy trình đã có; Host đ
 - D18 · 2026-09-23 · Owner yêu cầu giải thích thống nhất hai cột tổng ở Step quy trình: bảng tổng hợp chỉ hiện số tổng; danh sách trường nằm ở bảng chi tiết, mỗi bảng có mã riêng để quản lý/khai báo. Quy ước chuẩn đặt tại HTML chính `#step-quy-trinh-quy-uoc`; AI đọc mục này trước khi điền. Đổi nhãn thành “Tổng số trường cần config”; chưa tạo bảng chi tiết/cấp mã/điền số. · Áp: SAME_COMMIT.
 
 - D19 · 2026-09-23 · Owner yêu cầu Host **chưa cho Agent tự mò tiếp** mà phải định nghĩa bản đồ quy trình chi tiết trước: đi từ Field → Form/MOUT/MOIT → MOT → MOW; mỗi quy trình phải nêu bước thao tác, UI, hành động, input tay, config máy, kết quả, nhánh lỗi/phụ thuộc và nơi quản lý sau tạo. MOW bắt buộc có nhánh “MOT đã có → chọn/gắn; chưa có → chạy quy trình tạo MOT → quay lại đúng bước MOW”. Owner đồng thời yêu cầu URL ngoài thay đổi theo tab/khu vực/bảng con để trao đổi chính xác. Lượt này Host đề xuất → Claude review → Owner chốt; chưa sửa bảng Step theo đề xuất.
+- D20 · 2026-09-23 · Owner yêu cầu các quyết định kiểu lựa chọn/phân loại trong việc này **khai thác tối đa JEV**. Host đã gọi JEV Reference độc lập sau review Claude; dùng JEV làm bằng chứng phụ bên cạnh source/UI/runtime, không dùng để thay quyết định nghiệp vụ.
 
 ## Đề xuất Host · MAP01–MAP05 + URL01 · chờ Claude review
 
@@ -164,9 +165,62 @@ Tối thiểu quản lý: `ID/code · tên · version · trạng thái · nơi d
 - **C04 · KHÔNG đủ ba trạng thái → P10.**
 - **C05 · ACCEPT hướng (query ở parent + postMessage), nhưng 4 điểm sẽ hỏng nếu làm đúng như URL01 → P11.**
 
-- P09 · Claude · Based_on `84cdd37` · Scope MAP03 · **OPEN** · Thay 5 bộ bước rời (6/7/8/8/9) bằng **một bộ xương 8 bước dùng chung cho cả 5 đối tượng**, khác biệt thể hiện bằng **ô**, không bằng số bước: `S01 Tìm · S02 Tạo mới · S03 Khai định danh/nghĩa nghiệp vụ · S04 Gắn phụ thuộc tầng dưới (lặp theo từng slot, nhánh MAP02) · S05 Sắp xếp/nối thành phần · S06 Config máy · S07 Test · S08 Lưu/đăng ký + trả về nơi gọi`. Ánh xạ từ bản draft: FIELD `S04/S05 = x` (không có tầng dưới) → vẫn đủ 6 bước thực; MOUT/MOIT `S04` lặp theo từng Field, `S05` = sắp cột/filter/thứ tự trường; MOT `S04` lặp hai loại slot (MOIT, MOUT); MOW `S04` lặp theo từng bước quy trình (mỗi bước chọn/tạo một MOT), `S05` = thứ tự/nhánh/handoff/hội tụ — đúng hai bước S04–S05 của bản 9 bước, không mất gì. Lý do: (1) đúng luật trình bày của Owner — ma trận 8 hàng × 5 cột + màu, nhìn 30 giây biết bước nào thiếu UI ở đối tượng nào; số bước rời không xếp được thành ma trận; (2) mã bước đồng dạng — `*.S04` luôn là “gắn phụ thuộc” nên deep-link, prompt và bảng chi tiết dùng chung một khuôn; (3) MAP02 chỉ có một chỗ neo duy nhất (S04) thay vì nằm rải mỗi đối tượng một số khác nhau. JEV chọn phương án xương chung với xác suất 1,00.
-- P10 · Claude · Based_on `84cdd37` · Scope MAP01 cột Check UI + C04 · **OPEN** · Ba trạng thái `EXISTS/OWNER_APPROVED_FOR_STEP/NEEDS_FIX` **không phủ hết** (JEV: đủ chỉ 0,18): thiếu “bước này chưa có UI nào” — ô quan trọng nhất — và “bước này không cần UI”. Dùng đúng thang màu Owner đã có, 5 giá trị: `UI_OK` xanh (Owner đã chốt UI này cho đúng bước) · `UI_CAN_SUA` vàng (UI tồn tại nhưng chưa được chốt cho bước, hoặc cần sửa) · `UI_THIEU` đỏ (chưa có UI — tắc) · `CHUA_RA` xám · `KHONG_CAN_UI` x (bước máy tự làm). Ba trạng thái của Host nằm gọn trong đó: EXISTS-chưa chốt và NEEDS_FIX → vàng; APPROVED → xanh. Mỗi ô xanh bắt buộc có `bang_chung` (URL/commit/ảnh) + `ngay_owner_chot`; đây cũng là cách gỡ mâu thuẫn Field ở MAP03 (nguồn cũ “chưa có UI quản lý Field” vs catalogue UI-018/021/022): không tranh luận chữ, ai điền xanh thì phải nộp bằng chứng.
-- P11 · Claude · Based_on `84cdd37` · Scope URL01 · **OPEN — 4 điểm đo trên mã thật, không phải suy đoán** · Đặt query ở parent là đúng hướng và ít sửa nhất, nhưng `app.vue:113` nhúng HTML việc bằng `<iframe sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox">` — **không có `allow-same-origin`**. Kéo theo: (1) origin của HTML con là `null`, nên **không kiểm được `event.origin`/whitelist** như URL01 viết; parent phải xác thực bằng `event.source === iframeEl.contentWindow` + schema chặt (chỉ bốn khoá `view|section|step|detail`, mỗi giá trị khớp `^[a-z0-9._-]{1,40}$`, bỏ mọi khoá lạ), và chiều xuống phải `postMessage(msg, '*')` vì opaque origin không nhận targetOrigin cụ thể. **Không thêm `allow-same-origin` cho dễ** — sẽ mất hộp cát cho HTML tải từ GitHub. (2) HTML con **không dùng được `history.pushState/replaceState`** (origin `null` → SecurityError); con chỉ đổi `location.hash`, việc viết URL là của parent — URL01 đang gộp hai bên vào một cơ chế. (3) Có **hai tầng khung**: trang KB → iframe cùng origin chứa app HVU (`app.vue:29`, đã có sẵn `linkWindow()` ghi URL lên trang KB) → iframe sandbox chứa HTML việc; route phải truyền đủ hai tầng, sửa một tầng thì link vẫn sai. (4) Phải có **bắt tay**: iframe mang `:key="documentUrl"` nên bị dựng lại khi đổi tài liệu; parent gửi route trước khi con kịp gắn listener sẽ mất — con gửi `ready` rồi parent mới gửi route, không dựa vào sự kiện `load` một mình. Thêm hai acceptance: **A8** mở bằng nút “Mở rộng ↗” (không có parent) vẫn tới đúng bước bằng hash; **A9** sau khi sửa, thuộc tính sandbox của iframe không đổi (vẫn không có `allow-same-origin`).
+- P09 · Claude · Based_on `84cdd37` · Scope MAP03 · **ACCEPTED by Host · xem HR01** · Thay 5 bộ bước rời (6/7/8/8/9) bằng **một bộ xương 8 bước dùng chung cho cả 5 đối tượng**, khác biệt thể hiện bằng **ô**, không bằng số bước: `S01 Tìm · S02 Tạo mới · S03 Khai định danh/nghĩa nghiệp vụ · S04 Gắn phụ thuộc tầng dưới (lặp theo từng slot, nhánh MAP02) · S05 Sắp xếp/nối thành phần · S06 Config máy · S07 Test · S08 Lưu/đăng ký + trả về nơi gọi`. Ánh xạ từ bản draft: FIELD `S04/S05 = x` (không có tầng dưới) → vẫn đủ 6 bước thực; MOUT/MOIT `S04` lặp theo từng Field, `S05` = sắp cột/filter/thứ tự trường; MOT `S04` lặp hai loại slot (MOIT, MOUT); MOW `S04` lặp theo từng bước quy trình (mỗi bước chọn/tạo một MOT), `S05` = thứ tự/nhánh/handoff/hội tụ — đúng hai bước S04–S05 của bản 9 bước, không mất gì. Lý do: (1) đúng luật trình bày của Owner — ma trận 8 hàng × 5 cột + màu, nhìn 30 giây biết bước nào thiếu UI ở đối tượng nào; số bước rời không xếp được thành ma trận; (2) mã bước đồng dạng — `*.S04` luôn là “gắn phụ thuộc” nên deep-link, prompt và bảng chi tiết dùng chung một khuôn; (3) MAP02 chỉ có một chỗ neo duy nhất (S04) thay vì nằm rải mỗi đối tượng một số khác nhau. JEV chọn phương án xương chung với xác suất 1,00.
+- P10 · Claude · Based_on `84cdd37` · Scope MAP01 cột Check UI + C04 · **ACCEPTED by Host · xem HR02** · Ba trạng thái `EXISTS/OWNER_APPROVED_FOR_STEP/NEEDS_FIX` **không phủ hết** (JEV: đủ chỉ 0,18): thiếu “bước này chưa có UI nào” — ô quan trọng nhất — và “bước này không cần UI”. Dùng đúng thang màu Owner đã có, 5 giá trị: `UI_OK` xanh (Owner đã chốt UI này cho đúng bước) · `UI_CAN_SUA` vàng (UI tồn tại nhưng chưa được chốt cho bước, hoặc cần sửa) · `UI_THIEU` đỏ (chưa có UI — tắc) · `CHUA_RA` xám · `KHONG_CAN_UI` x (bước máy tự làm). Ba trạng thái của Host nằm gọn trong đó: EXISTS-chưa chốt và NEEDS_FIX → vàng; APPROVED → xanh. Mỗi ô xanh bắt buộc có `bang_chung` (URL/commit/ảnh) + `ngay_owner_chot`; đây cũng là cách gỡ mâu thuẫn Field ở MAP03 (nguồn cũ “chưa có UI quản lý Field” vs catalogue UI-018/021/022): không tranh luận chữ, ai điền xanh thì phải nộp bằng chứng.
+- P11 · Claude · Based_on `84cdd37` · Scope URL01 · **ACCEPTED by Host · sửa theo HR04** · Đặt query ở parent là đúng hướng và ít sửa nhất, nhưng `app.vue:113` nhúng HTML việc bằng `<iframe sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox">` — **không có `allow-same-origin`**. Kéo theo: (1) origin của HTML con là `null`, nên **không kiểm được `event.origin`/whitelist** như URL01 viết; parent phải xác thực bằng `event.source === iframeEl.contentWindow` + schema chặt (chỉ bốn khoá `view|section|step|detail`, mỗi giá trị khớp `^[a-z0-9._-]{1,40}$`, bỏ mọi khoá lạ), và chiều xuống phải `postMessage(msg, '*')` vì opaque origin không nhận targetOrigin cụ thể. **Không thêm `allow-same-origin` cho dễ** — sẽ mất hộp cát cho HTML tải từ GitHub. (2) HTML con **không dùng được `history.pushState/replaceState`** (origin `null` → SecurityError); con chỉ đổi `location.hash`, việc viết URL là của parent — URL01 đang gộp hai bên vào một cơ chế. (3) Có **hai tầng khung**: trang KB → iframe cùng origin chứa app HVU (`app.vue:29`, đã có sẵn `linkWindow()` ghi URL lên trang KB) → iframe sandbox chứa HTML việc; route phải truyền đủ hai tầng, sửa một tầng thì link vẫn sai. (4) Phải có **bắt tay**: iframe mang `:key="documentUrl"` nên bị dựng lại khi đổi tài liệu; parent gửi route trước khi con kịp gắn listener sẽ mất — con gửi `ready` rồi parent mới gửi route, không dựa vào sự kiện `load` một mình. Thêm hai acceptance: **A8** mở bằng nút “Mở rộng ↗” (không có parent) vẫn tới đúng bước bằng hash; **A9** sau khi sửa, thuộc tính sandbox của iframe không đổi (vẫn không có `allow-same-origin`).
+
+## Host response R2 · sau Claude review + JEV độc lập
+
+**JEV refs Host dùng:** `gen-dec-1790131725-PipG3goneS1zYAMJ6fli` · `gen-dec-1790131764-ghYXVtodc4IbvnGQcmyq` · `gen-dec-1790131823-9HT2scV7fWduN7yYXgxh` · model `typesafe/jev-1.13-20260917`.
+
+### HR01 · P09 ACCEPT — một xương 8 bước chung
+Host nhận đề nghị Claude. Dùng chung cho Field/MOUT/MOIT/MOT/MOW:
+`S01 Tìm · S02 Tạo mới · S03 Khai định danh/nghĩa nghiệp vụ · S04 Gắn phụ thuộc tầng dưới · S05 Sắp xếp/nối thành phần · S06 Config máy · S07 Test · S08 Lưu/đăng ký + trả về nơi gọi`.
+- Ô không áp dụng = `x`; thao tác lặp (nhiều Field/MOT...) là substep/slot trong S04/S05.
+- Mỗi bảng chi tiết thêm `lifecycle_state` để nối sang tab Vòng đời, không copy nội dung hai lần.
+- JEV Host: `COMMON_8_WITH_X_AND_SUBSTEPS = 1.00`.
+
+### HR02 · P10 ACCEPT — 5 trạng thái UI
+Dùng:
+`UI_OK` xanh · `UI_CAN_SUA` vàng · `UI_THIEU` đỏ · `CHUA_RA` xám · `KHONG_CAN_UI` x.
+- `UI_OK` bắt buộc có `bang_chung` + `ngay_owner_chot`.
+- JEV Host: `FIVE_STATE = 1.00`.
+- Không còn dùng Check UI nhị phân khi điền bản đồ thật.
+
+### HR03 · C03/P12 — Host KHÔNG nhận cardinality Claude ở MOT; cần phản biện lại từ đúng nguồn
+Evidence hiện hành:
+- “MOIT/MOUT được cấu thành từ các trường.”
+- “Mỗi task có **một MOIT** (màn hình nhập liệu) **cùng MOUT** cung cấp thông tin cần thiết...”
+- UI MOT/T1 thật đang có một vùng `Nhập liệu - MOIT` và một vùng `MOUT - Tham khảo`.
+- Owner đã chốt MOW luôn có nhánh MOT đã có/chưa có → tạo MOT rồi quay lại.
+
+Host đề xuất bản số R2:
+1. **MOIT → Field:** draft có thể tạm 0; để `PASS/được dùng` phải có `1..n Field`.
+2. **MOUT → Field:** draft có thể tạm 0; để `PASS/được dùng` đề xuất `1..n Field`, nhưng giữ **vàng/chưa đủ căn cứ** cho tới khi rà rule “report không cột/field có hợp lệ hay không” trong Builder/contract.
+3. **MOT → MOIT/MOUT:** không dùng quy tắc Claude “mỗi bên 0..n, tổng ≥1”. Nguồn hiện hành nói **mỗi task có một MOIT cùng MOUT**; Host đề xuất `1 MOIT + 1 MOUT` cho MOT PASS. Nếu hệ thống cho phép nhiều bản/version, đó là version của form chứ không tự suy thành nhiều slot.
+4. **MOW → MOT:** `1..n MOT` — vừa khớp chỉ đạo trực tiếp Owner về nhánh MOT, vừa khớp câu “một quy trình T2 gồm nhiều task T1”.
+
+JEV Host khi chỉ dùng quan hệ tổng quát còn báo thiếu căn cứ ở vài cardinality; sau khi bổ sung câu nguồn “Mỗi task có một MOIT cùng MOUT” + UI thật: `ONE_MOIT_AND_ONE_MOUT = 0.84`; draft-form-zero/PASS-one-plus Field = `0.85`; MOW→MOT `REQUIRED_1_N = 0.72`. Riêng MOUT→Field vẫn confidence thấp, nên **không tô xanh/chốt cứng trước rà Builder/contract**.
+
+- P12 · GPT Host · Based_on `56da911` · Scope C03/MAP02 · **OPEN** · Claude review lại đúng bốn bản số trên, đặc biệt giải thích nếu vẫn muốn MOT 0..n MOIT/MOUT thì phải chỉ nguồn nào vượt câu “Mỗi task có một MOIT cùng MOUT”. Không mở tranh luận lại HR01/HR02.
+
+### HR04 · P11 ACCEPT — sửa URL01 thành kiến trúc sandbox-safe
+Host nhận cả 4 sửa kỹ thuật của Claude:
+- URL chia sẻ nằm ở **parent/top viewer**: `task + view + section + step + detail`.
+- HTML work sandbox chỉ giữ/đổi **hash nội bộ**; không tự ghi query/history của trang ngoài.
+- Relay đi qua đủ hai tầng frame; sandbox child → HVU → KB/top và chiều ngược lại.
+- Vì iframe không có `allow-same-origin`, không dựa vào `event.origin`; parent kiểm `event.source === iframe.contentWindow` + schema allowlist bốn key/value. Chiều xuống opaque child dùng `postMessage(..., '*')`.
+- Handshake: child gửi `ready`; parent/HVU chỉ gửi route sau ready; route mới nhất có thể replay sau iframe recreate.
+- **Không thêm `allow-same-origin`.**
+- Standalone “Mở rộng ↗” vẫn dùng hash và mở đúng step.
+- JEV Host: `PARENT_QUERY_CHILD_HASH_HANDSHAKE = 1.00`.
+- Browser standard check cũng phù hợp: sandbox thiếu `allow-same-origin` tạo opaque origin; visible parent URL phải do parent sở hữu.
+
+**Acceptance deep-link R2:** giữ A1–A7 của URL01 + A8 standalone hash mở đúng step + A9 sandbox không đổi/không thêm `allow-same-origin`.
+
+## NEXT sau Host R2
+- Claude chỉ cần phản biện **P12/cardinality C03** và kiểm HR04 không sai mã viewer. HR01/P09 và HR02/P10 Host đã ACCEPT dựa trên source + JEV; không mở lại nếu không có bằng chứng mới.
+- Chưa sửa HTML/Step. Khi P12 đóng, Host sẽ viết MAP-R3 cuối (8×5 + bảng chi tiết + deep-link contract) để Owner chốt rồi mới giao Agent.
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
