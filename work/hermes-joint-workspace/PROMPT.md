@@ -59,8 +59,8 @@ Chỉ sau A PASS:
 2. Sửa **source bền** để không còn materialize AGENT_DATA_API_KEY; bỏ AGENT_DATA_URL nếu không consumer nào cần. **Không sửa /run/hermes/or.env trực tiếp.**
 3. Không thay QDRANT_LOCAL_API_KEY/QDRANT_URL hoặc secret khác. Báo cáo phải ghi rõ **L1 chỉ giảm một phần**, vì Qdrant vẫn ngoài scope.
 4. Gửi Owner một dòng Telegram: `hermes-serve` + `hermes-gateway` sẽ restart, Telegram và desktop có thể gián đoạn vài phút. Không gửi được ⇒ DỪNG trước restart.
-5. Root chạy tay `systemctl restart hermes-key.service`.
-6. **Trước khi restart Hermes:** xác nhận `/run/hermes/or.env` tồn tại, permission hợp lệ, các tên biến bắt buộc khác vẫn có, AGENT_DATA_API_KEY không còn; không in value. File thiếu/hỏng ⇒ rollback source ngay, chưa chạm serve/gateway.
+5. **Không restart `hermes-key.service` ở bước này.** Đọc `ExecStart=` thật của `hermes-key.service`, xác nhận đúng source script tạo `/run/hermes/or.env` (kỳ vọng `/usr/local/sbin/hermes-key-fetch` + resolver liên quan), rồi root chạy **trực tiếp đúng source script/command đó** để regenerate env file. Lý do: `hermes-serve.service` và `hermes-gateway.service` đều `Requires=hermes-key.service`; restart key.service sẽ bounce cả hai service trước khi kiểm file.
+6. **Trước khi chạm serve/gateway:** xác nhận `/run/hermes/or.env` tồn tại, permission hợp lệ, các tên biến bắt buộc khác vẫn có, AGENT_DATA_API_KEY/AGENT_DATA_URL đã vắng theo scope cleanup; không in value. File thiếu/hỏng ⇒ rollback source ngay, regenerate lại bằng source script trực tiếp, xác nhận file hợp lệ; **chưa restart serve/gateway**.
 7. Restart **`hermes-serve.service` trước**, chờ active + local status OK.
 8. Restart **`hermes-gateway.service` sau**, chờ active + Telegram connected.
 9. Kiểm `/proc/<MainPID>/environ` của **cả serve và gateway** theo tên biến: AGENT_DATA_API_KEY/AGENT_DATA_URL phải vắng; không đọc/in value khác.
@@ -95,6 +95,7 @@ Có cách giữ master Agent Data key ở server/root side để user/process He
 
 ### C2. Caller boundary
 Có thể hạn chế caller bằng UNIX socket/SocketMode/SocketUser/SocketGroup/client ticket hiện hữu không? C2 PASS **không tự động** làm C3 PASS.
+**Làm rõ:** đổi `ListenStream` của **socket unit hiện hữu** sang UNIX socket + `SocketMode`/`SocketUser`/`SocketGroup` vẫn được tính là dùng thành phần EXISTING; chỉ khi phải tạo unit/service/listener mới mới bị loại bởi CẤM.
 
 ### C3. Capability boundary
 Server-side phải tự enforce:
@@ -107,7 +108,7 @@ Phân biệt rõ guard path KB/document_id với guard path repo workspace; khô
 
 ### Kết luận bắt buộc — 3 nhánh
 - **FEASIBLE_EXISTING**: C1+C2+C3 đạt bằng config/component hiện hữu, không code change/new listener/service.
-- **FEASIBLE_WITH_MIN_CODE_CHANGE**: không đạt hiện hữu nhưng có thể đạt bằng thay đổi mã nhỏ có review trong Agent Data hiện tại. Phải nêu **chính xác file + route/function tái dùng + guard cần thêm**, nhưng **không sửa mã trong RUN này**.
+- **FEASIBLE_WITH_MIN_CODE_CHANGE**: không đạt hiện hữu nhưng có thể đạt bằng thay đổi mã nhỏ có review trong Agent Data hiện tại. Phải nêu **chính xác file + route/function tái dùng + guard cần thêm**, nhưng **không sửa mã trong RUN này**. Tọa độ cần kiểm trước để không mò: `agent_data/server.py` → `_mcp_filtered_handler()` khoảng dòng 3516 + mẫu đăng ký route khoảng 3767–3793; repo path guard trong `agent_data/workspace_tools.py` → `relative()` khoảng dòng 87 / `check_parents()` khoảng 148 và primitive write chung `atomic()` khoảng 436. Phải phân biệt với KB guard `_OGV2C_VALID_PREFIXES` trong `server.py` khoảng dòng 1138, vì guard KB/document_id không thay thế guard repo path.
 - **NOT_FEASIBLE**: cần server/proxy/framework mới hoặc thay đổi lớn hơn một route/guard hẹp.
 
 Không được gọi “giấu master key” là đủ nếu capability vẫn full-write hoặc legacy route bypass còn mở.

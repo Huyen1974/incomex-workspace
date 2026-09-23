@@ -27,7 +27,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | HJW.2B KQ DỪNG G0.2 · P10 ACCEPTED · PROMPT 2B1 REVISED@e05910bf | NEXT: GPT ghi READY@e05910bf → RUN (Claude đã ký REVIEWED cùng SHA) | BLOCK: scoped write cần quyết định sau KQ
+HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | HJW.2B KQ DỪNG G0.2 · P10 ACCEPTED · Hermes Review #2 PASS 9/9 + 1 execution-order fix | NEXT: Host pin READY theo commit PROMPT mới → RUN | BLOCK: scoped write cần quyết định sau KQ
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
