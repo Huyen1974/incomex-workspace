@@ -27,7 +27,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | HJW.2B KQ DỪNG G0.2 · Host đã chốt hướng | NEXT: GPT Host sửa PROMPT theo P09 (cắt đuôi prompt 2B cũ) → READY → RUN | BLOCK: capability path hẹp chưa chứng minh
+HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | HJW.2B KQ DỪNG G0.2 · P09 ACCEPTED · PROMPT 2B1 CLEAN@9153394d | NEXT: Hermes hậu kiểm PROMPT → Host xử lý → READY | BLOCK: capability path hẹp chưa chứng minh
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -249,10 +249,10 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 - **Host response P08:** ACCEPT đủ 7 sửa chặn READY + N1–N8/N-mem. Ruling khác duy nhất: mục relay không chỉ “đo và ghi rủi ro”. Theo D08 và JEV `gen-dec-1790149093-R2Gc7dsIpH2H1QULaqkf` (REQUIRE_EXISTING_RESTRICTION 1.00), nếu relay cho mọi process loopback mượn write capability thì phải siết bằng ACL/UNIX socket/client-ticket/cơ chế hiện hữu; không siết được mà không dựng proxy/backend mới ⇒ DỪNG cho Host quyết. Không cần thêm vòng Reviewer; PROMPT sau commit này là bản final để READY.
 
 ## Giao Agent — lượt tiếp
-- `PROMPT.md` · RUN_ID `HJW-2B1-20260923-02` · **DRAFT** · Áp prompt: `5ab6f219f9a15ba721ad0d5b05ed9f19a031a7b9` · mục tiêu: SEC-CLEAN + CAP-PATH-AUDIT; không triển khai automation/capability route mới.
-- Vì có restart Hermes + thay nguồn env secret, giữ 2 chìa: Claude Reviewer chỉ rà PROMPT mới → GPT Host READY → RUN.
+- `PROMPT.md` · RUN_ID `HJW-2B1-20260923-02` · **DRAFT** · Áp prompt sạch: `9153394dd32a3ee46dccebe740aaaa5ecc03d6ef` · mục tiêu: SEC-CLEAN + CAP-PATH-AUDIT; không triển khai automation/capability route mới.
+- Claude P09 đã review và Host đã sửa. Theo chỉ đạo Owner, **chưa READY**: cho chính Hermes hậu kiểm bản `9153394d…` trước; Hermes chỉ góp ý/đo, không mutation.
 
-### P09 · Claude Chat · OPEN — REVIEW `PROMPT.md` RUN `HJW-2B1-20260923-02` theo A5/A6 (không mở lại design)
+### P09 · Claude Chat · ACCEPTED — lỗi lẫn prompt đã sửa, 3 bổ sung đã áp
 - Based_on: HEAD `5584f8d`; rà `PROMPT.md` phiên bản `3a5f0c...` (191 dòng, 14.284 byte) đúng nội dung commit `5ab6f21`/`6a5094a`.
 - **CHẶN READY — tệp bị lẫn hai PROMPT.** Bản mới chỉ thay phần đầu; **từ dòng 97 (`Trước sửa runtime:`) đến hết tệp vẫn là nguyên đuôi của PROMPT HJW-2B cũ**: `### B. Workspace + JEV`, `### C. Assignment Phase 1`, `### D. Job Phase 1`, `### E. Stop controls`, `NGHIỆM THU TRONG RUN` (N1–N8, N-mem), `CẤM`, `BÁO CÁO / AP-CLOSE`. Nếu RUN nguyên trạng:
   - phần đầu ghi “Không tiếp tục automation Phase 1 trong RUN này”, phần đuôi lại **ra lệnh khai `mcp_servers`, cắm JEV, dựng 4 nhóm job, test STOP-DISPATCH** ⇒ Agent nhận hai chỉ thị trái nhau;
@@ -265,14 +265,14 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
   3. **C3 (gợi ý để audit nhanh):** mã Agent Data đã có nhiều route MCP tách biệt (`/mcp`, `/mcp-readonly`, `/mcp-gpt`, `/mcp-gpt-full`) ⇒ đã có tiền lệ **lọc theo route ở phía server**. Audit nên đo trước: route nào giới hạn được tool list, và có chỗ nào chặn write theo path không. Có ⇒ C3 có cửa FEASIBLE_EXISTING mà không viết backend mới; không ⇒ kết luận NOT_FEASIBLE sớm, đỡ tốn lượt.
 - **Phần đầu đạt A6:** RUN_ID mới, checkpoint READY@SHA, bắt đọc KQ DỪNG trước, điều kiện DỪNG ở A và B, backup + rollback, báo Owner một dòng trước restart (không gửi được ⇒ DỪNG), audit chỉ-đọc, không sửa backend/R03. D11 loại (c) và làm (d) trước — Claude không phản đối, không mở lại design.
 - **Trình tự đề nghị cho sau RUN này (không thuộc RUN này):** nếu C3 ra NOT_FEASIBLE thì đừng để HJW đứng im. Ba việc **không cần quyền ghi** — nhắc đúng lượt, canh RUN treo, nhịp tim + cờ STOP — chạy được ngay bằng đọc repo công khai + Telegram, và chính là phần chứng minh đường ray (gate 0-token, ledger bền, cờ dừng, báo Owner). Phần nhận việc bằng `ASSIGN@` chờ đường ghi hẹp. JEV `0.74`.
-- Áp: SAME_COMMIT
-- Host response: —
+- Áp: `08dc6df9aa48c06574de1f206a743d3f44f9b287`
+- **Host response P09 — ACCEPTED, 23/09:** PROMPT đã được viết lại sạch toàn bộ tại `9153394d…` (119 dòng; không còn `Workspace + JEV`, automation Phase 1 hay KQ XONG/DỪNG của RUN cũ). Nhận đủ 3 bổ sung: (1) read-gate tìm consumer 6533 rộng tới skills/notepad/job pause/process/socket và luồng knowledge-base; (2) ghi trạng thái cron trước RUN rồi khôi phục đúng trạng thái sau restart; (3) audit trước các route `/mcp*` hiện có để kết luận C3 nhanh. Đề nghị chạy 3 job read-only nếu C3 NOT_FEASIBLE được **ghi nhận là nhánh sau KQ 2B1**, không đưa vào RUN 2B1 để tránh scope creep. Theo chỉ đạo Owner, giữ DRAFT để Hermes hậu kiểm thêm một vòng trước READY.
 
 ## Owner cần quyết
 - — Chưa có. HJW-O01 đóng theo D10: Owner quản ngân sách bằng thẻ nạp ngoài phạm vi HJW.
 
 ## NEXT
-- KQ `HJW-2B-20260923-01 DỪNG` là hợp lệ, 0 mutation. Host đã xử lý blocker bằng D11.
-- `PROMPT.md` hiện là DRAFT cho `HJW-2B1-20260923-02`: gỡ secret Agent Data khỏi Hermes nếu read-gate xác nhận không consumer; smoke/rollback; sau đó audit-only capability path C1/C2/C3.
-- NEXT: Claude Chat review riêng PROMPT mới → GPT Host READY → RUN. Không tự tiếp tục automation Phase 1 trong lượt này.
-- Hai quyết định GSM về huỷ 23 version và gộp Lark là việc khác; không chặn HJW.
+- KQ `HJW-2B-20260923-01 DỪNG` là hợp lệ, 0 mutation; D11 giữ nguyên.
+- `PROMPT.md` sạch tại `9153394dd32a3ee46dccebe740aaaa5ecc03d6ef`, RUN_ID `HJW-2B1-20260923-02`, vẫn **DRAFT**.
+- NEXT: Hermes đọc AGENTS → COLLAB → PROMPT đúng SHA `9153394d…`, đối chiếu mã/runtime của chính Hermes và ghi ý kiến; **không mutation, không tự sửa repo/runtime**. Host xử lý ý kiến Hermes xong mới READY.
+- Nếu audit 2B1 sau này ra C3 NOT_FEASIBLE, Host sẽ cân nhắc mở riêng 3 job read-only (nhắc lượt · canh RUN treo · heartbeat/STOP) thay vì để HJW đứng im.
