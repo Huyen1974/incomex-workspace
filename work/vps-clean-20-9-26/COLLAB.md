@@ -3,7 +3,9 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 ### Vòng 2 · mở lại 2026-09-23 theo P18
 - Mục tiêu (nguyên văn lời Owner 23/09, D11): "Điều quan trọng là toàn bộ các đầu dò của VPS đã được bịt, dữ liệu gì không cần để trên VPS thì [chuyển] xuống GD là ok."
-- Phạm vi vòng 2 (diễn giải kỹ thuật, không thêm mục tiêu): CHỈ đặt trần cho image Docker (~10,7GiB) + build cache (~0,82GiB) — nguồn không phải nghiệp vụ còn tăng theo mỗi lần build (P18); không mở lại phần đã xong. Điều kiện an toàn đi kèm (không phải mục tiêu mới, P19): bật `live-restore` trước mọi thay đổi Docker; nếu cần nạp cấu hình GC thì restart dockerd tối đa 1 lần có kiểm soát, container không khởi động lại. cả hai có trần tính được thành số bằng cơ chế tự động an toàn (không `docker buildx/builder/system prune/image prune`), có số đo trước/sau, health không đổi. Tiêu chí xong:; Owner giao "rà soát thêm và điều hành tiếp" điểm P18 ngày 23/09)
+- Phạm vi vòng 2 (diễn giải kỹ thuật, không thêm mục tiêu): CHỈ đặt trần cho image Docker (~10,7GiB) + build cache (~0,82GiB) — nguồn không phải nghiệp vụ còn tăng theo mỗi lần build (P18); không mở lại phần đã xong. Điều kiện an toàn đi kèm (không phải mục tiêu mới, P19): bật `live-restore` trước mọi thay đổi Docker; nếu cần nạp cấu hình GC thì restart dockerd tối đa 1 lần có kiểm soát, container không khởi động lại.
+- Tiêu chí xong vòng 2: cả hai có trần tính được thành số bằng cơ chế tự động an toàn (không `docker buildx/builder/system prune/image prune`) và có hiệu lực ngay, có số đo trước/sau, health không đổi.
+- Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User 23/09 tại D11; Owner giao "rà soát thêm và điều hành tiếp" điểm P18 ngày 23/09)
 
 ### Vòng 1 (lịch sử, đã xong)
 - Mục tiêu: dọn VPS an toàn, không làm hỏng cơ chế hiện tại; tìm nguyên nhân ổ đĩa phình nhanh và đề xuất/xử lý cách chặn tăng trưởng để có chỗ cho công việc tiếp theo (Owner nêu: cài thêm Graph DB).
