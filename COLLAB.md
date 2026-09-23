@@ -38,6 +38,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - DROOT13 · 2026-09-23 · **JEV-AS-REFERENCE:** với quyết định hữu hạn (phân loại/chọn phương án/routing/scoring), Host/Reviewer ưu tiên gọi JEV Reference trên evidence thô trước khi chốt nếu JEV phù hợp; lưu result id/confidence. JEV không thay quyết định của Owner/hội đồng và không dùng thay source/runtime cho fact kỹ thuật quyết định được trực tiếp.
 - DROOT14 · 2026-09-23 · **CHỈ OWNER MỞ TASK MỚI:** AI không tự tạo `work/<id>/` mới nếu Owner chưa yêu cầu rõ. Task mở nhầm/tự ý không được đẩy vào Done để hợp thức hóa; Owner có thể yêu cầu xóa và khôi phục từ Git history khi thật sự cần.
 - DROOT15 · 2026-09-23 · **ONE OWNER VIEW PIPELINE:** áp nghiêm AGENTS A8 + README §12: một task chỉ có một HTML chính và một URL Owner View; cấm mọi bản xem/pipeline phụ. Với lượt có HTML chính, chưa thấy đúng revision trên Owner View chuẩn thì DỪNG, không ghi pending rồi đi tiếp.
+- DROOT16 · 2026-09-24 · **ONE SSOT / NO UNAPPROVED CREATION:** mỗi nội dung có một nguồn chuẩn Owner duyệt; `COLLAB.md` chỉ giữ trạng thái/quyết định/RUN-KQ/con trỏ. AI không tự tạo task/file/bản nháp/bản xem/copy/URL/pipeline mới nếu Owner chưa yêu cầu hoặc phê duyệt trước.
 
 ## Owner cần quyết
 - —

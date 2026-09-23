@@ -14,7 +14,10 @@
 
 ## A1_ENTRY — Cửa vào
 - Chat/Agent không được giả định đã tự nạp luật. Khi nhận câu `WS <thư mục|gốc> · <Host|Review> · <việc> · đọc AGENTS.md → <COLLAB.md>`, đọc file này trước, rồi `COLLAB.md` của project, sau đó chỉ đọc đúng scope cần làm.
-- Tài liệu chính là sản phẩm; `COLLAB.md` là trạng thái; Git giữ lịch sử; `PROMPT.md` chỉ có khi thật sự cần giao Agent.
+- **ONE SSOT — bắt buộc:** mỗi nội dung chỉ có **một nguồn chuẩn**. Nội dung Owner đọc/duyệt nằm ở **tài liệu chính/HTML chính đã khai trong `COLLAB.md`**; không giữ bản nội dung song song ở file khác.
+- **Không tự tạo:** AI/Agent **không được tự tạo task mới, file tài liệu/bản nháp/bản xem/copy/URL/pipeline mới** nếu Owner chưa yêu cầu rõ hoặc chưa phê duyệt trước. Muốn tạo phải xin phép, nêu đúng lý do và nơi đặt.
+- `COLLAB.md` chỉ giữ **trạng thái, quyết định đã chốt, RUN/KQ và con trỏ**; không chứa bản thiết kế dài thay cho tài liệu Owner duyệt. `PROMPT.md` chỉ có khi thật sự cần giao Agent; Git giữ lịch sử.
+- Bản nháp được Owner cho phép chỉ là **DRAFT/REFERENCE**, không phải SSOT. Khi nội dung được duyệt/hợp nhất, phải đưa về SSOT; không để nhiều bản cùng mang vai trò nguồn chuẩn.
 - Mỗi công việc/project nằm dưới `work/<work-id>/` (đã xong: `work/done-tasks/<work-id>/`, xem A9) và dùng một `COLLAB.md` riêng. `PROMPT.md`, test, evidence, assets và archive của việc phải nằm trong đúng thư mục đó.
 - Root repo chỉ dùng cho điều phối chung và **chỉ được có** `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`. Không đặt file nghiệp vụ, prompt, test hay chứng tích của một việc ở root.
 
