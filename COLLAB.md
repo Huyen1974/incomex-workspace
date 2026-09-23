@@ -37,6 +37,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - DROOT12 · 2026-09-22 · **VPS EVIDENCE ARCHIVE** (HVU-VPSARCHIVE01; A0 Owner nguyên văn 22/09, consensus P29–P32): hồ sơ VPS không-runtime của việc ở `/opt/incomex/work/<id>/` (Now) / `/opt/incomex/work/done-tasks/<id>/` (Done), sync tự đổi tên theo Git, không xoá; runtime/secret/đường cứu hộ hiện hành ở ngoài kho; `deploys` chỉ chuyển mục `ARCHIVE_SAFE` sau kiểm kê. Web mặc định chỉ Now + `Đã xong (N)` gập; link theo việc `/knowledge/modules?task=<id>`. Không tạo nguồn trạng thái mới (AGENTS A8).
 - DROOT13 · 2026-09-23 · **JEV-AS-REFERENCE:** với quyết định hữu hạn (phân loại/chọn phương án/routing/scoring), Host/Reviewer ưu tiên gọi JEV Reference trên evidence thô trước khi chốt nếu JEV phù hợp; lưu result id/confidence. JEV không thay quyết định của Owner/hội đồng và không dùng thay source/runtime cho fact kỹ thuật quyết định được trực tiếp.
 - DROOT14 · 2026-09-23 · **CHỈ OWNER MỞ TASK MỚI:** AI không tự tạo `work/<id>/` mới nếu Owner chưa yêu cầu rõ. Task mở nhầm/tự ý không được đẩy vào Done để hợp thức hóa; Owner có thể yêu cầu xóa và khôi phục từ Git history khi thật sự cần.
+- DROOT15 · 2026-09-23 · **ONE OWNER VIEW PIPELINE:** áp nghiêm AGENTS A8 + README §12: một task chỉ có một HTML chính và một URL Owner View; cấm mọi bản xem/pipeline phụ. Với lượt có HTML chính, chưa thấy đúng revision trên Owner View chuẩn thì DỪNG, không ghi pending rồi đi tiếp.
 
 ## Owner cần quyết
 - —

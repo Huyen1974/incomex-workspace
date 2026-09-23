@@ -1,6 +1,23 @@
 # COLLAB — hpml-view-for-user
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
+Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn Owner 23/09/2026.
+
+### 1. Mục tiêu
+> “Bạn kiểm tra và điều hành để agent làm đúng nơi quy định. Tất cả những quy định phải tuân thủ nghiêm cấm tự sáng tạo và làm việc vô tổ chức làm mất thời gian.”
+
+### 2. Thế nào là hoàn thành
+- Gỡ đúng bản xem Claude tự dựng sai ngoài §12.
+- Task `mow-mot-moit-mout` hiển thị HTML chính qua **đúng một** URL Owner View chuẩn §12, đúng revision mới nhất.
+- Không còn pipeline/URL/file xem thứ hai; nếu pipeline chuẩn chưa chạy được thì DỪNG và báo lỗi, không dựng đường vòng.
+
+### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- Scope được Claude xác định tại incident commit `bd1551b`: đúng 3 việc — gỡ file sai, sửa pipeline §12 tại task HVU, khóa luật cấm pipeline thứ hai.
+- Runtime code sửa trực tiếp trên VPS theo README §11; tài liệu từ incomex-workspace vào Owner View theo §12; tuyệt đối không GitHub→VPS cho mã/runtime.
+- Canonical link nghiệm thu: `https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout`.
+- Review Claude tại `bd1551b` chính là review đầu vào cho scope này; Host không mở rộng thêm.
+
+### Vòng trước
 Xác nhận User: ĐÃ XÁC NHẬN — nguyên văn Owner 23/09/2026 ở mục 1.
 
 ### 1. Mục tiêu
