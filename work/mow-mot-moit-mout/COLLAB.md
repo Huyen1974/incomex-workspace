@@ -2,8 +2,8 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 - Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
-- Nhiệm vụ/phạm vi hiện tại (Owner 23/09/2026): thêm tab “List quy trình” vào HTML chính; tạo vỏ bảng trống theo thứ tự Field → Form (MOUT, MOIT) → MOT → MOW. Mỗi bảng có STT, Mã Bước, Tên Bước, Nội dung, Tổng Số trường cần khai (gồm nút bấm), Số trường cần config, Check UI. Chưa điền bước, số đếm hoặc bảng con; giữ nguồn Mac chỉ đọc.
-- Tiêu chí xong: tab List quy trình mở được, đủ bốn mục và năm bảng trống với bảy cột; UI Master và Quy trình tiếp tục hoạt động; không tự bổ sung nội dung nghiệp vụ.
+- Nhiệm vụ/phạm vi hiện tại (Owner 23/09/2026): đổi tab thành “Step quy trình”, đặt ngay sau UI Master và trước Quy trình; tạo vỏ bảng trống theo thứ tự Field → Form (MOUT, MOIT) → MOT → MOW. Mỗi bảng có STT, Mã Bước, Tên Bước, Nội dung, Tổng Số trường cần khai (gồm nút bấm), Số trường cần config, Check UI. Chưa điền bước, số đếm hoặc bảng con; giữ nguồn Mac chỉ đọc.
+- Tiêu chí xong: thứ tự tab UI Master → Step quy trình → Quy trình; tab Step quy trình mở được, đủ bốn mục và năm bảng trống với bảy cột; UI Master và Quy trình tiếp tục hoạt động; không tự bổ sung nội dung nghiệp vụ.
 - Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này.
 
 Host: GPT Chat · Host_ID: GPT-MMIM-260920-A · Owner giao: 2026-09-20
@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | LIST_PROCESS_SHELL · 23/09/2026 | Thêm tab List quy trình: Field, Form/MOUT, Form/MOIT, MOT, MOW; năm bảng trống, mỗi bảng bảy cột. Kho tham khảo nhẹ đã hoàn tất trước đó. · Áp: SAME_COMMIT.
+MMIM | LIST_PROCESS_SHELL · 23/09/2026 | Tab Step quy trình đặt sau UI Master, trước Quy trình: Field, Form/MOUT, Form/MOIT, MOT, MOW; năm bảng trống, mỗi bảng bảy cột. Kho tham khảo nhẹ đã hoàn tất trước đó. · Áp: SAME_COMMIT.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -36,6 +36,8 @@ MMIM | LIST_PROCESS_SHELL · 23/09/2026 | Thêm tab List quy trình: Field, Form
 - D15 · 2026-09-23 · Owner: “Đồng ý cho ngoại lệ. Làm cho gọn trên Git nhưng không miss thông tin quan trọng đã làm là được”. Chấp thuận Q02: dùng Git trực tiếp một lần để xóa đúng 888 file `information/reference/**`, cập nhật mục lục/COLLAB, commit/push thường; giữ HTML chính, nguồn Mac, VPS và lịch sử Git. · Áp: SAME_COMMIT.
 
 - D16 · 2026-09-23 · Owner yêu cầu thêm tab “List quy trình” và vỏ bảng, đi từ Field → Form (MOUT, MOIT) → MOT → MOW, đủ bảy cột đã nêu ở A0. Đây là lượt sửa HTML mới sau thu thập/dọn kho, không còn áp dụng yêu cầu giữ nguyên hash HTML của lượt MMIM.2 cho thay đổi được giao này. Không điền sẵn quy trình; không sửa Mac hoặc runtime. Executor_Surface=Codex; Write_Path=workspace_transaction, read-gate workspace_stat PASS. · Áp: SAME_COMMIT.
+
+- D17 · 2026-09-23 · Theo yêu cầu trực tiếp Owner: đổi tên List quy trình thành Step quy trình; đưa tab ngay sau UI Master và trước Quy trình. Giữ nguyên các bảng và ID liên kết. · Áp: SAME_COMMIT.
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
@@ -97,4 +99,4 @@ Claude REVIEWED@2d673a370a030e2b679d161132cb908f897b9503 · **ACCEPT có điều
 - Bản xem thử trên trình duyệt: mở đúng tab bằng hash và nút; đủ Field, Form/MOUT, Form/MOIT, MOT, MOW, bảy cột và ba hàng trống mỗi bảng. Chuyển sang Quy trình và UI Master hiển thị đúng nội dung cũ. Bảng cuộn ngang trên màn hình hẹp. Chưa có dữ liệu để đánh Check UI; không thêm lưu dữ liệu hoặc bảng con. · Áp: SAME_COMMIT.
 
 ## NEXT
-- Cùng Owner đi từng bước để điền List quy trình; chưa tự khai bước, số trường hoặc đánh Check UI. P01 vẫn chờ Owner, không tự chốt mục tiêu rộng.
+- Cùng Owner đi từng bước để điền Step quy trình; chưa tự khai bước, số trường hoặc đánh Check UI. P01 vẫn chờ Owner, không tự chốt mục tiêu rộng.
