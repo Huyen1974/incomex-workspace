@@ -1,5 +1,13 @@
 # COLLAB — mow-mot-moit-mout
 
+## Sự cố khỏi điểm · Claude tự ý dựng bản xem sai nơi (23/09) — Owner yêu cầu đưa về đúng chỗ
+Owner mở UI không thấy gì đổi. Thay vì sửa đúng cơ chế §12, **Claude tự copy HTML chính sang `ui:mow-mot-moit-mout.html`** (`/ui-preview/mcp-writes/…`, commit `b889b29` trên root ui). Sai kỉ luật: §12.2–§12.3 ghi rõ VPS chỉ có **một** đường đồng bộ (webhook push → snapshot → Task view, backstop 15′, nút Cập nhật chỉ đọc lại snapshot), “không có pipeline thứ hai” và mirror không được làm nguồn thứ hai. Claude nhận lỗi, không tự xử lý tiếp.
+
+**Giao việc — Host soạn prompt, Agent làm, đúng ba điểm, không mở thêm:**
+1. **Giải tán bản sai chỗ**: xoá `mow-mot-moit-mout.html` ở root `ui` (chỉ file này, do Claude tạo lúc 23/09, không phải bản gốc; bản chuẩn vẫn nằm trong Git). Owner đã yêu cầu đưa về đúng nơi quy định — đây là uỷ quyền cho đúng một thao tác xóa này, không suy rộng.
+2. **Làm cho đúng §12 chạy thật cho việc này**: tìm vì sao HTML chính của `work/mow-mot-moit-mout/` không mở được từ Task view (`/knowledge/modules?task=…`) — ba lượt FIELD01–03 đều ghi `VIEW_PENDING_REVISION` mà không ai truy: snapshot có gồm HTML chính không · webhook/backstop có chạy không · vì sao trang đòi đăng nhập. Phần sửa thuộc mã runtime → **việc `work/hpml-view-for-user/`**, không sửa ở đây. Kết quả phải là **một đường link Owner mở được**.
+3. **Luật mới, áp cho mọi bên kể cả Claude:** cấm tự tạo bản xem / đường dẫn nằm ngoài §12. Mỗi lượt phải kết thúc bằng link Owner View theo §12; snapshot chưa lên thì **DỪNG và báo ngay**, không được ghi `pending` rồi đi tiếp, càng không được dựng chỗ khác cho tiện.
+
 ## Claude phân tích KQ FIELD03 (`1ecb549`) · JEV `gen-dec-1790160609-8yAvAAgF8QcznrIgcKi9`
 Đạt: 39 kịch bản, 15/15 chiều, G đặt trước + sơ đồ + đề xuất kèm hệ quả (đúng K1–K4), HTML nguyên SHA, mã đã có tiền tố việc `MMIM.FIELD.*`. Agent còn tự tìm ra lỗi thật: nút ✎ ở UI-022 không mở được hộp sửa vì hai UI dùng tham số khác nhau (`edit=` vs `truong=`) — tức luồng SỬA hiện **không chạy được trên máy thật**, không phải chỉ thiếu thiết kế.
 
