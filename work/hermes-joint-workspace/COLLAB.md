@@ -27,7 +27,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | HJW.2B KQ DỪNG G0.2 · P10 ACCEPTED · Hermes Review #2 PASS 9/9 + fix đã áp @d4090d3c | NEXT: GPT ghi READY@d4090d3c → RUN (Claude đã ký REVIEWED cùng SHA) | BLOCK: scoped write cần quyết định sau KQ
+HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | HJW.2B KQ DỪNG G0.2 · P10 ACCEPTED · HJW.2B1 READY@d4090d3c… · RUN ISSUED | NEXT: Claude Code thực thi HJW-2B1-20260923-02 | BLOCK: — trong RUN; scoped write quyết sau KQ
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -204,7 +204,8 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 - **Host response P06 — PARTIAL, 23/09:** ACCEPT việc GSM gate đã mở; ACCEPT `--script` + `wakeAgent`; ACCEPT capability confinement/READY+RUN, cron-only Phase 1, deny-by-default, không auto-approve. **REJECT duy nhất:** “nếu Agent Data key ghi được thì chấp nhận rủi ro L1 Phase 1”. D08/A0 yêu cầu giảm secret trên VPS/Hermes; relay đã tồn tại nên HJW.2B phải thử isolation trước. Nếu relay không thể dùng mà không đưa key cho Hermes thì DỪNG để Host quyết, không tự hạ chuẩn. Kuma sửa thành external/root-owned monitor. P05/P06 không còn P OPEN sau ruling này.
 
 ## Giao Agent
-- - - **UỴ QUYỀN HIỆN HÀNH:** `PROMPT.md` · RUN_ID `HJW-2B1-20260923-02` · **DRAFT** · prompt hiện hành `d4090d3c3901fc2addd8186db39b80a61a31a770`; Claude `REVIEWED@e05910bf…` hết hiệu lực vì PROMPT đã đổi; **GPT Host CHƯA READY**. Chờ Claude Chat rà đúng delta Hermes Review #2 và ký lại đúng SHA `d4090d3c…`.
+- - - - **UỴ QUYỀN HIỆN HÀNH:** `PROMPT.md` · RUN_ID `HJW-2B1-20260923-02` · **READY** · `READY@d4090d3c3901fc2addd8186db39b80a61a31a770` · Host `GPT-HJW-260922-A` · Reviewer `REVIEWED@d4090d3c3901fc2addd8186db39b80a61a31a770 · ACCEPT`. `PROMPT.md` chưa bị chạm sau SHA này.
+- **RUN@HJW-2B1-20260923-02 · ISSUED 23/09/2026** — GPT Chat truyền RUN thay Owner theo AGENTS A6 trong phạm vi Owner đã giao. Executor_Surface = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Report_Write_Path = `fs_*`.
 - *(HẾT HIỆU LỰC — lưu vết)* `PROMPT.md` · RUN_ID `HJW-2B-20260923-01` · READY — RUN này đã đóng bằng `KQ@HJW-2B-20260923-01 DỪNG`.
 - *(HẾT HIỆU LỰC — Claude đánh dấu 23/09)* READY@6dd8ec0a77be229725b242c3eb88de29ae40df51 · Host `GPT-HJW-260922-A`. SHA này **không còn** là commit cuối chạm `PROMPT.md` (nay là `9153394d…`), nên chìa READY và chìa REVIEWED cùng SHA bên dưới chỉ áp cho nội dung PROMPT của RUN 2B đã đóng, không được dùng cho RUN 2B1.
 - **Claude Chat REVIEWED@6dd8ec0a77be229725b242c3eb88de29ae40df51 · ACCEPT** (23/09) — đã đối chiếu nội dung `PROMPT.md` sau sửa, không chỉ tin báo cáo: bảy mục chặn READY của P08 đều đã áp (fail-closed ở mọi nhánh lỗi + `timeout` cho `ls-remote`; `platform_toolsets.cron` và nói rõ cron không có đường phê duyệt tương tác; retry đúng một lần; dedupe `assignment_id + state`; ledger bền trên đĩa cho trần lượt; báo Owner một dòng trước restart, không gửi được ⇒ DỪNG; giới hạn thật của STOP-DISPATCH) + N1–N8 + N-mem. **Kiểm A6:** `6dd8ec0` đúng là commit cuối chạm `PROMPT.md` (không commit nào sau đó chạm file), không còn P OPEN/OWNER ⇒ **đủ hai chìa để RUN**. Ghi nhận Host siết relay thành gate DỪNG — chặt hơn đề xuất của Claude, không phản đối; nếu G0.2 ra DỪNG thì đó là kết quả hợp lệ, không phải lỗi thực thi.
@@ -292,8 +293,8 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 - — Chưa có. HJW-O01 đóng theo D10: Owner quản ngân sách bằng thẻ nạp ngoài phạm vi HJW.
 
 ## NEXT
-- KQ `HJW-2B-20260923-01 DỪNG` hợp lệ, D11 giữ nguyên; hậu kiểm Hermes đã được P10 xử lý.
-- `PROMPT.md` hiện tại = `d4090d3c3901fc2addd8186db39b80a61a31a770`, RUN_ID `HJW-2B1-20260923-02`, **DRAFT**.
-- NEXT duy nhất: Claude Chat review **chỉ delta từ `e05910bf…` → `d4090d3c…`**: (1) B5–B6 regenerate env bằng source script trực tiếp trước khi chạm serve/gateway; (2) C2 socket-unit EXISTING clarification; (3) MIN_CODE_CHANGE coordinates. Kiểm A6 và ghi `REVIEWED@d4090d3c3901fc2addd8186db39b80a61a31a770 · ACCEPT` hoặc P mới. **Không mutation runtime.**
-- Nếu Claude ACCEPT mà PROMPT không đổi, GPT Host mới ghi READY@d4090d3c3901fc2addd8186db39b80a61a31a770 và phát RUN.
-- Sau KQ 2B1: S1-lite là đường interim ưu tiên; nếu audit ra MIN_CODE_CHANGE, Host trình Owner đúng một câu hỏi về RUN sửa Agent Data nhỏ.
+- `PROMPT.md` = `d4090d3c3901fc2addd8186db39b80a61a31a770` · `READY` + Reviewer ACCEPT cùng SHA · RUN `HJW-2B1-20260923-02` đã phát.
+- Claude Code CLI phải bắt đầu bằng read-gate A6: vào đúng workspace/ref → đọc AGENTS → COLLAB → PROMPT → kiểm READY full SHA; lệch thì DỪNG trước mutation.
+- Khi tới B4, Agent phải nhắn Owner trước vì `hermes-serve` + `hermes-gateway` sẽ restart và Telegram/desktop có thể gián đoạn vài phút; gửi không được ⇒ DỪNG.
+- Host theo dõi KQ/evidence; Agent báo XONG không đồng nghĩa DONE cho tới khi Host nghiệm thu.
+- Sau KQ 2B1: nếu audit ra MIN_CODE_CHANGE, Host trình Owner đúng một câu hỏi về RUN sửa Agent Data nhỏ; S1-lite là interim ưu tiên.
