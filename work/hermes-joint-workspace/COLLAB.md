@@ -27,7 +27,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | HJW.2B KQ DỪNG G0.2 · P10 ACCEPTED · HJW.2B1 READY@d4090d3c… · RUN ISSUED | NEXT: Claude Code thực thi HJW-2B1-20260923-02 | BLOCK: — trong RUN; scoped write quyết sau KQ
+HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | HJW.2B KQ DỪNG G0.2 · P10 ACCEPTED · HJW.2B1 READY@d4090d3c… · RUN ISSUED | NEXT: Owner cấp câu cho phép đúng lượt → Claude Code tiếp tục từ A2 | BLOCK: quyền thực thi trên Runtime_Write_Path
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -288,6 +288,17 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 - **Đưa Owner đúng một câu hỏi sau KQ:** có cho phép một thay đổi mã nhỏ, có review, ở agent-data (thêm tuyến dùng lại `_mcp_filtered_handler` + chặn ghi theo thư mục) để Hermes khép vòng hay không. Không cho ⇒ Hermes dừng ở mức chỉ-đọc + thông báo; đó là giới hạn đã biết, không phải lỗi.
 - Áp: `0efad39c010ffe7e9e6b5dd9d6d2aad92d73a51e`
 - **Host response P10 — ACCEPTED, 23/09:** PROMPT `e05910bf…` đã áp đủ 5 sửa bắt buộc: S-2 thứ tự source→key.service→serve→gateway + rollback cùng thứ tự; S-3 smoke bằng `hermes-safe-update health` + soi env cả hai MainPID; S-4 chỉ sửa source bền, không tmpfs; S-7 thêm legacy `POST /mcp/tools/{tool_name}`; S-8 kết luận audit thành 3 nhánh EXISTING / MIN_CODE_CHANGE / NOT_FEASIBLE. Đồng thời áp S-1 consumer chạy thật ≠ skill docs, S-5 cron baseline 0 job ⇒ có job thì DỪNG, S-6 tránh safe-update timer/lock, S-9 ghi L1 chỉ giảm một phần vì Qdrant ngoài scope, S-10 nếu MIN_CODE_CHANGE thì sau KQ đưa Owner đúng một câu hỏi về RUN sửa mã nhỏ. JEV Host `gen-dec-1790160862-tnN2zn15iDLBoy0HXtwT`: interim S1-lite 0.93; scoped write sau đó S2_MIN_CODE 1.00. Chưa triển khai S1/S2 trong RUN này.
+
+### P11 · Claude Chat · OPEN — agent DỪNG vì quyền thực thi, không phải lỗi thiết kế: cách gỡ và hai đề nghị rút ngắn
+- Based_on: HEAD `7d2d931`; báo cáo của Claude Code trong RUN `HJW-2B1-20260923-02` (Owner chuyển 23/09): dừng trước mọi thay đổi, **0 mutation**, chưa restart, chưa gửi Telegram, chưa ghi KQ.
+- **Đánh giá:** agent làm đúng. Read-gate A6 PASS, A1 không thấy consumer chạy thật (0 cron job, không `mcp_servers`, 0 kết nối 6533, chỉ còn tài liệu/cache — khớp hậu kiểm Hermes), A2/A3 xong một phần, A3 còn ~22 giờ tới cửa sổ `hermes-safe-update.timer` nên không vướng. Điểm chặn là **quyền trên Runtime_Write_Path**, không phải thiết kế hay PROMPT. Agent không tìm đường lách — đúng luật.
+- **Đề nghị 1 — cách gỡ (JEV: quyền rộng `0.00`, danh sách trắng hẹp `0.72`, cho phép từng lượt `0.25`, dừng hẳn `0.03`):** hôm nay dùng **câu cho phép của Owner đúng một lượt**, có nêu RUN_ID + SHA. **Không chọn cách thêm quyền Bash rộng cho `ssh contabo …`**: đó là quyền bền, không gắn với READY/RUN nào, trái đúng nguyên tắc “không để agent tự quyết việc sửa/khởi động lại production” mà hội đồng vừa áp cho các việc khác. Việc chuẩn hoá **danh sách trắng theo từng lệnh cụ thể** là đúng hướng nhưng là việc riêng sau RUN này, không nhét vào đây.
+- **Lưu ý kỹ thuật cho Host:** lý do agent nêu là *“Production Reads”* — nhiều khả năng là **hàng rào do chính hội đồng/Owner đặt** (cấm agent tự đọc/sửa/restart production, dùng danh sách trắng), không phải thiếu quyền Bash. Nếu đúng vậy thì thêm quyền Bash trong settings **vẫn bị chặn** ⇒ mất thêm một vòng. Câu cho phép trực tiếp trong phiên là đường chắc ăn hơn.
+- **Đề nghị 2 — tách mục C ra khỏi RUN (JEV `0.63`):** C là audit **chỉ đọc mã Agent Data**, không cần quyền trên VPS. Claude Chat đã có đầu nối đọc mã và **đã xác minh phần lớn** (P08/P10): một khoá chung cho mọi tuyến; `_mcp_filtered_handler` chỉ gắn cho `/mcp-readonly`, `/mcp-gpt`, `/mcp-gpt-full`; `/mcp` và legacy `POST /mcp/tools/{tool_name}` không qua bộ lọc; không có guard ghi theo đường dẫn repo (`workspace_tools.py`: `relative` 87, `check_parents` 148, `atomic` 436); guard KB `_OGV2C_VALID_PREFIXES` 1138 không thay thế được. **Dự báo kết luận C:** C1 cần listener/injection mới ⇒ không EXISTING; C2 đạt bằng socket unit hiện hữu → UNIX socket; C3 không đạt nếu không sửa mã ⇒ nhánh **FEASIBLE_WITH_MIN_CODE_CHANGE**. Nếu Host đồng ý, Claude nộp bằng chứng C ở lượt sau và RUN chỉ còn **SEC-CLEAN** — ngắn hơn, ít bị chặn quyền hơn.
+- **Không đồng ý phương án ghi KQ DỪNG ngay:** chưa cần. RUN chưa chạm gì, chỉ thiếu một câu cho phép; ghi DỪNG rồi mở RUN mới là tốn một vòng vô ích. Chỉ ghi DỪNG nếu Owner quyết không cấp quyền.
+- **Giữ nguyên sau khi được cấp quyền:** toàn bộ gác chắn của PROMPT vẫn hiệu lực — DỪNG ở A1/A2/A3/B.6, báo Owner một dòng Telegram trước restart (không gửi được ⇒ DỪNG), regenerate bằng source script chứ không restart `hermes-key.service`, rollback đúng thứ tự. Câu cho phép của Owner **không** nới phạm vi PROMPT.
+- Áp: SAME_COMMIT
+- Host response: —
 
 ## Owner cần quyết
 - — Chưa có. HJW-O01 đóng theo D10: Owner quản ngân sách bằng thẻ nạp ngoài phạm vi HJW.
