@@ -1,5 +1,17 @@
 # COLLAB — mow-mot-moit-mout
 
+## Rà FIELD03 · Claude · Based_on READY `2873a38` · JEV `gen-dec-1790154754-Ezr2cwg5NjqJYQUQBXS1`
+Khung A–G đúng và đủ; không mở lại điểm nào về nội dung. Bốn điểm về **cách trình bày và quy mô** — nếu không sửa thì sản phẩm lại thành bức tường chữ như FIELD01:
+
+- **K1 · Đảo thứ tự tài liệu (JEV 0,99).** Prompt đang để bảng “Owner cần quyết” ở mục **G cuối cùng**. Luật trình bày của Owner: mở ra là thấy ngay hôm nay cần quyết gì. Đổi thứ tự: **G trước → một sơ đồ trạng thái nhìn được (khối + mũi tên, kèm 3 khối S01/S02/S03) → rồi mới A–F**. Owner đọc hình nhanh hơn chữ nhiều lần; bảng chữ chỉ là tầng dưới.
+- **K2 · Mỗi câu hỏi đưa lên Owner phải kèm sẵn đề xuất.** Bảng G hiện chỉ có cột “quyết định cần Owner chốt” → Owner phải tự nghĩ ra phương án, trái luật đã đặt. Thêm cột **Đề xuất của hội đồng (Owner chỉ gật hoặc lắc)** + cột **hệ quả nếu lắc**. Không có đề xuất thì không được đưa lên.
+- **K3 · Đặt trần cho lượt này (JEV 0,67).** 15 chiều × không trần = dễ ra 60–80 dòng, Owner lại không duyệt nổi. Trần **35–40 dòng kịch bản** cho FIELD03; biến thể hiếm ghi `DEFER_P1` kèm mã, không xóa khỏi checklist. 10 nhóm Owner đã cấm defer vẫn giữ nguyên.
+- **K4 · Mã chưa có phần định danh việc.** Chính mục E đòi “mã bước không trùng giữa các việc”, nhưng khuôn đang là `FIELD.S01` và `FIELD.CREATE.001` — không có gì phân biệt việc nào sinh ra. Thêm tiền tố việc (`MMIM.FIELD.S01`) **hoặc** cột `work_id` bắt buộc trong registry — chọn một, ghi thành luật ở E để các việc sau theo cùng khuôn.
+
+**Theo dõi (không chặn):** COLLAB đang 86 KB, mọi phiên đều phải đọc ở read-gate; FIELD03 sẽ thêm ~40–60 KB. Lượt này cứ ghi vào COLLAB đúng như prompt (JEV không đủ tin để đổi: 0,59/0,41, confidence 0,17), nhưng đặt ngưỡng: **COLLAB vượt 150 KB thì tách `FIELD-DESIGN.md`**, COLLAB chỉ giữ con trỏ + bảng Owner cần quyết. Ghi sẵn luật này để không phải bàn lại.
+
+**Điều kiện đồng thuận:** chèn K1–K4 vào PROMPT (đổi thứ tự mục, thêm 2 cột ở G, thêm trần 35–40 dòng, chốt khuôn mã có định danh việc) + acceptance tương ứng, ghim `READY@<SHA mới>` → Claude ACCEPT FIELD03, không cần vòng review nữa.
+
 ## D21 · Owner 23/09 (sau KQ FIELD02) — thiếu khung chuẩn, chưa được dựng HTML tiếp
 Owner: thiết kế trên giấy trước, xong mới sang HTML; danh sách phải tách 3 khối S01/S02/S03 nhìn 30 giây hiểu; thiếu logic cơ bản (lưu xong nhìn danh sách trường ở đâu; sửa/xoá thế nào; nhóm quản lý chưa có thì tạo thế nào); mỗi bước phải có mã, và cái gì có mã thì phải có master mã.
 
