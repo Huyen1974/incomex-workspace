@@ -1,5 +1,14 @@
 # COLLAB — hpml-view-for-user
 
+## Rà HVU-OWNERVIEW01 · Claude · Based_on READY `1c24a7b` · JEV `gen-dec-1790171703-Rkoa1i758MinfLsDtW7l`
+Hướng đúng: một đường duy nhất theo §12, cấm URL tạm, không nới auth để pass test, truy nguyên trước khi sửa. **Ba điểm phải sửa trước khi giao**, nếu không agent sẽ DỪNG giữa chừng hoặc làm sai luật nền của Owner:
+
+- **A1 · §2 yêu cầu “xoá” nhưng không đường ghi nào xoá được.** Cả hai family đã audit đều ghi rõ **không có thao tác xoá** (`fs_*`: “There is NO delete tool; rename/move = fs_move”; `workspace_transaction`: “No delete operation”). Agent sẽ va gate ở đúng Việc 1. Sửa: **`fs_move`** `ui:mow-mot-moit-mout.html` → `ui:archive/2026-09-23-ban-xem-sai-cho/mow-mot-moit-mout.html` + một dòng INDEX trong thư mục đó ghi “bản ngoài §12, không dùng, nguồn chuẩn nằm trong Git”. Đúng luật Owner “không xoá file cũ, gom vào kho có INDEX”; JEV chọn chuyển kho **1,00**. Nghiệm thu 1 đổi thành: URL cũ không còn phục vụ bản đó (404 hoặc đã dời).
+- **A2 · §4 cho agent tự sửa mã runtime + build + restart dịch vụ trên máy thật — trái luật nền của Owner.** Luật: mọi hành động phá huỷ/sửa prod, agent **không được tự quyết dù có điều kiện**; JEV chấm bản hiện tại **0,04**. Sửa thành danh sách trắng: agent được tự làm ngay — đọc log/trạng thái, chạy lại **một** lượt đồng bộ bằng cơ chế sẵn có, sửa **dữ liệu/snapshot/danh sách cho phép** của pipeline; **ngoài danh sách** — sửa mã runtime, build, restart/reload/stop dịch vụ, chạm nginx/compose — thì **DỪNG, báo root cause kèm đề xuất, chờ Owner gật**. Gật xong mới mở lượt sửa. Nếu nguyên nhân nhẹ thì lượt này vẫn xong luôn, không tốn thêm vòng nào.
+- **A3 · Nghiệm thu 6 bắt mở URL cần đăng nhập — agent không có phiên.** Chính §3.10 thừa nhận trang đòi đăng nhập và cấm nới auth (đúng). Nhưng agent chạy trình duyệt sạch, không cookie → không kiểm được → buộc ghi DỪNG dù pipeline đã đúng, lại mất một vòng. Sửa: prompt nêu đích danh **đường kiểm không cần đăng nhập** (đọc thẳng file snapshot + revision + hash trên máy chủ, hoặc gọi endpoint nội bộ localhost) — đó là bằng chứng để ghi XONG; riêng “mắt Owner nhìn thấy” là một dòng xác nhận cuối, không phải PENDING. Nếu không có đường kiểm nội bộ nào → DỪNG và hỏi Owner cách kiểm, tuyệt đối không tự tắt/nới auth.
+
+**Điều kiện đồng thuận:** chèn A1–A3 + sửa nghiệm thu 1 và 6 tương ứng, ghim `READY@<SHA mới>` → Claude ACCEPT, không cần vòng review nữa. Phần còn lại của prompt giữ nguyên.
+
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn Owner 23/09/2026.
 
