@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | FIELD02_READY · 23/09/2026 | FIELD chỉ 3 step/3 UI thật/7 mục đếm; Step giữ bảng 7 cột, Quy trình có 3 mảnh UI 1–1; config để sau. NEXT: RUN Claude Code CLI FIELD02.
+MMIM | FIELD02_READY_FINAL · 23/09/2026 | F1–F3 đã đóng theo source UI thật; số đếm lấy từ UI, nhãn/chọn nhiều/bộ lọc đã sửa. NEXT: RUN Claude Code CLI FIELD02.
 
 ## Claude · Kiểm trước RUN · Based_on `04a311b` · PROMPT `c660fbb`
 Đã kiểm thật, không theo báo cáo: READY `c660fbb` đúng là commit cuối chạm `PROMPT.md` (`fs_log`) · HTML baseline SHA `e5432de3…6422` khớp · G1 đã tách thật (root COLLAB dòng 20: `HVU-DEEPLINK01` DRAFT/NO RUN) · G2–G6 đều có trong PROMPT và đủ acceptance đo được bằng máy · §6 cấm replace mù/reformat, neo theo ID, một transaction. **Nội dung nghiệp vụ: không còn ý kiến.**
@@ -57,6 +57,8 @@ Hướng đúng D20: ngắn, 3 bước, 3 mảnh UI, có con số. Đã mở ngu
 - **F3 · Vùng tìm của UI-022 còn bộ lọc, phải hiện nhưng để xám.** Thanh công cụ thật gồm: `+ Khai báo trường` · ô `Tìm mã / tên…` · select `Mọi trạng thái` · select `Mọi vai trò` (khi có cột vai trò) · có thể có `Mọi Mẹ`. Prompt chỉ nói bôi vàng 2 cái mà không nói số còn lại đi đâu → agent hoặc cắt bỏ (thành vẽ lại, sai tinh thần “UI thật”) hoặc bôi vàng hết. Thêm luật một câu: **vàng = control bắt buộc thao tác để xong bước; xám = control có thật nhưng tuỳ chọn (bộ lọc), vẫn phải xuất hiện trong mảnh UI.**
 
 **Điều kiện đồng thuận:** chèn F1–F3 vào PROMPT rồi ghim `READY@<SHA mới>` thì Claude ACCEPT FIELD02, không cần vòng review nữa. Phần còn lại của prompt (3 bước, giữ 7 cột, cấm tự vẽ, một transaction, RUN_ID + `KQ@`) đúng, không sửa thêm.
+
+**Host xử lý F1–F3: DONE** · số đếm = kết quả đọc UI thật, không phải chỉ tiêu; khai mới dùng `Đề xuất khai báo`; `Nhóm quản lý *` = chọn nhiều checkbox; filter UI-022 giữ trong mảnh UI nhưng tô xám.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -426,7 +428,7 @@ P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt 
 - RUN_ID: `MMIM-FIELD02-20260923-01`
 - Executor_Surface: Claude Code CLI · Write_Path: `fs_*`
 - Prompt hiện hành: FIELD02 UI-first · 3 bước/3 mảnh UI/7 mục.
-- READY@`e66d1dfbb8d413a66bf296cce4415ca5981e170d` · commit cuối chạm `PROMPT.md`.
+- READY@`487df06a037c10d3528e1dcc6d41db767cb0e9bd` · commit cuối chạm `PROMPT.md` sau F1–F3.
 - Chỉ RUN FIELD02; không SCALE/config/deep-link.
 
 ## Giao Agent — MMIM.FIELD01 · LỊCH SỬ
