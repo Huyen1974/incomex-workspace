@@ -2,8 +2,8 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 - Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
-- Nhiệm vụ/phạm vi hiện tại (Owner 23/09/2026): đổi tab thành “Step quy trình”, đặt ngay sau UI Master và trước Quy trình; tạo vỏ bảng trống theo thứ tự Field → Form (MOUT, MOIT) → MOT → MOW. Mỗi bảng có STT, Mã Bước, Tên Bước, Nội dung, Tổng Số trường cần khai (gồm nút bấm), Số trường cần config, Check UI. Chưa điền bước, số đếm hoặc bảng con; giữ nguồn Mac chỉ đọc.
-- Tiêu chí xong: thứ tự tab UI Master → Step quy trình → Quy trình; tab Step quy trình mở được, đủ bốn mục và năm bảng trống với bảy cột; UI Master và Quy trình tiếp tục hoạt động; không tự bổ sung nội dung nghiệp vụ.
+- Nhiệm vụ/phạm vi hiện tại (Owner 23/09/2026): sau khi đã có vỏ tab Step quy trình, Host phải đề xuất **bản đồ thao tác thật** từ dưới lên Field → Form (MOUT, MOIT) → MOT → MOW: tạo bắt đầu ở đâu, bấm gì, người khai tay gì, máy config gì, phụ thuộc tầng dưới xử lý ra sao, kết quả mong đợi, lỗi quay về đâu, tạo xong quản lý ở UI nào và quản lý thông tin gì. Đồng thời đề xuất deep-link để URL ngoài `/knowledge/modules?task=...` phản ánh tới tab/khu vực/bảng con/bước đang xem. Đây là lượt thiết kế/consensus với Claude; **chưa điền HTML theo đề xuất trước khi hội đồng thống nhất**.
+- Tiêu chí xong của lượt thảo luận: COLLAB có schema Step chuẩn + draft bước cho đủ Field/MOUT/MOIT/MOT/MOW + quy tắc nhánh “đã có thì chọn / chưa có thì tạo tầng dưới rồi quay lại” + đối chiếu UI hiện có + yêu cầu URL deep-link có acceptance test; Claude review và Host hòa giải trước khi giao Agent sửa HTML.
 - Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này.
 
 Host: GPT Chat · Host_ID: GPT-MMIM-260920-A · Owner giao: 2026-09-20
@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | LIST_PROCESS_SHELL · 23/09/2026 | Tab Step quy trình đặt sau UI Master, trước Quy trình: Field, Form/MOUT, Form/MOIT, MOT, MOW; năm bảng trống, mỗi bảng bảy cột. Kho tham khảo nhẹ đã hoàn tất trước đó. · Áp: SAME_COMMIT.
+MMIM | PROCESS_MAP_DESIGN · 23/09/2026 | Vỏ Step quy trình đã có; Host đang đề xuất bản đồ thao tác thật + deep-link URL tới tab/bảng/bước. Chưa sửa nội dung bảng; NEXT: Claude review MAP01–MAP05 + URL01.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -40,6 +40,120 @@ MMIM | LIST_PROCESS_SHELL · 23/09/2026 | Tab Step quy trình đặt sau UI Mast
 - D17 · 2026-09-23 · Theo yêu cầu trực tiếp Owner: đổi tên List quy trình thành Step quy trình; đưa tab ngay sau UI Master và trước Quy trình. Giữ nguyên các bảng và ID liên kết. · Áp: SAME_COMMIT.
 
 - D18 · 2026-09-23 · Owner yêu cầu giải thích thống nhất hai cột tổng ở Step quy trình: bảng tổng hợp chỉ hiện số tổng; danh sách trường nằm ở bảng chi tiết, mỗi bảng có mã riêng để quản lý/khai báo. Quy ước chuẩn đặt tại HTML chính `#step-quy-trinh-quy-uoc`; AI đọc mục này trước khi điền. Đổi nhãn thành “Tổng số trường cần config”; chưa tạo bảng chi tiết/cấp mã/điền số. · Áp: SAME_COMMIT.
+
+- D19 · 2026-09-23 · Owner yêu cầu Host **chưa cho Agent tự mò tiếp** mà phải định nghĩa bản đồ quy trình chi tiết trước: đi từ Field → Form/MOUT/MOIT → MOT → MOW; mỗi quy trình phải nêu bước thao tác, UI, hành động, input tay, config máy, kết quả, nhánh lỗi/phụ thuộc và nơi quản lý sau tạo. MOW bắt buộc có nhánh “MOT đã có → chọn/gắn; chưa có → chạy quy trình tạo MOT → quay lại đúng bước MOW”. Owner đồng thời yêu cầu URL ngoài thay đổi theo tab/khu vực/bảng con để trao đổi chính xác. Lượt này Host đề xuất → Claude review → Owner chốt; chưa sửa bảng Step theo đề xuất.
+
+## Đề xuất Host · MAP01–MAP05 + URL01 · chờ Claude review
+
+### MAP01 · Step quy trình là bản đồ **tạo/khai thật**, không lặp tab Vòng đời
+- Tab Vòng đời hiện đã có khung 8 trạng thái `Tìm → Tạo → Master → Config → Test → Dùng → Chạy → Ngừng`; giữ nguyên để quản lý vòng đời.
+- Tab **Step quy trình** trả lời câu hỏi khác: “Từ lúc cần tạo một đối tượng cho tới lúc nó được lưu, quản lý và trả về nơi gọi thì người/máy thực sự làm những thao tác nào?”.
+- Giữ bảy cột tổng hiện tại để nhìn nhanh. Mỗi `Mã Bước` phải mở một **bảng chi tiết có mã ổn định** với các trường bắt buộc:
+  `Điểm vào/UI · Bấm/Hành động · Khai tay · Config máy · Phụ thuộc/nhánh · Kết quả mong đợi · Lỗi/quay về · Nơi quản lý sau tạo · Thông tin quản lý · Bằng chứng UI`.
+- Cột “Tổng số trường cần khai/config” chỉ lấy số đếm từ bảng chi tiết; không nhập số bằng suy đoán.
+
+### MAP02 · Một quy tắc nhánh dùng chung cho mọi tầng
+Khi đối tượng X cần đối tượng tầng dưới Y:
+`đến bước cần Y → Tìm Y → [đã có: chọn/gắn Y] | [chưa có: gọi PROCESS(Y).CREATE → Y PASS → quay lại đúng bước đang chờ của X → gắn Y] → test chỗ nối → đi tiếp`.
+- Không “nhảy tiếp” nếu Y chưa PASS.
+- Phải lưu `return_to_step`/mã bước gọi để agent và UI biết quay về đâu.
+- Áp dự kiến: MOIT/MOUT cần Field; MOT có thể cần MOIT/MOUT; MOW cần MOT. Claude cần rà phạm vi bắt buộc/tuỳ chọn của từng phụ thuộc.
+
+### MAP03 · Draft số bước thao tác V1 — để cùng rà, **chưa phải nghiệm thu**
+**FIELD · đề xuất 6 bước**
+1. `FIELD.S01` Tìm Field hiện có.
+2. `FIELD.S02` Có → chọn/dùng lại; chưa có → bấm `+` tạo Field.
+3. `FIELD.S03` Khai tay phần định danh/nghĩa nghiệp vụ. Nguồn UI hiện cho thấy ít nhất: **tên, định dạng, mô tả, nhóm quản lý**; chỉ chốt trường sau khi rà UI-018.
+4. `FIELD.S04` Máy tạo/cấu hình phần kỹ thuật cần thiết; danh sách config phải lấy từ UI/contract, không tự đoán.
+5. `FIELD.S05` Test/validate Field và chỗ dùng.
+6. `FIELD.S06` Lưu/đăng ký → quản lý ở Master Field → trả `field_id/version` về nơi gọi.
+UI nguồn hiện thấy: UI-018 “Field · khai báo trường”; UI-022 “Master Field”; UI-021 Kanban FIELD. **Có mâu thuẫn nguồn cũ “chưa có UI quản lý Field theo Owner” với catalogue UI con “đã có”; cần tách `UI tồn tại` và `Owner đã chốt cho bước`.**
+
+**MOUT · đề xuất 7 bước**
+1. `MOUT.S01` Tìm MOUT hiện có trong Master.
+2. `MOUT.S02` Có → chọn; chưa có → mở Builder tạo MOUT.
+3. `MOUT.S03` Khai tay ý nghĩa báo cáo/khuôn: miền dữ liệu, cột, filter, thời gian, tổng, phân phối theo nhu cầu nghiệp vụ.
+4. `MOUT.S04` Với Field cần dùng: đã có → chọn từ kho Field; thiếu → gọi PROCESS(FIELD).CREATE rồi quay lại.
+5. `MOUT.S05` Máy sinh/hoàn thiện config kỹ thuật/JSON/output từ khai báo.
+6. `MOUT.S06` Preview/“đúc”/test báo cáo.
+7. `MOUT.S07` Lưu/đăng ký Master MOUT → trả `mout_id/version` về nơi gọi.
+UI nguồn hiện thấy: Builder v3, Master MOUT UI-014, Studio MOUT UI-016, Kanban UI-020.
+
+**MOIT · đề xuất 8 bước**
+1. `MOIT.S01` Tìm MOIT hiện có trong Master.
+2. `MOIT.S02` Có → chọn; chưa có → tạo draft MOIT.
+3. `MOIT.S03` Khai tay mục đích/form nhận dữ liệu và danh sách thông tin cần nhập/đọc.
+4. `MOIT.S04` Mỗi Field: có → chọn; thiếu → PROCESS(FIELD).CREATE → quay lại.
+5. `MOIT.S05` Khai tay các quyết định nghiệp vụ: nguyên tắc nhập, ai nhập/ai nhận, chạy/kết thúc.
+6. `MOIT.S06` Máy config binding kỹ thuật. UI-017 hiện có các cột: Collection, Field, Check tương tự, địa chỉ dữ liệu, kiểu dữ liệu, hợp đồng JSON, Test, tình trạng, ghi chú; cần rà cái nào máy tự làm/cái nào người duyệt.
+7. `MOIT.S07` Test form/input end-to-end.
+8. `MOIT.S08` Lưu/đăng ký Master MOIT → trả `moit_id/version` về MOT/nơi gọi.
+UI nguồn hiện thấy: Master UI-013, Studio UI-015, Config UI-017, Kanban UI-019.
+
+**MOT · đề xuất 8 bước**
+1. `MOT.S01` Tìm MOT hiện có trong Master.
+2. `MOT.S02` Có → chọn; chưa có → tạo khung công việc MOT/T1.
+3. `MOT.S03` Khai tay định danh/mục đích công việc.
+4. `MOT.S04` Gắn MOIT đầu vào khi cần: có → chọn; thiếu → PROCESS(MOIT).CREATE → quay lại.
+5. `MOT.S05` Gắn MOUT tham khảo/đầu ra khi cần: có → chọn; thiếu → PROCESS(MOUT).CREATE → quay lại.
+6. `MOT.S06` Khai nghiệp vụ + máy config: nguyên tắc giao việc, ai làm/ai nhận, chạy/kết thúc; mapping GHI VÀO/ĐỌC RA và binding kỹ thuật theo UI.
+7. `MOT.S07` Test công việc end-to-end và các nối MOIT/MOUT.
+8. `MOT.S08` Lưu/đăng ký Master MOT → trả `mot_id/version` về MOW. Sau tạo vận hành ở Bàn làm việc/Kanban.
+UI nguồn hiện thấy: Master MOT, Config UI-006, Studio UI-007, Bàn làm việc UI-010, Kanban UI-028.
+
+**MOW · đề xuất 9 bước**
+1. `MOW.S01` Tìm MOW hiện có trong Master.
+2. `MOW.S02` Có → mở/sửa đúng bản; chưa có → `+ Tạo quy trình (MOW)`.
+3. `MOW.S03` Khai tay định danh + neo cây/tầng/phạm vi của quy trình.
+4. `MOW.S04` Khai từng bước quy trình và **chọn MOT** cho bước.
+5. `MOW.S05` Nhánh bắt buộc: MOT có → gắn; MOT chưa có → PROCESS(MOT).CREATE → nhận `mot_id/version` → quay lại đúng `MOW.S04`.
+6. `MOW.S06` Sắp thứ tự/nhánh/handoff/hội tụ giữa các MOT.
+7. `MOW.S07` Khai quyết định nghiệp vụ + máy config event/checkpoint/data/role/điều kiện theo thiết kế đã chốt.
+8. `MOW.S08` Test end-to-end toàn MOW, gồm chỗ nối MOT.
+9. `MOW.S09` Lưu/đăng ký Master MOW và đưa vào quản lý/vận hành.
+UI nguồn hiện thấy: Master MOW UI-001, Kanban MOW, chi tiết MOW, checkpoint, data-events. Master hiện đã có nút `+ Tạo quy trình (MOW)`.
+
+### MAP04 · “Khai tay” và “Config máy” phải tách bằng trách nhiệm, không chỉ bằng cột
+- **Người khai:** nghĩa nghiệp vụ, lựa chọn thành phần đã có, tên/mục đích, điều kiện/quy tắc mà Owner/nghiệp vụ phải quyết.
+- **Máy config:** tạo mã/khoá/binding kỹ thuật, materialize JSON/địa chỉ dữ liệu/contract/event/checkpoint từ quyết định đã khai, chạy validation/test tự động.
+- Mọi trường config máy vẫn phải hiện trong bảng chi tiết với nguồn và trạng thái; “máy làm” không có nghĩa “không quản lý”.
+- Mỗi step phải có `manual_count`, `config_count`, và danh sách chi tiết tương ứng trước khi số tổng xuất hiện ở bảng Step.
+
+### MAP05 · Sau khi tạo, phải chốt “quản lý ở đâu / quản lý gì”
+Mỗi đối tượng có hai câu riêng:
+1. **Registry/Master ở đâu?** nơi tìm, version, trạng thái, ngừng/lưu trữ.
+2. **Workspace/Canvas ở đâu?** nơi dùng/vận hành/chỉnh config nếu có.
+Tối thiểu quản lý: `ID/code · tên · version · trạng thái · nơi dùng/parent refs · người/quyền · config status · test status · updated_at/source`. Bộ trường cuối phải rà từng UI, không lấy danh sách này làm schema thật nếu UI/contract chưa xác nhận.
+
+### URL01 · Deep-link tới đúng tab → bảng → bước → bảng chi tiết
+**Hiện trạng:** HTML con đã đổi hash nội bộ như `#matrix-view-process-list`, nhưng URL ngoài vẫn chỉ là `/knowledge/modules?task=mow-mot-moit-mout`; khi dùng iframe/view wrapper thì hash của HTML con không phản ánh ra URL ngoài, nên gửi link không chỉ đúng chỗ đang nói.
+
+**Đề xuất URL chuẩn ở viewer ngoài:**
+`/knowledge/modules?task=mow-mot-moit-mout&view=process-list&section=field&step=FIELD.S03&detail=FIELD.S03.INPUT`
+- `view`: tab lớn, dùng key hiện có `master | process-list | process | blockers | ui | uses | lifecycle | all | reference`.
+- `section`: bảng/khu vực ổn định, ví dụ `field | mout | moit | mot | mow`.
+- `step`: mã bước ổn định.
+- `detail`: bảng con/record cụ thể nếu đang mở.
+- Click tab/bảng/row/detail → parent URL `history.replaceState/pushState` cập nhật ngay, không reload.
+- Mở URL trực tiếp/reload/back/forward → viewer khôi phục đúng tab, mở đúng bảng/detail và scroll/focus đúng mục.
+- Nếu HTML chạy trong iframe: child gửi state bằng `postMessage` cùng-origin/whitelist; parent cập nhật URL và khi load gửi route xuống child. Không cho arbitrary selector/code qua message.
+- Giữ tương thích hash cũ: `#matrix-view-...` vẫn route được và được chuẩn hoá sang query khi mở qua viewer.
+
+**Acceptance URL01**
+1. Copy link ở Step→MOT→`MOT.S04`, dán tab mới → mở đúng vị trí.
+2. Click UI Master ↔ Step quy trình → URL `view=` thay đổi.
+3. Click Field/MOUT/MOIT/MOT/MOW → `section=` thay đổi.
+4. Mở step/detail → `step/detail` thay đổi.
+5. Back/Forward khôi phục UI đúng trạng thái.
+6. URL không hợp lệ → fallback về tab hợp lệ gần nhất, không blank/crash.
+7. Không làm mất `task=mow-mot-moit-mout`.
+
+### Câu hỏi Host gửi Claude
+- C01 · Có đồng ý **Step quy trình = bản đồ thao tác tạo/khai**, không lặp 8 trạng thái Vòng đời?
+- C02 · Các số bước V1 (Field 6 · MOUT 7 · MOIT 8 · MOT 8 · MOW 9) có chỗ nào nên gộp/tách trước khi điền UI?
+- C03 · Phụ thuộc tầng dưới nào là bắt buộc/tuỳ chọn: MOIT↔Field, MOUT↔Field, MOT↔MOIT/MOUT, MOW↔MOT?
+- C04 · Có đồng ý tách trạng thái UI thành `EXISTS` / `OWNER_APPROVED_FOR_STEP` / `NEEDS_FIX` thay vì một ô Check UI nhị phân?
+- C05 · URL01 dùng query state ở parent + postMessage khi iframe có phải giải pháp ít sửa và bền nhất với viewer hiện tại không?
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
