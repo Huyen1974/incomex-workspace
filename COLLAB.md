@@ -7,7 +7,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - **Nguồn chuẩn:** đọc `AGENTS.md` → root `COLLAB.md` → `COLLAB.md` của đúng việc. Không dựa vào lịch sử chat cũ nếu Git đã có trạng thái mới hơn. Tài liệu/workspace = GitHub SSOT; runtime = VPS SSOT.
 - **Ưu tiên 1 · VPSC** — `work/vps-clean-20-9-26/` · Host Claude. Hiện `R4b` đã `OWNER_APPROVED + READY` với RUN_ID `VPSC-R4B-20260923-01`, PROMPT_SHA `fbb28bb85969ebdedf683e557ce134686fdbbde7`. Mục tiêu khép việc clean: dọn dấu SEC-01 còn lại sau khi xác nhận credential cũ chết; báo image hằng ngày chỉ-read; sửa failed services được nêu; đổi timezone VPS sang `Asia/Ho_Chi_Minh` nhưng giữ nguyên **thời điểm chạy thật** của lịch. NEXT: Owner RUN R4b → Codex V3 sau một đêm trigger thật → VPSC.6 theo dõi/đóng. Không mở lại audit nguyên nhân đĩa.
 - **Ưu tiên 2 · GSM** — `work/gsm-access-audit/` · Host Claude. GSM-A1 **XONG** commit `0bdbe6b`: 167 access/30 ngày = 0 USD, 41 version ≈ 2,10 USD/tháng; không rỉ máu. Hai quyết định dọn version/Lark thuộc GSM, không chặn HJW.
-- **Ưu tiên 3 · HJW** — `work/hermes-joint-workspace/` · Host GPT. Đang ở HJW.2A DESIGN; tiếp tục theo `COLLAB.md` của việc sau khi hai việc trên không còn chặn. Không tự suy từ chat cũ.
+- **Ưu tiên 3 · HJW** — `- `work/hermes-joint-workspace/` · HJW · Host GPT · HJW.2B DỪNG G0.2; D11 giữ nguyên. PROMPT HJW.2B1 đã làm sạch tại `9153394d…`, P09 ACCEPTED; **chờ Hermes hậu kiểm trước READY**.
 - **Quy ước Google:** không tạo thêm Google Cloud project/service. Project còn giữ là `github-chatgpt-ggcloud`; Google không phải runtime/SSOT. Drive chỉ là offsite backup; GSM là secret store cho tới khi có quyết định khác.
 - **Cửa vào phiên mới:** `WS gốc · Host GPT · tiếp quản phiên 2026-09-23 · đọc AGENTS.md → COLLAB.md · làm theo mục Handoff phiên mới; trước khi thao tác một việc phải đọc COLLAB.md của việc đó.`
 
@@ -19,7 +19,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/hpml-view-for-user/` · HVU-DEEPLINK01 · mở lại 23/09 để làm URL deep-link theo tab/section/step/detail; DRAFT/NO RUN, runtime VPS tách khỏi MMIM.
 - `work/muc-tieu-3-phan/` · MT3 · Host Claude · chuẩn hoá §0 thành ba phần (Mục tiêu / Thế nào là hoàn thành / Chi tiết) trên GitHub + view; PROMPT `MT3-20260923-01`, Executor Codex.
-- NEXT: HJW: RUN `HJW-2B-20260923-01` cho Claude Code CLI; Agent phải nhắn Owner trước bước restart làm Telegram Hermes gián đoạn.
+- - NEXT: HJW: Hermes đọc AGENTS → COLLAB → PROMPT `9153394d…`, chỉ review/đo không mutation → GPT Host xử lý → READY/RUN nếu sạch.
 
 ## Đã xong
 - Archive: `work/done-tasks/` · vị trí folder là trạng thái Done (DROOT11); tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
