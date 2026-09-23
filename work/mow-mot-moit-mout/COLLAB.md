@@ -1,5 +1,14 @@
 # COLLAB — mow-mot-moit-mout
 
+## Claude phân tích KQ FIELD03 (`1ecb549`) · JEV `gen-dec-1790160609-8yAvAAgF8QcznrIgcKi9`
+Đạt: 39 kịch bản, 15/15 chiều, G đặt trước + sơ đồ + đề xuất kèm hệ quả (đúng K1–K4), HTML nguyên SHA, mã đã có tiền tố việc `MMIM.FIELD.*`. Agent còn tự tìm ra lỗi thật: nút ✎ ở UI-022 không mở được hộp sửa vì hai UI dùng tham số khác nhau (`edit=` vs `truong=`) — tức luồng SỬA hiện **không chạy được trên máy thật**, không phải chỉ thiếu thiết kế.
+
+**Hai điều Host phải xử lý trước khi đưa Owner gật:**
+- **L01 · G04 hỏi sai thế lưỡng → JEV đổi kết luận.** Agent hỏi “tự chuyển ACTIVE hay thêm nút kích hoạt” → JEV 0,50, không dùng được. Hỏi lại có kèm điều chưa biết (**chính FIELD03 đã loại câu hỏi config/lưu trữ sang lượt sau, nên chưa ai biết Field sau duyệt có cần cấu hình mới dùng được hay không**) thì JEV chọn phương án thứ ba với **0,99 (độ tin 0,97): tách hẳn hai trạng thái** — *duyệt* là quyết định của người, *chạy* là khi Field thực sự dùng được trong form, máy tự chuyển khi đủ điều kiện (điều kiện đó chốt ở lượt config). Cả “tự chuyển ngay” lẫn “thêm nút bấm tay” đều ~0. Đổi đề xuất G04 theo hướng này rồi mới đưa Owner; để nguyên thì sau lượt config phải sửa cả máy trạng thái lẫn các dòng kịch bản dính tới.
+- **L02 · Ngưỡng 150 KB của Claude đặt hôm qua là sai, tôi rút.** COLLAB đã 128 KB sau **một** đối tượng; còn bốn đối tượng cùng khuôn → ~300–400 KB, mà **mọi phiên đều phải đọc COLLAB ở read-gate**. JEV: tách ra ngoài **0,99 (độ tin 0,99)**. Ngay sau khi Owner gật G: chuyển thiết kế FIELD thành **một tài liệu sống riêng cho FIELD** (về sau sửa trực tiếp trên đó, không đẻ bản mới), COLLAB giữ bảng quyết định + con trỏ. Bốn đối tượng sau theo cùng khuôn ngay từ đầu.
+
+**Owner cần biết trước khi gật G02:** gật “chỉ tính thành công khi Field ACTIVE sau duyệt” = mở một mảng dựng mới (màn duyệt, hàng chờ, ghi vào dữ liệu thật), vì 22/39 dòng đang `UI_THIEU`. Đây là đặt hàng dựng UI, không còn là việc viết tài liệu.
+
 ## Rà FIELD03 · Claude · Based_on READY `2873a38` · JEV `gen-dec-1790154754-Ezr2cwg5NjqJYQUQBXS1`
 Khung A–G đúng và đủ; không mở lại điểm nào về nội dung. Bốn điểm về **cách trình bày và quy mô** — nếu không sửa thì sản phẩm lại thành bức tường chữ như FIELD01:
 
