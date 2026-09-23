@@ -13,11 +13,9 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
-- `work/mcp-token-argv/` · SECURITY · Host Claude · loại Bearer token khỏi argv của lark-crud-gateway/mcp-remote; migrate secret + rotate + smoke; không chặn HVU.
 - `work/hermes-joint-workspace/` · HJW · Host GPT · HJW.2B DỪNG G0.2; D11 + P09 đã xử lý. PROMPT HJW.2B1 DRAFT sạch tại `9153394d…`; **chờ Hermes hậu kiểm, chưa READY**.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
-- `work/muc-tieu-3-phan/` · MT3 · `KQ@MT3-20260923-01 XONG`; Owner 23/09 yêu cầu **xóa hẳn, không đưa Done** vì task do AI tự mở. Hiện chờ đúng đường Git có quyền delete; không tiếp tục nghiệp vụ.
 - NEXT: HJW: Hermes đọc AGENTS → COLLAB → PROMPT `9153394d…`, chỉ review/đo không mutation → GPT Host xử lý → READY/RUN nếu sạch.
 
 ## Đã xong
