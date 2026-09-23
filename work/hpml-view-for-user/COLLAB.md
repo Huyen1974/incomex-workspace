@@ -563,5 +563,28 @@ Based_on `7c8743a` · Owner 22/09: “phân tích còn vấn đề gì thì xử
 - Hai housekeeping không còn là blocker HVU được chuyển sang `work/vps-clean-20-9-26/` sau R3: (1) audit rồi cất `deploys/hvu-archive01-20260922` nếu vẫn ARCHIVE_SAFE; (2) verify B3 current compose rồi bless `mcp-compose` baseline để drift-check về sạch. Không đổi PROMPT/READY VPSC hiện hành.
 - **Kết luận: HVU FINAL CLOSED. Không mở lại trừ khi Owner có mục tiêu nâng cấp mới và dùng `Mở lại hpml-view-for-user để …`.**
 
+## P34 · Claude Chat · review HVU-DEEPLINK01 DRAFT · ACCEPT mục tiêu + CHANGE làm nhỏ hơn nhiều
+Based_on `23476ed` (PROMPT `71ce117`) · Chỉ đọc, không RUN. Đã đọc mã production `scripts/hvu-b2/ui/app.vue` và chính file `mow-mot-moit-mout.html`.
+
+**1. Contract có đủ không — đủ, nhưng đang thừa tham số.** Đề nghị đúng ba: `?task=<id>&view=control|content&at=<id-neo>`.
+- `view` chỉ có hai tab thật trong app (`Kểm soát` = `control`, `Nội dung công việc` = `content`).
+- `at` thay cho cả `section` lẫn `step`/`detail`: **tài liệu công việc đã có sẵn ID ổn định** (ví dụ `step-row-field-s01`, `step-quy-trinh-quy-uoc`, kèm `data-step-code="FIELD.S01"`), nên một mã neo là đủ định vị; thêm hai tầng tham số chỉ tạo thêm chỗ sai.
+- Không deep-link mục gập trong tab `Kểm soát` (Mục tiêu/Tiến độ/Tình trạng): không đáng giá, tự mở sẵn đủ dùng.
+
+**2. Đang phức tạp quá ở đâu — bỏ toàn bộ phần relay hai tầng.** Thực địa: `mow-mot-moit-mout.html` **tự xử lý hash** — có `window.addEventListener('hashchange', …)` và `revealHash()` mở `details` cha rồi cuộn tới phần tử. Nghĩa là chỉ cần dựng `src` của iframe = `<documentPath>#<at>` là ra đúng vị trí, **không cần postMessage, không handshake `ready→route`, không replay, không chạm file MMIM, không nới sandbox**. Chiều ngược (đang đọc trong tài liệu thì URL tự đổi theo) bắt buộc phải sửa chính file MMIM → để lượt của MMIM, không thuộc V1 này. V1 vẫn đạt đúng mục tiêu Owner: gửi link là mở đúng chỗ.
+
+**3. Thiếu trong acceptance — thêm:**
+- A10 `applyDeepLink` hiện **chỉ chạy một lần** (`deepLinkApplied`): nếu chọn `pushState` thì Back/Forward sẽ lệch state. Chốt cách nhỏ nhất: **chỉ dùng `replaceState`** cho mọi cập nhật (không thêm mục lịch sử). Nếu Host vẫn muốn Back/Forward thì **bắt buộc** nghe `popstate` của cửa sổ cha và áp lại — không được giữ cờ một-lần.
+- A11 Việc đã đóng (`bucket=Done`) mở đúng qua deep-link, tự mở nhóm Đã xong đang gập.
+- A12 `view=content` mà việc không có tài liệu → về tab `control`, không tab trống.
+- A13 `at` trỏ neo không tồn tại → tài liệu mở ở đầu, không báo lỗi.
+- A14 **Làm sạch tham số trước khi dùng**: `view` chỉ nhận đúng hai giá trị; `at` chỉ nhận `^[A-Za-z0-9_-]{1,64}$`; dựng URL bằng `new URL(documentPath, location.origin)` rồi gán `.hash`, **không nối chuỗi thủ công** (chặn `javascript:`, `../`, thoát URL); không đưa giá trị query vào DOM dạng HTML.
+- A15 V1 **không thêm listener `message` nào**; sandbox iframe giữ nguyên, không `allow-same-origin` cho tài liệu con.
+- A16 Mở deep-link **không làm đổi presence/“Đang làm”** (web không phát tín hiệu; chỉ cổng ghi mới phát).
+- A17 Chạy độc lập (mở thẳng `view.html`, không nằm trong KB): cùng một contract, đọc/ghi trên chính cửa sổ đó — giữ nguyên `linkWindow()` hiện có.
+- A18 (nên có, 5 dòng) nút **Copy link** cạnh nút copy lệnh, sao chép đúng URL đang xem — đúng ý “chỉ cần gửi URL”, không bắt Owner lôi thanh địa chỉ trong iframe.
+
+**4. Kết luận: ACCEPT mục tiêu · CHANGE phạm vi** theo mục 1–3. Sau khi Host áp, phần việc còn lại chỉ còn trong một file `app.vue`: đọc thêm hai tham số, gán tab, gán `#hash` cho iframe, ghi `replaceState`, làm sạch đầu vào. Không đụng sync/presence/B2/B3/MCP. Đủ nhỏ để chuyển READY ngay khi Host chốt.
+
 ## Owner cần quyết
 - —
