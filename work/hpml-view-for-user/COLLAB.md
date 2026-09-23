@@ -8,6 +8,8 @@
 - Diễn giải kỹ thuật Host: giữ `task`, thêm `view/section/step/detail`; contract từ MMIM MAP-R3 R3.8/A1–A9.
 - Phạm vi vòng mới: parent/top viewer + relay runtime VPS; không sửa Step nghiệp vụ trong HVU, không GitHub→VPS, không sửa MCP/connector.
 - Trạng thái: **REOPENED · DRAFT/NO RUN**. Child bridge/ID thuộc MMIM; chỉ RUN sau khi Host xác nhận child contract ổn định.
+- **Bổ sung Owner 23/09/2026:** đây là yêu cầu bổ sung của chính `work/hpml-view-for-user/`; **không tạo task mới**. Chỉ Owner mới được yêu cầu mở task mới; AI không tự tách việc này sang `work/<id>` khác.
+- **Gate bắt buộc:** Host tập hợp yêu cầu → Claude Chat review/phản biện → Host xử lý ý kiến và hai bên đạt đồng thuận → mới được đổi `PROMPT.md` sang READY và giao Claude Code CLI. Trước đồng thuận: **NO RUN / không agent mutation**.
 
 
 
