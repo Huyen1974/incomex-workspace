@@ -14,12 +14,12 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
 - `work/mcp-token-argv/` · SECURITY · Host Claude · loại Bearer token khỏi argv của lark-crud-gateway/mcp-remote; migrate secret + rotate + smoke; không chặn HVU.
-- `work/hermes-joint-workspace/` · HJW · Host GPT · HJW.2A + GSM gate đã xong; P05/P06 Host xử lý. Secret path ưu tiên relay để bỏ Agent Data key khỏi Hermes. `PROMPT.md` HJW.2B **DRAFT**, chờ Claude review execution → GPT READY; chưa RUN.
+- `work/hermes-joint-workspace/` · HJW · Host GPT · HJW.2A + GSM gate đã xong. `PROMPT.md` HJW.2B **DRAFT**; Claude đã review (P08: 7 mục sửa chặn READY, 1 phép đo thêm ở G0.2) và P07 Hermes đã chép vào SSOT. Chờ Host sửa → READY; chưa RUN.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/hpml-view-for-user/` · HVU-DEEPLINK01 · mở lại 23/09 để làm URL deep-link theo tab/section/step/detail; DRAFT/NO RUN, runtime VPS tách khỏi MMIM.
 - `work/muc-tieu-3-phan/` · MT3 · Host Claude · chuẩn hoá §0 thành ba phần (Mục tiêu / Thế nào là hoàn thành / Chi tiết) trên GitHub + view; PROMPT `MT3-20260923-01`, Executor Codex.
-- NEXT: HJW: Claude review riêng `work/hermes-joint-workspace/PROMPT.md` (không mở lại design) → GPT Host xử lý review/READY đúng SHA → RUN HJW.2B.
+- NEXT: HJW: GPT Host xử lý P07/P08 → sửa `PROMPT.md` → READY đúng SHA → RUN HJW.2B.
 
 ## Đã xong
 - Archive: `work/done-tasks/` · vị trí folder là trạng thái Done (DROOT11); tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.

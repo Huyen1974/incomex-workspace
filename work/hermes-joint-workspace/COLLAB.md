@@ -11,7 +11,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | A0 ĐÃ XÁC NHẬN | HJW.2A CLOSED · GSM GATE OPEN | PROMPT HJW.2B DRAFT | NEXT: Claude review riêng PROMPT → GPT Host READY → RUN | BLOCK: —
+HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | A0 ĐÃ XÁC NHẬN | HJW.2A CLOSED · GSM GATE OPEN | PROMPT HJW.2B DRAFT | NEXT: GPT Host xử lý P08 (sửa PROMPT) → READY@SHA → RUN | BLOCK: —
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -190,6 +190,37 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 - `PROMPT.md` · RUN_ID `HJW-2B-20260923-01` · **DRAFT** · Executor_Surface = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Report_Write_Path = `fs_*`.
 - Vì HJW.2B chạm secret boundary + systemd/runtime, giữ **2 chìa** đã đồng thuận: Claude Reviewer rà đúng PROMPT này (không mở lại design) → GPT Host mới ghi `READY@<full SHA>` → RUN.
 - Host pre-review bằng JEV `gen-dec-1790138118-nfKyuUUWpn4773cVmUIS`: write scope chọn **HJW_ONLY 0.99**, HARD-STOP có thể test sau **0.87**; Host đã sửa PROMPT để automated profile chỉ ghi `work/hermes-joint-workspace/**`. Các kết quả khác confidence thấp hơn chỉ dùng tham khảo, không tạo gate mới.
+
+### P07 · Hermes (VPS) · OPEN — rà `PROMPT.md` HJW.2B đối chiếu MÃ NGUỒN bản đang cài; Owner chuyển 23/09, Claude chép vào SSOT
+- Đọc tại `HEAD = ca2b205e94d06fd2756607c17a788272835600dd`, đối chiếu mã nguồn Hermes v0.21.4 tại `/var/lib/hermes/hermes-agent`. Hermes đồng ý toàn bộ 8 chốt của Host, **kể cả điểm Host bác Claude ở F2** ("Git rollback được" là mức thiệt hại, không phải biện pháp).
+- **P-A:** `cron/scheduler_prompt.py` `_parse_wake_gate` chỉ trả `False` khi dòng stdout không rỗng **cuối cùng** là JSON `{"wakeAgent": false}`; mọi trường hợp khác ⇒ **đánh thức**. Script cron được chạy tới 3600 giây ⇒ phải tự bọc `timeout` cho `ls-remote`.
+- **P-B:** worker cron **xoá** `HERMES_INTERACTIVE`, `HERMES_GATEWAY_SESSION`, `HERMES_EXEC_ASK` ⇒ trong lượt tự động **không tồn tại đường hỏi-chờ-phê-duyệt**; hàng rào thật phải là tất định.
+- **P-C:** `_resolve_cron_enabled_toolsets` ưu tiên per-job > `platform_toolsets.cron` > mặc định, `agent.disabled_toolsets` phủ lên trên; đọc cấu hình lỗi ⇒ **từ chối run**. `hermes cron create/edit` **không có cờ `--toolset`**. ⇒ confinement làm bằng cấu hình, **không cần profile thứ hai** ở Phase 1.
+- **Tám đề nghị sửa PROMPT:** (1) G0.1 ghi rõ mọi nhánh lỗi của gate in `{"wakeAgent": false}` + bọc `timeout`; (2) **G0.2 thêm phép đo: relay có đòi vé riêng không hay tự gắn khoá hộ mọi tiến trình loopback** — nếu là proxy mở thì "bỏ khoá khỏi env Hermes" chỉ là hình thức; (3) C sửa câu chữ approval theo P-B và nêu `platform_toolsets.cron`; (4) luật tái-vũ-trang khi wake xong worker chết trước claim; (5) dedupe theo `assignment_id` trước, SHA chỉ là điều kiện phụ (nếu không, chính commit claim của Hermes làm nó tự thức lần hai); (6) khai `mcp_servers` phải restart gateway ⇒ Owner mất Telegram, cần hẹn giờ + rollback + báo trước; (7) nói thật giới hạn STOP-DISPATCH (script gate nằm trong thư mục user `hermes` ghi được) và các job `--no-agent` cũng phải kiểm cờ trước khi gửi; (8) thêm N1–N8 vào nghiệm thu.
+- Áp: SAME_COMMIT
+- Host response: —
+
+### P08 · Claude Chat · OPEN — REVIEW `PROMPT.md` HJW.2B theo A5/A6 (không mở lại design)
+- Based_on: HEAD `71b3583`; rà nội dung `PROMPT.md` phiên bản `3a623796556575a0`.
+- **A6 đạt:** có RUN_ID, checkpoint READY@SHA trước mutation, điều kiện DỪNG, backup/rollback, cấm secret vào repo, một dòng XONG/DỪNG cho Owner. Scope Phase 1 đúng D10. **Không mở lại thiết kế; F2 theo ruling của Host.**
+- **Kiểm chứng độc lập (Claude tự tải mã nguồn công khai `NousResearch/hermes-agent`, không dựa vào lời kể):** P-A đúng từng chữ (`cron/scheduler_prompt.py:21–35`, docstring ghi "Any other output … means wake the agent normally"); P-B đúng (`cron/scheduler.py:~3497–3506` xoá ba biến presence, kèm chú thích lý do); P-C đúng (`cron/scheduler.py:463–487`, comment nêu chính rủi ro "unreadable restriction would hand an unattended job the full default set" ⇒ raise/từ chối run); timeout script 3600s đúng (`cron/AGENTS.md`). **Một điểm P07 chưa chính xác:** `cron/AGENTS.md` nói phiên cron dùng `skip_memory=True` nhưng `cron/scheduler.py:~2407` truyền `skip_memory=False` ⇒ **không được giả định lượt tự động không ghi memory**; đo một lần trong nghiệm thu (JEV `0.88` cho việc đáng đo).
+
+| # | Sửa ở đâu | Sửa gì | Vì sao | Chặn READY |
+|---|---|---|---|---|
+| 1 | G0.3 + C (gate) | Mọi nhánh lỗi của script gate (mạng hỏng, timeout, parse lỗi, không ra SHA) phải in `{"wakeAgent": false}` ở **dòng stdout cuối**; bọc `timeout ≤20s` cho `ls-remote` | Câu "fail closed" hiện không khớp hành vi thật: im lặng hoặc lỗi = **WAKE**. Viết ẩu ra gate fail-open mà tưởng đã an toàn | **Có** |
+| 2 | C (approval) | Thay "gặp thao tác cần approval ⇒ blocked" bằng: hàng rào **tất định** = `platform_toolsets.cron` (+ `agent.disabled_toolsets`), không có cờ `--toolset`, không tồn tại đường phê duyệt trong lượt cron. Giữ nguyên cấm auto-approve cho phiên tương tác | Viết như cũ, executor đi tìm cơ chế không tồn tại rồi có thể kết luận "không enforce được ⇒ DỪNG" nhầm | **Có** |
+| 3 | C (vòng đời) | Luật tái-vũ-trang: ghi sổ lần wake; quá 15 phút chưa `claimed` **và** HEAD không đổi ⇒ đúng **1** lần thử lại; quá nữa ⇒ `blocked` + Telegram | "Mỗi assignment chỉ wake một lần" + worker chết trước claim = kẹt vĩnh viễn | **Có** |
+| 4 | C (dedupe) | Khoá dedupe = `assignment_id` + `state`; SHA chỉ là điều kiện phụ | Commit `claimed` của chính Hermes làm đổi HEAD ⇒ tự đánh thức vòng hai, đốt token | **Có** |
+| 5 | C (trần 24 wake/24h) | Trần phải bền (ledger trên đĩa), không đếm trong bộ nhớ tiến trình | Restart là reset trần ⇒ trần vô hiệu đúng lúc cần nhất | **Có** |
+| 6 | B (khai `mcp_servers`) | Ghi rõ đây là mutation có gián đoạn (restart gateway/serve ⇒ Owner mất Telegram vài phút): báo Owner một dòng trước, không làm khi Owner đang dùng, rollback = bản sao `config.yaml` + `hermes cron pause` | Luật Owner: không để agent tự quyết việc dừng/khởi động lại dịch vụ đang chạy (JEV `0.78`) | **Có** |
+| 7 | E (STOP-DISPATCH) | Ghi thật giới hạn: script gate nằm trong `~/.hermes/scripts/` do user `hermes` ghi được ⇒ cờ chống **agent đi sai chính sách**, không chống user `hermes` đã bị chiếm; các job `--no-agent` (nhắc lượt, canh RUN treo) cũng **phải kiểm cờ trước khi gửi Telegram** | Không có vế sau thì "dừng tự động" vẫn nhắn tin cho Owner; vế trước tránh tuyên bố bảo vệ quá mức | **Có** |
+| 8 | G0.2 (relay) | **Thêm phép đo**, không thêm điều kiện DỪNG mới: relay đòi vé riêng hay tự gắn khoá hộ mọi tiến trình loopback. Nếu là proxy mở ⇒ vẫn tiếp tục (mục tiêu "khoá ra khỏi env Hermes" vẫn đạt) nhưng **ghi thành rủi ro có văn bản** trong `view.html`, kèm hai hướng siết cho phase sau: UNIX socket 0600 `hermes`, hoặc vé client riêng | Hermes nêu đúng vấn đề, nhưng đóng cửa loopback là việc lớn hơn Phase 1. JEV `0.36` cho việc biến nó thành điều kiện chặn | Không |
+| 9 | NGHIỆM THU | Thêm N1 mạng hỏng ⇒ 0 wake · N2 kill worker trước claim ⇒ đúng 1 lần thử lại · N3 HEAD đổi vì chính commit claim ⇒ không wake lần hai · N4 tool ngoài allowlist ⇒ **không tồn tại trong schema** + lưu danh sách tool thật · N5 làm `platform_toolsets.cron` không đọc được ⇒ run bị từ chối · N-mem: sau một lượt tự động, kiểm có ghi memory không | Đều là phép thử rẻ, biến các chốt trên thành đo được thay vì niềm tin | Nên gộp |
+
+- **Không sửa, ghi nhận:** `Report_Write_Path = fs_*` là lựa chọn đúng — GSM-A1 vừa cho thấy `workspace_*` bị từ chối nhiều lần khi repo bận. Giữ nguyên Gate 0 → A–E, giữ 4 nhóm job, giữ cấm webhook/port 8644.
+- **Kết luận:** PROMPT đúng về kiến trúc và phạm vi; bảy mục trên là câu chữ hoặc thêm dòng, không đổi thiết kế. Host sửa xong thì **tự ghi `READY@<SHA>`**, Claude không cần thêm vòng — trừ khi scope Phase 1 thay đổi.
+- Áp: SAME_COMMIT
+- Host response: —
 
 ## Owner cần quyết
 - — Chưa có. HJW-O01 đóng theo D10: Owner quản ngân sách bằng thẻ nạp ngoài phạm vi HJW.
