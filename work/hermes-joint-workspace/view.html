@@ -20,9 +20,9 @@ small{color:#666}
 <h1>Hermes Joint Workspace</h1>
 <p><span class="tag">HOST REVIEW</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Host: GPT Chat</span><span class="tag">Chưa chạm production</span></p>
 
-<div class="box"><strong>Anh cần quyết hôm nay:</strong> không có. D10 đã đưa ngân sách ra ngoài HJW. P04 đã được Host xử lý; <strong>HJW.2A đã đồng thuận xong</strong>. Còn đúng một blocker: kết quả audit GSM-A1 để chốt secret path trước HJW.2B.</div>
+<div class="box"><strong>Anh cần quyết hôm nay:</strong> không có cho HJW. GSM-A1 đã XONG; P05/P06 đã được Host xử lý. Secret path đã chốt: ưu tiên relay 6533 để <strong>lấy Agent Data key khỏi môi trường Hermes</strong>. PROMPT HJW.2B đang DRAFT, chờ Claude review execution rồi Host READY.</div>
 
-<div class="bar" id="TIEN-DO"><span class="g">✓ 1 Mở việc</span><span class="now">▶ 2 Thiết kế</span><span>□ 3 Triển khai</span><span>□ 4 Nghiệm thu</span><span>□ 5 Ghi luật/Đóng</span></div>
+<div class="bar" id="TIEN-DO"><span class="g">✓ 1 Mở việc</span><span class="g">✓ 2 Thiết kế</span><span class="now">▶ 3 Chuẩn bị RUN</span><span>□ 4 Nghiệm thu</span><span>□ 5 Ghi luật/Đóng</span></div>
 
 <h2 id="MUC-TIEU">1. Mục tiêu — Owner cập nhật 2026-09-22</h2>
 <ol>
@@ -46,14 +46,14 @@ Claude Chat ──────────────────────�
 <div class="wrap"><table>
 <thead><tr><th>Hạng mục</th><th>GPT Chat</th><th>Claude Chat</th><th>Claude Code</th><th>Hermes</th></tr></thead>
 <tbody>
-<tr><td>Cửa ghi đã audit (D12)</td><td class="g">workspace_*</td><td class="g">fs_*</td><td class="g">workspace_*</td><td class="r">chưa khai</td></tr>
+<tr><td>Cửa ghi đã audit (D12)</td><td class="g">workspace_*</td><td class="g">fs_*</td><td class="g">workspace_*</td><td class="y">relay 6533 sống; chưa khai mcp_servers/chưa live-call</td></tr>
 <tr><td>Đường tới cửa</td><td class="g">ok</td><td class="g">ok</td><td class="g">ok</td><td class="y">relay 6533 đã có; nhãn cũ lưu ý cổng 8000/8080 → đo lại</td></tr>
-<tr><td>Khoá vào cửa</td><td class="y">khoá chung</td><td class="g">riêng</td><td class="y">khoá chung</td><td class="n">chưa biết đã có chưa</td></tr>
+<tr><td>Khoá vào cửa</td><td class="y">khoá chung</td><td class="g">riêng</td><td class="y">khoá chung</td><td class="r">đã phát hiện AGENT_DATA_API_KEY trong env; HJW.2B phải chuyển capability qua relay và bỏ key khỏi Hermes nếu relay PASS</td></tr>
 <tr><td>Biết dùng MCP</td><td class="g">ok</td><td class="g">ok</td><td class="g">ok</td><td class="g">mcp_servers trong config.yaml, HTTP + header</td></tr>
 <tr><td>Nạp luật WS</td><td class="g">ok</td><td class="g">ok</td><td class="g">ok</td><td class="y">mới có AGENTS.md riêng của Hermes</td></tr>
 <tr><td>Tên trong commit</td><td class="g">[GPT]</td><td class="g">[Claude]</td><td class="y">[Claude Code] chưa vào A4</td><td class="n">[Hermes]</td></tr>
 <tr><td>Kênh Owner gọi</td><td class="g">app</td><td class="g">app</td><td class="g">terminal</td><td class="g">Telegram, chạy cả khi gập Mac</td></tr>
-<tr><td>Sống · phiên bản · model · chi phí</td><td class="x">x</td><td class="x">x</td><td class="x">x</td><td class="n">Agent đo ở bước 2</td></tr>
+<tr><td>Sống · phiên bản · model · chi phí</td><td class="x">x</td><td class="x">x</td><td class="x">x</td><td class="g">v0.21.4 đã đo; budget ngoài HJW theo D10</td></tr>
 </tbody>
 </table></div>
 <p><strong>Cộng dồn Hermes:</strong> 1 đỏ (chưa khai cửa) · 2 vàng · 3 xám — không cần xây mới gì.</p>
@@ -69,7 +69,7 @@ Claude Chat ──────────────────────�
 <tr><td>T4 Tên</td><td>Commit của Hermes mang tiền tố <code>[Hermes]</code> và attribution qua gateway đủ phân biệt Hermes trong tín hiệu <code>Vừa làm/Đang làm</code>.</td></tr>
 <tr><td>T5 Gọi</td><td>Anh gõ câu <code>WS …</code> vào Telegram → Hermes đọc AGENTS → COLLAB, làm đúng việc, trả tối đa 3 dòng STATUS · COMMIT · NEXT.</td></tr>
 <tr><td>T6 Chi phí</td><td>Đo được Hermes đang chạy model gì và tốn bao nhiêu mỗi lượt.</td></tr>
-<tr><td>T7 Tự thức</td><td>Khi có assignment máy đọc mới dành cho Hermes, webhook/backstop đánh thức đúng một lần; push không liên quan không gọi LLM Hermes.</td></tr>
+<tr><td>T7 Tự thức</td><td>Phase 1 dùng cron + pre-script deterministic khoảng 2 phút; HEAD/assignment không đổi ⇒ 0 LLM, assignment mới ⇒ wake đúng một lần. Không bật webhook platform ở Phase 1.</td></tr>
 <tr><td>T8 Vượt quyền</td><td>Hermes STOP, ghi blocker và báo Owner qua Telegram; không tự mở scope hay tự vượt gate.</td></tr>
 <tr><td>T9 Secret boundary</td><td>Hermes không giữ quyền GSM rộng/không cần thiết; đường cấp secret tối thiểu, rotation/revoke và failure/compromise được review + test theo threat model.</td></tr>
 <tr><td>T10 Automation value</td><td>Webhook/assignment, scheduler/backstop, API action, retry/dedup và Telegram notification/handoff được thiết kế và nghiệm thu đủ để chứng minh lợi thế always-on thực tế.</td></tr>
@@ -96,12 +96,12 @@ Claude Chat ──────────────────────�
 <tr><td>Giao việc</td><td><code>ASSIGN@</code> nằm trong COLLAB/Git là SSOT. Phase 1 không sửa <code>tasks.json</code>; Hermes đọc trực tiếp tại HEAD xác định. Không xác định được HEAD/freshness → fail closed, không wake LLM.</td></tr>
 <tr><td>Vai trò</td><td>Hermes có thể Agent/Reviewer/Host; Host chỉ Owner giao, Agent chỉ chạy khi có RUN hợp lệ + READY đúng SHA.</td></tr>
 <tr><td>Bảo mật</td><td>Giữ cả 2 threat level: user/process Hermes bị chiếm và toàn VPS/root bị chiếm. User Hermes không có GSM credential; root/VPS IAM vẫn phải tối thiểu theo từng secret và chờ GSM-A1.</td></tr>
-<tr><td>Secret</td><td>Ưu tiên relay Agent Data hiện có giữ token phía server; relay lỗi thì fail closed, không tự fallback public. Ngân sách/OpenRouter cap nằm ngoài HJW theo D10; read-gate chỉ xác định nguồn key và ảnh hưởng rotation/revoke tới JEV.</td></tr>
+<tr><td>Secret</td><td>GSM-A1: Hermes chỉ fetch lúc start, access 0 USD. Relay 6533 phải giữ Agent Data credential ngoài user/process Hermes; nếu relay không isolation được thì DỪNG, không hạ chuẩn. OpenRouter/Telegram tiếp tục tmpfs root→Hermes; ngân sách ngoài HJW.</td></tr>
 <tr><td>Dừng</td><td><code>hermes pause</code> = STOP-AUTO. Root flag = STOP-DISPATCH cho các đường HJW đã bọc/gate. Không gọi nó là hard kill cho tới khi test mọi entry path. HARD-STOP thực sự = root/operator dừng gateway/service và nghiệm thu không có run mới.</td></tr>
-<tr><td>SLA</td><td>Webhook bình thường: claim mục tiêu ≤5 phút. Chế độ degraded chỉ còn backstop 15 phút: mục tiêu ≤20 phút. Bản tin sáng ghim <code>Asia/Ho_Chi_Minh</code>.</td></tr>
+<tr><td>Trigger / approval</td><td>Phase 1 cron-gate ≤5 phút; automated profile deny-by-default, capability tối thiểu, không terminal/root/destructive; lệnh cần approval ⇒ blocked + Telegram, cấm auto-approve.</td></tr>
 </tbody>
 </table>
-<p><strong>Còn 1 gate:</strong> <code>KQ@GSM-A1-20260922-01 XONG</code> để chốt secret path/IAM. Ngân sách đã ra ngoài HJW theo D10.</p>
+<p><strong>Gate GSM đã mở.</strong> HJW.2B chỉ còn review/READY của PROMPT execution. Kuma được giữ độc lập với Hermes; secret-redaction chỉ test bằng canary giả, không in secret thật.</p>
 
 <h2 id="KHONG-LAM">7. Không làm ở vòng này</h2>
 <ul>
@@ -112,6 +112,6 @@ Claude Chat ──────────────────────�
 </ul>
 
 <h2 id="DIEU-KIEN">8. Điều kiện chuyển sang làm</h2>
-<p>HJW.2A đã đồng thuận. Chưa RUN: phải có <code>KQ@GSM-A1-20260922-01 XONG</code>. Sau đó Host hoàn tất secret design, tạo PROMPT HJW.2B với read-gate 6 mục (version Hermes · đọc COLLAB tại HEAD · relay/workspace · Kuma · nguồn OpenRouter/rotation coupling · entry-path/STOP coverage), READY đúng SHA rồi Owner/GPT Chat truyền RUN.</p>
+<p>HJW.2A + GSM gate đã xong. <code>PROMPT.md</code> HJW.2B đang DRAFT: Claude review đúng prompt execution → GPT Host ghi READY đúng SHA → Owner/GPT Chat truyền RUN. Không mở lại vòng thiết kế.</p>
 </body>
 </html>

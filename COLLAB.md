@@ -6,7 +6,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 ## Handoff phiên mới · 2026-09-23
 - **Nguồn chuẩn:** đọc `AGENTS.md` → root `COLLAB.md` → `COLLAB.md` của đúng việc. Không dựa vào lịch sử chat cũ nếu Git đã có trạng thái mới hơn. Tài liệu/workspace = GitHub SSOT; runtime = VPS SSOT.
 - **Ưu tiên 1 · VPSC** — `work/vps-clean-20-9-26/` · Host Claude. Hiện `R4b` đã `OWNER_APPROVED + READY` với RUN_ID `VPSC-R4B-20260923-01`, PROMPT_SHA `fbb28bb85969ebdedf683e557ce134686fdbbde7`. Mục tiêu khép việc clean: dọn dấu SEC-01 còn lại sau khi xác nhận credential cũ chết; báo image hằng ngày chỉ-read; sửa failed services được nêu; đổi timezone VPS sang `Asia/Ho_Chi_Minh` nhưng giữ nguyên **thời điểm chạy thật** của lịch. NEXT: Owner RUN R4b → Codex V3 sau một đêm trigger thật → VPSC.6 theo dõi/đóng. Không mở lại audit nguyên nhân đĩa.
-- **Ưu tiên 2 · GSM** — `work/gsm-access-audit/` · Host Claude. Mục tiêu: tìm caller/tần suất Google Secret Manager và tồn kho version; phân biệt phí access với phí storage. PROMPT `GSM-A1-20260922-01` chỉ-read đã `READY@e1b4b36d1ed8b38215ac4dae9900ddfb53d03edd`; NEXT: Owner/GPT phát RUN cho Claude Code CLI. Không mutation GSM ở vòng này.
+- **Ưu tiên 2 · GSM** — `work/gsm-access-audit/` · Host Claude. GSM-A1 **XONG** commit `0bdbe6b`: 167 access/30 ngày = 0 USD, 41 version ≈ 2,10 USD/tháng; không rỉ máu. Hai quyết định dọn version/Lark thuộc GSM, không chặn HJW.
 - **Ưu tiên 3 · HJW** — `work/hermes-joint-workspace/` · Host GPT. Đang ở HJW.2A DESIGN; tiếp tục theo `COLLAB.md` của việc sau khi hai việc trên không còn chặn. Không tự suy từ chat cũ.
 - **Quy ước Google:** không tạo thêm Google Cloud project/service. Project còn giữ là `github-chatgpt-ggcloud`; Google không phải runtime/SSOT. Drive chỉ là offsite backup; GSM là secret store cho tới khi có quyết định khác.
 - **Cửa vào phiên mới:** `WS gốc · Host GPT · tiếp quản phiên 2026-09-23 · đọc AGENTS.md → COLLAB.md · làm theo mục Handoff phiên mới; trước khi thao tác một việc phải đọc COLLAB.md của việc đó.`
@@ -14,12 +14,12 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
 - `work/mcp-token-argv/` · SECURITY · Host Claude · loại Bearer token khỏi argv của lark-crud-gateway/mcp-remote; migrate secret + rotate + smoke; không chặn HVU.
-- `work/hermes-joint-workspace/` · HJW · Host GPT · **HJW.2A CONSENSUS CLOSED**; gate GSM-A1 đã mở (KQ tại `0bdbe6b`). P05 (Hermes tự đo read-gate) + P06 (Claude kiểm chéo) chờ Host đánh giá trước khi soạn HJW.2B; chưa RUN production.
+- `work/hermes-joint-workspace/` · HJW · Host GPT · HJW.2A + GSM gate đã xong; P05/P06 Host xử lý. Secret path ưu tiên relay để bỏ Agent Data key khỏi Hermes. `PROMPT.md` HJW.2B **DRAFT**, chờ Claude review execution → GPT READY; chưa RUN.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/hpml-view-for-user/` · HVU-DEEPLINK01 · mở lại 23/09 để làm URL deep-link theo tab/section/step/detail; DRAFT/NO RUN, runtime VPS tách khỏi MMIM.
 - `work/muc-tieu-3-phan/` · MT3 · Host Claude · chuẩn hoá §0 thành ba phần (Mục tiêu / Thế nào là hoàn thành / Chi tiết) trên GitHub + view; PROMPT `MT3-20260923-01`, Executor Codex.
-- NEXT: HJW: Host đánh giá P05 + P06 → chốt secret path theo KQ GSM-A1 → soạn HJW.2B PROMPT/READY/RUN. Không mở thêm vòng thiết kế.
+- NEXT: HJW: Claude review riêng `work/hermes-joint-workspace/PROMPT.md` (không mở lại design) → GPT Host xử lý review/READY đúng SHA → RUN HJW.2B.
 
 ## Đã xong
 - Archive: `work/done-tasks/` · vị trí folder là trạng thái Done (DROOT11); tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
