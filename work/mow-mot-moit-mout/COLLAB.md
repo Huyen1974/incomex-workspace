@@ -2,9 +2,9 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 - Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
-- Nhiệm vụ/phạm vi hiện tại (Owner 23/09/2026): tổ chức kho tham khảo nhẹ nhất nhưng truy được nguồn; dọn phần cũ/trùng, dùng link VPS cho UI đang chạy, dùng link commit cố định cho tài liệu thiết kế/bằng chứng chưa có bản tương đương đã xác minh trên VPS. Không đưa ảnh, không nhập cả lô Office/backup; giữ nguyên Mac và HTML chính.
-- Tiêu chí xong: bốn file mục lục/metadata thay kho 888 bản chép ở cây hiện tại; nguồn quan trọng truy được qua link/hash/lịch sử; kiểm link VPS, không mất nguồn Mac/HTML chính, báo đúng dung lượng cây và giới hạn lịch sử Git.
-- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D15 của việc này.
+- Nhiệm vụ/phạm vi hiện tại (Owner 23/09/2026): thêm tab “List quy trình” vào HTML chính; tạo vỏ bảng trống theo thứ tự Field → Form (MOUT, MOIT) → MOT → MOW. Mỗi bảng có STT, Mã Bước, Tên Bước, Nội dung, Tổng Số trường cần khai (gồm nút bấm), Số trường cần config, Check UI. Chưa điền bước, số đếm hoặc bảng con; giữ nguồn Mac chỉ đọc.
+- Tiêu chí xong: tab List quy trình mở được, đủ bốn mục và năm bảng trống với bảy cột; UI Master và Quy trình tiếp tục hoạt động; không tự bổ sung nội dung nghiệp vụ.
+- Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này.
 
 Host: GPT Chat · Host_ID: GPT-MMIM-260920-A · Owner giao: 2026-09-20
 HTML chính: `mow-mot-moit-mout.html`
@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | LIGHTWEIGHT_REFERENCE_COMPLETE · 23/09/2026 | Đã loại đúng 888 file reference/ khỏi cây hiện tại, giữ bốn file mục lục/metadata và toàn bộ lịch sử. 888/888 hash nguồn lưu PASS; HTML chính nguyên vẹn. Xem information/README.md.
+MMIM | LIST_PROCESS_SHELL · 23/09/2026 | Thêm tab List quy trình: Field, Form/MOUT, Form/MOIT, MOT, MOW; năm bảng trống, mỗi bảng bảy cột. Kho tham khảo nhẹ đã hoàn tất trước đó. · Áp: SAME_COMMIT.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -34,6 +34,8 @@ MMIM | LIGHTWEIGHT_REFERENCE_COMPLETE · 23/09/2026 | Đã loại đúng 888 fil
 - D14 · 2026-09-23 · Owner yêu cầu dọn cũ/trùng, không thiếu nguồn nhưng nhẹ nhất và ít tốn token; UI thiết kế đã có trên VPS chỉ giữ link, có thể tham khảo JEV. Hủy đề nghị upload lô 97 Office ở Q01. Bản nguyên gốc được tra qua commit cố định, không gom vào archive khác trong repo. Không đổi HTML chính/Mac/VPS hoặc rewrite lịch sử. · Áp: SAME_COMMIT.
 
 - D15 · 2026-09-23 · Owner: “Đồng ý cho ngoại lệ. Làm cho gọn trên Git nhưng không miss thông tin quan trọng đã làm là được”. Chấp thuận Q02: dùng Git trực tiếp một lần để xóa đúng 888 file `information/reference/**`, cập nhật mục lục/COLLAB, commit/push thường; giữ HTML chính, nguồn Mac, VPS và lịch sử Git. · Áp: SAME_COMMIT.
+
+- D16 · 2026-09-23 · Owner yêu cầu thêm tab “List quy trình” và vỏ bảng, đi từ Field → Form (MOUT, MOIT) → MOT → MOW, đủ bảy cột đã nêu ở A0. Đây là lượt sửa HTML mới sau thu thập/dọn kho, không còn áp dụng yêu cầu giữ nguyên hash HTML của lượt MMIM.2 cho thay đổi được giao này. Không điền sẵn quy trình; không sửa Mac hoặc runtime. Executor_Surface=Codex; Write_Path=workspace_transaction, read-gate workspace_stat PASS. · Áp: SAME_COMMIT.
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
@@ -91,5 +93,8 @@ Claude REVIEWED@2d673a370a030e2b679d161132cb908f897b9503 · **ACCEPT có điều
 - Đã xóa chính xác: 888 file/87.874.934 bytes dưới `information/reference/`. Xóa cây không thu hồi lịch sử Git; không hứa giảm dung lượng lưu GitHub tương ứng. Ở thời điểm rà, clone local báo object rời 4,49 MiB + pack 10,71 MiB; API GitHub trả size 1.824 KiB có thể cập nhật chậm, không dùng làm số tiết kiệm.
 - Bốn file chỉ dẫn/metadata đã thay bằng bản gọn; hoàn tất xóa theo D15. Kiểm trước xóa: 888/888 file khớp manifest SHA-256, blob hiện tại bằng blob lịch sử; 11/11 nguồn Mac được chọn khớp SHA. HTML chính khớp SHA đầy đủ ghi ở đầu hồ sơ. Không chuyển rác sang archive trong repo. · Áp: SAME_COMMIT.
 
+## Kiểm tra tab List quy trình
+- Bản xem thử trên trình duyệt: mở đúng tab bằng hash và nút; đủ Field, Form/MOUT, Form/MOIT, MOT, MOW, bảy cột và ba hàng trống mỗi bảng. Chuyển sang Quy trình và UI Master hiển thị đúng nội dung cũ. Bảng cuộn ngang trên màn hình hẹp. Chưa có dữ liệu để đánh Check UI; không thêm lưu dữ liệu hoặc bảng con. · Áp: SAME_COMMIT.
+
 ## NEXT
-- Lượt dọn kho hoàn tất. Khi cần tham khảo, đọc information/README.md rồi mở đúng link VPS/nguồn lịch sử. P01 vẫn chờ Owner; không mở rộng trong lượt này.
+- Cùng Owner đi từng bước để điền List quy trình; chưa tự khai bước, số trường hoặc đánh Check UI. P01 vẫn chờ Owner, không tự chốt mục tiêu rộng.
