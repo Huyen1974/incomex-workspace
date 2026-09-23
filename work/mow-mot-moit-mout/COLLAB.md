@@ -401,6 +401,18 @@ P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt 
 - RUN: **CHƯA PHÁT**. Khi RUN chỉ dùng RUN_ID `MMIM-FIELD01-20260923-01`.
 - Không RUN SCALE01 trong cùng lượt.
 
+## KQ · MMIM.FIELD01 · Claude Code CLI
+KQ@MMIM-FIELD01-20260923-01 XONG
+- RUN_ID `MMIM-FIELD01-20260923-01` · Executor_Surface Claude Code CLI · Write_Path `fs_*` (read-gate `fs_stat`/`fs_read` PASS; ghi bằng `fs_transaction` — PROMPT §6 viết `workspace_transaction`, đây là tool giao dịch cùng family `fs_*` mà §0 chỉ định). Commit này: SAME_COMMIT.
+- Gate: READY@`7aaa8b61d65eeccd5341a415eaf533a2096455fe` = commit cuối chạm `PROMPT.md` (`fs_log` + `fs_diff` full SHA) · HTML SHA trước khớp baseline.
+- HTML SHA-256 trước `e5432de39716c761fea7d6ab11692791b404b494e13d36edb655ad29c6b26422` (1.836.178 B) → sau `d66e2f5475f9bf6c7bea32ee832dc73a3f97c2e8114bc47e47a5b93c3573fe73` (1.870.469 B) · delta +34.291 B.
+- field_rows=8 · detail_blocks=8 · records=112 · filled=47 · evidenced=47 · unknown=41 · na=24 · ui_ok=0.
+- UI_state: S01 `UI_CAN_SUA` · S02 `UI_CAN_SUA` · S03 `UI_CAN_SUA` · S04 `KHONG_CAN_UI` · S05 `KHONG_CAN_UI` · S06 `CHUA_RA` · S07 `CHUA_RA` · S08 `UI_CAN_SUA`.
+- Nguồn đã dùng (mã trong HTML `#step-evidence-field`): `UI-018`, `UI-021`, `UI-022` (danh mục UI con + đọc trực tiếp UI-018/UI-022 bằng `ui_inspect` ngày 23/09) · `MT-FIELD` (ô ma trận FIELD.*) · `MAP-R3` · `JEV-LC` · `JEV-F01` · `PROMPT-FIELD01`.
+- JEV lượt này `gen-dec-1790137102-wBtdlo8F0q8Ck2N53WDm`: S03 manual_count để trống 0,75 · S06 CHUA_RA 0,40 · S08 UI_CAN_SUA 0,65 · S07 chia đôi (UI_CAN_SUA 0,51 / CHUA_RA 0,47) → Agent chọn `CHUA_RA` cho khớp ô ma trận `FIELD.5.UI.TEST = ?`. Cả hai cột tổng của 8 bước để trống (S04/S05 = `x`).
+- Acceptance: 1 PASS (SHA/delta ở trên) · 2 PASS (tbody FIELD = 8 tr) · 3 PASS (MOUT/MOIT/MOT/MOW giữ 3 hàng trống) · 4 PASS (FIELD.S01..S08) · 5 PASS (`step-detail-field-s01..s08`, mỗi ID duy nhất) · 6 PASS (cột 7 cả 5 bảng = `Trạng thái UI`) · 7 PASS (0 `UI_OK`) · 8 PASS (47 = 47; unknown 41) · 9 PASS · 10 PASS (diff chỉ 3 vùng: `#process-list-shell-style` +2 dòng CSS, `#step-quy-trinh-quy-uoc`, 4 dòng bảng `list-quy-trinh-*`; kiểm cân thẻ khối Step = 0 lỗi) · 11 `VIEW_PENDING_REVISION` — ghi cùng commit nên chưa thể mở bản mirror mới; Host kiểm sau · 12 PASS (UNKNOWN chỉ `CHUA_RA`, NA chỉ `x`).
+- Để Owner/Host xem khi duyệt FIELD (không chặn): UI-018 «Lưu đề xuất» hiện chỉ lưu trên trình duyệt, UI-022 là dữ liệu minh họa chưa nối PG → S08 chưa có nguồn cho khuôn id/version trả về; nhóm quản lý trong UI-018 là nhóm minh họa. Không chạm deep-link/HVU/VPS, không làm SCALE01.
+
 ## Giao Agent — lịch sử prompt MMIM.2 trước yêu cầu mới 23/09
 - READY@`7d8e1df9e50cfdd5a4b7cfaf8c66cad9343e26f3` → **HẾT HIỆU LỰC** vì Host đã sửa `PROMPT.md` sau I02.
 - **NO RUN** theo D10. Chờ Claude review bản prompt mới và H01–H03.
