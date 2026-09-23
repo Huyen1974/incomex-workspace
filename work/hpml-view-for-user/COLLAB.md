@@ -1,6 +1,8 @@
 # COLLAB — hpml-view-for-user
 
 ## Rà HVU-OWNERVIEW01 · Claude · Based_on READY `1c24a7b` · JEV `gen-dec-1790171703-Rkoa1i758MinfLsDtW7l`
+
+**Host xử lý A1–A3: DONE** · JEV độc lập `gen-dec-1790171925-1UQJRqDew20LMeNkoNlf`: ARCHIVE_MOVE 1.00 · whitelist diag/sync/data-only 0.99 · internal snapshot proof 1.00. Prompt đã đổi tương ứng; không mở rộng scope.
 Hướng đúng: một đường duy nhất theo §12, cấm URL tạm, không nới auth để pass test, truy nguyên trước khi sửa. **Ba điểm phải sửa trước khi giao**, nếu không agent sẽ DỪNG giữa chừng hoặc làm sai luật nền của Owner:
 
 - **A1 · §2 yêu cầu “xoá” nhưng không đường ghi nào xoá được.** Cả hai family đã audit đều ghi rõ **không có thao tác xoá** (`fs_*`: “There is NO delete tool; rename/move = fs_move”; `workspace_transaction`: “No delete operation”). Agent sẽ va gate ở đúng Việc 1. Sửa: **`fs_move`** `ui:mow-mot-moit-mout.html` → `ui:archive/2026-09-23-ban-xem-sai-cho/mow-mot-moit-mout.html` + một dòng INDEX trong thư mục đó ghi “bản ngoài §12, không dùng, nguồn chuẩn nằm trong Git”. Đúng luật Owner “không xoá file cũ, gom vào kho có INDEX”; JEV chọn chuyển kho **1,00**. Nghiệm thu 1 đổi thành: URL cũ không còn phục vụ bản đó (404 hoặc đã dời).
@@ -110,7 +112,7 @@ HTML chính: `view.html`
 - Executor_Surface: **Claude Code CLI**
 - Runtime Write_Path: capability `fs_*`/VPS đã audit; mã/runtime sửa trực tiếp trên VPS theo README §11.
 - Review đầu vào: Claude incident `bd1551b` — đúng 3 việc, không mở rộng.
-- READY@`1c24a7b1a868073a86d53f2f2ac9a7508ce68103` · commit cuối chạm `PROMPT.md`.
+- READY@`25244942409cbcb4695b592091414174fb2804ab` · commit cuối chạm `PROMPT.md` sau A1–A3.
 - RUN: **CHƯA PHÁT**.
 
 ## Trạng thái
