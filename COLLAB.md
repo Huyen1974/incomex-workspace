@@ -14,10 +14,10 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
 - `work/mcp-token-argv/` · SECURITY · Host Claude · loại Bearer token khỏi argv của lark-crud-gateway/mcp-remote; migrate secret + rotate + smoke; không chặn HVU.
-- `work/hermes-joint-workspace/` · HJW · Host GPT · P03 đã xử lý PARTIAL; HJW.2A chốt có điều kiện. Còn gate GSM-A1 + Owner chốt hard cap OpenRouter trước HJW.2B; chưa RUN production.
+- `work/hermes-joint-workspace/` · HJW · Host GPT · P03 PARTIAL đã xử lý, P04 cắt phạm vi chờ Host ghi nhận. Còn **một** gate: KQ GSM-A1 (HJW-O01 đóng theo D10 — Owner quản ngân sách ngoài); chưa RUN production.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
-- NEXT: HJW: lấy KQ GSM-A1 → chốt secret path; Owner quyết hard cap OpenRouter (đề xuất 10 USD/tháng) → GPT Host soạn HJW.2B PROMPT/READY/RUN.
+- NEXT: HJW: Host ghi nhận P04 → lấy KQ GSM-A1 → chốt secret path → GPT Host soạn HJW.2B PROMPT/READY/RUN.
 
 ## Đã xong
 - Archive: `work/done-tasks/` · vị trí folder là trạng thái Done (DROOT11); tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
