@@ -4,6 +4,99 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## R5b — Tiếp nối: B5 + KEEP_SET v2 · 23/09/2026 · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=fs_* (gh) · KQ CHỜ DUYỆT · F1
+
+RUN_ID `VPSC-R5B-20260924-01` · PROMPT@`80ea8339852743b61d63239ca012b993f38bad86`. Cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã; đọc AGENTS → COLLAB (A0 vòng 2, D08, D10–D13, P18–P27) → PROMPT → BAO-CAO mục R5. Chạy 08:28Z–. Chế độ phiên: auto-mode (không phải `--dangerously-skip-permissions`); không lệnh nào bị chặn. NO_CONCURRENT_VPS_MUTATION đạt ở đầu mỗi phần. Tệp R5 dùng lại (`12-daemon.json.B` `f0c9c4a7…`, bản A `3ceba3d8…`) khớp sha256 BAO-CAO R5.
+
+### (1) CHO OWNER
+- **Build cache đã có trần 5GiB hiệu lực**: restart Docker 1 lần lúc 09:33Z (11 giây), 12 dịch vụ không khởi động lại (StartedAt không đổi), web/Directus/Qdrant/Kuma/Drive bình thường; cron tạm dừng 70 giây, mỗi job chỉ lỡ tối đa 1 lượt.
+- **Luật giữ image mới (KEEP_SET v2) đã cài, đang ở chế độ chỉ lập kế hoạch**: giữ image đang chạy + chuỗi triển khai/rollback đang dùng + 2 bản gần nhất mỗi dịch vụ + mọi image dưới 30 ngày; bản sao `.bak`/ghi chú cũ không còn giữ image mãi mãi. Trần: 38 ≤ 72 ImageID.
+- **Chờ Host duyệt xoá**: 9 image / 12 tag cũ (tháng 3–7/2026, ~7,2 GB danh nghĩa, thu thật ít hơn vì lớp dùng chung), sha256 `3c900eff0cd923dc4cbd228da61616583a0fb1f3b369183cf4edd8bee57051c0`.
+- Owner/Host quyết giữa chừng: cổng B5.2(c) áp theo mục đích (D14) vì timer 15 giây/5 phút làm nghĩa đen không bao giờ đạt.
+
+### (2) B5 — `BUILD_CACHE = BOUNDED · 5GiB · đã nạp qua restart`
+| Bước | Kết quả |
+|---|---|
+| B5.1 | `12-daemon.json.B` sha256 `f0c9c4a7…` khớp R5; `dockerd --validate` OK; `daemon.json` hiện hành = bản A `3ceba3d8…`; `LiveRestoreEnabled=true` |
+| Cổng (c) | Theo nghĩa đen không bao giờ đạt (timer `incomex-hvu-presence` 15s; `config-drift-check`, `jev-gw-health`, `mcp-writes-git-snapshot` 5'). Agent hỏi Owner (JEV `gen-dec-1790153060-sNkGtNXzmvBpvqHMBYBT`: purposive 0,61 / literal 0,24 / ask 0,15, conf 0,40); Owner + Host chọn theo mục đích → **D14** (`a54f269`) |
+| B5.2 | Bộ kiểm `cua-so-v2.py` (chỉ đọc): cron mọi user + `/etc/crontab` + `/etc/cron.d` — job chu kỳ ≤10' chỉ được lỡ ≤1 lượt trong 100s tạm dừng, job chu kỳ >10' không rơi trong 15'; timer `/etc/systemd/system` chu kỳ >10' / Persistent gọi Docker không đến hạn trong 10'; không job gọi Docker đang chạy (gồm `collect-workspace-status` mỗi phút), không timer đang chạy, không khoá người gác, NO_CONCURRENT. Script khởi chạy 09:21Z, **cửa sổ đạt 09:33:02Z** (sau `mcp-writes-perms` 11:32, trước `hvu-sync` 11:45 giờ máy) |
+| B5.3 | Chụp trước (12 container + StartedAt + health, cổng nghe, unit failed, Qdrant green 20.187) → `systemctl stop cron` → dòng kế tiếp `trap 'systemctl start cron; systemctl is-active cron' EXIT INT TERM` → không còn job cron chạy dở, NO_CONCURRENT OK → cài bản B (sha khớp) → **`systemctl restart docker` 1 lần** 09:33:10Z, rc=0, 11s; dockerd PID 139448 → 1210037 |
+| B5.4 | Kiểm đạt sau 70s: docker active; `LiveRestoreEnabled=true`, 29.2.1; **12 container, trạng thái/StartedAt/health trùng từng dòng bản chụp**; web 200; Directus ok; Qdrant green 20.187; cổng nghe trùng; Kuma running/healthy; `incomex-kuma-push` active (bị restart theo `Requires=docker`, thành công); `kuma-push.sh cron|disk` rc=0; `rclone lsf` rc=0; journal dockerd mới 0 dòng error/fatal/panic (0 warning); không unit mới failed (D14 không phải dùng) → `systemctl start cron` → active 09:34:20Z; **tạm dừng cron 70s** |
+| Sau | Job mỗi phút (`phai-cu/cron.sh`, `collect-workspace-status`) lỡ đúng lượt 11:34, chạy lại 11:35→11:41 (7/7); `*/5` (test-mcp-connectivity, dot-apr-exec, env-permissions-guard) và `5/7/9-59/10` `docker exec postgres` chạy bình thường 11:35/11:37/11:39 (log cập nhật); kuma-push `*/10` 11:40 chạy; timer dày: hvu-presence, config-drift-check, jev-gw-health, mcp-writes-git-snapshot, hvu-sync đều `Result=success` sau restart |
+
+Ghi chú: `test-mcp-connectivity` báo "8 PASS, 1 FAIL (Claude KB route)" — **đã có từ trước B5**, lặp y hệt ở mọi lượt trước 11:33; không do lượt này.
+
+### (3) KEEP_SET v2 — luật (l) mới cài ở chế độ thử (`L_XOA=0`)
+**Cài:** `scripts/vps-retention.sh`, git cục bộ `/opt/incomex` `a84d991 → 7d725f6`; chỉ thay phần (l) (khối chú thích (l), công tắc `L_XOA`, thân Python `PY_L`); phần còn lại trùng từng byte (sha256 toàn script sau khi bỏ khối (l): bản trước = bản sau = `c23274ad…`). `bash -n` đạt. Lượt Chủ nhật 02Z với `L_XOA=0` chỉ lập kế hoạch + ghi 1 dòng log, không xoá.
+
+**KEEP_SET v2 = (1) ∪ (2) ∪ (3) ∪ (4)** theo ImageID:
+- (1) image của mọi container (chạy + dừng).
+- (2) ACTIVE_ROLLBACK_SET = image resolve từ **chuỗi đang hoạt động**: tệp compose lấy từ nhãn của container đang tồn tại + `.env` của project đó (`docker compose … config --images` sau nội suy + dòng `image:` chữ cố định; **comment trong compose không tính**); Dockerfile mà `build:` của compose sống trỏ tới; script deploy/rollback trong thư mục project (không đệ quy, bỏ tên dạng bản sao `.bak/.pre/.orig…`, bỏ `Dockerfile.*` không được dùng) + tệp mà script đó đọc (con trỏ/manifest); unit incomex trong `/etc/systemd/system` (bỏ unit gói OS còn nguyên) + chuỗi `EnvironmentFile`/chương trình `Exec*`/đối số là tệp/lệnh trong `-c`/include (`source`, `.`, `--env-file`, `compose -f`)/đích symlink theo đường dẫn cố định, đệ quy.
+- (3) 2 ImageID khác nhau mới nhất (Created), ngoài (1)(2), trong repository của image đang chạy của mỗi container.
+- (4) ân hạn: mọi ImageID tạo trong 30 ngày.
+- Không phải gốc: bản sao `.bak`/`.BEFORE`/`backups/`, ghi chú rollback (kể cả comment trong compose), tài liệu, bằng chứng, `deploys/` lịch sử, script một lần trong `scripts/` — trừ khi nằm trên chuỗi đang hoạt động.
+
+**5 diễn giải đã áp (D13, P25):** (i) bỏ tài liệu/bằng chứng/mã nguồn trừ tệp trên chuỗi đang hoạt động; (ii) tệp gói OS nguyên gốc trên chuỗi vẫn được quét chuỗi image, và được theo tiếp khi nó có thể gọi Docker/Compose (chứa `docker|compose|containerd|nerdctl|podman`); unit gói OS nguyên gốc bỏ; (iii) `EnvironmentFile=-…` tồn tại → quét; thiếu → không tính unresolved; đường dẫn động/thiếu trên cạnh bắt buộc của chuỗi → unresolved (P22); (iv) tag được tham chiếu mà không còn trên máy = `ABSENT`, liệt kê riêng (`vang_absent`), không tính unresolved; (v) `image:` chữ cố định trong compose xác định chắc (nhãn container / đường dẫn cố định) → resolve theo chữ; có nội suy mà `config --images` lỗi → unresolved.
+
+**Sửa lỗi nhận dạng phát hiện khi chạy dữ liệu thật:** bản nháp đầu báo 1 unresolved — `[ -f "$COMPOSE_MARKER" ] || abort "compose marker missing"` trong `docker/dot-iu-cutter-v0.4-connenv-exec.sh` bị đọc nhầm là `compose -f`. Sửa: `-f/--file` chỉ tính trong đoạn lệnh bắt đầu bằng `compose` (dừng ở `; | & # [ ] ( )`); thêm 2 ca thử.
+
+**C'2 thử khô** (docker giả + đồng hồ giả `L_NOW`, bản sao script log/khoá/kế hoạch riêng, bỏ (a)–(i)): **38/38 PASS** — gồm: comment rollback trong compose sống không giữ; `.bak`/`backups/`/ghi chú trỏ image cũ >30 ngày → vào kế hoạch; cùng tệp đó trỏ image <30 ngày → giữ; con trỏ rollback do script rollback của project đọc → giữ; repository không container, >30 ngày, ngoài (2) → vào kế hoạch; `EnvironmentFile=-` tồn tại → giữ, thiếu → không unresolved; include động / `compose -f "$X"` trên chuỗi → unresolved → bỏ lượt; `[ -f "$X" ]` trên dòng có chữ compose → không unresolved; **thêm 5 tệp `.bak` mới trỏ image cũ → |KEEP_SET| và sha kế hoạch không đổi**; `L_XOA=0` → không có lệnh `docker image rm` nào; `L_XOA=1` → xoá đúng kế hoạch, conflict bỏ qua; giữ các ca R5 (biến Compose, `repo@sha256`, EnvironmentFile/wrapper/symlink, `<none>` trong KEEP_SET, 2 tag cùng 1 ImageID, build đang chạy → bỏ lượt, socket lỗi → `(l) LOI` rc=0, cổng ngày/giờ, tham số sai rc=2); sha256 danh sách chuẩn hoá = tính độc lập bằng `LC_ALL=C sort -u | sha256sum`.
+
+**C'3 chạy thật chế độ thử** (`--chi-l-thu`, 08:42Z): image 47 · (1) 12 · (2) 11 · (3) 8 · (4) 25 · **KEEP_SET 38** · compose sống 5/5 resolve · tệp chuỗi 112 · ABSENT 0 · **unresolved 0** · kế hoạch xoá **9 ImageID / 12 tag**.
+**Trần v2 bằng số:** |KEEP_SET| = 38 ≤ |(1)| + |(2)| + 2×(số repository có container) + |(4)| = 12 + 11 + 2×12 + 25 = **72**. Không còn số hạng tăng theo số tệp `.bak`/ghi chú.
+**Đối chiếu chéo độc lập** (mã riêng `doi-chieu-v2.py`): giao KEEP_SET = 0 · giao image của 12 container = 0 · giao image mà compose sống resolve (10 ID) = 0 · giao image <30 ngày = 0 · giao `Config.Image` của container = 0 · repository có container mất image đang chạy = 0 · thiếu đường lùi = 0 · tag của KEEP_SET lọt = 0 · sha tính lại trùng ⇒ **DAT**. Kiểm thêm: không job cron nào dùng image trong danh sách xoá (trùng tên chỉ ở tên repo GitHub `agent-data-test`, `nginx:alpine` là repository khác, và một dòng comment).
+
+**Kế hoạch xoá (chờ duyệt)** — 9 ImageID / 12 tag, đều ngoài KEEP_SET, tạo >30 ngày trước, không container nào dùng, không nằm trên chuỗi đang hoạt động:
+
+| repo:tag | ImageID | Created | Vì sao không giữ |
+|---|---|---|---|
+| `…/agent-data/agent-data-test:latest` (registry cũ đã retire) | `9421cd9c4303` | 2026-03-07 | repository không có container; chỉ còn trong `.bak`/`backups/`/`deploys/infra-prev` |
+| `agent-data-local:pre-b1-20260519T074536Z` | `5a7eb4e4e2a2` | 2026-05-14 | repository không có container; không tham chiếu sống |
+| `agent-data-local:pre-c1-schema-20260519T082549Z` | `b6154accb6d8` | 2026-05-19 | như trên |
+| `agent-data-local:latest` · `agent-data-vps-prod:9acd60503290-20260717` · `agent-data-workspace-base:20260917` | `9acd60503290` | 2026-05-19 | 3 repository không có container; chỉ còn trong compose `.bak`/`backups/` |
+| `alpine:latest` | `28bd5fe8b56d` | 2026-06-16 | không container; không job cron nào dùng |
+| `claude-mcp-local:rollback` | `37098dc6ef6e` | 2026-05-18 | ngoài 2 bản lùi mới nhất (`c752274b9714`, `6b48248fa29f`) + 10 bản <30 ngày của claude-mcp-local |
+| `claude-mcp-local:rollback-pre-p2b` | `73f953f71632` | 2026-05-18 | như trên |
+| `claude-mcp-local:phase1a` | `7c0096602a1c` | 2026-05-19 | như trên; chỉ còn trong `.bak`/`backups/` |
+| `claude-mcp-local:phase0.5a` · `claude-mcp-local:rollback-pre-fs-20260917` | `7034f4425d93` | 2026-07-25 | như trên; chỉ còn trong comment compose + `.bak` |
+
+Bảng theo repository (ImageID hiện · giữ theo (1)/(2)/(3)/(4) · sẽ xoá · GB danh nghĩa):
+| Repository | có container | ImageID | (1) | (2) | (3) | (4) | xoá | GB |
+|---|---|---|---|---|---|---|---|---|
+| claude-mcp-local | ✓ | 14 | 1 | 1 | 2 | 10 | 4 | 1,16 |
+| agent-data-hvu | ✓ | 3 | 1 | 1 | 2 | 3 | 0 | 0 |
+| claude-kb-local | ✓ | 3 | 1 | 1 | 2 | 1 | 0 | 0 |
+| cowork-mcp-local · cowork-runner-local | ✓ | 2 mỗi repo | 1 | 1 | 1 | 0 | 0 | 0 |
+| 7 repository dịch vụ 1 ImageID (nuxt-ssr, nginx, directus, postgres, qdrant, uptime-kuma, agent-api-executor-local) | ✓ | 1 | 1 | 1 (trừ kuma: docker run) | 0 | 0 | 0 | 0 |
+| agent-data-continuation · -hardening · -r03 · -workspace | — | 2–4 | 0 | 0 | 0 | tất cả | 0 | 0 |
+| agent-data-local | — | 3 | 0 | 0 | 0 | 0 | 3 | 4,53 |
+| agent-data-vps-prod · agent-data-workspace-base (cùng ID `9acd…`) | — | 1 | 0 | 0 | 0 | 0 | 1 | (tính ở trên) |
+| agent-data-test (registry cũ) | — | 1 | 0 | 0 | 0 | 0 | 1 | 1,51 |
+| alpine | — | 1 | 0 | 0 | 0 | 0 | 1 | 0,01 |
+| **Tổng** | | **47** | | | | | **9 ID / 12 tag** | **7,21** |
+
+**sha256 kế hoạch** (P27: mỗi dòng `<repo:tag|<none>>\t<ImageID đầy đủ>`, bỏ trùng, `LC_ALL=C sort`, LF, không metadata động) = `3c900eff0cd923dc4cbd228da61616583a0fb1f3b369183cf4edd8bee57051c0` — tính lúc 08:42Z và tính lại sau B5 lúc 09:41Z: trùng. Danh sách đầy đủ (ImageID 64 hex): hồ sơ `32-ds-xoa-chuan.txt`.
+
+### (4) Trước / sau (đến F1)
+| | Trước (08:29Z) | Sau B5 (09:41Z) |
+|---|---|---|
+| Đĩa | 44% · trống 54,014GiB | 44% · trống 53,998GiB |
+| Build cache | trần mặc định 80% đĩa (71,7GiB) | **trần 5GiB (`builder.gc.defaultMaxUsedSpace`) đã nạp** |
+| Luật (l) | KEEP_SET v1 47/49 (tăng theo `.bak`) | **KEEP_SET v2 38 ≤ trần 72**, `L_XOA=0` |
+| Image · kho thật | 47 · 9,378GiB | 47 · 9,398GiB (chưa xoá) |
+| Container | 12, 10/10 healthy | 12, 10/10 healthy, StartedAt không đổi |
+| Qdrant · Web · Directus | green 20.187 · 200 · ok | green 20.187 · 200 · ok |
+| systemd failed | cloud-init, networkd-wait-online | như trước |
+
+**D — kiểm cuối (sau B5):** mọi tệp cron/timer (38 tệp: crontab root/incomex, `/etc/crontab`, `/etc/cron.d/*`, `*.timer` + `.service` tương ứng) trùng byte bản chụp trước; `/etc/cron.d/kuma-push` nguyên; Kuma running/healthy; `kuma-push.sh cron|disk` rc=0; `incomex-kuma-push` active; `rclone lsf gdrive-backup:` rc=0; sha256 cấu hình rclone sau B5 = bản chụp 09:04Z trước B5 (tệp đổi lần cuối 08:39Z do cron phái cử làm mới token OAuth — không do lượt này ghi); `cron` active; `systemctl --failed` chỉ `cloud-init`, `systemd-networkd-wait-online`.
+
+### (5) Đường lùi + hồ sơ
+- Hồ sơ: `/var/lib/incomex-audit/VPSC-R5B-20260924/` (ngoài Git; luật (h) tự xoá sau 30 ngày không đổi): sha tệp dùng lại, trạng thái trước, bản cũ script + sha, thử khô `c2/` (38/38), chạy thật + kế hoạch `31-C3-ke-hoach.json` + `32-ds-xoa-chuan.txt` + đối chiếu `34-doi-chieu.txt` + bảng `35-bang-repo.txt`, `cua-so-v2.py`, `b5.sh` + `b5/` (log, chụp trước/sau, journal, kiểm).
+- B5: chép `11-daemon.json.A` về `/etc/docker/daemon.json` → `systemctl restart docker` (live-restore giữ container) → trần build cache về mặc định.
+- C': `cd /opt/incomex && git revert 7d725f6` (hoặc chép `vps-retention.sh.truoc-R5b`).
+
+---
+
 ## R5 — Vòng 2: trần image + build cache · 23/09/2026 · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=fs_* (gh) · KQ STOPPED · B.B5
 
 RUN_ID `VPSC-R5-20260923-01` · PROMPT@`e798203ec49a3f231c474aafcd8f9f49aa0bca82` — cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã; read-gate `workspace_*` (HEAD `b83c201`) rồi AGENTS → COLLAB (A0 vòng 2, D08, D10–D12, P18–P24) → PROMPT. Chạy 04:11–04:55Z (06:11–06:55 giờ máy). NO_CONCURRENT_VPS_MUTATION đạt ở đầu mỗi phần. Ghi repo qua `fs_*` (gh) vì `workspace_*` gắn version với HEAD toàn repo đang đổi liên tục.
