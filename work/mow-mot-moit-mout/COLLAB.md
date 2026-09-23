@@ -15,6 +15,18 @@ Agent prompt: `PROMPT.md`
 ## Dòng hiện hành
 MMIM | FIELD01_READY · 23/09/2026 | MAP-R3 + G1–G6 đã hòa giải; FIELD pilot READY, deep-link tách HVU DRAFT. NEXT: Owner/GPT RUN Codex MMIM.FIELD01; sau KQ phải Owner review FIELD trước SCALE01.
 
+## Claude · Kiểm trước RUN · Based_on `04a311b` · PROMPT `c660fbb`
+Đã kiểm thật, không theo báo cáo: READY `c660fbb` đúng là commit cuối chạm `PROMPT.md` (`fs_log`) · HTML baseline SHA `e5432de3…6422` khớp · G1 đã tách thật (root COLLAB dòng 20: `HVU-DEEPLINK01` DRAFT/NO RUN) · G2–G6 đều có trong PROMPT và đủ acceptance đo được bằng máy · §6 cấm replace mù/reformat, neo theo ID, một transaction. **Nội dung nghiệp vụ: không còn ý kiến.**
+
+Còn **hai lỗ ở tầng luyện dấu hiệu/kiểm máy**, sửa bây giờ mất hai dòng, để sau RUN thì phải chạy thêm một vòng:
+
+- **G7 · PROMPT thiếu dòng `RUN_ID:` và không yêu cầu `KQ@` — vi phạm A9, và đây là lỗi đã từng xảy ra.** A9 định nghĩa: “RUN_ID hiện hành = dòng `RUN_ID: <id>` trong `PROMPT.md`” và “`KQ@<RUN_ID> XONG|DỪNG` là dấu hiệu mới duy nhất”; lệnh `Đóng <id>` cũng đòi `KQ@<RUN_ID> XONG`. PROMPT FIELD01 hiện **không có dòng `RUN_ID:`** (RUN_ID chỉ nằm trong tin nhắn RUN), và §8 chỉ yêu cầu báo `XONG · MMIM.FIELD01 · …` chứ không yêu cầu ghi dòng `KQ@…`. Hệ quả: Task view đọc ra `Triển khai = changing` dù Codex làm xong, và việc không đóng được. Đúng lỗi đã ghi trong `work/done-tasks/jev-integration/COLLAB.md`: “PROMPT thiếu dòng `RUN_ID:` riêng — lỗi soạn của Host”, lần đó phải đóng bù bằng tay vì không muốn mất READY. Sửa ngay, trước RUN: (1) thêm ngay dưới tiêu đề PROMPT một dòng riêng `RUN_ID: MMIM-FIELD01-20260923-01`; (2) §8 thêm câu: “Ghi vào COLLAB trong cùng transaction một dòng `KQ@MMIM-FIELD01-20260923-01 XONG` hoặc `KQ@MMIM-FIELD01-20260923-01 DỪNG`, rồi mới trả Owner dòng XONG/DỪNG theo mẫu.” Sửa PROMPT làm READY cũ vô hiệu theo A6 → Host **ghim lại `READY@<SHA mới>`** rồi mới đưa RUN; tốn một lượt Host, không tốn lượt Agent.
+- **G8 · Bịt nốt lỗ cuối của evidence gate.** `filled_records === evidenced_records` chỉ kiểm các record đã đánh `EVIDENCED`; nó không chặn việc Agent viết nội dung nghiệp vụ vào một record đánh `UNKNOWN` — tức vẫn bịa được mà vẫn PASS đủ 11 acceptance. Thêm acceptance 12: “Mọi record `data-record-state="UNKNOWN"` chỉ chứa nhãn `CHUA_RA`, không chứa mô tả nghiệp vụ; record `NA` chỉ chứa `x`. Vi phạm = FAIL, tự sửa trước khi báo XONG.”
+
+**Điều kiện đồng thuận:** Host chèn G7 (hai dòng) + G8 (một dòng acceptance) rồi ghim `READY@<SHA mới>` thì **Claude ACCEPT toàn bộ FIELD01, không cần vòng review nữa**. Ngoài ba dòng này, mọi sửa khác vào PROMPT vẫn theo A6.
+
+**Ghi chú không chặn (để Owner xem luôn ở pilot):** 8 khối chi tiết × 14 trường hiển thị mở sẵn sẽ làm tab rất dài. Nếu Owner thấy rối khi xem bản FIELD thì lượt SCALE01 gấp lại (`<details>` + mở theo hash); không đổi gì ở lượt này.
+
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
 - D02 · 2026-09-20 · File đính kèm hiện tại là file gốc đang làm; đổi tên trong workspace thành `mow-mot-moit-mout.html`.
