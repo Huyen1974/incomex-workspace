@@ -1,7 +1,7 @@
 # PROMPT — VPSC · R5 Vòng 2: đặt TRẦN cho image Docker + build cache (CÓ MUTATION)
 
 RUN_ID: VPSC-R5-20260923-01
-Soạn: Claude Chat (Host CLAUDE-VPSC-260920-A), 23/09/2026, sau khi GPT chặn nghiệm thu (P18): image ~10,7GiB + build cache ~0,82GiB còn tăng theo mỗi lần build, chỉ có báo số + cảnh báo 80% — chưa phải trần. **Chỉ làm đúng điểm này, không mở lại phần đã xong** (R1–R4b). Tham khảo JEV `typesafe/jev-1.13`: mở lại VPSC (0,86); gộp live-restore làm bước giảm rủi ro (0,60, Host chốt gộp).
+Soạn: Claude Chat (Host CLAUDE-VPSC-260920-A), 23/09/2026, sau khi GPT chặn nghiệm thu (P18): image ~10,7GiB + build cache ~0,82GiB còn tăng theo mỗi lần build, chỉ có báo số + cảnh báo 80% — chưa phải trần. **Chỉ làm đúng điểm này, không mở lại phần đã xong** (R1–R4b). Tham khảo JEV `typesafe/jev-1.13`: mở lại VPSC (0,86); gộp live-restore làm bước giảm rủi ro (0,60, Host chốt gộp). Đã áp P19 (GPT): cấu hình GC chỉ tính là đã áp sau restart dockerd có kiểm soát (B5).
 Chỉ chạy khi COLLAB có **`GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng full SHA** commit cuối chạm file này + lệnh RUN.
 **Executor_Surface = Claude Code CLI trên Mac → shell root VPS qua SSH.** **Write_Path = `workspace_*`**; dự phòng `fs_*`. Không clone, không ghi repo bằng git.
 **Chế độ (D08):** không hỏi quyền từng lệnh; luật cứng dưới đây thay van tự động. Trước mỗi thay đổi ghi trạng thái cũ + cách lùi; sau đó kiểm health; xấu đi → lùi ngay và DỪNG. Giờ ghi UTC (Z); VPS vẫn giờ Europe/Berlin (D11), cron đọc giờ máy và **bỏ qua `CRON_TZ`** (R4b).
@@ -14,7 +14,7 @@ Chỉ chạy khi COLLAB có **`GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@
 
 ## 1. Luật cứng
 - **CẤM (D10/D12):** mọi `docker buildx …`, `docker builder …`, `docker system df|prune`, `docker image prune`, và mọi `-f`/`--force` khi xoá image. Docker chỉ được: `docker ps`, `docker image ls`, `docker inspect`, `docker info`, `docker version`, `docker logs`, `docker image rm <repo:tag|ID>` (KHÔNG `-f`, chỉ phần C).
-- Không stop/restart/recreate container; **không restart dockerd/containerd** — chỉ `systemctl reload docker` (SIGHUP), tối đa 2 lần (bật + lùi nếu cần), chỉ phần A.
+- Không stop/restart/recreate container; không restart containerd. dockerd: `systemctl reload docker` (SIGHUP) tối đa 2 lần ở phần A; `systemctl restart docker` **chỉ đúng 1 lần có kiểm soát ở B5** (+ 1 lần lùi nếu B5 hỏng) — tuyệt đối không restart khi `LiveRestoreEnabled` ≠ true.
 - Bí mật: không in nội dung `.env`/token/cấu hình rclone; quét tham chiếu image bằng `grep -l`/`grep -o` chỉ lấy chuỗi tên image, không in dòng.
 - Script trong `/opt/incomex`: commit git cục bộ trước/sau, `bash -n`, thử khô với `docker` giả. File ngoài git (`/etc/docker/daemon.json`): chép bản cũ vào hồ sơ + sha256 trước khi sửa.
 - Người gác `scripts/vps-retention.sh`: luật (a)–(i) và (k) giữ nguyên từng byte (đặc biệt (f) Lark); chỉ THÊM luật (l).
@@ -33,8 +33,13 @@ B2 **Chứng minh chính sách GC mặc định của BuildKit tích hợp trong
 B3 Đo thật chỉ đọc: `du` thư mục buildkit + đối chiếu con số 0,82GiB của R4.
 B4 Kết luận:
    - Chứng minh được GC mặc định bật + có trần ≤ 10% đĩa → `BUILD_CACHE = BOUNDED · GC mặc định · trần <X>GiB`, không đổi gì.
-   - Không chứng minh được (hoặc trần > 10% đĩa) → thêm cấu hình GC tường minh vào `daemon.json` theo đúng cú pháp của phiên bản đang chạy (trần 5GB; kiểm `dockerd --validate`), gộp cùng thay đổi phần A nếu A chưa chạy, hoặc 1 lần `reload` riêng (tính vào giới hạn 2 lần). Ghi rõ cấu hình GC có hiệu lực ngay sau reload hay chỉ từ lần dockerd khởi động kế tiếp (theo mã nguồn) → `BUILD_CACHE = BOUNDED · cấu hình 5GB · hiệu lực <ngay|lần khởi động sau>`.
+   - Không chứng minh được (hoặc trần > 10% đĩa) → soạn cấu hình GC tường minh trần 5GB theo đúng cú pháp phiên bản đang chạy, kiểm `dockerd --validate`. **Không coi `reload` là đã áp** (`builder` không nằm trong nhóm tùy chọn nạp lại động — P19) → sang B5.
    - Thêm vào luật (l) dưới đây 1 trường `buildkit_du` (số byte) để theo dõi trần.
+B5 **Restart dockerd có kiểm soát — CHỈ khi B4 cần cấu hình 5GB** (P19):
+   - Điều kiện: phần A PASS (`LiveRestoreEnabled` = true đã kiểm); cổng NO_CONCURRENT đạt ngay trước; không job cron/timer nào trong ±5 phút (backup Drive 18:37Z, pg-backup 00:27Z, Qdrant 01:00Z, code-backup, kuma-push `*/10`, phái cử, người gác); chụp lại trạng thái như cổng 3 + danh sách container + StartedAt + cổng đang nghe (`ss -ltn`). Không đạt → `BUILD_CACHE = PENDING_RESTART` → KQ DỪNG.
+   - Áp: cài `daemon.json` (live-restore + builder GC, `dockerd --validate` OK) → `systemctl restart docker` đúng 1 lần.
+   - Kiểm (trong ≤3 phút): `systemctl is-active docker`; `LiveRestoreEnabled` = true; 12 container vẫn running, **StartedAt không đổi**, health như cổng 3; web 200; Directus ok; Qdrant green + đủ points; cổng nghe như trước; Kuma running + `kuma-push.sh cron|disk` rc=0; `rclone lsf gdrive-backup:` rc=0; journal dockerd lúc khởi động không lỗi; ghi bằng chứng mã nguồn rằng cấu hình builder GC được đọc lúc dockerd khởi động → `BUILD_CACHE = BOUNDED · cấu hình 5GB · đã nạp qua restart`.
+   - Hỏng bất kỳ điểm nào → trả `daemon.json` về bản sau phần A (chỉ live-restore; hoặc bản gốc nếu cần) → `systemctl restart docker` (lần lùi) → container nào dừng thì `docker start` đúng container đó (không recreate) → kiểm lại → `BUILD_CACHE = LUI` → DỪNG.
 
 ## Phần C — Trần image: luật giữ (l) hằng tuần
 C1 Thêm luật (l) vào `scripts/vps-retention.sh` (chỉ thêm). **Tập GIỮ**, tính cho từng repository:
@@ -45,7 +50,7 @@ C1 Thêm luật (l) vào `scripts/vps-retention.sh` (chỉ thêm). **Tập GIỮ
    **Gác:** bỏ lượt nếu đang có tiến trình build/pull/deploy (như cổng 2); dùng chung khoá của người gác.
    **Lịch:** 1 lần/tuần, Chủ nhật, cổng `date -u +%u` = 7 và `date -u +%H` = giờ UTC trùng một lượt chạy thật của cron người gác, khác 18Z (backup Drive), 21Z (k), 01Z (Qdrant).
    **Ghi đúng 1 dòng** vào `/var/log/incomex/vps-retention.log`: số tag giữ/xoá/bỏ qua, số image còn lại, `du` kho image thật, `buildkit_du`. Thêm cờ `--chi-l` (chạy ngay) và `--chi-l-thu` (chỉ in danh sách sẽ xoá, không xoá).
-   **Trần tính được:** mỗi repository ≤ (đang dùng + được tham chiếu + 2). Báo cáo quy ra GiB sau lượt đầu.
+   **Trần tính được — gọi đúng tên là "trần theo số version / working-set", KHÔNG phải hard-cap GB (P19):** mỗi repository ≤ (đang dùng + được tham chiếu + 2). Báo cáo ghi GiB steady-state sau lượt xoá đầu.
 C2 `bash -n`; thử khô với `docker` giả: nhánh thường; image đang dùng không bao giờ vào danh sách xoá; tag được tham chiếu không vào; giữ đúng 2 tag mới nhất; có tiến trình build → bỏ lượt; socket lỗi → `(l) LOI …` rc=0; cổng giờ/ngày đúng/sai. diff so với bản hiện hành (`45d5bc3`) chỉ có dòng thêm. Commit git cục bộ.
 C3 Chạy thật `--chi-l-thu` → danh sách sẽ xoá vào hồ sơ + tóm tắt vào báo cáo (repository · số tag giữ · số tag xoá). **Chốt an toàn trước lượt xoá đầu:** đối chiếu chéo lần hai — không ImageID nào của 12 container nằm trong danh sách; mỗi repository còn ≥ 1 image sau xoá; sai → DỪNG phần C, không xoá.
 C4 Chạy thật `--chi-l` 1 lần → 1 dòng log; `du` kho image trước/sau; 12 container StartedAt không đổi + health như cổng 3. (Image đã xoá không lùi được; đường lùi vận hành là 2 tag giữ lại mỗi repository + build lại từ mã. Lùi luật: `git revert` commit (l).)
@@ -56,9 +61,9 @@ C4 Chạy thật `--chi-l` 1 lần → 1 dòng log; `du` kho image trước/sau;
 - Health như cổng 3; `systemctl --failed` chỉ còn `cloud-init`, `systemd-networkd-wait-online`.
 
 ## Phần E — Báo cáo + ghi repo
-- Chèn mục "R5 — Vòng 2: trần image + build cache · <ngày> · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=<…> · KQ <XONG|STOPPED · bước>" lên ĐẦU `BAO-CAO.md` (trên mục KẾT): (1) CHO OWNER ≤5 dòng; (2) live-restore; (3) build cache: bằng chứng mã nguồn + trần GiB; (4) image: tập giữ/xoá theo repository, trần GiB, du trước/sau; (5) trạng thái trước/sau; (6) đường lùi + hồ sơ.
+- Chèn mục "R5 — Vòng 2: trần image + build cache · <ngày> · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=<…> · KQ <XONG|STOPPED · bước>" lên ĐẦU `BAO-CAO.md` (trên mục KẾT): (1) CHO OWNER ≤5 dòng; (2) live-restore; (3) build cache: bằng chứng mã nguồn + trần GiB + có restart B5 hay không; (4) image: tập giữ/xoá theo repository, "trần theo số version / working-set", GiB steady-state, du trước/sau; (5) trạng thái trước/sau; (6) đường lùi + hồ sơ.
 - Repo công khai: không secret/token, IP/tên miền nội bộ, tên tài khoản, output lệnh thô.
-- COLLAB: sửa dòng `VPSC.8` thành `MACHINE_DONE · R5 · …` hoặc `STOPPED · <phần.bước> · <lý do>`; ngay dưới thêm đúng một dòng `KQ@VPSC-R5-20260923-01 XONG` hoặc `KQ@VPSC-R5-20260923-01 DỪNG`. XONG = phần B và C đều có trần ghi được thành số + phần D đạt (phần A `KHONG_BAT` đã lùi sạch vẫn XONG, kèm ghi chú).
+- COLLAB: sửa dòng `VPSC.8` thành `MACHINE_DONE · R5 · …` hoặc `STOPPED · <phần.bước> · <lý do>`; ngay dưới thêm đúng một dòng `KQ@VPSC-R5-20260923-01 XONG` hoặc `KQ@VPSC-R5-20260923-01 DỪNG`. XONG = B đạt `BOUNDED` **có hiệu lực ngay** (GC mặc định chứng minh được, hoặc cấu hình 5GB đã nạp qua B5 PASS) + C có trần + D đạt. `PENDING_RESTART` hoặc `LUI` → **DỪNG**, không XONG. Phần A `KHONG_BAT` (đã lùi sạch) chỉ vẫn XONG nếu B không cần restart.
 - Trả Owner đúng một dòng: `XONG · VPSC-R5 · live-restore <bật|không> · build cache trần <GiB> (<cách>) · image <trước>→<sau>GiB, trần <GiB> (luật l hằng tuần) · trống <GiB> · xem BAO-CAO.md` hoặc `DỪNG · VPSC-R5 · <phần.bước> · <lý do>`.
 
 ## Sau R5 (không phải việc của agent)
