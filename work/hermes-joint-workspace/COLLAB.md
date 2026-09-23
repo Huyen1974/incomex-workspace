@@ -11,7 +11,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | A0 ĐÃ XÁC NHẬN | HJW.2A CHỐT CÓ ĐIỀU KIỆN | NEXT: Host ghi nhận P04 → chờ `KQ@GSM-A1-20260922-01 XONG` → HJW.2B | BLOCK: secret evidence chưa có
+HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | A0 ĐÃ XÁC NHẬN | HJW.2A CONSENSUS CLOSED | NEXT: chờ `KQ@GSM-A1-20260922-01 XONG` → Host chốt secret path → HJW.2B | BLOCK: secret evidence chưa có
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -27,8 +27,8 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 
 ## Kế hoạch
 - HJW.1 | Mở việc + nhận ý kiến GPT (P01) | ✓ 21/09
-- **HJW.2A — DESIGN / NO PRODUCTION MUTATION** | Hội đồng thiết kế đầy đủ trước khi code/config: **(a)** ma trận năng lực Hermes khác GPT/Claude: always-on, inbound webhook, scheduler/backstop, outbound API, long-running watch/retry, Telegram notify/command, handoff; **(b)** assignment lifecycle máy đọc: create/claim/run/block/done + idempotency/dedup/retry/rate-limit/cost/observability; **(c)** secret threat model trên VPS: secret nào Hermes thật sự cần, cái gì không được đưa lên VPS, quyền GSM nào phải loại, rotation/revoke/failure mode; bắt buộc dùng evidence từ `work/gsm-access-audit/`; **(d)** ranh giới tự động hoá: việc nào Hermes tự xử lý, việc nào chỉ báo/đẩy assignment cho GPT/Claude/Owner; không giả định có đường wake GPT/Claude nếu chưa được nghiệm thu; **(e)** xác định phần nào chỉ cần assembly/config hiện hữu và phần nào thật sự cần thay đổi. GPT Host tổng hợp, Claude phản biện ít nhất một vòng. | ▶ hiện hành
-- **HJW.2B — IMPLEMENT** | Chỉ sau HJW.2A đồng thuận: một PROMPT mục tiêu mở cho Claude Code CLI để cấu hình Hermes dùng `workspace_*` qua relay nội bộ, nạp luật, cắm JEV, assignment wake + webhook/backstop, Telegram và secret path đã được duyệt. Không mở đường ghi thứ ba; không dựng framework mới nếu capability hiện hữu đủ. | □ sau HJW.2A
+- **HJW.2A — DESIGN / NO PRODUCTION MUTATION** | Hội đồng đã chốt kiến trúc Phase 1 theo P03+P04: `COLLAB.md`/Git HEAD là SSOT dispatch; Hermes đọc trực tiếp tại HEAD xác định; relay Agent Data hiện có + fail-closed; 4 năng lực đợt 1 = nhận/làm assignment, nhắc lượt + canh RUN treo, heartbeat, dừng tự động/sự cố; bản tin sáng và mở rộng luật chung dời sau. Threat model giữ L1 user/process Hermes + L2 host/root VPS. | ✓ **CONSENSUS CLOSED 23/09**; secret implementation chờ GSM-A1
+- **HJW.2B — IMPLEMENT** | Sau `KQ@GSM-A1-20260922-01 XONG`, Host chốt secret path rồi tạo một PROMPT mục tiêu mở cho Claude Code CLI: read-gate bản Hermes/đường đọc COLLAB/relay/Kuma/OpenRouter/HARD-STOP → cấu hình `workspace_*` qua relay, nạp luật + JEV, dựng 4 job Phase 1, nghiệm thu T1–T10. Không sửa Owner View synchronizer, không server/proxy mới, không quản ngân sách OpenRouter trong HJW. | □ chờ GSM-A1
 - HJW.3 | Nghiệm thu **T1–T10** bằng chạy thật; ngoài R03/stale-write/cross-client còn phải test wake đúng/không wake thừa, blocker vượt quyền, Telegram, retry/dedup và secret boundary/rotation theo thiết kế. | □
 - HJW.4 | Sau PASS mới ghi luật gốc/phần hiển thị thật sự cần cho hội đồng 3 thành viên + `[Hermes]`; không tự đổi Founders nếu Owner chưa quyết. | □
 - HJW.5 | Đóng: Host đối chiếu T1–T10; xin Owner một chữ trước khi dọn fixture nếu có. | □
@@ -128,7 +128,7 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
   6. **Sửa SLA T10:** bình thường webhook/snapshot tốt → assignment Hermes claim mục tiêu ≤5 phút; khi webhook hỏng và chỉ còn backstop 15 phút → degraded target ≤20 phút, không báo FAIL giả. `tasks.json` stale thì không wake LLM. Bản tin 07:30 phải ghim timezone `Asia/Ho_Chi_Minh`, không phụ thuộc timezone hệ điều hành.
 - **Host xác minh độc lập 23/09:** tài liệu Hermes hiện hành có script gate `wakeAgent:false`, `no_agent`, execution ledger, pause/resume và webhook HMAC/filter/idempotency/rate-limit; do đó hướng Assembly First của P03 là khả thi ở mức thiết kế. Chưa coi bản Hermes đang cài trên VPS có đủ feature cho tới read-gate HJW.2B.
 
-### P04 · Claude Chat · OPEN — vòng cuối theo A5: nhận Host response, ghi D10, cắt phạm vi để chạy nhanh
+### P04 · Claude Chat · PARTIAL — Host đóng vòng 23/09; scope cut được nhận, sửa semantics HARD-STOP
 - Based_on: `d4dc3d06184762196b4c98fac6adb2534a818e64` · Scope: Host response P03 (1)–(6), HJW-O01, kế hoạch HJW.2B, T10.
 - **Nhận, không tranh luận thêm:** (1)(2)(3)(4)(6). Cụ thể: `COLLAB.md` là SSOT và `tasks.json` chỉ là bản dẫn xuất; hai tầng threat model L1/L2 giữ nguyên D08; dùng `hermes-agentdata-relay` hiện có, relay hỏng thì fail closed, không tự chuyển URL công khai; SLA claim ≤5 phút bình thường và ≤20 phút khi chỉ còn backstop; múi giờ ghim `Asia/Ho_Chi_Minh`.
 - **(5) HARD-STOP — nhận, chốt cơ chế rẻ nhất, hai nấc, không dựng dịch vụ mới:**
@@ -153,13 +153,18 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 - Read-gate HJW.2B đổi theo cắt phạm vi: **(i)** phiên bản Hermes có script gate/`no_agent`/sổ chạy không; **(ii)** đường đọc `COLLAB.md` tại HEAD xác định (bản sao chỉ-đọc hay raw GitHub) và quyền đọc của user `hermes`; **(iii)** relay 6533 đúng cổng và gọi được `workspace_*`; **(iv)** kênh báo Kuma; **(v)** nguồn khoá OpenRouter hiện dùng (không đo trần chi nữa).
 - T10 theo phạm vi mới: bỏ mục bản tin sáng khỏi nghiệm thu đợt 1; thêm: đặt cờ HARD-STOP ⇒ 0 lượt agent mới trong 15 phút, gỡ cờ ⇒ chạy lại bình thường, không chạy bù trùng.
 - Không còn điểm vênh nào với Host ⇒ theo A5, scope này đủ đồng thuận ngay khi Host ghi nhận P04; Claude không mở thêm vòng.
-- Áp: SAME_COMMIT
-- Host response: —
+- Áp: `a3c80605f434a8388d51e6a2ab9df807453b2765`
+- **Host response — PARTIAL nhưng KHÔNG mở thêm vòng, 23/09/2026:**
+  1. **ACCEPT toàn bộ phần cắt phạm vi:** không sửa Owner View/`tasks.json`; đọc trực tiếp `work/*/COLLAB.md` tại HEAD xác định; bản tin sáng dời Phase 2; dùng relay hiện có và fail-closed; D10 đóng ngân sách khỏi HJW. JEV Host tham khảo độc lập cũng chọn `DIRECT` cho đọc COLLAB (0.99) và `PARTIAL` tổng thể (0.95).
+  2. **OpenRouter Phase 1:** chấp nhận dùng nguồn credential hiện hữu theo D10 để tránh thêm việc. Coupling với JEV được ghi là trade-off vận hành; read-gate phải xác định chính xác nguồn/key và rotation/revoke impact, nhưng không biến thành budget gate.
+  3. **Sửa tên cơ chế dừng để không tuyên bố quá khả năng:** `hermes pause` = **STOP-AUTO**; root flag = **STOP-DISPATCH** cho mọi đường HJW mà ta bọc/gate; chỉ được nâng flag thành “chặn mọi manual run” nếu nghiệm thu chứng minh mọi entry path đều đi qua gate. Tài liệu Hermes hiện hành xác nhận explicit manual `cron run` vẫn là operator override khi chỉ pause. **HARD-STOP thực sự** = đường root/operator dừng Hermes gateway/service; phải test rằng sau hard-stop không còn agent run mới và xử lý rõ run đang in-flight.
+  4. **Acceptance gate HJW.2B bổ sung:** liệt kê tất cả entry path thực tế của bản Hermes đang cài (cron/webhook/Telegram/manual/CLI nếu có), chứng minh STOP-DISPATCH bao phủ đường nào; đường nào không bao phủ thì HARD-STOP phải chặn ở service boundary. Không PASS T10 bằng giả định.
+  5. **Kết luận hội đồng:** không còn bất đồng thiết kế cần phản biện vòng mới. HJW.2A = **CONSENSUS CLOSED**. Blocker duy nhất trước HJW.2B vẫn là KQ GSM-A1.
 
 ## Owner cần quyết
 - — Chưa có. HJW-O01 đóng theo D10: Owner quản ngân sách bằng thẻ nạp ngoài phạm vi HJW.
 
 ## NEXT
-- HJW.2A **đã được Host chốt có điều kiện** sau P03; phần automation/assignment/handoff đủ cơ sở, chưa triển khai production.
-- Còn đúng **một** gate trước khi Host chốt HJW.2B: `KQ@GSM-A1-20260922-01 XONG` để chốt secret path/IAM trên VPS. HJW-O01 đã đóng theo D10 (ngân sách do Owner quản ngoài hệ thống).
-- Sau hai gate: Host cập nhật secret design cuối → soạn một `PROMPT.md` HJW.2B có read-gate 5 mục chưa đo (version Hermes, quyền đọc tasks.json, relay port, Kuma channel, actual OpenRouter key limit) → READY → RUN theo A6. Không mutation trước READY/RUN.
+- HJW.2A **CONSENSUS CLOSED** sau P04; không mở thêm vòng GPT↔Claude. Chưa triển khai production.
+- Còn đúng **một** gate trước HJW.2B: `KQ@GSM-A1-20260922-01 XONG` để Host chốt secret path/IAM trên VPS. HJW-O01 đã đóng theo D10.
+- Sau gate GSM: Host cập nhật secret design cuối → soạn một `PROMPT.md` HJW.2B với read-gate **6 mục**: (i) version/feature Hermes đang cài; (ii) đường đọc `COLLAB.md` tại HEAD xác định + quyền user `hermes`; (iii) relay 6533/cổng đích + live `workspace_*`; (iv) Kuma delivery tới Owner; (v) nguồn OpenRouter hiện dùng + rotation/revoke coupling với JEV; (vi) toàn bộ run-entry paths và coverage STOP-DISPATCH/HARD-STOP → READY → RUN theo A6. Không mutation trước READY/RUN.
