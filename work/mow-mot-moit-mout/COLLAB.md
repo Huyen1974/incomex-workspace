@@ -29,6 +29,26 @@ Còn **hai lỗ ở tầng luyện dấu hiệu/kiểm máy**, sửa bây giờ 
 
 **Ghi chú không chặn (để Owner xem luôn ở pilot):** 8 khối chi tiết × 14 trường hiển thị mở sẵn sẽ làm tab rất dài. Nếu Owner thấy rối khi xem bản FIELD thì lượt SCALE01 gấp lại (`<details>` + mở theo hash); không đổi gì ở lượt này.
 
+## D20 · Owner đổi cách làm (23/09, sau khi xem KQ FIELD01)
+Owner: “Rất nhiều thông tin, rất mơ hồ và không thể xong được. Giờ tập trung vào Field trước.” Bốn điều chốt:
+1. Phải có **danh sách trường cụ thể**: cần bao nhiêu trường, tên hiển thị là gì — chốt luôn để dễ kiểm. Một bảng dài (có thể vài trăm trường) là hết phần này. Không chung chung.
+2. **Step quy trình viết ngắn lại**; tôn trọng thiết kế Owner đã làm, **không tự động thay đổi** — mỗi thứ đều có ý của nó.
+3. Bên quy trình: **copy UI trải dài từ trên xuống**, cắt từng ô nhỏ, cả loạt bước nằm trên một mặt phẳng. Bước 1 là gì — UI nhìn ra sao. Mỗi bước **bôi vàng** các trường phải điền, phải bấm → từ đó **đếm và lập danh sách**.
+4. **Xử lý UI trước**; config để bước 2, khi đã đếm được.
+
+### Claude kiểm KQ FIELD01 (commit `b53ce08`)
+Đúng số: 8 hàng FIELD.S01–S08 · 8 bảng chi tiết · cột 7 cả 5 bảng đã thành “Trạng thái UI” · không ô nào UI_OK · HTML SHA `d66e2f54…3fe73`. Agent báo lệch một điểm đã ghi rõ: PROMPT §6 viết `workspace_transaction` nhưng đường ghi được giao là `fs_*` nên dùng `fs_transaction` — cùng một lần ghi hai file, chấp nhận.
+**Nhưng đúng đánh giá của Owner:** 112 ô thì 41 `CHUA_RA`, 24 `x`, hai cột tổng **đều trống**, không có một con số trường nào. Đúng khuôn nhưng chưa dùng được để kiểm. Gốc: khuôn bắt mô tả 14 mục/bước bằng chữ, trong khi thứ Owner cần là **ảnh cắt của UI + trường bôi vàng + con số**.
+
+### FIELD02 · Việc tiếp theo theo D20 (Host soạn prompt)
+**Chỉ làm FIELD. Chỉ làm UI. Không đụng config.**
+1. **Băng UI theo bước** — ngay trong tab Step quy trình, phần Field: cắt UI-022 và UI-018 thành từng ô theo bước, xếp dọc trên một mặt phẳng, trên xuống dưới. **Cách cắt: chép nguyên đoạn HTML của chính UI đó (tĩnh, bỏ JS), không dùng ảnh** — giữ đúng D13 (không đưa ảnh vào Git) và vẫn “nhìn là thấy”.
+2. **Bôi vàng**: trong mỗi ô, đánh dấu vàng đúng các trường phải điền / chọn / bấm ở bước đó; thứ không thuộc bước thì để xám.
+3. **Bảng danh sách trường** (cái Owner yêu cầu ở điểm 1) — một bảng dài cho FIELD: `STT · Mã trường · Tên hiển thị đúng như trên UI · Loại (điền/chọn/bấm/xem) · Bắt buộc (dấu * trên UI) · Thuộc bước · UI nguồn`. Đếm xong → điền **cột “Tổng số trường cần khai”** của bảng Step. Cột config vẫn để trống.
+4. **Cắt ngắn bảng chi tiết**: mỗi bước chỉ còn 4 mục — Ô UI · Trường bôi vàng (+ số đếm) · Kết quả · Nguồn. Mười mục còn lại (config máy, lỗi/quay về, thông tin quản lý…) **cắt hẳn**, để bước 2.
+5. **Không đổi thiết kế cũ của Owner**: giữ nguyên 7 cột, ID, tên tab, thứ tự các bảng. Số bước của FIELD lấy **theo UI thật khi cắt ô**; thừa/thiếu so với 8 hàng hiện có thì thêm/bớt hàng ở cuối, không đảo khung.
+6. Nghiệm thu Owner chỉ nhìn hai thứ: băng UI có đủ bước không, và **con số tổng trường** có khớp danh sách không.
+
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
 - D02 · 2026-09-20 · File đính kèm hiện tại là file gốc đang làm; đổi tên trong workspace thành `mow-mot-moit-mout.html`.
