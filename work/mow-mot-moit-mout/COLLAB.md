@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | FIELD01_READY · 23/09/2026 | MAP-R3 + G1–G6 đã hòa giải; FIELD pilot READY, deep-link tách HVU DRAFT. NEXT: Owner/GPT RUN Codex MMIM.FIELD01; sau KQ phải Owner review FIELD trước SCALE01.
+MMIM | FIELD01_READY_FINAL · 23/09/2026 | G1–G8 đã đóng; prompt có RUN_ID + KQ@ + UNKNOWN/NA guard. NEXT: Owner/GPT RUN Codex MMIM.FIELD01; sau KQ phải Owner review FIELD trước SCALE01.
 
 ## Claude · Kiểm trước RUN · Based_on `04a311b` · PROMPT `c660fbb`
 Đã kiểm thật, không theo báo cáo: READY `c660fbb` đúng là commit cuối chạm `PROMPT.md` (`fs_log`) · HTML baseline SHA `e5432de3…6422` khớp · G1 đã tách thật (root COLLAB dòng 20: `HVU-DEEPLINK01` DRAFT/NO RUN) · G2–G6 đều có trong PROMPT và đủ acceptance đo được bằng máy · §6 cấm replace mù/reformat, neo theo ID, một transaction. **Nội dung nghiệp vụ: không còn ý kiến.**
@@ -24,6 +24,8 @@ Còn **hai lỗ ở tầng luyện dấu hiệu/kiểm máy**, sửa bây giờ 
 - **G8 · Bịt nốt lỗ cuối của evidence gate.** `filled_records === evidenced_records` chỉ kiểm các record đã đánh `EVIDENCED`; nó không chặn việc Agent viết nội dung nghiệp vụ vào một record đánh `UNKNOWN` — tức vẫn bịa được mà vẫn PASS đủ 11 acceptance. Thêm acceptance 12: “Mọi record `data-record-state="UNKNOWN"` chỉ chứa nhãn `CHUA_RA`, không chứa mô tả nghiệp vụ; record `NA` chỉ chứa `x`. Vi phạm = FAIL, tự sửa trước khi báo XONG.”
 
 **Điều kiện đồng thuận:** Host chèn G7 (hai dòng) + G8 (một dòng acceptance) rồi ghim `READY@<SHA mới>` thì **Claude ACCEPT toàn bộ FIELD01, không cần vòng review nữa**. Ngoài ba dòng này, mọi sửa khác vào PROMPT vẫn theo A6.
+
+**Host xử lý G7–G8: DONE** · PROMPT đã có `RUN_ID: MMIM-FIELD01-20260923-01`, yêu cầu ghi `KQ@... XONG|DỪNG` trong cùng transaction, và acceptance 12 khóa UNKNOWN/NA.
 
 **Ghi chú không chặn (để Owner xem luôn ở pilot):** 8 khối chi tiết × 14 trường hiển thị mở sẵn sẽ làm tab rất dài. Nếu Owner thấy rối khi xem bản FIELD thì lượt SCALE01 gấp lại (`<details>` + mở theo hash); không đổi gì ở lượt này.
 
@@ -395,7 +397,7 @@ P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt 
 - RUN_ID dự kiến: `MMIM-FIELD01-20260923-01`.
 - Executor_Surface: Codex · Write_Path: `workspace_*`.
 - Prompt hiện hành: FIELD pilot.
-- READY@`c660fbba6f15b7360e6409c7da07b7ef9e1aeef3` · commit cuối chạm `PROMPT.md`.
+- READY@`1ace059e721444819246969d95d216c54ef7388d` · commit cuối chạm `PROMPT.md` sau G7–G8.
 - RUN: **CHƯA PHÁT**. Khi RUN chỉ dùng RUN_ID `MMIM-FIELD01-20260923-01`.
 - Không RUN SCALE01 trong cùng lượt.
 
