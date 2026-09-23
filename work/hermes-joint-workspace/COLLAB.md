@@ -11,7 +11,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | A0 ĐÃ XÁC NHẬN | HJW.2A CLOSED · GSM GATE OPEN | P07/P08 CLOSED | PROMPT HJW.2B FINAL FOR READY | NEXT: Host ghi READY@SHA → RUN | BLOCK: —
+HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | A0 ĐÃ XÁC NHẬN | HJW.2A CLOSED · GSM GATE OPEN | P07/P08 CLOSED | HJW.2B READY@6dd8ec0a… | NEXT: RUN Claude Code CLI | BLOCK: —
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -187,7 +187,8 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 - **Host response P06 — PARTIAL, 23/09:** ACCEPT việc GSM gate đã mở; ACCEPT `--script` + `wakeAgent`; ACCEPT capability confinement/READY+RUN, cron-only Phase 1, deny-by-default, không auto-approve. **REJECT duy nhất:** “nếu Agent Data key ghi được thì chấp nhận rủi ro L1 Phase 1”. D08/A0 yêu cầu giảm secret trên VPS/Hermes; relay đã tồn tại nên HJW.2B phải thử isolation trước. Nếu relay không thể dùng mà không đưa key cho Hermes thì DỪNG để Host quyết, không tự hạ chuẩn. Kuma sửa thành external/root-owned monitor. P05/P06 không còn P OPEN sau ruling này.
 
 ## Giao Agent
-- `PROMPT.md` · RUN_ID `HJW-2B-20260923-01` · **DRAFT** · Executor_Surface = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Report_Write_Path = `fs_*`.
+- `PROMPT.md` · RUN_ID `HJW-2B-20260923-01` · **READY** · Executor_Surface = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Report_Write_Path = `fs_*`.
+- READY@6dd8ec0a77be229725b242c3eb88de29ae40df51 · Host `GPT-HJW-260922-A` · P07/P08 closed; SHA này là commit cuối chạm `PROMPT.md`.
 - Vì HJW.2B chạm secret boundary + systemd/runtime, giữ **2 chìa** đã đồng thuận: Claude Reviewer rà đúng PROMPT này (không mở lại design) → GPT Host mới ghi `READY@<full SHA>` → RUN.
 - Host pre-review bằng JEV `gen-dec-1790138118-nfKyuUUWpn4773cVmUIS`: write scope chọn **HJW_ONLY 0.99**, HARD-STOP có thể test sau **0.87**; Host đã sửa PROMPT để automated profile chỉ ghi `work/hermes-joint-workspace/**`. Các kết quả khác confidence thấp hơn chỉ dùng tham khảo, không tạo gate mới.
 
@@ -228,5 +229,5 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 ## NEXT
 - HJW.2A CLOSED; GSM-A1 XONG; P05/P06 đã được Host xử lý. Không còn blocker thiết kế/Owner.
 - P07/P08 đã được Host xử lý; không còn P OPEN/OWNER liên quan. `PROMPT.md` HJW.2B đã được sửa đủ các mục chặn READY.
-- NEXT: Host ghi `READY@<commit cuối chạm PROMPT.md>` ở lượt kế tiếp ngay sau commit sửa PROMPT này → phát RUN cho Claude Code CLI. Trước restart Hermes, Agent phải báo Owner một dòng về gián đoạn Telegram.
+- READY đã hợp lệ tại `6dd8ec0a77be229725b242c3eb88de29ae40df51`. NEXT: phát RUN `HJW-2B-20260923-01` cho Claude Code CLI. Trước restart Hermes, Agent phải báo Owner một dòng về gián đoạn Telegram.
 - Hai quyết định GSM về huỷ 23 version và gộp Lark là việc khác; không chặn HJW.

@@ -14,12 +14,12 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
 - `work/mcp-token-argv/` · SECURITY · Host Claude · loại Bearer token khỏi argv của lark-crud-gateway/mcp-remote; migrate secret + rotate + smoke; không chặn HVU.
-- `work/hermes-joint-workspace/` · HJW · Host GPT · HJW.2A + GSM + P07/P08 review đã xong. Host đã áp 7 sửa chặn READY + siết relay boundary; `PROMPT.md` HJW.2B FINAL, chờ READY@SHA → RUN.
+- `work/hermes-joint-workspace/` · HJW · Host GPT · HJW.2A + GSM + P07/P08 xong. HJW.2B **READY@6dd8ec0a77be229725b242c3eb88de29ae40df51**; chờ RUN Claude Code CLI.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/hpml-view-for-user/` · HVU-DEEPLINK01 · mở lại 23/09 để làm URL deep-link theo tab/section/step/detail; DRAFT/NO RUN, runtime VPS tách khỏi MMIM.
 - `work/muc-tieu-3-phan/` · MT3 · Host Claude · chuẩn hoá §0 thành ba phần (Mục tiêu / Thế nào là hoàn thành / Chi tiết) trên GitHub + view; PROMPT `MT3-20260923-01`, Executor Codex.
-- NEXT: HJW: GPT Host ghi READY theo commit cuối chạm PROMPT → truyền RUN `HJW-2B-20260923-01` cho Claude Code CLI.
+- NEXT: HJW: RUN `HJW-2B-20260923-01` cho Claude Code CLI; Agent phải nhắn Owner trước bước restart làm Telegram Hermes gián đoạn.
 
 ## Đã xong
 - Archive: `work/done-tasks/` · vị trí folder là trạng thái Done (DROOT11); tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.

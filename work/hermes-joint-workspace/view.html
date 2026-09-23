@@ -20,7 +20,7 @@ small{color:#666}
 <h1>Hermes Joint Workspace</h1>
 <p><span class="tag">HOST REVIEW</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Host: GPT Chat</span><span class="tag">Chưa chạm production</span></p>
 
-<div class="box"><strong>Anh cần quyết hôm nay:</strong> không có. P07/P08 đã rà mã nguồn Hermes và Host đã áp toàn bộ sửa chặn READY. Điểm siết thêm: relay 6533 phải hạn chế caller bằng cơ chế hiện hữu; mở cho mọi process loopback thì DỪNG. PROMPT HJW.2B đã final, bước kế là READY@SHA rồi RUN.</div>
+<div class="box"><strong>Anh cần quyết hôm nay:</strong> không có. HJW.2B đã <strong>READY</strong> theo SHA <code>6dd8ec0a…</code>. Bước kế là RUN Claude Code CLI. Trước khi restart gateway/serve, Agent phải nhắn anh một dòng vì Telegram Hermes sẽ gián đoạn vài phút.</div>
 
 <div class="bar" id="TIEN-DO"><span class="g">✓ 1 Mở việc</span><span class="g">✓ 2 Thiết kế</span><span class="now">▶ 3 Chuẩn bị RUN</span><span>□ 4 Nghiệm thu</span><span>□ 5 Ghi luật/Đóng</span></div>
 
@@ -82,7 +82,7 @@ Claude Chat ──────────────────────�
 <tbody>
 <tr><td>HJW.1</td><td>Mở việc: mục tiêu, hiện trạng, tiêu chí.</td><td>Claude mở · GPT review</td><td>✓ xong</td></tr>
 <tr><td>HJW.2A — Design</td><td>Đã chốt: COLLAB/Git HEAD là SSOT dispatch; Hermes đọc trực tiếp tại HEAD xác định; relay hiện có fail-closed; Phase 1 chỉ giữ nhận/làm assignment, nhắc lượt+canh RUN treo, heartbeat và cơ chế dừng; threat model L1 Hermes + L2 VPS/root.</td><td>GPT Host + Claude Reviewer</td><td>✓ consensus 23/09</td></tr>
-<tr><td>HJW.2B — Implement</td><td>GSM-A1 XONG; PROMPT đã review mã nguồn + sửa fail-open, deterministic toolset, rearm/dedupe, persistent cap, restart notice, STOP semantics và N1–N8. Relay mở cho mọi local process là blocker nếu không siết được bằng cơ chế sẵn có.</td><td>Claude Code CLI thực thi · GPT Host giám sát</td><td>▶ FINAL · chờ READY/RUN</td></tr>
+<tr><td>HJW.2B — Implement</td><td>GSM-A1 XONG; PROMPT đã review mã nguồn + sửa fail-open, deterministic toolset, rearm/dedupe, persistent cap, restart notice, STOP semantics và N1–N8. Relay mở cho mọi local process là blocker nếu không siết được bằng cơ chế sẵn có.</td><td>Claude Code CLI thực thi · GPT Host giám sát</td><td>▶ READY · chờ RUN</td></tr>
 <tr><td>HJW.3</td><td>Nghiệm thu T1–T10 bằng chạy thật, gồm self-wake, chống wake thừa, stale-write, retry/dedup, Telegram, blocker vượt quyền, attribution và secret rotation/boundary.</td><td>Hermes làm · GPT + Claude chấm chéo</td><td>ngay sau HJW.2B</td></tr>
 <tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>sau HJW.3 PASS</td></tr>
 <tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T10.</td><td>Host</td><td>—</td></tr>
