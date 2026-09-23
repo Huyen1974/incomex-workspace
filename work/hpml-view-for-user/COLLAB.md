@@ -142,6 +142,13 @@ HTML chính: `view.html`
 
 KQ@HVU-OWNERVIEW01-20260923-01 DỪNG
 
+### Kiểm lại · Claude Code CLI · 23/09/2026 · được giao lại cùng RUN_ID, cùng READY@25244942…
+- RUN này đã chạy xong ở `9759f2c` (DỪNG). Từ đó tới main `088812b` **không có** quyết định (a)/(b) của Owner, README §12 chưa khai phép biến đổi relay, runtime chưa revert `025b8fe` ⇒ chạy lại sẽ ra đúng kết quả cũ. Không lặp lại việc, **0 mutation** (không ghi `ui`, không sync, không chạm runtime/auth).
+- Kiểm chỉ đọc, không đăng nhập: `sync-status.json` `fresh` → `revisions/088812b…/tasks.json`: `mow-mot-moit-mout` Now, `documentStatus=available`; HTML publish 1.856.002 B sha256 `7b6a315d…8587` ≠ Git `1e245ed6…99e8` (1.855.314 B); bỏ đúng một khối `<script data-hvu-url-relay>` 688 B ⇒ **trùng byte Git**. Việc 1 giữ nguyên: URL cũ `/ui-preview/mcp-writes/mow-mot-moit-mout.html` = 404; Owner View = 200.
+- Vẫn chờ Owner chọn (a) hoặc (b) như trên. Chọn (a) + Host làm đủ 3 việc nhỏ ở mục phân tích đầu COLLAB ⇒ RUN chuyển XONG, không cần agent chạy lại.
+
+KQ@HVU-OWNERVIEW01-20260923-01 DỪNG
+
 ## Trạng thái
 
 - HVU.B3 · Codex/GPT Work · RUN HVU-B3-20260921-01: DỪNG theo P16. Gate PROMPT/READY `fd682db6114c350bb9615875a493eaa23396ddef` khớp. Đã build candidate Agent-data, helper test cô lập A/B/A + presence/clear/TTL/bounds PASS; chưa phải acceptance production. Lượt workspace_read thật trong startup sau deploy trả HTTP502 → rollback ngay; chưa đủ bằng chứng kết luận nguyên nhân do mã B3. Sau rollback Agent-data image `agent-data-r03:20260920-finalclose` healthy, initialize/tools/list/error byte-for-byte giống baseline cả4profile; MCP đọc và ghi báo cáo thật đã phục hồi. Mã ba file Agent-data trở lại nguyên trạng, không bump version/đổi author/message. Claude gateway chưa sửa/deploy; B2.1/UI/webhook/backstop/retention không đổi. `LIVE_CROSS_SURFACE_PENDING`; chưa quan sát identity live B3, không lấy synthetic label thay bằng chứng. Core actor/presence chưa chạy production; acceptance end-to-end còn OPEN. Candidate/evidence/rollback ở `/opt/incomex/deploys/hvu-b3-20260921/`; runtime refs không có commit mới. Báo cáo hiện hữu `knowledge/current-state/reports/hvu-ui03-progress.md` revision6 §HVU-B3-20260921-01 có baseline hashes, output rollback, kiểm kê đường ghi ngoài gateway và giới hạn. Đề xuất RUN sau warm-up/canary rồi mới chuyển live, chưa triển khai. Áp: SAME_COMMIT.
