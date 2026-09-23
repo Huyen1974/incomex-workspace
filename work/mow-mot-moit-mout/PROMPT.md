@@ -1,5 +1,7 @@
 # PROMPT — MMIM.FIELD01 · FIELD pilot MAP-R3
 
+RUN_ID: MMIM-FIELD01-20260923-01
+
 ## 0. Gate bắt buộc
 Lượt này chỉ làm **FIELD pilot** để nghiệm thu khuôn trước khi nhân sang MOUT/MOIT/MOT/MOW.
 
@@ -133,6 +135,7 @@ Bắt buộc `filled_records === evidenced_records`. Lệch = FAIL.
 9. Quy ước chứa 8-step + 5-state + evidence + branch/return.
 10. Diff không chạm ngoài scope.
 11. Nếu mirror VPS đã ở revision mới: mở `/knowledge/modules?task=mow-mot-moit-mout` và kiểm FIELD; nếu chưa, ghi `VIEW_PENDING_REVISION`, Host kiểm sau — không sửa VPS.
+12. Mọi record `data-record-state="UNKNOWN"` chỉ chứa nhãn `CHUA_RA`, không chứa mô tả nghiệp vụ; record `NA` chỉ chứa `x`. Vi phạm = FAIL, tự sửa trước khi báo XONG.
 
 ## 8. KQ
 Cập nhật COLLAB trong cùng transaction:
@@ -142,6 +145,7 @@ Cập nhật COLLAB trong cùng transaction:
 - filled/evidenced/unknown
 - UI_state của 8 step
 - PASS/FAIL từng acceptance
+- Ghi vào COLLAB trong cùng transaction một dòng `KQ@MMIM-FIELD01-20260923-01 XONG` hoặc `KQ@MMIM-FIELD01-20260923-01 DỪNG`, rồi mới trả Owner dòng XONG/DỪNG theo mẫu.
 
 Báo:
 `XONG · MMIM.FIELD01 · field=8/8 · detail=8/8 · evidence=<filled>/<evidenced> · unknown=<n> · ui_ok=0 · main_html_sha=<new> · Owner review FIELD trước khi scale`
