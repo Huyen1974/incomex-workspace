@@ -567,9 +567,9 @@ Based_on `7c8743a` · Owner 22/09: “phân tích còn vấn đề gì thì xử
 Based_on `23476ed` (PROMPT `71ce117`) · Chỉ đọc, không RUN. Đã đọc mã production `scripts/hvu-b2/ui/app.vue` và chính file `mow-mot-moit-mout.html`.
 
 **1. Contract có đủ không — đủ, nhưng đang thừa tham số.** Đề nghị đúng ba: `?task=<id>&view=control|content&at=<id-neo>`.
-- `view` chỉ có hai tab thật trong app (`Kểm soát` = `control`, `Nội dung công việc` = `content`).
+- `view` chỉ có hai tab thật trong app (`Kiểm soát` = `control`, `Nội dung công việc` = `content`).
 - `at` thay cho cả `section` lẫn `step`/`detail`: **tài liệu công việc đã có sẵn ID ổn định** (ví dụ `step-row-field-s01`, `step-quy-trinh-quy-uoc`, kèm `data-step-code="FIELD.S01"`), nên một mã neo là đủ định vị; thêm hai tầng tham số chỉ tạo thêm chỗ sai.
-- Không deep-link mục gập trong tab `Kểm soát` (Mục tiêu/Tiến độ/Tình trạng): không đáng giá, tự mở sẵn đủ dùng.
+- Không deep-link mục gập trong tab `Kiểm soát` (Mục tiêu/Tiến độ/Tình trạng): không đáng giá, tự mở sẵn đủ dùng.
 
 **2. Đang phức tạp quá ở đâu — bỏ toàn bộ phần relay hai tầng.** Thực địa: `mow-mot-moit-mout.html` **tự xử lý hash** — có `window.addEventListener('hashchange', …)` và `revealHash()` mở `details` cha rồi cuộn tới phần tử. Nghĩa là chỉ cần dựng `src` của iframe = `<documentPath>#<at>` là ra đúng vị trí, **không cần postMessage, không handshake `ready→route`, không replay, không chạm file MMIM, không nới sandbox**. Chiều ngược (đang đọc trong tài liệu thì URL tự đổi theo) bắt buộc phải sửa chính file MMIM → để lượt của MMIM, không thuộc V1 này. V1 vẫn đạt đúng mục tiêu Owner: gửi link là mở đúng chỗ.
 
