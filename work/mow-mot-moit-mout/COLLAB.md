@@ -1,5 +1,38 @@
 # COLLAB — mow-mot-moit-mout
 
+## D21 · Owner 23/09 (sau KQ FIELD02) — thiếu khung chuẩn, chưa được dựng HTML tiếp
+Owner: thiết kế trên giấy trước, xong mới sang HTML; danh sách phải tách 3 khối S01/S02/S03 nhìn 30 giây hiểu; thiếu logic cơ bản (lưu xong nhìn danh sách trường ở đâu; sửa/xoá thế nào; nhóm quản lý chưa có thì tạo thế nào); mỗi bước phải có mã, và cái gì có mã thì phải có master mã.
+
+**Tên chuẩn của từng thứ Owner nêu — để lần sau hội đồng tự soi, không chờ Owner:**
+| Owner nêu | Tên chuẩn | Ai phải làm |
+|---|---|---|
+| Thiết kế rồi mới HTML | wireframe duyệt trước, build sau | Host |
+| Danh sách trường sau khi lưu | **Data Dictionary** (từ điển dữ liệu) | FIELD03 |
+| Sửa / xoá | **CRUD đủ 4 mặt** + soft-delete + **where-used** | FIELD03 |
+| Nhóm quản lý chưa có | **tạo tại chỗ** (cascading create) — JEV 0,81 | FIELD03 |
+| Mã bước, master mã | **ID scheme + registry**, mã do máy sinh (JEV 0,89), mã ≠ tên ≠ phiên bản (đúng tài liệu gốc) | FIELD03 |
+| "Xét hết kịch bản" | **checklist sinh kịch bản**: CRUD × trạng thái vòng đời × luồng chính/phụ/lỗi × vai trò | Host |
+
+**JEV không nghĩ hộ kịch bản** (`gen-dec-1790153084-v5xB96uITqG32KZ1WUnZ`): nó chấm danh sách ta đưa. Hai kết quả đáng chú ý — thiết kế thiếu sửa/xoá thì **không đủ để giao người mới: 0,07**; và "lưu vào trình duyệt, chưa duyệt, chưa vào dữ liệu thật" **chưa phải khai báo thành công: 0,07** → mục tiêu §0 của việc này CHƯA đạt dù FIELD02 báo XONG.
+
+### Kịch bản FIELD phải phủ (hội đồng tự liệt kê, gồm cả phần Owner chưa nêu)
+- **Tạo:** tìm trước · trùng tên/đã có · nhóm quản lý chưa có → tạo tại chỗ · bỏ dở giữa chừng · thiếu ô bắt buộc báo ở đâu · **đề xuất → ai duyệt → áp dụng vận hành** · sinh mã + chống trùng.
+- **Đọc:** Master Field hiển thị đủ cột của data dictionary (mã · tên · định dạng · nhóm · trạng thái · **đang dùng ở form nào** · người tạo · ngày) · tìm theo tên khác (alias) · mở chi tiết.
+- **Sửa:** đổi nhãn/mô tả (giữ nguyên mã) · đổi định dạng khi đã có dữ liệu → phiên bản mới + di trú · xem where-used trước khi cho sửa.
+- **Ngừng/Xoá:** ngừng dùng (Tạm dừng/Lưu trữ — UI-022 đã có sẵn trạng thái) · xoá hẳn chỉ khi chưa ai dùng · đang dùng thì chặn và chỉ rõ chỗ dùng.
+- **Quyền:** ai đề xuất · ai duyệt · ai ngừng/xoá.
+- **Mã:** khuôn mã · master mã cho mọi loại mã (mã bước, mã trường) · mã bước không trùng giữa các việc.
+
+### FIELD03 · việc tiếp theo (Host soạn prompt) — KHÔNG đụng HTML
+1. Sản phẩm là **một bảng thiết kế trong COLLAB**, mỗi kịch bản một dòng: `mã · tình huống · ai làm gì · màn hình nào · kết quả · hỏng thì về đâu`. Owner chốt bảng rồi mới dựng HTML.
+2. Tách rõ **3 khối S01/S02/S03** như Owner yêu cầu; kịch bản mới sinh bước mới thì **thêm mã mới ở cuối**, không đảo mã cũ.
+3. Kèm **bảng master mã** (mã · loại · thuộc đối tượng · một dòng mô tả · nơi dùng · ngày) — mở luôn cho cả mã bước lẫn mã trường.
+4. Chỗ nào chưa có UI thì ghi `UI_THIEU` — đó là đầu vào để đặt hàng UI, không phải để bịa.
+5. Config vẫn để lượt sau.
+
+### Claude kiểm KQ FIELD02 (`9305a1d`)
+Đạt: 2 file, đúng 3 mảnh UI thật, HTML SHA `1e245ed6…99e8`, KQ@ đã ghi. Agent tự phát hiện hai chỗ prompt sai so với UI thật (Mô tả không bắt buộc → 2/3/1 và 6 dòng; nhãn nút đổi theo chế độ Đề xuất/Thường chứ không theo khai mới/sửa) — đúng tinh thần F1/F2, ghi nhận. Còn nợ: phần quy ước trong file vẫn là khung FIELD01 8 bước (agent đã ghi lại), mirror `VIEW_PENDING_REVISION` do trang cần đăng nhập.
+
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 - Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
 - Nhiệm vụ/phạm vi hiện tại (Owner 23/09/2026): sau khi đã có vỏ tab Step quy trình, Host phải đề xuất **bản đồ thao tác thật** từ dưới lên Field → Form (MOUT, MOIT) → MOT → MOW: tạo bắt đầu ở đâu, bấm gì, người khai tay gì, máy config gì, phụ thuộc tầng dưới xử lý ra sao, kết quả mong đợi, lỗi quay về đâu, tạo xong quản lý ở UI nào và quản lý thông tin gì. Đồng thời đề xuất deep-link để URL ngoài `/knowledge/modules?task=...` phản ánh tới tab/khu vực/bảng con/bước đang xem. Đây là lượt thiết kế/consensus với Claude; **chưa điền HTML theo đề xuất trước khi hội đồng thống nhất**.
