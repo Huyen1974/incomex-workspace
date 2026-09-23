@@ -5,10 +5,10 @@ RUN_ID: MMIM-FIELD01-20260923-01
 ## 0. Gate bắt buộc
 Lượt này chỉ làm **FIELD pilot** để nghiệm thu khuôn trước khi nhân sang MOUT/MOIT/MOT/MOW.
 
-- Executor_Surface: **Codex**.
-- Write_Path: **workspace_*** đã audit. Bắt đầu bằng một read-gate `workspace_read` hoặc `workspace_stat`; mutation dùng `workspace_transaction`/tool cùng family. Cấm Git CLI/native/API để ghi.
+- Executor_Surface: **Claude Code CLI**.
+- Write_Path: **fs_*** đã audit cho Claude Code CLI. Bắt đầu bằng một read-gate `fs_read` hoặc `fs_stat`; mutation dùng tool ghi cùng family `fs_*` đã audit. Cấm Git CLI/native/API để ghi.
 - Đọc đúng thứ tự: `AGENTS.md` → `README.md` §0/D12 → `work/mow-mot-moit-mout/COLLAB.md` → prompt này.
-- Tra READY bằng `workspace_log` trên chính Write_Path; phải khớp **commit cuối chạm PROMPT.md**, không so HEAD repo.
+- Tra READY bằng `fs_log` trên chính Write_Path; phải khớp **commit cuối chạm PROMPT.md**, không so HEAD repo.
 - Baseline HTML Host đã kiểm: `work/mow-mot-moit-mout/mow-mot-moit-mout.html`, SHA-256 `e5432de39716c761fea7d6ab11692791b404b494e13d36edb655ad29c6b26422`. Nếu SHA khác: đọc diff phần `#list-quy-trinh-shell`; nếu target block đã bị thay đổi thì DỪNG để Host hòa giải, không ghi đè.
 
 ## 1. Mục tiêu FIELD01

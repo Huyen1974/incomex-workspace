@@ -395,9 +395,9 @@ P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt 
 
 ## Giao Agent — MMIM.FIELD01
 - RUN_ID dự kiến: `MMIM-FIELD01-20260923-01`.
-- Executor_Surface: Codex · Write_Path: `workspace_*`.
+- Executor_Surface: Claude Code CLI · Write_Path: `fs_*`.
 - Prompt hiện hành: FIELD pilot.
-- READY@`1ace059e721444819246969d95d216c54ef7388d` · commit cuối chạm `PROMPT.md` sau G7–G8.
+- READY cũ `1ace059e721444819246969d95d216c54ef7388d` → HẾT HIỆU LỰC do đổi Executor/Write_Path; Host pin READY mới ở commit kế tiếp.
 - RUN: **CHƯA PHÁT**. Khi RUN chỉ dùng RUN_ID `MMIM-FIELD01-20260923-01`.
 - Không RUN SCALE01 trong cùng lượt.
 
