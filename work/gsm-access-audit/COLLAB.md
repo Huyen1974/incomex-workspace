@@ -4,8 +4,8 @@
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 2026-09-22**: việc nhỏ nhưng cần làm để tránh “rỉ máu”; lập riêng trên GitHub/workspace để chuyển phiên khác.
 
 ### 1. Mục tiêu
-xác định chính xác **ai/cơ chế nào đang gọi Google Secret Manager (GSM), gọi bao nhiêu, vì sao phải gọi**
-*(đề xuất — chờ Owner gật; nguyên văn đầy đủ giữ ở Vòng trước)*
+- Mục tiêu: xác định chính xác **ai/cơ chế nào đang gọi Google Secret Manager (GSM), gọi bao nhiêu, vì sao phải gọi**, rồi loại các lượt gọi vô lý để giảm phụ thuộc Google, quota/latency/rủi ro và chi phí nếu có.
+*(đề xuất — chờ Owner gật; giữ nguyên câu chữ §0 cũ)*
 
 ### 2. Thế nào là hoàn thành
 - Xác định được ai gọi GSM, gọi bao nhiêu và lượt nào không cần thiết. *(đề xuất — chờ Owner gật)*

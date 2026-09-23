@@ -4,8 +4,8 @@
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 22/09/2026**: ngoài mục tiêu Hermes chạy API khép kín vòng, HJW phải (a) hạn chế rủi ro secret do Hermes sống trên VPS và không mặc định truy cập GSM trực tiếp; (b) khai thác đầy đủ thế mạnh always-on/API/webhook/Telegram của Hermes, thiết kế xong trước rồi mới triển khai.
 
 ### 1. Mục tiêu
-Hermes là thành viên hội đồng cùng GPT và Claude, **chạy API 24/7 trên VPS**.
-*(đề xuất — chờ Owner gật; nguyên văn đầy đủ giữ ở Vòng trước)*
+- Mục tiêu (mở rộng 2026-09-21 và 22/09 theo chỉ đạo Owner): Hermes là thành viên hội đồng cùng GPT và Claude, **chạy API 24/7 trên VPS**. Không chỉ “vào được workspace” như hai thành viên ban đầu, Hermes phải phát huy lợi thế always-on: tự thức đúng lúc, nhận trigger máy-máy, gọi API/webhook/scheduler, theo dõi việc dài hạn, retry có kiểm soát và chủ động nhắn Telegram cho Owner — để các vòng việc có thể khép kín mà Owner không phải trực máy.
+*(đề xuất — chờ Owner gật; giữ nguyên câu chữ §0 cũ)*
 
 ### 2. Thế nào là hoàn thành
 - Hermes cùng GPT và Claude xử lý việc qua API trên VPS, tự chạy các vòng đã giao khi Owner không trực máy. *(đề xuất — chờ Owner gật)*

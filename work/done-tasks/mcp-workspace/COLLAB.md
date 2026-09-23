@@ -4,8 +4,8 @@
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner nhắc lại nhiều lần ngày 2026-09-20, gần nhất yêu cầu kiểm lần cuối để bắt tay vào việc.
 
 ### 1. Mục tiêu
-GPT và Claude có thể làm việc tự nhiên, ổn định qua MCP trên Git workspace và vùng VPS được phép ghi
-*(đề xuất — chờ Owner gật; nguyên văn đầy đủ giữ ở Vòng trước)*
+- Mục tiêu: GPT và Claude có thể làm việc tự nhiên, ổn định qua MCP trên Git workspace và vùng VPS được phép ghi, không vào việc rồi mới phát hiện thiếu công cụ; kết thúc phần kết nối để quay lại công việc chính.
+*(đề xuất — chờ Owner gật; giữ nguyên câu chữ §0 cũ)*
 
 ### 2. Thế nào là hoàn thành
 - GPT và Claude làm việc qua MCP trên Git workspace/VPS ổn định, không vướng thiếu công cụ thông thường. *(đề xuất — chờ Owner gật)*

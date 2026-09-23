@@ -4,7 +4,10 @@
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner chốt lại nguyên văn 3 mục tiêu ngày 2026-09-21.
 
 ### 1. Mục tiêu
-> Cắm Jev để làm cơ chế tham khảo tối đa cho cả GPT và Claude (nếu có thể thì cả chat)
+- Mục tiêu — **nguyên văn User 2026-09-21**:
+  1. Cắm Jev để làm cơ chế tham khảo tối đa cho cả GPT và Claude (nếu có thể thì cả chat), trước mắt Jev duy nhất chỉ có nguồn chạy qua api trên openrouter.
+  2. làm thế nào để các quyết định cần thiết của cả GPT/Claude có thể tham khảo Jev 1 cách tự nhiên (ví dụ ví dụ đưa vào skill bất cứ công cụ nào có sẵn mà 2 hãng (Open Ai và Anthopic) thiết lập cơ chế mặc định, dễ nhớ dễ làm.
+  3. Kết quả của Jev chỉ là hỗ trợ để GPT và Claude ra quyết định. user không đặt kết quả từ Jev nhưng đánh giá đây là công cụ hữu ích và muốn Claude/GPT sử dụng nó.
 
 ### 2. Thế nào là hoàn thành
 - GPT và Claude có thể tham khảo Jev tự nhiên khi quyết định; Jev chỉ hỗ trợ, không thay quyền quyết định. *(đề xuất — chờ Owner gật)*

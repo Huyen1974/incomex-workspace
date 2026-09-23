@@ -4,8 +4,8 @@
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner 22/09/2026 yêu cầu Host Claude xử lý nốt các lỗ còn lại sau HVU và đóng vấn đề.
 
 ### 1. Mục tiêu
-loại Bearer token ra khỏi command-line argv của wrapper `lark-crud-gateway` / `mcp-remote` trên Mac
-*(đề xuất — chờ Owner gật; nguyên văn đầy đủ giữ ở Vòng trước)*
+- Mục tiêu: loại Bearer token ra khỏi command-line argv của wrapper `lark-crud-gateway` / `mcp-remote` trên Mac, đưa secret về env/secret store phù hợp và giữ dịch vụ hoạt động bình thường.
+*(đề xuất — chờ Owner gật; giữ nguyên câu chữ §0 cũ)*
 
 ### 2. Thế nào là hoàn thành
 - Bearer token không còn hiện trong argv; wrapper vẫn hoạt động và credential cũ được xử lý an toàn. *(đề xuất — chờ Owner gật)*

@@ -49,8 +49,8 @@ Owner: thiết kế trên giấy trước, xong mới sang HTML; danh sách ph�
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này.
 
 ### 1. Mục tiêu
-tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm
-*(đề xuất — chờ Owner gật; nguyên văn đầy đủ giữ ở Vòng trước)*
+- Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
+*(đề xuất — chờ Owner gật; giữ nguyên câu chữ §0 cũ)*
 
 ### 2. Thế nào là hoàn thành
 - Hồ sơ MOW · MOT · MOIT · MOUT có luồng thao tác rõ từ Field lên MOW, được Host và Claude thống nhất trước khi sửa HTML. *(đề xuất — chờ Owner gật)*

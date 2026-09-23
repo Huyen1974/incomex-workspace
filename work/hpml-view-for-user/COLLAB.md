@@ -4,7 +4,7 @@
 Xác nhận User: ĐÃ XÁC NHẬN — nguyên văn Owner 23/09/2026 ở mục 1.
 
 ### 1. Mục tiêu
-> “Bạn đưa ra yêu cầu để đổi luôn theo tab (nếu có thể) url thay đổi theo từng khu vực, đến từng bảng con => trao đổi thông tin sẽ chính xác hơn.”
+> “Ngoài ra, hiện nay url về máy không đổ qua các tab, việc này làm trao đổi thông tin thiếu hiệu quả. Bạn đưa ra yêu cầu để đổi luôn theo tab (nếu có thể) url thay đổi theo từng khu vực, đến từng bảng con => trao đổi thông tin sẽ chính xác hơn.”
 
 ### 2. Thế nào là hoàn thành
 - Đường dẫn web mở đúng công việc và đúng tab/khu vực/bảng con đang trao đổi. *(đề xuất — chờ Owner gật)*
