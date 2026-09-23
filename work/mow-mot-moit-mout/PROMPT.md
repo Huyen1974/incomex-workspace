@@ -1,138 +1,171 @@
-# PROMPT — MMIM.FIELD02 · FIELD UI-first
+# PROMPT — MMIM.FIELD03 · Thiết kế kịch bản FIELD trên giấy
 
-RUN_ID: MMIM-FIELD02-20260923-01
+RUN_ID: MMIM-FIELD03-20260923-01
 
 ## 0. Gate
-Lượt này chỉ làm **FIELD**, chỉ làm **UI**, chưa làm config.
+Lượt này **KHÔNG sửa HTML**. Chỉ thiết kế FIELD trong `work/mow-mot-moit-mout/COLLAB.md`.
 
 - Executor_Surface: **Claude Code CLI**.
-- Write_Path: **fs_*** đã audit. Bắt đầu bằng `fs_read`/`fs_stat`; ghi bằng tool cùng family `fs_*`. Không Git CLI/native/API để ghi.
-- Đọc: `AGENTS.md` → `README.md` §0/D12 → `work/mow-mot-moit-mout/COLLAB.md` → prompt này.
-- READY phải là commit cuối chạm `PROMPT.md`, kiểm bằng `fs_log`.
-- HTML baseline: `work/mow-mot-moit-mout/mow-mot-moit-mout.html` SHA-256 `d66e2f5475f9bf6c7bea32ee832dc73a3f97c2e8114bc47e47a5b93c3573fe73`. Lệch target block → DỪNG, không ghi đè.
+- Write_Path: **fs_*** đã audit; read-gate bằng `fs_read/fs_stat/fs_log`, ghi bằng `fs_*`.
+- Đọc: `AGENTS.md` → `README.md` §0/D12 → COLLAB → prompt này.
+- READY phải là commit cuối chạm `PROMPT.md`.
+- HTML phải giữ nguyên SHA-256 `1e245ed6997f5dc117bd809807a9e963527068c89cc6985e442b8eeb133099e8`.
 
 ## 1. Mục tiêu
-Bỏ cách FIELD01 dài/mơ hồ. Làm một bản FIELD nhìn là kiểm được:
+Thiết kế FIELD đủ rõ để **một nhân viên mới đọc là biết phải làm gì trong mọi tình huống chính**, trước khi dựng UI/HTML tiếp.
 
-- Tab **Step quy trình**: giữ nguyên bảng 7 cột Owner đã thiết kế, chỉ còn **3 bước ngắn**.
-- Tab **Quy trình**: có đúng **3 mảnh UI thật** tương ứng 1–1 với 3 bước, xếp dọc từ trên xuống.
-- Trong từng mảnh UI, bôi **vàng** đúng trường/nút phải thao tác ở bước đó; phần khác để xám.
-- Từ phần bôi vàng lập **một bảng danh sách 7 mục** và đếm ra cột “Tổng số trường cần khai”.
-- **Cột config để trống.**
-- Không đụng MOUT/MOIT/MOT/MOW, deep-link, HVU, VPS runtime hoặc connector.
+Dùng khung chuẩn:
+- **Use case / scenario matrix**
+- **CRUD**
+- **State machine**
+- **Data Dictionary**
+- **RBAC / approval**
+- **Where-used / impact analysis**
+- **ID scheme + code registry**
+- **Validation / duplicate / recovery / audit**
 
-## 2. Ba bước FIELD — chốt theo UI thật
-### FIELD.S01 · Tìm / quyết định dùng lại hay tạo mới
-Nguồn: UI-022 · Master Field.
-- Mảnh UI: cắt đúng vùng tìm/tạo của UI-022.
-- Bôi vàng:
-  1. `Tìm mã / tên…`
-  2. `＋ Khai báo trường`
-- Logic ngắn: tìm trước; có Field phù hợp thì dùng lại; chưa có thì bấm `＋ Khai báo trường` sang S02.
-- **Dự kiến** 2 control cần thao tác; khi thi công phải đếm từ UI thật. Nếu khác, dùng số thật và ghi mismatch vào COLLAB.
+JEV là công cụ **chấm/phân loại**, không phải công cụ tự sinh kịch bản.
 
-### FIELD.S02 · Khai Field mới
-Nguồn: UI-018 · hộp “Đề xuất thêm trường”.
-- Mảnh UI: cắt phần form khai Field.
-- Bôi vàng đúng 4 field:
-  1. `Tên trường *`
-  2. `Định dạng *`
-  3. `Mô tả`
-  4. `Nhóm quản lý *`
-- Không tách các option của Định dạng/Nhóm quản lý thành field riêng.
-- **Dự kiến** 4 control cần thao tác; khi thi công phải đếm từ UI thật. Nếu khác, dùng số thật và ghi mismatch vào COLLAB.
+## 2. Sản phẩm duy nhất trong COLLAB
 
-### FIELD.S03 · Đề xuất khai báo
-Nguồn: UI-018 · footer hộp khai Field.
-- Chế độ **khai mới** (`khai-bao=moi`): tiêu đề hộp dùng nhãn thật của chế độ khai mới, nút cuối là `Đề xuất khai báo`.
-- Biến thể khi sửa Field đã có: nút cuối có thể là `Lưu đề xuất`; giữ đúng nhãn theo source thật, không trộn hai chế độ.
-- Mảnh UI: cắt vùng nút cuối form.
-- Bôi vàng đúng nút hoàn tất của chế độ khai mới: `Đề xuất khai báo`.
-- `Đóng` để xám, không tính.
-- **Dự kiến** 1 control cần thao tác; khi thi công phải đếm từ UI thật. Nếu khác, dùng số thật và ghi mismatch vào COLLAB.
+### A. Bảng kịch bản FIELD
+Tách rõ 3 khối đang có:
+- `FIELD.S01` · Tìm / dùng lại hay tạo mới
+- `FIELD.S02` · Khai Field / tạo đề xuất
+- `FIELD.S03` · Gửi đề xuất / hoàn tất bước nhập
 
-Dự kiến FIELD02 để đối chiếu: **2 / 4 / 1**, nhưng số cuối cùng phải lấy từ UI thật, không phải chỉ tiêu bắt buộc.
+Nếu checklist sinh thêm bước thì chỉ thêm `FIELD.S04, S05...` ở cuối; không đảo S01–S03.
 
-## 3. Giữ đúng thiết kế Owner
-Trong `#list-quy-trinh-field`:
-- **giữ nguyên 7 cột**, thứ tự cột, table ID, tên tab và vị trí bảng;
-- body FIELD đổi từ 8 dòng FIELD01 xuống đúng 3 dòng `FIELD.S01..S03`;
-- nội dung mỗi dòng rất ngắn, không nhét lý thuyết;
-- cột “Tổng số trường cần khai” lần lượt **2 · 4 · 1**;
-- cột “Tổng số trường cần config” để **trống cả 3 dòng**;
-- cột trạng thái UI giữ theo thiết kế hiện có; không tự gán UI_OK.
+Mỗi kịch bản một dòng:
+`Mã kịch bản · Bước · Tình huống/trigger · Ai làm · Làm gì · UI nào · Kết quả · Hỏng thì về đâu · Trạng thái (CHOT/CHUA_CHOT/UI_THIEU) · Bằng chứng`.
 
-MOUT/MOIT/MOT/MOW giữ nguyên hoàn toàn.
+Mã kịch bản dùng khuôn dễ tìm:
+`FIELD.<OPERATION>.<NNN>` — ví dụ `FIELD.CREATE.001`.
+Không tự sinh machine ID thật; cột machine_id để `AUTO_GENERATED`.
 
-## 4. Bên Quy trình = 3 mảnh UI thật
-Trong **tab Quy trình**, tạo một khu FIELD ngắn, xếp dọc:
-- `step-detail-field-s01`
-- `step-detail-field-s02`
-- `step-detail-field-s03`
+### B. Checklist tối thiểu phải có dòng
+**Create**
+- tìm trước khi tạo;
+- trùng tên / trùng nghĩa;
+- thiếu field bắt buộc / sai định dạng;
+- Nhóm quản lý chưa có → tạo tại chỗ → quay lại đúng chỗ;
+- bỏ dở giữa chừng;
+- lưu/gửi đề xuất thất bại → retry/return;
+- đề xuất → ai duyệt → approve/reject → khi nào thành Field vận hành;
+- sinh mã / chống trùng mã.
 
-Mỗi mảnh chỉ có 4 phần:
-1. **Ô UI** — bản HTML tĩnh nhìn giống đúng vùng UI nguồn.
-2. **Trường bôi vàng** — tên + số đếm.
-3. **Kết quả** — một câu ngắn.
-4. **Nguồn** — UI-022 hoặc UI-018 + URL.
+**Read**
+- Data Dictionary / Master Field sau khi lưu;
+- tìm theo mã/tên; alias nếu có;
+- mở chi tiết;
+- xem **where-used**: đang được form/quy trình/hợp đồng nào dùng.
 
-### Cách lấy UI
-- Phải đọc **source/runtime thật** đang phục vụ UI-022/UI-018 trên VPS hoặc DOM render thật; **cấm tự vẽ lại từ mô tả**.
-- Chép đoạn HTML nhỏ nhất đủ nhìn; bỏ JS, handler, submit thật, dữ liệu động không cần thiết.
-- Không dùng ảnh/base64.
-- Nếu cần CSS, chỉ thêm CSS tối thiểu và namespace riêng cho FIELD02.
-- Giữ thứ tự/nhãn/control như UI thật.
-- **Vàng** = control bắt buộc phải thao tác để hoàn thành bước. **Xám** = control có thật trên UI nhưng tùy chọn/không bắt buộc ở bước đó; vẫn phải giữ trong mảnh UI, không được cắt bỏ. Ví dụ ở UI-022: `Mọi trạng thái`, `Mọi vai trò` (và bộ lọc khác nếu source thật có) phải hiện nhưng để xám.
-- Không biến mảnh UI thành form hoạt động; đây là **minh họa tĩnh để kiểm**.
+**Update**
+- đổi tên hiển thị / mô tả nhưng giữ identity;
+- đổi Nhóm quản lý;
+- đổi định dạng khi đã có dữ liệu → version/migration;
+- sửa đồng thời/stale edit;
+- thay đổi có cần duyệt lại hay không.
 
-Nếu không xác định được source/DOM thật của UI-022 hoặc UI-018 → DỪNG, không dựng giả.
+**Deactivate/Delete**
+- tạm dừng / kích hoạt lại;
+- lưu trữ;
+- xoá hẳn khi chưa được dùng;
+- đang được dùng → chặn xoá + chỉ rõ where-used;
+- quyền ai được ngừng/xoá.
 
-## 5. Bảng danh sách trường FIELD
-Ngay dưới 3 mảnh UI, tạo một bảng duy nhất:
-`STT · Mã trường · Tên hiển thị · Loại · Bắt buộc · Thuộc bước · UI nguồn`
+**Cross-cutting**
+- quyền đề xuất / duyệt / sửa / ngừng / xoá;
+- audit: ai đổi gì, khi nào;
+- recovery/rollback;
+- alias/search;
+- code registry.
 
-Đúng 7 dòng dự kiến:
-1. `FIELD02.01` · `Tìm mã / tên…` · điền · không · S01 · UI-022
-2. `FIELD02.02` · `＋ Khai báo trường` · bấm · không · S01 · UI-022
-3. `FIELD02.03` · `Tên trường *` · điền · có · S02 · UI-018
-4. `FIELD02.04` · `Định dạng *` · chọn · có · S02 · UI-018
-5. `FIELD02.05` · `Mô tả` · điền · không · S02 · UI-018
-6. `FIELD02.06` · `Nhóm quản lý *` · **chọn nhiều (checkbox)** · có · S02 · UI-018
-7. `FIELD02.07` · `Đề xuất khai báo` · bấm · không · S03 · UI-018
+Có thể thêm kịch bản mới nếu source cho thấy; không được bỏ dòng chỉ vì UI chưa có — ghi `UI_THIEU`.
 
-Phải đối chiếu lại nhãn với UI thật trước khi ghi. Nếu nhãn thật khác → dùng nhãn thật và ghi mismatch vào COLLAB; không tự sửa UI nguồn.
+### C. Bảng State machine
+Dùng mô hình **đề xuất để Owner duyệt**:
+`DRAFT → PENDING_APPROVAL → APPROVED | REJECTED → ACTIVE → SUSPENDED → ARCHIVED`.
 
-## 6. Bỏ rác FIELD01
-- Bỏ 8 bảng chi tiết 14 mục của FIELD01.
-- Bỏ FIELD.S04–S08 khỏi bảng Step FIELD.
-- Không xóa lịch sử trong Git/COLLAB; chỉ sản phẩm hiện hành phải gọn.
-- Không thêm lớp lý thuyết mới.
+Mapping UI hiện có:
+- ACTIVE = Đang chạy
+- SUSPENDED = Tạm dừng
+- ARCHIVED = Lưu trữ
 
-## 7. Kỹ thuật sửa
-- File ~1,87 MB: không rewrite toàn file, không prettify/reformat.
-- Neo theo ID duy nhất; không replace chuỗi generic.
-- Mutation HTML + COLLAB trong **một fs_transaction**.
-- Không đổi ID/tab/table ngoài FIELD được nêu.
+Các state DRAFT/PENDING_APPROVAL/APPROVED/REJECTED nếu chưa có nguồn/UI thật → ghi `CHUA_CHOT/UI_THIEU`, không giả là production schema.
 
-## 8. Acceptance
-1. FIELD Step = **3 dòng**, mã `FIELD.S01..S03`.
-2. Bảng Step vẫn đúng **7 cột** và cùng ID.
-3. Với từng bước: **số control bôi vàng = số dòng bảng danh sách = số ghi ở cột “Tổng số trường cần khai”**, và phải khớp UI thật. Nếu khác dự kiến 2/4/1 thì dùng số thật + ghi một dòng mismatch vào COLLAB; **không tính là FAIL**. Config để trống.
-4. Tab Quy trình có đúng **3 mảnh UI**, ID `step-detail-field-s01..s03`.
-5. Mỗi mảnh lấy từ UI thật; không ảnh, không JS chạy.
-6. Số control bôi vàng của từng bước phải bằng đúng số control bắt buộc thao tác đọc từ UI thật; dự kiến 2/4/1 chỉ để đối chiếu.
-7. Số dòng bảng danh sách FIELD phải bằng tổng số control bôi vàng thực tế; tổng theo từng bước phải khớp cột “Tổng số trường cần khai”. Lệch dự kiến 7 dòng hoặc 2/4/1 chỉ cần ghi mismatch, không FAIL nếu khớp UI thật.
-8. Không còn 8 bảng chi tiết FIELD01 hiện hành.
-9. MOUT/MOIT/MOT/MOW không đổi.
-10. Không sửa VPS runtime/HVU/deep-link/config.
-11. Mở bản mirror nếu đã đồng bộ và kiểm nhìn được; nếu chưa thì `VIEW_PENDING_REVISION`.
-12. Diff chỉ trong phạm vi FIELD02.
-13. Ghi trong COLLAB cùng transaction:
-   `KQ@MMIM-FIELD02-20260923-01 XONG` hoặc `DỪNG`.
+Mỗi transition ghi:
+`from · action · actor · condition · to · UI · lỗi/chặn`.
 
-## 9. Báo cáo
-Báo ngắn:
-`XONG · MMIM.FIELD02 · steps=3 · ui_tiles=3 · field_list=<số thật> · counts=<số thật từng bước> · config=blank · main_html_sha=<new> · Owner review`
+### D. Data Dictionary — thiết kế bảng Master Field
+Thiết kế danh sách cột để Owner chốt, tối thiểu:
+`field_code · display_name · data_type · description · management_group · required · lifecycle_status · version · aliases · where_used · created_by · approved_by · created_at · updated_at`.
+
+Mỗi cột ghi:
+`Tên · Ý nghĩa · nguồn hiện có hay đề xuất mới · UI hiện có/thiếu`.
+
+**Không đưa config kỹ thuật/storage address vào FIELD03.**
+
+### E. Master mã / Code registry
+JEV Host đã chọn: **human-readable stable code + machine ID ổn định**.
+
+Bảng:
+`code · machine_id · loại (STEP/SCENARIO/FIELD/DEPENDENCY...) · đối tượng · tên · version · trạng thái · nơi dùng · ngày`.
+
+Nguyên tắc:
+- mã ≠ tên hiển thị ≠ version;
+- đổi tên không đổi identity;
+- mọi thứ có mã phải tra được trong registry;
+- mã bước không trùng giữa các việc;
+- machine_id do máy sinh, không tự bịa UUID trong bản thiết kế.
+
+### F. Coverage matrix
+Phải có đủ 15 dòng:
+`CRUD · lifecycle · approval · RBAC · duplicate · validation · where-used · version/migration · inline dependency · identifier registry · alias search · audit · concurrency · recovery · data dictionary`.
+
+Mỗi dòng:
+`COVERED / CHUA_CHOT / UI_THIEU / DEFER_P1` + tham chiếu mã kịch bản.
+
+Owner đã nêu trực tiếp nên các mục sau **không được defer khỏi FIELD03**:
+`CRUD · lifecycle · approval · RBAC · validation · duplicate · where-used · inline dependency · identifier registry · data dictionary`.
+
+### G. Danh sách UI thiếu / Owner cần quyết
+Cuối cùng chỉ một bảng ngắn:
+`Mã · vấn đề · UI hiện có hay thiếu · quyết định cần Owner chốt · ảnh hưởng`.
+
+Không dựng UI trong lượt này.
+
+## 3. JEV
+Host đã tham khảo:
+- `gen-dec-1790154140-Rr1v83pDBUTboY7xCUo6` — CRUD/validation/where-used/lifecycle/data dictionary/approval/RBAC là các gap nặng.
+- `gen-dec-1790154166-yNNIKxwR40A31z4AQMGk` — phân tầng P0/P1.
+- `gen-dec-1790154224-LefgUMv5RCl3pRFOcyaA` — lifecycle MODEL_A 0.92; human code + machine ID = 1.00.
+
+Nếu bề mặt Claude Code có JEV Reference, sau khi lập bảng hãy dùng JEV để **judge coverage trên tập đáp án hữu hạn**. Nếu không có thì ghi `JEV_UNAVAILABLE_SURFACE`; không block RUN.
+
+## 4. Luật chống bịa
+- Mọi dòng `CHOT` phải có bằng chứng nguồn.
+- Không có nguồn → `CHUA_CHOT`.
+- Không có màn hình → `UI_THIEU`.
+- Không biến đề xuất hội đồng thành “hệ thống hiện đang có”.
+- Không sửa HTML, runtime VPS, HVU, connector, config.
+
+## 5. Acceptance
+1. HTML SHA không đổi.
+2. COLLAB có đủ A–G.
+3. S01/S02/S03 tách rõ; bước mới chỉ nối ở cuối.
+4. Checklist B không thiếu dòng.
+5. Coverage matrix đủ 15 dimension.
+6. Có State machine.
+7. Có Data Dictionary design.
+8. Có Code registry.
+9. Có UI gap/Owner decision list.
+10. Không có dòng CHOT thiếu evidence.
+11. Ghi trong COLLAB:
+   `KQ@MMIM-FIELD03-20260923-01 XONG` hoặc `DỪNG`.
+
+## 6. Báo cáo
+`XONG · MMIM.FIELD03 · scenarios=<n> · covered=15/15 · owner_decisions=<n> · ui_gaps=<n> · html_unchanged=PASS`
 
 Hoặc:
-`DỪNG · MMIM.FIELD02 · <lý do>`
+`DỪNG · MMIM.FIELD03 · <lý do>`

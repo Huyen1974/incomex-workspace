@@ -46,7 +46,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | FIELD02_KQ_XONG · 23/09/2026 | Claude Code CLI xong FIELD02: 3 bước · 3 mảnh UI · 6 trường, đếm từ UI thật = 2/3/1 (lệch dự kiến 2/4/1 và nhãn nút S03 — xem KQ FIELD02). NEXT: Host + Owner nghiệm thu FIELD.
+MMIM | FIELD03_DRAFT · 23/09/2026 | Dừng HTML; chuyển sang thiết kế kịch bản FIELD trên giấy: CRUD/state/approval/where-used/data dictionary/code registry + coverage 15 dimension. NEXT: Host pin READY rồi RUN Claude Code CLI.
 
 ## Claude · Kiểm trước RUN · Based_on `04a311b` · PROMPT `c660fbb`
 Đã kiểm thật, không theo báo cáo: READY `c660fbb` đúng là commit cuối chạm `PROMPT.md` (`fs_log`) · HTML baseline SHA `e5432de3…6422` khớp · G1 đã tách thật (root COLLAB dòng 20: `HVU-DEEPLINK01` DRAFT/NO RUN) · G2–G6 đều có trong PROMPT và đủ acceptance đo được bằng máy · §6 cấm replace mù/reformat, neo theo ID, một transaction. **Nội dung nghiệp vụ: không còn ý kiến.**
@@ -457,7 +457,13 @@ P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt 
 - I02 · 2026-09-21 · Codex trả: `DỪNG · MMIM.2 · Gate công cụ ghi chưa đạt: README §0/D12 cấm AI push bằng Git/CLI; connector hiện có chưa có đường nhập ảnh nhị phân từ Mac đáp ứng giao dịch bắt buộc. Chưa tạo information/ hoặc sửa nguồn, HTML, COLLAB.`
 - Kết luận Host I02: prompt sai kiến trúc khi bắt binary đi vào Git. Sửa nguyên nhân gốc: MMIM.2 không đưa binary vào Git; chỉ inventory/hash. Shared-assets ngoài Git là bước riêng sau consensus, không sửa connector.
 
-## Giao Agent — MMIM.FIELD02
+## Giao Agent — MMIM.FIELD03
+- RUN_ID: `MMIM-FIELD03-20260923-01`
+- Executor_Surface: Claude Code CLI · Write_Path: `fs_*`
+- Prompt hiện hành: thiết kế kịch bản trên COLLAB, KHÔNG HTML.
+- READY: Host pin ở commit kế tiếp.
+
+## Giao Agent — MMIM.FIELD02 · LỊCH SỬ
 - RUN_ID: `MMIM-FIELD02-20260923-01`
 - Executor_Surface: Claude Code CLI · Write_Path: `fs_*`
 - Prompt hiện hành: FIELD02 UI-first · 3 bước/3 mảnh UI/7 mục.
