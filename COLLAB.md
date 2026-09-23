@@ -18,6 +18,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/hpml-view-for-user/` · HVU-DEEPLINK01 · mở lại 23/09 để làm URL deep-link theo tab/section/step/detail; DRAFT/NO RUN, runtime VPS tách khỏi MMIM.
+- `work/muc-tieu-3-phan/` · MT3 · Host Claude · chuẩn hoá §0 thành ba phần (Mục tiêu / Thế nào là hoàn thành / Chi tiết) trên GitHub + view; PROMPT `MT3-20260923-01`, Executor Codex.
 - NEXT: HJW: Host đánh giá P05 + P06 → chốt secret path theo KQ GSM-A1 → soạn HJW.2B PROMPT/READY/RUN. Không mở thêm vòng thiết kế.
 
 ## Đã xong
