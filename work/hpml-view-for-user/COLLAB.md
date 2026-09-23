@@ -2,6 +2,15 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 
+**HVU-DEEPLINK01 · Owner 23/09/2026 — ĐÃ XÁC NHẬN (nguyên văn lời User):**
+> “Ngoài ra, hiện nay url về máy không đổ qua các tab, việc này làm trao đổi thông tin thiếu hiệu quả. Bạn đưa ra yêu cầu để đổi luôn theo tab (nếu có thể) url thay đổi theo từng khu vực, đến từng bảng con => trao đổi thông tin sẽ chính xác hơn.”
+
+- Diễn giải kỹ thuật Host: giữ `task`, thêm `view/section/step/detail`; contract từ MMIM MAP-R3 R3.8/A1–A9.
+- Phạm vi vòng mới: parent/top viewer + relay runtime VPS; không sửa Step nghiệp vụ trong HVU, không GitHub→VPS, không sửa MCP/connector.
+- Trạng thái: **REOPENED · DRAFT/NO RUN**. Child bridge/ID thuộc MMIM; chỉ RUN sau khi Host xác nhận child contract ổn định.
+
+
+
 **HVU-VPSARCHIVE01 · Owner 22/09/2026 — ĐÃ XÁC NHẬN (nguyên văn lời User):**
 > “Cần thêm done task trên VPS nữa. Bạn điều hành tiếp.
 >

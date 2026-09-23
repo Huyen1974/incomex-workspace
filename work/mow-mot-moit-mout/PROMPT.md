@@ -1,144 +1,150 @@
-# PROMPT — MMIM.2 · Thu thập và tổ chức information · DRAFT CHỜ CLAUDE REVIEW
+# PROMPT — MMIM.FIELD01 · FIELD pilot MAP-R3
 
-## 0. Lệnh và phạm vi
-Owner đã giao việc này ngày 2026-09-20. Đây là lượt THU THẬP / TỔ CHỨC TÀI LIỆU, không phải lượt sửa sản phẩm.
+## 0. Gate bắt buộc
+Lượt này chỉ làm **FIELD pilot** để nghiệm thu khuôn trước khi nhân sang MOUT/MOIT/MOT/MOW.
 
-Trước khi làm:
-1. **Executor_Surface = Codex.**
-2. Chọn **Write_Path theo capability đã audit, không theo hãng**: ưu tiên `workspace_*`; nếu chính phiên Codex không bind `workspace_*` nhưng bind `fs_*` đã audit thì dùng `fs_*`. Cấm dùng Git/CLI/native/API để ghi repo.
-3. Gọi đúng **MỘT read-gate** của Write_Path đã chọn để đọc `work/mow-mot-moit-mout/COLLAB.md` (`workspace_read` hoặc `fs_read` tương ứng). Ghi `WRITE_PATH=<workspace_*|fs_*>` vào báo cáo. Gate fail → DỪNG ngay trước khảo sát/mutation và nêu tool đã thử.
-4. Đọc `AGENTS.md` → README §0/D12 → `work/mow-mot-moit-mout/COLLAB.md` (đặc biệt §0) → toàn bộ prompt này.
-5. Kiểm tra `READY@<SHA>` trong COLLAB bằng **commit cuối chạm `PROMPT.md`**, KHÔNG so với HEAD repo. Nếu không khớp: DỪNG.
+- Executor_Surface: **Codex**.
+- Write_Path: **workspace_*** đã audit. Bắt đầu bằng một read-gate `workspace_read` hoặc `workspace_stat`; mutation dùng `workspace_transaction`/tool cùng family. Cấm Git CLI/native/API để ghi.
+- Đọc đúng thứ tự: `AGENTS.md` → `README.md` §0/D12 → `work/mow-mot-moit-mout/COLLAB.md` → prompt này.
+- Tra READY bằng `workspace_log` trên chính Write_Path; phải khớp **commit cuối chạm PROMPT.md**, không so HEAD repo.
+- Baseline HTML Host đã kiểm: `work/mow-mot-moit-mout/mow-mot-moit-mout.html`, SHA-256 `e5432de39716c761fea7d6ab11692791b404b494e13d36edb655ad29c6b26422`. Nếu SHA khác: đọc diff phần `#list-quy-trinh-shell`; nếu target block đã bị thay đổi thì DỪNG để Host hòa giải, không ghi đè.
 
-Nguồn trên Mac, ưu tiên đúng path Owner giao:
-`/Users/nmhuyen/Desktop/quy trình`
+## 1. Mục tiêu FIELD01
+Triển khai một mẫu hoàn chỉnh cho FIELD theo MAP-R3:
+1. cập nhật quy ước trong file;
+2. chuyển cột UI sang thang 5 trạng thái;
+3. FIELD có đúng 8 bước S01–S08;
+4. có 8 bảng chi tiết ổn định;
+5. mọi nội dung nghiệp vụ có bằng chứng;
+6. không tự tô xanh;
+7. không chạm deep-link viewer/VPS;
+8. bốn đối tượng MOUT/MOIT/MOT/MOW chưa điền nội dung ở lượt này.
 
-Nếu lookup fail do Unicode/path: resolve thư mục cùng tên dưới `/Users/nmhuyen/Desktop` trước; sau đó mới thử Documents/Google Drive cục bộ. Nếu có >1 candidate, đối chiếu sổ chỉ đường/marker/SHA đã biết; không chọn chỉ vì trùng tên. Ghi path thực dùng vào README.
+JEV Host: rollout FIELD pilot = 1.00 và evidence gate = 1.00 (`gen-dec-1790134092-aO1ALXq7oHvk0kKWxh8g`).
 
-Đích duy nhất của lượt MMIM.2:
-`work/mow-mot-moit-mout/information/`
+## 2. Phạm vi mutation
+Chỉ sửa:
+- `work/mow-mot-moit-mout/mow-mot-moit-mout.html`
+- `work/mow-mot-moit-mout/COLLAB.md`
 
-File gốc/HTML chính — CẤM SỬA trong lượt này:
-`work/mow-mot-moit-mout/mow-mot-moit-mout.html`
+Không sửa:
+- mã/runtime VPS, `hpml-view-for-user`, connector/MCP;
+- nguồn Mac;
+- phần HTML ngoài Step quy trình, trừ CSS cực nhỏ nếu bắt buộc cho chính khối này;
+- body MOUT/MOIT/MOT/MOW ngoài việc đổi header cột 7.
 
-Bản HTML trên repo là bản làm việc chuẩn của việc này. Các bản cùng/ gần tên trên Mac chỉ đọc để đối chiếu, không được chép đè lên repo.
+Deep-link R3.8 đã tách sang `work/hpml-view-for-user/`.
 
-## 1. Mục tiêu
-Khảo sát toàn bộ `/Users/nmhuyen/Desktop/quy trình` để tìm các file thực sự liên quan tới hồ sơ MOW · MOT · MOIT · MOUT và file HTML chính hiện hành. Các tài liệu FIELD/UI liên quan trực tiếp được đưa vào cùng phạm vi nguồn của lượt thu thập, nhưng MMIM.2 không tự thay đổi mục tiêu nghiệp vụ đã xác nhận ở COLLAB §0.
+## 3. G2/G3/G4 — vỏ bảng và sửa an toàn
+### 3.1 Quy ước trong file
+Cập nhật `#step-quy-trinh-quy-uoc` trong CÙNG transaction:
+- 8 bước chuẩn: S01 Tìm · S02 Tạo mới · S03 Khai định danh/nghĩa nghiệp vụ · S04 Gắn phụ thuộc · S05 Sắp xếp/nối · S06 Config máy · S07 Test · S08 Lưu/đăng ký + trả về;
+- lifecycle mapping theo JEV `gen-dec-1790134441-cc5M3quXTJLHbOyhLsDI`: S01=Tìm; S02=Tạo; S03=Tạo; S04=Tạo; S05=Tạo; S06=Config; S07=Test; S08=Master; object-step không áp dụng → `x`;
+- UI_state 5 giá trị: `UI_OK` xanh · `UI_CAN_SUA` vàng · `UI_THIEU` đỏ · `CHUA_RA` xám · `KHONG_CAN_UI` x;
+- Agent không được tự gán `UI_OK`; xanh chỉ khi có bằng chứng + ngày Owner chốt;
+- S04 branch chuẩn + `return_to_step`;
+- cardinality MAP-R3 gồm HMITL/AUTO;
+- hai cột tổng chỉ tính từ detail đã có evidence; trống ≠ 0.
 
-Tự đề xuất cấu trúc dễ hiểu trong `information/`, rồi COPY các **tài liệu text/lightweight thực sự cần thiết** vào đó. Binary/ảnh KHÔNG đưa vào Git trong MMIM.2; chỉ kiểm kê đủ để bước shared-assets sau có thể publish một lần và mọi AI đọc bằng URL HTTPS. Mục tiêu của `information/` là: AI hoặc người mới vào việc có thể biết đâu là phụ thuộc trực tiếp, nguồn nghiệp vụ/thiết kế, tham khảo và legacy — mà không phải mò lại toàn bộ Desktop.
+### 3.2 Header
+Trong CẢ 5 bảng `list-quy-trinh-{field|mout|moit|mot|mow}`, đổi cột 7 từ `Check UI` sang `Trạng thái UI` + chú thích 5-state. Không điền body của 4 bảng còn lại.
 
-## 2. Trình tự khảo sát và nguyên tắc chọn file
-Trước khi tự phân loại, nếu còn tồn tại thì đọc các sổ chỉ đường:
-- `00-DOC-TRUOC.md`
-- `KHO/00-CANH-BAO-DOC-TRUOC.txt`
-- `KHO/00-NHAT-KY-DON-DEP.txt`
+### 3.3 FIELD summary
+Chỉ `#list-quy-trinh-field tbody` thành đúng 8 row:
+- `id="step-row-field-s0x"`
+- `data-step-code="FIELD.S0x"`
+- STT 1..8
+- Mã Bước link `#step-detail-field-s0x`
+- Tên Bước đúng xương chung
+- Nội dung FIELD ngắn, chỉ từ MAP-R3/evidence
+- hai cột tổng để trống nếu detail chưa đủ danh sách có evidence
+- UI_state thuộc 5 giá trị; **pilot không có UI_OK**
 
-Kế thừa các nhãn “cũ/hết hiệu lực/không dùng” đã có căn cứ; không phân loại lại từ đầu chỉ dựa vào tên file.
+FIELD S04 và S05 = `x` / `KHONG_CAN_UI`.
 
-Rà theo bốn lớp:
+### 3.4 FIELD detail
+Ngay sau bảng FIELD, tạo `<section id="step-details-field">` chứa đúng 8 detail block:
+`step-detail-field-s01` ... `step-detail-field-s08`.
 
-**A · Phụ thuộc trực tiếp của HTML chính**
-- Quét các tham chiếu file tương đối từ `src`, `href`, manifest/fetch/import và metadata. Bỏ qua URL `http(s)`, fragment `#...`, `javascript:`, `mailto:` và `data:`.
-- Bộ ảnh hiện hành đang dùng tiền tố thư mục Unicode dạng NFD. Trong MMIM.2: **KHÔNG copy ảnh/binary vào Git, KHÔNG base64, KHÔNG cố tái tạo tên thư mục NFD và KHÔNG sửa HTML**.
-- Với từng ảnh/binary liên quan, chỉ đọc metadata từ Mac và tính: `image_id/path nguồn · extension/MIME · bytes · SHA-256 · old_src`. Nếu `image-manifest.json` là text nhỏ thì copy nó vào `information/` như tài liệu nguồn; không coi việc không đưa ảnh vào Git là thiếu phụ thuộc.
-- Tạo file text `information/assets-manifest.json`. Mỗi asset tối thiểu có: `asset_id`, `source_mac`, `old_src`, `bytes`, `sha256`, `ext`, `publish_name_ascii`, `shared_url`, `state`. `publish_name_ascii` dùng ASCII ổn định, ưu tiên `<asset_id>-<sha12>.<ext>`; `shared_url=null`, `state="PENDING_SHARED_PUBLISH"` trong MMIM.2.
-- README bắt buộc có `LINK-MAP`: địa chỉ tương đối cũ trong HTML → nguồn Mac → SHA/bytes → `publish_name_ascii` → `SHARED_ASSET_PENDING` hoặc `MISSING`. Đây là đầu vào cho bước shared-assets/MMIM.3 sau; Codex không vá HTML và không tự publish binary trong MMIM.2.
+Mỗi detail block có:
+`lifecycle_state · Điểm vào/UI · Bấm/Hành động · Khai tay · Config máy · Phụ thuộc/nhánh · Kết quả mong đợi · Lỗi/quay về · Nơi quản lý sau tạo · Thông tin quản lý · UI_state · Bằng chứng · manual_count · config_count`.
 
-**B · Nguồn được HTML chính nêu đích danh**
-- HTML/MD/JSON/JS/CSS/ảnh/tài liệu mà nội dung/comment/metadata file chính dẫn tới.
-- Đặc biệt rà các nguồn thiết kế/quy trình như `00-NGUON-THIET-KE.html`, `cấu trúc hệ thống.html`, `BAN-DO-BUOC-UI-AGENT.html`, `TAO-MOT-QUY-TRINH.html` và các file tương tự thực sự được dẫn.
-- Nếu HTML ghi sẵn SHA cho một nguồn thì tính SHA file Mac và ghi MATCH/MISMATCH; không tự thay nguồn để “khớp”.
+Không đổi ID bảng hiện có.
 
-**C · Tài liệu làm việc hiện hành có liên quan trực tiếp**
-- file mô tả/triển khai MOW, MOT, MOIT, MOUT, FIELD, UI cha/UI con, quy trình tạo, config, ma trận, test;
-- chỉ copy khi có lý do sử dụng rõ.
+## 4. G5 — evidence gate
+### 4.1 Nguồn được phép
+Factual content chỉ điền khi có ít nhất một:
+- URL UI thật đã kê trong HTML;
+- path + anchor/dòng/khối tài liệu repo;
+- quyết định Dxx/MAP-R3 trong COLLAB;
+- commit cụ thể chứa nguồn/quyết định.
 
-**D · Lịch sử / legacy / bản chép runtime**
-- backup, phiên bản cũ, script cập nhật cũ, tài liệu hết hiệu lực chỉ giữ nếu cần đối chiếu;
-- HTML/JS/CSS trên Mac là bản chép của các UI đang chạy tại VPS `/ui-preview/mcp-writes/` KHÔNG được xếp CURRENT. Nếu cần giữ, xếp D và ghi rõ: `MAC_COPY_ONLY · current_runtime_source = VPS root ui`.
-- MMIM.2 không fetch/copy runtime VPS.
+FIELD evidence đã định vị:
+- `child-UI-018` · Field khai báo trường;
+- `child-UI-021` · Kanban FIELD;
+- `child-UI-022` · Master Field.
 
-Không copy mù toàn bộ thư mục. Không lấy `.git`, `node_modules`, cache/temp, file hệ thống, file không liên quan hoặc bản sao trùng hash.
+### 4.2 Cấm bịa
+- Không có evidence → `CHUA_RA`/để trống.
+- Không dùng kiến thức chung để lấp field/config.
+- UI tồn tại nhưng chưa có bằng chứng Owner chốt cho đúng step → tối đa `UI_CAN_SUA`.
+- manual/config count chỉ ghi khi từng item đã liệt kê và có evidence.
 
-**Text lớn:** file text >100 KB KHÔNG relay toàn nội dung qua model và KHÔNG copy vào Git trong MMIM.2. Chỉ ghi metadata `kind=large_text · source_mac · bytes · sha256 · state=PENDING_LARGE_TEXT` vào `assets-manifest.json`/README để xử lý cùng external/shared-assets sau.
+### 4.3 Marker kiểm máy
+Mỗi record detail:
+- `data-record-state="EVIDENCED|UNKNOWN|NA"`
+- EVIDENCED có `data-evidence-ref` không rỗng
+- UNKNOWN hiển thị `CHUA_RA`
+- NA hiển thị `x`
 
-## 3. Cách tổ chức — Codex tự đề xuất
-Codex được quyền quyết định cây bên trong `information/` sau khi khảo sát thật, với các chốt:
-- ít tầng, tên dễ hiểu;
-- phân biệt rõ `DIRECT-DEPENDENCY` / `CURRENT` / `REFERENCE` / `LEGACY`;
-- binary/ảnh tuyệt đối không nằm trong cây Git của `information/`; chỉ manifest/link-map là text;
-- file text/tài liệu nhẹ vẫn giữ tên nguồn nếu không gây lỗi; nếu cần đổi tên bản copy để tránh Unicode/path collision thì README phải có mapping nguồn → đích;
-- cùng nội dung trùng hash chỉ giữ một bản và ghi mọi đường nguồn trùng.
+Cuối lượt:
+- `filled_records` = EVIDENCED
+- `evidenced_records` = EVIDENCED có evidence-ref hợp lệ
+- `unknown_records` = UNKNOWN
 
-Không tạo file tiến độ. Hai file điều khiển bắt buộc trong `information/` là:
-- `README.md` — inventory/link-map/quyết định phân loại;
-- `assets-manifest.json` — metadata/hash/địa chỉ của binary **và text >100 KB**, không chứa binary/base64 hay nội dung text lớn.
+Bắt buộc `filled_records === evidenced_records`. Lệch = FAIL.
 
-## 4. README bắt buộc
-README tối thiểu có:
-1. Cây `information/` và lý do.
-2. Inventory **tài liệu text/lightweight**: nguồn Mac → đích repo → A/B/C/D → lý do → bytes → SHA-256.
-3. `LINK-MAP` cho mọi tham chiếu file tương đối của HTML chính. Với binary: địa chỉ cũ → nguồn Mac → SHA/bytes → `publish_name_ascii` → `SHARED_ASSET_PENDING`/`MISSING`; với text: thêm đích repo nếu đã copy.
-4. Tóm tắt `assets-manifest.json`: tổng số binary, tổng bytes, duplicate theo SHA, thiếu file nào; **không yêu cầu ảnh nằm trong Git**.
-5. File đã xem nhưng không copy + lý do, dùng nhãn `OMITTED_PUBLIC_SENSITIVE`, `OUT_OF_SCOPE`, `DUPLICATE`, `MAC_RUNTIME_COPY`, `BINARY_EXTERNAL` khi phù hợp.
-6. Trùng hash và bản giữ lại/asset_id chuẩn.
-7. SHA đối chiếu bản HTML trên Mac nếu tìm thấy; SHA nguồn nào đã được HTML ghi sẵn.
-8. Cảnh báo Unicode/đường dẫn tương đối.
-9. UNKNOWN còn lại; không tự suy thành “đủ”.
-10. Tổng số file text đã copy + tổng dung lượng; binary báo riêng số file/tổng bytes nhưng không commit.
+## 5. Nội dung FIELD được phép
+- S01: tìm ở Master Field — UI-022.
+- S02: tạo/khai Field — UI-018.
+- S03: chỉ dùng các mục thực sự đọc được từ UI-018; nguồn hiện nêu khung tên, định dạng, mô tả, nhóm quản lý.
+- S04: `x`.
+- S05: `x`.
+- S06: Config kỹ thuật Field; chi tiết thiếu evidence → CHUA_RA.
+- S07: Test Field/chỗ dùng; chi tiết thiếu evidence → CHUA_RA.
+- S08: quản lý ở Master Field + return ID/version theo MAP-R3; schema cụ thể thiếu nguồn → CHUA_RA.
 
-README là mục lục ngắn, không phải bài thuyết minh.
+## 6. Kỹ thuật sửa
+- File ~1,8 MB; không rewrite toàn file, không prettify/reformat.
+- Neo bằng ID duy nhất: `step-quy-trinh-quy-uoc`, `list-quy-trinh-field` và từng table ID khi đổi header.
+- Cấm replace generic ba hàng trống giống nhau.
+- Dùng expected_version và **một workspace_transaction** cho HTML + COLLAB.
+- Không đổi ID hiện có từ D17.
 
-## 5. Công khai và an toàn
-Repo được Owner chấp nhận công khai để ưu tiên tốc độ/chất lượng, nhưng KHÔNG đưa thông tin quá nhạy cảm hoặc không cần thiết lên public repo.
+## 7. Acceptance
+1. SHA HTML trước/sau + bytes delta.
+2. `#list-quy-trinh-field tbody > tr = 8`.
+3. MOUT/MOIT/MOT/MOW body vẫn đúng 3 hàng trống.
+4. Đúng 8 summary code `FIELD.S01..S08`.
+5. Đúng 8 detail ID `step-detail-field-s01..s08`.
+6. Header cột 7 của cả 5 bảng = `Trạng thái UI`.
+7. Không có `UI_OK` do Agent tạo.
+8. `filled_records === evidenced_records`; báo thêm `unknown_records`.
+9. Quy ước chứa 8-step + 5-state + evidence + branch/return.
+10. Diff không chạm ngoài scope.
+11. Nếu mirror VPS đã ở revision mới: mở `/knowledge/modules?task=mow-mot-moit-mout` và kiểm FIELD; nếu chưa, ghi `VIEW_PENDING_REVISION`, Host kiểm sau — không sửa VPS.
 
-Không copy:
-- credential, secret, token, private key, session/cookie;
-- CCCD/hộ chiếu/tài khoản ngân hàng, hồ sơ tài chính/cá nhân, địa chỉ/SĐT cá nhân khi không cần cho công việc;
-- hợp đồng/tài liệu có điều khoản, giá hoặc thông tin đối tác mang tính không công khai nếu không cần thiết cho việc này;
-- dữ liệu người thật có thể gây rủi ro riêng tư khi ghép nhiều trường định danh.
+## 8. KQ
+Cập nhật COLLAB trong cùng transaction:
+- RUN_ID
+- SHA trước/sau
+- field_rows=8 · detail_blocks=8
+- filled/evidenced/unknown
+- UI_state của 8 step
+- PASS/FAIL từng acceptance
 
-Tên người/tên công ty hoặc thông tin nghiệp vụ đã công khai không tự động bị loại nếu thực sự cần cho tài liệu công việc. Với xlsx/docx/pdf nghi có dữ liệu nhạy cảm, mở kiểm nội dung trước khi copy; không quyết định chỉ từ tên file.
+Báo:
+`XONG · MMIM.FIELD01 · field=8/8 · detail=8/8 · evidence=<filled>/<evidenced> · unknown=<n> · ui_ok=0 · main_html_sha=<new> · Owner review FIELD trước khi scale`
 
-Ngưỡng relay/copy của MMIM.2: text >100 KB/file đi `PENDING_LARGE_TEXT`; binary luôn external inventory. Không dùng ngưỡng 50/250 MB để chờ đến lúc quá muộn.
-
-Các chốt khác:
-- CẤM sửa nội dung/format/metadata/tên/vị trí `mow-mot-moit-mout.html`.
-- CẤM xoá/di chuyển/đổi tên nguồn dưới `/Users/nmhuyen/Desktop/quy trình`.
-- Chỉ COPY **text/tài liệu nhẹ** từ Mac sang `information/`; binary/ảnh chỉ inventory/hash, không commit Git.
-- Không đụng VPS/runtime/production và không tự publish shared-assets trong MMIM.2.
-- Không ghi đè file đích khác nội dung.
-- Với text nhỏ đã copy: ưu tiên hash nguồn = hash đích. Nếu connector chuẩn hoá newline/BOM nhưng nội dung text tương đương, ghi `NORMALIZED_BY_TRANSPORT` + SHA nguồn/đích + loại chuẩn hoá; không retry vòng lặp. Với binary/text >100 KB: PASS của MMIM.2 = định vị + bytes/SHA + manifest/link-map, không phải đã upload.
-
-## 6. Đúng bản và kiểm trước khi kết thúc
-Bắt buộc:
-- HTML chính trên repo vẫn đúng SHA-256:
-  `f4aac30c492f104ec54ff7a03ace54ce70d802e2dd49a417ad9b7285897a050c`.
-- Nếu thấy bản gốc Mac `quy trình/từ thực tế đã làm.html`, tính SHA và ghi vào README. Nếu khác SHA repo: KHÔNG copy đè hoặc “hòa giải”; repo vẫn là bản làm việc chuẩn, ghi divergence để Host xử lý.
-- Bản cùng tên nằm trong thư mục con mà tài liệu đã đánh dấu cũ không được dùng làm current.
-- Mutation **do chính Codex tạo** không được nằm ngoài:
-  - `work/mow-mot-moit-mout/information/**`
-  - và cập nhật trạng thái `work/mow-mot-moit-mout/COLLAB.md`.
-  Thay đổi chen ngang của việc khác/HEAD repo không tự làm MMIM.2 fail; xử lý bằng version/head guard của Write_Path đã chọn.
-- mỗi file text đã copy có hash nguồn = hash đích;
-- `assets-manifest.json` phủ toàn bộ binary được HTML/file manifest tham chiếu; mỗi entry có source tồn tại hoặc trạng thái `MISSING` rõ ràng;
-- README phản ánh file thật, không ghi “đã copy/upload” từ suy đoán.
-
-## 7. Ghi Git, retry và báo cáo
-- **Write_Path của MMIM.2 phải là một trong hai capability đã audit:** `workspace_*` (primary) hoặc `fs_*` (fallback nếu bind). Dùng transaction/write/edit của **cùng family đã qua read-gate** để tạo `information/**` và cập nhật COLLAB. Không chuyển family giữa chừng trừ khi Host phát RUN mới.
-- **CẤM** `git add/commit/push`, tạo branch để lách luật, GitHub native/App/API/CLI để ghi repo. Git/CLI chỉ đọc nếu cần.
-- Việc không nhập được binary/text >100 KB **không phải blocker**, vì MMIM.2 chỉ inventory chúng.
-- Nếu text nhỏ cần copy nhưng Write_Path không có thao tác tạo file phù hợp: ghi `OMITTED_TOOL_LIMITATION` và tiếp tục phần độc lập; chỉ DỪNG nếu thiếu file đó làm inventory/link-map sai bản chất.
-- Khi tool trả timeout/`OUTCOME_UNKNOWN`/`RECOVERY_REQUIRED`: **read-back/journal/commit trước**, dùng cùng idempotency key nếu retry được; không ghi lại mù.
-
-Khi hoàn tất:
-- ghi `information/` + cập nhật COLLAB đúng workflow repo bằng đường ghi được phép;
-- MMIM.2 → `MACHINE_DONE`, ghi số file text/dung lượng + số binary/tổng bytes inventoried và `information/README.md`;
-- không tự nghiệm thu nghiệp vụ, không sửa HTML chính, không sửa Owner View, không upload binary.
-
-Thông báo cuối:
-`XONG · MMIM.2 · executor=Codex · write_path=<workspace_*|fs_*> · text=<số file>/<dung lượng> · external_inventory=<số file>/<dung lượng> · main_html_sha=PASS · xem information/README.md`
-
-Nếu không truy cập được Mac, conflict/secret không xử lý an toàn, hoặc hash HTML repo thay đổi:
-`DỪNG · MMIM.2 · <lý do cụ thể>`
+Hoặc:
+`DỪNG · MMIM.FIELD01 · <lý do cụ thể>`

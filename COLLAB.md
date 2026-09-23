@@ -17,6 +17,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/hermes-joint-workspace/` · HJW · Host GPT · **HJW.2A CONSENSUS CLOSED** sau P04; scope Phase 1 đã rút gọn. Còn đúng một gate KQ GSM-A1 để chốt secret path trước HJW.2B; chưa RUN production.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
+- `work/hpml-view-for-user/` · HVU-DEEPLINK01 · mở lại 23/09 để làm URL deep-link theo tab/section/step/detail; DRAFT/NO RUN, runtime VPS tách khỏi MMIM.
 - NEXT: HJW: chạy GSM-A1 read-only → lấy KQ → GPT Host chốt secret path → soạn HJW.2B PROMPT/READY/RUN. Không mở thêm vòng thiết kế.
 
 ## Đã xong

@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | MAP_R3_CONSENSUS · 23/09/2026 | P09–P12 đã hòa giải bằng source + UI thật + JEV. MAP-R3 cuối đã viết: xương 8 bước, HMITL/AUTO, 5 trạng thái UI, deep-link sandbox-safe. Chưa sửa HTML; NEXT: Owner chốt MAP-R3 rồi Host mới giao Agent.
+MMIM | FIELD01_PROMPT · 23/09/2026 | MAP-R3 + G1–G6 đã hòa giải. Deep-link đã tách sang hpml-view-for-user; FIELD pilot prompt đã soạn, chờ Host pin READY rồi Owner/RUN Codex. Full 4 object còn lại chỉ sau Owner review FIELD.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -44,6 +44,7 @@ MMIM | MAP_R3_CONSENSUS · 23/09/2026 | P09–P12 đã hòa giải bằng source
 - D19 · 2026-09-23 · Owner yêu cầu Host **chưa cho Agent tự mò tiếp** mà phải định nghĩa bản đồ quy trình chi tiết trước: đi từ Field → Form/MOUT/MOIT → MOT → MOW; mỗi quy trình phải nêu bước thao tác, UI, hành động, input tay, config máy, kết quả, nhánh lỗi/phụ thuộc và nơi quản lý sau tạo. MOW bắt buộc có nhánh “MOT đã có → chọn/gắn; chưa có → chạy quy trình tạo MOT → quay lại đúng bước MOW”. Owner đồng thời yêu cầu URL ngoài thay đổi theo tab/khu vực/bảng con để trao đổi chính xác. Lượt này Host đề xuất → Claude review → Owner chốt; chưa sửa bảng Step theo đề xuất.
 - D20 · 2026-09-23 · Owner yêu cầu các quyết định kiểu lựa chọn/phân loại trong việc này **khai thác tối đa JEV**. Host đã gọi JEV Reference độc lập sau review Claude; dùng JEV làm bằng chứng phụ bên cạnh source/UI/runtime, không dùng để thay quyết định nghiệp vụ.
 - D21 · 2026-09-23 · Hội đồng GPT/Claude đã đạt consensus thiết kế MAP-R3 sau P12: task `HMITL` dùng quy ước 1 MOIT + 1 MOUT cho PASS; task `AUTO` được 0 human form nhưng bắt buộc machine binding/config + test. Đây là consensus kỹ thuật/nghiệp vụ **chờ Owner chốt trước khi Agent sửa HTML**, không tự ghi thành schema production.
+- D22 · 2026-09-23 · Owner gửi review G1–G6 của Claude và yêu cầu Host “xem xét kỹ và tiếp tục điều hành”. Host nhận đây là lệnh tiếp tục chuẩn bị thi công an toàn theo consensus; rollout đầu chỉ FIELD pilot, chưa nhân 4 đối tượng còn lại trước Owner review. Deep-link tách sang task HVU, không gộp runtime VPS với sửa HTML Git.
 
 ## Đề xuất Host · MAP01–MAP05 + URL01 · chờ Claude review
 
@@ -323,14 +324,27 @@ Nhưng MAP-R3 là bản thiết kế, chưa phải bản thi công. Đối chi�
 
 **Điều kiện đồng thuận từ phía Claude:** Host đưa G1–G6 vào bản giao việc (G1 thành việc riêng; G2–G6 thành điều khoản prompt + acceptance) thì **không cần thêm vòng review nào**; Host đặt READY sau khi Owner chốt MAP-R3.
 
-## NEXT sau MAP-R3
-- **Chờ Owner chốt MAP-R3.** Không cần thêm vòng Claude: Claude `f53cee5` đã xác nhận nếu Host nhận ngoại lệ AUTO thì P12 CLOSED.
-- Sau Owner chốt, Host mới soạn prompt/READY/RUN cho Agent sửa HTML Step + deep-link. Không giao Agent tự suy nghiệp vụ thêm.
+**Host xử lý G1–G6 · ACCEPTED**
+- G1: đã mở lại `work/hpml-view-for-user/`; R3.8/A1–A9 vào `HVU-DEEPLINK01`, DRAFT/NO RUN. Không Git→VPS, không sửa connector.
+- G2: FIELD01 đổi header UI_state cho 5 bảng; FIELD = 8 summary rows + 8 detail blocks; 4 body còn lại giữ trống.
+- G3: cập nhật `#step-quy-trinh-quy-uoc` cùng transaction.
+- G4: patch neo theo ID; cấm replace generic/rewrite/reformat; acceptance đếm/hash/diff.
+- G5: evidence-per-record + coverage gate. JEV `gen-dec-1790134092-aO1ALXq7oHvk0kKWxh8g` = 1.00.
+- G6: FIELD pilot trước; JEV cùng result = 1.00.
+- lifecycle mapping: JEV `gen-dec-1790134441-cc5M3quXTJLHbOyhLsDI`: S01=Tìm; S02=Tạo; S03=Tạo; S04=Tạo; S05=Tạo; S06=Config; S07=Test; S08=Master; non-applicable=`x`.
+
+## NEXT sau G1–G6
+- FIELD01: Host pin READY theo commit cuối chạm PROMPT; Owner/GPT có thể RUN Codex. Sau KQ, Host + Owner review đúng một bảng FIELD trước khi scale.
+- SCALE01: chỉ sau FIELD được Owner chấp nhận mới điền MOUT/MOIT/MOT/MOW.
+- HVU-DEEPLINK01: đã tách/reopen; giữ DRAFT/NO RUN tới khi child ID/bridge contract MMIM ổn định.
 
 
 ## Kế hoạch
-- MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
-- MMIM.2 | Codex khảo sát thư mục nguồn, copy text/lightweight + inventory binary + lập mục lục | ◐ DRAFT · chờ Claude review
+- MMIM.1 | Tạo work + import file gốc | ✅
+- MMIM.2 | Thu thập/dọn kho tham khảo | ✅ lịch sử D12–D15
+- MMIM.FIELD01 | FIELD 8 bước + detail/evidence + quy ước mới | ▶ prompt final · pin READY kế tiếp
+- MMIM.SCALE01 | MOUT/MOIT/MOT/MOW theo khuôn FIELD đã duyệt | □ chờ Owner nghiệm thu FIELD
+- HVU-DEEPLINK01 | URL tab/section/step/detail | ↗ task riêng · DRAFT/NO RUN
 
 ## Ý kiến (P)
 Reviewer: Claude Chat · Based_on `39cc96d` / commit review `f5f97fc`. Host GPT đã đối chiếu lại HTML chính và README §12 trước khi xử lý.
@@ -357,12 +371,19 @@ Claude REVIEWED@2d673a370a030e2b679d161132cb908f897b9503 · **ACCEPT có điều
 - H03 · **ACCEPT**: đúng nguyên nhân gốc của I02 về phần binary.
 
 ## Owner cần quyết
-- P01 · Xác nhận mục tiêu toàn việc (A0): “thiết kế chuẩn các UI, chuẩn quy trình tạo và khai báo thành công MOW/MOT/MOIT/MOUT/Field”; tiêu chí xong = mỗi đối tượng có UI chuẩn Owner chốt + quy trình tạo/khai báo viết thành bước + ≥1 lần khai báo thật thành công có bằng chứng. P01 không chặn Claude review/MMIM.2 hiện tại.
+- —
+P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt hiện hành; không còn là gate FIELD01.
 
 ## Sự cố / bài học Host
 - I01 · 2026-09-21 · Codex trả: `DỪNG · MMIM.2 · Workspace hiện tại không có work/mow-mot-moit-mout/COLLAB.md và PROMPT.md; không thể xác minh ba gate bắt buộc. Chưa thay đổi file nào.` → Host đã sửa bootstrap/input gate.
 - I02 · 2026-09-21 · Codex trả: `DỪNG · MMIM.2 · Gate công cụ ghi chưa đạt: README §0/D12 cấm AI push bằng Git/CLI; connector hiện có chưa có đường nhập ảnh nhị phân từ Mac đáp ứng giao dịch bắt buộc. Chưa tạo information/ hoặc sửa nguồn, HTML, COLLAB.`
 - Kết luận Host I02: prompt sai kiến trúc khi bắt binary đi vào Git. Sửa nguyên nhân gốc: MMIM.2 không đưa binary vào Git; chỉ inventory/hash. Shared-assets ngoài Git là bước riêng sau consensus, không sửa connector.
+
+## Giao Agent — MMIM.FIELD01
+- RUN_ID dự kiến: `MMIM-FIELD01-20260923-01`.
+- Executor_Surface: Codex · Write_Path: `workspace_*`.
+- Prompt hiện hành: FIELD pilot; READY sẽ pin ở commit kế tiếp.
+- Không RUN SCALE01 trong cùng lượt.
 
 ## Giao Agent — lịch sử prompt MMIM.2 trước yêu cầu mới 23/09
 - READY@`7d8e1df9e50cfdd5a4b7cfaf8c66cad9343e26f3` → **HẾT HIỆU LỰC** vì Host đã sửa `PROMPT.md` sau I02.
