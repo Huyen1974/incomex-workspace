@@ -4,6 +4,33 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## KẾT CUỐI — Đóng việc · 23/09/2026 · Host (Claude Chat) · CLOSED (KQ@VPSC-R5B-20260924-01 XONG)
+
+### Cho Owner (30 giây) — mọi nguồn làm đầy đĩa đều đã có trần
+| Nguồn / hạng mục | Trạng thái | Cơ chế giữ trần |
+|---|---|---|
+| Đĩa VPS | 🟢 43% dùng, trống ~56GB (trước việc: 88%) | — |
+| 5 vòi (bản sao Nuxt, JSONL Lark, Qdrant, Hermes, log/bằng chứng/SQL tạm) | 🟢 | người gác `vps-retention.sh` (a)–(i) |
+| Image Docker | 🟢 47→38 ImageID, kho 9,40→7,9GiB | luật (l) KEEP_SET v2 mỗi Chủ nhật, `L_XOA=1`: giữ đang chạy + chuỗi triển khai sống + 2 bản lùi/dịch vụ + ân hạn 30 ngày; `.bak`/ghi chú không còn giữ image |
+| Build cache | 🟢 trần 5GiB có hiệu lực | BuildKit GC trong `daemon.json`, đã nạp qua 1 lần restart có kiểm soát |
+| Dữ liệu dài hạn → Google Drive | 🟢 | backup mã hoá mỗi đêm, giữ 30 bộ + 1 bộ/tháng × 12 |
+| Docker sập | 🟢 | `live-restore` bật: dịch vụ vẫn chạy khi dockerd khởi động lại (đã chứng minh 23/09) |
+| Báo động | 🟢 | Kuma đĩa ≥80% + nhịp cron → Telegram |
+| Đổi múi giờ | ✖ bỏ (D11) | — |
+
+### Host hậu kiểm chỉ đọc (23/09 ~10:50Z)
+- Đĩa 43%, trống 56GB; 12 container, 0 có vấn đề, đều "Up 16 giờ" (không container nào khởi động lại qua restart dockerd 09:33Z); systemd failed chỉ còn `cloud-init`, `systemd-networkd-wait-online` (của hệ điều hành, từ 02/2026).
+- Trước khi duyệt xoá Host đã dò `FROM` trong Dockerfile: vài Dockerfile lịch sử (`Dockerfile.workspace`, một số Dockerfile claude-mcp cũ) dựng từ image đã xoá — không ảnh hưởng dịch vụ/rollback (lớp vẫn nằm trong image đang giữ), chỉ không build lại được từ đúng các bước cũ đó.
+
+### Theo dõi sau (không chặn đóng)
+1. Lượt luật (l) Chủ nhật đầu tiên (27/09 02Z): 1 dòng log, không `CANH_BAO`.
+2. Build cache sau vài lần build: ≤ 5GiB (dòng `buildkit_du` trong log).
+3. Build tiếp theo nên `FROM` tag đang giữ (không dùng Dockerfile lịch sử ở trên).
+4. Chuyển giao cũ còn lại (mục KẾT vòng 1): Handoff HVU H2, TTL `workspace-tools`, Kuma resend, project Google Cloud cũ ~31 nghìn đồng/tháng.
+5. Đường ghi repo `fs_*` (Incomex VPS) bị GitHub từ chối khoá SSH lúc 23/09 ~14:05Z (pull_failed · publickey); đường `workspace_*` vẫn ghi được — cần chủ hạ tầng MCP kiểm khoá deploy.
+
+---
+
 ## R5b — Tiếp nối: B5 + KEEP_SET v2 · 23/09/2026 · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=fs_* (gh) · KQ XONG
 
 RUN_ID `VPSC-R5B-20260924-01` · PROMPT@`80ea8339852743b61d63239ca012b993f38bad86`. Cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã; đọc AGENTS → COLLAB (A0 vòng 2, D08, D10–D13, P18–P27) → PROMPT → BAO-CAO mục R5. Chạy 08:28Z–10:46Z. Chế độ phiên: auto-mode (không phải `--dangerously-skip-permissions`); không lệnh nào bị chặn. NO_CONCURRENT_VPS_MUTATION đạt ở đầu mỗi phần. Tệp R5 dùng lại (`12-daemon.json.B` `f0c9c4a7…`, bản A `3ceba3d8…`) khớp sha256 BAO-CAO R5.

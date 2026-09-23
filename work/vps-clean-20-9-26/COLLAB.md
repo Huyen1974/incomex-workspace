@@ -32,7 +32,7 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Ow
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | vòng 2 (P18) · R5 DỪNG ở B5 | R5b: B5 + KEEP_SET v2 chế độ thử · PROMPT đã soạn | NEXT: GPT review R5b → Owner RUN ngay → Host duyệt kế hoạch xoá trong phiên → Đóng | BLOCK: —
+VPSC | Dọn đĩa VPS + khoá vòi rò | ĐÃ ĐÓNG 23/09 (vòng 2) | CLOSED · 2026-09-23 · KQ@VPSC-R5B-20260924-01 XONG · mọi nguồn không phải nghiệp vụ có trần (5 vòi + image + build cache), đĩa 43% · xem BAO-CAO mục KẾT CUỐI | NEXT: — | BLOCK: —
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R5B-20260924-01` · tiếp nối R5 theo P25: (B5) restart dockerd 1 lần có kiểm soát nạp trần build cache 5GiB; (C') KEEP_SET v2 hữu hạn (ACTIVE_ROLLBACK_SET + ân hạn 30 ngày) cài ở chế độ thử `L_XOA=0` + kế hoạch xoá chờ Host duyệt · CÓ MUTATION, KHÔNG xoá image. Giấy phép: dòng R5b dưới.
 - **Giấy phép R5b:** PROMPT_SHA = `80ea8339852743b61d63239ca012b993f38bad86` (áp P26 + P27; các bản trước hết hiệu lực) · **OWNER_APPROVED@80ea8339852743b61d63239ca012b993f38bad86** (D08 + D13: Owner giao Host "phân tích và điều hành tiếp" sau R5; cho phép rõ 1 lần `systemctl restart docker` theo B5) · **Host READY@80ea8339852743b61d63239ca012b993f38bad86** — preflight 23/09 ~07:45Z (Host tự gọi): đĩa 44%, trống ~55GB; 12 container, 0 có vấn đề (cowork-runner lên lại 4 giờ trước do tự thoát rc=0, đã ghi ở R5); cổng NO_CONCURRENT agent tự kiểm lại. **RUN chỉ hợp lệ khi có thêm `GPT REVIEWED@` cùng SHA.** Thời điểm bấm: bất kỳ lúc nào (P26).
@@ -119,7 +119,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | vòng 2 (P18) · R5 DỪNG ở B5 | R5
 - VPSC.9 | R5b tiếp nối (P25): B5 restart có kiểm soát + KEEP_SET v2 hữu hạn + kế hoạch xoá + xoá theo duyệt | MACHINE_DONE · R5b · B5 `BUILD_CACHE = BOUNDED · 5GiB · đã nạp qua restart` (09:33Z, 12 container StartedAt không đổi, cron dừng 70s, cổng (c) theo D14) · C' KEEP_SET v2 `7d725f6`, 38 ≤ trần v2 72, unresolved 0, đối chiếu DAT · F: `L_XOA=1` `9b2f628` → đã xoá theo kế hoạch sha256=3c900eff0cd923dc4cbd228da61616583a0fb1f3b369183cf4edd8bee57051c0 (12/12 tag, 9 ImageID, 0 lỗi; image 47→38; kho 9,40→7,905GiB; trống 55,48GiB 43%; `--chi-l-thu` sau = 0) · D đạt · xem BAO-CAO mục R5b · Áp: SAME_COMMIT
 - KQ@VPSC-R5B-20260924-01 XONG
 - **HOST_APPROVED_DELETE@3c900eff0cd923dc4cbd228da61616583a0fb1f3b369183cf4edd8bee57051c0** — Host Claude 23/09 ~09:55Z, sau khi đọc bảng R5b (`04b0bf0`) + P28 GPT: 9 ImageID/12 tag, tất cả >30 ngày, không container dùng, ngoài chuỗi đang hoạt động, mỗi dịch vụ còn image đang chạy + 2 bản lùi. Host tự kiểm thêm: `Dockerfile.workspace` (`FROM agent-data-workspace-base:20260917`) và vài Dockerfile claude-mcp cũ (`FROM phase0.5a/phase1a`) trỏ tới image trong danh sách — đó là bước build lịch sử; chuỗi build hiện hành nối từ tag đang giữ, lớp dùng chung vẫn nằm trong image đang chạy/bản lùi ⇒ không ảnh hưởng dịch vụ hay rollback; chỉ mất khả năng build lại từ các Dockerfile lịch sử đó (chấp nhận, ghi theo dõi).
-- VPSC.10 | (gộp vào R5b Phần F theo P26) Host duyệt kế hoạch xoá trong phiên → agent xoá + `L_XOA=1` → đóng P18/P25/P26 | □
+- VPSC.10 | Đóng vòng 2 | ✔ CLOSED · 2026-09-23 · KQ@VPSC-R5B-20260924-01 XONG (xoá đúng kế hoạch duyệt, `L_XOA=1`) · Host hậu kiểm chỉ đọc đạt · P18/P25–P28 khép (P28: F PASS thì GPT đồng ý đóng) · chuyển `work/done-tasks/`
 
 ## Câu hỏi hội đồng
 - Q01 · Bằng chứng thô trên VPS, không lên repo. GPT: đồng ý có điều kiện (che secret + giới hạn dung lượng + index). Host: ACCEPT — PROMPT §2 (≤200MB, `INDEX.md`). CLOSED · Áp: c0ddf9e
@@ -184,7 +184,8 @@ GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho 
 - **Không đụng:** `hvu-b3-20260921`, `hvu-b3-cleanup-20260922`, runtime `sr-mow-d30d31` cho tới khi có migration riêng chứng minh an toàn.
 
 ## NEXT
-- **VÒNG 2 (P18):** GPT review PROMPT R5 → ghi `GPT REVIEWED@<full SHA>` → Owner RUN bằng dòng lệnh trong mục Giấy phép R5 → Host nghiệm thu → GPT đóng P18 → Đóng vps-clean-20-9-26.
+- **ĐÃ ĐÓNG 23/09 (vòng 2).** Không còn RUN nào. Theo dõi sau (không chặn): BAO-CAO mục KẾT CUỐI.
+- (lịch sử) **VÒNG 2 (P18):** GPT review PROMPT R5 → ghi `GPT REVIEWED@<full SHA>` → Owner RUN bằng dòng lệnh trong mục Giấy phép R5 → Host nghiệm thu → GPT đóng P18 → Đóng vps-clean-20-9-26.
 - (lịch sử) ĐÃ ĐÓNG 23/09 (D11) rồi mở lại vì P18. Việc treo đã chuyển giao — xem BAO-CAO mục KẾT · Chuyển giao (1–8); mục 1 (`live-restore`) và mục 2 (image/build cache) nay thuộc vòng 2.
 - (lịch sử R4b, đã chạy) Owner RUN R4b (Claude Code CLI trên Mac, phiên mới sạch, chế độ D08) bằng dòng: `WS work/vps-clean-20-9-26 · Agent · RUN VPSC-R4B-20260923-01 · đọc AGENTS.md → work/vps-clean-20-9-26/COLLAB.md → work/vps-clean-20-9-26/PROMPT.md · READY@0a08377d915f0dae0417e63175728e0d3de60282`. Trong lúc chạy không giao việc khác đụng VPS.
 - (lịch sử, thay bằng D11) Sau R4b: Host nghiệm thu qua BAO-CAO + git → V3 Codex chỉ đọc sau một đêm chạy thật → VPSC.6 theo dõi 2 tuần (Telegram canh) → `Đóng vps-clean-20-9-26`.
