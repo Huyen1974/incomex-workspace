@@ -29,6 +29,9 @@ Xác nhận User: ĐÃ XÁC NHẬN (nguyên văn lời User, 2026-09-23)
 - Parser + view đọc đúng bốn mục; việc chưa chuẩn thì cảnh báo chứ không vỡ; tìm kiếm vẫn quét toàn bộ §0.
 - Di trú toàn bộ việc hiện có (cả `done-tasks`) sang khuôn mới, không sửa chữ Owner, không xoá lịch sử.
 
+### Vòng trước
+- Chưa có vòng trước.
+
 ## Trạng thái
 - 2026-09-23 · Mở việc theo chỉ đạo Owner; Host Claude Chat; Executor dự kiến Codex/GPT Work. PROMPT `MT3-20260923-01` đã soạn.
 - READY@7192b994fd69c5a94707f8c0ad42d59e464e7873 · Host Claude Chat · đã đối chiếu Git log: commit cuối chạm `work/muc-tieu-3-phan/PROMPT.md`; sẵn sàng RUN `MT3-20260923-01` cho Codex/GPT Work.

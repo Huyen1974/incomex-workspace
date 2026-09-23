@@ -1,6 +1,18 @@
 # COLLAB — JEV Integration
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
+Xác nhận User: **ĐÃ XÁC NHẬN** — Owner chốt lại nguyên văn 3 mục tiêu ngày 2026-09-21.
+
+### 1. Mục tiêu
+> Cắm Jev để làm cơ chế tham khảo tối đa cho cả GPT và Claude (nếu có thể thì cả chat)
+
+### 2. Thế nào là hoàn thành
+- GPT và Claude có thể tham khảo Jev tự nhiên khi quyết định; Jev chỉ hỗ trợ, không thay quyền quyết định. *(đề xuất — chờ Owner gật)*
+
+### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- Giữ nguyên phạm vi, tiêu chí và chỉ đạo chi tiết tại Vòng trước; Host rà soát, cập nhật phần này khi triển khai.
+
+### Vòng trước
 - Mục tiêu — **nguyên văn User 2026-09-21**:
   1. Cắm Jev để làm cơ chế tham khảo tối đa cho cả GPT và Claude (nếu có thể thì cả chat), trước mắt Jev duy nhất chỉ có nguồn chạy qua api trên openrouter.
   2. làm thế nào để các quyết định cần thiết của cả GPT/Claude có thể tham khảo Jev 1 cách tự nhiên (ví dụ ví dụ đưa vào skill bất cứ công cụ nào có sẵn mà 2 hãng (Open Ai và Anthopic) thiết lập cơ chế mặc định, dễ nhớ dễ làm.

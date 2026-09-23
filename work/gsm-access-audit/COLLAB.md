@@ -1,6 +1,20 @@
 # COLLAB — gsm-access-audit
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
+Xác nhận User: **ĐÃ XÁC NHẬN — Owner 2026-09-22**: việc nhỏ nhưng cần làm để tránh “rỉ máu”; lập riêng trên GitHub/workspace để chuyển phiên khác.
+
+### 1. Mục tiêu
+xác định chính xác **ai/cơ chế nào đang gọi Google Secret Manager (GSM), gọi bao nhiêu, vì sao phải gọi**
+*(đề xuất — chờ Owner gật; nguyên văn đầy đủ giữ ở Vòng trước)*
+
+### 2. Thế nào là hoàn thành
+- Xác định được ai gọi GSM, gọi bao nhiêu và lượt nào không cần thiết. *(đề xuất — chờ Owner gật)*
+- Có phương án giảm gọi an toàn để Owner quyết định lượt triển khai. *(đề xuất — chờ Owner gật)*
+
+### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- Giữ nguyên phạm vi, tiêu chí và chỉ đạo chi tiết tại Vòng trước; Host rà soát, cập nhật phần này khi triển khai.
+
+### Vòng trước
 - Mục tiêu: xác định chính xác **ai/cơ chế nào đang gọi Google Secret Manager (GSM), gọi bao nhiêu, vì sao phải gọi**, rồi loại các lượt gọi vô lý để giảm phụ thuộc Google, quota/latency/rủi ro và chi phí nếu có.
 - Nhiệm vụ/phạm vi: vòng đầu **AUDIT / NO PRODUCTION MUTATION**. Rà mã/runtime/cron/systemd/container/script hiện có trên VPS + dữ liệu Google/Billing/log đã có; lập ma trận caller → secret → trigger → tần suất → lý do. Sau đó mới đề xuất mô hình cache/refresh an toàn. Không mặc định “1 lần/ngày” trước khi đo.
 - Tiêu chí xong: (1) có danh sách đầy đủ caller GSM; (2) có số đo/ước lượng đủ tin cậy về calls theo caller + secret + trigger; (3) phân loại call bắt buộc / dư thừa; (4) có target architecture và trần call cụ thể; (5) nêu tác động chi phí hiện tại và sau tối ưu; (6) mọi thay đổi production chỉ ở lượt sau khi Owner duyệt.
