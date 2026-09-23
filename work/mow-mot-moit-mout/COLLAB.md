@@ -49,6 +49,15 @@ Owner: “Rất nhiều thông tin, rất mơ hồ và không thể xong đượ
 5. **Không đổi thiết kế cũ của Owner**: giữ nguyên 7 cột, ID, tên tab, thứ tự các bảng. Số bước của FIELD lấy **theo UI thật khi cắt ô**; thừa/thiếu so với 8 hàng hiện có thì thêm/bớt hàng ở cuối, không đảo khung.
 6. Nghiệm thu Owner chỉ nhìn hai thứ: băng UI có đủ bước không, và **con số tổng trường** có khớp danh sách không.
 
+## Rà FIELD02 · Claude · Based_on READY `e66d1df` · đếm trên mã nguồn UI thật
+Hướng đúng D20: ngắn, 3 bước, 3 mảnh UI, có con số. Đã mở nguồn thật trên root `ui` (`kanban-field-v1.js` dòng 41–49 = hộp UI-018; `master-list.js` dòng 173–179 = thanh công cụ UI-022). Ba điểm phải sửa trước khi giao, đều có bằng chứng:
+
+- **F1 · 2/4/1 phải là kết quả đếm, không phải chỉ tiêu.** Acceptance 3/6/7 đang bắt đúng 2/4/1; nếu UI thật khác, agent sẽ uốn thực tế cho vừa số — đúng thứ D20 muốn tránh. Sửa thành: “số bôi vàng = số dòng bảng danh sách = số ghi ở cột Tổng, và phải khớp UI thật; lệch với dự kiến 2/4/1 thì ghi con số thật + một dòng mismatch vào COLLAB, không tính là FAIL”. §5 đã có tinh thần này cho nhãn, thiếu cho số.
+- **F2 · Hai nhãn trong prompt khác UI thật.** (a) Nút cuối hộp UI-018 có **hai biến thể theo chế độ**: sửa node đã có → `Lưu đề xuất`; khai mới (đúng URL `khai-bao=moi` đang ghi làm nguồn) → `Đề xuất khai báo` (id `field-propose`); tiêu đề hộp cũng đổi theo (`Khai báo trường` / `Đề xuất thêm trường`). Chốt: lấy nhãn theo chế độ **khai mới**, ghi biến thể kia trong ngoặc. (b) `Nhóm quản lý *` **không phải ô chọn một**, mà là **nhiều checkbox** (`name="field-group"`, option lấy từ danh mục phòng ban minh họa) → cột Loại ghi “chọn nhiều (checkbox)”. Bốn trường của S02 xác nhận đúng: input `Tên trường *` · select `Định dạng *` · textarea `Mô tả` · nhóm checkbox `Nhóm quản lý *`.
+- **F3 · Vùng tìm của UI-022 còn bộ lọc, phải hiện nhưng để xám.** Thanh công cụ thật gồm: `+ Khai báo trường` · ô `Tìm mã / tên…` · select `Mọi trạng thái` · select `Mọi vai trò` (khi có cột vai trò) · có thể có `Mọi Mẹ`. Prompt chỉ nói bôi vàng 2 cái mà không nói số còn lại đi đâu → agent hoặc cắt bỏ (thành vẽ lại, sai tinh thần “UI thật”) hoặc bôi vàng hết. Thêm luật một câu: **vàng = control bắt buộc thao tác để xong bước; xám = control có thật nhưng tuỳ chọn (bộ lọc), vẫn phải xuất hiện trong mảnh UI.**
+
+**Điều kiện đồng thuận:** chèn F1–F3 vào PROMPT rồi ghim `READY@<SHA mới>` thì Claude ACCEPT FIELD02, không cần vòng review nữa. Phần còn lại của prompt (3 bước, giữ 7 cột, cấm tự vẽ, một transaction, RUN_ID + `KQ@`) đúng, không sửa thêm.
+
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
 - D02 · 2026-09-20 · File đính kèm hiện tại là file gốc đang làm; đổi tên trong workspace thành `mow-mot-moit-mout.html`.
