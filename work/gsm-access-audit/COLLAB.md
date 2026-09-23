@@ -10,7 +10,7 @@ Host: **Claude Chat** · Host_ID `CC-GSM-0922` · Owner giao 2026-09-22 ("rà so
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-GSM | Audit/tối ưu lượt gọi Secret Manager | việc 1–2/5 | PROMPT GSM-A1 (chỉ đọc) READY · chờ RUN | NEXT: Owner hoặc GPT Chat phát RUN cho Claude Code CLI (dòng RUN ở mục Cửa vào) | BLOCK: —
+GSM | Audit/tối ưu lượt gọi Secret Manager | việc 3/5 | GSM-A1 KQ XONG (Access 167/30 ngày = 1,7 % miễn phí · lưu trữ 41 version ≈ 2,10 USD/tháng · không rỉ máu) | NEXT: Host `CC-GSM-0922` nghiệm thu README §8 rồi soạn GSM.3 (2 câu hỏi Owner đã nêu ở view.html) | BLOCK: —
 
 ## Quyết định Owner
 - D01 · 2026-09-22 · Không bỏ GSM vội. Trước tiên phải tìm caller/tần suất/nguyên nhân và tối ưu cơ chế truy cập.
@@ -18,8 +18,8 @@ GSM | Audit/tối ưu lượt gọi Secret Manager | việc 1–2/5 | PROMPT GSM
 - D03 · 2026-09-22 · Google Cloud không phải runtime/SSOT: VPS vẫn là SSOT mã/runtime; Google chỉ còn project `github-chatgpt-ggcloud` cho Secret Manager và các tác vụ backup/offsite đã được Owner giữ lại. Không tạo thêm project/service Google trong việc này.
 
 ## Kế hoạch
-- GSM.1 | **Inventory caller — read-only:** tìm mọi đường gọi `AccessSecretVersion`/REST/gcloud/client library/wrapper trong mã, systemd, cron, Docker/container, agent scripts, gateway, health/check job. | ▶ giao RUN `GSM-A1-20260922-01`
-- GSM.2 | **Đo pattern:** caller nào gọi secret nào, trigger gì (startup/request/job/health loop/cron/retry), calls/ngày/tháng, burst/concurrency; đối chiếu Billing và log/metric hiện có. **+ tồn kho version đang tính tiền (P01).** | ▶ cùng RUN `GSM-A1-20260922-01`
+- GSM.1 | **Inventory caller — read-only:** tìm mọi đường gọi `AccessSecretVersion`/REST/gcloud/client library/wrapper trong mã, systemd, cron, Docker/container, agent scripts, gateway, health/check job. | ✅ RUN `GSM-A1-20260922-01` · Áp: SAME_COMMIT
+- GSM.2 | **Đo pattern:** caller nào gọi secret nào, trigger gì (startup/request/job/health loop/cron/retry), calls/ngày/tháng, burst/concurrency; đối chiếu Billing và log/metric hiện có. **+ tồn kho version đang tính tiền (P01).** | ✅ cùng RUN `GSM-A1-20260922-01` · Áp: SAME_COMMIT
 - GSM.3 | **Thiết kế giảm call:** ưu tiên fetch lúc process start + cache memory + pinned version; với process sống lâu dùng TTL/refresh hợp lý hoặc refresh khi rotate/restart. “1 lần/ngày” chỉ dùng nếu threat model/rotation cho phép. | □
 - GSM.4 | **Review:** GPT/Claude/Codex kiểm thiết kế + rollback + secret-rotation behavior; Owner duyệt. | □
 - GSM.5 | **Triển khai + đo lại:** chỉ sau duyệt; so calls trước/sau, latency/quota, health; đóng khi đạt trần. | □
@@ -28,6 +28,7 @@ GSM | Audit/tối ưu lượt gọi Secret Manager | việc 1–2/5 | PROMPT GSM
 - `PROMPT.md` · RUN_ID `GSM-A1-20260922-01` · Executor_Surface = Claude Code CLI trên Mac (SSH chỉ đọc VPS + `gcloud`/REST chỉ đọc) · Write_Path = `workspace_*` (dự phòng `fs_*`) · CHỈ ĐỌC · báo cáo vào `README.md` §8 + `view.html`.
 - P01 · Claude (Host `CC-GSM-0922`) · Based_on `e112211` · Scope: Kế hoạch GSM.1–GSM.3 + README §7–§8 + `view.html` · đã đọc hết 3 file của việc + AGENTS.md. Đề nghị: (1) gộp GSM.1 + GSM.2 vào một RUN chỉ đọc; (2) đo từ hai phía — metric Google theo tài khoản gọi (trên xuống) đối chiếu với dựng từ mã/cron/systemd (dưới lên), lệch > 20% là còn caller chưa tìm ra; (3) thêm tồn kho version vào GSM.2 vì D02 cho thấy tiền nằm ở lưu trữ, tiêu chí xong (5) cần số này — chỉ đếm, không huỷ; (4) một file báo cáo duy nhất = README §8; `view.html` chuyển sang màn hình Owner (quyết gì · tiến độ · ma trận màu). Không chờ review GPT vì RUN không mutation; GPT góp P song song, P đúng áp ở GSM.3. · Host: ACCEPTED · Áp: `e1b4b36`
 - READY@e1b4b36d1ed8b38215ac4dae9900ddfb53d03edd · Host `CC-GSM-0922` · 2026-09-22 · RUN chỉ đọc; Host đã tự rà 2 vòng (luật AGENTS A0/A6/A9 + bảo mật repo công khai; đủ 8 câu bắt buộc + nguồn đo độc lập).
+- KQ@GSM-A1-20260922-01 XONG · Claude Code CLI · 2026-09-23 · Access 167/30 ngày (A↔B lệch 1,8 %) · lưu trữ 41 version ≈ 2,10 USD/tháng · top: launcher Lark Claude Desktop trên Mac, helper MCP lúc deploy · rỉ máu: không · chỉ đọc, không mutation · báo cáo README §8 + view.html · Áp: SAME_COMMIT
 
 ## Guardrails
 - Không in/log payload secret, token, service-account material hay nội dung secret.

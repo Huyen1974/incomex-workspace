@@ -35,20 +35,23 @@ code{font-size:12.5px;word-break:break-all}
 </head>
 <body><main>
 <h1>GSM Access Audit — ai đang mở "két khoá" Google, mở bao nhiêu lần</h1>
-<p class="mut" id="trang-thai">Trạng thái: PROMPT GSM-A1 (chỉ đọc) READY · chờ RUN · cập nhật 22/09/2026 · Host: Claude Chat</p>
+<p class="mut" id="trang-thai">Trạng thái: GSM-A1 đo xong (chỉ đọc) · chờ Host nghiệm thu rồi soạn bước 3 · cập nhật 23/09/2026 · Agent: Claude Code CLI · Host: Claude Chat</p>
 
 <section class="card quyet" id="quyet">
 <h2>Hôm nay anh cần quyết</h2>
-<p><strong>Không có gì cần quyết.</strong> Chỉ cần RUN: dán dòng sau cho Claude Code CLI trên Mac.</p>
-<p><code>RUN GSM-A1-20260922-01 · WS work/gsm-access-audit · Agent · đọc AGENTS.md → work/gsm-access-audit/COLLAB.md → PROMPT.md</code></p>
-<p class="mut">Audit chỉ đọc: không đổi dịch vụ, không đổi khoá, không bật tính năng Google nào.</p>
+<p><strong>Kết luận đo:</strong> không có "rỉ máu". Lượt mở két 167/30 ngày = 1,7 % hạn miễn phí → 0 USD. Toàn bộ ~2,10 USD/tháng là tiền thuê 41 ngăn (version).</p>
+<ol>
+<li><strong>Dọn kho:</strong> cho Host lập danh sách huỷ 23 version không ai đọc trong 42 ngày (22 khoá cũ + 1 bản jev đã tắt) ở bước 3? <em>Đề xuất PM: GẬT</em> — tiết kiệm tối đa ≈ 1,38 USD/tháng (2,10 → 0,72); huỷ không đảo ngược nên sẽ tắt trước ≥ 30 ngày, anh duyệt từng khoá rồi mới huỷ.</li>
+<li><strong>Launcher Lark trên Mac</strong> (66 % lượt gọi, 0 USD): gộp việc sửa vào <code>work/mcp-token-argv</code> hay để nguyên? <em>Đề xuất PM: GỘP</em> vào mcp-token-argv, không mở việc riêng.</li>
+</ol>
+<p class="mut">Audit chỉ đọc: không đổi dịch vụ, không đổi khoá, không bật tính năng Google nào. Hai câu trên là đầu vào cho bước 3; chưa làm gì.</p>
 </section>
 
 <section class="card" id="tien-do">
 <h2>Tiến độ</h2>
 <div class="bar">
-<div class="dang">1–2 · Kiểm kê + đo ▶</div>
-<div>3 · Thiết kế giảm</div>
+<div class="xong">1–2 · Kiểm kê + đo ✓</div>
+<div class="dang">3 · Thiết kế giảm ▶</div>
 <div>4 · Duyệt</div>
 <div>5 · Làm + đo lại</div>
 </div>
@@ -65,21 +68,23 @@ code{font-size:12.5px;word-break:break-all}
 <p class="leg"><span class="do">đỏ · thừa/vô ích</span><span class="vang">vàng · giảm được</span><span class="xanh">xanh · hợp lý</span><span class="xam">xám · chưa đo</span><span class="x">x · không còn chạy</span></p>
 <div class="wrap"><table>
 <tr><th>#</th><th>Người gọi</th><th>Chạy thật?</th><th>Khi nào gọi</th><th>Lượt/ngày</th><th>Đánh giá</th><th>Đề xuất</th></tr>
-<tr class="tong"><td></td><td>TỔNG (cộng từ dưới lên · đối chiếu số đo Google)</td><td class="o xam">?</td><td></td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>1</td><td>Trợ lý host MCP — nạp deploy key</td><td class="o xam">?</td><td>mỗi lần dịch vụ khởi động</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>2</td><td>Hermes — nạp khoá</td><td class="o xam">?</td><td>mỗi lần dịch vụ khởi động</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>3</td><td>Cổng Jev — nạp 2 khoá</td><td class="o xam">?</td><td>mỗi lần dịch vụ khởi động</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>4</td><td>Kiểm tra sức khoẻ Jev (5 phút/lần) — cần soi kỹ</td><td class="o xam">?</td><td>có thể mỗi vòng</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>5</td><td>Thư viện Lark — khi thiếu biến trong .env</td><td class="o xam">?</td><td>mỗi tiến trình Lark</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>6</td><td>Khoá mã hoá backup Lark</td><td class="o xam">?</td><td>mỗi lần dựng dịch vụ ghi</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>7</td><td>Script backup Lark</td><td class="o xam">?</td><td>theo lịch backup</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>8</td><td>Lệnh DOT khôi phục/kiểm thử</td><td class="o xam">?</td><td>chạy tay (tháng 7)</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>9</td><td>Script lưu báo cáo KB của agent</td><td class="o xam">?</td><td>mỗi lần agent gọi</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>10</td><td>2 script kiểm toàn vẹn (đã gỡ 24/07)</td><td class="o xam">?</td><td>hằng giờ / 6 giờ</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>11</td><td>Đẩy mã lên GitHub hằng ngày (bản cũ)</td><td class="o xam">?</td><td>không còn lịch</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>12</td><td>Mã Google Cloud cũ (Functions/Run)</td><td class="o xam">?</td><td>chỉ khi còn deploy</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>13</td><td>Máy Mac — agent/app đọc khoá khi làm việc</td><td class="o xam">?</td><td>tay · mỗi lần mở app</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
-<tr><td>14</td><td>Gateway Lark (việc mcp-token-argv đang chuyển khoá về GSM)</td><td class="o xam">?</td><td>mỗi lần dịch vụ khởi động</td><td class="o xam">?</td><td class="o xam">?</td><td>—</td></tr>
+<tr class="tong"><td></td><td>TỔNG (cộng từ dưới lên · khớp số đo Google, lệch 1,8 %)</td><td class="o">6 đường chạy</td><td></td><td class="o">5,6<br><span class="mut">167/30 ngày</span></td><td class="o xanh">không rỉ máu</td><td>VPS giữ nguyên · dọn kho version</td></tr>
+<tr><td>13a</td><td>Máy Mac — Claude Desktop mở kết nối Lark (lấy token mỗi lần khởi chạy)</td><td class="o">có</td><td>mỗi lần mở app / phiên mới, cụm 2–3 lượt</td><td class="o">3,7</td><td class="o vang">giảm được</td><td>gộp vào việc mcp-token-argv: cất token 24h trong Keychain</td></tr>
+<tr><td>1</td><td>Trợ lý host MCP — nạp deploy key</td><td class="o">có</td><td>chỉ khi dịch vụ khởi động (16 lượt đều rơi vào 17–21/09 lúc deploy)</td><td class="o">0,5</td><td class="o xanh">hợp lý</td><td>giữ</td></tr>
+<tr><td>3</td><td>Cổng Jev — nạp 2 khoá</td><td class="o">có</td><td>chỉ khi dịch vụ khởi động (12 lượt ngày dựng 21/09)</td><td class="o">0,4</td><td class="o xanh">hợp lý</td><td>giữ</td></tr>
+<tr><td>7</td><td>Script backup Lark</td><td class="o">có</td><td>khi cần bản backup mới ≈ mỗi Thứ Hai, 2 khoá</td><td class="o">0,3</td><td class="o xanh">hợp lý</td><td>giữ</td></tr>
+<tr><td>13b</td><td>Máy Mac — agent/tay khi làm việc</td><td class="o">có</td><td>tay</td><td class="o">0,5</td><td class="o xanh">hợp lý</td><td>giữ</td></tr>
+<tr><td>2</td><td>Hermes — nạp 4 khoá</td><td class="o">có</td><td>chỉ lúc khởi động (1 lần trong 30 ngày)</td><td class="o">0,1</td><td class="o xanh">hợp lý</td><td>giữ</td></tr>
+<tr><td>6</td><td>Khoá mã hoá backup Lark (khoá công khai)</td><td class="o">có</td><td>khi dựng dịch vụ ghi (1 lượt/30 ngày)</td><td class="o">0,03</td><td class="o xanh">hợp lý</td><td>có thể nạp ra file vì không phải bí mật (nhỏ)</td></tr>
+<tr><td>15</td><td>Tay/deploy HVU trên VPS</td><td class="o">1 lần</td><td>lúc dựng HVU-B2</td><td class="o">0,03</td><td class="o xanh">hợp lý</td><td>—</td></tr>
+<tr><td>4</td><td>Kiểm tra sức khoẻ Jev (5 phút/lần)</td><td class="o">có</td><td><strong>không mở két</strong> — đọc bản đã nạp</td><td class="o">0</td><td class="o xanh">sạch</td><td>ngoài phạm vi: mỗi vòng gọi model trả phí ≈ 288 lượt/ngày → báo việc jev-integration</td></tr>
+<tr><td>14</td><td>Gateway Lark (việc mcp-token-argv)</td><td class="o">chưa thêm</td><td>lúc đo chưa có đường gọi mới</td><td class="o">0</td><td class="o xam">theo dõi</td><td>khi xong phải giữ "chỉ lúc khởi động"</td></tr>
+<tr><td>5</td><td>Thư viện Lark — khi thiếu biến trong .env</td><td class="o x">không</td><td>.env đủ biến → nhánh không chạy</td><td class="o">0</td><td class="o x">x</td><td>—</td></tr>
+<tr><td>8</td><td>Lệnh DOT khôi phục/kiểm thử</td><td class="o x">không</td><td>chỉ chạy tay, không lịch</td><td class="o">0</td><td class="o x">x</td><td>—</td></tr>
+<tr><td>9</td><td>Script lưu báo cáo KB của agent</td><td class="o x">không</td><td>—</td><td class="o">0</td><td class="o x">x</td><td>—</td></tr>
+<tr><td>10</td><td>2 script kiểm toàn vẹn (đã gỡ 24/07)</td><td class="o x">không</td><td>bản đang chạy không gọi</td><td class="o">0</td><td class="o x">x</td><td>—</td></tr>
+<tr><td>11</td><td>Đẩy mã lên GitHub hằng ngày (bản cũ)</td><td class="o x">không</td><td>không còn lịch</td><td class="o">0</td><td class="o x">x</td><td>—</td></tr>
+<tr><td>12</td><td>Mã Google Cloud cũ (Functions/Run)</td><td class="o x">không</td><td>Google chỉ thấy 2 người gọi: VPS + Mac</td><td class="o">0</td><td class="o x">x</td><td>—</td></tr>
 </table></div>
 </section>
 
@@ -87,8 +92,9 @@ code{font-size:12.5px;word-break:break-all}
 <h2>Tiền</h2>
 <div class="wrap"><table>
 <tr><th>Khoản</th><th>Miễn phí mỗi tháng</th><th>Hiện tại</th><th>Sau tối ưu (đề xuất)</th></tr>
-<tr><td>Lượt mở két (Access)</td><td>10.000 lượt</td><td class="o xam">?</td><td class="o xam">?</td></tr>
-<tr><td>Thuê ngăn (version đang giữ)</td><td>6 version</td><td class="o xam">? · ~2 USD (D02)</td><td class="o xam">?</td></tr>
+<tr><td>Lượt mở két (Access)</td><td>10.000 lượt</td><td class="o xanh">167 lượt/30 ngày (1,7 %) · 0 USD</td><td class="o xanh">≈ 120–170 lượt · 0 USD</td></tr>
+<tr><td>Thuê ngăn (version đang giữ)</td><td>6 version</td><td class="o vang">41 version · ≈ 2,10 USD</td><td class="o">18 version · ≈ 0,72 USD<br><span class="mut">nếu anh duyệt huỷ 23; chỉ huỷ bản jev đã tắt: 2,04</span></td></tr>
+<tr class="tong"><td>TỔNG</td><td></td><td class="o">≈ 2,10 USD/tháng</td><td class="o">≈ 0,72 USD/tháng</td></tr>
 </table></div>
 </section>
 
