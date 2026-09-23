@@ -1,83 +1,99 @@
-# PROMPT — HJW.2B · Hermes Phase 1
+# PROMPT — HJW.2B1 · SEC-CLEAN + Scoped Capability Audit
 
-RUN_ID: HJW-2B-20260923-01
-STATUS: FINAL FOR READY — KHÔNG RUN cho tới khi COLLAB có READY@ đúng commit cuối chạm file này
+RUN_ID: HJW-2B1-20260923-02
+STATUS: DRAFT — KHÔNG RUN cho tới khi Host ghi READY@ đúng SHA cuối chạm file này
 
 Executor_Surface: Claude Code CLI trên Mac
-Runtime_Write_Path: SSH/root-operator tới VPS (runtime SSOT)
-Report_Write_Path: connector family `fs_*` vào repo/workspace (không GitHub native, không git push trực tiếp)
-Work: `work/hermes-joint-workspace/`
+Runtime_Write_Path: SSH/root-operator tới VPS
+Report_Write_Path: fs_* vào work/hermes-joint-workspace/
+Work: work/hermes-joint-workspace/
 
-## CHECKPOINT BẮT BUỘC
+## Mục tiêu
 
-1. Đọc `AGENTS.md` → `work/hermes-joint-workspace/COLLAB.md` → file này.
-2. Kiểm `READY@<40 hex>` trong COLLAB khớp commit cuối chạm PROMPT.md; chưa khớp ⇒ DỪNG trước mutation.
-3. Runtime/config Hermes trên VPS là SSOT; Git chỉ giữ tài liệu/evidence. Không deploy runtime từ Git.
-4. Đọc KQ GSM-A1 trong `work/gsm-access-audit/README.md §8`: Access 167/30 ngày, không rỉ máu; Hermes lấy secret theo root oneshot lúc start. Không tối ưu call GSM trong HJW.
-5. Assembly First. Không server/proxy/framework mới nếu relay/unit/cơ chế Hermes hiện hữu đáp ứng.
-6. Không in/log secret, token, env value, URL chứa secret/path-secret.
+Sau KQ DỪNG G0.2 của HJW-2B:
+1. Giảm rủi ro L1 ngay: gỡ AGENT_DATA_* khỏi môi trường Hermes nếu xác nhận hiện không consumer nào dùng.
+2. Giữ Hermes/Telegram/serve hoạt động bình thường sau cleanup.
+3. Chỉ-read khảo sát phương án cấp capability hẹp bằng **thành phần hiện hữu**; chưa triển khai proxy/backend mới trong RUN này.
+4. Trả lời dứt khoát: có thể tạo endpoint cho Hermes mà **không lộ master key** và endpoint tự enforce capability hẹp (tool + write scope HJW) hay không.
 
-## MỤC TIÊU
+Không tiếp tục automation Phase 1 trong RUN này.
 
-Đưa Hermes vào Phase 1 của hội đồng AI bằng đường tối thiểu nhưng an toàn:
-- đọc/ghi workspace qua relay Agent Data đã audit;
-- tự phát hiện assignment bằng gate deterministic 0-token;
-- làm đúng vai được giao, với automated turn bị giới hạn capability;
-- nhắc đúng lượt + canh RUN treo;
-- health độc lập qua Kuma;
-- có STOP-AUTO / STOP-DISPATCH / HARD-STOP;
-- giữ secret boundary: user/process Hermes không giữ credential GSM và không giữ `AGENT_DATA_API_KEY` nếu relay hiện hữu có thể cung cấp capability thay thế.
+## Checkpoint
 
-Phase 1 KHÔNG bật Hermes webhook platform, KHÔNG mở port 8644, KHÔNG sửa Owner View synchronizer, KHÔNG sửa luật gốc A9, KHÔNG làm bản tin sáng.
+- Đọc AGENTS.md → COLLAB.md → PROMPT.md.
+- Kiểm READY@ đúng commit cuối chạm PROMPT.
+- Đọc KQ@HJW-2B-20260923-01 DỪNG + evidence G0.2.
+- Không in/log/hash-compare giá trị secret mới; bằng chứng chỉ dùng tên biến, quyền, route, tool list, status code.
+- Không chạm QDRANT key, OpenRouter key, Telegram token, GSM versions, JEV config.
 
-## GATE 0 — READ-ONLY, CHƯA MUTATION
+## A. Read-gate trước cleanup
 
-### G0.1 Hermes thực tế
-Xác nhận bản đang cài và primitive cần dùng. Baseline đã đo: v0.21.4 có `--script`, `--no-agent`, execution ledger, pause/resume, Telegram.
-- Đường chính cho gate LLM: pre-run `--script`; dòng stdout **không rỗng cuối cùng** `{"wakeAgent": false}` = không gọi LLM, `{"wakeAgent": true, "context": {...}}` = wake + truyền context.
-- **Fail-closed phải tự viết:** mọi nhánh lỗi (mạng lỗi, timeout, parse lỗi, không xác định SHA, đọc COLLAB lỗi, exception) đều phải kết thúc bằng đúng dòng `{"wakeAgent": false}`. Script im lặng / JSON sai / thiếu flag = Hermes **WAKE**, không phải fail closed.
-- Mọi network probe trong gate, đặc biệt `git ls-remote`, phải bọc `timeout ≤20s`; không cho scheduler chờ timeout mặc định dài.
-- `--monitor-script` chỉ dự phòng nếu có lý do đo được.
-- Không nâng cấp Hermes trong RUN này. Nếu primitive bắt buộc thiếu ⇒ DỪNG và báo.
+Xác nhận lại:
+- Hermes config chưa có mcp_servers;
+- hermes cron list = 0;
+- tìm theo **tên biến** AGENT_DATA_API_KEY / AGENT_DATA_URL trong config/unit/script/runtime để xác định consumer thực tế, không in value;
+- xác định chính xác file/script/root oneshot nào đưa AGENT_DATA_* vào /run/hermes/or.env và unit nào EnvironmentFile file đó.
 
-### G0.2 Agent Data relay + secret boundary
-Đo nhưng không in giá trị secret:
-- trạng thái `hermes-agentdata-relay.service`, bind/listen và cổng đích;
-- nguồn auth hiện tại của relay;
-- tên biến env hiện hữu của Hermes (chỉ tên, không value), xác nhận có/không `AGENT_DATA_API_KEY` / `AGENT_DATA_URL`;
-- khả năng gọi `workspace_*` qua relay 127.0.0.1:6533 mà client Hermes KHÔNG phải cầm Agent Data key;
-- **relay boundary test:** thử từ một process/user local khác hoặc request không có client-ticket/auth riêng (không dùng/đọc secret) để xác định relay có tự gắn credential cho mọi caller loopback hay không.
+Nếu có consumer hiện hành ngoài workspace MCP hoặc bỏ biến sẽ làm hỏng chức năng đang dùng ⇒ DỪNG trước mutation.
 
-Quyết định bắt buộc:
-- Nếu relay hiện hữu cung cấp được `workspace_*` mà không lộ key cho user/process Hermes **và** caller bị giới hạn bằng cơ chế sẵn có (ACL/UNIX socket permission/client-ticket hoặc tương đương) ⇒ tiếp tục và loại `AGENT_DATA_API_KEY` + URL nhạy cảm tương ứng khỏi môi trường Hermes-readable; key chỉ ở nguồn root/relay tối thiểu.
-- Nếu relay hiện đang mở cho mọi process loopback, trước hết phải thử **siết bằng cơ chế đã có** của relay/OS, không dựng server/proxy mới. Nếu không siết được bằng cấu hình/quyền hiện hữu ⇒ **DỪNG** để Host quyết; không coi việc giấu key nhưng để capability write mở cho mọi local process là đạt D08.
-- Nếu relay cần chính key đó ở phía Hermes, hoặc muốn sửa backend Agent Data / dựng proxy mới mới làm được ⇒ DỪNG, ghi blocker. KHÔNG chấp nhận giữ write-capable Agent Data key trong Hermes env chỉ vì Git rollback được.
+## B. SEC-CLEAN — mutation nhỏ, rollback rõ
 
-### G0.3 Đọc SSOT không token
-Xác nhận công thức:
-`git ls-remote <public repo> HEAD` → SHA → đọc `work/*/COLLAB.md` tại đúng SHA bất biến.
-Không xác định được SHA/freshness ⇒ fail closed: gate phải in `{"wakeAgent": false}` ở dòng stdout cuối, không wake LLM.
-Không dùng GitHub credential.
+Nếu A PASS:
+1. Backup đúng file/script/unit sẽ sửa vào hồ sơ VPS HJW; không backup plaintext secret.
+2. Sửa nguồn nạp để **không còn materialize AGENT_DATA_API_KEY** cho Hermes. Gỡ AGENT_DATA_URL khỏi Hermes env nếu không consumer nào cần; URL không phải secret nhưng không giữ cấu hình chết.
+3. Không thay các secret khác trong /run/hermes/or.env.
+4. Trước restart gateway/serve: gửi Owner một dòng Telegram báo Hermes sẽ gián đoạn vài phút. Gửi không thành công ⇒ DỪNG trước restart.
+5. Pause cron, restart đúng service cần thiết, smoke:
+   - Telegram Owner ↔ Hermes;
+   - hermes-serve/local health;
+   - process env chỉ kiểm **tên biến**: AGENT_DATA_API_KEY không còn;
+   - OpenRouter/Telegram chức năng vẫn sống.
+6. Rollback ngay nếu smoke fail; báo DỪNG.
 
-### G0.4 JEV
-Đọc hồ sơ `work/done-tasks/jev-integration/` + runtime hiện có; tái dùng gateway JEV đã nghiệm thu. Không dựng JEV backend mới, không đổi provider/key/routing trong HJW.
+## C. CAP-PATH-AUDIT — CHỈ ĐỌC, KHÔNG triển khai
 
-### G0.5 Kuma — watchdog độc lập
-Đo cơ chế Kuma hiện hữu. Mục tiêu là watchdog nằm NGOÀI process/user Hermes:
-- ưu tiên Kuma probe trực tiếp health endpoint hoặc root-owned checker/pusher hiện có;
-- token Kuma giữ root-only; KHÔNG cấp token monitor cho user Hermes nếu có cách external monitor;
-- chỉ khi cơ chế hiện hữu không biểu diễn được Hermes health mới tạo tối thiểu một root-owned checker/unit, không mở public port.
-Phải xác nhận cảnh báo thực sự tới kênh Owner.
+Khảo sát các thành phần đang có: systemd socket/proxyd, nginx hiện hữu, Agent Data routes /mcp*, route/tool filters, OS ACL/socket permission, MCP client config của Hermes.
 
-### G0.6 Entry paths + stop
-Liệt kê thật: cron/ticker, Telegram gateway, serve/UI, CLI/manual và đường khác nếu có.
-Xác định đường nào STOP-DISPATCH bao phủ và đường nào chỉ HARD-STOP mới chặn.
+Phải trả lời riêng 3 lớp:
 
-Nếu Gate 0 FAIL ở G0.2 hoặc phát hiện thay đổi kiến trúc ngoài scope ⇒ DỪNG trước mutation, ghi `KQ@HJW-2B-20260923-01 DỪNG`.
+### C1. Secret isolation
+Có thể để master Agent Data key ở root/server side và không cho user/process Hermes đọc được không?
 
-## TRIỂN KHAI — CHỈ SAU GATE 0 PASS
+### C2. Caller boundary
+Có thể giới hạn endpoint cho đúng caller dự kiến bằng mechanism sẵn có (UNIX socket ACL, systemd socket permission, client ticket sẵn có...) không?
 
-### A. Backup/rollback
+**Lưu ý:** chỉ C2 PASS vẫn chưa đủ, vì threat model L1 chính là user/process Hermes bị chiếm.
+
+### C3. Capability boundary — BẮT BUỘC
+Endpoint phải **tự enforce ở phía server/relay**, không dựa vào config/toolset của Hermes:
+- chỉ expose đúng tool cần cho Phase 1;
+- write chỉ được vào work/hermes-joint-workspace/**;
+- cấm delete/destructive/exec/root khác;
+- caller không thể dùng raw HTTP/MCP để vượt scope.
+
+Được phép tận dụng route/filter/config/code **đã tồn tại**. Không viết backend mới, không thêm proxy service mới, không sửa R03 contract trong RUN này.
+
+Kết luận:
+- FEASIBLE_EXISTING nếu C1+C2+C3 đều làm được bằng thành phần/config hiện hữu, nêu chính xác cách và rollback.
+- NOT_FEASIBLE nếu thiếu C3 hoặc phải sửa backend/viết proxy mới.
+- Không được gọi một proxy chỉ “giấu master key” là đạt D08 nếu capability phía sau vẫn là master/full-write.
+
+## D. Báo cáo
+
+Cập nhật COLLAB.md + view.html:
+- KQ cleanup: PASS/ROLLBACK/DỪNG;
+- AGENT_DATA_* còn/không còn trong env Hermes (chỉ tên biến);
+- CAP-PATH-AUDIT = FEASIBLE_EXISTING hoặc NOT_FEASIBLE;
+- nếu feasible: mô tả tối thiểu kiến trúc, không triển khai;
+- nếu not feasible: nêu chính xác thiếu lớp nào C1/C2/C3.
+
+Evidence runtime vào hồ sơ VPS của HJW theo AGENTS A8.
+
+Kết thúc:
+- KQ@HJW-2B1-20260923-02 XONG nếu cleanup PASS và audit có kết luận rõ;
+- KQ@HJW-2B1-20260923-02 DỪNG nếu cleanup không an toàn/rollback hoặc không thể thu thập evidence cần thiết.
+
+Không tự tiếp tục HJW.2B automation sau RUN này. Host sẽ quyết bước kế tiếp.
 Trước sửa runtime:
 - lưu backup đúng các config/unit/script sắp chạm vào hồ sơ VPS của việc theo AGENTS A8;
 - ghi hash/path và lệnh rollback;
