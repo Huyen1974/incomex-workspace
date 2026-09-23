@@ -11,7 +11,9 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner 22/09/2026 yêu cầu Host Clau
 - Bearer token không còn hiện trong argv; wrapper vẫn hoạt động và credential cũ được xử lý an toàn. *(đề xuất — chờ Owner gật)*
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-- Giữ nguyên phạm vi, tiêu chí và chỉ đạo chi tiết tại Vòng trước; Host rà soát, cập nhật phần này khi triển khai.
+- Nhiệm vụ/phạm vi: Host Claude khảo sát đúng launch path/config/process đang dùng; tuyệt đối không in token vào repo/chat/log; tạo rollback; chuyển secret khỏi argv; sau khi đường mới hoạt động thì rotate credential cũ nếu quyền hiện có cho phép; restart tối thiểu đúng wrapper/process liên quan; kiểm lại chức năng.
+- Tiêu chí xong: `ps`/process argv không còn lộ Bearer token; token không nằm trong file/log/history public; credential cũ đã được rotate/revoke hoặc có lý do + một action Owner tối thiểu nếu bắt buộc; lark-crud-gateway/mcp-remote smoke PASS; rollback được ghi rõ.
+- Toàn bộ câu chữ và các vòng cũ giữ nguyên tại Vòng trước.
 
 ### Vòng trước
 - Mục tiêu: loại Bearer token ra khỏi command-line argv của wrapper `lark-crud-gateway` / `mcp-remote` trên Mac, đưa secret về env/secret store phù hợp và giữ dịch vụ hoạt động bình thường.

@@ -56,7 +56,9 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 - Hồ sơ MOW · MOT · MOIT · MOUT có luồng thao tác rõ từ Field lên MOW, được Host và Claude thống nhất trước khi sửa HTML. *(đề xuất — chờ Owner gật)*
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-- Giữ nguyên phạm vi, tiêu chí và chỉ đạo chi tiết tại Vòng trước; Host rà soát, cập nhật phần này khi triển khai.
+- Nhiệm vụ/phạm vi hiện tại (Owner 23/09/2026): sau khi đã có vỏ tab Step quy trình, Host phải đề xuất **bản đồ thao tác thật** từ dưới lên Field → Form (MOUT, MOIT) → MOT → MOW: tạo bắt đầu ở đâu, bấm gì, người khai tay gì, máy config gì, phụ thuộc tầng dưới xử lý ra sao, kết quả mong đợi, lỗi quay về đâu, tạo xong quản lý ở UI nào và quản lý thông tin gì. Đồng thời đề xuất deep-link để URL ngoài `/knowledge/modules?task=...` phản ánh tới tab/khu vực/bảng con/bước đang xem. Đây là lượt thiết kế/consensus với Claude; **chưa điền HTML theo đề xuất trước khi hội đồng thống nhất**.
+- Tiêu chí xong của lượt thảo luận: COLLAB có schema Step chuẩn + draft bước cho đủ Field/MOUT/MOIT/MOT/MOW + quy tắc nhánh “đã có thì chọn / chưa có thì tạo tầng dưới rồi quay lại” + đối chiếu UI hiện có + yêu cầu URL deep-link có acceptance test; Claude review và Host hòa giải trước khi giao Agent sửa HTML.
+- Toàn bộ câu chữ và các vòng cũ giữ nguyên tại Vòng trước.
 
 ### Vòng trước
 - Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.

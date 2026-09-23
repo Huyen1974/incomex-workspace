@@ -11,7 +11,11 @@ Xác nhận User: ĐÃ XÁC NHẬN — nguyên văn Owner 23/09/2026 ở mục 1
 - Các yêu cầu đã chốt ở các vòng trước vẫn truy cập và vận hành được. *(đề xuất — chờ Owner gật)*
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-- Giữ nguyên phạm vi, tiêu chí và chỉ đạo chi tiết tại Vòng trước; Host rà soát, cập nhật phần này khi triển khai.
+- Diễn giải kỹ thuật Host: giữ `task`, thêm `view/section/step/detail`; contract từ MMIM MAP-R3 R3.8/A1–A9.
+- Phạm vi vòng mới: parent/top viewer + relay runtime VPS; không sửa Step nghiệp vụ trong HVU, không GitHub→VPS, không sửa MCP/connector.
+- Trạng thái: **REOPENED · DRAFT/NO RUN**. Child bridge/ID thuộc MMIM; chỉ RUN sau khi Host xác nhận child contract ổn định.
+- Diễn giải kỹ thuật Host: web mặc định phải ưu tiên Now; Done vẫn tìm/mở được; VPS có kho hồ sơ task hai chiều giống Git nhưng tách khỏi runtime đang chạy; không tự xoá.
+- Toàn bộ câu chữ và các vòng cũ giữ nguyên tại Vòng trước.
 
 ### Vòng trước
 

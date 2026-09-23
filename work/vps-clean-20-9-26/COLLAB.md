@@ -10,7 +10,9 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User 23/09 tại D11;
 - Các nguồn tăng dung lượng không cần thiết trên VPS được chặn tăng trưởng, dữ liệu không cần ở VPS chuyển xuống GD an toàn. *(đề xuất — chờ Owner gật)*
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-- Giữ nguyên phạm vi, tiêu chí và chỉ đạo chi tiết tại Vòng trước; Host rà soát, cập nhật phần này khi triển khai.
+- Phạm vi vòng 2 (diễn giải kỹ thuật, không thêm mục tiêu): CHỈ đặt trần cho image Docker (~10,7GiB) + build cache (~0,82GiB) — nguồn không phải nghiệp vụ còn tăng theo mỗi lần build (P18); không mở lại phần đã xong. Điều kiện an toàn đi kèm (không phải mục tiêu mới, P19): bật `live-restore` trước mọi thay đổi Docker; nếu cần nạp cấu hình GC thì restart dockerd tối đa 1 lần có kiểm soát, container không khởi động lại.
+- Tiêu chí xong vòng 2: cả hai có trần tính được thành số bằng cơ chế tự động an toàn (không `docker buildx/builder/system prune/image prune`) và có hiệu lực ngay, có số đo trước/sau, health không đổi.
+- Toàn bộ câu chữ và các vòng cũ giữ nguyên tại Vòng trước.
 
 ### Vòng trước
 ### Vòng 2 · mở lại 2026-09-23 theo P18
