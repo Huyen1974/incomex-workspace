@@ -1,5 +1,20 @@
 # COLLAB — hpml-view-for-user
 
+## Claude phân tích KQ HVU-OWNERVIEW01 (DỪNG) · JEV `gen-dec-1790173851-GiXtpX5N7sRMt18cGfUF`
+**Kết luận: DỪNG đúng luật, và cái “sự cố” ba ngày qua phần lớn là báo động giả.** Pipeline §12 không hỏng một lần nào: cả ba commit FIELD đều publish trong 6–11 giây. Không có cổng đăng nhập (chỉ widget header KB gọi `users/me` bị 401 rồi hiện nút Login) — JEV 1,00.
+
+**Nguyên nhân gốc của ba vòng mất thời gian — ghi để không lặp:**
+1. Ba lượt FIELD đều **chấm trạng thái mirror ngay trong chính commit vừa đẩy** — lúc đó snapshot chưa thể có — rồi ghi `VIEW_PENDING_REVISION` và không ai kiểm lại. Đo sai thời điểm, không phải hệ thống hỏng.
+2. **Không lượt nào đưa Owner đường link chuẩn.** Việc rẻ nhất bị bỏ qua ba lần.
+3. **Claude tin dòng `pending` đó, lại tìm sai chỗ** (quét root `ui` thay vì snapshot của KB), kết luận “chưa có bản xem nào” rồi tự dựng bản thứ hai → thêm hai vòng nữa. Lỗi nặng nhất trong chuỗi này là của Claude.
+→ **Luật mới (JEV 0,71):** cấm chấm trạng thái mirror trong cùng commit. Sau khi đẩy, phải kiểm snapshot đã publish **đối chiếu đúng revision vừa đẩy** rồi mới kết luận; báo cáo cuối **bắt buộc kèm link Owner View**. Không có link = chưa xong.
+
+**Việc còn lại — Owner chọn một trong hai, đề xuất của Claude: (a).** Bản publish lệch Git đúng 688 B là khối `data-hvu-url-relay` do runtime `025b8fe` chèn để đồng bộ URL theo từng mục; phần còn lại giống từng byte.
+- **(a) Chấp nhận relay** là lớp trình bày — đúng chữ của §12 (“VPS chỉ giữ mirror/cache **dẫn xuất**”): bản dẫn xuất được phép khác nguồn **đúng một phép biến đổi đã khai báo**. Nghiệm thu từ nay: *bỏ khối `data-hvu-url-relay` ra thì SHA phải bằng Git*; lệch thêm bất kỳ byte nào khác vẫn là lỗi. JEV **0,97 (độ tin 0,94)**.
+- **(b) Gỡ relay** (revert `025b8fe` + rebuild): SHA khớp tuyệt đối nhưng **mất deep-link theo mục** — chính thứ hội đồng đã thiết kế ở R3.8/URL01. JEV 0,03.
+
+**Nếu Owner chọn (a), Host phải làm đủ ba việc nhỏ để không ai vấp lại:** (1) khai phép biến đổi vào README §12 — tên khối, vị trí chèn, ai chèn, giới hạn đúng một khối; (2) đổi tiêu chí nghiệm thu SHA ở mọi prompt sau theo công thức “trừ khối khai báo”; (3) ghi luật chống lặp ở trên vào AGENTS. Xong ba việc này thì RUN này chuyển XONG mà không cần agent chạy lại — agent đã đối chiếu phần còn lại giống từng byte.
+
 ## Rà HVU-OWNERVIEW01 · Claude · Based_on READY `1c24a7b` · JEV `gen-dec-1790171703-Rkoa1i758MinfLsDtW7l`
 
 **Host xử lý A1–A3: DONE** · JEV độc lập `gen-dec-1790171925-1UQJRqDew20LMeNkoNlf`: ARCHIVE_MOVE 1.00 · whitelist diag/sync/data-only 0.99 · internal snapshot proof 1.00. Prompt đã đổi tương ứng; không mở rộng scope.
