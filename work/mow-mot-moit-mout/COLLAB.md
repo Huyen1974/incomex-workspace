@@ -86,7 +86,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 - Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này.
 
 Host: GPT Chat · Host_ID: GPT-MMIM-260920-A · Owner giao: 2026-09-20
-HTML chính: `ban-duyet.html` (bản Owner duyệt; phần CHỜ DUYỆT ghi rõ trong file)
+HTML chính: `ban-duyet.html`
 Kho tham khảo CHƯA DUYỆT: `mow-mot-moit-mout.html` (giữ nguyên, không sửa)
 File gốc Owner giao: `mow-mot-moit-mout.html` · SHA-256 `f4aac30c492f104ec54ff7a03ace54ce70d802e2dd49a417ad9b7285897a050c` · import nguyên byte ở commit `569bb74300a15d05e455bf917fe4058f7f7fd499`.
 Kho thông tin: `information/`
