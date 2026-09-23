@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | FIELD02_READY_FINAL · 23/09/2026 | F1–F3 đã đóng theo source UI thật; số đếm lấy từ UI, nhãn/chọn nhiều/bộ lọc đã sửa. NEXT: RUN Claude Code CLI FIELD02.
+MMIM | FIELD02_KQ_XONG · 23/09/2026 | Claude Code CLI xong FIELD02: 3 bước · 3 mảnh UI · 6 trường, đếm từ UI thật = 2/3/1 (lệch dự kiến 2/4/1 và nhãn nút S03 — xem KQ FIELD02). NEXT: Host + Owner nghiệm thu FIELD.
 
 ## Claude · Kiểm trước RUN · Based_on `04a311b` · PROMPT `c660fbb`
 Đã kiểm thật, không theo báo cáo: READY `c660fbb` đúng là commit cuối chạm `PROMPT.md` (`fs_log`) · HTML baseline SHA `e5432de3…6422` khớp · G1 đã tách thật (root COLLAB dòng 20: `HVU-DEEPLINK01` DRAFT/NO RUN) · G2–G6 đều có trong PROMPT và đủ acceptance đo được bằng máy · §6 cấm replace mù/reformat, neo theo ID, một transaction. **Nội dung nghiệp vụ: không còn ý kiến.**
@@ -430,6 +430,24 @@ P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt 
 - Prompt hiện hành: FIELD02 UI-first · 3 bước/3 mảnh UI/7 mục.
 - READY@`487df06a037c10d3528e1dcc6d41db767cb0e9bd` · commit cuối chạm `PROMPT.md` sau F1–F3.
 - Chỉ RUN FIELD02; không SCALE/config/deep-link.
+
+## KQ · MMIM.FIELD02 · Claude Code CLI
+KQ@MMIM-FIELD02-20260923-01 XONG
+- RUN_ID `MMIM-FIELD02-20260923-01` · Executor_Surface Claude Code CLI · Write_Path `fs_*` (read-gate `fs_stat`/`fs_log`/`fs_diff` PASS; ghi bằng MỘT `fs_transaction` gồm HTML + COLLAB). Commit này: SAME_COMMIT.
+- Gate: READY@`487df06a037c10d3528e1dcc6d41db767cb0e9bd` = commit cuối chạm `PROMPT.md` (`fs_log` + `fs_diff` full SHA) · HTML SHA trước khớp baseline `d66e2f54…3fe73`.
+- HTML SHA-256 trước `d66e2f5475f9bf6c7bea32ee832dc73a3f97c2e8114bc47e47a5b93c3573fe73` (1.870.469 B) → sau `1e245ed6997f5dc117bd809807a9e963527068c89cc6985e442b8eeb133099e8` (1.855.314 B).
+- steps=3 · ui_tiles=3 · field_list=6 · counts S01=2 · S02=3 · S03=1 · config=trống cả 3 dòng · Trạng thái UI giữ `UI_CAN_SUA` cả 3 (0 `UI_OK`).
+- Nguồn UI thật (chỉ đọc root `ui`, không sửa): UI-022 `field-master-v1.html` → `master-list.js` dòng 173–182 + DOM `ui_inspect` vùng `master.tools` và `#mlTier`; UI-018 = đúng link «＋ Khai báo trường» của UI-022 `mow-unified-canvas-v2.html?tang=T0&form=MOIT&cong-viec=T01&che-do=de-xuat&khai-bao=moi` → `kanban-field-v1.js` dòng 38–56 + DOM `ui_inspect` `#field-declaration`. CSS lấy từ `master-list.js` dòng 49–61 và `mow-unified-canvas-v2.html` dòng 639–658, gói trong namespace `#quy-trinh-field`.
+- **Mismatch so với dự kiến PROMPT (dùng số/nhãn thật, không FAIL):**
+  - M1 · **S02 = 3, không phải 4.** `Mô tả` không có `*` và `save()` chỉ đòi tên + định dạng + ≥1 nhóm (`kanban-field-v1.js:56`) → xám theo luật vàng/xám §4; vẫn hiện trong mảnh UI. Vì vậy danh sách 6 mục thay vì 7. JEV `gen-dec-1790151441-hLrCyPh1KrHAAGw9PXJ8`: Mô tả = grey 1,00 · Nhóm quản lý = yellow 0,97.
+  - M2 · **Nút cuối khi khai mới là `Lưu đề xuất`, không phải `Đề xuất khai báo`.** Source: `edit = st.s==='proposal'` (dòng 38); nhãn nút (dòng 49) đổi theo **chế độ Đề xuất/Thường**, không theo khai mới/sửa. Link tạo của UI-022 mang `che-do=de-xuat&khai-bao=moi` → DOM thật: tiêu đề `Đề xuất thêm trường`, footer `Đóng` + `Lưu đề xuất`. `Đề xuất khai báo` chỉ hiện ở chế độ Thường, khi các ô bị khoá (bấm để chuyển sang Đề xuất). Tên bước S03 và mục FIELD02.06 vì vậy dùng `Lưu đề xuất`; biến thể ghi ở dòng Nguồn của S03.
+  - M3 · Mã trường đánh liên tục `FIELD02.01–06` (Nhóm quản lý = .05, Lưu đề xuất = .06) vì bỏ Mô tả.
+  - M4 · UI-022 **không có** `Mọi Mẹ` (tắt ở UI-022); vùng tìm có thêm `Bảng / Theo tầng` và hàng 9 bộ lọc tầng → hiện đủ, tô xám.
+- S01: JEV `gen-dec-1790151454-GGMXpEU0gTrLJeQLFPkQ`: `Tìm mã / tên…` vàng 0,95 · bộ lọc xám 0,99 · `＋ Khai báo trường` nghiêng xám 0,62 (confidence 0,42, thấp) → Agent **giữ VÀNG** theo PROMPT §2: trong luồng khai mới đó là đường duy nhất sang S02. Nếu Owner chỉ đếm nhánh “đã có thì dùng lại” thì S01 = 1.
+- Vị trí: tab Quy trình = section `#quy-trinh-field` lồng cuối `#quy-trinh-tao-mow` (script tab chỉ chuyển `#quy-trinh-tao-mow` vào panel; không sửa JS). Link `FIELD.S0x` ở bảng Step tự nhảy sang tab Quy trình — đã kiểm bằng render cục bộ (Chrome headless, bản dựng trùng SHA sau).
+- Diff đúng 5 vùng: bỏ 1 dòng CSS chết `#step-details-field` trong `#process-list-shell-style` · `#step-quy-trinh-quy-uoc`: bullet “Bảng chi tiết từng bước” (14 mục → 4 phần) + ghi chú FIELD · tbody `#list-quy-trinh-field` 8 → 3 dòng + bỏ `#step-details-field` (8 bảng FIELD01 + danh sách nguồn) · thêm `#quy-trinh-field` (style `#field02-ui-style`, 3 `article`, bảng `#field02-list`).
+- Acceptance: 1 PASS (3 dòng FIELD.S01..S03) · 2 PASS (7 cột, cùng ID) · 3 PASS (vàng = danh sách = cột Tổng: 2/2/2 · 3/3/3 · 1/1/1; mismatch ghi ở trên) · 4 PASS (`step-detail-field-s01..s03`, mỗi ID duy nhất) · 5 PASS (0 `<img>`/`<script>`/`on*=`/base64 trong khu FIELD02; mảnh UI `inert`) · 6 PASS · 7 PASS (6 = 2+3+1) · 8 PASS (0 `step-details-field`, 0 `data-record-state`) · 9 PASS (bảng MOUT/MOIT/MOT/MOW trùng byte) · 10 PASS · 11 `VIEW_PENDING_REVISION` — ghi cùng commit nên chưa mở được bản mirror mới; Host kiểm sau · 12 PASS (cân thẻ 0 lỗi ở khối Step, `#quy-trinh-tao-mow`, `#quy-trinh-field`) · 13 PASS (dòng KQ này).
+- Để Host/Owner xem (không chặn, không tự sửa): bullet “8 bước chuẩn” và “Mỗi mục phải có nguồn/EVIDENCED” trong `#step-quy-trinh-quy-uoc` vẫn là khung MAP-R3/FIELD01; FIELD nay 3 bước theo D20 → rà khi SCALE. Không chạm config/SCALE/deep-link/HVU/VPS runtime.
 
 ## Giao Agent — MMIM.FIELD01 · LỊCH SỬ
 - RUN_ID dự kiến: `MMIM-FIELD01-20260923-01`.
