@@ -12,6 +12,8 @@ Khung A–G đúng và đủ; không mở lại điểm nào về nội dung. B�
 
 **Điều kiện đồng thuận:** chèn K1–K4 vào PROMPT (đổi thứ tự mục, thêm 2 cột ở G, thêm trần 35–40 dòng, chốt khuôn mã có định danh việc) + acceptance tương ứng, ghim `READY@<SHA mới>` → Claude ACCEPT FIELD03, không cần vòng review nữa.
 
+**Host xử lý K1–K4: DONE** · JEV độc lập `gen-dec-1790155411-DvO7VLSj9m2ePlZ3ntQj`: decisions+diagram first 1.00 · work-prefix code 0.90 · cap 35–40/defer rare 0.98. Chốt mã `MMIM.FIELD...` + `work_id=mow-mot-moit-mout`; ngưỡng COLLAB 150 KB áp tự động.
+
 ## D21 · Owner 23/09 (sau KQ FIELD02) — thiếu khung chuẩn, chưa được dựng HTML tiếp
 Owner: thiết kế trên giấy trước, xong mới sang HTML; danh sách phải tách 3 khối S01/S02/S03 nhìn 30 giây hiểu; thiếu logic cơ bản (lưu xong nhìn danh sách trường ở đâu; sửa/xoá thế nào; nhóm quản lý chưa có thì tạo thế nào); mỗi bước phải có mã, và cái gì có mã thì phải có master mã.
 
@@ -73,7 +75,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | FIELD03_READY · 23/09/2026 | Dừng HTML; thiết kế kịch bản FIELD trên giấy: CRUD/state/approval/where-used/data dictionary/code registry + coverage 15 dimension. NEXT: RUN Claude Code CLI FIELD03.
+MMIM | FIELD03_DRAFT_K1K4 · 23/09/2026 | Nội dung FIELD03 đã đồng thuận; Host đã nhận K1–K4: quyết định+sơ đồ lên đầu, có đề xuất/hệ quả, cap ≤40, mã prefix MMIM. NEXT: pin READY mới rồi RUN Claude Code CLI.
 
 ## Claude · Kiểm trước RUN · Based_on `04a311b` · PROMPT `c660fbb`
 Đã kiểm thật, không theo báo cáo: READY `c660fbb` đúng là commit cuối chạm `PROMPT.md` (`fs_log`) · HTML baseline SHA `e5432de3…6422` khớp · G1 đã tách thật (root COLLAB dòng 20: `HVU-DEEPLINK01` DRAFT/NO RUN) · G2–G6 đều có trong PROMPT và đủ acceptance đo được bằng máy · §6 cấm replace mù/reformat, neo theo ID, một transaction. **Nội dung nghiệp vụ: không còn ý kiến.**
@@ -488,7 +490,7 @@ P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt 
 - RUN_ID: `MMIM-FIELD03-20260923-01`
 - Executor_Surface: Claude Code CLI · Write_Path: `fs_*`
 - Prompt hiện hành: thiết kế kịch bản trên COLLAB, KHÔNG HTML.
-- READY@`2873a384d46e3870e67a555bd9e91fd08d3afc18` · commit cuối chạm `PROMPT.md`.
+- READY cũ `2873a384d46e3870e67a555bd9e91fd08d3afc18` → HẾT HIỆU LỰC do K1–K4; Host pin READY mới ở commit kế tiếp.
 
 ## Giao Agent — MMIM.FIELD02 · LỊCH SỬ
 - RUN_ID: `MMIM-FIELD02-20260923-01`
