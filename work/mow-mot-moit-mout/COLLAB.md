@@ -86,258 +86,16 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 - Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này.
 
 Host: GPT Chat · Host_ID: GPT-MMIM-260920-A · Owner giao: 2026-09-20
-HTML chính: `mow-mot-moit-mout.html`
+HTML chính: `ban-duyet.html` (bản Owner duyệt; phần CHỜ DUYỆT ghi rõ trong file)
+Kho tham khảo CHƯA DUYỆT: `mow-mot-moit-mout.html` (giữ nguyên, không sửa)
 File gốc Owner giao: `mow-mot-moit-mout.html` · SHA-256 `f4aac30c492f104ec54ff7a03ace54ce70d802e2dd49a417ad9b7285897a050c` · import nguyên byte ở commit `569bb74300a15d05e455bf917fe4058f7f7fd499`.
 Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | FIELD03_KQ_XONG · 23/09/2026 | Claude Code CLI xong thiết kế FIELD trên giấy: 7 quyết định Owner (G01–G07) + sơ đồ + 39 kịch bản + state machine + Data Dictionary + registry + coverage 15/15; HTML không đổi. NEXT: Owner gật/lắc bảng G bên dưới.
+MMIM | OWNER-BANDUYET-20260923-01 · 24/09/2026 | HTML chính `ban-duyet.html`; G01–G07 và FIELD thiết kế đang chờ Owner duyệt; UI Master và FIELD UI thật giữ nguyên từ kho tham khảo. Kiểm Owner View sau publish.
 
-## FIELD03 · Thiết kế FIELD trên giấy — Owner xem ở đây trước
-RUN `MMIM-FIELD03-20260923-01` · Claude Code CLI · không sửa HTML. Đọc theo thứ tự: **G (Owner cần quyết) → sơ đồ 30 giây → A–F**. Dòng `CHOT` luôn có bằng chứng; phần “(đề xuất)” là đề xuất của hội đồng, **hệ thống chưa có**.
-
-### G · Owner cần quyết gì (chỉ gật / lắc)
-| Mã | Vấn đề | UI hiện có/thiếu | Đề xuất của hội đồng | Owner: Gật/Lắc/Khác | Hệ quả nếu lắc | Ảnh hưởng |
-|---|---|---|---|---|---|---|
-| MMIM.FIELD.G01 | Ai duyệt đề xuất Field | Thiếu: không có màn duyệt Field (UI-003 chỉ duyệt NTGV/MOT) | Người phụ trách **Nhóm quản lý** đã chọn duyệt; nhóm chưa có người phụ trách thì Owner/Admin duyệt thay | | Phải chỉ định người/vai khác; ma trận quyền và màn duyệt đổi theo | S04 · APPROVE.001–004 · AUTH.001 |
-| MMIM.FIELD.G02 | Khi nào tính là “khai báo thành công” | Hiện «Lưu đề xuất» chỉ lưu vào trình duyệt (sessionStorage), đóng tab là mất | Chỉ tính thành công khi Field **ACTIVE sau duyệt** và nằm trong dữ liệu thật; nút cuối S03 đổi thành **Gửi duyệt** (DRAFT → PENDING_APPROVAL) | | Đề xuất vẫn nằm trong trình duyệt từng người, không có hàng chờ duyệt, người khác không thấy; S04 không có đầu vào | S03 · SUBMIT.001–004 · C |
-| MMIM.FIELD.G03 | Nhóm quản lý cần chọn chưa có | Thiếu: UI-018 chỉ hiện các nhóm lấy từ tầng T4 Phòng ban, không có nút tạo | Thêm **＋ Tạo nhóm** ngay trong hộp UI-018 → mở hộp tạo T4 → xong **quay lại đúng hộp, giữ nội dung đã điền, nhóm mới được tick sẵn** | | Người khai phải đóng hộp (mất nội dung), sang UI-026 tạo phòng ban, rồi khai lại từ đầu | S02 · GROUP.001–002 |
-| MMIM.FIELD.G04 | Duyệt xong có cần bấm “Kích hoạt” riêng không | Thiếu cả hai | **APPROVED tự chuyển ACTIVE** ngay khi duyệt; không thêm nút | | Thêm một bước + một người bấm kích hoạt; Field đã duyệt có thể nằm chờ | C · T06 |
-| MMIM.FIELD.G05 | Sửa Field đã chạy có phải duyệt lại không | Thiếu màn sửa có kiểm ảnh hưởng | Đổi **tên/mô tả**: giữ mã, người phụ trách nhóm duyệt nhanh · Đổi **định dạng hoặc nhóm**: mở **bản mới**, duyệt đủ như tạo mới; bản cũ chạy tiếp tới khi bản mới ACTIVE | | Không duyệt → có thể đổi nghĩa âm thầm ở mọi form đang dùng · Duyệt mọi thứ → sửa chính tả cũng chờ | S06 · UPDATE.001–005 |
-| MMIM.FIELD.G06 | Ai được Tạm dừng / Lưu trữ / Xoá; xoá hẳn khi nào | Thiếu nút đổi trạng thái và nút xoá | Tạm dừng/Kích hoạt lại/Lưu trữ: người phụ trách nhóm · **Xoá hẳn chỉ khi chưa từng ACTIVE** (Nháp/Bị từ chối) và nơi dùng = 0 · đã từng chạy thì chỉ Lưu trữ · khôi phục từ Lưu trữ: Owner/Admin | | Cho xoá Field từng chạy → mất nghĩa của dữ liệu cũ đã nhập; không cho xoá cả nháp → danh sách đầy rác | S07 · STATUS.* · DELETE.* · AUTH.001 |
-| MMIM.FIELD.G07 | Khuôn mã Field đang có 3 kiểu khác nhau | UI-022 `full_name` · UI-018 tự sinh `FIELD-XXXXXXXX` · UI-029 `MOIT.full_name` | Mỗi Field có: **machine_id** do máy sinh + **mã Field do máy cấp theo một khuôn duy nhất**, không đổi khi đổi tên · `full_name` giữ làm **tên kỹ thuật (alias)** · bỏ khuôn cắt từ UUID. Khuôn chữ cụ thể chốt ở lượt config | | Ba khuôn chạy song song → không tra được registry, dễ trùng mã, form tham chiếu sai | S02 · CODE.001–002 · D · E |
-
-JEV tham khảo cho G (bằng chứng phụ, không thay Owner) `gen-dec-1790156368-mZBmJBd5gqdw7q6YzfQT`: G01 0,92 · G02 0,98 · G03 0,94 · G05 0,97 · G06 0,94 · G07 0,91 cùng chọn đúng đề xuất trên. **G04 JEV không chắc** (tự kích hoạt 0,50 · bấm kích hoạt riêng 0,25 · khác 0,25; độ tin 0,25) → câu Owner nên cân nhắc kỹ nhất.
-
-### Sơ đồ 30 giây
-```
-Luồng chính:
-[MMIM.FIELD.S01 · Tìm] → [MMIM.FIELD.S02 · Khai] → [MMIM.FIELD.S03 · Gửi đề xuất] → [PENDING_APPROVAL] → [APPROVED] → [ACTIVE] → [SUSPENDED] → [ARCHIVED]
-
-Nhánh:
-[S01 · Tìm] ──đã có, đúng nghĩa──▶ (dùng lại Field · gắn mã vào form) ■
-[S02 · Khai] ──Nhóm quản lý chưa có──▶ [＋ Tạo nhóm] ──xong──▶ quay lại [S02] (giữ nội dung)
-[S02 · Khai] ──trùng tên / trùng nghĩa──▶ quay về [S01] · dùng lại Field có sẵn
-[PENDING_APPROVAL] ──từ chối + lý do──▶ [REJECTED] ──sửa──▶ [S02]
-                                        [REJECTED] ──vì trùng──▶ [S01] · dùng lại
-[APPROVED] ──tự động──▶ [ACTIVE] ◀──kích hoạt lại── [SUSPENDED]
-[ACTIVE] ──sửa / tạm dừng / lưu trữ / xoá──▶ {kiểm nơi dùng TRƯỚC} ──còn form đang dùng──▶ CHẶN · hiện danh sách nơi dùng
-                                                                   └──không còn──▶ cho làm
-```
-
-### A · Bảng kịch bản FIELD — 39 dòng chính
-Bước gốc: **MMIM.FIELD.S01** Tìm / dùng lại hay tạo mới · **MMIM.FIELD.S02** Khai Field / tạo đề xuất · **MMIM.FIELD.S03** Gửi đề xuất / hoàn tất bước nhập. Checklist sinh thêm, nối ở cuối: **MMIM.FIELD.S04** Duyệt · **MMIM.FIELD.S05** Tra cứu / Data Dictionary · **MMIM.FIELD.S06** Sửa · **MMIM.FIELD.S07** Ngừng / lưu trữ / xoá. `Chung` = áp cho mọi bước.
-Ai làm: **Người khai** · **Người duyệt** (theo G01) · **Máy**. Bằng chứng: xem chú giải cuối mục A.
-
-| Mã kịch bản | Bước | Tình huống / trigger | Ai làm | Làm gì | UI | Kết quả | Hỏng thì về đâu | Trạng thái | Bằng chứng |
-|---|---|---|---|---|---|---|---|---|---|
-| MMIM.FIELD.SEARCH.001 | S01 | Cần một trường cho form | Người khai | Gõ mã/tên ở «Tìm mã / tên…»; lọc trạng thái, 9 tầng | UI-022 | Danh sách Field khớp | Không thấy → SEARCH.003 | CHOT | [DOM-022] [M:175–178] |
-| MMIM.FIELD.SEARCH.002 | S01 | Thấy Field đúng nghĩa, đang chạy | Người khai | (đề xuất) bấm **Chọn** để gắn mã Field vào form đang khai | UI-022 → form gọi | Form tham chiếu mã + bản Field, không tạo mới | Field chưa ACTIVE → không cho chọn, báo người phụ trách | UI_THIEU | [MT:FIELD.1] “có thì tham chiếu mã, không tạo lại”; ngăn chi tiết chỉ có «Mở trường ↗» [DOM-022-CT] |
-| MMIM.FIELD.SEARCH.003 | S01 | Không có Field phù hợp | Người khai | Bấm «＋ Khai báo trường» | UI-022 → UI-018 | Mở hộp «Đề xuất thêm trường», chế độ Đề xuất | — | CHOT | [DOM-022] [DOM-018-moi] |
-| MMIM.FIELD.SEARCH.004 | S01 | Tìm bằng tên khác / tên cũ | Người khai | (đề xuất) ô tìm khớp cả alias | UI-022 · UI-029 | Ra đúng Field dù gõ tên khác | Không ra → dễ tạo trùng (CREATE.004) | UI_THIEU | Dữ liệu tìm kiếm không có trường alias [S029] |
-| MMIM.FIELD.CREATE.001 | S02 | Khai Field mới | Người khai | Điền Tên trường*, chọn Định dạng* (7 loại), tick ≥1 Nhóm quản lý*; Mô tả tuỳ chọn | UI-018 | Hộp hợp lệ, sang S03 | — | CHOT | [K:44–47] [K:56] |
-| MMIM.FIELD.CREATE.002 | S02 | Thiếu ô bắt buộc | Người khai | Bấm lưu khi thiếu | UI-018 | Báo «Điền tên, chọn định dạng và ít nhất một nhóm quản lý.»; hộp vẫn mở | Ở lại hộp, điền nốt | CHOT | [K:56]; Định dạng là ô chọn nên không nhập sai kiểu được [K:45] |
-| MMIM.FIELD.CREATE.003 | S02 | Trùng tên trong cùng form | Máy | So tên (không phân biệt hoa thường) với Field của form | UI-018 | Báo «Tên trường đã có trong form này.» | Về S01 dùng lại | CHOT | [K:57] |
-| MMIM.FIELD.CREATE.004 | S02 | Trùng tên ở form khác / trùng nghĩa khác tên | Máy | (đề xuất) so toàn Master Field + alias, gợi ý Field có sẵn | UI-018 | Cảnh báo kèm link Field có sẵn | Về S01 dùng lại | UI_THIEU | Hiện chỉ so trong form đang mở [K:57] |
-| MMIM.FIELD.CREATE.005 | S02 | Bỏ dở giữa chừng | Người khai | Bấm «Đóng», ✕ hoặc Esc | UI-018 | Hộp đóng, **không lưu gì** | Khai lại từ đầu | CHOT | [K:29] [K:36] [K:50] |
-| MMIM.FIELD.GROUP.001 | S02 | Nhóm quản lý cần chọn chưa có | Người khai | (đề xuất G03) **＋ Tạo nhóm** trong hộp → tạo T4 → quay lại hộp, giữ nội dung, nhóm mới tick sẵn | UI-018 → UI-026 | Có nhóm mới, khai tiếp | Tạo nhóm lỗi → quay lại hộp, nội dung còn nguyên | UI_THIEU | Nhóm lấy từ tầng T4 [K:39]; UI-026 Kanban T4 có Tạo (+) [REG-026] |
-| MMIM.FIELD.GROUP.002 | S02 | Field gắn nhóm mới đang chờ duyệt | Người duyệt | (đề xuất) duyệt nhóm trước, rồi mới duyệt Field | S04 | Không có Field ACTIVE thuộc nhóm chưa tồn tại | Nhóm bị từ chối → Field về S02 chọn nhóm khác | CHUA_CHOT | [MT:FIELD.4] “phụ thuộc còn thiếu có đường xử lý và quay về” |
-| MMIM.FIELD.CODE.001 | S02 | Máy sinh mã khi lưu | Máy | Hiện tại: `FIELD-` + 8 ký tự cuối của UUID ngẫu nhiên, sinh trong trình duyệt | UI-018 | Có mã tạm | Chưa kiểm trùng toàn hệ thống → CODE.002 | CHOT | [K:58] |
-| MMIM.FIELD.CODE.002 | Chung | Chống trùng mã | Máy | (đề xuất G07) registry cấp mã duy nhất theo một khuôn, kiểm trùng trước khi ghi; mã không đổi khi đổi tên | — | Mỗi Field một mã bền, tra được | Trùng → cấp lại, không ghi | CHUA_CHOT | [RULE-ID] “mã ≠ tên ≠ phiên bản”, identity quản lý trong registry |
-| MMIM.FIELD.SUBMIT.001 | S03 | Bấm «Lưu đề xuất» (hiện trạng) | Người khai | Lưu đề xuất | UI-018 | Lưu vào sessionStorage, báo «Đã lưu đề xuất trường · chưa áp dụng vận hành» | — | CHOT | [K:55–61] [DOM-018-moi] |
-| MMIM.FIELD.SUBMIT.002 | S03 | Gửi đề xuất cho người duyệt | Người khai | (đề xuất G02) nút **Gửi duyệt** ghi vào hệ thống: DRAFT → PENDING_APPROVAL | UI-018 | Đề xuất vào hàng chờ, người khai thấy “Chờ duyệt” | Gửi lỗi → SUBMIT.003 | UI_THIEU | [MT:FIELD.6.UI.DUYET] = “?”; lưu trình duyệt chưa phải khai báo thành công (JEV 0,07 ở D21) |
-| MMIM.FIELD.SUBMIT.003 | S03 | Lưu thất bại | Máy | Báo «Không lưu được trên trình duyệt; hãy thử lại.», hộp vẫn mở | UI-018 | Không mất nội dung, thử lại được | Thử lại; (đề xuất) gửi thật phải chống gửi đôi | CHOT | [K:60] |
-| MMIM.FIELD.SUBMIT.004 | S03 | Đóng tab/trình duyệt sau khi lưu | — | — | UI-018 | Đề xuất đã lưu **mất** (sessionStorage theo tab) | Khai lại; hết lỗi khi làm G02 | CHOT | [K:8–9] |
-| MMIM.FIELD.APPROVE.001 | S04 | Có đề xuất chờ duyệt | Người duyệt | (đề xuất) mở hàng chờ Field: xem nội dung, trùng lặp, nơi sẽ dùng | màn duyệt Field | Thấy đủ để quyết | — | UI_THIEU | [MT:FIELD.6.UI.DUYET] = “?”; UI-003 chỉ duyệt NTGV [REG-003] |
-| MMIM.FIELD.APPROVE.002 | S04 | Đồng ý | Người duyệt | (đề xuất) Duyệt → APPROVED → tự ACTIVE (G04) | màn duyệt Field | Field vào Master, form chọn được | Nhóm chưa duyệt → chờ (GROUP.002) | UI_THIEU | [MT:FIELD.6] “đúng quyền/duyệt cần thiết … lưu dấu vết” |
-| MMIM.FIELD.APPROVE.003 | S04 | Không đồng ý | Người duyệt | (đề xuất) Từ chối + ghi lý do → REJECTED | màn duyệt Field | Người khai thấy lý do | Người khai sửa ở S02, gửi lại | UI_THIEU | như APPROVE.001 |
-| MMIM.FIELD.APPROVE.004 | S04 | Đề xuất trùng Field đã có | Người duyệt | (đề xuất) Từ chối, gắn mã Field có sẵn | màn duyệt Field | Người khai được chỉ về Field có sẵn | Về S01 dùng lại | UI_THIEU | như APPROVE.001 |
-| MMIM.FIELD.READ.001 | S05 | Lưu xong, xem danh sách trường ở đâu | Người khai | Hiện tại: đề xuất chỉ hiện trên Kanban T0 chế độ Đề xuất; Master UI-022 là dữ liệu minh hoạ, **không hiện đề xuất** | UI-021 · UI-022 | (đề xuất) sau G02 đề xuất hiện ở UI-022 với trạng thái Chờ duyệt | — | UI_THIEU | [K:13–16] [DOM-022] “dữ liệu minh họa, chưa nối PG” |
-| MMIM.FIELD.READ.002 | S05 | Xem Data Dictionary | Mọi người | (đề xuất) Master Field hiện đủ cột mục D | UI-022 | Một bảng nhìn đủ định dạng, nhóm, bản, nơi dùng | — | UI_THIEU | UI-022 hiện chỉ: Mã · Tên · T3 · T2 · T1 · Vai trò · Trạng thái [DOM-022] |
-| MMIM.FIELD.READ.003 | S05 | Mở chi tiết một Field | Mọi người | «mở chi tiết ›» hoặc `?chi-tiet=<mã>` | UI-022 | Ngăn chi tiết: đường dẫn 7 tầng, xem thử, “Bảng PG: chưa kết nối”, «✎ Sửa khuôn này», «Mở trường ↗» | — | CHOT | [DOM-022-CT] [M:262–281] |
-| MMIM.FIELD.READ.004 | S05 | Field đang được dùng ở đâu (where-used) | Mọi người | (đề xuất) ngăn chi tiết liệt kê mọi form/quy trình đang dùng + số lượng | UI-022 | Biết ảnh hưởng trước khi sửa/ngừng | — | UI_THIEU | Hiện chỉ một đường dẫn cha (Nhận đơn › MOIT) [DOM-022-CT] |
-| MMIM.FIELD.UPDATE.001 | S06 | Đổi tên / mô tả | Người khai | Mở hộp «Khai báo trường» (`&truong=<mã>`) → «Lưu đề xuất» | UI-018 | Giữ nguyên id và mã, chỉ đổi tên/mô tả | — | CHOT | [K:58] giữ `active.id`/`active.code`; [DOM-018-truong] |
-| MMIM.FIELD.UPDATE.002 | S06 | Bấm ✎ ở Master để sửa | Người khai | Nút ✎ gửi `&edit=<mã>` nhưng UI-018 chỉ đọc `&truong=<mã>` → hộp **không mở** | UI-022 → UI-018 | Hiện tại: không sửa được từ Master | (đề xuất) nối ✎ sang `&truong=` | UI_THIEU | [M:283] [K:66] [DOM-018-edit] |
-| MMIM.FIELD.UPDATE.003 | S06 | Đổi Nhóm quản lý | Người khai | (đề xuất G05) xem nơi dùng trước (READ.004), rồi mở bản mới, duyệt như tạo mới | UI-018 · S04 | Nhóm mới có hiệu lực sau duyệt | Bị từ chối → giữ nhóm cũ | CHUA_CHOT | chờ G05 |
-| MMIM.FIELD.UPDATE.004 | S06 | Đổi định dạng khi đã có dữ liệu | Người khai | (đề xuất G05) xem nơi dùng trước (READ.004); mở **bản mới**; bản cũ giữ cho dữ liệu cũ; kế hoạch chuyển dữ liệu | UI-018 · S04 | Không ghi đè bản đang dùng | Chuyển dữ liệu lỗi → giữ bản cũ ACTIVE | UI_THIEU | [MT:FIELD.2.UI.SUA] “không ghi đè bản đang dùng” = “?” |
-| MMIM.FIELD.UPDATE.005 | S06 | Sửa có cần duyệt lại không | Người duyệt | Theo G05 | S04 | — | — | CHUA_CHOT | chờ G05 |
-| MMIM.FIELD.UPDATE.006 | S06 | Hai người sửa cùng lúc | Máy | (đề xuất) kiểm bản khi lưu; người lưu sau được báo tải lại | UI-018 | Không ghi đè im lặng | Tải lại, sửa lại | UI_THIEU | Lưu hiện không kiểm bản [K:55–60] |
-| MMIM.FIELD.STATUS.001 | S07 | Tạm dừng Field đang chạy | Người phụ trách nhóm | (đề xuất) nút Tạm dừng: form mới không chọn được, form đang dùng chạy tiếp | UI-022 | ACTIVE → SUSPENDED | — | UI_THIEU | UI-022 có trạng thái để **lọc**, chưa có nút đổi [M:14] [M:177] [MT:FIELD.8.UI.NGUNG] |
-| MMIM.FIELD.STATUS.002 | S07 | Kích hoạt lại | Người phụ trách nhóm | (đề xuất) nút Kích hoạt lại | UI-022 | SUSPENDED → ACTIVE | — | UI_THIEU | như STATUS.001 |
-| MMIM.FIELD.STATUS.003 | S07 | Lưu trữ | Người phụ trách nhóm | (đề xuất) kiểm nơi dùng trước; chỉ khi không còn form ACTIVE dùng | UI-022 | → ARCHIVED, giữ lịch sử | Còn nơi dùng → chặn, hiện danh sách | UI_THIEU | [MT:FIELD.8] “Kiểm nơi dùng → … → lưu trữ, giữ lịch sử” |
-| MMIM.FIELD.DELETE.001 | S07 | Xoá hẳn Field chưa từng dùng | Người khai / Admin | (đề xuất G06) chỉ Nháp / Bị từ chối, nơi dùng = 0 | UI-022 | Field biến mất khỏi Master, audit còn ghi | — | UI_THIEU | chờ G06 |
-| MMIM.FIELD.DELETE.002 | S07 | Xoá Field đang được dùng | Người khai | (đề xuất) chặn, hiện danh sách nơi dùng, gợi ý Tạm dừng / Lưu trữ | UI-022 | Không xoá | Về STATUS.001 / 003 | UI_THIEU | [MT:FIELD.8.UI.NGUNG] “Kiểm nơi dùng … không xóa lịch sử” |
-| MMIM.FIELD.RECOVER.001 | S07 | Lưu trữ nhầm / cần dùng lại | Owner / Admin | (đề xuất G06) khôi phục ARCHIVED → SUSPENDED để kiểm lại trước khi chạy | UI-022 | Field quay lại, lịch sử còn | — | UI_THIEU | [MT:FIELD.8] “có đường khôi phục có kiểm” |
-| MMIM.FIELD.AUTH.001 | Chung | Ai được đề xuất / duyệt / sửa / ngừng / xoá | — | (đề xuất G01 + G06) Người khai: đề xuất, sửa bản của mình khi chưa duyệt · Người phụ trách nhóm: duyệt, tạm dừng, lưu trữ · Owner/Admin: khôi phục, xoá | mọi UI | Mỗi nút chỉ hiện với người có quyền | — | CHUA_CHOT | UI-022 cột Vai trò = “Thiếu (1), (2), (3)” [DOM-022]; chờ G01, G06 |
-| MMIM.FIELD.AUDIT.001 | Chung | Ai đổi gì, khi nào | Máy | (đề xuất) ghi nhật ký mỗi lần tạo / gửi / duyệt / sửa / đổi trạng thái: người, lúc, trước → sau | ngăn chi tiết UI-022 | Tra lại được mọi thay đổi | — | UI_THIEU | [MT:FIELD.6] “lưu dấu vết”; [MT:FIELD.7.UI.GOPY] = “?” |
-
-**Biến thể hiếm — `DEFER_P1`** (giữ mã, chưa làm lượt này):
-| Mã | Tình huống | Vì sao để sau |
-|---|---|---|
-| MMIM.FIELD.SEARCH.901 | Tìm chung mọi tầng qua UI-029, lọc loại FIELD | Dữ liệu minh hoạ; trạng thái “draft” lệch với “Tạm dừng” ở UI-022 [S029] [DOM-022] |
-| MMIM.FIELD.CREATE.901 | Định dạng «Lựa chọn» / «Tệp đính kèm» cần thêm tham số (danh sách giá trị, dung lượng) | Thuộc lượt config |
-| MMIM.FIELD.CREATE.902 | Bỏ dở → tự lưu nháp để quay lại sau | Cần sau G02 (có chỗ lưu thật) |
-| MMIM.FIELD.CREATE.903 | Khai nhiều Field một lần (nhập hàng loạt) | Ít dùng ở bước đầu |
-| MMIM.FIELD.STATUS.901 | Đổi trạng thái hàng loạt | [MT:FIELD.8.UI.NGUNG] ghi “rà sau” |
-| MMIM.FIELD.RECOVER.901 | Khôi phục sau khi đã xoá hẳn | Chỉ xảy ra với nháp (G06); dùng nhật ký |
-
-**Chú giải bằng chứng** (đọc thật ngày 23/09/2026, chỉ đọc):
-- `[K:n]`: `kanban-field-v1.js` dòng n, root `ui` (UI-018).
-- `[M:n]`: `master-list.js` dòng n (UI-022).
-- `[DOM-022]`: DOM `field-master-v1.html`.
-- `[DOM-022-CT]`: DOM `field-master-v1.html?chi-tiet=full_name`.
-- `[DOM-018-moi]`: DOM UI-018 với `…&che-do=de-xuat&khai-bao=moi`. `[DOM-018-truong]`: với `&truong=full_name` (hộp «Khai báo trường» mở). `[DOM-018-edit]`: với `&edit=full_name` (không có hộp).
-- `[REG-026]`, `[REG-003]`: danh mục UI con trong HTML chính (UI-026 Kanban T4 Phòng ban “Xem · Tạo (+)”; UI-003 Danh sách duyệt NTGV).
-- `[S029]`: `search-demo-data.json` dòng 282–291.
-- `[MT:…]`: ô ma trận vòng đời / UI của FIELD trong HTML chính.
-- `[RULE-ID]`: luật trong HTML chính “mã ≠ tên ≠ phiên bản; identity ổn định quản lý trong registry”.
-
-### B · Checklist bắt buộc → kịch bản
-| Nhóm | Dòng checklist | Mã kịch bản |
-|---|---|---|
-| Create | tìm trước khi tạo | SEARCH.001, SEARCH.003 |
-| Create | trùng tên / trùng nghĩa | CREATE.003, CREATE.004, APPROVE.004 |
-| Create | thiếu field bắt buộc / sai định dạng | CREATE.002 (+ CREATE.901) |
-| Create | Nhóm quản lý chưa có → tạo tại chỗ → quay lại | GROUP.001, GROUP.002 |
-| Create | bỏ dở giữa chừng | CREATE.005 (+ CREATE.902) |
-| Create | lưu/gửi thất bại → retry/return | SUBMIT.003, SUBMIT.004 |
-| Create | đề xuất → ai duyệt → approve/reject → khi nào vận hành | SUBMIT.002, APPROVE.001–004, G01, G02, G04 |
-| Create | sinh mã / chống trùng mã | CODE.001, CODE.002, G07 |
-| Read | Data Dictionary / Master sau khi lưu | READ.001, READ.002 |
-| Read | tìm theo mã/tên; alias | SEARCH.001, SEARCH.004 |
-| Read | mở chi tiết | READ.003 |
-| Read | where-used | READ.004 |
-| Update | đổi tên/mô tả giữ identity | UPDATE.001, UPDATE.002 |
-| Update | đổi Nhóm quản lý | UPDATE.003 |
-| Update | đổi định dạng khi có dữ liệu → bản/di trú | UPDATE.004 |
-| Update | sửa đồng thời | UPDATE.006 |
-| Update | có cần duyệt lại | UPDATE.005, G05 |
-| Deactivate/Delete | tạm dừng / kích hoạt lại | STATUS.001, STATUS.002 |
-| Deactivate/Delete | lưu trữ | STATUS.003 |
-| Deactivate/Delete | xoá hẳn khi chưa dùng | DELETE.001 |
-| Deactivate/Delete | đang dùng → chặn + chỉ where-used | DELETE.002 |
-| Deactivate/Delete | quyền ngừng/xoá | AUTH.001, G06 |
-| Cross-cutting | quyền đề xuất/duyệt/sửa/ngừng/xoá | AUTH.001 |
-| Cross-cutting | audit | AUDIT.001 |
-| Cross-cutting | recovery/rollback | RECOVER.001, UPDATE.004 (giữ bản cũ) |
-| Cross-cutting | alias/search | SEARCH.004 (+ SEARCH.901) |
-| Cross-cutting | code registry | CODE.002, mục E |
-
-### C · State machine
-Trạng thái: `DRAFT → PENDING_APPROVAL → APPROVED | REJECTED → ACTIVE → SUSPENDED → ARCHIVED`.
-UI có sẵn (CHOT, [M:14]): **ACTIVE = Đang chạy · SUSPENDED = Tạm dừng · ARCHIVED = Lưu trữ**. DRAFT (Nháp) · PENDING_APPROVAL (Chờ duyệt) · APPROVED (Đã duyệt) · REJECTED (Bị từ chối): **CHUA_CHOT / UI_THIEU**; đây là đề xuất, không phải schema đang chạy.
-
-| Mã | from | action | actor | condition | to | UI | lỗi / chặn |
-|---|---|---|---|---|---|---|---|
-| MMIM.FIELD.T01 | (chưa có) | Lưu | Người khai | đủ Tên, Định dạng, ≥1 Nhóm | DRAFT | UI-018 (hiện chỉ lưu trình duyệt) | thiếu ô → ở lại hộp |
-| MMIM.FIELD.T02 | DRAFT | Gửi duyệt | Người khai | không trùng tên trong form | PENDING_APPROVAL | UI_THIEU | trùng → về S01 |
-| MMIM.FIELD.T03 | PENDING_APPROVAL | Duyệt | Người duyệt (G01) | Nhóm quản lý đã ACTIVE | APPROVED | UI_THIEU | nhóm chờ duyệt → chờ |
-| MMIM.FIELD.T04 | PENDING_APPROVAL | Từ chối + lý do | Người duyệt | có lý do | REJECTED | UI_THIEU | thiếu lý do → không cho từ chối |
-| MMIM.FIELD.T05 | REJECTED | Sửa & gửi lại | Người khai | — | PENDING_APPROVAL | UI_THIEU | — |
-| MMIM.FIELD.T06 | APPROVED | Kích hoạt tự động (G04) | Máy | — | ACTIVE | — | — |
-| MMIM.FIELD.T07 | ACTIVE | Tạm dừng | Người phụ trách nhóm (G06) | — | SUSPENDED | UI_THIEU (UI-022 chỉ lọc) | — |
-| MMIM.FIELD.T08 | SUSPENDED | Kích hoạt lại | Người phụ trách nhóm | — | ACTIVE | UI_THIEU | — |
-| MMIM.FIELD.T09 | ACTIVE / SUSPENDED | Lưu trữ | Người phụ trách nhóm | không còn form ACTIVE dùng | ARCHIVED | UI_THIEU | còn nơi dùng → chặn + danh sách |
-| MMIM.FIELD.T10 | ARCHIVED | Khôi phục | Owner / Admin | — | SUSPENDED | UI_THIEU | — |
-| MMIM.FIELD.T11 | DRAFT / REJECTED | Xoá hẳn | Người khai / Admin | chưa từng ACTIVE, nơi dùng = 0 | (xoá, audit còn) | UI_THIEU | đã từng ACTIVE → chỉ Lưu trữ |
-| MMIM.FIELD.T12 | ACTIVE | Sửa định dạng / nhóm | Người khai | — | bản mới DRAFT; bản cũ vẫn ACTIVE | UI_THIEU | bản mới bị từ chối → bản cũ giữ nguyên |
-
-### D · Data Dictionary — thiết kế Master Field
-| Tên | Ý nghĩa | Nguồn hiện có / đề xuất mới | UI hiện có / thiếu |
-|---|---|---|---|
-| machine_id | Khoá máy, bền, không ai gõ | Có: UI-018 sinh UUID trong trình duyệt [K:58]; đề xuất: registry sinh | Không hiện (đúng) |
-| field_code | Mã Field cho người tra, không đổi khi đổi tên | Có 3 khuôn lệch nhau (G07) | UI-022 cột MÃ |
-| display_name | Tên hiển thị | Có: «Tên trường *» [K:44] | UI-018 · UI-022 cột TÊN |
-| data_type | Định dạng: Văn bản · Số · Ngày · Ngày giờ · Có / Không · Lựa chọn · Tệp đính kèm | Có [K:40] [K:45] | UI-018 có · UI-022 **thiếu** |
-| description | Nghĩa nghiệp vụ, tuỳ chọn | Có: «Mô tả» [K:46] | UI-018 có · UI-022 **thiếu** |
-| management_group | ≥1 nhóm quản lý, lấy từ T4 Phòng ban | Có [K:39] [K:47] (nhóm minh hoạ) | UI-018 có · UI-022 **thiếu** |
-| required | Bắt buộc nhập khi dùng | Đề xuất mới: thuộc **chỗ dùng (form)**, không thuộc Field — CHUA_CHOT | thiếu |
-| lifecycle_status | 7 trạng thái mục C | Có 3 [M:14]; 4 đề xuất mới | UI-022 cột TRẠNG THÁI (3 giá trị) |
-| version | Số bản; đổi định dạng/nhóm → bản mới | Đề xuất mới [RULE-ID] | thiếu |
-| aliases | Tên khác, tên cũ, tên kỹ thuật (`full_name`) | Đề xuất mới | thiếu |
-| where_used | Danh sách form/quy trình đang dùng + số lượng | Có một phần: một đường dẫn cha [DOM-022-CT] | ngăn chi tiết, **chưa đủ** |
-| created_by | Người tạo | Đề xuất mới cho Field (mẫu cha có cột Người lập [M:297], UI-022 không hiện) | thiếu |
-| approved_by | Người duyệt | Đề xuất mới | thiếu |
-| created_at | Lúc tạo | Như created_by (mẫu cha có Ngày lập [M:297]) | thiếu |
-| updated_at | Lúc sửa gần nhất | Đề xuất mới | thiếu |
-
-Không đưa config kỹ thuật hay địa chỉ lưu trữ vào lượt này.
-
-### E · Master mã / Code registry
-Luật:
-- `work_id = mow-mot-moit-mout`. Mọi mã **do việc này sinh ra** (bước, kịch bản, quyết định, chuyển trạng thái, UI thiếu, mục danh sách) có tiền tố `MMIM.`
-- Mã Field nghiệp vụ dùng chung toàn hệ thống, chờ G07.
-- Mã ≠ tên hiển thị ≠ version; đổi tên không đổi mã.
-- Mọi mã phải tra được ở bảng này. Mã bước/kịch bản không trùng giữa các việc nhờ tiền tố việc.
-- `machine_id` do máy sinh, ghi `AUTO_GENERATED`, không tự đặt UUID.
-
-| work_id | code | machine_id | loại | đối tượng | tên | version | trạng thái | nơi dùng | ngày |
-|---|---|---|---|---|---|---|---|---|---|
-| mow-mot-moit-mout | MMIM.FIELD.S01 | AUTO_GENERATED | STEP | FIELD | Tìm / dùng lại hay tạo mới | v1 | CHOT (tên/thứ tự từ FIELD02) | COLLAB §FIELD03 · HTML `#list-quy-trinh-field` (hiện ghi `FIELD.S01`) | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.S02 | AUTO_GENERATED | STEP | FIELD | Khai Field / tạo đề xuất | v1 | CHOT | như trên (`FIELD.S02`) | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.S03 | AUTO_GENERATED | STEP | FIELD | Gửi đề xuất / hoàn tất bước nhập | v1 | CHOT (nút thật hiện là «Lưu đề xuất», xem G02) | như trên (`FIELD.S03`) | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.S04 | AUTO_GENERATED | STEP | FIELD | Duyệt | v1 | CHUA_CHOT | COLLAB §FIELD03 | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.S05 | AUTO_GENERATED | STEP | FIELD | Tra cứu / Data Dictionary | v1 | CHUA_CHOT | COLLAB §FIELD03 | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.S06 | AUTO_GENERATED | STEP | FIELD | Sửa | v1 | CHUA_CHOT | COLLAB §FIELD03 | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.S07 | AUTO_GENERATED | STEP | FIELD | Ngừng / lưu trữ / xoá | v1 | CHUA_CHOT | COLLAB §FIELD03 | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.SEARCH.001–004, .901 | AUTO_GENERATED | SCENARIO | FIELD | Tìm | v1 | theo mục A | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.CREATE.001–005, .901–.903 | AUTO_GENERATED | SCENARIO | FIELD | Khai | v1 | theo mục A | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.GROUP.001–002 | AUTO_GENERATED | SCENARIO | FIELD | Nhóm quản lý tại chỗ | v1 | theo mục A | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.CODE.001–002 | AUTO_GENERATED | SCENARIO | FIELD | Sinh mã / chống trùng | v1 | theo mục A | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.SUBMIT.001–004 | AUTO_GENERATED | SCENARIO | FIELD | Gửi đề xuất | v1 | theo mục A | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.APPROVE.001–004 | AUTO_GENERATED | SCENARIO | FIELD | Duyệt | v1 | theo mục A | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.READ.001–004 | AUTO_GENERATED | SCENARIO | FIELD | Tra cứu | v1 | theo mục A | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.UPDATE.001–006 | AUTO_GENERATED | SCENARIO | FIELD | Sửa | v1 | theo mục A | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.STATUS.001–003, .901 | AUTO_GENERATED | SCENARIO | FIELD | Đổi trạng thái | v1 | theo mục A | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.DELETE.001–002 | AUTO_GENERATED | SCENARIO | FIELD | Xoá | v1 | theo mục A | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.RECOVER.001, .901 | AUTO_GENERATED | SCENARIO | FIELD | Khôi phục | v1 | theo mục A | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.AUTH.001 | AUTO_GENERATED | SCENARIO | FIELD | Quyền | v1 | CHUA_CHOT | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.AUDIT.001 | AUTO_GENERATED | SCENARIO | FIELD | Nhật ký | v1 | UI_THIEU | COLLAB §FIELD03 A | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.G01–G07 | AUTO_GENERATED | DECISION | FIELD | Owner cần quyết | v1 | chờ Owner | COLLAB §FIELD03 G | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.T01–T12 | AUTO_GENERATED | TRANSITION | FIELD | Chuyển trạng thái | v1 | theo mục C | COLLAB §FIELD03 C | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD.UIGAP.01–15 | AUTO_GENERATED | UI_GAP | FIELD | UI cần đặt hàng | v1 | UI_THIEU | COLLAB §FIELD03 phụ lục | 2026-09-23 |
-| mow-mot-moit-mout | MMIM.FIELD02.01–06 | AUTO_GENERATED | FIELD_ITEM | FIELD | 6 control bôi vàng của FIELD02 | v1 | CHOT (FIELD02 `9305a1d`) | HTML `#field02-list` (hiện ghi `FIELD02.0x`, chưa có tiền tố — đổi ở lượt HTML sau) | 2026-09-23 |
-
-### F · Coverage — 15 chiều
-| Chiều | Thiết kế | UI | Mã tham chiếu |
-|---|---|---|---|
-| CRUD | COVERED | một phần: C/R có, U lỗi nút ✎, D thiếu | CREATE.*, READ.*, UPDATE.*, DELETE.* |
-| lifecycle | COVERED | 3/7 trạng thái có | mục C, STATUS.* |
-| approval | COVERED | UI_THIEU | SUBMIT.002, APPROVE.001–004, G01, G02, G04 |
-| RBAC | COVERED — chờ G01, G06 | UI_THIEU | AUTH.001 |
-| duplicate | COVERED | trong form: có · toàn Master: thiếu | CREATE.003, CREATE.004, APPROVE.004 |
-| validation | COVERED | có | CREATE.002 |
-| where-used | COVERED | một phần | READ.004, STATUS.003, DELETE.002 |
-| version/migration | COVERED — chờ G05 | UI_THIEU | UPDATE.004, T12 |
-| inline dependency | COVERED — chờ G03 | UI_THIEU | GROUP.001, GROUP.002 |
-| identifier registry | COVERED — chờ G07 | — | CODE.001, CODE.002, mục E |
-| alias search | COVERED | UI_THIEU | SEARCH.004 (+ .901) |
-| audit | COVERED | UI_THIEU | AUDIT.001 |
-| concurrency | COVERED | UI_THIEU | UPDATE.006 |
-| recovery | COVERED | một phần: lưu lỗi thử lại được | SUBMIT.003, RECOVER.001, UPDATE.004 |
-| data dictionary | COVERED | một phần: 3/14 cột hiện ở Master | READ.002, mục D |
-
-`COVERED` = đã có kịch bản và đường xử lý trong thiết kế; **không** có nghĩa UI đã có. Cột UI nói thật phần đang có.
-
-### Phụ lục · UI cần đặt hàng (đầu vào lượt dựng UI, không bịa)
-| Mã | UI cần có | Cho kịch bản |
-|---|---|---|
-| MMIM.FIELD.UIGAP.01 | Nút **Chọn** Field để gắn vào form | SEARCH.002 |
-| MMIM.FIELD.UIGAP.02 | Tìm theo alias / tên khác | SEARCH.004 |
-| MMIM.FIELD.UIGAP.03 | Cảnh báo trùng toàn Master + gợi ý Field có sẵn | CREATE.004 |
-| MMIM.FIELD.UIGAP.04 | **＋ Tạo nhóm** trong UI-018 và quay lại đúng hộp | GROUP.001 |
-| MMIM.FIELD.UIGAP.05 | **Gửi duyệt** ghi vào hệ thống + trạng thái Chờ duyệt | SUBMIT.002 |
-| MMIM.FIELD.UIGAP.06 | Màn hàng chờ duyệt Field: duyệt / từ chối + lý do / gắn Field có sẵn | APPROVE.001–004 |
-| MMIM.FIELD.UIGAP.07 | Đề xuất đã gửi hiện trong Master Field | READ.001 |
-| MMIM.FIELD.UIGAP.08 | Master Field hiện đủ cột Data Dictionary | READ.002 |
-| MMIM.FIELD.UIGAP.09 | Where-used đủ danh sách + số lượng | READ.004 |
-| MMIM.FIELD.UIGAP.10 | Sửa nút ✎ của UI-022: `edit=` → `truong=` | UPDATE.002 |
-| MMIM.FIELD.UIGAP.11 | Sửa định dạng / nhóm → mở bản mới | UPDATE.003, UPDATE.004 |
-| MMIM.FIELD.UIGAP.12 | Kiểm bản khi lưu (chống ghi đè) | UPDATE.006 |
-| MMIM.FIELD.UIGAP.13 | Nút Tạm dừng / Kích hoạt lại / Lưu trữ / Khôi phục có kiểm nơi dùng | STATUS.001–003, RECOVER.001 |
-| MMIM.FIELD.UIGAP.14 | Nút Xoá có kiểm nơi dùng | DELETE.001–002 |
-| MMIM.FIELD.UIGAP.15 | Nhật ký thay đổi trong ngăn chi tiết | AUDIT.001 |
+Bản thiết kế FIELD nằm trong ban-duyet.html
 
 ## Claude · Kiểm trước RUN · Based_on `04a311b` · PROMPT `c660fbb`
 Đã kiểm thật, không theo báo cáo: READY `c660fbb` đúng là commit cuối chạm `PROMPT.md` (`fs_log`) · HTML baseline SHA `e5432de3…6422` khớp · G1 đã tách thật (root COLLAB dòng 20: `HVU-DEEPLINK01` DRAFT/NO RUN) · G2–G6 đều có trong PROMPT và đủ acceptance đo được bằng máy · §6 cấm replace mù/reformat, neo theo ID, một transaction. **Nội dung nghiệp vụ: không còn ý kiến.**
@@ -390,7 +148,7 @@ Hướng đúng D20: ngắn, 3 bước, 3 mảnh UI, có con số. Đã mở ngu
 - D03 · 2026-09-20 · Phải đưa file gốc lên workspace trước rồi mới viết prompt/giao Codex phần còn lại.
 - D04 · 2026-09-20 · Codex tạo `work/mow-mot-moit-mout/information/`, tự đề xuất cách tổ chức bên trong và đưa các file cần thiết/liên quan từ `/Users/nmhuyen/Desktop/quy trình` vào đó.
 - D05 · 2026-09-20 · Lượt Codex này chỉ khảo sát, phân loại và copy tài liệu; không được sửa, đổi tên hoặc tái cấu trúc `mow-mot-moit-mout.html`, không xoá/di chuyển nguồn trên Mac.
-- D06 · 2026-09-20 · `work/mow-mot-moit-mout/mow-mot-moit-mout.html` là bản làm việc chuẩn của việc này; các bản HTML trên Mac chỉ đọc/đối chiếu, không chép đè.
+- D06 · 2026-09-20 · `work/mow-mot-moit-mout/mow-mot-moit-mout.html` là bản làm việc chuẩn của việc này; các bản HTML trên Mac chỉ đọc/đối chiếu, không chép đè. (Lịch sử; D23 thay hiệu lực từ 24/09/2026.)
 - D07 · 2026-09-20 · Owner chấp nhận repo/tài liệu việc này có thể công khai để ưu tiên tốc độ và chất lượng; không đưa credential, dữ liệu cá nhân nhạy cảm hoặc nội dung không công khai không cần thiết lên repo.
 - D09 · 2026-09-21 · Áp dụng DROOT04 cho MMIM.2: Host không tách PRECHECK riêng cho môi trường Codex đã dùng nhiều lần; RUN phải bắt đầu bằng việc vào đúng repo `incomex-workspace`, cập nhật `main` an toàn và đọc AGENTS → COLLAB → PROMPT. Chỉ mutation sau khi gate đầu vào của chính MMIM.2 PASS.
 - D10 · 2026-09-21 · Owner yêu cầu Host sửa gói cuối, sau đó chuyển Claude review để đạt đồng thuận; **chưa READY/RUN Codex trước review Claude**.
@@ -414,6 +172,7 @@ Hướng đúng D20: ngắn, 3 bước, 3 mảnh UI, có con số. Đã mở ngu
 - D20 · 2026-09-23 · Owner yêu cầu các quyết định kiểu lựa chọn/phân loại trong việc này **khai thác tối đa JEV**. Host đã gọi JEV Reference độc lập sau review Claude; dùng JEV làm bằng chứng phụ bên cạnh source/UI/runtime, không dùng để thay quyết định nghiệp vụ.
 - D21 · 2026-09-23 · Hội đồng GPT/Claude đã đạt consensus thiết kế MAP-R3 sau P12: task `HMITL` dùng quy ước 1 MOIT + 1 MOUT cho PASS; task `AUTO` được 0 human form nhưng bắt buộc machine binding/config + test. Đây là consensus kỹ thuật/nghiệp vụ **chờ Owner chốt trước khi Agent sửa HTML**, không tự ghi thành schema production.
 - D22 · 2026-09-23 · Owner gửi review G1–G6 của Claude và yêu cầu Host “xem xét kỹ và tiếp tục điều hành”. Host nhận đây là lệnh tiếp tục chuẩn bị thi công an toàn theo consensus; rollout đầu chỉ FIELD pilot, chưa nhân 4 đối tượng còn lại trước Owner review. Deep-link tách sang task HVU, không gộp runtime VPS với sửa HTML Git.
+- D23 · 2026-09-24 · Owner trực tiếp chốt HTML chính của việc là `ban-duyet.html`: một nơi Owner duyệt, bốn phần theo lệnh OWNER-BANDUYET-20260923-01; `mow-mot-moit-mout.html` là KHO THAM KHẢO CHƯA DUYỆT, giữ nguyên SHA; tài liệu công việc từ Git, VPS chỉ mirror. Nội dung chờ duyệt ghi nhãn rõ, không coi đề xuất là quyết định.
 
 ## Đề xuất Host · MAP01–MAP05 + URL01 · chờ Claude review
 
@@ -837,3 +596,6 @@ KQ@MMIM-FIELD01-20260923-01 XONG
 
 ## NEXT
 - Cùng Owner đi từng bước để điền Step quy trình; chưa tự khai bước, số trường hoặc đánh Check UI. P01 vẫn chờ Owner, không tự chốt mục tiêu rộng.
+
+## KQ · OWNER-BANDUYET-20260923-01
+KQ@OWNER-BANDUYET-20260923-01 XONG
