@@ -37,5 +37,15 @@ Xác nhận User: ĐÃ XÁC NHẬN (nguyên văn lời User, 2026-09-23)
 - READY@7192b994fd69c5a94707f8c0ad42d59e464e7873 · Host Claude Chat · đã đối chiếu Git log: commit cuối chạm `work/muc-tieu-3-phan/PROMPT.md`; sẵn sàng RUN `MT3-20260923-01` cho Codex/GPT Work.
 - Owner 23/09/2026: **CHỐT GIAO**. Executor_Surface=`Codex/GPT Work`. Write_Path bắt buộc: runtime VPS=`SSH/deploy path hiện hữu theo README §11`; tài liệu `incomex-workspace`=`workspace_*` với expected version/head. Trước mutation phải read-gate đúng cả hai đường; thiếu/bind fail thì DỪNG, không tự đổi sang Git/native hay GitHub→VPS. Scope chỉ MT3; không triển khai deep-link/MMIM/HVU khác ngoài việc di trú riêng §0 của các task theo PROMPT.
 
+## Kết quả RUN MT3-20260923-01
+KQ@MT3-20260923-01 XONG
+
+- Gate: commit cuối chạm PROMPT = `7192b994fd69c5a94707f8c0ad42d59e464e7873`, khớp READY; hai Write_Path đọc/ghi được trước mutation.
+- Runtime VPS (SSOT): parser/view tại `/opt/incomex/docker/nuxt-repo/scripts/hvu-b2/sync.py` và `scripts/hvu-b2/ui/app.vue`; commits `75ffea3`, `50acede`. Chỉ tách bốn trường §0, fallback cảnh báo cho §0 cũ, và hiển thị hai phần đầu mở sẵn. `(chưa có)` ở HTML chính được nhận đúng là không có tài liệu.
+- Luật A0 trong `AGENTS.md`: commit `938f87cdd2f85081154eaf24691b008ecf7c009c`.
+- Di trú §0 (commit `1e32fa47b76163c530e432477f72285e8dd9e48e`; giữ nguyên câu chữ vòng hiện hành ở `3918254ce30659a8fc3e1f9239f762391988a1f7`): `gsm-access-audit`, `hermes-joint-workspace`, `hpml-view-for-user`, `mcp-token-argv`, `mow-mot-moit-mout`, `muc-tieu-3-phan`, `vps-clean-20-9-26`, `done-tasks/jev-integration`, `done-tasks/mcp-workspace`. Chỉ §0 đổi; A0 cũ giữ nguyên ở `Vòng trước`. Phần 1/2 chưa có lời Owner chốt được ghi rõ là đề xuất.
+- Kiểm thử: `Ran 21 tests in 9.262s — OK` (fixture cũ/mới, B2/B3 regression); Nuxt build PASS; HTTP 200 cho `/knowledge/modules` và view tĩnh; webhook tự nhận revision `3918254ce30659a8fc3e1f9239f762391988a1f7`, 9/9 task structured, 0 lỗi. Mở trực tiếp MT3 và việc đã xong JEV trên web: hai mục đầu hiện sẵn, Chi tiết/Vòng trước gập; tiến độ và tình trạng vẫn hiển thị.
+- Bằng chứng/rollback VPS: `/opt/incomex/work/muc-tieu-3-phan/` có `regression.log`, `build.log`, các bản `sync.py.before`, `app.vue.before`, `view.html.before`. Có thể khôi phục ba bản này rồi build lại; tài liệu Git khôi phục bằng commit đảo hai commit di trú nếu cần. Không đổi gateway, MCP, presence, retention hoặc cơ chế webhook/backstop.
+
 ## Owner cần quyết
 - —
