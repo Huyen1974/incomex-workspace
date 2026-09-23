@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | FIELD01_READY_FINAL · 23/09/2026 | G1–G8 đã đóng; prompt có RUN_ID + KQ@ + UNKNOWN/NA guard. NEXT: Owner/GPT RUN Codex MMIM.FIELD01; sau KQ phải Owner review FIELD trước SCALE01.
+MMIM | FIELD01_READY_FINAL · 23/09/2026 | G1–G8 đã đóng; Executor đổi sang Claude Code CLI vì đây là lượt phức tạp. NEXT: Owner/GPT RUN Claude Code CLI MMIM.FIELD01; sau KQ phải Owner review FIELD trước SCALE01.
 
 ## Claude · Kiểm trước RUN · Based_on `04a311b` · PROMPT `c660fbb`
 Đã kiểm thật, không theo báo cáo: READY `c660fbb` đúng là commit cuối chạm `PROMPT.md` (`fs_log`) · HTML baseline SHA `e5432de3…6422` khớp · G1 đã tách thật (root COLLAB dòng 20: `HVU-DEEPLINK01` DRAFT/NO RUN) · G2–G6 đều có trong PROMPT và đủ acceptance đo được bằng máy · §6 cấm replace mù/reformat, neo theo ID, một transaction. **Nội dung nghiệp vụ: không còn ý kiến.**
@@ -348,7 +348,7 @@ Nhưng MAP-R3 là bản thiết kế, chưa phải bản thi công. Đối chi�
 - lifecycle mapping: JEV `gen-dec-1790134441-cc5M3quXTJLHbOyhLsDI`: S01=Tìm; S02=Tạo; S03=Tạo; S04=Tạo; S05=Tạo; S06=Config; S07=Test; S08=Master; non-applicable=`x`.
 
 ## NEXT sau G1–G6
-- FIELD01: Host pin READY theo commit cuối chạm PROMPT; Owner/GPT có thể RUN Codex. Sau KQ, Host + Owner review đúng một bảng FIELD trước khi scale.
+- FIELD01: READY đã pin; Owner/GPT có thể RUN Claude Code CLI. Sau KQ, Host + Owner review đúng một bảng FIELD trước khi scale.
 - SCALE01: chỉ sau FIELD được Owner chấp nhận mới điền MOUT/MOIT/MOT/MOW.
 - HVU-DEEPLINK01: đã tách/reopen; giữ DRAFT/NO RUN tới khi child ID/bridge contract MMIM ổn định.
 
@@ -397,7 +397,7 @@ P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt 
 - RUN_ID dự kiến: `MMIM-FIELD01-20260923-01`.
 - Executor_Surface: Claude Code CLI · Write_Path: `fs_*`.
 - Prompt hiện hành: FIELD pilot.
-- READY cũ `1ace059e721444819246969d95d216c54ef7388d` → HẾT HIỆU LỰC do đổi Executor/Write_Path; Host pin READY mới ở commit kế tiếp.
+- READY@`7aaa8b61d65eeccd5341a415eaf533a2096455fe` · commit cuối chạm `PROMPT.md` sau đổi Executor/Write_Path.
 - RUN: **CHƯA PHÁT**. Khi RUN chỉ dùng RUN_ID `MMIM-FIELD01-20260923-01`.
 - Không RUN SCALE01 trong cùng lượt.
 
