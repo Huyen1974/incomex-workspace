@@ -28,92 +28,123 @@ Sau KQ DỪNG G0.2 của HJW-2B:
 
 ## A. Read-gate trước cleanup
 
-Xác nhận lại:
-- Hermes config chưa có mcp_servers;
-- hermes cron list và mọi job đang pause/disabled;
-- tìm theo **tên biến** AGENT_DATA_API_KEY / AGENT_DATA_URL trong config/unit/script/runtime để xác định consumer thực tế, không in value;
-- kiểm cả skills, notepad/config phụ, job paused/disabled và các process/socket đang hoặc từng nối 127.0.0.1:6533;
-- xác định relay 6533 trước đây phục vụ luồng nào: workspace, Agent Data/knowledge-base hay chức năng khác;
-- xác định chính xác file/script/root oneshot nào đưa AGENT_DATA_* vào /run/hermes/or.env và unit nào EnvironmentFile file đó.
+### A1. Consumer thật
+Định nghĩa **consumer** = process/unit/job/script/config tự động đang chạy hoặc sẽ tự chạy và thực sự cần AGENT_DATA_*.
+- xác nhận Hermes core không tham chiếu AGENT_DATA_*;
+- xác nhận config không có mcp_servers;
+- xác nhận `hermes cron status/list` và thư mục cron. **Kỳ vọng 0 job** theo hậu kiểm Hermes. Nếu tại RUN xuất hiện bất kỳ job nào ⇒ DỪNG trước mutation; không tự pause/resume;
+- tìm theo **tên biến** AGENT_DATA_API_KEY / AGENT_DATA_URL trong unit/script/config/notepad/skills/cache và process/socket tới 127.0.0.1:6533;
+- tài liệu skill/cache chỉ nhắc biến nhưng không chạy **không phải consumer**; liệt kê chúng là tài liệu stale để Host xử lý sau, không dùng làm lý do DỪNG;
+- xác định relay 6533 trước đây phục vụ KB/workspace hay chức năng nào và hiện có kết nối active hay không.
 
-Nếu có consumer hiện hành ngoài workspace MCP, có luồng knowledge-base đang dùng, hoặc bỏ biến sẽ làm hỏng chức năng đang chạy ⇒ **DỪNG trước mutation** và báo đúng consumer.
+Nếu có consumer chạy thật hoặc bỏ biến sẽ phá chức năng đang dùng ⇒ **DỪNG trước mutation** và nêu đúng consumer.
 
-## B. SEC-CLEAN — mutation nhỏ, rollback rõ
+### A2. Nguồn env + hai service
+Xác nhận:
+- `/run/hermes/or.env` do `hermes-key.service` sinh, không phải nguồn bền;
+- cả `hermes-serve.service` và `hermes-gateway.service` đều đọc cùng EnvironmentFile và file là bắt buộc;
+- xác định source script/resolver tạo AGENT_DATA_* (kỳ vọng `/usr/local/sbin/hermes-key-fetch` + resolver liên quan).
+**Cấm sửa trực tiếp /run/hermes/or.env như giải pháp.**
 
-Nếu A PASS:
-1. Ghi trạng thái cron ban đầu (paused/running + số job) để khôi phục đúng sau restart.
-2. Backup đúng file/script/unit sẽ sửa vào hồ sơ VPS HJW; không backup plaintext secret.
-3. Sửa nguồn nạp để **không còn materialize AGENT_DATA_API_KEY** cho Hermes. Gỡ AGENT_DATA_URL khỏi Hermes env nếu không consumer nào cần; URL không phải secret nhưng không giữ cấu hình chết.
-4. Không thay các secret khác trong /run/hermes/or.env.
-5. Trước restart gateway/serve: gửi Owner một dòng Telegram báo Hermes sẽ gián đoạn vài phút. Gửi không thành công ⇒ DỪNG trước restart.
-6. Pause cron nếu chưa pause; restart đúng service cần thiết; smoke:
-   - Telegram Owner ↔ Hermes;
-   - hermes-serve/local health;
-   - process env chỉ kiểm **tên biến**: AGENT_DATA_API_KEY không còn;
-   - OpenRouter/Telegram chức năng vẫn sống.
-7. Khôi phục cron về **đúng trạng thái trước RUN**. Nếu ban đầu running thì resume; nếu ban đầu paused thì giữ paused. Xác nhận trạng thái cuối.
-8. Rollback ngay nếu smoke hoặc restore-state fail; báo DỪNG.
+### A3. Tránh xung đột safe-update
+Trước mutation:
+- đọc `systemctl list-timers hermes-safe-update.timer`;
+- đọc `hermes-safe-update status` và lock/state hiện hữu.
+Nếu safe-update đang chạy/giữ lock, hoặc timer kế tiếp ≤15 phút ⇒ DỪNG, không tranh restart.
+
+## B. SEC-CLEAN — thứ tự bắt buộc
+
+Chỉ sau A PASS:
+1. Backup **source script/resolver thực sự sẽ sửa** + metadata unit cần rollback vào hồ sơ VPS HJW; không backup plaintext secret.
+2. Sửa **source bền** để không còn materialize AGENT_DATA_API_KEY; bỏ AGENT_DATA_URL nếu không consumer nào cần. **Không sửa /run/hermes/or.env trực tiếp.**
+3. Không thay QDRANT_LOCAL_API_KEY/QDRANT_URL hoặc secret khác. Báo cáo phải ghi rõ **L1 chỉ giảm một phần**, vì Qdrant vẫn ngoài scope.
+4. Gửi Owner một dòng Telegram: `hermes-serve` + `hermes-gateway` sẽ restart, Telegram và desktop có thể gián đoạn vài phút. Không gửi được ⇒ DỪNG trước restart.
+5. Root chạy tay `systemctl restart hermes-key.service`.
+6. **Trước khi restart Hermes:** xác nhận `/run/hermes/or.env` tồn tại, permission hợp lệ, các tên biến bắt buộc khác vẫn có, AGENT_DATA_API_KEY không còn; không in value. File thiếu/hỏng ⇒ rollback source ngay, chưa chạm serve/gateway.
+7. Restart **`hermes-serve.service` trước**, chờ active + local status OK.
+8. Restart **`hermes-gateway.service` sau**, chờ active + Telegram connected.
+9. Kiểm `/proc/<MainPID>/environ` của **cả serve và gateway** theo tên biến: AGENT_DATA_API_KEY/AGENT_DATA_URL phải vắng; không đọc/in value khác.
+10. Smoke chính bằng `hermes-safe-update health` (root); phải PASS unit, serve/API, Telegram, version/code và model call. Đọc lại `hermes-safe-update status`.
+11. Đây là phép thử bền qua regenerate: source đã sửa → key.service sinh lại env → hai service nạp env mới. Không coi chỉnh tmpfs thủ công là PASS.
+12. Nếu bước 5–10 FAIL: rollback đúng thứ tự:
+    - restore source script/resolver;
+    - restart hermes-key.service;
+    - kiểm env file hợp lệ;
+    - start/restart serve;
+    - start/restart gateway;
+    - chạy hermes-safe-update health;
+    rồi ghi KQ DỪNG.
+13. Cron baseline = 0 job nên **không pause/resume**. Nếu runtime khác baseline và có job ⇒ A đã phải DỪNG trước mutation.
 
 ## C. CAP-PATH-AUDIT — CHỈ ĐỌC, KHÔNG triển khai
 
-Khảo sát các thành phần đang có: systemd socket/proxyd, nginx hiện hữu, Agent Data routes /mcp*, route/tool filters, OS ACL/socket permission, MCP client config của Hermes.
+Đọc mã/config Agent Data đang chạy và audit đủ:
+- `/mcp`
+- `/mcp-readonly`
+- `/mcp-gpt`
+- `/mcp-gpt-full`
+- **`POST /mcp/tools/{tool_name}` legacy**
+- `require_api_key` / auth model
+- `_mcp_filtered_handler` + allowlists
+- mọi guard write theo path/document_id.
 
-**Thứ tự audit nhanh:** đọc/đo trước các route sẵn có `/mcp`, `/mcp-readonly`, `/mcp-gpt`, `/mcp-gpt-full` và code/config filter phía server:
-- route nào thực sự giới hạn tool list;
-- route nào có write;
-- có cơ chế hiện hữu nào giới hạn write theo path không;
-- các route có dùng cùng master key hay có boundary riêng.
-
-Phải trả lời riêng 3 lớp:
+Phải trả lời:
 
 ### C1. Secret isolation
-Có thể để master Agent Data key ở root/server side và không cho user/process Hermes đọc được không?
+Có cách giữ master Agent Data key ở server/root side để user/process Hermes không đọc được không? Nêu rõ nếu cần listener/socket/header injection mới.
 
 ### C2. Caller boundary
-Có thể giới hạn endpoint cho đúng caller dự kiến bằng mechanism sẵn có (UNIX socket ACL, systemd socket permission, client ticket sẵn có...) không?
+Có thể hạn chế caller bằng UNIX socket/SocketMode/SocketUser/SocketGroup/client ticket hiện hữu không? C2 PASS **không tự động** làm C3 PASS.
 
-**Lưu ý:** chỉ C2 PASS vẫn chưa đủ, vì threat model L1 chính là user/process Hermes bị chiếm.
+### C3. Capability boundary
+Server-side phải tự enforce:
+- đúng tool cần;
+- nếu có write repo thì chỉ `work/hermes-joint-workspace/**`;
+- cấm delete/destructive/exec ngoài scope;
+- raw HTTP/MCP không bypass được.
 
-### C3. Capability boundary — BẮT BUỘC
-Endpoint phải **tự enforce ở phía server/relay**, không dựa vào config/toolset của Hermes:
-- chỉ expose đúng tool cần cho Phase 1;
-- write chỉ được vào `work/hermes-joint-workspace/**`;
-- cấm delete/destructive/exec/root khác;
-- caller không thể dùng raw HTTP/MCP để vượt scope.
+Phân biệt rõ guard path KB/document_id với guard path repo workspace; không coi hai thứ là tương đương.
 
-Được phép tận dụng route/filter/config/code **đã tồn tại**. Không viết backend mới, không thêm proxy service mới, không sửa R03 contract trong RUN này.
+### Kết luận bắt buộc — 3 nhánh
+- **FEASIBLE_EXISTING**: C1+C2+C3 đạt bằng config/component hiện hữu, không code change/new listener/service.
+- **FEASIBLE_WITH_MIN_CODE_CHANGE**: không đạt hiện hữu nhưng có thể đạt bằng thay đổi mã nhỏ có review trong Agent Data hiện tại. Phải nêu **chính xác file + route/function tái dùng + guard cần thêm**, nhưng **không sửa mã trong RUN này**.
+- **NOT_FEASIBLE**: cần server/proxy/framework mới hoặc thay đổi lớn hơn một route/guard hẹp.
 
-Kết luận:
-- **FEASIBLE_EXISTING** nếu C1+C2+C3 đều làm được bằng thành phần/config hiện hữu, nêu chính xác cách và rollback.
-- **NOT_FEASIBLE** nếu thiếu C3 hoặc phải sửa backend/viết proxy mới.
-- Không được gọi một proxy chỉ “giấu master key” là đạt D08 nếu capability phía sau vẫn là master/full-write.
+Không được gọi “giấu master key” là đủ nếu capability vẫn full-write hoặc legacy route bypass còn mở.
 
 ## D. Báo cáo
 
 Cập nhật COLLAB.md + view.html:
-- KQ cleanup: PASS/ROLLBACK/DỪNG;
-- AGENT_DATA_* còn/không còn trong env Hermes (chỉ tên biến);
-- trạng thái cron trước/sau;
-- CAP-PATH-AUDIT = FEASIBLE_EXISTING hoặc NOT_FEASIBLE;
-- nếu feasible: mô tả tối thiểu kiến trúc, **không triển khai**;
-- nếu not feasible: nêu chính xác thiếu lớp nào C1/C2/C3.
+- SEC-CLEAN PASS/ROLLBACK/DỪNG;
+- AGENT_DATA_* còn/không còn trong env của **cả hai service**;
+- ghi rõ **L1 giảm một phần** vì Qdrant vẫn ngoài scope;
+- danh sách skill/doc stale tham chiếu Agent Data (không sửa trong RUN này);
+- `hermes-safe-update health/status` sau cleanup;
+- CAP-PATH-AUDIT = một trong 3 nhánh + evidence;
+- nếu MIN_CODE_CHANGE: nêu đúng file/route/function/guard nhỏ nhất;
+- ghi ứng viên tạm thời **S1-lite**: đọc repo public + Telegram cho nhắc lượt/canh RUN/heartbeat, 0 Agent Data, **không triển khai trong RUN này**.
 
-Evidence runtime vào hồ sơ VPS của HJW theo AGENTS A8.
+Nếu kết luận là FEASIBLE_WITH_MIN_CODE_CHANGE, đưa Owner đúng **một câu hỏi** sau KQ:
+“Có cho phép một RUN riêng, có review, sửa mã nhỏ ở Agent Data để tạo đường ghi hẹp cho Hermes không?”
+Không cho ⇒ Hermes ở mức read-only + thông báo; đó là giới hạn đã biết.
+
+Evidence runtime vào hồ sơ VPS HJW theo AGENTS A8.
 
 ## CẤM
 
 - Không tiếp tục automation Phase 1 trong RUN này.
-- Không khai mcp_servers/workspace_* cho Hermes trong RUN này.
-- Không dựng route/proxy/service mới.
-- Không sửa backend Agent Data hoặc contract R03.
+- Không khai mcp_servers/workspace_* cho Hermes.
+- Không dựng route/proxy/listener/socket/service mới.
+- Không sửa backend Agent Data/R03.
+- Không sửa skill docs trong RUN này.
 - Không mở webhook/port mới.
 - Không chạm/rotate/xoá QDRANT, OpenRouter, Telegram, GSM version hoặc JEV config.
-- Không đưa master Agent Data key trở lại môi trường Hermes sau cleanup.
-- Không log/copy plaintext secret vào repo, evidence hoặc chat.
+- Không đưa master Agent Data key trở lại env Hermes sau cleanup.
+- Không log/copy plaintext secret vào repo/evidence/chat.
 
 ## BÁO CÁO / AP-CLOSE
 
-- Chỉ dùng đúng RUN_ID `HJW-2B1-20260923-02`; không ghi lại KQ của RUN HJW-2B cũ.
-- KQ@HJW-2B1-20260923-02 XONG nếu cleanup PASS và audit có kết luận rõ FEASIBLE_EXISTING/NOT_FEASIBLE.
-- KQ@HJW-2B1-20260923-02 DỪNG nếu cleanup không an toàn, rollback xảy ra, restore-state fail hoặc không đủ evidence để kết luận.
-- Không tự chạy nhánh tiếp theo sau KQ. Host sẽ quyết.
+- Chỉ dùng RUN_ID `HJW-2B1-20260923-02`; không ghi lại KQ RUN HJW-2B cũ.
+- KQ@HJW-2B1-20260923-02 XONG nếu SEC-CLEAN PASS và audit có kết luận rõ một trong 3 nhánh.
+- KQ@HJW-2B1-20260923-02 DỪNG nếu read-gate chặn, cleanup không an toàn, rollback xảy ra hoặc không đủ evidence.
+- Không tự chạy S1-lite/S2 hay nhánh khác sau KQ. Host quyết.
