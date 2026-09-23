@@ -82,7 +82,7 @@ Claude Chat ──────────────────────�
 <tbody>
 <tr><td>HJW.1</td><td>Mở việc: mục tiêu, hiện trạng, tiêu chí.</td><td>Claude mở · GPT review</td><td>✓ xong</td></tr>
 <tr><td>HJW.2A — Design</td><td>Đã chốt: COLLAB/Git HEAD là SSOT dispatch; Hermes đọc trực tiếp tại HEAD xác định; relay hiện có fail-closed; Phase 1 chỉ giữ nhận/làm assignment, nhắc lượt+canh RUN treo, heartbeat và cơ chế dừng; threat model L1 Hermes + L2 VPS/root.</td><td>GPT Host + Claude Reviewer</td><td>✓ consensus 23/09</td></tr>
-<tr><td>HJW.2B — Implement</td><td>Chờ GSM-A1 rồi mới chốt secret path. Read-gate 6 mục → cấu hình relay/workspace + luật + JEV → 4 job Phase 1 → nghiệm thu T1–T10. Không sửa Owner View synchronizer, không server/proxy mới.</td><td>Claude Code CLI thực thi · GPT Host giám sát</td><td>□ chờ GSM-A1</td></tr>
+<tr><td>HJW.2B — Implement</td><td>GSM-A1 đã XONG. Secret path ưu tiên relay để bỏ Agent Data key khỏi Hermes; cron/pre-script 0-token; automated profile chỉ ghi HJW trong Phase 1; Kuma external; 4 job Phase 1.</td><td>Claude Code CLI thực thi · GPT Host giám sát</td><td>▶ PROMPT DRAFT · chờ Claude review</td></tr>
 <tr><td>HJW.3</td><td>Nghiệm thu T1–T10 bằng chạy thật, gồm self-wake, chống wake thừa, stale-write, retry/dedup, Telegram, blocker vượt quyền, attribution và secret rotation/boundary.</td><td>Hermes làm · GPT + Claude chấm chéo</td><td>ngay sau HJW.2B</td></tr>
 <tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>sau HJW.3 PASS</td></tr>
 <tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T10.</td><td>Host</td><td>—</td></tr>

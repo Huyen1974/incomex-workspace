@@ -189,6 +189,7 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 ## Giao Agent
 - `PROMPT.md` · RUN_ID `HJW-2B-20260923-01` · **DRAFT** · Executor_Surface = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Report_Write_Path = `fs_*`.
 - Vì HJW.2B chạm secret boundary + systemd/runtime, giữ **2 chìa** đã đồng thuận: Claude Reviewer rà đúng PROMPT này (không mở lại design) → GPT Host mới ghi `READY@<full SHA>` → RUN.
+- Host pre-review bằng JEV `gen-dec-1790138118-nfKyuUUWpn4773cVmUIS`: write scope chọn **HJW_ONLY 0.99**, HARD-STOP có thể test sau **0.87**; Host đã sửa PROMPT để automated profile chỉ ghi `work/hermes-joint-workspace/**`. Các kết quả khác confidence thấp hơn chỉ dùng tham khảo, không tạo gate mới.
 
 ## Owner cần quyết
 - — Chưa có. HJW-O01 đóng theo D10: Owner quản ngân sách bằng thẻ nạp ngoài phạm vi HJW.

@@ -99,7 +99,7 @@ Gate deterministic chạy khoảng 2 phút/lần:
 - state runtime/dedupe có thể lưu cache/ledger, nhưng COLLAB/KQ vẫn là SSOT.
 
 Automated turn phải dùng profile/toolset tối thiểu:
-- cho phép capability cần thiết để đọc/ghi `work/**` qua relay + JEV;
+- được **đọc** `work/**` để nhắc/handoff, nhưng Phase 1 chỉ được **ghi** `work/hermes-joint-workspace/**` qua relay; mở rộng write scope chỉ sau HJW.4;
 - KHÔNG terminal/exec, sudo/root, secret/IAM, service control, destructive/delete;
 - deny-by-default; gặp thao tác cần approval ⇒ kết thúc `blocked` + Telegram, CẤM auto-approve;
 - nếu bản Hermes không enforce được capability profile/toolset tối thiểu bằng cấu hình sẵn có ⇒ DỪNG, không tự code sandbox mới.
