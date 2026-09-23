@@ -29,7 +29,7 @@ Nguồn: UI-022 · Master Field.
   1. `Tìm mã / tên…`
   2. `＋ Khai báo trường`
 - Logic ngắn: tìm trước; có Field phù hợp thì dùng lại; chưa có thì bấm `＋ Khai báo trường` sang S02.
-- “Tổng số trường cần khai” = **2**.
+- **Dự kiến** 2 control cần thao tác; khi thi công phải đếm từ UI thật. Nếu khác, dùng số thật và ghi mismatch vào COLLAB.
 
 ### FIELD.S02 · Khai Field mới
 Nguồn: UI-018 · hộp “Đề xuất thêm trường”.
@@ -40,17 +40,18 @@ Nguồn: UI-018 · hộp “Đề xuất thêm trường”.
   3. `Mô tả`
   4. `Nhóm quản lý *`
 - Không tách các option của Định dạng/Nhóm quản lý thành field riêng.
-- “Tổng số trường cần khai” = **4**.
+- **Dự kiến** 4 control cần thao tác; khi thi công phải đếm từ UI thật. Nếu khác, dùng số thật và ghi mismatch vào COLLAB.
 
-### FIELD.S03 · Lưu đề xuất
+### FIELD.S03 · Đề xuất khai báo
 Nguồn: UI-018 · footer hộp khai Field.
+- Chế độ **khai mới** (`khai-bao=moi`): tiêu đề hộp dùng nhãn thật của chế độ khai mới, nút cuối là `Đề xuất khai báo`.
+- Biến thể khi sửa Field đã có: nút cuối có thể là `Lưu đề xuất`; giữ đúng nhãn theo source thật, không trộn hai chế độ.
 - Mảnh UI: cắt vùng nút cuối form.
-- Bôi vàng:
-  1. `Lưu đề xuất`
+- Bôi vàng đúng nút hoàn tất của chế độ khai mới: `Đề xuất khai báo`.
 - `Đóng` để xám, không tính.
-- “Tổng số trường cần khai” = **1**.
+- **Dự kiến** 1 control cần thao tác; khi thi công phải đếm từ UI thật. Nếu khác, dùng số thật và ghi mismatch vào COLLAB.
 
-Tổng FIELD02 cần đối chiếu: **7 mục = 2 + 4 + 1**.
+Dự kiến FIELD02 để đối chiếu: **2 / 4 / 1**, nhưng số cuối cùng phải lấy từ UI thật, không phải chỉ tiêu bắt buộc.
 
 ## 3. Giữ đúng thiết kế Owner
 Trong `#list-quy-trinh-field`:
@@ -81,7 +82,7 @@ Mỗi mảnh chỉ có 4 phần:
 - Không dùng ảnh/base64.
 - Nếu cần CSS, chỉ thêm CSS tối thiểu và namespace riêng cho FIELD02.
 - Giữ thứ tự/nhãn/control như UI thật.
-- Vùng phải thao tác = nền vàng nhạt + viền vàng; phần còn lại = xám/nhạt.
+- **Vàng** = control bắt buộc phải thao tác để hoàn thành bước. **Xám** = control có thật trên UI nhưng tùy chọn/không bắt buộc ở bước đó; vẫn phải giữ trong mảnh UI, không được cắt bỏ. Ví dụ ở UI-022: `Mọi trạng thái`, `Mọi vai trò` (và bộ lọc khác nếu source thật có) phải hiện nhưng để xám.
 - Không biến mảnh UI thành form hoạt động; đây là **minh họa tĩnh để kiểm**.
 
 Nếu không xác định được source/DOM thật của UI-022 hoặc UI-018 → DỪNG, không dựng giả.
@@ -96,8 +97,8 @@ Ngay dưới 3 mảnh UI, tạo một bảng duy nhất:
 3. `FIELD02.03` · `Tên trường *` · điền · có · S02 · UI-018
 4. `FIELD02.04` · `Định dạng *` · chọn · có · S02 · UI-018
 5. `FIELD02.05` · `Mô tả` · điền · không · S02 · UI-018
-6. `FIELD02.06` · `Nhóm quản lý *` · chọn · có · S02 · UI-018
-7. `FIELD02.07` · `Lưu đề xuất` · bấm · không · S03 · UI-018
+6. `FIELD02.06` · `Nhóm quản lý *` · **chọn nhiều (checkbox)** · có · S02 · UI-018
+7. `FIELD02.07` · `Đề xuất khai báo` · bấm · không · S03 · UI-018
 
 Phải đối chiếu lại nhãn với UI thật trước khi ghi. Nếu nhãn thật khác → dùng nhãn thật và ghi mismatch vào COLLAB; không tự sửa UI nguồn.
 
@@ -116,11 +117,11 @@ Phải đối chiếu lại nhãn với UI thật trước khi ghi. Nếu nhãn 
 ## 8. Acceptance
 1. FIELD Step = **3 dòng**, mã `FIELD.S01..S03`.
 2. Bảng Step vẫn đúng **7 cột** và cùng ID.
-3. Tổng trường khai = **2 / 4 / 1**; config trống.
+3. Với từng bước: **số control bôi vàng = số dòng bảng danh sách = số ghi ở cột “Tổng số trường cần khai”**, và phải khớp UI thật. Nếu khác dự kiến 2/4/1 thì dùng số thật + ghi một dòng mismatch vào COLLAB; **không tính là FAIL**. Config để trống.
 4. Tab Quy trình có đúng **3 mảnh UI**, ID `step-detail-field-s01..s03`.
 5. Mỗi mảnh lấy từ UI thật; không ảnh, không JS chạy.
-6. Số control bôi vàng = **2 / 4 / 1**.
-7. Bảng danh sách FIELD = **7 dòng** và tổng theo bước khớp 2/4/1.
+6. Số control bôi vàng của từng bước phải bằng đúng số control bắt buộc thao tác đọc từ UI thật; dự kiến 2/4/1 chỉ để đối chiếu.
+7. Số dòng bảng danh sách FIELD phải bằng tổng số control bôi vàng thực tế; tổng theo từng bước phải khớp cột “Tổng số trường cần khai”. Lệch dự kiến 7 dòng hoặc 2/4/1 chỉ cần ghi mismatch, không FAIL nếu khớp UI thật.
 8. Không còn 8 bảng chi tiết FIELD01 hiện hành.
 9. MOUT/MOIT/MOT/MOW không đổi.
 10. Không sửa VPS runtime/HVU/deep-link/config.
@@ -131,7 +132,7 @@ Phải đối chiếu lại nhãn với UI thật trước khi ghi. Nếu nhãn 
 
 ## 9. Báo cáo
 Báo ngắn:
-`XONG · MMIM.FIELD02 · steps=3 · ui_tiles=3 · field_list=7 · counts=2/4/1 · config=blank · main_html_sha=<new> · Owner review`
+`XONG · MMIM.FIELD02 · steps=3 · ui_tiles=3 · field_list=<số thật> · counts=<số thật từng bước> · config=blank · main_html_sha=<new> · Owner review`
 
 Hoặc:
 `DỪNG · MMIM.FIELD02 · <lý do>`
