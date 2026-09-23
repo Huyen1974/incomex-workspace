@@ -39,6 +39,8 @@ MMIM | LIST_PROCESS_SHELL · 23/09/2026 | Tab Step quy trình đặt sau UI Mast
 
 - D17 · 2026-09-23 · Theo yêu cầu trực tiếp Owner: đổi tên List quy trình thành Step quy trình; đưa tab ngay sau UI Master và trước Quy trình. Giữ nguyên các bảng và ID liên kết. · Áp: SAME_COMMIT.
 
+- D18 · 2026-09-23 · Owner yêu cầu giải thích thống nhất hai cột tổng ở Step quy trình: bảng tổng hợp chỉ hiện số tổng; danh sách trường nằm ở bảng chi tiết, mỗi bảng có mã riêng để quản lý/khai báo. Quy ước chuẩn đặt tại HTML chính `#step-quy-trinh-quy-uoc`; AI đọc mục này trước khi điền. Đổi nhãn thành “Tổng số trường cần config”; chưa tạo bảng chi tiết/cấp mã/điền số. · Áp: SAME_COMMIT.
+
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
 - MMIM.2 | Codex khảo sát thư mục nguồn, copy text/lightweight + inventory binary + lập mục lục | ◐ DRAFT · chờ Claude review
