@@ -1,4 +1,4 @@
-# PROMPT — VPSC · R5b tiếp nối R5: nạp trần build cache (B5) + tập GIỮ image hữu hạn (KEEP_SET v2) — CÓ MUTATION, KHÔNG XOÁ IMAGE
+# PROMPT — VPSC · R5b tiếp nối R5: nạp trần build cache (B5) + tập GIỮ image hữu hạn (KEEP_SET v2) — CÓ MUTATION, XOÁ IMAGE CHỈ SAU KHI HOST DUYỆT (PHẦN F)
 
 RUN_ID: VPSC-R5B-20260924-01
 Soạn: Claude Chat (Host CLAUDE-VPSC-260920-A), 23/09/2026, sau R5 DỪNG ở B5 (BAO-CAO mục R5, `40c7b73`) và P25 của GPT. **Không chạy lại A, C của R5** (live-restore đã bật; luật (l) đã cài; 3 tag đã xoá hợp lệ). Chỉ làm: (B5) restart dockerd 1 lần có kiểm soát để nạp trần 5GiB; (C') đổi tập GIỮ của luật (l) sang KEEP_SET v2 hữu hạn, cài ở **chế độ thử (không xoá)**, lập kế hoạch xoá cho Host duyệt. Lượt xoá thật chỉ chạy **trong cùng phiên (Phần F)** sau khi Host ghi `HOST_APPROVED_DELETE@<sha256 kế hoạch>` vào COLLAB (nguyên tắc Owner: hành động phá huỷ không để agent tự quyết; JEV host_checkpoint 0,66). Đã áp P26: làm ngay hôm nay, không chờ qua đêm.
@@ -55,7 +55,7 @@ F3 Hết 60 phút chưa có duyệt → giữ `L_XOA=0`, KQ DỪNG `CHO_DUYET` (
 ## Phần E — Báo cáo + ghi repo
 - Chèn mục "R5b — Tiếp nối: B5 + KEEP_SET v2 · <ngày> · executor=… · write_path=… · KQ <XONG|STOPPED · bước>" lên ĐẦU `BAO-CAO.md`: (1) CHO OWNER ≤5 dòng; (2) B5; (3) KEEP_SET v2: 5 diễn giải đã áp, bảng theo repository, danh sách sẽ xoá, trần v2 bằng số, sha256 kế hoạch; (4) trước/sau; (5) đường lùi + hồ sơ.
 - Repo công khai: không secret/token, IP/tên miền nội bộ, tên tài khoản, output lệnh thô.
-- COLLAB: sửa dòng `VPSC.9` thành `MACHINE_DONE · R5b · … · kế hoạch xoá sha256=<…> chờ Host duyệt` hoặc `STOPPED · <phần.bước> · <lý do>`; ngay dưới thêm đúng một dòng `KQ@VPSC-R5B-20260924-01 XONG` hoặc `KQ@VPSC-R5B-20260924-01 DỪNG`. **XONG** = B5 `BOUNDED` đã nạp + C' cài + kế hoạch xoá có sha256 + đối chiếu đạt + unresolved làm mất trần = 0 + F xoá xong theo kế hoạch đã duyệt (`L_XOA=1`) + D đạt. `PENDING_RESTART`, `LUI`, `PENDING_UNRESOLVED`, `CHO_DUYET` → DỪNG. Theo dõi dài hạn (GC qua nhiều lần build, luật tuần Chủ nhật) không phải điều kiện XONG (P26).
+- COLLAB: sửa dòng `VPSC.9` thành `MACHINE_DONE · R5b · … · đã xoá theo kế hoạch sha256=<…>` hoặc `STOPPED · <phần.bước> · <lý do>`; ngay dưới thêm đúng một dòng `KQ@VPSC-R5B-20260924-01 XONG` hoặc `KQ@VPSC-R5B-20260924-01 DỪNG`. **XONG** = B5 `BOUNDED` đã nạp + C' cài + kế hoạch xoá có sha256 + đối chiếu đạt + unresolved làm mất trần = 0 + F xoá xong theo kế hoạch đã duyệt (`L_XOA=1`) + D đạt. `PENDING_RESTART`, `LUI`, `PENDING_UNRESOLVED`, `CHO_DUYET` → DỪNG. Theo dõi dài hạn (GC qua nhiều lần build, luật tuần Chủ nhật) không phải điều kiện XONG (P26).
 - Trả Owner đúng một dòng: `XONG · VPSC-R5b · build cache trần 5GiB đã nạp · KEEP_SET v2 <trước>→<sau> ImageID, đã xoá <n> (~<GiB>) · trống <GiB> · xem BAO-CAO.md` hoặc `DỪNG · VPSC-R5b · <phần.bước> · <lý do>`.
 
 ## Sau R5b (không phải việc của agent)
