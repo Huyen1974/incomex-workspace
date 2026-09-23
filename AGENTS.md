@@ -10,6 +10,8 @@
 - Nếu User đổi mục tiêu/nhiệm vụ/phạm vi, Host phải cập nhật khối A0 của việc và xác nhận lại với User trước khi tiếp tục. Kế hoạch/PROMPT/READY/RUN nào mâu thuẫn với mục tiêu mới thì mất hiệu lực và phải rà lại.
 - Không được đẩy khối mục tiêu xuống dưới phần kế hoạch/trạng thái; mục tiêu của User luôn là phần nghiệp vụ đầu tiên mọi AI nhìn thấy trong từng thư mục công việc.
 
+**MT3 — khuôn §0 cho mọi việc mới và vòng mở lại.** Giữ dòng `Xác nhận User:` ngay đầu §0. Bốn mục con viết đúng từng chữ, đúng thứ tự: `### 1. Mục tiêu`, `### 2. Thế nào là hoàn thành`, `### 3. Chi tiết cần đạt (AI ghi, Host kiểm)`, `### Vòng trước`. Phần 1–2 ngắn, là lời Owner; AI không tự sửa chữ. Nếu cần gợi ý, ghi rõ `(đề xuất — chờ Owner gật)`. Phần 3 do Host quản; hạng mục đã XONG rút còn một dòng tóm tắt + commit. `### Vòng trước` giữ nguyên văn các khối A0 cũ, không xóa lịch sử. Khi mở việc mới hoặc `Mở lại <id>`, viết đúng khuôn này ngay từ đầu; vẫn áp dụng cổng xác nhận User ở trên.
+
 ## A1_ENTRY — Cửa vào
 - Chat/Agent không được giả định đã tự nạp luật. Khi nhận câu `WS <thư mục|gốc> · <Host|Review> · <việc> · đọc AGENTS.md → <COLLAB.md>`, đọc file này trước, rồi `COLLAB.md` của project, sau đó chỉ đọc đúng scope cần làm.
 - Tài liệu chính là sản phẩm; `COLLAB.md` là trạng thái; Git giữ lịch sử; `PROMPT.md` chỉ có khi thật sự cần giao Agent.
