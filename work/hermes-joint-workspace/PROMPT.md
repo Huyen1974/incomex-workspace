@@ -1,7 +1,7 @@
 # PROMPT — HJW.2B · Hermes Phase 1
 
 RUN_ID: HJW-2B-20260923-01
-STATUS: DRAFT — KHÔNG RUN cho tới khi Host ghi READY@ đúng SHA của file này
+STATUS: FINAL FOR READY — KHÔNG RUN cho tới khi COLLAB có READY@ đúng commit cuối chạm file này
 
 Executor_Surface: Claude Code CLI trên Mac
 Runtime_Write_Path: SSH/root-operator tới VPS (runtime SSOT)
@@ -34,7 +34,9 @@ Phase 1 KHÔNG bật Hermes webhook platform, KHÔNG mở port 8644, KHÔNG sử
 
 ### G0.1 Hermes thực tế
 Xác nhận bản đang cài và primitive cần dùng. Baseline đã đo: v0.21.4 có `--script`, `--no-agent`, execution ledger, pause/resume, Telegram.
-- Đường chính cho gate LLM: pre-run `--script`; dòng stdout cuối `{"wakeAgent": false}` = không gọi LLM, `{"wakeAgent": true, "context": {...}}` = wake + truyền context.
+- Đường chính cho gate LLM: pre-run `--script`; dòng stdout **không rỗng cuối cùng** `{"wakeAgent": false}` = không gọi LLM, `{"wakeAgent": true, "context": {...}}` = wake + truyền context.
+- **Fail-closed phải tự viết:** mọi nhánh lỗi (mạng lỗi, timeout, parse lỗi, không xác định SHA, đọc COLLAB lỗi, exception) đều phải kết thúc bằng đúng dòng `{"wakeAgent": false}`. Script im lặng / JSON sai / thiếu flag = Hermes **WAKE**, không phải fail closed.
+- Mọi network probe trong gate, đặc biệt `git ls-remote`, phải bọc `timeout ≤20s`; không cho scheduler chờ timeout mặc định dài.
 - `--monitor-script` chỉ dự phòng nếu có lý do đo được.
 - Không nâng cấp Hermes trong RUN này. Nếu primitive bắt buộc thiếu ⇒ DỪNG và báo.
 
@@ -43,16 +45,18 @@ Xác nhận bản đang cài và primitive cần dùng. Baseline đã đo: v0.21
 - trạng thái `hermes-agentdata-relay.service`, bind/listen và cổng đích;
 - nguồn auth hiện tại của relay;
 - tên biến env hiện hữu của Hermes (chỉ tên, không value), xác nhận có/không `AGENT_DATA_API_KEY` / `AGENT_DATA_URL`;
-- khả năng gọi `workspace_*` qua relay 127.0.0.1:6533 mà client Hermes KHÔNG phải cầm Agent Data key.
+- khả năng gọi `workspace_*` qua relay 127.0.0.1:6533 mà client Hermes KHÔNG phải cầm Agent Data key;
+- **relay boundary test:** thử từ một process/user local khác hoặc request không có client-ticket/auth riêng (không dùng/đọc secret) để xác định relay có tự gắn credential cho mọi caller loopback hay không.
 
 Quyết định bắt buộc:
-- Nếu relay hiện hữu cung cấp được `workspace_*` mà không lộ key cho user/process Hermes ⇒ tiếp tục và loại `AGENT_DATA_API_KEY` + URL nhạy cảm tương ứng khỏi môi trường Hermes-readable; key chỉ ở nguồn root/relay tối thiểu.
+- Nếu relay hiện hữu cung cấp được `workspace_*` mà không lộ key cho user/process Hermes **và** caller bị giới hạn bằng cơ chế sẵn có (ACL/UNIX socket permission/client-ticket hoặc tương đương) ⇒ tiếp tục và loại `AGENT_DATA_API_KEY` + URL nhạy cảm tương ứng khỏi môi trường Hermes-readable; key chỉ ở nguồn root/relay tối thiểu.
+- Nếu relay hiện đang mở cho mọi process loopback, trước hết phải thử **siết bằng cơ chế đã có** của relay/OS, không dựng server/proxy mới. Nếu không siết được bằng cấu hình/quyền hiện hữu ⇒ **DỪNG** để Host quyết; không coi việc giấu key nhưng để capability write mở cho mọi local process là đạt D08.
 - Nếu relay cần chính key đó ở phía Hermes, hoặc muốn sửa backend Agent Data / dựng proxy mới mới làm được ⇒ DỪNG, ghi blocker. KHÔNG chấp nhận giữ write-capable Agent Data key trong Hermes env chỉ vì Git rollback được.
 
 ### G0.3 Đọc SSOT không token
 Xác nhận công thức:
 `git ls-remote <public repo> HEAD` → SHA → đọc `work/*/COLLAB.md` tại đúng SHA bất biến.
-Không xác định được SHA/freshness ⇒ fail closed, không wake LLM.
+Không xác định được SHA/freshness ⇒ fail closed: gate phải in `{"wakeAgent": false}` ở dòng stdout cuối, không wake LLM.
 Không dùng GitHub credential.
 
 ### G0.4 JEV
@@ -80,34 +84,39 @@ Trước sửa runtime:
 - không backup secret plaintext.
 
 ### B. Workspace + JEV
-1. Khai `workspace_*` trong Hermes qua relay 127.0.0.1:6533.
-2. Loại Agent Data key khỏi môi trường user/process Hermes theo G0.2; không làm hỏng relay.
-3. Nạp skill/luật mỏng: mỗi task đọc AGENTS → A0 → vai; Agent chỉ chạy khi READY + RUN_ID hợp lệ; Reviewer không tự triển khai; Host chỉ khi Owner giao.
-4. Cắm JEV qua gateway hiện hữu như nguồn tham khảo, không quyền phê duyệt/chặn.
+1. Trước mọi restart gateway/serve để khai `mcp_servers`: gửi Owner **một dòng Telegram báo trước** rằng Hermes sẽ mất liên lạc vài phút; xác nhận tin đã gửi thành công rồi mới restart. Nếu không gửi được ⇒ DỪNG trước restart. Backup `config.yaml`, pause cron trước mutation, có lệnh rollback rõ.
+2. Khai `workspace_*` trong Hermes qua relay 127.0.0.1:6533.
+3. Loại Agent Data key khỏi môi trường user/process Hermes theo G0.2; không làm hỏng relay.
+4. Nạp skill/luật mỏng: mỗi task đọc AGENTS → A0 → vai; Agent chỉ chạy khi READY + RUN_ID hợp lệ; Reviewer không tự triển khai; Host chỉ khi Owner giao.
+5. Cắm JEV qua gateway hiện hữu như nguồn tham khảo, không quyền phê duyệt/chặn.
 
 ### C. Assignment Phase 1 — capability confinement
 Phase 1 chỉ nghiệm thu execution assignment trong chính `work/hermes-joint-workspace/`; sau PASS mới tổng quát A9 ở HJW.4.
 
 Gate deterministic chạy khoảng 2 phút/lần:
-- resolve HEAD → đọc COLLAB tại chính SHA;
+- resolve HEAD bằng network call có `timeout ≤20s` → đọc COLLAB tại chính SHA; mọi lỗi phải in `{"wakeAgent": false}` ở dòng cuối;
 - chỉ quan tâm dấu strict `ASSIGN@... to=Hermes ... state=open`;
 - author/client label chỉ là telemetry/phòng vệ phụ, KHÔNG coi là authentication;
 - role=Agent phải có `run=<RUN_ID>` và agent phải kiểm READY đúng SHA trước mutation;
 - role=Host chỉ hợp lệ khi COLLAB có quyết định Owner giao Host;
-- một assignment chỉ wake tối đa một automated LLM turn; max_parallel=1;
-- Phase 1 đặt trần an toàn 24 automated LLM wakeups/24h; chạm trần ⇒ blocked + Telegram, không tự vượt;
+- **dedupe chính = `assignment_id + state`; SHA chỉ là điều kiện phụ**. Commit `claimed`/`done` của chính Hermes không được làm assignment tự wake lần hai;
+- ghi persistent ledger trên đĩa cho wake/claim/retry/daily-count; không giữ trần chỉ trong RAM;
+- mặc định mỗi assignment wake một turn. Nếu đã wake nhưng sau 15 phút vẫn chưa `claimed` và assignment vẫn `open` tại cùng HEAD ⇒ cho đúng **1 lần retry**. Nếu retry vẫn không claim ⇒ không wake thêm; ghi `exhausted` trong ledger + Telegram, và nếu write path còn hoạt động thì chuyển `blocked`; nếu write path không hoạt động thì để Host reconcile, tuyệt đối không loop;
+- max_parallel=1; Phase 1 đặt trần an toàn 24 automated LLM wakeups/24h **tính từ persistent ledger**; chạm trần ⇒ blocked/alert, không tự vượt;
 - state runtime/dedupe có thể lưu cache/ledger, nhưng COLLAB/KQ vẫn là SSOT.
 
-Automated turn phải dùng profile/toolset tối thiểu:
+Automated turn dùng **confinement cấu hình cron**, không cần profile thứ hai ở Phase 1:
+- cấu hình `platform_toolsets.cron` làm allowlist cho cron; dùng `agent.disabled_toolsets` cho deny cứng khi cần. **Không tìm cờ `--toolset` vì CLI hiện không có cờ đó**;
+- nếu cấu hình restriction không đọc/parse được thì run phải **bị từ chối**, không fallback về full/default tools; nghiệm thu điều này;
 - được **đọc** `work/**` để nhắc/handoff, nhưng Phase 1 chỉ được **ghi** `work/hermes-joint-workspace/**` qua relay; mở rộng write scope chỉ sau HJW.4;
 - KHÔNG terminal/exec, sudo/root, secret/IAM, service control, destructive/delete;
-- deny-by-default; gặp thao tác cần approval ⇒ kết thúc `blocked` + Telegram, CẤM auto-approve;
-- nếu bản Hermes không enforce được capability profile/toolset tối thiểu bằng cấu hình sẵn có ⇒ DỪNG, không tự code sandbox mới.
+- cron worker không có interactive approval path; **không thiết kế dựa trên hộp thoại xin phép**. Nếu assignment đòi capability không có trong allowlist ⇒ automated turn phải kết thúc `blocked` + Telegram bằng capability còn được phép; CẤM auto-approve;
+- nếu bản Hermes không enforce được restriction trên bằng cấu hình sẵn có ⇒ DỪNG, không tự code sandbox mới.
 
 ### D. Job Phase 1
 Chỉ 4 nhóm:
 1. assignment gate / self-wake;
-2. nhắc đúng lượt + canh RUN treo (ưu tiên script/no-agent, dedupe cảnh báo);
+2. nhắc đúng lượt + canh RUN treo bằng script/`--no-agent`, dedupe cảnh báo; **phải kiểm STOP-DISPATCH trước khi gửi Telegram**;
 3. health/watchdog qua cơ chế Kuma độc lập ở G0.5;
 4. stop controls.
 
@@ -115,7 +124,7 @@ Không làm bản tin sáng, không webhook, không sửa Owner View.
 
 ### E. Stop controls
 - STOP-AUTO: `hermes pause`.
-- STOP-DISPATCH: một cờ root-owned, persistent, ngoài quyền ghi user Hermes (ưu tiên `/etc/incomex/hermes-automation.stop` hoặc vị trí chuẩn hiện hữu tương đương). Tất cả HJW gate scripts phải check cờ trước wake.
+- STOP-DISPATCH: một cờ root-owned, persistent, ngoài quyền ghi user Hermes (ưu tiên `/etc/incomex/hermes-automation.stop` hoặc vị trí chuẩn hiện hữu tương đương). Tất cả HJW gate scripts **và job `--no-agent` gửi Telegram** phải check cờ trước hành động. Nói rõ giới hạn: gate script nằm trong vùng user Hermes có thể sửa, nên STOP-DISPATCH chống **agent đi sai chính sách**, không phải hàng rào chống user `hermes` đã bị chiếm.
 - HARD-STOP: runbook root/operator dựa trên entry paths thật; phải dừng các service/process có thể khởi tạo agent và chặn run mới. Nếu inference credential runtime cần được vô hiệu hoá để ngăn manual CLI, nêu rõ cách làm/rollback; không rotate/revoke provider key trong RUN này.
 - Không test HARD-STOP làm gián đoạn phiên Owner đang dùng; nếu đang active, ghi test này sang HJW.3. STOP-DISPATCH phải test trong RUN này.
 
@@ -124,13 +133,21 @@ Không làm bản tin sáng, không webhook, không sửa Owner View.
 Tối thiểu:
 - relay read + write thử trong `work/hermes-joint-workspace/_thu-nghiem/hermes/`; stale expected_version bị reject;
 - Hermes process/user không còn đọc được Agent Data credential sau khi relay PASS; không có GSM credential;
+- **N8 relay boundary:** gọi relay không có client-ticket/auth riêng từ caller local khác. Nếu relay mở, thử siết bằng cơ chế sẵn có; không siết được ⇒ DỪNG theo G0.2;
 - JEV gọi thật trả `answers`;
 - 3 tick không đổi HEAD/assignment ⇒ 0 LLM wake;
+- **N1:** giả lập `ls-remote` timeout/mạng lỗi ⇒ 0 LLM wake, stdout cuối là `{"wakeAgent": false}`, có log lý do;
 - assignment thử hợp lệ ⇒ wake/claim trong mục tiêu ≤5 phút, không chạy trùng;
-- assignment cần capability ngoài allowlist ⇒ blocked + Telegram, không auto-approve;
-- STOP-DISPATCH đặt ⇒ 0 automated run mới qua ít nhất 3 tick; gỡ ⇒ hoạt động lại, không chạy bù trùng;
+- **N2:** wake rồi dừng worker trước claim ⇒ sau 15 phút đúng 1 retry, không retry thứ hai; có ledger/alert;
+- **N3:** HEAD đổi do chính commit `claimed` ⇒ không wake lần hai;
+- **N4:** trong turn cron gọi capability ngoài allowlist ⇒ capability/tool **không tồn tại trong schema**; lưu danh sách tool thực tế vào evidence;
+- **N5:** kiểm fail-closed của `platform_toolsets.cron` bằng fixture/cách an toàn không làm hỏng live config; restriction unreadable ⇒ run bị từ chối, không full-tool fallback. Nếu không có cách test live an toàn, dùng fixture/code-path evidence và ghi rõ giới hạn để HJW.3 kiểm tiếp;
+- assignment cần capability ngoài allowlist ⇒ blocked + Telegram, không có interactive approval, không auto-approve;
+- STOP-DISPATCH đặt ⇒ 0 HJW automated run/notification mới qua ít nhất 3 tick; gỡ ⇒ hoạt động lại, không chạy bù trùng;
+- **N6:** khi STOP-DISPATCH bật, tin nhắn trực tiếp của Owner tới Telegram vẫn có thể tạo LLM turn; ghi đúng giới hạn này, không gọi STOP-DISPATCH là HARD-STOP;
 - Kuma/external watchdog báo được tới Owner;
-- secret-redaction test chỉ dùng **synthetic canary**, tuyệt đối không yêu cầu/in secret OpenRouter/Telegram/AgentData thật;
+- **N7:** secret-redaction test chỉ dùng **synthetic canary**, tuyệt đối không yêu cầu/in secret OpenRouter/Telegram/AgentData thật; canary phải bị che trong output/log/delivery;
+- **N-mem:** chạy một automated turn test rồi đo có ghi persistent memory hay không; không giả định `skip_memory`. Nếu có memory write và cấu hình hiện hữu có cách tắt riêng cho cron thì tắt; nếu không thì ghi rủi ro + evidence, không tự viết memory subsystem mới;
 - ghi model/runtime usage đủ để đo T6, nhưng ngân sách nằm ngoài HJW theo D10.
 
 HJW.3 sẽ làm cross-check cuối T1–T10 và HARD-STOP nếu RUN này chưa test được an toàn.
