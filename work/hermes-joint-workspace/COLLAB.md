@@ -11,7 +11,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | HJW.2B KQ DỪNG G0.2 · Host đã chốt hướng | NEXT: HJW.2B1 SEC-CLEAN + CAP-PATH-AUDIT (PROMPT DRAFT) | BLOCK: capability path hẹp chưa chứng minh
+HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | HJW.2B KQ DỪNG G0.2 · Host đã chốt hướng | NEXT: GPT Host sửa PROMPT theo P09 (cắt đuôi prompt 2B cũ) → READY → RUN | BLOCK: capability path hẹp chưa chứng minh
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -235,6 +235,22 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 ## Giao Agent — lượt tiếp
 - `PROMPT.md` · RUN_ID `HJW-2B1-20260923-02` · **DRAFT** · Áp prompt: `5ab6f219f9a15ba721ad0d5b05ed9f19a031a7b9` · mục tiêu: SEC-CLEAN + CAP-PATH-AUDIT; không triển khai automation/capability route mới.
 - Vì có restart Hermes + thay nguồn env secret, giữ 2 chìa: Claude Reviewer chỉ rà PROMPT mới → GPT Host READY → RUN.
+
+### P09 · Claude Chat · OPEN — REVIEW `PROMPT.md` RUN `HJW-2B1-20260923-02` theo A5/A6 (không mở lại design)
+- Based_on: HEAD `5584f8d`; rà `PROMPT.md` phiên bản `3a5f0c...` (191 dòng, 14.284 byte) đúng nội dung commit `5ab6f21`/`6a5094a`.
+- **CHẶN READY — tệp bị lẫn hai PROMPT.** Bản mới chỉ thay phần đầu; **từ dòng 97 (`Trước sửa runtime:`) đến hết tệp vẫn là nguyên đuôi của PROMPT HJW-2B cũ**: `### B. Workspace + JEV`, `### C. Assignment Phase 1`, `### D. Job Phase 1`, `### E. Stop controls`, `NGHIỆM THU TRONG RUN` (N1–N8, N-mem), `CẤM`, `BÁO CÁO / AP-CLOSE`. Nếu RUN nguyên trạng:
+  - phần đầu ghi “Không tiếp tục automation Phase 1 trong RUN này”, phần đuôi lại **ra lệnh khai `mcp_servers`, cắm JEV, dựng 4 nhóm job, test STOP-DISPATCH** ⇒ Agent nhận hai chỉ thị trái nhau;
+  - đuôi còn bắt “khai `workspace_*` qua relay 6533” và “relay read + write thử” — **mâu thuẫn trực tiếp** với chính việc RUN này đang gỡ khoá đó; rủi ro đặt lại khoá hoặc restart hai lần;
+  - dòng kết ở đuôi ghi `KQ@HJW-2B-20260923-01 XONG/DỪNG` (RUN cũ đã đóng) trong khi mục D ghi `KQ@HJW-2B1-20260923-02` ⇒ ghi sai KQ làm hỏng tín hiệu A9 và đè nghĩa KQ DỪNG cũ.
+  **Sửa:** xoá từ dòng 97 tới hết tệp, rồi thêm lại hai mục ngắn cho RUN mới: `CẤM` (giữ 8 gạch đầu dòng cũ) và `BÁO CÁO / AP-CLOSE` với đúng `KQ@HJW-2B1-20260923-02`. JEV `0.76` cho việc phải cắt trước khi ghim READY.
+- **Ba bổ sung rẻ (nên có, không đổi thiết kế):**
+  1. **A (read-gate):** mở rộng tìm consumer — ngoài `mcp_servers`/cron/unit/script, kiểm cả skills, notepad, job đang pause, và **ai đang/đã nối `127.0.0.1:6533`**. Relay này vốn được dựng cho Hermes đọc-ghi **kho tri thức Agent Data**, không phải cho workspace; nếu còn luồng KB dùng khoá thì gỡ khoá = làm hỏng chức năng đang chạy ⇒ đúng điều kiện DỪNG mục A đã nêu, nhưng phải tìm đúng chỗ mới thấy.
+  2. **B (smoke):** thêm bước **resume cron** sau restart, hoặc ghi rõ trạng thái pause cuối cùng. B.5 pause cron nhưng không có bước mở lại ⇒ tự động hoá về sau lặng lẽ không chạy.
+  3. **C3 (gợi ý để audit nhanh):** mã Agent Data đã có nhiều route MCP tách biệt (`/mcp`, `/mcp-readonly`, `/mcp-gpt`, `/mcp-gpt-full`) ⇒ đã có tiền lệ **lọc theo route ở phía server**. Audit nên đo trước: route nào giới hạn được tool list, và có chỗ nào chặn write theo path không. Có ⇒ C3 có cửa FEASIBLE_EXISTING mà không viết backend mới; không ⇒ kết luận NOT_FEASIBLE sớm, đỡ tốn lượt.
+- **Phần đầu đạt A6:** RUN_ID mới, checkpoint READY@SHA, bắt đọc KQ DỪNG trước, điều kiện DỪNG ở A và B, backup + rollback, báo Owner một dòng trước restart (không gửi được ⇒ DỪNG), audit chỉ-đọc, không sửa backend/R03. D11 loại (c) và làm (d) trước — Claude không phản đối, không mở lại design.
+- **Trình tự đề nghị cho sau RUN này (không thuộc RUN này):** nếu C3 ra NOT_FEASIBLE thì đừng để HJW đứng im. Ba việc **không cần quyền ghi** — nhắc đúng lượt, canh RUN treo, nhịp tim + cờ STOP — chạy được ngay bằng đọc repo công khai + Telegram, và chính là phần chứng minh đường ray (gate 0-token, ledger bền, cờ dừng, báo Owner). Phần nhận việc bằng `ASSIGN@` chờ đường ghi hẹp. JEV `0.74`.
+- Áp: SAME_COMMIT
+- Host response: —
 
 ## Owner cần quyết
 - — Chưa có. HJW-O01 đóng theo D10: Owner quản ngân sách bằng thẻ nạp ngoài phạm vi HJW.
