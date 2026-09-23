@@ -11,7 +11,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | A0 ĐÃ XÁC NHẬN | HJW.2A CLOSED · GSM GATE OPEN | P07/P08 CLOSED | HJW.2B READY@6dd8ec0a… · KQ@HJW-2B-20260923-01 DỪNG (G0.2) | NEXT: Host quyết đường cấp capability Agent Data cho Hermes | BLOCK: relay 6533 là proxy TCP, không gắn khoá ⇒ Hermes phải giữ master key
+HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | HJW.2B KQ DỪNG G0.2 · Host đã chốt hướng | NEXT: HJW.2B1 SEC-CLEAN + CAP-PATH-AUDIT (PROMPT DRAFT) | BLOCK: capability path hẹp chưa chứng minh
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -24,6 +24,7 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 - D08 · 2026-09-22 · **SECRET BOUNDARY:** do Hermes chạy thường trực trên VPS, HJW phải coi VPS là trust zone thấp hơn control plane chứa secret. Không mặc định cấp cho Hermes/VPS quyền GSM trực tiếp/rộng. Hội đồng phải dựa trên `work/gsm-access-audit/` để chọn cơ chế cấp bí mật tối thiểu, rotation/revoke rõ và xác định chính xác rủi ro còn lại trước implementation.
 - D09 · 2026-09-22 · **ALWAYS-ON VALUE:** mục tiêu đưa Hermes vào hội đồng là tận dụng khác biệt 24/7 + API/webhook/scheduler + Telegram, không chỉ đạt parity đọc/ghi với GPT/Claude. Phải hoàn tất thiết kế automation/orchestration và ma trận use-case trước khi phát RUN cấu hình production.
 - D10 · 2026-09-23 · **NGÂN SÁCH NGOÀI PHẠM VI:** Owner kiểm soát chi tiêu của Hermes bằng thẻ nạp giới hạn bên ngoài; HJW không quản trần chi, không cấu hình hard cap/limit reset và không lấy ngân sách làm gate. Kèm chỉ đạo: cắt hết việc phụ để đẩy nhanh. (Owner nói trong chat 23/09; Host được chỉnh câu chữ.)
+- D11 · 2026-09-23 · **G0.2 RULING:** sau KQ DỪNG `HJW-2B-20260923-01`, Host chọn (d) trước: gỡ `AGENT_DATA_*` khỏi môi trường Hermes vì chưa có `mcp_servers`/cron workspace đang dùng; sau đó chỉ-read khảo sát (a). Phương án (b) sửa Agent Data/R03 chưa mở; (c) giữ master key bị loại. Ứng viên (a) chỉ đạt nếu thành phần hiện hữu enforce đủ **C1 secret isolation + C2 caller boundary + C3 server-side tool/path capability scope**; chỉ giấu key nhưng trao full master capability cho Hermes không đạt D08. JEV `gen-dec-1790153711-Ul3VjhBd3y8kJzq5Uk1u`: D immediate 0.83; A candidate 0.99.
 
 ## Kế hoạch
 - HJW.1 | Mở việc + nhận ý kiến GPT (P01) | ✓ 21/09
@@ -231,11 +232,15 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 - Áp: `d0353ac89234f49e9c67ada88db97d3acd098370`
 - **Host response P08:** ACCEPT đủ 7 sửa chặn READY + N1–N8/N-mem. Ruling khác duy nhất: mục relay không chỉ “đo và ghi rủi ro”. Theo D08 và JEV `gen-dec-1790149093-R2Gc7dsIpH2H1QULaqkf` (REQUIRE_EXISTING_RESTRICTION 1.00), nếu relay cho mọi process loopback mượn write capability thì phải siết bằng ACL/UNIX socket/client-ticket/cơ chế hiện hữu; không siết được mà không dựng proxy/backend mới ⇒ DỪNG cho Host quyết. Không cần thêm vòng Reviewer; PROMPT sau commit này là bản final để READY.
 
+## Giao Agent — lượt tiếp
+- `PROMPT.md` · RUN_ID `HJW-2B1-20260923-02` · **DRAFT** · Áp prompt: `5ab6f219f9a15ba721ad0d5b05ed9f19a031a7b9` · mục tiêu: SEC-CLEAN + CAP-PATH-AUDIT; không triển khai automation/capability route mới.
+- Vì có restart Hermes + thay nguồn env secret, giữ 2 chìa: Claude Reviewer chỉ rà PROMPT mới → GPT Host READY → RUN.
+
 ## Owner cần quyết
 - — Chưa có. HJW-O01 đóng theo D10: Owner quản ngân sách bằng thẻ nạp ngoài phạm vi HJW.
 
 ## NEXT
-- HJW.2A CLOSED; GSM-A1 XONG; P05/P06 đã được Host xử lý. Không còn blocker thiết kế/Owner.
-- P07/P08 đã được Host xử lý; không còn P OPEN/OWNER liên quan. `PROMPT.md` HJW.2B đã được sửa đủ các mục chặn READY.
-- ~~READY đã hợp lệ tại 6dd8ec0a…; NEXT: phát RUN cho Claude Code CLI.~~ RUN `HJW-2B-20260923-01` đã chạy 23/09 và **DỪNG tại G0.2** (xem Giao Agent). NEXT: Host quyết một trong (a)–(d) rồi sửa PROMPT + READY mới; không RUN lại prompt hiện hành.
+- KQ `HJW-2B-20260923-01 DỪNG` là hợp lệ, 0 mutation. Host đã xử lý blocker bằng D11.
+- `PROMPT.md` hiện là DRAFT cho `HJW-2B1-20260923-02`: gỡ secret Agent Data khỏi Hermes nếu read-gate xác nhận không consumer; smoke/rollback; sau đó audit-only capability path C1/C2/C3.
+- NEXT: Claude Chat review riêng PROMPT mới → GPT Host READY → RUN. Không tự tiếp tục automation Phase 1 trong lượt này.
 - Hai quyết định GSM về huỷ 23 version và gộp Lark là việc khác; không chặn HJW.
