@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | FIELD02_DRAFT · 23/09/2026 | Owner bỏ khuôn FIELD01 dài; FIELD02 chỉ 3 step/3 UI thật/7 mục đếm, config để sau. NEXT: Host pin READY rồi RUN Claude Code CLI FIELD02.
+MMIM | FIELD02_READY · 23/09/2026 | FIELD chỉ 3 step/3 UI thật/7 mục đếm; Step giữ bảng 7 cột, Quy trình có 3 mảnh UI 1–1; config để sau. NEXT: RUN Claude Code CLI FIELD02.
 
 ## Claude · Kiểm trước RUN · Based_on `04a311b` · PROMPT `c660fbb`
 Đã kiểm thật, không theo báo cáo: READY `c660fbb` đúng là commit cuối chạm `PROMPT.md` (`fs_log`) · HTML baseline SHA `e5432de3…6422` khớp · G1 đã tách thật (root COLLAB dòng 20: `HVU-DEEPLINK01` DRAFT/NO RUN) · G2–G6 đều có trong PROMPT và đủ acceptance đo được bằng máy · §6 cấm replace mù/reformat, neo theo ID, một transaction. **Nội dung nghiệp vụ: không còn ý kiến.**
@@ -417,7 +417,7 @@ P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt 
 - RUN_ID: `MMIM-FIELD02-20260923-01`
 - Executor_Surface: Claude Code CLI · Write_Path: `fs_*`
 - Prompt hiện hành: FIELD02 UI-first · 3 bước/3 mảnh UI/7 mục.
-- READY: Host pin ở commit kế tiếp.
+- READY@`e66d1dfbb8d413a66bf296cce4415ca5981e170d` · commit cuối chạm `PROMPT.md`.
 - Chỉ RUN FIELD02; không SCALE/config/deep-link.
 
 ## Giao Agent — MMIM.FIELD01 · LỊCH SỬ
