@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | FIELD01_PROMPT · 23/09/2026 | MAP-R3 + G1–G6 đã hòa giải. Deep-link đã tách sang hpml-view-for-user; FIELD pilot prompt đã soạn, chờ Host pin READY rồi Owner/RUN Codex. Full 4 object còn lại chỉ sau Owner review FIELD.
+MMIM | FIELD01_READY · 23/09/2026 | MAP-R3 + G1–G6 đã hòa giải; FIELD pilot READY, deep-link tách HVU DRAFT. NEXT: Owner/GPT RUN Codex MMIM.FIELD01; sau KQ phải Owner review FIELD trước SCALE01.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -382,7 +382,9 @@ P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt 
 ## Giao Agent — MMIM.FIELD01
 - RUN_ID dự kiến: `MMIM-FIELD01-20260923-01`.
 - Executor_Surface: Codex · Write_Path: `workspace_*`.
-- Prompt hiện hành: FIELD pilot; READY sẽ pin ở commit kế tiếp.
+- Prompt hiện hành: FIELD pilot.
+- READY@`c660fbba6f15b7360e6409c7da07b7ef9e1aeef3` · commit cuối chạm `PROMPT.md`.
+- RUN: **CHƯA PHÁT**. Khi RUN chỉ dùng RUN_ID `MMIM-FIELD01-20260923-01`.
 - Không RUN SCALE01 trong cùng lượt.
 
 ## Giao Agent — lịch sử prompt MMIM.2 trước yêu cầu mới 23/09
