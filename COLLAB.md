@@ -17,8 +17,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/hermes-joint-workspace/` · HJW · Host GPT · HJW.2B DỪNG G0.2; D11 + P09 đã xử lý. PROMPT HJW.2B1 DRAFT sạch tại `9153394d…`; **chờ Hermes hậu kiểm, chưa READY**.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
-- `work/hpml-view-for-user/` · HVU-DEEPLINK01 · mở lại 23/09 để làm URL deep-link theo tab/section/step/detail; DRAFT/NO RUN, runtime VPS tách khỏi MMIM.
-- `work/muc-tieu-3-phan/` · MT3 · Host Claude · chuẩn hoá §0 thành ba phần (Mục tiêu / Thế nào là hoàn thành / Chi tiết) trên GitHub + view; PROMPT `MT3-20260923-01`, Executor Codex.
+- `work/muc-tieu-3-phan/` · MT3 · `KQ@MT3-20260923-01 XONG`; Owner 23/09 yêu cầu **xóa hẳn, không đưa Done** vì task do AI tự mở. Hiện chờ đúng đường Git có quyền delete; không tiếp tục nghiệp vụ.
 - NEXT: HJW: Hermes đọc AGENTS → COLLAB → PROMPT `9153394d…`, chỉ review/đo không mutation → GPT Host xử lý → READY/RUN nếu sạch.
 
 ## Đã xong
@@ -39,6 +38,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - DROOT11 · 2026-09-22 · **ARCHIVE FOLDER-STATE** (HVU-ARCHIVE01; A0 Owner xác nhận trực tiếp 22/09, consensus P23–P29): `work/<id>/` = Now, `work/done-tasks/<id>/` = Done; vị trí thư mục là nguồn trạng thái duy nhất, root không giữ danh sách Done. Đóng/Mở lại = Git move nguyên thư mục, giữ id + lịch sử; hai lệnh chuẩn `Đóng <id>` / `Mở lại <id>` theo AGENTS A9. Owner View tìm xuyên Now + Done theo id + tên + toàn bộ A0; URL tài liệu key theo task-id.
 - DROOT12 · 2026-09-22 · **VPS EVIDENCE ARCHIVE** (HVU-VPSARCHIVE01; A0 Owner nguyên văn 22/09, consensus P29–P32): hồ sơ VPS không-runtime của việc ở `/opt/incomex/work/<id>/` (Now) / `/opt/incomex/work/done-tasks/<id>/` (Done), sync tự đổi tên theo Git, không xoá; runtime/secret/đường cứu hộ hiện hành ở ngoài kho; `deploys` chỉ chuyển mục `ARCHIVE_SAFE` sau kiểm kê. Web mặc định chỉ Now + `Đã xong (N)` gập; link theo việc `/knowledge/modules?task=<id>`. Không tạo nguồn trạng thái mới (AGENTS A8).
 - DROOT13 · 2026-09-23 · **JEV-AS-REFERENCE:** với quyết định hữu hạn (phân loại/chọn phương án/routing/scoring), Host/Reviewer ưu tiên gọi JEV Reference trên evidence thô trước khi chốt nếu JEV phù hợp; lưu result id/confidence. JEV không thay quyết định của Owner/hội đồng và không dùng thay source/runtime cho fact kỹ thuật quyết định được trực tiếp.
+- DROOT14 · 2026-09-23 · **CHỈ OWNER MỞ TASK MỚI:** AI không tự tạo `work/<id>/` mới nếu Owner chưa yêu cầu rõ. Task mở nhầm/tự ý không được đẩy vào Done để hợp thức hóa; Owner có thể yêu cầu xóa và khôi phục từ Git history khi thật sự cần.
 
 ## Owner cần quyết
 - —
