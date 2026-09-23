@@ -4,14 +4,14 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
-## R5b — Tiếp nối: B5 + KEEP_SET v2 · 23/09/2026 · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=fs_* (gh) · KQ CHỜ DUYỆT · F1
+## R5b — Tiếp nối: B5 + KEEP_SET v2 · 23/09/2026 · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=fs_* (gh) · KQ XONG
 
-RUN_ID `VPSC-R5B-20260924-01` · PROMPT@`80ea8339852743b61d63239ca012b993f38bad86`. Cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã; đọc AGENTS → COLLAB (A0 vòng 2, D08, D10–D13, P18–P27) → PROMPT → BAO-CAO mục R5. Chạy 08:28Z–. Chế độ phiên: auto-mode (không phải `--dangerously-skip-permissions`); không lệnh nào bị chặn. NO_CONCURRENT_VPS_MUTATION đạt ở đầu mỗi phần. Tệp R5 dùng lại (`12-daemon.json.B` `f0c9c4a7…`, bản A `3ceba3d8…`) khớp sha256 BAO-CAO R5.
+RUN_ID `VPSC-R5B-20260924-01` · PROMPT@`80ea8339852743b61d63239ca012b993f38bad86`. Cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã; đọc AGENTS → COLLAB (A0 vòng 2, D08, D10–D13, P18–P27) → PROMPT → BAO-CAO mục R5. Chạy 08:28Z–10:46Z. Chế độ phiên: auto-mode (không phải `--dangerously-skip-permissions`); không lệnh nào bị chặn. NO_CONCURRENT_VPS_MUTATION đạt ở đầu mỗi phần. Tệp R5 dùng lại (`12-daemon.json.B` `f0c9c4a7…`, bản A `3ceba3d8…`) khớp sha256 BAO-CAO R5.
 
 ### (1) CHO OWNER
 - **Build cache đã có trần 5GiB hiệu lực**: restart Docker 1 lần lúc 09:33Z (11 giây), 12 dịch vụ không khởi động lại (StartedAt không đổi), web/Directus/Qdrant/Kuma/Drive bình thường; cron tạm dừng 70 giây, mỗi job chỉ lỡ tối đa 1 lượt.
 - **Luật giữ image mới (KEEP_SET v2) đã cài, đang ở chế độ chỉ lập kế hoạch**: giữ image đang chạy + chuỗi triển khai/rollback đang dùng + 2 bản gần nhất mỗi dịch vụ + mọi image dưới 30 ngày; bản sao `.bak`/ghi chú cũ không còn giữ image mãi mãi. Trần: 38 ≤ 72 ImageID.
-- **Chờ Host duyệt xoá**: 9 image / 12 tag cũ (tháng 3–7/2026, ~7,2 GB danh nghĩa, thu thật ít hơn vì lớp dùng chung), sha256 `3c900eff0cd923dc4cbd228da61616583a0fb1f3b369183cf4edd8bee57051c0`.
+- **Đã xoá 9 image / 12 tag cũ theo kế hoạch Host duyệt** (sha256 `3c900eff0cd923dc4cbd228da61616583a0fb1f3b369183cf4edd8bee57051c0`, `HOST_APPROVED_DELETE` commit `f17648e`): kho image 9,40 → 7,905GiB (thu thật 1,50GiB; 7,2 GB danh nghĩa vì lớp dùng chung), đĩa trống 53,99 → **55,48GiB (43%)**. Từ nay luật tuần (Chủ nhật 02Z) tự xoá theo KEEP_SET v2 (`L_XOA=1`).
 - Owner/Host quyết giữa chừng: cổng B5.2(c) áp theo mục đích (D14) vì timer 15 giây/5 phút làm nghĩa đen không bao giờ đạt.
 
 ### (2) B5 — `BUILD_CACHE = BOUNDED · 5GiB · đã nạp qua restart`
@@ -77,23 +77,33 @@ Bảng theo repository (ImageID hiện · giữ theo (1)/(2)/(3)/(4) · sẽ xo�
 
 **sha256 kế hoạch** (P27: mỗi dòng `<repo:tag|<none>>\t<ImageID đầy đủ>`, bỏ trùng, `LC_ALL=C sort`, LF, không metadata động) = `3c900eff0cd923dc4cbd228da61616583a0fb1f3b369183cf4edd8bee57051c0` — tính lúc 08:42Z và tính lại sau B5 lúc 09:41Z: trùng. Danh sách đầy đủ (ImageID 64 hex): hồ sơ `32-ds-xoa-chuan.txt`.
 
-### (4) Trước / sau (đến F1)
-| | Trước (08:29Z) | Sau B5 (09:41Z) |
-|---|---|---|
-| Đĩa | 44% · trống 54,014GiB | 44% · trống 53,998GiB |
-| Build cache | trần mặc định 80% đĩa (71,7GiB) | **trần 5GiB (`builder.gc.defaultMaxUsedSpace`) đã nạp** |
-| Luật (l) | KEEP_SET v1 47/49 (tăng theo `.bak`) | **KEEP_SET v2 38 ≤ trần 72**, `L_XOA=0` |
-| Image · kho thật | 47 · 9,378GiB | 47 · 9,398GiB (chưa xoá) |
-| Container | 12, 10/10 healthy | 12, 10/10 healthy, StartedAt không đổi |
-| Qdrant · Web · Directus | green 20.187 · 200 · ok | green 20.187 · 200 · ok |
-| systemd failed | cloud-init, networkd-wait-online | như trước |
+### (3b) Phần F — xoá theo kế hoạch Host duyệt
+| Bước | Kết quả |
+|---|---|
+| F1 | Kế hoạch + sha ghi repo `04b0bf0` (09:45Z); chờ COLLAB 2 phút/lần. P28 GPT (`e122dca`) khuyến nghị duyệt — không coi là duyệt. **`HOST_APPROVED_DELETE@3c900eff…` do Host Claude ghi, commit `f17648e` 10:41:22Z** (trong hạn 60 phút); Host ghi nhận mất khả năng build lại từ vài Dockerfile lịch sử (`FROM agent-data-workspace-base`, `FROM phase0.5a/phase1a`) và chấp nhận |
+| F2 | NO_CONCURRENT OK (10:43:16Z) → tính lại danh sách chuẩn hoá: sha kế hoạch = sha tính độc lập (`LC_ALL=C sort -u \| sha256sum`) = sha đã duyệt → `L_XOA=1` (git cục bộ `9b2f628`, `bash -n` đạt, diff 1 dòng) → NO_CONCURRENT OK (10:44:23Z) → `--chi-l` 19s: **xoá 12/12 tag, bỏ qua 0, lỗi 0** bằng `docker image rm` không `-f`; sha của chính lượt xoá = sha đã duyệt |
+| Sau | image 47 → 38; kho thật (`/var/lib/docker` + `/var/lib/containerd`) 10.090.831.872 → 8.487.477.248 B (**−1,496GiB**); đĩa trống 53,987 → 55,482GiB; 12 container trạng thái/StartedAt/health trùng từng dòng trước F; web 200, Directus ok, Qdrant green 20.187, cổng nghe như cũ; **`--chi-l-thu` sau = 0 mục** (steady-state 38 ImageID) |
+
+### (4) Trước / sau
+| | Trước (08:29Z) | Sau B5 (09:41Z) | Sau F (10:45Z) |
+|---|---|---|---|
+| Đĩa | 44% · trống 54,014GiB | 44% · trống 53,998GiB | **43% · trống 55,482GiB** |
+| Build cache | trần mặc định 80% đĩa (71,7GiB) | **trần 5GiB (`builder.gc.defaultMaxUsedSpace`) đã nạp** | như sau B5 (`du` buildkit 0,187GiB) |
+| Luật (l) | KEEP_SET v1 47/49 (tăng theo `.bak`) | **KEEP_SET v2 38 ≤ trần 72**, `L_XOA=0` | KEEP_SET v2 38, **`L_XOA=1`** |
+| Image · kho thật | 47 · 9,378GiB | 47 · 9,398GiB (chưa xoá) | **38 · 7,905GiB** |
+| Container | 12, 10/10 healthy | 12, 10/10 healthy, StartedAt không đổi | như trước |
+| Qdrant · Web · Directus | green 20.187 · 200 · ok | green 20.187 · 200 · ok | green 20.187 · 200 · ok |
+| systemd failed | cloud-init, networkd-wait-online | như trước | như trước |
 
 **D — kiểm cuối (sau B5):** mọi tệp cron/timer (38 tệp: crontab root/incomex, `/etc/crontab`, `/etc/cron.d/*`, `*.timer` + `.service` tương ứng) trùng byte bản chụp trước; `/etc/cron.d/kuma-push` nguyên; Kuma running/healthy; `kuma-push.sh cron|disk` rc=0; `incomex-kuma-push` active; `rclone lsf gdrive-backup:` rc=0; sha256 cấu hình rclone sau B5 = bản chụp 09:04Z trước B5 (tệp đổi lần cuối 08:39Z do cron phái cử làm mới token OAuth — không do lượt này ghi); `cron` active; `systemctl --failed` chỉ `cloud-init`, `systemd-networkd-wait-online`.
+
+**D — kiểm cuối (sau F, 10:45Z):** 12 container StartedAt không đổi; tệp cron/timer vẫn trùng byte bản chụp; Kuma running/healthy, `kuma-push.sh cron|disk` rc=0, `incomex-kuma-push` active; `rclone lsf gdrive-backup:` rc=0; `cron`/`docker` active; failed chỉ 2 unit cũ; số image giảm đúng 9 ImageID kế hoạch. ⚠ Cấu hình rclone được ghi lại lúc 10:45:32Z: không có lượt phái cử nào chạy rclone lúc đó (lượt làm tươi gần nhất 10:41Z) ⇒ do chính lệnh kiểm `rclone lsf` của Phần D tự làm mới token OAuth hết hạn và lưu vào tệp (hành vi mặc định của rclone); lượt này không sửa mục cấu hình nào khác, backup Drive không đổi client/remote.
 
 ### (5) Đường lùi + hồ sơ
 - Hồ sơ: `/var/lib/incomex-audit/VPSC-R5B-20260924/` (ngoài Git; luật (h) tự xoá sau 30 ngày không đổi): sha tệp dùng lại, trạng thái trước, bản cũ script + sha, thử khô `c2/` (38/38), chạy thật + kế hoạch `31-C3-ke-hoach.json` + `32-ds-xoa-chuan.txt` + đối chiếu `34-doi-chieu.txt` + bảng `35-bang-repo.txt`, `cua-so-v2.py`, `b5.sh` + `b5/` (log, chụp trước/sau, journal, kiểm).
 - B5: chép `11-daemon.json.A` về `/etc/docker/daemon.json` → `systemctl restart docker` (live-restore giữ container) → trần build cache về mặc định.
-- C': `cd /opt/incomex && git revert 7d725f6` (hoặc chép `vps-retention.sh.truoc-R5b`).
+- C': `cd /opt/incomex && git revert 9b2f628 7d725f6` (hoặc chép `vps-retention.sh.truoc-R5b`). Chỉ tắt xoá tự động: `git revert 9b2f628` (về `L_XOA=0`).
+- F: image đã xoá không lùi được — đường lùi vận hành là image đang chạy + 2 bản lùi mỗi dịch vụ + mọi image <30 ngày còn giữ; build lại từ mã nếu cần. Hồ sơ F: `f2/` (trước/sau, danh sách chuẩn + sha, kế hoạch của lượt xoá `21-ke-hoach-luot-xoa.json`).
 
 ---
 
