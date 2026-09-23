@@ -13,7 +13,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — nguyên văn Owner 23/09/2026 ở mục 1
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - Diễn giải kỹ thuật Host: giữ `task`, thêm `view/section/step/detail`; contract từ MMIM MAP-R3 R3.8/A1–A9.
 - Phạm vi vòng mới: parent/top viewer + relay runtime VPS; không sửa Step nghiệp vụ trong HVU, không GitHub→VPS, không sửa MCP/connector.
-- Trạng thái: **REOPENED · DRAFT/NO RUN**. Child bridge/ID thuộc MMIM; chỉ RUN sau khi Host xác nhận child contract ổn định.
+- Trạng thái: **CLOSED theo chỉ đạo Owner 23/09/2026**. Vòng HVU-DEEPLINK01 đang DRAFT/NO RUN được hủy, không giao agent; không kéo sang MMIM/MOW/MOT. Task được đóng bằng move sang `work/done-tasks/hpml-view-for-user/` để giữ lịch sử và dễ khôi phục.
 - Diễn giải kỹ thuật Host: web mặc định phải ưu tiên Now; Done vẫn tìm/mở được; VPS có kho hồ sơ task hai chiều giống Git nhưng tách khỏi runtime đang chạy; không tự xoá.
 - Toàn bộ câu chữ và các vòng cũ giữ nguyên tại Vòng trước.
 
