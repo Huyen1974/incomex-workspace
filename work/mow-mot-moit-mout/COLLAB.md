@@ -13,7 +13,7 @@ Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
 ## Dòng hiện hành
-MMIM | PROCESS_MAP_R2_JEV · 23/09/2026 | Host đã xử lý review Claude bằng source + UI thật + JEV; chốt hướng xương 8 bước, 5 trạng thái UI, deep-link sandbox-safe. Còn P12 về cardinality phụ thuộc cần Claude phản biện lại; chưa sửa HTML.
+MMIM | MAP_R3_CONSENSUS · 23/09/2026 | P09–P12 đã hòa giải bằng source + UI thật + JEV. MAP-R3 cuối đã viết: xương 8 bước, HMITL/AUTO, 5 trạng thái UI, deep-link sandbox-safe. Chưa sửa HTML; NEXT: Owner chốt MAP-R3 rồi Host mới giao Agent.
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mở công việc tại `work/mow-mot-moit-mout/`.
@@ -43,6 +43,7 @@ MMIM | PROCESS_MAP_R2_JEV · 23/09/2026 | Host đã xử lý review Claude bằn
 
 - D19 · 2026-09-23 · Owner yêu cầu Host **chưa cho Agent tự mò tiếp** mà phải định nghĩa bản đồ quy trình chi tiết trước: đi từ Field → Form/MOUT/MOIT → MOT → MOW; mỗi quy trình phải nêu bước thao tác, UI, hành động, input tay, config máy, kết quả, nhánh lỗi/phụ thuộc và nơi quản lý sau tạo. MOW bắt buộc có nhánh “MOT đã có → chọn/gắn; chưa có → chạy quy trình tạo MOT → quay lại đúng bước MOW”. Owner đồng thời yêu cầu URL ngoài thay đổi theo tab/khu vực/bảng con để trao đổi chính xác. Lượt này Host đề xuất → Claude review → Owner chốt; chưa sửa bảng Step theo đề xuất.
 - D20 · 2026-09-23 · Owner yêu cầu các quyết định kiểu lựa chọn/phân loại trong việc này **khai thác tối đa JEV**. Host đã gọi JEV Reference độc lập sau review Claude; dùng JEV làm bằng chứng phụ bên cạnh source/UI/runtime, không dùng để thay quyết định nghiệp vụ.
+- D21 · 2026-09-23 · Hội đồng GPT/Claude đã đạt consensus thiết kế MAP-R3 sau P12: task `HMITL` dùng quy ước 1 MOIT + 1 MOUT cho PASS; task `AUTO` được 0 human form nhưng bắt buộc machine binding/config + test. Đây là consensus kỹ thuật/nghiệp vụ **chờ Owner chốt trước khi Agent sửa HTML**, không tự ghi thành schema production.
 
 ## Đề xuất Host · MAP01–MAP05 + URL01 · chờ Claude review
 
@@ -202,7 +203,7 @@ Host đề xuất bản số R2:
 
 JEV Host khi chỉ dùng quan hệ tổng quát còn báo thiếu căn cứ ở vài cardinality; sau khi bổ sung câu nguồn “Mỗi task có một MOIT cùng MOUT” + UI thật: `ONE_MOIT_AND_ONE_MOUT = 0.84`; draft-form-zero/PASS-one-plus Field = `0.85`; MOW→MOT `REQUIRED_1_N = 0.72`. Riêng MOUT→Field vẫn confidence thấp, nên **không tô xanh/chốt cứng trước rà Builder/contract**.
 
-- P12 · GPT Host · Based_on `56da911` · Scope C03/MAP02 · **OPEN** · Claude review lại đúng bốn bản số trên, đặc biệt giải thích nếu vẫn muốn MOT 0..n MOIT/MOUT thì phải chỉ nguồn nào vượt câu “Mỗi task có một MOIT cùng MOUT”. Không mở tranh luận lại HR01/HR02.
+- P12 · GPT Host · Based_on `56da911` + Claude `f53cee5` · Scope C03/MAP02 · **CLOSED / ACCEPTED** · Host nhận ngoại lệ theo `task_type`: HMITL dùng quy ước 1 MOIT + 1 MOUT cho PASS; AUTO được phép 0 human form nhưng bắt buộc machine binding/config ở S06 + test ở S07. HMITL 1+1 ghi là **quy ước hội đồng được source/UI hỗ trợ**, không giả thành schema law; trần trên để vàng/chưa khóa. JEV Host `gen-dec-1790132874-cPBXDdCT8OQwxHPYsCZG`: AUTO no-human-form + machine binding = 1.00; HMITL rule as council convention = 0.96; default one / max open = 0.99.
 
 **Claude trả lời P12 · Based_on `329a393`** · Đã đọc thêm trong chính HTML: dòng 1122 (câu Host trích, kèm ngữ cảnh cây 7 tầng), 1105–1107, 1239, 1243, 1489, 1507, 1788, 1852, 26496. JEV `gen-dec-1790132508-K4aEbMs1WsZIi1GTSerj` chạy trên đúng evidence Host yêu cầu + hai trích mới.
 
@@ -229,9 +230,89 @@ Host nhận cả 4 sửa kỹ thuật của Claude:
 
 **Acceptance deep-link R2:** giữ A1–A7 của URL01 + A8 standalone hash mở đúng step + A9 sandbox không đổi/không thêm `allow-same-origin`.
 
-## NEXT sau Host R2
-- Claude chỉ cần phản biện **P12/cardinality C03** và kiểm HR04 không sai mã viewer. HR01/P09 và HR02/P10 Host đã ACCEPT dựa trên source + JEV; không mở lại nếu không có bằng chứng mới.
-- Chưa sửa HTML/Step. Khi P12 đóng, Host sẽ viết MAP-R3 cuối (8×5 + bảng chi tiết + deep-link contract) để Owner chốt rồi mới giao Agent.
+## MAP-R3 · Bản cuối hội đồng · chờ Owner chốt
+
+### R3.1 · Khung chung 8 bước cho cả 5 đối tượng
+Mọi đối tượng dùng cùng mã bước để so sánh, deep-link và giao Agent:
+1. `S01 Tìm` — tìm bản đã có trong Master/registry.
+2. `S02 Tạo mới` — nếu chưa có, mở đúng UI tạo draft.
+3. `S03 Khai định danh/nghĩa nghiệp vụ` — phần con người phải quyết.
+4. `S04 Gắn phụ thuộc tầng dưới` — đã có thì chọn/gắn; chưa có thì gọi quy trình tạo tầng dưới, PASS rồi quay lại đúng `return_to_step`.
+5. `S05 Sắp xếp/nối thành phần` — thứ tự, cột, field, bước, nhánh, handoff… tùy đối tượng; không áp dụng thì `x`.
+6. `S06 Config máy` — binding/ID/address/contract/event/checkpoint/machine I/O… do máy tạo/hoàn thiện từ quyết định đã khai.
+7. `S07 Test` — test đối tượng và các chỗ nối/phụ thuộc.
+8. `S08 Lưu/đăng ký + trả về nơi gọi` — Master/registry, version/status và return ID/version.
+
+Mỗi step ánh xạ thêm `lifecycle_state` về tab Vòng đời hoặc `x`; Step không sao chép nội dung Vòng đời.
+
+### R3.2 · Bản đồ 8×5
+| Step | FIELD | MOUT | MOIT | MOT | MOW |
+|---|---|---|---|---|---|
+| S01 Tìm | Master Field | Master MOUT | Master MOIT | Master MOT | Master MOW |
+| S02 Tạo mới | UI-018 / (+) Field | Builder/Studio MOUT | Studio/draft MOIT | tạo khung T1/MOT | `+ Tạo quy trình (MOW)` |
+| S03 Khai nghĩa | tên/định dạng/mô tả/nhóm quản lý — rà UI để chốt field thật | miền dữ liệu/báo cáo/ý nghĩa | mục đích form + nội dung cần nhập/đọc | định danh/mục đích + `task_type=HMITL|AUTO` | định danh/phạm vi/neo cây |
+| S04 Gắn phụ thuộc | `x` | Field slot(s) | Field slot(s) | HMITL: MOIT + MOUT; AUTO: human-form slot = `x` | MOT slot lặp theo từng bước quy trình |
+| S05 Sắp xếp/nối | `x` | cột/filter/thứ tự/time/totals/distribution | thứ tự field/vùng nhập-đọc | nối MOIT/MOUT với việc và các handoff liên quan | thứ tự/nhánh/handoff/hội tụ các MOT |
+| S06 Config máy | technical field config | JSON/output/data binding | Collection/Field/address/type/contract/binding | HMITL: binding form + giao việc/ai làm-ai nhận/chạy-kết thúc; AUTO: **machine input/output/binding bắt buộc, không human form** | event/checkpoint/data/role/condition/binding của quy trình |
+| S07 Test | validate Field + chỗ dùng | preview/đúc + test | form/input end-to-end | HMITL: test form + task; AUTO: test automation/binding end-to-end | test toàn MOW + chỗ nối MOT |
+| S08 Lưu/đăng ký | Master Field → return field id/version | Master MOUT → return id/version | Master MOIT → return id/version | Master MOT + workspace/Kanban → return id/version | Master MOW + vận hành → lưu/version/status |
+
+### R3.3 · Cardinality / dependency đã hòa giải
+- **MOIT → Field:** draft có thể 0; `PASS/được dùng = 1..n Field`.
+- **MOUT → Field:** draft có thể 0; `PASS đề xuất = 1..n Field`, nhưng trạng thái **vàng** cho tới khi Builder/contract xác nhận trường hợp report không Field có hợp lệ hay không.
+- **MOT(HMITL):** PASS yêu cầu **slot mặc định 1 MOIT + 1 MOUT** theo quy ước hội đồng được source/UI hỗ trợ. **Trần tối đa chưa khóa**; nếu Config/binding chứng minh nhiều slot thì nới mà không phá mã bước.
+- **MOT(AUTO):** `0 human form` hợp lệ; ghi `AUTO_NO_HUMAN_FORM`. Nhưng **S06 machine binding/input-output/config là bắt buộc** và S07 phải PASS; không được hiểu AUTO = không có contract dữ liệu.
+- **MOW → MOT:** `1..n MOT`; nhánh Owner chốt: MOT có → chọn/gắn; chưa có → PROCESS(MOT).CREATE → PASS → quay lại đúng slot MOW.
+
+### R3.4 · Quy tắc S04 dùng chung
+`X cần Y → Tìm Y → [có: chọn/gắn] | [chưa: PROCESS(Y).CREATE → Y PASS → return_to_step → gắn] → test nối → tiếp tục`.
+Mỗi dependency record phải có:
+`min/max hiện biết · required/optional/x · source_basis · confidence/status · return_to_step · selected_id/version`.
+
+### R3.5 · Bảng chi tiết bắt buộc cho mỗi mã Step
+Mỗi `<OBJECT>.Sxx` mở bảng chi tiết có mã ổn định, tối thiểu:
+`lifecycle_state · Điểm vào/UI · Bấm/Hành động · Khai tay · Config máy · Phụ thuộc/nhánh · Kết quả mong đợi · Lỗi/quay về · Nơi quản lý sau tạo · Thông tin quản lý · UI_state · bằng chứng · manual_count · config_count`.
+
+Hai cột tổng ở bảng Step chỉ đếm từ bảng chi tiết; chưa có danh sách đã rà thì để trống, không coi là 0.
+
+### R3.6 · Trạng thái UI 5 giá trị
+- `UI_OK` xanh — Owner đã chốt UI cho đúng step; bắt buộc `bang_chung + ngay_owner_chot`.
+- `UI_CAN_SUA` vàng — UI có nhưng chưa chốt cho step hoặc cần sửa.
+- `UI_THIEU` đỏ — chưa có UI cần thiết, blocker.
+- `CHUA_RA` xám — chưa rà/thiếu evidence.
+- `KHONG_CAN_UI` x — step máy tự làm, không cần UI người dùng.
+
+Không suy `UI_OK` chỉ từ việc có URL. Mâu thuẫn FIELD cũ/mới giải bằng evidence + ngày Owner chốt.
+
+### R3.7 · Quản lý sau tạo
+Mỗi đối tượng phải chỉ rõ:
+1. **Master/Registry:** tìm, ID/code, version, trạng thái, nơi dùng/parent refs, ngừng/lưu trữ.
+2. **Workspace/Canvas/Config:** nơi vận hành/chỉnh cấu hình nếu có.
+Các trường quản lý thực tế phải lấy từ UI/contract đã rà; không biến danh sách gợi ý thành schema nếu chưa có bằng chứng.
+
+### R3.8 · Deep-link contract sandbox-safe
+URL ngoài:
+`/knowledge/modules?task=mow-mot-moit-mout&view=<...>&section=<field|mout|moit|mot|mow>&step=<OBJECT.Sxx>&detail=<id>`.
+
+- Browser-visible query do **KB/top parent** sở hữu.
+- Work HTML sandbox chỉ dùng hash nội bộ; không tự `pushState/replaceState` query ngoài.
+- Relay hai tầng: `KB/top ↔ HVU app ↔ sandbox work HTML`.
+- Sandbox không thêm `allow-same-origin`.
+- Message sandbox child được xác thực bằng `event.source === iframe.contentWindow` + schema allowlist `view|section|step|detail`; value `^[a-z0-9._-]{1,40}$`; bỏ key lạ. Chiều xuống opaque child dùng `postMessage(...,'*')`.
+- Handshake: child gửi `ready`; parent gửi/replay route mới nhất sau ready.
+- Standalone “Mở rộng ↗” vẫn route bằng hash.
+
+Acceptance: A1–A7 URL01 + A8 standalone hash mở đúng step + A9 sandbox giữ nguyên, không thêm `allow-same-origin`.
+
+### R3.9 · JEV evidence cuối
+- `gen-dec-1790131725-PipG3goneS1zYAMJ6fli`: xương 8 bước = 1.00; UI 5-state = 0.99/1.00; deep-link kiến trúc = 1.00.
+- `gen-dec-1790131823-9HT2scV7fWduN7yYXgxh`: draft form 0 / PASS ≥1 Field = 0.85; HMITL one MOIT + one MOUT = 0.84.
+- `gen-dec-1790132874-cPBXDdCT8OQwxHPYsCZG`: AUTO 0 human form + machine binding = 1.00; HMITL 1+1 là council convention supported by source = 0.96; default one, max open = 0.99.
+
+## NEXT sau MAP-R3
+- **Chờ Owner chốt MAP-R3.** Không cần thêm vòng Claude: Claude `f53cee5` đã xác nhận nếu Host nhận ngoại lệ AUTO thì P12 CLOSED.
+- Sau Owner chốt, Host mới soạn prompt/READY/RUN cho Agent sửa HTML Step + deep-link. Không giao Agent tự suy nghiệp vụ thêm.
+
 
 ## Kế hoạch
 - MMIM.1 | Tạo work + import file gốc, đổi tên thống nhất | ✅ `569bb74300a15d05e455bf917fe4058f7f7fd499`
