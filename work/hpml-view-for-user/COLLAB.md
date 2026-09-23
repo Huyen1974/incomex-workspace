@@ -96,6 +96,14 @@ Host_ID: GPT-HVU-20260921-A
 Owner giao mở việc: 2026-09-20
 HTML chính: `view.html`
 
+## Giao Agent — HVU-OWNERVIEW01
+- RUN_ID: `HVU-OWNERVIEW01-20260923-01`
+- Executor_Surface: **Claude Code CLI**
+- Runtime Write_Path: capability `fs_*`/VPS đã audit; mã/runtime sửa trực tiếp trên VPS theo README §11.
+- Review đầu vào: Claude incident `bd1551b` — đúng 3 việc, không mở rộng.
+- READY@`1c24a7b1a868073a86d53f2f2ac9a7508ce68103` · commit cuối chạm `PROMPT.md`.
+- RUN: **CHƯA PHÁT**.
+
 ## Trạng thái
 
 - HVU.B3 · Codex/GPT Work · RUN HVU-B3-20260921-01: DỪNG theo P16. Gate PROMPT/READY `fd682db6114c350bb9615875a493eaa23396ddef` khớp. Đã build candidate Agent-data, helper test cô lập A/B/A + presence/clear/TTL/bounds PASS; chưa phải acceptance production. Lượt workspace_read thật trong startup sau deploy trả HTTP502 → rollback ngay; chưa đủ bằng chứng kết luận nguyên nhân do mã B3. Sau rollback Agent-data image `agent-data-r03:20260920-finalclose` healthy, initialize/tools/list/error byte-for-byte giống baseline cả4profile; MCP đọc và ghi báo cáo thật đã phục hồi. Mã ba file Agent-data trở lại nguyên trạng, không bump version/đổi author/message. Claude gateway chưa sửa/deploy; B2.1/UI/webhook/backstop/retention không đổi. `LIVE_CROSS_SURFACE_PENDING`; chưa quan sát identity live B3, không lấy synthetic label thay bằng chứng. Core actor/presence chưa chạy production; acceptance end-to-end còn OPEN. Candidate/evidence/rollback ở `/opt/incomex/deploys/hvu-b3-20260921/`; runtime refs không có commit mới. Báo cáo hiện hữu `knowledge/current-state/reports/hvu-ui03-progress.md` revision6 §HVU-B3-20260921-01 có baseline hashes, output rollback, kiểm kê đường ghi ngoài gateway và giới hạn. Đề xuất RUN sau warm-up/canary rồi mới chuyển live, chưa triển khai. Áp: SAME_COMMIT.
