@@ -94,7 +94,8 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | MỞ LẠI vòng 2 (P18) | R5 trần i
 - VPSC.5d | SEC-01: xoay token Drive + xoá transcript phiên 1 | → gộp vào R3 Phase 0 theo P15(5): xoay TRƯỚC lần dùng Drive kế tiếp
 - VPSC.6 | Theo dõi 2 tuần theo T1–T6 → đóng; mở việc Graph | BỎ theo D11 · lưới dài hạn: Kuma đĩa ≥80% → Telegram + báo image hằng ngày (k)
 - VPSC.7 | Đóng việc | ✔ CLOSED · 2026-09-23 · theo lệnh Owner · chưa hoàn tất: KQ R4b = DỪNG ở phần 4 (đổi múi giờ, Owner bỏ D11); phần 1–3 xong · chuyển `work/done-tasks/` · **MỞ LẠI 23/09 cho vòng 2 (P18)**
-- VPSC.8 | Vòng 2 (P18): trần image + build cache + bật live-restore — PROMPT R5 | ▶ OWNER_APPROVED + Host READY@`e798203` (áp P19–P24) · chờ GPT REVIEWED cùng SHA rồi RUN
+- VPSC.8 | Vòng 2 (P18): trần image + build cache + bật live-restore — PROMPT R5 | STOPPED · B.B5 · restart dockerd bị bộ phân quyền auto-mode của phiên chặn → BUILD_CACHE = PENDING_RESTART (GC mặc định bật nhưng trần 80% đĩa ≈71,7GiB — bằng chứng mã nguồn 29.2.1; cấu hình 5GiB đã soạn + kiểm, chưa áp; cửa sổ an toàn sớm nhất 18:02Z hoặc 00:02Z) · A PASS: live-restore bật qua reload, container không khởi động lại · C: luật (l) hằng tuần `2e6d3f3`+`a84d991` (chỉ thêm dòng), thử khô 30/30, đối chiếu C3 DAT, unresolved 0 (theo 5 diễn giải phạm vi cần Host chấp nhận), lượt đầu xoá 3 tag → kho image 10,779→9,378GiB · D đạt · trống 54,04GiB · xem BAO-CAO R5 · Áp: SAME_COMMIT
+- KQ@VPSC-R5-20260923-01 DỪNG
 
 ## Câu hỏi hội đồng
 - Q01 · Bằng chứng thô trên VPS, không lên repo. GPT: đồng ý có điều kiện (che secret + giới hạn dung lượng + index). Host: ACCEPT — PROMPT §2 (≤200MB, `INDEX.md`). CLOSED · Áp: c0ddf9e

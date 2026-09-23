@@ -4,6 +4,98 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## R5 — Vòng 2: trần image + build cache · 23/09/2026 · executor=Claude Code CLI (Mac → SSH root VPS) · write_path=fs_* (gh) · KQ STOPPED · B.B5
+
+RUN_ID `VPSC-R5-20260923-01` · PROMPT@`e798203ec49a3f231c474aafcd8f9f49aa0bca82` — cổng đạt: commit cuối chạm `PROMPT.md` đúng mã này; `GPT REVIEWED@` + `OWNER_APPROVED@` + Host `READY@` cùng mã; read-gate `workspace_*` (HEAD `b83c201`) rồi AGENTS → COLLAB (A0 vòng 2, D08, D10–D12, P18–P24) → PROMPT. Chạy 04:11–04:55Z (06:11–06:55 giờ máy). NO_CONCURRENT_VPS_MUTATION đạt ở đầu mỗi phần. Ghi repo qua `fs_*` (gh) vì `workspace_*` gắn version với HEAD toàn repo đang đổi liên tục.
+
+### (1) CHO OWNER
+- **Bật `live-restore` xong**: nếu Docker sập, 12 dịch vụ vẫn chạy (không lặp lại sự cố 22/09). Không dịch vụ nào khởi động lại.
+- **Image Docker có luật giữ tự động mỗi Chủ nhật (luật l)**; lượt đầu xoá 3 tag cũ: kho image 10,779 → 9,378GiB; đĩa trống 52,64 → 54,04GiB (44%).
+- **Build cache CHƯA có trần hiệu lực (PENDING_RESTART)**: mã nguồn Docker 29.2.1 chứng minh dọn tự động mặc định đang bật nhưng trần = 80% đĩa (~71,7GiB) — quá rộng. Cấu hình trần 5GiB đã soạn + kiểm; áp cần restart Docker 1 lần, bị van an toàn tự động của phiên chặn → không restart. Hiện build cache ~0,19GiB (đo thư mục).
+- **Cần Host/Owner**: (a) cho phép chạy B5 (restart có kiểm soát) trong cửa sổ an toàn — 20:02 giờ máy (18:02Z) hoặc 02:02 (00:02Z); (b) chấp nhận/từ chối 5 diễn giải phạm vi quét của luật (l) ở mục (4).
+- Lưu ý: trần image là "trần theo số version / working-set"; mỗi deploy để lại bản sao compose `.bak` sẽ giữ thêm 1 version → trần chỉ chặt khi bản sao rollback cũng có hạn giữ (đề xuất lượt sau).
+
+### (2) Phần A — `live-restore` = BẬT (PASS)
+| Bước | Kết quả |
+|---|---|
+| A1 | Swarm `inactive`; `daemon.json` gốc chép vào hồ sơ + sha256 (`f6fa37aa…`) |
+| A2 | Bản mới = gốc + `"live-restore": true` bằng `jq` (giữ `log-driver`/`log-opts`); `dockerd --validate` OK (`3ceba3d8…`) |
+| A3 | Cài → `systemctl reload docker` (1 lần) → `LiveRestoreEnabled=true`; dockerd không đổi PID; 12 container StartedAt không đổi; health như cổng; journal không cảnh báo/lỗi reload |
+
+### (3) Phần B — build cache = PENDING_RESTART
+**B1:** Engine 29.2.1 (GitCommit `6bc6209`), containerd v2.2.1, image store = containerd snapshotter, `daemon.json` không có mục `builder`.
+
+**B2 — bằng chứng mã nguồn** (moby tag `docker-v29.2.1` = `6bc6209`, khớp GitCommit đang chạy; đọc trên Mac, chỉ đọc):
+- `daemon/config/builder.go` ~94–96: `IsEnabled()` = `Enabled == nil || *Enabled`; `UnmarshalJSON` đặt mặc định `Enabled = true` ⇒ **GC bật mặc định**.
+- `daemon/internal/builder-next/controller.go` 467–502 `getGCPolicy`: không có `policy` → `DefaultGCPolicy(root, DefaultReservedSpace, DefaultMaxUsedSpace, DefaultMinFreeSpace)` (trống = 0).
+- `daemon/internal/builder-next/worker/gc.go` 11–16 + 24–70: cả ba = 0 → suy từ đĩa: reserved 10%, **maxUsed 80%**, minFree 20% (`diskPercentage` làm tròn lên theo GB); 4 luật: cache tạm >512MB sau 48h, không dùng 60 ngày, giữ dưới trần, rồi `All`.
+- Quy ra đĩa 102.888.095.744 B: maxUsed = 77e9 B (**71,71GiB**), reserved 10e9 B (9,31GiB), minFree 20e9 B (18,63GiB) ⇒ trần > 10% đĩa → **không đạt nhánh 1 của B4**.
+- Khi chạy: `vendor/github.com/moby/buildkit/control/control.go` 131–136, 392: `throttledGC` (≤1 lần/phút) 1 giây sau khi khởi tạo và sau mỗi lần build (Solve).
+- Nạp cấu hình: `daemon/command/daemon.go` 441 `BuilderConfig: cfg.Builder` lúc khởi động; danh sách reload (`daemon/reload.go`) không có `builder` ⇒ cần restart (khớp P19).
+
+**B3:** `du` thư mục buildkit = 200.286.208 B (0,187GiB). Số 0,823GiB của R4 là số API build cache (gồm dữ liệu nằm trong kho containerd); không đo lại bằng lệnh bị cấm — hai cách đo khác nhau.
+
+**B4:** soạn `builder.gc = {enabled: true, defaultMaxUsedSpace: "5GB"}` (giữ live-restore + log-opts), `dockerd --validate` OK (`f0c9c4a7…`). ⚠ `--validate` **không** kiểm giá trị builder (thử `"5XB"` vẫn OK) ⇒ đã kiểm bằng chính parser vendored `go-units.RAMInBytes`: `"5GB"` = 5.368.709.120 B (5GiB), `"5XB"` lỗi. Với maxUsed ≠ 0 thì 4 luật mặc định đều trần 5GiB. Luật (l) có trường `buildkit_du`.
+
+**B5 — không chạy → `BUILD_CACHE = PENDING_RESTART`:**
+- Cửa sổ: cron có 4 job `*/10` (lệch 3/5/7/9 phút, gọi `docker exec`) + 3 job `*/5` → không thời điểm nào thoả "lượt kế tiếp ≥5'" cho mọi job `*/10`, trừ giờ **20** và **02** giờ máy (4 job đó có cổng `H` tự bỏ qua — log cron xác nhận chạy nhưng không gọi docker); code-backup 20:00 xong trong ~40s ⇒ cửa sổ sớm nhất 20:02 giờ máy (18:02Z) hôm nay. Cổng cửa sổ tự động `cua-so.py` (chỉ đọc) đã viết + thử; phân loại: chu kỳ ≤5' = dày (bắt đầu sau lượt vừa xong, kiểm lượt kế), ≤60' = lặp (≥5'), còn lại = giờ cố định (≥15'); dòng cron no-op khi có systemd (debian-sa1, e2scrub, certbot) bỏ qua.
+- Unit phụ thuộc docker: `incomex-kuma-push` (`Requires=docker`, oneshot, RemainAfterExit) sẽ bị restart theo → B5 phải kiểm `active`; hai unit `Requires=` khác là oneshot không chạy.
+- Script B5 (cổng → chụp → cài bản B → 1 restart → kiểm ≤3' → lỗi thì lùi bản A + restart + `docker start` đúng container dừng) đã soạn nhưng **tải lên VPS bị bộ phân quyền auto-mode của phiên chặn ("Modify Shared Resources")** — agent không lách. `daemon.json` hiện hành = bản A (chỉ live-restore).
+
+### (4) Phần C — trần image: luật (l) hằng tuần = CÀI + CHẠY
+**Luật:** Chủ nhật, lượt `:23` giờ UTC 02 (khác 18Z/21Z/01Z); dùng chung khoá người gác; bỏ lượt khi có build/pull/deploy (kiểm cả trước bước xoá); KEEP_SET = (1) ImageID mọi container ∪ (2) ImageID của tham chiếu triển khai/rollback đã resolve bằng `docker inspect --type=image` [(a) tag, (b) `repo@sha256`/ImageID, (c) `docker compose … config --images` với mọi `.env` ứng viên, lấy hợp] ∪ (3) 2 ImageID khác nhau mới nhất mỗi repository; xoá tag ngoài KEEP_SET bằng `docker image rm` không `-f`, `<none>` theo ID; fail-closed (biết repo → giữ cả repo + `IMAGE = PENDING_UNRESOLVED`; không biết → bỏ lượt) + dòng `(l) CANH_BAO`; 1 dòng log; `--chi-l` / `--chi-l-thu`; kế hoạch JSON ghi đè mỗi lượt trong thư mục log incomex.
+
+**Phạm vi quét thực tế** (886 tệp: D1 compose 63 · D2 `.env` 7 · D3 deploys 225 · D4 script 433 · D5 unit + gián tiếp 158; 184 tệp gián tiếp đã mở, 40 trên chuỗi phụ thuộc bắt buộc, 85 tệp gói hệ điều hành bỏ qua; danh sách đầy đủ ở hồ sơ `44-tep-quet.txt`, `45-chuoi-phu-thuoc.txt`). Thư mục: `/opt/incomex` (compose ở mọi nơi kể cả `backups/`), `deploys/`, `scripts/`, `dot/bin/`, thư mục compose (docker, claude-kb, claude-mcp), hai thư mục cowork ngoài `/opt/incomex` (compose của container đang chạy), `/etc/systemd/system` + đích symlink + EnvironmentFile/Exec/include.
+
+**5 diễn giải cần Host chấp nhận** (JEV `typesafe/jev-1.13` `gen-dec-1790139430-lBJvfLaBrZRpQ6WIEtCn`: `defensible_needs_host_ack` 0,60 / violates 0,29; loại trừ gói OS 0,83; phải nêu rõ 0,79):
+1. Không quét tài liệu/bằng chứng/mã nguồn ứng dụng (chỉ nhắc tên, không triển khai) — quét cả cây cho 42/49 ImageID "được tham chiếu", tức gần như không còn trần.
+2. Tệp của gói Ubuntu còn nguyên (md5 = bản phát hành dpkg) không mở/không theo; tệp gói đã sửa tay vẫn theo. Bản nháp đầu theo cả unit hệ điều hành cho 16 unresolved đều ở script gói Ubuntu (grub, ufw, sysstat, e2scrub, apparmor) hoặc script cron chỉ được nhắc tên.
+3. Cạnh bắt buộc = EnvironmentFile (không `-`), chương trình Exec, đối số Exec là tệp tồn tại, include (`source`/`.`/`--env-file`/`compose -f`) trong tệp nằm trên chuỗi đó; đường dẫn chỉ được nhắc tên thì vẫn mở + quét (giữ thêm) nhưng thiếu/động không tính unresolved.
+4. Tag không còn trên máy (9 tham chiếu) = "vắng", không giữ gì, không tính unresolved.
+5. Tệp compose có `env_file` thiếu mà dòng `image:` là chữ cố định → resolve theo chữ (chắc chắn).
+
+**C2 thử khô** (docker giả, bản sao script log/khoá riêng, bỏ (a)–(i)): **30/30 PASS** — nhánh thường; image container đang dùng (kể cả `<none>` của container dừng) không vào; tag qua biến Compose `app:${TAG}` + `.env` không vào; chỉ `repo@sha256` không vào; hai tag cùng một ImageID → vẫn giữ 2 ImageID; `<none>` thuộc KEEP_SET không xoá, ngoài KEEP_SET xoá theo ID; tham chiếu chỉ trong EnvironmentFile / include của wrapper / đích symlink không vào; unresolved biết repo → giữ cả repo, repo khác vẫn xoá, CANH_BAO; EnvironmentFile thiếu hoặc include động → bỏ lượt; có build → bỏ lượt; socket lỗi → `(l) LOI` rc=0; conflict → bỏ qua đếm; cổng ngày/giờ đúng/sai; tham số sai rc=2; không `-f`/lệnh cấm. `bash -n` đạt; diff so với `45d5bc3` = **613 dòng thêm, 0 sửa/xoá** ((a)–(k) giữ từng byte). Git cục bộ `/opt/incomex`: `2e6d3f3` + `a84d991`.
+
+**C3** chạy thật `--chi-l-thu` + **đối chiếu chéo độc lập** (mã riêng): lần đầu phát hiện luật bỏ sót `backups/` (bản sao compose trước deploy giữ `agent-data-workspace:20260917-git`) → sửa `a84d991` → chạy lại: (1) container 12 · (2) tham chiếu 33 (compose sống + mọi `image:` chữ: 79 ref → 27 ID, đều nằm trong) · (3) top-2 13 · **KEEP_SET 47** · danh sách xoá 2 ID / 3 tag · **giao KEEP_SET = 0** · tag của KEEP_SET lọt = 0 · repository về 0 image = 0 · ref a52/b5/c36 · vắng 9 · **unresolved = 0** ⇒ DAT.
+
+**C4** chạy thật `--chi-l` 1 lần (73s): xoá `agent-data-local:pre-s178-cutllm`, `agent-data-local:s178-cutllm-20260417-041528`, `agent-data-local:s178-cutllm-latest` (2 ImageID 04/2026, ngoài mọi tham chiếu), bỏ qua 0, lỗi 0; image 49 → 47; kho thật (thư mục gốc Docker + containerd) 11.574.427.648 → 10.069.172.224 B (**−1,40GiB**); 12 container StartedAt không đổi, health như cổng. `--chi-l-thu` sau đó: 0 mục ⇒ steady-state **9,378GiB**.
+
+| Repository | ImageID | đang dùng | tham chiếu | giữ | tag giữ | tag xoá |
+|---|---|---|---|---|---|---|
+| claude-mcp-local | 14 | 1 | 11 | 14 | 22 | 0 |
+| agent-data-local | 5 | 0 | 1 | 3 | 3 | 3 |
+| agent-data-hardening | 4 | 0 | 2 | 4 | 7 | 0 |
+| agent-data-r03 | 3 | 0 | 2 | 3 | 5 | 0 |
+| agent-data-hvu | 3 | 1 | 1 | 3 | 3 | 0 |
+| claude-kb-local | 3 | 1 | 1 | 3 | 4 | 0 |
+| agent-data-continuation · agent-data-workspace · cowork-mcp-local · cowork-runner-local | 2 mỗi repo | 0–1 | 0–2 | 2 | 2 | 0 |
+| 11 repository 1 ImageID (dịch vụ + nền) | 1 | — | — | 1 | 1 | 0 |
+
+Trần theo số version / working-set: mỗi repository ≤ đang dùng + tham chiếu + 2 (vd. claude-mcp-local = 1 + 11 + 2). Không phải hard-cap GB. ⚠ Số "tham chiếu" tăng khi deploy để lại bản sao compose `.bak`/ghi chú rollback mới — chưa có luật giữ cho các bản sao đó.
+
+### (5) Trạng thái trước / sau
+| | Trước (04:11Z) | Sau (04:53Z) |
+|---|---|---|
+| Đĩa | 46% · trống 52,644GiB | 44% · trống 54,041GiB |
+| `LiveRestoreEnabled` | false | **true** |
+| Container | 12; 10/10 healthy | 12; 10/10 healthy; StartedAt không đổi; dockerd cùng PID |
+| Image · kho thật | 49 · 10,779GiB | 47 · 9,378GiB |
+| build cache (`du` buildkit) | 0,187GiB | 0,187GiB · trần mặc định 71,7GiB (5GiB chờ B5) |
+| Qdrant · Web · Directus | green 20.187 · 200 · ok | green 20.187 · 200 · ok |
+| systemd failed | cloud-init, networkd-wait-online | như trước |
+
+**D — kiểm cuối:** Kuma running/healthy; `/etc/cron.d/kuma-push` + crontab root/incomex + `/etc/crontab` + mọi `cron.d` + 13 file timer trùng byte bản chụp R4b; `kuma-push.sh cron|disk` rc=0; `incomex-kuma-push` active; liệt kê Drive bằng cấu hình hiện hành rc=0. ⚠ Không chụp sha256 cấu hình rclone ở cổng; mtime của nó = 04:15:02Z — do cron phái cử (dùng rclone, chạy 04:15:01Z) làm mới token OAuth định kỳ, R5 không ghi tệp này.
+
+`incomex-cowork-runner` tự thoát rc=0 lúc 04:05:58Z (trước R5) và được `unless-stopped` bật lại — không liên quan R5; từ đó StartedAt không đổi.
+
+### (6) Đường lùi + hồ sơ
+- Hồ sơ: `/var/lib/incomex-audit/VPSC-R5-20260923/` (660K, ngoài Git; luật (h) tự xoá sau 30 ngày không đổi): trạng thái trước/sau, `daemon.json` gốc/A/B + sha256, kiểm cửa sổ `cua-so.py`, thử khô `c2/`, kế hoạch (l) + đối chiếu C3, danh sách tệp quét.
+- A: chép `10-daemon.json.goc` về `/etc/docker/daemon.json` → `systemctl reload docker` (không restart).
+- B: chưa áp gì; `12-daemon.json.B` sẵn cho B5.
+- C: `cd /opt/incomex && git revert a84d991 2e6d3f3` (hoặc chép `vps-retention.sh.truoc-R5`, sha256 kèm). Image đã xoá không lùi được — đường lùi vận hành là 2 ImageID giữ lại mỗi repository + build lại từ mã.
+
+---
+
 ## KẾT — Đóng việc · 23/09/2026 · Host (Claude Chat) · CLOSED theo lệnh Owner (D11)
 
 ### Cho Owner (30 giây)
