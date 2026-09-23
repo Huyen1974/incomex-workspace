@@ -32,6 +32,7 @@ Xác nhận User: ĐÃ XÁC NHẬN (nguyên văn lời User, 2026-09-23)
 ## Trạng thái
 - 2026-09-23 · Mở việc theo chỉ đạo Owner; Host Claude Chat; Executor dự kiến Codex/GPT Work. PROMPT `MT3-20260923-01` đã soạn.
 - READY@7192b994fd69c5a94707f8c0ad42d59e464e7873 · Host Claude Chat · đã đối chiếu Git log: commit cuối chạm `work/muc-tieu-3-phan/PROMPT.md`; sẵn sàng RUN `MT3-20260923-01` cho Codex/GPT Work.
+- Owner 23/09/2026: **CHỐT GIAO**. Executor_Surface=`Codex/GPT Work`. Write_Path bắt buộc: runtime VPS=`SSH/deploy path hiện hữu theo README §11`; tài liệu `incomex-workspace`=`workspace_*` với expected version/head. Trước mutation phải read-gate đúng cả hai đường; thiếu/bind fail thì DỪNG, không tự đổi sang Git/native hay GitHub→VPS. Scope chỉ MT3; không triển khai deep-link/MMIM/HVU khác ngoài việc di trú riêng §0 của các task theo PROMPT.
 
 ## Owner cần quyết
-- Phần 2 “Thế nào là hoàn thành” đang là đề xuất của Host — Owner gật hoặc gõ lại theo ý mình (không chặn RUN).
+- —
