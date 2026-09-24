@@ -1,2 +1,150 @@
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Graph Server — Business × JEV × Code</title></head><body><main><h1>Graph Server — Business × JEV × Code</h1><p>ĐANG BIÊN TẬP HỒ SƠ · Chưa chốt công nghệ hoặc triển khai.</p><p>Mục tiêu Owner: business graph → kết hợp JEV → tận dụng skill/framework chính thức → dựng quan hệ code.</p><p>Bối cảnh: Owner đã dọn VPS còn hơn 50GB; hồ sơ đang được hoàn thiện trên chính tài liệu này trước khi hội đồng review.</p><!-- GS_DOSSIER_BODY --></main></body></html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Graph Server — Business × JEV × Code</title></head><body><main><h1>Graph Server — Business × JEV × Code</h1><p>ĐANG BIÊN TẬP HỒ SƠ · Chưa chốt công nghệ hoặc triển khai.</p><p>Mục tiêu Owner: business graph → kết hợp JEV → tận dụng skill/framework chính thức → dựng quan hệ code.</p><p>Bối cảnh: Owner đã dọn VPS còn hơn 50GB; hồ sơ đang được hoàn thiện trên chính tài liệu này trước khi hội đồng review.</p>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;background:#f5f7fb}
+body{margin:0}main{max-width:1500px;margin:0 auto;padding:28px}h2{margin-top:34px;border-bottom:1px solid #d8deea;padding-bottom:8px}
+.card{background:#fff;border:1px solid #dfe4ee;border-radius:12px;padding:16px 18px;margin:14px 0}table{width:100%;border-collapse:collapse;background:#fff;margin:12px 0 20px;font-size:14px}
+th,td{border:1px solid #dfe4ee;padding:9px 10px;vertical-align:top;text-align:left}th{background:#eef2f8}.good{font-weight:700}.warn{font-weight:700}
+code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#eef2f8;border-radius:4px;padding:2px 4px}.priority{display:grid;grid-template-columns:48px 1fr;gap:10px;margin:8px 0}.priority b{font-size:20px}
+</style>
+
+<section class="card">
+<h2>0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên</h2>
+<div class="priority"><b>1</b><div><strong>Business Graph:</strong> tạo các mối quan hệ hữu hạn trong business; không thiết kế như mạng xã hội có không gian relation mở vô hạn.</div></div>
+<div class="priority"><b>2</b><div><strong>Graph × JEV:</strong> Graph truyền thống và JEV bổ sung đúng vai theo hướng dẫn mới nhất của TypeSafe và Diogo Almeida.</div></div>
+<div class="priority"><b>3</b><div><strong>JEV future-ready:</strong> ưu tiên skill/framework chính thức để Incomex tận dụng các primitive/pattern mới khi JEV phát triển.</div></div>
+<div class="priority"><b>4</b><div><strong>Code Graph:</strong> dựng quan hệ code để Agent/AI hiểu dependency và impact nhanh khi hệ thống phức tạp.</div></div>
+<p><strong>Bối cảnh:</strong> Owner đã dọn VPS còn hơn 50GB cho hướng này. Đây là capacity context, chưa phải giấy phép triển khai hay tiêu hết dung lượng.</p>
+</section>
+
+<h2>1. Nguyên tắc ghép Graph với JEV từ TypeSafe</h2>
+<div class="card">
+<p>TypeSafe official skill mô tả System One/JEV như <strong>programmable common sense</strong>: code giữ workflow, hard rules, lookup, calculation và execution; JEV chỉ cung cấp judgment semantic có kiểu.</p>
+<ol>
+<li><strong>Graph/schema tạo không gian hợp lệ:</strong> entity type, relation type, cardinality, direction, domain/range, validity/provenance.</li>
+<li><strong>Code lọc luật cứng trước:</strong> điều gì xác định được bằng dữ liệu/rule thì không gọi JEV.</li>
+<li><strong>JEV chỉ xử lý bounded semantic:</strong> <code>choice</code>, <code>noul</code>, <code>score</code>; có <code>none/no-match</code> khi candidate có thể thiếu.</li>
+<li><strong>Probability/confidence không phải quyền ghi:</strong> threshold phải đánh giá trên dữ liệu Incomex; thiếu evidence/không chắc → reasoning model hoặc human review.</li>
+<li><strong>Canonical graph chỉ nhận edge sau policy gate:</strong> lưu source, actor, time learned, valid-from/valid-to và loại bằng chứng.</li>
+</ol>
+<p>Điều này khớp bài công bố JEV của Diogo Almeida ngày 15/09/2026: workflow tin cậy thường gồm nhiều judgment nhỏ, độc lập/decomposed; branching cuối cùng nằm trong domain-specific code thay vì model sinh prose tự do.</p>
+</div>
+
+<table><thead><tr><th>JEV component</th><th>Dùng trong Graph Server</th><th>Kết luận vòng 1</th></tr></thead><tbody>
+<tr><td><strong>TypeSafe official Agent Skill</strong><br><span class="mono">typesafe-ai/skills</span></td><td>Thiết kế workflow, primitive, state/questions, uncertainty, eval; đọc live docs/cookbook.</td><td class="good">Nguồn thiết kế ưu tiên.</td></tr>
+<tr><td><strong>System One primitives</strong></td><td><code>choice</code> relation/candidate; <code>noul</code> điều kiện; <code>score</code> mức có thứ tự.</td><td class="good">Khớp trực tiếp graph hữu hạn.</td></tr>
+<tr><td><strong>JEV Reference hiện có</strong></td><td>Ý kiến thứ hai cho quyết định bounded của Agent/Host; gateway OpenRouter đã nghiệm thu.</td><td class="good">Tái dùng, không dựng gateway thứ hai.</td></tr>
+<tr><td><strong>TypeSafe Playground graph-routing</strong></td><td>Pattern: graph định nghĩa allowed nodes, JEV chọn candidate, policy kiểm lại trước action.</td><td>Reference hữu ích; playground tự ghi là community project, không coi là production contract.</td></tr>
+</tbody></table>
+
+<h2>2. Các lựa chọn không cùng một tầng</h2>
+<table><thead><tr><th>Tầng</th><th>Vai trò</th><th>Ứng viên</th></tr></thead><tbody>
+<tr><td>A. Canonical graph</td><td>Entity/relation chuẩn, constraint, traversal, temporal/provenance.</td><td>Neo4j; PostgreSQL+AGE; typed PostgreSQL edges; FalkorDB; Neptune.</td></tr>
+<tr><td>B. Vector</td><td>Embedding và semantic/hybrid retrieval.</td><td>PostgreSQL+pgvector; Neo4j vector; Qdrant.</td></tr>
+<tr><td>C. Knowledge/memory</td><td>Extraction, entity resolution, temporal update, agent memory.</td><td>Cognee; Graphiti; Hindsight; Zep; memory frameworks khác.</td></tr>
+<tr><td>D. GraphRAG</td><td>Graph-assisted retrieval trên corpus.</td><td>Microsoft GraphRAG; neo4j-graphrag-python; LightRAG; pgvector/Qdrant RAG.</td></tr>
+<tr><td>E. Code graph</td><td>File/symbol/import/call/test/dependency/impact.</td><td>Compiler/LSP/AST; graph storage; Cognee/GraphRAG bổ trợ.</td></tr>
+<tr><td>F. JEV</td><td>Judgment semantic trên tập đáp án hữu hạn.</td><td>TypeSafe JEV + official skill/framework; Incomex JEV Reference.</td></tr>
+</tbody></table>
+
+<h2>3. Graph + Vector — so sánh đầy đủ</h2>
+<table><thead><tr><th>Lựa chọn</th><th>Điểm mạnh</th><th>Điểm yếu / rủi ro</th><th>Vai trò</th></tr></thead><tbody>
+<tr><td><strong>PostgreSQL + pgvector</strong></td><td>SQL/ACID/backup quen; metadata + vector cùng DB; exact NN, HNSW, IVFFlat.</td><td>Không phải property graph/ontology engine.</td><td class="good">Giữ làm nền vector mặc định để đánh giá.</td></tr>
+<tr><td><strong>PostgreSQL + Apache AGE + pgvector</strong></td><td>Một PostgreSQL vật lý chứa relational + Cypher graph + vector; AGE upstream có regression test với pgvector.</td><td>Không tự giải ontology/entity resolution/temporal ingestion; integration framework chưa benchmark.</td><td class="good">Core candidate C.</td></tr>
+<tr><td><strong>Neo4j + PostgreSQL/pgvector</strong></td><td>Graph-native/Cypher/tooling chín; canonical graph rõ; ecosystem KG/agent lớn.</td><td>Hai DB/service; phải quy định ownership/sync identity, provenance, embedding.</td><td class="good">Core candidate A/B.</td></tr>
+<tr><td><strong>Neo4j cả graph + vector</strong></td><td>Neo4j 2026 có native vector index/filter/HNSW; giảm retrieval backend.</td><td>Lệch định hướng pgvector; migration/lock-in khác nếu business data vẫn ở PG.</td><td>Benchmark, không mặc định.</td></tr>
+<tr><td><strong>Typed PostgreSQL entity/relation tables + pgvector</strong></td><td>Constraint finite relations rất rõ; một DB; audit SQL dễ.</td><td>Tự xây traversal/API/temporal/provenance/entity resolution; dễ thành framework tự viết khi graph lớn.</td><td class="good">Core candidate D, baseline ít công nghệ nhất.</td></tr>
+<tr><td><strong>FalkorDB</strong></td><td>Graph nhẹ; Graphiti hỗ trợ tốt; MCP Graphiti mặc định dùng.</td><td>Thêm service; không tận dụng PG/pgvector.</td><td>Secondary nếu Graphiti là lớp chính và Neo4j quá nặng.</td></tr>
+<tr><td><strong>Amazon Neptune</strong></td><td>Managed graph, scale lớn.</td><td>AWS lock-in, chi phí/ops không hợp VPS hiện tại.</td><td>Loại vòng đầu.</td></tr>
+<tr><td><strong>Qdrant</strong></td><td>Vector/hybrid chuyên dụng mạnh.</td><td>Không phải canonical graph; thêm service nếu pgvector đủ.</td><td>Chỉ giữ nếu benchmark bắt buộc.</td></tr>
+<tr><td><strong>Kuzu</strong></td><td>Embedded graph từng tiện local.</td><td>Upstream không còn duy trì; Graphiti đã deprecate.</td><td class="warn">Không chọn cho dự án mới.</td></tr>
+</tbody></table>
+
+<h2>4. Lớp Knowledge / Memory phía trên</h2>
+<table><thead><tr><th>Lựa chọn</th><th>Điểm mạnh</th><th>Điểm yếu / rủi ro</th><th>Vai trò</th></tr></thead><tbody>
+<tr><td><strong>Cognee</strong></td><td>Ingestion→graph/vector; custom graph models; OWL ontology; strict mode; pgvector vector backend; Neo4j graph backend.</td><td>Postgres graph adapter upstream ghi rõ <strong>demo, not production-ready</strong>; graph/vector tách backend; temporal/provenance/code ingestion cần test.</td><td class="good">Rất mạnh cho business ontology/hard graph.</td></tr>
+<tr><td><strong>Graphiti</strong></td><td>Temporal Context Graph; valid/invalid facts, bi-temporal, incremental update, provenance; hybrid retrieval; custom entity types.</td><td>Backend hướng Neo4j/FalkorDB/Neptune; chưa có PG/pgvector canonical path được chứng minh.</td><td class="good">Rất mạnh nếu temporal/supersession chi phối.</td></tr>
+<tr><td><strong>Hindsight</strong></td><td>PostgreSQL+pgvector native; retain/recall/reflect; entity resolution; graph+temporal+semantic+keyword; Hermes integration chính thức.</td><td>Thiên agent memory/observations hơn canonical business ontology; extraction/synthesis có LLM.</td><td class="good">Memory layer tiềm năng, không mặc định canonical business graph.</td></tr>
+<tr><td><strong>Zep</strong></td><td>Managed context graph dựa trên Graphiti.</td><td>Managed/proprietary hơn; giảm kiểm soát.</td><td>Secondary.</td></tr>
+<tr><td><strong>Neo4j Agent Memory</strong></td><td>Graph-native memory nếu đã chọn Neo4j.</td><td>Không thay ontology/ingestion strategy; maturity phải kiểm.</td><td>Theo dõi.</td></tr>
+<tr><td><strong>Supermemory / Mem0 / Letta / Pieces</strong></td><td>Memory/context API thuận tiện.</td><td>Không giải trực tiếp canonical finite business relations.</td><td>Không vào core shortlist; xem khi có use case memory riêng.</td></tr>
+</tbody></table>
+
+<h2>5. GraphRAG/RAG — bổ trợ, không phải Graph Server chuẩn</h2>
+<table><thead><tr><th>Công cụ</th><th>Dùng tốt cho</th><th>Không thay thế</th></tr></thead><tbody>
+<tr><td>Microsoft GraphRAG</td><td>Index corpus, entity/community summaries, global/local retrieval.</td><td>Canonical business graph vận hành/write-back.</td></tr>
+<tr><td>neo4j-graphrag-python</td><td>KG/RAG/retriever khi Neo4j được chọn.</td><td>Ontology governance/temporal lifecycle.</td></tr>
+<tr><td>LightRAG</td><td>Graph-enhanced RAG cho corpus.</td><td>System-of-record business relations.</td></tr>
+<tr><td>pgvector/Qdrant RAG</td><td>Semantic retrieval.</td><td>Graph relation semantics.</td></tr>
+</tbody></table>
+
+<h2>6. Code Graph — deterministic fact trước, semantic judgment sau</h2>
+<table><thead><tr><th>Lớp</th><th>Nguồn</th><th>Relation hữu hạn</th><th>JEV?</th></tr></thead><tbody>
+<tr><td><strong>Deterministic code facts</strong></td><td>Compiler/LSP/AST/tree-sitter/package manifests/Git metadata.</td><td><code>IMPORTS</code>, <code>CALLS</code>, <code>IMPLEMENTS</code>, <code>EXTENDS</code>, <code>DECLARES</code>, <code>TESTS</code>, <code>DEPENDS_ON</code>.</td><td><strong>Không</strong> nếu parser/compiler xác định được.</td></tr>
+<tr><td><strong>Semantic classification</strong></td><td>JEV trên candidate đã dựng.</td><td><code>ROLE_OF_MODULE</code>, <code>LIKELY_OWNER</code>, <code>IMPACT_CLASS</code>, <code>RELATED_DOMAIN</code>.</td><td><strong>Có</strong>, nhưng tách khỏi fact deterministic.</td></tr>
+<tr><td><strong>Document/code knowledge</strong></td><td>Cognee/GraphRAG/embedding.</td><td><code>DESCRIBES</code>, <code>MENTIONS</code>, semantic similarity.</td><td>Có thể dùng JEV rerank/verify.</td></tr>
+</tbody></table>
+
+<h2>7. Shortlist A–E cho hội đồng</h2>
+<table><thead><tr><th>Mã</th><th>Kiến trúc</th><th>Ưu điểm</th><th>Rủi ro phải chứng minh</th></tr></thead><tbody>
+<tr><td><strong>A</strong></td><td>Cognee + Neo4j + PostgreSQL/pgvector + JEV bounded adapter</td><td>Ontology/schema mạnh; hard graph; pgvector giữ nguyên; nhiều thành phần có sẵn.</td><td>Hai DB; ownership/sync; temporal lifecycle; resource; code graph coverage.</td></tr>
+<tr><td><strong>B</strong></td><td>Graphiti + Neo4j/FalkorDB + PostgreSQL/pgvector + JEV bounded adapter</td><td>Temporal/supersession/provenance mạnh.</td><td>Business hard constraints và PG integration; duplicate retrieval/vector.</td></tr>
+<tr><td><strong>C</strong></td><td>PostgreSQL + Apache AGE + pgvector + thin domain/ingestion/JEV layer</td><td>Một PostgreSQL; graph+SQL+vector gần nhau; ít service.</td><td>Glue code; ontology/entity resolution/temporal; AGE production behavior chưa benchmark.</td></tr>
+<tr><td><strong>D</strong></td><td>Typed PostgreSQL graph + pgvector + thin domain/JEV layer</td><td>Đơn giản; finite constraints/audit rõ; một DB.</td><td>Tự xây traversal/API/temporal; nguy cơ thành framework riêng.</td></tr>
+<tr><td><strong>E</strong></td><td>Hindsight + PostgreSQL/pgvector</td><td>Memory+retrieval gọn; Hermes native; ít service.</td><td>Chưa chứng minh canonical hard business ontology; dễ trộn memory với fact.</td></tr>
+</tbody></table>
+
+<h2>8. Điểm giao JEV × Graph nên thử</h2>
+<table><thead><tr><th>Use case</th><th>Graph/code</th><th>JEV</th><th>Boundary</th></tr></thead><tbody>
+<tr><td>Relation classification</td><td>Liệt kê relation hợp lệ theo entity types/policy.</td><td><code>choice</code> + <code>none</code>.</td><td>Proposal; chỉ thành canonical edge sau gate.</td></tr>
+<tr><td>Entity resolution</td><td>Generate candidates bằng exact/fuzzy/vector.</td><td><code>choice</code> candidate/no-match.</td><td>Resolution evidence; merge theo policy.</td></tr>
+<tr><td>Edge semantic check</td><td>Hard constraints/provenance/required fields.</td><td><code>noul</code> semantic compatibility còn mơ hồ.</td><td>Decision trace; không thay authorization.</td></tr>
+<tr><td>Workflow routing</td><td>Graph định nghĩa outgoing nodes/actions.</td><td><code>choice</code> next node.</td><td>Policy re-check trước action.</td></tr>
+<tr><td>Code impact</td><td>Compiler graph tạo exact dependency closure.</td><td><code>score</code>/<code>choice</code> impact/review.</td><td>Review metadata; không sửa dependency fact.</td></tr>
+</tbody></table>
+
+<h2>9. Acceptance tests đề xuất — chưa phải RUN</h2>
+<div class="card"><ol>
+<li><strong>Finite schema:</strong> relation ngoài schema phải reject hoặc giữ riêng dạng proposal.</li>
+<li><strong>Provenance:</strong> mỗi canonical edge truy được source/actor/time và phân biệt observed / deterministic / JEV / LLM inference.</li>
+<li><strong>Temporal:</strong> fact thay đổi phải giữ lịch sử, query current và point-in-time.</li>
+<li><strong>Entity resolution:</strong> alias/tên gần nhau bắt buộc no-match + review path.</li>
+<li><strong>JEV boundary:</strong> không tạo relation type mới, bypass hard rule hay tự cấp quyền ghi.</li>
+<li><strong>Calibration:</strong> threshold đo trên labeled Incomex cases, không lấy demo threshold làm universal.</li>
+<li><strong>Code graph:</strong> import/call/test dependency so với compiler/LSP ground truth; semantic labels tách riêng.</li>
+<li><strong>Resource:</strong> đo RAM/CPU/IO/disk/index/query trên VPS trước khi chốt service count.</li>
+<li><strong>Rollback:</strong> mỗi candidate có đường remove/rollback không làm hỏng Postgres/runtime hiện hữu.</li>
+</ol></div>
+
+<h2>10. P01 GPT Host — giả thuyết để phản biện, chưa phải quyết định</h2>
+<div class="card">
+<p>Giữ PostgreSQL/pgvector; vòng đầu so <strong>A</strong> với <strong>C</strong>, dùng <strong>D</strong> làm baseline ít công nghệ nhất. Chỉ kéo <strong>B/Graphiti</strong> lên ưu tiên nếu temporal/supersession thực sự chi phối business relations.</p>
+<p>Rủi ro đầu tiên phải test là <strong>canonical constraints</strong>: extracted/inferred relation có tuân schema, evidence, validity và authority boundary hay không. JEV Reference trên bộ option này đánh giá rủi ro này probability 0.99/confidence 0.98; còn gợi ý thứ tự A-vs-C chỉ confidence 0.30 nên không dùng để chọn stack.</p>
+<p><strong>Hindsight:</strong> giữ như memory layer tiềm năng, đặc biệt vì Hermes có integration chính thức; memory không tự trở thành canonical business fact.</p>
+</div>
+
+<h2>11. Câu hỏi hội đồng Q01–Q07</h2>
+<table><thead><tr><th>ID</th><th>Câu hỏi</th></tr></thead><tbody>
+<tr><td>Q01</td><td>Finite business graph có cần graph-native DB, hay AGE/typed Postgres đủ cho 3–5 năm?</td></tr>
+<tr><td>Q02</td><td>Temporal/supersession quan trọng tới mức nào; có đủ để ưu tiên Graphiti?</td></tr>
+<tr><td>Q03</td><td>Cognee ontology strict + Neo4j hơn AGE/Postgres ở đâu và đổi lại ops/resource/coupling bao nhiêu?</td></tr>
+<tr><td>Q04</td><td>JEV tham gia checkpoint nào; closed set, hard gate và no-match/escalation ra sao?</td></tr>
+<tr><td>Q05</td><td>Code graph ground truth dùng compiler/LSP/AST nào theo từng ngôn ngữ; phần nào mới giao semantic layer?</td></tr>
+<tr><td>Q06</td><td>Có cần Hindsight memory riêng; nếu dùng, boundary read/write với canonical graph là gì?</td></tr>
+<tr><td>Q07</td><td>Resource envelope VPS cho A/B/C/D là bao nhiêu? 50GB+ free chưa trả lời RAM/CPU/IO.</td></tr>
+</tbody></table>
+
+<h2>12. Nguồn kiểm chứng 24/09/2026</h2>
+<table><thead><tr><th>Nguồn</th><th>Điểm dùng</th></tr></thead><tbody>
+<tr><td><a href="https://github.com/typesafe-ai/skills">TypeSafe official skills</a> · <a href="https://github.com/typesafe-ai/skills/blob/main/skills/typesafe-ai/SKILL.md">official SKILL.md</a></td><td>Code owns workflow/hard rules; primitive/state/questions/uncertainty/eval.</td></tr>
+<tr><td><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">Diogo Almeida — Introducing System One Models &amp; Jev</a></td><td>Structured probabilistic decisions; decomposed judgments + domain-specific workflows.</td></tr>
+<tr><td><a href="https://github.com/pgvector/pgvector">pgvector</a></td><td>Exact NN, HNSW, IVFFlat, iterative scans.</td></tr>
+<tr><td><a href="https://github.com/apache/age/blob/master/regress/sql/pgvector.sql">Apache AGE pgvector regression</a></td><td>AGE + pgvector trong PostgreSQL có upstream test.</td></tr>
+<tr><td><a href="https://github.com/topoteretes/cognee">Cognee</a></td><td>pgvector vector backend; Neo4j graph backend; OWL ontology; Postgres graph demo/not production-ready.</td></tr>
+<tr><td><a href="https://www.getzep.com/platform/graphiti/">Graphiti</a> · <a href="https://help.getzep.com/graphiti/getting-started/welcome">docs</a></td><td>Temporal graph, invalidation, hybrid retrieval, supported backends.</td></tr>
+<tr><td><a href="https://github.com/vectorize-io/hindsight">Hindsight</a></td><td>PostgreSQL+pgvector, retain/recall/reflect, graph+temporal retrieval, Hermes integration.</td></tr>
+<tr><td><a href="https://neo4j.com/docs/cypher-manual/current/indexes/semantic-indexes/vector-indexes/">Neo4j vector docs</a></td><td>Native vector option tồn tại; không mặc định chọn.</td></tr>
+<tr><td><a href="https://github.com/microsoft/graphrag">Microsoft GraphRAG</a></td><td>Graph-assisted corpus retrieval, không phải operational canonical graph.</td></tr>
+</tbody></table>
+<p><small>Cập nhật 24/09/2026. Đây là hồ sơ thảo luận; chưa có stack, migration, cài đặt hay RUN nào được phê duyệt.</small></p>
+</main></body></html>

@@ -38,16 +38,27 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | ĐANG BIÊN TẬP HỒ SƠ | Chưa chốt công nghệ; chưa có PROMPT/READY/RUN | NEXT: hoàn thiện HTML và kiểm Owner View rồi mời hội đồng review.
-- Based_on mở việc: `37ae3fe22bc37894242506e4477b055d32fdc540`. Đã đối chiếu thay đổi chen ngang: chỉ COLLAB/PROMPT của hermes-joint-workspace, không đổi luật hoặc scope này.
-- Đã đọc AGENTS.md → COLLAB.md gốc → README.md → work/README.md; áp khuôn MT3 hiện hành của AGENTS.
+GS | HỒ SƠ VÒNG 1 SẴN SÀNG REVIEW | Chưa chốt công nghệ; chưa có PROMPT/READY/RUN | NEXT: Claude + Hermes phản biện Q01–Q07 và bảng A–E; Host hợp nhất rồi mới xin Owner chốt hướng khảo sát.
+- Based_on mở việc: `37ae3fe22bc37894242506e4477b055d32fdc540`; GS02 hòa giải trên HEAD hiện hành, commit chen ngang không chạm task này.
+- Đã đọc AGENTS.md → COLLAB.md gốc → README.md → work/README.md; áp khuôn MT3 hiện hành.
+- Nghiên cứu cập nhật 24/09/2026: TypeSafe official skill/blog; pgvector; AGE; Cognee; Graphiti; Hindsight; Neo4j vector; GraphRAG. Link nguồn ở `view.html` §12.
 - Áp: SAME_COMMIT.
 
 ## Quyết định Owner
 - D01 · 2026-09-24 · Owner cho phép mở đúng task graph-server, tập hợp nội dung để hội đồng góp ý, giữ bốn ưu tiên và bối cảnh VPS. Không có quyết định chọn stack/cài đặt trong lệnh này.
 
 ## Ý kiến hội đồng
-Chưa ghi nhận ý kiến Claude/Hermes; không coi việc mở hồ sơ là đồng thuận.
+### P01 · GPT Host · OPEN — giả thuyết vòng 1, chờ Claude/Hermes phản biện
+- Based_on: tài liệu Owner + nguồn kiểm ngày 24/09/2026; Scope: `view.html` §1–§11.
+- Đề nghị: giữ PostgreSQL/pgvector; so A (Cognee+Neo4j+PGVector) với C (AGE+PGVector) trước, D làm baseline; B/Graphiti kéo lên nếu temporal/supersession chi phối. Hindsight = memory layer, không mặc định canonical graph.
+- JEV Reference: `gen-dec-1790221175-ygPaecOXX76U0e4Y1yAe`; A-vs-C confidence 0.30 nên KHÔNG coi là chọn công nghệ; `canonical_constraints` probability 0.99/confidence 0.98 dùng để ưu tiên acceptance test.
+- Lý do: mục tiêu #1 yêu cầu relation hữu hạn/kiểm soát; TypeSafe official skill yêu cầu code giữ hard rules/workflow, JEV chỉ làm semantic judgment trên bounded candidates.
+- P01 không phải consensus.
+
+### Yêu cầu Reviewer vòng 1
+- Đọc A0 rồi `view.html`; phản biện Q01–Q07, A–E, boundary canonical fact/JEV judgment/agent memory, code graph deterministic/semantic.
+- Fact kỹ thuật phải có source/runtime; bounded decisions có thể dùng JEV theo AGENTS A5.
+- Không tạo file review mới; ghi Pxx ngay tại mục này theo A3.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
