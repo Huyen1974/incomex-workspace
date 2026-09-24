@@ -1,151 +1,176 @@
-# PROMPT — HJW.2B1 · SEC-CLEAN + Scoped Capability Audit
+# PROMPT — HJW.2C · Generic Agent Gateway + Auth Patch
 
-RUN_ID: HJW-2B1-20260923-02
-STATUS: DRAFT — KHÔNG RUN cho tới khi Host ghi READY@ đúng SHA cuối chạm file này
+RUN_ID: HJW-2C-20260924-01
+STATUS: DRAFT — KHÔNG RUN cho tới khi Reviewer ACCEPT và Host ghi READY@ đúng SHA cuối chạm file này
 
 Executor_Surface: Claude Code CLI trên Mac
-Runtime_Write_Path: SSH/root-operator tới VPS
-Report_Write_Path: fs_* vào work/hermes-joint-workspace/
-Work: work/hermes-joint-workspace/
+Runtime_Write_Path: SSH/root-operator tới VPS; Agent Data source/runtime trên VPS là SSOT
+Report_Write_Path: chỉ cập nhật file hiện hữu `work/hermes-joint-workspace/COLLAB.md` + `view.html` và evidence root-only hiện hữu `CAP-PATH-AUDIT.md`
+Work: `work/hermes-joint-workspace/`
 
 ## Mục tiêu
 
-Sau KQ DỪNG G0.2 của HJW-2B:
-1. Giảm rủi ro L1 ngay: gỡ AGENT_DATA_* khỏi môi trường Hermes nếu xác nhận không consumer hiện hành nào cần.
-2. Giữ Hermes/Telegram/serve hoạt động bình thường sau cleanup.
-3. Chỉ-read khảo sát phương án cấp capability hẹp bằng **thành phần hiện hữu**; chưa triển khai proxy/backend/capability route mới trong RUN này.
-4. Trả lời dứt khoát: có thể tạo endpoint cho Hermes mà **không lộ master key** và endpoint tự enforce capability hẹp (tool + write scope HJW) hay không.
+Theo Owner 24/09:
+1. **Gate 0:** vá lỗ hổng authentication Agent Data đã phát hiện ở HJW.2B1 trước khi bật đường agent mới.
+2. Tạo **một Agent Gateway generic** từ Agent Data tới GitHub/workspace cho Hermes và agent tương lai; không tạo route riêng từng agent.
+3. Mỗi credential xác định một profile server-side: `agent_id`, tool allowlist, allowed roots, read prefixes, write prefixes và trusted attribution.
+4. Hermes là profile production đầu tiên. Claude Code/agent khác **chưa migrate trong RUN này**; nhưng kiến trúc/test phải chứng minh thêm profile sau không cần sửa route code.
+5. Không đưa master `API_KEY` cho Hermes/agent mới; không tin `clientInfo` để cấp quyền/đặt identity.
 
-**Không tiếp tục automation Phase 1 trong RUN này.**
+JEV Host: `gen-dec-1790217958-q1i8W3GQZj6EZBKY6cMG` → GENERIC_AGENT_GATEWAY 1.00.
 
-## Checkpoint
+## Checkpoint / read-gate
 
-- Đọc AGENTS.md → COLLAB.md → PROMPT.md.
-- Kiểm READY@ đúng commit cuối chạm PROMPT.
-- Đọc KQ@HJW-2B-20260923-01 DỪNG + evidence G0.2.
-- Không in/log/hash-compare giá trị secret mới; bằng chứng chỉ dùng tên biến, quyền, route, tool list, status code.
-- Không chạm QDRANT key, OpenRouter key, Telegram token, GSM versions, JEV config.
+- Đọc `AGENTS.md → COLLAB.md → PROMPT.md`; kiểm A0 Owner 24/09 đã xác nhận.
+- Kiểm `READY@<SHA>` đúng commit cuối chạm PROMPT trước mutation.
+- Đọc `KQ@HJW-2B1-20260923-02 XONG` và **evidence root-only hiện hữu** `/opt/incomex/work/hermes-joint-workspace/HJW-2B1-20260923-02/CAP-PATH-AUDIT.md`.
+- Agent Data hiện phải clean worktree; ghi branch + HEAD trước mutation. VPS source/runtime là SSOT: **không pull/deploy từ GitHub xuống VPS**.
+- Xác nhận container `incomex-agent-data` healthy và public Agent Data HTTP sống.
+- **TUYỆT ĐỐI KHÔNG TẠO FILE/TASK/PROJECT MỚI.** Chỉ sửa source/config/test file hiện hữu. Nếu test/rollback bắt buộc cần file mới ⇒ DỪNG xin Owner.
+- Không copy chi tiết exploit/auth bypass, secret value, token/hash secret vào repo/chat/public log. Chi tiết vulnerability chỉ ở evidence root-only hiện hữu.
+- Không chạm Qdrant/OpenRouter/Telegram/GSM ngoài đúng secret material cần cho narrow agent credential. Không tạo Google project/service mới.
 
-## A. Read-gate trước cleanup
+## G0. AUTH PATCH — BẮT BUỘC PASS TRƯỚC GATEWAY
 
-### A1. Consumer thật
-Định nghĩa **consumer** = process/unit/job/script/config tự động đang chạy hoặc sẽ tự chạy và thực sự cần AGENT_DATA_*.
-- xác nhận Hermes core không tham chiếu AGENT_DATA_*;
-- xác nhận config không có mcp_servers;
-- xác nhận `hermes cron status/list` và thư mục cron. **Kỳ vọng 0 job** theo hậu kiểm Hermes. Nếu tại RUN xuất hiện bất kỳ job nào ⇒ DỪNG trước mutation; không tự pause/resume;
-- tìm theo **tên biến** AGENT_DATA_API_KEY / AGENT_DATA_URL trong unit/script/config/notepad/skills/cache và process/socket tới 127.0.0.1:6533;
-- tài liệu skill/cache chỉ nhắc biến nhưng không chạy **không phải consumer**; liệt kê chúng là tài liệu stale để Host xử lý sau, không dùng làm lý do DỪNG;
-- xác định relay 6533 trước đây phục vụ KB/workspace hay chức năng nào và hiện có kết nối active hay không.
+1. Đọc exact finding trong root-only `CAP-PATH-AUDIT.md` và tự đối chiếu source đang chạy.
+2. Vá **tối thiểu** đường bypass đã đo; mọi externally reachable path có thể dispatch MCP tool ghi/exec/xoá phải auth **trước dispatch**.
+3. Legacy `POST /mcp/tools/{tool_name}` phải yêu cầu auth hợp lệ trước đọc body/dispatch theo mức hợp lý; các route hiện hành `/mcp`, `/mcp-readonly`, `/mcp-gpt`, `/mcp-gpt-full` giữ contract/client hiện có.
+4. Không “vá” bằng đóng toàn bộ service hoặc đổi master key nếu không cần.
+5. Bổ sung regression vào **test file hiện hữu**:
+   - missing/invalid key trên bypass cũ và legacy write-capable path ⇒ 401/403, handler không chạy;
+   - valid master key trên route hiện hành vẫn PASS;
+   - không leak route exploit/secret ra test output.
+6. Chạy test G0. FAIL ⇒ rollback source, `KQ DỪNG`; **không viết G1**.
+7. Nếu G0 test PASS: commit G0 riêng trong repo Agent Data từ VPS SSOT. Deploy bằng **cơ chế hiện hữu**, không tạo service/port/listener mới; trước restart Agent Data gửi Owner một dòng Telegram. Không gửi được ⇒ DỪNG trước restart.
+8. Smoke sau deploy: container healthy; public master routes/Full All 2 contract sống; bypass cũ missing/invalid key bị chặn. Regression đỏ ⇒ rollback G0 commit/runtime rồi DỪNG.
 
-Nếu có consumer chạy thật hoặc bỏ biến sẽ phá chức năng đang dùng ⇒ **DỪNG trước mutation** và nêu đúng consumer.
+## G1. GENERIC AGENT GATEWAY — một route, nhiều profile
 
-### A2. Nguồn env + hai service
-Xác nhận:
-- `/run/hermes/or.env` do `hermes-key.service` sinh, không phải nguồn bền;
-- cả `hermes-serve.service` và `hermes-gateway.service` đều đọc cùng EnvironmentFile và file là bắt buộc;
-- xác định source script/resolver tạo AGENT_DATA_* (kỳ vọng `/usr/local/sbin/hermes-key-fetch` + resolver liên quan).
-**Cấm sửa trực tiếp /run/hermes/or.env như giải pháp.**
+Chỉ bắt đầu sau G0 production PASS.
 
-### A3. Tránh xung đột safe-update
-Trước mutation:
-- đọc `systemctl list-timers hermes-safe-update.timer`;
-- đọc `hermes-safe-update status` và lock/state hiện hữu.
-Nếu safe-update đang chạy/giữ lock, hoặc timer kế tiếp ≤15 phút ⇒ DỪNG, không tranh restart.
+### G1.1 Profile registry — tái dùng config hiện hữu
+- Tái dùng file mà env `WORKSPACE_CONFIG` đang trỏ tới; **không tạo config file mới**.
+- Thêm section policy dạng `agent_profiles` (tên field có thể điều chỉnh nếu source yêu cầu, nhưng một registry chung):
+  - `agent_id`: identity canonical server-trusted;
+  - `credential_env`: **tên** biến env chứa credential; config không chứa secret value;
+  - `allowed_tools`;
+  - `allowed_roots`;
+  - `read_paths/read_prefixes`;
+  - `write_paths/write_prefixes`;
+  - attribution label nếu cần.
+- Secret thật nằm trong secret/env material hiện hữu của Agent Data. So khớp credential constant-time; missing env/config malformed/duplicate match ⇒ fail closed.
+- **Không fallback sang master `API_KEY`** trên Agent Gateway.
 
-## B. SEC-CLEAN — thứ tự bắt buộc
+### G1.2 Một route generic
+- Tạo đúng **một route generic**, ưu tiên `POST /mcp-agent` trên Agent Data hiện hữu.
+- Không tạo `/mcp-hermes`, `/mcp-claude`…; agent mới về sau chỉ thêm profile + secret/config.
+- Reuse protocol + tool schema + `_mcp_filtered_handler`/logic hiện hữu ở mức tối đa; không fork một MCP implementation thứ hai.
+- Reuse nginx/API port hiện hữu. Không mở port/listener/service mới. Nếu public `/api/mcp-agent` cần sửa route config, chỉ sửa config hiện hữu.
 
-Chỉ sau A PASS:
-1. Backup **source script/resolver thực sự sẽ sửa** + metadata unit cần rollback vào hồ sơ VPS HJW; không backup plaintext secret.
-2. Sửa **source bền** để không còn materialize AGENT_DATA_API_KEY; bỏ AGENT_DATA_URL nếu không consumer nào cần. **Không sửa /run/hermes/or.env trực tiếp.**
-3. Không thay QDRANT_LOCAL_API_KEY/QDRANT_URL hoặc secret khác. Báo cáo phải ghi rõ **L1 chỉ giảm một phần**, vì Qdrant vẫn ngoài scope.
-4. Gửi Owner một dòng Telegram: `hermes-serve` + `hermes-gateway` sẽ restart, Telegram và desktop có thể gián đoạn vài phút. Không gửi được ⇒ DỪNG trước restart.
-5. **Không restart `hermes-key.service` ở bước này.** Đọc `ExecStart=` thật của `hermes-key.service`, xác nhận đúng source script tạo `/run/hermes/or.env` (kỳ vọng `/usr/local/sbin/hermes-key-fetch` + resolver liên quan), rồi root chạy **trực tiếp đúng source script/command đó** để regenerate env file. Lý do: `hermes-serve.service` và `hermes-gateway.service` đều `Requires=hermes-key.service`; restart key.service sẽ bounce cả hai service trước khi kiểm file.
-6. **Trước khi chạm serve/gateway:** xác nhận `/run/hermes/or.env` tồn tại, permission hợp lệ, các tên biến bắt buộc khác vẫn có, AGENT_DATA_API_KEY/AGENT_DATA_URL đã vắng theo scope cleanup; không in value. File thiếu/hỏng ⇒ rollback source ngay, regenerate lại bằng source script trực tiếp, xác nhận file hợp lệ; **chưa restart serve/gateway**.
-7. Restart **`hermes-serve.service` trước**, chờ active + local status OK.
-8. Restart **`hermes-gateway.service` sau**, chờ active + Telegram connected.
-9. Kiểm `/proc/<MainPID>/environ` của **cả serve và gateway** theo tên biến: AGENT_DATA_API_KEY/AGENT_DATA_URL phải vắng; không đọc/in value khác.
-10. Smoke chính bằng `hermes-safe-update health` (root); phải PASS unit, serve/API, Telegram, version/code và model call. Đọc lại `hermes-safe-update status`.
-11. Đây là phép thử bền qua regenerate: source đã sửa → key.service sinh lại env → hai service nạp env mới. Không coi chỉnh tmpfs thủ công là PASS.
-12. Nếu bước 5–10 FAIL: rollback đúng thứ tự:
-    - restore source script/resolver;
-    - restart hermes-key.service;
-    - kiểm env file hợp lệ;
-    - start/restart serve;
-    - start/restart gateway;
-    - chạy hermes-safe-update health;
-    rồi ghi KQ DỪNG.
-13. Cron baseline = 0 job nên **không pause/resume**. Nếu runtime khác baseline và có job ⇒ A đã phải DỪNG trước mutation.
+### G1.3 Trusted identity
+- Credential hợp lệ ⇒ server xác định `agent_id` từ profile.
+- Với Agent Gateway, identity/attribution/presence/Git author signal phải lấy từ authenticated profile, **không** từ `clientInfo`, `User-Agent` hoặc header tên agent do client tự khai.
+- Forged `clientInfo` không được đổi effective identity.
+- Có thể bổ sung helper vào `hvu_signals.py` hiện hữu; không tạo module mới.
 
-## C. CAP-PATH-AUDIT — CHỈ ĐỌC, KHÔNG triển khai
+### G1.4 Tool + root + path scope — server-side
+- Enforce tool allowlist trước argument validation/dispatch.
+- Enforce root/path ở **một choke point chung** (ưu tiên `workspace_tools.call` hoặc context/policy guard tương đương), không chỉ kiểm ở UI/client.
+- Read scope và write scope tách riêng.
+- Prefix match phải component-aware: `work/a` không được match `work/abc`.
+- Tool có path/from/to/operations nested phải kiểm toàn bộ đường liên quan; không chứng minh được path an toàn ⇒ deny.
+- Raw MCP/HTTP không bypass scope.
+- Master routes không mang agent profile thì giữ behavior hiện hành sau G0.
 
-Đọc mã/config Agent Data đang chạy và audit đủ:
-- `/mcp`
-- `/mcp-readonly`
-- `/mcp-gpt`
-- `/mcp-gpt-full`
-- **`POST /mcp/tools/{tool_name}` legacy**
-- `require_api_key` / auth model
-- `_mcp_filtered_handler` + allowlists
-- mọi guard write theo path/document_id.
+### G1.5 Hermes profile đầu tiên — least privilege
+Production profile Hermes:
+- `allowed_roots = ["workspace"]`.
+- Read: chỉ exact `AGENTS.md`, `README.md`, root `COLLAB.md` và `work/hermes-joint-workspace` + descendants.
+- Write: chỉ `work/hermes-joint-workspace` + descendants.
+- Tool allowlist đầu: `workspace_list, workspace_read, workspace_search, workspace_stat, workspace_log, workspace_diff, workspace_edit`.
+- **Không cấp** `workspace_write_new`, transaction, move/copy, import/upload/restore, task_*, exec, delete, UI, `vps_status`.
+- `workspace_result_read` chỉ được cấp nếu continuation/result đã bind cùng authenticated profile; nếu chưa có binding ⇒ không cấp trong RUN này, ghi follow-up.
+- Master key Agent Data **không** quay lại env Hermes.
 
-Phải trả lời:
+### G1.6 Credential Hermes
+- Tạo narrow credential ngẫu nhiên đủ mạnh; không in/log.
+- Đặt server copy vào secret/env material **hiện hữu** của Agent Data theo `credential_env`.
+- Đưa client copy cho Hermes qua root-managed secret materialization hiện hữu; Hermes process chỉ nhận narrow key, không nhận master/GSM quyền.
+- **Không tạo persistent secret file mới.** Nếu hạ tầng hiện hữu không chứa được credential nếu không tạo file/resource mới ⇒ DỪNG xin Owner.
+- Cấu hình `mcp_servers` hiện hữu của Hermes trỏ route generic qua relay/public path phù hợp; không tạo service/port mới.
 
-### C1. Secret isolation
-Có cách giữ master Agent Data key ở server/root side để user/process Hermes không đọc được không? Nêu rõ nếu cần listener/socket/header injection mới.
+## G2. TEST — dùng file hiện hữu, không tạo fixture mới
 
-### C2. Caller boundary
-Có thể hạn chế caller bằng UNIX socket/SocketMode/SocketUser/SocketGroup/client ticket hiện hữu không? C2 PASS **không tự động** làm C3 PASS.
-**Làm rõ:** đổi `ListenStream` của **socket unit hiện hữu** sang UNIX socket + `SocketMode`/`SocketUser`/`SocketGroup` vẫn được tính là dùng thành phần EXISTING; chỉ khi phải tạo unit/service/listener mới mới bị loại bởi CẤM.
+### G2.1 Unit/regression
+Bổ sung vào **test files hiện hữu**:
+1. Hai profile giả lập, hai credential khác nhau, khác scope; thêm profile thứ hai chỉ sửa config fixture/env, **không sửa route code**.
+2. Key A không dùng được profile/scope B; invalid/no key fail closed.
+3. Tool ngoài allowlist không xuất hiện trong `tools/list` và `tools/call` bị reject trước dispatch.
+4. Read/write ngoài root/path scope bị reject.
+5. Forged `clientInfo` không đổi authenticated `agent_id`/Git attribution.
+6. Existing master routes + acceptance hiện hành vẫn PASS.
+7. Nếu continuation không identity-bound thì Hermes profile không expose `workspace_result_read`.
 
-### C3. Capability boundary
-Server-side phải tự enforce:
-- đúng tool cần;
-- nếu có write repo thì chỉ `work/hermes-joint-workspace/**`;
-- cấm delete/destructive/exec ngoài scope;
-- raw HTTP/MCP không bypass được.
+### G2.2 Live Hermes — không tạo file mới
+Sau local/unit PASS và deploy:
+- no/invalid/master key trên `/mcp-agent` ⇒ reject;
+- narrow Hermes key ⇒ `tools/list` đúng allowlist;
+- đọc `AGENTS.md` PASS;
+- đọc ngoài scope, ví dụ một task khác dưới `work/` ⇒ DENY trước trả content;
+- gọi tool bị cấm ⇒ DENY;
+- **write thật**: dùng `work/hermes-joint-workspace/view.html` hiện hữu. Ghi một thay đổi marker tối thiểu bằng `workspace_edit`, kiểm commit author/identity = authenticated Hermes, rồi revert ngay bằng `workspace_edit` thứ hai; hash byte cuối phải đúng bằng hash trước test. Không sửa `PROMPT.md` trong test.
+- thử write ngoài HJW ⇒ DENY, 0 diff.
+- forged client name vẫn attribution Hermes.
 
-Phân biệt rõ guard path KB/document_id với guard path repo workspace; không coi hai thứ là tương đương.
+### G2.3 Public + local path
+- Nếu route được dùng qua relay 6533 và public nginx, test cả path thực tế cần cho Hermes và path public dành cho agent tương lai; **không mở port mới**.
+- Run acceptance hiện hữu cho Full All 2/public route để chứng minh không regression.
 
-### Kết luận bắt buộc — 3 nhánh
-- **FEASIBLE_EXISTING**: C1+C2+C3 đạt bằng config/component hiện hữu, không code change/new listener/service.
-- **FEASIBLE_WITH_MIN_CODE_CHANGE**: không đạt hiện hữu nhưng có thể đạt bằng thay đổi mã nhỏ có review trong Agent Data hiện tại. Phải nêu **chính xác file + route/function tái dùng + guard cần thêm**, nhưng **không sửa mã trong RUN này**. Tọa độ cần kiểm trước để không mò: `agent_data/server.py` → `_mcp_filtered_handler()` khoảng dòng 3516 + mẫu đăng ký route khoảng 3767–3793; repo path guard trong `agent_data/workspace_tools.py` → `relative()` khoảng dòng 87 / `check_parents()` khoảng 148 và primitive write chung `atomic()` khoảng 436. Phải phân biệt với KB guard `_OGV2C_VALID_PREFIXES` trong `server.py` khoảng dòng 1138, vì guard KB/document_id không thay thế guard repo path.
-- **NOT_FEASIBLE**: cần server/proxy/framework mới hoặc thay đổi lớn hơn một route/guard hẹp.
+## G3. DEPLOY / ROLLBACK
 
-Không được gọi “giấu master key” là đủ nếu capability vẫn full-write hoặc legacy route bypass còn mở.
+- Agent Data source trên VPS là SSOT; build/deploy bằng cơ chế hiện hữu. Không force/rebase/pull code từ GitHub xuống.
+- G0 và G1 dùng commit riêng để rollback rõ.
+- Trước mỗi production restart: kiểm worktree sạch/expected HEAD và gửi Owner một dòng Telegram; không gửi được ⇒ DỪNG.
+- G1 fail: rollback G1 về G0-good, giữ auth patch; xóa/disable narrow Hermes profile/key khỏi runtime hiện hữu; **không** trả master key cho Hermes.
+- G0 regression: rollback G0 theo commit trước và DỪNG; không tiếp tục gateway.
+- Không thay/chạm route/plugin Full All 2 ngoài regression cần thiết.
 
-## D. Báo cáo
+## Nghiệm thu bắt buộc
 
-Cập nhật COLLAB.md + view.html:
-- SEC-CLEAN PASS/ROLLBACK/DỪNG;
-- AGENT_DATA_* còn/không còn trong env của **cả hai service**;
-- ghi rõ **L1 giảm một phần** vì Qdrant vẫn ngoài scope;
-- danh sách skill/doc stale tham chiếu Agent Data (không sửa trong RUN này);
-- `hermes-safe-update health/status` sau cleanup;
-- CAP-PATH-AUDIT = một trong 3 nhánh + evidence;
-- nếu MIN_CODE_CHANGE: nêu đúng file/route/function/guard nhỏ nhất;
-- ghi ứng viên tạm thời **S1-lite**: đọc repo public + Telegram cho nhắc lượt/canh RUN/heartbeat, 0 Agent Data, **không triển khai trong RUN này**.
+PASS chỉ khi:
+- AUTH-BYPASS-CLOSED: đường root-only finding đã fail-closed; không public chi tiết exploit.
+- EXISTING-CLIENTS-PASS: Agent Data + Full All 2/master clients không regression.
+- GENERIC: một route code phục vụ ≥2 profile test config độc lập.
+- PER-AGENT-AUTH: credential riêng, no shared master/fallback.
+- TOOL-SCOPE: server-side allowlist.
+- PATH-SCOPE: server-side read/write scope, outside denied.
+- TRUSTED-IDENTITY: attribution từ credential/profile; forged clientInfo vô hiệu.
+- HERMES-FIRST: live read + reversible write trong HJW PASS; outside DENY; final bytes view.html khôi phục chính xác.
+- REVOCABLE: bỏ profile/credential làm access fail mà không ảnh hưởng client khác.
+- NO-NEW-FILE: không project/task/file mới.
+- SECRETS: không plaintext secret/exploit detail vào repo/chat/evidence public.
 
-Nếu kết luận là FEASIBLE_WITH_MIN_CODE_CHANGE, đưa Owner đúng **một câu hỏi** sau KQ:
-“Có cho phép một RUN riêng, có review, sửa mã nhỏ ở Agent Data để tạo đường ghi hẹp cho Hermes không?”
-Không cho ⇒ Hermes ở mức read-only + thông báo; đó là giới hạn đã biết.
+## Báo cáo
 
-Evidence runtime vào hồ sơ VPS HJW theo AGENTS A8.
+- Cập nhật **chỉ** `COLLAB.md` và `view.html` hiện hữu.
+- Evidence nhạy cảm append vào **CAP-PATH-AUDIT.md hiện hữu root-only**; không tạo evidence file mới.
+- Ghi Agent Data before/after commit, tests, deploy health, regression, Hermes live result, rollback state.
+- Nếu PASS: đề xuất NEXT = migrate/add agent thứ hai bằng **profile/config**, không code route mới; không tự migrate trong RUN này.
 
 ## CẤM
 
-- Không tiếp tục automation Phase 1 trong RUN này.
-- Không khai mcp_servers/workspace_* cho Hermes.
-- Không dựng route/proxy/listener/socket/service mới.
-- Không sửa backend Agent Data/R03.
-- Không sửa skill docs trong RUN này.
-- Không mở webhook/port mới.
-- Không chạm/rotate/xoá QDRANT, OpenRouter, Telegram, GSM version hoặc JEV config.
-- Không đưa master Agent Data key trở lại env Hermes sau cleanup.
-- Không log/copy plaintext secret vào repo/evidence/chat.
+- Không tạo project/task/file/test file/config file/service/port/listener mới.
+- Không tạo route riêng từng agent.
+- Không dùng shared key cho nhiều agent.
+- Không dùng `clientInfo` làm authorization/identity trusted.
+- Không đưa master Agent Data key/GSM broad access cho Hermes.
+- Không mở rộng Hermes write ngoài HJW trong RUN này.
+- Không migrate Claude Code hoặc agent khác production trong RUN này.
+- Không log/copy secret hoặc exact bypass exploit vào repo/chat.
+- Không tự tiếp tục automation Phase 1 sau KQ.
 
-## BÁO CÁO / AP-CLOSE
+## AP-CLOSE
 
-- Chỉ dùng RUN_ID `HJW-2B1-20260923-02`; không ghi lại KQ RUN HJW-2B cũ.
-- KQ@HJW-2B1-20260923-02 XONG nếu SEC-CLEAN PASS và audit có kết luận rõ một trong 3 nhánh.
-- KQ@HJW-2B1-20260923-02 DỪNG nếu read-gate chặn, cleanup không an toàn, rollback xảy ra hoặc không đủ evidence.
-- Không tự chạy S1-lite/S2 hay nhánh khác sau KQ. Host quyết.
+- `KQ@HJW-2C-20260924-01 XONG` chỉ khi toàn bộ nghiệm thu PASS.
+- `DỪNG` nếu G0 không đóng được auth bypass, regression existing client, cần file/service/resource mới chưa được Owner duyệt, không tạo được credential bằng secret path hiện hữu, path/tool scope không enforce server-side, hoặc rollback không sạch.
+- Agent báo XONG không đồng nghĩa DONE; Host phải nghiệm thu KQ/evidence.
