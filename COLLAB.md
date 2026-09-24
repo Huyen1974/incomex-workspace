@@ -7,19 +7,19 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - **Nguồn chuẩn:** đọc `AGENTS.md` → root `COLLAB.md` → `COLLAB.md` của đúng việc. Không dựa vào lịch sử chat cũ nếu Git đã có trạng thái mới hơn. Tài liệu/workspace = GitHub SSOT; runtime = VPS SSOT.
 - **Ưu tiên 1 · VPSC** — `work/vps-clean-20-9-26/` · Host Claude. Hiện `R4b` đã `OWNER_APPROVED + READY` với RUN_ID `VPSC-R4B-20260923-01`, PROMPT_SHA `fbb28bb85969ebdedf683e557ce134686fdbbde7`. Mục tiêu khép việc clean: dọn dấu SEC-01 còn lại sau khi xác nhận credential cũ chết; báo image hằng ngày chỉ-read; sửa failed services được nêu; đổi timezone VPS sang `Asia/Ho_Chi_Minh` nhưng giữ nguyên **thời điểm chạy thật** của lịch. NEXT: Owner RUN R4b → Codex V3 sau một đêm trigger thật → VPSC.6 theo dõi/đóng. Không mở lại audit nguyên nhân đĩa.
 - **Ưu tiên 2 · GSM** — `work/gsm-access-audit/` · Host Claude. GSM-A1 **XONG** commit `0bdbe6b`: 167 access/30 ngày = 0 USD, 41 version ≈ 2,10 USD/tháng; không rỉ máu. Hai quyết định dọn version/Lark thuộc GSM, không chặn HJW.
-- **- **- **- **- **Ưu tiên 3 · HJW** — `work/hermes-joint-workspace/` · Host GPT. HJW.2C **RUN PARTIAL**: G0 + G1 server + nginx throttle PASS; chỉ còn auto-mode `Secret-Store Writes` trước Hermes config/restart/live test.
+- **Ưu tiên 3 · HJW** — `work/hermes-joint-workspace/` · Host GPT. HJW.2C **HOST ACCEPTED**: Generic Agent Gateway + Hermes profile PASS; luật attribution Hermes đã áp. NEXT: Hermes tự kiểm/tự kết nối bằng LLM thật → HJW.3.
 - **Quy ước Google:** không tạo thêm Google Cloud project/service. Project còn giữ là `github-chatgpt-ggcloud`; Google không phải runtime/SSOT. Drive chỉ là offsite backup; GSM là secret store cho tới khi có quyết định khác.
 - **Cửa vào phiên mới:** `WS gốc · Host GPT · tiếp quản phiên 2026-09-23 · đọc AGENTS.md → COLLAB.md · làm theo mục Handoff phiên mới; trước khi thao tác một việc phải đọc COLLAB.md của việc đó.`
 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
-- - - - - `work/hermes-joint-workspace/` · HJW · Host GPT · `RUN HJW-2C-20260924-01 PARTIAL`; Agent Data HEAD `f2f0650…` healthy/clean; nginx PASS; còn narrow-key materialization + Hermes config/restart/live test.
+- `work/hermes-joint-workspace/` · HJW · Host GPT · HJW.2C HOST ACCEPTED; gateway Hermes 7 tool + trusted identity PASS; đang chuẩn bị self-check Hermes/T5 thật trước automation.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/mcp-workspace/` · MCPW · **Host Claude Chat** (`CLAUDE-MCPW-260924-A`, mở lại 24/09 theo DROOT20) · khoá cứng đường ghi repo chỉ qua 2 cổng bằng GitHub Ruleset; PROMPT `MCPW-LOCK-20260924-01` cho Claude Code CLI.
 - `work/graph-server/` · GS · Host GPT Chat · D02 product-first (Owner): trial Cognee+Neo4j vs Graphiti+Neo4j; Claude P02→P03 đồng ý; chờ Hermes; nguyên tắc R1 khoá ở §0.
 - `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
-- - - - - NEXT: HJW: Owner **gõ tay** một câu cấp phép ngắn trong phiên Claude Code hiện tại; Agent làm nốt `hermes-key-fetch` + Hermes config/restart/live test; không chạy lại G0/G1/nginx.
+- NEXT: HJW: gửi Hermes prompt self-check để chính Hermes tự đọc AGENTS→COLLAB, xác nhận 7 tool/giới hạn, tự dùng đường mới và phản biện; sau đó Host chốt HJW.3.
 
 ## Đã xong
 - Archive: `work/done-tasks/` · vị trí folder là trạng thái Done (DROOT11); tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
@@ -47,5 +47,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - DROOT19 · 2026-09-24 · **NGUYÊN TẮC OWNER R1 + R2** (Owner nói trực tiếp, giao Claude sửa luật repo): R1 “Mọi giải pháp phải đảm bảo, ưu tiên tối đa, dùng cái có sẵn, nhiều người dùng, phù hợp nhất với Incomex. Không tự dựng bất cứ cái gì nếu thị trường có sẵn. Code là giải pháp cuối cùng.” · R2 “Quy định là không đủ, phải cưỡng chế. Không thể làm sai.” → AGENTS A10. Áp: SAME_COMMIT.
 - DROOT20 · 2026-09-24 · **KHOÁ CỨNG ĐƯỜNG GHI** — Owner gật: “Đúng vậy chúng ta khóa lại để bắt buộc làm theo 1 con đường giúp tôi.” → mở lại `work/mcp-workspace/`, Host Claude Chat. Đề xuất đã gật (nguyên văn): 24/09 · **Khoá cứng đường ghi ngoài gateway (R2).** Sự cố: 18/758 commit đi đường native (9 hôm nay — GPT dùng GitHub connector ghi dưới tài khoản Owner: mở task, đổi task-id, review P04) ⇒ không khoá chống ghi đè, không quét bí mật, Task view không biết ai làm. Chốt đề xuất = **GitHub Ruleset** (tính năng sẵn của GitHub, không viết code): mọi nhánh chặn cập nhật/tạo/xoá + force push; miễn trừ **chỉ deploy key của 2 cổng gateway** ⇒ đẩy bằng tài khoản người (GPT native, git push từ Mac, cả Owner) bị GitHub từ chối — AI không có gateway thì chỉ còn DỪNG. Không thêm quyền admin vào miễn trừ (sẽ mở lại lỗ). Làm: `Mở lại mcp-workspace để khoá đường ghi repo chỉ qua gateway` · Host Claude Chat · Claude Code CLI áp bằng `gh api` rồi tự thử 3 phép (native bị chặn · `fs_*` ghi được · `workspace_*` ghi được); cổng nào không dùng deploy key → DỪNG trước khi bật. Cửa khẩn cấp: Owner tắt ruleset một công tắc. JEV `gen-dec-1790226942-Pz95lv2dkDouzMQ3XwSW`: ruleset 0,93 (conf 0,92). **Đề xuất: gật.**
 
+- DROOT21 · 2026-09-24 · **HERMES ATTRIBUTION / COUNCIL CONTRACT:** thực thi DROOT02 sau HJW.2C PASS: hội đồng = GPT Chat · Claude Chat · Hermes, Founders vẫn GPT Chat + Claude Chat; A4 nhận `[Hermes]` + `[Claude Code]`; A9 map riêng `agent-gw/hermes` → Hermes và mọi agent gateway mới phải có mapping riêng khi onboard. Áp cùng commit với AGENTS/HJW.
+
 ## Owner cần quyết
-- 24/09 · Host GPT không ghi được repo trong phiên trả lời UIPROC (không có cổng ghi). Nếu sang 25/09 GPT vẫn không ghi được: tạm chuyển Host HJW · MMIM · HVU sang Claude Chat, GPT làm Reviewer — **đề xuất: gật**; GPT ghi lại được thì tự huỷ dòng này.
+- —

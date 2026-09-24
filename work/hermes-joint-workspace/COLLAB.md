@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2/5 | HJW.2C KQ XONG 24/09 · chờ Host nghiệm thu | NEXT: Host nghiệm thu HJW.2C; RUN riêng onboard agent thứ hai | BLOCK: —
+HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 3/5 | HJW.2C **HOST ACCEPTED 24/09** · hạ tầng/gateway PASS | NEXT: Hermes self-check bằng LLM thật → Host chốt HJW.3 | BLOCK: —
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -61,9 +61,9 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
 - **HJW.2A — DESIGN / NO PRODUCTION MUTATION** | Hội đồng đã chốt kiến trúc Phase 1 theo P03+P04: `COLLAB.md`/Git HEAD là SSOT dispatch; Hermes đọc trực tiếp tại HEAD xác định; relay Agent Data hiện có + fail-closed; 4 năng lực đợt 1 = nhận/làm assignment, nhắc lượt + canh RUN treo, heartbeat, dừng tự động/sự cố; bản tin sáng và mở rộng luật chung dời sau. Threat model giữ L1 user/process Hermes + L2 host/root VPS. | ✓ **CONSENSUS CLOSED 23/09**; secret implementation chờ GSM-A1
 - **HJW.2B — IMPLEMENT** | GSM-A1 đã XONG. Secret path Host chốt: root oneshot GSM chỉ dùng để materialize secret tối thiểu; **Agent Data credential phải rời môi trường user/process Hermes nếu relay hiện hữu nghiệm thu được**; relay lỗi ⇒ fail closed. Phase 1 dùng cron/pre-script 0-token, không bật webhook; automated profile deny-by-default + capability tối thiểu; Kuma là watchdog độc lập ngoài Hermes. `PROMPT.md` đã tạo DRAFT. | ■ RUN `HJW-2B-20260923-01` DỪNG tại G0.2 (23/09), 0 mutation — chờ Host quyết
 - **HJW.2B1 — SEC-CLEAN + CAP AUDIT** | Gỡ master Agent Data khỏi Hermes; audit C1/C2/C3; Agent Data auth warning giữ root-only. | ✓ **XONG 24/09** · SEC-CLEAN PASS · MIN_CODE_CHANGE
-- **HJW.2C — GENERIC AGENT GATEWAY** | Vá auth bypass trước; sau đó một generic gateway + per-agent profile/credential/tool/path scope + trusted attribution; Hermes profile đầu tiên, future agent onboarding không cần route code mới. | ■ **KQ XONG 24/09** (G0 `46f68be` · G1 `f2f0650` · Hermes 7 tool) — chờ Host nghiệm thu
+- **HJW.2C — GENERIC AGENT GATEWAY** | Vá auth bypass; generic gateway + per-agent profile/credential/tool/path scope + trusted attribution; Hermes profile đầu tiên. | ✓ **HOST ACCEPTED 24/09** · G0 `46f68be` · G1 `f2f0650` · Hermes 7 tool · revoke/revert/identity PASS
 - HJW.3 | Nghiệm thu **T1–T10** bằng chạy thật; ngoài R03/stale-write/cross-client còn phải test wake đúng/không wake thừa, blocker vượt quyền, Telegram, retry/dedup và secret boundary/rotation theo thiết kế. | □
-- HJW.4 | Sau PASS mới ghi luật gốc/phần hiển thị thật sự cần cho hội đồng 3 thành viên + `[Hermes]`; không tự đổi Founders nếu Owner chưa quyết. | □
+- HJW.4 | Luật nền tối thiểu cho hội đồng/attribution: council 3 thành viên; `[Hermes]`/`[Claude Code]`; A9 map `agent-gw/hermes`; agent mới phải có map riêng. | ◐ **CORE APPLIED 24/09** · phần automation/final law chờ HJW.3 PASS
 - HJW.5 | Đóng: Host đối chiếu T1–T10; xin Owner một chữ trước khi dọn fixture nếu có. | □
 
 ## Câu hỏi hội đồng
@@ -407,7 +407,7 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
 - Nếu câu gõ tay vẫn bị auto-mode chặn: **không lách, không mở quyền Bash/SSH bền, không tự chạy shell thay Agent**. Chuyển đúng thao tác này sang approval tương tác/manual approval của Claude Code nếu phiên hỗ trợ; nếu không có thì DỪNG và báo Host gate chính xác.
 - Sau khi qua gate: Agent chỉ làm phần còn lại của PROMPT — sửa `hermes-key-fetch` để materialize narrow key (master key vẫn vắng), kiểm/regenerate env; sửa `config.yaml`; Telegram; restart serve→gateway; live tests + revoke/restore + reversible-write; ghi KQ.
 
-### P16 · Claude Chat · OPEN — nghiệm thu độc lập `KQ@HJW-2C-20260924-01 XONG` + 3 việc cho Host
+### P17 · Claude Chat · ACCEPTED — nghiệm thu độc lập HJW.2C + 3 việc Host
 - Based_on: HEAD `8581476`. Claude tự kiểm trên lịch sử Git, **không tin báo cáo của agent**:
   - `8581476` có dòng `KQ@HJW-2C-20260924-01 XONG`, RUN_ID khớp PROMPT hiện hành ⇒ A9 hợp lệ.
   - Hai commit live test `0056cdf` → `966baa6` có **author = `agent-gw/hermes`** — tức danh tính do server đặt từ credential, không phải nhãn client tự khai ⇒ **TRUSTED-IDENTITY được chứng minh trên Git thật**, không chỉ trong test nội bộ.
@@ -420,11 +420,11 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
   **Cảnh báo quan trọng cho Host khi đánh giá:** toàn bộ live test lần này chạy bằng script dưới env của Hermes, **không qua LLM của Hermes**. Tức đã chứng minh **đường ống**, chưa chứng minh **vòng làm việc của agent** (nhận câu `WS …` → tự đọc AGENTS → COLLAB → làm → ghi → báo 3 dòng). Đừng tính T5 là đã đạt. Đề xuất: **một** PROMPT HJW.3 duy nhất gộp đủ: đối chiếu bằng chứng sẵn có vào T1–T4 → một lượt thật qua Telegram cho T5 → đo T6 → dựng 4 job đợt 1 theo thiết kế đã chốt (script gate 0-token, cờ HARD-STOP, nhịp tim Kuma) → nghiệm thu T1–T10. **Thứ tự:** việc 1 phải xong **trước** khi job tự động bắt đầu ghi repo, nếu không mọi commit tự động đều vào ô “Chưa rõ”.
 - **Rủi ro còn lại, ghi để không ai tưởng đã miễn nhiễm:** narrow key nằm trong env Hermes nên tiến trình con thừa hưởng được; bù lại scope hẹp (ghi chỉ trong HJW) và **thu hồi đã thử thật** (revoke ⇒ 401, client khác không ảnh hưởng) ⇒ chấp nhận được, có đường đóng nhanh khi cần.
 - Áp: SAME_COMMIT
-- Host response: —
+- **Host response P17 — ACCEPTED, 24/09:** Host nghiệm thu HJW.2C XONG ở tầng hạ tầng/gateway: KQ hợp lệ, runtime healthy, Git test attribution/revert do Claude kiểm độc lập. Nhận việc 1 và đã áp luật nền một lần; nhận việc 2, ghi giới hạn `workspace_result_read` vào Owner View, không mở quyền; nhận việc 3 nhưng **không onboard agent thứ hai trước** — ưu tiên theo Owner hiện tại là để chính Hermes tự kiểm/tự kết nối và chứng minh vòng LLM thật, rồi mới chốt một PROMPT HJW.3. T5 chưa PASS vì test 2C dùng harness dưới env Hermes, không qua LLM.
 
 ## Owner cần quyết
 - —
 
 ## NEXT
-- Host nghiệm thu `KQ@HJW-2C-20260924-01 XONG` qua Git + evidence root-only; xét thêm dòng A9 cho nhãn `agent-gw/`.
-- Sau đó: RUN riêng onboard agent thứ hai bằng profile/config (không route code mới); rồi HJW.3 automation Hermes trên nền gateway. Agent không tự làm tiếp.
+- Gửi Hermes một prompt self-check **không mutation production**: tự đọc `AGENTS.md → work/hermes-joint-workspace/COLLAB.md`, tự xác nhận MCP `incomex-workspace`/7 tool, đọc giới hạn, kiểm Task attribution, nêu ý kiến/rủi ro còn thiếu; được phép cập nhật đúng `COLLAB.md`/`view.html` trong HJW nếu cần và theo luật hiện hành.
+- Sau phản hồi Hermes, Host đối chiếu: nếu self-check sạch → soạn một PROMPT HJW.3 duy nhất cho T2/T5/T6/T10 + 4 job Phase 1; chưa bật automation trước khi Host chốt.

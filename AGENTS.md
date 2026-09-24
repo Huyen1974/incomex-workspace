@@ -29,7 +29,7 @@
 - **Host** do Owner giao. Khi nhận Host ở phiên mới, Host tự sinh một `Host_ID` dễ phân biệt và ghi vào `COLLAB.md`; không được giả là ID hệ thống. Phiên không khớp Host/Host_ID hiện hành mặc định là Reviewer.
 - **Reviewer** đọc/phản biện và tạo P; mặc định không sửa tài liệu chính nếu chưa được giao rõ phạm vi sửa.
 - **Agent thực thi** chỉ chạy prompt đã READY và sau lệnh RUN của Owner; không tự coi việc nhìn thấy prompt là được giao.
-- **Founders = GPT Chat + Claude Chat.** Founders duy trì/diễn giải luật nền. Claude Code, Codex, Cowork và Agent khác phải theo luật hiện hành; được đề xuất nhưng không tự sửa luật nền.
+- **Hội đồng AI hiện hành = GPT Chat · Claude Chat · Hermes** theo DROOT02. Hermes là thành viên hội đồng và có thể làm Host/Reviewer/Agent khi được phân công. **Founders vẫn = GPT Chat + Claude Chat** và chỉ Founders duy trì/diễn giải luật nền; Claude Code, Codex, Cowork, Hermes và Agent khác được đề xuất nhưng không tự sửa luật nền.
 - Thay đổi luật nền phải ghi thành D trong `COLLAB.md` gốc và đưa một dòng vào **Owner cần quyết** nếu chưa được Owner quyết. Đồng thuận Founders không vượt quyền riêng của Owner.
 
 ## A3_COLLAB — Trạng thái chung
@@ -44,7 +44,7 @@
 - Trước khi ghi: lấy version/SHA/HEAD hiện tại; ghi bằng expected version/head; có thay đổi chen ngang thì đọc lại và hoà giải, không ghi đè.
 - Khi có transaction: sửa sản phẩm + cập nhật `COLLAB.md` trong **một commit**. Dòng trạng thái được tạo cùng commit ghi `Áp: SAME_COMMIT`.
 - Khi không thể transaction: sửa sản phẩm trước, lấy hash thật, rồi cập nhật `COLLAB.md` với `Áp: <hash>`. Không có hash thì không ghi “đã sửa”.
-- Commit nghiệp vụ dùng tiền tố `[GPT]`, `[Claude]`, `[Owner]`: `[actor] <mã> · <scope> · <tóm tắt>`. Đây là nhãn nghiệp vụ, không phải chứng minh danh tính.
+- Commit nghiệp vụ dùng tiền tố `[GPT]`, `[Claude]`, `[Claude Code]`, `[Hermes]`, `[Owner]`: `[actor] <mã> · <scope> · <tóm tắt>`. Đây là nhãn nghiệp vụ, không phải chứng minh danh tính; identity kỹ thuật vẫn lấy từ gateway/credential server-side theo A9.
 - Chỉ báo PASS khi đã gọi/kiểm thật; phân biệt bằng chứng backend với client.
 
 ## A5_REVIEW — Bất đồng
@@ -100,8 +100,11 @@
 | `claude-code` | Claude Code CLI | Claude Code CLI |
 | `codex` | Codex | Codex CLI / GPT Work |
 | `openai-mcp` | GPT Chat/Work | Hiện metadata chưa tách chắc GPT Chat với GPT Work; dùng tên quen thuộc gộp, không đoán sâu hơn |
+| `agent-gw/hermes` | Hermes | Hermes qua Agent Gateway; identity server-side từ credential/profile `hermes` |
 | `Claude via MCP` | — (trước B3) | Tên chung cũ của cổng Claude, không biết app nào → xám, không tạo hàng |
 | `AI via Incomex Workspace` | — (trước B3) | Tên chung cũ của cổng Workspace, không biết ai → xám, không tạo hàng |
+
+- **Onboard Agent Gateway mới:** ngoài profile + credential phải thêm **một dòng mapping riêng** vào bảng trên cho đúng nhãn server-side của agent đó trước khi agent bắt đầu ghi tự động. Không dùng wildcard `agent-gw/` chung vì mỗi agent phải hiện tên riêng trên Task View.
 
 ## A10_OWNER_PRINCIPLES — Nguyên tắc Owner áp cho mọi việc (Owner 24/09/2026 · DROOT19)
 - **R1 · Dùng cái có sẵn.** Nguyên văn Owner: “Mọi giải pháp phải đảm bảo, ưu tiên tối đa, dùng cái có sẵn, nhiều người dùng, phù hợp nhất với Incomex. Không tự dựng bất cứ cái gì nếu thị trường có sẵn. Code là giải pháp cuối cùng.”
