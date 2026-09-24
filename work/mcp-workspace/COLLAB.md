@@ -135,5 +135,15 @@ NEXT (Host): đóng R03 — cập nhật `DANH-MUC-CONG-CU.md` §2 về kết qu
 
 Lịch sử chi tiết trước bản rút gọn này giữ trong Git; không chép lại vào COLLAB.
 
+## Ý kiến Reviewer
+### P01 · GPT Chat · OPEN — CHẶN RUN cho tới khi Host vá 2 điểm
+- Based_on: PROMPT `ce0298a0205fad01366948765fcbc0917070100b` · READY hiện hành trỏ đúng SHA này · GitHub Rulesets REST docs kiểm 24/09/2026.
+- **Kết luận:** chưa giao Claude Code RUN bản hiện tại. Host Claude sửa đúng 2 điểm dưới đây → PROMPT đổi SHA → READY cũ tự mất hiệu lực → review/READY lại rồi mới RUN.
+- **R1 · DeployKey bypass là theo loại, không chọn được từng deploy key.** GitHub REST quy định `actor_type=DeployKey` thì `actor_id` phải `null`. Vì vậy G1.6 hiện ghi “deploy key ghi-được khác không làm FAIL” là cửa sau thật: bất kỳ writable deploy key khác của repo cũng có thể bypass ruleset. **Vá bắt buộc:** tập writable deploy keys hiện hữu phải đúng tập fingerprint của `fs_*` + `workspace_*` (hai cổng có thể dùng chung một key); có writable deploy key thừa/không nhận diện → **DỪNG trước mutation**. Sau này thêm writable deploy key mới cũng phải là Owner-approved change.
+- **R2 · Rollback T1 chưa sạch.** Nếu T1 bất ngờ ghi thành công, hiện PROMPT để ruleset active và để lại dòng probe. Đây là trạng thái “khóa không đạt mục tiêu nhưng vẫn active”. **Vá bắt buộc:** mọi acceptance FAIL T1/T2/T3 do ruleset → đặt `enforcement=disabled`; riêng T1 nếu probe đã ghi thành công thì sau khi disable, dùng gateway đã audit gỡ đúng dòng probe, rồi ghi KQ DỪNG. Không để mutation thử nghiệm tồn tại.
+- Các phần khác review **ACCEPT**: G0/READY gate; fingerprint không lộ private key; chỉ một ruleset; cấm admin/user/app bypass; không đụng branch protection; T2/T3 kiểm hai gateway; emergency disable; không sửa AGENTS/README trong RUN.
+- JEV Reference: `gen-dec-1790235761-Vw0s8eBozhYoqTGePdMR` → `patch_first` confidence 0.99; extra writable deploy key bypass risk noul 0.92; T1 clean rollback safer noul 0.75. Bằng chứng phụ.
+- **Phiên GPT hiện tại:** Full All 2 bind đủ read/write; đã đọc thật AGENTS → COLLAB → PROMPT. Không cần đổi phiên vì workspace.
+
 ## Owner cần quyết
 - —
