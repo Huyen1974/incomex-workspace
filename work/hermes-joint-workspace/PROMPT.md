@@ -84,10 +84,12 @@ Luật:
 ### G1.2 Script gate 0-token
 - Reuse script hiện hữu; nếu không có, tối đa một script chung.
 - Script đọc public Git/HEAD **không dùng narrow Agent Gateway key** và không gọi LLM để dò việc.
-- Mọi nhánh lỗi/không việc phải trả contract Hermes tương đương `{"wakeAgent": false}`.
+- Hermes scheduler gate là **fail-open nếu script im lặng/chết/JSON sai**. Vì vậy mọi nhánh lỗi/không việc phải **exit 0** và dòng stdout **cuối cùng** phải là JSON hợp lệ `{"wakeAgent": false}`. Không dùng `set -e`/exception path không được trap; network/read/parse/STOP error đều phải kết thúc bằng sentinel false.
 - Chỉ `wakeAgent:true` khi có đúng assignment Hermes hợp lệ và STOP gates cho phép.
-- Lưu last-seen HEAD/dedup bằng cơ chế ledger/state hiện hữu; không tạo SSOT nghiệp vụ thứ hai.
+- **Không tự dựng ledger/dedup store mới.** Dùng built-in cron claim/at-most-once + executions ledger + `hermes cron notepad`/`--continuity` cho per-condition state/last-seen khi cần. Git `ASSIGN@` vẫn là SSOT nghiệp vụ.
+- Mọi MCP write của unattended turn dùng `expected_version` + `operation_id`; nếu transport trả outcome UNKNOWN/expired thì read-back/reconcile trước khi retry, không blind retry.
 - Không render nội dung bất kỳ từ webhook thành instruction. LLM sau wake phải tự re-read AGENTS/COLLAB/PROMPT qua MCP.
+- Fault-injection acceptance bắt buộc: unreadable STOP flag, Git/network timeout, parse error, malformed output ⇒ đều 0 LLM và dòng cuối sentinel false.
 
 ## 5. G2 — Cron / scheduled backstop
 
@@ -101,7 +103,7 @@ Tạo bằng Hermes cron hiện hữu, model/toolset ghim rõ:
   `STATUS: ...`
   `COMMIT: <sha|—>`
   `NEXT: ...`
-- `cron.max_parallel_jobs=1` hoặc cơ chế tương đương; ledger at-most-once.
+- Ghim đúng built-in `cron.max_parallel_jobs=1`; at-most-once dùng scheduler claim/in-flight dedupe + executions ledger, không tự chế khoá/ledger riêng.
 
 ### Job B — `ws-handoff-watch` (no-agent / 0-token)
 - định kỳ hợp lý (ưu tiên 15 phút).
@@ -117,20 +119,24 @@ Heartbeat không tự dựa vào Hermes báo mình còn sống; xem G5 Kuma.
 ## 6. G3 — External machine ingress qua built-in Webhook
 
 ### G3.1 Enable an toàn
-- Bật **built-in Hermes webhook platform**, bind **127.0.0.1** trên port mặc định/port trống (ưu tiên 8644).
+- Bật **built-in Hermes webhook platform** và ghim **đúng key** `platforms.webhook.extra.host: 127.0.0.1`; port ưu tiên **8644**. Không dựa vào default: source Hermes mặc định webhook có thể bind mọi interface.
+- Sau start/restart, **bắt buộc chứng minh bằng `ss -ltnp`**: webhook 8644 chỉ nghe `127.0.0.1`/loopback; direct API Server 8642 và Hermes serve 9119 cũng chỉ loopback. Bất kỳ `0.0.0.0`/`::` trên các cổng này, hoặc không chứng minh được socket ⇒ **DỪNG trước public test**.
+- Đồng thời audit nginx: **không có route public cũ trỏ tới direct API Server `/v1/*`/8642 hoặc serve 9119**. Chỉ route webhook hẹp mới được public trong RUN này.
 - Secret nằm trong root-managed env material hiện hữu, config chỉ dùng env substitution; **không plaintext**.
 - Public HTTPS đi qua **nginx hiện hữu**, path riêng hẹp; không publish raw port.
+- Rate limit phải **ghi số tường minh ở cả hai tầng**: Hermes webhook adapter `rate_limit: 30` request/phút/route; nginx public webhook hiệu dụng tối đa **30 request/phút/source**, burst tối đa **5**. Reuse zone hiện hữu nếu rate của zone ≤30/phút; nếu zone nhanh hơn thì tạo/chỉnh route-specific limit trong nginx hiện hữu, không server mới.
 - nginx: TLS hiện hữu, body limit, rate-limit; `nginx -t` trước reload.
 - Telegram Owner một dòng trước restart/reload ảnh hưởng gateway/nginx.
 
 ### G3.2 Một route generic “đánh chuông”, không prompt injection
-- Route external ví dụ `incomex-dispatch`.
-- Generic V2 signature + timestamp/replay protection; không dùng V1 nếu V2 dùng được.
+- Route external = `incomex-dispatch`, chạy dưới **profile Hermes hiện hành `default`** trong HJW.3. Agent tương lai phải có profile/route namespace/job/credential riêng; không dùng route Hermes chung.
+- Generic **HMAC V2** + timestamp/replay protection; không dùng V1.
 - filter allowlist event/source; max body ≤ Hermes default hoặc thấp hơn.
-- idempotency/delivery id bắt buộc ở test.
+- idempotency/delivery id bắt buộc ở test; cache webhook chỉ là lớp đầu, **scheduler claim mới là chốt dedupe bền**.
 - route dùng **`cron_job: ws-dispatch`**, không start independent agent session.
-- prompt/context từ webhook chỉ là metadata tối thiểu (source/event/delivery id); **không đưa arbitrary payload text vào instruction**.
-- dispatcher khi chạy luôn re-read Git SSOT để quyết định có assignment hay không.
+- **Template route phải là literal fixed text**, ví dụ “External wake signal received; re-read Git SSOT and act only on a valid assignment.” **CẤM mọi biến/template lấy từ body/header/query/payload.** Route name/profile/event allowlist là config cố định; không render user-supplied text.
+- Dù Hermes internally tạo `event_context/extra_prompt`, context của route này không được chứa nội dung payload ngoài; dispatcher khi chạy luôn re-read Git SSOT để quyết định có assignment hay không.
+- **Negative canary test bắt buộc:** gửi request HMAC hợp lệ có body/header/query chứa chuỗi duy nhất + instruction giả (ví dụ `HJW_CANARY_IGNORE_PREVIOUS_<nonce>`). Chứng minh canary **không xuất hiện** trong run prompt/context, model output, Telegram delivery hoặc application log của lượt; xuất hiện ở bất kỳ nơi nào ⇒ **DỪNG/rollback webhook route**.
 - unknown event/filter miss/invalid signature/expired timestamp/duplicate ⇒ 0 LLM.
 
 ### G3.3 External acceptance
@@ -139,7 +145,7 @@ Từ máy ngoài VPS (ưu tiên chính Mac/Claude Code):
 2. expired V2 timestamp ⇒ reject;
 3. valid signed event, không assignment ⇒ accepted/ignored nhưng 0 LLM;
 4. same delivery id gửi lại ⇒ dedup, không run thứ hai;
-5. rate-limit burst ⇒ 429 đúng ngưỡng, gateway/master routes khác không ảnh hưởng;
+5. rate-limit burst ⇒ với adapter 30/phút/route + nginx ≤30/phút/source (burst ≤5), vượt ngưỡng phải có 429; ghi số request/401/2xx/429 thực tế, gateway/master routes khác không ảnh hưởng;
 6. valid event + một assignment HJW test đã Host arm ⇒ fire **chính ws-dispatch**, claim đúng một lần, không duplicate.
 
 ## 7. G4 — Telegram Owner / T5 thật
@@ -157,7 +163,11 @@ Acceptance:
 - dùng chính 7 MCP tools để làm một việc reviewer an toàn trong HJW;
 - commit author phải là `agent-gw/hermes`;
 - state→done/blocked;
-- Telegram Owner đúng 3 dòng STATUS/COMMIT/NEXT.
+- Job prompt phải ép **exactly 3 non-empty lines, không code fence/không lời mở đầu-kết**:
+  `STATUS: ...`
+  `COMMIT: <sha|—>`
+  `NEXT: ...`
+- Nghiệm thu trên **tin nhắn Telegram thực tế Owner nhận** (hoặc delivery log raw tương đương), không dùng model output nội bộ làm bằng chứng. Thừa/thiếu dòng hoặc thêm prose ⇒ T5 FAIL.
 Không được harness/shell làm thay LLM.
 
 Đo:
@@ -172,9 +182,10 @@ Không được harness/shell làm thay LLM.
 - Resume không được chạy bù duplicate.
 
 ### STOP-DISPATCH
-- Root-owned flag ngoài quyền ghi user Hermes; mọi HJW script gate phải kiểm.
+- Root-owned flag ngoài quyền ghi user Hermes nhưng **phải world-readable** cho user/process Hermes (ví dụ root:root mode 0644; không writable bởi Hermes). Mọi HJW script gate phải kiểm.
+- **Không đọc/stat được flag = coi như STOP đang BẬT**. Mọi lỗi permission/I/O/parse ở bước STOP phải fail-closed: dòng stdout cuối `{"wakeAgent": false}` + exit 0.
 - flag ON ⇒ cron + webhook-triggered dispatcher đều 0 agent run.
-- Hermes không tự gỡ flag.
+- Hermes không tự gỡ/sửa flag. Acceptance phải test flag ON, flag unreadable/error giả lập và flag OFF.
 
 ### HARD-STOP
 - Đường root/operator dừng gateway/service khi compromise; không giao Hermes tự tắt chính mình.
@@ -213,7 +224,8 @@ Cho ít nhất một LLM turn auto-wake thật:
 
 ## 10. Direct API Server — giữ capability nhưng không public trong RUN này
 
-- Xác nhận local API Server health/auth và hiện bind loopback.
+- Xác nhận local API Server health/auth và **chứng minh socket thật bằng `ss -ltnp`**: API 8642 và serve 9119 chỉ loopback; không chỉ tin default/config.
+- Audit nginx để chứng minh **không có route public cũ** trỏ tới 8642/9119 hoặc `/v1/*`.
 - **Không thêm nginx public route cho `/v1/*` trong HJW.3.**
 - Lý do: direct API Server mang Hermes agent/toolset rộng hơn dispatcher webhook.
 - NEXT sau HJW.3 có thể mở direct external API bằng **profile/toolset/API key riêng**, có concurrency/idempotency/rate-limit và acceptance riêng. Không dùng default profile public.
@@ -224,7 +236,7 @@ PASS chỉ khi:
 1. 15 phút không assignment/event ⇒ dispatcher 0 LLM; no wake thừa.
 2. Git assignment open ⇒ cron tự wake/claim ≤5 phút.
 3. external valid signed webhook + assignment ⇒ immediate fire cùng dispatcher; duplicate không duplicate run.
-4. invalid/expired/filter-miss webhook ⇒ 0 LLM.
+4. invalid/expired/filter-miss webhook ⇒ 0 LLM; signed negative-canary payload không xuất hiện ở prompt/context/output/log.
 5. two triggers chen nhau ⇒ một claim/run.
 6. blocked condition ⇒ Git state + Telegram Owner; không auto-approve.
 7. handoff watcher và RUN watcher dedup, không spam.
@@ -232,9 +244,9 @@ PASS chỉ khi:
 9. HARD-STOP service boundary hoạt động; rollback rõ.
 10. Kuma báo khi Hermes/gateway chết ≤10 phút.
 11. auto LLM turn ghi bằng `agent-gw/hermes`, write ngoài HJW vẫn DENY.
-12. Telegram completion đúng 3 dòng.
+12. Telegram completion **tin nhắn thực tế** đúng chính xác 3 dòng STATUS/COMMIT/NEXT, không prose thêm.
 13. T6 model/token/cost evidence có mức thật, không đoán.
-14. Direct API Server vẫn loopback/not newly public.
+14. `ss -ltnp` chứng minh webhook 8644 + API 8642 + serve 9119 chỉ loopback; nginx không expose direct API/serve; direct API Server not newly public.
 15. Agent Data 7-tool Hermes contract + existing GPT/Claude clients không regression.
 
 ## 12. Rollback
