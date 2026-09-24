@@ -166,5 +166,19 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#e
 <p><small>Link post X (imryven) anh gửi tôi không tải được (X chặn); nguồn thay: <a href="https://docs.typesafe.ai/model-jaggedness/jev-1.13">jaggedness jev-1.13</a> · <a href="https://docs.typesafe.ai/cookbooks/entity_alignment">entity alignment</a> · <a href="https://docs.typesafe.ai/patterns/confidence-routing">confidence-gated routing</a> · <a href="https://pydantic.dev/docs/ai/models/typesafe/">Pydantic AI</a> · <a href="https://openrouter.ai/docs/guides/community/jev">OpenRouter Jev</a>. Số đo VPS/PG lấy ngày 24/09/2026 bằng query_pg + vps_status. JEV Reference: <code>gen-dec-1790224109-8RZpXsTUYsBLEKr7bW1r</code>.</small></p>
 </div>
 
+<h2>14. Chỉ đạo Owner mới — PRODUCT-FIRST, thay cách chọn ở P02</h2>
+<div class="card" style="border-left:6px solid #1f6feb">
+<p><strong>Owner 24/09:</strong> thiết kế KG cũ trong KB đã chứng minh là quá phức tạp và không thực tế. Từ đây không chọn vì “đã xây rồi”; chọn cái <strong>đang chạy thật, đáng tin, nhiều người dùng, cài sẵn và phù hợp Incomex</strong>. Vì vậy P02 đề nghị tiếp tục <code>universal_edges</code> là hướng chính <strong>không còn là kết luận hiện hành</strong>.</p>
+<p><strong>Điều 39 kiểm lại:</strong> bản KB Host tìm được chỉ nói KG là lớp intelligence/provenance/recommendation/XAI và không phải runtime/checker/executor/promote; không thấy điều khoản “cấm DB thứ 3 / Neo4j không bao giờ”.</p>
+</div>
+<table><thead><tr><th>Ứng viên product-first</th><th>Mức dùng / độ chín</th><th>Mức lắp sẵn</th><th>Khớp Incomex</th><th>Vị trí</th></tr></thead><tbody>
+<tr><td><strong>Cognee + Neo4j</strong></td><td>Cognee ~30,9k stars / 3,1k forks; Neo4j graph DB lâu năm, ecosystem lớn</td><td>Docker Compose, API, UI, MCP, agent plugins; Neo4j có Docker/packages/cloud</td><td>Business KG + ontology; code graph; agent/MCP; JEV thin layer</td><td style="background:#d9f2d9"><strong>TRIAL #1</strong></td></tr>
+<tr><td><strong>Graphiti + Neo4j</strong></td><td>Graphiti ~31,1k stars / 3,2k forks; Neo4j trưởng thành</td><td>Docker Compose + MCP nhưng OSS là framework; surrounding system self-managed</td><td>Temporal/provenance rất mạnh; code graph không phải trọng tâm</td><td style="background:#e7f0ff"><strong>ĐỐI CHỨNG #2</strong></td></tr>
+<tr><td><strong>Hindsight</strong></td><td>~26,5k stars; production use được project công bố</td><td>Docker/clients/MCP</td><td>Agent memory mạnh, không phải business graph chính</td><td>Phụ trợ memory</td></tr>
+<tr><td><strong>Apache AGE</strong></td><td>~4,8k stars; maintainer nói team nhỏ/nguồn lực hạn chế</td><td>Extension/Docker nhưng phải đổi PG production</td><td>Vẫn phải tự xây ingestion/ontology/code graph</td><td>Không vào shortlist đầu</td></tr>
+<tr><td><strong>Graph PG tự thiết kế</strong></td><td>Nội bộ; không community/product/support</td><td>Đã có một phần nhưng Owner đánh giá kiến trúc cũ quá phức tạp</td><td>Phải tiếp tục tự xây framework</td><td style="background:#f8d0d0"><strong>LOẠI primary shortlist</strong></td></tr>
+</tbody></table>
+<div class="card"><p><strong>JEV Reference:</strong> theo tiêu chí D02, trial đầu = <strong>Cognee + Neo4j</strong> (confidence 1,00); loại custom PG khỏi primary shortlist = noul 0,91. Result <code>gen-dec-1790226001-T0LHg4y3r0CP99thOmaY</code>; chỉ là bằng chứng phụ.</p><p><strong>Việc còn lại của hội đồng:</strong> Hermes kiểm blocker thực tế của <strong>Cognee+Neo4j</strong> và <strong>Graphiti+Neo4j</strong>: RAM/CPU, Docker, license, backup, auth, structured business ingestion, code graph, MCP/API, JEV và rollback. Sau đó Owner chọn stack để trial.</p></div>
+
 <p><small>Cập nhật 24/09/2026. Đây là hồ sơ thảo luận; chưa có stack, migration, cài đặt hay RUN nào được phê duyệt.</small></p>
 </main></body></html>

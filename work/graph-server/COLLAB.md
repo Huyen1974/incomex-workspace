@@ -21,7 +21,7 @@ Phạm vi lượt giao hiện tại, nguyên văn User:
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - Chỉ tạo hai file trong task: COLLAB.md điều phối và view.html là tài liệu chính duy nhất. Không tạo PROMPT, file review, bản nháp hoặc pipeline phụ.
 - Giữ đủ các nhóm lựa chọn đã thảo luận; phân biệt nguồn kiểm chứng, đề xuất và điều chưa kiểm. Đề xuất cũ không phải quyết định Owner.
-- Giữ hướng PostgreSQL/pgvector. Yêu cầu một PostgreSQL vật lý duy nhất chưa được xác nhận; không đồng nhất điều đó với một nguồn chuẩn cho mỗi dữ liệu.
+- **Nguyên tắc lựa chọn Owner 24/09/2026:** bỏ ưu tiên kiến trúc tự thiết kế hoặc giữ lại chỉ vì đã có; ưu tiên giải pháp **off-the-shelf đã chạy thực tế, đáng tin, nhiều người dùng/cộng đồng, cài sẵn/ít code tùy biến và phù hợp Incomex**. PostgreSQL/Qdrant hiện hữu là bối cảnh để tận dụng nếu hợp lý, không phải rào cản cấm cài graph DB/sản phẩm mới.
 - Giữ đúng thứ tự mục tiêu. Schema/tiêu chí nghiệm thu/kiến trúc trong HTML là đề xuất chờ review, không thêm mục tiêu User.
 - Tái dùng việc jev-integration đã đóng; không mở cổng/skill nội bộ trùng chức năng. Dung lượng hơn 50GB là thông tin Owner, đối chiếu báo cáo VPS ngày 23/09; chưa phải số đo mới của lượt này.
 - Chưa cho phép cài đặt, quét dữ liệu/mã thật, migration, restart, xóa hoặc đổi cấu hình/model/gateway. Các bài kiểm trong tài liệu chỉ để hội đồng đánh giá.
@@ -38,7 +38,7 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | HỒ SƠ REPO VÒNG 1 XONG · OWNER VIEW CHECK DỪNG (AUTH) | Chưa chốt công nghệ; chưa có PROMPT/READY/RUN | NEXT: Claude + Hermes có thể review trực tiếp repo; Host chưa được phép báo Owner View PASS cho tới khi kiểm được nội dung sau đăng nhập.
+GS | D02 PRODUCT-FIRST ĐÃ ÁP · P02 PARTIAL | Chưa chốt/cài công nghệ; chưa có PROMPT/READY/RUN | NEXT: Hermes phản biện Cognee+Neo4j vs Graphiti+Neo4j; Host tổng hợp blocker thực tế rồi đưa Owner lựa chọn trial.
 - Based_on mở việc: `37ae3fe22bc37894242506e4477b055d32fdc540`; GS02 hòa giải trên HEAD hiện hành, commit chen ngang không chạm task này.
 - Đã đọc AGENTS.md → COLLAB.md gốc → README.md → work/README.md; áp khuôn MT3 hiện hành.
 - Nghiên cứu cập nhật 24/09/2026: TypeSafe official skill/blog; pgvector; AGE; Cognee; Graphiti; Hindsight; Neo4j vector; GraphRAG. Link nguồn ở `view.html` §12.
@@ -47,9 +47,10 @@ GS | HỒ SƠ REPO VÒNG 1 XONG · OWNER VIEW CHECK DỪNG (AUTH) | Chưa chốt
 
 ## Quyết định Owner
 - D01 · 2026-09-24 · Owner cho phép mở đúng task graph-server, tập hợp nội dung để hội đồng góp ý, giữ bốn ưu tiên và bối cảnh VPS. Không có quyết định chọn stack/cài đặt trong lệnh này.
+- D02 · 2026-09-24 · **PRODUCT-FIRST / THỰC DỤNG:** Owner xác nhận thiết kế KG cũ trong KB quá phức tạp và không thực tế. Khi chốt Graph Server, tiêu chí ưu tiên là sản phẩm đang chạy tốt ngoài thực tế, đáng tin, cộng đồng/người dùng lớn, có gói cài/stack sẵn, ít phải tự xây framework và phù hợp nhất với Incomex. Thiết kế cũ/Điều 39 không được dùng như lý do khóa lựa chọn vào `universal_edges`/PostgreSQL; chỉ giữ các ranh giới nghiệp vụ còn hợp lý.
 
 ## Ý kiến hội đồng
-### P01 · GPT Host · OPEN — giả thuyết vòng 1, chờ Claude/Hermes phản biện
+### P01 · GPT Host · PARTIAL — giả thuyết vòng 1 đã được D02 thay tiêu chí lựa chọn
 - Based_on: tài liệu Owner + nguồn kiểm ngày 24/09/2026; Scope: `view.html` §1–§11.
 - Đề nghị: giữ PostgreSQL/pgvector; so A (Cognee+Neo4j+PGVector) với C (AGE+PGVector) trước, D làm baseline; B/Graphiti kéo lên nếu temporal/supersession chi phối. Hindsight = memory layer, không mặc định canonical graph.
 - JEV Reference: `gen-dec-1790221175-ygPaecOXX76U0e4Y1yAe`; A-vs-C confidence 0.30 nên KHÔNG coi là chọn công nghệ; `canonical_constraints` probability 0.99/confidence 0.98 dùng để ưu tiên acceptance test.
@@ -85,7 +86,16 @@ GS | HỒ SƠ REPO VÒNG 1 XONG · OWNER VIEW CHECK DỪNG (AUTH) | Chưa chốt
 
 - **Đề xuất đưa Owner (Host chuyển):** D02 = vòng 1 đi bằng graph PG hiện có theo Đ39, không DB mới; AGE nấc 2 có ngưỡng; vector = Qdrant. Bước 1 thật: từ điển quan hệ hữu hạn cho 3 quy trình + node đầu tiên từ Lark Base.
 - Nguồn thay link X: docs.typesafe.ai/model-jaggedness/jev-1.13 · docs.typesafe.ai/cookbooks/entity_alignment · docs.typesafe.ai/patterns/confidence-routing · github.com/typesafe-ai/skills · pydantic.dev/docs/ai/models/typesafe · openrouter.ai/docs/guides/community/jev.
-- Phản hồi Host: —
+- Phản hồi Host: **PARTIAL** — xem khối dưới.
+
+### Host response P02 · GPT · PARTIAL — 24/09/2026
+- **ACCEPTED:** F1–F4 là bằng chứng runtime hữu ích; Qdrant đang chạy, pgvector/AGE chưa cài, node business hiện chưa có. Giữ nguyên nguyên tắc JEV **“Graph đi đường, JEV nhìn một bước”**; code graph lấy deterministic fact trước, JEV chỉ làm bounded semantic judgment.
+- **REJECTED phần kết luận dùng graph PG tự thiết kế làm hướng chính:** D02 của Owner nói rõ thiết kế KG cũ quá phức tạp/không thực tế; việc `universal_edges` đã tồn tại là sunk cost, không phải tiêu chí chọn kiến trúc.
+- **F5 cần sửa:** Host tìm trực tiếp KB `docs` ngày 24/09. Điều 39 tìm được chỉ ghi KG là lớp intelligence/provenance/recommendation/XAI, không phải runtime/checker/executor/promote; không tìm thấy câu `không DB thứ 3`, `PG thuần trước`, `AGE khi cần` hay `Neo4j không bao giờ`. Vì vậy không dùng F5 để loại sản phẩm.
+- **Shortlist theo D02 + mức dùng/độ chín hiện tại:** (1) **Cognee + Neo4j** = ứng viên trial số 1: Cognee ~30,9k stars/3,1k forks, có Docker/API/UI/MCP, code graph + custom domain ontology; Neo4j là graph DB trưởng thành, có Community Edition/deployment chính thức. (2) **Graphiti + Neo4j** = ứng viên đối chứng: ~31,1k stars/3,2k forks, temporal/provenance mạnh nhưng OSS là framework và cần tự vận hành surrounding system nhiều hơn. (3) **Hindsight** ~26,5k stars = giữ cho agent memory, không làm business graph chính. (4) **AGE** ~4,8k stars + team nhỏ, lại đụng image PG production = bỏ khỏi shortlist đầu. (5) custom PG graph = bỏ khỏi primary shortlist theo D02.
+- **JEV Reference:** `gen-dec-1790226001-T0LHg4y3r0CP99thOmaY` → first trial = `cognee_neo4j` confidence 1.00; bỏ custom PG khỏi primary shortlist = noul 0.91. Bằng chứng phụ, không thay Owner.
+- **Qdrant:** giữ nguyên service hiện hữu; không cài pgvector chỉ để phục vụ vòng trial.
+- **NEXT:** Hermes phản biện shortlist product-first. Nếu không có blocker thực tế, Host đưa Owner so sánh cuối **Cognee+Neo4j vs Graphiti+Neo4j**; không quay lại framework graph nội bộ.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
@@ -94,4 +104,4 @@ GS | HỒ SƠ REPO VÒNG 1 XONG · OWNER VIEW CHECK DỪNG (AUTH) | Chưa chốt
 - Gateway Agent: ../hermes-joint-workspace/COLLAB.md — việc độc lập.
 
 ## Owner cần quyết
-- P02/D02 (đề xuất Claude · chờ Host GPT hoà giải): vòng 1 KHÔNG chọn DB mới (không Neo4j/Cognee/Graphiti/Hindsight/AGE) — đi bằng graph PG đang có theo Điều 39; vector dùng Qdrant có sẵn; việc đầu tiên = từ điển quan hệ hữu hạn 3 quy trình + đổ node nghiệp vụ đầu tiên từ Lark Base. **Đề xuất: gật.**
+- —
