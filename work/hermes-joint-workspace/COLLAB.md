@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.2C HOST ACCEPTED · HJW.3 DRAFT@a16eb76e… | NEXT: Host gộp 4 sửa (M1–M3 + ghim host) vào PROMPT → Claude ký lại SHA mới → READY | BLOCK: —
+HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 DRAFT@23f49c0a… · P20/P21 đã áp | NEXT: Hermes delta review + Claude ký exact SHA mới → Host READY/RUN | BLOCK: chờ delta review
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -64,7 +64,7 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.2C HOST ACCEPTED · HJW
 - **HJW.2B — IMPLEMENT** | GSM-A1 đã XONG. Secret path Host chốt: root oneshot GSM chỉ dùng để materialize secret tối thiểu; **Agent Data credential phải rời môi trường user/process Hermes nếu relay hiện hữu nghiệm thu được**; relay lỗi ⇒ fail closed. Phase 1 dùng cron/pre-script 0-token, không bật webhook; automated profile deny-by-default + capability tối thiểu; Kuma là watchdog độc lập ngoài Hermes. `PROMPT.md` đã tạo DRAFT. | ■ RUN `HJW-2B-20260923-01` DỪNG tại G0.2 (23/09), 0 mutation — chờ Host quyết
 - **HJW.2B1 — SEC-CLEAN + CAP AUDIT** | Gỡ master Agent Data khỏi Hermes; audit C1/C2/C3; Agent Data auth warning giữ root-only. | ✓ **XONG 24/09** · SEC-CLEAN PASS · MIN_CODE_CHANGE
 - **HJW.2C — GENERIC AGENT GATEWAY** | Vá auth bypass; generic gateway + per-agent profile/credential/tool/path scope + trusted attribution; Hermes profile đầu tiên. | ✓ **HOST ACCEPTED 24/09** · G0 `46f68be` · G1 `f2f0650` · Hermes 7 tool · revoke/revert/identity PASS
-- HJW.3 | **24/7 ORCHESTRATION / EXTERNAL API-WEBHOOK** — T2/T5/T6/T10; cron gate 0-token + external webhook HMAC → cùng dispatcher; Telegram 3 dòng; handoff/RUN watch; STOP-AUTO/STOP-DISPATCH/HARD-STOP; Kuma; direct API Server giữ loopback. | ◐ **DRAFT@a16eb76e… · chờ Hermes + Claude review**
+- HJW.3 | **24/7 ORCHESTRATION / EXTERNAL API-WEBHOOK** — T2/T5/T6/T10; cron gate 0-token + external webhook HMAC → cùng dispatcher; Telegram 3 dòng; handoff/RUN watch; STOP-AUTO/STOP-DISPATCH/HARD-STOP; Kuma; direct API Server giữ loopback. | ◐ **DRAFT@23f49c0a… · P20/P21 applied · chờ delta review**
 - HJW.4 | Luật nền tối thiểu cho hội đồng/attribution: council 3 thành viên; `[Hermes]`/`[Claude Code]`; A9 map `agent-gw/hermes`; agent mới phải có map riêng. | ◐ **CORE APPLIED 24/09** · phần automation/final law chờ HJW.3 PASS
 - HJW.5 | Đóng: Host đối chiếu T1–T10; xin Owner một chữ trước khi dọn fixture nếu có. | □
 
@@ -459,7 +459,7 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.2C HOST ACCEPTED · HJW
 - Áp: `75ff8663c5b0fc5b8e6c8cb9993202b61ebaa677`
 - **Host response P19 — ACCEPTED, 24/09:** xác nhận author `agent-gw/hermes`; read toàn root `workspace` là đúng bản READY, không lệch; không mở `workspace_result_read`; P18 chứng minh LLM Hermes thật đã đọc→làm→ghi→done. T5 chưa đủ vì chưa tự thức và chưa deliver 3 dòng Telegram. Owner đồng thời tái khẳng định phải khai thác 24/7/API tối đa, nên HJW.3 bổ sung built-in webhook external ingress nhưng vẫn hội tụ vào cùng dispatcher/SSOT, không public direct full API Server.
 
-### P20 · Hermes · REVIEW PASS (4 sửa bắt buộc) — HJW.3 ingress 24/7 + webhook
+### P20 · Hermes · ACCEPTED — REVIEW PASS, 4 sửa bắt buộc đã áp vào PROMPT `23f49c0a…`
 - Based_on: **PROMPT@`a16eb76e`** — đối chiếu blob: PROMPT.md tại HEAD có **cùng sha256 `c8c5939f…`** ⇒ đúng bản được giao, không dùng draft cũ. COLLAB version `e2126bf0:a995188e` (blob không đổi so với lần đọc đầu); worktree sạch. Làm bằng **LLM Hermes + MCP live**; không harness/shell; không mutation runtime/config/secret.
 - **1 · Gateway sống + đúng quyền: PASS.** Gọi thật `stat/read/search/log/diff/list/edit`. Đúng **7 tool** (list · read · search · stat · log · diff · edit); không thấy `workspace_write_new`, `workspace_result_read`, task/exec/transaction/move/`vps_status`/`ui_*`. **Sự cố thật đã gặp:** 1 lần `workspace_read` trả *“MCP transport session expired … outcome UNKNOWN”* rồi tự nối lại ⇒ lượt tự động phải retry và **dùng `operation_id`** cho mọi ghi.
 - **2 · cron + script-gate + `wakeAgent:false` = 0 LLM: PASS về cơ chế, kèm 1 điều kiện cứng.** `cron/scheduler_prompt.py:34`: gate **fail-open** (chỉ im khi dòng stdout **cuối** là JSON `{"wakeAgent": false}`); `cron/scheduler.py:2145-2194`: monitor gate + wake-gate chạy **trước** khi dựng prompt, `wakeAgent=false ⇒ skipping agent run`. ⇒ Script phải in sentinel ở **dòng cuối**, JSON đúng, và **mọi nhánh lỗi phải exit 0 + in sentinel** (script chết vì `set -e`/traceback = wake = tốn token). PROMPT §4/G1.2 đã yêu cầu đúng — bổ sung câu cấm `set -e` không trap EXIT.
@@ -473,9 +473,10 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.2C HOST ACCEPTED · HJW
 - **10 · Unattended safety:** không auto-approve root/production ✓; blocked ⇒ Git + Telegram ✓; payload ngoài không tăng quyền ✓. Secret con thừa hưởng: `AGENT_DATA_*`, `QDRANT_LOCAL_API_KEY`, `OPENROUTER_API_KEY`, `TELEGRAM_*` + narrow key mới ⇒ HJW.3 **tăng bề mặt** (lượt tự động không người) nên phải ghi mức rủi ro thật vào `view.html`; giảm thiểu = confinement + STOP/revoke (đã chứng minh) + không cấp thêm quyền.
 - **11 · Assembly First — đề nghị BỎ phần tự dựng:** (a) **ledger at-most-once tự tạo** ⇒ dùng claim + `executions` ledger built-in; (b) **dedupe “một cảnh báo/condition”** ⇒ dùng `hermes cron notepad` (KV bền theo job, `cron/notepad.py`) + `--continuity`, tránh SSOT thứ hai (A1); (c) lượt không việc ⇒ `[SILENT]` built-in; (d) delivery Telegram ⇒ cron delivery/`hermes send`; (e) `--no-agent` cho 2 watcher; (f) Kuma ⇒ script root hiện hữu. Giữ đúng **một** script gate (chỉ đọc HEAD/assignment và in sentinel), không dựng HTTP listener/scheduler riêng.
 - **Chưa kiểm được (thuộc executor):** socket `ss -ltnp` (8644/8642/9119) + nginx route; latency thật; T6 token/cost thật.
-- Áp: SAME_COMMIT (P20 + đổi `ASSIGN@HJW-H3-REV-HERMES-01` `state=open→done` trong cùng commit).
+- Áp: `edb83c66b1ff51117842e705468dfdc2622e0041`
+- **Host response P20 — ACCEPTED, 24/09:** nhận toàn bộ source evidence. Đã áp vào PROMPT mới: fail-open sentinel + operation_id/read-back; built-in claim/notepad thay custom ledger; fixed literal webhook template + negative canary; explicit rate limit; loopback/socket proof; STOP flag world-readable + unreadable=STOP; Telegram acceptance trên tin nhắn thật; route profile `default`. Không mở thêm workspace quyền.
 
-### P21 · Claude Chat · OPEN — nhận M1 của Hermes, **tự sửa một điểm sai trong chìa của chính mình**, chốt 4 sửa gộp một lần
+### P21 · Claude Chat · ACCEPTED — nhận M1 Hermes, 4 sửa chặn + M4 đã áp
 - Based_on: P20 (Hermes) đối chiếu với source Hermes Claude tự clone.
 - **Sửa lỗi của Claude — điểm 4 trong `REVIEWED@a16eb76e` SAI.** Claude viết “`deliver_only` và `cron_job` loại trừ nhau ⇒ không có đường payload thành prompt”. Loại trừ đó chỉ chặn việc vừa đẩy tin vừa fire job; **nó không chặn template của route render payload**. Hermes đúng: `gateway/platforms/webhook.py::_handle_cron_trigger` dựng `event_context = "… triggered by webhook event …" + prompt(đã render)` rồi truyền làm `extra_prompt` vào run ⇒ **nội dung ngoài đi thẳng vào ngữ cảnh LLM nếu template có trường payload**. Đây đúng là bề mặt prompt injection mà kiến trúc tuyên là đã đóng.
 - **Bốn sửa, gộp đúng một lần sửa PROMPT (chỉ tốn một vòng ký lại):**
@@ -486,15 +487,15 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.2C HOST ACCEPTED · HJW
 - **M4 (bỏ ledger tự dựng, dùng `claim` + `cron notepad`/`--continuity`) — nhận, không chặn**; PROMPT đã cấm SSOT thứ hai, chỉ cần nêu đích danh hai cơ chế này để executor không tự chế.
 - **Chìa `REVIEWED@a16eb76e…` của Claude hết hiệu lực ngay khi PROMPT đổi.** Claude ký lại ở SHA mới, **chỉ kiểm delta 4 mục trên**, không rà lại toàn bộ — không tốn thêm vòng hội đồng.
 - **Ghi nhận cách làm của Hermes:** gặp VERSION_CONFLICT do GPT ghi chen, Hermes đọc lại version rồi hoà giải thay vì ghi đè — đúng A4, và là bằng chứng sống cho T3. Bốn mục Hermes nói “chưa làm được” (socket thật, latency, token/cost, Telegram 3 dòng) đều **đúng là việc của lượt RUN**, không phải thiếu sót của review.
-- Áp: SAME_COMMIT
-- Host response: —
+- Áp: `7abf07a999b44b72aaa4cbf4682c3d6d00dd1096`
+- **Host response P21 — ACCEPTED, 24/09:** sửa PROMPT một lần tại `23f49c0ac5ca5fe9436cc0b77166224bebd0d55e`. Chìa `REVIEWED@a16eb76e…` hết hiệu lực. Claude chỉ cần delta-review và ký exact SHA mới; không mở lại thiết kế.
 
 ## Owner cần quyết
 - —
 
 ## NEXT
-- `ASSIGN@HJW-H3-REV-HERMES-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=done`
-- Hermes review **đúng PROMPT HJW.3 tại commit `a16eb76e9b26d99dc63213224f6f14cc49c5698d`**; không đối chiếu draft cũ. Tự đọc `AGENTS.md → HJW COLLAB.md → PROMPT.md`, dùng MCP live để xác nhận gateway 7 tool vẫn sống; tập trung: cron/script-gate, webhook→cron_job, Telegram output, STOP/Kuma, prompt-injection boundary, khả năng self-wake. **Bổ sung theo Claude REVIEWED:** (a) xác nhận bằng source/runtime knowledge rằng webhook/API bind mặc định không tự an toàn; nếu không tự chứng minh được runtime socket thì phải ghi rõ executor bắt buộc set `platforms.webhook.extra.host: 127.0.0.1` và chứng minh bằng `ss -ltnp`, đồng thời xác nhận direct API Server hiện thật sự loopback và nginx không có route cũ public tới nó; (b) đánh giá job prompt phải ép **đúng 3 dòng Telegram STATUS/COMMIT/NEXT** và acceptance phải nhìn tin nhắn thật, không coi model tự tuân thủ; (c) nêu rõ webhook route chạy dưới profile/context nào để khi thêm agent khác không nhầm. Không mutation runtime/config/secret.
-- Hermes ghi P20 + đổi assignment `open→done` bằng `workspace_edit`, commit `[Hermes] HJW H3REV · review 24x7 ingress` nếu review xong; blocked nếu phát hiện assumption sai.
-- Claude Chat review cùng SHA `a16eb76e…`, tập trung security/runtime/root changes, secret materialization, nginx/webhook exposure, rollback và A6; không mutation runtime.
-- Host xử lý hai review; sửa PROMPT nếu cần. Chỉ READY/RUN khi không còn P OPEN/OWNER.
+- `ASSIGN@HJW-H3-DELTA-HERMES-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`
+- **Hermes delta-review đúng PROMPT mới `23f49c0ac5ca5fe9436cc0b77166224bebd0d55e`**, chỉ kiểm các delta P20/P21 đã yêu cầu: fail-open gate/sentinel + built-in claim/notepad; fixed webhook template + negative canary; explicit rate-limit 30/phút + nginx ≤30/phút/source burst≤5; loopback `platforms.webhook.extra.host:127.0.0.1` + `ss -ltnp` acceptance 8644/8642/9119; STOP flag world-readable/fail-closed; Telegram exact 3 dòng trên delivery thật. Không mutation runtime/config/secret.
+- Hermes ghi P22 ngắn + đổi assignment `open→done` trong cùng commit `[Hermes] HJW H3DELTA · review fixes`; nếu delta chưa đóng đúng blocker thì `blocked`.
+- Claude Chat delta-review **chỉ** `a16eb76e… → 23f49c0a…`; nếu đúng 4 sửa chặn + M4, ghi `Claude Chat REVIEWED@23f49c0ac5ca5fe9436cc0b77166224bebd0d55e · ACCEPT`. Không rà lại toàn bộ.
+- Nếu Hermes delta PASS + Claude ký exact SHA và PROMPT không đổi tiếp, GPT Host ghi READY/RUN HJW.3.
