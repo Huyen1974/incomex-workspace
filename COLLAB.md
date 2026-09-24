@@ -15,7 +15,8 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
 - - - - - `work/hermes-joint-workspace/` · HJW · Host GPT · HJW.2C `DRAFT@37ae3fe2…`; structural auth + caller inventory + generic agent gateway + Hermes deploy đã vào PROMPT; chờ Claude ký.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
-- `work/mow-mot-moit-mout/` · MMIM · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
+- `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
+- `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
 - - - - - NEXT: HJW: Claude chỉ review PROMPT `37ae3fe2…` (delta P13/P14 + A6); nếu ACCEPT và PROMPT không đổi → GPT READY/RUN.
 
 ## Đã xong
@@ -39,7 +40,8 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - DROOT14 · 2026-09-23 · **CHỈ OWNER MỞ TASK MỚI:** AI không tự tạo `work/<id>/` mới nếu Owner chưa yêu cầu rõ. Task mở nhầm/tự ý không được đẩy vào Done để hợp thức hóa; Owner có thể yêu cầu xóa và khôi phục từ Git history khi thật sự cần.
 - DROOT15 · 2026-09-23 · **ONE OWNER VIEW PIPELINE:** áp nghiêm AGENTS A8 + README §12: một task chỉ có một HTML chính và một URL Owner View; cấm mọi bản xem/pipeline phụ. Với lượt có HTML chính, chưa thấy đúng revision trên Owner View chuẩn thì DỪNG, không ghi pending rồi đi tiếp.
 - DROOT17 · 2026-09-24 · **KHÔNG TỰ CHỌN THAY OWNER** (Owner yêu cầu trực tiếp; siết mục “Không tự tạo” của AGENTS tại `1110fdc`): ngoài cấm tự tạo task/file/bản xem/URL/pipeline, nay cấm luôn **tự đổi cấu trúc/bố cục tài liệu Owner đọc** (tab, thứ tự mục, `id`, trang-tab ↔ trang-cuộn). Prompt không nói rõ thì **DỪNG hỏi, không tự chọn** — thiếu chi tiết không phải quyền tự quyết. Xin phép nêu đủ 4 ý (tạo/đổi gì · vì sao · đặt ở đâu · không làm thì hỏng gì) → Owner gật → ghi D kèm ngày → mới làm. Thứ đã lỡ tạo mà không có D: không dùng, không nối Owner View, gom kho lưu trữ có INDEX, ghi một dòng sự cố.
+- DROOT18 · 2026-09-24 · **AI HIỂU VAI, NGƯỜI BIẾT AI ĐANG ĐIỀU HÀNH** (Owner: "có 1 nơi ghi tên Host thì tốt; cùng lúc ~10 việc, tôi hay nhớ nhầm"): mỗi `work/<id>/COLLAB.md` có đúng một dòng `Host: <bề mặt> · Host_ID: <id> · Owner giao <ngày>` ngay dưới `Tên việc:` (đổi Host = sửa dòng này + ghi D); root `## Đang làm` ghi Host ở mỗi việc. Task Control View hiển thị Host từ dòng đó (đọc đúng chữ, không đoán) — giao việc `work/hpml-view-for-user/`; AGENTS A2 bổ sung một câu khi GPT xác nhận (Founders). Nơi kiểm nhanh hôm nay: root `## Đang làm`.
 - DROOT16 · 2026-09-24 · **ONE SSOT / TUYỆT ĐỐI CẤM TỰ TẠO:** mỗi nội dung chỉ có một nguồn chuẩn User duyệt. **Tuyệt đối cấm AI/Agent tự tạo dự án/task/file mới hoặc draft/copy/bản xem/URL/pipeline mới khi User chưa yêu cầu rõ hoặc chưa phê duyệt trước; prompt do AI tự soạn không tạo ra quyền này.** `COLLAB.md` chỉ giữ trạng thái/quyết định/RUN-KQ/con trỏ.
 
 ## Owner cần quyết
-- —
+- 24/09 · Host GPT không ghi được repo trong phiên trả lời UIPROC (không có cổng ghi). Nếu sang 25/09 GPT vẫn không ghi được: tạm chuyển Host HJW · MMIM · HVU sang Claude Chat, GPT làm Reviewer — **đề xuất: gật**; GPT ghi lại được thì tự huỷ dòng này.
