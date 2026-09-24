@@ -23,11 +23,11 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
 - Nội dung chính Owner/hội đồng đọc được trên Owner View chuẩn của VPS.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-- Giai đoạn hiện tại: **VẼ THỬ TRÊN FIELD** (đồng thuận phương pháp GPT+Claude xong 24/09, P05 ACCEPTED; Hermes chưa nối — D07). Bước kế: Host soạn một `PROMPT.md` duy nhất cho Codex sau khi Owner chốt nơi ghi kết quả (mục Owner cần quyết). Áp R1 (AGENTS A10): không cài/dựng tool mới trước bài thi FIELD. Chưa `PROMPT.md`, chưa RUN, chưa cài tool, chưa sửa UI/runtime.
+- Giai đoạn hiện tại: **VẼ THỬ TRÊN FIELD** (đồng thuận phương pháp GPT+Claude xong 24/09, P05 ACCEPTED; Hermes chưa nối — D07). Owner đã chốt nơi ghi bài thử: tab Step quy trình của `work/mow-mot-moit-mout/ban-duyet.html` (24/09); không tạo file mới. Áp R1 (AGENTS A10): không cài/dựng tool mới trước bài thi FIELD. Codex được khảo sát/bấm thử UI hiện có ở K0; bảng G chỉ chặn vẽ hoặc đổi UI mới. Chưa có RUN riêng để sửa UI/runtime.
 - HTML chính: `view.html` — bản đồng thuận 24/09 (Host Claude viết lại theo D06: quyết định trước → sơ đồ K0–K7 → nội dung). Bản đầu của GPT ở commit `fe1b4c054bae59e4d5e1861efcca3a09d80d4ca6`.
 - Nguyên tắc Owner 24/09 (qua GPT): ba nguyên tắc D03–D05 là điều kiện bắt buộc kế thừa ở mọi nơi áp dụng quy trình; chi tiết ghi thẳng repo, Owner chỉ nắm mục tiêu ngắn gọn.
 - Phải tách rõ ba lớp: (A) coverage quy trình UI; (B) hợp đồng thông tin/danh mục khai báo; (C) tool hỗ trợ. Mọi lựa chọn hữu hạn quan trọng tham khảo JEV theo A5/DROOT13/D05.
-- Kế thừa MMIM (`work/mow-mot-moit-mout/`): xương S01–S08 + bản ghi phụ thuộc R3.4, 5 trạng thái UI R3.6, quản lý sau tạo R3.7, FIELD03 (15 chiều, data dictionary, master mã). FIELD là lượt áp dụng đầu = bài thi đáp án đã biết (5 lỗi).
+- Kế thừa MMIM (`work/mow-mot-moit-mout/`): xương S01–S08 + bản ghi phụ thuộc R3.4, 5 trạng thái UI R3.6, quản lý sau tạo R3.7, FIELD03 (15 chiều, data dictionary, master mã). FIELD là lượt áp dụng đầu = bài thi 4 lỗ đã biết + 1 kiểm hồi quy nút ✎.
 - Còn mở: nơi đặt danh mục khai báo/hợp đồng khi chạy thật (hỏi Owner khi vào bài thi FIELD, DROOT16). Máy kiểm là file mới → Owner duyệt trước khi tạo.
 
 ### Vòng trước
@@ -41,6 +41,8 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
 - D05 · 2026-09-24 · **JEV có điểm tham khảo bắt buộc** theo một bảng chung 5 điểm; không hỏi JEV thay máy kiểm; ghi lại đầu vào/lựa chọn/result id/kết luận Host. `view.html` mục 7.3.
 - D07 · 2026-09-24 · Hermes chưa kết nối nên chưa tham gia; hội đồng việc này hiện = GPT + Claude. Owner muốn thấy workflow vẽ ngắn gọn nhìn là hiểu (đã thành mục 0 `view.html`, chi tiết gập lại) và sẽ cùng Codex vẽ thử trước.
 - D06 · 2026-09-24 · Owner đồng ý toàn bộ đề xuất Claude: quy trình chuẩn kế thừa MMIM, FIELD làm lượt áp dụng đầu; **Claude Chat làm Host**; Claude làm thư ký chép phản hồi Host GPT vào COLLAB; Host được sửa `view.html` kể cả bố cục (quyết định trước → sơ đồ → nội dung).
+
+- D08 · 2026-09-24 · Owner chốt sửa tối thiểu hướng dẫn: trần 40 dòng chỉ cho kịch bản chi tiết, ma trận vẫn đủ tổ hợp; được kiểm/bấm UI hiện có từ K0 trước bảng G, bảng G chỉ chặn vẽ/đổi UI mới; nút ✎ chuyển thành kiểm hồi quy. Bài thử FIELD ghi trong tab Step quy trình của `work/mow-mot-moit-mout/ban-duyet.html`, không tạo file mới. · Áp: SAME_COMMIT.
 
 ## Nội dung chính
 - SSOT Owner/hội đồng: `work/quy-trinh-ve-UI/view.html` (mục 1 Owner cần quyết · 2 tiến độ · 3 D · 4 khâu K0–K7 · 5 hợp đồng 3 tầng · 6 nguồn+trạng thái kiểm · 7 ba nguyên tắc Owner · 8 nghiệm thu 4 cửa · 9 kho 34 câu · 10 ma trận · 11 18 thuộc tính theo tầng · 12 tool · 13 hội đồng).
@@ -87,4 +89,4 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
 - I02 · 24/09 · P04 (`e682cf6`) và UI-PROCESS-01…05 (mở việc, đổi task-id) do GPT ghi bằng **đường (3) GitHub native** dưới tài khoản Owner — trái README D12; Task view không thấy actor. Nội dung đã ở đúng SSOT nên giữ, không tạo commit giả. Gốc: luật chưa có chốt kỹ thuật → đề xuất khoá bằng GitHub Ruleset ở COLLAB gốc (DROOT19 / AGENTS A10-R2).
 
 ## Owner cần quyết
-- 24/09 · Nơi ghi kết quả vẽ thử FIELD (Owner + Codex). Đề xuất: **một file mới duy nhất `work/quy-trinh-ve-UI/ve-thu-FIELD.html`** (Codex ghi, mỗi lượt sửa đè cùng file, không đẻ bản 2) — vì `view.html` là quy trình chuẩn, không nên độn 40 kịch bản FIELD vào; `ban-duyet.html` bên MMIM do GPT Host. Owner gật → Host soạn `PROMPT.md` (một prompt, đủ ngữ cảnh) cho Codex.
+- 24/09 · Không còn quyết định về nơi ghi bài thử FIELD: Owner đã chọn tab Step quy trình trong `work/mow-mot-moit-mout/ban-duyet.html` (D08). Các câu G01–G07 của FIELD vẫn chờ Owner quyết tại HTML chính của MOW.

@@ -33,17 +33,17 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 </style>
 <h2 id="buctranh">0. Bức tranh một màn hình — vẽ một UI gồm 8 khâu, anh chạm 3 lần</h2>
 <div class="flow">
-<div class="own"><span class="who">Owner gật</span><b>K0 Kiểm kê</b><i>"Đã có gì rồi?"</i>Xem PG/Directus, UI đang chạy, luật, tài liệu cũ.<div class="ra">→ Mục tiêu UI 1 câu + danh sách đối tượng (đã có / một nửa / chưa có)</div></div>
+<div class="own"><span class="who">Owner gật</span><b>K0 Kiểm kê</b><i>"Đã có gì rồi?"</i>Xem PG/Directus, UI đang chạy, luật, tài liệu cũ; được bấm thử UI hiện có ngay ở K0.<div class="ra">→ Mục tiêu UI 1 câu + danh sách đối tượng (đã có / một nửa / chưa có)</div></div>
 <div><span class="who">AI</span><b>K1 Vòng đời</b><i>"Mỗi thứ sống–chết ra sao?"</i>Trạng thái, ai được làm gì, mã + master.<div class="ra">→ Một thẻ cho mỗi đối tượng</div></div>
 <div><span class="who">AI + JEV</span><b>K2 Ma trận</b><i>"Còn ô nào trống?"</i>Máy sinh mọi tổ hợp: tạo/sửa/xoá × trạng thái × vai trò × đúng/lỗi.<div class="ra">→ Mỗi ô: kịch bản / CẤM / không cần + lý do</div></div>
 <div><span class="who">AI</span><b>K3 Kịch bản</b><i>"Ai bấm gì, thấy gì?"</i>Mỗi ô thành một dòng có mã.<div class="ra">→ Bảng kịch bản: mã · ai · màn · kết quả · hỏng về đâu</div></div>
 <div><span class="who">AI + JEV</span><b>K4 Hợp đồng</b><i>"Số liệu ở đâu ra, đi đâu?"</i>Ba tầng: trường → đối tượng → chuyển tiếp; tìm trước khi khai mới.<div class="ra">→ Danh mục khai báo + danh mục hợp đồng</div></div>
 <div class="own"><span class="who">Owner gật</span><b>K5 Luồng + bảng G</b><i>"Anh cần quyết gì?"</i>Sơ đồ luồng; mọi chỗ AI còn đoán gom vào một bảng, có sẵn đề xuất. Đi thử kiểu người mới trên giấy.<div class="ra">→ Bảng G: anh gật/lắc từng dòng</div></div>
-<div><span class="who">AI</span><b>K6 HTML</b><i>"Bấm thử được chưa?"</i>Chỉ vẽ sau khi bảng G được gật.<div class="ra">→ Nguyên mẫu bấm được</div></div>
+<div><span class="who">AI</span><b>K6 HTML</b><i>"Bấm thử được chưa?"</i>Chỉ vẽ hoặc đổi UI mới sau khi bảng G được gật; khảo sát UI hiện có không phải chờ.<div class="ra">→ Nguyên mẫu bấm được</div></div>
 <div class="own"><span class="who">Owner xem</span><b>K7 Kiểm độc lập</b><i>"Có sót không?"</i>Máy kiểm · AI khác làm lại mù · bài thi đáp án biết trước · người mới đi thử trên HTML.<div class="ra">→ PASS / FAIL, đủ 4 cửa mới PASS</div></div>
 </div>
 <div class="strip"><span><b>Luật xuyên suốt:</b> cái gì ≥2 thì có mã + master</span><span>người mới phải tự đi được</span><span>JEV chấm ở chỗ chọn, không nghĩ hộ</span><span>máy kiểm trước, người xem sau</span><span>chưa qua cửa khâu này thì không mở khâu sau</span></div>
-<div class="strip"><span><b>Công cụ:</b> không cài gì mới</span><span>Git = chữ/bảng (nguồn chuẩn)</span><span>Mermaid = chữ → sơ đồ</span><span>PG/Directus = đối chiếu cái đã có</span><span>JEV = chấm lựa chọn</span><span>ui_act = bấm thử HTML</span><span>Codex / Claude Code = tay làm</span></div>
+<div class="strip"><span><b>Công cụ:</b> không cài gì mới</span><span>Git = chữ/bảng (nguồn chuẩn)</span><span>Mermaid = chữ → sơ đồ</span><span>PG/Directus = đối chiếu cái đã có</span><span>JEV = chấm lựa chọn</span><span>Công cụ bấm UI thực sự có trong phiên = bấm thử HTML</span><span>Codex / Claude Code = tay làm</span></div>
 <p class="small">Vẽ thử lần đầu trên FIELD (Owner + Codex) để lộ chỗ yếu; đầy đủ từng khâu ở phần chi tiết bên dưới (dành cho AI/PM).</p>
 
 <h2 id="owner">1. Hôm nay Owner cần quyết</h2>
@@ -51,7 +51,7 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 
 <h2 id="tiendo">2. Đang ở đâu</h2>
 <div class="bar"><span class="done">Mục tiêu ✅</span><span class="done">Đồng thuận phương pháp ✅ (GPT + Claude; Hermes chưa nối — D07)</span><span class="doing">◉ Vẽ thử trên FIELD (Owner + Codex)</span><span class="todo">Nghiệm thu ○</span></div>
-<p class="small">Xong khi: vẽ thử FIELD lộ ra chỗ yếu và đã vá; quy trình bắt đủ 5 lỗi đã biết; hai kiểm độc lập PASS.</p>
+<p class="small">Xong khi: vẽ thử FIELD lộ ra chỗ yếu và đã vá; quy trình bắt đủ 4 lỗ đã biết và nút ✎ qua kiểm hồi quy; hai kiểm độc lập PASS.</p>
 
 <details><summary>Chi tiết cho AI / PM — mục 3–13 (bấm để mở)</summary>
 <h2 id="chot">3. Đã chốt (Owner)</h2>
@@ -68,13 +68,13 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <h2 id="khau">4. Quy trình chuẩn — 8 khâu K0–K7</h2>
 <p>Khâu = việc AI thiết kế (K). Bước người dùng bấm trong một UI gọi là <b>bước thao tác</b> (S01–S08 của MMIM). Hai thứ khác tầng, không gọi chung là "bước".</p>
 <div class="k">
-<div><b>K0 Kế thừa &amp; phạm vi</b>Mục tiêu UI 1 câu (Owner) · phạm vi V1 · kiểm kê cái đã có: PG/Directus, UI đang chạy, luật, tài liệu cũ · 4 mức CHẠY THẬT/CÓ GIAO DIỆN/MỘT NỬA/CHƯA CÓ<br><span class="tag">chạm Owner</span></div>
+<div><b>K0 Kế thừa &amp; phạm vi</b>Mục tiêu UI 1 câu (Owner) · phạm vi V1 · kiểm kê cái đã có: PG/Directus, UI đang chạy, luật, tài liệu cũ; được xem và bấm thử UI hiện có trước bảng G · 4 mức CHẠY THẬT/CÓ GIAO DIỆN/MỘT NỬA/CHƯA CÓ<br><span class="tag">chạm Owner</span></div>
 <div><b>K1 Đối tượng &amp; vòng đời</b>Mỗi đối tượng: trạng thái, vai trò, mã + master (D03), thẻ đối tượng</div>
 <div><b>K2 Ma trận phủ</b>Hàng sinh máy: CRUD × trạng thái × chính/phụ/lỗi × vai trò · cột = 15 chiều FIELD03 + 5 bổ sung · ô = mã kịch bản hoặc N/A + lý do<br><span class="tag">JEV</span></div>
 <div><b>K3 Kịch bản (Step Contract)</b>Mỗi kịch bản một dòng: mã · tình huống · ai làm gì · màn nào · kết quả · hỏng về đâu · trả lời các câu cấp bước (mục 9)</div>
 <div><b>K4 Hợp đồng 3 tầng</b>Danh mục khai báo → thẻ đối tượng → hợp đồng chuyển tiếp (mục 5) · đối chiếu registry PG trước khi khai mới<br><span class="tag">JEV</span></div>
 <div><b>K5 Luồng/trạng thái + bảng G</b>Sơ đồ chữ→hình · gom mọi <code>AI_ĐỀ_XUẤT</code> thành bảng G có đề xuất + hệ quả nếu lắc · đi thử người mới trên giấy (D04)<br><span class="tag">chạm Owner</span></div>
-<div><b>K6 HTML nguyên mẫu</b>Chỉ sau khi bảng G được gật · thử bằng <code>ui_inspect</code>/<code>ui_act</code> · nhật ký đi thử = Help nháp</div>
+<div><b>K6 HTML nguyên mẫu</b>Chỉ vẽ hoặc đổi UI mới sau khi bảng G được gật · thử bằng công cụ bấm UI thực sự có trong phiên · nhật ký đi thử = Help nháp</div>
 <div><b>K7 Kiểm độc lập</b>Máy kiểm 0 lỗi · kiểm mù · bài thi đáp án đã biết · người mới trên HTML (mục 8)<br><span class="tag">chạm Owner: xem kết quả</span></div>
 </div>
 <p>Mỗi khâu có <b>cửa ra máy kiểm được</b>; chưa qua cửa thì không mở khâu sau. Đi <b>vòng nhỏ theo từng đối tượng</b> (FIELD trước, rồi MOUT/MOIT/MOT/MOW), không chờ vẽ đủ mọi đối tượng. Chính sách đã duyệt có mã thì kế thừa — không bắt Owner gật lại từng UI.</p>
@@ -124,7 +124,7 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <ul>
 <li>Ví dụ FIELD phải đi xuyên: đang làm form → thiếu trường → trường cần nhóm chưa có → tạo nhóm → quay lại tạo trường → quay lại form, không mất dữ liệu đang nhập.</li>
 <li>Mỗi bước ghi rõ <b>bấm đâu · nhập gì · thấy gì · sai thì sửa ở đâu</b>. Agent đếm thao tác, phát hiện nhập lặp và đường đi vòng (quay lại chỗ đã qua mà không thêm thông tin). Không giảm bước bằng cách bỏ kiểm quyền hay bỏ xác nhận hành động phá huỷ.</li>
-<li><b>Bổ sung (Claude):</b> đi thử <b>hai lần</b> — trên giấy (bảng kịch bản, ở K5, trước khi Owner gật bảng G) và trên HTML bằng <code>ui_act</code> (ở K7). Nhật ký đi thử (bấm đâu/nhập gì/thấy gì) là <b>nguồn để sinh Help</b> của UI; Help chỉ nằm ở đích quy trình đã cho phép, không tự suy ra quyền tạo file/bản Help mới (GPT P04).</li>
+<li><b>Bổ sung (Claude):</b> đi thử <b>hai lần</b> — trên giấy (bảng kịch bản, ở K5, trước khi Owner gật bảng G) và trên HTML bằng công cụ bấm UI thực sự có trong phiên (ở K7). Nhật ký đi thử (bấm đâu/nhập gì/thấy gì) là <b>nguồn để sinh Help</b> của UI; Help chỉ nằm ở đích quy trình đã cho phép, không tự suy ra quyền tạo file/bản Help mới (GPT P04).</li>
 </ul>
 <p><b>Điều kiện trượt:</b> phải đoán nút · cần tác giả giải thích thêm · không tìm lại được kết quả · mất dữ liệu khi quay lại · ngõ cụt. Agent đi thử đạt <b>chưa</b> được ghi thành "đã kiểm với người dùng thật".</p>
 
@@ -148,7 +148,7 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <tr><th style="width:170px">Cửa</th><th>Điều kiện</th></tr>
 <tr><td>1 · Máy kiểm</td><td>0 lỗi: không ô ma trận trống · không mã/tham chiếu treo · không câu bắt buộc chưa trả lời · không trùng mã; trùng tên/alias trong phạm vi = lỗi, khác phạm vi = cảnh báo. Script viết sau khi khuôn qua bài thi FIELD, trước đối tượng thứ hai; là file mới nên Owner duyệt trước khi tạo (DROOT16).</td></tr>
 <tr><td>2 · Kiểm mù</td><td>AI khác bề mặt lập lại danh sách kịch bản từ danh sách đối tượng + mục tiêu, <b>không xem bản tác giả</b>; diff; mọi dòng lệch được xử lý (thêm vào / N/A có lý do / JEV phân loại).</td></tr>
-<tr><td>3 · Bài thi đáp án đã biết</td><td>Áp quy trình lên FIELD: phải tự bắt lại 4 lỗ Owner nêu 23/09 (lưu xong xem ở đâu · sửa/xoá thế nào · nhóm chưa có thì tạo sao · mã + master mã) và lỗi nút sửa (<code>edit=</code>/<code>truong=</code>). Không đủ 5 → quy trình FAIL. Đủ 5 là <b>điều kiện cần</b>, chưa chứng minh hết lỗi.</td></tr>
+<tr><td>3 · Bài thi đáp án đã biết</td><td>Áp quy trình lên FIELD: phải tự bắt lại 4 lỗ Owner nêu 23/09 (lưu xong xem ở đâu · sửa/xoá thế nào · nhóm chưa có thì tạo sao · mã + master mã). Nút ✎ là <b>kiểm hồi quy</b> UI hiện có: mở hộp sửa và URL dùng <code>truong=full_name</code> (đã kiểm 24/09), không chấm là lỗi đang tồn tại. Thiếu 4 lỗ hoặc hồi quy hỏng → FAIL; đạt cả hai là <b>điều kiện cần</b>, chưa chứng minh hết lỗi.</td></tr>
 <tr><td>4 · Người mới</td><td>Theo 7.2 — trên giấy và trên HTML.</td></tr>
 </table>
 
@@ -161,7 +161,7 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 </ol>
 
 <h2 id="matran">10. Ma trận phủ (K2)</h2>
-<p><b>Hàng</b> sinh máy móc từ CRUD × trạng thái vòng đời × luồng chính/phụ/lỗi × vai trò (mỗi tổ hợp là kịch bản hoặc "CẤM" hoặc N/A + lý do). <b>Cột</b> = 15 chiều FIELD03: CRUD · lifecycle · approval · RBAC · duplicate · validation · where-used · version/migration · inline dependency · identifier registry · alias search · audit · concurrency · recovery · data dictionary — cộng 5 bổ sung: điều hướng (huỷ/quay lại/tiếp tục) · empty state · mất kết nối · nhập/xuất hàng loạt · quản lý sau tạo + Help. Kênh/thiết bị là thuộc tính đầu UI (mặc định web máy tính), không nhân ma trận. Ô = mã kịch bản hoặc N/A + lý do; trạng thái ô: <code>COVERED · CHUA_CHOT · UI_THIEU · DEFER_P1</code>. Trần số dòng đặt theo từng lượt (FIELD03: 40), không phải giới hạn cứng mọi quy trình.</p>
+<p><b>Hàng</b> sinh máy móc từ CRUD × trạng thái vòng đời × luồng chính/phụ/lỗi × vai trò (mỗi tổ hợp là kịch bản hoặc "CẤM" hoặc N/A + lý do). <b>Cột</b> = 15 chiều FIELD03: CRUD · lifecycle · approval · RBAC · duplicate · validation · where-used · version/migration · inline dependency · identifier registry · alias search · audit · concurrency · recovery · data dictionary — cộng 5 bổ sung: điều hướng (huỷ/quay lại/tiếp tục) · empty state · mất kết nối · nhập/xuất hàng loạt · quản lý sau tạo + Help. Kênh/thiết bị là thuộc tính đầu UI (mặc định web máy tính), không nhân ma trận. Ô = mã kịch bản hoặc N/A + lý do; trạng thái ô: <code>COVERED · CHUA_CHOT · UI_THIEU · DEFER_P1</code>. Giới hạn 40 dòng của FIELD03 chỉ áp cho kịch bản viết chi tiết trong một lượt, không phải giới hạn cứng mọi quy trình. Ma trận kiểm độ phủ vẫn giữ đủ mọi tổ hợp; mỗi tổ hợp có mã kịch bản, CẤM hoặc N/A kèm lý do và nguồn.</p>
 <p><b>Không mất hàng (GPT P04):</b> mọi tổ hợp sinh ra phải còn trên bảng với đúng một trong ba: <b>mã kịch bản</b> · <b>CẤM</b> · <b>N/A + lý do + nguồn</b>. Cấm “lọc cho gọn” bằng cách xoá tổ hợp — đây là chỗ máy kiểm độ phủ đối chiếu sau này.</p>
 
 <h2 id="18">11. 18 thuộc tính hợp đồng — giữ đủ, mỗi thuộc tính về đúng tầng</h2>
@@ -182,8 +182,8 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <h2 id="tool">12. Tool</h2>
 <ul>
 <li>Nguồn chuẩn = bảng chữ cột cố định trong Git (để sau nạp PG qua DOT không phải diễn giải lại) + sơ đồ chữ→hình (Mermaid) cho vòng đời/luồng. <code>view.html</code> của việc vẫn là tài liệu chính đã khai; không tạo bản Markdown song song. Muốn chuyển sang nguồn dữ liệu cấu trúc rồi sinh HTML phải chốt rõ một nguồn + đường sinh bản xem.</li>
-<li>HTML chỉ là lớp xem và nguyên mẫu; thử bằng <code>ui_inspect</code>/<code>ui_act</code> sẵn có. Figma/Penpot/Excalidraw/BPMN không làm nguồn chuẩn; BPMN chỉ khi có nhánh song song/duyệt nhiều cấp mà Mermaid không tả nổi.</li>
-<li>Vòng này không cài gì (GPT P04 đồng ý; nguyên tắc Owner R1 — AGENTS A10: <b>Bậc 1 có sẵn</b> = chữ/Git + Mermaid + Owner View + <code>ui_act</code>; chỉ xét cài khi bài thi FIELD chỉ ra thiếu thật). Host kiểm một lần: Owner View có vẽ được Mermaid không (nếu không, nhúng SVG đã sinh).</li>
+<li>HTML chỉ là lớp xem và nguyên mẫu; kiểm tên công cụ bấm UI thực sự có trong phiên rồi dùng công cụ đó. Figma/Penpot/Excalidraw/BPMN không làm nguồn chuẩn; BPMN chỉ khi có nhánh song song/duyệt nhiều cấp mà Mermaid không tả nổi.</li>
+<li>Vòng này không cài gì (GPT P04 đồng ý; nguyên tắc Owner R1 — AGENTS A10: <b>Bậc 1 có sẵn</b> = chữ/Git + Mermaid + Owner View + công cụ bấm UI thực sự có trong phiên; chỉ xét cài khi bài thi FIELD chỉ ra thiếu thật). Host kiểm một lần: Owner View có vẽ được Mermaid không (nếu không, nhúng SVG đã sinh).</li>
 <li>JEV tham khảo: JEV01 (GPT) <code>gen-dec-1790217288-56iSttNoJua2z4V7xBo7</code> — method/contract/tool 1.00, thiếu state/options kèm theo. JEV02 (Claude) <code>gen-dec-1790218524-d6cpWPLgEsnqORcMJkiS</code> — kế thừa MMIM 1.00 · 3 tầng 0.99 · registry trước 0.99 · chữ+Git 1.00 · nghiệm thu 4 cửa 0.85 (conf 0.80); máy kiểm 0.51/0.37 và mặc định-vs-từng-bước 0.52/0.38 chưa chắc → Host chốt theo ONE SSOT.</li>
 </ul>
 
