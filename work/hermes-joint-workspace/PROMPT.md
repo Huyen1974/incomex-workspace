@@ -1,12 +1,114 @@
-# PROMPT — HJW.3 · Hermes 24/7 Orchestration + External API/Webhook
+# PROMPT — HJW.3B · Public Webhook Bridge + Secret + Kuma + Closeout
 
-RUN_ID: HJW-3-20260924-01
-STATUS: DRAFT — KHÔNG RUN cho tới khi Claude + Hermes review xong và Host ghi READY@ đúng SHA cuối chạm file này
+RUN_ID: HJW-3B-20260925-01
+STATUS: DRAFT — KHÔNG MUTATION cho tới khi Reviewer ACCEPT và Host ghi READY@ đúng SHA cuối chạm file này
 
-Executor_Surface: Claude Code CLI trên Mac
+Executor_Surface: Claude Code CLI MỚI trên Mac
 Runtime_Write_Path: SSH/root-operator tới VPS; Hermes runtime/config trên VPS là SSOT
 Report_Write_Path: chỉ cập nhật file hiện hữu `work/hermes-joint-workspace/COLLAB.md` + `view.html`; evidence nhạy cảm append vào hồ sơ root-only hiện hữu
 Work: `work/hermes-joint-workspace/`
+
+## HJW.3B DELTA — PHẦN DUY NHẤT EXECUTOR MỚI ĐƯỢC MUTATION
+
+Baseline đã chạy: `HJW-3-20260924-01` tại `PROMPT@23f49c0ac5ca5fe9436cc0b77166224bebd0d55e`.
+Evidence root-only hiện hữu: `/opt/incomex/work/hermes-joint-workspace/HJW-3-20260924-01/`.
+**Không làm lại G1/G2/STOP/local webhook đã PASS ở P26.**
+
+### Mục tiêu còn lại
+1. Quan sát/đối chiếu T5/T6 self-wake đã được Host arm bằng `ASSIGN@HJW-H3-T5-01`; không trigger tay.
+2. Public webhook qua **UNIX socket bridge**, webhook bản thân vẫn bind `127.0.0.1:8644`.
+3. Một secret riêng `HERMES_WEBHOOK_SECRET` qua secret-path root-managed hiện hữu.
+4. Harden nginx + external tests + canary.
+5. Kuma monitor qua hạ tầng Kuma hiện hữu.
+6. Hoàn tất T10/KQ.
+
+### Read-gate phiên CLI MỚI
+Đọc:
+`AGENTS.md → root COLLAB.md → HJW COLLAB.md (P26/P27/P28 + dòng hiện hành) → PROMPT.md phần HJW.3B này → EVIDENCE.md + rollback.sh`.
+
+Phải xác nhận baseline:
+- G1: `hjw_gate.py`, fault-injection + fixture 11/11 PASS.
+- G2: `ws-dispatch` 2′, handoff/run-watch 15′, idle 0 LLM.
+- STOP-DISPATCH + STOP-AUTO baseline PASS.
+- local WebhookAdapter tests P26 giữ nguyên.
+- Agent Gateway 7 tool sống; `AGENT_DATA_*` vẫn vắng.
+- T5: nếu assignment đã done thì đọc P29 + ledger/Telegram; nếu open/claimed thì **không can thiệp/không cron run tay**.
+- trước mutation: re-read HEAD/version/worktree; conflict/outcome UNKNOWN => read-back/reconcile, không overwrite.
+
+### T5/T6
+T5 chỉ PASS khi cron tự wake LLM Hermes, assignment tự chuyển trạng thái, Git author = `agent-gw/hermes`, Telegram/raw delivery **exactly 3 non-empty lines STATUS/COMMIT/NEXT**, và executions ledger chứng minh model turn thật.
+T6: lấy model/provider/reasoning + token/cost thật nếu có; không suy giá.
+
+### Bridge — UNIX socket ONLY
+Host ruling P28 + JEV `gen-dec-1790288556-2qqAifoGz8UcJn8fJnW4` chọn UNIX_SOCKET 0.98.
+
+Trước mutation:
+- `docker inspect incomex-nginx`: Mounts/User/Networks/config source.
+- xác định nginx worker UID/GID + userns.
+- tìm host directory đã bind-mount vào nginx phù hợp cho socket.
+- kiểm pattern `systemd-socket-proxyd` hiện hữu.
+
+Ưu tiên:
+- một cặp systemd socket/service tối thiểu: **UNIX socket → 127.0.0.1:8644**;
+- socket mode tối đa 0660, owner/group chỉ đủ cho nginx worker;
+- nginx `proxy_pass` qua UNIX socket;
+- **không TCP listener mới**.
+
+Nếu chưa có mount phù hợp nhưng config hiện hữu hỗ trợ:
+- được phép thêm đúng **một bind-mount thư mục socket** vào nginx;
+- Telegram Owner trước recreate; recreate **chỉ nginx**; verify health/routes.
+
+UDS không khả thi an toàn => `DỪNG UDS_BRIDGE_NOT_FEASIBLE`.
+**CẤM fallback TCP 172.18.0.1 trong RUN này.**
+
+### Secret webhook
+Được phép tạo đúng một secret `HERMES_WEBHOOK_SECRET` trong Secret Manager/project hiện hữu:
+- random mạnh, không stdout/log/chat/repo;
+- không project/service mới;
+- sửa `hermes-key-fetch` hiện hữu để materialize optional var vào `/run/hermes/or.env`;
+- config chỉ dùng `${HERMES_WEBHOOK_SECRET}`;
+- user Hermes không có GSM credential;
+- thiếu secret => fail closed, không plaintext fallback.
+Nếu auto-mode chặn Secret-Store write => DỪNG đúng approval gate, không lách.
+
+### Webhook/nginx production
+Webhook:
+- `platforms.webhook.extra.host=127.0.0.1`, port 8644;
+- profile `default`, route `incomex-dispatch`, `cron_job=ws-dispatch`;
+- fixed literal template; cấm interpolation từ body/header/query/payload;
+- HMAC V2; body ≤16KB; adapter rate 30/phút/route.
+
+Nginx exact public route:
+- POST only; reject query string;
+- ≤30 req/min/source, burst≤5; body≤16KB;
+- strict `X-Request-ID` hex/uuid-style 16–64;
+- no args/body/secret in logs;
+- reject/strip legacy V1/GitHub/GitLab/Svix/Linear signature families;
+- preserve only exact Hermes V2 headers + sanitized delivery id/content type;
+- `nginx -t` + Telegram Owner trước reload.
+
+External test bắt buộc: wrong/missing/expired V2 reject; **V1 và GitHub-style hợp lệ cũng phải reject**; query/id invalid reject; duplicate same id no second run; rate counts thật; valid V2/no assignment => gate false 0 LLM.
+
+Residual chấp nhận: replay request hợp lệ trong freshness window bằng delivery-id mới vẫn có thể “đánh chuông”, nhưng scheduler claim + rate-limit giới hạn tác hại. Ghi đúng, **không gọi replay-proof**.
+
+### Canary
+Sau public route: canary unique không được xuất hiện ở prompt/context, model output, Telegram, application/gateway/nginx logs acceptance.
+Query bị reject; ID sanitized; access log no args.
+Leak bất kỳ mặt nào => rollback public route + DỪNG.
+Mỗi route webhook thêm/sửa về sau phải chạy lại canary.
+
+### Kuma
+Được phép tạo đúng một monitor Hermes trong Kuma hiện hữu; token root-only; gắn vào push script/service/timer root-owned hiện hữu.
+Không tạo service/timer mới nếu cơ chế hiện hữu dùng được; nếu bắt buộc unit mới => `DỪNG KUMA_NEW_UNIT_REQUIRED`.
+Test alert ≤10 phút rồi restore.
+
+### Rollback/KQ
+Không rollback G1/G2/HJW.2C trừ khi causal.
+KQ chỉ XONG nếu đủ: T5+T6; UDS/socket proof; V1/GitHub rejection; canary sạch public; idle 0 LLM; STOP/HARD-STOP; Kuma alert; valid V2 tới cùng dispatcher/claim; rollback documented.
+
+**CẤM:** repo task/project/file mới; TCP bridge 172.18.0.1; raw public 8644/8642/9119; direct full Hermes API public; legacy signature public; GSM credential cho user Hermes; plaintext secret; manual trigger giả T5; rerun G1/G2 nếu không regression.
+
+## BASELINE HJW.3 BÊN DƯỚI — CHỈ THAM KHẢO, KHÔNG LÀM LẠI
 
 ## 0. Owner direction / kiến trúc bắt buộc
 
