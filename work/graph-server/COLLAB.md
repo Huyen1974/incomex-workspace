@@ -61,6 +61,32 @@ GS | HỒ SƠ REPO VÒNG 1 XONG · OWNER VIEW CHECK DỪNG (AUTH) | Chưa chốt
 - Fact kỹ thuật phải có source/runtime; bounded decisions có thể dùng JEV theo AGENTS A5.
 - Không tạo file review mới; ghi Pxx ngay tại mục này theo A3.
 
+### P02 · Claude Chat · Reviewer · OPEN — phản biện vòng 1 trên sự thật runtime
+- Based_on: `6eac5e0` (COLLAB `2315aeeb…` · view.html `1608ec1f…`). Scope: `view.html` §1–§11 + P01. Chưa đọc: post X của imryven Owner gửi (X chặn tải từ phía tôi; thay bằng nguồn chính thức docs.typesafe.ai — liệt kê cuối P02; Owner dán nội dung post thì tôi đối chiếu thêm).
+- JEV Reference: `gen-dec-1790224109-8RZpXsTUYsBLEKr7bW1r` — state = fact runtime thô F1–F5 bên dưới, 5 câu: nút thắt = `business_nodes_missing` (p 1,00) · bước đầu = `extend_universal_edges` (1,00) · tiền đề "pgvector" khớp runtime: noul 0,22 · phân vai = graph đi đường, JEV nhìn một bước (1,00) · code graph tách pipeline riêng: noul 0,74. Bằng chứng phụ; kết luận dưới là của Reviewer.
+
+**F · Sự thật runtime đo 24/09 (query_pg + vps_status, không suy đoán):**
+- F1 · PostgreSQL 16.13, image `postgres:16` chính hãng. Extension đã cài: btree_gist, pgcrypto, plpgsql, postgres_fdw. **pgvector: KHÔNG cài và KHÔNG có sẵn trong image; Apache AGE: không.** Muốn có phải đổi image PG = thay đổi production, Owner quyết. Qdrant đang chạy (container healthy) = lớp vector đã có.
+- F2 · **Graph đã tồn tại trong PG**: `universal_edges` 2.269 cạnh / 3 loại (USES 1.486 · BELONGS_TO 466 · CONTAINS 317) / 39 cặp collection; `iu_relation` 60 (đã có `valid_time` bi-temporal + `provenance` + `evidence` + `assertion_mode`); `entity_dependencies` 142; `governance_relations` 8; `normative_relations` 18; `balo_thuc_the` 2.148 thực thể / `entity_species` 42; bộ `kg_*`: thresholds 5, source_authority 5, auto_approve_rules 6, **constraint_config 0, quality_log 0**. Trên `universal_edges` các cột `provenance/confidence/valid_from/valid_to/valid_time` **có sẵn nhưng 0/2.269 dòng dùng**.
+- F3 · **Node nghiệp vụ = 0**: contacts 0, organizations_contacts 0, os_deal_contacts 0; không bảng khách hàng/nhân viên/ứng viên nào có dữ liệu. Dữ liệu thật mảng lao động/đào tạo đang ở Lark Base + Google Sheets (việc phai-cu-online, lark-base).
+- F4 · VPS: 6 CPU · RAM 12GB (7GB trống) · đĩa trống 55GB.
+- F5 · Luật hiện hành (Điều 39, council trước): PG là SSOT graph, Qdrant bổ trợ, **không DB thứ 3**; "PG thuần trước → AGE khi cần → Neo4j không bao giờ"; metric quan trọng nhất theo Owner: graph phải tương xứng với data.
+
+**Đề nghị:**
+1. **Nút thắt không phải engine.** Mục tiêu #1 cần node khách hàng/ứng viên/nhân viên — hôm nay = 0 (F3). Engine nào cũng rỗng. Vòng 1 **không chọn DB mới**; câu hỏi đúng: từ điển quan hệ hữu hạn của 3 quy trình Owner nêu là gì, node đầu tiên lấy từ đâu.
+2. **Shortlist:** A/B (Neo4j/FalkorDB) → **REJECT vòng 1**: trái Đ39 (F5) — muốn xét phải mở D sửa luật — và F3. C (AGE) → **HOÃN, nấc 2** với ngưỡng kích hoạt đo được: >50k cạnh, hoặc truy vấn ≥4 hop >500ms sau khi đánh index, hoặc pattern cần Cypher mà SQL phải viết >50 dòng. D → **LÀM, nhưng là "dùng cái có", không "xây framework"**: universal_edges + iu_relation + kg_* đã có provenance/valid_time/confidence; btree_gist đã cài nên exclusion constraint chống cạnh trùng thời gian làm được ngay. E/Hindsight, Cognee, Graphiti → **HOÃN**; xét lại khi có tập văn bản cần extraction hoặc Hermes cần memory riêng.
+3. **Vector:** dùng Qdrant có sẵn; pgvector chỉ xét khi Qdrant chứng minh thiếu (khi đó là D đổi image PG). §3 view.html tiền đề "giữ pgvector" chưa đúng runtime — đề nghị Host sửa.
+4. **Graph × JEV — một dòng: "Graph đi đường, JEV nhìn một bước."** Căn cứ trang jaggedness chính thức jev-1.13 (2026-09-17): yếu multi-hop indirection; chính xác giảm khi state lớn/nhiễu; không phải máy tính; chưa có phòng thủ prompt-injection. ⇒ SQL/code làm traversal + sinh candidate + lọc lân cận; JEV nhận state nhỏ có tên trường + tập đáp án hữu hạn + bắt buộc có "none". Giữ 5 điểm giao §8 của Host và ánh xạ vào cookbook chính thức: entity alignment (noul+choice) · hierarchical classification (taxonomy) · pre-parsed extraction (code liệt kê trước, JEV chọn) · confidence-gated routing (cao → tự động theo `kg_auto_approve_rules` · giữa → review · thấp → người) · self-consistency (lặp mẫu) cho cạnh chạm con người (đánh giá nhân viên). Kết quả JEV ghi vào cột `provenance` có sẵn `{source:'jev', result_id, prob, confidence, model}` — không tạo loại quan hệ mới, không cấp quyền ghi.
+5. **Future-ready (#3):** (a) nguồn chuẩn = docs.typesafe.ai + `typesafe-ai/skills`; SKILL.md Incomex là bản rút gọn từ typesafe-mcp → ghi rõ "lệch official skill thì official thắng"; (b) **danh mục câu hỏi JEV có mã** (type · instructions · criteria · threshold · version) giữ trong PG — mọi surface (GPT/Claude/Hermes/Nuxt) hỏi cùng câu, đo cùng ngưỡng; TypeSafe ra primitive mới chỉ thêm loại; (c) đường tích hợp chính thức đã kiểm 24/09: OpenRouter (đường duy nhất của Incomex), Pydantic AI `TypeSafeModel`, LangChain `TypeSafeClassifier`, Vercel AI SDK `evaluate`, Cloudflare Workers AI; Hermes có cookbook `andyholst/hermes-typesafe-jev`. Không dựng gateway thứ hai (đồng ý P01).
+6. **Code graph (#4):** tách pipeline tất định riêng, chạy bên cạnh, không chặn #1. Lớp PG/DOT **đã có fact** trong universal_edges (dot_tools/trigger_registry/collection_registry → taxonomy); thiếu lớp app: Nuxt/TS → dependency-cruiser hoặc madge; Python MCP → pydeps/grimp. Ghi cùng universal_edges với edge_type nhóm `CODE_*`, `is_auto_managed=true`, `source_info=<tool@version>`, quét lại theo commit; JEV chỉ gắn nhãn semantic (ROLE_OF_MODULE, IMPACT_CLASS) tách khỏi fact.
+7. **Acceptance thêm §9:** T10 cạnh nghiệp vụ đầu tiên hiện trên Owner View kèm provenance · T11 dashboard tỷ lệ cạnh/node theo species (Đ39 §8.6) · T12 mọi cạnh mới `valid_time` + `provenance` ≠ null (constraint), cạnh cũ có kế hoạch backfill.
+
+**Q01–Q07:** Q01 không cần graph-native 3–5 năm; AGE nấc 2 có ngưỡng · Q02 temporal quan trọng (nhân sự đổi vị trí, khách đổi trạng thái) nhưng cột đã có, không cần Graphiti · Q03 Cognee strict-ontology hay, nhưng entity_species 42 + kg_constraint_config (rỗng) chưa dùng → điền cái rỗng trước; PG adapter Cognee "not production-ready" · Q04 mục 4 · Q05 mục 6 · Q06 chưa cần Hindsight; nếu dùng: memory = quan sát chưa duyệt, chỉ đề xuất cạnh qua gate · Q07 D = +0; C = đổi image PG (rủi ro restart prod); A/B ≈ +2–4GB RAM, E ≈ +1–2GB (ước lượng, chưa đo).
+
+- **Đề xuất đưa Owner (Host chuyển):** D02 = vòng 1 đi bằng graph PG hiện có theo Đ39, không DB mới; AGE nấc 2 có ngưỡng; vector = Qdrant. Bước 1 thật: từ điển quan hệ hữu hạn cho 3 quy trình + node đầu tiên từ Lark Base.
+- Nguồn thay link X: docs.typesafe.ai/model-jaggedness/jev-1.13 · docs.typesafe.ai/cookbooks/entity_alignment · docs.typesafe.ai/patterns/confidence-routing · github.com/typesafe-ai/skills · pydantic.dev/docs/ai/models/typesafe · openrouter.ai/docs/guides/community/jev.
+- Phản hồi Host: —
+
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
 - Nền JEV: ../done-tasks/jev-integration/COLLAB.md và SKILL.md.
@@ -68,4 +94,4 @@ GS | HỒ SƠ REPO VÒNG 1 XONG · OWNER VIEW CHECK DỪNG (AUTH) | Chưa chốt
 - Gateway Agent: ../hermes-joint-workspace/COLLAB.md — việc độc lập.
 
 ## Owner cần quyết
-- —
+- P02/D02 (đề xuất Claude · chờ Host GPT hoà giải): vòng 1 KHÔNG chọn DB mới (không Neo4j/Cognee/Graphiti/Hindsight/AGE) — đi bằng graph PG đang có theo Điều 39; vector dùng Qdrant có sẵn; việc đầu tiên = từ điển quan hệ hữu hạn 3 quy trình + đổ node nghiệp vụ đầu tiên từ Lark Base. **Đề xuất: gật.**
