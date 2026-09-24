@@ -43,7 +43,7 @@ Founders: GPT Chat + Claude Chat
 Host vòng 20/09: GPT · Owner giao: 2026-09-20
 
 ## MCPW-LOCK — trạng thái hiện hành
-MCPW-LOCK | READY cũ `ce0298a…` đã mất hiệu lực (PROMPT sửa theo GPT P01) · READY mới ở commit kế tiếp · RUN_ID `MCPW-LOCK-20260924-01` · Owner đã duyệt việc khoá (DROOT20) | Executor_Surface: Claude Code CLI trên Mac · Write_Path báo cáo `fs_*` | T3 (`workspace_*`) Host tự thử nếu agent không bind.
+MCPW-LOCK | READY@d71a6c3b85aaac74a2e28aa63584b4976ce7f680 (đã áp GPT P01 R1+R2; READY cũ `ce0298a…` hết hiệu lực) · RUN_ID `MCPW-LOCK-20260924-01` · Owner đã duyệt việc khoá (DROOT20) · chờ Owner RUN trên Claude Code CLI | Executor_Surface: Claude Code CLI trên Mac · Write_Path báo cáo `fs_*` | T3 (`workspace_*`) Host tự thử nếu agent không bind.
 
 ## R03 — trạng thái hiện hành
 R03 | CLOSED · 2026-09-21 | GPT CLIENT PASS | CLAUDE_CLIENT_FINAL PASS | VPS/CROSS PASS | BLOCK: —
