@@ -11,7 +11,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 
 ### 2. Thế nào là hoàn thành
 - Theo đề xuất Owner đã gật (DROOT20): mọi lần ghi repo bằng tài khoản người (GitHub connector của GPT, git push từ Mac, kể cả Owner) bị GitHub từ chối; cổng `fs_*` và `workspace_*` vẫn ghi được — 3 phép thử T1–T3 PASS.
-- *(đề xuất — chờ Owner gật)* Vòng P02 cùng việc (Owner duyệt kiến trúc 25/09, `ef28301`): GitHub chậm/down thì đọc qua cổng không báo BẬN, trả bản tốt cuối có nhãn + nợ kiểm lại; ghi vẫn luôn hỏi GitHub — 12 phép thử ở khối `Claude · P02-IMPL` PASS.
+- **Owner 25/09/2026: ĐÃ GẬT.** Vòng P02 tiếp tục trong chính việc này (kiến trúc Owner duyệt tại `ef28301`, proposal triển khai Claude tại `7400ad3`): GitHub chậm/down thì đọc qua cổng không báo BẬN, trả bản tốt cuối có nhãn + nợ kiểm lại; ghi vẫn luôn hỏi GitHub — hoàn thành khi 12 phép thử ở khối `Claude · P02-IMPL` PASS. Thứ tự đã chốt: **MCPW-LOCK trước → P02 sau; không gộp**.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - Chốt kỹ thuật: GitHub Repository Ruleset `gateway-only-writes` — tính năng có sẵn của GitHub (R1 bậc 1), không viết code. Mọi nhánh: chặn tạo/cập nhật/xoá + force push; miễn trừ **chỉ DeployKey**; không thêm vai trò admin/maintain/write (sẽ mở lại lỗ). Không đụng branch protection cổ điển (README §4).
@@ -327,4 +327,4 @@ Actor/presence: Task view thật `mcp-workspace` hiện *Vừa làm 1* Claude Co
 - **Test:** continuation 171/171 (image mới); toàn bộ `tests/` (trừ e2e/smoke, không mạng) 69 failed/358 passed = đúng tập FAIL có sẵn của baseline (356 passed) + 2 test mới; config-guard 34/34 CLEAN.
 
 ## Owner cần quyết
-- 25/09 · Host Claude: thêm vòng P02 vào §0 của việc này (dòng `(đề xuất)` ở §0.2) để việc không bị đóng ngay sau khoá cổng. **Đề xuất: gật.** (Kiến trúc P02 + nợ freshness Owner đã gật 25/09, ghi ở khối `Owner chốt P02`; thứ tự RUN do Host chốt: LOCK trước.)
+- —
