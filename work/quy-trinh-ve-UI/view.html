@@ -33,59 +33,80 @@ ul,ol{margin:6px 0 6px 20px;padding:0}li{margin:3px 0}.small{font-size:13px;colo
 .u-title{display:flex;align-items:baseline;gap:10px;margin:5px 0 9px}
 .u-title strong{font-size:18px;color:#193b60}
 .u-title small{font-size:11px;color:#8b5a09;font-weight:700}
-.u-spine{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;margin:0 0 8px}
-.u-spine span{min-height:36px;display:grid;place-items:center;text-align:center;background:#edf5ff;border:1px solid #cbdcf0;border-radius:5px;padding:5px;color:#21496d;font-size:12px;font-weight:700;position:relative}
-.u-spine span:not(:last-child):after{content:"→";position:absolute;right:-10px;top:50%;transform:translateY(-50%);z-index:1;color:#174a84}
-.u-questions{margin:0 0 10px;border:1px solid #d7e1ed;border-radius:6px;padding:0 10px;background:#f8fbff}
-.u-questions summary,.u-card summary{cursor:pointer;color:#174a84;font-size:13px;font-weight:700;padding:7px 0}
-.u-questions ol,.u-card ul{margin:0 0 9px 20px;padding:0;font-size:13px;line-height:1.45;color:#344e6a}
-.u-questions li,.u-card li{margin:3px 0}
-.u-cards{display:grid;gap:6px}
-.u-card{display:grid;grid-template-columns:74px minmax(0,1fr) auto;align-items:center;gap:9px;padding:8px 10px;border:1px solid #d7e1ed;border-left:4px solid #2867b2;border-radius:6px;background:#fff}
-.u-card b{color:#1c4d7b;font-size:15px}
-.u-card p{margin:0;color:#344e6a;font-size:13px}
-.u-card details{margin:0;border:0}
-.u-card summary{padding:2px 0;white-space:nowrap}
-.u-card ul{grid-column:1/-1}
-.u-card details[open]{grid-column:2/-1}
-.u-card details[open] ul{margin-top:4px}
-.u-foot{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;color:#475b70;font-size:12px}
-.u-foot span{background:#f4f7fb;border-radius:4px;padding:4px 7px}
+.field-flow{max-width:980px}
+.f-head,.f-main{display:grid;grid-template-columns:48px minmax(150px,1fr) minmax(190px,1.1fr);gap:8px;align-items:center}
+.f-head{padding:0 73px 4px 10px;color:#6b7b90;font-size:11px;font-weight:700}
+.f-list{display:grid;gap:4px}
+.f-step{position:relative;border:1px solid #d7e1ed;border-left:4px solid #2768ad;border-radius:6px;background:#fff;padding:6px 75px 6px 8px}
+.f-step.have{border-left-color:#348560;background:#f5fcf8}
+.f-step.new{border-left-color:#c88729;background:#fffaf2}
+.f-step.finish{border-left-color:#348560;background:#edf9f1}
+.f-step.side{border-left-color:#808fa3;background:#f8fafc}
+.f-code{color:#1d4d7b;font-size:13px}
+.f-name{color:#193b60;font-size:13px;font-weight:700}
+.f-ui{font-size:12px;color:#41546d}
+.f-ui.gap{color:#a45114;font-weight:700}
+.field-flow details{margin:0;border:0}
+.field-flow summary{cursor:pointer}
+.f-step summary{position:absolute;right:8px;top:7px;color:#174a84;font-size:12px;font-weight:700;padding:2px 0}
+.f-step details[open] ul{margin:8px 0 2px 55px;padding-left:15px;color:#344e6a;font-size:12px;line-height:1.4}
+.f-step li{margin:3px 0}
+.f-route{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0;color:#375570;font-size:12px}
+.f-route span,.f-note span{background:#edf5ff;border-radius:4px;padding:3px 6px}
+.f-route .yes{background:#e6f5eb;color:#276244}
+.f-route .no{background:#fff1d9;color:#825011}
+.f-subtitle{margin:11px 0 5px;color:#44556b;font-size:12px;font-weight:700}
+.f-note{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;color:#56677a;font-size:11px}
+.f-note span{background:#f4f7fb}
+.f-bottom{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.f-bottom details{flex:1 1 220px;border:1px solid #d7e1ed;border-radius:6px;padding:0 8px;background:#f8fbff}
+.f-bottom summary{color:#174a84;font-size:12px;font-weight:700;padding:6px 0}
+.f-bottom ul{margin:2px 0 7px 18px;padding:0;color:#344e6a;font-size:12px;line-height:1.4}
+.f-bottom li{margin:2px 0}
 .ai-meta{margin:8px 0;color:#6e6e73;font-size:12px}
-@media(max-width:700px){.u-spine{grid-template-columns:repeat(3,minmax(0,1fr))}.u-spine span:after{display:none}.u-card{grid-template-columns:56px minmax(0,1fr);gap:5px}.u-card details{grid-column:2}.u-card details[open]{grid-column:1/-1}.u-title strong{font-size:16px}}
+@media(max-width:700px){.f-head{display:none}.f-step{padding-right:72px}.f-main{grid-template-columns:42px minmax(0,1fr);gap:2px 6px}.f-ui{grid-column:2}.f-step details[open] ul{margin-left:40px}.u-title strong{font-size:16px}}
 </style>
 <nav class="ui-tabs" role="tablist" aria-label="Cách xem quy trình">
 <button type="button" id="user-tab" role="tab" aria-controls="user-panel" aria-selected="true" tabindex="0" data-panel="user-panel">Workflow for User</button>
 <button type="button" id="ai-tab" role="tab" aria-controls="ai-panel" aria-selected="false" tabindex="-1" data-panel="ai-panel">Hướng dẫn cho AI</button>
 </nav>
 <section id="user-panel" class="ui-panel" role="tabpanel" aria-labelledby="user-tab">
-<div class="u-title"><strong>1 bộ câu hỏi · 4 đường làm</strong><small>BẢN NHÁP</small></div>
-<div class="u-spine" aria-label="Khung chung"><span>Đề bài</span><span>Tìm cái nhỏ</span><span>Thiếu: tạo + lưu</span><span>Ghép cha</span><span>Lưu Master</span><span>Kiểm · giao</span></div>
-<details class="u-questions"><summary>Câu hỏi chung</summary><ol>
-<li data-question-id="UQ-01">Việc gì? Yêu cầu gì? Xong khi nào?</li>
-<li data-question-id="UQ-02">Loại nào? Master nào? Cần những nhãn/cột gì?</li>
-<li data-question-id="UQ-03">Cần cái nhỏ nào? Đã có chưa?</li>
-<li data-question-id="UQ-04">Thiếu: ai tạo, UI nào, lưu Master nào, quay lại đâu?</li>
-<li data-question-id="UQ-05">Ai làm: người hay máy? Khi nào bắt đầu?</li>
-<li data-question-id="UQ-06">Mỗi bước làm ở UI nào? Đọc gì, ghi đâu?</li>
-<li data-question-id="UQ-07">Xong giao/báo ai? Ở đâu?</li>
-<li data-question-id="UQ-08">Ai kiểm? Kiểm ở đâu, bằng gì?</li>
-<li data-question-id="UQ-09">Ai duyệt/ký nhận? Ở đâu, bằng gì?</li>
-<li data-question-id="UQ-10">Sai, thiếu, huỷ thì ai xử lý, quay về đâu?</li>
-<li data-question-id="UQ-11">Sửa/ngừng/xoá ảnh hưởng nơi dùng nào?</li>
-<li data-question-id="UQ-12">Bằng chứng nào cho thấy nhánh đã kết thúc?</li>
-</ol></details>
-<div class="u-cards" aria-label="Bốn đường làm theo loại">
-<article class="u-card"><b>FIELD</b><p>Nhóm/kiểu → Trường</p><details><summary>Câu riêng</summary><ul><li data-question-id="FIELD-Q01">Nhóm và kiểu đã có chưa?</li><li data-question-id="FIELD-Q02">Định nghĩa, định dạng, mã và nơi dùng là gì?</li><li data-question-id="FIELD-Q03">Field được duyệt, dùng lại, sửa/ngừng thế nào?</li></ul></details></article>
-<article class="u-card"><b>FORM</b><p>MOIT: Field → nhập · MOUT: dữ liệu → báo cáo</p><details><summary>Câu riêng</summary><ul><li data-question-id="FORM-Q01">MOIT: Field nào, ghi DB nào, điều kiện/trigger gì?</li><li data-question-id="FORM-Q02">MOUT: nguồn nào, cột/lọc/kỳ nào, gửi cho ai?</li><li data-question-id="FORM-Q03">Thiếu Field thì tạo ở đâu và quay về form nào?</li></ul></details></article>
-<article class="u-card"><b>MOT</b><p>MOIT/MOUT + người/điều kiện → Công việc</p><details><summary>Câu riêng</summary><ul><li data-question-id="MOT-Q01">Gọi MOIT/MOUT nào? Thiếu thì tạo ở đâu?</li><li data-question-id="MOT-Q02">Ai nhận việc, ai làm thay, khi nào chạy?</li><li data-question-id="MOT-Q03">Xong/lỗi thì giao cho ai, ai kiểm và duyệt?</li></ul></details></article>
-<article class="u-card"><b>MOW</b><p>MOT + thứ tự/nhánh → Quy trình</p><details><summary>Câu riêng</summary><ul><li data-question-id="MOW-Q01">Gồm MOT nào? Thiếu thì tạo rồi quay lại đâu?</li><li data-question-id="MOW-Q02">Thứ tự, song song, nhánh rẽ và điểm kết thúc?</li><li data-question-id="MOW-Q03">Ai kiểm, ai duyệt, ai ban hành?</li></ul></details></article>
+<div class="field-flow">
+<div class="u-title"><strong>FIELD · Tạo trường</strong><small>BẢN NHÁP</small></div>
+<div class="f-head"><span>Mã bước</span><span>Việc</span><span>Mã UI · tên UI</span></div>
+<div class="f-list">
+<div class="f-step " data-step-id="FIELD.F01"><div class="f-main"><b class="f-code">F01</b><span class="f-name">Ghi nhu cầu</span><span class="f-ui gap">— · Phiếu yêu cầu</span></div><details><summary>Câu hỏi</summary><ul><li>Ai cần Field, cho form/bước nào?</li><li>Tên gợi ý, ý nghĩa, ví dụ, nguồn dữ liệu?</li><li>Thế nào là xong; yêu cầu lưu ở đâu?</li></ul></details></div>
+<div class="f-step " data-step-id="FIELD.F02"><div class="f-main"><b class="f-code">F02</b><span class="f-name">Xác nhận đã nhận</span><span class="f-ui gap">— · Phiếu yêu cầu</span></div><details><summary>Câu hỏi</summary><ul><li>Ai nhận và xử lý? Có mã, trạng thái, thời điểm nhận?</li><li>Thiếu thông tin thì hỏi lại ai, trả về đâu?</li></ul></details></div>
+<div class="f-step " data-step-id="FIELD.F03"><div class="f-main"><b class="f-code">F03</b><span class="f-name">Tìm Field</span><span class="f-ui ">UI-022 · Master Field</span></div><details><summary>Câu hỏi</summary><ul><li>Tìm theo tên, mã, alias, nghĩa và trạng thái?</li><li>Trùng nghĩa ai xác nhận? Đã có nhưng chưa dùng được thì xử lý ở đâu?</li></ul></details></div>
 </div>
-<div class="u-foot"><span>Có → dùng lại · Thiếu → tạo rồi quay lại</span><span>Sửa: Master + Kanban</span><span>Ngừng/xóa: kiểm nơi dùng</span><span>Mỗi bước có UI · mỗi nhánh có đích</span></div>
+<div class="f-route"><span class="yes">Có → F04 → F10</span><span class="no">Chưa có → F05–F09 → F10</span><span>Có nhưng chưa dùng → xử lý trạng thái</span></div>
+<div class="f-list">
+<div class="f-step have" data-step-id="FIELD.F04"><div class="f-main"><b class="f-code">F04</b><span class="f-name">Có → chọn dùng</span><span class="f-ui ">UI-022 · Master Field*</span></div><details><summary>Câu hỏi</summary><ul><li>Chỉ chọn Field đang được phép dùng?</li><li>Gắn mã + phiên bản vào form gọi; giữ nội dung đang nhập?</li></ul></details></div>
+<div class="f-step new" data-step-id="FIELD.F05"><div class="f-main"><b class="f-code">F05</b><span class="f-name">Thiếu → mở tạo</span><span class="f-ui ">UI-022 → UI-018</span></div><details><summary>Câu hỏi</summary><ul><li>Nút tạo ở đâu? Đang ở form nào thì quay lại đúng form đó?</li><li>Thiếu nhóm/kiểu: tạo ở UI nào, lưu Master nào, rồi trở lại F06?</li></ul></details></div>
+<div class="f-step new" data-step-id="FIELD.F06"><div class="f-main"><b class="f-code">F06</b><span class="f-name">Khai · lưu nháp</span><span class="f-ui ">UI-018 · Khai Field*</span></div><details><summary>Câu hỏi</summary><ul><li>Khai tên, nghĩa, kiểu, định dạng, ràng buộc, nhóm, nguồn, nơi dùng?</li><li>Mã ai cấp, lưu nháp ở đâu; trùng/lỗi thì xử lý thế nào?</li></ul></details></div>
+<div class="f-step new" data-step-id="FIELD.F07"><div class="f-main"><b class="f-code">F07</b><span class="f-name">Xem ở Master</span><span class="f-ui ">UI-022 · Master Field*</span></div><details><summary>Câu hỏi</summary><ul><li>Bản nháp có mã, trạng thái, người phụ trách, lịch sử?</li><li>Ai thấy và tìm lại bằng gì?</li></ul></details></div>
+<div class="f-step new" data-step-id="FIELD.F08"><div class="f-main"><b class="f-code">F08</b><span class="f-name">Kiểm</span><span class="f-ui gap">— · Phiếu kiểm</span></div><details><summary>Câu hỏi</summary><ul><li>Ai kiểm; thử dữ liệu mẫu và đúng yêu cầu ở UI nào?</li><li>Sai thì ghi lý do, trả về F06 ở đâu?</li></ul></details></div>
+<div class="f-step new" data-step-id="FIELD.F09"><div class="f-main"><b class="f-code">F09</b><span class="f-name">Duyệt · cho dùng</span><span class="f-ui gap">— · Duyệt Field</span></div><details><summary>Câu hỏi</summary><ul><li>Ai duyệt/ký; duyệt xong khi nào Field dùng được?</li><li>Từ chối trả về F06 hay đóng yêu cầu?</li></ul></details></div>
+<div class="f-step finish" data-step-id="FIELD.F10"><div class="f-main"><b class="f-code">F10</b><span class="f-name">Báo xong · trả về</span><span class="f-ui gap">— · Kết quả yêu cầu</span></div><details><summary>Câu hỏi</summary><ul><li>Trigger ghi hoàn thành ở đâu? Báo ai?</li><li>Trả mã Field về đúng form/bước; bằng chứng xong là gì?</li></ul></details></div>
+</div>
+<div class="f-subtitle">Sau khi tạo</div>
+<div class="f-list">
+<div class="f-step side" data-step-id="FIELD.F11"><div class="f-main"><b class="f-code">F11</b><span class="f-name">Sửa</span><span class="f-ui ">UI-021/022 → UI-018*</span></div><details><summary>Câu hỏi</summary><ul><li>Ai được sửa, từ Kanban hay Master? Nơi dùng nào bị ảnh hưởng?</li><li>Lưu ở UI-018; đổi kiểu/nhóm có cần phiên bản và kiểm/duyệt lại?</li></ul></details></div>
+<div class="f-step side" data-step-id="FIELD.F12"><div class="f-main"><b class="f-code">F12</b><span class="f-name">Ngừng / xóa</span><span class="f-ui gap">— · Xác nhận ngừng/xóa</span></div><details><summary>Câu hỏi</summary><ul><li>Ai có quyền, đang được dùng ở đâu?</li><li>Khi nào ngừng, lưu trữ, xóa; xác nhận và hoàn tác bằng gì?</li></ul></details></div>
+</div>
+<div class="f-note"><span>Thiếu thông tin ↶ F01</span><span>Sai / từ chối ↶ F06</span><span>— = UI chưa có mã</span><span>* = cần chức năng chạy thật</span></div>
+<div class="f-bottom">
+<details><summary>Chuẩn khai báo mỗi bước</summary><ul>
+<li>Mã · tên · thuộc FIELD?</li><li>Ai làm · khi nào bắt đầu?</li><li>UI mã/tên · nút/nhãn nào?</li><li>Nhập gì · định dạng gì · lấy từ đâu?</li><li>Lưu đâu · Master nào · trạng thái gì?</li><li>Ra gì · báo ai · bước kế?</li><li>Ai kiểm/duyệt · bằng chứng xong?</li><li>Lỗi/hủy/sửa/xóa quay về đâu?</li>
+</ul></details>
+<details><summary>Master bước · UI quản lý: —</summary><ul><li>Mã · tên · loại · thứ tự/nhánh · người làm · UI · đầu vào/ra · trạng thái.</li><li>Danh mục quản trị; không là bước tạo Field của người dùng.</li></ul></details>
+<details><summary>Master UI · UI quản lý: —</summary><ul><li>Mã · tên · mẫu cha · vị trí · bước dùng · nhãn/nút · trạng thái.</li><li>Đối chiếu danh mục UI trước khi cấp mã mới.</li></ul></details>
+</div>
+</div>
 </section>
 <section id="ai-panel" class="ui-panel" role="tabpanel" aria-labelledby="ai-tab" hidden>
 <div class="ai-meta">Việc <code>quy-trinh-ve-UI</code> · Host: <b>Claude Chat</b> · Host_ID <code>CLAUDE-UIPROC-260924-A</code> (Owner giao 24/09/2026; trước đó GPT Chat mở việc) · Hội đồng GPT · Claude · Hermes · Tài liệu chính duy nhất của việc; chi tiết trạng thái ở <code>COLLAB.md</code>.</div>
-<p class="small"><b>Bản nháp mới:</b> Một bộ câu hỏi chung; FIELD, FORM, MOT, MOW có đường làm riêng. Mỗi nhánh phải đi tới người làm, UI, dữ liệu, người kiểm/duyệt và kết quả. K00–K7 bên dưới là bài thử FIELD, không áp nguyên cho bốn loại.</p>
+<p class="small"><b>Bản nháp tab User:</b> Chỉ xét người tạo FIELD. F01–F12 là mã bước đề xuất, chưa thay mã MMIM.FIELD.S01–S07 cũ. Dấu — là UI chưa có mã; UI-018/021/022 hiện là bản mô phỏng, chưa ghi Field vào PG. Danh mục bước và UI là nơi quản trị, không phải hai bước người tạo Field phải làm. K00–K7 dưới đây là bài thử thiết kế UI, không phải luồng thao tác tạo Field.</p>
 
 <style>
 .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.flow div{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--box);font-size:13px;position:relative}
