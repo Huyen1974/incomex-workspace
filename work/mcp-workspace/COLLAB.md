@@ -1,26 +1,49 @@
 # COLLAB — mcp-workspace
+Tên việc: MCP Workspace — đường ghi chung + khoá cứng chỉ qua gateway
+Host: Claude Chat · Host_ID: CLAUDE-MCPW-260924-A · Owner giao 24/09/2026 (mở lại theo DROOT20; vòng 20/09 Host GPT)
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN** — Owner nhắc lại nhiều lần ngày 2026-09-20, gần nhất yêu cầu kiểm lần cuối để bắt tay vào việc.
+Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) — Owner gật đề xuất `Mở lại mcp-workspace để khoá đường ghi repo chỉ qua gateway` (COLLAB gốc DROOT20).
 
 ### 1. Mục tiêu
+- Nguyên văn Owner: “Đúng vậy chúng ta khóa lại để bắt buộc làm theo 1 con đường giúp tôi.”
+- Nguyên tắc áp (AGENTS A10-R2, nguyên văn Owner): “Quy định là không đủ, phải cưỡng chế. Không thể làm sai.”
+
+### 2. Thế nào là hoàn thành
+- Theo đề xuất Owner đã gật (DROOT20): mọi lần ghi repo bằng tài khoản người (GitHub connector của GPT, git push từ Mac, kể cả Owner) bị GitHub từ chối; cổng `fs_*` và `workspace_*` vẫn ghi được — 3 phép thử T1–T3 PASS.
+
+### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- Chốt kỹ thuật: GitHub Repository Ruleset `gateway-only-writes` — tính năng có sẵn của GitHub (R1 bậc 1), không viết code. Mọi nhánh: chặn tạo/cập nhật/xoá + force push; miễn trừ **chỉ DeployKey**; không thêm vai trò admin/maintain/write (sẽ mở lại lỗ). Không đụng branch protection cổ điển (README §4).
+- Trước khi bật phải chứng minh chỉ-đọc: cả 2 cổng đẩy bằng deploy key có quyền ghi của repo. `fs_*` đã biết dùng `MCP_WORKSPACE_GH_DEPLOY_KEY` (BẢN ĐỒ HỆ THỐNG 17/09); `workspace_*` chưa xác nhận → gate G1.5.
+- Rollback đã duyệt trước: cổng bị chặn → đặt ruleset `enforcement=disabled` (không xoá). Cửa khẩn cấp Owner: tắt ruleset trong Settings → Rules.
+- Sau XONG: Host tự thử lại, sửa README D12 `CHƯA CƯỠNG CHẾ` → `ĐÃ CƯỠNG CHẾ`, rồi `Đóng mcp-workspace`.
+- JEV: `gen-dec-1790226942-Pz95lv2dkDouzMQ3XwSW` ruleset 0,93 (conf 0,92) · kiểm PROMPT `gen-dec-1790234527-TC6croNtKfTwHYgYNw0K`: gate trước mutation 0,97 · mở lại lỗ 0,05 · lộ secret 0,03 · vượt phạm vi 0,19 (do phép thử T1 là một lần ghi phải bị từ chối; đã giới hạn chỉ thêm một dòng).
+
+### Vòng trước
+**A0 vòng 20/09 — giữ nguyên:**
+Xác nhận User (20/09): **ĐÃ XÁC NHẬN** — Owner nhắc lại nhiều lần ngày 2026-09-20, gần nhất yêu cầu kiểm lần cuối để bắt tay vào việc.
+
+#### (20/09) 1. Mục tiêu
 - Mục tiêu: GPT và Claude có thể làm việc tự nhiên, ổn định qua MCP trên Git workspace và vùng VPS được phép ghi, không vào việc rồi mới phát hiện thiếu công cụ; kết thúc phần kết nối để quay lại công việc chính.
 *(đề xuất — chờ Owner gật; giữ nguyên câu chữ §0 cũ)*
 
-### 2. Thế nào là hoàn thành
+#### (20/09) 2. Thế nào là hoàn thành
 - GPT và Claude làm việc qua MCP trên Git workspace/VPS ổn định, không vướng thiếu công cụ thông thường. *(đề xuất — chờ Owner gật)*
 
-### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+#### (20/09) 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - Giữ nguyên phạm vi, tiêu chí và chỉ đạo chi tiết tại Vòng trước; Host rà soát, cập nhật phần này khi triển khai.
 
-### Vòng trước
+#### (20/09) Vòng trước
 - Mục tiêu: GPT và Claude có thể làm việc tự nhiên, ổn định qua MCP trên Git workspace và vùng VPS được phép ghi, không vào việc rồi mới phát hiện thiếu công cụ; kết thúc phần kết nối để quay lại công việc chính.
 - Nhiệm vụ/phạm vi: hoàn thiện/bind client, kiểm các thao tác thực tế thông thường cần cho công việc dài hạn và giữ backend an toàn; ca quá đặc biệt có thể giao Agent khi phát sinh.
 - Tiêu chí xong: GPT/Claude đọc–tạo–sửa–tìm–diff–copy/move thư mục và phối hợp Git/VPS ổn định bằng MCP; client hiện hành bind đúng; không còn blocker thông thường khi bắt đầu việc mới.
 - Xác nhận User: **ĐÃ XÁC NHẬN** — Owner nhắc lại nhiều lần ngày 2026-09-20, gần nhất yêu cầu kiểm lần cuối để bắt tay vào việc.
 
 Founders: GPT Chat + Claude Chat
-Host: GPT · Owner giao: 2026-09-20
+Host vòng 20/09: GPT · Owner giao: 2026-09-20
+
+## MCPW-LOCK — trạng thái hiện hành
+MCPW-LOCK | PROMPT `MCPW-LOCK-20260924-01` soạn xong · Host READY ở commit kế tiếp | Executor_Surface: Claude Code CLI trên Mac · Write_Path báo cáo `fs_*` | T3 (`workspace_*`) Host tự thử nếu agent không bind.
 
 ## R03 — trạng thái hiện hành
 R03 | CLOSED · 2026-09-21 | GPT CLIENT PASS | CLAUDE_CLIENT_FINAL PASS | VPS/CROSS PASS | BLOCK: —
