@@ -20,7 +20,7 @@ small{color:#666}
 <h1>Hermes Joint Workspace</h1>
 <p><span class="tag">HOST REVIEW</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Host: GPT Chat</span><span class="tag">24/09: đã gỡ khoá Agent Data khỏi Hermes</span></p>
 
-<div class="box"><strong>HJW.2C — HOST ACCEPTED.</strong> Generic Agent Gateway đã PASS: Hermes có narrow key riêng, tự kết nối MCP và thấy đúng 7 tool; root/tool/write scope, trusted identity, revoke/restore và write/revert đều đã thử thật. Runtime hiện healthy.<br><strong>Chưa tính T5:</strong> live test 2C dùng harness dưới env Hermes, chưa qua LLM Hermes. NEXT là để chính Hermes tự đọc luật, tự dùng gateway và phản biện trước HJW.3.</div>
+<div class="box"><strong>HJW.3 — DRAFT, chưa READY/RUN.</strong> Mục tiêu là khai thác Hermes đúng lợi thế 24/7/API: Telegram cho Owner; Git assignment + cron/script-gate làm backstop 0-token; built-in webhook HMAC sau nginx cho hệ thống bên ngoài gọi ngay; tất cả hội tụ vào cùng dispatcher/SSOT. Direct API Server đầy đủ vẫn giữ loopback ở Phase 1.<br><strong>NEXT:</strong> Hermes + Claude review PROMPT <code>a16eb76e…</code>, sau đó Host mới READY.</div>
 
 <div class="bar" id="TIEN-DO"><span class="g">✓ 1 Mở việc</span><span class="g">✓ 2 Thiết kế</span><span class="g">✓ 3 RUN HJW-2B1</span><span class="now">▶ 4 Nghiệm thu</span><span>□ 5 Ghi luật/Đóng</span></div>
 
@@ -85,7 +85,7 @@ Claude Chat ──────────────────────�
 <tr><td>HJW.2B</td><td>RUN đầu đã DỪNG an toàn tại G0.2, 0 mutation.</td><td>Claude Code CLI</td><td>■ DỪNG hợp lệ</td></tr>
 <tr><td>HJW.2B1</td><td>SEC-CLEAN + capability audit theo PROMPT <code>d4090d3c…</code>.</td><td>Claude Code CLI · GPT Host</td><td>✓ XONG 24/09 · SEC-CLEAN PASS · MIN_CODE_CHANGE</td></tr>
 <tr><td>HJW.2C</td><td>Auth patch + generic Agent Gateway + Hermes narrow profile; scope/identity/revoke/revert/live client registration.</td><td>Claude Code CLI · GPT Host · Claude review</td><td>✓ HOST ACCEPTED 24/09</td></tr>
-<tr><td>HJW.3</td><td>Nghiệm thu T1–T10 bằng chạy thật, gồm self-wake, chống wake thừa, stale-write, retry/dedup, Telegram, blocker vượt quyền, attribution và secret rotation/boundary.</td><td>Hermes làm · GPT + Claude chấm chéo</td><td>ngay sau HJW.2B</td></tr>
+<tr><td>HJW.3</td><td>24/7 orchestration: cron gate 0-token + external webhook HMAC → cùng dispatcher; Telegram 3 dòng; handoff/RUN watch; STOP controls; Kuma; T2/T5/T6/T10.</td><td>Claude Code CLI triển khai · Hermes/Claude review · GPT Host</td><td>▶ DRAFT <code>a16eb76e…</code> · chưa READY/RUN</td></tr>
 <tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>sau HJW.3 PASS</td></tr>
 <tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T10.</td><td>Host</td><td>—</td></tr>
 </tbody>
@@ -115,6 +115,6 @@ Claude Chat ──────────────────────�
 </ul>
 
 <h2 id="DIEU-KIEN">8. Điều kiện chuyển sang làm</h2>
-<p>NEXT: Hermes tự kiểm bằng LLM thật: đọc AGENTS → COLLAB, xác nhận gateway/7 tool/giới hạn, tự dùng đường mới và nêu ý kiến. Sau đó Host mới chốt PROMPT HJW.3 cho T2/T5/T6/T10 và automation Phase 1.</p>
+<p>NEXT: Hermes review đúng PROMPT <code>a16eb76e…</code> bằng chính LLM/MCP live; Claude review security/runtime. Nếu sạch, Host READY/RUN để bật self-wake, external webhook, cron backstop, Telegram và STOP/Kuma trên cùng đường ray.</p>
 </body>
 </html>
