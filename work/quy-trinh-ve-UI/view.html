@@ -1,184 +1,173 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quy trình vẽ UI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quy trình vẽ UI — chuẩn dùng lặp lại cho mọi UI</title>
 <style>
-  :root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;color:#1f2328;background:#f6f8fa}
-  *{box-sizing:border-box} body{margin:0} main{max-width:1180px;margin:auto;padding:28px}
-  .card{background:#fff;border:1px solid #d0d7de;border-radius:12px;padding:22px;margin:0 0 18px}
-  h1{font-size:30px;margin:0 0 8px} h2{font-size:22px;margin:0 0 14px} h3{font-size:18px;margin:18px 0 8px}
-  .muted{color:#59636e}.gate{border-left:5px solid #8250df;background:#f6f2ff;padding:14px 16px;border-radius:8px}
-  .ok{border-left:5px solid #1a7f37;background:#dafbe1;padding:14px 16px;border-radius:8px}
-  .warn{border-left:5px solid #bf8700;background:#fff8c5;padding:14px 16px;border-radius:8px}
-  table{width:100%;border-collapse:collapse;margin:10px 0 18px;background:#fff}
-  th,td{border:1px solid #d8dee4;padding:9px 10px;vertical-align:top;text-align:left} th{background:#f6f8fa}
-  code{background:#eff1f3;border-radius:5px;padding:2px 5px} ol,ul{padding-left:24px} li{margin:5px 0}
-  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
-  .mini{border:1px solid #d8dee4;border-radius:9px;padding:14px;background:#fbfcfd}
-  .status{display:inline-block;padding:3px 8px;border-radius:999px;background:#ddf4ff;font-size:13px}
+:root{--bg:#fff;--fg:#1d1d1f;--mut:#6e6e73;--line:#e3e3e8;--box:#f6f6f8;--red:#d93025;--yel:#e0a400;--grn:#1e8e3e;--gry:#9aa0a6;--blu:#1a73e8}
+@media (prefers-color-scheme:dark){:root{--bg:#141416;--fg:#ececee;--mut:#9a9aa2;--line:#2c2c31;--box:#1e1e22}}
+body{margin:0;padding:20px 22px 60px;font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg);max-width:1100px}
+h1{font-size:24px;margin:0 0 4px}h2{font-size:18px;margin:34px 0 10px;padding-top:12px;border-top:1px solid var(--line)}h3{font-size:15px;margin:18px 0 6px}
+.meta{color:var(--mut);font-size:13px}.box{background:var(--box);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:10px 0}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:14px}th,td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left}th{background:var(--box)}
+code{background:var(--box);padding:1px 4px;border-radius:4px;font-size:13px}
+.bar{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.bar span{padding:6px 10px;border-radius:6px;border:1px solid var(--line);font-size:13px}
+.done{background:#e6f4ea;border-color:#b7dfc1!important}.doing{background:#fff3cd;border-color:#e0a400!important;font-weight:600}.todo{color:var(--mut)}
+.k{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:6px;margin:10px 0}.k div{border:1px solid var(--line);border-radius:8px;padding:8px;font-size:13px;background:var(--box)}.k b{display:block;font-size:14px}
+.tag{display:inline-block;padding:0 6px;border-radius:4px;font-size:12px;border:1px solid var(--line)}.o{color:var(--red);font-weight:600}
+ul,ol{margin:6px 0 6px 20px;padding:0}li{margin:3px 0}.small{font-size:13px;color:var(--mut)}
 </style>
 </head>
 <body>
-<main>
-<section class="card">
-  <h1>Quy trình vẽ UI</h1>
-  <p class="muted">Tài liệu chính để Owner và hội đồng GPT · Claude · Hermes đọc, phản biện và chốt phương pháp.</p>
-  <div class="gate">
-    <strong>Nguyên tắc vận hành do Owner bổ sung 24/09/2026:</strong>
-    toàn bộ quá trình phân tích, liệt kê, thiết kế, vẽ, kiểm coverage, lập hợp đồng thông tin, chọn/cài tool và thực thi do AI/Agent thực hiện. User chỉ ra lệnh, duyệt các quyết định cần quyền Owner và xem kết quả.
-  </div>
-</section>
+<h1>Quy trình vẽ UI</h1>
+<div class="meta">Việc <code>quy-trinh-ve-UI</code> · Host: <b>Claude Chat</b> · Host_ID <code>CLAUDE-UIPROC-260924-A</code> (Owner giao 24/09/2026; trước đó GPT Chat mở việc) · Hội đồng GPT · Claude · Hermes · Tài liệu chính duy nhất của việc; chi tiết trạng thái ở <code>COLLAB.md</code>.</div>
 
-<section class="card">
-  <h2>1. Mục tiêu phải chốt</h2>
-  <ol>
-    <li>Chốt một quy trình vẽ UI chuẩn, có thể dùng lặp lại và có cơ chế kiểm để không bỏ sót.</li>
-    <li>Chốt bộ câu hỏi bắt buộc cho từng bước; chỉ coi bước hoàn thành khi câu trả lời đúng, đủ và có bằng chứng/quyết định rõ.</li>
-    <li>Chốt quy trình liệt kê <strong>hợp đồng thông tin</strong> để sinh được danh mục hợp đồng thông tin và danh mục khai báo.</li>
-    <li>Chốt tool hỗ trợ; được cài thêm khi cần, ưu tiên nguồn mở, nhẹ, Git/AI-friendly.</li>
-    <li>Dùng JEV Reference ở các khâu lựa chọn/phân loại phù hợp; JEV là tham khảo, hội đồng và Owner chốt.</li>
-  </ol>
-  <div class="ok"><strong>Điều kiện tổng quát:</strong> không được đánh “xong UI” chỉ vì màn hình đã vẽ đẹp hoặc chạy được. Phải PASS coverage quy trình + Step Contract + Information Contract + kiểm thử.</div>
-</section>
+<h2 id="owner">1. Hôm nay Owner cần quyết</h2>
+<div class="box">— Không có. Ngày 24/09 Owner đã gật D03–D06 (mục 3). Câu tiếp theo sẽ xuất hiện khi chạy bài thi FIELD (nơi đặt danh mục khi chạy thật, DROOT16).</div>
 
-<section class="card">
-  <h2>2. Thứ tự làm việc đề xuất</h2>
-  <div class="cols">
-    <div class="mini"><strong>B1 · Xác định đối tượng & actor</strong><br>Liệt kê object, role, trạng thái và quan hệ phụ thuộc.</div>
-    <div class="mini"><strong>B2 · Coverage matrix</strong><br>Quét object × action để thấy ngay nhánh còn thiếu.</div>
-    <div class="mini"><strong>B3 · UI Step Contract</strong><br>Trả lời bộ câu hỏi bắt buộc cho từng bước.</div>
-    <div class="mini"><strong>B4 · Information Contract</strong><br>Chốt dữ liệu đi từ đâu → đâu, ai sở hữu, lưu gì, validate gì.</div>
-    <div class="mini"><strong>B5 · Flow/state</strong><br>Nối các bước, nhánh tạo mới phụ thuộc, quay lại, lỗi, quyền, version.</div>
-    <div class="mini"><strong>B6 · Wireframe/UI</strong><br>Chỉ vẽ sau khi nghiệp vụ đủ.</div>
-    <div class="mini"><strong>B7 · Independent check</strong><br>AI khác chạy lại matrix + contract và chấm PASS/FAIL.</div>
-  </div>
-</section>
+<h2 id="tiendo">2. Đang ở đâu</h2>
+<div class="bar"><span class="done">Mục tiêu ✅</span><span class="doing">◉ Đồng thuận phương pháp — GPT ✅ · Claude ✅ · Hermes ○</span><span class="todo">Bài thi FIELD ○</span><span class="todo">Nghiệm thu ○</span></div>
+<p class="small">Xong khi: Hermes có ý kiến và Host xử lý xong; quy trình được áp lên FIELD (việc MMIM) và bắt đủ 5 lỗi đã biết; hai kiểm độc lập PASS.</p>
 
-<section class="card">
-  <h2>3. UI Step Contract — 25 câu bắt buộc cho mỗi bước</h2>
-  <ol>
-    <li>Mục tiêu của bước này là gì?</li>
-    <li>Actor/role nào được làm?</li>
-    <li>Người dùng đi vào bước này từ đâu?</li>
-    <li>Điều kiện nào phải có trước khi vào?</li>
-    <li>Người dùng bấm/chọn ở đâu để bắt đầu?</li>
-    <li>UI phải hiển thị những thông tin gì?</li>
-    <li>Người dùng phải nhập/chọn những thông tin gì?</li>
-    <li>Mỗi thông tin lấy từ đâu: nhập tay, kế thừa, tra cứu, tự tính hay gọi đối tượng khác?</li>
-    <li>Trường nào bắt buộc/tùy chọn; format/ràng buộc/validation là gì?</li>
-    <li>Có gọi đối tượng/công cụ/quy trình khác không? Gọi tại đâu trong UI?</li>
-    <li>Nếu đối tượng cần gọi chưa tồn tại thì đi vào quy trình tạo mới nào?</li>
-    <li>Quy trình tạo mới phụ thuộc đó đã có chưa? Nếu chưa có thì xử lý/gate thế nào?</li>
-    <li>Tạo xong đối tượng phụ thuộc thì quay lại đúng bước đang làm dở bằng cách nào; dữ liệu đang nhập có được giữ không?</li>
-    <li>Bấm Lưu/Xác nhận thì hệ thống ghi những gì?</li>
-    <li>Lưu vào đâu; ID/version/trạng thái sau lưu là gì?</li>
-    <li>Thành công xong thì người dùng đi đâu/nhìn thấy gì?</li>
-    <li>Muốn sửa đối tượng đã tạo thì bắt đầu ở đâu, bấm đâu, sửa được trường nào?</li>
-    <li>Muốn xóa/archive thì bắt đầu ở đâu; điều kiện, cảnh báo, ảnh hưởng và quyền là gì?</li>
-    <li>Có cần khôi phục/undo không; nếu có thì từ đâu?</li>
-    <li>Hủy/quay lại/đóng giữa chừng xử lý dữ liệu chưa lưu thế nào?</li>
-    <li>Lỗi validation, lỗi hệ thống, mất kết nối, dữ liệu trùng/xung đột được xử lý thế nào?</li>
-    <li>Permission/RBAC khác nhau làm UI thay đổi ra sao?</li>
-    <li>Đối tượng này đang được dùng ở đâu (where-used); sửa/xóa ảnh hưởng cái gì?</li>
-    <li>Cần audit/history/version/concurrency ra sao?</li>
-    <li>Bước này được kiểm thử và đánh PASS bằng điều kiện quan sát được nào?</li>
-  </ol>
-  <div class="warn"><strong>Gate đề xuất:</strong> tất cả câu áp dụng phải có trạng thái <code>EVIDENCED</code> hoặc <code>DECIDED</code>. Không áp dụng phải ghi <code>N/A + lý do</code>. Không được để trống.</div>
-</section>
+<h2 id="chot">3. Đã chốt (Owner)</h2>
+<table>
+<tr><th style="width:70px">Mã</th><th>Quyết định</th></tr>
+<tr><td>D01</td><td>24/09 · Toàn bộ quá trình do AI/Agent làm; Owner chỉ ra lệnh, duyệt quyết định cần quyền Owner và xem kết quả.</td></tr>
+<tr><td>D02</td><td>24/09 · Nội dung đề xuất đưa lên Owner View qua đúng HTML chính <code>view.html</code>; không tạo đường xem phụ.</td></tr>
+<tr><td>D03</td><td>24/09 · <b>Mã + Master List áp dụng đệ quy</b> — mục 7.1.</td></tr>
+<tr><td>D04</td><td>24/09 · <b>"Người mới có làm được không?"</b> là lượt kiểm bắt buộc — mục 7.2.</td></tr>
+<tr><td>D05</td><td>24/09 · <b>JEV có điểm tham khảo bắt buộc</b> theo một bảng chung — mục 7.3.</td></tr>
+<tr><td>D06</td><td>24/09 · Quy trình chuẩn <b>kế thừa việc MMIM</b> (xương S01–S08, 5 trạng thái UI, FIELD03); FIELD là lượt áp dụng đầu. Claude Chat làm Host; Host được sửa <code>view.html</code> kể cả bố cục (quyết định trước, sơ đồ, rồi nội dung).</td></tr>
+</table>
 
-<section class="card">
-  <h2>4. Coverage matrix — quét vòng đời để không sót</h2>
-  <table>
-    <thead><tr><th>Nhóm</th><th>Các hành động/nhánh phải kiểm</th><th>Điều kiện đạt</th></tr></thead>
-    <tbody>
-      <tr><td>Đọc/tìm</td><td>List/Search · View detail · Empty state</td><td>Có Step Contract hoặc N/A có lý do</td></tr>
-      <tr><td>Tạo/dùng</td><td>Create · Select/use · Create-while-selecting · nested-create</td><td>Nối đủ đường đi và đường quay lại</td></tr>
-      <tr><td>Thay đổi</td><td>Edit · Delete/Archive · Restore/Undo</td><td>Có impact/where-used/quyền</td></tr>
-      <tr><td>Điều hướng</td><td>Cancel · Back · Close · Resume</td><td>Không mất trạng thái ngoài thiết kế</td></tr>
-      <tr><td>Ngoại lệ</td><td>Validation · Error · Duplicate · Conflict · mất kết nối</td><td>Có hành vi UI và recovery</td></tr>
-      <tr><td>Quyền/trạng thái</td><td>Permission/RBAC · object state · concurrency/version</td><td>Biết rõ ai thấy gì/làm gì</td></tr>
-      <tr><td>Ảnh hưởng</td><td>Where-used · dependencies · schema/version migration</td><td>Biết sửa/xóa sẽ ảnh hưởng đâu</td></tr>
-    </tbody>
-  </table>
-  <p>Mỗi ô của ma trận đối tượng × hành động phải trỏ tới Step Contract tương ứng hoặc ghi <code>N/A + lý do</code>.</p>
-</section>
+<h2 id="khau">4. Quy trình chuẩn — 8 khâu K0–K7</h2>
+<p>Khâu = việc AI thiết kế (K). Bước người dùng bấm trong một UI gọi là <b>bước thao tác</b> (S01–S08 của MMIM). Hai thứ khác tầng, không gọi chung là "bước".</p>
+<div class="k">
+<div><b>K0 Kế thừa &amp; phạm vi</b>Mục tiêu UI 1 câu (Owner) · phạm vi V1 · kiểm kê cái đã có: PG/Directus, UI đang chạy, luật, tài liệu cũ · 4 mức CHẠY THẬT/CÓ GIAO DIỆN/MỘT NỬA/CHƯA CÓ<br><span class="tag">chạm Owner</span></div>
+<div><b>K1 Đối tượng &amp; vòng đời</b>Mỗi đối tượng: trạng thái, vai trò, mã + master (D03), thẻ đối tượng</div>
+<div><b>K2 Ma trận phủ</b>Hàng sinh máy: CRUD × trạng thái × chính/phụ/lỗi × vai trò · cột = 15 chiều FIELD03 + 5 bổ sung · ô = mã kịch bản hoặc N/A + lý do<br><span class="tag">JEV</span></div>
+<div><b>K3 Kịch bản (Step Contract)</b>Mỗi kịch bản một dòng: mã · tình huống · ai làm gì · màn nào · kết quả · hỏng về đâu · trả lời các câu cấp bước (mục 9)</div>
+<div><b>K4 Hợp đồng 3 tầng</b>Danh mục khai báo → thẻ đối tượng → hợp đồng chuyển tiếp (mục 5) · đối chiếu registry PG trước khi khai mới<br><span class="tag">JEV</span></div>
+<div><b>K5 Luồng/trạng thái + bảng G</b>Sơ đồ chữ→hình · gom mọi <code>AI_ĐỀ_XUẤT</code> thành bảng G có đề xuất + hệ quả nếu lắc · đi thử người mới trên giấy (D04)<br><span class="tag">chạm Owner</span></div>
+<div><b>K6 HTML nguyên mẫu</b>Chỉ sau khi bảng G được gật · thử bằng <code>ui_inspect</code>/<code>ui_act</code> · nhật ký đi thử = Help nháp</div>
+<div><b>K7 Kiểm độc lập</b>Máy kiểm 0 lỗi · kiểm mù · bài thi đáp án đã biết · người mới trên HTML (mục 8)<br><span class="tag">chạm Owner: xem kết quả</span></div>
+</div>
+<p>Mỗi khâu có <b>cửa ra máy kiểm được</b>; chưa qua cửa thì không mở khâu sau. Đi <b>vòng nhỏ theo từng đối tượng</b> (FIELD trước, rồi MOUT/MOIT/MOT/MOW), không chờ vẽ đủ mọi đối tượng. Chính sách đã duyệt có mã thì kế thừa — không bắt Owner gật lại từng UI.</p>
 
-<section class="card">
-  <h2>5. Information Contract — khung đề xuất</h2>
-  <table>
-    <thead><tr><th>#</th><th>Thuộc tính contract</th><th>Câu hỏi cần trả lời</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td>Contract ID</td><td>Định danh duy nhất là gì?</td></tr>
-      <tr><td>2</td><td>From</td><td>Từ step/object nào?</td></tr>
-      <tr><td>3</td><td>To</td><td>Sang step/object nào?</td></tr>
-      <tr><td>4</td><td>Trigger</td><td>Sự kiện nào làm contract chạy?</td></tr>
-      <tr><td>5</td><td>Input</td><td>Field/data nào được truyền?</td></tr>
-      <tr><td>6</td><td>Type/format/unit</td><td>Kiểu, format, đơn vị là gì?</td></tr>
-      <tr><td>7</td><td>Source/SSOT</td><td>Nguồn chuẩn nằm ở đâu?</td></tr>
-      <tr><td>8</td><td>Required/default</td><td>Bắt buộc/tùy chọn/default?</td></tr>
-      <tr><td>9</td><td>Validation/rule</td><td>Luật kiểm dữ liệu là gì?</td></tr>
-      <tr><td>10</td><td>Key/version</td><td>ID/key/version nào bảo đảm nhận đúng dữ liệu?</td></tr>
-      <tr><td>11</td><td>Output</td><td>Bước sinh ra kết quả gì?</td></tr>
-      <tr><td>12</td><td>Destination/storage</td><td>Lưu/đẩy đi đâu?</td></tr>
-      <tr><td>13</td><td>Consumer/used-by</td><td>Ai/flow/UI nào dùng?</td></tr>
-      <tr><td>14</td><td>Owner/write permission</td><td>Ai sở hữu và ai được ghi?</td></tr>
-      <tr><td>15</td><td>Error/fallback/retry</td><td>Lỗi thì làm gì?</td></tr>
-      <tr><td>16</td><td>Create-if-missing</td><td>Thiếu phụ thuộc thì gọi quy trình tạo nào?</td></tr>
-      <tr><td>17</td><td>Compatibility/migration</td><td>Schema đổi thì tương thích/chuyển đổi thế nào?</td></tr>
-      <tr><td>18</td><td>Audit/history/retention</td><td>Có cần lịch sử, lưu vết, thời hạn giữ?</td></tr>
-    </tbody>
-  </table>
-  <h3>Đầu ra phải sinh được</h3>
-  <ul>
-    <li><strong>Danh mục hợp đồng thông tin</strong> — contract nào nối bước nào.</li>
-    <li><strong>Danh mục khai báo/field chuẩn</strong> — canonical field, type, meaning, owner, rule.</li>
-    <li><strong>Where-used</strong> — field/contract đang được UI, object và flow nào dùng.</li>
-    <li><strong>Phát hiện trùng nghĩa/trùng tên</strong> — ngăn hai field cùng nghĩa khác tên hoặc cùng tên khác nghĩa.</li>
-  </ul>
-</section>
+<h2 id="batang">5. Hợp đồng thông tin — ba tầng, mỗi thông tin sống đúng một nơi</h2>
+<table>
+<tr><th style="width:190px">Tầng</th><th>Giữ gì</th><th>Ví dụ xuyên suốt: form MOIT "Hồ sơ xuất cảnh" cần ô <i>Ngày xuất cảnh</i></th></tr>
+<tr><td>① Danh mục khai báo (field)</td><td>Mã · tên · <b>một câu định nghĩa</b> · kiểu/định dạng/đơn vị · validation nội tại · tên khác (alias) · đối tượng chủ · ánh xạ cột PG (hoặc <code>MỚI</code>) · phiên bản</td><td><code>ngay_xuat_canh</code>: "ngày người lao động rời Việt Nam theo hồ sơ" · kiểu ngày dd/mm/yyyy · alias: ngày bay, ngày XC — định nghĩa <b>một lần</b></td></tr>
+<tr><td>② Thẻ đối tượng</td><td>Vòng đời · ai được tạo/sửa/duyệt/ngừng · where-used · chính sách ngừng/xoá · audit/version/concurrency · master của nó ở đâu</td><td>Field: Nháp → Chờ duyệt → Đang dùng → Ngừng; đang được form dùng thì chỉ cho ngừng, không xoá</td></tr>
+<tr><td>③ Hợp đồng chuyển tiếp</td><td>Từ → đến · trigger · field nào (chỉ ghi <b>mã</b>) · thuộc tính <b>tầng gắn</b> (bắt buộc/default/hiện-ẩn theo vai trò trong form này) · key/version · output · lỗi · <code>return_to_step</code> (bản ghi phụ thuộc MMIM R3.4)</td><td>"MOIT gắn Field": tìm → chưa có → gọi FIELD tạo mới → trả về đúng bước kèm mã trường, dữ liệu đang gõ còn nguyên. Form Hồ sơ xuất cảnh: bắt buộc; form Đăng ký sơ bộ: không</td></tr>
+</table>
+<p><b>Tầng định nghĩa</b> (chung, một nguồn) ≠ <b>tầng gắn</b> (theo từng form). Sửa định nghĩa: mọi nơi dùng đổi theo; nhưng thay đổi gây mất tương thích (đổi kiểu, đổi định dạng khi đã có dữ liệu) phải đi qua phiên bản mới + đánh giá nơi dùng, không tự lan vào form hay dữ liệu lịch sử (= "sửa là nhân bản rồi đi lại khuôn").</p>
+<h3>Chống trùng nghĩa / trùng tên (K4)</h3>
+<ul>
+<li>Khoá là <b>mã</b>; tiêu chí phát hiện trùng là <b>nghĩa</b>: mỗi field một câu định nghĩa + đơn vị + đối tượng chủ. Mã ≠ tên ≠ phiên bản.</li>
+<li>Tìm trước khi khai: <code>directus_fields</code> (1.497 dòng, đo 24/09), <code>collection_field_standards</code> (11), danh mục hiện có, alias.</li>
+<li>Trùng tên/alias giữa hai mã <b>trong cùng phạm vi</b> = lỗi máy; khác phạm vi = cảnh báo để Host xét. Nghi cùng nghĩa → JEV phân loại cùng/khác/liên quan/chưa đủ dữ kiện → Host quyết.</li>
+<li>Field chưa có trong PG ghi <code>MỚI</code> vào bảng G; tạo thật sau qua DOT.</li>
+</ul>
 
-<section class="card">
-  <h2>6. Tool — tiêu chí trước, chọn sau</h2>
-  <ul>
-    <li>Ưu tiên nguồn mở.</li>
-    <li>Nhẹ, cài/vận hành đơn giản.</li>
-    <li>Git-friendly/diff được hoặc export text chuẩn.</li>
-    <li>AI/Agent đọc và sửa được.</li>
-    <li>Hỗ trợ flow/state/diagram và bảng coverage.</li>
-    <li>Không ép vẽ hình trước khi nghiệp vụ đủ.</li>
-    <li>Link được ID giữa matrix ↔ contract ↔ flow ↔ UI.</li>
-    <li>Dễ rollback/version.</li>
-    <li>Không dựng hạ tầng nặng nếu Markdown/text hiện tại đã đủ.</li>
-  </ul>
-  <p><strong>Ứng viên cần hội đồng đánh giá:</strong> Mermaid/PlantUML hoặc flow-as-code nhẹ; editor trực quan nhẹ nếu thật sự cần; BPMN chỉ khi độ phức tạp nghiệp vụ đòi hỏi. Chưa cài tool ở vòng này.</p>
-</section>
+<h2 id="nguon">6. Mỗi câu trả lời phải ghi nguồn <u>và</u> trạng thái kiểm</h2>
+<table>
+<tr><th style="width:160px">Nguồn (nghe ai nói)</th><th>Nghĩa</th><th>Trạng thái kiểm</th></tr>
+<tr><td><code>SỰ_THẬT</code></td><td>máy đọc được từ PG/UI/code — máy tự kiểm lại mỗi lượt chạy</td><td rowspan="5"><code>CHƯA_KIỂM</code> · <code>ĐÃ_KIỂM</code> (ai, khi nào, bằng gì) · <code>ĐÃ_DUYỆT</code> (Owner, ngày) · <code>HẾT_HẠN</code> (nguồn đã đổi)</td></tr>
+<tr><td><code>LUẬT</code></td><td>trích luật có mã (D/HP/AGENTS)</td></tr>
+<tr><td><code>MẶC_ĐỊNH</code></td><td>luật UI chung có mã (vd: huỷ giữa chừng thì hỏi nếu có dữ liệu chưa lưu; xoá = ngừng nếu đang được dùng)</td></tr>
+<tr><td><code>AI_ĐỀ_XUẤT</code></td><td>thiết kế do AI chọn — <b>chưa xong</b>, gom vào bảng G</td></tr>
+<tr><td><code>OWNER</code></td><td>chính sách nghiệp vụ, chỉ Owner chốt</td></tr>
+</table>
+<p>Một câu "xong" khi nguồn ≠ <code>AI_ĐỀ_XUẤT</code> <b>và</b> trạng thái ≠ <code>CHƯA_KIỂM</code>/<code>HẾT_HẠN</code>. Câu cấp bước phải được đánh đủ; câu cấp đối tượng/hệ thống trả lời một lần và bước chỉ tham chiếu mã — không bỏ trống, không chép lại; ngoại lệ theo ngữ cảnh phải khai rõ.</p>
 
-<section class="card">
-  <h2>7. JEV Reference — tham khảo ban đầu</h2>
-  <p><span class="status">REFERENCE ONLY</span> Model: <code>typesafe/jev-1.13-20260917</code> · Result: <code>gen-dec-1790217288-56iSttNoJua2z4V7xBo7</code></p>
-  <ul>
-    <li><code>method = matrix_contract_flow</code> · confidence 1.00.</li>
-    <li><code>information_contract = contract_matrix</code> · confidence 1.00.</li>
-    <li><code>tool_phase1 = text_diagram_git</code> · confidence 1.00.</li>
-  </ul>
-  <p>JEV không phải quyết định cuối; Claude/Hermes cần phản biện độc lập trước khi Host chốt.</p>
-</section>
+<h2 id="nguyentac">7. Ba nguyên tắc Owner (D03–D05) — bắt buộc kế thừa ở mọi nơi áp dụng quy trình</h2>
+<h3>7.1 Mã và Master List — áp dụng đệ quy (D03)</h3>
+<div class="box">Mọi loại đối tượng do quy trình quản lý hoặc sinh ra, khi có từ hai cá thể trở lên, đều phải có mã định danh và một Master List quản lý. Mọi quy trình con, đối tượng phụ thuộc và sản phẩm phát sinh đều kế thừa yêu cầu này. Áp dụng cho UI, form, trường, quy trình, bước, hợp đồng thông tin, công cụ và chính các danh mục.</div>
+<ul>
+<li>Tìm master hiện có trước khi tạo mới. Cùng loại, cùng phạm vi chỉ có một master chuẩn; màn hình khác chỉ là cách xem/lọc từ đó.</li>
+<li>Mã ≠ tên ≠ phiên bản. Đổi tên không đổi định danh, không đứt liên kết. Danh mục chỉ rõ đối tượng ở đâu, loại nào, trạng thái gì, dùng ở đâu.</li>
+<li>Liên kết tham chiếu định danh, không dựa vào hai nơi viết tên giống nhau; mỗi định danh/quan hệ có ánh xạ sang khoá chính/duy nhất/ngoại.</li>
+<li>Master List là yêu cầu quản lý, không đồng nghĩa lập tức tạo bảng SQL riêng. Các master đăng ký trong danh mục master chung; không sinh "master của master" vô hạn.</li>
+<li><b>Bổ sung (Claude, 24/09):</b> mã do <b>máy sinh</b> theo khuôn đã đăng ký, người không gõ mã. Danh mục master chung <b>đã có trong PG</b>: <code>collection_registry</code> (168 dòng) và <code>table_registry</code> (21) — đăng ký master mới vào đó qua DOT, không dựng danh mục thứ hai (đã đếm dòng, chưa soi cấu trúc cột).</li>
+</ul>
+<p><b>Điều kiện trượt:</b> đã tạo đối tượng nhưng chưa đăng ký vào master · có mã không tìm được đối tượng · liên kết tới mã không tồn tại · <b>hai master cho cùng loại cùng phạm vi</b>. Đây là quy định để thiết kế và kiểm tra, không phải lệnh tự tạo bảng/file/task ngoài phạm vi đã duyệt. Toàn bộ điều kiện trượt này là việc của <b>máy kiểm</b>, không hỏi JEV.</p>
 
-<section class="card">
-  <h2>8. Câu hỏi giao hội đồng GPT · Claude · Hermes</h2>
-  <ol>
-    <li>Bộ 25 câu UI Step Contract còn thiếu tình huống tiêu chuẩn nào?</li>
-    <li>Coverage matrix đã đủ để “quét không sót” chưa; có cần thêm chiều actor/state/channel/device?</li>
-    <li>Information Contract nên quản lý theo transition hay cần thêm object/field contract riêng? Làm sao tránh trùng lặp?</li>
-    <li>Từ Information Contract sinh danh mục khai báo theo quy tắc nào để tránh cùng nghĩa khác tên hoặc cùng tên khác nghĩa?</li>
-    <li>Tool nào phù hợp nhất với tiêu chí nhẹ + nguồn mở + Git/AI-friendly? Tool nào chỉ nên là lớp xem, không phải SSOT?</li>
-    <li>Có nên có máy kiểm coverage tự động/linter hay vòng đầu chỉ cần template + review?</li>
-    <li>Điều kiện nghiệm thu cuối nào cho phép một AI khác kiểm độc lập PASS/FAIL?</li>
-    <li>Vì AI/Agent làm toàn bộ, quy trình cần thêm checkpoint tự động nào để User không phải tham gia thao tác chi tiết?</li>
-  </ol>
-</section>
-</main>
+<h3>7.2 "Người mới có làm được không?" (D04)</h3>
+<p>Mỗi quy trình phải qua một lượt <b>đi thử như người mới</b>, do AI/Agent <b>khác bề mặt với tác giả</b> thực hiện. Người kiểm chỉ nhận: mục tiêu, vai trò, điểm bắt đầu, hướng dẫn dành cho người dùng; không dựa vào lời giải thích của tác giả. Chuỗi phải đi được:</p>
+<div class="box">Tìm → chọn hoặc tạo mới → xử lý thứ còn thiếu → quay lại đúng chỗ → lưu → tìm lại kết quả → sửa/ngừng/xoá theo quyền.</div>
+<ul>
+<li>Ví dụ FIELD phải đi xuyên: đang làm form → thiếu trường → trường cần nhóm chưa có → tạo nhóm → quay lại tạo trường → quay lại form, không mất dữ liệu đang nhập.</li>
+<li>Mỗi bước ghi rõ <b>bấm đâu · nhập gì · thấy gì · sai thì sửa ở đâu</b>. Agent đếm thao tác, phát hiện nhập lặp và đường đi vòng (quay lại chỗ đã qua mà không thêm thông tin). Không giảm bước bằng cách bỏ kiểm quyền hay bỏ xác nhận hành động phá huỷ.</li>
+<li><b>Bổ sung (Claude):</b> đi thử <b>hai lần</b> — trên giấy (bảng kịch bản, ở K5, trước khi Owner gật bảng G) và trên HTML bằng <code>ui_act</code> (ở K7). Nhật ký đi thử (bấm đâu/nhập gì/thấy gì) chính là <b>bản Help nháp</b> của UI.</li>
+</ul>
+<p><b>Điều kiện trượt:</b> phải đoán nút · cần tác giả giải thích thêm · không tìm lại được kết quả · mất dữ liệu khi quay lại · ngõ cụt. Agent đi thử đạt <b>chưa</b> được ghi thành "đã kiểm với người dùng thật".</p>
+
+<h3>7.3 JEV — điểm tham khảo bắt buộc (D05)</h3>
+<table>
+<tr><th style="width:230px">Điểm bắt buộc (khâu)</th><th>Nội dung đánh giá</th></tr>
+<tr><td>Kiểm kê trước khi tạo (K0, K4)</td><td>Còn nghi trùng nghĩa: dùng lại, mở rộng hay tạo mới đối tượng/trường?</td></tr>
+<tr><td>Rà phạm vi và độ phủ (K2)</td><td>Các mục đề nghị N/A, hoãn, ngoài phạm vi có hợp lý không? Danh sách còn dấu hiệu thiếu nhánh nào?</td></tr>
+<tr><td>Chọn phương án thiết kế/công cụ (K4–K6)</td><td>So các phương án khả thi theo cùng tiêu chí, sau khi đã có bằng chứng và ràng buộc.</td></tr>
+<tr><td>Khác biệt giữa các bản kiểm độc lập (K7)</td><td>Phân loại điểm khác: thiếu thật · khác cách diễn đạt · khác phạm vi · chưa đủ căn cứ.</td></tr>
+<tr><td>Trước khi chốt một bất đồng hữu hạn</td><td>Tham khảo các lựa chọn còn lại; Host quyết trong thẩm quyền, vượt quyền mới chuyển Owner.</td></tr>
+</table>
+<ul>
+<li><b>Không hỏi JEV thay máy kiểm:</b> mã trùng, liên kết tồn tại, UI bấm được, dữ liệu đã lưu — kiểm trực tiếp. Không hỏi JEV có nên tuân chỉ đạo Owner hay không. JEV không nghĩ hộ kịch bản; nó chấm danh sách ta đưa.</li>
+<li>Đầu vào trung tính, có lựa chọn "chưa đủ dữ kiện"; gom nhiều câu một lượt; chỉ đánh giá lại khi dữ kiện/phương án/yêu cầu đổi. <b>Được</b> hỏi lại vì thiếu lựa chọn hay dữ kiện (ghi cả hai lượt); <b>cấm</b> hỏi lại để ra đáp án mong muốn.</li>
+<li><b>Ghi lại (bổ sung Claude, đã kiểm thực tế):</b> cổng JEV cố ý không lưu state và đã tắt access log, nên result id không tra ngược được — phần lưu do AI ghi vào repo. Lượt JEV ảnh hưởng tới D/READY/PASS: ghi khối gọn (state tóm tắt trung tính · câu hỏi + lựa chọn · phiên bản nguồn · model · result id · confidence · kết luận Host). Lượt thường: một dòng result id + kết luận. Không gọi được JEV: ghi "chưa hoàn tất điểm tham khảo bắt buộc", không giả kết quả, phần độc lập vẫn tiếp tục.</li>
+</ul>
+
+<h2 id="nghiemthu">8. Nghiệm thu — bốn cửa, đủ cả bốn mới PASS</h2>
+<table>
+<tr><th style="width:170px">Cửa</th><th>Điều kiện</th></tr>
+<tr><td>1 · Máy kiểm</td><td>0 lỗi: không ô ma trận trống · không mã/tham chiếu treo · không câu bắt buộc chưa trả lời · không trùng mã; trùng tên/alias trong phạm vi = lỗi, khác phạm vi = cảnh báo. Script viết sau khi khuôn qua bài thi FIELD, trước đối tượng thứ hai; là file mới nên Owner duyệt trước khi tạo (DROOT16).</td></tr>
+<tr><td>2 · Kiểm mù</td><td>AI khác bề mặt lập lại danh sách kịch bản từ danh sách đối tượng + mục tiêu, <b>không xem bản tác giả</b>; diff; mọi dòng lệch được xử lý (thêm vào / N/A có lý do / JEV phân loại).</td></tr>
+<tr><td>3 · Bài thi đáp án đã biết</td><td>Áp quy trình lên FIELD: phải tự bắt lại 4 lỗ Owner nêu 23/09 (lưu xong xem ở đâu · sửa/xoá thế nào · nhóm chưa có thì tạo sao · mã + master mã) và lỗi nút sửa (<code>edit=</code>/<code>truong=</code>). Không đủ 5 → quy trình FAIL. Đủ 5 là <b>điều kiện cần</b>, chưa chứng minh hết lỗi.</td></tr>
+<tr><td>4 · Người mới</td><td>Theo 7.2 — trên giấy và trên HTML.</td></tr>
+</table>
+
+<h2 id="cauhoi">9. Kho câu hỏi cho kịch bản — 25 câu gốc + 9 bổ sung, mỗi câu có tầng</h2>
+<p class="small">Tầng: <b>B</b> = cấp bước (trả lời trong từng kịch bản) · <b>Đ</b> = cấp đối tượng (thẻ đối tượng, trả lời một lần) · <b>H</b> = mặc định hệ thống (luật UI chung, bước chỉ ghi ngoại lệ) · <b>F</b> = danh mục khai báo / tầng gắn.</p>
+<ol>
+<li>[B] Mục tiêu của bước này là gì?</li><li>[B/Đ] Actor/role nào được làm? (bảng quyền của đối tượng, gồm cả ô CẤM)</li><li>[B] Người dùng đi vào từ đâu?</li><li>[B] Điều kiện phải có trước khi vào?</li><li>[B] Bấm/chọn ở đâu để bắt đầu?</li><li>[B] UI hiển thị gì?</li><li>[B] Phải nhập/chọn gì?</li><li>[F] Mỗi thông tin lấy từ đâu: nhập tay, kế thừa, tra cứu, tự tính, gọi đối tượng khác?</li><li>[F] Bắt buộc/tuỳ chọn (tầng gắn); format/ràng buộc (tầng định nghĩa)?</li><li>[B] Có gọi đối tượng/công cụ/quy trình khác không? Gọi tại đâu?</li><li>[B] Đối tượng cần gọi chưa có → đi vào quy trình tạo nào? (bản ghi phụ thuộc R3.4)</li><li>[B] Quy trình tạo phụ thuộc đó đã có chưa; chưa có thì gate thế nào?</li><li>[H+B] Tạo xong quay lại đúng bước bằng cách nào; dữ liệu đang nhập có giữ không?</li><li>[B] Bấm Lưu thì hệ thống ghi gì?</li><li>[Đ+B] Lưu vào đâu; ID/version/trạng thái sau lưu?</li><li>[B] Thành công thì đi đâu, thấy gì?</li><li>[Đ] Sửa bắt đầu ở đâu, sửa được trường nào?</li><li>[Đ] Xoá/ngừng: điều kiện, cảnh báo, ảnh hưởng, quyền?</li><li>[Đ/H] Khôi phục/undo?</li><li>[H] Huỷ/quay lại/đóng giữa chừng với dữ liệu chưa lưu?</li><li>[H+B] Lỗi validation, lỗi hệ thống, mất kết nối, trùng/xung đột?</li><li>[Đ] Quyền làm UI thay đổi ra sao?</li><li>[Đ] Where-used; sửa/xoá ảnh hưởng gì?</li><li>[Đ/H] Audit/history/version/concurrency?</li><li>[B] Bước này PASS bằng điều kiện quan sát được nào?</li>
+<li>[Đ/H] <b>Mã bước và master mã</b> (D03): khuôn mã, ai sinh, đăng ký ở đâu?</li><li>[Đ] Đề xuất → ai duyệt → khi nào áp dụng vận hành? (tách "duyệt" của người và "chạy" của máy)</li><li>[B] Tìm trước khi tạo (S01) — tìm được theo tên khác (alias) không?</li><li>[Đ] Tạo xong quản lý ở đâu, quản lý thông tin gì? (R3.7)</li><li>[B] Lưu xong kích hoạt gì: trigger, thông báo, tầng dưới?</li><li>[Đ] Nhập/xuất hàng loạt (Excel, Word, in)?</li><li>[B] Deep-link mở đúng bước? (R3.8)</li><li>[B] Help: người mới biết bước này tồn tại bằng cách nào?</li><li>[B] Trạng thái UI 5 mức của bước: <code>UI_OK · UI_CAN_SUA · UI_THIEU · CHUA_RA · KHONG_CAN_UI</code> (R3.6)</li>
+</ol>
+
+<h2 id="matran">10. Ma trận phủ (K2)</h2>
+<p><b>Hàng</b> sinh máy móc từ CRUD × trạng thái vòng đời × luồng chính/phụ/lỗi × vai trò (mỗi tổ hợp là kịch bản hoặc "CẤM" hoặc N/A + lý do). <b>Cột</b> = 15 chiều FIELD03: CRUD · lifecycle · approval · RBAC · duplicate · validation · where-used · version/migration · inline dependency · identifier registry · alias search · audit · concurrency · recovery · data dictionary — cộng 5 bổ sung: điều hướng (huỷ/quay lại/tiếp tục) · empty state · mất kết nối · nhập/xuất hàng loạt · quản lý sau tạo + Help. Kênh/thiết bị là thuộc tính đầu UI (mặc định web máy tính), không nhân ma trận. Ô = mã kịch bản hoặc N/A + lý do; trạng thái ô: <code>COVERED · CHUA_CHOT · UI_THIEU · DEFER_P1</code>. Trần số dòng đặt theo từng lượt (FIELD03: 40), không phải giới hạn cứng mọi quy trình.</p>
+
+<h2 id="18">11. 18 thuộc tính hợp đồng — giữ đủ, mỗi thuộc tính về đúng tầng</h2>
+<table>
+<tr><th>#</th><th>Thuộc tính</th><th>Tầng</th><th>#</th><th>Thuộc tính</th><th>Tầng</th></tr>
+<tr><td>1</td><td>Contract ID</td><td>③ chuyển tiếp</td><td>10</td><td>Key/version</td><td>③</td></tr>
+<tr><td>2</td><td>From</td><td>③</td><td>11</td><td>Output</td><td>③</td></tr>
+<tr><td>3</td><td>To</td><td>③</td><td>12</td><td>Destination/storage</td><td>③</td></tr>
+<tr><td>4</td><td>Trigger</td><td>③</td><td>13</td><td>Consumer/used-by</td><td>② (where-used)</td></tr>
+<tr><td>5</td><td>Input (field theo mã)</td><td>③</td><td>14</td><td>Owner/write permission</td><td>②</td></tr>
+<tr><td>6</td><td>Type/format/unit</td><td>① định nghĩa</td><td>15</td><td>Error/fallback/retry</td><td>③ + mặc định H</td></tr>
+<tr><td>7</td><td>Source/SSOT</td><td>① (cột PG) / ③</td><td>16</td><td>Create-if-missing</td><td>③ (R3.4)</td></tr>
+<tr><td>8</td><td>Required/default</td><td>③ tầng gắn</td><td>17</td><td>Compatibility/migration</td><td>① phiên bản + ②</td></tr>
+<tr><td>9</td><td>Validation/rule</td><td>① nội tại / ③ ngữ cảnh</td><td>18</td><td>Audit/history/retention</td><td>②</td></tr>
+</table>
+<p>Đầu ra phải sinh được: danh mục hợp đồng (contract nào nối bước nào) · danh mục khai báo (field chuẩn) · where-used · báo cáo trùng nghĩa/trùng tên. Mỗi danh mục tự nó cũng có mã + master (D03).</p>
+
+<h2 id="tool">12. Tool</h2>
+<ul>
+<li>Nguồn chuẩn = bảng chữ cột cố định trong Git (để sau nạp PG qua DOT không phải diễn giải lại) + sơ đồ chữ→hình (Mermaid) cho vòng đời/luồng. <code>view.html</code> của việc vẫn là tài liệu chính đã khai; không tạo bản Markdown song song. Muốn chuyển sang nguồn dữ liệu cấu trúc rồi sinh HTML phải chốt rõ một nguồn + đường sinh bản xem.</li>
+<li>HTML chỉ là lớp xem và nguyên mẫu; thử bằng <code>ui_inspect</code>/<code>ui_act</code> sẵn có. Figma/Penpot/Excalidraw/BPMN không làm nguồn chuẩn; BPMN chỉ khi có nhánh song song/duyệt nhiều cấp mà Mermaid không tả nổi.</li>
+<li>Vòng này không cài gì. Host kiểm một lần: Owner View có vẽ được Mermaid không (nếu không, nhúng SVG đã sinh).</li>
+<li>JEV tham khảo: JEV01 (GPT) <code>gen-dec-1790217288-56iSttNoJua2z4V7xBo7</code> — method/contract/tool 1.00, thiếu state/options kèm theo. JEV02 (Claude) <code>gen-dec-1790218524-d6cpWPLgEsnqORcMJkiS</code> — kế thừa MMIM 1.00 · 3 tầng 0.99 · registry trước 0.99 · chữ+Git 1.00 · nghiệm thu 4 cửa 0.85 (conf 0.80); máy kiểm 0.51/0.37 và mặc định-vs-từng-bước 0.52/0.38 chưa chắc → Host chốt theo ONE SSOT.</li>
+</ul>
+
+<h2 id="hoidong">13. Hội đồng</h2>
+<ul>
+<li>P01 GPT · ACCEPTED — xương sống, không xong vì màn hình, tool phục vụ quy trình, soi nhánh thiếu: đã vào mục 4, 8, 12.</li>
+<li>P02 Claude · ACCEPTED có chỉnh (Host GPT trả lời 24/09 qua chat, Claude chép vào COLLAB): tách nguồn/trạng thái kiểm (mục 6) · chạm Owner theo nhóm · "theo nghĩa" là tiêu chí phát hiện, khoá là mã · trùng tên xét theo phạm vi · view.html vẫn là tài liệu chính · 5 lỗi FIELD là điều kiện cần · "bắt buộc nhập" thuộc tầng gắn.</li>
+<li>P03 Claude · 4 bổ sung cho D03–D05 (mã máy sinh; danh mục master chung đã có trong PG; hai master cùng loại = trượt; đi thử hai lần = Help nháp; JEV không lưu state → AI ghi gọn) — đã đưa vào mục 7; GPT/Hermes phản biện trong vòng tới.</li>
+<li><b>Mở cho Hermes:</b> phản biện toàn bộ mục 4–10, ưu tiên nhánh thiếu / lỗ hợp đồng / lỗ tự động hoá.</li>
+</ul>
+<p class="small">Bản trước (commit <code>fe1b4c0</code>): 7 bước B1–B7, 25 câu, ma trận 7 nhóm, 18 thuộc tính, 8 câu hỏi hội đồng — đã gộp vào bản này; Git giữ lịch sử.</p>
 </body>
 </html>

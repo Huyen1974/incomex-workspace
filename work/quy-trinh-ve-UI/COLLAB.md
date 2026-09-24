@@ -1,5 +1,6 @@
 # COLLAB — quy-trinh-ve-UI
 Tên việc: quy-trinh-ve-UI
+Host: Claude Chat · Host_ID: CLAUDE-UIPROC-260924-A · Owner giao 24/09/2026 (GPT Chat mở việc; đổi Host theo lệnh Owner do phiên GPT không có đường ghi)
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ngày 24/09/2026 trong ChatGPT.
@@ -20,12 +21,12 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
 - Nội dung chính Owner/hội đồng đọc được trên Owner View chuẩn của VPS.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-- Giai đoạn hiện tại: **THẢO LUẬN/CHỐT PHƯƠNG PHÁP**. Chưa tạo `PROMPT.md`, chưa RUN Agent, chưa cài tool, chưa sửa UI/runtime.
-- HTML chính: `view.html` — chứa toàn bộ nội dung đề xuất để Owner và hội đồng đọc/phản biện. Tạo theo lệnh Owner yêu cầu đưa nội dung lên VPS; commit `fe1b4c054bae59e4d5e1861efcca3a09d80d4ca6`.
-- `COLLAB.md` chỉ giữ mục tiêu, quyết định, ý kiến, trạng thái và con trỏ; không giữ bản nội dung song song.
-- Không tự tạo thêm file/draft/view/URL/tool project ngoài `view.html` + `COLLAB.md` nếu Owner chưa duyệt.
-- Phải tách rõ ba lớp: (A) coverage quy trình UI; (B) hợp đồng thông tin/danh mục khai báo; (C) tool hỗ trợ.
-- Mọi lựa chọn hữu hạn quan trọng nên tham khảo JEV theo AGENTS A5/DROOT13; JEV chỉ là bằng chứng phụ.
+- Giai đoạn hiện tại: **ĐỒNG THUẬN PHƯƠNG PHÁP** — GPT ✅ · Claude ✅ · Hermes ○. Chưa `PROMPT.md`, chưa RUN, chưa cài tool, chưa sửa UI/runtime.
+- HTML chính: `view.html` — bản đồng thuận 24/09 (Host Claude viết lại theo D06: quyết định trước → sơ đồ K0–K7 → nội dung). Bản đầu của GPT ở commit `fe1b4c054bae59e4d5e1861efcca3a09d80d4ca6`.
+- Nguyên tắc Owner 24/09 (qua GPT): ba nguyên tắc D03–D05 là điều kiện bắt buộc kế thừa ở mọi nơi áp dụng quy trình; chi tiết ghi thẳng repo, Owner chỉ nắm mục tiêu ngắn gọn.
+- Phải tách rõ ba lớp: (A) coverage quy trình UI; (B) hợp đồng thông tin/danh mục khai báo; (C) tool hỗ trợ. Mọi lựa chọn hữu hạn quan trọng tham khảo JEV theo A5/DROOT13/D05.
+- Kế thừa MMIM (`work/mow-mot-moit-mout/`): xương S01–S08 + bản ghi phụ thuộc R3.4, 5 trạng thái UI R3.6, quản lý sau tạo R3.7, FIELD03 (15 chiều, data dictionary, master mã). FIELD là lượt áp dụng đầu = bài thi đáp án đã biết (5 lỗi).
+- Còn mở: nơi đặt danh mục khai báo/hợp đồng khi chạy thật (hỏi Owner khi vào bài thi FIELD, DROOT16). Máy kiểm là file mới → Owner duyệt trước khi tạo.
 
 ### Vòng trước
 - — Việc mới.
@@ -33,47 +34,32 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
 ## Quyết định Owner
 - D01 · 2026-09-24 · Toàn bộ quá trình do AI/Agent làm; User chỉ ra lệnh, duyệt quyết định cần quyền Owner và xem kết quả.
 - D02 · 2026-09-24 · Nội dung đề xuất phải được đưa lên Owner View VPS để hội đồng đọc và có ý kiến; dùng đúng HTML chính `view.html`, không tạo đường xem phụ.
+- D03 · 2026-09-24 · **Mã + Master List áp dụng đệ quy** (Owner nêu, GPT soạn văn bản, Owner đồng ý 24/09): mọi loại đối tượng ≥2 cá thể phải có mã và Master List; tìm master trước khi tạo; mã ≠ tên ≠ phiên bản; liên kết theo định danh; master đăng ký vào danh mục master chung. Văn bản đầy đủ + điều kiện trượt: `view.html` mục 7.1.
+- D04 · 2026-09-24 · **"Người mới có làm được không?"** — mỗi quy trình qua lượt đi thử như người mới do AI khác thực hiện; chuỗi Tìm → chọn/tạo → xử lý thiếu → quay lại → lưu → tìm lại → sửa/ngừng/xoá. `view.html` mục 7.2.
+- D05 · 2026-09-24 · **JEV có điểm tham khảo bắt buộc** theo một bảng chung 5 điểm; không hỏi JEV thay máy kiểm; ghi lại đầu vào/lựa chọn/result id/kết luận Host. `view.html` mục 7.3.
+- D06 · 2026-09-24 · Owner đồng ý toàn bộ đề xuất Claude: quy trình chuẩn kế thừa MMIM, FIELD làm lượt áp dụng đầu; **Claude Chat làm Host**; Claude làm thư ký chép phản hồi Host GPT vào COLLAB; Host được sửa `view.html` kể cả bố cục (quyết định trước → sơ đồ → nội dung).
 
 ## Nội dung chính
-- SSOT Owner/hội đồng: `work/quy-trinh-ve-UI/view.html`.
-- Nội dung hiện có: quy trình 7 bước; UI Step Contract 25 câu; coverage matrix; Information Contract 18 thuộc tính; tiêu chí chọn tool; JEV tham khảo; 8 câu hỏi phản biện hội đồng.
+- SSOT Owner/hội đồng: `work/quy-trinh-ve-UI/view.html` (mục 1 Owner cần quyết · 2 tiến độ · 3 D · 4 khâu K0–K7 · 5 hợp đồng 3 tầng · 6 nguồn+trạng thái kiểm · 7 ba nguyên tắc Owner · 8 nghiệm thu 4 cửa · 9 kho 34 câu · 10 ma trận · 11 18 thuộc tính theo tầng · 12 tool · 13 hội đồng).
 - Link Owner View chuẩn: `https://vps.incomexsaigoncorp.vn/knowledge/modules?task=quy-trinh-ve-UI`.
 
-## JEV tham khảo ban đầu
-- JEV01 · model `typesafe/jev-1.13-20260917` · result id `gen-dec-1790217288-56iSttNoJua2z4V7xBo7`.
-- `method = matrix_contract_flow` · confidence `1.00`.
-- `information_contract = contract_matrix` · confidence `1.00`.
-- `tool_phase1 = text_diagram_git` · confidence `1.00`.
-- Trạng thái: **REFERENCE ONLY**, chờ hội đồng phản biện; không coi JEV là quyết định.
+## JEV
+- JEV01 · GPT · `gen-dec-1790217288-56iSttNoJua2z4V7xBo7` · method/contract/tool 1.00 · REFERENCE ONLY · thiếu state/options kèm theo (D05 yêu cầu từ nay ghi kèm).
+- JEV02 · Claude · `gen-dec-1790218524-d6cpWPLgEsnqORcMJkiS` · state = sự kiện thô (MMIM R3/FIELD03, Owner 23/09, registry PG, đề xuất view.html, luật repo); câu hỏi: base · contract_shape · field_identity_source · tool_ssot · acceptance · machine_check · question_scope; kết quả: kế thừa MMIM 1.00 · 3 tầng 0.99 · registry trước 0.99 · chữ+Git 1.00 · nghiệm thu 4 cửa 0.85 (conf 0.80) · máy kiểm 0.51/0.37 · mặc định-vs-từng-bước 0.52/0.38 (conf 0.27) → Host chốt hai câu chưa chắc theo ONE SSOT.
 
 ## Ý kiến hội đồng
-- P01 · GPT Chat · OPEN · Based_on `fe1b4c054bae59e4d5e1861efcca3a09d80d4ca6` · Scope: `view.html` mục 2–8.
-  - Đề nghị lấy **coverage matrix → Step Contract → Information Contract → flow/state → wireframe/UI → independent check** làm xương sống.
-  - Không đánh “xong UI” chỉ vì có màn hình; phải PASS coverage + contract.
-  - Tool phục vụ quy trình; giai đoạn đầu ưu tiên text/Git, chỉ thêm editor trực quan nếu chứng minh cần.
-  - Reviewer phải cố tình tìm missing branches: nested-create, quay lại giữ trạng thái, edit/delete + where-used, quyền, lỗi/concurrency, version/schema migration và checkpoint để AI tự làm hết.
-- P02 · Claude Chat · OPEN · Based_on `e58235cc0f985fed622ff861b4dbf8fe7b092f8d` · Scope: `view.html` mục 2–8 + P01 · Đối chiếu: `work/mow-mot-moit-mout/COLLAB.md` (MAP-R3, D21, KQ FIELD03) + PG `directus` đo 24/09 · Chưa đọc: bản FIELD trong `ban-duyet.html`, `information/`, file tham khảo 1,8 MB · JEV `gen-dec-1790218524-d6cpWPLgEsnqORcMJkiS` · Host: —
-  - **Đồng ý P01:** không đánh xong UI vì có màn hình; tool phục vụ quy trình; text/Git trước; cố tình soi nhánh thiếu.
-  - **C1 · Kế thừa (điểm chặn):** view.html viết từ trang trắng, không dùng gì của MMIM đã chạy thật cùng repo: xương S01–S08 + bản ghi phụ thuộc `return_to_step` (R3.1/R3.4), 5 trạng thái UI (R3.6), quản lý sau tạo (R3.7), FIELD03 (15 chiều coverage, data dictionary, master mã có `work_id`, trần 40 dòng), bài học D21. Để hai khuôn song song = hai SSOT phương pháp. Đề nghị: chuẩn = khái quát hoá từ MMIM + bù phần view.html có mà MMIM thiếu (huỷ/quay lại/tiếp tục, mất kết nối, empty state); MMIM thành lượt áp dụng đầu. JEV base `generalize_from_existing` 1.00.
-  - **C2 · Tên gọi:** "bước" đang chỉ hai thứ khác tầng — B1–B7 là khâu AI thiết kế, S01–S08 là bước người dùng. Đổi khâu thiết kế thành `K0–K7`; Step Contract áp cho bước người dùng/kịch bản.
-  - **C3 · Thiếu K0 Kế thừa & phạm vi:** mục tiêu UI 1 câu (Owner gật) + phạm vi V1; kiểm kê cái đã có — PG đo 24/09: `directus_fields` 1.497, `collection_registry` 168, `collection_field_standards` 11, `ui_pages` 37; UI đang chạy (`ui_inspect`); luật/HP liên quan; tài liệu cũ. Gắn 4 mức CHẠY THẬT / CÓ GIAO DIỆN / MỘT NỬA / CHƯA CÓ.
-  - **C4 · "Trả lời chính xác" phải đo được:** thay `EVIDENCED/DECIDED` bằng nhãn nguồn cho từng câu trả lời: `SỰ_THẬT` (máy đọc PG/UI/code) · `LUẬT` (mã D/HP) · `MẶC_ĐỊNH` (mã luật UI chung) · `AI_ĐỀ_XUẤT` (vàng) · `OWNER` (chính sách nghiệp vụ). Chỉ `AI_ĐỀ_XUẤT` là chưa xong; gom hết vào một bảng G có đề xuất + hệ quả nếu lắc.
-  - **C5 · B1–B7 chưa có cửa Owner:** chỉ 3 chạm — gật mục tiêu UI (K0) · bảng G (sau hợp đồng, trước HTML, đúng D21 "trên giấy trước") · xem kết quả.
-  - **Q1:** (a) câu cấp đối tượng/hệ thống (sửa, xoá/lưu trữ, khôi phục, quyền, where-used, audit/version, xử lý huỷ/lỗi chung) trả lời MỘT lần ở Thẻ đối tượng/Luật UI chung; kịch bản vẫn đánh đủ từng câu nhưng được trả lời bằng mã mặc định — không bỏ trống, không chép lại (JEV 0.52/0.38 chưa chắc → chốt theo ONE SSOT). (b) Thiếu: mã bước + master mã (Owner 23/09) · đề xuất→duyệt→áp dụng · tìm trước khi tạo + alias · tạo xong quản lý ở đâu · lưu xong kích hoạt gì (trigger/thông báo/tầng dưới) · nhập/xuất hàng loạt (Excel/Word/in) · deep-link · Help trong UI · trạng thái UI 5 mức.
-  - **Q2:** thêm chiều **trạng thái vòng đời** (bắt buộc: sửa/xoá phụ thuộc trạng thái); vai trò = bảng quyền riêng mỗi đối tượng, có cả ô CẤM; kênh/thiết bị = thuộc tính đầu UI (mặc định web máy tính), không nhân ma trận. Hàng sinh máy móc từ CRUD × trạng thái × chính/phụ/lỗi × vai trò (D21); cột = 15 chiều FIELD03 ∪ phần view.html có thêm.
-  - **Q3:** chuẩn hoá 3 tầng, mỗi thông tin sống đúng 1 nơi: ① Danh mục khai báo (field: nghĩa, kiểu, đơn vị, validation, alias) ② Thẻ đối tượng (vòng đời, quyền, where-used, ngừng/xoá, audit) ③ Hợp đồng chuyển tiếp (from/to/trigger/key/output/lỗi/`return_to_step` — chỉ tham chiếu mã ①②; dạng "tạo khi thiếu" dùng lại R3.4). 18 thuộc tính giữ đủ nhưng chia về đúng tầng. JEV `normalized_layers` 0.99.
-  - **Q4:** khoá = nghĩa, không phải tên: mỗi field một câu định nghĩa + đơn vị + đối tượng chủ; mã ≠ tên ≠ phiên bản; tìm trước trong `directus_fields`/`collection_field_standards` + danh mục + alias; hai mã trùng tên/alias = lỗi máy; nghi cùng nghĩa → JEV phân loại cùng/khác/liên quan → Host; field chưa có trong PG ghi `MỚI` vào bảng G, tạo thật sau qua DOT. JEV `existing_registries_plus_new_flagged` 0.99.
-  - **Q5:** SSOT = bảng chữ cột cố định trong Git (để sau nạp PG qua DOT không phải diễn giải lại) + Mermaid cho vòng đời/luồng; HTML chỉ là lớp xem và nguyên mẫu, thử bằng `ui_inspect`/`ui_act` sẵn có. Figma/Penpot/Excalidraw/BPMN không làm SSOT; BPMN chỉ khi có nhánh song song/duyệt nhiều cấp mà Mermaid không tả nổi. Vòng 1 không cài gì; Host kiểm một lần Owner View có vẽ được Mermaid không. JEV `text_in_git_plus_mermaid` 1.00.
-  - **Q6:** có, tối thiểu, viết ngay sau khi khuôn qua backtest FIELD và trước đối tượng thứ hai: 3 luật — không ô trống · không mã treo · không trùng tên/alias. Lý do: AI tự báo không đủ tin; máy chấm như nhau với mọi AI. Script chỉ tạo khi Owner duyệt (DROOT16). JEV 0.51/0.37 → Claude chốt.
-  - **Q7:** PASS khi đủ 4: máy kiểm 0 lỗi · AI khác lập lại danh sách kịch bản **mù** (không xem bản tác giả) rồi diff, dòng lệch nào cũng có xử lý · **backtest FIELD**: quy trình phải tự bắt lại 4 lỗ Owner nêu 23/09 + lỗi `edit=`/`truong=`, không bắt được là quy trình FAIL · đi thử kiểu người mới không kẹt. Có HTML thì thêm `ui_act` bấm thử kịch bản chính. JEV 0.85.
-  - **Q8:** mỗi khâu K0–K7 có cửa ra máy kiểm được + thanh tiến độ một ô đang làm cho từng đối tượng; JEV dùng ở chỗ chọn hữu hạn (ô cần/N-A/ngoài phạm vi · nghi trùng field · nhãn nguồn · chấm coverage), không dùng để nghĩ kịch bản (MMIM D21: JEV chỉ chấm danh sách ta đưa).
-  - **JEV01:** ba kết quả 1.00 trên nhãn do chính đề xuất đặt; ghi kèm state/options để kiểm lại được (A5).
-  - **Điều kiện Claude ACCEPT:** Host trả lời C1–C5, Q1–Q8 (ACCEPTED/PARTIAL/REJECTED + lý do); view.html thể hiện kế thừa MMIM · K0 · 3 tầng · nhãn nguồn · 3 chạm Owner · 4 điều kiện nghiệm thu. Đổi bố cục view.html theo DROOT17.
+- P01 · GPT Chat · ACCEPTED · Based_on `fe1b4c054bae59e4d5e1861efcca3a09d80d4ca6` · Scope `view.html` 2–8 · xương sống matrix → contract → flow → UI → kiểm; không xong vì màn hình; text/Git trước; soi nhánh thiếu → đã vào view.html mục 4, 8, 12. Áp: SAME_COMMIT.
+- P02 · Claude Chat · ACCEPTED có chỉnh · Based_on `e58235cc0f985fed622ff861b4dbf8fe7b092f8d` · Áp: `02a652b` (bản đầy đủ) · C1–C3 nhận; C4 nhận có chỉnh (tách nguồn / trạng thái kiểm); C5 nhận theo nhóm điểm chạm; Q1–Q3 nhận; Q4/Q6 nhận có chỉnh ("theo nghĩa" là tiêu chí phát hiện, khoá là mã; trùng tên xét theo phạm vi; máy kiểm bắt mã trùng + tham chiếu treo + câu bắt buộc chưa trả lời); Q5 nhận hướng chữ/Git, view.html vẫn là tài liệu chính; Q7–Q8 nhận (5 lỗi FIELD là điều kiện cần); sửa ví dụ: "bắt buộc nhập" thuộc tầng gắn, thay đổi mất tương thích đi qua phiên bản + nơi dùng.
+- HR01 · Host GPT trả lời P02 · 24/09 qua chat (phiên GPT không có `workspace_*`/`fs_*`, đường GitHub native chỉ đọc) · Claude chép theo D06; nội dung như dòng P02 và ba nguyên tắc D03–D05. Hướng thống nhất GPT nêu: kế thừa MMIM → mã/master bắt buộc → hợp đồng ba tầng → kiểm như người mới → JEV tại điểm xác định → kiểm độc lập trước nghiệm thu. Điều kiện GPT: không biến số bước/trần dòng của FIELD thành giới hạn cứng; không bắt Owner gật lại từng UI; không tạo Markdown song song.
+- P03 · Claude Chat · OPEN (Claude vừa là tác giả vừa là Host — GPT/Hermes phản biện) · Based_on HR01 · Scope `view.html` mục 7 · 4 bổ sung cho D03–D05: (a) mã do máy sinh theo khuôn đăng ký; (b) danh mục master chung đã có trong PG (`collection_registry` 168, `table_registry` 21 — đếm 24/09, chưa soi cột) → không dựng danh mục thứ hai; thêm điều kiện trượt "hai master cùng loại cùng phạm vi"; (c) đi thử người mới hai lần (giấy ở K5, HTML ở K7), nhật ký đi thử = Help nháp; (d) cổng JEV không lưu state + access log tắt (`work/done-tasks/jev-integration/COLLAB.md`) → AI ghi gọn: lượt ảnh hưởng D/READY/PASS ghi khối gọn, lượt thường một dòng. Đã đưa vào view.html mục 7 để hội đồng đọc; ai bác thì Host gỡ.
 
 ## Cửa vào cho Reviewer
-- Claude: `WS work/quy-trinh-ve-UI · Review · đọc AGENTS.md → work/quy-trinh-ve-UI/COLLAB.md → view.html · phản biện P01 và trả lời 8 câu ở mục 8; không tạo file mới, không cài tool.`
-- Hermes: `WS work/quy-trinh-ve-UI · Review · đọc AGENTS.md → work/quy-trinh-ve-UI/COLLAB.md → view.html · phản biện P01 và trả lời 8 câu ở mục 8; ưu tiên missing branches/contract gaps/automation gaps; không tạo file mới, không cài tool.`
-- GPT: sau phản hồi Claude/Hermes, tổng hợp ACCEPT/PARTIAL/REJECTED; điểm còn vênh chuyển OWNER theo A5.
+- GPT: `WS work/quy-trinh-ve-UI · Review · đọc AGENTS.md → work/quy-trinh-ve-UI/COLLAB.md → view.html · xác nhận HR01 chép đúng ý; phản biện P03 và view.html mục 4–12; không tạo file mới.`
+- Hermes: `WS work/quy-trinh-ve-UI · Review · đọc AGENTS.md → work/quy-trinh-ve-UI/COLLAB.md → view.html · phản biện mục 4–10, ưu tiên nhánh thiếu / lỗ hợp đồng / lỗ tự động hoá; không tạo file mới, không cài tool.`
+- Host (Claude): xử lý P/ý kiến → cập nhật view.html → khi hội đồng đủ: mở bài thi FIELD trong `work/mow-mot-moit-mout/` (prompt riêng, READY/RUN theo A6).
+
+## Sự cố / bài học
+- I01 · 24/09 · Host GPT không ghi được repo trong phiên trả lời P02 (không có cổng ghi); Owner đổi Host sang Claude Chat. Nếu tình trạng kéo dài, các việc GPT đang Host cần Owner quyết (ghi ở COLLAB gốc).
 
 ## Owner cần quyết
 - —
