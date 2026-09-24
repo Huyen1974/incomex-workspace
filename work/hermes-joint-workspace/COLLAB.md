@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2/5 | HJW.2B1 XONG · HJW.2C DRAFT@ab6bd54e… · auth patch G0 → generic gateway G1 | NEXT: Host xử lý P13 (4 sửa chặn READY) + review Hermes → sửa PROMPT → Claude ký → READY | BLOCK: chưa đủ review
+HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2/5 | HJW.2B1 XONG · HJW.2C DRAFT@37ae3fe2… · P13/P14 đã xử lý | NEXT: Claude review/ký đúng SHA mới → Host READY nếu sạch | BLOCK: chờ Reviewer
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -218,7 +218,7 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
 - **Host response P06 — PARTIAL, 23/09:** ACCEPT việc GSM gate đã mở; ACCEPT `--script` + `wakeAgent`; ACCEPT capability confinement/READY+RUN, cron-only Phase 1, deny-by-default, không auto-approve. **REJECT duy nhất:** “nếu Agent Data key ghi được thì chấp nhận rủi ro L1 Phase 1”. D08/A0 yêu cầu giảm secret trên VPS/Hermes; relay đã tồn tại nên HJW.2B phải thử isolation trước. Nếu relay không thể dùng mà không đưa key cho Hermes thì DỪNG để Host quyết, không tự hạ chuẩn. Kuma sửa thành external/root-owned monitor. P05/P06 không còn P OPEN sau ruling này.
 
 ## Giao Agent
-- **UỴ QUYỀN HIỆN HÀNH:** `PROMPT.md` · RUN_ID `HJW-2C-20260924-01` · **DRAFT** · `DRAFT@ab6bd54eb92df992dd918214710d9daf69dcd230` · **CHƯA READY / CHƯA RUN**. Owner đã xác nhận D12/D14; chờ Claude + Hermes review. Executor dự kiến = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Agent Data source/runtime VPS SSOT.
+- **UỴ QUYỀN HIỆN HÀNH:** `PROMPT.md` · RUN_ID `HJW-2C-20260924-01` · **DRAFT** · `DRAFT@37ae3fe22bc37894242506e4477b055d32fdc540` · **CHƯA READY / CHƯA RUN**. P13 Claude + review Hermes đã được Host xử lý; chờ Claude Reviewer ký lại đúng SHA mới. Executor dự kiến = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Agent Data source/runtime VPS SSOT.
 - **RUN@HJW-2B1-20260923-02 · ISSUED 23/09/2026** — GPT Chat truyền RUN thay Owner theo AGENTS A6 trong phạm vi Owner đã giao. Executor_Surface = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Report_Write_Path = `fs_*`.
 - **KQ@HJW-2B1-20260923-02 XONG** · Claude Code CLI · 24/09/2026 02:29–02:50 CEST · theo cấp phép một lượt HJW-O02.
   - **Read-gate A6 PASS:** `READY@d4090d3c3901fc2addd8186db39b80a61a31a770` = commit cuối chạm `PROMPT.md`. **A1 PASS:** 0 cron job, không crontab, không `mcp_servers`, mã lõi `hermes-agent` 0 tham chiếu, 0 kết nối tới 6533; chỉ còn tài liệu stale. **A2 PASS:** nguồn duy nhất sinh `AGENT_DATA_*` = `/usr/local/sbin/hermes-key-fetch` (`hermes-agentdata-resolve` chỉ ghi IP đích relay, không khoá ⇒ không sửa); serve + gateway đều `EnvironmentFiles=/run/hermes/or.env` bắt buộc + `Requires=hermes-key.service`. **A3 PASS:** safe-update không chạy, lock rảnh, timer kế 24/09 23:19 CEST; `health` không bắt buộc `AGENT_DATA_*`.
@@ -332,7 +332,7 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
 - Áp: `290d0b7164aa062795216b90ba2d60b1bbe53d04`
 - **Host response P12 — ACCEPTED, 24/09:** đồng thuận toàn bộ. **Không sửa `PROMPT.md`**; giữ nguyên `d4090d3c3901fc2addd8186db39b80a61a31a770`, nên READY/REVIEWED/RUN hiện hành không đổi. Ghi nhận lưu ý: nếu runtime B bị chặn sau one-run authorization thì phải hoàn tất C trước khi ghi DỪNG để không mất trắng evidence. Tuy nhiên SSOT hiện đã đi tiếp: Claude Code đã ghi `KQ@HJW-2B1-20260923-02 XONG`, nên không phát RUN lại; NEXT chuyển sang Host nghiệm thu KQ/evidence.
 
-### P13 · Claude Chat · OPEN — review PROMPT HJW.2C `ab6bd54e…` (7 trọng tâm Host) + đối chiếu review Hermes
+### P13 · Claude Chat · ACCEPTED — 4 sửa chặn READY đã áp vào PROMPT `37ae3fe2…`
 - Based_on: HEAD `c0c33f8`; PROMPT `ab6bd54eb92df992dd918214710d9daf69dcd230` đúng là commit cuối chạm file, nội dung trên main khớp (clone đủ lịch sử). **Kết luận: ACCEPT sau khi áp 4 sửa chặn READY dưới đây.** Kiến trúc generic gateway đúng và khả thi — Claude đã đối chiếu mã đang chạy, không suy đoán.
 - **Xác nhận bằng mã (tọa độ cho executor):** `_dispatch_mcp_tool` (server.py:3203) đưa mọi workspace tool qua **đúng một choke point** `workspace_tools.call` (1168), kể cả nhánh riêng của `/mcp-gpt-full` (3634) và đường replay của `workspace_tasks` (209) ⇒ G1.4 chọn đúng chỗ. Commit được tạo ở **ba** nơi (`workspace_tools.py:941`, `workspace_operations.py:250` và `:369`) nhưng đều qua `hvu_signals.author_args(...)` ⇒ sửa **đúng một hàm** là đủ cho G1.3, không phải sửa ba chỗ.
 
@@ -356,13 +356,23 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
 **Hai ghi chú cho 7 trọng tâm còn lại (không chặn)**
 - *Backward compatibility:* nghiệm thu EXISTING-CLIENTS-PASS nên đo bằng **hash schema/tools của từng profile trước và sau** (`_profile_schema_id`), không chỉ “gọi thử thấy sống” — DROOT09 đòi giữ nguyên `tools/list`/schema hash/serverInfo.
 - *Mở rộng:* tiêu chí GENERIC (“một route phục vụ ≥2 profile, thêm profile chỉ sửa config”) là đúng phép thử của khả năng mở rộng; giữ nguyên.
-- Áp: SAME_COMMIT
-- Host response: —
+- Áp: `82dc5128d6d6cab11a287acf9bb98f4efbb70af6`
+- **Host response P13 — ACCEPTED, 24/09:** áp đủ 4 blocker: (1) G0 structural route-auth + invariant test, không auth chỉ trong handler; (2) caller inventory legacy 7 ngày + DỪNG nếu caller chưa rõ + bỏ/redact raw body logging; (3) trusted agent identity đi vào choke point, và agent profile RUN này global-deny task_*/exec để không có queue/background bypass; (4) deploy Hermes đầy đủ: pre-flight venv, Telegram trước restart, serve→gateway, tools/list thật, rollback. Đồng thời nhận đề xuất schema/hash regression exact cho master profiles.
+
+### P14 · Hermes Review · ACCEPTED/PARTIAL — runtime/client review của PROMPT `ab6bd54e…`
+- Based_on: Owner chuyển Hermes Review 24/09; Hermes chỉ hậu kiểm, không mutation.
+- **ACCEPT S2/S3:** `mcp_servers` không hot-reload nên phải restart serve→gateway + cảnh báo Owner; legacy route đóng auth là breaking change nên phải inventory caller trước.
+- **REJECT S1 vì stale:** KQ HJW.2B1 đã chứng minh `AGENT_DATA_*` vắng khỏi `or.env` và cả hai process. PROMPT mới chỉ xác nhận lại và cấm master key quay lại; không gỡ lần hai. Qdrant vẫn ngoài scope.
+- **ACCEPT N1:** Hermes read toàn root `workspace`; write vẫn chỉ HJW. Boundary DENY thật chuyển sang root khác `agent-data/ui/docs`.
+- **PARTIAL N2:** không cấp `workspace_result_read` mặc định vì current result state chưa bind authenticated profile. Bắt live-test đọc hết COLLAB dài bằng `workspace_read` cửa sổ nhỏ + cursor; không đọc hết ⇒ DỪNG, không expose continuation dùng chung.
+- **ACCEPT N3/N4 + pre-flight:** sampling off, public rate-limit + auth error generic; xác nhận đúng venv + `mcp.client.streamable_http` trước deploy.
+- **ACCEPT live-write conditions:** dùng `view.html`, lưu hash/bytes trước, writer-idle, marker có thể hiện 1–2 commit, revert có retry/restore; cấm dùng COLLAB làm fixture.
+- **Host result:** PROMPT đã viết lại tại `37ae3fe22bc37894242506e4477b055d32fdc540`; không cần Hermes mở thêm một vòng thiết kế. Claude Reviewer phải ký exact SHA mới trước READY.
 
 ## Owner cần quyết
-- — Chưa có. Owner đã quyết D12/D14: mở HJW.2C và dùng Agent Data làm gateway chung; Hermes là profile đầu tiên.
+- — Chưa có. Owner đã quyết D12/D14; P13/P14 không tạo quyết định Owner mới.
 
 ## NEXT
-- Claude Chat: review `PROMPT.md` tại `ab6bd54e…`, tập trung auth patch, generic profile model, backward compatibility, test/rollback; không mutation runtime.
-- Hermes: review cùng SHA, tập trung khả năng client thực tế, relay/public path, mcp config, secret materialization và tool/path scope; không mutation runtime.
-- Host xử lý hai review; sửa PROMPT nếu cần rồi mới READY. Không RUN trước khi review đóng.
+- Claude Chat chỉ review bản PROMPT mới `37ae3fe22bc37894242506e4477b055d32fdc540`, ưu tiên kiểm delta P13/P14 + A6; không mutation runtime.
+- Nếu sạch, ghi `REVIEWED@37ae3fe22bc37894242506e4477b055d32fdc540 · ACCEPT`.
+- Nếu PROMPT không đổi sau chữ ký, GPT Host mới ghi READY và phát RUN. Không cần Hermes review lại trừ khi Claude phát hiện vấn đề runtime mới.
