@@ -1,10 +1,9 @@
 # COLLAB — mow-mot-moit-mout
 
-## Owner · 25/09/2026 · Gom quy trình vẽ UI và sản phẩm UI
-- Theo yêu cầu mới của Owner, `ban-duyet.html` có tab **Quy trình vẽ UI** ngay sau Q&A. Chuyển sơ đồ FIELD 7 bước từ `work/quy-trinh-ve-UI/view.html` vào đây và thêm bước đầu **MMIM.S00 · Khai nhu cầu**. Các phần cũ giữ nguyên để dọn sau.
-- Bản vẽ đầu tiên: **UI-030 · Master yêu cầu** (mã bước/UI đều là đề xuất, chưa đăng ký chính thức). Một màn gồm khai nhu cầu, AI diễn giải để người yêu cầu xác nhận, cấp mã yêu cầu, gửi/duyệt, danh sách trạng thái, chỗ ghi người làm/kiểm/test/xác nhận, liên kết Field và sửa theo phiên bản. Mã yêu cầu giữ suốt vòng đời sản phẩm; quyết định về vai trò/điều kiện duyệt còn chờ Owner.
-- Nút trong bản vẽ chỉ mô phỏng trong trình duyệt; **chưa ghi PG, chưa có Master yêu cầu thật, chưa coi là UI đã triển khai**. S01–S07 giữ mã cũ, UI-? để lộ chỗ chưa xác định. JEV tham khảo `gen-dec-1790288207-rPGBhrX2ET5wBaQ7Z9nb`: một màn Master yêu cầu chứa khai/sửa/duyệt/trạng thái, mã mới hiển thị là đề xuất.
-- **Verify VPS thật:** Owner View báo `fresh`, mở HTML revision `9195036b010dcb2bbf6e6ebd5bcca90e25b4199c`; tab `Quy trình vẽ UI` hiện MMIM.S00/UI-030. Bấm thử: `YC-THỬ-001 · Mã dự án Nháp` → `Chờ duyệt` → `Đã duyệt`; cùng mã `YC-THỬ-001`, nút `Lưu nháp` bị khóa sau duyệt. Dữ liệu thử chỉ ở trình duyệt.
+## Owner · 25/09/2026 · Ba bước người làm đầu tiên
+- Owner sửa phạm vi: một bước người làm = một miếng UI riêng, có mã bước, mã UI, tên UI. Bản S00/UI-030 gộp khai + Master + duyệt là sai, đã thay trong tab **Quy trình vẽ UI** của `ban-duyet.html`.
+- Bản vẽ dự thảo: `MMIM.FIELD.S001` → `UI-030 · Phiếu khai nhu cầu`; `MMIM.FIELD.S002` → `UI-031 · Master yêu cầu` (lọc Chờ duyệt); `MMIM.FIELD.S003` → `UI-032 · Phiếu duyệt yêu cầu (MOT)`. Mã ba chữ số để mở rộng hơn 150 bước FIELD. Mã YC cấp ở S001, đi xuyên S002/S003, sau này liên kết MOT/Field. Mã bước/UI chưa đăng ký chính thức; người duyệt và quyền còn chờ chốt. JEV tham khảo mã bước: `gen-dec-1790289577-EK9JvkcchX0vEBIEpfay` (độ tin cậy thấp).
+- Bản vẽ chỉ đổi dữ liệu trong trình duyệt. Chưa có Master yêu cầu thật, chưa ghi PG/DOT, chưa kiểm quyền duyệt; K0 FIELD chưa PASS. S01–S07 cũ giữ ở tab Step quy trình để rà sau. Không tạo file mới.
 
 ## K0 FIELD · 24/09/2026
 - Đã đọc catalog PG trên VPS bằng giao dịch chỉ đọc. Bằng chứng gọn và phân mức ở `ban-duyet.html` → Step quy trình → Bài thử FIELD · K0. Điểm nghẽn quyền Directus không còn chặn việc kiểm kê; K0 toàn phần vẫn chờ Owner gật mục tiêu/phạm vi V1. Không mở K1, không đổi UI, không tạo master mới.
