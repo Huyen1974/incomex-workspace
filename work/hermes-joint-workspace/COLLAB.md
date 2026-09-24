@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/5 | HJW.2B1 KQ XONG 24/09: SEC-CLEAN PASS · CAP-PATH-AUDIT = FEASIBLE_WITH_MIN_CODE_CHANGE · 🔴 cảnh báo bảo mật Agent Data (chi tiết root-only) | NEXT: Host nghiệm thu KQ + trình Owner một câu hỏi RUN sửa mã nhỏ + quyết vá cảnh báo | BLOCK: scoped write chờ Owner
+HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2/5 | HJW.2B1 XONG · HJW.2C DRAFT@ab6bd54e… · auth patch G0 → generic gateway G1 | NEXT: Claude review code/security + Hermes review runtime/usability → Host xử lý → READY | BLOCK: chưa review
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -218,7 +218,7 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 - **Host response P06 — PARTIAL, 23/09:** ACCEPT việc GSM gate đã mở; ACCEPT `--script` + `wakeAgent`; ACCEPT capability confinement/READY+RUN, cron-only Phase 1, deny-by-default, không auto-approve. **REJECT duy nhất:** “nếu Agent Data key ghi được thì chấp nhận rủi ro L1 Phase 1”. D08/A0 yêu cầu giảm secret trên VPS/Hermes; relay đã tồn tại nên HJW.2B phải thử isolation trước. Nếu relay không thể dùng mà không đưa key cho Hermes thì DỪNG để Host quyết, không tự hạ chuẩn. Kuma sửa thành external/root-owned monitor. P05/P06 không còn P OPEN sau ruling này.
 
 ## Giao Agent
-- - - - **UỴ QUYỀN HIỆN HÀNH:** `PROMPT.md` · RUN_ID `HJW-2B1-20260923-02` · **READY** · `READY@d4090d3c3901fc2addd8186db39b80a61a31a770` · Host `GPT-HJW-260922-A` · Reviewer `REVIEWED@d4090d3c3901fc2addd8186db39b80a61a31a770 · ACCEPT`. `PROMPT.md` chưa bị chạm sau SHA này.
+- **UỴ QUYỀN HIỆN HÀNH:** `PROMPT.md` · RUN_ID `HJW-2C-20260924-01` · **DRAFT** · `DRAFT@ab6bd54eb92df992dd918214710d9daf69dcd230` · **CHƯA READY / CHƯA RUN**. Owner đã xác nhận D12/D14; chờ Claude + Hermes review. Executor dự kiến = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Agent Data source/runtime VPS SSOT.
 - **RUN@HJW-2B1-20260923-02 · ISSUED 23/09/2026** — GPT Chat truyền RUN thay Owner theo AGENTS A6 trong phạm vi Owner đã giao. Executor_Surface = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Report_Write_Path = `fs_*`.
 - **KQ@HJW-2B1-20260923-02 XONG** · Claude Code CLI · 24/09/2026 02:29–02:50 CEST · theo cấp phép một lượt HJW-O02.
   - **Read-gate A6 PASS:** `READY@d4090d3c3901fc2addd8186db39b80a61a31a770` = commit cuối chạm `PROMPT.md`. **A1 PASS:** 0 cron job, không crontab, không `mcp_servers`, mã lõi `hermes-agent` 0 tham chiếu, 0 kết nối tới 6533; chỉ còn tài liệu stale. **A2 PASS:** nguồn duy nhất sinh `AGENT_DATA_*` = `/usr/local/sbin/hermes-key-fetch` (`hermes-agentdata-resolve` chỉ ghi IP đích relay, không khoá ⇒ không sửa); serve + gateway đều `EnvironmentFiles=/run/hermes/or.env` bắt buộc + `Requires=hermes-key.service`. **A3 PASS:** safe-update không chạy, lock rảnh, timer kế 24/09 23:19 CEST; `health` không bắt buộc `AGENT_DATA_*`.
@@ -333,9 +333,9 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 - **Host response P12 — ACCEPTED, 24/09:** đồng thuận toàn bộ. **Không sửa `PROMPT.md`**; giữ nguyên `d4090d3c3901fc2addd8186db39b80a61a31a770`, nên READY/REVIEWED/RUN hiện hành không đổi. Ghi nhận lưu ý: nếu runtime B bị chặn sau one-run authorization thì phải hoàn tất C trước khi ghi DỪNG để không mất trắng evidence. Tuy nhiên SSOT hiện đã đi tiếp: Claude Code đã ghi `KQ@HJW-2B1-20260923-02 XONG`, nên không phát RUN lại; NEXT chuyển sang Host nghiệm thu KQ/evidence.
 
 ## Owner cần quyết
-- —
+- — Chưa có. Owner đã quyết D12/D14: mở HJW.2C và dùng Agent Data làm gateway chung; Hermes là profile đầu tiên.
 
 ## NEXT
-- `KQ@HJW-2B1-20260923-02 XONG` (24/09) — xem mục Giao Agent. Host nghiệm thu: đọc evidence VPS, đối chiếu env hai service + `hermes-safe-update health`.
-- Host trình Owner đúng một câu hỏi RUN sửa mã nhỏ Agent Data (PROMPT D); S1-lite là interim ưu tiên, chưa triển khai.
-- 🔴 Cảnh báo bảo mật Agent Data (chi tiết root-only trong hồ sơ VPS) cần Host/Owner quyết vá, độc lập với Hermes.
+- Claude Chat: review `PROMPT.md` tại `ab6bd54e…`, tập trung auth patch, generic profile model, backward compatibility, test/rollback; không mutation runtime.
+- Hermes: review cùng SHA, tập trung khả năng client thực tế, relay/public path, mcp config, secret materialization và tool/path scope; không mutation runtime.
+- Host xử lý hai review; sửa PROMPT nếu cần rồi mới READY. Không RUN trước khi review đóng.
