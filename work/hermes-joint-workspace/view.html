@@ -20,9 +20,9 @@ small{color:#666}
 <h1>Hermes Joint Workspace</h1>
 <p><span class="tag">HOST REVIEW</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Host: GPT Chat</span><span class="tag">24/09: đã gỡ khoá Agent Data khỏi Hermes</span></p>
 
-<div class="box"><strong>HJW.3 — DỪNG TẠM Ở CHECKPOINT <code>PUBLIC_WEBHOOK_BRIDGE_REQUIRED</code> (24/09, P26).</strong> Đã chạy: lịch tự canh việc mỗi 2–3 phút (0 lượt LLM khi không có việc), 2 lịch canh bàn giao/RUN treo, cờ dừng khẩn và nút tạm dừng lịch. Webhook đã thử cục bộ đạt nhưng <strong>chưa mở ra ngoài</strong>: nginx chạy trong Docker không tới được cổng chỉ-nội-bộ của Hermes, và chưa có secret cho webhook — chờ Host/Owner quyết cầu nối + secret + Kuma. Rủi ro còn lại: webhook built-in vẫn cho phép template đọc payload, nên chống inject dựa vào cấu hình chữ cố định + canary, không phải “không thể inject”.</div>
+<div class="box"><strong>HJW.3B — DRAFT <code>4f50e046…</code>.</strong> G1/G2/STOP + webhook local đã PASS. <strong>T5 self-wake phần Git đã PASS:</strong> cron tự đánh thức Hermes, Hermes tự claim rồi ghi P29. Phần còn lại được gom vào một delta duy nhất cho phiên Claude Code mới: UNIX-socket bridge (không TCP Docker bridge), secret webhook root-managed, nginx public hardening, Kuma và closeout. <strong>Chờ Claude review exact SHA; CLI mới được mở read-gate ngay nhưng chưa mutation.</strong></div>
 
-<div class="box"><strong>HJW.3 — READY + RUN ISSUED.</strong> READY/Claude REVIEWED/Hermes P22 cùng ghim <code>23f49c0a…</code>. Claude Code được giao dựng đường ray 24/7: cron gate 0-token + external webhook HMAC + Telegram + STOP/Kuma. <strong>Gate T5:</strong> sau G1→G3 PASS phải dừng <code>T5_ARM_REQUIRED</code>; Host mới mở assignment self-wake thật. Ba bằng chứng cứng cuối: socket loopback thật, canary không lọt các mặt đã soi, Telegram thật đúng 3 dòng.</div>
+<div class="box"><strong>Baseline HJW.3 đã chạy xong phần nền.</strong> Không làm lại G1/G2/STOP/local webhook. T5 Git self-wake đã có commit claim + done của Hermes; Telegram/ledger/token-cost còn phải được CLI mới đối chiếu để đóng T5/T6 hoàn toàn.</div>
 
 <div class="bar" id="TIEN-DO"><span class="g">✓ 1 Mở việc</span><span class="g">✓ 2 Thiết kế</span><span class="g">✓ 3 RUN HJW-2B1</span><span class="now">▶ 4 Nghiệm thu</span><span>□ 5 Ghi luật/Đóng</span></div>
 
@@ -87,7 +87,7 @@ Claude Chat ──────────────────────�
 <tr><td>HJW.2B</td><td>RUN đầu đã DỪNG an toàn tại G0.2, 0 mutation.</td><td>Claude Code CLI</td><td>■ DỪNG hợp lệ</td></tr>
 <tr><td>HJW.2B1</td><td>SEC-CLEAN + capability audit theo PROMPT <code>d4090d3c…</code>.</td><td>Claude Code CLI · GPT Host</td><td>✓ XONG 24/09 · SEC-CLEAN PASS · MIN_CODE_CHANGE</td></tr>
 <tr><td>HJW.2C</td><td>Auth patch + generic Agent Gateway + Hermes narrow profile; scope/identity/revoke/revert/live client registration.</td><td>Claude Code CLI · GPT Host · Claude review</td><td>✓ HOST ACCEPTED 24/09</td></tr>
-<tr><td>HJW.3</td><td>24/7 orchestration: cron gate 0-token + external webhook HMAC → cùng dispatcher; fixed template + canary; loopback socket proof; STOP fail-closed; Telegram 3 dòng thật.</td><td>Claude Code CLI triển khai · GPT Host nghiệm thu</td><td>◐ CHECKPOINT <code>PUBLIC_WEBHOOK_BRIDGE_REQUIRED</code> · G1/G2/STOP + webhook cục bộ PASS · chờ cầu nối + secret</td></tr>
+<tr><td>HJW.3B</td><td>Closeout: T5/T6 evidence + UNIX socket bridge + secret webhook + nginx public hardening + Kuma + canary.</td><td>Claude Code CLI mới · GPT Host</td><td>◐ DRAFT <code>4f50e046…</code> · chờ Claude review</td></tr>
 <tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>sau HJW.3 PASS</td></tr>
 <tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T10.</td><td>Host</td><td>—</td></tr>
 </tbody>
@@ -117,6 +117,6 @@ Claude Chat ──────────────────────�
 </ul>
 
 <h2 id="DIEU-KIEN">8. Điều kiện chuyển sang làm</h2>
-<p>NEXT: Host quyết cầu nối nginx→webhook, secret webhook và Kuma theo P26; sau đó Claude Code làm nốt phần public + canary lại, rồi dừng tại <code>T5_ARM_REQUIRED</code>; GPT Host sẽ mở assignment test để chứng minh Hermes tự thức → làm → commit → Telegram 3 dòng.</p>
+<p>NEXT: Claude Chat review exact <code>4f50e046…</code>. Phiên Claude Code CLI mới đọc AGENTS → root COLLAB → HJW COLLAB P26/P27/P28/P29/P30 → phần HJW.3B đầu PROMPT → evidence cũ; chỉ mutation sau READY.</p>
 </body>
 </html>
