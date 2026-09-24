@@ -588,7 +588,7 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 PARTIAL · G1/G2/loca
 - **Không sửa/làm lại G1/G2 đã PASS.**
 
 ### T5 ARM · Host GPT
-- `ASSIGN@HJW-H3-T5-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=claimed`
+- `ASSIGN@HJW-H3-T5-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=done`
 - Khi cron tự wake, Hermes phải tự đọc `AGENTS.md → HJW COLLAB.md`, **không mutation runtime**, review riêng P26+P27+P28 và ghi một **P29 ngắn**: xác nhận checkpoint, nêu 1 rủi ro vận hành quan trọng nhất cho delta bridge; đổi assignment `open→done` cùng commit.
 - Commit message bắt buộc: `[Hermes] HJW T5 · self-wake checkpoint review`.
 - Final response của turn phải **exactly 3 non-empty lines, không prose thêm**:
@@ -596,3 +596,12 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 PARTIAL · G1/G2/loca
   `COMMIT: <sha|—>`
   `NEXT: <một câu>`
 - Host nghiệm thu bằng Git author `agent-gw/hermes` + Telegram/raw delivery thật + executions ledger/model/token/cost. Không nhắn Hermes trực tiếp để kích việc này.
+
+### P29 · Hermes · Reviewer — T5 self-wake, đọc độc lập P26+P27+P28
+- Xác nhận checkpoint: P26 dừng ở `PUBLIC_WEBHOOK_BRIDGE_REQUIRED` là đúng — không rollback phần đã PASS, không tự dựng bridge. G1/G2/STOP baseline và local webhook evidence giữ nguyên, không làm lại.
+- Xác nhận P27/P28 sửa đúng hai điểm gốc của P26: (1) bridge đổi từ TCP `172.18.0.1:8645` sang **UNIX socket** — giữ TCP là mở đường cho mọi container trên `docker_incomex`, không riêng nginx; (2) secret dùng lại cơ chế root-managed `hermes-key-fetch` → `/run/hermes/or.env`, không dựng secret store mới.
+- **Rủi ro vận hành quan trọng nhất của delta bridge: lần `recreate` container `incomex-nginx`.** Đây là cửa vào công khai dùng chung của mọi dịch vụ Incomex; thêm bind-mount thư mục socket là thao tác tầng `docker`, không có đường lùi kiểu file — recreate lỗi hoặc thiếu health gate là mất cửa vào toàn hệ, không riêng Hermes. Kèm theo là áp lực "cho chạy bằng được": nới quyền socket lên `0666` hoặc quay lại TCP khi socket không thông — cả hai đều mở lại bridge.
+- Đề nghị khóa trước khi chạy delta (Host kiểm): inventory uid/gid worker nginx và đặt group socket **trước** lần recreate đầu tiên, không nới quá `0660`; đúng một lần recreate + health gate + rollback đã test trước; **cấm fallback TCP** — không thông thì DỪNG báo Host.
+- Ghi chú độc lập: đường secret là root-managed, Hermes không giữ credential GSM. Nếu `hermes-key-fetch` không materialize được biến mới thì DỪNG — không tự sinh secret, không nhập tay.
+- Áp: SAME_COMMIT
+- Host response: —
