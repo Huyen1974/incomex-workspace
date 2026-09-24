@@ -84,7 +84,7 @@ Claude Chat ──────────────────────�
 <tr><td>HJW.2A — Design</td><td>Đã chốt: COLLAB/Git HEAD là SSOT dispatch; Hermes đọc trực tiếp tại HEAD xác định; relay hiện có fail-closed; Phase 1 chỉ giữ nhận/làm assignment, nhắc lượt+canh RUN treo, heartbeat và cơ chế dừng; threat model L1 Hermes + L2 VPS/root.</td><td>GPT Host + Claude Reviewer</td><td>✓ consensus 23/09</td></tr>
 <tr><td>HJW.2B</td><td>RUN đầu đã DỪNG an toàn tại G0.2, 0 mutation.</td><td>Claude Code CLI</td><td>■ DỪNG hợp lệ</td></tr>
 <tr><td>HJW.2B1</td><td>SEC-CLEAN + capability audit theo PROMPT <code>d4090d3c…</code>.</td><td>Claude Code CLI · GPT Host</td><td>✓ XONG 24/09 · SEC-CLEAN PASS · MIN_CODE_CHANGE</td></tr>
-<tr><td>HJW.2C</td><td>G0 + G1 server + nginx throttle PASS; còn Hermes narrow-key materialization/config/restart/live test.</td><td>Claude Code CLI · GPT Host</td><td>▶ RUN PARTIAL · BLOCK Secret-Store Writes</td></tr>
+<tr><td>HJW.2C</td><td>G0 vá auth + G1 Agent Gateway <code>/mcp-agent</code> + nginx throttle + Hermes nối gateway: 7 tool, ghi thử có hoàn tác, thu hồi/khôi phục PASS.</td><td>Claude Code CLI · GPT Host</td><td>✓ KQ XONG 24/09 · chờ Host nghiệm thu</td></tr>
 <tr><td>HJW.3</td><td>Nghiệm thu T1–T10 bằng chạy thật, gồm self-wake, chống wake thừa, stale-write, retry/dedup, Telegram, blocker vượt quyền, attribution và secret rotation/boundary.</td><td>Hermes làm · GPT + Claude chấm chéo</td><td>ngay sau HJW.2B</td></tr>
 <tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>sau HJW.3 PASS</td></tr>
 <tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T10.</td><td>Host</td><td>—</td></tr>
@@ -104,6 +104,7 @@ Claude Chat ──────────────────────�
 </tbody>
 </table>
 <p><strong>HJW.2B1 XONG 24/09.</strong> Khoá chủ Agent Data đã ra khỏi Hermes. Owner đã nâng mục tiêu: HJW.2C không làm route riêng cho Hermes mà xây <strong>một Agent Gateway chung</strong>; mỗi agent có profile/credential/scope riêng, thêm agent sau bằng cấu hình thay vì viết route mới.</p>
+<p><strong>HJW.2C XONG 24/09 (chờ Host nghiệm thu).</strong> Lỗ xác thực Agent Data đã vá. Hermes nối vào Agent Gateway chung bằng khoá riêng: đọc toàn workspace, chỉ ghi được trong <code>work/hermes-joint-workspace/</code>; tool nền/exec bị cấm; commit mang tên <code>agent-gw/hermes</code>. Thêm agent sau chỉ cần thêm profile + khoá.</p>
 
 <h2 id="KHONG-LAM">7. Không làm ở vòng này</h2>
 <ul>
@@ -114,6 +115,6 @@ Claude Chat ──────────────────────�
 </ul>
 
 <h2 id="DIEU-KIEN">8. Điều kiện chuyển sang làm</h2>
-<p>NEXT: Owner gõ tay một câu cấp phép ngắn trong phiên Claude Code đang dừng; nếu auto-mode nhận thì Agent làm nốt phía Hermes/live tests rồi ghi KQ.</p>
+<p>NEXT: Host nghiệm thu HJW.2C; sau đó RUN riêng để onboard agent thứ hai bằng profile/config, rồi HJW.3 automation Hermes trên nền gateway.</p>
 </body>
 </html>
