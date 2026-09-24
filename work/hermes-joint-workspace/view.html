@@ -18,11 +18,11 @@ small{color:#666}
 </head>
 <body>
 <h1>Hermes Joint Workspace</h1>
-<p><span class="tag">HOST REVIEW</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Host: GPT Chat</span><span class="tag">Chưa chạm production</span></p>
+<p><span class="tag">HOST REVIEW</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Host: GPT Chat</span><span class="tag">24/09: đã gỡ khoá Agent Data khỏi Hermes</span></p>
 
-<div class="box"><strong>Anh cần quyết hôm nay:</strong> không có. Hậu kiểm Hermes + P10 đã được Host áp vào PROMPT mới <code>e05910bf…</code>. Chưa READY: Claude phải ký lại đúng SHA mới trước; sau đó Host mới phát RUN.</div>
+<div class="box"><strong>Kết quả RUN HJW-2B1 (24/09): XONG.</strong> Hermes không còn giữ khoá chủ Agent Data (cả Telegram lẫn desktop đã chạy lại bình thường, kiểm sức khoẻ 21/21 đạt). Khoá Qdrant vẫn còn nên rủi ro mới giảm một phần.<br><strong>Anh cần quyết:</strong> có cho phép một RUN riêng, có review, sửa mã nhỏ ở Agent Data để tạo đường ghi hẹp cho Hermes không? Không cho ⇒ Hermes chỉ đọc + nhắn tin.<br><strong>🔴 Cảnh báo:</strong> lúc kiểm, Claude Code thấy một lỗ hổng xác thực nghiêm trọng trong Agent Data (không liên quan riêng Hermes). Chưa sửa vì ngoài phạm vi; chi tiết chỉ để trong hồ sơ VPS khoá quyền root, không đưa lên repo.</div>
 
-<div class="bar" id="TIEN-DO"><span class="g">✓ 1 Mở việc</span><span class="g">✓ 2 Thiết kế</span><span class="now">▶ 3 Chuẩn bị RUN</span><span>□ 4 Nghiệm thu</span><span>□ 5 Ghi luật/Đóng</span></div>
+<div class="bar" id="TIEN-DO"><span class="g">✓ 1 Mở việc</span><span class="g">✓ 2 Thiết kế</span><span class="g">✓ 3 RUN HJW-2B1</span><span class="now">▶ 4 Nghiệm thu</span><span>□ 5 Ghi luật/Đóng</span></div>
 
 <h2 id="MUC-TIEU">1. Mục tiêu — Owner cập nhật 2026-09-22</h2>
 <ol>
@@ -48,7 +48,7 @@ Claude Chat ──────────────────────�
 <tbody>
 <tr><td>Cửa ghi đã audit (D12)</td><td class="g">workspace_*</td><td class="g">fs_*</td><td class="g">workspace_*</td><td class="y">relay 6533 sống; chưa khai mcp_servers/chưa live-call</td></tr>
 <tr><td>Đường tới cửa</td><td class="g">ok</td><td class="g">ok</td><td class="g">ok</td><td class="y">relay 6533 đã có; nhãn cũ lưu ý cổng 8000/8080 → đo lại</td></tr>
-<tr><td>Khoá vào cửa</td><td class="y">khoá chung</td><td class="g">riêng</td><td class="y">khoá chung</td><td class="r">đo 23/09: khoá trong env Hermes = khoá chủ Agent Data; relay 6533 là proxy TCP thuần, không gắn khoá ⇒ không bỏ được khoá mà vẫn giữ quyền ghi. Chờ Host chọn cách</td></tr>
+<tr><td>Khoá vào cửa</td><td class="y">khoá chung</td><td class="g">riêng</td><td class="y">khoá chung</td><td class="y">24/09: đã gỡ khoá chủ Agent Data khỏi env Hermes (cả serve + gateway). Chưa có khoá hẹp: cần sửa mã nhỏ ở Agent Data (chờ anh quyết)</td></tr>
 <tr><td>Biết dùng MCP</td><td class="g">ok</td><td class="g">ok</td><td class="g">ok</td><td class="g">mcp_servers trong config.yaml, HTTP + header</td></tr>
 <tr><td>Nạp luật WS</td><td class="g">ok</td><td class="g">ok</td><td class="g">ok</td><td class="y">mới có AGENTS.md riêng của Hermes</td></tr>
 <tr><td>Tên trong commit</td><td class="g">[GPT]</td><td class="g">[Claude]</td><td class="y">[Claude Code] chưa vào A4</td><td class="n">[Hermes]</td></tr>
@@ -83,7 +83,7 @@ Claude Chat ──────────────────────�
 <tr><td>HJW.1</td><td>Mở việc: mục tiêu, hiện trạng, tiêu chí.</td><td>Claude mở · GPT review</td><td>✓ xong</td></tr>
 <tr><td>HJW.2A — Design</td><td>Đã chốt: COLLAB/Git HEAD là SSOT dispatch; Hermes đọc trực tiếp tại HEAD xác định; relay hiện có fail-closed; Phase 1 chỉ giữ nhận/làm assignment, nhắc lượt+canh RUN treo, heartbeat và cơ chế dừng; threat model L1 Hermes + L2 VPS/root.</td><td>GPT Host + Claude Reviewer</td><td>✓ consensus 23/09</td></tr>
 <tr><td>HJW.2B</td><td>RUN đầu đã DỪNG an toàn tại G0.2, 0 mutation.</td><td>Claude Code CLI</td><td>■ DỪNG hợp lệ</td></tr>
-<tr><td>HJW.2B1</td><td>SEC-CLEAN + capability audit theo PROMPT <code>d4090d3c…</code>.</td><td>Claude Code CLI · GPT Host</td><td>▶ READY + RUN ISSUED · chờ KQ</td></tr>
+<tr><td>HJW.2B1</td><td>SEC-CLEAN + capability audit theo PROMPT <code>d4090d3c…</code>.</td><td>Claude Code CLI · GPT Host</td><td>✓ KQ XONG 24/09 · SEC-CLEAN PASS · audit = sửa mã nhỏ · chờ Host nghiệm thu</td></tr>
 <tr><td>HJW.3</td><td>Nghiệm thu T1–T10 bằng chạy thật, gồm self-wake, chống wake thừa, stale-write, retry/dedup, Telegram, blocker vượt quyền, attribution và secret rotation/boundary.</td><td>Hermes làm · GPT + Claude chấm chéo</td><td>ngay sau HJW.2B</td></tr>
 <tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>sau HJW.3 PASS</td></tr>
 <tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T10.</td><td>Host</td><td>—</td></tr>
@@ -102,7 +102,7 @@ Claude Chat ──────────────────────�
 <tr><td>Trigger / quyền</td><td>Phase 1 cron-gate ≤5 phút; lỗi gate phải in <code>wakeAgent:false</code> nếu không Hermes sẽ wake. Quyền cron dùng <code>platform_toolsets.cron</code> + denylist tất định; cron không có interactive approval. Write chỉ HJW.</td></tr>
 </tbody>
 </table>
-<p><strong>HJW.2B1 chưa READY.</strong> Hermes đã hậu kiểm, Claude đã kiểm chéo P10 và Host đã sửa PROMPT. Còn đúng một gate: Claude ký lại đúng SHA <code>e05910bf…</code>.</p>
+<p><strong>HJW.2B1 XONG 24/09.</strong> Khoá chủ Agent Data đã ra khỏi Hermes; đường ghi hẹp cho Hermes khả thi với một thay đổi mã nhỏ có review ở Agent Data (route riêng + khoá riêng + chặn đường dẫn chỉ <code>work/hermes-joint-workspace/</code>).</p>
 
 <h2 id="KHONG-LAM">7. Không làm ở vòng này</h2>
 <ul>
@@ -113,6 +113,6 @@ Claude Chat ──────────────────────�
 </ul>
 
 <h2 id="DIEU-KIEN">8. Điều kiện chuyển sang làm</h2>
-<p>NEXT: Claude chỉ review PROMPT <code>e05910bf…</code>, không mutation. Nếu ACCEPT và PROMPT không đổi, GPT Host mới ghi READY và phát RUN.</p>
+<p>NEXT: Host nghiệm thu KQ HJW-2B1; anh trả lời câu hỏi sửa mã nhỏ; Host/anh quyết vá cảnh báo bảo mật. Tạm thời có thể dùng S1-lite (đọc repo công khai + Telegram, không Agent Data) — chưa triển khai.</p>
 </body>
 </html>
