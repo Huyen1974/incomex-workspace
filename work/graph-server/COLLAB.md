@@ -38,10 +38,11 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | HỒ SƠ VÒNG 1 SẴN SÀNG REVIEW | Chưa chốt công nghệ; chưa có PROMPT/READY/RUN | NEXT: Claude + Hermes phản biện Q01–Q07 và bảng A–E; Host hợp nhất rồi mới xin Owner chốt hướng khảo sát.
+GS | HỒ SƠ REPO VÒNG 1 XONG · OWNER VIEW CHECK DỪNG (AUTH) | Chưa chốt công nghệ; chưa có PROMPT/READY/RUN | NEXT: Claude + Hermes có thể review trực tiếp repo; Host chưa được phép báo Owner View PASS cho tới khi kiểm được nội dung sau đăng nhập.
 - Based_on mở việc: `37ae3fe22bc37894242506e4477b055d32fdc540`; GS02 hòa giải trên HEAD hiện hành, commit chen ngang không chạm task này.
 - Đã đọc AGENTS.md → COLLAB.md gốc → README.md → work/README.md; áp khuôn MT3 hiện hành.
 - Nghiên cứu cập nhật 24/09/2026: TypeSafe official skill/blog; pgvector; AGE; Cognee; Graphiti; Hindsight; Neo4j vector; GraphRAG. Link nguồn ở `view.html` §12.
+- Owner View check sau commit `3b909e0c22d554433fdee8c49498c5cbb3cf1701`: gọi đúng URL chuẩn `/knowledge/modules?task=graph-server`, HTTP shell 200 nhưng Directus trả 401 và UI dừng ở Login; không thấy nội dung/revision ⇒ **DỪNG nghiệm thu Owner View, không báo PASS giả**. Repo/diff vẫn PASS.
 - Áp: SAME_COMMIT.
 
 ## Quyết định Owner
