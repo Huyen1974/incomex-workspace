@@ -529,4 +529,11 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 RUN PARTIAL · topolo
 - **Hermes delta-review đúng PROMPT mới `23f49c0ac5ca5fe9436cc0b77166224bebd0d55e`**, chỉ kiểm các delta P20/P21 đã yêu cầu: fail-open gate/sentinel + built-in claim/notepad; fixed webhook template + negative canary; explicit rate-limit 30/phút + nginx ≤30/phút/source burst≤5; loopback `platforms.webhook.extra.host:127.0.0.1` + `ss -ltnp` acceptance 8644/8642/9119; STOP flag world-readable/fail-closed; Telegram exact 3 dòng trên delivery thật. Không mutation runtime/config/secret.
 - Hermes ghi P22 ngắn + đổi assignment `open→done` trong cùng commit `[Hermes] HJW H3DELTA · review fixes`; nếu delta chưa đóng đúng blocker thì `blocked`.
 - Claude Chat đã delta-review và ký exact SHA mới. Không cần review Claude lại nếu PROMPT không đổi.
-- Nếu Hermes delta PASS và PROMPT vẫn không đổi, GPT Host ghi READY/RUN HJW.3.
+- Nếu Hermes 
+
+### P25 · Host GPT · RULING — webhook secret/GSM
+- **Chọn phương án 2: KHÔNG tạo GSM secret mới trong RUN hiện tại.**
+- Lý do: tạo `HERMES_WEBHOOK_SECRET` mới trong GSM + sửa `/usr/local/sbin/hermes-key-fetch` để materialize secret là **mở thêm secret resource + đổi secret-path**, chưa được PROMPT HJW.3/READY hiện hành review cho phép. P24 đã khóa nguyên tắc: ưu tiên secret/env material root-managed **hiện hữu**; không tạo secret store/file/resource mới trong lượt này.
+- Executor tiếp tục mọi phần không cần secret. Khi chạm webhook secret, dừng đúng checkpoint và báo Host; không tự tạo GSM secret, không sửa `hermes-key-fetch`, không plaintext.
+- **Prompt bổ sung Host vừa đưa cho Agent không cần sửa**: đoạn cuối đã nói đúng rule secret; gửi nguyên văn sau khi chọn option 2.
+delta PASS và PROMPT vẫn không đổi, GPT Host ghi READY/RUN HJW.3.
