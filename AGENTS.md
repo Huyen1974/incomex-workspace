@@ -102,3 +102,9 @@
 | `openai-mcp` | GPT Chat/Work | Hiện metadata chưa tách chắc GPT Chat với GPT Work; dùng tên quen thuộc gộp, không đoán sâu hơn |
 | `Claude via MCP` | — (trước B3) | Tên chung cũ của cổng Claude, không biết app nào → xám, không tạo hàng |
 | `AI via Incomex Workspace` | — (trước B3) | Tên chung cũ của cổng Workspace, không biết ai → xám, không tạo hàng |
+
+## A10_OWNER_PRINCIPLES — Nguyên tắc Owner áp cho mọi việc (Owner 24/09/2026 · DROOT19)
+- **R1 · Dùng cái có sẵn.** Nguyên văn Owner: “Mọi giải pháp phải đảm bảo, ưu tiên tối đa, dùng cái có sẵn, nhiều người dùng, phù hợp nhất với Incomex. Không tự dựng bất cứ cái gì nếu thị trường có sẵn. Code là giải pháp cuối cùng.”
+  - Cách áp: mọi đề xuất giải pháp/tool/kiến trúc ghi một dòng `Bậc: 1 có sẵn · 2 cấu hình/ghép · 3 code mỏng` kèm lý do bậc trên không đạt. “Có sẵn” = sản phẩm/tính năng đã chạy thật, nhiều người dùng — gồm nền tảng Incomex đang dùng (GitHub, Directus, PostgreSQL, Qdrant, Lark…) và sản phẩm thị trường; thiết kế/code Incomex tự dựng trước đây **không** được ưu tiên chỉ vì đã tồn tại. Đo “ít code” bằng số nơi giữ logic nghiệp vụ, không bằng số dòng.
+- **R2 · Cưỡng chế, không chỉ quy định.** Nguyên văn Owner: “Quy định là không đủ, phải cưỡng chế. Không thể làm sai.”
+  - Cách áp: luật quan trọng phải có chốt kỹ thuật chặn **trước khi** sai xảy ra, chọn theo R1 (GitHub ruleset/branch protection, quyền, schema/constraint, guard của gateway). Luật chưa có chốt ghi `CHƯA CƯỠNG CHẾ` ngay cạnh luật + một dòng đề xuất chốt ở `## Owner cần quyết` của COLLAB gốc. Không bù chốt còn thiếu bằng thêm lời nhắc cho AI.
