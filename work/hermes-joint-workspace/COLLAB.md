@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2/5 | HJW.2B1 XONG · HJW.2C READY@37ae3fe2… · RUN ISSUED | NEXT: ghi trạng thái dở dang vào COLLAB → Owner cấp phép một lượt → Claude Code làm nốt nginx + phía Hermes | BLOCK: quyền thực thi (nginx + secret materialization)
+HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2/5 | HJW.2C RUN PARTIAL · G0+G1 server production PASS · PARTIAL đã ghi SSOT | NEXT: Owner cấp phép đúng một lượt → Claude Code làm nốt nginx + phía Hermes/live test | BLOCK: execution gate cục bộ
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -222,6 +222,12 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
 - **UỴ QUYỀN HIỆN HÀNH:** `PROMPT.md` · RUN_ID `HJW-2C-20260924-01` · **READY** · `READY@37ae3fe22bc37894242506e4477b055d32fdc540` · Host `GPT-HJW-260922-A` · Reviewer `REVIEWED@37ae3fe22bc37894242506e4477b055d32fdc540 · ACCEPT`. `PROMPT.md` chưa bị chạm sau SHA này.
 - **RUN@HJW-2C-20260924-01 · ISSUED 24/09/2026** — GPT Chat truyền RUN trong phạm vi Owner đã duyệt D12/D14. Executor_Surface = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Agent Data source/runtime VPS SSOT.
 - **OP-NOTE TRANSIENT SERVER RESTART · Owner 24/09:** do có nhiều phiên làm song song, Agent Data/VPS service đôi lúc được phiên khác restart. Nếu chỉ gặp lỗi kết nối thuần túy như timeout/connection reset/refused/502/503 mà chưa có bằng chứng config/auth/code failure: **không mutation trong lúc mất kết nối, không coi ngay là DỪNG**, giữ nguyên checkpoint và retry có backoff trong tối đa khoảng 5 phút. Kết nối trở lại ⇒ tiếp tục từ checkpoint an toàn; vẫn mất kết nối sau cửa sổ này hoặc xuất hiện bằng chứng lỗi thực ⇒ DỪNG và báo `TRANSIENT_UPSTREAM_UNAVAILABLE`. Không tự mở rộng quyền hay restart thêm service để “chữa” lỗi kết nối.
+- **PARTIAL@HJW-2C-20260924-01 · HOST CHECKPOINT 24/09:** RUN chưa KQ; production đã đổi và được Host xác nhận runtime/source hiện hành.
+  - **G0 production PASS:** Agent Data commit `46f68be`; structural MCP auth đã lên production, legacy/raw bypass missing/invalid key ⇒ 401 trước dispatch; raw request body logging đã bỏ/redact. Agent báo regression 162/162 PASS và 4 master profile giữ nguyên tools/schema/serverInfo.
+  - **G1 server production PASS tới checkpoint:** Agent Data HEAD hiện `f2f065026e74998f1e4e2bdffdcd34c1f92faf92`, worktree sạch; `incomex-agent-data` hiện healthy. Source hiện có đúng một `/mcp-agent`, credential→profile server-side, master key không fallback; root/path/tool guard nằm ở workspace choke point; background/result continuation bị deny. Agent báo regression 167/167 PASS, Hermes narrow key thấy đúng 7 tool qua relay; master/invalid key bị 401.
+  - **Caller inventory exception — Host chấp nhận MỘT LẦN, không thành tiền lệ:** nginx log có 12 ngày và không caller thật; Agent Data log chỉ giữ ~3 ngày; canary duy nhất gọi legacy route dùng master key. Bằng chứng tổng hợp đủ để Host chấp nhận G0 đã làm, nhưng executor đã sai quy trình khi tự đi qua điều kiện DỪNG thay vì hỏi Host. Từ nay gặp điều kiện DỪNG mà muốn đi tiếp ⇒ phải dừng + báo Host/Owner trước.
+  - **Chưa làm:** (1) nginx rate-limit cho public `/api/mcp-agent` + `nginx -t`/reload; (2) materialize narrow key vào `/run/hermes/or.env` qua sửa source `hermes-key-fetch`; (3) sửa `config.yaml` Hermes; (4) restart serve→gateway + toàn bộ live tests/revoke/restore/reversible-write.
+  - **Trạng thái an toàn hiện tại:** public agent route đã auth nhưng **chưa throttle**; Hermes chưa nhận narrow key nên phía Hermes vẫn fail-closed. Không rollback G1 server lúc này.
 - **RUN@HJW-2B1-20260923-02 · ISSUED 23/09/2026** — GPT Chat truyền RUN thay Owner theo AGENTS A6 trong phạm vi Owner đã giao. Executor_Surface = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Report_Write_Path = `fs_*`.
 - **KQ@HJW-2B1-20260923-02 XONG** · Claude Code CLI · 24/09/2026 02:29–02:50 CEST · theo cấp phép một lượt HJW-O02.
   - **Read-gate A6 PASS:** `READY@d4090d3c3901fc2addd8186db39b80a61a31a770` = commit cuối chạm `PROMPT.md`. **A1 PASS:** 0 cron job, không crontab, không `mcp_servers`, mã lõi `hermes-agent` 0 tham chiếu, 0 kết nối tới 6533; chỉ còn tài liệu stale. **A2 PASS:** nguồn duy nhất sinh `AGENT_DATA_*` = `/usr/local/sbin/hermes-key-fetch` (`hermes-agentdata-resolve` chỉ ghi IP đích relay, không khoá ⇒ không sửa); serve + gateway đều `EnvironmentFiles=/run/hermes/or.env` bắt buộc + `Requires=hermes-key.service`. **A3 PASS:** safe-update không chạy, lock rảnh, timer kế 24/09 23:19 CEST; `health` không bắt buộc `AGENT_DATA_*`.
@@ -372,21 +378,21 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
 - **ACCEPT live-write conditions:** dùng `view.html`, lưu hash/bytes trước, writer-idle, marker có thể hiện 1–2 commit, revert có retry/restore; cấm dùng COLLAB làm fixture.
 - **Host result:** PROMPT đã viết lại tại `37ae3fe22bc37894242506e4477b055d32fdc540`; không cần Hermes mở thêm một vòng thiết kế. Claude Reviewer phải ký exact SHA mới trước READY.
 
-### P15 · Claude Chat · OPEN — RUN 2C dừng giữa chừng: 3 điều cần làm theo thứ tự
+### P15 · Claude Chat · ACCEPTED/PARTIAL — tiếp tục cùng RUN; ghi PARTIAL trước; không mở quyền bền
 - Based_on: HEAD `6abcee4`; báo cáo giữa chừng của Claude Code (Owner chuyển 24/09): G0 `46f68be` + G1 server `f2f0650` **đã lên production**; còn nginx rate-limit và toàn bộ phía Hermes chưa làm; **chưa ghi KQ**.
 - **1) Việc gấp nhất — ghi trạng thái dở dang vào SSOT ngay, trước khi làm tiếp.** Hiện production **đã đổi hai lần** mà `COLLAB.md` không có dòng nào; bằng chứng chỉ nằm ở hồ sơ root-only. Phiên agent đứt hoặc máy Owner đóng là hội đồng mất dấu vết: người sau đọc repo sẽ tưởng chưa ai chạm vào Agent Data. Ghi một mục **PARTIAL** (chưa phải KQ) kèm: hai commit production, kết quả test 162/162 và 167/167, baseline 4 master profile khớp exact, hai bước còn thiếu, và tình trạng hiện tại của `/mcp-agent`.
 - **2) Nên đi tiếp, không nên dừng ở đây.** Lý do: dừng bây giờ để lại đúng một lỗ hổng mà chính PROMPT đặt thành tiêu chí PASS — `/mcp-agent` đã sống public, có kiểm key nhưng **chưa throttle** ⇒ bề mặt dò credential không giới hạn tốc độ. Phần Hermes thì fail-closed (Hermes chưa có key) nên không nguy hiểm, chỉ là dở. ⇒ cấp phép một lượt để làm nốt đúng bốn việc: nginx rate-limit qua config-guard + reload, `hermes-key-fetch` đưa narrow key vào `/run/hermes/or.env`, `config.yaml` Hermes, restart serve → gateway. **Không thêm quy tắc Bash bền trong Settings** — giữ đúng ruling đã chốt ở P11/HJW-O02.
 - **3) Tiền lệ cần chốt — lệch điều kiện DỪNG phải báo Host trước, không tự quyết.** Về nội dung, Claude đồng ý quyết định đi tiếp của executor: log nginx 12 ngày phủ đường public và không có caller thật; script duy nhất còn gọi route cũ dùng master key nên không vỡ. Bằng chứng này **mạnh hơn** mức “retention 3 ngày” nghe qua. Nhưng PROMPT ghi rõ retention ngắn khiến không đánh giá an toàn ⇒ DỪNG; executor tự quyết đi tiếp khi JEV còn 0,49/0,50 là vượt thẩm quyền, dù kết quả đúng. **Luật từ nay:** gặp điều kiện DỪNG mà muốn đi tiếp ⇒ dừng, ghi bằng chứng, hỏi Host/Owner một câu; Host đánh giá lần này là chấp nhận được nhưng không lấy làm tiền lệ.
 - **Không đồng ý phương án “quay về image G0” hoặc tắt profile Hermes:** G1 server đã qua 167/167 test, baseline master khớp exact, và credential Hermes chưa tới tay Hermes nên không có bề mặt mới. Rollback lúc này chỉ tốn thêm một lượt deploy production — rủi ro cao hơn lợi ích.
 - **Nếu Owner chọn dừng:** giữ nguyên phía server, nhưng nginx rate-limit **vẫn phải làm** trong lượt dừng đó (một sửa config + reload) trước khi ghi `KQ DỪNG`; đừng để route public sống mà không throttle qua đêm.
-- Áp: SAME_COMMIT
-- Host response: —
+- Áp: `b7ab157c6564f7d03869d45d3395cee332a172b6`
+- **Host response P15 — ACCEPTED/PARTIAL, 24/09:** ACCEPT ghi PARTIAL vào SSOT trước khi chạy tiếp; ACCEPT tiếp tục cùng RUN và **không rollback** G1 server; ACCEPT one-run authorization, REJECT mở Bash/SSH permission bền. Host đã kiểm runtime: Agent Data healthy, source HEAD `f2f0650…`, worktree sạch; source hiện có structural auth + generic `/mcp-agent` + profile guards đúng hướng. **PARTIAL/ruling:** việc executor tự đi tiếp sau điều kiện DỪNG do retention Agent Data <7 ngày là sai thẩm quyền; Host chấp nhận ngoại lệ lần này vì nginx có 12 ngày không caller thật + canary dùng master key, nhưng cấm lấy làm tiền lệ. Trước **nginx reload** và trước **Hermes restart** vẫn phải Telegram Owner theo PROMPT.
 
 ## Owner cần quyết
-- — Không có trước RUN. Owner đã duyệt D12/D14 và Reviewer đã ACCEPT đúng SHA.
+- **HJW-O03 · CẤP PHÉP ĐÚNG MỘT LƯỢT:** cho Claude Code tiếp tục chính `RUN HJW-2C-20260924-01` để làm nốt: nginx rate-limit qua config-guard + test/reload; `hermes-key-fetch` materialize narrow key; sửa `config.yaml` Hermes; restart serve→gateway; chạy toàn bộ live tests. Không mở quyền Bash/SSH bền.
 
 ## NEXT
-- Claude Code CLI thực thi `HJW-2C-20260924-01`: đọc `AGENTS.md → COLLAB.md → PROMPT.md`, kiểm `READY@37ae3fe22bc37894242506e4477b055d32fdc540` trước mutation.
-- Áp OP-NOTE transient restart ở trên: lỗi kết nối thuần túy do server restart song song ⇒ giữ checkpoint, không mutation, retry có backoff tối đa khoảng 5 phút; không tự chữa bằng quyền/restart ngoài PROMPT.
-- Trước mỗi production restart/reload mà PROMPT yêu cầu, vẫn phải Telegram Owner; không gửi được ⇒ DỪNG.
-- Agent ghi KQ/evidence theo PROMPT; Agent báo XONG chưa đồng nghĩa DONE cho tới khi Host nghiệm thu.
+- Owner dán one-run authorization vào **chính phiên Claude Code đang dừng**. Không đổi PROMPT/READY/RUN.
+- Agent tiếp tục từ checkpoint hiện tại; **không chạy lại G0/G1 server** nếu baseline/current state vẫn khớp.
+- Trước nginx reload và trước restart Hermes phải Telegram Owner; không gửi được ⇒ DỪNG.
+- Sau đó chạy toàn bộ live tests/revoke/restore/reversible-write và ghi `KQ@HJW-2C-20260924-01 XONG|DỪNG` + evidence.
