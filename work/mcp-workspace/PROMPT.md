@@ -45,7 +45,7 @@ Luật README D12: AI chỉ được ghi repo `Huyen1974/incomex-workspace` qua 
 - Tạo file mới trong repo; git push/commit trực tiếp; đổi setting GitHub nào ngoài ruleset này; xoá ruleset/nhánh/file.
 - Sửa README/AGENTS — phần luật do Host sửa sau khi tự nghiệm thu.
 
-## 6. Báo cáo — một khối trong `work/mcp-workspace/COLLAB.md`, mục `## KQ — MCPW-LOCK-20260924-01` (thêm cuối file)
+## 6. Báo cáo — một khối trong `work/mcp-workspace/COLLAB.md`, mục `## KQ — MCPW-LOCK-20260924-01` (chèn **ngay trước** mục `## Owner cần quyết`; không ghi gì dưới mục đó — mọi dòng dưới đó sẽ bị Task view hiểu là “chờ Owner”)
 - G1.1–G1.7: PASS/FAIL + số liệu (deploy key: id · title · read_only · fingerprint 16 ký tự đầu; cổng nào khớp key nào; deploy key ghi-được khác nếu có).
 - Ruleset: id + JSON đã gửi. T1: mã HTTP + thông điệp. T2: commit. T3: kết quả. Rollback nếu có.
 - Dòng cuối đúng khuôn máy đọc: `KQ@MCPW-LOCK-20260924-01 XONG` hoặc `KQ@MCPW-LOCK-20260924-01 DỪNG · <lý do một dòng>`.
