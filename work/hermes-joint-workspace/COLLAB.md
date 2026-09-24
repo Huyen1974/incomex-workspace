@@ -588,7 +588,7 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 PARTIAL · G1/G2/loca
 - **Không sửa/làm lại G1/G2 đã PASS.**
 
 ### T5 ARM · Host GPT
-- `ASSIGN@HJW-H3-T5-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`
+- `ASSIGN@HJW-H3-T5-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=claimed`
 - Khi cron tự wake, Hermes phải tự đọc `AGENTS.md → HJW COLLAB.md`, **không mutation runtime**, review riêng P26+P27+P28 và ghi một **P29 ngắn**: xác nhận checkpoint, nêu 1 rủi ro vận hành quan trọng nhất cho delta bridge; đổi assignment `open→done` cùng commit.
 - Commit message bắt buộc: `[Hermes] HJW T5 · self-wake checkpoint review`.
 - Final response của turn phải **exactly 3 non-empty lines, không prose thêm**:
