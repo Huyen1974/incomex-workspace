@@ -14,15 +14,10 @@
 
 ## A1_ENTRY — Cửa vào
 - Chat/Agent không được giả định đã tự nạp luật. Khi nhận câu `WS <thư mục|gốc> · <Host|Review> · <việc> · đọc AGENTS.md → <COLLAB.md>`, đọc file này trước, rồi `COLLAB.md` của project, sau đó chỉ đọc đúng scope cần làm.
-- **ONE SSOT — bắt buộc:** mỗi nội dung chỉ có **một nguồn chuẩn**. Nội dung Owner đọc/duyệt nằm ở **tài liệu chính/HTML chính đã khai trong `COLLAB.md`**; không giữ bản nội dung song song ở file khác.
-- **Không tự tạo — không tự chọn thay Owner:**
-  1. Cấm tự tạo **task mới, file tài liệu/bản nháp/bản xem/copy/URL/pipeline mới** khi Owner chưa yêu cầu rõ hoặc chưa phê duyệt trước.
-  2. Cấm tự đổi **cấu trúc/bố cục tài liệu Owner đọc**: thêm/bớt/đổi tên/đổi thứ tự tab hay mục, đổi trang có tab thành trang cuộn và ngược lại, đổi mã mục (`id`) đang dùng.
-  3. **Prompt không nói rõ thì DỪNG hỏi, không tự chọn.** Thiếu chi tiết không phải là quyền tự quyết. Chỉ được tự quyết đúng một loại: cách thực thi kỹ thuật bên trong ranh giới prompt đã cho (thứ tự lệnh, cách neo chuỗi, cách đếm), miễn không đổi thứ Owner nhìn thấy.
-  4. Xin phép phải nêu đủ bốn ý: **cần tạo/đổi gì · vì sao · đặt ở đâu · không làm thì hỏng gì**. Owner gật thì ghi thành **D trong `COLLAB.md` kèm ngày**, rồi mới làm. Trong lúc chờ: DỪNG, không làm bản tạm.
-  5. Thứ đã lỡ tạo/đổi mà không có D: **không dùng, không nối vào Owner View**, chuyển vào kho lưu trữ có INDEX (không xoá) và ghi một dòng sự cố trong `COLLAB.md`.
-- `COLLAB.md` chỉ giữ **trạng thái, quyết định đã chốt, RUN/KQ và con trỏ**; không chứa bản thiết kế dài thay cho tài liệu Owner duyệt. `PROMPT.md` chỉ có khi thật sự cần giao Agent; Git giữ lịch sử.
-- Bản nháp được Owner cho phép chỉ là **DRAFT/REFERENCE**, không phải SSOT. Khi nội dung được duyệt/hợp nhất, phải đưa về SSOT; không để nhiều bản cùng mang vai trò nguồn chuẩn.
+- **ONE SSOT — TUYỆT ĐỐI:** mỗi nội dung chỉ có **một nguồn chuẩn Owner duyệt**; nội dung Owner cần đọc/duyệt nằm trong **tài liệu/HTML chính đã khai trong `COLLAB.md`**. Không giữ bản nội dung song song.
+- **TUYỆT ĐỐI CẤM AI/AGENT TỰ TẠO DỰ ÁN MỚI, TASK MỚI, FILE MỚI hoặc bản nháp/copy/bản xem/URL/pipeline mới khi USER chưa yêu cầu rõ hoặc chưa phê duyệt trước.** Không được suy quyền tạo mới từ prompt do AI tự soạn, từ tiện lợi kỹ thuật hay từ việc “cần để làm”.
+- **Thiếu chỉ dẫn = DỪNG hỏi, không tự sáng tạo.** Cũng cấm tự đổi cấu trúc/bố cục/tab/mã mục của tài liệu Owner đọc khi chưa được User duyệt.
+- `COLLAB.md` chỉ giữ **trạng thái · quyết định đã chốt · RUN/KQ · con trỏ**. Draft/reference chỉ được tạo khi User đã duyệt; khi hợp nhất phải đưa về SSOT và không để bản thứ hai tiếp tục mang vai trò nguồn.
 - Mỗi công việc/project nằm dưới `work/<work-id>/` (đã xong: `work/done-tasks/<work-id>/`, xem A9) và dùng một `COLLAB.md` riêng. `PROMPT.md`, test, evidence, assets và archive của việc phải nằm trong đúng thư mục đó.
 - Root repo chỉ dùng cho điều phối chung và **chỉ được có** `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`. Không đặt file nghiệp vụ, prompt, test hay chứng tích của một việc ở root.
 
