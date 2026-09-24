@@ -4,6 +4,7 @@
 - Owner sửa phạm vi: một bước người làm = một miếng UI riêng, có mã bước, mã UI, tên UI. Bản S00/UI-030 gộp khai + Master + duyệt là sai, đã thay trong tab **Quy trình vẽ UI** của `ban-duyet.html`.
 - Bản vẽ dự thảo: `MMIM.FIELD.S001` → `UI-030 · Phiếu khai nhu cầu`; `MMIM.FIELD.S002` → `UI-031 · Master yêu cầu` (lọc Chờ duyệt); `MMIM.FIELD.S003` → `UI-032 · Phiếu duyệt yêu cầu (MOT)`. Mã ba chữ số để mở rộng hơn 150 bước FIELD. Mã YC cấp ở S001, đi xuyên S002/S003, sau này liên kết MOT/Field. Mã bước/UI chưa đăng ký chính thức; người duyệt và quyền còn chờ chốt. JEV tham khảo mã bước: `gen-dec-1790289577-EK9JvkcchX0vEBIEpfay` (độ tin cậy thấp).
 - Bản vẽ chỉ đổi dữ liệu trong trình duyệt. Chưa có Master yêu cầu thật, chưa ghi PG/DOT, chưa kiểm quyền duyệt; K0 FIELD chưa PASS. S01–S07 cũ giữ ở tab Step quy trình để rà sau. Không tạo file mới.
+- Verify VPS revision `71fb667b39b784516bff006a5846fe83145d0dbc`: UI-030 bấm thử tạo `YC-THỬ-001`; UI-031 hiện `YC-THỬ-001 · Trường mã dự án · Chờ duyệt`; bấm `Mở` sang UI-032 thấy cùng mã và đủ nội dung; bấm `Duyệt` hiện `Đã duyệt`, hai nút quyết định bị khóa. Đây là output UI thật của bản vẽ, không phải PG.
 
 ## K0 FIELD · 24/09/2026
 - Đã đọc catalog PG trên VPS bằng giao dịch chỉ đọc. Bằng chứng gọn và phân mức ở `ban-duyet.html` → Step quy trình → Bài thử FIELD · K0. Điểm nghẽn quyền Directus không còn chặn việc kiểm kê; K0 toàn phần vẫn chờ Owner gật mục tiêu/phạm vi V1. Không mở K1, không đổi UI, không tạo master mới.
