@@ -1,230 +1,286 @@
-# PROMPT — HJW.2C · Generic Agent Gateway + Auth Patch
+# PROMPT — HJW.3 · Hermes 24/7 Orchestration + External API/Webhook
 
-RUN_ID: HJW-2C-20260924-01
-STATUS: DRAFT — KHÔNG RUN cho tới khi Reviewer ACCEPT và Host ghi READY@ đúng SHA cuối chạm file này
+RUN_ID: HJW-3-20260924-01
+STATUS: DRAFT — KHÔNG RUN cho tới khi Claude + Hermes review xong và Host ghi READY@ đúng SHA cuối chạm file này
 
 Executor_Surface: Claude Code CLI trên Mac
-Runtime_Write_Path: SSH/root-operator tới VPS; Agent Data source/runtime trên VPS là SSOT
-Report_Write_Path: chỉ cập nhật file hiện hữu `work/hermes-joint-workspace/COLLAB.md` + `view.html` và evidence root-only hiện hữu `CAP-PATH-AUDIT.md`
+Runtime_Write_Path: SSH/root-operator tới VPS; Hermes runtime/config trên VPS là SSOT
+Report_Write_Path: chỉ cập nhật file hiện hữu `work/hermes-joint-workspace/COLLAB.md` + `view.html`; evidence nhạy cảm append vào hồ sơ root-only hiện hữu
 Work: `work/hermes-joint-workspace/`
 
-## Mục tiêu
+## 0. Owner direction / kiến trúc bắt buộc
 
-Theo Owner 24/09:
-1. **Gate 0:** vá tận gốc lớp authentication MCP của Agent Data trước khi bật đường agent mới.
-2. Tạo **một Agent Gateway generic** từ Agent Data tới GitHub/workspace cho Hermes và agent tương lai; không tạo route riêng từng agent.
-3. Mỗi credential xác định một profile server-side: `agent_id`, tool allowlist, allowed roots, read scope, write scope và trusted attribution.
-4. Hermes là profile production đầu tiên. Claude Code/agent khác **chưa migrate trong RUN này**; test phải chứng minh thêm profile sau chỉ cần config + credential, không cần route code mới.
-5. Không đưa master `API_KEY` cho Hermes/agent mới; không tin `clientInfo`/User-Agent để cấp quyền hoặc xác định identity.
+Owner 24/09 nhắc lại: **thế mạnh Hermes là chạy VPS 24/7 và qua API nên có thể được gọi từ bên ngoài, bất cứ lúc nào; phải kết nối ở mức tốt nhất để dùng cho các việc tiếp theo.**
 
-JEV Host: `gen-dec-1790217958-q1i8W3GQZj6EZBKY6cMG` → GENERIC_AGENT_GATEWAY 1.00.
+Không biến Hermes thành một chatbot chỉ đọc/ghi repo. HJW.3 phải nghiệm thu vòng:
+**trigger ngoài / lịch / Telegram → lọc máy 0-token → wake đúng lúc → Hermes LLM đọc SSOT → claim/làm bằng Agent Gateway → Git attribution → báo Telegram → ledger/monitor/stop/retry.**
 
-## Checkpoint / read-gate
+Kiến trúc Host chốt:
+1. **Telegram Owner** = cửa người→Hermes đã có.
+2. **Git assignment + cron/script-gate** = backstop 24/7, 0-token khi không có việc.
+3. **Built-in Hermes webhook** = cửa máy→máy từ Internet, đặt sau nginx HTTPS hiện hữu, HMAC + replay protection + filter + idempotency + rate-limit; webhook **chỉ fire đúng cron job dispatcher**, không cho payload ngoài trở thành prompt tự do.
+4. **Hermes API Server trực tiếp** giữ loopback/trusted-only trong HJW.3. Không public OpenAI-compatible API đầy đủ cho tới khi có profile/toolset/API key riêng đủ hẹp; API Server có blast radius lớn hơn webhook dispatcher.
+5. Tất cả trigger hội tụ vào **một dispatcher/assignment contract**, không tạo SSOT thứ hai.
 
-- Đọc `AGENTS.md → COLLAB.md → PROMPT.md`; kiểm A0 Owner 24/09 đã xác nhận.
-- Kiểm `READY@<SHA>` đúng commit cuối chạm PROMPT trước mutation.
-- Đọc `KQ@HJW-2B1-20260923-02 XONG` và evidence root-only hiện hữu `/opt/incomex/work/hermes-joint-workspace/HJW-2B1-20260923-02/CAP-PATH-AUDIT.md`.
-- Agent Data phải clean worktree; ghi branch + HEAD trước mutation. VPS source/runtime là SSOT: **không pull/deploy từ GitHub xuống VPS**.
-- Xác nhận `incomex-agent-data` healthy và public Agent Data HTTP sống.
-- Chụp baseline cho **từng master MCP profile hiện hữu** (`/mcp`, `/mcp-readonly`, `/mcp-gpt`, `/mcp-gpt-full`): `tools/list` names/count + connectorSchemaVersion/hash + serverInfo. Dùng để so exact sau G0/G1.
-- Xác nhận HJW.2B1 vẫn đúng: `AGENT_DATA_API_KEY/AGENT_DATA_URL` vắng trong `/run/hermes/or.env` và env của cả `hermes-serve` + `hermes-gateway`. **Không gỡ lại, không cấp lại master key.**
-- Pre-flight Hermes: xác định service serve/gateway đang dùng venv nào; trong đúng venv đó phải import được MCP client/`mcp.client.streamable_http`. Không chứng minh được ⇒ DỪNG trước deploy Hermes.
-- **TUYỆT ĐỐI KHÔNG TẠO FILE/TASK/PROJECT MỚI.** Chỉ sửa source/config/test file hiện hữu. Nếu bắt buộc cần file mới ⇒ DỪNG xin Owner.
-- Không copy exact exploit/auth bypass, secret value, token/hash secret vào repo/chat/public log. Chi tiết vulnerability chỉ ở evidence root-only.
-- Không chạm Qdrant/OpenRouter/Telegram/GSM ngoài narrow credential cần cho gateway. Không tạo Google project/service mới.
+JEV Host: `gen-dec-1790241698-LNju0s9zxYbOrssd8idg` → WEBHOOK_PLUS_CRON 0.74.
 
-## G0. AUTH PATCH — BẮT BUỘC PASS TRƯỚC GATEWAY
+## 1. Bằng chứng đã PASS — KHÔNG LÀM LẠI
 
-### G0.1 Caller inventory trước breaking change
-- Trước khi đóng legacy `POST /mcp/tools/{tool_name}`, đọc log Agent Data/nginx trong **7 ngày gần nhất** (hoặc toàn bộ retention nếu <7 ngày), chỉ lấy metadata an toàn: thời điểm, route, caller/client/UA đã sanitize, tool name; **không in body/params**.
-- Nêu caller thật đang dùng legacy route cho Owner trong evidence root-only + COLLAB mức không nhạy cảm.
-- Có caller thật/chưa xác định được caller, hoặc retention quá ngắn khiến không thể đánh giá an toàn ⇒ **DỪNG trước mutation** để Owner quyết.
+Chấp nhận từ HJW.2C + SELF01:
+- Agent Data auth patch + generic Agent Gateway PASS.
+- Hermes narrow credential/profile PASS; master Agent Data key không quay lại Hermes.
+- Hermes thấy đúng 7 workspace tool; read toàn root `workspace`, write chỉ HJW; root khác DENY.
+- trusted Git author = `agent-gw/hermes`; revoke/restore + reversible write PASS.
+- P18 = **LLM Hermes thật** đã tự đọc AGENTS/COLLAB, tự dùng MCP, tự ghi P18 và đóng assignment; Claude P19 xác minh author thật.
+- `workspace_result_read` không cần mở: file dài dùng `start_char`; search/log có cursor riêng.
+- T1 đọc, T3 cross/version evidence, T4 identity/attribution coi là PASS evidence; không chạy lại trừ regression.
+- A9 đã map riêng `agent-gw/hermes → Hermes`.
 
-### G0.2 Vá theo cấu trúc, không vá một dòng
-- Đọc exact finding root-only và đối chiếu source.
-- Root cause phải được xử lý: auth của route MCP **không được chỉ nằm trong thân handler**.
-- Mọi route externally reachable có thể đi tới `_dispatch_mcp_tool` phải khai **auth policy ở route/dependency/common guard trước dispatch**:
-  - master MCP routes/legacy ⇒ master auth;
-  - generic `/mcp-agent` ⇒ agent-profile auth;
-  - không route dispatch nào được “quên auth”.
-- Thêm regression/invariant vào **test file hiện hữu**: liệt kê toàn bộ route MCP có thể dispatch tool và fail nếu route không có auth policy declared tương ứng.
-- Legacy `POST /mcp/tools/{tool_name}` phải auth trước đọc body/dispatch.
-- Bỏ/redact dòng log legacy đang ghi nguyên request params/body; chỉ log metadata an toàn sau auth.
-- Missing/invalid credential trả lỗi generic cùng lớp; không phân biệt chi tiết giúp dò credential.
-- Không vá bằng đóng toàn service hoặc rotate master key nếu không cần.
+## 2. Read-gate trước mutation
 
-### G0.3 Regression + deploy
-Bổ sung vào test file hiện hữu:
-- missing/invalid master key trên legacy/bypass cũ ⇒ 401/403 trước handler;
-- valid master key trên master routes vẫn PASS;
-- invariant route-auth PASS;
-- log/test output không chứa body/secret/exploit detail.
+1. Đọc `AGENTS.md → root COLLAB.md → HJW COLLAB.md → PROMPT.md`; kiểm A0 và READY full SHA.
+2. Kiểm Agent Data/Hermes sau mọi thay đổi song song:
+   - Agent Data healthy; current HEAD/worktree ghi lại;
+   - source/current runtime vẫn có `/mcp-agent` generic + Hermes profile;
+   - từ Hermes live session/relay: `tools/list` vẫn đúng 7;
+   - `AGENT_DATA_*` vẫn vắng ở serve+gateway;
+   - `hermes-safe-update health` PASS.
+   Nếu contract 2C bị regression bởi phiên khác ⇒ DỪNG trước HJW.3 mutation.
+3. Inventory thực tế:
+   - Hermes version + `hermes cron --help/status/list/doctor`;
+   - existing `~/.hermes/scripts/` và cron jobs; **reuse trước khi tạo**;
+   - webhook platform hiện trạng; port/listener conflict;
+   - API Server bind/auth hiện trạng (dự kiến loopback);
+   - Telegram connected + allowed Owner;
+   - nginx public HTTPS config hiện hữu;
+   - Kuma monitor/push path hiện hữu;
+   - safe-update timer/lock và các restart gần đây.
+4. Nếu chỉ gặp timeout/refused/502/503 do phiên khác restart service: giữ checkpoint, không mutation, retry backoff tối đa ~5 phút như OP-NOTE; không tự chữa bằng restart ngoài PROMPT.
 
-FAIL ⇒ rollback source, `KQ DỪNG`; **không viết G1**.
+## 3. Assembly First / quyền tạo runtime tối thiểu
 
-Nếu PASS:
-- commit G0 riêng trong repo Agent Data từ VPS SSOT;
-- trước production restart gửi Owner một dòng Telegram; không gửi được ⇒ DỪNG;
-- deploy bằng cơ chế hiện hữu, không tạo service/port/listener;
-- smoke: container healthy; baseline master profile tools/schema/serverInfo **khớp exact**; Full All 2/public contract sống; bypass cũ missing/invalid key bị chặn.
-Regression đỏ ⇒ rollback G0 runtime/commit rồi DỪNG.
+- **CẤM tạo repo task/project/file mới.**
+- Ưu tiên config/feature có sẵn của Hermes/nginx/Kuma.
+- Owner 24/09 đã yêu cầu kết nối 24/7/API ở mức tốt nhất: RUN này được phép tạo **tối đa một runtime dispatcher script** dưới `~/.hermes/scripts/` nếu inventory chứng minh không có script hiện hữu tái dùng được. Tên + hash + owner/mode phải ghi evidence.
+- Không tạo server/service public mới. Webhook là adapter có sẵn trong `hermes-gateway`, bind loopback; public qua nginx hiện hữu.
+- Không tạo GitHub webhook thứ hai trong RUN này. Git assignment dùng cron/backstop; generic webhook dành cho external systems hiện tại/tương lai.
+- Không cấp thêm workspace tool; không mở `workspace_result_read`, exec/task/terminal cho profile Agent Gateway Hermes.
 
-## G1. GENERIC AGENT GATEWAY — một route, nhiều profile
+## 4. G1 — Một dispatcher 24/7, fail-closed
 
-Chỉ bắt đầu sau G0 production PASS.
+### G1.1 Assignment SSOT
+Dùng đúng:
+`ASSIGN@<ID> · to=Hermes · role=<Reviewer|Agent|Host> · scope=<path> · state=<open|claimed|blocked|done> [· run=<RUN_ID>]`
 
-### G1.1 Profile registry — tái dùng config hiện hữu
-- Tái dùng file mà `WORKSPACE_CONFIG` đang trỏ tới; **không tạo config file mới**.
-- Thêm registry chung `agent_profiles` (tên field có thể điều chỉnh):
-  - `agent_id` canonical;
-  - `credential_env` = **tên** env chứa credential, không secret value;
-  - `allowed_tools`;
-  - `allowed_roots`;
-  - read scope;
-  - write scope;
-  - attribution label nếu cần.
-- Secret thật ở secret/env material hiện hữu của Agent Data. Constant-time compare; missing env/config malformed/duplicate match ⇒ fail closed.
-- **Không fallback sang master API_KEY** trên Agent Gateway.
-- Thêm profile thứ hai trong test chỉ bằng config fixture/env; route code không đổi.
+Luật:
+- `COLLAB.md` tại Git HEAD xác định là SSOT; derived view không quyết định quyền.
+- Reviewer: không cần RUN nhưng chỉ đúng scope.
+- Agent: chỉ wake/làm khi có `run=<RUN_ID>`, PROMPT hiện hành có READY@ đúng SHA và assignment do Owner/GPT Host mở.
+- Host: chỉ khi Owner giao.
+- Hermes claim bằng `workspace_edit` expected_version `open→claimed`.
+- done/blocked ghi cùng commit kết quả khi có thể.
+- stale/ambiguous/missing HEAD/missing READY/out-of-scope ⇒ **không wake hoặc blocked**, tuyệt đối không suy diễn.
 
-### G1.2 Một route generic + public hardening
-- Tạo đúng **một route generic**, ưu tiên `POST /mcp-agent`.
-- Không tạo `/mcp-hermes`, `/mcp-claude`…; agent mới chỉ thêm profile + credential/config.
-- Reuse protocol/tool schema/filtered-handler logic hiện hữu; không fork MCP implementation.
-- Reuse nginx/API port hiện hữu. Không mở port/listener/service mới.
-- Nếu public `/api/mcp-agent` cần nginx config: chỉ sửa config hiện hữu, `nginx -t` trước reload.
-- Public route phải có rate-limit bằng cơ chế nginx hiện hữu và auth error generic, không phân biệt missing vs wrong credential.
-- MCP sampling cho Hermes gateway phải **disabled** trong config client nếu syntax hiện hữu hỗ trợ; pre-flight xác nhận config parse được.
+### G1.2 Script gate 0-token
+- Reuse script hiện hữu; nếu không có, tối đa một script chung.
+- Script đọc public Git/HEAD **không dùng narrow Agent Gateway key** và không gọi LLM để dò việc.
+- Mọi nhánh lỗi/không việc phải trả contract Hermes tương đương `{"wakeAgent": false}`.
+- Chỉ `wakeAgent:true` khi có đúng assignment Hermes hợp lệ và STOP gates cho phép.
+- Lưu last-seen HEAD/dedup bằng cơ chế ledger/state hiện hữu; không tạo SSOT nghiệp vụ thứ hai.
+- Không render nội dung bất kỳ từ webhook thành instruction. LLM sau wake phải tự re-read AGENTS/COLLAB/PROMPT qua MCP.
 
-### G1.3 Trusted identity + attribution
-- Credential hợp lệ ⇒ server xác định `agent_id` từ profile.
-- Với Agent Gateway, effective identity/attribution/presence/Git author lấy từ authenticated profile, **không** từ `clientInfo`/User-Agent/header tự khai.
-- Reuse ambient identity hiện hữu (`hvu_signals`/contextvar) nếu phù hợp: route agent đặt trusted identity trước dispatch; `hvu_signals.author_args()` phải thấy identity trusted này.
-- Forged `clientInfo` không đổi effective identity.
-- Identity/profile context phải tới được choke point scope.
-- **Global deny trong HJW.2C cho agent profiles:** `task_*`, `workspace_exec*` và mọi background/queued tool chưa được cấp. Chỉ mở ở RUN tương lai sau khi chứng minh policy/identity được bind qua queue/status/cancel. Không để config profile tự override deny này.
+## 5. G2 — Cron / scheduled backstop
 
-### G1.4 Tool + root + path scope — server-side
-- Enforce tool allowlist trước argument validation/dispatch.
-- Enforce root/path ở **một choke point chung** của workspace tool dispatch; master callers không có authenticated agent profile thì giữ behavior hiện hành.
-- Agent profile lookup từ trusted ambient `agent_id`; mỗi call reload/đọc policy an toàn từ registry hiện hữu hoặc cache có invalidation rõ.
-- `allowed_roots` phải được enforce trước root_spec dispatch.
-- Read và write scope tách riêng; component-aware prefix.
-- Tool có `path/from/to/operations` nested phải kiểm toàn bộ đường liên quan; không chứng minh được ⇒ deny.
-- Raw MCP/HTTP không bypass scope.
-- Queue/background tools bị deny như G1.3 cho tới khi có binding riêng.
+Tạo bằng Hermes cron hiện hữu, model/toolset ghim rõ:
 
-### G1.5 Hermes profile đầu tiên
-Production Hermes:
-- `allowed_roots = ["workspace"]`.
-- **Read = toàn bộ root `workspace`**. Đây là repo workspace dùng chung; read không phải security boundary của RUN này.
-- **Write = chỉ `work/hermes-joint-workspace/**`**.
-- Tool allowlist đầu: `workspace_list, workspace_read, workspace_search, workspace_stat, workspace_log, workspace_diff, workspace_edit`.
-- Không cấp `workspace_write_new`, transaction, move/copy, import/upload/restore, task_*, exec, delete, UI, `vps_status`.
-- Hệ quả cố ý: Hermes không tạo file mới; KQ/báo cáo phải cập nhật file hiện hữu.
-- `workspace_result_read` **không cấp mặc định trong HJW.2C** vì state/result hiện tại chưa bind authenticated profile. Live test phải đo khả năng đọc file dài bằng `workspace_read` cửa sổ nhỏ + cursor. Nếu không thể đọc đầy đủ mà không dùng result_read ⇒ DỪNG và báo Host; không expose continuation dùng chung không identity-bound.
-- Master key Agent Data đã gỡ ở HJW.2B1 và **không quay lại** env Hermes.
+### Job A — `ws-dispatch`
+- schedule mục tiêu ~2 phút; script gate G1 chạy trước.
+- không assignment hợp lệ ⇒ 0 LLM.
+- assignment hợp lệ ⇒ wake Hermes fresh session; prompt tự chứa lệnh vào đúng workspace và buộc đọc SSOT.
+- delivery cuối = Telegram Owner, đúng 3 dòng:
+  `STATUS: ...`
+  `COMMIT: <sha|—>`
+  `NEXT: ...`
+- `cron.max_parallel_jobs=1` hoặc cơ chế tương đương; ledger at-most-once.
 
-### G1.6 Narrow credential Hermes
-- Tạo narrow credential đủ mạnh; không in/log.
-- Server copy vào secret/env material **hiện hữu** của Agent Data theo `credential_env`.
-- Client copy materialize bằng cơ chế root-managed hiện hữu vào `/run/hermes/or.env` dưới tên riêng, ví dụ `HERMES_AGENT_GW_KEY`; không plaintext trong `config.yaml`.
-- Không cấp GSM broad access cho Hermes.
-- Không tạo persistent secret file mới. Nếu hạ tầng hiện hữu không chứa được credential mà phải tạo file/resource mới chưa được Owner duyệt ⇒ DỪNG.
-- Sau materialization, xác nhận bằng **tên biến**: narrow key có mặt; `AGENT_DATA_API_KEY/AGENT_DATA_URL` vẫn vắng. Không in value.
+### Job B — `ws-handoff-watch` (no-agent / 0-token)
+- định kỳ hợp lý (ưu tiên 15 phút).
+- tìm NEXT/to=GPT|Claude|Owner chưa được nhận sau ngưỡng đã chốt (~2h).
+- chỉ Telegram **một** cảnh báo cho cùng condition/generation; không spam.
 
-### G1.7 Deploy phía Hermes — bắt buộc
-- Sửa `config.yaml` hiện hữu để thêm đúng một `mcp_servers` entry trỏ generic gateway qua relay/public path đã chọn; header lấy từ env expansion narrow key; sampling disabled.
-- Trước restart: gửi Owner một dòng Telegram nói serve + gateway/desktop có thể gián đoạn; không gửi được ⇒ DỪNG.
-- Restart **`hermes-serve` trước → verify local status**, rồi **`hermes-gateway` → verify Telegram connected**.
-- Gọi thật `tools/list` từ Hermes và xác nhận đúng allowlist 7 tool, không có tool cấm/result_read.
-- Rollback phía Hermes nếu fail: bỏ entry mcp_servers + narrow key materialization bằng source hiện hữu, regenerate env an toàn, restart serve → gateway; Agent Data G0-good vẫn giữ.
-- Không restart `hermes-key.service` nếu unit dependency có thể bounce hai service; dùng source command trực tiếp theo pattern đã nghiệm thu 2B1.
+### Job C — `ws-run-watch` (no-agent / 0-token)
+- canh READY+RUN chưa có KQ sau ~6h và KQ DỪNG mới.
+- dedup incident; một condition chỉ cảnh báo một lần cho tới khi state đổi.
 
-## G2. TEST — dùng file hiện hữu, không tạo fixture mới
+Heartbeat không tự dựa vào Hermes báo mình còn sống; xem G5 Kuma.
 
-### G2.1 Unit/regression
-Bổ sung vào **test files hiện hữu**:
-1. route-auth invariant cho toàn bộ dispatch-capable MCP routes;
-2. hai agent profile giả lập, credential khác nhau; profile thứ hai chỉ thêm config/env;
-3. key A không dùng được profile/scope B; invalid/no key fail closed;
-4. tool ngoài allowlist không xuất hiện `tools/list` và `tools/call` reject trước dispatch;
-5. allowed_roots: `workspace` PASS; `agent-data/ui/docs` DENY;
-6. write trong HJW PASS; write ngoài HJW DENY; prefix collision `work/hermes-joint-workspace-x` cũng DENY;
-7. forged `clientInfo` không đổi authenticated agent_id/Git attribution;
-8. agent profile không thể cấp task_*/exec qua config trong RUN này;
-9. master routes baseline tools/schema/serverInfo exact PASS;
-10. legacy route log không còn body/params nhạy cảm.
+## 6. G3 — External machine ingress qua built-in Webhook
 
-### G2.2 Live Hermes
-Sau G0/G1 deploy:
-- no/invalid/master key trên `/mcp-agent` ⇒ reject generic;
-- narrow Hermes key ⇒ `tools/list` đúng 7 tool;
-- đọc `AGENTS.md` và một task khác dưới `work/` PASS;
-- thử root khác `agent-data` ⇒ DENY trước content;
-- gọi tool cấm ⇒ DENY;
-- **long-read measurement:** Hermes đọc toàn bộ `work/hermes-joint-workspace/COLLAB.md` bằng `workspace_read` với cửa sổ nhỏ + cursor, xác nhận tới EOF/total_chars. Không đọc hết được ⇒ DỪNG; không tự cấp result_read.
-- **write thật reversible:** dùng `view.html` hiện hữu, không dùng `COLLAB.md`. Trước test lưu hash + bytes local; chọn lúc worktree sạch/vắng writer; báo Owner marker có thể xuất hiện 1–2 commit. Edit marker tối thiểu → kiểm commit attribution authenticated Hermes → revert bằng edit thứ hai. Revert conflict: retry giới hạn; vẫn fail ⇒ khôi phục bytes local theo cơ chế hiện hữu rồi DỪNG. Hash cuối phải bằng hash đầu.
-- write ngoài HJW ⇒ DENY, 0 diff;
-- forged client name vẫn attribution Hermes;
-- revoke/disable Hermes profile/key ⇒ access fail; restore profile/key ⇒ PASS, client khác không ảnh hưởng.
+### G3.1 Enable an toàn
+- Bật **built-in Hermes webhook platform**, bind **127.0.0.1** trên port mặc định/port trống (ưu tiên 8644).
+- Secret nằm trong root-managed env material hiện hữu, config chỉ dùng env substitution; **không plaintext**.
+- Public HTTPS đi qua **nginx hiện hữu**, path riêng hẹp; không publish raw port.
+- nginx: TLS hiện hữu, body limit, rate-limit; `nginx -t` trước reload.
+- Telegram Owner một dòng trước restart/reload ảnh hưởng gateway/nginx.
 
-### G2.3 Public/local + backward compatibility
-- Test route Hermes qua path thực tế (relay 6533 nếu dùng) và public `/api/mcp-agent`; không mở port mới.
-- Public route rate-limit hoạt động mà không làm ảnh hưởng master profiles.
-- Run acceptance hiện hữu cho Full All 2/public route.
-- So baseline vs after cho từng master profile: tool names/count + schema version/hash + serverInfo phải exact như trước.
+### G3.2 Một route generic “đánh chuông”, không prompt injection
+- Route external ví dụ `incomex-dispatch`.
+- Generic V2 signature + timestamp/replay protection; không dùng V1 nếu V2 dùng được.
+- filter allowlist event/source; max body ≤ Hermes default hoặc thấp hơn.
+- idempotency/delivery id bắt buộc ở test.
+- route dùng **`cron_job: ws-dispatch`**, không start independent agent session.
+- prompt/context từ webhook chỉ là metadata tối thiểu (source/event/delivery id); **không đưa arbitrary payload text vào instruction**.
+- dispatcher khi chạy luôn re-read Git SSOT để quyết định có assignment hay không.
+- unknown event/filter miss/invalid signature/expired timestamp/duplicate ⇒ 0 LLM.
 
-## G3. DEPLOY / ROLLBACK
+### G3.3 External acceptance
+Từ máy ngoài VPS (ưu tiên chính Mac/Claude Code):
+1. missing/wrong signature ⇒ reject, 0 run;
+2. expired V2 timestamp ⇒ reject;
+3. valid signed event, không assignment ⇒ accepted/ignored nhưng 0 LLM;
+4. same delivery id gửi lại ⇒ dedup, không run thứ hai;
+5. rate-limit burst ⇒ 429 đúng ngưỡng, gateway/master routes khác không ảnh hưởng;
+6. valid event + một assignment HJW test đã Host arm ⇒ fire **chính ws-dispatch**, claim đúng một lần, không duplicate.
 
-- Agent Data source VPS là SSOT; build/deploy bằng cơ chế hiện hữu. Không force/rebase/pull code từ GitHub xuống.
-- G0 và G1 dùng commit riêng.
-- Trước mỗi production restart/reload ảnh hưởng service: clean worktree/expected HEAD + Telegram Owner; không gửi được ⇒ DỪNG.
-- G1 fail: rollback G1 về G0-good, disable/revoke Hermes profile/key, rollback Hermes mcp entry; **không** trả master key.
-- G0 regression: rollback G0 và DỪNG; không gateway.
-- Không thay/chạm plugin Full All 2 ngoài regression cần thiết.
+## 7. G4 — Telegram Owner / T5 thật
 
-## Nghiệm thu bắt buộc
+T5 chỉ PASS khi **không người gọi trực tiếp phiên Hermes để làm việc**.
+
+Sau hạ tầng G1–G3 PASS, Host sẽ arm một assignment test trong HJW. Agent Claude Code **không tự tạo assignment thay Host** nếu chưa có dòng arm sẵn.
+
+Acceptance:
+- assignment `state=open` tồn tại trên Git;
+- hoặc webhook hợp lệ fire ws-dispatch, hoặc cron backstop tự phát hiện;
+- Hermes **tự thức**;
+- LLM Hermes tự đọc AGENTS → HJW COLLAB → prompt/assignment;
+- claim `open→claimed`;
+- dùng chính 7 MCP tools để làm một việc reviewer an toàn trong HJW;
+- commit author phải là `agent-gw/hermes`;
+- state→done/blocked;
+- Telegram Owner đúng 3 dòng STATUS/COMMIT/NEXT.
+Không được harness/shell làm thay LLM.
+
+Đo:
+- webhook path: event→claim latency;
+- cron-only path: assignment→claim latency; mục tiêu ≤5 phút với 2-min backstop.
+
+## 8. G5 — STOP + heartbeat độc lập
+
+### STOP-AUTO
+- Normal operator stop không trao root cho Hermes.
+- Dùng trạng thái/flag vận hành đã thiết kế để mọi scheduled HJW wake trả false; pause cron nếu phù hợp.
+- Resume không được chạy bù duplicate.
+
+### STOP-DISPATCH
+- Root-owned flag ngoài quyền ghi user Hermes; mọi HJW script gate phải kiểm.
+- flag ON ⇒ cron + webhook-triggered dispatcher đều 0 agent run.
+- Hermes không tự gỡ flag.
+
+### HARD-STOP
+- Đường root/operator dừng gateway/service khi compromise; không giao Hermes tự tắt chính mình.
+- Test rõ run mới bị chặn và state của run in-flight.
+
+### Kuma
+- Reuse Kuma root-owned monitor/path hiện hữu.
+- monitor Hermes/gateway independent of Hermes credential.
+- chứng minh khi Hermes/gateway chết, Owner nhận Telegram ≤10 phút.
+- token Kuma không đưa cho Hermes.
+
+## 9. G6 — T2/T6 và cost/observability
+
+### T2
+Không tạo fixture mới. Dùng assignment reviewer/Agent an toàn trên file hiện hữu HJW để chứng minh:
+- read current version;
+- write scoped;
+- stale expected_version bị reject hoặc evidence version guard hiện hữu được tái dùng;
+- conflict ⇒ read lại/hòa giải, không overwrite;
+- no out-of-scope commit.
+
+### T6
+Cho ít nhất một LLM turn auto-wake thật:
+- ghi model/provider/reasoning profile;
+- token usage/cost nếu Hermes execution ledger/API response hiện có hỗ trợ;
+- nếu chỉ có token mà không có giá chính xác, báo token + model, không tự suy giá.
+**D10 giữ nguyên:** budget/hard cap ngoài scope, T6 chỉ đo.
+
+### Observability
+- `hermes cron status/runs/incidents/doctor`;
+- executions ledger;
+- nginx webhook logs chỉ metadata, không body/secret;
+- Git author + assignment lifecycle;
+- Telegram incident dedup;
+- current config hash/before-after + rollback.
+
+## 10. Direct API Server — giữ capability nhưng không public trong RUN này
+
+- Xác nhận local API Server health/auth và hiện bind loopback.
+- **Không thêm nginx public route cho `/v1/*` trong HJW.3.**
+- Lý do: direct API Server mang Hermes agent/toolset rộng hơn dispatcher webhook.
+- NEXT sau HJW.3 có thể mở direct external API bằng **profile/toolset/API key riêng**, có concurrency/idempotency/rate-limit và acceptance riêng. Không dùng default profile public.
+
+## 11. T10 acceptance matrix
 
 PASS chỉ khi:
-- AUTH-STRUCTURAL: mọi dispatch-capable MCP route có declared auth policy; bypass root-only đóng.
-- LEGACY-CALLER-CHECK: caller inventory đã làm; không breaking caller chưa duyệt.
-- LOG-SAFE: legacy không log raw body/params.
-- EXISTING-CLIENTS-PASS: baseline master tools/schema/serverInfo exact + Full All 2 PASS.
-- GENERIC: một route code phục vụ ≥2 profile test config.
-- PER-AGENT-AUTH: credential riêng, no shared master/fallback.
-- TOOL-SCOPE + ROOT-SCOPE + WRITE-SCOPE: server-side, outside denied.
-- TRUSTED-IDENTITY: credential → agent_id → attribution; forged clientInfo vô hiệu.
-- NO-BACKGROUND-BYPASS: task/exec globally denied cho agent profiles ở RUN này.
-- HERMES-FIRST: deploy client, tools/list, full long-read, reversible write + attribution, outside deny PASS.
-- REVOCABLE: revoke profile/key fail closed, client khác không ảnh hưởng.
-- NO-NEW-FILE: không project/task/source/test/config file mới.
-- SECRETS: no plaintext secret/exact exploit detail public.
-- SAMPLING-OFF + PUBLIC-RATE-LIMIT: Hermes sampling disabled; public agent route throttled.
+1. 15 phút không assignment/event ⇒ dispatcher 0 LLM; no wake thừa.
+2. Git assignment open ⇒ cron tự wake/claim ≤5 phút.
+3. external valid signed webhook + assignment ⇒ immediate fire cùng dispatcher; duplicate không duplicate run.
+4. invalid/expired/filter-miss webhook ⇒ 0 LLM.
+5. two triggers chen nhau ⇒ một claim/run.
+6. blocked condition ⇒ Git state + Telegram Owner; không auto-approve.
+7. handoff watcher và RUN watcher dedup, không spam.
+8. STOP-AUTO/STOP-DISPATCH ⇒ 0 run mới; resume không chạy bù trùng.
+9. HARD-STOP service boundary hoạt động; rollback rõ.
+10. Kuma báo khi Hermes/gateway chết ≤10 phút.
+11. auto LLM turn ghi bằng `agent-gw/hermes`, write ngoài HJW vẫn DENY.
+12. Telegram completion đúng 3 dòng.
+13. T6 model/token/cost evidence có mức thật, không đoán.
+14. Direct API Server vẫn loopback/not newly public.
+15. Agent Data 7-tool Hermes contract + existing GPT/Claude clients không regression.
 
-## Báo cáo
+## 12. Rollback
 
-- Cập nhật **chỉ** `COLLAB.md` và `view.html` hiện hữu.
-- Evidence nhạy cảm append vào **CAP-PATH-AUDIT.md hiện hữu root-only**; không tạo evidence file mới.
-- Ghi before/after Agent Data commit, G0 caller inventory kết luận, tests, deploy health, schema/hash regression, Hermes live result, rollback/revoke state.
-- Nếu PASS: NEXT = onboard agent thứ hai bằng profile/config trong RUN riêng; không tự migrate trong RUN này.
+- Webhook fail: disable webhook route/platform + nginx route; cron backstop vẫn chạy.
+- Cron job fail: pause/remove đúng HJW jobs; Agent Gateway/Telegram manual vẫn giữ.
+- Dispatcher script fail: rollback hash/script, job fail-closed `wakeAgent:false`.
+- Hermes config fail: restore exact config before + restart serve→gateway theo thứ tự đã nghiệm thu.
+- Secret fail: revoke external webhook secret; không rotate unrelated secrets.
+- Không rollback Agent Gateway HJW.2C nếu không phải nguyên nhân.
+
+## 13. Báo cáo
+
+Chỉ cập nhật file hiện hữu:
+- `COLLAB.md`: KQ + assignment test + latencies + PASS/FAIL T2/T5/T6/T10.
+- `view.html`: Owner summary: các cửa vào 24/7, stop controls, known limits.
+- evidence nhạy cảm: append hồ sơ root-only hiện hữu.
+
+Ghi rõ:
+- cron jobs + cadence;
+- public webhook path ở mức không lộ secret;
+- signature mode;
+- external test result;
+- self-wake commit author;
+- Telegram result;
+- no-wake window;
+- model/token/cost;
+- Kuma test;
+- rollback state.
 
 ## CẤM
 
-- Không tạo project/task/source/test/config/evidence file/service/port/listener mới.
-- Không tạo route riêng từng agent.
-- Không dùng shared key cho nhiều agent.
-- Không dùng `clientInfo` làm authorization/trusted identity.
-- Không đưa master Agent Data key/GSM broad access cho Hermes.
-- Không mở Hermes write ngoài HJW.
-- Không cấp task_*/exec/background tool cho agent profile trong RUN này.
-- Không expose `workspace_result_read` nếu result state chưa bind authenticated profile.
-- Không migrate Claude Code/agent khác production trong RUN này.
-- Không log/copy secret hoặc exact bypass exploit vào repo/chat.
-- Không tự tiếp tục automation Phase 1 sau KQ.
+- Không tạo task/project/repo file mới.
+- Không public raw port 8644/9119.
+- Không public default/full Hermes API Server.
+- Không đưa webhook payload tự do trực tiếp vào LLM prompt.
+- Không thêm GitHub webhook thứ hai trong RUN này.
+- Không cấp Hermes sudo/root/GSM broad access/master Agent Data key.
+- Không mở thêm workspace tools.
+- Không auto-approve production/root action từ unattended turn.
+- Không để webhook/cron bypass READY/RUN cho role=Agent.
+- Không thay Owner/Founders contract.
+- Không tự onboard agent thứ hai trong RUN này.
 
 ## AP-CLOSE
 
-- `KQ@HJW-2C-20260924-01 XONG` chỉ khi toàn bộ nghiệm thu PASS.
-- `DỪNG` nếu: legacy caller chưa được Owner xác nhận; G0 không đóng được structural auth; regression existing client; cần file/service/resource mới chưa được Owner duyệt; không tạo được narrow credential bằng secret path hiện hữu; scope/identity không enforce server-side; Hermes client preflight fail; long-read không đầy đủ; hoặc rollback không sạch.
-- Agent báo XONG không đồng nghĩa DONE; Host phải nghiệm thu KQ/evidence.
+- `KQ@HJW-3-20260924-01 XONG` chỉ khi T2/T5/T6/T10 và rollback/observability PASS.
+- DỪNG nếu: gateway 2C regression; webhook không thể bind loopback + expose qua existing nginx an toàn; secret phải plaintext; script gate có nhánh lỗi wake=true; direct external payload có thể thành arbitrary instruction; assignment/READY/RUN không enforce; no-agent window vẫn gọi LLM; STOP/HARD-STOP/Kuma không chứng minh được; hoặc rollback không sạch.
+- Agent báo XONG không đồng nghĩa DONE; Host + Reviewer nghiệm thu.
