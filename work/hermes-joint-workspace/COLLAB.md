@@ -1,20 +1,28 @@
 # COLLAB — Hermes Joint Workspace
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN — Owner 22/09/2026**: ngoài mục tiêu Hermes chạy API khép kín vòng, HJW phải (a) hạn chế rủi ro secret do Hermes sống trên VPS và không mặc định truy cập GSM trực tiếp; (b) khai thác đầy đủ thế mạnh always-on/API/webhook/Telegram của Hermes, thiết kế xong trước rồi mới triển khai.
+Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần.
 
 ### 1. Mục tiêu
-- Mục tiêu (mở rộng 2026-09-21 và 22/09 theo chỉ đạo Owner): Hermes là thành viên hội đồng cùng GPT và Claude, **chạy API 24/7 trên VPS**. Không chỉ “vào được workspace” như hai thành viên ban đầu, Hermes phải phát huy lợi thế always-on: tự thức đúng lúc, nhận trigger máy-máy, gọi API/webhook/scheduler, theo dõi việc dài hạn, retry có kiểm soát và chủ động nhắn Telegram cho Owner — để các vòng việc có thể khép kín mà Owner không phải trực máy.
-*(đề xuất — chờ Owner gật; giữ nguyên câu chữ §0 cũ)*
+- Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
+- Vá lỗ hổng authentication đã phát hiện ở HJW.2B1 **trước khi** bật đường agent mới.
+- Mỗi agent phải có credential/capability riêng do server xác thực và enforce; không dùng master key chung, không tin tên client tự khai để cấp quyền.
 
 ### 2. Thế nào là hoàn thành
-- Hermes cùng GPT và Claude xử lý việc qua API trên VPS, tự chạy các vòng đã giao khi Owner không trực máy. *(đề xuất — chờ Owner gật)*
-- Secret boundary và automation được thiết kế, kiểm thử theo T1–T10 trước khi đóng việc. *(đề xuất — chờ Owner gật)*
+- Có **một Agent Gateway chung** với profile server-side theo agent: credential riêng, tool allowlist, read/write root+path scope riêng, attribution đáng tin và revoke/rollback rõ.
+- Hermes dùng profile đầu tiên và PASS read/write thật trong scope được cấp; ngoài scope/tool bị chặn ở server.
+- Thêm agent tương lai chỉ cần thêm profile + secret/config tương ứng, **không viết thêm route code theo từng agent**.
+- Các client/route Agent Data hiện hành vẫn hoạt động sau thay đổi; auth bypass cũ đã bị đóng và có regression test.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-- Nhiệm vụ/phạm vi: (1) nối Hermes qua Agent Data đang có, không mở đường ghi Git thứ ba, không đưa tài khoản GitHub Owner lên VPS, không cấp sudo rộng; (2) tái dùng GitHub webhook + backstop đang chạy nhưng chỉ wake theo assignment máy đọc hợp lệ; (3) **thiết kế đầy đủ lớp automation/orchestration của Hermes trước khi triển khai**, xác định trigger → quyết định → hành động → retry/dedup → báo Owner/handoff; (4) **thiết kế secret boundary riêng cho bề mặt VPS**: không mặc định cho Hermes/VPS quyền truy cập trực tiếp rộng vào Google Secret Manager (GSM). Phải đọc kết quả `work/gsm-access-audit/`, xác định threat model và tối thiểu hoá credential/quyền GSM/secret material tồn tại trên VPS; ưu tiên chỉ đưa đúng bí mật tối thiểu cho đúng process/thời điểm thay vì cho agent khả năng duyệt/đọc kho secret. Giải pháp cụ thể do hội đồng review rồi mới chốt.
-- Tiêu chí xong: T1–T8 hiện có + **T9 Secret boundary** (Hermes không giữ quyền GSM rộng/không cần thiết; đường cấp secret, rotation, failure/compromise đã được review và test) + **T10 Automation value** (ít nhất các đường webhook/assignment, scheduled/backstop, API action và Telegram notification/handoff được thiết kế, chống trùng, có retry/cost/observability và nghiệm thu thật theo scope đã chốt). Sau đó mới cập nhật luật gốc hội đồng 3 thành viên.
-- Toàn bộ câu chữ và các vòng cũ giữ nguyên tại Vòng trước.
+- Giữ nguyên task/folder HJW hiện tại; **không tạo project/task/file mới**. Chỉ sửa file nguồn/config/test hiện hữu; nếu bắt buộc phải tạo file mới thì DỪNG xin Owner.
+- Kiến trúc Host chốt để review: một route generic (không `/mcp-hermes`), credential → profile server-side; policy profile dùng config hiện hữu `WORKSPACE_CONFIG`, secret thật chỉ ở server/root secret material, không ghi repo/config plaintext.
+- Authenticated `agent_id` phải do server suy ra từ credential và dùng cho attribution/presence/Git author signal; `clientInfo` chỉ là metadata, không có quyền quyết định identity/capability.
+- Scope đọc và ghi tách riêng; enforcement nằm ở server/choke point chung của workspace tools để raw MCP/HTTP hoặc route khác không vượt scope.
+- Profile Hermes đầu tiên chỉ là nghiệm thu cơ chế. Chưa migrate Claude Code/client khác trong RUN đầu; nhưng test phải chứng minh profile thứ hai giả lập có thể thêm bằng config/secret mà không sửa route code.
+- Không đưa tài khoản GitHub Owner lên VPS; không mở đường Git thứ ba; Agent Data vẫn là đường workspace đã nghiệm thu. Không cấp sudo/GSM rộng cho agent.
+- Sau PASS mới quay lại automation T1–T10/always-on của Hermes trên nền gateway mới.
+- Toàn bộ mục tiêu/vòng cũ giữ nguyên tại Vòng trước.
 
 ### Vòng trước
 - Mục tiêu (mở rộng 2026-09-21 và 22/09 theo chỉ đạo Owner): Hermes là thành viên hội đồng cùng GPT và Claude, **chạy API 24/7 trên VPS**. Không chỉ “vào được workspace” như hai thành viên ban đầu, Hermes phải phát huy lợi thế always-on: tự thức đúng lúc, nhận trigger máy-máy, gọi API/webhook/scheduler, theo dõi việc dài hạn, retry có kiểm soát và chủ động nhắn Telegram cho Owner — để các vòng việc có thể khép kín mà Owner không phải trực máy.
