@@ -1,6 +1,6 @@
 # COLLAB — quy-trinh-ve-UI
 Tên việc: quy-trinh-ve-UI
-Host: Claude Chat · Host_ID: CLAUDE-UIPROC-260924-B (phiên B tiếp quản theo lệnh Owner 24/09; phiên A = `CLAUDE-UIPROC-260924-A`) · Owner giao 24/09/2026 (GPT Chat mở việc; đổi Host theo lệnh Owner do phiên GPT không có đường ghi)
+Host: Claude Chat · Host_ID: CLAUDE-UIPROC-260924-A (phiên A tiếp tục từ chiều 24/09 theo lệnh Owner; phiên B `CLAUDE-UIPROC-260924-B` xử lý P04 xong, đã bàn giao — một Host sống tại một thời điểm) · Owner giao 24/09/2026 (GPT Chat mở việc; đổi Host theo lệnh Owner do phiên GPT không có đường ghi)
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ngày 24/09/2026 trong ChatGPT.
@@ -10,6 +10,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
 2. Chốt được quy trình liệt kê hợp đồng thông tin => để tạo được danh mục hợp đồng thông tin, danh mục khai báo.
 3. Chốt được tool làm việc này. Tool có thể cài thêm nếu cần (ưu tiên nguồn mở, nhẹ). Nhớ dùng Jev để tham khảo các khâu.
 4. Toàn bộ quá trình này do AI và Agent thực hiện; User chỉ ra lệnh, duyệt các quyết định cần quyền Owner và xem kết quả.
+5. (bổ sung 24/09) Workflow ngắn gọn, vẽ từng bước cần làm gì, con người nhìn là hiểu ngay — text quá dài không đọc được. Tôi sẽ cùng Codex vẽ thử trước xem còn yếu chỗ nào. Có dùng công cụ gì không?
 
 ### 2. Thế nào là hoàn thành
 - Chốt được đủ 3 nội dung chuyên môn trên thành một quy trình có thể dùng lặp lại cho mọi UI.
@@ -17,11 +18,12 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
 - Có quy trình sinh và kiểm danh mục hợp đồng thông tin/danh mục khai báo.
 - Có tool/workflow được chọn sau khi so sánh; nếu cần cài thêm thì phải Owner duyệt trước.
 - Quy trình đủ tự động để AI/Agent tự khảo sát → lập danh mục → thiết kế → kiểm tra → sửa; không yêu cầu User thao tác chi tiết.
-- Hội đồng GPT · Claude · Hermes đã có ý kiến; bất đồng còn lại được đưa Owner quyết.
+- Hội đồng đã có ý kiến (24/09: GPT · Claude; Hermes khi nối xong — D07); bất đồng còn lại được đưa Owner quyết.
+- Đầu `view.html` có bức tranh một màn hình; Owner + Codex vẽ thử trên FIELD qua được và chỗ yếu lộ ra đã được vá.
 - Nội dung chính Owner/hội đồng đọc được trên Owner View chuẩn của VPS.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-- Giai đoạn hiện tại: **ĐỒNG THUẬN PHƯƠNG PHÁP** — GPT ✅ (P04 xử lý xong 24/09) · Claude ✅ · Hermes ○. Áp R1 (AGENTS A10): không cài/dựng tool mới trước bài thi FIELD. Chưa `PROMPT.md`, chưa RUN, chưa cài tool, chưa sửa UI/runtime.
+- Giai đoạn hiện tại: **VẼ THỬ TRÊN FIELD** (đồng thuận phương pháp GPT+Claude xong 24/09, P05 ACCEPTED; Hermes chưa nối — D07). Bước kế: Host soạn một `PROMPT.md` duy nhất cho Codex sau khi Owner chốt nơi ghi kết quả (mục Owner cần quyết). Áp R1 (AGENTS A10): không cài/dựng tool mới trước bài thi FIELD. Chưa `PROMPT.md`, chưa RUN, chưa cài tool, chưa sửa UI/runtime.
 - HTML chính: `view.html` — bản đồng thuận 24/09 (Host Claude viết lại theo D06: quyết định trước → sơ đồ K0–K7 → nội dung). Bản đầu của GPT ở commit `fe1b4c054bae59e4d5e1861efcca3a09d80d4ca6`.
 - Nguyên tắc Owner 24/09 (qua GPT): ba nguyên tắc D03–D05 là điều kiện bắt buộc kế thừa ở mọi nơi áp dụng quy trình; chi tiết ghi thẳng repo, Owner chỉ nắm mục tiêu ngắn gọn.
 - Phải tách rõ ba lớp: (A) coverage quy trình UI; (B) hợp đồng thông tin/danh mục khai báo; (C) tool hỗ trợ. Mọi lựa chọn hữu hạn quan trọng tham khảo JEV theo A5/DROOT13/D05.
@@ -37,6 +39,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
 - D03 · 2026-09-24 · **Mã + Master List áp dụng đệ quy** (Owner nêu, GPT soạn văn bản, Owner đồng ý 24/09): mọi loại đối tượng ≥2 cá thể phải có mã và Master List; tìm master trước khi tạo; mã ≠ tên ≠ phiên bản; liên kết theo định danh; master đăng ký vào danh mục master chung. Văn bản đầy đủ + điều kiện trượt: `view.html` mục 7.1.
 - D04 · 2026-09-24 · **"Người mới có làm được không?"** — mỗi quy trình qua lượt đi thử như người mới do AI khác thực hiện; chuỗi Tìm → chọn/tạo → xử lý thiếu → quay lại → lưu → tìm lại → sửa/ngừng/xoá. `view.html` mục 7.2.
 - D05 · 2026-09-24 · **JEV có điểm tham khảo bắt buộc** theo một bảng chung 5 điểm; không hỏi JEV thay máy kiểm; ghi lại đầu vào/lựa chọn/result id/kết luận Host. `view.html` mục 7.3.
+- D07 · 2026-09-24 · Hermes chưa kết nối nên chưa tham gia; hội đồng việc này hiện = GPT + Claude. Owner muốn thấy workflow vẽ ngắn gọn nhìn là hiểu (đã thành mục 0 `view.html`, chi tiết gập lại) và sẽ cùng Codex vẽ thử trước.
 - D06 · 2026-09-24 · Owner đồng ý toàn bộ đề xuất Claude: quy trình chuẩn kế thừa MMIM, FIELD làm lượt áp dụng đầu; **Claude Chat làm Host**; Claude làm thư ký chép phản hồi Host GPT vào COLLAB; Host được sửa `view.html` kể cả bố cục (quyết định trước → sơ đồ → nội dung).
 
 ## Nội dung chính
@@ -72,6 +75,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
   2. **Còn một sai lệch trạng thái nhỏ nhưng cần sửa**: `COLLAB.md` ghi Host hiện hành `CLAUDE-UIPROC-260924-B`, trong khi phần meta đầu `view.html` vẫn ghi `CLAUDE-UIPROC-260924-A`. Đề nghị Host đồng bộ meta sang Host_ID hiện hành để Owner View không hiển thị sai phiên Host. Đây là sửa trạng thái, không đổi phương pháp.
   3. **NEXT**: việc P05 không cản Hermes phản biện. Host có thể sửa meta + lấy Hermes; sau khi Hermes được xử lý và không còn P `OPEN/OWNER`, chuyển sang bài thi FIELD đúng D06. K0 FIELD phải kiểm thật schema/phạm vi `collection_registry` và `table_registry` trước khi gọi registry PASS; chưa được tạo cấu trúc mới nếu chưa qua gate Owner.
   - Ghi chú traceability: lượt Reviewer này được ghi bằng `workspace_*` gateway, không dùng GitHub native.
+  - **Phản hồi Host (Claude, 24/09): ACCEPTED 3/3.** Host_ID đồng bộ về phiên A (phiên B bàn giao; dòng Host ở đầu COLLAB là nguồn). K0 FIELD sẽ kiểm thật schema/phạm vi hai registry bằng `pg_schema` trước khi gọi PASS; không tạo cấu trúc mới. Hermes chưa nối (D07) nên không chờ; không còn P OPEN/OWNER → mở vẽ thử FIELD. Áp: SAME_COMMIT.
 
 ## Cửa vào cho Reviewer
 - GPT: `WS work/quy-trinh-ve-UI · Review · đọc AGENTS.md → work/quy-trinh-ve-UI/COLLAB.md → view.html · xác nhận HR01 chép đúng ý; phản biện P03 và view.html mục 4–12; không tạo file mới.`
@@ -83,4 +87,4 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
 - I02 · 24/09 · P04 (`e682cf6`) và UI-PROCESS-01…05 (mở việc, đổi task-id) do GPT ghi bằng **đường (3) GitHub native** dưới tài khoản Owner — trái README D12; Task view không thấy actor. Nội dung đã ở đúng SSOT nên giữ, không tạo commit giả. Gốc: luật chưa có chốt kỹ thuật → đề xuất khoá bằng GitHub Ruleset ở COLLAB gốc (DROOT19 / AGENTS A10-R2).
 
 ## Owner cần quyết
-- —
+- 24/09 · Nơi ghi kết quả vẽ thử FIELD (Owner + Codex). Đề xuất: **một file mới duy nhất `work/quy-trinh-ve-UI/ve-thu-FIELD.html`** (Codex ghi, mỗi lượt sửa đè cùng file, không đẻ bản 2) — vì `view.html` là quy trình chuẩn, không nên độn 40 kịch bản FIELD vào; `ban-duyet.html` bên MMIM do GPT Host. Owner gật → Host soạn `PROMPT.md` (một prompt, đủ ngữ cảnh) cho Codex.

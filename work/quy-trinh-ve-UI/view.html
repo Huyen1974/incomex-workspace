@@ -23,13 +23,37 @@ ul,ol{margin:6px 0 6px 20px;padding:0}li{margin:3px 0}.small{font-size:13px;colo
 <h1>Quy trình vẽ UI</h1>
 <div class="meta">Việc <code>quy-trinh-ve-UI</code> · Host: <b>Claude Chat</b> · Host_ID <code>CLAUDE-UIPROC-260924-A</code> (Owner giao 24/09/2026; trước đó GPT Chat mở việc) · Hội đồng GPT · Claude · Hermes · Tài liệu chính duy nhất của việc; chi tiết trạng thái ở <code>COLLAB.md</code>.</div>
 
+<style>
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.flow div{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--box);font-size:13px;position:relative}
+.flow b{display:block;font-size:15px;margin-bottom:2px}.flow i{display:block;color:var(--mut);font-style:normal;margin-bottom:4px}.flow .ra{margin-top:4px}.flow .who{position:absolute;top:8px;right:8px;font-size:11px;padding:1px 6px;border-radius:10px;border:1px solid var(--line)}
+.own{border-color:#e0a400!important;background:#fff3cd!important}.own .who{background:#e0a400;color:#000;border-color:#e0a400}
+.strip{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.strip span{padding:5px 10px;border-radius:6px;border:1px solid var(--line);background:var(--box);font-size:13px}
+details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;font-size:17px;font-weight:600;padding:12px 0;color:var(--mut)}
+@media(max-width:700px){.flow{grid-template-columns:repeat(2,1fr)}}
+</style>
+<h2 id="buctranh">0. Bức tranh một màn hình — vẽ một UI gồm 8 khâu, anh chạm 3 lần</h2>
+<div class="flow">
+<div class="own"><span class="who">Owner gật</span><b>K0 Kiểm kê</b><i>"Đã có gì rồi?"</i>Xem PG/Directus, UI đang chạy, luật, tài liệu cũ.<div class="ra">→ Mục tiêu UI 1 câu + danh sách đối tượng (đã có / một nửa / chưa có)</div></div>
+<div><span class="who">AI</span><b>K1 Vòng đời</b><i>"Mỗi thứ sống–chết ra sao?"</i>Trạng thái, ai được làm gì, mã + master.<div class="ra">→ Một thẻ cho mỗi đối tượng</div></div>
+<div><span class="who">AI + JEV</span><b>K2 Ma trận</b><i>"Còn ô nào trống?"</i>Máy sinh mọi tổ hợp: tạo/sửa/xoá × trạng thái × vai trò × đúng/lỗi.<div class="ra">→ Mỗi ô: kịch bản / CẤM / không cần + lý do</div></div>
+<div><span class="who">AI</span><b>K3 Kịch bản</b><i>"Ai bấm gì, thấy gì?"</i>Mỗi ô thành một dòng có mã.<div class="ra">→ Bảng kịch bản: mã · ai · màn · kết quả · hỏng về đâu</div></div>
+<div><span class="who">AI + JEV</span><b>K4 Hợp đồng</b><i>"Số liệu ở đâu ra, đi đâu?"</i>Ba tầng: trường → đối tượng → chuyển tiếp; tìm trước khi khai mới.<div class="ra">→ Danh mục khai báo + danh mục hợp đồng</div></div>
+<div class="own"><span class="who">Owner gật</span><b>K5 Luồng + bảng G</b><i>"Anh cần quyết gì?"</i>Sơ đồ luồng; mọi chỗ AI còn đoán gom vào một bảng, có sẵn đề xuất. Đi thử kiểu người mới trên giấy.<div class="ra">→ Bảng G: anh gật/lắc từng dòng</div></div>
+<div><span class="who">AI</span><b>K6 HTML</b><i>"Bấm thử được chưa?"</i>Chỉ vẽ sau khi bảng G được gật.<div class="ra">→ Nguyên mẫu bấm được</div></div>
+<div class="own"><span class="who">Owner xem</span><b>K7 Kiểm độc lập</b><i>"Có sót không?"</i>Máy kiểm · AI khác làm lại mù · bài thi đáp án biết trước · người mới đi thử trên HTML.<div class="ra">→ PASS / FAIL, đủ 4 cửa mới PASS</div></div>
+</div>
+<div class="strip"><span><b>Luật xuyên suốt:</b> cái gì ≥2 thì có mã + master</span><span>người mới phải tự đi được</span><span>JEV chấm ở chỗ chọn, không nghĩ hộ</span><span>máy kiểm trước, người xem sau</span><span>chưa qua cửa khâu này thì không mở khâu sau</span></div>
+<div class="strip"><span><b>Công cụ:</b> không cài gì mới</span><span>Git = chữ/bảng (nguồn chuẩn)</span><span>Mermaid = chữ → sơ đồ</span><span>PG/Directus = đối chiếu cái đã có</span><span>JEV = chấm lựa chọn</span><span>ui_act = bấm thử HTML</span><span>Codex / Claude Code = tay làm</span></div>
+<p class="small">Vẽ thử lần đầu trên FIELD (Owner + Codex) để lộ chỗ yếu; đầy đủ từng khâu ở phần chi tiết bên dưới (dành cho AI/PM).</p>
+
 <h2 id="owner">1. Hôm nay Owner cần quyết</h2>
 <div class="box">— Không có. Ngày 24/09 Owner đã gật D03–D06 (mục 3). Câu tiếp theo sẽ xuất hiện khi chạy bài thi FIELD (nơi đặt danh mục khi chạy thật, DROOT16).</div>
 
 <h2 id="tiendo">2. Đang ở đâu</h2>
-<div class="bar"><span class="done">Mục tiêu ✅</span><span class="doing">◉ Đồng thuận phương pháp — GPT ✅ · Claude ✅ · Hermes ○</span><span class="todo">Bài thi FIELD ○</span><span class="todo">Nghiệm thu ○</span></div>
-<p class="small">Xong khi: Hermes có ý kiến và Host xử lý xong; quy trình được áp lên FIELD (việc MMIM) và bắt đủ 5 lỗi đã biết; hai kiểm độc lập PASS.</p>
+<div class="bar"><span class="done">Mục tiêu ✅</span><span class="done">Đồng thuận phương pháp ✅ (GPT + Claude; Hermes chưa nối — D07)</span><span class="doing">◉ Vẽ thử trên FIELD (Owner + Codex)</span><span class="todo">Nghiệm thu ○</span></div>
+<p class="small">Xong khi: vẽ thử FIELD lộ ra chỗ yếu và đã vá; quy trình bắt đủ 5 lỗi đã biết; hai kiểm độc lập PASS.</p>
 
+<details><summary>Chi tiết cho AI / PM — mục 3–13 (bấm để mở)</summary>
 <h2 id="chot">3. Đã chốt (Owner)</h2>
 <table>
 <tr><th style="width:70px">Mã</th><th>Quyết định</th></tr>
@@ -172,5 +196,6 @@ ul,ol{margin:6px 0 6px 20px;padding:0}li{margin:3px 0}.small{font-size:13px;colo
 <li><b>Mở cho Hermes:</b> phản biện toàn bộ mục 4–10, ưu tiên nhánh thiếu / lỗ hợp đồng / lỗ tự động hoá.</li>
 </ul>
 <p class="small">Bản trước (commit <code>fe1b4c0</code>): 7 bước B1–B7, 25 câu, ma trận 7 nhóm, 18 thuộc tính, 8 câu hỏi hội đồng — đã gộp vào bản này; Git giữ lịch sử.</p>
+</details>
 </body>
 </html>
