@@ -45,6 +45,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
 - D08 · 2026-09-24 · Owner chốt sửa tối thiểu hướng dẫn: trần 40 dòng chỉ cho kịch bản chi tiết, ma trận vẫn đủ tổ hợp; được kiểm/bấm UI hiện có từ K0 trước bảng G, bảng G chỉ chặn vẽ/đổi UI mới; nút ✎ chuyển thành kiểm hồi quy. Bài thử FIELD ghi trong tab Step quy trình của `work/mow-mot-moit-mout/ban-duyet.html`, không tạo file mới. · Áp: SAME_COMMIT.
 
 - D09 · 2026-09-24 · Owner yêu cầu tab đầu **Workflow for User** là hình luồng có ô, mũi tên và màu, giữ đúng K0–K7 cùng ba lần Owner chạm; tab thứ hai chứa hướng dẫn chữ cho AI. Bản vẽ đầu để Owner cùng sửa, chưa là quy trình đã chốt. Không tạo file mới. · Áp: SAME_COMMIT.
+- P06 · 2026-09-24 · Owner yêu cầu sửa bản vẽ trước khi tiếp tục FIELD: thêm K00 yêu cầu (đề bài, con số, điều kiện hoàn thành), việc làm = chữ nhật, cửa kiểm = hình thoi; câu hỏi từng K đặt trong phần bấm mở. Đã sửa thành bản **đề xuất chờ Owner xem/chốt**, giữ 3 điểm chạm K00/K5/K7; K0 FIELD vẫn chưa PASS vì chưa đọc được registry thật. Không tạo file mới.
 - JEV tham khảo bố cục · input = brief Owner (8 khâu, 3 điểm chạm, đọc hình nhanh hơn chữ, desktop/mobile) + overview cũ nhiều chữ; options = luồng dọc / lưới 4×2 / cuộn ngang / swimlane / chưa chọn; model `typesafe/jev-1.13-20260917`; result luồng dọc 0,93, confidence 0,92; id `gen-dec-1790244619-nAXQ91ffffD0zgV2HIWO`; Host chọn luồng dọc vì mũi tên theo một hướng.
 
 ## Nội dung chính
