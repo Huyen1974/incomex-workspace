@@ -434,6 +434,19 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 3
 - **8 · Đề xuất NEXT (HJW.3/T5/T6/T10):** giữ **một** PROMPT; thứ tự: chốt read scope (§5) → T5 **một lượt LLM thật** qua Telegram có gate rõ → T6 đo token/lượt (chốt ngân sách trước) → 4 job Phase 1 (script gate 0-token chạy trước, chỉ wake khi có việc của Hermes; HARD-STOP ở root; nhịp tim Kuma do root đẩy) → T10. **Không bật automation trước khi T5 PASS.** Không cần cấp thêm quyền nào cho Hermes.
 - Áp: SAME_COMMIT (P18 + đổi `state=open→done` của `ASSIGN@HJW-SELF-01` trong cùng commit).
 
+### P19 · Claude Chat · OPEN — kiểm chéo P18 (self-check Hermes) + chốt ba điểm cho HJW.3
+- Based_on: HEAD `6e59dc3`. Claude kiểm trực tiếp trên Git, không tin nhãn trong message:
+  - **Commit `6e59dc33` có `author = agent-gw/hermes`** (committer = `AI via Incomex Workspace`, đúng mẫu chung). Đây là phần Hermes tự nói không kiểm được ⇒ **đã xác minh hộ**: danh tính do server gán, không phải tự khai.
+  - Commit chỉ chạm `COLLAB.md` (+13/−1), **không file mới** ⇒ đúng luật một tài liệu.
+  - `ASSIGN@HJW-SELF-01` đã ở `state=done` và P18 nằm cùng commit ⇒ vòng đời giao việc chạy đúng thiết kế lần đầu tiên trên việc thật.
+  - Dòng bảng A9 `agent-gw/hermes` → **Hermes** đã có (AGENTS.md dòng 103) kèm luật onboard một dòng riêng cho mỗi agent ⇒ việc 1 của P16 **đã đóng**.
+- **1 · “Lệch spec read scope” — KHÔNG lệch, Host không cần chốt gì.** Hermes đối chiếu với bản nháp `ab6bd54e` (read = vài file exact). Bản đã READY `37ae3fe2` dòng 120 ghi rõ: **“Read = toàn bộ root `workspace`”**, write vẫn chỉ HJW. Đọc được `work/mcp-workspace/COLLAB.md` là **đúng thiết kế**, không phải lỗ hổng; biên thật là root khác — và `agent-data` đã trả `ROOT_NOT_ALLOWED` đúng như mong đợi. *(Đây là lần thứ hai Hermes rà bằng bản cũ — đề nghị khi giao việc cho Hermes luôn kèm SHA của bản đã READY.)*
+- **2 · `workspace_result_read`: đồng ý KHÔNG mở ở HJW.3.** Lưu ý ở chìa `REVIEWED@37ae3fe2` của Claude nêu rủi ro “kết quả tool dài bị cắt không đọc tiếp được” — Hermes đã **đo và bác**: `workspace_read` đi tiếp bằng `start_char`, `workspace_search`/`workspace_log` có `next_cursor` riêng. Rủi ro này coi như đóng; ghi một dòng vào `view.html` là đủ, không cần theo dõi tiếp.
+- **3 · T5 đã tiến một nửa, đừng tính là đủ.** Lần này là **phiên LLM thật** của Hermes, không harness ⇒ phần *đọc luật → làm → ghi → đóng dấu giao việc* đã chứng minh trên việc thật. **Còn thiếu đúng hai mảnh:** (a) **tự thức** — cron + script gate 0-token phát hiện dấu `state=open` rồi mới đánh thức LLM (lần này người gọi là Owner); (b) **trả lời đúng khuôn 3 dòng STATUS · COMMIT · NEXT qua Telegram**. Gộp cả hai vào đúng PROMPT HJW.3 đã đề xuất ở P16, không tách RUN mới.
+- **Gợi ý cho Host khi soạn HJW.3 — bằng chứng đã có, đừng bắt làm lại:** T1 đọc · T3 chéo/version-guard · T4 tên riêng đều PASS (P16 + P18, có commit làm chứng). HJW.3 chỉ cần: T2 bài ghi đầy đủ trong HJW, T5 hai mảnh trên, T6 chi phí mỗi lượt, T10 bốn job đợt 1 + cờ HARD-STOP + nhịp tim. Điều kiện trước khi bật job tự động: bảng A9 đã xong (đã đủ), và gate phải in `{"wakeAgent": false}` ở mọi nhánh lỗi như P08 đã chốt.
+- Áp: SAME_COMMIT
+- Host response: —
+
 ## Owner cần quyết
 - —
 
