@@ -47,6 +47,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
 - D09 · 2026-09-24 · Owner yêu cầu tab đầu **Workflow for User** là hình luồng có ô, mũi tên và màu, giữ đúng K0–K7 cùng ba lần Owner chạm; tab thứ hai chứa hướng dẫn chữ cho AI. Bản vẽ đầu để Owner cùng sửa, chưa là quy trình đã chốt. Không tạo file mới. · Áp: SAME_COMMIT.
 - P06 · 2026-09-24 · Owner bác bản K00/hình thoi vì rối; đã quay lại bố cục K0–K7 cũ. Tab đầu chỉ thêm “Câu hỏi” bấm mở danh sách ngắn; bản này chờ Owner xem. K0 FIELD vẫn chưa PASS vì thiếu bằng chứng registry thật.
 - P07 · 2026-09-24 · Owner yêu cầu thêm đúng một ô K00 “Đề bài” trước K0; ba câu hỏi do Owner nêu. Giữ bố cục cũ; K0 chỉ kiểm kê; hình thoi vẫn gác lại.
+- P08 · 2026-09-24 · ĐỀ XUẤT CHỜ OWNER: thay tab đầu bằng 1 bộ câu hỏi chung + 4 đường FIELD / FORM (MOIT, MOUT) / MOT / MOW; rút gọn đầu trang, giữ chi tiết cũ ở tab AI như bài thử FIELD. JEV tham khảo: options một luồng / bốn luồng rời / khung chung + bốn nhánh / khác; chọn khung chung + bốn nhánh 1,00, conf 1,00, id `gen-dec-1790248619-ijOkgWdEMNnJY8nQiO15`. Màn Kanban T2 là DRAFT mock data; K0 FIELD PG đã đọc nhưng chờ Owner chốt phạm vi.
 - JEV tham khảo bố cục · input = brief Owner (8 khâu, 3 điểm chạm, đọc hình nhanh hơn chữ, desktop/mobile) + overview cũ nhiều chữ; options = luồng dọc / lưới 4×2 / cuộn ngang / swimlane / chưa chọn; model `typesafe/jev-1.13-20260917`; result luồng dọc 0,93, confidence 0,92; id `gen-dec-1790244619-nAXQ91ffffD0zgV2HIWO`; Host chọn luồng dọc vì mũi tên theo một hướng.
 
 ## Nội dung chính

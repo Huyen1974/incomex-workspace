@@ -7,8 +7,8 @@
 <style>
 :root{--bg:#fff;--fg:#1d1d1f;--mut:#6e6e73;--line:#e3e3e8;--box:#f6f6f8;--red:#d93025;--yel:#e0a400;--grn:#1e8e3e;--gry:#9aa0a6;--blu:#1a73e8}
 /* Owner 24/09: luôn nền trắng, không theo chế độ tối */
-body{margin:0;padding:20px 22px 60px;font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg);max-width:1100px}
-h1{font-size:24px;margin:0 0 4px}h2{font-size:18px;margin:34px 0 10px;padding-top:12px;border-top:1px solid var(--line)}h3{font-size:15px;margin:18px 0 6px}
+body{margin:0;padding:10px 16px 40px;font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg);max-width:1100px}
+h1{font-size:19px;margin:0}h2{font-size:18px;margin:34px 0 10px;padding-top:12px;border-top:1px solid var(--line)}h3{font-size:15px;margin:18px 0 6px}
 .meta{color:var(--mut);font-size:13px}.box{background:var(--box);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:10px 0}
 table{border-collapse:collapse;width:100%;margin:8px 0;font-size:14px}th,td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left}th{background:var(--box)}
 code{background:var(--box);padding:1px 4px;border-radius:4px;font-size:13px}
@@ -21,73 +21,71 @@ ul,ol{margin:6px 0 6px 20px;padding:0}li{margin:3px 0}.small{font-size:13px;colo
 </head>
 <body>
 <h1>Quy trình vẽ UI</h1>
-<div class="meta">Việc <code>quy-trinh-ve-UI</code> · Host: <b>Claude Chat</b> · Host_ID <code>CLAUDE-UIPROC-260924-A</code> (Owner giao 24/09/2026; trước đó GPT Chat mở việc) · Hội đồng GPT · Claude · Hermes · Tài liệu chính duy nhất của việc; chi tiết trạng thái ở <code>COLLAB.md</code>.</div>
+
 
 
 <style>
-.ui-tabs{display:flex;gap:6px;margin:22px 0 18px;padding:5px;background:#edf2f8;border:1px solid #d9e3ef;border-radius:13px}
-.ui-tabs button{flex:1;border:0;border-radius:9px;background:transparent;color:#41546d;font:700 15px/1.25 -apple-system,Segoe UI,Roboto,sans-serif;padding:12px 16px;cursor:pointer}
-.ui-tabs button[aria-selected="true"]{background:#174a84;color:#fff;box-shadow:0 2px 7px #143f7226}
+.ui-tabs{display:flex;gap:4px;margin:8px 0;padding:3px;background:#edf2f8;border:1px solid #d9e3ef;border-radius:9px}
+.ui-tabs button{flex:1;border:0;border-radius:6px;background:transparent;color:#41546d;font:700 14px/1.2 -apple-system,Segoe UI,Roboto,sans-serif;padding:8px 10px;cursor:pointer}
+.ui-tabs button[aria-selected="true"]{background:#174a84;color:#fff}
 .ui-tabs button:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
 .ui-panel[hidden]{display:none!important}
-.user-hero{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 26px;border:1px solid #c8dcf5;border-radius:18px;background:linear-gradient(125deg,#e9f3ff,#f8fbff 72%,#fff)}
-.user-hero h2{border:0;padding:0;margin:5px 0;font-size:25px;line-height:1.18;color:#183550}
-.user-hero p{margin:0;color:#43566e;font-size:15px}
-.user-kicker{color:#174a84;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-.user-counts{display:flex;gap:9px;flex-shrink:0}
-.user-count{min-width:92px;padding:10px 12px;background:#fff;border:1px solid #d4e2f2;border-radius:13px;text-align:center;color:#40536c;font-size:12px;font-weight:700}
-.user-count strong{display:block;font-size:30px;line-height:1;color:#174a84}
-.user-count.owner strong{color:#a85e00}
-.v-legend{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:14px 4px 16px;color:#52637a;font-size:13px}
-.v-legend span{display:inline-flex;align-items:center;gap:7px}
-.v-legend i{display:inline-block;width:11px;height:11px;border-radius:3px;background:#2867b2}
-.v-legend .owner-dot{background:#e9a533}
-.v-flow{max-width:940px;margin:0 auto}
-.v-step{display:grid;grid-template-columns:56px minmax(0,1fr) minmax(160px,225px);gap:14px;align-items:center;padding:11px 15px;border:1px solid #cbdcf0;border-left:6px solid #2867b2;border-radius:15px;background:#fff;box-shadow:0 3px 10px #1b3d6510}
-.v-step.owner{border-color:#e8c57a;border-left-color:#d99115;background:#fffaf0}
-.v-num{display:grid;place-items:center;width:48px;height:48px;border-radius:13px;background:#2867b2;color:#fff;font-size:18px;font-weight:800}
-.v-step.owner .v-num{background:#bd7410}
-.v-main h3{margin:0 0 2px;font-size:17px;line-height:1.2;color:#193b60}
-.v-step.owner .v-main h3{color:#77500c}
-.v-main p{margin:0;color:#46586f;font-size:14px}
-.v-out{border-left:1px solid #d7e1ed;padding-left:14px;line-height:1.25}
-.v-out small{display:block;color:#60718a;font-size:10px;font-weight:800;letter-spacing:.08em;margin-bottom:3px}
-.v-out b{display:block;color:#21496d;font-size:13px}
-.v-step.owner .v-out{border-left-color:#e5cf9d}
-.v-step.owner .v-out small,.v-step.owner .v-out b{color:#805312}
-.v-arrow{height:17px;display:flex;justify-content:center;align-items:center;gap:8px;color:#50749d;font-size:21px;font-weight:800;line-height:1}
-.v-arrow[aria-label]{height:30px;color:#8b5a09;font-size:16px}
-.v-arrow span{font-size:12px}
-.user-notes{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:940px;margin:18px auto 0}
-.user-notes div{padding:10px 13px;border:1px solid #d8e3ef;border-radius:10px;background:#f7faff;color:#344e6a;font-size:13px}
-.user-notes div:last-child{border-color:#e9d19b;background:#fffaf0;color:#77500c}
-.user-status{max-width:940px;margin:12px auto 0;color:#677589;font-size:12px}
-.v-main details{margin:4px 0 0;border:0}.v-main summary{padding:0;color:#174a84;font-size:13px;font-weight:700}.v-main ul{margin:6px 0 0;padding:7px 10px 7px 26px;background:#fff;border:1px solid #d7e1ed;border-radius:5px;font-size:13px;color:#344e6a}.v-main li{margin:2px 0}
-.ai-details{margin-top:22px;border-top:1px solid var(--line)}
-@media(max-width:700px){.user-hero{display:block;padding:18px}.user-hero h2{font-size:22px}.user-counts{margin-top:14px}.user-count{flex:1}.v-step{grid-template-columns:48px 1fr;gap:10px;padding:10px}.v-num{width:42px;height:42px;font-size:16px}.v-out{grid-column:2;border-left:0;border-top:1px solid #d7e1ed;padding:6px 0 0}.v-step.owner .v-out{border-top-color:#e5cf9d}.user-notes{grid-template-columns:1fr}}
+.u-title{display:flex;align-items:baseline;gap:10px;margin:5px 0 9px}
+.u-title strong{font-size:18px;color:#193b60}
+.u-title small{font-size:11px;color:#8b5a09;font-weight:700}
+.u-spine{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;margin:0 0 8px}
+.u-spine span{min-height:36px;display:grid;place-items:center;text-align:center;background:#edf5ff;border:1px solid #cbdcf0;border-radius:5px;padding:5px;color:#21496d;font-size:12px;font-weight:700;position:relative}
+.u-spine span:not(:last-child):after{content:"→";position:absolute;right:-10px;top:50%;transform:translateY(-50%);z-index:1;color:#174a84}
+.u-questions{margin:0 0 10px;border:1px solid #d7e1ed;border-radius:6px;padding:0 10px;background:#f8fbff}
+.u-questions summary,.u-card summary{cursor:pointer;color:#174a84;font-size:13px;font-weight:700;padding:7px 0}
+.u-questions ol,.u-card ul{margin:0 0 9px 20px;padding:0;font-size:13px;line-height:1.45;color:#344e6a}
+.u-questions li,.u-card li{margin:3px 0}
+.u-cards{display:grid;gap:6px}
+.u-card{display:grid;grid-template-columns:74px minmax(0,1fr) auto;align-items:center;gap:9px;padding:8px 10px;border:1px solid #d7e1ed;border-left:4px solid #2867b2;border-radius:6px;background:#fff}
+.u-card b{color:#1c4d7b;font-size:15px}
+.u-card p{margin:0;color:#344e6a;font-size:13px}
+.u-card details{margin:0;border:0}
+.u-card summary{padding:2px 0;white-space:nowrap}
+.u-card ul{grid-column:1/-1}
+.u-card details[open]{grid-column:2/-1}
+.u-card details[open] ul{margin-top:4px}
+.u-foot{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;color:#475b70;font-size:12px}
+.u-foot span{background:#f4f7fb;border-radius:4px;padding:4px 7px}
+.ai-meta{margin:8px 0;color:#6e6e73;font-size:12px}
+@media(max-width:700px){.u-spine{grid-template-columns:repeat(3,minmax(0,1fr))}.u-spine span:after{display:none}.u-card{grid-template-columns:56px minmax(0,1fr);gap:5px}.u-card details{grid-column:2}.u-card details[open]{grid-column:1/-1}.u-title strong{font-size:16px}}
 </style>
 <nav class="ui-tabs" role="tablist" aria-label="Cách xem quy trình">
 <button type="button" id="user-tab" role="tab" aria-controls="user-panel" aria-selected="true" tabindex="0" data-panel="user-panel">Workflow for User</button>
 <button type="button" id="ai-tab" role="tab" aria-controls="ai-panel" aria-selected="false" tabindex="-1" data-panel="ai-panel">Hướng dẫn cho AI</button>
 </nav>
 <section id="user-panel" class="ui-panel" role="tabpanel" aria-labelledby="user-tab">
-<header class="user-hero"><div><span class="user-kicker">Bản vẽ để cùng chỉnh</span><h2>Vẽ một UI đi qua 9 khâu</h2><p>AI làm toàn bộ. Anh chạm 3 lần để chốt hướng và xem kết quả.</p></div><div class="user-counts"><div class="user-count"><strong>9</strong> khâu</div><div class="user-count owner"><strong>3</strong> lần anh chạm</div></div></header>
-<div class="v-legend"><span><i aria-hidden="true"></i> AI tự làm</span><span><i class="owner-dot" aria-hidden="true"></i> Anh gật hoặc xem</span><span>Đi từ trên xuống ↓</span></div>
-<div class="v-flow" aria-label="Luồng K00 đến K7">
-<article class="v-step owner"><div class="v-num">K00</div><div class="v-main"><h3>Đề bài</h3><details class="v-questions"><summary>Câu hỏi</summary><ul><li data-question-id="Q-K00-01">Yêu cầu là gì?</li><li data-question-id="Q-K00-02">AI xác nhận đã hiểu đầu bài (diễn giải ra các chi tiết)?</li><li data-question-id="Q-K00-03">Thế nào là hoàn thành?</li></ul></details></div><div class="v-out"><small>ANH GẬT · 1/3</small><b>Đề bài đã rõ</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
-<article class="v-step"><div class="v-num">K0</div><div class="v-main"><h3>Kiểm kê</h3><p>Đã có gì? Còn thiếu gì?</p><details class="v-questions"><summary>Câu hỏi</summary><ul><li data-question-id="Q-K0-04">Nguồn thật đã có gì; còn thiếu gì?</li></ul></details></div><div class="v-out"><small>AI BÀN GIAO</small><b>Hiện trạng + bằng chứng</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
-<article class="v-step"><div class="v-num">K1</div><div class="v-main"><h3>Vòng đời</h3><p>Đối tượng có trạng thái, quyền và mã gì?</p><details class="v-questions"><summary>Câu hỏi</summary><ul><li data-question-id="Q-K1-01">Có những đối tượng nào?</li><li data-question-id="Q-K1-02">Mỗi đối tượng có trạng thái nào?</li><li data-question-id="Q-K1-03">Ai được làm gì; ai bị cấm?</li><li data-question-id="Q-K1-04">ID, mã và master ở đâu?</li></ul></details></div><div class="v-out"><small>AI BÀN GIAO</small><b>Thẻ đối tượng</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
-<article class="v-step"><div class="v-num">K2</div><div class="v-main"><h3>Ma trận</h3><p>Quét đủ trường hợp: bình thường, phụ, lỗi và điều cấm.</p><details class="v-questions"><summary>Câu hỏi</summary><ul><li data-question-id="Q-K2-01">Đã sinh đủ tổ hợp chưa?</li><li data-question-id="Q-K2-02">Mỗi ô có kịch bản, CẤM hay N/A?</li><li data-question-id="Q-K2-03">N/A có lý do và nguồn chưa?</li><li data-question-id="Q-K2-04">Có ô nào bị lọc mất không?</li></ul></details></div><div class="v-out"><small>AI BÀN GIAO</small><b>Bảng độ phủ đủ ô</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
-<article class="v-step"><div class="v-num">K3</div><div class="v-main"><h3>Kịch bản</h3><p>Ai bấm gì, thấy gì; hỏng thì quay về đâu?</p><details class="v-questions"><summary>Câu hỏi</summary><ul><li data-question-id="Q-K3-01">Ai vào từ đâu, bấm gì?</li><li data-question-id="Q-K3-02">Màn hiện gì, nhập gì?</li><li data-question-id="Q-K3-03">Lưu xong thấy gì?</li><li data-question-id="Q-K3-04">Lỗi hoặc gọi nhánh phụ thì quay đâu?</li></ul></details></div><div class="v-out"><small>AI BÀN GIAO</small><b>Kịch bản chi tiết</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
-<article class="v-step"><div class="v-num">K4</div><div class="v-main"><h3>Hợp đồng thông tin</h3><p>Dữ liệu lấy ở đâu, lưu ở đâu, trả về đâu?</p><details class="v-questions"><summary>Câu hỏi</summary><ul><li data-question-id="Q-K4-01">Mỗi trường đã có trong registry chưa?</li><li data-question-id="Q-K4-02">Định nghĩa và validation ở đâu?</li><li data-question-id="Q-K4-03">Dữ liệu từ đâu, lưu đâu?</li><li data-question-id="Q-K4-04">Nơi dùng và nhánh lỗi đã rõ chưa?</li></ul></details></div><div class="v-out"><small>AI BÀN GIAO</small><b>Danh mục + hợp đồng</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
-<article class="v-step owner"><div class="v-num">K5</div><div class="v-main"><h3>Luồng + bảng G</h3><p>Vẽ đường đi; gom những chỗ cần anh quyết.</p><details class="v-questions"><summary>Câu hỏi</summary><ul><li data-question-id="Q-K5-01">Luồng chính, phụ, lỗi đã đủ chưa?</li><li data-question-id="Q-K5-02">Người mới đi thử trên giấy được không?</li><li data-question-id="Q-K5-03">Điểm chưa rõ đã vào bảng G chưa?</li><li data-question-id="Q-K5-04">Owner đã quyết từng dòng G chưa?</li></ul></details></div><div class="v-out"><small>ANH GẬT · 2/3</small><b>Gật/lắc từng dòng G</b></div></article><div class="v-arrow" aria-label="Chỉ dựng UI mới sau khi bảng G được gật">↓<span>G được gật mới dựng hoặc đổi UI</span></div>
-<article class="v-step"><div class="v-num">K6</div><div class="v-main"><h3>HTML bấm thử</h3><p>AI dựng bản để bấm và đi thử luồng.</p><details class="v-questions"><summary>Câu hỏi</summary><ul><li data-question-id="Q-K6-01">G đã duyệt chưa?</li><li data-question-id="Q-K6-02">Có bấm được mọi nhánh không?</li><li data-question-id="Q-K6-03">Quay lại có giữ dữ liệu không?</li><li data-question-id="Q-K6-04">Bản UI có đúng hợp đồng không?</li></ul></details></div><div class="v-out"><small>AI BÀN GIAO</small><b>UI bấm được</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
-<article class="v-step owner"><div class="v-num">K7</div><div class="v-main"><h3>Kiểm độc lập</h3><p>Máy kiểm, AI khác kiểm, bài thi và người mới đi thử.</p><details class="v-questions"><summary>Câu hỏi</summary><ul><li data-question-id="Q-K7-01">Máy kiểm có 0 lỗi không?</li><li data-question-id="Q-K7-02">Kiểm mù còn lỗ nào không?</li><li data-question-id="Q-K7-03">Bài thi có bắt đúng lỗi không?</li><li data-question-id="Q-K7-04">Người mới tự hoàn thành được không?</li></ul></details></div><div class="v-out"><small>ANH XEM · 3/3</small><b>PASS / FAIL có bằng chứng</b></div></article>
+<div class="u-title"><strong>1 bộ câu hỏi · 4 đường làm</strong><small>BẢN NHÁP</small></div>
+<div class="u-spine" aria-label="Khung chung"><span>Đề bài</span><span>Tìm cái nhỏ</span><span>Tạo nếu thiếu</span><span>Ghép cha</span><span>Lưu Master</span><span>Kiểm · giao</span></div>
+<details class="u-questions"><summary>Câu hỏi chung</summary><ol>
+<li data-question-id="UQ-01">Việc gì? Yêu cầu gì? Xong khi nào?</li>
+<li data-question-id="UQ-02">Loại nào? Master nào? Cần những nhãn/cột gì?</li>
+<li data-question-id="UQ-03">Cần cái nhỏ nào? Đã có chưa?</li>
+<li data-question-id="UQ-04">Thiếu: ai tạo, UI nào, lưu Master nào, quay lại đâu?</li>
+<li data-question-id="UQ-05">Ai làm: người hay máy? Khi nào bắt đầu?</li>
+<li data-question-id="UQ-06">Mỗi bước làm ở UI nào? Đọc gì, ghi đâu?</li>
+<li data-question-id="UQ-07">Xong giao/báo ai? Ở đâu?</li>
+<li data-question-id="UQ-08">Ai kiểm? Kiểm ở đâu, bằng gì?</li>
+<li data-question-id="UQ-09">Ai duyệt/ký nhận? Ở đâu, bằng gì?</li>
+<li data-question-id="UQ-10">Sai, thiếu, huỷ thì ai xử lý, quay về đâu?</li>
+<li data-question-id="UQ-11">Sửa/ngừng/xoá ảnh hưởng nơi dùng nào?</li>
+<li data-question-id="UQ-12">Bằng chứng nào cho thấy nhánh đã kết thúc?</li>
+</ol></details>
+<div class="u-cards" aria-label="Bốn đường làm theo loại">
+<article class="u-card"><b>FIELD</b><p>Nhóm/kiểu → Trường</p><details><summary>Câu riêng</summary><ul><li data-question-id="FIELD-Q01">Nhóm và kiểu đã có chưa?</li><li data-question-id="FIELD-Q02">Định nghĩa, định dạng, mã và nơi dùng là gì?</li><li data-question-id="FIELD-Q03">Field được duyệt, dùng lại, sửa/ngừng thế nào?</li></ul></details></article>
+<article class="u-card"><b>FORM</b><p>MOIT: Field → nhập · MOUT: dữ liệu → báo cáo</p><details><summary>Câu riêng</summary><ul><li data-question-id="FORM-Q01">MOIT: Field nào, ghi DB nào, điều kiện/trigger gì?</li><li data-question-id="FORM-Q02">MOUT: nguồn nào, cột/lọc/kỳ nào, gửi cho ai?</li><li data-question-id="FORM-Q03">Thiếu Field thì tạo ở đâu và quay về form nào?</li></ul></details></article>
+<article class="u-card"><b>MOT</b><p>MOIT/MOUT + người/điều kiện → Công việc</p><details><summary>Câu riêng</summary><ul><li data-question-id="MOT-Q01">Gọi MOIT/MOUT nào? Thiếu thì tạo ở đâu?</li><li data-question-id="MOT-Q02">Ai nhận việc, ai làm thay, khi nào chạy?</li><li data-question-id="MOT-Q03">Xong/lỗi thì giao cho ai, ai kiểm và duyệt?</li></ul></details></article>
+<article class="u-card"><b>MOW</b><p>MOT + thứ tự/nhánh → Quy trình</p><details><summary>Câu riêng</summary><ul><li data-question-id="MOW-Q01">Gồm MOT nào? Thiếu thì tạo rồi quay lại đâu?</li><li data-question-id="MOW-Q02">Thứ tự, song song, nhánh rẽ và điểm kết thúc?</li><li data-question-id="MOW-Q03">Ai kiểm, ai duyệt, ai ban hành?</li></ul></details></article>
 </div>
-<div class="user-notes"><div><b>Qua cửa khâu trước</b> rồi mới mở khâu sau.</div><div><b>UI hiện có:</b> được xem và bấm thử ngay từ K0.</div></div>
-<p class="user-status">Đang vẽ thử trên FIELD: K0 chưa PASS vì chưa đọc được registry PG thật. Phần chữ chi tiết nằm ở tab “Hướng dẫn cho AI”.</p>
+<div class="u-foot"><span>Có → dùng lại · Thiếu → tạo rồi quay lại</span><span>Sửa: Master + Kanban</span><span>Ngừng/xóa: kiểm nơi dùng</span><span>Mỗi nhánh đi đến kết quả cuối</span></div>
 </section>
 <section id="ai-panel" class="ui-panel" role="tabpanel" aria-labelledby="ai-tab" hidden>
+<div class="ai-meta">Việc <code>quy-trinh-ve-UI</code> · Host: <b>Claude Chat</b> · Host_ID <code>CLAUDE-UIPROC-260924-A</code> (Owner giao 24/09/2026; trước đó GPT Chat mở việc) · Hội đồng GPT · Claude · Hermes · Tài liệu chính duy nhất của việc; chi tiết trạng thái ở <code>COLLAB.md</code>.</div>
+<p class="small"><b>Bản nháp mới:</b> Một bộ câu hỏi chung; FIELD, FORM, MOT, MOW có đường làm riêng. Mỗi nhánh phải đi tới người làm, UI, dữ liệu, người kiểm/duyệt và kết quả. K00–K7 bên dưới là bài thử FIELD, không áp nguyên cho bốn loại.</p>
 
 <style>
 .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.flow div{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--box);font-size:13px;position:relative}
@@ -97,7 +95,7 @@ ul,ol{margin:6px 0 6px 20px;padding:0}li{margin:3px 0}.small{font-size:13px;colo
 details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;font-size:17px;font-weight:600;padding:12px 0;color:var(--mut)}
 @media(max-width:700px){.flow{grid-template-columns:repeat(2,1fr)}}
 </style>
-<h2 id="buctranh">0. Bức tranh một màn hình — 9 khâu, anh chạm 3 lần</h2>
+<h2 id="buctranh">0. Bài thử FIELD — K00–K7</h2>
 <div class="flow">
 <div class="own"><span class="who">Owner gật</span><b>K00 Đề bài</b><i>"Yêu cầu là gì?"</i>AI diễn giải chi tiết; Owner xác nhận điều kiện hoàn thành.<div class="ra">→ Đề bài đã rõ</div></div>
 <div><span class="who">AI</span><b>K0 Kiểm kê</b><i>"Đã có gì rồi?"</i>Xem PG/Directus, UI đang chạy, luật, tài liệu cũ; được bấm thử UI hiện có ngay ở K0.<div class="ra">→ Hiện trạng + bằng chứng</div></div>
@@ -114,10 +112,10 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <p class="small">Vẽ thử lần đầu trên FIELD (Owner + Codex) để lộ chỗ yếu; đầy đủ từng khâu ở phần chi tiết bên dưới (dành cho AI/PM).</p>
 
 <h2 id="owner">1. Hôm nay Owner cần quyết</h2>
-<div class="box">Owner xem K00 “Đề bài” trước. Bài thử FIELD vẫn ở K0 chưa PASS vì thiếu bằng chứng registry PG; G01–G07 vẫn chờ, chưa duyệt UI mới.</div>
+<div class="box">FIELD: PG đã đọc; K0 chờ Owner xác nhận mục tiêu/phạm vi. G01–G07 vẫn chờ; chưa duyệt UI mới.</div>
 
 <h2 id="tiendo">2. Đang ở đâu</h2>
-<div class="bar"><span class="done">Mục tiêu ✅</span><span class="done">Đồng thuận phương pháp ✅ (GPT + Claude; Hermes chưa nối — D07)</span><span class="doing">◉ K0 FIELD · thiếu bằng chứng registry PG</span><span class="todo">Nghiệm thu ○</span></div>
+<div class="bar"><span class="done">Mục tiêu ✅</span><span class="done">Đồng thuận phương pháp ✅ (GPT + Claude; Hermes chưa nối — D07)</span><span class="doing">◉ K0 FIELD · PG đã đọc, chờ Owner chốt phạm vi</span><span class="todo">Nghiệm thu ○</span></div>
 <p class="small">Xong khi: vẽ thử FIELD lộ ra chỗ yếu và đã vá; quy trình bắt đủ 4 lỗ đã biết và nút ✎ qua kiểm hồi quy; hai kiểm độc lập PASS.</p>
 
 <div class="ai-details">
@@ -134,7 +132,7 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <tr><td>D09</td><td>24/09 · Tab đầu <b>Workflow for User</b> là sơ đồ màu K0–K7 để Owner nhìn và sửa; tab thứ hai giữ hướng dẫn chi tiết cho AI. Bản vẽ đầu là đề xuất, chưa là quy trình Owner chốt.</td></tr>
 </table>
 
-<h2 id="khau">4. Quy trình — 9 khâu K00–K7</h2>
+<h2 id="khau">4. Bài thử FIELD — K00–K7</h2>
 <p>Khâu = việc AI thiết kế (K). Bước người dùng bấm trong một UI gọi là <b>bước thao tác</b> (S01–S08 của MMIM). Hai thứ khác tầng, không gọi chung là "bước".</p>
 <div class="k">
 <div><b>K00 Đề bài</b>Yêu cầu · AI diễn giải chi tiết · điều kiện hoàn thành<br><span class="tag">chạm Owner</span></div>
@@ -184,7 +182,7 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <li>Mã ≠ tên ≠ phiên bản. Đổi tên không đổi định danh, không đứt liên kết. Danh mục chỉ rõ đối tượng ở đâu, loại nào, trạng thái gì, dùng ở đâu.</li>
 <li>Liên kết tham chiếu định danh, không dựa vào hai nơi viết tên giống nhau; mỗi định danh/quan hệ có ánh xạ sang khoá chính/duy nhất/ngoại.</li>
 <li>Master List là yêu cầu quản lý, không đồng nghĩa lập tức tạo bảng SQL riêng. Các master đăng ký trong danh mục master chung; không sinh "master của master" vô hạn.</li>
-<li><b>Bổ sung (Claude P03, chỉnh theo GPT P04):</b> tách hai thứ. <b>ID nội bộ</b> dùng để liên kết do hệ thống sinh và kiểm soát, người không gõ. <b>Mã nghiệp vụ / mã từ hệ khác</b> (Lark, biểu mẫu đối tác…) là thuộc tính riêng, được nhập/đồng bộ từ nguồn. Danh mục master chung: phải kiểm <code>collection_registry</code> và <code>table_registry</code> theo đúng loại đối tượng; tên “registry” không đủ để coi là Master Field. K0 FIELD chưa đọc được cấu trúc registry từ PG thật; chưa đủ bằng chứng để kết luận về Master Field hoặc cho K0 PASS. Tiếp tục tìm master hợp lệ trước khi đề xuất mở rộng hay tạo mới; <b>cấm dựng danh mục thứ hai</b>. Đủ → dùng lại; thiếu nhưng mở rộng an toàn → đề xuất mở rộng; cần cấu trúc mới → qua cổng Owner trước khi tạo.</li>
+<li><b>Bổ sung (Claude P03, chỉnh theo GPT P04):</b> tách hai thứ. <b>ID nội bộ</b> dùng để liên kết do hệ thống sinh và kiểm soát, người không gõ. <b>Mã nghiệp vụ / mã từ hệ khác</b> (Lark, biểu mẫu đối tác…) là thuộc tính riêng, được nhập/đồng bộ từ nguồn. Danh mục master chung: phải kiểm <code>collection_registry</code> và <code>table_registry</code> theo đúng loại đối tượng; tên “registry” không đủ để coi là Master Field. K0 FIELD đã đọc PG thật: collection_registry quản lý collection; table_registry quản lý cấu hình bảng UI; cả hai không phải Master Field nghiệp vụ. PG chưa có field_registry. K0 chưa PASS vì chờ Owner xác nhận phạm vi. Tiếp tục tìm master hợp lệ trước khi đề xuất mở rộng hay tạo mới; <b>cấm dựng danh mục thứ hai</b>. Đủ → dùng lại; thiếu nhưng mở rộng an toàn → đề xuất mở rộng; cần cấu trúc mới → qua cổng Owner trước khi tạo.</li>
 </ul>
 <p><b>Điều kiện trượt:</b> đã tạo đối tượng nhưng chưa đăng ký vào master · có mã không tìm được đối tượng · liên kết tới mã không tồn tại · <b>hai master cho cùng loại cùng phạm vi</b>. Đây là quy định để thiết kế và kiểm tra, không phải lệnh tự tạo bảng/file/task ngoài phạm vi đã duyệt. Toàn bộ điều kiện trượt này là việc của <b>máy kiểm</b>, không hỏi JEV.</p>
 
