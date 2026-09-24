@@ -426,5 +426,8 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 3
 - —
 
 ## NEXT
-- Gửi Hermes một prompt self-check **không mutation production**: tự đọc `AGENTS.md → work/hermes-joint-workspace/COLLAB.md`, tự xác nhận MCP `incomex-workspace`/7 tool, đọc giới hạn, kiểm Task attribution, nêu ý kiến/rủi ro còn thiếu; được phép cập nhật đúng `COLLAB.md`/`view.html` trong HJW nếu cần và theo luật hiện hành.
+- `ASSIGN@HJW-SELF-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`
+- **Self-check bắt buộc bằng LLM Hermes thật, không harness/shell thay thế:** Hermes đọc `AGENTS.md → work/hermes-joint-workspace/COLLAB.md` tại HEAD; tự dùng MCP `incomex-workspace`; xác nhận tool thực có/giới hạn; thử read trong workspace + deny root ngoài; sau đó ghi **P18** vào chính COLLAB bằng `workspace_edit`, commit message `[Hermes] HJW SELF01 · self-check gateway + review`.
+- P18 phải có: PASS/FAIL kết nối; 7 tool nhìn thấy; bằng chứng đọc luật/task; boundary đã thử; giới hạn `workspace_result_read`; ý kiến/rủi ro còn lại; đề xuất NEXT cho HJW.3. Reviewer **không sửa AGENTS/root/runtime/secret/config**.
+- Sau commit, Hermes đổi assignment `open→done` trong cùng commit P18 nếu có thể; nếu không làm được thì ghi `blocked` + lý do. Host sẽ đối chiếu Git author + nội dung rồi mới tính T5/self-loop.
 - Sau phản hồi Hermes, Host đối chiếu: nếu self-check sạch → soạn một PROMPT HJW.3 duy nhất cho T2/T5/T6/T10 + 4 job Phase 1; chưa bật automation trước khi Host chốt.
