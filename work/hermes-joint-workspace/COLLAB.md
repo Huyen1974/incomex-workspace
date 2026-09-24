@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 READY@23f49c0a… · RUN ISSUED | NEXT: Claude Code triển khai G1→G3; tới T5 checkpoint chờ Host arm assignment test | BLOCK: —
+HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 RUN PARTIAL · topology blocker webhook↔nginx | NEXT: G1/G2 + local webhook tests → PUBLIC_WEBHOOK_BRIDGE_REQUIRED | BLOCK: public webhook bridge chưa được review
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -504,16 +504,20 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 READY@23f49c0a… · 
 - Host response: —
 
 ## Owner cần quyết
-- — Chưa có trước G1–G3. **T5 assignment test chưa arm trước** để tránh Hermes tự thức khi hạ tầng chưa PASS.
+- — Không cần Owner đổi thiết kế lúc này.
+
+### P24 · Host GPT · RULING — webhook loopback ↔ nginx container bridge
+- Executor phát hiện đúng xung đột runtime: built-in webhook phải bind `127.0.0.1:8644`, trong khi nginx chạy trong Docker network chỉ chạm host qua `172.18.0.1`; container không thể gọi host-loopback trực tiếp.
+- **Chọn phương án 2:** tiếp tục toàn bộ phần **không cần public bridge**: G1 dispatcher + G2 cron/jobs + STOP baseline + webhook loopback/local HMAC/canary/socket proof. **Không tạo systemd socket-proxyd/unit/listener mới trong RUN hiện tại**, vì PROMPT §3 chỉ cho tối đa một runtime dispatcher script và cấm tạo server/service public mới; bridge mới dù private vẫn là năng lực runtime mới chưa được review.
+- Không đổi webhook bind sang `0.0.0.0`, `::`, `172.18.0.1` để “cho nginx thấy”; loopback proof vẫn là gate bắt buộc.
+- Không sửa nginx public route cho webhook khi upstream loopback chưa có đường hợp lệ; không làm external Mac test; không arm T5.
+- Sau khi G1/G2 + local webhook tests PASS, executor ghi checkpoint `PUBLIC_WEBHOOK_BRIDGE_REQUIRED` với evidence: Docker/nginx network path, socket proof, local HMAC/canary result, rollback state. Host sẽ quyết một delta PROMPT riêng để cho phép **private bridge tối thiểu** nếu thực sự cần.
+- Không coi đây là KQ DỪNG toàn RUN; là **PARTIAL checkpoint** do phát hiện topology không khớp assumption. Không rollback phần đã PASS.
 
 ## NEXT
-- Claude Code CLI thực thi `HJW-3-20260924-01`: đọc `AGENTS.md → COLLAB.md → PROMPT.md`, kiểm `READY@23f49c0ac5ca5fe9436cc0b77166224bebd0d55e` + Claude REVIEWED cùng SHA + Hermes P22 PASS trước mutation.
-- Triển khai/kiểm G1→G3 theo PROMPT. Khi webhook+cron+STOP/Kuma baseline đã PASS và trước T5 live self-wake, **DỪNG ở checkpoint `T5_ARM_REQUIRED` và báo Host**. Agent không tự tạo assignment T5 thay Host.
-- Host khi đó ghi một `ASSIGN@HJW-H3-T5-01 ... state=open` an toàn vào HJW; executor tiếp tục T5/T6/T10.
-- Trước restart/reload production vẫn Telegram Owner theo PROMPT. Lỗi kết nối thuần túy do phiên khác restart áp OP-NOTE cũ: giữ checkpoint, không mutation, retry backoff; không tự mở rộng quyền/restart ngoài PROMPT.
-- KQ cuối phải nộp đủ 3 HARD EVIDENCE ở trên; thiếu một ⇒ Host không nghiệm thu XONG.không SSOT thứ hai).
-- **3 webhook injection: ĐÓNG.** Route template = **literal fixed text**; **CẤM mọi biến/template lấy từ body/header/query/payload**; route name/profile/event allowlist là config cố định; context route không được chứa nội dung payload ngoài; dispatcher luôn re-read Git SSOT. **Negative canary** phải chứng minh canary **không xuất hiện** ở run prompt/context, model output, Telegram delivery **và application log** — xuất hiện ở bất kỳ nơi nào ⇒ **DỪNG/rollback**.
-- **4 rate-limit: ĐÓNG.** Ghi **số tường minh ở cả hai tầng**: adapter `rate_limit: 30` request/phút/route; nginx public **≤30 request/phút/source, burst ≤5** (reuse zone nếu zone ≤30/phút; nếu nhanh hơn thì tạo/chỉnh route-specific limit trong nginx hiện hữu, không server mới); acceptance đòi **số thật** request/401/2xx/429 và master/route khác không ảnh hưởng.
+- Executor tiếp tục từ checkpoint hiện tại theo P24; **không chạy option 1**, không tự tạo bridge/service/listener.
+- Hoàn tất G1/G2 và các phép G3 local-only; khi chạm phần public ingress/nginx thì dừng `PUBLIC_WEBHOOK_BRIDGE_REQUIRED` và báo Host.
+- Nếu xuất hiện câu hỏi Secret tiếp theo: ưu tiên secret path/root-managed env hiện hữu; không tạo secret store/file/resource mới, không plaintext.one ≤30/phút; nếu nhanh hơn thì tạo/chỉnh route-specific limit trong nginx hiện hữu, không server mới); acceptance đòi **số thật** request/401/2xx/429 và master/route khác không ảnh hưởng.
 - **5 network bind: ĐÓNG.** Ghim **đúng key** `platforms.webhook.extra.host: 127.0.0.1` (port 8644, không dựa default + nêu lý do source); sau start/restart **bắt buộc `ss -ltnp`** cho **8644 + API 8642 + serve 9119**, chỉ loopback; bất kỳ `0.0.0.0`/`::` hoặc **không chứng minh được ⇒ DỪNG** trước public test; audit nginx **không có route public cũ** tới `/v1/*`/8642/9119 (T10 #14 lặp lại).
 - **6 STOP: ĐÓNG.** Flag **root-owned**, Hermes **không ghi được**, nhưng **world-readable** (ví dụ root:root 0644); **không đọc/stat được ⇒ coi như STOP đang BẬT**; mọi lỗi permission/I/O/parse ở bước STOP **fail-closed** (sentinel false + exit 0); flag ON ⇒ cron **và** webhook-triggered dispatcher đều 0 agent run; Hermes không tự gỡ; acceptance test flag ON / unreadable-giả lập / OFF.
 - **7 Telegram: ĐÓNG.** Job prompt ép **exactly 3 non-empty lines, không code fence/không lời mở đầu-kết**: `STATUS: ...` / `COMMIT: <sha|—>` / `NEXT: ...`; nghiệm thu trên **tin nhắn Telegram thực tế** (hoặc raw delivery log tương đương), **không** dùng model output nội bộ; thừa/thiếu dòng hoặc thêm prose ⇒ **T5 FAIL** (T10 #12 lặp lại).
