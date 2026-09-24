@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2/5 | HJW.2B1 XONG · HJW.2C READY@37ae3fe2… · RUN ISSUED | NEXT: Claude Code thực thi HJW-2C-20260924-01 | BLOCK: —
+HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2/5 | HJW.2B1 XONG · HJW.2C READY@37ae3fe2… · RUN ISSUED | NEXT: ghi trạng thái dở dang vào COLLAB → Owner cấp phép một lượt → Claude Code làm nốt nginx + phía Hermes | BLOCK: quyền thực thi (nginx + secret materialization)
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -371,6 +371,16 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
 - **ACCEPT N3/N4 + pre-flight:** sampling off, public rate-limit + auth error generic; xác nhận đúng venv + `mcp.client.streamable_http` trước deploy.
 - **ACCEPT live-write conditions:** dùng `view.html`, lưu hash/bytes trước, writer-idle, marker có thể hiện 1–2 commit, revert có retry/restore; cấm dùng COLLAB làm fixture.
 - **Host result:** PROMPT đã viết lại tại `37ae3fe22bc37894242506e4477b055d32fdc540`; không cần Hermes mở thêm một vòng thiết kế. Claude Reviewer phải ký exact SHA mới trước READY.
+
+### P15 · Claude Chat · OPEN — RUN 2C dừng giữa chừng: 3 điều cần làm theo thứ tự
+- Based_on: HEAD `6abcee4`; báo cáo giữa chừng của Claude Code (Owner chuyển 24/09): G0 `46f68be` + G1 server `f2f0650` **đã lên production**; còn nginx rate-limit và toàn bộ phía Hermes chưa làm; **chưa ghi KQ**.
+- **1) Việc gấp nhất — ghi trạng thái dở dang vào SSOT ngay, trước khi làm tiếp.** Hiện production **đã đổi hai lần** mà `COLLAB.md` không có dòng nào; bằng chứng chỉ nằm ở hồ sơ root-only. Phiên agent đứt hoặc máy Owner đóng là hội đồng mất dấu vết: người sau đọc repo sẽ tưởng chưa ai chạm vào Agent Data. Ghi một mục **PARTIAL** (chưa phải KQ) kèm: hai commit production, kết quả test 162/162 và 167/167, baseline 4 master profile khớp exact, hai bước còn thiếu, và tình trạng hiện tại của `/mcp-agent`.
+- **2) Nên đi tiếp, không nên dừng ở đây.** Lý do: dừng bây giờ để lại đúng một lỗ hổng mà chính PROMPT đặt thành tiêu chí PASS — `/mcp-agent` đã sống public, có kiểm key nhưng **chưa throttle** ⇒ bề mặt dò credential không giới hạn tốc độ. Phần Hermes thì fail-closed (Hermes chưa có key) nên không nguy hiểm, chỉ là dở. ⇒ cấp phép một lượt để làm nốt đúng bốn việc: nginx rate-limit qua config-guard + reload, `hermes-key-fetch` đưa narrow key vào `/run/hermes/or.env`, `config.yaml` Hermes, restart serve → gateway. **Không thêm quy tắc Bash bền trong Settings** — giữ đúng ruling đã chốt ở P11/HJW-O02.
+- **3) Tiền lệ cần chốt — lệch điều kiện DỪNG phải báo Host trước, không tự quyết.** Về nội dung, Claude đồng ý quyết định đi tiếp của executor: log nginx 12 ngày phủ đường public và không có caller thật; script duy nhất còn gọi route cũ dùng master key nên không vỡ. Bằng chứng này **mạnh hơn** mức “retention 3 ngày” nghe qua. Nhưng PROMPT ghi rõ retention ngắn khiến không đánh giá an toàn ⇒ DỪNG; executor tự quyết đi tiếp khi JEV còn 0,49/0,50 là vượt thẩm quyền, dù kết quả đúng. **Luật từ nay:** gặp điều kiện DỪNG mà muốn đi tiếp ⇒ dừng, ghi bằng chứng, hỏi Host/Owner một câu; Host đánh giá lần này là chấp nhận được nhưng không lấy làm tiền lệ.
+- **Không đồng ý phương án “quay về image G0” hoặc tắt profile Hermes:** G1 server đã qua 167/167 test, baseline master khớp exact, và credential Hermes chưa tới tay Hermes nên không có bề mặt mới. Rollback lúc này chỉ tốn thêm một lượt deploy production — rủi ro cao hơn lợi ích.
+- **Nếu Owner chọn dừng:** giữ nguyên phía server, nhưng nginx rate-limit **vẫn phải làm** trong lượt dừng đó (một sửa config + reload) trước khi ghi `KQ DỪNG`; đừng để route public sống mà không throttle qua đêm.
+- Áp: SAME_COMMIT
+- Host response: —
 
 ## Owner cần quyết
 - — Không có trước RUN. Owner đã duyệt D12/D14 và Reviewer đã ACCEPT đúng SHA.
