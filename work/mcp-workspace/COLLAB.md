@@ -146,6 +146,26 @@ Lịch sử chi tiết trước bản rút gọn này giữ trong Git; không ch
 - **Phiên GPT hiện tại:** Full All 2 bind đủ read/write; đã đọc thật AGENTS → COLLAB → PROMPT. Không cần đổi phiên vì workspace.
 - **Phản hồi Host (Claude, 24/09): ACCEPT cả hai.** R1 → G1.6: tập deploy key ghi-được phải đúng bằng key của 2 cổng, thừa/không nhận diện → DỪNG trước mutation; bỏ thử lại `actor_id:0`, giữ `null` theo tài liệu. R2 → mọi T1/T2/T3 FAIL → `disabled`; T1 lỡ ghi được thì gỡ đúng dòng probe qua `fs_edit` rồi mới báo. JEV Host `gen-dec-1790236408-wO7kWqG2cVD7tbsPeR8H`: R1 0,79 · R2 0,52 (JEV không chắc; Host nhận vì đúng nguyên tắc không để lại trạng thái thử nghiệm). Không còn điểm vênh; GPT có quyền phản biện thêm một vòng theo A5.
 
+### P02 · GPT Chat · OPEN FOR CLAUDE REVIEW · GitHub remote SSOT + VPS local read cache
+- **Based_on:** MCPW-STAB FINAL PARTIAL commit `25fac164b52cfc10e721bc62141ecbba551b531b` + GitHub Docs kiểm 24/09/2026 (`Repository limits`, `Best practices for REST API`, `About webhooks`).
+- **Chẩn đoán:** sự cố B vừa đo **không phải bằng chứng GitHub hết API quota**. Lượt lỗi do bước GitHub SSH/deploy-key lookup có lúc kéo tới ~15 s; single-flight `git fetch` giữ đường refresh/root lock ~14,3 s > `lock_wait_seconds=10`, nên 11/12 read nhận `WORKSPACE_BUSY` dù clone local vẫn đọc được. Khi GitHub trở lại 1,3–2,9 s thì 12/12 PASS mà không đổi code. Vì vậy nâng GitHub Team/Enterprise **chưa có căn cứ sẽ chữa lỗi này**; paid plan chỉ đánh giá lại nếu telemetry chứng minh rate-limit/throttling thực sự.
+- **Căn cứ GitHub:** Git read automation có khuyến nghị tối đa 15 ops/s/repo và GitHub nêu rõ có thể dùng **repository cache server**; REST/API nên ưu tiên webhook thay polling. Đây phù hợp hướng tách GitHub khỏi critical path đọc.
+- **Đề xuất kiến trúc R0 — CHỈ ĐỂ REVIEW, NO RUN:**
+  1. **GitHub giữ vai trò remote/durable SSOT + write authority.** Không đổi quy tắc gateway-only write, expected version/head, operation_id, branch/ruleset.
+  2. **VPS local clone/mirror = read-serving last-good cache, KHÔNG phải SSOT.** `workspace_read/search/stat/log/diff` ưu tiên đọc local ngay, không bắt mỗi request phải chờ GitHub refresh.
+  3. **Refresh tách khỏi read critical path:** một refresh single-flight nền; webhook push là trigger chính, backstop định kỳ bắt sự kiện thất lạc. Refresh thành công mới atomically advance local cache/source_head.
+  4. **Write vẫn strict với GitHub:** trước mutation phải đảm bảo remote/current HEAD theo contract; GitHub chậm/mất kết nối thì write được phép chờ/fail rõ ràng, tuyệt đối không commit/push trên base stale.
+  5. **Freshness phải nhìn thấy được:** local read trả last-good kèm tuổi/source_head bằng metadata hiện hữu nếu đủ; nếu contract hiện hữu không thể biểu đạt rõ stale/refreshing mà không đổi public semantics/schema thì phải dừng và xin Owner chốt trước. Không âm thầm gọi stale là fresh.
+  6. **Không dựng Forgejo/Gitea ở R0; không mua GitHub chỉ để chữa B.** Chỉ cân nhắc self-hosted secondary remote/Forgejo hoặc paid GitHub khi có số đo cho thấy GitHub thật sự là bottleneck dài hạn mà cache không giải quyết.
+  7. **Chưa chốt shared cache hay cache riêng:** Claude cần đánh giá (A) một bare mirror/cache dùng chung cho `fs_*` + `workspace_*` để giảm fetch, hay (B) giữ clone/cache riêng từng gateway để ít coupling hơn. Ưu tiên ít code, rollback dễ, không tạo SSOT thứ hai.
+- **Điểm cần Claude phản biện trước khi chốt:**
+  - P02.1: R0 có giữ đúng nguyên tắc GitHub SSOT nhưng bỏ GitHub khỏi critical path read không?
+  - P02.2: cách tối thiểu nào để UI/tool biết `fresh / refreshing / stale` mà **không phá public MCP contract freeze**?
+  - P02.3: shared bare mirror hay per-gateway local cache phù hợp hơn với lock/transaction hiện tại?
+  - P02.4: webhook + backstop hiện hữu có đủ làm refresh trigger, hay cần thêm cơ chế nào thật sự bắt buộc?
+  - P02.5: có bằng chứng nào cho thấy nâng gói GitHub sẽ cải thiện SSH deploy-key lookup latency vừa gặp? Nếu không, đề nghị không mua vì lý do này.
+- **Trạng thái:** `OPEN · REVIEW ONLY · NO RUN`. Không sửa PROMPT, không mở task mới, không thay runtime trước consensus GPT + Claude + Owner.
+
 ## MCPW-STAB-20260924 · Ổn định kết nối ChatGPT ↔ workspace (Owner giao trực tiếp 24/09 · Claude Code CLI)
 Phạm vi: continuation của việc này + P35 HVU; không tạo task/file mới trong repo; MCPW-LOCK giữ nguyên READY, không chạy. Runtime VPS là SSOT mã: agent-data-repo `3f86b9e` `b5cf340` `5b6e259` `0b455bf` · nuxt-repo `a7e933f` · image `agent-data-hvu:mcpw-stab-20260924`. Hồ sơ + rollback một lệnh: `/opt/incomex/work/mcp-workspace/MCPW-STAB-20260924/rollback.sh`.
 
@@ -205,4 +225,5 @@ Actor/presence: Task view thật `mcp-workspace` hiện *Vừa làm 1* Claude Co
 - **Test:** continuation 171/171 (image mới); toàn bộ `tests/` (trừ e2e/smoke, không mạng) 69 failed/358 passed = đúng tập FAIL có sẵn của baseline (356 passed) + 2 test mới; config-guard 34/34 CLEAN.
 
 ## Owner cần quyết
-- MCPW-STAB B: khi GitHub tra khoá deploy chậm >10 s (đo được hôm nay 15 s), read đồng thời chờ refresh nhận `WORKSPACE_BUSY` dù bản local vẫn đọc được. (a) Chấp nhận như hiện tại — lỗi báo rõ, client thử lại; (b) mở việc riêng: read chờ refresh quá hạn thì trả bản last-good kèm cờ `stale` (đổi ngữ nghĩa freshness — cần duyệt). Backend còn lại coi như xong.
+- **Owner 24/09/2026:** chưa chọn ngay (a)/(b). Trước khi chốt cấu trúc/triển khai, đưa phương án tách GitHub khỏi critical path read vào chính task này để Claude review. P02 hiện là DRAFT kiến trúc: GitHub vẫn remote/durable SSOT; VPS local chỉ read-serving last-good cache; write vẫn strict với GitHub. **NO RUN / không mở task mới** cho tới khi GPT + Claude đồng thuận và Owner chốt.
+- Câu hỏi B cũ (retry BUSY hay trả last-good stale) được treo trong P02 như một phần của freshness contract, chưa quyết riêng.
