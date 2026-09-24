@@ -63,6 +63,30 @@ ul,ol{margin:6px 0 6px 20px;padding:0}li{margin:3px 0}.small{font-size:13px;colo
 .f-bottom summary{color:#174a84;font-size:12px;font-weight:700;padding:6px 0}
 .f-bottom ul{margin:2px 0 7px 18px;padding:0;color:#344e6a;font-size:12px;line-height:1.4}
 .f-bottom li{margin:2px 0}
+.h-start{display:inline-block;margin:0 0 6px;padding:3px 9px;border-radius:12px;background:#edf2f8;color:#41546d;font-size:12px;font-weight:700}
+.h-flow{display:grid;gap:0;max-width:560px}
+.h-step{position:relative;display:flex;align-items:flex-start;gap:9px;border:1px solid #e3e8ef;border-left:5px solid #9aa0a6;border-radius:8px;background:#fff;padding:8px 40px 8px 8px;margin:0 0 6px}
+.h-step.yel{border-left-color:#e0a400}.h-step.red{border-left-color:#d93025}
+.h-no{flex:0 0 22px;height:22px;border-radius:50%;background:#193b60;color:#fff;font:700 12px/22px -apple-system,Segoe UI,Roboto,sans-serif;text-align:center;margin-top:3px}
+.h-ic{width:30px;height:30px;flex:0 0 30px}
+.h-body{flex:1;min-width:0}
+.h-body b{font-size:15px;color:#193b60;margin-right:8px}
+.h-ui{font-size:12px;color:#5b6b7e;background:#f4f6f9;border-radius:4px;padding:1px 6px}
+.h-who{display:block;font-size:11px;color:#6e6e73;font-style:normal;margin-top:1px}
+.h-go{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.h-go span{font-size:12px;color:#41546d;background:#f1f4f8;border-radius:10px;padding:1px 8px}
+.h-go .ok{background:#e6f4ea;color:#276244}.h-go .miss{background:#fde8e6;color:#a3261c}
+.h-bot{display:flex;width:fit-content;align-items:center;gap:4px;margin-top:5px;font-size:12px;color:#2c7a7b;background:#eefafa;border-radius:10px;padding:1px 8px 1px 3px}
+.h-bot img{width:18px;height:18px}
+.h-q{display:block;height:0;margin:0;overflow:hidden}.h-q[open]{height:auto;overflow:visible}
+.h-q summary{display:block;box-sizing:border-box;overflow:hidden;padding:0;position:absolute;right:6px;top:6px;list-style:none;cursor:pointer;width:22px;height:22px;border-radius:50%;border:1px solid #c9d6e6;color:#174a84;font:700 12px/20px -apple-system,Segoe UI,Roboto,sans-serif;text-align:center;background:#f8fbff}
+.h-q summary::-webkit-details-marker{display:none}
+.h-q ul{margin:0;padding:6px 0 0 16px;font-size:12px;color:#344e6a}
+.h-arrow{width:22px;text-align:center;color:#7d8ea3;font-size:16px;font-weight:700;line-height:1;margin:-3px 0 3px 8px}
+.h-legend{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0;font-size:12px;color:#5b6b7e}
+.h-legend span{display:inline-flex;align-items:center;gap:4px}.h-legend img{width:18px;height:18px}
+.sw{display:inline-block;width:10px;height:14px;border-radius:2px}.sw.yel{background:#e0a400}.sw.red{background:#d93025}
+.h-later{margin-top:10px}.h-later>summary{cursor:pointer;color:#6e6e73;font-size:12px;font-weight:700}
 .ai-meta{margin:8px 0;color:#6e6e73;font-size:12px}
 @media(max-width:700px){.f-head{display:none}.f-step{padding-right:72px}.f-main{grid-template-columns:42px minmax(0,1fr);gap:2px 6px}.f-ui{grid-column:2}.f-step details[open] ul{margin-left:40px}.u-title strong{font-size:16px}}
 </style>
@@ -72,41 +96,40 @@ ul,ol{margin:6px 0 6px 20px;padding:0}li{margin:3px 0}.small{font-size:13px;colo
 </nav>
 <section id="user-panel" class="ui-panel" role="tabpanel" aria-labelledby="user-tab">
 <div class="field-flow">
-<div class="u-title"><strong>FIELD · Tạo trường</strong><small>BẢN NHÁP</small></div>
-<div class="f-head"><span>Mã bước</span><span>Việc</span><span>Mã UI · tên UI</span></div>
-<div class="f-list">
-<div class="f-step " data-step-id="FIELD.F01"><div class="f-main"><b class="f-code">F01</b><span class="f-name">Ghi nhu cầu</span><span class="f-ui gap">— · Phiếu yêu cầu</span></div><details><summary>Câu hỏi</summary><ul><li>Ai cần Field, cho form/bước nào?</li><li>Tên gợi ý, ý nghĩa, ví dụ, nguồn dữ liệu?</li><li>Thế nào là xong; yêu cầu lưu ở đâu?</li></ul></details></div>
-<div class="f-step " data-step-id="FIELD.F02"><div class="f-main"><b class="f-code">F02</b><span class="f-name">Xác nhận đã nhận</span><span class="f-ui gap">— · Phiếu yêu cầu</span></div><details><summary>Câu hỏi</summary><ul><li>Ai nhận và xử lý? Có mã, trạng thái, thời điểm nhận?</li><li>Thiếu thông tin thì hỏi lại ai, trả về đâu?</li></ul></details></div>
-<div class="f-step " data-step-id="FIELD.F03"><div class="f-main"><b class="f-code">F03</b><span class="f-name">Tìm Field</span><span class="f-ui ">UI-022 · Master Field</span></div><details><summary>Câu hỏi</summary><ul><li>Tìm theo tên, mã, alias, nghĩa và trạng thái?</li><li>Trùng nghĩa ai xác nhận? Đã có nhưng chưa dùng được thì xử lý ở đâu?</li></ul></details></div>
-</div>
-<div class="f-route"><span class="yes">Có → F04 → F10</span><span class="no">Chưa có → F05–F09 → F10</span><span>Có nhưng chưa dùng → xử lý trạng thái</span></div>
-<div class="f-list">
-<div class="f-step have" data-step-id="FIELD.F04"><div class="f-main"><b class="f-code">F04</b><span class="f-name">Có → chọn dùng</span><span class="f-ui ">UI-022 · Master Field*</span></div><details><summary>Câu hỏi</summary><ul><li>Chỉ chọn Field đang được phép dùng?</li><li>Gắn mã + phiên bản vào form gọi; giữ nội dung đang nhập?</li></ul></details></div>
-<div class="f-step new" data-step-id="FIELD.F05"><div class="f-main"><b class="f-code">F05</b><span class="f-name">Thiếu → mở tạo</span><span class="f-ui ">UI-022 → UI-018</span></div><details><summary>Câu hỏi</summary><ul><li>Nút tạo ở đâu? Đang ở form nào thì quay lại đúng form đó?</li><li>Thiếu nhóm/kiểu: tạo ở UI nào, lưu Master nào, rồi trở lại F06?</li></ul></details></div>
-<div class="f-step new" data-step-id="FIELD.F06"><div class="f-main"><b class="f-code">F06</b><span class="f-name">Khai · lưu nháp</span><span class="f-ui ">UI-018 · Khai Field*</span></div><details><summary>Câu hỏi</summary><ul><li>Khai tên, nghĩa, kiểu, định dạng, ràng buộc, nhóm, nguồn, nơi dùng?</li><li>Mã ai cấp, lưu nháp ở đâu; trùng/lỗi thì xử lý thế nào?</li></ul></details></div>
-<div class="f-step new" data-step-id="FIELD.F07"><div class="f-main"><b class="f-code">F07</b><span class="f-name">Xem ở Master</span><span class="f-ui ">UI-022 · Master Field*</span></div><details><summary>Câu hỏi</summary><ul><li>Bản nháp có mã, trạng thái, người phụ trách, lịch sử?</li><li>Ai thấy và tìm lại bằng gì?</li></ul></details></div>
-<div class="f-step new" data-step-id="FIELD.F08"><div class="f-main"><b class="f-code">F08</b><span class="f-name">Kiểm</span><span class="f-ui gap">— · Phiếu kiểm</span></div><details><summary>Câu hỏi</summary><ul><li>Ai kiểm; thử dữ liệu mẫu và đúng yêu cầu ở UI nào?</li><li>Sai thì ghi lý do, trả về F06 ở đâu?</li></ul></details></div>
-<div class="f-step new" data-step-id="FIELD.F09"><div class="f-main"><b class="f-code">F09</b><span class="f-name">Duyệt · cho dùng</span><span class="f-ui gap">— · Duyệt Field</span></div><details><summary>Câu hỏi</summary><ul><li>Ai duyệt/ký; duyệt xong khi nào Field dùng được?</li><li>Từ chối trả về F06 hay đóng yêu cầu?</li></ul></details></div>
-<div class="f-step finish" data-step-id="FIELD.F10"><div class="f-main"><b class="f-code">F10</b><span class="f-name">Báo xong · trả về</span><span class="f-ui gap">— · Kết quả yêu cầu</span></div><details><summary>Câu hỏi</summary><ul><li>Trigger ghi hoàn thành ở đâu? Báo ai?</li><li>Trả mã Field về đúng form/bước; bằng chứng xong là gì?</li></ul></details></div>
+<div class="u-title"><strong>FIELD · Tạo trường</strong><small>NHÁP</small></div>
+<div class="h-start">▶ Form đang làm · Master Field</div>
+<div class="h-flow">
+<div class="h-step yel" data-step="1"><span class="h-no">1</span><img class="h-ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/grin-color.webp" alt="Người"><div class="h-body"><b>Tìm</b><span class="h-ui">Master Field</span><div class="h-go"><span class="ok">✓ có → chọn → về form</span><span>✗ → 2</span></div></div></div>
+<div class="h-arrow">↓</div>
+<div class="h-step yel" data-step="2"><span class="h-no">2</span><img class="h-ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/grin-color.webp" alt="Người"><div class="h-body"><b>Khai</b><span class="h-ui">Hộp khai</span><div class="h-go"><span>trùng → 1</span><span class="miss">thiếu nhóm → tạo ngay ↩</span></div><div class="h-bot"><img src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/robot-color.webp" alt="Máy">báo trùng, thiếu</div><details class="h-q"><summary>?</summary><ul><li><b>G03</b> Thiếu nhóm → tạo ngay, giữ nội dung</li><li><b>G07</b> Mã do máy cấp</li></ul></details></div></div>
+<div class="h-arrow">↓</div>
+<div class="h-step red" data-step="3"><span class="h-no">3</span><img class="h-ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/grin-color.webp" alt="Người"><div class="h-body"><b>Gửi duyệt</b><span class="h-ui">Nút gửi</span><div class="h-go"><span>rút lại</span></div><details class="h-q"><summary>?</summary><ul><li><b>G02</b> Xong = duyệt + đang dùng</li><li><b>Mới</b> Chờ duyệt: form vẫn làm tiếp</li></ul></details></div></div>
+<div class="h-arrow">↓</div>
+<div class="h-step red" data-step="4"><span class="h-no">4</span><img class="h-ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/grin-color.webp" alt="Người duyệt"><div class="h-body"><b>Duyệt</b><span class="h-ui">Màn duyệt</span><i class="h-who">phụ trách nhóm</i><div class="h-go"><span class="ok">✓ → 5</span><span>trả lại → 2</span><span>trùng → 1</span></div><div class="h-bot"><img src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/robot-color.webp" alt="Máy">đã kiểm sẵn</div><details class="h-q"><summary>?</summary><ul><li><b>G01</b> Phụ trách nhóm duyệt</li></ul></details></div></div>
+<div class="h-arrow">↓</div>
+<div class="h-step red" data-step="5"><span class="h-no">5</span><img class="h-ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/robot-color.webp" alt="Máy"><div class="h-body"><b>Dùng được</b><span class="h-ui">Báo · Master</span><div class="h-go"><span class="ok">form tự nhận</span></div><details class="h-q"><summary>?</summary><ul><li><b>G04</b> Duyệt xong máy tự bật</li></ul></details></div></div>
 </div>
 <div class="f-subtitle">Sau khi tạo</div>
-<div class="f-list">
-<div class="f-step side" data-step-id="FIELD.F11"><div class="f-main"><b class="f-code">F11</b><span class="f-name">Sửa</span><span class="f-ui ">UI-021/022 → UI-018*</span></div><details><summary>Câu hỏi</summary><ul><li>Ai được sửa, từ Kanban hay Master? Nơi dùng nào bị ảnh hưởng?</li><li>Lưu ở UI-018; đổi kiểu/nhóm có cần phiên bản và kiểm/duyệt lại?</li></ul></details></div>
-<div class="f-step side" data-step-id="FIELD.F12"><div class="f-main"><b class="f-code">F12</b><span class="f-name">Ngừng / xóa</span><span class="f-ui gap">— · Xác nhận ngừng/xóa</span></div><details><summary>Câu hỏi</summary><ul><li>Ai có quyền, đang được dùng ở đâu?</li><li>Khi nào ngừng, lưu trữ, xóa; xác nhận và hoàn tác bằng gì?</li></ul></details></div>
+<div class="h-flow">
+<div class="h-step yel" data-step="6"><span class="h-no">6</span><img class="h-ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/grin-color.webp" alt="Người"><div class="h-body"><b>Sửa ✎</b><span class="h-ui">Master Field</span><div class="h-go"><span>đổi kiểu, nhóm → 4</span></div><details class="h-q"><summary>?</summary><ul><li><b>G05</b> Đổi tên: sửa ngay · đổi kiểu: duyệt lại</li></ul></details></div></div>
+<div class="h-step red" data-step="7"><span class="h-no">7</span><img class="h-ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/grin-color.webp" alt="Người"><div class="h-body"><b>Dừng · Xoá · Bật lại</b><span class="h-ui">Master Field</span><i class="h-who">phụ trách nhóm</i><div class="h-go"><span class="miss">đang dùng → chặn</span></div><details class="h-q"><summary>?</summary><ul><li><b>G06</b> Xoá hẳn: chỉ khi chưa từng dùng</li></ul></details></div></div>
 </div>
-<div class="f-note"><span>Thiếu thông tin ↶ F01</span><span>Sai / từ chối ↶ F06</span><span>— = UI chưa có mã</span><span>* = cần chức năng chạy thật</span></div>
+<div class="h-legend"><span><img src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/grin-color.webp" alt="">người</span><span><img src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/robot-color.webp" alt="">máy</span><span><i class="sw yel"></i>có, phải sửa</span><span><i class="sw red"></i>chưa có</span></div>
+<details class="h-later"><summary>Để vòng máy</summary>
 <div class="f-bottom">
 <details><summary>Chuẩn khai báo mỗi bước</summary><ul>
 <li>Mã · tên · thuộc FIELD?</li><li>Ai làm · khi nào bắt đầu?</li><li>UI mã/tên · nút/nhãn nào?</li><li>Nhập gì · định dạng gì · lấy từ đâu?</li><li>Lưu đâu · Master nào · trạng thái gì?</li><li>Ra gì · báo ai · bước kế?</li><li>Ai kiểm/duyệt · bằng chứng xong?</li><li>Lỗi/hủy/sửa/xóa quay về đâu?</li>
 </ul></details>
 <details><summary>Master bước · UI quản lý: —</summary><ul><li>Mã · tên · loại · thứ tự/nhánh · người làm · UI · đầu vào/ra · trạng thái.</li><li>Danh mục quản trị; không là bước tạo Field của người dùng.</li></ul></details>
 <details><summary>Master UI · UI quản lý: —</summary><ul><li>Mã · tên · mẫu cha · vị trí · bước dùng · nhãn/nút · trạng thái.</li><li>Đối chiếu danh mục UI trước khi cấp mã mới.</li></ul></details>
+<details><summary>Việc máy chờ làm (P10)</summary><ul><li>Mã bước theo khung chung S01–S08 · kênh Agent · config máy · mã UIQ · trạng thái UI 5 mức.</li></ul></details>
 </div>
+</details>
 </div>
 </section>
 <section id="ai-panel" class="ui-panel" role="tabpanel" aria-labelledby="ai-tab" hidden>
 <div class="ai-meta">Việc <code>quy-trinh-ve-UI</code> · Host: <b>Claude Chat</b> · Host_ID <code>CLAUDE-UIPROC-260924-A</code> (Owner giao 24/09/2026; trước đó GPT Chat mở việc) · Hội đồng GPT · Claude · Hermes · Tài liệu chính duy nhất của việc; chi tiết trạng thái ở <code>COLLAB.md</code>.</div>
-<p class="small"><b>Bản nháp tab User:</b> Chỉ xét người tạo FIELD. F01–F12 là mã bước đề xuất, chưa thay mã MMIM.FIELD.S01–S07 cũ. Dấu — là UI chưa có mã; UI-018/021/022 hiện là bản mô phỏng, chưa ghi Field vào PG. Danh mục bước và UI là nơi quản trị, không phải hai bước người tạo Field phải làm. K00–K7 dưới đây là bài thử thiết kế UI, không phải luồng thao tác tạo Field.</p>
+<p class="small"><b>Bản nháp tab User:</b> Hành trình người tạo FIELD, 7 bước (P11, thay F01–F12 của <code>1055884</code>). Số 1–7 chỉ là thứ tự vẽ, chưa cấp mã bước; mã theo khung chung S01–S08 để vòng máy (P10). UI-018/022 hiện là bản mô phỏng, chưa ghi Field vào PG. K00–K7 dưới đây là bài thử thiết kế UI, không phải luồng thao tác tạo Field.</p>
 
 <style>
 .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.flow div{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--box);font-size:13px;position:relative}
