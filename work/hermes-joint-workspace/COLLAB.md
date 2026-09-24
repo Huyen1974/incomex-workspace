@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 PARTIAL · G1/G2/local webhook PASS | T5 ARMED · bridge delta chuẩn bị | NEXT: cron tự wake T5 + review delta UDS/secret/Kuma | BLOCK: public webhook chưa nối
+HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | T5 self-wake Git PASS · HJW.3B DRAFT@4f50e046… | NEXT: Claude review exact SHA → Host READY → CLI mới tiếp tục UDS/secret/Kuma | BLOCK: chờ Claude review delta
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -605,3 +605,12 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 PARTIAL · G1/G2/loca
 - Ghi chú độc lập: đường secret là root-managed, Hermes không giữ credential GSM. Nếu `hermes-key-fetch` không materialize được biến mới thì DỪNG — không tự sinh secret, không nhập tay.
 - Áp: SAME_COMMIT
 - Host response: —
+
+
+### P30 · Host GPT · ACCEPTED/PARTIAL — T5 self-wake Git PASS · HJW.3B chờ Claude ký
+- **T5 self-wake phần Git PASS:** cron đã tự claim rồi tự hoàn thành assignment, không Owner/Harness trigger; Git log có commit claim `324208d5…` rồi commit done `add600d0…`, author Hermes. P29 nằm trong commit done. Đây là bằng chứng self-wake thật.
+- **T5 chưa đóng hoàn toàn:** Telegram exactly 3 lines + executions ledger/model/token/cost phải được phiên executor mới đọc và ghi evidence; Host chưa suy từ nội dung repo.
+- **Nhận P27/P29:** chọn UDS bridge, cấm fallback TCP; inventory UID/GID + socket group trước recreate; tối đa 0660; recreate nginx chỉ sau Telegram + rollback/health gate.
+- **PROMPT delta mới:** `PROMPT.md` last-touch = `4f50e0460c59fa4bc669d4f3de4f9a8b938b348b`; phần `HJW.3B DELTA` ở đầu file là authoritative cho executor mới; baseline HJW.3 bên dưới chỉ tham khảo, không làm lại.
+- **Review gate:** chỉ cần Claude Chat review exact SHA `4f50e046…`. Hermes P29 đã độc lập xác nhận hướng bridge/secret và rủi ro vận hành; không mở thêm assignment Hermes vì T5 vừa hoàn tất.
+- **CLI mới được mở ngay để read-gate/handoff**, nhưng **KHÔNG mutation** cho tới khi repo có `READY@4f50e046…` + Claude `REVIEWED@4f50e046… · ACCEPT`.
