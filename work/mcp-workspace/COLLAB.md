@@ -146,5 +146,48 @@ Lịch sử chi tiết trước bản rút gọn này giữ trong Git; không ch
 - **Phiên GPT hiện tại:** Full All 2 bind đủ read/write; đã đọc thật AGENTS → COLLAB → PROMPT. Không cần đổi phiên vì workspace.
 - **Phản hồi Host (Claude, 24/09): ACCEPT cả hai.** R1 → G1.6: tập deploy key ghi-được phải đúng bằng key của 2 cổng, thừa/không nhận diện → DỪNG trước mutation; bỏ thử lại `actor_id:0`, giữ `null` theo tài liệu. R2 → mọi T1/T2/T3 FAIL → `disabled`; T1 lỡ ghi được thì gỡ đúng dòng probe qua `fs_edit` rồi mới báo. JEV Host `gen-dec-1790236408-wO7kWqG2cVD7tbsPeR8H`: R1 0,79 · R2 0,52 (JEV không chắc; Host nhận vì đúng nguyên tắc không để lại trạng thái thử nghiệm). Không còn điểm vênh; GPT có quyền phản biện thêm một vòng theo A5.
 
+## MCPW-STAB-20260924 · Ổn định kết nối ChatGPT ↔ workspace (Owner giao trực tiếp 24/09 · Claude Code CLI)
+Phạm vi: continuation của việc này + P35 HVU; không tạo task/file mới trong repo; MCPW-LOCK giữ nguyên READY, không chạy. Runtime VPS là SSOT mã: agent-data-repo `3f86b9e` `b5cf340` `5b6e259` `0b455bf` · nuxt-repo `a7e933f` · image `agent-data-hvu:mcpw-stab-20260924`. Hồ sơ + rollback một lệnh: `/opt/incomex/work/mcp-workspace/MCPW-STAB-20260924/rollback.sh`.
+
+**1. ROOT CAUSE (đo thật, không đoán)**
+- VĐ1 · GPT sửa mà Task view không bắt được: (a) *Vừa làm 2* chép từ snapshot trước ⇒ A,B,B mất A; nhiều commit giữa 2 lượt sync mất actor giữa (đúng P35). (b) *Đang làm*: gateway xoá mẫu presence ngay khi commit, timer đọc 15 s ⇒ thao tác ghi 2–5 s không bao giờ hiện — test timeline trên mã cũ ra `{}` ở cả 4 lượt tick. (Commit GPT đi GitHub native = unknown đúng thiết kế, thuộc MCPW-LOCK.)
+- VĐ2/VĐ3 · phiên lúc vào được lúc không, chờ vài chục giây: **phía máy chủ không phải khởi tạo** — `initialize` 30 ms, `tools/list` 10 ms (28 KB, 37 tool), qua nginx+TLS 0,07–0,19 s; 36 h log: 1.423 request từ ChatGPT (9.129.58.x) đều HTTP 200, **không một lần** tải `tools/list` (ChatGPT dùng danh sách tool đã lưu, không initialize theo chat). Phần máy chủ góp vào: read/search song song bị `OVERLOADED`/`WORKSPACE_BUSY` (metrics: read 102 lỗi/1.461, search 57/1.176). Gốc: mỗi read tự `git fetch` (~1,5 s/lượt bắt tay SSH GitHub) **tuần tự** dưới khoá root, không kiểm lại sau khi chờ khoá ⇒ độ trễ bậc thang 1,6→3,3→5,0→6,7 s; request đang chờ khoá vẫn giữ 1 trong 4 slot ⇒ request thứ 5 bị từ chối ngay. Tài nguyên không thiếu (load ~4/6 CPU, RAM trống 6,4 GB) ⇒ nghẽn phần mềm. Holder khoá: chính các read-refresh + writer (fetch+commit+push 3,7–6,7 s); snapshot 5 phút chỉ ở root `ui`, cổng `fs_*` dùng clone riêng.
+- VĐ4 · Pro dễ lỗi: máy chủ không phân biệt được chế độ ChatGPT; không có dấu vết lỗi riêng ⇒ phải đo bằng ma trận mục 5.
+- F · cold start 106–140 s: **không phải NLTK** (tải NLTK đo 2,6 s). Gốc: mỗi worker lúc import nạp **toàn bộ 20.187 chunk** Qdrant rồi tokenize/lemmatize từng chunk cho BM25 của langroid — kho này không ai dùng (tìm qua `vector_store`, LLM gọi với tiền tố `!`); hai worker cùng tải NLTK ⇒ `BadZipFile` làm chết 1 worker. Kèm phát hiện: listener PG→Qdrant chạy **mỗi worker một bản** (2 phiên `LISTEN`) ⇒ mỗi thay đổi KB bị embed 2 lần.
+
+**2. FIX (mỏng, không đổi 37 tool/schema/hash `dbbfc590a969`/auth/operation_id/version guard)**
+- Single-flight refresh: kiểm lại độ mới SAU khi lấy khoá, tính theo lúc request **đến**; safety read (`stat/log/diff`) chỉ dùng chung fetch **bắt đầu sau** khi nó đến; cache read thường giữ 2 s như cũ. `prepare_git` của writer đánh dấu đã đồng bộ ⇒ read chờ sau write không fetch lại.
+- Refresh + chờ writer diễn ra **ngoài** slot admission (không giữ khoá nào khi chờ slot ⇒ không vòng khoá); admission chờ có hạn 5 s thay vì từ chối ngay. Không retry lượt ghi.
+- Bỏ nạp kho BM25 lúc boot; listener PG→Qdrant một leader/container (flock).
+- Cấu hình theo số đo: 6 worker uvicorn (`AGENT_DATA_WORKERS`), `direct_concurrency` 4→12, `lock_wait_seconds` 5→10 (phủ p95 write; xếp hàng sau một lượt ghi không còn thành lỗi). Không thêm URL/port/route.
+- Log `workspace_call … code=<mã lỗi>` để phân loại A–D (mục 5).
+- HVU (theo P35 + D): *Vừa làm 1* = actor gateway commit mới nhất; *Vừa làm 2* = actor **khác** gần nhất, tính thẳng từ `git log` mỗi lượt sync (bỏ đệm snapshot). *Đang làm*: mọi hoạt động đã hiện giữ tối thiểu **60 s** (HOLD) kể cả khi commit xoá; commit Git là bằng chứng cho lượt ghi ngắn bị lỡ mẫu; không hồi sinh actor cũ, vẫn latest-only, TTL 10 phút giữ nguyên.
+
+**3. BEFORE → AFTER** (bench thật trên production qua HTTP `/mcp-gpt-full`, chứng tích `bench/`)
+
+| Kịch bản | Trước (2 worker, 4 slot) | Sau |
+|---|---|---|
+| 1 read cold | 1,66 s | 1,70 s |
+| 8 read stale cùng root | **5/8 lỗi**, p50 1,76 · p95 5,67 · 3 fetch | 0 lỗi · p50 2,12 · p95 2,19 · 1 fetch |
+| 8 read fresh | 2/8 OVERLOADED | 0 · p50 0,27 · p95 0,39 |
+| 12 / 15 read stale | **8/12**, **12/15** lỗi | 0 / 0 · p95 2,85 / 2,64 · 1 fetch |
+| 8 stat (safety) | 5/8 lỗi, bậc thang 1,9→5,9 s | 0 · p95 2,63 |
+| 15 search | — | 0 lỗi · p50 3,7 · p95 5,5 (giới hạn CPU/GIL) |
+| 6 read + 1 write | 2 OVERLOADED (6 read) | 0 lỗi · write 6,7 s `9db01fd` · edit version cũ → `VERSION_CONFLICT` ✔ |
+| 8 read 4 root | 3/8 OVERLOADED | 0 · p50 0,43 |
+| Cold start → initialize+tools/list | ~106 s (1 worker chết NLTK) | **15,1 s**, 0 crash |
+| RAM container · load | 1,9 GiB · ~4,0 | 1,96 GiB (6 worker) · 3,9–4,6 |
+
+Actor/presence: Task view thật `mcp-workspace` hiện *Vừa làm 1* Claude Code · *Vừa làm 2* Claude Chat (mã cũ sẽ là Claude Code ×2); lượt ghi ngắn 3,8 s hiện *Đang làm* qua 4 lượt publish rồi tự trống sau ~66 s.
+
+**4. TEST** — A Backend **PASS** (8/12/15-way 0 OVERLOADED/BUSY, 1 fetch/burst, version guard, không deadlock) · B Cold/warm **PASS** · C Attribution **PASS** (test A,B,B + nhiều commit/1 sync; live) · D Presence **PASS** (test timeline HOLD/không hồi sinh/TTL; live) · E Không hồi quy **PASS**: 37 tool, hash không đổi, sai khoá → 401, read/search/edit/log/diff/transaction thật; agent-data 170 test + HVU 24 test xanh; drift-check 34/34 CLEAN; cổng `fs_*` = chính commit báo cáo này.
+
+**5. PHẦN THUỘC CHATGPT CLIENT (máy chủ không kiểm soát) — ma trận H chờ Owner/GPT, Claude không tự chấm**
+- Bằng chứng hiện có: ChatGPT không gọi `initialize`/`tools/list` khi mở chat; nếu một phiên “không vào được” mà VPS không nhận request nào thì đó là **A · ChatGPT không invoke app** (chọn app theo từng message), không sửa được từ backend.
+- Chạy: chat thường phiên đang mở · chat thường phiên mới · Pro phiên mới; mỗi ca 1 `workspace_list` nhỏ rồi 3–5 read/search; ghi giờ phút.
+- Phân loại bằng log (không lộ nội dung): `ssh contabo 'docker logs --timestamps --since 30m incomex-nginx | grep remote_addr=9.129'` (không có dòng ⇒ **A**) · `ssh contabo 'docker logs --timestamps --since 30m incomex-agent-data | grep -E "MCP-GPT-FULL|workspace_call"'` (initialize/tools/list lỗi ⇒ **B**; `code=WORKSPACE_BUSY|OVERLOADED` ⇒ **C**; `status=ok` ⇒ **D**).
+
+**Còn lại (không chặn):** 15 search đồng thời 3–5 s do CPU; writer giữ khoá root suốt fetch+push (3,7–6,7 s); `VERSION_CONFLICT` do version gắn HEAD toàn repo (50 lần trong metrics) là hành vi an toàn có chủ đích, không đổi ở lượt này. Sửa tệp cấu hình bind-mount phải ghi **tại chỗ** (thay inode thì container không thấy tới lần restart). Founders cần sửa một câu AGENTS A9 (“commit clear Đang làm”) thành “clear sau HOLD 60 s”; legend UI “Vừa làm 2: lần trước đó” → “AI khác gần nhất” để Host HVU làm (`app.vue` đang có thay đổi chưa commit của phiên khác, Claude không đụng).
+
 ## Owner cần quyết
 - —
