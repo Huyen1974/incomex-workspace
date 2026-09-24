@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2/5 | HJW.2B1 XONG · HJW.2C DRAFT@ab6bd54e… · auth patch G0 → generic gateway G1 | NEXT: Claude review code/security + Hermes review runtime/usability → Host xử lý → READY | BLOCK: chưa review
+HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2/5 | HJW.2B1 XONG · HJW.2C DRAFT@ab6bd54e… · auth patch G0 → generic gateway G1 | NEXT: Host xử lý P13 (4 sửa chặn READY) + review Hermes → sửa PROMPT → Claude ký → READY | BLOCK: chưa đủ review
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -331,6 +331,33 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
 - **Một lưu ý thứ tự, không sửa PROMPT:** nếu sau câu cho phép mà B (runtime) vẫn bị chặn, executor **đừng dừng trắng** — C không cần quyền production, nên hoàn thành C trước rồi ghi `KQ@HJW-2B1-20260923-02 DỪNG` với phần C đầy đủ và lý do chặn ở B. Như vậy lượt này vẫn trả được câu trả lời capability path cho Host, thay vì mất trắng một lượt.
 - Áp: `290d0b7164aa062795216b90ba2d60b1bbe53d04`
 - **Host response P12 — ACCEPTED, 24/09:** đồng thuận toàn bộ. **Không sửa `PROMPT.md`**; giữ nguyên `d4090d3c3901fc2addd8186db39b80a61a31a770`, nên READY/REVIEWED/RUN hiện hành không đổi. Ghi nhận lưu ý: nếu runtime B bị chặn sau one-run authorization thì phải hoàn tất C trước khi ghi DỪNG để không mất trắng evidence. Tuy nhiên SSOT hiện đã đi tiếp: Claude Code đã ghi `KQ@HJW-2B1-20260923-02 XONG`, nên không phát RUN lại; NEXT chuyển sang Host nghiệm thu KQ/evidence.
+
+### P13 · Claude Chat · OPEN — review PROMPT HJW.2C `ab6bd54e…` (7 trọng tâm Host) + đối chiếu review Hermes
+- Based_on: HEAD `c0c33f8`; PROMPT `ab6bd54eb92df992dd918214710d9daf69dcd230` đúng là commit cuối chạm file, nội dung trên main khớp (clone đủ lịch sử). **Kết luận: ACCEPT sau khi áp 4 sửa chặn READY dưới đây.** Kiến trúc generic gateway đúng và khả thi — Claude đã đối chiếu mã đang chạy, không suy đoán.
+- **Xác nhận bằng mã (tọa độ cho executor):** `_dispatch_mcp_tool` (server.py:3203) đưa mọi workspace tool qua **đúng một choke point** `workspace_tools.call` (1168), kể cả nhánh riêng của `/mcp-gpt-full` (3634) và đường replay của `workspace_tasks` (209) ⇒ G1.4 chọn đúng chỗ. Commit được tạo ở **ba** nơi (`workspace_tools.py:941`, `workspace_operations.py:250` và `:369`) nhưng đều qua `hvu_signals.author_args(...)` ⇒ sửa **đúng một hàm** là đủ cho G1.3, không phải sửa ba chỗ.
+
+**Bắt buộc trước READY — 4 mục**
+
+| # | Sửa ở đâu | Sửa gì | Vì sao |
+|---|---|---|---|
+| 1 | G0.2 | Vá **theo cấu trúc**: gắn auth thành dependency/middleware chung cho toàn bộ nhóm `/mcp*` thay vì thêm một lần kiểm trong thân handler; thêm **một test liệt kê route**: mọi route có thể tới `_dispatch_mcp_tool` phải có auth | Gốc rễ của lỗ hổng: các endpoint KB khai `Depends(require_api_key)` ngay ở decorator, còn **mọi route `/mcp*` tự kiểm trong thân hàm** ⇒ route thêm sau dễ quên. Vá một dòng thì chính `/mcp-agent` của G1 có thể lặp lại lỗi này |
+| 2 | G0 (thêm G0.1) | Trước khi đóng legacy route: tra log Agent Data gần nhất xem **ai đang gọi** `/mcp/tools/…`, nêu tên caller cho Owner; có caller thật chưa xác nhận ⇒ DỪNG. Khả thi ngay: handler legacy đang log cả body (`server.py:3819`) | Đóng một route đang mở là breaking change; chính PROMPT đặt “regression existing client” làm điều kiện DỪNG. **Kèm:** bỏ hoặc che dòng log body đó trong cùng bản vá — nó ghi nguyên tham số vào log |
+| 3 | G1.4 | Nói rõ danh tính đi tới choke point bằng **cơ chế ambient sẵn có** kiểu `hvu_signals` (`agent_begin`/`hidden`/`restore_hidden`), và **hàng đợi nền** (`workspace_tasks`, `workspace_execution`) phải mang profile theo đúng cách mang `_hvu`; không mang được ⇒ cấm cấp tool nền cho profile | `workspace_tools.call(name,args)` **không có tham số danh tính**. Hôm nay Hermes không có `task_*`/`exec` nên chưa khai thác được, nhưng profile sau mà được cấp thì job xếp hàng sẽ chạy **không có scope** — rẻ bây giờ, đắt về sau |
+| 4 | G1.6 + mục mới “Deploy phía Hermes” | Thêm bước phía Hermes: `mcp_servers` **không hot-reload** ⇒ báo Owner một dòng Telegram → restart `hermes-serve` → `hermes-gateway` → verify `tools/list` đúng allowlist → rollback = bỏ entry + restart. Không gửi được Telegram ⇒ DỪNG | Đúng phát hiện S2 của Hermes. G2.2 bắt Hermes gọi thật mà PROMPT không có bước nào làm cho gọi được; restart gateway làm rớt phiên desktop và Telegram của Owner |
+
+**Đối chiếu review của Hermes**
+- **S1 (“thiếu bước gỡ master key”) — KHÔNG còn đúng, tiền đề đã lỗi thời.** Hermes suy từ P05 (đo trước khi RUN). `KQ@HJW-2B1-20260923-02 XONG` ghi rõ: `AGENT_DATA_*` **vắng** trong `or.env` và trong `/proc/<MainPID>/environ` của **cả serve lẫn gateway**. ⇒ Không thêm bước gỡ; chỉ nên thêm một mệnh đề xác nhận “đã gỡ ở 2B1, RUN này không cấp lại” (không chặn). Qdrant vẫn trong env — đã ghi là L1 giảm một phần, ngoài scope.
+- **S2, S3 — đúng, đã đưa thành mục 4 và mục 2 ở trên.**
+- **N1 (read scope) — đồng ý phần lý do, khác cách làm.** Repo public nên chặn đọc không phải biên bảo mật. Đề xuất: **read = toàn bộ root `workspace`**, write vẫn chỉ `work/hermes-joint-workspace/**`; và **chuyển phép thử DENY** từ “đọc work khác” sang “đọc root khác (`agent-data`/`ui`/`docs`)” — đó mới là biên thật, và vẫn chứng minh được scope enforce server-side. Không chặn.
+- **N2 (`workspace_result_read`) — KHÔNG đồng ý chốt “không cần”.** Server đóng gói mọi kết quả qua `workspace_tools.page_result` trừ chính `workspace_result_read` (server.py:3443, 3635) ⇒ không có tool này thì Hermes **đọc file dài bị cắt và không đọc tiếp được**; `COLLAB.md` của HJW hiện ~89 KB. Giữ nguyên câu điều kiện của PROMPT, nhưng thêm vào G2.2 một phép đo: Hermes đọc `COLLAB.md` và ghi lại có bị cắt không — để Host biết giới hạn thật thay vì phát hiện lúc đang dùng. Không chặn.
+- **N3 (tắt sampling), N4 (rate-limit + thông báo lỗi không phân biệt) — đồng ý, không chặn.**
+- **Hermes ghi đúng:** `allowed_roots=["workspace"]` là mức thấp nhất thật (registry có cả root `agent-data` = source VPS); và không có `workspace_write_new` nghĩa là Hermes **không tạo được file mới** — hợp với luật cấm đẻ file, nên ghi rõ KQ phải nằm trong file hiện hữu.
+
+**Hai ghi chú cho 7 trọng tâm còn lại (không chặn)**
+- *Backward compatibility:* nghiệm thu EXISTING-CLIENTS-PASS nên đo bằng **hash schema/tools của từng profile trước và sau** (`_profile_schema_id`), không chỉ “gọi thử thấy sống” — DROOT09 đòi giữ nguyên `tools/list`/schema hash/serverInfo.
+- *Mở rộng:* tiêu chí GENERIC (“một route phục vụ ≥2 profile, thêm profile chỉ sửa config”) là đúng phép thử của khả năng mở rộng; giữ nguyên.
+- Áp: SAME_COMMIT
+- Host response: —
 
 ## Owner cần quyết
 - — Chưa có. Owner đã quyết D12/D14: mở HJW.2C và dùng Agent Data làm gateway chung; Hermes là profile đầu tiên.
