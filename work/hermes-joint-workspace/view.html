@@ -20,7 +20,7 @@ small{color:#666}
 <h1>Hermes Joint Workspace</h1>
 <p><span class="tag">HOST REVIEW</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Host: GPT Chat</span><span class="tag">24/09: đã gỡ khoá Agent Data khỏi Hermes</span></p>
 
-<div class="box"><strong>HJW.2C — DRAFT, chưa READY/RUN.</strong> Review Claude + Hermes đã được Host xử lý. PROMPT mới <code>37ae3fe2…</code> đã có: structural auth + caller inventory, generic per-agent gateway, read toàn workspace/write chỉ HJW, trusted identity, Hermes deploy/restart/rollback, sampling off và public rate-limit.<br><strong>Anh cần quyết lúc này:</strong> không có. Gate còn lại: Claude ký lại đúng SHA mới; sau đó Host mới READY/RUN.</div>
+<div class="box"><strong>HJW.2C — READY + RUN ISSUED.</strong> Reviewer và Host cùng ghim <code>37ae3fe2…</code>. Claude Code đang được giao triển khai structural auth + generic Agent Gateway + Hermes profile đầu tiên.<br><strong>Lưu ý vận hành:</strong> nếu Agent Data tạm mất kết nối vì phiên khác restart server, Agent giữ checkpoint, không mutation và retry có backoff vài phút; chỉ DỪNG nếu outage kéo dài hoặc có bằng chứng lỗi thật.<br><strong>Anh cần quyết lúc này:</strong> không có; chờ Telegram trước các restart production mà PROMPT yêu cầu.</div>
 
 <div class="bar" id="TIEN-DO"><span class="g">✓ 1 Mở việc</span><span class="g">✓ 2 Thiết kế</span><span class="g">✓ 3 RUN HJW-2B1</span><span class="now">▶ 4 Nghiệm thu</span><span>□ 5 Ghi luật/Đóng</span></div>
 
@@ -84,7 +84,7 @@ Claude Chat ──────────────────────�
 <tr><td>HJW.2A — Design</td><td>Đã chốt: COLLAB/Git HEAD là SSOT dispatch; Hermes đọc trực tiếp tại HEAD xác định; relay hiện có fail-closed; Phase 1 chỉ giữ nhận/làm assignment, nhắc lượt+canh RUN treo, heartbeat và cơ chế dừng; threat model L1 Hermes + L2 VPS/root.</td><td>GPT Host + Claude Reviewer</td><td>✓ consensus 23/09</td></tr>
 <tr><td>HJW.2B</td><td>RUN đầu đã DỪNG an toàn tại G0.2, 0 mutation.</td><td>Claude Code CLI</td><td>■ DỪNG hợp lệ</td></tr>
 <tr><td>HJW.2B1</td><td>SEC-CLEAN + capability audit theo PROMPT <code>d4090d3c…</code>.</td><td>Claude Code CLI · GPT Host</td><td>✓ XONG 24/09 · SEC-CLEAN PASS · MIN_CODE_CHANGE</td></tr>
-<tr><td>HJW.2C</td><td>Gate 0 structural auth + legacy caller inventory; Gate 1 generic per-agent credential/profile/tool/root/write-scope + trusted attribution; Hermes profile đầu tiên.</td><td>Claude Code CLI · GPT Host</td><td>▶ DRAFT <code>37ae3fe2…</code> · P13/P14 xử lý · chờ Claude ký</td></tr>
+<tr><td>HJW.2C</td><td>Gate 0 structural auth + legacy caller inventory; Gate 1 generic per-agent credential/profile/tool/root/write-scope + trusted attribution; Hermes profile đầu tiên.</td><td>Claude Code CLI · GPT Host</td><td>▶ READY + RUN ISSUED · <code>37ae3fe2…</code> · chờ KQ</td></tr>
 <tr><td>HJW.3</td><td>Nghiệm thu T1–T10 bằng chạy thật, gồm self-wake, chống wake thừa, stale-write, retry/dedup, Telegram, blocker vượt quyền, attribution và secret rotation/boundary.</td><td>Hermes làm · GPT + Claude chấm chéo</td><td>ngay sau HJW.2B</td></tr>
 <tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>sau HJW.3 PASS</td></tr>
 <tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T10.</td><td>Host</td><td>—</td></tr>
@@ -114,6 +114,6 @@ Claude Chat ──────────────────────�
 </ul>
 
 <h2 id="DIEU-KIEN">8. Điều kiện chuyển sang làm</h2>
-<p>NEXT: Claude chỉ review PROMPT <code>37ae3fe2…</code> (delta P13/P14 + A6). Nếu ACCEPT và PROMPT không đổi, GPT Host mới READY/RUN. Không cần Hermes review lại trừ khi phát hiện runtime mới.</p>
+<p>NEXT: Claude Code thực thi <code>HJW-2C-20260924-01</code>. Host chờ KQ/evidence; lỗi kết nối thuần túy do restart song song không tự động coi là DỪNG.</p>
 </body>
 </html>
