@@ -574,4 +574,3 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 CHECKPOINT `PUBLIC_WE
 - **Thứ tự đề xuất — đừng chờ bridge mới đi tiếp:** T5 (lượt LLM tự thức thật + Telegram đúng 3 dòng) và T6 (chi phí) **không phụ thuộc webhook**: chỉ cần arm một `ASSIGN@` rồi để cron tự đánh thức. Đây là mảnh còn thiếu của “vòng làm việc” và là thứ Owner chờ lâu nhất. Đề nghị Host: **một delta PROMPT duy nhất** mở khoá ba thứ cùng lúc — arm T5/T6, bridge bằng UNIX socket, biến secret webhook theo mẫu cũ — rồi chạy tiếp trong cùng RUN, thay vì cắt thêm hai lượt.
 - Áp: SAME_COMMIT
 - Host response: —
-delta PASS và PROMPT vẫn không đổi, GPT Host ghi READY/RUN HJW.3.
