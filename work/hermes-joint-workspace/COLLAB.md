@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 3/5 | HJW.2C **HOST ACCEPTED 24/09** · hạ tầng/gateway PASS | NEXT: Hermes self-check bằng LLM thật → Host chốt HJW.3 | BLOCK: —
+HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.2C HOST ACCEPTED · HJW.3 DRAFT@a16eb76e… | NEXT: Hermes + Claude review HJW.3 → Host xử lý → READY | BLOCK: chưa review
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -55,6 +55,8 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 3
 - D12 · 2026-09-24 · **OWNER — AGENT DATA LÀ CỔNG CHUNG CHO AGENT:** Hermes chỉ là agent đầu tiên. Agent Data phải được dùng dần làm kênh chung để Claude Code và các agent tương lai tương tác với GitHub/workspace; không dựng cơ chế riêng lặp lại cho từng agent.
 - D13 · 2026-09-24 · **HOST ARCHITECTURE — GENERIC_AGENT_GATEWAY:** một route chung + profile server-side theo credential (`agent_id`, tool allowlist, read/write root+path scope, attribution). Không dùng một shared narrow key và không tạo route code riêng từng agent. JEV `gen-dec-1790217958-q1i8W3GQZj6EZBKY6cMG`: GENERIC_AGENT_GATEWAY 1.00.
 - D14 · 2026-09-24 · **OWNER APPROVED HJW.2C:** mở RUN mới có review để (G0) vá auth bypass đã phát hiện, rồi (G1) triển khai Agent Gateway generic và onboard Hermes làm profile đầu tiên. Auth patch là gate bắt buộc trước khi bật gateway.
+- D15 · 2026-09-24 · **OWNER REAFFIRMED ALWAYS-ON/API:** Hermes phải được khai thác triệt để lợi thế chạy VPS 24/7, nhận trigger từ bên ngoài và bất cứ lúc nào; HJW.3 phải nối tốt nhất các đường assignment/schedule/API-webhook/Telegram, không dừng ở parity đọc/ghi repo.
+- D16 · 2026-09-24 · **HOST HJW.3 INGRESS ARCHITECTURE:** Telegram = human ingress; Git assignment + cron/script-gate = zero-token backstop; built-in Hermes webhook = external machine ingress sau nginx hiện hữu, HMAC/filter/idempotency/rate-limit và chỉ fire cùng `ws-dispatch`; direct Hermes API Server giữ loopback trong Phase 1, chỉ public sau khi có profile/toolset/API key riêng đủ hẹp. JEV `gen-dec-1790241698-LNju0s9zxYbOrssd8idg`: WEBHOOK_PLUS_CRON 0.74.
 
 ## Kế hoạch
 - HJW.1 | Mở việc + nhận ý kiến GPT (P01) | ✓ 21/09
@@ -62,7 +64,7 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 3
 - **HJW.2B — IMPLEMENT** | GSM-A1 đã XONG. Secret path Host chốt: root oneshot GSM chỉ dùng để materialize secret tối thiểu; **Agent Data credential phải rời môi trường user/process Hermes nếu relay hiện hữu nghiệm thu được**; relay lỗi ⇒ fail closed. Phase 1 dùng cron/pre-script 0-token, không bật webhook; automated profile deny-by-default + capability tối thiểu; Kuma là watchdog độc lập ngoài Hermes. `PROMPT.md` đã tạo DRAFT. | ■ RUN `HJW-2B-20260923-01` DỪNG tại G0.2 (23/09), 0 mutation — chờ Host quyết
 - **HJW.2B1 — SEC-CLEAN + CAP AUDIT** | Gỡ master Agent Data khỏi Hermes; audit C1/C2/C3; Agent Data auth warning giữ root-only. | ✓ **XONG 24/09** · SEC-CLEAN PASS · MIN_CODE_CHANGE
 - **HJW.2C — GENERIC AGENT GATEWAY** | Vá auth bypass; generic gateway + per-agent profile/credential/tool/path scope + trusted attribution; Hermes profile đầu tiên. | ✓ **HOST ACCEPTED 24/09** · G0 `46f68be` · G1 `f2f0650` · Hermes 7 tool · revoke/revert/identity PASS
-- HJW.3 | Nghiệm thu **T1–T10** bằng chạy thật; ngoài R03/stale-write/cross-client còn phải test wake đúng/không wake thừa, blocker vượt quyền, Telegram, retry/dedup và secret boundary/rotation theo thiết kế. | □
+- HJW.3 | **24/7 ORCHESTRATION / EXTERNAL API-WEBHOOK** — T2/T5/T6/T10; cron gate 0-token + external webhook HMAC → cùng dispatcher; Telegram 3 dòng; handoff/RUN watch; STOP-AUTO/STOP-DISPATCH/HARD-STOP; Kuma; direct API Server giữ loopback. | ◐ **DRAFT@a16eb76e… · chờ Hermes + Claude review**
 - HJW.4 | Luật nền tối thiểu cho hội đồng/attribution: council 3 thành viên; `[Hermes]`/`[Claude Code]`; A9 map `agent-gw/hermes`; agent mới phải có map riêng. | ◐ **CORE APPLIED 24/09** · phần automation/final law chờ HJW.3 PASS
 - HJW.5 | Đóng: Host đối chiếu T1–T10; xin Owner một chữ trước khi dọn fixture nếu có. | □
 
@@ -434,7 +436,7 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 3
 - **8 · Đề xuất NEXT (HJW.3/T5/T6/T10):** giữ **một** PROMPT; thứ tự: chốt read scope (§5) → T5 **một lượt LLM thật** qua Telegram có gate rõ → T6 đo token/lượt (chốt ngân sách trước) → 4 job Phase 1 (script gate 0-token chạy trước, chỉ wake khi có việc của Hermes; HARD-STOP ở root; nhịp tim Kuma do root đẩy) → T10. **Không bật automation trước khi T5 PASS.** Không cần cấp thêm quyền nào cho Hermes.
 - Áp: SAME_COMMIT (P18 + đổi `state=open→done` của `ASSIGN@HJW-SELF-01` trong cùng commit).
 
-### P19 · Claude Chat · OPEN — kiểm chéo P18 (self-check Hermes) + chốt ba điểm cho HJW.3
+### P19 · Claude Chat · ACCEPTED — P18 đúng; read scope đúng READY; T5 còn self-wake + Telegram
 - Based_on: HEAD `6e59dc3`. Claude kiểm trực tiếp trên Git, không tin nhãn trong message:
   - **Commit `6e59dc33` có `author = agent-gw/hermes`** (committer = `AI via Incomex Workspace`, đúng mẫu chung). Đây là phần Hermes tự nói không kiểm được ⇒ **đã xác minh hộ**: danh tính do server gán, không phải tự khai.
   - Commit chỉ chạm `COLLAB.md` (+13/−1), **không file mới** ⇒ đúng luật một tài liệu.
@@ -444,15 +446,15 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 3
 - **2 · `workspace_result_read`: đồng ý KHÔNG mở ở HJW.3.** Lưu ý ở chìa `REVIEWED@37ae3fe2` của Claude nêu rủi ro “kết quả tool dài bị cắt không đọc tiếp được” — Hermes đã **đo và bác**: `workspace_read` đi tiếp bằng `start_char`, `workspace_search`/`workspace_log` có `next_cursor` riêng. Rủi ro này coi như đóng; ghi một dòng vào `view.html` là đủ, không cần theo dõi tiếp.
 - **3 · T5 đã tiến một nửa, đừng tính là đủ.** Lần này là **phiên LLM thật** của Hermes, không harness ⇒ phần *đọc luật → làm → ghi → đóng dấu giao việc* đã chứng minh trên việc thật. **Còn thiếu đúng hai mảnh:** (a) **tự thức** — cron + script gate 0-token phát hiện dấu `state=open` rồi mới đánh thức LLM (lần này người gọi là Owner); (b) **trả lời đúng khuôn 3 dòng STATUS · COMMIT · NEXT qua Telegram**. Gộp cả hai vào đúng PROMPT HJW.3 đã đề xuất ở P16, không tách RUN mới.
 - **Gợi ý cho Host khi soạn HJW.3 — bằng chứng đã có, đừng bắt làm lại:** T1 đọc · T3 chéo/version-guard · T4 tên riêng đều PASS (P16 + P18, có commit làm chứng). HJW.3 chỉ cần: T2 bài ghi đầy đủ trong HJW, T5 hai mảnh trên, T6 chi phí mỗi lượt, T10 bốn job đợt 1 + cờ HARD-STOP + nhịp tim. Điều kiện trước khi bật job tự động: bảng A9 đã xong (đã đủ), và gate phải in `{"wakeAgent": false}` ở mọi nhánh lỗi như P08 đã chốt.
-- Áp: SAME_COMMIT
-- Host response: —
+- Áp: `75ff8663c5b0fc5b8e6c8cb9993202b61ebaa677`
+- **Host response P19 — ACCEPTED, 24/09:** xác nhận author `agent-gw/hermes`; read toàn root `workspace` là đúng bản READY, không lệch; không mở `workspace_result_read`; P18 chứng minh LLM Hermes thật đã đọc→làm→ghi→done. T5 chưa đủ vì chưa tự thức và chưa deliver 3 dòng Telegram. Owner đồng thời tái khẳng định phải khai thác 24/7/API tối đa, nên HJW.3 bổ sung built-in webhook external ingress nhưng vẫn hội tụ vào cùng dispatcher/SSOT, không public direct full API Server.
 
 ## Owner cần quyết
 - —
 
 ## NEXT
-- `ASSIGN@HJW-SELF-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=done`
-- **Self-check bắt buộc bằng LLM Hermes thật, không harness/shell thay thế:** Hermes đọc `AGENTS.md → work/hermes-joint-workspace/COLLAB.md` tại HEAD; tự dùng MCP `incomex-workspace`; xác nhận tool thực có/giới hạn; thử read trong workspace + deny root ngoài; sau đó ghi **P18** vào chính COLLAB bằng `workspace_edit`, commit message `[Hermes] HJW SELF01 · self-check gateway + review`.
-- P18 phải có: PASS/FAIL kết nối; 7 tool nhìn thấy; bằng chứng đọc luật/task; boundary đã thử; giới hạn `workspace_result_read`; ý kiến/rủi ro còn lại; đề xuất NEXT cho HJW.3. Reviewer **không sửa AGENTS/root/runtime/secret/config**.
-- Sau commit, Hermes đổi assignment `open→done` trong cùng commit P18 nếu có thể; nếu không làm được thì ghi `blocked` + lý do. Host sẽ đối chiếu Git author + nội dung rồi mới tính T5/self-loop.
-- Sau phản hồi Hermes, Host đối chiếu: nếu self-check sạch → soạn một PROMPT HJW.3 duy nhất cho T2/T5/T6/T10 + 4 job Phase 1; chưa bật automation trước khi Host chốt.
+- `ASSIGN@HJW-H3-REV-HERMES-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`
+- Hermes review **đúng PROMPT HJW.3 tại commit `a16eb76e9b26d99dc63213224f6f14cc49c5698d`**; không đối chiếu draft cũ. Tự đọc `AGENTS.md → HJW COLLAB.md → PROMPT.md`, dùng MCP live để xác nhận gateway 7 tool vẫn sống; tập trung: cron/script-gate, webhook→cron_job, Telegram output, STOP/Kuma, prompt-injection boundary, khả năng self-wake. Không mutation runtime/config/secret.
+- Hermes ghi P20 + đổi assignment `open→done` bằng `workspace_edit`, commit `[Hermes] HJW H3REV · review 24x7 ingress` nếu review xong; blocked nếu phát hiện assumption sai.
+- Claude Chat review cùng SHA `a16eb76e…`, tập trung security/runtime/root changes, secret materialization, nginx/webhook exposure, rollback và A6; không mutation runtime.
+- Host xử lý hai review; sửa PROMPT nếu cần. Chỉ READY/RUN khi không còn P OPEN/OWNER.
