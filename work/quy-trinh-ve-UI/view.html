@@ -23,6 +23,70 @@ ul,ol{margin:6px 0 6px 20px;padding:0}li{margin:3px 0}.small{font-size:13px;colo
 <h1>Quy trình vẽ UI</h1>
 <div class="meta">Việc <code>quy-trinh-ve-UI</code> · Host: <b>Claude Chat</b> · Host_ID <code>CLAUDE-UIPROC-260924-A</code> (Owner giao 24/09/2026; trước đó GPT Chat mở việc) · Hội đồng GPT · Claude · Hermes · Tài liệu chính duy nhất của việc; chi tiết trạng thái ở <code>COLLAB.md</code>.</div>
 
+
+<style>
+.ui-tabs{display:flex;gap:6px;margin:22px 0 18px;padding:5px;background:#edf2f8;border:1px solid #d9e3ef;border-radius:13px}
+.ui-tabs button{flex:1;border:0;border-radius:9px;background:transparent;color:#41546d;font:700 15px/1.25 -apple-system,Segoe UI,Roboto,sans-serif;padding:12px 16px;cursor:pointer}
+.ui-tabs button[aria-selected="true"]{background:#174a84;color:#fff;box-shadow:0 2px 7px #143f7226}
+.ui-tabs button:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+.ui-panel[hidden]{display:none!important}
+.user-hero{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 26px;border:1px solid #c8dcf5;border-radius:18px;background:linear-gradient(125deg,#e9f3ff,#f8fbff 72%,#fff)}
+.user-hero h2{border:0;padding:0;margin:5px 0;font-size:25px;line-height:1.18;color:#183550}
+.user-hero p{margin:0;color:#43566e;font-size:15px}
+.user-kicker{color:#174a84;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.user-counts{display:flex;gap:9px;flex-shrink:0}
+.user-count{min-width:92px;padding:10px 12px;background:#fff;border:1px solid #d4e2f2;border-radius:13px;text-align:center;color:#40536c;font-size:12px;font-weight:700}
+.user-count strong{display:block;font-size:30px;line-height:1;color:#174a84}
+.user-count.owner strong{color:#a85e00}
+.v-legend{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:14px 4px 16px;color:#52637a;font-size:13px}
+.v-legend span{display:inline-flex;align-items:center;gap:7px}
+.v-legend i{display:inline-block;width:11px;height:11px;border-radius:3px;background:#2867b2}
+.v-legend .owner-dot{background:#e9a533}
+.v-flow{max-width:940px;margin:0 auto}
+.v-step{display:grid;grid-template-columns:56px minmax(0,1fr) minmax(160px,225px);gap:14px;align-items:center;padding:11px 15px;border:1px solid #cbdcf0;border-left:6px solid #2867b2;border-radius:15px;background:#fff;box-shadow:0 3px 10px #1b3d6510}
+.v-step.owner{border-color:#e8c57a;border-left-color:#d99115;background:#fffaf0}
+.v-num{display:grid;place-items:center;width:48px;height:48px;border-radius:13px;background:#2867b2;color:#fff;font-size:18px;font-weight:800}
+.v-step.owner .v-num{background:#bd7410}
+.v-main h3{margin:0 0 2px;font-size:17px;line-height:1.2;color:#193b60}
+.v-step.owner .v-main h3{color:#77500c}
+.v-main p{margin:0;color:#46586f;font-size:14px}
+.v-out{border-left:1px solid #d7e1ed;padding-left:14px;line-height:1.25}
+.v-out small{display:block;color:#60718a;font-size:10px;font-weight:800;letter-spacing:.08em;margin-bottom:3px}
+.v-out b{display:block;color:#21496d;font-size:13px}
+.v-step.owner .v-out{border-left-color:#e5cf9d}
+.v-step.owner .v-out small,.v-step.owner .v-out b{color:#805312}
+.v-arrow{height:17px;display:flex;justify-content:center;align-items:center;gap:8px;color:#50749d;font-size:21px;font-weight:800;line-height:1}
+.v-arrow[aria-label]{height:30px;color:#8b5a09;font-size:16px}
+.v-arrow span{font-size:12px}
+.user-notes{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:940px;margin:18px auto 0}
+.user-notes div{padding:10px 13px;border:1px solid #d8e3ef;border-radius:10px;background:#f7faff;color:#344e6a;font-size:13px}
+.user-notes div:last-child{border-color:#e9d19b;background:#fffaf0;color:#77500c}
+.user-status{max-width:940px;margin:12px auto 0;color:#677589;font-size:12px}
+.ai-details{margin-top:22px;border-top:1px solid var(--line)}
+@media(max-width:700px){.user-hero{display:block;padding:18px}.user-hero h2{font-size:22px}.user-counts{margin-top:14px}.user-count{flex:1}.v-step{grid-template-columns:48px 1fr;gap:10px;padding:10px}.v-num{width:42px;height:42px;font-size:16px}.v-out{grid-column:2;border-left:0;border-top:1px solid #d7e1ed;padding:6px 0 0}.v-step.owner .v-out{border-top-color:#e5cf9d}.user-notes{grid-template-columns:1fr}}
+</style>
+<nav class="ui-tabs" role="tablist" aria-label="Cách xem quy trình">
+<button type="button" id="user-tab" role="tab" aria-controls="user-panel" aria-selected="true" tabindex="0" data-panel="user-panel">Workflow for User</button>
+<button type="button" id="ai-tab" role="tab" aria-controls="ai-panel" aria-selected="false" tabindex="-1" data-panel="ai-panel">Hướng dẫn cho AI</button>
+</nav>
+<section id="user-panel" class="ui-panel" role="tabpanel" aria-labelledby="user-tab">
+<header class="user-hero"><div><span class="user-kicker">Bản vẽ để cùng chỉnh</span><h2>Vẽ một UI đi qua 8 khâu</h2><p>AI làm toàn bộ. Anh chạm 3 lần để chốt hướng và xem kết quả.</p></div><div class="user-counts"><div class="user-count"><strong>8</strong> khâu</div><div class="user-count owner"><strong>3</strong> lần anh chạm</div></div></header>
+<div class="v-legend"><span><i aria-hidden="true"></i> AI tự làm</span><span><i class="owner-dot" aria-hidden="true"></i> Anh gật hoặc xem</span><span>Đi từ trên xuống ↓</span></div>
+<div class="v-flow" aria-label="Luồng K0 đến K7">
+<article class="v-step owner"><div class="v-num">K0</div><div class="v-main"><h3>Kiểm kê</h3><p>Đã có gì? Còn thiếu gì? Cần vẽ đúng việc nào?</p></div><div class="v-out"><small>ANH GẬT · 1/3</small><b>Mục tiêu + phạm vi</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
+<article class="v-step"><div class="v-num">K1</div><div class="v-main"><h3>Vòng đời</h3><p>Đối tượng có trạng thái, quyền và mã gì?</p></div><div class="v-out"><small>AI BÀN GIAO</small><b>Thẻ đối tượng</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
+<article class="v-step"><div class="v-num">K2</div><div class="v-main"><h3>Ma trận</h3><p>Quét đủ trường hợp: bình thường, phụ, lỗi và điều cấm.</p></div><div class="v-out"><small>AI BÀN GIAO</small><b>Bảng độ phủ đủ ô</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
+<article class="v-step"><div class="v-num">K3</div><div class="v-main"><h3>Kịch bản</h3><p>Ai bấm gì, thấy gì; hỏng thì quay về đâu?</p></div><div class="v-out"><small>AI BÀN GIAO</small><b>Kịch bản chi tiết</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
+<article class="v-step"><div class="v-num">K4</div><div class="v-main"><h3>Hợp đồng thông tin</h3><p>Dữ liệu lấy ở đâu, lưu ở đâu, trả về đâu?</p></div><div class="v-out"><small>AI BÀN GIAO</small><b>Danh mục + hợp đồng</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
+<article class="v-step owner"><div class="v-num">K5</div><div class="v-main"><h3>Luồng + bảng G</h3><p>Vẽ đường đi; gom những chỗ cần anh quyết.</p></div><div class="v-out"><small>ANH GẬT · 2/3</small><b>Gật/lắc từng dòng G</b></div></article><div class="v-arrow" aria-label="Chỉ dựng UI mới sau khi bảng G được gật">↓<span>G được gật mới dựng hoặc đổi UI</span></div>
+<article class="v-step"><div class="v-num">K6</div><div class="v-main"><h3>HTML bấm thử</h3><p>AI dựng bản để bấm và đi thử luồng.</p></div><div class="v-out"><small>AI BÀN GIAO</small><b>UI bấm được</b></div></article><div class="v-arrow" aria-hidden="true">↓</div>
+<article class="v-step owner"><div class="v-num">K7</div><div class="v-main"><h3>Kiểm độc lập</h3><p>Máy kiểm, AI khác kiểm, bài thi và người mới đi thử.</p></div><div class="v-out"><small>ANH XEM · 3/3</small><b>PASS / FAIL có bằng chứng</b></div></article>
+</div>
+<div class="user-notes"><div><b>Qua cửa khâu trước</b> rồi mới mở khâu sau.</div><div><b>UI hiện có:</b> được xem và bấm thử ngay từ K0.</div></div>
+<p class="user-status">Đang vẽ thử trên FIELD: K0 đã kiểm nguồn PG, chờ anh chốt mục tiêu và phạm vi. Phần chữ chi tiết nằm ở tab “Hướng dẫn cho AI”.</p>
+</section>
+<section id="ai-panel" class="ui-panel" role="tabpanel" aria-labelledby="ai-tab" hidden>
+
 <style>
 .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.flow div{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--box);font-size:13px;position:relative}
 .flow b{display:block;font-size:15px;margin-bottom:2px}.flow i{display:block;color:var(--mut);font-style:normal;margin-bottom:4px}.flow .ra{margin-top:4px}.flow .who{position:absolute;top:8px;right:8px;font-size:11px;padding:1px 6px;border-radius:10px;border:1px solid var(--line)}
@@ -53,7 +117,7 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <div class="bar"><span class="done">Mục tiêu ✅</span><span class="done">Đồng thuận phương pháp ✅ (GPT + Claude; Hermes chưa nối — D07)</span><span class="doing">◉ K0 FIELD · đã kiểm PG, chờ Owner gật phạm vi</span><span class="todo">Nghiệm thu ○</span></div>
 <p class="small">Xong khi: vẽ thử FIELD lộ ra chỗ yếu và đã vá; quy trình bắt đủ 4 lỗ đã biết và nút ✎ qua kiểm hồi quy; hai kiểm độc lập PASS.</p>
 
-<details><summary>Chi tiết cho AI / PM — mục 3–13 (bấm để mở)</summary>
+<div class="ai-details">
 <h2 id="chot">3. Đã chốt (Owner)</h2>
 <table>
 <tr><th style="width:70px">Mã</th><th>Quyết định</th></tr>
@@ -64,6 +128,7 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <tr><td>D05</td><td>24/09 · <b>JEV có điểm tham khảo bắt buộc</b> theo một bảng chung — mục 7.3.</td></tr>
 <tr><td>D06</td><td>24/09 · Quy trình chuẩn <b>kế thừa việc MMIM</b> (xương S01–S08, 5 trạng thái UI, FIELD03); FIELD là lượt áp dụng đầu. Claude Chat làm Host; Host được sửa <code>view.html</code> kể cả bố cục (quyết định trước, sơ đồ, rồi nội dung).</td></tr>
 <tr><td>D08</td><td>24/09 · Bài thử FIELD ghi trong tab Step quy trình của MOW; K0 được bấm thử UI hiện có trước bảng G; bảng G chỉ chặn vẽ/đổi UI mới; 40 dòng chỉ giới hạn kịch bản chi tiết, không cắt ma trận; nút ✎ là kiểm hồi quy.</td></tr>
+<tr><td>D09</td><td>24/09 · Tab đầu <b>Workflow for User</b> là sơ đồ màu K0–K7 để Owner nhìn và sửa; tab thứ hai giữ hướng dẫn chi tiết cho AI. Bản vẽ đầu là đề xuất, chưa là quy trình Owner chốt.</td></tr>
 </table>
 
 <h2 id="khau">4. Quy trình chuẩn — 8 khâu K0–K7</h2>
@@ -197,6 +262,16 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <li><b>Mở cho Hermes:</b> phản biện toàn bộ mục 4–10, ưu tiên nhánh thiếu / lỗ hợp đồng / lỗ tự động hoá.</li>
 </ul>
 <p class="small">Bản trước (commit <code>fe1b4c0</code>): 7 bước B1–B7, 25 câu, ma trận 7 nhóm, 18 thuộc tính, 8 câu hỏi hội đồng — đã gộp vào bản này; Git giữ lịch sử.</p>
-</details>
+</div>
+</section>
+<script>
+(function(){
+ var tabs=Array.prototype.slice.call(document.querySelectorAll('.ui-tabs [role="tab"]'));
+ function show(id,focus){tabs.forEach(function(tab){var on=tab.getAttribute('data-panel')===id;tab.setAttribute('aria-selected',on?'true':'false');tab.tabIndex=on?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=!on;if(on&&focus)tab.focus()})}
+ tabs.forEach(function(tab,i){tab.addEventListener('click',function(){show(tab.getAttribute('data-panel'),false)});tab.addEventListener('keydown',function(e){if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();var j=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;show(tabs[j].getAttribute('data-panel'),true)})});
+ function openHash(){var id=decodeURIComponent(location.hash.slice(1));var el=id&&document.getElementById(id);if(el&&el.closest('#ai-panel'))show('ai-panel',false)}
+ openHash();window.addEventListener('hashchange',openHash);
+})();
+</script>
 </body>
 </html>

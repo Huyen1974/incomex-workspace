@@ -44,6 +44,9 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
 
 - D08 · 2026-09-24 · Owner chốt sửa tối thiểu hướng dẫn: trần 40 dòng chỉ cho kịch bản chi tiết, ma trận vẫn đủ tổ hợp; được kiểm/bấm UI hiện có từ K0 trước bảng G, bảng G chỉ chặn vẽ/đổi UI mới; nút ✎ chuyển thành kiểm hồi quy. Bài thử FIELD ghi trong tab Step quy trình của `work/mow-mot-moit-mout/ban-duyet.html`, không tạo file mới. · Áp: SAME_COMMIT.
 
+- D09 · 2026-09-24 · Owner yêu cầu tab đầu **Workflow for User** là hình luồng có ô, mũi tên và màu, giữ đúng K0–K7 cùng ba lần Owner chạm; tab thứ hai chứa hướng dẫn chữ cho AI. Bản vẽ đầu để Owner cùng sửa, chưa là quy trình đã chốt. Không tạo file mới. · Áp: SAME_COMMIT.
+- JEV tham khảo bố cục · input = brief Owner (8 khâu, 3 điểm chạm, đọc hình nhanh hơn chữ, desktop/mobile) + overview cũ nhiều chữ; options = luồng dọc / lưới 4×2 / cuộn ngang / swimlane / chưa chọn; model `typesafe/jev-1.13-20260917`; result luồng dọc 0,93, confidence 0,92; id `gen-dec-1790244619-nAXQ91ffffD0zgV2HIWO`; Host chọn luồng dọc vì mũi tên theo một hướng.
+
 ## Nội dung chính
 - SSOT Owner/hội đồng: `work/quy-trinh-ve-UI/view.html` (mục 1 Owner cần quyết · 2 tiến độ · 3 D · 4 khâu K0–K7 · 5 hợp đồng 3 tầng · 6 nguồn+trạng thái kiểm · 7 ba nguyên tắc Owner · 8 nghiệm thu 4 cửa · 9 kho 34 câu · 10 ma trận · 11 18 thuộc tính theo tầng · 12 tool · 13 hội đồng).
 - Link Owner View chuẩn: `https://vps.incomexsaigoncorp.vn/knowledge/modules?task=quy-trinh-ve-UI`.
