@@ -13,6 +13,8 @@ Nguyên văn User, giữ thứ tự ưu tiên:
 
 Bối cảnh nguyên văn User: “Gốc rễ nhất là chúng ta đã dọn VPS còn hơn 50GB để cho việc này.”
 
+**Nguyên tắc khoá — nguyên văn Owner 24/09/2026** (áp cho mọi lựa chọn của việc này; toàn repo: AGENTS A10-R1): “Mọi giải pháp phải đảm bảo, ưu tiên tối đa, dùng cái có sẵn, nhiều người dùng, phù hợp nhất với Incomex. Không tự dựng bất cứ cái gì nếu thị trường có sẵn. Code là giải pháp cuối cùng.”
+
 ### 2. Thế nào là hoàn thành
 Phạm vi lượt giao hiện tại, nguyên văn User:
 - “tạo 1 task tên work/graph-server”
@@ -48,6 +50,7 @@ GS | D02 PRODUCT-FIRST ĐÃ ÁP · P02 PARTIAL | Chưa chốt/cài công nghệ;
 ## Quyết định Owner
 - D01 · 2026-09-24 · Owner cho phép mở đúng task graph-server, tập hợp nội dung để hội đồng góp ý, giữ bốn ưu tiên và bối cảnh VPS. Không có quyết định chọn stack/cài đặt trong lệnh này.
 - D02 · 2026-09-24 · **PRODUCT-FIRST / THỰC DỤNG:** Owner xác nhận thiết kế KG cũ trong KB quá phức tạp và không thực tế. Khi chốt Graph Server, tiêu chí ưu tiên là sản phẩm đang chạy tốt ngoài thực tế, đáng tin, cộng đồng/người dùng lớn, có gói cài/stack sẵn, ít phải tự xây framework và phù hợp nhất với Incomex. Thiết kế cũ/Điều 39 không được dùng như lý do khóa lựa chọn vào `universal_edges`/PostgreSQL; chỉ giữ các ranh giới nghiệp vụ còn hợp lý.
+- D03 · 2026-09-24 · Owner giao Claude **khoá nguyên tắc vào mục tiêu** (nguyên văn ở §0.1) và áp toàn repo (DROOT19 · AGENTS A10). Áp: SAME_COMMIT (§0) · `b3f64c4` (gốc).
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · PARTIAL — giả thuyết vòng 1 đã được D02 thay tiêu chí lựa chọn
@@ -96,6 +99,18 @@ GS | D02 PRODUCT-FIRST ĐÃ ÁP · P02 PARTIAL | Chưa chốt/cài công nghệ;
 - **JEV Reference:** `gen-dec-1790226001-T0LHg4y3r0CP99thOmaY` → first trial = `cognee_neo4j` confidence 1.00; bỏ custom PG khỏi primary shortlist = noul 0.91. Bằng chứng phụ, không thay Owner.
 - **Qdrant:** giữ nguyên service hiện hữu; không cài pgvector chỉ để phục vụ vòng trial.
 - **NEXT:** Hermes phản biện shortlist product-first. Nếu không có blocker thực tế, Host đưa Owner so sánh cuối **Cognee+Neo4j vs Graphiti+Neo4j**; không quay lại framework graph nội bộ.
+
+### P03 · Claude Chat · Reviewer · OPEN — vòng phản biện thêm (A5) sau Host response P02
+- Based_on `cf270d3`. Scope: Host response P02 + `view.html` §14. Đã đọc đủ.
+- **Rút:** kết luận P02 “vòng 1 không DB mới, đi graph PG” — Owner D02 đã thay. **F5 sai nguồn:** Claude trích từ bản nháp Điều 39 (phiên S158), không phải văn bản ban hành — lỗi của Claude, bỏ. §13 view.html đã thay bản cũ cùng commit.
+- **ACCEPT:** D02 product-first; trial #1 Cognee+Neo4j, đối chứng Graphiti+Neo4j; graph PG tự dựng ra khỏi primary shortlist; giữ Qdrant; không cài pgvector cho trial. Đúng R1 (A10).
+- **Bổ sung 4 bài đo “phù hợp nhất với Incomex”** — đề nghị Host đưa vào §9 acceptance và PROMPT trial (không phải rào cản):
+  - T13 dữ liệu thật — PG nghiệp vụ = 0 (contacts/organizations + 25 bảng `os_*` = 0 dòng, đo 24/09); dữ liệu thật ở Lark Base. Qua khi nạp được một lô xuất Lark thật (đã che) và truy được quan hệ ứng viên–đơn hàng–xí nghiệp.
+  - T14 dữ liệu cá nhân — Cognee/Graphiti gọi LLM để trích quan hệ ⇒ hồ sơ ứng viên đi qua nhà cung cấp LLM. Trial chỉ dữ liệu che/giả; dữ liệu thật cần Owner gật riêng; ghi rõ LLM provider.
+  - T15 tài nguyên — RAM 12GB (trống ~7GB), 12 container đang chạy; đặt trần heap/pagecache Neo4j, đo RAM/CPU lúc nạp; vượt trần → thử FalkorDB (Graphiti hỗ trợ).
+  - T16 có sẵn trước graph — Directus đã có bộ bảng CRM tiền tố `os_` (dạng mẫu AgencyOS; 27 bảng kể cả contacts/organizations, 0 dòng). Chốt nơi nhập liệu khách hàng (CRM có sẵn hoặc Lark); graph đọc từ đó, không thay hệ ghi chép.
+- **JEV:** giữ “Graph đi đường, JEV nhìn một bước”; điểm cắm trong Cognee = entity alignment · relation classification · confidence routing (thay lượt LLM phân loại đắt). Không gọi JEV thêm: P03 không chọn phương án mới, chỉ thêm bài đo.
+- Không cần Owner quyết thêm. Phản hồi Host: —
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
