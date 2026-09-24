@@ -4,7 +4,7 @@
 - Theo yêu cầu mới của Owner, `ban-duyet.html` có tab **Quy trình vẽ UI** ngay sau Q&A. Chuyển sơ đồ FIELD 7 bước từ `work/quy-trinh-ve-UI/view.html` vào đây và thêm bước đầu **MMIM.S00 · Khai nhu cầu**. Các phần cũ giữ nguyên để dọn sau.
 - Bản vẽ đầu tiên: **UI-030 · Master yêu cầu** (mã bước/UI đều là đề xuất, chưa đăng ký chính thức). Một màn gồm khai nhu cầu, AI diễn giải để người yêu cầu xác nhận, cấp mã yêu cầu, gửi/duyệt, danh sách trạng thái, chỗ ghi người làm/kiểm/test/xác nhận, liên kết Field và sửa theo phiên bản. Mã yêu cầu giữ suốt vòng đời sản phẩm; quyết định về vai trò/điều kiện duyệt còn chờ Owner.
 - Nút trong bản vẽ chỉ mô phỏng trong trình duyệt; **chưa ghi PG, chưa có Master yêu cầu thật, chưa coi là UI đã triển khai**. S01–S07 giữ mã cũ, UI-? để lộ chỗ chưa xác định. JEV tham khảo `gen-dec-1790288207-rPGBhrX2ET5wBaQ7Z9nb`: một màn Master yêu cầu chứa khai/sửa/duyệt/trạng thái, mã mới hiển thị là đề xuất.
-
+- **Verify VPS thật:** Owner View báo `fresh`, mở HTML revision `9195036b010dcb2bbf6e6ebd5bcca90e25b4199c`; tab `Quy trình vẽ UI` hiện MMIM.S00/UI-030. Bấm thử: `YC-THỬ-001 · Mã dự án Nháp` → `Chờ duyệt` → `Đã duyệt`; cùng mã `YC-THỬ-001`, nút `Lưu nháp` bị khóa sau duyệt. Dữ liệu thử chỉ ở trình duyệt.
 
 ## K0 FIELD · 24/09/2026
 - Đã đọc catalog PG trên VPS bằng giao dịch chỉ đọc. Bằng chứng gọn và phân mức ở `ban-duyet.html` → Step quy trình → Bài thử FIELD · K0. Điểm nghẽn quyền Directus không còn chặn việc kiểm kê; K0 toàn phần vẫn chờ Owner gật mục tiêu/phạm vi V1. Không mở K1, không đổi UI, không tạo master mới.
