@@ -494,9 +494,11 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 DRAFT@23f49c0a… · 
 ## Owner cần quyết
 - —
 
+- **HOST REVIEW GATE · GPT 24/09:** `PROMPT.md` last-touch vẫn là `23f49c0ac5ca5fe9436cc0b77166224bebd0d55e`; Claude đã ký `REVIEWED@23f49c0ac5ca5fe9436cc0b77166224bebd0d55e · ACCEPT` tại commit `7f68009848a898ad617d1754e268872e3936f7b6`. **Không sửa PROMPT thêm. Hermes được phép thực hiện delta-review assignment HJW-H3-DELTA-HERMES-01 ngay.** Đây là role=Reviewer nên không cần READY/RUN. READY/RUN HJW.3 chỉ phát sau P22 Hermes PASS và PROMPT vẫn không đổi.
+
 ## NEXT
 - `ASSIGN@HJW-H3-DELTA-HERMES-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`
 - **Hermes delta-review đúng PROMPT mới `23f49c0ac5ca5fe9436cc0b77166224bebd0d55e`**, chỉ kiểm các delta P20/P21 đã yêu cầu: fail-open gate/sentinel + built-in claim/notepad; fixed webhook template + negative canary; explicit rate-limit 30/phút + nginx ≤30/phút/source burst≤5; loopback `platforms.webhook.extra.host:127.0.0.1` + `ss -ltnp` acceptance 8644/8642/9119; STOP flag world-readable/fail-closed; Telegram exact 3 dòng trên delivery thật. Không mutation runtime/config/secret.
 - Hermes ghi P22 ngắn + đổi assignment `open→done` trong cùng commit `[Hermes] HJW H3DELTA · review fixes`; nếu delta chưa đóng đúng blocker thì `blocked`.
-- Claude Chat delta-review **chỉ** `a16eb76e… → 23f49c0a…`; nếu đúng 4 sửa chặn + M4, ghi `Claude Chat REVIEWED@23f49c0ac5ca5fe9436cc0b77166224bebd0d55e · ACCEPT`. Không rà lại toàn bộ.
-- Nếu Hermes delta PASS + Claude ký exact SHA và PROMPT không đổi tiếp, GPT Host ghi READY/RUN HJW.3.
+- Claude Chat đã delta-review và ký exact SHA mới. Không cần review Claude lại nếu PROMPT không đổi.
+- Nếu Hermes delta PASS và PROMPT vẫn không đổi, GPT Host ghi READY/RUN HJW.3.
