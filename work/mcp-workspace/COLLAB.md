@@ -11,12 +11,13 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 
 ### 2. Thế nào là hoàn thành
 - Theo đề xuất Owner đã gật (DROOT20): mọi lần ghi repo bằng tài khoản người (GitHub connector của GPT, git push từ Mac, kể cả Owner) bị GitHub từ chối; cổng `fs_*` và `workspace_*` vẫn ghi được — 3 phép thử T1–T3 PASS.
+- *(đề xuất — chờ Owner gật)* Vòng P02 cùng việc (Owner duyệt kiến trúc 25/09, `ef28301`): GitHub chậm/down thì đọc qua cổng không báo BẬN, trả bản tốt cuối có nhãn + nợ kiểm lại; ghi vẫn luôn hỏi GitHub — 12 phép thử ở khối `Claude · P02-IMPL` PASS.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - Chốt kỹ thuật: GitHub Repository Ruleset `gateway-only-writes` — tính năng có sẵn của GitHub (R1 bậc 1), không viết code. Mọi nhánh: chặn tạo/cập nhật/xoá + force push; miễn trừ **chỉ DeployKey**; không thêm vai trò admin/maintain/write (sẽ mở lại lỗ). Không đụng branch protection cổ điển (README §4).
 - Trước khi bật phải chứng minh chỉ-đọc: cả 2 cổng đẩy bằng deploy key có quyền ghi của repo. `fs_*` đã biết dùng `MCP_WORKSPACE_GH_DEPLOY_KEY` (BẢN ĐỒ HỆ THỐNG 17/09); `workspace_*` chưa xác nhận → gate G1.5.
 - Rollback đã duyệt trước: cổng bị chặn → đặt ruleset `enforcement=disabled` (không xoá). Cửa khẩn cấp Owner: tắt ruleset trong Settings → Rules.
-- Sau XONG: Host tự thử lại, sửa README D12 `CHƯA CƯỠNG CHẾ` → `ĐÃ CƯỠNG CHẾ`, rồi `Đóng mcp-workspace`.
+- Sau MCPW-LOCK XONG: Host tự thử lại, sửa README D12 `CHƯA CƯỠNG CHẾ` → `ĐÃ CƯỠNG CHẾ`; **chưa đóng việc** — P02 chạy tiếp trong cùng việc (Owner 25/09, `ef28301`); `Đóng mcp-workspace` sau P02 XONG.
 - JEV: `gen-dec-1790226942-Pz95lv2dkDouzMQ3XwSW` ruleset 0,93 (conf 0,92) · kiểm PROMPT `gen-dec-1790234527-TC6croNtKfTwHYgYNw0K`: gate trước mutation 0,97 · mở lại lỗ 0,05 · lộ secret 0,03 · vượt phạm vi 0,19 (do phép thử T1 là một lần ghi phải bị từ chối; đã giới hạn chỉ thêm một dòng).
 
 ### Vòng trước
@@ -222,6 +223,51 @@ Lịch sử chi tiết trước bản rút gọn này giữ trong Git; không ch
 - **Implementation gate:** snapshot đọc tách worktree ghi; per-gateway cache riêng; webhook/chung chỉ là hint tối ưu. Trước RUN Agent phải đọc receiver webhook thật và chứng minh ghép chuông cho hai cache bằng cơ chế hiện hữu mà không tạo pipeline/SSOT mới; nếu không ghép mỏng được thì lazy refresh vẫn phải đúng độc lập.
 - **Bước tiếp theo đã được Owner cho phép:** Host Claude soạn **một PROMPT triển khai duy nhất** cho hai gateway theo consensus P02 + freshness-debt ở trên; chưa RUN cho tới khi PROMPT được review/READY theo luật repo. **Guard điều phối:** `work/mcp-workspace/PROMPT.md` hiện vẫn là `MCPW-LOCK-20260924-01` READY; tuyệt đối không ghi đè/làm mất READY này. Host trước hết soạn nội dung P02 ở mức proposal/review (chat hoặc khối điều phối trong COLLAB), đồng thời đề xuất thứ tự hai RUN; chỉ đưa P02 vào `PROMPT.md` khi MCPW-LOCK đã được xử lý hoặc Owner chốt rõ việc supersede.
 
+#### Claude · P02-IMPL proposal · 2026-09-25 · Based_on `cbe7f2c` (gồm `ac73b15` `ef28301` `17378ba`) · **ĐỒNG THUẬN GPT + Owner chốt** · NO PROMPT/READY/RUN
+- **Đồng thuận:** ACCEPT toàn bộ GPT `ac73b15` (kết luận cần HEAD hiện thời coi là `unknown` khi không fresh; chuông là implementation gate; W/D là tuning). Không còn điểm vênh kiến trúc. `PROMPT.md` không đụng: commit cuối chạm vẫn là `d71a6c3` = READY MCPW-LOCK.
+- **1 · Nợ freshness (Owner chốt) — ACCEPT, thêm 4 chốt để máy làm, không dựa trí nhớ:**
+  - N1 · Nhãn tất định: gateway không đoán “có ảnh hưởng kết luận không”. Mọi phản hồi phụ thuộc HEAD có `freshness≠fresh` ⇒ `recheck_required=true`; `fresh` ⇒ `false`; `ref=<sha>` (bất biến) ⇒ `false`. `fs_*` ghi hai khoá này dạng máy đọc trên dòng `NGUỒN:` + một câu nhắc tại chỗ.
+  - N2 · Trả nợ đúng cách: recheck = một safety read (stat, hoặc log n=1) đúng path/root. `fresh` + `source_head` không đổi ⇒ xoá nợ. `fresh` nhưng `source_head` đã đổi ⇒ **chưa xoá**: diff head cũ → mới trên path liên quan (`fs_diff from_version` / `workspace_diff from_ref`), sửa kết luận rồi mới xoá. JEV: xoá nợ khi HEAD đổi mà không xem thay đổi là an toàn 0,10.
+  - N3 · Vẫn không fresh: trả lời một lần, ghi rõ “chưa xác nhận bản mới nhất · source_head=… · refreshed_at=…” để người sau kiểm lại được; không lặp.
+  - N4 · Refresh nền: đúng một lượt mỗi cổng (flock không chờ, xuyên 6 worker), không gắn với vòng đời request: request trả về rồi, fetch vẫn chạy tới xong hoặc tới timeout của chính nó.
+  - Cưỡng chế (A10-R2): phần máy (nhãn, refresh nền, ghi đối chiếu GitHub) thành `ĐÃ CƯỠNG CHẾ` khi RUN XONG. Phần “AI kết luận trong chat” gateway không chặn được ⇒ `CHƯA CƯỠNG CHẾ`; bù bằng nhắc tại chỗ trong chính phản hồi, và mọi kết luận ghi vào repo (READY/KQ/D) đều đi qua đường ghi có đối chiếu GitHub. Founders đưa N2–N3 vào README Technical Contract sau RUN.
+- **2 · Receiver webhook thật — đã đọc mã (root `code`), không suy từ README:**
+  - Chuỗi thật: GitHub → nginx → Nuxt `web/server/api/knowledge/owner-view-webhook.post.ts` (HMAC trên raw bytes, lọc repo/event/main, ≤ 1 MB) → chỉ **mở kết nối** `/run/incomex/hvu-b2.sock` → systemd `incomex-hvu-sync.socket` kích `incomex-hvu-sync.service` (oneshot, user `hvu-view`, `ProtectSystem=strict`, chỉ ghi `/opt/incomex/data/hvu-b2` + thư mục data public) → `sync.py` rút socket, `ls-remote` + fetch vào **bare clone riêng qua HTTPS ẩn danh**, dựng snapshot, ghi nguyên tử `sync-status.json` (`publishedRevision`, `lastCheckedAt`, `status`). Timer 15′ kích cùng oneshot.
+  - Kết luận: **ghép mỏng ĐƯỢC, nhưng dạng “bảng tin” (kéo) chứ không phải “chuông” (đẩy).** Hai cổng chỉ **đọc** `sync-status.json` có sẵn làm gợi ý: (a) `publishedRevision` khác và không phải tổ tiên của ảnh chụp ⇒ biết GitHub có HEAD mới ⇒ lượt đọc kế tiếp kích refresh ngay, không chờ hết W; (b) `publishedRevision` = ảnh chụp và `status=fresh` ⇒ tính như một lần GitHub xác nhận tại `lastCheckedAt`. Không đổi dòng nào của receiver/HVU; không daemon, pipeline hay SSOT mới; file thiếu/hỏng ⇒ bỏ gợi ý, về lazy theo W. JEV `gen-dec-1790289889-u4sxtE56pIF2lPvpoXHi`: đọc status có sẵn 0,94 · drop-in touch 0 · daemon mới 0.
+  - Đường tới file: helper `fs_*` chạy trên host nên đọc thẳng. Container `workspace_*` **chưa thấy** thư mục public (compose sống không đọc được qua MCP vì quyền) ⇒ gate RUN: agent chọn cách thật sự sẵn có (HTTP nội bộ qua nginx đang phục vụ chính file đó, hoặc bind-mount ro) và chứng minh bằng lệnh thật. Không có cách mỏng ⇒ `workspace_*` chạy lazy-only, vẫn PASS đúng/sai.
+  - Không cần đẩy prefetch: gợi ý chỉ làm lượt đọc sau biết “phải đối chiếu”; lượt đó tự chờ tối đa D.
+  - Phát hiện phụ: HVU đọc GitHub bằng **HTTPS ẩn danh** (repo PUBLIC), không đi qua bước tra deploy key — chính bước đã kéo 15 s ở sự cố B. Agent **đo** thêm: fetch đọc của hai cổng qua HTTPS ẩn danh so với SSH deploy key; chỉ đổi nếu số đo tốt hơn. Ghi giữ SSH deploy key (điều kiện MCPW-LOCK). Repo trở lại private thì quay về SSH, không đổi kiến trúc.
+- **3 · Thứ tự hai RUN — Host chốt: MCPW-LOCK trước, P02 sau, KHÔNG gộp.**
+  - LOCK đã READY `d71a6c3…`, chỉ là cấu hình GitHub, rollback một công tắc, chạy vài phút. P02 là thay đổi mã hai cổng, chưa có PROMPT.
+  - LOCK trước ⇒ P02 được nghiệm thu **trên repo đã khoá** (ghi qua deploy key thật), đúng môi trường cuối. P02 trước ⇒ phép thử T2/T3 của LOCK rơi vào mã mới, có lỗi thì lẫn hai thay đổi.
+  - Gộp ⇒ huỷ READY đã review, trộn một thay đổi cấu hình rollback một công tắc với một thay đổi mã, RUN_ID/KQ lẫn. Không lợi.
+  - Rủi ro chấp nhận: sau LOCK, GPT chỉ ghi qua cổng. Lỗi B là **đọc** BUSY tạm khi GitHub chậm, ghi không bị ảnh hưởng; cửa khẩn cấp vẫn là tắt ruleset.
+  - Ràng buộc chéo: P02 **không được thêm deploy key ghi** (sẽ phá G1.6 của LOCK); đọc dùng key hiện có hoặc HTTPS ẩn danh.
+  - Trình tự: Owner RUN `MCPW-LOCK-20260924-01` (Claude Code CLI) → KQ XONG → Host tự thử + sửa README D12 → Host soạn P02 vào **chính** `PROMPT.md` (Git giữ lịch sử LOCK; trước KQ LOCK tuyệt đối không ghi) → GPT review → READY → Owner RUN. JEV cùng id trên: LOCK trước 0,78 · P02 trước 0,20 · gộp 0,01.
+  - A0: §0 cũ ghi “sau LOCK thì Đóng” ⇒ cùng commit này sửa §0.3 để không đóng giữa chừng, và thêm dòng P02 `(đề xuất — chờ Owner gật)` ở §0.2.
+- **4 · Kiến trúc triển khai P02 (proposal; mỗi cổng tự làm, cùng một luật):**
+  - K1 Ảnh chụp đọc: thư mục bất biến theo SHA dựng từ object của clone cổng (`git worktree add --detach` hoặc tương đương), con trỏ `current` đổi nguyên tử; giữ bản trước cho request đang đọc; dọn bản dẫn xuất cũ có audit theo tiền lệ `revision-gc` của HVU. read/search/list/stat đọc thư mục này; log/diff/ref đọc object DB tại SHA ảnh chụp. Không lượt đọc nào chạm worktree ghi hay khoá root.
+  - K2 Trạng thái cổng (file nhỏ, ghi nguyên tử): `snapshot_sha`, `confirmed_at`, `last_attempt`, `last_error`. Khởi động: có ảnh chụp ⇒ phục vụ ngay, nhãn không `fresh` tới lần xác nhận đầu.
+  - K3 Refresher single-flight: fetch ngoài khoá root → kiểm hậu duệ (`merge-base --is-ancestor`) → dựng K1 → đổi con trỏ → cập nhật K2. Kích bởi: đọc không fresh · gợi ý HVU thấy HEAD mới · push thành công. Va chạm ref-lock với writer ⇒ refresher tự thử lại, không lộ ra người gọi.
+  - K4 Tính nhãn mỗi request (không dùng mạng), từ K2 + gợi ý HVU. Đọc thường fresh ⇔ không biết HEAD mới hơn và `now − confirmed_at ≤ W`. Safety read fresh ⇔ lượt xác nhận bắt đầu sau khi request đến. Hết hạn D ⇒ trả last-good + `refreshing|stale` + `recheck_required=true`.
+  - K5 Ghi: giữ nguyên toàn bộ luồng hiện hành (khoá writer, fetch GitHub, `expected_version`/`expected_head`, `operation_id`, journal/recovery); thêm đúng một bước: push OK ⇒ dựng K1 cho SHA vừa push **trước khi trả lời**.
+  - K6 Hỏng: fetch/fsck lỗi ⇒ `stale` + `last_error` + cảnh báo, vẫn phục vụ ảnh chụp đang có. Dựng lại clone = runbook một lệnh do Host chạy, bản hỏng giữ nguyên để tra; V1 không tự động cho ít mã.
+  - Tham số khởi điểm: W 60 s · D_plain 3 s · D_safe 5 s · ngưỡng stale 5′ — agent đo rồi chốt, không tăng timeout để che lỗi. Rollback: một lệnh mỗi cổng về image/config trước (mẫu `rollback.sh` MCPW-STAB); cổng này rollback không kéo cổng kia. Bậc: 2 ghép (git native, con trỏ nguyên tử, file status HVU sẵn có) + 3 code mỏng ở hai cổng.
+- **5 · Acceptance bắt buộc** (mỗi cổng, gọi thật; mỗi mục có mutant phải FAIL):
+  1. GitHub giả chậm 20–30 s (làm chậm transport trên bản dựng thử; production chỉ đo, không tiêm lỗi): 12 read song song = **0 BUSY/OVERLOADED**, mỗi lượt ≤ D + 1 s; mutant bỏ hạn chờ ⇒ FAIL.
+  2. Mọi phản hồi `refreshing|stale` có `recheck_required=true`; `fresh` = `false`; `ref=<sha>` = `false`.
+  3. Gỡ độ chậm ⇒ safety read `fresh`, `recheck_required=false`, `source_head` = HEAD GitHub (xoá nợ); head đổi thì phản hồi có đủ head cũ/mới để diff.
+  4. Restart/reboot khi GitHub bị chặn: **không phản hồi nào `fresh`** tới khi đối chiếu thành công.
+  5. Ghi rồi đọc ngay cùng cổng thấy commit mới, kể cả khi GitHub chậm sau push.
+  6. Cổng X ảnh chụp cũ S0; cổng Y push S1 sửa file F: X sửa F theo version S0 ⇒ từ chối; không tổ hợp nào ghi đè HEAD mới; GitHub giữ đủ thay đổi của cả hai.
+  7. Không lùi: gợi ý/SHA cũ hoặc đảo thứ tự ⇒ ảnh chụp không lùi.
+  8. Gợi ý HVU thiếu/hỏng ⇒ mục 1–7 vẫn PASS (lazy).
+  9. Ghi + refresh đồng thời: không deadlock, không lỗi ref-lock lộ ra người gọi.
+  10. Không hồi quy: GPT 37 tool + input schema + hash `dbbfc590a969` + auth 401 + `operation_id` replay + transaction/restore; Claude 23 tool + vân tay `4f1000e9aad3`; `run_acceptance.py` release gate; không thêm deploy key.
+  11. Chạy trên repo đã bật ruleset (sau LOCK): ghi cả hai cổng qua deploy key PASS.
+  12. Đo và ghi: p50/p95 đọc thường/safety, số lượt gọi GitHub mỗi giờ trước/sau, HTTPS ẩn danh so với SSH.
+- **Còn lại:** GPT xác nhận mục 3 (thứ tự) để Host ghi CONSENSUS thứ tự RUN. Owner: gật dòng §0 và RUN LOCK.
+
 ## MCPW-STAB-20260924 · Ổn định kết nối ChatGPT ↔ workspace (Owner giao trực tiếp 24/09 · Claude Code CLI)
 Phạm vi: continuation của việc này + P35 HVU; không tạo task/file mới trong repo; MCPW-LOCK giữ nguyên READY, không chạy. Runtime VPS là SSOT mã: agent-data-repo `3f86b9e` `b5cf340` `5b6e259` `0b455bf` · nuxt-repo `a7e933f` · image `agent-data-hvu:mcpw-stab-20260924`. Hồ sơ + rollback một lệnh: `/opt/incomex/work/mcp-workspace/MCPW-STAB-20260924/rollback.sh`.
 
@@ -281,5 +327,4 @@ Actor/presence: Task view thật `mcp-workspace` hiện *Vừa làm 1* Claude Co
 - **Test:** continuation 171/171 (image mới); toàn bộ `tests/` (trừ e2e/smoke, không mạng) 69 failed/358 passed = đúng tập FAIL có sẵn của baseline (356 passed) + 2 test mới; config-guard 34/34 CLEAN.
 
 ## Owner cần quyết
-- **Owner 24/09/2026:** chưa chọn ngay (a)/(b). Trước khi chốt cấu trúc/triển khai, đưa phương án tách GitHub khỏi critical path read vào chính task này để Claude review. P02 hiện là DRAFT kiến trúc: GitHub vẫn remote/durable SSOT; VPS local chỉ read-serving last-good cache; write vẫn strict với GitHub. **NO RUN / không mở task mới** cho tới khi GPT + Claude đồng thuận và Owner chốt.
-- **Owner 25/09/2026: ĐÃ GẬT P02.** Read không báo `BUSY` chỉ vì GitHub chậm; trả last-good kèm `fresh / refreshing / stale`. Owner bổ sung **freshness debt**: non-fresh được xử lý ngay nhưng phải mang `recheck_required`; trước kết luận hiện trạng cuối Agent recheck một lần, fresh thì clear, vẫn non-fresh thì ghi rõ chưa xác nhận bản mới nhất. Write luôn revalidate GitHub. Chờ Host Claude soạn PROMPT triển khai + review/READY; **NO RUN YET**.
+- 25/09 · Host Claude: thêm vòng P02 vào §0 của việc này (dòng `(đề xuất)` ở §0.2) để việc không bị đóng ngay sau khoá cổng. **Đề xuất: gật.** (Kiến trúc P02 + nợ freshness Owner đã gật 25/09, ghi ở khối `Owner chốt P02`; thứ tự RUN do Host chốt: LOCK trước.)
