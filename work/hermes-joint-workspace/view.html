@@ -20,7 +20,7 @@ small{color:#666}
 <h1>Hermes Joint Workspace</h1>
 <p><span class="tag">HOST REVIEW</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Host: GPT Chat</span><span class="tag">24/09: đã gỡ khoá Agent Data khỏi Hermes</span></p>
 
-<div class="box"><strong>HJW.2C — RUN PARTIAL.</strong> G0 auth patch và G1 Agent Gateway phía server đã lên production; Agent Data hiện healthy, HEAD <code>f2f0650…</code>, worktree sạch. Còn thiếu: nginx rate-limit và phía Hermes (narrow key → config → restart serve/gateway → live tests).<br><strong>Anh cần quyết:</strong> cấp phép đúng một lượt cho Claude Code làm nốt các bước này; không mở Bash/SSH permission bền. Trước nginx reload và trước restart Hermes vẫn phải Telegram.</div>
+<div class="box"><strong>HJW.2C — RUN PARTIAL.</strong> G0 auth patch + G1 Agent Gateway server + nginx rate-limit đều PASS. Agent Data healthy, HEAD <code>f2f0650…</code>, worktree sạch. Chỉ còn phía Hermes: materialize narrow key → config → restart serve/gateway → live tests.<br><strong>Block hiện tại:</strong> Claude Code auto-mode chặn <code>Secret-Store Writes</code>. Anh nên tự <strong>gõ tay</strong> một câu cấp phép ngắn trong chính phiên đó; không dùng <code>! ssh</code> và không mở quyền Bash/SSH bền.</div>
 
 <div class="bar" id="TIEN-DO"><span class="g">✓ 1 Mở việc</span><span class="g">✓ 2 Thiết kế</span><span class="g">✓ 3 RUN HJW-2B1</span><span class="now">▶ 4 Nghiệm thu</span><span>□ 5 Ghi luật/Đóng</span></div>
 
@@ -84,7 +84,7 @@ Claude Chat ──────────────────────�
 <tr><td>HJW.2A — Design</td><td>Đã chốt: COLLAB/Git HEAD là SSOT dispatch; Hermes đọc trực tiếp tại HEAD xác định; relay hiện có fail-closed; Phase 1 chỉ giữ nhận/làm assignment, nhắc lượt+canh RUN treo, heartbeat và cơ chế dừng; threat model L1 Hermes + L2 VPS/root.</td><td>GPT Host + Claude Reviewer</td><td>✓ consensus 23/09</td></tr>
 <tr><td>HJW.2B</td><td>RUN đầu đã DỪNG an toàn tại G0.2, 0 mutation.</td><td>Claude Code CLI</td><td>■ DỪNG hợp lệ</td></tr>
 <tr><td>HJW.2B1</td><td>SEC-CLEAN + capability audit theo PROMPT <code>d4090d3c…</code>.</td><td>Claude Code CLI · GPT Host</td><td>✓ XONG 24/09 · SEC-CLEAN PASS · MIN_CODE_CHANGE</td></tr>
-<tr><td>HJW.2C</td><td>G0 + G1 server đã production; còn nginx throttle + Hermes materialization/config/restart/live test.</td><td>Claude Code CLI · GPT Host</td><td>▶ RUN PARTIAL · chờ Owner one-run authorization</td></tr>
+<tr><td>HJW.2C</td><td>G0 + G1 server + nginx throttle PASS; còn Hermes narrow-key materialization/config/restart/live test.</td><td>Claude Code CLI · GPT Host</td><td>▶ RUN PARTIAL · BLOCK Secret-Store Writes</td></tr>
 <tr><td>HJW.3</td><td>Nghiệm thu T1–T10 bằng chạy thật, gồm self-wake, chống wake thừa, stale-write, retry/dedup, Telegram, blocker vượt quyền, attribution và secret rotation/boundary.</td><td>Hermes làm · GPT + Claude chấm chéo</td><td>ngay sau HJW.2B</td></tr>
 <tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>sau HJW.3 PASS</td></tr>
 <tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T10.</td><td>Host</td><td>—</td></tr>
@@ -114,6 +114,6 @@ Claude Chat ──────────────────────�
 </ul>
 
 <h2 id="DIEU-KIEN">8. Điều kiện chuyển sang làm</h2>
-<p>NEXT: Owner cấp phép đúng một lượt trong phiên Claude Code đang dừng; Agent làm nốt nginx + phía Hermes/live tests rồi ghi KQ.</p>
+<p>NEXT: Owner gõ tay một câu cấp phép ngắn trong phiên Claude Code đang dừng; nếu auto-mode nhận thì Agent làm nốt phía Hermes/live tests rồi ghi KQ.</p>
 </body>
 </html>
