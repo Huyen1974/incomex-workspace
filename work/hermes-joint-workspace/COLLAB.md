@@ -407,6 +407,21 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
 - Nếu câu gõ tay vẫn bị auto-mode chặn: **không lách, không mở quyền Bash/SSH bền, không tự chạy shell thay Agent**. Chuyển đúng thao tác này sang approval tương tác/manual approval của Claude Code nếu phiên hỗ trợ; nếu không có thì DỪNG và báo Host gate chính xác.
 - Sau khi qua gate: Agent chỉ làm phần còn lại của PROMPT — sửa `hermes-key-fetch` để materialize narrow key (master key vẫn vắng), kiểm/regenerate env; sửa `config.yaml`; Telegram; restart serve→gateway; live tests + revoke/restore + reversible-write; ghi KQ.
 
+### P16 · Claude Chat · OPEN — nghiệm thu độc lập `KQ@HJW-2C-20260924-01 XONG` + 3 việc cho Host
+- Based_on: HEAD `8581476`. Claude tự kiểm trên lịch sử Git, **không tin báo cáo của agent**:
+  - `8581476` có dòng `KQ@HJW-2C-20260924-01 XONG`, RUN_ID khớp PROMPT hiện hành ⇒ A9 hợp lệ.
+  - Hai commit live test `0056cdf` → `966baa6` có **author = `agent-gw/hermes`** — tức danh tính do server đặt từ credential, không phải nhãn client tự khai ⇒ **TRUSTED-IDENTITY được chứng minh trên Git thật**, không chỉ trong test nội bộ.
+  - `git diff 0056cdf^ 966baa6 -- view.html` **rỗng** ⇒ hoàn tác sạch đúng byte. Mỗi commit đúng 1 dòng ±, **không file mới** ⇒ NO-NEW-FILE PASS.
+  - Nhãn `agent-gw/hermes` xuất hiện **đúng 2 lần** trong toàn lịch sử = đúng hai lượt test, không có lượt ghi nào khác ⇒ không có tác dụng phụ ngoài phạm vi.
+  ⇒ **Đề nghị Host nghiệm thu XONG.**
+- **Việc 1 — sửa luật nền MỘT lần, đừng sửa ba lần.** Dashboard đang hiện “Chưa rõ” vì bảng phiên dịch A9 không có nhãn mới. Gộp luôn ba thứ đang nợ của HJW.4 vào cùng một lần sửa `AGENTS.md`: (a) thêm dòng bảng A9 `agent-gw/hermes` → hiển thị **Hermes**; (b) A4 thêm tiền tố commit `[Hermes]` (và `[Claude Code]` đang chờ từ trước); (c) A2 ghi hội đồng 3 thành viên theo DROOT02. **Kèm một dòng vào checklist onboard agent:** mỗi agent mới = thêm profile + credential **+ một dòng bảng A9**, nếu không thì agent đó vô danh trên Task view. Bảng khớp theo tiền tố nên dòng riêng từng agent là đúng thiết kế; đừng gộp `agent-gw/` thành một dòng chung vì sẽ nhập mọi agent làm một.
+- **Việc 2 — ghi giới hạn đã biết vào `view.html`, không mở thêm quyền:** `workspace_result_read` vẫn cấm ⇒ kết quả tool dài hơn một trang (tìm kiếm, lịch sử) bị cắt và Hermes không đọc tiếp được; đọc file dài thì đã chứng minh đủ bằng cửa sổ + con trỏ. Điều kiện mở sau này: result state bind được với profile đã xác thực.
+- **Việc 3 — hướng đi tiếp: về đúng HJW.3, đừng mở việc mới.** Hermes giờ có tay ghi thật, nên phần lớn tiêu chí đã có bằng chứng: **T1 đọc PASS · T3 chéo/version-guard PASS · T4 tên riêng PASS** (`agent-gw/hermes` trên Git). **Còn thiếu đúng ba:** T2 bài ghi đầy đủ, **T5 gọi qua Telegram** và T6 chi phí mỗi lượt, cộng T10 (4 job đợt 1 + cờ STOP + nhịp tim).
+  **Cảnh báo quan trọng cho Host khi đánh giá:** toàn bộ live test lần này chạy bằng script dưới env của Hermes, **không qua LLM của Hermes**. Tức đã chứng minh **đường ống**, chưa chứng minh **vòng làm việc của agent** (nhận câu `WS …` → tự đọc AGENTS → COLLAB → làm → ghi → báo 3 dòng). Đừng tính T5 là đã đạt. Đề xuất: **một** PROMPT HJW.3 duy nhất gộp đủ: đối chiếu bằng chứng sẵn có vào T1–T4 → một lượt thật qua Telegram cho T5 → đo T6 → dựng 4 job đợt 1 theo thiết kế đã chốt (script gate 0-token, cờ HARD-STOP, nhịp tim Kuma) → nghiệm thu T1–T10. **Thứ tự:** việc 1 phải xong **trước** khi job tự động bắt đầu ghi repo, nếu không mọi commit tự động đều vào ô “Chưa rõ”.
+- **Rủi ro còn lại, ghi để không ai tưởng đã miễn nhiễm:** narrow key nằm trong env Hermes nên tiến trình con thừa hưởng được; bù lại scope hẹp (ghi chỉ trong HJW) và **thu hồi đã thử thật** (revoke ⇒ 401, client khác không ảnh hưởng) ⇒ chấp nhận được, có đường đóng nhanh khi cần.
+- Áp: SAME_COMMIT
+- Host response: —
+
 ## Owner cần quyết
 - —
 
