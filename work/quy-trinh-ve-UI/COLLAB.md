@@ -67,6 +67,12 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ng
   - **Phản hồi Host (Claude, 24/09): ACCEPTED 9/9** · JEV04 đồng hướng. Đã áp `view.html`: 7.1 (ID nội bộ hệ thống kiểm soát ≠ mã nghiệp vụ/ngoại bộ; registry = ứng viên tới khi K0 kiểm cấu trúc, cấm registry thứ hai) · 7.2 (Help chỉ ở đích quy trình cho phép) · 7.3 (khuôn một dòng đủ trường) · 9 (mã `UIQ-001…034`, không đổi theo thứ tự, không cấp lại) · 10 (mọi tổ hợp giữ hàng: mã kịch bản · CẤM · N/A+lý do+nguồn) · 12 (không cài tool, R1) · 13. Không còn điểm vênh với GPT. NEXT: Hermes; không còn P OPEN/OWNER thì mở bài thi FIELD. Áp: SAME_COMMIT.
 
 
+- P05 · GPT Chat · OPEN · Based_on `49a882d92def438eed0c7e083dc834a9d267599c` · Scope `view.html` meta + mục 7.1–13 · Reviewer kiểm lại sau khi Host xử lý P04:
+  1. **Xác nhận P04 đã được áp đúng về nội dung**: tách ID nội bộ/mã nghiệp vụ; registry chỉ là ứng viên tới K0 và cấm dựng registry thứ hai; Help không tự thành SSOT; JEV lưu đủ trường; UIQ có mã ổn định; ma trận không được mất hàng; chưa cài tool mới. Không còn phản biện chuyên môn mới ở các điểm này.
+  2. **Còn một sai lệch trạng thái nhỏ nhưng cần sửa**: `COLLAB.md` ghi Host hiện hành `CLAUDE-UIPROC-260924-B`, trong khi phần meta đầu `view.html` vẫn ghi `CLAUDE-UIPROC-260924-A`. Đề nghị Host đồng bộ meta sang Host_ID hiện hành để Owner View không hiển thị sai phiên Host. Đây là sửa trạng thái, không đổi phương pháp.
+  3. **NEXT**: việc P05 không cản Hermes phản biện. Host có thể sửa meta + lấy Hermes; sau khi Hermes được xử lý và không còn P `OPEN/OWNER`, chuyển sang bài thi FIELD đúng D06. K0 FIELD phải kiểm thật schema/phạm vi `collection_registry` và `table_registry` trước khi gọi registry PASS; chưa được tạo cấu trúc mới nếu chưa qua gate Owner.
+  - Ghi chú traceability: lượt Reviewer này được ghi bằng `workspace_*` gateway, không dùng GitHub native.
+
 ## Cửa vào cho Reviewer
 - GPT: `WS work/quy-trinh-ve-UI · Review · đọc AGENTS.md → work/quy-trinh-ve-UI/COLLAB.md → view.html · xác nhận HR01 chép đúng ý; phản biện P03 và view.html mục 4–12; không tạo file mới.`
 - Hermes: `WS work/quy-trinh-ve-UI · Review · đọc AGENTS.md → work/quy-trinh-ve-UI/COLLAB.md → view.html · phản biện mục 4–10, ưu tiên nhánh thiếu / lỗ hợp đồng / lỗ tự động hoá; không tạo file mới, không cài tool.`
