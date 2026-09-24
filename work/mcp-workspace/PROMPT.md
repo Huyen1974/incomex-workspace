@@ -1,7 +1,7 @@
 # PROMPT — MCPW-LOCK · Khoá cứng đường ghi repo: chỉ 2 cổng gateway được đẩy lên GitHub
 
 RUN_ID: MCPW-LOCK-20260924-01
-Soạn: Claude Chat — Host `CLAUDE-MCPW-260924-A`, 24/09/2026. Owner duyệt: “Đúng vậy chúng ta khóa lại để bắt buộc làm theo 1 con đường giúp tôi.” (A0 của `work/mcp-workspace/COLLAB.md`; COLLAB gốc DROOT20).
+Soạn: Claude Chat — Host `CLAUDE-MCPW-260924-A`, 24/09/2026. Owner duyệt: “Đúng vậy chúng ta khóa lại để bắt buộc làm theo 1 con đường giúp tôi.” (A0 của `work/mcp-workspace/COLLAB.md`; COLLAB gốc DROOT20). Bản này đã áp GPT P01 (R1 + R2).
 Executor_Surface: **Claude Code CLI trên Mac của Owner**, dùng: (a) `gh` đã đăng nhập tài khoản GitHub của Owner (quyền admin repo); (b) `ssh contabo` **chỉ đọc**; (c) MCP “Incomex VPS” `fs_*` để ghi báo cáo.
 Write_Path báo cáo: `fs_*`, root `gh`. **CẤM** `git commit`/`git push` trực tiếp và cấm ghi repo bằng `gh api .../contents` — trừ đúng phép thử T1 (một lần ghi PHẢI bị từ chối).
 
@@ -18,7 +18,7 @@ Luật README D12: AI chỉ được ghi repo `Huyen1974/incomex-workspace` qua 
 - G1.3 `gh api repos/Huyen1974/incomex-workspace/keys` → mỗi deploy key: `id`, `title`, `read_only`, `created_at`, fingerprint SHA256 (ghi trường `key` — khoá CÔNG KHAI — vào file tạm trên Mac → `ssh-keygen -lf` → xoá file tạm).
 - G1.4 Cổng `fs_*`: `ssh contabo` chỉ đọc: `ssh-keygen -y -f /run/incomex-mcp-helper/gh_deploy_key | ssh-keygen -lf -` → chỉ lấy fingerprint. **Tuyệt đối không in/copy/di chuyển khoá riêng.**
 - G1.5 Cổng `workspace_*` (container `incomex-agent-data`), chỉ đọc: đường dẫn clone của root `workspace` trong file do biến `WORKSPACE_CONFIG` trỏ tới; `git -C <clone> remote get-url origin`; `git -C <clone> config --get core.sshCommand`; **chỉ TÊN** (không giá trị) các biến `GIT_SSH*` trong môi trường container; nếu xác thực bằng khoá SSH → fingerprint như G1.4. Remote `https://` kèm token/PAT, hoặc khoá SSH gắn tài khoản người → **FAIL G1.5**.
-- G1.6 Fingerprint ở G1.4 và G1.5 mỗi cái phải trùng một deploy key ở G1.3 có `read_only=false`. Deploy key ghi-được khác (không thuộc 2 cổng) không làm FAIL nhưng phải liệt kê trong KQ (mọi deploy key sẽ được miễn trừ).
+- G1.6 Fingerprint ở G1.4 và G1.5 mỗi cái phải trùng một deploy key ở G1.3 có `read_only=false`, **và** tập deploy key `read_only=false` của repo phải **đúng bằng** tập fingerprint của 2 cổng (hai cổng có thể dùng chung một key). Có deploy key ghi-được thừa hoặc không nhận diện được → **FAIL G1.6, DỪNG trước mutation** — vì miễn trừ `DeployKey` áp cho MỌI deploy key của repo, không chọn được từng cái (GPT P01-R1). Deploy key chỉ-đọc không ảnh hưởng, chỉ liệt kê trong KQ. Về sau thêm deploy key ghi-được mới = thay đổi phải Owner duyệt.
 - G1.7 Repo không có `.github/workflows` (xác nhận không có GitHub Actions phải đẩy lên).
 
 ## 3. Mutation duy nhất (chỉ khi G1 PASS toàn bộ)
@@ -29,15 +29,15 @@ Luật README D12: AI chỉ được ghi repo `Huyen1974/incomex-workspace` qua 
  "rules":[{"type":"creation"},{"type":"update","parameters":{"update_allows_fetch_and_merge":false}},{"type":"deletion"},{"type":"non_fast_forward"}],
  "bypass_actors":[{"actor_id":null,"actor_type":"DeployKey","bypass_mode":"always"}]}
 ```
-- API chỉ từ chối vì `actor_id` → thử lại **một lần** với `"actor_id":0`. Lỗi khác → ghi nguyên văn, DỪNG; không thử cấu hình khác.
+- `actor_id` phải là `null` với `DeployKey` (tài liệu REST GitHub). API từ chối → ghi nguyên văn lỗi, DỪNG; không thử cấu hình khác.
 - **Cấm** thêm vào miễn trừ bất kỳ vai trò (admin/maintain/write), người dùng hay app nào — làm vậy là mở lại lỗ.
 - Không đụng branch protection cổ điển, không đổi bất kỳ setting GitHub nào khác.
 
 ## 4. Phép thử ngay sau khi bật
-- **T1 · Đường người phải bị chặn:** `gh api -X PUT repos/Huyen1974/incomex-workspace/contents/work/mcp-workspace/COLLAB.md` với nội dung = bản hiện tại + **đúng một dòng cuối** `probe-native MCPW-LOCK-20260924-01` (không xoá/đổi gì khác) và `sha` hiện tại → PHẢI bị từ chối (ghi mã HTTP + thông điệp, ví dụ “Repository rule violations”). Nếu THÀNH CÔNG → FAIL T1: không sửa/xoá gì thêm, ghi KQ DỪNG.
+- **T1 · Đường người phải bị chặn:** `gh api -X PUT repos/Huyen1974/incomex-workspace/contents/work/mcp-workspace/COLLAB.md` với nội dung = bản hiện tại + **đúng một dòng cuối** `probe-native MCPW-LOCK-20260924-01` (không xoá/đổi gì khác) và `sha` hiện tại → PHẢI bị từ chối (ghi mã HTTP + thông điệp, ví dụ “Repository rule violations”). Nếu THÀNH CÔNG → FAIL T1 → làm đúng mục Rollback bên dưới.
 - **T2 · Cổng `fs_*` vẫn ghi:** chính lần ghi khối KQ ở mục 6 bằng `fs_edit`/`fs_transaction` → push OK.
 - **T3 · Cổng `workspace_*` vẫn ghi:** nếu phiên này bind `workspace_*` (Agent Data) → thêm một dòng `T3 workspace_* PASS <thời điểm UTC>` vào đúng khối KQ bằng `workspace_edit`. Không bind → ghi `T3 chưa thử — Host thử` (Host Claude Chat thử ngay sau).
-- **Rollback — Owner đã duyệt trước, không cần hỏi:** T2 hoặc T3 thất bại vì push bị từ chối → `gh api -X PUT repos/Huyen1974/incomex-workspace/rulesets/<id>` đặt `"enforcement":"disabled"` (**không xoá** ruleset), rồi mới ghi KQ DỪNG bằng `fs_*`. T1 thất bại → để nguyên ruleset, KQ DỪNG.
+- **Rollback — Owner đã duyệt trước, không cần hỏi (áp GPT P01-R2):** bất kỳ T1, T2 hoặc T3 FAIL → `gh api -X PUT repos/Huyen1974/incomex-workspace/rulesets/<id>` đặt `"enforcement":"disabled"` (**không xoá** ruleset). Riêng T1: nếu lần ghi thử đã THÀNH CÔNG, sau khi disable phải gỡ đúng dòng `probe-native MCPW-LOCK-20260924-01` bằng `fs_edit` (cổng đã audit), không đụng dòng khác. Xong mới ghi KQ DỪNG bằng `fs_*`. Không để lại thay đổi thử nghiệm nào.
 
 ## 5. Cấm
 - In, copy, di chuyển, đổi khoá riêng/token/secret nào — chỉ fingerprint khoá công khai.

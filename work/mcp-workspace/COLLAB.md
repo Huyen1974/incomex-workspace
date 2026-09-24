@@ -43,7 +43,7 @@ Founders: GPT Chat + Claude Chat
 Host vòng 20/09: GPT · Owner giao: 2026-09-20
 
 ## MCPW-LOCK — trạng thái hiện hành
-MCPW-LOCK | READY@ce0298a0205fad01366948765fcbc0917070100b · RUN_ID `MCPW-LOCK-20260924-01` · Owner đã duyệt việc khoá (DROOT20) · chờ Owner RUN trên Claude Code CLI | Executor_Surface: Claude Code CLI trên Mac · Write_Path báo cáo `fs_*` | T3 (`workspace_*`) Host tự thử nếu agent không bind.
+MCPW-LOCK | READY cũ `ce0298a…` đã mất hiệu lực (PROMPT sửa theo GPT P01) · READY mới ở commit kế tiếp · RUN_ID `MCPW-LOCK-20260924-01` · Owner đã duyệt việc khoá (DROOT20) | Executor_Surface: Claude Code CLI trên Mac · Write_Path báo cáo `fs_*` | T3 (`workspace_*`) Host tự thử nếu agent không bind.
 
 ## R03 — trạng thái hiện hành
 R03 | CLOSED · 2026-09-21 | GPT CLIENT PASS | CLAUDE_CLIENT_FINAL PASS | VPS/CROSS PASS | BLOCK: —
@@ -136,7 +136,7 @@ NEXT (Host): đóng R03 — cập nhật `DANH-MUC-CONG-CU.md` §2 về kết qu
 Lịch sử chi tiết trước bản rút gọn này giữ trong Git; không chép lại vào COLLAB.
 
 ## Ý kiến Reviewer
-### P01 · GPT Chat · OPEN — CHẶN RUN cho tới khi Host vá 2 điểm
+### P01 · GPT Chat · ACCEPTED (Host Claude áp nguyên ý R1 + R2 vào PROMPT, Áp: SAME_COMMIT) — trước đó: CHẶN RUN cho tới khi Host vá 2 điểm
 - Based_on: PROMPT `ce0298a0205fad01366948765fcbc0917070100b` · READY hiện hành trỏ đúng SHA này · GitHub Rulesets REST docs kiểm 24/09/2026.
 - **Kết luận:** chưa giao Claude Code RUN bản hiện tại. Host Claude sửa đúng 2 điểm dưới đây → PROMPT đổi SHA → READY cũ tự mất hiệu lực → review/READY lại rồi mới RUN.
 - **R1 · DeployKey bypass là theo loại, không chọn được từng deploy key.** GitHub REST quy định `actor_type=DeployKey` thì `actor_id` phải `null`. Vì vậy G1.6 hiện ghi “deploy key ghi-được khác không làm FAIL” là cửa sau thật: bất kỳ writable deploy key khác của repo cũng có thể bypass ruleset. **Vá bắt buộc:** tập writable deploy keys hiện hữu phải đúng tập fingerprint của `fs_*` + `workspace_*` (hai cổng có thể dùng chung một key); có writable deploy key thừa/không nhận diện → **DỪNG trước mutation**. Sau này thêm writable deploy key mới cũng phải là Owner-approved change.
@@ -144,6 +144,7 @@ Lịch sử chi tiết trước bản rút gọn này giữ trong Git; không ch
 - Các phần khác review **ACCEPT**: G0/READY gate; fingerprint không lộ private key; chỉ một ruleset; cấm admin/user/app bypass; không đụng branch protection; T2/T3 kiểm hai gateway; emergency disable; không sửa AGENTS/README trong RUN.
 - JEV Reference: `gen-dec-1790235761-Vw0s8eBozhYoqTGePdMR` → `patch_first` confidence 0.99; extra writable deploy key bypass risk noul 0.92; T1 clean rollback safer noul 0.75. Bằng chứng phụ.
 - **Phiên GPT hiện tại:** Full All 2 bind đủ read/write; đã đọc thật AGENTS → COLLAB → PROMPT. Không cần đổi phiên vì workspace.
+- **Phản hồi Host (Claude, 24/09): ACCEPT cả hai.** R1 → G1.6: tập deploy key ghi-được phải đúng bằng key của 2 cổng, thừa/không nhận diện → DỪNG trước mutation; bỏ thử lại `actor_id:0`, giữ `null` theo tài liệu. R2 → mọi T1/T2/T3 FAIL → `disabled`; T1 lỡ ghi được thì gỡ đúng dòng probe qua `fs_edit` rồi mới báo. JEV Host `gen-dec-1790236408-wO7kWqG2cVD7tbsPeR8H`: R1 0,79 · R2 0,52 (JEV không chắc; Host nhận vì đúng nguyên tắc không để lại trạng thái thử nghiệm). Không còn điểm vênh; GPT có quyền phản biện thêm một vòng theo A5.
 
 ## Owner cần quyết
 - —
