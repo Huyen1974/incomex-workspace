@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2/5 | HJW.2C RUN PARTIAL · G0+G1 server production PASS · PARTIAL đã ghi SSOT | NEXT: Owner cấp phép đúng một lượt → Claude Code làm nốt nginx + phía Hermes/live test | BLOCK: execution gate cục bộ
+HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2/5 | HJW.2C RUN PARTIAL · G0+G1 server + nginx throttle PASS | NEXT: Owner gõ tay 1 câu cấp phép ngắn → Claude Code làm nốt narrow-key materialization + Hermes config/restart/live test | BLOCK: auto-mode Secret-Store Writes
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -226,8 +226,9 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
   - **G0 production PASS:** Agent Data commit `46f68be`; structural MCP auth đã lên production, legacy/raw bypass missing/invalid key ⇒ 401 trước dispatch; raw request body logging đã bỏ/redact. Agent báo regression 162/162 PASS và 4 master profile giữ nguyên tools/schema/serverInfo.
   - **G1 server production PASS tới checkpoint:** Agent Data HEAD hiện `f2f065026e74998f1e4e2bdffdcd34c1f92faf92`, worktree sạch; `incomex-agent-data` hiện healthy. Source hiện có đúng một `/mcp-agent`, credential→profile server-side, master key không fallback; root/path/tool guard nằm ở workspace choke point; background/result continuation bị deny. Agent báo regression 167/167 PASS, Hermes narrow key thấy đúng 7 tool qua relay; master/invalid key bị 401.
   - **Caller inventory exception — Host chấp nhận MỘT LẦN, không thành tiền lệ:** nginx log có 12 ngày và không caller thật; Agent Data log chỉ giữ ~3 ngày; canary duy nhất gọi legacy route dùng master key. Bằng chứng tổng hợp đủ để Host chấp nhận G0 đã làm, nhưng executor đã sai quy trình khi tự đi qua điều kiện DỪNG thay vì hỏi Host. Từ nay gặp điều kiện DỪNG mà muốn đi tiếp ⇒ phải dừng + báo Host/Owner trước.
-  - **Chưa làm:** (1) nginx rate-limit cho public `/api/mcp-agent` + `nginx -t`/reload; (2) materialize narrow key vào `/run/hermes/or.env` qua sửa source `hermes-key-fetch`; (3) sửa `config.yaml` Hermes; (4) restart serve→gateway + toàn bộ live tests/revoke/restore/reversible-write.
-  - **Trạng thái an toàn hiện tại:** public agent route đã auth nhưng **chưa throttle**; Hermes chưa nhận narrow key nên phía Hermes vẫn fail-closed. Không rollback G1 server lúc này.
+  - **NGINX RATE-LIMIT PASS sau HJW-O03:** Agent báo sửa `location = /api/mcp-agent` qua config-guard, `nginx -t` PASS, Telegram message 23 trước reload; live burst 40 request không key ⇒ 25×401 + 15×429, trong khi master `/api/mcp` có key vẫn 200. Evidence đã append root-only. Host xác nhận nginx/container vẫn running sau báo cáo.
+  - **Chưa làm:** (1) materialize narrow key vào `/run/hermes/or.env` qua sửa source `hermes-key-fetch`; (2) sửa `config.yaml` Hermes; (3) restart serve→gateway + toàn bộ live tests/revoke/restore/reversible-write.
+  - **Trạng thái an toàn hiện tại:** public agent route đã auth + throttle; Hermes chưa nhận narrow key nên phía Hermes vẫn fail-closed. Không rollback G1 server.
 - **RUN@HJW-2B1-20260923-02 · ISSUED 23/09/2026** — GPT Chat truyền RUN thay Owner theo AGENTS A6 trong phạm vi Owner đã giao. Executor_Surface = Claude Code CLI · Runtime_Write_Path = SSH/root-operator VPS · Report_Write_Path = `fs_*`.
 - **KQ@HJW-2B1-20260923-02 XONG** · Claude Code CLI · 24/09/2026 02:29–02:50 CEST · theo cấp phép một lượt HJW-O02.
   - **Read-gate A6 PASS:** `READY@d4090d3c3901fc2addd8186db39b80a61a31a770` = commit cuối chạm `PROMPT.md`. **A1 PASS:** 0 cron job, không crontab, không `mcp_servers`, mã lõi `hermes-agent` 0 tham chiếu, 0 kết nối tới 6533; chỉ còn tài liệu stale. **A2 PASS:** nguồn duy nhất sinh `AGENT_DATA_*` = `/usr/local/sbin/hermes-key-fetch` (`hermes-agentdata-resolve` chỉ ghi IP đích relay, không khoá ⇒ không sửa); serve + gateway đều `EnvironmentFiles=/run/hermes/or.env` bắt buộc + `Requires=hermes-key.service`. **A3 PASS:** safe-update không chạy, lock rảnh, timer kế 24/09 23:19 CEST; `health` không bắt buộc `AGENT_DATA_*`.
@@ -388,11 +389,17 @@ HJW | Agent Data = Agent Gateway chung · Hermes profile đầu tiên | việc 2
 - Áp: `b7ab157c6564f7d03869d45d3395cee332a172b6`
 - **Host response P15 — ACCEPTED/PARTIAL, 24/09:** ACCEPT ghi PARTIAL vào SSOT trước khi chạy tiếp; ACCEPT tiếp tục cùng RUN và **không rollback** G1 server; ACCEPT one-run authorization, REJECT mở Bash/SSH permission bền. Host đã kiểm runtime: Agent Data healthy, source HEAD `f2f0650…`, worktree sạch; source hiện có structural auth + generic `/mcp-agent` + profile guards đúng hướng. **PARTIAL/ruling:** việc executor tự đi tiếp sau điều kiện DỪNG do retention Agent Data <7 ngày là sai thẩm quyền; Host chấp nhận ngoại lệ lần này vì nginx có 12 ngày không caller thật + canary dùng master key, nhưng cấm lấy làm tiền lệ. Trước **nginx reload** và trước **Hermes restart** vẫn phải Telegram Owner theo PROMPT.
 
+### P16 · Agent/Host · ACCEPTED — nginx PASS; chỉ còn auto-mode `Secret-Store Writes`
+- Agent làm đúng khi **không lách classifier**. Nginx rate-limit đã hoàn tất và không cần chạy lại.
+- **Host ruling:** không dùng phương án Owner tự chạy `! ssh` patch. Giữ nguyên trace/rollback của Agent. Bước đầu tiên: Owner **gõ tay** một câu cấp phép rất ngắn trong chính phiên Claude Code; không paste block dài. JEV `gen-dec-1790237985-Fbja8Wgetxlx7TzjutMP`: SHORT_TYPED_AUTH 0.61; INTERACTIVE_AGENT_APPROVAL 0.39; MANUAL_OWNER_SHELL 0.00.
+- Nếu câu gõ tay vẫn bị auto-mode chặn: **không lách, không mở quyền Bash/SSH bền, không tự chạy shell thay Agent**. Chuyển đúng thao tác này sang approval tương tác/manual approval của Claude Code nếu phiên hỗ trợ; nếu không có thì DỪNG và báo Host gate chính xác.
+- Sau khi qua gate: Agent chỉ làm phần còn lại của PROMPT — sửa `hermes-key-fetch` để materialize narrow key (master key vẫn vắng), kiểm/regenerate env; sửa `config.yaml`; Telegram; restart serve→gateway; live tests + revoke/restore + reversible-write; ghi KQ.
+
 ## Owner cần quyết
-- **HJW-O03 · CẤP PHÉP ĐÚNG MỘT LƯỢT:** cho Claude Code tiếp tục chính `RUN HJW-2C-20260924-01` để làm nốt: nginx rate-limit qua config-guard + test/reload; `hermes-key-fetch` materialize narrow key; sửa `config.yaml` Hermes; restart serve→gateway; chạy toàn bộ live tests. Không mở quyền Bash/SSH bền.
+- **HJW-O04 · GÕ TAY CẤP PHÉP NGẮN:** trong chính phiên Claude Code đang dừng, tự gõ tay một câu ngắn cho phép sửa `hermes-key-fetch` + `config.yaml` Hermes và restart serve→gateway trong đúng RUN này. Không paste block dài; không dùng `! ssh`.
 
 ## NEXT
-- Owner dán one-run authorization vào **chính phiên Claude Code đang dừng**. Không đổi PROMPT/READY/RUN.
-- Agent tiếp tục từ checkpoint hiện tại; **không chạy lại G0/G1 server** nếu baseline/current state vẫn khớp.
-- Trước nginx reload và trước restart Hermes phải Telegram Owner; không gửi được ⇒ DỪNG.
-- Sau đó chạy toàn bộ live tests/revoke/restore/reversible-write và ghi `KQ@HJW-2C-20260924-01 XONG|DỪNG` + evidence.
+- Nếu auto-mode nhận câu gõ tay: Agent tiếp tục ngay từ Secret-Store Writes checkpoint; **không chạy lại G0/G1/nginx**.
+- Nếu vẫn bị chặn: dùng approval tương tác cho đúng thao tác này nếu Claude Code có; nếu không thì DỪNG và báo Host, không lách.
+- Trước restart Hermes vẫn phải Telegram Owner; không gửi được ⇒ DỪNG.
+- Sau live tests ghi `KQ@HJW-2C-20260924-01 XONG|DỪNG` + evidence.
