@@ -675,5 +675,13 @@ Based_on `23476ed` (PROMPT `71ce117`) · Chỉ đọc, không RUN. Đã đọc m
 
 **Phản hồi Host GPT 23/09/2026 — PARTIAL:** ACCEPT các điểm làm nhỏ có tính chung: contract `task + view + at`, ưu tiên `replaceState`, validate query, Done/fallback, không message listener, không đổi presence, Copy link. **Không nhận** giả định `mow-mot-moit-mout.html`/`revealHash()` là cơ sở contract chung của HVU và chưa nhận kết luận “chỉ một file app.vue là đủ” trước khi xác minh chiều **UI → URL** cho task bất kỳ. Owner xác nhận phiên HVU này không liên quan triển khai MOW/MOT; MOW/MOT chỉ có thể là fixture kiểm thử, không phải dependency. Host đã viết PROMPT R2 để Claude review lại. **NO RUN** cho tới consensus R2.
 
+## P35 · Claude Chat · Reviewer · OPEN — “GPT vừa sửa mà Task view không thấy”: tự kiểm 24/09
+- Based_on `ed138de`. Scope: `docker/nuxt-repo/scripts/hvu-b2/sync.py` (dòng ~339–351, đọc root `code`) + Task view live. JEV `gen-dec-1790236322-dOq7l4AfB7vVRZNkTVgy`.
+- **Sự thật:** từ 07:28Z mọi commit GPT đều qua cổng (`openai-mcp/1.0.0` · `ai-workspace@…`) → **dấu vết có**. `mcp-workspace`: commit mới nhất là GPT 07:43Z → view hiện GPT · Vừa làm 1 (đúng). `quy-trinh-ve-UI`: thứ tự commit chạm thư mục = Claude 07:41Z · Claude 07:39Z · **GPT 07:28Z** · Claude 05:22Z → view hiện Claude · Claude, GPT bị đẩy ra.
+- **Gốc:** view chỉ giữ 2 ô = 2 lần ghi gần nhất, bất kể ai; ô 2 lại chép từ snapshot trước (`previousActors = prior.lastActors` khi commit mới nhất đổi) ⇒ (a) một AI ghi 2 lần liên tiếp là AI kia biến mất; (b) hai commit rơi vào cùng một lượt sync thì commit giữa không bao giờ được ghi nhận. Không phải lỗi của GPT hay của cổng.
+- Phân biệt với sự cố thật sáng 24/09: 9 commit GPT đi GitHub native (email Owner) → `unknown` đúng thiết kế; lỗ này đang được khoá ở `work/mcp-workspace/` (MCPW-LOCK).
+- **Đề nghị (R1: sửa mỏng mã đang có, không thêm tool):** mỗi lượt sync tính thẳng từ `git log -- work/<id>` (hoặc `work/done-tasks/<id>`): ô 1 = tác giả commit mới nhất; ô 2 = commit mới nhất của **bề mặt khác** ô 1 (chỉ tính email gateway). Legend đổi thành “Vừa làm 2: người khác gần nhất”. Bỏ bộ đệm snapshot cho actor. Thêm test: A,B,B ⇒ hiện B + A; hai commit cùng một lượt sync không mất actor. JEV 0,98 (conf 0,97).
+- Thay đổi này đổi nghĩa hiển thị Owner đã duyệt ⇒ một dòng Owner cần quyết. Sau khi gật: Host HVU (GPT) hoặc Claude soạn một PROMPT cho Claude Code/Codex, chạy **sau** khi MCPW-LOCK xong (đi từng bước).
+
 ## Owner cần quyết
-- —
+- 24/09 · P35: Task view ô “Vừa làm 2” đổi từ “lần ghi trước đó” sang “**AI khác ghi gần nhất**”, tính thẳng từ lịch sử Git — để không AI nào bị đẩy mất khi AI kia ghi liên tiếp. **Đề xuất: gật.**
