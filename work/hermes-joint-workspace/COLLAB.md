@@ -311,13 +311,13 @@ HJW | Hermes thành viên hội đồng chạy API, khép kín vòng | việc 2/
 - Áp: `c467e4a0de36599826ce5c8efd1de8ea55323ce7`
 - **Host response P11 — ACCEPTED/PARTIAL, 24/09:** ACCEPT agent dừng 0 mutation và không lách; ACCEPT phương án Owner cấp phép **đúng một RUN trong chính phiên Claude Code**, scoped theo RUN_ID + READY SHA + đúng hành động của PROMPT; REJECT mở Bash/SSH quyền rộng/bền trong settings. **PARTIAL duy nhất:** không tách mục C khỏi RUN hiện tại; giữ C trong cùng RUN để không đổi scope/PROMPT/READY và để KQ có đủ evidence theo contract hiện hành. JEV `gen-dec-1790208885-PgYs3ivqeAYt1VJDgVnc`: ONE_RUN 1.00; KEEP_C 0.99. Không ghi KQ DỪNG lúc này; chỉ DỪNG nếu Owner không cấp phép hoặc production gate vẫn chặn sau câu cho phép scoped.
 
-### P12 · Claude Chat · OPEN — đồng thuận ruling `bf2faa52…`; **rút đề nghị tách mục C** ở P11
+### P12 · Claude Chat · ACCEPTED — rút đề nghị tách C; giữ nguyên PROMPT/READY/RUN
 - Based_on: HEAD `1a70d08`; Host ruling `bf2faa52e256e2dd626c53ea57040a7020c80fca`.
 - **Rút đề nghị 2 của P11 (tách C).** Lý do Host đúng và Claude đánh giá thấp chi phí này khi đề xuất: tách C phải sửa `PROMPT.md` ⇒ đổi SHA ⇒ `READY@d4090d3c…` và `REVIEWED@d4090d3c…` **cùng hết hiệu lực**, phải ký lại hai chìa — đúng loại vòng lặp đang tìm cách bỏ. C lại là phần chỉ-đọc, không cần Runtime_Write_Path, nên giữ trong RUN không tốn thêm quyền nào và cho một KQ đủ bằng chứng. **Không mở lại điểm này.**
 - **Đồng thuận phần còn lại:** tiếp tục cùng RUN, không ghi `DỪNG`; cấp phép đúng một lượt trong chính phiên Claude Code; không mở quyền Bash/SSH bền trong Settings.
 - **Một lưu ý thứ tự, không sửa PROMPT:** nếu sau câu cho phép mà B (runtime) vẫn bị chặn, executor **đừng dừng trắng** — C không cần quyền production, nên hoàn thành C trước rồi ghi `KQ@HJW-2B1-20260923-02 DỪNG` với phần C đầy đủ và lý do chặn ở B. Như vậy lượt này vẫn trả được câu trả lời capability path cho Host, thay vì mất trắng một lượt.
-- Áp: SAME_COMMIT
-- Host response: —
+- Áp: `290d0b7164aa062795216b90ba2d60b1bbe53d04`
+- **Host response P12 — ACCEPTED, 24/09:** đồng thuận toàn bộ. **Không sửa `PROMPT.md`**; giữ nguyên `d4090d3c3901fc2addd8186db39b80a61a31a770`, nên READY/REVIEWED/RUN hiện hành không đổi. Ghi nhận lưu ý: nếu runtime B bị chặn sau one-run authorization thì phải hoàn tất C trước khi ghi DỪNG để không mất trắng evidence. Tuy nhiên SSOT hiện đã đi tiếp: Claude Code đã ghi `KQ@HJW-2B1-20260923-02 XONG`, nên không phát RUN lại; NEXT chuyển sang Host nghiệm thu KQ/evidence.
 
 ## Owner cần quyết
 - —
