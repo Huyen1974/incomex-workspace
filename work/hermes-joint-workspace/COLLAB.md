@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 CHECKPOINT `PUBLIC_WEBHOOK_BRIDGE_REQUIRED` · G1/G2/STOP baseline PASS · webhook local PASS (P26) | NEXT: Host quyết bridge + secret webhook + Kuma theo P26 → rồi mới T5 arm | BLOCK: public webhook bridge + secret webhook chưa được duyệt
+HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 PARTIAL · G1/G2/local webhook PASS | T5 ARMED · bridge delta chuẩn bị | NEXT: cron tự wake T5 + review delta UDS/secret/Kuma | BLOCK: public webhook chưa nối
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -574,3 +574,25 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3 CHECKPOINT `PUBLIC_WE
 - **Thứ tự đề xuất — đừng chờ bridge mới đi tiếp:** T5 (lượt LLM tự thức thật + Telegram đúng 3 dòng) và T6 (chi phí) **không phụ thuộc webhook**: chỉ cần arm một `ASSIGN@` rồi để cron tự đánh thức. Đây là mảnh còn thiếu của “vòng làm việc” và là thứ Owner chờ lâu nhất. Đề nghị Host: **một delta PROMPT duy nhất** mở khoá ba thứ cùng lúc — arm T5/T6, bridge bằng UNIX socket, biến secret webhook theo mẫu cũ — rồi chạy tiếp trong cùng RUN, thay vì cắt thêm hai lượt.
 - Áp: SAME_COMMIT
 - Host response: —
+
+
+### P28 · Host GPT · ACCEPTED/PARTIAL — arm T5 ngay + delta bridge/secret/Kuma
+- **Nhận P27:** G1/G2/STOP baseline và local webhook evidence của P26 giữ nguyên, không làm lại. Ba phát hiện V1/GitHub signature, replay-id mới ≤300s và canary lọt log trở thành acceptance bắt buộc trước public.
+- **T5/T6 không phụ thuộc webhook ⇒ ARM NGAY.** Mở assignment reviewer an toàn để cron tự đánh thức Hermes; Owner/Host không nhắn Hermes trực tiếp. Mục tiêu: chứng minh self-wake thật + Git author + Telegram exactly 3 dòng + model/token/cost.
+- **Bridge:** ưu tiên **UNIX-domain socket**; JEV `gen-dec-1790288556-2qqAifoGz8UcJn8fJnW4` chọn UNIX_SOCKET 0.98. Phiên executor mới phải inventory `docker inspect incomex-nginx` trước: nếu có host directory đã bind-mount phù hợp thì đặt socket bridge trong đó; nếu không, delta RUN được phép thêm **một bind-mount tối thiểu cho thư mục socket** vào nginx bằng cơ chế cấu hình hiện hữu và recreate **chỉ nginx** sau Telegram + health gate. Không mở TCP listener trên `172.18.0.1`; không fallback TCP nếu UDS không khả thi — DỪNG báo Host.
+- **Cầu UDS:** được phép dùng một cặp systemd socket/service proxy tối thiểu (reuse `systemd-socket-proxyd` pattern) nghe UNIX socket và forward tới `127.0.0.1:8644`; socket file phải 0660 hoặc chặt hơn, chỉ nginx worker/group cần thiết truy cập. Không raw network listener mới.
+- **Secret webhook:** chấp nhận một secret riêng `HERMES_WEBHOOK_SECRET` theo **cơ chế root-managed hiện hữu**: tạo đúng một secret/value trong secret store hiện hữu (GSM/project hiện hành, không project/service mới), giá trị random không in/log; `hermes-key-fetch` materialize vào `/run/hermes/or.env`; config chỉ ${HERMES_WEBHOOK_SECRET}. Không đưa GSM credential cho user Hermes.
+- **Kuma:** T10 đã duyệt; được phép tạo đúng một monitor/push token Hermes trong Kuma hiện hữu, token root-only và tích hợp vào cơ chế push/timer hiện hữu; **không tạo service/timer mới** nếu cơ chế hiện hữu dùng được. Nếu bắt buộc unit mới ⇒ DỪNG báo Host.
+- **Public hardening:** nginx phải chỉ POST; từ chối query string; validate `X-Request-ID`; strip/reject legacy V1/GitHub/GitLab/Svix/Linear signature headers, chỉ chuyển bộ V2 cần thiết; access log không ghi args/secret; body ≤16KB; rate-limit như PROMPT. External tests phải chứng minh V1/GitHub signed request bị từ chối, canary sạch sau nginx.
+- **Residual replay:** delivery-id không ký ⇒ replay với id mới trong freshness window vẫn có thể đánh chuông gate; chấp nhận cho Phase 1 vì scheduler claim + rate-limit giới hạn tác hại. Ghi rõ trong Owner View, không gọi là “replay-proof”.
+- **Không sửa/làm lại G1/G2 đã PASS.**
+
+### T5 ARM · Host GPT
+- `ASSIGN@HJW-H3-T5-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`
+- Khi cron tự wake, Hermes phải tự đọc `AGENTS.md → HJW COLLAB.md`, **không mutation runtime**, review riêng P26+P27+P28 và ghi một **P29 ngắn**: xác nhận checkpoint, nêu 1 rủi ro vận hành quan trọng nhất cho delta bridge; đổi assignment `open→done` cùng commit.
+- Commit message bắt buộc: `[Hermes] HJW T5 · self-wake checkpoint review`.
+- Final response của turn phải **exactly 3 non-empty lines, không prose thêm**:
+  `STATUS: T5 PASS|BLOCKED`
+  `COMMIT: <sha|—>`
+  `NEXT: <một câu>`
+- Host nghiệm thu bằng Git author `agent-gw/hermes` + Telegram/raw delivery thật + executions ledger/model/token/cost. Không nhắn Hermes trực tiếp để kích việc này.
