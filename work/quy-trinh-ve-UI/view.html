@@ -35,8 +35,8 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <div class="flow">
 <div class="own"><span class="who">Owner gật</span><b>K0 Kiểm kê</b><i>"Đã có gì rồi?"</i>Xem PG/Directus, UI đang chạy, luật, tài liệu cũ; được bấm thử UI hiện có ngay ở K0.<div class="ra">→ Mục tiêu UI 1 câu + danh sách đối tượng (đã có / một nửa / chưa có)</div></div>
 <div><span class="who">AI</span><b>K1 Vòng đời</b><i>"Mỗi thứ sống–chết ra sao?"</i>Trạng thái, ai được làm gì, mã + master.<div class="ra">→ Một thẻ cho mỗi đối tượng</div></div>
-<div><span class="who">AI + JEV</span><b>K2 Ma trận</b><i>"Còn ô nào trống?"</i>Máy sinh mọi tổ hợp: tạo/sửa/xoá × trạng thái × vai trò × đúng/lỗi.<div class="ra">→ Mỗi ô: kịch bản / CẤM / không cần + lý do</div></div>
-<div><span class="who">AI</span><b>K3 Kịch bản</b><i>"Ai bấm gì, thấy gì?"</i>Mỗi ô thành một dòng có mã.<div class="ra">→ Bảng kịch bản: mã · ai · màn · kết quả · hỏng về đâu</div></div>
+<div><span class="who">AI + JEV</span><b>K2 Ma trận</b><i>"Còn ô nào trống?"</i>Máy sinh mọi tổ hợp: tạo/sửa/xoá × trạng thái × vai trò × đúng/lỗi.<div class="ra">→ Mỗi ô: mã kịch bản / CẤM / N/A + lý do + nguồn</div></div>
+<div><span class="who">AI</span><b>K3 Kịch bản</b><i>"Ai bấm gì, thấy gì?"</i>Ô cần xử lý gắn vào kịch bản chi tiết có mã; CẤM/N/A vẫn ở ma trận.<div class="ra">→ Bảng kịch bản: mã · ai · màn · kết quả · hỏng về đâu</div></div>
 <div><span class="who">AI + JEV</span><b>K4 Hợp đồng</b><i>"Số liệu ở đâu ra, đi đâu?"</i>Ba tầng: trường → đối tượng → chuyển tiếp; tìm trước khi khai mới.<div class="ra">→ Danh mục khai báo + danh mục hợp đồng</div></div>
 <div class="own"><span class="who">Owner gật</span><b>K5 Luồng + bảng G</b><i>"Anh cần quyết gì?"</i>Sơ đồ luồng; mọi chỗ AI còn đoán gom vào một bảng, có sẵn đề xuất. Đi thử kiểu người mới trên giấy.<div class="ra">→ Bảng G: anh gật/lắc từng dòng</div></div>
 <div><span class="who">AI</span><b>K6 HTML</b><i>"Bấm thử được chưa?"</i>Chỉ vẽ hoặc đổi UI mới sau khi bảng G được gật; khảo sát UI hiện có không phải chờ.<div class="ra">→ Nguyên mẫu bấm được</div></div>
@@ -63,6 +63,7 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <tr><td>D04</td><td>24/09 · <b>"Người mới có làm được không?"</b> là lượt kiểm bắt buộc — mục 7.2.</td></tr>
 <tr><td>D05</td><td>24/09 · <b>JEV có điểm tham khảo bắt buộc</b> theo một bảng chung — mục 7.3.</td></tr>
 <tr><td>D06</td><td>24/09 · Quy trình chuẩn <b>kế thừa việc MMIM</b> (xương S01–S08, 5 trạng thái UI, FIELD03); FIELD là lượt áp dụng đầu. Claude Chat làm Host; Host được sửa <code>view.html</code> kể cả bố cục (quyết định trước, sơ đồ, rồi nội dung).</td></tr>
+<tr><td>D08</td><td>24/09 · Bài thử FIELD ghi trong tab Step quy trình của MOW; K0 được bấm thử UI hiện có trước bảng G; bảng G chỉ chặn vẽ/đổi UI mới; 40 dòng chỉ giới hạn kịch bản chi tiết, không cắt ma trận; nút ✎ là kiểm hồi quy.</td></tr>
 </table>
 
 <h2 id="khau">4. Quy trình chuẩn — 8 khâu K0–K7</h2>
@@ -70,7 +71,7 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <div class="k">
 <div><b>K0 Kế thừa &amp; phạm vi</b>Mục tiêu UI 1 câu (Owner) · phạm vi V1 · kiểm kê cái đã có: PG/Directus, UI đang chạy, luật, tài liệu cũ; được xem và bấm thử UI hiện có trước bảng G · 4 mức CHẠY THẬT/CÓ GIAO DIỆN/MỘT NỬA/CHƯA CÓ<br><span class="tag">chạm Owner</span></div>
 <div><b>K1 Đối tượng &amp; vòng đời</b>Mỗi đối tượng: trạng thái, vai trò, mã + master (D03), thẻ đối tượng</div>
-<div><b>K2 Ma trận phủ</b>Hàng sinh máy: CRUD × trạng thái × chính/phụ/lỗi × vai trò · cột = 15 chiều FIELD03 + 5 bổ sung · ô = mã kịch bản hoặc N/A + lý do<br><span class="tag">JEV</span></div>
+<div><b>K2 Ma trận phủ</b>Hàng sinh máy: CRUD × trạng thái × chính/phụ/lỗi × vai trò · cột = 15 chiều FIELD03 + 5 bổ sung · ô = mã kịch bản / CẤM / N/A + lý do + nguồn<br><span class="tag">JEV</span></div>
 <div><b>K3 Kịch bản (Step Contract)</b>Mỗi kịch bản một dòng: mã · tình huống · ai làm gì · màn nào · kết quả · hỏng về đâu · trả lời các câu cấp bước (mục 9)</div>
 <div><b>K4 Hợp đồng 3 tầng</b>Danh mục khai báo → thẻ đối tượng → hợp đồng chuyển tiếp (mục 5) · đối chiếu registry PG trước khi khai mới<br><span class="tag">JEV</span></div>
 <div><b>K5 Luồng/trạng thái + bảng G</b>Sơ đồ chữ→hình · gom mọi <code>AI_ĐỀ_XUẤT</code> thành bảng G có đề xuất + hệ quả nếu lắc · đi thử người mới trên giấy (D04)<br><span class="tag">chạm Owner</span></div>
@@ -190,7 +191,7 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <h2 id="hoidong">13. Hội đồng</h2>
 <ul>
 <li>P01 GPT · ACCEPTED — xương sống, không xong vì màn hình, tool phục vụ quy trình, soi nhánh thiếu: đã vào mục 4, 8, 12.</li>
-<li>P02 Claude · ACCEPTED có chỉnh (Host GPT trả lời 24/09 qua chat, Claude chép vào COLLAB): tách nguồn/trạng thái kiểm (mục 6) · chạm Owner theo nhóm · "theo nghĩa" là tiêu chí phát hiện, khoá là mã · trùng tên xét theo phạm vi · view.html vẫn là tài liệu chính · 5 lỗi FIELD là điều kiện cần · "bắt buộc nhập" thuộc tầng gắn.</li>
+<li>P02 Claude · ACCEPTED có chỉnh (Host GPT trả lời 24/09 qua chat, Claude chép vào COLLAB): tách nguồn/trạng thái kiểm (mục 6) · chạm Owner theo nhóm · "theo nghĩa" là tiêu chí phát hiện, khoá là mã · trùng tên xét theo phạm vi · view.html vẫn là tài liệu chính · bài thi FIELD là điều kiện cần (D08: 4 lỗ + hồi quy ✎) · "bắt buộc nhập" thuộc tầng gắn.</li>
 <li>P03 Claude · PARTIAL — 4 bổ sung cho D03–D05, chỉnh theo P04: ID nội bộ ≠ mã nghiệp vụ; registry là ứng viên tới K0; đi thử hai lần, Help chỉ ở đích cho phép; dòng JEV phải đủ trường.</li>
 <li>P04 GPT · <b>ACCEPTED 9/9</b> (Host Claude 24/09, JEV04 đồng hướng) — đã áp mục 7.1 · 7.2 · 7.3 · 9 (mã <code>UIQ-001…034</code>) · 10 (không mất hàng) · 12. GPT và Claude không còn điểm vênh.</li>
 <li><b>Mở cho Hermes:</b> phản biện toàn bộ mục 4–10, ưu tiên nhánh thiếu / lỗ hợp đồng / lỗ tự động hoá.</li>
