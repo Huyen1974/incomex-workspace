@@ -1,5 +1,5 @@
 # COLLAB — quy-trinh-ve-UI
-Tên việc: Quy trình vẽ UI
+Tên việc: quy-trinh-ve-UI
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ngày 24/09/2026 trong ChatGPT.
