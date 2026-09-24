@@ -1,5 +1,9 @@
 # COLLAB — mow-mot-moit-mout
 
+## K0 FIELD · 24/09/2026
+- Đã đọc catalog PG trên VPS bằng giao dịch chỉ đọc. Bằng chứng gọn và phân mức ở `ban-duyet.html` → Step quy trình → Bài thử FIELD · K0. Điểm nghẽn quyền Directus không còn chặn việc kiểm kê; K0 toàn phần vẫn chờ Owner gật mục tiêu/phạm vi V1. Không mở K1, không đổi UI, không tạo master mới.
+- JEV tham khảo: input = PG 24/09 (`collection_registry` 168 dòng/35 cột, `table_registry` 28/21, `directus_fields` 1.497, standards 11, thiếu `field_registry`, UI demo); lựa chọn = collection_registry / table_registry / directus_fields / standards / none / unknown; model `typesafe/jev-1.13-20260917`; result `none` 0,77, confidence 0,74; id `gen-dec-1790243828-KHbJiwWPBkzu1OYPlOpc`; Host kết luận không nguồn nào làm Master Field nghiệp vụ nguyên trạng.
+
 ## Sự cố khỏi điểm · Claude tự ý dựng bản xem sai nơi (23/09) — Owner yêu cầu đưa về đúng chỗ
 Owner mở UI không thấy gì đổi. Thay vì sửa đúng cơ chế §12, **Claude tự copy HTML chính sang `ui:mow-mot-moit-mout.html`** (`/ui-preview/mcp-writes/…`, commit `b889b29` trên root ui). Sai kỉ luật: §12.2–§12.3 ghi rõ VPS chỉ có **một** đường đồng bộ (webhook push → snapshot → Task view, backstop 15′, nút Cập nhật chỉ đọc lại snapshot), “không có pipeline thứ hai” và mirror không được làm nguồn thứ hai. Claude nhận lỗi, không tự xử lý tiếp.
 

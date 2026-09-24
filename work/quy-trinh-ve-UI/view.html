@@ -47,10 +47,10 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <p class="small">Vẽ thử lần đầu trên FIELD (Owner + Codex) để lộ chỗ yếu; đầy đủ từng khâu ở phần chi tiết bên dưới (dành cho AI/PM).</p>
 
 <h2 id="owner">1. Hôm nay Owner cần quyết</h2>
-<div class="box">— Không có. Ngày 24/09 Owner đã gật D03–D06 (mục 3). Câu tiếp theo sẽ xuất hiện khi chạy bài thi FIELD (nơi đặt danh mục khi chạy thật, DROOT16).</div>
+<div class="box">K0 FIELD: Owner gật hoặc sửa mục tiêu và phạm vi V1 trong tab <b>Step quy trình → Bài thử FIELD · K0</b> của bản MOW đang duyệt. Kiểm kê PG đã xong; G01–G07 vẫn chờ, chưa duyệt UI mới.</div>
 
 <h2 id="tiendo">2. Đang ở đâu</h2>
-<div class="bar"><span class="done">Mục tiêu ✅</span><span class="done">Đồng thuận phương pháp ✅ (GPT + Claude; Hermes chưa nối — D07)</span><span class="doing">◉ Vẽ thử trên FIELD (Owner + Codex)</span><span class="todo">Nghiệm thu ○</span></div>
+<div class="bar"><span class="done">Mục tiêu ✅</span><span class="done">Đồng thuận phương pháp ✅ (GPT + Claude; Hermes chưa nối — D07)</span><span class="doing">◉ K0 FIELD · đã kiểm PG, chờ Owner gật phạm vi</span><span class="todo">Nghiệm thu ○</span></div>
 <p class="small">Xong khi: vẽ thử FIELD lộ ra chỗ yếu và đã vá; quy trình bắt đủ 4 lỗ đã biết và nút ✎ qua kiểm hồi quy; hai kiểm độc lập PASS.</p>
 
 <details><summary>Chi tiết cho AI / PM — mục 3–13 (bấm để mở)</summary>
@@ -115,7 +115,7 @@ details{margin-top:26px;border-top:1px solid var(--line)}summary{cursor:pointer;
 <li>Mã ≠ tên ≠ phiên bản. Đổi tên không đổi định danh, không đứt liên kết. Danh mục chỉ rõ đối tượng ở đâu, loại nào, trạng thái gì, dùng ở đâu.</li>
 <li>Liên kết tham chiếu định danh, không dựa vào hai nơi viết tên giống nhau; mỗi định danh/quan hệ có ánh xạ sang khoá chính/duy nhất/ngoại.</li>
 <li>Master List là yêu cầu quản lý, không đồng nghĩa lập tức tạo bảng SQL riêng. Các master đăng ký trong danh mục master chung; không sinh "master của master" vô hạn.</li>
-<li><b>Bổ sung (Claude P03, chỉnh theo GPT P04):</b> tách hai thứ. <b>ID nội bộ</b> dùng để liên kết do hệ thống sinh và kiểm soát, người không gõ. <b>Mã nghiệp vụ / mã từ hệ khác</b> (Lark, biểu mẫu đối tác…) là thuộc tính riêng, được nhập/đồng bộ từ nguồn. Danh mục master chung: <code>collection_registry</code> (168 dòng) và <code>table_registry</code> (21) là <b>ứng viên ưu tiên kế thừa</b>, chưa phải master chuẩn đã xác nhận — K0 của bài thi FIELD kiểm cột, khoá, loại đối tượng, trạng thái, where-used/version. Trong lúc kiểm <b>cấm dựng danh mục thứ hai</b>. Đủ → dùng lại; thiếu nhưng mở rộng an toàn → đề xuất mở rộng; cần cấu trúc mới → qua cổng Owner trước khi tạo.</li>
+<li><b>Bổ sung (Claude P03, chỉnh theo GPT P04):</b> tách hai thứ. <b>ID nội bộ</b> dùng để liên kết do hệ thống sinh và kiểm soát, người không gõ. <b>Mã nghiệp vụ / mã từ hệ khác</b> (Lark, biểu mẫu đối tác…) là thuộc tính riêng, được nhập/đồng bộ từ nguồn. Danh mục master chung: phải kiểm <code>collection_registry</code> và <code>table_registry</code> theo đúng loại đối tượng; tên “registry” không đủ để coi là Master Field. K0 FIELD đọc PG thật ngày 24/09: cái đầu quản lý collection, cái sau cấu hình bảng UI; cả hai không giữ đủ định nghĩa Field, version và where-used để dùng nguyên trạng. Tiếp tục tìm master hợp lệ trước khi đề xuất mở rộng hay tạo mới; <b>cấm dựng danh mục thứ hai</b>. Đủ → dùng lại; thiếu nhưng mở rộng an toàn → đề xuất mở rộng; cần cấu trúc mới → qua cổng Owner trước khi tạo.</li>
 </ul>
 <p><b>Điều kiện trượt:</b> đã tạo đối tượng nhưng chưa đăng ký vào master · có mã không tìm được đối tượng · liên kết tới mã không tồn tại · <b>hai master cho cùng loại cùng phạm vi</b>. Đây là quy định để thiết kế và kiểm tra, không phải lệnh tự tạo bảng/file/task ngoài phạm vi đã duyệt. Toàn bộ điều kiện trượt này là việc của <b>máy kiểm</b>, không hỏi JEV.</p>
 
