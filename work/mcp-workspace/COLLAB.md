@@ -1,6 +1,6 @@
 # COLLAB — mcp-workspace
 Tên việc: MCP Workspace — đường ghi chung + khoá cứng chỉ qua gateway
-Host: GPT Chat · Host_ID: (GPT tự sinh khi nhận) · Owner giao 25/09/2026 điều hành nốt MCPW-LOCK + P02 rồi đóng (trước đó: Claude Chat `CLAUDE-MCPW-260924-A` từ 24/09; vòng 20/09 Host GPT)
+Host: GPT Chat · Host_ID: GPT-MCPW-250925-A · Owner giao 25/09/2026 điều hành nốt MCPW-LOCK + P02 rồi đóng (trước đó: Claude Chat `CLAUDE-MCPW-260924-A` từ 24/09; vòng 20/09 Host GPT)
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) — Owner gật đề xuất `Mở lại mcp-workspace để khoá đường ghi repo chỉ qua gateway` (COLLAB gốc DROOT20).
