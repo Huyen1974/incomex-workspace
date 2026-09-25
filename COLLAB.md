@@ -16,7 +16,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/hermes-joint-workspace/` · HJW · Host GPT · P26 checkpoint đã đóng G1/G2/local; T5 cron tự wake đã commit P29; PROMPT delta-first `9b62bf46…` DRAFT, chưa READY/RUN.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
-- `work/mcp-workspace/` · MCPW · **Host Claude Chat** (`CLAUDE-MCPW-260924-A`, mở lại 24/09 theo DROOT20) · khoá cứng đường ghi repo chỉ qua 2 cổng bằng GitHub Ruleset; PROMPT `MCPW-LOCK-20260924-01` cho Claude Code CLI.
+- `work/mcp-workspace/` · MCPW · **Host GPT Chat** (Owner giao 25/09 điều hành nốt; trước đó Claude Chat) · MCPW-LOCK đã RUN: G0+G1 PASS, dừng trước bước tạo ruleset chờ Owner gõ tay câu cho phép; sau đó P02 read-cache (đã duyệt) rồi đóng.
 - `work/graph-server/` · GS · Host GPT Chat · D02 product-first (Owner): trial Cognee+Neo4j vs Graphiti+Neo4j; Claude P02→P03 đồng ý; chờ Hermes; nguyên tắc R1 khoá ở §0.
 - `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
 - NEXT: HJW: Claude Chat chỉ delta-review 2 fix P31 trên exact `9b62bf46…`; ACCEPT → GPT Host READY/RUN → CLI mới tiếp tục UDS bridge → secret → nginx public hardening → Kuma → closeout.
