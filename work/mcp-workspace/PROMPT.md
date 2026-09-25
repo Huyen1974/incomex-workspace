@@ -1,7 +1,8 @@
 # PROMPT — MCPW-P02 · VPS last-good read cache + freshness debt + giảm xung đột giả
 
 RUN_ID: MCPW-P02-20260925-01
-Trạng thái: **DRAFT FOR CLAUDE REVIEW — CHƯA READY / CHƯA RUN**
+Trạng thái: **DRAFT REV2 — K8 + PROTECTION GUARD — CHƯA READY / CHƯA RUN**
+**READY@94de3978dcf648670a82a4290ae65b0dd4e6c608 và RUN@MCPW-P02-20260925-01 cũ HẾT HIỆU LỰC** vì execution pack đã thay đổi sau incident `MCPW-RECOVERY-20260925-01`. Phải review/READY mới trước mọi mutation P02.
 Host: GPT Chat · Host_ID `GPT-MCPW-250925-A`
 Owner đã duyệt kiến trúc P02 và freshness debt ngày 25/09/2026; MCPW-LOCK đã XONG, ruleset `gateway-only-writes` id `23976991` đang active.
 Executor_Surface dự kiến: **Claude Code CLI trên Mac của Owner, chế độ hỏi quyền mặc định** (không auto-mode). Mỗi lệnh mutation hiện nút quyền để Owner bấm Yes.
@@ -16,6 +17,8 @@ Xử lý dứt điểm rủi ro vận hành đã tái hiện: GitHub/SSH deploy-
 3. Nếu snapshot chưa được xác nhận mới nhất, AI/Agent biết rõ `fresh / refreshing / stale`, mang `recheck_required` và trả freshness debt trước kết luận cần HEAD hiện thời.
 4. Hai gateway giữ cache riêng; không tạo SSOT thứ hai, không Forgejo/Gitea, không thêm deploy key.
 5. Sửa luôn xung đột giả của `workspace_*`: commit ở file/task khác không được làm version của file đang sửa mất hiệu lực.
+6. Sửa lỗi gốc đã gây `RECOVERY_REQUIRED`: push timeout không được tự biến thành khóa root chỉ vì local circuit chặn chính bước remote-proof.
+7. Bảo vệ mọi capability/runtime đã PASS bằng một Protection Guard theo Điều 30 + Điều 31, dùng cùng contract ở PRE/POST và định kỳ.
 
 ## 1. Gate G0 — đọc và khớp
 Trước mutation:
@@ -28,7 +31,7 @@ Trước mutation:
 Không đạt gate nào → KQ DỪNG, không deploy.
 
 ## 2. Phạm vi được phép
-**K1–K7 chỉ áp cho hai root Git đẩy GitHub:** `gh` của `fs_*` và `workspace` của `workspace_*`. Không đổi hành vi, khoá, version hay snapshot của root `ui`; không đổi `docs`/`code` read-only.
+**K1–K8 chỉ áp cho hai root Git đẩy GitHub:** `gh` của `fs_*` và `workspace` của `workspace_*`. Không đổi hành vi, khoá, version hay snapshot của root `ui`; không đổi `docs`/`code` read-only.
 
 Được:
 - sửa **mã/runtime hiện hữu** của hai gateway `workspace_*` và `fs_*`;
@@ -142,6 +145,19 @@ Chuyển về đúng technical contract:
 - tương thích caller đang giữ legacy `HEAD:hash`: parser nhận và kiểm phần content hash khi có thể; nếu không thể thì trả lỗi chuyển tiếp rõ ràng, không hiểu sai token;
 - không đổi tool count/input schema/hash.
 
+## 9B. K8 — Push timeout, remote-proof và tự hòa giải fail-closed
+Incident recovery đã chứng minh chuỗi lỗi: push timeout → local git circuit mở → `ls-remote` kiểm ngay sau bị chính circuit chặn → `push_unknown` → khóa root.
+
+K8 bắt buộc:
+1. Sau push timeout/mất phản hồi, remote-proof không được thất bại chỉ vì local circuit vừa mở: chờ circuit hết hạn hoặc dùng đường proof hẹp không chịu circuit local, nhưng luôn bounded timeout; **không push lại mù**.
+2. Proof phải kiểm commit transaction có nằm trong **remote history** hay chưa, không chỉ so với remote HEAD:
+   - remote chứa commit → chốt `committed`, không duplicate push;
+   - remote chắc chắn không chứa commit → chỉ rollback khi local state đủ điều kiện an toàn;
+   - chưa chứng minh được → giữ `push_unknown`, chặn ghi, không đoán.
+3. `push_unknown` chỉ được chặn write/current-HEAD mutation; last-good read vẫn phục vụ với `stale` + `recheck_required=true`.
+4. Tự hòa giải khi network trở lại chỉ khi máy chứng minh đủ điều kiện như recovery hôm nay: cùng root lock + đúng uid gateway; pending record xác định; worktree sạch; không git process; không later local commit/unrelated delta; base/parent quan hệ với remote rõ; orphan được giữ bằng `refs/recovery/*` + bundle verify trước mutation. Sau đó mới được `reset --keep` về exact remote SHA + record `rolled_back/reconciled` nếu commit thật sự không ở remote. Bất kỳ ambiguity/multi-pending/dirty/proof unavailable → **không tự reset**, giữ chặn ghi + read last-good + alert.
+5. Fault injection bắt buộc: timeout nhưng commit không tới remote; timeout nhưng commit đã tới remote; mất mạng hẳn rồi mạng về; mutant remote-proof bị circuit local chặn. Mỗi ca phải chứng minh không duplicate và không khóa đọc.
+
 ## 10. Write path — giữ strict GitHub
 Không nới write:
 1. chuẩn bị từ snapshot local;
@@ -157,9 +173,38 @@ Không nới write:
 Hai gateway cùng ghi vẫn do GitHub fast-forward phân xử.
 P02 không thêm deploy key.
 
+## 10B. MCPW PROTECTION GUARD — Điều 30 + Điều 31
+Một bộ kiểm **read-only**, tái dùng checker hiện hữu; không dựng framework/service/DB/port mới.
+
+### Ba chế độ cùng một contract
+- **PRE:** trước mutation/restart từng gateway. PRE fail → không mutation.
+- **POST:** sau mutation/restart từng gateway. POST fail → DỪNG và rollback đúng delta vừa đổi; không tự chữa service ngoài scope.
+- **PERIODIC:** chỉ đọc, mục tiêu phát hiện ≤10 phút. Reuse timer/monitoring/Kuma + Telegram hiện hữu; không tạo service mới. Periodic phải chạy từ lớp không phụ thuộc hoàn toàn vào chính root `workspace` để khi root bị khóa vẫn báo được. Watchdog theo tinh thần Điều 31 phải chứng minh checker còn sống, không coi im lặng là PASS.
+
+### Reuse bắt buộc — B5
+Ngoài `run_acceptance.py`, config-guard và health/smoke hiện hữu, tái dùng bộ snapshot PRE/POST của `MCPW-RECOVERY-20260925-01`: 12 container/image/StartedAt/health, service, timer, crontab, source/config hash, HTTP routes, listening ports, disk và git dirty/head. Không viết lại một bộ đo song song nếu dữ liệu đã có.
+
+### Invariants tối thiểu
+1. ruleset `gateway-only-writes` id `23976991` active; bypass chỉ DeployKey; không thêm key;
+2. GPT Full All 2 giữ 37 tools + input schema/fingerprint/auth/operation_id/transaction/restore, trừ đúng semantics K1–K8 đã duyệt;
+3. Claude gateway/surface inventory + fingerprint/auth hiện hành không giảm;
+4. `workspace_*` + `fs_*`: read/search/list/stat/log/diff + write/version/idempotency/recovery cũ còn PASS;
+5. Agent Data healthy; config-guard CLEAN;
+6. Owner View/Nuxt/Directus/public MCP routes hiện hành còn PASS;
+7. Hermes không hồi quy do Agent Data: đúng 7 tool, trusted scope/attribution giữ nguyên, `AGENT_DATA_*` không quay lại env Hermes, health PASS;
+8. service ngoài scope không recreate/restart; image/StartedAt/config/hash ngoài scope giữ nguyên;
+9. nginx/HJW webhook không đổi trong P02;
+10. không có pending recovery record chặn root quá ngưỡng; clone/head/remote không drift im lặng.
+
+### B2 — kiểm như client thật
+Không chỉ gọi hàm nội bộ. Guard/acceptance phải gọi MCP thật qua đúng public path hiện hành mà GPT, Claude và Hermes dùng; nội bộ chỉ là bằng chứng phụ. HTTP 200 một mình không đủ: phải assert tool inventory/fingerprint/auth/capability cụ thể.
+
+### B3 — negative control không phá production
+Dùng fixture/input giả cho checker: tool count sai, fingerprint lệch, pending-record giả trong state temp, HEAD lệch, watchdog stale… mỗi mutant phải FAIL. Không tamper production chỉ để chứng minh guard biết fail.
+
 ## 11. Triển khai / quyền
 **Chạy Claude Code ở chế độ hỏi quyền mặc định, KHÔNG auto-mode.**
-Trước mutation, Agent liệt kê ngắn các nhóm lệnh Owner sẽ phải bấm Yes:
+Owner/RUN mới sau READY mới ủy quyền toàn bộ đúng scope P02; **không bắt Owner gõ lại câu xác nhận tự do cho từng bước**. Nếu nền tảng yêu cầu confirmation thì chỉ dùng nút permission/Yes bình thường. Trước mutation, Agent liệt kê ngắn các nhóm lệnh có thể hiện nút Yes:
 - sửa source/test/config hai gateway;
 - build image/package;
 - restart/deploy từng gateway;
@@ -176,7 +221,7 @@ Deploy từng gateway:
 - không restart đồng thời;
 - nếu cổng 1 fail thật sau STARTING/health gate thì rollback trước khi đụng cổng 2.
 
-## 12. Acceptance bắt buộc — 12 mục
+## 12. Acceptance bắt buộc — 17 mục
 1. **GitHub giả chậm 20–30s** trong test environment: 12 read song song mỗi gateway = 0 BUSY/OVERLOADED do refresh, response ≤ D+1s; mutant bỏ bounded wait phải FAIL.
 2. Mọi `refreshing|stale` có `recheck_required=true`; `fresh` và local `ref=<sha>` có false. **Hint HVU báo revision mới hơn snapshot phải lập tức làm non-fresh + `recheck_required=true`, không được giữ fresh tới hết W.**
 3. Bỏ độ chậm → safety recheck thành fresh; nếu HEAD đổi phải cung cấp đủ old/new để diff trước khi clear debt.
@@ -189,6 +234,11 @@ Deploy từng gateway:
 10. Không hồi quy: GPT 37 tools + input schema/hash `dbbfc590a969` + auth 401 + operation_id replay + transaction/restore; Claude surface/tool fingerprint hiện hành không giảm; ruleset vẫn active, không thêm deploy key. Root `ui` giữ nguyên cơ chế/lock/version cũ và phải có một lượt read-write smoke qua cả hai cổng như baseline.
 11. Repo đã khóa: write thật qua `fs_*` và `workspace_*` PASS; GitHub native human write vẫn bị ruleset chặn (dùng bằng chứng T1 hiện có nếu không cần tạo probe mới).
 12. Đo before→after: p50/p95 read thường/safety, 12-way, số GitHub refresh/hour, HTTPS-vs-SSH read latency, BUSY/OVERLOADED delta, RAM/load/disk của cache.
+13. **K8/no-remote:** push timeout, commit không tới remote → xác nhận từ remote rồi rollback sạch; không để RECOVERY_REQUIRED kéo dài.
+14. **K8/already-remote:** push đã tới remote nhưng response timeout → nhận ra commit trong remote history, mark committed, không commit/push lần hai.
+15. **K8/outage + self-heal:** remote-proof unavailable → write block + last-good read; mạng về và chỉ khi toàn bộ precondition xác định mới tự hòa giải; orphan/bundle còn nguyên. Mutant circuit chặn remote-proof phải FAIL.
+16. **Protection PRE/POST + periodic:** cùng một invariant contract; PRE=PASS và POST=PASS, diff ngoài scope=0; periodic phát hiện pending/drift/liveness trong ≤10 phút và gửi qua monitoring/Telegram hiện hữu.
+17. **Protection negative control + client E2E:** mutant fixture phải FAIL; gọi MCP thật qua các public path GPT/Claude/Hermes và assert capability cụ thể, không thay bằng HTTP 200.
 
 ## 13. Rollback
 Trước deploy phải có rollback riêng từng gateway về image/source/config trước P02.
@@ -206,13 +256,13 @@ Rollback không được disable ruleset `gateway-only-writes`.
 - không sửa Owner View receiver nếu chỉ cần đọc status;
 - không coi stale là fresh;
 - không retry write mù;
-- không đổi behavior khác ngoài K1–K7.
+- không đổi behavior khác ngoài K1–K8 và Protection Guard read-only đã nêu.
 
 ## 15. Báo cáo KQ
 Ghi vào **chính** `work/mcp-workspace/COLLAB.md`, không tạo report/file mới trong repo. Hồ sơ runtime/bench/rollback trên VPS đặt tại `/opt/incomex/work/mcp-workspace/MCPW-P02-20260925/` theo DROOT12/mẫu MCPW-STAB.
-- implementation K1–K7;
+- implementation K1–K8 + Protection Guard;
 - exact runtime commits/images/config;
-- 12 acceptance PASS/FAIL;
+- 17 acceptance PASS/FAIL;
 - before→after metrics;
 - rollback;
 - điểm còn lại.
