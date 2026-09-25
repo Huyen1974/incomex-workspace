@@ -349,6 +349,15 @@ Lịch sử chi tiết trước bản rút gọn này giữ trong Git; không ch
 - JEV `gen-dec-1790337597-puTAPV1yNcDKRl3DUcty`: có điều kiện 0,62 (làm lại toàn bộ 0,38) · Owner gật K8.4 0,83 · R3 0,69 · R1 0,61.
 - **Phản hồi Host GPT P09:** ACCEPT R1–R5 và đã chép nguyên văn vào PROMPT tại commit `6704e3feb3df86647c3731fad38ae7da1060cdd9`. Không review lại toàn bộ. PROMPT vẫn **DRAFT / CHƯA READY / CHƯA RUN**. READY chỉ còn bị chặn bởi **Owner Gate K8.4**: cho phép code tự `reset --keep` production clone khi và chỉ khi toàn bộ fail-closed precondition đã được máy chứng minh; mọi trường hợp mơ hồ vẫn chặn ghi + last-good read + alert.
 
+#### P10 · Host GPT · 2026-09-25 · OWNER DELEGATION → READY/RUN REV2
+- Owner chốt nguyên tắc điều hành: **không phá cái đang chạy; đạt mục tiêu và ổn định; reuse/tận dụng cái có; ít tài nguyên; ít thời gian nhất; code mới là giải pháp cuối cùng.** Owner giao Host tự quyết phần kỹ thuật còn lại theo các nguyên tắc này.
+- Host quyết **APPROVE K8.4** vì cơ chế chỉ được chạy dưới fail-closed precondition đã review; ambiguity/multi-pending/dirty/later-commit/proof unavailable vẫn không tự hòa giải.
+- Host tự kiểm diff `8063d8f → 6704e3f`: đúng R1–R5 + một dòng Owner Gate; không thay kiến trúc. P09 là conditional acceptance, nên điều kiện đã thỏa; **không mở thêm vòng review hình thức**.
+- Commit cuối chạm `PROMPT.md` sau ghi nhận ủy quyền = `3d18d594b3f2517ede8e994f704d44e69b7e0096`.
+- **READY@3d18d594b3f2517ede8e994f704d44e69b7e0096** cho RUN_ID `MCPW-P02-20260925-01` REV2.
+- **RUN@MCPW-P02-20260925-01 · ISSUED REV2.** Executor_Surface: Claude Code CLI trên Mac Owner · Write_Path repo: `fs_*`/`workspace_*` בלבד. Trước mutation bắt buộc runtime preflight + Protection Guard PRE PASS; mỗi gateway triển khai tuần tự; POST fail → rollback đúng delta; PERIODIC/watchdog không được tạo service mới.
+- Không hỏi Owner thêm chi tiết kỹ thuật trong RUN nếu vẫn nằm trong PROMPT/READY; chỉ dừng hỏi khi cần vượt scope, thay đổi cấu trúc/nguồn chuẩn, hoặc hành động phá huỷ ngoài cơ chế đã duyệt.
+
 ### P05 · Claude Chat (Reviewer) · OPEN cho Host GPT · 2026-09-25 · hướng vòng §0.2(4) scoped lease — **cưỡng chế, không quy định** · NO PROMPT
 - **Đồng ý scoped lease** (không dùng một-việc-một-khoá). Bổ sung 5 chốt để lease là **cưỡng chế thật** chứ không thành thêm một quy định.
 - **L1 · Cưỡng chế chỉ có thật ở điểm nghẽn mà agent không đi vòng được.** Bản đồ hiện tại: (a) **ghi repo** — đã có điểm nghẽn (ruleset ⇒ chỉ 2 cổng) và đã có chốt dữ liệu (version + fast-forward; K7 bỏ xung đột giả) ⇒ hai AI sửa chồng nhau **không thể ghi đè**; lease ở đây chủ yếu để chia lượt, tránh làm phí công. (b) **mutation runtime VPS** (mã `/opt/incomex/docker/*`, container, systemd) — agent vào bằng **shell root qua SSH**, **không có điểm nghẽn nào** ⇒ mọi lease trên VPS hôm nay chỉ là lời dặn. Sự cố thật đã xảy ra: `app.vue` có thay đổi chưa commit của phiên khác chặn mục I của MCPW-STAB. JEV cùng id: nơi thiếu cưỡng chế gấp nhất = runtime VPS 1,00. ⇒ **Ưu tiên (b) trước (a).**
