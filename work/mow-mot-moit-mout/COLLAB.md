@@ -1,5 +1,11 @@
 # COLLAB — mow-mot-moit-mout
 
+## Owner · 25/09/2026 · Kiểm kê dọc luồng khai yêu cầu FIELD
+- Theo chỉ đạo mới: tab **Quy trình vẽ UI** đổi từ 3 màn ngang sang 33 bước người làm dọc trên một trang, chia 4 đoạn: khai/lưu, xét duyệt, xử lý/kiểm, đổi/dừng. Mỗi bước có mã 3 chữ số, hành động, UI và nhánh tiếp; chưa vẽ thêm màn.
+- Giữ ba mã UI dự thảo UI-030/031/032, tái dùng theo mẫu cha UI.MASTER và UI.WORKSPACE; không cấp mã UI mới. UI-018/022 chỉ là điểm nối sang nhánh tạo Field. Mã YC giữ xuyên luồng, việc máy cấp mã/chuyển trạng thái không thành bước người.
+- Chỗ chưa thông được ghi ngay cuối tab: Master yêu cầu thật và điểm vào; tạo/giao MOT duyệt; lịch sử khi trả/sửa; nhánh thiếu Field và đường trở về; người test/xác nhận; quyền đổi/rút. Bản kiểm kê chưa chứng minh quy trình khép kín hay PG/DOT, K0 FIELD chưa PASS. JEV phân loại người/máy: gen-dec-1790305037-18WOhIbkuyS1DA8PeCu8.
+- Ba màn tương tác ở bản trước đã rút khỏi tab vì Owner yêu cầu **kiểm kê đủ bước trước khi thiết kế**. Mục "Ba bước người làm đầu tiên" bên dưới là nhật ký bản cũ, không còn là trạng thái hiện hành.
+
 ## Owner · 25/09/2026 · Ba bước người làm đầu tiên
 - Owner sửa phạm vi: một bước người làm = một miếng UI riêng, có mã bước, mã UI, tên UI. Bản S00/UI-030 gộp khai + Master + duyệt là sai, đã thay trong tab **Quy trình vẽ UI** của `ban-duyet.html`.
 - Bản vẽ dự thảo: `MMIM.FIELD.S001` → `UI-030 · Phiếu khai nhu cầu`; `MMIM.FIELD.S002` → `UI-031 · Master yêu cầu` (lọc Chờ duyệt); `MMIM.FIELD.S003` → `UI-032 · Phiếu duyệt yêu cầu (MOT)`. Mã ba chữ số để mở rộng hơn 150 bước FIELD. Mã YC cấp ở S001, đi xuyên S002/S003, sau này liên kết MOT/Field. Mã bước/UI chưa đăng ký chính thức; người duyệt và quyền còn chờ chốt. JEV tham khảo mã bước: `gen-dec-1790289577-EK9JvkcchX0vEBIEpfay` (độ tin cậy thấp).
