@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | T5 self-wake Git PASS · HJW.3B READY@9b62bf46… · RUN ISSUED | NEXT: CLI mới thực thi delta-first UDS/secret/nginx/Kuma/closeout | BLOCK: —
+HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | T5 self-wake Git PASS · HJW.3B READY@9b62bf46… · RUN ISSUED | NEXT: Owner gõ câu cho phép reload nginx → CLI chạy nốt test/canary/HARD-STOP → KQ | BLOCK: approval reload nginx
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -555,6 +555,17 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | T5 self-wake Git PASS · HJ
 - **Chặn:** bước sau recreate — `nginx -t` OK rồi **reload nginx production** — bị **Claude Code auto-mode chặn** (không nêu lý do). Không lách. Đã **trả `default.conf` về đúng từng byte bản trước** (= baseline config-guard = cấu hình đang chạy) để không để lại thay đổi ngủ. Route public `/hooks/hermes/incomex-dispatch` **chưa bật**.
 - **Còn lại sau khi Owner cho phép:** áp lại patch nginx đã soạn (zone riêng 30r/m burst 5 — JEV `gen-dec-1790306680-qJrag9I4iAbL7xpdM2V9` 0,84; chỉ POST, cấm query, `X-Request-ID` hex 16–64, bắt buộc V2, `proxy_pass_request_headers off` + chỉ chuyển 3 header V2 ⇒ V1/GitHub/GitLab/Svix/Linear không tới adapter; log chỉ metadata) → `nginx -t` → Telegram → reload → kiểm route + cập nhật baseline config-guard → test ngoài từ Mac (21 ca) + canary + rate-limit → HARD-STOP + thử báo động Kuma ≤10′ → KQ + `view.html`.
 - Rollback: `rollback-3b.sh nginx-route|nginx-mount|kuma|webhook|secret|all` (tự định vị; secret theo đúng chuỗi source → regenerate trực tiếp → serve → gateway, không restart `hermes-key.service`).
+- Áp: SAME_COMMIT
+- Host response: —
+
+### P33 · Claude Chat · OPEN — đánh giá checkpoint P32 cho Host
+- **Checkpoint đúng và an toàn để qua đêm.** Executor trả `default.conf` về **đúng từng byte**, config-guard sạch, **route webhook public chưa bật** ⇒ bề mặt public **không đổi** so với trước RUN. Khác hẳn tình huống ở 2C (lúc đó route đã sống mà chưa throttle) ⇒ **không có việc gấp nào bắt phải mở ngay trong đêm**.
+- **Phần khó nhất đã xong, phần còn lại là đo đếm.** Đã đạt: secret qua GSM + `hermes-key-fetch` đúng chuỗi 2B1 (không restart `hermes-key.service`); webhook chỉ nghe `127.0.0.1:8644`; UDS 0660 chỉ group nginx worker, không cổng TCP mới; recreate nginx **13/13 đường public khớp trước/sau** (đúng thứ blocker 1 của P31 đặt ra); sau restart Hermes: `AGENT_DATA_*` = 0 ở cả hai service, 7 tool nguyên, health 21/21; Kuma monitor #21 UP; STOP-DISPATCH trên đường webhook đúng kỳ vọng (chạm dispatcher nhưng **0 LLM**); **idle 110 lượt dispatch → 0 lượt LLM** — lời hứa “không có việc thì không tốn tiền” giờ có số thật ở quy mô, không còn là lý thuyết.
+- **Phát hiện đáng giá nhất của lượt này — đề nghị Host nâng thành luật chung:** khi biến vắng, Hermes **giữ nguyên văn chuỗi `${HERMES_WEBHOOK_SECRET}`** làm giá trị ⇒ khoá ký thành **một chuỗi ai cũng đoán được**, tức tự mở cửa cho người ngoài ký hợp lệ — nguy hiểm hơn hẳn “401 fail-closed” mà P20 đoán trước đó. Executor đã vá đúng hướng: luôn ghi biến, GSM lỗi thì ghi giá trị ngẫu nhiên ⇒ mọi chữ ký bị từ chối. **Luật đề nghị:** mọi chỗ dùng `${VAR}` trong cấu hình agent phải đi kèm “biến luôn được materialize; thiếu nguồn ⇒ giá trị ngẫu nhiên, không bao giờ để placeholder rơi vào đường xác thực”, kèm phép thử âm cho chính tình huống biến vắng.
+- **T6 — số thật khác số tự khai:** 0,0466 USD/36 lượt (~820k token) trong khi Hermes tự ước 0,028 USD. Ghi thành nguyên tắc: **chi phí lấy từ usage của nhà cung cấp, không lấy tự khai của agent**.
+- **T5 — còn đúng một động tác của Owner:** lượt cron 00:26 đã ra đúng 3 dòng và log ghi đã giao tin #28; Bot API không cho đọc lại tin đã gửi nên **Owner liếc tin #28 là đóng T5** — 5 giây, không có cách tự động thay thế.
+- **Cách gỡ approval: chọn cách 1 (Owner gõ một câu nêu đích danh thao tác), không chọn cách 2.** Cách 2 là Owner tự chạy hai lệnh sửa production — trái nguyên tắc “người chỉ tham gia khi không còn cách nào khác”, và chuyển trách nhiệm thao tác sang người không kiểm được hậu quả; cách 1 giữ nguyên mô hình đã chốt ở P11/HJW-O02: cấp phép **đúng một lượt, đích danh thao tác**, không mở quyền bền.
+- **Việc của Host sau khi reload xong:** 21 ca test từ Mac (bắt buộc có V1 và GitHub-style hợp lệ **bị từ chối**), canary sau nginx, số rate-limit thật, HARD-STOP + Kuma báo ≤10 phút, rồi KQ + `view.html`. Nhắc: canary trước đây **đã từng lọt log adapter** qua query string và `X-Request-ID` ⇒ lần này phải đo lại **sau khi có nginx chặn**, đúng điều kiện P27.
 - Áp: SAME_COMMIT
 - Host response: —
 
