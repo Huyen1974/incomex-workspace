@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | T5 self-wake Git PASS · HJW.3B READY@9b62bf46… · RUN ISSUED | NEXT: Owner gõ câu cho phép reload nginx → CLI chạy nốt test/canary/HARD-STOP → KQ | BLOCK: approval reload nginx
+HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3B CHECKPOINT NGINX_RELOAD_APPROVAL_REQUIRED · runtime safe | NEXT: Owner gõ exact shared-nginx approval → CLI chạy nốt tests/KQ | BLOCK: Claude Code shared-resource approval
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -558,7 +558,13 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | T5 self-wake Git PASS · HJ
 - Áp: SAME_COMMIT
 - Host response: —
 
-### P33 · Claude Chat · OPEN — đánh giá checkpoint P32 cho Host
+### P33 · Claude Chat · ACCEPTED/PARTIAL — checkpoint an toàn, chỉ còn Owner shared-nginx approval
+- **Host response P33 — ACCEPTED, 25/09:** P32 dừng đúng gate; public route vẫn OFF, `default.conf` đã trả byte-sạch baseline/config-guard, nên không có thay đổi public ngủ chờ. Giữ nguyên RUN `HJW-3B-20260925-01`; **không sửa PROMPT/READY**.
+- **Approval còn thiếu là UI/safety gate của Claude Code, không phải thiếu quyền trong RUN:** Owner phải **gõ tay** câu nêu rõ shared resource/action. Không dùng shell `!`, không tự chạy lệnh thay agent.
+- **Câu approval được Host chốt:** `Tôi cho phép Claude Code sửa default.conf của incomex-nginx, chạy nginx -t và reload nginx cho route webhook Hermes, cùng các bước test, canary, rate-limit và HARD-STOP còn lại trong RUN HJW-3B-20260925-01.`
+- Sau approval, executor tiếp tục cùng phiên/checkpoint: apply patch → `nginx -t` → Telegram → reload → verify public routes → 21 external tests → canary/rate → HARD-STOP/Kuma → KQ. Nếu auto-mode vẫn chặn **chính câu này**, dừng và báo `SHARED_NGINX_APPROVAL_STILL_BLOCKED`; không lách.
+- **T5:** machine evidence đủ mạnh; Owner chỉ cần nhìn Telegram message #28. Nếu đúng exactly 3 non-empty lines `STATUS/COMMIT/NEXT`, T5 đóng hoàn toàn.
+- **Luật ứng viên HJW.4:** (L1) auth/secret placeholder tuyệt đối không được trở thành giá trị runtime; missing/unresolved secret phải fail closed bằng unavailable/random unknown value, không predictable literal; (L2) cost/billing truth lấy từ provider ledger/API, agent self-estimate chỉ informational. Chưa sửa AGENTS ở checkpoint này; promote khi HJW.4 closeout để tránh đổi foundation giữa RUN.
 - **Checkpoint đúng và an toàn để qua đêm.** Executor trả `default.conf` về **đúng từng byte**, config-guard sạch, **route webhook public chưa bật** ⇒ bề mặt public **không đổi** so với trước RUN. Khác hẳn tình huống ở 2C (lúc đó route đã sống mà chưa throttle) ⇒ **không có việc gấp nào bắt phải mở ngay trong đêm**.
 - **Phần khó nhất đã xong, phần còn lại là đo đếm.** Đã đạt: secret qua GSM + `hermes-key-fetch` đúng chuỗi 2B1 (không restart `hermes-key.service`); webhook chỉ nghe `127.0.0.1:8644`; UDS 0660 chỉ group nginx worker, không cổng TCP mới; recreate nginx **13/13 đường public khớp trước/sau** (đúng thứ blocker 1 của P31 đặt ra); sau restart Hermes: `AGENT_DATA_*` = 0 ở cả hai service, 7 tool nguyên, health 21/21; Kuma monitor #21 UP; STOP-DISPATCH trên đường webhook đúng kỳ vọng (chạm dispatcher nhưng **0 LLM**); **idle 110 lượt dispatch → 0 lượt LLM** — lời hứa “không có việc thì không tốn tiền” giờ có số thật ở quy mô, không còn là lý thuyết.
 - **Phát hiện đáng giá nhất của lượt này — đề nghị Host nâng thành luật chung:** khi biến vắng, Hermes **giữ nguyên văn chuỗi `${HERMES_WEBHOOK_SECRET}`** làm giá trị ⇒ khoá ký thành **một chuỗi ai cũng đoán được**, tức tự mở cửa cho người ngoài ký hợp lệ — nguy hiểm hơn hẳn “401 fail-closed” mà P20 đoán trước đó. Executor đã vá đúng hướng: luôn ghi biến, GSM lỗi thì ghi giá trị ngẫu nhiên ⇒ mọi chữ ký bị từ chối. **Luật đề nghị:** mọi chỗ dùng `${VAR}` trong cấu hình agent phải đi kèm “biến luôn được materialize; thiếu nguồn ⇒ giá trị ngẫu nhiên, không bao giờ để placeholder rơi vào đường xác thực”, kèm phép thử âm cho chính tình huống biến vắng.
