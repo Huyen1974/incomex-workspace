@@ -586,6 +586,16 @@ HJW | HJW.3B XONG; Hermes đã claim/báo P36 tại ec6df01 | HJW-CONTROL: Owner
 - Áp: SAME_COMMIT
 - Host response: —
 
+### P38 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `2372709` · **ACCEPT S1–S7 + 6 bổ sung ngắn** · DESIGN, NO RUNTIME
+- **Đối chiếu S1–S7:** đúng yêu cầu Owner; ranh giới “0 model call trước duyệt” đặt đúng chỗ (S2); vé một lần có hash/generation/hạn, chỉ Owner (S3); không bot/poller thứ hai (S3) — đúng ràng buộc một bot chỉ một bên đọc cập nhật; lỗi Telegram không chạy lại việc (S4); reuse trước (S6); nghiệm thu có ca phải-bị-chặn (S7). Không cần làm lại. JEV nghêng PARTIAL 0,75 vì giá trị Hermes chưa chứng minh; Claude chọn ACCEPT kèm bổ sung vì các điểm dưới là câu thêm, không đổi cấu trúc, và chính gate + S5 là công cụ đo giá trị đó.
+- **B1 · Một sổ, không hai:** vé duyệt là các trạng thái đầu của đúng bản ghi vòng đời MCPW (N2): `PENDING_APPROVAL → APPROVED → CLAIMED(lease) → DONE|BLOCKED|EXPIRED`; không kho “pending” riêng của HJW.
+- **B2 · Giới hạn kỹ thuật cần biết trước:** `callback_data` của Telegram tối đa 64 byte ⇒ nút chỉ mang mã vé ngắn; hash/scope/generation tra ở sổ.
+- **B3 · Không vá lõi Hermes:** ưu tiên điểm mở rộng/cấu hình sẵn có (hook, pre-script, adapter config); buộc phải vá thì giữ thành patch áp lại được + test chạy trong quy trình cập nhật — Owner muốn Hermes tự cập nhật về sau, vá lõi sẽ vỡ khi update. Source Hermes không nằm trong `/opt/incomex` (Claude quét gốc `code`: 0 khớp callback/approval) ⇒ audit S6 bắt buộc qua SSH.
+- **B4 · Không để Owner thành nút cổ chai:** thẻ có hạn mặc định (hết hạn ⇒ `EXPIRED`, ghi lý do, không chạy); nhiều thẻ cùng loại ⇒ gom một tin; có trần số thẻ/ngày; thời gian chờ duyệt đưa vào S5.
+- **B5 · Phiếu điểm để Owner gật AUTO theo loại việc:** mỗi loại việc một dòng: số lượt · tỉ lệ Host ACCEPT · tỉ lệ lượt có phát hiện mới (không trùng GPT/Claude) · chi phí thật trung vị · thời gian chờ duyệt. Host đề xuất ngưỡng kèm (ví dụ ≥5 lượt, ≥80% ACCEPT, 0 sự cố) ⇒ Owner gật/lắc từng loại; máy không tự nâng (giữ S1).
+- **B6 · Lượt thử đầu phải đo được giá trị:** câu hỏi mà repo chưa có câu trả lời, chỉ đọc, có biên, Host kiểm được. Không dùng việc tóm tắt lại báo cáo cũ (bài học P36).
+- **Thứ tự:** audit S6 + RUN gate (Claude Code) → một lượt thử có thẻ duyệt + Telegram đủ 3 mốc → nghiệm thu S7 → gộp HJW.4 (promote L1/L2) + HJW.5 (ma trận T1–T10) thành một vòng giấy tờ → đóng HJW. JEV `gen-dec-1790375918-xt5qR9A2NhvGluaygSfr`: phiếu điểm 0,72 · lượt thử đo giá trị 0,74 · không vá lõi 0,66 · một sổ 0,59 · HJW.4 trước RUN 0,40 (không).
+
 ### P37 · Host GPT · 2026-09-26 · OWNER HUMAN GATE + TELEGRAM VISIBILITY · DESIGN, NO RUNTIME RUN
 - Based_on `81f751c9`; nhận chỉ đạo mới của Owner tại §0.3 HJW-CONTROL S1–S7. Đề xuất chỉ dùng một luồng hai chế độ, không xây hai hệ thống. Chờ duyệt phải ở trước model call, không phải Hermes đã chạy rồi mới xin phép.
 - **P36 có bằng chứng Git:** claim `e179bd03` → review/done `ec6df01`; đã đọc/review tài liệu và ghi báo cáo. Phần backend, conflict âm, Telegram delivery và cost lượt này P36 nói rõ chưa tự kiểm. Vì vậy chỉ chấp nhận mẫu vòng đọc/claim/ghi báo cáo; không suy thành mọi năng lực đã PASS hay hiệu quả/chi phí đã được chứng minh. Không giao Hermes thêm lượt để tóm tắt lại chính P36.
