@@ -1,8 +1,9 @@
 # PROMPT — MCPW-P02 · VPS last-good read cache + freshness debt + giảm xung đột giả
 
 RUN_ID: MCPW-P02-20260925-01
-Trạng thái: **DRAFT REV2 — K8 + PROTECTION GUARD — CHƯA READY / CHƯA RUN**
-**READY@94de3978dcf648670a82a4290ae65b0dd4e6c608 và RUN@MCPW-P02-20260925-01 cũ HẾT HIỆU LỰC** vì execution pack đã thay đổi sau incident `MCPW-RECOVERY-20260925-01`. Phải review/READY mới trước mọi mutation P02.
+Trạng thái: **READY REV2 — K8 + PROTECTION GUARD — CHƯA RUN**
+**READY@94de3978dcf648670a82a4290ae65b0dd4e6c608 và RUN@MCPW-P02-20260925-01 cũ HẾT HIỆU LỰC** vì execution pack đã thay đổi sau incident `MCPW-RECOVERY-20260925-01`.
+Owner 25/09/2026 đã ủy quyền Host tự quyết chi tiết kỹ thuật theo nguyên tắc bảo toàn chức năng đang chạy · reuse trước · ít tài nguyên/thời gian · code mới cuối cùng; Owner Gate K8.4 vì vậy đã được đáp ứng theo đúng fail-closed contract trong PROMPT.
 Host: GPT Chat · Host_ID `GPT-MCPW-250925-A`
 Owner đã duyệt kiến trúc P02 và freshness debt ngày 25/09/2026; MCPW-LOCK đã XONG, ruleset `gateway-only-writes` id `23976991` đang active.
 Executor_Surface dự kiến: **Claude Code CLI trên Mac của Owner, chế độ hỏi quyền mặc định** (không auto-mode). Mỗi lệnh mutation hiện nút quyền để Owner bấm Yes.
