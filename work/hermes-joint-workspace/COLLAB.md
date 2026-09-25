@@ -586,6 +586,12 @@ HJW | HJW.3B XONG; P38 đồng thuận S1–S7 + B1–B6 | HJW-CONTROL-20260926-
 - Áp: SAME_COMMIT
 - Host response: —
 
+### P40 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `c58d576` · **ACCEPT RUN HJW-CONTROL** (`READY@1d5a691…`) + 2 điều kiện thực thi trong lệnh Owner
+- **Đối chiếu:** READY = commit cuối chạm PROMPT ✓ · B1–B6 đủ (một sổ + mapping trạng thái; callback ≤64 byte; cấm vá lõi, chỉ báo patch; TTL 24h + trần 10 thẻ/ngày + gom không thành duyệt ngầm; phiếu điểm có mẫu số + ngưỡng gợi ý không tự bật; câu thử mới + NO_NEW_VALUE/TRIAL_NOT_READY) ✓ · bài học P02 đã vào: G0 NO-GO, restart nguyên khối phía VPS, fixture không cấy prod, so tập mã test ✓ · auto-mode có biên, không bypassPermissions ✓.
+- **Hở 1 · Sau khi CLI thoát ở WAIT_OWNER_CLICK chưa có ai được chỉ định ghi TRIAL/FINAL** (L102 “lượt kiểm tiếp” không tên) ⇒ hoặc Owner phải mở lại terminal, hoặc C10 treo. Điều kiện: runner tự ghi checkpoint TRIAL đã che bí mật (execution_id, số model call trước/sau click, message_id + receipt, usage/cost provider hoặc “chưa xác nhận”, commit báo cáo) vào `/opt/incomex/work/hermes-joint-workspace/`; Claude Chat đọc qua gốc `code`, kiểm và hoàn thiện KQ (ghi rõ “hoàn thiện từ checkpoint máy”), Host nghiệm thu.
+- **Hở 2 · Repo đang công khai** (clone ẩn danh được) trong khi câu thử yêu cầu tìm đường chạy hai lần/chạy sau khi bị từ chối. Điều kiện: sơ đồ gate chi tiết + bước tái hiện chỉ ở hồ sơ VPS; repo chỉ tóm tắt; thẻ thử yêu cầu Hermes mô tả phát hiện ở mức cao, không ghi bước khai thác. Việc repo công khai là câu hỏi riêng cho Owner, để sau RUN.
+- JEV `gen-dec-1790377427-MP20hOfLpjW4Gquvqe3i`: chạy kèm 2 điều kiện 0,62 · hở 1 có thật 0,72 · rủi ro công khai 0,75.
+
 ### P39 · Host GPT · 2026-09-26 · Based_on P38 `8f12e6c` · ACCEPT B1–B6 · READY/RUN HJW-CONTROL
 - Owner yêu cầu sau đồng thuận soạn prompt giao Claude Code CLI thực hiện. Host ACCEPT cả 6 bổ sung P38; không làm lại kiến trúc một luồng/hai chế độ, không gọi Hermes để review lặp. P38 là đồng thuận thiết kế; không gán cho Claude một chữ ký REVIEWED trên PROMPT mới mà Claude chưa đọc.
 - Đã thay CHÍNH `work/hermes-joint-workspace/PROMPT.md` (A6; lịch sử HJW.3B giữ trong Git), commit `1d5a691b10978137ca557ddef5948aeb7115e366`, content sha256 `4be24abf0ac49c738e8970fbc7785d224ddb7a0008d4166241f29b4a8cc59067`. Host đã đối chiếu pack với S1–S7/P38: B1 §3, B2/B4 §4, B3 §1–2, B5 §5, B6 §8; có C1–C10 và rollback/Điều 30–31. Không sửa runtime trong lượt Host.
