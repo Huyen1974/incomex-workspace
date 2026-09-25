@@ -1,6 +1,10 @@
 # COLLAB — mow-mot-moit-mout
 
-## Owner · 25/09/2026 · Mã bước ↔ UI con (bản thử)
+## Owner · 25/09/2026 · Mã UI con: bước trước, cha sau (bản thử)
+- Theo Owner: mã con ghép mã bước trước, mã UI cha sau: `S010.UI.CANVAS`, `S020.UI.MASTER`, `S030.UI.CONFIG`. Đuôi mã cha ngay trên miếng bấm về UI Master; không lặp một nhãn mã cha riêng. Quy tắc đồng bộ ở UI Master, Quy trình vẽ UI và UIs.
+- Đây là mã thiết kế thử, chưa đăng ký khóa thật; K0 FIELD chưa PASS. UI dùng lại giữ mã gốc; quan hệ bước–UI/cha vẫn lưu bằng khóa.
+
+## Owner · 25/09/2026 · Mã bước ↔ UI con (lịch sử)
 - S010 ↔ U010, S020 ↔ U020, S030 ↔ U030: cùng phần số để nhìn là thấy quan hệ. Khóa đầy đủ thử: `MMIM.FIELD.S010` ↔ `MMIM.FIELD.U010`. UI cha giữ mã/link riêng.
 - Một UI dùng nhiều bước thì giữ U gốc; thêm UI trong một bước dùng chữ cái (U010A). Chèn S015 dùng U015. Quan hệ phải lưu bằng khóa, không đoán từ mã. Chưa đăng ký mã thật; K0 FIELD chưa PASS. JEV tham khảo: `gen-dec-1790310936-2BTt4Z89trf41rE32pKl`.
 - Kiểm VPS commit `4e21c51`: trang công việc `fresh`; ba đầu miếng hiện S010→U010, S020→U020, S030→U030; danh sách bước cũng dùng U010/U020/U030 và link mở đúng màn. UI cha/link không đổi.
