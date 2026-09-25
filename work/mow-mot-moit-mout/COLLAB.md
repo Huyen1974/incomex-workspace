@@ -3,6 +3,7 @@
 ## Owner · 25/09/2026 · Điều chỉnh thể thức UIs
 - Owner chốt nguyên tắc: nền vừa đủ tách miếng; chỉ tên UI đậm; mã bước/tên bước/mã UI con/cha hiển thị nhạt nhưng đọc được, cha bấm mở UI Master. Đã ghi gọn vào Quy chuẩn UI cha → UI con.
 - Mã **thử**: bước S010, S020… (chèn S015); UI con KB.YC.001 / ML.YC.002 / CF.YC.003. Chưa đăng ký mã thật; URL cũ `wf4-s001` / `wf5-s001` vẫn dẫn tới bước/màn tương ứng. K0 FIELD chưa PASS. JEV tham khảo: `gen-dec-1790309973-DqTZWVnUzx2Q5tfGBxSW`.
+- Kiểm VPS commit `1299860`: trang công việc báo `fresh`; link cũ `&section=wf5-s001` mở UIs/S010; S010→S020 trong tab quy trình, mã UI con mở đúng màn; đầu miếng không còn bị thanh tab che trên màn hẹp.
 
 ## Owner · 25/09/2026 · Thể thức tab UIs (lịch sử)
 - Theo Owner: nền xanh đậm ở ngoài ba miếng; giữ nền sáng và bố cục Kanban/UI cha bên trong; vàng thao tác giảm sắc. Header mỗi miếng gộp mã bước, tên bước, mã con và link mã cha. Chưa đổi nội dung S001–S003; đây là thể thức để Owner duyệt. JEV tham khảo lựa chọn nền: `gen-dec-1790309121-WMnBWvBG16QkT25xMs7t`.
