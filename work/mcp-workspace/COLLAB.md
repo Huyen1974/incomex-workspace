@@ -405,5 +405,16 @@ Agent: Claude Code CLI trên Mac Owner · 25/09/2026 · tiếp nối RUN 25/09 g
 
 KQ@MCPW-LOCK-20260924-01 XONG
 
+## KQ — MCPW-RECOVERY-20260925-01
+Agent: Claude Code CLI trên Mac Owner · 25/09/2026 · SSH `contabo`; mọi lệnh git/ghi state chạy TRONG `incomex-agent-data` bằng uid 0 (= uid process gateway) và giữ đúng khoá root `workspace` của gateway. Owner duyệt trực tiếp trong chat: đúng phạm vi P07 `9c079d7` + Protection Gate Điều 30/41; không P02.
+- **1a–1e chỉ đọc PASS:** đúng 1 record chặn = transaction `313a8c3e…` `push_unknown`, commit `3611d01`, base `5eec3f4`; record một-file chặn = 0. Audit: `git_failed` push `UPSTREAM_UNAVAILABLE` `unavailable_or_timeout` (event `cb1207d6295b`) → `transaction_push_unknown` 07:54Z; `.circuit` đã hết hạn. Clone `main` sạch, không `index.lock`, không process git. `3611d01` = `openai-mcp/1.0.0` 07:53:20Z «Create to-chuyen-gia guidance and Claude CW review prompt» (tạo `work/to-chuyen-gia/COLLAB.md` + `PROMPT.md`). `ls-remote` R = `9c079d7` = FETCH_HEAD; `3611d01` không là tổ tiên R; parent `5eec3f4` là tổ tiên R; R không có `work/to-chuyen-gia/`. Ledger `operation_id` `to-chuyen-gia-init-20260925` = `unknown` (giữ nguyên).
+- **Mutation đúng 3 bước:** (1) giữ orphan: `refs/recovery/MCPW-RECOVERY-20260925-01` → `3611d01` + bundle (verify OK) + format-patch; (2) `git reset --keep 9c079d7` → HEAD = remote, sạch; (3) manifest `status=rolled_back` + `reconciled{run,at,reason,orphan_ref,evidence,…}` ghi atomic, không xoá file ⇒ 0 record chặn.
+- **Nghiệm thu `workspace_*` root `workspace`:** `list/stat/read/log` PASS, `head = source_head = 9c079d7`, `worktree_dirty=false`; ghi + push = chính commit khối KQ này (`workspace_edit`).
+- **Protection Gate:** cùng một script chỉ-đọc chụp trước/sau (12 container image/StartedAt/health/RestartCount · systemd failed · 11 service Hermes/JEV/MCP/exec · 30 timer · crontab · hash mã `/app/agent_data` · hash config workspace-tools/nginx/compose · HEAD/dirty agent-data-repo, nuxt-repo · HTTP `/` `/knowledge/modules` `/ui-preview/mcp-writes/` · cổng nghe · đĩa) ⇒ diff CHỈ 4 dòng = đúng delta RUN (HEAD clone, origin/main, ref recovery, 1 `push_unknown`→`rolled_back`). MCP trước/sau: `workspace_*` ui/docs, `fs_*` gh, KB search, `vps_status` PASS. Ngoại lệ baseline đã biết: root `workspace` = RECOVERY_REQUIRED (chính là đích RUN). 0 restart, 0 sửa mã/config/image, không đụng Hermes/nginx, không P02.
+- Hồ sơ VPS: `/opt/incomex/work/mcp-workspace/MCPW-RECOVERY-20260925-01/` (baseline-before/after.tsv, gate-diff.txt, check/apply.log, recover.py, snap.sh, manifest before/after, orphan bundle/patch, ledger, audit).
+- **Còn mở (không thuộc RUN):** (a) `work/to-chuyen-gia/` của GPT KHÔNG được áp lại — tác giả tự áp bằng `operation_id` MỚI nếu vẫn cần (DROOT14: chỉ Owner mở task mới); dùng lại id cũ nhận `unknown`, không commit lần hai. (b) Lỗi gốc push timeout → circuit → `push_unknown` khoá cả đọc CHƯA sửa ⇒ có thể tái diễn tới khi K8 vào P02 — Host GPT quyết. (c) Owner đã gật P07 trong chat ⇒ đóng dòng chờ Owner (JEV `gen-dec-1790327988-thDV9HyajkPTQBphNcMa` 0,98).
+
+KQ@MCPW-RECOVERY-20260925-01 XONG
+
 ## Owner cần quyết
-- (Claude P07) Dán prompt `MCPW-RECOVERY-20260925-01` cho Claude Code có SSH — đề xuất: **GẬT**. Sau KQ: Host GPT quyết gắn K8 vào P02.
+- —
