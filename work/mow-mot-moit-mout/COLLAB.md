@@ -17,12 +17,26 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 6. Phải đảm bảo làm bằng tay trước (con người làm trên UI) sau đó mới tự động hóa thay thế con người bằng AI.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-- Hiện hành 25/09: tab **★ Công thức** trong `ban-duyet.html` (Claude C03) trả lời câu “cần bao nhiêu bước, bao nhiêu UI để người mới làm được mọi việc”: **9 bước** (khuôn xây 6 + dùng 3) · **18 màn** từ 6 khuôn cha · 29 UI con hiện có gộp vừa vào 18 chỗ, 3 chỗ dùng chung còn thiếu (Nhu cầu · Duyệt · Kiểm). Chờ Owner gật 3 câu ở đầu tab; hội đồng phản biện dưới C03.
+- Hiện hành 26/09: **★ Master list V1** = 34 danh sách có mã (2 sổ gốc + 23 Thứ + 9 hồ sơ chung · C06, chờ Owner chốt) · **★ Công thức bản 3** = khuôn 6 bước (3 duyệt ý · 6 duyệt bản ≠ bật), Màn = 2 × Thứ + 7 (dự tính) · khung đã đồng thuận Claude + Codex (P14 CLOSED), mời hội đồng rộng. Số còn chờ ca thử xuất cảnh.
+- *(Bản 25/09 C03 “9 bước · 18 màn” đã thay bằng C04–C06.)*
 - Các dòng chi tiết cũ của mục 3 (bản đồ thao tác từ dưới lên, deep-link…) giữ ở “3 cũ” phía dưới; mục 2 cũ chuyển vào Vòng trước.
 
 ### Vòng trước
 - Thế nào là hoàn thành (trước 25/09): Hồ sơ MOW · MOT · MOIT · MOUT có luồng thao tác rõ từ Field lên MOW, được Host và Claude thống nhất trước khi sửa HTML. *(đề xuất — chờ Owner gật)*
 - Các vòng cũ hơn: xem “Vòng trước” trong khối “3 cũ” phía dưới.
+
+## Claude · 26/09/2026 · C06 · ★ Master list V1 — 34 danh sách có mã (ĐỀ XUẤT, chờ Owner chốt)
+- **Owner 26/09:** công thức đúng nhưng chưa trả lời câu đầu tiên: *có bao nhiêu master list, mã là gì?* Không có danh sách thì không biết đủ/thiếu, dựng ở đâu, UI nào, đã thiết kế chưa. Muốn thấy **danh sách dài trước**; bên cạnh là gom nhóm, lắp vào công thức, mô hình.
+- **Trả lời (tab ★ Master list, bảng chính):** **34 = 2 sổ gốc + 23 Thứ + 9 hồ sơ chung.** Mỗi dòng: số · mã CAT · tên · Dữ liệu (bảng PG nào) · UI (mẫu nào). Khung phải “Gom theo công thức”: 2 · 23 (5 · 5 · 5 · 5 · 3) · 9 → Màn = 2 × Thứ + 7. Ví dụ Field “Ngày xuất cảnh” ghi theo số dòng (26 → 27 → 28·29 → 30 → 27 → 03 → 31 → 32·33).
+- **Mã:** 14 dòng dùng lại mã đang có trong `meta_catalog` (đối chiếu PG 26/09: CAT-000 · 004 · 006 · 008 · 010 · 011 · 013 · 015 · 016 · 018 · 020 · 023 · 025 · 074). 20 dòng mới giữ chỗ **CAT-201…220\*** (dải 200–299 đang trống, 169 dòng hiện có không đụng). Mã giữ chỗ chỉ cấp thật khi đăng ký vào CAT-000 qua khuôn 6 bước. 5 dòng “?” là ứng viên dùng lại (MOUT · `pivot_definitions`, MOW · `workflows`, Loại sự kiện · `event_type_registry`, Phiên bản · `unit_version`, Lượt chạy · `event_outbox`/`job_queue`): K0 xác nhận thì dòng đó lấy mã CAT sẵn có.
+- **Màu:** Dữ liệu 14 xanh · 6 vàng · 8 đỏ · 6 xám (bảng tên giống, khác phạm vi). UI 1 xanh · 16 vàng · 17 đỏ (“đúc” = đúc từ khuôn Master list theo Luật nhân bản 22/07; “ngăn” = ngăn trong màn cha, không phải chỗ màn riêng).
+- **Sửa chỗ C02/C05 ghi sai:** Trigger không xanh — `trigger_registry` (CAT-019) là trigger của CSDL (trigger_name, table_name, function_name) → Trigger nghiệp vụ là danh sách mới CAT-207\*. Cùng lý do: `ui_pages` là trang Vue → Màn (UI con) mới CAT-218\*; `iu_tree`, `directus_users`/`directus_roles`, `delegation` khác phạm vi → xám. Nhu cầu: CAT-005 chỉ cho quy trình → vàng, cần danh sách chung CAT-217\*.
+- **Hai điểm Codex nêu khi đóng P14:** (1) bỏ nhãn “thứ nào cũng có”; Lượt chạy ghi “MOT · MOW” ngay tại dòng. (2) Bước (28) và Màn (29) là **ngăn Bàn tạo**; Dùng ở đâu · Phiên bản là **ngăn chi tiết** → không cộng thêm chỗ vào 2 × Thứ + 7.
+- **12 tên không thành danh sách riêng** (Hạn/SLA · Quyền · Loại yêu cầu duyệt · Mẫu thông báo · Mẫu template · Nguồn ngoài · Kịch bản test · Tệp đính kèm · Bình luận · Số đo · Luật/nguyên tắc · Kho câu hỏi UIQ): ghi ở “Cho AI” kèm lý do + nơi nằm. 57 tên cũ và 4 bảng kiểm kê của Codex giữ nguyên.
+- **Không đổi:** khung đã đồng thuận (P14 CLOSED); ★ Công thức (23 Thứ → ~53) vẫn khớp. Không sửa PG, không tạo file. Áp: SAME_COMMIT.
+- **Chưa chắc:** 34 là danh sách V1 để chạy ca thử, chưa chứng minh đủ toàn hệ → nhãn “CHỜ OWNER CHỐT”, không ghi “cuối cùng”.
+- **Đề nghị Codex (một lượt, ghi ACCEPT / PARTIAL ngay dưới C06):** (a) 14 mã dùng lại có đúng phạm vi không; (b) 5 dòng “?” nên dùng lại hay tạo mới; (c) 12 tên loại trừ có tên nào phải thành danh sách không; (d) còn thiếu danh sách nào cho ca thử xuất cảnh (đặc biệt đường nhắc trước 7 ngày).
+- JEV `gen-dec-1790376249-RzcQ6K1QAbDBfaR8zx4d`: mã theo dải CAT 0,96 · danh sách trước, mô hình bên cạnh 0,99 · 2 sổ gốc 0,99 · Trigger cần danh sách mới 1,00 · chốt ngay là cuối cùng 0,37.
 
 ## Claude · 25/09/2026 · C03 · tab ★ Công thức — trả lời “bao nhiêu bước, bao nhiêu UI” (ĐỀ XUẤT, chờ bàn)
 - **Owner 25/09:** khối thông tin khổng lồ, không ai hiểu → tổng hợp, mô hình hoá, quy luật hoá; dựng tab mới có sao sau Master list để bàn; trả lời câu đầu tiên: cần bao nhiêu UI, bao nhiêu bước để người chưa biết gì làm được mọi việc (giả định UI chạy được). Owner cho quyền tạo tab (lệnh trực tiếp), không tạo file mới.
