@@ -1,5 +1,11 @@
 # COLLAB — mow-mot-moit-mout
 
+## Owner · 25/09/2026 · Mẫu UI S001–S003 để duyệt
+- Đã vẽ 3 màn gập/mở ngay dưới các bước S001–S003 trong ban-duyet.html → Quy trình vẽ UI. Vàng = chỗ người cần bấm/điền. S002 nút ＋ Yêu cầu mở mẫu S003; không ghi dữ liệu thật. Bản Owner View publish commit 167977a: đã bấm mở cả ba màn, mở menu Master và chuyển S002→S003; URL section đổi đúng.
+- Mã con đề xuất: KB.YC (cha KB = UI.CANVAS, S001), ML.YC (cha ML = UI.MASTER, S002), CF.YC (cha CF = UI.CONFIG, S003; tham chiếu hộp UI-018). Alias ngắn chỉ dùng trong bản thử, chưa đổi mã UI cha/đăng ký khóa thật. UI-030/031 cũ vẫn ở các bước sau để đối chiếu sau khi Owner duyệt.
+- Kiểm UI T0 thật: nút Master có menu Quy trình/Field/MOT/MOUT, **chưa có Yêu cầu**. S001 đánh dấu mục này còn thiếu; chưa tự thêm vào UI chạy. Đây cũng cho thấy có thể cần tách thêm bước chọn Yêu cầu trước S002. Chờ Owner quyết trên bản vẽ.
+- JEV tham khảo: S003 dùng Config (0,73; id gen-dec-1790307175-7SRxBJSCzocxhBXGLIjS); mã phân biệt KB/ML/CF (0,92; id gen-dec-1790307247-LVnVd3suvrl2zMp8eyqM); S001 báo thiếu menu trên Canvas (0,98; id gen-dec-1790307355-jg3zCJkBvIkxTWGhKqR5). JEV là tham khảo, không thay quyết định Owner. K0 FIELD chưa PASS.
+
 ## Owner · 25/09/2026 · URL theo tab và chi tiết
 - ban-duyet.html: bấm 5 tab ghi hash của panel; mở mục ?/details ghi hash riêng; các mã S001–S033 là link tới từng bước. Tải lại và Quay lại khôi phục đúng tab/mục. Nút **🔗 Mở mục này** mở bản rộng tại đúng điểm đang xem.
 - Nút UI cha trỏ tới từng hàng UI con (ví dụ UI-001 → &section=child-UI-001). Khi mở liên kết, hàng đích nằm dưới thanh tab cố định; đã kiểm trực tiếp vị trí 72px trên bản publish 8705354. Không cấp UI mới.
