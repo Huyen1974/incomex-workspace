@@ -1,6 +1,10 @@
 # COLLAB — mow-mot-moit-mout
 
-## Owner · 25/09/2026 · Điều chỉnh thể thức UIs
+## Owner · 25/09/2026 · Mã bước ↔ UI con (bản thử)
+- S010 ↔ U010, S020 ↔ U020, S030 ↔ U030: cùng phần số để nhìn là thấy quan hệ. Khóa đầy đủ thử: `MMIM.FIELD.S010` ↔ `MMIM.FIELD.U010`. UI cha giữ mã/link riêng.
+- Một UI dùng nhiều bước thì giữ U gốc; thêm UI trong một bước dùng chữ cái (U010A). Chèn S015 dùng U015. Quan hệ phải lưu bằng khóa, không đoán từ mã. Chưa đăng ký mã thật; K0 FIELD chưa PASS. JEV tham khảo: `gen-dec-1790310936-2BTt4Z89trf41rE32pKl`.
+
+## Owner · 25/09/2026 · Điều chỉnh thể thức UIs (lịch sử)
 - Owner chốt nguyên tắc: nền vừa đủ tách miếng; chỉ tên UI đậm; mã bước/tên bước/mã UI con/cha hiển thị nhạt nhưng đọc được, cha bấm mở UI Master. Đã ghi gọn vào Quy chuẩn UI cha → UI con.
 - Mã **thử**: bước S010, S020… (chèn S015); UI con KB.YC.001 / ML.YC.002 / CF.YC.003. Chưa đăng ký mã thật; URL cũ `wf4-s001` / `wf5-s001` vẫn dẫn tới bước/màn tương ứng. K0 FIELD chưa PASS. JEV tham khảo: `gen-dec-1790309973-DqTZWVnUzx2Q5tfGBxSW`.
 - Kiểm VPS commit `1299860`: trang công việc báo `fresh`; link cũ `&section=wf5-s001` mở UIs/S010; S010→S020 trong tab quy trình, mã UI con mở đúng màn; đầu miếng không còn bị thanh tab che trên màn hẹp.
