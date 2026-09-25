@@ -21,6 +21,13 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - Rollback đã duyệt trước: cổng bị chặn → đặt ruleset `enforcement=disabled` (không xoá). Cửa khẩn cấp Owner: tắt ruleset trong Settings → Rules.
 - Sau MCPW-LOCK XONG: Host tự thử lại, sửa README D12 `CHƯA CƯỠNG CHẾ` → `ĐÃ CƯỠNG CHẾ`; **chưa đóng việc** — P02 chạy tiếp trong cùng việc (Owner 25/09, `ef28301`). Sau P02 XONG, tiếp tục vòng thiết kế/kiểm chứng **vai trò + tín hiệu giao/đẩy việc + scoped lease cưỡng chế xung đột đa-Agent** theo §0.2(3)–(4); chỉ `Đóng mcp-workspace` khi cả 4 tiêu chí hoàn thành ở §0.2 đều đạt và Owner xác nhận. Hướng kỹ thuật candidate cho §0.2(4): lease theo `work/RUN/scope`, không mutex cả task; JEV `gen-dec-1790309396-kqufiMOUIkyTG4niNmIZ` chọn scoped lease 1.00.
 - JEV: `gen-dec-1790226942-Pz95lv2dkDouzMQ3XwSW` ruleset 0,93 (conf 0,92) · kiểm PROMPT `gen-dec-1790234527-TC6croNtKfTwHYgYNw0K`: gate trước mutation 0,97 · mở lại lỗ 0,05 · lộ secret 0,03 · vượt phạm vi 0,19 (do phép thử T1 là một lần ghi phải bị từ chối; đã giới hạn chỉ thêm một dòng).
+- **Bổ sung 26/09 (Claude, theo yêu cầu Owner) — vòng §0.2(1)(3)(4): “máy biết, AI không phải nhớ”.** Ba tiêu chí dùng chung một nguồn tín hiệu (READY/RUN/KQ/lease + hoạt động gateway/Guard), không dựng hệ riêng.
+  - **N1 · Thụ động trước:** trả lời “ai vừa làm / ai đang làm / tiếp theo của ai” từ tín hiệu AI buộc phải tạo khi làm việc (gọi gateway, commit, Guard PRE/POST, docker events), không từ lời khai. Việc thêm của AI = 0 ngoài READY/RUN/KQ vốn có.
+  - **N2 · Khai báo bắt buộc chỉ 2 mốc, và phải là cổng chặn chứ không dựa trí nhớ:** BẮT ĐẦU = lần mutation đầu tiên của Executor trong scope của RUN (gateway/Guard PRE tự đóng dấu; không có RUN/lease ⇒ bị chặn). KẾT THÚC = `KQ@RUN XONG|DỪNG`; quên KQ ⇒ lease không nhả, việc sau cùng scope bị chặn + PERIODIC báo Telegram khi im lặng quá ngưỡng.
+  - **N3 · Ai vừa làm — không sót:** một bảng quy đổi danh tính theo tiền tố (bỏ hậu tố phiên bản kiểu `claude-code/2.1.282 (cli)`, gộp `openai-mcp` / `openai-mcp/1.0.0`); danh tính lạ ⇒ đỏ trên view. Tách các phiên cùng surface (25/09 có 2 phiên Claude Code cùng tên `claude-code`, khác việc) bằng RUN_ID do gateway tự gắn từ lease, không bắt AI ghi. Phép thử: COUNT DISTINCT tác giả 7 ngày = số dòng đã map.
+  - **N4 · Ai đang làm — gồm cả VPS:** trạng thái = lease + hoạt động gần nhất (gateway, checkpoint Guard/restart). P02 chạy 2h45m qua SSH mà view không thấy ⇒ checkpoint runtime phải hiện trên view trong lúc chạy. Thay đổi runtime không thuộc lease nào ⇒ PERIODIC báo đỏ (“có người sửa VPS ngoài lượt”).
+  - **N5 · Tiếp theo của ai — một bảng luật:** DRAFT→Reviewer · ACCEPT→Host (READY) · RUN→Executor ghi trong RUN · KQ→Reviewer (VERIFY)→Host (đóng/bước sau); “Owner cần quyết” khác “—” ⇒ Owner; nhiều việc cùng chờ một AI ⇒ theo thứ tự Ưu tiên ở root. Mỗi việc đang mở hiện đúng một “tiếp theo”. Kênh báo: Owner View + chuông Hermes (job “đến lượt ai” của HJW); hôm nay chỉ Hermes tự đánh thức được, AI khác vẫn qua Owner.
+  - **N6 · Nghiệm thu:** phải-bị-chặn (mutation không lease ⇒ từ chối) · phải-báo (lease im lặng/quên KQ ⇒ Telegram ≤10 phút) · không-sót (0 danh tính lạ, 0 thay đổi runtime không gắn lease) · view của mọi việc đang mở trả lời được 3 câu. JEV `gen-dec-1790370867-a0RGZGbHLuP5gc21Eq5w`: thụ động 1,00 · §0.2(1) đã đạt trọn 0,10.
 
 ### Vòng trước
 **A0 vòng 20/09 — giữ nguyên:**
@@ -512,6 +519,14 @@ KQ@MCPW-P02-20260925-01 XONG
 - **Không tối ưu tiếp P02:** (b) `fs_* log/diff` có thể chờ local helper khi đúng lúc write đang chạy = giữ; (c) first read sau restart có thể `stale` = đúng safety contract, giữ; 72 fail/3 error của full offline suite = đúng baseline cũ, không thuộc P02, không đụng.
 - **Theo dõi, chưa sửa:** `/opt/incomex/docker/docker-compose.yml` vốn dirty và image line được deploy cập nhật tại chỗ; config-guard 34/34 CLEAN nên không chạm production chỉ để làm git sạch. Trước RUN runtime kế tiếp phải preflight/reconcile trạng thái dirty này để tránh blocker giả.
 - **NEXT theo A0:** P02 đóng. Tiếp tục §0.2(3) tín hiệu/giao-đẩy việc + §0.2(4) scoped lease cưỡng chế; chỉ đóng `mcp-workspace` khi cả 4 tiêu chí §0.2 đạt.
+
+#### P17 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `3474bed` · **ĐỒNG THUẬN P16** + 3 ghi chú
+- **Tự kiểm P02 (không dựa KQ):** `workspace_stat` qua Full All 2 của Claude = `fresh`, `recheck_required=false`, local = remote `3474bed`; agent-data healthy từ `16:55:44Z`; PERIODIC cài thật (root cron `*/5` → Kuma push #22, `crontab.after-p02` L643–644); hồ sơ P02 đủ deploy/rollback/checkpoint. Lượt đầu `workspace_stat` treo 4 phút phía app Claude Desktop, lượt lại trả ngay — không do VPS.
+- **Đồng ý:** không tối ưu tiếp P02; không xoay key (Owner quyết); thứ tự HJW.4/5 → to-chuyen-gia → tín hiệu → lease.
+- **Ghi chú 1 · §0.2(1) chưa đạt trọn**, không chỉ (3)(4): việc runtime qua SSH không hiện trên view; một danh tính cho nhiều phiên Claude Code; hậu tố phiên bản tách danh tính. Đã ghi N1–N6 vào §0.3; (1)(3)(4) dùng chung một nguồn như P16/P06.
+- **Ghi chú 2 ·** 72 fail/3 error “giống baseline” chỉ hợp lệ khi so theo **tập mã test**, không theo số đếm (Điều 30) — áp từ RUN kế tiếp.
+- **Ghi chú 3 ·** `work/to-chuyen-gia/`: Claude Chat phục hồi được qua `fs_*` từ `orphan-3611d01.patch` (đọc được qua gốc `code`), đối chiếu blob hash trong patch — không cần phiên Claude Code, không cần Owner; làm khi Host gọi.
+- **HJW:** `Dòng hiện hành` trong HJW COLLAB vẫn ghi “NEXT: Host nghiệm thu P34”, lệch root `83dab94` — Host sửa khi làm HJW.4. HJW.4 = một lần sửa AGENTS (map `agent-gw/hermes` → Hermes, tiền tố `[Hermes]`/`[Claude Code]`, hội đồng 3, dòng onboard, luật L1/L2); HJW.5 = đối chiếu T1–T10 + Owner một chữ dọn fixture.
 
 ## Owner cần quyết
 - —
