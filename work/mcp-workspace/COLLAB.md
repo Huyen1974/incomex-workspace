@@ -341,7 +341,10 @@ Agent: Claude Code CLI trên Mac Owner · 25/09/2026 · tiếp nối RUN 25/09 g
 - **Ruleset** — id **`23976991`**, tạo 2026-09-25T03:20:38Z (Owner chạy lệnh §3 nguyên văn). JSON đã gửi: `{"name":"gateway-only-writes","target":"branch","enforcement":"active","conditions":{"ref_name":{"include":["~ALL"],"exclude":[]}},"rules":[{"type":"creation"},{"type":"update","parameters":{"update_allows_fetch_and_merge":false}},{"type":"deletion"},{"type":"non_fast_forward"}],"bypass_actors":[{"actor_id":null,"actor_type":"DeployKey","bypass_mode":"always"}]}`. GET lại: `enforcement=active`, `source_type=Repository`, 4 rule creation/update/deletion/non_fast_forward, bypass **chỉ** `DeployKey` (không role/user/app); repo có đúng 1 ruleset.
 - **T1 PASS** — `gh api -X PUT …/contents/work/mcp-workspace/COLLAB.md` (tài khoản Owner, nội dung = bản main + đúng 1 dòng probe, blob sha `d6efda1…`) → **HTTP 409** `Repository rule violations found — Cannot update this protected ref.` (03:22:52Z, request `E131:38B15A:86F044:8D9D4F:6AB5E90B`). Main không đổi, không có dòng probe ⇒ không cần gỡ.
 - **T2 PASS** — chính commit ghi khối này qua `fs_edit` root `gh` (deploy key 163589117) đẩy lên `main` sau khi ruleset active.
-- Không đổi setting GitHub nào khác; không sửa VPS; không sửa README/AGENTS; rollback không cần.
+- T3 workspace_* PASS 2026-09-25T03:27:30Z — dòng này ghi bằng `workspace_edit` (Agent Data, root `workspace`, deploy key 163589117) sau khi ruleset active; commit = commit chứa dòng này (lần thử đầu 03:24Z nhận `VERSION_CONFLICT` vì HEAD đổi do commit Codex việc khác — chốt version an toàn, không phải bị ruleset chặn).
+- Không đổi setting GitHub nào khác; không sửa VPS; không sửa README/AGENTS; rollback không cần. Việc còn lại thuộc Host (GPT Chat): tự kiểm T1–T3 + sửa README D12 → `ĐÃ CƯỠNG CHẾ`; không đóng việc, P02 tiếp.
+
+KQ@MCPW-LOCK-20260924-01 XONG
 
 ## Owner cần quyết
 - —
