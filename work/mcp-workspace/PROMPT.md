@@ -229,12 +229,15 @@ Trước mutation đầu tiên:
 Deploy từng gateway:
 - test/build trước;
 - rollback riêng từng cổng;
-- **write-drain trước stop/restart:** dùng lock ghi/root lock **hiện hữu của đúng gateway** để chặn write mới, chờ write đang dở hoàn tất, xác nhận `pending/recovery record = 0` rồi mới dừng/restart. Sau khi gateway healthy, kiểm lại `pending/recovery record = 0` rồi mới nhả lock. Với `workspace_*`, giữ root lock theo đúng mẫu recovery; với `fs_*`, dùng writer/root lock tương đương hiện hữu. Nếu không chứng minh được lock tương đương an toàn thì DỪNG trước restart và báo, **không tự tạo lock/service mới trong RUN này**;
+- **restart/deploy phải chạy nguyên khối phía VPS, không chạy từng lệnh rời phụ thuộc SSH từ Mac.** Dùng cơ chế thực thi sẵn có phía VPS; ưu tiên shell + `nohup`/runner hiện hữu. **Không tạo persistent/transient systemd service/unit mới chỉ cho RUN này** nếu chưa có sẵn đúng mục đích;
+- khối VPS phải tự thực hiện trọn chuỗi: acquire lock hiện hữu → drain write mới + chờ write đang dở → xác nhận `pending/recovery record = 0` → stop/restart gateway → health gate theo DROOT10 tối đa 5 phút → nếu không healthy thì tự rollback image/source/config của gateway đó → kiểm lại health + `pending/recovery record = 0` → release lock;
+- lock phải là cơ chế tự nhả khi process khối VPS chết/thoát (ví dụ `flock`/FD lock hiện hữu); **không được để stale lock phụ thuộc Mac**. Nếu không chứng minh được lock tự nhả/rollback an toàn thì DỪNG trước restart;
+- sau mỗi mốc `DRAINED / STOPPED / STARTED / HEALTHY|ROLLED_BACK / RELEASED`, ghi checkpoint append-only vào `/opt/incomex/work/mcp-workspace/MCPW-P02-20260925/` để phiên khác nối tiếp được; checkpoint không chứa secret;
+- với `workspace_*`, dùng root lock theo đúng mẫu recovery; với `fs_*`, dùng writer/root lock tương đương hiện hữu. Nếu không chứng minh được lock tương đương an toàn thì DỪNG, **không tự tạo lock/service mới trong RUN này**;
 - trong cửa sổ restart/deploy gateway, Host tạm hoãn các mutation repo khác; read-only vẫn được phép;
-- deploy cổng 1 → theo DROOT10 cho trạng thái STARTING tối đa 5 phút; **không smoke, không rollback chỉ vì chưa ready trong cửa sổ STARTING**; sau khi healthy mới acceptance cơ bản → cổng 2;
-- áp cùng STARTING gate cho cổng 2;
-- không restart đồng thời;
-- nếu cổng 1 fail thật sau STARTING/health gate thì rollback trước khi đụng cổng 2.
+- sau khi gateway 1 healthy + POST cơ bản PASS mới sang gateway 2; áp cùng STARTING gate cho gateway 2; không restart đồng thời;
+- nếu gateway 1 fail thật sau STARTING/health gate thì khối VPS phải rollback xong và đưa cổng về healthy/known-good trước khi đụng gateway 2;
+- Mac nên giữ thức bằng `caffeinate`/cắm sạc trong suốt RUN để phần build/acceptance không bị gián đoạn; nhưng an toàn của một lần restart gateway **không được phụ thuộc** Mac còn thức/kết nối.
 
 ## 12. Acceptance bắt buộc — 17 mục
 1. **GitHub giả chậm 20–30s** trong test environment: 12 read song song mỗi gateway = 0 BUSY/OVERLOADED do refresh, response ≤ D+1s; mutant bỏ bounded wait phải FAIL.
