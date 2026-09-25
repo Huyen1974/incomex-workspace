@@ -70,6 +70,7 @@ function restore(scroll=false){
 }
 for(const t of tabs)t.addEventListener('click',()=>{const panel=document.getElementById(t.getAttribute('aria-controls'));show(t.dataset.matrixView);write(panel?.id);panel?.scrollIntoView({block:'start'})});
 document.addEventListener('click',event=>{const a=event.target.closest('a[href^="#"]');if(!a)return;const el=document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)));const panel=el?.closest('.tab-panel[data-matrix-panel]');if(panel)show(panel.dataset.matrixPanel)});
+for(const b of document.querySelectorAll('button[data-child-ui-id]'))b.addEventListener('click',()=>{const el=document.getElementById('child-'+b.dataset.childUiId);if(!el)return;const panel=el.closest('.tab-panel[data-matrix-panel]');if(panel)show(panel.dataset.matrixPanel);for(let p=el;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;write(el.id);el.scrollIntoView({block:'start'})});
 for(const d of document.querySelectorAll('details'))d.addEventListener('toggle',()=>{const el=target();if(d.open){if(el&&d!==el&&d.contains(el))return;write(d.id)}else if(el===d){const panel=d.closest('.tab-panel[data-matrix-panel]');write(panel?.id)}});
 window.addEventListener('hashchange',()=>restore(true));
 window.addEventListener('popstate',()=>restore(true));
