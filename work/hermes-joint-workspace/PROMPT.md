@@ -55,8 +55,12 @@ Trước mutation:
 - **không TCP listener mới**.
 
 Nếu chưa có mount phù hợp nhưng config hiện hữu hỗ trợ:
-- được phép thêm đúng **một bind-mount thư mục socket** vào nginx;
-- Telegram Owner trước recreate; recreate **chỉ nginx**; verify health/routes.
+- **TRƯỚC KHI recreate nginx**, bắt buộc xác định và lưu **run-spec đầy đủ** đã sinh ra container `incomex-nginx` hiện tại: compose file/project hoặc unit/source-of-truth tương đương, image/digest, command/entrypoint, env refs, mounts, networks, published ports, restart policy và các tham số cần thiết để tái tạo **nguyên trạng**. Phải chứng minh dry-read rằng container có thể được dựng lại từ đúng spec này; **không xác định được nguồn tạo/run-spec ⇒ DỪNG, không recreate**.
+- chụp pre-recreate acceptance riêng cho các đường public đang sống: **Owner View, Directus, Nuxt, `/api/mcp*` của Agent Data và route GPT hiện hành**; lưu status/đích kiểm cụ thể để so sau.
+- được phép thêm đúng **một bind-mount thư mục socket** vào nginx trong chính run-spec đã xác định;
+- chuẩn bị rollback **từ run-spec gốc** trước mutation; Telegram Owner trước recreate.
+- recreate **chỉ nginx đúng một lần**; sau recreate phải kiểm lại **đích danh từng đường public ở trên** + container state/config/mount/network. Bất kỳ đường nào lệch ⇒ rollback ngay bằng run-spec gốc và DỪNG.
+- **Không gộp recreate với nginx reload.** Recreate xong phải verify sạch trước; chỉ khi sang bước sửa nginx route sau đó mới `nginx -t` + reload và verify riêng lần nữa, để tách nguyên nhân lỗi.
 
 UDS không khả thi an toàn => `DỪNG UDS_BRIDGE_NOT_FEASIBLE`.
 **CẤM fallback TCP 172.18.0.1 trong RUN này.**
@@ -65,10 +69,19 @@ UDS không khả thi an toàn => `DỪNG UDS_BRIDGE_NOT_FEASIBLE`.
 Được phép tạo đúng một secret `HERMES_WEBHOOK_SECRET` trong Secret Manager/project hiện hữu:
 - random mạnh, không stdout/log/chat/repo;
 - không project/service mới;
-- sửa `hermes-key-fetch` hiện hữu để materialize optional var vào `/run/hermes/or.env`;
 - config chỉ dùng `${HERMES_WEBHOOK_SECRET}`;
 - user Hermes không có GSM credential;
 - thiếu secret => fail closed, không plaintext fallback.
+
+**Chuỗi materialize bắt buộc — tái dùng đúng thứ tự đã PASS ở HJW.2B1:**
+1. sửa **source** `/usr/local/sbin/hermes-key-fetch` hiện hữu để nạp optional `HERMES_WEBHOOK_SECRET`; kiểm syntax/source trước khi chạy;
+2. **root chạy trực tiếp source command/script đó để regenerate `/run/hermes/or.env`**; **TUYỆT ĐỐI KHÔNG `systemctl restart hermes-key.service`** và không restart oneshot/unit nạp key, vì unit đó có dependency có thể bounce cả serve+gateway;
+3. chỉ kiểm **tên biến/presence**, không in giá trị: `HERMES_WEBHOOK_SECRET` phải có; `AGENT_DATA_*` vẫn phải vắng trong file env;
+4. sau khi config webhook đã sẵn sàng, restart **`hermes-serve` trước → verify health → `hermes-gateway` sau → verify Telegram/health**;
+5. sau restart, chứng minh lại bằng `/proc/<MainPID>/environ` của **cả serve và gateway**: `AGENT_DATA_*` = 0; narrow Agent Gateway key vẫn hiện diện đúng cơ chế; `hermes-safe-update health` PASS;
+6. rollback secret/script cũng theo cùng thứ tự: restore source → root regenerate trực tiếp env → kiểm names → restart serve → gateway → health. **Không restart `hermes-key.service`.**
+
+Nếu script source/syntax/regenerate fail hoặc env mất biến bắt buộc ⇒ DỪNG trước restart; không để `EnvironmentFile=` hỏng làm Hermes chết.
 Nếu auto-mode chặn Secret-Store write => DỪNG đúng approval gate, không lách.
 
 ### Webhook/nginx production
