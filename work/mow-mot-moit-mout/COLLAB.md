@@ -1,6 +1,11 @@
 # COLLAB — mow-mot-moit-mout
 
-## Owner · 25/09/2026 · Mã UI con: bước trước, cha sau (bản thử)
+## Owner · 25/09/2026 · Rà lại điểm bắt đầu FIELD (bản thử)
+- Khi người dùng mới nghĩ cần Field: S010 tìm ở Master Field (UI-022). Có và dùng được → S020 mở chi tiết/chọn dùng; thiếu → S030 khai nhu cầu Field. Mỗi nhánh một UI con; không đi qua Master yêu cầu trước khi tìm Field. Tham khảo JEV `gen-dec-1790312357-hA9i2YjH03BkcvNzXGeJ` (chọn Master Field; bản cũ chủ yếu là vòng đời YC chung).
+- Kiểm UI thật: UI-022 có tìm/lọc và mở chi tiết, nhưng dữ liệu minh họa chưa nối PG; chi tiết không có chọn dùng/trả mã; cả 3 Field đang tạm dừng. UI-018 chỉ lưu đề xuất trong trình duyệt. Vì vậy các nút S020/S030 là chỗ cần bổ sung, không coi là đã chạy thật.
+- S040–S330 cũ được gập và ghi là nháp YC chung, chưa nối vào quy trình FIELD: đặt tìm Field tận S210, gọi lại quy trình FIELD ở S220, nên không khép kín. Chỉ sửa S010–S030 để Owner duyệt logic trước. Quy tắc mã đã lưu ở UI Master và mục Quy tắc cho AI: `S010.UI.MASTER`, `S020.UI.MASTER`, `S030.UI.CONFIG`; mã vẫn thử, K0 FIELD chưa PASS.
+
+## Owner · 25/09/2026 · Mã UI con: bước trước, cha sau (lịch sử)
 - Theo Owner: mã con ghép mã bước trước, mã UI cha sau: `S010.UI.CANVAS`, `S020.UI.MASTER`, `S030.UI.CONFIG`. Đuôi mã cha ngay trên miếng bấm về UI Master; không lặp một nhãn mã cha riêng. Quy tắc đồng bộ ở UI Master, Quy trình vẽ UI và UIs.
 - Đây là mã thiết kế thử, chưa đăng ký khóa thật; K0 FIELD chưa PASS. UI dùng lại giữ mã gốc; quan hệ bước–UI/cha vẫn lưu bằng khóa.
 
