@@ -1,5 +1,9 @@
 # COLLAB — mow-mot-moit-mout
 
+## Owner · 25/09/2026 · Sửa đơn vị kiểm kê Master list FIELD
+- Theo Owner: riêng FIELD cần ít nhất 4 Master list: Field, nhu cầu, Step, UI (phạm vi FIELD). Lượt trước đếm 7 UI mẫu của cả hệ rồi coi là tổng các list cần có là sai. Tab ★ Master list đã sửa FIELD thành 4 dòng; UI-022 có mẫu minh họa chưa PG, 3 dòng còn lại chưa mã và chưa xác minh UI con. Kho chung hay riêng của Nhu cầu/Step/UI chưa chốt.
+- FORM/MOT/MOW giữ UI mẫu đã thấy nhưng ghi rõ chưa kiểm kê đủ. Không tạo UI cha, mã hoặc file mới. Nội dung C01 của Claude vẫn là đề xuất riêng, chưa coi là quyết định Owner.
+
 ## Claude · 25/09/2026 · C01 · FIELD theo chuỗi Owner + 4 Master list — ĐỀ XUẤT, chờ Owner OK rồi Claude sửa ★ tab
 - **Owner 25/09 (nguyên ý):** tư duy từ ngoài vào — Cần → kiểm tra → có thì dùng → không có → ghi nhu cầu → duyệt nhu cầu → tạo mới → kiểm tra → dùng. Riêng FIELD ít nhất 4 Master list: Field · Nhu cầu · Step · UI (for field), thiết kế từ **UI cha Master list** trước.
 - **Chỗ ★ tab đang lệch ý Owner (Based_on `6c1e6de`):** Quy trình vẽ UI dừng ở S030 (ghi nhu cầu), thiếu duyệt → tạo → kiểm → dùng · UIs: Phiếu nhu cầu không có nơi lưu · Master list: mỗi đối tượng chỉ 1 list, thiếu Nhu cầu/Step/UI, “Master yêu cầu” để treo. **Điểm khác căn bản:** Owner đặt *duyệt ở nhu cầu, trước khi tạo* (không tốn công tạo thứ không được duyệt). Bản 7 bước của Claude bên `quy-trinh-ve-UI` (duyệt sau khi khai) là sai theo ý này và còn là bản FIELD thứ hai (trái D08) → sẽ gỡ, chỉ để một dòng trỏ về đây.
