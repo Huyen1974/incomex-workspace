@@ -180,7 +180,7 @@ Deploy từng gateway:
 1. **GitHub giả chậm 20–30s** trong test environment: 12 read song song mỗi gateway = 0 BUSY/OVERLOADED do refresh, response ≤ D+1s; mutant bỏ bounded wait phải FAIL.
 2. Mọi `refreshing|stale` có `recheck_required=true`; `fresh` và local `ref=<sha>` có false. **Hint HVU báo revision mới hơn snapshot phải lập tức làm non-fresh + `recheck_required=true`, không được giữ fresh tới hết W.**
 3. Bỏ độ chậm → safety recheck thành fresh; nếu HEAD đổi phải cung cấp đủ old/new để diff trước khi clear debt.
-4. Restart gateway khi GitHub bị chặn: last-good vẫn đọc được nhưng không response nào fresh trước remote confirmation.
+4. Restart gateway khi GitHub bị chặn: last-good vẫn đọc được nhưng không response nào fresh trước remote confirmation. **Ở mục này, `remote confirmation` gồm cả hint HVU hợp lệ còn trong W; vì vậy bài thử phải chặn GitHub và đồng thời làm hint cũ hơn W hoặc vắng để chứng minh không tự gắn `fresh`.**
 5. Push thành công rồi read ngay cùng gateway phải thấy commit mới, kể cả GitHub chậm sau push.
 6. **Concurrency/version:** (a) gateway Y sửa file F → gateway X dùng version cũ F phải conflict; (b) commit ở file/task khác không đổi F → version F cũ vẫn hợp lệ; (c) expected_head cũ nếu được truyền vẫn conflict; (d) legacy HEAD:hash được xử lý đúng/chuyển tiếp rõ.
 7. Hint HVU cũ/out-of-order không được làm snapshot lùi.
