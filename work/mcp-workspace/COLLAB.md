@@ -1,6 +1,6 @@
 # COLLAB — mcp-workspace
 Tên việc: MCP Workspace — đường ghi chung + khoá cứng chỉ qua gateway
-Host: Claude Chat · Host_ID: CLAUDE-MCPW-260924-A · Owner giao 24/09/2026 (mở lại theo DROOT20; vòng 20/09 Host GPT)
+Host: GPT Chat · Host_ID: (GPT tự sinh khi nhận) · Owner giao 25/09/2026 điều hành nốt MCPW-LOCK + P02 rồi đóng (trước đó: Claude Chat `CLAUDE-MCPW-260924-A` từ 24/09; vòng 20/09 Host GPT)
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) — Owner gật đề xuất `Mở lại mcp-workspace để khoá đường ghi repo chỉ qua gateway` (COLLAB gốc DROOT20).
@@ -45,6 +45,8 @@ Host vòng 20/09: GPT · Owner giao: 2026-09-20
 
 ## MCPW-LOCK — trạng thái hiện hành
 MCPW-LOCK | READY@d71a6c3b85aaac74a2e28aa63584b4976ce7f680 (đã áp GPT P01 R1+R2; READY cũ `ce0298a…` hết hiệu lực) · RUN_ID `MCPW-LOCK-20260924-01` · Owner đã duyệt việc khoá (DROOT20) · chờ Owner RUN trên Claude Code CLI | Executor_Surface: Claude Code CLI trên Mac · Write_Path báo cáo `fs_*` | T3 (`workspace_*`) Host tự thử nếu agent không bind.
+- **RUN 25/09 (Claude Code CLI, báo trong chat Owner — chưa ghi KQ):** G0 PASS (READY khớp `d71a6c3…`) · G1.1–G1.7 PASS chỉ đọc: repo có đúng **1** deploy key ghi-được (id 163589117, `SHA256:ctotGu9U…`), cả `fs_*` lẫn `workspace_*` dùng chung key này ⇒ G1.6 đạt, không key thừa; 0 ruleset; 0 workflow; không PAT. **Dừng trước mutation, GitHub chưa đổi gì:** chế độ auto của Claude Code chặn lệnh tạo ruleset vì lệnh RUN nằm trong đoạn *dán* vào. Không phải lỗi PROMPT/READY ⇒ không READY lại, không ghi `KQ … DỪNG`. Gỡ: Owner **gõ tay** một câu cho phép trong đúng phiên đó → agent làm tiếp §3 → T1 → T2 (KQ qua `fs_edit`) → T3 (`workspace_edit`); FAIL ⇒ `disabled`.
+- **Bàn giao Host GPT (Owner 25/09: “GPT điều hành nốt và đóng việc”):** (1) Sau KQ: tự kiểm qua API — đúng 1 ruleset `gateway-only-writes`, `enforcement=active`, bypass chỉ `DeployKey`, không admin/role/app; commit KQ có author gateway; T1 bị từ chối thật và không còn dòng probe; T3 có commit. (2) Sửa README D12 `CHƯA CƯỠNG CHẾ` → `ĐÃ CƯỠNG CHẾ`. (3) Soạn P02 vào **chính** `PROMPT.md` (chỉ sau KQ XONG của LOCK) theo khối `Claude · P02-IMPL` (K1–K6, 12 acceptance, không thêm deploy key) → Claude review → READY → Owner RUN. (4) Nghiệm thu 12 acceptance → `Đóng mcp-workspace`. Lưu ý: sau LOCK mọi AI chỉ ghi qua 2 cổng; GitHub native của GPT bị từ chối là đúng thiết kế.
 
 ## R03 — trạng thái hiện hành
 R03 | CLOSED · 2026-09-21 | GPT CLIENT PASS | CLAUDE_CLIENT_FINAL PASS | VPS/CROSS PASS | BLOCK: —
