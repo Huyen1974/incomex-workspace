@@ -1,5 +1,38 @@
 # COLLAB — mow-mot-moit-mout
 
+## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
+Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25.
+
+### 1. Mục tiêu
+- Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
+*(đề xuất — chờ Owner gật; giữ nguyên câu chữ §0 cũ)*
+
+### 2. Thế nào là hoàn thành
+*(Owner viết nguyên văn 25/09/2026)*
+1. Tạo ra 1 hệ thống mà người dùng mô tả ý tưởng, AI phác thảo thành quy trình => người dùng phê duyệt => AI khai báo để quy trình chạy được.
+2. Để hiện thực hóa mục tiêu số 1: cần liệt kê được ra tất cả các bước thực hiện (đi từ chi tiết bên dưới lắp ráp lên bên trên), liệt kê được ra đủ bước, đảm bảo thiết kế đủ UI cho từng bước.
+3. AI sẽ config được để cho chạy.
+4. Tất cả các bước đều phải có quy trình (đây được hiểu là các quy trình để tạo ra hệ thống quy trình)
+5. Cần đơn giản hoá, quy luật hoá, công thức hoá tối đa để cho thật đơn giản (đơn giản nhất có thể) giúp con người có thể hiểu, người mới có thể học và có thể làm.
+6. Phải đảm bảo làm bằng tay trước (con người làm trên UI) sau đó mới tự động hóa thay thế con người bằng AI.
+
+### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- Hiện hành 25/09: tab **★ Công thức** trong `ban-duyet.html` (Claude C03) trả lời câu “cần bao nhiêu bước, bao nhiêu UI để người mới làm được mọi việc”: **9 bước** (khuôn xây 6 + dùng 3) · **18 màn** từ 6 khuôn cha · 29 UI con hiện có gộp vừa vào 18 chỗ, 3 chỗ dùng chung còn thiếu (Nhu cầu · Duyệt · Kiểm). Chờ Owner gật 3 câu ở đầu tab; hội đồng phản biện dưới C03.
+- Các dòng chi tiết cũ của mục 3 (bản đồ thao tác từ dưới lên, deep-link…) giữ ở “3 cũ” phía dưới; mục 2 cũ chuyển vào Vòng trước.
+
+### Vòng trước
+- Thế nào là hoàn thành (trước 25/09): Hồ sơ MOW · MOT · MOIT · MOUT có luồng thao tác rõ từ Field lên MOW, được Host và Claude thống nhất trước khi sửa HTML. *(đề xuất — chờ Owner gật)*
+- Các vòng cũ hơn: xem “Vòng trước” trong khối “3 cũ” phía dưới.
+
+## Claude · 25/09/2026 · C03 · tab ★ Công thức — trả lời “bao nhiêu bước, bao nhiêu UI” (ĐỀ XUẤT, chờ bàn)
+- **Owner 25/09:** khối thông tin khổng lồ, không ai hiểu → tổng hợp, mô hình hoá, quy luật hoá; dựng tab mới có sao sau Master list để bàn; trả lời câu đầu tiên: cần bao nhiêu UI, bao nhiêu bước để người chưa biết gì làm được mọi việc (giả định UI chạy được). Owner cho quyền tạo tab (lệnh trực tiếp), không tạo file mới.
+- **Đã học (chỉ đọc) thư mục `quy trình` trên máy Owner:** TAO-MOT-QUY-TRINH (19 thẻ tạo MOW, 12/09) · cấu trúc hệ thống (Thêm MOW/MOT/MOIT/MOUT/Field — cùng 6 chặng, 29 UI con, 18/09) · BỨC TRANH 4 LỚP + LUẬT NHÂN BẢN MASTER LIST (Owner chốt 22/07) · KẾ HOẠCH phân loại UI · 00-DOC-TRUOC. Nhận xét gốc rễ: các bản cũ đều đúng ý nhưng **đếm theo phạm vi khác nhau** (28 màn, 16/23 bước, 19 thẻ, 85 mục kiểm, 57 master) và mỗi đối tượng được vẽ lại riêng → càng làm càng nhiều. Mẫu số chung đã có sẵn: cả 5 đối tượng đi cùng một khuôn, và mỗi màn là khuôn cha + 2 thứ riêng.
+- **Công thức (5 luật, ghi trong tab mục “Cho AI”):** một khuôn 6 bước (Tìm · Nêu+phác thảo · Duyệt · Khai báo · Kiểm · Dùng) cho mọi loại, mọi việc (sửa = lại từ 2, ngừng = 2→3→kiểm nơi dùng) · lắp từ dưới lên, thiếu thì đi xuống rồi quay lại · màn = khuôn cha + 2 thứ riêng · mỗi loại chỉ riêng Danh sách + Bàn tạo, còn lại dùng chung · tay trước máy sau. Khuôn 6 bước gộp cả hai câu Owner: “ý tưởng → AI phác thảo → duyệt → AI khai báo” và “cần → tìm → có thì dùng → ghi nhu cầu → duyệt → tạo → kiểm → dùng”.
+- **Kết quả:** 9 bước · 18 màn (5 Danh sách + 5 Bàn tạo + 4 dùng chung + 2 vận hành + 1 cây & người + 1 danh mục chung đang chạy). 29 UI con → 18 chỗ, không bỏ màn nào. Owner chỉ cần gật 3 câu ở đầu tab.
+- **Chưa chắc:** 18 đã đủ chưa (JEV 0,25, confidence 0,10) — ứng viên: màn bật/ban hành riêng, lịch sử phiên bản riêng, người & vai. Cách kiểm: lượt người mới đi thử (D04) trên 18 chỗ; Codex đề xuất ca nhỏ Field → Form → MOT → MOW — dùng đúng ca này.
+- **Liên hệ:** C01 (FIELD 7 bước) là khuôn này áp cho Field; C02 (Thứ + Hồ sơ chung) giải thích vì sao Nhu cầu · Duyệt · Kiểm dùng chung. Không sửa PG, không tạo file. Codex rà tab trên Owner View và ghi phản hồi ngay dưới C03.
+- JEV · `gen-dec-1790339313-mtMtRUcxMTtAMGCcxgSi` · `typesafe/jev-1.13-20260917` · khuôn 6 bước 0,96 (conf 0,95) · Kanban cùng chỗ Danh sách 1,00 · Studio + Config một chỗ 1,00 · Nhu cầu/Duyệt/Kiểm dùng chung 0,99 · trình bày số lớn + ma trận 1,00 · đủ 18 chỗ: không chắc.
+
 ## Claude · 25/09/2026 · C02 · ★ Master list — đơn giản hoá 57 tên bằng quy luật (ĐỀ XUẤT, chờ Owner)
 - **Owner 25/09:** liệt kê đủ danh sách master, đồng thời nhóm hoá cho cực đơn giản — không cắt bớt mà gom bằng quy luật; đưa JEV vào tối đa. Based_on `6d900cb` (57 tên của Codex) + PG thật 25/09.
 - **5 quy luật (Owner chỉ cần nhớ 5 dòng này):**
@@ -200,17 +233,9 @@ Owner: thiết kế trên giấy trước, xong mới sang HTML; danh sách ph�
 ### Claude kiểm KQ FIELD02 (`9305a1d`)
 Đạt: 2 file, đúng 3 mảnh UI thật, HTML SHA `1e245ed6…99e8`, KQ@ đã ghi. Agent tự phát hiện hai chỗ prompt sai so với UI thật (Mô tả không bắt buộc → 2/3/1 và 6 dòng; nhãn nút đổi theo chế độ Đề xuất/Thường chứ không theo khai mới/sửa) — đúng tinh thần F1/F2, ghi nhận. Còn nợ: phần quy ước trong file vẫn là khung FIELD01 8 bước (agent đã ghi lại), mirror `VIEW_PENDING_REVISION` do trang cần đăng nhập.
 
-## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này.
+## (§0 đã chuyển lên đầu file theo AGENTS A0 — 25/09/2026)
 
-### 1. Mục tiêu
-- Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
-*(đề xuất — chờ Owner gật; giữ nguyên câu chữ §0 cũ)*
-
-### 2. Thế nào là hoàn thành
-- Hồ sơ MOW · MOT · MOIT · MOUT có luồng thao tác rõ từ Field lên MOW, được Host và Claude thống nhất trước khi sửa HTML. *(đề xuất — chờ Owner gật)*
-
-### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+### 3 cũ (giữ nguyên để truy vết)
 - Nhiệm vụ/phạm vi hiện tại (Owner 23/09/2026): sau khi đã có vỏ tab Step quy trình, Host phải đề xuất **bản đồ thao tác thật** từ dưới lên Field → Form (MOUT, MOIT) → MOT → MOW: tạo bắt đầu ở đâu, bấm gì, người khai tay gì, máy config gì, phụ thuộc tầng dưới xử lý ra sao, kết quả mong đợi, lỗi quay về đâu, tạo xong quản lý ở UI nào và quản lý thông tin gì. Đồng thời đề xuất deep-link để URL ngoài `/knowledge/modules?task=...` phản ánh tới tab/khu vực/bảng con/bước đang xem. Đây là lượt thiết kế/consensus với Claude; **chưa điền HTML theo đề xuất trước khi hội đồng thống nhất**.
 - Tiêu chí xong của lượt thảo luận: COLLAB có schema Step chuẩn + draft bước cho đủ Field/MOUT/MOIT/MOT/MOW + quy tắc nhánh “đã có thì chọn / chưa có thì tạo tầng dưới rồi quay lại” + đối chiếu UI hiện có + yêu cầu URL deep-link có acceptance test; Claude review và Host hòa giải trước khi giao Agent sửa HTML.
 - Toàn bộ câu chữ và các vòng cũ giữ nguyên tại Vòng trước.
