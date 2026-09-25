@@ -7,19 +7,19 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - **Nguồn chuẩn:** đọc `AGENTS.md` → root `COLLAB.md` → `COLLAB.md` của đúng việc. Không dựa vào lịch sử chat cũ nếu Git đã có trạng thái mới hơn. Tài liệu/workspace = GitHub SSOT; runtime = VPS SSOT.
 - **Ưu tiên 1 · VPSC** — `work/vps-clean-20-9-26/` · Host Claude. Hiện `R4b` đã `OWNER_APPROVED + READY` với RUN_ID `VPSC-R4B-20260923-01`, PROMPT_SHA `fbb28bb85969ebdedf683e557ce134686fdbbde7`. Mục tiêu khép việc clean: dọn dấu SEC-01 còn lại sau khi xác nhận credential cũ chết; báo image hằng ngày chỉ-read; sửa failed services được nêu; đổi timezone VPS sang `Asia/Ho_Chi_Minh` nhưng giữ nguyên **thời điểm chạy thật** của lịch. NEXT: Owner RUN R4b → Codex V3 sau một đêm trigger thật → VPSC.6 theo dõi/đóng. Không mở lại audit nguyên nhân đĩa.
 - **Ưu tiên 2 · GSM** — `work/gsm-access-audit/` · Host Claude. GSM-A1 **XONG** commit `0bdbe6b`: 167 access/30 ngày = 0 USD, 41 version ≈ 2,10 USD/tháng; không rỉ máu. Hai quyết định dọn version/Lark thuộc GSM, không chặn HJW.
-- **Ưu tiên 3 · HJW** — `work/hermes-joint-workspace/` · Host GPT. G1/G2/local webhook PASS; **T5 self-wake Git PASS**; HJW.3B **DRAFT@9b62bf46…**; 2 blocker P31 đã sửa, chờ Claude delta-sign exact SHA.
+- **Ưu tiên 3 · HJW** — `work/hermes-joint-workspace/` · Host GPT. G1/G2/local webhook PASS; **T5 self-wake Git PASS**; HJW.3B **READY@9b62bf46… + RUN ISSUED**; CLI mới tiếp tục UDS bridge + secret + nginx hardening + Kuma + closeout.
 - **Quy ước Google:** không tạo thêm Google Cloud project/service. Project còn giữ là `github-chatgpt-ggcloud`; Google không phải runtime/SSOT. Drive chỉ là offsite backup; GSM là secret store cho tới khi có quyết định khác.
 - **Cửa vào phiên mới:** `WS gốc · Host GPT · tiếp quản phiên 2026-09-23 · đọc AGENTS.md → COLLAB.md · làm theo mục Handoff phiên mới; trước khi thao tác một việc phải đọc COLLAB.md của việc đó.`
 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
-- `work/hermes-joint-workspace/` · HJW · Host GPT · P26 checkpoint đã đóng G1/G2/local; T5 cron tự wake đã commit P29; PROMPT delta-first `9b62bf46…` DRAFT, chưa READY/RUN.
+- `work/hermes-joint-workspace/` · HJW · Host GPT · P26 checkpoint đã đóng G1/G2/local; T5 cron tự wake đã commit P29; HJW.3B RUN `HJW-3B-20260925-01` trên READY/REVIEWED exact `9b62bf46…`.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/mcp-workspace/` · MCPW · **Host GPT Chat** (Owner giao 25/09 điều hành nốt; trước đó Claude Chat) · MCPW-LOCK đã RUN: G0+G1 PASS, dừng trước bước tạo ruleset chờ Owner gõ tay câu cho phép; sau đó P02 read-cache (đã duyệt) rồi đóng.
 - `work/graph-server/` · GS · Host GPT Chat · D02 product-first (Owner): trial Cognee+Neo4j vs Graphiti+Neo4j; Claude P02→P03 đồng ý; chờ Hermes; nguyên tắc R1 khoá ở §0.
 - `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
-- NEXT: HJW: Claude Chat chỉ delta-review 2 fix P31 trên exact `9b62bf46…`; ACCEPT → GPT Host READY/RUN → CLI mới tiếp tục UDS bridge → secret → nginx public hardening → Kuma → closeout.
+- NEXT: HJW: phiên Claude Code CLI mới đọc delta-first `9b62bf46…` và thực thi RUN `HJW-3B-20260925-01`; báo Owner trước recreate nginx và trước restart Hermes.
 
 ## Đã xong
 - Archive: `work/done-tasks/` · vị trí folder là trạng thái Done (DROOT11); tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
