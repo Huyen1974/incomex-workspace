@@ -1,5 +1,30 @@
 # COLLAB — mow-mot-moit-mout
 
+## Claude · 25/09/2026 · C01 · FIELD theo chuỗi Owner + 4 Master list — ĐỀ XUẤT, chờ Owner OK rồi Claude sửa ★ tab
+- **Owner 25/09 (nguyên ý):** tư duy từ ngoài vào — Cần → kiểm tra → có thì dùng → không có → ghi nhu cầu → duyệt nhu cầu → tạo mới → kiểm tra → dùng. Riêng FIELD ít nhất 4 Master list: Field · Nhu cầu · Step · UI (for field), thiết kế từ **UI cha Master list** trước.
+- **Chỗ ★ tab đang lệch ý Owner (Based_on `6c1e6de`):** Quy trình vẽ UI dừng ở S030 (ghi nhu cầu), thiếu duyệt → tạo → kiểm → dùng · UIs: Phiếu nhu cầu không có nơi lưu · Master list: mỗi đối tượng chỉ 1 list, thiếu Nhu cầu/Step/UI, “Master yêu cầu” để treo. **Điểm khác căn bản:** Owner đặt *duyệt ở nhu cầu, trước khi tạo* (không tốn công tạo thứ không được duyệt). Bản 7 bước của Claude bên `quy-trinh-ve-UI` (duyệt sau khi khai) là sai theo ý này và còn là bản FIELD thứ hai (trái D08) → sẽ gỡ, chỉ để một dòng trỏ về đây.
+- **FIELD 7 bước** (giữ khuôn mã Codex đã dùng: bước S0x0, UI con = mã bước + UI cha):
+
+| Bước | Ai | UI con ← UI cha | Ghi vào Master |
+|---|---|---|---|
+| S010 Tìm | 🙂 người cần | S010.UI.MASTER ← Master list | đọc Field |
+| S020 Dùng (có sẵn) → về form, hết | 🙂 người cần | S020.UI.MASTER ← Master list (chi tiết · Chọn dùng) | Field: thêm nơi dùng |
+| S030 Ghi nhu cầu | 🙂 người cần | S030.UI.CONFIG ← Config | Nhu cầu: Mới |
+| S040 Duyệt nhu cầu | 🙂 người duyệt | S040.UI.REVIEW ← Review | Nhu cầu: Đã duyệt / Từ chối (trùng → chỉ Field có sẵn → S020) |
+| S050 Tạo Field | 🤖 AI/Agent (đề xuất) | S050.UI.CONFIG ← Config (hộp khai UI-018) | Field: Nháp, nối mã nhu cầu |
+| S060 Kiểm tra | 🤖 máy kiểm + 🙂 người cần xác nhận đúng ý | S060.UI.REVIEW ← Review | sai → S050 |
+| S070 Dùng | 🤖 máy | không UI riêng | Field: Đang dùng · Nhu cầu: Xong · form nhận Field |
+
+  “Cần” là điểm khởi đầu (đang làm form), không phải bước. Sửa/Ngừng để vòng sau (đi từng bước). Nháp cũ S040–S330 “YC chung” thay bằng bảng này.
+- **4 Master list — cùng một UI cha Master list** (tìm · lọc · ＋ · bảng · mở chi tiết), chỉ đổi nhãn + cột:
+  1. **Master Field** (UI-022, có mẫu): ✎ · Mã · Tên · Ý nghĩa · Kiểu · Nhóm · Dùng ở (số form) · Trạng thái · Mở.
+  2. **Master Nhu cầu** (chưa có): Mã NC · Cần gì · Loại (Field/Form/MOT/MOW) · Cho form/việc · Người cần · Trạng thái (Mới · Đã duyệt · Từ chối · Đang tạo · Xong) · Kết quả (mã Field) · Mở.
+  3. **Master Step** (chưa có): Mã bước · Tên · Quy trình · Ai (🙂/🤖) · UI con · Bước kế · Trạng thái UI · Mở.
+  4. **Master UI** (chưa có): Mã UI con · Tên · UI cha · Dùng ở bước · Đối tượng · Trạng thái (có / sửa / chưa) · Link.
+- **Owner gật (đã kèm đề xuất):** Q1 Nhu cầu / Step / UI mỗi thứ **một danh sách chung cả hệ, FIELD là bản lọc** (D03 cùng loại một master; đúng chữ “for field” của Owner) · Q2 S050 **AI/Agent tạo** theo nhu cầu đã duyệt, người cần chỉ xác nhận ở S060.
+- **Sẽ sửa khi Owner OK (chỉ `ban-duyet.html`, không file mới):** ★ Quy trình vẽ UI = bảng 7 bước trên (biểu tượng người/robot, ít chữ) · ★ Master list = khối FIELD có 4 list, mỗi list là mẫu nhỏ từ UI cha (tiêu đề + hàng cột + trạng thái có/chưa). ★ UIs để bước sau. **Codex tạm không sửa hai tab này** để không ghi đè nhau; sau khi Claude sửa, Codex rà và ghi phản hồi ngay dưới C01.
+- JEV · Claude · `gen-dec-1790321533-DReqSOt45jIctdrtPFXE` · `typesafe/jev-1.13-20260917` · nguồn ý Owner 25/09 + UI cha + D03/D08 · duyệt nhu cầu dùng UI cha Review 1,00 (conf 0,99) · luồng FIELD chỉ ở trang MOW 0,92 (0,90) · Nhu cầu một list lọc 0,49 vs mỗi đối tượng một list 0,43 (0,23) · Step/UI tương tự 0,50/0,40 (0,24) → JEV không chắc nên đưa Q1 cho Owner, Claude đề xuất theo D03.
+
 ## Owner · 25/09/2026 · ★ Master list · kiểm kê UI con
 - Thêm tab ★ Master list ngay sau ★ UIs trong ban-duyet.html; chỉ kiểm kê UI con dựa trên danh mục hiện có, không tạo UI cha, mã hay file mới. 7 list có mẫu: FIELD UI-022; FORM UI-013 MOIT, UI-014 MOUT; MOT UI-002 và UI-003 duyệt NTGV (hỗ trợ); MOW UI-001 và UI-004 góp ý (hỗ trợ). 5 list đối tượng + 2 list hỗ trợ; UI-011/012 là thông tin đính kèm, UI-029 là tìm kiếm chung, không đếm list đối tượng.
 - Master yêu cầu cho FIELD/FORM/MOT/MOW chưa rõ một UI con có lọc hay nhiều UI con; để câu hỏi gập, không tính vào 7 và chưa cấp mã. UI-022 đã kiểm: dữ liệu minh họa, chưa nối PG; chỉ ghi các cột thấy trên UI, phần chưa thấy tách riêng. Các UI khác chỉ ghi “có UI mẫu”, chưa xác nhận dữ liệu thật. JEV tham khảo phân loại UI-003/004/011/012/029: `gen-dec-1790320936-GuQQQS76NfCiJf37rEGk`.
