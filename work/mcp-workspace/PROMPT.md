@@ -1,12 +1,12 @@
 # PROMPT — MCPW-P02 · VPS last-good read cache + freshness debt + giảm xung đột giả
 
 RUN_ID: MCPW-P02-20260925-01
-Trạng thái: **READY REV2 — K8 + PROTECTION GUARD — CHƯA RUN**
+Trạng thái: **READY REV2-SAFETY-AUTO — RUN ISSUED · CHƯA MUTATION**
 **READY@94de3978dcf648670a82a4290ae65b0dd4e6c608 và RUN@MCPW-P02-20260925-01 cũ HẾT HIỆU LỰC** vì execution pack đã thay đổi sau incident `MCPW-RECOVERY-20260925-01`.
 Owner 25/09/2026 đã ủy quyền Host tự quyết chi tiết kỹ thuật theo nguyên tắc bảo toàn chức năng đang chạy · reuse trước · ít tài nguyên/thời gian · code mới cuối cùng; Owner Gate K8.4 vì vậy đã được đáp ứng theo đúng fail-closed contract trong PROMPT.
 Host: GPT Chat · Host_ID `GPT-MCPW-250925-A`
 Owner đã duyệt kiến trúc P02 và freshness debt ngày 25/09/2026; MCPW-LOCK đã XONG, ruleset `gateway-only-writes` id `23976991` đang active.
-Executor_Surface dự kiến: **Claude Code CLI trên Mac của Owner, chế độ hỏi quyền mặc định** (không auto-mode). Mỗi lệnh mutation hiện nút quyền để Owner bấm Yes.
+Executor_Surface: **Claude Code CLI trên Mac của Owner; auto-mode được phép cho đúng RUN_ID/scope/READY hiện hành.** Auto-mode không mở rộng quyền: mọi hard-stop, scope, PRE/POST Guard, write-drain, rollback và fail-closed trong PROMPT vẫn bắt buộc; gặp hành động phá huỷ ngoài cơ chế đã duyệt hoặc cần mở rộng scope thì DỪNG.
 Write_Path báo cáo repo: chỉ `fs_*` / `workspace_*`. GitHub native/App/API/CLI và `git push` trực tiếp vào incomex-workspace là READ-ONLY/bị ruleset chặn.
 
 ## 0. Mục tiêu
@@ -210,15 +210,21 @@ Dùng fixture/input giả cho checker: tool count sai, fingerprint lệch, pendi
 - **R3:** “Không cấy record `prepared|push_unknown|rollback_conflict` hay circuit giả vào state thật của gateway đang phục vụ (sẽ khoá thật GPT/Codex/Hermes); ca pending/outage chạy trên state dir tạm/fixture hoặc bản sao cách ly. PERIODIC chỉ gọi tool đọc bằng credential sẵn có, không tạo credential mới.”
 
 ## 11. Triển khai / quyền
-**Chạy Claude Code ở chế độ hỏi quyền mặc định, KHÔNG auto-mode.**
-Owner/RUN mới sau READY mới ủy quyền toàn bộ đúng scope P02; **không bắt Owner gõ lại câu xác nhận tự do cho từng bước**. Nếu nền tảng yêu cầu confirmation thì chỉ dùng nút permission/Yes bình thường. Trước mutation, Agent liệt kê ngắn các nhóm lệnh có thể hiện nút Yes:
-- sửa source/test/config hai gateway;
-- build image/package;
-- restart/deploy từng gateway;
-- tạo derived cache/state directories nếu cần;
-- smoke/acceptance write qua hai gateway.
+**AUTO-MODE CÓ BIÊN ĐƯỢC PHÉP cho chính RUN này.** Owner đã giao Host tự quyết chi tiết kỹ thuật trong scope theo DROOT22; vì PRE/POST Guard, write-drain, rollback và fail-closed đã là lớp bảo vệ máy, không yêu cầu Owner bấm Yes cho từng lệnh nằm trong scope.
 
-Không yêu cầu Owner tự chạy shell command thay Agent nếu chế độ hỏi quyền có thể cấp quyền bình thường.
+Auto-mode chỉ được thực hiện các nhóm đã duyệt:
+- sửa source/test/config hiện hữu của hai gateway;
+- build image/package hiện hữu;
+- tạo derived cache/state + hồ sơ P02 trong vùng đã duyệt;
+- deploy/restart từng gateway theo write-drain;
+- smoke/acceptance và các phép ghi thử đã ghi trong 17 acceptance.
+
+**Hard-stop vẫn giữ nguyên:** vượt scope; tạo task/project/service/credential/SSOT mới; phá huỷ ngoài K8/rollback đã duyệt; PRE/POST Guard fail; trạng thái mơ hồ; hoặc không chứng minh được lock/rollback an toàn → DỪNG, không tự mở rộng.
+
+Trước mutation đầu tiên:
+1. chép G0/PRE baseline đã đo trong phiên này vào `/opt/incomex/work/mcp-workspace/MCPW-P02-20260925/` để không mất chứng cứ;
+2. chạy lại PRE Guard ngay sát mutation; PRE không PASS → DỪNG;
+3. không cần lặp lại toàn bộ discovery đã PASS nếu source/image/config chưa đổi.
 
 Deploy từng gateway:
 - test/build trước;
