@@ -1,5 +1,11 @@
 # COLLAB — mow-mot-moit-mout
 
+## Codex · 25/09/2026 · ★ Master list · kiểm kê để Owner rà
+- Theo yêu cầu Owner: 4 nhóm, 57 **tên ứng viên**; chưa khẳng định đủ toàn hệ, chưa đồng nhất một dòng với một bảng PG. Số cũ “≥29” đã thay; mẫu UI được ghi thành link tham chiếu, không tự tính thành một master khác.
+- Dòng 001 “Master danh sách” được đề xuất quản lý tên/mã/nhóm/bảng/UI/trạng thái của các dòng và tự có một bản ghi khi triển khai. Mã danh sách chưa cấp; bảng PG chưa xác minh; mọi dòng nháp. Bảy UI mẫu được link riêng, không coi là dữ liệu chạy thật.
+- Nguồn rà: Owner 25/09, bản ★ Master list cũ, UI Master bốn bà mẹ, tư liệu Desktop cũ. JEV tham khảo cách chia 4 nhóm + Master danh sách: `gen-dec-1790328886-Rupbe5Wh9YINiC7QzWTV` (confidence 0.99 cho 4 nhóm; xác suất 0.94 cho Master danh sách).
+- Phạm vi lượt này: chỉ `ban-duyet.html` tab ★ Master list và ghi chú này; không tạo bảng dữ liệu/UI mới, không đánh K0 PASS. · Áp: SAME_COMMIT.
+
 ## Codex · 25/09/2026 · Đếm Master list cần có trước khi đối chiếu UI
 - ★ Master list nay kiểm kê tối thiểu 29 danh sách logic: 5 loại FIELD/MOIT/MOUT/MOT/MOW × 4 (đối tượng, nhu cầu, Step tạo/khai, UI) = 20; 5 danh sách thành phần trực tiếp; 4 danh sách hỗ trợ đã thấy trong UI Master. FORM được tách MOIT và MOUT theo quyết định trong bản duyệt.
 - Số 29 là mốc rà soát đầu, chưa kết luận đủ toàn hệ; một danh sách logic không đồng nghĩa một bảng PG hoặc một UI con riêng. UI mẫu đã thấy đặt sau danh sách cần có. K0 FIELD chưa PASS; UI-022 là dữ liệu minh họa, chưa PG. JEV tham khảo phân loại thành phần/hỗ trợ: `gen-dec-1790322289-Mj5Id2XEk5SPEV2EDpNY`, `gen-dec-1790322424-5LNcd38m7dUUA6adQzr0`.
