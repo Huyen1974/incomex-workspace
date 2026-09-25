@@ -155,8 +155,12 @@ K8 bắt buộc:
    - remote chắc chắn không chứa commit → chỉ rollback khi local state đủ điều kiện an toàn;
    - chưa chứng minh được → giữ `push_unknown`, chặn ghi, không đoán.
 3. `push_unknown` chỉ được chặn write/current-HEAD mutation; last-good read vẫn phục vụ với `stale` + `recheck_required=true`.
+   - **R1:** “Last-good khi `push_unknown` = snapshot tại SHA đã được remote xác nhận (base của transaction hoặc cũ hơn); không bao giờ phục vụ nội dung commit chưa xác nhận.”
 4. Tự hòa giải khi network trở lại chỉ khi máy chứng minh đủ điều kiện như recovery hôm nay: cùng root lock + đúng uid gateway; pending record xác định; worktree sạch; không git process; không later local commit/unrelated delta; base/parent quan hệ với remote rõ; orphan được giữ bằng `refs/recovery/*` + bundle verify trước mutation. Sau đó mới được `reset --keep` về exact remote SHA + record `rolled_back/reconciled` nếu commit thật sự không ở remote. Bất kỳ ambiguity/multi-pending/dirty/proof unavailable → **không tự reset**, giữ chặn ghi + read last-good + alert.
+   - **R2:** “Tự hoà giải không im lặng: mỗi lần tự hoà giải hoặc rollback do K8 phải ghi journal + cảnh báo qua kênh PERIODIC/Telegram + chuyển ledger `operation_id` liên quan từ `unknown` sang kết luận rõ (`committed`/`rolled_back`) kèm `refs/recovery/*`, để tác giả biết áp lại.”
+   - **OWNER GATE K8.4:** cơ chế code tự `reset --keep` production clone chỉ được đưa vào READY/RUN sau khi Owner phê duyệt một lần; trước phê duyệt, PROMPT vẫn DRAFT.
 5. Fault injection bắt buộc: timeout nhưng commit không tới remote; timeout nhưng commit đã tới remote; mất mạng hẳn rồi mạng về; mutant remote-proof bị circuit local chặn. Mỗi ca phải chứng minh không duplicate và không khóa đọc.
+   - **R4:** “Fault-injection K8 chạy trên **cả hai** gateway `workspace_*` và `fs_*`; nếu một gateway không có circuit thì vẫn phải chứng minh bằng test là push timeout không khoá và không duplicate.”
 
 ## 10. Write path — giữ strict GitHub
 Không nới write:
@@ -183,6 +187,7 @@ Một bộ kiểm **read-only**, tái dùng checker hiện hữu; không dựng 
 
 ### Reuse bắt buộc — B5
 Ngoài `run_acceptance.py`, config-guard và health/smoke hiện hữu, tái dùng bộ snapshot PRE/POST của `MCPW-RECOVERY-20260925-01`: 12 container/image/StartedAt/health, service, timer, crontab, source/config hash, HTTP routes, listening ports, disk và git dirty/head. Không viết lại một bộ đo song song nếu dữ liệu đã có.
+- **R5:** “`run_acceptance.py` phải nhận đúng image/tag đang chạy (nợ L125: mặc định image cũ); PRE/POST ghi rõ image được kiểm, lệch image ⇒ FAIL.”
 
 ### Invariants tối thiểu
 1. ruleset `gateway-only-writes` id `23976991` active; bypass chỉ DeployKey; không thêm key;
@@ -201,6 +206,7 @@ Không chỉ gọi hàm nội bộ. Guard/acceptance phải gọi MCP thật qua
 
 ### B3 — negative control không phá production
 Dùng fixture/input giả cho checker: tool count sai, fingerprint lệch, pending-record giả trong state temp, HEAD lệch, watchdog stale… mỗi mutant phải FAIL. Không tamper production chỉ để chứng minh guard biết fail.
+- **R3:** “Không cấy record `prepared|push_unknown|rollback_conflict` hay circuit giả vào state thật của gateway đang phục vụ (sẽ khoá thật GPT/Codex/Hermes); ca pending/outage chạy trên state dir tạm/fixture hoặc bản sao cách ly. PERIODIC chỉ gọi tool đọc bằng credential sẵn có, không tạo credential mới.”
 
 ## 11. Triển khai / quyền
 **Chạy Claude Code ở chế độ hỏi quyền mặc định, KHÔNG auto-mode.**
