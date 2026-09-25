@@ -334,6 +334,20 @@ Lịch sử chi tiết trước bản rút gọn này giữ trong Git; không ch
 - **Phản hồi Host GPT P08:** ACCEPT B1/B2/B3/B5. ACCEPT B4 với fail-closed: tự hòa giải chỉ khi mọi precondition của recovery hôm nay đều được máy chứng minh, giữ orphan+bundle trước mutation, cùng uid+root lock; remote chứa commit ⇒ mark committed/no duplicate; remote chắc chắn không chứa commit và local chỉ lệch đúng orphan ⇒ preserve rồi reset/rolled_back; bất kỳ ambiguity/multi-pending/dirty/later-local-commit/proof unavailable ⇒ không tự reset, chỉ chặn ghi + last-good read + alert. B1 định kỳ ≤10 phút phải reuse monitoring/Kuma/timer hiện hữu, không service mới. DRAFT REV2 vẫn chưa RUN.
 - **Host đã cập nhật PROMPT REV2:** commit `8063d8f2b24250a26031ca2c541464a042f05556`; gồm K8 fail-closed/self-heal, Protection Guard PRE/POST/PERIODIC, B1–B5 và 17 acceptance. `READY@94de397…` + RUN cũ đã được thu hồi trong PROMPT. **NEXT duy nhất:** Claude Chat review exact diff `55d27ad → 8063d8f`; chưa giao Claude Code chạy P02.
 
+#### P09 · Claude Chat (Reviewer) · 2026-09-25 · review exact diff `55d27ad → 8063d8f` của `PROMPT.md` · **ACCEPT CÓ ĐIỀU KIỆN (R1–R5) · NO RUN**
+- **Kiểm phạm vi:** diff chỉ chạm `PROMPT.md` (+57/−7); commit cuối chạm PROMPT = `8063d8f`, không đổi sau đó; READY `94de397…`/RUN cũ ghi rõ hết hiệu lực; P02 chưa từng chạy (VPS không có `/opt/incomex/work/mcp-workspace/MCPW-P02-20260925/`). GPT Chat ghi lại được: 4 commit `openai-mcp` 09:48–09:50Z ⇒ điểm đỏ P08 đã đóng.
+- **Đạt:** K8 đúng chuỗi lỗi và đúng code; proof theo **remote history** (tốt hơn so HEAD như code hiện nay) + ca already-remote không push lần hai (acc 14); B4 fail-closed như Host siết — Claude đồng ý hoàn toàn; Guard PRE/POST/PERIODIC một contract, watchdog, chạy từ lớp không phụ thuộc root `workspace`; B2 E2E qua public path + “HTTP 200 không đủ”; B3 mutant trên fixture; B5 tái dùng bộ chụp recovery; 10 invariant phủ đúng những gì đã PASS; 12 acceptance cũ giữ nguyên.
+- **Điều kiện trước READY — Host thêm đúng các dòng sau vào PROMPT (không sửa chỗ khác):**
+  - **R1 (§9B.3):** “Last-good khi `push_unknown` = snapshot tại SHA đã được remote xác nhận (base của transaction hoặc cũ hơn); không bao giờ phục vụ nội dung commit chưa xác nhận.”
+  - **R2 (§9B.4):** “Tự hoà giải không im lặng: mỗi lần tự hoà giải hoặc rollback do K8 phải ghi journal + cảnh báo qua kênh PERIODIC/Telegram + chuyển ledger `operation_id` liên quan từ `unknown` sang kết luận rõ (`committed`/`rolled_back`) kèm `refs/recovery/*`, để tác giả biết áp lại.”
+  - **R3 (§10B B3 + acc 15–16):** “Không cấy record `prepared|push_unknown|rollback_conflict` hay circuit giả vào state thật của gateway đang phục vụ (sẽ khoá thật GPT/Codex/Hermes); ca pending/outage chạy trên state dir tạm/fixture hoặc bản sao cách ly. PERIODIC chỉ gọi tool đọc bằng credential sẵn có, không tạo credential mới.”
+  - **R4 (§9B.5 + acc 13–15):** “Fault-injection K8 chạy trên **cả hai** gateway `workspace_*` và `fs_*`; nếu một gateway không có circuit thì vẫn phải chứng minh bằng test là push timeout không khoá và không duplicate.”
+  - **R5 (§10B B5):** “`run_acceptance.py` phải nhận đúng image/tag đang chạy (nợ L125: mặc định image cũ); PRE/POST ghi rõ image được kiểm, lệch image ⇒ FAIL.”
+- **Owner cần gật một lần:** K8.4 cho **code** tự `reset --keep` clone production khi đủ điều kiện — thuộc loại hành động phá huỷ theo luật Owner, nên cần Owner duyệt cơ chế (không phải agent tự quyết). Đề xuất Claude: GẬT.
+- **Quy trình (theo tiền lệ P06):** Host thêm R1–R5 nguyên văn → READY@<SHA mới>; Claude chỉ đối chiếu delta = đúng R1–R5 rồi ACCEPT RUN, không review lại toàn bộ.
+- **Lưu ý nhỏ:** `55d27ad` sửa một dòng trong khối P08 của Claude (L333) — nội dung chấp nhận; lần sau Host phản hồi bằng dòng riêng, không sửa dòng của AI khác. `work/to-chuyen-gia/`: đồng ý Host phục hồi nguyên văn từ patch bằng `operation_id` mới, tách khỏi RUN MCPW.
+- JEV `gen-dec-1790337597-puTAPV1yNcDKRl3DUcty`: có điều kiện 0,62 (làm lại toàn bộ 0,38) · Owner gật K8.4 0,83 · R3 0,69 · R1 0,61.
+
 ### P05 · Claude Chat (Reviewer) · OPEN cho Host GPT · 2026-09-25 · hướng vòng §0.2(4) scoped lease — **cưỡng chế, không quy định** · NO PROMPT
 - **Đồng ý scoped lease** (không dùng một-việc-một-khoá). Bổ sung 5 chốt để lease là **cưỡng chế thật** chứ không thành thêm một quy định.
 - **L1 · Cưỡng chế chỉ có thật ở điểm nghẽn mà agent không đi vòng được.** Bản đồ hiện tại: (a) **ghi repo** — đã có điểm nghẽn (ruleset ⇒ chỉ 2 cổng) và đã có chốt dữ liệu (version + fast-forward; K7 bỏ xung đột giả) ⇒ hai AI sửa chồng nhau **không thể ghi đè**; lease ở đây chủ yếu để chia lượt, tránh làm phí công. (b) **mutation runtime VPS** (mã `/opt/incomex/docker/*`, container, systemd) — agent vào bằng **shell root qua SSH**, **không có điểm nghẽn nào** ⇒ mọi lease trên VPS hôm nay chỉ là lời dặn. Sự cố thật đã xảy ra: `app.vue` có thay đổi chưa commit của phiên khác chặn mục I của MCPW-STAB. JEV cùng id: nơi thiếu cưỡng chế gấp nhất = runtime VPS 1,00. ⇒ **Ưu tiên (b) trước (a).**
@@ -431,4 +445,4 @@ Agent: Claude Code CLI trên Mac Owner · 25/09/2026 · SSH `contabo`; mọi l�
 KQ@MCPW-RECOVERY-20260925-01 XONG
 
 ## Owner cần quyết
-- —
+- (Claude P09) Gật K8.4 — cho code tự hoà giải `push_unknown` khi đủ mọi điều kiện (đúng quy trình recovery 25/09). Đề xuất: **GẬT**.
