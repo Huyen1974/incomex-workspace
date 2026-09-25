@@ -20,7 +20,7 @@ small{color:#666}
 <h1>Hermes Joint Workspace</h1>
 <p><span class="tag">HOST REVIEW</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Host: GPT Chat</span><span class="tag">24/09: đã gỡ khoá Agent Data khỏi Hermes</span></p>
 
-<div class="box"><strong>HJW.3B — DRAFT <code>9b62bf46…</code>.</strong> G1/G2/STOP + webhook local đã PASS; T5 self-wake phần Git đã PASS. Hai blocker cuối của Claude đã được khóa vào delta: <strong>nginx recreate phải có run-spec/rollback + verify từng public route</strong>; secret materialization phải đi đúng chuỗi HJW.2B1 và <strong>cấm restart hermes-key.service</strong>. Chờ Claude ký exact SHA mới; chưa mutation.</div>
+<div class="box"><strong>HJW.3B — READY + RUN ISSUED · <code>9b62bf46…</code>.</strong> G1/G2/STOP + webhook local đã PASS; T5 self-wake phần Git đã PASS. Phiên Claude Code CLI mới chỉ làm delta còn lại: UDS bridge, webhook secret, nginx public hardening, Kuma và closeout. Hai gate gián đoạn duy nhất phải báo Owner trước: <strong>recreate nginx</strong> và <strong>restart Hermes serve→gateway</strong>.</div>
 
 <div class="box"><strong>Baseline HJW.3 đã chạy xong phần nền.</strong> Không làm lại G1/G2/STOP/local webhook. T5 Git self-wake đã có commit claim + done của Hermes; Telegram/ledger/token-cost còn phải được CLI mới đối chiếu để đóng T5/T6 hoàn toàn.</div>
 
@@ -87,7 +87,7 @@ Claude Chat ──────────────────────�
 <tr><td>HJW.2B</td><td>RUN đầu đã DỪNG an toàn tại G0.2, 0 mutation.</td><td>Claude Code CLI</td><td>■ DỪNG hợp lệ</td></tr>
 <tr><td>HJW.2B1</td><td>SEC-CLEAN + capability audit theo PROMPT <code>d4090d3c…</code>.</td><td>Claude Code CLI · GPT Host</td><td>✓ XONG 24/09 · SEC-CLEAN PASS · MIN_CODE_CHANGE</td></tr>
 <tr><td>HJW.2C</td><td>Auth patch + generic Agent Gateway + Hermes narrow profile; scope/identity/revoke/revert/live client registration.</td><td>Claude Code CLI · GPT Host · Claude review</td><td>✓ HOST ACCEPTED 24/09</td></tr>
-<tr><td>HJW.3B</td><td>Closeout: T5/T6 evidence + UNIX socket bridge + secret webhook + nginx public hardening + Kuma + canary.</td><td>Claude Code CLI mới · GPT Host</td><td>◐ DRAFT <code>9b62bf46…</code> · chờ Claude delta-sign</td></tr>
+<tr><td>HJW.3B</td><td>Closeout: T5/T6 evidence + UNIX socket bridge + secret webhook + nginx public hardening + Kuma + canary.</td><td>Claude Code CLI mới · GPT Host</td><td>▶ READY + RUN ISSUED · <code>9b62bf46…</code></td></tr>
 <tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>sau HJW.3 PASS</td></tr>
 <tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T10.</td><td>Host</td><td>—</td></tr>
 </tbody>
@@ -117,6 +117,6 @@ Claude Chat ──────────────────────�
 </ul>
 
 <h2 id="DIEU-KIEN">8. Điều kiện chuyển sang làm</h2>
-<p>NEXT: Claude Chat chỉ kiểm 2 sửa P31 trên exact <code>9b62bf46…</code>; ACCEPT xong GPT Host phát READY/RUN rồi giao phiên Claude Code CLI mới tiếp tục từ delta-first.</p>
+<p>NEXT: mở phiên Claude Code CLI mới, đọc delta-first <code>9b62bf46…</code> và thực thi RUN <code>HJW-3B-20260925-01</code>. Không làm lại G1/G2 baseline.</p>
 </body>
 </html>
