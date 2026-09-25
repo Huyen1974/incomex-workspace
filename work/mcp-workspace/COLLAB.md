@@ -328,5 +328,20 @@ Actor/presence: Task view thật `mcp-workspace` hiện *Vừa làm 1* Claude Co
 - **J · PASS** — `rollback-final.sh` (chỉ gỡ delta lượt này → `mcpw-stab-20260924`) và `rollback.sh` (toàn bộ → `hjw2c-g1`, nay nhận cả tag `-final`) chạy thử khô trên bản sao compose đúng kết quả; cả 3 image còn trong máy.
 - **Test:** continuation 171/171 (image mới); toàn bộ `tests/` (trừ e2e/smoke, không mạng) 69 failed/358 passed = đúng tập FAIL có sẵn của baseline (356 passed) + 2 test mới; config-guard 34/34 CLEAN.
 
+## KQ — MCPW-LOCK-20260924-01
+Agent: Claude Code CLI trên Mac Owner · 25/09/2026 · tiếp nối RUN 25/09 ghi ở mục `MCPW-LOCK — trạng thái hiện hành` (auto-mode chặn lệnh dán ⇒ Owner gõ tay cho phép; lệnh tạo ruleset và T1 vẫn bị auto-mode chặn ⇒ **Owner tự chạy đúng lệnh PROMPT bằng `!` trong phiên Claude Code**, agent kiểm lại bằng API).
+- **G0 PASS** — `fs_read` AGENTS → COLLAB → PROMPT; commit cuối chạm PROMPT = `d71a6c3b85aaac74a2e28aa63584b4976ce7f680` = READY; kiểm lại trước khi ghi KQ: vẫn khớp.
+- **G1.1 PASS** — `gh` tài khoản `Huyen1974`; `permissions.admin=true`, `visibility=public`, nhánh mặc định `main`.
+- **G1.2 PASS** — `rulesets` = `[]` (không có `gateway-only-writes` trước khi bật).
+- **G1.3 PASS** — đúng 1 deploy key: id `163589117` · `VPS MCP host helper (GSM: MCP_WORKSPACE_GH_DEPLOY_KEY)` · `read_only=false` · tạo 2026-09-17T10:14:20Z · ED25519 `SHA256:ctotGu9UmOMq45jA…` (file tạm khoá công khai đã xoá). Không có deploy key chỉ-đọc.
+- **G1.4 PASS** — cổng `fs_*`: `/run/incomex-mcp-helper/gh_deploy_key` → `SHA256:ctotGu9UmOMq45jA…` = key 163589117. (File quyền 0640 nên `ssh-keygen -y -f` từ chối; lấy khoá công khai qua pipe `cat … | ssh-keygen -y -f /dev/stdin | ssh-keygen -lf -`, không in/copy/đổi quyền khoá riêng.)
+- **G1.5 PASS** — cổng `workspace_*` (container `incomex-agent-data`, image `agent-data-hvu:mcpw-stab-20260924-final`): `WORKSPACE_CONFIG=/workspace/config.json` → root `workspace` = `/workspace/state/github-workspace`, mode git, nhánh `main`; `origin` = `git@github.com:Huyen1974/incomex-workspace.git` (SSH, không token); `core.sshCommand` = `ssh -F /dev/null -i /workspace/state/git-auth/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes …`; biến `GIT*` trong container: không có; khoá → `SHA256:ctotGu9UmOMq45jA…` = key 163589117 (không phải khoá tài khoản người).
+- **G1.6 PASS** — tập deploy key ghi-được = {163589117} = tập fingerprint của 2 cổng (dùng chung một key); không key thừa/không nhận diện.
+- **G1.7 PASS** — `contents/.github` → 404; `actions/workflows` total_count = 0.
+- **Ruleset** — id **`23976991`**, tạo 2026-09-25T03:20:38Z (Owner chạy lệnh §3 nguyên văn). JSON đã gửi: `{"name":"gateway-only-writes","target":"branch","enforcement":"active","conditions":{"ref_name":{"include":["~ALL"],"exclude":[]}},"rules":[{"type":"creation"},{"type":"update","parameters":{"update_allows_fetch_and_merge":false}},{"type":"deletion"},{"type":"non_fast_forward"}],"bypass_actors":[{"actor_id":null,"actor_type":"DeployKey","bypass_mode":"always"}]}`. GET lại: `enforcement=active`, `source_type=Repository`, 4 rule creation/update/deletion/non_fast_forward, bypass **chỉ** `DeployKey` (không role/user/app); repo có đúng 1 ruleset.
+- **T1 PASS** — `gh api -X PUT …/contents/work/mcp-workspace/COLLAB.md` (tài khoản Owner, nội dung = bản main + đúng 1 dòng probe, blob sha `d6efda1…`) → **HTTP 409** `Repository rule violations found — Cannot update this protected ref.` (03:22:52Z, request `E131:38B15A:86F044:8D9D4F:6AB5E90B`). Main không đổi, không có dòng probe ⇒ không cần gỡ.
+- **T2 PASS** — chính commit ghi khối này qua `fs_edit` root `gh` (deploy key 163589117) đẩy lên `main` sau khi ruleset active.
+- Không đổi setting GitHub nào khác; không sửa VPS; không sửa README/AGENTS; rollback không cần.
+
 ## Owner cần quyết
 - —
