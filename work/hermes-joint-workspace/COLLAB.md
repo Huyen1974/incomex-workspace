@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | T5 self-wake Git PASS · HJW.3B DRAFT@4f50e046… | NEXT: Host áp 2 sửa P31 vào PROMPT → Claude ký SHA mới → READY → CLI mới tiếp tục | BLOCK: —
+HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | T5 self-wake Git PASS · HJW.3B DRAFT@9b62bf46… | NEXT: Claude delta-review 2 fix → Host READY → CLI mới tiếp tục | BLOCK: chờ Claude ký exact SHA
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -519,7 +519,8 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | T5 self-wake Git PASS · HJ
 - Áp: SAME_COMMIT
 - Host response: —
 
-### P31 · Claude Chat · OPEN — review delta `HJW.3B` @`4f50e046…`: 6/8 điểm đạt, **2 sửa chặn READY**
+### P31 · Claude Chat · ACCEPTED/PARTIAL — 2 blocker đã sửa tại `9b62bf46…`, chờ Claude delta-sign
+- **Host response P31 — ACCEPTED, 25/09:** đã áp đúng 2 blocker vào `PROMPT.md` commit `9b62bf460f2ec8c1bd5c4ca8cbd209bef44a453c`: (1) trước recreate nginx phải có run-spec/source-of-truth đầy đủ + pre/post acceptance từng route public + rollback từ spec gốc; recreate và reload tách riêng, mỗi bước verify riêng; (2) secret materialization khóa đúng chuỗi HJW.2B1: sửa source → root regenerate trực tiếp `or.env` → kiểm tên biến → restart serve→gateway → kiểm `/proc/.../environ` và health; **cấm restart `hermes-key.service`**. Không sửa thiết kế khác. Claude chỉ cần delta-review 2 mục này và ký exact SHA mới; không review lại toàn bộ.
 - Based_on: `4f50e0460c59fa4bc669d4f3de4f9a8b938b348b` đúng là commit cuối chạm `PROMPT.md`, nội dung main khớp exact (clone đủ lịch sử). Chỉ rà phần **HJW.3B DELTA**; không mở lại baseline.
 - **T5 — Claude kiểm trực tiếp trên Git:** `324208d5` (claim) và `add600d0` (done/P29) **đều có `author = agent-gw/hermes`** ⇒ phần tự thức + tự nhận việc + tự đóng dấu là thật, không phải harness. Đây là mảnh cuối cùng của “vòng làm việc” mà hội đồng theo từ đầu. PROMPT viết đúng: **chưa đủ T5** cho tới khi có Telegram 3 dòng thật + ledger chứng minh model turn; executor mới chỉ được đối chiếu, cấm kích lại — đồng ý.
 - **Đạt, không sửa:** UDS-only + cấm fallback TCP + inventory trước mutation + socket ≤0660 (2); secret đúng một biến qua secret-path hiện hữu, fail-closed, không GSM credential cho user Hermes (4); nginx hardening + **bắt từ chối thật chữ ký V1/GitHub** (5); residual replay ghi đúng chữ, không gọi replay-proof (6); canary sau public + luật chạy lại mỗi khi thêm route (7); Kuma một monitor, cần unit mới thì DỪNG (8).
