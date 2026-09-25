@@ -2,6 +2,7 @@
 
 ## Owner · 25/09/2026 · URL theo tab và chi tiết
 - ban-duyet.html: bấm 5 tab ghi hash của panel; mở mục ?/details ghi hash riêng; các mã S001–S033 là link tới từng bước. Tải lại và Quay lại khôi phục đúng tab/mục. Nút **🔗 Mở mục này** mở bản rộng tại đúng điểm đang xem.
+- Nút UI cha trỏ tới từng hàng UI con (ví dụ UI-001 → &section=child-UI-001). Khi mở liên kết, hàng đích nằm dưới thanh tab cố định; đã kiểm trực tiếp vị trí 72px trên bản publish 8705354. Không cấp UI mới.
 - Đã kiểm Owner View sau publish commit 607f9dd: URL Task view tự đồng bộ &section=matrix-view-ui-workflow, &section=wf4-s001, &section=detail-ui-workflow-diem-chua-thong-can-so-ui-that, &section=matrix-view-qa; tải lại vẫn mở đúng mục, Quay lại trở về mục trước. Chỉ đổi cách định vị bản duyệt; không đổi quy trình/K0.
 - JEV tham khảo phạm vi sửa tại nguồn hiện có: gen-dec-1790306163-Lq0c1pxJAAN48hda0uJ8.
 
