@@ -1,5 +1,9 @@
 # COLLAB — mow-mot-moit-mout
 
+## Owner · 25/09/2026 · ★ Master list · kiểm kê UI con
+- Thêm tab ★ Master list ngay sau ★ UIs trong ban-duyet.html; chỉ kiểm kê UI con dựa trên danh mục hiện có, không tạo UI cha, mã hay file mới. 7 list có mẫu: FIELD UI-022; FORM UI-013 MOIT, UI-014 MOUT; MOT UI-002 và UI-003 duyệt NTGV (hỗ trợ); MOW UI-001 và UI-004 góp ý (hỗ trợ). 5 list đối tượng + 2 list hỗ trợ; UI-011/012 là thông tin đính kèm, UI-029 là tìm kiếm chung, không đếm list đối tượng.
+- Master yêu cầu cho FIELD/FORM/MOT/MOW chưa rõ một UI con có lọc hay nhiều UI con; để câu hỏi gập, không tính vào 7 và chưa cấp mã. UI-022 đã kiểm: dữ liệu minh họa, chưa nối PG; chỉ ghi các cột thấy trên UI, phần chưa thấy tách riêng. Các UI khác chỉ ghi “có UI mẫu”, chưa xác nhận dữ liệu thật. JEV tham khảo phân loại UI-003/004/011/012/029: `gen-dec-1790320936-GuQQQS76NfCiJf37rEGk`.
+
 ## Owner · 25/09/2026 · Rà lại điểm bắt đầu FIELD (bản thử)
 - Khi người dùng mới nghĩ cần Field: S010 tìm ở Master Field (UI-022). Có và dùng được → S020 mở chi tiết/chọn dùng; thiếu → S030 khai nhu cầu Field. Mỗi nhánh một UI con; không đi qua Master yêu cầu trước khi tìm Field. Tham khảo JEV `gen-dec-1790312357-hA9i2YjH03BkcvNzXGeJ` (chọn Master Field; bản cũ chủ yếu là vòng đời YC chung).
 - Kiểm UI thật: Kanban Field có đường Master ▾ → UI-022 Master Field. UI-022 có tìm mã/tên, lọc và mở chi tiết, nhưng dữ liệu minh họa chưa nối PG; chưa chứng minh tìm theo nghĩa; chi tiết không có chọn dùng/trả mã; cả 3 Field đang tạm dừng. UI-018 chỉ lưu đề xuất trong trình duyệt. Vì vậy các nút S020/S030 là chỗ cần bổ sung, không coi là đã chạy thật.
