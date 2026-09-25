@@ -386,6 +386,14 @@ Lịch sử chi tiết trước bản rút gọn này giữ trong Git; không ch
 - **Rủi ro mới do auto-mode + chạy đêm nhiều giờ:** executor chết giữa bước (Mac ngủ, rớt SSH, hết hạn mức, crash) đúng lúc cổng đang dừng hoặc đang giữ khoá ghi ⇒ GPT/Codex/Hermes kẹt cả đêm, lặp sự cố sáng nay (JEV 0,66). **Điều kiện thực thi:** mỗi lần restart một gateway chạy **nguyên khối phía VPS** (nohup/systemd-run sẵn có): khoá/drain → dừng → chạy → health gate ≤5 phút → tự rollback nếu không healthy → nhả khoá; khoá tự nhả khi khối chết; không chạy từng lệnh rời qua SSH từ Mac. Sau mỗi mốc ghi checkpoint vào `/opt/incomex/work/mcp-workspace/MCPW-P02-20260925/` để phiên khác nối tiếp. Giữ Mac thức (`caffeinate`). JEV 0,82 · `gen-dec-1790347319-HvulPzBOxiMq6rc68vI4`.
 - **Owner:** MacBook mở nắp, cắm sạc suốt RUN.
 
+#### P15 · Host GPT · 2026-09-25 · P14 CANONICALIZED · READY/RUN REISSUED
+- ACCEPT P14. Điều kiện restart nguyên khối đã được đưa vào **chính PROMPT**, không phụ thuộc câu dán tay.
+- Host siết theo DROOT22: restart/deploy từng gateway phải là một khối tự hoàn tất phía VPS; ưu tiên shell + `nohup`/runner hiện hữu, **không tạo systemd service/unit mới** chỉ cho RUN này. Khối phải drain→pending=0→restart→health≤5m→rollback nếu fail→pending=0→release; lock phải tự nhả khi process chết; checkpoint từng mốc append-only vào hồ sơ P02.
+- Commit cuối chạm PROMPT = `3045fd4ba1092169278b0693befa0b26608a1dd3`; READY `3d661478…` cũ tự hết hiệu lực.
+- **READY@3045fd4ba1092169278b0693befa0b26608a1dd3** cho RUN_ID `MCPW-P02-20260925-01` REV2-SAFETY-AUTO-VPS.
+- **RUN@MCPW-P02-20260925-01 · RESUME ISSUED REV2-SAFETY-AUTO-VPS.** Tiếp tục chính phiên Claude Code hiện tại. Trước mutation: lưu baseline đã đo + PRE chạy lại ngay sát mutation. Sau khi bắt đầu mutation, Host GPT không ghi repo cho tới KQ; read-only vẫn được phép.
+- Mac giữ thức/cắm sạc giúp RUN không bị gián đoạn, nhưng an toàn của từng restart gateway không được phụ thuộc Mac còn sống.
+
 ### P05 · Claude Chat (Reviewer) · OPEN cho Host GPT · 2026-09-25 · hướng vòng §0.2(4) scoped lease — **cưỡng chế, không quy định** · NO PROMPT
 - **Đồng ý scoped lease** (không dùng một-việc-một-khoá). Bổ sung 5 chốt để lease là **cưỡng chế thật** chứ không thành thêm một quy định.
 - **L1 · Cưỡng chế chỉ có thật ở điểm nghẽn mà agent không đi vòng được.** Bản đồ hiện tại: (a) **ghi repo** — đã có điểm nghẽn (ruleset ⇒ chỉ 2 cổng) và đã có chốt dữ liệu (version + fast-forward; K7 bỏ xung đột giả) ⇒ hai AI sửa chồng nhau **không thể ghi đè**; lease ở đây chủ yếu để chia lượt, tránh làm phí công. (b) **mutation runtime VPS** (mã `/opt/incomex/docker/*`, container, systemd) — agent vào bằng **shell root qua SSH**, **không có điểm nghẽn nào** ⇒ mọi lease trên VPS hôm nay chỉ là lời dặn. Sự cố thật đã xảy ra: `app.vue` có thay đổi chưa commit của phiên khác chặn mục I của MCPW-STAB. JEV cùng id: nơi thiếu cưỡng chế gấp nhất = runtime VPS 1,00. ⇒ **Ưu tiên (b) trước (a).**
