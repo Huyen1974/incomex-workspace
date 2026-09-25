@@ -159,7 +159,7 @@ K8 bắt buộc:
    - **R1:** “Last-good khi `push_unknown` = snapshot tại SHA đã được remote xác nhận (base của transaction hoặc cũ hơn); không bao giờ phục vụ nội dung commit chưa xác nhận.”
 4. Tự hòa giải khi network trở lại chỉ khi máy chứng minh đủ điều kiện như recovery hôm nay: cùng root lock + đúng uid gateway; pending record xác định; worktree sạch; không git process; không later local commit/unrelated delta; base/parent quan hệ với remote rõ; orphan được giữ bằng `refs/recovery/*` + bundle verify trước mutation. Sau đó mới được `reset --keep` về exact remote SHA + record `rolled_back/reconciled` nếu commit thật sự không ở remote. Bất kỳ ambiguity/multi-pending/dirty/proof unavailable → **không tự reset**, giữ chặn ghi + read last-good + alert.
    - **R2:** “Tự hoà giải không im lặng: mỗi lần tự hoà giải hoặc rollback do K8 phải ghi journal + cảnh báo qua kênh PERIODIC/Telegram + chuyển ledger `operation_id` liên quan từ `unknown` sang kết luận rõ (`committed`/`rolled_back`) kèm `refs/recovery/*`, để tác giả biết áp lại.”
-   - **OWNER GATE K8.4:** cơ chế code tự `reset --keep` production clone chỉ được đưa vào READY/RUN sau khi Owner phê duyệt một lần; trước phê duyệt, PROMPT vẫn DRAFT.
+   - **OWNER APPROVED K8.4 · 2026-09-25:** Owner đã ủy quyền Host tự quyết chi tiết kỹ thuật theo nguyên tắc bảo toàn chức năng đang chạy · reuse trước · ít tài nguyên/thời gian · code mới cuối cùng. Cơ chế tự `reset --keep` chỉ được phép đúng fail-closed precondition tại K8.4; mọi trường hợp mơ hồ vẫn không reset.
 5. Fault injection bắt buộc: timeout nhưng commit không tới remote; timeout nhưng commit đã tới remote; mất mạng hẳn rồi mạng về; mutant remote-proof bị circuit local chặn. Mỗi ca phải chứng minh không duplicate và không khóa đọc.
    - **R4:** “Fault-injection K8 chạy trên **cả hai** gateway `workspace_*` và `fs_*`; nếu một gateway không có circuit thì vẫn phải chứng minh bằng test là push timeout không khoá và không duplicate.”
 
@@ -223,6 +223,8 @@ Không yêu cầu Owner tự chạy shell command thay Agent nếu chế độ h
 Deploy từng gateway:
 - test/build trước;
 - rollback riêng từng cổng;
+- **write-drain trước stop/restart:** dùng lock ghi/root lock **hiện hữu của đúng gateway** để chặn write mới, chờ write đang dở hoàn tất, xác nhận `pending/recovery record = 0` rồi mới dừng/restart. Sau khi gateway healthy, kiểm lại `pending/recovery record = 0` rồi mới nhả lock. Với `workspace_*`, giữ root lock theo đúng mẫu recovery; với `fs_*`, dùng writer/root lock tương đương hiện hữu. Nếu không chứng minh được lock tương đương an toàn thì DỪNG trước restart và báo, **không tự tạo lock/service mới trong RUN này**;
+- trong cửa sổ restart/deploy gateway, Host tạm hoãn các mutation repo khác; read-only vẫn được phép;
 - deploy cổng 1 → theo DROOT10 cho trạng thái STARTING tối đa 5 phút; **không smoke, không rollback chỉ vì chưa ready trong cửa sổ STARTING**; sau khi healthy mới acceptance cơ bản → cổng 2;
 - áp cùng STARTING gate cho cổng 2;
 - không restart đồng thời;
