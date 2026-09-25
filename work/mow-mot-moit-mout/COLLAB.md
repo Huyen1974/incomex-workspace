@@ -1,5 +1,8 @@
 # COLLAB — mow-mot-moit-mout
 
+## Owner · 25/09/2026 · Tách tab UIs
+- Theo Owner: ba màn thử S001–S003 chuyển sang tab **★ UIs**, xếp dọc; tab **★ Quy trình vẽ UI** giữ danh sách bước gọn, liên kết mã UI mở đúng màn. Tab **★ UI Master** cũng được đánh dấu; ★ chỉ là dấu kiểm soát tab của Owner, không duyệt nội dung ba màn. Các tab còn lại giữ để dọn sau. Không tạo UI cha, file hay mã đăng ký mới. K0 FIELD vẫn chưa PASS.
+
 ## Owner · 25/09/2026 · Mẫu UI S001–S003 để duyệt
 - Đã vẽ 3 màn gập/mở ngay dưới các bước S001–S003 trong ban-duyet.html → Quy trình vẽ UI. Vàng = chỗ người cần bấm/điền. S002 nút ＋ Yêu cầu mở mẫu S003; không ghi dữ liệu thật. Bản Owner View publish commit 167977a: đã bấm mở cả ba màn, mở menu Master và chuyển S002→S003; URL section đổi đúng.
 - Mã con đề xuất: KB.YC (cha KB = UI.CANVAS, S001), ML.YC (cha ML = UI.MASTER, S002), CF.YC (cha CF = UI.CONFIG, S003; tham chiếu hộp UI-018). Alias ngắn chỉ dùng trong bản thử, chưa đổi mã UI cha/đăng ký khóa thật. UI-030/031 cũ vẫn ở các bước sau để đối chiếu sau khi Owner duyệt.
