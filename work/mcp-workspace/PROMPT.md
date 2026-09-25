@@ -28,6 +28,8 @@ Trước mutation:
 Không đạt gate nào → KQ DỪNG, không deploy.
 
 ## 2. Phạm vi được phép
+**K1–K7 chỉ áp cho hai root Git đẩy GitHub:** `gh` của `fs_*` và `workspace` của `workspace_*`. Không đổi hành vi, khoá, version hay snapshot của root `ui`; không đổi `docs`/`code` read-only.
+
 Được:
 - sửa **mã/runtime hiện hữu** của hai gateway `workspace_*` và `fs_*`;
 - sửa test hiện hữu, config/compose/systemd hiện hữu khi thật sự cần;
@@ -50,9 +52,10 @@ Mỗi gateway giữ **cache riêng**:
 - request đang đọc snapshot cũ không bị phá khi snapshot mới được advance;
 - read/search/list/stat đọc snapshot;
 - log/diff/ref đọc object DB tại snapshot/ref;
-- không read nào lấy root/write lock hoặc đọc worktree writer.
+- không read nào lấy root/write lock hoặc đọc worktree writer;
+- snapshot phải nằm trong **vùng đã mount/nhìn thấy sẵn của đúng gateway**. Với `fs_*`, snapshot phục vụ container là file/thư mục thường, không dựa vào `.git`/worktree path chỉ có trên host; nếu buộc đổi compose/bind-mount thì phải khai trước + rollback riêng.
 
-GC chỉ dọn derived snapshot cũ khi không còn request dùng; không đụng Git history/business data/audit.
+GC chỉ dọn **derived snapshot do chính P02 tạo** khi không còn request dùng, có audit theo tiền lệ revision-gc; không đụng Git history/business data/audit.
 
 ## 4. K2 — Trạng thái freshness máy đọc được
 Mỗi gateway có trạng thái nhỏ, ghi nguyên tử:
@@ -101,7 +104,8 @@ Gateway tự kích/join refresh nền; request có thể trả trước khi refr
   - stale threshold≈5 phút
 - hết D → trả last-good + freshness; **không WORKSPACE_BUSY/OVERLOADED chỉ vì GitHub refresh chậm**.
 - SHA mới chỉ advance nếu là hậu duệ snapshot hiện hành; không lùi.
-- fetch/fsck lỗi → giữ last-good, stale + last_error.
+- fetch/fsck lỗi → giữ last-good, stale + last_error;
+- **B1:** nếu hint HVU đã biết `publishedRevision` mới hơn snapshot (khác và không phải tổ tiên của snapshot) thì snapshot hiện tại **mất fresh ngay**, `recheck_required=true`, kích refresh ngay không chờ hết W. Nếu hint `publishedRevision == snapshot_sha` và `status=fresh` thì được tính là một lần remote confirmation tại `lastCheckedAt`.
 
 Các số W/D phải benchmark rồi chốt; không tăng mù.
 
@@ -124,7 +128,7 @@ Nếu HTTPS có p95 ổn định hơn và không cần auth, **read refresher đ
 Write vẫn dùng SSH deploy key gateway.
 Nếu repo trở lại private → fallback SSH read mà không đổi kiến trúc.
 
-Không dùng PAT/token cho read.
+Không dùng PAT/token cho read. Nếu HTTPS anonymous lỗi/bị giới hạn/không dùng được thì **tự fallback sang SSH read cho đúng lượt đó**; kênh lỗi không được làm response mang `fresh`. Đo cả tần suất/ảnh hưởng vì HVU cũng dùng HTTPS anonymous từ cùng VPS/IP.
 
 ## 9. K7 — Version theo nội dung, loại xung đột giả ở workspace_*
 Hiện file version của `workspace_*` gắn `HEAD:hash`, làm commit ở task/file khác gây VERSION_CONFLICT giả.
@@ -167,13 +171,14 @@ Không yêu cầu Owner tự chạy shell command thay Agent nếu chế độ h
 Deploy từng gateway:
 - test/build trước;
 - rollback riêng từng cổng;
-- deploy cổng 1 → health/acceptance cơ bản → cổng 2;
+- deploy cổng 1 → theo DROOT10 cho trạng thái STARTING tối đa 5 phút; **không smoke, không rollback chỉ vì chưa ready trong cửa sổ STARTING**; sau khi healthy mới acceptance cơ bản → cổng 2;
+- áp cùng STARTING gate cho cổng 2;
 - không restart đồng thời;
-- nếu cổng 1 fail thì rollback trước khi đụng cổng 2.
+- nếu cổng 1 fail thật sau STARTING/health gate thì rollback trước khi đụng cổng 2.
 
 ## 12. Acceptance bắt buộc — 12 mục
 1. **GitHub giả chậm 20–30s** trong test environment: 12 read song song mỗi gateway = 0 BUSY/OVERLOADED do refresh, response ≤ D+1s; mutant bỏ bounded wait phải FAIL.
-2. Mọi `refreshing|stale` có `recheck_required=true`; `fresh` và local `ref=<sha>` có false.
+2. Mọi `refreshing|stale` có `recheck_required=true`; `fresh` và local `ref=<sha>` có false. **Hint HVU báo revision mới hơn snapshot phải lập tức làm non-fresh + `recheck_required=true`, không được giữ fresh tới hết W.**
 3. Bỏ độ chậm → safety recheck thành fresh; nếu HEAD đổi phải cung cấp đủ old/new để diff trước khi clear debt.
 4. Restart gateway khi GitHub bị chặn: last-good vẫn đọc được nhưng không response nào fresh trước remote confirmation.
 5. Push thành công rồi read ngay cùng gateway phải thấy commit mới, kể cả GitHub chậm sau push.
@@ -181,7 +186,7 @@ Deploy từng gateway:
 7. Hint HVU cũ/out-of-order không được làm snapshot lùi.
 8. Hint HVU thiếu/hỏng/không mount được → 1–7 vẫn PASS bằng lazy refresh.
 9. Write + refresh đồng thời không deadlock, không rò ref-lock/BUSY ra read caller.
-10. Không hồi quy: GPT 37 tools + input schema/hash `dbbfc590a969` + auth 401 + operation_id replay + transaction/restore; Claude surface/tool fingerprint hiện hành không giảm; ruleset vẫn active, không thêm deploy key.
+10. Không hồi quy: GPT 37 tools + input schema/hash `dbbfc590a969` + auth 401 + operation_id replay + transaction/restore; Claude surface/tool fingerprint hiện hành không giảm; ruleset vẫn active, không thêm deploy key. Root `ui` giữ nguyên cơ chế/lock/version cũ và phải có một lượt read-write smoke qua cả hai cổng như baseline.
 11. Repo đã khóa: write thật qua `fs_*` và `workspace_*` PASS; GitHub native human write vẫn bị ruleset chặn (dùng bằng chứng T1 hiện có nếu không cần tạo probe mới).
 12. Đo before→after: p50/p95 read thường/safety, 12-way, số GitHub refresh/hour, HTTPS-vs-SSH read latency, BUSY/OVERLOADED delta, RAM/load/disk của cache.
 
@@ -196,7 +201,7 @@ Rollback không được disable ruleset `gateway-only-writes`.
 - không tạo app/plugin/MCP route/tool mới;
 - không thêm deploy key/PAT/token;
 - không đổi GitHub ruleset;
-- không force/reset/delete;
+- không force/reset/delete business/Git/audit data; **ngoại lệ duy nhất:** được GC/xoá các thư mục snapshot dẫn xuất do chính P02 tạo trong vùng cache P02, có audit và không còn request sử dụng;
 - không tạo file/task/project mới trong incomex-workspace;
 - không sửa Owner View receiver nếu chỉ cần đọc status;
 - không coi stale là fresh;
@@ -204,7 +209,7 @@ Rollback không được disable ruleset `gateway-only-writes`.
 - không đổi behavior khác ngoài K1–K7.
 
 ## 15. Báo cáo KQ
-Ghi vào **chính** `work/mcp-workspace/COLLAB.md`, không tạo report/file mới trong repo:
+Ghi vào **chính** `work/mcp-workspace/COLLAB.md`, không tạo report/file mới trong repo. Hồ sơ runtime/bench/rollback trên VPS đặt tại `/opt/incomex/work/mcp-workspace/MCPW-P02-20260925/` theo DROOT12/mẫu MCPW-STAB.
 - implementation K1–K7;
 - exact runtime commits/images/config;
 - 12 acceptance PASS/FAIL;
@@ -217,4 +222,4 @@ Dòng cuối:
 hoặc
 `KQ@MCPW-P02-20260925-01 DỪNG · <lý do>`.
 
-Sau P02 XONG **không đóng mcp-workspace**: tiếp tục vòng §0.2(3) về vai trò + tín hiệu giao việc/đẩy việc cho Agent.
+Sau P02 XONG **không đóng mcp-workspace**: Host/Founders cập nhật README Technical Contract bằng luật freshness debt K2–K3; sau đó tiếp tục vòng §0.2(3)–(4) về vai trò + tín hiệu giao/đẩy việc + **scoped lease cưỡng chế xung đột đa-Agent**. Presence chỉ là quan sát, không được dùng thay lease.
