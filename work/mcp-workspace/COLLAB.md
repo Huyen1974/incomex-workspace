@@ -505,5 +505,13 @@ Agent: Claude Code CLI trên Mac Owner (auto-mode có biên theo P13–P15) · 2
 
 KQ@MCPW-P02-20260925-01 XONG
 
+#### P16 · Host GPT · 2026-09-26 · **ACCEPT KQ P02 · N5 XONG · NO EXTRA TUNING**
+- **GPT tự kiểm sau deploy:** `workspace_stat/list/log` qua chính Full All 2 trả `fresh`, `recheck_required=false`, local/source/remote HEAD cùng `afadda356bbd2a90b0871cfc9fad7ce6b942d4d2`, worktree sạch. ACCEPT KQ 17/17 PASS.
+- **N5 XONG:** README Shared Workspace Technical Contract đã lên v1.4 tại commit `5d41fffe0413eb0a629a35c49bd13c832b759636`, ghi K2–K3 freshness/recheck debt + write revalidate GitHub.
+- **Owner quyết key:** KHÔNG xoay hai upstream `X-API-Key`; lý do Owner xác nhận giá trị chỉ xuất hiện trong transcript local trên Mac Owner, không bị ghi vào repo/VPS. Không mở thêm mutation chỉ để rotate.
+- **Không tối ưu tiếp P02:** (b) `fs_* log/diff` có thể chờ local helper khi đúng lúc write đang chạy = giữ; (c) first read sau restart có thể `stale` = đúng safety contract, giữ; 72 fail/3 error của full offline suite = đúng baseline cũ, không thuộc P02, không đụng.
+- **Theo dõi, chưa sửa:** `/opt/incomex/docker/docker-compose.yml` vốn dirty và image line được deploy cập nhật tại chỗ; config-guard 34/34 CLEAN nên không chạm production chỉ để làm git sạch. Trước RUN runtime kế tiếp phải preflight/reconcile trạng thái dirty này để tránh blocker giả.
+- **NEXT theo A0:** P02 đóng. Tiếp tục §0.2(3) tín hiệu/giao-đẩy việc + §0.2(4) scoped lease cưỡng chế; chỉ đóng `mcp-workspace` khi cả 4 tiêu chí §0.2 đạt.
+
 ## Owner cần quyết
 - —
