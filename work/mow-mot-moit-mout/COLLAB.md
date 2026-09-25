@@ -1,5 +1,10 @@
 # COLLAB — mow-mot-moit-mout
 
+## Owner · 25/09/2026 · URL theo tab và chi tiết
+- ban-duyet.html: bấm 5 tab ghi hash của panel; mở mục ?/details ghi hash riêng; các mã S001–S033 là link tới từng bước. Tải lại và Quay lại khôi phục đúng tab/mục. Nút **🔗 Mở mục này** mở bản rộng tại đúng điểm đang xem.
+- Đã kiểm Owner View sau publish commit 607f9dd: URL Task view tự đồng bộ &section=matrix-view-ui-workflow, &section=wf4-s001, &section=detail-ui-workflow-diem-chua-thong-can-so-ui-that, &section=matrix-view-qa; tải lại vẫn mở đúng mục, Quay lại trở về mục trước. Chỉ đổi cách định vị bản duyệt; không đổi quy trình/K0.
+- JEV tham khảo phạm vi sửa tại nguồn hiện có: gen-dec-1790306163-Lq0c1pxJAAN48hda0uJ8.
+
 ## Owner · 25/09/2026 · Kiểm kê dọc luồng khai yêu cầu FIELD
 - Theo chỉ đạo mới: tab **Quy trình vẽ UI** đổi từ 3 màn ngang sang 33 bước người làm dọc trên một trang, chia 4 đoạn: khai/lưu, xét duyệt, xử lý/kiểm, đổi/dừng. Mỗi bước có mã 3 chữ số, hành động, UI và nhánh tiếp; chưa vẽ thêm màn.
 - Giữ ba mã UI dự thảo UI-030/031/032, tái dùng theo mẫu cha UI.MASTER và UI.WORKSPACE; không cấp mã UI mới. UI-018/022 chỉ là điểm nối sang nhánh tạo Field. Mã YC giữ xuyên luồng, việc máy cấp mã/chuyển trạng thái không thành bước người.
