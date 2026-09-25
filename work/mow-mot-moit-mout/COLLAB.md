@@ -1,5 +1,9 @@
 # COLLAB — mow-mot-moit-mout
 
+## Codex · 25/09/2026 · Đếm Master list cần có trước khi đối chiếu UI
+- ★ Master list nay kiểm kê tối thiểu 29 danh sách logic: 5 loại FIELD/MOIT/MOUT/MOT/MOW × 4 (đối tượng, nhu cầu, Step tạo/khai, UI) = 20; 5 danh sách thành phần trực tiếp; 4 danh sách hỗ trợ đã thấy trong UI Master. FORM được tách MOIT và MOUT theo quyết định trong bản duyệt.
+- Số 29 là mốc rà soát đầu, chưa kết luận đủ toàn hệ; một danh sách logic không đồng nghĩa một bảng PG hoặc một UI con riêng. UI mẫu đã thấy đặt sau danh sách cần có. K0 FIELD chưa PASS; UI-022 là dữ liệu minh họa, chưa PG. JEV tham khảo phân loại thành phần/hỗ trợ: `gen-dec-1790322289-Mj5Id2XEk5SPEV2EDpNY`, `gen-dec-1790322424-5LNcd38m7dUUA6adQzr0`.
+
 ## Owner · 25/09/2026 · Sửa đơn vị kiểm kê Master list FIELD
 - Theo Owner: riêng FIELD cần ít nhất 4 Master list: Field, nhu cầu, Step, UI (phạm vi FIELD). Lượt trước đếm 7 UI mẫu của cả hệ rồi coi là tổng các list cần có là sai. Tab ★ Master list đã sửa FIELD thành 4 dòng; UI-022 có mẫu minh họa chưa PG, 3 dòng còn lại chưa mã và chưa xác minh UI con. Kho chung hay riêng của Nhu cầu/Step/UI chưa chốt.
 - FORM/MOT/MOW giữ UI mẫu đã thấy nhưng ghi rõ chưa kiểm kê đủ. Không tạo UI cha, mã hoặc file mới. Nội dung C01 của Claude vẫn là đề xuất riêng, chưa coi là quyết định Owner.
