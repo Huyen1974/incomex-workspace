@@ -1,5 +1,43 @@
 # COLLAB — mow-mot-moit-mout
 
+## Claude · 25/09/2026 · C02 · ★ Master list — đơn giản hoá 57 tên bằng quy luật (ĐỀ XUẤT, chờ Owner)
+- **Owner 25/09:** liệt kê đủ danh sách master, đồng thời nhóm hoá cho cực đơn giản — không cắt bớt mà gom bằng quy luật; đưa JEV vào tối đa. Based_on `6d900cb` (57 tên của Codex) + PG thật 25/09.
+- **5 quy luật (Owner chỉ cần nhớ 5 dòng này):**
+  1. Có từ 2 cái và có **đời sống riêng** (được tạo, duyệt, dùng lại) → mã + danh sách. Chỉ là một giá trị (hạn, quyền, loại yêu cầu) → **cột** của danh sách có sẵn.
+  2. Chỉ có **2 loại** danh sách: **THỨ** (cái gì) và **HỒ SƠ** (chuyện gì xảy ra với nó).
+  3. Mọi thứ dùng chung **một bộ hồ sơ** theo đúng chuỗi Owner: Nhu cầu → Duyệt → Bước · Màn → Kiểm → Dùng ở đâu → Phiên bản · Nhật ký (+ Lượt chạy chỉ MOT/MOW).
+  4. “Hồ sơ X của thứ Y” (vd Bước của Field, Hàng chờ duyệt NTGV) là **bản lọc**, không phải danh sách mới.
+  5. **Một sổ gốc** giữ tên + mã mọi danh sách — **đã có trong PG: `meta_catalog` CAT-000 “Danh mục của danh mục — self-reference”** (169 dòng, có code/name/bảng/UI page/status/nhóm). Dùng lại theo R1/D03, không dựng sổ thứ hai.
+  **Kiểm đủ = 2 câu:** thiếu THỨ nào? thiếu MỤC HỒ SƠ nào? (thay cho duyệt 57 dòng). Chuỗi 4 danh sách Owner nêu cho FIELD (Field · Nhu cầu · Step · UI) tự rơi ra từ quy luật: hàng Field + 3 mục hồ sơ lọc theo Field.
+- **Kết quả: 57 tên → 33 danh sách = 23 Thứ + 9 mục Hồ sơ + 1 Sổ gốc.** 25 tên cũ là bản lọc/trùng (không bỏ tên nào), thêm 1 mới (Danh mục giá trị). Màu: ● xanh có bảng PG (chưa kiểm đúng phạm vi — K0) · ● vàng chỉ UI mẫu/một phần · ● đỏ chưa có · ● xám có bảng khác phạm vi.
+
+| Nhóm | Thứ (PG hiện có) |
+|---|---|
+| Lắp ráp (5) | vàng Field (UI-022) · vàng MOIT (UI-013) · vàng MOUT (UI-014) · vàng MOT (UI-002) · vàng MOW (UI-001) |
+| Luật chạy (5) | vàng Giao việc NTGV (UI-003) · xanh Trigger (`trigger_registry` CAT-019) · xanh Loại sự kiện (`event_type_registry`, chưa vào CAT) · xanh Loại kiểm (`checkpoint_types` CAT-011, từ tên cũ 051) · đỏ Điều kiện |
+| Dữ liệu (5) | xanh Bảng (`collection_registry` CAT-008; gộp Schema 013) · xanh Loại đối tượng (`entity_species` CAT-020) · xanh Nhãn (`taxonomy` CAT-018) · đỏ Danh mục giá trị (mới) · đỏ Hợp đồng vào/ra |
+| Ai làm (5) | xám Cây tổ chức (`iu_tree_path` là cây IU, khác) · xám Người (`directus_users` 14, tài khoản kỹ thuật) · xám Vai (`directus_roles` 7) · xám Ủy quyền (`process_axis_delegation` rỗng) · xanh Agent (`agents` CAT-010) |
+| Công cụ (3) | vàng UI cha (UI Master) · xanh Hướng dẫn (`help_articles` CAT-074) · xanh Công cụ DOT (`dot_tools` CAT-006) |
+
+| Mục hồ sơ chung (9) | PG hiện có | Tên cũ gom vào |
+|---|---|---|
+| Nhu cầu | vàng `workflow_change_requests` CAT-005 (hẹp) | 025–029 (bản lọc), 030 |
+| Duyệt | xanh `approval_requests` CAT-025 + `apr_approvals` CAT-998 | 048, 049 (bản lọc) |
+| Bước | xanh `workflow_steps` CAT-004 | 031/033/035/037/039 (bản lọc) |
+| Màn | vàng `ui_pages` CAT-007 (trang Vue, chưa phải UI con) | 032/034/036/038/040 (bản lọc) |
+| Kiểm | xanh `checkpoint_instances` CAT-015 | 052 |
+| Dùng ở đâu | xanh `entity_dependencies` CAT-013, `universal_edges` CAT-130 | 046; 041–045 (bản lọc) |
+| Phiên bản | vàng `unit_version` (chưa vào CAT) | 047 |
+| Nhật ký | xanh `registry_changelog` CAT-016 | 057 |
+| Lượt chạy (MOT/MOW) | vàng mảnh rời (`event_outbox`, `job_queue`) | 053, 054, 055; 050 (bản lọc) |
+| *Sổ gốc* | xanh `meta_catalog` CAT-000 + `birth_registry` CAT-023 (khai sinh mã) | 001, 002, 056 |
+
+- **Chưa chắc (JEV confidence thấp) — để ca thử xuyên suốt quyết:** tệp đính kèm, bình luận, nguồn ngoài (Lark/Sheet), luật/nguyên tắc, mẫu thông báo, kho câu hỏi UIQ, kịch bản test, mẫu (template). Đã loại khỏi danh sách riêng (thành cột / đã phủ): hạn/SLA 0,87 · quyền 0,75 · loại yêu cầu duyệt 0,72 · số đo 0,93 · vấn đề 0,68.
+- **Sổ gốc có nhưng rối:** 169 dòng, 138 dòng chưa nhóm, nhiều bảng mẫu CMS rỗng (block_*, os_*, pages_*). Dọn/nhóm lại theo 5 nhóm + hồ sơ là việc sau, sửa PG phải qua cổng Owner; lượt này chỉ đọc.
+- **Đối chiếu 3 quy luật của Codex:** (1) 4 câu mỗi loại = 4 trong 9 mục hồ sơ → nay áp cho cả 23 thứ; (2) bước chạy được khi đủ đầu vào/ra… = nội dung mục Bước, giữ; (3) màn lọc/hàng đợi ≠ danh mục = quy luật 4, đồng ý. Ca thử nhỏ Field → Form → MOT → MOW của Codex: đồng ý, dùng làm phép kiểm 2 câu “thiếu thứ/thiếu mục”.
+- **Đề nghị khi Owner OK:** vẽ lại tab ★ Master list thành **2 hộp** (Thứ 5 nhóm gập · Hồ sơ chung 9 mục theo chuỗi) + 1 ví dụ Field “Mã số thuế” + chấm màu; bảng 57→33 và ma trận thứ × hồ sơ để phần AI. Không file mới, không sửa PG. C01 (FIELD 7 bước) giữ, khớp với C02.
+- **JEV (6 lượt, `typesafe/jev-1.13-20260917`):** cách gom — ma trận thứ × hồ sơ 1,00 (conf 1,00), nhưng đọc ma trận đầy đủ vẫn “rất khó” 0,43/4, 4 nhóm Codex 0,12/4; dùng lại meta_catalog 0,98; hồ sơ theo từng đối tượng là bản lọc 0,85 · `gen-dec-1790338095-6GSaI3OwzpfjUNfWXHeA` | phân loại 27 tên tiêu biểu: sổ gốc 001/002/056 ≥0,99; hàng chờ 049/050 là bản lọc 0,99; UI cha, Ủy quyền, Ca kiểm không chắc · `gen-dec-1790338128-jxfhaE7CQsDY22wboaLm` | cách trình bày cho Owner — 2 hộp Thứ + Hồ sơ chung + 1 ví dụ 0,63 (dễ 3,1/4), ma trận gập theo nhóm 0,26; kiểm đủ bằng 2 câu 0,78; ma trận giữ cho AI 0,80 · `gen-dec-1790338145-Erkk0L9zaEsxiVzwoUw9` | dò thiếu hỏi có/không: mọi ứng viên 0,58–0,79 → không phân biệt được (thiên “có”), bỏ · `gen-dec-1790338167-eFdkqoe0slRn6RE02LmN` | hỏi lại dạng thứ mới/cột/đã phủ/để sau → phân biệt được (kết quả ở trên) · `gen-dec-1790338185-MNhG2iDRKQXyAwU59HPO` | xếp nhóm mục mập mờ: Hướng dẫn → Công cụ 1,00; Agent, Loại kiểm, Hợp đồng vào/ra, Danh mục giá trị không chắc → Claude xếp Agent vào “Ai làm” (khớp biểu tượng người/robot) · `gen-dec-1790338202-BV2g38wzOxcNBSgUmby7`. Bài học: hỏi JEV “có cần không” luôn ra có; phải cho lựa chọn loại trừ nhau mới lọc được.
+
 ## Codex · 25/09/2026 · ★ Master list · kiểm kê để Owner rà
 - Theo yêu cầu Owner: 4 nhóm, 57 **tên ứng viên**; chưa khẳng định đủ toàn hệ, chưa đồng nhất một dòng với một bảng PG. Số cũ “≥29” đã thay; mẫu UI được ghi thành link tham chiếu, không tự tính thành một master khác.
 - Dòng 001 “Master danh sách” được đề xuất quản lý tên/mã/nhóm/bảng/UI/trạng thái của các dòng và tự có một bản ghi khi triển khai. Mã danh sách chưa cấp; bảng PG chưa xác minh; mọi dòng nháp. Bảy UI mẫu được link riêng, không coi là dữ liệu chạy thật.
