@@ -10,8 +10,9 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - Nguyên tắc áp (AGENTS A10-R2, nguyên văn Owner): “Quy định là không đủ, phải cưỡng chế. Không thể làm sai.”
 
 ### 2. Thế nào là hoàn thành
-- Theo đề xuất Owner đã gật (DROOT20): mọi lần ghi repo bằng tài khoản người (GitHub connector của GPT, git push từ Mac, kể cả Owner) bị GitHub từ chối; cổng `fs_*` và `workspace_*` vẫn ghi được — 3 phép thử T1–T3 PASS.
-- **Owner 25/09/2026: ĐÃ GẬT.** Vòng P02 tiếp tục trong chính việc này (kiến trúc Owner duyệt tại `ef28301`, proposal triển khai Claude tại `7400ad3`): GitHub chậm/down thì đọc qua cổng không báo BẬN, trả bản tốt cuối có nhãn + nợ kiểm lại; ghi vẫn luôn hỏi GitHub — hoàn thành khi 12 phép thử ở khối `Claude · P02-IMPL` PASS. Thứ tự đã chốt: **MCPW-LOCK trước → P02 sau; không gộp**.
+1. **Mọi AI/Agent kết nối vào workspace qua các cổng đã thiết kế và bắt buộc để lại dấu vết.** VPS/Owner View phải nhận biết được AI nào đến lượt, AI nào đang làm, AI nào đã làm xong; không còn đường tắt ghi repo hoặc làm việc ngoài cơ chế theo dõi đã duyệt.
+2. **Có lớp tương tác/read-serving an toàn trên VPS để giảm phụ thuộc vào GitHub khi tải tương tác tăng, nhưng GitHub vẫn là SSOT và write authority.** Khi bản VPS chưa phải bản mới nhất, AI/Agent phải nhận biết rõ trạng thái đó, được phép xử lý tiếp trên last-good khi phù hợp nhưng mang `freshness debt`/`recheck_required` và tự kiểm tra/refresh lại trước kết luận hay hành động cần HEAD hiện thời.
+3. **Hệ thống có cơ chế tự đẩy/tín hiệu công việc cho Agent khi kênh đó hỗ trợ** (hiện Hermes; về sau có thể mở rộng cho Claude Code `-p`, Codex Desktop hoặc Agent khác), để tiến dần tới quy trình giao việc có trật tự và tự động hoá từng phần. Việc tự động hoá phải theo vai trò/quyền đã chốt; mục tiêu trước mắt là giảm thao tác tay từng phần, sau đó mới nâng dần mức tự động hoá.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - Chốt kỹ thuật: GitHub Repository Ruleset `gateway-only-writes` — tính năng có sẵn của GitHub (R1 bậc 1), không viết code. Mọi nhánh: chặn tạo/cập nhật/xoá + force push; miễn trừ **chỉ DeployKey**; không thêm vai trò admin/maintain/write (sẽ mở lại lỗ). Không đụng branch protection cổ điển (README §4).
