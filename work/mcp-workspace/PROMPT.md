@@ -1,52 +1,220 @@
-# PROMPT — MCPW-LOCK · Khoá cứng đường ghi repo: chỉ 2 cổng gateway được đẩy lên GitHub
+# PROMPT — MCPW-P02 · VPS last-good read cache + freshness debt + giảm xung đột giả
 
-RUN_ID: MCPW-LOCK-20260924-01
-Soạn: Claude Chat — Host `CLAUDE-MCPW-260924-A`, 24/09/2026. Owner duyệt: “Đúng vậy chúng ta khóa lại để bắt buộc làm theo 1 con đường giúp tôi.” (A0 của `work/mcp-workspace/COLLAB.md`; COLLAB gốc DROOT20). Bản này đã áp GPT P01 (R1 + R2).
-Executor_Surface: **Claude Code CLI trên Mac của Owner**, dùng: (a) `gh` đã đăng nhập tài khoản GitHub của Owner (quyền admin repo); (b) `ssh contabo` **chỉ đọc**; (c) MCP “Incomex VPS” `fs_*` để ghi báo cáo.
-Write_Path báo cáo: `fs_*`, root `gh`. **CẤM** `git commit`/`git push` trực tiếp và cấm ghi repo bằng `gh api .../contents` — trừ đúng phép thử T1 (một lần ghi PHẢI bị từ chối).
+RUN_ID: MCPW-P02-20260925-01
+Trạng thái: **DRAFT FOR CLAUDE REVIEW — CHƯA READY / CHƯA RUN**
+Host: GPT Chat · Host_ID `GPT-MCPW-250925-A`
+Owner đã duyệt kiến trúc P02 và freshness debt ngày 25/09/2026; MCPW-LOCK đã XONG, ruleset `gateway-only-writes` id `23976991` đang active.
+Executor_Surface dự kiến: **Claude Code CLI trên Mac của Owner, chế độ hỏi quyền mặc định** (không auto-mode). Mỗi lệnh mutation hiện nút quyền để Owner bấm Yes.
+Write_Path báo cáo repo: chỉ `fs_*` / `workspace_*`. GitHub native/App/API/CLI và `git push` trực tiếp vào incomex-workspace là READ-ONLY/bị ruleset chặn.
 
-## 0. Vì sao (nôm na)
-Luật README D12: AI chỉ được ghi repo `Huyen1974/incomex-workspace` qua 2 cổng — `fs_*` (Incomex VPS) và `workspace_*` (Agent Data). Luật chưa có khoá: đo 24/09 có 18/758 commit đi cửa sau (GitHub connector của GPT ghi dưới tài khoản Owner; git push từ Mac). Việc này bật khoá có sẵn của GitHub: **Repository Ruleset** chặn mọi lần tạo/cập nhật/xoá nhánh, chỉ miễn trừ **deploy key** (chìa của cổng). Mọi tài khoản người — kể cả Owner — bị GitHub từ chối.
+## 0. Mục tiêu
+Xử lý dứt điểm rủi ro vận hành đã tái hiện: GitHub/SSH deploy-key có lúc chậm ~15 s làm read đồng thời BUSY dù VPS còn bản local tốt.
 
-## 1. Gate G0 — đọc và khớp READY (không đạt → DỪNG, không làm gì thêm)
-1. `fs_read` lần lượt `AGENTS.md` → `work/mcp-workspace/COLLAB.md` → `work/mcp-workspace/PROMPT.md` (root `gh`).
-2. `fs_log(root=gh, path=work/mcp-workspace/PROMPT.md, n=1)` → SHA đầy đủ phải bằng `READY@<SHA>` trong COLLAB.md. Lệch hoặc chưa có READY → DỪNG.
+Đích:
+1. Read/search/list/stat/log/diff phục vụ từ **snapshot last-good bất biến trên VPS**, không phụ thuộc network GitHub trong critical path.
+2. GitHub vẫn là **durable SSOT + write authority**; write luôn revalidate GitHub trước mutation.
+3. Nếu snapshot chưa được xác nhận mới nhất, AI/Agent biết rõ `fresh / refreshing / stale`, mang `recheck_required` và trả freshness debt trước kết luận cần HEAD hiện thời.
+4. Hai gateway giữ cache riêng; không tạo SSOT thứ hai, không Forgejo/Gitea, không thêm deploy key.
+5. Sửa luôn xung đột giả của `workspace_*`: commit ở file/task khác không được làm version của file đang sửa mất hiệu lực.
 
-## 2. Gate G1 — CHỈ ĐỌC (một mục FAIL → ghi KQ DỪNG, KHÔNG bật ruleset)
-- G1.1 `gh auth status`; `gh api repos/Huyen1974/incomex-workspace --jq '.permissions.admin, .visibility'` → phải `true` và `public`.
-- G1.2 `gh api repos/Huyen1974/incomex-workspace/rulesets` → ghi danh sách hiện có (dự kiến rỗng). Đã có ruleset tên `gateway-only-writes` → DỪNG (không tạo trùng).
-- G1.3 `gh api repos/Huyen1974/incomex-workspace/keys` → mỗi deploy key: `id`, `title`, `read_only`, `created_at`, fingerprint SHA256 (ghi trường `key` — khoá CÔNG KHAI — vào file tạm trên Mac → `ssh-keygen -lf` → xoá file tạm).
-- G1.4 Cổng `fs_*`: `ssh contabo` chỉ đọc: `ssh-keygen -y -f /run/incomex-mcp-helper/gh_deploy_key | ssh-keygen -lf -` → chỉ lấy fingerprint. **Tuyệt đối không in/copy/di chuyển khoá riêng.**
-- G1.5 Cổng `workspace_*` (container `incomex-agent-data`), chỉ đọc: đường dẫn clone của root `workspace` trong file do biến `WORKSPACE_CONFIG` trỏ tới; `git -C <clone> remote get-url origin`; `git -C <clone> config --get core.sshCommand`; **chỉ TÊN** (không giá trị) các biến `GIT_SSH*` trong môi trường container; nếu xác thực bằng khoá SSH → fingerprint như G1.4. Remote `https://` kèm token/PAT, hoặc khoá SSH gắn tài khoản người → **FAIL G1.5**.
-- G1.6 Fingerprint ở G1.4 và G1.5 mỗi cái phải trùng một deploy key ở G1.3 có `read_only=false`, **và** tập deploy key `read_only=false` của repo phải **đúng bằng** tập fingerprint của 2 cổng (hai cổng có thể dùng chung một key). Có deploy key ghi-được thừa hoặc không nhận diện được → **FAIL G1.6, DỪNG trước mutation** — vì miễn trừ `DeployKey` áp cho MỌI deploy key của repo, không chọn được từng cái (GPT P01-R1). Deploy key chỉ-đọc không ảnh hưởng, chỉ liệt kê trong KQ. Về sau thêm deploy key ghi-được mới = thay đổi phải Owner duyệt.
-- G1.7 Repo không có `.github/workflows` (xác nhận không có GitHub Actions phải đẩy lên).
+## 1. Gate G0 — đọc và khớp
+Trước mutation:
+- đọc `AGENTS.md → root COLLAB.md → work/mcp-workspace/COLLAB.md → PROMPT.md`;
+- xác nhận RUN_ID đúng và chỉ chạy khi COLLAB có `READY@<SHA>` khớp commit cuối chạm PROMPT.md;
+- xác nhận GitHub ruleset `23976991` vẫn active, bypass chỉ DeployKey;
+- xác nhận worktree/source của hai gateway sạch hoặc phân biệt rõ thay đổi ngoài scope; có mutation chen ngang thì DỪNG/hòa giải;
+- đo baseline 12-way read + metrics BUSY/OVERLOADED + số GitHub refresh hiện tại.
 
-## 3. Mutation duy nhất (chỉ khi G1 PASS toàn bộ)
-`gh api -X POST repos/Huyen1974/incomex-workspace/rulesets --input -` với JSON:
-```json
-{"name":"gateway-only-writes","target":"branch","enforcement":"active",
- "conditions":{"ref_name":{"include":["~ALL"],"exclude":[]}},
- "rules":[{"type":"creation"},{"type":"update","parameters":{"update_allows_fetch_and_merge":false}},{"type":"deletion"},{"type":"non_fast_forward"}],
- "bypass_actors":[{"actor_id":null,"actor_type":"DeployKey","bypass_mode":"always"}]}
-```
-- `actor_id` phải là `null` với `DeployKey` (tài liệu REST GitHub). API từ chối → ghi nguyên văn lỗi, DỪNG; không thử cấu hình khác.
-- **Cấm** thêm vào miễn trừ bất kỳ vai trò (admin/maintain/write), người dùng hay app nào — làm vậy là mở lại lỗ.
-- Không đụng branch protection cổ điển, không đổi bất kỳ setting GitHub nào khác.
+Không đạt gate nào → KQ DỪNG, không deploy.
 
-## 4. Phép thử ngay sau khi bật
-- **T1 · Đường người phải bị chặn:** `gh api -X PUT repos/Huyen1974/incomex-workspace/contents/work/mcp-workspace/COLLAB.md` với nội dung = bản hiện tại + **đúng một dòng cuối** `probe-native MCPW-LOCK-20260924-01` (không xoá/đổi gì khác) và `sha` hiện tại → PHẢI bị từ chối (ghi mã HTTP + thông điệp, ví dụ “Repository rule violations”). Nếu THÀNH CÔNG → FAIL T1 → làm đúng mục Rollback bên dưới.
-- **T2 · Cổng `fs_*` vẫn ghi:** chính lần ghi khối KQ ở mục 6 bằng `fs_edit`/`fs_transaction` → push OK.
-- **T3 · Cổng `workspace_*` vẫn ghi:** nếu phiên này bind `workspace_*` (Agent Data) → thêm một dòng `T3 workspace_* PASS <thời điểm UTC>` vào đúng khối KQ bằng `workspace_edit`. Không bind → ghi `T3 chưa thử — Host thử` (Host Claude Chat thử ngay sau).
-- **Rollback — Owner đã duyệt trước, không cần hỏi (áp GPT P01-R2):** bất kỳ T1, T2 hoặc T3 FAIL → `gh api -X PUT repos/Huyen1974/incomex-workspace/rulesets/<id>` đặt `"enforcement":"disabled"` (**không xoá** ruleset). Riêng T1: nếu lần ghi thử đã THÀNH CÔNG, sau khi disable phải gỡ đúng dòng `probe-native MCPW-LOCK-20260924-01` bằng `fs_edit` (cổng đã audit), không đụng dòng khác. Xong mới ghi KQ DỪNG bằng `fs_*`. Không để lại thay đổi thử nghiệm nào.
+## 2. Phạm vi được phép
+Được:
+- sửa **mã/runtime hiện hữu** của hai gateway `workspace_*` và `fs_*`;
+- sửa test hiện hữu, config/compose/systemd hiện hữu khi thật sự cần;
+- tạo **derived runtime cache/state directories trên VPS** dưới vùng state hiện hữu; đây là cache dẫn xuất, không phải SSOT;
+- build image/deploy/restart hai gateway **từng cổng một**, có rollback và health gate.
 
-## 5. Cấm
-- In, copy, di chuyển, đổi khoá riêng/token/secret nào — chỉ fingerprint khoá công khai.
-- Sửa bất cứ gì trên VPS, restart dịch vụ (ssh chỉ đọc).
-- Tạo file mới trong repo; git push/commit trực tiếp; đổi setting GitHub nào ngoài ruleset này; xoá ruleset/nhánh/file.
-- Sửa README/AGENTS — phần luật do Host sửa sau khi tự nghiệm thu.
+Không được:
+- tạo task/project/file nghiệp vụ mới trong incomex-workspace;
+- đổi tool name/count/input schema/auth/hash contract;
+- thêm deploy key/token/PAT hoặc đổi ruleset;
+- sửa receiver HVU nếu chỉ cần đọc trạng thái hiện hữu;
+- làm GitHub thành cache phụ khác hoặc dựng Forgejo/Gitea;
+- force-push/reset/xóa dữ liệu;
+- tăng timeout để che lỗi.
 
-## 6. Báo cáo — một khối trong `work/mcp-workspace/COLLAB.md`, mục `## KQ — MCPW-LOCK-20260924-01` (chèn **ngay trước** mục `## Owner cần quyết`; không ghi gì dưới mục đó — mọi dòng dưới đó sẽ bị Task view hiểu là “chờ Owner”)
-- G1.1–G1.7: PASS/FAIL + số liệu (deploy key: id · title · read_only · fingerprint 16 ký tự đầu; cổng nào khớp key nào; deploy key ghi-được khác nếu có).
-- Ruleset: id + JSON đã gửi. T1: mã HTTP + thông điệp. T2: commit. T3: kết quả. Rollback nếu có.
-- Dòng cuối đúng khuôn máy đọc: `KQ@MCPW-LOCK-20260924-01 XONG` hoặc `KQ@MCPW-LOCK-20260924-01 DỪNG · <lý do một dòng>`.
-- Trả Owner một dòng: `XONG` hoặc `DỪNG`.
+## 3. K1 — Snapshot read-serving tách khỏi worktree ghi
+Mỗi gateway giữ **cache riêng**:
+- snapshot bất biến theo commit SHA, dựng từ Git object đã fetch;
+- con trỏ `current` đổi nguyên tử;
+- request đang đọc snapshot cũ không bị phá khi snapshot mới được advance;
+- read/search/list/stat đọc snapshot;
+- log/diff/ref đọc object DB tại snapshot/ref;
+- không read nào lấy root/write lock hoặc đọc worktree writer.
+
+GC chỉ dọn derived snapshot cũ khi không còn request dùng; không đụng Git history/business data/audit.
+
+## 4. K2 — Trạng thái freshness máy đọc được
+Mỗi gateway có trạng thái nhỏ, ghi nguyên tử:
+- `snapshot_sha`
+- `confirmed_at`
+- `last_attempt`
+- `last_error`
+
+Mỗi phản hồi HEAD-dependent phải biểu đạt:
+- `freshness = fresh | refreshing | stale`
+- `recheck_required = true|false`
+- `source_head`
+- `refreshed_at`
+- `remote_head` khi biết.
+
+`workspace_*`: response-only metadata, không đổi input schema/tools/list/hash.
+`fs_*`: đưa cùng thông tin máy đọc vào format phản hồi hiện hữu, không đổi surface tool.
+
+Quy tắc:
+- `fresh` → `recheck_required=false`;
+- `refreshing|stale` → `recheck_required=true`;
+- `ref=<sha>` đã có local là bất biến → không freshness debt cho chính nội dung commit đó.
+
+Sau reboot/start, có snapshot thì phục vụ ngay nhưng **không được fresh** trước lần xác nhận remote thành công đầu tiên.
+
+## 5. K3 — Freshness debt / nợ kiểm lại
+AI không phải dừng công việc khi nhận non-fresh:
+- được phân tích/draft trên last-good;
+- kết luận hiện trạng là provisional.
+
+Trước READY/SHA, “đã có/chưa có”, nghiệm thu HEAD hiện tại hoặc kết luận cuối phụ thuộc current state:
+1. recheck bằng safety read đúng root/path;
+2. nếu `fresh` và `source_head` không đổi → clear debt;
+3. nếu `fresh` nhưng head đổi → diff head cũ→mới trên phần liên quan, cập nhật kết luận rồi mới clear;
+4. nếu vẫn non-fresh → không loop vô hạn; hoàn tất với câu rõ `chưa xác nhận bản mới nhất` + source_head/refreshed_at, không gọi đó là evidence fresh.
+
+Gateway tự kích/join refresh nền; request có thể trả trước khi refresh nền xong.
+
+## 6. K4 — Refresher single-flight, bounded, không làm read BUSY
+- refresh/fetch chạy **ngoài root lock của writer**;
+- một refresh active mỗi gateway xuyên process/worker;
+- read quá cửa sổ freshness kích/join refresh, chỉ chờ bounded:
+  - khởi điểm `W=60s`
+  - `D_plain≈3s`
+  - `D_safe≈5s`
+  - stale threshold≈5 phút
+- hết D → trả last-good + freshness; **không WORKSPACE_BUSY/OVERLOADED chỉ vì GitHub refresh chậm**.
+- SHA mới chỉ advance nếu là hậu duệ snapshot hiện hành; không lùi.
+- fetch/fsck lỗi → giữ last-good, stale + last_error.
+
+Các số W/D phải benchmark rồi chốt; không tăng mù.
+
+## 7. K5 — Gợi ý từ HVU: dùng bảng tin hiện hữu, correctness không phụ thuộc nó
+- Owner View đã có `sync-status.json` với `publishedRevision / lastCheckedAt / status`.
+- Hai gateway chỉ **đọc** nó như hint nếu ghép mỏng được; không sửa receiver, không tạo daemon/pipeline mới.
+- file thiếu/hỏng/quyền không cho đọc → bỏ hint, lazy refresh theo W vẫn đúng.
+- `fs_*` có thể đọc host file hiện hữu.
+- `workspace_*`: dùng cách mỏng sẵn có (HTTP nội bộ hoặc bind-mount read-only) chỉ khi chứng minh được; nếu không, lazy-only.
+
+Hint không bao giờ là write authority.
+
+## 8. K6 — Kênh read GitHub: benchmark HTTPS public vs SSH deploy key
+Repo hiện PUBLIC.
+Đo cùng điều kiện:
+- read fetch/ls-remote qua HTTPS anonymous;
+- read fetch/ls-remote qua SSH deploy key.
+
+Nếu HTTPS có p95 ổn định hơn và không cần auth, **read refresher được phép dùng HTTPS anonymous** để tránh bước deploy-key lookup đã từng treo ~15s.
+Write vẫn dùng SSH deploy key gateway.
+Nếu repo trở lại private → fallback SSH read mà không đổi kiến trúc.
+
+Không dùng PAT/token cho read.
+
+## 9. K7 — Version theo nội dung, loại xung đột giả ở workspace_*
+Hiện file version của `workspace_*` gắn `HEAD:hash`, làm commit ở task/file khác gây VERSION_CONFLICT giả.
+
+Chuyển về đúng technical contract:
+- file `expected_version` dựa trên **nội dung file** (content hash/stable content token), không phụ thuộc repo HEAD;
+- directory/tree version dựa trên nội dung/cấu trúc tree, không phụ thuộc commit ngoài tree;
+- `expected_head` / `expected_HEAD` vẫn là guard riêng khi caller muốn pin cả repo;
+- target file/tree thật sự đổi → vẫn VERSION_CONFLICT;
+- commit ở file khác → version file không mất hiệu lực;
+- tương thích caller đang giữ legacy `HEAD:hash`: parser nhận và kiểm phần content hash khi có thể; nếu không thể thì trả lỗi chuyển tiếp rõ ràng, không hiểu sai token;
+- không đổi tool count/input schema/hash.
+
+## 10. Write path — giữ strict GitHub
+Không nới write:
+1. chuẩn bị từ snapshot local;
+2. writer lock;
+3. fetch/revalidate GitHub HEAD thật;
+4. kiểm expected_version/content + expected_head nếu có;
+5. commit đúng scope;
+6. push fast-forward qua deploy key;
+7. push OK → dựng/advance snapshot gateway đó lên SHA vừa push **trước khi trả success**;
+8. push rejected → phục hồi scope hiện hành;
+9. outcome unknown → journal/recovery hiện hành; không advance mù.
+
+Hai gateway cùng ghi vẫn do GitHub fast-forward phân xử.
+P02 không thêm deploy key.
+
+## 11. Triển khai / quyền
+**Chạy Claude Code ở chế độ hỏi quyền mặc định, KHÔNG auto-mode.**
+Trước mutation, Agent liệt kê ngắn các nhóm lệnh Owner sẽ phải bấm Yes:
+- sửa source/test/config hai gateway;
+- build image/package;
+- restart/deploy từng gateway;
+- tạo derived cache/state directories nếu cần;
+- smoke/acceptance write qua hai gateway.
+
+Không yêu cầu Owner tự chạy shell command thay Agent nếu chế độ hỏi quyền có thể cấp quyền bình thường.
+
+Deploy từng gateway:
+- test/build trước;
+- rollback riêng từng cổng;
+- deploy cổng 1 → health/acceptance cơ bản → cổng 2;
+- không restart đồng thời;
+- nếu cổng 1 fail thì rollback trước khi đụng cổng 2.
+
+## 12. Acceptance bắt buộc — 12 mục
+1. **GitHub giả chậm 20–30s** trong test environment: 12 read song song mỗi gateway = 0 BUSY/OVERLOADED do refresh, response ≤ D+1s; mutant bỏ bounded wait phải FAIL.
+2. Mọi `refreshing|stale` có `recheck_required=true`; `fresh` và local `ref=<sha>` có false.
+3. Bỏ độ chậm → safety recheck thành fresh; nếu HEAD đổi phải cung cấp đủ old/new để diff trước khi clear debt.
+4. Restart gateway khi GitHub bị chặn: last-good vẫn đọc được nhưng không response nào fresh trước remote confirmation.
+5. Push thành công rồi read ngay cùng gateway phải thấy commit mới, kể cả GitHub chậm sau push.
+6. **Concurrency/version:** (a) gateway Y sửa file F → gateway X dùng version cũ F phải conflict; (b) commit ở file/task khác không đổi F → version F cũ vẫn hợp lệ; (c) expected_head cũ nếu được truyền vẫn conflict; (d) legacy HEAD:hash được xử lý đúng/chuyển tiếp rõ.
+7. Hint HVU cũ/out-of-order không được làm snapshot lùi.
+8. Hint HVU thiếu/hỏng/không mount được → 1–7 vẫn PASS bằng lazy refresh.
+9. Write + refresh đồng thời không deadlock, không rò ref-lock/BUSY ra read caller.
+10. Không hồi quy: GPT 37 tools + input schema/hash `dbbfc590a969` + auth 401 + operation_id replay + transaction/restore; Claude surface/tool fingerprint hiện hành không giảm; ruleset vẫn active, không thêm deploy key.
+11. Repo đã khóa: write thật qua `fs_*` và `workspace_*` PASS; GitHub native human write vẫn bị ruleset chặn (dùng bằng chứng T1 hiện có nếu không cần tạo probe mới).
+12. Đo before→after: p50/p95 read thường/safety, 12-way, số GitHub refresh/hour, HTTPS-vs-SSH read latency, BUSY/OVERLOADED delta, RAM/load/disk của cache.
+
+## 13. Rollback
+Trước deploy phải có rollback riêng từng gateway về image/source/config trước P02.
+Rollback một cổng không kéo cổng kia.
+Derived cache có thể bỏ và quay về behavior cũ; không xóa Git history/audit/business data.
+Rollback không được disable ruleset `gateway-only-writes`.
+
+## 14. Cấm
+- không tạo SSOT thứ hai;
+- không tạo app/plugin/MCP route/tool mới;
+- không thêm deploy key/PAT/token;
+- không đổi GitHub ruleset;
+- không force/reset/delete;
+- không tạo file/task/project mới trong incomex-workspace;
+- không sửa Owner View receiver nếu chỉ cần đọc status;
+- không coi stale là fresh;
+- không retry write mù;
+- không đổi behavior khác ngoài K1–K7.
+
+## 15. Báo cáo KQ
+Ghi vào **chính** `work/mcp-workspace/COLLAB.md`, không tạo report/file mới trong repo:
+- implementation K1–K7;
+- exact runtime commits/images/config;
+- 12 acceptance PASS/FAIL;
+- before→after metrics;
+- rollback;
+- điểm còn lại.
+
+Dòng cuối:
+`KQ@MCPW-P02-20260925-01 XONG`
+hoặc
+`KQ@MCPW-P02-20260925-01 DỪNG · <lý do>`.
+
+Sau P02 XONG **không đóng mcp-workspace**: tiếp tục vòng §0.2(3) về vai trò + tín hiệu giao việc/đẩy việc cho Agent.
