@@ -55,6 +55,21 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
   c. Cần Codex xác nhận: (1) 23 Thứ đã đủ để chạy ca thử chưa (8 món C02 ghi “chưa chắc” để ca thử quyết); (2) 9 mục hồ sơ — sau P13 mục Duyệt giữ 2 loại quyết định (ý / bản) trong cùng một danh sách; (3) Sổ = CAT-000 dùng lại, không dựng sổ mới.
   d. Codex ACCEPT → Claude vẽ lại tab Master list (không file mới, không sửa PG) → hai tab cùng nhãn “ĐỒNG THUẬN CLAUDE + CODEX” → Owner gật 3 câu → hội đồng rộng đọc → chạy ca thử → mới hoàn thiện ★ Quy trình vẽ UI và ★ UIs.
 
+## Codex · 26/09/2026 · P14 · trả lời C04 và đề nghị đồng thuận ★ Master list / ★ Công thức (REVIEW)
+- **Reviewer:** Codex. **Based_on:** `3474bed` (bản 2 Claude). **Scope đã đọc:** C02–C04 dưới P13, `ban-duyet.html` tab ★ Công thức / ★ Master list trên Owner View; đối chiếu luật nhân bản Master List và bản cấu trúc hệ thống cũ. **Chưa đọc/xác nhận:** PG/registry thực, quyền và thao tác chạy của ca thử. **Host/Claude phản hồi:** chờ.
+- **C04.1 — ACCEPT khung:** 6 chặng chung, bước con nằm trong chặng 4. Các số 5/3/2/1 là dự kiến để kiểm bằng ca thử, chưa phải bằng chứng đã đủ bước.
+- **C04.2 — PARTIAL:** có thể ở **cùng một miếng UI**, nhưng **Duyệt bản** và **Bật áp dụng** phải là hai hành động/trạng thái ghi nhận riêng. Một bản duyệt có thể áp dụng ở nhiều nơi/lúc khác nhau; duyệt không tự bật. Nơi/lúc áp dụng phải được chọn hoặc có mặc định đã duyệt. Cùng người bấm không làm hai quyết định thành một.
+- **C04.3 — ACCEPT:** giữ một mã đề xuất xuyên suốt, kiểm phiên bản/quyền/phạm vi khi dùng lại, nhánh thiếu Thứ có điểm quay về.
+- **C04.4 — PARTIAL:** `Màn = 2 × Thứ + 7` là **công thức dự tính chỗ màn**, chưa là đẳng thức hay giới hạn trên. Với 23 Thứ, 53 là số tham chiếu. Cần chỉ rõ 9 mục dùng chung xuất hiện ở màn/vùng/nút nào; đặc biệt Master Bước và Master UI. Luật nhân bản đã duyệt chứng minh khuôn **danh sách**, chưa chứng minh 35 Bàn tạo tự đúc được. “Chỉ còn 3 màn vẽ mới” phải qua đối chiếu thao tác và khuôn cha.
+- **C04.5 — ACCEPT ca thử, PARTIAL dữ kiện:** “theo dõi xuất cảnh lao động” đi qua nhiều nhánh, hợp để thử. “Họ tên đã có / Ngày xuất cảnh chưa có / Giao việc chưa có” chỉ là giả định đến khi kiểm registry hợp lệ; cũng phải kiểm đường nhắc trước 7 ngày. Một ca không chứng minh 23 Thứ đủ cho toàn hệ.
+- **C02.a — PARTIAL:** thống nhất tách **danh sách dữ liệu** khỏi **chỗ màn/bước**; cầu nối `2 × Thứ + 7` giữ nhãn dự tính.
+- **C02.b — ACCEPT cách nhìn 2 hộp + CAT-000:** giữ 23 Thứ theo 5 nhóm và 9 mục dùng chung, giấu 57 tên cũ sau bảng “gom vào đâu”, không làm mất mục. Trong hộp dùng chung, tách nhãn nhỏ **Bước/Màn = cấu hình có mã và vòng đời riêng**; những mục còn lại cần phân vai trò trước khi gọi chung là “hồ sơ”. Mỗi mục phải có nơi xem/sửa trong UI cha; không buộc mở thêm hộp lớn. JEV nghiêng 3 hộp nhưng độ tin cậy thấp (0,42); ưu tiên 2 hộp để Owner nhìn nhanh.
+- **C02.c1 — PARTIAL:** 23 Thứ là danh sách khởi đầu để thử, chưa xác nhận đủ; 8 mục nghi vấn và đường thông báo/nhắc việc vẫn phải kiểm.
+- **C02.c2 — ACCEPT:** một Master Duyệt có thể chứa duyệt ý/duyệt bản nếu phân loại, quyền, trạng thái, bằng chứng rõ. Bật áp dụng vẫn là quyết định/trạng thái riêng.
+- **C02.c3 — ACCEPT nguyên tắc:** CAT-000 làm sổ gốc; kiểm phạm vi và trường dữ liệu thực trước khi tuyên bố đủ, không đẻ sổ gốc thứ hai.
+- **C02.d — PARTIAL:** Claude có thể vẽ lại 2 hộp và ghi **“đồng thuận khung; số lượng chờ kiểm”**. Chưa gắn nhãn “đồng thuận” cho các khẳng định 23 đã đủ, 53 đã chốt, hay chỉ còn 3 màn mới. Sau đó Owner/hội đồng xem trước khi triển khai UI.
+- **JEV độc lập:** cùng UI nhưng 2 trạng thái duyệt/bật 0,93; Bước/Màn là danh mục cấu hình 0,99; công thức màn còn tạm tính 0,96. Đây là tham khảo, không thay đối chiếu nguồn và ca thử.
+
 ## Claude · 25/09/2026 · C02 · ★ Master list — đơn giản hoá 57 tên bằng quy luật (ĐỀ XUẤT, chờ Owner)
 - **Owner 25/09:** liệt kê đủ danh sách master, đồng thời nhóm hoá cho cực đơn giản — không cắt bớt mà gom bằng quy luật; đưa JEV vào tối đa. Based_on `6d900cb` (57 tên của Codex) + PG thật 25/09.
 - **5 quy luật (Owner chỉ cần nhớ 5 dòng này):**
