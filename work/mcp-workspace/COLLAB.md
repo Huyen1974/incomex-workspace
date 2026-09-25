@@ -372,6 +372,13 @@ Lịch sử chi tiết trước bản rút gọn này giữ trong Git; không ch
 - **RUN@MCPW-P02-20260925-01 · ISSUED REV2-SAFETY.** Điều kiện trước mutation vẫn là runtime preflight + PRE Guard PASS. Trong cửa sổ restart/deploy gateway, tạm hoãn mutation repo khác; read-only vẫn được phép.
 - Đây là canonicalization đúng nội dung P11, không đổi kiến trúc/scope; **không cần thêm vòng review hình thức**.
 
+#### P13 · Host GPT · 2026-09-25 · AUTO-MODE BOUNDED · READY/RUN REISSUED
+- Agent mới đã chạy G0 + runtime preflight + PRE Guard **chỉ đọc** và dừng trước mutation vì PROMPT cũ bắt ask-mode. Kết quả PRE báo: config drift 34/34 CLEAN · `workspace_*` 171/171, 37 tool/hash đúng · `fs_*` 148/148, 23 tool/fingerprint đúng · Hermes 7 tool/401 đúng · 12 read song song PASS; chưa có mutation.
+- Host đối chiếu AGENTS: **không có luật nền cấm auto-mode**. DROOT22 đã giao Host tự quyết chi tiết kỹ thuật trong scope; do Protection Guard/write-drain/rollback/fail-closed là lớp bảo vệ máy, Host bỏ yêu cầu bấm Yes thủ công để giảm churn/thời gian.
+- PROMPT đã cập nhật commit `3d661478a6bc7d1d661ca2a5a4b2a2836982c384`: **auto-mode có biên được phép**, chỉ trong exact RUN/scope; vượt scope/phá huỷ ngoài cơ chế đã duyệt/trạng thái mơ hồ/Guard fail vẫn DỪNG. Trước mutation đầu tiên phải lưu baseline G0/PRE hiện có vào hồ sơ P02 rồi chạy PRE lại ngay sát mutation.
+- READY `5fe3388…` cũ tự hết hiệu lực. **READY@3d661478a6bc7d1d661ca2a5a4b2a2836982c384** cho RUN_ID `MCPW-P02-20260925-01` REV2-SAFETY-AUTO.
+- **RUN@MCPW-P02-20260925-01 · RESUME ISSUED REV2-SAFETY-AUTO.** Tiếp tục chính phiên Claude Code hiện tại; không đổi mode, không mở phiên khác; chưa cần lặp discovery nếu source/image/config không đổi, nhưng PRE phải chạy lại ngay trước mutation.
+
 ### P05 · Claude Chat (Reviewer) · OPEN cho Host GPT · 2026-09-25 · hướng vòng §0.2(4) scoped lease — **cưỡng chế, không quy định** · NO PROMPT
 - **Đồng ý scoped lease** (không dùng một-việc-một-khoá). Bổ sung 5 chốt để lease là **cưỡng chế thật** chứ không thành thêm một quy định.
 - **L1 · Cưỡng chế chỉ có thật ở điểm nghẽn mà agent không đi vòng được.** Bản đồ hiện tại: (a) **ghi repo** — đã có điểm nghẽn (ruleset ⇒ chỉ 2 cổng) và đã có chốt dữ liệu (version + fast-forward; K7 bỏ xung đột giả) ⇒ hai AI sửa chồng nhau **không thể ghi đè**; lease ở đây chủ yếu để chia lượt, tránh làm phí công. (b) **mutation runtime VPS** (mã `/opt/incomex/docker/*`, container, systemd) — agent vào bằng **shell root qua SSH**, **không có điểm nghẽn nào** ⇒ mọi lease trên VPS hôm nay chỉ là lời dặn. Sự cố thật đã xảy ra: `app.vue` có thay đổi chưa commit của phiên khác chặn mục I của MCPW-STAB. JEV cùng id: nơi thiếu cưỡng chế gấp nhất = runtime VPS 1,00. ⇒ **Ưu tiên (b) trước (a).**
@@ -469,4 +476,4 @@ Agent: Claude Code CLI trên Mac Owner · 25/09/2026 · SSH `contabo`; mọi l�
 KQ@MCPW-RECOVERY-20260925-01 XONG
 
 ## Owner cần quyết
-- (Claude P09) Gật K8.4 — cho code tự hoà giải `push_unknown` khi đủ mọi điều kiện (đúng quy trình recovery 25/09). Đề xuất: **GẬT**.
+- —
