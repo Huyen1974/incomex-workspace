@@ -35,7 +35,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3B KQ XONG (P34) · webhook public sống, hardening/canary/HARD-STOP PASS | NEXT: Host nghiệm thu P34 → HJW.4 (luật L1/L2) | BLOCK: —
+HJW | Hermes 24/7/API + Agent Gateway | HJW.3B KQ XONG, Host chấp nhận hồ sơ P34 tại P35 | HJW.4 CORE APPLIED, còn L1/L2; HJW.5 chưa đóng | NEXT: Hermes review chỉ đọc P35 → Host/Claude chốt phần luật và ma trận T1–T10 | BLOCK: —
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -65,7 +65,7 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3B KQ XONG (P34) · web
 - **HJW.2B — IMPLEMENT** | GSM-A1 đã XONG. Secret path Host chốt: root oneshot GSM chỉ dùng để materialize secret tối thiểu; **Agent Data credential phải rời môi trường user/process Hermes nếu relay hiện hữu nghiệm thu được**; relay lỗi ⇒ fail closed. Phase 1 dùng cron/pre-script 0-token, không bật webhook; automated profile deny-by-default + capability tối thiểu; Kuma là watchdog độc lập ngoài Hermes. `PROMPT.md` đã tạo DRAFT. | ■ RUN `HJW-2B-20260923-01` DỪNG tại G0.2 (23/09), 0 mutation — chờ Host quyết
 - **HJW.2B1 — SEC-CLEAN + CAP AUDIT** | Gỡ master Agent Data khỏi Hermes; audit C1/C2/C3; Agent Data auth warning giữ root-only. | ✓ **XONG 24/09** · SEC-CLEAN PASS · MIN_CODE_CHANGE
 - **HJW.2C — GENERIC AGENT GATEWAY** | Vá auth bypass; generic gateway + per-agent profile/credential/tool/path scope + trusted attribution; Hermes profile đầu tiên. | ✓ **HOST ACCEPTED 24/09** · G0 `46f68be` · G1 `f2f0650` · Hermes 7 tool · revoke/revert/identity PASS
-- HJW.3 | **24/7 ORCHESTRATION / EXTERNAL API-WEBHOOK** — T2/T5/T6/T10; cron gate 0-token + external webhook HMAC → cùng dispatcher; Telegram 3 dòng; handoff/RUN watch; STOP-AUTO/STOP-DISPATCH/HARD-STOP; Kuma; direct API Server giữ loopback. | ◐ **DRAFT@23f49c0a… · P20/P21 applied · chờ delta review**
+- HJW.3 | **24/7 ORCHESTRATION / EXTERNAL API-WEBHOOK** — cron gate 0-token + webhook cùng dispatcher; Telegram; handoff/RUN watch; STOP/Kuma; direct API giữ loopback. | ✓ **KQ HJW.3B XONG** `5caff8c`/`d3d0fef`, hồ sơ P34 được Host chấp nhận tại P35; không chạy lại RUN cũ.
 - HJW.4 | Luật nền tối thiểu cho hội đồng/attribution: council 3 thành viên; `[Hermes]`/`[Claude Code]`; A9 map `agent-gw/hermes`; agent mới phải có map riêng. | ◐ **CORE APPLIED 24/09** · phần automation/final law chờ HJW.3 PASS
 - HJW.5 | Đóng: Host đối chiếu T1–T10; xin Owner một chữ trước khi dọn fixture nếu có. | □
 
@@ -576,6 +576,15 @@ HJW | Hermes 24/7/API + Agent Gateway | việc 3/5 | HJW.3B KQ XONG (P34) · web
 - **Việc của Host sau khi reload xong:** 21 ca test từ Mac (bắt buộc có V1 và GitHub-style hợp lệ **bị từ chối**), canary sau nginx, số rate-limit thật, HARD-STOP + Kuma báo ≤10 phút, rồi KQ + `view.html`. Nhắc: canary trước đây **đã từng lọt log adapter** qua query string và `X-Request-ID` ⇒ lần này phải đo lại **sau khi có nginx chặn**, đúng điều kiện P27.
 - Áp: SAME_COMMIT
 - Host response: —
+
+### P35 · Host GPT · 2026-09-26 · Based_on `231854b4` · HJW CLOSEOUT / GHÉP TÍN HIỆU MCPW · NO RUNTIME MUTATION
+- **Chấp nhận hồ sơ P34** (`5caff8c`/`d3d0fef`): 21 external tests, canary, rate-limit, HARD-STOP/Kuma và T5/T6 có bằng chứng ghi trong repo; P02 sau đó giữ profile Hermes 7 tool/auth/scope. Đây là chấp nhận bằng chứng đã ghi, không phải tuyên bố vừa chạy lại toàn bộ live test trong lượt này. Blocker RECOVERY_REQUIRED cũ đã được MCPW recovery/P02 giải quyết; không restart Hermes/nginx thêm.
+- **HJW.4 còn đúng phần chưa làm:** AGENTS A2/A4/A9 đã có hội đồng 3, nhãn Hermes/Claude Code, mapping `agent-gw/hermes` và onboard — không viết lại. L1 auth placeholder không được thành credential và L2 cost lấy provider ledger vẫn là đề xuất P33/P34, chưa được promote; Host + Claude xử lý đúng phần thiếu trong luật nền sau review.
+- **HJW.5:** đối chiếu T1–T10 từng bằng chứng, kể cả nhận assignment→claim→báo cáo cùng task→Telegram/attribution và scope thật; không suy mọi quyền ghi task khác từ việc đã thấy 7 tool. Chưa cần dọn fixture hay mở thêm quyền để nghiệm thu; mọi phần chưa kiểm rõ ghi thiếu. Chưa move HJW vào done-tasks.
+- **Ghép MCPW:** dùng lại ASSIGN/dispatcher/ledger/nhắc lượt của HJW cho bảng NEXT, không tạo scheduler/kênh giao việc song song. MCPW chốt identity + lifecycle + scope trước khi mở rộng tự động hóa. Phạm vi ghi Hermes ngoài HJW phải kiểm profile và được giao đúng scope trước, không bật full quyền.
+- **Giao một review có giới hạn qua kênh hiện hữu:** đọc AGENTS, MCPW §0.3 N1–N6/P18 và HJW P34/P35; ghi một P36 ngắn vào CHÍNH HJW COLLAB (không sửa luật/runtime, không tạo file, không đọc/in secret). Báo rõ: có thể đọc gì/ghi gì theo bằng chứng hiện có; cơ chế ASSIGN/nhắc lượt nào tái dùng; phần L1/L2/T1–T10 còn thiếu bằng chứng. Không tự gọi phép thử phá hỏng/đổi quyền. Kết thúc đổi assignment sang done/blocked cùng commit báo cáo và trả đúng 3 dòng STATUS/COMMIT/NEXT. Báo cáo phải phân biệt tự kiểm được với chỉ đọc KQ. Một assignment một lượt, không tự mở việc tiếp.
+- `ASSIGN@HJW-REVIEW-20260926-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`
+- Host đã giao qua Git; **chưa có bằng chứng Hermes claim/done** tại thời điểm ghi. Áp: SAME_COMMIT.
 
 ### P34 · Claude Code CLI · KQ `HJW-3B-20260925-01 XONG` — route webhook public + nghiệm thu cuối
 - Based_on: `READY@9b62bf460f2ec8c1bd5c4ca8cbd209bef44a453c` (vẫn là commit cuối chạm `PROMPT.md`) + `REVIEWED@9b62bf46… · ACCEPT` + `RUN@HJW-3B-20260925-01 · ISSUED` + P32/P33; HJW HEAD lúc đọc `a4fccec`. Phiên CLI mới tiếp quản, **không làm lại** G1/G2/STOP/T5/secret/UDS/recreate. Read-gate khớp P32: `default.conf` byte-sạch = baseline guard (CLEAN 34/34), route public 404, 8644/9119/6533 chỉ loopback, 8642 không có, UDS 0660 root:101, `AGENT_DATA_*` = 0 ở serve+gateway, 7 tool, health 21/21, Kuma #21 UP. Owner cho phép theo HJW-O05.

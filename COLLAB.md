@@ -13,13 +13,13 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
-- `work/hermes-joint-workspace/` · HJW · Host GPT · **HJW.3B KQ XONG** (`5caff8c`/P34): public webhook sống, hardening/canary/rate-limit/HARD-STOP/Kuma PASS. NEXT: Host nghiệm thu P34 → HJW.4 luật L1/L2 → HJW.5 final close; không còn RUN runtime mở.
+- `work/hermes-joint-workspace/` · HJW · Host GPT · **HJW.3B KQ XONG**, Host chấp nhận hồ sơ P34 tại P35. HJW.4 core đã áp; còn L1/L2 và HJW.5 đối chiếu T1–T10. Đã giao `HJW-REVIEW-20260926-01` cho Hermes review chỉ đọc, báo tại HJW; chưa xác nhận claim/done. Không restart/cấp quyền mới.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
-- `work/mcp-workspace/` · MCPW · **Host GPT Chat** (`GPT-MCPW-250925-A`) · MCPW-LOCK + recovery + P02 **XONG**. P02 KQ `afadda3`: 17/17 PASS, hai gateway chạy snapshot/freshness/K8 self-heal + Protection Guard mỗi 5 phút; GPT tự kiểm `fresh`, HEAD local=remote, sạch. N5 README contract v1.4 **XONG** (`5d41fff`); Owner quyết không xoay upstream key local-Mac. **Không tune thêm P02.** NEXT: §0.2(3) tín hiệu/giao-đẩy việc + §0.2(4) scoped lease cưỡng chế; chưa đóng MCPW.
+- `work/mcp-workspace/` · MCPW · **Host GPT Chat** (`GPT-MCPW-250925-A`) · LOCK/recovery/P02 + N5 XONG; không tune P02. **§0.2(1) chưa trọn, (2) đạt, (3)(4) còn làm.** §0.3 N1–N6/P18 đã chốt yêu cầu theo dõi thụ động, identity từng phiên, nhận/kết thúc có chốt máy, không bỏ lượt và một bảng NEXT. NEXT: Claude review delta → Host PROMPT vòng tiếp; chưa RUN runtime mới.
 - `work/graph-server/` · GS · Host GPT Chat · D02 product-first (Owner): trial Cognee+Neo4j vs Graphiti+Neo4j; Claude P02→P03 đồng ý; chờ Hermes; nguyên tắc R1 khoá ở §0.
 - `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
-- NEXT: đóng HJW.4/HJW.5 trước (chủ yếu governance/tài liệu, không runtime), rồi quay lại MCPW §0.2(3) tín hiệu/giao-đẩy việc + §0.2(4) scoped lease.
+- NEXT chung MCPW/HJW: HJW review/closeout tài liệu song song với chốt N1–N6 MCPW; ưu tiên vòng triển khai kế tiếp cho identity/sự kiện + chốt nhận/kết thúc/scope, nghiệm thu xong mới mở rộng NEXT/tự dispatch. Không chạy lại P02, không gộp MMIM, không mở task/file/DB/pipeline mới.
 
 ## Đã xong
 - Archive: `work/done-tasks/` · vị trí folder là trạng thái Done (DROOT11); tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
