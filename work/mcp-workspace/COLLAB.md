@@ -501,6 +501,9 @@ Agent: Claude Code CLI trên Mac Owner (auto-mode có biên theo P13–P15) · 2
 - **Trước → sau (acc 12):** 12 đọc song song `workspace_*` p50 2,66 → 0,59 s, max 3,06 → 0,67 s · 8 `stat` p95 2,63 → 1,16 s · 15 search p95 5,5 → 1,39 s · `fs_*` mỗi lượt đọc chờ `gh_pull` qua hàng đợi tuần tự p50 1,42 s / p95 1,85 s → đọc từ snapshot 0,15 s khi fresh, 12 đọc kèm refresh p95 0,67 s · gọi GitHub để đọc: trước ≈ 1 fetch mỗi lượt đọc quá 2 s (~35 đọc/giờ) + ~115 pull/24 h ở `fs_*` → sau (đo 10 phút) ~30/giờ `workspace_*`, ~18/giờ `fs_*`, gồm cả lượt PERIODIC ép kiểm, 100% HTTPS · BUSY/OVERLOADED từ lúc deploy 0/0 (cửa sổ G0 24 h: 11/0) · RAM agent-data 1,96 → 1,99 GiB, claude-mcp 101 MiB, helper 30 MB; cache P02 ~72 MB; đĩa 43% không đổi.
 - **Rollback:** `rollback-workspace.sh` / `rollback-fs.sh` (một lệnh mỗi cổng, cùng write-drain, không đụng cổng kia, không tắt ruleset); cache P02 là dẫn xuất, bỏ được.
 - **Điểm còn lại:** (a) N5 — ghi luật K2–K3 vào README Technical Contract: việc Host/Founders; vòng §0.2(3)–(4) scoped lease: Host. (b) `fs_*` log/diff đọc mirror qua hàng đợi tuần tự của helper (không mạng) nên có thể chờ sau một lượt ghi đang chạy. (c) Lượt đọc đầu tiên ngay sau restart có thể `stale` — không bao giờ báo fresh giả (đúng K2). (d) ⚠ Khi đọc cấu hình route bằng `sed` chỉ che path-secret, giá trị `X-API-Key` upstream của hai route gpt-mcp và claude-mcp đã hiện trong transcript phiên Claude Code này trên Mac Owner (không ghi vào repo/VPS). Host/Owner quyết có xoay khoá hay không. (e) Dòng image agent-data trong `/opt/incomex/docker/docker-compose.yml` sửa tại chỗ như các deploy trước (file vốn đang ở trạng thái M trong git `/opt/incomex`).
+- acc 11 (phần `workspace_*`): dòng KQ dưới ghi qua `workspace_edit` với version nội dung lấy từ `workspace_stat` sau commit `bbf5993` của `fs_*` (freshness=fresh, previous_source_head=752ebad) — hai cổng thấy nhau, không xung đột giả.
+
+KQ@MCPW-P02-20260925-01 XONG
 
 ## Owner cần quyết
 - —
