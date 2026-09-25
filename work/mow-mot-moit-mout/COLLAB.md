@@ -2,6 +2,7 @@
 
 ## Owner · 25/09/2026 · Thể thức tab UIs
 - Theo Owner: nền xanh đậm ở ngoài ba miếng; giữ nền sáng và bố cục Kanban/UI cha bên trong; vàng thao tác giảm sắc. Header mỗi miếng gộp mã bước, tên bước, mã con và link mã cha. Chưa đổi nội dung S001–S003; đây là thể thức để Owner duyệt. JEV tham khảo lựa chọn nền: `gen-dec-1790309121-WMnBWvBG16QkT25xMs7t`.
+- Kiểm trên VPS commit `dcad873`: bản mở rộng và trang công việc đều hiện nền tối, vàng nhạt, mã con/cha ở header; bấm `UI.CANVAS ↗` mở đúng chuẩn cha trong tab UI Master. Trang công việc báo `fresh`.
 
 ## Owner · 25/09/2026 · Tách tab UIs
 - Theo Owner: ba màn thử S001–S003 chuyển sang tab **★ UIs**, xếp dọc; tab **★ Quy trình vẽ UI** giữ danh sách bước gọn, liên kết mã UI mở đúng màn. Tab **★ UI Master** cũng được đánh dấu; ★ chỉ là dấu kiểm soát tab của Owner, không duyệt nội dung ba màn. Các tab còn lại giữ để dọn sau. Không tạo UI cha, file hay mã đăng ký mới. K0 FIELD vẫn chưa PASS.
