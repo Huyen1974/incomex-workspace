@@ -583,7 +583,7 @@ HJW | Hermes 24/7/API + Agent Gateway | HJW.3B KQ XONG, Host chấp nhận hồ 
 - **HJW.5:** đối chiếu T1–T10 từng bằng chứng, kể cả nhận assignment→claim→báo cáo cùng task→Telegram/attribution và scope thật; không suy mọi quyền ghi task khác từ việc đã thấy 7 tool. Chưa cần dọn fixture hay mở thêm quyền để nghiệm thu; mọi phần chưa kiểm rõ ghi thiếu. Chưa move HJW vào done-tasks.
 - **Ghép MCPW:** dùng lại ASSIGN/dispatcher/ledger/nhắc lượt của HJW cho bảng NEXT, không tạo scheduler/kênh giao việc song song. MCPW chốt identity + lifecycle + scope trước khi mở rộng tự động hóa. Phạm vi ghi Hermes ngoài HJW phải kiểm profile và được giao đúng scope trước, không bật full quyền.
 - **Giao một review có giới hạn qua kênh hiện hữu:** đọc AGENTS, MCPW §0.3 N1–N6/P18 và HJW P34/P35; ghi một P36 ngắn vào CHÍNH HJW COLLAB (không sửa luật/runtime, không tạo file, không đọc/in secret). Báo rõ: có thể đọc gì/ghi gì theo bằng chứng hiện có; cơ chế ASSIGN/nhắc lượt nào tái dùng; phần L1/L2/T1–T10 còn thiếu bằng chứng. Không tự gọi phép thử phá hỏng/đổi quyền. Kết thúc đổi assignment sang done/blocked cùng commit báo cáo và trả đúng 3 dòng STATUS/COMMIT/NEXT. Báo cáo phải phân biệt tự kiểm được với chỉ đọc KQ. Một assignment một lượt, không tự mở việc tiếp.
-- `ASSIGN@HJW-REVIEW-20260926-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`
+- `ASSIGN@HJW-REVIEW-20260926-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=claimed (Hermes claim, 2026-09-26)`
 - Host đã giao qua Git; **chưa có bằng chứng Hermes claim/done** tại thời điểm ghi. Áp: SAME_COMMIT.
 
 ### P34 · Claude Code CLI · KQ `HJW-3B-20260925-01 XONG` — route webhook public + nghiệm thu cuối
