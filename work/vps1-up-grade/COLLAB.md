@@ -219,6 +219,70 @@ Phản biện đúng P03, không mở thêm file:
 - **G0 có thể chuẩn bị song song với licensing gate:** đúng một phạm vi chỉ đọc, bằng chứng gộp vào view.html/COLLAB hiện hữu; không cần chờ vendor để kiểm disk/routes/backup. Claude đối chiếu ba nhóm ở §9 rồi Host phát một PROMPT khi đủ đầu vào; hiện chưa PROMPT/READY/RUN, không thử mất mạng/restart/restore trên production.
 - Áp: SAME_COMMIT. P04 đã xử lý; P05 còn OPEN cho bằng chứng pháp lý/kỹ thuật mới, không lặp hội đồng vô hạn.
 
+### P06 · Claude Chat (Reviewer) · OPEN — BẢN CHỐT ĐỀ NGHỊ: mô hình · nâng gì · giám sát Directus · kế hoạch 10 bước
+- Based_on: `183041c` (COLLAB `f0af414a`, view `c41ef3a6`). Scope: P05, D10–D13, view.html §2A/§5/§6 LC/§8/§9. Đo live 26/09 (chỉ đọc, `query_pg` db directus): 14 user · 6 active · **1 tài khoản có quyền Studio** (admin, không static token) · 5 tài khoản máy có static token, không quyền Studio · 167 collection ngoài `directus_*` · 111/128 Flow active · 1 extension. JEV `gen-dec-1790413813-C3TP0QYOikggCbQVS5fu`.
+- **ACCEPT P05** trừ một điểm (mục D). Xử lý Owner chốt 26/09 16:07 qua Claude Chat — nguyên văn, đề nghị Host ghi D14–D16:
+  - D14 · “Chỉ 1 CSDL. chúng ta chỉ thêm nhãn, thêm table/collection. Không thêm hệ thống quản trị riêng. Chúng ta sẽ thiết kế như vậy, kể cả cho nhiều công ty.”
+  - D15 · “chỉ có tài khoản duy nhất của tôi được vào Directus (để cho phép DOT qua tài khoản của tôi). Tôi cũng không vào trong Directus … yêu cầu 100% dùng DOT, thiếu DOT viết thêm. Vừa để tự động, làm nhanh và chính xác. Vừa đỡ phức tạp.”
+  - D16 · “Cảnh báo ngay qua telegram nếu liên lạc bị lỗi, sau này cần làm cảnh báo qua email nữa nếu lỗi (đề phòng cả telegram hỏng).”
+  - Owner yêu cầu: chốt mô hình · nâng gì · vision · kế hoạch 1,2,3 thứ tự trước/sau; GPT + Claude thống nhất hết trước khi triển khai.
+
+**A. Mô hình dài hạn — 7 luật (V1–V7)**
+- V1 · **Một hệ PostgreSQL.** Công ty/khách/trường = một **nhãn công ty** trên bảng nghiệp vụ + một bảng danh mục công ty; không DB/engine/hệ quản trị riêng theo khách. Tách dữ liệu giữa công ty cưỡng chế ở PG (khoá công ty bắt buộc + RLS/constraint), policy Directus là lớp hai. Cụm hiện có 5 database: giữ nguyên trong việc này; bảng nghiệp vụ mới vào database Directus phục vụ. Thiết kế nhãn thuộc MMIM, không làm trong đợt nâng.
+- V2 · **Ghi 100% qua DOT**; thiếu DOT → viết DOT; không người/AI nào ghi tay.
+- V3 · **Studio đúng 1 tài khoản = Owner.** Đo 26/09: **đã đúng sẵn**. Cách hiểu D15 đề nghị: DOT chạy bằng token máy do Owner cấp, không dùng mật khẩu Owner — lộ một token thì thu token đó, không khoá Owner; tài khoản máy chỉ-API không tính ghế Studio. Cưỡng chế (R2): kiểm hằng ngày “số tài khoản có quyền Studio = 1”, lệch → Telegram. JEV: token máy 1,00; vẫn giữ ý Owner 0,90.
+- V4 · **Khách/trường chỉ dùng MOT, không bao giờ vào Studio** ⇒ OIG xét theo nhóm Incomex (pháp nhân cùng chủ sở hữu tính gộp: cán bộ trường nghề tính, học sinh không tính). Theo V1, trường Lai Châu = một nhãn công ty trong hệ Incomex, sở hữu dữ liệu của mình bằng hợp đồng + xuất dữ liệu theo nhãn ⇒ **không cần instance riêng**, bỏ được câu hỏi “khách sở hữu project” ở P05. Còn đúng một câu hỏi hãng: bán ứng dụng quy trình trên Directus có nằm trong Terms §2.6.
+- V5 · **Giao diện:** nâng tương thích fork Nuxt bây giờ; thoát Agency OS dần, việc riêng, không gate cutover (đã đồng thuận P04/P05/D11).
+- V6 · **AI** (Hermes, agent, JEV) chỉ đi qua DOT/MCP; không phụ thuộc Studio.
+- V7 · **Hạ tầng:** VPS1 = production · VPS2 = lab + e-learning + **trạm canh VPS1** · Drive = bản ngoài · mọi image ghim digest.
+
+**B. Nâng gì / giữ gì — bảng chốt (exact digest chốt tại G3, kiểm lại tại G7)**
+
+| Thành phần | Hiện | Đích | Ghi chú |
+|---|---|---|---|
+| PostgreSQL | 16.13 | 18.x mới nhất tại G3 | Checkpoint riêng; lab FAIL → 16.15 + app, PG18 lượt sau (D13). |
+| Directus | 11.5.1 | sàn 12.3.1 · 12.4.x theo luật P04 | Advisory chỉ vá ở dòng mới hơn → bắt buộc lên, không chờ ngấm (khớp D13). |
+| Nuxt / Node / SDK | 3.20.2 / 20.20 / ^19.1 | 4.5.x / 24 LTS / major khớp Directus | `@nuxt/ui` giữ 2.22.3. |
+| Extension `l2-checkpoint-guard` | host ^11 | build lại cho 12 hoặc thay policy native | Lớp Directus. |
+| Qdrant | 1.16.3 (`latest`) | ghim ngay; 1.19.x từng minor | Cửa sổ nhỏ riêng **sau** cutover. |
+| nginx, Docker, Kuma, Hermes, MCP, JEV, agent-api-executor, agent-data | giữ | ghim digest | agent-data chỉ rebuild nếu driver không hợp PG18. |
+
+**C. Giám sát liên lạc Directus (D16) — Bậc 1: Uptime Kuma sẵn có**
+- 3 đồng hồ, chạy ngoài Directus: (1) đường ra tới máy chủ license Directus mỗi 5 phút, đo từ đúng mạng container Directus; (2) lần xác minh license thành công gần nhất — vị trí đọc đo ở lab; (3) `/server/ping` + một lệnh đọc `/items` bằng token máy.
+- Báo: lỗi 2 lần liên tiếp (~10 phút) → **Telegram ngay** (lọc 1 lần chập chờn). Còn lỗi 24 giờ → nhắc lại + Hermes chạy runbook đã duyệt (mạng/DNS/tường lửa phía Incomex). 72 giờ → báo khẩn “còn 4 ngày trước khoá”. Mốc ngày 3 của P04 thay bằng mốc này.
+- **Canh chéo 2 VPS:** thêm một Kuma trên VPS2 canh VPS1; VPS1 chết hẳn vẫn có báo.
+- **Email = pha sau:** Kuma có SMTP sẵn; cần một hộp gửi (Owner tạo 1 lần theo hướng dẫn từng bước, khoá lưu GSM), rồi mọi đồng hồ báo cả Telegram lẫn email.
+
+**D. Điểm còn vênh với Host — LC6 / G7**
+- ACCEPT LC1–LC5 là bài kiểm bắt buộc.
+- Không đồng ý câu “outage dài chưa giải thì chưa PASS” nếu nó chặn cutover. Đề nghị G7 qua khi đủ 4 điều: LC1–LC5 đạt; đo xong **vùng ảnh hưởng khi bị khoá** (đọc mã nguồn 12.x + thử lab phần thử được, không sửa đồng hồ); rủi ro còn lại (hãng mất dịch vụ > 7 ngày) ghi rõ và Owner chấp nhận; song song hỏi hãng offline/emergency + giá.
+- Lý do: ở lại 11.5.1 là rủi ro **chắc chắn và đang có** — lỗ hổng Critical/High đã công bố, không còn vá. Hãng sập > 7 ngày là rủi ro hiếm và có 7 ngày để xử lý. OIG không có offline, nên chặn cứng nghĩa là không bao giờ lên được 12. JEV: cho qua có đo 0,86 · chặn 0,14.
+- Giảm vùng ảnh hưởng (hướng dài hạn, không làm trong việc này): đường ghi DOT PG-native (`dot-pg-atomic-apply`) vẫn ghi được khi Directus khoá; danh sách trang chết khi khoá = đầu vào cho việc thoát Agency OS.
+- Nếu Host vẫn giữ chặn cứng: chuyển D này lên `Owner cần quyết` theo A5, phần còn lại chạy tiếp.
+
+**E. Kế hoạch 10 bước — đúng một bước đang làm (🤖 máy · 😊 Owner)**
+
+| # | Việc | Ai | Ra được gì |
+|---|---|---|---|
+| 1 | Chốt kế hoạch: Host hợp nhất P06 vào view.html; Owner gật một lần | 😊🤖 | Kế hoạch đã duyệt |
+| 2 | G0 khảo sát **chỉ đọc**, một PROMPT, cấm lệnh hành động: VPS1 · VPS2 · Drive · user/policy/token Directus · backup phủ mấy DB + restore proof · route từ nginx live · gói Contabo (số snapshot, khoá API) · WebSocket v11 có lộ không | 🤖 | Sổ giữ/offload/purge VPS2 · danh sách caller · route list |
+| 3 | Một thư gửi Directus: đăng ký OIG + xác nhận mô hình bán ứng dụng + offline/emergency và giá + tên miền license để mở tường lửa. AI soạn sẵn, Owner gửi | 😊 | Key OIG (chờ trả lời, cần trước bước 7) |
+| 4 | Khoá nhãn + canh gác VPS1 (mutation nhỏ, Owner RUN): ghim digest không restart · Kuma canh chéo VPS1↔VPS2 + Telegram · kiểm “Studio = 1” · nếu G0 thấy WebSocket v11 lộ thì chặn tạm ở nginx | 🤖 | VPS1 hết trôi nhãn, có báo động |
+| 5 | VPS2 sẵn sàng: backup e-learning → Drive + thử khôi phục · dọn theo sổ · đủ ≈30 GB đĩa / 5 GB RAM (thiếu → tạm nâng gói) | 🤖 | G1 |
+| 6 | Clone CURRENT full data, cách ly cưỡng chế · chạy bộ test A–D lấy mốc | 🤖 | G2 |
+| 7 | Nâng từng lớp trên lab: PG → Directus (key lab) → Nuxt/Node/SDK/extension; mỗi lớp chạy lại A–D · LC1–LC5 · đo vùng khoá · gắn đồng hồ license | 🤖 | G3–G4 |
+| 8 | Tập quay lui + tập chuyển nhà bằng bản VPS1 mới lấy, đo giờ. Từ đây khoá sửa lõi VPS1 (Config Guard) | 🤖 | G5–G6 |
+| 9 | Chuyển VPS1 thật: Owner chọn đêm + RUN; quá giờ tự quay lui | 😊🤖 | G7 |
+| 10 | Theo dõi 7 ngày → đóng · rồi Qdrant từng minor · email cảnh báo · diễn tập “thoát Directus” mỗi năm | 🤖 | Đóng việc |
+
+- Tách ra sau, không gate: thoát Agency OS / chọn nền UI; thiết kế nhãn công ty V1 (MMIM).
+- Đề cương G0 (view.html §9): ACCEPT G0-A/B/C, cộng 4 mục trong bảng bước 2.
+
+**Đề nghị Host đưa lên `## Owner cần quyết` sau khi hoà giải:**
+- OQ-A · Tổng nhân sự nhóm Incomex (gồm trường nghề nếu cùng chủ sở hữu; học sinh không tính) < 50 → đăng ký OIG. Doanh thu đã xác nhận, không hỏi lại. Đề xuất: **gật**; khi trường tuyển cán bộ thì đếm lại.
+- OQ-E · Chỉ nếu còn vênh mục D: luật G7 “đo + chấp nhận rủi ro còn lại” thay cho “chặn tới khi có offline”. Đề xuất: **gật**.
+- Trạng thái: **OPEN** — chờ Host hoà giải.
+
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.
 - Q02 · Disk VPS2 đang nằm ở nhóm nào; phần nào business, phần nào runtime cần, phần nào rác/tái tạo được?
