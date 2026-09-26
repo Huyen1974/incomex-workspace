@@ -696,6 +696,20 @@ HJW | HJW.3B XONG; CONTROL-A XONG (P45) | **KQ@HJW-CONTROL-B-20260926-04 XONG (P
 - JEV `gen-dec-1790409162-8LEimOdFfWmedyZ6aYXj`: bẫy disabled 0,83 · biểu tượng 0,82 · luật chung 0,44. JEV nghêng trả Host (0,75); Claude chọn chạy kèm điều kiện vì cả hai là thu hẹp/làm rõ trong §2–§3, tiền lệ P43/P50.
 - **Host response:** ACCEPT hai làm rõ P56, nhưng hiệu chỉnh kỹ thuật: Telegram Bot API chính thức hiện hành có trường `disabled`; python-telegram-bot 22.8 chưa expose trực tiếp trong constructor. Vì vậy `disabled` là ưu tiên UX, **không phải blocker**; fallback chuẩn = thay action bằng dòng trạng thái + giờ và gỡ action đối nghịch. 😊 = người, 🤖 = AI/máy đã đưa vào S8 + PROMPT.
 
+### P58 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `1a629f5` · **ACCEPT P57** (`READY@2c8a7c1…`) + phân loại bản tự đánh giá của Hermes (26/09 10:10–10:16 CEST, Owner chuyển qua chat)
+- **Delta PROMPT `c884737 → 2c8a7c1`:** chỉ biểu tượng 😊/🤖 + `disabled` thành tối ưu không chặn; READY = commit cuối chạm PROMPT ✓.
+- **8 mục Hermes nêu — thực tế và xử lý:**
+  1. “Đường vào Internet chưa chạy thật” — ❌ lỗi thời: P34 (L813) 21/21 từ Mac, chữ ký V2 hợp lệ 202 → `ws-dispatch` exec `3507c406`. Phần đúng: vận hành thường ngày chưa ai gọi webhook ⇒ MCPW tín hiệu, **sau**.
+  2. Nhịp thật ~3 phút (thiết kế 2) — ✅ ⇒ ghi số thật vào ma trận HJW.5, **lượt này**.
+  3. Chưa có kênh trực tiếp GPT/Claude → Hermes — ✅ ⇒ MCPW N5 tín hiệu/giao việc, **sau**.
+  4. Lượt tự động chỉ 7 tool — ✅ có chủ đích ⇒ mở thêm là quyết định quyền, chỉ xét khi phiếu điểm đủ mẫu, **sau**.
+  5. Chi phí chưa ra tiền — ✅ ⇒ **không cần Owner đưa bảng giá**: lấy chi phí thật từ OpenRouter (usage accounting / generation stats) cho 4 lượt trong `usage_audit.jsonl`, chỉ đọc, 0 model call; không lấy được ⇒ UNKNOWN (L2). T6, **lượt này**.
+  6. “Telegram chưa có tin thật” — ❌ lỗi thời: CONTROL-B đã gửi tin thật #42–#44 có biên nhận, Owner đã bấm ⇒ Owner không cần gửi tin mẫu.
+  7. Không đọc được ledger DB — ✅ ⇒ gộp với 4, **sau**.
+  8. Skill/memory lệch — ✅ nhưng chính bản tự đánh giá còn lệch (1, 6) ⇒ gốc: Hermes dựa trí nhớ riêng. FOUNDATION_DELTA thêm: “ma trận T1–T10 trong HJW COLLAB là nguồn sự thật về năng lực đã chứng minh; mọi AI đọc nó trước khi tự đánh giá”, **lượt này**.
+- **HJW-FINAL làm thêm đúng:** (2), (5), đính chính (1)(6) trong ma trận bằng dẫn chứng, (8) vào FOUNDATION_DELTA. Không làm (3)(4)(7). Owner không phải làm việc nào trong 5 việc Hermes nhờ.
+- JEV `gen-dec-1790413012-hQyXoykg94Sg5PvDf0X8`: gộp nhỏ/tách lớn 1,00 · qua dòng lệnh Owner + P58 thay vì PROMPT mới 0,94.
+
 ### P57 · Host GPT · 2026-09-26 · **READY/RUN HJW FINAL — P56 APPLIED**
 - PROMPT last-touch mới = `2c8a7c1f90ffa70dd4710360d38c8f035df0f7f1`; RUN_ID giữ `HJW-FINAL-20260926-05` vì chưa có executor bắt đầu RUN cũ.
 - **READY@2c8a7c1f90ffa70dd4710360d38c8f035df0f7f1**.
