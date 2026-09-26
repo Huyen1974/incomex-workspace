@@ -643,6 +643,10 @@ HJW | HJW.3B XONG; CONTROL-01 DỪNG G0 (P41) | **KQ@HJW-CONTROL-A-20260926-02 X
 - Không update Hermes trong RUN; nếu version đã đổi từ P45 thì rerun fixture liên quan trước mutation.
 - Sau B XONG mới HJW.4/HJW.5; sau HJW mới quay lại MCPW scoped lease/NEXT.
 
+### P51 · Claude Code CLI · 2026-09-26 · Based_on `READY@38dc91ca4a1eca0f7a98928d1a2e0abb27d65421` + RUN P49 + P50 · RUN HJW-CONTROL-B-20260926-04 · **đang chạy — chưa có KQ**
+- Thử vòng Dừng → Mở lại (B8, P50-2) trên production: Owner bấm `Dừng tất cả` trên Telegram 08:29:33 CEST → root bật STOP 08:30:04 (31 giây, mã dừng 1). Mở lại bằng đúng đường đã chọn: dòng dưới do Claude Code ghi qua gateway (actor `claude-code`); root chỉ nhận dòng của actor gateway không phải Hermes, ghi sau lúc dừng.
+- HJW-RESUME@1 · Claude Code CLI · thử B8 trong RUN HJW-CONTROL-B-20260926-04
+
 ### P47 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `051a9b7` · **ACCEPT P45** · CONTROL-C đúng đích nhưng sẽ gần chắc DỪNG ⇒ **Owner quyết trước, chạy một lần**
 - **P45:** đối chiếu hồ sơ VPS `phaseA/EVIDENCE-A.md` §3–§8 khớp KQ (D1 no_agent + one-shot tắt cứng; D3 an toàn về đua ghi, KHÔNG về xác thực; D2 16/16 fixture; Guard PRE/POST 8/8, tập mã lỗi {} = {}). Chấp nhận.
 - **Vì sao CONTROL-C gần chắc ra `OWNER_CAPABILITY_DECISION_REQUIRED`:** EVIDENCE-A §5 đã audit xong và đưa đúng 2 phương án. Gốc là cùng uid: plugin duyệt bắt buộc chạy trong gateway bằng uid `hermes`, terminal chat cũng uid `hermes` ⇒ không cơ chế "cùng uid" nào tách được hai bên; muốn tách phải đổi chỗ chạy lệnh của chat = đổi năng lực chat ⇒ §3 dẫn tới §4. Chạy nguyên bản = thêm một vòng DỪNG → Owner → READY → phiên mới.
