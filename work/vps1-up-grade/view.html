@@ -21,11 +21,22 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <section class="card" id="owner">
 <h2>1. Owner đã chốt</h2>
 <div class="grid">
-<div><h3>Core ưu tiên</h3><p><b>PostgreSQL · Directus · Nuxt · Agency OG</b>. Thành phần khác chỉ nâng khi dependency/security/tính năng buộc phải làm.</p></div>
+<div><h3>Core ưu tiên</h3><p><b>PostgreSQL · Directus · Nuxt</b>. <b>Agency OS chuyển thành legacy cần thoát dần</b>, không còn là nền tảng để tự nâng rồi nuôi lâu dài.</p></div>
 <div><h3>Triết lý version</h3><p>Chọn <b>mới nhất nhưng ổn định</b>: không bleeding-edge chưa đủ tin cậy, không giữ bản cũ nếu làm hụt capability.</p></div>
 <div><h3>VPS2 cần dọn</h3><p>E-learning gần như không hoạt động; Owner ước workload thực khoảng ~3GB nhưng VPS2 đang dùng hàng chục GB. Phải tìm nguyên nhân và dọn có kiểm soát.</p></div>
 <div><h3>Tài sản backup</h3><p>Ngoài 2 VPS có Google Drive dung lượng lớn; đường VPS1 → Drive đang ổn định. Phải tận dụng để giảm rủi ro/thời gian.</p></div>
 </div>
+</section>
+
+<section class="card" id="strategy">
+<h2>2A. Chốt lại chiến lược dài hạn sau P02</h2>
+<div class="grid">
+<div><h3>Directus: chưa bỏ, nhưng có Strategic Gate</h3><p>Core v12 có giới hạn 3 seats / 25 collections / 5 flows. <b>OIG đủ điều kiện thì unlimited seats / collections / flows</b>, custom access policies và hiện được cấp <b>vô thời hạn</b>. Vì vậy ~145 collections không tự nó là blocker.</p><p class="small">Điều kiện phải test: eligibility, telemetry bắt buộc, license server, activation, failure >7 ngày, backup/export/exit.</p></div>
+<div><h3>Agency OS: EXIT</h3><p>Upstream không archived nhưng commit cuối 26/03/2025. Không coi starter/template này là vendor nền tảng nữa. Giữ màn hình hiện hành để không phá production, nhưng module mới không mặc định xây trên Agency OS.</p></div>
+<div><h3>UI mới: product-first</h3><p>Trial một lát cắt MMIM trên <b>Appsmith CE</b> và đối chứng <b>ToolJet</b>; Budibase là ứng viên phụ. Chưa chọn winner trước proof. UI đi qua Directus API để giữ quyền/audit; Nuxt custom chỉ cho màn hình thật sự đặc thù.</p></div>
+<div><h3>Nguyên tắc sống lâu</h3><p><b>Data sống ở PostgreSQL; platform phải thay được.</b> Business definition, migrations, backup và API contract không được phụ thuộc độc quyền vào một UI/template. Assembly trước, code cuối.</p></div>
+</div>
+<p class="callout"><b>Owner strategy:</b> Incomex chỉ có một người vận hành không chuyên IT; chi phí bảo trì và khả năng sống dài hạn quan trọng hơn việc tự chủ bằng nhiều code.</p>
 </section>
 
 <section class="card" id="architecture">
@@ -79,9 +90,10 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <thead><tr><th>Component</th><th>Hiện trạng/Reference</th><th>Quy tắc chọn target</th></tr></thead>
 <tbody>
 <tr><td>PostgreSQL</td><td>Lịch sử: 16.13; target cũ 16.15</td><td>Ưu tiên supported patch/major có lợi ích thật; tránh major jump nếu chưa cần.</td></tr>
-<tr><td>Directus</td><td>Lịch sử: 11.5.1; target cũ 12.3.1 PARTIAL</td><td>Kiểm license, permissions, extensions/hooks, SDK, migrations, flows, auth.</td></tr>
-<tr><td>Nuxt</td><td>Lịch sử: 3.20.2; target cũ 4.5.2</td><td>Stable supported release + compatible Node/module/UI/Image/session/build.</td></tr>
-<tr><td>Agency OG</td><td><b>Chưa xác định chính xác package/image/version.</b></td><td>Inventory tên thật trước; không tự đổi thành sản phẩm khác rồi chọn version.</td></tr>
+<tr><td>Directus</td><td>11.5.1 hiện tại; v12 bắt buộc license tier phù hợp</td><td><b>Candidate tạm: 12.3.1</b>. 12.4.1 mới ra 23/09 nên chỉ probe lab trước; G3 mới chốt exact digest. OIG: verify eligibility + activation/telemetry/failure/exit.</td></tr>
+<tr><td>Nuxt</td><td>Lịch sử: 3.20.2; candidate 4.5.x + Node24</td><td>Giữ compatibility shell trong migration; không dùng việc nâng Nuxt làm lý do tiếp tục phụ thuộc Agency OS dài hạn.</td></tr>
+<tr><td>Agency OS</td><td><b>LEGACY / EXIT</b> · upstream cuối 26/03/2025</td><td>Không có “target version” dài hạn. Chuyển dần sau khi product trial PASS; không big-bang.</td></tr>
+<tr><td>UI product trial</td><td>Appsmith CE · ToolJet · Budibase (phụ)</td><td>Một MMIM slice giống nhau; đo maintenance/license/API/RBAC/audit/Agent/backup/export/resource. Chưa chọn trước thử.</td></tr>
 <tr><td>Qdrant/Nginx/Docker/worker/khác</td><td>Không phải core mặc định</td><td>Giữ nguyên nếu an toàn; chỉ nâng khi dependency/security/capability có lợi rõ.</td></tr>
 </tbody>
 </table>
@@ -127,21 +139,20 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 </section>
 
 <section class="card" id="review">
-<h2>9. Claude cần phản biện vòng 1</h2>
+<h2>9. Hội đồng — vòng 2 cần chốt trước khi khảo sát/RUN</h2>
 <ol>
-<li>Version policy và exact candidates cho 4 core component.</li>
-<li>VPS2 storage audit/cleanup để đạt lab capacity tối ưu mà bảo toàn e-learning.</li>
-<li>Scope PARITY CLONE tối thiểu nhưng đủ thật.</li>
-<li>Route/API/UI/runtime matrix và same-slice acceptance.</li>
-<li>Cutover/rollback tối ưu với 2 VPS + Google Drive.</li>
-<li>Component ngoài core nào giữ nguyên/nâng do dependency.</li>
+<li>Directus OIG: perpetual/unlimited có đúng với điều khoản hiện hành và mô hình Incomex không; dependency telemetry/license-server xử lý đủ chưa.</li>
+<li>Mô hình <b>PostgreSQL canonical + Directus replaceable façade</b> có đủ exit path dài hạn không.</li>
+<li>Directus 12.3.1 vs 12.4.1: security floor, soak time, breaking changes; không đồng nhất “latest” với “nên chạy”.</li>
+<li>Agency OS EXIT: trial Appsmith CE vs ToolJet, Budibase phụ; so theo chi phí vận hành thật của một Owner không chuyên IT.</li>
+<li>Sau đồng thuận mới viết prompt khảo sát read-only VPS1/VPS2/Drive và trial; chưa production mutation.</li>
 </ol>
-<p>Reviewer ghi P02 vào <code>COLLAB.md</code>; không tạo file review riêng.</p>
+<p>Claude ghi P04 trực tiếp vào <code>COLLAB.md</code>; không tạo file review riêng.</p>
 </section>
 
 <section class="card" id="status">
 <h2>10. Trạng thái hiện tại</h2>
 <p><b class="ok">Đã mở task và chốt mục tiêu.</b> Chưa có PROMPT, READY hoặc RUN. Chưa có hành động trên VPS.</p>
-<p><b>Next:</b> Claude review → khảo sát read-only VPS1/VPS2/Google Drive + refresh official version candidates → Host hợp nhất thành kế hoạch có checkpoint.</p>
+<p><b>Next:</b> Claude phản biện P03 → Host hòa giải Directus strategic gate + Agency OS EXIT + UI product trial → sau đó mới khảo sát read-only VPS1/VPS2/Google Drive và lập kế hoạch có checkpoint.</p>
 </section>
 </main></body></html>

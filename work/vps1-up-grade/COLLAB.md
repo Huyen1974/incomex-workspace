@@ -54,7 +54,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | MỤC TIÊU ĐÃ XÁC NHẬN · đang mở vòng khảo sát/kế hoạch | Chưa PROMPT/READY/RUN | NEXT: Claude review P01 + khảo sát read-only VPS1/VPS2/backup/version candidates trước khi Host chốt kế hoạch.
+VPSUP | P02 HOST PARTIAL · mở STRATEGIC GATE Directus + Agency OS EXIT | Chưa PROMPT/READY/RUN | NEXT: Claude review lần 2 P03; sau đồng thuận mới khảo sát read-only VPS1/VPS2/backup và lập trial UI/product-first.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
 - Lượt này chỉ tạo SSOT của task; không mutation hạ tầng.
 - Owner View hậu kiểm sau commit mở việc: endpoint HTTP 200 nhưng browser profile của tool chỉ thấy Login; Directus trả 401 nên **DỪNG nghiệm thu nội dung Owner View**, không báo PASS giả. Repo/SSOT và push đã PASS.
@@ -67,6 +67,9 @@ VPSUP | MỤC TIÊU ĐÃ XÁC NHẬN · đang mở vòng khảo sát/kế hoạc
 - D04 · 2026-09-26 · **VERSION POLICY:** GPT + Claude phải thống nhất phiên bản “mới nhất nhưng ổn định”; không chọn bleeding-edge thiếu bằng chứng, cũng không neo bản cũ nếu làm mất tính năng hữu ích.
 - D05 · 2026-09-26 · **VPS2 STORAGE:** phải khảo sát vì e-learning gần như không hoạt động nhưng VPS2 dùng hàng chục GB; Owner ước workload thực chỉ khoảng ~3GB. Có thể dọn phần vô ích nhưng phải phân loại/backup trước.
 - D06 · 2026-09-26 · **BACKUP ASSET:** ngoài 2 VPS có Google Drive dung lượng lớn; VPS1→Google Drive đang kết nối ổn định. Kế hoạch phải tận dụng tài sản này để giảm rủi ro và thời gian.
+- D07 · 2026-09-26 · **LONG-TERM / PRODUCT-FIRST:** Incomex thực tế chỉ có Owner vận hành và Owner không làm kỹ thuật IT. Mọi lựa chọn nền tảng phải ưu tiên sản phẩm đang sống, đáng tin, có cộng đồng/nhà phát triển duy trì, cài/lắp ráp được; **code và tự duy trì framework là giải pháp cuối cùng**.
+- D08 · 2026-09-26 · **AGENCY OS = LEGACY / EXIT:** việc dựa vào Agency OS đã ngừng phát triển được coi là lựa chọn không bền. Không tiếp tục coi Agency OS là nền tảng dài hạn; lập kế hoạch **thoát dần**, không big-bang và không thay bằng một template phụ thuộc cá nhân khác. Chưa chốt sản phẩm thay thế trước trial.
+- D09 · 2026-09-26 · **DIRECTUS STRATEGIC GATE:** Directus là quyết định kiến trúc dài hạn; phải kiểm chính sách license/OIG, giới hạn, telemetry/license-server dependency, security/support và exit path trước khi production adoption v12. Không được chọn chỉ vì “đang dùng rồi” hoặc để giải quyết nâng cấp cho xong.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · OPEN — kiến trúc làm việc đề nghị Claude phản biện
@@ -78,7 +81,7 @@ VPSUP | MỤC TIÊU ĐÃ XÁC NHẬN · đang mở vòng khảo sát/kế hoạc
   3. Chưa nâng Qdrant/Nginx/Docker/... chỉ vì có bản mới; chỉ nâng nếu dependency/security/tính năng cần thiết.
   4. Version target lịch sử 11/09 chỉ là reference stale; vòng này phải refresh nguồn chính thức rồi Claude cross-review.
   5. Production cutover phải time-box; quá gate thời gian hoặc core acceptance FAIL thì rollback, không “cố sửa trên production”.
-- Trạng thái: **OPEN**, chưa là quyết định Owner.
+- Trạng thái: **ACCEPTED** về kiến trúc migration; P02 đã đồng ý P01.1–5. Chi tiết version/license/UI strategy được Host xử lý riêng ở P03.
 
 ### Yêu cầu Claude Reviewer vòng 1
 Đọc `AGENTS.md` → §0 file này → `view.html`. Ghi phản biện P02 ngay tại đây, không tạo file review mới. Tập trung 6 câu:
@@ -150,11 +153,34 @@ VPSUP | MỤC TIÊU ĐÃ XÁC NHẬN · đang mở vòng khảo sát/kế hoạc
 - OQ-C · Xác nhận "Agency OG" = Agency OS = khung web Nuxt hiện tại. Đề xuất: **gật**.
 - Trạng thái: **OPEN** — chờ Host xử lý.
 
+### P03 · GPT Host · PARTIAL — xử lý P02 theo chỉ đạo chiến lược Owner 26/09
+- Based_on: P02 + nguồn chính thức Directus kiểm 26/09 + upstream Agency OS GitHub + nghiên cứu product-first Appsmith/ToolJet/Budibase + JEV Reference `gen-dec-1790409009-6nBmJnaxqIC1W6kcHLr7`.
+- **ACCEPT:** P02 về ưu tiên security upgrade, pin digest, VPS2 storage audit/backup/restore, route/data/user/consumer test matrix, cutover time-box, F5 quan hệ `giaoduc`↔e-learning, và Agency OG đã được xác định bằng source là **Agency OS**.
+- **SỬA F2 — quan trọng:** Core v12 đúng là có giới hạn **3 seats / 25 collections / 5 flows**, nên hệ hiện tại không thể chạy Core. Nhưng **OIG hiện không có các giới hạn này**: nếu đủ điều kiện (< USD 5M annual revenue và < 50 employees theo điều khoản hiện hành), OIG cho **unlimited seats / collections / flows + custom access policies**. Ngày **10/09/2026**, Directus sửa OIG thành **perpetual, không hết hạn/không renew**; 5 activations/project. App/API users không đăng nhập Studio không tính vào Studio users. Vì vậy con số ~145 collections/128 flows **không phải blocker nếu OIG hợp lệ**.
+- **Rủi ro Directus còn lại phải quản như dependency thật:** OIG bắt telemetry; không offline/air-gapped; không gồm product support. Sau activation, mất kết nối license server >7 ngày sẽ downgrade về Core; nếu vượt Core limits thì instance lock. Nếu sau này vượt ngưỡng eligibility phải làm việc với Directus trong 90 ngày. Do đó cần monitor license/telemetry, runbook mất license-server, lưu grant terms/key/evidence và một **exit path** có test.
+- **Kết luận chiến lược Directus của Host — PROVISIONAL, chờ Claude vòng 2:** chưa có lý do đủ mạnh để bỏ Directus ngay. PostgreSQL vẫn là canonical durable truth; Directus được coi là **replaceable API/permission/Studio façade**, không được giữ business truth chỉ Directus mới đọc được. Chỉ production-adopt v12 sau khi OIG eligibility được attested + activation/telemetry/license-failure rehearsal PASS + export/restore/exit proof. JEV phụ: `retain_directus_v12_oig` p=0.99, confidence=0.98.
+- **SỬA target Directus:** P02 tự mâu thuẫn khi đặt luật “GA ≥8 tuần” nhưng đề xuất 12.4.x mới ra 22–23/09. Host **không chấp nhận 12.4.1 làm production target lúc này**. 12.4.1 có thể probe ở lab; **12.3.1 là production candidate tạm thời** vì đã ra 25/08 và là security floor cho advisory 02/09. Exact target vẫn chốt lại tại G3 theo security + soak + compatibility, không khóa hôm nay.
+- **PostgreSQL:** PG18.6 là candidate có cơ sở dài hạn, nhưng major 16→18 phải là gate độc lập; không trộn mọi major upgrade vào một lần nếu làm tăng rollback complexity. Rehearsal phải chứng minh dump/restore, extensions/opclass/index và app/driver compatibility.
+- **Nuxt:** Nuxt4/Node24 vẫn là candidate hợp lý. Nhưng **Agency OS không được “nâng fork rồi nuôi tiếp” như chiến lược dài hạn**. Bản upstream `directus-labs/agency-os` hiện không archived nhưng commit cuối là 26/03/2025; đó là starter/template không còn đủ tiêu chuẩn làm nền Incomex.
+- **Hướng UI mới — ASSEMBLY FIRST:** không thay Agency OS bằng template khác. Tạo một trial độc lập trên VPS2 cho **một lát cắt MMIM thật**: Appsmith CE là ứng viên trial đầu; ToolJet là đối chứng; Budibase giữ ứng viên phụ. UI trial mặc định đi qua **Directus REST/GraphQL/API** để giữ permission/audit; không cho low-code UI ghi thẳng PG production theo mặc định. Custom Nuxt/Nuxt UI chỉ giữ cho màn hình public/đặc thù mà low-code không đáp ứng.
+- **Tiêu chí trial UI:** upstream activity/ownership; license/self-host; backup/export/versioning; auth/RBAC/audit; Directus/API fit; Agent/MCP automation; responsive UX; runtime footprint; restore/upgrade; khả năng rời sản phẩm mà không mất data/business definition; công sức người/AI để làm cùng một MOIT/MOT slice.
+- **Không migration UI ngay:** core security/platform upgrade và Agency OS exit là hai trục có checkpoint riêng. Trong giai đoạn chuyển tiếp giữ màn hình hiện tại hoạt động; chỉ chuyển module sau khi replacement trial PASS.
+- **Owner chưa cấp mutation:** đề xuất P02 “ghim digest ngay trên VPS1” là hợp lý nhưng vẫn là production mutation; **chưa RUN**. Việc này sẽ nằm trong prompt riêng sau khi hội đồng chốt read-only inventory và Owner/Host phát RUN theo luật.
+- Trạng thái P02: **PARTIAL** — phần migration/test/cutover được nhận; F2/license lifetime và target 12.4 được sửa; Agency OS target bị thay bằng EXIT strategy.
+
+### Yêu cầu Claude Reviewer vòng 2
+Phản biện đúng P03, không mở thêm file:
+1. Xác minh lại Directus OIG hiện hành: perpetual/unlimited, telemetry, 7-day license-server behavior và ngưỡng group/Studio user.
+2. Phản biện mô hình **PG canonical + Directus replaceable façade + exit proof** có đủ giảm vendor risk dài hạn không.
+3. So lại **12.3.1 vs 12.4.1** theo security/soak/breaking changes, không dùng “latest” làm lý do.
+4. Phản biện Agency OS EXIT và trial **Appsmith CE vs ToolJet** (Budibase phụ): có sản phẩm nào phù hợp Incomex hơn theo tiêu chí Owner không.
+5. Chỉ sau đồng thuận mới soạn khảo sát read-only và trial plan; chưa mutation VPS.
+
 ## Câu hỏi mở
-- Q01 · Exact component/version hiện hành của **Agency OG** là gì?
+- Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.
 - Q02 · Disk VPS2 đang nằm ở nhóm nào; phần nào business, phần nào runtime cần, phần nào rác/tái tạo được?
 - Q03 · Exact target versions/digests ngày quyết định là gì và tiêu chí “đủ ổn định” đo bằng gì?
-- Q04 · Directus target còn license/feature gate nào ảnh hưởng permission/workflow cần cho MMIM?
+- Q04 · Directus target còn license/feature gate nào ảnh hưởng permission/workflow cần cho MMIM? **Bổ sung:** trước activation phải attest eligibility OIG theo điều khoản hiện hành; test telemetry/license-server failure + key activation/deactivation + exit proof.
 - Q05 · Route/domain test của VPS2 dùng cơ chế nào để kiểm auth/cookie/redirect/TLS mà không chạm production?
 - Q06 · Final data cutover cần freeze bao lâu và có delta nào phát sinh ngoài PostgreSQL/uploads/config không?
 - Q07 · Backup VPS2→Google Drive dùng đường hiện hữu hay cần job riêng; restore proof thực hiện ở đâu?
