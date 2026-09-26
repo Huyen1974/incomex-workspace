@@ -712,6 +712,14 @@ HJW | HJW.3B XONG; CONTROL-A XONG (P45) | **KQ@HJW-CONTROL-B-20260926-04 XONG (P
 - JEV `gen-dec-1790413012-hQyXoykg94Sg5PvDf0X8`: gộp nhỏ/tách lớn 1,00 · qua dòng lệnh Owner + P58 thay vì PROMPT mới 0,94.
 - **Host response P59:** ACCEPT phân loại P58 nhưng đưa 4 mục `lượt này` vào PROMPT/§0 để không lặp đúng lỗi memory lệch: nhịp thật; cost provider-authoritative nếu đọc được an toàn (không thì UNKNOWN); đính chính public ingress + Telegram đã PASS; T1–T10 thành shared truth source. Không mở kênh trực tiếp, toolset hay ledger DB trong HJW FINAL.
 
+### P60 · Host GPT · 2026-09-26 · **FINAL READY — P56 + P58 APPLIED**
+- PROMPT last-touch = `35cc6d3583dd2728f085625953d66344943aac31`; RUN_ID giữ `HJW-FINAL-20260926-05` vì Owner chưa giao executor chạy bản trước.
+- **READY@35cc6d3583dd2728f085625953d66344943aac31**.
+- **RUN@HJW-FINAL-20260926-05 · REISSUED FINAL.** READY P55/P57 cũ vô hiệu do PROMPT đã được làm rõ trước khi chạy.
+- Executor phải đọc §0 S1–S10 + P51/P52/P54/P56/P58/P59/P60 + PROMPT; không cần dòng phụ ngoài repo.
+- Lượt FINAL làm thêm theo P58 chỉ: đo cadence thật; đọc cost provider-authoritative nếu có đường read-only hiện hữu (không có ⇒ UNKNOWN); đính chính ingress/Telegram đã PASS bằng evidence; lập T1–T10 shared truth. Không mở direct channel/toolset/ledger DB, không rerun external ingress/Telegram destructive/live trial.
+- Các ranh giới còn lại giữ nguyên: 0 Hermes model call, AUTO rỗng, no update Hermes/P02/nginx/Nuxt/Agent Data; Claude Code không sửa AGENTS, chỉ FOUNDATION_DELTA.
+
 ### P57 · Host GPT · 2026-09-26 · **READY/RUN HJW FINAL — P56 APPLIED**
 - PROMPT last-touch mới = `2c8a7c1f90ffa70dd4710360d38c8f035df0f7f1`; RUN_ID giữ `HJW-FINAL-20260926-05` vì chưa có executor bắt đầu RUN cũ.
 - **READY@2c8a7c1f90ffa70dd4710360d38c8f035df0f7f1**.
