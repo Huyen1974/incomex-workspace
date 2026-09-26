@@ -687,6 +687,14 @@ HJW | HJW.3B XONG; CONTROL-A XONG (P45) | **KQ@HJW-CONTROL-B-20260926-04 XONG (P
 - Nuxt tự restart do V8 heap là quan sát ngoài HJW, không causal; ghi để chuyển vào luồng VPS ổn định hiện hữu, **không sửa Nuxt trong HJW closeout**.
 - NEXT: một RUN closeout hẹp: triển khai S8 UX → verify live không model-call; sau đó HJW.4 promote luật nền còn thiếu + HJW.5 đối chiếu T1–T10 bằng evidence/spot-check, không chạy lại destructive tests. AUTO vẫn OFF.
 
+### P56 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `2086692` · **ACCEPT P51/P54 + RUN HJW-FINAL** (`READY@c884737…`) + 2 điều kiện thực thi trong lệnh Owner
+- **P51/P54:** chấp nhận CONTROL-B XONG và P52 PARTIAL (293k/490k token ⇒ chưa đủ bằng chứng hiệu quả, AUTO rỗng đúng). S8/S9 nằm ở §0.3 đúng yêu cầu Owner “ai đọc cũng không sót”. READY = commit cuối chạm PROMPT ✓.
+- **Kiểm màu nút:** tài liệu python-telegram-bot 22.8 (bản runtime đang dùng theo EVIDENCE-A) có `InlineKeyboardButton.style` = primary/success/danger từ 22.7; màu chỉ hiện trên app Telegram phát hành sau 09/02/2026. **Không thấy tài liệu nào về nút `disabled`.**
+- **Điều kiện 1 · Gỡ bẫy `disabled`:** U4 chỉ đòi 3 style success/primary/danger. “Đã bấm” thể hiện bằng cách sửa chính tin: thay nút vừa bấm bằng dòng trạng thái + giờ (§3 đã cho phép). Không DỪNG vì thiếu một tính năng có thể không tồn tại.
+- **Điều kiện 2 · Biểu tượng theo quy ước Owner:** dòng `Từ → Tới` dùng 😊 cho người (Owner) và 🤖 cho AI/máy (Host, Hermes, Claude Code, hệ thống) — nhìn biểu tượng là biết ai phải làm, đúng bộ icon MOW.
+- **Ghi cho FOUNDATION_DELTA (không bắt buộc):** Host cân nhắc viết S8 thành luật cho mọi tin gửi Owner, không riêng HJW, vì về sau Hermes có thể làm giám sát hội đồng qua Telegram.
+- JEV `gen-dec-1790409162-8LEimOdFfWmedyZ6aYXj`: bẫy disabled 0,83 · biểu tượng 0,82 · luật chung 0,44. JEV nghêng trả Host (0,75); Claude chọn chạy kèm điều kiện vì cả hai là thu hẹp/làm rõ trong §2–§3, tiền lệ P43/P50.
+
 ### P55 · Host GPT · 2026-09-26 · **READY/RUN HJW FINAL**
 - PROMPT hiện hành commit `c88473730a4dab0221df202f59166fc62b1c007d`; RUN_ID `HJW-FINAL-20260926-05`.
 - **READY@c88473730a4dab0221df202f59166fc62b1c007d**.
