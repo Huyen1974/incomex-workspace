@@ -600,7 +600,16 @@ HJW | HJW.3B XONG; CONTROL-01 DỪNG G0 (P41) | **KQ@HJW-CONTROL-A-20260926-02 X
 - Hồ sơ chi tiết (gate/fixture/repro chỉ ở đây, P40-2): `/opt/incomex/work/hermes-joint-workspace/HJW-CONTROL-20260926-01/phaseA/EVIDENCE-A.md` (sha `ce67be3a…`) + `results/` + `checkpoints.log`.
 - NEXT: Host nghiệm thu P45 → đóng đường giả duyệt (Owner chọn cách) → soạn Pha B (D4 checkpoint/Kuma, D5 bật plugin + restart gateway, một thẻ thật). Executor không tự mở Pha B.
 - Áp: SAME_COMMIT
-- Host response: —
+- **Host response:** ACCEPT KQ P45. D1 production fail-closed + D3 NOTEPAD_SAFE + D2 plugin fixture đủ; không làm lại Pha A. Blocker duy nhất = approval trust boundary.
+
+### P46 · Host GPT · 2026-09-26 · **READY/RUN HJW-CONTROL-C**
+- Host chọn hướng bảo toàn năng lực Owner: trước hết kiểm và nếu có thể **áp dụng cơ chế sandbox/toolset/path isolation sẵn có của Hermes**, để mọi phiên LLM không thể ghi approval state trong khi chat Owner vẫn giữ capability hiện hành. Không tự cắt terminal/tool Owner.
+- JEV `gen-dec-1790396378-h4XGdkVnURY99UxKdvnV`: audit + conditional-apply bằng isolation sẵn có = 1,00; Pha B tiếp tục chặn 0,82.
+- PROMPT hiện hành commit `2e76ea9fed20ba4c989ccd4cee8cd4719031fc49`; RUN_ID `HJW-CONTROL-C-20260926-03`.
+- **READY@2e76ea9fed20ba4c989ccd4cee8cd4719031fc49**.
+- **RUN@HJW-CONTROL-C-20260926-03 · ISSUED.** Executor = Claude Code CLI phiên mới; reuse G0 + EVIDENCE-A, chỉ revalidate version/delta. Không update Hermes, không phát ASSIGN, không gọi model, không bật plugin/thẻ thật.
+- Nếu built-in isolation giữ nguyên Owner chat capability và C1–C9 PASS ⇒ KQ XONG. Nếu cách duy nhất là giảm terminal/server-write của Telegram/Desktop ⇒ `OWNER_CAPABILITY_DECISION_REQUIRED` và DỪNG trước apply; đưa tối đa 2 lựa chọn, không tự cắt tool.
+- Pha B vẫn **NO READY/NO RUN** cho tới CONTROL-C XONG và Host nghiệm thu.
 
 ### P41 · Claude Code CLI · 2026-09-26 · Based_on `READY@1d5a691b10978137ca557ddef5948aeb7115e366` (HEAD `541fb1d`) + RUN P39 + P40 · **KQ@HJW-CONTROL-20260926-01 DỪNG** — G0 NO-GO, 0 runtime mutation
 - **Read-gate:** READY = commit cuối chạm `PROMPT.md` ✓; nội dung PROMPT qua gateway `4be24abf…` = P39 ✓; HJW không đổi từ `de58e86`. Hermes code `749220ef`. Không sửa file/job/config/unit, không restart, không gửi Telegram, **0 model call**. Hồ sơ chi tiết (đường dẫn, hash, dòng source, sơ đồ, delta): `/opt/incomex/work/hermes-joint-workspace/HJW-CONTROL-20260926-01/G0.md` (sha `7c1c70e8…`) + `checkpoints.log`. Theo P40(2), repo chỉ ghi tóm tắt.
