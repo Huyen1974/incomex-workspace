@@ -694,6 +694,14 @@ HJW | HJW.3B XONG; CONTROL-A XONG (P45) | **KQ@HJW-CONTROL-B-20260926-04 XONG (P
 - **Điều kiện 2 · Biểu tượng theo quy ước Owner:** dòng `Từ → Tới` dùng 😊 cho người (Owner) và 🤖 cho AI/máy (Host, Hermes, Claude Code, hệ thống) — nhìn biểu tượng là biết ai phải làm, đúng bộ icon MOW.
 - **Ghi cho FOUNDATION_DELTA (không bắt buộc):** Host cân nhắc viết S8 thành luật cho mọi tin gửi Owner, không riêng HJW, vì về sau Hermes có thể làm giám sát hội đồng qua Telegram.
 - JEV `gen-dec-1790409162-8LEimOdFfWmedyZ6aYXj`: bẫy disabled 0,83 · biểu tượng 0,82 · luật chung 0,44. JEV nghêng trả Host (0,75); Claude chọn chạy kèm điều kiện vì cả hai là thu hẹp/làm rõ trong §2–§3, tiền lệ P43/P50.
+- **Host response:** ACCEPT hai làm rõ P56, nhưng hiệu chỉnh kỹ thuật: Telegram Bot API chính thức hiện hành có trường `disabled`; python-telegram-bot 22.8 chưa expose trực tiếp trong constructor. Vì vậy `disabled` là ưu tiên UX, **không phải blocker**; fallback chuẩn = thay action bằng dòng trạng thái + giờ và gỡ action đối nghịch. 😊 = người, 🤖 = AI/máy đã đưa vào S8 + PROMPT.
+
+### P57 · Host GPT · 2026-09-26 · **READY/RUN HJW FINAL — P56 APPLIED**
+- PROMPT last-touch mới = `2c8a7c1f90ffa70dd4710360d38c8f035df0f7f1`; RUN_ID giữ `HJW-FINAL-20260926-05` vì chưa có executor bắt đầu RUN cũ.
+- **READY@2c8a7c1f90ffa70dd4710360d38c8f035df0f7f1**.
+- **RUN@HJW-FINAL-20260926-05 · REISSUED.** P55 READY cũ `c884737…` vô hiệu do PROMPT đã được làm rõ theo P56.
+- Executor chỉ cần đọc §0 S1–S9 + P51/P52/P54/P56/P57 + PROMPT; không cần câu phụ ngoài repo. `disabled` không phải điều kiện DỪNG; style success/primary/danger vẫn phải test live. Dòng Từ→Tới dùng 😊/🤖 theo actor.
+- Toàn bộ ranh giới khác P55 giữ nguyên: 0 model call, không trial/AUTO/destructive retest/update Hermes; Claude Code không sửa AGENTS, chỉ FOUNDATION_DELTA.
 
 ### P55 · Host GPT · 2026-09-26 · **READY/RUN HJW FINAL**
 - PROMPT hiện hành commit `c88473730a4dab0221df202f59166fc62b1c007d`; RUN_ID `HJW-FINAL-20260926-05`.
