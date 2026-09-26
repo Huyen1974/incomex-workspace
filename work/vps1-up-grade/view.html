@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VPS1 Upgrade — kế hoạch qua VPS2</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1f2937;background:#f6f7f9}
+body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.hero{padding:28px}.card{padding:20px;margin-top:16px}h1{margin:0 0 8px;font-size:30px}h2{font-size:20px;margin:0 0 12px}h3{font-size:16px}.muted{color:#6b7280}.ok{color:#166534}.warn{color:#92400e}.stop{color:#991b1b}.tag{display:inline-block;padding:4px 9px;border-radius:999px;background:#eef2ff;margin:3px;font-size:12px}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:left;vertical-align:top}th{background:#f9fafb}code{background:#f3f4f6;padding:2px 5px;border-radius:4px}.flow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.step{padding:10px 12px;border-radius:10px;background:#f3f4f6}.arrow{color:#9ca3af}ul,ol{line-height:1.55}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.big{font-size:18px;font-weight:700}.small{font-size:13px}.callout{border-left:4px solid #6366f1;padding:10px 14px;background:#f5f7ff;border-radius:8px}.danger{border-left-color:#dc2626;background:#fff7f7}
+</style>
+</head>
+<body><main class="wrap">
+<section class="hero">
+<div class="muted">work/vps1-up-grade · mở 26/09/2026 · Host GPT Chat</div>
+<h1>Nâng cấp VPS1 an toàn qua rehearsal trên VPS2</h1>
+<p class="big">Mục tiêu: nâng nền tảng cho MOW/MOT/MOIT/MOUT mà VPS1 vẫn chạy bình thường cho tới khi VPS2 chứng minh được target + rollback.</p>
+<div><span class="tag">VPS1 = production</span><span class="tag">VPS2 = rehearsal lab</span><span class="tag">Google Drive = backup off-VPS</span><span class="tag">Chưa cho RUN</span></div>
+</section>
+
+<section class="card" id="owner">
+<h2>1. Owner đã chốt</h2>
+<div class="grid">
+<div><h3>Core ưu tiên</h3><p><b>PostgreSQL · Directus · Nuxt · Agency OG</b>. Thành phần khác chỉ nâng khi dependency/security/tính năng buộc phải làm.</p></div>
+<div><h3>Triết lý version</h3><p>Chọn <b>mới nhất nhưng ổn định</b>: không bleeding-edge chưa đủ tin cậy, không giữ bản cũ nếu làm hụt capability.</p></div>
+<div><h3>VPS2 cần dọn</h3><p>E-learning gần như không hoạt động; Owner ước workload thực khoảng ~3GB nhưng VPS2 đang dùng hàng chục GB. Phải tìm nguyên nhân và dọn có kiểm soát.</p></div>
+<div><h3>Tài sản backup</h3><p>Ngoài 2 VPS có Google Drive dung lượng lớn; đường VPS1 → Drive đang ổn định. Phải tận dụng để giảm rủi ro/thời gian.</p></div>
+</div>
+</section>
+
+<section class="card" id="architecture">
+<h2>2. Kiến trúc làm việc đề nghị</h2>
+<div class="flow">
+<span class="step">VPS1 production</span><span class="arrow">→</span>
+<span class="step">inventory + backup</span><span class="arrow">→</span>
+<span class="step">VPS2 CURRENT parity</span><span class="arrow">→</span>
+<span class="step">same slice baseline</span><span class="arrow">→</span>
+<span class="step">upgrade từng lớp</span><span class="arrow">→</span>
+<span class="step">TARGET same slice</span><span class="arrow">→</span>
+<span class="step">rollback rehearsal</span><span class="arrow">→</span>
+<span class="step">cutover rehearsal</span><span class="arrow">→</span>
+<span class="step">VPS1 cutover</span>
+</div>
+<p class="callout"><b>Đề nghị Host, chờ Claude review:</b> “chuyển về VPS1” = triển khai lại <b>công thức/artifact đã chứng minh</b> (exact image/digest, compose/config, migration, runbook), không chép nguyên máy VPS2 đè lên production.</p>
+</section>
+
+<section class="card" id="history">
+<h2>3. Những gì đã có từ rehearsal 08–11/09</h2>
+<table>
+<thead><tr><th>Hạng mục</th><th>Đã có</th><th>Giới hạn</th></tr></thead>
+<tbody>
+<tr><td>Topology</td><td>VPS1 chỉ đọc; VPS2 dùng lab cô lập.</td><td>Chưa là full production migration rehearsal.</td></tr>
+<tr><td>PARITY CLONE</td><td>Đã thiết kế profile mang schema/config/policies/selected flows/extensions/source-lock/files và dữ liệu đại diện cần thiết.</td><td>Không mặc định full production clone.</td></tr>
+<tr><td>SLICE FIXTURE</td><td>Đã thiết kế cùng fixture/expected cho CURRENT và TARGET.</td><td>Fixture nhỏ không được dùng để claim toàn production parity.</td></tr>
+<tr><td>Target lịch sử</td><td>PG16.15, Directus12.3.1, Nuxt4.5.2 từng được rehearsal/đề xuất.</td><td><b>STALE:</b> phải refresh trước quyết định mới.</td></tr>
+<tr><td>Directus</td><td>Đã lộ compatibility/license issues thật.</td><td>Target cũ chỉ PARTIAL, chưa production-ready.</td></tr>
+<tr><td>Routing</td><td>Đã từng thấy route/admin/auth không hoàn toàn khớp suy đoán từ source.</td><td>Cần route matrix từ runtime thật.</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="card" id="vps2">
+<h2>4. Khảo sát VPS2 trước khi dùng làm lab</h2>
+<p><b>Không xóa theo cảm giác “máy không có người dùng”.</b> Trước tiên phải backup phần cần giữ, rồi phân loại dung lượng:</p>
+<ul>
+<li>DB/data e-learning, uploads, file người dùng.</li>
+<li>Docker images/layers, build cache, stopped containers, orphan volumes/bind directories.</li>
+<li>Logs/journals, application logs, crash dumps.</li>
+<li>Backups cũ, temp/cache, package caches.</li>
+<li>Source/build artifacts và các bản deploy lịch sử có thể tái tạo.</li>
+<li>Secret/config/runtime cần thiết để khôi phục e-learning.</li>
+</ul>
+<p><b>Output bắt buộc:</b> “giữ / offload Drive / purge được / chưa rõ”, kèm bytes và lý do. Chỉ purge sau khi đã có restore/read-back proof phù hợp.</p>
+</section>
+
+<section class="card" id="versions">
+<h2>5. Chọn target version — GPT + Claude phải đồng thuận</h2>
+<table>
+<thead><tr><th>Component</th><th>Hiện trạng/Reference</th><th>Quy tắc chọn target</th></tr></thead>
+<tbody>
+<tr><td>PostgreSQL</td><td>Lịch sử: 16.13; target cũ 16.15</td><td>Ưu tiên supported patch/major có lợi ích thật; tránh major jump nếu chưa cần.</td></tr>
+<tr><td>Directus</td><td>Lịch sử: 11.5.1; target cũ 12.3.1 PARTIAL</td><td>Kiểm license, permissions, extensions/hooks, SDK, migrations, flows, auth.</td></tr>
+<tr><td>Nuxt</td><td>Lịch sử: 3.20.2; target cũ 4.5.2</td><td>Stable supported release + compatible Node/module/UI/Image/session/build.</td></tr>
+<tr><td>Agency OG</td><td><b>Chưa xác định chính xác package/image/version.</b></td><td>Inventory tên thật trước; không tự đổi thành sản phẩm khác rồi chọn version.</td></tr>
+<tr><td>Qdrant/Nginx/Docker/worker/khác</td><td>Không phải core mặc định</td><td>Giữ nguyên nếu an toàn; chỉ nâng khi dependency/security/capability có lợi rõ.</td></tr>
+</tbody>
+</table>
+<p class="small muted">Không dùng tag <code>latest</code> làm deployment proof. Final target phải pin exact version/digest và ghi nguồn/ ngày kiểm.</p>
+</section>
+
+<section class="card" id="test">
+<h2>6. Làm sao chứng minh “VPS2 PASS ⇒ chuyển VPS1 có cơ sở”</h2>
+<div class="grid">
+<div><h3>A. Route matrix</h3><ul><li>Nginx/TLS/domain</li><li>Nuxt pages/SSR</li><li>Directus API/admin/auth</li><li>Workflow endpoints</li><li>Owner View/Kuma URLs</li><li>redirect/cookie/session</li></ul></div>
+<div><h3>B. Data & write-back</h3><ul><li>schema/count/integrity</li><li>CRUD + permissions</li><li>version/revision</li><li>uploads/storage</li><li>save → read-back</li></ul></div>
+<div><h3>C. Runtime</h3><ul><li>workers/queue</li><li>cron/schedule</li><li>restart recovery</li><li>idempotency</li><li>health + logs</li></ul></div>
+<div><h3>D. MMIM slice</h3><ul><li>same IDs/fixtures</li><li>same expected semantics</li><li>human path</li><li>permission deny/allow</li><li>trace/audit</li></ul></div>
+</div>
+<p class="callout danger"><b>Isolation bắt buộc:</b> clone VPS2 không được tự gửi Telegram/mail/webhook, ghi GitHub, chạy production backup, mutate external storage/API hoặc tranh singleton consumer với VPS1.</p>
+</section>
+
+<section class="card" id="cutover">
+<h2>7. Cutover/rollback phải giải quyết dữ liệu mới của VPS1</h2>
+<ol>
+<li>Rehearsal kéo dài bao lâu cũng được trên VPS2, nhưng production vẫn sinh thay đổi.</li>
+<li>Ngày cutover phải có freeze/delta strategy + final backup/snapshot.</li>
+<li>Migration chạy trên <b>dữ liệu production mới nhất</b>, không mang DB lab cũ về làm truth.</li>
+<li>Chạy đúng artifact/runbook/test đã rehearsal.</li>
+<li>Time-box cutover. FAIL core gate hoặc quá giới hạn ⇒ rollback theo runbook, không sửa mò trên production.</li>
+</ol>
+<p>Google Drive là bản off-VPS quan trọng; snapshot/local rollback vẫn cần cho đường phục hồi nhanh nếu phù hợp.</p>
+</section>
+
+<section class="card" id="plan">
+<h2>8. Các gate dự kiến</h2>
+<table>
+<tr><th>Gate</th><th>Điều kiện qua</th></tr>
+<tr><td>G0 · Inventory</td><td>Biết thật VPS1/VPS2/backup/Agency OG/routes/side-effects; không còn giả định quan trọng.</td></tr>
+<tr><td>G1 · VPS2 ready</td><td>Backup e-learning verified + storage cleaned safely + đủ capacity.</td></tr>
+<tr><td>G2 · CURRENT parity</td><td>Clone current chạy baseline + same slice đạt mức đã định.</td></tr>
+<tr><td>G3 · Target stack</td><td>Exact versions/digests đồng thuận GPT–Claude; license/dependencies clear.</td></tr>
+<tr><td>G4 · TARGET parity</td><td>Same slice + route/API/UI/runtime matrix PASS; regression disposition xong.</td></tr>
+<tr><td>G5 · Rollback rehearsal</td><td>Rollback thật trên lab, không chỉ có tài liệu.</td></tr>
+<tr><td>G6 · Cutover rehearsal</td><td>Chạy trọn runbook, biết downtime và failure point.</td></tr>
+<tr><td>G7 · Production</td><td>Backup final + cutover + acceptance PASS; rollback vẫn sẵn cho tới checkpoint đóng.</td></tr>
+</table>
+</section>
+
+<section class="card" id="review">
+<h2>9. Claude cần phản biện vòng 1</h2>
+<ol>
+<li>Version policy và exact candidates cho 4 core component.</li>
+<li>VPS2 storage audit/cleanup để đạt lab capacity tối ưu mà bảo toàn e-learning.</li>
+<li>Scope PARITY CLONE tối thiểu nhưng đủ thật.</li>
+<li>Route/API/UI/runtime matrix và same-slice acceptance.</li>
+<li>Cutover/rollback tối ưu với 2 VPS + Google Drive.</li>
+<li>Component ngoài core nào giữ nguyên/nâng do dependency.</li>
+</ol>
+<p>Reviewer ghi P02 vào <code>COLLAB.md</code>; không tạo file review riêng.</p>
+</section>
+
+<section class="card" id="status">
+<h2>10. Trạng thái hiện tại</h2>
+<p><b class="ok">Đã mở task và chốt mục tiêu.</b> Chưa có PROMPT, READY hoặc RUN. Chưa có hành động trên VPS.</p>
+<p><b>Next:</b> Claude review → khảo sát read-only VPS1/VPS2/Google Drive + refresh official version candidates → Host hợp nhất thành kế hoạch có checkpoint.</p>
+</section>
+</main></body></html>
