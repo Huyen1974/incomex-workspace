@@ -89,6 +89,67 @@ VPSUP | MỤC TIÊU ĐÃ XÁC NHẬN · đang mở vòng khảo sát/kế hoạc
 5. Cutover/rollback nào ít downtime và ít thao tác nhất với backup Google Drive đang có?
 6. Thành phần nào ngoài core nên giữ nguyên, thành phần nào bắt buộc nâng do dependency?
 
+### P02 · Claude Chat (Reviewer) · OPEN — phản biện P01, trả lời 6 câu
+- Based_on: `dd67cc8` (COLLAB `b0fca0c3`, view `443a5786`). Scope: §0, P01, `view.html` §1–§10, Q01–Q08.
+- Nguồn đo/đọc 26/09: VPS1 live (`vps_status` containers/resources, `SHOW server_version`, compose `docker/nuxt-repo/infra/docker/docker-compose.yml`, nginx `docker/nginx/conf.d/default.conf`); `cấu trúc hệ thống.html` v1.6.20 (Drive, W002-FEAS §1/§6/§7); nguồn chính thức tra 26/09: postgresql.org/support/versioning · directus.com/docs (licensing, breaking-changes/version-12) + npm · nuxt.com roadmap · nodejs.org · qdrant releases · api.contabo.com.
+- Chưa đọc: VPS2 live (Chat không có đường đọc), `KHO/11-evidence/.../PLATFORM.md`, chi tiết HJW.
+- Kết luận: **ACCEPT P01.1–5.** Bổ sung 5 phát hiện làm đổi ưu tiên + trả lời 6 câu.
+
+**Phát hiện (đo 26/09)**
+- F1 🔴 **Directus 11 đã hết vá bảo mật.** Advisory 24/06 và 05/08/2026 (có 1 Critical WebSocket, SQLi PostGIS, SSRF; GHSA-97xr-jchp-xm3c, GHSA-j5h6-vqc3-phqh) chỉ vá ở 12.0/12.1; dòng 11 dừng ở 11.17.4 (30/04). VPS1 chạy 11.5.1 và mở ra `directus.*` + `/directus/`. ⇒ Nâng Directus là **bắt buộc**, không còn là tuỳ chọn tính năng. G0 đo ngay (chỉ đọc) mức lộ: WebSocket có bật không, ai vào được admin.
+- F2 🔴 **Directus 12 = license MSCL.** Không key → Core tier: 25 collections · 5 flows · 3 seats, custom rules trên access policy bị bỏ qua; hết 30 ngày ân hạn thì khoá `/items`. Hệ có ~145 collections, 128 flows ⇒ **không có key Open Innovation Grant thì không được nâng.** OIG: doanh thu < 5 triệu USD và < 50 người; key 1 năm, tối đa 5 lần kích hoạt; bắt telemetry 6 giờ/lần; kích hoạt cần `PUBLIC_URL` hợp lệ. Tài liệu cũ ghi Owner "dưới 5 triệu VND" → cần Owner xác nhận lại đúng đơn vị + số người (OQ-A dưới).
+- F3 🟡 **Nhãn trôi trên VPS1:** `postgres:16`, `qdrant/qdrant:latest`, `directus/directus:11.5`, `nginx:alpine`. Qdrant bắt buộc lên từng minor (1.16→1.17→1.18→1.19); một lần pull/recreate có thể nhảy thẳng 1.19.x và hỏng storage. `postgres:16` tự lên 16.15 thì phải REINDEX btree_gist. ⇒ Một lượt nhỏ **ghim digest đang chạy** trước mọi việc (không restart, không đổi phiên bản) — mutation prod, chờ Owner (OQ-B). Bậc 2.
+- F4 🟡 **Q01 · Agency OG = Agency OS.** `docker/nuxt-repo/web/README.md`: "AgencyOS … Nuxt 3 + Directus". Upstream `directus-labs/agency-os` đứng yên từ 26/03/2025, không release, không hỗ trợ Nuxt 4. ⇒ "Nâng Agency OG" = **tự nâng bản fork** (Nuxt 3→4, SDK 19→khớp Directus 12, Node 20→24); không có bản upstream để kéo về (OQ-C).
+- F5 🟡 **VPS1 và VPS2 đang dính nhau.** `giaoduc.incomexsaigoncorp.vn` (cổng GDĐH; cấu hình ghi "phục vụ đoàn kiểm tra") chạy trên Nuxt VPS1 và nhúng `elearning.incomexsaigoncorp.vn` (VPS2). ⇒ (a) e-learning không phải "không ai xem": lab không được làm chậm/sập nó; (b) ma trận test phải có host giaoduc + iframe; (c) cửa sổ cutover tránh lịch kiểm tra.
+
+**1. Chính sách version — ACCEPT, thêm 3 luật đo được**
+- (i) Đích = **patch mới nhất của dòng đã GA ≥ 8 tuần và đã có ≥ 1 patch sau .0**, lấy tại ngày G3; (ii) EOL chính thức còn > 18 tháng; (iii) ghim **digest**, không tag.
+- Ứng viên 26/09 (refresh tại G3):
+
+| Thành phần | Hiện | Ứng viên | Lý do |
+|---|---|---|---|
+| PostgreSQL | 16.13 | **18.x mới nhất (18.6)** | GA 25/09/2025, EOL 11/2030 (16: 11/2028). 3,4 GB/5 DB → dump/restore vài phút, rẻ nhất lúc dữ liệu còn nhỏ, tránh một lần cutover nữa. PG19 còn beta. Lab đi 2 nấc 16.15 → 18.x. Lưu ý PG18: checksum mặc định, volume path đổi, REINDEX btree_gist. JEV `gen-dec-1790407432-rNCS9EhUXn5ZJZFKVdtB`: pg18 0,74 · pg17 0,18 · pg16 0,08. |
+| Directus | 11.5.1 | **12.4.x** — patch mới nhất tại G3; không lấy 12.4.1 (ra 23/09) | F1. Breaking 12.0–12.4 (health cần auth → `/server/ping`, `IP_TRUST_PROXY`, Flow update/delete, Tiptap, collection inactive 403…) mỗi mục thành 1 dòng kiểm. JEV 0,98. |
+| Nuxt (Agency OS fork) | 3.20.2 | **4.5.x** | Nuxt 3 EOL 31/07/2026; Nuxt 5 dự kiến Q4/2026, Nuxt 4 còn hỗ trợ 6 tháng sau đó. |
+| Node (Nuxt) | 20.20 (EOL 30/04/2026) | **24.x LTS** (24.21.0) | Nuxt 4.5 đã bỏ Node 20. Node của Directus theo image chính thức (22). |
+| @nuxt/ui | ^2.18.2 | **giữ 2.22.3** (chạy được trên Nuxt 4) | v4 = viết lại UI (Tailwind 4, Reka UI, đổi tên component) → tách việc sau. JEV 0,87. |
+| @directus/sdk | ^19.1.0 | **major khớp Directus đích** (12.4 ↔ 26) | 12.0 đổi `RequestError`. |
+
+**2. VPS2 đo/dọn gì**
+- Bước 0, trước mọi thứ: backup e-learning (DB + mã + uploads + nginx/TLS) lên Drive **và restore thử** vào container tạm ngay trên VPS2 — dữ liệu ~994 học viên cũ là bản duy nhất.
+- Đo bằng đúng khuôn "Sổ nguồn sinh" đã chạy ở `vps-clean-20-9-26` (Bậc 1: tái dùng): `du` theo tầng + `docker system df -v` + build cache + journal + `lsof +L1`; mỗi dòng 1 nhãn giữ / offload Drive / purge / chưa rõ.
+- Đích năng lực lab (ước, G0 kiểm): full clone ~4 GB dữ liệu × 2 (CURRENT/TARGET) + ~10 GB image + build cache ⇒ **≈30 GB đĩa trống + ≈5 GB RAM rảnh**. Thiếu RAM → tạm nâng gói VPS2 trong thời gian dự án (Bậc 1, vài USD) thay vì tối ưu thủ công. Container lab đặt trần CPU/RAM như lượt 09/09 để không đè e-learning (F5).
+
+**3. PARITY CLONE tối thiểu mà thật — đổi mặc định sang FULL DATA**
+- Mang đủ: 5 DB (3,4 GB) + uploads (8 KiB) + Qdrant (227 MB) + Nuxt output + extension/hook `l2-checkpoint-guard` + 128 Flow giữ nguyên trạng thái. Nhỏ nên subset không đáng công thiết kế manifest, lại dễ test giả. JEV 0,74.
+- Chỉ dựng chuỗi phục vụ: **postgres · directus · nuxt · nginx · agent-data · qdrant**. Không dựng Hermes, claude-mcp/claude-kb, cowork-*, agent-api-executor, JEV, Kuma, cron backup (không nâng — chỉ test phía gọi ở §4-D).
+- Cách ly phải **cưỡng chế** (A10 R2), không dựa lời nhắc: network Docker `internal: true` + firewall chặn egress container lab (chỉ mở registry và máy chủ license Directus); thay toàn bộ secret bằng secret lab (Directus KEY/SECRET, token mới); không mang `.env` prod nguyên xi. Flow schedule/webhook bị chặn bằng egress, không sửa từng Flow (giữ parity). Kích hoạt OIG ở lab tốn 1/5 lượt — dành: lab 1 · prod 1 · dự phòng.
+
+**4. Ma trận chứng minh "VPS2 PASS ⇒ có cơ sở chuyển" — máy tự sinh, chạy y hệt trên CURRENT và TARGET rồi diff**
+- A · Route: sinh từ nginx live — 4 host (vps.*, directus.*, ops.*, giaoduc.*), ≈105 `location` gồm 27 collection `/ops/items/*`, các nhóm `/api/*`, `/hooks/hermes/incomex-dispatch`, `/api/mcp-agent`, `/gpt-mcp/`, `/jev-mcp/`, `/ui-preview/` + monitor Kuma + trang Nuxt từ build manifest. Ghi status · redirect · cookie · 1 marker nội dung.
+- B · Dữ liệu: đếm dòng + checksum từng bảng 5 DB trước/sau; diff `--schema-only` sau khi loại thay đổi migration Directus đã biết.
+- C · Người dùng (Playwright): Directus admin login, Knowledge, Reports, Registries, GDĐH giaoduc + iframe e-learning, xưởng `/ui-preview/` — chụp ảnh so sánh.
+- D · Phía gọi: mỗi consumer của Directus/PG (agent-data, `directus_*`/`query_pg` của gateway, DOT scripts, Điều 31 runner, backup cron, Kuma) 1 lệnh đọc + 1 lệnh ghi vào vùng test.
+- PASS khi A–D không còn diff chưa disposition **và** G6 tập dượt bằng dữ liệu VPS1 mới lấy vẫn PASS. Bậc 1–2 (Playwright, Kuma, pg_dump có sẵn; script so mỏng).
+
+**5. Cutover/rollback ít downtime + ít thao tác (Bậc 1–2)**
+- Tại chỗ trên VPS1, cửa sổ đêm; người dùng chủ yếu là Owner + AI; tránh ngày kiểm tra GDĐH. Không blue-green (thêm bản sao DB + nginx phức tạp; cửa sổ ngắn đã chấp nhận được).
+- Trình tự: ① tắt nguồn ghi (công tắc STOP Owner đã có ở HJW cho Hermes; cron; ghi qua gateway; cowork-runner) → ② Contabo snapshot qua API (GSM có `vps_contabo_id/secret` — G0 xác nhận là khoá API) + `pg_dumpall` + snapshot Qdrant → Drive qua `backup-to-gdrive.sh` sẵn có → ③ chạy công thức: image ghim digest, dump/restore sang PG18, Directus migrate, Nuxt/Node mới, Qdrant từng minor → ④ bộ test A–D → ⑤ mở ghi.
+- Time-box = 1,5 × thời gian đo ở G6 (dự kiến ≤ 2 giờ). Quá → quay lui nhanh = compose cũ + restore dump vừa lấy (không có ghi mới trong cửa sổ ⇒ không mất dữ liệu). Quay lui cuối = Contabo snapshot (xoá snapshot mới hơn, đưa cả cấu hình VPS về cũ, tự xoá sau 30 ngày, gói chỉ 1–3 snapshot — G0 đo gói VPS1).
+- Code freeze từ G6 đến cutover: cấm sửa lõi (compose, nginx, schema Directus) trên VPS1 trừ sự cố; thay đổi VPS1 sau lúc clone ghi vào 1 danh sách delta để công thức mang theo. Chốt cưỡng chế: Config Guard (`incomex-config-drift-check`) sẵn có, baseline = lúc clone.
+- G0 kiểm thêm: backup Drive hiện có phủ đủ **5 DB** hay chỉ `directus`; đã có restore proof chưa.
+
+**6. Ngoài core**
+- **Bắt buộc nâng theo dependency:** Node của Nuxt; `@directus/sdk`; mọi extension Directus (hook `l2-checkpoint-guard` khai host ^11 → build lại bằng extensions-sdk 18 hoặc thay bằng policy native); client Qdrant của agent-data nếu nâng Qdrant.
+- **Nên nâng, lớp riêng:** Qdrant 1.16.3 → 1.19.x từng minor (1.18.2 vá bypass xác thực REST). Không kịp thì tối thiểu ghim 1.16.3.
+- **Giữ nguyên, chỉ ghim digest:** nginx, Kuma, Docker engine, Hermes, claude-mcp/claude-kb, cowork-*, JEV, agent-api-executor — chỉ chạy §4-D sau nâng. Agent Data chỉ rebuild nếu driver PG không hợp PG18 (kiểm ở G2).
+
+**Đề nghị Host đưa lên `## Owner cần quyết` (Reviewer không tự ghi mục đó):**
+- OQ-A · Incomex (gồm công ty liên quan) < 50 người và doanh thu < 5 triệu **USD**/năm → đăng ký key miễn phí OIG của Directus, chấp nhận gửi thống kê sử dụng. Đề xuất: **gật** (không key thì không lên 12; ở 11 là chạy bản đã lộ lỗ hổng).
+- OQ-B · Cho một lượt nhỏ ghim digest các image đang chạy trên VPS1, không restart, không đổi phiên bản. Đề xuất: **gật**.
+- OQ-C · Xác nhận "Agency OG" = Agency OS = khung web Nuxt hiện tại. Đề xuất: **gật**.
+- Trạng thái: **OPEN** — chờ Host xử lý.
+
 ## Câu hỏi mở
 - Q01 · Exact component/version hiện hành của **Agency OG** là gì?
 - Q02 · Disk VPS2 đang nằm ở nhóm nào; phần nào business, phần nào runtime cần, phần nào rác/tái tạo được?
