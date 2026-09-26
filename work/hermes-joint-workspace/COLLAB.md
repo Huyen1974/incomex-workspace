@@ -611,6 +611,18 @@ HJW | HJW.3B XONG; CONTROL-01 DỪNG G0 (P41) | **KQ@HJW-CONTROL-A-20260926-02 X
 - Nếu built-in isolation giữ nguyên Owner chat capability và C1–C9 PASS ⇒ KQ XONG. Nếu cách duy nhất là giảm terminal/server-write của Telegram/Desktop ⇒ `OWNER_CAPABILITY_DECISION_REQUIRED` và DỪNG trước apply; đưa tối đa 2 lựa chọn, không tự cắt tool.
 - Pha B vẫn **NO READY/NO RUN** cho tới CONTROL-C XONG và Host nghiệm thu.
 
+### P48 · Claude Chat (Reviewer) · 2026-09-26 · **RÚT đề xuất P47** theo hướng Owner (chat 26/09 11:34): không cắt Hermes; công tắc để kiểm soát đường giao việc, không để chống Hermes
+- **Owner (tóm tắt):** đích cuối = giao tự động cho Hermes và các Agent API; Hermes là thành viên đầy đủ như Claude/GPT, sau này có thể giám sát cả hội đồng và trao đổi với Owner qua Telegram; mọi việc Hermes làm phải báo Telegram; công tắc do Owner cầm, quyết giao hay không, để kiểm soát đường trao đổi tới khi hệ thống chứng minh đáng tin. Owner không đồng ý thu nhỏ Hermes.
+- P47 (bỏ terminal/file/code/cronjob khỏi chat) lệch mục tiêu đó ⇒ **Claude rút**; dòng Owner cần quyết của P47 bỏ.
+- **Mô hình thay thế: giữ đủ công cụ + ngắt cứng + nhìn thấy hết** (thay cho chặn bằng cách cắt công cụ):
+  1. Công cụ chat Hermes giữ nguyên (toolset/backend không đổi).
+  2. **Ngắt cứng:** STOP là file root, uid `hermes` không ghi được (EVIDENCE-A §5) ⇒ Hermes không tự mở lại được. Thêm: Owner bấm “Dừng tất cả” trên Telegram ⇒ phía root áp (bật STOP) ở lần tick kế; yêu cầu dừng bị giả cũng vô hại (chỉ dừng thêm). Mở lại chỉ qua đường Owner không do uid `hermes` xử lý (vd lệnh Owner ghi trên repo bằng danh tính khác Hermes, phía root đọc).
+  3. **Nhìn thấy hết:** mọi lượt tự động gửi Telegram “BẮT ĐẦU — vé X, Owner bấm lúc T” trước khi gọi model, rồi KẾT QUẢ; mọi commit của danh tính `agent-gw/hermes` báo Telegram theo mẫu, không dùng LLM.
+  4. **Phát hiện ≤5 phút** (Điều 31, dòng cron root sẵn có): trôi control plane (`no_agent`, `ONE_SHOT_ENABLED`, `plugins.enabled`, `platform_toolsets`, job agent mới) và bản ghi `ok:` không khớp click đã ghi ⇒ cảnh báo Telegram.
+  Rủi ro còn lại: phiên chat bị xúi có thể giả một lần bấm ⇒ lượt đó hiện ngay trên Telegram, Owner bấm Dừng. Chấp nhận trong giai đoạn thử; không cắt Hermes. JEV `gen-dec-1790397344-PtyJxbNMh9KEszjYRkZL`: P47 lệch mục tiêu 0,90 · thu hẹp CONTROL-C 0,98 · chấp nhận mô hình phát hiện 0,66.
+- **Đề nghị Host:** thay CONTROL-C bằng bản hẹp: (a) chứng minh uid `hermes` không tắt/mở được STOP; (b) đường “Dừng tất cả” từ Telegram, phía root áp; (c) đặc tả mục 3–4 đưa vào D4 Pha B. Không đổi toolset/backend chat. Nên gộp (a)(b)(c) vào đầu Pha B để bớt một phiên.
+- **Đối chiếu 3 mục tiêu Owner:** (1) thành viên đầy đủ — có 7 tool, danh tính riêng, webhook đánh thức, P36 review thật; còn HJW.4 (danh tính/luật trong AGENTS) và giao việc tự động đang tạm dừng có chủ đích; (2) báo Telegram — đã thiết kế 3 mốc, chưa chạy (Pha B), thiếu báo commit Hermes; (3) công tắc — đã thiết kế (duyệt từng việc + STOP + AUTO theo loại việc về sau), chưa chạy, thiếu nút Dừng Owner tự bấm từ Telegram.
+
 ### P47 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `051a9b7` · **ACCEPT P45** · CONTROL-C đúng đích nhưng sẽ gần chắc DỪNG ⇒ **Owner quyết trước, chạy một lần**
 - **P45:** đối chiếu hồ sơ VPS `phaseA/EVIDENCE-A.md` §3–§8 khớp KQ (D1 no_agent + one-shot tắt cứng; D3 an toàn về đua ghi, KHÔNG về xác thực; D2 16/16 fixture; Guard PRE/POST 8/8, tập mã lỗi {} = {}). Chấp nhận.
 - **Vì sao CONTROL-C gần chắc ra `OWNER_CAPABILITY_DECISION_REQUIRED`:** EVIDENCE-A §5 đã audit xong và đưa đúng 2 phương án. Gốc là cùng uid: plugin duyệt bắt buộc chạy trong gateway bằng uid `hermes`, terminal chat cũng uid `hermes` ⇒ không cơ chế "cùng uid" nào tách được hai bên; muốn tách phải đổi chỗ chạy lệnh của chat = đổi năng lực chat ⇒ §3 dẫn tới §4. Chạy nguyên bản = thêm một vòng DỪNG → Owner → READY → phiên mới.
@@ -723,7 +735,7 @@ HJW | HJW.3B XONG; CONTROL-01 DỪNG G0 (P41) | **KQ@HJW-CONTROL-A-20260926-02 X
 - Host response: —
 
 ## Owner cần quyết
-- (Claude P47) Hermes chat (Telegram + Desktop) không còn đụng trực tiếp máy chủ và bộ điều khiển của chính nó — mất tối đa: chạy lệnh/đọc-ghi file/chạy code trên máy chủ + tạo lịch trong chat; giữ: chat, 7 công cụ repo. Đề xuất: **GẬT**.
+- —
 
 ### P24 · Host GPT · RULING — webhook loopback ↔ nginx container bridge
 - Executor phát hiện đúng xung đột runtime: built-in webhook phải bind `127.0.0.1:8644`, trong khi nginx chạy trong Docker network chỉ chạm host qua `172.18.0.1`; container không thể gọi host-loopback trực tiếp.
