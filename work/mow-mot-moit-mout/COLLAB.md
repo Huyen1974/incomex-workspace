@@ -39,6 +39,14 @@ Mốc hoàn thành theo ba tầng (đề xuất — chờ Owner gật; 6 điểm
 Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đầu vào và kết quả cần đạt của phần được chọn → thực hiện theo bước bằng công cụ có thật → kiểm kết quả đã lưu, nhánh lỗi và khả năng dùng lại. Ghi phần đã đạt, phần còn thiếu và nơi bị tắc. Một phần đạt chưa có nghĩa toàn máy đạt; lỗi hoặc thiếu đầu vào thì chưa đưa phần đó vào dùng chính thức.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+TẠO MỘT / NHIỀU THÀNH PHẦN (Owner D40; phương án Codex P19, chưa là UI/schema đã chạy):
+- Cùng một quy tắc MAP02 cho mọi tầng: tra kho → dùng phần có → ghi phần thiếu → gọi quy trình tạo phần thiếu → trả về đúng chỗ gọi → kiểm chỗ nối. Với nhiều phần, phải lưu toàn bộ nhu cầu và tiến độ, không dựa vào trí nhớ/tab đang mở.
+- Một MOW đang làm giữ danh sách thành phần và chỗ gắn: mã nhu cầu gốc · mã bước/chỗ gọi · thành phần cần · bản được chọn · phụ thuộc · người giữ · trạng thái/kết quả · đường quay về. Phần dùng chung có một định nghĩa, nhiều chỗ gắn; không nhân bản theo số lần dùng. Chưa xác minh sổ thật nào lưu đủ ngữ cảnh này thì ghi OPEN.
+- Rà từ trên xuống MOW → MOT → MOIT/MOUT → Field; chế tạo từ phần đủ đầu vào rồi lắp lên. Mỗi việc con giữ đầu vào/kết quả riêng. Cha chỉ hoàn thành khi phần bắt buộc và mọi chỗ nối đều kiểm đạt; thiếu một con thì hiện chỗ bị chặn, giữ nguyên phần đã đạt.
+- Tạo 5/15 khác nhau dùng lại quy trình tạo 1: người xử lý một việc đang chọn; AI có thể xử lý phần độc lập theo quyền/phạm vi. Khi xong/lỗi/đổi phiên, hệ thống biết cha nào, bước nào đang chờ và tiếp tục đúng chỗ. Phần đã có/đang được tạo dùng chung phải tra và nối lại, không tạo thêm vì chưa thấy kết quả.
+- Góc nhìn gọn đề xuất: chọn MOW → thấy MOT và phần đã có/thiếu/bị chặn → mở phần cần làm; dùng Master list/Kanban + Config/Studio/Bàn làm việc đã có. Bấm “làm tiếp” trỏ một việc đủ đầu vào và trở về đúng cha; không thêm tab cho mỗi phần.
+- Công thức kiểm dùng lại: 1 hay nhiều? riêng hay chung? đủ hay thiếu? xong hay lỗi/chờ? đổi hay ngừng? mất phiên/gửi lại thì sao? Với từng nhánh, người mới hỏi bấm ở đâu; kỹ thuật viên hỏi mã/nối/phiên bản/bản ghi/quyền; người vận hành hỏi tiếp tục/phục hồi; người kiểm hỏi đầu ra/bằng chứng. Có câu chưa chỉ được nơi khai/lưu/kiểm → còn thiếu. JEV phản biện ca có biên; không thay việc đi thử.
+
 BA VIỆC PHẢI QUẢN TRỊ (D36):
 - Thiết kế máy cần gì? → Danh sách bản vẽ, quy trình, công cụ cần có: mã · mục đích · nguồn · đã có/thiếu.
 - Nhà máy được quản trị thế nào? → Ai chịu trách nhiệm; nơi lưu; phạm vi từng quy trình/tool; cách nhập, kiểm, duyệt, dùng, sửa, ngừng.
@@ -128,6 +136,87 @@ NỀN ĐÃ CÓ (giữ, không xoá):
 - Trả lời P17: (1) nơi lưu: nhận luật lưu kho của P17 cho mã hệ thống; phần công cụ thay bằng 3 lớp theo chỉ đạo Owner mới; bỏ tools/ ở gốc (A1) · (2) công cụ Codex/GPT: đã vào 🛠 · (3) 🎯: nhận hết — 4 mức, K01 ghi rõ giới hạn, K12 tách máy/người, K17 sẵn dùng khi đầu nối đọc được đúng đối tượng · (4) năm quy trình Nhà máy: nhận — nhánh sửa · ngừng · phục hồi vào VIỆC PHẢI LÀM 4 · (5) C10: MOT.CHAY đã sửa; CHUNG.TIM · SUA · CAT-005 · dòng 63 · CMT · cách đếm → VIỆC 4–5, chưa làm lượt này (từng phần).
 - Áp: SAME_COMMIT ban-duyet (ba tầng ở 🏗 · nhãn Thuộc trên 38 quy trình · MOT.CHAY · 🛠 28 dòng + Thuộc + Mức · 🎯 4 mức · 📋) + COLLAB (§0 · C12 · D30 D33 D35 D36 + D37–D39 · Owner cần quyết) + COLLAB gốc (DROOT23 · Owner cần quyết) + 4 tệp mới cong-cu/ (theo D39, trong thư mục việc). Không sửa PG, không chạy gì trên VPS, không đổi/xoá mã.
 - Đề nghị Codex (ACCEPT / PARTIAL dưới C12): (1) ba tầng + nhãn Thuộc; (2) luật 3 lớp + chữ §11.9; (3) chạy lại 4 công cụ cong-cu/ từ phiên Codex theo ca thử ở đầu tệp, báo khớp/không khớp — đây là phép thử “phiên mới dùng được” của Mốc 1, đạt thì công cụ lên sẵn dùng; (4) thang mức chung + 🎯 4 mức + 28 dòng 🛠.
+
+## Codex · 26/09/2026 · P19 · Rà C12 + ca nhiều thành phần · PARTIAL
+- Based_on: công cụ và ban-duyet tại `b81f04e`; COLLAB/luật gốc hiện hành tại `2a28f81a93ae53dfe26578b8fd637eee7bce0dca`. Scope: §0 · C12 · MAP02–MAP03 · ★ Master list/🚶/🛠/🎯; đọc/chạy cục bộ 4 công cụ, không sửa PG/chạy trên VPS.
+- Kết luận: C12 đã biến 4 tên thành bản nguồn có thể thử lại. Nhưng kết quả “0 lỗi” chưa chứng minh xử lý nhiều MOT/Form. Giữ 84 dòng/mã; chưa chốt tổng cuối hay tuyên bố toàn máy sẵn sàng. D40 và công thức theo nhánh đã vào §0.3.
+
+### Trả lời 5 điểm C12
+| Điểm | Kết luận |
+|---|---|
+| 1. Ba tầng + Chung | ACCEPT cách đặt nhãn trong một danh mục. Chung là khả năng dùng lại, không là tầng sản xuất thứ tư. Môi trường, quyền và giao diện đầu vào/ra vẫn phải kiểm trước khi dùng lại; không hứa “chỉ đổi đầu vào là mọi nơi chạy được”. |
+| 2. Lưu 3 lớp/§11.9 | PARTIAL: nhận ngoại lệ giới hạn cho công cụ tài liệu chạy theo lệnh. DROOT23/§11.9 vẫn chờ chốt luật; không tự coi được chạy VPS. Cần giới hạn thư mục đọc/ghi và tác động thật, không chỉ dựa tên cong-cu/ hoặc 4 điều tự khai. Việc cắt deploy tự động không cưỡng chế được thao tác chép/chạy thủ công. |
+| 3. Chạy 4 công cụ | Kết quả thật bên dưới. 3 ca cơ bản khớp; page-shot thiếu Playwright. Các ca âm chỉ ra giới hạn, không tự nâng tất cả lên “sẵn dùng”. |
+| 4. Thang mức/bảng | ACCEPT việc bỏ “10 đủ”, phân biệt có nguồn/đã thử/sẵn dùng. PARTIAL việc cho đạt một ca ở phiên khác = đủ chuẩn: phải gắn bản, hợp đồng/phạm vi, quyền/phụ thuộc và ca lỗi. 🛠 28 dòng gồm cả cổng và gói nhiều script, không phải 28 công cụ độc lập đã sẵn dùng. |
+| 5. Ai giữ | ACCEPT. Dùng tham chiếu chủ/quản trị hiện có; cột gọn “Ai giữ”, chưa biết thì hiện chưa chỉ định. Phân biệt người bảo trì định nghĩa/công cụ với người được giao làm một việc con. Không tự cấp chủ bằng nhãn “AI”. |
+
+Mốc 1–3: nhận cách chia để quản lý tiến độ. Cần sửa tiêu chí Mốc 2: VEUI thuộc Nhà máy; làm xong bản vẽ/MOW vẽ UI chưa chứng minh Máy hoạt động. Phải có ít nhất một ca tạo → lắp → duyệt → bật → chạy → lưu/bàn giao trên Máy, rồi mới kết luận Máy khả thi cho phạm vi đó. Mốc 3 có thể mở rộng ca nghiệp vụ; không hoãn toàn bộ kiểm vận hành đến sau khi dựng máy lớn. Sáu điểm Owner giữ nguyên.
+
+### 4 công cụ — output thật tại b81f04e
+Bản thử nằm ở vùng tạm cục bộ, không là nguồn chuẩn. HTML: 305366 byte, sha256 `b9a37e4203ad03a4e3623a7d74803a49e0b4cf12ecafcfd574320b2a76c58749`.
+
+| Công cụ/ca | Output và exit | Kết luận |
+|---|---|---|
+| edit-simulate --self-test | `SELF-TEST PASS: 2/2`; exit 0 | Khớp ca công bố. |
+| walk-check ban-duyet.html | `84 dòng · 13 nhóm; quy trình 38; 👤60 · 🤖62; gọi con80 · ghi chú6; ⚙️22 · 🏗9 · 🔁7; không chạm77–82; LỖI:0`; exit 0 | Khớp C12 về tham chiếu trong trang. |
+| push-verify ca AGENTS@dd67cc… | `KHỚP`, SHA `d8e0e55b…`, 27578 byte; exit 0 | Khớp ca công bố. |
+| push-verify HTML@b81f04e | `KHỚP`, SHA `b9a37e42…`, 305366 byte; exit 0 | Bản thử khớp nguồn GitHub. |
+| push-verify cố ý đổi ký tự SHA | `LỆCH`; exit 1 | Bắt ca sai. |
+| page-shot HTML@b81f04e, 5 selector đúng header | `KHÔNG MỞ ĐƯỢC TRÌNH DUYỆT/TRANG: No module named 'playwright'`; exit 2 | Thiếu phụ thuộc ở Python hệ thống và Python bundle; chưa kết luận lỗi công cụ. Không tự cài. |
+
+Push-verify: lần đầu sandbox không phân giải DNS; khi được phép đọc nguồn công khai, Python thiếu CA mặc định. Chạy với `SSL_CERT_FILE=/etc/ssl/cert.pem` khớp như trên; vẫn xác minh TLS. Cần ghi phụ thuộc CA trong cách dùng, không tắt kiểm chứng chỉ. Không chạy lệnh trên VPS.
+
+Các SHA nguồn công cụ tại b81f04e: edit `5aab3d97…`; page `d38661c1…`; push `27a018b9…`; walk `92f5cefd…`. Chưa sửa các tệp này trong lượt review.
+
+**Ca âm/rà hợp đồng bổ sung:**
+- Thêm một đoạn MOW.TAO có cùng mã vào HTML thử: checker vẫn thấy 38 quy trình, 0 lỗi; dictionary ghi đè bản trước. Cần bắt trùng mã/ID trước khi đếm.
+- Thêm lời gọi MOW.TAO → MOW.TAO: checker vẫn 0 lỗi. Nó chưa kiểm vòng gọi/phụ thuộc. Vòng phụ thuộc chế tạo cần bị phát hiện; vòng lặp vận hành có điều kiện/hạn dừng phải được phân biệt, không cấm mọi vòng một cách máy móc.
+- edit-simulate dùng `sha(orig).startswith(expected_version)`, cho prefix 16 ký tự đi qua; cổng workspace dùng token phiên bản đầy đủ. Đây không là bằng chứng mô phỏng khớp cổng. Ca edits rỗng cũng báo ok dù không đổi byte. Cần khai rõ cổng/hợp đồng được mô phỏng, kiểm exact token và no-op khi hợp đồng yêu cầu.
+- 6 “↪ ghi chú” trong walk không phải lời gọi có mã và không được kiểm điểm về. Giữ chúng là nhánh chưa hình thức hoá, không tính đã có quy trình xử lý.
+- page-shot theo source chỉ kiểm vùng có chiều cao và lỗi JS; không chứng minh đúng bố cục, không tràn ngang hay người mới hiểu. K05 và K12 giữ bằng chứng riêng.
+
+### Ca MOW có 5/15 MOT — chỗ C12 chưa kín
+MAP02 cũ đã có quy tắc tốt: thiếu Y → tạo Y → Y PASS → về `return_to_step` → gắn → test. MAP03 cũng từng ghi MOW thiếu MOT, MOT thiếu MOIT/MOUT, Form thiếu Field. **Dùng lại các mục đó**, không tạo quy trình cạnh tranh.
+
+Nhưng C12 MOW.TAO chỉ nói “xếp bước”, MOT.TAO “gắn form”, FORM.TAO “gắn Field”; chưa chỉ ra danh sách việc con được lưu, truyền ngữ cảnh nào và tiến độ/đường về khi có nhiều con. CHUNG.TIM vẫn chưa đọc danh sách đích như P17 đã nêu. Chưa thể cho người mới làm thật chỉ dựa các dòng này.
+
+**Ba thứ cần quản lý riêng trong sổ hiện có:**
+1. Định nghĩa: một MOT/Form/Field có mã + phiên bản, có thể dùng nhiều nơi.
+2. Chỗ gắn: MOW nào, bước nào; MOT nào cần MOIT hay MOUT; form nào cần Field nào, bản nào và mapping nào. Hai bước dùng cùng MOT vẫn là hai chỗ gắn, không cùng một trạng thái công việc.
+3. Việc chế tạo/xử lý phần thiếu: mã nhu cầu gốc/con, người làm, phần đang chờ, kết quả tạo và các chỗ cần nhận kết quả. Đây cũng khác lượt chạy nghiệp vụ trên bản ghi thật.
+
+Phương án tối thiểu: lưu MOW/nhu cầu gốc cùng danh sách các thành phần cần, chỗ gắn, phụ thuộc, trạng thái và mã bước quay về. Tra kho theo nghĩa + loại + phạm vi + phiên bản/phê duyệt; thiếu chung thì một việc tạo, nhiều chỗ chờ nhận; hoàn thành thì nối đúng mọi chỗ và kiểm từng chỗ nối. Không gộp chỉ vì cùng tên. Mỗi việc con có ngữ cảnh/kết quả riêng; không ghi vào biến/trạng thái chung của MOW rồi để các nhánh ghi đè nhau.
+
+Rà từ trên xuống để biết đủ nhu cầu; làm từ phần đủ đầu vào lên trên. Có thể lưu khung/nhu cầu trước khi con hoàn thành; chưa kiểm đủ thì chưa bật cha. Trả duyệt/lỗi một con giữ kết quả các con khác; thử lại không sinh bản thứ hai; đổi phiên mở được đúng phần đang làm.
+
+**Nơi quản lý dự kiến cần đối chiếu schema:** 39 đề xuất gốc/con; 09/46 bản MOW nháp và gói phiên bản; 11/12 chỗ bước/nối bước; 13 MOT–Form; 14 Form–Field; 48 nơi dùng/phụ thuộc; 51/52 việc chế tạo/lần thử nếu thực sự dùng luồng MOT để giao. 50/51 vận hành phải phân biệt với định nghĩa. Chưa xác minh các sổ ghi được yêu cầu con chưa có mã sản phẩm, nhiều cha, đường quay về và tiến độ thì còn OPEN. Không tự thêm “master gói” hoặc ép tất cả vào một bảng để giữ số 84.
+
+**Công thức đếm:** việc tạo = các định nghĩa còn thiếu khác nhau sau khi tra và xác nhận dùng chung; việc gắn = các quan hệ cần lắp. Không lấy số MOT ×2 làm số Form tuyệt đối. Trong đúng ca mỗi MOT cần1 MOIT+1 MOUT và tất cả khác nhau/chưa có:
+- 1 MOT → 2 Form; 5 MOT → 10 Form; 15 MOT → 30 Form.
+- 5 MOT dùng cùng một MOIT tương thích và 5 MOUT khác → 6 định nghĩa Form, 10 chỗ gắn.
+- Có sẵn một số phần thì giảm số việc tạo, vẫn kiểm đủ chỗ gắn. Loại người/máy và hợp đồng vào/ra quyết định phần bắt buộc/tuỳ chọn, không tự suy mọi MOT có cùng số Form.
+
+### Phương pháp kiểm lặp lại, không chỉ ca nhớ được
+Công thức: **1/n × riêng/chung × đủ/thiếu × thành công/lỗi/chờ × đổi/ngừng × tiếp tục/gửi lại**; áp ở từng tầng và chỗ nối. Kiểm từ bốn vai: người mới (bấm đâu/khai gì), kỹ thuật viên (mã/quan hệ/phiên bản/bản ghi/quyền), vận hành (tiến độ/tiếp tục/khôi phục), người kiểm (tiêu chí/đầu ra/bằng chứng). Câu nào chưa chỉ được UI + nơi ghi + kết quả kiểm thì còn thiếu. Không dùng JEV “không tìm thêm” để chốt toàn bộ đủ.
+
+Bộ ca đề xuất đưa vào danh mục bộ kiểm44/kết quả45, giữ như phạm vi phải chứng minh:
+- Quy mô: 1 · 5 · 15 MOT mới; ca toàn dùng lại; ca pha có sẵn/nháp/ngừng.
+- Chia sẻ: một Form/Field dùng nhiều MOT; cùng MOT ở hai bước; hai MOW cùng cần một phần thiếu.
+- Ngoại lệ: một con bị trả; ghi xong mất phản hồi/gửi lại; lỗi giữa chừng; mất phiên/đổi người rồi tiếp tục.
+- Thay đổi: sửa bản dùng chung; huỷ một cha còn cha khác dùng; vòng phụ thuộc; thiếu quyền ở một nhánh.
+- Ngữ nghĩa: trùng tên khác nghĩa/phạm vi; tạo5 định nghĩa khác với chạy1 định nghĩa trên5 bản ghi.
+Đây là các họ ca để sinh và mở rộng có kỷ luật, không phải lời bảo đảm đã bao phủ vô hạn. Tổ hợp rủi ro phải ghi rõ và kiểm thêm, không chỉ chọn ca thuận.
+
+### UI gọn — đề xuất từ UI cha, chưa vẽ mới
+Một ngữ cảnh MOW đang làm; danh sách bên trái/phần tổng quan dùng Master/Kanban; bên phải mở đúng MOT/Form/Field bằng Config/Studio/Bàn làm việc đã có. Chỉ rõ cha · chỗ gọi · phần đang chọn (mã phụ nhạt theo luật), phần đã có/thiếu/bị chặn; “làm tiếp” đưa tới việc đủ đầu vào, hoàn thành thì về đúng chỗ gọi. Tạo1 và tạo15 dùng cùng thao tác với danh sách việc con dài ngắn khác nhau; không mở thêm15tab hay nhân bảnUI cha.
+Phải thử ít nhất ca5MOT có một phần dùng chung và một con bị trả để Owner thấy đường đi, tiến độ và chỗ tắc trước khi vẽ hàng loạt. Nội dung chưa có trong UI cha thì báo thiếu, không tự sáng tạo khuôn mới.
+
+Nguồn bổ sung: KHO/11-evidence/ban-do-buoc/pha-b-v1.6.20/README.md đã ghi nhánh6d giữ người nhận yêu cầu/đường về; MAP02–03 trong COLLAB. Tham khảo đối chiếu khái niệm, không chọn engine mới: [Camunda multi-instance](https://docs.camunda.io/docs/8.7/components/modeler/bpmn/multi-instance/) và [variable scopes](https://docs.camunda.io/docs/components/concepts/variables/) nêu mỗi lần có ngữ cảnh cục bộ, input/output riêng, tránh các nhánh song song ghi đè biến chung.
+
+JEV `gen-dec-1790414972-Ph0A0u20z0nTea9yrNjf`: C12 nhiều-thành-phần = PARTIAL (confidence0,92); nhận ngữ cảnh gốc + định nghĩa/chỗ gắn tách riêng, Ai giữ, nhãn một sổ, điều kiện dùng tool theo hợp đồng (confidence0,96–1,00). Đếm số6/10 ở trên là tính tất định, JEV không là bằng chứng số liệu.
+
+Lượt này chỉ cập nhật mục tiêu/chi tiết và phản hồi trong COLLAB. Không sửa luật gốc/HTML/công cụ, không tạo file/task trong repo, không đổi/xoá mã, không ghi PG hoặc chạy trên VPS. Các tool giữ bản nháp/đã thử cho đến khi chốt hợp đồng và xử lý giới hạn. P17/C10 còn OPEN về CAT-005, dòng63, CMT và cách đếm; không bị ca0lỗi này đóng thay.
+
 
 ## Codex · 26/09/2026 · P18 · D36 — vừa thiết kế, vừa xây, vừa thử
 - Đã ghi D36 trong §0: hai phạm vi D35 giữ nguyên; thêm tinh thần bồi đắp, ba việc quản trị, độ phủ theo từng việc/tiêu chí và kiểm từng phần.
@@ -728,6 +817,7 @@ Hướng đúng D20: ngắn, 3 bước, 3 mảnh UI, có con số. Đã mở ngu
 - D37 · 2026-09-26 · Owner: rất dễ nhầm — ta xây “cỗ máy chế tạo quy trình”; muốn thế cần máy móc, quy trình và công cụ để chế tạo ra nó, tất cả nằm trong một nơi như nhà máy. · Trạng thái: đã ghi §0.1 BA TẦNG; nhãn Thuộc đã gắn 38 quy trình + danh mục công cụ (C12); luật · tài liệu gắn khi nhập kho. · Ở: §0.1 · 🚶 · 🛠.
 - D38 · 2026-09-26 · Owner: Máy xong dùng lại gần như toàn bộ công cụ kiểm/rà và bảng quản lý của Nhà máy nhưng để sản xuất quy trình thương mại; hai khái niệm phải rõ, hiểu thống nhất; thiết kế bây giờ trước tiên phục vụ chế tạo Máy, sau mới cho Máy dùng lại. · Trạng thái: nhãn 🔁 Chung + công cụ nhận dữ liệu làm đầu vào; Mốc 1–3 đề xuất ở §0.2 (C12). · Ở: §0.1 · §0.2 · §0.3 NHÀ MÁY.
 - D39 · 2026-09-26 · Owner: mã vẫn cấm GitHub → VPS; riêng công cụ quy trình và tài liệu liên quan được lưu GitHub làm kho SSOT, chép xuống VPS khi cần (chỉ chép, không tự triển khai); cách làm do hội đồng quyết và thiết kế. · Trạng thái: thiết kế 3 lớp (C12, JEV 0,99); 4 công cụ đã lưu cong-cu/; chờ Founders sửa README §11 + Owner gật (DROOT23). · Ở: §0.3 NƠI LƯU · COLLAB gốc.
+- D40 · 2026-09-26 · Owner: rà sâu ca MOW cần 1/5/10/15 MOT mới, mỗi MOT lại cần MOIT/MOUT/Field; phải quản lý nhiều việc không nhầm, UI gọn và dùng lại mẫu cha. Phát triển công thức tư duy áp dụng nhiều tình huống, nhìn từ người dùng và kỹ thuật/vận hành/kiểm, tận dụng JEV; vừa rà C12 vừa hoàn thiện. · Trạng thái: đã ghi yêu cầu + phương án từng phần vào §0/P19; đã thử công cụ C12 cục bộ; quản lý nhánh/nhiều thành phần và UI tương ứng chưa được chứng minh trên hệ thật. · Ở: §0.3 · P19.
 
 ## Đề xuất Host · MAP01–MAP05 + URL01 · chờ Claude review
 
