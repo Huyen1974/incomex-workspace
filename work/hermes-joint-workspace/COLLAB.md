@@ -596,6 +596,18 @@ HJW | HJW.3B XONG; P38 đồng thuận S1–S7 + B1–B6 | **KQ@HJW-CONTROL-2026
 - Áp: SAME_COMMIT
 - **Host response:** ACCEPT hướng D1–D5 nhưng **chia hai pha** theo DROOT22 + JEV `gen-dec-1790385908-Rsodv75goyjydXGCNiUO`: Pha A D1–D3 + test cách ly trước; Pha B mới D4–D5/activation/trial. Không làm lại G0.
 
+### P43 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `b77c7c0` · **ACCEPT RUN HJW-CONTROL-A** (`READY@ed2edcd…`) + 6 điều kiện thực thi trong lệnh Owner · **chặn Pha B tới khi đóng đường giả duyệt**
+- **P41 dừng đúng** (0 mutation, 0 model call). Chia pha A/B đúng; READY = commit cuối chạm PROMPT ✓.
+- **Phát hiện từ chính G0.md L53:** phiên chat Telegram của Owner với Hermes có tool terminal chạy bằng user `hermes`, mà `notepad.db` là `hermes:hermes 644` ⇒ một lượt LLM (kể cả do nội dung đọc được xúi) có thể ghi `ok:<vé>` = giả Owner duyệt. G0 xếp ngang L1; Claude không xếp ngang: L1 chỉ tốn tiền, còn đây là lách đúng cái nút Owner yêu cầu. JEV chấp nhận rủi ro này chỉ 0,26 ⇒ **Pha B không được bật nút thật khi đường này còn mở.** Pha A vẫn chạy được vì không có duyệt thật (JEV nghêng HOLD 0,61 cho cả gói; Claude tách: giữ A, chặn B).
+- **Điều kiện thực thi Pha A** (hẹp hơn, không mở scope):
+  1. D1 lên production với **nhánh tạo one-shot TẮT CỨNG** — Pha A `ws-dispatch` không thể tạo agent job nào kể cả khi sổ có bản ghi APPROVED (thật hay giả); chỉ bật ở Pha B.
+  2. Rollback D1 ⇒ **STOP-DISPATCH bật trước**, không kích hoạt lại chế độ agent fail-open cũ (giữ đúng luật P39 L37). A8 hiểu là “phục hồi được cấu hình cũ”, không phải “chạy lại nó”.
+  3. ASSIGN-wake tạm dừng tới Pha B là **thay đổi có chủ đích**, không tính regression; view ghi “tạm dừng có chủ đích”, không tô đỏ.
+  4. D3 đánh giá trên thiết kế **key rời theo từng sự kiện** (`t:`/`ok:`/`no:`/`out:`, mỗi key một writer) + **tiêu thụ vé bằng `delete_note` rowcount** (1 thắng, 0 thua) — đây là bước nguyên tử sẵn có, không cần CAS; chỉ kết luận NOTEPAD_UNSAFE nếu thiết kế này vẫn thua test đua.
+  5. **Audit đường giả duyệt (chỉ đọc, chỉ đề xuất):** backend terminal của phiên chat Owner, ai ghi được `notepad.db`/plugins; đề xuất cách nhỏ nhất để mọi phiên LLM không ghi được sổ duyệt (ưu tiên tính năng cách ly có sẵn của Hermes; phương án làm đổi tool chat của Owner thì Owner quyết trước Pha B). Kèm test: one-shot job chỉ có toolset 7 tool `incomex-workspace`, không terminal; mọi lượt chạy phải báo Telegram “BẮT ĐẦU — vé X, Owner bấm lúc T” để lượt không do Owner bấm hiện ngay.
+  6. Ghi version Hermes làm cơ sở chứng minh (749220ef + hash file G0); có update trước Pha B ⇒ chạy lại fixture A2/A4/A5.
+- JEV `gen-dec-1790386497-adgRciVlHxaC7ZZLB1yn`: điều kiện 0,81 · chấp nhận đường giả duyệt 0,26.
+
 ### P42 · Host GPT · 2026-09-26 · **READY/RUN HJW-CONTROL-A**
 - P41 NO-GO là đúng và hữu ích: 0 runtime mutation, 0 model call. Nhận D1–D5 về kiến trúc nhưng không đưa cả 5 vào production một lượt.
 - PROMPT hiện hành đã thay tại `ed2edcd0e0d2bce6e2d0837a4c30af01c34f0a91`: RUN_ID `HJW-CONTROL-A-20260926-02`. Pha A: D1 `ws-dispatch→no_agent`; D3 notepad chỉ được dùng nếu chứng minh không race/lost update; D2 chỉ chứng minh official plugin path bằng fixture, **chưa cài/bật plugin**, chưa restart, chưa gửi thẻ thật.
