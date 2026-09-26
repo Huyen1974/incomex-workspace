@@ -4,15 +4,21 @@
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25.
 
 ### 1. Mục tiêu
-- Mục tiêu: xây Máy tạo quy trình — ý tưởng thảo luận của người dùng → AI khai báo → duyệt → AI khai thành quy trình chạy được. Muốn có máy phải dựng cả Nhà máy: danh mục, nơi lưu, luật cho hàng trăm quy trình và công cụ, tích luỹ qua thời gian. Việc này làm phần đầu: nền Nhà máy và các MOW vẽ UI của Field · Form · MOT · MOW.
-*(Owner xác nhận hướng D35 và làm rõ cách thực hiện tại D36; phần chi tiết tiếp tục rà và thử. Câu cũ giữ trong Vòng trước.)*
+- Mục tiêu: xây Máy tạo quy trình — người dùng mô tả ý tưởng → AI phác thảo quy trình → người duyệt → AI khai báo để quy trình chạy được.
+- Muốn có Máy phải dựng Nhà máy chế tạo ra nó: máy móc (công cụ DOT/script/tool), quy trình chế tạo, luật, tài liệu và kho chứa — bồi đắp qua thời gian.
+- Máy xong sẽ dùng lại gần như toàn bộ công cụ kiểm/rà và bảng quản lý của Nhà máy, nhưng để sản xuất quy trình thương mại. Thiết kế bây giờ trước tiên phục vụ chế tạo Máy; thứ nào Máy dùng lại được thì ghi nhãn 🔁.
+- Việc này làm phần đầu: nền Nhà máy + các MOW vẽ UI của Field · Form · MOT · MOW.
+(Owner xác nhận hướng D35, làm rõ cách làm D36 (Codex ghi P18); C12 viết gọn thêm chỉ đạo D37–D39 — câu chữ chờ Owner gật. Câu cũ ở Vòng trước.)
 
-**Hai phạm vi (Owner bổ sung 26/09, D35):**
-- **Nhà máy:** luật, quy trình, tài liệu và công cụ để xây, kiểm, phát hành, bảo trì Máy tạo quy trình.
-- **Máy tạo quy trình:** luật, quy trình, tài liệu và công cụ để máy tạo và chạy các quy trình khác.
-- Dùng chung nguyên tắc tổ chức; nội dung phải ghi rõ thuộc Nhà máy / Máy / dùng chung. Không nhân đôi danh mục chỉ vì có hai phạm vi.
+BA TẦNG — đọc trước để không nhầm (Owner 26/09 · D35 · D37 · D38):
+- 🏗 Nhà máy = nơi chế tạo và bảo trì Máy: công cụ (DOT/script/tool) · quy trình nhà máy · luật · tài liệu · 6 kho · bảng D. Hội đồng AI + Owner làm tay bằng văn bản + script, ngay bây giờ. VD quy trình VEUI.FIELD (vẽ UI), CONGCU.TAO; VD công cụ dot-edit-simulate.
+- ⚙️ Máy tạo quy trình = sản phẩm của Nhà máy: quy trình của máy · UI · danh sách. Người dùng làm trên UI cùng AI khi Máy chạy được. VD FIELD.TAO, MOW.CHAY.
+- 📦 Quy trình thương mại = sản phẩm của Máy: quy trình nghiệp vụ của Incomex/khách. VD đổ hồ sơ phái cử (ca thử L001) và công cụ riêng của nó (bộ phái cử → Word).
+- 🔁 Chung = công cụ kiểm/rà và bảng quản lý Nhà máy dùng bây giờ, Máy dùng lại sau chỉ bằng đổi đầu vào, không sửa mã. VD dot-walk-check, sổ công cụ 35, sổ quy trình 09.
+- Mọi mục (quy trình · công cụ · luật · tài liệu) ghi Thuộc 🏗 / ⚙️ / 🔁 / 📦 (ba giá trị D35 + 📦 cho sản phẩm của Máy). Không lập hai bộ danh mục: 84 danh sách là khung chung, Thuộc là một cột trong từng danh sách (bộ giá trị ở dòng 03). "Thuộc" khác "phạm vi kiểm" K01–K17 của công cụ.
+- Vì sao dùng lại được: Nhà máy đang làm tay đúng chuỗi Máy sẽ làm trên UI (ý tưởng → bước → duyệt → khai báo → kiểm), chỉ khác đối tượng; quy trình nhà máy viết theo khuôn MOW của Máy nên sau này Máy chạy được chính chúng.
 
-**Cách làm (Owner nhấn mạnh 26/09, D36): vừa liệt kê, vừa làm đầy, vừa chế tạo và thử từng phần.**
+CÁCH LÀM (Owner nhấn mạnh 26/09, D36): vừa liệt kê, vừa làm đầy, vừa chế tạo và thử từng phần.
 Song song hoàn thiện bản thiết kế máy, xây các tool và viết quy trình để chế tạo/lắp ráp máy. Mỗi mục trong danh sách phải dần thành thứ dùng được, giúp giảm việc phải làm lại. Khi thử thấy thiếu, bổ sung ngay vào thiết kế và danh mục hiện có; giữ mã, giữ lịch sử. Những phần đã kiểm đạt được dùng lại để tiếp tục xây máy, rồi phục vụ máy sản xuất quy trình.
 
 ### 2. Thế nào là hoàn thành
@@ -24,25 +30,26 @@ Song song hoàn thiện bản thiết kế máy, xây các tool và viết quy t
 5. Cần đơn giản hoá, quy luật hoá, công thức hoá tối đa để cho thật đơn giản (đơn giản nhất có thể) giúp con người có thể hiểu, người mới có thể học và có thể làm.
 6. Phải đảm bảo làm bằng tay trước (con người làm trên UI) sau đó mới tự động hóa thay thế con người bằng AI.
 
-**Bổ sung 26/09 (D35; cách kiểm do Codex đề xuất):** hai phạm vi trên phải có mục tiêu và danh mục riêng theo phạm vi sử dụng; mọi thứ cần xây có mã, nơi lưu và trạng thái. Công cụ chỉ được coi là tích luỹ khi phiên mới tìm được đúng bản nguồn, biết cách chạy và kiểm lại được kết quả. Bản vẽ/thảo luận hiện tại chưa chứng minh Nhà máy sẵn sàng.
+Mốc hoàn thành theo ba tầng (đề xuất — chờ Owner gật; 6 điểm trên giữ nguyên là đích của Máy):
+- Mốc 1 · 🏗 Nền Nhà máy dùng được: 6 kho đều có danh mục · nơi lưu · cách nhập kho · cách rà trùng/phủ; mọi mục có mã · Thuộc · nơi lưu · trạng thái. Công cụ chỉ tính là sẵn dùng khi phiên mới/agent khác tìm được đúng bản nguồn, chạy ca thử đã lưu và ra đúng kết quả (cách kiểm Codex P17 · P18). Phạm vi kiểm nào cũng có công cụ đạt trên ca thử, không chỉ có tên. Chỉ đạo Owner nào cũng có dòng D + trạng thái.
+- Mốc 2 · ⚙️ Máy chạy được: đạt 6 điểm trên cho Field · Form · MOT · MOW — bắt đầu từ các MOW vẽ UI; làm tay trên UI trước, tự động sau.
+- Mốc 3 · 📦 Máy làm quy trình thương mại: một quy trình thật (ca thử L001 phái cử) đi hết chuỗi trên Máy; công cụ 🔁 chạy lại chỉ bằng đổi đầu vào, không sửa mã.
+- Việc này xong khi đạt Mốc 1 + nhóm đầu MOW vẽ UI của Mốc 2; Mốc 3 là việc sau. Không chờ xong mốc trước mới làm phần đã rõ của mốc sau (D36). Bản vẽ/thảo luận hiện tại chưa chứng minh Nhà máy sẵn sàng (P17).
 
-**Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung):** chốt đầu vào và kết quả cần đạt của phần được chọn → thực hiện theo bước bằng công cụ có thật → kiểm kết quả đã lưu, nhánh lỗi và khả năng dùng lại. Ghi phần đã đạt, phần còn thiếu và nơi bị tắc. Một phần đạt chưa có nghĩa toàn máy đạt; lỗi hoặc thiếu đầu vào thì chưa đưa phần đó vào dùng chính thức.
+Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đầu vào và kết quả cần đạt của phần được chọn → thực hiện theo bước bằng công cụ có thật → kiểm kết quả đã lưu, nhánh lỗi và khả năng dùng lại. Ghi phần đã đạt, phần còn thiếu và nơi bị tắc. Một phần đạt chưa có nghĩa toàn máy đạt; lỗi hoặc thiếu đầu vào thì chưa đưa phần đó vào dùng chính thức.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-**Ba việc phải quản trị (D36):**
+BA VIỆC PHẢI QUẢN TRỊ (D36):
+- Thiết kế máy cần gì? → Danh sách bản vẽ, quy trình, công cụ cần có: mã · mục đích · nguồn · đã có/thiếu.
+- Nhà máy được quản trị thế nào? → Ai chịu trách nhiệm; nơi lưu; phạm vi từng quy trình/tool; cách nhập, kiểm, duyệt, dùng, sửa, ngừng.
+- Máy có vận hành được không? → Quy trình vận hành theo bước; ca thử từng phần; kết quả thật; chỗ thiếu/tắc; khả năng chạy lại và lắp nối.
 
-| Việc | Đầu ra cần giữ |
-|---|---|
-| Thiết kế máy cần gì? | Danh sách bản vẽ, quy trình, công cụ cần có: mã · mục đích · nguồn · đã có/thiếu. |
-| Nhà máy được quản trị thế nào? | Ai chịu trách nhiệm; nơi lưu; phạm vi từng quy trình/tool; cách nhập, kiểm, duyệt, dùng, sửa, ngừng. |
-| Máy có vận hành được không? | Quy trình vận hành theo bước; ca thử từng phần; kết quả thật; chỗ thiếu/tắc; khả năng chạy lại và lắp nối. |
+Quản trị độ phủ: mỗi việc/tiêu chí cần có quy trình và công cụ phụ trách, chỉ rõ đầu vào → thao tác → đầu ra → nơi ghi/kiểm. Chưa có hoặc chưa chứng minh làm được thì ghi thiếu; không để vùng trống bị che bởi tên công cụ. Cùng làm một việc thì dùng lại công cụ đã có; nếu nhiều công cụ cùng chạm một phạm vi, phải phân vai rõ (trước/sau, làm/kiểm, chính/dự phòng), không trùng trách nhiệm.
 
-**Quản trị độ phủ:** mỗi việc/tiêu chí cần có quy trình và công cụ phụ trách, chỉ rõ đầu vào → thao tác → đầu ra → nơi ghi/kiểm. Chưa có hoặc chưa chứng minh làm được thì ghi thiếu; không để vùng trống bị che bởi tên công cụ. Cùng làm một việc thì dùng lại công cụ đã có; nếu nhiều công cụ cùng chạm một phạm vi, phải phân vai rõ (trước/sau, làm/kiểm, chính/dự phòng), không trùng trách nhiệm.
-
-**Điền dần ngay trong danh mục:** đã liệt kê → đang làm → đã thử → sẵn dùng → ngừng. Mỗi mục gắn phạm vi Nhà máy/Máy/dùng chung, người phụ trách, bản nguồn, cách chạy và bằng chứng. “Sẵn dùng” cần tìm được đúng bản nguồn đã duyệt, đủ quyền/phụ thuộc, ca thử của phạm vi đó đạt và đọc lại đúng kết quả; chưa thử thì không đánh dấu đủ. Dùng các sổ có sẵn, chưa tự tạo thêm master hay ghi PG.
+Điền dần ngay trong danh mục: đã liệt kê → đang làm → đã thử → sẵn dùng → ngừng (C12 dùng cùng thang cho 🛠 và 🎯; “có nguồn” = đã tra được tệp/cổng). Mỗi mục gắn Thuộc 🏗/⚙️/🔁/📦, người phụ trách, bản nguồn, cách chạy và bằng chứng. “Sẵn dùng” cần tìm được đúng bản nguồn đã duyệt, đủ quyền/phụ thuộc, ca thử của phạm vi đó đạt và đọc lại đúng kết quả; chưa thử thì không đánh dấu đủ. Dùng các sổ có sẵn, chưa tự tạo thêm master hay ghi PG.
 
 BỨC TRANH (Owner 26/09, giữ nguyên ý):
-- Đích: Máy tạo quy trình. Chế tạo máy cần hàng trăm quy trình (quy trình hệ thống); các MOW vẽ UI chỉ là vài quy trình đầu. Trong một MOW lớn có nhiều MOW nhỏ.
+- Đích: Máy tạo quy trình. Chế tạo máy cần hàng trăm quy trình (🏗 quy trình nhà máy + ⚙️ quy trình của máy + 🔁 quy trình con chung); các MOW vẽ UI là vài quy trình nhà máy đầu tiên. Trong một MOW lớn có nhiều MOW nhỏ.
 - Phải có Danh mục quy trình (tên + mã) để so và xây dần; bây giờ viết bằng văn bản để tuân thủ, vì số quy trình còn ít.
 - Chi tiết không kiểm bằng DOT/script, không chạy bằng quy trình cứng thì sẽ lộn xộn, mất thời gian. JEV giúp chọn lựa phức tạp, không thay kiểm cứng.
 - Nhóm đầu: 4 MOW vẽ UI (Field · Form · MOT · MOW). Chuỗi bắt buộc: luồng sử dụng thật (tạo mới · lắp ráp · khai báo · sửa/nâng cấp · xoá) → đủ bước → đủ UI → đầu bài vẽ UI → MOW vẽ UI → vẽ UI không thiếu.
@@ -53,27 +60,33 @@ NHÀ MÁY (Owner 26/09, giữ nguyên ý):
 - Vì sao chưa định nghĩa được đầu bài: cách ghi chép — bàn một ít, làm một ít rồi bỏ đó. Phải bồi đắp: yêu cầu, quy trình, công cụ tích hợp dần qua thời gian và rà lại cái đã làm / chưa làm.
 - Công cụ đã làm và chứng minh hiệu quả phải vào kho: có mã, có phạm vi kiểm, mọi agent dùng chung, thành công cụ tiêu chuẩn. Phần kiểm nào cũng phải có công cụ (nhanh, chính xác). Không phạm vi nào trống công cụ; phạm vi chồng nhau phải có luật chồng.
 - Nhà máy = 6 kho, mỗi kho 1 danh mục + 1 nơi lưu + 1 cách nhập kho + 1 cách rà trùng/phủ (ban-duyet · 🏗): 0 Danh sách (CAT-000) · 1 Quy trình (CAT-003) · 2 Công cụ (CAT-006 + miền · thao tác · độ phủ) · 3 Luật (CAT-140) · 4 Tài liệu (CAT-078) · 5 Yêu cầu Owner (bảng D Quyết định Owner). Cả 6 dùng lại cái có sẵn.
+- Máy móc của Nhà máy = công cụ. Công cụ nhận dữ liệu (danh mục + quy trình) làm đầu vào, không cài cứng 4 đối tượng, để Máy dùng lại được (D38). Công cụ đầu tiên đã vào cong-cu/: dot-walk-check · dot-edit-simulate · dot-push-verify · dot-page-shot (C12, mức đã thử — chờ phiên khác chạy lại để lên sẵn dùng).
 
-NƠI LƯU (P17 rà C11 · bám README §11–12 và AGENTS A1/A8 · phương án bổ sung chờ Owner chốt):
-- Tài liệu thiết kế, đặc tả và danh mục nháp: GitHub `work/mow-mot-moit-mout/` là nguồn; Owner View/KB là bản tra cứu có chỉ rõ phiên bản nguồn.
-- Mã công cụ thực thi: nguồn chuẩn trên VPS trong kho mã hiện có; DOT dùng `/opt/incomex/dot`. GitHub kho mã hiện hành giữ bản sao/lịch sử theo chiều VPS → GitHub. Không kéo mã từ GitHub xuống VPS.
-- Sổ công cụ: CAT-006/`dot_tools`; nguồn file không phải là sổ. Mỗi mục trỏ đến đúng bản nguồn, phạm vi, cách gọi, quyền và bằng chứng kiểm. Quy trình/luật/tài liệu/yêu cầu tiếp tục dùng các danh mục C11, ghi rõ Nhà máy / Máy / dùng chung.
-- Xưởng thử: không tạo `tools/` ở gốc workspace (A1 cấm). Chỗ viết/thử mã trên VPS phải xác định trong kho mã hiện có trước khi giao CLI; hồ sơ không thực thi dùng `/opt/incomex/work/mow-mot-moit-mout/`. Repo workspace công khai không nhận bản chép mã nguồn hệ thống.
-- Cưỡng chế đề xuất: được lưu nháp có chỉ mục; chặn chạy/phát hành khi chưa có đúng mã + phiên bản đã duyệt, phạm vi/quyền và kết quả kiểm. CHƯA TRIỂN KHAI.
-- Muốn GitHub trở thành nguồn chuẩn của mã cần quyết định đổi README §11/AGENTS A8 riêng. D35 mới giao rà/chốt nơi lưu, chưa phải quyết định đổi luật đó. Đề xuất `tools/` cũ được giữ trong C11 để truy nguồn.
+NƠI LƯU (C12 · chỉ đạo Owner D39 + rà P17 · JEV gen-dec-1790406483-lmzuig9S93lGCP4mLxdC · Bậc 1 có sẵn: GitHub + git + cổng ghi + sổ dot_tools; không code mới):
+- Ba lớp, mỗi lớp một nguồn chuẩn (JEV 0,99):
+  1. 📄 Tài liệu — thiết kế · danh mục nháp · đi bộ · bảng D: GitHub work/<việc>/ là nguồn; Owner View/KB là bản tra cứu (README §12, giữ nguyên).
+  2. 🛠 Công cụ quy trình — script chạy theo lệnh để kiểm · đếm · mô phỏng · đối chiếu · dựng tài liệu thiết kế và danh mục; không chạy nền, không phục vụ người dùng, không chứa bí mật, không ghi dữ liệu sản xuất (PG chỉ đọc qua cổng). Nguồn chuẩn = GitHub work/mow-mot-moit-mout/cong-cu/ (JEV 0,80); khi Owner mở việc riêng cho Nhà máy thì move sang, giữ lịch sử.
+  3. ⚙️ Mã hệ thống — agent-data · web · Directus · cổng · compose · DOT đang có ở /opt/incomex/dot · mọi công cụ ghi PG: VPS là nguồn, NGHIÊM CẤM GitHub → VPS (README §11, giữ nguyên). Kho agent-data-test · web-test giữ vai bản sao VPS → GitHub, không dính công cụ quy trình.
+- Thiếu một điều kiện của lớp 2 → là mã hệ thống, đi lớp 3.
+- Chạy công cụ quy trình: agent lấy đúng commit về vùng làm việc của mình rồi chạy. Chỉ khi phải chạy trên VPS: người thực thi được giao (Claude Code CLI) chép theo lệnh từ bản clone cổng ở commit cố định, ghi sha256 + nguồn@commit vào sổ công cụ; không sửa bản chép (sửa GitHub rồi chép lại); không webhook, không cron, không tự triển khai (JEV 0,99).
+- Sổ: công cụ → 35 (CAT-006 · dot_tools) · quy trình → 09 (repo nháp → PG workflows khi chốt) · luật → 83 · tài liệu → 84 · yêu cầu → bảng D. Mỗi mục: mã · Thuộc · nguồn@phiên bản · cách chạy · ca thử · kết quả gần nhất (P17).
+- Hồ sơ, bằng chứng chạy trên VPS: /opt/incomex/work/<việc>/ (DROOT12). Không tạo tools/ ở gốc repo (A1).
+- Luật gốc: README §11 thêm mục "công cụ quy trình" + một câu ở AGENTS A8 → Founders soạn chữ, Owner gật (DROOT23 ở COLLAB gốc; chữ đề xuất ở C12). Trong lúc chờ: lưu nguồn ở cong-cu/ vẫn đúng luật hiện hành (tệp của việc trong thư mục việc — A1; không triển khai, không chạy trên VPS); chưa chép gì lên VPS.
+- Cưỡng chế (R2): không tự triển khai GitHub → VPS = ĐÃ CƯỠNG CHẾ (đường đã cắt, README §11). Bản chép VPS khớp nguồn = CHƯA CƯỠNG CHẾ → chốt đề xuất: công cụ loại A so sha256 bản chép với commit ghi trong sổ (gộp K10). Tệp mã mới chỉ ở cong-cu/ = CHƯA CƯỠNG CHẾ → chốt đề xuất: cổng ghi chặn tệp mã mới (.py .sh .ts .js .mjs) ngoài thư mục cong-cu/ đã khai, 6 tệp cũ giữ nguyên; giao việc mcp-workspace.
 
 CHUỖI (D36 · hai nhánh cùng bồi đắp, mỗi lượt làm trọn một phần):
 - Thiết kế: [⓪ Quy trình + ① Master] → [② Bước] → [③ UI] → [④ Đầu bài vẽ UI] → [⑤ MOW vẽ UI] → [⑥ Vẽ UI].
-- Chế tạo Nhà máy: tìm công cụ/quy trình đã có → bổ sung phần thiếu → thử → nhập bản đạt vào kho → dùng lại.
+- Chế tạo Nhà máy: tìm công cụ/quy trình đã có → bổ sung phần thiếu → thử → nhập bản đạt vào kho → dùng lại. Đang làm (C12): 4 công cụ quy trình vào cong-cu/, mức đã thử; luật nơi lưu 3 lớp chờ DROOT23.
 - Vận hành thử từng phần nối hai nhánh: kiểm đúng thiết kế/công cụ/kết quả, phát hiện thiếu → cập nhật danh mục và bản vẽ → thử lại. Không đợi thiết kế toàn hệ xong mới chế tạo phần đã rõ; vẫn kiểm đầu bài, phạm vi và đầu vào trước khi làm.
 
 VIỆC PHẢI LÀM (D36 · danh mục và chế tạo song song; phụ thuộc xét theo từng phần):
-1. Chốt nơi lưu theo P17 (công cụ · quy trình · tài liệu · luật · yêu cầu); tách rõ nguồn tài liệu và nguồn mã, hai phạm vi D35. Chưa mở kho/thư mục mới.
-2. Thu hồi bản nguồn công cụ phiên này, đối chiếu công cụ đã có, rồi lập mục quản lý + ca thử. 23 tên và bảng 🎯 là ứng viên; chưa coi có tên là đã đủ công cụ.
-3. Rà 38 quy trình nháp theo hai phạm vi D35; 4 VEUI thuộc Nhà máy, quy trình dùng chung ghi rõ nơi dùng. Chưa chốt phép chia 33 của máy + 5 của nhà máy.
-4. Rà/chốt danh sách master: giữ đủ 84 dòng hiện có và mã đã cấp; P17 còn OPEN, 84 chưa phải tổng cuối đã duyệt.
-5. Bước có mã (Câu 2) → 6. UI (Câu 3) → 7. đầu bài vẽ UI → 8. viết 4 MOW vẽ UI → 9. vẽ UI không thiếu.
-10. Mỗi lượt: chỉ đạo mới của Owner vào bảng D ngay, cập nhật trạng thái dòng cũ; thêm công cụ thì chạy rà trùng/phủ.
+1. Chốt ba tầng + nhãn Thuộc (D37–D38): đã gắn cho 38 quy trình và danh mục công cụ (C12); luật · tài liệu gắn khi nhập kho. Codex rà, Owner gật.
+2. Chốt luật nơi lưu 3 lớp (D39): Founders soạn chữ README §11 + AGENTS A8, Owner gật (DROOT23). Chưa chép công cụ lên VPS trước khi xong.
+3. Công cụ vào kho: 4 script đã ở cong-cu/ có ca thử (C12) → phiên Codex/phiên mới chạy lại ra đúng thì lên sẵn dùng; viết dot-catalog-count (K02, không có tệp nguồn); bảng 🎯 theo 4 mức; làm công cụ cho phạm vi trống K11 · K13 · K14.
+4. Rà 38 quy trình theo P17: CHUNG.TIM đọc đúng danh mục đích; SUA nhân bản cả liên kết 10–14; Nhà máy thêm nhánh sửa · ngừng · phục hồi (dùng lại quy trình con chung); giữ CAT-005 riêng. (MOT.CHAY đã sửa ở C12.)
+5. Rà/chốt danh sách master: giữ đủ 84 dòng và mã đã cấp; 84 chưa phải tổng cuối (P17); tách số danh sách khung với danh sách nghiệp vụ sinh từ 18.
+6. Bước có mã (Câu 2) → 7. UI (Câu 3) → 8. đầu bài vẽ UI → 9. viết 4 MOW vẽ UI → 10. vẽ UI không thiếu.
+11. Mỗi lượt: chỉ đạo mới của Owner vào bảng D ngay, cập nhật trạng thái dòng cũ; thêm công cụ thì chạy rà trùng/phủ; sửa ban-duyet thì chạy dot-walk-check trước khi ghi.
 
 ƯU TIÊN — 3 câu phải trả lời trước (Owner 26/09, giữ nguyên ý). Chưa trả lời đúng 3 câu này thì mọi thứ khác chưa có nghĩa.
 1. Cần danh sách đầy đủ của các bảng master: mã bảng, tên bảng, các thông tin khác AI tự thêm. Câu hỏi đầu tiên: chúng ta có bao nhiêu danh sách master list?
@@ -81,7 +94,7 @@ VIỆC PHẢI LÀM (D36 · danh mục và chế tạo song song; phụ thuộc x
 3. Có bao nhiêu form UI theo step (có mã, có tên form)? Mã form quan hệ chặt với mã mẹ (Step) và mã cha (UI cha) để con người đọc lại hiểu ngay.
 
 TIẾN ĐỘ: 3 câu = nấc ① ② ③ của nhánh thiết kế (Câu 1 đang chốt cùng ⓪). Song song chuẩn bị/chế tạo công cụ cho phần đã rõ yêu cầu; từng phần ghi đã có/thiếu, đã thử/chưa thử, không dùng một ca đạt để chốt toàn bộ.
-- Câu 1 · đang chốt: bản trả lời = tab ★ Master list V2 trong ban-duyet.html: 62 danh sách, mỗi dòng có mã, tên, bảng dữ liệu, UI (C07). Đúng khi: Owner + Codex chốt, không còn thiếu / thừa. Mã V2 đóng băng từ nay. 26/09 (C09): đã kiểm thiếu bằng JEV (3 bộ, 120 câu) → cần danh sách mới: 0; lỗ gắn bản ghi sửa bằng chỗ bắt buộc ở 10 · 50 · 51 · 56 + ghi rõ 18; tên đổi rõ nghĩa (42 danh mục · 5 liên kết · 15 sổ), mã và số dòng không đổi. Còn chờ: Codex xác nhận + 7 mã CAT chưa rõ. 26/09 (C10, sau P16 PARTIAL): C09 sai ở “0 danh sách mới”; đi bộ 33 quy trình + kỹ thuật viên (8 câu bất biến) + hệ cũ → thêm 14 dòng (63 Sổ lệnh · 64–76 nền có sẵn) + 6 dòng chưa áp dụng (77–82) = 82; mã cũ không đổi; script: mọi chỗ ghi trỏ về 1 dòng, 0 lỗi, không dòng thừa; 7 mã chưa rõ đã rõ. 26/09 (C11): phạm vi mở sang nhà máy → +2 dòng (83 CAT-140 luật · 84 CAT-078 tài liệu) = 84; thêm 5 quy trình nhà máy (38 quy trình), script 0 lỗi.
+- Câu 1 · đang chốt: bản trả lời = tab ★ Master list V2 trong ban-duyet.html: 62 danh sách, mỗi dòng có mã, tên, bảng dữ liệu, UI (C07). Đúng khi: Owner + Codex chốt, không còn thiếu / thừa. Mã V2 đóng băng từ nay. 26/09 (C09): đã kiểm thiếu bằng JEV (3 bộ, 120 câu) → cần danh sách mới: 0; lỗ gắn bản ghi sửa bằng chỗ bắt buộc ở 10 · 50 · 51 · 56 + ghi rõ 18; tên đổi rõ nghĩa (42 danh mục · 5 liên kết · 15 sổ), mã và số dòng không đổi. Còn chờ: Codex xác nhận + 7 mã CAT chưa rõ. 26/09 (C10, sau P16 PARTIAL): C09 sai ở “0 danh sách mới”; đi bộ 33 quy trình + kỹ thuật viên (8 câu bất biến) + hệ cũ → thêm 14 dòng (63 Sổ lệnh · 64–76 nền có sẵn) + 6 dòng chưa áp dụng (77–82) = 82; mã cũ không đổi; script: mọi chỗ ghi trỏ về 1 dòng, 0 lỗi, không dòng thừa; 7 mã chưa rõ đã rõ. 26/09 (C11): phạm vi mở sang nhà máy → +2 dòng (83 CAT-140 luật · 84 CAT-078 tài liệu) = 84; thêm 5 quy trình nhà máy (38 quy trình), script 0 lỗi. 26/09 (C12): MOT.CHAY ghi đúng danh sách nghiệp vụ đích (18→) + mã bản ghi 02, đọc lại, rồi mới ghi sự kiện 56; 38 quy trình có nhãn Thuộc (⚙️ 22 · 🏗 9 · 🔁 7); dot-walk-check đọc thẳng ban-duyet: 0 lỗi.
 - Câu 2 · chờ: trả lời bằng chính danh sách số 11 “Bước” (CAT-004): liệt kê mọi bước người làm của 4 nhóm Field · Form · MOT · MOW, đủ trường hợp (tạo mới · dùng lại · thiếu thành phần · trả sửa · kiểm lỗi · sửa · ngừng), mỗi bước một mã + một tên. Đúng khi: ra một con số cho từng nhóm và tổng, tách rõ bước người / bước máy.
 - Câu 3 · chờ: trả lời bằng danh sách số 59 “Màn” (UI con): mỗi bước ở câu 2 → form UI; mã form = mã bước + mã UI cha (kiểu đang dùng S030.UI.CONFIG). Đúng khi: mọi bước người có form, bước máy ghi rõ “không có form”.
 
@@ -93,9 +106,28 @@ NỀN ĐÃ CÓ (giữ, không xoá):
 - Các dòng chi tiết cũ của mục 3 (bản đồ thao tác từ dưới lên, deep-link…) giữ ở “3 cũ” phía dưới; mục 2 cũ chuyển vào Vòng trước.
 
 ### Vòng trước
+- Mục tiêu (C11, 26/09 — Owner xác nhận hướng, Codex ghi D35 · P18): xây Máy tạo quy trình — ý tưởng thảo luận của người dùng → AI khai báo → duyệt → AI khai thành quy trình chạy được. Muốn có máy phải dựng cả Nhà máy: danh mục, nơi lưu, luật cho hàng trăm quy trình và công cụ, tích luỹ qua thời gian. Việc này làm phần đầu: nền Nhà máy và các MOW vẽ UI của Field · Form · MOT · MOW.
+- Hai phạm vi (Codex ghi theo D35, 26/09): Nhà máy = luật, quy trình, tài liệu, công cụ để xây, kiểm, phát hành, bảo trì Máy tạo quy trình; Máy = luật, quy trình, tài liệu, công cụ để máy tạo và chạy các quy trình khác; chung nguyên tắc tổ chức, ghi rõ Nhà máy / Máy / dùng chung, không nhân đôi danh mục. C12 viết lại thành BA TẦNG.
+- Bổ sung §2 (Codex, D35, 26/09): hai phạm vi phải có mục tiêu và danh mục riêng theo phạm vi sử dụng; mọi thứ cần xây có mã, nơi lưu, trạng thái; công cụ chỉ tích luỹ khi phiên mới tìm được đúng bản nguồn, biết cách chạy, kiểm lại được; bản vẽ hiện tại chưa chứng minh Nhà máy sẵn sàng. C12 gộp vào Mốc 1.
 - Mục tiêu (trước 26/09): tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
 - Thế nào là hoàn thành (trước 25/09): Hồ sơ MOW · MOT · MOIT · MOUT có luồng thao tác rõ từ Field lên MOW, được Host và Claude thống nhất trước khi sửa HTML. *(đề xuất — chờ Owner gật)*
 - Các vòng cũ hơn: xem “Vòng trước” trong khối “3 cũ” phía dưới.
+
+## Claude · 26/09/2026 · C12 · Ba tầng Nhà máy · Máy · Thương mại · luật nơi lưu 3 lớp · 4 công cụ vào cong-cu/ · trả lời P17 + P18
+- Owner 26/09 sau P17 (giữ ý): (1) rất dễ nhầm — ta xây cỗ máy chế tạo quy trình; muốn thế cần máy móc, quy trình, công cụ để chế tạo nó, tất cả trong một nơi như nhà máy; (2) Máy xong dùng lại gần như toàn bộ công cụ kiểm/rà, bảng quản lý của Nhà máy nhưng để sản xuất quy trình thương mại — hai khái niệm phải rõ, mọi người hiểu một kiểu; (3) mã vẫn cấm GitHub → VPS; riêng công cụ quy trình + tài liệu liên quan được lưu GitHub làm kho SSOT, chép xuống VPS khi cần, không tự triển khai; hội đồng quyết và thiết kế; thiết kế bây giờ phục vụ chế tạo Máy trước. Đã ghi: §0.1 (Mục tiêu + BA TẦNG, giữ CÁCH LÀM D36) · §0.2 (Mốc 1–3, đề xuất) · §0.3 (BỨC TRANH · NHÀ MÁY · NƠI LƯU · CHUỖI · VIỆC PHẢI LÀM · TIẾN ĐỘ) · bảng D (D37–D39; cập nhật D30 D33 D35 D36) · COLLAB gốc (DROOT23) · Owner cần quyết. D36 là của Codex (P18) nên chỉ đạo lượt này mang số D37–D39.
+- Chỗ nhầm gốc: chữ “quy trình” đang mang ba nghĩa (quy trình để chế tạo Máy · quy trình bên trong Máy · quy trình Máy làm ra). Tách ba tầng 🏗 Nhà máy → ⚙️ Máy → 📦 Thương mại, thêm 🔁 Chung cho thứ Nhà máy dùng bây giờ và Máy dùng lại sau. Nhãn nằm trên từng mục dữ liệu, không chia đôi danh sách: cùng sổ quy trình 09 giữ VEUI.FIELD 🏗, FIELD.TAO ⚙️, phái cử 📦. Hiểu câu D35 “danh mục riêng theo phạm vi” = lọc theo cột Thuộc trên một danh mục (khớp “không nhân đôi danh mục”). Đổi chữ “phạm vi” của D35 thành “Thuộc” để khỏi trùng “phạm vi kiểm” K01–K17; đổi biểu tượng Danh mục quy trình 🏭 → 📋 để 🏗 chỉ còn nghĩa Nhà máy.
+- 38 quy trình theo Thuộc (dot-walk-check đếm từ HTML): ⚙️ 22 (4 đối tượng × 5 luồng + 2 chạy) · 🏗 9 (4 VEUI + 5 nhà máy) · 🔁 7 (quy trình con; hiện Nhà máy mới gọi NEU · DUYET, nhánh sửa · ngừng · phục hồi sẽ gọi nốt). Thay nhãn “33 của máy + 5 nhà máy” (P17 §4.1).
+- Luật nơi lưu 3 lớp (§0.3): 📄 tài liệu = GitHub · 🛠 công cụ quy trình = GitHub cong-cu/, chép VPS theo lệnh khi cần · ⚙️ mã hệ thống = VPS, cấm GitHub → VPS. Ranh giới lớp 2 kiểm được bằng 4 điều kiện: chạy theo lệnh · không bí mật · không ghi dữ liệu sản xuất · không phục vụ người dùng; thiếu một điều là mã. JEV `gen-dec-1790406483-lmzuig9S93lGCP4mLxdC`: ba lớp 0,99 · chép theo lệnh 0,99 · thư mục trong việc 0,80 · lưu ngay dạng nháp 0,61 · một danh mục + cột Thuộc 0,65 · công cụ đọc thẳng HTML 0,59 · sửa luật gốc qua DROOT + Founders 1,00 · §2 giữ nguyên văn + mốc đề xuất 1,00. Bậc 1 có sẵn (GitHub + git + cổng ghi + sổ dot_tools).
+- Chữ đề xuất cho Founders — README §11.9: “Công cụ quy trình — script chạy theo lệnh để kiểm, đếm, mô phỏng, đối chiếu hoặc dựng tài liệu thiết kế và danh mục; không chạy nền, không phục vụ người dùng, không chứa bí mật, không ghi dữ liệu sản xuất (PG chỉ đọc qua cổng). Nguồn chuẩn là work/<id>/cong-cu/ trong incomex-workspace. Chạy trên VPS chỉ bằng bản chép theo lệnh của người thực thi được giao, lấy từ clone cổng ở commit cố định; sha256 và nguồn@commit ghi vào sổ công cụ; không sửa bản chép; không webhook, cron hay tự triển khai. Thiếu một điều kiện là MÃ, theo §11.1–8.” AGENTS A8 thêm: “Riêng công cụ quy trình theo README §11.9.”
+- Công cụ phiên Cowork — rà thật (P17 §2: có tên chưa phải có công cụ): 9 tên C11 = 4 script thật → đã lưu cong-cu/ (dot-walk-check · dot-edit-simulate · dot-push-verify · dot-page-shot), đầu mỗi tệp có mã · Thuộc · phạm vi kiểm · cách chạy · ca thử · kết quả mong đợi · nguồn gốc; 1 không có tệp nguồn (dot-catalog-count: phép chia làm trong lệnh tại chỗ → cần viết mới, không viết lại từ trí nhớ); 2 là cách dùng cổng có sẵn → gộp (dot-jev-ask → JEV evaluate, cách hỏi đã là AGENTS A5 · dot-pg-probe → query_pg); 2 dùng một lần → ngừng (dot-html-gen · dot-rename-by-code). Mã giữ nguyên, dòng ghi trạng thái.
+- Chạy thật trước khi ghi (dùng chính 4 công cụ cho lượt này — đúng tinh thần D36 vừa làm vừa thử): dot-edit-simulate mô phỏng cả giao dịch C12 (mọi old_str đúng 1 lần, version khớp) · dot-walk-check trên bản dự kiến: 84 dòng · 38 quy trình · 👤 60 · 🤖 62 · ⚙️ 22 · 🏗 9 · 🔁 7 · không ai chạm 77–82 · 0 lỗi · dot-page-shot: 5/5 vùng, 0 lỗi JS ở 1280 và 390 · dot-edit-simulate --self-test 2/2 · dot-push-verify ca AGENTS.md khớp. Sau khi ghi: so byte theo commit bằng dot-push-verify. Mức hiện tại “đã thử”; lên “sẵn dùng” khi phiên khác chạy lại ca thử ra đúng.
+- Trả lời P18 (D36): nhận cả — C12 là lượt chế tạo + thử đầu tiên theo D36. Một thang mức chung cho 🛠 và 🎯: đã liệt kê → (đang làm) → có nguồn → đã thử → sẵn dùng · ngừng/gộp — gộp 4 mức P17 với vòng đời P18. §0 đổi ** và bảng thành chữ thường vì Owner View hiện nguyên ký tự (chữ Codex giữ nguyên); câu “gắn phạm vi Nhà máy/Máy/dùng chung” đổi thành “gắn Thuộc 🏗/⚙️/🔁/📦”. Không lập hệ phân loại hay sổ mới: Thuộc là giá trị trong danh sách có sẵn.
+- 🛠 nay 28 dòng (thêm 5 dòng Codex/GPT từ P17 bằng định danh sẵn có, không cấp mã mới), cột Thuộc + Mức: đã thử 11 · có nguồn 10 · đã liệt kê 3 · gộp/ngừng 4 · sẵn dùng 0. 🎯 đổi sang 4 mức (ứng viên · có nguồn · đã thử · sẵn dùng), bỏ nhãn “10 đủ”: 6 đã thử · 8 có ứng viên chưa thử · 3 trống (K11 · K13 · K14) · 0 sẵn dùng.
+- DOT có sẵn — đối chiếu đĩa (chỉ đọc, fs_stat + dot_tools): 7 tệp có trong /opt/incomex/dot/bin; sổ ghi bin/dot/…ts cho DOT-REGISTER · DOT-COVERAGE · DOT-HEALTH-DOT · DOT-COL-HEALTH (không có ở dot/bin), đĩa có bản cùng tên không đuôi → lệch sổ/đĩa (K10). dot-collection-health: một tệp (sha256 0b73bdd4…), hai dòng sổ → giữ hai mã, DOT-COL-HEALTH mức đã liệt kê đến khi tìm thấy tệp .ts (đồng ý P17 K08). DOT-152 và DOT-027 là loại B — không dùng làm kiểm chỉ đọc.
+- MOT.CHAY sửa theo P17 §4.3: 🤖 ghi bản ghi vào danh sách nghiệp vụ đích do 18 khai + mã bản ghi 02 [ghi 18→ 02 | đọc 18 10] → 🤖 đọc lại, lưu đúng mới cho chuyển bước → 🤖 ghi sự kiện 56 (sự kiện không thay dữ liệu nghiệp vụ). Ký hiệu mới 18→ = danh sách đích do dòng 18 khai; dot-walk-check hiểu ký hiệu này.
+- Trả lời P17: (1) nơi lưu: nhận luật lưu kho của P17 cho mã hệ thống; phần công cụ thay bằng 3 lớp theo chỉ đạo Owner mới; bỏ tools/ ở gốc (A1) · (2) công cụ Codex/GPT: đã vào 🛠 · (3) 🎯: nhận hết — 4 mức, K01 ghi rõ giới hạn, K12 tách máy/người, K17 sẵn dùng khi đầu nối đọc được đúng đối tượng · (4) năm quy trình Nhà máy: nhận — nhánh sửa · ngừng · phục hồi vào VIỆC PHẢI LÀM 4 · (5) C10: MOT.CHAY đã sửa; CHUNG.TIM · SUA · CAT-005 · dòng 63 · CMT · cách đếm → VIỆC 4–5, chưa làm lượt này (từng phần).
+- Áp: SAME_COMMIT ban-duyet (ba tầng ở 🏗 · nhãn Thuộc trên 38 quy trình · MOT.CHAY · 🛠 28 dòng + Thuộc + Mức · 🎯 4 mức · 📋) + COLLAB (§0 · C12 · D30 D33 D35 D36 + D37–D39 · Owner cần quyết) + COLLAB gốc (DROOT23 · Owner cần quyết) + 4 tệp mới cong-cu/ (theo D39, trong thư mục việc). Không sửa PG, không chạy gì trên VPS, không đổi/xoá mã.
+- Đề nghị Codex (ACCEPT / PARTIAL dưới C12): (1) ba tầng + nhãn Thuộc; (2) luật 3 lớp + chữ §11.9; (3) chạy lại 4 công cụ cong-cu/ từ phiên Codex theo ca thử ở đầu tệp, báo khớp/không khớp — đây là phép thử “phiên mới dùng được” của Mốc 1, đạt thì công cụ lên sẵn dùng; (4) thang mức chung + 🎯 4 mức + 28 dòng 🛠.
 
 ## Codex · 26/09/2026 · P18 · D36 — vừa thiết kế, vừa xây, vừa thử
 - Đã ghi D36 trong §0: hai phạm vi D35 giữ nguyên; thêm tinh thần bồi đắp, ba việc quản trị, độ phủ theo từng việc/tiêu chí và kiểm từng phần.
@@ -686,13 +718,16 @@ Hướng đúng D20: ngắn, 3 bước, 3 mảnh UI, có con số. Đã mở ngu
 - D27 · 2026-09-26 · 3 câu ưu tiên (bao nhiêu danh sách · bao nhiêu bước · bao nhiêu UI; mã UI = bước + UI cha); luật ổn định: không xoá làm lại, mã không đổi, sửa thì thêm bản mới, bỏ thì ghi ngừng; chưa xong câu trước chưa mở câu sau. · Trạng thái: hiệu lực · Ở: §0.3.
 - D28 · 2026-09-26 · Dùng JEV kiểm thiếu; danh sách là tối thiểu; gắn bản ghi là cái thiếu từ gốc. · Trạng thái: xong (C09, C10) · Ở: 🔎 · 🚶.
 - D29 · 2026-09-26 · Tên phải hiểu ngay, không nhầm (MOIT → Danh mục MOIT). · Trạng thái: xong (C09).
-- D30 · 2026-09-26 · Đích là Máy tạo quy trình; nhóm đầu = MOW vẽ UI của Field · Form · MOT · MOW; chuỗi luồng → bước → UI → đầu bài → MOW vẽ UI → UI; danh mục quy trình hàng trăm, viết văn bản trước; chi tiết phải kiểm bằng DOT/script, chạy bằng quy trình cứng. · Trạng thái: đang làm (C10 · C11: 38 quy trình · 84 danh sách, chờ Codex) · Ở: §0 · 🚶 · 🏭.
+- D30 · 2026-09-26 · Đích là Máy tạo quy trình; nhóm đầu = MOW vẽ UI của Field · Form · MOT · MOW; chuỗi luồng → bước → UI → đầu bài → MOW vẽ UI → UI; danh mục quy trình hàng trăm, viết văn bản trước; chi tiết phải kiểm bằng DOT/script, chạy bằng quy trình cứng. · Trạng thái: đang làm (C10 · C11: 38 quy trình · 84 danh sách, chờ Codex) · Ở: §0 · 🚶 · 📋.
 - D31 · 2026-09-26 · Lập danh mục công cụ (master list trước); mỗi công cụ có tên, phạm vi kiểm; phần kiểm nào cũng có công cụ; agent dùng chung, thành công cụ tiêu chuẩn. · Trạng thái: đang làm (C11: 23 dòng đầu, 10 chưa vào kho) · Ở: 🛠.
 - D32 · 2026-09-26 · Ngoài bản vẽ phải dựng Nhà máy: kể tên các danh sách quản lý quy trình, công cụ, luật…; tạo những quy trình, công cụ đầu tiên; máy chỉ xong khi các danh sách lên hàng trăm. · Trạng thái: đang làm (C11: 6 kho · 5 quy trình nhà máy) · Ở: 🏗.
-- D33 · 2026-09-26 · Quyết nơi lưu quy trình, công cụ, tài liệu trên VPS; quy trình lưu; quy trình rà trùng; mỗi công cụ rà đến đâu, không phạm vi nào trống hay không kiểm soát, chồng lấn phải có quy định; khai thác JEV; ghi rõ vào mục tiêu để mọi AI hiểu một kiểu. · Trạng thái: chờ Owner gật nơi lưu (C11) · Ở: §0 NƠI LƯU · 🎯.
+- D33 · 2026-09-26 · Quyết nơi lưu quy trình, công cụ, tài liệu trên VPS; quy trình lưu; quy trình rà trùng; mỗi công cụ rà đến đâu, không phạm vi nào trống hay không kiểm soát, chồng lấn phải có quy định; khai thác JEV; ghi rõ vào mục tiêu để mọi AI hiểu một kiểu. · Trạng thái: nơi lưu thay bằng thiết kế 3 lớp (D39, C12); phạm vi kiểm đổi sang 4 mức (C12) · Ở: §0 NƠI LƯU · 🎯.
 - D34 · 2026-09-26 · Bồi đắp hệ thống: yêu cầu, quy trình, công cụ tích hợp qua thời gian và rà lại cái đã làm / chưa làm; nguyên nhân chưa định nghĩa được đầu bài là cách ghi chép rời rạc. · Trạng thái: bắt đầu (bảng D có trạng thái từ D24) · Ở: bảng này.
-- D35 · 2026-09-26 · Owner: bắt đầu tổ chức Nhà máy xây Máy tạo quy trình; phải tách rõ hệ luật/công cụ để xây máy và hệ luật/công cụ của máy để tạo quy trình khác; chung nguyên tắc tổ chức, khác nội dung. Rà nơi lưu công cụ, quy trình, luật, tài liệu; GitHub là hướng Owner đề nghị xem xét, có thể giao Claude Code CLI khi cần. · Trạng thái: đã ghi mục tiêu/hai phạm vi; phương án nơi lưu chờ chốt, chưa giao thực thi/đổi luật nguồn mã. · Ở: §0 · P17.
-- D36 · 2026-09-26 · Owner nhấn mạnh: vừa liệt kê vừa làm đầy dữ liệu; song song thiết kế máy và chế tạo tool/quy trình xây, lắp ráp máy; công cụ vào danh mục phải dần sẵn dùng để giảm làm lại. Quản trị bản vẽ/quy trình/tool cần có, quản trị Nhà máy, vận hành thử từng bước/từng phần để phát hiện thiếu và chứng minh khả thi. Quản lý phạm vi, không vùng trống, không trùng trách nhiệm; dùng lại phần đã đạt. · Trạng thái: đã ghi tinh thần/cách làm vào §0; chế tạo và ca thử chưa thực hiện trong lượt cập nhật mục tiêu này. · Ở: §0 · P18.
+- D35 · 2026-09-26 · Owner: bắt đầu tổ chức Nhà máy xây Máy tạo quy trình; phải tách rõ hệ luật/công cụ để xây máy và hệ luật/công cụ của máy để tạo quy trình khác; chung nguyên tắc tổ chức, khác nội dung. Rà nơi lưu công cụ, quy trình, luật, tài liệu; GitHub là hướng Owner đề nghị xem xét, có thể giao Claude Code CLI khi cần. · Trạng thái: đã ghi mục tiêu/hai phạm vi; phương án nơi lưu chờ chốt, chưa giao thực thi/đổi luật nguồn mã → C12: hai phạm vi viết thành ba tầng + nhãn Thuộc (D37–D38); nơi lưu 3 lớp (D39). · Ở: §0 · P17 · C12.
+- D36 · 2026-09-26 · Owner nhấn mạnh: vừa liệt kê vừa làm đầy dữ liệu; song song thiết kế máy và chế tạo tool/quy trình xây, lắp ráp máy; công cụ vào danh mục phải dần sẵn dùng để giảm làm lại. Quản trị bản vẽ/quy trình/tool cần có, quản trị Nhà máy, vận hành thử từng bước/từng phần để phát hiện thiếu và chứng minh khả thi. Quản lý phạm vi, không vùng trống, không trùng trách nhiệm; dùng lại phần đã đạt. · Trạng thái: đã ghi tinh thần/cách làm vào §0; chế tạo và ca thử chưa thực hiện trong lượt cập nhật mục tiêu này → C12: bắt đầu chế tạo — 4 công cụ quy trình vào cong-cu/, ca thử chạy thật (mức đã thử). · Ở: §0 · P18 · C12.
+- D37 · 2026-09-26 · Owner: rất dễ nhầm — ta xây “cỗ máy chế tạo quy trình”; muốn thế cần máy móc, quy trình và công cụ để chế tạo ra nó, tất cả nằm trong một nơi như nhà máy. · Trạng thái: đã ghi §0.1 BA TẦNG; nhãn Thuộc đã gắn 38 quy trình + danh mục công cụ (C12); luật · tài liệu gắn khi nhập kho. · Ở: §0.1 · 🚶 · 🛠.
+- D38 · 2026-09-26 · Owner: Máy xong dùng lại gần như toàn bộ công cụ kiểm/rà và bảng quản lý của Nhà máy nhưng để sản xuất quy trình thương mại; hai khái niệm phải rõ, hiểu thống nhất; thiết kế bây giờ trước tiên phục vụ chế tạo Máy, sau mới cho Máy dùng lại. · Trạng thái: nhãn 🔁 Chung + công cụ nhận dữ liệu làm đầu vào; Mốc 1–3 đề xuất ở §0.2 (C12). · Ở: §0.1 · §0.2 · §0.3 NHÀ MÁY.
+- D39 · 2026-09-26 · Owner: mã vẫn cấm GitHub → VPS; riêng công cụ quy trình và tài liệu liên quan được lưu GitHub làm kho SSOT, chép xuống VPS khi cần (chỉ chép, không tự triển khai); cách làm do hội đồng quyết và thiết kế. · Trạng thái: thiết kế 3 lớp (C12, JEV 0,99); 4 công cụ đã lưu cong-cu/; chờ Founders sửa README §11 + Owner gật (DROOT23). · Ở: §0.3 NƠI LƯU · COLLAB gốc.
 
 ## Đề xuất Host · MAP01–MAP05 + URL01 · chờ Claude review
 
@@ -1019,7 +1054,7 @@ Claude REVIEWED@2d673a370a030e2b679d161132cb908f897b9503 · **ACCEPT có điều
 - H03 · **ACCEPT**: đúng nguyên nhân gốc của I02 về phần binary.
 
 ## Owner cần quyết
-- C11 · Chốt nơi lưu: công cụ = /opt/incomex/dot + xưởng thử tools/ ở gốc repo; quy trình = repo → PG workflows; tài liệu = repo nguồn + KB tra cứu; luật = KB + law_catalog; yêu cầu = bảng D có trạng thái. Đề xuất: gật (chi tiết §0 · NƠI LƯU).
+- C12 · Gật luật nơi lưu 3 lớp: tài liệu và công cụ quy trình lưu GitHub (công cụ ở work/mow-mot-moit-mout/cong-cu/), chép xuống VPS theo lệnh khi cần, không tự triển khai; mã hệ thống giữ VPS là nguồn, cấm GitHub → VPS. Kèm: ba tầng Nhà máy · Máy · Thương mại + nhãn Thuộc (§0.1) và mốc hoàn thành (§0.2). Đề xuất: gật cả ba (phần nơi lưu = DROOT23 ở COLLAB gốc).
 P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt hiện hành; không còn là gate FIELD01.
 
 ## Sự cố / bài học Host
