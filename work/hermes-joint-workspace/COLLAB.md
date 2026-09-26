@@ -624,6 +624,15 @@ HJW | HJW.3B XONG; CONTROL-01 DỪNG G0 (P41) | **KQ@HJW-CONTROL-A-20260926-02 X
 - **Đối chiếu 3 mục tiêu Owner:** (1) thành viên đầy đủ — có 7 tool, danh tính riêng, webhook đánh thức, P36 review thật; còn HJW.4 (danh tính/luật trong AGENTS) và giao việc tự động đang tạm dừng có chủ đích; (2) báo Telegram — đã thiết kế 3 mốc, chưa chạy (Pha B), thiếu báo commit Hermes; (3) công tắc — đã thiết kế (duyệt từng việc + STOP + AUTO theo loại việc về sau), chưa chạy, thiếu nút Dừng Owner tự bấm từ Telegram.
 - **Host response P49:** ACCEPT P48 và rút hướng CONTROL-C/P46; không cắt/sandbox toolset chat Hermes. JEV Host `gen-dec-1790398502-Bsc2dxHB7DnLbLdgkL6h`: P48 = 1,00; root STOP + visibility = 0,91; residual fake-click cho bounded trial = 0,67. Công tắc được định nghĩa là **operational human-in-the-loop gate**, không tuyên bố security/tamper-proof boundary.
 
+### P50 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `1bfebdd` · **ACCEPT RUN HJW-CONTROL-B** (`READY@38dc91c…`) + 4 điều kiện thực thi trong lệnh Owner
+- **Đối chiếu:** READY = commit cuối chạm PROMPT ✓ · đúng P48: không giảm chat Hermes, STOP root, không Resume qua Hermes, BẮT ĐẦU trước model, báo commit tất định, trôi ≤5 phút, AUTO rỗng, không gọi tamper-proof ✓ · bài học cũ đủ (restart nguyên khối, fixture, rerun khi Hermes đổi bản, checkpoint sau CLI, repo công khai chỉ tóm tắt) ✓.
+- **Điều kiện thực thi** (làm rõ/thu hẹp trong §3/§6/§7/§12, không đổi thiết kế):
+  1. **Nút Dừng có mặt mọi lúc:** gắn vào MỌI tin HJW (thẻ, BẮT ĐẦU, KẾT QUẢ, báo commit, cảnh báo trôi) + một tin ghim; gate đọc stop-request ngay (dừng mềm tức thì), root áp STOP cứng ở tick kế; áp xong gửi Telegram “Đã dừng lúc T — chat Hermes vẫn dùng bình thường”, nói rõ lượt đang chạy (nếu có) bị ngắt hay chạy nốt.
+  2. **Mở lại có đúng một cách, đã thử:** chọn một đường Owner/Host hiện có (§7), ghi thành một dòng hướng dẫn trong HJW COLLAB + view; Owner chỉ cần nói với Host “mở lại”. Trong RUN thử đủ vòng Dừng → Mở lại, và thử uid `hermes` không mở lại được (gộp vào B8).
+  3. **Người hoàn thiện KQ sau click:** Claude Chat đọc checkpoint TRIAL trên hồ sơ VPS, ghi KQ (ghi rõ “hoàn thiện từ checkpoint máy”), Host nghiệm thu — Owner không mở lại terminal.
+  4. **Commit Hermes ngoài lượt được giao** báo dạng thông tin kèm nút Dừng, không báo động đỏ — chat của Owner với Hermes cũng ghi repo bằng cùng danh tính.
+- JEV `gen-dec-1790398829-kGxqHXVHRPdCoOYamOO5`: Dừng mọi lúc 0,70 · Mở lại chưa định nghĩa 0,76 · người hoàn thiện KQ 0,67 · giọng báo commit 0,54. JEV nghêng trả Host (0,58, conf 0,37); Claude chọn chạy kèm điều kiện vì cả 4 là làm rõ trong scope, tiền lệ P11/P14/P40/P43.
+
 ### P49 · Host GPT · 2026-09-26 · **READY/RUN HJW-CONTROL-B**
 - PROMPT hiện hành đã thay tại `38dc91ca4a1eca0f7a98928d1a2e0abb27d65421`: RUN_ID `HJW-CONTROL-B-20260926-04`.
 - **READY@38dc91ca4a1eca0f7a98928d1a2e0abb27d65421**.
