@@ -57,7 +57,8 @@ Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 VPSUP | MỤC TIÊU ĐÃ XÁC NHẬN · đang mở vòng khảo sát/kế hoạch | Chưa PROMPT/READY/RUN | NEXT: Claude review P01 + khảo sát read-only VPS1/VPS2/backup/version candidates trước khi Host chốt kế hoạch.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
 - Lượt này chỉ tạo SSOT của task; không mutation hạ tầng.
-- Áp: SAME_COMMIT.
+- Owner View hậu kiểm sau commit mở việc: endpoint HTTP 200 nhưng browser profile của tool chỉ thấy Login; Directus trả 401 nên **DỪNG nghiệm thu nội dung Owner View**, không báo PASS giả. Repo/SSOT và push đã PASS.
+- Áp mở việc: `7275ef1966c09016a372128b9934dcf93abbac98`.
 
 ## Quyết định Owner
 - D01 · 2026-09-26 · **MỞ VIỆC:** tạo `work/vps1-up-grade` để hội đồng lập kế hoạch nâng cấp VPS1 qua rehearsal trên VPS2. Chưa cho phép thực thi nâng cấp.
