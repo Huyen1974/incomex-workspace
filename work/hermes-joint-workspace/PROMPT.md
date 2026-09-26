@@ -48,7 +48,7 @@ Mọi tin HJW do control plane gửi phải theo cùng một grammar, nhìn vài
 
 ### Approval card
 Header: `HJW · GIAO VIỆC · CHỜ DUYỆT`
-- `Từ: <surface/Host giao> → Tới: Hermes (<role>)`
+- `Từ: <😊 Owner | 🤖 AI/máy giao> → Tới: 🤖 Hermes (<role>)`
 - `Việc: <task readable>`
 - `Nhiệm vụ: <1–2 dòng hành động cụ thể>`
 - `Phạm vi: <read/write scope>`
@@ -58,14 +58,14 @@ Header: `HJW · GIAO VIỆC · CHỜ DUYỆT`
 
 ### START
 Header: `HJW · HERMES THỰC HIỆN · ĐANG CHẠY`
-- `Từ: <source> → Hermes (<role>)`
+- `Từ: <😊 Owner | 🤖 AI/máy giao> → Tới: 🤖 Hermes (<role>)`
 - ticket/task/scope;
 - Owner approved_at;
 - `Tiếp theo: Hermes làm → báo KẾT QUẢ`.
 
 ### RESULT
 Header: `HJW · HERMES REPORT · <XONG|BLOCKED|NO_NEW_VALUE>`
-- `Từ: Hermes → Tới: Host/Owner`
+- `Từ: 🤖 Hermes → Tới: <🤖 Host | 😊 Owner>`
 - Đã làm;
 - Kết quả;
 - commit/report;
@@ -74,7 +74,7 @@ Header: `HJW · HERMES REPORT · <XONG|BLOCKED|NO_NEW_VALUE>`
 
 ### Commit notification
 Header: `HJW · HERMES COMMIT · GHI NHẬN`
-- `Hermes → Repo`
+- `🤖 Hermes → Repo`
 - task/ticket nếu map được;
 - short SHA + summary;
 - trạng thái execution;
@@ -93,7 +93,7 @@ Ngay khi nhận callback hợp lệ:
    - CHỜ DUYỆT → `✅ ĐÃ DUYỆT · <time>`;
    - hoặc `⛔ ĐÃ TỪ CHỐI · <time>`;
    - STOP → `🛑 ĐÃ YÊU CẦU DỪNG · <time>`, sau root receipt update thành `🛑 ĐÃ DỪNG · <time>`.
-3. action đã xử lý phải thành disabled hoặc được thay bằng label trạng thái; action đối nghịch không còn bấm được.
+3. Ưu tiên biến action đã xử lý thành `disabled` nếu đường Bot API hiện hữu hỗ trợ sạch; nếu wrapper/runtime hiện tại không expose `disabled` thì **không coi là blocker**: thay nút vừa bấm bằng dòng trạng thái + giờ và gỡ action đối nghịch để không còn bấm được.
 4. `Xem việc` và `Dừng tất cả` còn lại theo state hợp lệ.
 5. duplicate/replay callback trả ack “Đã xử lý” và không đổi lifecycle lần hai.
 
@@ -104,8 +104,8 @@ Restart/plugin recovery phải render lại đúng state từ ledger, không qua
 Telegram Bot API hiện hành hỗ trợ InlineKeyboardButton.style:
 - `success` xanh lá;
 - `primary` xanh dương;
-- `danger` đỏ;
-và disabled button.
+- `danger` đỏ.
+Bot API hiện hành cũng có `disabled`, nhưng wrapper runtime có thể chưa expose trực tiếp; vì vậy `disabled` là tối ưu UX, không phải điều kiện chặn.
 
 Áp:
 - `Cho chạy` = success (xanh lá), hành động được khuyến nghị.
@@ -114,10 +114,10 @@ và disabled button.
 - `Không chạy` = default/trung tính, không dùng đỏ để khỏi lẫn “Dừng tất cả”.
 - cảnh báo = `⚠️` + text/default. Telegram không có style vàng chuẩn: KHÔNG giả vàng bằng hack.
 
-Nếu wrapper hiện tại chưa expose style/disabled nhưng Bot API endpoint hiện hành có:
+Nếu wrapper hiện tại chưa expose `style` nhưng Bot API endpoint hiện hành có:
 - ưu tiên raw Bot API/HTTP helper ĐANG CÓ trong plugin/runtime;
 - không patch Hermes core, không bot/token/client thứ hai.
-Nếu không làm được bằng extension hiện hữu ⇒ ghi limitation và DỪNG trước tuyên bố U3 PASS.
+Nếu không làm được **màu style** bằng extension/helper hiện hữu ⇒ ghi limitation và DỪNG trước tuyên bố U3 PASS. Riêng thiếu `disabled` ở wrapper không làm RUN DỪNG; dùng fallback thay nút bằng trạng thái + giờ như §3.
 
 Màu chỉ phụ trợ; text/icon/state phải đủ hiểu trên client không render style.
 
@@ -126,8 +126,8 @@ Màu chỉ phụ trợ; text/icon/state phải đủ hiểu trên client không 
 Fixture + live bot API:
 U1. Header 4 loại đúng grammar và from→to/next rõ.
 U2. callback ack được gọi trước khi client hết progress; handler idempotent.
-U3. click Cho chạy thử trong fixture → message edit thành ĐÃ DUYỆT + action disabled.
-U4. styles được Bot API nhận: success/primary/danger; disabled được nhận.
+U3. click Cho chạy thử trong fixture → message edit thành ĐÃ DUYỆT + giờ; action đối nghịch không còn bấm được; `disabled` dùng nếu đường hiện hữu hỗ trợ, không bắt buộc.
+U4. styles được Bot API nhận: success/primary/danger.
 U5. STOP state edit đúng và không có Resume qua Hermes.
 U6. Không chạy/default không lẫn màu đỏ STOP.
 U7. callback duplicate/restart không hồi state.
