@@ -4,7 +4,7 @@
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25.
 
 ### 1. Mục tiêu
-- Mục tiêu: xây **Máy tạo quy trình** — ý tưởng thảo luận của người dùng → AI khai báo → duyệt → AI khai thành quy trình chạy được. Việc này làm phần đầu của máy: **các MOW vẽ UI của Field · Form · MOT · MOW**.
+- Mục tiêu: xây Máy tạo quy trình — ý tưởng thảo luận của người dùng → AI khai báo → duyệt → AI khai thành quy trình chạy được. Việc này làm phần đầu của máy: các MOW vẽ UI của Field · Form · MOT · MOW.
 *(Owner nói 26/09; Claude rút gọn — chờ Owner gật. Câu cũ chuyển xuống Vòng trước.)*
 
 ### 2. Thế nào là hoàn thành
@@ -18,8 +18,8 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 BỨC TRANH (Owner 26/09, giữ nguyên ý):
-- Đích: **Máy tạo quy trình**. Chế tạo máy cần hàng trăm quy trình (quy trình hệ thống); các MOW vẽ UI chỉ là vài quy trình đầu. Trong một MOW lớn có nhiều MOW nhỏ.
-- Phải có **Danh mục quy trình** (tên + mã) để so và xây dần; bây giờ viết bằng văn bản để tuân thủ, vì số quy trình còn ít.
+- Đích: Máy tạo quy trình. Chế tạo máy cần hàng trăm quy trình (quy trình hệ thống); các MOW vẽ UI chỉ là vài quy trình đầu. Trong một MOW lớn có nhiều MOW nhỏ.
+- Phải có Danh mục quy trình (tên + mã) để so và xây dần; bây giờ viết bằng văn bản để tuân thủ, vì số quy trình còn ít.
 - Chi tiết không kiểm bằng DOT/script, không chạy bằng quy trình cứng thì sẽ lộn xộn, mất thời gian. JEV giúp chọn lựa phức tạp, không thay kiểm cứng.
 - Nhóm đầu: 4 MOW vẽ UI (Field · Form · MOT · MOW). Chuỗi bắt buộc: luồng sử dụng thật (tạo mới · lắp ráp · khai báo · sửa/nâng cấp · xoá) → đủ bước → đủ UI → đầu bài vẽ UI → MOW vẽ UI → vẽ UI không thiếu.
 - Vì sao luẩn quẩn: “đủ” chỉ kiểm được so với một phạm vi đã chốt. Chưa chốt danh mục quy trình thì vòng nào cũng lòi thêm (02/09 Owner đã chỉ: chưa có danh sách quy trình hệ thống thì không biết cần bao nhiêu UI). Cách thoát: chốt phạm vi = danh mục quy trình nhóm đầu → đi bộ từng bước → mọi chỗ ghi trỏ về một dòng master → kiểm bằng script.
@@ -40,7 +40,7 @@ VIỆC PHẢI LÀM (theo thứ tự, chưa xong việc trên chưa mở việc d
 3. Có bao nhiêu form UI theo step (có mã, có tên form)? Mã form quan hệ chặt với mã mẹ (Step) và mã cha (UI cha) để con người đọc lại hiểu ngay.
 
 TIẾN ĐỘ: 3 câu = nấc ① ② ③ của CHUỖI ở trên (Câu 1 đang chốt cùng ⓪).
-- Câu 1 · đang chốt: bản trả lời = tab ★ Master list V2 trong ban-duyet.html: 62 danh sách, mỗi dòng có mã, tên, bảng dữ liệu, UI (C07). Đúng khi: Owner + Codex chốt, không còn thiếu / thừa. Mã V2 đóng băng từ nay. 26/09 (C09): đã kiểm thiếu bằng JEV (3 bộ, 120 câu) → cần danh sách mới: 0; lỗ gắn bản ghi sửa bằng chỗ bắt buộc ở 10 · 50 · 51 · 56 + ghi rõ 18; tên đổi rõ nghĩa (42 danh mục · 5 liên kết · 15 sổ), mã và số dòng không đổi. Còn chờ: Codex xác nhận + 7 mã CAT chưa rõ. 26/09 (C10, sau P16 PARTIAL): C09 sai ở “0 danh sách mới”; đi bộ 33 quy trình + kỹ thuật viên (8 câu bất biến) + hệ cũ → thêm 14 dòng (63 Sổ lệnh · 64–76 nền có sẵn) + 6 dòng chưa áp dụng (77–82) = **82**; mã cũ không đổi; script: mọi chỗ ghi trỏ về 1 dòng, 0 lỗi, không dòng thừa; 7 mã chưa rõ đã rõ.
+- Câu 1 · đang chốt: bản trả lời = tab ★ Master list V2 trong ban-duyet.html: 62 danh sách, mỗi dòng có mã, tên, bảng dữ liệu, UI (C07). Đúng khi: Owner + Codex chốt, không còn thiếu / thừa. Mã V2 đóng băng từ nay. 26/09 (C09): đã kiểm thiếu bằng JEV (3 bộ, 120 câu) → cần danh sách mới: 0; lỗ gắn bản ghi sửa bằng chỗ bắt buộc ở 10 · 50 · 51 · 56 + ghi rõ 18; tên đổi rõ nghĩa (42 danh mục · 5 liên kết · 15 sổ), mã và số dòng không đổi. Còn chờ: Codex xác nhận + 7 mã CAT chưa rõ. 26/09 (C10, sau P16 PARTIAL): C09 sai ở “0 danh sách mới”; đi bộ 33 quy trình + kỹ thuật viên (8 câu bất biến) + hệ cũ → thêm 14 dòng (63 Sổ lệnh · 64–76 nền có sẵn) + 6 dòng chưa áp dụng (77–82) = 82; mã cũ không đổi; script: mọi chỗ ghi trỏ về 1 dòng, 0 lỗi, không dòng thừa; 7 mã chưa rõ đã rõ.
 - Câu 2 · chờ: trả lời bằng chính danh sách số 11 “Bước” (CAT-004): liệt kê mọi bước người làm của 4 nhóm Field · Form · MOT · MOW, đủ trường hợp (tạo mới · dùng lại · thiếu thành phần · trả sửa · kiểm lỗi · sửa · ngừng), mỗi bước một mã + một tên. Đúng khi: ra một con số cho từng nhóm và tổng, tách rõ bước người / bước máy.
 - Câu 3 · chờ: trả lời bằng danh sách số 59 “Màn” (UI con): mỗi bước ở câu 2 → form UI; mã form = mã bước + mã UI cha (kiểu đang dùng S030.UI.CONFIG). Đúng khi: mọi bước người có form, bước máy ghi rõ “không có form”.
 
