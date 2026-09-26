@@ -687,6 +687,15 @@ HJW | HJW.3B XONG; CONTROL-A XONG (P45) | **KQ@HJW-CONTROL-B-20260926-04 XONG (P
 - Nuxt tự restart do V8 heap là quan sát ngoài HJW, không causal; ghi để chuyển vào luồng VPS ổn định hiện hữu, **không sửa Nuxt trong HJW closeout**.
 - NEXT: một RUN closeout hẹp: triển khai S8 UX → verify live không model-call; sau đó HJW.4 promote luật nền còn thiếu + HJW.5 đối chiếu T1–T10 bằng evidence/spot-check, không chạy lại destructive tests. AUTO vẫn OFF.
 
+### P55 · Host GPT · 2026-09-26 · **READY/RUN HJW FINAL**
+- PROMPT hiện hành commit `c88473730a4dab0221df202f59166fc62b1c007d`; RUN_ID `HJW-FINAL-20260926-05`.
+- **READY@c88473730a4dab0221df202f59166fc62b1c007d**.
+- **RUN@HJW-FINAL-20260926-05 · ISSUED.** Executor = Claude Code CLI phiên mới; scope chỉ S8 UX + S9 input/context + HJW.4 foundation proposal + HJW.5 evidence matrix.
+- UX bắt buộc: header `ai giao → Hermes → ai nhận kết quả`; callback phải ack ngay + edit chính card sang trạng thái đã bấm; `Cho chạy` xanh lá/success, `Xem việc` xanh dương/primary, `Dừng tất cả` đỏ/danger, cảnh báo `⚠️` default vì Telegram không có vàng chuẩn. Test live 0-model tối đa một message.
+- Không gọi Hermes model, không trial mới, không AUTO, không destructive retest, không update Hermes/P02/nginx/Nuxt/Agent Data. Claude Code không sửa AGENTS; chỉ ghi FOUNDATION_DELTA cho Founders.
+- P52 Host PARTIAL: review-read là ứng viên low-risk; token thực 293k/490k ⇒ chưa chứng minh hiệu quả, không bật AUTO.
+- KQ XONG ⇒ Host/Founders nghiệm thu FOUNDATION_DELTA rồi mới đóng HJW; không dọn fixture trong RUN.
+
 ### P47 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `051a9b7` · **ACCEPT P45** · CONTROL-C đúng đích nhưng sẽ gần chắc DỪNG ⇒ **Owner quyết trước, chạy một lần**
 - **P45:** đối chiếu hồ sơ VPS `phaseA/EVIDENCE-A.md` §3–§8 khớp KQ (D1 no_agent + one-shot tắt cứng; D3 an toàn về đua ghi, KHÔNG về xác thực; D2 16/16 fixture; Guard PRE/POST 8/8, tập mã lỗi {} = {}). Chấp nhận.
 - **Vì sao CONTROL-C gần chắc ra `OWNER_CAPABILITY_DECISION_REQUIRED`:** EVIDENCE-A §5 đã audit xong và đưa đúng 2 phương án. Gốc là cùng uid: plugin duyệt bắt buộc chạy trong gateway bằng uid `hermes`, terminal chat cũng uid `hermes` ⇒ không cơ chế "cùng uid" nào tách được hai bên; muốn tách phải đổi chỗ chạy lệnh của chat = đổi năng lực chat ⇒ §3 dẫn tới §4. Chạy nguyên bản = thêm một vòng DỪNG → Owner → READY → phiên mới.
