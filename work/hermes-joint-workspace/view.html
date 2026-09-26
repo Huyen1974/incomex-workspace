@@ -59,24 +59,25 @@ Claude Chat ──────────────────────�
 </tbody>
 </table></div>
 <p><strong>Cộng dồn Hermes:</strong> 1 đỏ (chưa khai cửa) · 2 vàng · 3 xám — không cần xây mới gì.</p>
-<p><small>Claude kiểm 2026-09-20 trên HEAD 7da09c7: mã agent-data (xác thực bằng một khoá chung), unit hermes-agentdata-relay, tài liệu MCP của Hermes (hermes-agent.nousresearch.com).</small></p>
+<p><small>Bảng này là ảnh chụp ngày 20/09; trạng thái hiện hành xem mục 4 (cập nhật 26/09). Claude kiểm 2026-09-20 trên HEAD 7da09c7: mã agent-data (xác thực bằng một khoá chung), unit hermes-agentdata-relay, tài liệu MCP của Hermes (hermes-agent.nousresearch.com).</small></p>
 
 <h2 id="TIEU-CHI">4. Tiêu chí xong — gọi thật mới PASS</h2>
 <table>
 <thead><tr><th>Mã</th><th>Tiêu chí</th></tr></thead>
 <tbody>
-<tr><td>T1 Đọc</td><td>Hermes đọc được mọi file, luôn là bản mới nhất.</td></tr>
-<tr><td>T2 Ghi</td><td>Chạy đủ bài 9 bước của R03 tại <code>work/hermes-joint-workspace/_thu-nghiem/hermes/</code>.</td></tr>
-<tr><td>T3 Chéo</td><td>GPT/Claude thấy ngay commit của Hermes và ngược lại; ghi bằng version cũ bị từ chối.</td></tr>
-<tr><td>T4 Tên</td><td>Commit của Hermes mang tiền tố <code>[Hermes]</code> và attribution qua gateway đủ phân biệt Hermes trong tín hiệu <code>Vừa làm/Đang làm</code>.</td></tr>
-<tr><td>T5 Gọi</td><td>Anh gõ câu <code>WS …</code> vào Telegram → Hermes đọc AGENTS → COLLAB, làm đúng việc, trả tối đa 3 dòng STATUS · COMMIT · NEXT.</td></tr>
-<tr><td>T6 Chi phí</td><td>Đo được Hermes đang chạy model gì và tốn bao nhiêu mỗi lượt.</td></tr>
-<tr><td>T7 Tự thức</td><td>Phase 1 dùng cron + pre-script deterministic khoảng 2 phút; HEAD/assignment không đổi ⇒ 0 LLM, assignment mới ⇒ wake đúng một lần. Không bật webhook platform ở Phase 1.</td></tr>
-<tr><td>T8 Vượt quyền</td><td>Hermes STOP, ghi blocker và báo Owner qua Telegram; không tự mở scope hay tự vượt gate.</td></tr>
-<tr><td>T9 Secret boundary</td><td>Hermes không giữ quyền GSM rộng/không cần thiết; đường cấp secret tối thiểu, rotation/revoke và failure/compromise được review + test theo threat model.</td></tr>
-<tr><td>T10 Automation value</td><td>Webhook/assignment, scheduler/backstop, API action, retry/dedup và Telegram notification/handoff được thiết kế và nghiệm thu đủ để chứng minh lợi thế always-on thực tế.</td></tr>
+<tr><td>T1 Đọc</td><td>Hermes đọc được mọi file, luôn là bản mới nhất. — <strong>26/09: ĐẠT</strong>.</td></tr>
+<tr><td>T2 Ghi</td><td>Chạy đủ bài 9 bước của R03 tại <code>work/hermes-joint-workspace/_thu-nghiem/hermes/</code>. — <strong>26/09: ĐẠT MỘT PHẦN</strong>: Hermes đã ghi thật nhiều lần trong HJW (có hoàn tác sạch); bài 9 bước chưa từng chạy.</td></tr>
+<tr><td>T3 Chéo</td><td>GPT/Claude thấy ngay commit của Hermes và ngược lại; ghi bằng version cũ bị từ chối. — <strong>26/09: ĐẠT</strong>.</td></tr>
+<tr><td>T4 Tên</td><td>Commit của Hermes mang tiền tố <code>[Hermes]</code> và attribution qua gateway đủ phân biệt Hermes trong tín hiệu <code>Vừa làm/Đang làm</code>. — <strong>26/09: ĐẠT MỘT PHẦN</strong>: tên máy đúng ở cả 11 commit; 4 commit tự động gần đây thiếu chữ [Hermes] — đã sửa lời giao, chờ lượt sau.</td></tr>
+<tr><td>T5 Gọi</td><td>Anh gõ câu <code>WS …</code> vào Telegram → Hermes đọc AGENTS → COLLAB, làm đúng việc, trả tối đa 3 dòng STATUS · COMMIT · NEXT. — <strong>26/09: ĐẠT MỘT PHẦN</strong>: Hermes tự nhận việc và báo đúng 3 dòng qua Telegram; anh gõ “WS …” trong chat chưa thử chính thức.</td></tr>
+<tr><td>T6 Chi phí</td><td>Đo được Hermes đang chạy model gì và tốn bao nhiêu mỗi lượt. — <strong>26/09: ĐẠT</strong>: 4 lượt thật tổng 0,094 USD theo số OpenRouter (Hermes tự ước lệch nhiều, không dùng).</td></tr>
+<tr><td>T7 Tự thức</td><td>Phase 1 dùng cron + pre-script deterministic khoảng 2 phút; HEAD/assignment không đổi ⇒ 0 LLM, assignment mới ⇒ wake đúng một lần. Không bật webhook platform ở Phase 1. — <strong>26/09: ĐẠT</strong>: thực tế ~3 phút/lần (không phải 2); lúc rảnh 0 lượt model; webhook đã bật từ HJW.3B.</td></tr>
+<tr><td>T8 Vượt quyền</td><td>Hermes STOP, ghi blocker và báo Owner qua Telegram; không tự mở scope hay tự vượt gate. — <strong>26/09: ĐẠT MỘT PHẦN</strong>: máy chủ chặn vượt quyền và Hermes tự báo BLOCKED; việc ghi dòng tắc vào COLLAB chưa chạy thật.</td></tr>
+<tr><td>T9 Secret boundary</td><td>Hermes không giữ quyền GSM rộng/không cần thiết; đường cấp secret tối thiểu, rotation/revoke và failure/compromise được review + test theo threat model. — <strong>26/09: ĐẠT MỘT PHẦN</strong>: không quyền GSM, khoá riêng thu hồi được; rủi ro còn lại đã ghi rõ.</td></tr>
+<tr><td>T10 Automation value</td><td>Webhook/assignment, scheduler/backstop, API action, retry/dedup và Telegram notification/handoff được thiết kế và nghiệm thu đủ để chứng minh lợi thế always-on thực tế. — <strong>26/09: ĐẠT MỘT PHẦN</strong>: duyệt từng việc chạy trọn vòng thật; chế độ tự động chưa bật vì token/lượt còn cao.</td></tr>
 </tbody>
 </table>
+<p><small>Nguồn sự thật chi tiết (bằng chứng + giới hạn từng mục): bảng T1–T10 trong HJW COLLAB, mục P61.</small></p>
 
 <h2 id="KE-HOACH">5. Kế hoạch</h2>
 <table>
@@ -88,9 +89,9 @@ Claude Chat ──────────────────────�
 <tr><td>HJW.2B1</td><td>SEC-CLEAN + capability audit theo PROMPT <code>d4090d3c…</code>.</td><td>Claude Code CLI · GPT Host</td><td>✓ XONG 24/09 · SEC-CLEAN PASS · MIN_CODE_CHANGE</td></tr>
 <tr><td>HJW.2C</td><td>Auth patch + generic Agent Gateway + Hermes narrow profile; scope/identity/revoke/revert/live client registration.</td><td>Claude Code CLI · GPT Host · Claude review</td><td>✓ HOST ACCEPTED 24/09</td></tr>
 <tr><td>HJW.3B</td><td>Closeout: T5/T6 evidence + UNIX socket bridge + secret webhook + nginx public hardening + Kuma + canary.</td><td>Claude Code CLI mới · GPT Host</td><td>✓ KQ XONG 25/09 · Host chấp nhận P35</td></tr>
-<tr><td>HJW-CONTROL</td><td>Nút “Cho chạy” trên Telegram trước mỗi lượt Hermes + báo nhận/kết quả. <strong>Pha A 26/09 xong:</strong> bộ điều phối trên VPS giờ không thể tự gọi model, kể cả khi script lỗi — đo thật 0 lượt model; Hermes tự nhận việc theo giao việc đang <em>tạm dừng có chủ đích</em>. <strong>Pha B 26/09 đã lắp và thử xong (P51):</strong> Hermes giữ đủ công cụ chat; mỗi lượt Hermes tự chạy phải có thẻ Telegram “Cho chạy / Không chạy / Xem việc / Dừng tất cả”; bấm xong máy gửi BẮT ĐẦU trước khi gọi model và KẾT QUẢ sau khi xong; mọi commit của Hermes được báo Telegram; thay đổi lạ ở bộ điều khiển báo trong ≤5 phút. Anh đã thử nút Dừng tất cả: máy dừng sau 31 giây, Hermes không tự mở lại được. Muốn mở lại: nói với Host “mở lại HJW”. Lượt thử thật: lần 1 hỏng do lời giao thiếu tên kho (lỗi của Claude Code; Hermes không ghi gì, không chạy đôi); lần 2 (anh và Host cho phép) Hermes trả lời đúng câu hỏi bằng P52 — mọi bước đều báo Telegram, đúng một lượt model sau khi anh bấm. Chế độ vẫn là duyệt từng việc; chưa có loại việc nào tự động. Đây là chốt vận hành có người, không phải hàng rào chống giả mạo tuyệt đối.</td><td>Claude Code CLI · GPT Host</td><td>✓ Pha B XONG 26/09 (P51) · chờ Host nghiệm thu</td></tr>
-<tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>sau HJW.3 PASS</td></tr>
-<tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T10.</td><td>Host</td><td>—</td></tr>
+<tr><td>HJW-CONTROL</td><td>Nút “Cho chạy” trên Telegram trước mỗi lượt Hermes + báo nhận/kết quả. <strong>Pha A 26/09 xong:</strong> bộ điều phối trên VPS giờ không thể tự gọi model, kể cả khi script lỗi — đo thật 0 lượt model; Hermes tự nhận việc theo giao việc đang <em>tạm dừng có chủ đích</em>. <strong>Pha B 26/09 đã lắp và thử xong (P51):</strong> Hermes giữ đủ công cụ chat; mỗi lượt Hermes tự chạy phải có thẻ Telegram “Cho chạy / Không chạy / Xem việc / Dừng tất cả”; bấm xong máy gửi BẮT ĐẦU trước khi gọi model và KẾT QUẢ sau khi xong; mọi commit của Hermes được báo Telegram; thay đổi lạ ở bộ điều khiển báo trong ≤5 phút. Anh đã thử nút Dừng tất cả: máy dừng sau 31 giây, Hermes không tự mở lại được. Muốn mở lại: nói với Host “mở lại HJW”. Lượt thử thật: lần 1 hỏng do lời giao thiếu tên kho (lỗi của Claude Code; Hermes không ghi gì, không chạy đôi); lần 2 (anh và Host cho phép) Hermes trả lời đúng câu hỏi bằng P52 — mọi bước đều báo Telegram, đúng một lượt model sau khi anh bấm. Chế độ vẫn là duyệt từng việc; chưa có loại việc nào tự động. Đây là chốt vận hành có người, không phải hàng rào chống giả mạo tuyệt đối. <strong>Lượt FINAL 26/09 (P61):</strong> mọi tin HJW nay cùng một khuôn “HJW · loại tin · trạng thái” + dòng “Từ → Tới” (😊 người, 🤖 AI/máy); nút Cho chạy xanh lá, Xem việc xanh dương, Dừng tất cả đỏ; bấm xong Telegram báo “Đã nhận” ngay và chính thẻ đổi thành ĐÃ DUYỆT / ĐÃ TỪ CHỐI kèm giờ (hai nút quyết định biến mất). Tin thử #50 và tin ghim đã được làm mới, không gọi model.</td><td>Claude Code CLI · GPT Host</td><td>✓ Pha B XONG 26/09 (P51, Host nhận P54) · ✓ FINAL 26/09 (P61)</td></tr>
+<tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>◐ 5 đề xuất luật (FD1–FD5, P61) chờ GPT + Claude Chat</td></tr>
+<tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T10.</td><td>Host</td><td>◐ bảng T1–T10 cuối đã lập (mục 4), chờ Host đối chiếu rồi đóng</td></tr>
 </tbody>
 </table>
 
@@ -118,6 +119,6 @@ Claude Chat ──────────────────────�
 </ul>
 
 <h2 id="DIEU-KIEN">8. Điều kiện chuyển sang làm</h2>
-<p>NEXT: Host nghiệm thu Pha B (P51) và câu trả lời của Hermes về loại việc có thể tự động đầu tiên (P52). Từ nay mỗi lượt Hermes tự chạy sẽ có thẻ “HJW · CHỜ DUYỆT”; chưa bấm thì không tốn token. Muốn dừng mọi lượt tự chạy: bấm Dừng tất cả dưới bất kỳ tin HJW nào (có một tin ghim); mở lại: nói với Host “mở lại HJW”. Anh chưa cần làm gì thêm. Sau đó mới tới HJW.4 (hai luật: không để placeholder <code>${VAR}</code> thành secret; chi phí thật lấy từ nhà cung cấp) và HJW.5.</p>
+<p>NEXT: Host nghiệm thu lượt FINAL (P61) và bảng T1–T10; GPT Chat + Claude Chat xét 5 đề xuất luật (FD1–FD5: không để placeholder <code>${VAR}</code> thành secret; chi phí thật lấy từ nhà cung cấp; khuôn tin gửi anh; lời giao cho agent chạy không người trực; bảng T1–T10 là nguồn sự thật). Sau đó đóng HJW. Anh chưa cần làm gì thêm. Chế độ vẫn duyệt từng việc; chưa có loại việc nào tự động. Muốn dừng mọi lượt Hermes tự chạy: bấm Dừng tất cả (đỏ) dưới bất kỳ tin HJW nào (có một tin ghim); mở lại: nói với Host “mở lại HJW”.</p>
 </body>
 </html>
