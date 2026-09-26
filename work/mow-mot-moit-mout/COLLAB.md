@@ -4,8 +4,8 @@
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25.
 
 ### 1. Mục tiêu
-- Mục tiêu: tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
-*(đề xuất — chờ Owner gật; giữ nguyên câu chữ §0 cũ)*
+- Mục tiêu: xây **Máy tạo quy trình** — ý tưởng thảo luận của người dùng → AI khai báo → duyệt → AI khai thành quy trình chạy được. Việc này làm phần đầu của máy: **các MOW vẽ UI của Field · Form · MOT · MOW**.
+*(Owner nói 26/09; Claude rút gọn — chờ Owner gật. Câu cũ chuyển xuống Vòng trước.)*
 
 ### 2. Thế nào là hoàn thành
 *(Owner viết nguyên văn 25/09/2026)*
@@ -17,13 +17,30 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 6. Phải đảm bảo làm bằng tay trước (con người làm trên UI) sau đó mới tự động hóa thay thế con người bằng AI.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+BỨC TRANH (Owner 26/09, giữ nguyên ý):
+- Đích: **Máy tạo quy trình**. Chế tạo máy cần hàng trăm quy trình (quy trình hệ thống); các MOW vẽ UI chỉ là vài quy trình đầu. Trong một MOW lớn có nhiều MOW nhỏ.
+- Phải có **Danh mục quy trình** (tên + mã) để so và xây dần; bây giờ viết bằng văn bản để tuân thủ, vì số quy trình còn ít.
+- Chi tiết không kiểm bằng DOT/script, không chạy bằng quy trình cứng thì sẽ lộn xộn, mất thời gian. JEV giúp chọn lựa phức tạp, không thay kiểm cứng.
+- Nhóm đầu: 4 MOW vẽ UI (Field · Form · MOT · MOW). Chuỗi bắt buộc: luồng sử dụng thật (tạo mới · lắp ráp · khai báo · sửa/nâng cấp · xoá) → đủ bước → đủ UI → đầu bài vẽ UI → MOW vẽ UI → vẽ UI không thiếu.
+- Vì sao luẩn quẩn: “đủ” chỉ kiểm được so với một phạm vi đã chốt. Chưa chốt danh mục quy trình thì vòng nào cũng lòi thêm (02/09 Owner đã chỉ: chưa có danh sách quy trình hệ thống thì không biết cần bao nhiêu UI). Cách thoát: chốt phạm vi = danh mục quy trình nhóm đầu → đi bộ từng bước → mọi chỗ ghi trỏ về một dòng master → kiểm bằng script.
+
+CHUỖI (một ô đang làm): [⓪ Luồng → danh mục quy trình + ① Danh sách master · ĐANG LÀM, một lần đi bộ] → [② Bước · chờ] → [③ UI · chờ] → [④ Đầu bài vẽ UI · chờ] → [⑤ MOW vẽ UI, văn bản · chờ] → [⑥ Vẽ UI · chờ]
+
+VIỆC PHẢI LÀM (theo thứ tự, chưa xong việc trên chưa mở việc dưới):
+1. Chốt nhóm đầu của danh mục quy trình: 33 quy trình (C10) — Owner gật, Codex rà.
+2. Chốt danh sách master = 82 (63 hệ tự làm · 13 nền có sẵn · 6 chưa áp dụng) — Codex rà, không còn OPEN.
+3. Mở từng quy trình thành bước có mã (mã bước = mã quy trình + số) — Câu 2.
+4. Mỗi bước người → một UI; mã UI = mã bước + mã UI cha — Câu 3.
+5. Đầu bài vẽ UI cho 4 đối tượng → 6. viết 4 MOW vẽ UI (văn bản) → 7. vẽ UI không thiếu.
+8. Sau nhóm đầu: viết tiếp nhóm thứ nhỏ (đúc) và quản trị theo cùng khuôn; nghiệp vụ (phái cử…) là dữ liệu chạy trên máy.
+
 ƯU TIÊN — 3 câu phải trả lời trước (Owner 26/09, giữ nguyên ý). Chưa trả lời đúng 3 câu này thì mọi thứ khác chưa có nghĩa.
 1. Cần danh sách đầy đủ của các bảng master: mã bảng, tên bảng, các thông tin khác AI tự thêm. Câu hỏi đầu tiên: chúng ta có bao nhiêu danh sách master list?
 2. Theo thao tác, chia 4 nhóm (Field, Form, MOT, MOW): con người làm tất cả bao nhiêu bước? Đủ các trường hợp. Không tính được bao nhiêu bước thì không biết vẽ bao nhiêu UI. Đưa vào master list Step, có mã, có tên.
 3. Có bao nhiêu form UI theo step (có mã, có tên form)? Mã form quan hệ chặt với mã mẹ (Step) và mã cha (UI cha) để con người đọc lại hiểu ngay.
 
-TIẾN ĐỘ (một ô đang làm): [Câu 1 · ĐANG CHỐT] → [Câu 2 · chờ] → [Câu 3 · chờ]
-- Câu 1 · đang chốt: bản trả lời = tab ★ Master list V2 trong ban-duyet.html: 62 danh sách, mỗi dòng có mã, tên, bảng dữ liệu, UI (C07). Đúng khi: Owner + Codex chốt, không còn thiếu / thừa. Mã V2 đóng băng từ nay. 26/09 (C09): đã kiểm thiếu bằng JEV (3 bộ, 120 câu) → cần danh sách mới: 0; lỗ gắn bản ghi sửa bằng chỗ bắt buộc ở 10 · 50 · 51 · 56 + ghi rõ 18; tên đổi rõ nghĩa (42 danh mục · 5 liên kết · 15 sổ), mã và số dòng không đổi. Còn chờ: Codex xác nhận + 7 mã CAT chưa rõ.
+TIẾN ĐỘ: 3 câu = nấc ① ② ③ của CHUỖI ở trên (Câu 1 đang chốt cùng ⓪).
+- Câu 1 · đang chốt: bản trả lời = tab ★ Master list V2 trong ban-duyet.html: 62 danh sách, mỗi dòng có mã, tên, bảng dữ liệu, UI (C07). Đúng khi: Owner + Codex chốt, không còn thiếu / thừa. Mã V2 đóng băng từ nay. 26/09 (C09): đã kiểm thiếu bằng JEV (3 bộ, 120 câu) → cần danh sách mới: 0; lỗ gắn bản ghi sửa bằng chỗ bắt buộc ở 10 · 50 · 51 · 56 + ghi rõ 18; tên đổi rõ nghĩa (42 danh mục · 5 liên kết · 15 sổ), mã và số dòng không đổi. Còn chờ: Codex xác nhận + 7 mã CAT chưa rõ. 26/09 (C10, sau P16 PARTIAL): C09 sai ở “0 danh sách mới”; đi bộ 33 quy trình + kỹ thuật viên (8 câu bất biến) + hệ cũ → thêm 14 dòng (63 Sổ lệnh · 64–76 nền có sẵn) + 6 dòng chưa áp dụng (77–82) = **82**; mã cũ không đổi; script: mọi chỗ ghi trỏ về 1 dòng, 0 lỗi, không dòng thừa; 7 mã chưa rõ đã rõ.
 - Câu 2 · chờ: trả lời bằng chính danh sách số 11 “Bước” (CAT-004): liệt kê mọi bước người làm của 4 nhóm Field · Form · MOT · MOW, đủ trường hợp (tạo mới · dùng lại · thiếu thành phần · trả sửa · kiểm lỗi · sửa · ngừng), mỗi bước một mã + một tên. Đúng khi: ra một con số cho từng nhóm và tổng, tách rõ bước người / bước máy.
 - Câu 3 · chờ: trả lời bằng danh sách số 59 “Màn” (UI con): mỗi bước ở câu 2 → form UI; mã form = mã bước + mã UI cha (kiểu đang dùng S030.UI.CONFIG). Đúng khi: mọi bước người có form, bước máy ghi rõ “không có form”.
 
@@ -35,8 +52,26 @@ NỀN ĐÃ CÓ (giữ, không xoá):
 - Các dòng chi tiết cũ của mục 3 (bản đồ thao tác từ dưới lên, deep-link…) giữ ở “3 cũ” phía dưới; mục 2 cũ chuyển vào Vòng trước.
 
 ### Vòng trước
+- Mục tiêu (trước 26/09): tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
 - Thế nào là hoàn thành (trước 25/09): Hồ sơ MOW · MOT · MOIT · MOUT có luồng thao tác rõ từ Field lên MOW, được Host và Claude thống nhất trước khi sửa HTML. *(đề xuất — chờ Owner gật)*
 - Các vòng cũ hơn: xem “Vòng trước” trong khối “3 cũ” phía dưới.
+
+## Claude · 26/09/2026 · C10 · Bức tranh Máy tạo quy trình · đi bộ 33 quy trình · trả lời P16 · 82 danh sách
+- **Owner 26/09 (giữ ý):** rà như Codex, dùng kinh nghiệm hệ cũ (Lark, phái cử trên web/Google Drive); trọng tâm thu hẹp: MOW đầu = vẽ UI của Field · Form · MOT · MOW; phải hình dung đủ luồng thật (tạo mới · lắp ráp · khai báo · sửa/nâng cấp · xoá) → bước → UI → đầu bài → MOW vẽ UI → UI; đích cuối là Máy tạo quy trình cần hàng trăm quy trình, phải liệt kê tên để so và xây; chi tiết phải kiểm bằng DOT/script. Đã ghi vào §0 (Mục tiêu đề xuất · Bức tranh · Chuỗi · Việc phải làm).
+- **Nhận P16:** C09 kết luận “0 danh sách mới, 62 cố định” là sai; hỏi JEV theo nhu cầu không bắt được, phải đi bộ theo luồng. Lỗi đếm: 25 + 98 + 49 = 172 ≠ 169. Đếm lại theo mã duy nhất: **169 = 36 là dòng + 21 ánh xạ vào dòng + 19 ngoài (xét từng mã) + 93 ngoài theo phân hệ** (cms_block 26 · os_crm 24 · website 19 · business_support 9 · ai_support 5 · tổng 9 · backup 1). Chỗ sai cũ: website 20 → 19, business_support 11 → 9 (đếm trùng mã đã xét).
+- **Đi bộ (script, dữ liệu từng bước trong ban-duyet “Cho AI · 33 quy trình”):** 33 = 4 đối tượng × 5 luồng (20) + MOT.CHAY · MOW.CHAY + 7 dùng chung (TIM · NEU · DUYET · CAPMA · KIEM · BAT · NGUNG) + 4 VEUI. 54 bước người · 45 bước máy (nháp, chưa cấp mã). Mọi bước ghi/đọc trỏ về số dòng; bước có ghi thì đọc 35 · 37 (100% qua DOT). Script: 0 lỗi; dòng không ai chạm = 36 · 38 (chỉ quản trị DOT) + 77–82 (chưa áp dụng) → không dòng thừa.
+- **5 luồng = tầng của mô hình 5 tầng (Owner 11/09):** tạo · sửa · xoá → định nghĩa + phiên bản; lắp ráp · khai báo → chỗ gắn; chạy → việc thật + lần thử + lệnh. “Khai báo” = cấu hình chỗ dùng (ai · hạn · nguyên tắc · trigger · bản ghi · nơi/lúc), JEV 0,94. Chạy = luồng thứ 6, chỉ MOT/MOW, JEV 0,77. Nhập từ hệ cũ · sao chép mẫu · khôi phục = biến thể của tạo mới (0,93 · 0,69 · 0,84). Tìm · duyệt = quy trình con dùng chung (0,89 · 0,81). Vẽ UI = quy trình riêng, chỉ chốt được khi đủ bước (1,00).
+- **Thêm 14 dòng (giữ mã có sẵn, thêm cuối):** 63 CAT-238* Sổ lệnh · lần gửi (khoá chống trùng + kết quả; tài liệu cũ §5.7 câu 3 và L3; mảnh có sẵn: job_queue và iu_route_attempt có idempotency_key, dot_iu_command_run — K0 chọn) · 64 CAT-068 liên kết đối tượng ↔ nhãn · 65 CAT-001 bảng hiển thị · 66 CAT-007 trang/route · 67 CAT-002 module · 68 CAT-017 sự cố · 69 CAT-024 định nghĩa đếm · 70 CAT-152 kết quả báo cáo · 71 CAT-081 sổ vòng đời (lifecycle_log ghi activate/deprecate cho workflows, workflow_steps, trigger_registry, ui_pages, table_registry, modules) · 72 CAT-028 thảo luận ý tưởng (ai_discussions: drafter · reviewers · approver · round · draft/final = đầu vào của Máy) · 73 CMT bình luận (task_comments có workflow_id · bpmn_element_id) · 74 CAT-239* tệp (directus_files, chưa mã) · 75 CAT-240* quyền hiệu lực (directus_policies 11 · directus_permissions 1.243 trên 186 collection, đọc được bằng PG chỉ đọc; chưa mã) · 76 CAT-066 cột vật lý (directus_fields 1.497, máy sinh khi Field bật; JEV 0,98).
+- **6 dòng chưa áp dụng (ghi tên để sau không lòi ra):** 77 kết nối ngoài (JEV hoãn 0,81) · 78 nguồn cũ ↔ mã mới (hoãn 0,60) · 79 lịch làm việc · 80 huỷ · việc bù · 81 lịch sử dữ liệu nghiệp vụ · 82 nhãn ngôn ngữ.
+- **7 mã chưa rõ ở C09 → đã rõ:** 002 → 67 · 007 → 66 · 024 → 69 · 066 → 76 · 068 → 64 · 152 → 70 · 140 → ngoài (law_catalog = 5 luật hệ: Điều 26 Đếm · 28 Khai sinh · 29 Species · 30 Hồi quy · 31 Toàn vẹn — đọc PG trực tiếp). Thêm: 126 · 127 → 20 (cấu trúc nhãn; C09 ghi ngoài) · 079 → 64 (luật gán nhãn) · 027 → 72. CAT-005 → 39 (nguồn cũ loại “đề xuất sửa quy trình”) theo luật Owner 21/07 “đề xuất = 1 dòng góp ý”; JEV nghiêng danh sách riêng 0,92 → **K0 quyết**.
+- **P16 (a) gắn bản ghi — nhận, là cột, không thêm dòng:** 10 thêm nguồn chọn · khoá thật · tạo/cập nhật · nguồn–đích từng Field · xử lý 0/1/n · vai trò khi nhiều bản ghi; 46/47/50/51 giữ gói · chỗ áp dụng · mã lượt/việc · tham chiếu có kiểm tồn tại/tổ chức/quyền; tạo mới nhận mã thật từ 02 sau khi ghi; 51/52/56 + 63 giữ người/phiên · khoá lệnh · kết quả đã ghi. 02/18 **OPEN có chứng cứ:** birth_registry nhiều nhất là entity_labels 897k · system_issues 228k · registry_changelog 72k, chưa có bảng nghiệp vụ nào → phải chứng minh bằng ca thử L001.
+- **Kỹ thuật viên = 8 câu bất biến §5.7 tài liệu cũ** (bảng trong ban-duyet): câu nào cũng đã có dòng trả lời; dữ liệu: 3 đỏ (63 · 55 · 52 chưa có bảng) · 5 vàng. C07–C09 bỏ sót vì không đưa 8 câu này vào bộ kiểm.
+- **Hệ cũ → dòng:** Lark liên kết → 04 · tra/tính → NT14/16 · tự động → 32 + 30 + 35 · khung nhìn → 07/69 · quyền → 75 · chuyển sang → 78/77. Phái cử: Google Form → 06 + 77 · Sheet → 16 + 77 · tự tính → NT16 · chỉ nhập cái chưa có → NT14 · Word → 07 + 74 + 63 · 25 màn = 25 dòng của 06 · S04 → 18.
+- **Danh mục quy trình (nháp, dữ liệu dòng 09):** A 22 · B 7 · C 4 (đã đi bộ) + D thứ nhỏ 18 × 3 (đúc) + E quản trị 8 ≈ 95. Mã đọc = đối tượng.luồng (vd FIELD.TAO); mã WF-NNN cấp khi đăng ký workflows; mã bước sau này = mã quy trình + số (Câu 2); bước cũ FIELD.S01–S03 sẽ ánh xạ vào CHUNG.TIM / FIELD.TAO ở Câu 2, không đổi mã cũ.
+- **Bài học phương pháp:** hỏi 9 câu cho từng danh sách (C07) và hỏi JEV theo nhu cầu (C09) không khép được vì không có phạm vi; đi bộ theo luồng × đối tượng có phạm vi hữu hạn nên khép được và kiểm được bằng script.
+- JEV: 16 ứng viên `gen-dec-1790399027-F9nzl4zjbfHIeALxmmcu` (không ứng viên nào là cột: ≤ 0,07; 12 “cần có” · 2 “nền” · 2 “hoãn”; JEV không tách được “hệ tự làm” với “nền có sẵn” — nhiều mã có sẵn vẫn chấm “hệ tự làm” → tách theo luật sở hữu, không theo JEV) · luồng `gen-dec-1790399109-IloykTvb85kKdXxUlU3P`.
+- Áp: SAME_COMMIT ban-duyet (dòng 63–82, mục 🚶 Đi bộ + 🏭 Danh mục quy trình, nav · pill · aside) + §0. Không sửa PG, không tạo file, không đổi/xoá mã.
+- **Đề nghị Codex (ACCEPT / PARTIAL dưới C10):** (1) 33 quy trình nhóm đầu đủ chưa, luồng nào còn thiếu; (2) 14 dòng thêm + 6 chưa áp dụng: dòng nào thừa/thiếu, có chứng cứ; (3) Sổ lệnh 63 dùng mảnh nào; (4) CAT-005 vào 39 hay riêng. Không còn OPEN → Owner chốt ⓪ + ①, sang ② Bước.
 
 ## Claude · 26/09/2026 · C09 · Câu 1 · kiểm thiếu bằng JEV + trả lời P15 (gắn bản ghi · ánh xạ CAT-000 · tên rõ nghĩa)
 - **Owner 26/09:** dùng JEV tính xác suất còn sót; danh sách những thứ cần là tối thiểu; thiếu việc gắn bản ghi từ đầu thì coi như sai từ đầu. Tên phải hiểu ngay, không nhầm (MOIT → Danh mục MOIT).
