@@ -191,14 +191,55 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 </section>
 
 <section class="card" id="review">
-<h2>9. Giao Claude phần tiếp theo — một phạm vi G0 chỉ đọc</h2>
-<p><b>Chuẩn bị G0, chưa RUN:</b> không đợi trả lời vendor để kiểm những phần độc lập; kết quả vào hai file hiện hữu, không thêm nguồn/pipeline/task.</p>
-<table><thead><tr><th>Nhóm</th><th>Đầu ra cần có</th></tr></thead><tbody>
-<tr><td>G0-A · inventory read-only</td><td>VPS1/VPS2: phiên bản/image thực, route giaoduc/elearning, nguồn sinh dung lượng, task/cron/worker và caller; Drive: backup phủ DB/files/config nào, tuổi bản, cơ chế mã hoá, bằng chứng restore đã có. Không dump/mở dữ liệu nhạy cảm; số cũ ghi ngày, không gọi live.</td></tr>
-<tr><td>G0-B · licensing/quyền</td><td>Nguồn chuẩn/cache/refresh/restart/project/URL/activation; effective App/Admin policy máy; DB role/BYPASSRLS/ownership/pooling; endpoint licensing và monitoring. Không hỏi lại điều kiện, không POST activation/refresh, đăng ký/gửi thư/mua hay in token/secret.</td></tr>
-<tr><td>G0-C · phương án an toàn</td><td>Chọn đường ra dự phòng khả thi trên hạ tầng sẵn có; tính common failure và độc lập monitor; kế hoạch LC1–LC6, RTO/RPO đo tại rehearsal; tách data restore và app continuity. Chỉ metadata/read-only, không DNS/firewall/nginx/restart/restore/fault injection.</td></tr>
-</tbody></table>
-<p><b>Giao Claude:</b> soạn một nội dung lệnh G0 ngay §9 này, không thêm file/task. Được sửa riêng §9 + trace COLLAB; giữ P07. Chỉ rõ Executor_Surface Claude Code CLI, Write_Path gateway workspace_*/fs_* đã bind, nguồn runtime VPS chứ không repo backup, hai host lấy từ cấu hình hiện hữu, đầu ra G0 tại tài liệu này. Read-only allowlist/timeout; cấm cleanup/restore/restart/pull image/đổi DNS/secret dump/fault injection/POST nghiệp vụ. Host kiểm lệnh trước RUN; không mở vòng hỏi lại mô hình/OIG.</p>
+<h2>9. Bước 2 · G0 khảo sát chỉ đọc</h2>
+<p class="big">🤖 Máy xem VPS1 · VPS2 · Drive — <b>không đổi gì</b>. Kết quả hiện ngay dưới đây.</p>
+<div id="g0-result">
+<h3>Kết quả G0</h3>
+<p class="muted">⚪ Chưa chạy — chờ Host kiểm lệnh + RUN.</p>
+<p class="small"><b>Đã biết trước (đo 26/09, chờ G0 xác nhận):</b> 🟡 cả hai job sao lưu (<code>pg-backup.sh</code>, <code>backup-to-gdrive.sh</code>) chỉ dump DB <code>directus</code>; <code>incomex_metadata</code> 419 MB và <code>workflow</code> 7,6 MB chưa thấy trong backup nào. Cụm 5 DB = directus 1,77 GB · directus_gov_test_20260602 1,20 GB · incomex_metadata 419 MB · workflow 7,6 MB · postgres 7,5 MB.</p>
+</div>
+<details>
+<summary><b>Lệnh G0 cho Claude Code CLI</b> (máy đọc — Host chuyển nguyên văn vào PROMPT.md khi READY)</summary>
+<div class="small" style="white-space:pre-wrap;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px;margin-top:10px">RUN_ID: VPSUP-G0-20260926-01
+Executor_Surface: Claude Code CLI trên Mac của Owner.
+Write_Path: gateway workspace_* (Agent Data MCP) → root workspace → main. Read-gate đúng một lần: workspace_stat work/vps1-up-grade/COLLAB.md. Phiên không bind workspace_* thì dùng fs_* (Incomex VPS MCP, root gh) với fs_stat cùng file. Cả hai FAIL → DỪNG trước mọi việc. Không git push từ Mac (ruleset gateway-only-writes chặn).
+Đọc trước: AGENTS.md → work/vps1-up-grade/COLLAB.md (§0, D14–D18, P06–P08) → view.html §5–§8. Nguồn sự thật là runtime trên VPS, không phải bản repo/backup.
+
+MỤC TIÊU: ảnh chụp thực tế VPS1 + VPS2 + Drive đủ để lập bước 3–10 của §8. Không thay đổi gì.
+
+MÁY
+- VPS1: ssh alias contabo (38.242.240.89).
+- VPS2: máy chạy elearning.incomexsaigoncorp.vn. Tìm Host trong ~/.ssh/config có HostName = IP phân giải của tên miền đó. Không có → nạp khoá GSM vps2_ssh_key vào ssh-agent (không ghi ra đĩa). Không dùng vps2_root_password, không tạo alias/khoá mới. Vẫn không vào được → VPS2 = ⚪ CHƯA ĐO, làm tiếp phần khác.
+
+LUẬT CỨNG (vi phạm = DỪNG)
+1. Chỉ đọc. Cấm: restart/stop/start/kill; docker pull/run/compose up/down/rm/prune/exec lệnh ghi; apt/npm/pip install; tạo/sửa/xoá file cấu hình, dữ liệu, cron, systemd; chmod/chown; ufw/iptables thay đổi; nginx reload; DNS; POST/PATCH/DELETE tới Directus, Kuma, Contabo, Drive; rclone copy/sync/move/delete/mkdir; restore; fault injection; đăng ký/kích hoạt license.
+2. Không in/lưu secret: biến môi trường chỉ ghi TÊN (+ có/không) trừ giá trị không bí mật được liệt kê ở mục B. Không đọc/xuất dữ liệu nghiệp vụ hay cá nhân: chỉ đếm dòng, kích thước, tên bảng. Không pg_dump/mysqldump.
+3. SQL mỗi phiên: BEGIN READ ONLY; SET statement_timeout='10s'; … ROLLBACK.
+4. Lệnh nặng (du/find) chạy nice -n 19 ionice -c3, có -xdev. Tải 1 phút VPS1 &gt; 4 thì chờ; cao kéo dài &gt; 15 phút → DỪNG phần nặng.
+5. Chỗ ghi duy nhất trên VPS: hồ sơ việc theo AGENTS A8 /opt/incomex/work/vps1-up-grade/G0-20260926/ trên VPS1 (mkdir, ≤ 50 MB, có INDEX.md, đã che secret). Đầu ra VPS2 kéo về qua Mac rồi lưu cùng thư mục. Không ghi gì trên VPS2.
+6. Mọi con số kèm lệnh đo + thời điểm UTC. Không đo được → ⚪ + lý do. Không đoán, không dùng số cũ thay số đo.
+
+NỘI DUNG ĐO (mỗi mục một bảng)
+A. PHIÊN BẢN (VPS1 + VPS2): mỗi container: tên · image tag · digest (RepoDigests) · phiên bản chạy thật (PG SHOW server_version; Directus package.json; Nuxt .output/nitro.json + node -v; Qdrant GET /; nginx -v). Docker engine + compose (gói apt); OS/kernel; service ngoài Docker đang chạy (bỏ service hệ điều hành); cron mọi user + /etc/cron.d + systemd timer. Đánh dấu tag trôi (latest/16/11.5/alpine) và mọi cơ chế có thể tự pull/recreate (watchtower, script deploy, cron).
+B. DIRECTUS (VPS1): user theo nhóm (Studio/admin/máy chỉ-API; không in email/token); policy app/admin; collection; Flow theo trigger + Flow có exec; extension + host range. Giá trị được ghi: WEBSOCKETS_ENABLED, GRAPHQL (nếu có), PUBLIC_URL, IP_TRUST_PROXY, DB_POOL__*, CACHE_ENABLED/STORE, STORAGE_LOCATIONS, EMAIL_TRANSPORT (tên). nginx có chuyển Upgrade/WebSocket vào Directus ở host nào. Role Public: số permission, có quyền ghi không. PostGIS có cài không. Đối chiếu từng advisory Directus 2026 (Critical/High) với cấu hình thật: ÁP DỤNG / KHÔNG ÁP DỤNG + lý do.
+C. POSTGRESQL (VPS1): 5 DB kích thước; mỗi DB số bảng + 10 bảng lớn nhất; extension. Role: rolsuper/rolbypassrls/rolcanlogin + role mà Directus, agent-data, gateway đang dùng (theo tên biến, không lộ mật khẩu). Bảng nào bật RLS, số policy; chủ sở hữu bảng nghiệp vụ. Kết nối hiện có: đếm theo usename/application_name/datname. DB directus_gov_test_20260602: còn ai dùng không (xact_commit hai lần cách 10 phút + tìm tham chiếu trong compose/.env tên biến/script).
+D. SAO LƯU &amp; DRIVE: mọi job backup (script, lịch, DB/đường dẫn được sao, giữ bao lâu, mã hoá, số người nhận GPG). Bảng DB × backup: DB nào KHÔNG có trong bất kỳ backup nào (xác nhận/bác bỏ phát hiện F6 ở ô kết quả trên). Qdrant snapshot, uploads, mã nguồn, nginx/TLS. Drive: rclone lsf/size chỉ đọc trên remote backup — số bản, bản mới nhất, dung lượng, dung lượng Drive còn trống (rclone about). Bằng chứng khôi phục thử gần nhất (repo work/done-tasks/vps-clean-20-9-26/ + log). VPS2: có backup nào, ở đâu, bao giờ.
+E. ĐƯỜNG VÀO &amp; NGƯỜI GỌI (VPS1): docker exec incomex-nginx nginx -T → bảng host × location × upstream. Trang Nuxt từ mã nguồn trên VPS (pages/**). Kuma: monitor (tên · loại · đích) + loại kênh báo — đọc DB Kuma chế độ chỉ đọc trên bản sao tạm trong RAM, KHÔNG lấy cột cấu hình chứa token. Ai gọi Directus/PG: mỗi container/service/cron/DOT → đích + loại (đọc/ghi).
+F. TÁC ĐỘNG RA NGOÀI (để cách ly clone): mọi nơi gửi Telegram, ghi GitHub, gọi webhook, gửi mail, đồng bộ Agent Data, đẩy Drive, gọi API ngoài — mỗi dòng: thành phần · kênh · kích hoạt bởi gì. Flow Directus loại schedule/webhook/request. Tường lửa ra ngoài: ufw status verbose, iptables -S DOCKER-USER (chỉ đọc).
+G. VPS2: CPU/RAM/đĩa/swap tổng + còn trống; container &amp; service; stack e-learning (PHP, DB engine + version, web server, tên miền, TLS hết hạn khi nào). Dữ liệu e-learning: kích thước DB (information_schema) + số dòng 3 bảng chính (users, learning_goals, bảng lớp), mã nguồn, uploads — làm mốc cho restore proof. "Sổ nguồn sinh" dung lượng theo khuôn vps-clean-20-9-26 (du theo tầng, docker system df -v, build cache, journal, /var/log, backup cũ, tmp, lsof +L1): mỗi dòng một nhãn GIỮ / ĐẨY DRIVE / DỌN ĐƯỢC / CHƯA RÕ + lý do; đối chiếu ước lượng Owner ~3 GB.
+H. NHÀ CUNG CẤP: gói Contabo VPS1 và VPS2 (tên gói, số snapshot tối đa, snapshot hiện có, Auto Backup) qua Contabo API chỉ GET, khoá GSM vps_contabo_id/secret. Thiếu thông tin đăng nhập API → ⚪ ghi thiếu gì, không hỏi Owner. Hai VPS cùng vùng/nhà mạng không (IP, ASN).
+J. GIẤY PHÉP DIRECTUS (chỉ đọc mã nguồn chính thức trên web, tag 12.3.1 và 12.4.x mới nhất): tên miền/URL mà license + telemetry gọi ra (cho danh sách mở tường lửa); validation_interval lấy từ đâu; trạng thái "lần xác minh thành công gần nhất" lưu ở đâu (bảng/khoá nào) để đồng hồ đọc được; khi hạ về Core thì endpoint nào bị khoá (items, graphql, websocket, mcp, auth người không phải admin…); restart có làm mất cache license không; restore DB sang PUBLIC_URL khác có tốn activation không. Mỗi ý kèm file:dòng.
+I. NĂNG LỰC LAB (tính từ A–J): đĩa/RAM cần cho clone CURRENT + TARGET (đề xuất có/không mang directus_gov_test); VPS2 còn thiếu bao nhiêu; một phương án đề xuất (dọn gì / tạm nâng gói — chỉ đề xuất). Đường ra dự phòng khả thi cho license trên hạ tầng sẵn có + điểm hỏng chung của 2 VPS.
+
+ĐẦU RA
+1. Hồ sơ thô: thư mục A8 trên VPS1 + INDEX.md.
+2. view.html §9: thay đúng khối div id="g0-result" bằng ma trận một màn hình: hàng A–J, cột VPS1 · VPS2 · Drive; ô 🔴 tắc · 🟡 cảnh báo · 🟢 ổn · ⚪ chưa đo · ✕ không áp dụng, tối đa một dòng mỗi ô. Dưới ma trận: phát hiện 🔴/🟡 (≤ 12 dòng) + đề xuất bước tiếp. Không sửa phần khác của view.html.
+3. COLLAB.md: một dòng KQ@VPSUP-G0-20260926-01 XONG|DỪNG + commit + đường dẫn hồ sơ, trong mục Dòng hiện hành.
+4. Một commit qua Write_Path cho cả hai file (transaction), nhãn [Claude Code] VPSUP-G0 · …
+5. Kết thúc: báo Owner đúng một dòng XONG hoặc DỪNG + lý do ngắn.
+
+DỪNG NGAY nếu: read-gate FAIL; một bước cần quyền ghi ngoài chỗ cho phép; thấy dấu hiệu bị xâm nhập (tài khoản lạ có quyền Studio/admin, cron/tiến trình lạ gọi ra ngoài) → ghi 🔴, báo ngay, không tự xử lý.</div>
+</details>
 </section>
 
 <section class="card" id="status">
