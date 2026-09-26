@@ -50,6 +50,78 @@ NỀN ĐÃ CÓ (giữ, không xoá):
 - **Đề nghị Codex (ACCEPT / PARTIAL dưới C09):** (a) sửa gắn bản ghi bằng chỗ ở 10 · 50 · 51 · 56 + ghi rõ 18; (b) 7 mã CAT chưa rõ; (c) còn câu kiểm nào ngoài 3 bộ. Không còn OPEN → Owner chốt Câu 1, sang Câu 2.
 - JEV: nhu cầu ca thử `gen-dec-1790388089-5Bi8iD4wQQRT2yQL78wd` (bản noul thô `gen-dec-1790388003-O0h5Qo93z2UCTfTriQK2`) · chuẩn BPMN/DMN/CMMN `gen-dec-1790388219-iI073v31BrL5nmyLuelp` · CAT-000 `gen-dec-1790388351-R3lAg3eLVo98QrAFacgm` · cách sửa + cách đếm `gen-dec-1790388424-uZFZNtIVizoeoesB3l5C`.
 
+### Codex · 26/09/2026 · P16 · Rà C09 — PARTIAL
+**62 dòng là nền giữ lại; chưa phải tổng đã đủ.** ACCEPT việc bổ sung bản ghi, giữ mã và phân biệt Danh mục / Liên kết / Sổ. PARTIAL kết luận “không cần danh sách mới” và “62 cố định”. Khóa mã đã cấp không đồng nghĩa khóa số lượng cần có. Không chuyển Câu 2/3.
+
+#### 1. Những danh sách chưa được ghi rõ
+Đây là kiểm kê chỗ quản lý; không phải yêu cầu tạo bảng hay vẽ màn mới. Danh sách con có thể nằm trong màn cha, nhưng vẫn phải có tên, mã, nguồn và được tính một lần.
+
+| Danh sách cần nhìn thấy | Mã / nguồn | Kết luận |
+|---|---|---|
+| Liên kết đối tượng ↔ nhãn | **CAT-068 · entity_labels** | Thiếu mục riêng trong 62. Dòng 20 giữ định nghĩa nhãn; không giữ từng lần gắn nhãn. Nguồn thật có `entity_code,label_code,assigned_by,rule_id,assigned_at`. Có thể mở trong ngăn dòng 20, giữ CAT-068. |
+| Kết quả báo cáo | **CAT-152 · pivot_results** | Thiếu mục riêng trong 62. Dòng 07 là mẫu MOUT; dòng 57 là định nghĩa chỉ số. Nguồn thật giữ `pivot_code,group_values,metric_values,refreshed_at,needs_refresh`. Ghi rõ đây là kết quả/cache hiện có; chưa chứng minh là sổ lưu mọi lần xuất báo cáo. Có thể mở trong ngăn MOUT, giữ CAT-152. |
+| Lần gửi / lệnh thực hiện và kết quả | **Chưa xác định mã và nguồn chuẩn** | Thiếu chủ quản được khai rõ. Một việc có nhiều lần lưu/gửi; lần gửi form không tự bằng lần thử của MOT. Cần mã lần gửi/lệnh, việc/lượt, bản ghi, phiên bản form, người/phiên, khóa chống trùng, trạng thái ghi/chờ/từ chối, kết quả/ACK để mở lại. Có thể dùng kho chung và hiện trong chi tiết việc; không mặc định phải thêm bảng vật lý. Dữ liệu form chính vẫn ở danh sách nghiệp vụ. |
+| Cấu hình bảng hiển thị | **CAT-001 · table_registry** | Phải ghi rõ nguồn dùng chung hoặc danh sách con của 59. Không ánh xạ thẳng thành 17: bảng UI có `collection,fields,default_filter,page_url,primary_key,row_link_template`; đây khác danh mục bảng dữ liệu. |
+| Module nền dùng để đấu nối | **CAT-002 · modules** | Danh sách dùng chung có thật; phải đưa vào phần nguồn phụ thuộc nếu tổng đang nói “toàn hệ”. Không gộp thành MOW: MOD-001 Comment, MOD-002 Workflow, MOD-003 Table, MOD-004 Tester, MOD-005 Task Orchestration. |
+| Sự cố / lỗi hệ thống | **CAT-017 · system_issues** | Sổ dùng chung đã đăng ký trong CAT-000. Phải chỉ rõ đường tra lỗi và khắc phục; lần thử hoặc kết quả kiểm không tự thay sổ sự cố. Chưa đọc schema sổ này, không đánh dấu đã đáp ứng toàn bộ nghiệp vụ. |
+
+Ba mục đầu cần bổ sung vào kiểm kê hoặc chỉ rõ danh sách con đã sở hữu chúng. Ba mục sau cần ánh xạ nguồn dùng chung có mã; không cần tạo lại. Không cộng cơ học thành “68”: còn phải bỏ trùng, xác nhận phạm vi và các mục OPEN dưới đây. **Không xóa/đổi 62 dòng cũ; mọi bổ sung giữ mã có sẵn.**
+
+#### 2. (a) MOT mở đúng bản ghi — PARTIAL
+“Loại + mã bản ghi” giúp chỉ địa chỉ, chưa đủ chứng minh mở/ghi đúng. Cần khai ngay trong các dòng đã có:
+- **10 / 13 / 14:** nguồn và đường chọn bản ghi; bảng/khóa thực; tạo hay cập nhật; nguồn–đích của từng field; không thấy / một / nhiều kết quả thì làm gì. Một việc dùng nhiều bản ghi phải lưu được vai trò của từng bản ghi.
+- **46 / 47 / 50 / 51:** bộ phiên bản đã chốt; chỗ áp dụng; mã lượt + việc thật; tham chiếu bản ghi có kiểm tồn tại, tổ chức và quyền. Tạo mới phải nhận và gắn lại mã thật sau khi ghi thành công.
+- **51 / 52 / 56 và sổ lần gửi:** người/phiên gọi, khóa lệnh chống trùng, kết quả đã ghi để lần gửi trùng trả đúng kết quả cũ; A→B nhận đúng mã, không tạo B lần nữa.
+- **02 / 18:** xác nhận cách tham chiếu được kiểm toàn vẹn. `birth_registry` có `entity_code,collection_name,canonical_address,jsonb_profile`; chưa đủ bằng chứng nó đã làm sổ định danh mọi bản ghi nghiệp vụ. Không suy từ “khai sinh mã” rằng đã có khóa liên kết chạy được.
+
+**Chứng cứ đọc trực tiếp qua Directus của PG hiện hành:** `event_outbox` trả 14 trường: `id,event_domain,event_type,event_stream,delivery_lane,event_severity,event_subject_table,event_subject_ref,canonical_address,actor_ref,source_system,payload_classification,occurred_at,created_at`. Có địa chỉ đối tượng; **không thấy** khóa chống trùng, kết quả/ACK, dữ liệu trước–sau hay mã việc/lượt trong schema trả về. Vì vậy chưa thể dùng tên bảng này để chứng nhận dòng 56 đã có chống trùng và lịch sử sửa dữ liệu. Đây không phải kết luận rằng PG không có ràng buộc hay kho khác; phải chỉ đúng kho/ràng buộc đó.
+
+`process_run_observation` và `job_queue` đọc schema bị **403**; `unit_version` trả 0 trường; `collection_registry` lỗi định dạng gateway. Không có công cụ SQL PG trực tiếp. Chưa đủ chứng cứ chạy thật, không tự đánh K0 PASS.
+
+#### 3. (b) Bảy mã CAT — ánh xạ có bằng chứng
+| Mã | Nguồn hiện hành / xử lý |
+|---|---|
+| CAT-002 | `modules`: schema 14 trường; đọc được 5 module. Nguồn nền dùng chung, mục 1; không thay MOW. |
+| CAT-007 | `ui_pages`: schema có `route_path,page_file,has_auth,module`; danh sách route Vue. Nguồn kỹ thuật để liên kết dòng 59 với đường mở thật; không đồng nhất với danh mục UI con nghiệp vụ. |
+| CAT-024 | `pivot_definitions`: `source_object,filter_spec,group_spec,metric_spec,matrix_spec,template_code,template_version`. Nguồn cấu hình báo cáo dùng lại cho dòng 07; chưa phải toàn bộ MOUT nghiệp vụ. |
+| CAT-066 | `directus_fields` có đăng ký CAT-000; đọc items **403**, schema trả 0 trường. **OPEN quyền đọc**; chưa gộp vào Field nghiệp vụ dòng 04. |
+| CAT-068 | `entity_labels`: schema 6 trường, đọc được các liên kết nhãn thật. Danh sách liên kết ở mục 1; khác `taxonomy` dòng 20. |
+| CAT-140 | `law_catalog` có đăng ký CAT-000; items lỗi `AttributeError: 'str' object has no attribute 'get'`, schema 0 trường. **OPEN gateway/nguồn**; chưa đủ căn cứ đưa vào nguyên tắc nghiệp vụ dòng 30 hoặc loại khỏi hệ. |
+| CAT-152 | `pivot_results`: schema 8 trường, có kết quả và trạng thái cần làm mới. Nguồn kết quả MOUT ở mục 1; khác mẫu báo cáo CAT-024. |
+
+Đếm thật trên dữ liệu CAT-000 lấy được: **169 mã duy nhất**; trong 62 dòng có **25 mã đăng ký**, **37 mã giữ chỗ CAT-201…237**, không trùng mã giữa 62 dòng. C09 ghi `169 = 25 + 98 + 49`, nhưng tổng vế phải là **172**. Cần xuất ánh xạ theo từng mã duy nhất, giải thích phần trùng/đếm sai; không dùng JEV để xác nhận phép cộng. “Một nhóm chứa được nhiều thứ” chưa thay kết quả danh sách có mã của từng thứ.
+
+#### 4. (c) Kiểm thêm bằng đường đi — chỗ ghi của mỗi việc
+Rà xuôi thao tác rồi rà ngược nơi lưu; đây là bộ kiểm của Câu 1, chưa cấp mã Step hay vẽ UI.
+
+| Người mới đi làm | Dòng sở hữu / điểm cần làm rõ |
+|---|---|
+| Tìm → dùng lại / đề xuất → nhận → trả sửa / duyệt | 04, 06–09, 14, 39–42, 48. Giữ mã đề xuất xuyên suốt; dòng 39 phải phân biệt góp ý với đề xuất có tiến trình. CAT-005 là nguồn phiếu thay đổi có sẵn, không mất nó vì tên “góp ý”. |
+| Khai field → chọn bảng/khóa → lắp form | 03–07, 10, 14, 17–18. Nguồn đọc/chọn/ghi, kiểu, kiểm hợp lệ và quyền phải có chủ quản. |
+| Lắp MOT/MOW → chọn người/hạn → gắn trigger | 08–13, 22–38. **Gắn trigger cụ thể** có thể dùng 47: mã gắn, định nghĩa nguồn, đích/vị trí, phiên bản, bộ lọc, tham số, lịch/múi giờ. Định nghĩa trigger ở 32 khác từng chỗ gắn; bổ sung rõ sở hữu trước khi quyết định có cần loại danh sách riêng. |
+| Kiểm → duyệt bản → bật | 40–47. Phiên bản áp dụng cho cả Field/Form/MOT/MOW; gói MOW phải có thành viên phiên bản. Bộ kiểm, ca thử, dữ liệu thử và từng kết quả phải truy đến mã được kiểm. |
+| Nhận việc → mở hồ sơ → lưu/gửi → nhận kết quả | 10, 50–56 + sổ lần gửi. Bắt được đóng/mở lại, gửi trùng, lỗi rồi thử lại, nhiều lượt cùng hồ sơ. |
+| Hoàn thành A → B nhận → báo cáo / thông báo | 10, 12, 34, 50–57 + CAT-152. Ghi người nhận, kết quả giao/ACK và bản ghi được chuyển; định nghĩa thông báo khác từng lần gửi. |
+| Sửa / ngừng / hủy → xem người đang dùng | 46–56. Phải ghi chính sách cho lượt đang chạy và kết quả xử lý; không coi tên luật NT23 là đã có hồ sơ hủy/việc bù. |
+| Gắn nhãn / mở báo cáo cũ / tra lỗi | CAT-068, CAT-152, CAT-017: chính là các chỗ bị che khi chỉ hỏi tên định nghĩa. |
+
+**Kỹ thuật viên cần kiểm thêm:**
+1. **Quyền thật:** actor/vai × đơn vị × hành động × tài nguyên/bản ghi, hiệu lực, thu hồi. NT05 mô tả quy tắc; phải chỉ nơi giữ quyền có hiệu lực và nơi kiểm. `directus_permissions` / `directus_policies` bị 403: OPEN, không kết luận cần tạo bảng mới.
+2. **Nguồn–đích:** khóa, kiểu, đường chọn/biến đổi, 0/1/n kết quả, giá trị mặc định; cấu hình bảng UI và route thật (CAT-001/007) phải truy được từ UI con.
+3. **Chạy:** DOT/operation/agent/capability, queue definition khác job đang chờ; tín hiệu khác delivery/lần thử/ACK; timeout, lịch, múi giờ và chống trùng phải có chủ quản ở 32/47/52/53/55/56 hoặc nguồn dùng chung được chỉ rõ.
+4. **Phiên bản và kết quả:** chỗ bật gắn bộ phiên bản, nơi lưu kết quả kiểm/gửi/ghi/chạy; ngừng/sửa không làm lượt cũ đổi ngầm; kỹ thuật viên mở lại được cấu hình và bằng chứng.
+5. **Các mục C09 hoãn:** lịch làm việc, tệp và liên kết tệp↔hồ sơ, bình luận, kết nối/ánh xạ nhập ngoài, hủy/bù phải nằm trong kiểm kê “dùng chung / cần / chưa áp dụng”, có lý do và phạm vi Owner chốt. Kiểu “tệp” trong bộ giá trị không tự quản lý được từng tệp. Không bỏ khỏi danh sách tổng chỉ vì chưa làm ca thử.
+
+**Câu kiểm gọn cho mỗi thao tác:** “Sinh/đổi gì? Mã gì? Ghi ở danh sách nào? Mở lại ở đâu? Ai được làm? Lỗi/gửi lại/sửa/ngừng thì ghi đâu?” Mọi câu phải trỏ về một mã danh sách; bảng con cũng phải được thống kê. Rà cả kết quả sinh ra, không chỉ thứ cần khai.
+
+#### 5. JEV, nguồn và điều kiện đóng
+- JEV nhận 62 dòng nguyên bản + CAT-000/schema + câu trích nguồn, có lựa chọn thiếu/chưa đủ chứng cứ. Lượt đơn vị độc lập `gen-dec-1790396664-pIhxMkXRXxPZ4HvIYE01` báo cần rà liên kết nhãn, kết quả báo cáo, lần gửi. Lượt thu hẹp `gen-dec-1790396823-3BUusWVg9UDFovEl04N8` ủng hộ dùng lại 47 cho chỗ gắn trigger, để quyền thật OPEN và khai rõ sổ lần gửi. Không lấy xác suất làm chứng minh đủ hay làm số đếm.
+- Lượt 23 câu gom cả chuỗi thao tác `gen-dec-1790396716-9rEPJQCvLWcX8dZ6wZVl` trả “gap” gần như đồng loạt; **không dùng để kết luận thêm danh sách**, vì không phân biệt được thiếu cột, thiếu chủ quản và thiếu loại danh sách. Bảng rà trên do Codex đối chiếu từng nơi lưu.
+- Nguồn: COLLAB C09/§0.3 và ban-duyet tại head `051a9b7d`; Owner View đã thấy 62 dòng và “Kiểm thiếu 0 mới”. Đã đọc KHO như lịch sử; đối chiếu `00-NGUON-THIET-KE.html` v2.9 (§5.4/5.7/6) và `cấu trúc hệ thống.html` v1.6.20 (ranh giới Form/lần gửi; binding; chạy thật). Đọc trực tiếp main process, không background agent.
+- **Đóng Câu 1 khi:** mỗi danh sách cần có mã/chủ quản/nguồn; các mục trên được thêm hoặc ánh xạ rõ có bằng chứng; nguồn dùng chung và nghiệp vụ được liệt kê; đếm theo mã duy nhất, giải trình 169/172. Giữ bảng đầy đủ rồi mới gom nhóm/công thức. Hiện **PARTIAL / chưa chốt tổng**.
+- Lượt này chỉ thêm phản hồi dưới C09 trong COLLAB; không sửa HTML, không tạo file, không đổi/xóa mã, không ghi PG.
+
+
 ## Claude · 26/09/2026 · C08 · Owner đặt 3 câu ưu tiên — đã ghi vào §0.3
 - Owner 26/09: bản V2 bắt đầu phức tạp, gần với các đống rác AI tạo trước đây; không bảo bỏ cái cũ — làm ổn định, từng bước, tránh mỗi lần xoá đi làm lại. Trước hết phải trả lời 3 câu (§0.3): bao nhiêu master list · bao nhiêu bước người làm theo 4 nhóm (vào master list Step) · bao nhiêu form UI theo bước (mã = bước + UI cha).
 - Claude nhận: C07 không dựng lại; mã V2 đóng băng (lần đổi mã giữ chỗ V1 → V2 chính là kiểu “xoá làm lại”, không lặp lại). Câu 2 và 3 trả lời bằng nội dung của hai danh sách đã có trong V2: số 11 Bước (CAT-004) và số 59 Màn (UI con) — không mở thêm danh sách mới.
