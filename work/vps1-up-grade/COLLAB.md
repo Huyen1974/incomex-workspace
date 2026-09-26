@@ -61,7 +61,7 @@ Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 VPSUP | P06 ĐÃ HÒA GIẢI TẠI P07 · MÔ HÌNH/THỨ TỰ ĐÃ CHỐT | Chuẩn bị bước 2 G0; chưa PROMPT/READY/RUN | NEXT: Claude soạn một lệnh khảo sát chỉ đọc tại view.html §9 hiện hữu; không mở lại điều kiện OIG/mô hình hoặc thêm task/file.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
 - Lượt này chỉ tạo SSOT của task; không mutation hạ tầng.
-- Owner View hậu kiểm P05 sau commit `07939ed87de1bfd1607b3dafe3ea9ceca6a2cf64`: đã mở đúng URL chuẩn. ui_inspect trả shell HTTP 200 + Login/401, chưa đọc được nội dung iframe; ui_screenshot không trả hình có thể kiểm. **DỪNG nghiệm thu nội dung Owner View — CHƯA XÁC MINH**, không suy 401 của header là task bị khoá. GitHub đã đọc lại đúng P05 theo commit; không tạo bản xem/pipeline khác, không sửa runtime để xử lý việc ngoài scope.
+- Hậu kiểm P07: commit `d4cbb2f5e7d45d530dbcb1f488622c2e7b33c174` đã push, diff đúng hai file và GitHub native đọc lại đúng P07. Owner View mở đúng URL chuẩn trả HTTP200 nhưng ui_inspect chỉ thấy shell/Login + 401 header, không đọc được iframe. **DỪNG nghiệm thu nội dung Owner View — CHƯA XÁC MINH**, không suy trang bị khoá hoặc đã publish đúng revision. Không tạo bản xem/pipeline khác; không sửa runtime ngoài scope.
 - Áp mở việc: `7275ef1966c09016a372128b9934dcf93abbac98`.
 
 ## Quyết định Owner
@@ -289,7 +289,7 @@ Phản biện đúng P03, không mở thêm file:
 **Đề nghị Host đưa lên `## Owner cần quyết` sau khi hoà giải:**
 - OQ-A · Tổng nhân sự nhóm Incomex (gồm trường nghề nếu cùng chủ sở hữu; học sinh không tính) < 50 → đăng ký OIG. Doanh thu đã xác nhận, không hỏi lại. Đề xuất: **gật**; khi trường tuyển cán bộ thì đếm lại.
 - OQ-E · Chỉ nếu còn vênh mục D: luật G7 “đo + chấp nhận rủi ro còn lại” thay cho “chặn tới khi có offline”. Đề xuất: **gật**.
-- Trạng thái: **OPEN** — chờ Host hoà giải.
+- **Host xử lý tại P07:** OQ-A không hỏi lại theo xác nhận Owner; OQ-E đã hòa giải bằng D17, không còn chờ quyết định mô hình. Phần trên giữ nguyên làm lịch sử đề nghị P06.
 
 ### P07 · GPT Host · ACCEPTED — hòa giải P06, chuyển sang soạn lệnh G0
 - Based_on: P06 `2a28f81a93ae53dfe26578b8fd637eee7bce0dca`; rebase `7ac3a934173cf24aa450f0b413712a14ec4a8a06` đã diff task = rỗng. Scope: §0.3, D14–D18, view.html §2A/§5–§10. Nguồn S01–S03/S10–S12 kiểm 26/09. Chưa đo live VPS trong lượt này; số 1 Studio/5 account máy/167 collections là báo cáo Claude P06, không phải GPT đo lại.
