@@ -17,6 +17,19 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 6. Phải đảm bảo làm bằng tay trước (con người làm trên UI) sau đó mới tự động hóa thay thế con người bằng AI.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+ƯU TIÊN — 3 câu phải trả lời trước (Owner 26/09, giữ nguyên ý). Chưa trả lời đúng 3 câu này thì mọi thứ khác chưa có nghĩa.
+1. Cần danh sách đầy đủ của các bảng master: mã bảng, tên bảng, các thông tin khác AI tự thêm. Câu hỏi đầu tiên: chúng ta có bao nhiêu danh sách master list?
+2. Theo thao tác, chia 4 nhóm (Field, Form, MOT, MOW): con người làm tất cả bao nhiêu bước? Đủ các trường hợp. Không tính được bao nhiêu bước thì không biết vẽ bao nhiêu UI. Đưa vào master list Step, có mã, có tên.
+3. Có bao nhiêu form UI theo step (có mã, có tên form)? Mã form quan hệ chặt với mã mẹ (Step) và mã cha (UI cha) để con người đọc lại hiểu ngay.
+
+TIẾN ĐỘ (một ô đang làm): [Câu 1 · ĐANG CHỐT] → [Câu 2 · chờ] → [Câu 3 · chờ]
+- Câu 1 · đang chốt: bản trả lời = tab ★ Master list V2 trong ban-duyet.html: 62 danh sách, mỗi dòng có mã, tên, bảng dữ liệu, UI (C07). Đúng khi: Owner + Codex chốt, không còn thiếu / thừa. Mã V2 đóng băng từ nay.
+- Câu 2 · chờ: trả lời bằng chính danh sách số 11 “Bước” (CAT-004): liệt kê mọi bước người làm của 4 nhóm Field · Form · MOT · MOW, đủ trường hợp (tạo mới · dùng lại · thiếu thành phần · trả sửa · kiểm lỗi · sửa · ngừng), mỗi bước một mã + một tên. Đúng khi: ra một con số cho từng nhóm và tổng, tách rõ bước người / bước máy.
+- Câu 3 · chờ: trả lời bằng danh sách số 59 “Màn” (UI con): mỗi bước ở câu 2 → form UI; mã form = mã bước + mã UI cha (kiểu đang dùng S030.UI.CONFIG). Đúng khi: mọi bước người có form, bước máy ghi rõ “không có form”.
+
+LUẬT LÀM VIỆC (Owner 26/09): ổn định, từng bước, không xoá đi làm lại. Mã đã cấp không đổi; sửa thì thêm bản mới, giữ bản cũ; bỏ dòng thì ghi ngừng, không xoá số. Chưa xong câu trước thì chưa mở câu sau.
+
+NỀN ĐÃ CÓ (giữ, không xoá):
 - Hiện hành 26/09: **★ Master list V2** = 62 danh sách có mã, đóng bằng luật ≥ 2 sau 5 vòng + **Nguyên tắc 22 loại** (NT01 giao việc) + **DOT 20** (C07, chờ Owner + Codex chốt; V1 34 của C06 bị thay vì thiếu) · **★ Công thức bản 3** = khuôn 6 bước (3 duyệt ý · 6 duyệt bản ≠ bật), Màn = 2 × Thứ + 7 (dự tính) · khung đã đồng thuận Claude + Codex (P14 CLOSED), mời hội đồng rộng. Số còn chờ ca thử xuất cảnh.
 - *(Bản 25/09 C03 “9 bước · 18 màn” đã thay bằng C04–C06.)*
 - Các dòng chi tiết cũ của mục 3 (bản đồ thao tác từ dưới lên, deep-link…) giữ ở “3 cũ” phía dưới; mục 2 cũ chuyển vào Vòng trước.
@@ -24,6 +37,11 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 ### Vòng trước
 - Thế nào là hoàn thành (trước 25/09): Hồ sơ MOW · MOT · MOIT · MOUT có luồng thao tác rõ từ Field lên MOW, được Host và Claude thống nhất trước khi sửa HTML. *(đề xuất — chờ Owner gật)*
 - Các vòng cũ hơn: xem “Vòng trước” trong khối “3 cũ” phía dưới.
+
+## Claude · 26/09/2026 · C08 · Owner đặt 3 câu ưu tiên — đã ghi vào §0.3
+- Owner 26/09: bản V2 bắt đầu phức tạp, gần với các đống rác AI tạo trước đây; không bảo bỏ cái cũ — làm ổn định, từng bước, tránh mỗi lần xoá đi làm lại. Trước hết phải trả lời 3 câu (§0.3): bao nhiêu master list · bao nhiêu bước người làm theo 4 nhóm (vào master list Step) · bao nhiêu form UI theo bước (mã = bước + UI cha).
+- Claude nhận: C07 không dựng lại; mã V2 đóng băng (lần đổi mã giữ chỗ V1 → V2 chính là kiểu “xoá làm lại”, không lặp lại). Câu 2 và 3 trả lời bằng nội dung của hai danh sách đã có trong V2: số 11 Bước (CAT-004) và số 59 Màn (UI con) — không mở thêm danh sách mới.
+- Thứ tự: Codex rà C07 cho câu 1 → Owner chốt 62 → Claude làm câu 2 → rồi câu 3. Không sửa HTML ở lượt này.
 
 ## Claude · 26/09/2026 · C07 · ★ Master list V2 — 62 danh sách, đóng bằng luật ≥ 2 · Nguyên tắc 22 loại · DOT 20 (ĐỀ XUẤT, chờ Owner + Codex chốt)
 - **Owner 26/09:** đọc lại tài liệu cũ xem đủ chưa (ví dụ nguyên tắc giao việc thiếu). Liệt kê thiếu thì hệ thống không chạy, lại thành rác → vì vậy phải chốt danh sách. NTGV chỉ là nguyên tắc đầu tiên; nguyên tắc = hàm đặt sẵn (nếu A thì B; nếu A & D thì E) để chuẩn hoá theo tư duy con người và giảm khai báo → lập danh sách nguyên tắc. 100% khai báo qua DOT/script → cần danh sách DOT “ông nào làm gì”. Bắt đầu từ luật đơn giản nhất: cái gì có ≥ 2 thì có master list, suy rộng nhiều lần để tìm chỗ thiếu.
