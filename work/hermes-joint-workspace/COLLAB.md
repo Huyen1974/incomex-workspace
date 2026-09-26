@@ -594,7 +594,15 @@ HJW | HJW.3B XONG; P38 đồng thuận S1–S7 + B1–B6 | **KQ@HJW-CONTROL-2026
 - **An toàn:** không mutation nên không có rollback. Production vẫn an toàn khi không có dòng ASSIGN Hermes `state=open`; Host giữ lệnh tạm không phát assignment tự wake tới khi gate được nghiệm thu. Rủi ro còn lại (ghi ở G0.md §5): user hệ thống `hermes` ghi được sổ ⇒ mức L1 đã chấp nhận; job cron chỉ có toolset `incomex-workspace`. Baseline Guard 00:35Z UP (37/23/7 tool, config-guard CLEAN).
 - NEXT: Host GPT quyết D1–D5 (hoặc bác) → PROMPT/READY mới; lượt sau đọc G0.md, không làm lại audit.
 - Áp: SAME_COMMIT
-- Host response: —
+- **Host response:** ACCEPT hướng D1–D5 nhưng **chia hai pha** theo DROOT22 + JEV `gen-dec-1790385908-Rsodv75goyjydXGCNiUO`: Pha A D1–D3 + test cách ly trước; Pha B mới D4–D5/activation/trial. Không làm lại G0.
+
+### P42 · Host GPT · 2026-09-26 · **READY/RUN HJW-CONTROL-A**
+- P41 NO-GO là đúng và hữu ích: 0 runtime mutation, 0 model call. Nhận D1–D5 về kiến trúc nhưng không đưa cả 5 vào production một lượt.
+- PROMPT hiện hành đã thay tại `ed2edcd0e0d2bce6e2d0837a4c30af01c34f0a91`: RUN_ID `HJW-CONTROL-A-20260926-02`. Pha A: D1 `ws-dispatch→no_agent`; D3 notepad chỉ được dùng nếu chứng minh không race/lost update; D2 chỉ chứng minh official plugin path bằng fixture, **chưa cài/bật plugin**, chưa restart, chưa gửi thẻ thật.
+- **READY@ed2edcd0e0d2bce6e2d0837a4c30af01c34f0a91** cho RUN_ID `HJW-CONTROL-A-20260926-02`.
+- **RUN@HJW-CONTROL-A-20260926-02 · ISSUED.** Executor_Surface = Claude Code CLI phiên mới; runtime = SSH/operator VPS; report = gateway. Reuse `/opt/incomex/work/hermes-joint-workspace/HJW-CONTROL-20260926-01/G0.md`, chỉ revalidate delta/hash liên quan.
+- Không update Hermes dù có thông báo update; không chạy `hermes-safe-update apply --reviewed`; không phát ASSIGN Hermes; không gọi model; không restart Hermes/nginx/Agent Data. Nếu notepad không đủ primitive an toàn ⇒ `NOTEPAD_UNSAFE` + KQ DỪNG, không tự dựng store mới.
+- Pha B chỉ được Host phát sau KQ Pha A XONG; sẽ xử lý D4 checkpoint/Kuma + D5 enable plugin/restart gateway + một thẻ thật.
 
 ### P40 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `c58d576` · **ACCEPT RUN HJW-CONTROL** (`READY@1d5a691…`) + 2 điều kiện thực thi trong lệnh Owner
 - **Đối chiếu:** READY = commit cuối chạm PROMPT ✓ · B1–B6 đủ (một sổ + mapping trạng thái; callback ≤64 byte; cấm vá lõi, chỉ báo patch; TTL 24h + trần 10 thẻ/ngày + gom không thành duyệt ngầm; phiếu điểm có mẫu số + ngưỡng gợi ý không tự bật; câu thử mới + NO_NEW_VALUE/TRIAL_NOT_READY) ✓ · bài học P02 đã vào: G0 NO-GO, restart nguyên khối phía VPS, fixture không cấy prod, so tập mã test ✓ · auto-mode có biên, không bypassPermissions ✓.

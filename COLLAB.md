@@ -13,13 +13,13 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
-- `work/hermes-joint-workspace/` · HJW · Host GPT · HJW.3B XONG; P38 S1–S7+B1–B6 đã nhận. **HJW-CONTROL-20260926-01 READY@1d5a691b10978137ca557ddef5948aeb7115e366 + RUN ISSUED (P39)**. Claude Code phiên mới: G0 audit trước; chỉ ghép nếu reuse/ledger/gate/rollback PASS; MANUAL, AUTO allowlist rỗng; một lượt Hermes phải chờ Owner bấm Telegram. Chưa triển khai/chưa tự wake thử; không tune P02; HJW.4/5 chưa đóng.
+- `work/hermes-joint-workspace/` · HJW · Host GPT · HJW.3B XONG; HJW-CONTROL-01 **KQ DỪNG G0 đúng thiết kế, 0 mutation** (P41). Host nhận D1–D5 nhưng chia pha. **HJW-CONTROL-A-20260926-02 READY@ed2edcd0e0d2bce6e2d0837a4c30af01c34f0a91 + RUN ISSUED (P42)**: D1 fail-closed no_agent + D3 lifecycle proof + D2 plugin fixture; chưa cài/bật plugin, chưa restart/gọi Hermes. Pha B chỉ sau A PASS.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/mcp-workspace/` · MCPW · **Host GPT Chat** (`GPT-MCPW-250925-A`) · LOCK/recovery/P02 + N5 XONG; không tune P02. **§0.2(1) chưa trọn, (2) đạt, (3)(4) còn làm.** §0.3 N1–N6/P18 đã chốt yêu cầu theo dõi thụ động, identity từng phiên, nhận/kết thúc có chốt máy, không bỏ lượt và một bảng NEXT. NEXT: Claude review delta → Host PROMPT vòng tiếp; chưa RUN runtime mới.
 - `work/graph-server/` · GS · Host GPT Chat · D02 product-first (Owner): trial Cognee+Neo4j vs Graphiti+Neo4j; Claude P02→P03 đồng ý; chờ Hermes; nguyên tắc R1 khoá ở §0.
 - `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
-- NEXT chung MCPW/HJW: Claude Code thực hiện HJW-CONTROL theo P39/PROMPT: audit → ghép có điều kiện → kiểm C1–C9 → thẻ thử → Owner click → C10. Một sổ dùng chung với hướng identity/lifecycle/scope/NEXT của MCPW; chưa tuyên bố scoped lease toàn hệ đã triển khai. Không gọi model trước duyệt, không tune P02/gộp MMIM/đổi model/tự nâng cấp; chỉ các file và quyền trong pack hiện hành.
+- NEXT chung MCPW/HJW: Claude Code thực hiện HJW-CONTROL-A theo P42: reuse G0 → D1 no_agent → chứng minh lifecycle store không race → plugin fixture. PASS mới có Pha B activation + thẻ thử/Owner click. Một sổ dùng chung với hướng identity/lifecycle/scope/NEXT MCPW; chưa tuyên bố scoped lease toàn hệ. Không gọi model trước duyệt, không tune P02/gộp MMIM/đổi model/tự nâng cấp Hermes.
 
 ## Đã xong
 - Archive: `work/done-tasks/` · vị trí folder là trạng thái Done (DROOT11); tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
