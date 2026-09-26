@@ -1,231 +1,193 @@
-# PROMPT — HJW CONTROL B · Manual dispatch + Telegram visibility + Owner STOP
+# PROMPT — HJW FINAL · Telegram UX + closeout evidence
 
-RUN_ID: HJW-CONTROL-B-20260926-04
+RUN_ID: HJW-FINAL-20260926-05
 STATUS: Chỉ thực thi sau READY/RUN mới của Host.
 Host: GPT Chat · GPT-HJW-260922-A
 Executor_Surface: Claude Code CLI phiên mới trên Mac Owner.
-Report_Write_Path: gateway `workspace_*`/`fs_*`; chỉ file HJW hiện hữu.
-Runtime_Write_Path: SSH/operator VPS hiện hữu; mã/runtime VPS là SSOT.
+Report_Write_Path: gateway workspace_*/fs_*; chỉ file HJW hiện hữu + view.html hiện hữu.
+Runtime_Write_Path: SSH/operator VPS hiện hữu; runtime VPS là SSOT.
 
-Căn cứ: Owner clarification 26/09 + Claude P48; P45 KQ CONTROL-A XONG; P37–P45; MCPW N1–N7; Điều 30/31; DROOT22.
-Host ruling: CONTROL-C/P46 bị supersede — không cắt/sandbox toolset chat Hermes. Công tắc là cơ chế vận hành human-in-the-loop để kiểm soát đường GIAO VIỆC trong giai đoạn thử, không phải hàng rào chống Hermes.
-JEV Host `gen-dec-1790398502-Bsc2dxHB7DnLbLdgkL6h`: P48 = 1,00; root STOP + visibility = 0,91; residual fake-click có thể chấp nhận cho bounded trial = 0,67 với các guard dưới đây.
+Căn cứ bắt buộc: HJW §0.3 S1–S9; P51 KQ CONTROL-B XONG; P52 + Host response P54; P54; Điều 30/31; DROOT22.
+Mục tiêu: UX polish nhỏ nhưng thật → verify → closeout evidence HJW.4/HJW.5. Không mở lại kiến trúc CONTROL-B.
 
-## 0. Đích
+## 0. Ranh giới
 
-Giữ Hermes là thành viên đầy đủ:
-- KHÔNG giảm toolset/backend của Telegram/Desktop Owner chat.
-- KHÔNG bỏ terminal/file/code/cronjob chỉ để bảo vệ gate.
-- KHÔNG thay Agent Gateway 7-tool contract/scope trong RUN này.
+Được:
+- sửa plugin/config/script HJW CONTROL hiện hữu đúng phần UX Telegram và input-template;
+- restart tối đa hermes-gateway nếu plugin không hot-reload, theo block an toàn/rollback;
+- cập nhật HJW COLLAB + view.html hiện hữu;
+- append evidence trong hồ sơ VPS HJW hiện hữu.
 
-Lắp đường điều khiển thử nghiệm:
-1. hệ thống tự phát hiện việc nhưng MANUAL mặc định;
-2. trước mỗi auto-run cần thẻ Telegram `Cho chạy`;
-3. sau click, trước model call phải Telegram `BẮT ĐẦU`;
-4. kết thúc phải Telegram `KẾT QUẢ`;
-5. mọi commit có trusted actor `agent-gw/hermes` phải được báo Telegram bằng logic tất định;
-6. Owner có nút `Dừng tất cả`; STOP thật do root áp và uid `hermes` không tự gỡ;
-7. control-plane drift/đường chạy ngoài luồng phải báo ≤5 phút;
-8. AUTO production allowlist vẫn RỖNG; không tự nâng tự động.
+Không:
+- không gọi Hermes model;
+- không tạo assignment/trial mới;
+- không bật AUTO; AUTO_ALLOWLIST cuối RUN vẫn rỗng;
+- không update Hermes/safe-update;
+- không đổi Agent Data/P02/nginx/Nuxt/model/key/scope/toolset;
+- không tạo repo file/task/project mới;
+- không sửa AGENTS.md trong RUN này (Claude Code không phải Founder). Chỉ đề xuất exact foundation delta cho Host/Founders ở COLLAB.
 
-**Giới hạn được chấp nhận cho giai đoạn thử:** nút `Cho chạy` là operational human gate, CHƯA phải cryptographic/security boundary chống một interactive Hermes session tự giả marker. Bù bằng START-before-model + root STOP + drift/commit visibility. Không được mô tả nó là tamper-proof.
+Reuse toàn bộ evidence P34/P45/P51; không chạy lại destructive/HARD-STOP/canary nếu không có regression causal.
 
-## 1. Reuse, không làm lại
+## 1. PRE
 
-Reuse:
-- G0 `/opt/incomex/work/hermes-joint-workspace/HJW-CONTROL-20260926-01/G0.md`;
-- Pha A `.../phaseA/EVIDENCE-A.md`;
-- production hiện tại: `ws-dispatch.no_agent=true`, `ONE_SHOT_ENABLED=False`, NOTEPAD_SAFE, plugin official fixture 16/16.
+Đọc AGENTS → root COLLAB → HJW §0 S1–S9 + Dòng hiện hành + P51/P52/P54 → PROMPT này.
+Xác nhận:
+- READY exact;
+- 0 assignment Hermes open/claimed, 0 pending approval card có thể wake;
+- CONTROL-B manual mode, AUTO rỗng;
+- plugin/hjw_gate/root monitor hashes + gateway StartedAt;
+- Guard/config-guard/P02/Agent Gateway 7 tool/Kuma healthy;
+- Telegram callback current API/client/wrapper capability.
 
-Chỉ revalidate:
-- Hermes version/source baseline P45; nếu safe-update đã áp bản mới thì rerun fixture A2/A4/A5 + plugin fixture trước mutation;
-- Guard/Kuma/P02/Agent Data/Hermes 7 tool healthy;
-- 0 ASSIGN Hermes open/claimed;
-- no_agent + one-shot hard-disabled còn đúng.
+Snapshot plugin/config/scripts cần sửa + rollback trước mutation. Không in token/secret.
 
-Không chạy `hermes-safe-update apply --reviewed` trong RUN.
+## 2. U1 — Header/nhiệm vụ nhất quán
 
-## 2. PRE / rollback
+Mọi tin HJW do control plane gửi phải theo cùng một grammar, nhìn vài giây hiểu được:
 
-PRE:
-- snapshot/hash config/script/plugin/job/root-cron liên quan;
-- baseline toolsets/chat capabilities; Telegram/clarify/exec approval; STOP/Kuma;
-- baseline Git actor/commit cursor để kiểm notifier;
-- config-guard + MCPW Guard.
+### Approval card
+Header: `HJW · GIAO VIỆC · CHỜ DUYỆT`
+- `Từ: <surface/Host giao> → Tới: Hermes (<role>)`
+- `Việc: <task readable>`
+- `Nhiệm vụ: <1–2 dòng hành động cụ thể>`
+- `Phạm vi: <read/write scope>`
+- `Mã: <ticket> · ASSIGN <id>`
+- `Tiếp theo: Owner chọn Cho chạy / Không chạy`
+- link Xem việc.
 
-Rollback phải chuẩn bị trước mutation:
-- bật root STOP-DISPATCH;
-- disable/remove HJW control plugin/config delta;
-- trả script/root-cron/job config;
-- restart tối thiểu đúng service nếu cần;
-- **không** tự resume one-shot/auto dispatch sau rollback; giữ MANUAL+STOP tới Host quyết.
-- lifecycle/notepad/evidence giữ nguyên để reconcile, không xóa lịch sử.
+### START
+Header: `HJW · HERMES THỰC HIỆN · ĐANG CHẠY`
+- `Từ: <source> → Hermes (<role>)`
+- ticket/task/scope;
+- Owner approved_at;
+- `Tiếp theo: Hermes làm → báo KẾT QUẢ`.
 
-## 3. Plugin live — official extension, không core patch
+### RESULT
+Header: `HJW · HERMES REPORT · <XONG|BLOCKED|NO_NEW_VALUE>`
+- `Từ: Hermes → Tới: Host/Owner`
+- Đã làm;
+- Kết quả;
+- commit/report;
+- duration + provider usage/cost hoặc UNKNOWN;
+- `Tiếp theo: <actor/action>`.
 
-Dùng official `~/.hermes/plugins/` + `register_telegram_handler` đã PASS fixture:
-- một plugin HJW control tối thiểu; không patch upstream/core;
-- callback prefix riêng `hjw:`, không chiếm `ea:`/clarify/core handlers;
-- callback_data chỉ ticket id ngắn ≤64 bytes;
-- đúng Owner user/chat mới được ghi APPROVED/DENIED;
-- thẻ có `Cho chạy`, `Không chạy`, `Xem việc`, và `Dừng tất cả`;
-- dùng chính bot/consumer hiện hữu, không getUpdates/bot/token/route thứ hai.
+### Commit notification
+Header: `HJW · HERMES COMMIT · GHI NHẬN`
+- `Hermes → Repo`
+- task/ticket nếu map được;
+- short SHA + summary;
+- trạng thái execution;
+- không lặp nếu RESULT đã surfaced cùng commit nhưng ledger phải đánh dấu surfaced.
 
-Plugin không được trực tiếp gọi model. Nó chỉ ghi lifecycle event/outbox/stop-request bằng primitive đã kiểm P45.
+Tên surface dùng bảng A9, không tự suy hãng/model sâu hơn evidence.
 
-Cài/bật qua extension/config chính thức. Restart nếu bắt buộc: **chỉ `hermes-gateway` một lần**, theo block VPS nguyên khối đã dùng ở P02: checkpoint → restart → health → rollback nếu fail. Không restart serve/nginx/Agent Data nếu không causal.
+## 3. U2 — Click phải có phản hồi và đổi trạng thái
 
-## 4. Lifecycle + manual dispatch
+Ngay khi nhận callback hợp lệ:
+1. gọi `answerCallbackQuery` ngay, text ngắn:
+   - Cho chạy: `Đã nhận: Cho chạy`
+   - Không chạy: `Đã nhận: Không chạy`
+   - Dừng tất cả: `Đã nhận: Dừng tất cả`
+2. sau khi lifecycle write thành công, edit **chính message** bằng editMessageText/editMessageReplyMarkup:
+   - CHỜ DUYỆT → `✅ ĐÃ DUYỆT · <time>`;
+   - hoặc `⛔ ĐÃ TỪ CHỐI · <time>`;
+   - STOP → `🛑 ĐÃ YÊU CẦU DỪNG · <time>`, sau root receipt update thành `🛑 ĐÃ DỪNG · <time>`.
+3. action đã xử lý phải thành disabled hoặc được thay bằng label trạng thái; action đối nghịch không còn bấm được.
+4. `Xem việc` và `Dừng tất cả` còn lại theo state hợp lệ.
+5. duplicate/replay callback trả ack “Đã xử lý” và không đổi lifecycle lần hai.
 
-Dùng đúng notepad scheme P45:
-- key rời `t:` ticket / `ok:` approved / `no:` denied / `out:` outbox;
-- generation + task hash + scope + expiry;
-- consume approval bằng `delete_note` rowcount: 1 thắng, 0 thua;
-- expiry/replay/duplicate/out-of-order không chạy;
-- outbox có sequence; thẻ hết hạn phải bị bỏ trước khi gửi;
-- cap/TTL theo P39: 24h, tối đa 10 thẻ mới/ngày giờ VN; gom tin nhưng vé độc lập.
+Restart/plugin recovery phải render lại đúng state từ ledger, không quay về CHỜ DUYỆT giả.
 
-**ONE_SHOT_ENABLED chỉ được bật sau toàn bộ negative test trước-trial PASS.**
-One-shot:
-- đúng một job `--repeat 1`;
-- toolset = `incomex-workspace` 7 tool, không terminal/server-write;
-- assignment/scope/READY/generation revalidate ngay trước claim;
-- không claim/lease trong lúc pending approval;
-- AUTO allowlist rỗng.
+## 4. U3 — Màu nút
 
-Không có ticket approved hợp lệ => `ws-dispatch no_agent` 0 model call.
+Telegram Bot API hiện hành hỗ trợ InlineKeyboardButton.style:
+- `success` xanh lá;
+- `primary` xanh dương;
+- `danger` đỏ;
+và disabled button.
 
-## 5. Telegram visibility — 3 lớp
+Áp:
+- `Cho chạy` = success (xanh lá), hành động được khuyến nghị.
+- `Xem việc` = primary (xanh dương).
+- `Dừng tất cả` = danger (đỏ), chỉ dành cho stop/nguy hiểm.
+- `Không chạy` = default/trung tính, không dùng đỏ để khỏi lẫn “Dừng tất cả”.
+- cảnh báo = `⚠️` + text/default. Telegram không có style vàng chuẩn: KHÔNG giả vàng bằng hack.
 
-### 5.1 Thẻ chờ duyệt
-Trước model:
-- task/assignment;
-- Hermes sẽ làm gì;
-- lý do cần AI;
-- read/write scope;
-- output dự kiến;
-- link task;
-- nút Cho chạy / Không chạy / Xem việc / Dừng tất cả.
+Nếu wrapper hiện tại chưa expose style/disabled nhưng Bot API endpoint hiện hành có:
+- ưu tiên raw Bot API/HTTP helper ĐANG CÓ trong plugin/runtime;
+- không patch Hermes core, không bot/token/client thứ hai.
+Nếu không làm được bằng extension hiện hữu ⇒ ghi limitation và DỪNG trước tuyên bố U3 PASS.
 
-Pending = 0 model call.
+Màu chỉ phụ trợ; text/icon/state phải đủ hiểu trên client không render style.
 
-### 5.2 START trước model call
-Sau khi consume APPROVED nhưng **trước khi tạo/model-run**:
-`BẮT ĐẦU · <ticket> · <task> · Owner bấm <timestamp> · scope=<...>`
+## 5. UX acceptance — không model call
 
-START gửi thất bại => không model call; giữ ticket trạng thái phù hợp và báo/retry deterministic, không chạy âm thầm.
+Fixture + live bot API:
+U1. Header 4 loại đúng grammar và from→to/next rõ.
+U2. callback ack được gọi trước khi client hết progress; handler idempotent.
+U3. click Cho chạy thử trong fixture → message edit thành ĐÃ DUYỆT + action disabled.
+U4. styles được Bot API nhận: success/primary/danger; disabled được nhận.
+U5. STOP state edit đúng và không có Resume qua Hermes.
+U6. Không chạy/default không lẫn màu đỏ STOP.
+U7. callback duplicate/restart không hồi state.
+U8. normal Hermes chat/clarify/exec approval không regression.
+U9. 0 model call, AUTO rỗng, 0 assignment mới.
+U10. Guard/config-guard/Kuma/7-tool/P02 PASS trước-sau.
 
-### 5.3 RESULT
-Sau run:
-- Hermes đã làm gì;
-- kết quả / NO_NEW_VALUE / blocker;
-- report/commit thật;
-- duration;
-- provider usage/cost thật hoặc UNKNOWN;
-- NEXT actor.
+Live verification không cần Owner click: được gửi một message UX fixture/private metadata-only rồi edit bằng chính Bot API để chứng minh API/render path; không tạo ticket executable, không model. Không spam quá 1 test message; sau test edit thành `HJW · UX TEST · PASS` hoặc xoá nếu cơ chế hiện hữu hỗ trợ an toàn.
 
-Không dùng model self-claim làm bằng chứng; lấy ledger/Git/report.
+## 6. S9 — Input/context contract
 
-## 6. Báo mọi commit Hermes — deterministic
+Sửa template one-shot hiện hữu để mọi assignment HJW tương lai tự chứa:
+- `MCP root=workspace`;
+- exact task path;
+- exact read targets: AGENTS + HJW §0 + các P/KQ được giao;
+- exact write path;
+- cấm dò/đoán root; read root đầu fail ⇒ BLOCKED;
+- ưu tiên workspace_search/read window; cấm đọc full HJW COLLAB nếu không cần.
 
-Tái dùng root cron/monitor hiện hữu, không LLM:
-- theo dõi Git commits mới có trusted gateway actor `agent-gw/hermes` trên workspace;
-- mỗi commit chưa seen phải gửi Telegram: task/path, short SHA, commit summary, execution/ticket nếu map được;
-- cursor bền để restart không bỏ commit và không báo lặp;
-- nếu RESULT đã chứa cùng commit, được dedup thành một delivery nhưng ledger phải chứng minh commit đã được surfaced;
-- commit Hermes không map được ticket/assignment => cảnh báo `HERMES_COMMIT_OUTSIDE_TRACKED_RUN`.
+Không tự đặt hard token cap. Ghi provider token/duration thật. AUTO vẫn OFF.
+P52 threshold ≤150k chỉ là đề xuất Hermes và hiện **không đạt**; không encode nó thành gate production.
 
-Không log secret/content; metadata only.
+## 7. HJW.4 — foundation delta đề xuất, KHÔNG tự sửa AGENTS
 
-## 7. Dừng tất cả — Owner operational kill switch
+Dựa evidence hiện có, ghi một khối ngắn `FOUNDATION_DELTA` vào HJW COLLAB để GPT/Claude Founders nghiệm thu:
+- hội đồng 3 thành viên/attribution/mapping nếu phần nào đã có thì ghi “đã có — không sửa lại”;
+- L1 AUTH PLACEHOLDER LAW: placeholder auth/secret không bao giờ được thành credential runtime; source thiếu ⇒ fail closed/unavailable/random unknown + negative test;
+- L2 COST SOURCE LAW: số chi phí thật lấy provider ledger/API; agent estimate chỉ informational;
+- S8 Telegram operational UX: header from→to, callback ack+edit state, success/primary/danger semantics, warning fallback;
+- S9 explicit root/input contract cho unattended workspace job.
 
-Root-owned STOP hiện hữu là chốt thật:
-- chứng minh uid `hermes` không write/delete/rename/replace được STOP.
-- plugin callback `Dừng tất cả` chỉ ghi **stop-request**; root cron hiện hữu đọc ở tick kế và bật STOP root-owned.
-- stop-request giả là fail-safe: chỉ có thể dừng thêm, không chạy thêm.
-- khi STOP ON: ws-dispatch, webhook-triggered dispatch và one-shot creation đều 0 run mới.
-- Hermes không tự gỡ STOP.
+Không copy lịch sử dài vào AGENTS; đề xuất patch tối thiểu vào đúng mục hiện hữu.
 
-**Không có nút Resume trong Hermes plugin.**
-Mở lại chỉ qua một đường Owner/Host không do uid `hermes` quyết định (repo/Host/Claude Code path hiện hữu), có audit. Không dựng service mới.
+## 8. HJW.5 — final evidence matrix
 
-Test STOP từ Telegram fixture + live một lần trước trial; thời gian click→STOP ghi thật. Mục tiêu ≤5 phút, ưu tiên tick hiện hữu nhanh hơn.
+Lập T1–T10 cuối cùng trong HJW COLLAB từ evidence P34/P45/P51 và spot-check hiện trạng:
+- mỗi T: PASS/PARTIAL/NOT_RETESTED + evidence commit/path/time;
+- phân biệt tự kiểm live lượt này với đọc hồ sơ;
+- không biến “7 tool” thành suy quyền ngoài scope;
+- không rerun destructive tests/HARD-STOP/nginx/canary nếu không regression causal;
+- T10 ghi CONTROL-B end-to-end + residual fake-approval + MANUAL/AUTO rỗng;
+- P52: loại việc review-read là ứng viên, chưa auto; actual token 293k invalid trial / 490k successful trial, nên hiệu quả chưa chứng minh đủ để AUTO.
 
-## 8. Drift + ngoài luồng ≤5 phút
+Nuxt V8 heap restart chỉ ghi “OUT-OF-SCOPE OBSERVATION → VPSC”, không sửa.
 
-Mở rộng đúng root cron/Protection/Kuma path hiện hữu, không service mới. Mỗi ≤5 phút kiểm:
-- `ws-dispatch.no_agent`;
-- `ONE_SHOT_ENABLED`;
-- plugin enabled/hash;
-- `platform_toolsets` / one-shot toolset;
-- số job agent bất thường;
-- STOP state;
-- lifecycle approvals không có click receipt tương ứng;
-- Hermes source/version drift;
-- commit Hermes ngoài tracked run.
+## 9. KQ
 
-Lệch => Telegram một lần/condition + Kuma state phù hợp; không tự gọi LLM.
-Không autofix trừ STOP fail-safe đã chốt; còn lại alert + giữ MANUAL/STOP.
+KQ XONG chỉ khi:
+- U1–U10 PASS;
+- S9 template applied/tested fixture;
+- CONTROL-B không regression;
+- FOUNDATION_DELTA + T1–T10 matrix ghi xong;
+- AUTO_ALLOWLIST vẫn rỗng;
+- rollback UX delta có sẵn;
+- no new model call.
 
-## 9. P40 checkpoint sau CLI
+Ghi:
+`KQ@HJW-FINAL-20260926-05 XONG`
 
-Root hook hiện hữu phải ghi redacted checkpoint vào hồ sơ HJW:
-- ticket/execution id;
-- model calls before/after approval;
-- approval/start/result Telegram message_id + delivery/receipt status;
-- report commit;
-- duration;
-- provider usage/cost hoặc UNKNOWN;
-- STOP/drift state.
+Nếu blocker:
+`KQ@HJW-FINAL-20260926-05 DỪNG`
 
-Sau khi Claude Code CLI kết thúc ở WAIT_OWNER_CLICK, VPS vẫn nhận click và tự chạy/ghi TRIAL; Owner không phải mở lại terminal.
-
-Repo public chỉ summary; gate/repro chi tiết ở hồ sơ VPS root-only.
-
-## 10. Acceptance B1–B15
-
-B1. Existing Hermes Owner chat toolset/backend **không giảm**.
-B2. Idle/pending/denied/expired/invalid => 0 model calls.
-B3. Valid Owner click exactly once => exactly one one-shot/run.
-B4. Duplicate/replay/wrong user/wrong chat/stale generation/changed task => 0 run.
-B5. START Telegram đã có receipt trước model call; START fail => 0 model.
-B6. RESULT maps to real report/commit and usage evidence.
-B7. Every new `agent-gw/hermes` commit in fixture/live trial is surfaced/deduped without loss.
-B8. STOP button causes root STOP; uid hermes cannot clear; STOP blocks all new dispatch.
-B9. Control-plane drift fixture triggers alert ≤5 min; no LLM.
-B10. Cron/webhook/manual trigger all converge through MANUAL gate; AUTO allowlist empty.
-B11. Plugin callback does not break normal chat/clarify/exec approval.
-B12. Restart/recovery does not duplicate ticket/run/commit notification.
-B13. Guard/config-guard/P02/Agent Gateway 7-tool/auth/scope/Kuma no regression.
-B14. Rollback returns plugin/config/scripts clean and leaves auto dispatch stopped.
-B15. One real bounded Hermes trial after Owner click returns useful new result or honest NO_NEW_VALUE, with START/RESULT/commit/checkpoint evidence.
-
-## 11. Trial
-
-Chỉ sau B1–B14 PASS:
-- materialize một bounded HJW review question chưa có đáp án;
-- send exactly one approval card;
-- checkpoint `WAIT_OWNER_CLICK`;
-- Owner bấm `Cho chạy`;
-- system continues without terminal;
-- trial Hermes chỉ dùng 7 workspace tools, không runtime mutation;
-- report mức cao, không ghi exploit reproduction vào public repo.
-
-Nếu không có câu hỏi mới đủ giá trị => `TRIAL_NOT_READY`, không đốt token thay bằng tóm tắt cũ.
-
-## 12. KQ
-
-Trước click: không KQ XONG.
-Sau B1–B15:
-`KQ@HJW-CONTROL-B-20260926-04 XONG`
-
-Blocker/rollback:
-`KQ@HJW-CONTROL-B-20260926-04 DỪNG`
-
-Ghi HJW COLLAB + view.html hiện hữu; chi tiết nhạy cảm chỉ hồ sơ VPS.
-
-Sau B XONG:
-- Host nghiệm thu;
-- HJW.4 promote phần luật còn thiếu;
-- HJW.5 đối chiếu T1–T10/closeout;
-- sau đó quay lại MCPW identity/lifecycle/scoped lease/NEXT.
+Không move task sang done-tasks; Host sẽ nghiệm thu foundation delta rồi đóng HJW.
