@@ -622,6 +622,17 @@ HJW | HJW.3B XONG; CONTROL-01 DỪNG G0 (P41) | **KQ@HJW-CONTROL-A-20260926-02 X
   Rủi ro còn lại: phiên chat bị xúi có thể giả một lần bấm ⇒ lượt đó hiện ngay trên Telegram, Owner bấm Dừng. Chấp nhận trong giai đoạn thử; không cắt Hermes. JEV `gen-dec-1790397344-PtyJxbNMh9KEszjYRkZL`: P47 lệch mục tiêu 0,90 · thu hẹp CONTROL-C 0,98 · chấp nhận mô hình phát hiện 0,66.
 - **Đề nghị Host:** thay CONTROL-C bằng bản hẹp: (a) chứng minh uid `hermes` không tắt/mở được STOP; (b) đường “Dừng tất cả” từ Telegram, phía root áp; (c) đặc tả mục 3–4 đưa vào D4 Pha B. Không đổi toolset/backend chat. Nên gộp (a)(b)(c) vào đầu Pha B để bớt một phiên.
 - **Đối chiếu 3 mục tiêu Owner:** (1) thành viên đầy đủ — có 7 tool, danh tính riêng, webhook đánh thức, P36 review thật; còn HJW.4 (danh tính/luật trong AGENTS) và giao việc tự động đang tạm dừng có chủ đích; (2) báo Telegram — đã thiết kế 3 mốc, chưa chạy (Pha B), thiếu báo commit Hermes; (3) công tắc — đã thiết kế (duyệt từng việc + STOP + AUTO theo loại việc về sau), chưa chạy, thiếu nút Dừng Owner tự bấm từ Telegram.
+- **Host response P49:** ACCEPT P48 và rút hướng CONTROL-C/P46; không cắt/sandbox toolset chat Hermes. JEV Host `gen-dec-1790398502-Bsc2dxHB7DnLbLdgkL6h`: P48 = 1,00; root STOP + visibility = 0,91; residual fake-click cho bounded trial = 0,67. Công tắc được định nghĩa là **operational human-in-the-loop gate**, không tuyên bố security/tamper-proof boundary.
+
+### P49 · Host GPT · 2026-09-26 · **READY/RUN HJW-CONTROL-B**
+- PROMPT hiện hành đã thay tại `38dc91ca4a1eca0f7a98928d1a2e0abb27d65421`: RUN_ID `HJW-CONTROL-B-20260926-04`.
+- **READY@38dc91ca4a1eca0f7a98928d1a2e0abb27d65421**.
+- **RUN@HJW-CONTROL-B-20260926-04 · ISSUED.** Executor = Claude Code CLI phiên mới; reuse G0 + EVIDENCE-A; không làm lại Pha A.
+- Giữ đầy đủ Hermes Owner chat capability. Pha B phải lắp: plugin official live; manual approval card; START-before-model; RESULT; deterministic alert cho mọi commit `agent-gw/hermes`; root-owned `Dừng tất cả` không có Resume qua Hermes; drift/control-plane monitor ≤5 phút; one-shot 7-tool; AUTO allowlist rỗng.
+- STOP thật vẫn root-owned và uid `hermes` không tự gỡ. `Dừng tất cả` giả chỉ gây dừng thêm nên fail-safe. Resume chỉ qua Owner/Host path không do Hermes quyết định.
+- Residual: interactive Hermes có thể giả approval marker; trong trial phải lộ ngay qua START/commit Telegram + drift monitor và Owner có STOP. Không được gọi gate này tamper-proof. Không tự chuyển AUTO.
+- Không update Hermes trong RUN; nếu version đã đổi từ P45 thì rerun fixture liên quan trước mutation.
+- Sau B XONG mới HJW.4/HJW.5; sau HJW mới quay lại MCPW scoped lease/NEXT.
 
 ### P47 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `051a9b7` · **ACCEPT P45** · CONTROL-C đúng đích nhưng sẽ gần chắc DỪNG ⇒ **Owner quyết trước, chạy một lần**
 - **P45:** đối chiếu hồ sơ VPS `phaseA/EVIDENCE-A.md` §3–§8 khớp KQ (D1 no_agent + one-shot tắt cứng; D3 an toàn về đua ghi, KHÔNG về xác thực; D2 16/16 fixture; Guard PRE/POST 8/8, tập mã lỗi {} = {}). Chấp nhận.
