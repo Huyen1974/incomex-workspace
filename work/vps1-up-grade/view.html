@@ -29,37 +29,39 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 </section>
 
 <section class="card" id="strategy">
-<h2>2A. Chiến lược sau P04: bán dịch vụ và vận hành khi Owner vắng mặt</h2>
+<h2>2A. Mô hình đã chốt — SaaS chung, một chủ quản, DOT vận hành</h2>
 <div class="grid">
 <div><h3>Directus: chưa bỏ, nhưng có Strategic Gate</h3><p>Core v12 có giới hạn 3 seats / 25 collections / 5 flows. <b>OIG đủ điều kiện thì unlimited seats / collections / flows</b>, custom access policies và hiện được cấp <b>vô thời hạn</b>. Vì vậy ~145 collections không tự nó là blocker.</p><p class="small">Điều kiện phải test: eligibility, telemetry bắt buộc, license server, activation, failure >7 ngày, backup/export/exit.</p></div>
 <div><h3>Agency OS: EXIT</h3><p>Upstream không archived nhưng commit cuối 26/03/2025. Không coi starter/template này là vendor nền tảng nữa. Giữ màn hình hiện hành để không phá production, nhưng module mới không mặc định xây trên Agency OS.</p></div>
 <div><h3>UI: tách khỏi đợt cutover</h3><p><b>Host nhận đề nghị P04.</b> Không thử Appsmith/ToolJet/Budibase trong đợt nâng VPS này; không tạo việc mới. Vẫn nâng tương thích shell Nuxt đang phục vụ Knowledge, Reports và giaoduc. Thoát Agency OS là hướng dài hạn, không viết lại giao diện cùng lúc nâng nền.</p></div>
 <div><h3>Giữ dữ liệu khác với giữ dịch vụ chạy</h3><p><b>PG backup bảo toàn dữ liệu, chưa phải backend dự phòng.</b> Đổi Directus còn phải giữ quyền, Flow, audit, files và hành vi MOT. Không tự viết tầng API thứ hai hay mặc định chuyển nghiệp vụ thành PG/DOT code.</p></div>
 </div>
-<p class="callout"><b>Owner strategy:</b> Incomex chỉ có một người vận hành không chuyên IT; phải xử lý được tình huống người đó vắng mặt. Doanh thu dưới ngưỡng đã được xác nhận, không hỏi lại.</p>
-<h3>Mô hình thương mại được khảo sát</h3>
+<p class="callout"><b>Owner đã chốt:</b> một SaaS Incomex; trường là khách đầu tiên, sau đó các công ty chỉ dùng MOT. Owner là chủ quản duy nhất, máy làm qua DOT; không tự thêm quản trị. Điều kiện OIG Owner xác nhận đáp ứng, không hỏi lại. Khách không có Studio/PG hay khóa backend.</p>
+<table><thead><tr><th>Nguyên tắc</th><th>Chốt kỹ thuật</th></tr></thead><tbody>
+<tr><td>Một nền dữ liệu</td><td>Một hệ PostgreSQL; tenant bằng mã công ty + quyền, không DB/engine theo khách. Database hiện hữu giữ nguyên, không gộp/xoá để đạt số 1.</td></tr>
+<tr><td>Giữa công ty và giữa đồng nghiệp</td><td>Server kiểm actor + tenant + quyền bản ghi/field. Không tin filter/tenant_id client gửi; cùng tenant chưa được cấp quyền vẫn DENY, thiếu scope mặc định từ chối.</td></tr>
+<tr><td>Một chủ quản, nhiều khóa máy có biên</td><td>DOT nghiệp vụ không dùng admin toàn quyền. Service API-only ít quyền, thu hồi riêng, audit actor/tenant/DOT/operation_id; DOT đặc quyền tách allowlist/trace và không tự cấp thêm quản trị.</td></tr>
+<tr><td>MOT → DOT/MCP → dữ liệu</td><td>Khách/AI không có raw SQL, password DB hoặc đường ghi tắt. Thiếu DOT tìm native/tái dùng trước, chỉ ghép bổ sung khi cần; không phát khóa backend vào browser/prompt.</td></tr>
+<tr><td>Chặn trước, báo sau</td><td>Role thường không tự cấp App/Admin Access; khóa tại cổng hiện có. Kiểm Studio allowlist hằng ngày chỉ phát hiện lệch, không thay chốt ngăn. Chưa cài chốt trong lượt này.</td></tr>
+</tbody></table>
+<p class="small">Phải kiểm lab: Directus Admin không bị item policy giới hạn, policy cộng OR; PG superuser/BYPASSRLS và thường table owner bỏ qua RLS. Connection pool không mặc định tự truyền tenant vào PG. <a href="https://directus.com/docs/guides/auth/access-control">S10 · Access control</a> · <a href="https://www.postgresql.org/docs/current/ddl-rowsecurity.html">S11 · RLS</a>. Dùng native trước, không framework tự dựng.</p>
+<h3>Giấy phép theo mô hình SaaS đã xác định</h3>
 <p>Incomex bán ứng dụng/quy trình MOT, không bán Directus. FAQ hiện hành phân biệt người dùng app với tổ chức dùng Studio; khách chỉ dùng app không làm cộng quy mô doanh nghiệp của họ vào Incomex. Doanh thu dịch vụ Incomex thu được vẫn tính; nhóm cùng kiểm soát xét hợp nhất. Số người vận hành IT không đồng nghĩa tổng nhân sự pháp nhân. Policy App/Admin Access cần kiểm cả account máy, không chỉ đếm lần login. <a href="https://directus.com/oig/faq">S01 · FAQ</a> · <a href="https://directus.com/terms/open-innovation-grant">S02 · Terms, §1/2.6/3.1/Exhibit1</a>.</p>
-<p><b>Biên cần xác nhận bằng văn bản trước thương mại hoá:</b> nhà máy quy trình tổng quát có nằm trong Grantee Application không; đâu là ranh giới cạnh tranh/resale/white-label; mô hình giao instance riêng cho khách; ai sở hữu project và contact. Không tự chấp nhận hợp đồng hoặc gửi dữ liệu công ty.</p>
-<h3>Trường nghề / giáo dục</h3>
-<ul>
-<li><b>Không thấy tier giáo dục tự động tốt hơn OIG trong Pricing/OIG hiện hành.</b> OIG đã là full software miễn phí khi đủ ngưỡng.</li>
-<li><b>Sinh viên không tính headcount.</b> Người chỉ dùng MOT/app cũng không phải Studio user.</li>
-<li>Nếu chỉ Incomex đăng nhập Studio: FAQ đo eligibility theo Incomex, không theo quy mô client. Nếu cán bộ trường vào Studio: trường phải tự đạt ngưỡng OIG.</li>
-<li>Trường private/non-profit đủ ngưỡng: dùng OIG bình thường. Nếu vượt ngưỡng: hỏi Sales; Directus từng công khai nói educational institutions có thể được discount, nhưng chưa có mức/tier chính thức công bố nên không coi là quyền đương nhiên.</li>
-<li>Nếu trường là <b>government customer/public entity</b>: FAQ hiện nói OIG không áp dụng; phải hỏi phương án thương mại.</li>
-<li>Trường hợp Incomex giao <b>quyền sở hữu hệ thống/dữ liệu/hạ tầng cho trường</b> nhưng Incomex vẫn là bên duy nhất vận hành Studio cần hãng xác nhận bằng văn bản về project/license owner và operator; không suy chỉ từ khái niệm “sở hữu”.</li>
-</ul>
+<p><b>Không thêm thư xin phê duyệt SaaS:</b> FAQ có commercial product/SaaS và khách chỉ dùng app. Mô hình Owner vừa chốt dùng đăng ký OIG chuẩn; giữ terms, key, telemetry và contact. Chỉ hỏi hãng khi cấp key/activation lỗi hoặc sau này thực sự đổi sang bán/white-label Directus. Chấp nhận điều khoản do người có thẩm quyền; không tự khai thay hoặc đổi tổ chức để né giới hạn. <a href="https://directus.com/docs/licensing/open-innovation-grant">S12 · Nhận grant</a>.</p>
+<h3>Trường nghề là khách đầu tiên</h3>
+<p>Trường dùng MOT trên SaaS Incomex, dữ liệu gắn tenant của trường; không giao instance/Studio/PG riêng. Quyền sở hữu và xuất dữ liệu tenant quy định trong hợp đồng. Phương án trước về trường đứng tên hệ thống riêng không còn là phạm vi hiện hành; không tạo giấy phép/máy riêng chỉ vì thêm khách.</p>
 <p><a href="https://directus.com/oig/faq">S08 · OIG FAQ — client/agency/end user/student/government</a> · <a href="https://directus.com/oig">S09 · OIG current</a>.</p>
 <h3>Phương án B — phải giải quyết đúng loại lỗi</h3>
 <table><thead><tr><th>Sự cố</th><th>Hướng chuẩn bị</th><th>Không được nhầm</th></tr></thead><tbody>
 <tr><td>Đường ra mạng/DNS/TLS của VPS1</td><td>Monitor độc lập, retry có biên, thử đường HTTPS dự phòng hợp lệ qua hạ tầng sẵn có; giữ kiểm TLS và gửi telemetry bình thường. Bậc 1–2.</td><td>Hai VPS có thể cùng nhà cung cấp/đường mạng; phải đo tính độc lập.</td></tr>
 <tr><td>Key/DB/PUBLIC_URL không khớp</td><td>Giữ binding và URL ổn định; staging có activation hợp lệ riêng; thử restore/restart trước cutover.</td><td>Không xoay key/đổi tổ chức để reset thời hạn.</td></tr>
-<tr><td>License service của Directus không dùng được kéo dài</td><td>Hỏi quyền offline/emergency-token được cấp trước, điều khoản, hạn token và giá. Chưa có thoả thuận thì ghi rủi ro chưa giải.</td><td>VPS2 hoặc key mới vẫn cần cùng nhà cấp phép; GGD không thay entitlement.</td></tr>
+<tr><td>License service của Directus không dùng được kéo dài</td><td>Đo chức năng bị khoá, phục hồi và phần chưa kiểm; residual risk đưa cùng RUN cuối. Offline là lựa chọn thêm, không gate tuyệt đối.</td><td>VPS2/key mới/GGD không xoá phụ thuộc cấp phép. Chưa có số liệu xác suất, không gọi outage này chắc chắn hiếm hoặc đã giải xong.</td></tr>
 <tr><td>Owner không đọc cảnh báo</td><td>Tự xử lý trong phạm vi đã duyệt, kênh giám sát ngoài VPS1 và cơ chế escalation đã thử; không phụ thuộc Directus/DOT cho đường cứu hộ.</td><td>Telegram báo đỏ không đồng nghĩa phục hồi; chưa có người thay thế thì ghi thiếu.</td></tr>
 </tbody></table>
 <p>OIG không có offline; tài liệu mô tả offline token Enterprise được xác minh tại máy, có hạn riêng. Việc mua support/Team không tự suy ra có offline. <a href="https://directus.com/docs/licensing/overview">S03 · licensing, network, binding, offline</a>.</p>
-<p><b>Không phải mỗi tuần mới liên lạc:</b> telemetry gửi mỗi 6 giờ; lịch xác minh license theo validation_interval của license. Mốc mất liên lạc quá 7 ngày là giới hạn cache theo FAQ, không là lịch gọi. Đề xuất warning sau 12 giờ (điều chỉnh theo interval thật), escalation 24/48 giờ; không chờ ngày 3 mới phát hiện. <a href="https://directus.com/docs/licensing/telemetry">S04 · telemetry</a> · <a href="https://github.com/directus/directus/blob/v12.3.1/api/src/schedules/license.ts">S05 · source v12.3.1</a>.</p>
-<p><b>Chốt Host:</b> đủ điều kiện OIG không đồng nghĩa đủ điều kiện production. Khi chưa chứng minh phương án cho outage dài và Owner vắng mặt, chưa nghiệm thu Directus12 cho yêu cầu này. G0 chỉ đọc vẫn tiến hành chuẩn bị; UI trial được tách, licensing gate không được tách bỏ.</p>
+<p><b>Cảnh báo theo P06:</b> probe an toàn mỗi 5 phút, hai lần lỗi liên tiếp báo Telegram khoảng 10 phút. Ba đồng hồ tách riêng: kết nối licensing; validation/cache expiry; ping + đọc nghiệp vụ được phép. Không POST refresh/activation để probe. Recovery có biên bắt đầu khi chẩn đoán đủ, không đợi cứng 24h; 24/72h là escalation. Thời gian còn lại tính entitlement thực, chưa đo không nói chắc “còn 4 ngày”.</p>
+<p>VPS2 canh VPS1 có heartbeat, độc lập Directus; cùng provider vẫn có lỗi chung. Hermes chỉ làm bước đã thực sự có quyền, không tự mở shell/root; ưu tiên job vận hành đã duyệt. Email monitor pha sau, mailbox cấp key vẫn phải nhận thông báo. <a href="https://directus.com/docs/licensing/telemetry">S04 · telemetry</a> · <a href="https://github.com/directus/directus/blob/v12.3.1/api/src/schedules/license.ts">S05 · lịch license</a>. Các cơ chế mới CHƯA TRIỂN KHAI.</p>
+<p><b>Chốt Host P07 — nhận P06:</b> bỏ chặn cutover tới khi có offline. G7 xét khi LC1–LC5 đạt, LC6 đã đánh giá, có monitor/recovery/rollback đã thử và Owner chấp nhận rủi ro cụ thể cùng RUN cuối. Chốt mô hình hôm nay không là nhận mọi residual risk hoặc RUN. Không hứa hoạt động vô hạn khi mất licensing.</p>
 </section>
 
 <section class="card" id="architecture">
@@ -117,7 +119,8 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <tr><td>Nuxt</td><td>Lịch sử: 3.20.2; candidate 4.5.x + Node24</td><td>Giữ compatibility shell trong migration; không dùng việc nâng Nuxt làm lý do tiếp tục phụ thuộc Agency OS dài hạn.</td></tr>
 <tr><td>Agency OS</td><td><b>LEGACY / EXIT</b> · upstream cuối 26/03/2025</td><td>Không có “target version” dài hạn. Chuyển dần sau khi product trial PASS; không big-bang.</td></tr>
 <tr><td>UI product trial</td><td>NGOÀI PHẠM VI CUTOVER</td><td>Chưa chọn sản phẩm, chưa mở task, chưa cài. Chuyển quyết định UI về nguồn thiết kế UI/MMIM hiện hữu khi được giao.</td></tr>
-<tr><td>Qdrant/Nginx/Docker/worker/khác</td><td>Không phải core mặc định</td><td>Giữ nguyên nếu an toàn; chỉ nâng khi dependency/security/capability có lợi rõ.</td></tr>
+<tr><td>Qdrant</td><td>Ghim image thực sau G0 và RUN phù hợp</td><td>Cửa nâng riêng sau cutover nếu security/exposure cho phép; lỗ hổng áp dụng chưa giảm thiểu thì không tự hoãn. Từng nấc theo hướng dẫn bản đích.</td></tr>
+<tr><td>Nginx/Kuma/Hermes/MCP/JEV và phụ trợ</td><td>Giữ nếu tương thích/an toàn</td><td>Container pin digest; Docker engine/package pin version, không nhầm image. Agent-data/SDK thay theo kiểm dependency, không suy major SDK bằng major server.</td></tr>
 </tbody>
 </table>
 <p class="small muted">Final target pin version/digest sau khi kiểm support, advisory và rehearsal tại G3/G7. Tuổi bản phát hành chỉ là một yếu tố; bản vá bảo mật áp dụng có thể cần lên sớm. Docker restart đơn thuần không tự pull image: khảo sát cả pull/recreate/auto-updater trước đánh giá drift.</p>
@@ -133,14 +136,17 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <div><h3>D. MMIM slice</h3><ul><li>same IDs/fixtures</li><li>same expected semantics</li><li>human path</li><li>permission deny/allow</li><li>trace/audit</li></ul></div>
 </div>
 <p class="callout danger"><b>Isolation bắt buộc:</b> clone VPS2 không được gửi tác động production hoặc tranh consumer với VPS1. Chặn egress chưa chặn Flow ghi dữ liệu nội bộ: inventory và kiểm schedule/worker trước boot, lưu chênh lệch so production. Dữ liệu cá nhân/secret clone cần phạm vi và xử lý đã duyệt.</p>
-<h3>LC1–LC6 · bổ sung nghiệm thu giấy phép và Owner-absent (CHƯA CHẠY)</h3>
+<h3>SEC · cách ly và quyền — CHƯA CHẠY</h3>
+<p>Hai tenant A/B; A1/A2 cùng công ty chưa có quyền chéo; A3 được uỷ quyền đúng phạm vi. Thử bỏ filter, đổi tenant/id, relation nhiều tầng, export/aggregate, files/revisions, cache/search/Qdrant, job/Flow, gọi trực tiếp API và tự cấp App/Admin policy. Thiếu quyền phải bị chặn ở server, không chỉ ẩn UI. CURRENT lỗi thì ghi FAIL/gap, không sửa expected để đạt TARGET.</p>
+<p>G0 chỉ liệt kê đường cần cưỡng chế, không bật RLS toàn DB hay viết SaaS framework. Chưa chứng minh cách ly thì chưa mở khách thật; một PostgreSQL không tự là bằng chứng cách ly. <a href="https://directus.com/docs/guides/auth/access-control">S10</a> · <a href="https://www.postgresql.org/docs/current/ddl-rowsecurity.html">S11</a>.</p>
+<h3>LC1–LC6 · nghiệm thu giấy phép và Owner-absent (CHƯA CHẠY)</h3>
 <ol>
 <li>LC1: đo validation_interval, entitlement, expiry và trạng thái thực; phân biệt license validation, telemetry và owner registration.</li>
 <li>LC2: mất licensing trong lab rồi nối lại; test API MOT được phép/không được phép, token refresh thực, không chỉ GET200 tới domain.</li>
 <li>LC3: restart, restore DB vào cùng/khác PUBLIC_URL; chứng minh không làm mất binding hoặc tiêu hết activation; không giả định 7 ngày áp như nhau mọi boot.</li>
 <li>LC4: một và cả hai đường mạng hỏng; license hết hiệu lực/lock/recover trong môi trường thử do hãng cho phép hoặc test harness cô lập. Không đổi giờ production, không giả token/giả response.</li>
 <li>LC5: Owner không trả lời; monitor không lệ thuộc Directus, recovery có biên/rollback và kênh bên ngoài vẫn hoạt động.</li>
-<li>LC6: mất licensing kéo dài vượt cache; phải có phương án hợp pháp đã diễn tập hoặc ghi rõ chưa đạt. Backup+5 query chỉ PASS dữ liệu; không PASS ứng dụng MOT dự phòng.</li>
+<li>LC6: đánh giá khi quá hạn cache bằng exact source + lab phần kiểm được, ghi giới hạn và incident runbook. Chưa thử là UNKNOWN, không PASS. Residual risk đưa cùng RUN cuối; không bắt mua offline. PASS đánh giá không là đã có app offline. Không giả token hay đổi giờ hệ thống để né giấy phép.</li>
 </ol>
 </section>
 
@@ -157,7 +163,20 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 </section>
 
 <section class="card" id="plan">
-<h2>8. Các gate dự kiến</h2>
+<h2>8. Kế hoạch hòa giải — 10 bước, một bước thực thi đang mở</h2>
+<ol>
+<li><b>Chốt:</b> Owner xác định SaaS; Host hòa giải P06 ở P07, không xin lại điều kiện/mô hình.</li>
+<li><b>G0 chỉ đọc:</b> một lệnh VPS1/VPS2/Drive; phiên bản, quyền, mạng, disk, backup, lịch chạy và lộ dịch vụ.</li>
+<li><b>Nhận key OIG:</b> đăng ký chuẩn đúng project/URL/contact; không thư xin duyệt SaaS/chờ offline. Người có thẩm quyền cho phép trước đăng ký; key hợp lệ trước thử target vượt Core.</li>
+<li><b>Pin và giám sát:</b> RUN thay đổi nhỏ, pin cấu hình không restart; canh chéo/Telegram và chốt quản trị; giảm thiểu security theo kết quả G0.</li>
+<li><b>VPS2 sẵn sàng:</b> backup e-learning vào prefix Drive riêng, thử restore, cleanup đã duyệt; đo RAM/disk thật, không tự mua/nâng gói.</li>
+<li><b>Clone CURRENT:</b> manifest/quyền dữ liệu/isolation trước boot; chặn tác động cả nội bộ lẫn ngoài, ghi khác biệt parity; baseline A–D/SEC.</li>
+<li><b>Nâng lab từng lớp:</b> PG có checkpoint/fallback; Directus/Nuxt/Node/SDK/extension theo nguồn; A–D/SEC/LC sau từng lớp.</li>
+<li><b>Diễn tập:</b> rollback/cutover trên dữ liệu VPS1 mới, đo RTO/RPO; rà delta và giữ lõi trong cửa sổ ngắn.</li>
+<li><b>Cutover:</b> Owner chọn cửa sổ + RUN kèm rủi ro thực; dừng nguồn ghi, final backup, chạy công thức. Chừa ngân sách rollback, không mở ghi mới trước đạt gate.</li>
+<li><b>Theo dõi 7 ngày:</b> gồm chu kỳ license/backup, đóng sau nghiệm thu và xử lý incident. Qdrant/email/UI-exit theo phạm vi được giao sau, không tự mở task/RUN.</li>
+</ol>
+<p><b>Chốt kế hoạch không cấp quyền thực thi cả 10 bước.</b> Mỗi bước mutation cần RUN đúng scope; không hỏi lại điều đã chốt. Các bài test chưa PASS.</p>
 <table>
 <tr><th>Gate</th><th>Điều kiện qua</th></tr>
 <tr><td>G0 · Inventory</td><td>Biết thật VPS1/VPS2/backup/Agency OG/routes/side-effects; không còn giả định quan trọng.</td></tr>
@@ -167,7 +186,7 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <tr><td>G4 · TARGET parity</td><td>Same slice + route/API/UI/runtime matrix PASS; regression disposition xong.</td></tr>
 <tr><td>G5 · Rollback rehearsal</td><td>Rollback thật trên lab, không chỉ có tài liệu.</td></tr>
 <tr><td>G6 · Cutover rehearsal</td><td>Chạy trọn runbook, biết downtime và failure point.</td></tr>
-<tr><td>G7 · Production</td><td>Backup final + cutover + acceptance, LC1–LC6 đạt trong scope; outage dài còn chưa giải thì chưa PASS Owner-absent. Time-box phải chừa thời gian rollback. Chưa mở ghi mới thì rollback mốc trước; đã mở ghi phải reconcile dữ liệu mới, không restore mù.</td></tr>
+<tr><td>G7 · Production</td><td>Backup final, security/compatibility/SEC theo scope và LC1–LC5 đạt; LC6 đánh giá/phần chưa biết/residual risk Owner duyệt cùng RUN. Không gate offline, không UNKNOWN=PASS. Chừa thời gian rollback; đã mở ghi phải reconcile, không restore mù dữ liệu cũ.</td></tr>
 </table>
 </section>
 
@@ -176,15 +195,15 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <p><b>Chuẩn bị G0, chưa RUN:</b> không đợi trả lời vendor để kiểm những phần độc lập; kết quả vào hai file hiện hữu, không thêm nguồn/pipeline/task.</p>
 <table><thead><tr><th>Nhóm</th><th>Đầu ra cần có</th></tr></thead><tbody>
 <tr><td>G0-A · inventory read-only</td><td>VPS1/VPS2: phiên bản/image thực, route giaoduc/elearning, nguồn sinh dung lượng, task/cron/worker và caller; Drive: backup phủ DB/files/config nào, tuổi bản, cơ chế mã hoá, bằng chứng restore đã có. Không dump/mở dữ liệu nhạy cảm; số cũ ghi ngày, không gọi live.</td></tr>
-<tr><td>G0-B · licensing/commercial</td><td>Đối chiếu S01–S07; exact target source về cache/refresh/restart và offline; bảng project/URL/activation; policy App/Admin trên account máy/khách. Chuẩn bị hỏi hãng về mô hình nhà máy quy trình, DR khi dịch vụ hãng hỏng, offline/emergency entitlement, renewal/giá. Không gửi thư/đăng ký/mua thay Owner.</td></tr>
+<tr><td>G0-B · licensing/quyền</td><td>Nguồn chuẩn/cache/refresh/restart/project/URL/activation; effective App/Admin policy máy; DB role/BYPASSRLS/ownership/pooling; endpoint licensing và monitoring. Không hỏi lại điều kiện, không POST activation/refresh, đăng ký/gửi thư/mua hay in token/secret.</td></tr>
 <tr><td>G0-C · phương án an toàn</td><td>Chọn đường ra dự phòng khả thi trên hạ tầng sẵn có; tính common failure và độc lập monitor; kế hoạch LC1–LC6, RTO/RPO đo tại rehearsal; tách data restore và app continuity. Chỉ metadata/read-only, không DNS/firewall/nginx/restart/restore/fault injection.</td></tr>
 </tbody></table>
-<p>Claude ghi P06 phản biện đúng phần mới P05 + chỉnh đề cương G0. Host sau đó phát đúng một PROMPT đã review, không yêu cầu Owner trả lời lại doanh thu hoặc tự xử lý kỹ thuật.</p>
+<p><b>Giao Claude:</b> soạn một nội dung lệnh G0 ngay §9 này, không thêm file/task. Được sửa riêng §9 + trace COLLAB; giữ P07. Chỉ rõ Executor_Surface Claude Code CLI, Write_Path gateway workspace_*/fs_* đã bind, nguồn runtime VPS chứ không repo backup, hai host lấy từ cấu hình hiện hữu, đầu ra G0 tại tài liệu này. Read-only allowlist/timeout; cấm cleanup/restore/restart/pull image/đổi DNS/secret dump/fault injection/POST nghiệp vụ. Host kiểm lệnh trước RUN; không mở vòng hỏi lại mô hình/OIG.</p>
 </section>
 
 <section class="card" id="status">
 <h2>10. Trạng thái hiện tại</h2>
 <p><b class="ok">Đã mở task và chốt mục tiêu.</b> Chưa có PROMPT, READY hoặc RUN. Chưa có hành động trên VPS.</p>
-<p><b>Next:</b> Claude P06 + hoàn thiện G0-A/B/C → Host phát một lệnh khảo sát chỉ đọc khi đủ đầu vào. Chưa chạy thử low-code, chưa thay hạ tầng, chưa đăng ký hoặc đổi key. Licensing continuity còn là cổng OPEN, không hứa “không bao giờ dừng”.</p>
+<p><b>Next:</b> Claude soạn lệnh G0 tại §9 → Host kiểm đầu vào rồi giao khảo sát. Hướng chính P06 đã hòa giải P07; chưa RUN/tạo PROMPT, thay hạ tầng, thử low-code hoặc đăng ký/đổi key. Các điều kiện G7 chưa nghiệm thu.</p>
 </section>
 </main></body></html>

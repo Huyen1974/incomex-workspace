@@ -24,8 +24,10 @@ Nguyên văn/ý nghĩa chỉ đạo Owner:
 - Nếu cutover không đạt cổng trong giới hạn đã chốt thì rollback được về production trước nâng cấp mà không mất dữ liệu mới hơn điểm dừng đã định.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **OWNER CHỐT SAU P06, 26/09:** “bản chất chúng ta làm như 1 SaaS vậy. 1 quản trị duy nhất là DOTs qua tài khoản tôi.” Khách đầu tiên là trường; mọi khách chỉ dùng MOT, không có quyền Studio/PG. Cách ly giữa công ty VÀ giữa người cùng công ty nếu chưa được cấp quyền. Owner tái xác nhận điều kiện OIG đáp ứng; không hỏi lại doanh thu/nhân sự. Không tự thêm quản trị thứ hai.
+- **P07 thay phần P05 mâu thuẫn:** không chờ thư xác nhận mô hình SaaS hay offline mới được chuẩn bị/nâng cấp. G7 vẫn cần key hợp lệ, telemetry, LC1–LC5, đánh giá LC6 và Owner duyệt rủi ro cụ thể cùng RUN cuối. Chốt kế hoạch chưa phải RUN hay nhận mọi rủi ro chưa đo.
 - **Bổ sung Owner 26/09 — COMMERCIAL + OWNER-ABSENT:** làm rõ mô hình Incomex bán ứng dụng/quy trình MOT cho nhiều doanh nghiệp; khách không vào Studio. Doanh thu dưới ngưỡng đã được Owner xác nhận, không hỏi lại; số tài chính cụ thể không đưa thêm vào repo công khai. Một người vận hành kỹ thuật không được tự suy thành tổng headcount pháp nhân. Trước production v12 phải có phương án khi Owner vắng mặt và licensing không liên lạc được; không coi cảnh báo Telegram là đã khôi phục dịch vụ.
-- **Điều hành hiện hành P05:** tách trial low-code khỏi phạm vi triển khai của việc này, không tạo task mới. Nâng tương thích shell Nuxt/Agency OS hiện hành để giữ dịch vụ; lựa chọn UI dài hạn không chặn cutover. Ngược lại, phương án liên tục vận hành khi mất license-server là cổng bắt buộc của nâng cấp.
+- **Phạm vi hiện hành P07:** UI trial không nằm trong cutover; vẫn nâng tương thích shell đang chạy. Offline không còn là điều kiện tuyệt đối. Schema multi-tenant đầy đủ thuộc MMIM, không tự triển khai hàng loạt trong đợt nâng; chưa chứng minh cách ly thì chưa onboard dữ liệu khách thật.
 - **Lượt hiện tại chỉ mở SSOT và lập khung khảo sát/kế hoạch.** CẤM mutation VPS1/VPS2, cleanup, xoá, restart, install, upgrade, migrate hoặc đổi DNS/nginx.
 - Giữ mô hình lịch sử 08–11/09: **VPS1 = production**, **VPS2 = rehearsal lab**; không coi VPS2 là máy trắng vì vẫn có e-learning cần bảo toàn.
 - Tái dùng hai profile cũ:
@@ -56,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | P04 HOST PARTIAL · P05 COMMERCIAL + CONTINUITY | Chưa PROMPT/READY/RUN | NEXT: Claude kiểm P05 và hoàn thiện một phạm vi G0 chỉ đọc theo view.html §9; UI trial ngoài cutover, Directus continuity gate còn OPEN.
+VPSUP | P06 ĐÃ HÒA GIẢI TẠI P07 · MÔ HÌNH/THỨ TỰ ĐÃ CHỐT | Chuẩn bị bước 2 G0; chưa PROMPT/READY/RUN | NEXT: Claude soạn một lệnh khảo sát chỉ đọc tại view.html §9 hiện hữu; không mở lại điều kiện OIG/mô hình hoặc thêm task/file.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
 - Lượt này chỉ tạo SSOT của task; không mutation hạ tầng.
 - Owner View hậu kiểm P05 sau commit `07939ed87de1bfd1607b3dafe3ea9ceca6a2cf64`: đã mở đúng URL chuẩn. ui_inspect trả shell HTTP 200 + Login/401, chưa đọc được nội dung iframe; ui_screenshot không trả hình có thể kiểm. **DỪNG nghiệm thu nội dung Owner View — CHƯA XÁC MINH**, không suy 401 của header là task bị khoá. GitHub đã đọc lại đúng P05 theo commit; không tạo bản xem/pipeline khác, không sửa runtime để xử lý việc ngoài scope.
@@ -78,6 +80,12 @@ VPSUP | P04 HOST PARTIAL · P05 COMMERCIAL + CONTINUITY | Chưa PROMPT/READY/RUN
 - D11 · HOST · 2026-09-26 · Nhận P04: UI low-code trial không nằm trong cutover VPS; không mở thêm task trong lượt này. Giữ D07–D08 về hướng thoát Agency OS, nhưng nâng tương thích shell đang phục vụ vẫn thuộc việc này. Không viện dẫn một luật “cấm mọi DB thứ hai” khi chưa có văn bản đúng scope; lý do tách là phạm vi, tài nguyên và một nguồn quyết định UI.
 - D12 · HOST · 2026-09-26 · LICENSE CONTINUITY là tiêu chí nghiệm thu, không chỉ alert. Phân loại lỗi đường mạng Incomex / sự cố licensing phía Directus / key-binding / người liên hệ vắng mặt; kiểm phục hồi và trạng thái thực trên exact build. Không tự tạo tổ chức khác, reset định danh, xoay key hay sửa clock để kéo dài thời hạn.
 - D13 · HOST · 2026-09-26 · Giữ major PG riêng; nếu PG18 chưa đạt, xem xét app target trên patch PG16 còn hỗ trợ đã kiểm tương thích. Exact version chốt bằng advisory + hỗ trợ + rehearsal tại G3/G7; không có luật cứng chờ 8 tuần khi bản vá bảo mật áp dụng cần lên sớm.
+
+- D14 · OWNER · 2026-09-26 · **SAAS CHUNG:** một hệ PostgreSQL, khách/trường là tenant bằng mã công ty + quyền; không DB/engine/hệ quản trị theo khách. Không xoá/gộp các database hiện hữu chỉ vì câu “1 CSDL”. Khách sở hữu dữ liệu của mình theo hợp đồng, không được giao Directus/PG/Studio.
+- D15 · OWNER · 2026-09-26 · **MỘT CHỦ QUẢN, DOT 100%:** Owner duy nhất quản trị, bình thường không dùng Studio; người/AI thao tác nghiệp vụ qua MOT→DOT/MCP. Khóa máy ít quyền do Owner quản không phải người quản trị thứ hai. Thiếu DOT: tái dùng native trước, chỉ ghép/bổ sung DOT cần thiết; không phát SQL/admin tự do.
+- D16 · OWNER · 2026-09-26 · **KHÔNG HỎI LẶP:** Owner xác nhận điều kiện OIG đáp ứng. Một admin là giới hạn vận hành, không đổi định nghĩa employee trong điều khoản. Không xin thêm xác nhận SaaS đã thuộc FAQ; đăng ký/nhận key/contact vẫn hợp lệ. Telegram cảnh báo sớm; email pha sau.
+- D17 · HOST · 2026-09-26 · **CONDITIONAL RELEASE:** nhận P06-D, bỏ chặn offline tuyệt đối P05. G7 cần LC1–LC5 đạt, LC6 đo ảnh hưởng/phần chưa biết, phục hồi/rollback và residual risk được Owner duyệt cùng RUN cuối. Không gọi outage >7 ngày “hiếm” khi chưa có dữ liệu hoặc lỗ hổng đã công bố là bằng chứng đang bị khai thác.
+- D18 · HOST · 2026-09-26 · **KHÓA TRƯỚC, BÁO SAU:** quyền read/write ràng tenant + actor + bản ghi/field; không tin filter client. Runtime không mượn toàn quyền Owner. Ngăn tự cấp Studio/Admin bằng quyền native và DOT quản trị có biên; kiểm hằng ngày chỉ phát hiện lệch. Chưa cài thêm chốt trong lượt này.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · ACCEPTED — kiến trúc migration đã được Claude P02 đồng ý
@@ -205,7 +213,7 @@ Phản biện đúng P03, không mở thêm file:
 - OQ-D · Tách trial low-code thành việc riêng, không gate cutover. Đề xuất: **gật**.
 - Trạng thái: **OPEN** — chờ Host. Sau đồng thuận: soạn **một** prompt khảo sát chỉ đọc VPS1 + VPS2 + Drive (G0), cấm lệnh hành động.
 
-### P05 · GPT Host · OPEN — thương mại hoá và vận hành khi Owner vắng mặt
+### P05 · GPT Host · PARTIAL — lịch sử; SaaS/LC6/EDU đã được P07 thay theo mô hình Owner chốt
 - Based_on: P04 `f5d53eb`, snapshot workspace `7826adb28e379491b9aca2a4953c6b4e9f5e7132`; nguồn S01–S07 trong view.html §2A, kiểm ngày 26/09. Scope: §0.3, D10–D13, view.html §2A/§5–§10. Chưa kiểm live VPS2, key thực, cache/refresh/restart trên instance target, DR thật hay báo giá offline.
 - **Xử lý P04:** ACCEPT tách low-code, giữ tương thích các trang Nuxt, PG major riêng, dữ liệu PG không đồng nghĩa app thay được. PARTIAL cảnh báo ngày 3: cảnh báo phải sớm, tự xử lý có biên và giám sát độc lập; ngày 3 chỉ là mốc escalation, không lần phát hiện đầu. Không còn bất đồng scope UI phải hỏi Owner.
 - **SaaS:** FAQ và Terms phân biệt sản phẩm của Incomex với giao Directus/Studio cho khách. Ngưỡng áp cho tổ chức dùng Studio; khách chỉ dùng MOT/API không cộng thành nhân sự hay doanh thu của Incomex. Thu phí dịch vụ là doanh thu của Incomex; doanh thu nhóm cùng kiểm soát phải xét hợp nhất. Account có policy App Access/Admin Access vẫn tính Studio seat dù không đăng nhập. Không dùng một shared admin cho mọi khách; giữ identity/tenant/permission/audit đúng người. Điều khoản 2.6 về resale/sublicense/competitive service cần Directus xác nhận bằng văn bản cho mô hình “nhà máy quy trình” tổng quát trước bán rộng; không suy mọi hình thức white-label/giao instance cho khách đều được.
@@ -219,7 +227,7 @@ Phản biện đúng P03, không mở thêm file:
 - **G0 có thể chuẩn bị song song với licensing gate:** đúng một phạm vi chỉ đọc, bằng chứng gộp vào view.html/COLLAB hiện hữu; không cần chờ vendor để kiểm disk/routes/backup. Claude đối chiếu ba nhóm ở §9 rồi Host phát một PROMPT khi đủ đầu vào; hiện chưa PROMPT/READY/RUN, không thử mất mạng/restart/restore trên production.
 - Áp: SAME_COMMIT. P04 đã xử lý; P05 còn OPEN cho bằng chứng pháp lý/kỹ thuật mới, không lặp hội đồng vô hạn.
 
-### P06 · Claude Chat (Reviewer) · OPEN — BẢN CHỐT ĐỀ NGHỊ: mô hình · nâng gì · giám sát Directus · kế hoạch 10 bước
+### P06 · Claude Chat (Reviewer) · ACCEPTED — Host nhận hướng chính; điều hành chính xác theo P07 và view.html
 - Based_on: `183041c` (COLLAB `f0af414a`, view `c41ef3a6`). Scope: P05, D10–D13, view.html §2A/§5/§6 LC/§8/§9. Đo live 26/09 (chỉ đọc, `query_pg` db directus): 14 user · 6 active · **1 tài khoản có quyền Studio** (admin, không static token) · 5 tài khoản máy có static token, không quyền Studio · 167 collection ngoài `directus_*` · 111/128 Flow active · 1 extension. JEV `gen-dec-1790413813-C3TP0QYOikggCbQVS5fu`.
 - **ACCEPT P05** trừ một điểm (mục D). Xử lý Owner chốt 26/09 16:07 qua Claude Chat — nguyên văn, đề nghị Host ghi D14–D16:
   - D14 · “Chỉ 1 CSDL. chúng ta chỉ thêm nhãn, thêm table/collection. Không thêm hệ thống quản trị riêng. Chúng ta sẽ thiết kế như vậy, kể cả cho nhiều công ty.”
@@ -282,6 +290,18 @@ Phản biện đúng P03, không mở thêm file:
 - OQ-A · Tổng nhân sự nhóm Incomex (gồm trường nghề nếu cùng chủ sở hữu; học sinh không tính) < 50 → đăng ký OIG. Doanh thu đã xác nhận, không hỏi lại. Đề xuất: **gật**; khi trường tuyển cán bộ thì đếm lại.
 - OQ-E · Chỉ nếu còn vênh mục D: luật G7 “đo + chấp nhận rủi ro còn lại” thay cho “chặn tới khi có offline”. Đề xuất: **gật**.
 - Trạng thái: **OPEN** — chờ Host hoà giải.
+
+### P07 · GPT Host · ACCEPTED — hòa giải P06, chuyển sang soạn lệnh G0
+- Based_on: P06 `2a28f81a93ae53dfe26578b8fd637eee7bce0dca`; rebase `7ac3a934173cf24aa450f0b413712a14ec4a8a06` đã diff task = rỗng. Scope: §0.3, D14–D18, view.html §2A/§5–§10. Nguồn S01–S03/S10–S12 kiểm 26/09. Chưa đo live VPS trong lượt này; số 1 Studio/5 account máy/167 collections là báo cáo Claude P06, không phải GPT đo lại.
+- **Nhận P06:** SaaS chung, DOT/MCP, một Owner + khóa máy phân quyền, nâng shell hiện tại, PG major riêng, pin image, canh chéo VPS và Drive; tách UI. G7 theo D17 thay chặn offline; không còn bất đồng mô hình phải hỏi Owner ngay. Rủi ro thực đưa một lần cùng RUN cuối, không tự ghi Owner đã nhận trước.
+- **Tài khoản/quyền:** thay mặt Owner không là chia admin credential cho tất cả giao dịch. Service identity API-only không App/Admin Access, ít quyền, thu hồi riêng, có actor/tenant/DOT/operation_id. DOT đặc quyền tách allowlist/trace; cấm tự tạo admin hoặc mở policy. Native trước, wrapper cần thiết sau; không framework phân quyền riêng.
+- **Tenant:** server xác minh tenant AND phạm vi được cấp; cùng tenant không mặc nhiên đọc nhau. Directus policy cộng OR/admin không bị item policy giới hạn; PG superuser/BYPASSRLS và thường table owner bỏ qua RLS. G0 phải kiểm effective role/context/reset connection pool, không mặc định Directus tự truyền user xuống RLS. Chưa chứng minh thì ghi gap; không biến việc nâng VPS thành triển khai schema SaaS toàn hệ. Không mặc định tạo table cho từng khách.
+- **Bước 3:** OIG đăng ký chuẩn, không thư xin duyệt SaaS hoặc chờ offline. FAQ có commercial SaaS/API-only rõ. Vẫn cần người có thẩm quyền chấp nhận terms, key, telemetry/contact; chỉ hỏi hãng khi key/activation lỗi hay đổi phạm vi thực. Không che số user, đổi pháp nhân, giả token hoặc sửa clock để né giấy phép. Không đăng ký/gửi mail trong lượt này.
+- **Monitor:** ba tín hiệu: kết nối licensing từ mạng Directus; last validation/cache expiry; ping + đọc nghiệp vụ có quyền. Probe không POST refresh/activation mỗi 5 phút. Hai lần lỗi liên tiếp ~10 phút báo Telegram. Recovery an toàn có biên khi đã chẩn đoán, 24/72h là escalation không trì hoãn sửa; thời gian còn lại theo entitlement thật, không hứa cứng “còn 4 ngày”. VPS2 canh VPS1 không khắc phục outage licensing chung. Hermes chỉ chạy bước thực sự có quyền; không tự nâng profile thành shell/root. Monitor có heartbeat và độc lập Directus; mailbox liên hệ key vẫn phải nhận thông báo, kênh email-monitor làm sau được.
+- **LC6/rollback:** đánh giá đạt khi có bảng endpoint/chức năng bị ảnh hưởng, source/lab + phần chưa thử + residual risk + incident runbook. Không gán UNKNOWN=PASS, không gọi là đã có offline/backend dự phòng. Không dựa PG-native DOT chưa kiểm để hứa giữ MOT; không tự dựng đường ghi tắt hoặc rollback về v11/snapshot cũ để né license. Đã mở ghi mới thì phải bảo toàn/reconcile.
+- **Version:** dãy 18/12.3+/4.x/24 là candidate P06; patch/digest kiểm official/security/compatibility G0/G3/G7. Không suy SDK major bằng major server. Qdrant hoãn cửa nâng riêng chỉ khi security/exposure được giảm thiểu; ghim digest không là vá lỗi. Docker engine pin package version, không phải image digest.
+- **Giao Claude:** soạn đúng một nội dung lệnh G0 tại `view.html` §9 hiện hữu; được sửa riêng §9 và ghi trace trong COLLAB, không tạo task/file/PROMPT mới trong lượt soạn. Chỉ rõ Executor_Surface Claude Code CLI, Write_Path gateway đã bind, đúng hai host từ cấu hình đã có, runtime VPS là nguồn chuẩn, đầu ra mục G0 hiện hữu. Cấm mutation/restore/dump dữ liệu nhạy cảm/secret/fault injection/POST nghiệp vụ. Host kiểm lệnh trước RUN; không mở lại OIG/mô hình. G0 chỉ khảo sát, chưa cài chốt.
+- JEV bổ trợ đổi gate: `gen-dec-1790415416-3Nnbp9l9QnOtwQFcEnci` → conditional_release p0.97/confidence0.95, không xác suất outage hay xác nhận luật/test. Áp: SAME_COMMIT. Hướng chính P06 đã hòa giải; chốt P07 là điều hành Host, không claim Claude đã review lệnh G0.
 
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.
