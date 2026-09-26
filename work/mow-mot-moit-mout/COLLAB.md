@@ -4,7 +4,7 @@
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25.
 
 ### 1. Mục tiêu
-- Mục tiêu: xây Máy tạo quy trình — ý tưởng thảo luận của người dùng → AI khai báo → duyệt → AI khai thành quy trình chạy được. Việc này làm phần đầu của máy: các MOW vẽ UI của Field · Form · MOT · MOW.
+- Mục tiêu: xây Máy tạo quy trình — ý tưởng thảo luận của người dùng → AI khai báo → duyệt → AI khai thành quy trình chạy được. Muốn có máy phải dựng cả Nhà máy: danh mục, nơi lưu, luật cho hàng trăm quy trình và công cụ, tích luỹ qua thời gian. Việc này làm phần đầu: nền Nhà máy và các MOW vẽ UI của Field · Form · MOT · MOW.
 *(Owner nói 26/09; Claude rút gọn — chờ Owner gật. Câu cũ chuyển xuống Vòng trước.)*
 
 ### 2. Thế nào là hoàn thành
@@ -24,15 +24,30 @@ BỨC TRANH (Owner 26/09, giữ nguyên ý):
 - Nhóm đầu: 4 MOW vẽ UI (Field · Form · MOT · MOW). Chuỗi bắt buộc: luồng sử dụng thật (tạo mới · lắp ráp · khai báo · sửa/nâng cấp · xoá) → đủ bước → đủ UI → đầu bài vẽ UI → MOW vẽ UI → vẽ UI không thiếu.
 - Vì sao luẩn quẩn: “đủ” chỉ kiểm được so với một phạm vi đã chốt. Chưa chốt danh mục quy trình thì vòng nào cũng lòi thêm (02/09 Owner đã chỉ: chưa có danh sách quy trình hệ thống thì không biết cần bao nhiêu UI). Cách thoát: chốt phạm vi = danh mục quy trình nhóm đầu → đi bộ từng bước → mọi chỗ ghi trỏ về một dòng master → kiểm bằng script.
 
-CHUỖI (một ô đang làm): [⓪ Luồng → danh mục quy trình + ① Danh sách master · ĐANG LÀM, một lần đi bộ] → [② Bước · chờ] → [③ UI · chờ] → [④ Đầu bài vẽ UI · chờ] → [⑤ MOW vẽ UI, văn bản · chờ] → [⑥ Vẽ UI · chờ]
+NHÀ MÁY (Owner 26/09, giữ nguyên ý):
+- Đến nay mới cãi bản vẽ của máy (chưa bao giờ đủ). Muốn khả thi phải dựng cả nhà máy: hàng trăm quy trình, hàng trăm công cụ (DOT/script/tool), luật lệ, quy định, và nơi cất chúng.
+- Vì sao chưa định nghĩa được đầu bài: cách ghi chép — bàn một ít, làm một ít rồi bỏ đó. Phải bồi đắp: yêu cầu, quy trình, công cụ tích hợp dần qua thời gian và rà lại cái đã làm / chưa làm.
+- Công cụ đã làm và chứng minh hiệu quả phải vào kho: có mã, có phạm vi kiểm, mọi agent dùng chung, thành công cụ tiêu chuẩn. Phần kiểm nào cũng phải có công cụ (nhanh, chính xác). Không phạm vi nào trống công cụ; phạm vi chồng nhau phải có luật chồng.
+- Nhà máy = 6 kho, mỗi kho 1 danh mục + 1 nơi lưu + 1 cách nhập kho + 1 cách rà trùng/phủ (ban-duyet · 🏗): 0 Danh sách (CAT-000) · 1 Quy trình (CAT-003) · 2 Công cụ (CAT-006 + miền · thao tác · độ phủ) · 3 Luật (CAT-140) · 4 Tài liệu (CAT-078) · 5 Yêu cầu Owner (bảng D Quyết định Owner). Cả 6 dùng lại cái có sẵn.
+
+NƠI LƯU (đề xuất C11 · chờ Owner gật + Codex rà · Bậc 1 có sẵn, riêng xưởng thử là bậc 2):
+- Công cụ: kho chính /opt/incomex/dot (git, bin/, khuôn TEMPLATE-DOT-SCRIPT) + sổ dot_tools. Công cụ agent viết trong phiên → xưởng thử tools/ ở gốc repo (một thư mục chung, mỗi công cụ một mã) → đăng ký sổ → đã chứng minh thì agent chạy được trên VPS chuyển vào /opt/incomex/dot (DOT-REGISTER). JEV 0,99; riêng chỗ xưởng thử 0,54 → Host gốc chốt vì đổi cấu trúc repo.
+- Quy trình: văn bản ở repo work/<việc> (nháp) → PG workflows khi chốt.
+- Tài liệu thiết kế: repo work/<việc> là nguồn duy nhất khi đang thiết kế; KB là bản tra cứu đồng bộ; 1 chủ đề = 1 tài liệu (JEV 0,91).
+- Luật: KB laws/ + law_catalog là sổ chính, governance_docs là chỉ mục (JEV 0,89); luật phối hợp AI ở AGENTS.md.
+- Yêu cầu Owner: bảng D Quyết định Owner của từng việc, mỗi dòng có trạng thái + nơi làm; việc toàn repo đi DROOT (JEV 1,00).
+- Hồ sơ, bằng chứng chạy: /opt/incomex/work/<việc>/ (DROOT12, đã có).
+- Cưỡng chế (R2): cổng ghi chặn ghi vào kho công cụ khi mã chưa có trong sổ (JEV 1,00) — CHƯA CƯỠNG CHẾ, đề xuất giao việc mcp-workspace.
+
+CHUỖI (một ô đang làm): [N · Nền nhà máy: 6 kho có danh mục + nơi lưu + cách nhập kho; công cụ phiên này vào kho · ĐANG LÀM] → [⓪+① 38 quy trình + 84 danh sách · chờ Codex rà] → [② Bước · chờ] → [③ UI · chờ] → [④ Đầu bài vẽ UI · chờ] → [⑤ MOW vẽ UI, văn bản · chờ] → [⑥ Vẽ UI · chờ]
 
 VIỆC PHẢI LÀM (theo thứ tự, chưa xong việc trên chưa mở việc dưới):
-1. Chốt nhóm đầu của danh mục quy trình: 33 quy trình (C10) — Owner gật, Codex rà.
-2. Chốt danh sách master = 82 (63 hệ tự làm · 13 nền có sẵn · 6 chưa áp dụng) — Codex rà, không còn OPEN.
-3. Mở từng quy trình thành bước có mã (mã bước = mã quy trình + số) — Câu 2.
-4. Mỗi bước người → một UI; mã UI = mã bước + mã UI cha — Câu 3.
-5. Đầu bài vẽ UI cho 4 đối tượng → 6. viết 4 MOW vẽ UI (văn bản) → 7. vẽ UI không thiếu.
-8. Sau nhóm đầu: viết tiếp nhóm thứ nhỏ (đúc) và quản trị theo cùng khuôn; nghiệp vụ (phái cử…) là dữ liệu chạy trên máy.
+1. Chốt nơi lưu (công cụ · quy trình · tài liệu · luật · yêu cầu) — Owner gật, Codex rà, Host gốc chốt xưởng thử tools/.
+2. Đưa công cụ phiên này vào xưởng thử + sổ công cụ (23 dòng đầu, C11); rồi làm công cụ cho 4 phạm vi trống + 3 phạm vi trùng/một phần (🎯).
+3. Chốt nhóm đầu danh mục quy trình: 38 (33 của máy + 5 của nhà máy) — Owner gật, Codex rà.
+4. Chốt danh sách master = 84 — Codex rà, không còn OPEN.
+5. Bước có mã (Câu 2) → 6. UI (Câu 3) → 7. đầu bài vẽ UI → 8. viết 4 MOW vẽ UI → 9. vẽ UI không thiếu.
+10. Mỗi lượt: chỉ đạo mới của Owner vào bảng D ngay, cập nhật trạng thái dòng cũ; thêm công cụ thì chạy rà trùng/phủ.
 
 ƯU TIÊN — 3 câu phải trả lời trước (Owner 26/09, giữ nguyên ý). Chưa trả lời đúng 3 câu này thì mọi thứ khác chưa có nghĩa.
 1. Cần danh sách đầy đủ của các bảng master: mã bảng, tên bảng, các thông tin khác AI tự thêm. Câu hỏi đầu tiên: chúng ta có bao nhiêu danh sách master list?
@@ -40,7 +55,7 @@ VIỆC PHẢI LÀM (theo thứ tự, chưa xong việc trên chưa mở việc d
 3. Có bao nhiêu form UI theo step (có mã, có tên form)? Mã form quan hệ chặt với mã mẹ (Step) và mã cha (UI cha) để con người đọc lại hiểu ngay.
 
 TIẾN ĐỘ: 3 câu = nấc ① ② ③ của CHUỖI ở trên (Câu 1 đang chốt cùng ⓪).
-- Câu 1 · đang chốt: bản trả lời = tab ★ Master list V2 trong ban-duyet.html: 62 danh sách, mỗi dòng có mã, tên, bảng dữ liệu, UI (C07). Đúng khi: Owner + Codex chốt, không còn thiếu / thừa. Mã V2 đóng băng từ nay. 26/09 (C09): đã kiểm thiếu bằng JEV (3 bộ, 120 câu) → cần danh sách mới: 0; lỗ gắn bản ghi sửa bằng chỗ bắt buộc ở 10 · 50 · 51 · 56 + ghi rõ 18; tên đổi rõ nghĩa (42 danh mục · 5 liên kết · 15 sổ), mã và số dòng không đổi. Còn chờ: Codex xác nhận + 7 mã CAT chưa rõ. 26/09 (C10, sau P16 PARTIAL): C09 sai ở “0 danh sách mới”; đi bộ 33 quy trình + kỹ thuật viên (8 câu bất biến) + hệ cũ → thêm 14 dòng (63 Sổ lệnh · 64–76 nền có sẵn) + 6 dòng chưa áp dụng (77–82) = 82; mã cũ không đổi; script: mọi chỗ ghi trỏ về 1 dòng, 0 lỗi, không dòng thừa; 7 mã chưa rõ đã rõ.
+- Câu 1 · đang chốt: bản trả lời = tab ★ Master list V2 trong ban-duyet.html: 62 danh sách, mỗi dòng có mã, tên, bảng dữ liệu, UI (C07). Đúng khi: Owner + Codex chốt, không còn thiếu / thừa. Mã V2 đóng băng từ nay. 26/09 (C09): đã kiểm thiếu bằng JEV (3 bộ, 120 câu) → cần danh sách mới: 0; lỗ gắn bản ghi sửa bằng chỗ bắt buộc ở 10 · 50 · 51 · 56 + ghi rõ 18; tên đổi rõ nghĩa (42 danh mục · 5 liên kết · 15 sổ), mã và số dòng không đổi. Còn chờ: Codex xác nhận + 7 mã CAT chưa rõ. 26/09 (C10, sau P16 PARTIAL): C09 sai ở “0 danh sách mới”; đi bộ 33 quy trình + kỹ thuật viên (8 câu bất biến) + hệ cũ → thêm 14 dòng (63 Sổ lệnh · 64–76 nền có sẵn) + 6 dòng chưa áp dụng (77–82) = 82; mã cũ không đổi; script: mọi chỗ ghi trỏ về 1 dòng, 0 lỗi, không dòng thừa; 7 mã chưa rõ đã rõ. 26/09 (C11): phạm vi mở sang nhà máy → +2 dòng (83 CAT-140 luật · 84 CAT-078 tài liệu) = 84; thêm 5 quy trình nhà máy (38 quy trình), script 0 lỗi.
 - Câu 2 · chờ: trả lời bằng chính danh sách số 11 “Bước” (CAT-004): liệt kê mọi bước người làm của 4 nhóm Field · Form · MOT · MOW, đủ trường hợp (tạo mới · dùng lại · thiếu thành phần · trả sửa · kiểm lỗi · sửa · ngừng), mỗi bước một mã + một tên. Đúng khi: ra một con số cho từng nhóm và tổng, tách rõ bước người / bước máy.
 - Câu 3 · chờ: trả lời bằng danh sách số 59 “Màn” (UI con): mỗi bước ở câu 2 → form UI; mã form = mã bước + mã UI cha (kiểu đang dùng S030.UI.CONFIG). Đúng khi: mọi bước người có form, bước máy ghi rõ “không có form”.
 
@@ -55,6 +70,20 @@ NỀN ĐÃ CÓ (giữ, không xoá):
 - Mục tiêu (trước 26/09): tiếp tục hồ sơ MOW · MOT · MOIT · MOUT từ đúng file gốc Owner đang làm và xây kho thông tin liên quan có tổ chức để phục vụ rà soát/phát triển tiếp.
 - Thế nào là hoàn thành (trước 25/09): Hồ sơ MOW · MOT · MOIT · MOUT có luồng thao tác rõ từ Field lên MOW, được Host và Claude thống nhất trước khi sửa HTML. *(đề xuất — chờ Owner gật)*
 - Các vòng cũ hơn: xem “Vòng trước” trong khối “3 cũ” phía dưới.
+
+## Claude · 26/09/2026 · C11 · Nhà máy · 6 kho · nơi lưu · danh mục công cụ (dòng đầu) · bảng D bồi đắp
+- Owner 26/09 (giữ ý): công cụ agent làm trong phiên đã chứng minh hiệu quả nhưng đổi phiên là mất → không tích luỹ; bản chất là DOT/script. Cần: danh mục công cụ (master list trước), tên + phạm vi kiểm, phần kiểm nào cũng có công cụ, agent dùng chung, thành chuẩn (ít nhất Codex biết có). Máy cần ~100+ quy trình và vài trăm công cụ; quan trọng nhất: (1) kể tên các master list quản lý quy trình, công cụ…; (2) tạo những quy trình, công cụ đầu tiên; (3) thống nhất nơi lưu, quy trình lưu, quy trình rà trùng/phủ (không phạm vi trống, chồng lấn có luật), khai thác JEV. Nguyên nhân gốc: cách ghi chép rời rạc → phải bồi đắp. Phải quyết nơi lưu quy trình, công cụ, tài liệu trên VPS và ghi vào mục tiêu. Đã ghi §0 (Mục tiêu đề xuất · NHÀ MÁY · NƠI LƯU · CHUỖI · VIỆC PHẢI LÀM) + bảng D (D24–D34) + Owner cần quyết.
+- Chẩn đoán có chứng cứ: bảng D “Quyết định Owner” dừng ở D23 (24/09); mọi chỉ đạo 25–26/09 chỉ nằm rải trong ghi chú → đây đúng là chỗ đứt bồi đắp. Đã thêm D24–D34, mỗi dòng có Trạng thái · Ở đâu.
+- Kho công cụ có sẵn (Bậc 1): /opt/incomex/dot là repo git, bin/ có 228 lệnh sống + 78 bản sao lưu + TEMPLATE-DOT-SCRIPT; sổ dot_tools có tầng A (kiểm, chỉ đọc) / B (ghi), miền × thao tác, cặp A↔B. Sổ lệch đĩa: 314 dòng / 269 tên / 228 lệnh (00-NHAN-THU-MUC 30/07); DOT-COL-HEALTH trùng DOT_COLLECTION_HEALTH (JEV 0,91). Miền assembly (Đ7 Factory: input · output · task · workflow) có sẵn nhưng 0 DOT → dot-walk-check* là công cụ đầu tiên của miền này.
+- 6 kho (ban-duyet 🏗): 0 Danh sách CAT-000 · 1 Quy trình CAT-003 · 2 Công cụ CAT-006 (+ 36 · 37 · 38) · 3 Luật CAT-140 (CAT-072 governance_docs là chỉ mục) · 4 Tài liệu CAT-078 · 5 Yêu cầu = bảng D. Không thêm danh sách mới cho công cụ: dùng lại dòng 35; phạm vi kiểm = miền (36) × thao tác (37) (+ trước/sau ghi); đề xuất 2 miền mới workspace.doc · workspace.view (dữ liệu của dòng 36).
+- Nơi lưu (đề xuất, JEV `gen-dec-1790402433-c3rUNG8UmjCbIp60ycKe`): công cụ = /opt/incomex/dot + xưởng thử tools/ ở gốc repo (0,99; chỗ xưởng thử 0,54 → cần Host gốc chốt) · tài liệu = repo nguồn + KB tra cứu (0,91) · yêu cầu = bảng D từng việc + DROOT (1,00) · luật = một sổ chính, sổ kia ánh xạ (0,89) · cưỡng chế = cổng ghi chặn (1,00), CHƯA CƯỠNG CHẾ. Hồ sơ chạy giữ /opt/incomex/work/<việc>/ (DROOT12).
+- Danh mục công cụ 23 dòng đầu (ban-duyet 🛠): 9 công cụ phiên này (dot-walk-check* · dot-catalog-count* · dot-edit-simulate* · dot-push-verify* · dot-page-shot* · dot-jev-ask* · dot-pg-probe* · dot-html-gen* · dot-rename-by-code*) + bộ đổ hồ sơ phái cử → Word trên Mac (bo-phai-cu-word*) = 10 chưa vào kho · 8 DOT có sẵn · 4 cổng dùng chung (fs_transaction · ui_screenshot · query_pg · JEV evaluate) · 1 bản mẫu trong tài liệu (dot-registry-disk-check*: lệnh đếm đúng trong 00-NHAN-THU-MUC). Mã dot-* = tên lệnh tương lai trong /opt/incomex/dot/bin; * = chưa đăng ký.
+- Phạm vi × công cụ (17 phạm vi, ban-duyet 🎯): 10 đủ · 3 trùng/một phần (K08 dòng sổ trùng · K10 sổ ↔ đĩa · K16 xung đột luật) · 4 trống (K11 trùng quy trình · K12 người mới làm được UI · K13 chỉ đạo Owner đã làm/chưa · K14 trùng tài liệu). JEV từng cặp `gen-dec-1790402466-dZ5VZrIejcBka6S99W60`: walk ≠ DOT-110 (0,92) · DOT-COVERAGE ≠ DOT-110 (0,79) · DOT-HEALTH-DOT chỉ một phần cho sổ ↔ đĩa (0,53) · catalog-count chồng DOT-152 có vai khác (0,71) · edit-simulate chồng cổng fs_transaction (0,99) · page-shot chồng ui_screenshot khác thời điểm (0,96) · jev-ask chồng JEV (0,91) · push-verify vs edit-simulate = trước/sau (0,57).
+- 5 quy trình nhà máy đầu tiên (đi bộ, script 0 lỗi): CONGCU.TAO · CONGCU.RA · YEUCAU.GHI · TAILIEU.NHAP · LUAT.BANHANH. Tổng 38 quy trình · 60 bước người · 60 bước máy (nháp). 36 · 38 nay có quy trình chạm; chỉ còn 77–82 (chưa áp dụng).
+- Master list +2 vì phạm vi mở sang nhà máy: 83 CAT-140 Danh mục luật hệ · 84 CAT-078 Sổ tài liệu tri thức = 84. CAT-000 đếm theo mã duy nhất: 169 = 38 là dòng + 22 ánh xạ + 17 ngoài (xét từng mã) + 92 ngoài theo phân hệ (cms_block 26 · os_crm 24 · website 19 · business_support 9 · ai_support 4 · tổng 9 · backup 1).
+- Công cụ phiên này chưa lưu: không tự tạo thư mục mới trước khi Owner gật nơi lưu (luật một tài liệu). Gật → lượt sau đưa 9 công cụ vào tools/ + ghi sổ, rồi Claude Code CLI/Codex chuyển vào /opt/incomex/dot.
+- Áp: SAME_COMMIT ban-duyet (🏗 · 🛠 · 🎯 · dòng 83–84 · 5 quy trình nhà máy · nav · pill) + COLLAB (§0 · bảng D · Owner cần quyết). Không sửa PG, không tạo file, không đổi/xoá mã.
+- Đề nghị Codex (ACCEPT / PARTIAL dưới C11): (1) nơi lưu và cách cưỡng chế; (2) ghi thêm vào 🛠 mọi công cụ Codex/GPT đã làm và đang dùng (mã · việc · phạm vi · đang ở) để công cụ không làm lại; (3) ma trận 🎯: phạm vi nào sai, thiếu, trùng; (4) 5 quy trình nhà máy; (5) các điểm C10 còn mở.
 
 ## Claude · 26/09/2026 · C10 · Bức tranh Máy tạo quy trình · đi bộ 33 quy trình · trả lời P16 · 82 danh sách
 - **Owner 26/09 (giữ ý):** rà như Codex, dùng kinh nghiệm hệ cũ (Lark, phái cử trên web/Google Drive); trọng tâm thu hẹp: MOW đầu = vẽ UI của Field · Form · MOT · MOW; phải hình dung đủ luồng thật (tạo mới · lắp ráp · khai báo · sửa/nâng cấp · xoá) → bước → UI → đầu bài → MOW vẽ UI → UI; đích cuối là Máy tạo quy trình cần hàng trăm quy trình, phải liệt kê tên để so và xây; chi tiết phải kiểm bằng DOT/script. Đã ghi vào §0 (Mục tiêu đề xuất · Bức tranh · Chuỗi · Việc phải làm).
@@ -556,6 +585,19 @@ Hướng đúng D20: ngắn, 3 bước, 3 mảnh UI, có con số. Đã mở ngu
 - D22 · 2026-09-23 · Owner gửi review G1–G6 của Claude và yêu cầu Host “xem xét kỹ và tiếp tục điều hành”. Host nhận đây là lệnh tiếp tục chuẩn bị thi công an toàn theo consensus; rollout đầu chỉ FIELD pilot, chưa nhân 4 đối tượng còn lại trước Owner review. Deep-link tách sang task HVU, không gộp runtime VPS với sửa HTML Git.
 - D23 · 2026-09-24 · Owner trực tiếp chốt HTML chính của việc là `ban-duyet.html`: một nơi Owner duyệt, bốn phần theo lệnh OWNER-BANDUYET-20260923-01; `mow-mot-moit-mout.html` là KHO THAM KHẢO CHƯA DUYỆT, giữ nguyên SHA; tài liệu công việc từ Git, VPS chỉ mirror. Nội dung chờ duyệt ghi nhãn rõ, không coi đề xuất là quyết định.
 
+- (Từ D24: mỗi dòng có Trạng thái · Ở đâu; rà mỗi lượt — bồi đắp theo Owner 26/09. D08 trống số, không cấp lại.)
+- D24 · 2026-09-25 · Owner viết lại “Thế nào là hoàn thành” (6 điểm: ý tưởng → AI phác thảo → duyệt → AI khai chạy được; đủ bước từ dưới lên, đủ UI; AI config; mọi bước có quy trình; đơn giản · quy luật · công thức hoá; tay trước, máy sau). · Trạng thái: hiệu lực · Ở: §0.2.
+- D25 · 2026-09-25 · Chuỗi tạo từ ngoài vào: cần → tìm → có thì dùng → không có → ghi nhu cầu → duyệt → tạo → kiểm → dùng; FIELD ít nhất 4 danh sách (Field · Nhu cầu · Step · UI); thiết kế danh sách dựa trên UI cha. · Trạng thái: đã vào khuôn 6 bước · Ở: ★ Công thức.
+- D26 · 2026-09-26 · Luật gốc “≥ 2 thứ → master list”, suy rộng tới khi không thiếu; bảng nguyên tắc nhiều loại dạng hàm NẾU–THÌ (giao việc là loại đầu); danh sách DOT “ông nào làm gì”. · Trạng thái: xong bản đầu (C07) · Ở: ★ Master list.
+- D27 · 2026-09-26 · 3 câu ưu tiên (bao nhiêu danh sách · bao nhiêu bước · bao nhiêu UI; mã UI = bước + UI cha); luật ổn định: không xoá làm lại, mã không đổi, sửa thì thêm bản mới, bỏ thì ghi ngừng; chưa xong câu trước chưa mở câu sau. · Trạng thái: hiệu lực · Ở: §0.3.
+- D28 · 2026-09-26 · Dùng JEV kiểm thiếu; danh sách là tối thiểu; gắn bản ghi là cái thiếu từ gốc. · Trạng thái: xong (C09, C10) · Ở: 🔎 · 🚶.
+- D29 · 2026-09-26 · Tên phải hiểu ngay, không nhầm (MOIT → Danh mục MOIT). · Trạng thái: xong (C09).
+- D30 · 2026-09-26 · Đích là Máy tạo quy trình; nhóm đầu = MOW vẽ UI của Field · Form · MOT · MOW; chuỗi luồng → bước → UI → đầu bài → MOW vẽ UI → UI; danh mục quy trình hàng trăm, viết văn bản trước; chi tiết phải kiểm bằng DOT/script, chạy bằng quy trình cứng. · Trạng thái: đang làm (C10 · C11: 38 quy trình · 84 danh sách, chờ Codex) · Ở: §0 · 🚶 · 🏭.
+- D31 · 2026-09-26 · Lập danh mục công cụ (master list trước); mỗi công cụ có tên, phạm vi kiểm; phần kiểm nào cũng có công cụ; agent dùng chung, thành công cụ tiêu chuẩn. · Trạng thái: đang làm (C11: 23 dòng đầu, 10 chưa vào kho) · Ở: 🛠.
+- D32 · 2026-09-26 · Ngoài bản vẽ phải dựng Nhà máy: kể tên các danh sách quản lý quy trình, công cụ, luật…; tạo những quy trình, công cụ đầu tiên; máy chỉ xong khi các danh sách lên hàng trăm. · Trạng thái: đang làm (C11: 6 kho · 5 quy trình nhà máy) · Ở: 🏗.
+- D33 · 2026-09-26 · Quyết nơi lưu quy trình, công cụ, tài liệu trên VPS; quy trình lưu; quy trình rà trùng; mỗi công cụ rà đến đâu, không phạm vi nào trống hay không kiểm soát, chồng lấn phải có quy định; khai thác JEV; ghi rõ vào mục tiêu để mọi AI hiểu một kiểu. · Trạng thái: chờ Owner gật nơi lưu (C11) · Ở: §0 NƠI LƯU · 🎯.
+- D34 · 2026-09-26 · Bồi đắp hệ thống: yêu cầu, quy trình, công cụ tích hợp qua thời gian và rà lại cái đã làm / chưa làm; nguyên nhân chưa định nghĩa được đầu bài là cách ghi chép rời rạc. · Trạng thái: bắt đầu (bảng D có trạng thái từ D24) · Ở: bảng này.
+
 ## Đề xuất Host · MAP01–MAP05 + URL01 · chờ Claude review
 
 ### MAP01 · Step quy trình là bản đồ **tạo/khai thật**, không lặp tab Vòng đời
@@ -881,7 +923,7 @@ Claude REVIEWED@2d673a370a030e2b679d161132cb908f897b9503 · **ACCEPT có điều
 - H03 · **ACCEPT**: đúng nguyên nhân gốc của I02 về phần binary.
 
 ## Owner cần quyết
-- —
+- C11 · Chốt nơi lưu: công cụ = /opt/incomex/dot + xưởng thử tools/ ở gốc repo; quy trình = repo → PG workflows; tài liệu = repo nguồn + KB tra cứu; luật = KB + law_catalog; yêu cầu = bảng D có trạng thái. Đề xuất: gật (chi tiết §0 · NƠI LƯU).
 P01 lịch sử đã được A0 ngày 23/09 + D19–D22 thay thế cho lượt hiện hành; không còn là gate FIELD01.
 
 ## Sự cố / bài học Host
