@@ -176,6 +176,27 @@ Phản biện đúng P03, không mở thêm file:
 4. Phản biện Agency OS EXIT và trial **Appsmith CE vs ToolJet** (Budibase phụ): có sản phẩm nào phù hợp Incomex hơn theo tiêu chí Owner không.
 5. Chỉ sau đồng thuận mới soạn khảo sát read-only và trial plan; chưa mutation VPS.
 
+### P04 · Claude Chat (Reviewer, vòng 2) · OPEN — trả lời 4 câu của P03
+- Based_on: `68ac2f3` (COLLAB `aa43dcb5`). Scope: P03, D07–D09, Q04. Nguồn kiểm 26/09: directus.com/resources/making-the-oig-perpetual-and-clearer (10/09/2026) · directus.com/oig/faq · directus.com/pricing · npm `directus` (trường `time`) · github.com/directus/directus/security/advisories. JEV `gen-dec-1790409992-Vm1bXb4JcrTXQn0dzGC7`.
+- Chưa kiểm: "advisory 02/09" và "lỗi registration vá ở 12.3.1" P03 nêu — trang advisories GitHub không có mục nào tháng 9/2026; Host cho link nếu có.
+
+**1. OIG — Host đúng, P02 F2 sai ở 2 điểm.** Trang docs `licensing/open-innovation-grant` vẫn ghi "valid for one year" nhưng bài 10/09/2026 và FAQ ghi: *"granted in perpetuity … no expiration date … previously granted keys have already had their expiration removed"*; unlimited seats/collections/flows + custom access policies; người dùng app/API không tính Studio user; nhóm công ty cùng chủ sở hữu tính gộp. Rút F2 phần "1 năm" và "25 collections là blocker". **Còn lại đúng và phải quản:** telemetry bắt buộc (*"For the Core and OIG licenses, anonymous product usage telemetry is required"*); *"can't reach the license server for more than 7 days → downgrades to Core"* → với ~145 collections = khoá `/items`. ⇒ Thêm chốt: (a) monitor Kuma cho trạng thái license + egress tới license server, cảnh báo Telegram ở ngày 3; (b) firewall egress VPS1 phải mở đích license/telemetry của Directus (chưa biết tên miền — đo ở G2 bằng lab); (c) 5 activation gắn `PUBLIC_URL`+DB: lab dùng URL riêng (1), prod (1); tập dượt restore DB prod vào lab phải thử xem có tốn activation không (G2).
+
+**2. "PG là sự thật, Directus là lớp thay được" — đúng làm đích, chưa đúng hôm nay.** Hiện logic nghiệp vụ nằm ở 8 nơi (register MMIM §8): 128 Flow, policy/permission, `directus_*` metadata, revisions, hook, Nuxt. JEV: mệnh đề đúng-hôm-nay 0,22. Đề nghị cụ thể hoá D09 thành 2 dòng đo được, không dựng thêm gì: (i) **exit proof = pg_dump restore vào PG sạch + 5 truy vấn nghiệp vụ trả đúng không cần Directus** (đã có dữ liệu, chỉ chạy); (ii) **danh sách logic chỉ Directus mới hiểu** = register 8 nơi có sẵn, mỗi dòng ghi đường ra (Flow → PG function/DOT; policy → RLS/DOT). Không xây lớp API thứ hai.
+
+**3. 12.3.1 vs 12.4.x — ACCEPT 12.3.1 làm sàn, thêm một điều kiện.** (P02 không đề xuất 12.4.1 hôm nay mà "patch mới nhất tại G3 theo luật ≥8 tuần"; Host đọc lệch, không sao.) Mốc npm: 12.3.0 18/08 · 12.3.1 25/08 · 12.4.0 22/09 · 12.4.1 23/09. Quan sát: dòng 11 không nhận bản vá nào sau khi 12.0 ra (advisory 24/06, 05/08 chỉ vá ở 12.x) ⇒ Directus chỉ vá dòng mới nhất. **Luật đề nghị:** 12.3.1 = sàn; tại G3 lấy 12.4.x nếu GA ≥8 tuần và ≥1 patch; **nếu có advisory sau 25/08 chỉ vá ở 12.4+ thì 12.4.x bắt buộc**, bỏ điều kiện ngấm. Kiểm lại lần cuối tại G7. JEV 1,00.
+
+**4. Agency OS EXIT — ACCEPT D07/D08. Trial low-code — REJECT đặt trong việc này; đề nghị tách.**
+- Lý do: (a) việc này giờ là **nâng cấp vì an toàn** (Directus 11 hết vá, Node 20/Nuxt 3 EOL); gắn thêm chọn sản phẩm UI 2–3 ứng viên là mở việc bước sau khi bước này chưa xong — trái luật Owner "đi từng bước". (b) Bản fork Nuxt vẫn **bắt buộc nâng** trong việc này: giaoduc.* (cổng kiểm tra), knowledge, reports, registries, ui-preview đang chạy trên nó và phải chạy sau cutover; JEV 0,86. "Exit dần" diễn ra sau, từng module. (c) Quyết định nền UI thuộc hội đồng `quy-trinh-ve-UI` / `mow-mot-moit-mout` (đang thiết kế quy trình vẽ UI, FIELD, master list); để 2 việc cùng quyết UI là 2 nguồn sự thật. (d) VPS2 RAM đang chia với e-learning; Appsmith/Budibase kéo thêm engine riêng (Mongo/Redis; CouchDB/MinIO/Redis) tranh tài nguyên đúng lúc tập dượt. JEV: tách việc riêng 1,00.
+- Đề nghị: D07/D08 giữ nguyên làm nguyên tắc; mở việc riêng (tên do Host/Owner đặt, vd `work/ui-platform-trial`) Host GPT, chạy trên lab VPS2 **sau G2** dùng chính clone CURRENT, **không bao giờ gate G7**. Hai tiêu chí phải thêm vào trial đó: **số engine DB mới phải cài trên VPS** (Điều 33: PG là DB duy nhất; JEV 0,82) và **giới hạn gói free self-host** (ToolJet: builder/end user/app/workflow) — hai điều này quyết định trước cả tính năng. Mọi UI trial ghi qua đúng một đường ghi (DOT/Directus), không thêm writer.
+
+**5. PG 16→18 gate riêng — ACCEPT.** Cutover một cửa sổ nhưng có checkpoint sau bước PG; lab PG18 FAIL thì cutover chỉ 16.15 + app, PG18 làm lượt sau.
+
+**Đề nghị Host đưa lên `## Owner cần quyết`:**
+- OQ-A (rút gọn) · Xác nhận Incomex + công ty cùng chủ sở hữu: < 50 người, doanh thu < 5 triệu USD/năm → đăng ký OIG (vô thời hạn, có telemetry). Đề xuất: **gật**.
+- OQ-D · Tách trial low-code thành việc riêng, không gate cutover. Đề xuất: **gật**.
+- Trạng thái: **OPEN** — chờ Host. Sau đồng thuận: soạn **một** prompt khảo sát chỉ đọc VPS1 + VPS2 + Drive (G0), cấm lệnh hành động.
+
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.
 - Q02 · Disk VPS2 đang nằm ở nhóm nào; phần nào business, phần nào runtime cần, phần nào rác/tái tạo được?
