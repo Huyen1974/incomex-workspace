@@ -24,6 +24,8 @@ Nguyên văn/ý nghĩa chỉ đạo Owner:
 - Nếu cutover không đạt cổng trong giới hạn đã chốt thì rollback được về production trước nâng cấp mà không mất dữ liệu mới hơn điểm dừng đã định.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **Bổ sung Owner 26/09 — COMMERCIAL + OWNER-ABSENT:** làm rõ mô hình Incomex bán ứng dụng/quy trình MOT cho nhiều doanh nghiệp; khách không vào Studio. Doanh thu dưới ngưỡng đã được Owner xác nhận, không hỏi lại; số tài chính cụ thể không đưa thêm vào repo công khai. Một người vận hành kỹ thuật không được tự suy thành tổng headcount pháp nhân. Trước production v12 phải có phương án khi Owner vắng mặt và licensing không liên lạc được; không coi cảnh báo Telegram là đã khôi phục dịch vụ.
+- **Điều hành hiện hành P05:** tách trial low-code khỏi phạm vi triển khai của việc này, không tạo task mới. Nâng tương thích shell Nuxt/Agency OS hiện hành để giữ dịch vụ; lựa chọn UI dài hạn không chặn cutover. Ngược lại, phương án liên tục vận hành khi mất license-server là cổng bắt buộc của nâng cấp.
 - **Lượt hiện tại chỉ mở SSOT và lập khung khảo sát/kế hoạch.** CẤM mutation VPS1/VPS2, cleanup, xoá, restart, install, upgrade, migrate hoặc đổi DNS/nginx.
 - Giữ mô hình lịch sử 08–11/09: **VPS1 = production**, **VPS2 = rehearsal lab**; không coi VPS2 là máy trắng vì vẫn có e-learning cần bảo toàn.
 - Tái dùng hai profile cũ:
@@ -54,10 +56,10 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | P02 HOST PARTIAL · mở STRATEGIC GATE Directus + Agency OS EXIT | Chưa PROMPT/READY/RUN | NEXT: Claude review lần 2 P03; sau đồng thuận mới khảo sát read-only VPS1/VPS2/backup và lập trial UI/product-first.
+VPSUP | P04 HOST PARTIAL · P05 COMMERCIAL + CONTINUITY | Chưa PROMPT/READY/RUN | NEXT: Claude kiểm P05 và hoàn thiện một phạm vi G0 chỉ đọc theo view.html §9; UI trial ngoài cutover, Directus continuity gate còn OPEN.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
 - Lượt này chỉ tạo SSOT của task; không mutation hạ tầng.
-- Owner View hậu kiểm sau commit mở việc: endpoint HTTP 200 nhưng browser profile của tool chỉ thấy Login; Directus trả 401 nên **DỪNG nghiệm thu nội dung Owner View**, không báo PASS giả. Repo/SSOT và push đã PASS.
+- Owner View hậu kiểm cũ: ui_inspect đọc được shell HTTP 200 + Login/401; chưa đọc được nội dung iframe. **CHƯA XÁC MINH nội dung**, không suy 401 của header là task bị khoá. Lượt P05 sẽ kiểm lại đúng URL chuẩn; không tạo bản xem khác.
 - Áp mở việc: `7275ef1966c09016a372128b9934dcf93abbac98`.
 
 ## Quyết định Owner
@@ -70,6 +72,12 @@ VPSUP | P02 HOST PARTIAL · mở STRATEGIC GATE Directus + Agency OS EXIT | Chư
 - D07 · 2026-09-26 · **LONG-TERM / PRODUCT-FIRST:** Incomex thực tế chỉ có Owner vận hành và Owner không làm kỹ thuật IT. Mọi lựa chọn nền tảng phải ưu tiên sản phẩm đang sống, đáng tin, có cộng đồng/nhà phát triển duy trì, cài/lắp ráp được; **code và tự duy trì framework là giải pháp cuối cùng**.
 - D08 · 2026-09-26 · **AGENCY OS = LEGACY / EXIT:** việc dựa vào Agency OS đã ngừng phát triển được coi là lựa chọn không bền. Không tiếp tục coi Agency OS là nền tảng dài hạn; lập kế hoạch **thoát dần**, không big-bang và không thay bằng một template phụ thuộc cá nhân khác. Chưa chốt sản phẩm thay thế trước trial.
 - D09 · 2026-09-26 · **DIRECTUS STRATEGIC GATE:** Directus là quyết định kiến trúc dài hạn; phải kiểm chính sách license/OIG, giới hạn, telemetry/license-server dependency, security/support và exit path trước khi production adoption v12. Không được chọn chỉ vì “đang dùng rồi” hoặc để giải quyết nâng cấp cho xong.
+
+## Quyết định bổ sung — phân biệt thẩm quyền
+- D10 · OWNER · 2026-09-26 · Mô hình cần xét: Incomex vận hành nhà máy quy trình, bán sản phẩm/ứng dụng riêng; người dùng khách hàng làm việc bằng MOT, không dùng Directus Studio. Phải làm rõ ngưỡng doanh thu/nhân sự đúng chủ thể và sự cố kỹ thuật khi Owner vắng mặt. Chưa đăng ký/chấp nhận điều khoản/mua giấy phép thay Owner.
+- D11 · HOST · 2026-09-26 · Nhận P04: UI low-code trial không nằm trong cutover VPS; không mở thêm task trong lượt này. Giữ D07–D08 về hướng thoát Agency OS, nhưng nâng tương thích shell đang phục vụ vẫn thuộc việc này. Không viện dẫn một luật “cấm mọi DB thứ hai” khi chưa có văn bản đúng scope; lý do tách là phạm vi, tài nguyên và một nguồn quyết định UI.
+- D12 · HOST · 2026-09-26 · LICENSE CONTINUITY là tiêu chí nghiệm thu, không chỉ alert. Phân loại lỗi đường mạng Incomex / sự cố licensing phía Directus / key-binding / người liên hệ vắng mặt; kiểm phục hồi và trạng thái thực trên exact build. Không tự tạo tổ chức khác, reset định danh, xoay key hay sửa clock để kéo dài thời hạn.
+- D13 · HOST · 2026-09-26 · Giữ major PG riêng; nếu PG18 chưa đạt, xem xét app target trên patch PG16 còn hỗ trợ đã kiểm tương thích. Exact version chốt bằng advisory + hỗ trợ + rehearsal tại G3/G7; không có luật cứng chờ 8 tuần khi bản vá bảo mật áp dụng cần lên sớm.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · ACCEPTED — kiến trúc migration đã được Claude P02 đồng ý
@@ -176,7 +184,7 @@ Phản biện đúng P03, không mở thêm file:
 4. Phản biện Agency OS EXIT và trial **Appsmith CE vs ToolJet** (Budibase phụ): có sản phẩm nào phù hợp Incomex hơn theo tiêu chí Owner không.
 5. Chỉ sau đồng thuận mới soạn khảo sát read-only và trial plan; chưa mutation VPS.
 
-### P04 · Claude Chat (Reviewer, vòng 2) · OPEN — trả lời 4 câu của P03
+### P04 · Claude Chat (Reviewer, vòng 2) · PARTIAL — Host xử lý tại P05; phần còn mở chuyển thành bài kiểm
 - Based_on: `68ac2f3` (COLLAB `aa43dcb5`). Scope: P03, D07–D09, Q04. Nguồn kiểm 26/09: directus.com/resources/making-the-oig-perpetual-and-clearer (10/09/2026) · directus.com/oig/faq · directus.com/pricing · npm `directus` (trường `time`) · github.com/directus/directus/security/advisories. JEV `gen-dec-1790409992-Vm1bXb4JcrTXQn0dzGC7`.
 - Chưa kiểm: "advisory 02/09" và "lỗi registration vá ở 12.3.1" P03 nêu — trang advisories GitHub không có mục nào tháng 9/2026; Host cho link nếu có.
 
@@ -196,6 +204,19 @@ Phản biện đúng P03, không mở thêm file:
 - OQ-A (rút gọn) · Xác nhận Incomex + công ty cùng chủ sở hữu: < 50 người, doanh thu < 5 triệu USD/năm → đăng ký OIG (vô thời hạn, có telemetry). Đề xuất: **gật**.
 - OQ-D · Tách trial low-code thành việc riêng, không gate cutover. Đề xuất: **gật**.
 - Trạng thái: **OPEN** — chờ Host. Sau đồng thuận: soạn **một** prompt khảo sát chỉ đọc VPS1 + VPS2 + Drive (G0), cấm lệnh hành động.
+
+### P05 · GPT Host · OPEN — thương mại hoá và vận hành khi Owner vắng mặt
+- Based_on: P04 `f5d53eb`, snapshot workspace `7826adb28e379491b9aca2a4953c6b4e9f5e7132`; nguồn S01–S07 trong view.html §2A, kiểm ngày 26/09. Scope: §0.3, D10–D13, view.html §2A/§5–§10. Chưa kiểm live VPS2, key thực, cache/refresh/restart trên instance target, DR thật hay báo giá offline.
+- **Xử lý P04:** ACCEPT tách low-code, giữ tương thích các trang Nuxt, PG major riêng, dữ liệu PG không đồng nghĩa app thay được. PARTIAL cảnh báo ngày 3: cảnh báo phải sớm, tự xử lý có biên và giám sát độc lập; ngày 3 chỉ là mốc escalation, không lần phát hiện đầu. Không còn bất đồng scope UI phải hỏi Owner.
+- **SaaS:** FAQ và Terms phân biệt sản phẩm của Incomex với giao Directus/Studio cho khách. Ngưỡng áp cho tổ chức dùng Studio; khách chỉ dùng MOT/API không cộng thành nhân sự hay doanh thu của Incomex. Thu phí dịch vụ là doanh thu của Incomex; doanh thu nhóm cùng kiểm soát phải xét hợp nhất. Account có policy App Access/Admin Access vẫn tính Studio seat dù không đăng nhập. Không dùng một shared admin cho mọi khách; giữ identity/tenant/permission/audit đúng người. Điều khoản 2.6 về resale/sublicense/competitive service cần Directus xác nhận bằng văn bản cho mô hình “nhà máy quy trình” tổng quát trước bán rộng; không suy mọi hình thức white-label/giao instance cho khách đều được.
+- **Vô thời hạn khác offline:** OIG lifetime không loại license-server dependency. Telemetry mỗi 6 giờ, còn kiểm license theo `validation_interval` trong exact license; source v12.3.1 api/src/schedules/license.ts xác nhận cơ chế đó. Không gọi là “tuần mới liên lạc một lần”. FAQ ghi quá 7 ngày mất liên lạc sau activation thì Core/lock; ngày giờ và hành vi restart/khôi phục cần test, không suy từ health200.
+- **Phương án B không dùng tổ chức giả/dự phòng danh nghĩa:** dự án độc lập có thể xin key riêng cùng tổ chức; staging/DR dự án này dùng activation đúng điều khoản. Key mới vẫn cần license service, nên không giải quyết outage chung. Không chuyển grant sang pháp nhân khác khi chưa có quyền tương ứng. Chưa tạo account/key, chưa gửi hồ sơ ra ngoài.
+- **Bậc 1–2, đề xuất cần kiểm:** giám sát last successful validation/entitlement expiry + trạng thái API nghiệp vụ; kiểm licensing và telemetry riêng; retry có backoff, đường HTTPS dự phòng hợp lệ giữ TLS/telemetry nếu đường hiện tại lỗi; không restart Directus mù. Dự kiến warning sau 12 giờ không validation thành công (chỉnh theo interval thật), escalations 24/48 giờ. Monitor/recovery không được phụ thuộc cổng Directus đang có nguy cơ khoá; một kênh ngoài VPS1 và cách xử lý khi Owner không xác nhận là bài kiểm bắt buộc. Không tự cấp quyền sửa rộng cho AI.
+- **Outage licensing toàn nhà cung cấp >7 ngày:** hai VPS, hai key và backup GGD không tạo offline entitlement. Phải xác minh lựa chọn offline/emergency-token cấp hợp pháp, thời hạn/giá/renewal và điều kiện bật đã chuẩn bị trước. Docs công khai chỉ cấp offline cho Enterprise. Nếu không có phương án phù hợp, ghi residual risk và chưa nghiệm thu v12 đáp ứng “Owner vắng mặt, vẫn chạy”; đánh giá backend thay thế bằng sản phẩm có sẵn là contingency chiến lược, KHÔNG mở lại trial UI.
+- **Exit proof hai cấp:** dump + 5 query chỉ DATA PORTABILITY. BUSINESS CONTINUITY phải chứng minh đúng quyền/tenant, CRUD, Flow/worker, audit, file và một MOT thiết yếu khi đổi tầng thực thi. Chưa có sản phẩm thay thế/test nên không tuyên bố “chỉ đổi Directus là chạy”. Không mặc định chuyển 128 Flow/policy sang code PG/DOT; không bypass quyền bằng direct PG khi sự cố. Backup chống mất dữ liệu, không tự cấp quyền chạy phần mềm.
+- **Sửa nguồn an ninh P04:** đã thấy GHSA-8xp8-xrh2-88vr (02/09, patched12.3.1; điều kiện MySQL/MariaDB collation, không áp mặc định PG) và GHSA-7h45-q5jx-7r87 (02/09, patched12.3.1; phải kiểm permission thực). Link S06–S07. Không biến sự tồn tại advisory thành khẳng định VPS đã bị khai thác; không chốt cả bản an toàn chỉ bằng hai advisory.
+- **G0 có thể chuẩn bị song song với licensing gate:** đúng một phạm vi chỉ đọc, bằng chứng gộp vào view.html/COLLAB hiện hữu; không cần chờ vendor để kiểm disk/routes/backup. Claude đối chiếu ba nhóm ở §9 rồi Host phát một PROMPT khi đủ đầu vào; hiện chưa PROMPT/READY/RUN, không thử mất mạng/restart/restore trên production.
+- Áp: SAME_COMMIT. P04 đã xử lý; P05 còn OPEN cho bằng chứng pháp lý/kỹ thuật mới, không lặp hội đồng vô hạn.
 
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.

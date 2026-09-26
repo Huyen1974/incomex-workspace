@@ -29,14 +29,27 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 </section>
 
 <section class="card" id="strategy">
-<h2>2A. Chốt lại chiến lược dài hạn sau P02</h2>
+<h2>2A. Chiến lược sau P04: bán dịch vụ và vận hành khi Owner vắng mặt</h2>
 <div class="grid">
 <div><h3>Directus: chưa bỏ, nhưng có Strategic Gate</h3><p>Core v12 có giới hạn 3 seats / 25 collections / 5 flows. <b>OIG đủ điều kiện thì unlimited seats / collections / flows</b>, custom access policies và hiện được cấp <b>vô thời hạn</b>. Vì vậy ~145 collections không tự nó là blocker.</p><p class="small">Điều kiện phải test: eligibility, telemetry bắt buộc, license server, activation, failure >7 ngày, backup/export/exit.</p></div>
 <div><h3>Agency OS: EXIT</h3><p>Upstream không archived nhưng commit cuối 26/03/2025. Không coi starter/template này là vendor nền tảng nữa. Giữ màn hình hiện hành để không phá production, nhưng module mới không mặc định xây trên Agency OS.</p></div>
-<div><h3>UI mới: product-first</h3><p>Trial một lát cắt MMIM trên <b>Appsmith CE</b> và đối chứng <b>ToolJet</b>; Budibase là ứng viên phụ. Chưa chọn winner trước proof. UI đi qua Directus API để giữ quyền/audit; Nuxt custom chỉ cho màn hình thật sự đặc thù.</p></div>
-<div><h3>Nguyên tắc sống lâu</h3><p><b>Data sống ở PostgreSQL; platform phải thay được.</b> Business definition, migrations, backup và API contract không được phụ thuộc độc quyền vào một UI/template. Assembly trước, code cuối.</p></div>
+<div><h3>UI: tách khỏi đợt cutover</h3><p><b>Host nhận đề nghị P04.</b> Không thử Appsmith/ToolJet/Budibase trong đợt nâng VPS này; không tạo việc mới. Vẫn nâng tương thích shell Nuxt đang phục vụ Knowledge, Reports và giaoduc. Thoát Agency OS là hướng dài hạn, không viết lại giao diện cùng lúc nâng nền.</p></div>
+<div><h3>Giữ dữ liệu khác với giữ dịch vụ chạy</h3><p><b>PG backup bảo toàn dữ liệu, chưa phải backend dự phòng.</b> Đổi Directus còn phải giữ quyền, Flow, audit, files và hành vi MOT. Không tự viết tầng API thứ hai hay mặc định chuyển nghiệp vụ thành PG/DOT code.</p></div>
 </div>
-<p class="callout"><b>Owner strategy:</b> Incomex chỉ có một người vận hành không chuyên IT; chi phí bảo trì và khả năng sống dài hạn quan trọng hơn việc tự chủ bằng nhiều code.</p>
+<p class="callout"><b>Owner strategy:</b> Incomex chỉ có một người vận hành không chuyên IT; phải xử lý được tình huống người đó vắng mặt. Doanh thu dưới ngưỡng đã được xác nhận, không hỏi lại.</p>
+<h3>Mô hình thương mại được khảo sát</h3>
+<p>Incomex bán ứng dụng/quy trình MOT, không bán Directus. FAQ hiện hành phân biệt người dùng app với tổ chức dùng Studio; khách chỉ dùng app không làm cộng quy mô doanh nghiệp của họ vào Incomex. Doanh thu dịch vụ Incomex thu được vẫn tính; nhóm cùng kiểm soát xét hợp nhất. Số người vận hành IT không đồng nghĩa tổng nhân sự pháp nhân. Policy App/Admin Access cần kiểm cả account máy, không chỉ đếm lần login. <a href="https://directus.com/oig/faq">S01 · FAQ</a> · <a href="https://directus.com/terms/open-innovation-grant">S02 · Terms, §1/2.6/3.1/Exhibit1</a>.</p>
+<p><b>Biên cần xác nhận bằng văn bản trước thương mại hoá:</b> nhà máy quy trình tổng quát có nằm trong Grantee Application không; đâu là ranh giới cạnh tranh/resale/white-label; mô hình giao instance riêng cho khách; ai sở hữu project và contact. Không tự chấp nhận hợp đồng hoặc gửi dữ liệu công ty.</p>
+<h3>Phương án B — phải giải quyết đúng loại lỗi</h3>
+<table><thead><tr><th>Sự cố</th><th>Hướng chuẩn bị</th><th>Không được nhầm</th></tr></thead><tbody>
+<tr><td>Đường ra mạng/DNS/TLS của VPS1</td><td>Monitor độc lập, retry có biên, thử đường HTTPS dự phòng hợp lệ qua hạ tầng sẵn có; giữ kiểm TLS và gửi telemetry bình thường. Bậc 1–2.</td><td>Hai VPS có thể cùng nhà cung cấp/đường mạng; phải đo tính độc lập.</td></tr>
+<tr><td>Key/DB/PUBLIC_URL không khớp</td><td>Giữ binding và URL ổn định; staging có activation hợp lệ riêng; thử restore/restart trước cutover.</td><td>Không xoay key/đổi tổ chức để reset thời hạn.</td></tr>
+<tr><td>License service của Directus không dùng được kéo dài</td><td>Hỏi quyền offline/emergency-token được cấp trước, điều khoản, hạn token và giá. Chưa có thoả thuận thì ghi rủi ro chưa giải.</td><td>VPS2 hoặc key mới vẫn cần cùng nhà cấp phép; GGD không thay entitlement.</td></tr>
+<tr><td>Owner không đọc cảnh báo</td><td>Tự xử lý trong phạm vi đã duyệt, kênh giám sát ngoài VPS1 và cơ chế escalation đã thử; không phụ thuộc Directus/DOT cho đường cứu hộ.</td><td>Telegram báo đỏ không đồng nghĩa phục hồi; chưa có người thay thế thì ghi thiếu.</td></tr>
+</tbody></table>
+<p>OIG không có offline; tài liệu mô tả offline token Enterprise được xác minh tại máy, có hạn riêng. Việc mua support/Team không tự suy ra có offline. <a href="https://directus.com/docs/licensing/overview">S03 · licensing, network, binding, offline</a>.</p>
+<p><b>Không phải mỗi tuần mới liên lạc:</b> telemetry gửi mỗi 6 giờ; lịch xác minh license theo validation_interval của license. Mốc mất liên lạc quá 7 ngày là giới hạn cache theo FAQ, không là lịch gọi. Đề xuất warning sau 12 giờ (điều chỉnh theo interval thật), escalation 24/48 giờ; không chờ ngày 3 mới phát hiện. <a href="https://directus.com/docs/licensing/telemetry">S04 · telemetry</a> · <a href="https://github.com/directus/directus/blob/v12.3.1/api/src/schedules/license.ts">S05 · source v12.3.1</a>.</p>
+<p><b>Chốt Host:</b> đủ điều kiện OIG không đồng nghĩa đủ điều kiện production. Khi chưa chứng minh phương án cho outage dài và Owner vắng mặt, chưa nghiệm thu Directus12 cho yêu cầu này. G0 chỉ đọc vẫn tiến hành chuẩn bị; UI trial được tách, licensing gate không được tách bỏ.</p>
 </section>
 
 <section class="card" id="architecture">
@@ -52,7 +65,7 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <span class="step">cutover rehearsal</span><span class="arrow">→</span>
 <span class="step">VPS1 cutover</span>
 </div>
-<p class="callout"><b>Đề nghị Host, chờ Claude review:</b> “chuyển về VPS1” = triển khai lại <b>công thức/artifact đã chứng minh</b> (exact image/digest, compose/config, migration, runbook), không chép nguyên máy VPS2 đè lên production.</p>
+<p class="callout"><b>GPT–Claude thống nhất kiến trúc:</b> “chuyển về VPS1” = triển khai lại <b>công thức/artifact đã chứng minh</b> trên dữ liệu production mới nhất, không chép nguyên máy VPS2 đè lên production. Đây chưa phải lệnh RUN.</p>
 </section>
 
 <section class="card" id="history">
@@ -89,15 +102,16 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <table>
 <thead><tr><th>Component</th><th>Hiện trạng/Reference</th><th>Quy tắc chọn target</th></tr></thead>
 <tbody>
-<tr><td>PostgreSQL</td><td>Lịch sử: 16.13; target cũ 16.15</td><td>Ưu tiên supported patch/major có lợi ích thật; tránh major jump nếu chưa cần.</td></tr>
+<tr><td>PostgreSQL</td><td>PG18 là candidate, chưa pin final</td><td>Major là checkpoint riêng. Không đạt thì xem xét patch PG16 còn hỗ trợ + app target đã kiểm tương thích; không ép cả cutover chờ PG18.</td></tr>
 <tr><td>Directus</td><td>11.5.1 hiện tại; v12 bắt buộc license tier phù hợp</td><td><b>Candidate tạm: 12.3.1</b>. 12.4.1 mới ra 23/09 nên chỉ probe lab trước; G3 mới chốt exact digest. OIG: verify eligibility + activation/telemetry/failure/exit.</td></tr>
 <tr><td>Nuxt</td><td>Lịch sử: 3.20.2; candidate 4.5.x + Node24</td><td>Giữ compatibility shell trong migration; không dùng việc nâng Nuxt làm lý do tiếp tục phụ thuộc Agency OS dài hạn.</td></tr>
 <tr><td>Agency OS</td><td><b>LEGACY / EXIT</b> · upstream cuối 26/03/2025</td><td>Không có “target version” dài hạn. Chuyển dần sau khi product trial PASS; không big-bang.</td></tr>
-<tr><td>UI product trial</td><td>Appsmith CE · ToolJet · Budibase (phụ)</td><td>Một MMIM slice giống nhau; đo maintenance/license/API/RBAC/audit/Agent/backup/export/resource. Chưa chọn trước thử.</td></tr>
+<tr><td>UI product trial</td><td>NGOÀI PHẠM VI CUTOVER</td><td>Chưa chọn sản phẩm, chưa mở task, chưa cài. Chuyển quyết định UI về nguồn thiết kế UI/MMIM hiện hữu khi được giao.</td></tr>
 <tr><td>Qdrant/Nginx/Docker/worker/khác</td><td>Không phải core mặc định</td><td>Giữ nguyên nếu an toàn; chỉ nâng khi dependency/security/capability có lợi rõ.</td></tr>
 </tbody>
 </table>
-<p class="small muted">Không dùng tag <code>latest</code> làm deployment proof. Final target phải pin exact version/digest và ghi nguồn/ ngày kiểm.</p>
+<p class="small muted">Final target pin version/digest sau khi kiểm support, advisory và rehearsal tại G3/G7. Tuổi bản phát hành chỉ là một yếu tố; bản vá bảo mật áp dụng có thể cần lên sớm. Docker restart đơn thuần không tự pull image: khảo sát cả pull/recreate/auto-updater trước đánh giá drift.</p>
+<p class="small">Bằng chứng bổ sung cho P04: <a href="https://github.com/directus/directus/security/advisories/GHSA-8xp8-xrh2-88vr">S06 · registration, 02/09, patched12.3.1</a> (điều kiện MySQL/MariaDB, không áp mặc định PG); <a href="https://github.com/directus/directus/security/advisories/GHSA-7h45-q5jx-7r87">S07 · share update, 02/09, patched12.3.1</a> (phải kiểm permission thật). Không suy VPS đã bị khai thác hoặc cả target đã an toàn chỉ từ hai advisory.</p>
 </section>
 
 <section class="card" id="test">
@@ -108,7 +122,16 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <div><h3>C. Runtime</h3><ul><li>workers/queue</li><li>cron/schedule</li><li>restart recovery</li><li>idempotency</li><li>health + logs</li></ul></div>
 <div><h3>D. MMIM slice</h3><ul><li>same IDs/fixtures</li><li>same expected semantics</li><li>human path</li><li>permission deny/allow</li><li>trace/audit</li></ul></div>
 </div>
-<p class="callout danger"><b>Isolation bắt buộc:</b> clone VPS2 không được tự gửi Telegram/mail/webhook, ghi GitHub, chạy production backup, mutate external storage/API hoặc tranh singleton consumer với VPS1.</p>
+<p class="callout danger"><b>Isolation bắt buộc:</b> clone VPS2 không được gửi tác động production hoặc tranh consumer với VPS1. Chặn egress chưa chặn Flow ghi dữ liệu nội bộ: inventory và kiểm schedule/worker trước boot, lưu chênh lệch so production. Dữ liệu cá nhân/secret clone cần phạm vi và xử lý đã duyệt.</p>
+<h3>LC1–LC6 · bổ sung nghiệm thu giấy phép và Owner-absent (CHƯA CHẠY)</h3>
+<ol>
+<li>LC1: đo validation_interval, entitlement, expiry và trạng thái thực; phân biệt license validation, telemetry và owner registration.</li>
+<li>LC2: mất licensing trong lab rồi nối lại; test API MOT được phép/không được phép, token refresh thực, không chỉ GET200 tới domain.</li>
+<li>LC3: restart, restore DB vào cùng/khác PUBLIC_URL; chứng minh không làm mất binding hoặc tiêu hết activation; không giả định 7 ngày áp như nhau mọi boot.</li>
+<li>LC4: một và cả hai đường mạng hỏng; license hết hiệu lực/lock/recover trong môi trường thử do hãng cho phép hoặc test harness cô lập. Không đổi giờ production, không giả token/giả response.</li>
+<li>LC5: Owner không trả lời; monitor không lệ thuộc Directus, recovery có biên/rollback và kênh bên ngoài vẫn hoạt động.</li>
+<li>LC6: mất licensing kéo dài vượt cache; phải có phương án hợp pháp đã diễn tập hoặc ghi rõ chưa đạt. Backup+5 query chỉ PASS dữ liệu; không PASS ứng dụng MOT dự phòng.</li>
+</ol>
 </section>
 
 <section class="card" id="cutover">
@@ -130,29 +153,28 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <tr><td>G0 · Inventory</td><td>Biết thật VPS1/VPS2/backup/Agency OG/routes/side-effects; không còn giả định quan trọng.</td></tr>
 <tr><td>G1 · VPS2 ready</td><td>Backup e-learning verified + storage cleaned safely + đủ capacity.</td></tr>
 <tr><td>G2 · CURRENT parity</td><td>Clone current chạy baseline + same slice đạt mức đã định.</td></tr>
-<tr><td>G3 · Target stack</td><td>Exact versions/digests đồng thuận GPT–Claude; license/dependencies clear.</td></tr>
+<tr><td>G3 · Target stack</td><td>Exact versions/digests có nguồn; legal/commercial scope, dependency và kế hoạch LC1–LC6 rõ. Không dùng đủ điều kiện OIG thay bằng chứng continuity.</td></tr>
 <tr><td>G4 · TARGET parity</td><td>Same slice + route/API/UI/runtime matrix PASS; regression disposition xong.</td></tr>
 <tr><td>G5 · Rollback rehearsal</td><td>Rollback thật trên lab, không chỉ có tài liệu.</td></tr>
 <tr><td>G6 · Cutover rehearsal</td><td>Chạy trọn runbook, biết downtime và failure point.</td></tr>
-<tr><td>G7 · Production</td><td>Backup final + cutover + acceptance PASS; rollback vẫn sẵn cho tới checkpoint đóng.</td></tr>
+<tr><td>G7 · Production</td><td>Backup final + cutover + acceptance, LC1–LC6 đạt trong scope; outage dài còn chưa giải thì chưa PASS Owner-absent. Time-box phải chừa thời gian rollback. Chưa mở ghi mới thì rollback mốc trước; đã mở ghi phải reconcile dữ liệu mới, không restore mù.</td></tr>
 </table>
 </section>
 
 <section class="card" id="review">
-<h2>9. Hội đồng — vòng 2 cần chốt trước khi khảo sát/RUN</h2>
-<ol>
-<li>Directus OIG: perpetual/unlimited có đúng với điều khoản hiện hành và mô hình Incomex không; dependency telemetry/license-server xử lý đủ chưa.</li>
-<li>Mô hình <b>PostgreSQL canonical + Directus replaceable façade</b> có đủ exit path dài hạn không.</li>
-<li>Directus 12.3.1 vs 12.4.1: security floor, soak time, breaking changes; không đồng nhất “latest” với “nên chạy”.</li>
-<li>Agency OS EXIT: trial Appsmith CE vs ToolJet, Budibase phụ; so theo chi phí vận hành thật của một Owner không chuyên IT.</li>
-<li>Sau đồng thuận mới viết prompt khảo sát read-only VPS1/VPS2/Drive và trial; chưa production mutation.</li>
-</ol>
-<p>Claude ghi P04 trực tiếp vào <code>COLLAB.md</code>; không tạo file review riêng.</p>
+<h2>9. Giao Claude phần tiếp theo — một phạm vi G0 chỉ đọc</h2>
+<p><b>Chuẩn bị G0, chưa RUN:</b> không đợi trả lời vendor để kiểm những phần độc lập; kết quả vào hai file hiện hữu, không thêm nguồn/pipeline/task.</p>
+<table><thead><tr><th>Nhóm</th><th>Đầu ra cần có</th></tr></thead><tbody>
+<tr><td>G0-A · inventory read-only</td><td>VPS1/VPS2: phiên bản/image thực, route giaoduc/elearning, nguồn sinh dung lượng, task/cron/worker và caller; Drive: backup phủ DB/files/config nào, tuổi bản, cơ chế mã hoá, bằng chứng restore đã có. Không dump/mở dữ liệu nhạy cảm; số cũ ghi ngày, không gọi live.</td></tr>
+<tr><td>G0-B · licensing/commercial</td><td>Đối chiếu S01–S07; exact target source về cache/refresh/restart và offline; bảng project/URL/activation; policy App/Admin trên account máy/khách. Chuẩn bị hỏi hãng về mô hình nhà máy quy trình, DR khi dịch vụ hãng hỏng, offline/emergency entitlement, renewal/giá. Không gửi thư/đăng ký/mua thay Owner.</td></tr>
+<tr><td>G0-C · phương án an toàn</td><td>Chọn đường ra dự phòng khả thi trên hạ tầng sẵn có; tính common failure và độc lập monitor; kế hoạch LC1–LC6, RTO/RPO đo tại rehearsal; tách data restore và app continuity. Chỉ metadata/read-only, không DNS/firewall/nginx/restart/restore/fault injection.</td></tr>
+</tbody></table>
+<p>Claude ghi P06 phản biện đúng phần mới P05 + chỉnh đề cương G0. Host sau đó phát đúng một PROMPT đã review, không yêu cầu Owner trả lời lại doanh thu hoặc tự xử lý kỹ thuật.</p>
 </section>
 
 <section class="card" id="status">
 <h2>10. Trạng thái hiện tại</h2>
 <p><b class="ok">Đã mở task và chốt mục tiêu.</b> Chưa có PROMPT, READY hoặc RUN. Chưa có hành động trên VPS.</p>
-<p><b>Next:</b> Claude phản biện P03 → Host hòa giải Directus strategic gate + Agency OS EXIT + UI product trial → sau đó mới khảo sát read-only VPS1/VPS2/Google Drive và lập kế hoạch có checkpoint.</p>
+<p><b>Next:</b> Claude P06 + hoàn thiện G0-A/B/C → Host phát một lệnh khảo sát chỉ đọc khi đủ đầu vào. Chưa chạy thử low-code, chưa thay hạ tầng, chưa đăng ký hoặc đổi key. Licensing continuity còn là cổng OPEN, không hứa “không bao giờ dừng”.</p>
 </section>
 </main></body></html>
