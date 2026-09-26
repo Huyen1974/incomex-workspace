@@ -23,7 +23,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 3. Có bao nhiêu form UI theo step (có mã, có tên form)? Mã form quan hệ chặt với mã mẹ (Step) và mã cha (UI cha) để con người đọc lại hiểu ngay.
 
 TIẾN ĐỘ (một ô đang làm): [Câu 1 · ĐANG CHỐT] → [Câu 2 · chờ] → [Câu 3 · chờ]
-- Câu 1 · đang chốt: bản trả lời = tab ★ Master list V2 trong ban-duyet.html: 62 danh sách, mỗi dòng có mã, tên, bảng dữ liệu, UI (C07). Đúng khi: Owner + Codex chốt, không còn thiếu / thừa. Mã V2 đóng băng từ nay.
+- Câu 1 · đang chốt: bản trả lời = tab ★ Master list V2 trong ban-duyet.html: 62 danh sách, mỗi dòng có mã, tên, bảng dữ liệu, UI (C07). Đúng khi: Owner + Codex chốt, không còn thiếu / thừa. Mã V2 đóng băng từ nay. 26/09 (C09): đã kiểm thiếu bằng JEV (3 bộ, 120 câu) → cần danh sách mới: 0; lỗ gắn bản ghi sửa bằng chỗ bắt buộc ở 10 · 50 · 51 · 56 + ghi rõ 18; tên đổi rõ nghĩa (42 danh mục · 5 liên kết · 15 sổ), mã và số dòng không đổi. Còn chờ: Codex xác nhận + 7 mã CAT chưa rõ.
 - Câu 2 · chờ: trả lời bằng chính danh sách số 11 “Bước” (CAT-004): liệt kê mọi bước người làm của 4 nhóm Field · Form · MOT · MOW, đủ trường hợp (tạo mới · dùng lại · thiếu thành phần · trả sửa · kiểm lỗi · sửa · ngừng), mỗi bước một mã + một tên. Đúng khi: ra một con số cho từng nhóm và tổng, tách rõ bước người / bước máy.
 - Câu 3 · chờ: trả lời bằng danh sách số 59 “Màn” (UI con): mỗi bước ở câu 2 → form UI; mã form = mã bước + mã UI cha (kiểu đang dùng S030.UI.CONFIG). Đúng khi: mọi bước người có form, bước máy ghi rõ “không có form”.
 
@@ -37,6 +37,18 @@ NỀN ĐÃ CÓ (giữ, không xoá):
 ### Vòng trước
 - Thế nào là hoàn thành (trước 25/09): Hồ sơ MOW · MOT · MOIT · MOUT có luồng thao tác rõ từ Field lên MOW, được Host và Claude thống nhất trước khi sửa HTML. *(đề xuất — chờ Owner gật)*
 - Các vòng cũ hơn: xem “Vòng trước” trong khối “3 cũ” phía dưới.
+
+## Claude · 26/09/2026 · C09 · Câu 1 · kiểm thiếu bằng JEV + trả lời P15 (gắn bản ghi · ánh xạ CAT-000 · tên rõ nghĩa)
+- **Owner 26/09:** dùng JEV tính xác suất còn sót; danh sách những thứ cần là tối thiểu; thiếu việc gắn bản ghi từ đầu thì coi như sai từ đầu. Tên phải hiểu ngay, không nhầm (MOIT → Danh mục MOIT).
+- **Kiểm thiếu bằng JEV** (3 bộ, 120 câu, câu nào cũng có lựa chọn “không dòng nào”): (1) 28 nhu cầu dọc ca thử L001; (2) 43 khái niệm chuẩn BPMN / DMN / CMMN; (3) 49 mã CAT-000 chưa ánh xạ. Kết quả: **không cần danh sách mới** (P “cần danh sách mới” cao nhất 0,47 — CAT-002 Modules). Có **1 lỗ gốc: gắn bản ghi** — 9 điểm P sót 0,28–0,68: tập bản ghi phải nhắc 0,68 · đã nhắc chưa 0,63 · lượt xử lý hồ sơ nào 0,56 · tạo mới gắn ID 0,50 · dữ liệu lượt 0,41 · case file 0,37 · việc thật mở bản ghi nào 0,30 · ghép tín hiệu vào lượt 0,30 · MOT lấy bản ghi từ đâu 0,28. Đúng điểm Owner + P15 chỉ ra.
+- **Sửa tối thiểu** (JEV 0,99; không thêm danh sách, không đổi mã): thêm chỗ bắt buộc “loại bản ghi + mã bản ghi” vào 10 Hợp đồng vào/ra (loại + lấy từ đâu: tín hiệu · việc trước · người chọn · tạo mới · lọc) · 50 Lượt (hồ sơ chính) · 51 Việc thật (bản ghi + người + hạn) · 56 Sự kiện (bản ghi + khoá chống trùng). Dòng 18: mỗi đối tượng nghiệp vụ = một danh sách bản ghi riêng (vd danh sách lao động giữ L001), tạo bằng chính hệ; mã bản ghi khai sinh ở 02. → **Ai quản lý bản ghi:** danh sách nghiệp vụ của từng loại; hệ quy trình chỉ giữ con trỏ ở 50 · 51 · 56.
+- **Đếm** (JEV 0,97): 62 danh sách hệ (cố định) + danh sách nghiệp vụ (mỗi dòng của 18 một danh sách, tăng theo công ty; ca thử cần ít nhất danh sách lao động). 62 = 42 danh mục + 5 liên kết + 15 sổ.
+- **6 dòng có chỗ nhưng tên chưa nói rõ → ghi rõ:** 04 trường khoá ngoại · 11 bước có thể là quy trình con · 12 song song / hội tụ · 30 bảng quyết định · 44 bộ kiểm + ca thử · 56 lịch sử sửa dữ liệu. **Hoãn** (ngoài tối thiểu): lịch làm việc 0,88 · tệp 0,74 (kiểu “tệp” trong 03) · nhập Google Sheet 0,53 · bình luận / nhãn ngôn ngữ · huỷ + việc bù 0,43 (ứng viên NT23, chưa thêm).
+- **P15 OPEN — ánh xạ CAT-000:** 169 = 25 đã là dòng + 98 ngoài theo phân hệ + 49 chấm JEV → 19 vào dòng (bảng trong “Cho AI”), 23 ngoài, 7 chưa rõ (CAT-002 · 007 · 024 · 066 · 068 · 140 · 152 — K0). Các mã P15 nêu: 001 → 17 (0,68) · 005 → 39 (0,73) · 1002 → 04 (0,66) · 1004 → 36 (0,90) · 1005 → 04 / 03 (0,38 / 0,30) · 021 → 17 / 19 · 024 chưa rõ · 058 / 059 → 44 · 079 ngoài (0,84) · 131 ngoài (0,95).
+- **Tên** (Owner): tiền tố Danh mục (người khai) · Liên kết · Sổ (hồ sơ / máy ghi) cho 62 dòng; mã và số dòng không đổi.
+- Áp: SAME_COMMIT ban-duyet (tên 61 dòng, mục “🔎 Kiểm thiếu bằng JEV”, bảng ánh xạ CAT-000 trong “Cho AI”). Không sửa PG, không tạo file, không thêm dòng.
+- **Đề nghị Codex (ACCEPT / PARTIAL dưới C09):** (a) sửa gắn bản ghi bằng chỗ ở 10 · 50 · 51 · 56 + ghi rõ 18; (b) 7 mã CAT chưa rõ; (c) còn câu kiểm nào ngoài 3 bộ. Không còn OPEN → Owner chốt Câu 1, sang Câu 2.
+- JEV: nhu cầu ca thử `gen-dec-1790388089-5Bi8iD4wQQRT2yQL78wd` (bản noul thô `gen-dec-1790388003-O0h5Qo93z2UCTfTriQK2`) · chuẩn BPMN/DMN/CMMN `gen-dec-1790388219-iI073v31BrL5nmyLuelp` · CAT-000 `gen-dec-1790388351-R3lAg3eLVo98QrAFacgm` · cách sửa + cách đếm `gen-dec-1790388424-uZFZNtIVizoeoesB3l5C`.
 
 ## Claude · 26/09/2026 · C08 · Owner đặt 3 câu ưu tiên — đã ghi vào §0.3
 - Owner 26/09: bản V2 bắt đầu phức tạp, gần với các đống rác AI tạo trước đây; không bảo bỏ cái cũ — làm ổn định, từng bước, tránh mỗi lần xoá đi làm lại. Trước hết phải trả lời 3 câu (§0.3): bao nhiêu master list · bao nhiêu bước người làm theo 4 nhóm (vào master list Step) · bao nhiêu form UI theo bước (mã = bước + UI cha).
