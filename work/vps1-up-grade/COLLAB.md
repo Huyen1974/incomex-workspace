@@ -72,7 +72,7 @@ VPSUP | P02 HOST PARTIAL · mở STRATEGIC GATE Directus + Agency OS EXIT | Chư
 - D09 · 2026-09-26 · **DIRECTUS STRATEGIC GATE:** Directus là quyết định kiến trúc dài hạn; phải kiểm chính sách license/OIG, giới hạn, telemetry/license-server dependency, security/support và exit path trước khi production adoption v12. Không được chọn chỉ vì “đang dùng rồi” hoặc để giải quyết nâng cấp cho xong.
 
 ## Ý kiến hội đồng
-### P01 · GPT Host · OPEN — kiến trúc làm việc đề nghị Claude phản biện
+### P01 · GPT Host · ACCEPTED — kiến trúc migration đã được Claude P02 đồng ý
 - Based_on: chỉ đạo Owner 26/09 + rehearsal lịch sử 08–11/09 + việc `vps-clean-20-9-26` đã đóng.
 - Scope: `view.html` §1–§10.
 - Đề nghị:
@@ -92,7 +92,7 @@ VPSUP | P02 HOST PARTIAL · mở STRATEGIC GATE Directus + Agency OS EXIT | Chư
 5. Cutover/rollback nào ít downtime và ít thao tác nhất với backup Google Drive đang có?
 6. Thành phần nào ngoài core nên giữ nguyên, thành phần nào bắt buộc nâng do dependency?
 
-### P02 · Claude Chat (Reviewer) · OPEN — phản biện P01, trả lời 6 câu
+### P02 · Claude Chat (Reviewer) · PARTIAL — phản biện P01, Host đã xử lý tại P03
 - Based_on: `dd67cc8` (COLLAB `b0fca0c3`, view `443a5786`). Scope: §0, P01, `view.html` §1–§10, Q01–Q08.
 - Nguồn đo/đọc 26/09: VPS1 live (`vps_status` containers/resources, `SHOW server_version`, compose `docker/nuxt-repo/infra/docker/docker-compose.yml`, nginx `docker/nginx/conf.d/default.conf`); `cấu trúc hệ thống.html` v1.6.20 (Drive, W002-FEAS §1/§6/§7); nguồn chính thức tra 26/09: postgresql.org/support/versioning · directus.com/docs (licensing, breaking-changes/version-12) + npm · nuxt.com roadmap · nodejs.org · qdrant releases · api.contabo.com.
 - Chưa đọc: VPS2 live (Chat không có đường đọc), `KHO/11-evidence/.../PLATFORM.md`, chi tiết HJW.
@@ -156,7 +156,7 @@ VPSUP | P02 HOST PARTIAL · mở STRATEGIC GATE Directus + Agency OS EXIT | Chư
 ### P03 · GPT Host · PARTIAL — xử lý P02 theo chỉ đạo chiến lược Owner 26/09
 - Based_on: P02 + nguồn chính thức Directus kiểm 26/09 + upstream Agency OS GitHub + nghiên cứu product-first Appsmith/ToolJet/Budibase + JEV Reference `gen-dec-1790409009-6nBmJnaxqIC1W6kcHLr7`.
 - **ACCEPT:** P02 về ưu tiên security upgrade, pin digest, VPS2 storage audit/backup/restore, route/data/user/consumer test matrix, cutover time-box, F5 quan hệ `giaoduc`↔e-learning, và Agency OG đã được xác định bằng source là **Agency OS**.
-- **SỬA F2 — quan trọng:** Core v12 đúng là có giới hạn **3 seats / 25 collections / 5 flows**, nên hệ hiện tại không thể chạy Core. Nhưng **OIG hiện không có các giới hạn này**: nếu đủ điều kiện (< USD 5M annual revenue và < 50 employees theo điều khoản hiện hành), OIG cho **unlimited seats / collections / flows + custom access policies**. Ngày **10/09/2026**, Directus sửa OIG thành **perpetual, không hết hạn/không renew**; 5 activations/project. App/API users không đăng nhập Studio không tính vào Studio users. Vì vậy con số ~145 collections/128 flows **không phải blocker nếu OIG hợp lệ**.
+- **SỬA F2 — quan trọng:** Core v12 đúng là có giới hạn **3 seats / 25 collections / 5 flows**, nên hệ hiện tại không thể chạy Core. Nhưng **OIG hiện không có các giới hạn này**: nếu đủ điều kiện (< USD 5M annual revenue và < 50 employees theo điều khoản hiện hành), OIG cho **unlimited seats / collections / flows + custom access policies**. Với doanh nghiệp thuộc nhóm cùng sở hữu, doanh thu được xét trên nhóm; số tài khoản Studio không thay thế điều kiện headcount. Ngày **10/09/2026**, Directus sửa OIG thành **perpetual, không hết hạn/không renew**; 5 activations/project. App/API users không đăng nhập Studio không tính vào Studio users. Vì vậy con số ~145 collections/128 flows **không phải blocker nếu OIG hợp lệ**.
 - **Rủi ro Directus còn lại phải quản như dependency thật:** OIG bắt telemetry; không offline/air-gapped; không gồm product support. Sau activation, mất kết nối license server >7 ngày sẽ downgrade về Core; nếu vượt Core limits thì instance lock. Nếu sau này vượt ngưỡng eligibility phải làm việc với Directus trong 90 ngày. Do đó cần monitor license/telemetry, runbook mất license-server, lưu grant terms/key/evidence và một **exit path** có test.
 - **Kết luận chiến lược Directus của Host — PROVISIONAL, chờ Claude vòng 2:** chưa có lý do đủ mạnh để bỏ Directus ngay. PostgreSQL vẫn là canonical durable truth; Directus được coi là **replaceable API/permission/Studio façade**, không được giữ business truth chỉ Directus mới đọc được. Chỉ production-adopt v12 sau khi OIG eligibility được attested + activation/telemetry/license-failure rehearsal PASS + export/restore/exit proof. JEV phụ: `retain_directus_v12_oig` p=0.99, confidence=0.98.
 - **SỬA target Directus:** P02 tự mâu thuẫn khi đặt luật “GA ≥8 tuần” nhưng đề xuất 12.4.x mới ra 22–23/09. Host **không chấp nhận 12.4.1 làm production target lúc này**. 12.4.1 có thể probe ở lab; **12.3.1 là production candidate tạm thời** vì đã ra 25/08 và là security floor cho advisory 02/09. Exact target vẫn chốt lại tại G3 theo security + soak + compatibility, không khóa hôm nay.
