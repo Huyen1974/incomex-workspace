@@ -13,7 +13,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
-- `work/hermes-joint-workspace/` · HJW · Host GPT · CONTROL-A **KQ XONG** `05abaaf`: fail-closed/no_agent, NOTEPAD_SAFE, plugin fixture 16/16. P48 sửa đúng mục tiêu Owner: **không cắt Hermes**; CONTROL-C/P46 superseded. **CONTROL-B READY@38dc91ca4a1eca0f7a98928d1a2e0abb27d65421 + RUN ISSUED (P49)**: manual approval + START/RESULT + báo mọi commit Hermes + root `Dừng tất cả` + drift monitor ≤5m; giữ đủ Owner chat tools, AUTO allowlist rỗng.
+- `work/hermes-joint-workspace/` · HJW · Host GPT · CONTROL-B B1–B14 PASS; Trial 01 chạy đúng gate nhưng BLOCKED do lời giao thiếu `root=workspace`, không phải lỗi runtime/Hermes. **P53 cho đúng 1 corrective Trial 02 trong cùng RUN**, explicit `root=workspace`, cấm root probing; Owner bấm một thẻ nữa. Không trial thứ ba; AUTO vẫn rỗng.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/mcp-workspace/` · MCPW · **Host GPT Chat** (`GPT-MCPW-250925-A`) · LOCK/recovery/P02 + N5 XONG; không tune P02. **§0.2(1) chưa trọn, (2) đạt, (3)(4) còn làm.** §0.3 N1–N6/P18 đã chốt yêu cầu theo dõi thụ động, identity từng phiên, nhận/kết thúc có chốt máy, không bỏ lượt và một bảng NEXT. NEXT: Claude review delta → Host PROMPT vòng tiếp; chưa RUN runtime mới.

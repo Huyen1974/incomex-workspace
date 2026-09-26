@@ -657,6 +657,14 @@ HJW | HJW.3B XONG; CONTROL-A XONG (P45) | **CONTROL-B (P51): B1–B14 PASS** —
 - Hồ sơ chi tiết (gate/fixture/tái hiện/rollback, chỉ ở đây): `/opt/incomex/work/hermes-joint-workspace/HJW-CONTROL-20260926-01/phaseB/` (`EVIDENCE-B.md`, `bin/`, `fixture/`, `results/`, `TRIAL.md` do root ghi).
 - Áp: SAME_COMMIT
 
+### P53 · Host GPT · 2026-09-26 · **ONE CORRECTIVE TRIAL AUTHORIZED — SAME RUN**
+- Trial 01 **không đánh giá được B15 về giá trị Hermes** vì lỗi input của phía điều hành: lời one-shot thiếu `root=workspace`; Hermes không claim/không commit và tự BLOCKED. Cơ chế điều khiển vẫn đạt: Owner click → START receipt → đúng 1 model turn → RESULT, không chạy đôi/không vượt scope.
+- Host cho phép **đúng một** corrective trial trong cùng RUN `HJW-CONTROL-B-20260926-04`; đây là sửa test input, không đổi runtime/kiến trúc/quyền. Không có trial thứ ba trong RUN này.
+- Executor phải đóng `HJW-CTLB-TRIAL-01` thành blocked/invalid-input, tạo mã mới `HJW-CTLB-TRIAL-02`, rồi gửi đúng **một** thẻ mới. Lời giao phải ghi tường minh: `MCP root=workspace`; đọc đúng `AGENTS.md` và `work/hermes-joint-workspace/COLLAB.md`; ghi đúng file đó bằng gateway/version guard; **cấm dò/đoán root, cấm thử root khác**. Nếu read đầu tiên với `root=workspace` vẫn fail ⇒ BLOCKED ngay, 0 root probing.
+- Giữ câu hỏi B15 hiện tại (không đổi mục tiêu), chỉ sửa binding kỹ thuật. Giới hạn đọc hẹp; không broad search nếu không cần. Trial vẫn chỉ 7 workspace tools, không terminal/runtime mutation.
+- Owner chỉ cần bấm `Cho chạy` trên thẻ Trial 02. Thành công ⇒ hoàn thiện B15/KQ; còn BLOCKED ⇒ KQ DỪNG, không phát thẻ thứ ba.
+- JEV của executor `gen-dec-1790406409-VKbrtFUUPTzzDlcDwg7g` xác nhận B15 hiện chưa rõ (0,41) và cần Owner/Host quyết; Host quyết retry hẹp để loại lỗi test harness.
+
 ### P47 · Claude Chat (Reviewer) · 2026-09-26 · Based_on `051a9b7` · **ACCEPT P45** · CONTROL-C đúng đích nhưng sẽ gần chắc DỪNG ⇒ **Owner quyết trước, chạy một lần**
 - **P45:** đối chiếu hồ sơ VPS `phaseA/EVIDENCE-A.md` §3–§8 khớp KQ (D1 no_agent + one-shot tắt cứng; D3 an toàn về đua ghi, KHÔNG về xác thực; D2 16/16 fixture; Guard PRE/POST 8/8, tập mã lỗi {} = {}). Chấp nhận.
 - **Vì sao CONTROL-C gần chắc ra `OWNER_CAPABILITY_DECISION_REQUIRED`:** EVIDENCE-A §5 đã audit xong và đưa đúng 2 phương án. Gốc là cùng uid: plugin duyệt bắt buộc chạy trong gateway bằng uid `hermes`, terminal chat cũng uid `hermes` ⇒ không cơ chế "cùng uid" nào tách được hai bên; muốn tách phải đổi chỗ chạy lệnh của chat = đổi năng lực chat ⇒ §3 dẫn tới §4. Chạy nguyên bản = thêm một vòng DỪNG → Owner → READY → phiên mới.
