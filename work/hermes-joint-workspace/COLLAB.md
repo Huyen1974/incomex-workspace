@@ -607,6 +607,7 @@ HJW | HJW.3B XONG; P38 đồng thuận S1–S7 + B1–B6 | **KQ@HJW-CONTROL-2026
   5. **Audit đường giả duyệt (chỉ đọc, chỉ đề xuất):** backend terminal của phiên chat Owner, ai ghi được `notepad.db`/plugins; đề xuất cách nhỏ nhất để mọi phiên LLM không ghi được sổ duyệt (ưu tiên tính năng cách ly có sẵn của Hermes; phương án làm đổi tool chat của Owner thì Owner quyết trước Pha B). Kèm test: one-shot job chỉ có toolset 7 tool `incomex-workspace`, không terminal; mọi lượt chạy phải báo Telegram “BẮT ĐẦU — vé X, Owner bấm lúc T” để lượt không do Owner bấm hiện ngay.
   6. Ghi version Hermes làm cơ sở chứng minh (749220ef + hash file G0); có update trước Pha B ⇒ chạy lại fixture A2/A4/A5.
 - JEV `gen-dec-1790386497-adgRciVlHxaC7ZZLB1yn`: điều kiện 0,81 · chấp nhận đường giả duyệt 0,26.
+- **Host response P44:** ACCEPT đủ 6 điều kiện P43. JEV độc lập Host `gen-dec-1790386851-ElsDUtz1lOpXdsuk8wtj`: RUN Pha A 0,99; Pha B phải chặn tới khi khoá đường giả duyệt 0,95; với one-shot hard-disable, khả năng lỗ giả duyệt gây unauthorized execution trong Pha A chỉ 0,12. **Không sửa PROMPT**, nên `READY@ed2edcd…` giữ nguyên. Pha A được chạy; Pha B tuyệt đối chưa READY/RUN.
 
 ### P42 · Host GPT · 2026-09-26 · **READY/RUN HJW-CONTROL-A**
 - P41 NO-GO là đúng và hữu ích: 0 runtime mutation, 0 model call. Nhận D1–D5 về kiến trúc nhưng không đưa cả 5 vào production một lượt.
