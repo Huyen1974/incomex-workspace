@@ -59,7 +59,7 @@ Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 VPSUP | P04 HOST PARTIAL · P05 COMMERCIAL + CONTINUITY | Chưa PROMPT/READY/RUN | NEXT: Claude kiểm P05 và hoàn thiện một phạm vi G0 chỉ đọc theo view.html §9; UI trial ngoài cutover, Directus continuity gate còn OPEN.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
 - Lượt này chỉ tạo SSOT của task; không mutation hạ tầng.
-- Owner View hậu kiểm cũ: ui_inspect đọc được shell HTTP 200 + Login/401; chưa đọc được nội dung iframe. **CHƯA XÁC MINH nội dung**, không suy 401 của header là task bị khoá. Lượt P05 sẽ kiểm lại đúng URL chuẩn; không tạo bản xem khác.
+- Owner View hậu kiểm P05 sau commit `07939ed87de1bfd1607b3dafe3ea9ceca6a2cf64`: đã mở đúng URL chuẩn. ui_inspect trả shell HTTP 200 + Login/401, chưa đọc được nội dung iframe; ui_screenshot không trả hình có thể kiểm. **DỪNG nghiệm thu nội dung Owner View — CHƯA XÁC MINH**, không suy 401 của header là task bị khoá. GitHub đã đọc lại đúng P05 theo commit; không tạo bản xem/pipeline khác, không sửa runtime để xử lý việc ngoài scope.
 - Áp mở việc: `7275ef1966c09016a372128b9934dcf93abbac98`.
 
 ## Quyết định Owner
