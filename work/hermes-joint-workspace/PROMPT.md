@@ -158,18 +158,22 @@ Dựa evidence hiện có, ghi một khối ngắn `FOUNDATION_DELTA` vào HJW C
 - L2 COST SOURCE LAW: số chi phí thật lấy provider ledger/API; agent estimate chỉ informational;
 - S8 Telegram operational UX: header from→to, callback ack+edit state, success/primary/danger semantics, warning fallback;
 - S9 explicit root/input contract cho unattended workspace job.
+- **Capability truth source:** ma trận T1–T10 cuối trong HJW COLLAB là nguồn trạng thái chung về năng lực đã chứng minh. Mọi AI/Agent phải đọc ma trận này trước khi tự đánh giá `đang có gì/còn thiếu gì`; memory/skill chỉ là tham khảo và không được lấn bằng chứng mới hơn.
 
 Không copy lịch sử dài vào AGENTS; đề xuất patch tối thiểu vào đúng mục hiện hữu.
 
 ## 8. HJW.5 — final evidence matrix
 
-Lập T1–T10 cuối cùng trong HJW COLLAB từ evidence P34/P45/P51 và spot-check hiện trạng:
-- mỗi T: PASS/PARTIAL/NOT_RETESTED + evidence commit/path/time;
-- phân biệt tự kiểm live lượt này với đọc hồ sơ;
+Lập T1–T10 cuối cùng trong HJW COLLAB từ evidence P34/P45/P51/P58 và spot-check hiện trạng. **Ma trận này sau closeout là nguồn sự thật chung về capability/readiness; mọi AI phải đọc trước khi tự đánh giá.**
+- mỗi T: PASS/PARTIAL/NOT_RETESTED + evidence commit/path/time; phân biệt `đã chạy thật`, `đo live lượt này`, `đọc hồ sơ cũ`, `chưa từng thử`;
 - không biến “7 tool” thành suy quyền ngoài scope;
 - không rerun destructive tests/HARD-STOP/nginx/canary nếu không regression causal;
-- T10 ghi CONTROL-B end-to-end + residual fake-approval + MANUAL/AUTO rỗng;
-- P52: loại việc review-read là ứng viên, chưa auto; actual token 293k invalid trial / 490k successful trial, nên hiệu quả chưa chứng minh đủ để AUTO.
+- **đính chính P58:** không ghi “Internet ingress chưa từng chạy” — P34 đã có public external test 21/21 từ Mac với V2 hợp lệ đi tới ws-dispatch. Không rerun; ghi evidence cũ + trạng thái vận hành thường ngày chưa có traffic webhook gần đây nếu cần;
+- **đính chính P58:** không ghi “Telegram chưa có tin thật” — CONTROL-B đã có thẻ/tin thật, Owner click thật và receipt (#42–#49 theo P51). Không yêu cầu Owner gửi mẫu mới;
+- **nhịp thật:** đo read-only lịch sử runs hiện tại và ghi interval/lateness thực tế; nếu ~3 phút thì ghi ~3 phút, không ghi thiết kế 2 phút. Không sửa cadence trong RUN này nếu vẫn ≤5 phút contract;
+- **cost thật:** với 4 lượt model đã có trong usage audit, ưu tiên đọc provider-authoritative cost/usage từ dữ liệu response/log hiện hữu; nếu đã có generation id và có **đường read-only hiện hữu** tới OpenRouter accounting thì được đọc mà không in/expose key. Không tạo credential/helper mới, không hỏi Owner bảng giá, không tự nhân giá thủ công. Không lấy được ⇒ ghi `UNKNOWN/PARTIAL` theo L2, không bịa số;
+- T10 ghi CONTROL-B end-to-end + residual fake-approval + MANUAL/AUTO rỗng + 0-token gate evidence; P52 loại việc review-read là ứng viên, chưa auto; actual token 293k invalid trial / 490k successful trial nên hiệu quả chưa đủ để AUTO;
+- các mục P58 **không làm trong FINAL**: kênh trực tiếp GPT/Claude→Hermes (MCPW signal/dispatch), mở thêm toolset cho auto-run, quyền đọc ledger DB. Chỉ ghi NEXT đúng task, không triển khai.
 
 Nuxt V8 heap restart chỉ ghi “OUT-OF-SCOPE OBSERVATION → VPSC”, không sửa.
 
@@ -179,7 +183,7 @@ KQ XONG chỉ khi:
 - U1–U10 PASS;
 - S9 template applied/tested fixture;
 - CONTROL-B không regression;
-- FOUNDATION_DELTA + T1–T10 matrix ghi xong;
+- FOUNDATION_DELTA + T1–T10 matrix ghi xong và matrix có correction/nhịp/cost theo P58;
 - AUTO_ALLOWLIST vẫn rỗng;
 - rollback UX delta có sẵn;
 - no new model call.

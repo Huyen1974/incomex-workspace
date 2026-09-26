@@ -13,7 +13,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
-- `work/hermes-joint-workspace/` · HJW · Host GPT · CONTROL-B KQ XONG/Host ACCEPT P54. **HJW-FINAL-20260926-05 READY@2c8a7c1f90ffa70dd4710360d38c8f035df0f7f1 + RUN REISSUED (P57)**: P56 đã áp — 😊 người/🤖 AI, disabled optional fallback; S8 Telegram UX + S9 context + HJW.4/HJW.5 closeout; 0 model call, AUTO rỗng.
+- `work/hermes-joint-workspace/` · HJW · Host GPT · CONTROL-B XONG. HJW-FINAL đang closeout: S8 UX, S9 context, **S10 T1–T10 shared truth**, foundation + matrix; P58 self-audit đã phân loại, chỉ gộp nhịp thật/cost/correction ingress+Telegram. READY sẽ theo PROMPT last-touch mới; 0 model call, AUTO rỗng.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED. Quan sát mới từ HJW: Nuxt đã tự restart nhiều lần, lượt 26/09 do V8 heap sau ~26h; không phải OOM host/không causal HJW — đưa vào vòng ổn định VPS sau, không chặn HJW.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/mcp-workspace/` · MCPW · **Host GPT Chat** (`GPT-MCPW-250925-A`) · LOCK/recovery/P02 + N5 XONG; không tune P02. **§0.2(1) chưa trọn, (2) đạt, (3)(4) còn làm.** §0.3 N1–N6/P18 đã chốt yêu cầu theo dõi thụ động, identity từng phiên, nhận/kết thúc có chốt máy, không bỏ lượt và một bảng NEXT. NEXT: Claude review delta → Host PROMPT vòng tiếp; chưa RUN runtime mới.
