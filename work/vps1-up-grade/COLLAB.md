@@ -58,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | G0 ACCEPTED · SEC1 DỪNG (B PASS, A chờ Owner) | READY@8c202ccf57d54abd625908bf4b120705dc50a3b8 | RUN SEC1 xong 27/09 07:38 UTC | NEXT: Owner chọn đường gỡ Public CREATE/UPDATE `approval_requests` (OQ-SEC1-A); Host phát BK1 sớm vì chặn 3307/8080 VPS2 chỉ ở runtime.
+VPSUP | SEC1 B PASS · A chuyển DOT-only | Chưa READY lượt mới | NEXT: Claude Code audit DOT/Secret Manager + đóng #620/#621 qua DOT nếu có; không direct Directus/PG. BK1 theo sau.
 - KQ@VPSUP-SEC1-20260927-01 DỪNG · 27/09 07:24–07:38 UTC · Claude Code CLI · **B ĐÃ ĐÓNG AN TOÀN:** VPS2 3307+8080 chặn internet cả IPv4 (DOCKER-USER ×2, conntrack cổng gốc) lẫn IPv6 (ip6tables INPUT ×1 — G0 sót: `docker-proxy` nghe `[::]`); từ Mac 3307/8080 đóng, 22/80/443 + e-learning 200; 0 restart, internal PASS; TEMPORARY_UNTIL_PERSISTENT_BINDING, rollback ở view §9. **A CHƯA ĐÓNG (0 mutation):** preflight A5 FAIL — không có khoá máy nào quản trị được permissions (admin active duy nhất = tài khoản Owner chỉ mật khẩu; break-glass `6abdec55…` suspended); PROMPT cấm mật khẩu Owner + SQL. Public #620/#621 vẫn nguyên, 0 lượt ẩn danh từ trước tới nay. JEV `gen-dec-1790494394-xVvgBxPYnQ3cOTgZvh4W`. Read-gate: RUN MCPW-AD1/MMIM-MOM01 đã phát nhưng không thấy mutation hạ tầng đang chạy trên VPS1/VPS2. view §10 ngoài phạm vi ghi của PROMPT nên chưa cập nhật. Áp: SAME_COMMIT.
 - KQ@VPSUP-G0-20260927-01 XONG · 27/09 03:10–03:50 UTC · Claude Code CLI · chỉ đọc: 0 mutation VPS1/VPS2, 0 file ghi trên VPS · A–G, I đo live; H ⚪ (API Contabo cần POST lấy token, PROMPT chỉ GET); J từ mã nguồn directus v12.3.1/v12.4.1 + docs. 🔴 4: Public ghi ẩn danh `approval_requests` (VPS1) · MySQL 5.7 cổng 3307 mở internet (VPS2) · `incomex_metadata` + `/opt/incomex/data` không có backup (F6 đúng) · e-learning không có bản trên Drive. VPS2 dọn được ≈ 26 GB (sổ ở view §9, chưa xoá gì). Áp: SAME_COMMIT.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
@@ -88,6 +88,8 @@ VPSUP | G0 ACCEPTED · SEC1 DỪNG (B PASS, A chờ Owner) | READY@8c202ccf57d54
 - D16 · OWNER · 2026-09-26 · **KHÔNG HỎI LẶP:** Owner xác nhận điều kiện OIG đáp ứng. Một admin là giới hạn vận hành, không đổi định nghĩa employee trong điều khoản. Không xin thêm xác nhận SaaS đã thuộc FAQ; đăng ký/nhận key/contact vẫn hợp lệ. Telegram cảnh báo sớm; email pha sau.
 - D17 · HOST · 2026-09-26 · **CONDITIONAL RELEASE:** nhận P06-D, bỏ chặn offline tuyệt đối P05. G7 cần LC1–LC5 đạt, LC6 đo ảnh hưởng/phần chưa biết, phục hồi/rollback và residual risk được Owner duyệt cùng RUN cuối. Không gọi outage >7 ngày “hiếm” khi chưa có dữ liệu hoặc lỗ hổng đã công bố là bằng chứng đang bị khai thác.
 - D18 · HOST · 2026-09-26 · **KHÓA TRƯỚC, BÁO SAU:** quyền read/write ràng tenant + actor + bản ghi/field; không tin filter client. Runtime không mượn toàn quyền Owner. Ngăn tự cấp Studio/Admin bằng quyền native và DOT quản trị có biên; kiểm hằng ngày chỉ phát hiện lệch. Chưa cài thêm chốt trong lượt này.
+- D19 · OWNER · 2026-09-27 · **DIRECTUS/PG = DOT-ONLY:** toàn bộ credential Directus nằm trong Secret Manager; Owner không giữ tài khoản để thao tác. Người/AI/Agent không vào Studio/psql/direct API để mutation. Mọi thay đổi Directus/PG phải gọi DOT/MCP được duyệt; thiếu capability thì bổ sung DOT trước. `report-pg` là màn hình kiểm kê/read-only, không phải cửa ghi.
+- D20 · HOST · 2026-09-27 · **SEC1-A ĐỔI CỬA VÀO:** KQ DỪNG trước là do PROMPT sai khi đi tìm “machine account đủ quyền”. OQ chọn Studio/admin key bị hủy. Lượt kế tiếp chỉ audit DOT/Secret Manager và đóng #620/#621 qua DOT nếu capability hiện hữu; không lấy secret ra khỏi Secret Manager, không direct REST/SQL.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · ACCEPTED — kiến trúc migration đã được Claude P02 đồng ý
@@ -361,7 +363,7 @@ Phản biện đúng P03, không mở thêm file:
 - Q08 · Những singleton/integration nào phải tắt/đổi đích trên clone để không tranh Telegram/GitHub/webhook/backup với VPS1?
 
 ## Owner cần quyết
-- OQ-SEC1-A · 27/09 · (thay OQ-SEC1-RUN: đã RUN, KQ DỪNG) Gỡ Public create #620 + update #621 trên `approval_requests` cần một đường Owner cho phép: (a) Owner tự bỏ tick Create/Update ở Studio → Settings → Access Policies → Public Access (giữ Read); hoặc (b) cho agent dùng một khoá admin hiện có (vd. tài khoản Owner trong custody break-glass) qua native API đúng 2 lệnh xoá #620/#621 + postcheck. Không đề xuất SQL. Phần B (VPS2) đã đóng, không chờ.
+- —
 
 ## Con trỏ
 - Luật: ../../AGENTS.md · ../../README.md · ../README.md.
