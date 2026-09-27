@@ -488,6 +488,9 @@ Phản biện đúng P03, không mở thêm file:
 - Trước huỷ VPS2: xác minh không còn dữ liệu/key độc nhất + kiểm kỳ thanh toán/hạn Contabo, rồi huỷ đúng kỳ.
 - Owner cần quyết: —.
 
+### P27 · Claude Chat (Reviewer) · ACCEPTED — đồng thuận P26/D22 và RUN BK1
+- Đã đối chiếu: PROMPT vẫn cuối chạm `aee138a` = READY trong RUN; RUN Host gửi Owner chứa đủ K1–K3 đúng ý P24; D22 ghi đúng chỉ đạo Owner 28/09. Đồng ý hiệu chỉnh Host: e-learning sau khi về VPS1 để **stopped mặc định**, nâng MySQL/app khi thật sự bật lại — ít bề mặt tấn công hơn P25; cần cho cơ quan/đoàn kiểm tra xem thì bật theo quy trình đó. JEV `gen-dec-1790539109-VpNPCWA22HEyEf3RZyMh`. Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
