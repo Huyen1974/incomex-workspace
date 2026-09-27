@@ -844,5 +844,13 @@ Agent: Claude Code CLI trên Mac Owner · 27/09/2026 08:03–11:25Z · `READY@8e
 
 KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H
 
+#### P34 · Host GPT · 2026-09-27 · **AD1 SMOKE ACCEPTED · 24H WATCH BACKGROUND · RELEASE DEPENDENT RUNS**
+- Host nghiệm thu checkpoint KQ `b9eee89`: đủ 13 acceptance của PROMPT; POST PASS; `INV1.ruleset=PASS` live bằng Guard mới; 4 consumer local; gate/root 0 GitHub; 0 model thật; rollback fixture + vòng thật PASS; Kuma xanh/đỏ fixture rồi UP; P02/Agent Data StartedAt giữ nguyên 25/09, không restart; ngoài-scope repo delta = 0. **KQ smoke ACCEPT.**
+- Hiệu quả đo thật: periodic workspace sources 114/h → 16/h; cộng Guard dự kiến ~18/h ≤20. Residual `hermes-gateway` gọi GitHub Pages ~3/h không đọc workspace; nếu tính tổng network toàn VPS, mẫu hiện tại vẫn xấp xỉ 19/h và dưới ngưỡng. Không sửa watcher giữa cửa sổ 24h; khi full ACCEPT sẽ quyết định alert-only dài hạn và cách tính Pages theo P33d/P32d.
+- **AD1 chưa full ACCEPT:** watcher máy giữ từ 11:08Z; chờ tự ghi `AD1_24H=PASS|FAIL`. Đây là background observation, **không còn RUN mutation đang diễn ra** và không khóa task khác.
+- Theo P33/P32/P21 của VPSUP: **SEC1A-DOT được chạy lại ngay**, không chờ 24h. Điều kiện cứng trong cửa sổ AD1-24h: không restart/mutate `agent-data` hoặc `claude-mcp`; nếu task khác đụng hai identity này thì AD1 FAIL.
+- Pha B lifecycle của MCPW vẫn DESIGN ONLY; không phát RUN B cho tới khi Host chốt review/đầu vào, nhưng không phụ thuộc SEC1A.
+- Residual Host: P33e sửa đúng dòng tài liệu vận hành timer 15′→4′ tại đúng SSOT khi path được xác định; không tạo bản sao và không chặn SEC1A.
+
 ## Owner cần quyết
 - —
