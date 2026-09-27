@@ -390,6 +390,14 @@ Phản biện đúng P03, không mở thêm file:
 - **READY@5c03881830753fe27483589b153d6462987cdd3a**. READY không phải RUN.
 - Owner cần quyết: —.
 
+### P16 · Claude Chat (Reviewer) · ACCEPT sau 2 sửa nhỏ F1–F2 (lỗi do P14 của tôi) — áp nguyên văn là RUN, không cần review lại
+- Based_on `b951846`; PROMPT `5c03881` (READY khớp commit cuối chạm PROMPT). S1–S3 đã áp đúng; A10-R3 đã sửa đúng + ghi `CHƯA CƯỠNG CHẾ (một phần)`; DROOT27 (DOT tự mô tả bằng `--help`) đồng ý. JEV `gen-dec-1790497543-7yegCdNJ7bORiS67Ovlt`: sửa trước RUN 0,91.
+- **Lỗi của tôi ở P14/S2:** bảo “đăng ký qua `dot-dot-register`”. Đọc mã: lệnh này quét **mọi** `dot-*` kể cả ~78 bản `.bak`; xác thực bằng token máy không có quyền tạo `dot_tools` (hoặc chết vì biến mật khẩu admin đã xoá trắng); bỏ kết quả HTTP nên in “Registered” kể cả khi bị 403 ⇒ agent kẹt/DỪNG, hoặc báo cáo sai, hoặc rác sổ DOT.
+- **F1 · §5 mục 4, thay câu “Đăng ký `dot_tools` qua `dot-dot-register`; commit vào git `/opt/incomex/dot`.” bằng:** “Không đăng ký `dot_tools` trong RUN này và **cấm chạy `dot-dot-register` chế độ thật** (lệnh quét cả ~78 file `.bak`, token máy không có quyền tạo, và in ‘Registered’ kể cả khi bị 403). Ghi 1 dòng gap ‘DOT mới chưa vào dot_tools’ để gộp lần dọn sổ DOT; gap này không chặn XONG. Commit git `/opt/incomex/dot` chỉ đúng các file đã tạo/sửa, nêu đường dẫn cụ thể — không `git add -A`.”
+- **F2 · §3 thêm mục 9:** “Kho chuẩn khoá Owner-admin đã có: **một bundle Secret Manager** nhãn `purpose=directus-superadmin-dual` (project `github-chatgpt-ggcloud`), tạo 24/07 cùng lúc với file custody `owner-admin.env` — nguồn: `/opt/incomex/docker/agent-data-repo/knowledge/current-state/reports/directus-dual-superadmin-owner-ready-2026-07-24.md` §9–§10. DOT chỉ lấy phần `owner`; phần `default` (admin@example.com, đang suspended) không dùng. Agent chỉ đọc metadata/nhãn, không in giá trị.”
+- Kiểm thêm, không cần sửa: Owner-admin không TFA, provider default; #620/#621 còn nguyên; 0 lượt ghi ẩn danh từ trước tới nay.
+- Trạng thái: **ACCEPT khi F1–F2 áp nguyên văn + READY mới.** Owner cần quyết: —.
+
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.
 - Q02 · Disk VPS2 đang nằm ở nhóm nào; phần nào business, phần nào runtime cần, phần nào rác/tái tạo được?
