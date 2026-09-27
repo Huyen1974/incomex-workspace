@@ -20,7 +20,7 @@ GitHub native/App/API/CLI: **READ-ONLY**, cấm dùng để ghi repo.
 4. Thiếu `workspace_*` hoặc root `ui`, không đọc được UI mẹ, hoặc phát hiện D44/D46 bị thay thế bởi quyết định mới hơn → **DỪNG trước mutation**.
 5. Không sửa production PG/Directus, service, nginx, compose, auth, MCP, connector. Chỉ đọc nguồn production khi cần đối chiếu.
 6. Không tạo task/repo/project mới. Không tạo framework/library/pipeline mới.
-7. Owner đã cho phép **một đầu mối UI “Master of Master” trên VPS ui**. Ưu tiên sửa/reuse UI mẹ hiện có; chỉ tạo **01 file UI mới** nếu inspect chứng minh nhét vào shell hiện tại sẽ làm phức tạp/hỏng cấu trúc. Nếu tạo file mới phải nằm ngay root `ui`, tên rõ nghĩa, không tạo thư mục phụ.
+7. Owner đã cho phép **một đầu mối UI “Master of Master” trên VPS ui** và tối đa **01 file UI mới**. Kiến trúc mặc định của RUN: dựng **`master-of-master-v1.html`** riêng ngay root `ui`, nhưng reuse style/component/shell hiện có của UI mẹ; **chỉ sau khi file mới PASS standalone mới sửa UI mẹ đúng một điểm: thêm link ✅ Master of Master**. Không nhét toàn bộ logic/view mới vào UI mẹ trừ khi source hiện tại đã có extension point rõ ràng và phương án đó thực sự ít diff hơn.
 8. Không xoá/move UI cũ trong RUN này. D44 “nơi lưu UI ở VPS” không phải quyền dọn lịch sử.
 9. Trước mọi mutation root `ui`: ghi lại **path · version/hash · sha256** của từng file sẽ sửa. Mọi ghi phải dùng expected version/lock của cổng; sau ghi kiểm lại. Nếu regression do RUN → khôi phục đúng version trước của **chính file RUN đã sửa**, không đụng file người khác.
 
@@ -70,28 +70,36 @@ Mặc định:
 - màu luôn đi cùng chữ/ký hiệu, không dùng màu làm thông tin duy nhất.
 
 **Bài kiểm D46 định lượng cho Tầng 1:**
-- ở viewport 1280px, **không cuộn** vẫn thấy: tổng số · số nhóm · ⚪/🟡/🔴/🟢 · “Cần xem ngay”;
-- Tầng 1 tối đa khoảng **8 tín hiệu tổng hợp + 5 ngoại lệ cần xem**, không đổ bảng 84 dòng lên mặt đầu;
+- ở viewport 1280px, **không cuộn** vẫn thấy đủ **3 vùng cố định**:
+  1. **4 thẻ chính:** Tổng Master · Số nhóm · 🔴 Có vấn đề · 🟢 Sẵn sàng;
+  2. **1 dải trạng thái:** ⚪ Chưa làm · 🟡 Đang làm · 🔴 Có vấn đề · 🟢 Sẵn sàng;
+  3. **“Cần xem ngay” tối đa 5 dòng** — chỉ ngoại lệ ưu tiên;
+- số nghi trùng/chưa nguồn/chưa config/chưa UI đặt gọn trong “Cần xem ngay” hoặc badge phụ, không tạo thêm bảng số trên mặt đầu;
+- **không hiển thị bảng 84 row trước các vùng trên**;
 - không cần mở chi tiết vẫn trả lời được 3 câu D46;
-- bấm từ một cảnh báo/nhóm ở Tầng 1 phải đi được xuống đúng Tầng 2/3 đã lọc;
+- bấm từ card/cảnh báo ở Tầng 1 phải đi được xuống đúng Tầng 2/3 đã lọc;
 - 390px được phép cuộn dọc nhưng **không cuộn ngang** để hiểu tổng quan.
 
 ## 3. PHẦN A — dựng Master of Master V1 trên VPS
 
-### A1. Reuse UI mẹ
+### A1. Reuse UI mẹ nhưng cô lập rủi ro
 
-Inspect UI mẹ trước. Ưu tiên:
-- giữ breadcrumb/header/tabs/layout/màu/khoảng cách/cách bấm hiện có;
-- dùng lại Master popover/menu hiện tại;
-- không dựng một design system khác.
+Inspect UI mẹ trước để lấy đúng:
+- breadcrumb/header/tabs/layout/màu/khoảng cách;
+- component/card/table/search/filter đang có;
+- Master popover/menu hiện tại.
 
-Trong menu/popover **Master**, thêm đầu mối đầu tiên:
-- nhãn: **✅ Master of Master**
-- mô tả ngắn: **Danh mục tất cả Master**
-- bấm mở đúng view Master of Master.
+**Thứ tự mutation bắt buộc:**
+1. Tạo `master-of-master-v1.html` riêng trong root `ui`.
+2. Reuse CSS/JS/component hiện có bằng import/link khi phù hợp; nếu phải chép block style nhỏ thì ghi rõ nguồn. Không dựng design system mới.
+3. Nạp mock/catalog data của RUN và nghiệm thu standalone: HTTP 200 · console sạch · D46 Tầng 1/2/3 · responsive.
+4. **Chỉ sau PASS bước 3**, sửa UI mẹ tối thiểu để thêm đúng một đầu mối đầu tiên trong Master:
+   - **✅ Master of Master**
+   - mô tả: **Danh mục tất cả Master**
+   - href → file mới.
+5. Regression-check UI mẹ; FAIL → rollback UI mẹ về before-version, không cố vá tiếp trong cùng file mẹ.
 
-Nếu kiến trúc hiện tại cho phép query/view trong cùng `mow-unified-canvas-v2.html` thì ưu tiên cách đó.
-Chỉ khi reuse trong cùng file gây coupling/xung đột rõ ràng mới tạo 01 file chuyên biệt trong root `ui`.
+UI mẹ không được chứa dữ liệu 84 Master hoặc logic catalog mới; nó chỉ giữ link/hook.
 
 ### A2. Dữ liệu đầu vào
 
@@ -323,7 +331,8 @@ Mục tiêu dài hạn:
 ### Gate/UI
 1. Read-gate `workspace_*` PASS.
 2. Read-gate root `ui` PASS.
-3. UI mẹ trước/sau không mất các tầng/tab/chức năng hiện có.
+3. `master-of-master-v1.html` PASS standalone **trước khi** sửa UI mẹ.
+3a. UI mẹ trước/sau không mất các tầng/tab/chức năng hiện có; diff UI mẹ chỉ là link/hook tối thiểu.
 4. Menu Master có **✅ Master of Master** ở vị trí đầu.
 5. Tích xanh có mô tả/semantics rõ: hub tồn tại, không phải toàn bộ Master hoàn tất.
 6. Link Master of Master mở HTTP 200.
@@ -350,8 +359,8 @@ Mục tiêu dài hạn:
 20. Factory Process catalog tách khỏi quy trình thương mại, có count thật và gap cụ thể.
 
 ### D46 / SSOT
-21. Owner View/GitHub có bảng tổng hợp ngắn trước chi tiết.
-22. Master of Master áp 3 tầng D46.
+21. Tầng 1 Master of Master có đúng cấu trúc **4 thẻ chính + dải trạng thái + tối đa 5 “Cần xem ngay”** trước bảng chi tiết.
+22. Master of Master áp 3 tầng D46; bảng 84 row không nằm trên Tầng 1.
 23. VPS `ui` là nguồn UI thiết kế; GH chỉ map/link/status.
 24. Không production mutation.
 25. Không file/task/repo mới ngoài tối đa 01 UI file VPS đã được Owner cho phép.
