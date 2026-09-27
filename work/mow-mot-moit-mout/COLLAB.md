@@ -56,6 +56,53 @@ Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đ�
 
 Vòng đời quyết định: **ĐÃ CHỐT → CHỜ THỰC THI → ĐANG THỰC THI → ĐÃ KIỂM XONG**. Chỉ ghi **ĐÃ KIỂM XONG** khi có kết quả thật + bằng chứng/commit/link đã kiểm. Quyết định bị thay thế vẫn giữ lịch sử, không xoá.
 
+**TIẾN TRIỂN MASTER — LIVE CONTRACT · PHẢI ĐỌC TRƯỚC KHI THIẾT KẾ TIẾP**
+
+> **Không quay lại từ đầu.** Mỗi vòng phải đọc `ĐÃ CÓ / PHẢI GIỮ`, chỉ làm `CÒN THIẾU / TIẾP THEO`. Owner chốt thêm gì thì Host cập nhật ngay tại đây. UI cha là khuôn tổng quát; chi tiết nghiệp vụ trong các UI xanh phải được kế thừa.
+
+### Baseline 16 UI xanh trong 4 Bà Mẹ — tài sản đang dùng
+
+**MOW · 3:** `UI-005 Kanban T2` · `UI-001 Master MOW/Nháp 2` · `UI-004 Sổ góp ý`.
+- Đã có: T7→T0, Thường/Đề xuất/Vận hành; Master list 7 tầng + vai trò/trạng thái/sửa/detail/help; MOW item có mã/tên/anchor/ngày/người-máy/3 vai trò/trạng thái/liên kết MOT-MOIT-MOUT; Sổ góp ý có neo bước-lượt/người/thời gian/vòng đời Mới→Đã xem→Đã gộp→Đã thành thiết kế/Bỏ.
+- Giữ: toàn bộ capability trên; `mow-master-nhap2-v1.html` là thiết kế MOW xanh cần đọc/kế thừa nhưng **không thay parent canonical** đã khóa.
+
+**MOT · 5:** `UI-010 Bàn làm việc` · `UI-007 Studio` · `UI-006 New MODT/Config` · `UI-003 Duyệt NTGV` · `UI-002 Master MOT`.
+- Đã có: Workspace task + hạn/trạng thái + phần việc/required/reference/help/complete; Studio F01–F10 · L1–L4 · E01/E02 · C01/C02 · direct/queue · composer/JSON/catalog; New MODT có MOIT/MOUT + GHI VÀO/ĐỌC RA với Nội dung chuyên môn/Collection/Field/Check tương tự/Địa chỉ/Kiểu/Hợp đồng JSON/Test/Tình trạng/Ghi chú + NTGV/Ai làm-ai nhận/Chạy-kết thúc; Duyệt NTGV có NẾU/THÌ + 3 điều kiện AND/OR + 3 vai trò + Đề xuất/Phê duyệt; Master MOT có MOIT/MOUT/3 vai trò/trạng thái/cây 7 tầng.
+- Giữ: các label, cột, tooltip, placeholder, quy tắc layout/config đang có; không rút MOT xuống chỉ còn List/Step/UI.
+
+**MOIT · 4:** `UI-019 Kanban T0.5` · `UI-013 Master` · `UI-015 Studio` · `UI-017 Config`.
+- Đã có: Kanban dùng UI.CANVAS; Master dùng UI.MASTER; Studio kế thừa đầy đủ hệ F/E/L/C của MOT Studio; Config kế thừa New MODT nhưng đổi ngôn ngữ sang form nhập; liên hệ Field/Step/UI đã ghi trong nguồn.
+- Giữ: parent + config/label/detail đã có; tiếp tục làm đầy từ nguồn, không tạo lại form/config mới nếu nguồn đã có.
+
+**MOUT · 4:** `UI-020 Kanban T0.5` · `UI-008 Builder v3` · `UI-014 Master` · `UI-016 Studio`.
+- Đã có Builder khá sâu: miền dữ liệu gồm mô tả+mã đọc; cột hiện/ẩn/thứ tự/SUM; filter tối đa 5 AND; thời gian cụ thể/định kỳ + lịch chạy; Tổng/Tổng hàng; đúc + lưu; CSV/Excel; phân phối; picker Field 7 tầng. Master/Studio/Kanban cũng đã có.
+- Giữ: toàn bộ cấu hình Builder; không thay bằng checklist tối giản.
+
+**Ý nghĩa dấu xanh:** ✅ = thiết kế đã làm khá kỹ và là căn cứ chính để đi tiếp; **không đồng nghĩa final, PG/config hoàn tất hay mọi label đã chốt**. Phần mock/nháp/chưa nối thật vẫn giữ nhãn và trở thành việc cần hoàn thiện.
+
+### Hợp đồng tiến triển 5 pilot
+
+- `MOW · MOT · MOIT · MOUT · Field` đã có Home; MOM03 Home-first/84/84/10 đỏ/regression 3/3 phải giữ.
+- `TK` của 5 pilot = `✓` vì `ban-duyet.html#ui-master` ghi UI Master ĐÃ DUYỆT; LB/CF/ST/UI chỉ `✓` khi có evidence riêng.
+- Từ MOM04, mỗi pilot có `detailRequirements`: `axis · key · label · state(✓/◐/!/○) · source · evidence · next`.
+- `detailRequirements` phải được bóc từ **16 UI xanh + nguồn script/adapter của chúng**, không chỉ từ Step/UI MOM02.
+- `Có source ≠ đã chốt`. Source chứng minh `đã có thiết kế/chi tiết`; Owner/evidence chốt mới cho `✓`.
+
+### UX đã chốt để người mới không lạc
+
+- Home-first: `Master → ⌂ Home → ☷84 → Master Home`; không dropdown 84.
+- Trạng thái: xanh+✓ chốt · vàng+◐ đang làm/chờ chốt · đỏ+! vướng · xám+○ chưa làm; không cam.
+- Mặt chính ưu tiên ký hiệu/ngắn gọn; **mọi tên cột/icon/viết tắt phải hover/focus ra chữ đầy đủ**, dùng thống nhất cơ chế `?` đã có trong `master-list.js`.
+- Thêm `☆/★` favorite cá nhân, browser-only bằng `localStorage`, không đổi progress/chốt.
+
+### Việc MOM04 phải làm tiếp
+
+1. Áp help `?` cho tất cả tên cột Master of Master và tooltip đầy đủ cho icon/viết tắt Home.
+2. Thêm `☆/★` favorite, persist trình duyệt.
+3. Bóc capability/label/config/detail của 16 UI xanh vào requirements 5 pilot; phần chưa map phải báo rõ, không bỏ im.
+4. Home `i` trở thành `Chi tiết cần đạt / nguồn`, nhóm LB/CF/ST/UI/DATA/DETAIL, chỉ hiện ngắn + drill-down evidence/next.
+5. Không làm 79 Master còn lại trước khi 5 pilot đủ mẫu.
+
 **CÁC VẤN ĐỀ OPEN — ĐANG BÀN**
 
 | # | Hiện trạng nhìn nhanh | Vấn đề lộ ra | GPT đề xuất | Hội đồng cần chốt |
@@ -947,6 +994,10 @@ Hai transaction root ui `1877206433314edf866d7d6cadab0fb4` / `7f591b450e134370bf
 **Bàn giao:** Owner xem [Home](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-home-v1.html) → [☷84](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html) → [Home Field](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-home-v1.html?master=CAT-202*) trước bước tiếp. Dừng tại đây; Owner/Host điều hành thủ công, chưa tự phát RUN.
 
 KQ@MMIM-MOM03-20260927-01 XONG
+
+- D55 · 2026-09-28 · **OWNER CHỐT KẾ THỪA 16 UI XANH + GIẢI THÍCH TẠI CHỖ + ★ CÁ NHÂN:** mọi file/route có ✅ trong 4 Bà Mẹ là thiết kế đã làm khá kỹ, chưa final nhưng là baseline bắt buộc; AI phải đọc kỹ và tiếp tục từ đó, không quay lại từ đầu. Host đã rà 16 entry xanh và ghi capability chính vào §3 Live Contract. UI cha chỉ tổng quát hoá; chi tiết MOW/MOT/MOIT/MOUT trong các màn xanh phải chuyển thành `detailRequirements` cho 5 pilot. Người quen dùng ký hiệu/viết tắt; người mới hover/focus phải thấy chữ đầy đủ bằng cơ chế `?` hiện có. Thêm `☆/★` favorite lưu browser/localStorage, không phải trạng thái. · Trạng thái: **READY + RUN ISSUED MOM04**.
+- READY@362d28edfd9d267af474ab99c9e3f8b875d7ce1c · RUN_ID `MMIM-MOM04-20260928-01` · Executor **Codex** · phạm vi: kế thừa 16 UI xanh → requirements 5 pilot + help `?` + favorite `★`; không làm 79 Master.
+- RUN ISSUED · `MMIM-MOM04-20260928-01` · Owner điều hành thủ công; Codex phải đọc §3 + 16 UI xanh trước mutation, ghi KQ rồi DỪNG; không tự mở vòng tiếp.
 
 ## Dòng hiện hành
 MMIM | MMIM-MOM03-20260927-01 · 27/09/2026 | XONG phạm vi RUN: Home-first, không dropdown, 84/84 Master, TK xanh 5/5 theo evidence, false_green=0, menu đỏ 10/10, regression 3/3. Chờ Owner/Host xem Home → ☷84 → một Master Home; 79 Master giữ OPEN. Codex dừng, không tự mở RUN mới.
