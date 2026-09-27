@@ -93,11 +93,16 @@ Inspect UI mẹ trước để lấy đúng:
 1. Tạo `master-of-master-v1.html` riêng trong root `ui`.
 2. Reuse CSS/JS/component hiện có bằng import/link khi phù hợp; nếu phải chép block style nhỏ thì ghi rõ nguồn. Không dựng design system mới.
 3. Nạp mock/catalog data của RUN và nghiệm thu standalone: HTTP 200 · console sạch · D46 Tầng 1/2/3 · responsive.
-4. **Chỉ sau PASS bước 3**, sửa UI mẹ tối thiểu để thêm đúng một đầu mối đầu tiên trong Master:
-   - **✅ Master of Master**
-   - mô tả: **Danh mục tất cả Master**
-   - href → file mới.
-5. Regression-check UI mẹ; FAIL → rollback UI mẹ về before-version, không cố vá tiếp trong cùng file mẹ.
+4. **Chỉ sau PASS bước 3**, tìm đúng extension point của Master popover/menu. Chỉ được sửa khi target:
+   - xác định DUY NHẤT;
+   - có before-version/hash;
+   - thay đổi chỉ là đúng một link/hook:
+     - **✅ Master of Master**
+     - mô tả: **Danh mục tất cả Master**
+     - href → file mới;
+   - ghi qua **fs_transaction/expected-version** hoặc cơ chế atomic tương đương của cổng đã audit.
+5. Nếu extension point không duy nhất, file đã lệch cấu trúc, hoặc không có transaction/version-lock → **không sửa UI mẹ**; giữ Master of Master standalone, ghi `LINK_BLOCKED` và KQ PARTIAL/DỪNG để Host xử lý. Không dùng search/replace mù.
+6. Regression-check UI mẹ; FAIL → rollback UI mẹ về before-version, không cố vá tiếp trong cùng file mẹ.
 
 UI mẹ không được chứa dữ liệu 84 Master hoặc logic catalog mới; nó chỉ giữ link/hook.
 
