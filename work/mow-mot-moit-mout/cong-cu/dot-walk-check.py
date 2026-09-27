@@ -18,6 +18,8 @@
 # Ca thử:       ban-duyet.html ở commit có tiêu đề "MMIM-C12" (tra: git log --grep MMIM-C12), URL dạng
 #               https://raw.githubusercontent.com/Huyen1974/incomex-workspace/<commit>/work/mow-mot-moit-mout/ban-duyet.html
 # Kết quả mong đợi: 84 dòng · 38 quy trình · 👤 60 · 🤖 62 · Thuộc ⚙️ 22 · 🏗 9 · 🔁 7 · không ai chạm 77–82 (nhóm Chưa áp dụng) · LỖI 0 · exit 0
+# Ca thử A01:   catalog sau đăng ký P0 · 84 dòng · 39 quy trình · 👤 62 · 🤖 66 · ⚙️ 22 · 🏗 9 · 🔁 8 · LỖI 0 · exit 0
+#               Đây là số quan sát của catalog A01, không phải số Human Step/UI unique và không cài cứng trong logic.
 # Nguồn gốc:    dựng lại từ walk_c11.py của phiên Cowork 26/09 (C10–C11): giữ nguyên luật kiểm; đổi đầu vào từ dữ liệu chép
 #               trong script sang đọc thẳng HTML, để trang Owner duyệt là nguồn duy nhất (JEV gen-dec-1790406483-lmzuig9S93lGCP4mLxdC).
 # Luật:         theo TEMPLATE-DOT-SCRIPT: không đếm cứng, không danh sách cứng, exit 0/1.
