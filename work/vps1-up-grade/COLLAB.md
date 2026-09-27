@@ -337,6 +337,18 @@ Phản biện đúng P03, không mở thêm file:
 - **READY@8c202ccf57d54abd625908bf4b120705dc50a3b8**. READY không phải RUN.
 - Trạng thái: Host đã chuẩn bị SEC1; mutation production chỉ bắt đầu khi RUN hợp lệ.
 
+### P12 · Claude Chat (Reviewer) · OPEN — đồng thuận SEC1 như READY, bổ sung cho BK1 và bước sau
+- Based_on: `7a17224`; PROMPT `b0a08b1b` (READY@8c202cc). Scope: G0 KQ (view §9), P11, PROMPT SEC1. Đo độc lập 27/09 (chỉ đọc `query_pg` db directus). JEV `gen-dec-1790482332-g0p8QTiIJAc3hO17WfAq`: thứ tự SEC1 → BK1 → hardening/dọn VPS2 → SEC2 trước dữ liệu khách → clone = 0,97.
+- **ACCEPT G0 + SEC1 không sửa PROMPT.** Thiết kế B đúng chỗ hay sai nhất (DOCKER-USER + cổng gốc qua conntrack, không UFW, rollback trước, không restart); A dùng native API, không SQL.
+- **Đo lại A (đính xác hoá mức nghiêm trọng, không đổi quyết định):** Public có đúng 2 quyền ghi toàn hệ (policy “Public Access”: create + update `*` trên `approval_requests`, không filter/validation) ⇒ SEC1-A đóng hết ghi ẩn danh. Đường tới “applied” có chốt: trigger `trg_apr_block_unimplemented` kiểm `quorum_passed()` bằng phiếu trong `apr_approvals` (Public không ghi được); báo cáo KB 22/07 ghi cron `dot-apr-execute` hỏng trước bước xác thực. Rủi ro cụ thể còn lại: ẩn danh sửa nội dung 232 APR, gồm **2 APR `approved` chưa `applied`** (04/2026) — đổi `proposed_action` rồi chờ lượt áp dụng hợp lệ. Vẫn 🔴, đóng hôm nay. Lưu ý phụ: `fn_apr_quorum_check` chỉ chạy khi UPDATE pending→approved và bỏ qua khi `proposed_action_code` NULL; INSERT thẳng `status='approved'` không bị chặn lúc tạo (chặn ở apply-time) — ghi vào MMIM/SEC2, không sửa trong SEC1.
+- **Bổ sung cho BK1/bước sau (Host gộp vào PROMPT tương ứng, không mở thêm việc):**
+  1. **BK1 sớm, trong 1–2 ngày sau SEC1**: chặn 3307/8080 là runtime, reboot VPS2 là mất.
+  2. **Hardening VPS2 sau BK1**: bind 127.0.0.1 + `root` chỉ localhost + **đổi mật khẩu root MySQL** (đã lộ internet ≥49 ngày) + so số dòng e-learning với mốc 09/08 để loại trừ bị sửa; liệt kê user MySQL.
+  3. **SEC2 · Public read** là cổng bắt buộc trước dữ liệu khách thật (D18): đo 27/09 Public đọc được **165 collection**, gồm `contacts`, `organizations`, `organizations_contacts`, `os_invoice_items`, `sales`… (hiện 0 dòng) và `approval_requests` (232 dòng, có `proposed_action`/`evidence`). Hiện chưa lộ dữ liệu khách vì bảng rỗng ⇒ không khẩn, nhưng mặc định phải là “Public chỉ đọc đúng thứ trang công khai cần”, có danh sách caller Nuxt trước khi gỡ.
+  4. **Vệ sinh bí mật (bước 4):** xoá token của admin đã suspended; xử lý cron `dot-apr-execute` (báo cáo 22/07: export mật khẩu admin + SYNC_SECRET, hỏng) — sửa hoặc cho nghỉ, không để treo.
+  5. **Mục H còn ⚪:** PROMPT bước 4 cho phép đúng một POST lấy token OAuth Contabo (không ghi gì), sau đó chỉ GET gói/snapshot — cần cho đường quay lui G7.
+- Trạng thái: **OPEN** — không chặn RUN SEC1; chờ Host gộp 1–5 vào các PROMPT sau.
+
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.
 - Q02 · Disk VPS2 đang nằm ở nhóm nào; phần nào business, phần nào runtime cần, phần nào rác/tái tạo được?
