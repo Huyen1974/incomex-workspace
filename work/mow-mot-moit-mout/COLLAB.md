@@ -42,7 +42,17 @@ Mốc hoàn thành theo ba tầng (đề xuất — chờ Owner gật; 6 điểm
 Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đầu vào và kết quả cần đạt của phần được chọn → thực hiện theo bước bằng công cụ có thật → kiểm kết quả đã lưu, nhánh lỗi và khả năng dùng lại. Ghi phần đã đạt, phần còn thiếu và nơi bị tắc. Một phần đạt chưa có nghĩa toàn máy đạt; lỗi hoặc thiếu đầu vào thì chưa đưa phần đó vào dùng chính thức.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-**CỔNG HỘI ĐỒNG D43 — 6 VẤN ĐỀ OPEN, CHƯA CÓ PHƯƠNG ÁN NÀO ĐƯỢC CHỐT.** Hội đồng chỉ tập trung 6 câu dưới. Quy trình quyết định: **GPT đề xuất → Claude phản biện/đề xuất → Owner chốt → Agent mới thực thi**.
+**CỔNG HỘI ĐỒNG D45 — 7 VẤN ĐỀ: 6 OPEN + 1 ĐÃ CHỐT.** Quy trình: **GPT đề xuất → Claude phản biện/đề xuất → Owner chốt → đưa vào Danh mục đã chốt → Agent thực thi → kiểm xong mới đánh “ĐÃ KIỂM XONG”.** Mọi AI/Agent vào việc này phải **đọc Danh mục đã chốt trước các vấn đề OPEN** để không tranh luận lại hoặc làm trái quyết định đã có.
+
+**DANH MỤC ĐÃ CHỐT — BẮT BUỘC ĐỌC TRƯỚC**
+
+| Mã | Quyết định đã chốt | Trạng thái thực thi | Bằng chứng/đích |
+|---|---|---|---|
+| **06 · D44** | **UI/view thiết kế thật lưu ở VPS root `ui` như 4 UI mẹ; GitHub/workspace chỉ giữ sơ đồ/danh mục + URL/version/hash.** | **CHỜ THỰC THI** — chưa move/xoá file cũ | D44 · §0.1 · ★ Ý kiến HĐ 06 |
+
+Vòng đời quyết định: **ĐÃ CHỐT → CHỜ THỰC THI → ĐANG THỰC THI → ĐÃ KIỂM XONG**. Chỉ ghi **ĐÃ KIỂM XONG** khi có kết quả thật + bằng chứng/commit/link đã kiểm. Quyết định bị thay thế vẫn giữ lịch sử, không xoá.
+
+**CÁC VẤN ĐỀ OPEN — ĐANG BÀN**
 
 | # | Vấn đề phải quyết | Chốt bằng cách nào? | Đề xuất GPT để hội đồng phản biện |
 |---|---|---|---|
@@ -51,9 +61,9 @@ Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đ�
 | **3** | **Từ Step cần chính xác bao nhiêu UI; tên/mã/hình từng UI?** | Lập ánh xạ **Step → UI** → UI dùng nhiều Step chỉ tính một → mỗi UI có **Mã · Tên · Step dùng · wireframe** → đếm unique → Owner duyệt. | **Không chốt UI trước Step.** Các số 29/18 cũ chỉ là dữ liệu tham khảo. |
 | **4** | **Cần master list công cụ/check chéo nào để chế tạo Máy?** | Từ yêu cầu kiểm của 1–3 → lập ma trận **cần check gì → công cụ nào** → rà 28 ứng viên + 17 phạm vi → lộ trùng/trống → Owner duyệt danh sách tool cuối. | Mỗi tool cuối phải có **Mã · Tên · Check gì · Input · Output · Trạng thái**. |
 | **5** | **Khi nào coi các danh sách đã điền đủ?** | Chốt bộ cột bắt buộc cho từng danh sách → kiểm tự động/rà chéo → **không có ô trống không giải thích**; chỗ chưa biết phải ghi OPEN rõ. | “Đủ” = **đủ trường + đủ nguồn + đủ trạng thái**, không phải chỉ có tên. |
-| **6** | **Sau khi chốt, lưu các danh sách ở đâu và format gì?** | Hội đồng so 3 phương án: **A HTML-only trên GitHub · B dữ liệu cấu trúc trên GitHub + HTML hiển thị · C Directus/PG trên VPS** → so theo dễ nhìn, dễ AI cập nhật/check/diff, một SSOT, rollback, độ phức tạp → Owner chọn. | GPT đề xuất **B**: **GitHub/workspace làm SSOT dữ liệu cấu trúc (JSON, 1 nguồn)**; `ban-duyet.html` là lớp nhìn cho người; VPS chỉ mirror. **Chưa tạo file/đổi schema trước khi hội đồng + Owner chốt.** JEV tham khảo `gen-dec-1790478392-tEsO6erGJR14xl6VGHZv`: B, confidence 1.00. |
+| **7** | **Làm sao trình bày toàn bộ hệ thống để con người nhìn là hiểu và phát hiện được sai/thiếu?** Đây là vấn đề thường trực; **Master list hiện tại là ca đầu tiên** vì quá phức tạp nên Owner không thể tự đánh giá hợp lý/sai/đúng. | Chốt một chuẩn trình bày → áp thử lên Master list → Owner nhìn thử. Chỉ đạt khi lớp ngoài giúp trả lời rất nhanh: **có những nhóm gì · chỗ nào bất thường/OPEN · cần quyết gì**; chi tiết kỹ thuật vẫn tra được khi mở sâu. | Công thức thử: **10 giây Tổng quan → 1 phút Theo nhóm → Chi tiết khi bấm**. Lớp 1 chỉ số/nhóm/cảnh báo; lớp 2 danh sách rút gọn theo nhóm; lớp 3 bảng kỹ thuật đầy đủ cho AI. **Chưa tự sửa Master list trước khi Claude + Owner chốt chuẩn này.** |
 
-**THỨ TỰ BÀN:** **1 Master list → 2 Step → 3 UI → 4 Công cụ → 5 Độ đầy đủ → 6 Nơi lưu/format.** Nội dung khác chỉ đưa vào nếu chỉ rõ nó giúp chốt câu nào.
+**THỨ TỰ BÀN NỘI DUNG:** **1 Master list → 2 Step → 3 UI → 4 Công cụ → 5 Độ đầy đủ**. **07 là nguyên tắc trình bày thường trực**, áp song song lên mọi bảng/view; Master list là bài thử đầu tiên. **06 đã chốt**, chỉ theo dõi thực thi.
 
 TẠO MỘT / NHIỀU THÀNH PHẦN (Owner D40; phương án Codex P19, chưa là UI/schema đã chạy):
 - Cùng một quy tắc MAP02 cho mọi tầng: tra kho → dùng phần có → ghi phần thiếu → gọi quy trình tạo phần thiếu → trả về đúng chỗ gọi → kiểm chỗ nối. Với nhiều phần, phải lưu toàn bộ nhu cầu và tiến độ, không dựa vào trí nhớ/tab đang mở.
@@ -865,6 +875,7 @@ Hướng đúng D20: ngắn, 3 bước, 3 mảnh UI, có con số. Đã mở ngu
 - D42 · 2026-09-27 · Owner thu hẹp trọng tâm: mọi việc trước mắt phải trả lời đúng **5 câu** — (1) tổng số + danh sách Master list; (2) danh mục Step người dùng sử dụng Máy; (3) từ Step chốt chính xác số/tên/mã/hình UI; (4) master list công cụ check chéo/chế tạo Máy; (5) điền đầy đủ các danh sách. Nếu chưa trả lời rõ 5 câu thì nội dung khác chưa có giá trị ưu tiên. Đồng thời phải chốt nơi lưu và format cập nhật. · Trạng thái: cổng 5 câu giữ nguyên; **phần nơi lưu cũ “ban-duyet.html/GitHub” đã bị D44 thay thế đối với bản UI/view thiết kế thật**. · Ở: §0.3 · `ban-duyet.html#matrix-view-council`.
 - D43 · 2026-09-27 · Owner làm rõ: các nội dung trên **mới là vấn đề/ý kiến, chưa chốt**. Mỗi vấn đề phải ghi thành câu hỏi rõ, nêu **cách chốt** và **đề xuất giải pháp** để GPT + Claude cùng phản biện; chỉ khi GPT + Claude Chat + Owner thống nhất mới giao Agent thực thi. Bổ sung vấn đề riêng: **sau khi chốt danh sách thì lưu ở đâu, format gì**. · Trạng thái: nguyên tắc hội đồng giữ nguyên cho các câu còn OPEN; **riêng câu nơi lưu đã được Owner chốt trực tiếp ở D44, thay phương án B/JSON trước đó**. · Ở: §0.3 · `ban-duyet.html#matrix-view-council`.
 - D44 · 2026-09-27 · **OWNER CHỐT NƠI LƯU THIẾT KẾ UI/VIEW:** “tất cả các thiết kế đó lưu trên VPS như 4 bà mẹ; GH chỉ nên là sơ đồ; đằng nào cũng phải làm, làm luôn như 4 bà mẹ cho nhanh.” Diễn giải kỹ thuật: bản HTML/CSS/JS/wireframe/prototype tương tác + asset của UI lưu ở root `ui` trên VPS (`/opt/incomex/docs/mcp-writes/` → `/ui-preview/mcp-writes/`), theo mô hình `mow-unified-canvas-v2.html`; `incomex-workspace` chỉ giữ sơ đồ/danh mục/metadata + URL/version/hash và quyết định. · Trạng thái: **ĐÃ CHỐT NGUYÊN TẮC, CHƯA DI CHUYỂN/XOÁ BẢN CŨ**; cần Claude rà cách áp + Agent thực thi sau. · Ở: §0.1 · ★ Ý kiến HĐ câu 6.
+- D45 · 2026-09-27 · Owner chốt cơ chế quản lý Hội đồng và mở **vấn đề 07**: ★ Ý kiến HĐ có **2 view** — (1) danh sách ngắn chia **Đang mở / Đã chốt** để nhìn nhanh; (2) Kanban chi tiết để đọc cách chốt/đề xuất. Mọi AI phải đọc **Đã chốt** trước; quyết định đã chốt theo dõi đến **CHỜ THỰC THI → ĐANG THỰC THI → ĐÃ KIỂM XONG**, có bằng chứng. Vấn đề 07 không phải cách trình bày Hội đồng mà là **cách trình bày toàn bộ hệ thống cho con người dễ hiểu, dễ thấy sai/thiếu**, lấy Master list hiện quá rối làm ca thử đầu tiên. · Trạng thái: **ĐÃ CHỐT CƠ CHẾ HĐ; 07 OPEN**. · Ở: §0.3 · ★ Ý kiến HĐ.
 
 ## Đề xuất Host · MAP01–MAP05 + URL01 · chờ Claude review
 
