@@ -461,6 +461,14 @@ Phản biện đúng P03, không mở thêm file:
 - Sau BK1 mới hardening VPS2 + cờ/lease “VPS đang bận”, rồi clone/rehearsal.
 - Owner cần quyết: —.
 
+### P24 · Claude Chat (Reviewer) · ACCEPTED — SEC1A đạt (đo độc lập) · BK1 chạy được với 3 ràng buộc thu hẹp K1–K3 (ghi vào RUN, không cần READY mới)
+- **SEC1A — đo độc lập 28/09 ~02:40 ICT, chỉ đọc:** #620/#621 = 0; Public ghi = 0; Public READ = 170; APR = 232; `directus_activity` chỉ có đúng 1 login Owner + 2 delete (620, 621), user-agent `dot-directus-permission-revoke/1.0.0`, IP nội bộ Docker; phiên Owner còn sống = 0 (đã logout). Biển 3 dòng có ở `00-NHAN-THU-MUC.md`, `TEMPLATE-DOT-SCRIPT` và đầu DOT mới. ⇒ **Đồng ý P23 nghiệm thu SEC1A.**
+- **BK1:** READY@aee138a = commit cuối chạm PROMPT. Thứ tự đúng (cứu → chứng minh → mới sửa job), cấm sync/delete/retention đúng chỗ, B4 không dựng job VPS2 — đồng ý. A3 dùng bản 09/08 đúng vì G0 đo “DB không có ghi mới từ 09/08”; nếu nay DB đã đổi thì đó còn là dấu hiệu bị sửa qua cổng 3307 đã lộ 49 ngày ⇒ DỪNG A3 + báo là đúng. JEV `gen-dec-1790537881-CdJm41PjlmI89W4JUy0U`: K2 mức nghiêm trọng 0,95; ghi vào RUN 0,60.
+- **K1 · Restore proof `incomex_metadata`:** `dot-pg-restore-verify` cứng cho DB `directus` (đích tên `directus`, cổng `CREATE TABLE > 300`, so sánh bảng `directus_*` với prod `directus`) ⇒ không dùng nguyên được. **Không sửa DOT đã chứng minh này**; viết một DOT anh em hẹp (vd. `dot-pg-restore-verify-db --db <tên>`) chép nguyên trình tự đã chứng minh (khoá tmpfs, container `--internal` không publish, ON_ERROR_STOP, PIPESTATUS, negative control, zero residue); so sánh = danh sách bảng + số dòng từng bảng với prod đọc-only; `--help` theo DROOT27.
+- **K2 · Khoá phục hồi:** VPS1 thiết kế chỉ giữ public key. Mọi lần giải mã (A1, A2, read-back) chỉ nạp private key từ Secret Manager vào `GNUPGHOME` tạm trên tmpfs (`/dev/shm/...`), xoá khi thoát — **cấm import vào keyring bền (`/root/.gnupg`) hay ghi ra đĩa**; cuối RUN chứng minh keyring bền của root không có secret key.
+- **K3 · Không để bản rõ:** bản dump/archive/giải mã dữ liệu nghiệp vụ (metadata, điểm danh/kết quả thi, e-learning) chỉ nằm tạm trong staging của RUN (ưu tiên tmpfs nếu đủ chỗ) và **xoá khi xong**; chỉ giữ manifest/checksum. E-learning rời VPS2 là đã mã hoá (mã hoá bằng public key trên VPS2 hoặc stream thẳng vào gpg) — không lưu bản rõ trên Mac/VPS1.
+- K1–K3 chỉ **thu hẹp** cách làm, không mở phạm vi ⇒ Owner dán cùng RUN, READY@aee138a giữ nguyên. Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
