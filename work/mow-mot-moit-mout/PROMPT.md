@@ -33,6 +33,8 @@ Căn cứ hiện hành: `mot-master-v1.html` có ✅ trong menu và các Master 
 
 **CẤM dùng làm cha:** `master-hub.html`, `mow-master-nhap2-v1.html`, demo/cũ/tham khảo, hoặc trang chỉ “trông giống Master”.
 
+**Known stale metadata:** một số dòng `child-ui-registry.json` còn `template_url=mow-master-nhap2-v1.html`; D52 xác định đây không phải cha live của RUN này. Không coi lệch này là blocker và **không sửa registry trong RUN -03**.
+
 UI con phải giống cha về shell/layout/số cột/vị trí/font/khoảng cách/màu/icon/nút/detail/filter. Chỉ thay label + data + link. Không fork CSS/renderer.
 
 ### Dấu xanh / đỏ trong 4 Mẹ
