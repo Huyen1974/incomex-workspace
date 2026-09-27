@@ -756,6 +756,14 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 
 - **Không làm trong FINAL (NEXT đúng việc, không triển khai):** kênh trực tiếp GPT/Claude → Hermes = MCPW tín hiệu/giao việc; mở thêm toolset cho lượt tự chạy = quyết định quyền, chỉ xét khi có phiếu điểm đủ mẫu; quyền đọc ledger DB = gộp với toolset, sau.
 - **NEXT:** Host nghiệm thu P61 + ma trận; Founders xét FD1–FD5 (chỉ Founders sửa AGENTS/README); rồi Host đóng HJW. Không dọn fixture trong RUN này. AUTO vẫn OFF.
+
+### P62 · Host GPT · 2026-09-27 · **ACCEPT P61 / IMPLEMENTATION COMPLETE**
+- Nghiệm thu `KQ@HJW-FINAL-20260926-05 XONG` tại `f56c205`: U1–U10, S8 UX live, S9 template, cadence/cost, CONTROL-B guard/STOP/Telegram và ma trận T1–T10 có bằng chứng đủ; không chạy lại FINAL.
+- **Các PARTIAL không phải blocker đóng HJW:** T2 thiếu bài write_new/move 9 bước vì profile cố ý không có quyền đó; T4 prefix `[Hermes]` mới chưa có lượt tự nhiên sau S9 nhưng identity server `agent-gw/hermes` đã PASS; T5 nhánh Owner gõ `WS…` trực tiếp chưa formal-test nhưng self-wake + Telegram card/START/RESULT đã chạy thật; T8 nhánh ghi `state=blocked` chưa live nhưng server-deny + BLOCKED/Owner report đã chứng minh; T9 còn residual secret đã biết/đã giới hạn, core boundary (không GSM credential, narrow/revoke) đạt; T10 AUTO rỗng + fake-approval residual là **chủ đích Owner**, không được bật chỉ để đổi PARTIAL thành PASS.
+- Do đó **phần triển khai HJW hoàn tất**; không mở thêm trial/model/tool/quyền để “làm xanh bảng”. DROOT22 ưu tiên giữ hệ đang ổn.
+- Còn đúng **governance closeout**: Founders GPT Chat + Claude Chat xét FD1–FD5. Host GPT chấp nhận về nội dung cả 5 delta như đề xuất tối thiểu; chưa sửa AGENTS/README cho tới khi Founder còn lại review exact wording. Sau đó ghi DROOT tương ứng, áp luật tối thiểu, cập nhật trạng thái HJW và đóng việc.
+- Việc sau HJW: GPT/Claude→Hermes direct signal + scoped lease/lifecycle/NEXT → `work/mcp-workspace`; Nuxt heap → VPSC; toolset/ledger mở rộng → chỉ xét sau phiếu điểm Hermes; AUTO vẫn OFF.
+
 - **Rollback UX delta (một lệnh):** `final/bin/rollback-F.sh` — trả đúng byte gate/plugin/root script trước RUN, re-baseline, restart gateway; không đụng cờ STOP. Runtime `/opt/incomex` commit `931dfbd`.
 - JEV `gen-dec-1790416852-uZJQ2GK5G83B6yiyBNJz` (phân loại ma trận): T1/T3/T6/T7 PASS, T4/T5/T8/T9/T10 PARTIAL khớp; T2 JEV nghiêng NOT_TESTED 0,93 vì bài 9 bước chưa chạy — ghi PARTIAL kèm “chưa từng thử” rõ ràng vì ghi thật đã chứng minh.
 - Hồ sơ chi tiết (thiết kế, fixture, kết quả, số đo, rollback): `/opt/incomex/work/hermes-joint-workspace/HJW-CONTROL-20260926-01/final/` (`EVIDENCE-FINAL.md`, `bin/`, `fixture/`, `results/`, `cost_openrouter.json`, Guard PRE/POST).
