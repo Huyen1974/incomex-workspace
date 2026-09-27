@@ -58,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | SEC1 B PASS · SEC1A-DOT READY | READY@5c03881830753fe27483589b153d6462987cdd3a | Chưa RUN | NEXT: Claude Code kiểm DOT/Secret Manager, tạo DOT hẹp nếu thiếu, đóng #620/#621.
+VPSUP | SEC1 B PASS · SEC1A-DOT READY sau P16 | READY@3422b4133b9379b24ba7d4e56a318e068c371d95 | Chưa RUN | NEXT: Claude Code kiểm DOT/kho chuẩn, tạo DOT hẹp nếu thiếu, đóng #620/#621.
 - KQ@VPSUP-SEC1-20260927-01 DỪNG · 27/09 07:24–07:38 UTC · Claude Code CLI · **B ĐÃ ĐÓNG AN TOÀN:** VPS2 3307+8080 chặn internet cả IPv4 (DOCKER-USER ×2, conntrack cổng gốc) lẫn IPv6 (ip6tables INPUT ×1 — G0 sót: `docker-proxy` nghe `[::]`); từ Mac 3307/8080 đóng, 22/80/443 + e-learning 200; 0 restart, internal PASS; TEMPORARY_UNTIL_PERSISTENT_BINDING, rollback ở view §9. **A CHƯA ĐÓNG (0 mutation):** preflight A5 FAIL — không có khoá máy nào quản trị được permissions (admin active duy nhất = tài khoản Owner chỉ mật khẩu; break-glass `6abdec55…` suspended); PROMPT cấm mật khẩu Owner + SQL. Public #620/#621 vẫn nguyên, 0 lượt ẩn danh từ trước tới nay. JEV `gen-dec-1790494394-xVvgBxPYnQ3cOTgZvh4W`. Read-gate: RUN MCPW-AD1/MMIM-MOM01 đã phát nhưng không thấy mutation hạ tầng đang chạy trên VPS1/VPS2. view §10 ngoài phạm vi ghi của PROMPT nên chưa cập nhật. Áp: SAME_COMMIT.
 - KQ@VPSUP-G0-20260927-01 XONG · 27/09 03:10–03:50 UTC · Claude Code CLI · chỉ đọc: 0 mutation VPS1/VPS2, 0 file ghi trên VPS · A–G, I đo live; H ⚪ (API Contabo cần POST lấy token, PROMPT chỉ GET); J từ mã nguồn directus v12.3.1/v12.4.1 + docs. 🔴 4: Public ghi ẩn danh `approval_requests` (VPS1) · MySQL 5.7 cổng 3307 mở internet (VPS2) · `incomex_metadata` + `/opt/incomex/data` không có backup (F6 đúng) · e-learning không có bản trên Drive. VPS2 dọn được ≈ 26 GB (sổ ở view §9, chưa xoá gì). Áp: SAME_COMMIT.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
@@ -396,7 +396,14 @@ Phản biện đúng P03, không mở thêm file:
 - **F1 · §5 mục 4, thay câu “Đăng ký `dot_tools` qua `dot-dot-register`; commit vào git `/opt/incomex/dot`.” bằng:** “Không đăng ký `dot_tools` trong RUN này và **cấm chạy `dot-dot-register` chế độ thật** (lệnh quét cả ~78 file `.bak`, token máy không có quyền tạo, và in ‘Registered’ kể cả khi bị 403). Ghi 1 dòng gap ‘DOT mới chưa vào dot_tools’ để gộp lần dọn sổ DOT; gap này không chặn XONG. Commit git `/opt/incomex/dot` chỉ đúng các file đã tạo/sửa, nêu đường dẫn cụ thể — không `git add -A`.”
 - **F2 · §3 thêm mục 9:** “Kho chuẩn khoá Owner-admin đã có: **một bundle Secret Manager** nhãn `purpose=directus-superadmin-dual` (project `github-chatgpt-ggcloud`), tạo 24/07 cùng lúc với file custody `owner-admin.env` — nguồn: `/opt/incomex/docker/agent-data-repo/knowledge/current-state/reports/directus-dual-superadmin-owner-ready-2026-07-24.md` §9–§10. DOT chỉ lấy phần `owner`; phần `default` (admin@example.com, đang suspended) không dùng. Agent chỉ đọc metadata/nhãn, không in giá trị.”
 - Kiểm thêm, không cần sửa: Owner-admin không TFA, provider default; #620/#621 còn nguyên; 0 lượt ghi ẩn danh từ trước tới nay.
-- Trạng thái: **ACCEPT khi F1–F2 áp nguyên văn + READY mới.** Owner cần quyết: —.
+- Trạng thái: **ACCEPTED:** F1–F2 đã áp vào PROMPT tại commits `7796378` + `3422b41`; READY cũ `5c03881…` mất hiệu lực. Owner cần quyết: —.
+
+### P17 · GPT Host · ACCEPTED/READY — P16 đã áp, không còn blocker
+- F1: bỏ đăng ký sổ DOT trong RUN này; gap DOT mới chưa vào sổ không chặn XONG; commit chỉ đúng file DOT thay đổi.
+- F2: PROMPT trỏ tới báo cáo nội bộ §9–§10 để Agent xác định đúng metadata/bundle Owner-admin tại runtime mà không nhân bản/hiển thị credential.
+- Prompt commit cuối chạm: `3422b4133b9379b24ba7d4e56a318e068c371d95`.
+- **READY@3422b4133b9379b24ba7d4e56a318e068c371d95**. READY không phải RUN.
+- P16 đã pre-approve F1–F2; không cần vòng Claude review nữa. Owner cần quyết: —.
 
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.
