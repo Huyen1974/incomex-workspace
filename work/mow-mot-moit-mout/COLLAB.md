@@ -888,8 +888,68 @@ KQ@MMIM-MOM02-20260927-01 XONG
 - READY@0fae5e8caaa9a378d1bc0ae3631d1940d4baacdf · RUN_ID `MMIM-MOM03-20260927-01` · Executor **Codex** · phạm vi: Home-first navigation + visual status + Master of Master compact progress; không file/UI ID mới, không làm đầy 79 Master.
 - RUN ISSUED · `MMIM-MOM03-20260927-01` · Owner điều hành thủ công; Codex ghi KQ rồi DỪNG, không tự mở vòng tiếp.
 
+## Codex · KQ MMIM-MOM03-20260927-01 · 27/09/2026
+
+**XONG phạm vi RUN; chờ Owner/Host nghiệm thu hình.** READY `0fae5e8caaa9a378d1bc0ae3631d1940d4baacdf` đúng commit cuối chạm PROMPT; RUN_ID khớp. A0 đã xác nhận. Đã đọc AGENTS → README D12 → COLLAB §0/D44/D46/D49–D54/KQ MOM02 → PROMPT + 11 nguồn root ui + #ui-master. PROMPT SHA `f6afa1d17c5d3e37c771f53877cfa0afc315f2a2e20e4d9ba30d71eb78240c1b` không đổi. Nguồn workspace fresh khi ghi KQ; không nghiên cứu lại 84/PG/Directus/JEV.
+
+### Đã sửa
+- `Master`: một bấm → [⌂ Home](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-home-v1.html), không popup. MOW/MOT/MOIT/MOUT giữ popup. Children Master cũ vẫn nguyên trong source; Home và Master of Master có chip Master active.
+- Home gốc: hub M → ☷84/T2/T1/I/O/F, không dropdown/bảng dài. Home từng Master: ⌂/☷, 6 trục TK/LB/CF/ST/UI/Σ, 5 khu ☷/→/▦/⚙/i; không tab Tổng quan. Count List/CF chưa kiểm = ○. Step/UI dùng nguyên dữ liệu MOM02, chưa chốt bước unique.
+- Một hàm tiến độ có evidence trong `ui-child-content-v1.js`, Home và CAT cùng dùng. Màu lấy biến theme; ký hiệu dùng SVG để không phụ thuộc font. Không đổi bảng màu/parent renderer.
+- CAT giữ 10 cột nhìn thấy: ⌂/#/Mã/Tên/Nhóm/QL/TK/LB/CF·ST·UI/Σ; dùng các cell hiện có, không tăng cột. Summary `84 · TK✓5 · !2`. Row/bút/cây vẫn mở Home đúng mã. Metadata 84 dòng không sửa.
+
+| Pilot | TK | LB | CF | ST | UI | Σ |
+|---|---|---|---|---|---|---|
+| Field · CAT-202* | ✓ | ◐ | ◐ | ◐ | ◐ | ◐ |
+| MOIT · CAT-204* | ✓ | ◐ | ◐ | ◐ | ◐ | ◐ |
+| MOUT · CAT-205* | ✓ | ◐ | ◐ | ◐ | ◐ | ◐ |
+| MOT · CAT-009? | ✓ | ◐ | ◐ | ◐ | ◐ | ! |
+| MOW · CAT-003? | ✓ | ◐ | ◐ | ◐ | ◐ | ! |
+
+TK ✓ theo [UI Master · ĐÃ DUYỆT](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=ui-master), ban-duyet SHA `d0f88b10460439c4f91fd2841812ea689e207923417e6e2ed722676312cb1440`; đây là thiết kế Master list theo UI.MASTER, không phải duyệt parent Home mới. LB từ nhãn hiện có + registry còn rà; CF từ UI-018/017/008/006 và Step khai MOW còn gap; ST/UI có danh mục chưa chốt. Tooltip/i giữ nguồn + version. Hai ! giữ blocker nguồn tasks/workflows của MOM02. 79 Master còn lại cả 5 trục ○, không làm đầy.
+
+### Output kiểm thật
+```
+CUA 1280×800 Home gốc: selects=0; tables=0; scrollWidth=1280; scrollHeight=800; hub bottom=509.59.
+CUA 390×800 Home gốc: selects=0; scrollWidth=390; scrollHeight=800; 6 nút hub đủ.
+5 pilot × 5 nhánh × 2 cỡ = 50 nhánh: overflow=0; paneFailures=0; dropdowns=0.
+5 pilot top: TK evidence đúng 5/5; navBottom desktop=261.09, mobile=249.09–272.49.
+CAT DOM: rows=84; unique_codes=84; progress=504; vectors=504; TK_green=5; false_green=0; old79_green=0.
+Filter Σ ! = 2 dòng; filter TK ✓ = 5 dòng; search CAT-202* = đúng Field.
+CAT 390: page scrollWidth=375/clientWidth=375; bảng cuộn nội bộ 1040/client=317.
+Tree Field: code=CAT-202*; vectors=6; click tên → đúng Home Field.
+4 Mẹ → Master: 4/4, mỗi ca 1 click, Home gốc, popup=0.
+Vòng kín: Home → ☷84 → row Field → Home Field → ⌂ → Home gốc; ☷ trả CAT.
+Back/forward giữ master query; Step→UI→Back đúng Step; reload giữ view=step.
+Menu runtime: MOW đỏ4/xanh3; MOT đỏ2/xanh5; MOIT đỏ3/xanh4; MOUT đỏ1/xanh4; unmarked=0.
+Regression Field: 3 dòng; ✎ full_name → UI-018 dialog, Tên trường=Họ và tên, truong=full_name.
+Regression MOIT: 6 dòng; ✎ MOIT-F-0001 → moit-config-v1.html?edit=MOIT-F-0001&tang=T1&che-do=de-xuat.
+Regression MOUT: 6 dòng; ✎ RPT-0010 → mout-builder-v3.html?edit=RPT-0010; builder mẫu hiện.
+```
+Không bấm lưu/đúc. MOUT chỉ chứng minh đường sửa/render mẫu, chưa chứng minh tải bản ghi thật. Field K0 vẫn chưa PASS. Hai đoạn non-CAT config/labels của adapter so byte-text với trước RUN = nguyên vẹn.
+
+`ui_inspect` Home 1280 HTTP 200/console_errors=0 (captured_at 1790508636.577916). Ảnh VPS Home 390 sau sửa SVG HTTP 200/console_errors=0 (1790509034.0753126); Field 1280 HTTP 200/console_errors=0 (1790509105.3467724). CUA console error=0. CAT vẫn 1 cảnh báo CSP Google Fonts có từ baseline; **console error mới=0**. Native CUA hiển thị đúng tên tiếng Việt; browser ảnh VPS vẫn thiếu vài glyph tiếng Việt do font môi trường, không sửa theme/parent ngoài phạm vi.
+
+**Bẫy/đã xử lý tại nguồn:** ảnh headless ban đầu không có font cho ☷/◐/✓, hiện ô vuông → shared `icon()/mark()` dựng chính các ký hiệu đó bằng SVG, giữ `data-symbol`, title/aria/evidence. Ảnh sau đã hiện hình đúng. Một lần đợi .mh-progress 10s ở MOW hết hạn trong lúc fetch chậm; kiểm lại thấy không lỗi, tiếp tục bằng timeout 30s và hoàn tất 50 nhánh.
+
+### Version/đường ghi
+Hai transaction root ui `1877206433314edf866d7d6cadab0fb4` / `7f591b450e134370bf0d0b7ab2fbdcd9`, operation_id có MMIM-MOM03; expected_version từng file; commit=null/pushed=false đúng root ui.
+
+| File ui | Trước RUN | Sau RUN |
+|---|---|---|
+| eco-nav.js | `1ce2fef6dd23535fa01aac8bf19a92e23ea5bca81d8daf1107ea05ae87c27ef2` | `5c893f7a5063a2e855c43384417df5a4c191a6a8171f2283203eafcaa09a2382` |
+| master-home-v1.html | `b3558c1cd29949439f8fec5aa6d522e6a208e5881aeb0cb6a1485d462803f03c` | `3d1a0b8c863aca7f02d1b2b6de8f96591d42975ddcfbc07709360b7d06aa0fd3` |
+| ui-child-content-v1.js | `e3c511b4ebc825ee2547176480ac152c76e45f5f11ca64c390df3d6617834010` | `d72cfd707b299eb7fce76e1c6df0421c67def8262a40387183f21bbea07d2ea4` |
+| ui-child-from-parent-v1.js | `72551fc5e76154bd9484c1db4cd4ec9b4d59444445578443005823ce97c68113` | `d2da65e98b0f48c5aa936eec47f1cf14ded78bfbd002f3ce47c8be572144db8a` |
+
+**Hash giữ nguyên:** master-list.js `a92524f509b514e2a04677e3bd7d7dfd17efc8c206282840a6bf6b3f876baa57`; mot-theme-v1.css `81cc5a69305943bb716215a7ceb1017d0147164966bff44cd5a86673b5a9b287`; mot-master-v1.html `85da2f858f1f5e3f9e01110c110886c5c15cde043b47642068956324948c421e`; catalog 84 `8cbfa838c75f7a8c62ddb54b95db00a4bf10ac08f4564dd948cd3f17b8eadd13`; registry `0c486b5209c16908557703e050ac28b0fc602689e1d9921ad0cd1175155b6a96`; ban-duyet như evidence TK ở trên. Không file/UI ID mới, không xoá/move, không ghi production PG/Directus/runtime, không sửa parent. Báo cáo tại COLLAB theo RUN, không tạo reports ngoài phạm vi; luật/OR không đổi.
+
+**Bàn giao:** Owner xem [Home](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-home-v1.html) → [☷84](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html) → [Home Field](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-home-v1.html?master=CAT-202*) trước bước tiếp. Dừng tại đây; Owner/Host điều hành thủ công, chưa tự phát RUN.
+
+KQ@MMIM-MOM03-20260927-01 XONG
+
 ## Dòng hiện hành
-MMIM | MMIM-MOM02-20260927-01 · 27/09/2026 | XONG phạm vi RUN: 84/84 Master, 5 Home pilot, 10/10 menu đỏ, regression 3/3. Master Home là candidate chờ Owner/Host nghiệm thu. 79 Master giữ OPEN; không tự mở RUN mới.
+MMIM | MMIM-MOM03-20260927-01 · 27/09/2026 | XONG phạm vi RUN: Home-first, không dropdown, 84/84 Master, TK xanh 5/5 theo evidence, false_green=0, menu đỏ 10/10, regression 3/3. Chờ Owner/Host xem Home → ☷84 → một Master Home; 79 Master giữ OPEN. Codex dừng, không tự mở RUN mới.
 
 
 Bản thiết kế FIELD nằm trong ban-duyet.html
