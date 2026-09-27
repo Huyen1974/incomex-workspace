@@ -213,7 +213,23 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 </table>
 
 <div id="sec1-result" class="callout danger">
-<b>SEC1 · chờ RUN</b> · Host đã nghiệm thu G0 và khóa phạm vi khẩn: (A) gỡ Public CREATE+UPDATE trên <code>approval_requests</code> bằng Directus native API; (B) containment runtime internet 3307/8080 trên VPS2, không restart container. <b>READY@8c202ccf…</b>. Bước sau: BK1 backup trước mọi persistent-bind/cleanup.
+<h3>Kết quả SEC1 · RUN <code>VPSUP-SEC1-20260927-01</code> · DỪNG — B đã đóng, A chờ Owner</h3>
+<p class="big">🟢 VPS2: MySQL 3307 + cms_nginx 8080 đã đóng với internet. 🔴 VPS1: quyền ghi ẩn danh <code>approval_requests</code> <b>chưa gỡ</b> — không có khoá máy nào được phép sửa quyền; cần Owner chọn một đường (COLLAB · Owner cần quyết).</p>
+<p class="small muted">27/09/2026 07:24–07:38 UTC · Claude Code CLI · SSH alias <code>contabo</code>/<code>vps2</code> · SQL VPS1 <code>BEGIN READ ONLY</code> · 0 file ghi lên VPS1/VPS2 · không in secret · không thử ghi ẩn danh. JEV phụ <code>gen-dec-1790494394-xVvgBxPYnQ3cOTgZvh4W</code>: A dừng 0,88 · B v4+v6 0,96.</p>
+<table>
+<thead><tr><th>Phần</th><th>Trước</th><th>Sau</th><th>Kết quả</th></tr></thead>
+<tbody>
+<tr><td><b>A</b> VPS1 Directus · Public ghi <code>approval_requests</code></td><td>Policy <i>Public Access</i>: #620 create + #621 update, fields <code>*</code>, filter <code>{}</code>, không validation/preset · 0 lượt ẩn danh từ trước tới nay, 0 thay đổi APR từ G0 · mọi caller dùng token/SQL, không Flow <code>$public</code></td><td><b>Không đổi</b> (0 mutation)</td><td>🔴 DỪNG ở preflight A5: admin active duy nhất = tài khoản Owner (chỉ mật khẩu, PROMPT cấm dùng); break-glass admin <code>6abdec55…</code> suspended từ sau 25/07; 5 khoá máy API-only không có quyền trên <code>directus_permissions</code>. PROMPT cấm SQL ⇒ không đoán</td></tr>
+<tr><td><b>B</b> VPS2 · internet vào 3307/8080</td><td>Mở từ internet cả <b>IPv4 lẫn IPv6</b> (G0 chỉ thấy IPv4; IPv6 do <code>docker-proxy</code> nghe <code>[::]</code>, không đi qua DOCKER-USER) · DOCKER-USER rỗng · ip6tables INPUT ACCEPT</td><td>3 rule DROP nhãn <code>VPSUP-SEC1 TEMPORARY_UNTIL_PERSISTENT_BINDING</code>: DOCKER-USER ×2 (<code>eth0</code>, NEW, conntrack cổng gốc 3307 / 8080) + ip6tables INPUT ×1 (<code>eth0</code>, 3307,8080). Từ Mac: 3307/8080 <b>đóng</b> v4+v6; 22/80/443 mở</td><td>🟢 PASS · <b>TEMPORARY</b> — mất khi reboot</td></tr>
+<tr><td>Regression</td><td colspan="2">VPS2: 5 container <code>StartedAt</code> không đổi, RestartCount 0, <code>cms_mysql</code> healthy · app→mysql PDO <code>SELECT 1</code> OK · Caddy→<code>cms_nginx</code> 302 như trước · e-learning https 200, <code>/admin</code> 200 · host <code>127.0.0.1</code>:3307/8080 vẫn dùng được. VPS1: không mutation; Directus <code>/server/ping</code> 200, vps 200</td><td>🟢 0 regression</td></tr>
+</tbody>
+</table>
+<p class="small"><b>Rollback B</b> (chạy trên VPS2, chỉ khi cần mở lại):<br>
+<code>iptables -D DOCKER-USER -i eth0 -p tcp -m conntrack --ctstate NEW --ctdir ORIGINAL --ctorigdstport 3307 -m comment --comment "VPSUP-SEC1 TEMPORARY_UNTIL_PERSISTENT_BINDING" -j DROP</code><br>
+<code>iptables -D DOCKER-USER -i eth0 -p tcp -m conntrack --ctstate NEW --ctdir ORIGINAL --ctorigdstport 8080 -m comment --comment "VPSUP-SEC1 TEMPORARY_UNTIL_PERSISTENT_BINDING" -j DROP</code><br>
+<code>ip6tables -D INPUT -i eth0 -p tcp -m multiport --dports 3307,8080 -m conntrack --ctstate NEW -m comment --comment "VPSUP-SEC1 TEMPORARY_UNTIL_PERSISTENT_BINDING" -j DROP</code></p>
+<p class="small">⚠️ <b>Cấm reboot VPS2</b> trước RUN hardening (rule chỉ ở runtime). Phát hiện thêm, không sửa: 🟡 hai policy gắn Public (<i>Public Access</i> + <code>$t:public_label</code>, 340 quyền đọc) — thuộc SEC2; ngoài #620/#621 không còn quyền create/update/delete Public nào.</p>
+<p class="small"><b>Next:</b> Owner chọn đường cho A → gỡ #620/#621 · song song Host phát <b>BK1 backup</b> sớm, trước mọi cleanup/recreate/persistent-bind VPS2.</p>
 </div>
 
 <h4>Phát hiện 🔴/🟡</h4>

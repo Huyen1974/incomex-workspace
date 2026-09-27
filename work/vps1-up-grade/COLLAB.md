@@ -58,7 +58,8 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | G0 ACCEPTED · SEC1 READY | READY@8c202ccf57d54abd625908bf4b120705dc50a3b8 | Chưa RUN SEC1 | NEXT: Owner/GPT Host phát RUN VPSUP-SEC1-20260927-01; xong mới BK1 backup.
+VPSUP | G0 ACCEPTED · SEC1 DỪNG (B PASS, A chờ Owner) | READY@8c202ccf57d54abd625908bf4b120705dc50a3b8 | RUN SEC1 xong 27/09 07:38 UTC | NEXT: Owner chọn đường gỡ Public CREATE/UPDATE `approval_requests` (OQ-SEC1-A); Host phát BK1 sớm vì chặn 3307/8080 VPS2 chỉ ở runtime.
+- KQ@VPSUP-SEC1-20260927-01 DỪNG · 27/09 07:24–07:38 UTC · Claude Code CLI · **B ĐÃ ĐÓNG AN TOÀN:** VPS2 3307+8080 chặn internet cả IPv4 (DOCKER-USER ×2, conntrack cổng gốc) lẫn IPv6 (ip6tables INPUT ×1 — G0 sót: `docker-proxy` nghe `[::]`); từ Mac 3307/8080 đóng, 22/80/443 + e-learning 200; 0 restart, internal PASS; TEMPORARY_UNTIL_PERSISTENT_BINDING, rollback ở view §9. **A CHƯA ĐÓNG (0 mutation):** preflight A5 FAIL — không có khoá máy nào quản trị được permissions (admin active duy nhất = tài khoản Owner chỉ mật khẩu; break-glass `6abdec55…` suspended); PROMPT cấm mật khẩu Owner + SQL. Public #620/#621 vẫn nguyên, 0 lượt ẩn danh từ trước tới nay. JEV `gen-dec-1790494394-xVvgBxPYnQ3cOTgZvh4W`. Read-gate: RUN MCPW-AD1/MMIM-MOM01 đã phát nhưng không thấy mutation hạ tầng đang chạy trên VPS1/VPS2. view §10 ngoài phạm vi ghi của PROMPT nên chưa cập nhật. Áp: SAME_COMMIT.
 - KQ@VPSUP-G0-20260927-01 XONG · 27/09 03:10–03:50 UTC · Claude Code CLI · chỉ đọc: 0 mutation VPS1/VPS2, 0 file ghi trên VPS · A–G, I đo live; H ⚪ (API Contabo cần POST lấy token, PROMPT chỉ GET); J từ mã nguồn directus v12.3.1/v12.4.1 + docs. 🔴 4: Public ghi ẩn danh `approval_requests` (VPS1) · MySQL 5.7 cổng 3307 mở internet (VPS2) · `incomex_metadata` + `/opt/incomex/data` không có backup (F6 đúng) · e-learning không có bản trên Drive. VPS2 dọn được ≈ 26 GB (sổ ở view §9, chưa xoá gì). Áp: SAME_COMMIT.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
 - Lượt này chỉ tạo SSOT của task; không mutation hạ tầng.
@@ -360,7 +361,7 @@ Phản biện đúng P03, không mở thêm file:
 - Q08 · Những singleton/integration nào phải tắt/đổi đích trên clone để không tranh Telegram/GitHub/webhook/backup với VPS1?
 
 ## Owner cần quyết
-- OQ-SEC1-RUN · 27/09 · SEC1 đã Host review + READY@8c202ccf57d54abd625908bf4b120705dc50a3b8. RUN chỉ đóng Public CREATE/UPDATE `approval_requests` và containment internet 3307/8080; không đụng business data, backup, cleanup hay upgrade. Chờ RUN.
+- OQ-SEC1-A · 27/09 · (thay OQ-SEC1-RUN: đã RUN, KQ DỪNG) Gỡ Public create #620 + update #621 trên `approval_requests` cần một đường Owner cho phép: (a) Owner tự bỏ tick Create/Update ở Studio → Settings → Access Policies → Public Access (giữ Read); hoặc (b) cho agent dùng một khoá admin hiện có (vd. tài khoản Owner trong custody break-glass) qua native API đúng 2 lệnh xoá #620/#621 + postcheck. Không đề xuất SQL. Phần B (VPS2) đã đóng, không chờ.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md · ../../README.md · ../README.md.
