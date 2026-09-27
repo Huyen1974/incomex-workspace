@@ -68,9 +68,9 @@ Song song hoàn thiện bản thiết kế máy, xây các tool và viết quy t
 **KQ lane bắt buộc:** `KQ@LANE-<A|B|C> ... · PROCESS=<mã> · HEAD=<sha> · NEXT=<một việc cụ thể>`. Phiên kế nhiệm đọc dòng KQ mới nhất của đúng lane trước khi làm.
 
 - D57 · 2026-09-28 · **LANE A01 BẮT ĐẦU E1 — BOOTSTRAP P0 + PROCESS GATE:** PROMPT mới đã khai `PROCESS: CHUNG.APQUYTRINH`; đây là bootstrap exception duy nhất theo D56 vì process chưa được ghi vào catalog trước RUN. A01 phải đăng ký P0 vào CAT-003/`ml5-cho-ai`, tạo `cong-cu/dot-process-gate.py`, đăng ký tool + `K18 governance.process · gate`, chạy lại `dot-walk-check`, và chứng minh gate PASS/BLOCK bằng test thật. Từ RUN sau A01: **Host không READY nếu thiếu PROCESS hoặc gate chưa PASS; Agent phải tự gate trước mutation.** E2/E3 (root AGENTS/gateway hard block) chưa làm trong A01, chỉ làm sau khi E1 ổn. · LANE B/C = BLOCKED_BY_A01.
-- E1 · A01 áp D57 (Áp: SAME_COMMIT): đã đăng ký P0 `CHUNG.APQUYTRINH · Áp dụng quy trình trước khi làm` (🔁 · TẠM CHỐT · v1) ở CAT-003/`ml5-cho-ai`, tool `dot-process-gate` ở CAT-006/`ml6-cc`, K18 `governance.process · gate`. Bản dự kiến: walk 84/39/🔁8, 0 lỗi; gate chính RUN PASS; 14 ca CLI đạt. Đang kiểm lại sau ghi, chưa KQ XONG.
+- E1 · A01 áp D57 (Áp: 17d5bd9eb298d30f0ae9d4e0d6c759ac4e3ea419; summary a66d9d068443d44d2a7b7176a32690e26931d4af): P0/tool/K18 đã ghi, source đọc lại + Owner View fresh; walk 84/39/🔁8/0 lỗi, gate PASS, ca âm BLOCK. **KQ A01 XONG · chờ Host nghiệm thu**. Chi tiết tại KQ LANE A01 dưới đây.
 - **E1 từ RUN kế tiếp của task này:** Host không READY khi thiếu `PROCESS:`; Host/Executor chạy `dot-process-gate.py` trước READY, chỉ PASS mới READY. Agent nhận RUN phải tự gate trước mutation; FAIL → KQ DỪNG. KQ bắt buộc `PROCESS=<mã>` + `PROCESS_GATE=PASS` + evidence/gap. E2/E3 (root AGENTS/gateway hard block) chưa làm; K11 semantic overlap OPEN.
-- LANE A = A01 đang bootstrap P0/gate · LANE B = BLOCKED_BY_A01 · LANE C = BLOCKED_BY_A01. Chưa phát RUN B/C.
+- LANE A = A01 XONG · chờ Host nghiệm thu E1; LANE B = BLOCKED_BY_A01 · LANE C = BLOCKED_BY_A01 đến lệnh Owner/Host. NEXT = Host nghiệm thu E1 P0/gate. Không phát RUN B/C.
 - READY@2b3c9289bc631da908e0d9e2561f80a773f9c549 · RUN_ID `MMIM-LANE-A01-20260928-01` · PROCESS `CHUNG.APQUYTRINH` · Executor **Codex**.
 - RUN ISSUED cũ · `MMIM-LANE-A01-20260928-01` · **SUPERSEDED trước khi Owner chạy** do Host bổ sung khóa nghĩa MOM04; READY cũ không dùng.
 - D58 · 2026-09-28 · **NGHIỆM THU MOM04 LÀM BASELINE, KHÓA NGHĨA 470 REQUIREMENTS:** KQ MOM04 đạt: 16/16 UI xanh · 84/84 Master · help 10/10 + Home · ★ browser-only · 470 detailRequirements/5 pilot · false_green=0 · loop PASS · regression 3/3. **470 = kho evidence/chi tiết cần đạt, không phải Process/Step/UI count và không phải backlog người duyệt từng dòng.** Lane B/C chỉ được dùng 470 làm nguồn để suy/gộp; Lane A không được nhập 470 thành process/tool catalog. A01 vẫn chỉ làm P0 + gate. · Trạng thái: **PROMPT A01 hiệu chỉnh, chờ READY mới**.
@@ -1136,8 +1136,61 @@ Chỉ sửa 4 file được PROMPT cho phép, root ui; giao dịch đầu và c�
 
 KQ@MMIM-MOM04-20260928-01 XONG
 
+## Codex · KQ LANE A01 · 28/09/2026
+
+RUN_ID: MMIM-LANE-A01-20260928-01  
+PROCESS: CHUNG.APQUYTRINH  
+READY: fbbe0415134e87dd1fa997ff9e509dfd17021109 (log PROMPT kiểm lại cuối vẫn khớp)  
+Executor: Codex · Write_Path: workspace_* root workspace · branch main.
+
+**Kết quả:** E1/P0 đạt acceptance của RUN; chờ Owner/Host nghiệm thu. MOM04 read-only. Không phát RUN mới.
+
+- Đọc AGENTS → README → COLLAB §0/D36/D56/D57/D58/KQ MOM04 → PROMPT; đọc 84 dòng nguồn, khối process/tool/phạm vi và 4 tool theo đúng scope, không nghiên cứu lại 84 Master.
+- Ghi đúng 4 path: ban-duyet.html (catalog/summary hiện hành), dot-walk-check.py (thêm comment ca A01, logic giữ nguyên), dot-process-gate.py (file mới duy nhất), COLLAB.md. Commit sản phẩm/E1: 17d5bd9eb298d30f0ae9d4e0d6c759ac4e3ea419; bổ sung 4 summary đang hiện: a66d9d068443d44d2a7b7176a32690e26931d4af.
+- P0: 1 definition canonical trong ml5-cho-ai; mã/tên cố định, 🔁, TẠM CHỐT v1, D56, input/output/tool bắt buộc + 6 bước đọc/ghi các dòng đã có. Không ghi PG.
+- Catalog hiện hành: 39 process, 🔁8; tool 29 dòng (+1 cổng inspect ở lớp kiểm kê); K01–K18 = 18. K11 exact code/name đã thử, **semantic overlap OPEN**. Tool mới = **đã thử**, không nâng sẵn dùng.
+
+### Output thật — chạy bằng source đọc lại qua gateway
+
+```text
+source HEAD: a66d9d068443d44d2a7b7176a32690e26931d4af
+walk --json: rows=84 · process=39 · labels={🔁:8, ⚙️:22, 🏗:9} · errors=[] · exit=0
+P0: steps=6; human=62 · machine=66 toàn catalog (không phải Step/UI unique)
+PROCESS_GATE PASS · process=CHUNG.APQUYTRINH
+catalog=0ed6f4ba8c6c34c194f362b3f53e70fdbea65c8b5bce8698ad062d06b7d8296d
+prompt=31b0d79497562f9f495c61cb0b618d25fd2303f4a67eb2cefcaa1df105b62cb8
+reason=OK · process_count=39 · exit=0
+missing PROCESS: BLOCK · PROCESS_LINE_COUNT=0 · exit=1
+unknown PROCESS: BLOCK · PROCESS_DEFINITION_COUNT=0 · exit=1
+duplicate code fixture: BLOCK · DUPLICATE_CODE=CHUNG.TIM · exit=1
+duplicate normalized name fixture: BLOCK · DUPLICATE_NAME=tìm · exit=1
+```
+
+- Bộ ca CLI trên bản dự kiến: **14/14** gồm dòng PROCESS trùng/sai format, thiếu nhãn/bước, chỉ nhận definition canonical, mã/tên trùng, lỗi UTF-8/mất input. Đã chạy lại PASS + thiếu/mã lạ + hai duplicate trên **source đã lưu**. Fixture in-memory/temp, không ghi vào repo.
+- Invariant: **84 dòng tr id=ml3-* giữ byte; 38 definition cũ giữ nguyên; scripts/styles giữ nguyên**. Chỉ thêm P0/tool/K18 và sửa summary hiện hành; số trong lịch sử C12/KQ cũ giữ nguyên. Không sửa Step/UI/Master code-name, root AGENTS/README/PROMPT, VPS ui/runtime, PG/Directus.
+- Owner View đã mở đúng task/content/section=ml5-cho-ai, revision **a66d9d068443d44d2a7b7176a32690e26931d4af**, trạng thái **fresh**: đầu trang 39; canonical P0=1; 84 master rows; tool 29; scope 18; K18 “đã thử”. HTML chính là bản publish theo README §12, không tạo view/pipeline mới.
+
+### Hash để phiên sau tìm đúng nguồn
+
+| Path dưới work/mow-mot-moit-mout | SHA256 sau |
+|---|---|
+| ban-duyet.html | 0ed6f4ba8c6c34c194f362b3f53e70fdbea65c8b5bce8698ad062d06b7d8296d |
+| cong-cu/dot-process-gate.py | de2fa6cebc32b6db1b9484aaec89db6566f548370ff77912c6fb39d8aa5b9b7c |
+| cong-cu/dot-walk-check.py | 4dcee671c65fde2f98e3b367dd03586ba0a020b88e92a20ae3d044395c2b534a |
+
+### Giới hạn / sự cố kiểm
+
+- dot-push-verify CLI không tải được raw GitHub: lỗi DNS, exit=2; **không tính PASS cho tool này**. Đã dùng source đọc lại qua gateway và SHA256 so byte với bản dự kiến (3/3 khớp) + Owner View fresh đúng revision.
+- Lượt mô phỏng đầu báo tạo-file thành ghi-đè vì chính scratch base đã chứa file gate. Transaction gateway tạo thật vẫn validate đúng (file chưa tồn tại); đã sửa fixture base sạch, mô phỏng lại **3/3 PASS**. Không dùng kết quả lỗi làm PASS.
+- Console trang cha quan sát có “[Directus Auth] Init Error: Object”; catalog vẫn tải/hiện đúng. Không sửa lỗi auth ngoài scope.
+- Gate v1 không chứng minh process phù hợp/lạc hậu/chồng nghĩa, tool đủ quyền/chạy được, hoặc READY/version hợp lệ; P0 + input gate vẫn phải kiểm. E1 là tool + quy định trước READY/RUN; **E2/E3 hard-block gateway chưa làm**. Bootstrap exception A01 đã dùng; RUN sau phải tự gate trước mutation.
+- LANE A = A01 XONG, chờ Host nghiệm thu; LANE B/C giữ BLOCKED_BY_A01 đến lệnh Owner/Host. Không tự mở A02/B/C.
+
+KQ@MMIM-LANE-A01-20260928-01 XONG
+KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068443d44d2a7b7176a32690e26931d4af · NEXT=Host nghiệm thu E1 P0/gate
+
 ## Dòng hiện hành
-MMIM | MMIM-MOM04-20260928-01 · 28/09/2026 | XONG phạm vi RUN: kế thừa 16/16 UI xanh, 84/84 Master, help 10/10 + Home, ★ browser-only, 470 requirements / 5 pilot, false_green=0, menu đỏ 10/10, hồi quy 3/3. Chờ Owner/Host nghiệm thu Home → ☷84 → ? → ☆/★ → i. 79 Master giữ OPEN. Codex dừng, không tự mở RUN mới.
+MMIM | MMIM-LANE-A01-20260928-01 · 28/09/2026 | XONG · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · process=39 · shared=8 · scopes=18 · K11_semantic=OPEN. MOM04 baseline read-only. NEXT=Host nghiệm thu E1 P0/gate. Codex dừng, không tự mở RUN mới.
 
 
 Bản thiết kế FIELD nằm trong ban-duyet.html
