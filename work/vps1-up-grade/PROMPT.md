@@ -1,100 +1,206 @@
-# PROMPT — VPSUP SEC1A-DOT · kiểm cơ chế DOT/Secret Manager + đóng Public write
+# PROMPT — VPSUP BK1 · đóng gap backup + restore proof
 
-RUN_ID: VPSUP-SEC1A-DOT-20260927-01
+RUN_ID: VPSUP-BK1-20260928-01
 STATUS: Chỉ thực thi sau khi COLLAB có READY đúng SHA commit cuối chạm file này và Owner/GPT Host phát RUN.
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
-Runtime_Write_Path: chỉ gọi DOT/MCP đã duyệt cho Directus/PG; SSH chỉ audit/read và kiểm runtime. Runtime VPS là SSOT.
-Không có Write_Path dự phòng. Không bind được fs_* hoặc không vào được runtime đúng đường đã audit ⇒ DỪNG.
+Runtime_Write_Path: SSH/operator hiện hữu tới VPS1/VPS2 + rclone/Drive + DOT/MCP hiện hữu.
+Runtime VPS/Drive là SSOT của trạng thái thực. Không có fallback direct mutation Directus/PG.
 
-**DIRECTUS/PG: DOT ONLY · Secrets: Secret Manager · No direct login/write.**
-Người/AI/Agent không đăng nhập Studio/psql và không xem/gõ/chép credential. **DOT được tự nạp credential Owner-admin từ Secret Manager/loader chuẩn khi operation cần quyền quản trị** — đây là đường Owner đã duyệt, không phải vi phạm. Thiếu capability ⇒ reuse/bổ sung/viết DOT hẹp theo phạm vi dưới đây; không fallback REST/SQL.
+## 0. Mục tiêu duy nhất
 
-## 0. Read gate bắt buộc
+Đóng các gap backup đỏ của G0/SEC1A, theo thứ tự **cứu dữ liệu trước → chứng minh đọc/restore được → mới sửa job định kỳ**:
+
+1. VPS1 `incomex_metadata` (BUSINESS) có local/offsite backup mã hoá + restore proof.
+2. VPS1 `/opt/incomex/data` (BUSINESS files) có offsite backup mã hoá + read-back/restore proof.
+3. VPS2 e-learning: bản backup 09/08 được đưa ra Google Drive prefix riêng + đọc lại xác minh; tận dụng restore proof hiện hữu nếu đúng cùng artifact.
+4. Chỉ sau 1–3 PASS mới cập nhật **job backup hiện hữu** để coverage VPS1 không tái hở.
+5. Không dọn VPS2, không sửa `cms_queue`, không hardening port/IPv6, không reboot/restart, không nâng phần mềm.
+
+## 1. Read gate / collision gate
 
 1. `fs_stat work/vps1-up-grade/COLLAB.md`.
-2. Đọc theo thứ tự: `AGENTS.md` A10-R3 → `work/vps1-up-grade/COLLAB.md` (§0, D19–D20, SEC1 KQ, P12) → `PROMPT.md` → `view.html` §9.
-3. Xác minh `READY@<40hex>` đúng commit cuối chạm `PROMPT.md`. Sai/missing ⇒ DỪNG.
-4. Xác minh không có RUN/mutation hạ tầng khác đang diễn ra trên VPS1/VPS2. Có ⇒ DỪNG.
-5. Runtime live thắng mọi số lịch sử.
+2. Đọc: `AGENTS.md` A10-R3/DROOT25–27 → task COLLAB (§0, G0 KQ, SEC1/SEC1A KQ, P19–P23) → PROMPT này → view.html §9.
+3. READY phải khớp commit cuối chạm PROMPT.
+4. Xác minh AD1 chỉ còn watcher nền hoặc đã kết thúc; **watcher nền không phải mutation RUN**.
+5. Xác minh không có executor/RUN khác đang mutation VPS1/VPS2 hoặc cùng script/Drive prefix. Có ⇒ DỪNG, không “chờ vài phút rồi tự làm”.
+6. Chỉ với **repo/version conflict tạm thời** do task khác: re-read/diff; nếu task path không đổi thì có thể đợi ngắn rồi retry gateway. Runtime/executor conflict tuyệt đối không coi là repo conflict.
+7. Trong cửa sổ AD1-24h: không restart/mutate `agent-data` hoặc `claude-mcp`.
 
-## 1. Mục tiêu duy nhất
+## 2. Luật cứng
 
-A. Kiểm chứng cơ chế chuẩn Directus/PG đang chạy: DOT nào, Secret Manager/loader nào, credential được nạp theo cơ chế nào — chỉ ghi tên/cơ chế, tuyệt đối không secret value.
-B. Xác định vì sao SEC1-A trước hiểu sai thành “cần machine admin account”.
-C. Nếu DOT hiện hữu có capability quản trị Directus permissions: dùng **chính DOT** gỡ Public CREATE #620 + UPDATE #621 trên `approval_requests`, giữ Public READ và mọi quyền khác.
-D. Kiểm biển chỉ dẫn tại nơi agent thường chạm Directus/PG, gồm `report-pg`; không viết manual dài.
-E. VPS2 phần B chỉ read-check để chắc containment 3307/8080 vẫn PASS/TEMPORARY; không sửa lại.
+### Directus/PG
+**DIRECTUS/PG = DOT ONLY · Secrets = Secret Manager.**
+- Người/Agent không xem/gõ/chép credential.
+- `pg_dump`/read-only metadata được phép vì không mutation DB.
+- Mọi **restore/write vào PostgreSQL**, kể cả DB verify cô lập, phải qua DOT/MCP được duyệt.
+- Reuse DOT restore-verify hiện hữu nếu có; nếu thiếu capability thì chỉ được bổ sung/viết DOT hẹp theo A10-R3/DROOT27, không direct SQL.
 
-## 2. Cấm
+### Backup/Drive
+- Không dùng `rclone sync/move/delete/purge` trong phần cứu dữ liệu.
+- Không chạy retention/xoá Drive trước khi BK1 proof PASS.
+- Bản cứu BK1 dùng prefix riêng, append-only trong RUN.
+- Không overwrite artifact đã upload; tên gồm timestamp + checksum/meta.
+- Mã hoá bằng cơ chế/GPG recipient hiện hữu; không tạo key/secret mới.
+- Không in credential/rclone token/GPG private material.
+- Mọi upload phải kiểm remote size + provider hash khi có; nếu provider hash không tương đương local thì download read-back + sha256 local.
 
-- Agent không xem/gõ/chép/in mật khẩu hay token nào, không đăng nhập Studio/psql. **DOT được tự nạp khoá tài khoản Owner-admin từ Secret Manager/loader chuẩn** và dùng trong process kín; Agent chỉ gọi DOT. Không unsuspend break-glass; không tạo admin/user/role/policy/token mới.
-- Nếu audit thấy file custody root 0600 do `dot-directus-owner-admin-promote` tạo, chỉ xác minh cơ chế/metadata; không in secret value và không coi file là nguồn chuẩn thay Secret Manager nếu chưa chứng minh quan hệ loader/custody.
-- Không direct Directus mutation REST/GraphQL/MCP nếu call không nằm bên trong DOT đã duyệt.
-- Không SQL write/psql mutation; không thay PG schema/data.
-- Không xóa Public READ/quyền khác; không thử anonymous write tạo dữ liệu.
-- Không reboot/restart/recreate VPS2; không đụng firewall B ngoài read-only verify.
-- Không backup/cleanup/upgrade/Flow/cron/Hermes trong RUN này.
-- Không tạo tài liệu tổng hợp hay file mới chỉ để ghi chú.
+### Runtime
+- Không restart/recreate container/service.
+- Không reboot VPS1/VPS2.
+- Không sửa firewall/DNS/Caddy/nginx.
+- Không dọn log/cache/image/tmp hiện hữu ngoài **temporary BK1 staging** của chính RUN.
+- Không sửa `cms_queue`, MySQL grants/version, IPv6.
+- Cấm xoá source backup 09/08 trên VPS2 trong BK1.
 
-## 3. Audit DOT/Secret Manager — chỉ đọc trước
+## 3. PRE — audit đúng cơ chế hiện hữu
 
-1. Inventory entrypoint DOT hiện hữu liên quan Directus/PG: command/script/service/dispatcher/help/cron; ưu tiên thứ đang chạy thật.
-2. Với mỗi DOT liên quan: mục đích, input, mutation target, secret loader/caller, **tên secret/reference nhưng không value**, audit/rollback.
-3. Xác nhận credential Directus/PG nằm trong Secret Manager hoặc loader Owner đã duyệt; không thử login bằng credential người.
-4. Xác định DOT nào có thể thay Directus permissions. Nếu generic DOT: chứng minh có giới hạn target/action và trace.
-5. `report-pg`: xác nhận census/read-only, tìm source path/route và xem đã có biển DOT-only chưa.
-6. Tìm đúng các operator/help hiện hữu mà agent thường chạm Directus/PG; không tạo manual tổng hợp.
-7. Đọc lại #620/#621 + Public binding bằng DOT/read-only tool hiện hữu; xác nhận anonymous write kể từ G0/SEC1; chuẩn bị exact rollback bằng cùng DOT.
-8. Verify B: 3307/8080 ngoài internet vẫn đóng, 80/443/e-learning vẫn PASS. Không mutation B.
-9. Nguồn metadata về kho Owner-admin đã có trong báo cáo nội bộ `/opt/incomex/docker/agent-data-repo/knowledge/current-state/reports/directus-dual-superadmin-owner-ready-2026-07-24.md` §9–§10. Agent dùng báo cáo này để xác định đúng bundle/phần `owner` ở runtime; phần `default` không dùng. Chỉ đọc metadata/nhãn và cơ chế loader, tuyệt đối không in giá trị credential.
-## 4. Nhánh A — DOT phù hợp đã có
+Chụp trước:
+- disk/free/load VPS1/VPS2;
+- Drive quota/free;
+- health Directus/PG/Qdrant/e-learning;
+- `agent-data` + `claude-mcp` image/StartedAt;
+- 3307/8080 containment còn hiện hữu;
+- backup jobs/scripts + cron/timer hiện tại;
+- GPG recipient count/fingerprint reference (không private key);
+- newest Drive backup + retention config.
 
-Chỉ khi Audit PASS và DOT tự nạp secret mà Agent không nhìn thấy value:
-1. Gọi DOT đúng operation revoke/delete/disable #620 + #621.
-2. Không `curl` Directus trực tiếp, không SQL write, không sửa Public READ/quyền khác/business data/cron/Flow.
-3. Postcheck qua DOT/read-only tool:
-   - Public CREATE `approval_requests` = 0;
-   - Public UPDATE = 0;
-   - Public READ unchanged;
-   - unrelated permissions unchanged;
-   - Directus/Nuxt/agent health PASS;
-   - audit trace chứng minh mutation đi qua DOT.
-4. Regression ⇒ rollback bằng DOT ngay và DỪNG.
-## 5. Nhánh B — DOT thiếu đúng capability + biển tại chỗ
+Xác nhận live:
+- `pg-backup.sh` và `backup-to-gdrive.sh` hiện cover gì;
+- `incomex_metadata` size + read-only consistency metadata;
+- `/opt/incomex/data` size/file count/ownership/mode/mtime summary, không đọc nội dung nghiệp vụ;
+- artifact e-learning 09/08 path, size, checksum; đối chiếu artifact đã restore thử với `cms_elearning_verify`;
+- tìm DOT restore/verify PostgreSQL hiện hữu và chạy `--help`/dry-run nếu có; không tự suy từ tên.
 
-Ưu tiên reuse:
-1. Audit phải xác nhận chưa có DOT nào vừa revoke permission vừa nạp Owner-admin credential theo cơ chế chuẩn. Nếu đúng, **được tạo đúng một DOT mới tối thiểu `dot-directus-permission-revoke`** trong cấu trúc DOT hiện hữu; không tạo service/DB/secret/token mới.
-2. DOT mới theo mẫu Tier B/`dot-directus-owner-admin-promote`: header nhãn + `CHECKED-NO-DUPLICATE`; `--dry-run` là mặc định; `--execute`; `--restore <snapshot>`; input bắt buộc gồm permission ID + expected policy/collection/action, lệch một trường ⇒ từ chối; từ chối policy có `admin_access` và collection `directus_*`; chỉ chạm `directus_permissions` qua Directus API bên trong DOT, không SQL.
-3. Secret: DOT tự nạp Owner-admin credential qua Secret Manager/loader chuẩn vào biến/process kín; không argv/log/output. Nếu implementation hiện hữu dùng `curl`, truyền secret bằng cơ chế không lộ argv (vd. config/stdin) và login tối đa 1 lần; logout/cleanup sau operation. Login sai 1 lần, đòi OTP, hoặc không chứng minh được source kho chuẩn ⇒ DỪNG, không thử lại.
-4. Snapshot before/after không chứa secret; rollback bằng `--restore`. **Không đăng ký sổ DOT trong RUN này**; ghi một dòng gap `DOT mới chưa vào dot_tools` để xử lý cùng lượt dọn sổ sau, gap này không chặn XONG. Commit chỉ đúng các file DOT đã tạo/sửa, không gom thay đổi ngoài phạm vi. **Không** gắn admin vào DOT chung `dot-permission-ensure`.
-5. **Tự mô tả bắt buộc:** `--help` của DOT mới phải có các mục `PURPOSE`, `WHEN TO USE`, `WHEN NOT TO USE`, `INPUTS`, `DRY-RUN DEFAULT`, `EXECUTE`, `RESTORE/ROLLBACK`, `SECRET HANDLING`, `EXAMPLES`, `EXIT CODES`; ít nhất 1 ví dụ dry-run + 1 execute + 1 restore, dùng placeholder không secret. AI sau phải dùng được DOT mà không đọc source.
-6. Nếu việc tạo DOT cần thêm service/DB/secret/token mới hoặc thay schema ⇒ DỪNG, ghi exact gap; không fallback REST/SQL.
+PRE fail, source artifact không xác định được, Drive không đủ chỗ, GPG/remote lỗi, containment VPS2 mất, hoặc có mutation khác ⇒ DỪNG trước backup modification.
 
-Biển chỉ dẫn — đặt đúng nơi agent đi qua:
-- Đầu `/opt/incomex/dot/bin/00-NHAN-THU-MUC.md` và trong `TEMPLATE-DOT-SCRIPT`, đúng 3 dòng: `GHI DIRECTUS/PG: CHỈ QUA DOT` · `KHOÁ: DOT tự lấy, người/agent không xem/gõ/chép` · `QUYỀN QUẢN TRỊ: DOT đi qua tài khoản Owner — đường đã duyệt; thiếu DOT ⇒ viết DOT mới theo mẫu Tier B.`
-- Nếu hai file trên chưa tồn tại đúng tên, ưu tiên file hướng dẫn/template hiện hữu tương đương và báo exact path; không tạo một manual thứ hai.
-- `report-pg`: ghi exact source path cần gắn biển ở lần build Nuxt bước 7; không rebuild/restart Nuxt trong RUN này.
-## 6. Nghiệm thu SEC1A-DOT
+## 4. Pha A — bản cứu offsite độc lập, chưa sửa job
+
+Tạo hồ sơ runtime đúng task:
+`/opt/incomex/work/vps1-up-grade/BK1-20260928/`
+Chỉ chứa manifest/checksum/log sanitized/staging cần cho BK1; không secret/business record.
+
+### A1 · `incomex_metadata`
+- Tạo dump consistent/read-only bằng cơ chế backup hiện hữu hoặc `pg_dump` read-only.
+- Lưu local staging có sha256 + size + dump metadata.
+- Mã hoá bằng đúng GPG recipient/cơ chế đang dùng cho Drive production.
+- Upload vào prefix BK1 riêng; không retention.
+- Verify remote object + download read-back + decrypt.
+- **Restore proof:** ưu tiên DOT restore-verify hiện hữu vào PG cô lập/verify namespace không phục vụ production. Không dùng production DB name, không thay `incomex_metadata`.
+- Acceptance restore: restore thành công; schema/table/count metadata đối chiếu nguồn theo read-only snapshot ở mức đủ chứng minh; sau proof cleanup verify target bằng chính DOT nếu DOT có cleanup; nếu cleanup không an toàn thì giữ isolated verify target và ghi rõ, không tự SQL xoá.
+
+### A2 · `/opt/incomex/data`
+- Tạo archive từ đúng path hiện hữu, giữ relative path + mode + uid/gid + mtime cần thiết.
+- Manifest: file count, total bytes, sha256 archive + checksum list hoặc Merkle/list phù hợp; không đưa nội dung file vào report.
+- Mã hoá + upload prefix BK1.
+- Download/decrypt vào staging cô lập.
+- Restore proof ra thư mục verify riêng: số file/bytes + checksum khớp; không overwrite path production.
+- Không thay đổi file nguồn.
+
+### A3 · E-learning VPS2 09/08
+- Dùng **đúng artifact 09/08 đã xác minh**, không tạo dump mới nếu DB không đổi và artifact/source proof khớp.
+- Upload vào prefix e-learning/BK1 riêng trên Drive.
+- Verify remote + download read-back checksum.
+- Nếu checksum artifact upload đúng artifact đã restore thành công vào `cms_elearning_verify`, có thể dùng proof đó + read-back checksum làm restore proof BK1.
+- Nếu artifact không khớp proof cũ hoặc DB đã thay đổi sau 09/08: DỪNG A3 và báo; không tự dump/restore MySQL trong lượt này ngoài cơ chế đã duyệt.
+
+Pha A chỉ PASS khi cả A1–A3 đạt hoặc một mục DỪNG có lý do an toàn rõ. Không sửa job định kỳ khi A1/A2 chưa PASS.
+
+## 5. Pha B — cập nhật coverage định kỳ VPS1 sau proof
+
+Chỉ khi A1 + A2 PASS.
+
+### B1 · `incomex_metadata`
+Ưu tiên sửa **script/job hiện hữu**, không tạo job/service mới:
+- local backup hằng ngày cùng lớp `pg-backup.sh`, retention tương tự `directus`, nhưng file/prefix tách rõ DB;
+- Drive encrypted backup cùng lượt `backup-to-gdrive.sh`;
+- không đổi backup `directus` hiện hữu ngoài phần tối thiểu để thêm DB;
+- fail-closed: dump/upload verify fail ⇒ không đánh dấu lượt PASS và không tỉa artifact mới.
+
+### B2 · `/opt/incomex/data`
+- thêm vào **gói config/data encrypted hiện hữu** nếu semantics phù hợp; nếu gói hiện hữu không phù hợp thì thêm artifact thứ ba trong cùng script/job, không tạo cron mới;
+- retention cùng bộ timestamp, nhưng không để một artifact lỗi làm xóa bản tốt cũ;
+- upload verify trước retention.
+
+### B3 · retention
+- Trước apply: chạy dry-run và chứng minh retention chỉ nhắm pattern production hiện hữu + artifact mới đúng schema tên.
+- Bản cứu `BK1/...` phải **nằm ngoài retention**.
+- Không tỉa thật trong BK1 nếu không cần để chứng minh coverage; ưu tiên để lượt cron thật sau tự thực thi retention.
+- Nếu sửa script có test/mô phỏng hiện hữu: chạy test đó. Không dựng framework test mới.
+
+### B4 · e-learning
+- BK1 **không tạo recurring job mới trên VPS2**. Chỉ đóng gap offsite hiện tại.
+- Lịch/retention e-learning dài hạn sẽ chốt ở hardening sau BK1 cùng persistent binding/MySQL cleanup.
+
+## 6. Postcheck / rollback
+
+Postcheck:
+- source business data unchanged;
+- Directus/PG/e-learning health như PRE;
+- `agent-data`/`claude-mcp` StartedAt/image unchanged;
+- containment 3307/8080 vẫn còn;
+- Drive có đủ BK1 artifacts + checksum/read-back proof;
+- job/script VPS1 syntax + dry-run/test PASS;
+- cron/timer schedule không đổi ngoài coverage trong script;
+- không có secret trong logs/git/artifacts.
+
+Rollback script:
+- lưu exact bytes/hash trước edit;
+- nếu B fail, restore script bytes cũ; **không xóa BK1 offsite artifacts**.
+- không rollback bản cứu A đã upload vì đó là safety asset.
+
+## 7. XONG / DỪNG
 
 XONG khi:
-- cơ chế DOT + Secret Manager được xác minh mà không lộ secret;
-- A đóng qua DOT: CREATE=0, UPDATE=0; READ/quyền khác unchanged; audit trace/health PASS;
-- B vẫn PASS/TEMPORARY;
-- biển AGENTS + task rõ; report-pg/operator gap được chỉ đúng chỗ.
+- `incomex_metadata`: offsite encrypted + read-back + restore proof PASS;
+- `/opt/incomex/data`: offsite encrypted + read-back + restore proof PASS;
+- e-learning 09/08: offsite Drive + read-back + restore proof provenance PASS;
+- recurring VPS1 coverage được cập nhật an toàn cho metadata + data;
+- 0 service/container restart; 0 business data mutation;
+- B firewall containment vẫn PASS/TEMPORARY;
+- báo cáo rõ gap còn lại: e-learning recurring, DOT registry cleanup, IPv6 route, cms_queue, persistent port binding.
 
-DỪNG khi cần service/DB/secret/token mới hoặc schema change, DOT không có rollback/allowlist/self-help, Agent phải thấy credential, phải direct login/direct API/SQL ngoài DOT, B mất containment, hoặc có regression.
-## 7. Report — chỉ SSOT hiện hữu
+DỪNG nếu:
+- có active runtime executor/RUN conflict;
+- restore cần direct SQL ngoài DOT;
+- backup artifact/secret/Drive state mơ hồ;
+- read-back/hash không khớp;
+- source data/health thay đổi bất thường;
+- script rollback không chứng minh được.
 
-Không tạo report/file mới.
+## 8. Report
 
-`view.html` §9: cập nhật khối SEC1 với B status, cơ chế DOT/Secret Manager, A XONG qua DOT hoặc DỪNG vì exact capability gap, và biển nào đã có/chỗ nào đề xuất thêm đúng một câu.
+Không tạo repo file mới.
 
-`COLLAB.md`: cập nhật Dòng hiện hành; ghi `KQ@VPSUP-SEC1A-DOT-20260927-01 XONG|DỪNG`; P12 phần “native API” đánh dấu superseded bởi DROOT26/D19, không xóa lịch sử. Nếu DỪNG, không đưa lựa chọn “login Owner/direct API/SQL” lên Owner.
+### `view.html` §9
+Thêm/cập nhật khối `BK1` một màn hình:
+- A1/A2/A3: source → Drive → read-back → restore proof;
+- B1/B2 coverage trước→sau;
+- PASS/DỪNG + bytes/checksum rút gọn + UTC;
+- remaining gaps + NEXT hardening VPS2.
 
-Commit qua `fs_transaction`: `[Claude Code] VPSUP-SEC1A-DOT · kiểm DOT gate và đóng Public write`.
-Kết thúc đúng một dòng XONG hoặc DỪNG.
-## 8. Sau SEC1A — không làm
+### `COLLAB.md`
+- Dòng hiện hành;
+- `KQ@VPSUP-BK1-20260928-01 XONG|DỪNG`;
+- chỉ thêm Owner blocker nếu thật sự cần quyết định mới.
 
-Nếu XONG: Host đi BK1 backup → persistent hardening VPS2. Không tự nhảy bước.
+### Commit
+Dùng `fs_transaction` cho `view.html` + `COLLAB.md`:
+`[Claude Code] VPSUP-BK1 · backup offsite và restore proof`
+
+Kết thúc Owner đúng một dòng: `XONG` hoặc `DỪNG — <lý do>`.
+
+## 9. Sau BK1 — không làm trong RUN này
+
+Host mới phát hardening VPS2:
+- persistent-bind 3307/8080 + firewall bền;
+- MySQL account/password/version hardening;
+- sửa `cms_queue`;
+- xử lý IPv6 route;
+- cleanup ≈26 GB;
+- swap/RAM;
+- cơ chế cờ/lease “VPS đang bận” do máy giữ;
+- sau đó clone CURRENT/rehearsal.
+
+Không tự nhảy bước.
