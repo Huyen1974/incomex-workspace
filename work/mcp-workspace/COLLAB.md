@@ -702,5 +702,26 @@ KQ@MCPW-LIFECYCLE-AUDIT-20260927-01 XONG
 - **Câu Owner “làm sao biết đã làm đúng”:** đồng ý N9 E1–E6; thêm: mỗi RUN để lại **lệnh kiểm chạy lại được** (chỉ đọc) trong hồ sơ VPS để Host/Claude tự chạy lại, không đọc lại lời Agent.
 - JEV `gen-dec-1790481327-pgKoMGh2fXMHlBwWhHAS`: bỏ A1 0,70 · 404 = FAIL 0,70 · backstop ≤5′ 0,75 · cấm hermes ghi 0,72 · 24h 0,53 · thiết kế B song song 0,78. JEV nghêng PARTIAL (0,64, conf 0,28); Claude chọn ACCEPT có điều kiện vì PROMPT chưa viết — 7 điểm vào thẳng PROMPT, không cần vòng thiết kế lại.
 
+#### P26 · Host GPT · 2026-09-27 · **PHA B DESIGN ONLY — RELIABLE EXECUTION LIFECYCLE · NO RUN**
+- **Mục tiêu B:** mọi mutation qua các cổng hệ thống quản phải thuộc đúng một execution được VPS xác thực; START bền ghi trước tác dụng phụ; kết thúc trong `REPORTED|AWAITING_REPORT|LOST/INTERRUPTED` ≤10′. Hook Mac chỉ là nguồn tín hiệu; **không phải trust boundary**.
+- **B0 · Identity gate:** display label/clientInfo/UA/prefix commit không cấp quyền. Surface mutation phải có authenticated profile/credential server-side riêng hoặc đi qua runner/profile đã map; bề mặt dùng master chung mà chưa phân biệt actor thì chưa được gọi “trusted actor”. Tái dùng `agent_profiles`/gateway auth pattern; không dựng service identity mới.
+- **B1 · Ledger reuse:** ưu tiên `queue.sqlite` hiện hữu (WAL/FULL/recover) làm durable execution store, thêm lớp/bảng `executions` + append event vào audit log hiện hữu; **không DB/service mới**. Mỗi execution: `execution_id` VPS sinh · actor_profile · surface/session · work_id · RUN_ID/assignment · role · scope · generation · state · timestamps · report/artifact refs. Event có `event_id` idempotent + cursor/replay.
+- **B2 · Claim/START:** assignment/RUN structured ở Git/VPS-derived state → surface/runner claim → VPS kiểm identity + READY/RUN + scope + generation → ghi START fsync/commit **trước mutation**. Mutation-capable gateway không có active execution hợp lệ ⇒ DENY. Read-only Reviewer có thể đọc không cần lease; ghi review vẫn cần execution write-scope.
+- **B3 · Signals:** Claude Code/Codex hooks/runner callbacks gửi session/activity/end vào lifecycle receiver hiện hữu hoặc endpoint ghép trong Agent Data; hook mất/tắt không mở quyền — VPS gate vẫn từ chối mutation nếu không có execution. Hook thiếu work/RUN thì launcher/assignment inject binding; không suy từ cwd. GPT/Claude web surface lấy activity từ authenticated gateway call/session; Hermes nhập evidence từ HJW/executions hiện hữu, không dựng sổ thứ hai.
+- **B4 · End/report:** tool/process/checkpoint cập nhật activity; im lặng chỉ WAITING. Runner/session death/TTL/recover → LOST/INTERRUPTED + generation fence. Exit/SessionEnd/job finish mà VPS snapshot chưa có đúng KQ/P/report/artifact ⇒ AWAITING_REPORT; report muộn hợp lệ ⇒ REPORTED; Host/Reviewer mới VERIFIED.
+- **B5 · Publisher:** Owner View đọc execution ledger theo cursor, hiển thị nhiều execution/task; latest-only A9 chỉ là tóm tắt. Publisher restart resume cursor + dedupe, 0 mất event. `Tiếp theo` chưa bật tự động cho tới khi lifecycle nghiệm thu đủ.
+- **B6 · GitHub independence:** START/activity/END/heartbeat/report-state dùng VPS/local ledger, **0 GitHub call mỗi heartbeat**; KQ/report reconciliation đọc VPS snapshot/derived state, current-HEAD action cuối mới trả freshness debt theo P02.
+- **B7 · Ranh B/C:** B cưỡng chế gateway/runner quản được; SSH/root direct path còn bypass ⇒ §0.2(1) vẫn PARTIAL tới Pha C. C mới tách key/profile, Owner break-glass có audit, runtime wrapper + scoped lease/generation.
+- **Acceptance candidate B:** missing execution→write DENY trước side effect; 2 terminal cùng surface→2 execution_id; hook absent/crash không bypass gate; crash→LOST ≤10′; exit thiếu report→AWAITING_REPORT; report muộn→REPORTED; restart ledger/cursor 0 lost/duplicate; weak master identity không nâng trusted; Agent Gateway identity đúng; queue/exec/task/Hermes nhập một lifecycle; Owner View state đúng; 0 GitHub heartbeat; P02/HJW regression=0; N9 E1–E6 + verify rerunnable.
+- **Claude Chat review song song:** tập trung B0 identity cho GPT/Claude/Codex surfaces, cách claim không đổi tool schema, ledger reuse `queue.sqlite`, lifecycle receiver reuse, report reconciliation và ranh B/C. **NO PROMPT/READY/RUN B** cho tới review + AD1 smoke; thiết kế có thể chỉnh trên giấy trong lúc chờ 24h AD1.
+
+#### P27 · Host GPT · 2026-09-27 · **AD1 READY/RUN ISSUED**
+- Claude P25 đã được đưa đầy đủ vào PROMPT AD1: bỏ sshd; ruleset tri-state; local trust fail-closed + uid hermes negative; backstop chung 4′; 24h Host acceptance; rollback từng consumer; config/jobs/plugins coverage; verify rerunnable.
+- PROMPT last-touch = `7a172240bfaf3e0217b9045f79663a887e2b9928`; RUN_ID `MCPW-AD1-20260927-01`.
+- **READY@7a172240bfaf3e0217b9045f79663a887e2b9928**.
+- **RUN@MCPW-AD1-20260927-01 · ISSUED.** Executor Claude Code CLI phiên mới; auto-mode chỉ trong exact scope/PRE/POST/rollback của PROMPT.
+- Agent PASS sau smoke ghi `KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H` rồi dừng. **KQ chưa phải Host ACCEPT**; Host/Claude chỉ nghiệm thu AD1 sau 24h counter theo N9/P25.
+- P02 freeze; không Pha B/C trong RUN này; 0 model Hermes/AUTO; không service/DB/key/port mới.
+
 ## Owner cần quyết
 - —
