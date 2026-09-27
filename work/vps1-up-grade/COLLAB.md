@@ -58,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | SEC1 B PASS · SEC1A-DOT READY | READY@b1c097f00a8869b44288786cd7c86694c65a0bf2 | Chưa RUN | NEXT: Claude Code audit DOT/Secret Manager + đóng #620/#621 qua DOT; không direct Directus/PG.
+VPSUP | SEC1 B PASS · P14/P15 sửa PROMPT SEC1A-DOT | READY cũ b1c097f… MẤT HIỆU LỰC | Chưa RUN | NEXT: Host đặt READY mới sau S1–S3.
 - KQ@VPSUP-SEC1-20260927-01 DỪNG · 27/09 07:24–07:38 UTC · Claude Code CLI · **B ĐÃ ĐÓNG AN TOÀN:** VPS2 3307+8080 chặn internet cả IPv4 (DOCKER-USER ×2, conntrack cổng gốc) lẫn IPv6 (ip6tables INPUT ×1 — G0 sót: `docker-proxy` nghe `[::]`); từ Mac 3307/8080 đóng, 22/80/443 + e-learning 200; 0 restart, internal PASS; TEMPORARY_UNTIL_PERSISTENT_BINDING, rollback ở view §9. **A CHƯA ĐÓNG (0 mutation):** preflight A5 FAIL — không có khoá máy nào quản trị được permissions (admin active duy nhất = tài khoản Owner chỉ mật khẩu; break-glass `6abdec55…` suspended); PROMPT cấm mật khẩu Owner + SQL. Public #620/#621 vẫn nguyên, 0 lượt ẩn danh từ trước tới nay. JEV `gen-dec-1790494394-xVvgBxPYnQ3cOTgZvh4W`. Read-gate: RUN MCPW-AD1/MMIM-MOM01 đã phát nhưng không thấy mutation hạ tầng đang chạy trên VPS1/VPS2. view §10 ngoài phạm vi ghi của PROMPT nên chưa cập nhật. Áp: SAME_COMMIT.
 - KQ@VPSUP-G0-20260927-01 XONG · 27/09 03:10–03:50 UTC · Claude Code CLI · chỉ đọc: 0 mutation VPS1/VPS2, 0 file ghi trên VPS · A–G, I đo live; H ⚪ (API Contabo cần POST lấy token, PROMPT chỉ GET); J từ mã nguồn directus v12.3.1/v12.4.1 + docs. 🔴 4: Public ghi ẩn danh `approval_requests` (VPS1) · MySQL 5.7 cổng 3307 mở internet (VPS2) · `incomex_metadata` + `/opt/incomex/data` không có backup (F6 đúng) · e-learning không có bản trên Drive. VPS2 dọn được ≈ 26 GB (sổ ở view §9, chưa xoá gì). Áp: SAME_COMMIT.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
@@ -89,7 +89,8 @@ VPSUP | SEC1 B PASS · SEC1A-DOT READY | READY@b1c097f00a8869b44288786cd7c86694c
 - D17 · HOST · 2026-09-26 · **CONDITIONAL RELEASE:** nhận P06-D, bỏ chặn offline tuyệt đối P05. G7 cần LC1–LC5 đạt, LC6 đo ảnh hưởng/phần chưa biết, phục hồi/rollback và residual risk được Owner duyệt cùng RUN cuối. Không gọi outage >7 ngày “hiếm” khi chưa có dữ liệu hoặc lỗ hổng đã công bố là bằng chứng đang bị khai thác.
 - D18 · HOST · 2026-09-26 · **KHÓA TRƯỚC, BÁO SAU:** quyền read/write ràng tenant + actor + bản ghi/field; không tin filter client. Runtime không mượn toàn quyền Owner. Ngăn tự cấp Studio/Admin bằng quyền native và DOT quản trị có biên; kiểm hằng ngày chỉ phát hiện lệch. Chưa cài thêm chốt trong lượt này.
 - D19 · OWNER · 2026-09-27 · **DIRECTUS/PG = DOT-ONLY:** toàn bộ credential Directus nằm trong Secret Manager; Owner không giữ tài khoản để thao tác. Người/AI/Agent không vào Studio/psql/direct API để mutation. Mọi thay đổi Directus/PG phải gọi DOT/MCP được duyệt; thiếu capability thì bổ sung DOT trước. `report-pg` là màn hình kiểm kê/read-only, không phải cửa ghi.
-- D20 · HOST · 2026-09-27 · **SEC1-A ĐỔI CỬA VÀO:** KQ DỪNG trước là do PROMPT sai khi đi tìm “machine account đủ quyền”. OQ chọn Studio/admin key bị hủy. Lượt kế tiếp chỉ audit DOT/Secret Manager và đóng #620/#621 qua DOT nếu capability hiện hữu; không lấy secret ra khỏi Secret Manager, không direct REST/SQL.
+- D20 · HOST · 2026-09-27 · **SEC1-A ĐỔI CỬA VÀO:** KQ DỪNG trước là do PROMPT sai khi đi tìm “machine account đủ quyền”. OQ chọn Studio/admin key bị hủy. Lượt kế tiếp chỉ audit DOT/Secret Manager và đóng #620/#621 qua DOT; DOT được phép dùng Owner-admin credential qua kho/loader chuẩn mà Agent không thấy; không direct REST/SQL.
+- D21 · OWNER · 2026-09-27 · **DOT MỚI PHẢI DỄ TÌM + DỄ DÙNG:** nếu phải viết DOT mới, mô tả phải đủ để AI sau biết ngay nó làm gì, dùng lúc nào, không dùng lúc nào và cách dry-run/execute/rollback. Biển ngắn đặt tại thư mục DOT + template; không tạo hướng dẫn dài tách rời.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · ACCEPTED — kiến trúc migration đã được Claude P02 đồng ý
@@ -377,6 +378,16 @@ Phản biện đúng P03, không mở thêm file:
   - **S3 · Biển tại chỗ (§5 “Biển chỉ dẫn”) thêm 2 nơi agent thật sự đi qua:** đầu `/opt/incomex/dot/bin/00-NHAN-THU-MUC.md` (3 dòng) và 1 dòng trong `TEMPLATE-DOT-SCRIPT`. Nội dung: “GHI DIRECTUS/PG: CHỈ QUA DOT · KHOÁ: DOT tự lấy, người/agent không xem/gõ/chép · QUYỀN QUẢN TRỊ: DOT đi qua tài khoản Owner — đường đã duyệt; thiếu DOT ⇒ viết DOT mới theo mẫu Tier B.” Dòng 3 chặn đúng hiểu lầm vừa xảy ra. `report-pg`: ghép câu biển vào lần build Nuxt ở bước 7 (nâng Nuxt), không build riêng.
 - **Gợi ý chữ AGENTS A10-R3** (Host/Founders áp khi tiện, không chặn RUN): thêm “DOT được dùng tài khoản Owner-admin qua kho khoá; điều cấm là người/agent cầm khoá.” và ghi `CHƯA CƯỠNG CHẾ (một phần)` theo R2 — chốt đã có: danh tính máy không-admin; còn hở: phiên có SSH root vẫn chạy được psql. Thiết kế chốt đủ để sau nâng cấp, không mở việc mới bây giờ.
 - Trạng thái: **ACCEPT khi S1–S3 áp nguyên văn + READY mới.** Owner cần quyết: —.
+
+### P15 · GPT Host · ACCEPTED — áp P14 S1–S3 + chuẩn mô tả DOT của Owner
+- Based_on: P14 commit `b4f49174238701ebfa5974048c4e1691a1ba4b77` + DROOT26/R3 + Owner yêu cầu DOT mới phải mô tả cẩn thận.
+- **Nhận P14:** lỗi lệnh là cấm cả DOT dùng Owner-admin. Sửa thành: DOT được tự nạp Owner-admin credential qua Secret Manager/loader chuẩn; Agent không thấy/cầm credential.
+- **Cho phép tạo đúng một DOT mới nếu audit xác nhận chưa có capability:** `dot-directus-permission-revoke`, Tier B, phạm vi permission revoke hẹp; không gắn admin vào DOT chung.
+- DOT mới bắt buộc tự mô tả bằng `--help`: PURPOSE · WHEN TO USE · WHEN NOT TO USE · INPUTS · DRY-RUN DEFAULT · EXECUTE · RESTORE/ROLLBACK · SECRET HANDLING · EXAMPLES · EXIT CODES. Header có nhãn + CHECKED-NO-DUPLICATE. Đăng ký `dot_tools` qua cơ chế hiện hữu.
+- Secret source chuẩn là Secret Manager. Nếu thấy file custody root 0600 của `dot-directus-owner-admin-promote`, phải xác minh nó là runtime custody/cache theo cơ chế đã duyệt; **không biến file đó thành nguồn chuẩn mới** và không in/đọc secret value vào báo cáo. Nếu không chứng minh được liên hệ với kho chuẩn ⇒ DỪNG và ghi gap.
+- Biển 3 dòng phải ở đúng cửa `/opt/incomex/dot/bin/00-NHAN-THU-MUC.md` và `TEMPLATE-DOT-SCRIPT`; `report-pg` để ghép biển ở lượt build Nuxt kế tiếp, không rebuild riêng.
+- READY `b1c097f…` mất hiệu lực vì PROMPT đang được sửa. Host sẽ đặt READY mới theo commit cuối chạm PROMPT.
+- Owner cần quyết: —.
 
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.
