@@ -798,8 +798,37 @@ Agent prompt: `PROMPT.md`
 
 KQ@MMIM-MOM01-20260927-02 DỪNG
 
+## Codex · MMIM-MOM01-20260927-03 · DỪNG/PARTIAL
+
+- READY `0c9a33971d7ad8454bf1c518462e2544b2901e1b` khớp commit cuối chạm PROMPT; A0 đã xác nhận; `workspace_*` đọc được cả hai root. Đã đọc luật và nguồn đúng phạm vi.
+- **BLOCKER — baseline menu không khớp PROMPT §1.** Mảng APPS đầu tệp có 7 mục không xanh, nhưng các khối APPEND cuối `eco-nav.js` thêm **3 mục MOW không xanh**: `Nháp 1 - MOW Master list` → `mow-process-draft-v1.html`; `Ghép miếng - SSOT` → `mow-ghep-mieng-ssot.html`; `Nháp MOW T1` → `mow-tang1-v1.html?che-do=de-xuat`. Popup MOW thật đã bấm cho thấy cả ba. Tổng baseline thực là **10**, không phải 7. Không tự đánh đỏ thêm ba mục hay sửa phạm vi.
+- **Lỗi kiểm gate của Codex:** chỉ đếm APPS trước mutation, chưa tính APPEND/DOM. Phát hiện khi bấm menu sau sửa nên dừng ngay. Acceptance toàn RUN chưa PASS; không báo XONG.
+- **Đã ghi, giữ tại chỗ:** UI con Master of Master dùng live `mot-master-v1.html` qua loader/adapter; giữ nguyên toàn bộ JSON `catalog-data` RUN -02, **84/84 mã/tên và bốn trục metadata**; menu chỉ đổi đúng 7 label/description đã chỉ định và thêm comment. Không rollback/xóa mù.
+- UI transaction `5b61f0cedb2543d78bb1176f0cceeeae`, operation `MMIM-MOM01-20260927-03-ui-01`; lượt làm rõ nhãn mẫu cha operation `MMIM-MOM01-20260927-03-label-02`, backup `d6a7e81590054a1a996405ae74538e66`.
+
+| Tệp root ui | SHA trước | SHA sau |
+|---|---|---|
+| master-of-master-v1.html | 1232edbcc6a6395ba5a6a2d371043a21ba5b31bd048641ebeec3fab800b1bec7 | 7bb67caea76090ac8ed5a14df2d130c713aa618bafb110203d824debe8d44e94 |
+| ui-child-from-parent-v1.js | 80a7ece488b3d91246b617900a9558166fd8fa6543af77721afc0bc7c7114ad8 | 047cc92f84be95be5848c84152b8d4e266cf91d8d18ad8978b73e85ad79ce528 |
+| ui-child-content-v1.js | f0b95591e1d894b5eca68a04b226eb49ee860cf263a2d42b53a930baf4ff30b6 | 85887802c64b810a3d3be53a0ea07b33e7e74a1ed076f7cfffd645877438f363 |
+| eco-nav.js | 7c77a9f68e1c47fd9fa3d2cb8a7e8da46cc0439a602e7b3d81bcf71024d7734c | 3043040306e70eb5bcb783cf42e7b0347bbdece35b97e24f0c45d72a3a62794d |
+
+**Bằng chứng đã kiểm thật:**
+- HTTP 200, title `Master of Master · Danh sách tất cả Master`; runtime DOM `data-parent-ui-source=mot-master-v1.html`; `#mlTbl tbody tr=84`. Wrapper chỉ JSON + loader, không CSS/renderer riêng.
+- Đầu trang: `Master list gốc · 13 nhóm · 12 có vấn đề · 66 đang làm · 6 chưa làm · 84 Master · 0 sẵn sàng`. Giữ trạng thái ứng viên, không duyệt thay Owner.
+- Tìm mã `CAT-202` → một Field; tìm tên `Sổ danh sách` → CAT-000; mở chi tiết đúng mã/URL; đủ Thiết kế/Config/UI/Nguồn/Tổng. Lọc CO_VAN_DE → **12 dòng**.
+- 1280px: viewport 1280, document width 1265, 10 cột hiển thị như cha. 390px: document/body width **375**, vùng cuộn bảng **319**, bảng **1040**; số đo giống cha, không tràn ngang trang mới.
+- `ui_inspect` có 1 lỗi CSP chặn Google Fonts, giống baseline cha; không ghi nhận lỗi JS mới của RUN.
+- Đọc lại hash: `master-list.js=a92524f509b514e2a04677e3bd7d7dfd17efc8c206282840a6bf6b3f876baa57`; `mot-theme-v1.css=81cc5a69305943bb716215a7ceb1017d0147164966bff44cd5a86673b5a9b287`; `mot-master-v1.html=85da2f858f1f5e3f9e01110c110886c5c15cde043b47642068956324948c421e`: **không đổi**. Registry cũng không đổi.
+- **Gap cha:** drawer có form mẫu chung, chưa cấu hình cho từng Master; adapter chỉ ghi rõ `Mẫu cha · chưa cấu hình / Chỉ tham khảo`, giữ nguyên layout. Không coi mẫu này là UI từng Master đã hoàn thành.
+- Chưa hoàn tất kiểm hồi quy Field/MOIT/MOUT và toàn bộ menu sau khi gặp blocker; không ghi regressions=0.
+- Không file mới, không PG/Directus, không sửa ban-duyet/renderer/theme/parent; không làm tiếp Step/UI/Tool/Process. URL giữ nguyên: https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html
+
+KQ@MMIM-MOM01-20260927-03 DỪNG
+
 ## Dòng hiện hành
-MMIM | MMIM-MOM01-20260927-02 · 27/09/2026 | DỪNG/PARTIAL theo Host D50–D51. Giữ dữ liệu 84 Master và bằng chứng. Renderer riêng chưa được nghiệm thu kiến trúc; chờ Owner/Host, không tự mở RUN.
+MMIM | MMIM-MOM01-20260927-03 · 27/09/2026 | DỪNG/PARTIAL: menu thực có 10 mục không xanh, PROMPT khóa 7. Giữ phần UI con + 84 Master và 7 nhãn đỏ đã sửa; chờ Owner/Host xử lý ba mục APPEND. Không tự mở RUN hoặc làm tiếp.
+
 
 Bản thiết kế FIELD nằm trong ban-duyet.html
 
