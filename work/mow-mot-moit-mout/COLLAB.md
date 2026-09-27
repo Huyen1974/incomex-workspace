@@ -1,7 +1,7 @@
 # COLLAB — mow-mot-moit-mout
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25.
+Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41).
 
 ### 1. Mục tiêu
 - Mục tiêu: xây Máy tạo quy trình — người dùng mô tả ý tưởng → AI phác thảo quy trình → người duyệt → AI khai báo để quy trình chạy được.
@@ -39,6 +39,8 @@ Mốc hoàn thành theo ba tầng (đề xuất — chờ Owner gật; 6 điểm
 Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đầu vào và kết quả cần đạt của phần được chọn → thực hiện theo bước bằng công cụ có thật → kiểm kết quả đã lưu, nhánh lỗi và khả năng dùng lại. Ghi phần đã đạt, phần còn thiếu và nơi bị tắc. Một phần đạt chưa có nghĩa toàn máy đạt; lỗi hoặc thiếu đầu vào thì chưa đưa phần đó vào dùng chính thức.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+ƯU TIÊN HIỆN HÀNH D41 (Owner 27/09): thảo luận C12/P17–P20 tại `ban-duyet.html#matrix-view-council` — tab **★ Ý kiến HĐ** ngay sau Công thức. Mỗi ý có mã ổn định, câu ngắn + sơ đồ/công thức, trạng thái chữ/ký hiệu/màu; lập luận, nguồn, điểm thiếu và quyết định nằm trong phần gập của chính thẻ. Người nhìn lớp ngắn; AI đọc lớp chi tiết, cùng một nguồn. Đã duyệt khác đã vào thiết kế; chuyển xanh cần quyết định + đích/commit đã kiểm, từ chối giữ lý do/người/ngày. Không suy D41 là duyệt tất cả phương án hoặc luật nơi lưu. NEXT P20 “vẽ ngay prototype” là đề xuất chờ thảo luận tại HĐ06, chưa triển khai vào thiết kế chính. Không thêm file/tab khác, không sửa PG/runtime/luật gốc.
+
 TẠO MỘT / NHIỀU THÀNH PHẦN (Owner D40; phương án Codex P19, chưa là UI/schema đã chạy):
 - Cùng một quy tắc MAP02 cho mọi tầng: tra kho → dùng phần có → ghi phần thiếu → gọi quy trình tạo phần thiếu → trả về đúng chỗ gọi → kiểm chỗ nối. Với nhiều phần, phải lưu toàn bộ nhu cầu và tiến độ, không dựa vào trí nhớ/tab đang mở.
 - Một MOW đang làm giữ danh sách thành phần và chỗ gắn: mã nhu cầu gốc · mã bước/chỗ gọi · thành phần cần · bản được chọn · phụ thuộc · người giữ · trạng thái/kết quả · đường quay về. Phần dùng chung có một định nghĩa, nhiều chỗ gắn; không nhân bản theo số lần dùng. Chưa xác minh sổ thật nào lưu đủ ngữ cảnh này thì ghi OPEN.
@@ -217,6 +219,16 @@ JEV `gen-dec-1790414972-Ph0A0u20z0nTea9yrNjf`: C12 nhiều-thành-phần = PARTI
 
 Lượt này chỉ cập nhật mục tiêu/chi tiết và phản hồi trong COLLAB. Không sửa luật gốc/HTML/công cụ, không tạo file/task trong repo, không đổi/xoá mã, không ghi PG hoặc chạy trên VPS. Các tool giữ bản nháp/đã thử cho đến khi chốt hợp đồng và xử lý giới hạn. P17/C10 còn OPEN về CAT-005, dòng63, CMT và cách đếm; không bị ca0lỗi này đóng thay.
 
+
+## GPT Chat · 27/09/2026 · P21 · D41 — ★ Ý kiến HĐ / lớp nhìn nhanh
+- Based_on: `f971f5c5e105d20f406d0c5cfa5c351e4d4737bf`; trước ghi đối chiếu đến `239cf4d5e4eaa6e5df7d40ef3ec43e4b9a78baf4`, diff toàn thư mục việc = rỗng (commit chen ngang thuộc việc khác). Vai: Reviewer được Owner giao rõ phạm vi sửa HTML; không đổi Host. Scope: `ban-duyet.html#matrix-view-council` + tab sau Công thức; COLLAB §0.3/D41/P21. Phần không rà lại: toàn bộ nghiệp vụ/PG/runtime, không nghiệm thu thay C12/P19.
+- Nguồn thảo luận hiện hành: **17 thẻ HĐ01–HĐ17** trong HTML chính, gom C12/P17–P20 + chỉ đạo trình bày D41. Các P/C cũ giữ lịch sử; ý kiến tiếp theo và quyết định cập nhật đúng thẻ, COLLAB chỉ giữ trạng thái/con trỏ.
+- Trạng thái khởi tạo: 6 đang bàn, 9 chờ Owner, 2 nguyên tắc đã duyệt (D36/D41), 0 đã vào thiết kế, 0 từ chối. Không gán đỏ/xanh để minh họa khi chưa có quyết định/bằng chứng. Nút chỉ lọc; không ghi phê duyệt, không localStorage/sessionStorage, không tự áp dụng phương án.
+- Bậc 2 cấu hình/ghép: dùng lại tab controller/deep-link + details sẵn có, CSS chỉ scope tab mới; JS mỏng chỉ lọc/đếm từ chính thẻ, không thêm engine/library/backend/file. Không sửa các panel thiết kế hiện có.
+- JEV `gen-dec-1790469326-0LcRhsqOdxGRlcN16Ou6`: chọn thẻ ngắn + chi tiết gập, confidence 1,00; chỉ tham khảo bố cục, không thay duyệt/kiểm.
+- Kiểm trước ghi: sandbox riêng của tool `workspace_exec`, source `f971f5c`, 8 tab/8 panel và 4 điểm chèn đều duy nhất; không chạy bốn công cụ `cong-cu/` đang chờ xử lý quyền. Mẫu tab kiểm Chromium cục bộ: 17 thẻ, bộ lọc 6/9/2/0/0/17, mở-gập, không tràn ở 1280/390, không lỗi JS. Đây là mẫu cục bộ, chưa là PASS Owner View/HTML tích hợp.
+- Kiểm xuất bản: **CHƯA XÁC NHẬN** tại lúc ghi. `ui_inspect` đúng URL Owner View trả vỏ trang Login/Directus 401; không coi đó là UI PASS. Sẽ kiểm source tích hợp và revision sau commit; nếu vẫn không đọc được bản xuất bản, ghi DỪNG ở điểm nghiệm thu, không dựng URL/bản xem thay thế.
+- Áp: SAME_COMMIT. Host phản hồi nội dung: OPEN; việc ghi tab theo lệnh D41 không đồng nghĩa phê duyệt HĐ01–HĐ16. NEXT: thảo luận tại tab; chuyển ý vào thiết kế chính chỉ sau quyết định/phạm vi tương ứng.
 
 ## GPT Chat · 27/09/2026 · P20 · PHẢN BIỆN P19 — CHỐT HƯỚNG UI THỰC CHIẾN
 - Based_on: HEAD `b7f2bc174ece23070f1411b2633646d50e3ff600`; đọc §0 + P19. GitHub native chỉ đọc; ghi qua gateway `workspace_*` theo README D12.
@@ -831,6 +843,8 @@ Hướng đúng D20: ngắn, 3 bước, 3 mảnh UI, có con số. Đã mở ngu
 - D38 · 2026-09-26 · Owner: Máy xong dùng lại gần như toàn bộ công cụ kiểm/rà và bảng quản lý của Nhà máy nhưng để sản xuất quy trình thương mại; hai khái niệm phải rõ, hiểu thống nhất; thiết kế bây giờ trước tiên phục vụ chế tạo Máy, sau mới cho Máy dùng lại. · Trạng thái: nhãn 🔁 Chung + công cụ nhận dữ liệu làm đầu vào; Mốc 1–3 đề xuất ở §0.2 (C12). · Ở: §0.1 · §0.2 · §0.3 NHÀ MÁY.
 - D39 · 2026-09-26 · Owner: mã vẫn cấm GitHub → VPS; riêng công cụ quy trình và tài liệu liên quan được lưu GitHub làm kho SSOT, chép xuống VPS khi cần (chỉ chép, không tự triển khai); cách làm do hội đồng quyết và thiết kế. · Trạng thái: thiết kế 3 lớp (C12, JEV 0,99); 4 công cụ đã lưu cong-cu/; chờ Founders sửa README §11 + Owner gật (DROOT23). · Ở: §0.3 NƠI LƯU · COLLAB gốc.
 - D40 · 2026-09-26 · Owner: rà sâu ca MOW cần 1/5/10/15 MOT mới, mỗi MOT lại cần MOIT/MOUT/Field; phải quản lý nhiều việc không nhầm, UI gọn và dùng lại mẫu cha. Phát triển công thức tư duy áp dụng nhiều tình huống, nhìn từ người dùng và kỹ thuật/vận hành/kiểm, tận dụng JEV; vừa rà C12 vừa hoàn thiện. · Trạng thái: đã ghi yêu cầu + phương án từng phần vào §0/P19; đã thử công cụ C12 cục bộ; quản lý nhánh/nhiều thành phần và UI tương ứng chưa được chứng minh trên hệ thật. · Ở: §0.3 · P19.
+
+- D41 · 2026-09-27 · Owner giao trực tiếp: thêm mục có star tên “ý kiến HĐ” ngay sau tab Công thức; đưa các ý kiến lên đó để thảo luận trước khi chuyển vào thiết kế chính; việc từ chối/đã chuyển có dấu màu để dễ theo dõi. Chốt hai việc: đưa ý kiến lên Ý kiến HĐ; càng dễ hiểu, càng ngắn gọn càng tốt, nhìn là hiểu. Ưu tiên hình tượng/màu/mô hình/công thức cho người; giữ text chi tiết cho AI; Owner quyết cuối. · Trạng thái: đã ghi tab + 17 thẻ trong cùng commit; kiểm xuất bản tại P21, không tự duyệt các phương án. · Ở: `ban-duyet.html#matrix-view-council` · §0.3 · P21.
 
 ## Đề xuất Host · MAP01–MAP05 + URL01 · chờ Claude review
 
