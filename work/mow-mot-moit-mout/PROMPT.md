@@ -1,26 +1,27 @@
 # PROMPT — MMIM-MOM01 · Master of Master + hệ danh mục chế tạo Máy
 
-RUN_ID: MMIM-MOM01-20260927-01
+RUN_ID: MMIM-MOM01-20260927-02
 STATUS: Chỉ thực thi sau READY đúng SHA commit cuối chạm file này và RUN của Owner/GPT Host.
 
 Host: GPT Chat · Host_ID `GPT-MMIM-260920-A`
 Executor_Surface: **Codex** trên bề mặt có Incomex VPS MCP + gateway workspace.
 Report_Write_Path: **workspace_*** · root `workspace` · repo `Huyen1974/incomex-workspace` · main.
-UI_Write_Path: **fs_*** · root `ui` · VPS `/opt/incomex/docs/mcp-writes/` → public `/ui-preview/mcp-writes/`.
+UI_Write_Path: **workspace_*** · root `ui` · VPS `/opt/incomex/docs/mcp-writes/` → public `/ui-preview/mcp-writes/`. D12 đã audit path này; không yêu cầu `fs_*`.
 GitHub native/App/API/CLI: **READ-ONLY**, cấm dùng để ghi repo.
 
 ## 0. Gate bắt buộc
 
-1. Một read-gate cho `workspace_*`: đọc đúng `AGENTS.md` → `README.md` phần D12/§11/§12 → `work/mow-mot-moit-mout/COLLAB.md` (§0, D44–D47, Dòng hiện hành) → file prompt này.
-2. Một read-gate cho root `ui`: đọc/inspect ít nhất:
-   - `mow-unified-canvas-v2.html`
-   - các CSS/JS mà chính file đó đang gọi cho Master/Kanban/List nếu có;
-   - link mẫu Owner đang dùng: `https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T2&che-do=thuong`.
+1. Read-gate repo bằng `workspace_*` root `workspace`: đọc đúng `AGENTS.md` → `README.md` phần D12/§11/§12 → `work/mow-mot-moit-mout/COLLAB.md` (§0, D44–D48, Dòng hiện hành) → file prompt này.
+2. Read-gate xưởng UI bằng **chính `workspace_*` root `ui`**:
+   - đọc `AGENTS.md` + `README.md` của root `ui` trước mọi file khác;
+   - stat/read `mow-unified-canvas-v2.html`, `master-hub.html`, `eco-nav.js`, `mot-theme-v1.css`;
+   - inspect URL mẫu `https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html` và UI mẹ MOW.
+   - nếu phiên Codex không bind được `workspace_*` với root `ui` thì DỪNG; **không yêu cầu `fs_*` nữa**.
 3. READY phải khớp **commit cuối chạm PROMPT.md**, không so HEAD chung.
 4. Thiếu `workspace_*` hoặc root `ui`, không đọc được UI mẹ, hoặc phát hiện D44/D46 bị thay thế bởi quyết định mới hơn → **DỪNG trước mutation**.
 5. Không sửa production PG/Directus, service, nginx, compose, auth, MCP, connector. Chỉ đọc nguồn production khi cần đối chiếu.
 6. Không tạo task/repo/project mới. Không tạo framework/library/pipeline mới.
-7. Owner đã cho phép **một đầu mối UI “Master of Master” trên VPS ui** và tối đa **01 file UI mới**. Kiến trúc mặc định của RUN: dựng **`master-of-master-v1.html`** riêng ngay root `ui`, nhưng reuse style/component/shell hiện có của UI mẹ; **chỉ sau khi file mới PASS standalone mới sửa UI mẹ đúng một điểm: thêm link ✅ Master of Master**. Không nhét toàn bộ logic/view mới vào UI mẹ trừ khi source hiện tại đã có extension point rõ ràng và phương án đó thực sự ít diff hơn.
+7. Owner đã cho phép **một đầu mối UI “Master of Master” trên VPS ui** và tối đa **01 file UI mới**. Có UI cha sẵn thì phải dùng làm chuẩn: `master-hub.html` + `mot-theme-v1.css` là nguồn tham chiếu bố cục/thẩm mỹ; `eco-nav.js` là nguồn menu duy nhất. Mặc định tạo **`master-of-master-v1.html`** như một UI mới có chức năng khác, không thay nội dung/ý nghĩa hiện hữu của `master-hub.html`. Chỉ sau khi page mới PASS standalone mới sửa `eco-nav.js` đúng một entry đầu tiên dưới Master.
 8. Không xoá/move UI cũ trong RUN này. D44 “nơi lưu UI ở VPS” không phải quyền dọn lịch sử.
 9. Trước mọi mutation root `ui`: ghi lại **path · version/hash · sha256** của từng file sẽ sửa. Mọi ghi phải dùng expected version/lock của cổng; sau ghi kiểm lại. Nếu regression do RUN → khôi phục đúng version trước của **chính file RUN đã sửa**, không đụng file người khác.
 
@@ -82,29 +83,26 @@ Mặc định:
 
 ## 3. PHẦN A — dựng Master of Master V1 trên VPS
 
-### A1. Reuse UI mẹ nhưng cô lập rủi ro
+### A1. Dùng UI cha hiện có, nhưng không sửa lại phần đã chốt
 
-Inspect UI mẹ trước để lấy đúng:
-- breadcrumb/header/tabs/layout/màu/khoảng cách;
-- component/card/table/search/filter đang có;
-- Master popover/menu hiện tại.
+Đọc/inspect `master-hub.html` và `eco-nav.js` trước:
+- `master-hub.html` hiện là **“Master tổng — Tổng hợp 4 Mẹ”**: GIỮ NGUYÊN ý nghĩa và hành vi mặc định;
+- `mot-theme-v1.css` là theme dùng lại;
+- `eco-nav.js` là **một nguồn menu duy nhất** của “4 Mẹ + Master”.
 
 **Thứ tự mutation bắt buộc:**
-1. Tạo `master-of-master-v1.html` riêng trong root `ui`.
-2. Reuse CSS/JS/component hiện có bằng import/link khi phù hợp; nếu phải chép block style nhỏ thì ghi rõ nguồn. Không dựng design system mới.
-3. Nạp mock/catalog data của RUN và nghiệm thu standalone: HTTP 200 · console sạch · D46 Tầng 1/2/3 · responsive.
-4. **Chỉ sau PASS bước 3**, tìm đúng extension point của Master popover/menu. Chỉ được sửa khi target:
-   - xác định DUY NHẤT;
-   - có before-version/hash;
-   - thay đổi chỉ là đúng một link/hook:
-     - **✅ Master of Master**
-     - mô tả: **Danh mục tất cả Master**
-     - href → file mới;
-   - ghi qua **fs_transaction/expected-version** hoặc cơ chế atomic tương đương của cổng đã audit.
-5. Nếu extension point không duy nhất, file đã lệch cấu trúc, hoặc không có transaction/version-lock → **không sửa UI mẹ**; giữ Master of Master standalone, ghi `LINK_BLOCKED` và KQ PARTIAL/DỪNG để Host xử lý. Không dùng search/replace mù.
-6. Regression-check UI mẹ; FAIL → rollback UI mẹ về before-version, không cố vá tiếp trong cùng file mẹ.
+1. Stat trước: `master-hub.html`, `eco-nav.js`, `mot-theme-v1.css`; lưu version/hash.
+2. Tạo `master-of-master-v1.html` riêng trong root `ui` bằng `workspace_write_new`; dùng theme/navigation/component hiện có khi phù hợp, không tạo design system mới và không nhân bản renderer chung nếu đã có component dùng lại được.
+3. Nạp catalog data của RUN và nghiệm thu standalone: HTTP 200 · console sạch · D46 Tầng 1/2/3 · responsive.
+4. **Chỉ sau PASS bước 3**, sửa `eco-nav.js` bằng `workspace_edit`/transaction với expected_version, target DUY NHẤT; thêm đúng **entry đầu tiên** trong `Master.children`:
+   - **✅ Master of Master**
+   - mô tả: **Danh mục tất cả Master**
+   - href: `master-of-master-v1.html`.
+5. Không đổi/xoá/reorder các Master entry cũ ngoài việc chèn entry mới ở đầu. Không sửa `master-hub.html` trong RUN này.
+6. Nếu target menu không duy nhất, version lệch, hoặc cần sửa lớn file hiện hữu → **không cố làm**; giữ page standalone, ghi `LINK_BLOCKED` và DỪNG/PARTIAL để Host xử lý.
+7. Regression-check toàn eco-nav và ít nhất UI mẹ MOW + `master-hub.html`; FAIL → rollback đúng delta của RUN.
 
-UI mẹ không được chứa dữ liệu 84 Master hoặc logic catalog mới; nó chỉ giữ link/hook.
+**Luật snapshot xưởng:** `ui/AGENTS.md` yêu cầu snapshot thủ công trước/sau **thay đổi lớn**. RUN này cố ý giới hạn existing-file mutation ở một hook nhỏ. Nếu Codex phát hiện phải thay đổi lớn file hiện hữu, chỉ được tiếp tục khi surface có capability tạo mỏ neo theo luật xưởng; nếu không → DỪNG.
 
 ### A2. Dữ liệu đầu vào
 
@@ -372,7 +370,7 @@ Mục tiêu dài hạn:
 
 ### Báo cáo/KQ
 26. Ghi trong `COLLAB.md`:
-   `KQ@MMIM-MOM01-20260927-01 XONG` hoặc `DỪNG`.
+   `KQ@MMIM-MOM01-20260927-02 XONG` hoặc `DỪNG`.
 27. Báo cáo một dòng cuối:
    `XONG · MMIM-MOM01 · masters_input=<n> · accounted=<n> · groups=<n> · issues=<n> · steps=<n> · uis=<n> · tools=<n> · factory_processes=<n> · mom_url=<url> · mom_sha=<sha> · D46=PASS|PARTIAL`
 28. Nếu PARTIAL/DỪNG: nêu đúng blocker + phần đã giữ được; không tự mở scope khác.
