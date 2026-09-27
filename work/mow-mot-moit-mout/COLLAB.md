@@ -39,19 +39,18 @@ Mốc hoàn thành theo ba tầng (đề xuất — chờ Owner gật; 6 điểm
 Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đầu vào và kết quả cần đạt của phần được chọn → thực hiện theo bước bằng công cụ có thật → kiểm kết quả đã lưu, nhánh lỗi và khả năng dùng lại. Ghi phần đã đạt, phần còn thiếu và nơi bị tắc. Một phần đạt chưa có nghĩa toàn máy đạt; lỗi hoặc thiếu đầu vào thì chưa đưa phần đó vào dùng chính thức.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-**CỔNG ƯU TIÊN D42 — CHỈ 5 CÂU HỎI.** Trước khi 5 câu dưới có câu trả lời rõ bằng bảng, **không mở rộng sang lý thuyết, ca biên, kiến trúc hay quy trình phụ** trừ khi nó trực tiếp làm thay đổi một trong 5 bảng này.
+**CỔNG HỘI ĐỒNG D43 — 6 VẤN ĐỀ OPEN, CHƯA CÓ PHƯƠNG ÁN NÀO ĐƯỢC CHỐT.** Hội đồng chỉ tập trung 6 câu dưới. Quy trình quyết định: **GPT đề xuất → Claude phản biện/đề xuất → Owner chốt → Agent mới thực thi**.
 
-| # | Câu phải trả lời | Đầu ra bắt buộc | Tình trạng hiện tại |
+| # | Vấn đề phải quyết | Chốt bằng cách nào? | Đề xuất GPT để hội đồng phản biện |
 |---|---|---|---|
-| **1** | **Có bao nhiêu Master list? Cụ thể là những danh sách nào?** | Một bảng duy nhất: **Mã · Tên · Quản lý cái gì · Trạng thái**. Phải chốt được **con số cuối + toàn bộ tên/mã**. | Đang có **84 dòng ứng viên** trong tab Master list; **chưa được coi là đáp án cuối**. |
-| **2** | **Người dùng sử dụng “Máy chế tạo quy trình” qua những Step nào?** | Danh mục Step: **Mã Step · Người làm gì · Đầu vào · Kết quả · UI dùng**. Chỉ tính **step sử dụng Máy**, không trộn step xây Nhà máy/tool. | Các số “60 bước” cũ đang trộn phạm vi; **chưa trả lời câu này**. |
-| **3** | **Cần chính xác bao nhiêu UI? Tên, mã và hình của từng UI là gì?** | Danh mục UI sinh **từ Step**: **Mã UI · Tên · Step nào dùng · hình/wireframe · trạng thái**. Một UI dùng nhiều Step chỉ tính **1 UI**. | Các số cũ **29 UI con / 18 chỗ** chỉ là tham khảo; **chưa chốt**. |
-| **4** | **Cần những công cụ kiểm/check chéo nào để chế tạo Máy?** | Master list công cụ: **Mã · Tên · Check gì · Input · Output · Trạng thái**. | Hiện có **28 công cụ ứng viên + 17 phạm vi kiểm**, nhưng **0 mục được coi là danh sách cuối/sẵn dùng toàn bộ**. |
-| **5** | **Các danh sách trên đã được điền đủ chưa?** | Mỗi dòng bắt buộc có đủ trường, nguồn và trạng thái; ô trống phải hiện rõ. Chỉ khi 1–4 đủ dữ liệu mới chuyển sang chế tạo chi tiết. | **OPEN**. |
+| **1** | **Master list cuối cùng có bao nhiêu danh mục, tên/mã gì?** | Lấy **84 ứng viên** làm đầu vào → rà trùng/sai phạm vi/thiếu → mỗi dòng cuối có **Mã · Tên · Quản lý gì** → đếm lại → Owner duyệt **con số + danh sách**. | **Không coi 84 là đáp án.** Chỉ là tập ứng viên để hội đồng rà. |
+| **2** | **Danh sách Step người dùng sử dụng “Máy chế tạo quy trình” là gì?** | Đi thử từ đầu đến cuối một ca sử dụng thật → ghi **mọi thao tác người dùng trên UI** → gộp thao tác trùng → Claude rà thiếu → Owner duyệt danh sách Step. | Chỉ tính **Step sử dụng Máy**, tách khỏi Step xây/kiểm Nhà máy. |
+| **3** | **Từ Step cần chính xác bao nhiêu UI; tên/mã/hình từng UI?** | Lập ánh xạ **Step → UI** → UI dùng nhiều Step chỉ tính một → mỗi UI có **Mã · Tên · Step dùng · wireframe** → đếm unique → Owner duyệt. | **Không chốt UI trước Step.** Các số 29/18 cũ chỉ là dữ liệu tham khảo. |
+| **4** | **Cần master list công cụ/check chéo nào để chế tạo Máy?** | Từ yêu cầu kiểm của 1–3 → lập ma trận **cần check gì → công cụ nào** → rà 28 ứng viên + 17 phạm vi → lộ trùng/trống → Owner duyệt danh sách tool cuối. | Mỗi tool cuối phải có **Mã · Tên · Check gì · Input · Output · Trạng thái**. |
+| **5** | **Khi nào coi các danh sách đã điền đủ?** | Chốt bộ cột bắt buộc cho từng danh sách → kiểm tự động/rà chéo → **không có ô trống không giải thích**; chỗ chưa biết phải ghi OPEN rõ. | “Đủ” = **đủ trường + đủ nguồn + đủ trạng thái**, không phải chỉ có tên. |
+| **6** | **Sau khi chốt, lưu các danh sách ở đâu và format gì?** | Hội đồng so 3 phương án: **A HTML-only trên GitHub · B dữ liệu cấu trúc trên GitHub + HTML hiển thị · C Directus/PG trên VPS** → so theo dễ nhìn, dễ AI cập nhật/check/diff, một SSOT, rollback, độ phức tạp → Owner chọn. | GPT đề xuất **B**: **GitHub/workspace làm SSOT dữ liệu cấu trúc (JSON, 1 nguồn)**; `ban-duyet.html` là lớp nhìn cho người; VPS chỉ mirror. **Chưa tạo file/đổi schema trước khi hội đồng + Owner chốt.** JEV tham khảo `gen-dec-1790478392-tEsO6erGJR14xl6VGHZv`: B, confidence 1.00. |
 
-**THỨ TỰ LÀM:** **Master list → Step → UI → Công cụ → Điền đủ.** Mọi thảo luận khác phải chỉ rõ nó sửa **bảng số mấy / dòng nào**; không chỉ được thì để sau.
-
-**NƠI LƯU / FORMAT — chốt cho giai đoạn thiết kế:** nội dung 5 bảng nằm trong **HTML chính `ban-duyet.html` trên GitHub/workspace = SSOT**; VPS chỉ là Owner View/mirror. `COLLAB.md` chỉ giữ quyết định, trạng thái và con trỏ. Dùng **bảng HTML có mã ổn định** để người nhìn được và AI đọc được; **chưa tạo thêm JSON/PG/file song song** trước khi cấu trúc bảng chốt.
+**THỨ TỰ BÀN:** **1 Master list → 2 Step → 3 UI → 4 Công cụ → 5 Độ đầy đủ → 6 Nơi lưu/format.** Nội dung khác chỉ đưa vào nếu chỉ rõ nó giúp chốt câu nào.
 
 TẠO MỘT / NHIỀU THÀNH PHẦN (Owner D40; phương án Codex P19, chưa là UI/schema đã chạy):
 - Cùng một quy tắc MAP02 cho mọi tầng: tra kho → dùng phần có → ghi phần thiếu → gọi quy trình tạo phần thiếu → trả về đúng chỗ gọi → kiểm chỗ nối. Với nhiều phần, phải lưu toàn bộ nhu cầu và tiến độ, không dựa vào trí nhớ/tab đang mở.
@@ -861,6 +860,7 @@ Hướng đúng D20: ngắn, 3 bước, 3 mảnh UI, có con số. Đã mở ngu
 
 - D41 · 2026-09-27 · Owner giao trực tiếp: thêm mục có star tên “ý kiến HĐ” ngay sau tab Công thức; đưa các ý kiến lên đó để thảo luận trước khi chuyển vào thiết kế chính; việc từ chối/đã chuyển có dấu màu để dễ theo dõi. Chốt hai việc: đưa ý kiến lên Ý kiến HĐ; càng dễ hiểu, càng ngắn gọn càng tốt, nhìn là hiểu. Ưu tiên hình tượng/màu/mô hình/công thức cho người; giữ text chi tiết cho AI; Owner quyết cuối. · Trạng thái: đã ghi tab + 17 thẻ trong cùng commit; kiểm xuất bản tại P21, không tự duyệt các phương án. · Ở: `ban-duyet.html#matrix-view-council` · §0.3 · P21.
 - D42 · 2026-09-27 · Owner thu hẹp trọng tâm: mọi việc trước mắt phải trả lời đúng **5 câu** — (1) tổng số + danh sách Master list; (2) danh mục Step người dùng sử dụng Máy; (3) từ Step chốt chính xác số/tên/mã/hình UI; (4) master list công cụ check chéo/chế tạo Máy; (5) điền đầy đủ các danh sách. Nếu chưa trả lời rõ 5 câu thì nội dung khác chưa có giá trị ưu tiên. Đồng thời phải chốt nơi lưu và format cập nhật. · Trạng thái: áp làm cổng ưu tiên §0.3; Owner View rút về 5 khối; lưu thiết kế tại `ban-duyet.html` trên GitHub/workspace, VPS mirror; chưa tạo nguồn song song. · Ở: §0.3 · `ban-duyet.html#matrix-view-council`.
+- D43 · 2026-09-27 · Owner làm rõ: các nội dung trên **mới là vấn đề/ý kiến, chưa chốt**. Mỗi vấn đề phải ghi thành câu hỏi rõ, nêu **cách chốt** và **đề xuất giải pháp** để GPT + Claude cùng phản biện; chỉ khi GPT + Claude Chat + Owner thống nhất mới giao Agent thực thi. Bổ sung vấn đề riêng: **sau khi chốt danh sách thì lưu ở đâu, format gì**. · Trạng thái: §0.3 + ★ Ý kiến HĐ đổi thành 6 vấn đề OPEN; phương án lưu B chỉ là đề xuất GPT, chưa thực thi. · Ở: §0.3 · `ban-duyet.html#matrix-view-council`.
 
 ## Đề xuất Host · MAP01–MAP05 + URL01 · chờ Claude review
 

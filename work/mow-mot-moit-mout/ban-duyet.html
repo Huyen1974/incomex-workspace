@@ -51,12 +51,13 @@
 #matrix-view-council .hd-note{font-size:12px;color:#53675e;line-height:1.5;margin:10px 0}
 #matrix-view-council .hd-empty{padding:24px;text-align:center;border:1px dashed #cbd7ce;border-radius:10px;color:#53675e}
 #matrix-view-council .hd-footer{margin-top:18px;padding:12px;background:#f7f9f7;border-radius:8px}
-#matrix-view-council .hd-focus{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:18px 0 10px}
-#matrix-view-council .hd-focus-item{border:1px solid #dce5df;border-radius:10px;background:#fff;padding:12px;min-width:0}
-#matrix-view-council .hd-focus-item b{display:block;font-size:20px;line-height:1;margin-bottom:8px;color:#315944}
-#matrix-view-council .hd-focus-item strong{display:block;font-size:14px;line-height:1.3;margin-bottom:7px}
-#matrix-view-council .hd-focus-item small{display:block;font-size:12px;line-height:1.4;color:#53675e}
-#matrix-view-council .hd-focus-item a{display:inline-block;margin-top:8px;font-size:12px;font-weight:700}
+#matrix-view-council .hd-focus{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0 10px}
+#matrix-view-council .hd-focus-item{border:1px solid #dce5df;border-radius:10px;background:#fff;padding:13px;min-width:0}
+#matrix-view-council .hd-focus-item>b{display:block;font-size:20px;line-height:1;margin-bottom:7px;color:#315944}
+#matrix-view-council .hd-focus-item strong{display:block;font-size:15px;line-height:1.3;margin-bottom:7px}
+#matrix-view-council .hd-focus-item p{font-size:12px;line-height:1.45;margin:7px 0;color:#53675e}
+#matrix-view-council .hd-focus-item p b{color:#20332d}
+#matrix-view-council .hd-focus-item .hd-open{display:inline-block;font-size:11px;font-weight:700;border-radius:12px;padding:4px 8px;background:#fff2d3;color:#785006;margin-bottom:4px}
 #matrix-view-council .hd-storage{padding:10px 12px;border-radius:8px;background:#eff6f1;font-size:13px;margin:10px 0 14px}
 #matrix-view-council .hd-archive{margin-top:14px;border:1px solid #e1e7e3;border-radius:9px;padding:10px}
 #matrix-view-council .hd-archive>summary{font-size:13px}
@@ -560,16 +561,17 @@
 </details>
 </section></div>
 <div class="tab-panel" id="matrix-view-council" role="tabpanel" data-matrix-panel="council" aria-labelledby="matrix-tab-council" hidden><section class="hd-shell">
-<div class="hd-head"><div><div class="hd-kicker">D42 · CHỈ TẬP TRUNG 5 CÂU</div><h2>★ Ý kiến HĐ</h2><p class="hd-intro">Nếu chưa trả lời được 5 ô này thì chưa bàn việc khác.</p></div><div class="hd-stamp">Owner 27/09/2026<br>5 câu = cổng ưu tiên</div></div>
-<div class="hd-focus" aria-label="Năm câu hỏi ưu tiên">
-<div class="hd-focus-item"><b>1</b><strong>MASTER LIST</strong><small><b style="font-size:12px;margin:0;color:#785006">84 ứng viên · CHƯA CHỐT</b>Phải ra con số cuối + toàn bộ tên/mã.</small><a href="#matrix-view-master-lists">Mở Master list →</a></div>
-<div class="hd-focus-item"><b>2</b><strong>STEP SỬ DỤNG MÁY</strong><small><b style="font-size:12px;margin:0;color:#9f253b">CHƯA TRẢ LỜI</b>Chỉ Step người dùng thao tác; không trộn Step xây Nhà máy.</small><a href="#matrix-view-process-list">Mở Step →</a></div>
-<div class="hd-focus-item"><b>3</b><strong>UI</strong><small><b style="font-size:12px;margin:0;color:#9f253b">CHƯA CHỐT SỐ</b>Từ Step → số UI · tên · mã · hình. 1 UI dùng nhiều Step chỉ tính 1.</small><a href="#matrix-view-uis">Mở UIs →</a></div>
-<div class="hd-focus-item"><b>4</b><strong>CÔNG CỤ KIỂM</strong><small><b style="font-size:12px;margin:0;color:#785006">28 ứng viên · 17 phạm vi</b>Phải ra master list tool cuối: check gì · vào/ra · trạng thái.</small><a href="#ml6-cc">Mở công cụ →</a></div>
-<div class="hd-focus-item"><b>5</b><strong>ĐIỀN ĐỦ</strong><small><b style="font-size:12px;margin:0;color:#9f253b">OPEN</b>Mỗi dòng đủ thông tin; chỗ thiếu phải nhìn thấy ngay.</small><a href="#matrix-view-master-lists">Kiểm dữ liệu →</a></div>
+<div class="hd-head"><div><div class="hd-kicker">D43 · 6 VẤN ĐỀ OPEN · CHƯA CHỐT</div><h2>★ Ý kiến HĐ</h2><p class="hd-intro">Mỗi ô là một câu hỏi cần hội đồng quyết — chưa phải thiết kế đã duyệt.</p></div><div class="hd-stamp">GPT → Claude → Owner<br>thống nhất rồi mới giao Agent</div></div>
+<div class="hd-journey" aria-label="Quy trình chốt"><div class="hd-stop"><b>1. GPT đề xuất</b><small>nêu phương án + lý do</small></div><span class="hd-arrow">→</span><div class="hd-stop"><b>2. Claude phản biện</b><small>đồng ý / sửa / phương án khác</small></div><span class="hd-arrow">→</span><div class="hd-stop"><b>3. Owner chốt</b><small>sau đó mới giao Agent thực thi</small></div></div>
+<div class="hd-focus" aria-label="Sáu vấn đề cần chốt">
+<div class="hd-focus-item"><b>1</b><span class="hd-open">OPEN · CHƯA CHỐT</span><strong>Master list cuối cùng có bao nhiêu? Danh sách nào?</strong><p><b>Cách chốt:</b> rà 84 ứng viên → gộp trùng/sai phạm vi → mỗi dòng có Mã · Tên · Quản lý gì → đếm lại.</p><p><b>GPT đề xuất:</b> coi 84 là đầu vào, không phải đáp án.</p></div>
+<div class="hd-focus-item"><b>2</b><span class="hd-open">OPEN · CHƯA CHỐT</span><strong>Step sử dụng Máy gồm những bước nào?</strong><p><b>Cách chốt:</b> đi một ca thật từ đầu đến cuối → ghi mọi thao tác người dùng → gộp bước trùng → rà thiếu.</p><p><b>GPT đề xuất:</b> chỉ tính Step người dùng thao tác; không trộn Step xây Nhà máy.</p></div>
+<div class="hd-focus-item"><b>3</b><span class="hd-open">OPEN · CHƯA CHỐT</span><strong>Chính xác cần bao nhiêu UI? Tên · mã · hình?</strong><p><b>Cách chốt:</b> Step → UI → gộp UI dùng chung → mỗi UI có Mã · Tên · wireframe → đếm unique.</p><p><b>GPT đề xuất:</b> chưa chốt UI trước khi Step được chốt.</p></div>
+<div class="hd-focus-item"><b>4</b><span class="hd-open">OPEN · CHƯA CHỐT</span><strong>Cần những công cụ/check chéo nào?</strong><p><b>Cách chốt:</b> từ 1–3 xác định “cần check gì” → ánh xạ 28 ứng viên/17 phạm vi → lộ trùng và chỗ trống.</p><p><b>GPT đề xuất:</b> tool cuối có Mã · Tên · Check gì · Input · Output · Trạng thái.</p></div>
+<div class="hd-focus-item"><b>5</b><span class="hd-open">OPEN · CHƯA CHỐT</span><strong>Khi nào coi các danh sách đã điền đủ?</strong><p><b>Cách chốt:</b> thống nhất cột bắt buộc → kiểm chéo → không có ô trống không giải thích; chưa biết phải ghi OPEN.</p><p><b>GPT đề xuất:</b> “đủ” = đủ trường + nguồn + trạng thái, không phải chỉ có tên.</p></div>
+<div class="hd-focus-item"><b>6</b><span class="hd-open">OPEN · CHƯA CHỐT</span><strong>Chốt xong thì lưu ở đâu? Format gì?</strong><p><b>Cách chốt:</b> so A HTML-only/GitHub · B dữ liệu cấu trúc/GitHub + HTML nhìn · C Directus/PG/VPS theo: dễ nhìn · AI cập nhật/check · 1 SSOT · rollback · độ phức tạp.</p><p><b>GPT đề xuất:</b> <b>B</b> — GitHub/workspace giữ <b>1 nguồn JSON có cấu trúc</b>; HTML chỉ hiển thị cho người; VPS mirror. Chưa tạo trước khi hội đồng + Owner chốt.</p></div>
 </div>
-<div class="hd-storage"><b>Nơi lưu:</b> <b>GitHub/workspace · ban-duyet.html = SSOT</b> → VPS chỉ hiển thị mirror. <b>Format:</b> bảng HTML có mã ổn định. Chưa tạo JSON/PG/file song song.</div>
-<div class="hd-rule"><b>Thứ tự duy nhất: Master list → Step → UI → Công cụ → Điền đủ.</b> Nội dung khác chỉ được bàn khi chỉ rõ nó sửa bảng nào/dòng nào.</div>
+<div class="hd-rule"><b>Thứ tự bàn: 1 Master list → 2 Step → 3 UI → 4 Công cụ → 5 Độ đầy đủ → 6 Nơi lưu/format.</b></div>
 <details class="hd-archive" id="hd-archive"><summary>Phụ lục: 17 ý kiến cũ — chỉ mở khi một ý trực tiếp giúp trả lời 5 câu trên</summary>
 <p class="hd-filter-label">Lọc ý kiến cũ theo trạng thái — không phải nút phê duyệt</p>
 <div class="hd-filter" role="group" aria-label="Lọc trạng thái ý kiến"><button type="button" data-hd-filter="all" aria-pressed="true">Tất cả <b data-hd-count="all">17</b></button><button type="button" class="hd-discuss" data-hd-filter="discuss" aria-pressed="false">… Đang bàn <b data-hd-count="discuss">6</b></button><button type="button" class="hd-owner" data-hd-filter="owner" aria-pressed="false">? Chờ Owner <b data-hd-count="owner">9</b></button><button type="button" class="hd-approved" data-hd-filter="approved" aria-pressed="false">✓ Đã duyệt <b data-hd-count="approved">2</b></button><button type="button" class="hd-moved" data-hd-filter="moved" aria-pressed="false">✓ Đã vào thiết kế <b data-hd-count="moved">0</b></button><button type="button" class="hd-rejected" data-hd-filter="rejected" aria-pressed="false">× Từ chối <b data-hd-count="rejected">0</b></button></div>
