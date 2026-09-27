@@ -20,6 +20,18 @@ GitHub native/App/API/CLI: READ-ONLY.
 
 Không đụng UI VPS, Step/UI/79 Master. Đây là Lane A.
 
+### MOM04 baseline đã nghiệm thu — chỉ là evidence inventory
+
+KQ `MMIM-MOM04-20260928-01 XONG` được Host chấp nhận làm baseline:
+- 16/16 UI xanh đã kế thừa;
+- 84/84 Master;
+- help 10/10 + Home;
+- ★ browser-only;
+- 5 pilot có **470 detailRequirements**;
+- false_green=0; loop PASS; regression 3/3.
+
+**Khóa nghĩa:** 470 `detailRequirements` = **kho chi tiết/evidence để tiếp tục làm đầy 5 pilot**. Chúng **KHÔNG phải** 470 Process, KHÔNG phải Human Step, KHÔNG phải UI unique và KHÔNG phải backlog để người đọc/duyệt từng dòng. Lane A không được biến chúng thành catalog/process/tool. Lane B/C sau này chỉ dùng làm nguồn/evidence để suy ra Process/Step/UI và phải gộp theo quy luật.
+
 ## 1. Mục tiêu
 
 Biến nguyên tắc Owner thành chuỗi có thể tuân thủ:

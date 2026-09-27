@@ -69,7 +69,8 @@ Song song hoàn thiện bản thiết kế máy, xây các tool và viết quy t
 
 - D57 · 2026-09-28 · **LANE A01 BẮT ĐẦU E1 — BOOTSTRAP P0 + PROCESS GATE:** PROMPT mới đã khai `PROCESS: CHUNG.APQUYTRINH`; đây là bootstrap exception duy nhất theo D56 vì process chưa được ghi vào catalog trước RUN. A01 phải đăng ký P0 vào CAT-003/`ml5-cho-ai`, tạo `cong-cu/dot-process-gate.py`, đăng ký tool + `K18 governance.process · gate`, chạy lại `dot-walk-check`, và chứng minh gate PASS/BLOCK bằng test thật. Từ RUN sau A01: **Host không READY nếu thiếu PROCESS hoặc gate chưa PASS; Agent phải tự gate trước mutation.** E2/E3 (root AGENTS/gateway hard block) chưa làm trong A01, chỉ làm sau khi E1 ổn. · LANE B/C = BLOCKED_BY_A01.
 - READY@2b3c9289bc631da908e0d9e2561f80a773f9c549 · RUN_ID `MMIM-LANE-A01-20260928-01` · PROCESS `CHUNG.APQUYTRINH` · Executor **Codex**.
-- RUN ISSUED · `MMIM-LANE-A01-20260928-01` · chỉ Lane A; KQ bắt buộc chứa `PROCESS_GATE=PASS|BLOCK`; XONG cũng dừng, không tự mở A02/B/C.
+- RUN ISSUED cũ · `MMIM-LANE-A01-20260928-01` · **SUPERSEDED trước khi Owner chạy** do Host bổ sung khóa nghĩa MOM04; READY cũ không dùng.
+- D58 · 2026-09-28 · **NGHIỆM THU MOM04 LÀM BASELINE, KHÓA NGHĨA 470 REQUIREMENTS:** KQ MOM04 đạt: 16/16 UI xanh · 84/84 Master · help 10/10 + Home · ★ browser-only · 470 detailRequirements/5 pilot · false_green=0 · loop PASS · regression 3/3. **470 = kho evidence/chi tiết cần đạt, không phải Process/Step/UI count và không phải backlog người duyệt từng dòng.** Lane B/C chỉ được dùng 470 làm nguồn để suy/gộp; Lane A không được nhập 470 thành process/tool catalog. A01 vẫn chỉ làm P0 + gate. · Trạng thái: **PROMPT A01 hiệu chỉnh, chờ READY mới**.
 
 ### 2. Thế nào là hoàn thành
 *(Owner viết nguyên văn 25/09/2026)*
