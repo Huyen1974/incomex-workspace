@@ -904,5 +904,14 @@ KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H
 - **Giới hạn trung thực:** local work trước lần gateway touch đầu tiên chỉ hook thấy. Vì vậy hook/launcher trên Mac gửi session/start sớm để giảm khoảng mù, nhưng trust boundary vẫn mutation gate VPS. C chỉ được đóng khi SSH/root direct cũng vào controlled identity/lease/break-glass.
 - **Thứ tự giữ nguyên:** AD1-FIX → VPS canh gen2 24h → trong lúc đó Host hoàn thiện PROMPT B trên giấy → chỉ sau `AD1_24H=PASS` mới deploy B (B có thể restart agent-data/claude-mcp) → nghiệm thu B → C ngay.
 
+#### P40 · Host GPT · 2026-09-28 · **AD1-FIX READY/RUN ISSUED · MAC CHỈ SMOKE NGẮN**
+- PROMPT AD1-FIX last-touch = `ffd210d6a3fb99188b091d110b31f0640cb765d1`; RUN_ID `MCPW-AD1-FIX-20260928-01`.
+- **READY@ffd210d6a3fb99188b091d110b31f0640cb765d1**.
+- **RUN@MCPW-AD1-FIX-20260928-01 · ISSUED.** Executor Claude Code CLI trên Mac Owner; chỉ chẩn đoán/cài/smoke ngắn. Không giữ terminal 24h.
+- Bắt buộc bước đầu đọc machine state bằng `verify-AD1.sh`; nếu không đúng gen1 FAIL periodic_reads thì DỪNG. Không dùng lời P37 thay state live.
+- Sau smoke PASS + gen2 arm: ghi `KQ@MCPW-AD1-FIX-20260928-01 XONG · GEN2_WATCH_RUNNING_ON_VPS` rồi dừng phiên. Từ thời điểm đó Mac có thể tắt/di chuyển; Guard/Kuma/timer VPS tự canh 24h.
+- Không restart/recreate `agent-data`/`claude-mcp`, không Hermes model/AUTO, không Pha B/C trong RUN này.
+- P39 là thiết kế B hiện hành; trong lúc gen2 chạy Host chỉ soạn/review giấy, không deploy B.
+
 ## Owner cần quyết
 - —
