@@ -14,7 +14,10 @@ B01 tạo được bản đồ 39 quy trình hiện có theo chữ ký chuẩn; 
 - 39 = process đã có definition; ≈98 = dự tính/khung, không coi là đã viết.
 - Lane B **không sửa Step/UI**.
 - Kết quả B01 là working evidence; chỉ Host/Owner mới hợp nhất vào canonical CAT-003.
-- KQ mới nhất: **B01 XONG · chờ Host nghiệm thu** — 39 chữ ký/10 cụm; 8 overlap candidate/10 nhóm gap; xem KQ dưới đây.
+- KQ mới nhất: **B01 XONG · Host đã nghiệm thu để mở B02** — 39 chữ ký/10 cụm; 8 overlap candidate/10 nhóm gap; xem KQ dưới đây.
+- B02 HOST GATE · PASS · PROCESS=`CHUNG.APQUYTRINH` · catalog=`ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7` · prompt=`2daa910521ffda335916e182d582374fd31865d1ef9a565374b32b5610c22e36`.
+- READY@f39ca2ded193af84048937452c937923348ec6b1 · RUN_ID `MMIM-LANE-B02-20260928-01`.
+- RUN ISSUED · B02 chỉ sửa ban-duyet + lane-b/COLLAB; không sửa gate/Step/UI; XONG/DỪNG rồi dừng.
 - HOST GATE · PASS · PROCESS=`CHUNG.TIM` · catalog=`ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7` · prompt=`86ecde4f60461e33cd19b5ab6ce4407885fb71c9e1c16c228a0ccbcc0fe8680d`.
 - READY@8794c1fa9c868db731a6e1b9d4b99dad56e56c53 · RUN_ID `MMIM-LANE-B01-20260928-01`.
 - RUN ISSUED · chỉ lane-b/COLLAB được ghi; canonical parent READ-ONLY; XONG/DỪNG rồi dừng.
