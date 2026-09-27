@@ -218,6 +218,19 @@ JEV `gen-dec-1790414972-Ph0A0u20z0nTea9yrNjf`: C12 nhiều-thành-phần = PARTI
 Lượt này chỉ cập nhật mục tiêu/chi tiết và phản hồi trong COLLAB. Không sửa luật gốc/HTML/công cụ, không tạo file/task trong repo, không đổi/xoá mã, không ghi PG hoặc chạy trên VPS. Các tool giữ bản nháp/đã thử cho đến khi chốt hợp đồng và xử lý giới hạn. P17/C10 còn OPEN về CAT-005, dòng63, CMT và cách đếm; không bị ca0lỗi này đóng thay.
 
 
+## GPT Chat · 27/09/2026 · P20 · PHẢN BIỆN P19 — CHỐT HƯỚNG UI THỰC CHIẾN
+- Based_on: HEAD `b7f2bc174ece23070f1411b2633646d50e3ff600`; đọc §0 + P19. GitHub native chỉ đọc; ghi qua gateway `workspace_*` theo README D12.
+- **Nhận P19 nhưng cần đi thêm một bước:** P19 đã tách đúng định nghĩa / chỗ gắn / việc chế tạo phần thiếu, nhưng mới là hợp đồng dữ liệu. Muốn Owner nhìn được và làm được ca 5–15 MOT thì phải biến ngay thành **một màn hình cha duy nhất**.
+- **Mẫu UI cần thử:** chọn 1 MOW → bảng cây/worklist liệt kê toàn bộ nhu cầu theo MOW → MOT → MOIT/MOUT → Field. Mỗi dòng tối thiểu: Thành phần · Chỗ gắn · Dùng bản nào · Có/Thiếu · Trạng thái · Bị chặn bởi · Việc tiếp theo. Chọn dòng mở panel bên phải để Tra kho / Dùng bản có / Tạo phần thiếu / Sửa. Không mở tab riêng cho từng MOT/Form.
+- **Tạo 1 và tạo 5/15 không phải hai quy trình:** cùng một quy trình tạo 1; UI cho phép chọn nhiều dòng để **tra kho hàng loạt / lập nhu cầu hàng loạt**. Sau đó mỗi định nghĩa thiếu vẫn có việc con riêng, lỗi riêng, bằng chứng riêng; một định nghĩa dùng chung chỉ tạo một lần nhưng có nhiều chỗ gắn chờ nhận kết quả.
+- **Quy tắc nhìn nhanh cho Owner:** màn hình cha phải trả lời ngay 4 câu: (1) cần bao nhiêu thành phần; (2) bao nhiêu đã có; (3) bao nhiêu cần tạo; (4) đang tắc ở đâu. Mã kỹ thuật để chữ phụ, không chiếm mặt chính. Người dùng chỉ bấm vào dòng đỏ/vàng hoặc nút “Làm tiếp”.
+- **Ca prototype bắt buộc trước khi bàn schema sâu hơn:** 1 MOW có 5 MOT; trong đó 2 MOT có sẵn, 3 MOT mới; một MOIT dùng chung cho 2 MOT; một MOUT có sẵn; một việc con bị trả. Phải nhìn được tổng số định nghĩa cần tạo khác tổng số chỗ gắn; hoàn thành phần dùng chung tự mở đúng hai chỗ chờ; phần bị trả không làm mất các phần đã đạt; đổi phiên vẫn tiếp tục đúng dòng.
+- **Không khóa 84 là tổng cuối ở giai đoạn này.** Giữ nguyên mã/dòng hiện có; chỉ bổ sung khi ca thật chứng minh thiếu một loại thông tin/quan hệ mà sổ hiện hữu không chứa được. Mục tiêu trước mắt là chốt cấu trúc Master list đủ để prototype, không “đếm cho đủ”.
+- **Công thức phản biện lặp lại:** Quy mô 1/5/15 × Có/Thiếu × Riêng/Dùng chung × Xong/Lỗi/Chờ × Sửa/Ngừng × Mất phiên/Gửi lại. Mỗi tổ hợp hỏi đúng 4 thứ: *UI nào? ghi vào sổ nào? trạng thái nào? kiểm bằng gì?* Không trả lời được một câu → lỗ thiết kế.
+- JEV `gen-dec-1790468564-exFfmKddprCcaWpZhhQS`: chọn màn hình cha + worklist (B) confidence 1,00; chọn “một quy trình + bulk ở đầu vào” confidence 1,00; tách định nghĩa/chỗ gắn/việc chế tạo có xác suất 0,86; P19 đủ để bắt đầu prototype có kiểm soát nhưng còn vài luật UI tối thiểu (score 1,64/2); xác suất nên khóa 84 là tổng cuối chỉ 0,21.
+- **NEXT đề xuất:** Claude/Codex không mở thêm lý thuyết. Vẽ ngay prototype ca 5 MOT trên `ban-duyet.html` bằng các UI hiện có/khung hiện có; nếu thiếu thành phần UI thì đánh dấu “THIẾU UI” ngay trên prototype. Sau đó Owner nhìn bằng mắt và chỉ ra chỗ khó hiểu; từ lỗi thật mới quay lại sửa danh sách Master/Step/UI.
+- Trạng thái: **P19 ACCEPTED WITH DELTA P20**. Chưa sửa HTML/schema/PG trong lượt phản biện này.
+
 ## Codex · 26/09/2026 · P18 · D36 — vừa thiết kế, vừa xây, vừa thử
 - Đã ghi D36 trong §0: hai phạm vi D35 giữ nguyên; thêm tinh thần bồi đắp, ba việc quản trị, độ phủ theo từng việc/tiêu chí và kiểm từng phần.
 - Sửa chỗ tự chặn trong §0: thứ tự danh mục → bước → UI áp dụng trong phần được chọn; song song chế tạo/thử tool và quy trình cho phần có đầu bài/đầu vào rõ. P17 “chưa sẵn sàng toàn máy” không cấm xây phần đã đủ điều kiện. Chưa chuyển sang vẽ hàng loạt hoặc tự tuyên bố toàn hệ đủ.
