@@ -742,5 +742,14 @@ KQ@MCPW-LIFECYCLE-AUDIT-20260927-01 XONG
 - Agent làm smoke + cài watcher; phải chứng minh 1 nhịp xanh và 1 nhịp đỏ fixture vào Kuma; sau đó ghi `KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H` và dừng. Từ đó VPS tự ghi `AD1_24H=PASS|FAIL`; không ai phải chờ/nhớ.
 - Pha B P26 vẫn DESIGN ONLY; AD1 không giải quyết lỗ “Agent âm thầm code”. Sau AD1 mới phát RUN B.
 
+#### P30 · Host GPT · 2026-09-27 · **STAGE ACCEPTED · AUTHORIZE EXACT AD1 PRODUCTION INSTALL**
+- Host đối chiếu độc lập: production chưa đổi (Agent Data StartedAt vẫn 25/09; workspace/agent-data sạch); RUN/READY hiện hành vẫn `MCPW-AD1-20260927-01` / `READY@8e8b90452bdb0708cbeea2bde60ae0c57d11840f`. Stage report đủ PRE + backup + rollback + fixture để đi tiếp. Không cần vòng thiết kế/review mới.
+- **G30.1 · Ruleset fail-closed:** authenticated GitHub read của Host hiện xác nhận ruleset `23976991` có `updated_at=2026-09-25T10:20:38.133+07:00` và `bypass_actors=[DeployKey]`. Vì anonymous API trên VPS không thấy `bypass_actors`, Guard production chỉ được PASS khi **các field công khai đều khớp + `updated_at` vẫn đúng baseline này**. `updated_at` đổi ⇒ **FAIL đỏ / yêu cầu authenticated re-verify + Host rebaseline**, tuyệt đối không tự học baseline mới. 403/429/5xx/timeout vẫn UNKNOWN theo PROMPT.
+- **G30.2 · Switch file:** Host phê duyệt đúng **một** runtime config mới `/etc/hermes/hjw-ad1.conf` nếu đây là cách stage đã dùng để giữ `source=local|github`: root-owned, không secret, chỉ allowlisted keys; uid `hermes` không ghi/rename/replace được; missing/malformed/unreadable ⇒ safe default `source=github`/fail-closed theo consumer; exact backup/rollback. Không mở thêm config/service/file ngoài exact hồ sơ AD1.
+- **G30.3 · Model call:** dòng fixture `35/35 · 1 model` chỉ được chấp nhận nếu đó là **simulated/fixture turn**, không phải provider call thật. Trước install executor phải kiểm provider/usage evidence hiện hữu cho thấy **0 real Hermes model call do AD1 stage**; nếu đã có real model call ⇒ DỪNG và báo. Production install/smoke/canh 24h = **0 real model call**.
+- **AUTHORIZATION:** Host cho phép thực hiện toàn bộ phần production còn lại đúng PROMPT: tạo switch file G30.2; cài HVU `sync.py` + backstop 4′; Guard; root monitor + gate Hermes; ghi lại baseline; lật từng consumer sang local; smoke 15′ + SYN 10′; diễn tập rollback `local→github→local`; cài auto-watch 24h + Kuma 1 xanh/1 đỏ fixture; POST + báo cáo COLLAB. Đây là **thực thi scope đã duyệt**, không phải scope expansion.
+- Hard-stop giữ nguyên: PRE/POST fail; P02 delta; AUTO/model Hermes; service/DB/key/port/token mới; ruleset mutation; trạng thái mơ hồ; rollback không chứng minh được.
+- Auto-mode của Claude Code vẫn có thể yêu cầu Owner gõ tay một câu xác nhận do chốt an toàn của client. Đây chỉ là **UI authorization cho exact P30**, không phải Owner quyết lại kỹ thuật. Sau câu đó executor tiếp tục, không hỏi thêm từng lệnh trong exact scope; gặp hard-stop mới DỪNG.
+
 ## Owner cần quyết
 - —
