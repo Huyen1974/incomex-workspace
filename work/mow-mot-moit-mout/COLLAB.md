@@ -999,8 +999,95 @@ KQ@MMIM-MOM03-20260927-01 XONG
 - READY@362d28edfd9d267af474ab99c9e3f8b875d7ce1c · RUN_ID `MMIM-MOM04-20260928-01` · Executor **Codex** · phạm vi: kế thừa 16 UI xanh → requirements 5 pilot + help `?` + favorite `★`; không làm 79 Master.
 - RUN ISSUED · `MMIM-MOM04-20260928-01` · Owner điều hành thủ công; Codex phải đọc §3 + 16 UI xanh trước mutation, ghi KQ rồi DỪNG; không tự mở vòng tiếp.
 
+
+## Codex · KQ MMIM-MOM04-20260928-01 · 28/09/2026
+
+**XONG phạm vi RUN; chờ Owner/Host nghiệm thu.** READY `362d28edfd9d267af474ab99c9e3f8b875d7ce1c` đúng commit cuối chạm PROMPT; PROMPT SHA `29889f908d2d7983d5ca91dc70f4f260c0f0c2d83090a1d8d53e726ead905d25`. Đã đọc AGENTS → README D12 → COLLAB §0, §3 Live Contract, D44/D46/D49–D55, KQ MOM03 → PROMPT; root ui AGENTS/README, nguồn cha và 16 UI xanh. Không mở RUN khác.
+
+### Cổng kế thừa — lập trước mutation
+
+Đã mở thực tế đủ 16 entry bằng CUA và đọc nguồn HTML/JS/adapter của từng entry. Bảng ánh xạ được lập trong scratch trước giao dịch UI đầu `866ff6b053114ac2ae42b1516a6d2408`: **green=16, unmapped=0, PASS BEFORE MUTATION**. Tiền tố dưới đây trỏ tới key trong `home.detailRequirements`; số là mục tham chiếu, có thể dùng chung giữa các UI.
+
+| UI xanh | Capability / nguồn đã có | Requirement |
+|---|---|---|
+| UI-005 · MOW | Kanban MOW · mow-unified-canvas-v2.html | MOW.KANBAN.tiers / MOW.KANBAN.work (2) |
+| UI-001 · MOW | Master MOW · mow-master-nhap2-v1.html + 7 nguồn chi tiết | MOW.MASTER.* / MOW.SCHEMA.* / MOW.SCOPE.* / MOW.CHECK.* / MOW.HELP.* / MOW.MODEL.* / MOW.EVENT.* / MOW.PROCESS.* / MOW.RENDER.* / MOW.CONTRACT.* (187) |
+| UI-004 · MOW | Sổ góp ý · mow-gopy-list-v1.html + data/list.js | MOW.FEEDBACK.* (3) |
+| UI-010 · MOT | Bàn làm việc · mot-dashboard-v1.html + mot-app/data.js | MOT.WORKSPACE.* (4) |
+| UI-007 · MOT | Studio MOT · mot-studio-v1.html + mot-studio-v1.js | MOT.STUDIO.* (15) |
+| UI-006 · MOT | Config T1 · new-modt-v1.html + t1-proposal-config-v1.js + mow-t1-work-standard-v1.js | MOT.CONFIG.* (14) |
+| UI-003 · MOT | Duyệt NTGV · duyet-ntgv-v1.html + ntgv-rule-table-v1.js | MOT.NTGV.* (4) |
+| UI-002 · MOT | Master MOT · mot-master-v1.html + mot-data-v1.js + master-drawer-view-v1.js | MOT.MASTER.* / MOT.SCHEMA.* / MOT.DRAWER.* (25) |
+| UI-019 · MOIT | Kanban MOIT · mow-unified-canvas-v2.html · T0.5 form=MOIT | MOIT.KANBAN.form (1) |
+| UI-013 · MOIT | Master MOIT · moit-master-v1.html → mot-master-v1.html + adapter | MOIT.MASTER.* / MOIT.SCHEMA.* / MOIT.DRAWER.* (23) |
+| UI-015 · MOIT | Studio MOIT · moit-studio-v1.html → mot-studio-v1.html | MOIT.STUDIO.* (15) |
+| UI-017 · MOIT | Config MOIT · moit-config-v1.html → new-modt-v1.html + adapter | MOIT.CONFIG.* (14) |
+| UI-020 · MOUT | Kanban MOUT · mow-unified-canvas-v2.html · T0.5 form=MOUT | MOUT.KANBAN.form (1) |
+| UI-008 · MOUT | MOUT Builder · mout-builder-v3.html | MOUT.BUILDER.* (12) |
+| UI-014 · MOUT | Master MOUT · mout-master-v1.html → mot-master-v1.html + adapter | MOUT.MASTER.* / MOUT.DRAWER.* (12) |
+| UI-016 · MOUT | Studio MOUT · mout-studio-v1.html → mot-studio-v1.html | MOUT.STUDIO.* (15) |
+
+Mức sàn §0A/4.1 được giữ: Kanban tầng/chế độ/card/detail/thêm; Master metadata + 3 vai + liên kết/tìm/lọc/cây/sửa/drawer; góp ý neo + trạng thái + lượt thiết kế; Bàn làm việc required/embedded/tham khảo/lần đầu/sửa-xong; Studio toàn bộ F01–F10/L1–L4/E01–02/C01–02/flow/composer/JSON; Config đủ 10 cột GHI/ĐỌC + NTGV/ai làm-ai nhận/chạy-kết thúc; NTGV NẾU/THÌ/3 điều kiện/AND-OR/đề xuất-duyệt/ghi chú/help; MOIT ngôn ngữ form nhập; MOUT miền dữ liệu/cột/SUM/5 AND/thời gian/lịch/Tổng/đúc-lưu/xuất/phân phối/picker 7 tầng. Capability bắt buộc chưa map: **0**; không có N/A để bỏ capability.
+
+MOW giữ thêm chi tiết phong phú từ `nhap2-items.js`, `master-list.js`, `master-drawer-view-v1.js`, `nhap2-render.js`, `mow-help-doc.js`, `mow-drawer-scope.js` và `nhap2-core.js`: danh tính/phiên bản/chuỗi, 4 nhóm nguồn, normalization schema, contract/support, 14 checkpoint, sự kiện, đầu vào-bản ghi, retry/ACK/trả sửa/duyệt/nhánh và nguồn ngoài. Help gốc/lưu trữ giữ tham chiếu riêng; không xem phần đang bàn hoặc mẫu là đã chốt. Nguồn cần kế thừa trong RUN chưa có ánh xạ: **0**; không tuyên bố đã phân tích xong mọi dòng lịch sử hay hoàn thiện nghiệp vụ.
+
+### Chi tiết cần đạt — 5 pilot / 470 mục tham chiếu
+
+| Pilot | LB | CF | ST | UI | DATA | DETAIL | Tổng |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| FIELD | 4 | 0 | 45 | 3 | 2 | 3 | 57 |
+| MOIT | 9 | 40 | 6 | 7 | 1 | 4 | 67 |
+| MOUT | 9 | 27 | 7 | 5 | 1 | 4 | 53 |
+| MOT | 11 | 44 | 10 | 8 | 1 | 7 | 81 |
+| MOW | 12 | 20 | 8 | 10 | 82 | 80 | 212 |
+
+- 470 mục có đủ `axis/key/label/state/source/evidence/next`, kèm SHA nguồn và UI liên quan; mã nội bộ không đổi theo nhãn. **Không cấp UI ID mới.**
+- Field giữ đúng tên/7 định dạng/mô tả/≥1 nhóm T4 từ `kanban-field-v1.js` và đối chiếu `ban-duyet.html · MMIM.FIELD.CREATE.001`. CF=0 nghĩa chưa bóc thành property cấu hình riêng trong RUN; không bịa thêm property. Step cấu hình form đang kê vẫn giữ OPEN.
+- `i` mở 6 nhóm; mặt đầu chỉ count 4-state, từng dòng là dấu + tên ngắn. Bấm nhóm/dòng xem source/evidence/next/SHA. LB/CF/ST/UI trên Home bấm mở đúng nhóm qua query `view=source&axis=...`.
+- Gaps/evidence/metadata MOM02–03 vẫn ở ngăn gập; 84 bản ghi gốc, mã/tên và toàn bộ dữ liệu cũ ngoài property mới **giữ nguyên**. 79 Master ngoài pilot chưa làm.
+- **✓ mới=0** trong requirements; LB/CF/ST/UI không tự xanh. TK✓5 giữ evidence UI Master đã duyệt. K0 Field **CHƯA PASS**, chưa có nguồn PG nghiệp vụ thật.
+
+### Kiểm thực tế / đầu ra thật
+
+```text
+catalog: rows=84 · tkGreen=5 · falseGreen=0
+invariant: originalDataUnchanged=true · pilots=5 · requirements=470
+requiredFieldsMissing=0 · unmappedGreen=0
+headers desktop: focus=10/10 · hover=10/10 · insideViewport=10/10
+headers 390: focus=10/10 · insideViewport=10/10 · scrollWidth=375 <= 390
+Home help 390: root=9/9 · master=13/13 · title/aria/tooltip=true · insideViewport=true
+pilot DOM: Field=57 · MOIT=67 · MOUT=53 · MOT=81 · MOW=212
+pilot DOM: newGreen=0 cả 5 · oldMetadata=true cả 5 · scrollWidth<=390 cả 5
+menu: MOW 3 xanh/4 đỏ · MOT 5/2 · MOIT 4/3 · MOUT 4/1 → đỏ=10/10
+console errors: []
+```
+
+- ★: MOM click không chuyển URL; `progressSame=true`. Sau reload `aria-pressed=true`; mở tài liệu ở tab mới cùng trình duyệt vẫn `true`; Home đồng bộ. Bấm bỏ ở MOM → Home `false`. Đã thử 7 favorite: root có đúng 6 link + `+1`; trả toàn bộ dấu thử về trạng thái ban đầu `☆0`.
+- Một key `incomex.master.starred.v1`, JSON array mã Master, localStorage only. Thử hàm thuần ở scratch khi getItem hoặc setItem bị chặn: toggle on=true, read=[CAT-202*], toggle off=false, read=[]; UI giữ trạng thái trong bộ nhớ, không console error. Không khởi động lại trình duyệt Owner; đã chứng minh qua reload, navigation và mở lại ở tab mới.
+- Home-first/loop: root → ☷84 → Master Home → i/nguồn → root; cả 5 pilot; Step/UI/CF MOW vẫn đủ 8/10/20 tham chiếu. Từ UI mẹ bấm Master quay lại root Home. 1280 và 390 không horizontal page overflow; tooltip đang mở được clamp trong viewport.
+- Hồi quy **3/3**, không bấm lưu: Field `truong=full_name` → hộp Khai báo trường, Tên=Họ và tên; MOIT `edit=MOIT-F-0001&tang=T1&che-do=de-xuat` → body UI-017, formRecordId=MOIT-F-0001; MOUT `edit=RPT-0010` → Builder v3. Đây là kiểm hồi quy UI minh họa, không chứng minh mở/lưu bản ghi PG thật.
+- Hai lỗi phát hiện khi kiểm đã sửa trong đúng phạm vi: bổ sung tooltip tên trục (không chỉ dấu trạng thái); giữ header DOM đang focus khi CAT post-process lại. Kiểm lại đã đạt; cache adapter `20260928-mom04b`.
+
+### Mỏ neo và phạm vi ghi
+
+Chỉ sửa 4 file được PROMPT cho phép, root ui; giao dịch đầu và các sửa tối thiểu có expected_version/backup. Root ui không Git: `commit=null, pushed=false`; không gọi đó là commit GH/VPS deploy. KQ này ghi vào COLLAB qua root workspace. Không đổi Mẹ nguồn, `eco-nav.js`, `ban-duyet.html`, PG/Directus/runtime; không xóa/move/tạo file/task.
+
+| File | SHA sau kiểm | Phạm vi |
+|---|---|---|
+| master-home-v1.html | `fd0e51d04fc860b5279ba1c6a9d76300c30006be8cffe119aa6fc606be016f3d` | MOM04 |
+| master-of-master-v1.html | `9365dca267106e489149be053e311502f72ba164f0f83deb9d5a8b26ebab3caa` | MOM04 |
+| ui-child-content-v1.js | `8de201f292205fd28d1e6bd0964c8ad466bf0f51746a8ec3f533faee9dad709a` | MOM04 |
+| ui-child-from-parent-v1.js | `c2c577bd0de00964b6da9b6a7dec49476f64fc85342d6a4a8ea4758ffd624363` | MOM04 |
+| master-list.js | `a92524f509b514e2a04677e3bd7d7dfd17efc8c206282840a6bf6b3f876baa57` | không đổi |
+| mot-theme-v1.css | `81cc5a69305943bb716215a7ceb1017d0147164966bff44cd5a86673b5a9b287` | không đổi |
+| mot-master-v1.html | `85da2f858f1f5e3f9e01110c110886c5c15cde043b47642068956324948c421e` | không đổi |
+
+**Chưa hoàn thiện:** dữ liệu/config/nhãn/bước unique, phê duyệt và vận hành thật vẫn theo gap đã giữ. 470 là chi tiết có nguồn để làm đầy dần, không là lời chốt hệ thống. Owner/Host xem [Home](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-home-v1.html) → ☷84 → ? → ☆/★ → Master Home → i. Codex dừng, không tự phát vòng tiếp.
+
+KQ@MMIM-MOM04-20260928-01 XONG
+
 ## Dòng hiện hành
-MMIM | MMIM-MOM03-20260927-01 · 27/09/2026 | XONG phạm vi RUN: Home-first, không dropdown, 84/84 Master, TK xanh 5/5 theo evidence, false_green=0, menu đỏ 10/10, regression 3/3. Chờ Owner/Host xem Home → ☷84 → một Master Home; 79 Master giữ OPEN. Codex dừng, không tự mở RUN mới.
+MMIM | MMIM-MOM04-20260928-01 · 28/09/2026 | XONG phạm vi RUN: kế thừa 16/16 UI xanh, 84/84 Master, help 10/10 + Home, ★ browser-only, 470 requirements / 5 pilot, false_green=0, menu đỏ 10/10, hồi quy 3/3. Chờ Owner/Host nghiệm thu Home → ☷84 → ? → ☆/★ → i. 79 Master giữ OPEN. Codex dừng, không tự mở RUN mới.
 
 
 Bản thiết kế FIELD nằm trong ban-duyet.html
