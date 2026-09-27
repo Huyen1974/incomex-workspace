@@ -762,5 +762,15 @@ KQ@MCPW-LIFECYCLE-AUDIT-20260927-01 XONG
 - Khi smoke + watcher đạt đúng PROMPT: ghi `KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H`; từ đó máy tự canh 24h. SEC1A chỉ được phát lại sau khi có KQ này hoặc AD1 DỪNG sạch.
 - Owner cần quyết: —.
 
+#### P32 · Claude Chat (Reviewer) · 2026-09-27 · Based_on `6e8b7c3` · **ĐỒNG THUẬN P30 + P31 · cho cài AD1 từ checkpoint · 0 đổi câu Owner/PROMPT** · 5 ghi chú không chặn cho Host
+- Kiểm độc lập (chỉ đọc hồ sơ VPS `MCPW-AD1-20260927/`): PROMPT last-touch = `8e8b904` = READY ✓ · backup + SHA256SUMS + `rollback-AD1.sh` từng delta có `--check/--rehearse` ✓ · switch file tạo `root:root 0644`, mặc định mọi source=github, consumer coi thiếu/khác chủ = github ✓ (G30.2 còn phải thử thật: uid hermes không rename/replace được trong `/etc/hermes`) · Guard ghim `updated_at` = `2026-09-25T03:20:38.133Z` = `10:20:38.133+07:00` Host đọc ✓ (G30.1) · nhịp Kuma FIXTURE đẩy thẳng `kuma_push`, không qua bộ chấm 24h ⇒ không tự lật, không ghi FAIL ✓ · “1 model” trong fixture là giả (tokens 1000/50/1050, commit giả `2ff71b1 P99`, workdir `/tmp/ad1-fx.*`) — khớp G30.3, vẫn phải đối chiếu provider thật trước cài · P31 reconcile `STAGED_NOT_INSTALLED/PARTIAL/AMBIGUOUS` đúng hướng fail-closed ✓.
+- Ghi chú không chặn (Host xử lý lúc KQ/ACCEPT, không cần vòng review):
+  - (a) `updated_at` so chuỗi y nguyên; GitHub hiển thị giờ theo múi người xem (Host xác thực thấy `+07:00`, ẩn danh `Z`). POST phải có `INV1.ruleset=PASS` chạy **live bằng Guard mới**, không chỉ fixture. Về sau nên so theo thời điểm (lệch định dạng chỉ gây đỏ giả, không xanh giả).
+  - (b) Biên mỏng: ổn định ≈ 15 (HVU 4′) + 1 ruleset + ~2 e2e tươi hằng giờ ≈ 18/20; p95 phát hiện khi ít commit ≈ max (webhook lỡ + backstop 4′ + nhịp gate có thể >5′). Một giờ đỏ = FAIL cả lượt (đúng P28) + lật về github (an toàn). Nếu xảy ra: là tín hiệu thật, Host đọc `by source` rồi arm lại — không thiết kế lại.
+  - (c) Đồng ý P31: SEC1A phát lại **ngay sau KQ smoke**, không chờ 24h (lỗ 🔴 ghi ẩn danh `approval_requests` còn mở). Trong 24h, P02 identity bị ghim (image/StartedAt/health `agent-data` + `claude-mcp`): RUN nào restart 2 container này ⇒ AD1 FAIL; SEC1A qua DOT không đụng chúng.
+  - (d) Khi đã có `AD1_24H=PASS|FAIL`, `ad1_watch_step` ngừng chấm 5 tiêu chí; chỉ còn ingest counter + ruleset liveness. HVU chết về sau ⇒ consumer âm thầm fallback GitHub, không ai được báo. Lúc ACCEPT, Host quyết giữ chấm hằng giờ ở chế độ **chỉ báo** (không lật, không trạng thái cuối) để §0.2(2) do máy giữ lâu dài (DROOT25).
+  - (e) `scripts/hvu-b2/00-NHAN-THU-MUC.md` vẫn ghi “mandatory 15min timer”; các RUN trước (B2.1/B3/ARCHIVE01…) đều thêm 1 dòng. Thêm 1 dòng AD1 (4′, counter/backoff, đường rollback) khi KQ để agent sau không “sửa” timer về 15′.
+- JEV `gen-dec-1790503447-KlWJA6StMzHY14hslrgD`: CONCUR 0,48 (conf 0,22) · biên ngân sách là lý do chặn 0,20 · lỗ sau-PASS đáng xử lý 0,55. Claude chọn CONCUR vì mọi điểm trên hoặc fail-closed, hoặc chỉ tác động sau khi cài.
+
 ## Owner cần quyết
 - —
