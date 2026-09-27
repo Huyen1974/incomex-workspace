@@ -27,6 +27,46 @@ BA TẦNG — đọc trước để không nhầm (Owner 26/09 · D35 · D37 · 
 CÁCH LÀM (Owner nhấn mạnh 26/09, D36): vừa liệt kê, vừa làm đầy, vừa chế tạo và thử từng phần.
 Song song hoàn thiện bản thiết kế máy, xây các tool và viết quy trình để chế tạo/lắp ráp máy. Mỗi mục trong danh sách phải dần thành thứ dùng được, giúp giảm việc phải làm lại. Khi thử thấy thiếu, bổ sung ngay vào thiết kế và danh mục hiện có; giữ mã, giữ lịch sử. Những phần đã kiểm đạt được dùng lại để tiếp tục xây máy, rồi phục vụ máy sản xuất quy trình.
 
+### P0 · CỔNG ÁP DỤNG QUY TRÌNH — D56 · Owner 28/09/2026
+
+**Mỏ neo cố định:** `CHUNG.APQUYTRINH · Áp dụng quy trình trước khi làm` · Thuộc **🔁 Chung**. Mã + tên này không đổi; nội dung quy trình được cải tiến/version hóa theo thời gian. JEV tham khảo phân loại 28/09: SHARED 0,76; mã `CHUNG.APQUYTRINH` 0,76.
+
+**Luật cưỡng chế tối thiểu:**
+1. Mỗi RUN/việc mới phải khai rõ `PROCESS: <mã quy trình>`.
+2. Trước khi làm: tra **CAT-003 · Danh mục quy trình** để tìm quy trình áp dụng; rà trùng/chồng trước khi tạo mới.
+3. **Không có quy trình phù hợp → DỪNG.** Đề xuất/tạo quy trình, rà trùng, chốt tạm vào CAT-003, rồi mới quay lại việc.
+4. **Quy trình có nhưng sai/lạc hậu/chồng chéo → DỪNG.** Sửa/version quy trình, giữ mã + tên + lịch sử; nếu thực sự thay thế thì ghi quan hệ thay thế/ngừng, không xoá.
+5. Có quy trình → kiểm các **Tool bắt buộc** trong CAT-006; thiếu tool bắt buộc thì ghi thiếu và xử lý theo quy trình/tool catalog, không giả vờ PASS.
+6. Thực thi đúng quy trình; KQ phải ghi evidence + gap. Phát hiện quy trình không khớp thực tế thì quay lại bước 4, sửa quy trình rồi chạy lại.
+7. Tạm thời cưỡng chế bằng tool `dot-process-gate`; về sau có thể đưa gate vào cổng/VPS/Graph nhưng **logic P0 không đổi**.
+
+**Vòng đời ngắn:** `NHÁP → TẠM CHỐT → ĐANG DÙNG → THAY THẾ/NGỪNG`. “TẠM CHỐT” nghĩa là đủ để mọi AI/Agent làm theo ngay, vẫn được sửa khi có evidence mới.
+
+**Trường tối thiểu của một Quy trình:** `Mã · Tên · Thuộc · Mục đích · Khi áp dụng · Input · Các bước · Output · Tool bắt buộc · Trạng thái · Version/evidence`.  
+**Trường tối thiểu của một Tool:** `Mã · Tên · Process dùng · Làm gì · Input · Output · Cách chạy · Trạng thái · Version · Ca thử/evidence gần nhất`.
+
+### 3 LANE BỀN QUA NHIỀU PHIÊN CODEX
+
+**LANE A · NỀN TÍCH LŨY + CƯỠNG CHẾ (phiên hiện tại):**
+- Sở hữu P0, 6 kho, CAT-003 Quy trình, CAT-006 Công cụ, luật vòng đời/version/evidence và tool gate.
+- Mục tiêu: biến “đã bàn/chốt tạm” thành thứ phiên sau **bắt buộc tìm thấy và làm theo**.
+- A không tự thiết kế sâu Step/UI; chỉ tạo nền và gate để B/C làm đúng.
+- Khi A dài: mở A mới, đọc **D56 + KQ@LANE-A mới nhất + PROCESS hiện hành**, tiếp tục đúng NEXT; không suy từ trí nhớ chat.
+
+**LANE B · QUY TRÌNH + MÔ HÌNH + JEV:**
+- Sở hữu danh sách Process/Model và nội dung quy trình; bắt đầu từ quy trình gốc, search/reuse/new, cây MOW→MOT→MOIT/MOUT→Field, các decision schema cho JEV.
+- Mỗi quy trình chốt tạm phải vào CAT-003 với mã/tên ổn định; sửa bằng version/evidence.
+- Không tự sửa UI; output của B là process/model đã đủ rõ để C suy Step/UI.
+
+**LANE C · STEP + UI + KIỂM THỰC TẾ:**
+- Sở hữu câu trả lời cuối: **bao nhiêu Human Step? bao nhiêu UI unique?**
+- Suy từ process/model của B; đối chiếu 16 UI xanh + CAT-004 Step + UI catalog; gộp theo quy luật, không liệt kê tùy ý.
+- Không tự sửa process catalog; thấy process thiếu/sai → BLOCK và trả B/A.
+
+**Phụ thuộc:** A phải đạt gate tối thiểu trước. Sau đó B và C có thể chạy song song theo snapshot/version, nhưng **không cùng sửa một vùng**. B sửa Process/Model; C sửa Step/UI; A sửa Gate/Tool/Catalog law. Mọi xung đột trả Host/Owner, không tự ghi đè.
+
+**KQ lane bắt buộc:** `KQ@LANE-<A|B|C> ... · PROCESS=<mã> · HEAD=<sha> · NEXT=<một việc cụ thể>`. Phiên kế nhiệm đọc dòng KQ mới nhất của đúng lane trước khi làm.
+
 ### 2. Thế nào là hoàn thành
 *(Owner viết nguyên văn 25/09/2026)*
 1. Tạo ra 1 hệ thống mà người dùng mô tả ý tưởng, AI phác thảo thành quy trình => người dùng phê duyệt => AI khai báo để quy trình chạy được.
