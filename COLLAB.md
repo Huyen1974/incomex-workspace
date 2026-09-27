@@ -16,10 +16,10 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/hermes-joint-workspace/` · HJW · **CLOSED 27/09/2026** · FINAL `f56c205`, Host P62 + Founder P63; FD1–FD5 đã áp nền tại `d0202c2`. Runtime control vẫn live ở chế độ DUYỆT TỪNG VIỆC, AUTO rỗng. Residual direct-signal/lifecycle/lease + runtime visibility chuyển MCPW; Nuxt → VPSC.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED. Quan sát mới từ HJW: Nuxt đã tự restart nhiều lần, lượt 26/09 do V8 heap sau ~26h; không phải OOM host/không causal HJW — đưa vào vòng ổn định VPS sau, không chặn HJW.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
-- `work/mcp-workspace/` · MCPW · Host GPT · **AD1 smoke ACCEPT P34** tại KQ `b9eee89`; 24h watcher chạy nền, chưa full ACCEPT; P02 KEEP. **SEC1A đã được giải phóng**. P26 Pha B lifecycle DESIGN ONLY, chưa RUN; §0.2(1)(3)(4) vẫn PARTIAL, §0.2(2) chờ 24h PASS.
+- `work/mcp-workspace/` · MCPW · Host GPT · **P35 re-audit: lifecycle CHƯA ĐẠT; GitHub AD1 smoke đạt nhưng chờ 24h**. P36 = Pha B final design draft chờ Claude review; B xong bắt buộc C đóng SSH/root + scoped lease. Chưa RUN B trong cửa sổ AD1 watcher.
 - `work/graph-server/` · GS · Host GPT Chat · D02 product-first (Owner): trial Cognee+Neo4j vs Graphiti+Neo4j; Claude P02→P03 đồng ý; chờ Hermes; nguyên tắc R1 khoá ở §0.
 - `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
-- NEXT chung: **Claude Code phiên đang chờ tiếp tục VPSUP SEC1A-DOT ngay theo P22**; MCPW AD1 watcher tự canh 24h nền. Host tiếp tục hoàn thiện thiết kế Pha B lifecycle trên giấy; sau đó B → C scoped lease/root → NEXT tự tính. P02 KEEP; Nuxt nằm VPSC.
+- NEXT chung: MCPW Claude Chat review P36 trong lúc AD1 watcher chạy; hết cửa sổ 24h Host chốt AD1 rồi READY/RUN B, nghiệm thu B xong chạy C ngay. VPSUP tiếp tục theo task riêng. P02 KEEP.
 
 ## Đã xong
 - Archive: `work/done-tasks/` · vị trí folder là trạng thái Done (DROOT11); tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
