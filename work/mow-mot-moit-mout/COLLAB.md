@@ -67,6 +67,10 @@ Song song hoàn thiện bản thiết kế máy, xây các tool và viết quy t
 
 **KQ lane bắt buộc:** `KQ@LANE-<A|B|C> ... · PROCESS=<mã> · HEAD=<sha> · NEXT=<một việc cụ thể>`. Phiên kế nhiệm đọc dòng KQ mới nhất của đúng lane trước khi làm.
 
+- D57 · 2026-09-28 · **LANE A01 BẮT ĐẦU E1 — BOOTSTRAP P0 + PROCESS GATE:** PROMPT mới đã khai `PROCESS: CHUNG.APQUYTRINH`; đây là bootstrap exception duy nhất theo D56 vì process chưa được ghi vào catalog trước RUN. A01 phải đăng ký P0 vào CAT-003/`ml5-cho-ai`, tạo `cong-cu/dot-process-gate.py`, đăng ký tool + `K18 governance.process · gate`, chạy lại `dot-walk-check`, và chứng minh gate PASS/BLOCK bằng test thật. Từ RUN sau A01: **Host không READY nếu thiếu PROCESS hoặc gate chưa PASS; Agent phải tự gate trước mutation.** E2/E3 (root AGENTS/gateway hard block) chưa làm trong A01, chỉ làm sau khi E1 ổn. · LANE B/C = BLOCKED_BY_A01.
+- READY@2b3c9289bc631da908e0d9e2561f80a773f9c549 · RUN_ID `MMIM-LANE-A01-20260928-01` · PROCESS `CHUNG.APQUYTRINH` · Executor **Codex**.
+- RUN ISSUED · `MMIM-LANE-A01-20260928-01` · chỉ Lane A; KQ bắt buộc chứa `PROCESS_GATE=PASS|BLOCK`; XONG cũng dừng, không tự mở A02/B/C.
+
 ### 2. Thế nào là hoàn thành
 *(Owner viết nguyên văn 25/09/2026)*
 1. Tạo ra 1 hệ thống mà người dùng mô tả ý tưởng, AI phác thảo thành quy trình => người dùng phê duyệt => AI khai báo để quy trình chạy được.
