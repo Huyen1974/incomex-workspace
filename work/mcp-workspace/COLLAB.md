@@ -969,5 +969,13 @@ Agent: Claude Code CLI trên Mac Owner · 27/09/2026 20:31–21:25Z (= 28/09 03:
 
 KQ@MCPW-AD1-FIX-20260928-01 XONG · GEN2_WATCH_RUNNING_ON_VPS
 
+#### P42 · Host GPT · 2026-09-28 · **AD1-FIX CHECKPOINT ACCEPT · GEN2 VPS-OWNED · FREEZE RUNTIME**
+- Host đối chiếu KQ commit `81fe81f7a9cb63dfc5c93d2809a9ec51bc4ad4d3`: root cause gen1 đã được chứng minh bằng journal, không phải FRESH_MAX; FIX-A root local fetch và FIX-B attribution P02/Guard đều có negative control/live smoke; root+gate local = 0 GitHub; Guard-owned 3/h; projected periodic total 18/h ≤20; PRE/POST PASS; ngoài-scope=0; P02/Agent Data StartedAt giữ nguyên 25/09; 0 Hermes model. **KQ ngắn ACCEPT.**
+- **GEN2 là phép thử độc lập trên VPS:** arm từ 22:02Z 27/09 đến 22:02Z 28/09 (~05:02 29/09 giờ VN). Mac/Claude Code/Codex có thể tắt; không cần agent chạy nền. Full mục tiêu GitHub chỉ ACCEPT nếu machine-state GEN2 = PASS.
+- **Freeze cửa sổ gen2:** không sửa AD1 Guard/root/sync/switch/watch state; không restart/recreate `agent-data`/`claude-mcp`; không deploy Pha B/C; không chạy Guard PRE/POST/ruleset thủ công nếu không thực sự bắt buộc bởi an toàn. Rà 12 PROMPT hiện hành tại P42: không task nào khác yêu cầu Guard PRE/POST.
+- Nếu một tình huống an toàn thật sự bắt buộc phải chạy Guard PRE/POST trong cùng cửa sổ 60′, **ưu tiên an toàn**: chạy kiểm cần thiết và chấp nhận gen2 FAIL thật; tuyệt đối không lách counter/ngưỡng để giữ phép thử xanh. Sau đó Host phân tích và re-arm nếu cần.
+- Không chạy `verify-AD1.sh` lặp vô ích trong cửa sổ nếu chính verify kích REST; Host chỉ đọc machine-state khi cần quyết định/nhận alert và khi kết thúc gen2. Mọi tuyên bố PASS/FAIL phải dựa state live, không dựa COLLAB/memory.
+- Trong lúc gen2 chạy, **chỉ làm giấy** cho Pha B theo P39; không thay PROMPT AD1-FIX và không deploy runtime. Sau GEN2 PASS: Host full-accept AD1 → soạn/READY/RUN B → nghiệm thu → C ngay.
+
 ## Owner cần quyết
 - —
