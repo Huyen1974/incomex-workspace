@@ -792,10 +792,14 @@ Agent prompt: `PROMPT.md`
 - Mã tham chiếu mới cho thao tác chưa có mã: MMIM.<quy trình>.<thứ tự 010>; giữ mã S*/UI*/CAT* cũ, chưa cấp khoá PG. S010 ở luồng và miếng FIELD là cùng nội dung; không có CODE_CONFLICT sau đối chiếu source. S01 khác đơn vị đếm S010, chưa tự gộp.
 - JEV: `gen-dec-1790495403-BqFG2JjZCtLkoS0W6dIY` (nhóm/giữ nghi trùng/reuse theme); `gen-dec-1790496143-epRjWEadXF0Yn5a0mGUK` (tách vận hành, dùng lại Chung). Câu hỏi mã cũ ban đầu nghi khác nghĩa; nguồn xác nhận S010 khớp, Agent bỏ nghi vấn, không lấy JEV thay chứng cứ.
 - Hai mũ: người mới thử tra/lọc/mở như trên; kỹ thuật rà84 mã,4 trục,lock/hash,menu delta,phạm vi tool và phân loại bước. Không kết luận K0 FIELD PASS, không đóng HĐ01–05; D44/D46 chỉ đánh đạt phạm vi hub.
-- Kiểm repo trước ghi:84/84 row Master,0 ID mới trùng,không thêm tab,không xoá nội dung cũ. Đang kiểm bản publish sau ghi trước khi đặt KQ.
+- Kiểm repo trước ghi:84/84 row Master,0 ID mới trùng,không thêm tab,không xoá nội dung cũ. **DỪNG/PARTIAL theo D50–D51**, đã đọc correction trước KQ. PASS ở trên chỉ là kiểm kỹ thuật trước correction, không phải nghiệm thu kiến trúc. Giữ 84/84 Master và metadata/bằng chứng; dừng phát triển renderer/menu. UI.MASTER phải theo registry: master-list.js / mow-master-nhap2-v1.html; master-hub.html chỉ tham khảo.
+- Đã chạm: ui/master-of-master-v1.html; ui/eco-nav.js; work/mow-mot-moit-mout/ban-duyet.html; work/mow-mot-moit-mout/COLLAB.md. Hash/backup ở trên. Commit bản đồ: 053d4c02c4da063db2152c2e871a60f457443940. Không xoá/rollback; không ghi PG; không tự mở RUN.
+- Đã kiểm Owner View fresh sau publish: 84 Master, 100 mục Step tham chiếu, 36 UI, 29 tool, 17 phạm vi, 15 mục Nhà máy, 9 tab, 0 ID trùng; link Master→Step→UI đúng. Các số ứng viên chưa là tổng cuối. Chờ Host xử lý kiến trúc trong RUN mới.
+
+KQ@MMIM-MOM01-20260927-02 DỪNG
 
 ## Dòng hiện hành
-MMIM | MMIM-MOM01-20260927-02 · 27/09/2026 | Pha A PASS, Pha B đã kiểm kê; đang kiểm bản publish. 84 ứng viên giữ nguyên; Master of Master trên VPS, GH giữ map/hash. HĐ01–05 còn OPEN.
+MMIM | MMIM-MOM01-20260927-02 · 27/09/2026 | DỪNG/PARTIAL theo Host D50–D51. Giữ dữ liệu 84 Master và bằng chứng. Renderer riêng chưa được nghiệm thu kiến trúc; chờ Owner/Host, không tự mở RUN.
 
 Bản thiết kế FIELD nằm trong ban-duyet.html
 
