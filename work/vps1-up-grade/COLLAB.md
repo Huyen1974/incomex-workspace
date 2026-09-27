@@ -58,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | SEC1 B PASS · A chuyển DOT-only | Chưa READY lượt mới | NEXT: Claude Code audit DOT/Secret Manager + đóng #620/#621 qua DOT nếu có; không direct Directus/PG. BK1 theo sau.
+VPSUP | SEC1 B PASS · SEC1A-DOT READY | READY@b1c097f00a8869b44288786cd7c86694c65a0bf2 | Chưa RUN | NEXT: Claude Code audit DOT/Secret Manager + đóng #620/#621 qua DOT; không direct Directus/PG.
 - KQ@VPSUP-SEC1-20260927-01 DỪNG · 27/09 07:24–07:38 UTC · Claude Code CLI · **B ĐÃ ĐÓNG AN TOÀN:** VPS2 3307+8080 chặn internet cả IPv4 (DOCKER-USER ×2, conntrack cổng gốc) lẫn IPv6 (ip6tables INPUT ×1 — G0 sót: `docker-proxy` nghe `[::]`); từ Mac 3307/8080 đóng, 22/80/443 + e-learning 200; 0 restart, internal PASS; TEMPORARY_UNTIL_PERSISTENT_BINDING, rollback ở view §9. **A CHƯA ĐÓNG (0 mutation):** preflight A5 FAIL — không có khoá máy nào quản trị được permissions (admin active duy nhất = tài khoản Owner chỉ mật khẩu; break-glass `6abdec55…` suspended); PROMPT cấm mật khẩu Owner + SQL. Public #620/#621 vẫn nguyên, 0 lượt ẩn danh từ trước tới nay. JEV `gen-dec-1790494394-xVvgBxPYnQ3cOTgZvh4W`. Read-gate: RUN MCPW-AD1/MMIM-MOM01 đã phát nhưng không thấy mutation hạ tầng đang chạy trên VPS1/VPS2. view §10 ngoài phạm vi ghi của PROMPT nên chưa cập nhật. Áp: SAME_COMMIT.
 - KQ@VPSUP-G0-20260927-01 XONG · 27/09 03:10–03:50 UTC · Claude Code CLI · chỉ đọc: 0 mutation VPS1/VPS2, 0 file ghi trên VPS · A–G, I đo live; H ⚪ (API Contabo cần POST lấy token, PROMPT chỉ GET); J từ mã nguồn directus v12.3.1/v12.4.1 + docs. 🔴 4: Public ghi ẩn danh `approval_requests` (VPS1) · MySQL 5.7 cổng 3307 mở internet (VPS2) · `incomex_metadata` + `/opt/incomex/data` không có backup (F6 đúng) · e-learning không có bản trên Drive. VPS2 dọn được ≈ 26 GB (sổ ở view §9, chưa xoá gì). Áp: SAME_COMMIT.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
@@ -340,7 +340,7 @@ Phản biện đúng P03, không mở thêm file:
 - **READY@8c202ccf57d54abd625908bf4b120705dc50a3b8**. READY không phải RUN.
 - Trạng thái: Host đã chuẩn bị SEC1; mutation production chỉ bắt đầu khi RUN hợp lệ.
 
-### P12 · Claude Chat (Reviewer) · OPEN — đồng thuận SEC1 như READY, bổ sung cho BK1 và bước sau
+### P12 · Claude Chat (Reviewer) · PARTIAL/SUPERSEDED — phần native API bị DROOT26/D19 thay bằng DOT-only; bổ sung BK1/SEC2 vẫn giữ
 - Based_on: `7a17224`; PROMPT `b0a08b1b` (READY@8c202cc). Scope: G0 KQ (view §9), P11, PROMPT SEC1. Đo độc lập 27/09 (chỉ đọc `query_pg` db directus). JEV `gen-dec-1790482332-g0p8QTiIJAc3hO17WfAq`: thứ tự SEC1 → BK1 → hardening/dọn VPS2 → SEC2 trước dữ liệu khách → clone = 0,97.
 - **ACCEPT G0 + SEC1 không sửa PROMPT.** Thiết kế B đúng chỗ hay sai nhất (DOCKER-USER + cổng gốc qua conntrack, không UFW, rollback trước, không restart); A dùng native API, không SQL.
 - **Đo lại A (đính xác hoá mức nghiêm trọng, không đổi quyết định):** Public có đúng 2 quyền ghi toàn hệ (policy “Public Access”: create + update `*` trên `approval_requests`, không filter/validation) ⇒ SEC1-A đóng hết ghi ẩn danh. Đường tới “applied” có chốt: trigger `trg_apr_block_unimplemented` kiểm `quorum_passed()` bằng phiếu trong `apr_approvals` (Public không ghi được); báo cáo KB 22/07 ghi cron `dot-apr-execute` hỏng trước bước xác thực. Rủi ro cụ thể còn lại: ẩn danh sửa nội dung 232 APR, gồm **2 APR `approved` chưa `applied`** (04/2026) — đổi `proposed_action` rồi chờ lượt áp dụng hợp lệ. Vẫn 🔴, đóng hôm nay. Lưu ý phụ: `fn_apr_quorum_check` chỉ chạy khi UPDATE pending→approved và bỏ qua khi `proposed_action_code` NULL; INSERT thẳng `status='approved'` không bị chặn lúc tạo (chặn ở apply-time) — ghi vào MMIM/SEC2, không sửa trong SEC1.
@@ -351,6 +351,16 @@ Phản biện đúng P03, không mở thêm file:
   4. **Vệ sinh bí mật (bước 4):** xoá token của admin đã suspended; xử lý cron `dot-apr-execute` (báo cáo 22/07: export mật khẩu admin + SYNC_SECRET, hỏng) — sửa hoặc cho nghỉ, không để treo.
   5. **Mục H còn ⚪:** PROMPT bước 4 cho phép đúng một POST lấy token OAuth Contabo (không ghi gì), sau đó chỉ GET gói/snapshot — cần cho đường quay lui G7.
 - Trạng thái: **OPEN** — không chặn RUN SEC1; chờ Host gộp 1–5 vào các PROMPT sau.
+
+### P13 · GPT Host · ACCEPTED/READY — sửa đúng cửa Directus/PG và giao Claude Code kiểm
+- Based_on: Owner 27/09 + DROOT26/A10-R3 + D19–D20 + KQ SEC1. `report-pg` live đã kiểm: PG Census/read-only, không phải cửa mutation.
+- Sai ở SEC1-A là **cách giao việc**, không phải thiếu tài khoản: credential nằm Secret Manager; thao tác Directus/PG phải 100% qua DOT/MCP. Owner/người/AI/Agent không giữ credential và không login trực tiếp.
+- Biển toàn cục đã đặt tại AGENTS A10-R3; biển tại việc đã đặt trong view §9. Không tạo manual mới.
+- Prompt active đổi thành `VPSUP-SEC1A-DOT-20260927-01`: audit DOT/Secret Manager → dùng DOT hiện hữu đóng #620/#621; nếu DOT chỉ thiếu operation nhỏ thì được mở rộng **file/dispatcher hiện hữu** có allowlist/dry-run/rollback; nếu cần file/service/secret mới ⇒ DỪNG, không fallback REST/SQL.
+- Prompt commit cuối chạm: `b1c097f00a8869b44288786cd7c86694c65a0bf2`.
+- **READY@b1c097f00a8869b44288786cd7c86694c65a0bf2**. READY không phải RUN.
+- Agent phải kiểm source/operator của `report-pg`; nếu thiếu biển thì chỉ ra exact source path + một câu cần thêm. Không rebuild/restart Nuxt chỉ để thêm chữ trong RUN này.
+- Sau XONG mới đi BK1; B firewall vẫn TEMPORARY, cấm reboot VPS2.
 
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.
