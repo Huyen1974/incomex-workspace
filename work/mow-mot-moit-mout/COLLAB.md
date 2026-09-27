@@ -39,7 +39,19 @@ Mốc hoàn thành theo ba tầng (đề xuất — chờ Owner gật; 6 điểm
 Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đầu vào và kết quả cần đạt của phần được chọn → thực hiện theo bước bằng công cụ có thật → kiểm kết quả đã lưu, nhánh lỗi và khả năng dùng lại. Ghi phần đã đạt, phần còn thiếu và nơi bị tắc. Một phần đạt chưa có nghĩa toàn máy đạt; lỗi hoặc thiếu đầu vào thì chưa đưa phần đó vào dùng chính thức.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-ƯU TIÊN HIỆN HÀNH D41 (Owner 27/09): thảo luận C12/P17–P20 tại `ban-duyet.html#matrix-view-council` — tab **★ Ý kiến HĐ** ngay sau Công thức. Mỗi ý có mã ổn định, câu ngắn + sơ đồ/công thức, trạng thái chữ/ký hiệu/màu; lập luận, nguồn, điểm thiếu và quyết định nằm trong phần gập của chính thẻ. Người nhìn lớp ngắn; AI đọc lớp chi tiết, cùng một nguồn. Đã duyệt khác đã vào thiết kế; chuyển xanh cần quyết định + đích/commit đã kiểm, từ chối giữ lý do/người/ngày. Không suy D41 là duyệt tất cả phương án hoặc luật nơi lưu. NEXT P20 “vẽ ngay prototype” là đề xuất chờ thảo luận tại HĐ06, chưa triển khai vào thiết kế chính. Không thêm file/tab khác, không sửa PG/runtime/luật gốc.
+**CỔNG ƯU TIÊN D42 — CHỈ 5 CÂU HỎI.** Trước khi 5 câu dưới có câu trả lời rõ bằng bảng, **không mở rộng sang lý thuyết, ca biên, kiến trúc hay quy trình phụ** trừ khi nó trực tiếp làm thay đổi một trong 5 bảng này.
+
+| # | Câu phải trả lời | Đầu ra bắt buộc | Tình trạng hiện tại |
+|---|---|---|---|
+| **1** | **Có bao nhiêu Master list? Cụ thể là những danh sách nào?** | Một bảng duy nhất: **Mã · Tên · Quản lý cái gì · Trạng thái**. Phải chốt được **con số cuối + toàn bộ tên/mã**. | Đang có **84 dòng ứng viên** trong tab Master list; **chưa được coi là đáp án cuối**. |
+| **2** | **Người dùng sử dụng “Máy chế tạo quy trình” qua những Step nào?** | Danh mục Step: **Mã Step · Người làm gì · Đầu vào · Kết quả · UI dùng**. Chỉ tính **step sử dụng Máy**, không trộn step xây Nhà máy/tool. | Các số “60 bước” cũ đang trộn phạm vi; **chưa trả lời câu này**. |
+| **3** | **Cần chính xác bao nhiêu UI? Tên, mã và hình của từng UI là gì?** | Danh mục UI sinh **từ Step**: **Mã UI · Tên · Step nào dùng · hình/wireframe · trạng thái**. Một UI dùng nhiều Step chỉ tính **1 UI**. | Các số cũ **29 UI con / 18 chỗ** chỉ là tham khảo; **chưa chốt**. |
+| **4** | **Cần những công cụ kiểm/check chéo nào để chế tạo Máy?** | Master list công cụ: **Mã · Tên · Check gì · Input · Output · Trạng thái**. | Hiện có **28 công cụ ứng viên + 17 phạm vi kiểm**, nhưng **0 mục được coi là danh sách cuối/sẵn dùng toàn bộ**. |
+| **5** | **Các danh sách trên đã được điền đủ chưa?** | Mỗi dòng bắt buộc có đủ trường, nguồn và trạng thái; ô trống phải hiện rõ. Chỉ khi 1–4 đủ dữ liệu mới chuyển sang chế tạo chi tiết. | **OPEN**. |
+
+**THỨ TỰ LÀM:** **Master list → Step → UI → Công cụ → Điền đủ.** Mọi thảo luận khác phải chỉ rõ nó sửa **bảng số mấy / dòng nào**; không chỉ được thì để sau.
+
+**NƠI LƯU / FORMAT — chốt cho giai đoạn thiết kế:** nội dung 5 bảng nằm trong **HTML chính `ban-duyet.html` trên GitHub/workspace = SSOT**; VPS chỉ là Owner View/mirror. `COLLAB.md` chỉ giữ quyết định, trạng thái và con trỏ. Dùng **bảng HTML có mã ổn định** để người nhìn được và AI đọc được; **chưa tạo thêm JSON/PG/file song song** trước khi cấu trúc bảng chốt.
 
 TẠO MỘT / NHIỀU THÀNH PHẦN (Owner D40; phương án Codex P19, chưa là UI/schema đã chạy):
 - Cùng một quy tắc MAP02 cho mọi tầng: tra kho → dùng phần có → ghi phần thiếu → gọi quy trình tạo phần thiếu → trả về đúng chỗ gọi → kiểm chỗ nối. Với nhiều phần, phải lưu toàn bộ nhu cầu và tiến độ, không dựa vào trí nhớ/tab đang mở.
@@ -848,6 +860,7 @@ Hướng đúng D20: ngắn, 3 bước, 3 mảnh UI, có con số. Đã mở ngu
 - D40 · 2026-09-26 · Owner: rà sâu ca MOW cần 1/5/10/15 MOT mới, mỗi MOT lại cần MOIT/MOUT/Field; phải quản lý nhiều việc không nhầm, UI gọn và dùng lại mẫu cha. Phát triển công thức tư duy áp dụng nhiều tình huống, nhìn từ người dùng và kỹ thuật/vận hành/kiểm, tận dụng JEV; vừa rà C12 vừa hoàn thiện. · Trạng thái: đã ghi yêu cầu + phương án từng phần vào §0/P19; đã thử công cụ C12 cục bộ; quản lý nhánh/nhiều thành phần và UI tương ứng chưa được chứng minh trên hệ thật. · Ở: §0.3 · P19.
 
 - D41 · 2026-09-27 · Owner giao trực tiếp: thêm mục có star tên “ý kiến HĐ” ngay sau tab Công thức; đưa các ý kiến lên đó để thảo luận trước khi chuyển vào thiết kế chính; việc từ chối/đã chuyển có dấu màu để dễ theo dõi. Chốt hai việc: đưa ý kiến lên Ý kiến HĐ; càng dễ hiểu, càng ngắn gọn càng tốt, nhìn là hiểu. Ưu tiên hình tượng/màu/mô hình/công thức cho người; giữ text chi tiết cho AI; Owner quyết cuối. · Trạng thái: đã ghi tab + 17 thẻ trong cùng commit; kiểm xuất bản tại P21, không tự duyệt các phương án. · Ở: `ban-duyet.html#matrix-view-council` · §0.3 · P21.
+- D42 · 2026-09-27 · Owner thu hẹp trọng tâm: mọi việc trước mắt phải trả lời đúng **5 câu** — (1) tổng số + danh sách Master list; (2) danh mục Step người dùng sử dụng Máy; (3) từ Step chốt chính xác số/tên/mã/hình UI; (4) master list công cụ check chéo/chế tạo Máy; (5) điền đầy đủ các danh sách. Nếu chưa trả lời rõ 5 câu thì nội dung khác chưa có giá trị ưu tiên. Đồng thời phải chốt nơi lưu và format cập nhật. · Trạng thái: áp làm cổng ưu tiên §0.3; Owner View rút về 5 khối; lưu thiết kế tại `ban-duyet.html` trên GitHub/workspace, VPS mirror; chưa tạo nguồn song song. · Ở: §0.3 · `ban-duyet.html#matrix-view-council`.
 
 ## Đề xuất Host · MAP01–MAP05 + URL01 · chờ Claude review
 
