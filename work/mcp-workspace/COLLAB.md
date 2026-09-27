@@ -918,5 +918,56 @@ KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H
 - **Ghi chú cho Executor (trong §2/§5, không nới ngưỡng):** HVU bắn theo lưới đồng hồ 4′ (15/h). Bộ chấm lấy cửa sổ `[now−3600, now)` từ cron */5; phút chấm trôi 5′ mỗi lần (`HOURLY_EVERY=3300`) nên sẽ có lúc trùng :00/:20/:40 — mép cửa sổ cách nhịp HVU vài giây thì jitter có thể đếm **16** ⇒ vượt `hvu ≤ 15` ⇒ **FAIL giả**, mất thêm 24h. Sửa: neo mép cửa sổ vào giữa hai nhịp 4′ (`end` = mốc 4′ gần nhất trước `now` + 2′, `start = end−3600`) ⇒ luôn đúng 15; thêm 1 fixture mép cửa sổ (nhịp lệch ±10 s) phải ra 15. Không đổi ngưỡng 15/20.
 - JEV `gen-dec-1790540562-hVGsBnqoxeswxyAgPSdw`: CONCUR_WITH_NOTE 0,72 · nguy cơ đỏ giả 0,61.
 
+## KQ — MCPW-AD1-FIX-20260928-01
+Agent: Claude Code CLI trên Mac Owner · 27/09/2026 20:31–21:25Z (= 28/09 03:31–04:25 +07) · `READY@ffd210d6a3fb99188b091d110b31f0640cb765d1` = commit cuối chạm PROMPT (kiểm lại ngay trước khi ghi). Hồ sơ VPS: `/opt/incomex/work/mcp-workspace/MCPW-AD1-FIX-20260928/` (`checkpoints.log`, `pre/` gate + Guard PRE, `backup/` + `SHA256SUMS.pre-FIX`, `stage/` + `SHA256SUMS.stage`, `fixture/`, `results/`, `bin/install-AD1-FIX.sh · rollback-AD1-FIX.sh`). Commit runtime VPS: `/opt/incomex` `7d220fc` (guard + root), nuxt-repo `68a3de0` (tài liệu) + `79d4dcb` (nhãn sync.py). **Không Pha B/C, không restart agent-data/claude-mcp, 0 model Hermes, không đổi ngưỡng.**
+- **Gate đầu RUN (máy đọc, 20:31:51Z):** `verify-AD1.sh` dòng đầu `AD1_24H=FAIL periodic_reads @2026-09-27T19:10+07:00 (nhịp 1)`, state `armed 18:08 27/09 · result FAIL · flipped ['hjw-root']`, switch `source.hjw-root=github` (root 30 lượt/h). Khớp gen1 terminal FAIL ⇒ được sửa.
+
+**Nguyên nhân thật (đọc journal `incomex-ghcall`, không đoán)**
+- **root 4/h:** mọi lượt root ở gen1 có `mode=fallback · why=local-proof:local fetch: fatal: detected dubious ownership in repository` — đúng một lượt mỗi khi HVU có revision mới (11:12 · 11:26 · 11:46 · 12:06Z = 4). Repo HVU thuộc `hvu-view`, root chạy uid 0; mã AD1 có `git -c safe.directory=<repo> fetch <repo>` nhưng git 2.43 **bỏ `-c` khi tự chạy `upload-pack` trong repo nguồn** ⇒ bị từ chối ⇒ rơi GitHub. `FRESH_MAX=300` **không** liên quan (lượt cùng SHA vẫn local, 0 lượt). Fixture AD1 xanh vì repo thử thuộc root.
+- **P02 4/h (dự kiến 2):** `emit_p02_attempts` so `last_attempt` trước/sau **cả lượt Guard** ⇒ lượt 5′ lúc 11:10:06Z (đọc ghim `ref`, P02 không bao giờ fetch cho đọc ghim — đã đọc mã P02 `immutable_request`) vẫn bị tính 2 lượt vì có client đọc cùng lúc. Ngoài ra lượt hằng giờ của Hermes (`workspace_stat` = đọc an toàn, cần xác nhận bắt đầu sau lúc lệnh đến) gây thêm 1 fetch không được đếm — suy từ mã P02, NC3 dưới đây thấy đúng hành vi đó, chưa đo riêng lượt Hermes.
+- **HVU (thấy trong smoke, sửa luôn vì sẽ đỏ giả gen2):** lượt timer `2ab37713` 21:04:01Z gặp đúng lúc có push ⇒ `ls-remote`(periodic) → `fetch`(event) → `ls-remote` kiểm lại (**periodic**) ⇒ 2 lượt “định kỳ” trong 1 nhịp; đường chuông làm đúng 3 lượt đó (`e660ed52`) ⇒ là việc do push, gắn nhãn sai. Ngày nhiều commit sẽ đẩy `hvu-sync periodic` >15. Sửa ở đúng nơi đặt nhãn (logic bộ đếm trong đường AD1), **không đổi hành vi**.
+- **Mép cửa sổ (P41):** nhịp HVU nằm đúng lưới 4′ (±3 s, AccuracySec=5s), giờ chấm Guard trôi 55/60′ ⇒ cửa sổ `[now−3600, now)` có lúc chứa 16 nhịp.
+
+| Delta (sha256[:16]) | Trước → sau | Việc |
+|---|---|---|
+| root `/opt/incomex/scripts/hjw-control-root.py` 750 | `1b8a9cf3…` → `22619501…` | FIX-A 1 dòng: `--upload-pack="git -c safe.directory=<repo HVU> upload-pack"` (ngoại lệ đúng 1 đường dẫn, không `*`) |
+| Guard `/opt/incomex/scripts/mcpw-protection-guard` 755 | `4b903bdb…` → `5f549086…` | FIX-B: lượt P02 chỉ thuộc Guard nếu **bắt đầu trong khung giờ của chính lệnh đọc tươi của Guard** (tối đa 1/lệnh); lượt 5′ không bao giờ nhận; Hermes hằng giờ = đọc thường trên xác nhận GPT vừa làm (0 GitHub) · ngân sách theo nguồn · cửa sổ nối liền 60′ neo lưới 4′+2′ (luôn 15 nhịp HVU), việc hằng giờ của Guard đúng 1 lần/cửa sổ · canh GEN=2 · lỗ >2h = FAIL `watch_gap` · chỉ báo sau PASS/FAIL |
+| nuxt-repo `scripts/hvu-b2/sync.py` 644 | `0e3440f0…` → `d5cbb67a…` | 1 biểu thức nhãn: lượt đã `fetch` revision mới thì lượt kiểm lại = `event`; nhịp timer không có gì mới = đúng 1 periodic. `test_sync.py` 18/18 OK |
+| `MCPW-AD1-20260927/bin/verify-AD1.sh` | `522fe2c1…` → `61e02d86…` | dòng 1 = `GEN=<n> RUNNING\|PASS\|FAIL …` đọc từ state máy; mục 1 so root/guard/sync với stage AD1-FIX |
+| nuxt-repo `scripts/hvu-b2/00-NHAN-THU-MUC.md` | `a65b44f3…` → `33f7b6a4…` | “15min timer” → backstop 4′ + đoạn AD1: bộ đếm/backoff, ngân sách hvu ≤15, rollback `sources-github` / `hvu-timer` |
+| `/etc/hermes/hjw-ad1.conf` | `source.hjw-root=github` → `local` | 3 dòng khác giữ nguyên, root:root 0644 ASCII |
+| `/var/lib/incomex-mcpw-guard/ad1-watch.json` | gen1 → gen2 | gen1 giữ nguyên trong `history` + bản `backup/ad1-watch.json.gen1`; `AD1_24H.txt` dòng gen1 không đổi, gen2 ghi thêm dòng `GEN=2 …` |
+
+**Ngân sách gen2 (mỗi cửa sổ 60′, không nới):** hvu-sync periodic ≤15 · Guard-owned (ruleset + p02-*) ≤4 · `root_local_calls` = 0 (lượt root GitHub khi switch=local và nguồn local đáng tin) · gate 0 khi local (tiêu chí cũ) · tổng ≤20 · REST ẩn danh ≤2 · phát hiện p95 ≤5′ · ruleset ≤2h · P02 không đổi. Fallback khi HVU stale/out-of-order/thiếu object vẫn được phép (bounded) và vẫn tính vào tổng.
+
+**Smoke §8**
+1. Guard PRE 20:54:07Z PASS (8/8) · POST 21:15:51Z PASS, đổi chỉ `git.gh/ws/nuxt-repo.head`, **ngoài scope = none**.
+2. Ruleset live PASS (PRE/POST + hằng giờ 21:05:09Z). P02: image/StartedAt/health + 5 hash nguồn = baseline (`verify` mục 8), `agent-data`/`claude-mcp` không restart. 0 model: `usage_audit` 4 dòng.
+3. Root `local` 20:54:30–21:10:30Z (16′): 8 lượt, tất cả `mode=local`, **0 GitHub**, tiến 2 revision mới (`c54b35f`, `a97ea18`) bằng fetch cục bộ — đúng ca đã hỏng ở gen1. Fixture FIX-A 7/7 (`fixture/root-fixA.txt`): pre-FIX tái hiện “dubious ownership”; FIX fetch được; out-of-order / thiếu object / HVU stale vẫn không tin; ngoại lệ chỉ đúng đường dẫn repo HVU.
+4. Gate: 8 lượt `local`, 0 GitHub, 0 model.
+5. Negative control P02 live (`fixture/p02-attribution.txt`, máy theo dõi 50 ms làm sự thật): **NC1** lượt 5′ + 2 client đọc chen vào ⇒ Guard-owned **0** (logic cũ tính **2** = đúng ca 11:10:06Z); **NC2** lượt hằng giờ + client xen giữa ⇒ Guard-owned đúng gpt 1 + claude 1, Hermes 0, 2 lượt client không bị nhận; **NC3** client trong chính khung lệnh của Guard ⇒ 1 (trần 1/lệnh). Selftest Guard: 9 mutant B3 bắt được + 67 ca AD1/FIX đúng kỳ vọng (gồm P41: cửa sổ cũ đếm 16, cửa sổ nối liền 15 với lệch ±10/±110 s). Fixture nhãn HVU (`fixture/hvu-purpose.txt`): pre-FIX 2 periodic, FIX 1.
+6. Theo nguồn — trước (gen1 11:10–12:10Z): hvu 15 · root 4 · p02-ws 2 · p02-fs 2 · ruleset 1 = **24**. Trạng thái bị lật trước FIX (20:02–21:02Z): root 27 (github) + hvu 15 + Guard 3 = 45. Sau (16′ smoke): hvu periodic 5 (1 là nhịp đua 21:04 nhãn cũ, đã sửa 21:13:54Z) · gate 0 · root 0 · Guard-owned 3 (21:05:09Z: ws-gpt 1, fs-claude 1, ruleset 1) · reconcile 0 mồ côi/trùng. **Dự phóng mỗi cửa sổ: 15 + 3 + 0 + 0 = 18 ≤ 20.** SYN 10′ (20:57–21:07Z, `MCPW-AD1-20260927/results/syn-AD1-FIX-smoke-*`): 28 SYN = 11 lượt có sự kiện + 15 lượt P02 do client đọc (P02 frozen, không sự kiện) + 2 (7,7%); GitHub Pages của hermes-gateway (v6 `2606:50c0:…`) = 0 trong mẫu này — ghi riêng, không vào ngân sách. (Chỉ số `deviation 0,47` của script là do heuristic ghép 30 s gộp lượt client; chỉ tham khảo.)
+7. Rollback: diễn tập 7 đích về đúng byte + chủ/quyền pre-FIX (`results/rollback-rehearsal.txt`); switch `github→local` thật lúc cài; vòng mềm toàn bộ consumer vẫn là `rollback-AD1.sh sources-github` (đã chứng minh ở AD1).
+8. Kuma #22: nhịp GEN2 FIXTURE xanh 21:16:11Z → đỏ 21:16:13Z (sinh từ chính `ad1_watch_step` trên state tạm) → nhịp thật UP `AD1 GEN=2 0/24` 21:16:20Z; hash state thật trước = sau fixture (`8244a3cb…`), không chấm/không kết thúc gen2.
+9. Sau arm: lượt Guard 21:20:16Z do **cron** chạy (`_SYSTEMD_UNIT=cron.service`, không qua SSH) đẩy `AD1 GEN=2 0/24`; không còn tcpdump/fixture nào trên VPS; tác vụ nền trên Mac đã kết thúc.
+
+**Canh 24h GEN=2 (VPS giữ — Mac tắt được)**
+- `verify-AD1.sh` dòng 1 (21:21Z): `GEN=2 RUNNING · windows 2026-09-28T05:02+07:00→2026-09-29T05:02+07:00 · streak 0/24 · last eval - - · next eval after 06:03 28/09`. Armed 21:16:00Z; 24 cửa sổ 60′ nối liền = 22:02Z 27/09 → 22:02Z 28/09; lượt chấm đầu ~23:05Z (06:05 +07), PASS sớm nhất ~22:05Z 28/09.
+- Máy giữ: crontab root `*/5 mcpw-protection-guard periodic` (sẵn có) chấm từng cửa sổ khi đã hết ≥60 s; state `/var/lib/incomex-mcpw-guard/ad1-watch.json` (gen1 trong `history`); việc hằng giờ của Guard chạy lượt đầu mỗi cửa sổ (~HH:05Z). Kết quả ghi thêm dòng `GEN=2 AD1_24H=PASS <from>→<to>` hoặc `GEN=2 AD1_24H=FAIL <tiêu chí>` vào `MCPW-AD1-20260927/AD1_24H.txt` (dòng GEN=1 giữ nguyên) + Telegram + Kuma #22. Đỏ ⇒ chỉ lật consumer liên quan (vd `root_local_calls` ⇒ `hjw-root`); cửa sổ không được chấm quá 2h ⇒ FAIL `watch_gap`; Guard/cron chết ⇒ Kuma dead-man 570 s. Sau PASS/FAIL tiếp tục **chỉ báo** hằng giờ: tiêu chí mới đỏ ⇒ 1 tin + 1 nhịp DOWN, không rollback, không đổi kết quả.
+- **Mac có thể tắt/đổi mạng ngay từ KQ này**; không agent/Hermes model nào tham gia canh.
+- Host kiểm: `ssh … /opt/incomex/work/mcp-workspace/MCPW-AD1-20260927/bin/verify-AD1.sh | head -1` (chỉ đọc, 0 GitHub); đầy đủ + EXPECT từng mục; bản lúc KQ: `MCPW-AD1-FIX-20260928/results/verify-at-KQ.txt`.
+
+**Rollback**
+- Từng delta về đúng byte pre-FIX: `MCPW-AD1-FIX-20260928/bin/rollback-AD1-FIX.sh switch|watch|root|hvu-sync|verify|doc|all` (`watch` = mã Guard + state gen1 cùng lúc vì mã cũ không đọc được state gen2); `--check` / `--rehearse DIR`. Mềm cho mọi consumer vẫn là `MCPW-AD1-20260927/bin/rollback-AD1.sh sources-github`.
+
+**Residual cho Host**
+- (a) `rest_anon ≤2/h` (tiêu chí AD1, không nới) đếm cả REST “proof”: Guard PRE/POST hoặc `ruleset` CLI của việc khác trong cửa sổ gen2 = +1 mỗi lần ⇒ PRE+POST cùng cửa sổ = 3 ⇒ gen2 FAIL `rest_anon` (không lật consumer). Việc song song (VPSUP…) nên tránh Guard PRE/POST tới 22:02Z 28/09, hoặc Host chấp nhận rủi ro.
+- (b) Lệch so với PROMPT, đều trong §2: thêm delta `sync.py` (chỉ nhãn, lý do ở trên); lượt Hermes hằng giờ đổi `workspace_stat` → đọc thường (PRE/POST vẫn `stat`, nay có sự kiện `purpose=proof`). Theo mã P02, gen1 còn đếm thiếu 1 lượt/h (stat của Hermes) — nay lượt đó là đọc thường, NC2 đo 0.
+- (c) Lượt P02 do client đọc vẫn không có sự kiện (P02 freeze) — ngoài ngân sách định kỳ; đối chiếu bằng SYN/lấy mẫu như mục 6.
+- (d) Tin máy đã gửi Owner: 1 tin SWITCH `hjw-root` github→local (root, ledger `event_sent` mid 58, 20:56:04Z) + cặp Kuma #22 GEN2 FIXTURE DOWN/UP (có chữ FIXTURE).
+- (e) Sự kiện `p02-fs` có `latency_ms=0` khi refresh còn chạy lúc lệnh trả về — hiển thị, không ảnh hưởng đếm.
+
+KQ@MCPW-AD1-FIX-20260928-01 XONG · GEN2_WATCH_RUNNING_ON_VPS
+
 ## Owner cần quyết
 - —
