@@ -87,12 +87,24 @@ Lưu exact bytes/hash trước deploy. Diễn tập fixture rollback từng delt
 10. HJW manual contract PASS; AUTO rỗng; STOP/approval/Telegram không hồi quy; 0 model call.
 11. Counter reconciliation 0 orphan/double; mutant bỏ đếm một source ⇒ reconciliation FAIL.
 12. Rollback từng delta exact; source switch lật thật một vòng an toàn.
-13. Live smoke 15′ ổn định; counter giảm periodic GitHub đúng hướng.
+13. Live smoke 15′ ổn định; counter giảm periodic GitHub đúng hướng. Trong smoke chạy 1 lần đối chiếu counter với mẫu SYN/network 10′ (±15%). Cài xong bước canh tự động §12 và chứng minh nó đẩy được 1 nhịp xanh + 1 nhịp đỏ fixture vào monitor Kuma hiện hữu.
 Sau PASS ghi `KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H` rồi DỪNG; không sang Pha B.
 
-## 12. Host ACCEPT chỉ sau 24h counter
-Mục tiêu: periodic read-only GitHub toàn hệ ≤20 calls/h; Hermes gate fresh=0 ls-remote/raw/REST; REST anonymous periodic ≤2/h; 0 assignment/commit liên quan bị bỏ sót; assignment detection p95 ≤5′; ruleset checker hourly đúng, không false-green/liveness silent; counter đối chiếu sample SYN/network 10′ trong ±15%; mutant/counter-disabled làm reconciliation FAIL; P02 không regression.
-Chưa đủ 24h ⇒ giữ `HOST_ACCEPT_PENDING_24H`. Vi phạm ⇒ PARTIAL/DỪNG và xác định/rollback đúng delta nếu cần.
+## 12. Canh 24h do máy làm — không ai phải quay lại
+Guard hằng giờ hiện hữu đánh giá trên cửa sổ 60′ gần nhất:
+1. GitHub đọc định kỳ toàn hệ ≤20/h, REST ẩn danh ≤2/h;
+2. Hermes gate khi local fresh = 0 lần gọi GitHub;
+3. phát hiện assignment p95 ≤5′, 0 assignment/commit bị sót;
+4. ruleset checker có `last_pass` ≤2h;
+5. P02 hash/StartedAt/health không đổi.
+
+Kết quả đẩy vào monitor Kuma hiện hữu của Guard, không tạo token/service/DB mới. Kuma không nhận nhịp quá 2h ⇒ đỏ để canh cả chính watcher.
+
+**Vi phạm bất kỳ mục nào** ⇒ Telegram + tự lật consumer liên quan về `source=github` bằng switch an toàn đã có + ghi `AD1_24H=FAIL <mục>` vào state hồ sơ VPS. Chỉ rollback consumer liên quan; không bật AUTO/fail-open, không đụng P02/ruleset.
+
+**Đủ 24 nhịp xanh liên tiếp** ⇒ ghi `AD1_24H=PASS <from>→<to>` vào state hồ sơ VPS rồi dừng đánh giá cửa sổ AD1-24h; giám sát thường trực của Guard/Kuma vẫn chạy.
+
+VERIFY (§13) phải in đúng dòng `AD1_24H=...` đầu tiên. Host ACCEPT = đọc và đối soát dòng PASS bất cứ lúc nào sau đó; không có lịch, không ai/AI phải nhớ quay lại.
 
 ## 13. N9 — kiểm lại được độc lập
 Hồ sơ VPS phải có exact read-only verification commands + expected invariant (`VERIFY.txt` hoặc script read-only trong hồ sơ task, không repo file): ruleset state/liveness; config hashes/fixture; hermes permissions; source switches; calls/hour; p95 detect; counter reconciliation; P02 hashes/StartedAt/health; rollback state.
