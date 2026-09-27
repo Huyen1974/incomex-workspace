@@ -1189,6 +1189,9 @@ duplicate normalized name fixture: BLOCK · DUPLICATE_NAME=tìm · exit=1
 KQ@MMIM-LANE-A01-20260928-01 XONG
 KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068443d44d2a7b7176a32690e26931d4af · NEXT=Host nghiệm thu E1 P0/gate
 
+- D59 · 2026-09-28 · **HOST NGHIỆM THU E1 + MỞ B/C:** A01 PASS: P0=PASS · process=39 · shared=8 · scopes=18 · gate PASS; E1 có hiệu lực. Quy tắc nhìn-thấy-thật: một Process/Tool chỉ được nói “có” khi **thấy trong list → mở được detail → truy được nguồn/file/cổng thật**. Phân biệt rõ **39 process đã có definition** với **≈98 process dự tính**; 29 tool là ứng viên, từng dòng phải có nguồn/trạng thái. Owner đã cho phép Lane A/B/C trên repo; tạo lane-b và lane-c làm working evidence, canonical vẫn là ban-duyet/COLLAB cha. B01 dùng PROCESS=CHUNG.TIM, rà 39 process + overlap/gap/JEV, không sửa canonical. C01 dùng PROCESS=VEUI.MOW, chỉ MOW Human Step→UI, không sửa CAT-004/UI. A02 chưa mở.
+- PROCESS cho thay đổi Host D59: `CHUNG.APQUYTRINH`.
+
 ## Dòng hiện hành
 MMIM | MMIM-LANE-A01-20260928-01 · 28/09/2026 | XONG · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · process=39 · shared=8 · scopes=18 · K11_semantic=OPEN. MOM04 baseline read-only. NEXT=Host nghiệm thu E1 P0/gate. Codex dừng, không tự mở RUN mới.
 
