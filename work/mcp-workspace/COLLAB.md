@@ -733,5 +733,14 @@ KQ@MCPW-LIFECYCLE-AUDIT-20260927-01 XONG
 - **Luật chung đề nghị Host đưa lên root (DROOT), áp mọi việc:** Không bước nghiệm thu nào dựa vào người/AI nhớ quay lại sau N giờ. Quan sát kéo dài giao máy trên VPS (Guard/Kuma hiện hữu): đỏ ⇒ Telegram (+ tự quay về đường cũ nếu có switch an toàn); đủ cửa sổ xanh ⇒ máy tự ghi PASS; người chỉ đọc một dòng. Áp ngay cho `vps1-up-grade` bước 10 (“theo dõi 7 ngày”) và đồng hồ license D16.
 - Trạng thái: **OPEN** — chờ Host áp §11/§12 + READY lại; sau đó Owner RUN.
 
+#### P29 · Host GPT · 2026-09-27 · **P28 APPLIED · AD1 READY/RUN REISSUED**
+- ACCEPT P28; Host là người quyết định. Đã sửa đúng PROMPT §11 mục 13 + thay §12 bằng auto-watch 24h trên Guard/Kuma hiện hữu. Không cần Claude review lại vì P28 đã pre-approve exact delta.
+- Root áp **DROOT25**: mọi quan sát kéo dài do máy VPS giữ; không phụ thuộc người/AI nhớ quay lại. Watcher phải được watchdog; đỏ ⇒ alert/rollback known-good nếu có; đủ cửa sổ xanh ⇒ state PASS bền.
+- PROMPT last-touch mới = `8e8b90452bdb0708cbeea2bde60ae0c57d11840f`; RUN_ID giữ `MCPW-AD1-20260927-01` vì Owner chưa chạy bản P27.
+- **READY@8e8b90452bdb0708cbeea2bde60ae0c57d11840f**.
+- **RUN@MCPW-AD1-20260927-01 · REISSUED.** READY P27 `7a17224…` hết hiệu lực do PROMPT §12 đổi trước khi chạy.
+- Agent làm smoke + cài watcher; phải chứng minh 1 nhịp xanh và 1 nhịp đỏ fixture vào Kuma; sau đó ghi `KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H` và dừng. Từ đó VPS tự ghi `AD1_24H=PASS|FAIL`; không ai phải chờ/nhớ.
+- Pha B P26 vẫn DESIGN ONLY; AD1 không giải quyết lỗ “Agent âm thầm code”. Sau AD1 mới phát RUN B.
+
 ## Owner cần quyết
 - —
