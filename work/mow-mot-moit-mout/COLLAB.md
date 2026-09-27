@@ -71,6 +71,8 @@ Song song hoàn thiện bản thiết kế máy, xây các tool và viết quy t
 - READY@2b3c9289bc631da908e0d9e2561f80a773f9c549 · RUN_ID `MMIM-LANE-A01-20260928-01` · PROCESS `CHUNG.APQUYTRINH` · Executor **Codex**.
 - RUN ISSUED cũ · `MMIM-LANE-A01-20260928-01` · **SUPERSEDED trước khi Owner chạy** do Host bổ sung khóa nghĩa MOM04; READY cũ không dùng.
 - D58 · 2026-09-28 · **NGHIỆM THU MOM04 LÀM BASELINE, KHÓA NGHĨA 470 REQUIREMENTS:** KQ MOM04 đạt: 16/16 UI xanh · 84/84 Master · help 10/10 + Home · ★ browser-only · 470 detailRequirements/5 pilot · false_green=0 · loop PASS · regression 3/3. **470 = kho evidence/chi tiết cần đạt, không phải Process/Step/UI count và không phải backlog người duyệt từng dòng.** Lane B/C chỉ được dùng 470 làm nguồn để suy/gộp; Lane A không được nhập 470 thành process/tool catalog. A01 vẫn chỉ làm P0 + gate. · Trạng thái: **PROMPT A01 hiệu chỉnh, chờ READY mới**.
+- READY@fbbe0415134e87dd1fa997ff9e509dfd17021109 · RUN_ID `MMIM-LANE-A01-20260928-01` · PROCESS `CHUNG.APQUYTRINH` · Executor **Codex** · đây là READY mới thay bản `2b3c9289...`.
+- RUN ISSUED · `MMIM-LANE-A01-20260928-01` · phạm vi giữ nguyên: chỉ P0 + process gate + K18/catalog; MOM04 baseline read-only; không đụng UI/Step/79 Master; XONG/DỪNG rồi dừng.
 
 ### 2. Thế nào là hoàn thành
 *(Owner viết nguyên văn 25/09/2026)*
