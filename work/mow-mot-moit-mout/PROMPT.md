@@ -395,4 +395,6 @@ Agent chỉ trả một trong hai:
 - `XONG · MMIM-MOM01 · <metrics như §8>`
 - `DỪNG · MMIM-MOM01 · <blocker ngắn>`
 
+**MODE = MANUAL_OWNER:** không tạo watcher/automation/webhook, không tự sửa PROMPT cho vòng sau, không tự phát RUN kế tiếp. Sau KQ phải dừng và chờ Owner/GPT Host điều hành.
+
 Không viết thêm bài luận trong chat; Host sẽ đọc repo/UI để nghiệm thu.
