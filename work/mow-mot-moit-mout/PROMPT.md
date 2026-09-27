@@ -1,166 +1,374 @@
-# PROMPT — MMIM.FIELD03 · Thiết kế kịch bản FIELD trên giấy
+# PROMPT — MMIM-MOM01 · Master of Master + hệ danh mục chế tạo Máy
 
-RUN_ID: MMIM-FIELD03-20260923-01
+RUN_ID: MMIM-MOM01-20260927-01
+STATUS: Chỉ thực thi sau READY đúng SHA commit cuối chạm file này và RUN của Owner/GPT Host.
 
-## 0. Gate
-Lượt này **KHÔNG sửa HTML**. Chỉ thiết kế FIELD trên giấy.
+Host: GPT Chat · Host_ID `GPT-MMIM-260920-A`
+Executor_Surface: **Codex** trên bề mặt có Incomex VPS MCP + gateway workspace.
+Report_Write_Path: **workspace_*** · root `workspace` · repo `Huyen1974/incomex-workspace` · main.
+UI_Write_Path: **fs_*** · root `ui` · VPS `/opt/incomex/docs/mcp-writes/` → public `/ui-preview/mcp-writes/`.
+GitHub native/App/API/CLI: **READ-ONLY**, cấm dùng để ghi repo.
 
-- Executor_Surface: **Claude Code CLI**.
-- Write_Path: **fs_*** đã audit; read-gate bằng `fs_read/fs_stat/fs_log`, ghi bằng `fs_*`.
-- Đọc: `AGENTS.md` → `README.md` §0/D12 → `work/mow-mot-moit-mout/COLLAB.md` → prompt này.
-- READY phải là commit cuối chạm `PROMPT.md`.
-- HTML phải giữ nguyên SHA-256 `1e245ed6997f5dc117bd809807a9e963527068c89cc6985e442b8eeb133099e8`.
+## 0. Gate bắt buộc
 
-## 1. Mục tiêu
-Thiết kế FIELD đủ rõ để **một nhân viên mới nhìn/đọc là biết phải làm gì trong mọi tình huống chính**, trước khi dựng UI/HTML tiếp.
+1. Một read-gate cho `workspace_*`: đọc đúng `AGENTS.md` → `README.md` phần D12/§11/§12 → `work/mow-mot-moit-mout/COLLAB.md` (§0, D44–D47, Dòng hiện hành) → file prompt này.
+2. Một read-gate cho root `ui`: đọc/inspect ít nhất:
+   - `mow-unified-canvas-v2.html`
+   - các CSS/JS mà chính file đó đang gọi cho Master/Kanban/List nếu có;
+   - link mẫu Owner đang dùng: `https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T2&che-do=thuong`.
+3. READY phải khớp **commit cuối chạm PROMPT.md**, không so HEAD chung.
+4. Thiếu `workspace_*` hoặc root `ui`, không đọc được UI mẹ, hoặc phát hiện D44/D46 bị thay thế bởi quyết định mới hơn → **DỪNG trước mutation**.
+5. Không sửa production PG/Directus, service, nginx, compose, auth, MCP, connector. Chỉ đọc nguồn production khi cần đối chiếu.
+6. Không tạo task/repo/project mới. Không tạo framework/library/pipeline mới.
+7. Owner đã cho phép **một đầu mối UI “Master of Master” trên VPS ui**. Ưu tiên sửa/reuse UI mẹ hiện có; chỉ tạo **01 file UI mới** nếu inspect chứng minh nhét vào shell hiện tại sẽ làm phức tạp/hỏng cấu trúc. Nếu tạo file mới phải nằm ngay root `ui`, tên rõ nghĩa, không tạo thư mục phụ.
+8. Không xoá/move UI cũ trong RUN này. D44 “nơi lưu UI ở VPS” không phải quyền dọn lịch sử.
 
-Khung chuẩn:
-- Use case / scenario matrix
-- CRUD
-- State machine
-- Data Dictionary
-- RBAC / approval
-- Where-used / impact analysis
-- ID scheme + code registry
-- Validation / duplicate / recovery / audit
+## 1. Mục tiêu RUN
 
-JEV chỉ dùng để **judge/phân loại** trên tập kịch bản đã liệt kê; không thay checklist sinh kịch bản.
+Không tiếp tục bàn lý thuyết chung. RUN này phải tạo **đầu mối nhìn được và dùng được** để từ đó hoàn thiện dần toàn bộ “Nhà máy chế tạo Máy tạo quy trình”.
 
-## 2. Thứ tự sản phẩm — Owner nhìn 30 giây trước
+Kết quả chính:
 
-### G. Bảng “Owner cần quyết gì” — ĐẶT ĐẦU TIÊN
-Một bảng ngắn:
-`Mã · Vấn đề · UI hiện có/thiếu · Đề xuất của hội đồng · Owner: Gật/Lắc/Khác · Hệ quả nếu lắc · Ảnh hưởng`.
+**A. Master of Master V1**
+- Một đường vào duy nhất trong UI mẹ, dưới mục **Master**, hiển thị **✅ Master of Master** ở vị trí đầu.
+- Tích xanh chỉ có nghĩa: **đầu mối Master of Master đã tồn tại và mở được**; tuyệt đối không có nghĩa toàn bộ Master bên dưới đã hoàn thiện.
+- Bấm vào mở được màn **Master of Master** trên VPS, dùng lại style/shell/interaction hiện có của 4 UI mẹ tối đa có thể.
+- Đây là nơi tập hợp tất cả Master hiện có/đang thiết kế/chưa hoàn thiện, và là đầu mối để sau này đi tới từng Master con.
+
+**B. Hệ danh mục thực chiến**
+Phải gom và chuẩn hoá dữ liệu hiện có thành 5 danh mục đang cần xử lý lâu dài:
+1. Master list.
+2. Step người dùng sử dụng “Máy tạo quy trình”.
+3. UI.
+4. Công cụ/check chéo.
+5. Quy trình của **Nhà máy chế tạo Máy** — không trộn quy trình thương mại.
+
+Mục tiêu không phải bịa đủ “hàng trăm” trong một lượt. Mục tiêu là:
+- mọi thứ **đã có trong nguồn hiện tại** phải được tìm thấy, gắn mã/nhóm/trạng thái;
+- mọi khoảng trống phải hiện thành **một dòng cụ thể cần làm tiếp**;
+- từ sau RUN này, hội đồng/agent xử lý **từng dòng còn thiếu**, không quay lại tranh luận chung chung.
+
+## 2. Nguyên tắc D46 — bắt buộc ở mọi view
+
+Mọi màn cho người phải theo đúng:
+
+**Tầng 1 · 10 giây Tổng quan → Tầng 2 · Theo nhóm ~1 phút → Tầng 3 · Chi tiết khi bấm**
+
+Tầng 1 bắt buộc trả lời được:
+1. Có bao nhiêu phần/nhóm?
+2. Chỗ nào bất thường, thiếu, OPEN hoặc có vấn đề?
+3. User cần xem/quyết/đi tiếp ở đâu?
+
+Nếu phải đọc bảng dài mới biết vấn đề → **FAIL**, dù dữ liệu dưới đầy đủ.
+
+Mặc định:
+- phần đạt/bình thường được gập hoặc giảm nhấn;
+- phần OPEN/trùng/thiếu/không rõ nguồn/không có UI phải nổi;
+- màu luôn đi cùng chữ/ký hiệu, không dùng màu làm thông tin duy nhất.
+
+## 3. PHẦN A — dựng Master of Master V1 trên VPS
+
+### A1. Reuse UI mẹ
+
+Inspect UI mẹ trước. Ưu tiên:
+- giữ breadcrumb/header/tabs/layout/màu/khoảng cách/cách bấm hiện có;
+- dùng lại Master popover/menu hiện tại;
+- không dựng một design system khác.
+
+Trong menu/popover **Master**, thêm đầu mối đầu tiên:
+- nhãn: **✅ Master of Master**
+- mô tả ngắn: **Danh mục tất cả Master**
+- bấm mở đúng view Master of Master.
+
+Nếu kiến trúc hiện tại cho phép query/view trong cùng `mow-unified-canvas-v2.html` thì ưu tiên cách đó.
+Chỉ khi reuse trong cùng file gây coupling/xung đột rõ ràng mới tạo 01 file chuyên biệt trong root `ui`.
+
+### A2. Dữ liệu đầu vào
+
+Nguồn đầu tiên bắt buộc:
+- **84 ứng viên** hiện có trong tab Master list / tài liệu MMIM;
+- Master/UI đã có trong UI mẹ;
+- registry/catalog hiện có đọc được qua nguồn chỉ đọc;
+- quyết định/nguồn trong COLLAB hiện hành.
+
+Không:
+- coi 84 là con số cuối;
+- tự xoá/gộp row vì thấy giống nhau;
+- tự đổi mã cũ;
+- tự tuyên bố Master “đạt” khi thiếu bằng chứng.
+
+Mỗi ứng viên trong 84 phải được **accounted**:
+- một row riêng; hoặc
+- nếu nghi trùng thì vẫn giữ row + cờ `DUP_CANDIDATE` + liên kết row nghi trùng.
+Không mất row âm thầm.
+
+### A3. Trạng thái Master — tách các trục, không gộp mơ hồ
+
+Chi tiết mỗi Master tối thiểu quản lý:
+
+`Mã · Tên · Nhóm · Quản lý gì · Thiết kế · Config · UI · Nguồn/đối chiếu · Tổng · Vấn đề · Link`
+
+Bộ trạng thái chuẩn V1:
+
+**Thiết kế**
+- `CHUA_THIET_KE`
+- `DANG_THIET_KE`
+- `DA_THIET_KE`
+- `DA_RAT_THIET_KE`
+
+**Config**
+- `CHUA_RAT_CONFIG`
+- `DANG_RAT_CONFIG`
+- `DA_RAT_CONFIG`
+- `CONFIG_CO_VAN_DE`
+
+**UI**
+- `CHUA_CO_UI`
+- `CO_UI`
+- `UI_DA_KIEM`
+
+**Nguồn/đối chiếu**
+- `CHUA_RO_NGUON`
+- `CO_NGUON`
+- `DA_DOI_CHIEU`
+
+**Tổng — chỉ để người nhìn nhanh, dẫn xuất từ các trục trên**
+- ⚪ `CHUA_LAM`
+- 🟡 `DANG_LAM`
+- 🔴 `CO_VAN_DE`
+- 🟢 `SAN_SANG`
+
+Không tự đặt `SAN_SANG` nếu các trục bắt buộc chưa đạt.
+
+### A4. Tầng 1 của Master of Master
+
+Phải nhìn được mà không đọc bảng dài:
+
+- Tổng số ứng viên hiện có.
+- Số nhóm Master.
+- ⚪ Chưa làm.
+- 🟡 Đang làm.
+- 🔴 Có vấn đề.
+- 🟢 Sẵn sàng.
+- Số nghi trùng.
+- Số chưa rõ nguồn/config/UI.
+- “Cần xem ngay”: chỉ các nhóm/row có vấn đề.
+
+Có thể dùng card + biểu đồ đơn giản + bảng ngoại lệ; không dùng chart trang trí không giúp ra quyết định.
+
+### A5. Tầng 2
+
+Theo nhóm Master:
+- tên nhóm;
+- tổng;
+- số bình thường;
+- số OPEN/vấn đề;
+- click để lọc danh sách dưới.
+
+Codex được đề xuất grouping dựa trên dữ liệu hiện có nhưng:
+- grouping phải có quy tắc rõ;
+- chưa chắc thì gắn `GROUP_OPEN`;
+- không biến grouping đề xuất thành quyết định cuối của Owner.
+
+### A6. Tầng 3
+
+Bảng đầy đủ, search/filter:
+- filter theo nhóm;
+- filter theo Tổng;
+- filter riêng từng trục Thiết kế/Config/UI/Nguồn;
+- tìm theo mã/tên;
+- click link UI con nếu có;
+- row chưa có link phải hiện rõ `CHUA_CO_UI`, không giấu.
+
+## 4. PHẦN B — gom các danh mục còn lại thành việc cụ thể
+
+Sau khi Master of Master V1 mở được, rà nguồn hiện có và cập nhật **bản đồ GitHub** trong các tab/khối sẵn có của `ban-duyet.html`. Không thêm tab mới.
+
+### B1. Step sử dụng Máy
+
+Chỉ lấy **step người dùng sử dụng Máy tạo quy trình**.
+Không trộn:
+- step xây Nhà máy;
+- step của tool kiểm;
+- step vận hành hạ tầng.
+
+Mỗi row:
+`Mã Step · Người làm gì · Đầu vào · Kết quả · UI đang dùng/cần · Trạng thái · Nguồn · Gap`
+
+Từ nguồn hiện có:
+- rà số “60 bước” cũ;
+- phân loại lại;
+- không coi 60 là đáp án.
+
+Kết quả phải có:
+- count tổng row đã phân loại;
+- count thật sự thuộc “Step sử dụng Máy”;
+- count còn OPEN;
+- danh sách gap cụ thể.
+
+### B2. UI catalog
+
+Mỗi row:
+`Mã UI · Tên · Step sử dụng · loại UI · URL VPS · version/hash · trạng thái thiết kế · trạng thái kiểm · gap`
 
 Luật:
-- **Không có đề xuất của hội đồng thì không được đưa câu hỏi lên Owner.**
-- “Hệ quả nếu lắc” phải nói ngắn: phải đổi gì / thiếu gì / bước nào bị ảnh hưởng.
-- Chỉ đưa các quyết định thật sự cần Owner; không đưa câu hỏi đã có source rõ.
+- actual UI HTML/CSS/JS nằm VPS `ui` theo D44;
+- GitHub chỉ giữ map/link/status;
+- một UI dùng nhiều Step chỉ tính một UI;
+- UI cũ 29/18 chỉ là input để rà, không là đáp án cuối.
 
-### Sơ đồ nhìn 30 giây
-Ngay sau bảng G, vẽ bằng Markdown/ASCII block + mũi tên, không phụ thuộc renderer:
+### B3. Tool catalog
 
-`[MMIM.FIELD.S01 · Tìm] → [MMIM.FIELD.S02 · Khai] → [MMIM.FIELD.S03 · Gửi đề xuất] → [PENDING_APPROVAL] → [APPROVED] → [ACTIVE] → [SUSPENDED] → [ARCHIVED]`
+Rà ít nhất:
+- 28 ứng viên hiện có;
+- 17 phạm vi kiểm;
+- các cổng/tool đã dùng thật.
 
-Nhánh bắt buộc phải nhìn thấy:
-- `PENDING_APPROVAL → REJECTED`
-- trùng/đã có → quay về dùng lại Field;
-- nhóm quản lý chưa có → tạo nhóm → quay lại đúng chỗ;
-- sửa/xoá → kiểm where-used trước.
+Mỗi row:
+`Mã · Tên · Check gì · Input · Output · Nguồn · Đã thử? · Sẵn dùng? · Vấn đề · Ai giữ nếu biết`
 
-Không biến sơ đồ thành đoạn văn dài.
+Phải làm nổi:
+- phạm vi trống;
+- tool chồng;
+- tool chỉ có tên nhưng chưa chạy;
+- tool đã thử nhưng chưa đạt “sẵn dùng”.
 
-### A. Bảng kịch bản FIELD
-Ba bước gốc:
-- `MMIM.FIELD.S01` · Tìm / dùng lại hay tạo mới
-- `MMIM.FIELD.S02` · Khai Field / tạo đề xuất
-- `MMIM.FIELD.S03` · Gửi đề xuất / hoàn tất bước nhập
+Không tự viết hàng loạt tool mới trong RUN này trừ khi cần một thay đổi rất nhỏ để chính Master of Master hoạt động và đã được scope cho phép.
 
-Nếu checklist sinh thêm bước thì thêm `MMIM.FIELD.S04, S05...` ở cuối; không đảo S01–S03.
+### B4. Quy trình của Nhà máy chế tạo Máy
 
-Mỗi kịch bản một dòng:
-`Mã kịch bản · Bước · Tình huống/trigger · Ai làm · Làm gì · UI nào · Kết quả · Hỏng thì về đâu · Trạng thái (CHOT/CHUA_CHOT/UI_THIEU/DEFER_P1) · Bằng chứng`.
+Chỉ gom **quy trình phục vụ xây/kiểm/phát hành/bảo trì Máy tạo quy trình**.
+Không trộn quy trình thương mại.
 
-**Khuôn mã bắt buộc có định danh việc:**
-- bước: `MMIM.FIELD.S01`
-- kịch bản: `MMIM.FIELD.<OPERATION>.<NNN>`, ví dụ `MMIM.FIELD.CREATE.001`
-- registry vẫn có cột `work_id=mow-mot-moit-mout`
-- machine_id = `AUTO_GENERATED`, không tự bịa UUID.
+Mỗi row:
+`Mã · Tên · Mục đích · Input · Output · Công cụ dùng · Trạng thái · Nguồn · Gap`
 
-**Trần FIELD03:** tối đa **40 dòng kịch bản chính**; mục tiêu reviewable khoảng 35–40 nhưng **không bịa thêm để đủ 35**. Biến thể hiếm vẫn phải có mã/index và ghi `DEFER_P1`, không xoá khỏi coverage.
+Rà toàn bộ quy trình đã có trong MMIM/COLLAB/ban-duyet.
+Kết quả:
+- count đã tìm thấy;
+- count có nguồn;
+- count đã thử/chứng minh;
+- count còn thiếu/OPEN;
+- nhóm gap cụ thể.
 
-### B. Checklist tối thiểu phải có
-**Create**
-- tìm trước khi tạo;
-- trùng tên / trùng nghĩa;
-- thiếu field bắt buộc / sai định dạng;
-- Nhóm quản lý chưa có → tạo tại chỗ → quay lại đúng chỗ;
-- bỏ dở giữa chừng;
-- lưu/gửi đề xuất thất bại → retry/return;
-- đề xuất → ai duyệt → approve/reject → khi nào thành Field vận hành;
-- sinh mã / chống trùng mã.
+Không bịa cho đủ “100+”. Chỉ ghi số thật từ nguồn; phần chưa có trở thành backlog có tên/phạm vi cụ thể.
 
-**Read**
-- Data Dictionary / Master Field sau khi lưu;
-- tìm theo mã/tên; alias nếu có;
-- mở chi tiết;
-- xem where-used: đang được form/quy trình/hợp đồng nào dùng.
+## 5. PHẦN C — GitHub chỉ giữ bản đồ, không nhét UI nặng
 
-**Update**
-- đổi tên/mô tả nhưng giữ identity;
-- đổi Nhóm quản lý;
-- đổi định dạng khi đã có dữ liệu → version/migration;
-- sửa đồng thời/stale edit;
-- thay đổi có cần duyệt lại hay không.
+Sau UI mutation, cập nhật `work/mow-mot-moit-mout/ban-duyet.html` và `COLLAB.md`:
 
-**Deactivate/Delete**
-- tạm dừng / kích hoạt lại;
-- lưu trữ;
-- xoá hẳn khi chưa được dùng;
-- đang được dùng → chặn xoá + chỉ rõ where-used;
-- quyền ai được ngừng/xoá.
+**GitHub/workspace giữ:**
+- mã;
+- tên;
+- nhóm/loại;
+- trạng thái;
+- quan hệ Step↔UI / phạm vi tool / phạm vi process;
+- URL VPS;
+- version/hash;
+- vấn đề/gap;
+- quyết định.
 
-**Cross-cutting**
-- quyền đề xuất / duyệt / sửa / ngừng / xoá;
-- audit: ai đổi gì, khi nào;
-- recovery/rollback;
-- alias/search;
-- code registry.
+**Không copy toàn bộ HTML/CSS/JS của Master of Master vào repo.**
 
-Không được bỏ scenario chỉ vì thiếu UI: ghi `UI_THIEU`. Biến thể hiếm có thể `DEFER_P1`.
+Trong tab Master list:
+- đặt đường link rõ tới Master of Master;
+- ghi URL VPS + hash/version;
+- ghi trạng thái thực tế, không “đã xong” giả.
 
-### C. State machine
-Dùng mô hình **đề xuất để Owner duyệt**:
-`DRAFT → PENDING_APPROVAL → APPROVED | REJECTED → ACTIVE → SUSPENDED → ARCHIVED`.
+Trong ★ Ý kiến HĐ:
+- 06 D44 chỉ chuyển trạng thái thực thi khi bằng chứng đạt;
+- 01 Master list **không tự CLOSED**; RUN này cung cấp UI + dữ liệu để Claude/Owner rà và chốt danh sách cuối.
+- D46: đánh dấu “Master of Master đã áp D46” chỉ khi nghiệm thu Tầng 1/Tầng 2/Tầng 3 PASS.
 
-Mapping UI hiện có:
-- ACTIVE = Đang chạy
-- SUSPENDED = Tạm dừng
-- ARCHIVED = Lưu trữ
+## 6. Vòng làm việc từ sau RUN — chống quay lại bàn chung
 
-DRAFT/PENDING_APPROVAL/APPROVED/REJECTED nếu chưa có source/UI thật → `CHUA_CHOT/UI_THIEU`, không giả là production schema.
+Sau inventory:
+- mọi thiếu sót phải là **row có mã/nhóm/trạng thái/gap**;
+- NEXT chọn từng nhóm/row để hoàn thiện;
+- không tạo thêm “ý tưởng chung” nếu không chỉ được nó cập nhật row nào;
+- thứ đã thiết kế/config/UI rồi phải dùng lại, không làm lại từ đầu.
 
-Mỗi transition:
-`from · action · actor · condition · to · UI · lỗi/chặn`.
+Mục tiêu dài hạn:
+- Master, Step, UI, Tool, Factory Process đều dần đi từ `CHUA_LAM → DANG_LAM → CO_VAN_DE/SAN_SANG`;
+- số OPEN phải giảm qua các RUN;
+- Owner luôn nhìn được tổng thể ở Tầng 1.
 
-### D. Data Dictionary — thiết kế Master Field
-Tối thiểu:
-`field_code · display_name · data_type · description · management_group · required · lifecycle_status · version · aliases · where_used · created_by · approved_by · created_at · updated_at`.
+## 7. Safety / không được làm
 
-Mỗi cột:
-`Tên · Ý nghĩa · nguồn hiện có hay đề xuất mới · UI hiện có/thiếu`.
+- Không ghi production PG/Directus.
+- Không sửa code runtime ngoài root `ui`.
+- Không dùng GitHub native để ghi.
+- Không đổi mã cũ chỉ để đẹp.
+- Không xoá row/file cũ.
+- Không tự tạo thêm tab của Owner View.
+- Không tự đóng 01–05 chỉ vì đã có danh sách.
+- Không đánh dấu “✅” cho cả Master nếu chỉ mới dựng hub.
+- Không cài package/library mới nếu không cần; nếu thiếu thư viện cho screenshot thì dùng công cụ đã có hoặc báo rõ, không cài production.
+- Không biến mock/design thành production claim.
 
-Không đưa config kỹ thuật/storage address vào FIELD03.
+## 8. Acceptance — Host sẽ nghiệm thu từng mục
 
-### E. Master mã / Code registry
-Bảng:
-`work_id · code · machine_id · loại (STEP/SCENARIO/FIELD/DEPENDENCY...) · đối tượng · tên · version · trạng thái · nơi dùng · ngày`.
+### Gate/UI
+1. Read-gate `workspace_*` PASS.
+2. Read-gate root `ui` PASS.
+3. UI mẹ trước/sau không mất các tầng/tab/chức năng hiện có.
+4. Menu Master có **✅ Master of Master** ở vị trí đầu.
+5. Tích xanh có mô tả/semantics rõ: hub tồn tại, không phải toàn bộ Master hoàn tất.
+6. Link Master of Master mở HTTP 200.
+7. Console của UI mới không có lỗi JS do thay đổi RUN gây ra.
+8. 1280px và 390px không tràn ngang không kiểm soát.
 
-Nguyên tắc:
-- `work_id = mow-mot-moit-mout`;
-- human code luôn có prefix việc `MMIM.`;
-- mã ≠ tên hiển thị ≠ version;
-- đổi tên không đổi identity;
-- mọi thứ có mã phải tra được trong registry;
-- mã bước/kịch bản không trùng giữa các việc;
-- machine_id do máy sinh.
+### Dữ liệu Master
+9. 84/84 ứng viên đầu vào được accounted; không row nào biến mất.
+10. Mỗi row có Mã/Tên/Quản lý gì hoặc ghi rõ `OPEN`.
+11. Có đủ 4 trục Thiết kế/Config/UI/Nguồn + Tổng dẫn xuất.
+12. Nghi trùng được đánh cờ, không tự merge/xoá.
+13. Item đã có UI/config/source phải gắn bằng chứng/link thật khi nguồn cho phép.
+14. Tầng 1 trả lời được count + nhóm + vấn đề + chỗ cần xem.
+15. Tầng 2 lọc theo nhóm.
+16. Tầng 3 search/filter + row detail/link.
 
-### F. Coverage matrix
-Đủ 15 dòng:
-`CRUD · lifecycle · approval · RBAC · duplicate · validation · where-used · version/migration · inline dependency · identifier registry · alias search · audit · concurrency · recovery · data dictionary`.
+### 4 danh mục còn lại
+17. Step catalog có count + row + gap, tách khỏi step Nhà máy.
+18. UI catalog có Step↔UI + URL/version/hash, không copy UI code vào GH.
+19. Tool catalog phản ánh tối thiểu 28 ứng viên/17 phạm vi và chỉ ra vùng trống/chồng.
+20. Factory Process catalog tách khỏi quy trình thương mại, có count thật và gap cụ thể.
 
-Mỗi dòng:
-`COVERED / CHUA_CHOT / UI_THIEU / DEFER_P1` + tham chiếu mã kịch bản.
+### D46 / SSOT
+21. Owner View/GitHub có bảng tổng hợp ngắn trước chi tiết.
+22. Master of Master áp 3 tầng D46.
+23. VPS `ui` là nguồn UI thiết kế; GH chỉ map/link/status.
+24. Không production mutation.
+25. Không file/task/repo mới ngoài tối đa 01 UI file VPS đã được Owner cho phép.
 
-Không được defer khỏi FIELD03:
-`CRUD · lifecycle · approval · RBAC · validation · duplicate · where-used · inline dependency · identifier registry · data dictionary`.
+### Báo cáo/KQ
+26. Ghi trong `COLLAB.md`:
+   `KQ@MMIM-MOM01-20260927-01 XONG` hoặc `DỪNG`.
+27. Báo cáo một dòng cuối:
+   `XONG · MMIM-MOM01 · masters_input=<n> · accounted=<n> · groups=<n> · issues=<n> · steps=<n> · uis=<n> · tools=<n> · factory_processes=<n> · mom_url=<url> · mom_sha=<sha> · D46=PASS|PARTIAL`
+28. Nếu PARTIAL/DỪNG: nêu đúng blocker + phần đã giữ được; không tự mở scope khác.
 
-## 3. JEV
-Host đã tham khảo:
-- `gen-dec-1790154140-Rr1v83pDBUTboY7xCUo6` — gap chuẩn nghề.
-- `gen-dec-1790154166-yNNIKxwR40A31z4AQMGk` — P0/P1.
-- `gen-dec-1790154224-LefgUMv5RCl3pRFOcyaA` — lifecycle + ID.
-- `gen-dec-1790155411-DvO7VLSj9m2ePlZ3ntQj` — decisions+diagram first = 1.00; work-prefix code = 0.90; cap 35–40/defer rare = 0.98.
+## 9. Nghiệm thu bằng mắt bắt buộc
+
+Trước KQ XONG:
+- chụp/inspect Master of Master Tầng 1;
+- Host/Owner phải có thể nhìn thấy ngay tổng số, nhóm, cảnh báo và nơi bấm tiếp;
+- kiểm Master menu có ✅ Master of Master;
+- kiểm một row có UI thật mở được;
+- kiểm một row chưa có UI hiện rõ `CHUA_CO_UI`;
+- kiểm một nghi trùng không bị merge mất;
+- kiểm filter nhóm + trạng thái.
+
+Nếu UI kỹ thuật đúng nhưng lớp trên vẫn buộc User đọc bảng dài để tìm vấn đề → **D46 FAIL**, không KQ XONG.
+
+## 10. Kết thúc
+
+Agent chỉ trả một trong hai:
+- `XONG · MMIM-MOM01 · <metrics như §8>`
+- `DỪNG · MMIM-MOM01 · <blocker ngắn>`
+
+Không viết thêm bài luận trong chat; Host sẽ đọc repo/UI để nghiệm thu.
+work-prefix code = 0.90; cap 35–40/defer rare = 0.98.
 
 Nếu Claude Code có JEV Reference, sau khi lập bảng dùng JEV để judge coverage hữu hạn; nếu không có ghi `JEV_UNAVAILABLE_SURFACE`, không block.
 
