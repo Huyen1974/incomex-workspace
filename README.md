@@ -12,6 +12,7 @@ GPT dùng app MCP AgentData đang hiện hành, root `workspace`: đọc cửa s
 ## Shared Workspace Technical Contract — v1.4, 2026-09-26
 
 > **Phân vai nguồn chuẩn:** `AGENTS.md` = luật phối hợp/vai trò/workflow; README mục này = hợp đồng **kỹ thuật** của workspace/connector; `COLLAB.md` = trạng thái hiện hành của project. Không chép cùng một luật giữa các file.
+> **AUTH PLACEHOLDER LAW:** placeholder xác thực/bí mật (`${VAR}`, chuỗi mẫu, rỗng) không bao giờ được trở thành credential runtime. Nguồn bí mật thiếu hoặc không resolve ⇒ fail-closed: dịch vụ không sẵn sàng hoặc dùng giá trị ngẫu nhiên không ai biết; mỗi đường secret mới phải có phép thử âm “biến vắng”.
 > Đổi v1.4 (26/09/2026): sau `MCPW-P02-20260925-01`, thêm contract read snapshot + `freshness/recheck_required` + nợ kiểm lại; write vẫn revalidate GitHub. Không đổi tool count/input schema/auth.
 > Đổi so với v1.2 (cùng ngày): áp dụng `FOUNDERS_CONSENSUS_V1`, chuyển luật phối hợp sang `AGENTS.md`, giữ README làm technical contract; tạo `COLLAB.md` gốc để lưu quyết định/trạng thái. Các §0–§11 bên dưới vẫn là nguồn chuẩn cho cơ chế kỹ thuật.
 > Đổi so với v1.1 (cùng ngày): thêm §11 — VPS là nguồn gốc duy nhất của MÃ; GitHub không còn đường ghi xuống VPS.
