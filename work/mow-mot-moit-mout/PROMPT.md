@@ -22,6 +22,7 @@ GitHub native/App/API/CLI: **READ-ONLY**, cấm dùng để ghi repo.
 6. Không tạo task/repo/project mới. Không tạo framework/library/pipeline mới.
 7. Owner đã cho phép **một đầu mối UI “Master of Master” trên VPS ui**. Ưu tiên sửa/reuse UI mẹ hiện có; chỉ tạo **01 file UI mới** nếu inspect chứng minh nhét vào shell hiện tại sẽ làm phức tạp/hỏng cấu trúc. Nếu tạo file mới phải nằm ngay root `ui`, tên rõ nghĩa, không tạo thư mục phụ.
 8. Không xoá/move UI cũ trong RUN này. D44 “nơi lưu UI ở VPS” không phải quyền dọn lịch sử.
+9. Trước mọi mutation root `ui`: ghi lại **path · version/hash · sha256** của từng file sẽ sửa. Mọi ghi phải dùng expected version/lock của cổng; sau ghi kiểm lại. Nếu regression do RUN → khôi phục đúng version trước của **chính file RUN đã sửa**, không đụng file người khác.
 
 ## 1. Mục tiêu RUN
 
@@ -48,6 +49,8 @@ Mục tiêu không phải bịa đủ “hàng trăm” trong một lượt. M�
 - mọi khoảng trống phải hiện thành **một dòng cụ thể cần làm tiếp**;
 - từ sau RUN này, hội đồng/agent xử lý **từng dòng còn thiếu**, không quay lại tranh luận chung chung.
 
+**CHECKPOINT BẮT BUỘC TRONG CÙNG RUN:** làm **PHẦN A trước**. Chỉ được sang PHẦN B khi Master of Master đạt tối thiểu acceptance **1–16**. Nếu A không đạt hoặc phải rollback → ghi KQ `DỪNG/PARTIAL`, giữ phần an toàn đã đạt và **không tiếp tục B**.
+
 ## 2. Nguyên tắc D46 — bắt buộc ở mọi view
 
 Mọi màn cho người phải theo đúng:
@@ -65,6 +68,13 @@ Mặc định:
 - phần đạt/bình thường được gập hoặc giảm nhấn;
 - phần OPEN/trùng/thiếu/không rõ nguồn/không có UI phải nổi;
 - màu luôn đi cùng chữ/ký hiệu, không dùng màu làm thông tin duy nhất.
+
+**Bài kiểm D46 định lượng cho Tầng 1:**
+- ở viewport 1280px, **không cuộn** vẫn thấy: tổng số · số nhóm · ⚪/🟡/🔴/🟢 · “Cần xem ngay”;
+- Tầng 1 tối đa khoảng **8 tín hiệu tổng hợp + 5 ngoại lệ cần xem**, không đổ bảng 84 dòng lên mặt đầu;
+- không cần mở chi tiết vẫn trả lời được 3 câu D46;
+- bấm từ một cảnh báo/nhóm ở Tầng 1 phải đi được xuống đúng Tầng 2/3 đã lọc;
+- 390px được phép cuộn dọc nhưng **không cuộn ngang** để hiểu tổng quan.
 
 ## 3. PHẦN A — dựng Master of Master V1 trên VPS
 
@@ -305,6 +315,8 @@ Mục tiêu dài hạn:
 - Không đánh dấu “✅” cho cả Master nếu chỉ mới dựng hub.
 - Không cài package/library mới nếu không cần; nếu thiếu thư viện cho screenshot thì dùng công cụ đã có hoặc báo rõ, không cài production.
 - Không biến mock/design thành production claim.
+- Với file UI mẹ đang được dùng chung: diff phải **tối thiểu**, chỉ chạm block cần cho Master of Master; không format/rewrite toàn file cho đẹp.
+- Trước/sau mỗi file UI sửa phải có sha256/version; báo rollback target rõ. Không có before-hash → không mutation file đó.
 
 ## 8. Acceptance — Host sẽ nghiệm thu từng mục
 
@@ -317,6 +329,9 @@ Mục tiêu dài hạn:
 6. Link Master of Master mở HTTP 200.
 7. Console của UI mới không có lỗi JS do thay đổi RUN gây ra.
 8. 1280px và 390px không tràn ngang không kiểm soát.
+8a. Ảnh/inspect 1280px **không scroll** nhìn thấy tổng số · số nhóm · 4 trạng thái tổng · khu “Cần xem ngay”; chi tiết 84 row nằm dưới.
+8b. Click ít nhất 01 card/cảnh báo Tầng 1 lọc/đưa tới đúng Tầng 2/3.
+8c. Có before/after hash cho mọi file root `ui` đã sửa; regression check của UI mẹ PASS.
 
 ### Dữ liệu Master
 9. 84/84 ứng viên đầu vào được accounted; không row nào biến mất.
@@ -351,7 +366,8 @@ Mục tiêu dài hạn:
 ## 9. Nghiệm thu bằng mắt bắt buộc
 
 Trước KQ XONG:
-- chụp/inspect Master of Master Tầng 1;
+- chụp/inspect Master of Master Tầng 1 ở 1280px **trước khi scroll**;
+- ảnh đầu phải tự chứng minh nhìn thấy: **tổng số · số nhóm · ⚪/🟡/🔴/🟢 · tối đa 5 mục “Cần xem ngay”**;
 - Host/Owner phải có thể nhìn thấy ngay tổng số, nhóm, cảnh báo và nơi bấm tiếp;
 - kiểm Master menu có ✅ Master of Master;
 - kiểm một row có UI thật mở được;
