@@ -216,6 +216,7 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <h3>Kết quả SEC1 · B PASS · A chuyển sang DOT-only</h3>
 <p class="big">🟢 VPS2: MySQL 3307 + cms_nginx 8080 đã đóng với internet. 🔴 VPS1: Public CREATE/UPDATE <code>approval_requests</code> chưa gỡ. KQ DỪNG trước do PROMPT dùng sai cửa vào; Owner đã chốt lại cơ chế.</p>
 <p><b>DIRECTUS/PG: DOT ONLY · Secrets: Secret Manager.</b> Người/Agent không cầm khoá; <b>DOT được dùng Owner-admin credential qua kho chuẩn</b> khi cần quyền quản trị. <code>report-pg</code> chỉ read-only. P14–P16 đã áp; SEC1A-DOT <b>READY@<code>3422b413…</code></b>. Bỏ đăng ký sổ DOT trong lượt này; nguồn metadata kho Owner-admin đã được chỉ sẵn trong PROMPT. Nếu cần DOT mới, DOT phải tự mô tả đầy đủ bằng <code>--help</code> và có biển tại cửa/template.</p>
+<p><b class="stop">SEC1A-DOT · RUN <code>VPSUP-SEC1A-DOT-20260927-01</code> · DỪNG ở read-gate</b> (27/09 09:28 UTC) — RUN hạ tầng khác <code>MCPW-AD1-20260927-01</code> đang dở trên VPS1 (PRE 08:03Z, backup 08:47Z, fixture tới 08:58Z; chưa cài, chưa KQ). Phạm vi không chồng nhưng PROMPT ghi DỪNG; Owner chọn DỪNG. <b>0 mutation:</b> #620/#621 còn nguyên, chưa tạo DOT/biển, B không đụng.</p>
 <p class="small muted">27/09/2026 07:24–07:38 UTC · Claude Code CLI · SSH alias <code>contabo</code>/<code>vps2</code> · SQL VPS1 <code>BEGIN READ ONLY</code> · 0 file ghi lên VPS1/VPS2 · không in secret · không thử ghi ẩn danh. JEV phụ <code>gen-dec-1790494394-xVvgBxPYnQ3cOTgZvh4W</code>: A dừng 0,88 · B v4+v6 0,96.</p>
 <table>
 <thead><tr><th>Phần</th><th>Trước</th><th>Sau</th><th>Kết quả</th></tr></thead>
@@ -230,7 +231,7 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <code>iptables -D DOCKER-USER -i eth0 -p tcp -m conntrack --ctstate NEW --ctdir ORIGINAL --ctorigdstport 8080 -m comment --comment "VPSUP-SEC1 TEMPORARY_UNTIL_PERSISTENT_BINDING" -j DROP</code><br>
 <code>ip6tables -D INPUT -i eth0 -p tcp -m multiport --dports 3307,8080 -m conntrack --ctstate NEW -m comment --comment "VPSUP-SEC1 TEMPORARY_UNTIL_PERSISTENT_BINDING" -j DROP</code></p>
 <p class="small">⚠️ <b>Cấm reboot VPS2</b> trước RUN hardening (rule chỉ ở runtime). Phát hiện thêm, không sửa: 🟡 hai policy gắn Public (<i>Public Access</i> + <code>$t:public_label</code>, 340 quyền đọc) — thuộc SEC2; ngoài #620/#621 không còn quyền create/update/delete Public nào.</p>
-<p class="small"><b>Next:</b> Owner chọn đường cho A → gỡ #620/#621 · song song Host phát <b>BK1 backup</b> sớm, trước mọi cleanup/recreate/persistent-bind VPS2.</p>
+<p class="small"><b>Next:</b> AD1 có KQ → Host phát lại RUN SEC1A-DOT → gỡ #620/#621 qua DOT · sau đó <b>BK1 backup</b> sớm, trước mọi cleanup/recreate/persistent-bind VPS2.</p>
 </div>
 
 <h4>Phát hiện 🔴/🟡</h4>
