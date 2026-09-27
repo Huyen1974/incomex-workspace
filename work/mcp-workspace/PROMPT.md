@@ -1,231 +1,104 @@
-# PROMPT — MCPW Lifecycle Audit · reliable START/FINISH + GitHub hot-path audit
+# PROMPT — MCPW-AD1 · trace hardening + GitHub hot-path reduction
 
-RUN_ID: MCPW-LIFECYCLE-AUDIT-20260927-01
-STATUS: Chỉ thực thi sau READY/RUN hiện hành của Host.
-Host: GPT Chat · Host_ID GPT-MCPW-250925-A
+RUN_ID: MCPW-AD1-20260927-01
+STATUS: Chỉ chạy sau READY/RUN hiện hành.
+Host: GPT Chat · GPT-MCPW-250925-A
 Executor_Surface: Claude Code CLI phiên mới trên Mac Owner.
-Report_Write_Path: gateway fs_*/workspace_* vào chính work/mcp-workspace/COLLAB.md. **Thư mục này không có view.html; không tạo view/file mới trong RUN audit.**
-Runtime: **AUDIT CHỈ ĐỌC**; không deploy/restart/sửa config/source/runtime trong RUN này.
+Report_Write_Path: chỉ `work/mcp-workspace/COLLAB.md`; không tạo repo report/view/task mới.
+Hồ sơ VPS: `/opt/incomex/work/mcp-workspace/MCPW-AD1-20260927/`.
 
-Căn cứ: MCPW §0.2(1)(2)(3)(4), N1–N7/P17/P18/P19; HJW P61–P64; DROOT22; DROOT24.
-JEV Host: gen-dec-1790471705-Zn5vjV7eAItb2Sf6Z4Mh — AUDIT_FIRST 1,00; giữ P02 không đổi trừ khi có regression cụ thể 0,89.
+## 0. Mục tiêu
+AD1 chỉ làm hai việc low-risk: (A) tăng độ tin cậy control-plane/Guard; (D) giảm polling GitHub chỉ-đọc bằng VPS-derived state.
+**AD1 không giải quyết “Agent âm thầm code”.** Pha B mới làm execution lifecycle. Không gọi §0.2(1)/(3)/(4) PASS sau AD1.
+P02 core = KEEP/FREEZE. GitHub vẫn durable SSOT + write authority.
+Căn cứ: DROOT22/DROOT24; N1–N9; audit `44dcb97`; P23/P24; Claude P25.
 
-## 0. Hai câu hỏi Owner bắt buộc trả lời bằng bằng chứng
+## 1. PRE
+Đọc AGENTS → root COLLAB → MCPW COLLAB §0/N1–N9/P20–P25 → PROMPT.
+Chụp baseline: ruleset 23976991; Agent Data/Claude MCP health + image/StartedAt; hashes `hvu_signals.py`, `workspace_snapshot.py`, `workspace_runtime.py`; HJW STOP/AUTO/gate/plugin/root-monitor; Guard/config-guard/Kuma; pending recovery/write; compose dirty cũ; owner/mode của sync-status/revisions.
+PRE fail hoặc mutation chen ngang không hòa giải được ⇒ DỪNG.
 
-### Q1 — START/FINISH có thực sự đáng tin?
-Owner cần hệ thống biết **một cách đáng tin cậy**:
-- AI/Agent nào đã nhận/bắt đầu làm;
-- AI/Agent nào đang có execution hợp lệ;
-- đã kết thúc chưa;
-- kết quả/báo cáo ở đâu;
-- ai tiếp theo.
+## 2. Scope
+Được sửa script/config/test hiện hữu của Protection Guard, HVU backstop, HJW deterministic gate/watchers/root monitor; thêm structured counter/log vào state/log hiện hữu.
+Có thể reload/restart đúng component bắt buộc bởi delta, theo PRE/POST/rollback; **không restart P02 gateways nếu không cần**.
+Cấm: sshd VERBOSE; auditd; đổi root key/SSH/sudoers/authorized_keys; execution ledger/hooks/lease; service/DB/port/key/token mới; sửa P02 source/image/freshness; model Hermes/AUTO; đổi ruleset; gây 429 thật; xóa GitHub fallback.
 
-Không được dựa vào Agent nhớ tự báo, commit cuối, polling may rủi hoặc câu “XONG” trong chat.
+## 3. Ruleset Guard — 3 trạng thái
+Kiểm khoảng 1 lần/giờ bằng cơ chế hiện hữu.
+PASS xanh chỉ khi khớp đủ: id=23976991, enforcement=active, target ~ALL, đúng 4 rule creation/update/deletion/non_fast_forward, bypass chỉ DeployKey.
+FAIL đỏ ngay: 200 lệch spec; 404; bằng chứng chắc chắn disabled/deleted/changed.
+UNKNOWN vàng: 403/429/5xx/timeout/DNS/parse/verification unavailable. Không false-green/false-red cấu hình. Tôn trọng Retry-After/reset; không retry trong cùng giờ khi backoff còn hiệu lực.
+Lưu `last_attempt`, `last_result`, `last_pass`; last_pass >2h ⇒ vàng một lần; >6h ⇒ đỏ liveness. Kuma/tin Owner mang last_attempt + last_pass.
+Fixture: lệch spec→FAIL, 404→FAIL, 429/timeout→UNKNOWN; không tamper ruleset production.
 
-Định nghĩa chuẩn để máy có thể cưỡng chế:
-- **DISPATCHED**: có assignment/RUN hợp lệ, chưa phải đang làm.
-- **CLAIMED/STARTED**: runner/gateway đã nhận execution, identity + work/RUN/role/scope/generation được xác thực, START bền đã ghi.
-- **ACTIVE_ACTIVITY**: có tool/process/checkpoint thật của execution.
-- **WAITING**: execution/process/session còn hợp lệ nhưng không có activity mới; không gọi đây là “AI đang suy nghĩ”.
-- **LOST/INTERRUPTED**: process/session/TTL mất.
-- **AWAITING_REPORT**: runner đã kết thúc nhưng thiếu KQ/P/report/artifact bắt buộc.
-- **REPORTED**: báo cáo/KQ/P + artifact/commit phù hợp đã có.
-- **VERIFIED/ACCEPTED**: Reviewer/Host đã nghiệm thu.
+## 4. Hermes control-plane drift
+Bao phủ whole-file hash + semantic keys của `config.yaml` gồm `approvals.*`, `jobs.json`, thư mục/plugins + enable/hash, platform toolsets/backend/gate/control, STOP/controller state.
+Alert chỉ path/key + hash/changed-key đã sanitize, không value/secret. Chưa có lifecycle evidence ⇒ `actor=CHƯA_XÁC_ĐỊNH`.
+Fixture copy đổi approvals.timeout/jobs/plugin phải bị bắt; không sửa config production để test.
 
-Yêu cầu “mọi trường hợp” áp cho **mọi hành động có thể tác động workspace/runtime do hệ thống quản**. Suy nghĩ/offline không phát event không thể quan sát và không được giả là đang làm. Nếu một đường mutation hiện có thể đi vòng monitored choke point thì tiêu chí §0.2(1) = CHƯA ĐẠT.
+## 5. Điều kiện tin VPS-derived state
+Chỉ tin local khi đủ TẤT CẢ:
+1. sync-status phản ánh lần **sync thành công** còn fresh;
+2. SHA published có `revisions/<sha>` đầy đủ, publish nguyên tử/immutable;
+3. revision không lùi/out-of-order;
+4. uid `hermes` không write/rename/replace được sync-status/revisions — negative permission test phải FAIL;
+5. Hermes chat/session không thể tự dựng assignment/revision cho chính mình;
+6. freshness giữ hợp đồng nhận việc ≤5′.
+Thiếu một điều ⇒ stale/untrusted; gate không wake; fallback GitHub tối đa một đường bounded có backoff.
+Webhook vẫn là đường nhanh. Backstop HVU hiện hữu đổi 15′ → **4′**, một poller/single-flight chung; không tạo poller/service mới.
 
-### Q2 — GitHub còn nằm ở hot path quá mức không?
-GitHub vẫn phải là durable SSOT + write authority.
-Nhưng:
-- tương tác/read/lifecycle/Owner View nên dùng VPS/local state;
-- read không được bị GitHub chậm kéo BUSY như sự cố cũ;
-- write vẫn revalidate GitHub trước commit/push;
-- không tạo SSOT Git thứ hai.
+## 6. Hermes gate/watchers dùng VPS trước
+Áp `ws-dispatch`, `ws-handoff-watch`, `ws-run-watch`.
+Local trusted/fresh ⇒ đọc exact revision/task từ VPS; **0** ls-remote/raw/REST GitHub cho quyết định đó.
+Giữ deterministic filter, claim, chống lặp, Owner approval, START/RESULT, STOP.
+Local stale/missing/out-of-order ⇒ tối đa một fallback GitHub bounded; không chứng minh assignment hiện hành ⇒ fail-closed `wakeAgent=false`; không model call.
+Mỗi consumer giữ switch `source=local|github`; không xóa đường cũ.
 
-Kiểm P02 hiện hành bằng source + runtime + metrics; **không tune/rewrite P02** nếu không có regression thật.
+## 7. HJW root monitor
+`hjw-control-root.py tick`: fresh SHA == accepted SHA ⇒ no fetch; SHA khác ⇒ đúng một bounded refresh/proof; stale/untrusted ⇒ bounded GitHub fallback.
+403/429/timeout phân loại riêng, không biến thành drift. UNKNOWN không false-green.
+Rollback: source=github + cadence cũ.
 
-## 1. G0 — read gate
+## 8. 403/429/backoff
+Tách auth/config · rate-limit · transient network/5xx/timeout · valid 404.
+REST đọc Retry-After / X-RateLimit-Reset khi có; không retry sớm. git/raw dùng bounded backoff, không tight-loop.
+Rate-limit + local fresh ⇒ dùng local; local stale ⇒ gate fail-closed/monitor UNKNOWN. P02/K8 write giữ nguyên.
+Test bằng local stub/fixture; cấm tạo 429 production.
 
-Đọc: AGENTS.md → root COLLAB.md → work/mcp-workspace/COLLAB.md §0/N1–N7/P17–P19 → PROMPT này.
+## 9. GitHub-call counter bền — không DB mới
+Mỗi remote-call path AD1 chạm ghi structured event vào log/state hiện hữu: timestamp, source/process/consumer, channel git-https|git-ssh|raw|REST, auth_class, purpose, result class, latency, fallback_used, safe revision/task.
+Không secret/IP/token. Counter tính calls/hour theo source, có cursor/dedupe/event identity để restart không double-count.
+Số ~160/h/~89/h cũ = `MEASURED_BY_EXECUTOR`, không invariant.
 
-Xác nhận:
-- READY exact;
-- MCPW-LOCK/ruleset vẫn active;
-- P02 source/runtime hiện hành và Protection Guard/Kuma healthy;
-- HJW CLOSED nhưng control runtime live, AUTO rỗng;
-- không có mutation MCPW khác đang STARTING;
-- `/opt/incomex/docker/docker-compose.yml` dirty cũ được nhận diện, không tự sửa.
+## 10. Rollback từng mục
+D1/D2 giữ switch local↔github; checker/config monitor có enable/disable config hiện hữu; counter thụ động.
+Lưu exact bytes/hash trước deploy. Diễn tập fixture rollback từng delta + một vòng thật local→github→local trong cửa sổ yên. Rollback không bật AUTO/fail-open/disable ruleset.
 
-Không đạt → KQ DỪNG, không mutation.
+## 11. Acceptance của Agent
+1. PRE/POST Guard PASS; ngoài-scope diff=0.
+2. P02 image/hash/StartedAt không đổi; không regression BUSY/OVERLOADED/GIT_FETCH_FAILED do AD1.
+3. Ruleset live PASS + mutants: lệch spec FAIL, 404 FAIL, 429/timeout UNKNOWN; last_attempt/last_pass đúng.
+4. Config fixture bắt approvals.timeout/jobs/plugin, không lộ value; actor unknown trung thực.
+5. uid hermes không write/rename/replace sync-status/revisions.
+6. Local fresh + GitHub read blocked/stubbed ⇒ gate đúng, 0 GitHub call, 0 model call.
+7. Local stale/missing/out-of-order ⇒ bounded fallback/fail-closed; không wake sai.
+8. Root monitor fresh/no change ⇒ no fetch; change/stale ⇒ bounded refresh.
+9. 429 stub tôn trọng backoff/Retry-After; không tight-loop/false PASS.
+10. HJW manual contract PASS; AUTO rỗng; STOP/approval/Telegram không hồi quy; 0 model call.
+11. Counter reconciliation 0 orphan/double; mutant bỏ đếm một source ⇒ reconciliation FAIL.
+12. Rollback từng delta exact; source switch lật thật một vòng an toàn.
+13. Live smoke 15′ ổn định; counter giảm periodic GitHub đúng hướng.
+Sau PASS ghi `KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H` rồi DỪNG; không sang Pha B.
 
-## 2. Phạm vi audit lifecycle — phải phủ tất cả bề mặt
+## 12. Host ACCEPT chỉ sau 24h counter
+Mục tiêu: periodic read-only GitHub toàn hệ ≤20 calls/h; Hermes gate fresh=0 ls-remote/raw/REST; REST anonymous periodic ≤2/h; 0 assignment/commit liên quan bị bỏ sót; assignment detection p95 ≤5′; ruleset checker hourly đúng, không false-green/liveness silent; counter đối chiếu sample SYN/network 10′ trong ±15%; mutant/counter-disabled làm reconciliation FAIL; P02 không regression.
+Chưa đủ 24h ⇒ giữ `HOST_ACCEPT_PENDING_24H`. Vi phạm ⇒ PARTIAL/DỪNG và xác định/rollback đúng delta nếu cần.
 
-Lập **LIFECYCLE_GAP_MATRIX** với từng dòng:
-`surface/path → actor identity source → session/execution id → work/RUN/scope binding → durable START? → activity source → terminal/finish signal → required report binding → mutation choke point → can bypass? → durable store/hook hiện hữu → verdict`.
+## 13. N9 — kiểm lại được độc lập
+Hồ sơ VPS phải có exact read-only verification commands + expected invariant (`VERIFY.txt` hoặc script read-only trong hồ sơ task, không repo file): ruleset state/liveness; config hashes/fixture; hermes permissions; source switches; calls/hour; p95 detect; counter reconciliation; P02 hashes/StartedAt/health; rollback state.
+Không chứa secret. Host nghiệm thu theo E1 scope diff · E2 runtime identity · E3 independent live/source check · E4 mutant FAIL · E5 reconciliation · E6 post-window+rollback.
 
-Tối thiểu:
-1. GPT/ChatGPT qua Agent Data master `workspace_*`.
-2. Agent Gateway profile (Hermes hiện hành).
-3. Claude Chat/Claude Code qua `fs_*`/claude-mcp.
-4. Claude Code CLI local process + terminal work trên Mac giữa hai MCP call; audit **official lifecycle hooks** và khả năng cưỡng chế ở managed policy/settings.
-5. Codex/runner nếu đang có đường production thực dùng; tìm lifecycle hook/runner callback/telemetry **chính thức hoặc choke point hiện hữu tương đương**, không giả định có tính năng giống Claude Code.
-6. `workspace_exec` + `workspace_task_*` queue/worker.
-7. SSH/operator/root runtime path hiện hành.
-8. Hermes interactive chat có terminal/file/cron/runtime capability.
-9. Owner emergency/bypass path.
-10. Owner View/HVU publisher/presence path.
-
-Không suy từ docs; đọc source/runtime/config/log thật. Không in secret.
-
-## 3. Điều tra lỗ “agent lẳng lặng code”
-
-Đối chiếu source hiện hành, đặc biệt:
-- `agent_data/hvu_signals.py`: transport/trust/touch/begin/finish/heartbeat;
-- store của `workspace_runtime.py`;
-- claude-mcp/fs gateway tương ứng;
-- runner/exec/task state;
-- SSH/auth/journal/audit hiện có;
-- Owner View publisher/HVU.
-
-**Claude Code hook candidate — bắt buộc audit, chưa được coi là lời giải sẵn:**
-- kiểm version/config thật trên Mac Owner và tài liệu chính thức cho `SessionStart`, `PreToolUse`/`PostToolUse`/`PostToolUseFailure`, `Stop`/`StopFailure`, `SessionEnd`, `TaskCreated`/`TaskCompleted`, `SubagentStart`/`SubagentStop`, `FileChanged`/`ConfigChange` nếu phù hợp;
-- phân biệt **session lifecycle** với **work execution lifecycle**: `SessionStart` chỉ chứng minh phiên mở/resume, `Stop` là kết thúc một turn, `SessionEnd` là kết thúc session — không tự chứng minh đúng `work-id/RUN_ID/scope`;
-- kiểm common hook input có `session_id`/cwd/tool/task/subagent data nào đủ bind; phần còn thiếu phải đến từ assignment/runner, không suy từ cwd/tên repo;
-- kiểm managed policy thực tế có áp được trên Mac hiện tại không. Nếu managed hooks được cấu hình, user/project `disableAllHooks` không được phép làm mất chúng; nhưng **không giả định managed tier đã được cài** trước khi audit;
-- đích nhận ưu tiên lifecycle/presence store hiện hữu trên VPS; không dựng webhook/service/DB mới trong RUN audit;
-- đánh giá cùng nguyên tắc cho Codex: nếu không có hook chính thức đủ mạnh thì nêu runner/wrapper choke point tối thiểu, không tự chế telemetry trong lượt này.
-
-Phải trả lời cụ thể:
-- khi Claude Code session bắt đầu nhưng chưa gọi gateway: VPS biết gì?
-- khi Claude Code đang edit/build/test local 1–5 phút giữa hai gateway calls: hệ thống có event sống nào không?
-- lần MCP read đầu tiên có tạo durable execution hay chỉ presence heuristic?
-- commit nhanh giữa hai poll có thể bị mất khỏi “đang/vừa làm” không?
-- process exit 0 nhưng quên KQ/report: hiện hệ thống gọi DONE hay không biết?
-- crash/terminal bị đóng: có terminal state nào bền không?
-- một runtime SSH change không có Git commit: ai/việc nào được ghi?
-- sự cố HJW `~/.hermes/config.yaml approvals.timeout:500` ngày 26/09 có thể quy actor/work/execution từ evidence hiện có không? Nếu không, ghi rõ nguyên nhân.
-
-Cho phép **probe chỉ đọc**:
-- một session SSH/read-only command `true/id/date/ss/read log` nếu cần để xem audit trail;
-- một local-only interval/no-op để đối chiếu VPS event gap;
-- queue/exec read-only/no-op nếu cần.
-Cấm sửa file/config/service chỉ để tạo evidence.
-
-## 4. Phân biệt identity
-
-Phải tách:
-- authenticated actor/profile;
-- surface label;
-- session_id;
-- execution_id;
-- RUN_ID/assignment_id.
-
-Không cho:
-- clientInfo/User-Agent/commit prefix tự trở thành trusted identity;
-- RUN_ID thay session/execution;
-- “Claude Code” chung cho nhiều terminal thành một execution.
-
-Nếu master routes hiện chỉ có display-label trust yếu, ghi PARTIAL; Agent Gateway profile server-auth là evidence mạnh hơn.
-
-## 5. START/FINISH enforcement candidate — reuse first
-
-Audit các thành phần hiện hữu trước khi đề xuất code:
-- gateway audit/idempotency;
-- `workspace_runtime.py` Queue/jobs/tasks SQLite/state;
-- existing operation/task/job ids + heartbeat;
-- `hvu-signals.json`;
-- fs gateway audit/state;
-- SSH/system journal/audit hook hiện hữu;
-- HJW lifecycle/notepad/dispatch;
-- Guard/Kuma.
-
-Chọn **một durable execution ledger/lifecycle source chung hoặc ghép từ store hiện hữu**; không dựng DB/service/server mới trừ khi chứng minh tất cả store hiện hữu không đáp ứng atomicity/recovery/cursor.
-
-Implementation plan sau audit phải nêu:
-- choke point nào phát START;
-- execution_id ai sinh, uniqueness/restart semantics;
-- heartbeat/activity lấy từ đâu;
-- process/session death → LOST;
-- exit → AWAITING_REPORT hoặc REPORTED;
-- report/KQ mapping;
-- lease/generation fencing;
-- Owner emergency path logging;
-- publisher cursor/dedupe/recovery;
-- cách chặn mutation khi thiếu active execution/lease.
-
-## 6. Scoped lease audit
-
-Không implement lease trong RUN audit, nhưng phải xác định chính xác vị trí enforce tối thiểu cho:
-- work-id + RUN_ID + role + scope + generation;
-- two independent scopes allowed;
-- overlapping mutation denied;
-- read-only Reviewer coexist;
-- stale generation denied;
-- crash TTL release/fencing;
-- handoff/preempt Owner/Host.
-
-Tìm xem gateway/runner hiện có lock/idempotency/version nào reuse được và cái nào **không thể thay lease**.
-
-## 7. GitHub hot-path audit — P02 không được “đập đi làm lại”
-
-Lập **GITHUB_HOTPATH_MATRIX**:
-`path/component → source/process → GitHub channel (git-ssh|git-https|REST) → auth/no-auth → read/write → calls/hour thực đo → cadence/trigger → holds request/lock? → cached/local fallback? → timeout behavior → rate-limit behavior → last 24h error evidence → needed? → action`.
-
-Tối thiểu:
-1. workspace_* read/search/list/stat/log/diff.
-2. fs_* read/search/list/stat/log/diff.
-3. both write paths.
-4. Owner View sync/publisher.
-5. lifecycle/presence/NEXT publisher.
-6. Hermes dispatch/backstop.
-7. any git ls-remote/fetch/pull polling jobs.
-8. Protection Guard/periodic jobs.
-
-Phải:
-- verify P02 `workspace_snapshot.py` / fs equivalent hashes/runtime;
-- đọc metrics 24h và timestamp lỗi, tách pre-P02 vs post-P02;
-- xác nhận hiện tại read answers `freshness/recheck_required`;
-- đo/đếm GitHub call **theo giờ và theo nguồn/process**, tách git-ssh / git-https / REST API, authenticated / anonymous nếu evidence cho phép; nêu nguồn nào chỉ đọc định kỳ có thể dùng VPS-derived state thay GitHub;
-- kiểm **rate-limit semantics** riêng với timeout/latency: xử lý 403/429, `Retry-After`/rate-limit headers nếu có, backoff/fallback và việc read last-good còn phục vụ. **Không cố tình spam GitHub production để tạo rate-limit**; dùng log/header lịch sử, code path, fixture/local stub hoặc evidence nhà cung cấp nếu cần;
-- kiểm riêng Hermes gate `git ls-remote` public theo cadence thật (~3 phút theo P21 nếu runtime xác nhận) và xem có thể chuyển sang VPS state/hint mà vẫn giữ correctness;
-- chứng minh GitHub chậm/down/rate-limited thì **lifecycle event store trên VPS vẫn ghi/đọc được**, Owner View có thể hiện last-known state + freshness; không cần GitHub cho từng heartbeat;
-- write vẫn revalidate GitHub, không hạ chuẩn.
-
-Nếu không tìm thấy regression P02: `P02_VERDICT=KEEP`. Không restart/deploy/tune.
-
-## 8. Acceptance audit A1–A12
-
-A1. Có matrix đủ 10 bề mặt lifecycle.
-A2. Có ít nhất một bằng chứng source/runtime cho từng verdict, không chỉ prose.
-A3. Chỉ rõ mọi blind spot hiện tại: local-only, SSH/runtime, master identity, exit-without-report, poll-gap.
-A4. Chỉ rõ đường nào đã machine-enforced và đường nào heuristic.
-A5. Sự cố Hermes config không rõ actor được đối chiếu, không đoán.
-A6. Có lifecycle state machine và minimal choke-point plan.
-A7. Có scoped-lease enforcement map.
-A8. Có GITHUB_HOTPATH_MATRIX đầy đủ.
-A9. P02 verdict dựa source/runtime/metrics; không dùng số error lịch sử không có timestamp.
-A10. Chứng minh hoặc bác bỏ: sau P02, read-side BUSY/OVERLOADED/GIT_FETCH_FAILED không còn regression hiện hành.
-A11. Không runtime/config/service mutation; 0 model Hermes call; không thêm service/DB/key/port.
-A12. Phân loại §0.2 (1)–(4): ENFORCED/PARTIAL/NOT_ENFORCED **theo đúng bảng `ĐÍCH ĐO ĐƯỢC — 27/09` ở §0.3**, không tự đặt tiêu chí mới; kèm số đo/bằng chứng và NEXT.
-
-## 9. Báo cáo
-
-Ghi vào **chính** `work/mcp-workspace/COLLAB.md`; thư mục MCPW không có `view.html`, **không tạo file/task/report mới**.
-
-Báo cáo phải có:
-- `LIFECYCLE_GAP_MATRIX`;
-- `GITHUB_HOTPATH_MATRIX`;
-- state machine;
-- minimal implementation pack chia phase nếu cần;
-- `P02_VERDICT`;
-- §0.2 verdict;
-- regression/out-of-scope observations;
-- rollback không áp dụng vì audit không mutation.
-
-Nếu audit đủ:
-`KQ@MCPW-LIFECYCLE-AUDIT-20260927-01 XONG`
-
-Nếu không đủ quyền đọc/bằng chứng:
-`KQ@MCPW-LIFECYCLE-AUDIT-20260927-01 DỪNG · <blocker>`
-
-**KQ XONG của audit không có nghĩa MCPW hoàn thành.** Sau audit Host mới phát implementation RUN; không tự implement trong cùng phiên.
+## 14. Báo cáo
+Chỉ cập nhật `work/mcp-workspace/COLLAB.md`. Ghi exact runtime delta/hashes/switches, acceptance 1–13, before/after smoke counters, verify commands, rollback, residuals, `P02_VERDICT=KEEP`, và nhắc rõ **Pha B chưa làm**.
+PASS smoke: `KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H`.
+Blocker: `KQ@MCPW-AD1-20260927-01 DỪNG · <lý do>`.
