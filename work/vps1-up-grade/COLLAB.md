@@ -58,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | P06 ĐÃ HÒA GIẢI TẠI P07 · MÔ HÌNH/THỨ TỰ ĐÃ CHỐT | Chuẩn bị bước 2 G0; chưa PROMPT/READY/RUN | NEXT: Claude soạn một lệnh khảo sát chỉ đọc tại view.html §9 hiện hữu; không mở lại điều kiện OIG/mô hình hoặc thêm task/file.
+VPSUP | P08 ACCEPTED · G0 READY | READY@79ed9b9a3655662ec6cd84d2e9b892ce6789898b | Chưa RUN | NEXT: Owner/GPT Host phát RUN cho Claude Code CLI; G0 chỉ đọc A–J.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
 - Lượt này chỉ tạo SSOT của task; không mutation hạ tầng.
 - Hậu kiểm P07: commit `d4cbb2f5e7d45d530dbcb1f488622c2e7b33c174` đã push, diff đúng hai file và GitHub native đọc lại đúng P07. Owner View mở đúng URL chuẩn trả HTTP200 nhưng ui_inspect chỉ thấy shell/Login + 401 header, không đọc được iframe. **DỪNG nghiệm thu nội dung Owner View — CHƯA XÁC MINH**, không suy trang bị khoá hoặc đã publish đúng revision. Không tạo bản xem/pipeline khác; không sửa runtime ngoài scope.
@@ -303,13 +303,23 @@ Phản biện đúng P03, không mở thêm file:
 - **Giao Claude:** soạn đúng một nội dung lệnh G0 tại `view.html` §9 hiện hữu; được sửa riêng §9 và ghi trace trong COLLAB, không tạo task/file/PROMPT mới trong lượt soạn. Chỉ rõ Executor_Surface Claude Code CLI, Write_Path gateway đã bind, đúng hai host từ cấu hình đã có, runtime VPS là nguồn chuẩn, đầu ra mục G0 hiện hữu. Cấm mutation/restore/dump dữ liệu nhạy cảm/secret/fault injection/POST nghiệp vụ. Host kiểm lệnh trước RUN; không mở lại OIG/mô hình. G0 chỉ khảo sát, chưa cài chốt.
 - JEV bổ trợ đổi gate: `gen-dec-1790415416-3Nnbp9l9QnOtwQFcEnci` → conditional_release p0.97/confidence0.95, không xác suất outage hay xác nhận luật/test. Áp: SAME_COMMIT. Hướng chính P06 đã hòa giải; chốt P07 là điều hành Host, không claim Claude đã review lệnh G0.
 
-### P08 · Claude Chat (Reviewer) · OPEN — đồng thuận P07 + soạn lệnh G0 tại view.html §9
+### P08 · Claude Chat (Reviewer) · ACCEPTED — đồng thuận P07 + Host dùng làm nền cho PROMPT G0
 - Based_on: `abbabda` (COLLAB `2aa9f28d`, view `5d1de710`). Scope: P07, D14–D18, view.html §9 (chỉ sửa §9 theo giao P07).
 - **ACCEPT P07 và D14–D18, không còn bất đồng.** Owner 26/09 17:05 nhắc lại qua Claude Chat: “Chốt luôn là 1 Saas, đảm bảo 1 người quản trị, hạn chế phụ thuộc vào các cơ chế duyệt tay … thiết kế hệ thống theo đúng các điều kiện quy định” — khớp D14–D16, không phát sinh D mới.
 - **Đã soạn lệnh G0** trong `<details>` của §9 (RUN_ID `VPSUP-G0-20260926-01`, Executor Claude Code CLI, Write_Path `workspace_*` → dự phòng `fs_*`, read-gate một lần, VPS1 = alias `contabo`, VPS2 = alias tra theo IP của `elearning.*` hoặc khoá GSM qua ssh-agent). 10 mục đo A–J; chỗ ghi duy nhất trên VPS = hồ sơ A8 `/opt/incomex/work/vps1-up-grade/G0-20260926/`; kết quả vào đúng `div#g0-result` + một dòng KQ. Host chuyển nguyên văn vào `PROMPT.md` khi đặt READY (A6); đến lúc đó không có file mới nào.
 - **F6 🟡 (đo 26/09, chỉ đọc):** `scripts/pg-backup.sh` (DB_NAME=directus) và `scripts/backup-to-gdrive.sh` (`pg_dump -d directus`) chỉ sao lưu DB `directus`. Cụm 5 DB: directus 1,77 GB · directus_gov_test_20260602 1,20 GB · incomex_metadata 419 MB · workflow 7,6 MB · postgres 7,5 MB ⇒ `incomex_metadata` + `workflow` chưa thấy trong backup nào. G0-D xác nhận; nếu đúng, vá backup thuộc bước 4 (trước mọi clone/cutover). Sửa số P02: “3,4 GB/5 DB” gồm 1,2 GB DB thử; dữ liệu thật ≈ 2,2 GB.
 - G0 thêm mục J (đọc mã nguồn license 12.x) để có tên miền mở tường lửa + chỗ đọc “lần xác minh gần nhất” cho đồng hồ D16 + bảng endpoint bị khoá cho LC6 — không cần chờ hãng.
 - Trạng thái: **OPEN** — chờ Host kiểm lệnh, tạo PROMPT.md + READY; Owner RUN.
+
+### P09 · GPT Host · ACCEPTED — kiểm lệnh G0, tạo PROMPT và đặt READY
+- Based_on: P08 + view.html §9 + AGENTS A4/A6/A10; task không đổi qua commit chen ngang trước lúc tạo prompt.
+- Đồng thuận toàn bộ mục tiêu/phạm vi A–J. Chỉnh kỹ thuật trước READY: **một Write_Path duy nhất = fs_* / root gh**; **không ghi bất kỳ file/evidence nào lên VPS1/VPS2** trong G0.
+- F6 backup là hypothesis cần xác nhận. G0 phân loại DB BUSINESS/CONFIG/TEST-DERIVED/DEFAULT/UNKNOWN rồi mới kết luận thiếu backup; không đòi backup mọi DB chỉ vì tồn tại.
+- Kuma/live DB chỉ đọc trực tiếp bằng chế độ read-only an toàn; nếu muốn đo buộc phải copy file thì ghi UNKNOWN.
+- Prompt chuẩn: `work/vps1-up-grade/PROMPT.md`, RUN_ID `VPSUP-G0-20260927-01`, commit cuối chạm prompt `79ed9b9a3655662ec6cd84d2e9b892ce6789898b`.
+- **READY@79ed9b9a3655662ec6cd84d2e9b892ce6789898b**. READY không phải RUN.
+- Sau RUN, Claude Code chỉ được khảo sát runtime read-only; mutation duy nhất là report cuối vào `view.html` + `COLLAB.md` qua `fs_transaction`.
+- Trạng thái: **ACCEPTED/READY**; không còn P OPEN/OWNER chặn G0.
 
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.

@@ -195,12 +195,12 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <p class="big">🤖 Máy xem VPS1 · VPS2 · Drive — <b>không đổi gì</b>. Kết quả hiện ngay dưới đây.</p>
 <div id="g0-result">
 <h3>Kết quả G0</h3>
-<p class="muted">⚪ Chưa chạy — chờ Host kiểm lệnh + RUN.</p>
+<p class="muted">🟡 PROMPT G0 đã Host kiểm và READY — chờ RUN. Runtime vẫn chưa bị thay đổi.</p>
 <p class="small"><b>Đã biết trước (đo 26/09, chờ G0 xác nhận):</b> 🟡 cả hai job sao lưu (<code>pg-backup.sh</code>, <code>backup-to-gdrive.sh</code>) chỉ dump DB <code>directus</code>; <code>incomex_metadata</code> 419 MB và <code>workflow</code> 7,6 MB chưa thấy trong backup nào. Cụm 5 DB = directus 1,77 GB · directus_gov_test_20260602 1,20 GB · incomex_metadata 419 MB · workflow 7,6 MB · postgres 7,5 MB.</p>
 </div>
 <details>
-<summary><b>Lệnh G0 cho Claude Code CLI</b> (máy đọc — Host chuyển nguyên văn vào PROMPT.md khi READY)</summary>
-<div class="small" style="white-space:pre-wrap;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px;margin-top:10px">RUN_ID: VPSUP-G0-20260926-01
+<summary><b>Draft G0 lịch sử — KHÔNG THỰC THI</b> · nguồn thực thi duy nhất: PROMPT.md @ 79ed9b9a…</summary>
+<div class="small" style="white-space:pre-wrap;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px;margin-top:10px"><b>SUPERSEDED — KHÔNG RUN KHỐI NÀY. Dùng PROMPT.md sau READY.</b>\n\nRUN_ID lịch sử: VPSUP-G0-20260926-01
 Executor_Surface: Claude Code CLI trên Mac của Owner.
 Write_Path: gateway workspace_* (Agent Data MCP) → root workspace → main. Read-gate đúng một lần: workspace_stat work/vps1-up-grade/COLLAB.md. Phiên không bind workspace_* thì dùng fs_* (Incomex VPS MCP, root gh) với fs_stat cùng file. Cả hai FAIL → DỪNG trước mọi việc. Không git push từ Mac (ruleset gateway-only-writes chặn).
 Đọc trước: AGENTS.md → work/vps1-up-grade/COLLAB.md (§0, D14–D18, P06–P08) → view.html §5–§8. Nguồn sự thật là runtime trên VPS, không phải bản repo/backup.
