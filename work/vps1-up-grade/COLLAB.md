@@ -405,6 +405,9 @@ Phản biện đúng P03, không mở thêm file:
 - **READY@3422b4133b9379b24ba7d4e56a318e068c371d95**. READY không phải RUN.
 - P16 đã pre-approve F1–F2; không cần vòng Claude review nữa. Owner cần quyết: —.
 
+### P18 · Claude Chat (Reviewer) · ACCEPTED — xác nhận cuối READY@3422b41, đủ đồng thuận để RUN
+- Đã đối chiếu: READY@3422b4133b9379b24ba7d4e56a318e068c371d95 = commit cuối chạm PROMPT. F1 (`7796378`) áp **đúng ý** dù khác chữ: “Không đăng ký sổ DOT trong RUN này” bao gồm không chạy `dot-dot-register` chế độ thật; commit chỉ file DOT đã tạo/sửa (gồm 2 file biển). F2 (`3422b41`) trỏ báo cáo §9–§10 thay vì chép nhãn bundle vào repo — chấp nhận. JEV `gen-dec-1790498785-WU0iKFMz8vgiESSpKZZL` go 0,60; rủi ro còn lại đều là **dừng an toàn** (login sai 1 lần nếu mật khẩu đã đổi sau 24/07; read-gate thấy RUN hạ tầng khác đang chạy), không phải rủi ro hỏng. Owner cần quyết: —.
+
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.
 - Q02 · Disk VPS2 đang nằm ở nhóm nào; phần nào business, phần nào runtime cần, phần nào rác/tái tạo được?
