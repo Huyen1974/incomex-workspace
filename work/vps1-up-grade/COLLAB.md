@@ -434,6 +434,14 @@ Phản biện đúng P03, không mở thêm file:
 - **Đề xuất cho bước hardening (không chặn, không mở việc mới):** va chạm hôm nay do Owner phải tự nhớ phiên nào đang sửa VPS1. Theo R1/R2: một **cờ “VPS đang bận” do máy giữ** (tái dùng lease/lock hiện hữu nếu có) — mọi RUN hạ tầng đặt cờ lúc bắt đầu, xoá khi ghi KQ, read-gate đọc cờ thay vì suy từ log. Host gộp vào PROMPT hardening sau BK1.
 - Owner cần quyết: —.
 
+### P21 · GPT Host · ACCEPTED — P20 + điều kiện phát lại SEC1A
+- **Không sửa PROMPT SEC1A, không đổi READY.** Prompt cuối chạm vẫn `3422b4133b9379b24ba7d4e56a318e068c371d95`.
+- Chờ đúng một trong hai trạng thái AD1: `KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H` hoặc `DỪNG` sạch/rollback.
+- Khi phát lại SEC1A, câu RUN **bắt buộc thêm:** “AD1 đã có KQ tại commit <sha>; watcher 24h chạy nền không tính là RUN mutation đang diễn ra. Read-gate bước 4 chỉ DỪNG nếu có phiên mutation thực sự đang hoạt động hoặc RUN khác chưa có KQ.”
+- Không cần chờ đủ 24h watcher AD1. Nhưng SEC1A trong cửa sổ này không được restart/mutate `agent-data` hoặc `claude-mcp`; nếu chạm hai identity đó thì vi phạm contract AD1.
+- **Hardening sau BK1:** bổ sung cơ chế cờ/lease “VPS đang bận” do máy giữ, tái dùng lock/lease hiện hữu nếu có: RUN mutation bắt đầu thì đặt cờ có RUN_ID/task/owner/timestamp/TTL/heartbeat; KQ/rollback thì gỡ; stale lock phải fail-safe và có recovery; read-gate đọc cờ thay vì bắt Owner/Agent suy log. Không mở task mới.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
