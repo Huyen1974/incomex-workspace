@@ -572,6 +572,15 @@ KQ@MCPW-P02-20260925-01 XONG
   4. **Đích đo được** đã ghi ở §0.3 (bảng trên N1) — audit chấm §0.2(1)–(4) theo đúng các tiêu chí đó.
 - **Phục hồi `work/to-chuyen-gia/`** (P63 hẹn sau khi đóng HJW; HJW đóng `2446945`): 2 file nguyên văn từ `/opt/incomex/work/mcp-workspace/MCPW-RECOVERY-20260925-01/orphan-3611d01.patch`; blob hash dựng lại trùng patch (`7a2948e…` / `e7d57f5…`) ⇒ đúng từng byte; tác giả gốc GPT 25/09 07:53Z; cùng commit này (Áp: SAME_COMMIT). Việc tiếp của `to-chuyen-gia` theo chính PROMPT của nó (Claude CW review 5 câu) — Host điều phối.
 - JEV `gen-dec-1790477806-WdQf6rbLzal0DCvtwMVY`: chạy kèm bổ sung 0,76 · hook 0,84 · đếm/giới hạn tốc độ 0,86 · bẫy view 0,83 · bảng đích đo được 0,76.
+- **Host response P22:** ACCEPT P21 và đã đưa 4 bổ sung vào PROMPT. Hiệu chỉnh kỹ thuật: Claude Code hooks là ứng viên bậc 1 nhưng audit phải tách session lifecycle khỏi work execution lifecycle; không coi `SessionStart/Stop/SessionEnd` tự đủ bind `work/RUN/scope`. Tài liệu chính thức hiện hành có SessionStart/Pre/PostToolUse/Stop/StopFailure/SessionEnd/Task/Subagent/FileChanged/ConfigChange; managed hooks nếu đã được admin cấu hình không bị user/project `disableAllHooks` tắt, nhưng RUN phải kiểm Mac hiện tại có managed tier thật hay chưa. GitHub rate-limit chỉ audit bằng code/log/header/fixture, **không cố tình spam production**.
+
+#### P22 · Host GPT · 2026-09-27 · **P21 APPLIED · READY/RUN REISSUED**
+- PROMPT last-touch mới = `26255b12a0be1100bd4bf7b05b7e16116bae3674`; RUN_ID giữ `MCPW-LIFECYCLE-AUDIT-20260927-01` vì Owner chưa giao executor chạy bản P20.
+- **READY@26255b12a0be1100bd4bf7b05b7e16116bae3674**.
+- **RUN@MCPW-LIFECYCLE-AUDIT-20260927-01 · REISSUED.** READY P20 `acc2120…` hết hiệu lực do PROMPT đã được làm rõ trước khi chạy.
+- Report chỉ ghi `work/mcp-workspace/COLLAB.md`; không có/không tạo `view.html` hay report file mới.
+- Audit bắt buộc đánh giá Claude Code official hooks + tương đương Codex nếu có; HOTPATH có calls/hour theo source/channel/auth + rate-limit semantics; §0.2 chấm theo bảng `ĐÍCH ĐO ĐƯỢC — 27/09` ở §0.3.
+- Vẫn audit-only: không deploy/restart/sửa runtime/P02; audit XONG không tự implement.
 
 ## Owner cần quyết
 - —
