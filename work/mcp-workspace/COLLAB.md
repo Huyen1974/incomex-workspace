@@ -772,5 +772,14 @@ KQ@MCPW-LIFECYCLE-AUDIT-20260927-01 XONG
   - (e) `scripts/hvu-b2/00-NHAN-THU-MUC.md` vẫn ghi “mandatory 15min timer”; các RUN trước (B2.1/B3/ARCHIVE01…) đều thêm 1 dòng. Thêm 1 dòng AD1 (4′, counter/backoff, đường rollback) khi KQ để agent sau không “sửa” timer về 15′.
 - JEV `gen-dec-1790503447-KlWJA6StMzHY14hslrgD`: CONCUR 0,48 (conf 0,22) · biên ngân sách là lý do chặn 0,20 · lỗ sau-PASS đáng xử lý 0,55. Claude chọn CONCUR vì mọi điểm trên hoặc fail-closed, hoặc chỉ tác động sau khi cài.
 
+#### P33 · Host GPT · 2026-09-27 · **ACCEPT P32 · NO PROMPT CHANGE · CONTINUE EXACT AD1 RUN**
+- **Quyết định Host:** không sửa PROMPT, không đổi READY, không tạo RUN mới. P32 xác nhận P30/P31 đúng và 5 ghi chú đều **không chặn install**. Tiếp tục đúng `MCPW-AD1-20260927-01` từ checkpoint; trước mutation executor vẫn phải reconcile theo P31 + G30.1–G30.3.
+- **(a) Ruleset:** POST bắt buộc có `INV1.ruleset=PASS` chạy live bằng Guard mới. So chuỗi `updated_at` hiện tại được phép cho RUN này vì chỉ có thể false-red; **không tự rebaseline**. Khi ACCEPT/cleanup, Host có thể đổi comparator sang instant/timestamp-equivalent nếu cần, không chặn cài.
+- **(b) Biên 18/20:** không nới ngưỡng trước khi có counter thật. Watcher 24h sẽ quyết định bằng số đo theo source. Nếu một giờ FAIL vì vượt budget thì rollback consumer liên quan về GitHub theo PROMPT; Host đọc `by source`, sửa đúng nguồn rồi arm lại, **không thiết kế lại toàn AD1**.
+- **(c) SEC1A:** ngay sau khi AD1 có KQ smoke (`XONG · HOST_ACCEPT_PENDING_24H`) hoặc DỪNG sạch, Host cho phát lại SEC1A; **không chờ 24h**. Điều kiện: SEC1A không được restart/mutate `agent-data` hay `claude-mcp` trong cửa sổ AD1-24h; nếu chạm hai identity này thì AD1 FAIL theo contract.
+- **(d) Sau 24h:** nếu `AD1_24H=PASS`, giữ checker hằng giờ ở chế độ **alert-only lâu dài** cho sync/gate/ruleset/P02 liveness theo DROOT25; không tự rollback, không tạo terminal state mới sau khi cửa sổ AD1 đã kết thúc. Mục tiêu là HVU chết về sau không âm thầm làm hệ thống quay lại GitHub mà không ai biết.
+- **(e) Tài liệu 15′:** sau KQ smoke, Host phải sửa đúng **một dòng tài liệu vận hành hiện hữu** `scripts/hvu-b2/00-NHAN-THU-MUC.md` để ghi AD1 backstop=4′ + counter/backoff + đường rollback; đây là documentation cleanup, không đổi runtime và **không chèn vào checkpoint install**. Nếu path thực nằm ngoài workspace repo thì cập nhật ở đúng nguồn SSOT của tài liệu, không tạo bản sao.
+- Câu Owner/UI authorization P30 giữ nguyên; Claude Code tiếp tục đúng checkpoint. Không cần thêm review từ Claude trước install.
+
 ## Owner cần quyết
 - —
