@@ -58,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | SEC1 B PASS · SEC1A-DOT DỪNG ở read-gate (MCPW-AD1 đang dở) | READY@3422b4133b9379b24ba7d4e56a318e068c371d95 | RUN SEC1A-DOT DỪNG 27/09 09:28 UTC, 0 mutation | NEXT: chờ KQ MCPW-AD1 → Host phát lại RUN SEC1A-DOT.
+VPSUP | SEC1 B PASS · SEC1A-DOT DỪNG sạch ở read-gate | READY@3422b4133b9379b24ba7d4e56a318e068c371d95 | 0 mutation | NEXT: MCPW P31 resume exact AD1 → có KQ AD1 rồi Host mới phát lại SEC1A-DOT.
 - KQ@VPSUP-SEC1A-DOT-20260927-01 DỪNG · 27/09 09:27–09:40 UTC · Claude Code CLI · read-gate bước 1–3 PASS (fs_stat bind; READY@3422b41 = commit cuối chạm PROMPT) · **bước 4 FAIL:** RUN `MCPW-AD1-20260927-01` đang dở trên VPS1 (checkpoints: PRE 08:03Z, BACKUP 08:47Z 9 file guard/HJW/HVU timer/kuma-push/crontab; fixture tới 08:58Z; chưa cài, chưa KQ; im ~30′, không phiên SSH khác). Phạm vi không chồng nhưng PROMPT ghi DỪNG; đã hỏi Owner → **Owner chọn DỪNG**. JEV `gen-dec-1790501369-HPV979wQDLyPIeOUXDb1` không chắc (proceed 0,56 / stop 0,40). **0 mutation:** chưa audit DOT/kho, chưa tạo DOT/biển, #620/#621 nguyên, B không đụng. P12 đã mang nhãn SUPERSEDED từ trước. Áp: SAME_COMMIT.
 - KQ@VPSUP-SEC1-20260927-01 DỪNG · 27/09 07:24–07:38 UTC · Claude Code CLI · **B ĐÃ ĐÓNG AN TOÀN:** VPS2 3307+8080 chặn internet cả IPv4 (DOCKER-USER ×2, conntrack cổng gốc) lẫn IPv6 (ip6tables INPUT ×1 — G0 sót: `docker-proxy` nghe `[::]`); từ Mac 3307/8080 đóng, 22/80/443 + e-learning 200; 0 restart, internal PASS; TEMPORARY_UNTIL_PERSISTENT_BINDING, rollback ở view §9. **A CHƯA ĐÓNG (0 mutation):** preflight A5 FAIL — không có khoá máy nào quản trị được permissions (admin active duy nhất = tài khoản Owner chỉ mật khẩu; break-glass `6abdec55…` suspended); PROMPT cấm mật khẩu Owner + SQL. Public #620/#621 vẫn nguyên, 0 lượt ẩn danh từ trước tới nay. JEV `gen-dec-1790494394-xVvgBxPYnQ3cOTgZvh4W`. Read-gate: RUN MCPW-AD1/MMIM-MOM01 đã phát nhưng không thấy mutation hạ tầng đang chạy trên VPS1/VPS2. view §10 ngoài phạm vi ghi của PROMPT nên chưa cập nhật. Áp: SAME_COMMIT.
 - KQ@VPSUP-G0-20260927-01 XONG · 27/09 03:10–03:50 UTC · Claude Code CLI · chỉ đọc: 0 mutation VPS1/VPS2, 0 file ghi trên VPS · A–G, I đo live; H ⚪ (API Contabo cần POST lấy token, PROMPT chỉ GET); J từ mã nguồn directus v12.3.1/v12.4.1 + docs. 🔴 4: Public ghi ẩn danh `approval_requests` (VPS1) · MySQL 5.7 cổng 3307 mở internet (VPS2) · `incomex_metadata` + `/opt/incomex/data` không có backup (F6 đúng) · e-learning không có bản trên Drive. VPS2 dọn được ≈ 26 GB (sổ ở view §9, chưa xoá gì). Áp: SAME_COMMIT.
@@ -418,6 +418,14 @@ Phản biện đúng P03, không mở thêm file:
 - Q06 · Final data cutover cần freeze bao lâu và có delta nào phát sinh ngoài PostgreSQL/uploads/config không?
 - Q07 · Backup VPS2→Google Drive dùng đường hiện hữu hay cần job riêng; restore proof thực hiện ở đâu?
 - Q08 · Những singleton/integration nào phải tắt/đổi đích trên clone để không tranh Telegram/GitHub/webhook/backup với VPS1?
+
+### P19 · GPT Host · WAIT-AD1 — không phát lại SEC1A trước KQ AD1
+- KQ SEC1A commit `34f996ff978ed2b18098da4eee3f9f5bf962ed0a` được ACCEPT: read-gate 1–3 PASS, gate 4 FAIL, Owner chọn DỪNG, 0 runtime mutation.
+- Blocker duy nhất là `MCPW-AD1-20260927-01` đang dở. MCPW P31 đã yêu cầu recover/resume exact RUN từ checkpoint, không chạy lại từ đầu.
+- READY/PROMPT SEC1A hiện không cần sửa; nhưng **không RUN lại** cho tới khi MCPW có `KQ@MCPW-AD1-20260927-01 XONG|DỪNG`.
+- Nếu AD1 XONG/HOST_ACCEPT_PENDING_24H: gate “mutation đang chạy” được coi đã kết thúc và Host có thể phát lại SEC1A ngay; không cần chờ đủ 24h AD1 vì watcher lúc đó chạy nền, không còn mutation install.
+- Nếu AD1 DỪNG sạch/rollback: Host kiểm runtime yên rồi phát lại SEC1A.
+- Owner cần quyết: —.
 
 ## Owner cần quyết
 - —

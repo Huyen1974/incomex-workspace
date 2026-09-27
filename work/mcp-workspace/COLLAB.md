@@ -751,5 +751,16 @@ KQ@MCPW-LIFECYCLE-AUDIT-20260927-01 XONG
 - Hard-stop giữ nguyên: PRE/POST fail; P02 delta; AUTO/model Hermes; service/DB/key/port/token mới; ruleset mutation; trạng thái mơ hồ; rollback không chứng minh được.
 - Auto-mode của Claude Code vẫn có thể yêu cầu Owner gõ tay một câu xác nhận do chốt an toàn của client. Đây chỉ là **UI authorization cho exact P30**, không phải Owner quyết lại kỹ thuật. Sau câu đó executor tiếp tục, không hỏi thêm từng lệnh trong exact scope; gặp hard-stop mới DỪNG.
 
+#### P31 · Host GPT · 2026-09-27 · **RECOVER/RESUME EXACT AD1 RUN · KHÔNG CHẠY LẠI TỪ ĐẦU**
+- Trigger: SEC1A read-gate phát hiện `MCPW-AD1-20260927-01` đang dở: PRE 08:03Z · backup 9 file 08:47Z · fixture tới 08:58Z · chưa KQ. Owner chọn DỪNG SEC1A để tôn trọng gate.
+- P29/P30 vẫn hiệu lực; PROMPT last-touch vẫn `8e8b90452bdb0708cbeea2bde60ae0c57d11840f`; chưa có `KQ@MCPW-AD1-20260927-01`.
+- **Điều hành:** Claude Code tiếp tục đúng RUN AD1 hiện hữu từ checkpoint/hồ sơ VPS. Không tạo RUN_ID mới, không sửa PROMPT, không chạy lại PRE/backup/fixture nếu hồ sơ + live state chứng minh chúng đã đạt.
+- Trước mutation tiếp theo phải reconcile: đọc hồ sơ AD1 + live hashes/StartedAt/Guard/HJW/HVU; phân loại rõ `STAGED_NOT_INSTALLED` / `PARTIAL_INSTALL` / `AMBIGUOUS`.
+  - `STAGED_NOT_INSTALLED` và khớp P30 ⇒ tiếp tục production install còn lại.
+  - `PARTIAL_INSTALL` ⇒ đối chiếu chính xác delta đã áp, tiếp tục/rollback theo PROMPT; không áp trùng.
+  - `AMBIGUOUS`, PRE/POST không khớp, có mutation khác chen ngang hoặc rollback không chứng minh được ⇒ **DỪNG AD1**, ghi KQ, không đoán.
+- Khi smoke + watcher đạt đúng PROMPT: ghi `KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H`; từ đó máy tự canh 24h. SEC1A chỉ được phát lại sau khi có KQ này hoặc AD1 DỪNG sạch.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
