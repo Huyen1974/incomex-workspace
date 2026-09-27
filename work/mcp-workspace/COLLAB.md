@@ -781,5 +781,68 @@ KQ@MCPW-LIFECYCLE-AUDIT-20260927-01 XONG
 - **(e) Tài liệu 15′:** sau KQ smoke, Host phải sửa đúng **một dòng tài liệu vận hành hiện hữu** `scripts/hvu-b2/00-NHAN-THU-MUC.md` để ghi AD1 backstop=4′ + counter/backoff + đường rollback; đây là documentation cleanup, không đổi runtime và **không chèn vào checkpoint install**. Nếu path thực nằm ngoài workspace repo thì cập nhật ở đúng nguồn SSOT của tài liệu, không tạo bản sao.
 - Câu Owner/UI authorization P30 giữ nguyên; Claude Code tiếp tục đúng checkpoint. Không cần thêm review từ Claude trước install.
 
+## KQ — MCPW-AD1-20260927-01
+Agent: Claude Code CLI trên Mac Owner · 27/09/2026 08:03–11:25Z · `READY@8e8b90452bdb0708cbeea2bde60ae0c57d11840f` (kiểm lại qua `workspace_log` ngay trước khi ghi) · theo P29 + P30/P31/P33; Owner gõ tay câu cho phép P30 lúc resume. Hồ sơ VPS: `/opt/incomex/work/mcp-workspace/MCPW-AD1-20260927/` (`checkpoints.log`, `backup/` + `SHA256SUMS.pre-AD1`, `stage/`, `fixture/`, `results/`, `bin/install-AD1.sh · rollback-AD1.sh · verify-AD1.sh · syn-sample.sh`). **Pha B CHƯA LÀM.** AD1 không giải quyết “Agent âm thầm code”; §0.2(1)(3)(4) vẫn PARTIAL. **P02_VERDICT=KEEP.**
+- **Gate trước cài.** P31: reconcile = `STAGED_NOT_INSTALLED` (7 file live trùng byte bản pre-AD1, chưa có switch, timer 15′, StartedAt P02 vẫn 25/09). G30.1: Guard chỉ PASS khi mọi field công khai khớp **và** `updated_at=2026-09-25T03:20:38.133Z`; lệch ⇒ FAIL, không tự học. G30.2: `/etc/hermes/hjw-ad1.conf` root:root 0644, chỉ ASCII, chỉ có `source.<4 consumer>` + `config_monitor`; uid hermes `test -w` file/thư mục = không; trên bản sao cùng quyền, ghi/mv/thay/ln/rm đều bị từ chối; file hỏng/nhị phân/thiếu ⇒ cả 4 consumer = github. G30.3: 0 lượt model thật — `usage_audit.jsonl` 4 dòng (dòng cuối 26/09 07:28Z), `agent.log` 256 `API call` trước = sau, không job agent nào chạy từ 27/09; “1 model” trong fixture là `AIAgent.__init__` được đếm trong netns với HOME tạm và key giả.
+
+| Delta (sha256[:16]) | Trước → sau | Việc |
+|---|---|---|
+| gate `~hermes/.hermes/scripts/hjw_gate.py` root:hermes 640 | `32639860…` → `88c18554…` | ws-dispatch/ws-handoff-watch/ws-run-watch (+ws-oneshot theo dispatch) đọc revision HVU đã publish khi đủ 6 điều kiện §5; nếu không: 1 fallback GitHub/10′/mode rồi fail-closed (`wakeAgent=false`); 403/429/5xx/timeout phân loại + backoff; switch `source=local|github` |
+| root `/opt/incomex/scripts/hjw-control-root.py` 750 | `65778fd8…` → `1b8a9cf3…` | mirror theo revision HVU: cùng SHA ⇒ không fetch; SHA mới ⇒ fetch cục bộ từ repo HVU + kiểm object/ancestry (0 GitHub). 403/429/timeout ⇒ `unknown=<lớp>` + `SOURCE_UNKNOWN`, không phải drift. Phủ thêm config.yaml (132 khoá), jobs.json (trường ổn định), plugins/ (5 mục) — chỉ khoá + hash, `actor=CHƯA_XÁC_ĐỊNH`. Đổi switch ⇒ 1 tin sự kiện |
+| Guard `/opt/incomex/scripts/mcpw-protection-guard` 755 | `7f5c1bac…` → `4b903bdb…` | INV1 ruleset 3 trạng thái, kiểm hằng giờ, liveness vàng >2h/đỏ >6h. e2e 5′ bằng đọc ghim `ref` (0 GitHub), e2e tươi hằng giờ. Bộ đếm journald + đối soát. Canh AD1 24h → Kuma #22 |
+| HVU `nuxt-repo/scripts/hvu-b2/sync.py` 644 | `cab69f13…` → `0e3440f0…` | đếm + phân loại mọi lượt ls-remote/fetch; backoff khi rate_limit/auth; chuông webhook (`event`) tách khỏi timer (`periodic`) |
+| timer `incomex-hvu-sync.timer` | `*:0/15` → `*:0/4` (`5950dd17…` → `83a0ce84…`) | một poller chung, flock sẵn có |
+| mới `/etc/hermes/hjw-ad1.conf` | — → 4× `local`, `config_monitor=on` | switch duy nhất (G30.2) |
+
+- Commit runtime VPS: `/opt/incomex` `75d646a` (guard + root), nuxt-repo `fb2454c` (sync.py + unit timer). Root re-baseline 10:27Z. Không restart service/container nào; crontab/`kuma-push.sh`/compose/P02/ruleset giữ nguyên; 0 service/DB/port/key/token mới. State mới nằm trong thư mục sẵn có: `/var/lib/incomex-mcpw-guard/{ruleset,ad1-watch,ghcall-counters,hourly}.json`, `~hermes/.hermes/cron/hjw_source_state.json`, `/opt/incomex/data/hvu-b2/gh-backoff.json` (chỉ tạo khi bị giới hạn).
+- **3 lỗi tự phát hiện lúc cài, đã sửa trước KQ:** (i) switch có ký tự `·` UTF-8 trong khi reader đọc ASCII ⇒ cả 4 consumer rơi về github (fail-safe) → file + mẫu cài giờ chỉ dùng ASCII; (ii) HVU ghi mọi lượt là webhook vì systemd luôn truyền `LISTEN_FDS` ⇒ backstop bị đếm thiếu → nay phân loại theo số kết nối chuông drain được; (iii) liveness đối soát ép cửa sổ <1h như 1h ⇒ báo “silent” giả → nay tỉ lệ theo độ dài cửa sổ (+1 mutant selftest).
+
+**Nghiệm thu Agent §11**
+1. PRE 08:03Z PASS · POST 11:09Z PASS · ngoài scope = none (chỉ `git.gh/ws/nuxt-repo.head`).
+2. P02: image/StartedAt/health + 5 hash nguồn = baseline. Log 2 cổng từ 10:20Z: 0 BUSY/OVERLOADED/GIT_FETCH_FAILED/RECOVERY; alerts K8 trống.
+3. Ruleset live PASS bằng Guard mới (10:26, 10:30, POST 11:09Z). Mutant: disabled / bỏ 1 rule / `updated_at` dời / thêm bypass / 404 ⇒ FAIL. 429 / 403 quota 0 / 403 / 502 / 200 hỏng / timeout ⇒ UNKNOWN. Retry-After ⇒ backoff. `last_pass` 3h ⇒ vàng, 7h ⇒ đỏ.
+4. Fixture root: `approvals.timeout` 180→500 ⇒ đúng 1 cảnh báo `CONFIG · khoá approvals.timeout · hash · actor=CHƯA_XÁC_ĐỊNH`, không lộ giá trị; đổi secret ⇒ chỉ hiện tên khoá; job mới/đổi schedule ⇒ JOBS; plugin mới ⇒ PLUGINS_DIR; trường biến động không báo; `config_monitor=off` ⇒ im.
+5. uid hermes: 8/8 đường HVU `denied`; gate tự kiểm `os.access` mỗi tick.
+6. Local tươi + GitHub bị chặn (netns): fixture 35/35 (thẻ/BẮT ĐẦU/one-shot/KẾT QUẢ/STOP), 0 lượt GitHub; tầng nguồn 12/12. Live 10:47–11:10Z: 4 consumer `local`, 0 lượt GitHub, 0 model.
+7. stale / status / thiếu revision / thời điểm tương lai / thiếu object / out-of-order / hermes ghi được ⇒ untrusted; 1 fallback rồi fail-closed với 0 request.
+8. Root: cùng SHA ⇒ 0 fetch; SHA mới ⇒ fetch cục bộ; stale+429 ⇒ 1 fallback rồi 0 request, sau 10′ báo `unknown=rate_limit` + SOURCE_UNKNOWN (không phải drift), hồi phục ⇒ HẾT; out-of-order ⇒ mirror không lùi.
+9. Stub 429/403/503: Retry-After/X-RateLimit-Reset được tôn trọng; trong backoff 0 request (gate, root, HVU, Guard).
+10. HJW: fixture HJW-FINAL gate 33/33 + root 34/34 với code mới. Live: STOP OFF, AUTO `()`, root conditions [], Kuma #21 UP liên tục. Telegram: 5 tin SWITCH (mid 51–55) đúng khuôn, không cảnh báo khác. 0 model.
+11. Đối soát: declared = events cho mọi run, 0 mồ côi/trùng; mutant bỏ sự kiện hvu-sync ⇒ FAIL; replay từ đầu ⇒ thêm 0 (61 id); sự kiện mang uid sai ⇒ bị loại.
+12. Diễn tập rollback 5 delta vào thư mục tạm: đúng byte + chủ/quyền; công tắc tắt Guard/root OK. Vòng thật `local→github→local` 11:03:41→11:04:57Z: ở github dispatch 2 lượt, root 1 lượt; về local 0 lượt.
+13. Smoke 15′ ổn định (bảng dưới). Canh 24h đã cài; Kuma #22 nhận FIXTURE xanh 11:08:26Z, đỏ 11:08:28Z, rồi nhịp thật UP “AD1 0/24” 11:08:35Z.
+
+| Bộ đếm journald `incomex-ghcall` (MEASURED_BY_EXECUTOR) | định kỳ+fallback | /h | REST ẩn danh | nguồn |
+|---|---|---|---|---|
+| github 10:32:28–10:42:28Z (10′) | 19 | 114 | 1 | gate 12 (ls-remote/raw/REST), root 5, HVU 2 (+3 lượt HVU do webhook) |
+| local 10:46:47–11:01:47Z (15′) | 4 | 16 | 0 | chỉ HVU backstop 4′; gate/root 0 |
+
+- Mức ổn định dự kiến ≈ 15 (HVU) + ~3 (Guard hằng giờ: 1 ruleset + 2 lượt P02 e2e tươi) ≈ 18/h ≤ 20 — biên mỏng, như P32(b).
+- SYN 10′ (thụ động, cổng 443 tới dải GitHub v4 + Fastly v6): github 27 so với dự kiến 26 (+3,8%, trong ±15%); local 5 so với 4 (lệch 1 kết nối, +25% vì mẫu nhỏ). Kết nối dư ở cả hai mẫu = `hermes-gateway` (pid 2913726) gọi GitHub Pages `…::153` khoảng 20′/lần (10:34:08 / 10:54:09 / 11:14:09Z, bắt bằng `ss -tnp`) — nội bộ Hermes, không đọc workspace ⇒ quy nguồn 100% (27 = 22 + 4 P02 do client đọc + 1; 5 = 3 + 1 + 1).
+- Phát hiện thật ở chế độ local: `0fae5e8` commit 11:09:53 → HVU publish +9 s (webhook) → ws-dispatch +21 s; `3fb8af0` → +9 s → +167 s.
+
+**Canh 24h (máy giữ)**
+- Bật 11:08Z. Chấm mỗi 60′ trong Guard periodic (cron */5 sẵn có) → Kuma #22; nhịp chấm đầu ~12:08Z.
+- 24 nhịp xanh liên tiếp ⇒ ghi `AD1_24H=PASS <from>→<to>` vào `AD1_24H.txt` trong hồ sơ + tin Owner.
+- Một nhịp đỏ ⇒ `AD1_24H=FAIL <mục>` + lật consumer liên quan về github + tin Owner + #22 DOWN.
+- Không chấm >2h ⇒ #22 DOWN.
+- Host kiểm lại: `bin/verify-AD1.sh` (chỉ đọc, dòng đầu = AD1_24H, 11 mục kèm EXPECT); bản chạy lúc KQ ở `results/verify-at-KQ.txt`.
+
+**Rollback**
+- Mềm (chỉ đổi switch): `bin/rollback-AD1.sh sources-github`.
+- Từng delta: `… gate|root|hvu-sync|hvu-timer|guard|switch-file`; toàn bộ: `… all`; chỉ xem/diễn tập: `--check` / `--rehearse DIR`.
+- Tắt tính năng Guard: `/var/lib/incomex-mcpw-guard/ad1.conf` (`ruleset_check|ad1_watch|e2e_ref=off`); tắt giám sát mới của root: `config_monitor=off`.
+
+**Residual cho Host**
+- (a) GitHub Pages của hermes-gateway ~3/h nằm ngoài bộ đếm; nếu “toàn hệ” tính cả Pages thì Host quyết (AD1 không sửa Hermes).
+- (b) Lượt fetch P02 do client đọc không có sự kiện (P02 freeze), không thuộc định kỳ; khi đối chiếu phải dùng bộ lấy mẫu 1 Hz.
+- (c) Mỗi lần chạy Guard PRE/POST hoặc `ruleset` trong 24h = +1 REST ẩn danh (ngưỡng ≤2/h).
+- (d) Một giờ đỏ = FAIL cả lượt + lật về github (P33b).
+- (e) Baseline root mới lấy config hiện tại (gồm `approvals.timeout=500` từ 26/09) làm mốc.
+- (f) Chế độ alert-only sau khi có AD1_24H (P33d) và dòng tài liệu 15′→4′ trong `00-NHAN-THU-MUC.md` (P33e) là việc của Host, AD1 chưa làm.
+- (g) Fixture HJW gốc chạy từ phiên root đã ghi vài sự kiện `run` uid hermes ngoài unit gateway vào journald; bộ đếm loại chúng theo `_SYSTEMD_UNIT`, đúng thiết kế.
+
+KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H
+
 ## Owner cần quyết
 - —
