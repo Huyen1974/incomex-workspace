@@ -1,6 +1,6 @@
-# PROMPT — MMIM-MOM02 · Master nhiều tầng + Master Home pilot
+# PROMPT — MMIM-MOM03 · ⌂ Master Home trước · ký hiệu/màu trước chữ
 
-RUN_ID: MMIM-MOM02-20260927-01
+RUN_ID: MMIM-MOM03-20260927-01
 STATUS: Chỉ chạy sau READY đúng commit cuối chạm PROMPT.md và RUN của Owner/GPT Host.
 
 Host: GPT Chat · Host_ID `GPT-MMIM-260920-A`
@@ -10,218 +10,314 @@ GitHub native/App/API/CLI: READ-ONLY.
 
 ## 0. Gate
 
-Đọc: repo `AGENTS.md` → README D12 → `work/mow-mot-moit-mout/COLLAB.md` §0 + D44/D46/D49–D53 + KQ -03 → file này.
-Root `ui`: `AGENTS.md`, `README.md`, `eco-nav.js`, `master-of-master-v1.html`, `ui-child-from-parent-v1.js`, `ui-child-content-v1.js`, `master-list.js`, `mot-theme-v1.css`, `mot-master-v1.html`, `child-ui-registry.json`.
+Đọc repo:
+`AGENTS.md` → README D12 → `work/mow-mot-moit-mout/COLLAB.md` §0 + D44/D46/D49–D54 + KQ MOM02 → file này.
 
-Đọc `ban-duyet.html` CHỈ các phần dữ liệu Master/Step/UI hiện hành để lấy dữ liệu đã có; không nghiên cứu lại lịch sử/PG/Directus/JEV.
+Đọc root `ui`:
+`AGENTS.md`, `README.md`, `eco-nav.js`, `master-home-v1.html`, `master-of-master-v1.html`,
+`ui-child-content-v1.js`, `ui-child-from-parent-v1.js`, `master-list.js`, `mot-theme-v1.css`,
+`mot-master-v1.html`, `child-ui-registry.json`.
 
-Giữ toàn bộ phần RUN -03 đã đạt; không rollback.
-Nếu nguồn thay đổi làm quyết định dưới đây sai → DỪNG trước mutation.
+Đọc `ban-duyet.html#ui-master` + phần Master/Step/UI hiện hành CHỈ để lấy evidence đã có.
+Không nghiên cứu lại lịch sử/PG/Directus/JEV.
 
-## 1. Chốt kết quả RUN -03
+Giữ toàn bộ MOM02 đã đạt:
+84/84 · 5 pilot · 10/10 menu đỏ · regression 3/3.
+Không rollback.
 
-Host chấp nhận phần lõi RUN -03:
-- Master of Master đã dùng đúng UI.MASTER live;
-- 84/84 mã/tên;
-- renderer/theme/parent không đổi;
-- 7 mục APPS đã đỏ đúng.
+Nếu nguồn hiện hành làm các khóa dưới đây sai → DỪNG trước mutation.
 
-RUN -03 DỪNG chỉ vì `eco-nav.js` còn 3 mục APPEND MOW không xanh:
-- Nháp 1 - MOW Master list
-- Ghép miếng - SSOT
-- Nháp MOW T1
+## 1. Owner chốt UX mới
 
-Theo Owner, cả ba cũng **KHÔNG DÙNG · CHỈ THAM KHẢO**.
+MOM02 đúng dữ liệu nhưng khó dùng.
 
-## 2. Kiến trúc nhiều tầng đã chốt
+Nguyên tắc mới:
+
+> **Bấm Master một lần → vào ⌂ Trang chủ Master trước.**
+> **Từ Home mới vào ☷ 84 (Master of Master) hoặc từng Master/khu vực.**
+
+Không bắt người chọn 1 mã trong dropdown 84 dòng trước.
+Không đổ bảng dài ở Home.
+Không dùng câu dài khi ký hiệu + màu thay được.
+
+Vòng điều hướng bắt buộc:
 
 ```
-Master
-└─ Master of Master                   L0
-   ├─ Master MOW / T2
-   ├─ Master MOT / T1
-   ├─ Master MOIT / T0.5
-   ├─ Master MOUT / T0.5
-   ├─ Master Field / T0
-   ├─ Master T3…T7 và Master dùng chung khi có nguồn
-   └─ ... đủ 84 Master
-        ↓ mở một Master
-      Master Home                     L1
-        ├─ Tổng quan
-        ├─ Danh sách                  1 nhánh
-        ├─ Step                       1 nhánh
-        └─ UI                         1 nhánh
+[Master] → ⌂ HOME → ☷84 → 1 Master → HOME của Master
+            ↑                         ↓
+            └────────── ⌂ ───────────┘
 ```
 
-Không ép Master dùng chung/Tool/Process/UI vào T0–T7 nếu nguồn không nói vậy.
+Không dead-end.
 
-**Một Home cha duy nhất** cho mọi Master: không tạo 84 file.
-Route logic: `master-home-v1.html?master=<MASTER_CODE>`.
+## 2. Ngôn ngữ hình/màu duy nhất
 
-Trong RUN này chỉ làm dữ liệu pilot cho:
-**MOW · MOT · MOIT · MOUT · Field**.
-79 Master còn lại mở Home cùng khuôn nhưng ghi rõ CHƯA LÀM/CHƯA GẮN DỮ LIỆU; không bịa.
+Ưu tiên hình/ký tự đã quen hơn chữ:
 
-## 3. Tiến độ con người nhìn được
+- **xanh + ✓** = chốt/đạt
+- **vàng + ◐** = đang làm / có bản / chờ chốt
+- **đỏ + !** = vướng
+- **xám + ○** = chưa làm / chưa có evidence
 
-Không dùng trạng thái kỹ thuật dài làm mặt chính.
+**Không dùng cam.**
+Màu luôn đi cùng ký hiệu.
+Dùng biến màu sẵn trong `mot-theme-v1.css`: `--ok`, `--warn`, `--bad`, neutral/ink; không tạo palette mới.
 
-Mỗi Master có 5 trục tiến độ:
-1. **Thiết kế**
-2. **Label**
-3. **Step**
-4. **UI**
-5. **Tổng**
+Mặt người chỉ dùng mã ngắn:
+- `TK` = Thiết kế
+- `LB` = Label
+- `CF` = Config / trường config
+- `ST` = Step
+- `UI` = UI
+- `Σ` = Tổng
 
-Từ vựng chuẩn:
-- Thiết kế: `CHƯA CÓ` · `CÓ BẢN` · `CHỜ OWNER CHỐT` · `ĐÃ CHỐT`
-- Label: `CHƯA RÀ` · `ĐANG RÀ` · `CHỜ OWNER CHỐT` · `ĐÃ CHỐT`
-- Step: `CHƯA CÓ` · `CÓ DANH SÁCH` · `ĐANG RÀ` · `ĐÃ CHỐT`
-- UI: `CHƯA GẮN` · `CÓ UI` · `ĐANG RÀ` · `ĐÃ CHỐT`
-- Tổng: `⚪ CHƯA LÀM` · `🟡 ĐANG LÀM` · `🟠 CHỜ OWNER` · `🔴 VƯỚNG` · `🟢 ĐÃ CHỐT`
+Ví dụ mặt chính:
+`TK ✓   LB ◐   CF ○   ST ◐   UI ◐   Σ ◐`
 
-**Cấm suy “ĐÃ CHỐT” từ việc có file/UI.**
-Chỉ ĐÃ CHỐT khi COLLAB/nguồn có quyết định Owner rõ.
-MOW/MOT/MOIT/MOUT/Field hiện có nhiều thiết kế/UI nên ít nhất có thể là CÓ BẢN/CÓ UI; mức cao hơn phải có bằng chứng.
+Chữ đầy đủ + nguồn evidence chỉ ở:
+`title` / tooltip / aria-label / panel chi tiết khi bấm.
 
-Metadata kỹ thuật cũ Design/Config/UI/Nguồn của RUN -02 vẫn giữ dưới chi tiết, không mất.
+### Quy tắc Σ
+1. Có blocker thật → đỏ !
+2. Cả 5 trục ○ → xám ○
+3. Cả 5 trục ✓ → xanh ✓
+4. Còn lại → vàng ◐
 
-## 4. Việc A — đóng hygiene menu
+## 3. Evidence: không tô xanh bằng suy đoán
 
-Trong runtime DOM của đúng 4 Mẹ MOW/MOT/MOIT/MOUT:
-- mọi mục bắt đầu `✅` giữ nguyên;
-- mọi mục còn lại phải hiển thị `🔴 KHÔNG DÙNG · <tên>`;
-- description bắt đầu `Chỉ tham khảo ·`;
-- URL giữ nguyên.
+Mỗi dấu ✓ phải có evidence pointer.
 
-Current baseline = **10 đỏ** = 7 APPS + 3 APPEND.
-Acceptance đếm **DOM sau tất cả APPEND**, không chỉ mảng APPS.
-Không áp luật này cho nhóm Master hoặc Đã loại trong RUN này.
+### TK
+Nguồn `ban-duyet.html#ui-master` hiện ghi:
+**“UI Master (đã duyệt)” / “ĐÃ DUYỆT”**
+và quy chuẩn UI cha → UI con.
 
-Ưu tiên sửa nguồn 3 APPEND cụ thể; không thêm engine/framework.
+Vì 5 Master pilot MOW/MOT/MOIT/MOUT/Field:
+- đều có Master list canonical đang dùng,
+- đều đi theo UI.MASTER đã duyệt,
 
-## 5. Việc B — Master of Master V2
+=> trong RUN này **TK của 5 pilot = xanh ✓**.
+Tooltip phải ghi nguồn: `UI Master · ĐÃ DUYỆT`.
 
-Vẫn dùng UI.MASTER parent; **không sửa** `master-list.js`, `mot-theme-v1.css`, `mot-master-v1.html`.
+Không suy TK ✓ cho 79 Master còn lại nếu chưa chứng minh cùng điều kiện.
 
-Mặt list giữ nguyên layout cha. Adapter được đổi label/data để người thấy:
-- Mã
-- Tên Master
-- Nhóm / tầng nếu đã biết
-- Quản lý gì
-- Thiết kế
-- Label
-- Tổng
+### LB
+Registry/nguồn đang có nhiều dòng “Rà nhãn/config sau”.
+Có label nhưng chưa chốt → vàng ◐.
+Không có evidence label → xám ○.
+Chỉ xanh ✓ nếu có quyết định Owner/evidence ghi rõ label đã chốt.
 
-Step/UI chi tiết nằm ở Master Home, không nhồi thêm cột làm vỡ cha.
+### CF
+Có config/trường config bản nháp hoặc cần rà → vàng ◐.
+Chưa thấy config → xám ○.
+Có mâu thuẫn/blocker → đỏ !.
+Chỉ xanh ✓ khi nguồn ghi rõ config/trường config đã chốt.
 
-Mỗi row click/open phải đi tới:
-`master-home-v1.html?master=<code>`
-không đi thẳng vào một UI cũ bất kỳ.
+### ST
+Có danh sách Step hiện hành nhưng chưa được Owner chốt toàn bộ → vàng ◐.
+Chưa có → xám ○.
+Chỉ xanh ✓ khi có evidence Step đã chốt.
 
-Ở summary đầu Master of Master phải thấy:
-- tổng 84
-- bao nhiêu CÓ BẢN thiết kế
-- bao nhiêu CHỜ OWNER
-- bao nhiêu VƯỚNG
-- việc tiếp theo ngắn gọn.
+### UI
+Có mapping/UI hiện hành → vàng ◐, trừ khi nguồn ghi rõ bộ UI của Master đó đã chốt.
+UI đỏ không được tính đạt.
+Không có mapping → xám ○.
+Blocker/mâu thuẫn → đỏ !.
 
-Không tự đổi mã/tên 84.
+**Không dùng “có file” = ✓.**
 
-## 6. Việc C — tạo một UI cha mới: UI.MASTER.HOME candidate
+## 4. Việc A — nút Master mở HOME ngay
 
-Được tạo đúng **01 file mới**:
+Sửa tối thiểu `eco-nav.js`:
+
+- MOW/MOT/MOIT/MOUT giữ popup/hành vi hiện tại.
+- Chip `Master` bấm 1 lần → điều hướng thẳng:
+  `./master-home-v1.html`
+- Không mở popup Master khi bấm chip.
+- Master active/on khi đang ở:
+  `master-home-v1.html` hoặc `master-of-master-v1.html`.
+- Giữ toàn bộ dữ liệu children cũ trong source; không xóa lịch sử.
+- 10/10 đỏ của 4 Mẹ giữ nguyên.
+
+Không tạo nút mới ở thanh 4 Mẹ.
+
+## 5. Việc B — biến master-home-v1.html thành HOME thật
+
+**Không tạo file mới.**
+Dùng chính:
 `master-home-v1.html`
 
-Đây là **candidate parent**, chưa cấp UI-xxx và chưa thêm menu 4 Mẹ/Master.
-Mọi Master dùng chung file qua query `?master=<code>`.
+Hai mode:
 
-Thiết kế phải “nhìn cái hiểu ngay”:
-Tầng 1 không cuộn:
-- Tên + mã Master
-- Nhóm/tầng
-- 5 trạng thái Thiết kế/Label/Step/UI/Tổng
-- 3 số: số dòng trong List (nếu biết) · số Step · số UI đang dùng
-- **Việc tiếp theo** tối đa 2 dòng.
+### B1. Không có `?master=` → ⌂ MASTER HOME GỐC
 
-Ngay dưới là 4 nhánh, cùng vị trí cho mọi Master:
-1. `Tổng quan`
-2. `Danh sách`
-3. `Step`
-4. `UI`
+**Xóa dropdown 84 Master khỏi mặt người.**
 
-Không thêm nhánh khác trong RUN này.
+Tầng 1 phải là hub cực ngắn, không cuộn ở 1280:
 
-### Nhánh Danh sách
-- chỉ link UI đang được phép dùng (✅) nếu có;
-- UI đỏ chỉ hiện dưới mục nhỏ `Tham khảo · không dùng`, không làm nút chính;
-- nếu chưa có list canonical xanh → ghi `CHƯA CHỐT LIST`, không lấy màn đỏ làm thay.
+Trung tâm:
+`M` hoặc `⌂ MASTER`
 
-### Nhánh Step
-Lấy dữ liệu đã có trong `ban-duyet.html` cho đúng Master pilot.
-Mỗi dòng tối thiểu: Mã Step · Người làm gì · UI dùng · Trạng thái.
-Không invent Step mới.
+Các nút lớn quanh/bao hub:
+- `☷ 84` → Master of Master
+- `T2` / MOW → Home MOW
+- `T1` / MOT → Home MOT
+- `I` / MOIT → Home MOIT
+- `O` / MOUT → Home MOUT
+- `F` / Field → Home Field
 
-### Nhánh UI
-Lấy từ `child-ui-registry.json` + menu runtime:
-- ✅ = `ĐANG DÙNG`
-- 🔴 = `CHỈ THAM KHẢO`
-Mỗi dòng: Mã/nhãn · Tên · parent_id/cha · URL · trạng thái.
-Không coi UI có file là đã chốt label/config.
+Có thể dùng layout vòng/hub-and-ring hoặc grid vòng kín, nhưng phải nhìn như **một trung tâm → các khu vực**, không như bảng/menu dài.
 
-## 7. Pilot 5 Master
+Mỗi nút pilot chỉ thêm:
+- 1 ký hiệu Σ màu
+- tối đa 1 số nhỏ nếu cần
+- không đoạn mô tả.
 
-Phải làm đầy Home cho:
-- MOW
-- MOT
-- MOIT
-- MOUT
-- Field
+Dòng tổng hợp cực ngắn:
+`☷84 · TK✓<n> · !<n>`
+(n lấy từ dữ liệu thực).
 
-Dùng dữ liệu nguồn hiện có. Không cần toàn bộ 84.
+Không có bảng 84 ở Home gốc.
 
-Đối với mỗi Home, đầu trang phải trả lời trong 10 giây:
-1. Master này quản lý cái gì?
-2. Thiết kế/label/step/UI đang đến đâu?
-3. Có bao nhiêu Step và UI đã kê?
-4. Đang vướng gì?
-5. Tiếp theo làm gì?
+### B2. Có `?master=<code>` → HOME của một Master
 
-Những gì chưa có nguồn → OPEN; không suy.
+**Không dropdown.**
 
-## 8. Không làm trong RUN này
+Đầu trang:
+- `⌂` → Home gốc
+- `☷` → Master of Master
+- mã + tên Master
 
-- không PG/Directus/runtime
-- không thêm UI ID mới
-- không sửa renderer/theme/parent UI.MASTER
-- không hoàn thiện 79 Master còn lại
-- không Tool/Process/Factory
-- không sửa Step/UI nghiệp vụ; chỉ đưa dữ liệu đã bàn lên Home
-- không tạo file ngoài `master-home-v1.html`
-- không sửa `ban-duyet.html`
+Ngay dưới:
+`TK [state]  LB [state]  CF [state]  ST [state]  UI [state]  Σ [state]`
 
-## 9. Acceptance
+Sau đó 5 nút/khu vực, ưu tiên icon:
+- `☷` = List
+- `→` = Step
+- `▦` = UI
+- `⚙` = CF
+- `i` = nguồn/chi tiết
 
-1. Menu runtime 4 Mẹ: 10 đỏ, 0 mục không-✅ mà chưa đỏ; các ✅ không đổi URL/label.
-2. Master of Master vẫn 84/84, đúng UI.MASTER parent.
-3. Mỗi row mở đúng Master Home theo code.
-4. Master Home là 1 file dùng chung; query đổi Master đổi dữ liệu, layout không đổi.
-5. 5 pilot MOW/MOT/MOIT/MOUT/Field có dữ liệu thật; 79 còn lại ghi OPEN/CHƯA LÀM.
-6. Không có trạng thái ĐÃ CHỐT nếu không có evidence Owner.
-7. 5 pilot có nhánh Tổng quan/Danh sách/Step/UI đúng cùng thứ tự.
-8. Step/UI pilot lấy từ nguồn hiện có, không invent.
-9. UI đỏ không được dùng làm action chính.
-10. 1280 và 390: mặt đầu Home hiểu được, không tràn ngang trang.
-11. `master-list.js`, `mot-theme-v1.css`, `mot-master-v1.html` hash không đổi.
-12. Field/MOIT/MOUT child masters vẫn regression PASS.
-13. Ghi:
-`KQ@MMIM-MOM02-20260927-01 XONG`
+**Home chính là Tổng quan nên bỏ tab “Tổng quan”.**
+
+Nút có count nhỏ:
+- List: số dòng nếu biết
+- Step: số Step
+- UI: số UI
+- CF: số trường/config nếu biết; chưa biết = ○
+- i: không cần count
+
+Ở desktop có thể có chữ cực ngắn dưới icon.
+Ở mobile ưu tiên icon; aria-label/title giữ chữ đầy đủ.
+
+Mỗi nhánh dùng dữ liệu MOM02 đã có.
+Không invent thêm Step/UI/config.
+
+## 6. Việc C — Master of Master ưu tiên tiến độ bằng ký hiệu
+
+Vẫn dùng UI.MASTER parent.
+**Không sửa** `master-list.js`, `mot-theme-v1.css`, `mot-master-v1.html`.
+
+Giữ 84/84 và search/filter.
+
+Mặt bảng đổi label dài thành ngắn tối đa, ưu tiên:
+- Mã
+- Tên
+- Nhóm
+- QL
+- TK
+- LB
+- CF·ST·UI
+- Σ
+
+Không tăng số cột nếu parent không hỗ trợ; nếu cần, gom `CF ST UI` trong một cell.
+
+Cell tiến độ chỉ hiện ký hiệu/màu:
+ví dụ `○ ◐ ◐`, tooltip mới ghi CF/ST/UI.
+
+Không viết “CHƯA RÀ / ĐANG RÀ / CHỜ OWNER...” trong cell mặt chính.
+
+Đầu trang:
+- link/nút `⌂` → Home gốc
+- summary cực ngắn, ví dụ `84 · TK✓5 · !2`
+- dòng “Tiếp theo...” dài hiện tại → bỏ khỏi mặt đầu hoặc gập xuống i.
+
+Mỗi row vẫn mở:
+`master-home-v1.html?master=<code>`.
+
+## 7. Việc D — tiến độ 5 pilot
+
+Pilot:
+MOW · MOT · MOIT · MOUT · Field.
+
+Bắt buộc:
+- TK = xanh ✓ theo evidence §3.
+- LB/CF/ST/UI: rà đúng nguồn đang có và gán ○ / ◐ / ! / ✓ theo §3.
+- **Không có ✓ nếu không có evidence.**
+- Mỗi trục lưu kèm `evidence` trong data/adapter để tooltip đọc được.
+- Nếu nguồn mâu thuẫn: !, không tự chọn một phía.
+
+79 Master còn lại:
+- không làm đầy nghiệp vụ;
+- chỉ chuyển metadata MOM02/RUN02 thành 4-state khi đủ evidence;
+- thiếu evidence = ○, không bịa.
+
+## 8. Vòng kín / không lạc
+
+Acceptance điều hướng:
+
+1. Từ bất kỳ UI 4 Mẹ → bấm `Master` đúng 1 lần → Home gốc.
+2. Home gốc → `☷84` → Master of Master.
+3. Master of Master → bấm 1 row → Home Master đó.
+4. Home Master → `⌂` → Home gốc.
+5. Home Master → `☷` → Master of Master.
+6. Back/forward browser không mất mode/query.
+7. Không cần dropdown để đi vòng chính.
+
+## 9. Giới hạn
+
+Không:
+- file mới
+- UI ID mới
+- PG/Directus/runtime
+- sửa `ban-duyet.html`
+- sửa parent renderer/theme UI.MASTER
+- làm đầy 79 Master
+- Tool/Process/Factory
+- phát RUN tiếp.
+
+Được sửa tối thiểu:
+- `eco-nav.js`
+- `master-home-v1.html`
+- `ui-child-content-v1.js`
+- `ui-child-from-parent-v1.js` chỉ nếu CAT topbar/route thực sự cần.
+
+Stat/hash/version trước sửa; expected_version + operation_id.
+
+## 10. Acceptance
+
+1. Master chip: 1 click → `master-home-v1.html`; không popup.
+2. Home gốc: không dropdown; có `☷84 · T2 · T1 · I · O · F`; 1280 không cuộn mới hiểu.
+3. 390: không tràn ngang; nút vẫn nhận biết bằng hình/ký hiệu.
+4. Home pilot: không dropdown; có `⌂ · ☷ · TK/LB/CF/ST/UI/Σ · ☷/→/▦/⚙/i`.
+5. 5 pilot TK xanh ✓ và tooltip evidence đúng `UI Master · ĐÃ DUYỆT`.
+6. Không false green trên LB/CF/ST/UI.
+7. Master of Master 84/84; row có tiến độ ký hiệu/màu, không text dài trạng thái.
+8. Master of Master có `⌂` về Home.
+9. Vòng điều hướng §8 PASS.
+10. 10/10 đỏ 4 Mẹ vẫn PASS.
+11. Field/MOIT/MOUT child master regression 3/3.
+12. `master-list.js`, `mot-theme-v1.css`, `mot-master-v1.html` hash không đổi.
+13. Console error mới = 0.
+14. KQ:
+`KQ@MMIM-MOM03-20260927-01 XONG`
 hoặc
-`KQ@MMIM-MOM02-20260927-01 DỪNG`.
+`KQ@MMIM-MOM03-20260927-01 DỪNG`.
 
 Báo Owner:
-`XONG · MMIM-MOM02 · masters=84/84 · pilot_home=5/5 · menu_red=10/10 · step_rows=<n> · ui_rows=<n> · false_chot=0 · regressions=<n> · home=<url>`
+`XONG · MMIM-MOM03 · home=PASS · dropdown=0 · loop=PASS · masters=84/84 · pilot_TK_green=5/5 · false_green=0 · menu_red=10/10 · regressions=3/3 · url=<home>`
 
-## 10. Dừng
+## 11. Dừng
 
-XONG cũng dừng. Owner phải nhìn Master Home + Master of Master trước khi cho làm đầy 79 Master còn lại.
+XONG cũng dừng.
+Owner phải nhìn ⌂ Home + ☷ Master of Master + 1 Master Home trước khi làm tiếp.
