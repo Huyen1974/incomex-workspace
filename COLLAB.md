@@ -16,10 +16,10 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/hermes-joint-workspace/` · HJW · **CLOSED 27/09/2026** · FINAL `f56c205`, Host P62 + Founder P63; FD1–FD5 đã áp nền tại `d0202c2`. Runtime control vẫn live ở chế độ DUYỆT TỪNG VIỆC, AUTO rỗng. Residual direct-signal/lifecycle/lease + runtime visibility chuyển MCPW; Nuxt → VPSC.
 - `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED. Quan sát mới từ HJW: Nuxt đã tự restart nhiều lần, lượt 26/09 do V8 heap sau ~26h; không phải OOM host/không causal HJW — đưa vào vòng ổn định VPS sau, không chặn HJW.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
-- `work/mcp-workspace/` · MCPW · **Host GPT Chat** (`GPT-MCPW-250925-A`) · LOCK/recovery/P02 XONG; §0.2(2) đang đạt, không tune P02. Owner N8 27/09: START/FINISH machine-reliable + interaction ưu tiên VPS. **LIFECYCLE-AUDIT READY@26255b12a0be1100bd4bf7b05b7e16116bae3674 + RUN REISSUED (P22)**: P21 hooks/Hotpath/đích đo được đã tích hợp; audit-only, §0.2(1)(3)(4) chưa tuyên bố đạt.
+- `work/mcp-workspace/` · MCPW · Host GPT · lifecycle/GitHub audit **KQ XONG `44dcb97`, Host ACCEPT P23**; §0.2 hiện (1) PARTIAL, (2) PARTIAL nhưng P02 core PASS/KEEP, (3) PARTIAL, (4) PARTIAL. **P24 AD1 DESIGN DRAFT chờ Claude Chat review**: A-lite trace + giảm GitHub hot-path; chưa RUN, chưa execution ledger/lease.
 - `work/graph-server/` · GS · Host GPT Chat · D02 product-first (Owner): trial Cognee+Neo4j vs Graphiti+Neo4j; Claude P02→P03 đồng ý; chờ Hermes; nguyên tắc R1 khoá ở §0.
 - `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
-- NEXT chung: Claude Code chạy MCPW lifecycle/GitHub audit P20 → Host chốt minimal implementation RUN. P02 giữ nguyên trừ regression chứng minh được. Nuxt follow-up nằm VPSC; mở thêm Hermes tool/ledger chỉ xét sau phiếu điểm.
+- NEXT chung: Claude Chat review MCPW P24 AD1; ACCEPT xong Host viết PROMPT/READY rồi mới giao Claude Code. Thứ tự dự kiến A-lite+D → B execution ledger/hooks → C scoped lease/root → NEXT tự tính. P02 KEEP. Nuxt nằm VPSC.
 
 ## Đã xong
 - Archive: `work/done-tasks/` · vị trí folder là trạng thái Done (DROOT11); tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
