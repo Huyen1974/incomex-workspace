@@ -75,6 +75,15 @@
 #matrix-view-council .hd-decided-row{font-size:12px;line-height:1.5;padding:8px;border-radius:7px;background:#eef4ff}
 #matrix-view-council .hd-exec{display:inline-block;margin-top:5px;font-size:10px;font-weight:700;border-radius:10px;padding:3px 7px;background:#f1e9ff;color:#67408b}
 #matrix-view-council .hd-lifecycle{font-size:12px;padding:10px 12px;background:#f7f9f7;border-radius:8px;margin-bottom:14px}
+#matrix-view-council .hd-summary-wrap{overflow:auto;border:1px solid #dce5df;border-radius:10px;background:#fff}
+#matrix-view-council .hd-summary{width:100%;border-collapse:collapse;font-size:12px;min-width:900px}
+#matrix-view-council .hd-summary th,#matrix-view-council .hd-summary td{padding:9px 10px;border-bottom:1px solid #e8eee9;vertical-align:top;text-align:left;line-height:1.4}
+#matrix-view-council .hd-summary th{background:#f3f7f4;font-size:11px;color:#42564d;position:sticky;top:0}
+#matrix-view-council .hd-summary tr:last-child td{border-bottom:0}
+#matrix-view-council .hd-summary button{border:0;background:transparent;padding:0;font:inherit;font-weight:700;color:#254f39;cursor:pointer;text-align:left}
+#matrix-view-council .hd-summary .warn{font-weight:700;color:#9f253b}
+#matrix-view-council .hd-summary .pending{font-weight:700;color:#785006}
+#matrix-view-council .hd-decided-stack{display:grid;gap:8px}
 @media(max-width:900px){#matrix-view-council .hd-focus{grid-template-columns:repeat(2,minmax(0,1fr))}#matrix-view-council .hd-list-cols{grid-template-columns:1fr}}
 @media(max-width:640px){#matrix-view-council .hd-focus{grid-template-columns:1fr}#matrix-view-council .hd-grid{grid-template-columns:1fr}#matrix-view-council .hd-head{display:block}#matrix-view-council .hd-stamp{margin-top:7px}#matrix-view-council .hd-journey{gap:4px}#matrix-view-council .hd-stop{padding:9px 6px}#matrix-view-council .hd-stop b{font-size:12px}#matrix-view-council .hd-stop small{font-size:11px}#matrix-view-council .hd-arrow{font-size:14px}#matrix-view-council .hd-shell{padding:15px 0}#matrix-view-council h2{font-size:22px}}
 </style></head><body><main><h1>MOW · MOT · MOIT · MOUT — bản đưa Owner duyệt</h1>
@@ -575,20 +584,21 @@
 </details>
 </section></div>
 <div class="tab-panel" id="matrix-view-council" role="tabpanel" data-matrix-panel="council" aria-labelledby="matrix-tab-council" hidden><section class="hd-shell">
-<div class="hd-head"><div><div class="hd-kicker">D45 · 7 VẤN ĐỀ · 6 OPEN + 1 ĐÃ CHỐT</div><h2>★ Ý kiến HĐ</h2><p class="hd-intro">Đọc “Đã chốt” trước; vấn đề OPEN để riêng. Có 2 cách nhìn: danh sách ngắn và Kanban chi tiết.</p></div><div class="hd-stamp">GPT → Claude → Owner<br>chốt → Agent → kiểm xong</div></div>
-<div class="hd-view-switch" role="group" aria-label="Cách xem ý kiến Hội đồng"><button type="button" data-hd-view="list" aria-pressed="true">☰ Danh sách ngắn</button><button type="button" data-hd-view="kanban" aria-pressed="false">▦ Kanban chi tiết</button></div>
+<div class="hd-head"><div><div class="hd-kicker">D46 · 7 VẤN ĐỀ · 5 OPEN + 2 ĐÃ CHỐT</div><h2>★ Ý kiến HĐ</h2><p class="hd-intro">Áp nguyên tắc “nhìn cái hiểu ngay”: bảng tổng hợp trên cùng; Kanban giữ chi tiết cho AI/hội đồng.</p></div><div class="hd-stamp">GPT → Claude → Owner<br>chốt → Agent → kiểm xong</div></div>
+<div class="hd-view-switch" role="group" aria-label="Cách xem ý kiến Hội đồng"><button type="button" data-hd-view="list" aria-pressed="true">▤ Bảng tổng hợp</button><button type="button" data-hd-view="kanban" aria-pressed="false">▦ Kanban chi tiết</button></div>
 <div class="hd-list-view" data-hd-view-panel="list">
-<div class="hd-list-cols">
-<section class="hd-list-box"><h3>🟡 Đang mở · 6</h3><ul class="hd-short-list">
-<li><b>01</b><button type="button" data-hd-open-issue="hd-issue-01">Master list cuối cùng có bao nhiêu?</button><span class="hd-mini-state hd-owner">OPEN</span></li>
-<li><b>02</b><button type="button" data-hd-open-issue="hd-issue-02">Step sử dụng Máy gồm những bước nào?</button><span class="hd-mini-state hd-owner">OPEN</span></li>
-<li><b>03</b><button type="button" data-hd-open-issue="hd-issue-03">Chính xác cần bao nhiêu UI?</button><span class="hd-mini-state hd-owner">OPEN</span></li>
-<li><b>04</b><button type="button" data-hd-open-issue="hd-issue-04">Cần những công cụ/check chéo nào?</button><span class="hd-mini-state hd-owner">OPEN</span></li>
-<li><b>05</b><button type="button" data-hd-open-issue="hd-issue-05">Khi nào coi các danh sách đã điền đủ?</button><span class="hd-mini-state hd-owner">OPEN</span></li>
-<li><b>07</b><button type="button" data-hd-open-issue="hd-issue-07">Làm sao trình bày toàn hệ thống để nhìn là hiểu và thấy sai?</button><span class="hd-mini-state hd-owner">OPEN</span></li>
-</ul></section>
-<section class="hd-list-box"><h3>🔵 Đã chốt · 1</h3><div class="hd-decided-row"><b>06 · Nơi lưu UI/view thiết kế</b><br>VPS root <code>ui</code> như 4 UI mẹ; GH giữ sơ đồ/danh mục + URL/version/hash.<br><span class="hd-exec">CHỜ THỰC THI</span><br><small>D44 · chưa move/xoá bản cũ</small></div></section>
-</div>
+<section class="hd-list-box"><h3>🟡 Vấn đề OPEN · 5 — nhìn lớp này trước</h3>
+<div class="hd-summary-wrap"><table class="hd-summary"><thead><tr><th>Vấn đề</th><th>Hiện trạng</th><th>Vấn đề lộ ra</th><th>GPT đề xuất</th><th>HĐ cần chốt</th></tr></thead><tbody>
+<tr><td><button type="button" data-hd-open-issue="hd-issue-01">01 · Master list</button></td><td><span class="pending">84 ứng viên · chưa chốt</span></td><td>Bảng dài; chưa biết 84 đúng/sai, trùng/thiếu ở đâu</td><td>Chia nhóm → nổi trùng/thiếu/OPEN → ra danh sách cuối</td><td><b>Giữ/gộp/bỏ + cách chia nhóm</b></td></tr>
+<tr><td><button type="button" data-hd-open-issue="hd-issue-02">02 · Step</button></td><td><span class="pending">60 bước cũ · trộn phạm vi</span></td><td>Chưa có Step riêng của người sử dụng Máy</td><td>Đi 1 ca thật → ghi thao tác → gộp trùng</td><td><b>Điểm đầu/cuối + vai người dùng</b></td></tr>
+<tr><td><button type="button" data-hd-open-issue="hd-issue-03">03 · UI</button></td><td><span class="pending">29 UI / 18 chỗ cũ · chưa chốt</span></td><td>Chưa biết số UI unique thật sự cần</td><td>Step→UI → gộp dùng chung → mã/tên/wireframe</td><td><b>Quy tắc gộp UI; chốt sau 02</b></td></tr>
+<tr><td><button type="button" data-hd-open-issue="hd-issue-04">04 · Công cụ</button></td><td><span class="warn">28 ứng viên · 17 phạm vi · 3 trống · 0 sẵn dùng toàn bộ</span></td><td>Còn vùng trống và công cụ chồng nhau</td><td>“Cần check gì” → ánh xạ tool → chỉ ra trống/trùng</td><td><b>Tool bắt buộc + chuẩn “sẵn dùng”</b></td></tr>
+<tr><td><button type="button" data-hd-open-issue="hd-issue-05">05 · Điền đủ</button></td><td><span class="warn">OPEN · chưa có chuẩn chung</span></td><td>Không biết lúc nào một bảng được coi là đủ</td><td>Cột bắt buộc từng loại → tự kiểm trống/OPEN/nguồn</td><td><b>Bộ cột bắt buộc từng danh sách</b></td></tr>
+</tbody></table></div></section>
+<section class="hd-list-box"><h3>🔵 Đã chốt · 2 — bắt buộc đọc trước</h3><div class="hd-decided-stack">
+<div class="hd-decided-row"><b>06 · Nơi lưu UI/view thiết kế</b><br>VPS root <code>ui</code> như 4 UI mẹ; GH giữ sơ đồ/danh mục + URL/version/hash.<br><span class="hd-exec">CHỜ THỰC THI</span><br><small>D44 · chưa move/xoá bản cũ</small></div>
+<div class="hd-decided-row"><b>07 · “Nhìn cái hiểu ngay” bắt buộc toàn hệ thống</b><br>10 giây Tổng quan → Theo nhóm → Chi tiết khi bấm. User phải thấy có gì · bất thường ở đâu · cần quyết gì.<br><span class="hd-exec">ĐANG THỰC THI</span><br><small>D46 · áp đầu tiên tại bảng HĐ này; Master list tiếp theo</small></div>
+</div></section>
 <div class="hd-lifecycle"><b>Bắt buộc đọc “Đã chốt” trước.</b> Vòng đời: <b>ĐÃ CHỐT → CHỜ THỰC THI → ĐANG THỰC THI → ĐÃ KIỂM XONG</b>. Chỉ chuyển xanh khi có bằng chứng thật.</div>
 </div>
 <div class="hd-kanban-view" data-hd-view-panel="kanban" hidden>
@@ -600,9 +610,9 @@
 <div class="hd-focus-item" id="hd-issue-04"><b>4</b><span class="hd-open">OPEN · CHƯA CHỐT</span><strong>Cần những công cụ/check chéo nào?</strong><p><b>Cách chốt:</b> từ 1–3 xác định “cần check gì” → ánh xạ 28 ứng viên/17 phạm vi → lộ trùng và chỗ trống.</p><p><b>GPT đề xuất:</b> tool cuối có Mã · Tên · Check gì · Input · Output · Trạng thái.</p></div>
 <div class="hd-focus-item" id="hd-issue-05"><b>5</b><span class="hd-open">OPEN · CHƯA CHỐT</span><strong>Khi nào coi các danh sách đã điền đủ?</strong><p><b>Cách chốt:</b> thống nhất cột bắt buộc → kiểm chéo → không có ô trống không giải thích; chưa biết phải ghi OPEN.</p><p><b>GPT đề xuất:</b> “đủ” = đủ trường + nguồn + trạng thái, không phải chỉ có tên.</p></div>
 <div class="hd-focus-item" id="hd-issue-06"><b>6</b><span class="hd-open hd-approved">OWNER ĐÃ CHỐT · CHỜ THỰC THI</span><strong>Bản thiết kế UI/view thật lưu ở đâu?</strong><p><b>Quyết định D44:</b> HTML/CSS/JS/wireframe/prototype tương tác + asset lưu trên <b>VPS root ui</b> như 4 UI mẹ — <code>/opt/incomex/docs/mcp-writes/</code> → <code>/ui-preview/mcp-writes/</code>.</p><p><b>GitHub/workspace:</b> chỉ giữ <b>sơ đồ/danh mục</b> + Mã · Tên · Step dùng · Trạng thái · URL VPS · version/hash + quyết định. Không nhân bản bản UI dài/nặng.</p><p><b>Thực thi:</b> <b>CHỜ THỰC THI</b>. Claude rà cách áp; Agent mới move/chỉnh sau. Chưa xoá/move file cũ.</p></div>
-<div class="hd-focus-item" id="hd-issue-07"><b>7</b><span class="hd-open">OPEN · CHƯA CHỐT</span><strong>Làm sao trình bày toàn bộ hệ thống để con người nhìn là hiểu và phát hiện sai/thiếu?</strong><p><b>Phạm vi:</b> đây là vấn đề thường trực của <b>toàn hệ thống</b>, không phải riêng tab Hội đồng. <b>Master list hiện tại là ca thử đầu tiên</b> vì quá nhiều chi tiết khiến Owner không thể tự đánh giá đúng/sai/hợp lý.</p><p><b>Cách chốt:</b> thống nhất một chuẩn trình bày → áp thử lên Master list → Owner nhìn thử. Chỉ đạt khi lớp ngoài giúp trả lời nhanh: <b>có những nhóm gì · chỗ nào bất thường/OPEN · cần quyết gì</b>.</p><p><b>GPT đề xuất:</b> <b>10 giây Tổng quan → 1 phút Theo nhóm → Chi tiết khi bấm</b>. Tầng 1: số/nhóm/cảnh báo; Tầng 2: danh sách rút gọn theo nhóm; Tầng 3: bảng kỹ thuật đầy đủ cho AI. Chưa sửa Master list trước khi Claude + Owner chốt.</p></div>
+<div class="hd-focus-item" id="hd-issue-07"><b>7</b><span class="hd-open hd-approved">OWNER ĐÃ CHỐT · ĐANG THỰC THI</span><strong>Toàn hệ thống bắt buộc “nhìn cái hiểu ngay”.</strong><p><b>Quyết định D46:</b> lớp trên cho con người phải trả lời trong khoảng 10 giây: <b>có gì · bất thường/OPEN ở đâu · cần quyết gì</b>. Chi tiết kỹ thuật đặt bên dưới cho AI/kỹ thuật đọc.</p><p><b>Chuẩn 3 tầng:</b> <b>Tầng 1 Tổng quan 10 giây → Tầng 2 Theo nhóm ~1 phút → Tầng 3 Chi tiết khi bấm</b>. Không bắt User đọc hàng chục/hàng trăm dòng để tự tìm sai.</p><p><b>Thực thi:</b> đang áp tại chính ★ Ý kiến HĐ bằng bảng tổng hợp 5 vấn đề OPEN; <b>Master list là bài áp dụng tiếp theo</b>. Chỉ đánh “ĐÃ KIỂM XONG” cho toàn hệ thống khi các view mục tiêu đã được kiểm theo tiêu chí D46.</p></div>
 </div>
-<div class="hd-rule"><b>Thứ tự bàn nội dung: 1 Master list → 2 Step → 3 UI → 4 Công cụ → 5 Độ đầy đủ.</b> 07 là nguyên tắc trình bày thường trực; 06 đã chốt và chỉ theo dõi thực thi.</div>
+<div class="hd-rule"><b>Thứ tự bàn: 01 Master list → 02 Step → 03 UI → 04 Công cụ → 05 Độ đầy đủ.</b> 06 và 07 đã chốt; 07 bắt buộc áp vào cách trình bày của mọi bước từ đây.</div>
 <details class="hd-archive" id="hd-archive"><summary>Phụ lục: 17 ý kiến cũ — chỉ mở khi một ý trực tiếp giúp trả lời 7 vấn đề trên</summary>
 <p class="hd-filter-label">Lọc ý kiến cũ theo trạng thái — không phải nút phê duyệt</p>
 <div class="hd-filter" role="group" aria-label="Lọc trạng thái ý kiến"><button type="button" data-hd-filter="all" aria-pressed="true">Tất cả <b data-hd-count="all">17</b></button><button type="button" class="hd-discuss" data-hd-filter="discuss" aria-pressed="false">… Đang bàn <b data-hd-count="discuss">6</b></button><button type="button" class="hd-owner" data-hd-filter="owner" aria-pressed="false">? Chờ Owner <b data-hd-count="owner">9</b></button><button type="button" class="hd-approved" data-hd-filter="approved" aria-pressed="false">✓ Đã duyệt <b data-hd-count="approved">2</b></button><button type="button" class="hd-moved" data-hd-filter="moved" aria-pressed="false">✓ Đã vào thiết kế <b data-hd-count="moved">0</b></button><button type="button" class="hd-rejected" data-hd-filter="rejected" aria-pressed="false">× Từ chối <b data-hd-count="rejected">0</b></button></div>
