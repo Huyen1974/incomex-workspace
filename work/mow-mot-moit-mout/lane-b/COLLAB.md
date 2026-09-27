@@ -15,6 +15,9 @@ B01 tạo được bản đồ 39 quy trình hiện có theo chữ ký chuẩn; 
 - Lane B **không sửa Step/UI**.
 - Kết quả B01 là working evidence; chỉ Host/Owner mới hợp nhất vào canonical CAT-003.
 - KQ mới nhất: **CHƯA CHẠY**.
+- HOST GATE · PASS · PROCESS=`CHUNG.TIM` · catalog=`ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7` · prompt=`86ecde4f60461e33cd19b5ab6ce4407885fb71c9e1c16c228a0ccbcc0fe8680d`.
+- READY@8794c1fa9c868db731a6e1b9d4b99dad56e56c53 · RUN_ID `MMIM-LANE-B01-20260928-01`.
+- RUN ISSUED · chỉ lane-b/COLLAB được ghi; canonical parent READ-ONLY; XONG/DỪNG rồi dừng.
 
 ### Vòng trước
 A01 đã PASS P0/process gate. Lane B được mở sau D59.
