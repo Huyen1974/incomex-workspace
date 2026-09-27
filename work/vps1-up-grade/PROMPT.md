@@ -48,6 +48,7 @@ E. VPS2 phần B chỉ read-check để chắc containment 3307/8080 vẫn PASS/
 6. Tìm đúng các operator/help hiện hữu mà agent thường chạm Directus/PG; không tạo manual tổng hợp.
 7. Đọc lại #620/#621 + Public binding bằng DOT/read-only tool hiện hữu; xác nhận anonymous write kể từ G0/SEC1; chuẩn bị exact rollback bằng cùng DOT.
 8. Verify B: 3307/8080 ngoài internet vẫn đóng, 80/443/e-learning vẫn PASS. Không mutation B.
+9. Nguồn metadata về kho Owner-admin đã có trong báo cáo nội bộ `/opt/incomex/docker/agent-data-repo/knowledge/current-state/reports/directus-dual-superadmin-owner-ready-2026-07-24.md` §9–§10. Agent dùng báo cáo này để xác định đúng bundle/phần `owner` ở runtime; phần `default` không dùng. Chỉ đọc metadata/nhãn và cơ chế loader, tuyệt đối không in giá trị credential.
 ## 4. Nhánh A — DOT phù hợp đã có
 
 Chỉ khi Audit PASS và DOT tự nạp secret mà Agent không nhìn thấy value:
