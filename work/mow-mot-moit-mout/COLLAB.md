@@ -830,8 +830,62 @@ KQ@MMIM-MOM01-20260927-03 DỪNG
 - READY@264245e9a1a5f50787b3b86f989f11e5014add4f · RUN_ID `MMIM-MOM02-20260927-01` · Executor **Codex** · phạm vi: đóng 10 đỏ + Master of Master V2 + 01 Master Home parent candidate + 5 pilot.
 - RUN ISSUED · `MMIM-MOM02-20260927-01` · Owner điều hành thủ công; Codex ghi KQ rồi DỪNG; không tự làm 79 Master còn lại.
 
+## Codex · KQ MMIM-MOM02-20260927-01 · 27/09/2026
+
+**Phạm vi XONG; parent Home vẫn là candidate chờ Owner.** Gate READY đúng commit cuối chạm PROMPT `264245e9a1a5f50787b3b86f989f11e5014add4f`; PROMPT SHA `0e42df744e962a408bf22a522f7e39b5670abded73118bd4eafc7fb133400635`. Đọc nguồn theo thứ tự yêu cầu. Chỉ `workspace_*` root workspace/ui; không PG/Directus/JEV, không sửa ban-duyet, không cấp UI ID/menu Home.
+
+- Ghi đúng 5 file UI: eco-nav; wrapper Master of Master; 2 adapter/loader; **01 file mới master-home-v1.html**. Transaction `b69ee16d1ef149c4a313b983c2e4ea8e`; root ui không có Git HEAD/commit, không báo nhầm đã push GitHub. Mỏ neo là version/SHA và backup của workspace tools.
+- Nguồn Step: `ban-duyet.html#mom-step-catalog`, SHA `d0f88b10460439c4f91fd2841812ea689e207923417e6e2ed722676312cb1440`. UI: registry SHA `0c486b5209c16908557703e050ac28b0fc602689e1d9921ad0cd1175155b6a96` + DOM menu sau APPEND. Giữ tên/mã/trạng thái OPEN gốc; không tạo Step.
+- 79 Master không gắn Home data: mặt người dùng CHƯA LÀM/CHƯA GẮN; metadata kỹ thuật cũ của cả 84 giữ nguyên trong chi tiết. Không suy đã chốt từ có UI. List count thật chưa kiểm → `?`, không lấy số mẫu/PG cũ làm số thật.
+
+### Acceptance · output thực
+
+| Gate | Output |
+|---|---|
+| 1 Menu DOM | `red=10, unmarked=0, redDescErrors=0, green=16, greenUnchanged=true, urlUnchanged=true`; gồm đủ 3 APPEND MOW. Không đổi nhóm Master/Đã loại. |
+| 2 List cha | `rows=84, unique=84, bodyParent=mot-master-v1.html`; code/name và mọi field metadata cũ giữ nguyên 84/84; 10 cột nhìn thấy như cha. |
+| 3 Row → Home | `routeErrors=0` trên 84 link + dataset mã. Đã bấm ✎ Field, tên dòng MOW, tên item MOT ở Theo nhóm → đúng query master; không mở drawer cũ. |
+| 4–5 Một Home | 5 query đổi dữ liệu trên cùng file; CAT-000 mở fallback `pilot=false, actions=0, OPEN · CHƯA GẮN DỮ LIỆU`; list ghi `notPilot=79`. |
+| 6 Không chốt giả | 5 pilot Thiết kế=CÓ BẢN, Label=CHƯA RÀ, Step=CÓ DANH SÁCH, UI=CÓ UI; tổng Field/MOIT/MOUT ĐANG LÀM, MOT/MOW VƯỚNG nguồn. `false_chot=0` trong dữ liệu/trục hiển thị. |
+| 7 Nhánh | Cả 5: `[Tổng quan, Danh sách, Step, UI]`; đã bấm đủ 4 nhánh, URL view đổi đúng; quay lại/tải lại đọc view. |
+| 8 Nguồn | 76 dòng tham chiếu Step = 70 mã nguồn (6 FORM dùng chung hiện ở hai Home). 33 mục UI = 18 ĐANG DÙNG + 10 CHỈ THAM KHẢO + 5 OPEN. Không gọi đây là 76 thao tác unique hay 33 UI mới. |
+| 9 List chính | 5 link chính UI-022/013/014/002/001 đều xanh. Red gập trong `Tham khảo · không dùng`, `references=false` sau tải mới. Không dùng red thay list. |
+| 10 Hai cỡ | Bấm 4 nhánh × 5 Home × 2 cỡ = 40 kiểm; width trang ≤1280/390. Mobile tab-bottom=385,40–408,80 px (<800); desktop=355,09 px. Chụp thật 1280 và 390; đầu trang thấy 5 trục, 3 số và việc tiếp theo, không cần cuộn. Duplicate DOM IDs=0. |
+| 11 Bất biến cha | 3 SHA trước/sau bằng nhau, xem bảng dưới. Registry cũng không đổi. |
+| 12 Regression | Field=3 dòng; MOIT=6; MOUT=6. Tìm mã và bấm ✎: Field mở dialog Họ và tên tại `truong=full_name`; MOIT mở `edit=MOIT-F-0001`/UI-017; MOUT mở `edit=RPT-0010`/Builder v3. Không bấm Lưu, không coi dữ liệu mẫu là bản ghi thật. |
+| 13 KQ | Dấu hiệu XONG dưới báo cáo; dừng chờ Owner/Host. |
+
+| Home | Mã giữ nguyên | Step tham chiếu | UI đã kê / đang dùng | List chính |
+|---|---|---:|---:|---|
+| Field | CAT-202* | 45 | 3 / 1 | UI-022 |
+| MOIT | CAT-204* | 6 | 7 / 4 | UI-013 |
+| MOUT | CAT-205* | 7 | 5 / 4 | UI-014 |
+| MOT | CAT-009? | 10 | 8 / 5 | UI-002 |
+| MOW | CAT-003? | 8 | 10 / 4 | UI-001 |
+
+UI-009 là chi tiết của đúng list MOW xanh UI-001; đối chiếu route bỏ query bản ghi/ngữ cảnh, giữ tang/form/che-do. Các UI registry không có menu xanh/đỏ giữ OPEN, không tự đánh dấu cho phép dùng. Bước FORM giữ mã chung, chỉ hiện UI đúng mẹ; bước CHAY giữ OPEN ranh giới vận hành. FIELD S010–S330, S01–S07 và walk giữ riêng đơn vị tham chiếu, chưa hợp nhất.
+
+**Bẫy đã sửa trong RUN:** hồi quy tải mới phát hiện loader đọc `catalog-data` ngay khi tạo toàn bộ configs → Field trắng (`TypeError ... null ... textContent`). Chuyển đọc JSON vào nhánh `c.type===CAT`, ghi bẫy đầu loader rồi thử lại 3/3. Backup sửa `50d81d3bc04b4e93a51595b6b15cb49d`; Home sửa nhãn đếm tham chiếu/ID trùng: backup `b50614954aca4046a8f6ca68f079a3dc`. Sau sửa: Home HTTP 200/console_errors=0; Master và 3 child HTTP 200, không lỗi JS mới. Có 1 cảnh báo CSP Google Fonts kế thừa từ parent bất biến ở mỗi trang list; đã có trong baseline, không sửa ngoài phạm vi.
+
+### SHA cuối · nguồn trên VPS
+
+| File | SHA cuối |
+|---|---|
+| eco-nav.js | `1ce2fef6dd23535fa01aac8bf19a92e23ea5bca81d8daf1107ea05ae87c27ef2` |
+| master-of-master-v1.html | `8cbfa838c75f7a8c62ddb54b95db00a4bf10ac08f4564dd948cd3f17b8eadd13` |
+| ui-child-content-v1.js | `e3c511b4ebc825ee2547176480ac152c76e45f5f11ca64c390df3d6617834010` |
+| ui-child-from-parent-v1.js | `72551fc5e76154bd9484c1db4cd4ec9b4d59444445578443005823ce97c68113` |
+| master-home-v1.html | `b3558c1cd29949439f8fec5aa6d522e6a208e5881aeb0cb6a1485d462803f03c` |
+| master-list.js · không đổi | `a92524f509b514e2a04677e3bd7d7dfd17efc8c206282840a6bf6b3f876baa57` |
+| mot-theme-v1.css · không đổi | `81cc5a69305943bb716215a7ceb1017d0147164966bff44cd5a86673b5a9b287` |
+| mot-master-v1.html · không đổi | `85da2f858f1f5e3f9e01110c110886c5c15cde043b47642068956324948c421e` |
+
+Owner/Host xem [Master of Master](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html) → [Home Field](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-home-v1.html?master=CAT-202*) rồi chọn 4 pilot khác. Home candidate chưa thành parent được duyệt. K0 Field không được nâng PASS trong RUN này. Không tự làm 79 Master/Step/UI/Tool/Process hay phát RUN mới.
+
+KQ@MMIM-MOM02-20260927-01 XONG
+
 ## Dòng hiện hành
-MMIM | MMIM-MOM01-20260927-03 · 27/09/2026 | DỪNG/PARTIAL: menu thực có 10 mục không xanh, PROMPT khóa 7. Giữ phần UI con + 84 Master và 7 nhãn đỏ đã sửa; chờ Owner/Host xử lý ba mục APPEND. Không tự mở RUN hoặc làm tiếp.
+MMIM | MMIM-MOM02-20260927-01 · 27/09/2026 | XONG phạm vi RUN: 84/84 Master, 5 Home pilot, 10/10 menu đỏ, regression 3/3. Master Home là candidate chờ Owner/Host nghiệm thu. 79 Master giữ OPEN; không tự mở RUN mới.
 
 
 Bản thiết kế FIELD nằm trong ban-duyet.html
