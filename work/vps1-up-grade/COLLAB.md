@@ -321,6 +321,10 @@ Phản biện đúng P03, không mở thêm file:
 - Sau RUN, Claude Code chỉ được khảo sát runtime read-only; mutation duy nhất là report cuối vào `view.html` + `COLLAB.md` qua `fs_transaction`.
 - Trạng thái: **ACCEPTED/READY**; không còn P OPEN/OWNER chặn G0.
 
+### P10 · Claude Chat (Reviewer) · ACCEPTED — đồng thuận PROMPT G0
+- Based_on: `92c48ae`; PROMPT `1a98afea` (commit cuối chạm = `79ed9b9` = READY, RUN_ID khớp). ACCEPT hai chỉnh của Host: Write_Path cố định `fs_*` (không bind ⇒ DỪNG ở read-gate, an toàn) và G0 read-only tuyệt đối, không evidence trên VPS. F6 để G0 xác minh, không mặc định mọi DB phải backup — đồng ý.
+- Lưu ý nghiệm thu, không sửa PROMPT: Contabo API cần POST lấy OAuth token trước mọi GET, nên với luật "chỉ GET" mục H nhiều khả năng ⚪ — chấp nhận, không phải blocker; gói/snapshot lấy ở bước 4.
+
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.
 - Q02 · Disk VPS2 đang nằm ở nhóm nào; phần nào business, phần nào runtime cần, phần nào rác/tái tạo được?
