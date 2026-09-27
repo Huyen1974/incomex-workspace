@@ -1,320 +1,177 @@
-# PROMPT — MMIM-MOM04 · Kế thừa chi tiết · ? giải thích · ★ cá nhân
+# PROMPT — LANE A01 · P0 + Process Gate
 
-RUN_ID: MMIM-MOM04-20260928-01
-STATUS: Chỉ chạy sau READY đúng commit cuối chạm PROMPT.md và RUN của Owner/GPT Host.
+RUN_ID: MMIM-LANE-A01-20260928-01
+PROCESS: CHUNG.APQUYTRINH
+STATUS: Bootstrap duy nhất được Owner D56 cho phép trước khi PROCESS này đã nằm trong catalog. Sau RUN này không còn bootstrap exception.
 
 Host: GPT Chat · Host_ID `GPT-MMIM-260920-A`
 Executor: Codex
-Write: `workspace_*` root `workspace` + root `ui`
+Write: `workspace_*` root `workspace`
 GitHub native/App/API/CLI: READ-ONLY.
 
-## 0. Gate — không làm lại từ đầu
+## 0. Đọc trước
 
 Đọc:
-`AGENTS.md` → README D12 → `work/mow-mot-moit-mout/COLLAB.md` §0, **§3 Chi tiết cần đạt**, D44/D46/D49–D55, KQ MOM03 → file này.
+1. `AGENTS.md` + README D12.
+2. `work/mow-mot-moit-mout/COLLAB.md` §0, D36, **D56 P0 + LANE A/B/C**, KQ MOM04.
+3. `work/mow-mot-moit-mout/ban-duyet.html`: các vùng `ml3`, `ml5-qt`, `ml5-cho-ai`, tool catalog + K01–K17.
+4. `cong-cu/dot-walk-check.py` + 3 tool còn lại để giữ đúng khuôn tool hiện có.
+5. File này.
 
-Root `ui` đọc:
-- `AGENTS.md`, `README.md`
-- `master-home-v1.html`, `master-of-master-v1.html`
-- `ui-child-content-v1.js`, `ui-child-from-parent-v1.js`
-- `master-list.js`, `mot-theme-v1.css`, `mot-master-v1.html`, `child-ui-registry.json`
-- **nguồn chi tiết đã làm, chỉ để kế thừa:** `mow-master-nhap2-v1.html`, `nhap2-items.js`, `nhap2-render.js`, `master-drawer-view-v1.js`, `mow-help-doc.js`, `mow-drawer-scope.js`, `moit-master-v1.html`, `mout-master-v1.html`, `field-master-v1.html`.
+Không đụng UI VPS, Step/UI/79 Master. Đây là Lane A.
 
-Đọc `ban-duyet.html#ui-master` và các phần Master/Step/UI/Field hiện hành CHỈ để lấy evidence/label/config đã có.
-
-**Luật:** UI cha là phần tổng quát hoá. Các Mẹ/thiết kế cũ chứa chi tiết nghiệp vụ phong phú hơn và phải được kế thừa. Không được thấy UI cha gọn rồi kết luận hệ thống chỉ có chừng đó.
-
-`mow-master-nhap2-v1.html` là **nguồn tham khảo chi tiết/hành vi đã làm**, không phải parent canonical mới.
-
-## 0A. BASELINE BẮT BUỘC — 16 UI xanh trong 4 Bà Mẹ
-
-Quy tắc Owner 28/09: **mục có ✅ = file/route đã được thiết kế khá kỹ và đang dùng làm căn cứ chính**. Chưa final/PG/config, nhưng tuyệt đối không được bỏ qua hoặc làm lại từ đầu.
-
-Đúng 16 entry xanh hiện hành:
-
-**MOW · 3**
-- `UI-005` · Kanban MOW · `UI.CANVAS` · `mow-unified-canvas-v2.html?tang=T2&che-do=thuong`.
-- `UI-001` · Master MOW · `UI.MASTER` · `mow-master-nhap2-v1.html`.
-- `UI-004` · Sổ Góp ý/Cải tiến · `UI.MASTER` · `mow-gopy-list-v1.html`.
-
-**MOT · 5**
-- `UI-010` · Bàn làm việc MOT · `UI.WORKSPACE` · `mot-dashboard-v1.html`.
-- `UI-007` · Studio MOT · `UI.STUDIO` · `mot-studio-v1.html`.
-- `UI-006` · Config T1/New MODT · `UI.CONFIG` · `/admin-new-modt` / source `new-modt-v1.html`.
-- `UI-003` · Duyệt NTGV · `UI.MASTER` · `duyet-ntgv-v1.html`.
-- `UI-002` · Master MOT · `UI.MASTER` · `mot-master-v1.html`.
+## 1. Mục tiêu
 
-**MOIT · 4**
-- `UI-019` · Kanban MOIT · `UI.CANVAS` · T0.5 `form=MOIT`.
-- `UI-013` · Master MOIT · `UI.MASTER` · `moit-master-v1.html` → parent live `mot-master-v1.html`.
-- `UI-015` · Studio MOIT · `UI.STUDIO` · `moit-studio-v1.html` → parent `mot-studio-v1.html`.
-- `UI-017` · Config MOIT · `UI.CONFIG` · `moit-config-v1.html` → parent `new-modt-v1.html`.
-
-**MOUT · 4**
-- `UI-020` · Kanban MOUT · `UI.CANVAS` · T0.5 `form=MOUT`.
-- `UI-008` · MOUT Builder v3 · route riêng `mout-builder-v3.html`.
-- `UI-014` · Master MOUT · `UI.MASTER` · `mout-master-v1.html` → parent live `mot-master-v1.html`.
-- `UI-016` · Studio MOUT · `UI.STUDIO` · `mout-studio-v1.html` → parent `mot-studio-v1.html`.
+Biến nguyên tắc Owner thành chuỗi có thể tuân thủ:
 
-### Những chi tiết đã có — PHẢI GIỮ/KẾ THỪA
-
-- **MOW Kanban:** T7→T0; Thường/Đề xuất/Vận hành/Quản trị; breadcrumb/tầng; card Nhiệm vụ→Công việc; side detail; propose/add.
-- **MOW Master:** search/filter + cây 7 tầng; Mã/Tên/anchor/ngày/người-máy lập/3 vai trò/trạng thái/liên kết MOT-MOIT-MOUT; bút sửa; detail/drawer/help/contracts/support.
-- **Sổ góp ý:** chung MOW/MOT/MOIT/MOUT; neo vị trí/bước-lượt; người/thời gian; trạng thái Mới→Đã xem→Đã gộp→Đã thành thiết kế/Bỏ; cây 7 tầng.
-- **MOT Bàn làm việc:** danh sách task + hạn/trạng thái; phần việc phải nhập; required validation; embedded form; thông tin tham khảo; hướng dẫn lần đầu; hoàn thành/sửa; đề xuất/góp ý.
-- **MOT Studio:** F01–F10; L1–L4; E01/E02; C01/C02; flow DB trực tiếp/bảng chờ; composer; JSON; catalog gọi theo mã.
-- **New MODT/Config T1:** Config đầy đủ không được giản lược: MOIT/MOUT; bảng GHI VÀO/ĐỌC RA với Nội dung chuyên môn · Collection · Field · Check field tương tự · Địa chỉ dữ liệu · Kiểu dữ liệu · Hợp đồng JSON · Test · Tình trạng · Ghi chú; cùng NTGV · Ai làm/ai nhận · Chạy/kết thúc theo luật xưởng.
-- **Duyệt NTGV:** NẾU/THÌ; 3 điều kiện + AND/OR; Người thực hiện/được báo cáo/chuyển tiếp; Đề xuất/Phê duyệt; Ghi chú; `?` từng cột.
-- **MOT Master:** Mã/Tên/anchor/ngày-người/MOIT/MOUT/3 vai trò/trạng thái + filter cây 7 tầng + detail.
-- **MOIT:** Kanban T0.5; Master list; Studio kế thừa toàn bộ F/E/L/C; Config kế thừa New MODT với ngôn ngữ form nhập; liên hệ Field/Step/UI theo nguồn hiện có.
-- **MOUT Builder:** miền dữ liệu gồm mô tả+mã đọc; cột hiện/ẩn/thứ tự/SUM; tối đa 5 filter AND; thời gian cụ thể/định kỳ + lịch chạy; Tổng; đúc/lưu; CSV/Excel; phân phối; picker trường 7 tầng. Master/Studio/Kanban vẫn giữ.
-
-**Green ≠ final. Green = đã có thiết kế đáng kể, phải kế thừa.** Các phần mock/nháp/chưa PG vẫn giữ đúng nhãn và trở thành requirement cần hoàn thiện, không bị xóa.
-
-### Cổng kế thừa trước mọi mutation MOM04
-
-Codex phải lập trong scratch/báo cáo bảng `16 green → capability đã có → requirement tương ứng`. Nếu một capability trong danh sách trên không xuất hiện trong `detailRequirements` hoặc được ghi rõ `không áp dụng + lý do`, **DỪNG trước mutation**. Không được chỉ dựa MOM02/MOM03 để làm.
-
-Giữ nguyên MOM03 đã đạt:
-- Home-first
-- 84/84
-- 5 pilot
-- 10/10 menu đỏ
-- TK✓ 5/5 có evidence
-- regression 3/3
-- ký hiệu/màu 4-state.
-
-Nếu nguồn hiện hành khác các facts trên → DỪNG trước mutation.
-
-## 1. Mục tiêu RUN
-
-Không thiết kế lại kiến trúc.
-
-RUN này chỉ:
-A. làm ký hiệu/viết tắt **tự giải thích cho người lần đầu**;
-B. thêm **★ yêu thích cá nhân** lưu trình duyệt;
-C. đưa **chi tiết đã làm sẵn** của 5 pilot vào `Chi tiết cần đạt` để từ nay làm đầy dần thay vì quay lại từ đầu.
+`Yêu cầu → PROCESS hợp lệ → Tool bắt buộc → Gate PASS → READY/RUN → KQ/evidence`.
 
-Không làm 79 Master còn lại.
+Nếu không có process hoặc process sai → **BLOCK**, sửa/tạo process trước rồi mới làm việc.
 
-## 2. Cơ chế ? — dùng đúng mẫu đã có
+## 2. P0 — đăng ký process mỏ neo
 
-Nguồn chuẩn đã có trong `master-list.js`:
-- `.t1-mapping-table__head`
-- `.t1-mapping-table__head-label`
-- `.t1-mapping-table__help`
-- `.t1-mapping-table__tip`
-
-Hành vi chuẩn:
-- hover/focus tên cột → hiện `?` + tooltip;
-- hover/focus `?` → tooltip;
-- tooltip là chữ đầy đủ, dễ hiểu;
-- keyboard focus được;
-- không tạo kiểu tooltip thứ hai.
+Đăng ký trong **CAT-003 / khối process live `ml5-cho-ai`**:
 
-### A1. Master of Master — TẤT CẢ tên cột
+- Mã: `CHUNG.APQUYTRINH`
+- Tên cố định: `Áp dụng quy trình trước khi làm`
+- Thuộc: `🔁`
+- Trạng thái: `TẠM CHỐT · v1`
+- Nguồn quyết định: `D56 · Owner 28/09/2026`
+- Tool bắt buộc: `dot-process-gate`
 
-Mọi header đang nhìn thấy đều phải có help theo đúng cơ chế trên:
-- ★ / utility → “Đánh dấu Master yêu thích trên trình duyệt này”
-- # → “Số thứ tự”
-- Mã → “Mã Master”
-- Tên → “Tên Master / danh mục”
-- Nhóm → “Nhóm hoặc tầng quản lý”
-- QL → “Master này quản lý nội dung gì”
-- TK → “Thiết kế”
-- LB → “Label / nhãn hiển thị”
-- CF·ST·UI → giải thích đủ “Config · Step · UI”
-- Σ → “Tình trạng tổng”
-
-Tooltip trạng thái phải giải thích:
-`✓ chốt · ◐ đang làm/chờ chốt · ! vướng · ○ chưa làm/chưa có evidence`.
-
-**Không sửa `master-list.js`.**
-Adapter CAT post-process DOM sau render để gắn help vào header bằng đúng class/style đã có.
-
-### A2. Home — icon + viết tắt
-
-Mọi ký hiệu người dùng có thể bấm/đọc phải có:
-- `title` đầy đủ;
-- `aria-label` đầy đủ;
-- hover/focus hiện tooltip cùng ngôn ngữ thị giác với cơ chế `?`.
-
-Bắt buộc cho:
-`⌂ · ☷84 · T2 · T1 · I · O · F · TK · LB · CF · ST · UI · Σ · ☷ · → · ▦ · ⚙ · i · ☆/★`.
-
-Ví dụ:
-- `TK` → “Thiết kế”
-- `CF` → “Config / các trường cấu hình cần quản lý”
-- `→` → “Step / các bước”
-- `▦` → “UI / giao diện”
-- `★` → “Đã đánh dấu yêu thích trên trình duyệt này”
-
-Mặt thường vẫn chỉ hiện ký hiệu/ngắn gọn.
-
-## 3. ★ yêu thích cá nhân — browser only
-
-Tạo một cơ chế duy nhất:
-- off = `☆`
-- on = `★`
-- lưu `localStorage`
-- key cố định: `incomex.master.starred.v1`
-- value: JSON array các Master code.
-
-Tham khảo cách parse/persist an toàn từ `mow-danh-tu-v1.html`; không copy nghiệp vụ GIỮ/GỘP/BỎ.
-
-### Vị trí ★
-1. Master of Master: ★/☆ trong **utility cell hiện có**, không tăng cột. Click star phải `stopPropagation`, không mở Home.
-2. Master Home: ★/☆ cạnh mã/tên Master.
-3. Home gốc: một dải nhỏ `★ n`; nếu n>0 hiển thị tối đa 6 Master đã star bằng mã/tên ngắn; >6 → `+n`. Nếu 0 chỉ hiện `☆0`, không câu dài.
-
-Star:
-- chỉ là sở thích cá nhân;
-- không đổi TK/LB/CF/ST/UI/Σ;
-- không ghi backend/repo;
-- reload/navigation/browser reopen vẫn còn;
-- click lại để bỏ star;
-- localStorage lỗi/bị chặn → UI vẫn chạy, star chỉ không persist và không console error.
-
-## 4. Không làm từ đầu — lập “Chi tiết cần đạt” từ nguồn đã có
-
-### 4.1 Nguồn MOW đã làm nhiều chi tiết
-
-Phải kế thừa ít nhất các capability/source-backed đã có:
-- `mow-master-nhap2-v1.html` → shell + list;
-- `nhap2-items.js` → code · name · anchor · date · maker · 3 roles · status · liên kết MOT/MOIT/MOUT;
-- `master-list.js` → search/filter · edit pencil · open detail · context/tầng · role/status · drawer;
-- `master-drawer-view-v1.js` → schema/detail view; field normalization gồm key/type/label/required/placeholder/unit/hint/text/form/fields/options khi nguồn có;
-- `nhap2-render.js`, `mow-help-doc.js`, `mow-drawer-scope.js` → các detail/help/contract/support đã tồn tại.
-
-**Không được giảm MOW thành chỉ “List/Step/UI”.**
-Home chỉ là cửa vào; chi tiết cần đạt phải ghi lại những gì đã có và những gì còn thiếu.
-
-### 4.2 5 pilot
-
-Pilot:
-MOW · MOT · MOIT · MOUT · Field.
-
-Cho mỗi pilot tạo/duy trì một danh sách `detailRequirements` trong data hiện hành của Master đó, không file mới.
-
-Mỗi mục:
-- `axis`: LB | CF | ST | UI | DATA | DETAIL
-- `key`: mã ổn định nội bộ của yêu cầu
-- `label`: tên ngắn dễ hiểu
-- `state`: ✓ | ◐ | ! | ○
-- `source`: file/section nguồn
-- `evidence`: ghi ngắn bằng chứng hiện có
-- `next`: việc còn phải làm, nếu chưa ✓
-
-**Chỉ đưa mục có nguồn thật. Không invent field/label/config mới.**
-
-### 4.3 Các chi tiết tối thiểu phải đối chiếu
-
-Không phải checklist cuối cùng; đây là mức sàn để không làm mất thứ đã có:
-
-**MOW**
-- trường/dữ liệu của Master list hiện hữu: mã, tên, anchor/tầng, ngày lập, người/máy lập, 3 vai trò, trạng thái, liên kết MOT/MOIT/MOUT;
-- tìm/lọc, sửa, mở chi tiết;
-- detail/drawer/help/contracts/support có nguồn;
-- Step/UI đã kê MOM02.
-
-**MOT**
-- mã, tên, anchor, ngày/người lập, MOIT, MOUT, 3 vai trò, trạng thái;
-- Studio/Config/Bàn làm việc/List đang dùng;
-- Step/UI đã kê.
-
-**MOIT**
-- Master list + Studio + Config đang dùng;
-- form nhập / các trường config hiện có trong nguồn;
-- liên hệ Field nếu nguồn đã ghi;
-- Step/UI đã kê.
-
-**MOUT**
-- Master list + Builder/Studio đang dùng;
-- cấu hình báo cáo đã có trong Builder/source;
-- Step/UI đã kê.
-
-**Field**
-- Master list;
-- khai báo hiện có tối thiểu: tên · định dạng · mô tả · nhóm quản lý (theo ban-duyet);
-- các field properties khác chỉ lấy khi source thực có;
-- Step/UI đã kê.
-
-Nếu nguồn giàu hơn danh sách sàn → **thêm**, không cắt.
-
-## 5. UI “i · Chi tiết cần đạt”
-
-Trong Home của 5 pilot:
-- nút `i` đổi nghĩa rõ thành “Chi tiết cần đạt / nguồn” qua tooltip;
-- mở panel nhóm theo LB / CF / ST / UI / DATA / DETAIL;
-- đầu panel chỉ hiện count:
-  `✓n · ◐n · !n · ○n`;
-- mỗi dòng mặt chính: `ký hiệu + label ngắn`;
-- source/evidence/next gập hoặc hover/bấm mới xem;
-- không đẩy source dài lên mặt đầu.
-
-5 trục LB/CF/ST/UI trên Home phải có tooltip dẫn đến các requirements liên quan.
-**Không tự nâng ✓** chỉ vì requirement có source; ✓ vẫn theo evidence Owner/đã chốt.
-
-## 6. “Chi tiết cần đạt” là hợp đồng tiến triển
-
-Trong KQ, Codex phải báo:
-- mỗi pilot tìm được bao nhiêu requirement theo từng axis;
-- nguồn nào đã kế thừa;
-- nguồn nào còn chưa ánh xạ;
-- không được báo “đã hoàn thiện” chỉ vì đã đưa lên UI.
-
-Không xóa các detail/gap MOM02/MOM03 đang có.
-
-## 7. Phạm vi sửa
-
-Được sửa tối thiểu:
-- `master-home-v1.html`
-- `ui-child-content-v1.js`
-- `master-of-master-v1.html` chỉ để bổ sung `detailRequirements` vào 5 pilot nếu cần; không đổi 84 code/name.
-- `ui-child-from-parent-v1.js` chỉ nếu cần lifecycle hook sau render.
-
-Không sửa:
-- `master-list.js`
-- `mot-theme-v1.css`
-- `mot-master-v1.html`
-- các Mẹ nguồn tham khảo
-- `ban-duyet.html`
-- `eco-nav.js` nếu không có lỗi thực tế MOM03.
-
-Không file/UI ID mới.
-Không PG/Directus/runtime.
-Không làm 79 Master còn lại.
-
-## 8. Acceptance
-
-1. MOM 84/84, code/name không đổi.
-2. Tất cả 10 header MOM có `?`/tooltip đầy đủ; hover/focus PASS.
-3. Tất cả icon/viết tắt Home §2 có full title/aria/tooltip; người lần đầu hiểu mà mặt thường vẫn gọn.
-4. ★/☆ toggle ở MOM + Master Home; cùng một code đồng bộ trạng thái qua reload/navigation.
-5. `localStorage['incomex.master.starred.v1']` persist; star không đổi progress.
-6. Home gốc hiện `★n` + tối đa 6 favorite; không dropdown/bảng dài.
-7. 5 pilot đều có `detailRequirements` source-backed, không rỗng.
-8. MOW requirements chứng minh đã kế thừa nguồn §4.1, không chỉ Step/UI của MOM02.
-9. Field có ít nhất tên/định dạng/mô tả/nhóm quản lý với source đúng; không bịa field khác.
-10. Panel i hiển thị count ✓/◐/!/○ và drill-down source/evidence/next.
-11. Không false ✓ mới trên LB/CF/ST/UI.
-12. Home-first/loop MOM03 vẫn PASS.
-13. 10/10 menu đỏ vẫn PASS.
-14. Field/MOIT/MOUT regression 3/3.
-15. Parent hashes `master-list.js`, `mot-theme-v1.css`, `mot-master-v1.html` không đổi.
-16. 1280 + 390: không horizontal page overflow; tooltip không tràn viewport.
-17. console error mới = 0.
-18. KQ:
-`KQ@MMIM-MOM04-20260928-01 XONG`
-hoặc
-`KQ@MMIM-MOM04-20260928-01 DỪNG`.
+Nội dung v1, không được làm phức tạp hơn:
+
+1. 🤖 Đọc yêu cầu/RUN; tra CAT-003 process + CAT-006 tool.
+2. 🤖 Có process phù hợp → kiểm tool bắt buộc.
+3. 👤/🤖 Không có process → DỪNG; rà trùng/chồng; đề xuất + tạm chốt process rồi quay lại.
+4. 👤/🤖 Process sai/lạc hậu/chồng chéo → DỪNG; sửa/version, giữ mã+tên+lịch sử rồi quay lại.
+5. 🤖 Gate PASS → mới được READY/RUN.
+6. 🤖 Sau thực thi ghi KQ/evidence/gap; nếu thực tế không khớp process → quay lại bước 4.
+
+Khi biểu diễn theo khuôn `ml5-cho-ai`, dùng các dòng master hiện có phù hợp. Không invent dòng master chỉ để tool walk PASS. Mỗi bước phải ít nhất đọc CAT-003/CAT-006 hoặc ghi đúng nơi đã có.
+
+### Số đếm live
+
+Vì thêm process thật:
+- nhóm `🔁 Dùng chung`: 7 → **8**;
+- process catalog hiện hành: 38 → **39** ở các summary live/current.
+- Chỉ sửa **summary hiện hành**, KHÔNG thay số 38 trong báo cáo lịch sử/KQ cũ.
+- Cập nhật comment expected của `dot-walk-check.py` nếu chỉ là mô tả baseline; không hardcode kiểm số 39 vào logic.
+
+Chạy `dot-walk-check.py` sau sửa; phải exit 0.
+
+## 3. Tool mới — dot-process-gate
+
+Được tạo đúng 1 file:
+`work/mow-mot-moit-mout/cong-cu/dot-process-gate.py`
+
+Khuôn header giống 4 tool hiện có.
+
+### Input
+
+```
+python3 dot-process-gate.py --prompt <PROMPT.md> --catalog <ban-duyet.html> [--json]
+```
+
+### Gate v1 bắt buộc kiểm
+
+1. PROMPT có **đúng một** dòng `PROCESS: <CODE>`.
+2. CODE đúng format `[A-Z0-9_]+\.[A-Z0-9_]+`.
+3. CODE tồn tại **đúng một lần như process definition** trong `ml5-cho-ai`.
+4. Process có nhãn `Thuộc` hợp lệ 🏗/⚙️/🔁/📦.
+5. Process có ít nhất 1 step parse được.
+6. Nếu prompt dùng `PROCESS: CHUNG.APQUYTRINH`, sau bootstrap tool phải PASS chính RUN này.
+7. Không tìm process bằng text tự do ngoài catalog canonical.
+
+Output người:
+`PROCESS_GATE PASS|BLOCK · process=<code> · catalog=<sha256> · reason=<...>`
+
+`--json`: ít nhất
+`status, process, catalog_sha256, prompt_sha256, reason, process_count`.
+
+Exit:
+- 0 PASS
+- 1 BLOCK nghiệp vụ/gate
+- 2 lỗi input/parse.
+
+Không network, không secret, chỉ stdlib, không ghi file.
+
+### Exact duplicate tối thiểu
+
+Tool phải BLOCK nếu:
+- process code trùng;
+- cùng một **tên process chuẩn hóa** xuất hiện >1 process definition.
+
+**Semantic overlap không được giả vờ đã giải quyết.** Ghi rõ K11 còn thiếu tool/decision sâu cho overlap phạm vi/ý nghĩa.
+
+## 4. Đăng ký tool + phạm vi cưỡng chế
+
+Trong tool catalog hiện hành:
+- thêm `dot-process-gate*`;
+- Thuộc: `🔁`;
+- trạng thái sau RUN: `đã thử` nếu acceptance đạt, chưa được tự nâng `sẵn dùng`.
+
+Thêm phạm vi kiểm mới:
+- `K18 · Tuân thủ quy trình trước RUN`
+- miền: `governance.process · gate`
+- tool: `dot-process-gate*`.
+
+K11 `Trùng quy trình (tên · phạm vi)`:
+- sau tool này có thể ghi **exact code/name = có tool**;
+- semantic overlap vẫn OPEN, chưa được tô đủ/sẵn dùng.
+
+Cập nhật số phạm vi hiện hành 17 → **18** nơi live/current; không sửa lịch sử cũ.
+
+## 5. E1 — cơ chế cưỡng chế từ RUN sau
+
+Ghi vào COLLAB ở D57/KQ:
+
+**Từ RUN kế tiếp của task này:**
+- Host không được ghi READY nếu PROMPT thiếu `PROCESS:`.
+- Trước READY, Host/Executor phải chạy `dot-process-gate.py`; chỉ PASS mới READY.
+- Codex/Agent khi nhận RUN phải tự chạy gate trước mutation; FAIL → KQ DỪNG.
+- KQ phải chứa `PROCESS=<code>` + `PROCESS_GATE=PASS`.
+
+Đây là E1. **Không tự sửa root AGENTS/gateway trong RUN này.**
+E2/E3 là lượt sau sau khi E1 được kiểm thật.
+
+## 6. Lane persistence
+
+Giữ D56:
+- A = nền/cưỡng chế/catalog/tool.
+- B = process/model/JEV.
+- C = Step/UI.
+
+Bổ sung dòng trạng thái hiện hành:
+- `LANE A = A01 đang bootstrap P0/gate`
+- `LANE B = BLOCKED_BY_A01`
+- `LANE C = BLOCKED_BY_A01`.
+
+Không phát RUN B/C.
+
+## 7. Acceptance
+
+1. `CHUNG.APQUYTRINH` có đúng 1 definition trong catalog, mã/tên cố định.
+2. `dot-walk-check.py ban-duyet.html --json` exit 0; process count=39; 🔁=8.
+3. `dot-process-gate.py --prompt PROMPT.md --catalog ban-duyet.html` PASS.
+4. Negative test: prompt không PROCESS → BLOCK exit 1.
+5. Negative test: PROCESS không tồn tại → BLOCK exit 1.
+6. Negative test: duplicate exact code/name fixture in-memory/temp → BLOCK; không mutation repo.
+7. Tool catalog có dot-process-gate, trạng thái không cao hơn `đã thử`.
+8. K18 tồn tại; tổng live scope=18.
+9. K11 ghi đúng: exact duplicate có kiểm; semantic overlap OPEN.
+10. Không đổi UI/Step/Master code/name.
+11. Không file mới ngoài `cong-cu/dot-process-gate.py`.
+12. Ghi:
+`KQ@MMIM-LANE-A01-20260928-01 XONG`
+hoặc DỪNG.
+13. KQ line:
+`KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS|BLOCK · HEAD=<sha> · NEXT=<một việc>`.
 
 Báo Owner:
-`XONG · MMIM-MOM04 · help_headers=10/10 · help_home=PASS · starred=PASS · requirements=<n> · pilot=5/5 · false_green=0 · loop=PASS · regressions=3/3 · home=<url>`
+`XONG · A01 · P0=PASS · process=39 · shared=8 · gate=PASS · scopes=18 · K11_semantic=OPEN · NEXT=<...>`
 
-## 9. Dừng
+## 8. Dừng
 
 XONG cũng dừng.
-Owner phải nhìn:
-⌂ Home → ☷84 → hover tên cột/? → ★ một Master → mở Home → i Chi tiết cần đạt.
-Không tự làm 79 Master.
+Không tự làm A02/B/C.
