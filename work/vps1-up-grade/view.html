@@ -213,10 +213,21 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 </table>
 
 <div id="sec1-result" class="callout danger">
-<h3>Kết quả SEC1 · B PASS · A chuyển sang DOT-only</h3>
-<p class="big">🟢 VPS2: MySQL 3307 + cms_nginx 8080 đã đóng với internet. 🔴 VPS1: Public CREATE/UPDATE <code>approval_requests</code> chưa gỡ. KQ DỪNG trước do PROMPT dùng sai cửa vào; Owner đã chốt lại cơ chế.</p>
+<h3>Kết quả SEC1 · B PASS · A ĐÃ ĐÓNG qua DOT (SEC1A-DOT XONG)</h3>
+<p class="big">🟢 VPS2: MySQL 3307 + cms_nginx 8080 đã đóng với internet. 🟢 VPS1: Public CREATE/UPDATE <code>approval_requests</code> đã gỡ qua DOT (27/09 18:52 UTC); Public READ giữ nguyên.</p>
 <p><b>DIRECTUS/PG: DOT ONLY · Secrets: Secret Manager.</b> Người/Agent không cầm khoá; <b>DOT được dùng Owner-admin credential qua kho chuẩn</b> khi cần quyền quản trị. <code>report-pg</code> chỉ read-only. P14–P16 đã áp; SEC1A-DOT <b>READY@<code>3422b413…</code></b>. Bỏ đăng ký sổ DOT trong lượt này; nguồn metadata kho Owner-admin đã được chỉ sẵn trong PROMPT. Nếu cần DOT mới, DOT phải tự mô tả đầy đủ bằng <code>--help</code> và có biển tại cửa/template.</p>
 <p><b class="stop">SEC1A-DOT · RUN <code>VPSUP-SEC1A-DOT-20260927-01</code> · DỪNG ở read-gate</b> (27/09 09:28 UTC) — RUN hạ tầng khác <code>MCPW-AD1-20260927-01</code> đang dở trên VPS1 (PRE 08:03Z, backup 08:47Z, fixture tới 08:58Z; chưa cài, chưa KQ). Phạm vi không chồng nhưng PROMPT ghi DỪNG; Owner chọn DỪNG. <b>0 mutation:</b> #620/#621 còn nguyên, chưa tạo DOT/biển, B không đụng.</p>
+<p><b class="ok">SEC1A-DOT · RUN <code>VPSUP-SEC1A-DOT-20260927-01</code> · XONG</b> (27/09 18:43–19:05 UTC, chạy lại theo P22 sau KQ AD1 <code>b9eee89</code>).</p>
+<ul class="small">
+<li><b>Cơ chế đã xác minh (không lộ khoá):</b> kho chuẩn = Secret Manager <code>DIRECTUS_SUPERADMIN_BUNDLE</code> (nhãn <code>purpose=directus-superadmin-dual</code>, 1 version 24/07), dùng phần <code>owner</code>; file <code>/etc/incomex/c2b1/breakglass/owner-admin.env</code> (root 0600) là bản runtime tạo cùng lượt 24/07 — DOT đối chiếu ngầm: khớp. Tài khoản Owner không đổi từ 24/07, không OTP.</li>
+<li><b>Vì sao SEC1 hiểu sai:</b> PROMPT SEC1 đi tìm “khoá máy có quyền admin” và cấm tài khoản Owner, trong khi mô hình đã chốt là DOT đi qua tài khoản Owner bằng kho khoá (D19 · A10-R3).</li>
+<li><b>DOT:</b> chưa có DOT nào vừa xoá permission vừa nạp khoá Owner (<code>dot-permission-ensure</code> chỉ tạo bằng token máy; <code>dot-fix-permissions</code>/<code>dot-permissions-setup</code> cần biến mật khẩu đã xoá trắng) ⇒ viết <code>dot-directus-permission-revoke</code> v1.0.0: dry-run mặc định · <code>--execute</code> · <code>--restore</code> · <code>--help</code> đủ 10 mục · từ chối policy admin và <code>directus_*</code>. Git <code>/opt/incomex/dot</code> <code>7288dfd</code>.</li>
+<li><b>A trước → sau:</b> Public ghi 2 (#620 create, #621 update) → <b>0</b>; Public Access 172 → 170 quyền, READ 170 giữ nguyên (#619 còn); dấu vân tay mọi quyền khác không đổi (<code>9fd7e73a…</code>); 232 APR không đổi; GET ẩn danh vẫn 200. Dấu vết: <code>directus_activity</code> login + delete 620/621 bởi Owner, user-agent <code>dot-directus-permission-revoke/1.0.0 (run=…)</code>; đã logout. Snapshot rollback (không chứa khoá): <code>/opt/incomex/work/vps1-up-grade/SEC1A-DOT-20260927/revoke-20260927T185237Z-VPSUP-SEC1A-DOT-20260927-01.json</code>; <code>--restore</code> dry-run sẵn 2 dòng.</li>
+<li><b>Regression:</b> Directus ping 200 · vps 200 · <code>/reports/report-pg</code> 200 · agent-data/claude-mcp image + StartedAt 25/09 không đổi (cửa sổ AD1-24h an toàn) · crontab không đổi.</li>
+<li><b>B vẫn PASS · TEMPORARY:</b> từ Mac 3307/8080 đóng (v4+v6), 80/443 v4 mở, e-learning 200; rule còn đủ 2+1. 🟡 VPS2 hiện <b>không có route IPv6 mặc định</b> ⇒ IPv6 cả máy không vào được (kể cả 22/80/443); không do rule SEC1; e-learning không có AAAA nên người dùng không ảnh hưởng — xử lý ở hardening.</li>
+<li><b>Biển:</b> đã có ở AGENTS A10-R3; đã gắn 3 dòng ở đầu <code>dot/bin/00-NHAN-THU-MUC.md</code> và <code>TEMPLATE-DOT-SCRIPT</code>. <code>report-pg</code> chưa có biển — thêm ở lần build Nuxt bước 7 vào <code>web/pages/reports/[report]/index.vue</code> (cây nguồn trên Mac): “Trang này chỉ đọc; ghi Directus/PG chỉ qua DOT.”</li>
+<li><b>Gap:</b> DOT mới chưa vào <code>dot_tools</code> — gộp lượt dọn sổ DOT, không chặn XONG.</li>
+</ul>
 <p class="small muted">27/09/2026 07:24–07:38 UTC · Claude Code CLI · SSH alias <code>contabo</code>/<code>vps2</code> · SQL VPS1 <code>BEGIN READ ONLY</code> · 0 file ghi lên VPS1/VPS2 · không in secret · không thử ghi ẩn danh. JEV phụ <code>gen-dec-1790494394-xVvgBxPYnQ3cOTgZvh4W</code>: A dừng 0,88 · B v4+v6 0,96.</p>
 <table>
 <thead><tr><th>Phần</th><th>Trước</th><th>Sau</th><th>Kết quả</th></tr></thead>
@@ -231,7 +242,7 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <code>iptables -D DOCKER-USER -i eth0 -p tcp -m conntrack --ctstate NEW --ctdir ORIGINAL --ctorigdstport 8080 -m comment --comment "VPSUP-SEC1 TEMPORARY_UNTIL_PERSISTENT_BINDING" -j DROP</code><br>
 <code>ip6tables -D INPUT -i eth0 -p tcp -m multiport --dports 3307,8080 -m conntrack --ctstate NEW -m comment --comment "VPSUP-SEC1 TEMPORARY_UNTIL_PERSISTENT_BINDING" -j DROP</code></p>
 <p class="small">⚠️ <b>Cấm reboot VPS2</b> trước RUN hardening (rule chỉ ở runtime). Phát hiện thêm, không sửa: 🟡 hai policy gắn Public (<i>Public Access</i> + <code>$t:public_label</code>, 340 quyền đọc) — thuộc SEC2; ngoài #620/#621 không còn quyền create/update/delete Public nào.</p>
-<p class="small"><b>Next:</b> AD1 có KQ → Host phát lại RUN SEC1A-DOT → gỡ #620/#621 qua DOT · sau đó <b>BK1 backup</b> sớm, trước mọi cleanup/recreate/persistent-bind VPS2.</p>
+<p class="small"><b>Next:</b> Host phát <b>BK1 backup</b> sớm (chặn 3307/8080 VPS2 chỉ ở runtime) → hardening VPS2 · SEC2 dùng lại DOT này để gỡ Public READ thừa.</p>
 </div>
 
 <h4>Phát hiện 🔴/🟡</h4>
