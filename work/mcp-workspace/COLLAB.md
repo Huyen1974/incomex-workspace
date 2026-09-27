@@ -723,5 +723,15 @@ KQ@MCPW-LIFECYCLE-AUDIT-20260927-01 XONG
 - Agent PASS sau smoke ghi `KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H` rồi dừng. **KQ chưa phải Host ACCEPT**; Host/Claude chỉ nghiệm thu AD1 sau 24h counter theo N9/P25.
 - P02 freeze; không Pha B/C trong RUN này; 0 model Hermes/AUTO; không service/DB/key/port mới.
 
+#### P28 · Claude Chat (Reviewer) · 2026-09-27 · Based_on `f01b16a` · **ACCEPT AD1** (`READY@7a17224` khớp commit cuối chạm PROMPT) + **1 sửa đơn giản hoá §12 trước RUN**
+- Scope: PROMPT §11–§13, P25–P27. 7 điều kiện P25 đã vào PROMPT — đồng ý.
+- **Vấn đề Owner nêu 27/09 11:18 (nguyên văn):** “những cái gì phải chờ đợi mới xác nhận được đều là những thứ rất mất thời gian mà phải nghĩ. Máy thì lát nữa đóng lại, cái gì là cái duy trì để chờ… ai là người tổng hợp báo cáo?” §12 hiện bắt Host quay lại sau 24h — không ai giữ lịch đó.
+- **Đề nghị (Bậc 1–2, không service/token/DB mới):** VPS chạy 24/7 đã có Guard hằng giờ + Kuma → Telegram. Giao việc canh 24h cho chính chúng: đỏ thì báo, im lặng là đạt, đủ 24h xanh thì máy tự ghi PASS. Host không phải canh, chỉ đọc một dòng khi tiện. JEV `gen-dec-1790482775-8muhpPIscS1whwMKyq6X`: auto-watch trên VPS 0,99.
+- **Host thay nguyên văn §12 bằng khối dưới + thêm 1 dòng vào §11 mục 13, rồi READY lại. Claude đã duyệt trước delta này: áp đúng chữ thì không cần vòng review mới.**
+  - §11 mục 13, thêm: “Trong smoke chạy 1 lần đối chiếu counter với mẫu SYN/network 10′ (±15%). Cài xong bước canh tự động §12 và chứng minh nó đẩy được 1 nhịp xanh + 1 nhịp đỏ fixture vào monitor Kuma hiện hữu.”
+  - §12 mới: “**§12 · Canh 24h do máy làm — không ai phải quay lại.** Guard hằng giờ hiện hữu đánh giá trên cửa sổ 60′ gần nhất: (1) GitHub đọc định kỳ toàn hệ ≤20/h, REST ẩn danh ≤2/h; (2) Hermes gate khi local fresh = 0 lần gọi GitHub; (3) phát hiện assignment p95 ≤5′, 0 assignment/commit bị sót; (4) ruleset checker có `last_pass` ≤2h; (5) P02 hash/StartedAt/health không đổi. Kết quả đẩy vào monitor Kuma hiện hữu của Guard (không token mới). Kuma không nhận nhịp quá 2h ⇒ đỏ (canh cả người canh). **Vi phạm bất kỳ mục nào** ⇒ Telegram + tự lật consumer liên quan về `source=github` bằng switch đã có (đường cũ, an toàn) + ghi `AD1_24H=FAIL <mục>` vào state hồ sơ VPS. **Đủ 24 nhịp xanh liên tiếp** ⇒ ghi `AD1_24H=PASS <from>→<to>` vào state hồ sơ VPS và dừng đánh giá 24h (giám sát thường trực của Guard vẫn chạy). VERIFY (§13) in đúng dòng này đầu tiên. Host ACCEPT = đọc dòng đó bất cứ lúc nào sau 24h; không có lịch, không ai phải chờ.”
+- **Luật chung đề nghị Host đưa lên root (DROOT), áp mọi việc:** Không bước nghiệm thu nào dựa vào người/AI nhớ quay lại sau N giờ. Quan sát kéo dài giao máy trên VPS (Guard/Kuma hiện hữu): đỏ ⇒ Telegram (+ tự quay về đường cũ nếu có switch an toàn); đủ cửa sổ xanh ⇒ máy tự ghi PASS; người chỉ đọc một dòng. Áp ngay cho `vps1-up-grade` bước 10 (“theo dõi 7 ngày”) và đồng hồ license D16.
+- Trạng thái: **OPEN** — chờ Host áp §11/§12 + READY lại; sau đó Owner RUN.
+
 ## Owner cần quyết
 - —
