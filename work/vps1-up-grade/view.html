@@ -194,9 +194,107 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <h2>9. Bước 2 · G0 khảo sát chỉ đọc</h2>
 <p class="big">🤖 Máy xem VPS1 · VPS2 · Drive — <b>không đổi gì</b>. Kết quả hiện ngay dưới đây.</p>
 <div id="g0-result">
-<h3>Kết quả G0</h3>
-<p class="muted">🟡 PROMPT G0 đã Host kiểm và READY — chờ RUN. Runtime vẫn chưa bị thay đổi.</p>
-<p class="small"><b>Đã biết trước (đo 26/09, chờ G0 xác nhận):</b> 🟡 cả hai job sao lưu (<code>pg-backup.sh</code>, <code>backup-to-gdrive.sh</code>) chỉ dump DB <code>directus</code>; <code>incomex_metadata</code> 419 MB và <code>workflow</code> 7,6 MB chưa thấy trong backup nào. Cụm 5 DB = directus 1,77 GB · directus_gov_test_20260602 1,20 GB · incomex_metadata 419 MB · workflow 7,6 MB · postgres 7,5 MB.</p>
+<h3>Kết quả G0 · RUN <code>VPSUP-G0-20260927-01</code> · XONG</h3>
+<p class="small muted">Đo 27/09/2026 03:10–03:50 UTC · Claude Code CLI · chỉ đọc: SSH alias <code>contabo</code>/<code>vps2</code>, SQL <code>BEGIN READ ONLY</code>, <code>docker inspect/ps/system df</code>, HTTP GET/HEAD, <code>rclone lsf/size/about</code>, GitHub/npm GET. <b>0 thay đổi runtime, 0 file ghi lên VPS1/VPS2</b>; không in secret/dữ liệu cá nhân (chỉ đếm/kích thước/tên).</p>
+<table>
+<thead><tr><th>Mục</th><th>VPS1</th><th>VPS2</th><th>Drive</th><th>Kết luận</th></tr></thead>
+<tbody>
+<tr><td><b>A</b> Version/drift</td><td>🟡 PG 16.13 · Directus 11.5.1 · Nuxt 3.20.2/Node 20.20 · Qdrant 1.16.3 · nginx 1.29.5 · Kuma 2.2.1 · Docker 29.2.1; 5 tag trôi (<code>postgres:16</code>, <code>directus:11.5</code>, <code>qdrant:latest</code>, <code>nginx:alpine</code>, <code>uptime-kuma:2</code>)</td><td>🟡 MySQL 5.7.44 (EOL) · nginx 1.25 · Caddy · Laravel/PHP-FPM · Docker 29.7.2 (lệch VPS1) · 0 cron/timer riêng</td><td>✕</td><td>🟡 Không có tự pull (không watchtower; unattended chỉ vá Ubuntu; compose pull=missing). DB Directus đã ở migration 11.14 (<code>20251103A</code>) trong khi code chạy 11.5.1</td></tr>
+<tr><td><b>B</b> Directus</td><td>🔴 Public ẩn danh được create+update mọi trường <code>approval_requests</code> · 1 admin active (không token) + 5 máy API-only · 8 suspended (1 admin còn token) · 167 collection · 111/128 Flow active · 1 extension host ^11 · WS bật, 101 từ internet · không PostGIS</td><td>✕</td><td>✕</td><td>🟡 Critical GHSA-97xr KHÔNG ÁP DỤNG (WS auth mặc định handshake); ÁP DỤNG 5 High DoS ẩn danh + CSWSH có điều kiện; TUS/PostGIS/cache/AI không áp dụng; 4 High cần đăng nhập: chưa đủ bằng chứng</td></tr>
+<tr><td><b>C</b> PostgreSQL</td><td>🟡 directus 1,77 GB · gov_test 1,20 GB · incomex_metadata 419 MB · workflow 7,6 MB (0 bảng) · postgres 7,5 MB · RLS 0 bảng · chỉ <code>workflow_admin</code> superuser/BYPASSRLS · Directus kết nối bằng role chủ 308 bảng · checksum off</td><td>✕</td><td>✕</td><td>🟡 gov_test = TEST-DERIVED (17 phút 0 ghi, 0 tham chiếu runtime) ⇒ không mang vào clone. RLS/tenant chưa có; role chủ bảng bỏ qua RLS nếu không FORCE (gap D18)</td></tr>
+<tr><td><b>D</b> Backup</td><td>🔴 F6 XÁC NHẬN: 2 job chỉ dump <code>directus</code>; <code>incomex_metadata</code> (BUSINESS) và <code>/opt/incomex/data</code> 401 MB không có backup nào</td><td>🔴 E-learning chỉ có bản 09/08 nằm trên chính VPS2 (+1 bản trên Mac Owner); restore thử 09/08 vào <code>cms_elearning_verify</code></td><td>🟢 5 TiB, dùng 45,4 GiB · 31 bộ DB mã hoá, mới nhất 26/09 18:37Z · Qdrant mọi collection · code 4 lần/ngày · 0 bản VPS2</td><td>🟡 Restore proof duy nhất: DB <code>directus</code> từ Drive 21/07 (&gt;2 tháng), không lịch kiểm định kỳ</td></tr>
+<tr><td><b>E</b> Route/caller</td><td>🟢 4 host · 107 location (vps 67 · ops 33 · directus 2 · giaoduc 5) · 67 page + 63 route Nuxt · giaoduc nhúng elearning · Kuma 22 monitor → 1 kênh Telegram</td><td>🟡 Caddy 80/443 elearning.*; <code>cms_nginx</code> 8080 và MySQL 3307 mở internet</td><td>✕</td><td>🟡 Người gọi Directus/PG: Directus · Nuxt (token + PG) · agent-data (admin token + 2 DB + Qdrant) · claude-mcp (token + PG RO) · 6 cron psql + 9 cron DOT dùng credential Directus · 32 Flow request. Kuma #3 dùng <code>/server/health</code> (v12 cần auth)</td></tr>
+<tr><td><b>F</b> Side effect</td><td>🟡 Telegram (Kuma, Hermes bot, 5 script) · GitHub (gateway, git-push 2×/ngày, guard) · Drive (backup có <code>rclone delete</code> retention) · Lark/OpenAI/OpenRouter · Flow 5 schedule/2 webhook/1 URL động · mail 0 · egress mở hết</td><td>🟡 ufw TẮT, không luật egress</td><td>🟡 retention xoá bản prod nếu clone chạy nhầm job</td><td>🔴 Phải chặn trước khi boot clone: <code>dot-apr-execute</code>, <code>auto_apply_approval</code>, cron psql, Hermes bot, Kuma push, git push/gateway, backup+retention, Flow schedule/webhook/request — cưỡng chế bằng network internal + egress deny</td></tr>
+<tr><td><b>G</b> VPS2</td><td>✕</td><td>🟡 4 vCPU · 7,75 GiB RAM (khả dụng 6,2) · swap 0 · đĩa 96 GiB, dùng 39,3, trống 59 · e-learning ~0,4 GiB RAM · <code>cms_queue</code> lỗi DB liên tục, 30% CPU</td><td>✕</td><td>🟡 Workload thật ≈ 2,5 GB (+2,2 GB OS) — khớp ước ~3 GB. Dọn được ≈ 26 GB: log 9,5 · build cache 11,2 · image 3,6 · journal 0,75 · bản trùng/kiểm thử 0,75 (sổ bên dưới)</td></tr>
+<tr><td><b>H</b> Contabo</td><td>⚪ Gói/snapshot: API cần POST lấy token, PROMPT chỉ GET · máy 6 vCPU/11,7 GiB/96 GiB</td><td>⚪ như VPS1 · 4 vCPU/7,75 GiB/96 GiB</td><td>✕</td><td>🟡 Cùng DC Contabo Lauterbourg (FR), cùng AS51167 ⇒ canh chéo bắt được VPS1 chết, không bắt sự cố DC/mạng chung. TLS còn hạn đến 06–27/11</td></tr>
+<tr><td><b>I</b> Lab</td><td>🟢 Nguồn clone: PG data 3,67 GB (≈ 2,4 GB nếu bỏ gov_test) · Qdrant 0,22 · Nuxt output+data 0,45 · image ~4 GB</td><td>🟡 Ước tính CURRENT ≈ 7,5 GB + TARGET ≈ 8–10 GB đĩa ⇒ đủ; RAM ≈ 3,4 GiB/stack (agent-data 2,6) ⇒ 2 stack song song thiếu</td><td>🟢 dư chỗ offload</td><td>🟡 Đề xuất: dọn theo sổ + swap 4 GB + trần RAM container + chạy CURRENT/TARGET lần lượt; chỉ tạm nâng gói nếu G2 đo thiếu RAM</td></tr>
+<tr><td><b>J</b> Licensing 12</td><td>✕</td><td>✕</td><td>✕</td><td>🟡 Egress cần: <code>telemetry.directus.io</code> (mã) + <code>licensing.directus.com</code> (docs); interval nằm trong token; không có trường “lần xác minh gần nhất” ⇒ monitor dùng <code>GET /license</code> (admin) + <code>/server/info</code>; locked chặn /items, /graphql, /files, /assets, /mcp, webhook Flow, WS, login non-admin; offline chỉ Enterprise</td></tr>
+</tbody>
+</table>
+
+<h4>Phát hiện 🔴/🟡</h4>
+<ol class="small">
+<li>🔴 <b>VPS1 · ghi ẩn danh:</b> policy Public có create+update mọi trường <code>approval_requests</code>, không filter/validation; GET công khai trả 200 (<code>total_count</code> 232). Cron root <code>dot-apr-execute</code> (*/5) và <code>auto_apply_approval()</code> thực thi APR đã duyệt ⇒ đường ẩn danh tới tự động hoá đặc quyền. Activity: 0 lượt ẩn danh. Không thử ghi.</li>
+<li>🔴 <b>VPS2 · lộ DB:</b> ufw tắt; MySQL 5.7.44 (EOL) nghe <code>0.0.0.0:3307</code>, mở từ internet, có <code>root@'%'</code>; Aborted_connects 1.253/49 ngày; <code>cms_nginx</code> 8080 cũng mở. Không thấy tài khoản lạ.</li>
+<li>🔴 <b>F6 đúng:</b> <code>incomex_metadata</code> (KB, BUSINESS) và <code>/opt/incomex/data</code> (điểm danh GDĐH/tiếng Nhật, kết quả thi) không nằm trong bất kỳ backup nào. <code>workflow</code> rỗng, không cần.</li>
+<li>🔴 <b>E-learning không có bản ngoài VPS2 trên Drive.</b> DB không có ghi mới từ 09/08, nên bản 09/08 vẫn đủ dữ liệu, nhưng phải lên Drive trước mọi việc dọn.</li>
+<li>🟡 <b>Schema Directus đi trước code:</b> DB đã chạy migration tới 11.14 (<code>20251103A</code>), container 11.5.1. Nâng 12 xuất phát từ schema 11.14; “rollback về 11.5.1” không phải trạng thái sạch.</li>
+<li>🟡 <b>WebSocket bật nhưng không ai dùng</b> (không có trong mã Nuxt/agent-data; log nginx 72 giờ chỉ có 2 lượt G0). Tắt WS là giảm thiểu CSWSH không ảnh hưởng dịch vụ.</li>
+<li>🟡 <b>Restore proof</b> chỉ có cho DB <code>directus</code> (21/07); <code>dot-pg-restore-verify</code> có sẵn nhưng không có lịch chạy.</li>
+<li>🟡 <b>VPS2 <code>cms_queue</code></b> lỗi “Connection refused” tới DB mỗi ~5 giây từ 09/08: log 9,5 GB nằm trong lớp container (đường dẫn không bind), tăng ~190 MB/ngày.</li>
+<li>🟡 <b>Egress mở ở cả hai VPS</b>; job backup có <code>rclone delete</code> retention trên Drive prod, còn Hermes bot/Kuma/git push là singleton ⇒ clone phải chặn bằng mạng, không dựa vào lời nhắc.</li>
+<li>🟡 <b>Một điểm hỏng chung:</b> Kuma chỉ chạy trên VPS1 (1 kênh Telegram); hai VPS cùng DC/ASN.</li>
+<li>🟡 <b>Tag trôi</b> 5 image VPS1 + Docker lab (29.7.2) lệch prod (29.2.1): ghim digest/phiên bản gói trước clone.</li>
+<li>🟡 <b>Licensing v12</b> (mã 12.4.1 = 12.3.1, trừ inactive collections): lỗi mạng khi refresh chỉ ghi log và giữ token; nhưng restart khi token đã hết hạn ⇒ tự downgrade <b>và xoá key trong DB</b>; <code>LICENSE_KEY</code> qua env khi DB chưa có key mà mất mạng ⇒ tiến trình thoát. Vượt giới hạn ⇒ “locked” ngay. Ở Core, quy tắc quyền tuỳ biến bị bỏ qua im lặng. ⇒ LC1–LC6 phải đo ở lab.</li>
+</ol>
+
+<h4>Đề xuất bước tiếp</h4>
+<ul class="small">
+<li><b>Khẩn, trước bước 4 (cần Owner gật một RUN nhỏ):</b> gỡ quyền ghi ẩn danh trên <code>approval_requests</code> và rà 342 quyền đọc công khai; chặn 3307/8080 VPS2 khỏi internet (bind 127.0.0.1 hoặc ufw). Không đụng dữ liệu.</li>
+<li><b>Bước 4:</b> ghim digest 5 image; thêm <code>incomex_metadata</code> + <code>/opt/incomex/data</code> vào backup Drive mã hoá + restore thử; tắt <code>WEBSOCKETS_ENABLED</code>; Kuma canh chéo trên VPS2; đổi monitor #3 sang <code>/server/ping</code> trước khi lên v12.</li>
+<li><b>Bước 5 (VPS2):</b> đưa gói 09/08 lên Drive prefix riêng + đọc lại → sửa <code>cms_queue</code> → dọn theo sổ (≈ 26 GB) → swap 4 GB + trần RAM. Giữ image khớp digest VPS1 để làm CURRENT.</li>
+<li><b>G2:</b> clone không mang gov_test (lưu dump 1 lần lên Drive); network internal + egress deny; chặn đủ danh sách singleton ở F.</li>
+<li><b>G3:</b> Directus sàn 12.3.1 vẫn đúng — tới 27/09 chưa có advisory sau 25/08 chỉ vá ở 12.4+ (12.4.1 ra 23/09).</li>
+</ul>
+
+<details>
+<summary><b>D · Bảng DB × backup</b></summary>
+<table class="small">
+<thead><tr><th>DB</th><th>Vai trò</th><th>Cần backup?</th><th>Local</th><th>Drive</th><th>Restore proof</th></tr></thead>
+<tbody>
+<tr><td><code>directus</code> 1,77 GB</td><td>BUSINESS</td><td>Có</td><td>🟢 <code>pg-backup.sh</code> hằng ngày 02:27, giữ 7 ngày</td><td>🟢 <code>backup-to-gdrive.sh</code> 20:37 GPG, 30 bản + 12 cuối tháng</td><td>🟡 21/07 (artifact 20/07), Drive → giải mã → PG16 cô lập</td></tr>
+<tr><td><code>incomex_metadata</code> 419 MB</td><td>BUSINESS (KB, 13 kết nối agent-data)</td><td>Có</td><td>🔴 không</td><td>🔴 không</td><td>🔴 không</td></tr>
+<tr><td><code>directus_gov_test_20260602</code> 1,20 GB</td><td>TEST-DERIVED</td><td>Một lần (lưu trữ)</td><td>🟡 không</td><td>🟡 không</td><td>⚪</td></tr>
+<tr><td><code>workflow</code> 7,6 MB</td><td>DEFAULT/rỗng (0 bảng)</td><td>Không</td><td>✕</td><td>✕</td><td>✕</td></tr>
+<tr><td><code>postgres</code> 7,5 MB</td><td>DEFAULT</td><td>Không</td><td>✕</td><td>✕</td><td>✕</td></tr>
+<tr><td>Qdrant 0,22 GB</td><td>BUSINESS (vector)</td><td>Có</td><td>🟢 snapshot <code>production_documents</code> 03:00, 7 ngày</td><td>🟢 mọi collection trong config tar</td><td>⚪</td></tr>
+<tr><td><code>/opt/incomex/data</code> 401 MB</td><td>BUSINESS (file Nuxt)</td><td>Có</td><td>🟡 chỉ tgz thủ công</td><td>🔴 không</td><td>⚪</td></tr>
+<tr><td>E-learning MySQL 49 MB</td><td>BUSINESS (VPS2)</td><td>Có</td><td>🟢 09/08 trên VPS2 + Mac</td><td>🔴 không</td><td>🟢 09/08 (<code>cms_elearning_verify</code>)</td></tr>
+</tbody>
+</table>
+</details>
+
+<details>
+<summary><b>G · Sổ nguồn sinh VPS2 + đề xuất dọn</b> — chỉ đề xuất, chưa xoá gì</summary>
+<table class="small">
+<thead><tr><th>Mục</th><th>Bytes</th><th>Nhãn</th><th>Lý do</th></tr></thead>
+<tbody>
+<tr><td><code>laravel.log</code> trong lớp ghi <code>cms_queue</code></td><td>9,54 GB</td><td>DỌN ĐƯỢC</td><td>Toàn lỗi kết nối DB lặp lại; phải sửa cấu hình queue trước, nếu không log mọc lại</td></tr>
+<tr><td>Build cache BuildKit</td><td>13,58 GB (11,23 GB thu hồi được)</td><td>DỌN ĐƯỢC</td><td>Cache build 08–09/08, không container dùng</td></tr>
+<tr><td>Image build/test: <code>zenika/alpine-chrome</code>, <code>node:14</code>, <code>node:22</code>, <code>php:7.2/7.3</code>, <code>elearning-test:php73</code>, 1 postgres không tag</td><td>≈ 3,6 GB</td><td>DỌN ĐƯỢC</td><td>Image công khai, kéo lại được; không container dùng (<code>node:14</code> chung lớp với buildstage nên gần như không giải phóng)</td></tr>
+<tr><td><code>incomex-web-buildstage</code></td><td>3,96 GB</td><td>GIỮ</td><td>Đường duy nhất đã build web Expo SDK37 cũ; chỉ dọn khi đã chứng minh build lại được</td></tr>
+<tr><td>Image khớp digest VPS1 (PG 16.13, Directus 11.5.1)</td><td>1,51 GB</td><td>GIỮ</td><td>Dùng ngay cho CURRENT parity clone</td></tr>
+<tr><td>Image ứng viên (Directus 12.3.1, PG 16.15)</td><td>1,73 GB</td><td>CHƯA RÕ</td><td>Chờ G3 chốt đích; kéo lại theo digest được</td></tr>
+<tr><td>Image rollback e-learning</td><td>0,21 GB</td><td>GIỮ</td><td>Đường lùi e-learning tới khi có backup mới</td></tr>
+<tr><td>systemd journal</td><td>0,96 GB</td><td>DỌN ĐƯỢC</td><td>Giữ ~200 MB là đủ</td></tr>
+<tr><td><code>/opt/vps2-backup-2026-08-09</code></td><td>0,52 GB</td><td>ĐẨY DRIVE</td><td>Bản e-learning duy nhất ngoài Mac; lên Drive + đọc lại rồi mới giảm bản local</td></tr>
+<tr><td><code>/opt/backup-restore-20260809-*</code>, <code>/opt/backups/restore-*</code></td><td>0,15 GB</td><td>DỌN ĐƯỢC</td><td>Trùng nội dung gói 09/08 (sau khi gói đã lên Drive)</td></tr>
+<tr><td><code>/opt/vps2-verify-e4</code>, <code>/opt/test-php-oldver</code>, DB <code>cms_elearning_verify</code></td><td>0,59 GB</td><td>DỌN ĐƯỢC</td><td>Bản kiểm thử 08–09/08; test-php-oldver đã có trong gói</td></tr>
+<tr><td>apt cache</td><td>0,12 GB</td><td>DỌN ĐƯỢC</td><td>Tái tạo được</td></tr>
+<tr><td>E-learning thật: MySQL volume · mã nguồn · uploads · image đang chạy · Caddy/TLS</td><td>0,43 · 0,51 · 0,04 · 1,49 GB · nhỏ</td><td>GIỮ</td><td>Runtime cần giữ; mã <code>cms_3.0</code> có <code>.git</code> 61 MB</td></tr>
+<tr><td>Hệ điều hành <code>/usr</code> + <code>/var/lib/apt,dpkg</code></td><td>≈ 2,45 GB</td><td>GIỮ</td><td>OS</td></tr>
+</tbody>
+</table>
+<p class="small">Tổng dọn được ≈ 26 GB (không tính mục CHƯA RÕ, chưa tính blob nén trong content store) ⇒ VPS2 còn dùng ≈ 13 GB, trống ≈ 83 GB. Thứ tự an toàn: gói 09/08 lên Drive + đọc lại → sửa <code>cms_queue</code> → dọn. Cần RUN riêng (bước 5).</p>
+</details>
+
+<details>
+<summary><b>J · Directus 12 licensing — bằng chứng mã nguồn chính thức</b></summary>
+<ul class="small">
+<li>Tag đọc: v12.4.1 <code>d52fd4b</code> (23/09), v12.3.1 <code>973be10</code> (25/08). Gọi license nằm trong gói npm đóng <code>@directus/license@0.4.0</code> (cả hai tag) ⇒ URL/giá trị mặc định trong gói: UNKNOWN.</li>
+<li><b>Endpoint:</b> telemetry <code>POST {TELEMETRY_URL}/v1/metrics</code>, owner <code>POST {COMPLIANCE_URL}/v1/owner</code>, mặc định <code>https://telemetry.directus.io</code> (<code>packages/env/src/constants/defaults.ts:126-128</code>; <code>api/src/telemetry/lib/send-report.ts:22-38</code>). License: <code>https://licensing.directus.com</code> (<code>/.well-known/jwks.json</code>, <code>/api/licenses/*</code>) — theo docs licensing/overview, không có biến env đổi URL (<code>directus-variables.ts:329-332</code>).</li>
+<li><b>Nhịp:</b> job license lấy <code>license.meta.validation_interval</code> (giây; -1 = không kiểm) từ token (<code>api/src/schedules/license.ts:18-23</code>), chạy lúc boot (<code>app.ts:424</code>); giá trị mặc định OIG: UNKNOWN. Telemetry <code>'0 */6 * * *'</code> + trễ ngẫu nhiên ≤30 phút + 1 lần lúc boot (<code>schedules/telemetry.ts:28,32-35</code>); <code>TELEMETRY=false</code> bị bỏ qua nếu license yêu cầu (<code>telemetry.ts:24</code>).</li>
+<li><b>Lưu trạng thái:</b> <code>directus_settings.license_key</code>, <code>license_token</code>, <code>directus_collections.status</code> (<code>migrations/20260507A-add-licensing.ts:4-11</code>); refresh thành công chỉ ghi đè token (<code>license/manager.ts:454-456</code>); lý do downgrade ở Redis/bộ nhớ, không ở DB (<code>manager.ts:78,761</code>). Đọc an toàn: <code>GET /license</code> (admin: status active/grace/locked, expires_at, grace_period, usage — <code>controllers/license.ts:16-69</code>), <code>GET /server/info</code> ẩn danh có <code>license.source</code> (<code>services/server.ts:215-218</code>).</li>
+<li><b>Khi lỗi:</b> lỗi mạng ⇒ log, giữ token; chỉ LICENSE_EXPIRED/CANCELED/SUSPENDED mới downgrade (<code>manager.ts:444-469</code>). Status tính từ token: vượt giới hạn ⇒ locked ngay; quá hạn trong <code>grace_period</code> ⇒ grace (<code>utils/compute-license-status.ts:24-34</code>). “7 ngày” chỉ có trong OIG FAQ, không có trong mã. Ân hạn nâng từ v11 lên: 30 ngày kể từ migration (<code>get-core-grace-expires-at.ts:5-8,47-54</code>).</li>
+<li><b>Bị khoá khi locked</b> (cả admin): <code>/items</code> (<code>controllers/items.ts:17</code>), <code>/graphql</code>, <code>/files</code>, <code>/assets</code>, <code>/mcp</code>, <code>/flows/trigger/:id</code>, WebSocket (<code>websocket/controllers/base.ts:125-130,276-285</code>), login/refresh non-admin (<code>services/authentication.ts:230-234,396-400</code>). Không khoá: <code>/server</code>, <code>/license</code>, <code>/collections</code>, <code>/users</code>, <code>/settings</code>, custom endpoint, Flow event/schedule. Core: quy tắc quyền tuỳ biến bị bỏ qua (<code>services/permissions.ts:40-56</code>).</li>
+<li><b>Restart:</b> boot gọi refresh ngay (<code>manager.ts:158-173</code>); offline không reset grace. Bẫy: token hết hạn lúc boot ⇒ downgrade + xoá key (<code>manager.ts:417-422,752-756</code>); <code>LICENSE_KEY</code> env + DB chưa có key + mất mạng ⇒ <code>process.exit(1)</code> (<code>manager.ts:124-143</code>).</li>
+<li><b>Ràng buộc:</b> mọi lời gọi gửi <code>license_key + project_id + PUBLIC_URL</code> (<code>manager.ts:306-310,445-450</code>); lỗi BINDING_MISMATCH/ACTIVATION_LIMIT_EXCEEDED (<code>handle-license-error.ts:24-32</code>). Restore DB sang URL khác ⇒ chạy bằng token cache rồi downgrade (docs); hai instance cùng project_id+URL: UNKNOWN. Huỷ kích hoạt: <code>DELETE /license</code> (<code>controllers/license.ts:105-116</code>) — docs: huỷ trước khi đổi PUBLIC_URL.</li>
+<li><b>Offline:</b> chỉ Enterprise (OIG FAQ, pricing); trong mã là <code>LICENSE_TOKEN</code> (hỗ trợ <code>_FILE</code>), bỏ qua refresh khi <code>meta.offline</code> (<code>manager.ts:144-157,426</code>).</li>
+<li><b>Health v12:</b> <code>/server/health</code> ẩn danh ⇒ 403 (<code>services/server.ts:223-226</code>); <code>/server/ping</code> công khai (<code>app.ts:319</code>).</li>
+</ul>
+</details>
+
+<p class="small muted">Nguồn: runtime VPS1/VPS2 (27/09 UTC); <code>gh api</code> GitHub Security Advisories directus/directus; npm <code>directus</code>; mã nguồn directus tag v11.5.1/v12.3.1/v12.4.1; ipinfo/whois. JEV phân loại: <code>gen-dec-1790480012-nxlvo8k3hQdcs54rqLKV</code> (DB directus/metadata BUSINESS 1,00/0,95; gov_test TEST-DERIVED 1,00; lab = dọn + swap 0,89).</p>
 </div>
 <details>
 <summary><b>Draft G0 lịch sử — KHÔNG THỰC THI</b> · nguồn thực thi duy nhất: PROMPT.md @ 79ed9b9a…</summary>

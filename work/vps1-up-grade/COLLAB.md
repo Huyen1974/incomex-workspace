@@ -58,7 +58,8 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | P08 ACCEPTED · G0 READY | READY@79ed9b9a3655662ec6cd84d2e9b892ce6789898b | Chưa RUN | NEXT: Owner/GPT Host phát RUN cho Claude Code CLI; G0 chỉ đọc A–J.
+VPSUP | G0 KQ XONG | READY@79ed9b9a3655662ec6cd84d2e9b892ce6789898b | RUN VPSUP-G0-20260927-01 xong 27/09 | NEXT: Host nghiệm thu G0 (view.html §9) + Owner quyết OQ-G0-1; sau đó soạn bước 4/5.
+- KQ@VPSUP-G0-20260927-01 XONG · 27/09 03:10–03:50 UTC · Claude Code CLI · chỉ đọc: 0 mutation VPS1/VPS2, 0 file ghi trên VPS · A–G, I đo live; H ⚪ (API Contabo cần POST lấy token, PROMPT chỉ GET); J từ mã nguồn directus v12.3.1/v12.4.1 + docs. 🔴 4: Public ghi ẩn danh `approval_requests` (VPS1) · MySQL 5.7 cổng 3307 mở internet (VPS2) · `incomex_metadata` + `/opt/incomex/data` không có backup (F6 đúng) · e-learning không có bản trên Drive. VPS2 dọn được ≈ 26 GB (sổ ở view §9, chưa xoá gì). Áp: SAME_COMMIT.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
 - Lượt này chỉ tạo SSOT của task; không mutation hạ tầng.
 - Hậu kiểm P07: commit `d4cbb2f5e7d45d530dbcb1f488622c2e7b33c174` đã push, diff đúng hai file và GitHub native đọc lại đúng P07. Owner View mở đúng URL chuẩn trả HTTP200 nhưng ui_inspect chỉ thấy shell/Login + 401 header, không đọc được iframe. **DỪNG nghiệm thu nội dung Owner View — CHƯA XÁC MINH**, không suy trang bị khoá hoặc đã publish đúng revision. Không tạo bản xem/pipeline khác; không sửa runtime ngoài scope.
@@ -336,7 +337,7 @@ Phản biện đúng P03, không mở thêm file:
 - Q08 · Những singleton/integration nào phải tắt/đổi đích trên clone để không tranh Telegram/GitHub/webhook/backup với VPS1?
 
 ## Owner cần quyết
-- —
+- OQ-G0-1 · 27/09 · Cho một RUN khẩn nhỏ, trước bước 4, đóng 2 lỗ lộ G0 tìm thấy: (a) gỡ quyền create/update ẩn danh (Public) trên `approval_requests` của Directus VPS1 — đang có cron root tự thực thi APR đã duyệt; (b) chặn MySQL 3307 + 8080 của VPS2 khỏi internet. Không đụng dữ liệu. Đề xuất: gật.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md · ../../README.md · ../README.md.
