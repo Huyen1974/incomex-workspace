@@ -852,5 +852,27 @@ KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H
 - Pha B lifecycle của MCPW vẫn DESIGN ONLY; không phát RUN B cho tới khi Host chốt review/đầu vào, nhưng không phụ thuộc SEC1A.
 - Residual Host: P33e sửa đúng dòng tài liệu vận hành timer 15′→4′ tại đúng SSOT khi path được xác định; không tạo bản sao và không chặn SEC1A.
 
+#### P35 · Host GPT · 2026-09-28 · **RE-AUDIT 2 MỤC TIÊU GỐC — MCPW CHƯA ĐƯỢC ĐÓNG**
+- **1 · Lifecycle/ai nào đang làm = CHƯA ĐẠT.** Audit `44dcb97` vẫn còn hiệu lực ở điểm này; sau P34 chỉ hot-path GitHub thay đổi, chưa có implementation B/C. Claude Code/Codex vẫn có thể làm local nhiều phút mà VPS không biết; gateway chỉ chắc chắn thấy khi có tool/mutation; SSH/root direct vẫn có thể mutation runtime không gắn execution. Repo write đã bị ruleset/gateway chặn đường tắt, nhưng đó **không phải** lifecycle START/FINISH đáng tin.
+- **2 · GitHub dependence = ĐÃ CÓ BẰNG CHỨNG MẠNH, CHƯA FULL ACCEPT.** KQ AD1 `b9eee89`: periodic workspace source đo thật `114/h → 16/h`; gate/root local = 0 GitHub; cộng Guard dự kiến ~18/h; P02 last-good/freshness + write revalidate KEEP; 403/429/backoff/fail-closed + rollback đã test. Watcher 24h chưa đủ cửa sổ tại P35 ⇒ §0.2(2) vẫn PENDING_24H.
+- **Rủi ro còn lại:** writes/current-HEAD action cố ý vẫn phụ thuộc GitHub và phải fail-closed khi GitHub chậm/limit; biên periodic ~18/20 khá mỏng; GitHub Pages Hermes ~3/h ngoài workspace counter; interactive reads tăng không kéo tuyến tính call GitHub nhờ P02/VPS-local, nhưng write frequency tăng vẫn có thể gặp giới hạn. Mục tiêu là không mù/kẹt/corrupt khi GitHub phản ứng, không phải loại GitHub khỏi write authority.
+- **Chỉ được đóng khi:** mọi managed mutation có `execution_id + actor_profile + work/RUN + scope/generation`, START bền trước side effect, terminal ≤10′; hook bị tắt không mở quyền; SSH/root chỉ còn controlled identity hoặc Owner break-glass có audit; Owner View đọc cùng ledger/cursor; lifecycle heartbeat = 0 GitHub; AD1_24H PASS + alert-only lâu dài + counter theo source.
+- `MMIM` process gate `CHUNG.APQUYTRINH` chỉ kiểm PROCESS trước READY/RUN; **không thay execution lifecycle/lease**.
+
+#### P36 · Host GPT · 2026-09-28 · **PHA B FINAL DESIGN DRAFT — REVIEW TRƯỚC RUN · B→C, KHÔNG GỘP**
+- JEV `gen-dec-1790538915-ICUG762VzEsjsFVBj5e2`: B_THEN_C 1.00, confidence 0.99. Host chọn B→C để rollback/truy nguyên rõ.
+- **B0:** reuse Agent Data + `queue.sqlite`/audit/idempotency/Guard/Owner View; không service/DB/port mới; **không đổi 37 tool/schema nếu tránh được**. Nếu bắt buộc đổi schema/tool list ⇒ DỪNG thiết kế trước READY.
+- **B1 ledger:** `queue.sqlite` WAL/FULL/recovery; VPS sinh `execution_id`; lưu actor/profile/surface/session/work/RUN/role/scope/generation/state/timestamps/report refs; event idempotent + cursor/replay. State: DISPATCHED→STARTED→ACTIVE/WAITING→LOST|INTERRUPTED|AWAITING_REPORT|REPORTED→VERIFIED.
+- **B2 mutation gate:** gateway/runner tự resolve duy nhất active RUN từ structured READY/RUN + path/task + authenticated route/profile; ghi START durable **trước side effect**. Missing/ambiguous/weak identity ⇒ DENY, không đoán; Agent không phải nhớ tự khai START để có quyền.
+- **B3 identity:** Hermes dùng server-auth profile hiện có. `clientInfo`/UA/commit prefix chỉ display. Master route chưa tách chắc GPT/Codex ⇒ không được giả actor; Claude review phải chỉ cách reuse auth/profile hiện hữu để tách mà không dựng server mới. Nếu không tách được ⇒ blocker B FULL ACCEPT.
+- **B4 hooks:** Claude Code/Codex hooks/runner callback chỉ là telemetry để START/activity/end sớm; hook mất/tắt không bypass mutation gate. RUN binding từ assignment/launcher/server, không suy cwd; không LLM/Git heartbeat.
+- **B5 finish:** exit không = DONE. Thiếu KQ/artifact ⇒ AWAITING_REPORT; crash/TTL ⇒ LOST/INTERRUPTED ≤10′; report muộn ⇒ REPORTED; Host/Reviewer mới VERIFIED. Im lặng = WAITING/UNKNOWN.
+- **B6 Owner View:** đọc ledger bằng cursor, multi-execution; restart resume+dedupe; fast START→REPORTED không mất. A9 latest-only chỉ là tóm tắt.
+- **B7 GitHub independence:** START/activity/end/report-state local VPS, **0 GitHub call mỗi heartbeat**; chỉ final HEAD-dependent action trả freshness debt P02.
+- **B8 acceptance:** missing execution DENY trước side effect; 2 terminal→2 execution_id; hook disabled vẫn gate; crash→LOST ≤10′; exit thiếu report→AWAITING_REPORT; late report→REPORTED; restart ledger/publisher 0 lost/duplicate; weak identity không giả actor; 0 GitHub heartbeat; P02/HJW regression=0; mutant bỏ event phải FAIL; N9 E1–E6 + VERIFY rerunnable.
+- **Ranh B/C:** B xong vẫn chưa đóng SSH/root. C chạy ngay sau B: per-agent/runtime identity hoặc controlled wrapper, Owner break-glass có log/alert, scoped lease+generation/fencing, overlap mutation deny, read độc lập được phép, TTL/recovery. Chỉ sau C mới được nói "managed mutation âm thầm" đã đóng.
+- **Thời điểm:** review B ngay trong lúc AD1 watcher chạy; **không restart/deploy Agent Data/claude-mcp trước khi cửa sổ AD1 kết thúc**. Sau AD1_24H PASS/FAIL được xử lý sạch, Host mới viết PROMPT/READY/RUN B.
+- **NEXT Claude Chat:** review P36 tập trung: identity GPT/Codex/master; auto-claim không đổi schema; queue.sqlite atomic/recovery; hook chỉ signal; acceptance fast/local/crash. Ghi ACCEPT/PARTIAL vào MCPW COLLAB. **Chưa RUN B.**
+
 ## Owner cần quyết
 - —
