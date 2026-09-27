@@ -1,98 +1,179 @@
-# PROMPT — MMIM-MOM01 · Master of Master + hệ danh mục chế tạo Máy
+# PROMPT — MMIM-MOM01 · Master of Master đúng UI cha
 
-RUN_ID: MMIM-MOM01-20260927-02
-STATUS: Chỉ thực thi sau READY đúng SHA commit cuối chạm file này và RUN của Owner/GPT Host.
+RUN_ID: MMIM-MOM01-20260927-03
+STATUS: Chỉ chạy sau READY đúng commit cuối chạm PROMPT.md và lệnh RUN của Owner/GPT Host.
 
 Host: GPT Chat · Host_ID `GPT-MMIM-260920-A`
-Executor_Surface: **Codex** trên bề mặt có Incomex VPS MCP + gateway workspace.
-Report_Write_Path: **workspace_*** · root `workspace` · repo `Huyen1974/incomex-workspace` · main.
-UI_Write_Path: **workspace_*** · root `ui` · VPS `/opt/incomex/docs/mcp-writes/` → public `/ui-preview/mcp-writes/`. D12 đã audit path này; không yêu cầu `fs_*`.
-GitHub native/App/API/CLI: **READ-ONLY**, cấm dùng để ghi repo.
+Executor_Surface: Codex
+Repo_Write: `workspace_*` · root `workspace`
+UI_Write: `workspace_*` · root `ui`
+GitHub native/App/API/CLI: READ-ONLY.
 
-## 0. Gate bắt buộc
+## 0. Đọc đúng, không khảo sát lan man
 
-1. Read-gate repo bằng `workspace_*` root `workspace`: đọc đúng `AGENTS.md` → `README.md` phần D12/§11/§12 → `work/mow-mot-moit-mout/COLLAB.md` (§0, D44–D48, Dòng hiện hành) → file prompt này.
-2. Read-gate xưởng UI bằng **chính `workspace_*` root `ui`**:
-   - đọc `AGENTS.md` + `README.md` của root `ui` trước mọi file khác;
-   - stat/read `mow-unified-canvas-v2.html`, `master-hub.html`, `eco-nav.js`, `mot-theme-v1.css`;
-   - inspect URL mẫu `https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-hub.html` và UI mẹ MOW.
-   - nếu phiên Codex không bind được `workspace_*` với root `ui` thì DỪNG; **không yêu cầu `fs_*` nữa**.
-3. READY phải khớp **commit cuối chạm PROMPT.md**, không so HEAD chung.
-4. Thiếu `workspace_*` hoặc root `ui`, không đọc được UI mẹ, hoặc phát hiện D44/D46 bị thay thế bởi quyết định mới hơn → **DỪNG trước mutation**.
-5. Không sửa production PG/Directus, service, nginx, compose, auth, MCP, connector. Chỉ đọc nguồn production khi cần đối chiếu.
-6. Không tạo task/repo/project mới. Không tạo framework/library/pipeline mới.
-7. Owner đã cho phép **một đầu mối UI “Master of Master” trên VPS ui** và tối đa **01 file UI mới**. Có UI cha sẵn thì phải dùng làm chuẩn: `master-hub.html` + `mot-theme-v1.css` là nguồn tham chiếu bố cục/thẩm mỹ; `eco-nav.js` là nguồn menu duy nhất. Mặc định tạo **`master-of-master-v1.html`** như một UI mới có chức năng khác, không thay nội dung/ý nghĩa hiện hữu của `master-hub.html`. Chỉ sau khi page mới PASS standalone mới sửa `eco-nav.js` đúng một entry đầu tiên dưới Master.
-8. Không xoá/move UI cũ trong RUN này. D44 “nơi lưu UI ở VPS” không phải quyền dọn lịch sử.
-9. Trước mọi mutation root `ui`: ghi lại **path · version/hash · sha256** của từng file sẽ sửa. Mọi ghi phải dùng expected version/lock của cổng; sau ghi kiểm lại. Nếu regression do RUN → khôi phục đúng version trước của **chính file RUN đã sửa**, không đụng file người khác.
+Đọc:
+1. `AGENTS.md` + README D12 của root `workspace`.
+2. `work/mow-mot-moit-mout/COLLAB.md` §0 + D44 + D46 + D49–D52 + KQ RUN -02.
+3. File prompt này.
+4. Root `ui`: `AGENTS.md`, `README.md`, rồi CHỈ các file:
+   - `eco-nav.js`
+   - `master-list.js`
+   - `mot-theme-v1.css`
+   - `mot-master-v1.html`
+   - `ui-child-from-parent-v1.js`
+   - `ui-child-content-v1.js`
+   - `field-master-v1.html`
+   - `child-ui-registry.json`
+   - `master-of-master-v1.html`
 
-## 1. Mục tiêu RUN
+Không đọc lại kho lịch sử để “nghiên cứu thêm 84 Master”. Dữ liệu 84 dòng đã có trong
+`master-of-master-v1.html#catalog-data` của RUN -02 và **phải dùng lại nguyên liệu đó**.
 
-Không tiếp tục bàn lý thuyết chung. RUN này phải tạo **đầu mối nhìn được và dùng được** để từ đó hoàn thiện dần toàn bộ “Nhà máy chế tạo Máy tạo quy trình”.
+Nếu các file/sha hiện hành đã đổi làm các khẳng định dưới đây sai → DỪNG, ghi blocker; không tự chọn UI cha khác.
 
-Kết quả chính:
+## 1. Hai quyết định đã khóa
 
-**A. Master of Master V1**
-- Một đường vào duy nhất trong UI mẹ, dưới mục **Master**, hiển thị **✅ Master of Master** ở vị trí đầu.
-- Tích xanh chỉ có nghĩa: **đầu mối Master of Master đã tồn tại và mở được**; tuyệt đối không có nghĩa toàn bộ Master bên dưới đã hoàn thiện.
-- Bấm vào mở được màn **Master of Master** trên VPS, dùng lại style/shell/interaction hiện có của 4 UI mẹ tối đa có thể.
-- Đây là nơi tập hợp tất cả Master hiện có/đang thiết kế/chưa hoàn thiện, và là đầu mối để sau này đi tới từng Master con.
+### 1A. UI cha của Master
 
-**B. Hệ danh mục thực chiến**
-Phải gom và chuẩn hoá dữ liệu hiện có thành 5 danh mục đang cần xử lý lâu dài:
-1. Master list.
-2. Step người dùng sử dụng “Máy tạo quy trình”.
-3. UI.
-4. Công cụ/check chéo.
-5. Quy trình của **Nhà máy chế tạo Máy** — không trộn quy trình thương mại.
+Trong RUN này, UI.MASTER canonical được khóa như sau:
 
-Mục tiêu không phải bịa đủ “hàng trăm” trong một lượt. Mục tiêu là:
-- mọi thứ **đã có trong nguồn hiện tại** phải được tìm thấy, gắn mã/nhóm/trạng thái;
-- mọi khoảng trống phải hiện thành **một dòng cụ thể cần làm tiếp**;
-- từ sau RUN này, hội đồng/agent xử lý **từng dòng còn thiếu**, không quay lại tranh luận chung chung.
+- renderer chung: `master-list.js`;
+- theme chung: `mot-theme-v1.css`;
+- shell/parent live đang dùng: `mot-master-v1.html`;
+- cơ chế UI con: `ui-child-from-parent-v1.js` + `ui-child-content-v1.js`.
 
-**CHECKPOINT BẮT BUỘC TRONG CÙNG RUN:** làm **PHẦN A trước**. Chỉ được sang PHẦN B khi Master of Master đạt tối thiểu acceptance **1–16**. Nếu A không đạt hoặc phải rollback → ghi KQ `DỪNG/PARTIAL`, giữ phần an toàn đã đạt và **không tiếp tục B**.
+Căn cứ hiện hành: `mot-master-v1.html` có ✅ trong `eco-nav.js`; các Master Field/MOIT/MOUT hiện đang tải parent này qua `ui-child-from-parent-v1.js`.
 
-## 2. Nguyên tắc D46 — bắt buộc ở mọi view
+**CẤM dùng làm cha:** `master-hub.html`, `mow-master-nhap2-v1.html`, màn demo/cũ/tham khảo, hoặc bất kỳ trang nào chỉ “trông giống Master”.
+Các file đó được giữ để tra nguồn, không phải parent mới.
 
-Mọi màn cho người phải theo đúng:
+Quy tắc Owner: UI con **giống tuyệt đối cha về shell/layout/cột/font/khoảng cách/màu/icon/nút/cách mở detail/cách lọc**. Chỉ được thay **nhãn + dữ liệu + link đúng đối tượng**. Không fork CSS/renderer.
 
-**Tầng 1 · 10 giây Tổng quan → Tầng 2 · Theo nhóm ~1 phút → Tầng 3 · Chi tiết khi bấm**
+### 1B. Dấu xanh / đỏ ở 4 Mẹ
 
-Tầng 1 bắt buộc trả lời được:
-1. Có bao nhiêu phần/nhóm?
-2. Chỗ nào bất thường, thiếu, OPEN hoặc có vấn đề?
-3. User cần xem/quyết/đi tiếp ở đâu?
+Trong đúng các menu **MOW · MOT · MOIT · MOUT**:
+- mục bắt đầu bằng `✅` = đang được dùng;
+- mục không có `✅` = **không dùng, chỉ giữ để tham khảo**.
 
-Nếu phải đọc bảng dài mới biết vấn đề → **FAIL**, dù dữ liệu dưới đầy đủ.
+Tại baseline hiện tại phải có đúng 7 mục không xanh:
+1. MOW · `MODW · Biến MOW chạy được`
+2. MOT · `Quy trình MOT`
+3. MOT · `Cấu trúc table`
+4. MOIT · `MOIT · Tạo form nhập liệu`
+5. MOIT · `MODIT · Biến MOIT chạy được`
+6. MOIT · `Kiến trúc input → DB`
+7. MOUT · `MODUT · Biến MOUT chạy được`
 
-Mặc định:
-- phần đạt/bình thường được gập hoặc giảm nhấn;
-- phần OPEN/trùng/thiếu/không rõ nguồn/không có UI phải nổi;
-- màu luôn đi cùng chữ/ký hiệu, không dùng màu làm thông tin duy nhất.
+Nếu không còn đúng 7 → DỪNG trước sửa menu.
 
-**Bài kiểm D46 định lượng cho Tầng 1:**
-- ở viewport 1280px, **không cuộn** vẫn thấy đủ **3 vùng cố định**:
-  1. **4 thẻ chính:** Tổng Master · Số nhóm · 🔴 Có vấn đề · 🟢 Sẵn sàng;
-  2. **1 dải trạng thái:** ⚪ Chưa làm · 🟡 Đang làm · 🔴 Có vấn đề · 🟢 Sẵn sàng;
-  3. **“Cần xem ngay” tối đa 5 dòng** — chỉ ngoại lệ ưu tiên;
-- số nghi trùng/chưa nguồn/chưa config/chưa UI đặt gọn trong “Cần xem ngay” hoặc badge phụ, không tạo thêm bảng số trên mặt đầu;
-- **không hiển thị bảng 84 row trước các vùng trên**;
-- không cần mở chi tiết vẫn trả lời được 3 câu D46;
-- bấm từ card/cảnh báo ở Tầng 1 phải đi được xuống đúng Tầng 2/3 đã lọc;
-- 390px được phép cuộn dọc nhưng **không cuộn ngang** để hiểu tổng quan.
+## 2. Việc chính — Master of Master
 
-## 3. PHẦN A — dựng Master of Master V1 trên VPS
+Mục tiêu cực đơn giản:
 
-### A1. Dùng UI cha hiện có, nhưng không sửa lại phần đã chốt
+> **Một Master list gốc, chứa tên của tất cả các Master khác.**
 
-Đọc/inspect `master-hub.html` và `eco-nav.js` trước:
-- `master-hub.html` hiện là **“Master tổng — Tổng hợp 4 Mẹ”**: GIỮ NGUYÊN ý nghĩa và hành vi mặc định;
-- `mot-theme-v1.css` là theme dùng lại;
-- `eco-nav.js` là **một nguồn menu duy nhất** của “4 Mẹ + Master”.
+Không làm lại inventory. Không thiết kế dashboard mới.
 
-**Thứ tự mutation bắt buộc:**
-1. Stat trước: `master-hub.html`, `eco-nav.js`, `mot-theme-v1.css`; lưu version/hash.
-2. Tạo `master-of-master-v1.html` riêng trong root `ui` bằng `workspace_write_new`; dùng theme/navigation/component hiện có khi phù hợp, không tạo design system mới và không nhân bản renderer chung nếu đã có component dùng lại được.
+### 2.1 Giữ URL, bỏ renderer riêng
+
+Giữ URL:
+`/ui-preview/mcp-writes/master-of-master-v1.html`
+
+Nhưng biến file này từ page tự vẽ thành **UI con của UI.MASTER**:
+- không có CSS riêng;
+- không copy `master-list.js`;
+- không copy DOM/list renderer;
+- wrapper theo cùng nguyên tắc như `field-master-v1.html`;
+- được giữ dữ liệu 84 dòng inline nếu cần, vì đó là data chứ không phải renderer.
+
+Được sửa tối thiểu:
+- `master-of-master-v1.html`
+- `ui-child-from-parent-v1.js` — chỉ thêm config cho page này;
+- `ui-child-content-v1.js` — chỉ thêm adapter label/data cho page này;
+- `eco-nav.js` — mục 3 bên dưới.
+
+**Không sửa:** `master-list.js`, `mot-theme-v1.css`, `mot-master-v1.html`.
+
+### 2.2 Dữ liệu
+
+Đọc JSON hiện có trong `#catalog-data`, phải accounted **84/84**.
+Không đổi mã/tên, không merge hai dòng nghi trùng, không query lại PG/Directus.
+
+Mặt người trước tiên cần:
+- tiêu đề: **Master of Master · Danh sách tất cả Master**;
+- thấy ngay **84 Master**;
+- bảng theo đúng UI cha;
+- cột/nhãn có thể đổi nghĩa cho phù hợp nhưng **không đổi số cột, vị trí, kích thước, kiểu hiển thị**;
+- tối thiểu phải thấy rõ: **Mã · Tên Master · Nhóm · Quản lý gì · Tình trạng**;
+- thông tin chưa có để OPEN/đang hoàn thiện; không bịa để lấp ô.
+
+Dữ liệu chi tiết Thiết kế/Config/UI/Nguồn từ RUN -02 phải **không mất**, nhưng được để ở detail/drawer hoặc metadata; không đổ lên mặt đầu.
+
+Không có nút “Tạo Master” trong RUN này.
+
+### 2.3 “Nhìn cái hiểu ngay” nhưng không phá cha
+
+D46 trong RUN này đạt bằng **chính ngôn ngữ UI.MASTER**, không thêm dashboard/card riêng:
+- title nói đây là danh sách gốc;
+- summary nói tổng 84 và tình trạng tổng hợp ngắn;
+- search/filter của parent hoạt động;
+- bảng bắt đầu ngay, tên Master là thông tin chính;
+- chi tiết mở khi bấm.
+
+Nếu muốn thêm thành phần UI chưa tồn tại ở cha → KHÔNG làm; ghi gap cho Host.
+
+## 3. Việc phụ — đánh đỏ UI không dùng
+
+Chỉ sửa `eco-nav.js`, đúng 7 mục §1B:
+- label thành `🔴 KHÔNG DÙNG · <tên cũ>`;
+- description thêm `Chỉ tham khảo · ` trước mô tả cũ;
+- **giữ nguyên URL** để còn tra lịch sử/thông tin.
+
+Không đổi bất kỳ mục ✅ nào.
+Không chạm nhóm Master/Đã loại trong bước này.
+Thêm một comment ngắn ở đầu `eco-nav.js`: Owner 27/09/2026 — trong 4 Mẹ chỉ mục ✅ được dùng; 🔴 chỉ tham khảo.
+
+Mục `✅ Master of Master` hiện có giữ nguyên label/URL, nhưng chỉ được coi PASS khi §2 đã chuyển đúng parent.
+
+## 4. Kỷ luật sửa
+
+- Stat/version/hash trước mọi file sửa.
+- `workspace_edit/transaction` với expected_version + operation_id.
+- Không delete/move.
+- Không tạo file mới.
+- Không reformat file chung.
+- Shared loader/adapter chỉ thêm nhánh nhỏ cho Master of Master; existing child behavior phải giữ.
+- Không production PG/Directus/runtime.
+- Không sửa `ban-duyet.html` trong RUN này: map MOM01 đã có sẵn.
+- Nếu phát hiện cần sửa renderer cha để làm được → DỪNG, không tự sửa cha.
+
+## 5. Acceptance
+
+1. `master-of-master-v1.html` mở HTTP 200, console error do RUN = 0.
+2. Source file Master of Master **không có renderer/CSS riêng**; dùng parent `mot-master-v1.html`.
+3. Runtime xác nhận parent source = `mot-master-v1.html`.
+4. Hash `master-list.js`, `mot-theme-v1.css`, `mot-master-v1.html` không đổi.
+5. 84/84 row accounted; mã + tên khớp dữ liệu RUN -02.
+6. Owner nhìn đầu trang biết ngay: đây là **Master list gốc** và có **84 Master**.
+7. Search mã/tên hoạt động; mở ít nhất 1 detail hoạt động.
+8. 1280px và 390px không có regression/tràn ngang mới.
+9. `field-master-v1.html`, `moit-master-v1.html`, `mout-master-v1.html` vẫn mở và dùng parent như trước.
+10. Trong MOW/MOT/MOIT/MOUT có đúng **7 label 🔴 KHÔNG DÙNG**, đúng danh sách §1B.
+11. Tất cả mục ✅ cũ giữ nguyên label + URL; `✅ Master of Master` mở đúng page đã sửa.
+12. Không file mới; không PG/Directus; không sửa renderer/theme/parent.
+13. Ghi vào COLLAB:
+`KQ@MMIM-MOM01-20260927-03 XONG`
+hoặc
+`KQ@MMIM-MOM01-20260927-03 DỪNG`
+
+Dòng báo Owner khi XONG:
+`XONG · MMIM-MOM01-03 · masters=84/84 · parent=UI.MASTER · red_reference=7/7 · regressions=0 · url=<url> · sha=<sha>`
+
+## 6. Dừng sau RUN
+
+XONG cũng **không làm tiếp Step/UI/Tool/Process**.
+Owner phải nhìn Master of Master trước rồi mới chỉ đạo vòng sau.
+_new`; dùng theme/navigation/component hiện có khi phù hợp, không tạo design system mới và không nhân bản renderer chung nếu đã có component dùng lại được.
 3. Nạp catalog data của RUN và nghiệm thu standalone: HTTP 200 · console sạch · D46 Tầng 1/2/3 · responsive.
 4. **Chỉ sau PASS bước 3**, sửa `eco-nav.js` bằng `workspace_edit`/transaction với expected_version, target DUY NHẤT; thêm đúng **entry đầu tiên** trong `Master.children`:
    - **✅ Master of Master**
