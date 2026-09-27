@@ -773,8 +773,29 @@ File gốc Owner giao: `mow-mot-moit-mout.html` · SHA-256 `f4aac30c492f104ec54f
 Kho thông tin: `information/`
 Agent prompt: `PROMPT.md`
 
+## Codex · MMIM-MOM01-20260927-02 · kiểm kê và thực thi
+- READY đúng commit cuối chạm PROMPT: `3600810a514b4bbbf5ae1d3ecf3ea8b5b2acffc4`; read-gate AGENTS → README → COLLAB → PROMPT và root ui PASS. D48: chỉ dùng workspace_* cả hai root. MODE MANUAL_OWNER; không phát RUN, không automation.
+- Pha A đã PASS trước Pha B: một file UI mới `ui/master-of-master-v1.html`; sau standalone mới thêm đúng một entry đầu Master.children trong `eco-nav.js`. Không sửa master-hub/theme/MOW; không ghi PG/Directus.
+- URL: https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html
+- Nguồn 84 dòng: ban-duyet SHA `a861481b9c77c7131b714e90f909a2c83f2460405b497c1081ca97970cbce823`. Giữ 84/84 mã/dòng; 13 nhóm theo nguồn, GROUP_OPEN. Tổng dẫn xuất: CHUA_LAM 6 · DANG_LAM 66 · CO_VAN_DE 12 · SAN_SANG 0. 2 cặp DUP_CANDIDATE giữ nguyên 4 dòng: 53↔63 (job_queue), 59↔66 (ui_pages). Đây là nghi chồng nguồn, không kết luận hai danh mục đồng nhất.
+- Thiết kế/Config/UI/Nguồn tách riêng. 35 chưa rõ nguồn, 84 chưa rà config, 71 chưa xác định đường UI riêng, 13 có tham chiếu URL. Số bảng/bản ghi cũ chỉ là ghi nhận trong tài liệu. Directus get_schema(collection_registry) trả 0 fields; không đủ bằng chứng tồn tại/vắng bảng, không nâng DA_RAT_CONFIG/DA_DOI_CHIEU.
+- D46 PASS cho Master of Master: đúng 4 card + dải 4 trạng thái + 5 cảnh báo; 84 row nằm sau tổng quan. ui_inspect 1280×800: HTTP 200, console_errors.count=0, overview bounds x48 y72 w1184 h522 (đáy594). CUA: width1280/scrollWidth1265, firstRowTop873.5, 84 row. 390: width390/scrollWidth375; ảnh MCP/DOM không tràn ngang. Máy chụp MCP thiếu glyph tiếng Việt, ảnh CUA desktop hiển thị đủ. Không dùng ảnh thiếu glyph làm bằng chứng thẩm mỹ duy nhất.
+- Bấm thật CUA: cảnh báo nghi trùng → 4/84 đúng 53,59,63,66; nhóm Gốc + Đang làm → 3/84; tìm CAT-202 → 1/84; UI=CO_UI → 13/84; kết hợp CHUA_THIET_KE → 0/84 và có Bỏ lọc. Mở chi tiết 03 hiện CHUA_CO_UI; 53 liên kết 63 vẫn đủ hai dòng; UI-022 mở trang Field có 3 trường minh họa. Menu Master trên master-hub và MOW có entry mới đầu tiên; click → hub84. Master tổng vẫn24 bản minh họa; MOW giữ4 chế độ,10 tầng,6 NV ởT2. Menu MOW cũ mở đúng.
+- Before/after: master-hub `addb5be41ffeba6452e9915870215037e844643d6f36de6c84062bc449047ca5` không đổi; theme `81cc5a69305943bb716215a7ceb1017d0147164966bff44cd5a86673b5a9b287` không đổi; MOW `e73db99920aff75895682845ca11ea482eeb750a5b9789634b556e29b263a022` không đổi.
+- eco-nav: `d48e2ff0817d6364fe83e04a38d780aaf25e044f246d65a3133373d542cb8e4a` → `7c77a9f68e1c47fd9fa3d2cb8a7e8da46cc0439a602e7b3d81bcf71024d7734c`; backup `8a60a85cdd554561b1f0be15a1d14ee9`; rollback chỉ xoá delta entry của RUN nếu cần, dùng version hiện hành. Diff gateway đúng 1 entry, +100 bytes. Không phải thay đổi lớn.
+- UI mới: trước PATH_UNAVAILABLE; write_new SHA `1dcf13fd87c3efe721db58bd479b128f3fe03ef2ce0f2c6ca756c197c993ee55`; bỏ link Google Font bị CSP chặn → SHA cuối `1232edbcc6a6395ba5a6a2d371043a21ba5b31bd048641ebeec3fab800b1bec7`, 61265 bytes. Dùng font fallback/theme mẹ; không sửa CSP. Backup sửa này `c32d12458650402da0393093b218d7ca`. Chỉ 1 UI file mới; không tạo file khác.
+- Pha B trên các tab/khối cũ, chỉ metadata và link:
+  - **Step:** trích đủ60 thao tác người/38 quy trình:26 Máy +4 Chung =30 ứng viên;26 Nhà máy tách riêng;4 vận hành OPEN không cộng. Giữ33 mã S010–S330:3 FIELD đang thử +30 nháp cũ, cộng7 mã S01–S07 để đối chiếu =100 mục tham chiếu (không phải100 bước unique). 33 ứng viên chính =30 walk +3 FIELD còn trùng nghĩa cần chốt. 39 kịch bản +6 hoãn +15 UI gap giữ nguyên nguồn; UIGAP.10 là hồi quy đã sửa, không mở lỗi cũ. 18 loại ×3 luồng mới có tên: ghi18 gap có mã, chưa bịa54 Step.
+  - **UI:**36 mã/tham chiếu =29 registry +3 UI-030/031/032 nháp +3 miếng S010/S020/S030 +1 MOM01.UI.MASTER. Không đổi29 mã, không gộp18 “chỗ” thành số màn. 17 path VPS lấy hash thật; UI-006 là route ngoài ui, hash OPEN. Wrapper hash không là hash toàn bộ dependency. UI-030–032/3 miếng chưa có URL VPS riêng; ghi OPEN.
+  - **Tool:** giữ28 ứng viên, bổ sung cổng ui_inspect đã dùng =29 dòng, gồm cả gói và cổng chứ không29 tool unique. Đủ17 phạm vi: K11/K13/K14 trống; K02 thiếu kiểm chỉ đọc, K08/K10 nghi chồng/sổ lệchđĩa. Input/output/nguồn/thử/sẵn dùng/gap/Ai giữ từng dòng; không nâng toàn bộ “sẵn dùng”. Ai giữ chưa có quyết định thì OPEN. fs_transaction giữ lịch sử, ghi rõ RUN dùng workspace_*.
+  - **Nhà máy:**15 ứng viên có nguồn =9 quy trình đã viết bước +6 việc nhómE mới nêu tên; trong6, nhập/nối nguồn ngoài còn OPEN Thuộc. 0 chứng minh chạy trọn,15 còn gap. NhómE cũ ghi10 nhưng5 tên đã đi bộ +6 tên mới =11; tổng≈97 chưa được chốt. Các nhánh sửa/ngừng/phục hồi đưa vào gap của quy trình có sẵn; không tự phát việc mới.
+- Mã tham chiếu mới cho thao tác chưa có mã: MMIM.<quy trình>.<thứ tự 010>; giữ mã S*/UI*/CAT* cũ, chưa cấp khoá PG. S010 ở luồng và miếng FIELD là cùng nội dung; không có CODE_CONFLICT sau đối chiếu source. S01 khác đơn vị đếm S010, chưa tự gộp.
+- JEV: `gen-dec-1790495403-BqFG2JjZCtLkoS0W6dIY` (nhóm/giữ nghi trùng/reuse theme); `gen-dec-1790496143-epRjWEadXF0Yn5a0mGUK` (tách vận hành, dùng lại Chung). Câu hỏi mã cũ ban đầu nghi khác nghĩa; nguồn xác nhận S010 khớp, Agent bỏ nghi vấn, không lấy JEV thay chứng cứ.
+- Hai mũ: người mới thử tra/lọc/mở như trên; kỹ thuật rà84 mã,4 trục,lock/hash,menu delta,phạm vi tool và phân loại bước. Không kết luận K0 FIELD PASS, không đóng HĐ01–05; D44/D46 chỉ đánh đạt phạm vi hub.
+- Kiểm repo trước ghi:84/84 row Master,0 ID mới trùng,không thêm tab,không xoá nội dung cũ. Đang kiểm bản publish sau ghi trước khi đặt KQ.
+
 ## Dòng hiện hành
-MMIM | OWNER-BANDUYET-20260923-01 · 24/09/2026 | HTML chính `ban-duyet.html`; G01–G07 và FIELD thiết kế đang chờ Owner duyệt; UI Master và FIELD UI thật giữ nguyên từ kho tham khảo. Kiểm Owner View sau publish.
+MMIM | MMIM-MOM01-20260927-02 · 27/09/2026 | Pha A PASS, Pha B đã kiểm kê; đang kiểm bản publish. 84 ứng viên giữ nguyên; Master of Master trên VPS, GH giữ map/hash. HĐ01–05 còn OPEN.
 
 Bản thiết kế FIELD nằm trong ban-duyet.html
 
