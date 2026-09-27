@@ -212,6 +212,10 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 </tbody>
 </table>
 
+<div id="sec1-result" class="callout danger">
+<b>SEC1 · chờ RUN</b> · Host đã nghiệm thu G0 và khóa phạm vi khẩn: (A) gỡ Public CREATE+UPDATE trên <code>approval_requests</code> bằng Directus native API; (B) containment runtime internet 3307/8080 trên VPS2, không restart container. <b>READY@8c202ccf…</b>. Bước sau: BK1 backup trước mọi persistent-bind/cleanup.
+</div>
+
 <h4>Phát hiện 🔴/🟡</h4>
 <ol class="small">
 <li>🔴 <b>VPS1 · ghi ẩn danh:</b> policy Public có create+update mọi trường <code>approval_requests</code>, không filter/validation; GET công khai trả 200 (<code>total_count</code> 232). Cron root <code>dot-apr-execute</code> (*/5) và <code>auto_apply_approval()</code> thực thi APR đã duyệt ⇒ đường ẩn danh tới tự động hoá đặc quyền. Activity: 0 lượt ẩn danh. Không thử ghi.</li>
@@ -342,7 +346,7 @@ DỪNG NGAY nếu: read-gate FAIL; một bước cần quyền ghi ngoài chỗ 
 
 <section class="card" id="status">
 <h2>10. Trạng thái hiện tại</h2>
-<p><b class="ok">Đã mở task và chốt mục tiêu.</b> Chưa có PROMPT, READY hoặc RUN. Chưa có hành động trên VPS.</p>
-<p><b>Next:</b> Claude soạn lệnh G0 tại §9 → Host kiểm đầu vào rồi giao khảo sát. Hướng chính P06 đã hòa giải P07; chưa RUN/tạo PROMPT, thay hạ tầng, thử low-code hoặc đăng ký/đổi key. Các điều kiện G7 chưa nghiệm thu.</p>
+<p><b class="ok">G0 đã nghiệm thu.</b> SEC1 đã có PROMPT + READY; chưa RUN nên chưa có mutation mới.</p>
+<p><b>Next:</b> RUN SEC1 → nghiệm thu hai exposure → BK1 vá backup/restore proof → persistent hardening VPS2 + sửa queue + cleanup. Chưa nâng platform.</p>
 </section>
 </main></body></html>

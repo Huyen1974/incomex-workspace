@@ -58,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | G0 KQ XONG | READY@79ed9b9a3655662ec6cd84d2e9b892ce6789898b | RUN VPSUP-G0-20260927-01 xong 27/09 | NEXT: Host nghiệm thu G0 (view.html §9) + Owner quyết OQ-G0-1; sau đó soạn bước 4/5.
+VPSUP | G0 ACCEPTED · SEC1 READY | READY@8c202ccf57d54abd625908bf4b120705dc50a3b8 | Chưa RUN SEC1 | NEXT: Owner/GPT Host phát RUN VPSUP-SEC1-20260927-01; xong mới BK1 backup.
 - KQ@VPSUP-G0-20260927-01 XONG · 27/09 03:10–03:50 UTC · Claude Code CLI · chỉ đọc: 0 mutation VPS1/VPS2, 0 file ghi trên VPS · A–G, I đo live; H ⚪ (API Contabo cần POST lấy token, PROMPT chỉ GET); J từ mã nguồn directus v12.3.1/v12.4.1 + docs. 🔴 4: Public ghi ẩn danh `approval_requests` (VPS1) · MySQL 5.7 cổng 3307 mở internet (VPS2) · `incomex_metadata` + `/opt/incomex/data` không có backup (F6 đúng) · e-learning không có bản trên Drive. VPS2 dọn được ≈ 26 GB (sổ ở view §9, chưa xoá gì). Áp: SAME_COMMIT.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
 - Lượt này chỉ tạo SSOT của task; không mutation hạ tầng.
@@ -326,6 +326,17 @@ Phản biện đúng P03, không mở thêm file:
 - Based_on: `92c48ae`; PROMPT `1a98afea` (commit cuối chạm = `79ed9b9` = READY, RUN_ID khớp). ACCEPT hai chỉnh của Host: Write_Path cố định `fs_*` (không bind ⇒ DỪNG ở read-gate, an toàn) và G0 read-only tuyệt đối, không evidence trên VPS. F6 để G0 xác minh, không mặc định mọi DB phải backup — đồng ý.
 - Lưu ý nghiệm thu, không sửa PROMPT: Contabo API cần POST lấy OAuth token trước mọi GET, nên với luật "chỉ GET" mục H nhiều khả năng ⚪ — chấp nhận, không phải blocker; gói/snapshot lấy ở bước 4.
 
+### P11 · GPT Host · ACCEPTED/READY — nghiệm thu G0 và chọn SEC1 trước backup
+- Based_on: KQ G0 commit `4a80ec47bc6a87627b9d42b90bb0764c01b305ae`; task diff từ G0 tới lúc review = không đổi; view.html §9 A–J; MySQL official xác nhận 5.7.44 là release cuối và 5.7 chỉ còn Sustaining Support. JEV phụ `gen-dec-1790481388-D81Sx0I4Q5b78Di2VXRh`: security-first p0.75/confidence0.67.
+- **G0 ACCEPTED:** khảo sát đúng read-only; H/Contabo UNKNOWN không chặn. Bốn gap đỏ được coi là bằng chứng đầu vào, không suy có compromise khi chưa có dấu vết.
+- **Thứ tự Host:** SEC1 an ninh → BK1 backup/restore proof → persistent hardening VPS2 + sửa `cms_queue` + cleanup → clone/rehearsal. Không gộp RUN để giảm blast radius.
+- **SEC1 scope VPS1:** chỉ revoke Public CREATE+UPDATE trên `approval_requests` bằng Directus native API sau preflight; giữ READ/unrelated permissions; không direct SQL fallback, không anonymous write test.
+- **SEC1 scope VPS2:** containment runtime external 3307+8080 qua Docker firewall backend, không restart/recreate, không UFW/package/compose. Verify từ Mac ngoài máy + internal health. Đây là **TEMPORARY_UNTIL_PERSISTENT_BINDING**; cấm reboot VPS2 trước hardening kế tiếp.
+- **Không sửa `root@'%'`, MySQL version, queue, backup, logs trong SEC1.** Sau khi có offsite e-learning backup mới persistent-bind/upgrade/grant hardening.
+- Prompt chuẩn: `PROMPT.md`, RUN_ID `VPSUP-SEC1-20260927-01`, commit cuối chạm prompt `8c202ccf57d54abd625908bf4b120705dc50a3b8`.
+- **READY@8c202ccf57d54abd625908bf4b120705dc50a3b8**. READY không phải RUN.
+- Trạng thái: Host đã chuẩn bị SEC1; mutation production chỉ bắt đầu khi RUN hợp lệ.
+
 ## Câu hỏi mở
 - Q01 · **ĐÃ GIẢI:** “Agency OG” trong đầu bài là Agency OS; upstream `directus-labs/agency-os` dùng Nuxt/Directus và hiện dormant từ 26/03/2025. Xử lý theo D08, không còn là target version để nâng dài hạn.
 - Q02 · Disk VPS2 đang nằm ở nhóm nào; phần nào business, phần nào runtime cần, phần nào rác/tái tạo được?
@@ -337,7 +348,7 @@ Phản biện đúng P03, không mở thêm file:
 - Q08 · Những singleton/integration nào phải tắt/đổi đích trên clone để không tranh Telegram/GitHub/webhook/backup với VPS1?
 
 ## Owner cần quyết
-- OQ-G0-1 · 27/09 · Cho một RUN khẩn nhỏ, trước bước 4, đóng 2 lỗ lộ G0 tìm thấy: (a) gỡ quyền create/update ẩn danh (Public) trên `approval_requests` của Directus VPS1 — đang có cron root tự thực thi APR đã duyệt; (b) chặn MySQL 3307 + 8080 của VPS2 khỏi internet. Không đụng dữ liệu. Đề xuất: gật.
+- OQ-SEC1-RUN · 27/09 · SEC1 đã Host review + READY@8c202ccf57d54abd625908bf4b120705dc50a3b8. RUN chỉ đóng Public CREATE/UPDATE `approval_requests` và containment internet 3307/8080; không đụng business data, backup, cleanup hay upgrade. Chờ RUN.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md · ../../README.md · ../README.md.
