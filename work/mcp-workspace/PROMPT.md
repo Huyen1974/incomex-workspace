@@ -4,7 +4,7 @@ RUN_ID: MCPW-LIFECYCLE-AUDIT-20260927-01
 STATUS: Chỉ thực thi sau READY/RUN hiện hành của Host.
 Host: GPT Chat · Host_ID GPT-MCPW-250925-A
 Executor_Surface: Claude Code CLI phiên mới trên Mac Owner.
-Report_Write_Path: gateway fs_*/workspace_* vào chính work/mcp-workspace/COLLAB.md và view.html hiện hữu.
+Report_Write_Path: gateway fs_*/workspace_* vào chính work/mcp-workspace/COLLAB.md. **Thư mục này không có view.html; không tạo view/file mới trong RUN audit.**
 Runtime: **AUDIT CHỈ ĐỌC**; không deploy/restart/sửa config/source/runtime trong RUN này.
 
 Căn cứ: MCPW §0.2(1)(2)(3)(4), N1–N7/P17/P18/P19; HJW P61–P64; DROOT22; DROOT24.
@@ -67,8 +67,8 @@ Tối thiểu:
 1. GPT/ChatGPT qua Agent Data master `workspace_*`.
 2. Agent Gateway profile (Hermes hiện hành).
 3. Claude Chat/Claude Code qua `fs_*`/claude-mcp.
-4. Claude Code CLI local process + terminal work trên Mac giữa hai MCP call.
-5. Codex/runner nếu đang có đường production thực dùng.
+4. Claude Code CLI local process + terminal work trên Mac giữa hai MCP call; audit **official lifecycle hooks** và khả năng cưỡng chế ở managed policy/settings.
+5. Codex/runner nếu đang có đường production thực dùng; tìm lifecycle hook/runner callback/telemetry **chính thức hoặc choke point hiện hữu tương đương**, không giả định có tính năng giống Claude Code.
 6. `workspace_exec` + `workspace_task_*` queue/worker.
 7. SSH/operator/root runtime path hiện hành.
 8. Hermes interactive chat có terminal/file/cron/runtime capability.
@@ -86,6 +86,14 @@ Không suy từ docs; đọc source/runtime/config/log thật. Không in secret.
 - runner/exec/task state;
 - SSH/auth/journal/audit hiện có;
 - Owner View publisher/HVU.
+
+**Claude Code hook candidate — bắt buộc audit, chưa được coi là lời giải sẵn:**
+- kiểm version/config thật trên Mac Owner và tài liệu chính thức cho `SessionStart`, `PreToolUse`/`PostToolUse`/`PostToolUseFailure`, `Stop`/`StopFailure`, `SessionEnd`, `TaskCreated`/`TaskCompleted`, `SubagentStart`/`SubagentStop`, `FileChanged`/`ConfigChange` nếu phù hợp;
+- phân biệt **session lifecycle** với **work execution lifecycle**: `SessionStart` chỉ chứng minh phiên mở/resume, `Stop` là kết thúc một turn, `SessionEnd` là kết thúc session — không tự chứng minh đúng `work-id/RUN_ID/scope`;
+- kiểm common hook input có `session_id`/cwd/tool/task/subagent data nào đủ bind; phần còn thiếu phải đến từ assignment/runner, không suy từ cwd/tên repo;
+- kiểm managed policy thực tế có áp được trên Mac hiện tại không. Nếu managed hooks được cấu hình, user/project `disableAllHooks` không được phép làm mất chúng; nhưng **không giả định managed tier đã được cài** trước khi audit;
+- đích nhận ưu tiên lifecycle/presence store hiện hữu trên VPS; không dựng webhook/service/DB mới trong RUN audit;
+- đánh giá cùng nguyên tắc cho Codex: nếu không có hook chính thức đủ mạnh thì nêu runner/wrapper choke point tối thiểu, không tự chế telemetry trong lượt này.
 
 Phải trả lời cụ thể:
 - khi Claude Code session bắt đầu nhưng chưa gọi gateway: VPS biết gì?
@@ -161,7 +169,7 @@ Tìm xem gateway/runner hiện có lock/idempotency/version nào reuse được 
 ## 7. GitHub hot-path audit — P02 không được “đập đi làm lại”
 
 Lập **GITHUB_HOTPATH_MATRIX**:
-`path/component → GitHub call? → read/write → cadence/trigger → holds request/lock? → cached/local fallback? → failure behavior → last 24h error evidence → needed? → action`.
+`path/component → source/process → GitHub channel (git-ssh|git-https|REST) → auth/no-auth → read/write → calls/hour thực đo → cadence/trigger → holds request/lock? → cached/local fallback? → timeout behavior → rate-limit behavior → last 24h error evidence → needed? → action`.
 
 Tối thiểu:
 1. workspace_* read/search/list/stat/log/diff.
@@ -177,8 +185,10 @@ Phải:
 - verify P02 `workspace_snapshot.py` / fs equivalent hashes/runtime;
 - đọc metrics 24h và timestamp lỗi, tách pre-P02 vs post-P02;
 - xác nhận hiện tại read answers `freshness/recheck_required`;
-- đo/đếm GitHub refresh/fetch cadence nếu sổ có;
-- chứng minh GitHub chậm/down thì **lifecycle event store trên VPS vẫn ghi/đọc được**, Owner View có thể hiện last-known state + freshness; không cần GitHub cho từng heartbeat;
+- đo/đếm GitHub call **theo giờ và theo nguồn/process**, tách git-ssh / git-https / REST API, authenticated / anonymous nếu evidence cho phép; nêu nguồn nào chỉ đọc định kỳ có thể dùng VPS-derived state thay GitHub;
+- kiểm **rate-limit semantics** riêng với timeout/latency: xử lý 403/429, `Retry-After`/rate-limit headers nếu có, backoff/fallback và việc read last-good còn phục vụ. **Không cố tình spam GitHub production để tạo rate-limit**; dùng log/header lịch sử, code path, fixture/local stub hoặc evidence nhà cung cấp nếu cần;
+- kiểm riêng Hermes gate `git ls-remote` public theo cadence thật (~3 phút theo P21 nếu runtime xác nhận) và xem có thể chuyển sang VPS state/hint mà vẫn giữ correctness;
+- chứng minh GitHub chậm/down/rate-limited thì **lifecycle event store trên VPS vẫn ghi/đọc được**, Owner View có thể hiện last-known state + freshness; không cần GitHub cho từng heartbeat;
 - write vẫn revalidate GitHub, không hạ chuẩn.
 
 Nếu không tìm thấy regression P02: `P02_VERDICT=KEEP`. Không restart/deploy/tune.
@@ -196,11 +206,11 @@ A8. Có GITHUB_HOTPATH_MATRIX đầy đủ.
 A9. P02 verdict dựa source/runtime/metrics; không dùng số error lịch sử không có timestamp.
 A10. Chứng minh hoặc bác bỏ: sau P02, read-side BUSY/OVERLOADED/GIT_FETCH_FAILED không còn regression hiện hành.
 A11. Không runtime/config/service mutation; 0 model Hermes call; không thêm service/DB/key/port.
-A12. Phân loại §0.2 (1)–(4): ENFORCED/PARTIAL/NOT_ENFORCED kèm bằng chứng và NEXT.
+A12. Phân loại §0.2 (1)–(4): ENFORCED/PARTIAL/NOT_ENFORCED **theo đúng bảng `ĐÍCH ĐO ĐƯỢC — 27/09` ở §0.3**, không tự đặt tiêu chí mới; kèm số đo/bằng chứng và NEXT.
 
 ## 9. Báo cáo
 
-Ghi vào **chính** work/mcp-workspace/COLLAB.md + view.html hiện hữu; không tạo repo file/task mới.
+Ghi vào **chính** `work/mcp-workspace/COLLAB.md`; thư mục MCPW không có `view.html`, **không tạo file/task/report mới**.
 
 Báo cáo phải có:
 - `LIFECYCLE_GAP_MATRIX`;
