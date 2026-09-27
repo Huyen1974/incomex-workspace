@@ -58,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | SEC1 B PASS · P14/P15 sửa PROMPT SEC1A-DOT | READY cũ b1c097f… MẤT HIỆU LỰC | Chưa RUN | NEXT: Host đặt READY mới sau S1–S3.
+VPSUP | SEC1 B PASS · SEC1A-DOT READY | READY@5c03881830753fe27483589b153d6462987cdd3a | Chưa RUN | NEXT: Claude Code kiểm DOT/Secret Manager, tạo DOT hẹp nếu thiếu, đóng #620/#621.
 - KQ@VPSUP-SEC1-20260927-01 DỪNG · 27/09 07:24–07:38 UTC · Claude Code CLI · **B ĐÃ ĐÓNG AN TOÀN:** VPS2 3307+8080 chặn internet cả IPv4 (DOCKER-USER ×2, conntrack cổng gốc) lẫn IPv6 (ip6tables INPUT ×1 — G0 sót: `docker-proxy` nghe `[::]`); từ Mac 3307/8080 đóng, 22/80/443 + e-learning 200; 0 restart, internal PASS; TEMPORARY_UNTIL_PERSISTENT_BINDING, rollback ở view §9. **A CHƯA ĐÓNG (0 mutation):** preflight A5 FAIL — không có khoá máy nào quản trị được permissions (admin active duy nhất = tài khoản Owner chỉ mật khẩu; break-glass `6abdec55…` suspended); PROMPT cấm mật khẩu Owner + SQL. Public #620/#621 vẫn nguyên, 0 lượt ẩn danh từ trước tới nay. JEV `gen-dec-1790494394-xVvgBxPYnQ3cOTgZvh4W`. Read-gate: RUN MCPW-AD1/MMIM-MOM01 đã phát nhưng không thấy mutation hạ tầng đang chạy trên VPS1/VPS2. view §10 ngoài phạm vi ghi của PROMPT nên chưa cập nhật. Áp: SAME_COMMIT.
 - KQ@VPSUP-G0-20260927-01 XONG · 27/09 03:10–03:50 UTC · Claude Code CLI · chỉ đọc: 0 mutation VPS1/VPS2, 0 file ghi trên VPS · A–G, I đo live; H ⚪ (API Contabo cần POST lấy token, PROMPT chỉ GET); J từ mã nguồn directus v12.3.1/v12.4.1 + docs. 🔴 4: Public ghi ẩn danh `approval_requests` (VPS1) · MySQL 5.7 cổng 3307 mở internet (VPS2) · `incomex_metadata` + `/opt/incomex/data` không có backup (F6 đúng) · e-learning không có bản trên Drive. VPS2 dọn được ≈ 26 GB (sổ ở view §9, chưa xoá gì). Áp: SAME_COMMIT.
 - HEAD trước mở việc: `545157ae4d0a58d72274063800ad0b65d9ad76ef`.
@@ -386,7 +386,8 @@ Phản biện đúng P03, không mở thêm file:
 - DOT mới bắt buộc tự mô tả bằng `--help`: PURPOSE · WHEN TO USE · WHEN NOT TO USE · INPUTS · DRY-RUN DEFAULT · EXECUTE · RESTORE/ROLLBACK · SECRET HANDLING · EXAMPLES · EXIT CODES. Header có nhãn + CHECKED-NO-DUPLICATE. Đăng ký `dot_tools` qua cơ chế hiện hữu.
 - Secret source chuẩn là Secret Manager. Nếu thấy file custody root 0600 của `dot-directus-owner-admin-promote`, phải xác minh nó là runtime custody/cache theo cơ chế đã duyệt; **không biến file đó thành nguồn chuẩn mới** và không in/đọc secret value vào báo cáo. Nếu không chứng minh được liên hệ với kho chuẩn ⇒ DỪNG và ghi gap.
 - Biển 3 dòng phải ở đúng cửa `/opt/incomex/dot/bin/00-NHAN-THU-MUC.md` và `TEMPLATE-DOT-SCRIPT`; `report-pg` để ghép biển ở lượt build Nuxt kế tiếp, không rebuild riêng.
-- READY `b1c097f…` mất hiệu lực vì PROMPT đang được sửa. Host sẽ đặt READY mới theo commit cuối chạm PROMPT.
+- READY `b1c097f…` mất hiệu lực. PROMPT sau S1–S3 có commit cuối chạm `5c03881830753fe27483589b153d6462987cdd3a`.
+- **READY@5c03881830753fe27483589b153d6462987cdd3a**. READY không phải RUN.
 - Owner cần quyết: —.
 
 ## Câu hỏi mở
