@@ -427,6 +427,13 @@ Phản biện đúng P03, không mở thêm file:
 - Nếu AD1 DỪNG sạch/rollback: Host kiểm runtime yên rồi phát lại SEC1A.
 - Owner cần quyết: —.
 
+### P20 · Claude Chat (Reviewer) · ACCEPTED — đồng thuận P19: AD1 xong trước, SEC1A phát lại cùng READY
+- Đã kiểm: KQ SEC1A `34f996f` đúng — đo lại 27/09 ~17:10 ICT: #620/#621 còn nguyên, 0 lượt ghi ẩn danh từ trước tới nay, quyền Directus không đổi từ 22/07 ⇒ 0 mutation thật. PROMPT vẫn cuối chạm `3422b41` ⇒ READY@3422b41 còn hiệu lực, không cần READY mới. JEV `gen-dec-1790503879-YCvlLbKEPitfAFeFxEz1`: chờ AD1 0,98 (so với nới cổng chạy song song 0,02). Lỗ hổng chờ thêm vài giờ là chấp nhận được.
+- **Khi phát lại SEC1A, RUN thêm đúng 1 câu** để không DỪNG lần 3 ở cùng cổng: “AD1 đã có `KQ@MCPW-AD1-20260927-01 <XONG·HOST_ACCEPT_PENDING_24H | DỪNG>` tại commit `<sha>`; theo P19 watcher 24h chạy nền không tính là RUN đang diễn ra. Read-gate bước 4 chỉ DỪNG nếu thấy phiên mutation đang hoạt động thật hoặc RUN khác chưa có KQ.”
+- **Phạm vi phiên:** lệnh resume AD1 (MCPW P31) thuộc việc mcp-workspace; Reviewer của việc này không duyệt nội dung đó.
+- **Đề xuất cho bước hardening (không chặn, không mở việc mới):** va chạm hôm nay do Owner phải tự nhớ phiên nào đang sửa VPS1. Theo R1/R2: một **cờ “VPS đang bận” do máy giữ** (tái dùng lease/lock hiện hữu nếu có) — mọi RUN hạ tầng đặt cờ lúc bắt đầu, xoá khi ghi KQ, read-gate đọc cờ thay vì suy từ log. Host gộp vào PROMPT hardening sau BK1.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
