@@ -469,6 +469,16 @@ Phản biện đúng P03, không mở thêm file:
 - **K3 · Không để bản rõ:** bản dump/archive/giải mã dữ liệu nghiệp vụ (metadata, điểm danh/kết quả thi, e-learning) chỉ nằm tạm trong staging của RUN (ưu tiên tmpfs nếu đủ chỗ) và **xoá khi xong**; chỉ giữ manifest/checksum. E-learning rời VPS2 là đã mã hoá (mã hoá bằng public key trên VPS2 hoặc stream thẳng vào gpg) — không lưu bản rõ trên Mac/VPS1.
 - K1–K3 chỉ **thu hẹp** cách làm, không mở phạm vi ⇒ Owner dán cùng RUN, READY@aee138a giữ nguyên. Owner cần quyết: —.
 
+### P25 · Claude Chat (Reviewer) · ĐỀ XUẤT — chỉ đạo Owner 28/09: VPS2 là nháp tạm ⇒ rút gọn việc VPS2, thêm bước 11 huỷ VPS2
+- **Nguyên văn Owner 28/09 02:39:** “VPS2 là server tạm. Tôi tạo nó lên để phục vụ đoàn kiểm tra (lắp elearning) và nhiệm vụ tiếp theo của nó là làm chỗ để nâng cấp VPS 1. … sau khi nâng cấp VPS 1 xong, chuyển nốt cả elearning hiện nay sang VPS 1 và bỏ VPS 2 để tiết kiệm chi phí. Hiện VPS 2 không có người học … có thể 1,5 năm nữa mới dùng đến nó, cài để đó … mục tiêu là chỉ để chương trình không bị có lỗ hổng làm nguy hiểm đến VPS là được. Đừng quá tập trung vào VPS 2 lúc này mất thời gian. Nó chỉ là nơi nháp tạm để nâng cấp.”
+- **Đề nghị Host ghi thành quyết định Owner (D21):** VPS2 = máy tạm (lab nâng cấp VPS1 + giữ tạm e-learning không người dùng). Đích cuối: nâng cấp VPS1 xong → chuyển e-learning về VPS1 → huỷ VPS2. Việc trên VPS2 chỉ làm đến mức “không có lỗ hổng nguy hiểm” + “đủ chỗ làm lab”.
+- **BK1: giữ nguyên** (kể cả A3 — 49 MB, là bản offsite duy nhất, cần trước khi đụng MySQL VPS2 và trước khi huỷ VPS2). B4 đã đúng: không dựng job backup định kỳ cho VPS2.
+- **Thay bước “hardening VPS2” bằng MỘT lượt ngắn “VPS2 tối thiểu an toàn + chuẩn bị lab”** (JEV `gen-dec-1790538033-zMmSDkYIy76z57aqaQDp`):
+  - LÀM: (1) đóng bền 3307/8080 — cách đơn giản nhất là bind `127.0.0.1` rồi tạo lại đúng 2 container, gián đoạn chấp nhận được vì không có người học; (2) đổi mật khẩu root MySQL + root chỉ localhost (đã lộ 49 ngày), khoá mới cất Secret Manager, agent không nhìn; (3) **VPS2 không giữ khoá/đường tin cậy nào tới VPS1, Drive, Secret Manager** — VPS2 có bị chiếm cũng không lan sang VPS1; khoá tạm cho lab phải hẹp và gỡ sau lượt; (4) **dừng `cms_queue`** (không người dùng ⇒ hàng đợi vô dụng) thay vì gỡ lỗi, chặn log mọc ~190 MB/ngày; (5) dọn ≈26 GB theo sổ G0 + swap/trần RAM — vì lab cần chỗ; (6) cờ “VPS đang bận” (P20) vẫn làm, vì nó phục vụ mọi RUN trên VPS1.
+  - BỎ trên VPS2: nâng MySQL 5.7, sửa route IPv6, gỡ lỗi `cms_queue`, job backup định kỳ e-learning, giám sát riêng cho VPS2.
+- **Thêm bước 11 vào kế hoạch (sau bước 10 — canh 7 ngày):** chuyển e-learning về VPS1 rồi huỷ VPS2. Điều kiện để e-learning **không làm yếu VPS1**: mạng Docker riêng; không mở cổng DB ra ngoài; subdomain qua nginx hiện hữu (nginx VPS1 đã có khối `elearning.incomexsaigoncorp.vn`); nâng MySQL 5.7→8.x ngay lúc chuyển (DB chỉ 49 MB — rẻ) hoặc ghi rõ lý do nếu chưa được; đưa vào backup định kỳ VPS1. **Ghi rõ ngoại lệ luật “Chỉ 1 CSDL”:** đó là luật cho hệ thống Incomex; e-learning là ứng dụng mua sẵn (Laravel bắt buộc MySQL) nên được giữ CSDL riêng, cách ly, không dùng làm tiền lệ. Trước khi huỷ VPS2: backup cuối mã hoá + đối chiếu hạn hợp đồng Contabo để huỷ đúng kỳ.
+- Owner cần quyết: — (Owner đã quyết; Host ghi D21 và sửa bảng 10 bước thành 11 bước).
+
 ## Owner cần quyết
 - —
 
