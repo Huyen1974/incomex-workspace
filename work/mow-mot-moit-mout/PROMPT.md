@@ -26,6 +26,55 @@ Root `ui` đọc:
 
 `mow-master-nhap2-v1.html` là **nguồn tham khảo chi tiết/hành vi đã làm**, không phải parent canonical mới.
 
+## 0A. BASELINE BẮT BUỘC — 16 UI xanh trong 4 Bà Mẹ
+
+Quy tắc Owner 28/09: **mục có ✅ = file/route đã được thiết kế khá kỹ và đang dùng làm căn cứ chính**. Chưa final/PG/config, nhưng tuyệt đối không được bỏ qua hoặc làm lại từ đầu.
+
+Đúng 16 entry xanh hiện hành:
+
+**MOW · 3**
+- `UI-005` · Kanban MOW · `UI.CANVAS` · `mow-unified-canvas-v2.html?tang=T2&che-do=thuong`.
+- `UI-001` · Master MOW · `UI.MASTER` · `mow-master-nhap2-v1.html`.
+- `UI-004` · Sổ Góp ý/Cải tiến · `UI.MASTER` · `mow-gopy-list-v1.html`.
+
+**MOT · 5**
+- `UI-010` · Bàn làm việc MOT · `UI.WORKSPACE` · `mot-dashboard-v1.html`.
+- `UI-007` · Studio MOT · `UI.STUDIO` · `mot-studio-v1.html`.
+- `UI-006` · Config T1/New MODT · `UI.CONFIG` · `/admin-new-modt` / source `new-modt-v1.html`.
+- `UI-003` · Duyệt NTGV · `UI.MASTER` · `duyet-ntgv-v1.html`.
+- `UI-002` · Master MOT · `UI.MASTER` · `mot-master-v1.html`.
+
+**MOIT · 4**
+- `UI-019` · Kanban MOIT · `UI.CANVAS` · T0.5 `form=MOIT`.
+- `UI-013` · Master MOIT · `UI.MASTER` · `moit-master-v1.html` → parent live `mot-master-v1.html`.
+- `UI-015` · Studio MOIT · `UI.STUDIO` · `moit-studio-v1.html` → parent `mot-studio-v1.html`.
+- `UI-017` · Config MOIT · `UI.CONFIG` · `moit-config-v1.html` → parent `new-modt-v1.html`.
+
+**MOUT · 4**
+- `UI-020` · Kanban MOUT · `UI.CANVAS` · T0.5 `form=MOUT`.
+- `UI-008` · MOUT Builder v3 · route riêng `mout-builder-v3.html`.
+- `UI-014` · Master MOUT · `UI.MASTER` · `mout-master-v1.html` → parent live `mot-master-v1.html`.
+- `UI-016` · Studio MOUT · `UI.STUDIO` · `mout-studio-v1.html` → parent `mot-studio-v1.html`.
+
+### Những chi tiết đã có — PHẢI GIỮ/KẾ THỪA
+
+- **MOW Kanban:** T7→T0; Thường/Đề xuất/Vận hành/Quản trị; breadcrumb/tầng; card Nhiệm vụ→Công việc; side detail; propose/add.
+- **MOW Master:** search/filter + cây 7 tầng; Mã/Tên/anchor/ngày/người-máy lập/3 vai trò/trạng thái/liên kết MOT-MOIT-MOUT; bút sửa; detail/drawer/help/contracts/support.
+- **Sổ góp ý:** chung MOW/MOT/MOIT/MOUT; neo vị trí/bước-lượt; người/thời gian; trạng thái Mới→Đã xem→Đã gộp→Đã thành thiết kế/Bỏ; cây 7 tầng.
+- **MOT Bàn làm việc:** danh sách task + hạn/trạng thái; phần việc phải nhập; required validation; embedded form; thông tin tham khảo; hướng dẫn lần đầu; hoàn thành/sửa; đề xuất/góp ý.
+- **MOT Studio:** F01–F10; L1–L4; E01/E02; C01/C02; flow DB trực tiếp/bảng chờ; composer; JSON; catalog gọi theo mã.
+- **New MODT/Config T1:** Config đầy đủ không được giản lược: MOIT/MOUT; bảng GHI VÀO/ĐỌC RA với Nội dung chuyên môn · Collection · Field · Check field tương tự · Địa chỉ dữ liệu · Kiểu dữ liệu · Hợp đồng JSON · Test · Tình trạng · Ghi chú; cùng NTGV · Ai làm/ai nhận · Chạy/kết thúc theo luật xưởng.
+- **Duyệt NTGV:** NẾU/THÌ; 3 điều kiện + AND/OR; Người thực hiện/được báo cáo/chuyển tiếp; Đề xuất/Phê duyệt; Ghi chú; `?` từng cột.
+- **MOT Master:** Mã/Tên/anchor/ngày-người/MOIT/MOUT/3 vai trò/trạng thái + filter cây 7 tầng + detail.
+- **MOIT:** Kanban T0.5; Master list; Studio kế thừa toàn bộ F/E/L/C; Config kế thừa New MODT với ngôn ngữ form nhập; liên hệ Field/Step/UI theo nguồn hiện có.
+- **MOUT Builder:** miền dữ liệu gồm mô tả+mã đọc; cột hiện/ẩn/thứ tự/SUM; tối đa 5 filter AND; thời gian cụ thể/định kỳ + lịch chạy; Tổng; đúc/lưu; CSV/Excel; phân phối; picker trường 7 tầng. Master/Studio/Kanban vẫn giữ.
+
+**Green ≠ final. Green = đã có thiết kế đáng kể, phải kế thừa.** Các phần mock/nháp/chưa PG vẫn giữ đúng nhãn và trở thành requirement cần hoàn thiện, không bị xóa.
+
+### Cổng kế thừa trước mọi mutation MOM04
+
+Codex phải lập trong scratch/báo cáo bảng `16 green → capability đã có → requirement tương ứng`. Nếu một capability trong danh sách trên không xuất hiện trong `detailRequirements` hoặc được ghi rõ `không áp dụng + lý do`, **DỪNG trước mutation**. Không được chỉ dựa MOM02/MOM03 để làm.
+
 Giữ nguyên MOM03 đã đạt:
 - Home-first
 - 84/84
