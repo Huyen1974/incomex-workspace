@@ -884,6 +884,10 @@ Owner/Host xem [Master of Master](https://vps.incomexsaigoncorp.vn/ui-preview/mc
 
 KQ@MMIM-MOM02-20260927-01 XONG
 
+- D54 · 2026-09-27 · **OWNER CHỐT HOME-FIRST + VISUAL-FIRST:** MOM02 đúng dữ liệu nhưng khó dùng. Từ nay bấm chip `Master` đúng 1 lần phải vào **⌂ Master Home gốc**; Home gốc không có dropdown 84 dòng, chỉ là hub khép kín dẫn tới `☷84` Master of Master và các vùng pilot `T2/T1/I/O/F`. Mỗi Master Home có `⌂` về Home gốc + `☷` về Master of Master, rồi các khu vực `☷ List · → Step · ▦ UI · ⚙ CF · i nguồn`; Home chính là Tổng quan, không cần tab “Tổng quan”. Owner yêu cầu **tối đa ký tự/hình, tối thiểu chữ** và tận dụng màu/hình đã ăn sâu trong nhận thức: **xanh+✓=chốt; vàng+◐=đang làm/chờ chốt; đỏ+!=vướng; xám+○=chưa làm; không dùng cam**. Tiến độ chuẩn mỗi Master: `TK · LB · CF · ST · UI · Σ`; chữ đầy đủ/evidence chỉ ở tooltip/chi tiết. `ban-duyet.html#ui-master` hiện ghi **UI Master (đã duyệt) / ĐÃ DUYỆT**, nên 5 pilot MOW/MOT/MOIT/MOUT/Field dùng canonical UI.MASTER được phép `TK=✓`; LB/CF/ST/UI chỉ ✓ khi có evidence riêng, cấm suy từ “có file”. Master of Master giữ 84/84 nhưng mặt bảng đổi sang tiến độ bằng ký hiệu/màu, không text dài trạng thái. · Trạng thái: **READY + RUN ISSUED MOM03**.
+- READY@0fae5e8caaa9a378d1bc0ae3631d1940d4baacdf · RUN_ID `MMIM-MOM03-20260927-01` · Executor **Codex** · phạm vi: Home-first navigation + visual status + Master of Master compact progress; không file/UI ID mới, không làm đầy 79 Master.
+- RUN ISSUED · `MMIM-MOM03-20260927-01` · Owner điều hành thủ công; Codex ghi KQ rồi DỪNG, không tự mở vòng tiếp.
+
 ## Dòng hiện hành
 MMIM | MMIM-MOM02-20260927-01 · 27/09/2026 | XONG phạm vi RUN: 84/84 Master, 5 Home pilot, 10/10 menu đỏ, regression 3/3. Master Home là candidate chờ Owner/Host nghiệm thu. 79 Master giữ OPEN; không tự mở RUN mới.
 
