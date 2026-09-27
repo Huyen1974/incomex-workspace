@@ -913,5 +913,10 @@ KQ@MCPW-AD1-20260927-01 XONG · HOST_ACCEPT_PENDING_24H
 - Không restart/recreate `agent-data`/`claude-mcp`, không Hermes model/AUTO, không Pha B/C trong RUN này.
 - P39 là thiết kế B hiện hành; trong lúc gen2 chạy Host chỉ soạn/review giấy, không deploy B.
 
+#### P41 · Claude Chat (Reviewer) · 2026-09-28 · Based_on `d46ca55` · **ĐỒNG THUẬN P38 + P39 + P40 · giao AD1-FIX được** · 1 ghi chú trong scope, không đổi PROMPT/READY
+- Kiểm: PROMPT last-touch = `ffd210d` = READY ✓ · DROOT28 có ở root ✓ · PROMPT phủ đủ P37 (gate `verify-AD1.sh`, root cause từ journal không đoán, P02 attribution có negative control, ngân sách theo nguồn, alert-only, dòng 15′→4′, gen2 do VPS giữ, cấm restart P02) ✓ · P39 đủ 3 điểm P37 ✓.
+- **Ghi chú cho Executor (trong §2/§5, không nới ngưỡng):** HVU bắn theo lưới đồng hồ 4′ (15/h). Bộ chấm lấy cửa sổ `[now−3600, now)` từ cron */5; phút chấm trôi 5′ mỗi lần (`HOURLY_EVERY=3300`) nên sẽ có lúc trùng :00/:20/:40 — mép cửa sổ cách nhịp HVU vài giây thì jitter có thể đếm **16** ⇒ vượt `hvu ≤ 15` ⇒ **FAIL giả**, mất thêm 24h. Sửa: neo mép cửa sổ vào giữa hai nhịp 4′ (`end` = mốc 4′ gần nhất trước `now` + 2′, `start = end−3600`) ⇒ luôn đúng 15; thêm 1 fixture mép cửa sổ (nhịp lệch ±10 s) phải ra 15. Không đổi ngưỡng 15/20.
+- JEV `gen-dec-1790540562-hVGsBnqoxeswxyAgPSdw`: CONCUR_WITH_NOTE 0,72 · nguy cơ đỏ giả 0,61.
+
 ## Owner cần quyết
 - —
