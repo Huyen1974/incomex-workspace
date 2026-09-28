@@ -1775,3 +1775,11 @@ KQ@OWNER-BANDUYET-20260923-01 XONG
 
 ## KQ · OWNER-BANDUYET-20260924-02
 KQ@OWNER-BANDUYET-20260924-02 XONG
+
+## KQ · MASTER-DUYET-THIET-KE · 28/09/2026
+- Owner giao thêm ô **Master Duyệt thiết kế** trên Master Home, màu xanh nhạt nổi hơn; ba tầng để chỉ đạo tiếp: **Danh sách Master → Danh sách chi tiết → Form thông tin**. Đây là danh mục xem thiết kế, chưa có hành động phê duyệt/ghi dữ liệu và chưa tự dựng quy trình.
+- UI thật trên VPS root `ui`: [Master Home](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-home-v1.html) → [Master Duyệt thiết kế](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html). Home SHA-256 `8dba24d24b639b9a7b3c3aa8a545d23be645133be23c1f238f5dfc7019467109`; trang duyệt SHA-256 `c25c58ab92bd9c31619ad9c19b90e673b859d756a61bd84c4a934b4b536b1e17`.
+- Danh sách 84 mã/tên/nhóm lấy trực tiếp từ `catalog-data` của `master-of-master-v1.html`, không copy thành 84 dòng độc lập. Năm Master đã có UI con (Field/MOIT/MOUT/MOT/MOW) nhúng đúng `listBaseline.sourceUrl` trên VPS; chọn dòng mở form/drawer nguyên bản của UI con. 79 Master còn lại hiện “Chưa gắn”, chờ Owner hướng dẫn.
+- Kiểm tra production 28/09: Master Home HTTP 200, ô mới và liên kết hiện, console 0 lỗi; trang danh mục HTTP 200, hiển thị 84/84; tìm “MOW” còn 4/84; MOW `CAT-003?` mở UI-001 với 7 dòng, chọn `WF-0001` mở drawer “Quy trình Nhập kho” và tầng 3 được chọn; `CAT-000` hiển thị trạng thái chưa gắn. Màn hẹp 390 px cuộn bảng ngang; console trang danh mục 0 lỗi. UI gốc và 84 catalog không sửa.
+- VPS `ui` là nguồn UI hiện hành; khi cần tái dùng thiết kế đã có thì liên kết/nhúng hoặc copy vào một nơi trên VPS theo chỉ đạo Owner, tránh dựng mới khác format. Bản GitHub này chỉ giữ mỏ neo và quyết định, không nhân đôi HTML/CSS/JS dài.
+
