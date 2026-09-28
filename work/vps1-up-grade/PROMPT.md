@@ -104,7 +104,7 @@ Mỗi candidate chỉ ghi:
 
 Decision:
 - `KEEP_INBOUND`: inbound SSH Owner/Mac.
-- `REMOVE`: outbound credential bền, không cần, SoT ngoài VPS2 = YES.
+- `REMOVE`: outbound credential bền, không cần, và **hoặc** SoT ngoài VPS2 = YES **hoặc** thuộc ngoại lệ T1b `RETIRE_LOCAL_ONLY_KEY` dưới đây.
 - `KEEP_JUSTIFIED`: thật sự cần cho host basic operation; phải ghi lý do cụ thể.
 - `STOP_UNKNOWN`: SoT hoặc dependency mơ hồ ⇒ không xóa, KQ DỪNG cho mục D.
 
@@ -114,8 +114,10 @@ Không ghi fingerprint đầy đủ nếu không cần; rút gọn đủ đối 
 
 Chỉ với `REMOVE`:
 
-1. Chứng minh source-of-truth/copy quản trị ngoài VPS2 trước khi xóa.
-2. Chụp metadata + sha256 **nếu việc hash không đọc/in secret ra output**; không tạo thêm bản sao secret.
+1. Mặc định phải chứng minh source-of-truth/copy quản trị ngoài VPS2 trước khi xóa.
+   - **Ngoại lệ T1b · `RETIRE_LOCAL_ONLY_KEY`:** chỉ áp cho private key trong SSH allowlist khi T1=YES, key đó được xác định là cặp khoá riêng của VPS2, `needed_now=NO`, không phải inbound management, không có service/config/job còn phụ thuộc, và mục tiêu là chấm dứt hẳn khả năng VPS2 SSH vào VPS1. Trường hợp này **không cần** SoT ngoài VPS2 và **không được tạo bản sao mới** chỉ để rollback; xóa là retire có chủ đích, phải Owner `Allow once`, ghi rõ `RETIRE_LOCAL_ONLY_KEY` trong bảng.
+   - Nếu chưa chứng minh được đủ tất cả điều kiện T1b ⇒ không dùng ngoại lệ; quay về SoT=YES hoặc `STOP_UNKNOWN`.
+2. Chụp metadata + sha256 **nếu việc hash không đọc/in secret ra output**; không tạo thêm bản sao secret. Với `RETIRE_LOCAL_ONLY_KEY`, chỉ giữ metadata/fingerprint rút gọn, không backup private key.
 3. Xóa đúng file/config credential hoặc bỏ đúng reference.
 4. Verify:
    - path/reference không còn;
@@ -125,7 +127,7 @@ Chỉ với `REMOVE`:
    - 3307/8080 vẫn không listener.
 5. Không revoke credential ở provider trong RUN này trừ khi PROMPT nói rõ — mục tiêu là VPS2 không giữ copy. Provider-side revoke thuộc task nguồn nếu credential đó còn được dùng nơi khác.
 
-Nếu removal ảnh hưởng host/lab basic operation ⇒ rollback reference từ source-of-truth chỉ khi cần, rồi DỪNG.
+Nếu removal ảnh hưởng host/lab basic operation ⇒ rollback reference từ source-of-truth chỉ khi cần, rồi DỪNG. Riêng `RETIRE_LOCAL_ONLY_KEY` không có rollback key theo thiết kế; vì vậy phải chứng minh `needed_now=NO` + không dependency **trước** khi xin Owner Allow once.
 
 ## 6. Những thứ KHÔNG làm
 
@@ -149,7 +151,8 @@ G1 PASS khi:
 - VPS2 đủ disk/swap cho lab;
 - audit allowlist hoàn tất mà không đọc/in secret value;
 - tất cả persistent outbound credential/trust candidate đã:
-  - REMOVE an toàn, hoặc
+  - REMOVE an toàn theo SoT=YES, hoặc
+  - REMOVE theo T1b `RETIRE_LOCAL_ONLY_KEY` đủ gate + Owner Allow once, hoặc
   - KEEP_JUSTIFIED với lý do không cho phép pivot sang VPS1/Drive/Secret Manager/GitHub;
 - không còn `STOP_UNKNOWN`;
 - inbound SSH Owner/Mac còn hoạt động;
@@ -181,7 +184,7 @@ Không tạo repo file mới.
 ### `COLLAB.md`
 - Dòng hiện hành;
 - `KQ@VPSUP-VPS2-TRUST-CLOSE-20260928-01 XONG|DỪNG`;
-- bảng candidate chỉ path/type/reference/decision, không secret;
+- bảng candidate chỉ path/type/reference/decision, không secret; candidate T1b phải ghi `RETIRE_LOCAL_ONLY_KEY` + `needed_now=NO`;
 - T1: `VPS1_TRUSTS_VPS2_KEY=YES|NO`; nếu YES ghi candidate đã REMOVE và follow-up VPS1, không in raw key;
 - nếu XONG: `G1 PASS · NEXT Clone CURRENT`.
 
