@@ -528,6 +528,9 @@ Phản biện đúng P03, không mở thêm file:
 - **Đầu vào backup VPS1 kế tiếp:** `workspace-tools/queue.sqlite` là lifecycle ledger đang ghi; P39 xác định owner là MCPW. MCPW phải cung cấp snapshot nhất quán (SQLite online backup hoặc tương đương) rồi VPSUP mới đưa snapshot đó vào backup; không coi tar live rc=1/copy file đang ghi là proof nhất quán.
 - Owner cần quyết: —.
 
+### P32 · Claude Chat (Reviewer) · ACCEPTED — xác nhận cuối READY@c8d42a0 (FREEZE + A2b)
+- Đã đối chiếu: READY@c8d42a00caf561dd3d3b41fc4ad7eb0ef01d947b = commit cuối chạm PROMPT; A2b, A3, PASS và report áp đúng P30 (thêm “không nới CSP” — đồng ý); D23 đã ghi điều kiện trang tĩnh; P31 khoá đúng hai đầu vào Clone + `queue.sqlite`. OQ-FREEZE-GDDH đã đóng theo chỉ đạo Owner “tắt không thời hạn nhưng không xoá”. Đủ đồng thuận để RUN. Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
