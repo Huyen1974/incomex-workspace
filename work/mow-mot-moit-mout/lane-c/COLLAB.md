@@ -193,3 +193,63 @@ KQ@MMIM-LANE-C01-20260928-01 DỪNG
 KQ@LANE-C C01 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS · HEAD=c54b35f953e722502bd1cfd535b74a5bd7d5a7c4 · H_MOW=25 · U_MOW=UNKNOWN · UI_MISSING=UNKNOWN · NEXT=B/A chốt contract MOW về quyền, trạng thái và điểm quay về cho các nhóm đang OPEN.
 
 H_MOW=25 ở tín hiệu trên = pool candidate chưa gộp; **H unique đã chứng minh UNKNOWN**. Hai UNKNOWN thay số vì thiếu evidence; không tạo số giả để khớp khuôn `<n>`. HEAD là snapshot nguồn trước commit KQ; commit áp KQ lấy từ Git history.
+
+## C02 · chốt Human Step theo contract-v1; rà UI duy nhất
+
+RUN MMIM-LANE-C02-20260928-01 · PROCESS VEUI.MOW. Gate PASS bằng dot-process-gate (39 process, 8 step; prompt SHA f7d12de5; catalog SHA 78b4a687). Registry CODEX-MMIM-C đúng RUN/target. B02R1 ánh xạ 25/25 instance của C01 vào 15 direct step-key; 12 process contract-v1 trong ban-duyet.html#ml5-cho-ai còn nguyên SHA 78b4a6879e8881bb26d67dcf3af6ec29e49abbc6c2032ec3b097105b1ae7e868 tại lần đối chiếu. Không suy bước người từ metadata List của A04.
+
+### H_MOW = 15
+
+Mỗi dòng là chữ ký sáu phần theo thứ tự: intent; input người; output; chuyển trạng thái; lớp quyền; điểm quay về. “Cao · CV1” là độ tin cho contract-v1 ở ban-duyet.html#ml5-cho-ai, đối chiếu map B02R1 trong lane-b/COLLAB; không phải xác nhận đã vận hành hay bind người cụ thể theo NT03/NT05. Số trong ngoặc là instance C01; cùng step-key ở nhiều caller nhận tham số caller_context/subject/place nhưng giữ cùng kiểu chữ ký.
+
+| Human Step chuẩn / instance | Chữ ký sáu phần | Nguồn/tin cậy |
+|---|---|---|
+| CHUNG.TIM.S01 (1, 9) | SEARCH; catalog/object/query/scope; FOUND_EXACT/CANDIDATES/NOT_FOUND/SEARCH_INCOMPLETE + coverage; SEARCH_REQUESTED→SEARCH_RESULT; REQUESTER; CALLER | CV1 · cao |
+| CHUNG.NEU.S01 (2, 14, 20) | REQUEST; need_text/target/caller_context; NEED_RECORDED (máy cấp need_code tiếp); NEED_UNSTATED→NEED_RECORDED; REQUESTER; CHUNG.NEU.S02→CALLER | CV1 · cao |
+| CHUNG.DUYET.S02 (3, 7, 12, 15, 17, 21) | REVIEW; subject/version/decision_context + quyết định/lý do; APPROVED hoặc RETURNED + record; REVIEW_PENDING→APPROVED/RETURNED; APPROVER; CALLER cả hai nhánh | CV1 · cao |
+| CHUNG.BAT.S01 (8, 13, 19) | ACTIVATE; approved_version/place/time/params/rights; yêu cầu bật (máy trả ACTIVE/BLOCKED + usage ref); APPROVED_READY→ACTIVATION_REQUESTED; ACTIVATOR; CHUNG.BAT.S02→CALLER | CV1 · cao |
+| MOW.TAO.S05 (4) | EDIT; tên/loại/neo T2 trên AI draft; khai nháp; AI_DRAFT_READY→DRAFT_DEFINED; EDITOR; MOW.TAO.S06 | CV1 · cao |
+| MOW.TAO.S06 (5) | EDIT; MOT/quy trình con + thứ tự; danh sách bước; DRAFT_DEFINED→STEPS_SELECTED; EDITOR; MOW.TAO.S07 | CV1 · cao |
+| MOW.TAO.S07 (6) | EDIT; trước/sau/song song/hội tụ/điều kiện; quan hệ bước; STEPS_SELECTED→FLOW_CONNECTED; EDITOR; MOW.TAO.S08 | CV1 · cao |
+| MOW.LAP.S03 (10) | EDIT; bản đã kiểm/cha/chỗ gắn; ATTACHED_TO_PARENT + usage ref; EXISTING_VERSION_VERIFIED→ATTACHED_TO_PARENT; EDITOR; MOW.LAP.S04 | CV1 · cao |
+| MOW.KHAI.S01 (11) | CONFIGURE; nơi/trigger/khuôn↔đơn vị/kho/nhánh/quyền; cấu hình chỗ dùng; CONFIGURATION_PENDING→CONFIGURED; CONFIGURATOR; MOW.KHAI.S02 | CV1 · cao |
+| MOW.SUA.S05 (16) | EDIT; tên/loại/neo T2 trên clone; khai bản sửa; CLONED_DRAFT→REVISED_DRAFT_DEFINED; EDITOR; MOW.SUA.S06 | CV1 · cao |
+| MOW.SUA.S08 (18) | CONFIGURE; tất cả/chỉ nơi này; phạm vi áp bản; REVISED_VERSION_APPROVED→ROLLOUT_SCOPE_SELECTED; CONFIGURATOR; MOW.SUA.S09 | CV1 · cao |
+| MOT.CHAY.S03 (22) | EXECUTE; assignment/form/bản ghi; mở đúng form; ASSIGNED→OPENED; ASSIGNEE; MOT.CHAY.S04 | CV1 · cao |
+| MOT.CHAY.S04 (23) | EXECUTE; form/kết quả; SUBMITTED rồi máy ghi/đọc lại; OPENED→SUBMITTED; ASSIGNEE; MOT.CHAY.S05 | CV1 · cao |
+| MOT.CHAY.S08 (24) | ATTACH; tệp/bình luận; annotation; RESULT_COMMITTED→RESULT_ANNOTATED; CONTRIBUTOR; MOT.CHAY.S09 | CV1 · cao |
+| MOW.CHAY.S07 (25) | VIEW; ngữ cảnh lượt; không ghi; RUNNING→RUNNING; VIEWER; CALLER | CV1 · cao |
+
+Không có cặp khác step-key nào đồng nhất cả sáu phần. Đặc biệt TAO.S05 và SUA.S05 có input gần giống nhưng trạng thái và return khác. CHUNG.NGUNG và MOW.XOA không có direct Human Step. C01 giữ 25 hồ sơ vì chưa có contract; C02 thay kết luận **unique H** bằng 15, không thay số instance 25. Quyền ở đây là lớp contract, còn binding vai thực tế theo NT03/NT05 vẫn OPEN.
+
+### H → UI · kiểm màn hiện có
+
+Dùng chữ ký UI parent + human data shape + primary action + state transition. Bảng phân loại mức **bằng chứng hiện có**, không nghiệm thu thao tác chạy thật. EXISTING_GREEN/BASELINE nghĩa là có khung tham chiếu; OPEN_EVIDENCE nghĩa là chưa phân biệt được dùng lại qua cấu hình/đấu nối với UI thiếu. Không có kết luận chắc thuộc VARIANT_CONFIG_LABEL hoặc MISSING_UI.
+
+| Human Step | UI parent / route tham chiếu · dữ liệu → thao tác → state cần chứng minh | Phân loại |
+|---|---|---|
+| CHUNG.TIM.S01 | UI.MASTER / UI-029 · query → chọn kết quả trả caller → SEARCH_RESULT; picker/permission chưa có bằng chứng | EXISTING_GREEN/BASELINE |
+| CHUNG.NEU.S01 | UI.MASTER/CANVAS / UI-004,005 · need_text → ghi nhu cầu → NEED_RECORDED; góp ý mẫu chưa chứng minh need_code | OPEN_EVIDENCE |
+| CHUNG.DUYET.S02 | UI.REVIEW / UI-009,011 · subject/lý do → duyệt/trả → APPROVED/RETURNED; hiện là review chỉ đọc | OPEN_EVIDENCE |
+| CHUNG.BAT.S01 | UI.CONFIG / UI-001,005 · nơi/lúc/tham số → bật → ACTIVATION_REQUESTED; trạng thái hiển thị chưa chứng minh thao tác | OPEN_EVIDENCE |
+| MOW.TAO.S05 | UI.CANVAS / UI-005 Đề xuất · tên/loại/neo → lưu → DRAFT_DEFINED; save chưa chứng minh | OPEN_EVIDENCE |
+| MOW.TAO.S06 | UI.CANVAS / UI-005,009 · MOT/con/thứ tự → xếp → STEPS_SELECTED; editor chưa chứng minh | OPEN_EVIDENCE |
+| MOW.TAO.S07 | UI.CANVAS / UI-005,011 · cạnh/điều kiện → nối → FLOW_CONNECTED; R04 chờ nguồn | OPEN_EVIDENCE |
+| MOW.LAP.S03 | UI.MASTER/CANVAS / UI-029,005 · bản/cha/chỗ gắn → gắn → ATTACHED_TO_PARENT; picker/commit chưa chứng minh | OPEN_EVIDENCE |
+| MOW.KHAI.S01 | UI.CONFIG / UI-005,009 + mẫu Config · trigger/kho/nhánh/quyền → lưu → CONFIGURED; chưa có form MOW tương ứng | OPEN_EVIDENCE |
+| MOW.SUA.S05 | UI.CANVAS / UI-005 · tên/loại/neo trên clone → lưu → REVISED_DRAFT_DEFINED; quan hệ với TAO.S05 chưa chốt | OPEN_EVIDENCE |
+| MOW.SUA.S08 | UI.CONFIG / UI-005,009 · tất cả/chỉ nơi này → áp → ROLLOUT_SCOPE_SELECTED; NT19 chưa có thao tác mẫu | OPEN_EVIDENCE |
+| MOT.CHAY.S03 | UI.WORKSPACE / UI-010 · assignment/form/bản ghi → mở → OPENED; khung task/form có, binding thật OPEN | EXISTING_GREEN/BASELINE |
+| MOT.CHAY.S04 | UI.WORKSPACE / UI-010 · form/kết quả → gửi → SUBMITTED; khung form/nút có, lưu/đọc lại OPEN | EXISTING_GREEN/BASELINE |
+| MOT.CHAY.S08 | UI.WORKSPACE / UI-010 · tệp/bình luận → gắn step_run → RESULT_ANNOTATED; chưa thấy binding | OPEN_EVIDENCE |
+| MOW.CHAY.S07 | UI.CANVAS / UI-005 Vận hành + UI-012 · chọn lượt → xem run thật → RUNNING; UI-012 chỉ là schema/event mẫu | OPEN_EVIDENCE |
+
+Đã mở read-only bằng ui_inspect (HTTP 200) một route đại diện cho cả 14 vùng UI ứng viên C01: UI-001/009 Master/chi tiết, UI-004 góp ý, UI-005 Thường/Đề xuất/Vận hành, UI-010 MOT dashboard, UI-029 tìm kiếm, UI-011 checkpoint, UI-012 data/events; thêm mẫu cha Config /admin-new-modt. Chuẩn parent ở ban-duyet.html#parent-ui-standards cho phép tái dùng khuôn và thay label/config, không tự biến một route/mode thành một UI duy nhất. UI-010 hiện có nút “Hoàn thành ✓” **được bật** lúc “Bắt buộc 0/2”, khác ghi nhận C01 là disabled; không bấm/gửi nên chưa chứng minh SUBMITTED. UI-011 là checkpoint mẫu 1/14 và UI-012 là schema/event, không phải log lượt thật. Các hash file UI-001/004/005/010/029/011/012 ở VPS khớp catalog; không sửa UI.
+
+Merge UI duy nhất còn mơ hồ rõ ràng là TAO.S05 ↔ SUA.S05: cùng parent/field/action ứng viên nhưng state nháp mới và clone khác; chưa biết là một cấu hình hay hai interaction. JEV tham khảo ba lựa chọn SAME/DIFFERENT/OPEN: result gen-dec-1790569053-JCuyiSJEeenPJ6kM7LNe, OPEN 0,41, DIFFERENT 0,31, SAME 0,28, confidence 0,12. JEV không thay bằng chứng. Những nhóm UI.CONFIG và UI.WORKSPACE cũng không gộp chỉ vì chung parent/route: data/action/state khác. Do chưa có binding thao tác và chuyển trạng thái đủ cho mọi H, **U_MOW=UNKNOWN**. Do chưa chứng minh một hành động không thể nằm trong khuôn hiện có hoặc chỉ thiếu cấu hình/đấu nối, **UI_MISSING=UNKNOWN**, không suy bằng 0 hoặc bằng số route.
+
+NEXT duy nhất: **Host giao B/A chốt bảng binding 15 H→UI theo parent, dữ liệu người, thao tác chính và chuyển trạng thái.**
+
+KQ@MMIM-LANE-C02-20260928-01 DỪNG
+KQ@LANE-C C02 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS · instances=25 · H_MOW=15 · U_MOW=UNKNOWN · UI_MISSING=UNKNOWN · NEXT=Host giao B/A chốt bảng binding 15 H→UI theo parent, dữ liệu người, thao tác chính và chuyển trạng thái.
+COORD · NOW=DỪNG · NEXT=Host giao B/A chốt bảng binding 15 H→UI theo parent, dữ liệu người, thao tác chính và chuyển trạng thái. · BLOCKED_BY=UI live mới chứng minh khung, chưa đủ action/state và binding để phân biệt variant với missing · RESERVED_TARGETS=lane-c/COLLAB.md · LAST_SYNC=D72-D73/C02
