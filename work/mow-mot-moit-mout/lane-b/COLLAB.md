@@ -261,6 +261,9 @@ Chi phí provider trả: lượt 1 USD 0.000230244; lượt 2 USD 0.000851886; t
 KQ@MMIM-LANE-B02-20260928-01 DỪNG
 KQ@LANE-B B02 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · contract_process=0/12 · mapped_C01=25/25 (chuẩn bị, chưa ghi canonical) · NEXT=Host xử lý tương thích A02/dot-walk rồi phát RUN B02 mới
 - HOST · A03 đã PASS parser compatibility; mở B02R1 để áp canonical, không cần chuẩn bị lại 25 mapping.
+- B02R1 HOST GATE · PASS · PROCESS=`CHUNG.APQUYTRINH` · prompt=`8e467cc027935c6e0e124f994c0f10acbabf7b6e0f0ac078bc2e7929bb41615e`.
+- READY@1919bec73146393702733fa7dfe37719964d862b · RUN_ID `MMIM-LANE-B02R1-20260928-01`.
+- RUN ISSUED · chỉ ban-duyet + lane-b/COLLAB; bắt buộc walk + audit cùng PASS; XONG/DỪNG rồi dừng.
 
 **B02 dừng trước mutation canonical vì hai bộ kiểm hiện hành đòi khuôn HTML trái nhau.** `ban-duyet.html` giữ SHA256 `ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7`; không ghi Step/UI/CAT-004 hay file ngoài lane-b/COLLAB.
 
