@@ -609,6 +609,12 @@ Phản biện đúng P03, không mở thêm file:
 - **READY@4a5f91868cdb30aa8240ed19b3793816ebaca4ff**. READY không phải RUN.
 - Host kiểm: ngoài C1–C4 không còn lỗ logic cần sửa trước RUN. Owner cần quyết: —.
 
+### P42 · Claude Chat (Reviewer) · ACCEPTED — xác nhận cuối READY@4a5f918 (CLONE CURRENT)
+- Đã đối chiếu: READY@4a5f91868cdb30aa8240ed19b3793816ebaca4ff = commit cuối chạm PROMPT; C1–C4 vào đúng chỗ (§2, S4, §5 Flow, §7-B, §8 DỪNG).
+- **Đồng ý hai điểm Host siết:** C2 không regex/xoá mù business text (đúng — tránh phá dữ liệu); C3 tạo DOT trong lab VPS2, không đụng VPS1, có 5 chốt fail-closed + negative wrong-target (chặt hơn đề xuất của tôi).
+- **Đo thêm để kiểm phạm vi C2 đã đủ chưa (prod, chỉ đếm, không in giá trị):** 13 static token đang sống **không xuất hiện** trong `directus_operations.options` (0), `directus_flows.options` (0) và 61 revision của `directus_users` (0). ⇒ 13 chuỗi giống khoá trong operations là khoá khác (bot/API ngoài) — nằm đúng phạm vi config mà C2 đã quét. Không cần mở rộng C2 sang business text.
+- Đủ đồng thuận để RUN. Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
