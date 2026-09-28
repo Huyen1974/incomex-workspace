@@ -39,8 +39,8 @@ Bối cảnh nguyên văn User: “Gốc rễ nhất là chúng ta đã dọn VP
 Phạm vi hiện tại — nguyên văn Owner 28/09/2026:
 - “Bạn rà soát cái cần là tất cả các chi tiết phải được đưa vào kế hoạch để tất cả phải hiểu thống nhất và hiểu đúng. Tránh mỗi Ai lại làm theo 1 kiểu.”
 - “Bạn tiếp tục rà soát và cập nhật kế hoạch giúp tôi để tiến tới đồng thuận nhé”
-- Lượt hiện tại: “Sau khi bạn sửa xong, bạn soạn cho hermes 1 prompt yêu cầu nó xem xét, và có ý kiến trực tiếp repo.”
-Tiêu chí trial/production ở PLAN01 vẫn là đề xuất cần Owner duyệt; lời giao cập nhật kế hoạch và soạn prompt phản biện không phải RUN triển khai. Prompt cho Hermes chỉ yêu cầu review và ghi ý kiến vào COLLAB hiện hữu, không tạo PROMPT.md thực thi trong lượt này.
+- Lượt hiện tại theo D09: chốt PLAN01/VER01 bằng đồng thuận GPT Host + Claude; không chờ Hermes. Việc đường giao trực tiếp Hermes đang không thuận tiện là vấn đề hạ tầng riêng, không phải gate của `graph-server`.
+Tiêu chí trial/production ở PLAN01 vẫn là đề xuất cần Owner duyệt; việc chốt kế hoạch không phải RUN triển khai.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - Chỉ tạo hai file trong task: COLLAB.md điều phối và view.html là tài liệu chính duy nhất. Không tạo PROMPT, file review, bản nháp hoặc pipeline phụ.
@@ -74,7 +74,7 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | PLAN01/VER01 FINAL-REVIEW · GPT Host ACCEPT hướng hiện hành · chờ Claude Code chốt 100% | Một tuyến trích mặc định + JEV hậu phân loại; hai lượt trial tách gate; không ngưỡng số, chưa PROMPT/READY/RUN | NEXT: Claude Code review cuối theo GS-CLAUDECODE-FINAL-20260928-01; ACCEPT toàn bộ hoặc nêu đúng blocker tối thiểu | OWNER VIEW CHECK DỪNG (AUTH).
+GS | **CONSENSUS GPT+CLAUDE 100% · PLAN01/VER01 CHỐT KẾ HOẠCH** | Một tuyến trích mặc định + JEV hậu phân loại; hai lượt trial tách gate; không ngưỡng số, chưa PROMPT/READY/RUN | NEXT: Host trình Owner một gói duyệt trial gồm tiêu chí hoàn thành, RUN-1, RUN-2 có điều kiện, provider/model/dữ liệu, trần chi phí và trần tài nguyên | OWNER VIEW CHECK DỪNG (AUTH).
 - Hậu kiểm GS14: nội dung PLAN01 + P12 đã push tại `d5fcb553d54c29f1ab989f73c15e8bcbdd86eaaf`; diff chỉ hai file của graph-server (52 dòng thêm, 29 dòng bỏ), không có PROMPT/file mới/runtime. Đọc lại phạm vi thay đổi; `ui_inspect` URL chuẩn trả shell 200 nhưng Directus 401/Login, chưa xác nhận revision Owner View; không mở đường xem phụ. Hermes có thể review repo nếu profile của phiên đó cấp đọc/ghi đúng path; không coi việc Host ghi được là bằng chứng Hermes ghi được.
 - Hậu kiểm GS12: commit `5badbdd9e9104ed4b25b19917c530b5519b64090` đã push; diff chỉ hai file của task (113 dòng thêm, 53 dòng bỏ). Rà hai file: các câu áp mốc 75/85 đã bỏ, chỉ còn ví dụ nguyên văn hoặc câu đính chính/lịch sử. `ui_inspect` đúng URL Owner View chuẩn trả shell 200 nhưng Directus 401/Login, chưa xác nhận được revision hiển thị; không mở đường xem phụ. Repo có PLAN01/VER01 để hội đồng review, không có RUN.
 - Hậu kiểm GS08 ngày 28/09/2026: commit `c9460a9fa13ec3b9cf646668d1c063537e75f992` đã push; diff chỉ đúng hai file COLLAB.md + view.html (65 dòng thêm, 13 dòng bỏ). `ui_inspect` đúng URL Owner View chuẩn trả shell HTTP 200 nhưng Directus 401/Login; chưa đọc được nội dung/revision mới, không báo Owner View PASS. Không tạo đường xem phụ; hồ sơ repo sẵn cho hội đồng review.
@@ -302,6 +302,17 @@ GS | PLAN01/VER01 FINAL-REVIEW · GPT Host ACCEPT hướng hiện hành · chờ
 - **Đồng ý trước:** Host áp đúng (a)–(e) ⇒ Claude coi là ACCEPT 100% mọi ID, **không cần thêm vòng review**. Khi áp, Host ghi cùng commit: `CONSENSUS: GPT Host + Claude = 100% trên PLAN01/VER01 hiện hành.`
 - Ghi chú **không chặn**, cho người soạn PROMPT RUN-2 (không cần hoà giải bây giờ): bước che dữ liệu có thể thay tên người bằng mã giả ổn định theo ID nguồn ⇒ ID mặc định theo tên thành duy nhất cho từng người thật, không sửa Cognee; T18 kiểm. JEV noul 0,52 — chỉ là phương án thử.
 - Đây là review KẾ HOẠCH: không phải runtime PASS, không phải quyền triển khai, không phải duyệt production.
+
+### P15 · GPT Chat · Host · ACCEPT — CONSENSUS GPT+CLAUDE 100% trên PLAN01/VER01
+- Based_on: P14 `4e8a143947307647634eead792b8a12cbab907a5`; D09. Host áp đúng 5 sửa chữ (a)–(e) P14 trong cùng commit này, không đổi kiến trúc.
+- (a) Thứ tự hiện hành: Owner duyệt gói trial → RUN-1 có **bước 0 tiền kiểm chỉ-đọc** → Host nghiệm thu → RUN-2 có RUN riêng.
+- (b) Ghim platform/digest Neo4j và đối chiếu lock/build đúng tag chuyển vào RUN-1 bước 0; Host đối chiếu KQ trước cài.
+- (c) Host phải đề xuất trần RAM, trần đĩa và RAM trống tối thiểu cụ thể trong gói Owner; RUN-1 bước 0 đo tải hiện tại chỉ-đọc, vượt trần thì DỪNG trước cài.
+- (d) Gói Owner duyệt gồm cả trần tài nguyên, ngoài tiêu chí hoàn thành, phạm vi hai lượt, provider/model/dữ liệu và trần chi phí.
+- (e) Hermes không còn là gate; §0.2 và PLAN01 bỏ trạng thái chờ/giao Hermes theo D09.
+- `CONSENSUS: GPT Host + Claude = 100% trên PLAN01/VER01 hiện hành.`
+- Consensus này chỉ là **kế hoạch**: chưa phải runtime PASS, chưa cho phép cài, chưa tạo PROMPT/READY/RUN và chưa duyệt production.
+- Việc không giao trực tiếp được Hermes sẽ xử lý như một việc hạ tầng riêng khi Owner ưu tiên; không mở lại trong `graph-server`.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
