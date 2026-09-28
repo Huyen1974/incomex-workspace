@@ -13,7 +13,7 @@ Runtime VPS là SSOT. Không có fallback Directus/PG mutation.
 
 Sau BK1, biến VPS2 thành **lab tạm an toàn**, không còn nuôi e-learning online:
 
-1. Freeze toàn bộ stack e-learning trên VPS2: stopped + no-autostart, giữ compose/volume/image + dữ liệu/backup để phục hồi.
+1. Freeze toàn bộ stack ứng dụng e-learning trên VPS2: stopped + no-autostart, giữ compose/volume/image + dữ liệu/backup để phục hồi. **Ngoại lệ duy nhất:** địa chỉ `elearning.incomexsaigoncorp.vn` vẫn được phép trả một trang tĩnh “Chương trình đang nâng cấp” để iframe “Chương trình tiếng Nhật” trên GDDH không vỡ; trang này không PHP/DB/queue.
 2. Khi stack dừng, 3307/8080 phải hết listener; `cms_queue` hết sinh log.
 3. Dọn đúng phần tái tạo được đã kiểm ở G0 để lấy lại capacity cho lab; không đụng volume/dữ liệu e-learning.
 4. Thêm 4 GiB swap nếu chưa có để VPS2 đủ đệm cho lab.
@@ -89,11 +89,18 @@ Phân loại đúng compose project e-learning trước khi stop. Nếu không p
 - Không `down -v`, không remove volume.
 - Có thể remove riêng container `cms_queue` sau khi đã stop nếu việc đó là cách an toàn nhất để giải phóng writable-layer log và compose/image/volume vẫn đủ tái tạo; nếu không chắc ⇒ chỉ stop, không remove.
 
+### A2b · Giữ URL công khai bằng trang tĩnh
+- Cấu hình web server hiện hữu đang phục vụ `elearning.incomexsaigoncorp.vn` để mọi path trả đúng **một trang HTML tĩnh** với thông báo `Chương trình đang nâng cấp`.
+- Không script ngoài, không form, không API/PHP/MySQL/queue; không tạo service/port mới; giữ TLS/domain hiện hữu.
+- Không gửi header làm iframe GDDH bị chặn. Không nới CSP ngoài mức hiện tại nếu không cần.
+- Nếu web server hiện hữu nằm trong compose e-learning thì chỉ được giữ **riêng lớp web tĩnh tối thiểu** chạy; application/PHP/MySQL/queue vẫn stopped/no-autostart.
+- Nếu không làm được A2b bằng web server/service hiện hữu mà phải tạo service/port mới ⇒ **bỏ A2b, ghi gap, vẫn freeze**; không mở rộng scope.
+
 ### A3 · Verify freeze
-- 0 e-learning container RUNNING.
+- 0 application/PHP/MySQL/queue container RUNNING; chỉ được phép còn đúng lớp web tĩnh A2b nếu cần.
 - restart policy/no-autostart đúng.
 - 3307/8080 = không listener v4/v6.
-- Không yêu cầu 80/443 e-learning còn online; **offline là trạng thái mong muốn**.
+- 80/443 chỉ còn lớp trang tĩnh A2b (hoặc offline nếu A2b phải bỏ). Từ ngoài: GET `elearning.incomexsaigoncorp.vn` = 200 với nội dung tĩnh; iframe “Chương trình tiếng Nhật” trên GDDH hiển thị thông báo, không ô lỗi.
 - SSH 22 vẫn reachable.
 - volume/bind/data count/size vẫn hiện hữu, không mất.
 - BK1 source backup + Drive backup vẫn tồn tại.
@@ -166,8 +173,8 @@ Không triển khai busy-lock/lease mới; ghi `DEFER_TO_MCPW_SCOPED_LEASE`.
 
 PASS khi:
 - BK1 e-learning offsite/source vẫn nguyên;
-- 0 e-learning container running + no-autostart;
-- 3307/8080 không listener;
+- 0 application/PHP/MySQL/queue e-learning running + no-autostart; chỉ static-only web A2b được phép chạy;
+- 3307/8080 không listener; 80/443 nếu còn thì chỉ phục vụ HTML tĩnh A2b;
 - SSH vẫn tốt;
 - volume/bind/data e-learning nguyên;
 - `cms_queue` không còn sinh log;
@@ -205,7 +212,7 @@ Không tạo repo file mới.
 
 ### `view.html` §9
 Khối ngắn `VPS2 FREEZE/MINLAB`:
-- e-learning RUNNING→STOPPED/no-autostart;
+- e-learning app/PHP/MySQL/queue RUNNING→STOPPED/no-autostart; static URL A2b PASS|GAP;
 - port/listener before→after;
 - disk/free before→after + cleanup groups;
 - swap;
