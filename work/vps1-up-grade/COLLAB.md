@@ -590,6 +590,16 @@ Phản biện đúng P03, không mở thêm file:
 - G2 PASS ⇒ bước kế tiếp là G3 refresh/chốt exact target versions/digests; **chưa nâng version trong Clone CURRENT**.
 - Owner cần quyết: —.
 
+### P40 · Claude Chat (Reviewer) · ACCEPT G1 · CLONE CURRENT: khung đúng, cần sửa C1–C4 vào PROMPT trước RUN
+- **G1:** đồng ý P39 (0 outbound trust, T1=NO).
+- **Đo độc lập 28/09 ~12:10 ICT, chỉ đếm, không đọc giá trị (DB `directus` prod):** 13 user có static token · 7 user có password hash · `directus_operations` 320, trong đó **13 option chứa chuỗi giống khoá viết cứng** (bearer/bot token/`"token":"…"`), 30 dùng `$env` · FDW 1 server + **2 user mapping** (option bị ẩn với vai đọc ⇒ có thể chứa mật khẩu; dump bằng superuser sẽ mang theo) · **5 Flow schedule active** · AI key trong settings = 0. JEV `gen-dec-1790571377-ZY8w5WBWgxkmV4poVrer`: sửa trước RUN 0,90; nặng nhất = C2.
+- **Sửa — Host áp vào PROMPT; tôi duyệt trước, không cần vòng review mới nếu giữ đúng ý:**
+  - **C1 · Thứ tự boot (gỡ mâu thuẫn §2 ↔ S4):** “S1–S3 PASS ⇒ được boot **riêng PostgreSQL lab (và Qdrant nếu cần restore snapshot)** trên network clone đã chặn egress, không publish cổng, để restore + S4. ‘First boot’ bị cấm trước S4 = Directus, agent-data, Nuxt, nginx và mọi thứ đọc token.” Không có câu này agent đọc chữ sẽ DỪNG ngay ở S4.
+  - **C2 · S4 phải quét cả khoá nằm trong dữ liệu DB, không chỉ token/session:** DOT sanitize trong clone, trước boot app: (a) `directus_users.token` = NULL; `password` → giá trị lab/NULL; `tfa_secret` = NULL; tạo admin lab riêng nếu cần; (b) `directus_sessions` xoá hết; (c) **thu tập mọi token tĩnh prod từ bản restore, tìm chúng + mẫu khoá phổ biến (bearer, bot token Telegram, `sk-`, `ghp_`, `"token|api_key|secret|password":"…"`) trong mọi cột text/json của `directus` + `incomex_metadata`** (ít nhất `directus_operations.options`, `directus_flows.options`, `directus_settings`, `directus_extensions`, `dot_config`) → thay bằng `LAB_REDACTED`; (d) FDW user mapping → `ALTER USER MAPPING` sang credential lab; role lab tạo với mật khẩu lab. Nghiệm thu S4: số đếm trước/sau từng lớp, **sau = 0**, không in giá trị. Flow bị đổi option chỉ khác ở chuỗi khoá ⇒ ghi vào sanitization delta, không tính lệch parity.
+  - **C3 · DOT sanitize — nơi đặt + chốt chống chạy nhầm prod:** nguồn DOT nằm ở `/opt/incomex/dot` trên VPS1 (git commit như SEC1A/BK1) — **thêm file DOT không tính là mutation cấu hình VPS1**; chạy bản chép trên VPS2. DOT **tự từ chối** nếu: chạy trên VPS1 (hostname), container đích không mang prefix `vpsup-current-`, hoặc `system_identifier` của PG đích trùng prod. Đây là lệnh xoá token hàng loạt — chạy nhầm vào prod là mọi tích hợp chết.
+  - **C4 · Đo parity dữ liệu trước khi Flow chạy:** §7-B chạy **ngay sau restore + S4, trước khi boot Directus**. Sau boot, 5 Flow schedule có thể ghi bảng ⇒ thay đổi ghi `VOLATILE_BY_FLOW` (liệt kê bảng), không DỪNG; chỉ DỪNG nếu Flow tạo side-effect ra ngoài (đã bị chặn egress) hoặc xoá dữ liệu business. Thay dòng §5 “Nếu schedule local làm thay đổi business table trước khi baseline xong, DỪNG” bằng quy tắc này.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
