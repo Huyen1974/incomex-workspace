@@ -3,7 +3,7 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
-- Nhiệm vụ trực tiếp 28/09/2026: tạo tab **★ Step quy trình 2** ngay sau Step quy trình hiện có; bước đầu chỉ có **I. Danh sách quy trình** và **Các bước chi tiết**, chờ Owner hướng dẫn nội dung.
+- Nhiệm vụ trực tiếp 28/09/2026: tab **★ Step quy trình 2** ngay sau Step quy trình hiện có. Phần **I. Danh sách quy trình** đã có Master list mẫu 7 dòng WF-0001…WF-0007 lấy từ UI cha Nháp 2 để Owner rà; **Các bước chi tiết** giữ khung chờ hướng dẫn. Các dòng mẫu chưa phải dữ liệu vận hành đã xác minh (D84).
 
 ### 1. Mục tiêu
 - Mục tiêu: xây Máy tạo quy trình — người dùng mô tả ý tưởng → AI phác thảo quy trình → người duyệt → AI khai báo để quy trình chạy được.
@@ -1217,9 +1217,10 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 - D81 · 2026-09-28 · **HOLD A–E TRƯỚC METHOD V0.1:** Owner yêu cầu chốt rõ mô hình/phương pháp luận trước khi chạy Executor. Host đồng thuận. Tạm dừng A06/B04/C03/D01/E01 dù đã gate PASS; READY D80 **không được dùng** cho tới khi Method v0.1 được Owner/Host chốt và prompts được retarget. Host proposal v0.1: tách **4 tầng đối tượng** `MOW → MOT → MOIT/MOUT → FIELD` khỏi **7 cổng xử lý đệ quy** `SPEC → FIND → ADMIT → COMPLETE → BIND → VERIFY → RELEASE`; UNKNOWN là nhánh `CLARIFY(reason_code) → quay lại đúng gate`, không phải suy đoán. Điểm sửa so với đề xuất 6 tầng Chat.2: tách `BIND` và `VERIFY` vì đây là hai câu hỏi khác nhau. JEV tham khảo: architecture 4×7 = 0.75; không có ủng hộ cho RUN_ALL trước khi khóa method. Chờ Owner/Chat.2 thống nhất Method v0.1 rồi mới phát RUN mới.
 - D82 · 2026-09-28 · Owner trực tiếp yêu cầu trong chat này tạo tab **★ Step quy trình 2** sau Step quy trình hiện có, chỉ chia hai phần **I. Danh sách quy trình** và **Các bước chi tiết** để hướng dẫn dần. `PROCESS=CHUNG.APQUYTRINH` đã có trong CAT-003; thay đổi tài liệu HTML chính + COLLAB bằng transaction, không kích hoạt RUN A–E đang HOLD. · Áp: SAME_COMMIT.
 - D83 · 2026-09-28 · Sửa đích hiển thị của D82: URL Owner đưa đang mở `ban-duyet.html`. Gỡ tab vừa thêm nhầm khỏi `mow-mot-moit-mout.html`, đặt tab ★ và hai phần trống vào `ban-duyet.html` sau tab Step quy trình. Không đổi nội dung tab cũ hay RUN A–E. · Áp: SAME_COMMIT.
+- D84 · 2026-09-28 · Owner yêu cầu đưa Master list danh sách quy trình đã dự thảo từ UI cha vào phần I của tab ★ Step quy trình 2, trước mắt dùng mã/tên và nhặt các thông tin kèm theo đã có. Nguồn: VPS `mow-master-nhap2-v1.html` (Nháp 2, 7 dòng WF-0001…WF-0007). Chép mã/tên, T3, T2, số công việc T1 và trạng thái *trên mẫu* vào `ban-duyet.html`, liên kết từng dòng về UI cha; không gán trạng thái mẫu là dữ liệu vận hành thật. CAT-003/39 process là lớp danh mục chế tạo khác, chưa trộn. Phần bước chi tiết giữ chờ Owner; A–E tiếp tục HOLD D81. `PROCESS=CHUNG.APQUYTRINH` · Áp: SAME_COMMIT.
 
 ## Dòng hiện hành
-MMIM | STEP2_SHELL · 28/09/2026 | Tab ★ Step quy trình 2 ở bản duyệt `ban-duyet.html`, gồm hai phần trống theo D82–D83; chờ Owner hướng dẫn. A01 đã XONG; A06/B04/C03/D01/E01 tiếp tục HOLD theo D81.
+MMIM | STEP2_MASTER_SAMPLE · 28/09/2026 | Tab ★ Step quy trình 2 ở `ban-duyet.html`: phần I có Master list mẫu 7 dòng WF từ UI cha theo D84; bước chi tiết chờ Owner. Mẫu chưa xác minh dữ liệu vận hành. A01 đã XONG; A06/B04/C03/D01/E01 tiếp tục HOLD theo D81.
 
 
 Bản thiết kế FIELD nằm trong ban-duyet.html
