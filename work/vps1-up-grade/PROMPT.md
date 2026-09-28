@@ -1,206 +1,237 @@
-# PROMPT — VPSUP BK1 · đóng gap backup + restore proof
+# PROMPT — VPSUP VPS2-FREEZE-MINLAB · đóng băng e-learning + chuẩn bị lab
 
-RUN_ID: VPSUP-BK1-20260928-01
+RUN_ID: VPSUP-VPS2-FREEZE-MINLAB-20260928-01
 STATUS: Chỉ thực thi sau khi COLLAB có READY đúng SHA commit cuối chạm file này và Owner/GPT Host phát RUN.
 Host: GPT Chat · GPT-VPSUP-20260926-A
+Host_Revision: VPSUP-P29-FREEZE-MINLAB
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
-Runtime_Write_Path: SSH/operator hiện hữu tới VPS1/VPS2 + rclone/Drive + DOT/MCP hiện hữu.
-Runtime VPS/Drive là SSOT của trạng thái thực. Không có fallback direct mutation Directus/PG.
+Runtime_Write_Path: SSH/operator hiện hữu tới VPS2; VPS1 chỉ read-check các invariant cần thiết.
+Runtime VPS là SSOT. Không có fallback Directus/PG mutation.
 
 ## 0. Mục tiêu duy nhất
 
-Đóng các gap backup đỏ của G0/SEC1A, theo thứ tự **cứu dữ liệu trước → chứng minh đọc/restore được → mới sửa job định kỳ**:
+Sau BK1, biến VPS2 thành **lab tạm an toàn**, không còn nuôi e-learning online:
 
-1. VPS1 `incomex_metadata` (BUSINESS) có local/offsite backup mã hoá + restore proof.
-2. VPS1 `/opt/incomex/data` (BUSINESS files) có offsite backup mã hoá + read-back/restore proof.
-3. VPS2 e-learning: bản backup 09/08 được đưa ra Google Drive prefix riêng + đọc lại xác minh; tận dụng restore proof hiện hữu nếu đúng cùng artifact.
-4. Chỉ sau 1–3 PASS mới cập nhật **job backup hiện hữu** để coverage VPS1 không tái hở.
-5. Không dọn VPS2, không sửa `cms_queue`, không hardening port/IPv6, không reboot/restart, không nâng phần mềm.
+1. Freeze toàn bộ stack e-learning trên VPS2: stopped + no-autostart, giữ compose/volume/image + dữ liệu/backup để phục hồi.
+2. Khi stack dừng, 3307/8080 phải hết listener; `cms_queue` hết sinh log.
+3. Dọn đúng phần tái tạo được đã kiểm ở G0 để lấy lại capacity cho lab; không đụng volume/dữ liệu e-learning.
+4. Thêm 4 GiB swap nếu chưa có để VPS2 đủ đệm cho lab.
+5. Gỡ **persistent outbound trust/credential** từ VPS2 tới VPS1, Drive, Secret Manager, GitHub nếu có và nếu đã có source-of-truth khác; không tạo trust mới.
+6. Không nâng/sửa MySQL, không sửa IPv6, không sửa queue, không dựng backup/monitor dài hạn cho VPS2.
+7. Không triển khai cờ/lease mới trong VPSUP; scoped lease thuộc `mcp-workspace`, tái dùng khi sẵn sàng.
+
+Đích sau RUN: VPS2 = SSH vào được + đủ disk/swap + không e-learning chạy + không credential bền dẫn sang hệ chính + sẵn làm nơi clone/nâng VPS1.
 
 ## 1. Read gate / collision gate
 
 1. `fs_stat work/vps1-up-grade/COLLAB.md`.
-2. Đọc: `AGENTS.md` A10-R3/DROOT25–27 → task COLLAB (§0, G0 KQ, SEC1/SEC1A KQ, P19–P23) → PROMPT này → view.html §9.
+2. Đọc: `AGENTS.md` → task COLLAB (§0, D22–D23, BK1 KQ, P28) → PROMPT này → view.html §8–§10.
 3. READY phải khớp commit cuối chạm PROMPT.
-4. Xác minh AD1 chỉ còn watcher nền hoặc đã kết thúc; **watcher nền không phải mutation RUN**.
-5. Xác minh không có executor/RUN khác đang mutation VPS1/VPS2 hoặc cùng script/Drive prefix. Có ⇒ DỪNG, không “chờ vài phút rồi tự làm”.
-6. Chỉ với **repo/version conflict tạm thời** do task khác: re-read/diff; nếu task path không đổi thì có thể đợi ngắn rồi retry gateway. Runtime/executor conflict tuyệt đối không coi là repo conflict.
-7. Trong cửa sổ AD1-24h: không restart/mutate `agent-data` hoặc `claude-mcp`.
+4. Xác minh BK1 rescue e-learning 09/08 đã có offsite Drive + restore proof; source/volume VPS2 còn nguyên.
+5. Xác minh không có người học/user thật hoặc dependency hiện tại cần e-learning online. Nếu có bằng chứng ngược chỉ đạo Owner ⇒ DỪNG và báo.
+6. Xác minh không có executor/RUN khác đang mutation VPS2 hoặc cùng compose/docker storage. Có ⇒ DỪNG.
+7. Repo/version conflict tạm thời do task khác: re-read/diff; task path không đổi thì retry. Runtime/executor conflict tuyệt đối không được “chờ vài phút rồi tự làm”.
+8. `MCPW-AD1-FIX` gen2 watcher đang chạy nền trên VPS1:
+   - không gọi Guard/ruleset PRE/POST trong RUN này;
+   - không restart/mutate `agent-data` hoặc `claude-mcp`;
+   - không sửa Kuma/AD1 watcher.
+9. Nếu lượt cron BK1 thật đầu tiên đã sinh artifact thì chỉ read-check nhanh trạng thái; nếu chưa tới giờ thì ghi `PENDING_TIME`, **không chờ** và không tạo watcher mới.
 
-## 2. Luật cứng
+## 2. Cấm
 
-### Directus/PG
-**DIRECTUS/PG = DOT ONLY · Secrets = Secret Manager.**
-- Người/Agent không xem/gõ/chép credential.
-- `pg_dump`/read-only metadata được phép vì không mutation DB.
-- Mọi **restore/write vào PostgreSQL**, kể cả DB verify cô lập, phải qua DOT/MCP được duyệt.
-- Reuse DOT restore-verify hiện hữu nếu có; nếu thiếu capability thì chỉ được bổ sung/viết DOT hẹp theo A10-R3/DROOT27, không direct SQL.
-
-### Backup/Drive
-- Không dùng `rclone sync/move/delete/purge` trong phần cứu dữ liệu.
-- Không chạy retention/xoá Drive trước khi BK1 proof PASS.
-- Bản cứu BK1 dùng prefix riêng, append-only trong RUN.
-- Không overwrite artifact đã upload; tên gồm timestamp + checksum/meta.
-- Mã hoá bằng cơ chế/GPG recipient hiện hữu; không tạo key/secret mới.
-- Không in credential/rclone token/GPG private material.
-- Mọi upload phải kiểm remote size + provider hash khi có; nếu provider hash không tương đương local thì download read-back + sha256 local.
-
-### Runtime
-- Không restart/recreate container/service.
 - Không reboot VPS1/VPS2.
-- Không sửa firewall/DNS/Caddy/nginx.
-- Không dọn log/cache/image/tmp hiện hữu ngoài **temporary BK1 staging** của chính RUN.
-- Không sửa `cms_queue`, MySQL grants/version, IPv6.
-- Cấm xoá source backup 09/08 trên VPS2 trong BK1.
+- Không nâng MySQL/PHP/Laravel/nginx/Caddy/Docker hay package e-learning.
+- Không rotate MySQL credential trong RUN này nếu stack được freeze thành công.
+- Không sửa IPv6/default route.
+- Không sửa `cms_queue`; mục tiêu là stop cùng stack.
+- Không tạo recurring e-learning backup/monitor.
+- Không xóa named volume/bind data/DB e-learning.
+- Không xóa backup 09/08 trên VPS2 hoặc BK1 trên Drive.
+- Không xóa compose/source/config cần để phục hồi.
+- Không prune toàn bộ image/volume mù quáng.
+- Không đụng image/digest VPS1 cần cho CURRENT clone.
+- Không xóa `incomex-web-buildstage`.
+- Không tạo credential/key/service/DB/port mới.
+- Không import secret từ VPS1/Drive/Secret Manager vào VPS2 để “chuẩn bị lab”.
+- Không in token/password/private key/rclone config/service-account value.
 
-## 3. PRE — audit đúng cơ chế hiện hữu
+## 3. PRE — inventory ngắn, đủ rollback
 
-Chụp trước:
-- disk/free/load VPS1/VPS2;
-- Drive quota/free;
-- health Directus/PG/Qdrant/e-learning;
-- `agent-data` + `claude-mcp` image/StartedAt;
-- 3307/8080 containment còn hiện hữu;
-- backup jobs/scripts + cron/timer hiện tại;
-- GPG recipient count/fingerprint reference (không private key);
-- newest Drive backup + retention config.
+Chụp:
+- disk/free/inode/RAM/swap;
+- `docker ps -a`, compose project labels, container StartedAt/restart policy;
+- exact compose/config path + sha256;
+- named volumes/binds + size;
+- image IDs/digests;
+- listeners 22/80/443/3307/8080 v4/v6;
+- e-learning BK1 artifact/source checksum reference;
+- candidate cleanup theo sổ G0;
+- outbound credential/trust inventory **chỉ tên/path/type**, không value;
+- current `/etc/fstab` + swap state.
 
-Xác nhận live:
-- `pg-backup.sh` và `backup-to-gdrive.sh` hiện cover gì;
-- `incomex_metadata` size + read-only consistency metadata;
-- `/opt/incomex/data` size/file count/ownership/mode/mtime summary, không đọc nội dung nghiệp vụ;
-- artifact e-learning 09/08 path, size, checksum; đối chiếu artifact đã restore thử với `cms_elearning_verify`;
-- tìm DOT restore/verify PostgreSQL hiện hữu và chạy `--help`/dry-run nếu có; không tự suy từ tên.
+Lưu before-state/rollback dưới hồ sơ runtime:
+`/opt/incomex/work/vps1-up-grade/VPS2-FREEZE-MINLAB-20260928/`
+Chỉ metadata/hash/checkpoint/log sanitized; không secret.
 
-PRE fail, source artifact không xác định được, Drive không đủ chỗ, GPG/remote lỗi, containment VPS2 mất, hoặc có mutation khác ⇒ DỪNG trước backup modification.
+Phân loại đúng compose project e-learning trước khi stop. Nếu không phân biệt được container/volume thuộc e-learning với lab/system ⇒ DỪNG.
 
-## 4. Pha A — bản cứu offsite độc lập, chưa sửa job
+## 4. A · Freeze e-learning
 
-Tạo hồ sơ runtime đúng task:
-`/opt/incomex/work/vps1-up-grade/BK1-20260928/`
-Chỉ chứa manifest/checksum/log sanitized/staging cần cho BK1; không secret/business record.
+### A1 · No-autostart
+- Xác định tất cả container thuộc đúng e-learning compose/project.
+- Giữ nguyên compose/source, volume/bind, image.
+- Đặt restart policy của **đúng e-learning containers** về no-autostart theo cách bền và rollback được; nếu source compose có `restart: always/unless-stopped`, sửa source tối thiểu để lần reboot/compose sau không tự bật ngoài ý muốn.
+- Không đụng container ngoài project.
 
-### A1 · `incomex_metadata`
-- Tạo dump consistent/read-only bằng cơ chế backup hiện hữu hoặc `pg_dump` read-only.
-- Lưu local staging có sha256 + size + dump metadata.
-- Mã hoá bằng đúng GPG recipient/cơ chế đang dùng cho Drive production.
-- Upload vào prefix BK1 riêng; không retention.
-- Verify remote object + download read-back + decrypt.
-- **Restore proof:** ưu tiên DOT restore-verify hiện hữu vào PG cô lập/verify namespace không phục vụ production. Không dùng production DB name, không thay `incomex_metadata`.
-- Acceptance restore: restore thành công; schema/table/count metadata đối chiếu nguồn theo read-only snapshot ở mức đủ chứng minh; sau proof cleanup verify target bằng chính DOT nếu DOT có cleanup; nếu cleanup không an toàn thì giữ isolated verify target và ghi rõ, không tự SQL xoá.
+### A2 · Stop
+- Stop toàn bộ e-learning project theo dependency-order an toàn.
+- Không `down -v`, không remove volume.
+- Có thể remove riêng container `cms_queue` sau khi đã stop nếu việc đó là cách an toàn nhất để giải phóng writable-layer log và compose/image/volume vẫn đủ tái tạo; nếu không chắc ⇒ chỉ stop, không remove.
 
-### A2 · `/opt/incomex/data`
-- Tạo archive từ đúng path hiện hữu, giữ relative path + mode + uid/gid + mtime cần thiết.
-- Manifest: file count, total bytes, sha256 archive + checksum list hoặc Merkle/list phù hợp; không đưa nội dung file vào report.
-- Mã hoá + upload prefix BK1.
-- Download/decrypt vào staging cô lập.
-- Restore proof ra thư mục verify riêng: số file/bytes + checksum khớp; không overwrite path production.
-- Không thay đổi file nguồn.
+### A3 · Verify freeze
+- 0 e-learning container RUNNING.
+- restart policy/no-autostart đúng.
+- 3307/8080 = không listener v4/v6.
+- Không yêu cầu 80/443 e-learning còn online; **offline là trạng thái mong muốn**.
+- SSH 22 vẫn reachable.
+- volume/bind/data count/size vẫn hiện hữu, không mất.
+- BK1 source backup + Drive backup vẫn tồn tại.
 
-### A3 · E-learning VPS2 09/08
-- Dùng **đúng artifact 09/08 đã xác minh**, không tạo dump mới nếu DB không đổi và artifact/source proof khớp.
-- Upload vào prefix e-learning/BK1 riêng trên Drive.
-- Verify remote + download read-back checksum.
-- Nếu checksum artifact upload đúng artifact đã restore thành công vào `cms_elearning_verify`, có thể dùng proof đó + read-back checksum làm restore proof BK1.
-- Nếu artifact không khớp proof cũ hoặc DB đã thay đổi sau 09/08: DỪNG A3 và báo; không tự dump/restore MySQL trong lượt này ngoài cơ chế đã duyệt.
+### A4 · Credential rule
+- Không rotate MySQL lúc stack đã stopped.
+- Ghi cờ vận hành `ROTATE_BEFORE_NEXT_START`: nếu bất kỳ lý do nào phải bật lại e-learning trên VPS2, trước start phải phát RUN riêng để rotate/root-localhost + kiểm security.
+- Không tự bật lại trong RUN này.
 
-Pha A chỉ PASS khi cả A1–A3 đạt hoặc một mục DỪNG có lý do an toàn rõ. Không sửa job định kỳ khi A1/A2 chưa PASS.
+## 5. B · Cleanup để lấy chỗ làm lab
 
-## 5. Pha B — cập nhật coverage định kỳ VPS1 sau proof
+Chỉ sau A PASS.
 
-Chỉ khi A1 + A2 PASS.
+KEEP tuyệt đối:
+- named volume/bind/data e-learning;
+- compose/source/config e-learning;
+- bản backup 09/08 local + BK1 offsite reference;
+- image/ID cần để phục hồi e-learning nếu không chứng minh pull/rebuild được;
+- exact image/digest khớp VPS1 cần cho CURRENT parity clone;
+- `incomex-web-buildstage`.
 
-### B1 · `incomex_metadata`
-Ưu tiên sửa **script/job hiện hữu**, không tạo job/service mới:
-- local backup hằng ngày cùng lớp `pg-backup.sh`, retention tương tự `directus`, nhưng file/prefix tách rõ DB;
-- Drive encrypted backup cùng lượt `backup-to-gdrive.sh`;
-- không đổi backup `directus` hiện hữu ngoài phần tối thiểu để thêm DB;
-- fail-closed: dump/upload verify fail ⇒ không đánh dấu lượt PASS và không tỉa artifact mới.
+DỌN được khi live evidence khớp G0:
+1. writable-layer/log rác của `cms_queue` sau freeze;
+2. Docker build cache reclaimable không được container/image KEEP tham chiếu;
+3. image build/test cũ không container dùng và không nằm KEEP_SET;
+4. systemd journal về khoảng 200 MiB;
+5. duplicate/test artifact tháng 8 đã được G0 phân loại tái tạo được và không phải backup/source duy nhất.
 
-### B2 · `/opt/incomex/data`
-- thêm vào **gói config/data encrypted hiện hữu** nếu semantics phù hợp; nếu gói hiện hữu không phù hợp thì thêm artifact thứ ba trong cùng script/job, không tạo cron mới;
-- retention cùng bộ timestamp, nhưng không để một artifact lỗi làm xóa bản tốt cũ;
-- upload verify trước retention.
+Luật:
+- `docker system prune -a --volumes` = CẤM.
+- Xóa image theo exact ID/list sau khi kiểm reference; không pattern mù.
+- Không xóa volume.
+- Mỗi nhóm dọn: đo before→delete→measure after.
+- Mục tiêu mềm: thu hồi khoảng 20–26 GiB; nếu ít hơn nhưng KEEP đúng thì PASS, không cố xóa thêm để đạt số.
 
-### B3 · retention
-- Trước apply: chạy dry-run và chứng minh retention chỉ nhắm pattern production hiện hữu + artifact mới đúng schema tên.
-- Bản cứu `BK1/...` phải **nằm ngoài retention**.
-- Không tỉa thật trong BK1 nếu không cần để chứng minh coverage; ưu tiên để lượt cron thật sau tự thực thi retention.
-- Nếu sửa script có test/mô phỏng hiện hữu: chạy test đó. Không dựng framework test mới.
+## 6. C · Swap/capacity
 
-### B4 · e-learning
-- BK1 **không tạo recurring job mới trên VPS2**. Chỉ đóng gap offsite hiện tại.
-- Lịch/retention e-learning dài hạn sẽ chốt ở hardening sau BK1 cùng persistent binding/MySQL cleanup.
+- Nếu swap <4 GiB: tạo 1 swapfile 4 GiB bằng cơ chế chuẩn host, mode 600, `mkswap/swapon`, thêm đúng một entry bền trong `/etc/fstab`.
+- Nếu swap đã ≥4 GiB: giữ, không tạo thêm.
+- Không tune sâu kernel trong RUN này.
+- Không cần resource-cap container e-learning vì stack stopped; resource cap cho CURRENT/TARGET sẽ nằm trong RUN clone.
+- Verify `free`, `swapon`, `/etc/fstab`, reboot-persistence bằng config inspection; **không reboot**.
 
-## 6. Postcheck / rollback
+## 7. D · Gỡ persistent outbound trust khỏi VPS2
 
-Postcheck:
-- source business data unchanged;
-- Directus/PG/e-learning health như PRE;
-- `agent-data`/`claude-mcp` StartedAt/image unchanged;
-- containment 3307/8080 vẫn còn;
-- Drive có đủ BK1 artifacts + checksum/read-back proof;
-- job/script VPS1 syntax + dry-run/test PASS;
-- cron/timer schedule không đổi ngoài coverage trong script;
-- không có secret trong logs/git/artifacts.
+Mục tiêu: VPS2 bị chiếm không lan sang VPS1/Drive/Secret Manager/GitHub.
 
-Rollback script:
-- lưu exact bytes/hash trước edit;
-- nếu B fail, restore script bytes cũ; **không xóa BK1 offsite artifacts**.
-- không rollback bản cứu A đã upload vì đó là safety asset.
+Audit root + service homes + `/etc` + compose env references cho:
+- SSH private key dùng outbound;
+- rclone config/token;
+- Google service-account/GSM credential;
+- GitHub deploy key/PAT;
+- VPS1 private key/credential;
+- cloud/API credential không cần cho e-learning stopped/lab.
 
-## 7. XONG / DỪNG
+Không tính inbound `authorized_keys` Owner/Mac là outbound trust; phải giữ đường SSH quản trị.
 
-XONG khi:
-- `incomex_metadata`: offsite encrypted + read-back + restore proof PASS;
-- `/opt/incomex/data`: offsite encrypted + read-back + restore proof PASS;
-- e-learning 09/08: offsite Drive + read-back + restore proof provenance PASS;
-- recurring VPS1 coverage được cập nhật an toàn cho metadata + data;
-- 0 service/container restart; 0 business data mutation;
-- B firewall containment vẫn PASS/TEMPORARY;
-- báo cáo rõ gap còn lại: e-learning recurring, DOT registry cleanup, IPv6 route, cms_queue, persistent port binding.
+Với mỗi credential:
+- xác minh source-of-truth/copy quản trị nằm ngoài VPS2;
+- nếu là persistent outbound trust và không cần cho host basic operation ⇒ remove khỏi VPS2 + verify không còn reference;
+- nếu không chứng minh được source-of-truth hoặc có dependency hợp lệ ⇒ DỪNG mục D cho credential đó và báo, **không xóa mù**.
+
+Future lab:
+- dữ liệu/config từ VPS1 được push vào hoặc dùng credential tạm theo từng RUN;
+- không cất key bền trên VPS2.
+
+Không triển khai busy-lock/lease mới; ghi `DEFER_TO_MCPW_SCOPED_LEASE`.
+
+## 8. POST / acceptance
+
+PASS khi:
+- BK1 e-learning offsite/source vẫn nguyên;
+- 0 e-learning container running + no-autostart;
+- 3307/8080 không listener;
+- SSH vẫn tốt;
+- volume/bind/data e-learning nguyên;
+- `cms_queue` không còn sinh log;
+- disk free tăng rõ và KEEP_SET nguyên; ghi exact GiB before→after;
+- swap ≥4 GiB và config bền;
+- không còn persistent outbound trust đã xác minh không cần; exceptions liệt kê theo path/type, không secret;
+- 0 agent-data/claude-mcp mutation/restart;
+- không gọi Guard/ruleset, không làm nhiễu AD1 gen2;
+- không MySQL upgrade/rotate, không IPv6 fix;
+- source/health VPS1 không đổi.
 
 DỪNG nếu:
-- có active runtime executor/RUN conflict;
-- restore cần direct SQL ngoài DOT;
-- backup artifact/secret/Drive state mơ hồ;
-- read-back/hash không khớp;
-- source data/health thay đổi bất thường;
-- script rollback không chứng minh được.
+- có active executor conflict;
+- e-learning thực tế có user/dependency cần online;
+- volume/data ownership không rõ;
+- cleanup chạm KEEP_SET;
+- outbound credential unique/source-of-truth mơ hồ mà cần xóa;
+- SSH management bị ảnh hưởng;
+- phát hiện compromise active.
 
-## 8. Report
+## 9. Rollback
+
+Lưu exact compose/restart-policy/fstab before-state.
+Rollback chỉ cho:
+- no-autostart/source compose delta;
+- swap/fstab nếu swap gây lỗi;
+- credential removal chỉ khi có backup/source-of-truth đã chứng minh.
+
+**Không rollback bằng cách tự bật lại e-learning sau khi RUN XONG.**
+Nếu Owner cần bật lại, dùng RUN riêng `ROTATE_BEFORE_NEXT_START`.
+
+## 10. Report
 
 Không tạo repo file mới.
 
 ### `view.html` §9
-Thêm/cập nhật khối `BK1` một màn hình:
-- A1/A2/A3: source → Drive → read-back → restore proof;
-- B1/B2 coverage trước→sau;
-- PASS/DỪNG + bytes/checksum rút gọn + UTC;
-- remaining gaps + NEXT hardening VPS2.
+Khối ngắn `VPS2 FREEZE/MINLAB`:
+- e-learning RUNNING→STOPPED/no-autostart;
+- port/listener before→after;
+- disk/free before→after + cleanup groups;
+- swap;
+- outbound trust removed/exceptions;
+- BK1/volume preservation;
+- residual `ROTATE_BEFORE_NEXT_START`;
+- NEXT = Clone CURRENT.
 
 ### `COLLAB.md`
 - Dòng hiện hành;
-- `KQ@VPSUP-BK1-20260928-01 XONG|DỪNG`;
-- chỉ thêm Owner blocker nếu thật sự cần quyết định mới.
+- `KQ@VPSUP-VPS2-FREEZE-MINLAB-20260928-01 XONG|DỪNG`;
+- không mở Owner blocker nếu không thật sự cần quyết định mới.
 
-### Commit
-Dùng `fs_transaction` cho `view.html` + `COLLAB.md`:
-`[Claude Code] VPSUP-BK1 · backup offsite và restore proof`
+Commit qua `fs_transaction`:
+`[Claude Code] VPSUP-VPS2-FREEZE-MINLAB · freeze e-learning và chuẩn bị lab`
 
 Kết thúc Owner đúng một dòng: `XONG` hoặc `DỪNG — <lý do>`.
 
-## 9. Sau BK1 — không làm trong RUN này
+## 11. Sau RUN — không làm
 
-Host mới phát hardening VPS2:
-- persistent-bind 3307/8080 + firewall bền;
-- MySQL account/password/version hardening;
-- sửa `cms_queue`;
-- xử lý IPv6 route;
-- cleanup ≈26 GB;
-- swap/RAM;
-- cơ chế cờ/lease “VPS đang bận” do máy giữ;
-- sau đó clone CURRENT/rehearsal.
+Host mới phát:
+1. CURRENT clone/rehearsal trên VPS2;
+2. nâng từng lớp + TARGET;
+3. rollback/cutover rehearsal;
+4. production cutover VPS1;
+5. canh 7 ngày;
+6. chuyển e-learning về VPS1 (stopped mặc định nếu chưa dùng) + backup cuối + huỷ VPS2 đúng kỳ.
 
 Không tự nhảy bước.
