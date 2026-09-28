@@ -305,3 +305,17 @@ KQ@LANE-B B02R1 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · contract_pro
 | MOW.CHAY | #22→`MOT.CHAY.S03`; #23→`MOT.CHAY.S04`; #24→`MOT.CHAY.S08`; #25→`MOW.CHAY.S07` |
 
 **OPEN cho C02/Host:** Ánh xạ 25/25 là truy nguồn vị trí, **không chứng minh 15 Human Step/UI unique**. Class quyền là trừu tượng; NT03/NT05 chưa gắn người/quyền thật. State là ngữ nghĩa, chưa là DB enum. #12 duyệt cấu hình có điều kiện; bước duyệt/trả, tìm, sửa và chạy cần kiểm tiếp đường từ chối/hủy/lỗi, MOW lồng và ngưỡng coverage thực tế. Không sửa CAT-004, UI, VPS UI, gate/tool hay tạo file mới.
+
+## KQ · MMIM-LANE-B03-20260928-01 · Codex · 28/09/2026
+
+KQ@MMIM-LANE-B03-20260928-01 XONG
+KQ@LANE-B B03 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · new_contract=11/13 · total_contract=23/39 · open=2 · NEXT=Host chốt contract cho hai ứng viên OPEN
+
+COORD · NOW=XONG · NEXT=Host chốt contract cho hai ứng viên OPEN · BLOCKED_BY=none · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=D72-D73/B03
+
+Đã opt-in contract v1 cho `CHUNG.CAPMA`; `FIELD.LAP/SUA/XOA`; `FORM.LAP/SUA/XOA`; `MOT.TAO/LAP/SUA/XOA`. Thêm 12 direct Human Step; tổng catalog là 23/39 process và 27 direct Human Step. Hai ứng viên giữ nguyên chưa version:
+
+- `CHUNG.KIEM`: chưa rõ hợp đồng kết quả/đường trả khi bộ kiểm không đạt so với lỗi máy; chưa ràng buộc đủ đầu vào đối tượng cần kiểm.
+- `FORM.TAO`: bước “MOUT: định nghĩa đếm · chỉ số” chỉ dành cho MOUT, nhưng đường MOIT bỏ qua bước và quay lại sau bước này chưa được định nghĩa đủ rõ.
+
+Kiểm trên canonical SHA `78acf32bf972e845d57e226ae539cca475fd0edcf46f4df7ca366974ff52d45e` (`f3ececb26774c77241e15c7047e3c2a1ac1c9f74`): dot-walk 39 process/0 lỗi; contract audit 23 process/27 direct Human Step/0 lỗi; E1 `CHUNG.APQUYTRINH` PASS. Mười hai contract B02R1 giữ nguyên từng byte; code/tên/thứ tự và nội dung bước không đổi. Metadata này chưa xác nhận quyền thực, UI hay bảo toàn liên kết con khi nhân bản bản sửa. Không mở C02; Registry để Host cập nhật theo D74.
