@@ -13,7 +13,7 @@ A02 nâng process-gate để kiểm được contract metadata của Human Step 
 - Canonical Process: `../ban-duyet.html#ml5-cho-ai`.
 - Tool source: `../cong-cu/dot-process-gate.py`.
 - A02 chỉ sửa tool + COLLAB lane A.
-- KQ mới nhất: **A02 XONG · Host nghiệm thu; mở A03 tương thích parser**, bằng chứng A02 bên dưới.
+- KQ mới nhất: **A03 XONG · chờ Host nghiệm thu để phát B02R1**, bằng chứng A02/A03 bên dưới.
 - A03: sửa duy nhất `dot-walk-check` để chấp nhận process attrs trên `p`; canonical READ-ONLY.
 - HOST GATE · PASS · PROCESS=`CHUNG.APQUYTRINH` · catalog=`ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7` · prompt=`7e2a3446298e206c2e649445d2fe5cd30d22737e8cf5dac55b2c79e16ce9ad53`.
 - READY@f69af7bbacd92b3c46bbcb873059054a83ab655a · RUN_ID `MMIM-LANE-A03-20260928-01`.
@@ -36,3 +36,13 @@ KQ@LANE-A A02 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · contract_gate=
 - Audit catalog hiện hành: process=39 · opt-in=0 · Human Step opt-in=0 · errors=0 · unversioned=39. Đây là kiểm tương thích; contract thật do B02 gắn vào canonical và Host nghiệm thu sau.
 - Giới hạn: kiểm **sự có mặt/hình thức**, chưa xác nhận đúng nghĩa quyền/state/đường quay về; không E3 hard block. Không ghi PG/VPS.
 - Đính chính sau đọc lại: lượt đầu lưu thiếu 2 chỉnh sửa cuối; bản đính chính giữ JSON E1 v1 nguyên dạng và trả `contract_errors` khi opt-in BLOCK. Đã kiểm lại SHA source và chạy gate sau lưu.
+
+### A03 · KQ · 2026-09-28
+KQ@MMIM-LANE-A03-20260928-01 XONG
+KQ@LANE-A A03 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · walk_attrs=PASS · NEXT=B02R1
+
+- Áp: SAME_COMMIT. Chỉ sửa `../cong-cu/dot-walk-check.py` và COLLAB Lane A; canonical và A02 gate read-only.
+- Gate trước ghi: PASS `CHUNG.APQUYTRINH` · process=39 · step=6 · catalog `ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7` · PROMPT `7e2a3446298e206c2e649445d2fe5cd30d22737e8cf5dac55b2c79e16ce9ad53`.
+- Walk trước/sau trên catalog thật: 84 Master · 39 Process · 👤62 · 🤖66 · Thuộc 🔁8/⚙️22/🏗9 · 80 calls · orphan 77–82 · 0 lỗi · exit 0.
+- Ca tạm: 12 process có attrs trên `p` → walk 39; thêm 15 span contract rỗng → walk 39; whitespace giữa `p`/`b`, `p` ngoài canonical và mã lỗi đều không làm lệch 39. A02 audit bản đủ contract PASS 12/15/0 lỗi; A02 audit catalog thật PASS 0/39 opt-in. `py_compile` PASS.
+- Giới hạn: walk chỉ bỏ markup để kiểm bước; không đọc/nghiệm thu đúng nghĩa contract. B02R1 mới ghi contract vào canonical; không mở C hay RUN tiếp.

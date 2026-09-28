@@ -5,7 +5,7 @@
 # Phạm vi kiểm: K01 · assembly.workflow · verify · loại A (chỉ đọc, không ghi gì)
 # Việc:         Đi bộ kiểm đủ chỗ ghi. Đọc thẳng trang Owner duyệt (một nguồn, không chép dữ liệu vào script):
 #               - danh sách master = các dòng <tr id="ml3-NN"> của bảng ★ Master list (số · mã · tên · nhóm)
-#               - quy trình = các đoạn <p><b>MÃ</b> [Thuộc] Tên: bước → bước …</p> trong <details id="ml5-cho-ai">
+#               - quy trình = các đoạn <p [attrs]><b>MÃ</b> [Thuộc] Tên: bước → bước …</p> trong <details id="ml5-cho-ai">
 #                 mỗi bước 👤 người / 🤖 máy: "[ghi 04 46 | đọc 03 17]"; ↪ MÃ = gọi quy trình con; "18→" = danh sách đích do dòng 18 khai
 #               Kiểm: (1) số dòng ghi/đọc phải có trong danh sách master; (2) quy trình con được gọi phải có;
 #               (3) dòng không quy trình nào chạm chỉ được nằm trong nhóm "Chưa áp dụng"; (4) bước 👤/🤖 phải ghi hoặc đọc ít nhất một dòng;
@@ -20,6 +20,7 @@
 # Kết quả mong đợi: 84 dòng · 38 quy trình · 👤 60 · 🤖 62 · Thuộc ⚙️ 22 · 🏗 9 · 🔁 7 · không ai chạm 77–82 (nhóm Chưa áp dụng) · LỖI 0 · exit 0
 # Ca thử A01:   catalog sau đăng ký P0 · 84 dòng · 39 quy trình · 👤 62 · 🤖 66 · ⚙️ 22 · 🏗 9 · 🔁 8 · LỖI 0 · exit 0
 #               Đây là số quan sát của catalog A01, không phải số Human Step/UI unique và không cài cứng trong logic.
+# Ca thử A03:   clone catalog gắn attrs contract trên p và span rỗng trong bước 👤; vẫn nhận đủ 39 quy trình.
 # Nguồn gốc:    dựng lại từ walk_c11.py của phiên Cowork 26/09 (C10–C11): giữ nguyên luật kiểm; đổi đầu vào từ dữ liệu chép
 #               trong script sang đọc thẳng HTML, để trang Owner duyệt là nguồn duy nhất (JEV gen-dec-1790406483-lmzuig9S93lGCP4mLxdC).
 # Luật:         theo TEMPLATE-DOT-SCRIPT: không đếm cứng, không danh sách cứng, exit 0/1.
@@ -83,8 +84,8 @@ def parse_procs(s):
     if a < 0 or b < 0:
         raise ValueError('không thấy khối quy trình (id="ml5-cho-ai")')
     procs = collections.OrderedDict()
-    for m in re.finditer(r'<p><b>([A-Z0-9_]+\.[A-Z0-9_]+)</b>(.*?)</p>', s[a:b], re.S):
-        code, rest = m.group(1), html.unescape(m.group(2)).strip()
+    for m in re.finditer(r'<p\b[^>]*>\s*<b>([A-Z0-9_]+\.[A-Z0-9_]+)</b>(.*?)</p>', s[a:b], re.S):
+        code, rest = m.group(1), strip(m.group(2))
         label = next((l for l in LABELS if rest.startswith(l)), '')
         if label:
             rest = rest[len(label):].lstrip('️').strip()
