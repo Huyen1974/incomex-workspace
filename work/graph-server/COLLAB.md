@@ -2,7 +2,7 @@
 Tên việc: Graph Server — Business × JEV × Code
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D05: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, yêu cầu MIT dài hạn; Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
+Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D06: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, tiêu chí công cụ bền vững thực dụng (MIT không bắt buộc — D06); Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
 ### 1. Mục tiêu
 Nguyên văn User, giữ thứ tự ưu tiên:
@@ -16,9 +16,11 @@ Bối cảnh nguyên văn User: “Gốc rễ nhất là chúng ta đã dọn VP
 **Nguyên tắc khoá — nguyên văn Owner 24/09/2026** (áp cho mọi lựa chọn của việc này; toàn repo: AGENTS A10-R1): “Mọi giải pháp phải đảm bảo, ưu tiên tối đa, dùng cái có sẵn, nhiều người dùng, phù hợp nhất với Incomex. Không tự dựng bất cứ cái gì nếu thị trường có sẵn. Code là giải pháp cuối cùng.”
 
 **Làm rõ ngày 28/09/2026 — nguyên văn Owner, không đảo bốn ưu tiên:**
+> Mục đích của chúng ta xây dựng Graph cho mọi loại thông tin của chúng ta, Phần lớn thông tin là các mối quan hệ business để giúp xây dựng các quy trình, chăm sóc khách hàng, xây dựng các lựa chọn nhanh hơn và agent hiểu mã của hệ thống.
 > Hiểu đơn giản mục tiêu là Graph hóa tất cả các thông tin chúng ta sẽ có (cái thông tin claude nhìn thấy chỉ là 1 phần rất nhỏ).
 > Mục tiêu chính của việc này là các thông tin không có tính chất SQL (như chăm sóc khách hàng) hoặc có tính chất SQL nhưng chúng ta không thể SQL hoá => lôi ra dùng Graph + Jev để hỗ trợ nhằm giải quyết nhanh hơn các vấn đề.
-> Dài hạn chúng ta cần MIT => các lựa chọn nên đảm bảo an toàn 1 chút.
+> Ngay cả các quy trình hiện nay đang loay hoay, nếu co graph vẫn có thể hiểu được mối quan hệ tương đối của nó với nhau, và tính cách mô hình xác suất sẽ đúng hơn.
+> *(Thay câu MIT trước đó cùng ngày — D06)* Việc MIT hay không cũng không quá quan trọng. Cái quan trọng là: được dùng miễn phí, được cập nhật theo thời gian và dựa vào giải pháp có xác suất chết giữa chừng thấp (tránh như OS Agency hiện nay)
 
 ### 2. Thế nào là hoàn thành
 Phạm vi lượt giao hiện tại, nguyên văn User:
@@ -29,8 +31,10 @@ Phạm vi lượt giao hiện tại, nguyên văn User:
 - Chỉ tạo hai file trong task: COLLAB.md điều phối và view.html là tài liệu chính duy nhất. Không tạo PROMPT, file review, bản nháp hoặc pipeline phụ.
 - Giữ đủ các nhóm lựa chọn đã thảo luận; phân biệt nguồn kiểm chứng, đề xuất và điều chưa kiểm. Đề xuất cũ không phải quyết định Owner.
 - **Nguyên tắc lựa chọn Owner 24/09/2026:** bỏ ưu tiên kiến trúc tự thiết kế hoặc giữ lại chỉ vì đã có; ưu tiên giải pháp **off-the-shelf đã chạy thực tế, đáng tin, nhiều người dùng/cộng đồng, cài sẵn/ít code tùy biến và phù hợp Incomex**. PostgreSQL/Qdrant hiện hữu là bối cảnh để tận dụng nếu hợp lý, không phải rào cản cấm cài graph DB/sản phẩm mới.
+- **Tầm nhìn một câu (Claude soạn 28/09 từ lời Owner, Host kiểm):** Graph hoá mọi thông tin Incomex được phép dùng; giá trị chính nằm ở thông tin chưa/không SQL hoá được (chăm sóc khách hàng, trao đổi, quy trình còn loay hoay, code); Graph nối mẩu rời thành liên hệ có nguồn và độ chắc → JEV cân nhắc từng lựa chọn một bước → policy/người quyết hành động.
+- **“Hữu hạn” (ưu tiên #1) =** *loại* thực thể và *loại* quan hệ nằm trong một danh mục có mã, bổ sung qua quy trình; số thực thể, số nguồn không giới hạn. **Không** có nghĩa “chỉ dữ liệu đã có sẵn trong bảng”. Trái nghĩa: mạng xã hội, nơi loại quan hệ và độ lan không có biên.
 - Giữ đúng thứ tự mục tiêu. Lark/SQL chỉ là một nhóm nguồn; phải có thông tin chăm sóc khách hàng, trao đổi/quy trình và quan hệ suy luận có bằng chứng ngay trong bài thử đại diện. Không đòi SQL hóa xong mới làm Graph. Mọi nguồn thật vẫn phải thuộc phạm vi được cấp quyền.
-- MIT là yêu cầu đã nhận, không tự diễn giải thành Apache-2.0/GPLv3 được phép. Kiểm LICENSE đúng phiên bản, dependencies/model và điều kiện dịch vụ riêng trước khi chốt sản phẩm. Nguồn kỹ thuật đã đọc không phải giấy phép cài đặt.
+- **Tiêu chí công cụ (D06):** miễn phí/self-host dài hạn cho công ty nhỏ · còn cập nhật · cộng đồng/vendor mạnh · xác suất chết giữa chừng thấp · dữ liệu/logic lõi mang đi được. MIT là điểm cộng, không bắt buộc. Vẫn kiểm LICENSE đúng phiên bản/dependency/model trước khi chốt; loại giấy phép cấm thương mại.
 - Bậc theo A10-R1: 1 sản phẩm có sẵn; 2 cấu hình/ghép các điểm mở rộng và gateway hiện hữu. Chỉ đề nghị bậc 3 code mỏng khi chứng minh hai bậc trên thiếu; không tự dựng graph engine, framework hoặc UI mới.
 - Tái dùng việc jev-integration đã đóng; không mở cổng/skill nội bộ trùng chức năng. Dung lượng hơn 50GB là thông tin Owner, đối chiếu báo cáo VPS ngày 23/09; chưa phải số đo mới của lượt này.
 - Chưa cho phép cài đặt, quét dữ liệu/mã thật, migration, restart, xóa hoặc đổi cấu hình/model/gateway. Các bài kiểm trong tài liệu chỉ để hội đồng đánh giá.
@@ -160,6 +164,17 @@ GS | P05 HÒA GIẢI · D06 GIẤY PHÉP THỰC DỤNG | Graph tri thức đa ng
 - P06 chưa phải RUN/cài đặt. Chờ Claude/Hermes review; nếu không có blocker, Host đề nghị trial Neo4j CE + Cognee trên dữ liệu hỗn hợp đã che, với export/rollback ngay từ ngày đầu.
 - Chưa có đồng thuận cho P05. Chi tiết duy nhất Owner đọc: `view.html` §15. Áp: SAME_COMMIT.
 
+### P07 · Claude Chat · Reviewer · OPEN — nhận mục tiêu rộng; ACCEPT P05 + P06 có 4 điều kiện
+- Based_on `140ceb4` (task) · HEAD `15d3a11`. Scope: §0, D04–D06, P05, P06, view §0 + §15. JEV `gen-dec-1790585399-Fa5OqevSI3TJmWJqujUj`.
+- **Nhận lỗi đọc mục tiêu:** P04 đọc “hữu hạn” thành “chỉ bản ghi có sẵn” nên thu hẹp mục tiêu về Lark. Sai. **Rút P04 CHANGE 1 và CHANGE 3.** Cách hiểu đúng đã ghi vào §0 (tầm nhìn đủ nguyên văn; định nghĩa “hữu hạn” ở §0.3). Câu MIT cũ trong §0 mâu thuẫn D06 → đã thay bằng lời Owner mới hơn cùng ngày.
+- **ACCEPT P05** (hai đường nhập, 3 trạng thái quan hệ, JEV bổ sung bằng chứng chứ không chứng nhận sự thật, bài thử hỗn hợp ngay từ đầu). **ACCEPT P06 có điều kiện:** Neo4j CE 5.26 LTS là lõi bền + Cognee là lớp thay được; Graphiti phương án B; Hindsight để sau; FalkorDB dự phòng. JEV noul 0,64 — đồng ý nhưng chưa chắc, nên K1–K4 là **bắt buộc trong PROMPT trial**, không phải gợi ý.
+- **K1 · Bẫy cấu hình Neo4j CE.** Cognee mặc định dùng **Kuzu — đã bị bỏ rơi (archived 10/2025)**, đúng kiểu “chết giữa chừng” Owner lo. Chế độ multi-user của Cognee chỉ chạy với Kuzu hoặc Neo4j Enterprise/Aura; bật nó với Neo4j CE thì Cognee **âm thầm ghi vào Kuzu** (issue #1873). Chốt: `ENABLE_BACKEND_ACCESS_CONTROL=false` trên một Neo4j CE; phân quyền ở gateway như P06 (agent chỉ đọc, writer dịch vụ riêng, xoá/quản trị tách). Không dùng handler `neo4j_community` (mỗi dataset một container Neo4j, trần 6 ⇒ tốn RAM). Bài đo: sau lần nạp đầu, đếm node trong Neo4j > 0 và không có dữ liệu Kuzu. JEV 0,99.
+- **K2 · “Hữu hạn” do máy giữ.** Dùng Cognee `graph_model` (Pydantic) = ràng buộc **cứng** loại thực thể + loại quan hệ khi trích; ontology chỉ là ràng buộc mềm (không lọc cạnh). Danh mục loại có mã, một nơi duy nhất. JEV 0,99.
+- **K3 · Code graph.** Đồng ý Cognee trước (không thêm thành phần; tất định, không LLM). Lưu ý độ bền: nó dựa vào Enola (Apache-2.0, ~183 sao, nhóm nhỏ) — chấp nhận cho trial vì kết quả nằm trong Neo4j; `codebase-memory-mcp` (MIT) là phương án thay sẵn nếu bài đo hỏng hoặc Enola ngừng. JEV 0,97.
+- **K4 · Bài đo “Cognee chết”** — biến nguyên tắc chống chết giữa chừng của P06 thành phép thử máy (A10-R2): tắt Cognee → Neo4j MCP chỉ-đọc vẫn trả lời 3 câu hỏi mẫu bằng Cypher thuần; dump/export chạy; nguồn nghiệp vụ không mất gì. Không qua = chưa đạt “lõi bền”.
+- Hermes kiểm thêm: RAM khi Neo4j + Cognee API/UI cùng chạy; LLM provider cho `cognify` (qua OpenRouter) + che dữ liệu trước khi gửi.
+- **GPT–Claude không còn điểm vênh về stack.** Chờ Hermes. Owner cần quyết: §0.2 (dòng cuối file). Áp: SAME_COMMIT (§0 COLLAB + view §0 + thẻ P07).
+
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
 - Nền JEV: ../done-tasks/jev-integration/COLLAB.md và SKILL.md.
@@ -167,4 +182,4 @@ GS | P05 HÒA GIẢI · D06 GIẤY PHÉP THỰC DỤNG | Graph tri thức đa ng
 - Gateway Agent: ../hermes-joint-workspace/COLLAB.md — việc độc lập.
 
 ## Owner cần quyết
-- —
+- 28/09 · P07 · §0.2 “Thế nào là hoàn thành” vẫn là lời mở việc 24/09 (đã xong). Đề xuất thay bằng: (1) hội đồng đồng thuận stack, Owner gật; (2) chạy thử trên dữ liệu hỗn hợp đã che (liên kết Lark + ghi chú chăm sóc khách + trao đổi quy trình + một đoạn code): hỏi được “khách/ứng viên này liên quan gì, nên làm gì tiếp” kèm nguồn; JEV được máy tự gọi ít nhất một chỗ; tắt Cognee vẫn đọc được graph; (3) cài thật chỉ sau khi Owner gật kết quả chạy thử. **Đề xuất: gật.**

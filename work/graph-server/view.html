@@ -15,7 +15,12 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#e
 <div class="priority"><b>3</b><div><strong>JEV future-ready:</strong> ưu tiên skill/framework chính thức để Incomex tận dụng các primitive/pattern mới khi JEV phát triển.</div></div>
 <div class="priority"><b>4</b><div><strong>Code Graph:</strong> dựng quan hệ code để Agent/AI hiểu dependency và impact nhanh khi hệ thống phức tạp.</div></div>
 <p><strong>Bối cảnh:</strong> Owner đã dọn VPS còn hơn 50GB cho hướng này. Đây là capacity context, chưa phải giấy phép triển khai hay tiêu hết dung lượng.</p>
-<p><strong>Owner làm rõ 28/09:</strong> graph hóa mọi loại thông tin Incomex được phép dùng, nhất là thông tin khó biểu diễn/truy vấn bằng SQL: chăm sóc khách hàng, trao đổi, quy trình, lựa chọn và code. Lark/PG chỉ là một nhóm nguồn. Bốn ưu tiên giữ nguyên. <strong>Yêu cầu dài hạn: MIT; chưa duyệt ngoại lệ giấy phép khác.</strong></p>
+<div style="border-left:4px solid #1f6feb;padding-left:10px;margin:10px 0">
+<p><strong>🎯 Tầm nhìn (Owner làm rõ 28/09):</strong> Graph hoá <em>mọi</em> thông tin Incomex. Giá trị lớn nhất nằm ở thông tin không đưa vào bảng SQL được — chăm sóc khách hàng, trao đổi, quy trình còn loay hoay, code. Graph nối mẩu rời thành liên hệ · 🤖 JEV cân nhắc từng lựa chọn · 😊 người quyết việc quan trọng.</p>
+<p><strong>Ví dụ:</strong> ghi chú “khách chưa hiểu cần chuẩn bị hồ sơ gì” → bước hướng dẫn hồ sơ → form → module kiểm tra → JEV gợi ý: gửi hướng dẫn / hẹn gọi / chưa đủ thông tin.</p>
+<p><strong>“Hữu hạn” =</strong> <em>loại</em> thực thể và <em>loại</em> quan hệ nằm trong danh mục có mã; lượng thông tin và nguồn không giới hạn. Không phải “chỉ dữ liệu đã có trong bảng”.</p>
+<p><strong>Tiêu chí công cụ (D06):</strong> miễn phí dài hạn · còn cập nhật · ít khả năng chết giữa chừng · dữ liệu mang đi được. MIT là điểm cộng, không bắt buộc.</p>
+</div>
 <p style="border-left:4px solid #c0392b;padding-left:10px"><strong>Nguyên tắc khoá (Owner 24/09, nguyên văn):</strong> “Mọi giải pháp phải đảm bảo, ưu tiên tối đa, dùng cái có sẵn, nhiều người dùng, phù hợp nhất với Incomex. Không tự dựng bất cứ cái gì nếu thị trường có sẵn. Code là giải pháp cuối cùng.” — áp cho mọi lựa chọn của việc này (toàn repo: AGENTS A10-R1).</p>
 </section>
 
@@ -239,6 +244,16 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#e
 <p><strong>Tham khảo JEV của lượt Host:</strong> <code>gen-dec-1790583554-COLXJRUuVnb7y97JLGkL</code> chọn bài thử hỗn hợp nhỏ p=0.85/confidence=0.80; giữ suy luận có nhãn p=1/confidence=1. Đây không phải xác suất kế hoạch đúng, không thay kiểm kỹ thuật hoặc giấy phép.</p>
 <p><strong>P06 — khuyến nghị Host theo D06:</strong> trial ưu tiên <strong>Neo4j Community 5.26 LTS + Cognee</strong>; Graphiti+Neo4j là đối chứng; Qdrant production giữ nguyên; Hindsight để sau cho memory. Lý do không chỉ là tính năng mà là độ bền: Neo4j làm substrate lâu đời, Cognee làm lớp có thể thay. Business user giữ Lark/Directus; AI dùng API/MCP qua gateway read-first; ingestion writer tách quyền. JEV <code>gen-dec-1790584801-9CITMUfPGm8ENWRwb5nX</code> đồng hướng nhưng chỉ là bằng chứng phụ.</p>
 <p><strong>Điều hành:</strong> P04 = PARTIAL; P05/P06 chờ Claude và Hermes phản biện phạm vi + quyền + độ bền dự án. Chưa phát RUN, chưa cài, chưa nạp dữ liệu thật. Nếu không có blocker, Host đề nghị trial Neo4j CE + Cognee với dữ liệu hỗn hợp đã che và backup/export ngay từ đầu.</p>
+</div>
+<div class="card" style="border-left:6px solid #2e7d32">
+<p><strong>Claude P07 (28/09):</strong> ✅ đồng ý <strong>Neo4j 5.26 LTS + Cognee</strong>. Rút đề xuất P04 vì đã đọc hẹp mục tiêu. Bắt buộc khi chạy thử:</p>
+<table><tbody>
+<tr><td style="background:#ffe9c2">K1</td><td>Cognee mặc định dùng Kuzu — đã bị bỏ rơi từ 10/2025. Phải tắt chế độ multi-user của Cognee, nếu không nó lặng lẽ ghi vào Kuzu thay vì Neo4j. Phân quyền đặt ở cổng.</td></tr>
+<tr><td style="background:#d9f2d9">K2</td><td>“Hữu hạn” do máy giữ: khuôn loại thực thể/quan hệ của Cognee (graph_model) chặn AI đặt loại mới.</td></tr>
+<tr><td style="background:#d9f2d9">K3</td><td>Code graph dùng của Cognee trước; công cụ MIT dự phòng nếu hỏng.</td></tr>
+<tr><td style="background:#d9f2d9">K4</td><td>Tắt Cognee → graph vẫn đọc được, xuất được. Không qua = chưa bền.</td></tr>
+</tbody></table>
+<p><small>Nguồn: <a href="https://docs.cognee.ai/setup-configuration/graph-stores">Cognee graph stores</a> · <a href="https://github.com/topoteretes/cognee/issues/1873">issue #1873</a> · <a href="https://github.com/topoteretes/cognee/issues/2098">Kuzu archived #2098</a> · <a href="https://docs.cognee.ai/core-concepts/further-concepts/ontologies">graph_model vs ontology</a> · <a href="https://docs.cognee.ai/guides/code-graph">Cognee code graph</a> · <a href="https://github.com/enola-labs/enola">Enola</a>. Chi tiết: <code>COLLAB.md</code> P07.</small></p>
 </div>
 <p><small>Cập nhật 28/09/2026 · GS09/P06. MIT không còn là hard gate; tiêu chí là miễn phí self-host + cập nhật + độ bền + khả năng thay lớp. Chưa có migration, cài đặt hay RUN được phê duyệt.</small></p>
 </main></body></html>
