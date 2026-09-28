@@ -47,7 +47,7 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | P04 PARTIAL · P05 HÒA GIẢI ĐANG REVIEW | Graph tri thức đa nguồn; MIT là cổng lựa chọn, stack cũ chưa đạt | Chưa PROMPT/READY/RUN, chưa cài | NEXT: Claude + Hermes phản biện mô hình hai đường nhập, quyền và giấy phép tại view.html §15; không quay về Lark-only. OWNER VIEW CHECK DỪNG (AUTH).
+GS | P05 HÒA GIẢI · D06 GIẤY PHÉP THỰC DỤNG | Graph tri thức đa nguồn; ưu tiên miễn phí self-host, cập nhật đều, cộng đồng mạnh, nguy cơ chết thấp; MIT không còn là hard gate | Chưa PROMPT/READY/RUN, chưa cài | NEXT: Claude + Hermes phản biện shortlist Neo4j+Cognee vs Neo4j+Graphiti theo độ bền, quyền và khả năng thay lớp trên. OWNER VIEW CHECK DỪNG (AUTH).
 - Hậu kiểm GS08 ngày 28/09/2026: commit `c9460a9fa13ec3b9cf646668d1c063537e75f992` đã push; diff chỉ đúng hai file COLLAB.md + view.html (65 dòng thêm, 13 dòng bỏ). `ui_inspect` đúng URL Owner View chuẩn trả shell HTTP 200 nhưng Directus 401/Login; chưa đọc được nội dung/revision mới, không báo Owner View PASS. Không tạo đường xem phụ; hồ sơ repo sẵn cho hội đồng review.
 - Based_on mở việc: `37ae3fe22bc37894242506e4477b055d32fdc540`; GS02 hòa giải trên HEAD hiện hành, commit chen ngang không chạm task này.
 - Đã đọc AGENTS.md → COLLAB.md gốc → README.md → work/README.md; áp khuôn MT3 hiện hành.
@@ -61,7 +61,8 @@ GS | P04 PARTIAL · P05 HÒA GIẢI ĐANG REVIEW | Graph tri thức đa nguồn;
 - D03 · 2026-09-24 · Owner giao Claude **khoá nguyên tắc vào mục tiêu** (nguyên văn ở §0.1) và áp toàn repo (DROOT19 · AGENTS A10). Áp: SAME_COMMIT (§0) · `b3f64c4` (gốc).
 
 - D04 · 2026-09-28 · Owner làm rõ phạm vi: Graph cho mọi loại thông tin Incomex được phép dùng, trọng tâm business, chăm sóc khách hàng, quy trình/lựa chọn và code; thông tin Claude kiểm trong Lark/PG chỉ là một phần nhỏ. Đây không phải lệnh chốt Neo4j hoặc lệnh nạp dữ liệu.
-- D05 · 2026-09-28 · Owner yêu cầu dài hạn MIT. Chưa có ngoại lệ Apache-2.0/GPLv3; Host không coi giấy phép của MCP/adapter là giấy phép graph server hoặc của cả bộ phụ thuộc. Chốt công nghệ cũ phải rà lại theo D05.
+- D05 · 2026-09-28 · Lịch sử: Owner từng nêu dài hạn ưu tiên MIT.
+- D06 · 2026-09-28 · **GIẤY PHÉP THỰC DỤNG, thay cách áp D05:** MIT không bắt buộc. Tiêu chí chính là: công ty nhỏ được dùng miễn phí/self-host dài hạn theo chính sách hiện hành; dự án còn cập nhật; cộng đồng/nhà tài trợ đủ mạnh; xác suất bỏ dở thấp; dữ liệu/logic lõi có đường xuất và thay lớp trên. Vẫn loại giấy phép cấm/không phù hợp thương mại hoặc điều khoản làm Incomex phải công khai dịch vụ ngoài ý muốn. Không chọn dự án yếu chỉ vì MIT.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · PARTIAL — giả thuyết vòng 1 đã được D02 thay tiêu chí lựa chọn
