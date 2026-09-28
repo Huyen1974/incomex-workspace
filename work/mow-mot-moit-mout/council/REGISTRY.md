@@ -19,11 +19,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: **HOST / DISPATCHER / INTEGRATOR**
 - Host_ID: `GPT-MMIM-260920-A`
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
-- Active_RUN: batch `A06 / B04 / C03 / D01 / E01` = READY_TO_RUN.
-- Reserved_Targets: điều phối 5 Executor; không tranh target riêng.
-- Base_Target_Version: READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`; re-read trước Host mutation.
-- NOW: giám sát 5 lane; Chat.2 giữ methodology; D/E chỉ feed raw evidence.
-- NEXT: nghiệm thu KQ 5 lane; chuyển D/E evidence cho Chat.2; promote methodology chỉ khi proposal READY_FOR_HOST.
+- Active_RUN: **HOLD_PENDING_METHOD_V0_1**.
+- Reserved_Targets: methodology coordination only; Executor reservations tạm đóng.
+- Base_Target_Version: READY D80 superseded by D81 HOLD.
+- NOW: cùng Owner/Chat.2 chốt Method v0.1 trước khi Executor chạy.
+- NEXT: chốt 4 object levels + 7 recursive gates + decision/evidence record + UNKNOWN/CLARIFY loop; sau đó retarget prompts và READY mới.
 - BLOCKED_BY: none.
 - State: ACTIVE.
 - LAST_SYNC: D76–D77.
@@ -43,7 +43,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-A
 - Role: **EXECUTOR**
 - Write_Zone: root ui audit metadata + `lane-a/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-A06-20260928-01` = READY_TO_RUN.
+- Active_RUN: `MMIM-LANE-A06-20260928-01` = **HOLD_PENDING_METHOD_V0_1**.
 - Reserved_Targets: root ui `master-of-master-v1.html`, `master-home-v1.html`, `ui-child-content-v1.js` if needed + lane-a/COLLAB.
 - Base_Target_Version: prompt SHA `602abe3698fdef2da3274c4bb00518e3f35cb2ed843c2aa183eb69d7f344218f`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`.
 - NOW: audit 4 core Master Lists Process/Tool/Step/UI; expose conflict/gap, no new catalog.
@@ -55,7 +55,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-B
 - Role: **EXECUTOR**
 - Write_Zone: `ban-duyet.html` + `lane-b/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-B04-20260928-01` = READY_TO_RUN.
+- Active_RUN: `MMIM-LANE-B04-20260928-01` = **HOLD_PENDING_METHOD_V0_1**.
 - Reserved_Targets: ban-duyet + lane-b.
 - Base_Target_Version: prompt SHA `0399d50a03a04ebf5393f76bb969c47d5cd08a655e5e4ac6f8d81779fd8cff8d`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`; 23-contract canonical from B03 must stay except CHUNG.KIEM/FORM.TAO.
 - NOW: resolve or prove-blocked exactly 2 OPEN contracts.
@@ -67,7 +67,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-C
 - Role: **EXECUTOR**
 - Write_Zone: `lane-c/COLLAB.md` only; canonical/ui read-only.
-- Active_RUN: `MMIM-LANE-C03-20260928-01` = READY_TO_RUN.
+- Active_RUN: `MMIM-LANE-C03-20260928-01` = **HOLD_PENDING_METHOD_V0_1**.
 - Reserved_Targets: lane-c/COLLAB.
 - Base_Target_Version: prompt SHA `e9f3d8231c89fa9ccea0888a3c4f12e149f93bc094a0c56220a2cacb5b6565a0`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`; C01+B02R1 evidence + C02 only as comparison.
 - NOW: prove reproducibility of 25→15 Human Step with explicit 6-tuple rule.
@@ -80,7 +80,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-D
 - Role: **EXECUTOR · EVIDENCE HARVEST**
 - Write_Zone: `lane-d/COLLAB.md` only; mọi source khác READ-ONLY.
-- Active_RUN: `MMIM-LANE-D01-20260928-01` = READY_TO_RUN.
+- Active_RUN: `MMIM-LANE-D01-20260928-01` = **HOLD_PENDING_METHOD_V0_1**.
 - Reserved_Targets: lane-d/COLLAB.
 - Base_Target_Version: prompt SHA `745737438e10436d51b8299514870a43112b7cf991a588fad4a5248877d0ae4e`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`.
 - NOW: harvest facts của case Tạo MOW theo source hiện có, không thiết kế methodology.
@@ -92,7 +92,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-E
 - Role: **EXECUTOR · EVIDENCE AUDIT**
 - Write_Zone: `lane-e/COLLAB.md` only; canonical/UI/tools READ-ONLY.
-- Active_RUN: `MMIM-LANE-E01-20260928-01` = READY_TO_RUN.
+- Active_RUN: `MMIM-LANE-E01-20260928-01` = **HOLD_PENDING_METHOD_V0_1**.
 - Reserved_Targets: lane-e/COLLAB.
 - Base_Target_Version: prompt SHA `f51272c3ad238497f4b54d14760739d194999402618d0330ec61eab4b0724557`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`.
 - NOW: audit capability/tool/evidence hiện có cho `đã có/dùng lại/tạo mới`, không đặt policy.
