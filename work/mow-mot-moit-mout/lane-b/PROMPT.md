@@ -1,131 +1,144 @@
-# PROMPT — LANE B02 · MOW Human-Step Contract v1
+# PROMPT — LANE B02R1 · Apply MOW Human-Step Contract v1
 
-RUN_ID: MMIM-LANE-B02-20260928-01
+RUN_ID: MMIM-LANE-B02R1-20260928-01
 PROCESS: CHUNG.APQUYTRINH
 STATUS: Chỉ chạy sau PROCESS_GATE PASS + READY của Host.
 
 Host: GPT Chat · Host_ID `GPT-MMIM-260920-A`
 Executor: Codex
+
 Write scope:
 - `work/mow-mot-moit-mout/ban-duyet.html`
 - `work/mow-mot-moit-mout/lane-b/COLLAB.md`
-Không sửa gate tool, Step/UI/VPS UI.
+
+READ-ONLY:
+- `cong-cu/dot-process-gate.py`
+- `cong-cu/dot-walk-check.py`
+- lane-a A02/A03 KQ
+- lane-c C01 KQ
+- Step/UI/VPS ui.
 
 ## 0. Gate
-Đọc AGENTS → parent COLLAB D56–D61 → B01 KQ → C01 KQ → lane-b/COLLAB → file này.
-Trước mutation chạy current dot-process-gate trên prompt+catalog. FAIL → DỪNG.
 
-## 1. Vì sao B02
-C01 có 25 Human Step instance nhưng không thể gộp vì thiếu:
-`quyền · state-in/out · điểm quay về`.
-B01 cũng xác nhận CHUNG.TIM thiếu target/search contract.
+Đọc AGENTS → parent COLLAB D56–D65 → Lane A A02/A03 KQ → Lane B B01/B02 KQ → Lane C C01 KQ → file này.
 
-B02 **không tạo Step/UI**. B02 version Process contract để C02 có căn cứ.
+Trước mutation:
+`python3 ../cong-cu/dot-process-gate.py --prompt PROMPT.md --catalog ../ban-duyet.html --json`
 
-## 2. Batch contract-v1
-Chỉ opt-in đúng các process:
-- CHUNG.TIM
-- CHUNG.NEU
-- CHUNG.DUYET
-- CHUNG.BAT
-- CHUNG.NGUNG
-- MOW.TAO
-- MOW.LAP
-- MOW.KHAI
-- MOW.SUA
-- MOW.XOA
-- MOW.CHAY
-- MOT.CHAY
+FAIL → KQ DỪNG.
 
-Giữ mã + tên + thứ tự process.
-Không sửa 27 process còn lại.
+A03 đã chốt schema tương thích:
+- process attrs **trên chính thẻ `<p ...>`**;
+- `dot-walk-check` đã nhận `<p ...><b>CODE</b>`;
+- proc-contract span rỗng không làm hỏng walk parser.
 
-Mỗi definition trên thêm process attrs:
-`data-contract-v="1" data-when="..." data-input-contract="..." data-output-contract="..." data-return-contract="..." data-contract-source="B02/D61"`.
+## 1. Việc duy nhất
 
-Mỗi direct human step thêm span rỗng:
-`proc-contract + step-key + right-class + state-in + state-out + return + ui-intent`.
+Áp contract-v1 đã chuẩn bị ở B02 vào đúng 12 process:
 
-### Controlled vocabulary
-right-class:
-`REQUESTER|APPROVER|EDITOR|CONFIGURATOR|ACTIVATOR|ASSIGNEE|CONTRIBUTOR|VIEWER`
+`CHUNG.TIM · CHUNG.NEU · CHUNG.DUYET · CHUNG.BAT · CHUNG.NGUNG · MOW.TAO · MOW.LAP · MOW.KHAI · MOW.SUA · MOW.XOA · MOW.CHAY · MOT.CHAY`
 
-ui-intent:
-`SEARCH|REQUEST|REVIEW|EDIT|CONFIGURE|ACTIVATE|EXECUTE|ATTACH|VIEW`
+Giữ nguyên:
+- 39 mã/tên;
+- thứ tự process;
+- logic arrow/call hiện hành;
+- read/write refs;
+- 27 process còn lại.
 
-State là **semantic process state**, không giả là DB enum.
-Return là step-key tiếp theo hoặc `CALLER` / `PROCESS_END`.
-
-## 3. Contract bắt buộc của CHUNG.TIM
-Input contract phải tối thiểu:
-`target_catalog_code · object_type · query/name/meaning/label · scope(optional) · status/version constraints(optional)`.
-
-Output contract phải phân biệt:
-`FOUND_EXACT | FOUND_CANDIDATES | NOT_FOUND | SEARCH_INCOMPLETE`
-+ candidate ids/versions + coverage/evidence.
-
-Luật:
-- NOT_FOUND chỉ hợp lệ khi coverage đủ theo contract;
-- SEARCH_INCOMPLETE không được biến thành “tạo mới”;
-- mọi outcome trả về caller.
-
-Không tự thiết kế semantic search engine trong B02; chỉ contract.
-
-## 4. Human-step contract từ evidence C01/B01
-Chuẩn hóa đủ để C02 so chữ ký, không bịa người cụ thể:
-- tìm → REQUESTER · SEARCH;
-- nêu nhu cầu → REQUESTER · REQUEST;
-- duyệt/trả → APPROVER · REVIEW;
-- khai/sửa định nghĩa → EDITOR · EDIT;
-- cấu hình → CONFIGURATOR · CONFIGURE;
-- bật → ACTIVATOR · ACTIVATE;
-- nhận/làm/gửi việc → ASSIGNEE · EXECUTE;
-- tệp/bình luận → CONTRIBUTOR · ATTACH;
-- theo dõi → VIEWER · VIEW.
-
-Nếu một step không khớp chắc một class trên → DỪNG step đó, ghi OPEN; không ép.
-
-## 5. State/return
-Dùng chính thứ tự process hiện hành + C01 evidence.
-Ví dụ semantic:
-- SEARCH_REQUESTED → SEARCH_RESULT → CALLER
-- REVIEW_PENDING → APPROVED|RETURNED → CALLER
-- DRAFT_DEFINED → STEPS_SELECTED → ...
-- CONFIGURED → ACTIVE
-- ASSIGNED → OPENED → SUBMITTED
-- VIEW chỉ quan sát: RUNNING → RUNNING
-
-Không đổi logic process để “làm đẹp” state.
 Không thêm Human Step mới.
 
-## 6. Hiển thị nhìn-thấy-thật
-Trong vùng Process hiện hành thêm **một summary gọn**:
-`Contract v1: 12/39 process · human step metadata=<n> · nguồn B02/C01`
-và ghi rõ đây là **TẠM CHỐT để C02 suy Step/UI**, chưa final.
+## 2. Process contract v1
 
-Không tạo trang/file UI mới trong B02.
+Mỗi process trên thêm vào `<p>`:
+- `data-contract-v="1"`
+- `data-when`
+- `data-input-contract`
+- `data-output-contract`
+- `data-return-contract`
+- `data-contract-source="B02R1/D65"`
 
-## 7. Acceptance
-- process count vẫn 39; code/name 39 giữ nguyên;
-- 12 process opt-in contract-v1;
-- direct human steps trong 12 process có metadata đầy đủ;
-- textual process arrows/read/write giữ logic cũ;
-- CHUNG.TIM có input/output search contract nêu trên;
-- C01 25 instances phải trace được về step-key contract tương ứng (direct/called);
-- dot-walk-check exit 0;
-- current gate v1 vẫn PASS;
-- nếu A02 đã merge trong lúc chạy: chạy thêm `--audit-contracts`; nếu chưa có option thì ghi `A02_NOT_YET`, không chờ vô hạn.
-- không sửa CAT-004/UI.
+Mỗi direct Human Step thêm đúng một span rỗng ngay trong step:
+`<span class="proc-contract" data-step-key="..." data-right-class="..." data-state-in="..." data-state-out="..." data-return="..." data-ui-intent="..."></span>`
 
-## 8. KQ
+Dùng đúng 15 step-key đã chuẩn bị B02:
+`CHUNG.TIM.S01 · CHUNG.NEU.S01 · CHUNG.DUYET.S02 · CHUNG.BAT.S01 · MOW.TAO.S05 · MOW.TAO.S06 · MOW.TAO.S07 · MOW.LAP.S03 · MOW.KHAI.S01 · MOW.SUA.S05 · MOW.SUA.S08 · MOW.CHAY.S07 · MOT.CHAY.S03 · MOT.CHAY.S04 · MOT.CHAY.S08`
+
+`CHUNG.NGUNG` và `MOW.XOA`: opt-in process contract nhưng không có direct Human Step span.
+
+Controlled classes/intents theo A02, không invent ngoài bộ đó.
+
+## 3. CHUNG.TIM bắt buộc
+
+Input:
+`target_catalog_code · object_type · query/name/meaning/label · scope(optional) · status/version constraints(optional)`
+
+Output:
+- `FOUND_EXACT`
+- `FOUND_CANDIDATES`
+- `NOT_FOUND`
+- `SEARCH_INCOMPLETE`
+
+Kèm candidate id/version + coverage/evidence.
+
+Luật contract:
+- `NOT_FOUND` chỉ khi coverage đủ;
+- `SEARCH_INCOMPLETE` không được suy thành tạo mới;
+- mọi outcome → caller.
+
+Không thiết kế search engine trong RUN này.
+
+## 4. Metadata Human Step
+
+Dùng evidence B02/C01 đã ghi, không nghĩ lại từ đầu:
+
+- tìm → REQUESTER / SEARCH
+- nêu nhu cầu → REQUESTER / REQUEST
+- duyệt/trả → APPROVER / REVIEW
+- khai/sửa → EDITOR / EDIT
+- config → CONFIGURATOR / CONFIGURE
+- bật → ACTIVATOR / ACTIVATE
+- nhận/làm/gửi → ASSIGNEE / EXECUTE
+- tệp/bình luận → CONTRIBUTOR / ATTACH
+- theo dõi → VIEWER / VIEW
+
+State là semantic process state, không giả DB enum.
+Return là step-key kế tiếp hoặc `CALLER` / `PROCESS_END`.
+Nếu evidence hiện có không đủ cho một metadata bắt buộc → DỪNG trước mutation thay vì tự bịa.
+
+## 5. Nhìn-thấy-thật
+
+Trong phần summary Process hiện hành thêm một dòng gọn, không tạo UI/file mới:
+
+`Contract v1 · 12/39 process · 15 direct Human Step · nguồn B02R1/C01 · TẠM CHỐT`
+
+Không biến metadata attrs/span thành text dài trên mặt Owner.
+
+## 6. Acceptance bắt buộc
+
+Sau mutation đọc lại source qua gateway rồi chạy:
+
+1. `dot-walk-check.py ban-duyet.html --json` → exit 0 · 84 Master · 39 process · baseline actor/label/calls không lệch.
+2. `dot-process-gate.py --audit-contracts --catalog ban-duyet.html --json` → PASS · contract_processes=12 · contract_human_steps=15 · contract_errors=[].
+3. E1 gate với prompt này → PASS.
+4. 39 code/name + order unchanged.
+5. 12 opt-in đúng set; 27 còn lại unversioned.
+6. 15 step-key unique.
+7. Map C01 25/25 instance → contract source trực tiếp/called; không có orphan.
+8. CHUNG.TIM đủ 4 outcome + coverage rule.
+9. Không sửa CAT-004/UI/VPS UI.
+10. Không file mới.
+
+Nếu A02 audit và walk không cùng PASS → DỪNG, không ghi bản nửa đạt.
+
+## 7. KQ
+
 Append lane-b/COLLAB:
-- coverage 12 process;
-- step-key list;
-- mapping C01 25 instance → contract source;
-- OPEN còn lại;
-- NEXT = C02 nếu đủ.
 
-`KQ@MMIM-LANE-B02-20260928-01 XONG|DỪNG`
-`KQ@LANE-B B02 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS|BLOCK · contract_process=12 · mapped_C01=<n>/25 · NEXT=<...>`
+`KQ@MMIM-LANE-B02R1-20260928-01 XONG|DỪNG`
 
-Dừng.
+`KQ@LANE-B B02R1 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS|BLOCK · contract_process=12/39 · direct_human=15 · mapped_C01=25/25 · NEXT=C02|<...>`
+
+Báo Owner ngắn:
+`XONG · B02R1 · contract=12/39 · human=15 · C01=25/25 · walk=PASS · audit=PASS · NEXT=C02`
+
+Dừng. Không tự C02/B03.
