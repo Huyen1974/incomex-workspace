@@ -50,3 +50,15 @@ KQ@LANE-A A03 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · walk_attrs=PAS
 - Walk trước/sau trên catalog thật: 84 Master · 39 Process · 👤62 · 🤖66 · Thuộc 🔁8/⚙️22/🏗9 · 80 calls · orphan 77–82 · 0 lỗi · exit 0.
 - Ca tạm: 12 process có attrs trên `p` → walk 39; thêm 15 span contract rỗng → walk 39; whitespace giữa `p`/`b`, `p` ngoài canonical và mã lỗi đều không làm lệch 39. A02 audit bản đủ contract PASS 12/15/0 lỗi; A02 audit catalog thật PASS 0/39 opt-in. `py_compile` PASS.
 - Giới hạn: walk chỉ bỏ markup để kiểm bước; không đọc/nghiệm thu đúng nghĩa contract. B02R1 mới ghi contract vào canonical; không mở C hay RUN tiếp.
+
+### A04 · KQ · 2026-09-28
+KQ@MMIM-LANE-A04-20260928-01 XONG
+KQ@LANE-A A04 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS · list_checked=5/5 · list_green=4 · list_warn=1 · false_green=0 · HUMAN_CHECK=WAIT_OWNER · NEXT=OWNER_LOOK
+
+- Gate trước ghi: READY b68e2a59562b9931d89b88df4426f10871ce8ed5 = commit cuối chạm PROMPT; dot-process-gate exit 0, VEUI.MOW PASS, process=39, step=8, catalog SHA 78b4a6879e8881bb26d67dcf3af6ec29e49abbc6c2032ec3b097105b1ae7e868, prompt SHA 056ba8b08ac4a041d121768dbb451fae77785dd09e4bd90a0ce021686f9c9902.
+- Chỉ sửa VPS root ui: master-of-master-v1.html SHA f25a942f25bd4429ceca7f3aafe8f87e26214636416aa24ffd629a24b397237c; master-home-v1.html SHA cc671b637f0ed15cda3ca8c8553b17ad8f65491210125091c8113e8283eb3a1e; ui-child-content-v1.js SHA 337f6d9a8e21f0fa31ce429f0d2e5a83bd3223d1af098ecb20c6f272d3fcbdfb. Ghi KQ riêng ở root workspace theo PROMPT; không có same-commit xuyên hai root.
+- Master of Master: 84/84 mã đúng thứ tự trước RUN; 79 record ngoài pilot trùng nguyên nội dung; chỉ 5 pilot có listBaseline, sourceFiles SHA khớp file thật. Badge QL: MOW✓7, MOT✓7, MOIT✓6, MOUT✓6, FIELD◐3; tooltip đọc được. Home List có rowFields, detailSections, URL nguồn + SHA, gap, Mở List và Detail mẫu.
+- Checkpoint UI: Home MOW → List → row WF-0001 → Detail đọc bảng bước + 3 câu hỏi + checkpoint/data links; MOT 7/TSK-0001 đọc MOIT+MOUT/trigger/3 vai/PG; MOIT 6/MOIT-F-0001 đọc schema/form/7 tầng/PG/Config; MOUT 6/RPT-0010 đọc report/7 tầng/PG/Builder; Field 3/full_name Detail generic, thiếu type/unit/required/placeholder/help/format/validation/mapping nên giữ ◐. Deep links chi-tiet mở đúng cả 5. MOIT/MOUT ghi rõ dữ liệu minh họa, chưa nối nguồn thật/PG.
+- Màn 390 và 1280: Home + Master of Master không tràn trang ngang; Home console 0 lỗi; List cha chỉ có CSP Google Fonts cũ. Parent hashes không đổi: master-list.js a92524f5…, mot-theme-v1.css 81cc5a69…, mot-master-v1.html 85da2f85…. Không tạo dataset nghiệp vụ, không ghi PG/Directus, không mở Step/UI/Tool/Process.
+- Giới hạn công cụ bấm: CUA click chuột trên tab/nav và row-link không đổi trạng thái; Enter trên cùng control mở đúng route/Detail. Owner kiểm thao tác chuột khi xem; HUMAN_CHECK vẫn WAIT_OWNER. NODE không có trong snapshot root ui, kiểm JS bằng trang thật/console.
+
