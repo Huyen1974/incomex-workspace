@@ -19,11 +19,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: **HOST / DISPATCHER / INTEGRATOR**
 - Host_ID: `GPT-MMIM-260920-A`
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
-- Active_RUN: batch `A06 / B04 / C03` = READY_TO_RUN.
-- Reserved_Targets: điều phối batch; không tranh target Executor.
-- Base_Target_Version: READY base `903b34c4dc7103a7dc88a84d3f59d4ac5d6b3aee`; re-read trước Host mutation.
-- NOW: giám sát batch evidence/audit A06/B04/C03; chờ methodology proposal Chat.2.
-- NEXT: nghiệm thu KQ batch; promote Council proposal khi READY_FOR_HOST.
+- Active_RUN: preparing batch `A06 / B04 / C03 / D01 / E01`.
+- Reserved_Targets: điều phối 5 Executor; không tranh target riêng.
+- Base_Target_Version: READY D78 superseded; re-read trước Host mutation.
+- NOW: khóa methodology scope cho Chat.2; thêm D/E evidence-only; chuẩn bị gate/READY 5 lane.
+- NEXT: gate + READY 5 lane; nghiệm thu KQ; chuyển raw evidence D/E cho Chat.2.
 - BLOCKED_BY: none.
 - State: ACTIVE.
 - LAST_SYNC: D76–D77.
@@ -32,11 +32,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: **COUNCIL / IDEA / REVIEW**
 - Write_Zone: `council/GPT-CHAT-2.md` only.
 - Active_RUN: none.
-- Reserved_Targets: **METHODOLOGY_TOPIC** = Process→Step→UI · reuse-or-create · gray-zone decision · evidence/model/check process.
+- Reserved_Targets: **METHODOLOGY_TOPIC** = multi-layer decomposition · mandatory questions per layer · Process→Step→UI · reuse-or-create · gray-zone/confidence/evidence model · clarification process/tool/DOT/technology · proof of reliability.
 - Base_Target_Version: proposal phải ghi target/evidence hash khi chốt.
-- NOW: thảo luận phương pháp luận đáng tin cậy: công thức tạo Step/UI, mô hình dữ liệu để kiểm `đã có / dùng lại / tạo mới`, cách xử lý vùng xám và bằng chứng cho quyết định.
-- NEXT: khi thống nhất trong chat, ghi proposal READY_FOR_HOST; chưa chốt thì chưa promote canonical.
-- BLOCKED_BY: none; Executor A/B/C bị cấm tự thiết kế lại topic này.
+- NOW: thiết kế lại phương pháp luận nhiều tầng cho case phức tạp như Tạo MOW: mỗi tầng trả lời gì, đọc/ghi đâu, process/tool/DOT nào, bằng chứng gì, thế nào là chắc/mơ hồ, làm rõ ra sao, chứng minh cải thiện thế nào.
+- NEXT: khi thống nhất trong chat, ghi proposal READY_FOR_HOST; dùng D01/E01 như raw evidence, không để Executor quyết methodology thay Council.
+- BLOCKED_BY: none; Executor A/B/C/D/E bị cấm tự thiết kế lại METHODOLOGY_TOPIC.
 - State: ACTIVE.
 - LAST_SYNC: D76–D77.
 
@@ -75,6 +75,31 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - BLOCKED_BY: if 15 requires hidden/manual semantic judgment.
 - State: READY_TO_RUN.
 - LAST_SYNC: D76–D77.
+
+
+### CODEX-MMIM-D
+- Role: **EXECUTOR · EVIDENCE HARVEST**
+- Write_Zone: `lane-d/COLLAB.md` only; mọi source khác READ-ONLY.
+- Active_RUN: `MMIM-LANE-D01-20260928-01` = PREPARED.
+- Reserved_Targets: lane-d/COLLAB.
+- Base_Target_Version: prompt to be gated.
+- NOW: harvest facts của case Tạo MOW theo source hiện có, không thiết kế methodology.
+- NEXT: KQ D01 → CHAT2_REVIEW.
+- BLOCKED_BY: nếu cần invent layer/question/model mới.
+- State: PREPARED.
+- LAST_SYNC: D79.
+
+### CODEX-MMIM-E
+- Role: **EXECUTOR · EVIDENCE AUDIT**
+- Write_Zone: `lane-e/COLLAB.md` only; canonical/UI/tools READ-ONLY.
+- Active_RUN: `MMIM-LANE-E01-20260928-01` = PREPARED.
+- Reserved_Targets: lane-e/COLLAB.
+- Base_Target_Version: prompt to be gated.
+- NOW: audit capability/tool/evidence hiện có cho `đã có/dùng lại/tạo mới`, không đặt policy.
+- NEXT: KQ E01 → CHAT2_REVIEW.
+- BLOCKED_BY: nếu cần invent threshold/gray-zone policy.
+- State: PREPARED.
+- LAST_SYNC: D79.
 
 ## Proposal contract
 

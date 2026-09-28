@@ -17,6 +17,7 @@ Canonical nghiệp vụ/process/tool/step/UI registry: READ-ONLY.
 Entry CODEX-MMIM-A phải đúng RUN A06 + Reserved_Targets. Mismatch → DỪNG COORD_CONFLICT.
 Không sửa Registry.
 Không nghiên cứu/phát triển phương pháp reuse/create hoặc Step→UI; topic đó đang reserved cho Council Chat.2.
+Không tự thiết kế **mô hình phân tầng**, bộ câu hỏi chuẩn theo tầng, tiêu chuẩn độ tin cậy, quy trình xử lý mơ hồ hay phương pháp chứng minh — đó cũng thuộc METHODOLOGY_TOPIC của Chat.2. A06 chỉ audit evidence hiện có.
 
 ## 1. Mục tiêu duy nhất
 Làm cho Owner **nhìn cái hiểu ngay vấn đề nằm ở đâu** đối với đúng 4 Master List:

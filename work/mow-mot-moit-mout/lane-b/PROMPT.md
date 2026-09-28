@@ -16,6 +16,7 @@ Write_Path:
 Entry CODEX-MMIM-B phải đúng B04 + Reserved_Targets.
 Không sửa Registry.
 Không đụng topic phương pháp reuse/create / Step→UI đang Council Chat.2 thảo luận.
+Không tự thiết kế **mô hình phân tầng**, bộ câu hỏi chuẩn theo tầng, confidence framework, gray-zone policy hay phương pháp chứng minh. B04 chỉ giải quyết 2 contract bằng source hiện có.
 
 ## 1. Giữ nguyên 23 contract đã đạt
 23/39 contract hiện hành + 27 direct Human Step phải giữ nguyên từng byte ở attrs/spans, trừ đúng hai process OPEN dưới đây nếu được opt-in.

@@ -14,6 +14,7 @@ Canonical + root ui: READ-ONLY.
 Entry CODEX-MMIM-C phải đúng C03 + Reserved_Targets.
 Không sửa Registry.
 Không bind Step→UI, không thiết kế reuse/create, không xử lý gray-zone methodology của Chat.2.
+Không suy rộng DERIVATION_RULE_V1 thành mô hình phân tầng hay phương pháp luận tổng quát; C03 chỉ là **một phép thử tái lập cụ thể** để cung cấp evidence cho Chat.2.
 
 ## 1. Câu hỏi duy nhất
 C02 nói 25 Human Step instance → 15 Human Step chuẩn.
