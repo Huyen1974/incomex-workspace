@@ -213,6 +213,29 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 </tbody>
 </table>
 
+<div id="clone-current-result" class="callout">
+<h3>Kết quả CLONE CURRENT · RUN <code>VPSUP-CLONE-CURRENT-20260928-01</code> · XONG · G2 CURRENT PARITY PASS</h3>
+<p class="big">🟢 VPS2 đã có bản sao CURRENT của VPS1 chạy <b>cô lập</b> (không ra internet, không mở cổng, vào bằng SSH tunnel), cùng đúng 6 image production, dữ liệu thật, mọi khoá production đã vô hiệu. 130/132 đường dẫn cho kết quả y như production; 2 đường còn lại là dịch vụ cố ý không mang sang. Chưa nâng version nào. <b>Bước tiếp: G3 chốt exact target version/digest.</b></p>
+<table>
+<thead><tr><th>Mục</th><th>Nguồn (VPS1)</th><th>Clone (VPS2)</th><th>KQ</th></tr></thead>
+<tbody>
+<tr><td><b>Snapshot</b></td><td>DB <code>directus</code> 07:48:53Z · <code>incomex_metadata</code> 07:47:50Z (pg_dump phiên chỉ đọc) · Qdrant job 01:00Z + IU 08:08Z · 13 cây file nghiệp vụ</td><td>Khôi phục đủ; không mang DB test/rỗng, <code>queue.sqlite</code>, <code>.env</code>, TLS, secret nginx</td><td>🟢</td></tr>
+<tr><td><b>Image</b></td><td>PG 16.13 · Directus 11.5.1 · Qdrant 1.16.3 · nginx 1.29.5 · Nuxt/Node 20 · agent-data</td><td>6/6 trùng ID (không pull tag trôi)</td><td>🟢 MATCH</td></tr>
+<tr><td><b>Dữ liệu/config/file</b></td><td>395 bảng · 20 187 + 149 vector · 13 cây file</td><td>395/395 bảng khớp số dòng; object/owner/quyền khớp; vector khớp; file khớp sha256</td><td>🟢</td></tr>
+<tr><td><b>Cô lập</b></td><td>—</td><td>Mạng internal riêng + chặn egress trước boot; 13/13 đích ngoài bị chặn, cả từ Directus/Nuxt/agent-data/nginx; 0 cổng mở; internet không vào được</td><td>🟢</td></tr>
+<tr><td><b>Khoá production</b></td><td>13 token tĩnh, 7 mật khẩu, 13 khoá cứng trong Flow; <b>2 credential nằm trong nội dung KB</b></td><td>Vô hiệu trước khi boot app; 2 credential trong KB che đích danh theo Owner duyệt (49 dòng PG + 11 point Qdrant); quét toàn bộ = <b>0</b></td><td>🟢</td></tr>
+<tr><td><b>A · Route</b></td><td>132 route từ nginx + trang Nuxt</td><td>130 giống prod · 2 <code>EXPECTED_NOT_IN_CLONE</code> (JEV, state server)</td><td>🟢</td></tr>
+<tr><td><b>B · Dữ liệu sau boot</b></td><td>Baseline chốt trước khi boot app</td><td>Thay đổi chỉ từ 2 Flow schedule (VOLATILE_BY_FLOW) + bản ghi thử; 0 xoá/hỏng</td><td>🟢</td></tr>
+<tr><td><b>C · Giao diện</b></td><td>9 trang chính</td><td>Ảnh prod = clone (Task view, Knowledge, Reports, Registries, GDĐH, /ui-preview, Directus login)</td><td>🟢</td></tr>
+<tr><td><b>D · Bên gọi</b></td><td>Directus REST, ops, agent-data, DOT</td><td>Đọc/ghi/dọn bản ghi thử, Flow → agent-data, đăng nhập lab-admin đều chạy; embedding cần OpenAI nên tắt trong lab (không ảnh hưởng nâng cấp)</td><td>🟢 · 🟡 ghi chú</td></tr>
+<tr><td><b>VPS1</b></td><td>Không restart/recreate/đổi cấu hình</td><td>Chỉ đọc/snapshot; dịch vụ vẫn 200</td><td>🟢</td></tr>
+<tr><td><b>VPS2</b></td><td>E-learning FREEZE</td><td>Trang tĩnh vẫn 200 · trống 72 GiB · swap 4 GiB · clone đã dừng, giữ dữ liệu + checkpoint</td><td>🟢</td></tr>
+</tbody>
+</table>
+<p class="small">⚠️ <b>Việc bắt buộc sau G2 (Owner 28/09):</b> 2 credential production (API_KEY agent-data · mật khẩu PG role <code>incomex</code>) đã nằm trong KB production ⇒ cần <b>đổi khoá trên VPS1</b> và rà các bản sao (lịch sử KB, Qdrant, backup Drive, cache) ở một RUN riêng. Chưa làm trong lượt này.</p>
+<p class="small">28/09/2026 07:13–15:35 UTC · Claude Code CLI · hồ sơ trên VPS2 <code>/opt/incomex/work/vps1-up-grade/CLONE-CURRENT-20260928/</code> (INDEX.md, SANITIZATION-MANIFEST.md, cách gỡ clone) · JEV <code>gen-dec-1790609278-NFFMOxVi3uoMLw1nV3gV</code>.</p>
+</div>
+
 <div id="freeze-result" class="callout">
 <h3>Kết quả VPS2 FREEZE/MINLAB · A/A2b/B/C ACCEPTED · D TRUST-CLOSE PASS (<code>VPSUP-VPS2-TRUST-CLOSE-20260928-01</code>) · G1 PASS</h3>
 <p class="big">🟢 E-learning trên VPS2 đã <b>tắt không thời hạn</b> (app/PHP/MySQL/queue dừng, không tự bật), giữ nguyên dữ liệu. 🟢 <code>elearning.incomexsaigoncorp.vn</code> chỉ còn trang tĩnh “Chương trình đang nâng cấp” — ô “Chương trình tiếng Nhật” trên GDDH hiện thông báo. 🟢 Trống thêm 18,6 GiB + swap 4 GiB. 🟢 Mục D: VPS2 không giữ chìa nào mở được VPS1/Drive/Secret Manager/GitHub/cloud (0 khoá riêng SSH, 0 rclone/Google/GitHub/registry; khoá AWS/mail trong app đều rỗng) và VPS1 không tin khoá nào của VPS2. Bước tiếp: <b>Clone CURRENT</b>.</p>
