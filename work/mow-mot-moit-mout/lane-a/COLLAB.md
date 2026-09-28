@@ -67,3 +67,13 @@ KQ@LANE-A A04 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS · list_checked=5/5 · li
 - Màn 390 và 1280: Home + Master of Master không tràn trang ngang; Home console 0 lỗi; List cha chỉ có CSP Google Fonts cũ. Parent hashes không đổi: master-list.js a92524f5…, mot-theme-v1.css 81cc5a69…, mot-master-v1.html 85da2f85…. Không tạo dataset nghiệp vụ, không ghi PG/Directus, không mở Step/UI/Tool/Process.
 - Giới hạn công cụ bấm: CUA click chuột trên tab/nav và row-link không đổi trạng thái; Enter trên cùng control mở đúng route/Detail. Owner kiểm thao tác chuột khi xem; HUMAN_CHECK vẫn WAIT_OWNER. NODE không có trong snapshot root ui, kiểm JS bằng trang thật/console.
 
+### A05 · KQ · 2026-09-28
+KQ@MMIM-LANE-A05-20260928-01 XONG
+KQ@LANE-A A05 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS · lists=5/5 · FIELD=◐ · click_path=PASS · HUMAN_CHECK=WAIT_OWNER · NEXT=Host nghiệm thu A05.
+COORD · NOW=XONG · NEXT=Host nghiệm thu A05 · BLOCKED_BY=FIELD_✓: thiếu nguồn thông số Field theo từng bản ghi · RESERVED_TARGETS=ui/master-of-master-v1.html,ui/master-home-v1.html,ui/ui-child-content-v1.js (đọc, không sửa); lane-a/COLLAB.md (ghi KQ) · LAST_SYNC=D72-D73/A05
+
+- READY `1bd42c508d18fb747a0aeeb16f16886d18edec9a` khớp commit cuối chạm PROMPT; process gate exit 0, VEUI.MOW PASS, catalog SHA `78b4a6879e8881bb26d67dcf3af6ec29e49abbc6c2032ec3b097105b1ae7e868`, prompt SHA `bfe603411d82391a32daa3987b6f124436641e969c623249b5441f8c1c412658`. Registry giữ target A riêng, không trùng B/C.
+- Đi thử trên UI thật: Home → List → hàng → Detail bằng chuột 5/5; bàn phím 5/5. List và Detail ở 1280/390: MOW 7/WF-0001, MOT 7/TSK-0001, MOIT 6/MOIT-F-0001, MOUT 6/RPT-0010, FIELD 3/full_name; nội dung/nguồn/gap đọc được, không tràn trang ngang. MOW/MOT/MOIT/MOUT giữ ✓ theo evidence A04; FIELD giữ ◐.
+- Field: UI-018 là mẫu khai minh họa, định dạng chưa chọn và lưu trong trình duyệt; UI-022 có 3 dòng mẫu mã/tên/tầng, không có kiểu dữ liệu, đơn vị, required, placeholder/help, format/validation/mapping hoặc nơi lưu theo từng dòng. PG Field nghiệp vụ chưa nối. Home và Master of Master đã chỉ rõ gap này; không suy ra thông số từ mẫu để nâng ✓.
+- Ba file UI Reserved_Targets vẫn đúng SHA A04; không sửa UI, Step, Process, Tool, PG/Directus hay target B/C. Bấm chuột và bàn phím qua công cụ PASS; HUMAN_CHECK=WAIT_OWNER là lượt Owner tự xem/nghiệm thu.
+
