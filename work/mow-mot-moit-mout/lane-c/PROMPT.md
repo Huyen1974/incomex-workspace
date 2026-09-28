@@ -14,6 +14,19 @@ RUN song song A/B/C. Chỉ ghi lane-c/COLLAB.
 Nếu HEAD đổi do lane khác, re-read lane-c version + sources liên quan.
 B03 bị cấm đổi 12 contract B02R1; nếu hash/contract của 12 process đó đổi thì DỪNG CONFLICT, nếu không thì tiếp tục.
 
+
+## 0A. Council Registry / phối hợp
+
+Trước mọi phân tích/mutation:
+- đọc `../council/REGISTRY.md` **READ-ONLY**;
+- kiểm entry `CODEX-MMIM-C`: Active_RUN đúng `MMIM-LANE-C02-20260928-01`, Reserved_Targets chỉ `lane-c/COLLAB.md`;
+- nếu Registry nói RUN/scope/Reserved_Targets khác → DỪNG `COORD_CONFLICT`, không tự sửa Registry.
+
+Không sửa `council/REGISTRY.md`; Host quản summary chung.
+
+Khi ghi KQ vào lane-c/COLLAB, thêm trong cùng KQ block:
+`COORD · NOW=XONG|DỪNG · NEXT=<một việc> · BLOCKED_BY=<none|lý do> · RESERVED_TARGETS=lane-c/COLLAB.md · LAST_SYNC=D72-D73/C02`.
+
 ## 1. Nguồn bắt buộc
 - C01 25 Human Step instances.
 - B02R1 map 25/25 → 15 direct step-key/contract source.

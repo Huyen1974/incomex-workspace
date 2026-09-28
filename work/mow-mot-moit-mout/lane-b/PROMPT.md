@@ -16,6 +16,19 @@ HEAD đổi nhưng own target không đổi → dùng HEAD mới, tiếp tục.
 Own target bị lane khác chạm → DỪNG PARALLEL_CONFLICT.
 Không sửa lane-a/lane-c/PROMPT khác.
 
+
+## 0A. Council Registry / phối hợp
+
+Trước mọi phân tích/mutation:
+- đọc `../council/REGISTRY.md` **READ-ONLY**;
+- kiểm entry `CODEX-MMIM-B`: Active_RUN đúng `MMIM-LANE-B03-20260928-01`, Reserved_Targets đúng `ban-duyet.html + lane-b/COLLAB.md`;
+- nếu Registry nói RUN/scope/Reserved_Targets khác → DỪNG `COORD_CONFLICT`, không tự sửa Registry.
+
+Không sửa `council/REGISTRY.md`; Host quản summary chung.
+
+Khi ghi KQ vào lane-b/COLLAB, thêm trong cùng KQ block:
+`COORD · NOW=XONG|DỪNG · NEXT=<một việc> · BLOCKED_BY=<none|lý do> · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=D72-D73/B03`.
+
 ## 1. Giữ nguyên 12 contract B02R1
 Tuyệt đối không đổi:
 CHUNG.TIM/NEU/DUYET/BAT/NGUNG · MOW.* 6 · MOT.CHAY.

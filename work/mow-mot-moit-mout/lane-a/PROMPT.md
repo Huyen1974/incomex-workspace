@@ -17,6 +17,19 @@ Trước mỗi mutation workspace: re-read HEAD + version của đúng file mìn
 - own target đã đổi ngoài RUN này → DỪNG `PARALLEL_CONFLICT`.
 Không sửa file lane B/C hay ban-duyet.
 
+
+## 0A. Council Registry / phối hợp
+
+Trước mọi phân tích/mutation:
+- đọc `../council/REGISTRY.md` **READ-ONLY**;
+- kiểm entry `CODEX-MMIM-A`: Active_RUN đúng `MMIM-LANE-A05-20260928-01`, Reserved_Targets không xung đột scope này;
+- nếu Registry nói RUN/scope/Reserved_Targets khác → DỪNG `COORD_CONFLICT`, không tự sửa Registry.
+
+Không sửa `council/REGISTRY.md`; Host quản summary chung.
+
+Khi ghi KQ vào lane-a/COLLAB, thêm trong cùng KQ block:
+`COORD · NOW=XONG|DỪNG · NEXT=<một việc> · BLOCKED_BY=<none|lý do> · RESERVED_TARGETS=<ui List targets + lane-a/COLLAB> · LAST_SYNC=D72-D73/A05`.
+
 ## 1. Mục tiêu duy nhất
 Giữ checkpoint A04: `Master → List → row → Detail`.
 MOW/MOT/MOIT/MOUT đã ✓ baseline; **không làm lại**.
