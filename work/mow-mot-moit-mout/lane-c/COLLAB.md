@@ -18,6 +18,9 @@ C01 chỉ làm **MOW**: từ MOW.* + CHUNG.* được gọi, suy ra Human Step c
 - HOST GATE · PASS · PROCESS=`VEUI.MOW` · catalog=`ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7` · prompt=`34b8873f02cf60603487f06cc0be43fe084b7b572eda91df348cfff56549520a`.
 - READY@8794c1fa9c868db731a6e1b9d4b99dad56e56c53 · RUN_ID `MMIM-LANE-C01-20260928-01`.
 - RUN ISSUED · chỉ lane-c/COLLAB được ghi; canonical parent + VPS UI READ-ONLY; XONG/DỪNG rồi dừng.
+- C02 HOST GATE · PASS · PROCESS=`VEUI.MOW` · prompt=`261aa3164e345c3658c287713671f8ce4a52dd7c9276b674726d19e8f2c0652d`.
+- READY@f95b2211777c56bc9a288ae1e302ac76a35fdb49 · RUN_ID `MMIM-LANE-C02-20260928-01`.
+- RUN ISSUED · song song A05/B03; chỉ lane-c/COLLAB, canonical parent + VPS UI READ-ONLY.
 
 ### Vòng trước
 A01 đã PASS P0/process gate. Lane C mở sau D59, bắt đầu từ MOW vì phức tạp nhất.

@@ -18,6 +18,9 @@ A02 nâng process-gate để kiểm được contract metadata của Human Step 
 - A04 HOST GATE · PASS · PROCESS=`VEUI.MOW` · catalog=`78b4a6879e8881bb26d67dcf3af6ec29e49abbc6c2032ec3b097105b1ae7e868` · prompt=`056ba8b08ac4a041d121768dbb451fae77785dd09e4bd90a0ce021686f9c9902`.
 - READY@b68e2a59562b9931d89b88df4426f10871ce8ed5 · RUN_ID `MMIM-LANE-A04-20260928-01`.
 - RUN ISSUED · chỉ List Master; B/C giữ chờ; XONG/DỪNG rồi dừng.
+- A05 HOST GATE · PASS · PROCESS=`VEUI.MOW` · prompt=`5a519ab4e050a623bc10c2527a9c4e28f57af7b6b5524af4298fdcd989acce5e`.
+- READY@f95b2211777c56bc9a288ae1e302ac76a35fdb49 · RUN_ID `MMIM-LANE-A05-20260928-01`.
+- RUN ISSUED · song song B03/C02; chỉ root ui + lane-a/COLLAB theo PROMPT.
 - A03: sửa duy nhất `dot-walk-check` để chấp nhận process attrs trên `p`; canonical READ-ONLY.
 - HOST GATE · PASS · PROCESS=`CHUNG.APQUYTRINH` · catalog=`ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7` · prompt=`7e2a3446298e206c2e649445d2fe5cd30d22737e8cf5dac55b2c79e16ce9ad53`.
 - READY@f69af7bbacd92b3c46bbcb873059054a83ab655a · RUN_ID `MMIM-LANE-A03-20260928-01`.

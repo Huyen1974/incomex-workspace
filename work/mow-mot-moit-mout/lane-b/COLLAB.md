@@ -21,6 +21,9 @@ B01 tạo được bản đồ 39 quy trình hiện có theo chữ ký chuẩn; 
 - HOST GATE · PASS · PROCESS=`CHUNG.TIM` · catalog=`ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7` · prompt=`86ecde4f60461e33cd19b5ab6ce4407885fb71c9e1c16c228a0ccbcc0fe8680d`.
 - READY@8794c1fa9c868db731a6e1b9d4b99dad56e56c53 · RUN_ID `MMIM-LANE-B01-20260928-01`.
 - RUN ISSUED · chỉ lane-b/COLLAB được ghi; canonical parent READ-ONLY; XONG/DỪNG rồi dừng.
+- B03 HOST GATE · PASS · PROCESS=`CHUNG.APQUYTRINH` · prompt=`912f1bd7934d5ed7792dbecb786ff1e3ba4dd4b9e3b9d1ff53999febfba302b4`.
+- READY@f95b2211777c56bc9a288ae1e302ac76a35fdb49 · RUN_ID `MMIM-LANE-B03-20260928-01`.
+- RUN ISSUED · song song A05/C02; chỉ ban-duyet + lane-b/COLLAB theo PROMPT.
 
 ### Vòng trước
 A01 đã PASS P0/process gate. Lane B được mở sau D59.
