@@ -213,6 +213,25 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 </tbody>
 </table>
 
+<div id="freeze-result" class="callout">
+<h3>Kết quả VPS2 FREEZE/MINLAB · RUN <code>VPSUP-VPS2-FREEZE-MINLAB-20260928-01</code> · DỪNG (A · A2b · C xong; D chưa làm)</h3>
+<p class="big">🟢 E-learning trên VPS2 đã <b>tắt không thời hạn</b> (app/PHP/MySQL/queue dừng, không tự bật), giữ nguyên dữ liệu. 🟢 <code>elearning.incomexsaigoncorp.vn</code> chỉ còn trang tĩnh “Chương trình đang nâng cấp” — ô “Chương trình tiếng Nhật” trên GDDH hiện thông báo. 🟢 Trống thêm 18,6 GiB + swap 4 GiB. 🔴 Chưa gỡ credential bền (mục D): chế độ tự động của Claude Code chặn lệnh kiểm tra.</p>
+<table>
+<thead><tr><th>Mục</th><th>Trước</th><th>Sau</th><th>KQ</th></tr></thead>
+<tbody>
+<tr><td><b>A</b> Stack e-learning</td><td>5 container chạy, đều <code>unless-stopped</code>; <code>cms_queue</code> ghi log lỗi DB liên tục</td><td><code>cms_app</code>/<code>cms_nginx</code>/<code>cms_mysql</code> dừng, <code>restart=no</code> + compose <code>restart: "no"</code>; MySQL tắt sạch; <code>cms_queue</code> dừng rồi xoá riêng container (lớp ghi chỉ có <code>laravel.log</code> 9,73 GB) ⇒ hết sinh log</td><td>🟢 PASS</td></tr>
+<tr><td><b>A2b</b> URL công khai</td><td>SPA + <code>/api</code> proxy tới PHP</td><td>Caddy hiện hữu (<code>elearning_web</code>) gắn 1 Caddyfile tĩnh, cùng image/cổng/chứng chỉ: mọi đường dẫn 200 một trang HTML, không script/form/API, không X-Frame-Options/CSP, <code>no-store</code>. Hai đường service worker cũ trả worker tự gỡ để máy từng mở SPA không kẹt bản cũ. Iframe kiểm dưới CSP thật của giaoduc: hiện thông báo</td><td>🟢 PASS</td></tr>
+<tr><td>Cổng</td><td>22 · 80 · 443 · 3307 · 8080 v4+v6 (3307/8080 chỉ chặn bằng rule tạm SEC1)</td><td>22 · 80 · 443 (tĩnh); <b>3307/8080 không còn listener</b> v4/v6</td><td>🟢 PASS</td></tr>
+<tr><td><b>B</b> Đĩa</td><td>dùng 36,87 GiB · trống 58,94 GiB</td><td>dùng 18,26 GiB (đã gồm swap 4 GiB) · trống 77,54 GiB. Thu hồi 22,59 GiB: log queue 9,06 · build cache 9,40 · 6 image build/test theo ID 3,39 · journal 0,73 (946→198 MB)</td><td>🟢 PASS · 🟡 nhóm 5 chưa xoá</td></tr>
+<tr><td>KEEP</td><td colspan="2">Nguyên: volume MySQL + bind storage/uploads + mã nguồn (MySQL −12,6 MB = <code>ibtmp1</code> tự xoá khi tắt sạch); gói 09/08 CHECKSUMS 7/7; bản BK1 trên Drive; image PG 16.13/Directus 11.5.1 khớp digest VPS1, ứng viên 12.3.1/16.15, <code>incomex-web-buildstage</code>, image e-learning + rollback, <code>node:14</code> (chung lớp buildstage, xoá không lợi)</td><td>🟢 nguyên</td></tr>
+<tr><td><b>C</b> Swap</td><td>0</td><td><code>/swapfile</code> 4 GiB (0600) + 1 dòng <code>/etc/fstab</code>; systemd sinh unit swap từ fstab ⇒ bền qua reboot (không reboot)</td><td>🟢 PASS</td></tr>
+<tr><td><b>D</b> Credential/đường tin cậy bền</td><td colspan="2">Chưa kiểm, chưa gỡ: lệnh kiểm tra (chỉ tên/đường dẫn/loại) bị chế độ tự động của Claude Code chặn; agent không vòng qua</td><td>🔴 CHƯA LÀM</td></tr>
+</tbody></table>
+<p class="small"><b>Chưa làm, đã sẵn bằng chứng:</b> nhóm dọn 5 (≈0,62 GB: <code>/opt/backup-restore-20260809-043818</code>, <code>/opt/backups/restore-20260809-093104</code>, <code>/opt/test-php-oldver</code>, <code>/opt/vps2-verify-e4/extract</code>) khớp tuyệt đối (tên/loại/cỡ/symlink) với tar trong gói 09/08 — lệnh xoá cũng bị chặn. <b>Còn hiệu lực:</b> <code>ROTATE_BEFORE_NEXT_START</code> — muốn bật lại e-learning phải RUN riêng rotate/root-localhost + kiểm security trước. Busy-lock: <code>DEFER_TO_MCPW_SCOPED_LEASE</code>. Rule tạm SEC1 còn trong runtime nhưng không còn cần: reboot VPS2 không mở lại 3307/8080 vì app <code>restart=no</code>.</p>
+<p class="small"><b>Next:</b> làm nốt D (+ nhóm 5) — Owner cấp quyền cho Claude Code hoặc giao surface khác → đạt G1 → Clone CURRENT.</p>
+<p class="small muted">28/09/2026 02:08–02:40 UTC · Claude Code CLI · VPS1 0 mutation (agent-data/claude-mcp StartedAt 25/09 nguyên, không gọi Guard/ruleset) · BK1 lượt đêm đầu: bản tại chỗ <code>incomex_metadata</code> 00:27Z OK, Drive 20:37 CEST = chờ giờ · hồ sơ <code>/opt/incomex/work/vps1-up-grade/VPS2-FREEZE-MINLAB-20260928/</code> (INDEX, ROLLBACK) · JEV <code>gen-dec-1790561797-CmamwmKLeyuh2IDBX5YZ</code>, <code>gen-dec-1790562879-kUO27SPZkCbUsacKJFAR</code>.</p>
+</div>
+
 <div id="bk1-result" class="callout">
 <h3>Kết quả BK1 · RUN <code>VPSUP-BK1-20260928-01</code> · XONG</h3>
 <p class="big">🟢 Ba dữ liệu đỏ của G0 đã có bản <b>mã hoá ngoài VPS</b> trên Drive, đã đọc lại và khôi phục thử đạt. Job đêm VPS1 từ nay sao lưu thêm <code>incomex_metadata</code> + <code>/opt/incomex/data</code>.</p>
