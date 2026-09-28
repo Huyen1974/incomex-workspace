@@ -15,6 +15,9 @@ A02 nâng process-gate để kiểm được contract metadata của Human Step 
 - A02 chỉ sửa tool + COLLAB lane A.
 - KQ mới nhất: **A02 XONG · Host nghiệm thu; mở A03 tương thích parser**, bằng chứng A02 bên dưới.
 - A03: sửa duy nhất `dot-walk-check` để chấp nhận process attrs trên `p`; canonical READ-ONLY.
+- HOST GATE · PASS · PROCESS=`CHUNG.APQUYTRINH` · catalog=`ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7` · prompt=`7e2a3446298e206c2e649445d2fe5cd30d22737e8cf5dac55b2c79e16ce9ad53`.
+- READY@f69af7bbacd92b3c46bbcb873059054a83ab655a · RUN_ID `MMIM-LANE-A03-20260928-01`.
+- RUN ISSUED · chỉ sửa dot-walk-check + lane-a/COLLAB; B/C chờ; XONG/DỪNG rồi dừng.
 - HOST GATE · PASS · PROCESS=`CHUNG.APQUYTRINH` · catalog=`ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7` · prompt=`af0cd3aa4b889507becb0334c6a2ad2bff090da202f0bf751b03c7a7dbc7b14e`.
 - READY@f39ca2ded193af84048937452c937923348ec6b1 · RUN_ID `MMIM-LANE-A02-20260928-01`.
 - RUN ISSUED · chỉ gate tool + lane-a/COLLAB; canonical ban-duyet READ-ONLY; XONG/DỪNG rồi dừng.
