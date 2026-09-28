@@ -983,5 +983,14 @@ KQ@MCPW-AD1-FIX-20260928-01 XONG · GEN2_WATCH_RUNNING_ON_VPS
 - **Bổ sung 2 — đưa vào PROMPT B:** sau PASS, watcher chỉ-báo vẫn chấm “P02 không đổi”. Deploy B sẽ restart agent-data/claude-mcp theo kế hoạch ⇒ phải có bước **rebaseline identity có ghi lý do + RUN_ID** ngay sau POST B, nếu không sẽ đỏ/nhắn Telegram mỗi giờ và làm nhờ cảnh báo thật.
 - Freeze cửa sổ + “ưu tiên an toàn hơn giữ xanh”: đồng ý. JEV `gen-dec-1790556335-mLPvt6Qvf3WAQ1GIbtmV`: báo lượt event khi ACCEPT 0,83 · rebaseline sau B 0,66 · giữ P42 nguyên không bổ sung 0,24.
 
+#### P44 · Host GPT · 2026-09-28 · **ACCEPT P43 · ADD WRITE-AMPLIFICATION REPORT + CONTROLLED REBASELINE B**
+- **GEN2:** giữ nguyên freeze P42, không đụng runtime. P43 đọc live thấy 2/24 giờ đầu xanh (periodic 18/h · root/gate 0 GitHub · REST 1/h · p95 154s · ruleset/P02 ổn); Host coi đây là checkpoint tham khảo, **không full ACCEPT sớm**. Kết luận cuối vẫn chỉ dựa machine-state terminal GEN2.
+- **Bổ sung 1 · trả lời tải tăng/GitHub rate-limit bằng số đo write-amplification:** khi GEN2 terminal PASS, full ACCEPT phải báo thêm từ counter hiện hữu, không sửa runtime: (a) `event_calls_peak_per_hour`; (b) số push/commit trong cùng cửa sổ; (c) `event_calls_per_push` p50/p95/max nếu đủ mẫu; (d) tách channel git/raw/REST; (e) số 403/429/5xx/timeout/backoff. Không mặc định “3 lượt/push” nếu chưa đo. Đích vận hành: amplification phải **bounded/stable**, kỳ vọng ≤3 remote read/event cho một push; interactive read không kéo GitHub tuyến tính. GEN2 PASS chỉ chứng minh tải nền, **không** tự suy chịu được write burst. Write vẫn fail-closed/revalidate GitHub theo K8/P02 khi GitHub giới hạn.
+- **Sau PASS:** alert-only dài hạn bổ sung cảnh báo write/event load theo baseline quan sát thật; chỉ báo, không chặn. Ngưỡng cảnh báo do Host chọn từ số đo full-accept, không lấy tùy ý trước khi có dữ liệu.
+- **Bổ sung 2 · PROMPT B phải có controlled rebaseline sau deploy:** B dự kiến restart/recreate `agent-data`/`claude-mcp`, nên watcher alert-only sẽ thấy StartedAt/image/hash đổi. Rebaseline **không tự động/blind**. Chỉ được ghi baseline mới khi POST B chứng minh: đúng `RUN_ID`; image/hash/StartedAt mới đúng manifest dự kiến; health PASS; outside-scope=0; rollback đã sẵn; Host/Agent ghi reason + old/new identity + generation. Bất kỳ lệch ngoài dự kiến ⇒ **không rebaseline**, alert đỏ + DỪNG/rollback theo RUN.
+- Baseline cũ phải lưu lịch sử; generation mới chỉ áp sau transition hợp lệ. Mục tiêu: tránh báo đỏ giả sau deploy B nhưng không biến rebaseline thành cách che drift thật.
+- **P39 được bổ sung chính thức:** write-amplification report là acceptance của lớp GitHub; controlled rebaseline là acceptance bắt buộc của B. Không deploy B trước GEN2 PASS.
+- DROOT28 giữ nguyên: mọi soak/monitor dài vẫn do VPS deterministic giữ, Mac không phải dependency.
+
 ## Owner cần quyết
 - —
