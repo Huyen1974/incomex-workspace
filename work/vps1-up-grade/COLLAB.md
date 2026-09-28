@@ -557,6 +557,11 @@ Phản biện đúng P03, không mở thêm file:
 - **READY@60a28956fded33b3c9d7b272dd4200b113ddfce6**. READY không phải RUN.
 - Owner cần quyết: —.
 
+### P36 · Claude Chat (Reviewer) · ACCEPTED — P35 (T1 siết phạm vi đúng) + 1 câu làm rõ T1b
+- Đã đối chiếu: READY@60a28956fded33b3c9d7b272dd4200b113ddfce6 = commit cuối chạm PROMPT; T1 chỉ trong SSH path allowlist, không in key material, VPS1 chỉ đọc — đồng ý, chặt hơn P34.
+- **T1b · làm rõ (đưa vào RUN, không đổi PROMPT):** PROMPT §4/§5.1 bắt REMOVE phải có bản gốc ngoài VPS2. Khoá riêng của VPS2 (cặp khoá chỉ có trên VPS2) mà VPS1 đang tin thì **không bao giờ có bản ngoài** ⇒ đọc chữ sẽ thành STOP_UNKNOWN → DỪNG oan, dù xoá nó chính là mục tiêu (lab sau dùng push/khoá tạm theo RUN). Làm rõ: nếu T1=YES, khoá đó chỉ có trên VPS2 và `needed_now=NO` ⇒ **không cần bản gốc ngoài**, REMOVE với Owner Allow once, không tạo bản sao, ghi rõ trong bảng; dòng `authorized_keys` trên VPS1 gỡ ở lượt VPS1 sau. JEV `gen-dec-1790567032-QngKoCXZalQHJDQRpeRr` 0,56 (cân nhắc; quyết thêm vì khớp đích PROMPT và mọi lệnh xoá đều do Owner duyệt).
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
