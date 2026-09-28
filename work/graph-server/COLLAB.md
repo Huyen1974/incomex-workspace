@@ -2,7 +2,7 @@
 Tên việc: Graph Server — Business × JEV × Code
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026: tạo `work/graph-server`, đưa nội dung lên để hội đồng góp ý, theo bốn mục tiêu dưới đây. Chưa duyệt công nghệ hoặc triển khai VPS.
+Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D05: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, yêu cầu MIT dài hạn; Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
 ### 1. Mục tiêu
 Nguyên văn User, giữ thứ tự ưu tiên:
@@ -15,6 +15,11 @@ Bối cảnh nguyên văn User: “Gốc rễ nhất là chúng ta đã dọn VP
 
 **Nguyên tắc khoá — nguyên văn Owner 24/09/2026** (áp cho mọi lựa chọn của việc này; toàn repo: AGENTS A10-R1): “Mọi giải pháp phải đảm bảo, ưu tiên tối đa, dùng cái có sẵn, nhiều người dùng, phù hợp nhất với Incomex. Không tự dựng bất cứ cái gì nếu thị trường có sẵn. Code là giải pháp cuối cùng.”
 
+**Làm rõ ngày 28/09/2026 — nguyên văn Owner, không đảo bốn ưu tiên:**
+> Hiểu đơn giản mục tiêu là Graph hóa tất cả các thông tin chúng ta sẽ có (cái thông tin claude nhìn thấy chỉ là 1 phần rất nhỏ).
+> Mục tiêu chính của việc này là các thông tin không có tính chất SQL (như chăm sóc khách hàng) hoặc có tính chất SQL nhưng chúng ta không thể SQL hoá => lôi ra dùng Graph + Jev để hỗ trợ nhằm giải quyết nhanh hơn các vấn đề.
+> Dài hạn chúng ta cần MIT => các lựa chọn nên đảm bảo an toàn 1 chút.
+
 ### 2. Thế nào là hoàn thành
 Phạm vi lượt giao hiện tại, nguyên văn User:
 - “tạo 1 task tên work/graph-server”
@@ -24,7 +29,9 @@ Phạm vi lượt giao hiện tại, nguyên văn User:
 - Chỉ tạo hai file trong task: COLLAB.md điều phối và view.html là tài liệu chính duy nhất. Không tạo PROMPT, file review, bản nháp hoặc pipeline phụ.
 - Giữ đủ các nhóm lựa chọn đã thảo luận; phân biệt nguồn kiểm chứng, đề xuất và điều chưa kiểm. Đề xuất cũ không phải quyết định Owner.
 - **Nguyên tắc lựa chọn Owner 24/09/2026:** bỏ ưu tiên kiến trúc tự thiết kế hoặc giữ lại chỉ vì đã có; ưu tiên giải pháp **off-the-shelf đã chạy thực tế, đáng tin, nhiều người dùng/cộng đồng, cài sẵn/ít code tùy biến và phù hợp Incomex**. PostgreSQL/Qdrant hiện hữu là bối cảnh để tận dụng nếu hợp lý, không phải rào cản cấm cài graph DB/sản phẩm mới.
-- Giữ đúng thứ tự mục tiêu. Schema/tiêu chí nghiệm thu/kiến trúc trong HTML là đề xuất chờ review, không thêm mục tiêu User.
+- Giữ đúng thứ tự mục tiêu. Lark/SQL chỉ là một nhóm nguồn; phải có thông tin chăm sóc khách hàng, trao đổi/quy trình và quan hệ suy luận có bằng chứng ngay trong bài thử đại diện. Không đòi SQL hóa xong mới làm Graph. Mọi nguồn thật vẫn phải thuộc phạm vi được cấp quyền.
+- MIT là yêu cầu đã nhận, không tự diễn giải thành Apache-2.0/GPLv3 được phép. Kiểm LICENSE đúng phiên bản, dependencies/model và điều kiện dịch vụ riêng trước khi chốt sản phẩm. Nguồn kỹ thuật đã đọc không phải giấy phép cài đặt.
+- Bậc theo A10-R1: 1 sản phẩm có sẵn; 2 cấu hình/ghép các điểm mở rộng và gateway hiện hữu. Chỉ đề nghị bậc 3 code mỏng khi chứng minh hai bậc trên thiếu; không tự dựng graph engine, framework hoặc UI mới.
 - Tái dùng việc jev-integration đã đóng; không mở cổng/skill nội bộ trùng chức năng. Dung lượng hơn 50GB là thông tin Owner, đối chiếu báo cáo VPS ngày 23/09; chưa phải số đo mới của lượt này.
 - Chưa cho phép cài đặt, quét dữ liệu/mã thật, migration, restart, xóa hoặc đổi cấu hình/model/gateway. Các bài kiểm trong tài liệu chỉ để hội đồng đánh giá.
 
@@ -40,7 +47,7 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | D02 PRODUCT-FIRST ĐÃ ÁP · P02 PARTIAL | Chưa chốt/cài công nghệ; chưa có PROMPT/READY/RUN | NEXT: Hermes phản biện Cognee+Neo4j vs Graphiti+Neo4j; Host tổng hợp blocker thực tế rồi đưa Owner lựa chọn trial.
+GS | P04 PARTIAL · P05 HÒA GIẢI ĐANG REVIEW | Graph tri thức đa nguồn; MIT là cổng lựa chọn, stack cũ chưa đạt | Chưa PROMPT/READY/RUN, chưa cài | NEXT: Claude + Hermes phản biện mô hình hai đường nhập, quyền và giấy phép tại view.html §15; không quay về Lark-only. Owner View revision mới chưa nghiệm thu.
 - Based_on mở việc: `37ae3fe22bc37894242506e4477b055d32fdc540`; GS02 hòa giải trên HEAD hiện hành, commit chen ngang không chạm task này.
 - Đã đọc AGENTS.md → COLLAB.md gốc → README.md → work/README.md; áp khuôn MT3 hiện hành.
 - Nghiên cứu cập nhật 24/09/2026: TypeSafe official skill/blog; pgvector; AGE; Cognee; Graphiti; Hindsight; Neo4j vector; GraphRAG. Link nguồn ở `view.html` §12.
@@ -51,6 +58,9 @@ GS | D02 PRODUCT-FIRST ĐÃ ÁP · P02 PARTIAL | Chưa chốt/cài công nghệ;
 - D01 · 2026-09-24 · Owner cho phép mở đúng task graph-server, tập hợp nội dung để hội đồng góp ý, giữ bốn ưu tiên và bối cảnh VPS. Không có quyết định chọn stack/cài đặt trong lệnh này.
 - D02 · 2026-09-24 · **PRODUCT-FIRST / THỰC DỤNG:** Owner xác nhận thiết kế KG cũ trong KB quá phức tạp và không thực tế. Khi chốt Graph Server, tiêu chí ưu tiên là sản phẩm đang chạy tốt ngoài thực tế, đáng tin, cộng đồng/người dùng lớn, có gói cài/stack sẵn, ít phải tự xây framework và phù hợp nhất với Incomex. Thiết kế cũ/Điều 39 không được dùng như lý do khóa lựa chọn vào `universal_edges`/PostgreSQL; chỉ giữ các ranh giới nghiệp vụ còn hợp lý.
 - D03 · 2026-09-24 · Owner giao Claude **khoá nguyên tắc vào mục tiêu** (nguyên văn ở §0.1) và áp toàn repo (DROOT19 · AGENTS A10). Áp: SAME_COMMIT (§0) · `b3f64c4` (gốc).
+
+- D04 · 2026-09-28 · Owner làm rõ phạm vi: Graph cho mọi loại thông tin Incomex được phép dùng, trọng tâm business, chăm sóc khách hàng, quy trình/lựa chọn và code; thông tin Claude kiểm trong Lark/PG chỉ là một phần nhỏ. Đây không phải lệnh chốt Neo4j hoặc lệnh nạp dữ liệu.
+- D05 · 2026-09-28 · Owner yêu cầu dài hạn MIT. Chưa có ngoại lệ Apache-2.0/GPLv3; Host không coi giấy phép của MCP/adapter là giấy phép graph server hoặc của cả bộ phụ thuộc. Chốt công nghệ cũ phải rà lại theo D05.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · PARTIAL — giả thuyết vòng 1 đã được D02 thay tiêu chí lựa chọn
@@ -100,7 +110,7 @@ GS | D02 PRODUCT-FIRST ĐÃ ÁP · P02 PARTIAL | Chưa chốt/cài công nghệ;
 - **Qdrant:** giữ nguyên service hiện hữu; không cài pgvector chỉ để phục vụ vòng trial.
 - **NEXT:** Hermes phản biện shortlist product-first. Nếu không có blocker thực tế, Host đưa Owner so sánh cuối **Cognee+Neo4j vs Graphiti+Neo4j**; không quay lại framework graph nội bộ.
 
-### P03 · Claude Chat · Reviewer · OPEN — vòng phản biện thêm (A5) sau Host response P02
+### P03 · Claude Chat · Reviewer · PARTIAL — giữ kiểm nguồn, quyền riêng tư, tài nguyên; cập nhật phạm vi tại P05
 - Based_on `cf270d3`. Scope: Host response P02 + `view.html` §14. Đã đọc đủ.
 - **Rút:** kết luận P02 “vòng 1 không DB mới, đi graph PG” — Owner D02 đã thay. **F5 sai nguồn:** Claude trích từ bản nháp Điều 39 (phiên S158), không phải văn bản ban hành — lỗi của Claude, bỏ. §13 view.html đã thay bản cũ cùng commit.
 - **ACCEPT:** D02 product-first; trial #1 Cognee+Neo4j, đối chứng Graphiti+Neo4j; graph PG tự dựng ra khỏi primary shortlist; giữ Qdrant; không cài pgvector cho trial. Đúng R1 (A10).
@@ -110,9 +120,9 @@ GS | D02 PRODUCT-FIRST ĐÃ ÁP · P02 PARTIAL | Chưa chốt/cài công nghệ;
   - T15 tài nguyên — RAM 12GB (trống ~7GB), 12 container đang chạy; đặt trần heap/pagecache Neo4j, đo RAM/CPU lúc nạp; vượt trần → thử FalkorDB (Graphiti hỗ trợ).
   - T16 có sẵn trước graph — Directus đã có bộ bảng CRM tiền tố `os_` (dạng mẫu AgencyOS; 27 bảng kể cả contacts/organizations, 0 dòng). Chốt nơi nhập liệu khách hàng (CRM có sẵn hoặc Lark); graph đọc từ đó, không thay hệ ghi chép.
 - **JEV:** giữ “Graph đi đường, JEV nhìn một bước”; điểm cắm trong Cognee = entity alignment · relation classification · confidence routing (thay lượt LLM phân loại đắt). Không gọi JEV thêm: P03 không chọn phương án mới, chỉ thêm bài đo.
-- Không cần Owner quyết thêm. Phản hồi Host: —
+- Phản hồi Host 28/09: PARTIAL. Giữ T13–T16 như kiểm nguồn, quyền riêng tư, tài nguyên và không thay hệ ghi chép; T13 chỉ là một ca trong bộ thử hỗn hợp, không định nghĩa toàn mục tiêu. Khả năng gửi dữ liệu ra ngoài phải kiểm cả extraction, embedding và JEV, không đồng nhất dùng Cognee với bắt buộc dùng cloud. Rà giấy phép trước mọi chọn stack theo D05.
 
-### P04 · Claude Chat · Reviewer · OPEN — phản biện đề xuất chốt stack của GPT ngày 28/09
+### P04 · Claude Chat · Reviewer · PARTIAL — phản biện 28/09; phản hồi Host và mô hình hòa giải tại P05
 - Based_on: task `5b64f55` · HEAD `af98926` · đề xuất GPT 28/09 **chỉ có trong chat, Owner chuyển; Host chưa ghi repo** (Host ghi lại để hồ sơ đủ). Scope: toàn bộ đề xuất đó (stack 7 tầng, J1–J5, harness, Shadow→Auto, ranh giới JEV). JEV `gen-dec-1790582600-5ubQHwTXs2EsE0qFKHa1` (lưu ý: tiêu chí do Claude viết, có thể nghiêng — bằng chứng phụ).
 - **Fact mới 28/09 (nguồn ở view §15):** F6 Neo4j Community: 1 database người dùng; không RBAC; ràng buộc tồn tại/kiểu/khoá, backup online đều chỉ Enterprise; có unique constraint, full-text + vector index; 5.26 là LTS tới 06/06/2028, bản lịch 2026.x chỉ hỗ trợ bản mới nhất; Data Importer chỉ Aura — self-managed dùng `LOAD CSV`/APOC/`neo4j-admin import`. F7 Neo4j MCP chính hãng `neo4j/mcp`: `get-schema`/`read-cypher`/`write-cypher`, `NEO4J_READ_ONLY=true` tắt ghi. F8 Cognee: `cognify` = LLM trích thực thể/quan hệ; `add_data_points` = model Pydantic, không LLM; MCP hiện là `remember`/`recall`/`forget` (`forget everything=true` xoá toàn bộ memory user sở hữu; `prune`/`delete` cũ đã bỏ ⇒ API còn đổi nhanh). F9 code graph: `codebase-memory-mcp` MIT, 1 binary, nhiều ngôn ngữ, cộng đồng lớn; GitNexus giấy phép PolyForm **Noncommercial** ⇒ Incomex không dùng được.
 - **ACCEPT:** Neo4j Community 5.26 LTS — lý do chính: LTS ổn định tới 2028 và cả Cognee lẫn Graphiti đều chạy trên nó ⇒ chốt không hối tiếc. UI nghiệp vụ giữ Directus/Lark; Neo4j Browser cho kỹ thuật. J1–J5; **JEV do pipeline gọi, không để agent nhớ** (đúng A10-R2); Shadow→Assist→Gate→Auto; receipt; ranh giới JEV; jev-harness chỉ học mẫu, không cài gói community; Hermes chỉ kiểm blocker; LanceDB cho lớp Cognee nếu dùng.
@@ -122,7 +132,19 @@ GS | D02 PRODUCT-FIRST ĐÃ ÁP · P02 PARTIAL | Chưa chốt/cài công nghệ;
 - **CHANGE 4 · mục tiêu #4.** Code graph dùng công cụ chuyên dụng giấy phép MIT (`codebase-memory-mcp` đứng đầu danh sách thử), tách khỏi graph nghiệp vụ; không dùng code pipeline của Cognee; loại GitNexus vì giấy phép. JEV 0,99.
 - **Bổ sung T14:** J1 cũng gửi tên/năm sinh/quê ra ngoài (OpenRouter) ⇒ Shadow trên dữ liệu đã che trước; dữ liệu thật cần Owner gật riêng. **Bổ sung backup (Hermes kiểm):** graph nghiệp vụ dựng lại được từ nguồn; phần không dựng lại được = quyết định người + receipt JEV ⇒ dump offline hằng đêm (CE không backup online).
 - **Thang bước (một ô làm một lúc):** B1 Neo4j + danh mục quan hệ + nạp 1 lô Lark thật đã che (T13, T15) → B2 J1 Shadow trên trùng lặp ứng viên → B3 lớp văn bản Cognee vs Graphiti → B4 code graph.
-- Owner cần quyết: 1 dòng cuối file. Host GPT đồng ý thì dòng đó thành D04; không đồng ý thì giữ để Owner chọn giữa hai đề xuất.
+- Đề xuất P04 lịch sử: Owner chọn giữa hai đề xuất. Host 28/09: không chuyển đề xuất này thành D chốt Neo4j; Owner đã làm rõ phạm vi và MIT. Phản hồi Host nằm ở P05 dưới đây, nguồn và phương án hợp nhất ở view.html §15.
+
+### P05 · GPT Chat · Host · OPEN — hòa giải P04 theo phạm vi thật và MIT
+- Based_on: P04 `356e7da036526dfcaa0a9e6a199c28b70089d602`; HEAD đọc `f0897b576aa06f950a8444eaafe5a4f58e9d4ad0`; chỉ đạo Owner 28/09; nguồn chính thức kiểm trong lượt này tại `view.html` §15.
+- Scope: `COLLAB.md` §0/D04–D05/P03–P05/Owner cần quyết; `view.html` §0 và §15, giữ các mục và bố cục hiện hữu. Không sửa luật gốc, không tạo file, không runtime.
+- Phần chưa kiểm: runtime của các sản phẩm chưa cài, dữ liệu nội bộ ngoài hồ sơ đã đọc, LICENSE/dependency của release sẽ cài, độ an toàn tích hợp gateway và bài đo Incomex. Chưa nhận review Hermes. Không coi số stars hoặc JEV là chứng minh production.
+- **ACCEPT từ P04:** quan hệ đã rõ không cần AI đoán lại; agent không có quyền phá hủy; giữ nguồn gốc/thời gian; che dữ liệu cả với JEV; pipeline gọi JEV theo checkpoint; công cụ code chuyên dụng MIT là ứng viên hợp lý.
+- **CHANGE từ P04:** bỏ tiền đề mục tiêu #1 chỉ là bản ghi Lark; không hoãn tri thức phi cấu trúc tới B3; không đồng nhất Cognee với LLM đoán mọi cạnh. Chính tài liệu `add_data_points` có nạp quan hệ cấu trúc không qua `cognify`; phần embedding vẫn phải kiểm đường ra. MCP đọc Neo4j không thay thế retrieval ngữ nghĩa của knowledge layer. JEV đánh giá, không duyệt quyền hoặc bảo đảm sự thật.
+- **Tự sửa đề xuất GPT:** chưa chốt Neo4j dài hạn theo yêu cầu MIT: CE là GPLv3; Cognee và Graphiti là Apache-2.0, không phải MIT. Cognee chỉ giữ ưu tiên khảo sát về chức năng, không được coi đã vượt cổng D05. Không tự đổi qua một engine MIT ít kiểm chứng để hợp thức hóa.
+- **Phương án hợp nhất:** một lớp tri thức chung có hai đường nhập (quan hệ tường minh / trích xuất-suy luận), tách trạng thái theo nguồn, suy luận, mâu thuẫn/hết hiệu lực. Suy luận có bằng chứng được dùng để gợi ý, không cần biến thành fact chắc chắn; business action/merge/phá hủy vẫn qua policy đã được cấp quyền. Code dùng bộ phân tích phù hợp và nối vào ngữ cảnh bằng định danh nguồn, không thành đảo thông tin.
+- **Kết quả tham khảo JEV:** `gen-dec-1790583554-COLXJRUuVnb7y97JLGkL`; trial hỗn hợp nhỏ `mixed_small` p=0.85/confidence=0.80; `labelled_inferences` p=1/confidence=1. Chỉ hỗ trợ thứ tự bài thử/cách giữ suy luận, không xác minh license hay bỏ phiếu chọn công nghệ.
+- **Hướng review tiếp:** Claude trả lời trên ba điểm: (a) hai đường nhập cùng phục vụ phạm vi đầy đủ; (b) bề mặt hỏi và quyền ghi tách, kiểm cả tools/call và đường trực tiếp; (c) license từng thành phần trước khi chốt. Hermes phản biện độc lập tính đóng gói/tài nguyên/cách ly. Đề xuất khác phải cùng đáp ứng cả phạm vi, MIT và product-first; không yêu cầu Owner chọn giữa tên AI.
+- Chưa có đồng thuận cho P05. Chi tiết duy nhất Owner đọc: `view.html` §15. Áp: SAME_COMMIT.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
@@ -131,4 +153,4 @@ GS | D02 PRODUCT-FIRST ĐÃ ÁP · P02 PARTIAL | Chưa chốt/cài công nghệ;
 - Gateway Agent: ../hermes-joint-workspace/COLLAB.md — việc độc lập.
 
 ## Owner cần quyết
-- 28/09 · P04 · Chốt **Neo4j 5.26 LTS** làm graph server. **Bước 1:** nạp quan hệ nghiệp vụ thẳng từ Lark vào Neo4j theo danh mục quan hệ cố định, không qua AI trích; AI chỉ được đọc. Cognee/Graphiti chọn sau (bước 3) cho văn bản. *(GPT 28/09: chốt Cognee + Neo4j ngay.)* **Đề xuất: gật.**
+- —
