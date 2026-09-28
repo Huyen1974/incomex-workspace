@@ -254,3 +254,18 @@ Chi phí provider trả: lượt 1 USD 0.000230244; lượt 2 USD 0.000851886; t
 ### NEXT · đúng một batch đề xuất
 
 **Host chốt một batch thí điểm CHUNG.TIM + MOW.TAO/LAP/KHAI/SUA/CHAY, ràng buộc đích tìm và gọi/nhận kết quả con.** Kiểm chứng trên **một ca MOW có quy trình con**: tìm đúng catalog theo loại/phạm vi/version; phân biệt definition–chỗ gắn–nhu cầu con; gọi khuôn con có sẵn; nêu output/đường quay về; giữ liên kết khi sửa và xử lý MOW lồng. Giữ mã/tên, Host chốt nội dung/version ở CAT-003; C nhận bước ứng viên có nguồn. Batch thí điểm không mặc nhiên giải quyết mọi gap FIELD/FORM/MOT hoặc cả 39. Không tự B02/triển khai đề xuất sau KQ.
+
+
+## KQ · MMIM-LANE-B02-20260928-01 · Codex · 28/09/2026
+
+KQ@MMIM-LANE-B02-20260928-01 DỪNG
+KQ@LANE-B B02 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · contract_process=0/12 · mapped_C01=25/25 (chuẩn bị, chưa ghi canonical) · NEXT=Host xử lý tương thích A02/dot-walk rồi phát RUN B02 mới
+
+**B02 dừng trước mutation canonical vì hai bộ kiểm hiện hành đòi khuôn HTML trái nhau.** `ban-duyet.html` giữ SHA256 `ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7`; không ghi Step/UI/CAT-004 hay file ngoài lane-b/COLLAB.
+
+- Gate trước mutation: PASS, `CHUNG.APQUYTRINH`, process=39. Đã đối chiếu C01 và chuẩn bị contract cho đúng 12 process của D61, 15 bước 👤 trực tiếp, truy được đủ 25/25 instance qua bước trực tiếp hoặc lời gọi `CHUNG.*`/`MOT.CHAY`. Đây là bản chuẩn bị trong bộ nhớ, **chưa áp vào nguồn chuẩn**.
+- Khóa bước dự kiến: `CHUNG.TIM.S01`, `CHUNG.NEU.S01`, `CHUNG.DUYET.S02`, `CHUNG.BAT.S01`; `MOW.TAO.S05/S06/S07`, `MOW.LAP.S03`, `MOW.KHAI.S01`, `MOW.SUA.S05/S08`, `MOW.CHAY.S07`; `MOT.CHAY.S03/S04/S08`. `CHUNG.NGUNG` và `MOW.XOA` không có bước 👤 trực tiếp. Quyền là class trừu tượng, NT05/NT03 binding vẫn OPEN.
+- Thử bản có thuộc tính contract trên `div` ôm đoạn định nghĩa: `dot-walk-check` exit 0, 39 process, 62 bước 👤, 0 lỗi; gate E1 PASS. Nhưng A02 `--audit-contracts` trả PASS giả với **contract_processes=0, contract_human_steps=0** vì parser chỉ lấy attrs từ `p`.
+- Thử bản có thuộc tính trên `p`: A02 audit PASS thật **12 process/15 bước 👤**, gate E1 PASS/39; nhưng `dot-walk-check` exit 1, chỉ thấy **27 process** vì regex đòi đúng `<p><b>MÃ</b>`. Các quy trình khác gọi 12 mã này bị báo thiếu. Hai thử nghiệm chạy trên snapshot tạm, không ghi canonical.
+- Chưa thể đồng thời đạt acceptance `dot-walk-check exit 0` và audit A02 nhận 12/15 trong write scope B02. Không dùng bản audit PASS 0/0 làm bằng chứng. Cách giải quyết thuộc vòng được Host cho phép: A02 đọc attrs của wrapper gắn đúng một `p`, hoặc nâng `dot-walk-check` để nhận attrs trên `p`; sau đó chạy lại B02. B02 không tự sửa gate/tool.
+- Contract CHUNG.TIM đã chuẩn bị: input `target_catalog_code · object_type · query/name/meaning/label · scope/status/version tùy chọn`; output `FOUND_EXACT|FOUND_CANDIDATES|NOT_FOUND|SEARCH_INCOMPLETE` cùng candidate id/version và coverage/evidence; `NOT_FOUND` chỉ khi coverage đủ, `SEARCH_INCOMPLETE` không suy ra tạo mới, tất cả trả caller. Điều này **chưa thành nguồn chuẩn**.
