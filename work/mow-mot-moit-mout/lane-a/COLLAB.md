@@ -13,7 +13,8 @@ A02 nâng process-gate để kiểm được contract metadata của Human Step 
 - Canonical Process: `../ban-duyet.html#ml5-cho-ai`.
 - Tool source: `../cong-cu/dot-process-gate.py`.
 - A02 chỉ sửa tool + COLLAB lane A.
-- KQ mới nhất: **A03 XONG · chờ Host nghiệm thu để phát B02R1**, bằng chứng A02/A03 bên dưới.
+- KQ mới nhất: **A03 XONG · B02R1 đã XONG; Host mở A04 chỉ để dứt điểm 5 List Master.**
+- A04 verdict Host: MOW✓ · MOT✓ · MOIT✓ baseline · MOUT✓ baseline · FIELD◐; phải đưa row/detail schema + evidence vào Master of Master, không chỉ tên/link.
 - A03: sửa duy nhất `dot-walk-check` để chấp nhận process attrs trên `p`; canonical READ-ONLY.
 - HOST GATE · PASS · PROCESS=`CHUNG.APQUYTRINH` · catalog=`ba8096abf853e721f460c990667a59db379ccc9aca8347aa16dade4f1601a4a7` · prompt=`7e2a3446298e206c2e649445d2fe5cd30d22737e8cf5dac55b2c79e16ce9ad53`.
 - READY@f69af7bbacd92b3c46bbcb873059054a83ab655a · RUN_ID `MMIM-LANE-A03-20260928-01`.
