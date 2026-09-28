@@ -1,210 +1,338 @@
-# PROMPT — VPSUP VPS2-TRUST-CLOSE · đóng đường tin cậy bền trước Clone CURRENT
+# PROMPT — VPSUP CLONE CURRENT · dựng parity clone CURRENT cô lập trên VPS2
 
-RUN_ID: VPSUP-VPS2-TRUST-CLOSE-20260928-01
+RUN_ID: VPSUP-CLONE-CURRENT-20260928-01
 STATUS: Chỉ thực thi sau khi COLLAB có READY đúng SHA commit cuối chạm file này và Owner/GPT Host phát RUN.
 Host: GPT Chat · GPT-VPSUP-20260926-A
+Host_Revision: VPSUP-P38-CLONE-CURRENT
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
-Runtime_Write_Path: SSH/operator hiện hữu tới VPS2; VPS1 chỉ read-check nếu cần.
-Runtime VPS là SSOT. Không có fallback Directus/PG mutation.
+Runtime_Write_Path: Mac Owner điều phối SSH read từ VPS1 + mutation chỉ trên VPS2; VPS1 chỉ tạo/stream snapshot read-only cần thiết, không restart/recreate/config mutation.
+Runtime VPS1/VPS2 là SSOT trạng thái thực.
+Directus/PG mutation trên clone vẫn = **DOT-only**.
 
 ## 0. Mục tiêu duy nhất
 
-Đóng **mục D** còn lại của FREEZE/MINLAB trước Clone CURRENT:
+Dựng **CURRENT parity clone** đủ thật trên VPS2 để làm baseline cho nâng cấp, nhưng không biến VPS2 thành production thứ hai.
 
-1. Kiểm đúng các **đường/reference outbound trust đã giới hạn** trên VPS2, chỉ metadata/path/type, tuyệt đối không đọc/in giá trị secret.
-2. Gỡ khỏi VPS2 những credential/trust bền đã chứng minh:
-   - không còn cần cho host/lab cơ bản;
-   - có source-of-truth/copy quản trị ở ngoài VPS2;
-   - nếu VPS2 bị chiếm, credential đó có thể dùng để chạm VPS1/Drive/Secret Manager/GitHub/cloud.
-3. Giữ inbound SSH quản trị của Owner/Mac.
-4. Không quét credential toàn filesystem; không mở rộng sang hardening khác.
-5. Nhóm dọn 5 ≈0,62 GiB = **SKIP BY HOST**, không làm trong RUN này.
+Clone phải giữ:
+1. **Dữ liệu/business semantics thật:** DB `directus`, DB `incomex_metadata`, Qdrant business collections, Directus files/uploads và `/opt/incomex/data` business files.
+2. **CURRENT runtime thật:** exact image ID/digest + version của PostgreSQL, Directus, Nuxt/Node image, nginx, Qdrant và agent-data cần cho lát cắt parity.
+3. **Config/permission/Flow/extension/source-lock thật** ở mức cần chứng minh migration.
+4. Một **SAME SLICE cố định** được chạy trên CURRENT và giữ nguyên expected cho TARGET sau.
 
-Đích: trước khi đặt clone production lên VPS2, host lab không còn persistent outbound credential/trust có thể quay ngược sang hệ chính.
+Clone **không được mang**:
+- credential production có thể dùng lại với VPS1/Drive/GitHub/Telegram/OpenAI/GSM/rclone/cloud;
+- static token Directus production;
+- Directus `KEY/SECRET` production;
+- session/login credential production;
+- Hermes/Kuma/backup production/git-push/singleton side effect;
+- `directus_gov_test_20260602` (TEST-DERIVED);
+- DB `workflow` (DEFAULT/rỗng) và `postgres` ngoài DB mặc định container, trừ khi PRE chứng minh runtime hiện hành thực sự tham chiếu;
+- `workspace-tools/queue.sqlite` live ledger — clone tạo ledger lab mới, không copy trạng thái execution production.
+
+Đích cuối RUN: **G2 CURRENT parity PASS** hoặc DỪNG với gap chính xác; chưa nâng bất kỳ version nào.
 
 ## 1. Read gate / collision gate
 
 1. `fs_stat work/vps1-up-grade/COLLAB.md`.
-2. Đọc: `AGENTS.md` → task COLLAB (§0, D22–D23, FREEZE KQ, P30–P34) → PROMPT này → view.html §9.
+2. Đọc: `AGENTS.md` → task COLLAB §0 + P01–P07 phần parity/test + G0 KQ + BK1 KQ + FREEZE/TRUST-CLOSE KQ + P30–P38 → PROMPT này → view.html §7–§9.
 3. READY phải khớp commit cuối chạm PROMPT.
-4. Xác minh FREEZE phần A/A2b/B/C vẫn giữ:
-   - app/PHP/MySQL/queue stopped/no-autostart;
-   - static page GDDH 200;
+4. Xác minh `G1 PASS` tại KQ TRUST-CLOSE; VPS2 vẫn:
+   - e-learning app/PHP/MySQL/queue stopped/no-autostart;
+   - static `elearning.*` 200;
    - 3307/8080 không listener;
-   - volume/data/backup nguyên;
    - swap 4 GiB;
-   - disk free vẫn đủ lab.
-5. Xác minh không có executor/RUN khác đang mutation VPS2. Có ⇒ DỪNG.
-6. AD1-FIX gen2 đang chạy nền trên VPS1:
+   - ≥ khoảng 70 GiB free;
+   - outbound trust candidate = 0.
+5. Xác minh không có executor/RUN khác đang mutation VPS2 hoặc cùng Docker storage. Có ⇒ DỪNG.
+6. AD1-FIX gen2 trên VPS1:
    - không gọi Guard/ruleset;
    - không restart/mutate `agent-data`/`claude-mcp`;
-   - không sửa Kuma/AD1 watcher.
-7. Repo/version conflict tạm thời: re-read/diff; task path không đổi thì retry. Runtime conflict tuyệt đối không tự vượt.
+   - không sửa Kuma/watcher.
+7. Repo/version conflict tạm thời ⇒ re-read/diff; task path không đổi thì retry. Runtime conflict tuyệt đối không tự vượt.
+8. Nếu PRE phát hiện disk free <45 GiB hoặc swap <4 GiB trước khi clone ⇒ DỪNG, không tự cleanup thêm.
 
-## 2. Permission rule của client — KHÔNG mở rộng
+## 2. Luật cô lập trước mọi dữ liệu production
 
-Claude Code auto-mode có thể chặn bước audit với nhãn `Credential Exploration`.
+**Không boot bất kỳ container clone nào trước khi S1–S4 PASS.**
 
-- **Không** thêm permission rule Bash rộng/toàn cục.
-- **Không** tắt cơ chế an toàn của client.
-- Nếu client chặn một lệnh metadata-only đã đúng allowlist dưới đây, hoặc đúng phép T1 chỉ **suy public fingerprint từ private key đã biết path mà không in key material**, chuyển sang chế độ approval bình thường và yêu cầu Owner **Allow once** cho đúng lệnh đó.
-- Không yêu cầu Owner tự chạy shell bằng `!`.
-- Không gộp thêm lệnh đọc secret/value vào cùng approval.
-- Không `cat`/in private key; T1 chỉ được để công cụ đọc nội bộ và xuất fingerprint.
-- Nếu không thể có approval một lần cho metadata-only/T1 inspection đúng allowlist ⇒ DỪNG, không lách.
+### S1 · Namespace riêng
+- Dùng compose/project/volume/network tên riêng có prefix rõ, ví dụ `vpsup-current-*`; tuyệt đối không dùng tên/volume e-learning.
+- Không overwrite source/config/volume e-learning.
+- Không bind public `0.0.0.0`/`[::]`.
+- Chỉ một cổng HTTP clone được publish nếu cần test UI, bind **127.0.0.1** (ví dụ `127.0.0.1:<lab-port>`); mọi DB/API backend chỉ Docker internal.
+- Truy cập từ Mac qua SSH tunnel hoặc SSH local forwarding.
 
-## 3. Audit allowlist — chỉ metadata/reference, không value
+### S2 · Egress fail-closed
+- Tạo network/subnet riêng cho clone và chặn egress của clone **trước first boot** bằng cơ chế Docker/firewall hiện hữu.
+- Cho phép traffic nội bộ giữa container clone.
+- Không allow internet chỉ vì tiện test.
+- Nếu cần load image/package, làm ở **staging trước boot** bằng image tar/source đã duyệt; không mở egress cho runtime clone.
+- Negative control trước boot: một container probe cùng network không được đi tới internet/GitHub/Telegram/Google.
+- Không làm thay đổi rule phục vụ e-learning static/SSH.
 
-Không `find /` hay grep toàn filesystem cho từ khóa secret/token/password.
+### S3 · Không mang secret production
+- Không copy `.env` production nguyên xi.
+- Không dump/in env value production.
+- Clone chỉ dùng **lab-only random secrets** không hợp lệ trên VPS1, root-owned 0600, không commit/log.
+- Directus lab `KEY/SECRET`, DB password, API token phải khác production.
+- Telegram/GitHub/OpenAI/Agent-data/rclone/GSM/cloud credential = absent/blank/dummy non-routable.
+- Nếu một service không thể khởi động nếu thiếu external secret, không được lấy secret prod; ghi GAP và chỉ chạy phần local-safe.
 
-Chỉ được kiểm các bề mặt chuẩn sau:
+### S4 · Sanitize DB trước first boot — DOT-only
+Trước khi Directus/agent-data clone boot:
+- Restore DB clone vào PostgreSQL lab đang cô lập.
+- Tìm DOT hiện hữu phù hợp; nếu thiếu capability, tạo **một DOT hẹp tự mô tả** theo DROOT27, dry-run mặc định, allowlist đúng container/DB lab.
+- DOT sanitize clone tối thiểu:
+  - `directus_users.token`: vô hiệu toàn bộ token production;
+  - session/refresh/login state có thể dùng lại: xoá/vô hiệu trong clone;
+  - không mang credential máy production;
+  - nếu cần một API identity để test agent-data/REST, tạo **lab-only token mới** chỉ trong clone, không trùng prod;
+  - nếu cần UI Directus ở G2, dùng credential lab-only; không đưa Owner password production vào VPS2.
+- Sanitize phải có BEFORE/AFTER count/hash metadata, không in secret.
+- Nếu không chứng minh token/session production đã vô hiệu **trước first boot** ⇒ DỪNG.
 
-### A. SSH outbound
-- `/root/.ssh/` và home của service user thực có trên VPS2.
-- Chỉ liệt kê: tên file, loại file, owner/mode, public-key fingerprint nếu suy được từ private key **mà không in private material**.
-- `authorized_keys` = inbound management, **KEEP**.
-- Private key outbound chỉ là candidate nếu config/known_hosts/ssh config/service reference chứng minh được dùng ra ngoài **hoặc T1 chứng minh VPS1 đang trust public key tương ứng**.
+## 3. Nguồn clone — FULL BUSINESS DATA, không copy rác test
 
-### T1. Đối chiếu trust trực tiếp VPS2 → VPS1 — READ-ONLY
-- Chỉ áp với **private key đã phát hiện trong các SSH path allowlist ở mục A**; không mở rộng thành tìm private key trên toàn VPS2.
-- Với từng key đó, suy public fingerprint nội bộ mà **không in private/public key material**.
-- Trên VPS1 chỉ đọc fingerprint của các dòng `authorized_keys` thuộc `root` và service user có SSH login thực tế; không sửa file, không in raw key.
-- So sánh và ghi đúng một kết luận tổng: `VPS1_TRUSTS_VPS2_KEY=YES|NO` + candidate ID tương ứng nếu YES.
-- Nếu `YES` và private key tương ứng **vẫn còn trên VPS2** ⇒ candidate đó không được `KEEP_JUSTIFIED`; phải `REMOVE` an toàn hoặc `STOP_UNKNOWN`. G1 **không PASS** khi key có thể pivot vẫn còn trên VPS2.
-- Nếu `YES` nhưng private key tương ứng đã `REMOVE` khỏi VPS2 trong RUN này ⇒ G1 có thể PASS; ghi follow-up VPS1 để xoá dòng `authorized_keys` cũ ở lượt VPS1 sau. **Không sửa VPS1 trong RUN này.**
-- Nếu key cần passphrase/agent state để suy fingerprint mà không thể làm an toàn ⇒ `STOP_UNKNOWN`, không xin/đọc passphrase.
+### A · PostgreSQL
+Clone:
+- `directus` — full schema + business/config/policy/Flow state.
+- `incomex_metadata` — full BUSINESS.
+Không clone:
+- `directus_gov_test_20260602` — TEST-DERIVED.
+- `workflow` — DEFAULT/rỗng 0 bảng, trừ khi PRE tìm thấy runtime reference thật.
+- `postgres` — dùng DB mặc định mới của container.
 
-### B. rclone / Drive
-- Chỉ kiểm **sự tồn tại + path + owner/mode + tên remote**, không in token/config value:
-  - `/root/.config/rclone/rclone.conf`
-  - path rclone config được service/cron hiện hữu tham chiếu nếu khác.
-- Không gọi remote API chỉ để audit credential.
+Cách lấy:
+- Fresh consistent `pg_dump` read-only từ VPS1; stream qua Mac sang VPS2 hoặc staging ngắn trên Mac/VPS2.
+- Không đưa password/role hash production vào clone.
+- Giữ owner/ACL semantics bằng **lab roles cùng tên cần thiết nhưng lab password khác**, tạo qua DOT; không copy role password hash prod.
+- Ghi source snapshot timestamp + row/schema manifest.
 
-### C. Google/GSM
-- Chỉ kiểm existence/path/type của:
-  - Google ADC/service-account file path được env/systemd/compose hiện hữu tham chiếu;
-  - `/root/.config/gcloud/` hoặc `/root/.config/google-cloud-sdk/` nếu có.
-- Không in JSON/key/client_secret/access_token/refresh_token.
+### B · Qdrant
+- Dùng snapshot business mới nhất hiện hữu ≤24h nếu đủ collection; ưu tiên snapshot job sẵn có.
+- Nếu không có snapshot đủ mới/đủ collection, được tạo snapshot bằng cơ chế Qdrant native đã dùng trong backup; không đổi collection data.
+- Clone tất cả collection runtime BUSINESS, không chỉ `production_documents` nếu G0/runtime chứng minh collection khác đang được caller dùng.
+- Ghi collection list + vector/point count trước/sau.
 
-### D. GitHub
-- Chỉ kiểm private key/PAT/file path được git remote, ssh config, cron/systemd/compose hiện hữu trên VPS2 tham chiếu.
-- Không đọc PAT/token value; không gọi GitHub để “test” credential.
+### C · Files
+- Directus files/uploads đúng mount live.
+- `/opt/incomex/data` business files.
+- **Exclude `workspace-tools/queue.sqlite` và WAL/SHM của nó**; đây là lifecycle ledger runtime, clone khởi tạo mới.
+- Exclude temp/cache/log/backup/mission evidence.
+- Manifest path/type/size/checksum trước/sau; không in nội dung business.
 
-### E. VPS1 / cloud / app outbound
-- Chỉ đọc **env var names + referenced file paths** từ compose/systemd/cron/config đang chạy hoặc giữ cho lab.
-- Các tên cần nhận diện: VPS1 SSH/key path, Secret Manager credential path, cloud service-account path, GitHub/rclone path.
-- Không `cat` file secret, không dump environment values, không `set`, không `/proc/*/environ`.
+### D · Config/runtime assets
+Mang cấu trúc cần chạy CURRENT:
+- compose/config **không secret**;
+- nginx config;
+- Directus extension/hook `l2-checkpoint-guard`;
+- exact Nuxt/current build image + build/source-lock/commit reference cần cho target sau;
+- config Qdrant/agent-data ở mức không secret.
+Không mang:
+- production `.env`;
+- Telegram/Kuma/Hermes/GitHub/backup credential/config;
+- unrelated service runtime.
 
-## 4. Phân loại
+## 4. Exact CURRENT images — ưu tiên reuse/stream, không pull tag trôi
 
-Mỗi candidate chỉ ghi:
+CURRENT phải khớp production tại snapshot:
+- PostgreSQL 16.13;
+- Directus 11.5.1 (DB migration level hiện tại phải được ghi riêng);
+- Qdrant 1.16.3;
+- Nuxt 3.20.2 / Node 20.20 exact current image;
+- nginx 1.29.5 exact current image;
+- agent-data exact image digest/StartedAt generation hiện hành nếu đưa vào chain.
 
-`ID | type | path | owner/mode | referenced_by | destination_class | source_of_truth_outside_VPS2=YES|NO|UNKNOWN | needed_now=YES|NO | decision`
+Luật:
+- Nếu VPS2 đã có image đúng digest ⇒ reuse.
+- Nếu thiếu ⇒ ưu tiên `docker save` exact image từ VPS1 → stream qua Mac → `docker load` VPS2.
+- Không cho VPS2 giữ SSH key tới VPS1.
+- Không `docker pull <floating-tag>` để dựng CURRENT.
+- Ghi table `component | VPS1 image_id/digest | VPS2 image_id/digest | MATCH`.
 
-Decision:
-- `KEEP_INBOUND`: inbound SSH Owner/Mac.
-- `REMOVE`: outbound credential bền, không cần, và **hoặc** SoT ngoài VPS2 = YES **hoặc** thuộc ngoại lệ T1b `RETIRE_LOCAL_ONLY_KEY` dưới đây.
-- `KEEP_JUSTIFIED`: thật sự cần cho host basic operation; phải ghi lý do cụ thể.
-- `STOP_UNKNOWN`: SoT hoặc dependency mơ hồ ⇒ không xóa, KQ DỪNG cho mục D.
+Nếu không thể có exact image cho core `postgres/directus/nuxt/nginx/qdrant` ⇒ DỪNG G2.
 
-Không ghi fingerprint đầy đủ nếu không cần; rút gọn đủ đối chiếu.
+## 5. Compose CURRENT tối thiểu
 
-## 5. Gỡ trust — chỉ exact candidate
+Dựng tuần tự, không chạy CURRENT/TARGET song song:
+- postgres;
+- directus;
+- qdrant;
+- nuxt;
+- nginx;
+- agent-data nếu có thể chạy local-safe với lab-only identity.
 
-Chỉ với `REMOVE`:
+Không dựng:
+- Hermes;
+- claude-mcp/claude-kb;
+- cowork-*;
+- JEV;
+- Kuma;
+- backup cron;
+- production mail/bot/webhook consumers;
+- production GitHub writer.
 
-1. Mặc định phải chứng minh source-of-truth/copy quản trị ngoài VPS2 trước khi xóa.
-   - **Ngoại lệ T1b · `RETIRE_LOCAL_ONLY_KEY`:** chỉ áp cho private key trong SSH allowlist khi T1=YES, key đó được xác định là cặp khoá riêng của VPS2, `needed_now=NO`, không phải inbound management, không có service/config/job còn phụ thuộc, và mục tiêu là chấm dứt hẳn khả năng VPS2 SSH vào VPS1. Trường hợp này **không cần** SoT ngoài VPS2 và **không được tạo bản sao mới** chỉ để rollback; xóa là retire có chủ đích, phải Owner `Allow once`, ghi rõ `RETIRE_LOCAL_ONLY_KEY` trong bảng.
-   - Nếu chưa chứng minh được đủ tất cả điều kiện T1b ⇒ không dùng ngoại lệ; quay về SoT=YES hoặc `STOP_UNKNOWN`.
-2. Chụp metadata + sha256 **nếu việc hash không đọc/in secret ra output**; không tạo thêm bản sao secret. Với `RETIRE_LOCAL_ONLY_KEY`, chỉ giữ metadata/fingerprint rút gọn, không backup private key.
-3. Xóa đúng file/config credential hoặc bỏ đúng reference.
-4. Verify:
-   - path/reference không còn;
-   - inbound SSH Owner/Mac vẫn hoạt động;
-   - static GDDH vẫn 200;
-   - e-learning app vẫn stopped;
-   - 3307/8080 vẫn không listener.
-5. Không revoke credential ở provider trong RUN này trừ khi PROMPT nói rõ — mục tiêu là VPS2 không giữ copy. Provider-side revoke thuộc task nguồn nếu credential đó còn được dùng nơi khác.
+Nginx clone:
+- dùng config parity nhưng publish localhost only;
+- các route tới service cố ý không dựng phải có disposition cố định (ví dụ EXPECTED_NOT_IN_CLONE), không “sửa config cho xanh”.
 
-Nếu removal ảnh hưởng host/lab basic operation ⇒ rollback reference từ source-of-truth chỉ khi cần, rồi DỪNG. Riêng `RETIRE_LOCAL_ONLY_KEY` không có rollback key theo thiết kế; vì vậy phải chứng minh `needed_now=NO` + không dependency **trước** khi xin Owner Allow once.
+Directus Flow:
+- giữ Flow rows/status để parity schema/config;
+- egress đã block cứng nên request/webhook ra ngoài không thoát;
+- không sửa hàng loạt Flow chỉ để lab yên.
+- Nếu schedule local làm thay đổi business table trước khi baseline xong, DỪNG và dùng native supported suppression nếu đã được chứng minh; không direct SQL tắt Flow hàng loạt.
 
-## 6. Những thứ KHÔNG làm
+## 6. Agent-data / local consumer
 
-- Không xoá nhóm dọn 5.
-- Không dọn thêm disk/cache/image.
-- Không rotate/nâng MySQL.
-- Không sửa IPv6.
-- Không sửa static page/Caddy trừ rollback nếu regression.
-- Không reboot.
-- Không clone CURRENT.
-- Không copy secret mới vào VPS2.
-- Không tạo service/port/user/key mới.
-- Không sửa backup BK1.
-- Không xử lý `queue.sqlite` trong RUN này.
-- Không triển khai busy lease mới.
+Mục tiêu là chứng minh caller chính vẫn nói chuyện được với CURRENT clone mà không mang secret production.
 
-## 7. Acceptance G1
+- Reuse exact agent-data image nếu khả thi.
+- Mọi Directus/API credential = lab-only token tạo trong clone.
+- DB/Directus URL trỏ clone internal.
+- External GitHub/model/Telegram/Drive/GSM = disabled/blank; egress bị chặn.
+- `queue.sqlite` lab = file mới/ledger mới, không copy production.
+- Chạy tối thiểu:
+  - health/read local;
+  - 1 read Directus clone;
+  - 1 read `incomex_metadata` qua đường được phép;
+  - 1 write vào **record test cô lập** qua DOT/API path được duyệt, rồi cleanup qua cùng đường.
+- Nếu image hiện tại không thể start local-safe mà không có external prod secret ⇒ ghi `GAP-AD`, không lấy secret prod. G2 chỉ PASS nếu Host/test matrix chứng minh GAP này không làm sai kết luận migration CURRENT; nếu không ⇒ DỪNG.
 
-G1 PASS khi:
-- FREEZE invariants vẫn PASS;
-- VPS2 đủ disk/swap cho lab;
-- audit allowlist hoàn tất mà không đọc/in secret value;
-- tất cả persistent outbound credential/trust candidate đã:
-  - REMOVE an toàn theo SoT=YES, hoặc
-  - REMOVE theo T1b `RETIRE_LOCAL_ONLY_KEY` đủ gate + Owner Allow once, hoặc
-  - KEEP_JUSTIFIED với lý do không cho phép pivot sang VPS1/Drive/Secret Manager/GitHub;
-- không còn `STOP_UNKNOWN`;
-- inbound SSH Owner/Mac còn hoạt động;
-- T1 đã ghi `VPS1_TRUSTS_VPS2_KEY=YES|NO`; nếu YES thì không còn matching private key trên VPS2 trước khi PASS;
-- 0 VPS1 mutation;
-- 0 agent-data/claude-mcp restart/mutation;
-- không gọi Guard/ruleset;
-- nhóm dọn 5 SKIP không ảnh hưởng PASS.
+## 7. SAME SLICE CURRENT — cố định expected cho TARGET
 
-Nếu có `STOP_UNKNOWN` ⇒ KQ DỪNG, không Clone CURRENT.
+Ưu tiên reuse Playwright/curl/test asset hiện hữu. Chỉ viết script mỏng trong runtime dossier nếu không có cái sẵn; không mở framework test mới.
 
-## 8. Đầu vào khóa cho Clone CURRENT
+Lưu runtime dossier:
+`/opt/incomex/work/vps1-up-grade/CLONE-CURRENT-20260928/`
 
-Nếu G1 PASS, ghi rõ vào COLLAB:
+### A · Route
+Từ nginx live/source config sinh danh sách host/location cần parity.
+Trên clone localhost + Host header:
+- status;
+- redirect;
+- cookie/header quan trọng;
+- content marker.
+Bao gồm ít nhất:
+- `vps.*`;
+- `directus.*`;
+- `ops.*`;
+- `giaoduc.*`;
+- Knowledge/Reports/Registries;
+- `/ui-preview/`;
+- route API/Directus chính.
+Route tới service cố ý không dựng: ghi expected disposition, không coi 502 là PASS ngầm.
 
-Clone CURRENT **bắt buộc**:
-- chỉ bind `127.0.0.1`/internal; truy cập bằng SSH tunnel;
-- chặn outbound của clone trước boot;
-- không chép Telegram/GitHub/OpenAI/Agent-data/rclone/GSM credential production;
-- Directus `KEY/SECRET` khác production;
-- static token trong `directus_users.token` của clone phải vô hiệu/đổi trước boot;
-- singleton/cron/Flow webhook/request/backup-retention/Hermes/Kuma/git-push = disabled trước boot;
-- dữ liệu production có thể clone, nhưng **credential production không được clone**.
+### B · Data
+So source snapshot ↔ clone:
+- `directus`: schema/object counts + row counts business tables; loại riêng volatile/audit/session và sanitization delta đã biết.
+- `incomex_metadata`: schema + row counts/checksum metadata.
+- Qdrant: collection + point/vector count.
+- files: manifest checksum.
+Không yêu cầu clone = live VPS1 tại thời điểm POST; so với **snapshot timestamp**.
 
-## 9. Report
+### C · UI
+Qua SSH tunnel/localhost:
+- Nuxt shell;
+- Knowledge;
+- Reports;
+- Registries;
+- GDĐH `giaoduc` + iframe e-learning static;
+- `/ui-preview/`.
+Chụp screenshot/HTTP evidence trong runtime dossier.
+Directus admin:
+- ít nhất login page/render;
+- nếu lab-only admin credential được tạo an toàn qua DOT/native wrapped path thì test login; nếu không, ghi disposition chứ không dùng prod credential.
+
+### D · Consumer/local runtime
+- Directus REST local read + write test record;
+- DOT/PG local read;
+- agent-data local smoke nếu §6 PASS;
+- backup/Kuma/Hermes/GitHub/Telegram **không chạy**; chỉ xác minh chúng không được đưa vào clone.
+
+### SEC · Isolation negative controls
+Sau khi clone chạy:
+- từ clone container: GitHub/Telegram/Google/public internet = FAIL;
+- public internet/Mac trực tiếp tới lab published port = FAIL nếu không qua SSH tunnel;
+- Mac qua SSH tunnel → clone nginx = PASS;
+- không có production secret file/reference trong compose/env allowlist;
+- static token prod count in clone = 0;
+- e-learning static public vẫn 200;
+- VPS1 health không đổi.
+
+## 8. G2 PASS
+
+G2 `CURRENT parity` PASS khi:
+1. Exact CURRENT core image digests MATCH.
+2. Source snapshot → clone data/config/files match theo §7-B sau known sanitization.
+3. Clone boot local-only; 0 public exposure; egress negative controls PASS.
+4. 0 credential production trên clone; Directus tokens/sessions sanitized trước first boot.
+5. Route/UI/current slice A–D/SEC không còn diff migration-critical chưa disposition.
+6. E-learning FREEZE/static invariants vẫn nguyên.
+7. VPS1: 0 restart/recreate/config mutation; business data chỉ read/snapshot.
+8. Disk VPS2 sau clone còn ≥25 GiB free; swap 4 GiB.
+9. CURRENT baseline dossier + exact manifests đủ để TARGET chạy **cùng expected**.
+10. Sau baseline: stop CURRENT containers để tiết kiệm RAM; giữ volumes/checkpoint/manifests. Không xoá clone.
+
+DỪNG nếu:
+- first boot xảy ra trước S1–S4 PASS;
+- phát hiện prod token/secret đã sang VPS2;
+- clone có public ingress hoặc egress;
+- exact core image không khớp;
+- restore/data manifest lệch không giải thích được;
+- service gây side effect thật;
+- VPS1 bị mutation ngoài snapshot/read-only;
+- disk <25 GiB sau clone;
+- có active executor conflict.
+
+## 9. Checkpoint để TARGET dùng tiếp
+
+Trước khi kết thúc XONG:
+- lưu exact current image/digest table;
+- config/source-lock hashes;
+- DB snapshot timestamp + manifests;
+- Qdrant snapshot/count;
+- file manifest;
+- sanitization manifest;
+- isolation/firewall manifest;
+- SAME SLICE expected/results CURRENT;
+- rollback/remove instructions cho clone namespace;
+- list delta `VPS1_AFTER_CLONE` = các thay đổi production phát sinh sau snapshot (ban đầu có thể rỗng; không giả định sẽ luôn rỗng).
+
+Không tạo production secret copy.
+
+## 10. Report
 
 Không tạo repo file mới.
 
 ### `COLLAB.md`
 - Dòng hiện hành;
-- `KQ@VPSUP-VPS2-TRUST-CLOSE-20260928-01 XONG|DỪNG`;
-- bảng candidate chỉ path/type/reference/decision, không secret; candidate T1b phải ghi `RETIRE_LOCAL_ONLY_KEY` + `needed_now=NO`;
-- T1: `VPS1_TRUSTS_VPS2_KEY=YES|NO`; nếu YES ghi candidate đã REMOVE và follow-up VPS1, không in raw key;
-- nếu XONG: `G1 PASS · NEXT Clone CURRENT`.
+- `KQ@VPSUP-CLONE-CURRENT-20260928-01 XONG|DỪNG`;
+- nếu XONG: `G2 CURRENT PARITY PASS · NEXT G3 TARGET STACK`;
+- tóm tắt snapshot, exact images, sanitization, isolation, A–D/SEC, disk.
 
 ### `view.html`
-Cập nhật khối FREEZE/MINLAB:
-- A/B/C ACCEPTED;
-- group 5 = SKIP BY HOST;
-- D TRUST-CLOSE PASS|STOP;
-- số candidate remove/keep/unknown;
-- NEXT Clone CURRENT nếu G1 PASS.
+Thêm/cập nhật khối CURRENT parity:
+- source snapshot → clone;
+- components/images MATCH;
+- data/config/files;
+- isolation;
+- SAME SLICE A–D/SEC;
+- G2 PASS/DỪNG;
+- NEXT = G3 chốt exact target versions/digests.
 
 Commit:
-`[Claude Code] VPSUP-VPS2-TRUST-CLOSE · đóng outbound trust trước clone`
+`[Claude Code] VPSUP-CLONE-CURRENT · dựng CURRENT parity cô lập`
 
 Kết thúc Owner đúng một dòng:
 `XONG` hoặc `DỪNG — <lý do>`.
 
-## 10. Sau RUN — không làm
+## 11. Sau RUN — không làm
 
-Nếu XONG/G1 PASS: Host mới phát Clone CURRENT.
-Nếu DỪNG: Host xử lý đúng candidate UNKNOWN; không quay lại cleanup VPS2.
+Không nâng PostgreSQL/Directus/Nuxt/Node/Qdrant trong RUN này.
+Không lấy OIG key/activate Directus 12.
+Không dựng TARGET.
+Không cutover VPS1.
+Không bật lại e-learning app.
 
-Không tự nhảy bước.
+Nếu G2 PASS: Host mới phát G3 chốt target stack từ nguồn hiện hành rồi mới nâng lab.
