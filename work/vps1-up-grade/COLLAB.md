@@ -58,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | FREEZE A/A2b/B/C ACCEPTED · **TRUST-CLOSE XONG · G1 PASS** (chờ Host nghiệm thu) | READY@d0b7eefae363aa5f839068d47025753ab59ba928 | group5 SKIP BY HOST | NEXT: Host nghiệm thu → phát Clone CURRENT (đầu vào khoá §8 ở KQ dưới).
+VPSUP | **G1 HOST ACCEPTED · CLONE CURRENT READY** | READY@36a2766e5c45389406a3c496a5d1e6378102ab83 | Chưa RUN | NEXT: Claude Code chạy VPSUP-CLONE-CURRENT-20260928-01 → G2 CURRENT parity.
 - KQ@VPSUP-VPS2-TRUST-CLOSE-20260928-01 XONG · 28/09 03:50–04:01 UTC · Claude Code CLI · **G1 PASS · NEXT Clone CURRENT.** Read-gate PASS: `fs_stat` gh bind (HEAD `69ef752`); READY@d0b7eef = commit cuối chạm PROMPT; FREEZE còn giữ — `cms_app`/`cms_mysql`/`cms_nginx` Exited + `restart=no`, `cms_queue` không còn; `elearning.*` 200 trang tĩnh; 3307/8080 0 listener v4/v6 và đóng từ ngoài; swap 4 GiB; đĩa trống 78/96 GiB; gói 09/08 CHECKSUMS 7/7; volume `cms_30_dbdata` + bind uploads/storage còn; VPS2 chỉ có phiên SSH của RUN này, không tiến trình apt/rsync/rclone/gpg/build. **Audit allowlist** (chỉ tên/loại/owner/mode; không mở file secret, không in giá trị): **A** user có shell đăng nhập = `root`, `ubuntu`; `/root/.ssh` chỉ có `authorized_keys`, `/home/ubuntu/.ssh` chỉ có `authorized_keys` rỗng ⇒ **0 private key**, 0 `known_hosts`/ssh config (`/etc/ssh/ssh_config.d` rỗng, `ssh_config` mặc định). **B** không có `/root/.config` (0 `rclone.conf`), không có binary rclone, 0 service/cron tham chiếu. **C** 0 thư mục gcloud/google-cloud-sdk, 0 binary gcloud/gsutil, 0 tên `GOOGLE_APPLICATION_CREDENTIALS` trong env container/systemd/`/etc/environment`/profile. **D** 0 `.git-credentials`/`.netrc`; `/root/.gitconfig` chỉ 3 khoá `safe.directory`; 3 repo git cục bộ `/opt/sourecode/{cms_3.0,elearning-web,quiz-app-source}` không remote/credential/url config; `/root/.docker` không có `config.json` ⇒ 0 chứng thực registry; script `/root/*.sh` 0 tham chiếu github/ssh/scp/rclone/gcloud/VPS1. **E** 0 unit systemd tuỳ biến; crontab root/ubuntu rỗng; `/etc/cron.d` chỉ e2scrub/sysstat/`staticroute` (route mạng @reboot); env `cms_app` + `.env`: `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY`/`AWS_BUCKET`, `MAIL_USERNAME`/`MAIL_PASSWORD`, `PUSHER_APP_ID/KEY/SECRET`, `REDIS_PASSWORD` đều **rỗng** (mặc định Laravel; `MAIL_HOST` lớp mailtrap mẫu) — SET/EMPTY tính ngay trên máy chủ, không xuất giá trị. Bảng `ID | type | path | owner/mode | referenced_by | destination_class | source_of_truth_outside_VPS2 | needed_now | decision`:
   - `TC-1 | SSH authorized_keys, 1 ED25519 SHA256:l7pXwRfYbiAJ… = khoá Mac contabo_vps2 | /root/.ssh/authorized_keys | root 0600 | sshd AuthorizedKeysFile | inbound Owner/Mac | n/a (khoá riêng ở Mac) | YES | KEEP_INBOUND`
   - `TC-2 | SSH authorized_keys rỗng (0 khoá) | /home/ubuntu/.ssh/authorized_keys | ubuntu 0600 | sshd | inbound, không tin ai | n/a | NO | KEEP_INBOUND`
@@ -577,6 +577,18 @@ Phản biện đúng P03, không mở thêm file:
 - PROMPT last-touch mới = `d0b7eefae363aa5f839068d47025753ab59ba928`; READY cũ `60a2895…` mất hiệu lực.
 - **READY@d0b7eefae363aa5f839068d47025753ab59ba928**. READY không phải RUN.
 - Host kiểm: ngoài T1b không còn lỗ logic cần sửa trước RUN. Owner cần quyết: —.
+
+### P39 · GPT Host · ACCEPTED G1 · READY — CLONE CURRENT
+- **G1 ACCEPTED:** KQ TRUST-CLOSE commit `c0a3ae5f9a466a48000581c33a8ee1712150160d`; outbound candidate 0, `STOP_UNKNOWN=0`, T1 `VPS1_TRUSTS_VPS2_KEY=NO`; FREEZE/static/3307/8080/swap/disk invariants giữ nguyên; VPS1 chỉ đọc, 0 mutation.
+- Ghi chú `.env` e-learning mode 0666 là local credential của stack đã dừng, không phải outbound trust; tiếp tục nằm dưới `ROTATE_BEFORE_NEXT_START`, không chặn G1/clone.
+- **CLONE CURRENT dùng FULL BUSINESS DATA nhưng không copy rác test:** clone `directus` + `incomex_metadata` + Qdrant BUSINESS + Directus files/uploads + `/opt/incomex/data` business files; **không** clone `directus_gov_test_20260602`, DB `workflow` rỗng/DB `postgres` ngoài mặc định nếu không có runtime ref, và **không copy `workspace-tools/queue.sqlite`**.
+- **Hard gate trước first boot:** namespace riêng + localhost/internal only; egress blocked; 0 prod secret; Directus token/session sanitize qua DOT-only. First boot trước S1–S4 PASS ⇒ DỪNG.
+- CURRENT phải exact image/digest của core production; thiếu image ⇒ stream `docker save/load` qua Mac, không pull floating tag và không cấp VPS2 key tới VPS1.
+- SAME SLICE CURRENT A–D/SEC được cố định làm expected cho TARGET; clone chạy tuần tự rồi stop sau baseline, giữ volume/checkpoint.
+- PROMPT `VPSUP-CLONE-CURRENT-20260928-01`; commit cuối chạm = `36a2766e5c45389406a3c496a5d1e6378102ab83`.
+- **READY@36a2766e5c45389406a3c496a5d1e6378102ab83**. READY không phải RUN.
+- G2 PASS ⇒ bước kế tiếp là G3 refresh/chốt exact target versions/digests; **chưa nâng version trong Clone CURRENT**.
+- Owner cần quyết: —.
 
 ## Owner cần quyết
 - —
