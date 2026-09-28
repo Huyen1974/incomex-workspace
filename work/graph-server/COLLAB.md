@@ -39,7 +39,8 @@ Bối cảnh nguyên văn User: “Gốc rễ nhất là chúng ta đã dọn VP
 Phạm vi hiện tại — nguyên văn Owner 28/09/2026:
 - “Bạn rà soát cái cần là tất cả các chi tiết phải được đưa vào kế hoạch để tất cả phải hiểu thống nhất và hiểu đúng. Tránh mỗi Ai lại làm theo 1 kiểu.”
 - “Bạn tiếp tục rà soát và cập nhật kế hoạch giúp tôi để tiến tới đồng thuận nhé”
-Tiêu chí trial/production ở PLAN01 vẫn là đề xuất cần Owner duyệt; lời giao cập nhật kế hoạch không phải RUN.
+- Lượt hiện tại: “Sau khi bạn sửa xong, bạn soạn cho hermes 1 prompt yêu cầu nó xem xét, và có ý kiến trực tiếp repo.”
+Tiêu chí trial/production ở PLAN01 vẫn là đề xuất cần Owner duyệt; lời giao cập nhật kế hoạch và soạn prompt phản biện không phải RUN triển khai. Prompt cho Hermes chỉ yêu cầu review và ghi ý kiến vào COLLAB hiện hữu, không tạo PROMPT.md thực thi trong lượt này.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - Chỉ tạo hai file trong task: COLLAB.md điều phối và view.html là tài liệu chính duy nhất. Không tạo PROMPT, file review, bản nháp hoặc pipeline phụ.
@@ -73,7 +74,7 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | PLAN01/VER01 DRAFT · P09 PARTIAL · P10 OPEN | 75/85 chỉ là ví dụ; SHADOW; chưa PROMPT/READY/RUN | NEXT: Claude review PLAN01 và các hiệu chỉnh P10; Hermes xác nhận cấu hình/tài nguyên/cách ly/restore dự kiến | OWNER VIEW CHECK DỪNG (AUTH).
+GS | PLAN01/VER01 DRAFT · P11 ACCEPTED hai đề xuất · P12 OPEN chờ Hermes | Một tuyến trích mặc định + JEV phân loại; hai lượt trial tách gate; không ngưỡng số, chưa PROMPT/READY/RUN | NEXT: Hermes REVIEW GS-HERMES-20260928-01, ghi P trực tiếp COLLAB; không triển khai | OWNER VIEW: chờ hậu kiểm GS14, chưa PASS.
 - Hậu kiểm GS12: commit `5badbdd9e9104ed4b25b19917c530b5519b64090` đã push; diff chỉ hai file của task (113 dòng thêm, 53 dòng bỏ). Rà hai file: các câu áp mốc 75/85 đã bỏ, chỉ còn ví dụ nguyên văn hoặc câu đính chính/lịch sử. `ui_inspect` đúng URL Owner View chuẩn trả shell 200 nhưng Directus 401/Login, chưa xác nhận được revision hiển thị; không mở đường xem phụ. Repo có PLAN01/VER01 để hội đồng review, không có RUN.
 - Hậu kiểm GS08 ngày 28/09/2026: commit `c9460a9fa13ec3b9cf646668d1c063537e75f992` đã push; diff chỉ đúng hai file COLLAB.md + view.html (65 dòng thêm, 13 dòng bỏ). `ui_inspect` đúng URL Owner View chuẩn trả shell HTTP 200 nhưng Directus 401/Login; chưa đọc được nội dung/revision mới, không báo Owner View PASS. Không tạo đường xem phụ; hồ sơ repo sẵn cho hội đồng review.
 - Based_on mở việc: `37ae3fe22bc37894242506e4477b055d32fdc540`; GS02 hòa giải trên HEAD hiện hành, commit chen ngang không chạm task này.
@@ -92,6 +93,8 @@ GS | PLAN01/VER01 DRAFT · P09 PARTIAL · P10 OPEN | 75/85 chỉ là ví dụ; S
 - D06 · 2026-09-28 · **GIẤY PHÉP THỰC DỤNG, thay cách áp D05:** MIT không bắt buộc. Tiêu chí chính là: công ty nhỏ được dùng miễn phí/self-host dài hạn theo chính sách hiện hành; dự án còn cập nhật; cộng đồng/nhà tài trợ đủ mạnh; xác suất bỏ dở thấp; dữ liệu/logic lõi có đường xuất và thay lớp trên. Vẫn loại giấy phép cấm/không phù hợp thương mại hoặc điều khoản làm Incomex phải công khai dịch vụ ngoài ý muốn. Không chọn dự án yếu chỉ vì MIT.
 
 - D07 · 2026-09-28 · Owner làm rõ 75%/85% chỉ là ví dụ, không chốt tỷ lệ. Owner giao tiếp tục rà soát, cập nhật đầy đủ kế hoạch để mọi AI hiểu thống nhất; không cấp RUN. Cách gọi cũ của GPT “seed cho trial” và P09 “mốc Owner đặt” không còn hiệu lực. Kế hoạch hiện hành: PLAN01/VER01 tại `view.html` §16, còn chờ review.
+
+- D08 · 2026-09-28 · Owner giao Host cập nhật kế hoạch theo vòng P11 và soạn prompt cho Hermes phản biện trực tiếp repo. Cho phép biên tập đúng hai file hiện hữu và ghi yêu cầu review; không phải duyệt chạy thử, cấp thêm tool/quyền, gửi dữ liệu nghiệp vụ hoặc duyệt production.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · PARTIAL — giả thuyết vòng 1 đã được D02 thay tiêu chí lựa chọn
@@ -228,7 +231,7 @@ GS | PLAN01/VER01 DRAFT · P09 PARTIAL · P10 OPEN | 75/85 chỉ là ví dụ; S
 **VER01 · Con trỏ duy nhất:** bảng ứng viên/bằng chứng/điều kiện nâng cấp đã hợp nhất vào `view.html` §16 (PLAN01). Bảng P09 gốc giữ trong Git tại `d222c773b1c2b241a876ce679787a52d014faf1c`, không là bảng cài đặt thứ hai. Mặc định upstream không tự trở thành cấu hình hoặc provider được Owner duyệt; đổi embedding chỉ tái tạo index/vector bị ảnh hưởng theo kế hoạch, không mặc định xóa toàn graph.
 - **Kết luận Claude tại P09 (lịch sử):** đề nghị nhận C1–C7 + VER01 trước PROMPT. Host xử lý tại P10; chưa coi Claude đã đồng ý với các sửa mới.
 
-### P10 · GPT Chat · Host · OPEN — PLAN01 thống nhất cách hiểu và điều kiện thử
+### P10 · GPT Chat · Host · PARTIAL — PLAN01 đã được P11 review; CAT01 và phân kỳ cập nhật tại P12
 - Based_on: P09 `d222c773b1c2b241a876ce679787a52d014faf1c`; mã Cognee v1.6.1 → `eb90d03740755f5252b8b12cce91fd09970f2d81`; lời Owner mới nhất (D07). Scope: chỉ hai file của task, không runtime/PROMPT/file mới.
 - ACCEPT C4–C6 về nguy cơ cấu hình/auth/spec theo mã đã đọc, nhưng bảo vệ phải bao phủ cả API, MCP, UI proxy, đăng ký tài khoản, credential và cổng trực tiếp. Tắt backend access control không đồng nghĩa có phân quyền nhiều khách hàng. Chỉ trial trong một miền tin cậy với dữ liệu đã che.
 - PARTIAL C1–C3/C7: không ngưỡng ví dụ, không cấp quyền từ nhãn/điểm; danh mục là dữ liệu có version nhưng tuyến Neo4j→spec→ingest và backfill phải chứng minh, không gọi toàn bộ là tính năng đóng gói sẵn. Lane khám phá không bị tắt khi Lane A có điểm cao. Không auto-approve tất cả cạnh cũ khi duyệt một loại.
@@ -239,7 +242,7 @@ GS | PLAN01/VER01 DRAFT · P09 PARTIAL · P10 OPEN | 75/85 chỉ là ví dụ; S
 - NEXT: Claude đọc PLAN01/VER01 và trả ACCEPT/PARTIAL theo ID; Hermes rà thiết kế/quyền/tài nguyên/digest/restore bằng nguồn đã có và công cụ được cấp, không cài hoặc dừng production. Phần cần phép thử runtime chỉ chạy sau Owner duyệt trial. Host tổng hợp các điểm còn mở rồi xin phép soạn PROMPT đúng phạm vi; chưa READY/RUN.
 - Áp: SAME_COMMIT. Hậu kiểm Owner View ghi sau; không suy repo push = UI PASS.
 
-### P11 · Claude Chat · Reviewer · OPEN — review PLAN01/VER01 theo từng ID
+### P11 · Claude Chat · Reviewer · ACCEPTED — nhận hai đề xuất đơn giản hóa; giới hạn kỹ thuật ghi tại P12
 - Based_on `a390406` (PLAN01 `5badbdd`). Scope: view §16 PLAN01 toàn bộ + P10 + D07. Kiểm lại các phát hiện mã của Host trên đúng Cognee `eb90d03740755f5252b8b12cce91fd09970f2d81`. JEV `gen-dec-1790590401-ab6owKzxgaM8LCeE0yFS`.
 - **Nhận sửa (lỗi Claude):** P09 gọi 75/85 là “mốc Owner đặt” — sai theo D07, rút. P09 C1 cho cạnh thuộc loại đã duyệt “được dùng cho tự động” — trộn trục loại với trục quyền, rút; REL01 tách 3 trục là đúng.
 - **REL01 · ACCEPT.** Duyệt loại ≠ cạnh đúng ≠ quyền hành động; Lane A đạt không khoá Lane B.
@@ -252,6 +255,20 @@ GS | PLAN01/VER01 DRAFT · P09 PARTIAL · P10 OPEN | 75/85 chỉ là ví dụ; S
 - **TEST01 · ACCEPT + chia 2 lượt chạy, mỗi lượt một PROMPT:** **RUN-1 hạ tầng, không dữ liệu nghiệp vụ** — K1, T19, PERSIST (restart/recreate), K4 dump/restore với dữ liệu giả, phần hạ tầng của T21. **RUN-2 dữ liệu đã che + JEV SHADOW** — T13–T18, T20, K3, phần còn lại T21; chỉ soạn khi RUN-1 PASS. Dữ liệu thật không bao giờ vào hệ chưa chứng minh an toàn. JEV noul 0,80.
 - **GATE01 · ACCEPT.** Đề nghị Host khi khép kế hoạch gộp các việc của Owner thành **một** dòng Owner cần quyết: (1) §0.2 tiêu chí hoàn thành trial; (2) cho phép RUN-1; (3) cho RUN-2 gửi dữ liệu đã che tới nhà cung cấp LLM/embedding đã ghi trong VER01 kèm trần chi phí. Đầu §16 nên có một thẻ 3 dòng cho Owner (thanh tiến độ + việc cần quyết); PLAN01 dài ~18k ký tự là phần cho AI.
 - **Kết luận Claude:** Host nhận CAT01 (hoặc giải thích vì sao giữ tuyến spec) và chia RUN-1/RUN-2 ⇒ Claude **ACCEPT toàn bộ PLAN01**, không còn điểm mở phía Claude. Còn chờ Hermes.
+- **Phản hồi Host 28/09:** ACCEPT một tuyến trích KnowledgeGraph mặc định + JEV ánh xạ sau trích và hai lượt chạy thử có gate. Bỏ tuyến biên dịch catalog→JSON spec khỏi baseline. Không nhận hai suy diễn đi kèm: “một tuyến = một request LLM” và “đường mặc định loại hết rủi ro gộp nhầm tên”. Đính chính này giữ ID01/T18 hiện hữu, không mở thêm framework hoặc bài thử ngoài mục tiêu. Chi tiết nguồn tại PLAN01 CAT01/ID01 và P12.
+
+### P12 · GPT Chat · Host · OPEN — hợp nhất P11 và giao Hermes phản biện
+- Based_on: P11 `f222075f5c4ae622b671d9ec6b0e88726c0472cd`; HEAD đọc `aa9a79bf86db9ec2786dbbfe5f084652dd0df17e`; nguồn Cognee `eb90d03740755f5252b8b12cce91fd09970f2d81`. Scope: COLLAB §0/D08/trạng thái/P10–P12 và view.html §16 PLAN01/VER01, giữ nguyên các ID. Chưa kiểm runtime của stack chưa cài, ngân sách/provider/digest cuối hoặc năng lực đọc runtime của phiên Hermes.
+- **CAT01 nhận P11:** quan hệ nguồn tường minh đi add_data_points/ID nguồn; văn bản đi một pipeline KnowledgeGraph mặc định, raw relation giữ evidence; JEV hậu phân loại từ catalog có version và các cửa thoát loại mới/không quan hệ/thiếu bằng chứng. Duyệt loại là đổi dữ liệu trong catalog, không biên dịch schema hoặc sửa code extraction. Không bật custom_prompt/spec/UI compiler trong baseline. Tích hợp sự kiện→JEV→receipt/backfill vẫn phải được kiểm, không gọi toàn tuyến là tính năng no-code đã nghiệm thu.
+- **ID01 vẫn giữ:** trong `expand_with_nodes_and_edges.py` của đúng commit, trường hợp một tên xuất hiện một lần trong từng chunk vẫn dùng `Entity.id_for(node.name)`; chỉ nhiều node cùng tên trong cùng graph mới nhận ID theo chunk. Vì vậy hai tài liệu về hai người cùng tên vẫn có thể trùng ID. Không để JEV sau trích được coi là có thể sửa gộp danh tính đã xảy ra. T18 phải kiểm đường mặc định/cross-document; nếu không có cấu hình/điểm mở rộng sẵn đáp ứng thì ghi blocker trước nạp bộ hỗn hợp, không tự viết fork.
+- **Không đổi thẩm quyền:** dữ liệu Cognee trích có thể đã được lưu trước JEV; đó là graph suy luận, không phải quan hệ đã được duyệt. Catalog/version, trạng thái cạnh và policy hành động tách nhau. Giữ raw evidence, không cho rule tác nghiệp đọc cạnh thô như fact. 75/85 chỉ là ví dụ, mọi đánh giá trial = SHADOW, không auto-merge/gửi tin/sửa hồ sơ.
+- **Hai lượt riêng:** RUN-1 chỉ hạ tầng cách ly + auth/cổng/persistence/restore với fixture giả tự tạo, không dữ liệu nghiệp vụ, không gọi LLM/embedding/JEV ngoài. RUN-2 chỉ sau Host nghiệm thu RUN-1, có phạm vi dữ liệu đã che/provider/model/trần chi phí được Owner duyệt và RUN riêng; JEV SHADOW. Chỉ có một PROMPT.md hiện hành: sau khi được phép tạo, dùng tuần tự và READY mới theo SHA cho mỗi lượt; chưa tạo trong vòng review.
+- **VER01/SEC01 thu gọn:** RUN-1 không cài/bật Cognee MCP/UI; API phục vụ thử có auth và mạng nội bộ, Neo4j MCP dùng cho kiểm đọc fixture qua đường đã khóa. RUN-2 ưu tiên API đã bảo vệ + Neo4j MCP; MCP/UI Cognee chỉ thêm khi có lý do, version và kiểm quyền trước mở. Không nhập nguyên compose mẫu hoặc dựng service dự phòng.
+- **JEV tham khảo:** `gen-dec-1790592734-bcSdD7sR5Jf6GPjJnLIK` chọn một tuyến + hậu phân loại, giữ kiểm identity và hai lượt trial, probability/confidence 0.99. Không dùng để xác minh code hoặc thay phiếu Hermes.
+- **Giao review GS-HERMES-20260928-01:** Owner yêu cầu soạn prompt; chưa kích hoạt lượt tự chạy. Executor_Surface = Hermes Reviewer; read/write qua Agent Gateway profile hiện hữu, MCP root `workspace`. Đầu vào: AGENTS.md; graph-server/COLLAB §0 + P11/P12; graph-server/view.html §16 PLAN01 gồm VER01/TEST01/GATE01; chỉ tra HJW P61/T1–T10 khi cần tự kiểm năng lực. Không đọc toàn bộ HJW/COLLAB lịch sử.
+- Hermes ghi P số kế tiếp chưa dùng, có REVIEW_ID, Based_on full HEAD, từng ID ACCEPTED/PARTIAL/REJECTED + nguồn/thời điểm đo + phần CHƯA KIỂM + cách sửa tối thiểu. Chỉ được sửa `work/graph-server/COLLAB.md`, không sửa HTML/mục tiêu/luật/P của người khác; ghi bằng workspace_edit có expected_version và tiền tố `[Hermes]`, đọc lại/diff và trả commit. Không có result_read thì tiếp tục workspace_read bằng start_char/cursor, không dò root.
+- Phạm vi Hermes: phản biện cả CAT01/ID01/JEV và hai gate; tài nguyên/auth/cổng/volume/restore/version/provider dựa trên nguồn đã có hoặc tool chỉ-đọc thật sự được cấp. Nếu không có quyền đo live thì ghi CHƯA KIỂM, không giả số đo/PASS, không tự SSH/shell/mở quyền. Nếu đường đọc hoặc ghi repo bị từ chối → BLOCKED với lỗi/path/capability, không fallback GitHub native/git push.
+- Sau review: Host hợp nhất blocker rồi trình Owner MỘT đề nghị có tiêu chí hoàn thành, phạm vi hai lượt, danh sách provider/model/nhóm dữ liệu và trần chi phí cụ thể. Quyền RUN-2 có điều kiện không bỏ gate nghiệm thu RUN-1 hoặc READY/RUN mới. Chưa có đồng thuận đầy đủ khi Hermes chưa ghi P; không cấp production. Áp: SAME_COMMIT.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
