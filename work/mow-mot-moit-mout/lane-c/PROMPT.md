@@ -1,87 +1,65 @@
-# PROMPT — LANE C01 · MOW Human Step → UI
+# PROMPT — LANE C02 · Chốt MOW Human Step unique + UI unique
 
-RUN_ID: MMIM-LANE-C01-20260928-01
+RUN_ID: MMIM-LANE-C02-20260928-01
 PROCESS: VEUI.MOW
 STATUS: Chỉ chạy sau PROCESS_GATE PASS + READY của Host.
 
 Host: GPT Chat · Host_ID `GPT-MMIM-260920-A`
-Executor: Codex
-Write scope: chỉ `work/mow-mot-moit-mout/lane-c/COLLAB.md`.
-Canonical parent + VPS UI: READ-ONLY.
+Executor_Surface: Codex
+Write_Path: chỉ `work/mow-mot-moit-mout/lane-c/COLLAB.md`.
+Canonical + root ui READ-ONLY.
 
-## 0. Gate
-Đọc `AGENTS.md` → parent `COLLAB.md` D36/D46/D56–D59 → lane-c/COLLAB.md → file này.
-Đọc:
-- `../ban-duyet.html#ml5-cho-ai`: MOW.TAO/LAP/KHAI/SUA/XOA/CHAY + CHUNG.* mà chúng gọi.
-- CAT-004 Step + UI catalog/parent standards trong ban-duyet.
-- MOM04 KQ: 16 UI xanh + 470 requirements/5 pilot; 470 chỉ là evidence.
-- UI xanh thực của MOW: Kanban UI-005 · Master UI-001 · Góp ý UI-004; phụ thuộc UI MOT/MOIT/MOUT chỉ đọc khi process MOW thật sự gọi tới.
+## 0. Concurrency
+RUN song song A/B/C. Chỉ ghi lane-c/COLLAB.
+Nếu HEAD đổi do lane khác, re-read lane-c version + sources liên quan.
+B03 bị cấm đổi 12 contract B02R1; nếu hash/contract của 12 process đó đổi thì DỪNG CONFLICT, nếu không thì tiếp tục.
 
-Trước mutation lane-c/COLLAB:
-`python3 ../cong-cu/dot-process-gate.py --prompt PROMPT.md --catalog ../ban-duyet.html --json`.
-FAIL → KQ DỪNG.
+## 1. Nguồn bắt buộc
+- C01 25 Human Step instances.
+- B02R1 map 25/25 → 15 direct step-key/contract source.
+- canonical 12 process contract-v1.
+- UI xanh/baseline thật: UI-001/004/005 + dependency UI-010/029/011/012 và các parent standards cần cho chữ ký.
+- A04 List metadata chỉ tham khảo, không dùng để suy Step.
 
-## 1. Chỉ làm MOW
-Đi bộ 6 process MOW.* và process CHUNG.* được gọi.
+## 2. Chốt H_MOW
+Gộp 25 instance chỉ khi contract chứng minh cùng:
+`intent + human input + output + state transition + right-class + return point`.
 
-Tách:
-- **Machine Step instance**: máy làm, không tính H.
-- **Human Step instance**: có thao tác/quyết định người.
-- **Human Step canonical candidate**: gộp instance chỉ khi cùng
-  `intent + input người cung cấp + output + state transition + quyền + điểm quay về`.
+Cùng step-key qua nhiều caller mặc định là cùng canonical Human Step **trừ khi caller context làm thay đổi một thành phần chữ ký**.
+Khác step-key vẫn có thể gộp nếu cả chữ ký thật sự đồng nhất; phải nêu evidence.
 
-Không gộp chỉ vì tên gần giống.
-Không tách chỉ vì đối tượng MOW/MOT/Field khác nếu interaction thực giống nhau.
+Kết quả phải có:
+- instances=25;
+- canonical Human Step groups = H_MOW;
+- mỗi group: members, signature, source step-key, confidence/evidence;
+- ambiguity còn lại.
 
-## 2. Map UI
-Mỗi Human Step canonical candidate:
-- UI hiện có xanh nào dùng được;
-- dùng cùng UI cha + label/config;
-- hay thật sự thiếu UI.
+Nếu có 2–5 lựa chọn merge hữu hạn mơ hồ, dùng JEV; ghi result id + confidence. Không dùng JEV thay exact evidence.
 
-Chữ ký UI để gộp:
-`UI parent + loại dữ liệu nhập + hành động chính + state transition`.
+## 3. Chốt U_MOW
+Từ H groups, gộp UI theo:
+`UI parent + human data shape + primary action + state transition`.
 
-Phân biệt:
-- UI instance/route;
-- UI child/config variant;
-- **UI unique** người dùng thực sự phải học/tương tác.
+Phân loại từng H:
+- EXISTING_GREEN/BASELINE;
+- VARIANT_CONFIG_LABEL;
+- MISSING_UI;
+- OPEN_EVIDENCE.
 
-## 3. Trình bày D46
-Mặt đầu lane C chỉ ≤10 dòng:
-- MOW process đã đi: 6/6;
-- human step instances = n;
-- canonical Human Step candidates = H_MOW;
-- UI routes gặp = n;
-- UI unique candidates = U_MOW;
-- UI thiếu = n;
-- 3–5 điểm OPEN quan trọng.
+Không đếm route/instance thành UI unique.
+Phải trả:
+`U_MOW=<n>`
+`UI_MISSING=<n>`
+và bảng H→UI.
 
-Chi tiết mapping gập dưới.
+Nếu một count chưa thể chốt, ghi UNKNOWN + đúng blocker; không ép số.
 
-## 4. JEV
-Nếu có 2–5 candidate merge mơ hồ, dùng JEV choice/noul để hỗ trợ.
-Không dùng JEV khi exact rule đủ.
-Nếu không bind JEV, ghi OPEN.
+## 4. Kiểm UI thật
+Mở các route cần thiết read-only để xác nhận ít nhất một representative cho mỗi UI group.
+Không mutate UI.
 
-## 5. Không làm
-- không sửa CAT-004/UI catalog/ban-duyet;
-- không sửa VPS UI;
-- không làm FORM/MOT/FIELD ở C01;
-- không đếm 470 requirements thành Step;
-- không cấp mã Step/UI mới;
-- không tự C02.
+## 5. KQ
+`KQ@MMIM-LANE-C02-20260928-01 XONG|DỪNG`
+`KQ@LANE-C C02 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS|BLOCK · instances=25 · H_MOW=<n|UNKNOWN> · U_MOW=<n|UNKNOWN> · UI_MISSING=<n|UNKNOWN> · NEXT=<one thing>`
 
-## 6. KQ
-Append lane-c/COLLAB:
-- Human Step instance table;
-- canonical candidate table;
-- Step→UI mapping;
-- OPEN/ambiguous + JEV evidence;
-- NEXT đúng một batch.
-
-KQ:
-`KQ@MMIM-LANE-C01-20260928-01 XONG|DỪNG`
-`KQ@LANE-C C01 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS|BLOCK · HEAD=<sha> · H_MOW=<n> · U_MOW=<n> · UI_MISSING=<n> · NEXT=<một việc>`
-
-Dừng.
+Dừng. Không sửa canonical.
