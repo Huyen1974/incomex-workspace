@@ -74,7 +74,7 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | PLAN01/VER01 DRAFT · P11 ACCEPTED hai đề xuất · P12 OPEN chờ Hermes | Một tuyến trích mặc định + JEV phân loại; hai lượt trial tách gate; không ngưỡng số, chưa PROMPT/READY/RUN | NEXT: Hermes REVIEW GS-HERMES-20260928-01, ghi P trực tiếp COLLAB; không triển khai | OWNER VIEW CHECK DỪNG (AUTH).
+GS | PLAN01/VER01 FINAL-REVIEW · GPT Host ACCEPT hướng hiện hành · chờ Claude Code chốt 100% | Một tuyến trích mặc định + JEV hậu phân loại; hai lượt trial tách gate; không ngưỡng số, chưa PROMPT/READY/RUN | NEXT: Claude Code review cuối theo GS-CLAUDECODE-FINAL-20260928-01; ACCEPT toàn bộ hoặc nêu đúng blocker tối thiểu | OWNER VIEW CHECK DỪNG (AUTH).
 - Hậu kiểm GS14: nội dung PLAN01 + P12 đã push tại `d5fcb553d54c29f1ab989f73c15e8bcbdd86eaaf`; diff chỉ hai file của graph-server (52 dòng thêm, 29 dòng bỏ), không có PROMPT/file mới/runtime. Đọc lại phạm vi thay đổi; `ui_inspect` URL chuẩn trả shell 200 nhưng Directus 401/Login, chưa xác nhận revision Owner View; không mở đường xem phụ. Hermes có thể review repo nếu profile của phiên đó cấp đọc/ghi đúng path; không coi việc Host ghi được là bằng chứng Hermes ghi được.
 - Hậu kiểm GS12: commit `5badbdd9e9104ed4b25b19917c530b5519b64090` đã push; diff chỉ hai file của task (113 dòng thêm, 53 dòng bỏ). Rà hai file: các câu áp mốc 75/85 đã bỏ, chỉ còn ví dụ nguyên văn hoặc câu đính chính/lịch sử. `ui_inspect` đúng URL Owner View chuẩn trả shell 200 nhưng Directus 401/Login, chưa xác nhận được revision hiển thị; không mở đường xem phụ. Repo có PLAN01/VER01 để hội đồng review, không có RUN.
 - Hậu kiểm GS08 ngày 28/09/2026: commit `c9460a9fa13ec3b9cf646668d1c063537e75f992` đã push; diff chỉ đúng hai file COLLAB.md + view.html (65 dòng thêm, 13 dòng bỏ). `ui_inspect` đúng URL Owner View chuẩn trả shell HTTP 200 nhưng Directus 401/Login; chưa đọc được nội dung/revision mới, không báo Owner View PASS. Không tạo đường xem phụ; hồ sơ repo sẵn cho hội đồng review.
@@ -95,7 +95,8 @@ GS | PLAN01/VER01 DRAFT · P11 ACCEPTED hai đề xuất · P12 OPEN chờ Herme
 
 - D07 · 2026-09-28 · Owner làm rõ 75%/85% chỉ là ví dụ, không chốt tỷ lệ. Owner giao tiếp tục rà soát, cập nhật đầy đủ kế hoạch để mọi AI hiểu thống nhất; không cấp RUN. Cách gọi cũ của GPT “seed cho trial” và P09 “mốc Owner đặt” không còn hiệu lực. Kế hoạch hiện hành: PLAN01/VER01 tại `view.html` §16, còn chờ review.
 
-- D08 · 2026-09-28 · Owner giao Host cập nhật kế hoạch theo vòng P11 và soạn prompt cho Hermes phản biện trực tiếp repo. Cho phép biên tập đúng hai file hiện hữu và ghi yêu cầu review; không phải duyệt chạy thử, cấp thêm tool/quyền, gửi dữ liệu nghiệp vụ hoặc duyệt production.
+- D08 · 2026-09-28 · Lịch sử: Owner từng giao Host soạn prompt cho Hermes phản biện trực tiếp repo; đường giao việc trực tiếp Hermes hiện chưa thuận tiện nên không tiếp tục dùng làm gate của task này.
+- D09 · 2026-09-28 · **VÒNG CHỐT CUỐI RIÊNG CHO `graph-server`: GPT Host + Claude Code là đủ.** Không chờ Hermes. Yêu cầu là hai bên phải đồng thuận 100% về PLAN01/VER01 trước khi Host trình Owner cho phép trial. Quyết định này không sửa luật hội đồng chung của repo và không cấp RUN/cài đặt.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · PARTIAL — giả thuyết vòng 1 đã được D02 thay tiêu chí lựa chọn
@@ -270,6 +271,14 @@ GS | PLAN01/VER01 DRAFT · P11 ACCEPTED hai đề xuất · P12 OPEN chờ Herme
 - Hermes ghi P số kế tiếp chưa dùng, có REVIEW_ID, Based_on full HEAD, từng ID ACCEPTED/PARTIAL/REJECTED + nguồn/thời điểm đo + phần CHƯA KIỂM + cách sửa tối thiểu. Chỉ được sửa `work/graph-server/COLLAB.md`, không sửa HTML/mục tiêu/luật/P của người khác; ghi bằng workspace_edit có expected_version và tiền tố `[Hermes]`, đọc lại/diff và trả commit. Không có result_read thì tiếp tục workspace_read bằng start_char/cursor, không dò root.
 - Phạm vi Hermes: phản biện cả CAT01/ID01/JEV và hai gate; tài nguyên/auth/cổng/volume/restore/version/provider dựa trên nguồn đã có hoặc tool chỉ-đọc thật sự được cấp. Nếu không có quyền đo live thì ghi CHƯA KIỂM, không giả số đo/PASS, không tự SSH/shell/mở quyền. Nếu đường đọc hoặc ghi repo bị từ chối → BLOCKED với lỗi/path/capability, không fallback GitHub native/git push.
 - Sau review: Host hợp nhất blocker rồi trình Owner MỘT đề nghị có tiêu chí hoàn thành, phạm vi hai lượt, danh sách provider/model/nhóm dữ liệu và trần chi phí cụ thể. Quyền RUN-2 có điều kiện không bỏ gate nghiệm thu RUN-1 hoặc READY/RUN mới. Chưa có đồng thuận đầy đủ khi Hermes chưa ghi P; không cấp production. Áp: SAME_COMMIT.
+
+### P13 · GPT Chat · Host · OPEN — giao Claude Code chốt mô hình cuối
+- Based_on: PLAN01/VER01 hiện hành sau P11/P12; Owner D09. REVIEW_ID: `GS-CLAUDECODE-FINAL-20260928-01`.
+- Mục tiêu vòng này: Claude Code review **toàn bộ §16 PLAN01 + VER01** và các ranh giới trong §0; không nghiên cứu kiến trúc mới, không mở lại danh sách sản phẩm nếu không có blocker bằng chứng.
+- Điều kiện đồng thuận: Claude Code phải ghi rõ `ACCEPT 100%` cho SCOPE01, REL01, THR01/JEV01, CAT01/ID01, SEC01, VER01, DATA01/PERSIST01, TEST01 và GATE01; hoặc ghi `PARTIAL/REJECTED` đúng ID + blocker + sửa tối thiểu. Không dùng “gần đồng ý”.
+- Hermes không còn là gate của task này theo D09. Các phần runtime chưa thể chứng minh trước cài vẫn được phép ghi `CHƯA KIỂM`, nhưng phải có test/gate trong PLAN01; không được dùng `CHƯA KIỂM` để giả PASS.
+- Claude Code chỉ review và ghi P kế tiếp vào `work/graph-server/COLLAB.md` qua đường gateway đã audit; không sửa view.html, AGENTS/README, không tạo file, không cài, không restart, không mở cổng, không nạp dữ liệu, không gọi provider thử nghiệm.
+- Nếu Claude Code ACCEPT 100% mà không có blocker thiết kế mới, Host sẽ đánh dấu CONSENSUS GPT+CLAUDE và trình Owner **một gói duyệt trial**; chưa tự tạo PROMPT/READY/RUN.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
