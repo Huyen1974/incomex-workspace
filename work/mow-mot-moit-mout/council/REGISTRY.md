@@ -19,11 +19,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: **HOST / DISPATCHER / INTEGRATOR**
 - Host_ID: `GPT-MMIM-260920-A`
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
-- Active_RUN: preparing `A06 / B04 / C03`.
+- Active_RUN: batch `A06 / B04 / C03` = READY_TO_RUN.
 - Reserved_Targets: điều phối batch; không tranh target Executor.
-- Base_Target_Version: re-read trước Host mutation.
-- NOW: nghiệm thu A05/B03/C02 xong; mở batch evidence/audit không đụng methodology Chat.2.
-- NEXT: gate + READY A06/B04/C03; chờ proposal phương pháp luận Chat.2.
+- Base_Target_Version: READY base `903b34c4dc7103a7dc88a84d3f59d4ac5d6b3aee`; re-read trước Host mutation.
+- NOW: giám sát batch evidence/audit A06/B04/C03; chờ methodology proposal Chat.2.
+- NEXT: nghiệm thu KQ batch; promote Council proposal khi READY_FOR_HOST.
 - BLOCKED_BY: none.
 - State: ACTIVE.
 - LAST_SYNC: D76–D77.
@@ -43,37 +43,37 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-A
 - Role: **EXECUTOR**
 - Write_Zone: root ui audit metadata + `lane-a/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-A06-20260928-01` = PREPARED.
+- Active_RUN: `MMIM-LANE-A06-20260928-01` = READY_TO_RUN.
 - Reserved_Targets: root ui `master-of-master-v1.html`, `master-home-v1.html`, `ui-child-content-v1.js` if needed + lane-a/COLLAB.
-- Base_Target_Version: prompt to be gated.
+- Base_Target_Version: prompt SHA `35b2e59d549be357e5b78081001b37fb7dc89421f3129496a64992e54ac08434`; READY base `903b34c4dc7103a7dc88a84d3f59d4ac5d6b3aee`.
 - NOW: audit 4 core Master Lists Process/Tool/Step/UI; expose conflict/gap, no new catalog.
 - NEXT: KQ A06.
 - BLOCKED_BY: COORD/PARALLEL conflict only.
-- State: PREPARED.
+- State: READY_TO_RUN.
 - LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-B
 - Role: **EXECUTOR**
 - Write_Zone: `ban-duyet.html` + `lane-b/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-B04-20260928-01` = PREPARED.
+- Active_RUN: `MMIM-LANE-B04-20260928-01` = READY_TO_RUN.
 - Reserved_Targets: ban-duyet + lane-b.
-- Base_Target_Version: 23-contract canonical from B03 must stay except CHUNG.KIEM/FORM.TAO.
+- Base_Target_Version: prompt SHA `ac891028bbc3d051add2da090631b1370e25909e8d137b7e0c4e49d59c4722c2`; READY base `903b34c4dc7103a7dc88a84d3f59d4ac5d6b3aee`; 23-contract canonical from B03 must stay except CHUNG.KIEM/FORM.TAO.
 - NOW: resolve or prove-blocked exactly 2 OPEN contracts.
 - NEXT: KQ B04.
 - BLOCKED_BY: insufficient source.
-- State: PREPARED.
+- State: READY_TO_RUN.
 - LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-C
 - Role: **EXECUTOR**
 - Write_Zone: `lane-c/COLLAB.md` only; canonical/ui read-only.
-- Active_RUN: `MMIM-LANE-C03-20260928-01` = PREPARED.
+- Active_RUN: `MMIM-LANE-C03-20260928-01` = READY_TO_RUN.
 - Reserved_Targets: lane-c/COLLAB.
-- Base_Target_Version: C01+B02R1 evidence + C02 only as comparison.
+- Base_Target_Version: prompt SHA `3a1219ecdb4b9e3c060dd8b5a9c0c37a5590337cac3c1ea9088357fa88fee3e0`; READY base `903b34c4dc7103a7dc88a84d3f59d4ac5d6b3aee`; C01+B02R1 evidence + C02 only as comparison.
 - NOW: prove reproducibility of 25→15 Human Step with explicit 6-tuple rule.
 - NEXT: KQ C03.
 - BLOCKED_BY: if 15 requires hidden/manual semantic judgment.
-- State: PREPARED.
+- State: READY_TO_RUN.
 - LAST_SYNC: D76–D77.
 
 ## Proposal contract
