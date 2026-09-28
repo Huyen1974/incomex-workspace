@@ -24,6 +24,15 @@ Bối cảnh nguyên văn User: “Gốc rễ nhất là chúng ta đã dọn VP
 > Ngay cả các quy trình hiện nay đang loay hoay, nếu co graph vẫn có thể hiểu được mối quan hệ tương đối của nó với nhau, và tính cách mô hình xác suất sẽ đúng hơn.
 > *(Thay câu MIT trước đó cùng ngày — D06)* Việc MIT hay không cũng không quá quan trọng. Cái quan trọng là: được dùng miễn phí, được cập nhật theo thời gian và dựa vào giải pháp có xác suất chết giữa chừng thấp (tránh như OS Agency hiện nay)
 
+**Làm rõ “hữu hạn” — nguyên văn Owner 28/09/2026 (lần 3):**
+> Chúng ta phải làm rõ và cùng hiểu thống nhất thế nào là hữu hạn: Ở Bussiness hữu hạn được hiểu là chỉ có 1 số lựa chọn nhất định chứ không phải là các lựa chọn vô định như social netwwork. Tuy nhiên vấn đề phải được tiếp cận từ 2 phía:
+> 1. các mối quan hệ đã định nghĩa sẵn (và có thể thay đổi cộng với bổ sung theo thời gian) cái này thì đương nhiên.
+> 2. Tuy nhiên không phải lúc nào các mối quan hệ cũng có thể định nghĩa được sẵn => tức là còn 1 hướng Graph tự đề xuất các mối quan hệ trên dữ liệu mà nó có, Jev tính xác suất. Lúc đó con người có thể xem xét các mối quan hệ mới và đưa vào trong danh sách. Ý tôi là, không phải lúc nào các mối quan hệ cũng được định nghĩa sẵn từ đầu => hệ thống phải sẵn sàng cho việc này và vẫn hoạt động hiệu quả => nếu hệ thống chỉ dựa vào định nghĩa các mối quan hệ có sẵn => thì sẽ bị gãy trên thực tế.
+> 3. Trong quy trình vận hành, (1) nếu xác suất rơi vào các mối quan hệ được định nghĩa sẵn theo 1 tỷ lệ nhất định, ví dụ từ 75% trở lên => đó là ưu tiên lựa chọn/ ưu tiên đề xuất. (2) Nhưng thực tế, nếu các mối quan hệ chưa được định nghĩa mà có tỷ lệ xác suất cao, ví dụ từ 85% trở lên => phải có 1 quy trình để approve các định nghĩa quan hệ mới. Các định nghĩa quan hệ đã được phê duyệt sẽ được ưu tiên đề xuất và gợi Ý, nhưng nó (mối quan hệ định nghĩa sẵn) không làm blocker của tiến trình.
+> Phần lựa chọn phải đảm bảo được tiêu chí vừa nêu, tức cách tiếp cận cả 2 chiều chứ không bị phụ thuộc vào các mối quan hệ đã khai sẵn.
+
+**Yêu cầu Owner 28/09/2026 (nguyên văn):** “Bạn tiếp tục phân tích các chi tiết để chúng ta đồng thuận 100% trước khi cho triển khai. Ngay cả việc chốt version nào cũng nên đưa vào kế hoạch.”
+
 ### 2. Thế nào là hoàn thành
 Phạm vi lượt giao hiện tại, nguyên văn User:
 - “tạo 1 task tên work/graph-server”
@@ -34,7 +43,8 @@ Phạm vi lượt giao hiện tại, nguyên văn User:
 - Giữ đủ các nhóm lựa chọn đã thảo luận; phân biệt nguồn kiểm chứng, đề xuất và điều chưa kiểm. Đề xuất cũ không phải quyết định Owner.
 - **Nguyên tắc lựa chọn Owner 24/09/2026:** bỏ ưu tiên kiến trúc tự thiết kế hoặc giữ lại chỉ vì đã có; ưu tiên giải pháp **off-the-shelf đã chạy thực tế, đáng tin, nhiều người dùng/cộng đồng, cài sẵn/ít code tùy biến và phù hợp Incomex**. PostgreSQL/Qdrant hiện hữu là bối cảnh để tận dụng nếu hợp lý, không phải rào cản cấm cài graph DB/sản phẩm mới.
 - **Tầm nhìn một câu (Claude soạn 28/09 từ lời Owner, Host kiểm):** Graph hoá mọi thông tin Incomex được phép dùng; giá trị chính nằm ở thông tin chưa/không SQL hoá được (chăm sóc khách hàng, trao đổi, quy trình còn loay hoay, code); Graph nối mẩu rời thành liên hệ có nguồn và độ chắc → JEV cân nhắc từng lựa chọn một bước → policy/người quyết hành động.
-- **“Hữu hạn” (ưu tiên #1) =** *loại* thực thể và *loại* quan hệ nằm trong một danh mục có mã, bổ sung qua quy trình; số thực thể, số nguồn không giới hạn. **Không** có nghĩa “chỉ dữ liệu đã có sẵn trong bảng”. Trái nghĩa: mạng xã hội, nơi loại quan hệ và độ lan không có biên.
+- **“Hữu hạn” (ưu tiên #1, theo nguyên văn Owner lần 3 ở §0.1) =** tại mỗi lúc chỉ chọn trong một danh mục *loại* quan hệ có mã và phiên bản; danh mục lớn dần qua quy trình duyệt; quan hệ chưa có trong danh mục vẫn được giữ và dùng để gợi ý — **danh mục không bao giờ chặn tiến trình**. Số thực thể, số nguồn không giới hạn; không có nghĩa “chỉ dữ liệu đã có sẵn trong bảng”. Trái nghĩa: mạng xã hội, nơi loại quan hệ và độ lan không có biên. Trạng thái và ngưỡng: P09 C1–C2.
+- **Phiên bản từng thành phần là một phần của kế hoạch** (Owner 28/09): PROMPT trial ghim đúng bảng VER01 (P09); đổi phiên bản = một dòng mới trong VER01 + chạy lại bài đo.
 - Giữ đúng thứ tự mục tiêu. Lark/SQL chỉ là một nhóm nguồn; phải có thông tin chăm sóc khách hàng, trao đổi/quy trình và quan hệ suy luận có bằng chứng ngay trong bài thử đại diện. Không đòi SQL hóa xong mới làm Graph. Mọi nguồn thật vẫn phải thuộc phạm vi được cấp quyền.
 - **Hữu hạn theo phiên bản, mở cho khám phá:** đường vận hành dùng catalog quan hệ chuẩn có version; đường discovery giữ quan hệ free-form/candidate kèm nguồn và evidence. Không block tiến trình chỉ vì chưa có relation type chuẩn; nhưng candidate chưa được dùng như quan hệ chuẩn cho business action cho tới khi qua policy/approve. Khi duyệt, thêm type vào version tiếp theo và từ đó ưu tiên map/gợi ý.
 - **Tiêu chí công cụ (D06):** miễn phí/self-host dài hạn cho công ty nhỏ · còn cập nhật · cộng đồng/vendor mạnh · xác suất chết giữa chừng thấp · dữ liệu/logic lõi mang đi được. MIT là điểm cộng, không bắt buộc. Vẫn kiểm LICENSE đúng phiên bản/dependency/model trước khi chốt; loại giấy phép cấm thương mại.
@@ -191,6 +201,37 @@ GS | P05 HÒA GIẢI · D06 GIẤY PHÉP THỰC DỤNG | Graph tri thức đa ng
 - **Nguồn kỹ thuật:** Cognee custom graph model cho fixed/Literal/free-form edges; ontology annotate/strict và giới hạn relation validation; TypeSafe confidence routing; entity alignment cookbook. GitHub issue #1873/#2098 chỉ dùng để kiểm rủi ro backend Kuzu/Neo4j, không liên quan định nghĩa hữu hạn.
 - **JEV Reference:** `gen-dec-1790587126-gvt9Oee3rVMMcZcafzRX` → `versioned_finite_discovery` và `calibrated_two_lane`, confidence 1. Bằng chứng phụ.
 - **NEXT:** Claude review P08 đúng một vòng cuối theo A5; Hermes kiểm K1/K4/RAM và khả năng cấu hình Neo4j thật. Nếu Claude ACCEPT/PARTIAL không còn vênh nguyên tắc và Hermes không có blocker, Host mới soạn PROMPT trial; chưa READY/RUN.
+
+### P09 · Claude Chat · Reviewer · OPEN — vòng cuối P08 + chốt chi tiết trước PROMPT
+- Based_on `2e559eb`. Scope: P08, §0, view §15; **đọc mã nguồn Cognee tag v1.6.1** (`eb90d03`, phát hành 24/09/2026) thay vì chỉ đọc docs. JEV `gen-dec-1790588757-jdh7Ur53TquoXZB9SK2e`.
+- **ACCEPT P08:** closed-world decision × open-world discovery; Lane A/Lane B; JEV không phát minh loại mới; ngưỡng là seed phải hiệu chỉnh; T17 (false-map / false-new-type). Kiểm lại: ví dụ `examples/guides/custom_graph_model.py` của v1.6.1 đúng có cạnh cố định + `Literal[...]` + `str` trong cùng model.
+- **C1 · Trạng thái — tách 2 tầng cho khớp đúng luật Owner.** *Loại quan hệ* (danh mục): ĐÃ DUYỆT · CHỜ DUYỆT · BỎ. *Cạnh* (từng quan hệ cụ thể): (1) gắn loại đã duyệt — ≥75%, ưu tiên gợi ý, được dùng cho tự động/merge theo policy; (2) đề xuất loại mới — loại chưa có ≥85%, đẩy *loại* vào CHỜ DUYỆT; (3) suy luận — thấp hơn, vẫn giữ, vẫn tìm/gợi ý được, không ưu tiên; (4) mâu thuẫn/hết hiệu lực. P08 gộp (2)+(3) nên mất ranh giới 85% Owner đặt. JEV 0,86. Con người duyệt **loại**, không duyệt từng cạnh; hàng chờ gom theo nhãn + số lần gặp + 3 ví dụ nguồn (không đặt số lần tối thiểu — JEV 0,56, Owner không yêu cầu).
+- **C2 · Cách đọc 75%/85%.** Là *xác suất của đáp án* JEV trả (`probabilities`); `confidence` thấp = coi như chưa đạt ngưỡng (“what” vs “whether to act” theo TypeSafe). Lane A: `choice` trên {loại đã duyệt hợp nguồn–đích} ∪ {`khác_chưa_có_loại`, `không_có_quan_hệ`}. Lane B: `noul` “bằng chứng hỗ trợ quan hệ <nhãn> giữa A–B” + `choice` “nhãn này trùng loại đã duyệt nào / không trùng” (chặn false-new-type). Ngưỡng gắn với đúng model `typesafe/jev-1.13-20260917`; đổi model = hiệu chỉnh lại. JEV 0,98.
+- **C3 · Danh mục là dữ liệu, không phải code.** v1.6.1 có sẵn **JSON graph-model spec** (`cognee/modules/graph_models/spec.py`: thực thể, trường, quan hệ có cardinality; trình sửa trên UI Cognee; gắn theo dataset qua API; `cognify` API nhận JSON). Đề xuất: bản gốc danh mục = node có mã/phiên bản/trạng thái/nguồn–đích trong **Neo4j** (sống khi Cognee chết — K4); mỗi lượt nạp biên dịch loại ĐÃ DUYỆT thành JSON spec → duyệt loại mới = đổi dữ liệu, không sửa code, không triển khai lại. Giới hạn spec: 50 loại thực thể/spec ⇒ chia theo miền (dataset). JSON spec không có cạnh tự do ⇒ Lane B dùng trích xuất mặc định của Cognee (tự đặt tên quan hệ) — có sẵn, không code; trial đo chi phí 2 lượt trích, nếu đắt mới gộp 1 lượt bằng model Python sinh từ danh mục (bậc 3, mỏng). JEV 0,98. Trial: duyệt loại mới qua dòng Owner cần quyết; UI duyệt sản xuất chọn sau khi có số liệu tần suất.
+- **C4 · Đính chính K1 của Claude (P07) theo mã v1.6.1.** GPT đúng về hướng: không còn “âm thầm ghi Kuzu”. Mặc định nay là **Ladybug** (bản kế thừa Kuzu, `ladybug==0.19.0`); access control **bật mặc định**; chọn Neo4j CE khi access control bật thì **dừng ngay với lỗi rõ** kèm 4 lối ra (`Neo4jDatasetDatabaseHandler`). Chọn lối (4) `ENABLE_BACKEND_ACCESS_CONTROL=false`. **Loại** lối (2) `neo4j_community`: mỗi dataset một container Neo4j và Cognee phải cầm Docker daemon = quyền tương đương root trên VPS + tốn RAM. K1 giữ dạng bài đo: sau nạp, node nằm trong Neo4j, không có dữ liệu Ladybug.
+- **C5 · Bẫy mới, đã kiểm trong mã (chặn nếu bỏ qua):** chỉ đặt `ENABLE_BACKEND_ACCESS_CONTROL=false` thì Cognee **tắt luôn xác thực API** (`_resolve_auth_posture`; test issue #2808) — ai gọi được cổng là thành user mặc định, gồm cả `forget(everything=true)`. Bắt buộc: `REQUIRE_AUTHENTICATION=true` (ghi đè được); mọi cổng chỉ bind 127.0.0.1/mạng docker nội bộ (compose gốc mở 3000/7474/7687/8000/8001 ra mọi giao diện); đổi mật khẩu Neo4j mặc định (`neo4j/pleaseletmein`) bằng secret GSM. Bài đo: gọi API không token → 401; quét cổng từ ngoài → đóng.
+- **C6 · Quyền sửa danh mục.** JSON spec được Cognee sinh thành mã Python và chạy (`exec`, ghi chú trong spec.py) ⇒ chỉ writer dịch vụ được đổi spec/danh mục; agent không bao giờ.
+- **C7 · T17 bổ sung:** sau khi duyệt loại mới, chấm lại các cạnh (2)/(3) đã lưu (backfill) — không nạp lại toàn bộ. Plugin: Cognee dùng APOC (`apoc.create.addLabels`, `apoc.merge.relationship`) ⇒ bắt buộc; GDS chỉ dùng cho chỉ số tùy chọn ⇒ **không cài** (tiết kiệm RAM). RAM đo 28/09: còn 6,26 GB, swap đã dùng ~1,2/2 GB ⇒ Hermes kiểm trần heap Neo4j; UI Cognee bật khi cần, không chạy thường trực.
+
+**VER01 · Bảng phiên bản chốt cho trial** (kiểm 28/09 từ tag/lockfile, không từ trí nhớ). Ghim digest image lúc cài.
+
+| Thành phần | Chốt | Nguồn kiểm | Nâng cấp |
+|---|---|---|---|
+| Neo4j Community | `neo4j:5.26.31-community` (LTS tới 06/06/2028) | endoflife.date; docs Neo4j cập nhật 5.26.31; Cognee compose ghim dòng 5.26 | vá trong dòng 5.26.x sau khi chạy lại T17/K4; không lên 2026.x khi Cognee còn ghim 5.x |
+| APOC core | 5.26.31 (cùng bản Neo4j) | Cognee adapter gọi `apoc.*` | đi cùng Neo4j |
+| GDS | không cài | chỉ dùng cho metrics tùy chọn | — |
+| Cognee | `1.6.1` (24/09/2026) | tag v1.6.1, pyproject | chỉ nâng khi có lý do (vá bảo mật/tính năng cần) + chạy lại T17/K4/C5 |
+| cognee-mcp | `0.5.6` (cùng tag) | cognee-mcp/pyproject | cùng Cognee |
+| Python | 3.12 | Dockerfile Cognee | cùng Cognee |
+| Thư viện Cognee kéo theo | neo4j driver 5.28.6 · lancedb 0.39.0 · litellm 1.96.2 · enola-cli 0.4.21 · ladybug 0.19.0 (cài kèm, không dùng) | uv.lock v1.6.1 | không tự nâng lẻ |
+| Neo4j MCP chính hãng | `v1.6.0` | tag neo4j/mcp | — |
+| JEV | `typesafe/jev-1.13-20260917` qua OpenRouter | kết quả gọi thật | model mới ⇒ hiệu chỉnh lại ngưỡng |
+| LLM trích xuất | `openai/gpt-5.6-luna` (mặc định Cognee v1.6.1) | llm/config.py | đổi = chạy lại T17 |
+| Embedding | `openai/text-embedding-3-large` (mặc định Cognee) | embeddings/config.py | **đổi = nhúng lại toàn bộ** ⇒ ghim từ ngày đầu |
+| Không cài | Graphiti 0.30.2 (phương án B) · codebase-memory-mcp v0.11.0 (dự phòng K3) | tag GitHub | — |
+
+- Lý do chọn mặc định cho LLM/embedding: ít cấu hình lệch nhất (R1); Agent Data đang dùng OpenAI embedding (`text-embedding-3-small`) ⇒ đường OpenAI đã có. Dữ liệu trial đã che (T14); dữ liệu thật gửi ra LLM cần Owner gật riêng.
+- **Kết luận Claude:** không còn vênh nguyên tắc với GPT. Khi Host nhận C1–C7 + VER01 và Hermes không có blocker (RAM, cổng, secret, backup) thì Claude đồng ý soạn PROMPT trial. Owner cần quyết vẫn chỉ là §0.2.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
