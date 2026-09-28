@@ -239,6 +239,20 @@ GS | PLAN01/VER01 DRAFT · P09 PARTIAL · P10 OPEN | 75/85 chỉ là ví dụ; S
 - NEXT: Claude đọc PLAN01/VER01 và trả ACCEPT/PARTIAL theo ID; Hermes rà thiết kế/quyền/tài nguyên/digest/restore bằng nguồn đã có và công cụ được cấp, không cài hoặc dừng production. Phần cần phép thử runtime chỉ chạy sau Owner duyệt trial. Host tổng hợp các điểm còn mở rồi xin phép soạn PROMPT đúng phạm vi; chưa READY/RUN.
 - Áp: SAME_COMMIT. Hậu kiểm Owner View ghi sau; không suy repo push = UI PASS.
 
+### P11 · Claude Chat · Reviewer · OPEN — review PLAN01/VER01 theo từng ID
+- Based_on `a390406` (PLAN01 `5badbdd`). Scope: view §16 PLAN01 toàn bộ + P10 + D07. Kiểm lại các phát hiện mã của Host trên đúng Cognee `eb90d03740755f5252b8b12cce91fd09970f2d81`. JEV `gen-dec-1790590401-ab6owKzxgaM8LCeE0yFS`.
+- **Nhận sửa (lỗi Claude):** P09 gọi 75/85 là “mốc Owner đặt” — sai theo D07, rút. P09 C1 cho cạnh thuộc loại đã duyệt “được dùng cho tự động” — trộn trục loại với trục quyền, rút; REL01 tách 3 trục là đúng.
+- **REL01 · ACCEPT.** Duyệt loại ≠ cạnh đúng ≠ quyền hành động; Lane A đạt không khoá Lane B.
+- **THR01/JEV01 · ACCEPT.** Không ngưỡng, SHADOW; biên nhận đủ trường; lỗi JEV = CHƯA ĐÁNH GIÁ.
+- **ID01 · ACCEPT — đã kiểm lại đúng:** `compiler.py` dòng 35–36 mặc định `identity_fields=["name"]`; `extract_graph_from_data.py` ~dòng 136: model không phải `KnowledgeGraph` trả về sớm, bỏ khử trùng + ontology grounding; `compiler.py` dòng 16 không ghép `functional_relationships`.
+- **CAT01 · PARTIAL — đề xuất đơn giản hoá Lane A, xóa luôn GAP Host nêu.** Thay tuyến “danh mục Neo4j → biên dịch JSON spec → lượt trích riêng” bằng: (a) liên kết tường minh → `add_data_points`, `identity_fields` = ID nguồn (không LLM); (b) văn bản → **một** lượt trích mặc định `KnowledgeGraph` (giữ khử trùng + ontology grounding; tự đặt tên quan hệ = Lane B sẵn có); (c) **JEV ánh xạ sau trích**: mỗi cạnh trích ra → `choice` {loại đã duyệt hợp nguồn–đích} ∪ {loại chưa có, không có quan hệ, thiếu bằng chứng} = Lane A. Danh mục vẫn nằm trong Neo4j; duyệt loại mới chỉ đổi tập lựa chọn của câu JEV (dữ liệu), không biên dịch, không code. Lợi: 1 lượt LLM thay vì 2; né bẫy identity-theo-tên và đường bỏ ontology của model tuỳ chỉnh (ID01); đúng công thức “Graph đi đường, JEV nhìn một bước”. Gợi ý danh mục vào `custom_prompt` là **tuỳ chọn đo có/không** — lưu ý `custom_prompt` *thay* prompt mặc định (router cognify dòng 158), nên nếu dùng thì = prompt mặc định v1.6.1 + danh sách loại, ghim cùng phiên bản. JSON spec để dành, chỉ bật khi đo thấy lượt mặc định bỏ sót nhiều. JEV 0,99 (conf 0,98).
+- **SEC01 · ACCEPT + thứ tự:** agent chưa chạm Cognee (MCP/API) cho tới khi RUN-1 PASS; trước đó chỉ đọc qua Neo4j MCP `NEO4J_READ_ONLY=true`. Khi mở: chỉ `recall`, allowlist ở server, không đăng ký `remember`/`forget`/`call_tool`. (JEV noul 0,55 — không chắc nên đặt thành thứ tự, không thành luật cấm.)
+- **VER01 · ACCEPT.** RUN-1 không cài Cognee MCP và UI (bớt 2 bề mặt, bớt dòng cần ghim).
+- **DATA01/PERSIST01 · ACCEPT.**
+- **TEST01 · ACCEPT + chia 2 lượt chạy, mỗi lượt một PROMPT:** **RUN-1 hạ tầng, không dữ liệu nghiệp vụ** — K1, T19, PERSIST (restart/recreate), K4 dump/restore với dữ liệu giả, phần hạ tầng của T21. **RUN-2 dữ liệu đã che + JEV SHADOW** — T13–T18, T20, K3, phần còn lại T21; chỉ soạn khi RUN-1 PASS. Dữ liệu thật không bao giờ vào hệ chưa chứng minh an toàn. JEV noul 0,80.
+- **GATE01 · ACCEPT.** Đề nghị Host khi khép kế hoạch gộp các việc của Owner thành **một** dòng Owner cần quyết: (1) §0.2 tiêu chí hoàn thành trial; (2) cho phép RUN-1; (3) cho RUN-2 gửi dữ liệu đã che tới nhà cung cấp LLM/embedding đã ghi trong VER01 kèm trần chi phí. Đầu §16 nên có một thẻ 3 dòng cho Owner (thanh tiến độ + việc cần quyết); PLAN01 dài ~18k ký tự là phần cho AI.
+- **Kết luận Claude:** Host nhận CAT01 (hoặc giải thích vì sao giữ tuyến spec) và chia RUN-1/RUN-2 ⇒ Claude **ACCEPT toàn bộ PLAN01**, không còn điểm mở phía Claude. Còn chờ Hermes.
+
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
 - Nền JEV: ../done-tasks/jev-integration/COLLAB.md và SKILL.md.
