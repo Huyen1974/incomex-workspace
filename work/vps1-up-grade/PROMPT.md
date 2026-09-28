@@ -35,7 +35,7 @@ Clone **không được mang**:
 ## 1. Read gate / collision gate
 
 1. `fs_stat work/vps1-up-grade/COLLAB.md`.
-2. Đọc: `AGENTS.md` → task COLLAB §0 + P01–P07 phần parity/test + G0 KQ + BK1 KQ + FREEZE/TRUST-CLOSE KQ + P30–P38 → PROMPT này → view.html §7–§9.
+2. Đọc: `AGENTS.md` → task COLLAB §0 + P01–P07 phần parity/test + G0 KQ + BK1 KQ + FREEZE/TRUST-CLOSE KQ + P30–P40 → PROMPT này → view.html §7–§9.
 3. READY phải khớp commit cuối chạm PROMPT.
 4. Xác minh `G1 PASS` tại KQ TRUST-CLOSE; VPS2 vẫn:
    - e-learning app/PHP/MySQL/queue stopped/no-autostart;
@@ -54,7 +54,7 @@ Clone **không được mang**:
 
 ## 2. Luật cô lập trước mọi dữ liệu production
 
-**Không boot bất kỳ container clone nào trước khi S1–S4 PASS.**
+**C1 · Thứ tự boot:** S1–S3 phải PASS trước mọi container clone. Sau S1–S3, chỉ được boot **PostgreSQL lab** (và Qdrant lab nếu cần restore snapshot) trên network clone đã chặn egress, không publish cổng, để restore + sanitize S4 + đo baseline dữ liệu. **Directus, agent-data, Nuxt, nginx và mọi app/service có thể đọc token/config chỉ được boot sau S4 + BASELINE-PRE-APP PASS.**
 
 ### S1 · Namespace riêng
 - Dùng compose/project/volume/network tên riêng có prefix rõ, ví dụ `vpsup-current-*`; tuyệt đối không dùng tên/volume e-learning.
@@ -79,18 +79,34 @@ Clone **không được mang**:
 - Telegram/GitHub/OpenAI/Agent-data/rclone/GSM/cloud credential = absent/blank/dummy non-routable.
 - Nếu một service không thể khởi động nếu thiếu external secret, không được lấy secret prod; ghi GAP và chỉ chạy phần local-safe.
 
-### S4 · Sanitize DB trước first boot — DOT-only
-Trước khi Directus/agent-data clone boot:
-- Restore DB clone vào PostgreSQL lab đang cô lập.
-- Tìm DOT hiện hữu phù hợp; nếu thiếu capability, tạo **một DOT hẹp tự mô tả** theo DROOT27, dry-run mặc định, allowlist đúng container/DB lab.
-- DOT sanitize clone tối thiểu:
-  - `directus_users.token`: vô hiệu toàn bộ token production;
-  - session/refresh/login state có thể dùng lại: xoá/vô hiệu trong clone;
-  - không mang credential máy production;
-  - nếu cần một API identity để test agent-data/REST, tạo **lab-only token mới** chỉ trong clone, không trùng prod;
-  - nếu cần UI Directus ở G2, dùng credential lab-only; không đưa Owner password production vào VPS2.
-- Sanitize phải có BEFORE/AFTER count/hash metadata, không in secret.
-- Nếu không chứng minh token/session production đã vô hiệu **trước first boot** ⇒ DỪNG.
+### S4 · Sanitize DB trước first app boot — DOT-only
+Sau S1–S3, được boot **riêng PostgreSQL lab** cô lập để restore. Directus/agent-data/Nuxt/nginx chưa được boot.
+
+**C2 · Phạm vi sanitize — phải về 0 nhưng không phá business text:**
+- `directus_users`: `token` = NULL; password/tfa/login-secret production bị vô hiệu; giữ role/status semantics nếu có thể; tạo **một lab-only admin/API identity riêng** nếu test cần, credential chỉ sinh trong lab.
+- `directus_sessions` và refresh/session state có thể tái sử dụng: xoá/vô hiệu toàn bộ.
+- Quét **không xuất giá trị** trên các bề mặt cấu hình/system, tối thiểu:
+  - mọi cột text/json của các bảng `directus_*` có semantics config/automation/auth, đặc biệt `directus_operations.options`, `directus_flows.options`, `directus_settings`, `directus_extensions` và bảng config tương đương nếu inventory thực tế có;
+  - trong `incomex_metadata`, chỉ các bảng/cột config hoặc cột có **tên** nhạy cảm (`token|secret|password|credential|api_key|auth|private_key`), tối thiểu `dot_config` nếu tồn tại;
+  - FDW server/user-mapping options.
+- **Không regex/xoá mù trên mọi cột business text/json.** Nội dung nghiệp vụ không được biến đổi chỉ vì chứa từ “password/secret/token” trong câu chữ.
+- Pattern detector nội bộ có thể nhận dạng bearer/bot token, Telegram token, `sk-`, `ghp_`, `token/api_key/secret/password` dạng cấu hình; chỉ ghi **count + table/column**, tuyệt đối không in matching value.
+- Giá trị hard-coded giống secret trong config/Flow ⇒ `LAB_REDACTED` hoặc lab-only dummy. `$env` reference không phải secret value: giữ tên biến để parity nhưng env lab phải absent/blank/dummy.
+- FDW: không giữ password/user-mapping production và không được trỏ thực tới production; user mapping dùng lab dummy/localhost-nonroutable theo semantics an toàn. Mọi thay đổi này ghi `SANITIZATION_DELTA`, không tính parity regression.
+- Nghiệm thu S4: BEFORE/AFTER count theo từng lớp; **AFTER = 0** đối với reusable prod credential/token/password/FDW secret trong phạm vi config đã định; không in secret.
+
+**C3 · DOT sanitize phải tự chống chạy nhầm production:**
+- Trong RUN này **không tạo/sửa DOT source trên VPS1**. Nếu thiếu DOT, copy template/contract DOT read-only từ `/opt/incomex/dot` VPS1 sang namespace lab VPS2 rồi tạo một DOT hẹp, tự mô tả đầy đủ `--help`, dry-run mặc định; source reusable/upstream xử lý ở lượt riêng sau G2 nếu cần.
+- DOT phải FAIL-CLOSED trước mutation nếu bất kỳ điều kiện nào sai:
+  1. host chạy DOT là VPS1/production hostname; hoặc
+  2. target container/service/database không thuộc prefix/label `vpsup-current-*`; hoặc
+  3. target PG `system_identifier` trùng production identifier đã chụp read-only ở PRE; hoặc
+  4. DB name/host/socket không nằm trong allowlist lab của RUN; hoặc
+  5. lab marker root-owned trong dossier không tồn tại/không khớp RUN_ID.
+- DOT không được nhận production DSN/credential từ env fallback; chỉ lab DSN cụ thể của RUN.
+- Sanitize phải có dry-run + execute + post-verify; audit chỉ count/table/column/hash metadata.
+
+Nếu S4 không chứng minh AFTER=0 hoặc fail-closed guard không tự chặn được target prod giả lập ⇒ DỪNG trước first app boot.
 
 ## 3. Nguồn clone — FULL BUSINESS DATA, không copy rác test
 
@@ -181,7 +197,9 @@ Directus Flow:
 - giữ Flow rows/status để parity schema/config;
 - egress đã block cứng nên request/webhook ra ngoài không thoát;
 - không sửa hàng loạt Flow chỉ để lab yên.
-- Nếu schedule local làm thay đổi business table trước khi baseline xong, DỪNG và dùng native supported suppression nếu đã được chứng minh; không direct SQL tắt Flow hàng loạt.
+- **C4:** dữ liệu parity §7-B phải được đo và chốt thành `BASELINE-PRE-APP` **ngay sau restore + S4, trước khi boot Directus/agent-data**. Đây là baseline chuẩn để so snapshot source.
+- Sau khi Directus boot, 5 Flow schedule active có thể ghi local. Mọi thay đổi sau baseline phải được diff và gắn `VOLATILE_BY_FLOW` theo bảng/Flow; không coi là parity regression nếu đúng Flow đã inventory và không xoá/hỏng business data.
+- Nếu Flow tạo side-effect ra ngoài ⇒ SEC FAIL/DỪNG (egress lẽ ra phải chặn). Nếu Flow xoá/hỏng business data hoặc thay đổi không truy được về Flow đã inventory ⇒ DỪNG. Không direct SQL tắt Flow hàng loạt.
 
 ## 6. Agent-data / local consumer
 
@@ -224,6 +242,7 @@ Bao gồm ít nhất:
 Route tới service cố ý không dựng: ghi expected disposition, không coi 502 là PASS ngầm.
 
 ### B · Data
+**Chạy lần đầu ở checkpoint `BASELINE-PRE-APP`: sau restore + S4, trước Directus/agent-data boot.** Sau app boot, chạy lại diff và tách `VOLATILE_BY_FLOW`; không thay expected baseline.
 So source snapshot ↔ clone:
 - `directus`: schema/object counts + row counts business tables; loại riêng volatile/audit/session và sanitization delta đã biết.
 - `incomex_metadata`: schema + row counts/checksum metadata.
@@ -275,7 +294,7 @@ G2 `CURRENT parity` PASS khi:
 10. Sau baseline: stop CURRENT containers để tiết kiệm RAM; giữ volumes/checkpoint/manifests. Không xoá clone.
 
 DỪNG nếu:
-- first boot xảy ra trước S1–S4 PASS;
+- bất kỳ app/token-reading service nào boot trước S1–S4 + BASELINE-PRE-APP PASS (PostgreSQL/Qdrant restore-only sau S1–S3 là ngoại lệ C1);
 - phát hiện prod token/secret đã sang VPS2;
 - clone có public ingress hoặc egress;
 - exact core image không khớp;
