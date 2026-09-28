@@ -19,62 +19,62 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: **HOST / DISPATCHER / INTEGRATOR**
 - Host_ID: `GPT-MMIM-260920-A`
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
-- Active_RUN: batch `A05 / B03 / C02` = READY_TO_RUN.
-- Reserved_Targets: điều phối toàn batch; không trực tiếp tranh target đã reserve cho Executor.
-- Base_Target_Version: re-read trước mỗi Host mutation.
-- NOW: giám sát A05/B03/C02; tích hợp governance Chat.1/Chat.2; giữ checkpoint Owner nhìn thấy Master→List→Detail.
-- NEXT: nghiệm thu KQ A05/B03/C02; promote proposal Council nào được ACCEPTED; cập nhật Registry.
-- BLOCKED_BY: không.
+- Active_RUN: preparing `A06 / B04 / C03`.
+- Reserved_Targets: điều phối batch; không tranh target Executor.
+- Base_Target_Version: re-read trước Host mutation.
+- NOW: nghiệm thu A05/B03/C02 xong; mở batch evidence/audit không đụng methodology Chat.2.
+- NEXT: gate + READY A06/B04/C03; chờ proposal phương pháp luận Chat.2.
+- BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D72–D73.
+- LAST_SYNC: D76–D77.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
-- Write_Zone: `council/GPT-CHAT-2.md` only, trừ khi Host/Owner giao khác bằng quyết định mới.
+- Write_Zone: `council/GPT-CHAT-2.md` only.
 - Active_RUN: none.
-- Reserved_Targets: none.
-- Base_Target_Version: proposal phải ghi version/hash target/evidence cụ thể.
-- NOW: nghiên cứu ý tưởng/gap/trùng/chồng/xung đột ngoài Reserved_Targets; phản biện Host/Executor; proposal đầu tiên về governance đã ACCEPTED vào D72–D73.
-- NEXT: chọn topic không chồng A05/B03/C02; ghi proposal READY_FOR_HOST theo template ledger.
-- BLOCKED_BY: nếu topic trùng Reserved_Targets thì chỉ ghi CONFLICT_WITH, không chuẩn bị mutation cùng vùng.
+- Reserved_Targets: **METHODOLOGY_TOPIC** = Process→Step→UI · reuse-or-create · gray-zone decision · evidence/model/check process.
+- Base_Target_Version: proposal phải ghi target/evidence hash khi chốt.
+- NOW: thảo luận phương pháp luận đáng tin cậy: công thức tạo Step/UI, mô hình dữ liệu để kiểm `đã có / dùng lại / tạo mới`, cách xử lý vùng xám và bằng chứng cho quyết định.
+- NEXT: khi thống nhất trong chat, ghi proposal READY_FOR_HOST; chưa chốt thì chưa promote canonical.
+- BLOCKED_BY: none; Executor A/B/C bị cấm tự thiết kế lại topic này.
 - State: ACTIVE.
-- LAST_SYNC: D72–D73.
+- LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-A
 - Role: **EXECUTOR**
-- Write_Zone: theo `lane-a/PROMPT.md`.
-- Active_RUN: `MMIM-LANE-A05-20260928-01` = READY_TO_RUN.
-- Reserved_Targets: root ui `master-of-master-v1.html`, `master-home-v1.html`, `ui-child-content-v1.js` khi cần + `lane-a/COLLAB.md`.
-- Base_Target_Version: prompt SHA `bfe603411d82391a32daa3987b6f124436641e969c623249b5441f8c1c412658`; READY base `1bd42c508d18fb747a0aeeb16f16886d18edec9a`; re-read own target trước mutation.
-- NOW: Field List acceptance + kiểm đường 5 List.
-- NEXT: KQ A05; dừng.
-- BLOCKED_BY: PARALLEL_CONFLICT nếu own target bị surface khác chạm.
-- State: READY_TO_RUN.
-- LAST_SYNC: D74–D75.
+- Write_Zone: root ui audit metadata + `lane-a/COLLAB.md`.
+- Active_RUN: `MMIM-LANE-A06-20260928-01` = PREPARED.
+- Reserved_Targets: root ui `master-of-master-v1.html`, `master-home-v1.html`, `ui-child-content-v1.js` if needed + lane-a/COLLAB.
+- Base_Target_Version: prompt to be gated.
+- NOW: audit 4 core Master Lists Process/Tool/Step/UI; expose conflict/gap, no new catalog.
+- NEXT: KQ A06.
+- BLOCKED_BY: COORD/PARALLEL conflict only.
+- State: PREPARED.
+- LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-B
 - Role: **EXECUTOR**
-- Write_Zone: theo `lane-b/PROMPT.md`.
-- Active_RUN: `MMIM-LANE-B03-20260928-01` = READY_TO_RUN.
-- Reserved_Targets: `ban-duyet.html` + `lane-b/COLLAB.md`.
-- Base_Target_Version: prompt SHA `fed4bdbf55897530f58c41876ee1fcbc900c093427148e12551398252512d590`; READY base `1bd42c508d18fb747a0aeeb16f16886d18edec9a`; canonical B02R1 12-contract snapshot phải giữ.
-- NOW: opt-in contract cho tối đa 13 candidate FIELD/FORM/MOT đủ evidence.
-- NEXT: KQ B03; dừng.
-- BLOCKED_BY: thiếu evidence hoặc PARALLEL_CONFLICT own target.
-- State: READY_TO_RUN.
-- LAST_SYNC: D74–D75.
+- Write_Zone: `ban-duyet.html` + `lane-b/COLLAB.md`.
+- Active_RUN: `MMIM-LANE-B04-20260928-01` = PREPARED.
+- Reserved_Targets: ban-duyet + lane-b.
+- Base_Target_Version: 23-contract canonical from B03 must stay except CHUNG.KIEM/FORM.TAO.
+- NOW: resolve or prove-blocked exactly 2 OPEN contracts.
+- NEXT: KQ B04.
+- BLOCKED_BY: insufficient source.
+- State: PREPARED.
+- LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-C
 - Role: **EXECUTOR**
-- Write_Zone: `lane-c/COLLAB.md` only.
-- Active_RUN: `MMIM-LANE-C02-20260928-01` = READY_TO_RUN.
-- Reserved_Targets: `lane-c/COLLAB.md`; canonical/ui READ-ONLY.
-- Base_Target_Version: prompt SHA `f7d12de568042f39f4806bc60adc3a94e6640b792b97abd4dcba9d44486f636b`; READY base `1bd42c508d18fb747a0aeeb16f16886d18edec9a`; phụ thuộc 12 contract B02R1 không đổi.
-- NOW: chốt `H_MOW / U_MOW / UI_MISSING` từ 25 instance + 12 contract.
-- NEXT: KQ C02; dừng.
-- BLOCKED_BY: 12 contract B02R1 bị thay hoặc evidence UI không đủ.
-- State: READY_TO_RUN.
-- LAST_SYNC: D74–D75.
+- Write_Zone: `lane-c/COLLAB.md` only; canonical/ui read-only.
+- Active_RUN: `MMIM-LANE-C03-20260928-01` = PREPARED.
+- Reserved_Targets: lane-c/COLLAB.
+- Base_Target_Version: C01+B02R1 evidence + C02 only as comparison.
+- NOW: prove reproducibility of 25→15 Human Step with explicit 6-tuple rule.
+- NEXT: KQ C03.
+- BLOCKED_BY: if 15 requires hidden/manual semantic judgment.
+- State: PREPARED.
+- LAST_SYNC: D76–D77.
 
 ## Proposal contract
 

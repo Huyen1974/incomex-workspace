@@ -1,69 +1,62 @@
-# PROMPT — LANE B03 · Contract batch FIELD/FORM/MOT authoring
+# PROMPT — LANE B04 · Resolve 2 OPEN process contracts
 
-RUN_ID: MMIM-LANE-B03-20260928-01
+RUN_ID: MMIM-LANE-B04-20260928-01
 PROCESS: CHUNG.APQUYTRINH
 STATUS: Chỉ chạy sau PROCESS_GATE PASS + READY của Host.
 
 Host: GPT Chat · Host_ID `GPT-MMIM-260920-A`
 Executor_Surface: Codex
+
 Write_Path:
 - `work/mow-mot-moit-mout/ban-duyet.html`
 - `work/mow-mot-moit-mout/lane-b/COLLAB.md`
 
-## 0. Concurrency
-RUN song song A/B/C. Trước mutation re-read own target version + current HEAD.
-HEAD đổi nhưng own target không đổi → dùng HEAD mới, tiếp tục.
-Own target bị lane khác chạm → DỪNG PARALLEL_CONFLICT.
-Không sửa lane-a/lane-c/PROMPT khác.
+## 0. Registry / concurrency
+Đọc `../council/REGISTRY.md` READ-ONLY.
+Entry CODEX-MMIM-B phải đúng B04 + Reserved_Targets.
+Không sửa Registry.
+Không đụng topic phương pháp reuse/create / Step→UI đang Council Chat.2 thảo luận.
 
+## 1. Giữ nguyên 23 contract đã đạt
+23/39 contract hiện hành + 27 direct Human Step phải giữ nguyên từng byte ở attrs/spans, trừ đúng hai process OPEN dưới đây nếu được opt-in.
 
-## 0A. Council Registry / phối hợp
+## 2. Chỉ xử lý 2 OPEN
+### CHUNG.KIEM
+B03 blocker:
+- chưa rõ hợp đồng kết quả/đường trả khi **business check không đạt** so với **lỗi máy/system**;
+- đầu vào object/check-set chưa đủ rõ.
 
-Trước mọi phân tích/mutation:
-- đọc `../council/REGISTRY.md` **READ-ONLY**;
-- kiểm entry `CODEX-MMIM-B`: Active_RUN đúng `MMIM-LANE-B03-20260928-01`, Reserved_Targets đúng `ban-duyet.html + lane-b/COLLAB.md`;
-- nếu Registry nói RUN/scope/Reserved_Targets khác → DỪNG `COORD_CONFLICT`, không tự sửa Registry.
+Đọc NT21 + process definition + error/incident sources hiện có.
+Chỉ opt-in nếu source phân biệt được tối thiểu:
+`PASS | BUSINESS_BLOCK | SYSTEM_ERROR`
+hoặc equivalent đã thực sự có trong nguồn, cùng input/output/return rõ.
+Không invent enum nếu source không đủ.
 
-Không sửa `council/REGISTRY.md`; Host quản summary chung.
+### FORM.TAO
+B03 blocker:
+- bước `MOUT: định nghĩa đếm · chỉ số` chỉ dành MOUT;
+- nhánh MOIT bỏ qua và điểm quay lại chưa rõ.
 
-Khi ghi KQ vào lane-b/COLLAB, thêm trong cùng KQ block:
-`COORD · NOW=XONG|DỪNG · NEXT=<một việc> · BLOCKED_BY=<none|lý do> · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=D72-D73/B03`.
+Đọc process/form sources hiện có.
+Chỉ opt-in nếu có thể mô tả branch MOIT/MOUT + return path không mơ hồ bằng evidence.
+Nếu chưa đủ, giữ OPEN và nêu **một câu quyết định còn thiếu** để Host/Owner/Chat.2 xử lý.
 
-## 1. Giữ nguyên 12 contract B02R1
-Tuyệt đối không đổi:
-CHUNG.TIM/NEU/DUYET/BAT/NGUNG · MOW.* 6 · MOT.CHAY.
-Đó là snapshot C02 đang đọc.
-
-## 2. Batch ứng viên mới
-Chỉ xét 13 process đã tránh các definition branch mơ hồ B01:
-- CHUNG.CAPMA · CHUNG.KIEM
-- FIELD.LAP · FIELD.SUA · FIELD.XOA
-- FORM.TAO · FORM.LAP · FORM.SUA · FORM.XOA
-- MOT.TAO · MOT.LAP · MOT.SUA · MOT.XOA
-
-Mục tiêu: opt-in contract-v1 **chỉ những process đủ evidence**.
-Không ép đủ 13. Một process thiếu quyền/state/return/input/output → để unversioned + OPEN, không bịa.
-
-## 3. Contract
-Dùng schema A02/B02R1:
-process attrs: when/input/output/return/source.
-Direct Human Step: step-key/right-class/state-in/state-out/return/ui-intent.
-
-Giữ code/name/order/logic/read-write refs.
-Machine-only process có thể opt-in mà không có human span.
-Step-key unique toàn catalog.
+## 3. JEV
+Chỉ dùng nếu source đưa ra 2–5 lựa chọn hữu hạn thật.
+State = evidence thô/faithful condensation.
+JEV không được tạo semantic branch mới thay nguồn.
 
 ## 4. Acceptance
-- walk-check 39 / 0 lỗi;
-- contract audit 0 lỗi;
-- 12 B02R1 process byte-equivalent contract attrs/spans trước/sau;
-- new opt-in set chỉ nằm trong 13 candidate;
-- không sửa CAT-004/UI;
-- báo `new_contract=<n>/13`, `open=<n>`, `total_contract=12+n`.
-- với OPEN, ghi lý do cụ thể và NEXT batch; không gọi nó “đạt”.
+- walk 39 / 0 lỗi.
+- contract audit 0 lỗi.
+- 23 contract cũ byte-equivalent.
+- `resolved=0..2`; total_contract=23+resolved.
+- OPEN còn lại có blocker tối giản, rõ yes/no hoặc choice cần chốt.
+- không CAT-004/UI.
 
 ## 5. KQ
-`KQ@MMIM-LANE-B03-20260928-01 XONG|DỪNG`
-`KQ@LANE-B B03 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS|BLOCK · new_contract=<n>/13 · total_contract=<n>/39 · open=<n> · NEXT=<one thing>`
+`KQ@MMIM-LANE-B04-20260928-01 XONG|DỪNG`
+`KQ@LANE-B B04 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS|BLOCK · resolved=<n>/2 · total_contract=<n>/39 · open=<n> · NEXT=<one thing>`
+`COORD · NOW=XONG|DỪNG · NEXT=<...> · BLOCKED_BY=<...> · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=D76-D77/B04`
 
 Dừng.
