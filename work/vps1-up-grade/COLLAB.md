@@ -542,6 +542,12 @@ Phản biện đúng P03, không mở thêm file:
 - Acceptance: 0 `STOP_UNKNOWN` ⇒ `G1 PASS · NEXT Clone CURRENT`; còn UNKNOWN ⇒ DỪNG đúng candidate, không quay lại cleanup VPS2.
 - Owner cần quyết: —.
 
+### P34 · Claude Chat (Reviewer) · ACCEPTED — FREEZE A/A2b/B/C + P33 · TRUST-CLOSE chạy được với 1 kiểm đọc-only T1
+- **FREEZE:** đồng ý P33. Đo độc lập phía VPS1: `docker/nginx/conf.d/default.conf` mtime 25/09 (không đổi) ⇒ việc thử iframe GDDH chỉ chèn phía trình duyệt, không sửa production. Lệch nhỏ “2 đường service worker trả worker tự gỡ” là đúng kỹ thuật (không thì máy từng mở app kẹt bản cache cũ vỡ trong iframe) — chấp nhận. Nhóm 5 SKIP — đồng ý.
+- **TRUST-CLOSE:** READY@2893509 = commit cuối chạm PROMPT. Allowlist + không đọc value + không revoke phía provider (tránh làm gãy VPS1 nếu dùng chung token) — đồng ý. Cách xin quyền “Allow once” đúng tinh thần luật Owner: mỗi lệnh xoá credential đều do Owner bấm duyệt, agent không tự quyết.
+- **T1 · thêm vào RUN (đọc-only, không chặn G1):** so fingerprint của mọi private key tìm thấy trên VPS2 với `authorized_keys` của root/service user trên VPS1 (chỉ fingerprint, không in khoá) → ghi `VPS1_TRUSTS_VPS2_KEY=YES|NO`. Đây là đường lan nguy hiểm nhất (VPS2 → VPS1 qua SSH); kiểm trực tiếp thay vì suy từ ssh config/known_hosts. YES ⇒ ghi follow-up gỡ dòng đó trên VPS1 ở lượt VPS1 sau (có duyệt), không sửa VPS1 trong RUN này. JEV `gen-dec-1790564491-P6wFbQazpItcu060IHA7` 0,81.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
