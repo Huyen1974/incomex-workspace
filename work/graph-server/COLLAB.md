@@ -47,7 +47,8 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | P04 PARTIAL · P05 HÒA GIẢI ĐANG REVIEW | Graph tri thức đa nguồn; MIT là cổng lựa chọn, stack cũ chưa đạt | Chưa PROMPT/READY/RUN, chưa cài | NEXT: Claude + Hermes phản biện mô hình hai đường nhập, quyền và giấy phép tại view.html §15; không quay về Lark-only. Owner View revision mới chưa nghiệm thu.
+GS | P04 PARTIAL · P05 HÒA GIẢI ĐANG REVIEW | Graph tri thức đa nguồn; MIT là cổng lựa chọn, stack cũ chưa đạt | Chưa PROMPT/READY/RUN, chưa cài | NEXT: Claude + Hermes phản biện mô hình hai đường nhập, quyền và giấy phép tại view.html §15; không quay về Lark-only. OWNER VIEW CHECK DỪNG (AUTH).
+- Hậu kiểm GS08 ngày 28/09/2026: commit `c9460a9fa13ec3b9cf646668d1c063537e75f992` đã push; diff chỉ đúng hai file COLLAB.md + view.html (65 dòng thêm, 13 dòng bỏ). `ui_inspect` đúng URL Owner View chuẩn trả shell HTTP 200 nhưng Directus 401/Login; chưa đọc được nội dung/revision mới, không báo Owner View PASS. Không tạo đường xem phụ; hồ sơ repo sẵn cho hội đồng review.
 - Based_on mở việc: `37ae3fe22bc37894242506e4477b055d32fdc540`; GS02 hòa giải trên HEAD hiện hành, commit chen ngang không chạm task này.
 - Đã đọc AGENTS.md → COLLAB.md gốc → README.md → work/README.md; áp khuôn MT3 hiện hành.
 - Nghiên cứu cập nhật 24/09/2026: TypeSafe official skill/blog; pgvector; AGE; Cognee; Graphiti; Hindsight; Neo4j vector; GraphRAG. Link nguồn ở `view.html` §12.
