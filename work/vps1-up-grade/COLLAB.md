@@ -509,8 +509,19 @@ Phản biện đúng P03, không mở thêm file:
 - BK1 recurring first-cycle vẫn machine-owned pending; không chặn RUN này. Nếu artifact đã có thì chỉ read-check, không chờ.
 - Owner cần quyết: —.
 
+### P30 · Claude Chat (Reviewer) · ACCEPT BK1 · FREEZE đúng hướng, cần 1 sửa A2b trước RUN (chờ Owner gật) · đầu vào bắt buộc cho Clone
+- **BK1 — đồng ý P28.** Kiểm độc lập (đọc mã VPS1): `dot-pg-restore-verify-db` có thật, `dot-pg-restore-verify` không đổi (K1); `pg-backup.sh` + `backup-to-gdrive.sh` đã thêm `incomex_metadata` + `/opt/incomex/data`, tách tên, retention nhận mẫu mới, lỗi ⇒ DEGRADED không tỉa Drive. **Lưu ý P28 về `queue.sqlite`:** script coi tar rc=1 là *cảnh báo*, nên cron **không bao giờ đỏ** vì file này ⇒ điều kiện “nếu đỏ thì MCPW xử lý” sẽ không bao giờ kích hoạt; bản sao SQLite đang ghi có thể hỏng mà không ai biết. Đề nghị: MCPW (chủ ledger, P39) cung cấp điểm chụp nhất quán (SQLite online backup) và VPSUP gọi nó trong `backup-to-gdrive.sh` — xếp vào lượt VPS1 kế tiếp, không chặn FREEZE.
+- **FREEZE — đúng ý Owner (ít việc nhất, 0 bề mặt tấn công, và bắt buộc trước khi đưa bản clone dữ liệu production lên VPS2).** Nhưng đọc mã VPS1 thấy **phụ thuộc công khai**: trang GDDH (`giaoduc.*`, Nuxt VPS1) mục “Chương trình tiếng Nhật” nhúng iframe `https://elearning.incomexsaigoncorp.vn/` (sửa 20/08, `GddhLarkEmbed.vue` + CSP `frame-src` trong nginx). Freeze nguyên trạng ⇒ ô đó thành ô xám vỡ trên trang công khai; PROMPT §1.5 cũng có thể khiến agent DỪNG. JEV `gen-dec-1790556362-LG81tgeUmXIJbruNpw6d`: giữ trang tĩnh 0,92 (ô vỡ 0,02 · giữ online 0,01 · build lại Nuxt ngay 0,05).
+- **Đề xuất (Owner gật) — Host áp nguyên văn vào PROMPT; tôi duyệt trước:**
+  - §0 mục 1 thêm: “riêng địa chỉ `elearning.incomexsaigoncorp.vn` vẫn trả **một trang tĩnh ‘Chương trình đang nâng cấp’** (HTTPS, không PHP/DB) để ô ‘Chương trình tiếng Nhật’ trên trang GDDH không vỡ.”
+  - Thêm **A2b** sau A2: “Cấu hình web server hiện hữu đang phục vụ domain này trên VPS2 trả trang tĩnh cho mọi đường dẫn của `elearning.incomexsaigoncorp.vn`: 1 file HTML, không script ngoài, không form, không header chặn nhúng; giữ TLS hiện hữu; không tạo service/port mới. Nếu web server nằm trong compose e-learning thì chỉ giữ riêng container đó chạy với cấu hình tĩnh. Không làm được mà không tạo service mới ⇒ bỏ A2b, ghi gap, vẫn freeze.”
+  - A3 thay dòng “Không yêu cầu 80/443 e-learning còn online; offline là trạng thái mong muốn” bằng: “80/443 chỉ còn trang tĩnh A2b (hoặc offline nếu A2b bị bỏ); 0 PHP/MySQL/queue chạy. Kiểm từ ngoài: GET trang = 200 nội dung tĩnh; mục ‘Chương trình tiếng Nhật’ trên GDDH hiển thông báo.”
+  - D23 ghi thêm điều kiện trang tĩnh sau khi Owner gật.
+- **Đầu vào bắt buộc cho PROMPT Clone CURRENT (không chặn FREEZE):** bản clone chứa dữ liệu + khoá production nên phải: (1) không ra internet — chỉ bind `127.0.0.1`, vào bằng SSH tunnel; (2) **vô hiệu khoá production trong clone**: xoá/đổi static token trong `directus_users.token`, dùng `KEY/SECRET` Directus khác prod (tránh giả JWT hợp lệ với VPS1), không chép token Telegram/GitHub/OpenAI/Agent-data — dùng giá trị giả; (3) chặn outbound của clone (Q08). Lý do: token tĩnh chép sang clone vẫn dùng được với API VPS1 nếu VPS2 bị chiếm.
+- Owner cần quyết: **OQ-FREEZE-GDDH** (bên dưới).
+
 ## Owner cần quyết
-- —
+- OQ-FREEZE-GDDH · 28/09 · Trang GDDH mục “Chương trình tiếng Nhật” đang nhúng e-learning VPS2. Đề xuất Reviewer: freeze e-learning nhưng giữ **một trang tĩnh “Chương trình đang nâng cấp”** ở đúng địa chỉ cũ (P30 A2b). Gật ⇒ Host sửa PROMPT + READY mới. Lắc ⇒ freeze nguyên trạng, ô đó vỡ tới khi build lại Nuxt ở bước 7.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md · ../../README.md · ../README.md.
