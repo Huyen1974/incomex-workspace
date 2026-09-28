@@ -33,18 +33,23 @@ Bối cảnh nguyên văn User: “Gốc rễ nhất là chúng ta đã dọn VP
 
 **Yêu cầu Owner 28/09/2026 (nguyên văn):** “Bạn tiếp tục phân tích các chi tiết để chúng ta đồng thuận 100% trước khi cho triển khai. Ngay cả việc chốt version nào cũng nên đưa vào kế hoạch.”
 
+**Làm rõ mới nhất — nguyên văn Owner 28/09/2026:** “Các con số là tôi lấy ví dụ thôi chứ không phải chốt tỷ lệ xác suất từng đó.”
+
 ### 2. Thế nào là hoàn thành
-Phạm vi lượt giao hiện tại, nguyên văn User:
-- “tạo 1 task tên work/graph-server”
-- “Đưa các nội dung lên đây theo đúng quy đjnh để hội đồng bắt đầu có ý kiến.”
+Phạm vi hiện tại — nguyên văn Owner 28/09/2026:
+- “Bạn rà soát cái cần là tất cả các chi tiết phải được đưa vào kế hoạch để tất cả phải hiểu thống nhất và hiểu đúng. Tránh mỗi Ai lại làm theo 1 kiểu.”
+- “Bạn tiếp tục rà soát và cập nhật kế hoạch giúp tôi để tiến tới đồng thuận nhé”
+Tiêu chí trial/production ở PLAN01 vẫn là đề xuất cần Owner duyệt; lời giao cập nhật kế hoạch không phải RUN.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - Chỉ tạo hai file trong task: COLLAB.md điều phối và view.html là tài liệu chính duy nhất. Không tạo PROMPT, file review, bản nháp hoặc pipeline phụ.
 - Giữ đủ các nhóm lựa chọn đã thảo luận; phân biệt nguồn kiểm chứng, đề xuất và điều chưa kiểm. Đề xuất cũ không phải quyết định Owner.
 - **Nguyên tắc lựa chọn Owner 24/09/2026:** bỏ ưu tiên kiến trúc tự thiết kế hoặc giữ lại chỉ vì đã có; ưu tiên giải pháp **off-the-shelf đã chạy thực tế, đáng tin, nhiều người dùng/cộng đồng, cài sẵn/ít code tùy biến và phù hợp Incomex**. PostgreSQL/Qdrant hiện hữu là bối cảnh để tận dụng nếu hợp lý, không phải rào cản cấm cài graph DB/sản phẩm mới.
 - **Tầm nhìn một câu (Claude soạn 28/09 từ lời Owner, Host kiểm):** Graph hoá mọi thông tin Incomex được phép dùng; giá trị chính nằm ở thông tin chưa/không SQL hoá được (chăm sóc khách hàng, trao đổi, quy trình còn loay hoay, code); Graph nối mẩu rời thành liên hệ có nguồn và độ chắc → JEV cân nhắc từng lựa chọn một bước → policy/người quyết hành động.
-- **“Hữu hạn” (ưu tiên #1, theo nguyên văn Owner lần 3 ở §0.1) =** tại mỗi lúc chỉ chọn trong một danh mục *loại* quan hệ có mã và phiên bản; danh mục lớn dần qua quy trình duyệt; quan hệ chưa có trong danh mục vẫn được giữ và dùng để gợi ý — **danh mục không bao giờ chặn tiến trình**. Số thực thể, số nguồn không giới hạn; không có nghĩa “chỉ dữ liệu đã có sẵn trong bảng”. Trái nghĩa: mạng xã hội, nơi loại quan hệ và độ lan không có biên. Trạng thái và ngưỡng: P09 C1–C2.
-- **Phiên bản từng thành phần là một phần của kế hoạch** (Owner 28/09): PROMPT trial ghim đúng bảng VER01 (P09); đổi phiên bản = một dòng mới trong VER01 + chạy lại bài đo.
+- **“Hữu hạn” (ưu tiên #1, theo nguyên văn Owner lần 3 ở §0.1) =** tại mỗi lúc chỉ chọn trong một danh mục *loại* quan hệ có mã và phiên bản; danh mục lớn dần qua quy trình duyệt; quan hệ chưa có trong danh mục vẫn được giữ và dùng để gợi ý — **danh mục không bao giờ chặn tiến trình**. Số thực thể, số nguồn không giới hạn; không có nghĩa “chỉ dữ liệu đã có sẵn trong bảng”. Trái nghĩa: mạng xã hội, nơi loại quan hệ và độ lan không có biên. Trạng thái, xác suất và quyền hành động: chỉ dùng PLAN01 tại `view.html` §16 theo D07/P10; P09 C1–C2 gốc đã được hiệu chỉnh.
+- **Một kế hoạch hiện hành:** `view.html` §16 = PLAN01; bảng VER01 nằm ngay trong đó. COLLAB chỉ giữ điều phối/phản biện/con trỏ, không giữ bản bảng phiên bản thứ hai. Mục §1–§15 và P cũ là lịch sử, không được dùng để lấn át PLAN01. PLAN01 còn DRAFT; chưa PROMPT/READY/RUN.
+- **Phiên bản từng thành phần là một phần của kế hoạch:** VER01 ghi riêng bản ứng viên, nguồn đã kiểm, digest/bản chạy thực tế và phần còn chờ. Không coi tag tồn tại là đã nghiệm thu tổ hợp. Không dùng `latest`, không tự nâng lẻ dependency hoặc đổi provider/model. Model JEV do gateway hiện hữu quản lý, lượt nào cũng ghi model thực trả về.
+- **Ngưỡng chưa chốt:** 75%/85% chỉ là ví dụ, không phải mặc định, seed bắt buộc hay ngưỡng production. Giai đoạn đầu SHADOW, giá trị ngưỡng chưa được duyệt để trống; không tự merge/gửi tin/ghi hệ nghiệp vụ. Duyệt loại quan hệ, đánh giá một cạnh và cấp quyền hành động là ba việc khác nhau.
 - Giữ đúng thứ tự mục tiêu. Lark/SQL chỉ là một nhóm nguồn; phải có thông tin chăm sóc khách hàng, trao đổi/quy trình và quan hệ suy luận có bằng chứng ngay trong bài thử đại diện. Không đòi SQL hóa xong mới làm Graph. Mọi nguồn thật vẫn phải thuộc phạm vi được cấp quyền.
 - **Hữu hạn theo phiên bản, mở cho khám phá:** đường vận hành dùng catalog quan hệ chuẩn có version; đường discovery giữ quan hệ free-form/candidate kèm nguồn và evidence. Không block tiến trình chỉ vì chưa có relation type chuẩn; nhưng candidate chưa được dùng như quan hệ chuẩn cho business action cho tới khi qua policy/approve. Khi duyệt, thêm type vào version tiếp theo và từ đó ưu tiên map/gợi ý.
 - **Tiêu chí công cụ (D06):** miễn phí/self-host dài hạn cho công ty nhỏ · còn cập nhật · cộng đồng/vendor mạnh · xác suất chết giữa chừng thấp · dữ liệu/logic lõi mang đi được. MIT là điểm cộng, không bắt buộc. Vẫn kiểm LICENSE đúng phiên bản/dependency/model trước khi chốt; loại giấy phép cấm thương mại.
@@ -53,7 +58,11 @@ Phạm vi lượt giao hiện tại, nguyên văn User:
 - Chưa cho phép cài đặt, quét dữ liệu/mã thật, migration, restart, xóa hoặc đổi cấu hình/model/gateway. Các bài kiểm trong tài liệu chỉ để hội đồng đánh giá.
 
 ### Vòng trước
-Chưa có — mở việc lần đầu theo lệnh Owner. Nội dung chat trước là đầu vào, không phải quyết định kiến trúc đã duyệt.
+§0.2 mở việc ngày 24/09, giữ nguyên văn:
+Phạm vi lượt giao hiện tại, nguyên văn User:
+- “tạo 1 task tên work/graph-server”
+- “Đưa các nội dung lên đây theo đúng quy đjnh để hội đồng bắt đầu có ý kiến.”
+Các mục tiêu và lời Owner các vòng trước vẫn giữ tại §0.1; mọi đề xuất kiến trúc lịch sử không tự thành quyết định đã duyệt.
 
 Host: GPT Chat
 Host_ID: GPT-GRAPH-20260924-A — ID điều phối do Host tự đặt.
@@ -64,7 +73,7 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | P05 HÒA GIẢI · D06 GIẤY PHÉP THỰC DỤNG | Graph tri thức đa nguồn; ưu tiên miễn phí self-host, cập nhật đều, cộng đồng mạnh, nguy cơ chết thấp; MIT không còn là hard gate | Chưa PROMPT/READY/RUN, chưa cài | NEXT: Claude + Hermes phản biện shortlist Neo4j+Cognee vs Neo4j+Graphiti theo độ bền, quyền và khả năng thay lớp trên. OWNER VIEW CHECK DỪNG (AUTH).
+GS | PLAN01/VER01 DRAFT · P09 PARTIAL · P10 OPEN | 75/85 chỉ là ví dụ; SHADOW; chưa PROMPT/READY/RUN | NEXT: Claude review PLAN01 và các hiệu chỉnh P10; Hermes xác nhận cấu hình/tài nguyên/cách ly/restore dự kiến | OWNER VIEW: cần hậu kiểm revision GS12, chưa PASS.
 - Hậu kiểm GS08 ngày 28/09/2026: commit `c9460a9fa13ec3b9cf646668d1c063537e75f992` đã push; diff chỉ đúng hai file COLLAB.md + view.html (65 dòng thêm, 13 dòng bỏ). `ui_inspect` đúng URL Owner View chuẩn trả shell HTTP 200 nhưng Directus 401/Login; chưa đọc được nội dung/revision mới, không báo Owner View PASS. Không tạo đường xem phụ; hồ sơ repo sẵn cho hội đồng review.
 - Based_on mở việc: `37ae3fe22bc37894242506e4477b055d32fdc540`; GS02 hòa giải trên HEAD hiện hành, commit chen ngang không chạm task này.
 - Đã đọc AGENTS.md → COLLAB.md gốc → README.md → work/README.md; áp khuôn MT3 hiện hành.
@@ -80,6 +89,8 @@ GS | P05 HÒA GIẢI · D06 GIẤY PHÉP THỰC DỤNG | Graph tri thức đa ng
 - D04 · 2026-09-28 · Owner làm rõ phạm vi: Graph cho mọi loại thông tin Incomex được phép dùng, trọng tâm business, chăm sóc khách hàng, quy trình/lựa chọn và code; thông tin Claude kiểm trong Lark/PG chỉ là một phần nhỏ. Đây không phải lệnh chốt Neo4j hoặc lệnh nạp dữ liệu.
 - D05 · 2026-09-28 · Lịch sử: Owner từng nêu dài hạn ưu tiên MIT.
 - D06 · 2026-09-28 · **GIẤY PHÉP THỰC DỤNG, thay cách áp D05:** MIT không bắt buộc. Tiêu chí chính là: công ty nhỏ được dùng miễn phí/self-host dài hạn theo chính sách hiện hành; dự án còn cập nhật; cộng đồng/nhà tài trợ đủ mạnh; xác suất bỏ dở thấp; dữ liệu/logic lõi có đường xuất và thay lớp trên. Vẫn loại giấy phép cấm/không phù hợp thương mại hoặc điều khoản làm Incomex phải công khai dịch vụ ngoài ý muốn. Không chọn dự án yếu chỉ vì MIT.
+
+- D07 · 2026-09-28 · Owner làm rõ 75%/85% chỉ là ví dụ, không chốt tỷ lệ. Owner giao tiếp tục rà soát, cập nhật đầy đủ kế hoạch để mọi AI hiểu thống nhất; không cấp RUN. Cách gọi cũ của GPT “seed cho trial” và P09 “mốc Owner đặt” không còn hiệu lực. Kế hoạch hiện hành: PLAN01/VER01 tại `view.html` §16, còn chờ review.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · PARTIAL — giả thuyết vòng 1 đã được D02 thay tiêu chí lựa chọn
@@ -194,7 +205,7 @@ GS | P05 HÒA GIẢI · D06 GIẤY PHÉP THỰC DỤNG | Graph tri thức đa ng
 - **Cognee phù hợp mô hình hai chiều:** custom graph model có thể đặt edge cố định, `Literal[...]` để LLM chọn trong danh mục, và `str` để LLM nêu quan hệ free-form **trong cùng model**. Không ontology thì relation name được LLM suy trực tiếp; ontology mặc định `annotate` giữ unmatched; `strict` chỉ drop entity không ground và tài liệu nói relationship names không được ontology validate. Vì vậy không dùng ontology strict để chặn discovery; canonical governance nằm ở graph_model/catalog + policy.
 - **Lane A · MAP vào quan hệ chuẩn:** nguồn/LLM sinh edge candidate → code lọc theo domain/source-target → đưa shortlist quan hệ đã APPROVED + `none/unknown` cho JEV. Nếu lựa chọn chuẩn đủ mạnh thì **ưu tiên đề xuất/map**; không cần AI phát minh nhãn mới. Danh mục lớn thì shortlist theo domain/embedding trước, không ném toàn catalog cho JEV.
 - **Lane B · DISCOVER quan hệ mới:** khi không relation chuẩn nào đạt ngưỡng hoặc raw extraction phát hiện relation free-form có evidence, giữ nó ở trạng thái `PROPOSED`, không ép sang type gần nhất. Gom các đề xuất tương tự + provenance/tần suất/ví dụ. LLM/Cognee được **đề xuất tên + mô tả**; JEV không phát minh type mới vì answer space của JEV phải hữu hạn — JEV chỉ đánh giá các câu bounded như: “có khác type hiện hữu không?”, “evidence có hỗ trợ không?”, “có hữu ích để ra quyết định không?”, “domain/source-target phù hợp không?”. Human approve → type mới vào catalog version N+1; reject/merge/deprecate giữ audit.
-- **Ngưỡng 75%/85% của Owner = seed cho trial, chưa phải production:** (a) existing relation khoảng 0,75 có thể là ngưỡng ưu tiên đề xuất; (b) novel-candidate khoảng 0,85 có thể là ngưỡng **đưa vào hàng chờ định nghĩa mới**, không tự approve. Phải định nghĩa rõ đang đọc `choice probability` hay `confidence`; TypeSafe nói answer/probability cho “what”, confidence cho “whether to act”, và threshold tùy hậu quả. Trial phải hiệu chỉnh riêng theo relation/domain trên case đã gán nhãn; không dùng một số toàn hệ.
+- **Hiệu chỉnh theo D07/P10:** 75%/85% là ví dụ giải thích, không phải seed hoặc giá trị cấu hình đã duyệt. Chính sách ngưỡng, cách đọc xác suất/confidence, SHADOW và điều kiện chuyển sang tự động chỉ lấy từ PLAN01 §16. Không có số mặc định được suy từ chat.
 - **Không để catalog thành blocker:** edge/candidate mới vẫn được lưu/retrieve dưới trạng thái proposal/inference kèm evidence; nó chưa được dùng như canonical relation cho merge, mutation hoặc automation rủi ro cao. Như vậy graph vẫn học được trước khi ontology theo kịp.
 - **Versioning tối thiểu:** mỗi relation type chuẩn có `code + version/status`; mỗi edge giữ relation code/version nếu canonical, còn candidate giữ raw label + evidence + discovery metadata. Khi catalog đổi, không rewrite lịch sử mù; remap theo migration/review khi cần.
 - **Bài thử mới T17:** chuẩn bị dữ liệu đã che có (1) relation đã khai sẵn; (2) cách diễn đạt khác nhưng map được về relation cũ; (3) relation thật sự chưa có. PASS khi 1–2 ưu tiên đúng relation chuẩn, ca 3 đi lane PROPOSED chứ không bị ép/loại; reviewer duyệt ca 3 thì lần nạp sau hệ thống ưu tiên relation mới. Đo cả false-map và false-new-type.
@@ -202,36 +213,30 @@ GS | P05 HÒA GIẢI · D06 GIẤY PHÉP THỰC DỤNG | Graph tri thức đa ng
 - **JEV Reference:** `gen-dec-1790587126-gvt9Oee3rVMMcZcafzRX` → `versioned_finite_discovery` và `calibrated_two_lane`, confidence 1. Bằng chứng phụ.
 - **NEXT:** Claude review P08 đúng một vòng cuối theo A5; Hermes kiểm K1/K4/RAM và khả năng cấu hình Neo4j thật. Nếu Claude ACCEPT/PARTIAL không còn vênh nguyên tắc và Hermes không có blocker, Host mới soạn PROMPT trial; chưa READY/RUN.
 
-### P09 · Claude Chat · Reviewer · OPEN — vòng cuối P08 + chốt chi tiết trước PROMPT
+### P09 · Claude Chat · Reviewer · PARTIAL — nguồn v1.6.1 được ghi nhận; C1/C2/VER01 hiệu chỉnh bởi P10
 - Based_on `2e559eb`. Scope: P08, §0, view §15; **đọc mã nguồn Cognee tag v1.6.1** (`eb90d03`, phát hành 24/09/2026) thay vì chỉ đọc docs. JEV `gen-dec-1790588757-jdh7Ur53TquoXZB9SK2e`.
 - **ACCEPT P08:** closed-world decision × open-world discovery; Lane A/Lane B; JEV không phát minh loại mới; ngưỡng là seed phải hiệu chỉnh; T17 (false-map / false-new-type). Kiểm lại: ví dụ `examples/guides/custom_graph_model.py` của v1.6.1 đúng có cạnh cố định + `Literal[...]` + `str` trong cùng model.
-- **C1 · Trạng thái — tách 2 tầng cho khớp đúng luật Owner.** *Loại quan hệ* (danh mục): ĐÃ DUYỆT · CHỜ DUYỆT · BỎ. *Cạnh* (từng quan hệ cụ thể): (1) gắn loại đã duyệt — ≥75%, ưu tiên gợi ý, được dùng cho tự động/merge theo policy; (2) đề xuất loại mới — loại chưa có ≥85%, đẩy *loại* vào CHỜ DUYỆT; (3) suy luận — thấp hơn, vẫn giữ, vẫn tìm/gợi ý được, không ưu tiên; (4) mâu thuẫn/hết hiệu lực. P08 gộp (2)+(3) nên mất ranh giới 85% Owner đặt. JEV 0,86. Con người duyệt **loại**, không duyệt từng cạnh; hàng chờ gom theo nhãn + số lần gặp + 3 ví dụ nguồn (không đặt số lần tối thiểu — JEV 0,56, Owner không yêu cầu).
-- **C2 · Cách đọc 75%/85%.** Là *xác suất của đáp án* JEV trả (`probabilities`); `confidence` thấp = coi như chưa đạt ngưỡng (“what” vs “whether to act” theo TypeSafe). Lane A: `choice` trên {loại đã duyệt hợp nguồn–đích} ∪ {`khác_chưa_có_loại`, `không_có_quan_hệ`}. Lane B: `noul` “bằng chứng hỗ trợ quan hệ <nhãn> giữa A–B” + `choice` “nhãn này trùng loại đã duyệt nào / không trùng” (chặn false-new-type). Ngưỡng gắn với đúng model `typesafe/jev-1.13-20260917`; đổi model = hiệu chỉnh lại. JEV 0,98.
+- **C1 · PARTIAL theo Host P10:** giữ tách loại quan hệ và từng cạnh; thêm trục quyền hành động độc lập. Bỏ mốc 75/85 và nhận định “mất ranh giới Owner đặt”. Loại ĐÃ DUYỆT không làm cạnh tự đúng hoặc đủ quyền tự động/merge. Duyệt loại không phải duyệt từng cạnh; không đặt số lần gặp hoặc số ví dụ tối thiểu. Bốn ô giao diện và các trạng thái chính thức chỉ lấy từ PLAN01.
+- **C2 · PARTIAL theo Host P10:** giữ câu hỏi hữu hạn, tách xác suất từng đáp án với confidence và phân biệt khác loại/không có quan hệ/thiếu bằng chứng. Không có tỷ lệ đã duyệt. Đổi model, câu hỏi, danh mục ứng viên hoặc pipeline đều có thể làm policy cũ không còn phù hợp; SHADOW tiếp tục được, quyền tự động phải chờ tái đánh giá. Không đổi gateway JEV hoặc ép phiên bản từ client.
 - **C3 · Danh mục là dữ liệu, không phải code.** v1.6.1 có sẵn **JSON graph-model spec** (`cognee/modules/graph_models/spec.py`: thực thể, trường, quan hệ có cardinality; trình sửa trên UI Cognee; gắn theo dataset qua API; `cognify` API nhận JSON). Đề xuất: bản gốc danh mục = node có mã/phiên bản/trạng thái/nguồn–đích trong **Neo4j** (sống khi Cognee chết — K4); mỗi lượt nạp biên dịch loại ĐÃ DUYỆT thành JSON spec → duyệt loại mới = đổi dữ liệu, không sửa code, không triển khai lại. Giới hạn spec: 50 loại thực thể/spec ⇒ chia theo miền (dataset). JSON spec không có cạnh tự do ⇒ Lane B dùng trích xuất mặc định của Cognee (tự đặt tên quan hệ) — có sẵn, không code; trial đo chi phí 2 lượt trích, nếu đắt mới gộp 1 lượt bằng model Python sinh từ danh mục (bậc 3, mỏng). JEV 0,98. Trial: duyệt loại mới qua dòng Owner cần quyết; UI duyệt sản xuất chọn sau khi có số liệu tần suất.
 - **C4 · Đính chính K1 của Claude (P07) theo mã v1.6.1.** GPT đúng về hướng: không còn “âm thầm ghi Kuzu”. Mặc định nay là **Ladybug** (bản kế thừa Kuzu, `ladybug==0.19.0`); access control **bật mặc định**; chọn Neo4j CE khi access control bật thì **dừng ngay với lỗi rõ** kèm 4 lối ra (`Neo4jDatasetDatabaseHandler`). Chọn lối (4) `ENABLE_BACKEND_ACCESS_CONTROL=false`. **Loại** lối (2) `neo4j_community`: mỗi dataset một container Neo4j và Cognee phải cầm Docker daemon = quyền tương đương root trên VPS + tốn RAM. K1 giữ dạng bài đo: sau nạp, node nằm trong Neo4j, không có dữ liệu Ladybug.
 - **C5 · Bẫy mới, đã kiểm trong mã (chặn nếu bỏ qua):** chỉ đặt `ENABLE_BACKEND_ACCESS_CONTROL=false` thì Cognee **tắt luôn xác thực API** (`_resolve_auth_posture`; test issue #2808) — ai gọi được cổng là thành user mặc định, gồm cả `forget(everything=true)`. Bắt buộc: `REQUIRE_AUTHENTICATION=true` (ghi đè được); mọi cổng chỉ bind 127.0.0.1/mạng docker nội bộ (compose gốc mở 3000/7474/7687/8000/8001 ra mọi giao diện); đổi mật khẩu Neo4j mặc định (`neo4j/pleaseletmein`) bằng secret GSM. Bài đo: gọi API không token → 401; quét cổng từ ngoài → đóng.
 - **C6 · Quyền sửa danh mục.** JSON spec được Cognee sinh thành mã Python và chạy (`exec`, ghi chú trong spec.py) ⇒ chỉ writer dịch vụ được đổi spec/danh mục; agent không bao giờ.
 - **C7 · T17 bổ sung:** sau khi duyệt loại mới, chấm lại các cạnh (2)/(3) đã lưu (backfill) — không nạp lại toàn bộ. Plugin: Cognee dùng APOC (`apoc.create.addLabels`, `apoc.merge.relationship`) ⇒ bắt buộc; GDS chỉ dùng cho chỉ số tùy chọn ⇒ **không cài** (tiết kiệm RAM). RAM đo 28/09: còn 6,26 GB, swap đã dùng ~1,2/2 GB ⇒ Hermes kiểm trần heap Neo4j; UI Cognee bật khi cần, không chạy thường trực.
 
-**VER01 · Bảng phiên bản chốt cho trial** (kiểm 28/09 từ tag/lockfile, không từ trí nhớ). Ghim digest image lúc cài.
+**VER01 · Con trỏ duy nhất:** bảng ứng viên/bằng chứng/điều kiện nâng cấp đã hợp nhất vào `view.html` §16 (PLAN01). Bảng P09 gốc giữ trong Git tại `d222c773b1c2b241a876ce679787a52d014faf1c`, không là bảng cài đặt thứ hai. Mặc định upstream không tự trở thành cấu hình hoặc provider được Owner duyệt; đổi embedding chỉ tái tạo index/vector bị ảnh hưởng theo kế hoạch, không mặc định xóa toàn graph.
+- **Kết luận Claude tại P09 (lịch sử):** đề nghị nhận C1–C7 + VER01 trước PROMPT. Host xử lý tại P10; chưa coi Claude đã đồng ý với các sửa mới.
 
-| Thành phần | Chốt | Nguồn kiểm | Nâng cấp |
-|---|---|---|---|
-| Neo4j Community | `neo4j:5.26.31-community` (LTS tới 06/06/2028) | endoflife.date; docs Neo4j cập nhật 5.26.31; Cognee compose ghim dòng 5.26 | vá trong dòng 5.26.x sau khi chạy lại T17/K4; không lên 2026.x khi Cognee còn ghim 5.x |
-| APOC core | 5.26.31 (cùng bản Neo4j) | Cognee adapter gọi `apoc.*` | đi cùng Neo4j |
-| GDS | không cài | chỉ dùng cho metrics tùy chọn | — |
-| Cognee | `1.6.1` (24/09/2026) | tag v1.6.1, pyproject | chỉ nâng khi có lý do (vá bảo mật/tính năng cần) + chạy lại T17/K4/C5 |
-| cognee-mcp | `0.5.6` (cùng tag) | cognee-mcp/pyproject | cùng Cognee |
-| Python | 3.12 | Dockerfile Cognee | cùng Cognee |
-| Thư viện Cognee kéo theo | neo4j driver 5.28.6 · lancedb 0.39.0 · litellm 1.96.2 · enola-cli 0.4.21 · ladybug 0.19.0 (cài kèm, không dùng) | uv.lock v1.6.1 | không tự nâng lẻ |
-| Neo4j MCP chính hãng | `v1.6.0` | tag neo4j/mcp | — |
-| JEV | `typesafe/jev-1.13-20260917` qua OpenRouter | kết quả gọi thật | model mới ⇒ hiệu chỉnh lại ngưỡng |
-| LLM trích xuất | `openai/gpt-5.6-luna` (mặc định Cognee v1.6.1) | llm/config.py | đổi = chạy lại T17 |
-| Embedding | `openai/text-embedding-3-large` (mặc định Cognee) | embeddings/config.py | **đổi = nhúng lại toàn bộ** ⇒ ghim từ ngày đầu |
-| Không cài | Graphiti 0.30.2 (phương án B) · codebase-memory-mcp v0.11.0 (dự phòng K3) | tag GitHub | — |
-
-- Lý do chọn mặc định cho LLM/embedding: ít cấu hình lệch nhất (R1); Agent Data đang dùng OpenAI embedding (`text-embedding-3-small`) ⇒ đường OpenAI đã có. Dữ liệu trial đã che (T14); dữ liệu thật gửi ra LLM cần Owner gật riêng.
-- **Kết luận Claude:** không còn vênh nguyên tắc với GPT. Khi Host nhận C1–C7 + VER01 và Hermes không có blocker (RAM, cổng, secret, backup) thì Claude đồng ý soạn PROMPT trial. Owner cần quyết vẫn chỉ là §0.2.
+### P10 · GPT Chat · Host · OPEN — PLAN01 thống nhất cách hiểu và điều kiện thử
+- Based_on: P09 `d222c773b1c2b241a876ce679787a52d014faf1c`; mã Cognee v1.6.1 → `eb90d03740755f5252b8b12cce91fd09970f2d81`; lời Owner mới nhất (D07). Scope: chỉ hai file của task, không runtime/PROMPT/file mới.
+- ACCEPT C4–C6 về nguy cơ cấu hình/auth/spec theo mã đã đọc, nhưng bảo vệ phải bao phủ cả API, MCP, UI proxy, đăng ký tài khoản, credential và cổng trực tiếp. Tắt backend access control không đồng nghĩa có phân quyền nhiều khách hàng. Chỉ trial trong một miền tin cậy với dữ liệu đã che.
+- PARTIAL C1–C3/C7: không ngưỡng ví dụ, không cấp quyền từ nhãn/điểm; danh mục là dữ liệu có version nhưng tuyến Neo4j→spec→ingest và backfill phải chứng minh, không gọi toàn bộ là tính năng đóng gói sẵn. Lane khám phá không bị tắt khi Lane A có điểm cao. Không auto-approve tất cả cạnh cũ khi duyệt một loại.
+- Phát hiện từ compiler v1.6.1: mặc định identity theo name có thể gộp nhầm người cùng tên; UI compiler khác Python; custom model có đường bỏ ontology grounding/dedup và không ghép functional_relationships. Đã bổ sung ID01 và test trước khi nhập dữ liệu. Không đồng nhất Pydantic với ràng buộc đầy đủ của Neo4j.
+- Phát hiện từ compose v1.6.1: thêm mật khẩu default-user, cổng debugger, redisinsight không có profile và thiếu volume Neo4j tường minh. Không chạy nguyên compose mẫu; SEC01/PERSIST01 ở PLAN01 bắt buộc kiểm trước ingest. Không thêm service để sửa một sơ đồ đẹp hơn.
+- Kế hoạch hiện hành duy nhất: `view.html` §16 PLAN01, gồm SCOPE01, REL01, THR01/JEV01, CAT01/ID01, SEC01, VER01, DATA01/PERSIST01, TEST01 và GATE01. Các trường chưa chốt ghi rõ người xử lý và cổng chặn; không dùng lời “không blocker” thay bằng chứng.
+- JEV tham khảo: `gen-dec-1790589498-bIrikAbbTufCgCCH8UnU`, phương án B (tách duyệt loại/đánh giá cạnh/quyền hành động, SHADOW trước), confidence 0.99; không phải phiếu đồng thuận hoặc nghiệm thu.
+- NEXT: Claude đọc PLAN01/VER01 và trả ACCEPT/PARTIAL theo ID; Hermes rà thiết kế/quyền/tài nguyên/digest/restore bằng nguồn đã có và công cụ được cấp, không cài hoặc dừng production. Phần cần phép thử runtime chỉ chạy sau Owner duyệt trial. Host tổng hợp các điểm còn mở rồi xin phép soạn PROMPT đúng phạm vi; chưa READY/RUN.
+- Áp: SAME_COMMIT. Hậu kiểm Owner View ghi sau; không suy repo push = UI PASS.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
@@ -240,4 +245,4 @@ GS | P05 HÒA GIẢI · D06 GIẤY PHÉP THỰC DỤNG | Graph tri thức đa ng
 - Gateway Agent: ../hermes-joint-workspace/COLLAB.md — việc độc lập.
 
 ## Owner cần quyết
-- 28/09 · P07 · §0.2 “Thế nào là hoàn thành” vẫn là lời mở việc 24/09 (đã xong). Đề xuất thay bằng: (1) hội đồng đồng thuận stack, Owner gật; (2) chạy thử trên dữ liệu hỗn hợp đã che (liên kết Lark + ghi chú chăm sóc khách + trao đổi quy trình + một đoạn code): hỏi được “khách/ứng viên này liên quan gì, nên làm gì tiếp” kèm nguồn; JEV được máy tự gọi ít nhất một chỗ; tắt Cognee vẫn đọc được graph; (3) cài thật chỉ sau khi Owner gật kết quả chạy thử. **Đề xuất: gật.**
+- — Hiện Owner giao hoàn thiện kế hoạch, không phải RUN. Sau khi xử lý các điểm mở của PLAN01, Host trình một đề nghị duyệt phạm vi trial/tiêu chí nghiệm thu; quyền triển khai production vẫn tách riêng.
