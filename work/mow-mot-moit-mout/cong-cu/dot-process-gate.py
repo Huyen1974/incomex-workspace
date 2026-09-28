@@ -21,7 +21,7 @@
 # Contract v1: chỉ kiểm metadata đã opt-in; không phán đúng/sai nghiệp vụ.
 # --audit-contracts: thống kê coverage + lỗi toàn catalog, chỉ đọc, không cần PROMPT.
 # Luật:         Gate E1 theo D56/D57; không đếm cứng 39, không thay quyền Owner/Host.
-# Chép lên VPS: chỉ theo lệnh riêng; RUN A01 không chép/chạy trên VPS.
+# Chép lên VPS: chỉ theo lệnh riêng; RUN A02 không chép/chạy trên VPS.
 import argparse
 import collections
 import hashlib
@@ -278,11 +278,11 @@ def evaluate(prompt, catalog):
         result['reason'] = 'PROCESS_STEPS_UNPARSEABLE'
         return result, 1
     contract = audit_contracts(definitions)
-    result.update(contract)
     target_errors = [error for error in contract['contract_errors']
                      if error['process'] == code]
     if target_errors:
         result['reason'] = 'PROCESS_CONTRACT_INVALID=' + target_errors[0]['error']
+        result['contract_errors'] = target_errors
         return result, 1
     result.update(status='PASS', reason='OK', step_count=target[0]['steps'])
     return result, 0
