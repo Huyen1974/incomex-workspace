@@ -273,3 +273,30 @@ KQ@LANE-B B02 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · contract_proce
 - Thử bản có thuộc tính trên `p`: A02 audit PASS thật **12 process/15 bước 👤**, gate E1 PASS/39; nhưng `dot-walk-check` exit 1, chỉ thấy **27 process** vì regex đòi đúng `<p><b>MÃ</b>`. Các quy trình khác gọi 12 mã này bị báo thiếu. Hai thử nghiệm chạy trên snapshot tạm, không ghi canonical.
 - Chưa thể đồng thời đạt acceptance `dot-walk-check exit 0` và audit A02 nhận 12/15 trong write scope B02. Không dùng bản audit PASS 0/0 làm bằng chứng. Cách giải quyết thuộc vòng được Host cho phép: A02 đọc attrs của wrapper gắn đúng một `p`, hoặc nâng `dot-walk-check` để nhận attrs trên `p`; sau đó chạy lại B02. B02 không tự sửa gate/tool.
 - Contract CHUNG.TIM đã chuẩn bị: input `target_catalog_code · object_type · query/name/meaning/label · scope/status/version tùy chọn`; output `FOUND_EXACT|FOUND_CANDIDATES|NOT_FOUND|SEARCH_INCOMPLETE` cùng candidate id/version và coverage/evidence; `NOT_FOUND` chỉ khi coverage đủ, `SEARCH_INCOMPLETE` không suy ra tạo mới, tất cả trả caller. Điều này **chưa thành nguồn chuẩn**.
+
+
+## KQ · MMIM-LANE-B02R1-20260928-01 · Codex · 28/09/2026
+
+KQ@MMIM-LANE-B02R1-20260928-01 XONG
+KQ@LANE-B B02R1 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · contract_process=12/39 · direct_human=15 · mapped_C01=25/25 · NEXT=C02
+
+**Contract v1 đã thành nguồn chuẩn để C02 suy Step/UI ứng viên; vẫn TẠM CHỐT.** Áp vào [vùng Process](../ban-duyet.html#ml5-cho-ai), commit canonical `2060e917c0318b9d9a5e84a0ce0c461d7b9514e8`, SHA256 `78b4a6879e8881bb26d67dcf3af6ec29e49abbc6c2032ec3b097105b1ae7e868`. Không mở C02 trong RUN này.
+
+- Đúng 12 process opt-in: `CHUNG.TIM/NEU/DUYET/BAT/NGUNG`, `MOW.TAO/LAP/KHAI/SUA/XOA/CHAY`, `MOT.CHAY`; 27 process khác vẫn unversioned. 15 span `proc-contract` rỗng, mỗi direct Human Step đúng một span; `CHUNG.NGUNG` và `MOW.XOA` không có bước người trực tiếp. Mã/tên/thứ tự 39 process, chữ hiển thị, mũi tên/call và tham chiếu ghi/đọc giữ nguyên.
+- **Kiểm trên canonical sau ghi:** `dot-walk-check` exit 0 · 84 Master · 39 process · 👤62 · 🤖66 · 80 call · ⚙️22/🏗9/🔁8 · 0 lỗi; A02 `--audit-contracts` PASS · 12 process · 15 direct Human Step · 27 unversioned · 0 lỗi; E1 gate PROMPT B02R1 PASS · process 39. Đọc lại source qua gateway khớp SHA trên. Bản thử trước ghi cho cùng SHA cũng đạt ba kiểm này.
+- `CHUNG.TIM` nhận catalog đích, loại đối tượng, truy vấn tên/nghĩa/nhãn và ràng buộc scope/status/version tùy chọn; trả `FOUND_EXACT|FOUND_CANDIDATES|NOT_FOUND|SEARCH_INCOMPLETE` cùng candidate id/version, coverage/evidence. Chỉ `NOT_FOUND` khi coverage đủ; `SEARCH_INCOMPLETE` không suy ra tạo mới; mọi kết quả trả caller.
+
+### C01 25 instance → nguồn contract
+
+`#` là số instance C01, không phải mã Step chuẩn. `CHUNG.*` và `MOT.CHAY` là nguồn qua lời gọi; các khóa `MOW.*` là bước trực tiếp.
+
+| Luồng | Instance → step-key nguồn |
+|---|---|
+| MOW.TAO | #1→`CHUNG.TIM.S01`; #2→`CHUNG.NEU.S01`; #3→`CHUNG.DUYET.S02`; #4→`MOW.TAO.S05`; #5→`MOW.TAO.S06`; #6→`MOW.TAO.S07`; #7→`CHUNG.DUYET.S02`; #8→`CHUNG.BAT.S01` |
+| MOW.LAP | #9→`CHUNG.TIM.S01`; #10→`MOW.LAP.S03` |
+| MOW.KHAI | #11→`MOW.KHAI.S01`; #12→`CHUNG.DUYET.S02` (nếu cần); #13→`CHUNG.BAT.S01` |
+| MOW.SUA | #14→`CHUNG.NEU.S01`; #15→`CHUNG.DUYET.S02`; #16→`MOW.SUA.S05`; #17→`CHUNG.DUYET.S02`; #18→`MOW.SUA.S08`; #19→`CHUNG.BAT.S01` |
+| MOW.XOA | #20→`CHUNG.NEU.S01`; #21→`CHUNG.DUYET.S02`; sau đó `CHUNG.NGUNG` chỉ máy |
+| MOW.CHAY | #22→`MOT.CHAY.S03`; #23→`MOT.CHAY.S04`; #24→`MOT.CHAY.S08`; #25→`MOW.CHAY.S07` |
+
+**OPEN cho C02/Host:** Ánh xạ 25/25 là truy nguồn vị trí, **không chứng minh 15 Human Step/UI unique**. Class quyền là trừu tượng; NT03/NT05 chưa gắn người/quyền thật. State là ngữ nghĩa, chưa là DB enum. #12 duyệt cấu hình có điều kiện; bước duyệt/trả, tìm, sửa và chạy cần kiểm tiếp đường từ chối/hủy/lỗi, MOW lồng và ngưỡng coverage thực tế. Không sửa CAT-004, UI, VPS UI, gate/tool hay tạo file mới.
