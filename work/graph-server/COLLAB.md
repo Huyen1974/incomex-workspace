@@ -112,6 +112,18 @@ GS | D02 PRODUCT-FIRST ĐÃ ÁP · P02 PARTIAL | Chưa chốt/cài công nghệ;
 - **JEV:** giữ “Graph đi đường, JEV nhìn một bước”; điểm cắm trong Cognee = entity alignment · relation classification · confidence routing (thay lượt LLM phân loại đắt). Không gọi JEV thêm: P03 không chọn phương án mới, chỉ thêm bài đo.
 - Không cần Owner quyết thêm. Phản hồi Host: —
 
+### P04 · Claude Chat · Reviewer · OPEN — phản biện đề xuất chốt stack của GPT ngày 28/09
+- Based_on: task `5b64f55` · HEAD `af98926` · đề xuất GPT 28/09 **chỉ có trong chat, Owner chuyển; Host chưa ghi repo** (Host ghi lại để hồ sơ đủ). Scope: toàn bộ đề xuất đó (stack 7 tầng, J1–J5, harness, Shadow→Auto, ranh giới JEV). JEV `gen-dec-1790582600-5ubQHwTXs2EsE0qFKHa1` (lưu ý: tiêu chí do Claude viết, có thể nghiêng — bằng chứng phụ).
+- **Fact mới 28/09 (nguồn ở view §15):** F6 Neo4j Community: 1 database người dùng; không RBAC; ràng buộc tồn tại/kiểu/khoá, backup online đều chỉ Enterprise; có unique constraint, full-text + vector index; 5.26 là LTS tới 06/06/2028, bản lịch 2026.x chỉ hỗ trợ bản mới nhất; Data Importer chỉ Aura — self-managed dùng `LOAD CSV`/APOC/`neo4j-admin import`. F7 Neo4j MCP chính hãng `neo4j/mcp`: `get-schema`/`read-cypher`/`write-cypher`, `NEO4J_READ_ONLY=true` tắt ghi. F8 Cognee: `cognify` = LLM trích thực thể/quan hệ; `add_data_points` = model Pydantic, không LLM; MCP hiện là `remember`/`recall`/`forget` (`forget everything=true` xoá toàn bộ memory user sở hữu; `prune`/`delete` cũ đã bỏ ⇒ API còn đổi nhanh). F9 code graph: `codebase-memory-mcp` MIT, 1 binary, nhiều ngôn ngữ, cộng đồng lớn; GitNexus giấy phép PolyForm **Noncommercial** ⇒ Incomex không dùng được.
+- **ACCEPT:** Neo4j Community 5.26 LTS — lý do chính: LTS ổn định tới 2028 và cả Cognee lẫn Graphiti đều chạy trên nó ⇒ chốt không hối tiếc. UI nghiệp vụ giữ Directus/Lark; Neo4j Browser cho kỹ thuật. J1–J5; **JEV do pipeline gọi, không để agent nhớ** (đúng A10-R2); Shadow→Assist→Gate→Auto; receipt; ranh giới JEV; jev-harness chỉ học mẫu, không cài gói community; Hermes chỉ kiểm blocker; LanceDB cho lớp Cognee nếu dùng.
+- **CHANGE 1 · mục tiêu #1 — ai ghi quan hệ nghiệp vụ.** Đường ghi canonical = **Neo4j thuần**, từ vựng hữu hạn (nhãn + loại quan hệ liệt kê sẵn, có mã), nạp **tất định** từ nguồn nghiệp vụ (Lark → CSV → `LOAD CSV`, một script mapping), **một writer duy nhất**. Cognee/Graphiti = lớp đọc **văn bản** (CV, ghi chú phỏng vấn, email khách) → chỉ sinh **đề xuất**; đề xuất thành cạnh canonical chỉ qua J1/J2 + policy. Lý do: dữ liệu #1 là bản ghi có cột liên kết sẵn, không phải văn bản — cho LLM đọc lại để đoán quan hệ vừa tốn, vừa có thể tự đặt ra thực thể/quan hệ (ngược “hữu hạn”), vừa đưa hồ sơ ra ngoài (T14); schema canonical không nên buộc vào chu kỳ phát hành Cognee (MCP vừa đổi toàn bộ tool). JEV 0,95 (conf 0,93).
+- **CHANGE 2 · R2 cưỡng chế.** Agent đọc graph nghiệp vụ qua **Neo4j MCP chính hãng `NEO4J_READ_ONLY=true`**; không trỏ Cognee MCP (`remember`/`forget everything`) vào graph nghiệp vụ. CE không RBAC ⇒ cổng read-only là khoá duy nhất, giống ruleset repo. JEV 0,98.
+- **CHANGE 3 · thứ tự.** Hôm nay chỉ chốt **Neo4j**. Cognee vs Graphiti chọn ở B3 bằng bài đo trên văn bản thật, chạy trên **Neo4j instance riêng** (CE 1 database; `forget everything` không được chạm graph nghiệp vụ; JEV noul 0,71). JEV 0,92.
+- **CHANGE 4 · mục tiêu #4.** Code graph dùng công cụ chuyên dụng giấy phép MIT (`codebase-memory-mcp` đứng đầu danh sách thử), tách khỏi graph nghiệp vụ; không dùng code pipeline của Cognee; loại GitNexus vì giấy phép. JEV 0,99.
+- **Bổ sung T14:** J1 cũng gửi tên/năm sinh/quê ra ngoài (OpenRouter) ⇒ Shadow trên dữ liệu đã che trước; dữ liệu thật cần Owner gật riêng. **Bổ sung backup (Hermes kiểm):** graph nghiệp vụ dựng lại được từ nguồn; phần không dựng lại được = quyết định người + receipt JEV ⇒ dump offline hằng đêm (CE không backup online).
+- **Thang bước (một ô làm một lúc):** B1 Neo4j + danh mục quan hệ + nạp 1 lô Lark thật đã che (T13, T15) → B2 J1 Shadow trên trùng lặp ứng viên → B3 lớp văn bản Cognee vs Graphiti → B4 code graph.
+- Owner cần quyết: 1 dòng cuối file. Host GPT đồng ý thì dòng đó thành D04; không đồng ý thì giữ để Owner chọn giữa hai đề xuất.
+
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
 - Nền JEV: ../done-tasks/jev-integration/COLLAB.md và SKILL.md.
@@ -119,4 +131,4 @@ GS | D02 PRODUCT-FIRST ĐÃ ÁP · P02 PARTIAL | Chưa chốt/cài công nghệ;
 - Gateway Agent: ../hermes-joint-workspace/COLLAB.md — việc độc lập.
 
 ## Owner cần quyết
-- —
+- 28/09 · P04 · Chốt **Neo4j 5.26 LTS** làm graph server. **Bước 1:** nạp quan hệ nghiệp vụ thẳng từ Lark vào Neo4j theo danh mục quan hệ cố định, không qua AI trích; AI chỉ được đọc. Cognee/Graphiti chọn sau (bước 3) cho văn bản. *(GPT 28/09: chốt Cognee + Neo4j ngay.)* **Đề xuất: gật.**

@@ -188,5 +188,26 @@ code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#e
 </tbody></table>
 <div class="card"><p><strong>JEV Reference:</strong> theo tiêu chí D02, trial đầu = <strong>Cognee + Neo4j</strong> (confidence 1,00); loại custom PG khỏi primary shortlist = noul 0,91. Result <code>gen-dec-1790226001-T0LHg4y3r0CP99thOmaY</code>; chỉ là bằng chứng phụ.</p><p><strong>Việc còn lại của hội đồng:</strong> Hermes kiểm blocker thực tế của <strong>Cognee+Neo4j</strong> và <strong>Graphiti+Neo4j</strong>: RAM/CPU, Docker, license, backup, auth, structured business ingestion, code graph, MCP/API, JEV và rollback. Sau đó Owner chọn stack để trial.</p></div>
 
+<h2>15. Claude P04 (28/09) — đồng ý Neo4j, sửa 4 điểm</h2>
+<div class="card" style="border-left:6px solid #c0392b">
+<p><strong>😊 Anh quyết:</strong> chốt <strong>Neo4j</strong>. Bước 1 🤖 chép quan hệ nghiệp vụ từ Lark vào Neo4j theo danh mục cố định — không để AI đoán. AI chỉ được đọc. Cognee/Graphiti chọn sau cho văn bản. <strong>Đề xuất: gật.</strong></p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0">
+<div style="background:#1f6feb;color:#fff;border-radius:8px;padding:8px;text-align:center"><strong>B1</strong><br>Quan hệ nghiệp vụ</div>
+<div style="background:#e6e6e6;border-radius:8px;padding:8px;text-align:center"><strong>B2</strong><br>JEV soi trùng (thử ngầm)</div>
+<div style="background:#e6e6e6;border-radius:8px;padding:8px;text-align:center"><strong>B3</strong><br>Văn bản: Cognee / Graphiti</div>
+<div style="background:#e6e6e6;border-radius:8px;padding:8px;text-align:center"><strong>B4</strong><br>Code graph</div>
+</div>
+<table><thead><tr><th>Tầng</th><th>GPT 28/09</th><th>Claude</th></tr></thead><tbody>
+<tr><td>Graph server</td><td style="background:#d9f2d9">Neo4j 5.26</td><td style="background:#d9f2d9">Neo4j 5.26 LTS (tới 2028)</td></tr>
+<tr><td>Ai ghi quan hệ nghiệp vụ</td><td style="background:#ffe9c2">Cognee</td><td style="background:#d9f2d9">🤖 chép thẳng từ Lark, danh mục cố định</td></tr>
+<tr><td>AI truy cập</td><td style="background:#f8d0d0">Cognee MCP: đọc + ghi + xoá</td><td style="background:#d9f2d9">Neo4j MCP chính hãng, chỉ đọc</td></tr>
+<tr><td>Văn bản (CV, ghi chú, email)</td><td style="background:#ffe9c2">Cognee, chốt ngay</td><td style="background:#d9f2d9">Cognee hoặc Graphiti ở B3 → chỉ đề xuất, JEV duyệt</td></tr>
+<tr><td>JEV (J1–J5, máy tự gọi, thử ngầm → tự động)</td><td style="background:#d9f2d9">✓</td><td style="background:#d9f2d9">✓</td></tr>
+<tr><td>Code graph</td><td style="background:#ffe9c2">Cognee</td><td style="background:#d9f2d9">công cụ riêng, giấy phép MIT</td></tr>
+</tbody></table>
+<p><strong>Ví dụ:</strong> “Nguyễn Văn A ứng tuyển đơn hàng X của xí nghiệp Y” đã nằm sẵn trong Lark dưới dạng ô liên kết. Chép thẳng = đúng 100%. Bắt AI đọc lại để đoán = tốn tiền, có thể đoán sai, và hồ sơ đi ra ngoài.</p>
+<p><small>Nguồn 28/09: <a href="https://neo4j.com/docs/operations-manual/current/introduction/">Neo4j CE vs EE</a> · <a href="https://endoflife.date/neo4j">Neo4j LTS</a> · <a href="https://neo4j.com/docs/getting-started/data-import/">Neo4j import</a> · <a href="https://github.com/neo4j/mcp">Neo4j MCP</a> · <a href="https://docs.cognee.ai/cognee-mcp/mcp-tools">Cognee MCP tools</a> · <a href="https://docs.cognee.ai/guides/custom-data-models">Cognee custom data</a> · <a href="https://github.com/DeusData/codebase-memory-mcp">codebase-memory-mcp</a> · <a href="https://rywalker.com/research/code-intelligence-tools">so sánh code-intel (giấy phép GitNexus)</a>. Chi tiết: <code>COLLAB.md</code> P04. JEV <code>gen-dec-1790582600-5ubQHwTXs2EsE0qFKHa1</code>.</small></p>
+
 <p><small>Cập nhật 24/09/2026. Đây là hồ sơ thảo luận; chưa có stack, migration, cài đặt hay RUN nào được phê duyệt.</small></p>
 </main></body></html>
