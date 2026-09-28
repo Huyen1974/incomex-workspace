@@ -26,7 +26,7 @@ Runtime VPS là SSOT. Không có fallback Directus/PG mutation.
 ## 1. Read gate / collision gate
 
 1. `fs_stat work/vps1-up-grade/COLLAB.md`.
-2. Đọc: `AGENTS.md` → task COLLAB (§0, D22–D23, FREEZE KQ, P30–P33) → PROMPT này → view.html §9.
+2. Đọc: `AGENTS.md` → task COLLAB (§0, D22–D23, FREEZE KQ, P30–P34) → PROMPT này → view.html §9.
 3. READY phải khớp commit cuối chạm PROMPT.
 4. Xác minh FREEZE phần A/A2b/B/C vẫn giữ:
    - app/PHP/MySQL/queue stopped/no-autostart;
@@ -48,10 +48,11 @@ Claude Code auto-mode có thể chặn bước audit với nhãn `Credential Exp
 
 - **Không** thêm permission rule Bash rộng/toàn cục.
 - **Không** tắt cơ chế an toàn của client.
-- Nếu client chặn một lệnh metadata-only đã đúng allowlist dưới đây, chuyển sang chế độ approval bình thường và yêu cầu Owner **Allow once** cho đúng lệnh đó.
+- Nếu client chặn một lệnh metadata-only đã đúng allowlist dưới đây, hoặc đúng phép T1 chỉ **suy public fingerprint từ private key đã biết path mà không in key material**, chuyển sang chế độ approval bình thường và yêu cầu Owner **Allow once** cho đúng lệnh đó.
 - Không yêu cầu Owner tự chạy shell bằng `!`.
 - Không gộp thêm lệnh đọc secret/value vào cùng approval.
-- Nếu không thể có approval một lần cho metadata-only inspection ⇒ DỪNG, không lách.
+- Không `cat`/in private key; T1 chỉ được để công cụ đọc nội bộ và xuất fingerprint.
+- Nếu không thể có approval một lần cho metadata-only/T1 inspection đúng allowlist ⇒ DỪNG, không lách.
 
 ## 3. Audit allowlist — chỉ metadata/reference, không value
 
@@ -63,7 +64,16 @@ Chỉ được kiểm các bề mặt chuẩn sau:
 - `/root/.ssh/` và home của service user thực có trên VPS2.
 - Chỉ liệt kê: tên file, loại file, owner/mode, public-key fingerprint nếu suy được từ private key **mà không in private material**.
 - `authorized_keys` = inbound management, **KEEP**.
-- Private key outbound chỉ là candidate nếu config/known_hosts/ssh config/service reference chứng minh được dùng ra ngoài.
+- Private key outbound chỉ là candidate nếu config/known_hosts/ssh config/service reference chứng minh được dùng ra ngoài **hoặc T1 chứng minh VPS1 đang trust public key tương ứng**.
+
+### T1. Đối chiếu trust trực tiếp VPS2 → VPS1 — READ-ONLY
+- Chỉ áp với **private key đã phát hiện trong các SSH path allowlist ở mục A**; không mở rộng thành tìm private key trên toàn VPS2.
+- Với từng key đó, suy public fingerprint nội bộ mà **không in private/public key material**.
+- Trên VPS1 chỉ đọc fingerprint của các dòng `authorized_keys` thuộc `root` và service user có SSH login thực tế; không sửa file, không in raw key.
+- So sánh và ghi đúng một kết luận tổng: `VPS1_TRUSTS_VPS2_KEY=YES|NO` + candidate ID tương ứng nếu YES.
+- Nếu `YES` và private key tương ứng **vẫn còn trên VPS2** ⇒ candidate đó không được `KEEP_JUSTIFIED`; phải `REMOVE` an toàn hoặc `STOP_UNKNOWN`. G1 **không PASS** khi key có thể pivot vẫn còn trên VPS2.
+- Nếu `YES` nhưng private key tương ứng đã `REMOVE` khỏi VPS2 trong RUN này ⇒ G1 có thể PASS; ghi follow-up VPS1 để xoá dòng `authorized_keys` cũ ở lượt VPS1 sau. **Không sửa VPS1 trong RUN này.**
+- Nếu key cần passphrase/agent state để suy fingerprint mà không thể làm an toàn ⇒ `STOP_UNKNOWN`, không xin/đọc passphrase.
 
 ### B. rclone / Drive
 - Chỉ kiểm **sự tồn tại + path + owner/mode + tên remote**, không in token/config value:
@@ -143,6 +153,7 @@ G1 PASS khi:
   - KEEP_JUSTIFIED với lý do không cho phép pivot sang VPS1/Drive/Secret Manager/GitHub;
 - không còn `STOP_UNKNOWN`;
 - inbound SSH Owner/Mac còn hoạt động;
+- T1 đã ghi `VPS1_TRUSTS_VPS2_KEY=YES|NO`; nếu YES thì không còn matching private key trên VPS2 trước khi PASS;
 - 0 VPS1 mutation;
 - 0 agent-data/claude-mcp restart/mutation;
 - không gọi Guard/ruleset;
@@ -171,6 +182,7 @@ Không tạo repo file mới.
 - Dòng hiện hành;
 - `KQ@VPSUP-VPS2-TRUST-CLOSE-20260928-01 XONG|DỪNG`;
 - bảng candidate chỉ path/type/reference/decision, không secret;
+- T1: `VPS1_TRUSTS_VPS2_KEY=YES|NO`; nếu YES ghi candidate đã REMOVE và follow-up VPS1, không in raw key;
 - nếu XONG: `G1 PASS · NEXT Clone CURRENT`.
 
 ### `view.html`
