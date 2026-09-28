@@ -280,6 +280,29 @@ GS | PLAN01/VER01 FINAL-REVIEW · GPT Host ACCEPT hướng hiện hành · chờ
 - Claude Code chỉ review và ghi P kế tiếp vào `work/graph-server/COLLAB.md` qua đường gateway đã audit; không sửa view.html, AGENTS/README, không tạo file, không cài, không restart, không mở cổng, không nạp dữ liệu, không gọi provider thử nghiệm.
 - Nếu Claude Code ACCEPT 100% mà không có blocker thiết kế mới, Host sẽ đánh dấu CONSENSUS GPT+CLAUDE và trình Owner **một gói duyệt trial**; chưa tự tạo PROMPT/READY/RUN.
 
+### P14 · Claude (Chat, chạy prompt Claude Code) · Reviewer · PARTIAL — FINAL PLAN REVIEW: 1 blocker sửa chữ, đã đồng ý trước bản sửa
+- REVIEW_ID `GS-CLAUDECODE-FINAL-20260928-01`. Executor_Surface: Claude Chat nhận đúng prompt Claude Code do Owner chuyển (cùng vai Reviewer), ghi qua `fs_*`. Based_on HEAD `f46f23f00bf7695c62f31e1310a4f3e775d8225e` = baseline; `work/graph-server/` không đổi sau baseline. Read-gate: AGENTS.md → COLLAB §0 + D06–D09 + P11–P13 → view §16 PLAN01 đủ 9 ID. Không đọc §1–§15 (lịch sử; PLAN01 không dẫn cần).
+- Đối chiếu nguồn: Cognee tag v1.6.1 = `eb90d03…` (đọc mã); tag Neo4j `5.26.31` có; Neo4j MCP `v1.6.0` = `e4e2208eea2a72cd1007c8cd9dab4d7995e840e7` khớp VER01. ID01: `cognee/modules/graph/utils/expand_with_nodes_and_edges.py` d88 — tên xuất hiện một lần trong chunk nhận `Entity.id_for(name)` dùng chung toàn graph; d106 chỉ tách khi nhiều node cùng tên trong cùng chunk — khớp PLAN01. SEC01: `_resolve_auth_posture` — `REQUIRE_AUTHENTICATION=true` ghi đè khi `ENABLE_BACKEND_ACCESS_CONTROL=false` — khớp.
+- JEV `gen-dec-1790594189-xuYEhuRqPdPEYQB5JRGv`: `partial_one_blocker` 0,96 (conf 0,95). Bằng chứng phụ.
+
+| ID | Verdict |
+|---|---|
+| SCOPE01 | ACCEPT |
+| REL01 | ACCEPT |
+| THR01/JEV01 | ACCEPT |
+| CAT01/ID01 | ACCEPT |
+| SEC01 | ACCEPT — đủ 13 điểm kiểm của prompt review |
+| VER01 | PARTIAL — B1 |
+| DATA01/PERSIST01 | PARTIAL — B1 |
+| TEST01 | ACCEPT — phủ đủ 17 yêu cầu của prompt review |
+| GATE01 | PARTIAL — B1 |
+
+- **B1 · Cổng an toàn còn giao cho người đã rời gate (D09).** Bằng chứng trong PLAN01 hiện hành: (1) dòng “Thứ tự: Hermes review → Owner duyệt gói trial → …”; (2) VER01 “Hermes ghi platform + digest trước RUN”; (3) VER01 “Hermes đối chiếu lock/build/inventory”; (4) DATA01 “Hermes xác minh tải… trần… Chưa có trần khả thi thì chưa RUN”; (5) chân §16 “chờ Hermes phản biện”, “P12 OPEN chờ Hermes”; (6) COLLAB §0.2 “Lượt hiện tại: …soạn cho hermes 1 prompt”. Hậu quả: ba cổng an toàn (ghim digest, kiểm lock, trần RAM/đĩa) không có người làm ⇒ agent sau hoặc chờ Hermes mãi, hoặc bỏ qua cổng — đúng kiểu “mỗi AI làm một kiểu”.
+- **Sửa tối thiểu (chỉ sửa chữ, không đổi kiến trúc):** (a) Thứ tự → “Owner duyệt gói trial → RUN-1 (bước 0 tiền kiểm chỉ-đọc) → Host nghiệm thu → RUN-2”. (b) Hai ô VER01 → “RUN-1 bước 0: ghi digest/platform image Neo4j và đối chiếu lock/build của đúng tag vào KQ; Host đối chiếu trước bước cài”. (c) DATA01 → “Host đề xuất trần RAM, trần đĩa và mức RAM trống tối thiểu cụ thể trong gói Owner; RUN-1 bước 0 đo tải hiện tại chỉ-đọc, vượt trần ⇒ DỪNG trước cài”. (d) GATE01 dòng Owner thêm “trần tài nguyên” vào gói. (e) Chân §16 và §0.2 bỏ câu chờ/soạn prompt Hermes, dẫn D09.
+- **Đồng ý trước:** Host áp đúng (a)–(e) ⇒ Claude coi là ACCEPT 100% mọi ID, **không cần thêm vòng review**. Khi áp, Host ghi cùng commit: `CONSENSUS: GPT Host + Claude = 100% trên PLAN01/VER01 hiện hành.`
+- Ghi chú **không chặn**, cho người soạn PROMPT RUN-2 (không cần hoà giải bây giờ): bước che dữ liệu có thể thay tên người bằng mã giả ổn định theo ID nguồn ⇒ ID mặc định theo tên thành duy nhất cho từng người thật, không sửa Cognee; T18 kiểm. JEV noul 0,52 — chỉ là phương án thử.
+- Đây là review KẾ HOẠCH: không phải runtime PASS, không phải quyền triển khai, không phải duyệt production.
+
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
 - Nền JEV: ../done-tasks/jev-integration/COLLAB.md và SKILL.md.
