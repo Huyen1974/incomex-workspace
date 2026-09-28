@@ -73,7 +73,8 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | PLAN01/VER01 DRAFT · P09 PARTIAL · P10 OPEN | 75/85 chỉ là ví dụ; SHADOW; chưa PROMPT/READY/RUN | NEXT: Claude review PLAN01 và các hiệu chỉnh P10; Hermes xác nhận cấu hình/tài nguyên/cách ly/restore dự kiến | OWNER VIEW: cần hậu kiểm revision GS12, chưa PASS.
+GS | PLAN01/VER01 DRAFT · P09 PARTIAL · P10 OPEN | 75/85 chỉ là ví dụ; SHADOW; chưa PROMPT/READY/RUN | NEXT: Claude review PLAN01 và các hiệu chỉnh P10; Hermes xác nhận cấu hình/tài nguyên/cách ly/restore dự kiến | OWNER VIEW CHECK DỪNG (AUTH).
+- Hậu kiểm GS12: commit `5badbdd9e9104ed4b25b19917c530b5519b64090` đã push; diff chỉ hai file của task (113 dòng thêm, 53 dòng bỏ). Rà hai file: các câu áp mốc 75/85 đã bỏ, chỉ còn ví dụ nguyên văn hoặc câu đính chính/lịch sử. `ui_inspect` đúng URL Owner View chuẩn trả shell 200 nhưng Directus 401/Login, chưa xác nhận được revision hiển thị; không mở đường xem phụ. Repo có PLAN01/VER01 để hội đồng review, không có RUN.
 - Hậu kiểm GS08 ngày 28/09/2026: commit `c9460a9fa13ec3b9cf646668d1c063537e75f992` đã push; diff chỉ đúng hai file COLLAB.md + view.html (65 dòng thêm, 13 dòng bỏ). `ui_inspect` đúng URL Owner View chuẩn trả shell HTTP 200 nhưng Directus 401/Login; chưa đọc được nội dung/revision mới, không báo Owner View PASS. Không tạo đường xem phụ; hồ sơ repo sẵn cho hội đồng review.
 - Based_on mở việc: `37ae3fe22bc37894242506e4477b055d32fdc540`; GS02 hòa giải trên HEAD hiện hành, commit chen ngang không chạm task này.
 - Đã đọc AGENTS.md → COLLAB.md gốc → README.md → work/README.md; áp khuôn MT3 hiện hành.
@@ -245,4 +246,4 @@ GS | PLAN01/VER01 DRAFT · P09 PARTIAL · P10 OPEN | 75/85 chỉ là ví dụ; S
 - Gateway Agent: ../hermes-joint-workspace/COLLAB.md — việc độc lập.
 
 ## Owner cần quyết
-- — Hiện Owner giao hoàn thiện kế hoạch, không phải RUN. Sau khi xử lý các điểm mở của PLAN01, Host trình một đề nghị duyệt phạm vi trial/tiêu chí nghiệm thu; quyền triển khai production vẫn tách riêng.
+- —
