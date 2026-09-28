@@ -19,11 +19,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: **HOST / DISPATCHER / INTEGRATOR**
 - Host_ID: `GPT-MMIM-260920-A`
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
-- Active_RUN: preparing batch `A06 / B04 / C03 / D01 / E01`.
+- Active_RUN: batch `A06 / B04 / C03 / D01 / E01` = READY_TO_RUN.
 - Reserved_Targets: điều phối 5 Executor; không tranh target riêng.
-- Base_Target_Version: READY D78 superseded; re-read trước Host mutation.
-- NOW: khóa methodology scope cho Chat.2; thêm D/E evidence-only; chuẩn bị gate/READY 5 lane.
-- NEXT: gate + READY 5 lane; nghiệm thu KQ; chuyển raw evidence D/E cho Chat.2.
+- Base_Target_Version: READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`; re-read trước Host mutation.
+- NOW: giám sát 5 lane; Chat.2 giữ methodology; D/E chỉ feed raw evidence.
+- NEXT: nghiệm thu KQ 5 lane; chuyển D/E evidence cho Chat.2; promote methodology chỉ khi proposal READY_FOR_HOST.
 - BLOCKED_BY: none.
 - State: ACTIVE.
 - LAST_SYNC: D76–D77.
@@ -45,7 +45,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Write_Zone: root ui audit metadata + `lane-a/COLLAB.md`.
 - Active_RUN: `MMIM-LANE-A06-20260928-01` = READY_TO_RUN.
 - Reserved_Targets: root ui `master-of-master-v1.html`, `master-home-v1.html`, `ui-child-content-v1.js` if needed + lane-a/COLLAB.
-- Base_Target_Version: prompt SHA `35b2e59d549be357e5b78081001b37fb7dc89421f3129496a64992e54ac08434`; READY base `903b34c4dc7103a7dc88a84d3f59d4ac5d6b3aee`.
+- Base_Target_Version: prompt SHA `602abe3698fdef2da3274c4bb00518e3f35cb2ed843c2aa183eb69d7f344218f`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`.
 - NOW: audit 4 core Master Lists Process/Tool/Step/UI; expose conflict/gap, no new catalog.
 - NEXT: KQ A06.
 - BLOCKED_BY: COORD/PARALLEL conflict only.
@@ -57,7 +57,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Write_Zone: `ban-duyet.html` + `lane-b/COLLAB.md`.
 - Active_RUN: `MMIM-LANE-B04-20260928-01` = READY_TO_RUN.
 - Reserved_Targets: ban-duyet + lane-b.
-- Base_Target_Version: prompt SHA `ac891028bbc3d051add2da090631b1370e25909e8d137b7e0c4e49d59c4722c2`; READY base `903b34c4dc7103a7dc88a84d3f59d4ac5d6b3aee`; 23-contract canonical from B03 must stay except CHUNG.KIEM/FORM.TAO.
+- Base_Target_Version: prompt SHA `0399d50a03a04ebf5393f76bb969c47d5cd08a655e5e4ac6f8d81779fd8cff8d`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`; 23-contract canonical from B03 must stay except CHUNG.KIEM/FORM.TAO.
 - NOW: resolve or prove-blocked exactly 2 OPEN contracts.
 - NEXT: KQ B04.
 - BLOCKED_BY: insufficient source.
@@ -69,7 +69,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Write_Zone: `lane-c/COLLAB.md` only; canonical/ui read-only.
 - Active_RUN: `MMIM-LANE-C03-20260928-01` = READY_TO_RUN.
 - Reserved_Targets: lane-c/COLLAB.
-- Base_Target_Version: prompt SHA `3a1219ecdb4b9e3c060dd8b5a9c0c37a5590337cac3c1ea9088357fa88fee3e0`; READY base `903b34c4dc7103a7dc88a84d3f59d4ac5d6b3aee`; C01+B02R1 evidence + C02 only as comparison.
+- Base_Target_Version: prompt SHA `e9f3d8231c89fa9ccea0888a3c4f12e149f93bc094a0c56220a2cacb5b6565a0`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`; C01+B02R1 evidence + C02 only as comparison.
 - NOW: prove reproducibility of 25→15 Human Step with explicit 6-tuple rule.
 - NEXT: KQ C03.
 - BLOCKED_BY: if 15 requires hidden/manual semantic judgment.
@@ -80,25 +80,25 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-D
 - Role: **EXECUTOR · EVIDENCE HARVEST**
 - Write_Zone: `lane-d/COLLAB.md` only; mọi source khác READ-ONLY.
-- Active_RUN: `MMIM-LANE-D01-20260928-01` = PREPARED.
+- Active_RUN: `MMIM-LANE-D01-20260928-01` = READY_TO_RUN.
 - Reserved_Targets: lane-d/COLLAB.
-- Base_Target_Version: prompt to be gated.
+- Base_Target_Version: prompt SHA `745737438e10436d51b8299514870a43112b7cf991a588fad4a5248877d0ae4e`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`.
 - NOW: harvest facts của case Tạo MOW theo source hiện có, không thiết kế methodology.
 - NEXT: KQ D01 → CHAT2_REVIEW.
 - BLOCKED_BY: nếu cần invent layer/question/model mới.
-- State: PREPARED.
+- State: READY_TO_RUN.
 - LAST_SYNC: D79.
 
 ### CODEX-MMIM-E
 - Role: **EXECUTOR · EVIDENCE AUDIT**
 - Write_Zone: `lane-e/COLLAB.md` only; canonical/UI/tools READ-ONLY.
-- Active_RUN: `MMIM-LANE-E01-20260928-01` = PREPARED.
+- Active_RUN: `MMIM-LANE-E01-20260928-01` = READY_TO_RUN.
 - Reserved_Targets: lane-e/COLLAB.
-- Base_Target_Version: prompt to be gated.
+- Base_Target_Version: prompt SHA `f51272c3ad238497f4b54d14760739d194999402618d0330ec61eab4b0724557`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`.
 - NOW: audit capability/tool/evidence hiện có cho `đã có/dùng lại/tạo mới`, không đặt policy.
 - NEXT: KQ E01 → CHAT2_REVIEW.
 - BLOCKED_BY: nếu cần invent threshold/gray-zone policy.
-- State: PREPARED.
+- State: READY_TO_RUN.
 - LAST_SYNC: D79.
 
 ## Proposal contract

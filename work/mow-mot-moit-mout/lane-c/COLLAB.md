@@ -255,3 +255,5 @@ KQ@LANE-C C02 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS · instances=25 · H_MOW=
 COORD · NOW=DỪNG · NEXT=Host giao B/A chốt bảng binding 15 H→UI theo parent, dữ liệu người, thao tác chính và chuyển trạng thái. · BLOCKED_BY=UI live mới chứng minh khung, chưa đủ action/state và binding để phân biệt variant với missing · RESERVED_TARGETS=lane-c/COLLAB.md · LAST_SYNC=D72-D73/C02
 - C03 HOST GATE · PASS · PROCESS=`CHUNG.APQUYTRINH` · prompt=`3a1219ecdb4b9e3c060dd8b5a9c0c37a5590337cac3c1ea9088357fa88fee3e0`.
 - READY@903b34c4dc7103a7dc88a84d3f59d4ac5d6b3aee · RUN_ID `MMIM-LANE-C03-20260928-01`.
+- C03 D79 RE-GATE · PASS · prompt=`e9f3d8231c89fa9ccea0888a3c4f12e149f93bc094a0c56220a2cacb5b6565a0`.
+- READY@c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6 · RUN_ID `MMIM-LANE-C03-20260928-01` · supersedes READY 903b...

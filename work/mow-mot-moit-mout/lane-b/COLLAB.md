@@ -314,6 +314,8 @@ KQ@LANE-B B03 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · new_contract=1
 COORD · NOW=XONG · NEXT=Host chốt contract cho hai ứng viên OPEN · BLOCKED_BY=none · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=D72-D73/B03
 - B04 HOST GATE · PASS · PROCESS=`CHUNG.APQUYTRINH` · prompt=`ac891028bbc3d051add2da090631b1370e25909e8d137b7e0c4e49d59c4722c2`.
 - READY@903b34c4dc7103a7dc88a84d3f59d4ac5d6b3aee · RUN_ID `MMIM-LANE-B04-20260928-01`.
+- B04 D79 RE-GATE · PASS · prompt=`0399d50a03a04ebf5393f76bb969c47d5cd08a655e5e4ac6f8d81779fd8cff8d`.
+- READY@c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6 · RUN_ID `MMIM-LANE-B04-20260928-01` · supersedes READY 903b...
 
 Đã opt-in contract v1 cho `CHUNG.CAPMA`; `FIELD.LAP/SUA/XOA`; `FORM.LAP/SUA/XOA`; `MOT.TAO/LAP/SUA/XOA`. Thêm 12 direct Human Step; tổng catalog là 23/39 process và 27 direct Human Step. Hai ứng viên giữ nguyên chưa version:
 

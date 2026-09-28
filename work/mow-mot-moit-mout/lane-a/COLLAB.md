@@ -73,6 +73,8 @@ KQ@LANE-A A05 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS · lists=5/5 · FIELD=◐
 COORD · NOW=XONG · NEXT=Host nghiệm thu A05 · BLOCKED_BY=FIELD_✓: thiếu nguồn thông số Field theo từng bản ghi · RESERVED_TARGETS=ui/master-of-master-v1.html,ui/master-home-v1.html,ui/ui-child-content-v1.js (đọc, không sửa); lane-a/COLLAB.md (ghi KQ) · LAST_SYNC=D72-D73/A05
 - A06 HOST GATE · PASS · PROCESS=`VEUI.MOW` · prompt=`35b2e59d549be357e5b78081001b37fb7dc89421f3129496a64992e54ac08434`.
 - READY@903b34c4dc7103a7dc88a84d3f59d4ac5d6b3aee · RUN_ID `MMIM-LANE-A06-20260928-01`.
+- A06 D79 RE-GATE · PASS · prompt=`602abe3698fdef2da3274c4bb00518e3f35cb2ed843c2aa183eb69d7f344218f`.
+- READY@c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6 · RUN_ID `MMIM-LANE-A06-20260928-01` · supersedes READY 903b...
 
 - READY `1bd42c508d18fb747a0aeeb16f16886d18edec9a` khớp commit cuối chạm PROMPT; process gate exit 0, VEUI.MOW PASS, catalog SHA `78b4a6879e8881bb26d67dcf3af6ec29e49abbc6c2032ec3b097105b1ae7e868`, prompt SHA `bfe603411d82391a32daa3987b6f124436641e969c623249b5441f8c1c412658`. Registry giữ target A riêng, không trùng B/C.
 - Đi thử trên UI thật: Home → List → hàng → Detail bằng chuột 5/5; bàn phím 5/5. List và Detail ở 1280/390: MOW 7/WF-0001, MOT 7/TSK-0001, MOIT 6/MOIT-F-0001, MOUT 6/RPT-0010, FIELD 3/full_name; nội dung/nguồn/gap đọc được, không tràn trang ngang. MOW/MOT/MOIT/MOUT giữ ✓ theo evidence A04; FIELD giữ ◐.
