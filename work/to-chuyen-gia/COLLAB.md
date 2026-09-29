@@ -45,7 +45,7 @@ Host: **GPT Chat** · Host_ID `GPT-TCG-0929`
 - **HTML chính:** `view.html`
 - Nội dung Phần I + Phần II đã chuyển sang `view.html` để Task html view hiển thị đúng thiết kế.
 - Trạng thái: **DỰ THẢO — chờ P01 Claude + P02 Hermes review trước khi chốt Word.**
-- Áp: SAME_COMMIT · **TCG-P05:** bổ sung căn cứ trực tiếp cho từng loại chứng chỉ; không để kết luận không nguồn.
+- Áp: `1af6ff98973d44cccf5634033ed2d1ae278d2039` · **TCG-P06:** làm rõ Tổ tư vấn: khoản 2a chỉ là căn cứ huy động chuyên gia ngoài/miễn chứng chỉ; đại học + 03 năm + độc lập là tiêu chuẩn nội bộ, không phải điều kiện luật bắt buộc.
 
 ## HỘI ĐỒNG REVIEW — CHỜ Ý KIẾN
 - **P01 · Claude Chat/Cowork · OPEN** — kiểm toàn bộ Phần I + Phần II, đặc biệt cách áp dụng điểm b khoản 1 Điều 21 cho lĩnh vực giáo dục và khoản 2a sau NĐ 349.
