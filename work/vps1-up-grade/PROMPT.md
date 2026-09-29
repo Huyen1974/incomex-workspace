@@ -1,357 +1,241 @@
-# PROMPT — VPSUP CLONE CURRENT · dựng parity clone CURRENT cô lập trên VPS2
+# PROMPT — VPSUP SEC-CRED-ROTATE · retire 2 credential production bị lộ trong KB
 
-RUN_ID: VPSUP-CLONE-CURRENT-20260928-01
+RUN_ID: VPSUP-SEC-CRED-ROTATE-20260929-01
 STATUS: Chỉ thực thi sau khi COLLAB có READY đúng SHA commit cuối chạm file này và Owner/GPT Host phát RUN.
 Host: GPT Chat · GPT-VPSUP-20260926-A
-Host_Revision: VPSUP-P38-CLONE-CURRENT
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
-Runtime_Write_Path: Mac Owner điều phối SSH read từ VPS1 + mutation chỉ trên VPS2; VPS1 chỉ tạo/stream snapshot read-only cần thiết, không restart/recreate/config mutation.
-Runtime VPS1/VPS2 là SSOT trạng thái thực.
-Directus/PG mutation trên clone vẫn = **DOT-only**.
+Runtime_Write_Path: VPS1 production theo DOT/GSM/config path đã duyệt; VPS2 clone chỉ đọc/checkpoint, không dựng TARGET.
+Runtime VPS là SSOT.
+Mọi Directus/PG mutation = **DOT-only**; không direct SQL fallback.
 
 ## 0. Mục tiêu duy nhất
 
-Dựng **CURRENT parity clone** đủ thật trên VPS2 để làm baseline cho nâng cấp, nhưng không biến VPS2 thành production thứ hai.
+G2 CURRENT parity đã PASS. Trước G3, retire an toàn đúng **2 credential production đang còn hiệu lực** đã được chứng minh từng nằm trong KB/Qdrant production:
 
-Clone phải giữ:
-1. **Dữ liệu/business semantics thật:** DB `directus`, DB `incomex_metadata`, Qdrant business collections, Directus files/uploads và `/opt/incomex/data` business files.
-2. **CURRENT runtime thật:** exact image ID/digest + version của PostgreSQL, Directus, Nuxt/Node image, nginx, Qdrant và agent-data cần cho lát cắt parity.
-3. **Config/permission/Flow/extension/source-lock thật** ở mức cần chứng minh migration.
-4. Một **SAME SLICE cố định** được chạy trên CURRENT và giữ nguyên expected cho TARGET sau.
+1. `AGENT_DATA_API_KEY`.
+2. Mật khẩu PostgreSQL của role `incomex`.
 
-Clone **không được mang**:
-- credential production có thể dùng lại với VPS1/Drive/GitHub/Telegram/OpenAI/GSM/rclone/cloud;
-- static token Directus production;
-- Directus `KEY/SECRET` production;
-- session/login credential production;
-- Hermes/Kuma/backup production/git-push/singleton side effect;
-- `directus_gov_test_20260602` (TEST-DERIVED);
-- DB `workflow` (DEFAULT/rỗng) và `postgres` ngoài DB mặc định container, trừ khi PRE chứng minh runtime hiện hành thực sự tham chiếu;
-- `workspace-tools/queue.sqlite` live ledger — clone tạo ledger lab mới, không copy trạng thái execution production.
+Mục tiêu cuối:
+- credential cũ không còn xác thực được;
+- credential mới nằm ở canonical secret store và mọi live consumer cần thiết dùng được;
+- live/searchable KB + history/revision + Qdrant/derived store không còn exact old credential;
+- không phá business text ngoài đúng chuỗi credential;
+- có backup sạch mới sau rotation/redaction;
+- backup lịch sử mã hóa không rewrite/xóa: chỉ được coi là chứa **retired credential** đã vô hiệu;
+- production health PASS;
+- sau đó mới sang G3 TARGET STACK.
 
-Đích cuối RUN: **G2 CURRENT parity PASS** hoặc DỪNG với gap chính xác; chưa nâng bất kỳ version nào.
+## 1. Read/collision gate
 
-## 1. Read gate / collision gate
+1. Đọc `AGENTS.md` → task COLLAB §0 + KQ G2 + P39–P42 → PROMPT này.
+2. READY phải khớp commit cuối chạm PROMPT.
+3. Xác minh KQ G2 commit `fdab670752647bc072ab2dcfebe1be5b24aaab25` vẫn là CURRENT result và clone VPS2 đang stopped.
+4. Xác minh không có executor/RUN khác đang mutation các bề mặt:
+   - `agent-data` auth/config;
+   - PostgreSQL role `incomex`;
+   - KB/knowledge tables;
+   - Qdrant collections;
+   - GSM versions tương ứng.
+   Có conflict thật ⇒ DỪNG.
+5. Đọc machine state AD1 bằng verify script hiện hữu trên VPS1:
+   - `AD1_24H=PASS` hoặc terminal `FAIL` ⇒ watcher 24h đã kết thúc, rotation được phép theo scope;
+   - vẫn `GEN=2 RUNNING` ⇒ DỪNG trước mọi mutation/restart `agent-data`; không phá cửa sổ AD1.
+6. Không gọi Guard/ruleset chỉ để PRE.
+7. PRE chụp StartedAt/image/health của các service sẽ có thể reload/restart; chụp config/hash reference nhưng không secret value.
 
-1. `fs_stat work/vps1-up-grade/COLLAB.md`.
-2. Đọc: `AGENTS.md` → task COLLAB §0 + P01–P07 phần parity/test + G0 KQ + BK1 KQ + FREEZE/TRUST-CLOSE KQ + P30–P40 → PROMPT này → view.html §7–§9.
-3. READY phải khớp commit cuối chạm PROMPT.
-4. Xác minh `G1 PASS` tại KQ TRUST-CLOSE; VPS2 vẫn:
-   - e-learning app/PHP/MySQL/queue stopped/no-autostart;
-   - static `elearning.*` 200;
-   - 3307/8080 không listener;
-   - swap 4 GiB;
-   - ≥ khoảng 70 GiB free;
-   - outbound trust candidate = 0.
-5. Xác minh không có executor/RUN khác đang mutation VPS2 hoặc cùng Docker storage. Có ⇒ DỪNG.
-6. AD1-FIX gen2 trên VPS1:
-   - không gọi Guard/ruleset;
-   - không restart/mutate `agent-data`/`claude-mcp`;
-   - không sửa Kuma/watcher.
-7. Repo/version conflict tạm thời ⇒ re-read/diff; task path không đổi thì retry. Runtime conflict tuyệt đối không tự vượt.
-8. Nếu PRE phát hiện disk free <45 GiB hoặc swap <4 GiB trước khi clone ⇒ DỪNG, không tự cleanup thêm.
+## 2. Luật secret handling
 
-## 2. Luật cô lập trước mọi dữ liệu production
+- Tuyệt đối không in/log/repo/chat plaintext secret.
+- Giá trị secret chỉ được tồn tại:
+  - trong GSM;
+  - process memory;
+  - tmpfs/root-only ephemeral file 0600 trong thời gian rotation nếu thực sự cần rollback/test.
+- Mọi report dùng tên secret + version + SHA-256 prefix/fingerprint, không value.
+- Không copy secret vào workspace/Git/VPS2.
+- Không dùng shell tracing `set -x`.
+- Tmpfs chứa old/new value phải shred/unlink ngay sau terminal PASS/DỪNG.
+- Không tạo thêm plaintext backup chứa secret.
 
-**C1 · Thứ tự boot:** S1–S3 phải PASS trước mọi container clone. Sau S1–S3, chỉ được boot **PostgreSQL lab** (và Qdrant lab nếu cần restore snapshot) trên network clone đã chặn egress, không publish cổng, để restore + sanitize S4 + đo baseline dữ liệu. **Directus, agent-data, Nuxt, nginx và mọi app/service có thể đọc token/config chỉ được boot sau S4 + BASELINE-PRE-APP PASS.**
+## 3. PRE — inventory chính xác consumer/source-of-truth
 
-### S1 · Namespace riêng
-- Dùng compose/project/volume/network tên riêng có prefix rõ, ví dụ `vpsup-current-*`; tuyệt đối không dùng tên/volume e-learning.
-- Không overwrite source/config/volume e-learning.
-- Không bind public `0.0.0.0`/`[::]`.
-- Chỉ một cổng HTTP clone được publish nếu cần test UI, bind **127.0.0.1** (ví dụ `127.0.0.1:<lab-port>`); mọi DB/API backend chỉ Docker internal.
-- Truy cập từ Mac qua SSH tunnel hoặc SSH local forwarding.
+### A. AGENT_DATA_API_KEY
+Đã biết canonical GSM secret `AGENT_DATA_API_KEY` tồn tại. PRE phải:
+- xác minh current GSM enabled version + fingerprint nội bộ, không in value;
+- inventory mọi live consumer/reference bằng tên/path/unit/env-name, tối thiểu:
+  - server-side auth của `incomex-agent-data`;
+  - Hermes key fetch/runtime nếu đang dùng;
+  - tools/scripts hiện hành có `AGENT_DATA_API_KEY`;
+  - gateway/consumer khác nếu runtime/config chứng minh có.
+- phân loại consumer: MUST_SWITCH / STALE_NOT_RUNNING / NOT_USING.
+- xác định service nào thực sự cần restart/reload để nhận key mới.
 
-### S2 · Egress fail-closed
-- Tạo network/subnet riêng cho clone và chặn egress của clone **trước first boot** bằng cơ chế Docker/firewall hiện hữu.
-- Cho phép traffic nội bộ giữa container clone.
-- Không allow internet chỉ vì tiện test.
-- Nếu cần load image/package, làm ở **staging trước boot** bằng image tar/source đã duyệt; không mở egress cho runtime clone.
-- Negative control trước boot: một container probe cùng network không được đi tới internet/GitHub/Telegram/Google.
-- Không làm thay đổi rule phục vụ e-learning static/SSH.
+### B. PostgreSQL role incomex
+- xác minh role `incomex` tồn tại, login/connection count và DB consumer hiện tại, không đọc password.
+- inventory mọi live reference dùng role này bằng config/env-name/path/service; không suy từ tên.
+- GSM có secret `PG_PASSWORD` lịch sử; **không mặc định nó đang đúng**. PRE phải xác định source-of-truth đang dùng hiện tại và sau RUN canonical phải là GSM version mới.
+- xác định backup/DOT/cron/app nào cần credential mới để không gãy sau rotation.
 
-### S3 · Không mang secret production
-- Không copy `.env` production nguyên xi.
-- Không dump/in env value production.
-- Clone chỉ dùng **lab-only random secrets** không hợp lệ trên VPS1, root-owned 0600, không commit/log.
-- Directus lab `KEY/SECRET`, DB password, API token phải khác production.
-- Telegram/GitHub/OpenAI/Agent-data/rclone/GSM/cloud credential = absent/blank/dummy non-routable.
-- Nếu một service không thể khởi động nếu thiếu external secret, không được lấy secret prod; ghi GAP và chỉ chạy phần local-safe.
+Nếu không xác định được consumer/source-of-truth cho một credential ⇒ DỪNG trước mutation.
 
-### S4 · Sanitize DB trước first app boot — DOT-only
-Sau S1–S3, được boot **riêng PostgreSQL lab** cô lập để restore. Directus/agent-data/Nuxt/nginx chưa được boot.
+## 4. Rotation A — AGENT_DATA_API_KEY
 
-**C2 · Phạm vi sanitize — phải về 0 nhưng không phá business text:**
-- `directus_users`: `token` = NULL; password/tfa/login-secret production bị vô hiệu; giữ role/status semantics nếu có thể; tạo **một lab-only admin/API identity riêng** nếu test cần, credential chỉ sinh trong lab.
-- `directus_sessions` và refresh/session state có thể tái sử dụng: xoá/vô hiệu toàn bộ.
-- Quét **không xuất giá trị** trên các bề mặt cấu hình/system, tối thiểu:
-  - mọi cột text/json của các bảng `directus_*` có semantics config/automation/auth, đặc biệt `directus_operations.options`, `directus_flows.options`, `directus_settings`, `directus_extensions` và bảng config tương đương nếu inventory thực tế có;
-  - trong `incomex_metadata`, chỉ các bảng/cột config hoặc cột có **tên** nhạy cảm (`token|secret|password|credential|api_key|auth|private_key`), tối thiểu `dot_config` nếu tồn tại;
-  - FDW server/user-mapping options.
-- **Không regex/xoá mù trên mọi cột business text/json.** Nội dung nghiệp vụ không được biến đổi chỉ vì chứa từ “password/secret/token” trong câu chữ.
-- Pattern detector nội bộ có thể nhận dạng bearer/bot token, Telegram token, `sk-`, `ghp_`, `token/api_key/secret/password` dạng cấu hình; chỉ ghi **count + table/column**, tuyệt đối không in matching value.
-- Giá trị hard-coded giống secret trong config/Flow ⇒ `LAB_REDACTED` hoặc lab-only dummy. `$env` reference không phải secret value: giữ tên biến để parity nhưng env lab phải absent/blank/dummy.
-- FDW: không giữ password/user-mapping production và không được trỏ thực tới production; user mapping dùng lab dummy/localhost-nonroutable theo semantics an toàn. Mọi thay đổi này ghi `SANITIZATION_DELTA`, không tính parity regression.
-- Nghiệm thu S4: BEFORE/AFTER count theo từng lớp; **AFTER = 0** đối với reusable prod credential/token/password/FDW secret trong phạm vi config đã định; không in secret.
+Thực hiện một credential một lần; không xoay hai cái song song.
 
-**C3 · DOT sanitize phải tự chống chạy nhầm production:**
-- Trong RUN này **không tạo/sửa DOT source trên VPS1**. Nếu thiếu DOT, copy template/contract DOT read-only từ `/opt/incomex/dot` VPS1 sang namespace lab VPS2 rồi tạo một DOT hẹp, tự mô tả đầy đủ `--help`, dry-run mặc định; source reusable/upstream xử lý ở lượt riêng sau G2 nếu cần.
-- DOT phải FAIL-CLOSED trước mutation nếu bất kỳ điều kiện nào sai:
-  1. host chạy DOT là VPS1/production hostname; hoặc
-  2. target container/service/database không thuộc prefix/label `vpsup-current-*`; hoặc
-  3. target PG `system_identifier` trùng production identifier đã chụp read-only ở PRE; hoặc
-  4. DB name/host/socket không nằm trong allowlist lab của RUN; hoặc
-  5. lab marker root-owned trong dossier không tồn tại/không khớp RUN_ID.
-- DOT không được nhận production DSN/credential từ env fallback; chỉ lab DSN cụ thể của RUN.
-- Sanitize phải có dry-run + execute + post-verify; audit chỉ count/table/column/hash metadata.
+1. Tạo **new GSM version** cho `AGENT_DATA_API_KEY` bằng random mạnh; không in value.
+2. Không disable old version ngay.
+3. Stage new key vào đúng secret-loading mechanism hiện hữu của các MUST_SWITCH consumer.
+4. Nếu server hỗ trợ dual-key native đã chứng minh ⇒ dùng dual-key tạm.
+5. Nếu không hỗ trợ dual-key:
+   - chuẩn bị toàn bộ consumer config trước;
+   - thực hiện một coordinated reload/restart tối thiểu đúng service cần thiết;
+   - không restart `claude-mcp`/Hermes/khác nếu không thực sự tham chiếu key.
+6. Verify bằng new key:
+   - agent-data health;
+   - ít nhất auth endpoint/tool read đại diện;
+   - Hermes/tools MUST_SWITCH nếu có.
+7. Chỉ sau positive new-key PASS:
+   - disable old GSM version;
+   - reload/restart consumer còn cache old key nếu cần;
+   - negative test old key phải 401/deny **mà không log value**.
+8. Nếu new key fail:
+   - rollback consumer về old enabled version khi old còn valid;
+   - DỪNG;
+   - không disable old.
 
-Nếu S4 không chứng minh AFTER=0 hoặc fail-closed guard không tự chặn được target prod giả lập ⇒ DỪNG trước first app boot.
+Acceptance A: NEW works everywhere MUST_SWITCH; OLD fails; old GSM version disabled, chưa destroy trong RUN này.
 
-## 3. Nguồn clone — FULL BUSINESS DATA, không copy rác test
+## 5. Rotation B — PostgreSQL role incomex
 
-### A · PostgreSQL
-Clone:
-- `directus` — full schema + business/config/policy/Flow state.
-- `incomex_metadata` — full BUSINESS.
-Không clone:
-- `directus_gov_test_20260602` — TEST-DERIVED.
-- `workflow` — DEFAULT/rỗng 0 bảng, trừ khi PRE tìm thấy runtime reference thật.
-- `postgres` — dùng DB mặc định mới của container.
+PG write chỉ qua một DOT narrow production-safe.
 
-Cách lấy:
-- Fresh consistent `pg_dump` read-only từ VPS1; stream qua Mac sang VPS2 hoặc staging ngắn trên Mac/VPS2.
-- Không đưa password/role hash production vào clone.
-- Giữ owner/ACL semantics bằng **lab roles cùng tên cần thiết nhưng lab password khác**, tạo qua DOT; không copy role password hash prod.
-- Ghi source snapshot timestamp + row/schema manifest.
+### DOT
+- ưu tiên DOT hiện hữu phù hợp; thiếu thì tạo `dot-vpsup-pg-role-rotate` theo DROOT27:
+  - `--help` đủ purpose/when/not/input/dry-run/execute/rollback/secret-handling/examples/exit codes;
+  - dry-run mặc định;
+  - allowlist đúng role `incomex` + production PG target;
+  - refusal nếu role/host/db/system_identifier ngoài PRE;
+  - không nhận password qua argv/log.
+- new password sinh mạnh và ghi **new GSM version `PG_PASSWORD`**; GSM trở thành canonical source sau RUN.
+- old plaintext nếu cần rollback chỉ giữ tmpfs 0600, không persistent.
 
-### B · Qdrant
-- Dùng snapshot business mới nhất hiện hữu ≤24h nếu đủ collection; ưu tiên snapshot job sẵn có.
-- Nếu không có snapshot đủ mới/đủ collection, được tạo snapshot bằng cơ chế Qdrant native đã dùng trong backup; không đổi collection data.
-- Clone tất cả collection runtime BUSINESS, không chỉ `production_documents` nếu G0/runtime chứng minh collection khác đang được caller dùng.
-- Ghi collection list + vector/point count trước/sau.
+### Thứ tự
+1. Stage consumer config/reference để sẵn sàng dùng new `PG_PASSWORD`.
+2. Dry-run DOT: role + dependency + active sessions.
+3. Execute rotate password role `incomex`.
+4. Reload/restart tối thiểu đúng consumer cần reconnect.
+5. Verify:
+   - new credential connect PASS đúng DB/role/privilege expected;
+   - các MUST_SWITCH consumer health/read/write test phù hợp PASS;
+   - old credential connect FAIL.
+6. Nếu fail trong cửa sổ kiểm:
+   - rollback password qua DOT bằng old value từ tmpfs;
+   - rollback consumer reference;
+   - DỪNG.
+7. Khi PASS: disable old GSM `PG_PASSWORD` version nếu nó chính là old canonical version; không destroy trong RUN này.
 
-### C · Files
-- Directus files/uploads đúng mount live.
-- `/opt/incomex/data` business files.
-- **Exclude `workspace-tools/queue.sqlite` và WAL/SHM của nó**; đây là lifecycle ledger runtime, clone khởi tạo mới.
-- Exclude temp/cache/log/backup/mission evidence.
-- Manifest path/type/size/checksum trước/sau; không in nội dung business.
+Không đổi role grants/ownership/RLS/superuser flags trong RUN này.
 
-### D · Config/runtime assets
-Mang cấu trúc cần chạy CURRENT:
-- compose/config **không secret**;
-- nginx config;
-- Directus extension/hook `l2-checkpoint-guard`;
-- exact Nuxt/current build image + build/source-lock/commit reference cần cho target sau;
-- config Qdrant/agent-data ở mức không secret.
-Không mang:
-- production `.env`;
-- Telegram/Kuma/Hermes/GitHub/backup credential/config;
-- unrelated service runtime.
+## 6. Redact live/searchable production stores — exact match only
 
-## 4. Exact CURRENT images — ưu tiên reuse/stream, không pull tag trôi
+Chỉ làm **sau khi cả hai old credential đã bị invalidate**.
 
-CURRENT phải khớp production tại snapshot:
-- PostgreSQL 16.13;
-- Directus 11.5.1 (DB migration level hiện tại phải được ghi riêng);
-- Qdrant 1.16.3;
-- Nuxt 3.20.2 / Node 20.20 exact current image;
-- nginx 1.29.5 exact current image;
-- agent-data exact image digest/StartedAt generation hiện hành nếu đưa vào chain.
+### Fresh dry-run
+- dùng đúng 2 old credential fingerprint/hash đã biết từ G2 evidence;
+- quét live DB `directus` + `incomex_metadata` và tất cả Qdrant BUSINESS collection/searchable payload có thể chứa KB;
+- không in value;
+- báo:
+  `credential_id | store | table/column-or-collection | rows/points | occurrences`.
+- khác số G2 **không tự coi là lỗi** vì production đã tiếp tục ghi; dùng số fresh dry-run làm expected.
+- nếu phát hiện **credential thứ ba** hoặc match mơ hồ ngoài đúng 2 fingerprint ⇒ DỪNG hỏi Owner.
 
-Luật:
-- Nếu VPS2 đã có image đúng digest ⇒ reuse.
-- Nếu thiếu ⇒ ưu tiên `docker save` exact image từ VPS1 → stream qua Mac → `docker load` VPS2.
-- Không cho VPS2 giữ SSH key tới VPS1.
-- Không `docker pull <floating-tag>` để dựng CURRENT.
-- Ghi table `component | VPS1 image_id/digest | VPS2 image_id/digest | MATCH`.
+### Execute
+- mutation DB/Directus content phải qua DOT narrow; Qdrant qua DOT/native wrapped action có same exact-match guard.
+- chỉ thay **đúng exact old credential values** bằng `REDACTED_RETIRED_CREDENTIAL`.
+- không regex rộng; không sửa business text khác.
+- transaction/count guard:
+  - DB: actual row/occurrence phải khớp fresh dry-run, lệch ⇒ rollback transaction + DỪNG;
+  - Qdrant: lập exact point-id plan trước; partial mismatch/failure ⇒ rollback bằng ephemeral old value trong cùng RUN rồi DỪNG.
+- bao phủ history/revision/KB tables và Qdrant derived payload đã inventory.
+- rebuild/invalidate derived searchable cache/index nếu consumer hiện hành có; không tự xóa business data.
 
-Nếu không thể có exact image cho core `postgres/directus/nuxt/nginx/qdrant` ⇒ DỪNG G2.
+### Post-scan
+- exact old fingerprints trong live/searchable DB/Qdrant/cache = 0.
+- không đòi byte-level vacuum/rewrite toàn PG/Qdrant production chỉ để xóa forensic dead tuples/WAL; credential đã invalidated. Ghi residual physical-retention risk theo lifecycle/backup, không làm disruptive rewrite trong RUN này.
 
-## 5. Compose CURRENT tối thiểu
+## 7. Historical backups / Drive
 
-Dựng tuần tự, không chạy CURRENT/TARGET song song:
-- postgres;
-- directus;
-- qdrant;
-- nuxt;
-- nginx;
-- agent-data nếu có thể chạy local-safe với lab-only identity.
+**Không rewrite, không xóa backup lịch sử mã hóa.**
+Lý do: credential cũ sau rotation đã vô hiệu; phá backup làm giảm khả năng phục hồi.
 
-Không dựng:
-- Hermes;
-- claude-mcp/claude-kb;
-- cowork-*;
-- JEV;
-- Kuma;
-- backup cron;
-- production mail/bot/webhook consumers;
-- production GitHub writer.
+Làm:
+1. Xác định cutoff timestamp: backup trước thời điểm redaction có thể chứa retired credential.
+2. Ghi metadata/report: `PRE_ROTATION_BACKUP_MAY_CONTAIN_RETIRED_SECRET`; không sửa payload backup.
+3. Sau redaction + service health PASS, chạy **một backup sạch mới** bằng pipeline hiện hữu:
+   - DB/directus;
+   - incomex_metadata;
+   - Qdrant;
+   - business files nếu pipeline hiện hành có.
+4. Read-back/hash verify như BK1/backup policy hiện hữu.
+5. Không đổi retention trong RUN này; backup cũ tự hết theo retention bình thường.
 
-Nginx clone:
-- dùng config parity nhưng publish localhost only;
-- các route tới service cố ý không dựng phải có disposition cố định (ví dụ EXPECTED_NOT_IN_CLONE), không “sửa config cho xanh”.
+## 8. Production verification
 
-Directus Flow:
-- giữ Flow rows/status để parity schema/config;
-- egress đã block cứng nên request/webhook ra ngoài không thoát;
-- không sửa hàng loạt Flow chỉ để lab yên.
-- **C4:** dữ liệu parity §7-B phải được đo và chốt thành `BASELINE-PRE-APP` **ngay sau restore + S4, trước khi boot Directus/agent-data**. Đây là baseline chuẩn để so snapshot source.
-- Sau khi Directus boot, 5 Flow schedule active có thể ghi local. Mọi thay đổi sau baseline phải được diff và gắn `VOLATILE_BY_FLOW` theo bảng/Flow; không coi là parity regression nếu đúng Flow đã inventory và không xoá/hỏng business data.
-- Nếu Flow tạo side-effect ra ngoài ⇒ SEC FAIL/DỪNG (egress lẽ ra phải chặn). Nếu Flow xoá/hỏng business data hoặc thay đổi không truy được về Flow đã inventory ⇒ DỪNG. Không direct SQL tắt Flow hàng loạt.
+Sau cả hai rotation + redact:
+- Directus/vps/giaoduc/ops routes đại diện 200/expected;
+- agent-data health + auth path PASS;
+- PG consumer dùng role `incomex` PASS;
+- Hermes/tool consumer AGENT_DATA_API_KEY PASS nếu MUST_SWITCH;
+- backup job clean-run PASS;
+- Qdrant reads PASS;
+- no unexpected failed service;
+- e-learning FREEZE/static 200 giữ nguyên;
+- không thay VPS2 CURRENT checkpoint;
+- StartedAt/restart delta chỉ đúng service được PRE xác định cần reload/restart.
 
-## 6. Agent-data / local consumer
+## 9. GATE SEC-CRED PASS
 
-Mục tiêu là chứng minh caller chính vẫn nói chuyện được với CURRENT clone mà không mang secret production.
+PASS khi:
+1. AGENT_DATA old key bị disable và auth FAIL; new key PASS mọi MUST_SWITCH.
+2. PG old password FAIL; new password PASS; GSM `PG_PASSWORD` là canonical new version.
+3. Live/searchable production stores exact old credential count = 0.
+4. Không có credential thứ ba.
+5. Historical encrypted backups giữ nguyên, đã đánh dấu cutoff; có một **backup sạch mới + read-back verify**.
+6. Production health PASS, không unrelated mutation.
+7. Tmpfs/ephemeral old/new secret material đã xóa.
+8. G2 CURRENT checkpoint vẫn stopped/safe.
 
-- Reuse exact agent-data image nếu khả thi.
-- Mọi Directus/API credential = lab-only token tạo trong clone.
-- DB/Directus URL trỏ clone internal.
-- External GitHub/model/Telegram/Drive/GSM = disabled/blank; egress bị chặn.
-- `queue.sqlite` lab = file mới/ledger mới, không copy production.
-- Chạy tối thiểu:
-  - health/read local;
-  - 1 read Directus clone;
-  - 1 read `incomex_metadata` qua đường được phép;
-  - 1 write vào **record test cô lập** qua DOT/API path được duyệt, rồi cleanup qua cùng đường.
-- Nếu image hiện tại không thể start local-safe mà không có external prod secret ⇒ ghi `GAP-AD`, không lấy secret prod. G2 chỉ PASS nếu Host/test matrix chứng minh GAP này không làm sai kết luận migration CURRENT; nếu không ⇒ DỪNG.
-
-## 7. SAME SLICE CURRENT — cố định expected cho TARGET
-
-Ưu tiên reuse Playwright/curl/test asset hiện hữu. Chỉ viết script mỏng trong runtime dossier nếu không có cái sẵn; không mở framework test mới.
-
-Lưu runtime dossier:
-`/opt/incomex/work/vps1-up-grade/CLONE-CURRENT-20260928/`
-
-### A · Route
-Từ nginx live/source config sinh danh sách host/location cần parity.
-Trên clone localhost + Host header:
-- status;
-- redirect;
-- cookie/header quan trọng;
-- content marker.
-Bao gồm ít nhất:
-- `vps.*`;
-- `directus.*`;
-- `ops.*`;
-- `giaoduc.*`;
-- Knowledge/Reports/Registries;
-- `/ui-preview/`;
-- route API/Directus chính.
-Route tới service cố ý không dựng: ghi expected disposition, không coi 502 là PASS ngầm.
-
-### B · Data
-**Chạy lần đầu ở checkpoint `BASELINE-PRE-APP`: sau restore + S4, trước Directus/agent-data boot.** Sau app boot, chạy lại diff và tách `VOLATILE_BY_FLOW`; không thay expected baseline.
-So source snapshot ↔ clone:
-- `directus`: schema/object counts + row counts business tables; loại riêng volatile/audit/session và sanitization delta đã biết.
-- `incomex_metadata`: schema + row counts/checksum metadata.
-- Qdrant: collection + point/vector count.
-- files: manifest checksum.
-Không yêu cầu clone = live VPS1 tại thời điểm POST; so với **snapshot timestamp**.
-
-### C · UI
-Qua SSH tunnel/localhost:
-- Nuxt shell;
-- Knowledge;
-- Reports;
-- Registries;
-- GDĐH `giaoduc` + iframe e-learning static;
-- `/ui-preview/`.
-Chụp screenshot/HTTP evidence trong runtime dossier.
-Directus admin:
-- ít nhất login page/render;
-- nếu lab-only admin credential được tạo an toàn qua DOT/native wrapped path thì test login; nếu không, ghi disposition chứ không dùng prod credential.
-
-### D · Consumer/local runtime
-- Directus REST local read + write test record;
-- DOT/PG local read;
-- agent-data local smoke nếu §6 PASS;
-- backup/Kuma/Hermes/GitHub/Telegram **không chạy**; chỉ xác minh chúng không được đưa vào clone.
-
-### SEC · Isolation negative controls
-Sau khi clone chạy:
-- từ clone container: GitHub/Telegram/Google/public internet = FAIL;
-- public internet/Mac trực tiếp tới lab published port = FAIL nếu không qua SSH tunnel;
-- Mac qua SSH tunnel → clone nginx = PASS;
-- không có production secret file/reference trong compose/env allowlist;
-- static token prod count in clone = 0;
-- e-learning static public vẫn 200;
-- VPS1 health không đổi.
-
-## 8. G2 PASS
-
-G2 `CURRENT parity` PASS khi:
-1. Exact CURRENT core image digests MATCH.
-2. Source snapshot → clone data/config/files match theo §7-B sau known sanitization.
-3. Clone boot local-only; 0 public exposure; egress negative controls PASS.
-4. 0 credential production trên clone; Directus tokens/sessions sanitized trước first boot.
-5. Route/UI/current slice A–D/SEC không còn diff migration-critical chưa disposition.
-6. E-learning FREEZE/static invariants vẫn nguyên.
-7. VPS1: 0 restart/recreate/config mutation; business data chỉ read/snapshot.
-8. Disk VPS2 sau clone còn ≥25 GiB free; swap 4 GiB.
-9. CURRENT baseline dossier + exact manifests đủ để TARGET chạy **cùng expected**.
-10. Sau baseline: stop CURRENT containers để tiết kiệm RAM; giữ volumes/checkpoint/manifests. Không xoá clone.
-
-DỪNG nếu:
-- bất kỳ app/token-reading service nào boot trước S1–S4 + BASELINE-PRE-APP PASS (PostgreSQL/Qdrant restore-only sau S1–S3 là ngoại lệ C1);
-- phát hiện prod token/secret đã sang VPS2;
-- clone có public ingress hoặc egress;
-- exact core image không khớp;
-- restore/data manifest lệch không giải thích được;
-- service gây side effect thật;
-- VPS1 bị mutation ngoài snapshot/read-only;
-- disk <25 GiB sau clone;
-- có active executor conflict.
-
-## 9. Checkpoint để TARGET dùng tiếp
-
-Trước khi kết thúc XONG:
-- lưu exact current image/digest table;
-- config/source-lock hashes;
-- DB snapshot timestamp + manifests;
-- Qdrant snapshot/count;
-- file manifest;
-- sanitization manifest;
-- isolation/firewall manifest;
-- SAME SLICE expected/results CURRENT;
-- rollback/remove instructions cho clone namespace;
-- list delta `VPS1_AFTER_CLONE` = các thay đổi production phát sinh sau snapshot (ban đầu có thể rỗng; không giả định sẽ luôn rỗng).
-
-Không tạo production secret copy.
+Nếu PASS ⇒ **NEXT G3 TARGET STACK**.
 
 ## 10. Report
 
 Không tạo repo file mới.
 
-### `COLLAB.md`
+### COLLAB.md
 - Dòng hiện hành;
-- `KQ@VPSUP-CLONE-CURRENT-20260928-01 XONG|DỪNG`;
-- nếu XONG: `G2 CURRENT PARITY PASS · NEXT G3 TARGET STACK`;
-- tóm tắt snapshot, exact images, sanitization, isolation, A–D/SEC, disk.
+- `KQ@VPSUP-SEC-CRED-ROTATE-20260929-01 XONG|DỪNG`;
+- chỉ report secret name/version/fingerprint prefix + consumer counts + redact counts; không value.
+- nếu PASS: `SEC-CRED PASS · G2 HOST ACCEPTED · NEXT G3 TARGET STACK`.
 
-### `view.html`
-Thêm/cập nhật khối CURRENT parity:
-- source snapshot → clone;
-- components/images MATCH;
-- data/config/files;
-- isolation;
-- SAME SLICE A–D/SEC;
-- G2 PASS/DỪNG;
-- NEXT = G3 chốt exact target versions/digests.
+### view.html
+Cập nhật ngắn:
+- G2 Host ACCEPTED;
+- SEC-CRED rotate 2/2 PASS|STOP;
+- old credential invalid;
+- live searchable copy = 0;
+- clean backup mới PASS;
+- NEXT G3.
 
 Commit:
-`[Claude Code] VPSUP-CLONE-CURRENT · dựng CURRENT parity cô lập`
-
-Kết thúc Owner đúng một dòng:
-`XONG` hoặc `DỪNG — <lý do>`.
+`[Claude Code] VPSUP-SEC-CRED-ROTATE · retire credential lộ trong KB`
 
 ## 11. Sau RUN — không làm
 
-Không nâng PostgreSQL/Directus/Nuxt/Node/Qdrant trong RUN này.
-Không lấy OIG key/activate Directus 12.
-Không dựng TARGET.
-Không cutover VPS1.
-Không bật lại e-learning app.
+- Không destroy old GSM versions; chỉ disable.
+- Không rewrite/delete historical backup.
+- Không nâng PostgreSQL/Directus/Nuxt/Qdrant.
+- Không dựng TARGET.
+- Không sửa schema/RLS/permission ngoài credential scope.
+- Không xử lý unrelated security cleanup.
 
-Nếu G2 PASS: Host mới phát G3 chốt target stack từ nguồn hiện hành rồi mới nâng lab.
+Sau SEC-CRED PASS, Host mới phát G3.
