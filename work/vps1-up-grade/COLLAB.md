@@ -718,6 +718,24 @@ Phản biện đúng P03, không mở thêm file:
 - **Yêu cầu Claude Reviewer phiên VPSUP:** review đúng P54 + diff PROMPT §8A; tập trung xem scope có đủ/chặt không và vị trí DNS follow-up. Nếu ACCEPT thì Host chỉ chờ MCP KQ sạch rồi READY/RUN; không mở vòng thiết kế lại.
 - Owner cần quyết: —.
 
+### P55 · Claude Chat (Reviewer) · ACCEPT P54 có sửa — Based_on `3f6fab96f28040a41b1707867c74f215a6df7ae7` + delta Reviewer `12beb00d6cc2aa156e76f1f24b59447fd611fb62`
+- **Đồng ý khung P54:** §8A chỉ bảo vệ; không xoay lại/GSM/KB/Qdrant/backup/TARGET; DROOT31 STARTED trước PRE; DROOT30 trước mutation. Đầu vào G3 (`pg_hba` trust + FDW; `directus_gov_test_20260602` không mang sang TARGET) đúng.
+- **Cập nhật thực tế:** `MCPW-HERMES-TG-RECOVER-20260929-01` đã `STARTED` 14:45:54Z (commit `b11726d`), chưa KQ ⇒ §8A vẫn chờ.
+- **Reviewer sửa thẳng PROMPT (đang DRAFT, AGENTS cho phép) — 6 lỗ, commit `12beb00`:**
+  - D1 · xung đột lệnh: §9–§11 cũ nằm sau “`## 0`–`## 8` là lịch sử” nên vẫn là lệnh; §10 bảo ghi `KQ@VPSUP-SEC-CRED-ROTATE…` + commit ROTATE ⇒ agent có thể ghi KQ sai RUN_ID. Đã khoanh: lệnh = khối đầu + checklist `## 8A`; thêm mục Báo cáo §8A (KQ/commit đúng RUN_ID, hồ sơ ghi tiếp vào thư mục SEC-CRED sẵn có). STATUS viết sẵn “chờ READY” ⇒ Host không cần chạm PROMPT nữa.
+  - D2 · “KQ MCPW sạch” chưa định nghĩa: RUN MCPW có thể restart Hermes ⇒ để lại lệch P02 ngoài manifest SEC-CRED ⇒ §8A hoặc DỪNG vô ích hoặc rebaseline hộ. Đã định nghĩa: KQ XONG/DỪNG sạch + lệch do MCPW phải được MCPW rebaseline hoặc ghi đích danh; §8A không rebaseline hộ. Thêm collision gate: không `STARTED` chưa KQ nào chạm Guard/P02/git dot.
+  - D3 · phạm vi: Reviewer quét VPS1 (mọi file trừ `dot/bin`) — không guard/manifest/baseline nào nhắc 4 DOT của VPSUP ⇒ 2 DOT SEC1A/BK1 + 2 script backup BK1 mở rộng cũng đang chưa được canh. Cùng cơ chế, cùng mutant ⇒ gộp luôn (mục đích DROOT29; Owner: làm dứt điểm 1 lần). Đã có guard ⇒ chỉ chứng minh. JEV `gen-dec-1790693631-L1p3IckFuieFXkIZYoxT` all_project 0,99.
+  - D4 · bẫy đăng ký: cấm `dot-dot-register` chế độ thật (F1/P16); chỉ đường rebaseline chính thức của Guard, không sửa tay baseline; bằng chứng = path+sha trong guard + mutant FAIL; mutant không bắn tin thật cho Owner.
+  - D5 · Antigravity: khoá cũ đã bị server từ chối ⇒ client giữ khoá cũ là hỏng chức năng, không phải lỗ bảo mật; DỪNG cả §8A vì 1 client trên Mac là sai liều. Tách: server còn nhận khoá cũ ⇒ DỪNG; consumer trên VPS1 bị sót ⇒ DỪNG (hồi quy SEC-CRED); client trên Mac ⇒ không chặn, cập nhật từ GSM như SEC-CRED đã làm, không được thì 1 bước Owner. JEV `gen-dec-1790693626-FDz7dr5RwfPjfElANIvN` 0,99.
+  - D6 · failed units: đo 29/09 ~14:50Z = đúng 2 unit mạng lúc khởi động (`cloud-init`, `systemd-networkd-wait-online`, có từ 12/02); `jev-gw-health` không còn lỗi (nhiều khả năng dính sự cố DNS). Đặt bộ nền; unit lỗi mới dính credential đã xoay ⇒ DỪNG (hồi quy D30), không được xếp “unrelated”.
+- **DNS — phản biện vị trí cổng:** sự cố 29/09 là máy chủ tên miền của nhà cung cấp không trả lời ~4h (ngoài hệ thống). G4/G5 chạy trong lab VPS2 cô lập (egress DROP, vào qua tunnel, image chuyển bằng save/load) ⇒ không phụ thuộc DNS tên miền; chặn G4 là chặn nhầm. Thứ phụ thuộc DNS tên miền: cửa sổ cutover + 7 ngày theo dõi (người dùng/Kuma/TLS đi qua tên miền) + bước 11 (đổi bản ghi `elearning.*`). Đề xuất:
+  - DNS-RES là RUN nhỏ riêng, chạy ngay sau §8A (là executor duy nhất lúc đó); G3 là nghiên cứu bàn giấy không mutation ⇒ chạy song song được.
+  - **Cổng cứng:** DNS-RES PASS + ổn định ≥72h **trước khi mở cửa sổ cutover**; cấm đổi DNS từ lúc cutover tới hết 7 ngày theo dõi (mỗi lần chỉ một biến số).
+  - Thiết kế: Cloudflare chế độ **DNS-only (không bật proxy)** ⇒ không đổi nginx/TLS/real-IP ⇒ tách hẳn khỏi TARGET; muốn bật proxy là quyết định riêng trong G3/G4. Zone đích phải = zone nguồn từng bản ghi (MX/TXT/`elearning.*`…). 2 unit mạng lỗi lúc khởi động gộp vào hạng mục này. Đổi NS ở nhà đăng ký cần Owner 1 thao tác — Host soạn hướng dẫn từng bước khi tới lúc.
+  - JEV `gen-dec-1790693620-sA7eYrA4x2mCNALPnojc` before_cutover 1,0 · G3 song song 0,85.
+- **Kết luận: §8A đủ để Host READY/RUN ngay khi MCP dependency có KQ sạch** — `READY@12beb00d6cc2aa156e76f1f24b59447fd611fb62` (commit cuối chạm PROMPT). Host đổi chữ PROMPT ⇒ theo DROOT31 Reviewer xác nhận lại 1 dòng.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
