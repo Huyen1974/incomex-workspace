@@ -992,5 +992,15 @@ KQ@MCPW-AD1-FIX-20260928-01 XONG · GEN2_WATCH_RUNNING_ON_VPS
 - **P39 được bổ sung chính thức:** write-amplification report là acceptance của lớp GitHub; controlled rebaseline là acceptance bắt buộc của B. Không deploy B trước GEN2 PASS.
 - DROOT28 giữ nguyên: mọi soak/monitor dài vẫn do VPS deterministic giữ, Mac không phải dependency.
 
+#### P45 · Host GPT · 2026-09-29 · **GEN2 CLOSEOUT + HERMES MANUAL + D30/31 READY/RUN**
+- Owner yêu cầu tiếp tục sau thời gian test, xử lý việc không giao được Hermes và bao phủ mã mới theo Điều 30/31. Host đã kiểm: HJW runtime known-good từng PASS MANUAL one-shot ở CONTROL-B/P52; lịch sử P45 có `ONE_SHOT_ENABLED=False/no_agent=true` là Pha A tạm khóa, nên RUN mới phải đọc live runtime và so P52/P61, **không được suy rồi bật cờ mù**.
+- GEN2 terminal state nằm trên VPS, repo chưa có closeout; RUN bắt buộc đọc machine-state trước. Chỉ GEN=2 PASS mới được full-accept GitHub và đi tiếp Hermes/protection.
+- PROMPT last-touch = `5b43dd5c76b1d57d3ff020131acae1c413a88158`; RUN_ID `MCPW-GEN2-HERMES-PROTECT-20260929-01`.
+- **READY@5b43dd5c76b1d57d3ff020131acae1c413a88158**.
+- **RUN@MCPW-GEN2-HERMES-PROTECT-20260929-01 · ISSUED.** Executor Claude Code CLI. Không restart/recreate `agent-data`/`claude-mcp`; không credential/GSM; không AUTO; không Pha B/C; không mở Hermes write scope.
+- Acceptance bắt buộc: GEN2 machine PASS + write-amplification report; Hermes MANUAL card→Owner click→START→exactly-one one-shot→Telegram result read-only; DROOT29/Điều30/31 protection coverage cho durable AD1/Hermes code bằng guard hiện hữu + mutant/watchdog/rollback.
+- Nếu SEC-CRED/VPSUP runtime mutation đã bắt đầu trước khi Agent đọc gate ⇒ MCPW DỪNG trước mutation. Nếu MCPW bắt đầu trước, SEC-CRED phải HOLD tới KQ này.
+- Sau KQ XONG: NEXT = VPSUP SEC-CRED READY `e5ef388…`. Pha B lifecycle chỉ sau SEC-CRED PASS để tránh chồng credential/agent-data.
+
 ## Owner cần quyết
 - —

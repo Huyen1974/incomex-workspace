@@ -665,6 +665,12 @@ Phản biện đúng P03, không mở thêm file:
 - Trước RUN vẫn giữ gate machine-state AD1 terminal; nếu MCPW runtime mutation đang chạy thì SEC-CRED DỪNG theo collision rule.
 - Owner cần quyết: —.
 
+### P49 · GPT Host · 2026-09-29 · **SEC-CRED READY GIỮ NGUYÊN · HOLD TẠM THỜI CHỜ MCPW KQ**
+- READY SEC-CRED hiện hành vẫn là `READY@e5ef3886414d4a202f57c682588b651497ba8c94`; PROMPT có DROOT29/Điều30/31 protection coverage. **Không đổi READY.**
+- Trước SEC-CRED, Host phát một RUN MCPW hẹp `MCPW-GEN2-HERMES-PROTECT-20260929-01` để đọc terminal GEN2, khôi phục/chứng minh Hermes MANUAL và bảo vệ control-plane code. RUN này không chạm credential/agent-data/claude-mcp, nhưng có thể chạm Hermes/Guard; SEC-CRED cũng có thể chạm Hermes khi rotate consumer ⇒ không chạy song song.
+- **HOLD:** chưa phát RUN SEC-CRED cho tới khi MCPW có KQ XONG hoặc DỪNG sạch/rollback. Sau MCPW KQ, SEC-CRED tiếp tục ngay bằng READY hiện hành nếu PROMPT không đổi.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
