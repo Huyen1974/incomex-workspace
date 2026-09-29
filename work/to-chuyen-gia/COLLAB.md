@@ -14,6 +14,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN — Owner 2026-09-29**: chốt **03 thành 
 - GPT, Claude và Hermes cùng review trước khi chốt sang Word.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **Owner giao tài liệu thứ hai 29/09/2026 — ĐÃ XÁC NHẬN trong yêu cầu:** lập bảng STT/Việc/Chủ thể/Cách làm/Căn cứ pháp lý từ sau thành lập Tổ đến hết nhiệm vụ; kèm bảng Tên văn bản/Nội dung hiện tại/Nội dung mới cần thay đổi, đánh giá khả thi và nguồn rõ để hội đồng góp ý. Cho phép tạo đúng `02_trinh_tu_va_dieu_chinh.html` trong task hiện hữu; không xuất Word hoặc sửa các tệp bàn giao trước khi thống nhất.
 - **Owner yêu cầu rút gọn 29/09/2026:** chỉ giữ việc cần làm, tiêu chuẩn, căn cứ và kết luận không phải lập Tổ thẩm định ở bước mời quan tâm; cắt giải nghĩa lặp, không mất ý pháp lý. Sửa trực tiếp HTML SSOT; giữ nguyên đoạn trích luật và nguồn Trung ương/Lai Châu; chưa xuất Word.
 - **Owner giao bổ sung 29/09/2026:** rà chắc căn cứ không bắt buộc lập Tổ thẩm định riêng ở bước mời quan tâm của dự án; kết luận ngắn ở HTML chính, trích đầy đủ căn cứ ở Phần II. Chỉ sau Owner OK mới xuất Word cuối. Owner xác nhận hai tài liệu dự án đã phê duyệt về nội dung; không tự đặt số/ngày Quyết định.
 - Phân biệt rõ **Tổ chuyên gia** là nhóm thực hiện nhiệm vụ theo pháp luật đấu thầu; **Tổ tư vấn** là nhóm chuyên gia hỗ trợ/cho ý kiến, không thay trách nhiệm của Tổ chuyên gia.
@@ -45,6 +46,7 @@ Host: **GPT Chat** · Host_ID `GPT-TCG-0929`
 
 ## Nội dung chuẩn để Owner đọc
 - **HTML chính:** `view.html`
+- **Tài liệu nghiệp vụ thứ hai được Owner yêu cầu:** `02_trinh_tu_va_dieu_chinh.html` — SSOT riêng cho trình tự và bảng sửa; main view chỉ liên kết, không chép nội dung. Đường Owner: `/knowledge/modules?task=to-chuyen-gia&view=content` → liên kết Tài liệu 02.
 - Nội dung Phần I + Phần II đã chuyển sang `view.html` để Task html view hiển thị đúng thiết kế.
 - Trạng thái: **TCG-P11 — ĐÃ RÚT GỌN HƯỚNG DẪN, GIỮ CĂN CỨ P10; CHỜ OWNER OK. HOLD Word và đóng task.** Word P09 không phải bản hiện hành.
 - Lịch sử TCG-P06: `1af6ff98973d44cccf5634033ed2d1ae278d2039`; kết luận gom độc lập/bảo mật thành tiêu chuẩn nội bộ **được đính chính tại TCG-P07**, vì Điều 16 Luật Đấu thầu vẫn áp dụng cho cá nhân liên quan; không dùng nhận định cũ.
@@ -80,8 +82,17 @@ Yêu cầu Reviewer: ghi P01/P02 vào cuối `COLLAB.md`; nêu đúng điều/kh
 - Giữ điều kiện chứng chỉ và mốc 2027; phân biệt tham vấn với tổ chính thức; bảo mật, xung đột lợi ích, thẩm quyền, thu hồi/lệnh cấm; kết luận không bắt buộc lập Tổ thẩm định chỉ cho bước mời quan tâm, không mở rộng sang đấu thầu.
 - SSOT: `work/to-chuyen-gia/view.html`; Owner View: https://vps.incomexsaigoncorp.vn/knowledge/modules?task=to-chuyen-gia&view=content. Không tạo file/bản xem mới; chưa xuất Word, chưa đóng task. Kiểm diff và bản publish sau commit.
 
+## TCG-02 · Trình tự và điều chỉnh hồ sơ · 29/09/2026
+- GPT Chat · Host_ID `GPT-TCG-0929` · Based_on `d89385cd86d73acc30116e64b39d46192167e236` · Scope: tạo Tài liệu 02, liên kết trong view.html, điều phối review; không sửa nội dung hướng dẫn nhân sự, không sửa hai DOCX nguồn. Áp: SAME_COMMIT.
+- D02 · Owner cho tạo tài liệu thứ hai trong `work/to-chuyen-gia` để hội đồng góp ý; 22 bước, 16 hàng điều chỉnh, có nguồn và điều kiện khả thi. Không có RUN thực thi nghiệp vụ hoặc RUN xuất Word.
+- Đính chính ý trước trong chat: Điều80.2a giao Tổ trình duyệt nhưng không bắt buộc bỏ Tờ trình08 của Phòng. Báo cáo07 hiện đã trực tiếp đề nghị Chủ tịch phê duyệt, Tổ trưởng và thành viên ký; đề xuất giữ07+08 với phân công rõ, không mặc nhiên cấp cho Tổ dấu/tài khoản cơ quan mới.
+- Bổ sung căn cứ mới trực tiếp: Quy chế kèm QĐ94/2025/QĐ-UBND của Lai Châu Điều7.3,10.4,11; sao y điện tử theo NĐ30 Điều25–27; Phòng theo NĐ150 Điều12.1a và NĐ370 Điều5–6. Đây là quy định của tỉnh, không phải nguồn đăng lại luật Trung ương.
+- Đã đọc Tệp01 được cung cấp và các phần liên quan Tệp02 qua Files; đã kiểm Điều80 trên VBHN74; NĐ30 bằng ảnh các trang về chữ ký, sao y, số riêng; NĐ150/370 bằng ảnh bản ký; NĐ274 các bước37–43,60–63,70–71; NĐ96 Điều30–31 bằng ảnh trang38–40. QĐ94 mới đối chiếu bản chữ và trang công bố, chưa mở được tệp ký; chưa kiểm tài khoản/cấu hình ký số của Phường. Không gán kết quả kiểm vận hành.
+- **P03 · Claude Chat/Cowork · OPEN:** review tuyến báo cáo07+TTr08, trách nhiệm Điều80.2a, sao y/chữ ký số và 16 thay đổi; nêu điều khoản và đúng hàng cần sửa. Chưa có ý kiến thực tế.
+- **P04 · Hermes · OPEN:** review độc lập ranh giới mời quan tâm/chấp thuận nhà đầu tư/đấu thầu; mốc thời gian, bàn giao, khả thi; không tự chạy khi chưa được giao qua đường đã duyệt. Chưa có ý kiến thực tế.
+
 ## Owner cần quyết
-- Duyệt bản rút gọn TCG-P11 để xuất Word cuối; hiện HOLD xuất Word/đóng task.
+- Duyệt nội dung Tài liệu 02 sau ý kiến hội đồng; chưa xuất Word cuối/chưa đóng task.
 
 ## P01 · Claude Chat — Ý KIẾN REVIEW TCG-P08 (29/09/2026)
 Người thực hiện: Claude Chat · Based_on `b42ef6ef375794dd3d58673207f044e0bec3c9b7` · Scope: `view.html` Phần I–II + `PROMPT.md` · Không sửa `view.html`. Trạng thái: **ĐÃ CÓ Ý KIẾN** (thay dòng P01 OPEN ở trên; Host cập nhật trạng thái).
