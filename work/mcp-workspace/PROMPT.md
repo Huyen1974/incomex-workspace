@@ -24,7 +24,13 @@ Không chạy lại GEN2. Không sửa lại Điều 30/31. Không mở Pha B/C.
 ## 1. Read/collision gate
 
 Đọc:
-AGENTS → root COLLAB DROOT22/25/28/29 → MCPW COLLAB P47–P49 + KQ commit `6455183` → HJW COLLAB dòng hướng dẫn đầu file + P52/P61–P64 → PROMPT này.
+AGENTS → root COLLAB DROOT22/25/28/29/30/31 → MCPW COLLAB P47–P50 + KQ commit `6455183` → HJW COLLAB dòng hướng dẫn đầu file + P52/P61–P64 → PROMPT này.
+
+**Cổng task COLLAB trước READY/RUN:** Host chỉ phát READY khi `work/mcp-workspace/COLLAB.md` ghi được qua gateway đã duyệt; `STARTED` và KQ phải ghi tại chính task COLLAB này, root COLLAB không thay thế.
+
+Ngay sau read-gate PASS và **trước PRE**, executor phải ghi:
+`STARTED@MCPW-HERMES-TG-RECOVER-20260929-01 <UTC> · executor=Claude Code CLI`
+vào `work/mcp-workspace/COLLAB.md`. Nếu không ghi được ⇒ DỪNG trước PRE/mutation.
 
 Kiểm `work/vps1-up-grade`:
 - SEC-CRED đã có KQ terminal; technical rotation đã xong nhưng §8A protection/rebaseline còn HOLD;
@@ -75,7 +81,13 @@ Nếu thấy config/token Telegram bị đổi/mất/expired hoặc drift ngoài
 
 ## 4. Restart-only
 
-Dùng đúng thủ tục restart `hermes-gateway` đã chạy thành công ở HJW P61:
+Trước restart, so MainPID/StartedAt `hermes-gateway` với mốc KQ `6455183`:
+- nếu gateway **đã tự khởi động lại sau KQ `6455183`** ⇒ **KHÔNG restart thêm**; ghi `AUTO_RESTART_ALREADY_OCCURRED`, kiểm health/hash/Config Guard rồi chuyển thẳng §5 Telegram TEST;
+- chỉ restart nếu vẫn là process cũ và toàn bộ PRE gate PASS.
+
+Ngay trước first runtime mutation/restart, áp DROOT30: re-read `work/mcp-workspace/COLLAB.md` + `PROMPT.md`, xác nhận READY vẫn đúng commit last-touch và không có HOLD/STOP/READY mới; lệch ⇒ DỪNG trước mutation.
+
+Nếu cần restart, dùng đúng thủ tục restart `hermes-gateway` đã chạy thành công ở HJW P61:
 1. ghi checkpoint PRE + rollback/reference;
 2. restart đúng **một** service/process `hermes-gateway`;
 3. chờ health trở lại trong cửa sổ đã chứng minh (xấp xỉ vài chục giây; không tight-loop);
@@ -102,6 +114,8 @@ Kuma:
 ## 6. MANUAL smoke mới
 
 Chỉ sau §5 PASS.
+
+Ngay trước tạo ASSIGN, lặp DROOT30 freshness gate sau mọi thời gian chờ/Owner interaction: re-read task COLLAB + PROMPT, READY phải vẫn đúng last-touch và không có HOLD/STOP/READY mới; lệch ⇒ DỪNG trước ASSIGN.
 
 Tạo assignment mới, không reuse vé/card cũ:
 `ASSIGN@HJW-MANUAL-SMOKE-20260929-03 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`
@@ -134,9 +148,13 @@ Acceptance:
 - no runtime mutation ngoài gateway restart;
 - marker bắt buộc đúng, thiếu = BLOCKED.
 
-## 7. Nếu NetworkError vẫn còn sau restart
+## 7. Nếu Telegram vẫn lỗi
 
-DỪNG. Không sửa code.
+DỪNG. Không sửa code. Không restart lần 2.
+
+Phân loại đúng đường lỗi:
+- deterministic TEST ở §5 **không gửi được** ⇒ ghi `KQ@MCPW-HERMES-TG-RECOVER-20260929-01 DỪNG · TELEGRAM_NETWORKERROR_PERSISTS`;
+- deterministic TEST **PASS**, nhưng sau Owner click thì tin `BẮT ĐẦU` lỗi ⇒ ghi `KQ@MCPW-HERMES-TG-RECOVER-20260929-01 DỪNG · TELEGRAM_START_PATH_DEFECT`; giữ fail-closed, không code-fix trong RUN này.
 
 Lưu sanitized evidence:
 - exception type + cause chain;
@@ -146,10 +164,8 @@ Lưu sanitized evidence:
 - send endpoint class/path (không token);
 - HTTP client/session state nếu đọc được an toàn;
 - gateway health;
-- config/hash unchanged.
-
-Ghi:
-`KQ@MCPW-HERMES-TG-RECOVER-20260929-01 DỪNG · TELEGRAM_NETWORKERROR_PERSISTS`
+- config/hash unchanged;
+- riêng `TELEGRAM_START_PATH_DEFECT`: lưu exact evidence của START path và xác nhận TEST path ngay trước đó PASS.
 
 Host sẽ mở RUN code-fix riêng sau khi có root cause.
 
