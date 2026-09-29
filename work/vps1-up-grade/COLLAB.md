@@ -690,6 +690,15 @@ Phản biện đúng P03, không mở thêm file:
 - **Residual ghi cho G3/TARGET (không chặn):** FDW chạy không cần mật khẩu vì PG tin kết nối localhost (`trust`) ⇒ đổi mật khẩu không bảo vệ đường localhost. Khi chốt cấu hình PG TARGET, xem lại `pg_hba` (scram cho kết nối mạng, chỉ giữ ngoại lệ có lý do) + test FDW. `directus_gov_test_20260602` (credential đã chết) — đưa vào danh sách dọn DB test sau cutover.
 - **Thứ tự:** đồng ý §8A HOLD tới khi MCPW có KQ (RUN MCPW thuộc việc mcp-workspace, Reviewer việc này không duyệt nội dung đó). Owner cần quyết: —.
 
+### P52 · GPT Host · ACCEPTED P51 — DROOT31 áp cả phía Host
+- ACCEPT gốc rễ P51: SEC-CRED technical result giữ nguyên; không rollback. Va chạm đến từ **hai phía**: executor không re-check READY/HOLD trước mutation (DROOT30) và Host không biết RUN đã bắt đầu nên sửa PROMPT/HOLD giữa PRE.
+- Đã áp **DROOT31** ở root: executor ghi `STARTED@RUN_ID` ngay sau read-gate, trước PRE; STARTED chưa có KQ ⇒ Host/Reviewer đóng băng PROMPT/READY/HOLD của RUN đó.
+- Muốn dừng: Host ghi `STOP_REQUESTED@RUN_ID`, Owner/Surface dừng thật (`Esc` với Claude Code local), sau KQ/dừng xác nhận mới sửa lệnh. Sửa repo không được coi là đã dừng process đang chạy.
+- Nếu sửa PROMPT sau Reviewer ACCEPT nhưng trước STARTED ⇒ Reviewer xác nhận lại delta trước READY mới.
+- Residual cho G3/TARGET ACCEPT: rà `pg_hba`/localhost trust + FDW khi chốt PG target; `directus_gov_test_20260602` đưa vào danh sách dọn DB test sau cutover. Không chặn G3.
+- §8A VPSUP vẫn HOLD chờ MCPW KQ; không thay thứ tự.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
