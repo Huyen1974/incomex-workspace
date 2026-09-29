@@ -1,13 +1,32 @@
-# PROMPT — VPSUP SEC-CRED-ROTATE · retire 2 credential production bị lộ trong KB
+# PROMPT — VPSUP SEC-CRED-PROTECT · §8A-only sau rotation
 
-RUN_ID: VPSUP-SEC-CRED-ROTATE-20260929-01
-STATUS: Chỉ thực thi sau khi COLLAB có READY đúng SHA commit cuối chạm file này và Owner/GPT Host phát RUN.
+RUN_ID: VPSUP-SEC-CRED-PROTECT-20260929-01
+STATUS: **HOLD — CHỈ RUN SAU KHI `MCPW-GEN2-HERMES-PROTECT-20260929-01` CÓ KQ XONG HOẶC DỪNG SẠCH/ROLLBACK VÀ HOST GỠ HOLD.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
 Runtime_Write_Path: VPS1 production theo DOT/GSM/config path đã duyệt; VPS2 clone chỉ đọc/checkpoint, không dựng TARGET.
 Runtime VPS là SSOT.
 Mọi Directus/PG mutation = **DOT-only**; không direct SQL fallback.
+
+## 0A. SUPERSEDE — phần rotation cũ đã hoàn tất, CẤM chạy lại
+
+KQ `VPSUP-SEC-CRED-ROTATE-20260929-01` commit `0d9c991…` đã hoàn thành phần kỹ thuật: 2/2 old credential retired, live/searchable old copy = 0, backup sạch mới PASS, production health PASS. KQ vẫn `DỪNG` vì executor dùng READY cũ/HOLD và gate §8A chưa làm.
+
+**RUN hiện hành chỉ làm §8A Điều 30/31.** Các mục `## 0` đến `## 8` bên dưới được giữ làm lịch sử/evidence và **KHÔNG CÒN LÀ LỆNH THỰC THI**. CẤM rotate lại credential, tạo GSM version, redact lại KB/Qdrant, hoặc chạy backup sạch lần nữa.
+
+Trước first mutation của §8A phải áp **DROOT30**: sau PRE, đọc lại `COLLAB.md` + `PROMPT.md`, xác nhận READY/HOLD không đổi. Nếu MCPW chưa có KQ sạch hoặc có READY/HOLD mới ⇒ DỪNG.
+
+Phạm vi §8A hiện hành:
+1. inventory durable delta SEC-CRED, tối thiểu 2 DOT mới `dot-vpsup-pg-role-rotate` và `dot-vpsup-cred-redact`; config/env/nginx/Kuma đã đổi thì kiểm coverage hiện hữu, không đăng ký trùng;
+2. Điều 30: dùng evidence SEC-CRED + smoke/browser hiện tại để chứng minh không hồi quy, không tái rotation;
+3. Điều 31: đăng ký 2 DOT mới vào Protection/Config Guard hiện hữu với path/hash/invariant/owner/scope/known-good;
+4. mutant/negative trên fixture cho từng DOT phải làm Guard FAIL;
+5. self-protection + watchdog hiện hữu PASS;
+6. controlled rebaseline P02 chỉ cho StartedAt/hash/config delta đã được KQ SEC-CRED chứng minh; drift ngoài manifest ⇒ DỪNG, không rebaseline;
+7. không credential/GSM/business-data mutation.
+
+Acceptance: §8A PASS ⇒ ghi `KQ@VPSUP-SEC-CRED-PROTECT-20260929-01 XONG · SEC-CRED PASS · NEXT G3 TARGET STACK`. Nếu fail ⇒ `DỪNG` với gap chính xác. Không dùng KQ/RUN_ID cũ cho lượt §8A.
 
 ## 0. Mục tiêu duy nhất
 
