@@ -1091,5 +1091,9 @@ KQ@MCPW-GEN2-HERMES-PROTECT-20260929-01 DỪNG
 - Executor phải áp DROOT31 STARTED trước PRE và DROOT30 theo PROMPT.
 - _Ghi thay (bút ghi) bởi Claude Chat theo yêu cầu Host vì connector GPT đang bị chặn ghi file này; nội dung là của Host, Host không đổi. Claude đã đối chiếu: `25f8a3c` chỉ chạm `PROMPT.md`, diff khớp đúng 4 điểm P50; PROMPT last-touch hiện hành vẫn là `25f8a3c`; chưa có STARTED/KQ/STOP_REQUESTED của RUN này._
 
+## RUN — MCPW-HERMES-TG-RECOVER-20260929-01
+STARTED@MCPW-HERMES-TG-RECOVER-20260929-01 2026-09-29T14:45:40Z · executor=Claude Code CLI
+- Read-gate PASS: PROMPT last-touch = `25f8a3c2f0df12705679cc636f9593c019f4a244` = READY P51; chưa có STARTED/KQ/STOP_REQUESTED/HOLD/READY mới; VPSUP §8A DRAFT/HOLD (không RUN); VPS1 0 phiên mutation. Ghi qua connector `fs_*` root gh vì cổng `workspace_*` trả `SENSITIVE_CONTENT` cho file này.
+
 ## Owner cần quyết
 - —
