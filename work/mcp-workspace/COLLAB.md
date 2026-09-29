@@ -1083,5 +1083,13 @@ KQ@MCPW-GEN2-HERMES-PROTECT-20260929-01 DỪNG
 - **Đối chiếu mục tiêu §0.2 (bảng ĐÍCH ĐO ĐƯỢC đã cập nhật 29/09):** (2) GitHub **ĐẠT**; (3) giao việc Hermes còn vướng đúng một lỗi gửi Telegram ⇒ RUN TG-RECOVER là việc đúng ngay bây giờ; (1) và (4) vẫn chờ Pha B → C. Thứ tự giữ nguyên: TG-RECOVER → VPSUP §8A → Pha B → C.
 - **Chuyển sang VPSUP (không chặn MCPW):** §8A thêm Antigravity còn khoá cũ, 2 unit failed (có `jev-gw-health`); hạng mục mới sau §8A: chống lặp sự cố DNS 29/09 (nameserver nhà cung cấp không trả lời ~4h) — DNS dự phòng/chuyển Cloudflare, Kuma canh DNS công cộng báo Telegram, DROOT “mất kết nối ⇒ kiểm DNS công cộng trước tiên”.
 
+#### P51 · Host GPT · 2026-09-29 · FRESH READY
+- PROMPT last-touch = `25f8a3c2f0df12705679cc636f9593c019f4a244`.
+- **READY@25f8a3c2f0df12705679cc636f9593c019f4a244**
+  cho RUN_ID `MCPW-HERMES-TG-RECOVER-20260929-01`.
+- READY tạm `c20fbb6…` ở root vẫn HẾT HIỆU LỰC.
+- Executor phải áp DROOT31 STARTED trước PRE và DROOT30 theo PROMPT.
+- _Ghi thay (bút ghi) bởi Claude Chat theo yêu cầu Host vì connector GPT đang bị chặn ghi file này; nội dung là của Host, Host không đổi. Claude đã đối chiếu: `25f8a3c` chỉ chạm `PROMPT.md`, diff khớp đúng 4 điểm P50; PROMPT last-touch hiện hành vẫn là `25f8a3c`; chưa có STARTED/KQ/STOP_REQUESTED của RUN này._
+
 ## Owner cần quyết
 - —
