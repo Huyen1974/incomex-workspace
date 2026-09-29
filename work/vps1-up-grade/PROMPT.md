@@ -1,7 +1,7 @@
 # PROMPT — VPSUP SEC-CRED-PROTECT · §8A-only sau rotation
 
 RUN_ID: VPSUP-SEC-CRED-PROTECT-20260929-01
-STATUS: **DRAFT/HOLD — CHỈ RUN SAU KHI `MCPW-HERMES-TG-RECOVER-20260929-01` CÓ KQ XONG HOẶC DỪNG SẠCH/ROLLBACK, CLAUDE REVIEW BẢN §8A NÀY, VÀ HOST PHÁT READY/RUN MỚI.**
+STATUS: **CHỜ READY — Reviewer đã ACCEPT (P55). Chỉ chạy khi task COLLAB có `READY@<SHA commit cuối chạm file này>` do Host phát sau khi dependency MCPW có KQ sạch (định nghĩa ở “Cổng §8A”). Chưa có READY ⇒ không chạy.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
@@ -13,28 +13,36 @@ Mọi Directus/PG mutation = **DOT-only**; không direct SQL fallback.
 
 KQ `VPSUP-SEC-CRED-ROTATE-20260929-01` commit `0d9c991…` đã hoàn thành phần kỹ thuật: 2/2 old credential retired, live/searchable old copy = 0, backup sạch mới PASS, production health PASS. KQ vẫn `DỪNG` vì executor dùng READY cũ/HOLD và gate §8A chưa làm.
 
-**RUN hiện hành chỉ làm §8A Điều 30/31.** Các mục `## 0` đến `## 8` bên dưới được giữ làm lịch sử/evidence và **KHÔNG CÒN LÀ LỆNH THỰC THI**. CẤM rotate lại credential, tạo GSM version, redact lại KB/Qdrant, hoặc chạy backup sạch lần nữa.
+**RUN hiện hành chỉ làm §8A Điều 30/31.** Lệnh thực thi = khối đầu file này (tới hết mục `Báo cáo §8A`) + checklist kỹ thuật `## 8A` (áp cho mọi target ở “Phạm vi” mục 1, không chỉ delta SEC-CRED). Các mục `## 0`–`## 8`, `## 9`, `## 10`, `## 11` là lịch sử/evidence, **KHÔNG CÒN LÀ LỆNH THỰC THI** (các điều cấm ở `## 11` vẫn giữ). CẤM rotate lại credential, tạo GSM version, redact lại KB/Qdrant, hoặc chạy backup sạch lần nữa.
 
 Cổng §8A hiện hành:
-- dependency phải là KQ terminal sạch của `MCPW-HERMES-TG-RECOVER-20260929-01`; READY của MCPW chưa phải KQ;
+- read-gate: `fs_stat` root gh → đọc `AGENTS.md` → task `COLLAB.md` (Dòng hiện hành, KQ SEC-CRED `0d9c991…`, P50–P55) → file này; READY phải = commit cuối chạm file này;
+- dependency = KQ terminal sạch của `MCPW-HERMES-TG-RECOVER-20260929-01`: có `KQ@… XONG` hoặc `DỪNG` sạch/rollback, **và** mọi lệch P02/Guard do chính RUN MCPW gây ra (vd restart Hermes) đã được MCPW tự rebaseline, hoặc được KQ MCPW ghi đích danh là residual của MCPW ⇒ §8A để nguyên, **không rebaseline hộ**, không tính là drift của §8A. READY/STARTED của MCPW chưa phải KQ. Lệch không rõ chủ ⇒ DỪNG;
+- collision: root/task COLLAB khác không có `STARTED@` nào chưa có KQ đang chạm Protection/Config Guard, P02 baseline hoặc git `/opt/incomex/dot`; có ⇒ DỪNG;
 - áp **DROOT31**: ngay sau read-gate PASS và trước PRE, executor phải ghi `STARTED@VPSUP-SEC-CRED-PROTECT-20260929-01 <UTC> · executor=Claude Code CLI` vào chính task COLLAB; không ghi được ⇒ DỪNG trước PRE/mutation;
 - áp **DROOT30**: sau PRE và ngay trước first runtime mutation, đọc lại `COLLAB.md` + `PROMPT.md`, xác nhận READY/HOLD/STOP_REQUESTED không đổi; lệch ⇒ DỪNG.
 - Host/Reviewer không sửa PROMPT/READY/HOLD khi STARTED còn sống chưa có KQ.
 
 Phạm vi §8A hiện hành:
-1. inventory durable delta SEC-CRED, tối thiểu 2 DOT mới `dot-vpsup-pg-role-rotate` và `dot-vpsup-cred-redact`; config/env/nginx/Kuma đã đổi thì kiểm coverage hiện hữu, không đăng ký trùng;
+1. inventory durable delta **của việc VPSUP trên VPS1**: 4 DOT (`dot-vpsup-pg-role-rotate`, `dot-vpsup-cred-redact` — SEC-CRED; `dot-directus-permission-revoke` — SEC1A; `dot-pg-restore-verify-db` — BK1) + 2 script backup BK1 đã mở rộng (`/opt/incomex/scripts/pg-backup.sh`, `/opt/incomex/scripts/backup-to-gdrive.sh`); config/env/nginx/Kuma đã đổi thì kiểm coverage hiện hữu. Target nào đã có guard hiện hữu ⇒ chỉ chứng minh, không đăng ký trùng;
 2. Điều 30: dùng evidence SEC-CRED + smoke/browser hiện tại để chứng minh không hồi quy, không tái rotation;
-3. Điều 31: đăng ký 2 DOT mới vào Protection/Config Guard hiện hữu với path/hash/invariant/owner/scope/known-good;
-4. mutant/negative trên fixture cho từng DOT phải làm Guard FAIL;
+3. Điều 31: đăng ký các target mục 1 chưa có bảo vệ vào Protection/Config Guard hiện hữu với path/hash/invariant/owner/scope/known-good, **chỉ qua lệnh/đường rebaseline chính thức của Guard (ghi reason + RUN_ID), không sửa tay file baseline**. CẤM chạy `dot-dot-register` chế độ thật (bẫy F1/P16: quét cả file `.bak`, in “Registered” kể cả khi 403). Bằng chứng đăng ký = mục guard đúng path + sha hiện hành + mutant FAIL; DOT chưa vào sổ `dot_tools` = gap ghi 1 dòng, không chặn XONG. Commit git chỉ đúng file đã đổi, không `git add -A`;
+4. mutant/negative trên fixture cho từng target phải làm Guard FAIL; không phá production, không bắn tin cảnh báo thật tới Owner;
 5. self-protection + watchdog hiện hữu PASS;
-6. controlled rebaseline P02 chỉ cho StartedAt/hash/config delta đã được KQ SEC-CRED chứng minh; drift ngoài manifest ⇒ DỪNG, không rebaseline;
+6. controlled rebaseline P02 chỉ cho StartedAt/hash/config delta đã được KQ SEC-CRED chứng minh; drift ngoài manifest ⇒ DỪNG, không rebaseline (residual đích danh trong KQ MCPW: để nguyên, ghi lại, không tính là drift);
 7. không credential/GSM/business-data mutation;
 8. **PRE-only handoff checks, không mở scope sửa:**
-   - MCPW P50 có báo candidate `Antigravity` còn khoá cũ: không mặc định đúng; inventory exact consumer/path + fingerprint không lộ value. Nếu thực sự còn active consumer dùng credential cũ ⇒ `DỪNG · RESIDUAL_OLD_CREDENTIAL_CONSUMER`, không rotate trong §8A;
-   - chụp toàn bộ failed systemd units hiện hành (MCP handoff nhắc 2 unit, có `jev-gw-health`): nếu failed unit thuộc Protection/Config Guard/watchdog hoặc làm sai regression proof cần cho §8A ⇒ DỪNG; nếu unrelated/known residual ⇒ ghi `FOLLOWUP_NOT_BLOCKING`, không sửa trong RUN;
+   - candidate `Antigravity` (MCPW P50): so vân tay (cùng cách tính của KQ SEC-CRED, không in value) giá trị client đang giữ với vân tay cũ/mới trong KQ SEC-CRED:
+     - trùng bản mới hoặc không có ⇒ đóng;
+     - trùng bản cũ, client nằm trên Mac Owner ⇒ `OFF_VPS_STALE_CLIENT`, **không chặn**: dùng chính giá trị đó (không in) gọi 1 lần endpoint auth, phải bị từ chối 401/403; rồi cập nhật config client từ GSM không in value như SEC-CRED đã làm với `~/.claude.json`/Claude Desktop; không làm được ⇒ ghi đúng 1 bước Owner;
+     - trùng bản cũ, consumer chạy trên VPS1 ⇒ `DỪNG · MISSED_ON_VPS_CONSUMER` (hồi quy của SEC-CRED, không tự sửa trong §8A);
+     - server còn nhận credential cũ ở bất kỳ đường nào ⇒ `DỪNG · OLD_CREDENTIAL_STILL_VALID`;
+   - failed systemd units: bộ nền = `cloud-init.service` + `systemd-networkd-wait-online.service` (lỗi từ 12/02; Reviewer đo 29/09 ~14:50Z vẫn đúng 2 unit này, `jev-gw-health` không còn lỗi). Trùng bộ nền ⇒ `FOLLOWUP_NOT_BLOCKING` (chuyển sang hạng mục DNS/host-resilience). Unit lỗi mới ⇒ truy nguyên: dính credential đã xoay ⇒ `DỪNG` (hồi quy D30 của SEC-CRED, không phải “unrelated”); dính Protection/Config Guard/watchdog ⇒ `DỪNG`; còn lại (vd mạng/DNS bên ngoài) ⇒ `FOLLOWUP_NOT_BLOCKING`. Không sửa unit trong RUN;
    - sự cố DNS 29/09 là follow-up ổn định hạ tầng sau §8A, **không** được lén sửa DNS/resolver trong RUN protection này.
 
-Acceptance: §8A PASS ⇒ ghi `KQ@VPSUP-SEC-CRED-PROTECT-20260929-01 XONG · SEC-CRED PASS · NEXT G3 TARGET STACK`. Ngoài 7 gate protection, phải có `STARTED` đúng DROOT31, candidate Antigravity đã disposition, failed units đã disposition và không có blocker protection chưa xử lý. Nếu fail ⇒ `DỪNG` với gap chính xác. Không dùng KQ/RUN_ID cũ cho lượt §8A.
+Acceptance: §8A PASS ⇒ ghi `KQ@VPSUP-SEC-CRED-PROTECT-20260929-01 XONG · SEC-CRED PASS · NEXT G3 TARGET STACK`. Ngoài các gate protection, phải có `STARTED` đúng DROOT31, candidate Antigravity đã disposition, failed units đã disposition và không có blocker protection chưa xử lý. Nếu fail ⇒ `DỪNG` với gap chính xác. Không dùng KQ/RUN_ID cũ cho lượt §8A.
+
+Báo cáo §8A (thay `## 10` cũ): không tạo repo file mới; task `COLLAB.md` = Dòng hiện hành + `KQ@VPSUP-SEC-CRED-PROTECT-20260929-01 XONG|DỪNG` (chỉ tên/path/sha/vân tay, không value); `view.html` 1 dòng; hồ sơ VPS1 ghi tiếp vào `/opt/incomex/work/vps1-up-grade/SEC-CRED-ROTATE-20260929/` (thêm mục §8A trong `INDEX.md` sẵn có, không mở thư mục mới). Commit repo: `[Claude Code] VPSUP-SEC-CRED-PROTECT-20260929-01 · KQ XONG|DỪNG · …`.
 
 ## 0. Mục tiêu duy nhất
 
