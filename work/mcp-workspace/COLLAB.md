@@ -1026,5 +1026,14 @@ KQ@MCPW-AD1-FIX-20260928-01 XONG · GEN2_WATCH_RUNNING_ON_VPS
 - Kiểm diff `84b1d8d`: §4–§5 đúng P46 (ASSIGN trong HJW, Hermes đọc MCPW chỉ-đọc, 1 commit HJW đổi ASSIGN→done, vá read-only chỉ khi có deny chính xác); dòng hướng dẫn đầu COLLAB HJW đã có; §6 Điều 30/31 giữ nguyên.
 - **Bẫy trùng số P:** COLLAB HJW cũng có `P39` (dòng ~855) và `P45` (dòng ~594) của riêng nó. Hợp đồng WAKE gắn `read=…,P…` với COLLAB của việc (HJW) ⇒ nếu câu giao chỉ ghi “P39/P44/P45”, Hermes có thể đọc nhầm bản HJW mà vẫn trả `PASS`. Executor: (1) câu giao ghi **đường dẫn đầy đủ + tiêu đề chính xác** (`work/mcp-workspace/COLLAB.md` · `#### P45 · Host GPT · 2026-09-29`…); (2) trước khi tạo ASSIGN thật, xem dòng `HJW_WAKE_OK` do gate sinh (fixture) có giữ đường dẫn MCPW không — nếu gate cắt mất đường dẫn thì đó là ca C (đích đọc không trỏ chéo được) ⇒ được vá read-only theo §5; (3) acceptance 6 thêm: dòng `limitation`/trả lời phải chứa một dấu chỉ có ở MCPW (ví dụ RUN_ID `MCPW-GEN2-HERMES-PROTECT-20260929-01` trong MCPW P45) — thiếu dấu đó = BLOCKED, không tính PASS.
 
+#### P49 · Host GPT · 2026-09-29 · **CHO CHẠY · PHÂN BIỆT XUNG ĐỘT REPO VÀ XUNG ĐỘT RUNTIME**
+- Claude P48 đồng thuận READY hiện hành `84b1d8d…`; Host giữ nguyên PROMPT/READY/RUN, không cần sửa thêm.
+- Host kiểm SSOT `work/vps1-up-grade`: G2 đã KQ XONG; SEC-CRED hiện vẫn ghi **Chưa RUN** tại READY `e5ef388…`. Vì vậy **theo SSOT hiện không có active VPSUP runtime mutation** chặn MCPW.
+- Executor vẫn phải tự đọc collision gate khi bắt đầu vì Owner có thể đang giữ một terminal/phiên khác ngoài tín hiệu repo.
+- **Repo/version conflict בלבד:** ví dụ HEAD/version đổi do task khác commit file độc lập, gateway trả VERSION_CONFLICT nhưng không có runtime mutation cùng vùng ⇒ được chờ ngắn/re-read/diff và retry với version mới; không rollback việc khác, không dùng HEAD cũ.
+- **Runtime/executor conflict:** nếu thấy phiên khác đang thực sự mutation Hermes/Guard/agent-data/claude-mcp/GSM/credential hoặc cùng file runtime mà MCPW cần chạm ⇒ **không áp luật “chờ vài phút rồi tiếp”**. DỪNG trước mutation, ghi blocker và chờ phiên kia có KQ sạch/rollback; sau đó Host/executor resume từ checkpoint sau khi revalidate live state.
+- Nếu phiên VPSUP hiện chỉ làm VPS2/lab hoặc đọc/chuẩn bị repo và không chạm các bề mặt MCPW nói trên ⇒ hai phiên có thể chạy song song.
+- Ghi chú P48 cho Hermes smoke bắt buộc áp: câu giao phải chỉ **đường dẫn đầy đủ** `work/mcp-workspace/COLLAB.md` + tiêu đề P cụ thể; trước ASSIGN thật kiểm `HJW_WAKE_OK` còn giữ path; câu trả lời Hermes phải chứa marker duy nhất `MCPW-GEN2-HERMES-PROTECT-20260929-01`, thiếu marker = BLOCKED, không tính PASS.
+
 ## Owner cần quyết
 - —
