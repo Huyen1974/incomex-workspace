@@ -1,85 +1,147 @@
-# PROMPT — MCPW-AD1-FIX · fix periodic GitHub reads + VPS-owned gen2 watch
+# PROMPT — MCPW GEN2 CLOSEOUT + HERMES MANUAL SIGNAL + ĐIỀU 30/31 PROTECTION
 
-RUN_ID: MCPW-AD1-FIX-20260928-01
+RUN_ID: MCPW-GEN2-HERMES-PROTECT-20260929-01
 Host: GPT Chat · GPT-MCPW-250925-A
-Executor_Surface: Claude Code CLI trên Mac Owner, chỉ cài/smoke ngắn.
+Executor_Surface: Claude Code CLI trên Mac Owner; phần quan sát dài không phụ thuộc Mac.
 Report_Write_Path: chỉ `work/mcp-workspace/COLLAB.md`.
-Evidence VPS: `/opt/incomex/work/mcp-workspace/MCPW-AD1-FIX-20260928/`.
+Runtime: VPS1 production; evidence dùng hồ sơ AD1/HJW hiện hữu, không tạo task mới.
 
 ## 0. Mục tiêu
-Sửa đúng failure của AD1 gen1: periodic workspace reads 24/h > 20/h.
-Không nới ngưỡng. Không làm Pha B/C trong RUN này.
-Sau cài/smoke, **Mac không còn là dependency**: watcher gen2 24h phải chạy deterministic trên VPS bằng Guard/Kuma/timer/state hiện hữu, không cần Claude Code/Codex/Hermes model.
-P02 core = KEEP/FREEZE. GitHub vẫn durable SSOT + write authority.
-Căn cứ: DROOT22, DROOT25, DROOT28; N9; P34–P39; Claude P37.
+Làm đúng ba việc, theo thứ tự:
+1. đọc machine-state GEN2 đã kết thúc và full-accept lớp GitHub nếu PASS;
+2. khôi phục/chứng minh đường **giao việc MANUAL cho Hermes** theo CONTROL-B/P61 đã nghiệm thu, không bật AUTO và không mở rộng write scope;
+3. đưa durable code/config mới của AD1/Hermes vào lớp bảo vệ DROOT29 / Điều 30 / Điều 31 bằng Guard/Config Guard/contract/watchdog hiện hữu.
 
-## 1. Gate đầu RUN — đọc state máy trước mọi kết luận
-Đọc AGENTS → root COLLAB DROOT22/25/28 → MCPW COLLAB P34–P39 → file này.
-Trên VPS chạy read-only `/opt/incomex/work/mcp-workspace/MCPW-AD1-20260927/bin/verify-AD1.sh` và lưu output.
-Dòng đầu phải chứng minh gen1 terminal FAIL `periodic_reads` (generation/state/timestamp rõ). Nếu state khác, thiếu, mơ hồ hoặc verify lỗi ⇒ DỪNG, không mutation.
-Chụp baseline: P02 image/hash/StartedAt; Guard/ruleset; hvu timer; root/gate hashes; switches; Kuma #21/#22; current hourly ghcall by source.
-Mac mất kết nối trước mutation ⇒ dừng an toàn. Mac mất sau partial mutation ⇒ lần sau reconcile exact checkpoint/bytes; không chạy lại mù.
+Không làm Pha B/C lifecycle trong RUN này. Không đụng VPSUP credential rotation.
+
+## 1. Read/collision gate
+Đọc AGENTS → root COLLAB DROOT22/25/28/29 → MCPW COLLAB P35–P44 → HJW COLLAB S1–S10 + P52/P61–P64 → PROMPT này.
+Đọc machine-state trực tiếp từ VPS, ưu tiên file state/log, không gọi mạng chỉ để xác minh:
+- `/var/lib/incomex-mcpw-guard/ad1-watch.json`;
+- `/opt/incomex/work/mcp-workspace/MCPW-AD1-20260927/AD1_24H.txt`;
+- `ad1-watch.log` tương ứng.
+GEN=2 phải terminal PASS. Nếu RUNNING/FAIL/mơ hồ ⇒ DỪNG, chỉ report state; không mutation Hermes/Guard.
+Kiểm `work/vps1-up-grade`: nếu SEC-CRED hoặc RUN khác đang mutation agent-data/Hermes/Guard/GSM/credential liên quan ⇒ DỪNG trước mutation. Repo conflict thuần túy thì re-read/version-guard; không vượt active runtime mutation.
+Chụp PRE: Agent Data/Claude MCP StartedAt/image/hash/health; HJW gate/plugin/root hashes, jobs/ws-dispatch, STOP, AUTO_ALLOWLIST, Kuma #21/#22; Protection/Config Guard target list/baseline.
 
 ## 2. Scope / hard stops
-Được sửa tối thiểu các thành phần AD1 hiện hữu: `hjw-control-root.py`, Protection Guard/counter logic, AD1 switch/state/watch logic và đúng dòng tài liệu vận hành HVU.
-Chỉ khi bằng chứng bắt buộc mới sửa code khác trong exact AD1 path; không sửa P02 source/image/config/freshness.
-Cấm: restart/recreate `agent-data` hoặc `claude-mcp`; model Hermes/AUTO; service/DB/port/key/token mới; ruleset mutation; ssh/root identity/lease/lifecycle B/C; nới threshold 20/h; production rate-limit test.
+Được:
+- đọc state/counter/journal AD1/HJW;
+- sửa tối thiểu HJW manual assignment runtime **chỉ nếu live state lệch known-good P52/P61**;
+- sửa/đăng ký Protection Guard/Config Guard/contract/watchdog để bao phủ durable targets AD1/HJW;
+- restart `hermes-gateway` chỉ khi exact HJW delta bắt buộc và rollback sẵn.
 
-## 3. FIX-A · hjw-root local phải = 0 GitHub
-Đọc journal `SYSLOG_IDENTIFIER=incomex-ghcall` với `GH_SOURCE=hjw-root` quanh gen1 để xác định **nguyên nhân thật** 4/h: purpose/what/result/freshness/switch.
-Không mặc định kết luận `FRESH_MAX=300` là root cause. Chỉ sửa sau khi log/repro chứng minh.
-Fix nhỏ nhất để khi VPS-derived state trusted/fresh, root monitor dùng local và **0 GitHub**.
-Stale/missing/untrusted/out-of-order vẫn phải bounded fallback/UNKNOWN/fail-closed đúng AD1; không false-green.
-Fix không được làm assignment-detection >5′ hoặc hạ điều kiện trust local.
+Cấm:
+- restart/recreate `agent-data` hoặc `claude-mcp`;
+- sửa/rotate AGENT_DATA_API_KEY/PG credential/GSM;
+- bật AUTO hoặc thêm AUTO_ALLOWLIST;
+- mở rộng Hermes write scope/path/toolset;
+- Pha B/C execution ledger/lease;
+- ruleset mutation;
+- service/DB/port/token mới;
+- update Hermes version;
+- nới GitHub budget.
 
-## 4. FIX-B · P02 attribution đúng nguồn
-Gen1 đếm `p02-workspace=2`, `p02-fs=2`; phải tách lượt Guard tự gây khỏi client read đồng thời.
-Sửa **counter/Guard attribution**, không sửa P02 source nếu chưa có Host approval.
-Acceptance bắt buộc có negative control: chạy Guard check đồng thời với client read P02; chỉ lượt do Guard tự kích mới vào budget Guard. Client read không được bị gán cho Guard.
-Nếu không thể attribution đáng tin mà không sửa P02 contract/source ⇒ DỪNG và báo blocker; không dùng heuristic dễ false-count.
+## 3. GEN2 full closeout — machine evidence
+Nếu GEN2 PASS:
+1. lưu exact terminal line + 24 window results; xác minh 24/24 green, root/gate local 0 GitHub theo contract, REST/budget/ruleset/P02 criteria PASS;
+2. từ counter hiện hữu tính **write amplification** trong chính 24h:
+   - event_calls_peak_per_hour;
+   - số push/commit theo cửa sổ tương ứng;
+   - event_calls_per_push p50/p95/max nếu đủ mẫu;
+   - channel git/raw/REST;
+   - 403/429/5xx/timeout/backoff counts.
+Không mặc định 3/push nếu dữ liệu không chứng minh.
+3. ghi kết luận giới hạn: GEN2 PASS chứng minh tải nền; burst write chỉ được coi bounded nếu event/push ổn định. Writes vẫn fail-closed/revalidate GitHub theo K8/P02.
+4. xác minh watcher sau terminal đã chuyển alert-only và watchdog còn sống; không re-arm 24h.
 
-## 5. Budget và counter
-Budget gen2 theo nguồn:
-- `hvu-sync periodic <= 15/h`;
-- `gate periodic = 0 GitHub/h` khi local trusted;
-- `hjw-root periodic = 0 GitHub/h` khi local trusted;
-- `Guard-owned <= 4/h` (ruleset + e2e/P02 do chính Guard gây);
-- tổng periodic workspace reads <= 20/h.
-`hermes-gateway` GitHub Pages/non-workspace network ghi riêng informational; không giấu trong workspace counter và không tự nhập vào budget API nếu không cùng loại quota.
-Counter phải giữ source/channel/purpose/result/latency/fallback, dedupe/replay như AD1.
+Không sửa counter chỉ để làm đẹp số.
 
-## 6. Alert-only lâu dài + tài liệu
-Sau terminal gen2 PASS/FAIL, watcher 24h không được biến mất hoàn toàn.
-Giữ hourly **alert-only** deterministic cho sync/gate/root/ruleset/P02 liveness: regression ⇒ Kuma/Telegram, nhưng không đổi terminal gen2 và không auto-rollback sau cửa sổ.
-Cập nhật đúng SSOT vận hành hiện hữu `scripts/hvu-b2/00-NHAN-THU-MUC.md` (hoặc path thực tương ứng) thêm AD1: backstop 4′, counter/backoff, rollback source=github. Không tạo bản sao.
+## 4. Hermes MANUAL — xác định lỗi thật trước sửa
+Nguồn known-good: HJW CONTROL-B/P52 + FINAL P61/P62 + evidence dưới `/opt/incomex/work/hermes-joint-workspace/HJW-CONTROL-20260926-01/final/`.
+Expected:
+- mode = **DUYỆT TỪNG VIỆC**;
+- `AUTO_ALLOWLIST=()`;
+- STOP OFF;
+- plugin `hjw-control` + gate/root control hashes/semantics đúng known-good;
+- assignment hợp lệ ⇒ Telegram card; chỉ Owner click hợp lệ ⇒ BẮT ĐẦU receipt ⇒ exactly one one-shot `repeat 1`; không click/từ chối/STOP ⇒ 0 model;
+- commit/result attribution + Kuma drift monitor giữ nguyên.
 
-## 7. Gen2 24h — VPS giữ, Mac được tắt
-Preserve gen1 FAIL evidence nguyên vẹn trong hồ sơ; không overwrite lịch sử.
-Re-arm generation 2 với state bền, from/to rõ. `verify-AD1.sh` dòng đầu phải in `GEN=2 RUNNING|PASS|FAIL ...`.
-Guard/Kuma/timer hiện hữu tự chấm mỗi giờ. Không cần terminal/Mac/agent chạy nền.
-FAIL bất kỳ giờ nào ⇒ state gen2 FAIL + Telegram + rollback **consumer liên quan** về known-good; alert-only vẫn tiếp tục.
-24 nhịp xanh liên tiếp ⇒ state gen2 PASS + Telegram; sau đó chuyển sang alert-only.
-Watcher tự được watchdog: thiếu nhịp >2h ⇒ FAIL/alert, không im lặng PASS.
+Đọc live code/config/jobs/log trước. **Không suy chỉ từ lịch sử P45 `ONE_SHOT_ENABLED=False/no_agent=true`** vì CONTROL-B có thể dùng no-agent base job nhưng tạo one-shot sau click.
+Phân loại:
+A. runtime known-good + lỗi do cách giao/signal ⇒ sửa signal/template/assignment tối thiểu;
+B. runtime drift khỏi P52/P61 ⇒ restore exact known-good bytes/config từ evidence/rollback, không tự viết lại kiến trúc;
+C. profile/tool/path không cho loại việc Owner đang giao ⇒ báo capability gap; không tự mở write scope.
 
-## 8. Smoke ngắn trước bàn giao
-Agent chỉ cần smoke ngắn đủ để chứng minh delta, **không ngồi chờ 24h**:
-1. PRE/POST Guard PASS, ngoài-scope=0.
-2. ruleset live PASS; P02 StartedAt/hash unchanged.
-3. root source=local và cửa sổ live khoảng 15′: 0 GitHub root.
-4. gate local: 0 GitHub, 0 model.
-5. attribution negative control concurrent client-read PASS.
-6. budget theo source từ smoke/projection <=20/h.
-7. rollback exact từng delta + source local↔github↔local nếu cần.
-8. gen2 watcher fixture xanh/đỏ đi được tới Kuma nhưng fixture **không** terminalize gen2.
-9. sau arm, chứng minh process/timer/watch trên VPS tồn tại độc lập với SSH session; không để background process trên Mac.
+## 5. Live Hermes acceptance — MANUAL, không AUTO
+Sau khi fixture/known-good PASS, tạo **một** assignment smoke an toàn:
+- to=Hermes · role=Reviewer;
+- MCP root=`workspace`;
+- scope đọc `work/mcp-workspace`;
+- nhiệm vụ: đọc P39/P44/P45 hiện hành và trả qua Telegram đúng 3 dòng: `HERMES_MANUAL_SMOKE=PASS|BLOCKED`, actor/session/assignment id, limitation nếu có;
+- **không yêu cầu repo mutation**, không terminal, không runtime mutation.
 
-## 9. KQ
-Khi §8 PASS và gen2 đã arm, ghi:
-`KQ@MCPW-AD1-FIX-20260928-01 XONG · GEN2_WATCH_RUNNING_ON_VPS`
-rồi **DỪNG phiên Claude Code**. Không chờ 24h, không sang B/C.
-Blocker: `KQ@MCPW-AD1-FIX-20260928-01 DỪNG · <lý do>`.
-Report phải ghi exact root cause, delta/hash, before/after by-source, watcher generation/state, rollback, verify command, và khẳng định Mac có thể tắt sau KQ.
+Acceptance:
+1. assignment do non-Hermes identity được gate nhận;
+2. Telegram card CHỜ DUYỆT xuất hiện ≤5′;
+3. trước Owner click = 0 model;
+4. Owner click `Cho chạy` ⇒ callback ack + BẮT ĐẦU receipt;
+5. đúng 1 one-shot model, 7-tool profile hoặc profile hiện hành không rộng hơn;
+6. result Telegram xuất hiện, không commit vì task read-only;
+7. duplicate/replay/sai người/STOP test bằng fixture ⇒ 0 model;
+8. AUTO vẫn rỗng.
 
-## 10. N9
-Host acceptance sau KQ vẫn theo E1–E6. Full AD1 chỉ ACCEPT khi gen2 machine-state = PASS; Host phải đọc state máy hiện tại trước khi tuyên bố.
-Không dùng lời Agent/commit prose thay cho machine state.
+Nếu card không xuất hiện hoặc click không tạo one-shot, DỪNG sau root-cause evidence; không bật đường fail-open cũ.
+Nếu read `work/mcp-workspace` bị server path-scope deny nhưng HJW self-scope vẫn chạy, ghi `DIRECT_SIGNAL_CROSS_TASK=BLOCKED_BY_PROFILE`; không mở write scope. Host xử lý capability sau B/C.
+
+## 6. DROOT29 · Điều 30/31 protection coverage
+Inventory durable production targets do AD1/AD1-FIX/Hermes manual control đang chạy, tối thiểu:
+- `/opt/incomex/scripts/mcpw-protection-guard`;
+- `/opt/incomex/scripts/hjw-control-root.py`;
+- HVU `scripts/hvu-b2/sync.py` + timer/config liên quan;
+- `/etc/hermes/hjw-ad1.conf`;
+- HJW `hjw_gate.py`, plugin `hjw-control`, root control/watch scripts và jobs/config keys dùng cho MANUAL;
+- durable file khác mà PRE chứng minh thuộc exact control path.
+
+Áp:
+### Điều 30
+- xác định hành vi cũ bị chạm; chạy regression suite/fixture hiện hữu;
+- nếu không chạm web UI thì ghi `D30_UI_NOT_TOUCHED`;
+- nếu Owner View/web UI bị sửa ngoài dự kiến ⇒ browser thật bắt buộc, API/SSR không thay proof;
+- Telegram control nếu bị sửa phải chạy callback/UX regression thật hoặc fixture + một live smoke phù hợp.
+
+### Điều 31
+- mọi durable target phải có path + expected hash/invariant + owner/scope trong Protection/Config Guard/contract hiện hữu phù hợp;
+- inverse check: target production bị thiếu/unregistered ⇒ FAIL/alert;
+- self-protection: guard/baseline/checker file cũng được bảo vệ, không tự học drift;
+- negative/mutant trên copy/fixture: sai hash/missing target/config key ⇒ guard FAIL;
+- watchdog hiện hữu phải chứng minh runner còn sống; silence không PASS;
+- controlled rebaseline chỉ trong RUN được cấp phép với old→new + reason + outside-scope PASS;
+- rollback/known-good cho từng delta.
+
+Không tạo service/DB/guard framework mới nếu guard hiện hữu đủ ghép.
+
+## 7. PRE/POST / regression
+PRE/POST Protection + Config Guard PASS.
+P02/Agent Data/Claude MCP identity không đổi trong RUN này.
+HJW STOP/AUTO/profile/toolset không mở rộng.
+Kuma #21/#22 health PASS.
+Outside-scope runtime diff = 0.
+Điều 30/31 target coverage không còn `UNMONITORED`.
+Mutant/negative bắt được lỗi; watchdog sống.
+
+## 8. KQ
+PASS khi đồng thời:
+- GEN2 terminal PASS + write-amplification report;
+- Hermes MANUAL signal end-to-end PASS hoặc, nếu capability cross-task bị server scope chặn, cơ chế self-scope known-good PASS + blocker được chứng minh mà không mở quyền;
+- DROOT29 / Điều 30/31 protection coverage PASS;
+- no AUTO, no agent-data/claude-mcp restart, no credential mutation, no unrelated delta.
+
+Ghi:
+`KQ@MCPW-GEN2-HERMES-PROTECT-20260929-01 XONG|DỪNG`
+vào MCPW COLLAB; nêu machine state, Hermes root cause/live acceptance, protection targets, guard tests, rollback.
+
+Nếu XONG: dừng phiên. NEXT = VPSUP SEC-CRED theo READY hiện hành; Pha B chỉ sau SEC-CRED PASS để tránh chồng agent-data/credential.
+
+## 9. MacBook
+Không có soak dài trong RUN này. Nếu cần theo dõi >15′, bàn giao cho timer/Guard/Kuma VPS theo DROOT28 rồi Agent dừng.
