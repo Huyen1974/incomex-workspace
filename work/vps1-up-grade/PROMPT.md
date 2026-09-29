@@ -220,6 +220,21 @@ Sau cả hai rotation + redact:
 - không thay VPS2 CURRENT checkpoint;
 - StartedAt/restart delta chỉ đúng service được PRE xác định cần reload/restart.
 
+## 8A. Lớp bảo vệ Điều 30/31 — bắt buộc trong cùng RUN
+
+Áp DROOT29 + KB `Điều 30 v1.2` và `Điều 31 v1.2` cho mọi **mã/config production bền** được tạo mới hoặc sửa chức năng trong RUN này. Không mở service/DB/guard mới nếu lớp hiện hữu ghép được.
+
+1. **Inventory protection target trước KQ:** liệt kê mọi DOT/script/config/unit/runtime file production được tạo/sửa bởi SEC-CRED; tách file tạm/evidence không chạy production.
+2. **Điều 30 — regression proof:** chức năng cũ bị bề mặt thay đổi phải có bằng chứng không hồi quy. Nếu thay đổi/recreate Directus/Nuxt ảnh hưởng UI/web thì API/SSR 200 **không đủ**: chạy browser thật trên các luồng đại diện đã sống trước RUN (ít nhất Owner View/Knowledge hoặc trang nghiệp vụ liên quan auth/data path) và lưu bằng chứng PASS; nếu không chạm UI/web code thì ghi `D30_UI_NOT_TOUCHED` nhưng vẫn chạy regression smoke của consumer cũ bị rotate.
+3. **Điều 31 — integrity/protection:** mọi target bền mới/sửa phải được đăng ký vào **Protection Guard/Config Guard/contract/watchdog hiện hữu** phù hợp, gồm path + hash/invariant + owner/scope + expected state. Không để code production mới ở trạng thái `UNMONITORED`.
+4. **Inverse/self-protection:** checker phải phát hiện target bị thiếu/đổi ngoài dự kiến; chính file checker/baseline nếu bị sửa phải nằm trong phạm vi tự bảo vệ hiện hữu. Không tự học baseline từ live drift.
+5. **Negative/mutant:** trên fixture/bản sao, làm ít nhất một sai hash/config/missing-target cho mỗi lớp mới và chứng minh Guard FAIL; không phá production để test.
+6. **Watchdog:** chứng minh runner/checker còn sống bằng cơ chế watchdog hiện hữu của Điều 31 (không tạo service mới); silence/runner-dead không được tính PASS.
+7. **Controlled rebaseline:** restart/recreate có chủ đích chỉ rebaseline sau POST chứng minh đúng RUN_ID, expected image/hash/StartedAt, health PASS, outside-scope=0; lưu old→new + reason. Lệch ngoài dự kiến ⇒ không rebaseline, DỪNG/rollback.
+8. **Rollback/known-good:** mỗi target mới/sửa phải có đường rollback hoặc known-good hash/version đã ghi trong evidence.
+
+KQ SEC-CRED không được XONG nếu lớp bảo vệ của durable production delta còn thiếu hoặc Guard/Config Guard/Điều 31 watchdog không PASS.
+
 ## 9. GATE SEC-CRED PASS
 
 PASS khi:
@@ -231,6 +246,7 @@ PASS khi:
 6. Production health PASS, không unrelated mutation.
 7. Tmpfs/ephemeral old/new secret material đã xóa.
 8. G2 CURRENT checkpoint vẫn stopped/safe.
+9. Durable production code/config delta đã có **Điều 30/31 protection coverage PASS**: regression proof phù hợp, Protection/Config Guard registered, mutant FAIL như kỳ vọng, watchdog sống, controlled rebaseline/rollback đầy đủ.
 
 Nếu PASS ⇒ **NEXT G3 TARGET STACK**.
 
