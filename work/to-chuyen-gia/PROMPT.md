@@ -10,11 +10,13 @@ Phạm vi review:
 Claude Chat/Cowork ghi P01; Hermes ghi P02.
 Kiểm tối thiểu:
 1. Điều kiện chứng chỉ, tư cách, kinh nghiệm của Tổ chuyên gia.
-2. Cách hiểu điểm b khoản 1 Điều 21 NĐ 214/2025 đối với lĩnh vực giáo dục: ngoại lệ có phải chỉ ở điều kiện trình độ hay không.
-3. Tiêu chuẩn nội bộ “đại học trở lên” cho 03/03 người có an toàn/phù hợp không.
-4. Phạm vi khoản 2a Điều 21 sau NĐ 349/2026 đối với Tổ tư vấn/chuyên gia chuyên ngành bên ngoài.
-5. Ba loại chứng chỉ và thời hạn chuyển tiếp.
-6. Khoản 5 Điều 2 TT 129/2026 về chứng chỉ lựa chọn nhà thầu dùng trong lựa chọn nhà đầu tư.
+2. Điểm b khoản 1 Điều 21 NĐ 214/2025 dùng từ “gói thầu”; không tự coi dự án giáo dục lựa chọn nhà đầu tư được miễn bằng đại học.
+3. Phân biệt nhóm chỉ tham vấn với tổ chính thức lập/đánh giá/thẩm định; không gán tiêu chuẩn nội bộ chưa được duyệt cho Phường.
+4. Khoản 2a Điều 21 sau NĐ 349/2026 chỉ miễn chứng chỉ đúng phạm vi; không miễn nghĩa vụ Điều 16 hoặc tự miễn mọi điều kiện thành viên chính thức.
+5. Ba loại chứng chỉ, thời hạn, đăng ký cấp khi hết hạn, tình trạng thu hồi và lệnh cấm đang áp dụng.
+6. Khoản 5 Điều 2 và điểm a khoản 2 Điều 3 TT 129/2026; thẩm quyền theo Điều 19 Luật, Điều 39 NĐ274; Điều 16/80/87 Luật, Điều 66 NĐ274; Điều 23 Luật PCTN; Điều 5/7 NĐ274 khi thuê tư vấn.
+7. Kiểm khớp từng trích dẫn ở Phần II với nguồn; phân biệt điều luật với lưu ý áp dụng. Giữ Phần I ngắn, các trích dài ở Phần II. Bản cần đọc có marker TCG-P07.
+8. Chưa có quyết định giao Phường làm bên mời quan tâm và hồ sơ 06 người trong phạm vi rà soát: không kết luận đã đủ điều kiện ký thành lập tổ cụ thể.
 
 Nếu đúng: ghi PASS + lưu ý rất ngắn.
 Nếu sai: chỉ rõ câu cần sửa + điều/khoản.

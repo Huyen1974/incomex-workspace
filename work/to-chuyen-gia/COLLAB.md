@@ -16,7 +16,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN — Owner 2026-09-29**: chốt **03 thành 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - Phân biệt rõ **Tổ chuyên gia** là nhóm thực hiện nhiệm vụ theo pháp luật đấu thầu; **Tổ tư vấn** là nhóm chuyên gia hỗ trợ/cho ý kiến, không thay trách nhiệm của Tổ chuyên gia.
 - Căn cứ chính: khoản 3 Điều 1 NĐ 274/2026; khoản 3 Điều 19 Luật Đấu thầu; Điều 21 NĐ 214/2025; Điều 2 NĐ 349/2026; Điều 37 TT 02/2024 được sửa bởi TT 105/2025; khoản 5 Điều 2 TT 129/2026.
-- Với lĩnh vực giáo dục: pháp luật cho phép linh hoạt ở điều kiện **bằng đại học**; để hồ sơ đơn giản và an toàn, Phường dự kiến chốt nội bộ 03/03 thành viên Tổ chuyên gia đều có bằng đại học trở lên.
+- TCG-P07 đính chính: điểm b khoản 1 Điều 21 nói về **gói thầu** giáo dục; không tự suy dự án trường nghề lựa chọn nhà đầu tư được miễn bằng. Giữ quy định chung, muốn áp ngoại lệ phải làm rõ căn cứ tương ứng. Owner mới chốt số lượng 03+03; không ghi các tiêu chuẩn bổ sung là quyết định đã được Phường/Owner duyệt.
 
 ### Vòng trước
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 2026-09-25**: lập `work/to-chuyen-gia`, hướng dẫn thật ngắn gọn để cán bộ phường tìm/mời đúng người; Claude CW cùng review.
@@ -45,11 +45,12 @@ Host: **GPT Chat** · Host_ID `GPT-TCG-0929`
 - **HTML chính:** `view.html`
 - Nội dung Phần I + Phần II đã chuyển sang `view.html` để Task html view hiển thị đúng thiết kế.
 - Trạng thái: **DỰ THẢO — chờ P01 Claude + P02 Hermes review trước khi chốt Word.**
-- Áp: `1af6ff98973d44cccf5634033ed2d1ae278d2039` · **TCG-P06:** làm rõ Tổ tư vấn: khoản 2a chỉ là căn cứ huy động chuyên gia ngoài/miễn chứng chỉ; đại học + 03 năm + độc lập là tiêu chuẩn nội bộ, không phải điều kiện luật bắt buộc.
+- Lịch sử TCG-P06: `1af6ff98973d44cccf5634033ed2d1ae278d2039`; kết luận gom độc lập/bảo mật thành tiêu chuẩn nội bộ **được đính chính tại TCG-P07**, vì Điều 16 Luật Đấu thầu vẫn áp dụng cho cá nhân liên quan; không dùng nhận định cũ.
+- **TCG-P07 · GPT · Based_on `3405e32e94ea12374427da4ed2d3b290c6b2dfa0` · Scope: `view.html` Phần I–II + chỉ dẫn review · Áp: SAME_COMMIT.** Rà theo pháp luật đến 29/09/2026; đã đọc toàn bộ tài liệu hướng dẫn hiện hành. Sửa 3 điểm: không gán tiêu chuẩn đề xuất thành Phường đã chốt; không mặc nhiên áp ngoại lệ bằng đại học của gói thầu giáo dục cho dự án; không coi nghĩa vụ chống vi phạm/bảo mật là tùy chọn nội bộ. Bổ sung chủ thể thành lập (Điều 19), kiêm nhiệm/quan hệ gia đình/bảo mật (Điều 16, 80), thu hồi và lệnh cấm (Điều 10 TT02 sau TT105; Điều 87 Luật; Điều 66 NĐ274), khoản 2 Điều 3 TT129, kiểm soát xung đột lợi ích (Điều 23 Luật PCTN), điều kiện thuê tư vấn (Điều 5, 7 NĐ274). Phần II thay trích lược bằng các khoản/điểm nguyên văn đã ghi rõ nguồn. Chưa xác minh: quyết định giao Phường làm bên mời quan tâm và hồ sơ 06 người; hội đồng chưa phản hồi, chưa kết luận đủ điều kiện thành lập tổ cụ thể.
 
 ## HỘI ĐỒNG REVIEW — CHỜ Ý KIẾN
-- **P01 · Claude Chat/Cowork · OPEN** — kiểm toàn bộ Phần I + Phần II, đặc biệt cách áp dụng điểm b khoản 1 Điều 21 cho lĩnh vực giáo dục và khoản 2a sau NĐ 349.
-- **P02 · Hermes · OPEN** — kiểm độc lập cùng phạm vi, ưu tiên phát hiện điều kiện nào đang ghi thành “bắt buộc” nhưng thực tế chỉ là tiêu chuẩn nội bộ của Phường.
+- **P01 · Claude Chat/Cowork · OPEN** — yêu cầu review bản TCG-P07: thẩm quyền, phân loại đúng vai trò nhóm tư vấn, phạm vi ngoại lệ tại điểm b khoản 1/khoản 2a Điều 21, trích dẫn nguyên văn và hiệu lực. Chưa có ý kiến thực tế.
+- **P02 · Hermes · OPEN** — yêu cầu review độc lập bản TCG-P07: các điều kiện bắt buộc/ngoại lệ, xung đột lợi ích, bảo mật, thu hồi/lệnh cấm; không đặt thêm chuẩn ngoài luật. Chưa có ý kiến thực tế.
 
 Yêu cầu Reviewer: ghi P01/P02 vào cuối `COLLAB.md`; nêu đúng điều/khoản nếu có ý kiến; **không tự sửa nội dung dự thảo, không tạo file/task mới**.
 
