@@ -14,6 +14,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN — Owner 2026-09-29**: chốt **03 thành 
 - GPT, Claude và Hermes cùng review trước khi chốt sang Word.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **Owner giao bổ sung 29/09/2026:** rà chắc căn cứ không bắt buộc lập Tổ thẩm định riêng ở bước mời quan tâm của dự án; kết luận ngắn ở HTML chính, trích đầy đủ căn cứ ở Phần II. Chỉ sau Owner OK mới xuất Word cuối. Owner xác nhận hai tài liệu dự án đã phê duyệt về nội dung; không tự đặt số/ngày Quyết định.
 - Phân biệt rõ **Tổ chuyên gia** là nhóm thực hiện nhiệm vụ theo pháp luật đấu thầu; **Tổ tư vấn** là nhóm chuyên gia hỗ trợ/cho ý kiến, không thay trách nhiệm của Tổ chuyên gia.
 - Căn cứ chính: khoản 3 Điều 1 NĐ 274/2026; khoản 3 Điều 19 Luật Đấu thầu; Điều 21 NĐ 214/2025; Điều 2 NĐ 349/2026; Điều 37 TT 02/2024 được sửa bởi TT 105/2025; khoản 5 Điều 2 TT 129/2026.
 - TCG-P07 đính chính: điểm b khoản 1 Điều 21 nói về **gói thầu** giáo dục; không tự suy dự án trường nghề lựa chọn nhà đầu tư được miễn bằng. Giữ quy định chung, muốn áp ngoại lệ phải làm rõ căn cứ tương ứng. Owner mới chốt số lượng 03+03; không ghi các tiêu chuẩn bổ sung là quyết định đã được Phường/Owner duyệt.
@@ -44,7 +45,7 @@ Host: **GPT Chat** · Host_ID `GPT-TCG-0929`
 ## Nội dung chuẩn để Owner đọc
 - **HTML chính:** `view.html`
 - Nội dung Phần I + Phần II đã chuyển sang `view.html` để Task html view hiển thị đúng thiết kế.
-- Trạng thái: **TCG-P09 — NỘI DUNG CHỐT TRÊN GITHUB SSOT; sẵn sàng xuất Word. Sau khi Owner xác nhận đã tải Word thì đóng task theo A9.**
+- Trạng thái: **TCG-P10 — BỔ SUNG CĂN CỨ KHÔNG BẮT BUỘC LẬP TỔ THẨM ĐỊNH RIÊNG Ở BƯỚC MỜI QUAN TÂM; CHỜ OWNER OK. HOLD Word và đóng task.** Word P09 chưa có bổ sung P10.
 - Lịch sử TCG-P06: `1af6ff98973d44cccf5634033ed2d1ae278d2039`; kết luận gom độc lập/bảo mật thành tiêu chuẩn nội bộ **được đính chính tại TCG-P07**, vì Điều 16 Luật Đấu thầu vẫn áp dụng cho cá nhân liên quan; không dùng nhận định cũ.
 - **TCG-P07 · GPT · Based_on `3405e32e94ea12374427da4ed2d3b290c6b2dfa0` · Scope: `view.html` Phần I–II + chỉ dẫn review · Áp: `577eb775e64ea9e93d9a45ffeab2ce02ea0ec238`.** Rà theo pháp luật đến 29/09/2026; đã đọc toàn bộ tài liệu hướng dẫn hiện hành. Sửa 3 điểm: không gán tiêu chuẩn đề xuất thành Phường đã chốt; không mặc nhiên áp ngoại lệ bằng đại học của gói thầu giáo dục cho dự án; không coi nghĩa vụ chống vi phạm/bảo mật là tùy chọn nội bộ. Bổ sung chủ thể thành lập (Điều 19), kiêm nhiệm/quan hệ gia đình/bảo mật (Điều 16, 80), thu hồi và lệnh cấm (Điều 10 TT02 sau TT105; Điều 87 Luật; Điều 66 NĐ274), khoản 2 Điều 3 TT129, kiểm soát xung đột lợi ích (Điều 23 Luật PCTN), điều kiện thuê tư vấn (Điều 5, 7 NĐ274). Phần II thay trích lược bằng các khoản/điểm nguyên văn đã ghi rõ nguồn. Chưa xác minh: quyết định giao Phường làm bên mời quan tâm và hồ sơ 06 người; hội đồng chưa phản hồi, chưa kết luận đủ điều kiện thành lập tổ cụ thể.
 
@@ -65,8 +66,15 @@ Yêu cầu Reviewer: ghi P01/P02 vào cuối `COLLAB.md`; nêu đúng điều/kh
 - **TCG-P08 kiểm xong:** commit nội dung `4f601282f894e60f23797aeee84a089586b515a2`, gateway `pushed=true`; diff chỉ 03 file trong task. Owner View `sync-status.json` xác nhận `fresh`, publishedRevision `67ca0668ac2447a5d3a2dd3bd3ed0472e22fe555`; tài liệu dẫn xuất `/ui-preview/hpml-view-for-user/data/revisions/67ca0668ac2447a5d3a2dd3bd3ed0472e22fe555/documents/to-chuyen-gia/view.html` trả HTTP 200, hiện đúng marker TCG-P08 và Phần I–II, console_errors=0. Đã mở đúng URL Owner `/knowledge/modules?task=to-chuyen-gia&view=content`; công cụ chỉ đọc khung cha, nên xác nhận nội dung bằng chính tài liệu dẫn xuất thuộc revision được publisher công bố, không suy từ HTTP 200 của khung cha. Dàn thử tiêu đề + Phần I theo CSS in A4: đúng 01 trang, đã xem ảnh, không cắt chữ. Chưa có ý kiến thực tế của P01/P02, chưa xuất Word.
 - TCG-P07: đã kiểm diff `3405e32` → `577eb775`; chỉ 03 file trong `work/to-chuyen-gia` thay đổi, gateway trả `pushed=true`, snapshot `fresh` và remote HEAD xác nhận. Bổ sung nguyên văn khoản 22 Điều 4 Luật Doanh nghiệp để người đọc kiểm quan hệ gia đình ngay trong Phần II. Áp: SAME_COMMIT. Chưa có phản biện của Claude/Hermes; không ghi nhận PASS thay hội đồng.
 
+## TCG-P10 · Căn cứ Tổ thẩm định tại bước mời quan tâm
+- GPT Chat · Host_ID `GPT-TCG-0929` · Based_on `d9f6fd01dd1ec5d0fff402a4e54255ecfaa9ead9` · Scope: `view.html#khong-lap-to-tham-dinh`, `#cc-11`, trạng thái, PROMPT. Áp: SAME_COMMIT.
+- Theo lệnh Owner: cập nhật SSOT trước, chưa xuất Word mới/chưa đóng nhiệm vụ. Nội dung ngoài scope P10 giữ nguyên; không ghi đã rà lại toàn bộ P09.
+- Đã kiểm bản ký NĐ274 bằng ảnh: trang35–39 (37–43), trang19/29 (14.3/28.1), trang63/64 (60/62), trang77 (71.6–7), trang89–90 PDF (Bảng02, Mục I.2 Phụ lục I); Luật22 Điều46.2 đối chiếu VBHN74. Nguồn Trung ương trước, Thanh tra Lai Châu đăng NĐ274 sau. VBHN36 không là căn cứ quy trình mời quan tâm nhà đầu tư.
+- Owner xác nhận hai tài liệu dự án đã phê duyệt; đối chiếu khoản1 Điều2 PDF giao Phường; báo cáo5743 thẩm định thông tin dự án là đối tượng khác. Không gán số1960/ngày chưa thấy. Kết luận không bắt buộc lập tổ riêng chỉ áp bước mời quan tâm, không miễn thẩm định nhánh đấu thầu hay nghĩa vụ lập/đánh giá/phê duyệt/công khai.
+- Hai CAS trước bị VERSION_CONFLICT, không file nào đổi; đã diff lại task giữa các HEAD, không có thay đổi. Kiểm commit/diff và Owner View sau ghi, không tạo bản xem khác.
+
 ## Owner cần quyết
-- —
+- Duyệt mục I.3 và II.11 của TCG-P10 để xuất Word cuối; hiện HOLD xuất Word/đóng task.
 
 ## P01 · Claude Chat — Ý KIẾN REVIEW TCG-P08 (29/09/2026)
 Người thực hiện: Claude Chat · Based_on `b42ef6ef375794dd3d58673207f044e0bec3c9b7` · Scope: `view.html` Phần I–II + `PROMPT.md` · Không sửa `view.html`. Trạng thái: **ĐÃ CÓ Ý KIẾN** (thay dòng P01 OPEN ở trên; Host cập nhật trạng thái).
