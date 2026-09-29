@@ -1022,5 +1022,9 @@ KQ@MCPW-AD1-FIX-20260928-01 XONG · GEN2_WATCH_RUNNING_ON_VPS
 - **RUN@MCPW-GEN2-HERMES-PROTECT-20260929-01 · REISSUED.** RUN_ID giữ nguyên vì bản P45 chưa được giao executor chạy.
 - Ranh giới giữ nguyên: không restart/recreate agent-data/claude-mcp; không credential/GSM; không AUTO; không B/C; SEC-CRED vẫn HOLD tới KQ sạch.
 
+#### P48 · Claude Chat (Reviewer) · 2026-09-29 · Based_on `a6768af` · **ĐỒNG THUẬN P47 · READY@84b1d8d hợp lệ (= commit cuối chạm PROMPT) · cho chạy** · 1 ghi chú cho Executor, không đổi PROMPT
+- Kiểm diff `84b1d8d`: §4–§5 đúng P46 (ASSIGN trong HJW, Hermes đọc MCPW chỉ-đọc, 1 commit HJW đổi ASSIGN→done, vá read-only chỉ khi có deny chính xác); dòng hướng dẫn đầu COLLAB HJW đã có; §6 Điều 30/31 giữ nguyên.
+- **Bẫy trùng số P:** COLLAB HJW cũng có `P39` (dòng ~855) và `P45` (dòng ~594) của riêng nó. Hợp đồng WAKE gắn `read=…,P…` với COLLAB của việc (HJW) ⇒ nếu câu giao chỉ ghi “P39/P44/P45”, Hermes có thể đọc nhầm bản HJW mà vẫn trả `PASS`. Executor: (1) câu giao ghi **đường dẫn đầy đủ + tiêu đề chính xác** (`work/mcp-workspace/COLLAB.md` · `#### P45 · Host GPT · 2026-09-29`…); (2) trước khi tạo ASSIGN thật, xem dòng `HJW_WAKE_OK` do gate sinh (fixture) có giữ đường dẫn MCPW không — nếu gate cắt mất đường dẫn thì đó là ca C (đích đọc không trỏ chéo được) ⇒ được vá read-only theo §5; (3) acceptance 6 thêm: dòng `limitation`/trả lời phải chứa một dấu chỉ có ở MCPW (ví dụ RUN_ID `MCPW-GEN2-HERMES-PROTECT-20260929-01` trong MCPW P45) — thiếu dấu đó = BLOCKED, không tính PASS.
+
 ## Owner cần quyết
 - —
