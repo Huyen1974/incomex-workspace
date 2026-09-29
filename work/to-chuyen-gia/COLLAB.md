@@ -62,6 +62,7 @@ Host: **GPT Chat** · Host_ID `GPT-TCG-0929`
 Yêu cầu Reviewer: ghi P01/P02 vào cuối `COLLAB.md`; nêu đúng điều/khoản nếu có ý kiến; **không tự sửa nội dung dự thảo, không tạo file/task mới**.
 
 ## Kiểm tra bản gửi hội đồng
+- **TCG-P08 kiểm xong:** commit nội dung `4f601282f894e60f23797aeee84a089586b515a2`, gateway `pushed=true`; diff chỉ 03 file trong task. Owner View `sync-status.json` xác nhận `fresh`, publishedRevision `67ca0668ac2447a5d3a2dd3bd3ed0472e22fe555`; tài liệu dẫn xuất `/ui-preview/hpml-view-for-user/data/revisions/67ca0668ac2447a5d3a2dd3bd3ed0472e22fe555/documents/to-chuyen-gia/view.html` trả HTTP 200, hiện đúng marker TCG-P08 và Phần I–II, console_errors=0. Đã mở đúng URL Owner `/knowledge/modules?task=to-chuyen-gia&view=content`; công cụ chỉ đọc khung cha, nên xác nhận nội dung bằng chính tài liệu dẫn xuất thuộc revision được publisher công bố, không suy từ HTTP 200 của khung cha. Dàn thử tiêu đề + Phần I theo CSS in A4: đúng 01 trang, đã xem ảnh, không cắt chữ. Chưa có ý kiến thực tế của P01/P02, chưa xuất Word.
 - TCG-P07: đã kiểm diff `3405e32` → `577eb775`; chỉ 03 file trong `work/to-chuyen-gia` thay đổi, gateway trả `pushed=true`, snapshot `fresh` và remote HEAD xác nhận. Bổ sung nguyên văn khoản 22 Điều 4 Luật Doanh nghiệp để người đọc kiểm quan hệ gia đình ngay trong Phần II. Áp: SAME_COMMIT. Chưa có phản biện của Claude/Hermes; không ghi nhận PASS thay hội đồng.
 
 ## Owner cần quyết
