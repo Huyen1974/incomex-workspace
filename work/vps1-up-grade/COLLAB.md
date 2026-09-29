@@ -733,7 +733,7 @@ Phản biện đúng P03, không mở thêm file:
   - **Cổng cứng:** DNS-RES PASS + ổn định ≥72h **trước khi mở cửa sổ cutover**; cấm đổi DNS từ lúc cutover tới hết 7 ngày theo dõi (mỗi lần chỉ một biến số).
   - Thiết kế: Cloudflare chế độ **DNS-only (không bật proxy)** ⇒ không đổi nginx/TLS/real-IP ⇒ tách hẳn khỏi TARGET; muốn bật proxy là quyết định riêng trong G3/G4. Zone đích phải = zone nguồn từng bản ghi (MX/TXT/`elearning.*`…). 2 unit mạng lỗi lúc khởi động gộp vào hạng mục này. Đổi NS ở nhà đăng ký cần Owner 1 thao tác — Host soạn hướng dẫn từng bước khi tới lúc.
   - JEV `gen-dec-1790693620-sA7eYrA4x2mCNALPnojc` before_cutover 1,0 · G3 song song 0,85.
-- **Kết luận: §8A đủ để Host READY/RUN ngay khi MCP dependency có KQ sạch** — `READY@12beb00d6cc2aa156e76f1f24b59447fd611fb62` (commit cuối chạm PROMPT). Host đổi chữ PROMPT ⇒ theo DROOT31 Reviewer xác nhận lại 1 dòng.
+- **Kết luận: §8A đủ để Host READY/RUN ngay khi MCP dependency có KQ sạch** — Host phát READY trỏ commit `12beb00d6cc2aa156e76f1f24b59447fd611fb62` (commit cuối chạm PROMPT). Dòng này của Reviewer **không phải READY**. Host đổi chữ PROMPT ⇒ theo DROOT31 Reviewer xác nhận lại 1 dòng.
 - Owner cần quyết: —.
 
 ## Owner cần quyết
