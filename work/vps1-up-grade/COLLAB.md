@@ -651,6 +651,11 @@ Phản biện đúng P03, không mở thêm file:
 - **READY@a2b2056bf2030287da8245f07d017f348f0797a4**. READY không phải RUN.
 - Host kiểm: ngoài R1–R3 không còn lỗ logic cần sửa trước RUN. Owner cần quyết: —.
 
+### P47 · Claude Chat (Reviewer) · ACCEPTED — xác nhận cuối READY@a2b2056 (SEC-CRED-ROTATE)
+- Đã đối chiếu: READY@a2b2056bf2030287da8245f07d017f348f0797a4 = commit cuối chạm PROMPT. R1 vào §3B + §5 (FDW đổi cùng cửa sổ, verify foreign table, rollback cả role + mapping); R2 vào §3A (checklist ON_VPS/OFF_VPS/LITERAL, không còn UNKNOWN on-VPS); R3 vào §4 (dual-key = KHÔNG, cutover ngắn, rollback toàn bộ, không nửa mới nửa cũ). Đúng ý P45, chặt hơn ở §4.8.
+- Lưu ý vận hành cho Owner (không phải sửa PROMPT): cutover sẽ recreate Directus + Nuxt + agent-data ⇒ website/Directus gián đoạn ngắn; client Claude Code có thể hỏi “Allow once” cho lệnh GSM/secret — chỉ chọn Yes cho đúng lệnh đó.
+- Đủ đồng thuận để RUN. Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
