@@ -14,6 +14,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN — Owner 2026-09-29**: chốt **03 thành 
 - GPT, Claude và Hermes cùng review trước khi chốt sang Word.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **Owner yêu cầu rút gọn 29/09/2026:** chỉ giữ việc cần làm, tiêu chuẩn, căn cứ và kết luận không phải lập Tổ thẩm định ở bước mời quan tâm; cắt giải nghĩa lặp, không mất ý pháp lý. Sửa trực tiếp HTML SSOT; giữ nguyên đoạn trích luật và nguồn Trung ương/Lai Châu; chưa xuất Word.
 - **Owner giao bổ sung 29/09/2026:** rà chắc căn cứ không bắt buộc lập Tổ thẩm định riêng ở bước mời quan tâm của dự án; kết luận ngắn ở HTML chính, trích đầy đủ căn cứ ở Phần II. Chỉ sau Owner OK mới xuất Word cuối. Owner xác nhận hai tài liệu dự án đã phê duyệt về nội dung; không tự đặt số/ngày Quyết định.
 - Phân biệt rõ **Tổ chuyên gia** là nhóm thực hiện nhiệm vụ theo pháp luật đấu thầu; **Tổ tư vấn** là nhóm chuyên gia hỗ trợ/cho ý kiến, không thay trách nhiệm của Tổ chuyên gia.
 - Căn cứ chính: khoản 3 Điều 1 NĐ 274/2026; khoản 3 Điều 19 Luật Đấu thầu; Điều 21 NĐ 214/2025; Điều 2 NĐ 349/2026; Điều 37 TT 02/2024 được sửa bởi TT 105/2025; khoản 5 Điều 2 TT 129/2026.
@@ -45,7 +46,7 @@ Host: **GPT Chat** · Host_ID `GPT-TCG-0929`
 ## Nội dung chuẩn để Owner đọc
 - **HTML chính:** `view.html`
 - Nội dung Phần I + Phần II đã chuyển sang `view.html` để Task html view hiển thị đúng thiết kế.
-- Trạng thái: **TCG-P10 — BỔ SUNG CĂN CỨ KHÔNG BẮT BUỘC LẬP TỔ THẨM ĐỊNH RIÊNG Ở BƯỚC MỜI QUAN TÂM; CHỜ OWNER OK. HOLD Word và đóng task.** Word P09 chưa có bổ sung P10.
+- Trạng thái: **TCG-P11 — ĐÃ RÚT GỌN HƯỚNG DẪN, GIỮ CĂN CỨ P10; CHỜ OWNER OK. HOLD Word và đóng task.** Word P09 không phải bản hiện hành.
 - Lịch sử TCG-P06: `1af6ff98973d44cccf5634033ed2d1ae278d2039`; kết luận gom độc lập/bảo mật thành tiêu chuẩn nội bộ **được đính chính tại TCG-P07**, vì Điều 16 Luật Đấu thầu vẫn áp dụng cho cá nhân liên quan; không dùng nhận định cũ.
 - **TCG-P07 · GPT · Based_on `3405e32e94ea12374427da4ed2d3b290c6b2dfa0` · Scope: `view.html` Phần I–II + chỉ dẫn review · Áp: `577eb775e64ea9e93d9a45ffeab2ce02ea0ec238`.** Rà theo pháp luật đến 29/09/2026; đã đọc toàn bộ tài liệu hướng dẫn hiện hành. Sửa 3 điểm: không gán tiêu chuẩn đề xuất thành Phường đã chốt; không mặc nhiên áp ngoại lệ bằng đại học của gói thầu giáo dục cho dự án; không coi nghĩa vụ chống vi phạm/bảo mật là tùy chọn nội bộ. Bổ sung chủ thể thành lập (Điều 19), kiêm nhiệm/quan hệ gia đình/bảo mật (Điều 16, 80), thu hồi và lệnh cấm (Điều 10 TT02 sau TT105; Điều 87 Luật; Điều 66 NĐ274), khoản 2 Điều 3 TT129, kiểm soát xung đột lợi ích (Điều 23 Luật PCTN), điều kiện thuê tư vấn (Điều 5, 7 NĐ274). Phần II thay trích lược bằng các khoản/điểm nguyên văn đã ghi rõ nguồn. Chưa xác minh: quyết định giao Phường làm bên mời quan tâm và hồ sơ 06 người; hội đồng chưa phản hồi, chưa kết luận đủ điều kiện thành lập tổ cụ thể.
 
@@ -73,8 +74,14 @@ Yêu cầu Reviewer: ghi P01/P02 vào cuối `COLLAB.md`; nêu đúng điều/kh
 - Owner xác nhận hai tài liệu dự án đã phê duyệt; đối chiếu khoản1 Điều2 PDF giao Phường; báo cáo5743 thẩm định thông tin dự án là đối tượng khác. Không gán số1960/ngày chưa thấy. Kết luận không bắt buộc lập tổ riêng chỉ áp bước mời quan tâm, không miễn thẩm định nhánh đấu thầu hay nghĩa vụ lập/đánh giá/phê duyệt/công khai.
 - Hai CAS trước bị VERSION_CONFLICT, không file nào đổi; đã diff lại task giữa các HEAD, không có thay đổi. Kiểm commit/diff và Owner View sau ghi, không tạo bản xem khác.
 
+## TCG-P11 · Rút gọn văn bản theo yêu cầu Owner
+- GPT Chat · Host_ID `GPT-TCG-0929` · Based_on `1ef6a21072497dec6995da1c82b280d64f1ca259` · Scope: Phần I, các đoạn hướng dẫn/giải thích ngoài ngoặc kép trong Phần II, trạng thái/PROMPT. Áp: SAME_COMMIT.
+- Chỉ biên tập từ SSOT P10, không rà lại hiệu lực văn bản trong lượt rút gọn. Giữ nguyên bảng tiêu chuẩn, toàn bộ blockquote, điều/khoản, nguồn Trung ương/Lai Châu và ID mục. Rút các đoạn lặp; chuyển nội dung điều hành/xuất Word ra khỏi văn bản chuyên môn.
+- Giữ điều kiện chứng chỉ và mốc 2027; phân biệt tham vấn với tổ chính thức; bảo mật, xung đột lợi ích, thẩm quyền, thu hồi/lệnh cấm; kết luận không bắt buộc lập Tổ thẩm định chỉ cho bước mời quan tâm, không mở rộng sang đấu thầu.
+- SSOT: `work/to-chuyen-gia/view.html`; Owner View: https://vps.incomexsaigoncorp.vn/knowledge/modules?task=to-chuyen-gia&view=content. Không tạo file/bản xem mới; chưa xuất Word, chưa đóng task. Kiểm diff và bản publish sau commit.
+
 ## Owner cần quyết
-- Duyệt mục I.3 và II.11 của TCG-P10 để xuất Word cuối; hiện HOLD xuất Word/đóng task.
+- Duyệt bản rút gọn TCG-P11 để xuất Word cuối; hiện HOLD xuất Word/đóng task.
 
 ## P01 · Claude Chat — Ý KIẾN REVIEW TCG-P08 (29/09/2026)
 Người thực hiện: Claude Chat · Based_on `b42ef6ef375794dd3d58673207f044e0bec3c9b7` · Scope: `view.html` Phần I–II + `PROMPT.md` · Không sửa `view.html`. Trạng thái: **ĐÃ CÓ Ý KIẾN** (thay dòng P01 OPEN ở trên; Host cập nhật trạng thái).
