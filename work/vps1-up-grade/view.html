@@ -232,7 +232,7 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <tr><td><b>VPS2</b></td><td>E-learning FREEZE</td><td>Trang tĩnh vẫn 200 · trống 72 GiB · swap 4 GiB · clone đã dừng, giữ dữ liệu + checkpoint</td><td>🟢</td></tr>
 </tbody>
 </table>
-<p class="small">⚠️ <b>Việc bắt buộc sau G2 (Owner 28/09):</b> 2 credential production (API_KEY agent-data · mật khẩu PG role <code>incomex</code>) đã nằm trong KB production ⇒ cần <b>đổi khoá trên VPS1</b> và rà các bản sao (lịch sử KB, Qdrant, backup Drive, cache) ở một RUN riêng. Chưa làm trong lượt này.</p>
+<p class="small">🟢 <b>Host: G2 ACCEPTED.</b> Trước G3 có một gate bảo mật ngắn: <b>SEC-CRED READY@<code>96a4170…</code></b>. Rotate 2 credential production đã từng nằm trong KB/Qdrant, vô hiệu bản cũ, redact exact-match khỏi live/searchable stores, rồi tạo backup sạch mới. Backup lịch sử mã hóa giữ nguyên và chỉ đánh dấu chứa retired credential; không rewrite/xóa.</p>
 <p class="small">28/09/2026 07:13–15:35 UTC · Claude Code CLI · hồ sơ trên VPS2 <code>/opt/incomex/work/vps1-up-grade/CLONE-CURRENT-20260928/</code> (INDEX.md, SANITIZATION-MANIFEST.md, cách gỡ clone) · JEV <code>gen-dec-1790609278-NFFMOxVi3uoMLw1nV3gV</code>.</p>
 </div>
 
