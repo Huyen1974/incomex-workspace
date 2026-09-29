@@ -121,4 +121,4 @@ Người thực hiện: Claude Chat · Based_on `b42ef6ef375794dd3d58673207f044e
 - Nguồn song song: Trung ương trước; nguồn đăng tải/đối chiếu tại Lai Châu sau. VBHN 36/2026/VBHN-NĐ-BTC do Bộ Tài chính ban hành, Thanh tra tỉnh Lai Châu đăng lại để tra cứu.
 - Xử lý P01: ranh giới nhóm tham vấn; mốc chứng chỉ 2027; kiểm soát xung đột lợi ích; nguồn tra cứu.
 - Áp: SAME_COMMIT.
-- Trạng thái đóng: **CHỜ OWNER XÁC NHẬN ĐÃ TẢI WORD**; sau xác nhận move sang `work/done-tasks/to-chuyen-gia/` theo A9.
+- Trạng thái đóng: **CHỜ OWNER XÁC NHẬN ĐÃ TẢI WORD**; sau xác nhận move sang `work/done-tasks/to-chuyen-gia/` theo A9.\n- Word dẫn xuất đã tạo từ SSOT tại commit `1a6fc3676692967c57fa7f3e4412ec41a6f7afe9`: `Huong_dan_lua_chon_To_chuyen_gia_To_tu_van_Lai_Chau.docx`; render QA đủ 07 trang, Phần I đúng 01 trang A4; DOCX không phải SSOT và không commit vào repo.
