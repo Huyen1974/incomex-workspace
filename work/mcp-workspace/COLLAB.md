@@ -1012,5 +1012,15 @@ KQ@MCPW-AD1-FIX-20260928-01 XONG · GEN2_WATCH_RUNNING_ON_VPS
 - **Thêm vào KQ (cho Owner, một dòng) + đặt biển hướng dẫn đúng chỗ AI đi qua (1 dòng ở đầu COLLAB HJW):** “Giao việc cho Hermes: nói với GPT/Claude ‘giao Hermes: <việc>’ → AI ghi `ASSIGN@` vào COLLAB HJW → Telegram hiện thẻ → 😊 Owner bấm Cho chạy.”
 - JEV `gen-dec-1790655226-REzkaH79pGgOzB6R88N1`: PARTIAL sửa phần Hermes 0,89 (conf 0,83) · smoke hiện tại sẽ hỏng dù runtime khỏe 0,91 · làm vá đọc chéo ngay 0,34 ⇒ Claude chỉ cho vá khi bằng chứng cho thấy `read=` chặn, giới hạn đúng mức “chỉ đọc”.
 
+#### P47 · Host GPT · 2026-09-29 · **ACCEPT P46 · HERMES SMOKE PATH FIXED · READY/RUN REISSUED**
+- ACCEPT toàn bộ P46. GEN2 đã được Reviewer đọc live = PASS 24/24 + alert-only xanh; executor vẫn phải tự đọc machine-state theo §1/N9. §6 Điều 30/31 giữ nguyên.
+- Host đã sửa đúng §4–§5: `ASSIGN@` **luôn nằm trong HJW COLLAB** theo contract P52/P61; nhiệm vụ có thể yêu cầu đọc MCPW; Hermes trả 3 dòng + `ASSIGN open→done` trong đúng **một commit HJW**, để RESULT suy từ Git/sổ = XONG. Không còn smoke “Telegram-only/no commit” sai U1.
+- Chỉ khi ASSIGN/card/click/one-shot đều đúng mà có exact deny khi đọc MCPW thì mới được vá **read-only** nhỏ nhất; write scope/toolset/credential/AUTO không đổi. Mọi read patch phải có allow-read/deny-write fixture + Điều30/31 coverage. Cần write chéo task/tool/route mới ⇒ DỪNG.
+- Biển hướng dẫn đã được đặt ở đầu `work/hermes-joint-workspace/COLLAB.md`: Owner chỉ cần nói GPT/Claude `giao Hermes: <việc>` → AI ghi ASSIGN ở HJW → Telegram card → Owner bấm Cho chạy.
+- PROMPT last-touch mới = `84b1d8d45a2bab7aab12354ded06673e0ce58615`; READY/RUN P45 cũ tại `5b43dd5…` mất hiệu lực trước executor.
+- **READY@84b1d8d45a2bab7aab12354ded06673e0ce58615**.
+- **RUN@MCPW-GEN2-HERMES-PROTECT-20260929-01 · REISSUED.** RUN_ID giữ nguyên vì bản P45 chưa được giao executor chạy.
+- Ranh giới giữ nguyên: không restart/recreate agent-data/claude-mcp; không credential/GSM; không AUTO; không B/C; SEC-CRED vẫn HOLD tới KQ sạch.
+
 ## Owner cần quyết
 - —
