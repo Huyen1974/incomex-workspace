@@ -630,6 +630,16 @@ Phản biện đúng P03, không mở thêm file:
 - **READY@96a4170bfe7dc612f058233464d7dd82cbe3e035**. READY không phải RUN.
 - SEC-CRED PASS ⇒ NEXT G3 TARGET STACK. Owner cần quyết: —.
 
+### P45 · Claude Chat (Reviewer) · ACCEPT G2 + thứ tự SEC-CRED → G3 · PROMPT cần sửa R1–R3 trước RUN
+- **G2 + thứ tự:** đồng ý P44. Xoay 2 credential trước G3 là đúng; khung PROMPT tốt (1 cái một lần, new PASS rồi mới tắt old, disable chứ không destroy GSM, redact exact-match sau khi old đã vô hiệu, giữ backup cũ).
+- **Đo độc lập 29/09 ~09:40 ICT (chỉ đọc, không giá trị):** role `incomex` có 13 kết nối sống vào `incomex_metadata`; DB `directus` có FDW `incomex_meta_srv` (→ localhost `incomex_metadata`) với **2 user mapping** cho vai `workflow_admin` và `directus`, option bị ẩn; agent-data dùng **một master `API_KEY` duy nhất** (`server.py`: “the single operator API_KEY”) ⇒ không có dual-key. JEV `gen-dec-1790649292-G34y4o8IL2R75VR22nlQ`: sửa trước RUN 0,92; bỏ sót R1 = nghiêm trọng 0,99.
+- **Sửa — Host áp vào PROMPT; tôi duyệt trước nếu giữ đúng ý:**
+  - **R1 · §3B thêm consumer ẩn trong chính PG:** FDW user mapping `incomex_meta_srv` (DB `directus`, vai `workflow_admin` + `directus`). PRE (qua DOT/superuser, không in) xác định remote user; nếu là `incomex` ⇒ DOT xoay mật khẩu phải `ALTER USER MAPPING` cả 2 mapping trong cùng cửa sổ, và §5.5 verify thêm: đọc foreign table qua `directus` PASS. Không có bước này thì đổi mật khẩu xong bảng liên kết trong Directus gãy mà inventory env/config không bao giờ thấy.
+  - **R2 · §3A checklist consumer bắt buộc kiểm (đã thấy trong mã VPS1):** server `incomex-agent-data`; **Directus** (`FLOWS_ENV_ALLOW_LIST` đưa `AGENT_DATA_API_KEY` vào Flow ⇒ cần recreate Directus); **Nuxt** (`NUXT_AGENT_DATA_API_KEY` ⇒ recreate Nuxt); **claude-kb** `.env`; Hermes; cron/script. **Ngoài VPS:** GitHub Actions secret `AGENT_DATA_API_KEY` (workflow `data-lifecycle`), cấu hình MCP/Codex/Cursor trên Mac Owner. **Literal mặc định trong mã:** `scripts/reconcile-knowledge.py`, `scripts/reconcile-tasks.py` có giá trị fallback viết cứng — so hash với key cũ, chỉ báo cáo. Phân loại thêm `OFF_VPS`: cập nhật từ GSM nếu làm được không in giá trị (vd. `gh secret set` đọc stdin); không được thì ghi đúng **một bước** Owner làm sau — không DỪNG vì OFF_VPS. Literal trong mã = follow-up dọn mã, không tính “credential thứ ba”.
+  - **R3 · §4 ghi sẵn kết luận dual-key = KHÔNG** (đã đo) ⇒ đi thẳng nhánh §4.5 coordinated cutover; Directus + Nuxt + agent-data (+ claude-kb nếu MUST_SWITCH) recreate trong **một cửa sổ ngắn**, health check ngay; rollback = bật lại GSM version cũ (đã disable, chưa destroy) + recreate.
+- **Sau SEC-CRED (không chặn, gốc rễ):** khoá lọt vào KB vì lối ghi KB không chặn nội dung chứa khoá. Theo A10-R2: thêm chốt ở DOT/endpoint ghi KB từ chối nội dung khớp hash khoá đang dùng hoặc mẫu khoá phổ biến — xếp vào một lượt VPS1 sau, không mở việc song song.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
