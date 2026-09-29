@@ -46,13 +46,16 @@ Host: **GPT Chat** · Host_ID `GPT-TCG-0929`
 - Nội dung Phần I + Phần II đã chuyển sang `view.html` để Task html view hiển thị đúng thiết kế.
 - Trạng thái: **DỰ THẢO — chờ P01 Claude + P02 Hermes review trước khi chốt Word.**
 - Lịch sử TCG-P06: `1af6ff98973d44cccf5634033ed2d1ae278d2039`; kết luận gom độc lập/bảo mật thành tiêu chuẩn nội bộ **được đính chính tại TCG-P07**, vì Điều 16 Luật Đấu thầu vẫn áp dụng cho cá nhân liên quan; không dùng nhận định cũ.
-- **TCG-P07 · GPT · Based_on `3405e32e94ea12374427da4ed2d3b290c6b2dfa0` · Scope: `view.html` Phần I–II + chỉ dẫn review · Áp: SAME_COMMIT.** Rà theo pháp luật đến 29/09/2026; đã đọc toàn bộ tài liệu hướng dẫn hiện hành. Sửa 3 điểm: không gán tiêu chuẩn đề xuất thành Phường đã chốt; không mặc nhiên áp ngoại lệ bằng đại học của gói thầu giáo dục cho dự án; không coi nghĩa vụ chống vi phạm/bảo mật là tùy chọn nội bộ. Bổ sung chủ thể thành lập (Điều 19), kiêm nhiệm/quan hệ gia đình/bảo mật (Điều 16, 80), thu hồi và lệnh cấm (Điều 10 TT02 sau TT105; Điều 87 Luật; Điều 66 NĐ274), khoản 2 Điều 3 TT129, kiểm soát xung đột lợi ích (Điều 23 Luật PCTN), điều kiện thuê tư vấn (Điều 5, 7 NĐ274). Phần II thay trích lược bằng các khoản/điểm nguyên văn đã ghi rõ nguồn. Chưa xác minh: quyết định giao Phường làm bên mời quan tâm và hồ sơ 06 người; hội đồng chưa phản hồi, chưa kết luận đủ điều kiện thành lập tổ cụ thể.
+- **TCG-P07 · GPT · Based_on `3405e32e94ea12374427da4ed2d3b290c6b2dfa0` · Scope: `view.html` Phần I–II + chỉ dẫn review · Áp: `577eb775e64ea9e93d9a45ffeab2ce02ea0ec238`.** Rà theo pháp luật đến 29/09/2026; đã đọc toàn bộ tài liệu hướng dẫn hiện hành. Sửa 3 điểm: không gán tiêu chuẩn đề xuất thành Phường đã chốt; không mặc nhiên áp ngoại lệ bằng đại học của gói thầu giáo dục cho dự án; không coi nghĩa vụ chống vi phạm/bảo mật là tùy chọn nội bộ. Bổ sung chủ thể thành lập (Điều 19), kiêm nhiệm/quan hệ gia đình/bảo mật (Điều 16, 80), thu hồi và lệnh cấm (Điều 10 TT02 sau TT105; Điều 87 Luật; Điều 66 NĐ274), khoản 2 Điều 3 TT129, kiểm soát xung đột lợi ích (Điều 23 Luật PCTN), điều kiện thuê tư vấn (Điều 5, 7 NĐ274). Phần II thay trích lược bằng các khoản/điểm nguyên văn đã ghi rõ nguồn. Chưa xác minh: quyết định giao Phường làm bên mời quan tâm và hồ sơ 06 người; hội đồng chưa phản hồi, chưa kết luận đủ điều kiện thành lập tổ cụ thể.
 
 ## HỘI ĐỒNG REVIEW — CHỜ Ý KIẾN
 - **P01 · Claude Chat/Cowork · OPEN** — yêu cầu review bản TCG-P07: thẩm quyền, phân loại đúng vai trò nhóm tư vấn, phạm vi ngoại lệ tại điểm b khoản 1/khoản 2a Điều 21, trích dẫn nguyên văn và hiệu lực. Chưa có ý kiến thực tế.
 - **P02 · Hermes · OPEN** — yêu cầu review độc lập bản TCG-P07: các điều kiện bắt buộc/ngoại lệ, xung đột lợi ích, bảo mật, thu hồi/lệnh cấm; không đặt thêm chuẩn ngoài luật. Chưa có ý kiến thực tế.
 
 Yêu cầu Reviewer: ghi P01/P02 vào cuối `COLLAB.md`; nêu đúng điều/khoản nếu có ý kiến; **không tự sửa nội dung dự thảo, không tạo file/task mới**.
+
+## Kiểm tra bản gửi hội đồng
+- TCG-P07: đã kiểm diff `3405e32` → `577eb775`; chỉ 03 file trong `work/to-chuyen-gia` thay đổi, gateway trả `pushed=true`, snapshot `fresh` và remote HEAD xác nhận. Bổ sung nguyên văn khoản 22 Điều 4 Luật Doanh nghiệp để người đọc kiểm quan hệ gia đình ngay trong Phần II. Áp: SAME_COMMIT. Chưa có phản biện của Claude/Hermes; không ghi nhận PASS thay hội đồng.
 
 ## Owner cần quyết
 - —
