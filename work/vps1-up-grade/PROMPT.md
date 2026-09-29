@@ -1,7 +1,7 @@
 # PROMPT — VPSUP SEC-CRED-PROTECT · §8A-only sau rotation
 
 RUN_ID: VPSUP-SEC-CRED-PROTECT-20260929-01
-STATUS: **HOLD — CHỈ RUN SAU KHI `MCPW-GEN2-HERMES-PROTECT-20260929-01` CÓ KQ XONG HOẶC DỪNG SẠCH/ROLLBACK VÀ HOST GỠ HOLD.**
+STATUS: **DRAFT/HOLD — CHỈ RUN SAU KHI `MCPW-HERMES-TG-RECOVER-20260929-01` CÓ KQ XONG HOẶC DỪNG SẠCH/ROLLBACK, CLAUDE REVIEW BẢN §8A NÀY, VÀ HOST PHÁT READY/RUN MỚI.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
@@ -15,7 +15,11 @@ KQ `VPSUP-SEC-CRED-ROTATE-20260929-01` commit `0d9c991…` đã hoàn thành ph�
 
 **RUN hiện hành chỉ làm §8A Điều 30/31.** Các mục `## 0` đến `## 8` bên dưới được giữ làm lịch sử/evidence và **KHÔNG CÒN LÀ LỆNH THỰC THI**. CẤM rotate lại credential, tạo GSM version, redact lại KB/Qdrant, hoặc chạy backup sạch lần nữa.
 
-Trước first mutation của §8A phải áp **DROOT30**: sau PRE, đọc lại `COLLAB.md` + `PROMPT.md`, xác nhận READY/HOLD không đổi. Nếu MCPW chưa có KQ sạch hoặc có READY/HOLD mới ⇒ DỪNG.
+Cổng §8A hiện hành:
+- dependency phải là KQ terminal sạch của `MCPW-HERMES-TG-RECOVER-20260929-01`; READY của MCPW chưa phải KQ;
+- áp **DROOT31**: ngay sau read-gate PASS và trước PRE, executor phải ghi `STARTED@VPSUP-SEC-CRED-PROTECT-20260929-01 <UTC> · executor=Claude Code CLI` vào chính task COLLAB; không ghi được ⇒ DỪNG trước PRE/mutation;
+- áp **DROOT30**: sau PRE và ngay trước first runtime mutation, đọc lại `COLLAB.md` + `PROMPT.md`, xác nhận READY/HOLD/STOP_REQUESTED không đổi; lệch ⇒ DỪNG.
+- Host/Reviewer không sửa PROMPT/READY/HOLD khi STARTED còn sống chưa có KQ.
 
 Phạm vi §8A hiện hành:
 1. inventory durable delta SEC-CRED, tối thiểu 2 DOT mới `dot-vpsup-pg-role-rotate` và `dot-vpsup-cred-redact`; config/env/nginx/Kuma đã đổi thì kiểm coverage hiện hữu, không đăng ký trùng;
@@ -24,9 +28,13 @@ Phạm vi §8A hiện hành:
 4. mutant/negative trên fixture cho từng DOT phải làm Guard FAIL;
 5. self-protection + watchdog hiện hữu PASS;
 6. controlled rebaseline P02 chỉ cho StartedAt/hash/config delta đã được KQ SEC-CRED chứng minh; drift ngoài manifest ⇒ DỪNG, không rebaseline;
-7. không credential/GSM/business-data mutation.
+7. không credential/GSM/business-data mutation;
+8. **PRE-only handoff checks, không mở scope sửa:**
+   - MCPW P50 có báo candidate `Antigravity` còn khoá cũ: không mặc định đúng; inventory exact consumer/path + fingerprint không lộ value. Nếu thực sự còn active consumer dùng credential cũ ⇒ `DỪNG · RESIDUAL_OLD_CREDENTIAL_CONSUMER`, không rotate trong §8A;
+   - chụp toàn bộ failed systemd units hiện hành (MCP handoff nhắc 2 unit, có `jev-gw-health`): nếu failed unit thuộc Protection/Config Guard/watchdog hoặc làm sai regression proof cần cho §8A ⇒ DỪNG; nếu unrelated/known residual ⇒ ghi `FOLLOWUP_NOT_BLOCKING`, không sửa trong RUN;
+   - sự cố DNS 29/09 là follow-up ổn định hạ tầng sau §8A, **không** được lén sửa DNS/resolver trong RUN protection này.
 
-Acceptance: §8A PASS ⇒ ghi `KQ@VPSUP-SEC-CRED-PROTECT-20260929-01 XONG · SEC-CRED PASS · NEXT G3 TARGET STACK`. Nếu fail ⇒ `DỪNG` với gap chính xác. Không dùng KQ/RUN_ID cũ cho lượt §8A.
+Acceptance: §8A PASS ⇒ ghi `KQ@VPSUP-SEC-CRED-PROTECT-20260929-01 XONG · SEC-CRED PASS · NEXT G3 TARGET STACK`. Ngoài 7 gate protection, phải có `STARTED` đúng DROOT31, candidate Antigravity đã disposition, failed units đã disposition và không có blocker protection chưa xử lý. Nếu fail ⇒ `DỪNG` với gap chính xác. Không dùng KQ/RUN_ID cũ cho lượt §8A.
 
 ## 0. Mục tiêu duy nhất
 
