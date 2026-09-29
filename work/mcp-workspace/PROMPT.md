@@ -3,7 +3,7 @@
 RUN_ID: MCPW-GEN2-HERMES-PROTECT-20260929-01
 Host: GPT Chat · GPT-MCPW-250925-A
 Executor_Surface: Claude Code CLI trên Mac Owner; phần quan sát dài không phụ thuộc Mac.
-Report_Write_Path: chỉ `work/mcp-workspace/COLLAB.md`.
+Report_Write_Path: KQ chính chỉ `work/mcp-workspace/COLLAB.md`; riêng smoke Hermes được ghi đúng `ASSIGN@` + câu trả lời/done trong `work/hermes-joint-workspace/COLLAB.md` theo contract known-good P52/P61. Không file repo mới.
 Runtime: VPS1 production; evidence dùng hồ sơ AD1/HJW hiện hữu, không tạo task mới.
 
 ## 0. Mục tiêu
@@ -67,32 +67,32 @@ Expected:
 - assignment hợp lệ ⇒ Telegram card; chỉ Owner click hợp lệ ⇒ BẮT ĐẦU receipt ⇒ exactly one one-shot `repeat 1`; không click/từ chối/STOP ⇒ 0 model;
 - commit/result attribution + Kuma drift monitor giữ nguyên.
 
-Đọc live code/config/jobs/log trước. **Không suy chỉ từ lịch sử P45 `ONE_SHOT_ENABLED=False/no_agent=true`** vì CONTROL-B có thể dùng no-agent base job nhưng tạo one-shot sau click.
+Đọc live code/config/jobs/log trước. **Không suy chỉ từ lịch sử P45 `ONE_SHOT_ENABLED=False/no_agent=true`** vì CONTROL-B dùng base job no-agent nhưng sau Owner click mới tạo one-shot. Đồng thời đọc code `in_scope()`/assignment parser hiện hành: contract known-good chỉ nhận dòng `ASSIGN@` nằm trong `work/hermes-joint-workspace/COLLAB.md` với scope HJW; việc cần đọc có thể nằm ở task khác.
 Phân loại:
-A. runtime known-good + lỗi do cách giao/signal ⇒ sửa signal/template/assignment tối thiểu;
+A. runtime known-good + cách giao trước đây sai vị trí ⇒ **không sửa runtime**; dùng đúng ASSIGN ở HJW như P52/P61;
 B. runtime drift khỏi P52/P61 ⇒ restore exact known-good bytes/config từ evidence/rollback, không tự viết lại kiến trúc;
-C. profile/tool/path không cho loại việc Owner đang giao ⇒ báo capability gap; không tự mở write scope.
+C. ASSIGN đúng HJW tạo card nhưng one-shot bị chặn **read-only** khi đọc tài liệu task khác ⇒ mới được xem §5 read-only patch; không tự mở write scope/tool/profile khác;
+D. lỗi khác ⇒ DỪNG với root-cause evidence; không bật fail-open/AUTO.
 
 ## 5. Live Hermes acceptance — MANUAL, không AUTO
-Sau khi fixture/known-good PASS, tạo **một** assignment smoke an toàn:
-- to=Hermes · role=Reviewer;
-- MCP root=`workspace`;
-- scope đọc `work/mcp-workspace`;
-- nhiệm vụ: đọc P39/P44/P45 hiện hành và trả qua Telegram đúng 3 dòng: `HERMES_MANUAL_SMOKE=PASS|BLOCKED`, actor/session/assignment id, limitation nếu có;
-- **không yêu cầu repo mutation**, không terminal, không runtime mutation.
+Sau fixture/known-good PASS, tạo **một** smoke đúng contract P52/P61:
+1. Một identity **không phải Hermes** ghi vào `work/hermes-joint-workspace/COLLAB.md` đúng một dòng theo format hiện hữu: `ASSIGN@HJW-MANUAL-SMOKE-20260929-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`. Không đặt ASSIGN ở MCPW.
+2. Payload/lời giao one-shot phải ghi rõ `MCP root=workspace`, cấm dò/đoán root, và yêu cầu **chỉ đọc** `work/mcp-workspace/COLLAB.md` các P39/P44/P45 hiện hành; không ghi MCPW.
+3. Hermes trả đúng 3 dòng **trong HJW COLLAB**: `HERMES_MANUAL_SMOKE=PASS|BLOCKED`; `assignment=<id> actor=<server-auth identity>`; `limitation=<none|mô tả ngắn>`, đồng thời đổi chính ASSIGN `open→done` trong **cùng một commit `[Hermes] ASSIGN@HJW-MANUAL-SMOKE-20260929-01`**. Đây là repo mutation duy nhất được yêu cầu từ Hermes trong smoke và nằm trong write scope HJW đã nghiệm thu.
 
 Acceptance:
-1. assignment do non-Hermes identity được gate nhận;
+1. dòng ASSIGN do non-Hermes identity trong HJW được gate nhận;
 2. Telegram card CHỜ DUYỆT xuất hiện ≤5′;
 3. trước Owner click = 0 model;
 4. Owner click `Cho chạy` ⇒ callback ack + BẮT ĐẦU receipt;
-5. đúng 1 one-shot model, 7-tool profile hoặc profile hiện hành không rộng hơn;
-6. result Telegram xuất hiện, không commit vì task read-only;
-7. duplicate/replay/sai người/STOP test bằng fixture ⇒ 0 model;
-8. AUTO vẫn rỗng.
+5. đúng 1 one-shot model, profile/toolset không rộng hơn known-good P52/P61;
+6. Hermes đọc được các đoạn MCPW được giao, tạo đúng 1 commit trong HJW, ASSIGN→done; Telegram RESULT = XONG suy từ Git/sổ, không từ lời model;
+7. commit ngoài HJW = 0; runtime mutation = 0;
+8. duplicate/replay/sai người/STOP fixture ⇒ 0 model; AUTO vẫn rỗng.
 
-Nếu card không xuất hiện hoặc click không tạo one-shot, DỪNG sau root-cause evidence; không bật đường fail-open cũ.
-Nếu read `work/mcp-workspace` bị server path-scope deny nhưng HJW self-scope vẫn chạy, ghi `DIRECT_SIGNAL_CROSS_TASK=BLOCKED_BY_PROFILE`; không mở write scope. Host xử lý capability sau B/C.
+**Read-only exception, chỉ khi có bằng chứng:** nếu ASSIGN/card/click/one-shot đều đúng nhưng WAKE contract/server read-scope từ chối đọc `work/mcp-workspace/COLLAB.md`, trước hết lưu exact deny evidence. Chỉ trong trường hợp đó được vá nhỏ nhất để mở **read-only** tới exact path cần đọc hoặc generic `work/<task>/...` read nếu cơ chế hiện hữu bắt buộc; write scope vẫn chỉ HJW, toolset/credential/AUTO không đổi. Vết vá phải có fixture allow-read/deny-write + §6 Điều 30/31 protection. Nếu cần mở write chéo task, tool mới, credential mới hoặc route mới ⇒ DỪNG và báo Host.
+
+Nếu ASSIGN đúng HJW mà card không xuất hiện hoặc Owner click không tạo one-shot, DỪNG sau root-cause evidence; không bật đường fail-open cũ.
 
 ## 6. DROOT29 · Điều 30/31 protection coverage
 Inventory durable production targets do AD1/AD1-FIX/Hermes manual control đang chạy, tối thiểu:
