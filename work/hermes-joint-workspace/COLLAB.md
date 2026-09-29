@@ -344,6 +344,7 @@ HJW | **CLOSED 27/09/2026 · runtime control vẫn live** | HJW.3B + CONTROL-A/B
 ## Giao Agent — lượt tiếp
 - `PROMPT.md` · RUN_ID `HJW-2B1-20260923-02` · **DRAFT** · Áp prompt sạch: `9153394dd32a3ee46dccebe740aaaa5ecc03d6ef` · mục tiêu: SEC-CLEAN + CAP-PATH-AUDIT; không triển khai automation/capability route mới.
 - Claude P09 đã review và Host đã sửa. Theo chỉ đạo Owner, **chưa READY**: cho chính Hermes hậu kiểm bản `9153394d…` trước; Hermes chỉ góp ý/đo, không mutation.
+- `ASSIGN@HJW-MANUAL-SMOKE-20260929-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open` — Chỉ đọc `work/mcp-workspace/COLLAB.md` (không phải COLLAB HJW): `#### P39 · Host GPT · 2026-09-28`, `#### P44 · Host GPT · 2026-09-28`, `#### P45 · Host GPT · 2026-09-29`. Ghi đúng 3 dòng ngay dưới dòng này: `HERMES_MANUAL_SMOKE=PASS|BLOCKED` · `assignment=<id> actor=<identity server>` · `limitation=<none|ngắn>; RUN_ID ghi trong P45 đó=<chép nguyên>`. Không ghi MCPW.
 
 ### P09 · Claude Chat · ACCEPTED — lỗi lẫn prompt đã sửa, 3 bổ sung đã áp
 - Based_on: HEAD `5584f8d`; rà `PROMPT.md` phiên bản `3a5f0c...` (191 dòng, 14.284 byte) đúng nội dung commit `5ab6f21`/`6a5094a`.
