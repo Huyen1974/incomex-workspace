@@ -67,3 +67,51 @@ Yêu cầu Reviewer: ghi P01/P02 vào cuối `COLLAB.md`; nêu đúng điều/kh
 
 ## Owner cần quyết
 - —
+
+## P01 · Claude Chat — Ý KIẾN REVIEW TCG-P08 (29/09/2026)
+Người thực hiện: Claude Chat · Based_on `b42ef6ef375794dd3d58673207f044e0bec3c9b7` · Scope: `view.html` Phần I–II + `PROMPT.md` · Không sửa `view.html`. Trạng thái: **ĐÃ CÓ Ý KIẾN** (thay dòng P01 OPEN ở trên; Host cập nhật trạng thái).
+
+**Kết luận ngắn:** trích dẫn Phần II khớp nguồn, không sai số hiệu điều/khoản. Cần **1 sửa lập luận · 6 bổ sung · 4 làm rõ**. Giữ nguyên cơ cấu 03+03 của Owner.
+- Vòng 1 (từng trích dẫn, từng câu): xong, kết quả ở mục 4.
+- Vòng 2 (gốc rễ): lớp pháp lý (ai là "thành viên") đang bị trộn với thiết kế của Owner ("Tổ tư vấn"); các điểm thiếu đều là điểm phụ thuộc thời gian hoặc tính độc lập.
+- JEV (typesafe/jev-1.13) đã tham khảo cho S1, B1, B2, B3, L1, L3: đồng thuận. Chỉ là ý kiến thứ hai, không thay PASS.
+
+### 1. Cần SỬA
+| # | Vị trí | Vấn đề | Đề xuất |
+|---|---|---|---|
+| S1 | Phần I §2 đoạn 1; tên "Tổ tư vấn — 03 thành viên" | Doc dùng khoản 2a để giải thích "không cần bằng đại học/03 năm". Khoản 2a (Đ21 NĐ 214, sửa bởi Đ2 NĐ 349) chỉ miễn **chứng chỉ**. Bằng đại học (Đ21.1.b) và 03 năm (Đ19.3 Luật; Đ21.1.d) gắn với **"thành viên"** tổ chuyên gia/tổ thẩm định: người chỉ được lấy ý kiến không chịu hai điều kiện đó vì **không phải thành viên**, không phải nhờ 2a. Gọi nhóm là "Tổ … 03 thành viên" rồi ra quyết định thành lập tổ có thể bị coi là tổ chuyên gia (Đ19.1: "thực hiện các nhiệm vụ khác trong quá trình lựa chọn nhà đầu tư") → áp đủ Đ19.3 + Đ21.1. | (a) Gọi là "03 chuyên gia chuyên ngành được lấy ý kiến". (b) Nêu đúng căn cứ: không phải thành viên (Đ19.1, 19.3; Đ21.1) + 2a chỉ miễn chứng chỉ. (c) Dùng văn bản mời/giao việc lấy ý kiến, ghi rõ chỉ cho ý kiến bằng văn bản, không chấm điểm/đánh giá/biểu quyết/ký báo cáo của tổ. (d) Nếu Phường giao nhóm này lập/đánh giá/thẩm định → áp đủ điều kiện thành viên. |
+
+### 2. Cần BỔ SUNG
+| # | Nội dung | Căn cứ | Đề xuất ngắn |
+|---|---|---|---|
+| B1 | **Hiệu lực chứng chỉ theo thời gian.** Doc chỉ nêu mốc 31/12/2026 + "kiểm lại"; chưa nói chứng chỉ phải còn hiệu lực suốt thời gian làm nhiệm vụ. | Đ37.1 TT 02 (sửa bởi TT 105); Đ70 NĐ 274 (mời quan tâm qua mạng từ 01/01/2027) | Thêm 1 dòng cạnh cột "Chứng chỉ": nhóm (1) hết 31/12/2026 → nếu nhiệm vụ kéo sang 2027 thì chọn người có chứng chỉ nhóm (2)/(3) hoặc đã thi cấp mới. Ghi "cách hiểu an toàn" (luật không nêu mốc xét hiệu lực suốt nhiệm vụ). |
+| B2 | **Độc lập với nhà đầu tư quan tâm + nguồn kinh phí.** Doc chỉ có quan hệ gia đình (Đ16.6.d) + kê khai chung. Thiếu: quan hệ lao động/hợp đồng/vốn/lợi ích tài chính với nhà đầu tư hoặc liên danh quan tâm; nguồn thù lao. | Đ80.1a, Đ16 khoản 2 Luật; Đ23.1 Luật PCTN (với công chức); Đ5.1 và Đ7.5 NĐ 274; Đ43.1.b NĐ 274 (chỉ 01 nhà đầu tư → kết quả phụ thuộc trực tiếp vào tính khách quan của tổ) | Đưa vào **bản cam kết/kê khai**, ghi rõ "biện pháp kiểm soát rủi ro, không phải điều kiện luật định" (giữ nguyên tắc không đặt chuẩn ngoài luật): không có các quan hệ trên; không nhận thù lao/lợi ích từ nhà đầu tư; kinh phí lấy từ nguồn của Phường (Đ7.5 NĐ 274). |
+| B3 | **Ranh giới Tổ chuyên gia (mời quan tâm) ↔ Tổ thẩm định (đấu thầu).** Doc chỉ nói "không thay Tổ thẩm định", chưa nói khi nào cần. | Đ39, 42, 43 NĐ 274 (bước mời quan tâm không có tổ thẩm định); Đ43.1.a, Đ14.3, Đ28.1.b NĐ 274; Đ16.6.b,c Luật | Thêm 1 câu phạm vi đầu Phần I: tổ này phục vụ giai đoạn mời quan tâm; nếu chuyển sang đấu thầu thì lập tổ thẩm định riêng, khác người với người lập/đánh giá. |
+| B4 | **Chỉ rõ nơi tra cứu.** Doc chỉ trỏ trang chủ Hệ thống chứng chỉ. | Đ10.2 TT 02 (sau TT 105) — trạng thái "chứng chỉ bị thu hồi"; Đ7.1.i, 7.2.e, 7.3 và Đ87.4 Luật (thông tin xử lý vi phạm đăng trên Hệ thống mạng đấu thầu quốc gia) | Ghi: (i) chungchidauthau.mof.gov.vn → Cổng tra cứu → Danh sách cá nhân được cấp chứng chỉ; (ii) Hệ thống mạng đấu thầu quốc gia, mục thông tin xử lý vi phạm. |
+| B5 | **Khoản 3 Điều 21 NĐ 214** (lĩnh vực y tế; văn bản hợp nhất 36/2026 ghi là sửa đổi bởi NĐ 165/2026). Phường dễ nhầm. | Đ21.3 NĐ 214 | Thêm 1 câu: khoản 3 chỉ cho y tế, **không áp dụng** cho dự án giáo dục. Nguồn tra cứu thứ cấp (dauthau.gxd.vn), chưa đối chiếu bản ký. |
+| B6 | **Đóng mục "chưa xác minh" về việc giao Phường làm bên mời quan tâm.** | Đ37.3 NĐ 274 | Hồ sơ dự án có VB 6313/UBND-VX (24/7/2026) và QĐ 1960/QĐ-UBND (08/9/2026). GPT đối chiếu bản chính; nếu đúng thì ghi số hiệu vào mục kiểm khi ký thay cho "chưa xác minh". Ý kiến này chưa được Claude tự đối chiếu bản chính. |
+
+### 3. Cần LÀM RÕ
+| # | Vị trí | Vấn đề | Đề xuất |
+|---|---|---|---|
+| L1 | Phần II §6 (TT 129/2026) | Khoản 5 Điều 2 nằm trong "Điều khoản chuyển tiếp" và nói chứng chỉ đấu thầu **lựa chọn nhà thầu**. Doc trích đúng chữ nhưng chưa gắn nhãn. | Ghi "(điều khoản chuyển tiếp)"; nêu song song điểm b khoản 1 Đ7 TT 02 (sửa bởi Đ3.2.a TT 129: đối tượng cấp là cá nhân tham gia tổ chuyên gia lựa chọn nhà đầu tư dự án đầu tư kinh doanh); Phường ghi rõ loại chứng chỉ từng người. |
+| L2 | Phần I §2 (khoản 2a) | Khoản 2a viết "nhân sự của **chủ đầu tư**"; Phường là **bên mời quan tâm**, không phải chủ đầu tư. | Cách hiểu an toàn (áp dụng tương ứng, Đ1.3 NĐ 274): người thuộc nhân sự UBND phường không thuộc diện 2a, vẫn cần chứng chỉ. Viết rõ 1 câu, gắn nhãn "cách hiểu an toàn". |
+| L3 | Phần I §1 dòng "Trình độ"; Phần II §2 | Kết luận thận trọng (không tự áp ngoại lệ "gói thầu" giáo dục) là hợp lý. Nhưng doc vừa nói "áp dụng tương ứng qua khoản 3 Điều 1" vừa không áp ngoại lệ → dễ bị hỏi mâu thuẫn. | Không đổi kết luận. Thêm câu thực hành: chọn người có bằng đại học thì không cần dùng ngoại lệ; chỉ khi có người thiếu bằng mới cần văn bản làm rõ. |
+| L4 | Phần II §8 (Đ87.4 Luật) | Quote ghi "Bộ Tài chính"; bản gốc Luật 2023 ghi "Bộ Kế hoạch và Đầu tư". | GPT xác nhận trên VBHN 74 rằng cụm này đã được thay và ghi nguồn sửa đổi. |
+
+### 4. Đã đối chiếu — PASS (đúng phạm vi này, kèm nguồn)
+- **Luật Đấu thầu, VBHN 74/VBHN-VPQH (25/03/2026):** Điều 2 đoạn đầu; Điều 16 khoản 6 điểm b, c, d và khoản 7; Điều 19 khoản 1–4 — khớp từng chữ (đọc trực tiếp PDF chinhphu.vn có lớp chữ). Đã thấy Luật 90/2025 bãi bỏ điểm h, k khoản 6 Điều 16 nên không trích các điểm đó là đúng. Điều 80 khoản 1a, 3 và Điều 87 khoản 2, 4: khớp qua nguồn thứ cấp/toàn văn gốc 2023 (xem L4).
+- **NĐ 274/2026 (07/7/2026):** Điều 1.3; 5.1; 7.2; 7.8.b; 37.3; 39.1 (đủ 2 đoạn) — khớp toàn văn (luatnguyen.vn). Điều 66 khoản 1 (a, b, c) khớp. Điều 70 khớp mốc 01/01/2027.
+- **NĐ 214/2025:** Điều 21 khoản 1 (a–d) khớp. **NĐ 349/2026 (09/9/2026, hiệu lực từ ngày ký):** Điều 2 — khoản 2a khớp (thuvienphapluat PDF, luatvietnam). Điều 133 khoản 9 khớp (thuvienphapluat).
+- **TT 105/2025:** Điều 37 khoản 1 (hạn 31/12/2026) khớp; khoản 2 đoạn 2 và Điều 7.2.d (15 ngày) khớp. **TT 129/2026 (27/8/2026):** Điều 2.5 khớp từng chữ; Điều 3.2.a khớp (camnangluat.vn; thông báo Hệ thống chứng chỉ Bộ Tài chính 10/9/2026).
+- **Luật Doanh nghiệp** Điều 4 khoản 22; **Luật PCTN** Điều 23 khoản 1: khớp. **VBHN 36/2026/VBHN-NĐ-BTC ngày 23/9/2026:** số hiệu và ngày khớp Cổng Chính phủ.
+- Không phát hiện điều khoản bị bãi bỏ hoặc thay thế mà Phần II còn dẫn. Luật Đấu thầu sửa đổi mới chỉ ở mức dự thảo (lấy ý kiến từ 01/08/2026), chưa có hiệu lực.
+
+### 5. Chưa kiểm được (không ghi là đã đối chiếu)
+- Bản ký NĐ 274 (PDF scan), NĐ 214/NĐ 349 bản ký, PDF VBHN 36 (scan): chưa đối chiếu từng chữ; đã đối chiếu qua bản văn bản chữ (nguồn ở mục 4). Đề nghị Agent có OCR hoặc trình duyệt xem ảnh kiểm lại trước khi xuất Word.
+- Số khoản 7 của Điều 66 NĐ 274 (nội dung quyết định cấm); Đ10.1–2 TT 02 (sau TT 105); nguyên văn Điều 80 khoản 1a trong VBHN 74.
+- Bản chính VB 6313/UBND-VX và QĐ 1960/QĐ-UBND (B6).
+- Câu đầu Phần II "văn bản hợp nhất chỉ để tra cứu": có nguồn thứ cấp nói từ 01/7/2026 văn bản hợp nhất được dùng để viện dẫn; GPT xác minh nguồn chính rồi chỉnh câu nếu đúng. Mức thấp.
+
+### 6. Đề xuất Host đưa Owner (chỉ cần gật/lắc)
+- Đổi "Tổ tư vấn — 03 thành viên" thành "03 chuyên gia chuyên ngành được lấy ý kiến" (giữ 03+03) và dùng văn bản mời thay cho quyết định thành lập tổ. **Đề xuất PM: ĐỒNG Ý** (S1). Sau khi Owner gật, Host sửa `view.html` theo S1, B1–B6, L1–L4 trong một lần rồi mới giao Agent xuất Word.
