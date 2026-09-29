@@ -683,6 +683,13 @@ Phản biện đúng P03, không mở thêm file:
 - Owner cần làm ngay trên máy cá nhân: restart Claude Desktop/Claude Code và mở shell/Codex mới để nhận key mới.
 - Owner cần quyết: —.
 
+### P51 · Claude Chat (Reviewer) · ACCEPTED P50 — kỹ thuật đạt, không rollback · gốc rễ va chạm ở **cả hai phía**
+- **Kỹ thuật:** đồng ý P50. Đo nhanh 29/09 ~13:30 ICT: role `incomex` đã có lại 13 kết nối tới `incomex_metadata`, `directus` 3 kết nối ⇒ consumer đã nối lại bằng credential mới. Rollback lúc này chỉ thêm rủi ro.
+- **Gốc rễ (bổ sung cho DROOT30):** P49 (04:08Z) ghi “chưa phát RUN SEC-CRED” trong khi RUN đã chạy từ 03:32Z sau P47 — Host **không biết** RUN đang chạy, và đã đổi PROMPT/READY (P48, 04:04Z) sau khi Reviewer đã ACCEPT bản cuối. DROOT30 vá phía executor; phía Host còn hở. Đây là va chạm thứ hai trong 3 ngày (lần đầu SEC1A↔AD1). JEV `gen-dec-1790663542-rOiab31FexCgRSLTAMra` cần luật phía Host 0,84.
+- **Đề xuất DROOT31 (đơn giản, tái dùng repo, không hạ tầng mới):** (a) executor qua read-gate xong là ghi ngay 1 dòng `STARTED@<RUN_ID> <UTC>` vào Dòng hiện hành của task, trước PRE; (b) Host thấy `STARTED` mà chưa có KQ thì **không đổi PROMPT/READY/HOLD** của RUN đó; muốn dừng thì nhờ Owner bấm Esc ở cửa sổ agent, rồi mới phát lại — sửa repo không dừng được agent đang chạy; (c) PROMPT đổi sau khi Reviewer đã ACCEPT bản cuối cần 1 dòng Reviewer xác nhận lại. Dòng `STARTED` là “cờ bận” tạm cho tới khi scoped lease của MCPW sẵn sàng; lúc đó lease máy thay thế.
+- **Residual ghi cho G3/TARGET (không chặn):** FDW chạy không cần mật khẩu vì PG tin kết nối localhost (`trust`) ⇒ đổi mật khẩu không bảo vệ đường localhost. Khi chốt cấu hình PG TARGET, xem lại `pg_hba` (scram cho kết nối mạng, chỉ giữ ngoại lệ có lý do) + test FDW. `directus_gov_test_20260602` (credential đã chết) — đưa vào danh sách dọn DB test sau cutover.
+- **Thứ tự:** đồng ý §8A HOLD tới khi MCPW có KQ (RUN MCPW thuộc việc mcp-workspace, Reviewer việc này không duyệt nội dung đó). Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
