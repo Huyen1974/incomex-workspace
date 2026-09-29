@@ -44,7 +44,7 @@ Host: **GPT Chat** · Host_ID `GPT-TCG-0929`
 ## Nội dung chuẩn để Owner đọc
 - **HTML chính:** `view.html`
 - Nội dung Phần I + Phần II đã chuyển sang `view.html` để Task html view hiển thị đúng thiết kế.
-- Trạng thái: **TCG-P08 — BẢN HOÀN CHỈNH ĐỂ GỬI HỘI ĐỒNG GÓP Ý; chưa phát hành cho Phường, chưa xuất Word.**
+- Trạng thái: **TCG-P09 — NỘI DUNG CHỐT TRÊN GITHUB SSOT; sẵn sàng xuất Word. Sau khi Owner xác nhận đã tải Word thì đóng task theo A9.**
 - Lịch sử TCG-P06: `1af6ff98973d44cccf5634033ed2d1ae278d2039`; kết luận gom độc lập/bảo mật thành tiêu chuẩn nội bộ **được đính chính tại TCG-P07**, vì Điều 16 Luật Đấu thầu vẫn áp dụng cho cá nhân liên quan; không dùng nhận định cũ.
 - **TCG-P07 · GPT · Based_on `3405e32e94ea12374427da4ed2d3b290c6b2dfa0` · Scope: `view.html` Phần I–II + chỉ dẫn review · Áp: `577eb775e64ea9e93d9a45ffeab2ce02ea0ec238`.** Rà theo pháp luật đến 29/09/2026; đã đọc toàn bộ tài liệu hướng dẫn hiện hành. Sửa 3 điểm: không gán tiêu chuẩn đề xuất thành Phường đã chốt; không mặc nhiên áp ngoại lệ bằng đại học của gói thầu giáo dục cho dự án; không coi nghĩa vụ chống vi phạm/bảo mật là tùy chọn nội bộ. Bổ sung chủ thể thành lập (Điều 19), kiêm nhiệm/quan hệ gia đình/bảo mật (Điều 16, 80), thu hồi và lệnh cấm (Điều 10 TT02 sau TT105; Điều 87 Luật; Điều 66 NĐ274), khoản 2 Điều 3 TT129, kiểm soát xung đột lợi ích (Điều 23 Luật PCTN), điều kiện thuê tư vấn (Điều 5, 7 NĐ274). Phần II thay trích lược bằng các khoản/điểm nguyên văn đã ghi rõ nguồn. Chưa xác minh: quyết định giao Phường làm bên mời quan tâm và hồ sơ 06 người; hội đồng chưa phản hồi, chưa kết luận đủ điều kiện thành lập tổ cụ thể.
 
@@ -56,8 +56,8 @@ Host: **GPT Chat** · Host_ID `GPT-TCG-0929`
 - Không phát sinh tiêu chuẩn luật bắt buộc mới ngoài các điều kiện đã dẫn. Chưa xác minh: văn bản giao Phường làm bên mời quan tâm, hồ sơ 06 ứng viên và quyết định mời/thuê chuyên gia cụ thể. Đây là điều kiện kiểm ở bước ký, không phải xác nhận đã hoàn tất.
 
 ## HỘI ĐỒNG REVIEW — CHỜ Ý KIẾN
-- **P01 · Claude Chat/Cowork · OPEN** — yêu cầu review bản TCG-P08: thẩm quyền, phân loại đúng vai trò nhóm tư vấn, phạm vi ngoại lệ tại điểm b khoản 1/khoản 2a Điều 21, trích dẫn nguyên văn và hiệu lực. Chưa có ý kiến thực tế.
-- **P02 · Hermes · OPEN** — yêu cầu review độc lập bản TCG-P08: các điều kiện bắt buộc/ngoại lệ, xung đột lợi ích, bảo mật, thu hồi/lệnh cấm; không đặt thêm chuẩn ngoài luật. Chưa có ý kiến thực tế.
+- **P01 · Claude Chat/Cowork · ACCEPTED** — commit `a97a6b67643fda1b30f58324740d7e528c81e00e`; đã xử lý tại TCG-P09.
+- **P02 · Hermes · CLOSED_BY_OWNER_FLOW** — Owner yêu cầu chốt TCG-P09 và xuất Word ngay sau rà soát cuối.
 
 Yêu cầu Reviewer: ghi P01/P02 vào cuối `COLLAB.md`; nêu đúng điều/khoản nếu có ý kiến; **không tự sửa nội dung dự thảo, không tạo file/task mới**.
 
@@ -115,3 +115,10 @@ Người thực hiện: Claude Chat · Based_on `b42ef6ef375794dd3d58673207f044e
 
 ### 6. Đề xuất Host đưa Owner (chỉ cần gật/lắc)
 - Đổi "Tổ tư vấn — 03 thành viên" thành "03 chuyên gia chuyên ngành được lấy ý kiến" (giữ 03+03) và dùng văn bản mời thay cho quyết định thành lập tổ. **Đề xuất PM: ĐỒNG Ý** (S1). Sau khi Owner gật, Host sửa `view.html` theo S1, B1–B6, L1–L4 trong một lần rồi mới giao Agent xuất Word.
+
+## TCG-P09 · Chốt SSOT và xuất Word
+- Nội dung gốc chỉ sửa tại GitHub SSOT; Word là bản dẫn xuất.
+- Nguồn song song: Trung ương trước; nguồn đăng tải/đối chiếu tại Lai Châu sau. VBHN 36/2026/VBHN-NĐ-BTC do Bộ Tài chính ban hành, Thanh tra tỉnh Lai Châu đăng lại để tra cứu.
+- Xử lý P01: ranh giới nhóm tham vấn; mốc chứng chỉ 2027; kiểm soát xung đột lợi ích; nguồn tra cứu.
+- Áp: SAME_COMMIT.
+- Trạng thái đóng: **CHỜ OWNER XÁC NHẬN ĐÃ TẢI WORD**; sau xác nhận move sang `work/done-tasks/to-chuyen-gia/` theo A9.
