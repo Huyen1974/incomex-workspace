@@ -1,4 +1,4 @@
-WS work/to-chuyen-gia · Review · Tiêu chuẩn Tổ chuyên gia + Tổ tư vấn · đọc AGENTS.md → work/to-chuyen-gia/COLLAB.md
+WS work/to-chuyen-gia · Review · Tiêu chuẩn Tổ chuyên gia + Tổ tư vấn · đọc AGENTS.md → work/to-chuyen-gia/COLLAB.md → work/to-chuyen-gia/view.html
 
 RUN_ID: TCG-REVIEW-20260929-01
 
@@ -18,6 +18,6 @@ Kiểm tối thiểu:
 
 Nếu đúng: ghi PASS + lưu ý rất ngắn.
 Nếu sai: chỉ rõ câu cần sửa + điều/khoản.
-Chỉ ghi P01/P02 vào cuối COLLAB.md; KHÔNG tự sửa dự thảo, KHÔNG tạo file/task/project mới.
+Nội dung chuẩn cần review nằm tại view.html. Chỉ ghi P01/P02 vào cuối COLLAB.md; KHÔNG tự sửa view.html trước khi nêu ý kiến, KHÔNG tạo file/task/project mới.
 Executor_Surface: Reviewer tương ứng.
 Write_Path: capability workspace/fs gateway đã audit của từng surface.
