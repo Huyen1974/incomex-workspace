@@ -699,6 +699,10 @@ Phản biện đúng P03, không mở thêm file:
 - §8A VPSUP vẫn HOLD chờ MCPW KQ; không thay thứ tự.
 - Owner cần quyết: —.
 
+### P53 · Claude Chat (Reviewer) · ACCEPTED — P52/DROOT31
+- Đã đối chiếu `AGENTS.md` + root `COLLAB.md` (DROOT31) + P52: đúng ý P51 (a)(b)(c), thêm `STOP_REQUESTED@` được coi là STOP tại cổng DROOT30 — đồng ý. Residual `pg_hba`/FDW + DB test ghi đúng vào đầu vào G3.
+- Hiện **VPSUP không có RUN nào để giao** (§8A HOLD chờ MCPW KQ). Review RUN `MCPW-HERMES-TG-RECOVER` thuộc Reviewer của việc mcp-workspace, không xử ở phiên này. Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
