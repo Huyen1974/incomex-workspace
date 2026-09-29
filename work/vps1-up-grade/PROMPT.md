@@ -28,7 +28,7 @@ Mục tiêu cuối:
 
 ## 1. Read/collision gate
 
-1. Đọc `AGENTS.md` → task COLLAB §0 + KQ G2 + P39–P42 → PROMPT này.
+1. Đọc `AGENTS.md` → task COLLAB §0 + KQ G2 + P39–P45 → PROMPT này.
 2. READY phải khớp commit cuối chạm PROMPT.
 3. Xác minh KQ G2 commit `fdab670752647bc072ab2dcfebe1be5b24aaab25` vẫn là CURRENT result và clone VPS2 đang stopped.
 4. Xác minh không có executor/RUN khác đang mutation các bề mặt:
@@ -59,51 +59,72 @@ Mục tiêu cuối:
 
 ## 3. PRE — inventory chính xác consumer/source-of-truth
 
-### A. AGENT_DATA_API_KEY
-Đã biết canonical GSM secret `AGENT_DATA_API_KEY` tồn tại. PRE phải:
-- xác minh current GSM enabled version + fingerprint nội bộ, không in value;
-- inventory mọi live consumer/reference bằng tên/path/unit/env-name, tối thiểu:
-  - server-side auth của `incomex-agent-data`;
-  - Hermes key fetch/runtime nếu đang dùng;
-  - tools/scripts hiện hành có `AGENT_DATA_API_KEY`;
-  - gateway/consumer khác nếu runtime/config chứng minh có.
-- phân loại consumer: MUST_SWITCH / STALE_NOT_RUNNING / NOT_USING.
-- xác định service nào thực sự cần restart/reload để nhận key mới.
+### A. AGENT_DATA_API_KEY — R2 consumer checklist bắt buộc
+Đã biết canonical GSM secret `AGENT_DATA_API_KEY` tồn tại. PRE phải xác minh current GSM enabled version + fingerprint nội bộ, không in value, rồi kiểm **từng mục** dưới đây; không được kết thúc inventory nếu còn mục `UNKNOWN`:
 
-### B. PostgreSQL role incomex
+**ON_VPS:**
+- server-side auth của `incomex-agent-data`;
+- Directus: `FLOWS_ENV_ALLOW_LIST`/env/reference đưa `AGENT_DATA_API_KEY` vào Flow; nếu image/container nhận env lúc create thì phân loại `MUST_SWITCH_RECREATE`;
+- Nuxt: `NUXT_AGENT_DATA_API_KEY`/env/reference; nếu nhận env lúc create thì `MUST_SWITCH_RECREATE`;
+- `claude-kb` `.env`/runtime nếu đang chạy hoặc là caller hiện hành;
+- Hermes key-fetch + `/run/hermes`/runtime nếu thực sự dùng;
+- cron/script/gateway/tool hiện hành có `AGENT_DATA_API_KEY`.
+
+**OFF_VPS:**
+- GitHub Actions secret `AGENT_DATA_API_KEY` của workflow `data-lifecycle` nếu workflow tồn tại/đang dùng;
+- cấu hình MCP/Codex/Cursor/launcher trên Mac Owner có reference tới key này.
+
+**LITERAL/FALLBACK trong source:**
+- `scripts/reconcile-knowledge.py`;
+- `scripts/reconcile-tasks.py`;
+- và literal khác nếu exact old-key fingerprint/hash khớp.
+Literal source chỉ ghi `FOLLOWUP_CODE_SECRET_GUARD`; không coi là credential thứ ba và **không sửa code trong RUN này**.
+
+Phân loại mỗi dòng: `MUST_SWITCH_RECREATE | MUST_SWITCH_RELOAD | OFF_VPS | STALE_NOT_RUNNING | NOT_USING | LITERAL_FOLLOWUP` + bằng chứng path/unit/workflow/config. Xác định service nào cần recreate/reload và thứ tự cutover.
+
+OFF_VPS: nếu có đường an toàn để cập nhật từ GSM **không in value** (ví dụ GitHub secret qua stdin) thì cập nhật trong RUN trước khi disable old key. Nếu không thể tự cập nhật, ghi đúng **một bước Owner** phải làm sau cutover (ví dụ restart/reload app Mac sau khi launcher/config đã lấy key mới); không mở rộng scope và không coi OFF_VPS là lý do DỪNG nếu production on-VPS đã PASS.
+
+### B. PostgreSQL role incomex — R1 gồm consumer ẩn trong PG
 - xác minh role `incomex` tồn tại, login/connection count và DB consumer hiện tại, không đọc password.
 - inventory mọi live reference dùng role này bằng config/env-name/path/service; không suy từ tên.
+- **Bắt buộc kiểm FDW trong chính PostgreSQL:** DB `directus` có server `incomex_meta_srv` và user mapping cho roles `workflow_admin` + `directus`. Đọc metadata/options qua DOT/superuser-safe path nhưng không in secret; xác định remote user của từng mapping.
+- Nếu một mapping dùng remote user `incomex`, phân loại nó là `MUST_SWITCH_FDW` và phải cập nhật password option trong **cùng cửa sổ rotation B** với role `incomex`; không được để mapping dùng old password sau ALTER ROLE.
+- PRE ghi foreign table(s)/query đại diện dùng `incomex_meta_srv` để §5 verify sau rotation.
 - GSM có secret `PG_PASSWORD` lịch sử; **không mặc định nó đang đúng**. PRE phải xác định source-of-truth đang dùng hiện tại và sau RUN canonical phải là GSM version mới.
-- xác định backup/DOT/cron/app nào cần credential mới để không gãy sau rotation.
+- xác định backup/DOT/cron/app/FDW nào cần credential mới để không gãy sau rotation.
 
 Nếu không xác định được consumer/source-of-truth cho một credential ⇒ DỪNG trước mutation.
 
-## 4. Rotation A — AGENT_DATA_API_KEY
+## 4. Rotation A — AGENT_DATA_API_KEY · R3 coordinated cutover, **DUAL-KEY = KHÔNG**
 
-Thực hiện một credential một lần; không xoay hai cái song song.
+Đã đo source `agent-data`: chỉ có **một master `API_KEY` duy nhất**. Không thăm dò dual-key nữa và không thiết kế dựa trên hai key song song.
 
-1. Tạo **new GSM version** cho `AGENT_DATA_API_KEY` bằng random mạnh; không in value.
-2. Không disable old version ngay.
-3. Stage new key vào đúng secret-loading mechanism hiện hữu của các MUST_SWITCH consumer.
-4. Nếu server hỗ trợ dual-key native đã chứng minh ⇒ dùng dual-key tạm.
-5. Nếu không hỗ trợ dual-key:
-   - chuẩn bị toàn bộ consumer config trước;
-   - thực hiện một coordinated reload/restart tối thiểu đúng service cần thiết;
-   - không restart `claude-mcp`/Hermes/khác nếu không thực sự tham chiếu key.
-6. Verify bằng new key:
-   - agent-data health;
-   - ít nhất auth endpoint/tool read đại diện;
-   - Hermes/tools MUST_SWITCH nếu có.
-7. Chỉ sau positive new-key PASS:
+Thực hiện một credential một lần; không xoay hai credential song song.
+
+1. Tạo **new GSM version** cho `AGENT_DATA_API_KEY` bằng random mạnh; không in value. **Old GSM version vẫn enabled** để rollback trong cửa sổ cutover.
+2. Hoàn thành checklist R2; mọi `MUST_SWITCH_*` phải có candidate config/reference mới sẵn sàng nhưng chưa để production caller dùng lệch pha.
+3. OFF_VPS có đường tự động an toàn thì stage/update trước cutover; literal source chỉ FOLLOWUP.
+4. Chụp PRE health + StartedAt + config hash của Directus, Nuxt, agent-data, claude-kb nếu MUST_SWITCH, Hermes nếu MUST_SWITCH.
+5. **Coordinated cutover ngắn:** đổi server-side `agent-data` sang new key và recreate/reload **trong cùng cửa sổ** các consumer on-VPS đã phân loại `MUST_SWITCH`, đặc biệt Directus + Nuxt + agent-data (+ claude-kb nếu dùng). Hermes chỉ restart/reload nếu inventory chứng minh runtime cache key và cần switch.
+6. Health/auth ngay sau cutover:
+   - agent-data health PASS;
+   - Directus Flow/caller đại diện dùng new key PASS;
+   - Nuxt/KB caller đại diện PASS;
+   - claude-kb/Hermes/tool MUST_SWITCH PASS;
+   - GitHub Actions/OFF_VPS nếu đã auto-update: verify reference/update state không lộ value.
+7. Khi NEW PASS mọi **on-VPS MUST_SWITCH**:
    - disable old GSM version;
-   - reload/restart consumer còn cache old key nếu cần;
-   - negative test old key phải 401/deny **mà không log value**.
-8. Nếu new key fail:
-   - rollback consumer về old enabled version khi old còn valid;
-   - DỪNG;
-   - không disable old.
+   - negative test old key phải 401/deny mà không log value;
+   - consumer nào còn cache old key phải được recreate/reload ngay.
+8. Nếu bất kỳ on-VPS MUST_SWITCH fail trong cửa sổ:
+   - re-enable/giữ enabled old GSM version;
+   - rollback server + consumer references về old;
+   - recreate lại đúng services;
+   - verify health;
+   - DỪNG. Không để trạng thái nửa mới/nửa cũ.
+9. Nếu chỉ còn OFF_VPS cần thao tác thủ công, production on-VPS vẫn được PASS; report đúng **một bước Owner** cần làm và consumer đó có thể tạm fail sau khi old key bị disable cho tới khi Owner refresh/restart.
 
-Acceptance A: NEW works everywhere MUST_SWITCH; OLD fails; old GSM version disabled, chưa destroy trong RUN này.
+Acceptance A: NEW works mọi on-VPS MUST_SWITCH; OLD fails; old GSM version disabled chưa destroy; OFF_VPS được auto-update hoặc có đúng một Owner action rõ ràng; không consumer on-VPS UNKNOWN.
 
 ## 5. Rotation B — PostgreSQL role incomex
 
@@ -120,17 +141,23 @@ PG write chỉ qua một DOT narrow production-safe.
 - old plaintext nếu cần rollback chỉ giữ tmpfs 0600, không persistent.
 
 ### Thứ tự
-1. Stage consumer config/reference để sẵn sàng dùng new `PG_PASSWORD`.
-2. Dry-run DOT: role + dependency + active sessions.
-3. Execute rotate password role `incomex`.
+1. Stage consumer config/reference để sẵn sàng dùng new `PG_PASSWORD`; PRE phải có danh sách `MUST_SWITCH_FDW` từ R1.
+2. Dry-run DOT: role + dependency + active sessions + FDW server/user-mapping targets.
+3. Trong **một coordinated transaction/window**:
+   - rotate password role `incomex`;
+   - với mỗi `MUST_SWITCH_FDW`, cập nhật password option của user mapping `incomex_meta_srv` cho roles `workflow_admin`/`directus` dùng đúng new password; không đổi remote user/server/grants khác.
 4. Reload/restart tối thiểu đúng consumer cần reconnect.
 5. Verify:
    - new credential connect PASS đúng DB/role/privilege expected;
    - các MUST_SWITCH consumer health/read/write test phù hợp PASS;
+   - **foreign-table read qua DB `directus`/`incomex_meta_srv` PASS** bằng query đại diện đã chụp PRE;
+   - 13 live connections/consumer set sau reconnect hợp lý, không auth failure tăng bất thường;
    - old credential connect FAIL.
 6. Nếu fail trong cửa sổ kiểm:
-   - rollback password qua DOT bằng old value từ tmpfs;
+   - rollback role password qua DOT bằng old value từ tmpfs;
+   - rollback FDW user-mapping password option cùng old value;
    - rollback consumer reference;
+   - verify foreign-table read + health;
    - DỪNG.
 7. Khi PASS: disable old GSM `PG_PASSWORD` version nếu nó chính là old canonical version; không destroy trong RUN này.
 
@@ -237,5 +264,6 @@ Commit:
 - Không dựng TARGET.
 - Không sửa schema/RLS/permission ngoài credential scope.
 - Không xử lý unrelated security cleanup.
+- **FOLLOWUP sau SEC-CRED, không chặn G3:** thêm chốt ở DOT/endpoint ghi KB để từ chối payload khớp hash credential đang dùng hoặc mẫu secret phổ biến; đồng thời dọn literal fallback secret trong source nếu R2 phát hiện. Không mở RUN này sang preventive guard.
 
 Sau SEC-CRED PASS, Host mới phát G3.
