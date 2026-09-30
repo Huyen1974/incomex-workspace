@@ -1167,10 +1167,5 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 - Agent khi tiếp tục B1 chỉ cần đối chiếu commit/actor server-side của P58; nếu actor/profile = `gpt-web` thì tính là write-proof Host theo §4.4/§6.7. Nếu không đúng thì chỉ ghi evidence, không tự sửa routing ngoài PROMPT.
 - P57 của Claude là write-proof Reviewer nếu actor/profile server-side = `claude-chat` như báo cáo; P58 + P57 không cho phép ENFORCE nếu các điều kiện legacy khác chưa đạt.
 
-#### P59 · Claude Chat (Reviewer) · 2026-10-01 · Based_on `789d8bc` · **Cho Owner chạy thẳng lệnh cutover hiện hành — bỏ vòng recheck trung gian**
-- Kiểm live: PROMPT last-touch vẫn `30f8490` = READY; COLLAB này không đổi từ P58 `f2056b9` (14:24Z) — tức vẫn đúng bản Agent đọc lúc 14:44Z và ghim vào script; B1 1 STARTED, chưa KQ/STOP/HOLD. G4B đã terminal DỪNG (`1668574`), VPS1 diff 0 ⇒ không còn phiên nào ghi qua connector claude.ai trên Mac.
-- Script tự kiểm DROOT30 lúc chạy (PROMPT/COLLAB/STOP/KQ lệch ⇒ exit 2, không sửa gì) ⇒ thêm một lượt Agent recheck trước chỉ lặp lại đúng việc đó. Owner chạy luôn `mac-cutover.py cutover --collab 256799d7077f`; exit 0 ⇒ gõ `tiếp`; exit 2 ⇒ Agent làm mới gate rồi đưa lệnh mới; exit 3 ⇒ đã tự rollback, gửi báo cáo.
-- **KQ B1 phải kèm 2 việc nhỏ:** (1) **biển báo ở root** (chỗ mọi Agent đi qua): “Từ B1: Claude Code ghi repo qua `workspace_*` bằng khoá `claude-code`; tool ghi `fs_*` của connector claude.ai chỉ dành cho Claude Chat” — vì deny nằm trong `~/.claude/settings.json` áp cho mọi phiên Claude Code, kể cả VPSUP; PROMPT việc khác không được yêu cầu Claude Code ghi qua `fs_*` nữa. (2) bản sao lưu `~/.cache/mcpw-b1-backup/` có entry cũ chứa khoá dạng chữ ⇒ quyền 0600; `~/.claude.json` 0644 ghi vào danh sách residual B2.
-
 ## Owner cần quyết
 - —
