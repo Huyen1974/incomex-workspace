@@ -23,11 +23,11 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - JEV: `gen-dec-1790226942-Pz95lv2dkDouzMQ3XwSW` ruleset 0,93 (conf 0,92) · kiểm PROMPT `gen-dec-1790234527-TC6croNtKfTwHYgYNw0K`: gate trước mutation 0,97 · mở lại lỗ 0,05 · lộ secret 0,03 · vượt phạm vi 0,19 (do phép thử T1 là một lần ghi phải bị từ chối; đã giới hạn chỉ thêm một dòng).
 - **ĐÍCH ĐO ĐƯỢC — cập nhật 27/09 (Claude P21, theo yêu cầu Owner “mục tiêu phải rõ, cập nhật theo thực tế”). Đọc bảng này trước N1–N8; Host sửa bảng khi thực tế đổi. Không thay §0.1–§0.2 nguyên văn Owner.**
 
-| §0.2 | Đạt khi — đo được | Hiện tại 29/09 (Claude P50) | Tiếp |
+| §0.2 | Đạt khi — đo được | Hiện tại 30/09 (Host P52) | Tiếp |
 |---|---|---|---|
-| (1) Dấu vết | Mọi lượt làm việc trên **mọi bề mặt** (GPT, Claude, Claude Code, Codex, Hermes, SSH/root, cửa cứu hộ Owner) có **START do máy ghi trước tác dụng phụ đầu tiên** và **kết thúc ở đúng một trạng thái cuối** `REPORTED` / `AWAITING_REPORT` / `LOST` trong ≤10 phút; **0** thay đổi repo/runtime không gắn lượt; im lặng không bao giờ được tính là “đang làm” hay “xong”. | 🔴 lifecycle chưa có (P35) · 🟢 ghi repo: cưỡng chế (ruleset) · 🟡 Hermes: vé/BẮT ĐẦU/KẾT QUẢ có, nhưng gửi Telegram đang lỗi từ 29/09 06:04Z · 🔴 danh tính: 2 cổng dùng khoá chung, tên AI tự khai · Claude Code/Codex/SSH: VPS không biết lúc bắt đầu | Pha B (P39) → C |
+| (1) Dấu vết | Mọi lượt làm việc trên **mọi bề mặt** (GPT, Claude, Claude Code, Codex, Hermes, SSH/root, cửa cứu hộ Owner) có **START do máy ghi trước tác dụng phụ đầu tiên** và **kết thúc ở đúng một trạng thái cuối** `REPORTED` / `AWAITING_REPORT` / `LOST` trong ≤10 phút; **0** thay đổi repo/runtime không gắn lượt; im lặng không bao giờ được tính là “đang làm” hay “xong”. | 🔴 lifecycle chung chưa có · 🟢 ghi repo: cưỡng chế (ruleset) · 🟢 Hermes riêng: thẻ → Owner bấm → BẮT ĐẦU → đúng 1 model → commit kết quả → KẾT QUẢ đã PASS ở TG-RECOVER `f85a244` · 🔴 danh tính 2 cổng còn dùng khoá chung/tên AI tự khai · Claude Code/Codex/SSH chưa có lifecycle máy-enforced đầy đủ | Pha B → C |
 | (2) GitHub | GitHub chậm/mất/**giới hạn tốc độ** ⇒ đọc vẫn trả bản VPS có nhãn độ tươi, không khoá; ghi vẫn xác nhận GitHub; mọi nguồn gọi GitHub định kỳ được **đếm theo giờ**; nguồn chỉ đọc định kỳ dùng bản VPS thay GitHub khi đủ. | 🟢 **ĐẠT** — đọc/ghi (P02 + K8) · GEN2 24/24 cửa sổ xanh (định kỳ 114 → 15–18/h ≤ 20) · 91 push, 3 lượt/push, 0 lỗi 403/429/5xx · máy canh chỉ-báo hằng giờ vẫn chạy. Ngoài phạm vi GitHub: 29/09 mất tên miền ~4h do DNS nhà cung cấp (không do hệ thống) ⇒ hạng mục hạ tầng riêng | Giữ máy canh; chống lặp sự cố DNS → VPSUP (P50) |
-| (3) Giao việc | Mỗi việc đang mở có **đúng một** “tiếp theo: ai · làm gì” do máy tính từ tín hiệu (1); AI nhận được tín hiệu thì được báo/đánh thức; AI không nhận được thì Owner nhận 1 dòng. | 🟡 Hermes: đường giao `giao Hermes: <việc>` → ASSIGN ở HJW → thẻ → Owner bấm; đọc chéo việc khác đã vá (6455183); **chưa chạy trọn vì gửi Telegram lỗi** · GPT/Claude chưa có đường nhận tín hiệu | RUN TG-RECOVER → sau (1) |
+| (3) Giao việc | Mỗi việc đang mở có **đúng một** “tiếp theo: ai · làm gì” do máy tính từ tín hiệu (1); AI nhận được tín hiệu thì được báo/đánh thức; AI không nhận được thì Owner nhận 1 dòng. | 🟡 **đường Hermes end-to-end ĐẠT**: `giao Hermes: <việc>` → ASSIGN HJW → thẻ → Owner bấm → BẮT ĐẦU → one-shot → Git/KẾT QUẢ; đọc chéo MCPW và marker đã PASS ở smoke `-03`. Phần còn thiếu của tiêu chí (3) là máy tự suy đúng NEXT từ lifecycle chung và xử lý các surface không tự wake được | Pha B (lifecycle + NEXT) → C |
 | (4) Xung đột | Hai lượt ghi chồng phạm vi ⇒ lượt sau bị máy chặn trước tác dụng; đọc song song không bị chặn; lượt chết tự nhả sau TTL. | ⚪ chưa làm | Sau (1) |
 
 - **Giới hạn nói thẳng:** máy không biết AI đang nghĩ gì. “Đáng tin mọi trường hợp” = (a) không ai **làm** được gì với repo/runtime mà không bị ghi lượt; (b) mọi lượt đã ghi đều **kết thúc ở trạng thái biết được** — quên báo cáo ⇒ `AWAITING_REPORT`, tắt máy/mất mạng ⇒ `LOST`.
@@ -1108,6 +1108,13 @@ STARTED@MCPW-HERMES-TG-RECOVER-20260929-01 2026-09-29T14:45:40Z · executor=Clau
 - **NEXT (không tự chạy):** Host nghiệm thu → VPSUP §8A protection/rebaseline-only khép SEC-CRED → MCPW Pha B → C.
 
 KQ@MCPW-HERMES-TG-RECOVER-20260929-01 XONG
+
+#### P52 · Host GPT · 2026-09-30 · **ACCEPT KQ `f85a244` · TG-RECOVER ĐÓNG · HERMES E2E PASS**
+- Host đối chiếu độc lập commit KQ `f85a244`, commit claim `6f4ab59` và commit result `f596eaa`: đúng 1 model, 0 commit Hermes ngoài HJW, marker đúng, AUTO rỗng, Guard/Config Guard sạch; Telegram TEST/BẮT ĐẦU/KẾT QUẢ đều gửi được. **ACCEPT KQ XONG.**
+- Acceptance cũ ghi “đúng 1 commit Hermes” là chặt hơn cơ chế one-shot thực tế: khuôn đã nghiệm thu luôn có **1 commit claim open→claimed để chống chạy đôi + đúng 1 commit result chứa 3 dòng và claimed→done**. Hai commit này là lifecycle bắt buộc, không phải 2 lượt model/2 kết quả; Trial 02 trước đó cũng theo mẫu này. Từ RUN sau, tiêu chí phải ghi “đúng 1 result commit, ngoài mandatory claim transition” để không tạo false-fail.
+- `3b46bad` được chấp nhận là wording-only fix gỡ false-positive scanner; không đổi nghĩa KQ cũ, không đổi filter/security policy.
+- Không mở code-fix Telegram lúc này: restart-only đã phục hồi đầy đủ, chưa có root-cause đủ chắc để biện minh mutation mới. Residual “plugin chỉ log tên lớp lỗi / nên cảnh báo send error” giữ làm đầu vào Pha B/maintenance, không chặn roadmap.
+- **NEXT:** chuyển sang `work/vps1-up-grade` §8A protection/rebaseline-only để khép SEC-CRED. Sau §8A sạch, quay lại MCPW Pha B → Pha C. Không chạy §8A trong phiên MCPW này.
 
 ## Owner cần quyết
 - —
