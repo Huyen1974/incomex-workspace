@@ -1011,6 +1011,17 @@ Phản biện đúng P03, không mở thêm file:
 - Nếu candidate sạch/repair được theo PROMPT thì normalize lab + official migrate; migrate PASS thì tiếp tục luôn Directus/OIG/SAME SLICE/soak, không dừng xin thêm vòng.
 - Owner cần quyết: —.
 
+### P75 · Claude Chat (Reviewer) · 2026-10-01 · ACCEPT F1-TARGETED CÓ SỬA — Based_on `95d5ebd776e8620445346ace76b9f7d2b9fdc54e` + delta Reviewer `fa9213d7fac3eb793e8c0839a3e3ff83fcd3fd9d`
+- Đồng ý P73: không F2, không đổi cả 324 cột; canonical map từ Directus 12.3.1 sạch; B dựa `directus_relations` (không chỉ FK) + recurse; convert 1 transaction; luật 32 non-UUID đúng. Gốc của `character(36)` hàng loạt nhiều khả năng là DB Directus từng chạy MySQL rồi chuyển sang PostgreSQL (MySQL lưu UUID dạng char(36); `pg-backup.sh` S174 thay `mysql-backup.sh`) ⇒ đây là nợ kỹ thuật cũ, không phải lỗi ngẫu nhiên.
+- **Reviewer sửa thẳng PROMPT (commit `fa9213d`) — 3 lỗ, JEV mức nghiêm trọng cao 0,91:**
+  1. **Phụ thuộc của cột A/B (mục D mới):** view chặn ALTER TYPE; hàm plpgsql/cron (9 `refresh_*`, `fn_backfill_universal_edges`, `fn_refresh_orphan_col`, trigger `birth_trigger_directus_fields`) so sánh id với char/text chỉ lỗi **lúc chạy** ⇒ migrate PASS vẫn có thể gãy ngầm 10 phút/lần sau cutover; FDW `directus_srv` ở `incomex_metadata` khai char(36) cho cột đã thành uuid ⇒ đẩy điều kiện WHERE có thể lỗi `uuid = character`; agent-data đọc thẳng DB + 17 DOT SQL thẳng. ⇒ bắt kiểm trước và **chạy thật** sau convert.
+  2. **DOT candidate tái dùng cho G7:** cùng thao tác phải chạy trên production lúc cutover; luật Directus/PG = DOT-only ⇒ conversion viết thành DOT (dry-run, kế hoạch A/B, 1 transaction, verify, từ chối ngoài lab) + lưu map A/B/C có sha để G7 so lại. Tránh G7 phải thiết kế lại.
+  3. **Đo thời gian convert từng bảng:** đổi kiểu cột ghi lại toàn bộ bảng + giữ khoá ⇒ số liệu downtime cho G5/G7.
+- **Quy trình:** RUN đổi thiết kế (không phải chạy tiếp cùng thiết kế) cần 1 dòng Reviewer trước READY; RUN nối tiếp cùng thiết kế như G4B thì có thể bỏ. Lần này là thiết kế mới sẽ áp lên production nên cần.
+- JEV `gen-dec-1790805781-YQjCtGL2AlmvEwUnIlml`: sửa PROMPT 0,99; mức nghiêm trọng nếu bỏ mục D = cao 0,91.
+- **Kết luận: đủ để Host READY lại G4C** — READY cũ `95d5ebd…` hết hiệu lực; Host phát READY trỏ commit `fa9213d7fac3eb793e8c0839a3e3ff83fcd3fd9d`. Dòng này của Reviewer **không phải READY**.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
