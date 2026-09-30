@@ -1,7 +1,7 @@
 # PROMPT — VPSUP G4C TARGETED UUID NORMALIZATION · Directus 12.3.1 lab proof
 
 RUN_ID: VPSUP-G4C-UUID-NORMALIZE-20261001-01
-STATUS: **DRAFT — CHƯA READY/RUN.**
+STATUS: **CHỜ READY MỚI — Reviewer đã ACCEPT có sửa (P75). READY cũ `95d5ebd…` hết hiệu lực; chỉ chạy khi COLLAB có READY do Host phát trỏ commit cuối chạm file này.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
@@ -17,7 +17,7 @@ Host **không chọn F2** (không tự viết DDL thay 2 migration, không tự 
 Mục tiêu RUN này: trên **working copy của checkpoint A**, tự sinh canonical map từ Directus12.3.1 sạch → phân loại 32 non-UUID → nếu tập candidate sạch/repair được theo luật dưới đây thì normalize trong lab → chạy official `migrate:latest` → nếu PASS tiếp tục Directus runtime + SAME SLICE và arm soak. Không chạm production.
 
 ## G4C.1 · Read/PRE
-Đọc AGENTS → COLLAB §0 + KQ G4/G4B + P68–P73 → PROMPT này → hồ sơ G4B. READY phải = commit cuối chạm PROMPT. Ghi STARTED theo DROOT31; DROOT30 ngay trước first VPS2 mutation.
+Đọc AGENTS → COLLAB §0 + KQ G4/G4B + P68–P75 → PROMPT này → hồ sơ G4B. READY phải = commit cuối chạm PROMPT. Ghi STARTED theo DROOT31; DROOT30 ngay trước first VPS2 mutation.
 
 PRE:
 - checkpoint A content/meta hash = KQ G4/G4B; G2 checkpoint + lane C patch/.output/image digests khớp; TARGET 0 container; e-learning 200;
@@ -37,6 +37,13 @@ C. `KEEP_CHAR36`: mọi char36 còn lại — business PK/group key/string khôn
 
 Evidence phải có số lượng + danh sách A/B/C; không dùng heuristic “tên *_id ⇒ uuid”.
 
+**D. Phụ thuộc của A/B — kiểm trước convert và chạy lại sau convert:**
+- view/rule dùng cột A/B (ALTER TYPE sẽ bị chặn) — ghi drop/recreate đúng định nghĩa cũ;
+- hàm plpgsql/SQL, trigger, event trigger (`evt_trigger_guard_ddl/drop`), job cron SQL (9 hàm `refresh_*`, `fn_backfill_universal_edges`, `fn_refresh_orphan_col`, `birth_trigger_directus_fields`) có nhắc cột A/B — plpgsql chỉ lỗi lúc chạy, nên sau convert phải **chạy thật từng hàm/job trong transaction ROLLBACK**;
+- foreign table FDW ở `incomex_metadata` (server `directus_srv`) có cột trỏ sang cột A/B: đọc có điều kiện WHERE trên cột đó (bắt lỗi đẩy điều kiện `uuid = character` sang phía kia);
+- consumer SQL trực tiếp ngoài PG: agent-data (`DIRECTUS_DB_*`) + 17 DOT SQL thẳng `directus_*` — phân tích tĩnh câu SQL chạm A/B + chạy đường đọc DB của agent-data trên lab; gãy thì ghi patch candidate.
+Phụ thuộc gãy mà không xử lý được trong phạm vi lab ⇒ DỪNG exact blocker.
+
 ## G4C.3 · Phân loại 32 non-UUID
 Chỉ quan tâm non-UUID nằm trong A/B.
 - Với mỗi giá trị lạ trong A/B: ghi `table.column`, row PK, Directus relation target, target tồn tại hay orphan, nullable, và trạng thái record liên quan; redact nội dung nghiệp vụ nếu không cần.
@@ -48,12 +55,14 @@ Chỉ quan tâm non-UUID nằm trong A/B.
 ## G4C.4 · Normalize trên working copy, không checkpoint A
 Clone checkpoint A → working volume G4C; checkpoint A immutable.
 Trước DDL capture schema/default/index/constraint/count/value-hash cho A/B.
+- Conversion chạy bằng **một DOT candidate** (DROOT27: `--help`, dry-run mặc định in kế hoạch A/B, execute trong 1 transaction, verify; từ chối nếu host/sysid không phải lab) — đây là công cụ G7 sẽ dùng trên production. Đặt trong hồ sơ G4C trên VPS2; đưa lên VPS1 + Config Guard ở G7 (DROOT29). Lưu map A/B/C + sha để G7 so lại với prod trước khi chạy.
+- Đo thời gian convert từng bảng + tổng (bảng lớn bị ghi lại toàn bộ, giữ khoá) — số liệu downtime cho G5/G7.
 
 Nếu §G4C.3 không blocker:
 - thực hiện conversion A/B trong **một transaction riêng**; ưu tiên `USING NULLIF(btrim(col::text),'')::uuid` khi nullable, hoặc cast tương đương đã proof;
 - preserve NOT NULL/default/PK/unique/index; constraint nào cần drop/recreate phải ghi exact before→after;
 - không thêm PG FK mới chỉ vì relation metadata nếu canonical/current Directus không có FK đó;
-- post-conversion: 0 non-UUID trong A/B, type map A/B khớp canonical/target, row counts unchanged, semantic value hash `uuid::text` khớp pre-cast expectation.
+- post-conversion: 0 non-UUID trong A/B, type map A/B khớp canonical/target, row counts unchanged, semantic value hash `uuid::text` khớp pre-cast expectation; mục D (view/hàm/trigger/cron/FDW/consumer SQL) chạy lại PASS.
 Rollback proof: discard working copy → checkpoint A.
 
 ## G4C.5 · Official Directus migration — không bypass
