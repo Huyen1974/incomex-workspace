@@ -323,3 +323,8 @@ COORD · NOW=XONG · NEXT=Host chốt contract cho hai ứng viên OPEN · BLOCK
 - `FORM.TAO`: bước “MOUT: định nghĩa đếm · chỉ số” chỉ dành cho MOUT, nhưng đường MOIT bỏ qua bước và quay lại sau bước này chưa được định nghĩa đủ rõ.
 
 Kiểm trên canonical SHA `78acf32bf972e845d57e226ae539cca475fd0edcf46f4df7ca366974ff52d45e` (`f3ececb26774c77241e15c7047e3c2a1ac1c9f74`): dot-walk 39 process/0 lỗi; contract audit 23 process/27 direct Human Step/0 lỗi; E1 `CHUNG.APQUYTRINH` PASS. Mười hai contract B02R1 giữ nguyên từng byte; code/tên/thứ tự và nội dung bước không đổi. Metadata này chưa xác nhận quyền thực, UI hay bảo toàn liên kết con khi nhân bản bản sửa. Không mở C02; Registry để Host cập nhật theo D74.
+
+## RUN · MMIM-LANE-B05-20260930-01 · 30/09/2026
+
+STARTED@MMIM-LANE-B05-20260930-01 2026-09-30T07:11:43Z · executor=Codex
+COORD · NOW=B05 RUNNING · NEXT=sửa mặt Công thức và kiểm Owner View · BLOCKED_BY=none · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=FORMULA-01/B05
