@@ -1151,5 +1151,9 @@ KQ@MCPW-HERMES-TG-RECOVER-20260929-01 XONG
 - B1 được chạy song song VPSUP G3 read-only. Nếu B1 đổi `agent-data`/MCP/Hermes consumer evidence, phía G3 recheck moving-target trước final PASS; B1 không chạm `work/vps1-up-grade/` hay TARGET/Directus/PG/Qdrant/Nuxt/DNS.
 - Owner interaction phải cố gắng = 0; chỉ dừng ở đúng một checkpoint web nếu UI ChatGPT/claude.ai thật sự bắt buộc reconnect/change URL. Nếu Host/Reviewer write proof chưa đủ lúc Agent kết thúc, cho phép `ENFORCE_DEFERRED`; không khoá legacy mù.
 
+## RUN — MCPW-B1-IDENTITY-20260930-01
+STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Code CLI
+- Read-gate PASS: PROMPT last-touch = `30f8490c4ccd2154883ae2e93258a6b340041c04` = READY P56; chưa có STARTED/KQ/STOP_REQUESTED/HOLD/READY mới cho B1; VPSUP: G3 PASS (P65), G4 chỉ DRAFT (P66, chưa READY) ⇒ không RUN mutation nào song song; VPS1 06:58Z 0 phiên SSH khác. HEAD `6714ed1` chỉ đổi `work/vps1-up-grade/`.
+
 ## Owner cần quyết
 - —
