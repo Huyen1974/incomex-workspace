@@ -346,6 +346,18 @@ COORD · NOW=XONG · NEXT=OWNER_LOOK · BLOCKED_BY=none · RESERVED_TARGETS=ban-
 ## RUN · MMIM-LANE-B06-20260930-01 · 30/09/2026
 
 STARTED@MMIM-LANE-B06-20260930-01 2026-09-30T08:02:11Z · executor=Codex
-COORD · NOW=B06 VERIFYING · NEXT=kiểm Owner View 390/1280 · BLOCKED_BY=none · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=PRESERVE-01/B06
+KQ@MMIM-LANE-B06-20260930-01 XONG
+KQ@LANE-B B06 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS · new_formula_preserved=PASS · legacy_restored=7/7 · missing=0 · duplicates=0 · NEXT=C05_VERIFY_PRESERVE
+COORD · NOW=XONG · NEXT=C05_VERIFY_PRESERVE · BLOCKED_BY=none · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=PRESERVE-01/B06
 
-B06 checkpoint · Áp: SAME_COMMIT · chỉ unwrap wrapper/summary/note `cf-b05-legacy` và closing ngoài; giữ nguyên front 7 bước, header, Đối tượng, 2 view, toàn bộ legacy raw, details `cf-cho-ai`, script và tab khác. PRE_B05_REF=`cfd3764272e42421690a0788c1d9f4a0d632f23e`; preflight job `17a96c6c12ae4b75ad87d4a00871a16e` + audit độc lập `f65d75a16b804a0c861df5935c788321`/`0e85dd7ce77848dbb9255bf0b2bca40e` exit=0: legacy_ids_before=7 · restored=7/7 · missing=0 · duplicates=0 (HTMLParser actual id). Gate VEUI.MOW job `94ab910eca9b4811b7a7fa0610f2b6b2` PASS; DROOT30 re-read trước mutation: prompt SHA/READY không đổi, không STOP_REQUESTED; HEAD lane khác đổi, hai Write_Path giữ version.
+B06 · Áp: `5dbb6d850f79bcb0d8d91df0898b5c384ed602db` · chỉ bỏ wrapper/summary/note `cf-b05-legacy` và closing ngoài. Giữ nguyên từng byte phần mới: header “Công thức và định nghĩa”, `cf-b05-seven`, `cf-b05-object`, `cf-b05-views`; không phục hồi `cf-quyet/Anh gật?`. Tab khác và toàn bộ script không đổi.
+
+PRE_B05_REF=`cfd3764272e42421690a0788c1d9f4a0d632f23e`; legacy_ids_before=7 · restored=7/7 · missing=0 · duplicates=0 (HTMLParser actual id toàn file). Thứ tự: `cf-dap-an → cf-khuon → cf-ma-tran → cf-man → cf-ca-thu → cf-dung → cf-cho-ai`. Legacy raw giữ nguyên 15.588 UTF-8 bytes, SHA `d67611ee3e005eecc1bd81afff2b6a32d74d5f13fccb03937f7536e4bcd5f2f3`; một details nguyên gốc `cf-cho-ai` giữ nguyên. Preflight `17a96c6c12ae4b75ad87d4a00871a16e`, audit độc lập `f65d75a16b804a0c861df5935c788321`/`0e85dd7ce77848dbb9255bf0b2bca40e`, post-source `344b6285926d48688734d47f9c8b7d1b` đều exit=0. Source HTML SHA `adbde679e456354b56eb2cbf1a9bbf16405a984b74cccf85a611b181e4fb9e02`.
+
+Gate VEUI.MOW `94ab910eca9b4811b7a7fa0610f2b6b2` PASS (39 process; VEUI.MOW 8 step). DROOT30 trước mutation và trước KQ: PROMPT SHA `68b9224b33e154f07a7429ecb9383fb326702ee8023493dc4aff0e938a2bb45b`, READY last-touch `ab7df4bff37aafc8c0bfe919719fd5514b38fe70` không đổi; không STOP_REQUESTED. HEAD đổi do lane khác, Write_Path không bị sửa chen.
+
+UI thật qua Owner route + HTML chính đã công bố: new front trên, legacy ngay dưới, wrapper tổng không tồn tại; 7 ID có bounds hiển thị. Click summary `cf-cho-ai` mở được 2 bảng, rồi đóng lại đúng trạng thái cũ. Cỡ 1280: document client/scrollWidth=1265/1265, panel=1233/1233; cỡ 390: document=375/375, panel=359/359 (phần chênh viewport do scrollbar); không tràn ngang. Owner iframe cũng không tràn (1280: 901/901; 390: 310/310). Ảnh thật hai cỡ đã xem; browser logs error/warn ghi nhận=[]; functional error=0. Viewport override đã reset; tab kiểm tạm đã đóng, tab Owner giữ nguyên.
+
+Owner View pipeline hiện có: source/published revision `fc33b5c2168926838c797d301eb5d049052324cb`, fresh, documentStatus=available; formula published khớp source từng byte (job `6ad89bfacd784feaa22162f1b3b2f3fe` exit=0). Viewer HTML SHA `38a78e1d713bd6c0fd8a8d63494427c5295b7668a5330bdd12f298cb0070ce00` khác raw source do pipeline chèn script `data-hvu-url-relay` cuối file; không báo hai hash bằng nhau, không sửa runtime. Job `3046aa6a99414f1499cab734eb7eb41c` exit=1 ở phép thử raw equality; đã giải thích bằng diff và formula equality trên job sau.
+
+[Owner xem ★ Công thức](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-formula). B06 dừng; C05_VERIFY_PRESERVE chờ Host, không tự mở C05.
