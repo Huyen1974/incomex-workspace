@@ -19,11 +19,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: **HOST / DISPATCHER / INTEGRATOR**
 - Host_ID: `GPT-MMIM-260920-A`
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
-- Active_RUN: **HOLD_PENDING_METHOD_V0_1**.
-- Reserved_Targets: methodology coordination only; Executor reservations tạm đóng.
-- Base_Target_Version: READY D80 superseded by D81 HOLD.
-- NOW: cùng Owner/Chat.2 chốt Method v0.1 trước khi Executor chạy.
-- NEXT: chốt 4 object levels + 7 recursive gates + decision/evidence record + UNKNOWN/CLARIFY loop; sau đó retarget prompts và READY mới.
+- Active_RUN: preparing batch `A07 / B05 / C04`.
+- Reserved_Targets: B05 = `ban-duyet.html`; A07/C04 read-only + lane ledgers.
+- Base_Target_Version: re-read current 2026-09-30 before READY.
+- NOW: xử lý mặt ★ Công thức theo Owner; giữ Method v0.1 rộng hơn ở trạng thái HOLD.
+- NEXT: gate + READY A07/B05/C04; Owner nhìn công thức mới; sau đó mới quay lại Method v0.1.
 - BLOCKED_BY: none.
 - State: ACTIVE.
 - LAST_SYNC: D76–D77.
@@ -43,37 +43,37 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-A
 - Role: **EXECUTOR**
 - Write_Zone: root ui audit metadata + `lane-a/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-A06-20260928-01` = **HOLD_PENDING_METHOD_V0_1**.
-- Reserved_Targets: root ui `master-of-master-v1.html`, `master-home-v1.html`, `ui-child-content-v1.js` if needed + lane-a/COLLAB.
-- Base_Target_Version: prompt SHA `602abe3698fdef2da3274c4bb00518e3f35cb2ed843c2aa183eb69d7f344218f`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`.
-- NOW: audit 4 core Master Lists Process/Tool/Step/UI; expose conflict/gap, no new catalog.
-- NEXT: KQ A06.
-- BLOCKED_BY: COORD/PARALLEL conflict only.
-- State: READY_TO_RUN.
+- Active_RUN: `MMIM-LANE-A07-20260930-01` = PREPARED.
+- Reserved_Targets: `lane-a/COLLAB.md`; `ban-duyet.html` READ-ONLY.
+- Base_Target_Version: prompt to be gated.
+- NOW: chẩn đoán tab/load/reload Owner View; không patch.
+- NEXT: KQ A07 → A08 patch sau B05.
+- BLOCKED_BY: none.
+- State: PREPARED.
 - LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-B
 - Role: **EXECUTOR**
 - Write_Zone: `ban-duyet.html` + `lane-b/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-B04-20260928-01` = **HOLD_PENDING_METHOD_V0_1**.
-- Reserved_Targets: ban-duyet + lane-b.
-- Base_Target_Version: prompt SHA `0399d50a03a04ebf5393f76bb969c47d5cd08a655e5e4ac6f8d81779fd8cff8d`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`; 23-contract canonical from B03 must stay except CHUNG.KIEM/FORM.TAO.
-- NOW: resolve or prove-blocked exactly 2 OPEN contracts.
-- NEXT: KQ B04.
-- BLOCKED_BY: insufficient source.
-- State: READY_TO_RUN.
+- Active_RUN: `MMIM-LANE-B05-20260930-01` = PREPARED.
+- Reserved_Targets: `ban-duyet.html + lane-b/COLLAB.md` (writer duy nhất canonical trong batch).
+- Base_Target_Version: prompt to be gated.
+- NOW: sửa mặt ★ Công thức theo D91.
+- NEXT: KQ B05 → OWNER_LOOK.
+- BLOCKED_BY: PARALLEL_CONFLICT nếu canonical bị surface khác chạm.
+- State: PREPARED.
 - LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-C
 - Role: **EXECUTOR**
 - Write_Zone: `lane-c/COLLAB.md` only; canonical/ui read-only.
-- Active_RUN: `MMIM-LANE-C03-20260928-01` = **HOLD_PENDING_METHOD_V0_1**.
-- Reserved_Targets: lane-c/COLLAB.
-- Base_Target_Version: prompt SHA `e9f3d8231c89fa9ccea0888a3c4f12e149f93bc094a0c56220a2cacb5b6565a0`; READY base `c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6`; C01+B02R1 evidence + C02 only as comparison.
-- NOW: prove reproducibility of 25→15 Human Step with explicit 6-tuple rule.
-- NEXT: KQ C03.
-- BLOCKED_BY: if 15 requires hidden/manual semantic judgment.
-- State: READY_TO_RUN.
+- Active_RUN: `MMIM-LANE-C04-20260930-01` = PREPARED.
+- Reserved_Targets: `lane-c/COLLAB.md`; canonical/root ui READ-ONLY.
+- Base_Target_Version: prompt to be gated.
+- NOW: kiểm công thức 1 Đối tượng = Master List + Kanban và ý nghĩa 6 khuôn cha.
+- NEXT: KQ C04.
+- BLOCKED_BY: none.
+- State: PREPARED.
 - LAST_SYNC: D76–D77.
 
 

@@ -1,97 +1,54 @@
-# PROMPT — LANE A06 · Audit 4 Master List cốt lõi
+# PROMPT — LANE A07 · Rà lỗi tải/tab Owner View
 
-RUN_ID: MMIM-LANE-A06-20260928-01
+RUN_ID: MMIM-LANE-A07-20260930-01
 PROCESS: VEUI.MOW
 STATUS: Chỉ chạy sau PROCESS_GATE PASS + READY của Host.
 
 Host: GPT Chat · Host_ID `GPT-MMIM-260920-A`
 Executor_Surface: Codex
 
-Write_Path:
-- root=ui: chỉ `master-of-master-v1.html`, `master-home-v1.html`, `ui-child-content-v1.js` nếu cần để hiển thị audit;
-- root=workspace: chỉ append KQ vào `work/mow-mot-moit-mout/lane-a/COLLAB.md`.
-Canonical nghiệp vụ/process/tool/step/UI registry: READ-ONLY.
+Write_Path: chỉ append KQ vào `work/mow-mot-moit-mout/lane-a/COLLAB.md`.
+`ban-duyet.html`, root ui, canonical khác: **READ-ONLY**.
 
 ## 0. Registry / concurrency
 Đọc `../council/REGISTRY.md` READ-ONLY.
-Entry CODEX-MMIM-A phải đúng RUN A06 + Reserved_Targets. Mismatch → DỪNG COORD_CONFLICT.
-Không sửa Registry.
-Không nghiên cứu/phát triển phương pháp reuse/create hoặc Step→UI; topic đó đang reserved cho Council Chat.2.
-Không tự thiết kế **mô hình phân tầng**, bộ câu hỏi chuẩn theo tầng, tiêu chuẩn độ tin cậy, quy trình xử lý mơ hồ hay phương pháp chứng minh — đó cũng thuộc METHODOLOGY_TOPIC của Chat.2. A06 chỉ audit evidence hiện có.
+Entry CODEX-MMIM-A phải đúng A07.
+B05 là writer duy nhất của `ban-duyet.html`; A07 tuyệt đối không sửa file đó.
 
-## 1. Mục tiêu duy nhất
-Làm cho Owner **nhìn cái hiểu ngay vấn đề nằm ở đâu** đối với đúng 4 Master List:
-1. Process: `CAT-003?`
-2. Tool: `CAT-006`
-3. Step: `CAT-004`
-4. UI inventory: `CAT-235*`
+## 1. Vấn đề Owner báo
+Mở/chuyển các tab con, đặc biệt ★ Công thức, đôi lúc rất chậm hoặc có cảm giác load/reload nhiều lần.
 
-Không tạo list mới. Không “làm đẹp” bằng cách gắn ✓.
-Chỉ audit nội dung thật hiện có và hiển thị verdict/evidence.
+## 2. Rà kỹ đúng root cause
+Đọc current `ban-duyet.html` và kiểm UI thật.
+Bắt buộc kiểm ít nhất:
+1. kích thước HTML / DOM;
+2. hidden tab có iframe/srcdoc/tài nguyên nặng vẫn load từ đầu hay không;
+3. logic tab: `show / write / restore / hashchange / popstate / scrollIntoView`;
+4. `details toggle` có ghi hash/history quá nhiều hay gây restore/scroll lặp;
+5. iframe/srcdoc trong Step quy trình 2 và các panel khác có làm tăng thời gian parse/load;
+6. click tab có thực sự reload network/document hay chỉ DOM/hash/scroll khiến Owner cảm giác reload.
 
-## 2. Luật verdict
-- ✓ = có một nghĩa rõ, có list thật, row có nội dung chính, mở detail/source được.
-- ◐ = có evidence/list một phần nhưng thiếu detail hoặc chưa canonical/chưa đủ nguồn.
-- ! = có xung đột nghĩa/population khiến một Master đang đại diện hai thứ khác nhau.
-- ○ = chưa có list/evidence.
+Không đoán. Mỗi root cause phải có source/measurement/evidence.
 
-Tên/mã/link/UI route tồn tại không đủ ✓.
+## 3. Output
+Mặt đầu tối đa 8 dòng:
+- Root cause 1/2/3 theo mức ảnh hưởng;
+- cái nào PROVEN, cái nào SUSPECT;
+- patch nhỏ nhất đề nghị;
+- rủi ro patch.
 
-## 3. Evidence bắt buộc
-### Process CAT-003?
-So sánh riêng:
-- UI-001 List MOW baseline 7 row;
-- canonical process definitions tại `ban-duyet.html#ml5-cho-ai` hiện 39 process;
-- Master label/purpose hiện hành.
-Nếu đây là hai population/meaning khác nhau, phải hiện rõ conflict; không tự gộp.
+Sau đó đưa patch plan chính xác theo vùng/hàm, **không áp patch trong A07**.
 
-### Tool CAT-006
-Kiểm:
-- `ban-duyet.html#mom-tool-catalog` hiện 29 ứng viên;
-- file thật `cong-cu/`;
-- row/detail/source/cách chạy/status có hay chưa.
-Không gọi 29 ứng viên là 29 tool production.
+## 4. Acceptance
+- Không sửa canonical/UI.
+- Phân biệt rõ reload thật vs re-render/hash/scroll.
+- Có before metrics tối thiểu: file bytes, iframe count, srcdoc count, details count, listener/hash behavior.
+- Đề xuất patch không làm mất deep-link/tab state.
+- NEXT duy nhất = A08 patch sau khi B05 xong.
 
-### Step CAT-004
-Kiểm riêng:
-- `workflow_steps 105` đang là gì;
-- C02 có 25 instance → 15 Human Step chuẩn **chỉ cho MOW**;
-- có/không một canonical Step List mà người dùng mở từng dòng được.
-Không biến 105 hoặc 15 thành “toàn hệ thống” nếu source không chứng minh.
-
-### UI inventory CAT-235*
-Kiểm:
-- `child-ui-registry.json` / directory thực;
-- số UI/frames/routes/detail;
-- phân biệt **UI inventory hiện có** với **UI cần cho Human Step** (C02 đang UNKNOWN).
-
-## 4. Hiển thị
-Trong Master of Master / Master Home, với đúng 4 record, thêm/refresh audit metadata ngắn:
-`List <✓|◐|!|○> · count/evidence · một câu vấn đề`.
-Drill-down phải có:
-- What exists
-- What it means
-- Source + hash/version
-- Conflict/gap
-- NEXT
-
-Không copy toàn catalog vào Master of Master.
-Không đổi code/name Master trong RUN này.
-
-## 5. Acceptance
-- 84 Master giữ đủ.
-- Chỉ 4 record audit được chạm.
-- Owner nhìn Master of Master thấy ngay 4 trạng thái + vấn đề.
-- CAT-003? nếu 7 MOW và 39 process khác nghĩa thì không được ✓.
-- CAT-006 không ✓ nếu chưa có row/detail Master thật.
-- CAT-004 không ✓ nếu chưa có canonical Step List đáng tin.
-- CAT-235* chỉ ✓ nếu UI inventory thực sự có list/detail; vẫn phải ghi `required-from-Step = UNKNOWN`.
-- 390/1280 không overflow; console functional error=0.
-- Không sửa parent renderer/hashes.
-
-## 6. KQ
-`KQ@MMIM-LANE-A06-20260928-01 XONG|DỪNG`
-`KQ@LANE-A A06 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS|BLOCK · audited=4/4 · verdicts=<...> · false_green=0 · NEXT=<one thing>`
-`COORD · NOW=XONG|DỪNG · NEXT=<...> · BLOCKED_BY=<...> · RESERVED_TARGETS=<A06 targets> · LAST_SYNC=D76-D77/A06`
+## 5. KQ
+`KQ@MMIM-LANE-A07-20260930-01 XONG|DỪNG`
+`KQ@LANE-A A07 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS|BLOCK · causes=<n> · proven=<n> · suspect=<n> · NEXT=A08_PATCH_AFTER_B05`
+`COORD · NOW=XONG|DỪNG · NEXT=A08_PATCH_AFTER_B05 · BLOCKED_BY=<...> · RESERVED_TARGETS=lane-a/COLLAB.md · LAST_SYNC=FORMULA-01/A07`
 
 Dừng.
