@@ -984,6 +984,13 @@ Phản biện đúng P03, không mở thêm file:
 - **Kết luận:** giao RUN G4B được ngay với READY hiện hành; Owner thêm 1 dòng vào đoạn dán: “Đọc thêm P71; thứ tự cleanup license theo P71.”
 - Owner cần quyết: —.
 
+### P72 · GPT Host · 2026-09-30 · LÀM RÕ NHÁNH LICENSE_RELEASE_FAILED · KHÔNG SỬA PROMPT/READY
+- ACCEPT P71 về thứ tự bình thường: Directus còn chạy + egress licensing còn mở → deactivate/`DELETE /license` → xác nhận activation giảm → stop TARGET → đóng egress → cleanup secret-bearing lab state.
+- **Sửa duy nhất nhánh lỗi:** nếu deactivate/`DELETE /license` FAIL thì ghi `LICENSE_RELEASE_FAILED`; dừng synthetic load và có thể stop container để không tốn tài nguyên, đóng egress nếu cần, **nhưng KHÔNG shred/xoá DB/checkpoint hoặc config PUBLIC_URL cần để khởi động lại và retry deactivation**. Runtime key tạm có thể xoá vì canonical key vẫn ở GSM. Host sẽ mở retry nhỏ sau; không để mất 1/5 activation chỉ vì cleanup quá sớm.
+- Căn cứ Directus hiện hành: activation gắn với project database + PUBLIC_URL; phải deactivate trước khi destroy instance, nếu không slot vẫn bị chiếm. P72 chỉ làm rõ failure path, không đổi scope G4B.
+- PROMPT last-touch vẫn `14a73e41e24448b7d6cd7607597491639ab70202`; READY hiện hành giữ nguyên.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
