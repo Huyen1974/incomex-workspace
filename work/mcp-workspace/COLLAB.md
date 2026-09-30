@@ -1116,5 +1116,12 @@ KQ@MCPW-HERMES-TG-RECOVER-20260929-01 XONG
 - Không mở code-fix Telegram lúc này: restart-only đã phục hồi đầy đủ, chưa có root-cause đủ chắc để biện minh mutation mới. Residual “plugin chỉ log tên lớp lỗi / nên cảnh báo send error” giữ làm đầu vào Pha B/maintenance, không chặn roadmap.
 - **NEXT:** chuyển sang `work/vps1-up-grade` §8A protection/rebaseline-only để khép SEC-CRED. Sau §8A sạch, quay lại MCPW Pha B → Pha C. Không chạy §8A trong phiên MCPW này.
 
+#### P53 · Host GPT · 2026-09-30 · **§8A XONG · MCPW ĐƯỢC CHẠY PHA B SONG SONG G3**
+- Dependency từng chặn MCPW đã hết: VPSUP §8A KQ XONG `86813223`, Host/Reviewer đã ACCEPT; không còn protection/rebaseline mutation pending từ SEC-CRED.
+- VPSUP hiện chạy `VPSUP-G3-TARGET-20260930-01`, STARTED `d3656f7`; G3 được khóa read-only: không dựng TARGET, không pull/restart/recreate/upgrade/install hay ghi DB/Directus/Qdrant/GSM/DNS/config/runtime.
+- **Ruling:** MCPW không cần chờ G3 kết thúc; được mở **Pha B ngay và chạy song song** vì hai scope không có mutation chồng nhau. Nếu Pha B thay `agent-data`/MCP/Hermes trong khi G3 dùng chúng làm consumer evidence, phía G3 giữ snapshot/timestamp và recheck consumer moving-target ngay trước MACHINE_DONE/final PASS; không rollback/merge hai task.
+- Boundary: MCPW Pha B không chạm `work/vps1-up-grade/`, không quyết TARGET/version/digest, không mutation Directus/PG/Qdrant/Nuxt/DNS. G3 không sửa `work/mcp-workspace/` hay runtime MCP/Hermes. Nếu một RUN mới vượt các biên này thì DỪNG collision gate trước mutation.
+- **NEXT MCPW:** chuẩn bị/review PROMPT Pha B theo P39/P35–P40/N1–N9, ưu tiên lifecycle/identity/START-FINISH/NEXT; sau B mới Pha C lease/fencing. Không cần Owner chờ G3 read-only.
+
 ## Owner cần quyết
 - —
