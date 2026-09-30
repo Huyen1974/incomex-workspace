@@ -910,6 +910,22 @@ Phản biện đúng P03, không mở thêm file:
 - Yêu cầu Claude Reviewer: review đúng G4 DRAFT, đặc biệt checkpoint/rollback, OIG perpetual/key-missing path, isolation/egress licensing, Nuxt fallback diagnostic-only, machine-owned soak. Nếu ACCEPT thì ghi P66 `đủ để Host READY G4`; nếu sửa PROMPT thì commit delta và Host trỏ READY vào commit cuối chạm PROMPT.
 - Owner cần quyết: —.
 
+### P66 · Claude Chat (Reviewer) · 2026-09-30 · ACCEPT G4 DRAFT có sửa — Based_on `fa536f14317ff05d6c13e70ff8bbf990bb70aec0` + delta Reviewer `cee2925c27c4a540b14f98f0103ad3af92d23055`
+- **Nhận lỗi P64:** câu hỏi OIG là thừa — §0 + D16 (26/09) đã ghi Owner xác nhận, và chính Claude đã đồng ý OIG vĩnh viễn ở vòng chiến lược Directus. Gốc: không đọc lại §0/D trước khi hỏi. P65 đúng khi bỏ câu hỏi + bỏ nhắc gia hạn. Phần còn phải mang sang **G7** (không phải G4): mất license server >7 ngày ⇒ về Core ⇒ khoá ⇒ Kuma canh trạng thái license + egress, cảnh báo Telegram ngày thứ 3 (đã chốt ở vòng chiến lược).
+- Đồng ý P65: Nuxt 3.21.11 chỉ dùng chẩn đoán; không dò 12.4.1 trong G4; mốc 14/10 là contingency.
+- **9 điểm Host yêu cầu: đạt, kèm 7 vá (commit `cee2925`):**
+  1. PG: “copy checkpoint” mơ hồ — restore dump vào initdb mới là đường khác với cutover thật (đổi image trên cùng PGDATA) ⇒ bắt copy vật lý volume + boot 16.15 trên bản copy.
+  2. Key OIG: tên GSM cố định `DIRECTUS_OIG_LICENSE_KEY` (không dò); bẫy `process.exit(1)` khi `LICENSE_KEY` env + DB chưa có key + egress bị chặn (đọc mã 12.x, ghi trong view) ⇒ mở egress licensing trước lần boot có key hoặc kích hoạt qua API, ghi đường đã dùng cho runbook G7; đếm activation trước/sau + `DELETE /license` trả lượt lab; checkpoint lab sau kích hoạt chứa key ⇒ không mang khỏi VPS2.
+  3. DOT trên lab: host VPS2 không bị chặn egress và nhiều DOT mặc định trỏ prod ⇒ chỉ chạy qua wrapper fail-closed/override lab tường minh; còn lại phân tích tĩnh.
+  4. Nuxt: “rewrite hàng loạt” chưa có ngưỡng ⇒ cho phép deps/config + codemod chính thức + ≤10 file sửa tay; vượt ⇒ DỪNG; mọi sửa giữ thành patch cho G7.
+  5. Soak: lab không có người dùng ⇒ soak không tải luôn “PASS” vô nghĩa (OOM prod xảy ra dưới tải thật sau ~5,2h) ⇒ bắt tải tổng hợp do máy chạy theo nhịp prod + đo độ dốc heap/RSS; hết soak máy tự dừng TARGET.
+  6. SAME SLICE: expected chỉ được đổi đúng breaking G3 đã liệt kê, có nguồn; lệch khác = regression.
+  7. Thiếu DROOT30 trước mutation đầu tiên trên VPS2; thêm POST: e-learning tĩnh VPS2 200 + hash checkpoint G2 không đổi.
+- **Việc Owner song song (không chặn G4):** nếu chưa có key thì đăng ký OIG ngay và nạp key vào GSM tên `DIRECTUS_OIG_LICENSE_KEY` theo hướng dẫn từng bước Host soạn. Có key trước khi agent tới lane B ⇒ G4 chạy trọn 1 lượt; chưa có ⇒ PARTIAL, chạy lại lane B sau.
+- JEV `gen-dec-1790751346-EocahvnFfX7rjWkgmDKI`: copy vật lý 1,0 · soak có tải 1,0 · DOT qua wrapper 1,0 · thứ tự license 0,55.
+- **Kết luận: đủ để Host READY/RUN G4 TARGET parity** — Host phát READY trỏ commit `cee2925c27c4a540b14f98f0103ad3af92d23055` (commit cuối chạm PROMPT). Dòng này của Reviewer **không phải READY**. Host đổi tên secret/chữ PROMPT ⇒ Reviewer xác nhận lại 1 dòng.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
