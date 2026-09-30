@@ -1227,6 +1227,8 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 
 - D91 · 2026-09-30 · **FORMULA-01 · Owner chốt mặt ★ Công thức trước:** giữ tab `★ Công thức`, đổi header trong panel thành **Công thức và định nghĩa**; bỏ box `Anh gật?`; công thức hiện hành là 7 bước có nhánh: `1 Tìm → 2 Dùng` nếu đã có+dùng được, hoặc `1 Tìm → 3 Đề xuất tạo mới → 4 Duyệt đề xuất tạo → 5 Khai báo → 6 Test → 7 Duyệt cho dùng → 2 Dùng`. Từ `Thứ` bị loại khỏi mặt Owner, thay bằng **Đối tượng** = thứ có danh tính+vòng đời riêng, cần tìm/dùng/tạo/sửa/ngừng độc lập. Công thức view: **1 Đối tượng = 2 view: Master List (Tìm+Dùng) + Kanban (3→7)**; Kanban phải dùng khuôn cha đã duyệt, không sáng tạo lại. Ca thử/matrix 6 bước/công thức đếm màn cũ hạ xuống details lịch sử. Batch chỉ 3 Codex: A07 audit performance read-only; B05 writer duy nhất `ban-duyet.html`; C04 audit 2-view/parent read-only. D/E tiếp tục HOLD.
 
+- D92 · 2026-09-30 · **FORMULA-01 A07/B05/C04 GATE PASS, READY:** prompt commit `626769a87a786abfeb410ea3e85b8a48d9ff8846`. A07 prompt SHA `eda0373320a09b1e732393c6613324bf95d8702a06f6adcfc7d5facc03aac37d`, B05 `a0c9108bb4de0b775c65936c6525e7056c89e6a1bf15a4aa0d55a53f63b9f993`, C04 `c0fae2b41af054534af335d9802272e1e3c899f962d9791f50f385a71bc1cc38`; cả 3 PROCESS=VEUI.MOW gate PASS. B05 là writer duy nhất `ban-duyet.html`; A07/C04 read-only. READY=`626769a87a786abfeb410ea3e85b8a48d9ff8846`.
+
 ## Dòng hiện hành
 MMIM | STEP2_UI001_COPY · 28/09/2026 | Tab ★ Step quy trình 2 ở `ban-duyet.html`: phần I dùng bản sao khung UI-001 Nháp 2 từ VPS, CSS/JS vẫn trỏ nguồn gốc theo D87; không có bảng tự dựng. Bước chi tiết chờ Owner. A01 đã XONG; A06/B04/C03/D01/E01 tiếp tục HOLD theo D81.
 
