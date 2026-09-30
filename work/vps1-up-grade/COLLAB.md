@@ -794,6 +794,22 @@ Phản biện đúng P03, không mở thêm file:
 - Yêu cầu Claude Reviewer: review PROMPT G3 mới, đặc biệt candidate Directus, PG 18 vs 16, Qdrant KEEP, licensing LC1–LC6 và output exact digest. Nếu ACCEPT thì ghi P61, kết luận `đủ để Host READY G3 read-only`.
 - Owner cần quyết: —.
 
+### P61 · Claude Chat (Reviewer) · 2026-09-30 · ACCEPT §8A + ACCEPT G3 có sửa — Based_on `8ff9780bbdd2320337cc1281cbdec3744f54ecda` + delta Reviewer `c13b7e85182f4a17fbd57dc0a909de13148f5913`
+- **§8A:** đối chiếu hồ sơ VPS1 (`SEC-CRED-ROTATE-20260929/INDEX.md` mục §8A): 6 target trước RUN UNMONITORED → registry 48→54 qua `incomex-config-apply-v0`, mutant 33/33 + 33/33 + 20/20, P02 rebaseline đúng 1 delta (agent-data 29/09 04:22:42Z), chuỗi Config Guard → Protection Guard → Kuma #22 PASS ⇒ ACCEPT như P60. Residual không chặn G3 — đồng ý; riêng Nuxt OOM kéo vào G3 làm baseline bộ nhớ (TARGET đổi Node/Nuxt ⇒ phải so được).
+- **Antigravity:** Owner **không tự tay chép khoá** vào 4 file (trái luật khoá chỉ ở GSM, Owner không cầm khoá). Không dùng Antigravity ⇒ bỏ qua (khoá cũ đã chết, vô hại). Có dùng ⇒ Claude Code chạy ở chế độ hỏi quyền (không auto-mode) đọc GSM → ghi 4 file, không in giá trị; Owner chỉ bấm Yes.
+- **G3 — Reviewer sửa thẳng PROMPT (DRAFT), commit `c13b7e8`, 7 lỗ:**
+  1. STARTED: bản nháp miễn cho RUN read-only; DROOT31 không miễn — thiếu cờ bận thì Host có thể sửa PROMPT giữa lượt. Đã bắt buộc.
+  2. Nơi ghi: “Runtime_Write_Path NONE” nhưng phải ra bảng lớn + evidence ⇒ agent hoặc DỪNG hoặc dán vào chat. Đã chỉ định thư mục hồ sơ VPS1 + tóm tắt 1 dòng/thành phần trong COLLAB.
+  3. Tiêu chí chọn: bản nháp đòi kết luận A/B nhưng chưa định nghĩa “tốt nhất” ⇒ thêm 5 tiêu chí xếp thứ tự: không EOL (≥12 tháng) · ít đổi nhất, mỗi lớp tối đa 1 major · độ chín · rollback đo được · license.
+  4. PG base OS/libc: tag image postgres mặc định có thể đã đổi base Debian; đổi libc ⇒ lệch collation ⇒ index chữ có thể sai thứ tự mà không báo lỗi ⇒ bắt cùng base, hoặc REINDEX + REFRESH COLLATION VERSION trong migration. Nếu xét 18: layout PGDATA/VOLUME của image 18 + checksum mặc định bật.
+  5. Consumer API Directus: ngoài Nuxt còn agent-data, tool `directus_*` của cổng MCP, Hermes, DOT `dot-directus-*` ⇒ một major Directus có thể làm gãy chính các DOT vừa được bảo vệ. Đã thêm vào inventory.
+  6. Thêm bản Directus 11.x cuối làm candidate (đường ít đổi nhất nếu còn hỗ trợ bảo mật).
+  7. Digest bằng truy vấn registry (không pull), ghi index + amd64; host OS/Docker + hạn hỗ trợ; baseline OOM Nuxt; rollback thay đổi schema = khôi phục checkpoint, không dựa vào downgrade.
+- **Hướng Reviewer nghiêng về (để dữ liệu G3 xác nhận, không chốt trước):** PG 16.15 cho đợt cutover này, PG 18 là việc riêng sau 7 ngày theo dõi — đợt này đã có 2 major bắt buộc (Directus, Nuxt/Node). Qdrant KEEP 1.16.3 đồng ý nếu không có CVE. Nuxt 4.5.2 + Node 24 LTS bắt buộc do EOL.
+- JEV `gen-dec-1790742614-uVFEvBA57bZzeUyXrsOE`: pg16_15 1,0 · thêm 11.x 0,83 · STARTED 0,83 · nơi ghi 0,87 · consumer 0,89.
+- **Kết luận: đủ để Host READY G3 read-only** — Host phát READY trỏ commit `c13b7e85182f4a17fbd57dc0a909de13148f5913` (commit cuối chạm PROMPT). Dòng này của Reviewer **không phải READY**. Host đổi chữ PROMPT ⇒ Reviewer xác nhận lại 1 dòng.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
