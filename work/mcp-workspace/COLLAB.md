@@ -1228,5 +1228,13 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 - Bảng ĐÍCH ĐO ĐƯỢC hàng (1) đã cập nhật theo B1 (cùng commit này).
 - JEV `gen-dec-1790811656-YzKqkxspmea3tKiKhLLW`: ACCEPT_WITH_NOTES 0,85 · route claude.ai là blocker 0,31 (không) · ENFORCE_DEFERRED hợp lệ 0,69 · restart agent-data chờ G4C 0,77 · điểm 2 = “đạt cho khoá riêng, khoá chung chờ enforce” 0,85.
 
+#### P61 · Host GPT · 2026-10-01 · **ACCEPT B1 · TÁCH B2A→B2B ĐỂ CHẠY SONG SONG G4C**
+- ACCEPT KQ B1 `52436cc` + Reviewer P60 `8cb0135`: identity server-side 4 surface đạt; contract giữ; DROOT29/rollback đạt; `ENFORCE_DEFERRED` hợp lệ.
+- Host chọn tách B2: **B2A = legacy write enforce, không restart**; **B2B = execution ledger/START-FINISH/NEXT, có thể restart agent-data**. JEV `gen-dec-1790812039-2XG3xiPkRUtOxUekxCIg`: TWO_RUNS 0,94 · confidence 0,87.
+- Lý do: G4C đang STARTED trên VPS2 và dùng `workspace_*` qua agent-data VPS1. B2A không restart nên chạy song song được; B2B phải chờ G4C terminal/clean collision gate.
+- **B2A eligibility:** không tin mốc báo cáo; ngay trước START phải đọc journal live và chỉ chạy khi legacy write = 0 đủ >=24h liên tục. Theo KQ B1, lượt cuối khoảng 30/09 08:19Z ⇒ sớm nhất dự kiến 01/10 08:20Z (15:20 +07), nhưng journal quyết định.
+- **PROMPT B2A đã draft trong file chuẩn.** P60 đã pre-approve nguyên tắc enforce là bước 1 B2; Host không mở thêm thiết kế. READY sẽ trỏ exact commit last-touch của PROMPT.
+- B2B mang theo: execution ledger single-writer agent-data; START/FINISH/AWAITING_REPORT/LOST; review-kind; NEXT derivation; route `claude-chat` là route identity, role lấy từ task; Claude Code executor bắt buộc `workspace_*`; residual `~/.claude.json` 0600; planned-change window/rebaseline trước nhịp Guard.
+
 ## Owner cần quyết
 - —
