@@ -1,11 +1,11 @@
 # PROMPT — VPSUP G3 TARGET STACK · exact version/digest decision
 
 RUN_ID: VPSUP-G3-TARGET-20260930-01
-STATUS: **DRAFT — CHỜ CLAUDE REVIEW. CHƯA READY/RUN.**
+STATUS: **CHỜ READY — Reviewer đã ACCEPT (P61). Chỉ chạy khi task COLLAB có `READY@<SHA commit cuối chạm file này>` do Host phát. Chưa có READY ⇒ không chạy.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
-Runtime_Write_Path: **NONE — G3 này chỉ đọc/nghiên cứu; cấm mutation VPS1/VPS2.**
+Runtime_Write_Path: **NONE — G3 này chỉ đọc/nghiên cứu; cấm mutation VPS1/VPS2.** Ngoại lệ duy nhất: ghi hồ sơ evidence vào `/opt/incomex/work/vps1-up-grade/G3-TARGET-20260930/` trên VPS1 (không phải runtime).
 Runtime VPS là SSOT cho CURRENT; nguồn upstream chính thức/registry là SSOT cho version/digest hiện hành.
 
 ## G3.0 · Mục tiêu duy nhất
@@ -14,15 +14,16 @@ Chốt **TARGET STACK exact version + immutable digest + migration order + compa
 CURRENT đã chứng minh ở G2: PostgreSQL 16.13 · Directus 11.5.1 (migration 95/20251103A) · Nuxt 3.20.2 / Node 20.20.x · Qdrant 1.16.3 · nginx 1.29.5 · Agency OS fork · agent-data hiện hành. §8A đã XONG `8681322…`; SEC-CRED PASS.
 
 ## G3.1 · Read gate + phạm vi đọc
-Đọc AGENTS → task COLLAB §0 + G2 KQ + §8A KQ + P60 → PROMPT này. Xác nhận không có STARTED G3 khác. Vì RUN read-only, không cần STARTED nếu Reviewer/Host vẫn giữ G3 read-only; nếu bất kỳ mutation nào trở nên cần thiết ⇒ DỪNG, Host mở RUN khác.
+Đọc AGENTS → task COLLAB §0 + G2 KQ + §8A KQ + P60 → PROMPT này. Xác nhận không có STARTED G3 khác; READY phải = commit cuối chạm file này. Áp **DROOT31** (không miễn cho RUN read-only): ngay sau read-gate PASS ghi `STARTED@VPSUP-G3-TARGET-20260930-01 <UTC> · executor=Claude Code CLI` vào task COLLAB; không ghi được ⇒ DỪNG. STARTED chưa có KQ ⇒ Host/Reviewer không sửa PROMPT/READY và không ghi vào `work/vps1-up-grade/`. Nếu bất kỳ mutation nào trở nên cần thiết ⇒ DỪNG, Host mở RUN khác.
 
 Được đọc:
 - VPS1/VPS2 current manifests, compose, package.json/lockfiles, Directus migration/extension metadata, PG extensions/config/FDW/hba/checksum, Qdrant client/API usage, Docker image IDs/digests;
+- host VPS1: OS/kernel/Docker Engine/compose version;
 - official release notes/docs/registries/licensing;
 - G2 sanitized artifacts/checkpoint.
 
 Cấm:
-- `docker pull`, restart/recreate/start TARGET, install/upgrade package;
+- `docker pull`, restart/recreate/start TARGET, install/upgrade package (digest lấy bằng truy vấn registry chỉ đọc, vd `docker buildx imagetools inspect`/`skopeo inspect`/`crane digest`);
 - write DB/Directus/Qdrant/GSM/DNS/config;
 - thay image/tag/digest;
 - sửa source/runtime;
@@ -31,18 +32,27 @@ Cấm:
 ## G3.2 · Candidate snapshot phải refresh tại lúc chạy
 Không coi số dưới đây là target final; executor phải refresh nguồn chính thức:
 - PostgreSQL: so `16.15` (minor an toàn của dòng hiện tại) với `18.6` (major hiện hành); PG19 beta loại.
-- Directus: đánh giá tối thiểu `12.1.1`, `12.3.1`, `12.4.1`. Không mặc định latest: 12.4.0 có potential breaking change; 12.4.1 còn mới. License/OIG + LC1–LC6 là gate.
+- Directus: đánh giá tối thiểu **bản 11.x cuối cùng** (đường ít đổi nhất, nếu còn được hỗ trợ bảo mật) + `12.1.1`, `12.3.1`, `12.4.1`. Không mặc định latest: 12.4.0 có potential breaking change; 12.4.1 còn mới. License/OIG + LC1–LC6 là gate.
 - Nuxt: candidate `4.5.2`; Nuxt 3 đã EOL. Kiểm toàn bộ source-lock/module/custom Vite config trước khi chọn.
 - Node cho Nuxt: candidate `24.x LTS` exact patch hiện hành; Nuxt 4 cần Node >=22 và khuyên active LTS.
 - Qdrant: mặc định candidate `KEEP 1.16.3`; chỉ nâng nếu có lợi ích/compatibility/security cụ thể. Nếu lên 1.19.x phải tuần tự 1.17.x → 1.18.x → 1.19.x và chứng minh không còn legacy `/search|/recommend|/discover`.
 - nginx/Docker/Kuma/JEV/MCP/Hermes: mặc định KEEP trừ khi có blocker support/security/compatibility được chứng minh.
 
+**Tiêu chí chọn TARGET (theo thứ tự ưu tiên, áp cho kết luận A):**
+1. Không thành phần nào EOL/hết hỗ trợ bảo mật lúc cutover; mỗi dòng còn hỗ trợ ≥12 tháng sau cutover.
+2. Ít thay đổi nhất mà vẫn đạt (1): ưu tiên minor cùng dòng; mỗi lớp tối đa một major; không thêm major không bắt buộc vào cùng đợt cutover (vd PG 16 còn hỗ trợ tới 11/2028 ⇒ PG 18 chỉ chọn khi có lý do cụ thể; không có thì để thành việc riêng sau 7 ngày theo dõi — ghi ở kết luận B).
+3. Độ chín: mặc định GA ≥8 tuần và đã có bản vá sau .0; ngoại lệ phải ghi lý do + bằng chứng + lab gate (P60).
+4. Rollback khả thi và đo được (G3.3 mục 7).
+5. License LC1–LC6 PASS.
+
 ## G3.3 · Inventory bắt buộc trước khi chọn
-1. **PostgreSQL**: extensions + versions; checksum hiện tại; data size; collation/locale; `pg_hba` localhost `trust`; 4 FDW mappings `incomex_meta_srv`; auth path; feature/deprecation/breaking 16→18; `pg_upgrade` vs dump/restore; rollback checkpoint.
-2. **Directus**: exact schema migration; extension/hook `l2-checkpoint-guard`; custom endpoints/extensions; 128 flows/policies/roles; env flags; WebSocket; health endpoint; breaking 12.0→candidate; OIG key state/activation count/telemetry/PUBLIC_URL; LC1–LC6.
-3. **Agency OS / Nuxt**: current fork source-lock, package/lockfile, `@nuxt/ui`, Directus SDK, custom modules/plugins, Vite config, Nitro/server routes, Node-native assumptions; upstream Agency OS không có release để kéo về ⇒ đây là migration của fork.
+1. **PostgreSQL**: extensions + versions; checksum hiện tại; data size; collation/locale; `pg_hba` localhost `trust`; 4 FDW mappings `incomex_meta_srv`; auth path; feature/deprecation/breaking 16→18; `pg_upgrade` vs dump/restore; rollback checkpoint. **Base OS/libc của image CURRENT** (bookworm/trixie/alpine): TARGET phải cùng base; khác base ⇒ thêm collation gate (REINDEX index text + `ALTER DATABASE … REFRESH COLLATION VERSION`) vào migration order. Nếu xét 18: kiểm thay đổi layout PGDATA/VOLUME của image 18 + checksum mặc định bật khi initdb.
+2. **Directus**: exact schema migration; extension/hook `l2-checkpoint-guard`; custom endpoints/extensions; 128 flows/policies/roles; env flags; WebSocket; health endpoint; breaking 12.0→candidate; OIG key state/activation count/telemetry/PUBLIC_URL; LC1–LC6. **Mọi consumer API Directus** ngoài Nuxt: agent-data, tool `directus_*` của các cổng MCP, Hermes, các DOT `dot-directus-*`, script/cron — ghi endpoint/cách xác thực đang dùng và breaking ảnh hưởng từng cái.
+3. **Agency OS / Nuxt**: current fork source-lock, package/lockfile, `@nuxt/ui`, Directus SDK, custom modules/plugins, Vite config, Nitro/server routes, Node-native assumptions; upstream Agency OS không có release để kéo về ⇒ đây là migration của fork — ước lượng khối lượng sửa mã (file/module phải đổi) và nơi giữ mã (mã trên VPS là SSOT). **Baseline bộ nhớ:** lịch sử OOM/restart từ 14/09 + NODE_OPTIONS/heap/mem limit hiện hành ⇒ chuẩn so sánh cho G4 (TARGET không được tệ hơn).
 4. **Qdrant**: server/client SDK versions + exact endpoints đang gọi; collection/storage compatibility; nếu KEEP phải chứng minh Directus/Nuxt/agent-data target vẫn tương thích.
-5. **Images/digests**: target nào chọn phải có exact immutable digest từ official registry; không dùng `latest`/floating tag.
+5. **Images/digests**: target nào chọn phải có exact immutable digest từ official registry; không dùng `latest`/floating tag; ghi cả index digest (multi-arch) và digest `linux/amd64`.
+6. **Host VPS1**: OS/kernel/Docker Engine/compose version + hạn hỗ trợ; EOL ⇒ ghi blocker, không nâng trong G3.
+7. **Rollback**: thay đổi có migration schema (Directus, PG major) ⇒ rollback = khôi phục checkpoint trước nâng + image cũ, không dựa vào downgrade; ghi thời gian khôi phục ước tính từ số đo G2/BK1.
 
 ## G3.4 · Output bắt buộc
 Một bảng duy nhất:
@@ -53,6 +63,8 @@ A. TARGET tối thiểu ít thay đổi nhưng còn support/security;
 B. TARGET đề xuất để dùng dài hạn;
 C. thứ tự nâng trên VPS2 G4;
 D. blocker/UNKNOWN cần Owner hoặc lab chứng minh.
+
+Nơi ghi: bảng đầy đủ + nguồn trong `/opt/incomex/work/vps1-up-grade/G3-TARGET-20260930/INDEX.md`; task COLLAB chỉ ghi KQ + bảng tóm tắt 1 dòng/thành phần (`Component | CURRENT | TARGET proposed | digest ngắn | gate chính`); `view.html` 1 dòng. Không tạo repo file mới. Commit: `[Claude Code] VPSUP-G3-TARGET-20260930-01 · KQ MACHINE_DONE · …`.
 
 G3 chỉ `PASS` sau khi GPT + Claude đồng thuận exact target/digest. Executor chỉ ghi:
 `KQ@VPSUP-G3-TARGET-20260930-01 MACHINE_DONE · TARGET PROPOSAL READY FOR REVIEW`
