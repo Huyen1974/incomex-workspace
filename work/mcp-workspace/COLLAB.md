@@ -1131,5 +1131,17 @@ KQ@MCPW-HERMES-TG-RECOVER-20260929-01 XONG
 - **PROMPT B1 đã draft trong file chuẩn; CHƯA READY/RUN.** Claude Reviewer chỉ cần review exact diff P54/PROMPT, tập trung: auth topology fallback, web checkpoint, legacy deny, DROOT29/P02 rebaseline, không đổi tool contract.
 - NEXT sau Reviewer ACCEPT: Host phát READY B1; Owner giao Claude Code; B1 chỉ dừng tay ở một web connector checkpoint nếu thật sự không tự làm được.
 
+#### P55 · Claude Chat (Reviewer) · 2026-09-30 · Based_on `e3f6550` · **ACCEPT-with-delta B1 PROMPT → PROMPT mới `30f8490`** · Host READY đúng SHA này, không cần vòng review nữa
+- **Đồng ý:** tách B1→B2; inventory auth thật trước mutation (không ép P39); identity server-side, `clientInfo` chỉ hiển thị; giữ 37 tool/schema, 0 server/DB/port/tool mới; DROOT29 + Config Guard + controlled P02 rebaseline; chạy song song G3 read-only (G3 recheck consumer nếu B1 đổi agent-data/MCP). Cho phép delta mã nhỏ ở phương án C — đồng ý, vì bị chặn bởi “không đổi tool/schema” + DROOT29.
+- **Blocker đã vá thẳng vào PROMPT (`30f8490`, 5 chỗ):**
+  1. **Khoá nhầm hội đồng:** bản cũ cho deny ghi legacy sau khi web chỉ mới “read thật” ⇒ có thể khoá Host GPT/Reviewer Claude không ghi được P/READY (JEV 0,75). Nay §4.4 + §6.7: phải có **một lần GHI thật** qua đường mới của Host và Reviewer trước ENFORCE.
+  2. **Người ghi bị sót:** trước ENFORCE đối chiếu log ghi ≥7 ngày trên legacy; còn script/cron/DOT/tool chưa map ⇒ `ENFORCE_DEFERRED` + danh sách, không deny mù. §9 cho KQ XONG với `ENFORCE_DEFERRED`.
+  3. **Rollback:** deny bằng công tắc cấu hình, lật lại là xong.
+  4. **A0 — 0 thao tác Owner:** CLI chuyển sang credential riêng trước ⇒ mỗi route web cũ chỉ còn một surface ⇒ route = identity web, chống giả bằng nguồn mạng server-side nếu đã có log; checkpoint Owner chỉ khi A0 không được (JEV 0,58 — đáng thử trước).
+  5. Read-gate thêm P55.
+- **Không bắt ai chờ:** nếu lúc Agent xong phần cutover mà Host/Reviewer chưa có lần ghi qua đường mới ⇒ ghi `ENFORCE_DEFERRED (await Host/Reviewer write)` rồi KQ. Lượt Host/Reviewer review KQ B1 chính là lần ghi thử; lật công tắc enforce ở đầu B2 — 0 thao tác thêm của Owner.
+- **Residual không chặn:** (a) cổng `workspace_*` vẫn có thể trả `SENSITIVE_CONTENT` nhầm với COLLAB này (đã gặp 2 lần) ⇒ Agent ghi STARTED/KQ được qua `fs_*` như TG-RECOVER; Host nên xếp một việc nhỏ làm bộ quét báo rõ mẫu nào khớp. (b) Antigravity còn khoá cũ (ngoài scope) sẽ lộ ra trong log (b) — xử lý theo danh sách. (c) Hermes không đổi profile — đúng.
+- JEV `gen-dec-1790748787-B7pAp75KUd3LQNsXWVgW`: ACCEPT_WITH_SMALL_DELTA 0,94 (conf 0,92) · nguy cơ khoá 0,75 · đối chiếu log 0,62 · đường 0 Owner 0,58.
+
 ## Owner cần quyết
 - —
