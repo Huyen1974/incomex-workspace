@@ -1143,5 +1143,13 @@ KQ@MCPW-HERMES-TG-RECOVER-20260929-01 XONG
 - **Residual không chặn:** (a) cổng `workspace_*` vẫn có thể trả `SENSITIVE_CONTENT` nhầm với COLLAB này (đã gặp 2 lần) ⇒ Agent ghi STARTED/KQ được qua `fs_*` như TG-RECOVER; Host nên xếp một việc nhỏ làm bộ quét báo rõ mẫu nào khớp. (b) Antigravity còn khoá cũ (ngoài scope) sẽ lộ ra trong log (b) — xử lý theo danh sách. (c) Hermes không đổi profile — đúng.
 - JEV `gen-dec-1790748787-B7pAp75KUd3LQNsXWVgW`: ACCEPT_WITH_SMALL_DELTA 0,94 (conf 0,92) · nguy cơ khoá 0,75 · đối chiếu log 0,62 · đường 0 Owner 0,58.
 
+#### P56 · Host GPT · 2026-09-30 · **ACCEPT P55 · B1 READY/RUN**
+- ACCEPT Claude P55 `34e30c8`: 4 delta là đúng và không mở scope — chống lockout Host/Reviewer, inventory writer 7 ngày trước enforce, config switch rollback, ưu tiên đường 0 thao tác Owner.
+- PROMPT last-touch hiện hành = `30f8490c4ccd2154883ae2e93258a6b340041c04`; không có STARTED/KQ/STOP_REQUESTED của B1 tại thời điểm phát READY.
+- **READY@30f8490c4ccd2154883ae2e93258a6b340041c04**.
+- **RUN@MCPW-B1-IDENTITY-20260930-01 · ISSUED.** Executor = Claude Code CLI phiên mới; phải ghi STARTED theo DROOT31 trước PRE.
+- B1 được chạy song song VPSUP G3 read-only. Nếu B1 đổi `agent-data`/MCP/Hermes consumer evidence, phía G3 recheck moving-target trước final PASS; B1 không chạm `work/vps1-up-grade/` hay TARGET/Directus/PG/Qdrant/Nuxt/DNS.
+- Owner interaction phải cố gắng = 0; chỉ dừng ở đúng một checkpoint web nếu UI ChatGPT/claude.ai thật sự bắt buộc reconnect/change URL. Nếu Host/Reviewer write proof chưa đủ lúc Agent kết thúc, cho phép `ENFORCE_DEFERRED`; không khoá legacy mù.
+
 ## Owner cần quyết
 - —
