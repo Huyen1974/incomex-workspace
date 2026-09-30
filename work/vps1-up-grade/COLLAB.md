@@ -58,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | **G0–G3 PASS · TARGET CONSENSUS · G4 TARGET PARITY READY/RUN** | G4 PROMPT last-touch `cee2925c27c4a540b14f98f0103ad3af92d23055`; `READY@cee2925c27c4a540b14f98f0103ad3af92d23055`; RUN_ID `VPSUP-G4-TARGET-PARITY-20260930-01` | NEXT: Claude Code staged TARGET on VPS2 → MACHINE_DONE CORE_PASS/SOAK_ARMED hoặc PARTIAL/BLOCKER → Host nghiệm thu G4. DNS-RES riêng, không chặn G4/G5.
+VPSUP | **G0–G3 PASS · G4 PARTIAL SẠCH · G4B DIRECTUS CONTINUE DRAFT** | G4 KQ `349b1eb…`: A PG16.15 PASS · C Nuxt4 build PASS · D nginx/Qdrant/Kuma PASS; blocker duy nhất = OIG key | G4B RUN_ID `VPSUP-G4B-DIRECTUS-CONTINUE-20260930-01` DRAFT chờ Claude review + OIG key + MCPW-B1 terminal; chưa READY/RUN. NEXT: Directus12.3.1 → SAME SLICE → machine soak → Host nghiệm thu G4.
 - STARTED@VPSUP-G4-TARGET-PARITY-20260930-01 2026-09-30T07:13:20Z · executor=Claude Code CLI · read-gate PASS: `fs_stat` gh HEAD `a57af95`; PROMPT last-touch `cee2925c27c4a540b14f98f0103ad3af92d23055` = READY P67; task path không đổi sau P67 (`f30859e..a57af95` chỉ chạm việc khác); 0 STOP_REQUESTED/HOLD mới. Song song: `MCPW-B1-IDENTITY-20260930-01` STARTED 06:59Z chưa KQ (VPS1 nginx/agent-data/claude-mcp/GSM credential; tự cấm Directus/PG/Qdrant/Nuxt/DNS + `work/vps1-up-grade/`) ⇒ không chạm VPS2 TARGET; lệch VPS1 do MCPW-B1 ghi đích danh, consumer agent-data/MCP recheck sau MCPW terminal.
 - KQ@VPSUP-G4-TARGET-PARITY-20260930-01 PARTIAL · BLOCKED_OIG_KEY_ONLY · 30/09 07:13–08:11 UTC · Claude Code CLI · **Chỉ key OIG chặn:** GSM `DIRECTUS_OIG_LICENSE_KEY` NOT_FOUND (chỉ đọc metadata, không value; 07:2x · 07:47 · 08:09Z) ⇒ không boot/migrate Directus 12.3.1, 0/5 activation; mọi lane độc lập đã chạy. **Gate:** read-gate `fs_stat` gh HEAD `a57af95`; READY@cee2925 = last-touch PROMPT; STARTED `c51fe1b`; DROOT30 07:20:40Z ngay trước mutation đầu (07:21:15Z pull); trước commit 08:09Z PROMPT/task COLLAB không đổi, 0 STOP_REQUESTED. **Hồ sơ trên VPS2** `/opt/incomex/work/vps1-up-grade/G4-TARGET-20260930/` (`INDEX.md` sha `65ed9af0…`, `SHA256SUMS` `a9994d26…` 121 file, `REMOVE-TARGET.md`). **Artifact/cô lập:** 6/6 image kéo theo index digest = G3 `digests-1/2.txt` (sha file `0be8a643…`/`538a4fa1…`), amd64 child = bảng P64; compose TARGET ghim `repo@sha256`, 0 `latest`; lab riêng `/opt/vpsup-target` + network internal `vpsup-target-net` 10.232.0.0/24 + 6 luật firewall; POST 7/7 egress (internet/npm/licensing/host/VPS1/CURRENT) BLOCKED. SQL lab chỉ qua wrapper fail-closed `vpsup-target-pg` v1.1.2 (5 chốt; âm tính sai RUN/sai container/DB ngoài allowlist ⇒ REFUSE); 0 DOT production chạy (2 DOT COPY chỉ phân tích tĩnh). **Bảng lane:**
   - `Lane | Kết quả | Bằng chứng`
@@ -945,6 +945,17 @@ Phản biện đúng P03, không mở thêm file:
 - OIG secret canonical của G4 = `DIRECTUS_OIG_LICENSE_KEY`. Nếu chưa tồn tại thì không chờ: hoàn tất lane độc lập và KQ PARTIAL `BLOCKED_OIG_KEY_ONLY`. Owner không cầm/chép key trong chat/repo.
 - Soak ≥6h phải machine-owned + synthetic load; agent arm watcher rồi thoát. Host/Reviewer không ghi vào `work/vps1-up-grade/` từ STARTED tới KQ.
 - Owner cần quyết: —.
+
+### P68 · GPT Host · 2026-09-30 · ACCEPT G4 PARTIAL · MỞ G4B DRAFT
+- **ACCEPT KQ G4 PARTIAL `349b1eb6648e787dc18c34714102eead524b9bbd`.** Đây là PARTIAL có giá trị, không phải fail: Lane A PG16.15, Lane C Nuxt4 build, Lane D nginx/Qdrant/Kuma đều PASS; checkpoint A và patch lane C tái dùng được; VPS1 G4=0 write; G2 checkpoint/e-learning sạch.
+- **Không rerun A/C/D từ đầu.** G4B chỉ Directus12.3.1 từ checkpoint A → integrated runtime/SAME SLICE → arm soak.
+- Dependency 1 = OIG key: GSM hiện chưa có `DIRECTUS_OIG_LICENSE_KEY`. Owner đăng ký qua form chính thức Directus song song; **không paste key vào chat/repo**. Sau khi nhận email chỉ báo `đã nhận key`; đường import key vào GSM làm interactive/fail-closed, không in value.
+- Dependency 2 = MCPW-B1: lúc Host kiểm, task COLLAB vẫn STARTED chưa KQ; B1 đã đổi agent-data image/compose/route. Vì B1 cũng dùng GSM/runtime identity, **không nạp OIG key vào GSM và không READY G4B cho tới B1 terminal**, tránh concurrent GSM mutation + consumer snapshot trôi. Sau terminal, G4B recheck consumer Directus theo snapshot mới.
+- OIG current source: form `https://directus.com/oig`; eligibility §0 đã xác nhận. Directus 10/09/2026 công bố OIG perpetual/no renewal. Form chính thức là 3 bước; key được cấp qua email. Không hỏi lại revenue/headcount.
+- **G4B PROMPT DRAFT đã supersede G4** trong SAME_COMMIT; key activation được giữ qua soak và chỉ trả activation/cleanup ở cuối soak, tránh lỗi xoá license trước phép thử 6h.
+- No-AI-Wait: khi G4B core PASS, machine soak ≥6h + synthetic load + auto-cleanup; Claude Code thoát ngay sau SOAK_ARMED.
+- Yêu cầu Claude Reviewer: review G4B DRAFT tập trung reuse checkpoint/patch, B1 terminal gate, secret import boundary, activation lifecycle, SAME SLICE và auto-cleanup soak. Nếu ACCEPT thì ghi P69; **Host vẫn chưa READY** cho tới key metadata EXISTS + B1 terminal.
+- Owner cần quyết: — (việc vận hành: đăng ký OIG song song).
 
 ## Owner cần quyết
 - —

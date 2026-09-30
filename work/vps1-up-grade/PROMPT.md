@@ -1,12 +1,74 @@
-# PROMPT — VPSUP G4 TARGET PARITY · staged lab migration on VPS2
+# PROMPT — VPSUP G4B DIRECTUS CONTINUE · resume from G4 checkpoint A
 
-RUN_ID: VPSUP-G4-TARGET-PARITY-20260930-01
-STATUS: **CHỜ READY — Reviewer đã ACCEPT (P66). Chỉ chạy khi task COLLAB có `READY@<SHA commit cuối chạm file này>` do Host phát. Chưa có READY ⇒ không chạy.**
+RUN_ID: VPSUP-G4B-DIRECTUS-CONTINUE-20260930-01
+STATUS: **DRAFT — CHỜ CLAUDE REVIEW + OIG KEY + MCPW-B1 TERMINAL. CHƯA READY/RUN.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
-Runtime_Write_Path: **VPS2 LAB ONLY. VPS1 production = READ-ONLY.** Không mutation DNS/GSM/VPS1.
-Runtime VPS là SSOT; G3 target/digest freeze = KQ `9603c5b…` + consensus P63/P64.
+Runtime_Write_Path: **VPS2 LAB ONLY. VPS1 production = READ-ONLY.** Không DNS mutation; không sửa GSM trong RUN này.
+Runtime VPS là SSOT; đầu vào = G4 PARTIAL `349b1eb…` + hồ sơ `/opt/incomex/work/vps1-up-grade/G4-TARGET-20260930/` + checkpoint A.
+
+## G4B.0 · Mục tiêu duy nhất
+**Không chạy lại G4 từ đầu.** Reuse kết quả đã PASS của Lane A/C/D; chỉ tiếp tục từ checkpoint A để hoàn thành Directus 12.3.1 → runtime Nuxt4/nginx/Qdrant → SAME SLICE + SEC → arm soak machine-owned.
+
+Đã PASS, chỉ regression-check/reuse, **không rerun migration/build đầy đủ nếu hash/checkpoint khớp**:
+- Lane A PostgreSQL16.15 physical-PGDATA PASS;
+- Lane C Nuxt4.5.2/Node24 build patch `laneC/nuxt4-lab.patch` sha `47c5c4eb…` PASS build-only;
+- Lane D nginx1.30.5/Qdrant1.16.3/Kuma artifact PASS;
+- e-learning VPS2 200 + G2 checkpoint immutable.
+
+## G4B.1 · Gate trước STARTED
+Host chỉ READY khi cả hai dependency đã rõ:
+1. GSM metadata có secret đúng tên `DIRECTUS_OIG_LICENSE_KEY`; không đọc/in value trong Host/repo/chat.
+2. `MCPW-B1-IDENTITY-20260930-01` có KQ terminal. Nếu B1 XONG/DỪNG sạch thì G4B snapshot lại agent-data/MCP/Hermes consumer; nếu B1 để residual đích danh thì G4B disposition đúng residual, không rebaseline/sửa hộ.
+
+Executor read-gate: AGENTS → COLLAB §0 + G4 KQ/P66–P68 → PROMPT này → hồ sơ G4. READY phải = commit cuối chạm PROMPT. Sau read-gate PASS ghi `STARTED@VPSUP-G4B-DIRECTUS-CONTINUE-20260930-01 <UTC> · executor=Claude Code CLI` theo DROOT31. Sau PRE, ngay trước mutation VPS2 đầu tiên áp DROOT30.
+
+PRE fail-closed:
+- checkpoint A + G2 hashes + lane C patch + image digests khớp KQ `349b1eb`; TARGET 0 container chạy;
+- e-learning static 200;
+- `DIRECTUS_OIG_LICENSE_KEY` EXISTS metadata;
+- MCPW-B1 terminal + consumer snapshot mới;
+- nếu bất kỳ input/hash/digest không khớp ⇒ DỪNG, không tự rebuild lane A/C/D.
+
+## G4B.2 · Directus 12.3.1 từ checkpoint A
+- Clone/copy checkpoint A sang working TARGET B; checkpoint A immutable.
+- Mở egress lab tối thiểu tới licensing/telemetry **trước** boot có `LICENSE_KEY`, hoặc dùng đường activate API đã chứng minh; mọi egress khác DROP.
+- Materialize key từ GSM theo secret-boundary hiện hữu, không log/stdout/repo/evidence value. NODE_ENV production + PUBLIC_URL hợp lệ.
+- Boot exact Directus12.3.1 digest; migrate schema 11.14 →12.3.1; ghi exact migration/duration.
+- Activation count trước/sau; activation lab tối đa 1. Key OIG hiện perpetual; không renewal test.
+- LC1–LC6 + 167 collections ·128 flows ·1.241 permissions · custom access rules · extension `l2-checkpoint-guard` · IP_TRUST_PROXY · `/server/ping` · WS · PUBLIC_URL · telemetry/license failure behavior.
+- Consumer matrix phải dùng snapshot **sau MCPW-B1 terminal**: Nuxt, agent-data, MCP `directus_*`, Mac MCP nếu relevant, DOT/script/cron, PG function/trigger; Hermes nếu evidence = không gọi thì ghi no-call. DOT chỉ qua wrapper fail-closed lab; production DOT/script chỉ static-analysis/patch candidate.
+- Không sửa VPS1 production consumer trong G4B.
+
+## G4B.3 · Integrated runtime
+- Apply lại đúng lane C patch đã chứng minh; **không build lại từ source trôi**. Nếu source hash đổi so G4 ⇒ DỪNG/review, không tự merge.
+- Boot Nuxt4.5.2/Node24 runtime với Directus12.3.1; `@nuxt/ui2` + SDK19 + SSR/auth/9 UI pages phải PASS.
+- nginx1.30.5 + Qdrant1.16.3 exact digest; SAME SLICE G2 A/B/C/D + SEC, expected chỉ đổi đúng breaking đã chốt trong G3/P66.
+- Recheck 132 routes; browser thật; Flow/API/agent-data/ops/lab-admin/permission negative cases.
+- Outside-scope VPS1 diff phải quy được về MCPW-B1 KQ hoặc =0; G4B tự tạo 0 VPS1 mutation.
+
+## G4B.4 · OIG activation lifecycle
+- **Không `DELETE /license` trước soak** vì integrated stack cần license trong toàn bộ soak.
+- Lab DB/checkpoint sau activation = secret-bearing, chỉ ở VPS2; không đưa sang repo/Drive/VPS1.
+- Khi soak kết thúc (PASS hoặc FAIL), machine cleanup phải stop TARGET, gọi đường trả activation đã chứng minh (`DELETE /license` nếu API/version xác nhận), xóa materialized key/runtime secret và shred checkpoint secret-bearing theo runbook. Nếu return activation fail ⇒ state `LICENSE_RELEASE_FAILED`, báo Host; không âm thầm xoá bằng chứng.
+
+## G4B.5 · Machine-owned soak
+Sau CORE integrated PASS:
+- arm synthetic load theo nhịp gần production trong **≥6 giờ**, ghi timestamp/request-rate/HTTP error/restart/RSS/heap + slope; watchdog bền;
+- machine tự kết luận `PASS|FAIL`, chạy cleanup G4B.4 và tự dừng TARGET;
+- Claude Code ghi KQ `MACHINE_DONE · CORE_PASS · SOAK_ARMED` rồi thoát, không chờ 6h.
+- Host nghiệm thu state sau; không cần chạy lại Claude Code chỉ để đọc timer.
+
+## G4B.6 · KQ
+Hồ sơ tiếp tục dùng `/opt/incomex/work/vps1-up-grade/G4-TARGET-20260930/`, thêm mục G4B; không tạo dossier mới nếu không cần.
+KQ executor:
+- `KQ@VPSUP-G4B-DIRECTUS-CONTINUE-20260930-01 MACHINE_DONE · CORE_PASS · SOAK_ARMED`
+- hoặc `DỪNG · <exact blocker>`.
+Không tự ghi G4 PASS/G5/G6/G7/DNS.
+
+## HISTORY — G4 PARTIAL + G3 đã hoàn tất
+**Mọi nội dung từ marker HISTORY này trở xuống chỉ là lịch sử/evidence, KHÔNG phải lệnh G4B.**
 
 ## G4.0 · Mục tiêu duy nhất
 Dựng **TARGET riêng trên VPS2** từ checkpoint sanitized CURRENT của G2, theo đúng target G3 đã PASS; chạy SAME SLICE + route/API/UI/runtime/security matrix và chuẩn bị rollback evidence. **Không chạm checkpoint CURRENT G2**, không cutover VPS1, không G5 rollback rehearsal đầy đủ.
