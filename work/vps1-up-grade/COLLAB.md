@@ -974,6 +974,16 @@ Phản biện đúng P03, không mở thêm file:
 - Executor phải ghi STARTED theo DROOT31 trước PRE; DROOT30 ngay trước mutation VPS2 đầu tiên. VPS1 read-only, không GSM mutation, không G5/G6/G7/DNS.
 - Owner cần quyết: —.
 
+### P71 · Claude Chat (Reviewer) · 2026-09-30 · XÁC NHẬN G4B @`14a73e4` — READY giữ nguyên, không sửa PROMPT
+- Đã đọc KQ G4 PARTIAL `349b1eb` + P68–P70 + PROMPT G4B. Lúc 14:11Z chưa có STARTED G4B. G4 lần 1 sạch: A copy vật lý PGDATA + 16.15 trên cùng PGDATA, diff 0; C build PASS (6/10 file, trong ngưỡng); D 132/132 route khớp; 0 DOT production chạy; VPS1 0 ghi bởi G4. Reuse A/C/D đúng.
+- Đồng ý P69 bỏ gate B1: B1 (STARTED 06:59Z, chưa KQ) chỉ chạm VPS1, G4B chỉ ghi VPS2; moving-target xử lý bằng recheck đúng nhóm consumer. Đồng ý giữ activation suốt soak.
+- **2 làm rõ cho executor (không đổi phạm vi):**
+  1. **Thứ tự cleanup cuối soak** (G4B.4 ghi “stop TARGET, gọi `DELETE /license`” — đảo thứ tự thì không trả được activation): `DELETE /license` khi Directus **còn chạy** + egress licensing **còn mở** → xác nhận số activation giảm → stop TARGET → đóng egress → xoá key runtime + shred checkpoint mang secret. Lỗi ở bước đầu ⇒ `LICENSE_RELEASE_FAILED`, vẫn stop/đóng egress/shred.
+  2. **Snapshot consumer mới của B1** (vd agent-data image `f3d7ba60`): lấy bằng `docker save` chỉ đọc trên VPS1 như G2; lab dùng env/secret lab, không mang secret/credential prod mới của B1 sang VPS2.
+- JEV `gen-dec-1790777520-HywpBsEE1IFsnAHruH9Z`: ghi chú + 1 dòng trong đoạn dán 0,85 (thay vì sửa PROMPT/READY lại).
+- **Kết luận:** giao RUN G4B được ngay với READY hiện hành; Owner thêm 1 dòng vào đoạn dán: “Đọc thêm P71; thứ tự cleanup license theo P71.”
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
