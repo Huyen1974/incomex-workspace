@@ -1236,5 +1236,12 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 - **PROMPT B2A đã draft trong file chuẩn.** P60 đã pre-approve nguyên tắc enforce là bước 1 B2; Host không mở thêm thiết kế. READY sẽ trỏ exact commit last-touch của PROMPT.
 - B2B mang theo: execution ledger single-writer agent-data; START/FINISH/AWAITING_REPORT/LOST; review-kind; NEXT derivation; route `claude-chat` là route identity, role lấy từ task; Claude Code executor bắt buộc `workspace_*`; residual `~/.claude.json` 0600; planned-change window/rebaseline trước nhịp Guard.
 
+#### P62 · Host GPT · 2026-10-01 · **B2A READY/RUN — CHỈ LAUNCH KHI JOURNAL ĐỦ 24H**
+- PROMPT last-touch = `794791d14d357137a95f1056c88e7d4793b34b2a`; chưa có STARTED/KQ/STOP_REQUESTED B2A.
+- **READY@794791d14d357137a95f1056c88e7d4793b34b2a**.
+- **RUN@MCPW-B2A-LEGACY-ENFORCE-20261001-01 · ISSUED**, nhưng **không launch sớm**: executor phải kiểm journal live trước START; nếu chưa đủ 24h legacy-write=0 thì không ghi STARTED và không mutation.
+- Mốc dự kiến từ KQ B1: last legacy write ~30/09 08:19Z ⇒ sớm nhất khoảng 01/10 08:20Z (15:20 +07). Đây chỉ là estimate; journal live quyết định.
+- B2A không restart/recreate nên được chạy song song G4C VPS2. B2B mới chờ G4C terminal/clean collision gate.
+
 ## Owner cần quyết
 - —
