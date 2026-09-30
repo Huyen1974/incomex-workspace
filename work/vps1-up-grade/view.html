@@ -232,7 +232,7 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <tr><td><b>VPS2</b></td><td>E-learning FREEZE</td><td>Trang tĩnh vẫn 200 · trống 72 GiB · swap 4 GiB · clone đã dừng, giữ dữ liệu + checkpoint</td><td>🟢</td></tr>
 </tbody>
 </table>
-<p class="small">🟢 <b>G0–G2 PASS · §8A REVIEW ACCEPTED.</b> Hai phiên giữ <b>tách riêng</b>. 🟡 MCP/Hermes đang STARTED nên §8A chưa được chạm Guard/P02/DOT; khi MCP terminal sạch, Host phát READY trỏ <code>12beb00…</code>. 🔵 Trong lúc chờ, <b>G3 research-only chạy song song</b>: đang so PG 16.15↔18.6, Directus 12.3.1↔12.4.1, Nuxt 4.5.2 + Node 24 LTS; Qdrant mặc định giữ 1.16.3 nếu chưa có lý do nâng. Chưa dựng TARGET/mutation. DNS-RES là RUN riêng sau §8A và phải ổn định ≥72h trước cutover.</p>
+<p class="small">🟢 <b>G0–G2 PASS · MCP dependency XONG · §8A READY/RUN.</b> MCP/Hermes TG recovery đã XONG sạch; §8A giữ nguyên PROMPT <code>12beb00…</code> và đã được Host phát READY/RUN. Bước runtime tiếp theo: Claude Code ghi STARTED rồi bảo vệ 4 DOT + 2 backup scripts, mutant/watchdog/regression + controlled P02 rebaseline. 🔵 <b>G3 research-only vẫn chạy song song</b>; chưa dựng TARGET/mutation. DNS-RES là RUN riêng sau §8A và phải ổn định ≥72h trước cutover.</p>
 <p class="small">28/09/2026 07:13–15:35 UTC · Claude Code CLI · hồ sơ trên VPS2 <code>/opt/incomex/work/vps1-up-grade/CLONE-CURRENT-20260928/</code> (INDEX.md, SANITIZATION-MANIFEST.md, cách gỡ clone) · JEV <code>gen-dec-1790609278-NFFMOxVi3uoMLw1nV3gV</code>.</p>
 </div>
 
