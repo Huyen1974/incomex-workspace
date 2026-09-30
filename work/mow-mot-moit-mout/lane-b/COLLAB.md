@@ -342,3 +342,8 @@ COORD · NOW=XONG · NEXT=OWNER_LOOK · BLOCKED_BY=none · RESERVED_TARGETS=ban-
 [Owner xem ★ Công thức](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-formula). B05 dừng; Host nghiệm thu/OWNER_LOOK.
 - B06 HOST GATE · PASS · PROCESS=`VEUI.MOW` · prompt=`68b9224b33e154f07a7429ecb9383fb326702ee8023493dc4aff0e938a2bb45b`.
 - READY@ab7df4bff37aafc8c0bfe919719fd5514b38fe70 · RUN_ID `MMIM-LANE-B06-20260930-01`.
+
+## RUN · MMIM-LANE-B06-20260930-01 · 30/09/2026
+
+STARTED@MMIM-LANE-B06-20260930-01 2026-09-30T08:02:11Z · executor=Codex
+COORD · NOW=B06 RUNNING · NEXT=đối chiếu PRE_B05_REF và unwrap phần cũ · BLOCKED_BY=none · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=PRESERVE-01/B06
