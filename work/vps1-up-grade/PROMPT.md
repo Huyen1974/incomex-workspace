@@ -1,12 +1,89 @@
-# PROMPT — VPSUP G4B DIRECTUS CONTINUE · resume from G4 checkpoint A
+# PROMPT — VPSUP G4C TARGETED UUID NORMALIZATION · Directus 12.3.1 lab proof
 
-RUN_ID: VPSUP-G4B-DIRECTUS-CONTINUE-20260930-01
-STATUS: **CHỜ HOST READY — OIG KEY ĐÃ CÓ; MCPW-B1 KHÔNG CÒN LÀ HARD GATE. Chỉ chạy khi COLLAB có `READY@<SHA commit cuối chạm PROMPT>` do Host phát.**
+RUN_ID: VPSUP-G4C-UUID-NORMALIZE-20261001-01
+STATUS: **DRAFT — CHƯA READY/RUN.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
-Runtime_Write_Path: **VPS2 LAB ONLY. VPS1 production = READ-ONLY.** Không DNS mutation; không sửa GSM trong RUN này.
-Runtime VPS là SSOT; đầu vào = G4 PARTIAL `349b1eb…` + hồ sơ `/opt/incomex/work/vps1-up-grade/G4-TARGET-20260930/` + checkpoint A.
+Runtime_Write_Path: **VPS2 LAB ONLY. VPS1 production = READ-ONLY.** Không DNS/GSM/VPS1 mutation.
+Runtime VPS là SSOT; đầu vào = G4B blocker KQ `16685742…` + checkpoint A bất biến + G4 artifacts đã PASS.
+
+## G4C.0 · Quyết định Host và mục tiêu
+Host **không chọn F2** (không tự viết DDL thay 2 migration, không tự ghi `directus_migrations`). Chọn **F1 có mục tiêu / upstream-aligned**:
+- không đổi cả 324/325 cột `char(36)`;
+- chuẩn hoá sang PostgreSQL `uuid` **chỉ** các cột mà Directus 12.3.1 canonical schema yêu cầu là UUID và các cột relation thực sự trỏ tới PK UUID đó;
+- business ID `char(36)` không liên quan Directus system UUID giữ nguyên.
+
+Mục tiêu RUN này: trên **working copy của checkpoint A**, tự sinh canonical map từ Directus12.3.1 sạch → phân loại 32 non-UUID → nếu tập candidate sạch/repair được theo luật dưới đây thì normalize trong lab → chạy official `migrate:latest` → nếu PASS tiếp tục Directus runtime + SAME SLICE và arm soak. Không chạm production.
+
+## G4C.1 · Read/PRE
+Đọc AGENTS → COLLAB §0 + KQ G4/G4B + P68–P73 → PROMPT này → hồ sơ G4B. READY phải = commit cuối chạm PROMPT. Ghi STARTED theo DROOT31; DROOT30 ngay trước first VPS2 mutation.
+
+PRE:
+- checkpoint A content/meta hash = KQ G4/G4B; G2 checkpoint + lane C patch/.output/image digests khớp; TARGET 0 container; e-learning 200;
+- OIG key chỉ metadata EXISTS, **không materialize/activate trước khi `migrate:latest` PASS**;
+- VPS1 chỉ-read snapshot schema để chứng minh blocker vẫn tương đồng; không query giá trị secret.
+
+## G4C.2 · Canonical schema — không đoán bằng tên cột
+Tạo một **scratch PostgreSQL DB/volume riêng trên VPS2** và dùng exact Directus12.3.1 image để dựng schema PostgreSQL sạch/canonical. Không dùng OIG key; credential/admin scratch sinh local, không log và huỷ cùng scratch.
+
+Từ canonical DB lấy machine-readable map:
+`table.column | data_type | udt_name | nullable | default | PK/unique/index | FK target` cho mọi `directus_*` table.
+
+So với checkpoint A để tạo 3 tập:
+A. `SYSTEM_UUID_REQUIRED`: cột `directus_*` mà canonical12.3.1 = uuid nhưng checkpoint A = char(36)/text tương đương.
+B. `RELATION_UUID_REQUIRED`: cột ngoài/ trong system tables mà metadata `directus_relations` thật sự trỏ tới PK sẽ đổi ở A; recurse nếu cần để không để relation hai đầu lệch type.
+C. `KEEP_CHAR36`: mọi char36 còn lại — business PK/group key/string không nằm A/B. **Không đổi C**, dù giá trị trông giống UUID.
+
+Evidence phải có số lượng + danh sách A/B/C; không dùng heuristic “tên *_id ⇒ uuid”.
+
+## G4C.3 · Phân loại 32 non-UUID
+Chỉ quan tâm non-UUID nằm trong A/B.
+- Với mỗi giá trị lạ trong A/B: ghi `table.column`, row PK, Directus relation target, target tồn tại hay orphan, nullable, và trạng thái record liên quan; redact nội dung nghiệp vụ nếu không cần.
+- Non-UUID chỉ nằm C ⇒ **không blocker**, giữ nguyên.
+- Cho phép **lab-only auto-repair duy nhất**: system metadata pointer nullable (vd `directus_flows.operation`) mà giá trị không parse UUID **và không có target row tương ứng** ⇒ lưu original vào evidence + set NULL trên working copy để thử migration. Không áp production; ghi thành candidate repair cho G7.
+- Nếu non-UUID nằm B ở **custom/business field relation tới Directus UUID target** ⇒ DỪNG trước normalize và báo chính xác các row/field cần Host xử lý; không tự NULL/rewrite business data.
+- Nếu non-UUID nằm A nhưng không thuộc auto-repair trên ⇒ DỪNG exact blocker.
+
+## G4C.4 · Normalize trên working copy, không checkpoint A
+Clone checkpoint A → working volume G4C; checkpoint A immutable.
+Trước DDL capture schema/default/index/constraint/count/value-hash cho A/B.
+
+Nếu §G4C.3 không blocker:
+- thực hiện conversion A/B trong **một transaction riêng**; ưu tiên `USING NULLIF(btrim(col::text),'')::uuid` khi nullable, hoặc cast tương đương đã proof;
+- preserve NOT NULL/default/PK/unique/index; constraint nào cần drop/recreate phải ghi exact before→after;
+- không thêm PG FK mới chỉ vì relation metadata nếu canonical/current Directus không có FK đó;
+- post-conversion: 0 non-UUID trong A/B, type map A/B khớp canonical/target, row counts unchanged, semantic value hash `uuid::text` khớp pre-cast expectation.
+Rollback proof: discard working copy → checkpoint A.
+
+## G4C.5 · Official Directus migration — không bypass
+Sau normalization PASS, chạy **official Directus12.3.1 `database migrate:latest`** trên working copy.
+- Cấm sửa migration upstream, cấm manual mark applied, cấm F2.
+- Phải PASS qua `20260204A-add-deployment` và `20260512B-add-mcp-oauth`.
+- Ghi migration before/after + schema diff; nếu migration khác gãy ⇒ DỪNG exact blocker và reset working copy.
+
+## G4C.6 · Nếu migrate PASS thì tiếp tục G4B ngay
+Không mở vòng mới nếu migrate PASS:
+1. boot Directus12.3.1;
+2. activate OIG bằng **POST `/license` / settings source**, không env-source, để cuối soak có thể `DELETE /license`; activation tối đa 1;
+3. LC1–LC6 + 167 collections/128 flows/1.241 permissions + extension + `/server/ping` + telemetry/license;
+4. apply đúng lane C patch đã PASS; Nuxt4 runtime + @nuxt/ui2 + SDK19 + SSR/auth/9 UI pages;
+5. nginx/Qdrant exact artifacts + SAME SLICE/132 routes/API/Flow/permission negatives;
+6. B1 nếu moving-target: chỉ recheck đúng agent-data/MCP/Hermes consumer bị đổi, không chặn phần độc lập.
+
+License cleanup theo P71/P72: cuối soak deactivate khi Directus+egress còn chạy → xác nhận slot giảm → mới stop/cleanup. Deactivate fail ⇒ giữ DB/PUBLIC_URL state đủ retry.
+
+## G4C.7 · Machine soak và KQ
+CORE PASS ⇒ arm ≥6h synthetic load machine-owned, đo HTTP errors/restart/RSS/heap+slope; Claude Code ghi KQ rồi thoát.
+
+KQ hợp lệ:
+- `KQ@VPSUP-G4C-UUID-NORMALIZE-20261001-01 MACHINE_DONE · UUID_NORMALIZE_PASS · CORE_PASS · SOAK_ARMED`
+- `... DỪNG · UUID_DATA_BLOCKER · <exact A/B field+rows>`
+- `... DỪNG · <other exact blocker>`.
+Không G4 PASS/G5/G6/G7/DNS.
+
+## HISTORY — G4B/G4/G3
+**Từ marker HISTORY trở xuống chỉ là lịch sử/evidence, KHÔNG phải lệnh G4C.**
 
 ## G4B.0 · Mục tiêu duy nhất
 **Không chạy lại G4 từ đầu.** Reuse kết quả đã PASS của Lane A/C/D; chỉ tiếp tục từ checkpoint A để hoàn thành Directus 12.3.1 → runtime Nuxt4/nginx/Qdrant → SAME SLICE + SEC → arm soak machine-owned.
