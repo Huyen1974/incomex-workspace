@@ -1234,6 +1234,8 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 
 - D95 · 2026-09-30 · **A08/B06 GATE PASS, READY:** A08 PROCESS=CHUNG.TIM prompt SHA `382d5e559ada90c1ac43dbf81f0dce4a7d26628df8289a7513264b96ec7ac048`; B06 PROCESS=VEUI.MOW prompt SHA `68b9224b33e154f07a7429ecb9383fb326702ee8023493dc4aff0e938a2bb45b`; cả hai gate PASS trên prompt commit `ab7df4bff37aafc8c0bfe919719fd5514b38fe70`. READY=`ab7df4bff37aafc8c0bfe919719fd5514b38fe70`. A08 read-only tìm HPML SSOT; B06 writer duy nhất phục hồi phần cũ; C05 chờ B06.
 
+- D96 · 2026-09-30 · **DEF-01 · sửa mô hình Đối tượng/Bản ghi và dựng Phần II Định nghĩa để Owner góp ý:** T7→T0 được coi là định nghĩa đã có/tạm dùng, dẫn nguồn UI-005; không viết lại. Chốt cách hiểu làm việc: `MOW/MOT/MOIT/MOUT/Field` là **Đối tượng/định nghĩa-template**, không phải bản ghi. Ví dụ `MOT Làm hồ sơ` vẫn là định nghĩa; `Làm hồ sơ cho Đơn hàng DH-001` mới là **Bản ghi thực tế**. Tương tự cho MOW→Field. Phần II dùng mã nháp KNI-/OBJ-, chia nhóm Cấu trúc · Quản lý định nghĩa · UI/View · Logic/Tin cậy; có cột “Không phải” để tránh AI đồng nhất sai. Master List được tạm định nghĩa là danh mục các định nghĩa cùng loại; Master of Master là danh mục các Master List. Quy tắc Owner: một khái niệm có ≥2 đối tượng → phải có mã + Master List; tạm mở `ML-KNI` Master Khái niệm. Quan hệ Step↔MOT và Tool↔DOT cố ý để OPEN, không tự hòa giải. Đây là bản nháp trình bày để Owner góp ý, chưa đóng canonical definitions.
+
 ## Dòng hiện hành
 MMIM | STEP2_UI001_COPY · 28/09/2026 | Tab ★ Step quy trình 2 ở `ban-duyet.html`: phần I dùng bản sao khung UI-001 Nháp 2 từ VPS, CSS/JS vẫn trỏ nguồn gốc theo D87; không có bảng tự dựng. Bước chi tiết chờ Owner. A01 đã XONG; A06/B04/C03/D01/E01 tiếp tục HOLD theo D81.
 

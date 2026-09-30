@@ -589,6 +589,31 @@
 #matrix-view-formula .cf-two-views{grid-template-columns:repeat(2,minmax(0,1fr))}
 #matrix-view-formula .cf-two-views p{margin:5px 0;font-size:14px;line-height:1.6}
 #matrix-view-formula .cf-two-views small{display:block;margin:5px 0 0;font-size:12px}
+#matrix-view-formula .cf-def-intro{font-size:13px;line-height:1.55;margin:6px 0 12px}
+#matrix-view-formula .cf-def-existing{border:1px solid #cfe3d3;background:#f4faf5;border-radius:12px;padding:10px 12px;margin:8px 0 14px}
+#matrix-view-formula .cf-def-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;font-size:13px}
+#matrix-view-formula .cf-tier-strip{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}
+#matrix-view-formula .cf-tier-strip span{border:1px solid #cfe0d2;background:#fff;border-radius:9px;padding:5px 8px;font-size:12px}
+#matrix-view-formula .cf-tier-strip b{margin-right:4px;color:#1f6a42}
+#matrix-view-formula .cf-def-note{font-size:11.5px;color:var(--mut);margin:5px 0 0}
+#matrix-view-formula .cf-def-sub{font-size:14px;margin:18px 0 8px}
+#matrix-view-formula .cf-def-map{display:grid;grid-template-columns:minmax(150px,.7fr) auto minmax(210px,1.2fr) auto minmax(190px,1fr);gap:8px;align-items:center}
+#matrix-view-formula .cf-def-node{border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:#fff}
+#matrix-view-formula .cf-def-node.group{border-left:5px solid #4f7ac9;background:#f4f7fd}
+#matrix-view-formula .cf-def-node.object{border-left:5px solid #2c9254;background:#f3faf5}
+#matrix-view-formula .cf-def-node.record{border-left:5px solid #d59c12;background:#fff9ea}
+#matrix-view-formula .cf-def-node small{display:block;color:var(--mut);font-size:11px;margin-top:3px}
+#matrix-view-formula .cf-def-arrow{text-align:center;color:var(--mut);font-size:18px}
+#matrix-view-formula .cf-def-example{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 12px;font-size:12.5px}
+#matrix-view-formula .cf-def-example>span{background:#f5f6f5;border-radius:8px;padding:5px 8px}
+#matrix-view-formula .cf-def-rule{border:1px solid #e6d399;background:#fff9e8;border-radius:10px;padding:8px 10px;margin:10px 0 14px;font-size:13px}
+#matrix-view-formula .cf-def-groups details{border:1px solid var(--line);border-radius:10px;margin:7px 0;background:#fff}
+#matrix-view-formula .cf-def-groups summary{cursor:pointer;padding:8px 10px}
+#matrix-view-formula .cf-def-groups summary small{color:var(--mut);margin-left:5px}
+#matrix-view-formula .cf-def-table{min-width:820px;font-size:12px;margin:0}
+#matrix-view-formula .cf-def-table th,#matrix-view-formula .cf-def-table td{padding:6px 7px}
+#matrix-view-formula .cf-def-table td:first-child{white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#476052}
+@media(max-width:700px){#matrix-view-formula .cf-def-map{grid-template-columns:1fr}#matrix-view-formula .cf-def-arrow{transform:rotate(90deg)}}
 #matrix-view-formula .cf-legacy>summary{line-height:1.5;overflow-wrap:anywhere}
 #matrix-view-formula .cf-legacy>summary small{display:block;font-weight:400;margin-top:3px}
 #matrix-view-formula .cf-legacy-note{font-size:12px;color:var(--mut);line-height:1.5}
@@ -601,18 +626,85 @@
 #matrix-view-formula .cf-two-views{grid-template-columns:minmax(0,1fr)}
 }
 </style><section class="owner-part"><div class="wf4-top"><h2>Công thức và định nghĩa</h2></div>
-<h3 id="cf-b05-seven">7 bước chung</h3>
+<h3 id="cf-b05-seven">I. Công thức · 1. Công thức 7 bước chung</h3>
 <div class="cf-flow" role="group" aria-label="7 bước chung: Tìm rồi Dùng, hoặc tạo mới qua bước 3 đến 7 rồi quay về Dùng">
 <div class="cf-flow-start" data-formula-step="1"><b>1</b> Tìm</div>
 <div class="cf-branches">
 <div class="cf-route"><span class="cf-condition">Nếu đã có + dùng được</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="2"><b>2</b> Dùng</span></div></div>
 <div class="cf-route"><span class="cf-condition">Nếu chưa có / không dùng được</span><div class="cf-chain"><span class="s" data-formula-step="3"><b>3</b> Đề xuất tạo mới</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="4"><b>4</b> Duyệt đề xuất tạo</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="5"><b>5</b> Khai báo</span><span class="a" aria-hidden="true">→</span><span class="s bot" data-formula-step="6"><b>6</b> Test</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="7"><b>7</b> Duyệt cho dùng</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Quay về 2 Dùng</span></div></div>
 </div></div>
-<h3 id="cf-b05-object">Đối tượng là gì?</h3>
-<p class="cf-definition"><b>Đối tượng</b> có danh tính và vòng đời riêng, cần được <b>tìm / dùng / tạo / sửa / ngừng độc lập</b>.</p>
-<div class="cf-pills" aria-label="Ví dụ Đối tượng"><span>MOW</span><span>MOT</span><span>MOIT</span><span>MOUT</span><span>Field</span></div>
-<h3 id="cf-b05-views">1 Đối tượng = 2 view</h3>
-<div class="cf-g cf-two-views"><div><h4>Master List</h4><p><b>Tìm + Dùng</b></p></div><div><h4>Kanban</h4><p><b>3→7:</b> Đề xuất tạo mới → Duyệt đề xuất tạo → Khai báo → Test → Duyệt cho dùng</p><small>Dùng cùng khuôn UI cha đã duyệt.</small></div></div>
+<h3 id="cf-definitions">II. Định nghĩa <small style="font-weight:500;color:var(--mut)">· bản nháp để Owner góp ý</small></h3>
+<p class="cf-def-intro"><b>Nguyên tắc đọc:</b> định nghĩa/template ≠ bản ghi thực tế. Mã <code>KNI-*</code> và <code>OBJ-*</code> dưới đây là <b>mã nháp, chưa đóng băng</b>.</p>
+
+<div class="cf-def-existing">
+  <div class="cf-def-head"><b>Đã có / tạm dùng · hệ tầng T7 → T0</b><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T2&amp;che-do=de-xuat&amp;edit=WF-0001" target="_blank" rel="noopener">Mở nguồn UI-005 ↗</a></div>
+  <div class="cf-tier-strip">
+    <span><b>T7</b>Lĩnh vực</span><span><b>T6</b>Công ty</span><span><b>T5</b>Khối</span><span><b>T4</b>Phòng ban</span><span><b>T3</b>Chuyên môn</span><span><b>T2</b>Nhiệm vụ / Workflow</span><span><b>T1</b>Công việc</span><span><b>T0,5</b>MOIT</span><span><b>T0,5</b>MOUT</span><span><b>T0</b>Field</span>
+  </div>
+  <p class="cf-def-note">Nguồn hiện hành đã hiển thị các tầng trên. <b>Điểm cần chốt sau:</b> canvas gọi T2 là “Nhiệm vụ / Workflow”, menu gọi MOW là “Quy trình”; chưa tự hòa giải tên ở lượt này.</p>
+</div>
+
+<h4 class="cf-def-sub">Bản đồ khái niệm lõi</h4>
+<div class="cf-def-map" aria-label="Nhóm đến Đối tượng đến Bản ghi">
+  <div class="cf-def-node group"><b>NHÓM</b><small>chuẩn dùng lại</small></div>
+  <span class="cf-def-arrow">→</span>
+  <div class="cf-def-node object"><b>ĐỐI TƯỢNG / ĐỊNH NGHĨA</b><small>MOW · MOT · MOIT · MOUT · Field</small></div>
+  <span class="cf-def-arrow">→</span>
+  <div class="cf-def-node record"><b>BẢN GHI THỰC TẾ</b><small>một case / đơn hàng / giá trị cụ thể</small></div>
+</div>
+<div class="cf-def-example">
+  <b>Ví dụ để không nhầm:</b>
+  <span><strong>MOT “Làm hồ sơ”</strong> = định nghĩa công việc, <b>chưa phải bản ghi</b>.</span>
+  <span><strong>“Làm hồ sơ cho Đơn hàng DH-001”</strong> = bản ghi / việc thực tế.</span>
+</div>
+
+<div class="cf-def-rule"><b>Quy tắc Master:</b> một khái niệm có từ <b>2 đối tượng trở lên</b> → phải có <b>mã + Master List</b>. Vì hệ thống đã có nhiều khái niệm, tạm mở <code>ML-KNI</code> = <b>Master Khái niệm</b> để quản lý chính các định nghĩa này.</div>
+
+<div class="cf-def-groups">
+<details open><summary><b>A · Cấu trúc lõi</b> <small>Nhóm · Đối tượng · MOW→Field · Bản ghi</small></summary>
+<div class="cf-scroll"><table class="cf-def-table"><thead><tr><th>Mã nháp</th><th>Khái niệm</th><th>Định nghĩa ngắn</th><th>Ví dụ</th><th>Không phải</th></tr></thead><tbody>
+<tr><td>KNI-001</td><td><b>Nhóm</b></td><td>Lớp chuẩn hóa để nhiều đối tượng dùng chung quy tắc, tham số, UI, công cụ.</td><td>Nhóm chung · Nhóm riêng</td><td>Bản ghi nghiệp vụ</td></tr>
+<tr><td>KNI-002</td><td><b>Nhóm chung</b></td><td>Nhóm chuẩn dùng xuyên nhiều chuyên môn; ưu tiên hành động dùng lại.</td><td>Đề xuất tạo mới · Duyệt đề xuất tạo · Dùng</td><td>Nhóm của một chuyên môn duy nhất</td></tr>
+<tr><td>KNI-003</td><td><b>Nhóm riêng</b></td><td>Nhóm chuẩn của một chuyên môn; có thể nâng cấp từ Nhóm chung hoặc tạo riêng.</td><td>Nhóm chuẩn riêng cho nghiệp vụ tuyển dụng</td><td>Case/đơn hàng cụ thể</td></tr>
+<tr><td>KNI-004</td><td><b>Đối tượng</b></td><td>Định nghĩa/template là con của Nhóm; có mã và được quản lý để dùng lại.</td><td>MOW · MOT · MOIT · MOUT · Field</td><td>Bản ghi thực tế</td></tr>
+<tr><td>OBJ-MOW</td><td><b>MOW · Quy trình</b></td><td>Định nghĩa một quy trình có thể dùng lại.</td><td>Quy trình đề xuất tạo mới · Quy trình khai báo</td><td>Một lần chạy quy trình cho DH-001</td></tr>
+<tr><td>OBJ-MOT</td><td><b>MOT · Công việc</b></td><td>Định nghĩa công việc nằm trong MOW/quy trình.</td><td>Làm hồ sơ</td><td>Làm hồ sơ cho DH-001</td></tr>
+<tr><td>OBJ-MOIT</td><td><b>MOIT</b></td><td>Định nghĩa đầu vào/biểu mẫu nhập cho công việc.</td><td>Form nhập hồ sơ</td><td>Phiếu hồ sơ đã nhập của DH-001</td></tr>
+<tr><td>OBJ-MOUT</td><td><b>MOUT</b></td><td>Định nghĩa đầu ra/báo cáo cần sinh hoặc hiển thị.</td><td>Báo cáo hồ sơ hoàn tất</td><td>Báo cáo của DH-001</td></tr>
+<tr><td>OBJ-FIELD</td><td><b>Field</b></td><td>Định nghĩa trường dữ liệu.</td><td>Ngày nộp hồ sơ</td><td>30/09/2026 của DH-001</td></tr>
+<tr><td>KNI-005</td><td><b>Bản ghi</b></td><td>Một instance/giá trị thực tế khi định nghĩa được áp vào một case cụ thể.</td><td>Làm hồ sơ cho Đơn hàng DH-001</td><td>MOT “Làm hồ sơ”</td></tr>
+</tbody></table></div></details>
+
+<details><summary><b>B · Quản lý định nghĩa</b> <small>Mã · Master List · Master of Master · Vòng đời</small></summary>
+<div class="cf-scroll"><table class="cf-def-table"><thead><tr><th>Mã nháp</th><th>Khái niệm</th><th>Định nghĩa ngắn</th><th>Ví dụ</th><th>Điểm cần chốt</th></tr></thead><tbody>
+<tr><td>KNI-006</td><td><b>Mã</b></td><td>Danh tính máy đọc ổn định của một khái niệm/đối tượng.</td><td>OBJ-MOT · UI-001</td><td>Khuôn mã canonical</td></tr>
+<tr><td>KNI-007</td><td><b>Master List</b></td><td>Danh mục chuẩn các định nghĩa/đối tượng cùng loại để tìm, quản lý và dùng lại.</td><td>Master MOW · Master MOT · Master Field</td><td>Không trộn với bản ghi runtime</td></tr>
+<tr><td>KNI-008</td><td><b>Master of Master</b></td><td>Danh mục quản lý các Master List.</td><td>Master Khái niệm · Master MOW · Master UI...</td><td>84 dòng hiện tại là ứng viên, chưa mặc nhiên final</td></tr>
+<tr><td>KNI-009</td><td><b>Phiên bản</b></td><td>Mốc nội dung của một định nghĩa để dùng và truy nguyên.</td><td>MOT Làm hồ sơ v2</td><td>Quy tắc version còn cần chốt</td></tr>
+<tr><td>KNI-010</td><td><b>Vòng đời</b></td><td>Bộ trạng thái + luật chuyển trạng thái. Vòng đời <b>định nghĩa</b> và vòng đời <b>bản ghi</b> không mặc định là một.</td><td>Nháp → Duyệt → Dùng → Ngừng</td><td>Cần mã hóa từng vòng đời</td></tr>
+<tr><td>KNI-011</td><td><b>Trạng thái</b></td><td>Một vị trí hiện tại bên trong một vòng đời.</td><td>ACTIVE · NGỪNG</td><td>Tên/trạng thái canonical</td></tr>
+</tbody></table></div></details>
+
+<details><summary><b>C · UI / View</b> <small>View · UI cha · UI con · List · Kanban</small></summary>
+<div class="cf-scroll"><table class="cf-def-table"><thead><tr><th>Mã nháp</th><th>Khái niệm</th><th>Định nghĩa ngắn</th><th>Ví dụ</th><th>Không phải</th></tr></thead><tbody>
+<tr><td>KNI-012</td><td><b>View</b></td><td>Cách con người nhìn/thao tác trên một nguồn dữ liệu; không sở hữu dữ liệu.</td><td>List View · Kanban View</td><td>Master List</td></tr>
+<tr><td>KNI-013</td><td><b>UI cha / Khuôn cha</b></td><td>Hợp đồng giao diện + hành vi chuẩn để nhiều UI con kế thừa.</td><td>UI.MASTER · UI.CANVAS</td><td>Dữ liệu của MOW/MOT</td></tr>
+<tr><td>KNI-014</td><td><b>UI con</b></td><td>UI áp khuôn cha vào một đối tượng/ngữ cảnh cụ thể; chỉ đổi dữ liệu/config/nhãn theo luật.</td><td>UI-001 Master MOW</td><td>Renderer mới tự phát</td></tr>
+<tr><td>KNI-015</td><td><b>List View</b></td><td>View để tra/tìm/chọn định nghĩa trong Master List.</td><td>Master MOW</td><td>Master List bản thân dữ liệu</td></tr>
+<tr><td>KNI-016</td><td><b>Kanban View</b></td><td>View để nhìn/xử lý luồng việc và trạng thái.</td><td>UI-005</td><td>Quy trình/MOW bản thân</td></tr>
+</tbody></table></div></details>
+
+<details><summary><b>D · Logic / độ tin cậy</b> <small>Công thức · Step · Tool/DOT · Test · Bằng chứng</small></summary>
+<div class="cf-scroll"><table class="cf-def-table"><thead><tr><th>Mã nháp</th><th>Khái niệm</th><th>Định nghĩa tạm</th><th>Trạng thái</th><th>Ghi chú</th></tr></thead><tbody>
+<tr><td>KNI-017</td><td><b>Công thức</b></td><td>Cách sắp xếp các khái niệm/định nghĩa thành quy luật dùng lại.</td><td>NHÁP</td><td>Phần I sẽ lắp lại sau khi II đủ rõ</td></tr>
+<tr><td>KNI-018</td><td><b>Step</b></td><td>Chưa chốt quan hệ chuẩn giữa Step và MOT.</td><td>OPEN</td><td>Không tự đồng nhất Step = MOT</td></tr>
+<tr><td>KNI-019</td><td><b>Tool / Công cụ</b></td><td>Khả năng thực thi một thao tác có input/output.</td><td>NHÁP</td><td>Cần tách với DOT</td></tr>
+<tr><td>KNI-020</td><td><b>DOT</b></td><td>Đang được dùng lẫn với Tool; cần định nghĩa chuẩn trước khi công thức hóa.</td><td>OPEN</td><td>Không tự suy nghĩa mới</td></tr>
+<tr><td>KNI-021</td><td><b>Test</b></td><td>Phép kiểm có điều kiện đầu vào và kết quả kiểm được.</td><td>NHÁP</td><td>Cần chuẩn PASS/FAIL/UNKNOWN</td></tr>
+<tr><td>KNI-022</td><td><b>Bằng chứng</b></td><td>Dữ liệu/source cho phép người khác kiểm lại một kết luận.</td><td>NHÁP</td><td>source/hash/KQ...</td></tr>
+<tr><td>KNI-023</td><td><b>Quyết định</b></td><td>Kết luận được tạo từ bằng chứng theo một luật/quy trình.</td><td>NHÁP</td><td>YES / NO / UNKNOWN là ứng viên</td></tr>
+</tbody></table></div></details>
+</div>
 <div class="cf-big" id="cf-dap-an"><div><b>6</b><span>bước chung</span><small>+ bước con trong bước 4</small></div><div><b>2 × Thứ + 7</b><span>màn</span><small>V1 23 → ~53 · V2 40 → ~87 · chờ chốt</small></div><div><b>6</b><span>khuôn cha</span><small>học một lần</small></div></div>
 <h3 id="cf-khuon">Khuôn · mọi Thứ</h3>
 <div class="cf-chain"><span class="s"><b>1</b><img class="ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/grin-color.webp" alt="Người"> Tìm</span><span class="a">→</span><span class="s"><b>2</b><img class="ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/grin-color.webp" alt="Người"><img class="ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/robot-color.webp" alt="Máy"> Nêu</span><span class="a">→</span><span class="s"><b>3</b><img class="ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/grin-color.webp" alt="Người"> Duyệt ý</span><span class="a">→</span><span class="s"><b>4</b><img class="ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/grin-color.webp" alt="Người">→<img class="ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/robot-color.webp" alt="Máy"> Khai báo</span><span class="a">→</span><span class="s bot"><b>5</b><img class="ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/robot-color.webp" alt="Máy"> Kiểm</span><span class="a">→</span><span class="s"><b>6</b><img class="ic" src="https://vps.incomexsaigoncorp.vn/ui-preview/assets/icons/hand-draw/webp/grin-color.webp" alt="Người"> Duyệt bản · Bật</span></div>
