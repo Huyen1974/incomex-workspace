@@ -1,13 +1,68 @@
-# PROMPT — VPSUP SEC-CRED-PROTECT · §8A-only sau rotation
+# PROMPT — VPSUP G3 TARGET STACK · exact version/digest decision
 
-RUN_ID: VPSUP-SEC-CRED-PROTECT-20260929-01
-STATUS: **CHỜ READY — Reviewer đã ACCEPT (P55). Chỉ chạy khi task COLLAB có `READY@<SHA commit cuối chạm file này>` do Host phát sau khi dependency MCPW có KQ sạch (định nghĩa ở “Cổng §8A”). Chưa có READY ⇒ không chạy.**
+RUN_ID: VPSUP-G3-TARGET-20260930-01
+STATUS: **DRAFT — CHỜ CLAUDE REVIEW. CHƯA READY/RUN.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
-Runtime_Write_Path: VPS1 production theo DOT/GSM/config path đã duyệt; VPS2 clone chỉ đọc/checkpoint, không dựng TARGET.
-Runtime VPS là SSOT.
-Mọi Directus/PG mutation = **DOT-only**; không direct SQL fallback.
+Runtime_Write_Path: **NONE — G3 này chỉ đọc/nghiên cứu; cấm mutation VPS1/VPS2.**
+Runtime VPS là SSOT cho CURRENT; nguồn upstream chính thức/registry là SSOT cho version/digest hiện hành.
+
+## G3.0 · Mục tiêu duy nhất
+Chốt **TARGET STACK exact version + immutable digest + migration order + compatibility/license gates** đủ để GPT + Claude quyết định G3 PASS. Không dựng TARGET, không pull/restart/recreate container, không migrate DB, không đổi compose/DNS/GSM.
+
+CURRENT đã chứng minh ở G2: PostgreSQL 16.13 · Directus 11.5.1 (migration 95/20251103A) · Nuxt 3.20.2 / Node 20.20.x · Qdrant 1.16.3 · nginx 1.29.5 · Agency OS fork · agent-data hiện hành. §8A đã XONG `8681322…`; SEC-CRED PASS.
+
+## G3.1 · Read gate + phạm vi đọc
+Đọc AGENTS → task COLLAB §0 + G2 KQ + §8A KQ + P60 → PROMPT này. Xác nhận không có STARTED G3 khác. Vì RUN read-only, không cần STARTED nếu Reviewer/Host vẫn giữ G3 read-only; nếu bất kỳ mutation nào trở nên cần thiết ⇒ DỪNG, Host mở RUN khác.
+
+Được đọc:
+- VPS1/VPS2 current manifests, compose, package.json/lockfiles, Directus migration/extension metadata, PG extensions/config/FDW/hba/checksum, Qdrant client/API usage, Docker image IDs/digests;
+- official release notes/docs/registries/licensing;
+- G2 sanitized artifacts/checkpoint.
+
+Cấm:
+- `docker pull`, restart/recreate/start TARGET, install/upgrade package;
+- write DB/Directus/Qdrant/GSM/DNS/config;
+- thay image/tag/digest;
+- sửa source/runtime;
+- test tạo side effect.
+
+## G3.2 · Candidate snapshot phải refresh tại lúc chạy
+Không coi số dưới đây là target final; executor phải refresh nguồn chính thức:
+- PostgreSQL: so `16.15` (minor an toàn của dòng hiện tại) với `18.6` (major hiện hành); PG19 beta loại.
+- Directus: đánh giá tối thiểu `12.1.1`, `12.3.1`, `12.4.1`. Không mặc định latest: 12.4.0 có potential breaking change; 12.4.1 còn mới. License/OIG + LC1–LC6 là gate.
+- Nuxt: candidate `4.5.2`; Nuxt 3 đã EOL. Kiểm toàn bộ source-lock/module/custom Vite config trước khi chọn.
+- Node cho Nuxt: candidate `24.x LTS` exact patch hiện hành; Nuxt 4 cần Node >=22 và khuyên active LTS.
+- Qdrant: mặc định candidate `KEEP 1.16.3`; chỉ nâng nếu có lợi ích/compatibility/security cụ thể. Nếu lên 1.19.x phải tuần tự 1.17.x → 1.18.x → 1.19.x và chứng minh không còn legacy `/search|/recommend|/discover`.
+- nginx/Docker/Kuma/JEV/MCP/Hermes: mặc định KEEP trừ khi có blocker support/security/compatibility được chứng minh.
+
+## G3.3 · Inventory bắt buộc trước khi chọn
+1. **PostgreSQL**: extensions + versions; checksum hiện tại; data size; collation/locale; `pg_hba` localhost `trust`; 4 FDW mappings `incomex_meta_srv`; auth path; feature/deprecation/breaking 16→18; `pg_upgrade` vs dump/restore; rollback checkpoint.
+2. **Directus**: exact schema migration; extension/hook `l2-checkpoint-guard`; custom endpoints/extensions; 128 flows/policies/roles; env flags; WebSocket; health endpoint; breaking 12.0→candidate; OIG key state/activation count/telemetry/PUBLIC_URL; LC1–LC6.
+3. **Agency OS / Nuxt**: current fork source-lock, package/lockfile, `@nuxt/ui`, Directus SDK, custom modules/plugins, Vite config, Nitro/server routes, Node-native assumptions; upstream Agency OS không có release để kéo về ⇒ đây là migration của fork.
+4. **Qdrant**: server/client SDK versions + exact endpoints đang gọi; collection/storage compatibility; nếu KEEP phải chứng minh Directus/Nuxt/agent-data target vẫn tương thích.
+5. **Images/digests**: target nào chọn phải có exact immutable digest từ official registry; không dùng `latest`/floating tag.
+
+## G3.4 · Output bắt buộc
+Một bảng duy nhất:
+`Component | CURRENT | Candidates | TARGET proposed | Exact digest | Why | Breaking/compat gates | Migration order | Rollback | Evidence/source`.
+
+Thêm 4 kết luận:
+A. TARGET tối thiểu ít thay đổi nhưng còn support/security;
+B. TARGET đề xuất để dùng dài hạn;
+C. thứ tự nâng trên VPS2 G4;
+D. blocker/UNKNOWN cần Owner hoặc lab chứng minh.
+
+G3 chỉ `PASS` sau khi GPT + Claude đồng thuận exact target/digest. Executor chỉ ghi:
+`KQ@VPSUP-G3-TARGET-20260930-01 MACHINE_DONE · TARGET PROPOSAL READY FOR REVIEW`
+Không tự ghi G3 PASS.
+
+## G3.5 · Không ngồi chờ đồng hồ
+Áp DROOT25/DROOT28 nghiêm: G3 không có lý do soak. Nếu một nguồn/check cần chờ >15 phút, ghi `UNKNOWN/RETRY_BY_MACHINE`; không giữ Mac/Claude Code chờ. Từ G4 trở đi, mọi wait/soak >15 phút phải giao timer/Guard/Kuma hiện hữu hoặc one-shot deterministic trên VPS rồi tiếp tục việc độc lập.
+
+## HISTORY — SEC-CRED / §8A đã hoàn tất
+**Mọi nội dung từ marker HISTORY này trở xuống chỉ là lịch sử/evidence của RUN cũ, KHÔNG phải lệnh thực thi G3.**
 
 ## 0A. SUPERSEDE — phần rotation cũ đã hoàn tất, CẤM chạy lại
 
