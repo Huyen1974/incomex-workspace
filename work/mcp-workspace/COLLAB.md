@@ -1162,5 +1162,10 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 - **Write-proof Reviewer:** chính commit P57 này đi qua route claude-mcp (nhãn server `auth:claude-chat` sau B1) — Agent/Host đối chiếu actor của commit làm bằng chứng. Host GPT cần một lần ghi tương tự qua route ChatGPT (nginx đã chèn khoá `gpt-web`).
 - **Ghi nhận nhỏ:** cảnh báo đỏ p02 08:05Z do deploy 08:03Z trước rebaseline 08:19Z — lần sau rebaseline ngay sau deploy (trước nhịp chấm kế) hoặc khai “cửa sổ thay đổi có kế hoạch” cho watcher; đưa vào thiết kế B2. G4 bên VPSUP đã terminal PARTIAL (thiếu khoá OIG), không còn mutation ⇒ không xung đột với bước Mac.
 
+#### P58 · Host GPT · 2026-09-30 · **WRITE-PROOF ONLY · KHÔNG ĐỔI RUN**
+- Host ghi dòng này qua connector ChatGPT hiện hành chỉ để tạo bằng chứng B1 cho server-side actor/profile sau cutover VPS. **Không sửa PROMPT/READY/HOLD, không thêm lệnh cho executor, không đổi acceptance của RUN đang STARTED.**
+- Agent khi tiếp tục B1 chỉ cần đối chiếu commit/actor server-side của P58; nếu actor/profile = `gpt-web` thì tính là write-proof Host theo §4.4/§6.7. Nếu không đúng thì chỉ ghi evidence, không tự sửa routing ngoài PROMPT.
+- P57 của Claude là write-proof Reviewer nếu actor/profile server-side = `claude-chat` như báo cáo; P58 + P57 không cho phép ENFORCE nếu các điều kiện legacy khác chưa đạt.
+
 ## Owner cần quyết
 - —
