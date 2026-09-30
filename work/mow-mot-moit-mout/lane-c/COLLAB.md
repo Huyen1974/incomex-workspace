@@ -259,3 +259,105 @@ COORD · NOW=DỪNG · NEXT=Host giao B/A chốt bảng binding 15 H→UI theo p
 - READY@c48c877992fea2ec0acd26f7f02a20c6c9ca9ab6 · RUN_ID `MMIM-LANE-C03-20260928-01` · supersedes READY 903b...
 
 STARTED@MMIM-LANE-C04-20260930-01 2026-09-30T07:10:53Z · executor=Codex
+
+## Codex · KQ C04 · 30/09/2026
+
+MOW — List UI-001 có; Kanban UI-005 có; baseline với dữ liệu mẫu.  
+MOT — List UI-002 có; Kanban UI-028 có; baseline, chưa nối dữ liệu thật.  
+MOIT — List UI-013 có; Kanban UI-019 có; mock dùng lại cha.  
+MOUT — List UI-014 có; Kanban UI-020 có; mock dùng lại cha.  
+Field — List UI-022 có; Kanban UI-021 có; mock dùng lại cha.  
+**Công thức 2 view = PARTIAL:** có khuôn dùng chung; chưa chứng minh đủ thao tác/vòng đời 3→7.  
+**Loại từ “Thứ” khỏi mặt Owner = YES**, theo D91; dùng “Đối tượng”.  
+**6 khuôn cha = REPLACE_WITH_2_VIEW_PARENTS** ở công thức; giữ 4 chuẩn khu làm việc trong chi tiết.  
+**18 ứng viên cũ = 18 NOT_PROVEN; 0 QUALIFIES và 0 NOT_OBJECT đã chứng minh.**
+
+<details>
+<summary>Evidence C04 · 5 đối tượng, 18 ứng viên, nghĩa của 6 chuẩn và giới hạn</summary>
+
+### Phạm vi, gate và concurrency
+
+Đọc đúng AGENTS → COLLAB cha → council/REGISTRY → lane-c/COLLAB → PROMPT. A0 đã xác nhận; Registry CODEX-MMIM-C khớp C04 và chỉ dành lane-c/COLLAB. READY 626769a87a786abfeb410ea3e85b8a48d9ff8846 đúng commit cuối chạm PROMPT; SHA PROMPT c0fae2b41af054534af335d9802272e1e3c899f962d9791f50f385a71bc1cc38. STARTED đã ghi tại commit cfd3764272e42421690a0788c1d9f4a0d632f23e.
+
+Process gate đã chạy bằng dot-process-gate trong snapshot cô lập: job 8162dbf54f7445c0b0f3389cd6c2e247, source_head c51fe1b31585ebbe5d4761c9797055d6f978d890; exit 0, stderr rỗng; PASS / VEUI.MOW / reason OK / 39 process / 8 step. Catalog tại gate có SHA e0e533ab98b80ec80bc51cd616cce07aaa2d53f343099e1aedf664c441ff3bd5; stdout SHA bd560be5af69a7dbcaff3204b59d12d9964765878d71b53d3301230dbf43d876.
+
+B05 đổi canonical sang ccf4e77b83b48d6691078dfc72f88de8a999a914bff836e3f84a4575abee8d4f tại HEAD 4e8cf8d4dacef4752a78538de07aaf85858f6379. Đã đọc hết diff từ snapshot audit: chỉ cập nhật mặt Công thức theo D91 và bọc lịch sử; các anchor parent, catalog và 18 nhãn dùng trong C04 không đổi. PROMPT/Registry/lane target vẫn hiện hành khi re-read trước KQ. C04 không ghi canonical/UI; kết quả là audit, không thiết kế thêm UI hay quyết methodology của Council.
+
+### 5 đối tượng · List và Kanban thật
+
+Đã inspect read-only 10/10 route dưới đây, HTTP 200; thêm MOW Đề xuất HTTP 200. UI code lấy từ child directory/registry, source được đọc trực tiếp ở VPS root ui. “Có” là có baseline/source và route chạy được; chưa chứng minh production. Mỗi query là ngữ cảnh của cùng nguồn, không là bản UI/renderer mới.
+
+| Đối tượng | Master List · UI/route/source | Kanban · UI/route/source | Parent thực tế và reuse | Readiness / renderer mới |
+|---|---|---|---|---|
+| MOW | UI-001 · [mow-master-nhap2-v1.html](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html) | UI-005 · [canvas T2](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T2&che-do=thuong) | UI.MASTER → master-list.js v16; UI.CANVAS → chính canvas cha | Baseline đã chọn; 7 quy trình mẫu. Dùng lại renderer; gap data/lifecycle. |
+| MOT | UI-002 · [mot-master-v1.html](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html) | UI-028 · [canvas T1](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T1&che-do=thuong) | UI.MASTER → master-list.js v16; cùng UI.CANVAS với nhánh chuẩn T1 mow-t1-work-standard-v1.js v2 | Baseline; 7 task hardcode, Kanban “Chưa kết nối”. Nhánh T1 đã có, không chứng minh cần renderer mới. |
+| MOIT | UI-013 · [moit-master-v1.html](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html) | UI-019 · [canvas T0.5 MOIT](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T0.5&che-do=thuong&form=MOIT&cong-viec=T01) | UI.MASTER: wrapper → ui-child-from-parent-v1.js → MOT Master; UI.CANVAS dùng buildCard chung | Mock/baseline; 6 form minh họa, chưa nối nguồn thật. Dùng lại renderer. |
+| MOUT | UI-014 · [mout-master-v1.html](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-master-v1.html) | UI-020 · [canvas T0.5 MOUT](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T0.5&che-do=thuong&form=MOUT&cong-viec=T01) | Cùng loader Master và buildCard canvas của MOIT; đổi dữ liệu/nhãn | Mock/baseline; 6 thông tin đầu ra minh họa. Dùng lại renderer. |
+| Field | UI-022 · [field-master-v1.html](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/field-master-v1.html) | UI-021 · [canvas T0 Field](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T0&che-do=thuong&form=MOIT&cong-viec=T01) | Cùng loader Master; buildCard chung + adapter kanban-field-v1.js hiện hữu | Mock/baseline; 3 trường minh họa, chưa nối PG. Dùng lại renderer. |
+
+**Reuse có bằng chứng source:** ba wrapper MOIT/MOUT/Field nạp ui-child-from-parent-v1.js; loader fetch nguyên MOT Master và configureChildMaster thay nhãn/dữ liệu, giữ CSS/functions/thứ tự cột. Cả năm Kanban cùng mow-unified-canvas-v2.html: render gọi buildCard chung cho T2/T0.5/T0; T1 dùng T1_WORK_STANDARD.applyLayout và nhánh chung đã có. Vì vậy không có bằng chứng buộc tạo renderer mới cho hai loại view; phần còn thiếu là cấu hình/binding/vòng đời trên nguồn hiện hữu, cần kiểm tiếp khi được giao.
+
+**Vì sao PARTIAL:** D91 gắn Master với Tìm+Dùng và Kanban với 3→7. Canvas hiện chủ yếu là thẻ hierarchy NV01…NV06 và công việc con; chưa có bằng chứng đủ các trạng thái/thao tác Đề xuất tạo → Duyệt đề xuất → Khai báo → Test → Duyệt cho dùng cho năm đối tượng. Source GN02 ghi Đề xuất chỉ intake + positioning, xử lý ở bảng chờ chuyên biệt bên ngoài canvas. submitAddModal (L1583) chỉ chèn newNode vào D[tier].nodes trong bộ nhớ rồi render; T1 TEST_STATUS_SOURCE.mode=future_table. Không thử tạo/lưu/duyệt/test/bật vì RUN read-only. Dấu xanh baseline trong eco-nav.js cũng ghi rõ không đồng nghĩa PG/config đã hoàn chỉnh.
+
+Hash VPS hiện tại đã stat lại trước KQ, khớp lần inspect; dùng hash live, không lấy hash catalog lịch sử làm phiên bản đang chạy:
+
+| Source | SHA256 |
+|---|---|
+| mow-master-nhap2-v1.html | a8635779d4b64344543988ca63041a41132705325f383a728b7358862c0d632b |
+| mot-master-v1.html | 85da2f858f1f5e3f9e01110c110886c5c15cde043b47642068956324948c421e |
+| moit-master-v1.html | 1e7702062f0bdcb005ff89c699ddbb057695039db01aa4b9df2edf61d41712fb |
+| mout-master-v1.html | e1b4cbf0ff053f9126965ad5b218406e7daf4daaabd5b2aa7d3395b04524ec57 |
+| field-master-v1.html | d090fa2603827cc22fa9f3c3ae02e9dc631f091991fcbfd6425e2a4d97a38845 |
+| mow-unified-canvas-v2.html · chung năm route | 64c21429c5867948a4636f7c521c1f6ba1ecc3b18e62e5ab0f90638e0a08b869 |
+| master-list.js | a92524f509b514e2a04677e3bd7d7dfd17efc8c206282840a6bf6b3f876baa57 |
+| ui-child-from-parent-v1.js | c2c577bd0de00964b6da9b6a7dec49476f64fc85342d6a4a8ea4758ffd624363 |
+
+### 18 ứng viên cũ · kiểm từng mục
+
+Nguồn exact nhãn: ban-duyet.html L363, hàng D nhóm quy trình ở snapshot audit; đối chiếu các anchor dưới. Metadata/table evidence của catalog ghi từ 26/09, không phải lần C04 query PG. Mã CAT là identity của **danh sách**, chưa tự chứng minh identity/vòng đời từng đối tượng trong đó; dấu * là mã giữ chỗ. “?” = chưa có bằng chứng đúng scope. Có liên kết cha hoặc process đọc một catalog cũng chưa đủ chứng minh reuse/tìm/tạo/sửa/ngừng độc lập. Cần chứng minh nhu cầu quản trị bằng List/Kanban riêng; thiếu route hiện tại không tự làm ứng viên thành NOT_OBJECT.
+
+| # · Nhãn chính xác | Source / identity evidence | Lifecycle riêng | Reuse độc lập | Cần Master riêng | Cần Kanban riêng | Verdict |
+|---|---|---|---|---|---|---|
+| 1 · giá trị | #ml3-03 CAT-201*; nguồn nói bộ giá trị cố định, chưa phải scalar value | ? | FIELD.TAO gọi bộ giá trị khi thiếu; còn thiết kế | Catalog đề xuất, chưa bind nhu cầu riêng | ? | NOT_PROVEN |
+| 2 · mẫu ô nhập | #ml3-05 CAT-203*; F/L/E/C, nguồn ←06 MOIT | ? | FIELD đọc05; chưa có sửa/ngừng độc lập | Studio reference, chưa chứng minh List riêng | ? | NOT_PROVEN |
+| 3 · hợp đồng vào/ra | #ml3-10 CAT-206*; record type/source/create-update/cardinality, ←08 MOT | ? | Contract được gọi; registry độc lập chưa chứng minh | Catalog đề xuất | ? | NOT_PROVEN |
+| 4 · bảng | #ml3-17 CAT-008 collection_registry; #ml3-65 CAT-001 table_registry; hai scope | ? đúng scope | FIELD đọc17, UI con dùng65; nhãn còn mơ hồ | Có catalog, chưa chốt đối tượng nào | ? | NOT_PROVEN |
+| 5 · đối tượng nghiệp vụ | #ml3-18 CAT-211*; một dòng=1 danh sách bản ghi, ←17 | ? | Thiết kế đọc18; chưa bind record/contract | Catalog đề xuất | ? | NOT_PROVEN |
+| 6 · nhãn | #ml3-20 CAT-018 taxonomy; #ml3-64 CAT-068 là liên kết entity_labels | ? | Tìm dùng nhãn; chưa bind reuse/lifecycle riêng | Có catalog reference | ? | NOT_PROVEN |
+| 7 · cây tổ chức | #ml3-22 CAT-212*; iu_tree khác scope; UI023–027 xem cùng một cây | ? đúng object | Reference cây, chưa chứng minh object riêng | Có cách xem cây, List đúng object chưa chứng minh | Kanban lifecycle chưa bind | NOT_PROVEN |
+| 8 · người | #ml3-23 CAT-213*; directus_users là user hệ thống, scope người nghiệp vụ chưa bind | ? đúng object | Caller/assignee theo thiết kế | Catalog đề xuất | ? | NOT_PROVEN |
+| 9 · vai | #ml3-24 CAT-214*; directus_roles khác scope vai/chức vụ | ? đúng object | Process/quyền đọc vai theo thiết kế | Catalog đề xuất | ? | NOT_PROVEN |
+| 10 · ủy quyền | #ml3-25 CAT-215*; process_axis_delegation reference | ? | Độc lập còn thiếu evidence | Catalog đề xuất | ? | NOT_PROVEN |
+| 11 · agent | #ml3-26 CAT-010 agents; có registry reference | ? object-specific | MOT gọi agent; vòng đời/tìm-dùng độc lập chưa bind | Catalog có, nhu cầu riêng chưa chứng minh đủ | ? | NOT_PROVEN |
+| 12 · nguyên tắc | #ml3-30 CAT-219*; NẾU…THÌ; #ml4-nt01…22 là loại, không là record lifecycle | ? | Nhiều process gọi NT; chưa bind object độc lập | UI003/bảng 12 cột là prototype | ? | NOT_PROVEN |
+| 13 · điều kiện | #ml3-31 CAT-220*; vế NẾU, ←30 nguyên tắc | ? | Có thể là thành phần; chưa chứng minh độc lập | Catalog đề xuất | ? | NOT_PROVEN |
+| 14 · trigger | #ml3-32 CAT-221*; CAT-019 trigger_registry là trigger CSDL, scope quy trình chưa bind | ? đúng object | MOW đọc32 theo thiết kế | Catalog đề xuất | ? | NOT_PROVEN |
+| 15 · loại sự kiện | #ml3-33 CAT-222*; event_type_registry reference, ←32 | ? | Event design có; lifecycle/reuse riêng chưa bind | Catalog đề xuất | ? | NOT_PROVEN |
+| 16 · bộ kiểm | #ml3-44 CAT-012 checkpoint_sets; khác kết quả kiểm #ml3-45 | ? bộ kiểm | CHUNG.KIEM đọc44; có reference, chưa chứng minh vòng đời độc lập | Catalog có, view/nhu cầu riêng chưa chứng minh | ? | NOT_PROVEN |
+| 17 · UI cha | #ml3-58 CAT-234*; renderer/standards có; record ID/version/ngừng riêng chưa bind | ? | Tái dùng source có; quản trị object riêng chưa chứng minh | Catalog đề xuất | ? | NOT_PROVEN |
+| 18 · hướng dẫn | #ml3-62 CAT-074 help_articles, ←59 UI con | ? article-specific | Help reference có, độc lập chưa bind | Catalog có, view/nhu cầu riêng chưa chứng minh | ? | NOT_PROVEN |
+
+Tổng: QUALIFIES=0 đã chứng minh; NOT_PROVEN=18; NOT_OBJECT=0 đã chứng minh. Không suy ra 18 Kanban mới hay giữ số “23 Đối tượng” từ phép cộng cũ. P13 lịch sử nói một số thứ có đời sống riêng nhưng tự ghi chưa kiểm PG/runtime; sổ lifecycle_log chung #ml3-71 chưa bind vòng đời cho từng ứng viên. C04 giữ các mục để truy nguồn, không tự gộp/xóa/cấp UI code.
+
+### “6 khuôn cha” và thuật ngữ
+
+Nguồn #ia-parent-table L101 đặt tên sáu “Mẫu cha hướng tới”; #parent-ui-standards L98 ghi rõ chỉ hai view: Kanban và Master list, bốn mục còn lại là khu làm việc. D91 chốt cùng nghĩa. Verdict **REPLACE_WITH_2_VIEW_PARENTS** áp cho con số tổng hợp trên Công thức, đồng thời giữ sáu chuẩn hiện hữu ở tầng kỹ thuật:
+
+| Chuẩn hiện hữu | Vai trò trong kiến trúc 2-view | Source |
+|---|---|---|
+| UI.MASTER | View parent Master List | mow-master-nhap2-v1.html / master-list.js |
+| UI.CANVAS | View parent Kanban | mow-unified-canvas-v2.html |
+| UI.CONFIG | Khu cấu hình, không thêm loại view | new-modt-v1.html / đường admin-new-modt |
+| UI.STUDIO | Khu chọn thành phần/xem thử | mot-studio-v1.html / mot-studio-v1.js |
+| UI.REVIEW | Khu xem/duyệt/kiểm | Chi tiết WF-0001 / nhap2-render.js |
+| UI.WORKSPACE | Bàn làm việc | mot-dashboard-v1.html / mot-render-v1.js, mot-app-v1.js |
+
+Hai loại view không đồng nghĩa chỉ có hai file renderer vật lý; nguồn có module/adapter theo phạm vi. Từ “Thứ” nên loại khỏi **mặt Owner = YES** vì D91 đã chốt “Đối tượng” với định nghĩa rõ; tên lịch sử/nhãn ứng viên vẫn giữ trong details để truy nguồn. C04 chỉ ghi kết luận, không tự sửa mặt canonical.
+
+JEV tham khảo bounded classification bằng evidence nguồn/live trung tính: result gen-dec-1790752973-e5zRRYBTTEySQ6hQINXn, model do gateway trả typesafe/jev-1.13-20260917. Formula PARTIAL confidence 0,99; parent6 REPLACE_WITH_2_VIEW_PARENTS confidence 1,00; cả 18 chọn NOT_PROVEN, confidence 0,55–0,99 (thấp nhất ở giá trị/mẫu ô/điều kiện). Kết luận dựa trên source và giới hạn evidence; JEV không xác nhận runtime.
+
+</details>
+
+KQ@MMIM-LANE-C04-20260930-01 XONG
+KQ@LANE-C C04 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS · core_objects=5 · two_view_formula=PARTIAL · small18=NOT_PROVEN:18/QUALIFIES:0/NOT_OBJECT:0 · parent6=REPLACE_WITH_2_VIEW_PARENTS · NEXT=Host nghiệm thu C04.
+COORD · NOW=XONG · NEXT=Host nghiệm thu C04. · BLOCKED_BY=none · RESERVED_TARGETS=lane-c/COLLAB.md · LAST_SYNC=FORMULA-01/C04
