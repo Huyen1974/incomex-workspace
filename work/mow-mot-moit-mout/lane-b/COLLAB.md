@@ -324,9 +324,19 @@ COORD · NOW=XONG · NEXT=Host chốt contract cho hai ứng viên OPEN · BLOCK
 
 Kiểm trên canonical SHA `78acf32bf972e845d57e226ae539cca475fd0edcf46f4df7ca366974ff52d45e` (`f3ececb26774c77241e15c7047e3c2a1ac1c9f74`): dot-walk 39 process/0 lỗi; contract audit 23 process/27 direct Human Step/0 lỗi; E1 `CHUNG.APQUYTRINH` PASS. Mười hai contract B02R1 giữ nguyên từng byte; code/tên/thứ tự và nội dung bước không đổi. Metadata này chưa xác nhận quyền thực, UI hay bảo toàn liên kết con khi nhân bản bản sửa. Không mở C02; Registry để Host cập nhật theo D74.
 
-## RUN · MMIM-LANE-B05-20260930-01 · 30/09/2026
+## KQ · MMIM-LANE-B05-20260930-01 · Codex · 30/09/2026
 
 STARTED@MMIM-LANE-B05-20260930-01 2026-09-30T07:11:43Z · executor=Codex
-COORD · NOW=B05 VERIFYING · NEXT=kiểm Owner View 1280/390 · BLOCKED_BY=none · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=FORMULA-01/B05
+KQ@MMIM-LANE-B05-20260930-01 XONG
+KQ@LANE-B B05 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS · formula7=PASS · object_definition=PASS · two_views=PASS · legacy_folded=PASS · NEXT=OWNER_LOOK
+COORD · NOW=XONG · NEXT=OWNER_LOOK · BLOCKED_BY=none · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=FORMULA-01/B05
 
-B05 SOURCE · Áp: SAME_COMMIT · Công thức 7 bước có nhánh, định nghĩa Đối tượng và 2 view đã ghi theo D91. Phần lịch sử đóng mặc định, giữ nguyên raw evidence; ngoài panel và script byte-equivalent. PRE: source acceptance PASS; dot-walk 39/0; PROCESS_GATE VEUI.MOW PASS. Chưa có KQ; đang kiểm bản hiển thị thật.
+Áp: `4e8cf8d4dacef4752a78538de07aaf85858f6379` · HTML SHA `ccf4e77b83b48d6691078dfc72f88de8a999a914bff836e3f84a4575abee8d4f`.
+
+- Mặt ★ Công thức: header **Công thức và định nghĩa**; bỏ box Anh gật?; 7 tên bước đúng D91, tách hai nhánh 1→2 hoặc 1→3→4→5→6→7→2; định nghĩa Đối tượng và **1 Đối tượng = 2 view**. Master List=Tìm+Dùng; Kanban=3→7, dùng khuôn UI cha đã duyệt.
+- Phần cũ giữ nguyên raw evidence và ID neo trong details đóng mặc định, ghi rõ 6 bước là lịch sử/chưa hiện hành; 6 khuôn cha và 18 mục cũ chờ C04. Ngoài panel và toàn bộ script byte-equivalent; không đổi tab JS/performance.
+- Source PRE/POST PASS: process gate VEUI.MOW (39 process/8 bước); dot-walk 39/0 lỗi; delta chỉ panel formula. Jobs `72f55e939edc426f80fe1ee5b105db36` và `f211bf0eb4c441e8b65096700b02200d`.
+- Owner View pipeline đã publish revision trên, `fresh`, document available (job `e5e0b73a449c4b0fa16395b69c9c61d7`). Kiểm hình thật 1280/390: panel 1248/374 px, không thấy tràn ngang; đủ nhánh/đường quay về/định nghĩa/2 view. Selector `#cf-b05-legacy:not([open])` xác nhận gập; neo `#cf-ca-thu` mở được bằng chứng lịch sử.
+- Functional console errors=0 ở Công thức; mỗi cỡ có 1 cảnh báo CSP chặn Google Fonts của viewer, ghi riêng và không báo tổng console=0. Chưa đo riêng DOM scrollWidth/click summary do browser control không khả dụng; kết luận no-overflow dựa trên hình thật + bounds.
+
+[Owner xem ★ Công thức](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-formula). B05 dừng; Host nghiệm thu/OWNER_LOOK.
