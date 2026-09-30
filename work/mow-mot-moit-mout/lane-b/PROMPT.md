@@ -1,6 +1,6 @@
-# PROMPT — LANE B05 · Sửa khối ★ Công thức theo Owner
+# PROMPT — LANE B06 · Phục hồi phần cũ tab ★ Công thức bên dưới
 
-RUN_ID: MMIM-LANE-B05-20260930-01
+RUN_ID: MMIM-LANE-B06-20260930-01
 PROCESS: VEUI.MOW
 STATUS: Chỉ chạy sau PROCESS_GATE PASS + READY của Host.
 
@@ -11,121 +11,89 @@ Write_Path:
 - `work/mow-mot-moit-mout/ban-duyet.html`
 - `work/mow-mot-moit-mout/lane-b/COLLAB.md`
 
-B05 là **writer duy nhất** của `ban-duyet.html` trong batch này.
-A07/C04 read-only.
+B06 là writer duy nhất của `ban-duyet.html`.
+A08 read-only; C chờ review.
 
-## 0. Registry
-Đọc `../council/REGISTRY.md` READ-ONLY.
-Entry CODEX-MMIM-B phải đúng B05 + Reserved_Targets.
-Không sửa JS/tab performance trong B05; A07 đang audit riêng.
+## 0. Luật Owner mới — PRESERVE BY DEFAULT
+Chỉ sửa đúng phần Owner chỉ đạo.
+**Không được tự xóa, ẩn, gập, dời hoặc viết lại nội dung hiện có ngoài scope.**
+Ẩn/gập nội dung khỏi mặt Owner được coi là thay đổi nội dung nhìn thấy và cần Owner chỉ đạo.
+Nếu cần tham chiếu bản cũ: dùng Git, không dựng lại bằng trí nhớ.
 
-## 1. Owner chốt trực tiếp
-Tab trên vẫn giữ: `★ Công thức`.
+## 1. Hiện trạng cần sửa
+B05 đã làm đúng phần mới:
+- header `Công thức và định nghĩa`;
+- công thức 7 bước có nhánh;
+- định nghĩa Đối tượng;
+- `1 Đối tượng = 2 view`.
 
-Header bên trong đổi:
-`Công thức` → **`Công thức và định nghĩa`**.
+Nhưng B05 đã bọc phần cũ bên dưới vào:
+`<details id="cf-b05-legacy">...`
+đóng mặc định.
+Owner yêu cầu: **phần cũ đã làm phải tiếp tục hiện ở bên dưới; chỉ khi Owner chỉ đạo xóa mới được xóa.**
 
-Xóa hoàn toàn box `Anh gật?` ở đầu.
+## 2. Nguồn phục hồi bắt buộc
+Bản ngay trước mutation B05:
+`PRE_B05_REF = cfd3764272e42421690a0788c1d9f4a0d632f23e`
 
-Ca thử `theo dõi xuất cảnh lao động` và các phần triển khai chi tiết phải đẩy xuống dưới, không chiếm mặt đầu.
-Mặt đầu chỉ còn **công thức + định nghĩa**.
+Đọc đúng `ban-duyet.html#matrix-view-formula` tại PRE_B05_REF và current.
 
-## 2. Đổi “Thứ” → “Đối tượng” trong mặt Công thức
-Owner hỏi “Thứ là gì?”. Dùng định nghĩa ngắn, dễ hiểu:
+Không restore cả file/commit.
+Không copy snapshot đè lên thay đổi mới.
+Chỉ phục hồi phạm vi formula.
 
-**Đối tượng = một thứ có danh tính và vòng đời riêng, cần được tìm / dùng / tạo / sửa / ngừng độc lập.**
+## 3. Patch tối thiểu
+### Giữ nguyên phần mới phía trên
+Các phần current sau phải giữ nguyên nội dung:
+- `cf-b05-seven`
+- `cf-b05-object`
+- `cf-b05-views`
+- header `Công thức và định nghĩa`
 
-Ví dụ lõi hiện có: `MOW · MOT · MOIT · MOUT · Field`.
+### Không phục hồi phần Owner đã yêu cầu bỏ/thay
+- không phục hồi box `cf-quyet / Anh gật?` ở đầu;
+- không đổi header về `Công thức`;
+- không thay công thức 7 bước mới bằng 6 bước cũ.
 
-Luật:
-**Nếu được coi là Đối tượng → bắt buộc có 2 view: Master List + Kanban.**
+### Phục hồi phần cũ bên dưới
+Từ nguồn PRE_B05, phần bắt đầu tại:
+`<div class="cf-big" id="cf-dap-an">...`
+cho tới hết nội dung cũ của panel formula phải **hiện trực tiếp bên dưới phần mới, theo đúng thứ tự cũ**.
 
-Không tự khẳng định 18 “Thứ nhỏ” cũ đều đã đủ điều kiện là Đối tượng; phần đó để dưới/chờ C04 kiểm.
+Cách ưu tiên:
+1. Nếu current `cf-b05-legacy` đang chứa đủ byte/nội dung cũ → chỉ **unwrap** wrapper/summary/note của B05 để nội dung hiện lại.
+2. Nếu thiếu đoạn nào → lấy đúng đoạn thiếu từ PRE_B05_REF.
+3. Không biên tập/rút gọn/đổi tên nội dung cũ trong B06.
 
-Trong phần mặt đầu Owner nhìn thấy, không dùng chữ `Thứ` nữa.
+Giữ nguyên các `<details>` vốn đã tồn tại **bên trong bản cũ**; chỉ bỏ wrapper mới `cf-b05-legacy` do B05 thêm.
 
-## 3. Chốt công thức 7 bước — phải vẽ đúng nhánh
-Không vẽ 7 ô tuyến tính giả.
+## 4. Kiểm chống mất dữ liệu
+So pre-B05 với sau B06:
+- mọi id cũ từ `cf-dap-an` đến cuối formula còn đủ;
+- thứ tự các id cũ giữ nguyên;
+- text cũ không bị mất, trừ đúng `cf-quyet` và phần Owner đã thay ở mặt đầu;
+- không duplicate id;
+- không thay tab khác.
 
-Công thức đúng:
+Báo số:
+`legacy_ids_before=<n> · restored=<n>/<n> · missing=<n> · duplicates=<n>`.
 
-`1 Tìm`
-- nếu **đã có + dùng được** → `2 Dùng`
-- nếu **chưa có / không dùng được** → `3 Đề xuất tạo mới → 4 Duyệt đề xuất tạo → 5 Khai báo → 6 Test → 7 Duyệt cho dùng → quay về 2 Dùng`
+## 5. UI acceptance
+Owner route:
+`...section=matrix-view-formula`
 
-Tên bước chính xác:
-1. Tìm
-2. Dùng
-3. Đề xuất tạo mới
-4. Duyệt đề xuất tạo
-5. Khai báo
-6. Test
-7. Duyệt cho dùng
+Phải thấy:
+1. phần 7 bước mới ở trên;
+2. ngay bên dưới là toàn bộ phần cũ hiển thị như trước, **không cần mở một details tổng**;
+3. các details nguyên gốc bên trong phần cũ vẫn hoạt động;
+4. 390/1280 không tràn ngang mới;
+5. console functional error=0.
 
-Không dùng lại các nhãn cũ `Nêu / Duyệt ý / Kiểm / Duyệt bản · Bật` ở mặt công thức mới.
+Không sửa JS performance/tab trong B06.
 
-## 4. Chốt 2 view / Đối tượng
-Mặt đầu phải nhìn thấy công thức:
-
-**1 Đối tượng = 2 view**
-- **Master List** = nơi `Tìm + Dùng`
-- **Kanban** = nơi xử lý `Đề xuất tạo mới → Duyệt đề xuất tạo → Khai báo → Test → Duyệt cho dùng`
-
-Kanban phải ghi rõ: **dùng cùng khuôn UI cha đã duyệt**, không tự thiết kế Kanban mới trong B05.
-
-Thay card `2 × Thứ + 7 màn` bằng `2 view / Đối tượng`.
-Không tiếp tục quảng bá công thức đếm màn `2 × Thứ + 7` ở mặt đầu.
-
-Card `6 khuôn cha` chưa được Owner chốt lại:
-- không tự đổi thành số khác;
-- hạ xuống phần chi tiết/chờ C04;
-- không để nó gây hiểu rằng công thức mới đã chứng minh 6 khuôn cha.
-
-## 5. Phần cũ / ca thử
-Các phần hiện có:
-- `Lắp từ dưới lên` theo 6 bước cũ;
-- `Màn = 2 × Thứ + 7`;
-- `Ca thử · theo dõi xuất cảnh`;
-- chi tiết kỹ thuật tiếp theo;
-
-không được để ngang hàng với công thức mới.
-
-Giữ để không mất lịch sử nhưng chuyển xuống một `<details>` đóng mặc định, tên rõ:
-**`Chi tiết triển khai / ca thử · đang chuyển theo công thức 7 bước`**.
-
-Trong summary/ghi chú phải nói các bảng 6 bước cũ là **lịch sử/chưa phải công thức hiện hành**.
-
-Không xoá bằng chứng cũ.
-
-## 6. Hình thức mặt đầu
-Owner mở ★ Công thức phải thấy theo thứ tự:
-1. `Công thức và định nghĩa`
-2. `7 bước chung`
-3. sơ đồ nhánh 1→2 hoặc 1→3→4→5→6→7→2
-4. `Đối tượng là gì?`
-5. `1 Đối tượng = 2 view: Master List + Kanban`
-6. hết phần mặt đầu; chi tiết cũ/ca thử nằm dưới và gập.
-
-Không thêm đoạn văn dài.
-
-## 7. Acceptance
-- Tab vẫn tên `★ Công thức`.
-- Header trong panel = `Công thức và định nghĩa`.
-- Không còn `Anh gật?` ở mặt panel.
-- Mặt đầu không còn `6 bước chung`, `2 × Thứ + 7`, `Khuôn · mọi Thứ`.
-- Có đúng 7 tên bước Owner chốt.
-- Sơ đồ là nhánh, không tuyến tính.
-- Có định nghĩa `Đối tượng`.
-- Có công thức `1 Đối tượng = 2 view`.
-- Master List = Tìm + Dùng; Kanban = 3→7.
-- Ca thử và matrix cũ nằm trong details đóng mặc định.
-- Không sửa tab JS/performance.
-- 1280 + 390 không overflow; functional console errors=0.
-- ngoài panel formula giữ byte tối đa có thể.
-
-## 8. KQ
-`KQ@MMIM-LANE-B05-20260930-01 XONG|DỪNG`
-`KQ@LANE-B B05 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS|BLOCK · formula7=PASS|BLOCK · object_definition=PASS|BLOCK · two_views=PASS|BLOCK · legacy_folded=PASS|BLOCK · NEXT=OWNER_LOOK`
-`COORD · NOW=XONG|DỪNG · NEXT=OWNER_LOOK · BLOCKED_BY=<...> · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=FORMULA-01/B05`
+## 6. KQ
+`KQ@MMIM-LANE-B06-20260930-01 XONG|DỪNG`
+`KQ@LANE-B B06 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS|BLOCK · new_formula_preserved=PASS|BLOCK · legacy_restored=<n>/<n> · missing=<n> · duplicates=<n> · NEXT=C05_VERIFY_PRESERVE`
+`COORD · NOW=XONG|DỪNG · NEXT=C05_VERIFY_PRESERVE · BLOCKED_BY=<...> · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=PRESERVE-01/B06`
 
 Dừng.

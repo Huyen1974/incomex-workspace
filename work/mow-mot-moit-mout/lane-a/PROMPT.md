@@ -1,54 +1,65 @@
-# PROMPT — LANE A07 · Rà lỗi tải/tab Owner View
+# PROMPT — LANE A08 · Tìm SSOT loader HPML gây reload
 
-RUN_ID: MMIM-LANE-A07-20260930-01
-PROCESS: VEUI.MOW
+RUN_ID: MMIM-LANE-A08-20260930-01
+PROCESS: CHUNG.TIM
 STATUS: Chỉ chạy sau PROCESS_GATE PASS + READY của Host.
 
 Host: GPT Chat · Host_ID `GPT-MMIM-260920-A`
 Executor_Surface: Codex
 
 Write_Path: chỉ append KQ vào `work/mow-mot-moit-mout/lane-a/COLLAB.md`.
-`ban-duyet.html`, root ui, canonical khác: **READ-ONLY**.
+Mọi source/runtime/canonical khác: **READ-ONLY**.
 
 ## 0. Registry / concurrency
 Đọc `../council/REGISTRY.md` READ-ONLY.
-Entry CODEX-MMIM-A phải đúng A07.
-B05 là writer duy nhất của `ban-duyet.html`; A07 tuyệt đối không sửa file đó.
+B06 là writer duy nhất của `ban-duyet.html`.
+A08 không patch `ban-duyet.html`, không patch runtime.
 
-## 1. Vấn đề Owner báo
-Mở/chuyển các tab con, đặc biệt ★ Công thức, đôi lúc rất chậm hoặc có cảm giác load/reload nhiều lần.
+## 1. Bằng chứng A07 đã PROVEN
+Owner View có reload thừa khi `publishedRevision` đổi vì commit không liên quan dù bytes của tài liệu không đổi.
+Runtime đang phục vụ:
+`/ui-preview/hpml-view-for-user/view.html`
+A07 thấy logic kiểu `sync-status → publishedRevision → Y/H → iframe key/src`, nhưng chưa xác định SSOT source có quyền ghi.
 
-## 2. Rà kỹ đúng root cause
-Đọc current `ban-duyet.html` và kiểm UI thật.
-Bắt buộc kiểm ít nhất:
-1. kích thước HTML / DOM;
-2. hidden tab có iframe/srcdoc/tài nguyên nặng vẫn load từ đầu hay không;
-3. logic tab: `show / write / restore / hashchange / popstate / scrollIntoView`;
-4. `details toggle` có ghi hash/history quá nhiều hay gây restore/scroll lặp;
-5. iframe/srcdoc trong Step quy trình 2 và các panel khác có làm tăng thời gian parse/load;
-6. click tab có thực sự reload network/document hay chỉ DOM/hash/scroll khiến Owner cảm giác reload.
+## 2. Câu hỏi duy nhất
+**Source-of-truth nào sinh runtime loader HPML này, nằm ở đâu và đường deploy nào cập nhật nó?**
 
-Không đoán. Mỗi root cause phải có source/measurement/evidence.
+## 3. Tìm bằng chứng
+Read-only search:
+- workspace repo hiện tại;
+- các path/config/deploy manifest/script tham chiếu `hpml-view-for-user`, `sync-status`, `publishedRevision`, iframe key/src;
+- root ui nếu có source;
+- tài liệu deploy/README liên quan;
+- history chỉ đọc khi cần.
 
-## 3. Output
-Mặt đầu tối đa 8 dòng:
-- Root cause 1/2/3 theo mức ảnh hưởng;
-- cái nào PROVEN, cái nào SUSPECT;
-- patch nhỏ nhất đề nghị;
-- rủi ro patch.
+Không suy từ minified runtime nếu không truy được source authority.
 
-Sau đó đưa patch plan chính xác theo vùng/hàm, **không áp patch trong A07**.
+## 4. Kết quả chỉ được một trong hai
+### FOUND_SOURCE
+Ghi:
+- repo/root/path SSOT;
+- current hash/version;
+- write authority / deploy route;
+- runtime URL tương ứng;
+- bằng chứng source này thật sự sinh runtime đang phục vụ;
+- patch point tối thiểu cho A09.
 
-## 4. Acceptance
-- Không sửa canonical/UI.
-- Phân biệt rõ reload thật vs re-render/hash/scroll.
-- Có before metrics tối thiểu: file bytes, iframe count, srcdoc count, details count, listener/hash behavior.
-- Đề xuất patch không làm mất deep-link/tab state.
-- NEXT duy nhất = A08 patch sau khi B05 xong.
+### BLOCKED_SOURCE_UNAVAILABLE
+Ghi:
+- đã tìm những root/path nào;
+- runtime nào đọc được;
+- source authority nào còn thiếu;
+- cần expose/kết nối gì để Host có thể giao patch an toàn.
 
-## 5. KQ
-`KQ@MMIM-LANE-A07-20260930-01 XONG|DỪNG`
-`KQ@LANE-A A07 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS|BLOCK · causes=<n> · proven=<n> · suspect=<n> · NEXT=A08_PATCH_AFTER_B05`
-`COORD · NOW=XONG|DỪNG · NEXT=A08_PATCH_AFTER_B05 · BLOCKED_BY=<...> · RESERVED_TARGETS=lane-a/COLLAB.md · LAST_SYNC=FORMULA-01/A07`
+## 5. Không làm
+- Không sửa runtime bundle trực tiếp.
+- Không sửa portal bằng cách tìm/replace mù.
+- Không sửa `ban-duyet.html`.
+- Không “fix” chỉ bằng bỏ iframe key nếu src vẫn đổi.
+
+## 6. KQ
+`KQ@MMIM-LANE-A08-20260930-01 XONG|DỪNG`
+`KQ@LANE-A A08 · PROCESS=CHUNG.TIM · PROCESS_GATE=PASS|BLOCK · source=FOUND|BLOCKED · runtime=/ui-preview/hpml-view-for-user/view.html · NEXT=A09_PATCH_HPML|HOST_EXPOSE_SOURCE`
+`COORD · NOW=XONG|DỪNG · NEXT=<...> · BLOCKED_BY=<...> · RESERVED_TARGETS=lane-a/COLLAB.md · LAST_SYNC=PRESERVE-01/A08`
 
 Dừng.

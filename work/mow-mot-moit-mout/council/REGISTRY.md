@@ -19,11 +19,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: **HOST / DISPATCHER / INTEGRATOR**
 - Host_ID: `GPT-MMIM-260920-A`
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
-- Active_RUN: batch `A07 / B05 / C04` = READY_TO_RUN.
-- Reserved_Targets: B05 = `ban-duyet.html`; A07/C04 read-only + lane ledgers.
-- Base_Target_Version: READY base `626769a87a786abfeb410ea3e85b8a48d9ff8846`.
-- NOW: giám sát FORMULA-01; B sửa mặt Công thức, A/C song song audit.
-- NEXT: nghiệm thu B05 bằng mắt Owner + nhận A07/C04 để mở patch/load và chốt 2-view formula.
+- Active_RUN: preparing `A08 / B06`; C chờ review.
+- Reserved_Targets: B06 = `ban-duyet.html`; A08 read-only + lane-a; C không ghi.
+- Base_Target_Version: re-read current before READY.
+- NOW: phục hồi phần cũ tab Công thức theo PRESERVE BY DEFAULT; song song tìm SSOT HPML loader.
+- NEXT: gate + READY A08/B06; sau B06 phát C05 verify-preserve; sau A08 mới quyết A09 patch.
 - BLOCKED_BY: none.
 - State: ACTIVE.
 - LAST_SYNC: D76–D77.
@@ -43,37 +43,37 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-A
 - Role: **EXECUTOR**
 - Write_Zone: root ui audit metadata + `lane-a/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-A07-20260930-01` = READY_TO_RUN.
-- Reserved_Targets: `lane-a/COLLAB.md`; `ban-duyet.html` READ-ONLY.
-- Base_Target_Version: prompt SHA `eda0373320a09b1e732393c6613324bf95d8702a06f6adcfc7d5facc03aac37d`; READY base `626769a87a786abfeb410ea3e85b8a48d9ff8846`.
-- NOW: chẩn đoán tab/load/reload Owner View; không patch.
-- NEXT: KQ A07 → A08 patch sau B05.
-- BLOCKED_BY: none.
-- State: READY_TO_RUN.
+- Active_RUN: `MMIM-LANE-A08-20260930-01` = PREPARED.
+- Reserved_Targets: `lane-a/COLLAB.md`; runtime/canonical READ-ONLY.
+- Base_Target_Version: prompt to be gated.
+- NOW: tìm SSOT/deploy source của HPML loader gây reload; không patch.
+- NEXT: KQ A08 → A09_PATCH_HPML hoặc HOST_EXPOSE_SOURCE.
+- BLOCKED_BY: source authority có thể chưa được expose.
+- State: PREPARED.
 - LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-B
 - Role: **EXECUTOR**
 - Write_Zone: `ban-duyet.html` + `lane-b/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-B05-20260930-01` = READY_TO_RUN.
-- Reserved_Targets: `ban-duyet.html + lane-b/COLLAB.md` (writer duy nhất canonical trong batch).
-- Base_Target_Version: prompt SHA `a0c9108bb4de0b775c65936c6525e7056c89e6a1bf15a4aa0d55a53f63b9f993`; READY base `626769a87a786abfeb410ea3e85b8a48d9ff8846`.
-- NOW: sửa mặt ★ Công thức theo D91.
-- NEXT: KQ B05 → OWNER_LOOK.
-- BLOCKED_BY: PARALLEL_CONFLICT nếu canonical bị surface khác chạm.
-- State: READY_TO_RUN.
+- Active_RUN: `MMIM-LANE-B06-20260930-01` = PREPARED.
+- Reserved_Targets: `ban-duyet.html + lane-b/COLLAB.md` (writer duy nhất canonical).
+- Base_Target_Version: PRE_B05_REF `cfd3764272e42421690a0788c1d9f4a0d632f23e` + current formula; prompt to be gated.
+- NOW: giữ formula mới và phục hồi/unwrap toàn bộ phần cũ bên dưới.
+- NEXT: KQ B06 → C05_VERIFY_PRESERVE.
+- BLOCKED_BY: PARALLEL_CONFLICT nếu canonical bị writer khác chạm.
+- State: PREPARED.
 - LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-C
 - Role: **EXECUTOR**
 - Write_Zone: `lane-c/COLLAB.md` only; canonical/ui read-only.
-- Active_RUN: `MMIM-LANE-C04-20260930-01` = READY_TO_RUN.
-- Reserved_Targets: `lane-c/COLLAB.md`; canonical/root ui READ-ONLY.
-- Base_Target_Version: prompt SHA `c0fae2b41af054534af335d9802272e1e3c899f962d9791f50f385a71bc1cc38`; READY base `626769a87a786abfeb410ea3e85b8a48d9ff8846`.
-- NOW: kiểm công thức 1 Đối tượng = Master List + Kanban và ý nghĩa 6 khuôn cha.
-- NEXT: KQ C04.
-- BLOCKED_BY: none.
-- State: READY_TO_RUN.
+- Active_RUN: next `MMIM-LANE-C05-20260930-01` = WAIT_B06.
+- Reserved_Targets: none until B06 completes.
+- Base_Target_Version: sẽ lấy B06 result + PRE_B05_REF.
+- NOW: chờ B06; không ghi canonical.
+- NEXT: C05 verify Git rằng nội dung cũ không mất ngoài scope Owner thay.
+- BLOCKED_BY: B06 chưa xong.
+- State: WAITING.
 - LAST_SYNC: D76–D77.
 
 

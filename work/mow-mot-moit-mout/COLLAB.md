@@ -1229,6 +1229,9 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 
 - D92 · 2026-09-30 · **FORMULA-01 A07/B05/C04 GATE PASS, READY:** prompt commit `626769a87a786abfeb410ea3e85b8a48d9ff8846`. A07 prompt SHA `eda0373320a09b1e732393c6613324bf95d8702a06f6adcfc7d5facc03aac37d`, B05 `a0c9108bb4de0b775c65936c6525e7056c89e6a1bf15a4aa0d55a53f63b9f993`, C04 `c0fae2b41af054534af335d9802272e1e3c899f962d9791f50f385a71bc1cc38`; cả 3 PROCESS=VEUI.MOW gate PASS. B05 là writer duy nhất `ban-duyet.html`; A07/C04 read-only. READY=`626769a87a786abfeb410ea3e85b8a48d9ff8846`.
 
+- D93 · 2026-09-30 · **PRESERVE BY DEFAULT — LUẬT OWNER:** mọi chỉnh sửa chỉ được chạm đúng phần Owner chỉ đạo. Nội dung hiện có ngoài scope phải giữ nguyên; **xóa / ẩn / gập / dời / viết lại** đều được coi là thay đổi và không được tự làm nếu Owner chưa yêu cầu. Khi cần phục hồi dùng Git/source thật, không dựng bằng trí nhớ. Nếu nội dung mới thay thế một phần cũ, phần khác của trang vẫn giữ nguyên tại vị trí/hình thức cũ tối đa có thể.
+- D94 · 2026-09-30 · **PRESERVE-01 sau A07/B05/C04:** B05 formula mới được Owner xác nhận OK nhưng wrapper `cf-b05-legacy` đã làm phần cũ phía dưới biến khỏi mặt nhìn. B06 là writer duy nhất: giữ nguyên formula mới, dùng PRE_B05_REF `cfd3764272e42421690a0788c1d9f4a0d632f23e`, unwrap/restore toàn bộ nội dung cũ từ `cf-dap-an` trở xuống trực tiếp bên dưới; không phục hồi `Anh gật?`. A08 chạy song song read-only để tìm SSOT thật của loader HPML gây reload; chưa patch runtime. C chờ B06 rồi C05 kiểm preserve bằng Git.
+
 ## Dòng hiện hành
 MMIM | STEP2_UI001_COPY · 28/09/2026 | Tab ★ Step quy trình 2 ở `ban-duyet.html`: phần I dùng bản sao khung UI-001 Nháp 2 từ VPS, CSS/JS vẫn trỏ nguồn gốc theo D87; không có bảng tự dựng. Bước chi tiết chờ Owner. A01 đã XONG; A06/B04/C03/D01/E01 tiếp tục HOLD theo D81.
 
