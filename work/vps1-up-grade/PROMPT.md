@@ -1,7 +1,7 @@
 # PROMPT — VPSUP G4B DIRECTUS CONTINUE · resume from G4 checkpoint A
 
 RUN_ID: VPSUP-G4B-DIRECTUS-CONTINUE-20260930-01
-STATUS: **DRAFT — CHỜ CLAUDE REVIEW + OIG KEY + MCPW-B1 TERMINAL. CHƯA READY/RUN.**
+STATUS: **CHỜ HOST READY — OIG KEY ĐÃ CÓ; MCPW-B1 KHÔNG CÒN LÀ HARD GATE. Chỉ chạy khi COLLAB có `READY@<SHA commit cuối chạm PROMPT>` do Host phát.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
@@ -18,9 +18,9 @@ Runtime VPS là SSOT; đầu vào = G4 PARTIAL `349b1eb…` + hồ sơ `/opt/inc
 - e-learning VPS2 200 + G2 checkpoint immutable.
 
 ## G4B.1 · Gate trước STARTED
-Host chỉ READY khi cả hai dependency đã rõ:
-1. GSM metadata có secret đúng tên `DIRECTUS_OIG_LICENSE_KEY`; không đọc/in value trong Host/repo/chat.
-2. `MCPW-B1-IDENTITY-20260930-01` có KQ terminal. Nếu B1 XONG/DỪNG sạch thì G4B snapshot lại agent-data/MCP/Hermes consumer; nếu B1 để residual đích danh thì G4B disposition đúng residual, không rebaseline/sửa hộ.
+Host READY khi GSM metadata có secret đúng tên `DIRECTUS_OIG_LICENSE_KEY`; không đọc/in value trong Host/repo/chat.
+
+`MCPW-B1-IDENTITY-20260930-01` **không còn là hard gate**. Nếu B1 chưa terminal, G4B chụp snapshot hiện hành của agent-data/MCP/Hermes (source_head/image/StartedAt/config liên quan) và tiếp tục. Nếu B1 đổi các consumer này trong lúc G4B chạy thì **không dừng Directus/Nuxt/SAME SLICE/soak độc lập**; chỉ đánh dấu đúng consumer test bị ảnh hưởng và chạy lại đúng nhóm đó trên snapshot mới trước khi Host ghi G4 PASS. Không rerun Lane A/C/D hay toàn G4B chỉ vì moving target.
 
 Executor read-gate: AGENTS → COLLAB §0 + G4 KQ/P66–P68 → PROMPT này → hồ sơ G4. READY phải = commit cuối chạm PROMPT. Sau read-gate PASS ghi `STARTED@VPSUP-G4B-DIRECTUS-CONTINUE-20260930-01 <UTC> · executor=Claude Code CLI` theo DROOT31. Sau PRE, ngay trước mutation VPS2 đầu tiên áp DROOT30.
 
@@ -28,7 +28,7 @@ PRE fail-closed:
 - checkpoint A + G2 hashes + lane C patch + image digests khớp KQ `349b1eb`; TARGET 0 container chạy;
 - e-learning static 200;
 - `DIRECTUS_OIG_LICENSE_KEY` EXISTS metadata;
-- MCPW-B1 terminal + consumer snapshot mới;
+- snapshot hiện hành agent-data/MCP/Hermes đã ghi; nếu B1 còn active thì ghi rõ `B1_MOVING_TARGET=YES`, không coi là blocker;
 - nếu bất kỳ input/hash/digest không khớp ⇒ DỪNG, không tự rebuild lane A/C/D.
 
 ## G4B.2 · Directus 12.3.1 từ checkpoint A
@@ -38,7 +38,7 @@ PRE fail-closed:
 - Boot exact Directus12.3.1 digest; migrate schema 11.14 →12.3.1; ghi exact migration/duration.
 - Activation count trước/sau; activation lab tối đa 1. Key OIG hiện perpetual; không renewal test.
 - LC1–LC6 + 167 collections ·128 flows ·1.241 permissions · custom access rules · extension `l2-checkpoint-guard` · IP_TRUST_PROXY · `/server/ping` · WS · PUBLIC_URL · telemetry/license failure behavior.
-- Consumer matrix phải dùng snapshot **sau MCPW-B1 terminal**: Nuxt, agent-data, MCP `directus_*`, Mac MCP nếu relevant, DOT/script/cron, PG function/trigger; Hermes nếu evidence = không gọi thì ghi no-call. DOT chỉ qua wrapper fail-closed lab; production DOT/script chỉ static-analysis/patch candidate.
+- Consumer matrix dùng snapshot **mới nhất tại thời điểm test**: Nuxt, agent-data, MCP `directus_*`, Mac MCP nếu relevant, DOT/script/cron, PG function/trigger; Hermes nếu evidence = không gọi thì ghi no-call. Nếu B1 đổi agent-data/MCP/Hermes sau snapshot, ghi `CONSUMER_RECHECK_PENDING` cho đúng nhóm bị ảnh hưởng và recheck đúng nhóm đó trên snapshot mới; không chặn các phần độc lập. DOT chỉ qua wrapper fail-closed lab; production DOT/script chỉ static-analysis/patch candidate.
 - Không sửa VPS1 production consumer trong G4B.
 
 ## G4B.3 · Integrated runtime
@@ -64,6 +64,7 @@ Sau CORE integrated PASS:
 Hồ sơ tiếp tục dùng `/opt/incomex/work/vps1-up-grade/G4-TARGET-20260930/`, thêm mục G4B; không tạo dossier mới nếu không cần.
 KQ executor:
 - `KQ@VPSUP-G4B-DIRECTUS-CONTINUE-20260930-01 MACHINE_DONE · CORE_PASS · SOAK_ARMED`
+- hoặc `... MACHINE_DONE · CORE_PASS · SOAK_ARMED · CONSUMER_RECHECK_PENDING` nếu duy nhất B1 moving-target còn cần recheck consumer sau;
 - hoặc `DỪNG · <exact blocker>`.
 Không tự ghi G4 PASS/G5/G6/G7/DNS.
 
