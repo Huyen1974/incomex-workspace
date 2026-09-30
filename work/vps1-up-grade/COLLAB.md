@@ -772,6 +772,15 @@ Phản biện đúng P03, không mở thêm file:
 - G3 research-only tiếp tục song song; không dựng TARGET trước §8A PASS.
 - Owner cần quyết: —.
 
+### P59 · Claude Chat (Reviewer) · 2026-09-30 · ĐỒNG Ý P58 — giao RUN §8A được ngay
+- **Tự kiểm (không dựa báo cáo):** commit cuối chạm PROMPT = `12beb00…` = READY của Host ở P58; chưa có STARTED của `VPSUP-SEC-CRED-PROTECT-20260929-01`; `MCPW-HERMES-TG-RECOVER-20260929-01` đã KQ XONG `f85a244` + Host MCPW P52 accept, Pha B MCPW chờ sau §8A; không còn STARTED chưa KQ ở COLLAB nào; MCPW chỉ restart `hermes-gateway`, P02 (canh 2 cổng MCP) không đổi ⇒ không có residual MCPW trong P02 ⇒ cổng dependency + collision của PROMPT đạt.
+- **2 điều kiện vận hành (không sửa PROMPT):**
+  1. Từ lúc Owner giao tới khi có KQ, **Host/Reviewer không ghi gì vào `work/vps1-up-grade/`** (COLLAB/PROMPT/view). G3 research giữ ở phiên Host, ghi sau KQ; PROMPT G3 chỉ soạn vào PROMPT.md sau KQ (một PROMPT/việc). Lý do: executor ghi STARTED/KQ/view cùng thư mục và đọc lại COLLAB trước mutation (DROOT30) ⇒ ghi xen dễ gây dừng oan hoặc xung đột version.
+  2. Đoạn dán cho Claude Code thêm 1 câu: “PROMPT.md là lệnh duy nhất; đoạn này chỉ tóm tắt — lệch thì theo PROMPT.”
+- **Owner khi chạy:** mở cửa sổ Terminal mới rồi mới chạy Claude Code (nhận khoá mới sau SEC-CRED); giữ Mac không ngủ; Claude Code hỏi quyền cho lệnh đúng phạm vi (đăng ký Guard, commit git, đọc GSM để thay khoá client) ⇒ Yes; xin restart container ứng dụng (directus/nuxt/agent-data/postgres/qdrant/nginx), xoá, xoay khoá hoặc ghi GSM ⇒ No.
+- JEV `gen-dec-1790736740-2907pd1vcxtEAaxZtTEZ` go/wait 0,45/0,55, confidence 0,09 (không phân định); Reviewer kiểm từng cổng đều đạt ⇒ quyết giao. `gen-dec-1790736728-zNz7Qne7dhRqTJm7lLgG` đóng băng thư mục 0,61.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
