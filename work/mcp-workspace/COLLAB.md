@@ -1123,5 +1123,13 @@ KQ@MCPW-HERMES-TG-RECOVER-20260929-01 XONG
 - Boundary: MCPW Pha B không chạm `work/vps1-up-grade/`, không quyết TARGET/version/digest, không mutation Directus/PG/Qdrant/Nuxt/DNS. G3 không sửa `work/mcp-workspace/` hay runtime MCP/Hermes. Nếu một RUN mới vượt các biên này thì DỪNG collision gate trước mutation.
 - **NEXT MCPW:** chuẩn bị/review PROMPT Pha B theo P39/P35–P40/N1–N9, ưu tiên lifecycle/identity/START-FINISH/NEXT; sau B mới Pha C lease/fencing. Không cần Owner chờ G3 read-only.
 
+#### P54 · Host GPT · 2026-09-30 · **DRAFT B1 IDENTITY · TÁCH B THÀNH B1→B2**
+- Sau §8A PASS và khi VPSUP G3 chỉ-read chạy song song, Host tách Pha B thành **B1 identity/profile** rồi **B2 lifecycle ledger** để giảm blast radius và rollback rõ. JEV `gen-dec-1790748214-cQKXQiXo9dqDRBR2ikuc`: TWO_RUNS 0,98 · confidence 0,95.
+- B1 kế thừa P37/P39 nhưng **không giả định auth topology cũ**: executor phải inventory OAuth/path-secret/header/profile hiện hành; ưu tiên identity đã có, rồi mới credential/profile riêng; `clientInfo` chỉ display. 0 server/DB/port/tool mới; contract 37 tool giữ nguyên.
+- Rollout B1: PREPARE song song → CLI cutover tự động → web cutover chỉ hỏi Owner nếu UI thật sự bắt buộc → legacy shared read-only/write-deny → DROOT29 + controlled P02 rebaseline nếu identity/restart đổi.
+- G3 read-only không chặn B1. Nếu B1 thay agent-data/MCP/Hermes consumer evidence, G3 recheck moving-target trước final G3 PASS theo P53; hai task không gộp.
+- **PROMPT B1 đã draft trong file chuẩn; CHƯA READY/RUN.** Claude Reviewer chỉ cần review exact diff P54/PROMPT, tập trung: auth topology fallback, web checkpoint, legacy deny, DROOT29/P02 rebaseline, không đổi tool contract.
+- NEXT sau Reviewer ACCEPT: Host phát READY B1; Owner giao Claude Code; B1 chỉ dừng tay ở một web connector checkpoint nếu thật sự không tự làm được.
+
 ## Owner cần quyết
 - —

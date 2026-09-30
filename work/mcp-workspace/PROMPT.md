@@ -1,202 +1,183 @@
-# PROMPT — MCPW HERMES TELEGRAM RECOVERY · restart-only + manual smoke
+# PROMPT — MCPW PHA B1 · SURFACE IDENTITY / AUTH PROFILE
 
-RUN_ID: MCPW-HERMES-TG-RECOVER-20260929-01
+RUN_ID: MCPW-B1-IDENTITY-20260930-01
 Host: GPT Chat · GPT-MCPW-250925-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
-Report_Write_Path: KQ chính ở `work/mcp-workspace/COLLAB.md`; smoke Hermes dùng `work/hermes-joint-workspace/COLLAB.md`.
+Report_Write_Path: `work/mcp-workspace/COLLAB.md`.
 Runtime: VPS1 production.
+STATUS: DRAFT — CHƯA READY/RUN.
 
 ## 0. Mục tiêu duy nhất
 
-Kế thừa KQ `645518320c9b59965a0f57b8cf2cf041df6aeeb3`:
-- **GEN2 GitHub = PASS**: 24/24 xanh, alert-only tiếp tục;
-- **Điều 30/31 = PASS**: gate read-only cross-task + Config Guard 48/48 + mutant/watchdog/rollback đã đạt;
-- phần duy nhất chưa đạt = `hermes-gateway` gửi Telegram lỗi `NetworkError`, nên MANUAL smoke chưa hoàn thành.
+Pha B được tách thành hai RUN để giảm blast radius:
+- **B1 (RUN này):** mỗi surface có danh tính server-side đáng tin, không dựa vào `clientInfo`/User-Agent/tên commit tự khai.
+- **B2 (RUN sau):** execution ledger + START/FINISH/NEXT trên identity đã nghiệm thu.
 
-RUN này chỉ:
-1. xác minh lỗi outbound Telegram hiện hành;
-2. restart **chỉ `hermes-gateway`** theo thủ tục đã chứng minh ở HJW P61;
-3. kiểm health/Config Guard;
-4. giao lại một MANUAL smoke đúng contract và kết thúc nếu PASS.
+B1 phải giữ nguyên contract MCP hiện hành: không thêm server/DB/port/tool, không đổi tools/list/schema, không đổi write authority GitHub. Reuse-first/code-last theo DROOT22.
 
-Không chạy lại GEN2. Không sửa lại Điều 30/31. Không mở Pha B/C.
+Các surface cần phân biệt bằng bằng chứng runtime, không đoán:
+1. GPT web/desktop/Work đang dùng cùng connector hiện hành → một profile `gpt-web` nếu transport thực tế không phân biệt thêm.
+2. Codex → `codex`.
+3. Claude Code CLI → `claude-code`.
+4. Claude Chat/Cowork → `claude-chat`.
+5. Hermes giữ profile server-auth hiện hữu, **không sửa** trong B1.
 
-## 1. Read/collision gate
+Nếu inventory cho thấy tên/transport khác thực tế, dùng đúng surface thật; không tự tạo identity giả để đủ danh sách.
+
+## 1. Read gate / collision gate
 
 Đọc:
-AGENTS → root COLLAB DROOT22/25/28/29/30/31 → MCPW COLLAB P47–P50 + KQ commit `6455183` → HJW COLLAB dòng hướng dẫn đầu file + P52/P61–P64 → PROMPT này.
+AGENTS.md → root COLLAB DROOT09/19/22/25/28/29/30/31 → MCPW COLLAB §0 + N1–N9 + P35–P43 + P52–P54 → PROMPT này.
 
-**Cổng task COLLAB trước READY/RUN:** Host chỉ phát READY khi `work/mcp-workspace/COLLAB.md` ghi được qua gateway đã duyệt; `STARTED` và KQ phải ghi tại chính task COLLAB này, root COLLAB không thay thế.
+Đọc live trạng thái VPSUP:
+- `VPSUP-G3-TARGET-20260930-01` có thể đang STARTED nhưng G3 là **read-only**.
+- G3 read-only không chặn B1.
+- Nếu VPSUP/G3 hoặc RUN khác đã mở mutation trên nginx/agent-data/claude-mcp/GSM/credential/MCP/Hermes ⇒ DỪNG trước mutation.
+- Không sửa `work/vps1-up-grade/`; moving-target consumer do G3 tự recheck trước final PASS.
 
-Ngay sau read-gate PASS và **trước PRE**, executor phải ghi:
-`STARTED@MCPW-HERMES-TG-RECOVER-20260929-01 <UTC> · executor=Claude Code CLI`
-vào `work/mcp-workspace/COLLAB.md`. Nếu không ghi được ⇒ DỪNG trước PRE/mutation.
+Ngay sau read-gate PASS và **trước PRE**, ghi:
+`STARTED@MCPW-B1-IDENTITY-20260930-01 <UTC> · executor=Claude Code CLI`
+vào task COLLAB. Ghi không được ⇒ DỪNG.
 
-Kiểm `work/vps1-up-grade`:
-- SEC-CRED đã có KQ terminal; technical rotation đã xong nhưng §8A protection/rebaseline còn HOLD;
-- nếu có **active runtime mutation mới** trên Hermes/Guard/agent-data/claude-mcp/GSM/credential ⇒ DỪNG trước restart;
-- repo/version conflict thuần túy ⇒ re-read/diff/retry, không overwrite.
+## 2. PRE — inventory bằng chứng hiện hành, không dùng giả định P39
 
-PRE:
-- `hermes-gateway` MainPID/start time/health;
-- HJW gate/plugin/root hashes, STOP, AUTO_ALLOWLIST, jobs relevant;
-- Config Guard registry/hash hiện hành;
-- sanitized log từ thời điểm Telegram bắt đầu lỗi (~06:04Z 29/09): exception class/chain, không token/chat secret;
-- xác minh host vẫn có network/TLS/DNS reachability tới Telegram bằng đường read-only/probe hiện hữu, không in token.
+Trước mutation, xác minh và lưu sanitized evidence:
+- auth path hiện hành của `workspace_*`, `fs_*`, master route, agent profiles, claude-mcp, nginx includes/routes, OAuth/path-secret/header nếu có;
+- profile/credential nào đang được mỗi surface thật sử dụng;
+- actor hiện được server quyết định từ đâu; điểm nào còn lấy từ `clientInfo`/UA;
+- exact 37-tool contract: names + input schemas + serverInfo/version/hash;
+- Agent Data / claude-mcp / nginx image+StartedAt+health+network;
+- Config Guard registry hiện hành (sau §8A kỳ vọng 54 CLEAN) + Protection Guard;
+- P02 identity/baseline hiện hành;
+- Hermes profile/tool/write scope/AUTO/STOP chỉ đọc để chứng minh **không bị chạm**;
+- GSM chỉ metadata/version/state/fingerprint; **không in secret**;
+- Mac client configs của Codex/Claude Code nếu được phép đọc; không in credential;
+- exact backup/hash/owner/mode của mọi file sẽ có thể thay.
 
-## 2. Scope / hard stops
+**Quan trọng:** việc Owner vừa Authenticate `claude.ai Incomex VPS` không tự chứng minh surface identity; phải xem server-side auth evidence.
 
-Được:
-- đọc log/state/evidence;
-- restart **chỉ `hermes-gateway`**;
-- tạo một ASSIGN smoke mới trong HJW COLLAB sau khi outbound Telegram đã phục hồi;
-- repo write KQ/ASSIGN theo gateway đã duyệt.
+Nếu auth topology thực tế khác P39 theo cách đòi:
+- server/port/public endpoint mới;
+- tool/schema mới;
+- OAuth provider mới;
+- thay đổi kiến trúc lớn hơn một mapping/profile/routing delta mỏng;
+⇒ ghi `IDENTITY_DESIGN_DELTA_REQUIRED` + evidence rồi DỪNG, không cố ép P39.
 
-Cấm:
-- sửa code/config trước restart;
-- restart `hermes-serve`, nginx, agent-data, claude-mcp, Directus, Nuxt;
-- sửa/rotate credential/GSM/token;
-- rebaseline P02/AD1 trong RUN này;
-- bật AUTO / thêm AUTO_ALLOWLIST;
-- mở write scope/tool/profile;
-- sửa Config Guard registry/baseline nếu không có code/config delta;
-- Pha B/C.
+## 3. Lựa chọn implementation trong RUN — reuse-first
 
-Nếu restart-only không chữa lỗi ⇒ DỪNG với evidence, không tự chuyển thành code-fix RUN.
+Ưu tiên theo thứ tự:
 
-## 3. Xác minh nguyên nhân trước restart
+A. **Tốt nhất:** transport/auth hiện hành đã cung cấp identity server-side đáng tin (credential/profile/OAuth claim) ⇒ chỉ map/bind surface vào actor profile; không tạo secret mới nếu không cần.
 
-Đối chiếu KQ trước:
-- card trước đó đã từng gửi được + callback Owner được ghi nhận;
-- từ khoảng 06:04Z outbound send của gateway lỗi `NetworkError`;
-- START retry/send sau đó lỗi; 0 model call;
-- host/network path không có bằng chứng bị firewall chặn.
+B. Nếu cần credential riêng: reuse `agent_profiles` + GSM/project hiện hữu + nginx/secrets include hiện hữu; mỗi surface một credential/profile server-side. Không project/service/secret-store mới.
 
-Trước restart phải xác minh:
-- config/plugin/gate hashes không drift khỏi known-good/P61 hoặc baseline D30/31 hiện hành;
-- STOP/AUTO đúng trạng thái;
-- lỗi tập trung ở process/gateway outbound path, không phải credential rotation Agent Data.
+C. Chỉ nếu A/B không thể giữ full master capability: cho phép **delta code nhỏ nhất** để profile riêng có đúng capability master hiện hành mà **không đổi tool list/schema**. Code delta này phải vào DROOT29 ngay trong RUN. Nếu cần thay contract/tool schema ⇒ DỪNG.
 
-Nếu thấy config/token Telegram bị đổi/mất/expired hoặc drift ngoài dự kiến ⇒ DỪNG, không restart để che lỗi.
+Không dùng `clientInfo`, User-Agent hoặc commit prefix để cấp quyền/định actor; chúng chỉ là display metadata.
 
-## 4. Restart-only
+## 4. Rollout không làm gián đoạn
 
-Trước restart, so MainPID/StartedAt `hermes-gateway` với mốc KQ `6455183`:
-- nếu gateway **đã tự khởi động lại sau KQ `6455183`** ⇒ **KHÔNG restart thêm**; ghi `AUTO_RESTART_ALREADY_OCCURRED`, kiểm health/hash/Config Guard rồi chuyển thẳng §5 Telegram TEST;
-- chỉ restart nếu vẫn là process cũ và toàn bộ PRE gate PASS.
+Triển khai theo 4 nấc, mỗi nấc có health gate:
 
-Ngay trước first runtime mutation/restart, áp DROOT30: re-read `work/mcp-workspace/COLLAB.md` + `PROMPT.md`, xác nhận READY vẫn đúng commit last-touch và không có HOLD/STOP/READY mới; lệch ⇒ DỪNG trước mutation.
+1. **PREPARE:** tạo/bind profile/route mới song song; legacy shared route vẫn hoạt động như cũ.
+2. **CLI CUTOVER:** tự cập nhật Codex + Claude Code config trên Mac bằng cơ chế hiện hữu nếu có; không hỏi Owner nếu Agent làm được.
+3. **WEB CUTOVER:** chuẩn bị hoàn toàn phía server trước. Nếu ChatGPT/claude.ai bắt buộc Owner đổi URL/reconnect trong UI, dừng đúng một checkpoint `OWNER_WEB_CONNECTOR_SWITCH_REQUIRED` và đưa **một hướng dẫn gộp ngắn** cho tất cả thao tác tay còn lại. Không yêu cầu Owner làm từng bước kỹ thuật phía server.
+4. **ENFORCE LEGACY:** chỉ sau khi surface mới đã test thật. Legacy shared auth/route trở thành `unattributed`: đọc được theo quyền hiện hành, **ghi DENY**. Không xoá legacy trong RUN này để rollback dễ.
 
-Nếu cần restart, dùng đúng thủ tục restart `hermes-gateway` đã chạy thành công ở HJW P61:
-1. ghi checkpoint PRE + rollback/reference;
-2. restart đúng **một** service/process `hermes-gateway`;
-3. chờ health trở lại trong cửa sổ đã chứng minh (xấp xỉ vài chục giây; không tight-loop);
-4. xác minh PID/StartedAt mới, health PASS;
-5. gate/plugin/root/config bytes/hash không đổi;
-6. Config Guard registry/invariants vẫn CLEAN.
+Restart/recreate:
+- chỉ component có config/code đổi;
+- từng component một, dùng DROOT10 health gate;
+- không restart Hermes;
+- không restart Directus/Nuxt/Qdrant/Postgres;
+- nginx chỉ reload nếu đủ; recreate chỉ khi bằng chứng bắt buộc.
 
-Do outbound Telegram đang lỗi, không yêu cầu “gửi Telegram trước restart”. Owner đã trực tiếp yêu cầu tiếp tục và Host đã cấp RUN này. Không dùng việc Telegram hỏng để mở thêm quyền.
+Ngay trước first runtime mutation và trước ENFORCE LEGACY: áp DROOT30 re-read task COLLAB + PROMPT + READY/HOLD/STOP và collision gate.
 
-Không restart lần hai nếu lần đầu không chữa được; lúc đó chuyển §7 DỪNG.
+## 5. Server-auth identity contract
 
-## 5. Post-restart Telegram check
+Sau cutover:
+- actor/profile lấy từ server-authenticated source;
+- cùng một credential/profile không được đổi actor bằng `clientInfo`;
+- surface không xác thực hoặc legacy shared không được mutation;
+- read-only/review paths không bị phá;
+- Hermes giữ nguyên actor `agent-gw/hermes`;
+- Host/Reviewer `kind=review` chưa triển khai ở B1; không được vô tình chặn luồng hội đồng hiện hành. B2 mới triển khai lifecycle gate.
 
-Trước gọi model:
-- dùng deterministic send path hiện hữu của gateway/plugin để gửi một tin TEST rõ nhãn `HJW · TG RECOVERY TEST`;
-- xác minh send receipt/message_id;
-- nếu send lỗi ⇒ §7 DỪNG;
-- xác minh gateway vẫn nhận callback/update path bình thường.
+Nếu current auth không thể phân biệt GPT web và Claude Chat mà không Owner reconnect, checkpoint web cutover là hợp lệ; không gán bừa actor.
 
-Kuma:
-- #21/control-plane phải healthy;
-- #22/P02 nếu đang đỏ do **SEC-CRED expected baseline change pending VPSUP §8A** thì ghi `EXPECTED_PENDING_REBASELINE`, **không rebaseline tại đây** và không tính là lỗi Hermes.
+## 6. Acceptance B1
 
-## 6. MANUAL smoke mới
+Bắt buộc:
 
-Chỉ sau §5 PASS.
+1. **Contract freeze:** tools/list + schema hash + serverInfo/version đúng baseline DROOT09; 0 tool mới/mất/đổi schema.
+2. **Identity:** mỗi surface đã cutover trả actor/profile đúng từ server evidence.
+3. **Spoof negative:** giả `clientInfo=openai-mcp` hoặc tên surface khác không đổi actor đã xác thực.
+4. **Legacy:** read vẫn hoạt động; write bị DENY sau ENFORCE, có exact error/audit; không làm legacy biến thành quyền surface mới.
+5. **Cross-profile:** credential/profile A không được nhận actor B.
+6. **CLI:** Codex và Claude Code thực tế connect/read bằng profile riêng; mutation smoke dùng cách ít rác nhất (ưu tiên audit/no-op/controlled existing marker); nếu phải ghi thật thì dùng đúng task COLLAB và trả file về nội dung sạch trong RUN.
+7. **Web:** ChatGPT và Claude Chat/Cowork phải có ít nhất một read thật qua connector đã cutover; nếu UI reconnect là thao tác Owner bắt buộc thì KQ chưa XONG trước checkpoint đó.
+8. **Hermes regression:** profile/tool/write scope/AUTO/STOP unchanged; Telegram/HJW control không bị sửa.
+9. **P02:** read-serving/freshness regression = 0.
+10. **Failure:** Agent Data down ⇒ claude-mcp/legacy không được fail-open thành write.
+11. **Outside scope:** 0 Directus/PG/Qdrant/Nuxt/DNS mutation; 0 `work/vps1-up-grade/` write.
+12. **Rollback:** một đường trả profile/routing/client config về known-good pre-B1; proof trên bản sao/controlled path trước KQ.
 
-Ngay trước tạo ASSIGN, lặp DROOT30 freshness gate sau mọi thời gian chờ/Owner interaction: re-read task COLLAB + PROMPT, READY phải vẫn đúng last-touch và không có HOLD/STOP/READY mới; lệch ⇒ DỪNG trước ASSIGN.
+## 7. DROOT29 / Điều 30–31
 
-Tạo assignment mới, không reuse vé/card cũ:
-`ASSIGN@HJW-MANUAL-SMOKE-20260929-03 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`
+Bất kỳ code/config production bền nào đổi trong B1:
+- regression proof hành vi cũ bị chạm;
+- đăng ký/refresh đúng Config Guard hiện hữu, không dựng guard mới;
+- mutant/negative bắt được drift;
+- watchdog checker sống;
+- rollback exact old/new + reason + RUN_ID;
+- controlled rebaseline **chỉ** delta B1.
 
-Câu giao phải:
-- ghi `MCP root=workspace`;
-- chỉ rõ **đường dẫn đầy đủ** `work/mcp-workspace/COLLAB.md`;
-- yêu cầu tìm marker duy nhất `MCPW-GEN2-HERMES-PROTECT-20260929-01`;
-- cấm dò/đoán root;
-- chỉ đọc MCPW, chỉ ghi HJW.
+Sau final restart/recreate Agent Data/claude-mcp (nếu có), thực hiện **controlled P02 identity rebaseline** theo P43: old/new + reason + RUN_ID + POST proof. Không silent rebaseline.
 
-Hermes phải:
-- trước Owner click: 0 model;
-- Telegram card CHỜ DUYỆT xuất hiện;
-- Owner bấm `Cho chạy`;
-- callback ack + BẮT ĐẦU receipt gửi thành công;
-- đúng 1 one-shot model;
-- ghi trong HJW đúng 3 dòng:
-  1. `HERMES_MANUAL_SMOKE=PASS|BLOCKED`
-  2. `assignment=HJW-MANUAL-SMOKE-20260929-03 actor=<server-auth identity>`
-  3. `marker=MCPW-GEN2-HERMES-PROTECT-20260929-01 limitation=<none|...>`
-- đổi ASSIGN open→done trong cùng một commit `[Hermes] ASSIGN@HJW-MANUAL-SMOKE-20260929-03`;
-- Telegram RESULT = XONG suy từ Git/sổ.
+Guard PRE/POST theo cơ chế hiện hữu; ngoài-scope delta = 0.
 
-Acceptance:
-- đúng 1 model;
-- đúng 1 commit Hermes trong HJW;
-- 0 commit ngoài HJW;
-- AUTO vẫn rỗng;
-- no runtime mutation ngoài gateway restart;
-- marker bắt buộc đúng, thiếu = BLOCKED.
+## 8. No-AI-Wait / Owner interaction
 
-## 7. Nếu Telegram vẫn lỗi
+Không soak >15 phút trên Mac.
+- phép thử dài ⇒ VPS deterministic existing Guard/Kuma/timer;
+- B1 dự kiến không cần soak dài.
 
-DỪNG. Không sửa code. Không restart lần 2.
+Agent tự làm tối đa.
+Chỉ dừng hỏi Owner khi:
+- UI của ChatGPT/claude.ai thực sự bắt buộc người dùng reconnect/change URL;
+- hoặc scope/contract phải mở rộng ngoài PROMPT.
 
-Phân loại đúng đường lỗi:
-- deterministic TEST ở §5 **không gửi được** ⇒ ghi `KQ@MCPW-HERMES-TG-RECOVER-20260929-01 DỪNG · TELEGRAM_NETWORKERROR_PERSISTS`;
-- deterministic TEST **PASS**, nhưng sau Owner click thì tin `BẮT ĐẦU` lỗi ⇒ ghi `KQ@MCPW-HERMES-TG-RECOVER-20260929-01 DỪNG · TELEGRAM_START_PATH_DEFECT`; giữ fail-closed, không code-fix trong RUN này.
+Nếu cần Owner, gộp thành **một checkpoint duy nhất**.
 
-Lưu sanitized evidence:
-- exception type + cause chain;
-- timestamp;
-- PID/start time trước/sau;
-- DNS/TLS/network probe;
-- send endpoint class/path (không token);
-- HTTP client/session state nếu đọc được an toàn;
-- gateway health;
-- config/hash unchanged;
-- riêng `TELEGRAM_START_PATH_DEFECT`: lưu exact evidence của START path và xác nhận TEST path ngay trước đó PASS.
+## 9. KQ
 
-Host sẽ mở RUN code-fix riêng sau khi có root cause.
-
-## 8. Điều 30/31 trong RUN này
-
-Không có code/config delta dự kiến ⇒ **không rebaseline**.
-Chỉ verify:
-- Config Guard/registry vẫn CLEAN sau restart;
-- 13 target AD1/HJW + registry self-protection vẫn được bao phủ;
-- watchdog vẫn sống.
-
-Nếu phát sinh nhu cầu sửa code/config ⇒ DỪNG, không mở scope; sửa phải sang RUN mới và áp DROOT29 đầy đủ.
-
-## 9. KQ / NEXT
-
-PASS khi:
-- restart-only health PASS;
-- outbound Telegram send phục hồi;
-- MANUAL smoke end-to-end PASS;
-- Config Guard CLEAN, AUTO rỗng, ngoài-scope=0.
+PASS khi mọi acceptance §6 đạt và legacy write đã fail-closed.
 
 Ghi:
-`KQ@MCPW-HERMES-TG-RECOVER-20260929-01 XONG`
+`KQ@MCPW-B1-IDENTITY-20260930-01 XONG`
 
-Sau XONG:
-1. dừng phiên;
-2. NEXT = VPSUP §8A protection/rebaseline-only để khép SEC-CRED;
-3. rồi MCPW Pha B → C.
+Nếu dừng vì topology khác:
+`KQ@MCPW-B1-IDENTITY-20260930-01 DỪNG · IDENTITY_DESIGN_DELTA_REQUIRED`
 
-Không tự chạy NEXT trong cùng phiên.
+Nếu dừng chờ thao tác web bắt buộc:
+không ghi KQ terminal; ghi checkpoint
+`OWNER_WEB_CONNECTOR_SWITCH_REQUIRED`
+và chờ Owner làm một lần, sau đó re-read DROOT30 rồi tiếp tục.
 
-## 10. Mac/clients
+KQ phải báo:
+- actor/profile matrix before→after;
+- tool/schema hash before→after;
+- component StartedAt before→after;
+- Guard/Config Guard/P02/Hermes regression;
+- legacy deny evidence;
+- rollback;
+- mọi Owner action thực tế đã cần.
 
-Không có soak dài. Nếu Owner chưa restart Claude Desktop/Claude Code/Codex sau SEC-CRED key rotation, chỉ nhắc trong KQ; không tự sửa config ngoài scope.
+## 10. NEXT
+
+Sau B1 XONG:
+- Host + Claude review KQ;
+- mở **B2 lifecycle ledger / auto-claim / START-FINISH / NEXT** theo P39/N1–N9;
+- B2 xong mới Pha C scoped lease/fencing.
+
+Không tự chạy B2/C trong RUN này.
