@@ -84,3 +84,38 @@ COORD · NOW=XONG · NEXT=Host nghiệm thu A05 · BLOCKED_BY=FIELD_✓: thiếu
 
 ### A07 · 2026-09-30
 STARTED@MMIM-LANE-A07-20260930-01 2026-09-30T07:10:33Z · executor=Codex
+
+KQ@MMIM-LANE-A07-20260930-01 XONG
+- 1 · PROVEN: poll revision chung dựng lại iframe dù HTML MOW không đổi; trạng thái xổ xuống bị mất.
+- 2 · SUSPECT: HTML ~551 KB / ~12,3k DOM + iframe ẩn có 11 JS ngoài làm tải đầu nặng; chưa đo phần thời gian riêng.
+- 3 · SUSPECT: popstate + hashchange cùng restore/cuộn; có đường xử lý lặp, chưa chứng minh là nguyên nhân chậm chính.
+- Patch nhỏ: giữ iframe khi nội dung không đổi; nạp srcdoc một lần khi vào tab; gộp restore/cuộn.
+- Rủi ro: giữ nhầm bản cũ hoặc mất deep-link/trạng thái; phải kiểm cả nội dung đổi và không đổi.
+KQ@LANE-A A07 · PROCESS=VEUI.MOW · PROCESS_GATE=PASS · causes=3 · proven=1 · suspect=2 · NEXT=A08_PATCH_AFTER_B05
+COORD · NOW=XONG · NEXT=A08_PATCH_AFTER_B05 · BLOCKED_BY=none · RESERVED_TARGETS=lane-a/COLLAB.md · LAST_SYNC=FORMULA-01/A07
+
+#### Evidence / before metrics
+
+- Gate: READY `626769a87a786abfeb410ea3e85b8a48d9ff8846` vẫn là commit cuối chạm PROMPT; Registry đúng A07, không STOP. Gate exit 0: `{"status":"PASS","process":"VEUI.MOW","catalog_sha256":"e0e533ab98b80ec80bc51cd616cce07aaa2d53f343099e1aedf664c441ff3bd5","prompt_sha256":"eda0373320a09b1e732393c6613324bf95d8702a06f6adcfc7d5facc03aac37d","reason":"OK","process_count":39,"step_count":8}`.
+- Snapshot đầu `e0e533ab…ff3bd5`: 546.642 bytes, 12.261 thẻ nguồn / 12.268 phần tử DOM trên bản mở trực tiếp, 296 details. B05 cập nhật hợp lệ trong lúc A07 đọc: snapshot `ccf4e77b83b48d6691078dfc72f88de8a999a914bff836e3f84a4575abee8d4f` = 550.846 bytes, 12.307 thẻ nguồn / 12.313 phần tử trong html của iframe xuất bản, 297 details. Cả hai: 1 iframe, 1 srcdoc; source của phần này ở `matrix-view-process-list-2`.
+- Hai panel cũ Step quy trình + Master list chứa 3.529 + 5.542 phần tử (khoảng 74% DOM snapshot đầu), kể cả lúc ẩn. Iframe Step 2 có srcdoc ngay trong HTML, không có loading/lazy gate: 3.433 ký tự / 3.528 bytes, 11 JS ngoài, 2 stylesheet, 2 script inline. Khi mở Step 2 thấy đủ bảng 7 dòng. Chưa tách được thời gian parse, chạy script và request của iframe ẩn; cấu hình eager là fact nguồn, mức ảnh hưởng là SUSPECT.
+- Core listener: 10 tab click, 19 child-UI click, 296→297 details toggle; 1 delegated hash-link click; 2 hashchange + 2 popstate (restore và hdReveal). `show` chỉ đổi hidden/ARIA; `write` push/replaceState và bỏ hash trùng; `restore` mở ancestors + scrollIntoView. Mở một details viết đúng hash của mục; không thấy vòng history vô hạn. Hai handler restore có thể cùng cuộn khi history traversal phát cả hai event; chưa đếm invocation runtime.
+- Script tab không đổi sau B05: so sánh nguyên tail trả `unchanged_from_A07_initial_script=true`, SHA `1f00108af2f9f4cec6cd8fb0b33e58b1e897f9b17e68d1276a4277ca57a14ef9`, 5.353 ký tự. Vùng hiện hành bắt đầu dòng 744; iframe ở dòng 113.
+
+#### Reload thật / đổi DOM
+
+- Click tab trực tiếp: Master details vẫn mở khi sang Công thức; Back/Forward khôi phục đúng Master/Công thức và giữ details. Reload chủ động tại cùng hash Công thức đóng details Master. Lọc Tạm dừng trong iframe Step 2 vẫn giữ sau Step 2 → Công thức → Step 2; đã trả lọc về Mọi trạng thái.
+- Qua đúng Owner View: click tab đổi URL portal `section=matrix-view-master` và tab con được chọn, nhưng attr src của iframe tài liệu vẫn là bản c51fe1…#matrix-view-formula. Bridge chỉ postMessage section; bộ nạp cập nhật URL bằng replaceState. Đây là đổi DOM/hash/cuộn, không dựng lại document trong ca bấm tab.
+- Reload thừa đã tái hiện tự nhiên: 07:30:11Z iframe đang ở revision `4e8cf8d4dacef4752a78538de07aaf85858f6379`, details Master mở. 07:31:39Z iframe đổi sang `06e08d20d2438e0f97fc43e3e8e5d4af3cbdd83d`, cùng tab Công thức, details Master đóng. SHA HTML ở hai revision giữ nguyên ccf4e77b…; Git log cho thấy 06e08d… chỉ cập nhật `work/hermes-joint-workspace/COLLAB.md`.
+- Source live HPML: `ie()` poll sync-status mỗi 60s; publishedRevision đổi → lấy tasks mới. `Y=computed(documentPath)`, `H=Y+section`; iframe dùng `key=Y, src=H`. Đường revision đổi làm remount ngay cả khi bytes tài liệu không đổi. Presence poll 15s riêng không phải bằng chứng document reload.
+- Giới hạn: capability đọc DOM không cung cấp Performance/Network timeline; không báo số request, long-task hay ms parse. Thời gian gọi tool không được dùng làm độ trễ UI. Lượt mở portal đầu có trạng thái chưa snapshot rồi tự chuyển fresh; chưa xác định nguyên nhân độ trễ fetch ban đầu.
+
+#### Patch plan cho Host / A08 — chưa áp
+
+1. **Bộ nạp HPML · ie / Y / H / watcher Y / iframe key:** tách snapshot metadata đang poll khỏi loaded document. Dùng fingerprint nội dung từng tài liệu để quyết định đổi loaded src/key; revision chỉ đổi metadata và nội dung giữ nguyên thì giữ document cùng trạng thái. Nội dung thực sự đổi thì thay document một lần, dùng section hiện hành. Nếu snapshot chưa có fingerprint đáng tin thì giữ hành vi an toàn hiện có, Host chốt đường fingerprint trước; không chỉ bỏ key trong khi vẫn đổi src.
+2. **ban-duyet.html · iframe Step 2 + show:** giữ nguyên srcdoc/asset/UI-001 đã chốt, chuyển payload sang thuộc tính không kích hoạt frame; gán srcdoc đúng một lần khi panel lần đầu được mở, kể cả mở qua deep-link. Không gán lại khi chuyển tab; giữ filter/drawer. Không tách file, không dựng UI con mới.
+3. **ban-duyet.html · restore + hai listener + toggle:** dùng một scheduler restore cho hashchange/popstate, gộp cùng URL/target và chỉ scroll một lần; toggle do restore mở ancestors không tạo history mới. Giữ `target()` cùng alias cũ, `write()` de-dup, user details deep-link, ARIA và bridge. Chưa cần chia/cắt kho DOM dài trong patch nhỏ.
+4. **Kiểm sau patch:** Owner route + URL tài liệu trực tiếp; tab/summary/anchor, Back/Forward, reload tại deep-link, alias wf4/wf5, iframe lọc/drawer; một commit metadata khác không thay loaded document; thay nội dung thật phải hiện bản mới và giữ section. Đo request/navigation/restore và thời gian bằng capability được Host cấp, tách khỏi thời gian tool.
+5. **Đích an toàn:** phần HPML nằm ở runtime `/ui-preview/hpml-view-for-user/view.html`; A07 chỉ đọc source live. Đường `root=docs hpml-view-for-user/view.html` trả PATH_UNAVAILABLE. Host cần xác định/reserve SSOT bộ nạp trước khi giao patch; không vá mù bundle đang xuất bản. B05 vẫn là writer canonical của batch này.
+
+A07 chỉ append STARTED/KQ/COORD vào ledger Lane A; canonical/root ui/PG/Directus và Registry không bị A07 sửa. Trình duyệt đã trả về Master Home. Dừng.
