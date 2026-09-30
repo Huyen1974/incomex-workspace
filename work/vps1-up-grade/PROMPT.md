@@ -1,12 +1,96 @@
-# PROMPT — VPSUP G3 TARGET STACK · exact version/digest decision
+# PROMPT — VPSUP G4 TARGET PARITY · staged lab migration on VPS2
 
-RUN_ID: VPSUP-G3-TARGET-20260930-01
-STATUS: **CHỜ READY — Reviewer đã ACCEPT (P61). Chỉ chạy khi task COLLAB có `READY@<SHA commit cuối chạm file này>` do Host phát. Chưa có READY ⇒ không chạy.**
+RUN_ID: VPSUP-G4-TARGET-PARITY-20260930-01
+STATUS: **DRAFT — CHỜ CLAUDE REVIEW. CHƯA READY/RUN.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
-Runtime_Write_Path: **NONE — G3 này chỉ đọc/nghiên cứu; cấm mutation VPS1/VPS2.** Ngoại lệ duy nhất: ghi hồ sơ evidence vào `/opt/incomex/work/vps1-up-grade/G3-TARGET-20260930/` trên VPS1 (không phải runtime).
-Runtime VPS là SSOT cho CURRENT; nguồn upstream chính thức/registry là SSOT cho version/digest hiện hành.
+Runtime_Write_Path: **VPS2 LAB ONLY. VPS1 production = READ-ONLY.** Không mutation DNS/GSM/VPS1.
+Runtime VPS là SSOT; G3 target/digest freeze = KQ `9603c5b…` + consensus P63/P64.
+
+## G4.0 · Mục tiêu duy nhất
+Dựng **TARGET riêng trên VPS2** từ checkpoint sanitized CURRENT của G2, theo đúng target G3 đã PASS; chạy SAME SLICE + route/API/UI/runtime/security matrix và chuẩn bị rollback evidence. **Không chạm checkpoint CURRENT G2**, không cutover VPS1, không G5 rollback rehearsal đầy đủ.
+
+**TARGET cố định:**
+- PostgreSQL `16.15-trixie` theo full digest trong `G3-TARGET-20260930/upstream/digests-*.txt`;
+- Directus `12.3.1` index digest `sha256:8978edf633ae28aa31464bb71c55300c94d8bc771ff3727b5fac485173283869` + amd64 digest khớp G3 evidence;
+- Nuxt `4.5.2`, Node `24.21.0-alpine3.23` exact digest theo G3 evidence;
+- nginx `1.30.5-alpine` exact digest;
+- Qdrant KEEP `1.16.3` exact digest; Kuma KEEP `2.2.1` exact digest/manifest (không cần boot Kuma nếu SAME SLICE G2 không dùng nó).
+
+**Không tự đổi target.** Directus 12.4.1 không được migrate thử trong RUN này. Nuxt 3.21.11 chỉ được dùng trong scratch diagnostic nếu cần cô lập lỗi Nuxt4, **không phải production fallback/target** vì Nuxt 3 đã EOL.
+
+## G4.1 · Read/collision gate
+Đọc AGENTS → task COLLAB §0 + G2 KQ + G3 KQ/P63/P64/P65 → PROMPT này. READY phải = commit cuối chạm PROMPT. Áp DROOT31: sau read-gate PASS ghi `STARTED@VPSUP-G4-TARGET-PARITY-20260930-01 <UTC> · executor=Claude Code CLI` trước PRE/mutation. STARTED sống ⇒ Host/Reviewer không ghi vào `work/vps1-up-grade/` tới KQ.
+
+Collision:
+- MCPW Pha B/C được chạy song song nếu không chạm VPS2 TARGET/Directus/PG/Nuxt/Qdrant/DNS của G4.
+- Nếu MCPW đổi agent-data/MCP/Hermes trong lúc G4 kiểm consumer Directus ⇒ ghi snapshot/time; tiếp tục lane độc lập, nhưng consumer acceptance cuối phải recheck sau MCPW terminal. Không rollback task kia, không gộp task.
+
+PRE bắt buộc:
+- VPS2 e-learning vẫn FREEZE + static page 200; CURRENT checkpoint G2 còn nguyên/stopped + hashes khớp;
+- đủ disk/RAM/swap; không active TARGET cũ;
+- xác nhận target digest full + prefix khớp G3 evidence; nếu tag/digest/advisory target đổi ngoài freeze ⇒ DỪNG trước pull/load;
+- kiểm metadata GSM **chỉ để biết OIG key có tồn tại hay không**, không in/đọc value vào log/chat. Điều kiện OIG của Owner đã xác nhận ở §0, **không hỏi lại doanh thu/nhân sự**.
+
+## G4.2 · Artifact + isolation
+- Bảo toàn CURRENT checkpoint G2 immutable; tạo TARGET volumes/network/source-copy riêng.
+- Reuse isolation G2: internal lab network + host firewall/DOCKER-USER, production secrets không mang sang TARGET.
+- Image Docker lấy theo exact digest. Ưu tiên pull/save/load ngoài lab runtime như G2; builder Nuxt có thể dùng egress riêng tối thiểu cho registry/package fetch rồi đóng lại, không mở egress TARGET runtime.
+- Không dùng floating tag `latest`/major tag trong TARGET manifest.
+
+## G4.3 · Lane A — PostgreSQL 16.15
+1. Copy sanitized PG checkpoint sang TARGET volume riêng; không mutate CURRENT volume.
+2. Boot exact `16.15-trixie` digest; cùng base/glibc như CURRENT.
+3. Trước/ sau: extensions, `datcollversion`, checksum, object/table/row counts, owners/ACL/FDW.
+4. Chạy lại query G3: `btree_gist`/`ltree` + index dạng bị ảnh hưởng release 16.15. Nếu bằng chứng đổi ⇒ DỪNG và disposition REINDEX trước khi tiếp; không suy từ version.
+5. `pg_hba` localhost trust giữ nguyên theo P64; regression-test 6 FDW/foreign reads + cron/DOT read paths trên lab, không tạo bản sao secret mới.
+6. PASS lane A phải có rollback = stop TARGET + quay lại CURRENT checkpoint, không downgrade dữ liệu.
+
+## G4.4 · Lane B — Directus 12.3.1 + license
+**Eligibility đã được Owner xác nhận; chính sách Directus cập nhật 10/09/2026: OIG hiện perpetual/no-expiration, không có annual renewal gate.** G4 không tạo nhắc gia hạn hằng năm. Vẫn phải chứng minh key thật, activation, telemetry/license connectivity và LC1–LC6.
+
+- Nếu **OIG key chưa tồn tại trong canonical secret store**: ghi `BLOCKED_OIG_KEY_ONLY`, **không ngồi chờ**; bỏ qua lane Directus + integrated tests phụ thuộc Directus, tiếp tục Lane A, Lane C build-only, Lane D artifact/pinning. KQ cuối = PARTIAL với checkpoint tái dùng được.
+- Nếu key có: materialize tối thiểu theo secret-boundary hiện hữu, không log value; dùng 1 activation cho lab theo đúng PUBLIC_URL/DB binding; không đưa key vào repo/evidence.
+- Trước boot 12.3.1: snapshot/checkpoint TARGET PG sau lane A. Rollback Directus = restore checkpoint + image cũ, không migrate down.
+- Chạy migrations 11.14-schema → 12.3.1; ghi exact migration list/duration.
+- Gate bắt buộc: 167 collections · 128 flows · 1.241 permissions; custom policy/permission semantics; extension `l2-checkpoint-guard`; IP_TRUST_PROXY; `/server/ping`; WS; PUBLIC_URL; LC1–LC6; telemetry/license failure behavior.
+- Consumer matrix: Nuxt, agent-data, MCP `directus_*`, Hermes (nếu thực sự không gọi thì evidence), DOT/script/cron, 17 health/DOT path, 2 PG function/trigger. **Không sửa production consumer ở VPS1**; dùng lab copy/fixture/endpoint override và ghi patch candidate. Production patch thuộc G7/DROOT29.
+- Chỉ egress Directus lab tối thiểu tới endpoint licensing/telemetry cần thiết, theo source/docs; mọi egress khác vẫn DROP; test xong khôi phục policy lab mặc định.
+- **Không migrate thử 12.4.1 trong RUN này.** Chỉ ghi release-note delta; nếu có advisory mới chạm 12.3.1 thì DỪNG, Host mở target review mới.
+
+## G4.5 · Lane C — Nuxt 4.5.2 / Node 24.21.0
+- Copy source-lock fork Agency OS từ VPS1 read-only sang VPS2 TARGET workspace; production source không sửa.
+- Build trong exact Node 24.21.0-alpine3.23; khóa Nuxt 4.5.2 và dependency tree/lock result.
+- Gate: `@nuxt/ui v2`, Directus SDK19, custom modules/plugins, Vite/Nitro/server routes, 9 UI pages, route matrix, SSR, auth, iframe GDDH/e-learning.
+- Nếu `@nuxt/ui v2`/source gãy trên Nuxt4: **DỪNG lane target trước rewrite hàng loạt**; ghi exact files/modules/error. Có thể build Nuxt 3.21.11 + Node24 trong scratch riêng chỉ để chẩn đoán/rollback comparison; **không được đổi TARGET/cutover sang Nuxt3** và không tự mở rewrite ~90 files.
+- Baseline memory = CURRENT 512m, heap ~249 MB, OOM lịch sử. TARGET core PASS phải ghi memory/heap/restart metrics.
+
+## G4.6 · Lane D — nginx / Qdrant / Kuma + integrated SAME SLICE
+- nginx exact 1.30.5-alpine; `nginx -t`, 132 route matrix.
+- Qdrant KEEP 1.16.3 exact digest + data checkpoint; agent-data client 1.15 + legacy `search()` phải PASS. Không nâng Qdrant.
+- Kuma KEEP 2.2.1: verify/pin digest; không cần dựng thêm monitor nếu G2 SAME SLICE không yêu cầu.
+- Khi A+B+C đủ: chạy **cùng SAME SLICE G2** A/B/C/D + SEC, không đổi expected để che regression; browser thật cho UI, API/Flow/agent-data, ops auth, lab-admin, permission negative cases.
+- Outside-scope diff = 0 trên VPS1. VPS1 service StartedAt/config/source không đổi.
+
+## G4.7 · No-AI-Wait / soak memory
+Không giữ Mac/Claude Code chờ soak. Nếu integrated TARGET core PASS:
+- giao phép quan sát memory/restart Nuxt **≥6 giờ** cho timer/Guard/Kuma/state-file deterministic hiện hữu trên VPS2 (mốc > OOM lịch sử ~5,2h), có watchdog và kết quả bền;
+- Claude Code ghi `CORE_PASS · SOAK_ARMED` và kết thúc. Host sau đọc state để ACCEPT/FAIL soak; không cần agent sống 6 giờ.
+- Không tạo service/DB/token bền mới nếu timer/cron/Guard hiện hữu đủ; transient one-shot được phép nếu có cleanup rõ.
+Mọi chờ khác >15 phút: machine-owned hoặc `UNKNOWN`, không ngồi chờ.
+
+## G4.8 · KQ / output
+Hồ sơ: `/opt/incomex/work/vps1-up-grade/G4-TARGET-20260930/` trên VPS2; task COLLAB chỉ KQ + bảng lane; view 1 dòng. Không tạo repo file mới.
+
+KQ hợp lệ:
+- `KQ@VPSUP-G4-TARGET-PARITY-20260930-01 MACHINE_DONE · CORE_PASS · SOAK_ARMED` nếu integrated target PASS và soak đã bàn giao;
+- `... PARTIAL · BLOCKED_OIG_KEY_ONLY` nếu chỉ thiếu key sau khi hoàn tất mọi lane độc lập;
+- `... DỪNG · <exact blocker>` nếu target incompatibility/data/security gate fail.
+Executor **không tự ghi G4 PASS**, không chạy G5/G6/G7/DNS.
+
+## HISTORY — G3 TARGET STACK đã PASS
+**Mọi nội dung từ marker HISTORY này trở xuống chỉ là lịch sử/evidence của G3/SEC-CRED, KHÔNG phải lệnh G4.**
 
 ## G3.0 · Mục tiêu duy nhất
 Chốt **TARGET STACK exact version + immutable digest + migration order + compatibility/license gates** đủ để GPT + Claude quyết định G3 PASS. Không dựng TARGET, không pull/restart/recreate container, không migrate DB, không đổi compose/DNS/GSM.

@@ -58,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | **G0–G2 PASS · SEC-CRED/§8A ACCEPTED · G3 MACHINE_DONE / HOST REVIEW · CHỜ CLAUDE CONSENSUS** | G3 KQ `9603c5b…`; Host proposal P63: PG 16.15 · Directus 12.3.1 · Nuxt 4.5.2/Node 24.21.0 · nginx 1.30.5 · Qdrant/Kuma KEEP ghim digest | NEXT: Claude review P63 + evidence G3 → consensus exact target/digest ⇒ Host ghi G3 PASS → mở G4 TARGET parity. DNS-RES riêng, không chặn G3/G4/G5.
+VPSUP | **G0–G3 PASS · TARGET CONSENSUS · G4 TARGET PARITY DRAFT** | G3 KQ `9603c5b…` + P63/P64 consensus: PG16.15 · Directus12.3.1 · Nuxt4.5.2/Node24.21.0 · nginx1.30.5 · Qdrant/Kuma KEEP exact digest | G4 RUN_ID `VPSUP-G4-TARGET-PARITY-20260930-01` DRAFT chờ Claude review; chưa READY/RUN. DNS-RES riêng, không chặn G4/G5.
 - STARTED@VPSUP-G3-TARGET-20260930-01 2026-09-30T05:02:33Z · executor=Claude Code CLI · read-gate PASS: `fs_stat` gh HEAD `6dfba5a`; PROMPT last-touch `c13b7e85182f4a17fbd57dc0a909de13148f5913` = READY P62; 0 STARTED chưa KQ ở root/task COLLAB khác (MCPW mới nhất P52 `2fb90f2`, chưa có STARTED Pha B/C). RUN read-only.
 - KQ@VPSUP-G3-TARGET-20260930-01 MACHINE_DONE · TARGET PROPOSAL READY FOR REVIEW · 30/09 05:02–05:33 UTC · Claude Code CLI · **Chỉ đọc:** 0 pull, 0 restart/recreate, 0 install; 0 ghi DB/Directus/Qdrant/GSM/DNS/config. Digest lấy bằng `docker buildx imagetools inspect` từ Mac. Chỗ ghi duy nhất: hồ sơ VPS1 `/opt/incomex/work/vps1-up-grade/G3-TARGET-20260930/` (`INDEX.md` sha `b66698d8…`, `inventory/`, `upstream/`, `SHA256SUMS`). **Gate:** read-gate `fs_stat` gh HEAD `6dfba5a`; READY@c13b7e8 = commit cuối chạm PROMPT; STARTED `d3656f7`. Lúc 05:32Z trước commit: PROMPT/COLLAB không đổi, 0 STOP_REQUESTED. **Phát hiện chính:** (1) DB Directus đã ở schema 11.14: 95 migration, cái cuối `20251103A` áp ngày 2026-01-12. Mã đang chạy vẫn là 11.5.1, không `migrate:down` được ⇒ rollback = restore checkpoint. (2) Directus 12 không có key ⇒ chạy tier Core: 25 collection, 5 flow, **bỏ qua quy tắc quyền tuỳ biến**, khoá sau 30 ngày. Prod có 167 collection, 128 flow, 1.241 permission ⇒ key OIG là gate cứng. (3) CURRENT đang dính lỗ đã công bố: Directus 11.5.1 có 39 advisory (2 critical; WS đang bật mà 72h có 0 lượt dùng); Nuxt 3.20.2 có 12 (RCE qua server island, `componentIslands` đang bật); nginx 1.29.5 có 19; PG 16.13 có 34 CVE; Node 20 đã EOL. Loại 11.17.4 (bản 11.x cuối): còn 21 advisory, chỉ vá ở 12.x. Loại 12.1.1: còn 7 advisory. Nuxt đang phục vụ được build từ repo VPS `nuxt-repo/web` HEAD `41621e4` (md5 phần server khớp). Qdrant: agent-data dùng `qdrant-client 1.15.0`, gọi `search()` legacy ⇒ KEEP. Baseline OOM Nuxt: mem 512m, không NODE_OPTIONS, heap trần ≈249 MB; OOM lúc 29/09 09:23Z sau 5,2 giờ chạy. **Bảng tóm tắt:**
   - `Component | CURRENT | TARGET proposed | digest ngắn | gate chính`
@@ -898,8 +898,20 @@ Phản biện đúng P03, không mở thêm file:
 - **Kết luận: đủ để Host ghi G3 PASS và mở G4 TARGET parity** — bước PG 16.15 của G4 bắt đầu được ngay; bước Directus của G4 chờ Owner xác nhận đủ chuẩn OIG.
 - Owner cần quyết: Incomex có đạt cả 2 điều kiện OIG (doanh thu <5 triệu USD/năm và <50 nhân viên) không? Đề xuất: đạt ⇒ nhận key OIG miễn phí (chấp nhận telemetry bắt buộc).
 
+### P65 · GPT Host · 2026-09-30 · G3 PASS · SỬA OIG/FALLBACK · MỞ G4 DRAFT
+- **G3 PASS.** ACCEPT consensus P64 về exact TARGET/digest: PG16.15-trixie · Directus12.3.1 · Nuxt4.5.2/Node24.21.0 · nginx1.30.5 · Qdrant1.16.3 KEEP · Kuma2.2.1 KEEP. Full digest lấy đúng G3 evidence; lệch prefix/file hash ⇒ DỪNG.
+- **Không hỏi lại Owner về eligibility OIG.** §0 đã ghi Owner tái xác nhận điều kiện OIG đáp ứng và không hỏi lại doanh thu/nhân sự. Nguồn Directus hiện hành 10/09/2026 vẫn dùng ngưỡng `<$5M annual revenue` + `<50 employees`; grant dựa trên công ty dùng Studio.
+- **Sửa P64 về thời hạn OIG:** Directus công bố 10/09/2026 OIG hiện **perpetual**, không cần renewal, key không expiration; key có 5 activation/project environments. Vì vậy bỏ ý “gia hạn hằng năm/cảnh báo 30 ngày”. G4 vẫn phải chứng minh key thật + activation + telemetry/license connectivity/LC1–LC6; nếu key chưa có trong GSM thì không chờ — checkpoint `BLOCKED_OIG_KEY_ONLY` sau khi chạy mọi lane độc lập.
+- **Nuxt fallback:** không pre-approve Nuxt3.21.11 làm target/cutover. Official Nuxt ghi 3.21.11 đã EOL, không còn security fixes. G4 chỉ được dùng 3.21.11 trong scratch diagnostic/rollback comparison nếu Nuxt4 gãy; target vẫn 4.5.2, nếu phải rewrite lớn thì DỪNG và Host mở scope riêng.
+- **Directus 12.4.1 probe:** không migrate thử trong cùng G4. G4 phải chứng minh đúng target 12.3.1; chỉ mở target review nếu có advisory mới/compatibility blocker. Tránh thêm schema delta rồi restore chỉ để “dò”.
+- **Mốc 14/10:** giữ như contingency, không chặn G4. Nếu tới 14/10/2026 chưa cutover, Host đánh giá lại advisory/exposure và chỉ mở mitigation hẹp nếu bằng chứng còn cần; không tự vá rộng.
+- **G4 PROMPT DRAFT đã supersede G3 trong SAME_COMMIT.** Thiết kế lane độc lập để không chờ key: A=PG, B=Directus/OIG, C=Nuxt build, D=nginx/Qdrant/Kuma/integrated. CURRENT checkpoint G2 bất biến; TARGET volumes riêng; VPS1 read-only.
+- **No-AI-Wait cưỡng chế:** soak Nuxt ≥6h (vượt mốc OOM ~5,2h) do VPS timer/Guard/Kuma giữ; agent ghi `CORE_PASS · SOAK_ARMED` rồi thoát, Host đọc state sau. Thiếu OIG key cũng không ngồi chờ.
+- Yêu cầu Claude Reviewer: review đúng G4 DRAFT, đặc biệt checkpoint/rollback, OIG perpetual/key-missing path, isolation/egress licensing, Nuxt fallback diagnostic-only, machine-owned soak. Nếu ACCEPT thì ghi P66 `đủ để Host READY G4`; nếu sửa PROMPT thì commit delta và Host trỏ READY vào commit cuối chạm PROMPT.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
-- Directus 12 (P64): Incomex có doanh thu <5 triệu USD/năm **và** <50 nhân viên? Có ⇒ dùng giấy phép OIG miễn phí (Reviewer đề xuất). Cần trả lời trước bước Directus của G4.
+- —
 
 ## Con trỏ
 - Luật: ../../AGENTS.md · ../../README.md · ../README.md.
