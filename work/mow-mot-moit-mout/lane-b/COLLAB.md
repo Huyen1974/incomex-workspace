@@ -346,4 +346,6 @@ COORD · NOW=XONG · NEXT=OWNER_LOOK · BLOCKED_BY=none · RESERVED_TARGETS=ban-
 ## RUN · MMIM-LANE-B06-20260930-01 · 30/09/2026
 
 STARTED@MMIM-LANE-B06-20260930-01 2026-09-30T08:02:11Z · executor=Codex
-COORD · NOW=B06 RUNNING · NEXT=đối chiếu PRE_B05_REF và unwrap phần cũ · BLOCKED_BY=none · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=PRESERVE-01/B06
+COORD · NOW=B06 VERIFYING · NEXT=kiểm Owner View 390/1280 · BLOCKED_BY=none · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=PRESERVE-01/B06
+
+B06 checkpoint · Áp: SAME_COMMIT · chỉ unwrap wrapper/summary/note `cf-b05-legacy` và closing ngoài; giữ nguyên front 7 bước, header, Đối tượng, 2 view, toàn bộ legacy raw, details `cf-cho-ai`, script và tab khác. PRE_B05_REF=`cfd3764272e42421690a0788c1d9f4a0d632f23e`; preflight job `17a96c6c12ae4b75ad87d4a00871a16e` + audit độc lập `f65d75a16b804a0c861df5935c788321`/`0e85dd7ce77848dbb9255bf0b2bca40e` exit=0: legacy_ids_before=7 · restored=7/7 · missing=0 · duplicates=0 (HTMLParser actual id). Gate VEUI.MOW job `94ab910eca9b4811b7a7fa0610f2b6b2` PASS; DROOT30 re-read trước mutation: prompt SHA/READY không đổi, không STOP_REQUESTED; HEAD lane khác đổi, hai Write_Path giữ version.
