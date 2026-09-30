@@ -121,3 +121,5 @@ COORD · NOW=XONG · NEXT=A08_PATCH_AFTER_B05 · BLOCKED_BY=none · RESERVED_TAR
 A07 chỉ append STARTED/KQ/COORD vào ledger Lane A; canonical/root ui/PG/Directus và Registry không bị A07 sửa. Trình duyệt đã trả về Master Home. Dừng.
 - A08 HOST GATE · PASS · PROCESS=`CHUNG.TIM` · prompt=`382d5e559ada90c1ac43dbf81f0dce4a7d26628df8289a7513264b96ec7ac048`.
 - READY@ab7df4bff37aafc8c0bfe919719fd5514b38fe70 · RUN_ID `MMIM-LANE-A08-20260930-01`.
+
+STARTED@MMIM-LANE-A08-20260930-01 2026-09-30T08:06:36Z · executor=Codex
