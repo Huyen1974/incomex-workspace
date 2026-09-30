@@ -27,7 +27,7 @@ Nếu inventory cho thấy tên/transport khác thực tế, dùng đúng surfac
 ## 1. Read gate / collision gate
 
 Đọc:
-AGENTS.md → root COLLAB DROOT09/19/22/25/28/29/30/31 → MCPW COLLAB §0 + N1–N9 + P35–P43 + P52–P54 → PROMPT này.
+AGENTS.md → root COLLAB DROOT09/19/22/25/28/29/30/31 → MCPW COLLAB §0 + N1–N9 + P35–P43 + P52–P55 → PROMPT này.
 
 Đọc live trạng thái VPSUP:
 - `VPSUP-G3-TARGET-20260930-01` có thể đang STARTED nhưng G3 là **read-only**.
@@ -73,6 +73,8 @@ B. Nếu cần credential riêng: reuse `agent_profiles` + GSM/project hiện h�
 
 C. Chỉ nếu A/B không thể giữ full master capability: cho phép **delta code nhỏ nhất** để profile riêng có đúng capability master hiện hành mà **không đổi tool list/schema**. Code delta này phải vào DROOT29 ngay trong RUN. Nếu cần thay contract/tool schema ⇒ DỪNG.
 
+A0 (đánh giá đầu tiên — mục tiêu 0 thao tác Owner): nếu Codex/Claude Code chuyển được sang credential/profile riêng bằng cấu hình Mac, thì mỗi route web hiện hữu (route path-secret của GPT; route claude-mcp của claude.ai) chỉ còn đúng một surface dùng ⇒ route chính là identity của surface web đó. Chống giả bằng bằng chứng server-side sẵn có (vd nguồn mạng của request: dải máy chủ nhà cung cấp connector so với máy Owner, nếu nginx/agent-data đã ghi được). Chỉ khi không tách được mới dùng checkpoint web ở §4.3.
+
 Không dùng `clientInfo`, User-Agent hoặc commit prefix để cấp quyền/định actor; chúng chỉ là display metadata.
 
 ## 4. Rollout không làm gián đoạn
@@ -82,7 +84,7 @@ Triển khai theo 4 nấc, mỗi nấc có health gate:
 1. **PREPARE:** tạo/bind profile/route mới song song; legacy shared route vẫn hoạt động như cũ.
 2. **CLI CUTOVER:** tự cập nhật Codex + Claude Code config trên Mac bằng cơ chế hiện hữu nếu có; không hỏi Owner nếu Agent làm được.
 3. **WEB CUTOVER:** chuẩn bị hoàn toàn phía server trước. Nếu ChatGPT/claude.ai bắt buộc Owner đổi URL/reconnect trong UI, dừng đúng một checkpoint `OWNER_WEB_CONNECTOR_SWITCH_REQUIRED` và đưa **một hướng dẫn gộp ngắn** cho tất cả thao tác tay còn lại. Không yêu cầu Owner làm từng bước kỹ thuật phía server.
-4. **ENFORCE LEGACY:** chỉ sau khi surface mới đã test thật. Legacy shared auth/route trở thành `unattributed`: đọc được theo quyền hiện hành, **ghi DENY**. Không xoá legacy trong RUN này để rollback dễ.
+4. **ENFORCE LEGACY:** chỉ khi đủ cả 3: (a) mọi surface từng ghi qua legacy đã có **một lần GHI thật** qua đường mới — riêng Host GPT và Reviewer Claude Chat mỗi bên ghi 1 dòng hợp lệ vào task COLLAB, actor đúng (đọc thôi là chưa đủ); (b) đối chiếu log ghi hiện hữu (access/audit, ≥7 ngày gần nhất) trên legacy: mọi người ghi phải map được vào surface đã cutover — còn người ghi không map được (script/cron/DOT/tool lạ) ⇒ **không ENFORCE**, ghi `ENFORCE_DEFERRED` + danh sách; (c) deny bằng một công tắc cấu hình (lật lại = rollback, không redeploy). Sau ENFORCE, legacy shared auth/route trở thành `unattributed`: đọc được theo quyền hiện hành, **ghi DENY**. Không xoá legacy trong RUN này để rollback dễ.
 
 Restart/recreate:
 - chỉ component có config/code đổi;
@@ -115,7 +117,7 @@ Bắt buộc:
 4. **Legacy:** read vẫn hoạt động; write bị DENY sau ENFORCE, có exact error/audit; không làm legacy biến thành quyền surface mới.
 5. **Cross-profile:** credential/profile A không được nhận actor B.
 6. **CLI:** Codex và Claude Code thực tế connect/read bằng profile riêng; mutation smoke dùng cách ít rác nhất (ưu tiên audit/no-op/controlled existing marker); nếu phải ghi thật thì dùng đúng task COLLAB và trả file về nội dung sạch trong RUN.
-7. **Web:** ChatGPT và Claude Chat/Cowork phải có ít nhất một read thật qua connector đã cutover; nếu UI reconnect là thao tác Owner bắt buộc thì KQ chưa XONG trước checkpoint đó.
+7. **Web:** ChatGPT và Claude Chat/Cowork phải có một read thật qua connector đã cutover, và trước ENFORCE có một write thật vào task COLLAB với actor đúng (Host GPT + Reviewer Claude); nếu UI reconnect là thao tác Owner bắt buộc thì KQ chưa XONG trước checkpoint đó.
 8. **Hermes regression:** profile/tool/write scope/AUTO/STOP unchanged; Telegram/HJW control không bị sửa.
 9. **P02:** read-serving/freshness regression = 0.
 10. **Failure:** Agent Data down ⇒ claude-mcp/legacy không được fail-open thành write.
@@ -151,7 +153,7 @@ Nếu cần Owner, gộp thành **một checkpoint duy nhất**.
 
 ## 9. KQ
 
-PASS khi mọi acceptance §6 đạt và legacy write đã fail-closed.
+PASS khi mọi acceptance §6 đạt và legacy write đã fail-closed, **hoặc** `ENFORCE_DEFERRED` kèm danh sách người ghi chưa map (identity các surface đã đạt; Host quyết bước enforce riêng sau khi xử lý danh sách).
 
 Ghi:
 `KQ@MCPW-B1-IDENTITY-20260930-01 XONG`
