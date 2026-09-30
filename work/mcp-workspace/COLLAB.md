@@ -1155,6 +1155,51 @@ KQ@MCPW-HERMES-TG-RECOVER-20260929-01 XONG
 STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Code CLI
 - Read-gate PASS: PROMPT last-touch = `30f8490c4ccd2154883ae2e93258a6b340041c04` = READY P56; chưa có STARTED/KQ/STOP_REQUESTED/HOLD/READY mới cho B1; VPSUP: G3 PASS (P65), G4 chỉ DRAFT (P66, chưa READY) ⇒ không RUN mutation nào song song; VPS1 06:58Z 0 phiên SSH khác. HEAD `6714ed1` chỉ đổi `work/vps1-up-grade/`.
 
+**KQ@MCPW-B1-IDENTITY-20260930-01 XONG · ENFORCE_DEFERRED** — Claude Code CLI · 30/09 06:59Z → 22:30Z · `READY@30f8490c4ccd2154883ae2e93258a6b340041c04` = commit cuối chạm PROMPT (kiểm lúc vào, trước mutation VPS 07:48Z/08:03Z, trước cutover Mac, trước KQ). Hồ sơ VPS: `/opt/incomex/work/mcp-workspace/MCPW-B1-IDENTITY-20260930/` (`checkpoints.log` · `bin/` · `results/`).
+- **Gián đoạn:** phiên executor đầu xong phía VPS 08:25Z. Bước sửa cấu hình Mac bị auto-mode chặn nên phải giao Owner chạy. Mac reboot (~13:58Z) trước khi Owner chạy, nên phiên đầu chết. Phiên Claude Code thứ hai chỉ recover: không ghi STARTED lại, không đổi scope. Phiên này dựng lại `mac-cutover.py` (backup · cutover · rollback · gate DROOT30 ghim blob COLLAB `256799d7077f` · tự kiểm sau khi chạy, lỗi thì tự rollback). Owner chạy lệnh 2 lần. Lần 1 (~22:04Z) tự rollback, trả đúng byte: probe dùng Python thiếu bộ CA — lỗi của script, không phải của cấu hình. Lần 2 (~22:11Z) OK.
+
+| Surface | Trước B1 | Sau B1 (nhãn server cố định theo credential; `clientInfo` bỏ qua) | Bằng chứng |
+|---|---|---|---|
+| GPT web/Work | khoá chung · nhãn theo clientInfo | `openai-mcp [auth:gpt-web]` · nginx chèn khoá gpt-web, URL giữ nguyên | P58 `f2056b9` |
+| Claude Chat/Cowork | route claude.ai · nhãn theo clientInfo | `Anthropic/ClaudeAI [auth:claude-chat]` | P57 `7a33653` |
+| Claude Code | khoá chung dạng chữ trong `~/.claude.json` · nhãn `claude-code/<ver> (cli)` | `claude-code [auth:claude-code]` · header `${MCP_KEY_CLAUDE_CODE}` | `24fb784` (phiên G4C mới) + commit KQ này · audit `profile=claude-code` từ Mac |
+| Codex | khoá chung · nhãn `codex-mcp-client` | `codex [auth:codex]` · env `MCP_KEY_CODEX` | app mở lại 22:15:20Z → audit `profile=codex` 22:15:26–32Z · chưa có commit Codex thật (không tạo rác) |
+| Hermes | `agent-gw/hermes` | không đổi | Guard INV7 PASS |
+
+- **Contract DROOT09 (trước = sau):** agent-data có 37 tool, hash `dbbfc590a969`, giống nhau với cả 3 khoá mới và khoá chung. claude-mcp có 23 tool, fp `4f1000e9aad3`. Guard periodic 22:20Z: INV2 và INV3 PASS.
+- **StartedAt:**
+  - agent-data: `2026-09-29T04:22:42Z` → `2026-09-30T08:03:54Z` (image `agent-data-hvu:mcpw-b1-20260930`, repo `a923b03`).
+  - claude-mcp: `2026-09-25T17:08:56Z` → `2026-09-30T08:11:38Z` (image `claude-mcp-local:mcpw-b1-20260930`, `/opt/incomex` `8b8a310`).
+  - nginx chỉ reload. Hermes 0 restart. Từ đó đến giờ 0 restart, cả hai container healthy.
+- **Spoof · cross-profile · fail-closed:**
+  - `test_b1_profile_identity_ignores_clientinfo_and_contract_unchanged`: 3 profile × 2 route × 4 clientInfo giả → nhãn luôn đúng profile, tools/list và serverInfo giống khoá chung.
+  - `test_b1_cross_profile_and_fail_closed`, `test_b1_legacy_switch_compat_then_enforce`; claude-mcp `test_label_is_route_not_clientinfo`.
+  - Mutant đều bị bắt: profile-ignored · gate-off · agent-key-as-master · fail-open-config · nhãn claude-mcp theo clientInfo.
+  - Hồi quy 196/197. Test lỗi duy nhất là `test_acc15_outage_then_self_heal[False]` (chập chờn); chạy lại PASS trên cả base lẫn cand.
+- **DROOT29:**
+  - Config Guard 54→55 target (`mcpw-workspace-tools-config`), CLEAN. Mutant nội dung và mode → DRIFT.
+  - P02 rebaseline có kiểm soát lúc 08:19Z: old/new ở `results/b1-p02-rebaseline-execute.txt`, MANIFEST_MATCH, helper_p02 không đổi.
+  - Guard POST 08:19Z PASS, ngoài phạm vi = none. Watch GEN2 lượt mới nhất (04:02→05:02 +07) GREEN. Cảnh báo đỏ duy nhất 08:05Z do deploy xong trước lúc rebaseline (P57).
+- **Legacy:**
+  - `legacy_master = compat`: đọc/ghi như trước B1. Đổi được qua Config Guard, không restart (đã probe trên production 08:25Z).
+  - **ENFORCE_DEFERRED:** ghi qua khoá chung sau deploy = 11 lượt `codex-mcp-client`, lượt cuối 30/09 08:19Z (app Codex bản cũ, trước cutover). Từ đó 0.
+  - Còn dùng khoá chung (chuyển ở B2): MCP cục bộ của Claude Desktop trên Mac (chưa kiểm) · Antigravity (khoá cũ) · script/Kuma/Guard trên VPS (chỉ đọc).
+  - Enforce theo P57: đầu B2, khi VPS canh thấy legacy ghi = 0 liên tục 24h.
+- **Mac:**
+  - `~/.zshenv` và `~/.zshrc` nạp + keys-refresh 2 khoá. Cache quyền 0600, fp `868e4ffb8ab3` (codex) và `c03f078f9553` (claude-code) = GSM v1.
+  - Codex đọc header từ env `MCP_KEY_CODEX`. Claude Code dùng header `${MCP_KEY_CLAUDE_CODE}`; đã đo Claude Code 2.1.285 thay biến trong headers user-scope.
+  - `~/.claude/settings.json` deny 10 tool ghi của connector claude.ai, có hiệu lực ngay cho mọi phiên Claude Code. Từ nay Claude Code chỉ ghi qua `workspace_*` bằng khoá riêng.
+  - Tự kiểm: `zsh -i` OK · env 64/64 · probe 200 ×2 (khoá giả 401) · `claude mcp list` Connected.
+- **Rollback:**
+  - VPS: `bin/b1-ctl.sh` rollback-check PASS (image/compose/route cũ còn và validate được).
+  - Mac: `mac-cutover.py rollback` đã chạy thật một lần (lần 1), trả 5 file về đúng byte. Chạy thử `check` hiện tại: exact. Backup ở `~/.cache/mcpw-b1-backup/` (0700/0600).
+- **Ngoài phạm vi:** 0 Directus/PG/Qdrant/Nuxt/DNS · 0 ghi `work/vps1-up-grade/`. Guard INV5_6 `http /` FAIL 1 lượt lúc 09:55Z (route Nuxt, không thuộc B1); các lượt sau PASS.
+- **Owner đã làm:** chạy lệnh cutover Mac 2 lần + mở lại app Codex. Không phải reconnect connector web nào.
+- **NEXT Host:**
+  1. Biển báo root theo Reviewer P59 (đã gỡ): "Từ B1: Claude Code ghi repo qua `workspace_*` bằng khoá `claude-code`; tool ghi `fs_*` của connector claude.ai chỉ dành cho Claude Chat". Lưu ý: PROMPT G4C vẫn ghi Report_Write_Path `fs_*` cho Claude Code; phiên G4C đã tự ghi qua `workspace_*`.
+  2. Residual B2: `~/.claude.json` quyền 0644 (entry agent-data nay chỉ còn tên biến; bản backup chứa khoá cũ, quyền 0600).
+  3. Host + Claude review KQ rồi mở B2. Agent không tự chạy B2/C.
+
 #### P57 · Claude Chat (Reviewer) · 2026-09-30 · Based_on `e3789ae` · **ĐỒNG THUẬN bước Mac cutover B1 · tự sửa tiêu chí P55(b) cho bước enforce sau** · không đổi PROMPT/READY của RUN đang chạy (DROOT31)
 - **Mac cutover:** Owner chạy lệnh `mac-cutover.py cutover` là hợp lệ (auto-mode chặn đúng vì sửa file khởi động shell; Owner tự cho phép, có backup + rollback, không in khoá). Sau khi chạy, Agent tự kiểm thêm: (1) shell mới vẫn mở bình thường (`zsh -i -c 'echo ok'`), (2) Codex + Claude Code đọc + ghi bằng khoá riêng đúng actor, (3) `rollback` chạy thử trên bản sao/chế độ kiểm không hỏng gì.
 - **Claude tự sửa tiêu chí P55(b):** “map mọi người ghi trong log 7 ngày qua” không bao giờ đạt được — ghi qua khoá chung trong quá khứ vốn không có danh tính (129 exec + ghi KB là ví dụ). Thay bằng **quan sát tiến tới:** sau khi mọi consumer đã biết chuyển sang khoá riêng, mỗi lần ghi qua legacy = một consumer bị sót ⇒ lần theo thời điểm/nguồn để chuyển nốt; ENFORCE khi legacy **ghi = 0 trong 24h liên tục do VPS canh** (DROOT28, Guard/Kuma sẵn có) + đã có write-proof Host/Reviewer. Áp cho bước enforce ở đầu B2; B1 kết thúc `ENFORCE_DEFERRED` là đúng.
