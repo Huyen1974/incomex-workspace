@@ -327,4 +327,6 @@ Kiểm trên canonical SHA `78acf32bf972e845d57e226ae539cca475fd0edcf46f4df7ca36
 ## RUN · MMIM-LANE-B05-20260930-01 · 30/09/2026
 
 STARTED@MMIM-LANE-B05-20260930-01 2026-09-30T07:11:43Z · executor=Codex
-COORD · NOW=B05 RUNNING · NEXT=sửa mặt Công thức và kiểm Owner View · BLOCKED_BY=none · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=FORMULA-01/B05
+COORD · NOW=B05 VERIFYING · NEXT=kiểm Owner View 1280/390 · BLOCKED_BY=none · RESERVED_TARGETS=ban-duyet.html+lane-b/COLLAB.md · LAST_SYNC=FORMULA-01/B05
+
+B05 SOURCE · Áp: SAME_COMMIT · Công thức 7 bước có nhánh, định nghĩa Đối tượng và 2 view đã ghi theo D91. Phần lịch sử đóng mặc định, giữ nguyên raw evidence; ngoài panel và script byte-equivalent. PRE: source acceptance PASS; dot-walk 39/0; PROCESS_GATE VEUI.MOW PASS. Chưa có KQ; đang kiểm bản hiển thị thật.
