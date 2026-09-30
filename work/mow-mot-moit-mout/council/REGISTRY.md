@@ -19,11 +19,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: **HOST / DISPATCHER / INTEGRATOR**
 - Host_ID: `GPT-MMIM-260920-A`
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
-- Active_RUN: preparing `A08 / B06`; C chờ review.
+- Active_RUN: `A08 / B06` = READY_TO_RUN; C05 WAIT_B06.
 - Reserved_Targets: B06 = `ban-duyet.html`; A08 read-only + lane-a; C không ghi.
-- Base_Target_Version: re-read current before READY.
-- NOW: phục hồi phần cũ tab Công thức theo PRESERVE BY DEFAULT; song song tìm SSOT HPML loader.
-- NEXT: gate + READY A08/B06; sau B06 phát C05 verify-preserve; sau A08 mới quyết A09 patch.
+- Base_Target_Version: READY base `ab7df4bff37aafc8c0bfe919719fd5514b38fe70`.
+- NOW: B phục hồi phần cũ; A tìm HPML SSOT.
+- NEXT: nghiệm thu B06 → C05 verify; nghiệm thu A08 → quyết A09.
 - BLOCKED_BY: none.
 - State: ACTIVE.
 - LAST_SYNC: D76–D77.
@@ -43,25 +43,25 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-A
 - Role: **EXECUTOR**
 - Write_Zone: root ui audit metadata + `lane-a/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-A08-20260930-01` = PREPARED.
+- Active_RUN: `MMIM-LANE-A08-20260930-01` = READY_TO_RUN.
 - Reserved_Targets: `lane-a/COLLAB.md`; runtime/canonical READ-ONLY.
-- Base_Target_Version: prompt to be gated.
+- Base_Target_Version: prompt SHA `382d5e559ada90c1ac43dbf81f0dce4a7d26628df8289a7513264b96ec7ac048`; READY base `ab7df4bff37aafc8c0bfe919719fd5514b38fe70`.
 - NOW: tìm SSOT/deploy source của HPML loader gây reload; không patch.
 - NEXT: KQ A08 → A09_PATCH_HPML hoặc HOST_EXPOSE_SOURCE.
 - BLOCKED_BY: source authority có thể chưa được expose.
-- State: PREPARED.
+- State: READY_TO_RUN.
 - LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-B
 - Role: **EXECUTOR**
 - Write_Zone: `ban-duyet.html` + `lane-b/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-B06-20260930-01` = PREPARED.
+- Active_RUN: `MMIM-LANE-B06-20260930-01` = READY_TO_RUN.
 - Reserved_Targets: `ban-duyet.html + lane-b/COLLAB.md` (writer duy nhất canonical).
-- Base_Target_Version: PRE_B05_REF `cfd3764272e42421690a0788c1d9f4a0d632f23e` + current formula; prompt to be gated.
+- Base_Target_Version: PRE_B05_REF `cfd3764272e42421690a0788c1d9f4a0d632f23e`; prompt SHA `68b9224b33e154f07a7429ecb9383fb326702ee8023493dc4aff0e938a2bb45b`; READY base `ab7df4bff37aafc8c0bfe919719fd5514b38fe70`.
 - NOW: giữ formula mới và phục hồi/unwrap toàn bộ phần cũ bên dưới.
 - NEXT: KQ B06 → C05_VERIFY_PRESERVE.
 - BLOCKED_BY: PARALLEL_CONFLICT nếu canonical bị writer khác chạm.
-- State: PREPARED.
+- State: READY_TO_RUN.
 - LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-C

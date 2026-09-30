@@ -340,3 +340,5 @@ COORD · NOW=XONG · NEXT=OWNER_LOOK · BLOCKED_BY=none · RESERVED_TARGETS=ban-
 - Functional console errors=0 ở Công thức; mỗi cỡ có 1 cảnh báo CSP chặn Google Fonts của viewer, ghi riêng và không báo tổng console=0. Chưa đo riêng DOM scrollWidth/click summary do browser control không khả dụng; kết luận no-overflow dựa trên hình thật + bounds.
 
 [Owner xem ★ Công thức](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-formula). B05 dừng; Host nghiệm thu/OWNER_LOOK.
+- B06 HOST GATE · PASS · PROCESS=`VEUI.MOW` · prompt=`68b9224b33e154f07a7429ecb9383fb326702ee8023493dc4aff0e938a2bb45b`.
+- READY@ab7df4bff37aafc8c0bfe919719fd5514b38fe70 · RUN_ID `MMIM-LANE-B06-20260930-01`.

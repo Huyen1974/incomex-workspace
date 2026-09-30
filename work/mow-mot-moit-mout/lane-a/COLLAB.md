@@ -119,3 +119,5 @@ COORD · NOW=XONG · NEXT=A08_PATCH_AFTER_B05 · BLOCKED_BY=none · RESERVED_TAR
 5. **Đích an toàn:** phần HPML nằm ở runtime `/ui-preview/hpml-view-for-user/view.html`; A07 chỉ đọc source live. Đường `root=docs hpml-view-for-user/view.html` trả PATH_UNAVAILABLE. Host cần xác định/reserve SSOT bộ nạp trước khi giao patch; không vá mù bundle đang xuất bản. B05 vẫn là writer canonical của batch này.
 
 A07 chỉ append STARTED/KQ/COORD vào ledger Lane A; canonical/root ui/PG/Directus và Registry không bị A07 sửa. Trình duyệt đã trả về Master Home. Dừng.
+- A08 HOST GATE · PASS · PROCESS=`CHUNG.TIM` · prompt=`382d5e559ada90c1ac43dbf81f0dce4a7d26628df8289a7513264b96ec7ac048`.
+- READY@ab7df4bff37aafc8c0bfe919719fd5514b38fe70 · RUN_ID `MMIM-LANE-A08-20260930-01`.
