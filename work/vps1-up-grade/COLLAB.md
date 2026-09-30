@@ -58,7 +58,7 @@ Executor_Surface lượt mở: GPT Chat
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace → main
 
 ## Dòng hiện hành
-VPSUP | **G0–G3 PASS · G4 PARTIAL SẠCH · OIG KEY GSM PASS · G4B CHỜ HOST READY** | G4 A/C/D đã PASS; `DIRECTUS_OIG_LICENSE_KEY` version 1 đã import kín, source file đã xoá | G4B không còn chờ Reviewer/B1 terminal; B1 chỉ là moving-target consumer recheck nếu đổi trong lúc chạy. NEXT: Host READY G4B → Directus12.3.1 → SAME SLICE → machine soak → nghiệm thu G4.
+VPSUP | **G0–G3 PASS · G4 PARTIAL SẠCH · OIG KEY GSM PASS · G4B READY/RUN** | PROMPT last-touch `14a73e41e24448b7d6cd7607597491639ab70202`; `READY@14a73e41e24448b7d6cd7607597491639ab70202`; RUN_ID `VPSUP-G4B-DIRECTUS-CONTINUE-20260930-01` | NEXT: Directus12.3.1 từ checkpoint A → integrated SAME SLICE → machine soak; B1 chỉ recheck consumer nếu thực sự đổi.
 - STARTED@VPSUP-G4-TARGET-PARITY-20260930-01 2026-09-30T07:13:20Z · executor=Claude Code CLI · read-gate PASS: `fs_stat` gh HEAD `a57af95`; PROMPT last-touch `cee2925c27c4a540b14f98f0103ad3af92d23055` = READY P67; task path không đổi sau P67 (`f30859e..a57af95` chỉ chạm việc khác); 0 STOP_REQUESTED/HOLD mới. Song song: `MCPW-B1-IDENTITY-20260930-01` STARTED 06:59Z chưa KQ (VPS1 nginx/agent-data/claude-mcp/GSM credential; tự cấm Directus/PG/Qdrant/Nuxt/DNS + `work/vps1-up-grade/`) ⇒ không chạm VPS2 TARGET; lệch VPS1 do MCPW-B1 ghi đích danh, consumer agent-data/MCP recheck sau MCPW terminal.
 - KQ@VPSUP-G4-TARGET-PARITY-20260930-01 PARTIAL · BLOCKED_OIG_KEY_ONLY · 30/09 07:13–08:11 UTC · Claude Code CLI · **Chỉ key OIG chặn:** GSM `DIRECTUS_OIG_LICENSE_KEY` NOT_FOUND (chỉ đọc metadata, không value; 07:2x · 07:47 · 08:09Z) ⇒ không boot/migrate Directus 12.3.1, 0/5 activation; mọi lane độc lập đã chạy. **Gate:** read-gate `fs_stat` gh HEAD `a57af95`; READY@cee2925 = last-touch PROMPT; STARTED `c51fe1b`; DROOT30 07:20:40Z ngay trước mutation đầu (07:21:15Z pull); trước commit 08:09Z PROMPT/task COLLAB không đổi, 0 STOP_REQUESTED. **Hồ sơ trên VPS2** `/opt/incomex/work/vps1-up-grade/G4-TARGET-20260930/` (`INDEX.md` sha `65ed9af0…`, `SHA256SUMS` `a9994d26…` 121 file, `REMOVE-TARGET.md`). **Artifact/cô lập:** 6/6 image kéo theo index digest = G3 `digests-1/2.txt` (sha file `0be8a643…`/`538a4fa1…`), amd64 child = bảng P64; compose TARGET ghim `repo@sha256`, 0 `latest`; lab riêng `/opt/vpsup-target` + network internal `vpsup-target-net` 10.232.0.0/24 + 6 luật firewall; POST 7/7 egress (internet/npm/licensing/host/VPS1/CURRENT) BLOCKED. SQL lab chỉ qua wrapper fail-closed `vpsup-target-pg` v1.1.2 (5 chốt; âm tính sai RUN/sai container/DB ngoài allowlist ⇒ REFUSE); 0 DOT production chạy (2 DOT COPY chỉ phân tích tĩnh). **Bảng lane:**
   - `Lane | Kết quả | Bằng chứng`
@@ -963,6 +963,15 @@ Phản biện đúng P03, không mở thêm file:
 - **Bỏ B1 terminal làm hard gate.** B1 không chạm Directus/PG/Nuxt/Qdrant/VPS2. Nếu B1 còn đổi agent-data/MCP/Hermes thì đó chỉ là moving target của một nhóm consumer test: G4B snapshot hiện hành và tiếp tục; nếu snapshot đổi thì recheck đúng consumer bị ảnh hưởng, không rerun toàn bộ G4B.
 - Nguyên tắc điều hành từ Owner: việc độc lập nhỏ không dựng gate/chờ chỉ vì dùng chung một dịch vụ; chỉ chặn khi có xung đột tài nguyên hoặc rủi ro cụ thể.
 - PROMPT G4B đã sửa cùng commit theo nguyên tắc trên. Sau commit này Host có thể phát READY ngay nếu PROMPT là last-touch và chưa có STARTED G4B.
+- Owner cần quyết: —.
+
+### P70 · GPT Host · 2026-09-30 · G4B READY/RUN
+- PROMPT last-touch = `14a73e41e24448b7d6cd7607597491639ab70202`; chưa có STARTED G4B tại thời điểm phát lệnh.
+- **READY@14a73e41e24448b7d6cd7607597491639ab70202**.
+- **RUN@VPSUP-G4B-DIRECTUS-CONTINUE-20260930-01 · ISSUED.**
+- OIG key đã có trong GSM; G4B không chờ B1 terminal. Nếu B1 làm thay đổi agent-data/MCP/Hermes trong lúc chạy thì chỉ recheck đúng consumer test bị ảnh hưởng; không dừng/rerun Directus, Nuxt, SAME SLICE hay soak độc lập.
+- Không chạy lại Lane A/C/D đã PASS; reuse checkpoint A + lane C patch + image digests theo G4 KQ.
+- Executor phải ghi STARTED theo DROOT31 trước PRE; DROOT30 ngay trước mutation VPS2 đầu tiên. VPS1 read-only, không GSM mutation, không G5/G6/G7/DNS.
 - Owner cần quyết: —.
 
 ## Owner cần quyết
