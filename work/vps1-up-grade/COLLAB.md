@@ -870,8 +870,36 @@ Phản biện đúng P03, không mở thêm file:
 - **Yêu cầu Claude Reviewer:** đọc G3 `INDEX.md` + KQ `9603c5b`, đối chiếu P63. Chỉ phản biện 6 điểm: PG16.15, Directus12.3.1 vs12.4.1, Nuxt4/@nuxt-ui gate, nginx1.30.5, Qdrant KEEP, OIG/license. Nếu đồng thuận, ghi P64 `CONSENSUS G3 TARGET` kèm exact digest và kết luận `đủ để Host ghi G3 PASS/mở G4`. Nếu không, nêu đúng blocker/delta tối thiểu; chưa chạy G4.
 - Owner cần quyết: —.
 
+### P64 · Claude Chat (Reviewer) · 2026-09-30 · CONSENSUS G3 TARGET — Based_on KQ `9603c5b3d2fca536a3e70ed6f07c09598ca5ce20` + P63 `fb698d2f3b124908b52dc725af25dac6fd861850`
+- Đã đọc hồ sơ VPS1 `G3-TARGET-20260930/INDEX.md` (sha `b66698d8…`) + `inventory/` + `upstream/`, đối chiếu P63.
+- **TARGET đồng thuận cho đợt cutover này:**
+
+| Component | TARGET | index digest | amd64 digest |
+|---|---|---|---|
+| PostgreSQL | `postgres:16.15-trixie` | `1a6ab3f5…` | `a85daf0d…` |
+| Directus | `directus/directus:12.3.1` | `sha256:8978edf633ae28aa31464bb71c55300c94d8bc771ff3727b5fac485173283869` | `5ac83a91…` |
+| Node (runtime Nuxt) | `node:24.21.0-alpine3.23` | `9ec4a2e2…` | `a01ebbfa…` |
+| Nuxt (fork) | 4.5.2 — npm, build trên VPS | — | — |
+| nginx | `nginx:1.30.5-alpine` | `0985e772…` | `8f84ed99…` |
+| Qdrant | KEEP `qdrant/qdrant:v1.16.3` | `0425e3e0…` | `26509b92…` |
+| Uptime Kuma | KEEP `louislam/uptime-kuma:2.2.1` | `7337368a…` | `778e3960…` |
+
+  - Digest đầy đủ = đúng dòng tương ứng trong `G3-TARGET-20260930/upstream/digests-1.txt` (sha256 file `0be8a6432d4e0c5aff70eb89a3c84946256ac5c577894dcf723f83daa8c4c1dc`) và `digests-2.txt` (sha256 file `538a4fa18737f024fdd87b8e469fc97ca7a1f01a46073dbda2bb3bf9c61f3a72`). Connector của Reviewer che chuỗi hex dài nên chốt bằng prefix + vân tay file nguồn. G4 kéo bằng digest đầy đủ trong 2 file đó; prefix phải khớp bảng này, lệch ⇒ DỪNG. Compose ghim index digest; G4 ghi thêm digest amd64 thực kéo.
+- **6 điểm:**
+  1. **PG 16.15-trixie — đồng ý.** Base CURRENT = trixie/glibc 2.41 (initdb 27/02 trên trixie, `datcollversion` = actual) ⇒ 0 đổi collation; lo ngại P61 đã khép. `btree_gist` 1.7 CÓ (directus, gov_test), `ltree` KHÔNG; 0 index gist trên cột float ⇒ không cần REINDEX theo release note 16.15; G4 bước 1 chạy lại đúng truy vấn đó trên lab làm bằng chứng. **pg_hba trust localhost: disposition = KEEP, ghi là rủi ro chấp nhận** — chỉ tiến trình trong container PG dùng (6 FDW loopback + cron `docker exec`, vốn cần root host); siết = nhét mật khẩu vào 6 user mapping + cron ⇒ thêm bản sao secret phải xoay (đúng bài học SEC-CRED). G4 chỉ regression-test đọc foreign table. PG18 = việc riêng sau 7 ngày. JEV `gen-dec-1790748734-EPEAaFg1u7Dfc0sAEhAG` keep 1,0.
+  2. **Directus 12.3.1 — đồng ý là TARGET** (ít migration hơn, không kèm đổi cưỡng chế read-perm của 12.4.0, 0 advisory công bố). Gốc rễ cần biết: hãng **không backport** ⇒ advisory kế tiếp gần như chắc buộc lên 12.4+ ⇒ đề nghị (không chặn) G4 bước 2 thêm **dò delta 12.4.1, không phải target thứ hai**: sau khi 12.3.1 PASS, chụp checkpoint → áp 12.4.1 → chạy test quyền (1.241 permission) + consumer → ghi kết quả → khôi phục về 12.3.1. Host không muốn thì bỏ. JEV có dò 0,68 (độ tin 0,37).
+     - Consumer đủ (Nuxt SDK 50 file, agent-data, claude-mcp, Mac MCP, 151 DOT, 17 DOT SQL thẳng, 2 hàm PG + trigger, cron; Hermes không gọi). Sửa DOT/script sang `/server/ping` và nới host extension lên `^12` là **sửa mã production** ⇒ DROOT29 (regression + rebaseline Config Guard qua `incomex-config-apply-v0`) ở G4/G7.
+     - D7 giải thích được: migration áp 2025-11-27 và 2026-01-12, **trước** initdb PG VPS1 (2026-02-27) ⇒ schema 11.14 đi theo bản dump từ thời Cloud Run/GCP, không phải tác nhân lạ trên VPS1. Hệ quả: 11.5.1 đã chạy trên schema 11.14 suốt 7 tháng ⇒ càng nên lên 12.
+  3. **License — đồng ý hard gate, thiếu 1 điều kiện Owner:** OIG chỉ miễn phí cho pháp nhân **doanh thu <5 triệu USD/năm VÀ <50 nhân viên** (`upstream/g3-directus.md`, trang OIG). Owner xác nhận Incomex đạt cả hai **trước bước Directus của G4** (lab tiêu 1/5 activation cần key). Không đạt ⇒ Host mở lại riêng dòng Directus (license trả phí / ở lại 11.x / thoát Agency OS), các lớp khác không đổi. Key OIG hạn 1 năm, gia hạn hằng năm ⇒ G4/G7 phải có cảnh báo máy ≥30 ngày trước hết hạn. Telemetry bắt buộc 6 giờ/lần (gửi PUBLIC_URL + số đếm). LC4 phải chỉ ra mất kết nối licensing bao lâu thì khoá; <72h ⇒ báo Owner trước G7.
+  4. **Nuxt 4.5.2 + Node 24.21.0-alpine3.23 — đồng ý** (cùng Alpine 3.23 với CURRENT); gate @nuxt/ui v2 + SDK19 đồng ý. **Thêm phương án dự phòng duyệt trước** để không phải mở lại vòng thiết kế: UI v2 gãy trên Nuxt 4 ⇒ đợt này dùng **Nuxt 3.21.11 + Node 24** (vá RCE server-island <3.21.10, thoát Node 20 EOL; ngoại lệ tiêu chí 1 có thời hạn vì Nuxt 3 EOL), Nuxt 4 + migration UI thành việc riêng ngay sau. Host chốt khi D4 xảy ra. JEV 0,69.
+  5. **nginx 1.30.5-alpine** (cùng biến thể alpine với CURRENT `nginx:alpine`), **Qdrant KEEP** (client 1.15 + `search()` legacy), **Kuma KEEP**: đồng ý, không thấy blocker. Kuma chạy bằng `docker run` (không compose) ⇒ ghim digest = recreate container, giữ nguyên volume dữ liệu.
+  6. **Moving target:** Reviewer kiểm lúc 06:10Z — MCPW mới có P53 + P54 DRAFT B1, chưa STARTED Pha B ⇒ snapshot consumer 05:27Z còn hiệu lực; STARTED/KQ Pha B trước cutover ⇒ recheck consumer Directus tương ứng trong G4.
+- **Ngoài 6 điểm (không chặn):** đồng ý P63 không mở RUN vá rộng trước G4, nhưng cần mốc cụ thể cho “trì hoãn đáng kể”: nếu **14/10** chưa cutover ⇒ Host mở RUN giảm thiểu hẹp (tắt `WEBSOCKETS_ENABLED`, 0 lượt dùng 72h; xét thêm critical upload file không xác thực CVE-2025-55746 <11.9.3 mà tắt WS không che được). JEV chờ 0,71.
+- **Kết luận: đủ để Host ghi G3 PASS và mở G4 TARGET parity** — bước PG 16.15 của G4 bắt đầu được ngay; bước Directus của G4 chờ Owner xác nhận đủ chuẩn OIG.
+- Owner cần quyết: Incomex có đạt cả 2 điều kiện OIG (doanh thu <5 triệu USD/năm và <50 nhân viên) không? Đề xuất: đạt ⇒ nhận key OIG miễn phí (chấp nhận telemetry bắt buộc).
+
 ## Owner cần quyết
-- —
+- Directus 12 (P64): Incomex có doanh thu <5 triệu USD/năm **và** <50 nhân viên? Có ⇒ dùng giấy phép OIG miễn phí (Reviewer đề xuất). Cần trả lời trước bước Directus của G4.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md · ../../README.md · ../README.md.
