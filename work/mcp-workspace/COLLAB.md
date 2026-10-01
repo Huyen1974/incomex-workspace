@@ -8,6 +8,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 ### 1. Mục tiêu
 - Nguyên văn Owner: “Đúng vậy chúng ta khóa lại để bắt buộc làm theo 1 con đường giúp tôi.”
 - Nguyên tắc áp (AGENTS A10-R2, nguyên văn Owner): “Quy định là không đủ, phải cưỡng chế. Không thể làm sai.”
+- **Nguyên văn Owner 01/10/2026 — việc còn lại của MCPW:** “Phiên này chúng ta có 1 việc là: xử lý làm sao để hệ thống bắt được ai đang làm (tránh việc như claude code đang code, thậm chí code xong mà hệ thống không bắt được) cái này là tiền đề báo cáo để tự động hoá 1 phần. Ngoài ra, các việc liên quan đến hermes hoàn tất để hermes có thể tham gia đầy đủ như 1 thành viên.”
 
 ### 2. Thế nào là hoàn thành
 1. **Mọi AI/Agent kết nối vào workspace qua các cổng đã thiết kế và bắt buộc để lại dấu vết.** VPS/Owner View phải nhận biết được AI nào đến lượt, AI nào đang làm, AI nào đã làm xong; không còn đường tắt ghi repo hoặc làm việc ngoài cơ chế theo dõi đã duyệt.
@@ -21,7 +22,35 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - Rollback đã duyệt trước: cổng bị chặn → đặt ruleset `enforcement=disabled` (không xoá). Cửa khẩn cấp Owner: tắt ruleset trong Settings → Rules.
 - Sau MCPW-LOCK XONG: Host tự thử lại, sửa README D12 `CHƯA CƯỠNG CHẾ` → `ĐÃ CƯỠNG CHẾ`; **chưa đóng việc** — P02 chạy tiếp trong cùng việc (Owner 25/09, `ef28301`). Sau P02 XONG, tiếp tục vòng thiết kế/kiểm chứng **vai trò + tín hiệu giao/đẩy việc + scoped lease cưỡng chế xung đột đa-Agent** theo §0.2(3)–(4); chỉ `Đóng mcp-workspace` khi cả 4 tiêu chí hoàn thành ở §0.2 đều đạt và Owner xác nhận. Hướng kỹ thuật candidate cho §0.2(4): lease theo `work/RUN/scope`, không mutex cả task; JEV `gen-dec-1790309396-kqufiMOUIkyTG4niNmIZ` chọn scoped lease 1.00.
 - JEV: `gen-dec-1790226942-Pz95lv2dkDouzMQ3XwSW` ruleset 0,93 (conf 0,92) · kiểm PROMPT `gen-dec-1790234527-TC6croNtKfTwHYgYNw0K`: gate trước mutation 0,97 · mở lại lỗ 0,05 · lộ secret 0,03 · vượt phạm vi 0,19 (do phép thử T1 là một lần ghi phải bị từ chối; đã giới hạn chỉ thêm một dòng).
-- **ĐÍCH ĐO ĐƯỢC — cập nhật 27/09 (Claude P21, theo yêu cầu Owner “mục tiêu phải rõ, cập nhật theo thực tế”). Đọc bảng này trước N1–N8; Host sửa bảng khi thực tế đổi. Không thay §0.1–§0.2 nguyên văn Owner.**
+- **TIẾN ĐỘ + ĐÍCH ĐÓNG MCPW — cập nhật 01/10 (Claude P74, theo Owner 01/10). Đọc khối này trước mọi thứ bên dưới; Host sửa khi thực tế đổi. Không thay §0.1–§0.2 nguyên văn Owner.**
+
+`[✓ Ghi repo chỉ qua cổng · đọc bản VPS khi GitHub chậm] → [✓ Tên thật từng AI · B1 30/09] → [✓ Khoá chung hết ghi qua MCP · B2A 01/10] → [■ Sổ “ai đang làm” + Hermes đủ thành viên] → [□ Owner nghiệm thu → đóng MCPW]`
+
+**Máy biết ai đang làm?** (🟢 biết · 🟡 một phần · 🔴 không · nguồn: audit §3 27/09 + B1/B2A; B2B dừng 01/10 trước mutation ⇒ chưa đổi)
+
+| Bề mặt | Ai | Bắt đầu | Đang làm | Kết thúc / báo cáo |
+|---|---|---|---|---|
+| Claude Code trên Mac (sửa · build · SSH) | 🟢 B1 | 🔴 | 🔴 | 🔴 |
+| Codex trên Mac | 🟢 B1 | 🔴 | 🔴 | 🔴 |
+| SSH vào VPS (1 khoá root chung) | 🔴 | 🔴 | 🔴 | 🔴 |
+| GPT Chat · Claude Chat (qua cổng) | 🟢 B1 | 🔴 | 🟡 presence ≤10′ | 🔴 |
+| Hermes — việc được giao | 🟢 | 🟢 thẻ → BẮT ĐẦU | 🟢 | 🟢 KẾT QUẢ |
+| Hermes — chat tự do | 🟡 | 🔴 | 🟡 `state.db` | 🔴 (đổi config 26/09 không rõ ai) |
+
+**Hermes đủ thành viên?** (ma trận T1–T10, HJW P61) 🟢 đọc · tự thức · công tắc Owner + Telegram · 🟡 **chỉ ghi được thư mục HJW** (chưa ghi ý kiến vào việc được giao) · 🟡 chưa có trong sổ chung · 🔴 đổi cấu hình ngoài lượt không bị phát hiện.
+
+**ĐÍCH ĐÓNG MCPW — đo bằng thử thật, không bằng báo cáo:**
+1. Mở Claude Code trên Mac → làm (có SSH vào VPS) → thoát **không** báo cáo ⇒ ≤10′ máy hiện `AWAITING_REPORT` đúng phiên/việc · tắt ngang ⇒ `LOST` · có KQ ⇒ `REPORTED`. Làm lại với Codex trong mức hook của Codex hỗ trợ (thiếu gì ghi rõ).
+2. 8 câu hỏi audit §3 (27/09) đều chuyển từ “không biết” sang “biết”.
+3. SSH không gắn phiên nào ⇒ hiện vàng “SSH chưa rõ ai”, không im lặng. Hai phiên cùng một RUN ⇒ hiện đỏ.
+4. Owner View: mỗi việc hiện ai đang làm · từ lúc nào · trạng thái cuối.
+5. Hermes ghi được ý kiến vào đúng việc được giao; có trong cùng sổ; đổi `~/.hermes/config.yaml` ngoài lượt ⇒ cảnh báo.
+
+**Cách làm (P73 + P74):** 1 RUN, **chỉ ghi sổ, không chặn ai**, tối đa 1 restart agent-data. Tín hiệu dùng đồ có sẵn: hook chính thức Claude Code (SessionStart/PostToolUse/Stop/SessionEnd, đặt ở managed settings) + hook Codex → gửi về agent-data bằng khoá riêng · cuộc gọi cổng MCP (danh tính B1) · `executions.db` Hermes · dòng đăng nhập sshd. Sổ = `queue.sqlite` hiện hữu.
+
+**Chuyển sau, không chặn đóng MCPW (chờ Owner gật O-MCPW-CLOSE):** NEXT tự động (phần còn lại §0.2(3)) · khoá máy chống ghi chồng §0.2(4) — tạm chỉ phát hiện + báo đỏ · chặn REST bằng khoá chung · khoá riêng Directus (→ cutover VPSUP) · chuyển writer sang khoá riêng.
+
+**Bảng đích cũ 27/09 (giữ để đối chiếu):**
 
 | §0.2 | Đạt khi — đo được | Hiện tại 01/10 (Host P52 · Reviewer P60 sau B1) | Tiếp |
 |---|---|---|---|
@@ -1391,5 +1420,14 @@ STARTED@MCPW-B2B-LIFECYCLE-REST-20261001-01 2026-10-01T08:58:00Z · executor=Cla
 - Sau khi executor dừng xác nhận: Host thay PROMPT bằng RUN lifecycle-only tối thiểu, reuse signal/presence/queue hiện hữu; không REST enforcement, không Directus, không private writer migration, không Pha C lease, không Owner View integration đang va A09R1.
 - `work/vps1-up-grade` là task độc lập. VPSUP không chờ MCPW; chỉ ghi delta MCPW đang sống vào snapshot/cutover để không bị ghi đè. Hai việc được phép chạy song song.
 
+#### P74 · Claude Chat (Reviewer) · 2026-10-01 · Based_on `67e0c2f` · **ĐỒNG THUẬN P73 (dừng B2B, thu hẹp) + 1 điều bắt buộc: sổ phải bắt được Claude Code/Codex trên Mac và SSH, không chỉ cổng MCP** · §0.1 ghi lời Owner 01/10 + §0.3 TIẾN ĐỘ/ĐÍCH ĐÓNG trong commit này
+- **Owner 01/10 (với Reviewer):** MCPW chỉ còn 2 việc — máy biết ai đang làm (kể cả Claude Code code xong mà không báo) + Hermes đủ thành viên; không kéo dài thêm.
+- **Vì sao 4 ngày chưa xong:** audit 27/09 (§3 + ma trận dòng 4–7) đã chỉ ra lỗ chính là Claude Code/Codex làm trên Mac/SSH, và đã nêu lời giải bậc 1 = hook chính thức. Sau đó hội đồng (cả Claude) đi sang khoá chung (B1/B2A — cần, đã xong) rồi B2B phình thêm REST/Directus/writer/NEXT; hook chưa từng được cấu hình. B2B dù chạy trọn cũng chỉ thấy cuộc gọi cổng MCP ⇒ câu 1, 2, 5, 7 của §3 vẫn “không biết”.
+- **Bắt buộc cho PROMPT lifecycle mới (Host soạn):** tín hiệu = hook Claude Code (managed settings, gửi HTTP về agent-data bằng khoá riêng `claude-code`) + hook Codex (theo version; thiếu ghi rõ) + cuộc gọi cổng + `executions.db` Hermes + dòng `Accepted publickey` của sshd. Gắn việc theo `work/<id>` mà phiên chạm. Luật cuối: có KQ ⇒ `REPORTED` · SessionEnd/không KQ ⇒ `AWAITING_REPORT` · im >10′ không SessionEnd ⇒ `LOST`. **Chỉ ghi sổ, không DENY**, ≤1 restart agent-data. Nghiệm thu = đích 1–5 ở §0.3 bằng thử thật.
+- **Hermes gộp cùng RUN (nhỏ, cấu hình):** mở ghi ý kiến của Hermes vào `COLLAB.md` của việc được giao (theo thẻ giao việc); đưa `executions.db` vào sổ; đưa `~/.hermes/config.yaml` vào Config Guard (chỉ hash).
+- **Mang theo:** ca thật 01/10 — 2 cửa sổ Claude Code cùng RUN B2B, cửa sổ 2 tự đứng nhờ cờ STARTED ⇒ sổ mới phải báo đỏ khi 2 phiên cùng RUN. Config Guard DRIFT `hvu-sync-py` từ 09:14Z (A09R1 đã nghiệm thu D102, chưa rebaseline) ⇒ Host MMIM xử lý; RUN lifecycle không rebaseline hộ.
+- JEV `gen-dec-1790847396-MKNbfctxNtEAzM3x5tPX`: hook + cổng + SSH 1,00 (chỉ cổng 0,00) · đóng gọn 0,99 · 1 RUN chỉ ghi sổ 0,78.
+- B2B: chờ executor xác nhận dừng theo STOP_REQUESTED P73 rồi Host mới thay PROMPT (DROOT31).
+
 ## Owner cần quyết
-- —
+- **O-MCPW-CLOSE** · Đóng MCPW khi đạt đích 1–5 ở §0.3 (sổ “ai đang làm” bắt được cả Claude Code/Codex trên Mac + SSH; Hermes đủ thành viên). NEXT tự động + khoá máy chống ghi chồng chuyển việc sau, tạm chỉ báo đỏ khi 2 phiên cùng việc. **Đề xuất Reviewer (cùng hướng Host P73): ĐỒNG Ý.**
