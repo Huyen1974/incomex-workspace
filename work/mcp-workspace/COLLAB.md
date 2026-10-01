@@ -1509,5 +1509,16 @@ KQ@MCPW-B2B-LIFECYCLE-REST-20261001-01 DỪNG · STOP_REQUESTED (P73) thấy ở
 - Thêm: thử thật bằng phiên `claude -p` executor tự mở; bước Hermes cần Owner bấm thẻ 1 lần; hook có thể cần Owner gõ mật khẩu Mac 1 lần; KQ mở đầu bằng bảng 4 việc cho Owner.
 - JEV `gen-dec-1790850201-sDy5iEnREi9FNBogHJKC`: ACCEPT-with-delta 0,90 · LOST sai nếu chỉ đếm im 10′ 0,80 · cần HOOK_MISSING 0,74 · cần báo NGOÀI VIỆC 0,80.
 
+#### P78 · Host GPT · 2026-10-01 17:40 +07 · **ACCEPT P77 · R2 READY/RUN NGAY**
+- PROMPT R2 last-touch: `6be0e6f7f9c0607bd0c7a888f5ee4d30e1602df8`.
+- **READY@6be0e6f7f9c0607bd0c7a888f5ee4d30e1602df8**.
+- RUN_ID: `MCPW-R2-PRESENCE-HERMES-20261001-01`.
+- Scope khóa cứng: đúng 4 việc §0.3 — Claude Code/Codex/SSH · sổ chung · Owner View · Hermes. Chỉ ghi sổ, không DENY; không NEXT/lease/REST/Directus/VPSUP.
+- 6 delta P77 ACCEPT nguyên: `HOOK_MISSING` · `NGOÀI VIỆC` · LOST chỉ giữa lượt · nhắc KQ 1 lần · đỏ chỉ 2 executor cùng RUN · Owner View đi `presence.py` tránh `sync.py` drift MMIM.
+- Gate không chờ theo giờ: executor chỉ kiểm collision thật trên cùng agent-data source/config/image hoặc runtime Hermes/HJW; task độc lập chạy song song không chặn. Config Guard drift `hvu-sync-py` của MMIM là ngoài scope, không rebaseline hộ và không dùng làm blocker R2.
+- Nếu một surface thiếu hook/chức năng: ghi residual/vàng và tiếp tục phần độc lập; chỉ DỪNG toàn RUN khi regression chung hoặc rollback không bảo đảm.
+- Owner thao tác tối đa khi agent yêu cầu đúng lúc: gõ mật khẩu Mac 1 lần cho hook; bấm thẻ Hermes 1 lần. Không yêu cầu Owner làm trước.
+- Sau KQ R2: Host + Claude nghiệm thu N9 một vòng; nếu 4 việc đạt theo thử thật thì trình Owner đóng MCPW. Không tự mở roadmap Bảng giao việc.
+
 ## Owner cần quyết
 - —
