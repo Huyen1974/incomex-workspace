@@ -206,3 +206,72 @@ A09R1 LIVE CHECKPOINT · HTTP200, live/output SHA 043ef3d68198440cfda0d244ce2f99
 
 A09R1 LIVE RECHECK · lượt quan sát đầu hết thời hạn vì connector workspace_read bị lỗi transport, chưa có commit tín hiệu trong thời hạn. Cổng đã phục hồi. Browser live mới đã sẵn tại baseline 45e078f671428fd1de5b6f1f9adf007ad72e4c85 + formula; fingerprint không đổi. Lượt này chỉ append ledger để tạo revision thật, không sửa document/runtime.
 
+## A09R1 · KQ Codex · 2026-10-01T09:11:48Z
+
+KQ@MMIM-LANE-A09R1-20261001-01 XONG
+KQ@LANE-A A09R1 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · dirty_exception=PASS · dependency_isolated=PASS · unrelated_remount=PASS · real_change=PASS · section_preserved=PASS · NEXT=HOST_ACCEPT_A09R1
+COORD · NOW=XONG · NEXT=HOST_ACCEPT_A09R1 · BLOCKED_BY=none · RESERVED_TARGETS=none; đã kết thúc ghi HPML source + lane-a ledger · LAST_SYNC=A09R1/KQ
+
+**Kết quả:** đã sửa/publish tại đúng VPS SSOT; T1–T4 đạt. Không sửa ban-duyet.html hay web-rp-current. Dừng chờ Owner/Host.
+
+### Gate / dependency isolation
+
+- Đã đọc AGENTS → parent COLLAB D99/D100 → REGISTRY → lane COLLAB → PROMPT. READY vẫn là commit cuối chạm PROMPT `a3e422ed434704a1415446386311fe0e86f53410`; SHA PROMPT `5c72ff994d5354c9462060a1043d4d859b23ee357eabdd708d8a2fefe04f9b27`; trước mutation/deploy re-read, không có STOP hiện hành.
+- PROCESS_GATE chạy thật, exit 0: `status=PASS; process=CHUNG.APQUYTRINH; process_count=39; step_count=6; reason=OK`; catalog SHA `e0f68b78986bfe0bf70b97bf6516f3347a33edce89e3d9644a9429f60545220a`.
+- Repo runtime `/opt/incomex/docker/nuxt-repo`, branch main, HEAD trước/sau `79d4dcb57c1cd94213076a042570fd373a75f358`. Trước RUN: chỉ ` M web-rp-current`, scripts/hvu-b2 sạch. Sau RUN: chỉ 4 file nguồn trong bảng dưới + submodule dirty cũ. Không commit/push/reset/clean/stash submodule.
+- 4585 dependency symlink, 0 trỏ vào web-rp-current, 0 broken; ui/node_modules resolve tới thư mục thật web/node_modules. Manifest/config/package/lock và đường copy không dùng submodule; nginx đọc static mount riêng. Trace syscall của **cả Nuxt generate và node pack.mjs**: 0 đường web-rp-current.
+- Dependency giữ nguyên: web/package.json SHA `134588fb872cc2568ecd49a8728d9e1970bd66c768f248bae95f85a3230e6f85`; pnpm-lock SHA `9270395dd8eaf1bba3fdab9793670a6ef41af8e26dc7bdc2cfff8e109c031649`; .modules.yaml SHA `5d28cb00f806be6e9338c0cb94acdbb158263d4d557ba65aadbf922210cd1086`. nuxt.config.ts, pack.mjs, ui/package.json, app.config.ts không sửa.
+
+### Files / cách sửa
+
+- sync.py xuất documentFingerprint từ **HTML đã publish + toàn bộ relative assets đã copy**, theo tên/bytes; documentRevision giữ nghĩa provenance. Last-good cũng tính fingerprint, kể cả snapshot cũ.
+- app.vue giữ **cả key và src** theo task + fingerprint. Metadata đổi vẫn cập nhật dashboard; content đổi mới thay iframe một lần, kèm currentSection. Mở rộng/manual refresh dùng URL snapshot mới nhất; outer popstate giữ deep link.
+- Rà browser phát hiện default-open details lúc khởi tạo có thể đổi section. Relay presentation cài trước script document, giữ section được yêu cầu trong lúc boot; sau load trả lại navigation bình thường. Chỉ sửa publisher VPS, không sửa source tài liệu Git.
+- README cập nhật contract/build/rollback; test_sync.py thêm regression fingerprint/asset/last-good/symlink.
+
+| File trong scripts/hvu-b2 | SHA-256 trước | SHA-256 sau |
+| --- | --- | --- |
+| ui/app.vue | `b4958542bd43327cb3849ebd8da2b1620e1fdb3956639638d10bd5dd275f1030` | `b8b5c122973b28ab408ee834b4b5f9c01181fd30c5f9da9ed6899ac3f955ba40` |
+| sync.py | `d5cbb67abf91c49f92bf398fb265f6f3fa7940842073f880d52211a3887a0484` | `a64a59eb0468890f7463fa2699eee55bd5f84f6875b45f545a50ab12dfe46722` |
+| README.md | `d4debc486fd7f57183f300573ebee732beaa7fdda80c600ddb65a012864d9e60` | `c14653eee65f6b6adc1327a7cc2fdccf69a860ca29d1ba70db7aa26edcdb22e6` |
+| test_sync.py | `c607aeb0309f5416648137f66795fcc5bed25c37f1b2a9893f8c8d1cabca3339` | `a065bafc417b9070ef6664be6b8f975e2b50ca0de40a237300612699c4fe150b` |
+
+**ban-duyet bất biến:** so Git bytes tại READY a3e422… và revision live 20c77d…: `True`, 563509 byte, SHA `e0f68b78986bfe0bf70b97bf6516f3347a33edce89e3d9644a9429f60545220a`. Submodule diff trước/sau vẫn `d04d8e5624f92d26b868c93adc50fca5e2f07b7f → cùng commit-dirty`.
+
+### Build / deploy / rollback — output thật
+
+- Trong ui/: `./node_modules/.bin/nuxt generate` → exit 0; `node pack.mjs` → exit 0, `Renderer bytes 414466`; `git diff --check -- scripts/hvu-b2` → exit 0.
+- Artifact trước: SHA `cd3696ca7207f54ac454f8dc17a893454f339f0d777593b93a19c18105c68d23`.
+- Artifact sau **output = static live = HTTP bytes**: SHA `043ef3d68198440cfda0d244ce2f9952f5137be20b0eae0417d24af366abed4f`, 414466 byte; HTTP 200; buildId `bc32fa59-855e-46a1-8598-16cf85ebac10`. Build trên VPS, copy nguyên artifact bằng atomic replace; không vá bundle, không restart app/nginx, không deploy từ GitHub.
+- Đường live: `/opt/incomex/docker/nginx/static/ui-preview/hpml-view-for-user/view.html`. Existing data-only publisher nhận checkpoint bằng `systemctl start incomex-hvu-sync.service`; không đổi unit/timer/socket/quyền.
+- Backup + evidence: `/opt/incomex/work/mow-mot-moit-mout/A09R1-20261001/`. Rollback: `python3 /opt/incomex/work/mow-mot-moit-mout/A09R1-20261001/rollback.py --check` exit 0; đổi thành `--apply` để atomic restore 4 source files + live/output view từ before/. Script tự tìm thư mục của nó. **Dry-run đã kiểm; không phải đã thực hiện rollback.**
+
+### Acceptance — kiểm sau deploy
+
+| Ca | Bằng chứng | KQ |
+| --- | --- | --- |
+| T1 · revision không liên quan | **Live, không mock:** 45e078f671428fd1de5b6f1f9adf007ad72e4c85 → 20c77d649587c8315c2d1179e0858ef61c8a37af; HTML byte-identical, fingerprint a1eb69… giữ; poll thật cập nhật metadata nhưng key/src/node/window giữ, document requests delta=0; details=true, input=live-state, scroll=500, hash formula giữ. | PASS |
+| T2 · document đổi thật | Renderer lấy từ HTTP đã deploy; **safe client fixture** đổi HTML bytes/fingerprint, không ghi document production. Nội dung “A09R1 safe content change” xuất hiện; document requests delta=1; hash=#matrix-view-formula, tab=formula. Backend regression cũng xác nhận HTML/asset đổi hash, metadata không đổi hash. | PASS |
+| T3 · navigation | Formula↔Master↔Master list, Back/Forward, deep link, manual reload; kiểm cả fixture và Owner URL live không mock. Sau reload hash=#matrix-view-formula, tab=formula. | PASS |
+| T4 · sync/load | Cadence source vẫn status 60000ms, presence 15000ms; browser clock kiểm interval cũ, cùng revision không fetch snapshot/document; status error/stale giữ last-good; không request/remount loop. Console pageErrors=0 ở fixture và live. | PASS |
+
+Output regression thật:
+
+```text
+Ran 26 tests in 12.444s
+OK
+GENERATE_EXIT 0
+PACK_EXIT 0
+BUILD_DIRTY_READS 0
+PACK_DIRTY_READS 0
+HTTP 200 · output/live/HTTP MATCH True
+ROLLBACK_DRY_RUN 0
+```
+
+Evidence tại cùng thư mục: unit-tests.log; build.log; build-files.trace; pack-files.trace; deploy.json; browser-results.json (candidate); deployed-fixture-results.json (T1–T4 sau deploy); live-browser-recheck-results.json (revision thật/navigation); live-owner-view.png; before/; rollback.py. Các ca lỗi thử/chờ đã xử lý trong cùng RUN; lần quan sát live đầu hết thời hạn do connector không ghi được tín hiệu đúng lúc, lượt recheck đã PASS.
+
+**Giới hạn evidence:** real-change/error/stale được gây trong client fixture an toàn, không cố tình làm hỏng production. Live T1/T3 dùng mạng thật không interception. Không ghi PG/Directus; không mở task/RUN/URL/pipeline mới, không làm A10/B/C. Source working tree trên VPS là bản đã áp, ghi bằng hash; không dùng GitHub để đưa mã xuống VPS.
+
+Dừng. NEXT duy nhất: Host nghiệm thu A09R1.
+
+
