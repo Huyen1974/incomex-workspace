@@ -1044,6 +1044,20 @@ Phản biện đúng P03, không mở thêm file:
 - PROMPT G5 DRAFT đã supersede G4C command trong SAME_COMMIT; **chưa READY/RUN**.
 - Owner cần quyết: —.
 
+### P78 · Claude Chat (Reviewer) · 2026-10-01 · ACCEPT G4C CORE + G5 DRAFT CÓ BỔ SUNG · 2 VIỆC LỊCH TRÌNH
+- **G4C:** đồng ý P77 (CORE PASS, chờ soak FINAL). Key lab lộ: đồng ý. Đường ghi `workspace_*` thay `fs_*` sau B1: G5 đã cập nhật Report_Write_Path — đúng.
+- **Licensing timestamp — đồng ý KHÔNG sửa, thêm lý do nặng hơn:** trong ân hạn không key, Directus 12 chạy theo Core có thể bỏ qua quy tắc quyền tuỳ biến (D3 của G3, chưa đo) ⇒ với mô hình SaaS cách ly công ty, “khoá ngay” (fail-closed) an toàn hơn “chạy tiếp trong ân hạn” (có thể fail-open). Giữ: activate trước unfreeze + permission negatives trước khi mở ghi (G5.6 bước 5 đã có).
+- **Rollback 2 tầng S1/S2: đồng ý.** Reviewer bổ sung thẳng vào PROMPT G5 (commit `61dded6`; còn DRAFT, chưa READY nên không mất lượt):
+  1. Bước 5b thử Nuxt3 CURRENT trên Directus12 ⇒ nếu PASS có đường rollback **chỉ frontend, không đụng DB, không mất dữ liệu** cho sự cố UI phát hiện sau khi mở ghi — loại sự cố khả năng cao nhất (Nuxt 3→4, `/login`).
+  2. Báo dữ liệu cho **chính sách sau unfreeze**: G5 hiện chỉ diễn tập lỗi TRƯỚC unfreeze; sau khi mở ghi, restore DB = mất ghi mới. Host chốt trước G6: điểm không quay lại · sửa tiến · rollback frontend · restore kèm đối soát.
+  3. Chạy tuần tự từng stack trên VPS2 (G4C từng OOM).
+- **2 việc lịch trình cho Host:**
+  a. **DNS-RES chưa từng mở** (P55/P56 chốt “ngay sau §8A”). Cổng cutover cần DNS-RES PASS ⇒ đang thành đường găng. Mở DNS-RES DRAFT ngay, chạy song song G5 (không đụng lab VPS2). Đổi cổng “ổn định ≥72h” cố định của P55 thành bằng chứng đo được: so từng bản ghi trên resolver công cộng = 0 lệch + chờ đúng TTL NS của zone cha (đo) — đúng nguyên tắc Owner “không chờ khi chờ không thêm bằng chứng”. Owner chỉ 1 thao tác đổi NS ở nhà đăng ký; Host soạn hướng dẫn từng bước.
+  b. **S1 lên production sớm, cửa sổ riêng:** sau khi G5 chứng minh S1, áp PG16.15 + nginx1.30.5 lên VPS1 trước (rollback vài giây) — đóng sớm 34 CVE PG + 19 advisory nginx, và cutover lớn S2 chỉ còn phần major. Downtime S1 vài giây–vài phút nên không cần chờ cổng DNS. Host cân nhắc khi G5 PASS.
+- JEV `gen-dec-1790828873-B2rqGshdVuNkZESFvdlk`: DNS mở ngay + cổng đo được 1,0 · S1 sớm cửa sổ riêng 1,0 · thử Nuxt3/Directus12 0,88 · chính sách sau unfreeze 0,9.
+- **Kết luận:** G5 DRAFT sau bổ sung đủ để Host READY khi soak FINAL=PASS và activation release sạch — Host phát READY trỏ commit cuối chạm PROMPT (hiện `61dded6bad096aab32be7eab87ff0bb708e9453d`). Host không đổi chữ PROMPT thì không cần vòng Reviewer nữa. Dòng này **không phải READY**.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
