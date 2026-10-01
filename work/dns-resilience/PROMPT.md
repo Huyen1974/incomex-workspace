@@ -1,65 +1,90 @@
-# PROMPT — DNS0 READ-ONLY INVENTORY · DNS resilience preflight
+# PROMPT — DNS1 STAGED CLOUDFLARE CUTOVER · full-zone proof before delegation
 
-RUN_ID: DNSRES-DNS0-INVENTORY-20261001-01
+RUN_ID: DNSRES-DNS1-STAGED-CUTOVER-20261001-01
 STATUS: **DRAFT — CHƯA READY/RUN.**
 Host: GPT Chat
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: workspace_* → incomex-workspace/main.
-Runtime_Write_Path: **NONE. READ-ONLY.** Cấm DNS/registrar/Cloudflare/VPS config mutation.
+Runtime_Write_Path: DNS provider/registrar only at explicit Owner substeps; VPS runtime READ-ONLY.
 
 ## 1. Mục tiêu
-Tạo bằng chứng đủ để Host dựng DNS-RES cutover với tối đa 1 thao tác Owner, không suy đoán và không chờ giờ cố định.
+Trong **một browser session của Owner**, chuyển authoritative DNS từ Mắt Bão sang Cloudflare DNS-only mà không mất record: lấy full zone → tạo/import Cloudflare → agent query assigned Cloudflare NS và chứng minh 0 diff → Owner đổi NS → agent xác minh parent/public resolvers. Không chờ giờ cố định.
 
-## 2. Read gate
-Đọc AGENTS → `work/dns-resilience/COLLAB.md` §0 → PROMPT này → `work/vps1-up-grade/COLLAB.md` P55/P56/P78. READY phải = commit cuối chạm PROMPT. Ghi STARTED theo DROOT31 trước PRE; RUN này read-only.
+## 2. Read gate / PRE
+Đọc AGENTS → root COLLAB DROOT25/28/32 → `work/dns-resilience/COLLAB.md` §0 + DNS0 KQ + D5/D6 → PROMPT này. READY phải = commit cuối chạm PROMPT. Ghi STARTED theo DROOT31.
 
-## 3. Inventory public DNS
-Xác định canonical apex từ config/public service hiện hành, kỳ vọng `incomexsaigoncorp.vn` nhưng **phải đo, không mặc định**.
+PRE read-only:
+- đọc DNS0 evidence `/opt/incomex/work/dns-resilience/DNS0-20261001/`;
+- current authoritative/parent delegation vẫn Mắt Bão; current public RRsets không drift không giải thích so DNS0;
+- DNSSEC vẫn OFF;
+- không dùng raw `nginx -T`; cấm ghi secret-bearing output vào evidence;
+- xác định registrar qua VNNIC Whois/public evidence nếu được; không mutation trước Owner substep.
 
-Từ ít nhất 3 resolver độc lập + authoritative query, thu:
-- registrar/registry evidence công khai nếu query được;
-- parent-zone delegation NS + TTL;
-- authoritative NS/SOA serial/refresh/retry/expire/minimum;
-- DNSSEC: DS/DNSKEY trạng thái;
-- A, AAAA, CNAME, MX, TXT (SPF/DKIM/DMARC/verification), CAA, SRV, NS subdomain nếu có;
-- mọi hostname tìm được từ nginx cert/config/compose/Kuma/app config **read-only**; không brute-force vô hạn;
-- wildcard behavior;
-- TTL từng RRset.
+## 3. OWNER_DNS_SESSION · substep A — full zone + Cloudflare pending zone
+Agent chuẩn bị hướng dẫn cực ngắn rồi dừng đúng checkpoint:
+`OWNER_DNS_SESSION_A_REQUIRED`
 
-Không in secret/token. Không query private DNS credentials.
+Owner làm trong một browser session:
+1. Mắt Bão: mở domain → Bản ghi DNS; **xuất/download toàn bộ zone nếu có**. Nếu panel không có export, lưu full list record bằng file/CSV/HTML/PDF/screenshot đủ mọi dòng; không sửa record.
+2. Cloudflare: tạo/đăng nhập account → Add/Onboard domain → apex `incomexsaigoncorp.vn` → Free plan/full setup; import/upload full zone nếu có file phù hợp hoặc nhập/copy toàn bộ record; **tất cả DNS-only / proxy OFF**; DNSSEC OFF; **chưa đổi registrar nameserver**.
+3. Lưu full zone/list Mắt Bão trên Mac dưới `/Users/nmhuyen/Desktop/DNS_CURRENT_EXPORT.*` (format bất kỳ agent đọc được) và lưu hai Cloudflare assigned nameserver public vào `/Users/nmhuyen/Desktop/CLOUDFLARE_NS.txt` (mỗi dòng một NS). Không lưu password/token.
+4. Quay lại Claude Code và báo `A_DONE`.
 
-## 4. Inventory hệ thống liên quan
-Read-only trên VPS1/Mac config hiện hữu:
-- nginx server_name/cert SANs;
-- TLS cert expiry/issuer + ACME mode nếu thấy trong config;
-- Kuma monitors dùng hostname nào;
-- email/MX hostnames;
-- `elearning.*` và mọi public app hostname;
-- registrar/provider hiện hành nếu có bằng chứng trong config/docs; không đoán từ NS nếu reseller mơ hồ.
+Nếu Cloudflare quick scan tự tạo record, không tin scan là đầy đủ; full export/list Mắt Bão mới là source để đối chiếu.
 
-## 5. Manifest
-Tạo evidence trên máy thực thi, không tạo repo file mới ngoài COLLAB/view hiện hữu:
-- `CURRENT-RRSETS.tsv`;
-- `HOSTNAME-CONSUMERS.tsv`;
-- `PARENT-NS.txt`;
-- `DNSSEC.txt`;
-- `CUTOVER-CANDIDATE.md`: exact record manifest Cloudflare DNS-only, không proxy, **không tạo zone**;
-- `ROLLBACK.md`: exact old NS + điều kiện rollback;
-- `MEASURED-GATE.md`: TTL/NS propagation evidence cần kiểm sau đổi, không dùng 72h cố định.
+## 4. Verify Cloudflare trước delegation
+Sau `A_DONE`:
+- đọc export/list local + DNS0 manifest; normalize RRsets theo DNS semantics (FQDN/trailing dot/order; không làm mất TTL/type/value);
+- set `COMPLETENESS=EXPORT` chỉ khi artifact thực sự chứa full list từ panel/provider, không phải ảnh một phần;
+- query **trực tiếp cả hai assigned Cloudflare authoritative NS** khi zone còn pending; lấy toàn bộ record có thể kiểm theo export + từng hostname record, SOA/NS;
+- so source Mắt Bão export ↔ Cloudflare authoritative: **0 missing, 0 unexpected materially different**, ngoại trừ SOA/NS provider-managed khác expected;
+- đặc biệt giữ apex A, www, VPS1 hostnames, elearning, ai CNAME và mọi TXT/MX/DKIM/DMARC/CAA/SRV lộ ra trong EXPORT;
+- tất cả A/AAAA/CNAME web records = DNS-only/proxy OFF; DNSSEC OFF;
+- nếu mismatch: báo exact record, Owner sửa trong **cùng browser session**, rồi agent requery; không mở task/vòng mới.
 
-## 6. Acceptance DNS0
+Chỉ khi `COMPLETENESS=EXPORT` + 0 diff mới phát trong terminal:
+`CLOUDFLARE_ZONE_VERIFIED · SAFE_TO_CHANGE_NS`
+
+## 5. OWNER_DNS_SESSION · substep B — đổi nameserver
+Sau câu SAFE_TO_CHANGE_NS, Owner trong cùng browser session:
+- mở panel registrar thật (VNNIC Whois/panel evidence đã xác định; nếu domain nằm trong Mắt Bão ID thì vào quản lý tên miền → Name Server);
+- thay đúng cặp NS hiện tại bằng **hai NS Cloudflare assigned** từ file;
+- không bật DNSSEC, không xóa zone/bản ghi Mắt Bão;
+- hoàn tất OTP nếu registrar yêu cầu;
+- quay lại Claude Code báo `B_DONE`.
+
+## 6. Post-delegation measured gate — không chờ 12h/72h máy móc
+Sau `B_DONE` agent tự đo:
+1. query toàn bộ parent `.vn` authoritative đã dùng ở DNS0; xác nhận delegation mới xuất hiện nhất quán hoặc ghi chính xác máy nào chưa cập nhật;
+2. query old Mắt Bão authoritative và new Cloudflare authoritative: cả hai phải vẫn phục vụ cùng business RRsets trong cửa sổ cache;
+3. query ≥6 public resolver + Mac/VPS1 cho apex/www/vps/directus/ops/giaoduc/elearning/ai và mọi record bổ sung từ EXPORT; 0 SERVFAIL/NXDOMAIN/mismatch ngoài cache delegation expected;
+4. HTTPS/TLS/Kuma/mail-target checks read-only.
+
+**Không bắt chờ hết parent NS TTL 43200s** nếu:
+- parent authority đã nhận delegation mới; và
+- old+new authoritative cùng business RRsets; và
+- public resolver trả dữ liệu đúng dù còn NS cache cũ/mới.
+TTL chỉ là thời gian cache có thể còn tồn tại; nó không tự tạo thêm bằng chứng nếu hai phía đã giống nhau.
+
+Nếu parent chưa nhận NS mới, dùng machine timer nhẹ để recheck theo nhịp hợp lý (không Owner/AI ngồi chờ); kết thúc ngay khi evidence đủ, không chờ mốc giờ danh nghĩa.
+
+## 7. Rollback / acceptance DNS1
+Rollback trigger trước ổn định:
+- Cloudflare authoritative thiếu/sai record không sửa được nhanh;
+- parent delegation sai/partial kéo dài kèm resolver failure;
+- SERVFAIL/NXDOMAIN/TLS/mail failure do delegation.
+Rollback = Owner đổi NS về `ns1.matbao.vn` + `ns2.matbao.vn`; Mắt Bão zone phải vẫn nguyên. Sau rollback agent xác minh parent + resolver về known-good. Không xóa Cloudflare zone trong RUN.
+
 PASS khi:
-1. authoritative source xác định rõ;
-2. manifest record đủ và resolver/authoritative không còn mismatch chưa giải thích;
-3. parent NS TTL + DNSSEC state rõ;
-4. hostname public map được tới service/cert/monitor/mail;
-5. có exact candidate manifest + rollback NS;
-6. kết luận:
-   - `AUTO_ZONE_POSSIBLE` nếu credential/API Cloudflare hiện hữu được chứng minh bằng metadata/config an toàn, không cần Owner secret; hoặc
-   - `OWNER_CLOUDFLARE_SETUP_REQUIRED` nếu không có đường tự động; chỉ nêu đúng một nhóm thao tác tối thiểu.
+- `COMPLETENESS=EXPORT`;
+- Cloudflare authoritative pre-delegation 0 diff business RRsets;
+- parent delegation mới được xác nhận bằng authoritative evidence;
+- old/new authoritative cùng dữ liệu trong cache window;
+- public resolvers + HTTPS/Kuma/mail checks không lỗi;
+- Mắt Bão rollback zone còn nguyên.
 
 KQ:
-`KQ@DNSRES-DNS0-INVENTORY-20261001-01 MACHINE_DONE · INVENTORY_PASS · <AUTO_ZONE_POSSIBLE|OWNER_CLOUDFLARE_SETUP_REQUIRED>`
+`KQ@DNSRES-DNS1-STAGED-CUTOVER-20261001-01 XONG · CUTOVER_PASS · COMPLETENESS=EXPORT · DNS_ONLY`
 hoặc `DỪNG · <exact blocker>`.
 
-Không tự đổi DNS, không tạo Cloudflare zone, không đổi registrar NS, không chạm VPS runtime.
+Không chạm VPS runtime, không bật Cloudflare proxy, không bật DNSSEC trong RUN này.
