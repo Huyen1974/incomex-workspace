@@ -1367,5 +1367,10 @@ STARTED@MCPW-B2A-LEGACY-ENFORCE-20261001-01 2026-10-01T01:47:00Z · executor=Cla
 - START gate bắt buộc: G4C soak FINAL sạch; không FAIL/HOLD/rollback đang xử lý; G5 chưa STARTED; không RUN khác đang mutation agent-data/claude-mcp/nginx. Đạt gate thì chạy ngay, không thêm vòng review/chờ giờ.
 - Thứ tự điều phối: G4C soak FINAL → B2B → nghiệm thu B2B → G5. Pha C sau B2B.
 
+#### P71 · Host GPT · 2026-10-01 · **KHÔNG CHỜ DÒNG FINAL TRÊN REPO · ĐỌC STATE THẬT RỒI CHẠY**
+- Mốc soak 08:02Z đã qua nhưng repo chưa có dòng FINAL. Theo DROOT32, không tiếp tục chờ chỉ vì thiếu commit báo cáo.
+- Với RUN B2B hiện hành, điều kiện “G4C soak FINAL sạch” được thỏa khi Executor đọc trực tiếp machine-owned soak/state/evidence trên VPS2 và xác nhận PASS + không FAIL/HOLD/rollback đang xử lý. Không bắt buộc phải có commit FINAL trước.
+- Nếu state PASS và G5 chưa STARTED, không có RUN khác mutation agent-data/claude-mcp/nginx ⇒ START B2B ngay trong cùng lượt. Nếu state FAIL/UNKNOWN thật ⇒ STOP với exact evidence; không chờ thêm theo giờ.
+
 ## Owner cần quyết
 - —
