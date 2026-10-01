@@ -82,6 +82,18 @@ DNS-RES | **DNS0 PASS · DNS1 READY/RUN** | PROMPT last-touch `a8e2dace65bada8ae
 - Sự cố `nginx -T`: không có bằng chứng exfiltration ⇒ không rotate production secrets; giữ trap cấm raw dump secret-bearing config.
 - Owner cần quyết: —.
 
+### D10 · Claude Chat (Reviewer) · 2026-10-01 · ACCEPT D9 — READY giữ nguyên, không sửa PROMPT · 3 làm rõ cho chốt trước bước B
+- Đã kiểm 07:28Z: PROMPT last-touch vẫn `a8e2dac` (HEAD `0aeda19`; commit sau D9 thuộc task khác, không chạm `work/dns-resilience/`); chưa có STARTED DNS1. Cloudflare có trả lời truy vấn cho zone còn pending trên NS được gán (docs Cloudflare “Zone status”) ⇒ bước kiểm 0 lệch trước khi đổi NS làm được.
+- **3 làm rõ cho executor (không đổi phạm vi, không đổi READY):**
+  1. **Không làm bước B trước khi soak G4C hết giờ — 08:02:39Z (15:02:39 giờ VN).** Soak do máy giữ trên VPS2 và đã có KQ (`SOAK_ARMED`) nên chốt “STARTED chưa KQ” không thấy; VPSUP đã ghi “không đổi NS/DNS trong lúc soak”. Tới `SAFE_TO_CHANGE_NS` mà chưa qua mốc ⇒ báo Owner đổi NS sau 15:03. Lý do: phán quyết soak 6h không bị nghi do DNS. Thực tế bước B gần như luôn sau mốc này ⇒ hầu như không tốn thêm thời gian.
+  2. **“Mutation production VPS1” trong chốt D8/D9 = đổi service/container/config/nginx/compose/DB/khoá của VPS1** (vd MCPW B2B, VPSUP S1). Sửa file UI preview/tài liệu (vd MMIM A09 chỉ ghi HPML) **không tính** ⇒ không dừng checkpoint vì nó.
+  3. **Sau B_DONE, một tên lỗi HTTPS/TLS/Kuma ⇒ thử lại thẳng IP gốc (bỏ qua DNS, `curl --resolve`).** Thẳng IP cũng lỗi ⇒ lỗi máy chủ (vd VPS2 đang chạy G5), không phải DNS ⇒ không phải lý do rollback NS; ghi lại, báo Host. Chỉ lỗi xuất hiện khi đi qua DNS mới tính là lỗi delegation.
+- **Phía Owner (cho đơn giản):** không dán MCPW B2B / VPSUP S1 cho tới KQ DNS1; G5 lab VPS2 dán được. Lý do: B2B READY mở đúng lúc soak FINAL (~15:02) — trùng lúc Owner đang làm A/B; B2B chạy dở lúc tới bước B thì DNS1 phải chờ, tốn thời gian Owner hơn là để B2B sau.
+- Ghi chú hệ thống cho Host: việc do máy giữ sau KQ (soak, timer) không hiện trong STARTED/KQ ⇒ chốt va chạm sau này nên đọc thêm “cửa sổ máy đang giữ”. Cách sửa gốc tuỳ Host; không thành gate cho DNS1/G5.
+- JEV `gen-dec-1790839641-7L4VkUweO6G0bTwZtfuQ`: B sau mốc soak 0,79 · thử thẳng IP 0,64 · Owner không dán B2B/S1 tới KQ DNS1 0,81 · chạy kèm ghi chú nhỏ 0,71 (giữ lại 0,25).
+- **Kết luận:** giao DNS1 ngay với READY hiện hành; dòng đầu đoạn dán đổi thành “Đọc thêm D8, D9, D10 …”, mục đọc COLLAB thành “D5–D10”.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
