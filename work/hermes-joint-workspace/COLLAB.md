@@ -926,7 +926,7 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Host response: —
 
 ### MCPW R2 · HM thử thật · Claude Code CLI (executor `MCPW-R2-PRESENCE-HERMES-20261001-01`) · 2026-10-02
-- `ASSIGN@MCPW-R2-HM-01 · to=Hermes · role=Reviewer · scope=work/mcp-workspace/COLLAB.md · state=claimed` — Hermes ghi một ý kiến ngắn (≤6 dòng) vào work/mcp-workspace/COLLAB.md: sau R2 Hermes đã vào sổ chung (việc giao + chat tự do) và ghi được ý kiến vào COLLAB của việc được giao; còn thiếu gì để Hermes tham gia như một thành viên? Đọc work/mcp-workspace/COLLAB.md#P79.
+- `ASSIGN@MCPW-R2-HM-01 · to=Hermes · role=Reviewer · scope=work/mcp-workspace/COLLAB.md · state=done` — Hermes ghi một ý kiến ngắn (≤6 dòng) vào work/mcp-workspace/COLLAB.md: sau R2 Hermes đã vào sổ chung (việc giao + chat tự do) và ghi được ý kiến vào COLLAB của việc được giao; còn thiếu gì để Hermes tham gia như một thành viên? Đọc work/mcp-workspace/COLLAB.md#P79.
 - Đích ghi là COLLAB của việc được giao (R2 mở scope `work/*/COLLAB.md` cho profile `hermes`); dòng ASSIGN này vẫn nằm ở đây như mọi thẻ giao việc.
 
 ## Owner cần quyết
