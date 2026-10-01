@@ -28,22 +28,26 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 | Claude Chat | cổng MCP | tên thật B1 → sổ | 🟡 có tên, chưa có sổ |
 | Hermes | công tắc tay Telegram · cổng MCP | thẻ + sổ Hermes → sổ chung | 🟢 việc giao · 🔴 chat tự do |
 
-**✅ Đã đạt**
+**✅ Đã đạt — không làm lại**
 - Ghi repo chỉ qua cổng — `afadda3`
 - GitHub chậm/mất vẫn đọc được bản VPS — P02
+- Kết nối GPT/Claude ổn định, 37/23 công cụ — R03
 - Mỗi AI có tên thật do máy cấp (GPT · Claude Chat · Claude Code · Codex · Hermes) — B1 `52436cc`
 - Khoá chung hết ghi qua MCP — B2A `c4f5902`
 - Hermes nhận việc qua công tắc tay Telegram (cố ý, chưa tự động) — `f85a244`
 
-**Đạt khi (thử thật):** mọi hoạt động có tên trong sổ · SSH không khớp ông nào ⇒ vàng · quên báo cáo ⇒ máy nhắc, vẫn quên ⇒ “chưa báo cáo” trong 10′ · tắt ngang ⇒ “mất tín hiệu” · 2 ông cùng 1 việc ⇒ đỏ · Owner View hiện ai đang làm, từ lúc nào.
+**🔴 Còn đúng 4 việc — không nở thêm (Host P76 + Reviewer thống nhất)**
+1. **Claude Code + Codex + SSH:** hook thật; bắt đầu · đang làm · kết thúc; gắn đúng việc/RUN; quên báo cáo ⇒ máy nhắc agent, vẫn quên ⇒ `AWAITING_REPORT`; tắt ngang ⇒ `LOST`.
+2. **Sổ chung trên VPS** (`queue.sqlite`, dùng lại mã B2B đã test): Claude Code · Codex · GPT · Claude Chat · Hermes cùng một sổ; chỉ ghi, không chặn.
+3. **Owner View:** mỗi việc ai đang làm · từ lúc nào · trạng thái; 2 phiên cùng việc ⇒ đỏ; SSH không rõ ai ⇒ vàng.
+4. **Hermes:** ghi ý kiến vào việc được giao · việc giao + chat tự do vào sổ · đổi `~/.hermes/config.yaml` ngoài lượt ⇒ Config Guard báo.
 
-**Roadmap còn lại — đi đúng thứ tự:**
-`[✓ R0 nền] → [✓ R1 dừng B2B cũ] → [■ R2 soạn 1 PROMPT] → [□ R3 chạy] → [□ R4 thử 5 ca] → [□ R5 Owner gật → đóng]`
-- R1 ✓ B2B dừng trước khi đụng hệ thống (KQ DỪNG, 0 thay đổi production); mã sổ đã viết + test ⇒ dùng lại.
-- R2 🤖 GPT soạn, Claude duyệt 1 vòng, READY.
-- R3 🤖 Claude Code chạy 1 lượt: hook Claude Code/Codex + sổ chung + nhật ký SSH + Hermes ghi ý kiến vào việc được giao. Chỉ ghi sổ và nhắc, không chặn ai; ≤1 restart agent-data.
-- R4 🤖 Thử 5 ca: vào làm · làm qua SSH · quên báo cáo · tắt ngang · 2 ông cùng việc. Claude nghiệm thu.
-- R5 😊 Owner nhìn Owner View, gật.
+**Checkpoint (ước tính 01/10, giờ VN):**
+`[✓ R1 dừng B2B] → [■ R2 GPT soạn PROMPT ~17:30] → [□ R3 Claude duyệt + READY ~17:50] → [□ R4 Claude Code chạy 4 việc ~18:00–20:30] → [□ R5 thử thật + Claude nghiệm thu ~21:00] → [□ R6 Owner gật → đóng]`
+- R5 thử thật: vào làm · làm qua SSH · quên báo cáo · tắt ngang · 2 phiên cùng việc · Hermes ghi ý kiến · đổi config Hermes trên bản thử.
+- R4 có thể cần Owner gõ mật khẩu Mac 1 lần (cấu hình quản trị cho hook).
+
+**Luật giữ cứng:** NEXT · lease · REST · Directus · `vps1-up-grade` không phải cổng của 4 việc. Không thêm cổng chờ giờ. Phần nào kẹt (vd hook Codex thiếu theo version) ⇒ ghi residual + vẫn báo vàng, phần còn lại chạy tiếp. Ý mới ⇒ ghi “Để sau”, Owner quyết.
 
 **⚪ Để sau, Owner duyệt mới làm:** Hermes tự động (khi quy trình ổn) · máy tự tính “ai làm tiếp” · khoá chống ghi chồng · khoá REST/Directus.
 **Luật nghiệm thu:** N9 (E1–E6), ở Vòng trước.
@@ -1325,7 +1329,7 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 - JEV `gen-dec-1790818373-QC57RQXyXCrdtHwLYIMo`: bỏ 24h 0,78 · giữ quét tĩnh 0,74 · Reviewer sửa + Host chỉ READY 0,91 (conf 0,88) · ghi thành luật chung 0,62.
 
 ## Quyết định Owner
-- **O-MCPW-CLOSE · ĐỒNG Ý · 2026-10-01 16:53:** Owner “chốt chặt các mục tiêu, chốt chặt các roadmap còn lại” ⇒ mục tiêu + roadmap R1–R5 ở §0.3 là chuẩn; đóng MCPW khi R4 đạt và Owner gật; phần “Để sau” chỉ làm khi Owner duyệt.
+- **O-MCPW-CLOSE · ĐỒNG Ý · 2026-10-01 16:53:** Owner “chốt chặt các mục tiêu, chốt chặt các roadmap còn lại” ⇒ mục tiêu + roadmap R1–R6 ở §0.3 là chuẩn; đóng MCPW khi R5 thử thật đạt và Owner gật; phần “Để sau” chỉ làm khi Owner duyệt.
 - **O-B2A-1 · ĐỒNG Ý · 2026-10-01:** bỏ cổng chờ 24h; từ lúc lật, khoá chung chỉ còn đọc. MCP cục bộ Claude Desktop trên Mac và DOT upload KB đang WRITE_DORMANT nên tạm mất quyền ghi tới B2B; các AI dùng profile riêng vẫn ghi bình thường. Nếu phát hiện nhu cầu thật, rollback `legacy compat` theo đường hiện hữu.
 
 #### P65 · Host GPT · 2026-10-01 · **O-B2A-1 APPROVED · B2A READY/RUN REISSUED**
