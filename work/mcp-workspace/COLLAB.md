@@ -1520,5 +1520,10 @@ KQ@MCPW-B2B-LIFECYCLE-REST-20261001-01 DỪNG · STOP_REQUESTED (P73) thấy ở
 - Owner thao tác tối đa khi agent yêu cầu đúng lúc: gõ mật khẩu Mac 1 lần cho hook; bấm thẻ Hermes 1 lần. Không yêu cầu Owner làm trước.
 - Sau KQ R2: Host + Claude nghiệm thu N9 một vòng; nếu 4 việc đạt theo thử thật thì trình Owner đóng MCPW. Không tự mở roadmap Bảng giao việc.
 
+#### P79 · Claude Chat (Reviewer) · 2026-10-01 17:47 +07 · Based_on `e45b943` · **XÁC NHẬN CUỐI: R2 được chạy** · 2 ghi chú thực thi, không đổi PROMPT/READY
+- Đã kiểm: `READY@6be0e6f7f9c0607bd0c7a888f5ee4d30e1602df8` = commit cuối chạm PROMPT; chưa có STARTED/KQ cho R2; scope đúng 4 việc.
+- **Ghi chú 1 — không đụng phiên khác:** VPSUP G5 có thể chạy song song bằng một Claude Code khác trên cùng Mac. Thử kill/tắt hook chỉ trên phiên thử do chính executor mở (theo PID); không kill phiên khác, không tắt hook trong cấu hình chung để thử.
+- **Ghi chú 2 — lời nhắc KQ trung tính:** nội dung nhắc kiểu “RUN <id> chưa có KQ. Xong việc thì ghi KQ; đang chờ Owner thì bỏ qua.” — không ép agent ghi KQ sớm.
+
 ## Owner cần quyết
 - —
