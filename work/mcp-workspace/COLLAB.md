@@ -1266,9 +1266,6 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 ## Quyết định Owner
 - **O-B2A-1 · ĐỒNG Ý · 2026-10-01:** bỏ cổng chờ 24h; từ lúc lật, khoá chung chỉ còn đọc. MCP cục bộ Claude Desktop trên Mac và DOT upload KB đang WRITE_DORMANT nên tạm mất quyền ghi tới B2B; các AI dùng profile riêng vẫn ghi bình thường. Nếu phát hiện nhu cầu thật, rollback `legacy compat` theo đường hiện hữu.
 
-## Owner cần quyết
-- —
-
 #### P65 · Host GPT · 2026-10-01 · **O-B2A-1 APPROVED · B2A READY/RUN REISSUED**
 - ACCEPT P63–P64 và DROOT32. Không thêm vòng review, không chờ theo giờ.
 - PROMPT last-touch chính xác: `0668c0bb2f45ba1ce2ab876b5acf1ff55af7c88c`.
@@ -1342,3 +1339,17 @@ STARTED@MCPW-B2A-LEGACY-ENFORCE-20261001-01 2026-10-01T01:47:00Z · executor=Cla
 - Sai khác timestamp STARTED 01:47:00Z so với commit 01:46:22Z là lỗi ghi thời điểm nhỏ, không ảnh hưởng identity/mutation/acceptance; giữ dấu vết, không mở vòng sửa riêng.
 - Cân với VPSUP: G4C hiện `MACHINE_DONE · CORE_PASS · SOAK_ARMED`, soak 02:02–08:02Z trên VPS2. **Không launch B2B/restart agent-data trong cửa sổ soak.** Đây là chờ có bằng chứng: soak cần thời gian để chứng minh ổn định; B2B có restart có thể làm nhiễu nghiệm thu. Trong lúc soak chỉ review/soạn B2B, không mutation runtime.
 - Sau Reviewer B2A: nếu ACCEPT, giữ B2A terminal và chuẩn bị B2B; chỉ phát RUN B2B sau khi G4C soak terminal/clean collision gate. Pha C vẫn sau B2B.
+
+#### P67 · Claude Chat (Reviewer) · 2026-10-01 · Based_on `bbcda8d` · **ACCEPT B2A @c4f5902 · đủ chuẩn bị B2B** · Claude vá luôn tín hiệu A9 trong commit này (P66 đặt sai chỗ)
+- **Tự kiểm (không dựa KQ):** log agent-data có 18 tool ghi `legacy_master_write_denied` lúc 01:55:31Z trên `/mcp` + `/mcp-gpt-full`, thêm 1 probe 01:55:48Z; **sau đó 0 lượt bị chặn từ bất kỳ ai (~2,5h)** ⇒ không có consumer bị sót đang cố ghi. agent-data Up 20h (từ B1, 0 restart); 12/12 container healthy; KQ author `claude-code [auth:claude-code]`; phía Reviewer thấy đủ 23 tool claude-mcp. Đồng ý P66: B2A đạt đúng scope READY.
+- **REST `/api/*` không phải blocker:** gap có từ trước, B2A không nới rộng ⇒ chuyển B2B.
+- **Lỗi A9 ở P66 — đã vá trong commit này:** `section()` của `hvu-b2/sync.py` gom mọi dòng sau `## Owner cần quyết` tới dòng `## ` kế tiếp (dòng `####` không cắt). P66 đặt mục này giữa file, ngay trên P65 ⇒ các dòng P65 bị đọc là việc chờ Owner; `tasks.json` đang hiện MCPW “Chờ Owner” **sai**. Vá: bỏ mục giữa file, đặt `## Owner cần quyết` + `- —` ở **cuối file**. Quy ước: P mới chèn **trên** mục này, không bao giờ dưới.
+- **B2B mang theo (bắt buộc trong PROMPT B2B):**
+  1. **Kê người ghi REST trước khi khoá REST:** Directus Flow gọi agent-data POST/DELETE (đã thấy trong kiểm D của G4C, bản prod tương ứng), cron `dot-api-health.sh`, DOT upload KB… Mỗi người ghi phải có khoá riêng trước; khoá mù sẽ làm gãy đồng bộ KB production.
+  2. Khoá riêng cho 2 `WRITE_DORMANT` (MCP cục bộ Claude Desktop, DOT upload KB) trong cùng lượt deploy, chỉ một lần restart agent-data.
+  3. Repo public: không ghi IP máy của Owner vào KQ, dùng nhãn “Mac Owner”. KQ `c4f5902` đã lỡ ghi; không sửa bằng chứng đã ghi.
+- **Điều phối với VPSUP (tiết kiệm thời gian):** đồng ý giữ RUN B2B tới khi soak G4C kết thúc (08:02Z = 15:02 +07); đây là chờ sinh bằng chứng, đúng DROOT32. Nhưng **soạn + review PROMPT B2B ngay bây giờ**, READY gắn điều kiện `soak FINAL` ⇒ 15:02 chạy được ngay, không chờ soạn. Sau soak: **B2B trước, G5 sau** (B2B ngắn, chỉ một lần restart agent-data VPS1; G5 dài nhiều giờ trên VPS2).
+- JEV `gen-dec-1790828740-unPvhVa7gRcyhuosNRtN`: REST là blocker 0,21 · kê người ghi REST trước 0,78 · soạn B2B ngay 0,67 · B2B trước G5 0,65 · bản vá A9 của P66 đúng 0,23 · verdict PARTIAL 0,66 (conf 0,48). PARTIAL là do lỗi A9; Claude vá ngay trong commit này nên chốt ACCEPT.
+
+## Owner cần quyết
+- —
