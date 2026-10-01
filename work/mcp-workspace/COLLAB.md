@@ -49,7 +49,12 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 
 **Luật giữ cứng:** NEXT · lease · REST · Directus · `vps1-up-grade` không phải cổng của 4 việc. Không thêm cổng chờ giờ. Phần nào kẹt (vd hook Codex thiếu theo version) ⇒ ghi residual + vẫn báo vàng, phần còn lại chạy tiếp. Ý mới ⇒ ghi “Để sau”, Owner quyết.
 
-**⚪ Để sau, Owner duyệt mới làm:** Hermes tự động (khi quy trình ổn) · máy tự tính “ai làm tiếp” · khoá chống ghi chồng · khoá REST/Directus.
+**🗺 ROADMAP SAU KHI BẮT ĐƯỢC TỪNG AI — KHÔNG LÀM TRONG RUN HIỆN TẠI**
+1. **Bước hiện tại — Bắt được AI:** biết đúng ai vào làm · việc nào · bắt đầu lúc nào · còn hoạt động không · kết thúc/bỏ quên/mất tín hiệu thế nào. Đây là điều kiện phải xong trước.
+2. **Bước kế tiếp — Bảng giao việc / Quy trình công việc:** tạo một bảng chung để mỗi AI khi vào hệ thống đọc là biết **mình được giao việc gì · vai trò gì · đang ở bước nào · cần làm tiếp gì · phụ thuộc ai/cái gì · khi xong bàn giao cho ai**. Host/Owner giao việc vào một nguồn; AI đọc cùng nguồn đó, không suy từ chat rời rạc. Đây là nền cho điều phối nhiều AI có trật tự.
+3. **Sau nữa — Tự động hoá dần:** Hermes/Agent có thể tự nhận hoặc được đánh thức từ Bảng giao việc; rồi mới tính NEXT tự động và scoped lease chống ghi chồng nếu Owner duyệt.
+
+**⚪ Để sau, Owner duyệt mới làm:** Bảng giao việc/Quy trình công việc · Hermes tự động (khi quy trình ổn) · NEXT tự động · scoped lease chống ghi chồng · khoá REST/Directus.
 **Luật nghiệm thu:** N9 (E1–E6), ở Vòng trước.
 
 ### Vòng trước
