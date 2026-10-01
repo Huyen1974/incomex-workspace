@@ -204,3 +204,5 @@ A09R1 CANDIDATE · T1–T4 PASS trên Chromium với Owner URL thật và route 
 
 A09R1 LIVE CHECKPOINT · HTTP200, live/output SHA 043ef3d68198440cfda0d244ce2f9952f5137be20b0eae0417d24af366abed4f, buildId bc32fa59-855e-46a1-8598-16cf85ebac10. Chromium không mock đang mở Owner URL tại formula; baseline 171a1891c69281ff586dd4ea1299e43132fd4807, fingerprint sha256:a1eb69e9864b07f7f5869901bc0c5d4566bc6930b7c62376d896ecd4ba7e92c2. Commit ledger này chỉ đổi metadata, không đổi document, để quan sát poll thật 60s; chưa KQ.
 
+A09R1 LIVE RECHECK · lượt quan sát đầu hết thời hạn vì connector workspace_read bị lỗi transport, chưa có commit tín hiệu trong thời hạn. Cổng đã phục hồi. Browser live mới đã sẵn tại baseline 45e078f671428fd1de5b6f1f9adf007ad72e4c85 + formula; fingerprint không đổi. Lượt này chỉ append ledger để tạo revision thật, không sửa document/runtime.
+
