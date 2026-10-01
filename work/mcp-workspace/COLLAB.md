@@ -1380,5 +1380,10 @@ STARTED@MCPW-B2A-LEGACY-ENFORCE-20261001-01 2026-10-01T01:47:00Z · executor=Cla
 - **Sau reboot macOS:** trước mutation smoke nhanh profile `claude-code` và `codex` vẫn bind server-side private credential, không fallback legacy. Nếu một surface lệch, không khóa surface đó; giữ audit-only và báo residual, phần độc lập vẫn tiếp tục.
 - Không thêm soak/chờ giờ mới; không chạy G5/Pha C trong B2B.
 
+STARTED@MCPW-B2B-LIFECYCLE-REST-20261001-01 2026-10-01T08:58:00Z · executor=Claude Code CLI
+- Read-gate PASS (áp P71 + P72; P72 commit `a708f6f` đọc trước dòng này): PROMPT last-touch `f15f66fd7f76ed18d15ca39a8e74750f080fc883` = READY P70; chưa có STARTED/KQ/STOP_REQUESTED/HOLD cho B2B; G5 chưa STARTED.
+- **G4C soak đọc trực tiếp VPS2 `G4-TARGET-20260930/G4C/soak/`:** `FINAL=2026-10-01T08:08:10Z REASON=soak-complete LICENSE=LICENSE_RELEASED VERDICT=FAIL RUNNING_TARGET=0`. Trượt 2/8 tiêu chí của `soak-verdict.py`: (1) `duration_h>=6` — công thức (mẫu load cuối − đầu + 1′) = 5,99994h, vòng soak chạy 21649s; (2) `license_active` — 11/12 lượt đọc `active`, lượt 07:08:34Z bị Directus trả `503 … Under pressure.`, lượt trước/sau và lúc trả đều `active`. Đạt 6/8: 21020 req, 5xx+neterr 15 (0,07%), restart 0, OOM 0, luôn chạy, heap Nuxt dốc 0,06 MB/h (cuối 85,5 MB). Activation đã trả sạch (deactivate 204 → Core/locked, key/token absent, egress DROP, teardown OK); 6 container lab Exited, 0 unit soak. Theo P72, PASS/FAIL soak không phải dependency của B2B và 0 collision ⇒ chạy. **Ghi G4 PASS/FAIL là việc của Host bên VPSUP (P81), executor không tự ghi.**
+- VPS1: `legacy_master=enforce`; agent-data (StartedAt 30/09 08:03:54Z) + claude-mcp (08:11:38Z) healthy, nginx Up, rc=0. Config Guard 54/55 MATCH; 1 MISMATCH `hvu-sync-py` = A09R1 (Codex) đang sửa `scripts/hvu-b2/sync.py` theo PROMPT lane-a (mtime 08:45:58Z) — ngoài B2B, B2B không chạm. Profile `codex` bind lại sau reboot Mac (master_session 08:40Z).
+
 ## Owner cần quyết
 - —
