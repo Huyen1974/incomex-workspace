@@ -1429,5 +1429,16 @@ STARTED@MCPW-B2B-LIFECYCLE-REST-20261001-01 2026-10-01T08:58:00Z · executor=Cla
 - JEV `gen-dec-1790847396-MKNbfctxNtEAzM3x5tPX`: hook + cổng + SSH 1,00 (chỉ cổng 0,00) · đóng gọn 0,99 · 1 RUN chỉ ghi sổ 0,78.
 - B2B: chờ executor xác nhận dừng theo STOP_REQUESTED P73 rồi Host mới thay PROMPT (DROOT31).
 
+#### P75 · Host GPT · 2026-10-01 16:35 +07 · **CHỐT LẠI MCPW: MỤC TIÊU · ĐÃ XONG · CÒN LẠI · KHÔNG LẪN VPSUP**
+- **Phạm vi:** phiên/task này chỉ điều hành `work/mcp-workspace`. `work/vps1-up-grade` là task khác; hai task được phép chạy song song. Chỉ kiểm collision khi cùng mutation một tài nguyên thật, không dùng tiến độ/kết quả của VPSUP làm gate nghiệp vụ cho MCPW.
+- **Mục tiêu toàn task:** giữ nguyên §0.2 gồm 4 nhóm: (1) mọi AI/Agent để lại dấu vết đáng tin về ai/START/activity/terminal; (2) read-serving VPS + GitHub SSOT; (3) giao việc/tín hiệu tự động ở kênh hỗ trợ; (4) chống ghi chồng bằng scoped lease. Không xoá mục tiêu lịch sử.
+- **Việc còn lại Owner nhấn mạnh 01/10 để đóng vòng hiện tại:** (A) hệ thống phải bắt được Claude Code/Codex/AI đang làm, kể cả local + SSH và kể cả code xong không báo; (B) Hermes tham gia đầy đủ như một thành viên. NEXT tự động/lease/REST residual không được kéo vào RUN lifecycle nếu không cần trực tiếp.
+- **Đã xong:** R03/client 37/23; gateway-only-writes; P02/read-serving; Hermes assignment path có Owner gate; B1 identity server-side `gpt-web/claude-chat/claude-code/codex`; B2A legacy master WRITE bị chặn trên MCP, read giữ, 0 restart.
+- **Chưa xong:** Claude Code/Codex local chưa có START/activity/terminal bền; SSH chưa quy được actor/session; GPT/Claude Chat mới chỉ có presence một phần; Hermes chat tự do/chỉnh config chưa vào sổ chung và Hermes chưa ghi ý kiến trực tiếp vào task được giao; Owner View chưa phản ánh lifecycle chung đáng tin.
+- **Cách làm đã thống nhất P74:** 1 RUN lifecycle/presence, chỉ ghi sổ không DENY; reuse hook chính thức Claude Code + hook Codex theo version + MCP gateway identity + `executions.db` Hermes + sshd evidence; sổ dùng `queue.sqlite`; tối đa 1 restart agent-data; nghiệm thu bằng thử thật `REPORTED/AWAITING_REPORT/LOST` và Hermes trong cùng sổ.
+- **RUN cũ B2B:** `MCPW-B2B-LIFECYCLE-REST-20261001-01` đã STARTED `f09f8ec`, mới PRE theo evidence; P73 đã phát `STOP_REQUESTED`. Chưa có KQ terminal tại thời điểm 16:35 +07. Không phát RUN mới/sửa PROMPT đang STARTED cho tới khi executor xác nhận dừng theo DROOT31.
+- **Đính chính P73:** câu chữ “Owner thu hẹp toàn task còn lifecycle-only” là quá rộng. Diễn giải đúng là: **Owner ưu tiên vòng hiện tại vào việc bắt AI đang làm + Hermes đủ thành viên; mục tiêu lịch sử của MCPW vẫn giữ, phần nào không cần để đóng vòng hiện tại thì chuyển sau và chỉ làm khi Owner duyệt tiếp.**
+- **NEXT duy nhất:** xác nhận B2B cũ đã dừng trước mutation → Host soạn PROMPT lifecycle/presence tối giản đúng P74 → Reviewer 1 vòng → READY/RUN ngay. Không chờ VPSUP, không REST/Directus/private-writer/NEXT/lease trong RUN này.
+
 ## Owner cần quyết
 - **O-MCPW-CLOSE** · Đóng MCPW khi đạt đích 1–5 ở §0.3 (sổ “ai đang làm” bắt được cả Claude Code/Codex trên Mac + SSH; Hermes đủ thành viên). NEXT tự động + khoá máy chống ghi chồng chuyển việc sau, tạm chỉ báo đỏ khi 2 phiên cùng việc. **Đề xuất Reviewer (cùng hướng Host P73): ĐỒNG Ý.**
