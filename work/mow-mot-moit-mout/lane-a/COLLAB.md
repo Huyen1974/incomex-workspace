@@ -142,3 +142,55 @@ A08 chỉ append STARTED/KQ/COORD vào lane-a/COLLAB; không patch runtime, khô
 - READY@384e4ea59aec8e5fa0869e3fdcd3307cbc852950 · RUN_ID `MMIM-LANE-A09-20261001-01`.
 
 STARTED@MMIM-LANE-A09-20261001-01 2026-10-01T07:33:00Z · executor=Codex
+
+## A09 · Kết quả Codex · 2026-10-01
+
+KQ@MMIM-LANE-A09-20261001-01 DỪNG
+KQ@LANE-A A09 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · source=FOUND · unrelated_remount=BLOCK · real_change=BLOCK · section_preserved=BLOCK · NEXT=HOST_RESOLVE_DIRTY_SOURCE
+COORD · NOW=DỪNG · NEXT=HOST_RESOLVE_DIRTY_SOURCE · BLOCKED_BY=repo dirty ngoài RUN: web-rp-current · RESERVED_TARGETS=VPS /opt/incomex/docker/nuxt-repo/scripts/hvu-b2/ + lane-a/COLLAB.md · LAST_SYNC=TAB-STABILITY/A09
+
+**Điểm chặn:** PROMPT §1 yêu cầu dừng nếu source/repo có thay đổi ngoài RUN. SSH hiện có của Owner đọc được VPS; repo `/opt/incomex/docker/nuxt-repo`, branch `main`, HEAD `79d4dcb57c1cd94213076a042570fd373a75f358` có submodule `web-rp-current` dirty. Riêng `scripts/hvu-b2` sạch, nhưng không đủ để bỏ qua gate của toàn repo. Không sửa, reset hay commit thay đổi ngoài RUN.
+
+### Evidence thực thi
+
+- READY còn khớp: lần chạm PROMPT cuối là `384e4ea59aec8e5fa0869e3fdcd3307cbc852950`; SHA PROMPT `8ab085199203fcd8eeaff04dd918480cbf8cb77ba4469c3dadc9d151148d62e8`. Re-read trước KQ: registry/PROMPT không đổi, không có STOP_REQUESTED.
+- PROCESS_GATE chạy thực, exit 0:
+
+```json
+{"status":"PASS","process":"CHUNG.APQUYTRINH","catalog_sha256":"e0f68b78986bfe0bf70b97bf6516f3347a33edce89e3d9644a9429f60545220a","prompt_sha256":"8ab085199203fcd8eeaff04dd918480cbf8cb77ba4469c3dadc9d151148d62e8","reason":"OK","process_count":39,"step_count":6}
+```
+
+- Output VPS đọc thật:
+
+```text
+git status --porcelain
+ M web-rp-current
+
+git status --porcelain -- scripts/hvu-b2
+[empty]
+
+git diff -- web-rp-current
+-Subproject commit d04d8e5624f92d26b868c93adc50fca5e2f07b7f
++Subproject commit d04d8e5624f92d26b868c93adc50fca5e2f07b7f-dirty
+```
+
+- Đã đọc README runtime, app.vue, nuxt.config.ts, pack.mjs và sync.py đúng SSOT VPS. Hash trước thay đổi:
+
+| File trong scripts/hvu-b2/ | SHA-256 |
+| --- | --- |
+| README.md | `d4debc486fd7f57183f300573ebee732beaa7fdda80c600ddb65a012864d9e60` |
+| ui/app.vue | `b4958542bd43327cb3849ebd8da2b1620e1fdb3956639638d10bd5dd275f1030` |
+| ui/nuxt.config.ts | `a00c8fac44e9471d3d1625298e339d47b6eb5e545d136c15e308de82e47c5b80` |
+| ui/pack.mjs | `8137c891b89d2b28c74c90623d7a81ceccf1dc829255f86839018869c3072f9a` |
+| sync.py | `d5cbb67abf91c49f92bf398fb265f6f3fa7940842073f880d52211a3887a0484` |
+
+- **Nguồn → artifact hiện có:** `scripts/hvu-b2/ui/.output/public/view.html` và `/opt/incomex/docker/nginx/static/ui-preview/hpml-view-for-user/view.html` đều 413980 byte, SHA-256 `cd3696ca7207f54ac454f8dc17a893454f339f0d777593b93a19c18105c68d23`. Đây là bản trước RUN, không phải kết quả build/deploy A09.
+- **Điểm reload đã đối chiếu source:** app.vue dùng documentPath làm src/key iframe; refresh thay tasks khi publishedRevision đổi. sync.py cấp documentRevision bằng revision chung và documentPath theo snapshot. Vì vậy document identity chưa tách khỏi metadata revision ở các điểm này. Chưa thực hiện patch.
+- **Build/deploy:** NOT_RUN vì dirty gate; README xác nhận dựng tại VPS bằng `nuxt generate → node pack.mjs`, output `ui/.output/public/view.html` tới bản tĩnh nêu trên. Không chạy build/copy, không có hash sau deploy hoặc live buildId mới.
+- **Acceptance T1/T2/T3/T4:** BLOCK/NOT_RUN trong A09; chưa chứng minh unrelated revision không remount, real change reload đúng một lần, giữ section/tab hay tải/poll sau patch.
+- **Rollback:** NOT_NEEDED, không có runtime mutation để hoàn nguyên; bản đang phục vụ giữ hash trước RUN. Chưa tạo backup/deploy mới. Hướng rollback trong README đã đọc nhưng chưa thực thi.
+
+**Files sửa:** chỉ append STARTED/KQ/COORD/evidence vào lane-a/COLLAB qua workspace; runtime, bundle và ban-duyet.html không sửa. Không ghi PG/Directus, không tạo file/task/RUN.
+
+**Một việc tiếp theo cho Host:** xử lý thay đổi ngoài RUN tại web-rp-current, hoặc phát PROMPT/READY mới quy định rõ ngoại lệ dirty gate. Executor không tự quyết ngoại lệ. Dừng chờ Owner/Host.
+
