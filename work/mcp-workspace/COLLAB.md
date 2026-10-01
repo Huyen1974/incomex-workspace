@@ -17,12 +17,33 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 4. **Xung đột giữa nhiều AI/Agent chạy song song phải được máy cưỡng chế, không chỉ dựa vào quy định hay để Agent tự xử lý.** VPS/gateway phải biết `work-id + RUN_ID + vai trò + phạm vi` của lượt đang được giao; các mutation chồng lấn chỉ Agent đang giữ **scoped lease** hợp lệ mới được phép thực hiện, còn review/read-only có thể cùng tồn tại và các việc/phạm vi độc lập vẫn chạy song song. Handoff/preempt chỉ theo Host/Owner; lease dùng generation/TTL để không hồi sinh phiên cũ; KQ XONG/DỪNG hoặc handoff phải giải phóng/chuyển lease. Optimistic version/head vẫn là lớp an toàn dữ liệu thứ hai, không thay cho lease điều phối.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+`[✓ Cổng ghi] → [✓ Đọc VPS] → [✓ Tên thật] → [✓ Khoá chung] → [■ Sổ “ai đang làm” + Hermes] → [□ Đóng]`
+
+**✅ Đã đạt**
+- Ghi repo chỉ qua cổng — `afadda3`
+- GitHub chậm/mất vẫn đọc được bản VPS — P02
+- Mỗi AI có tên thật do máy cấp (GPT · Claude Chat · Claude Code · Codex · Hermes) — B1 `52436cc`
+- Khoá chung hết ghi qua MCP — B2A `c4f5902`
+- Hermes nhận việc: thẻ → Owner bấm → làm → báo Telegram — `f85a244`
+
+**🔴 Còn phải đạt — đủ 4 dòng thì đóng MCPW (đo bằng thử thật)**
+1. Claude Code/Codex làm trên Mac (cả SSH): máy biết bắt đầu · đang làm · kết thúc; quên báo cáo ⇒ “chưa báo cáo” trong 10′; tắt ngang ⇒ “mất tín hiệu”.
+2. SSH không rõ ai ⇒ vàng; 2 phiên cùng 1 việc ⇒ đỏ.
+3. Owner View: mỗi việc ai đang làm, từ lúc nào.
+4. Hermes: ghi ý kiến vào việc được giao · có trong sổ chung · tự đổi cấu hình bị phát hiện.
+
+**Cách làm:** 1 RUN, chỉ ghi sổ, không chặn ai (P74, P75).
+**⚪ Để sau, Owner duyệt mới làm:** tự tính “ai làm tiếp” · khoá chống ghi chồng · khoá REST/Directus.
+**Luật nghiệm thu:** N9 (E1–E6), ở Vòng trước.
+
+### Vòng trước
+**Lưu — §0.3 cũ đến 01/10 (AI tra cứu; người không cần đọc):**
 - Chốt kỹ thuật: GitHub Repository Ruleset `gateway-only-writes` — tính năng có sẵn của GitHub (R1 bậc 1), không viết code. Mọi nhánh: chặn tạo/cập nhật/xoá + force push; miễn trừ **chỉ DeployKey**; không thêm vai trò admin/maintain/write (sẽ mở lại lỗ). Không đụng branch protection cổ điển (README §4).
 - **ĐÃ XONG:** cả `workspace_*` và `fs_*` ghi/push qua gateway đã kiểm thật; MCPW-LOCK, recovery và P02 hoàn tất, KQ `afadda3`, Host ACCEPT `5e6ef8f`; N5 Technical Contract v1.4 `5d41fff`. Không chạy lại/tune P02. Tiêu chí §0.2(2) đã đạt; §0.2(1) mới đạt phần ghi repo, còn thiếu theo dõi phiên/runtime; §0.2(3)(4) tiếp tục theo N1–N6.
 - Rollback đã duyệt trước: cổng bị chặn → đặt ruleset `enforcement=disabled` (không xoá). Cửa khẩn cấp Owner: tắt ruleset trong Settings → Rules.
 - Sau MCPW-LOCK XONG: Host tự thử lại, sửa README D12 `CHƯA CƯỠNG CHẾ` → `ĐÃ CƯỠNG CHẾ`; **chưa đóng việc** — P02 chạy tiếp trong cùng việc (Owner 25/09, `ef28301`). Sau P02 XONG, tiếp tục vòng thiết kế/kiểm chứng **vai trò + tín hiệu giao/đẩy việc + scoped lease cưỡng chế xung đột đa-Agent** theo §0.2(3)–(4); chỉ `Đóng mcp-workspace` khi cả 4 tiêu chí hoàn thành ở §0.2 đều đạt và Owner xác nhận. Hướng kỹ thuật candidate cho §0.2(4): lease theo `work/RUN/scope`, không mutex cả task; JEV `gen-dec-1790309396-kqufiMOUIkyTG4niNmIZ` chọn scoped lease 1.00.
 - JEV: `gen-dec-1790226942-Pz95lv2dkDouzMQ3XwSW` ruleset 0,93 (conf 0,92) · kiểm PROMPT `gen-dec-1790234527-TC6croNtKfTwHYgYNw0K`: gate trước mutation 0,97 · mở lại lỗ 0,05 · lộ secret 0,03 · vượt phạm vi 0,19 (do phép thử T1 là một lần ghi phải bị từ chối; đã giới hạn chỉ thêm một dòng).
-- **TIẾN ĐỘ + ĐÍCH ĐÓNG MCPW — cập nhật 01/10 (Claude P74, theo Owner 01/10). Đọc khối này trước mọi thứ bên dưới; Host sửa khi thực tế đổi. Không thay §0.1–§0.2 nguyên văn Owner.**
+- **TIẾN ĐỘ + ĐÍCH ĐÓNG MCPW — cập nhật 01/10 (Claude P74, theo Owner 01/10). ĐÃ THAY bằng §0.3 rút gọn 01/10, chỉ lưu. Không thay §0.1–§0.2 nguyên văn Owner.**
 
 `[✓ Ghi repo chỉ qua cổng · đọc bản VPS khi GitHub chậm] → [✓ Tên thật từng AI · B1 30/09] → [✓ Khoá chung hết ghi qua MCP · B2A 01/10] → [■ Sổ “ai đang làm” + Hermes đủ thành viên] → [□ Owner nghiệm thu → đóng MCPW]`
 
@@ -72,7 +93,6 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - **N9 · Host acceptance — Agent KQ không tự thành DONE:** mọi implementation sau audit phải được Host đối soát độc lập 6 lớp: **E1 scope diff** (đúng delta, ngoài scope = 0); **E2 runtime identity** (hash/image/StartedAt/config before→after); **E3 source/live check độc lập**; **E4 negative control/mutant phải FAIL**; **E5 event/counter reconciliation** (0 orphan, 0 double-count, cursor/replay đúng); **E6 post-window + rollback proof**. Claim một-lần do executor đo phải ghi `MEASURED_BY_EXECUTOR`, không nâng thành invariant cho tới khi có counter/monitor bền. Không gộp surface chỉ vì cùng hãng: Codex CLI, Codex Desktop/Work, ChatGPT Work, Claude Chat/Code… phải có identity/session riêng nếu implementation thực sự hỗ trợ.
 - **Thứ tự vòng tiếp:** chốt identity + sự kiện + hai mốc nhận/kết thúc + chốt ghi đúng scope trước; nghiệm thu đủ các bề mặt rồi mới bật bảng NEXT và mở rộng tự dispatch. Phần scope/lease tối thiểu là điều kiện của chốt nhận việc, không được lùi nó thành lời nhắc. Bậc 1 tính năng nền tảng hiện hữu → bậc 2 cấu hình/ghép → bậc 3 code mỏng chỉ cho lỗ thiếu đã chứng minh. Chưa đổi quyền root/SSH, chưa mở RUN runtime mới trong lượt cập nhật này.
 
-### Vòng trước
 **A0 vòng 20/09 — giữ nguyên:**
 Xác nhận User (20/09): **ĐÃ XÁC NHẬN** — Owner nhắc lại nhiều lần ngày 2026-09-20, gần nhất yêu cầu kiểm lần cuối để bắt tay vào việc.
 
@@ -1441,4 +1461,4 @@ STARTED@MCPW-B2B-LIFECYCLE-REST-20261001-01 2026-10-01T08:58:00Z · executor=Cla
 - **NEXT duy nhất:** xác nhận B2B cũ đã dừng trước mutation → Host soạn PROMPT lifecycle/presence tối giản đúng P74 → Reviewer 1 vòng → READY/RUN ngay. Không chờ VPSUP, không REST/Directus/private-writer/NEXT/lease trong RUN này.
 
 ## Owner cần quyết
-- **O-MCPW-CLOSE** · Đóng MCPW khi đạt đích 1–5 ở §0.3 (sổ “ai đang làm” bắt được cả Claude Code/Codex trên Mac + SSH; Hermes đủ thành viên). NEXT tự động + khoá máy chống ghi chồng chuyển việc sau, tạm chỉ báo đỏ khi 2 phiên cùng việc. **Đề xuất Reviewer (cùng hướng Host P73): ĐỒNG Ý.**
+- **O-MCPW-CLOSE** · Đóng MCPW khi đạt 4 dòng “Còn phải đạt” ở §0.3; phần “Để sau” chỉ làm khi Owner duyệt. **Đề xuất: ĐỒNG Ý.**
