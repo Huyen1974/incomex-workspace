@@ -20,13 +20,13 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Host_ID: `GPT-MMIM-260920-A`
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
 - Active_RUN: none.
-- Reserved_Targets: Host giữ `ban-duyet.html#matrix-view-formula`; A09R1 chỉ HPML VPS source + lane-a ledger.
-- Base_Target_Version: prompt SHA `5c72ff994d5354c9462060a1043d4d859b23ee357eabdd708d8a2fefe04f9b27`; READY base `a3e422ed434704a1415446386311fe0e86f53410`.
-- NOW: A09R1 đã Host ACCEPT; tab-stability hoàn tất theo KQ cuối.
-- NEXT: `master-design-review-v1.html` · 5 danh mục theo D102/HO.
+- Reserved_Targets: none.
+- Base_Target_Version: `master-design-review-v1.html` SHA `911fd38835feb8face98f4c476b10713cf185a83dc248b71f4cc4233162eadfd`; UI local-Git snapshot `35e6592dc177fb5672fb02c5d6eea5caa2141d7f`.
+- NOW: 5 danh mục Owner yêu cầu đã hiện trên `master-design-review-v1.html`; 2 reuse canonical + 3 review-only NHÁP.
+- NEXT: OWNER_LOOK tại URL review; chưa nhập 3 mục NHÁP vào Master of Master nếu Owner chưa duyệt.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D102.
+- LAST_SYNC: D103.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
