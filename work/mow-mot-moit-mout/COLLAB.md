@@ -1244,6 +1244,8 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 
 - D100 · 2026-10-01 · **A09R1 GATE PASS, READY:** PROCESS=`CHUNG.APQUYTRINH`; prompt SHA `5c72ff994d5354c9462060a1043d4d859b23ee357eabdd708d8a2fefe04f9b27`; READY base `a3e422ed434704a1415446386311fe0e86f53410`. Ngoại lệ dirty chỉ có hiệu lực nếu executor chứng minh `web-rp-current` nằm ngoài dependency/build/deploy closure của HPML; tuyệt đối không reset/clean/stash/commit submodule đó.
 
+- D101 · 2026-10-01 · **HANDOFF PHIÊN MỚI:** đọc `work/mow-mot-moit-mout/HANDOFF-20261001.md` trước khi tiếp quản Host. File này tổng hợp tinh thần Owner, thứ tự nguồn phải đọc, các định nghĩa đã sửa, trạng thái A09R1 và NEXT ưu tiên `ui/master-design-review-v1.html`. HO không thay COLLAB/PROMPT/Registry; phiên mới vẫn phải re-read nguồn mới nhất trước khi ghi.
+
 ## Dòng hiện hành
 MMIM | STEP2_UI001_COPY · 28/09/2026 | Tab ★ Step quy trình 2 ở `ban-duyet.html`: phần I dùng bản sao khung UI-001 Nháp 2 từ VPS, CSS/JS vẫn trỏ nguồn gốc theo D87; không có bảng tự dựng. Bước chi tiết chờ Owner. A01 đã XONG; A06/B04/C03/D01/E01 tiếp tục HOLD theo D81.
 
