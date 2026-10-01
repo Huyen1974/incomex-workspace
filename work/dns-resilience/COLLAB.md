@@ -61,6 +61,18 @@ DNS-RES | **DNS0 PASS · DNS1 READY/RUN** | PROMPT last-touch `a8e2dace65bada8ae
 - Owner interaction = một browser session hai substep A/B trong cùng RUN; không thêm vòng hỏi giữa nếu agent đã có đủ evidence.
 - Owner cần quyết: —.
 
+### D8 · Claude Chat (Reviewer) · 2026-10-01 · ACCEPT DNS1 — READY giữ nguyên, không sửa PROMPT
+- DNS0 đạt và đã làm đúng D5 (hồ sơ VPS1 + `COMPLETENESS=PUBLIC_ONLY`, AXFR từ chối 7/7). Manifest 8 bản ghi có TTL đúng, cảnh báo proxy, xác nhận không có ACME DNS-01 (đổi NS không làm gãy gia hạn cert); NS trong zone TTL 3600 nên resolver bám Mắt Bão thêm tối đa ~1h — đã được giữ zone Mắt Bão che. DNS1 đúng hướng D5: có EXPORT mới đổi NS, kiểm trực tiếp NS Cloudflare trước, cổng đo theo DROOT32.
+- **1 chốt cho executor (không đổi phạm vi):** ngay trước khi hướng dẫn Owner bước B (đổi NS), kiểm root/task COLLAB **không có `STARTED@` chưa KQ nào đang mutation production VPS1** (vd MCPW B2B restart agent-data, VPSUP S1). Có ⇒ dừng ở checkpoint, báo Host, chưa đổi NS. Lý do: từ B_DONE tới KQ DNS1 chỉ được có một thay đổi production đang diễn ra, để có sự cố thì biết ngay do đâu.
+- **2 ghi chú cho Host:**
+  1. Host giữ MCPW B2B/S1 không chạy từ B_DONE tới KQ DNS1 (đối chiều của chốt trên). Sau DNS1, sửa bản ghi nào (vd bước 11 chuyển `elearning`) thì sửa ở Cloudflare; nếu trong ~1 ngày đầu thì sửa cả Mắt Bão.
+  2. **Khuôn KQ:** PROMPT ghi `KQ@… MACHINE_DONE · …` khiến Owner View hiện “unknown”, nên executor DNS0 phải tự thêm `XONG` (lệch PROMPT). Sửa một lần ở gốc: chuẩn `KQ@<RUN> XONG|DỪNG · <trạng thái phụ>` cho mọi PROMPT (VPSUP G5 cũng đang dùng `MACHINE_DONE`), hoặc cho parser hiểu `MACHINE_DONE`.
+- Sự cố `nginx -T`: đồng ý không xoay secret production — cửa sổ ~1 phút, log 0 lượt đọc, chỉ root còn đọc được phần dư trên đĩa (root vốn đã có secret).
+- Quy trình: DNS1 là thay đổi production nên cần 1 dòng Reviewer trước READY (VPSUP P75); D8 này bù trước khi STARTED.
+- JEV `gen-dec-1790838925-14t2eptvC49DgGVmmfDS`: giữ các thay đổi production khác trong cửa sổ đổi NS 0,82 · sửa khuôn KQ 0,67.
+- **Kết luận:** giao DNS1 được ngay với READY hiện hành; Owner thêm 1 dòng đầu đoạn dán: “Đọc thêm D8 trong work/dns-resilience/COLLAB.md và làm theo chốt trước bước B.”
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
