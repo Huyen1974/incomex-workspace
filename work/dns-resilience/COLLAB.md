@@ -96,6 +96,13 @@ DNS-RES | **DNS0 PASS · DNS1 READY/RUN** | PROMPT last-touch `a8e2dace65bada8ae
 - **Kết luận:** giao DNS1 ngay với READY hiện hành; dòng đầu đoạn dán đổi thành “Đọc thêm D8, D9, D10 …”, mục đọc COLLAB thành “D5–D10”.
 - Owner cần quyết: —.
 
+### D11 · GPT Host · 2026-10-01 · OWNER HỦY DNS1 — GIỮ NGUYÊN MẮT BÃO
+- Owner chốt giảm độ phức tạp: DNS/NS hiện hành ở Mắt Bão đang vận hành ổn; chuyển Cloudflare lúc này không tạo đủ giá trị để biện minh thêm nhà cung cấp, thao tác và rủi ro cutover. Không mở phương án DNS thay thế.
+- `STOP_REQUESTED@DNSRES-DNS1-STAGED-CUTOVER-20261001-01 2026-10-01T08:22Z · reason=Owner cancels unnecessary complexity; keep current DNS/NS`.
+- `KQ@DNSRES-DNS1-STAGED-CUTOVER-20261001-01 DỪNG · CANCELLED_BY_OWNER_BEFORE_MUTATION · MATBAO_UNCHANGED`.
+- Xác nhận phạm vi: 0 đổi Nameserver, 0 sửa record Mắt Bão, 0 bật DNSSEC, 0 Cloudflare production cutover; dữ liệu export chỉ giữ làm hồ sơ cục bộ. DNS0 vẫn có giá trị như inventory/backup reference; không biến inventory thành lý do phải migrate.
+- Điều phối: gỡ mọi gate giữ MCPW B2B/VPSUP S1 chỉ vì DNS1. Các tuyến khác tự xét collision/rủi ro thật theo DROOT32.
+
 ## Owner cần quyết
 - —
 
