@@ -1273,3 +1273,7 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 - **RUN@MCPW-B2A-LEGACY-ENFORCE-20261001-01 · REISSUED**. READY cũ `794791d...` hết hiệu lực.
 - Executor làm đúng một lượt: cổng 4 điều → quét tĩnh nhanh WRITE_SCHEDULED → nếu sạch thì `compat → enforce` → T1–T6/KQ; nếu thấy WRITE_SCHEDULED thật thì STOP trước mutation và báo exact consumer.
 - G4C được phép chạy song song; B2A không restart/recreate và không chạm VPS2. B2B vẫn chờ G4C terminal/clean collision gate.
+
+## RUN — MCPW-B2A-LEGACY-ENFORCE-20261001-01
+STARTED@MCPW-B2A-LEGACY-ENFORCE-20261001-01 2026-10-01T01:47:00Z · executor=Claude Code CLI
+- Read-gate PASS: PROMPT last-touch = `0668c0bb2f45ba1ce2ab876b5acf1ff55af7c88c` = READY P65; chưa có STARTED/KQ/STOP_REQUESTED/HOLD/READY mới cho B2A; HEAD `5eff406`. Cổng §1 (đo 01:45Z): (1) 11 `legacy_master_write` từ deploy B1 đều `codex-mcp-client` 113.190.146.165, Codex đã sang profile `codex` · (2) 0 lượt sau 30/09 08:19:05Z, journal liền mạch (gap tối đa 60s) · (3) G4C STARTED `24fb784` = `claude-code [auth:claude-code]` · (4) `b1-ctl.sh check` ROLLBACK_CHECK PASS, công tắc qua `incomex-config-apply-v0`, config mount thư mục ro. Config Guard 01:41Z 55/55 CLEAN; `legacy_master=compat`; agent-data/claude-mcp healthy, 0 restart. Lượt 01:13Z trước đó dừng `NOT_YET_LEGACY_24H` (0 mutation, 0 commit).
