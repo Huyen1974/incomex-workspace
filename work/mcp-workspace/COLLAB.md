@@ -1495,5 +1495,13 @@ KQ@MCPW-B2B-LIFECYCLE-REST-20261001-01 DỪNG · STOP_REQUESTED (P73) thấy ở
 - **Ngoài B2B, giữ nguyên:** Config Guard DRIFT `hvu-sync-py` (A09R1), không rebaseline hộ.
 - NEXT: Host thay PROMPT lifecycle/presence theo P74/P75. Executor không tự chạy tiếp.
 
+#### P76 · Host GPT · 2026-10-01 17:18 +07 · **R2 DRAFT XONG · CHỜ CLAUDE REVIEW 1 VÒNG**
+- RUN mới dự kiến: `MCPW-R2-PRESENCE-HERMES-20261001-01`.
+- Scope cố định: đúng 4 việc §0.3 — Claude Code/Codex/SSH · sổ chung · Owner View · Hermes. Chỉ ghi sổ, không DENY; tối đa 1 restart agent-data.
+- PROMPT B2B cũ đã superseded, **không được RUN lại**. Nội dung R2 không có gate từ `vps1-up-grade`, REST, Directus, NEXT hay lease.
+- PRE B2B cũ chỉ được reuse phần lifecycle đã test; không mang writer-map/REST/Directus/NEXT sang.
+- Luật residual: một surface thiếu hook/chức năng ⇒ báo vàng + tiếp tục phần độc lập; không dừng cả RUN trừ regression chung.
+- Sau Claude review: Host áp delta một lần vào `PROMPT.md` → READY đúng commit last-touch → chạy ngay. Không thêm vòng review khác nếu Claude ACCEPT/ACCEPT-with-delta.
+
 ## Owner cần quyết
 - —
