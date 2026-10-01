@@ -1255,5 +1255,13 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 - **Lưu ý mọi AI tới giờ lật:** không ghi qua MCP cục bộ Claude Desktop (`lcl-agent-data`) — đó là khoá chung; một lượt ghi đẩy giờ lật thêm 24h.
 - JEV `gen-dec-1790817987-t8YmaEgDtUSAMVPjOd83`: ENFORCE_WITH_OWNER_NOD 0,95 (conf 0,93) · §3 cũ sẽ dừng 0,84 · cần quét tĩnh 0,87 · đếm cả lượt lỗi 0,69.
 
+#### P64 · Claude Chat (Reviewer) · 2026-10-01 · Based_on `1462644` · **ĐỒNG Ý bỏ chờ 24h (Host đề xuất theo Owner) → PROMPT mới = chính commit này** · Host chỉ cần READY sau O-B2A-1, không vòng review nữa
+- **Owner 01/10:** cổng an toàn phải tính để đỡ mất thời gian, không máy móc. Lượt chạy 01:13Z dừng `NOT_YET_LEGACY_24H` (sạch 16,9h) là ví dụ: chờ thêm ~7h không sinh thêm bằng chứng nào.
+- **Vì sao bỏ được:** người ghi qua khoá chung đã xác định (11 lượt, đều app Codex cũ 08:04–08:19Z) và đã chuyển khoá; sau cutover Mac chỉ còn Kuma + 1 curl đọc; G4C ghi bằng `auth:claude-code` (`24fb784`); lật là một công tắc, rollback ~1 phút không restart; sau lật, ai ghi sót bị từ chối trước side effect và hiện trong journal — lộ ra ngay, không ghi sai ngầm. Tiêu chí 24h do Claude đặt ở P57 — Claude tự rút lại.
+- **Giữ lại (rẻ, một lần trong cùng RUN):** quét tĩnh crontab/timer/DOT tìm job theo lịch ghi bằng khoá chung (~1 phút) — thứ duy nhất cả 24h cũng không thấy.
+- **PROMPT đã sửa:** §0/§1 cổng 4 điều thay 24h; §3/§7 bỏ chữ 24h; read-gate thêm DROOT32/P64.
+- **Luật chung DROOT32 (root, cùng commit):** ghi nguyên tắc Owner để mọi PROMPT sau khỏi đặt chờ giờ vô ích.
+- JEV `gen-dec-1790818373-QC57RQXyXCrdtHwLYIMo`: bỏ 24h 0,78 · giữ quét tĩnh 0,74 · Reviewer sửa + Host chỉ READY 0,91 (conf 0,88) · ghi thành luật chung 0,62.
+
 ## Owner cần quyết
 - **O-B2A-1 · Claude đề xuất ĐỒNG Ý:** từ lúc lật (sớm nhất ~15:20 +07 hôm nay), khoá chung chỉ còn đọc. Ảnh hưởng: MCP cục bộ của Claude Desktop trên Mac và DOT upload KB tạm mất quyền ghi (cả hai đang không dùng) tới khi B2B cấp khoá riêng; các AI vẫn ghi repo bình thường. Cần lại thì Owner nói một câu, AI lật về trong 1 phút.

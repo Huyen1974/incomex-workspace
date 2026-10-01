@@ -9,7 +9,7 @@ STATUS: chạy theo READY Host phát ở task COLLAB; READY phải = commit last
 
 ## 0. Mục tiêu duy nhất
 
-Khép phần `ENFORCE_DEFERRED` của B1 bằng cách đổi `legacy_master` từ `compat` sang `enforce` **chỉ sau khi máy chứng minh không có legacy write trong 24 giờ liên tục**.
+Khép phần `ENFORCE_DEFERRED` của B1 bằng cách đổi `legacy_master` từ `compat` sang `enforce` ngay khi đủ cổng bằng chứng §1 — **không chờ theo giờ** (DROOT32, P64).
 
 RUN này KHÔNG làm execution ledger. KHÔNG restart/recreate agent-data/claude-mcp/nginx. KHÔNG B2B/Pha C.
 
@@ -22,25 +22,18 @@ Kế thừa:
 
 ## 1. Khi nào được START
 
-Không launch RUN này chỉ dựa vào giờ dự kiến.
+Cổng bằng chứng, đo live **một lần**, không chờ giờ (DROOT32). START ngay khi đủ cả 4:
+1. **Người ghi đã biết đã chuyển khoá:** journal `legacy_master_write` (mọi lượt gọi tool ghi qua khoá chung, kể cả lượt lỗi — journal ghi ở cổng trước khi chạy) từ deploy B1 chỉ gồm app Codex cũ, đã cutover sang profile `codex`.
+2. **Không người ghi lạ:** không có `legacy_master_write` nào sau lượt cuối đã biết (30/09 08:19:05Z); journal liền mạch, không gap/UNKNOWN.
+3. **G4C không cần khoá chung để ghi:** commit G4C mang `auth:claude-code`.
+4. **Rollback sẵn:** `b1-ctl.sh legacy compat` qua cùng apply path, không restart.
 
-Executor chỉ được START khi read-gate xác minh từ journal máy:
-- tìm **sự kiện `legacy_master_write` gần nhất** — mọi lượt gọi tool ghi qua khoá chung, kể cả lượt sau đó lỗi (journal ghi ở cổng, trước khi chạy tool);
-- từ lượt đó tới thời điểm kiểm đã đủ **>=24h liên tục**;
-- trong cửa sổ đó `legacy_master_write=0`;
-- journal không có gap/UNKNOWN làm mất khả năng kết luận.
-
-Mốc B1 báo cáo chỉ để định hướng: lượt cuối ~30/09 08:19Z ⇒ sớm nhất khoảng 01/10 08:20Z (15:20 +07). **Journal live quyết định, không phải mốc này.**
-
-Nếu chưa đủ 24h hoặc journal không đủ tin cậy:
-- KHÔNG ghi STARTED;
-- KHÔNG mutation;
-- trả `NOT_YET_LEGACY_24H · last_write=<UTC> · eligible_after=<UTC>`.
+Thiếu điều nào ⇒ KHÔNG ghi STARTED, KHÔNG mutation, trả `NOT_READY · <điều thiếu> · <bằng chứng>`.
 
 ## 2. Read/collision gate
 
 Đọc:
-AGENTS.md → root COLLAB DROOT09/19/22/25/28/29/30/31 → MCPW COLLAB §0 + N1–N9 + KQ B1 + P57/P58/P60/P61/P63 + O-B2A-1 → PROMPT này.
+AGENTS.md → root COLLAB DROOT09/19/22/25/28/29/30/31/32 → MCPW COLLAB §0 + N1–N9 + KQ B1 + P57/P58/P60/P61/P63/P64 + O-B2A-1 → PROMPT này.
 
 Kiểm live:
 - PROMPT last-touch = READY hiện hành;
@@ -57,11 +50,11 @@ Chỉ sau khi §1 PASS, ghi:
 ## 3. PRE — đo lại ngay trước mutation
 
 Ngay trước mutation áp DROOT30 và đo lại:
-- legacy write trong trailing 24h = 0;
+- không có `legacy_master_write` mới kể từ lượt đo ở §1;
 - exact last `legacy_master_write` timestamp/route/src/tool;
 - profile writes gần nhất của gpt-web/claude-chat/claude-code/codex;
-- **quét tĩnh người ghi tiềm năng** (cửa sổ 24h không thấy job tuần/chạy tay): root/user crontab, systemd timers, DOT/script trong `/opt/incomex` đọc khoá chung từ `.env` rồi gọi tool ghi, config MCP trên Mac (Claude Desktop, Antigravity, khác). Đã biết: MCP cục bộ Claude Desktop (có tool ghi) · DOT `dot/iu-cutter-*/upload_kb.py` (`upload_document`) · Antigravity giữ khoá trước SEC-CRED (VPSUP §8A) · Kuma/Guard/claude-kb chỉ đọc;
-- phân loại từng consumer: `READ_ONLY` · `WRITE_DORMANT` (có khả năng ghi, chạy tay/hiếm, 0 lượt trong cửa sổ §1) · `WRITE_SCHEDULED` (cron/timer/tự động có gọi tool ghi);
+- **quét tĩnh người ghi tiềm năng** (journal không thấy job tuần/chạy tay; làm một lần, ~1 phút): root/user crontab, systemd timers, DOT/script trong `/opt/incomex` đọc khoá chung từ `.env` rồi gọi tool ghi, config MCP trên Mac (Claude Desktop, Antigravity, khác). Đã biết: MCP cục bộ Claude Desktop (có tool ghi) · DOT `dot/iu-cutter-*/upload_kb.py` (`upload_document`) · Antigravity giữ khoá trước SEC-CRED (VPSUP §8A) · Kuma/Guard/claude-kb chỉ đọc;
+- phân loại từng consumer: `READ_ONLY` · `WRITE_DORMANT` (có khả năng ghi, chạy tay/hiếm, 0 lượt sau 30/09 08:19:05Z) · `WRITE_SCHEDULED` (cron/timer/tự động có gọi tool ghi);
 - có `WRITE_SCHEDULED` ⇒ DỪNG trước enforce, ghi exact consumer/evidence (nó sẽ hỏng ngầm theo lịch);
 - `WRITE_DORMANT` **không** chặn RUN: sau enforce thành chỉ-đọc theo O-B2A-1, liệt kê đủ trong KQ.
 
@@ -114,7 +107,7 @@ PASS:
 
 KQ phải nêu:
 - last legacy write UTC;
-- trailing window thực đo;
+- bằng chứng 4 điều §1;
 - switch audit;
 - legacy read PASS / legacy write DENY;
 - 4 profile smoke;
