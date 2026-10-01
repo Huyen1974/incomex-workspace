@@ -5,7 +5,7 @@ Host: GPT Chat · GPT-MCPW-250925-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: `work/mcp-workspace/COLLAB.md` qua `workspace_*` bằng profile `claude-code`.
 Runtime: VPS1 production.
-STATUS: DRAFT — CHƯA READY/RUN.
+STATUS: chạy theo READY Host phát ở task COLLAB; READY phải = commit last-touch của PROMPT này.
 
 ## 0. Mục tiêu duy nhất
 
@@ -18,13 +18,14 @@ Kế thừa:
 - Reviewer P60 `8cb01359eab876834b8920fc8a9a3b06873f4cfd` ACCEPT;
 - profile server-side đã có: `gpt-web` · `claude-chat` · `claude-code` · `codex`; Hermes không đổi;
 - legacy read-only consumers được phép còn tồn tại; legacy **write** phải bị chặn sau RUN.
+- consumer **có khả năng ghi nhưng đang không ghi** (`WRITE_DORMANT`, §3) sau RUN thành chỉ-đọc theo quyết định Owner **O-B2A-1** (task COLLAB); Host chỉ phát READY sau khi Owner gật. B2B cấp profile riêng cho consumer nào cần ghi lại.
 
 ## 1. Khi nào được START
 
 Không launch RUN này chỉ dựa vào giờ dự kiến.
 
 Executor chỉ được START khi read-gate xác minh từ journal máy:
-- tìm **lượt legacy master write thành công gần nhất**;
+- tìm **sự kiện `legacy_master_write` gần nhất** — mọi lượt gọi tool ghi qua khoá chung, kể cả lượt sau đó lỗi (journal ghi ở cổng, trước khi chạy tool);
 - từ lượt đó tới thời điểm kiểm đã đủ **>=24h liên tục**;
 - trong cửa sổ đó `legacy_master_write=0`;
 - journal không có gap/UNKNOWN làm mất khả năng kết luận.
@@ -39,7 +40,7 @@ Nếu chưa đủ 24h hoặc journal không đủ tin cậy:
 ## 2. Read/collision gate
 
 Đọc:
-AGENTS.md → root COLLAB DROOT09/19/22/25/28/29/30/31 → MCPW COLLAB §0 + N1–N9 + KQ B1 + P57/P58/P60/P61 → PROMPT này.
+AGENTS.md → root COLLAB DROOT09/19/22/25/28/29/30/31 → MCPW COLLAB §0 + N1–N9 + KQ B1 + P57/P58/P60/P61/P63 + O-B2A-1 → PROMPT này.
 
 Kiểm live:
 - PROMPT last-touch = READY hiện hành;
@@ -57,10 +58,12 @@ Chỉ sau khi §1 PASS, ghi:
 
 Ngay trước mutation áp DROOT30 và đo lại:
 - legacy write trong trailing 24h = 0;
-- exact last legacy successful write timestamp/source;
+- exact last `legacy_master_write` timestamp/route/src/tool;
 - profile writes gần nhất của gpt-web/claude-chat/claude-code/codex;
-- legacy readers đang còn: script/Kuma/Guard/claude-kb/consumer khác, phân loại read-only vs write-capable;
-- nếu phát hiện **bất kỳ write-capable consumer nào vẫn chỉ có legacy credential** ⇒ DỪNG trước enforce, ghi exact consumer/evidence.
+- **quét tĩnh người ghi tiềm năng** (cửa sổ 24h không thấy job tuần/chạy tay): root/user crontab, systemd timers, DOT/script trong `/opt/incomex` đọc khoá chung từ `.env` rồi gọi tool ghi, config MCP trên Mac (Claude Desktop, Antigravity, khác). Đã biết: MCP cục bộ Claude Desktop (có tool ghi) · DOT `dot/iu-cutter-*/upload_kb.py` (`upload_document`) · Antigravity giữ khoá trước SEC-CRED (VPSUP §8A) · Kuma/Guard/claude-kb chỉ đọc;
+- phân loại từng consumer: `READ_ONLY` · `WRITE_DORMANT` (có khả năng ghi, chạy tay/hiếm, 0 lượt trong cửa sổ §1) · `WRITE_SCHEDULED` (cron/timer/tự động có gọi tool ghi);
+- có `WRITE_SCHEDULED` ⇒ DỪNG trước enforce, ghi exact consumer/evidence (nó sẽ hỏng ngầm theo lịch);
+- `WRITE_DORMANT` **không** chặn RUN: sau enforce thành chỉ-đọc theo O-B2A-1, liệt kê đủ trong KQ.
 
 Không yêu cầu map lịch sử 7 ngày; chỉ dùng forward evidence theo P57/P60.
 
@@ -90,6 +93,7 @@ Sau switch:
 8. Guard/Config Guard POST CLEAN; ngoài scope = 0.
 9. Không restart/recreate bất kỳ production service nào.
 10. Không ghi `work/vps1-up-grade/`; không mutation VPS2/Directus/PG/Nuxt/Qdrant/DNS.
+11. Biển báo root (dòng MCPW, cùng commit KQ): khoá chung chỉ còn đọc; tên các `WRITE_DORMANT`; cách mở lại tạm = `legacy compat` qua cùng apply path khi Owner nói một câu.
 
 ## 6. Rollback proof
 
@@ -114,6 +118,7 @@ KQ phải nêu:
 - switch audit;
 - legacy read PASS / legacy write DENY;
 - 4 profile smoke;
+- bảng consumer `READ_ONLY/WRITE_DORMANT/WRITE_SCHEDULED` + nguồn bằng chứng;
 - contract hash;
 - Guard/Config Guard;
 - rollback proof.
@@ -122,7 +127,7 @@ KQ phải nêu:
 
 Sau B2A XONG:
 - Host + Claude nghiệm thu nhanh;
-- B2B = execution ledger / START-FINISH / NEXT theo P39/N1–N9;
+- B2B = execution ledger / START-FINISH / NEXT theo P39/N1–N9; trong lượt deploy agent-data của B2B cấp profile riêng cho các `WRITE_DORMANT` cần ghi lại (MCP cục bộ Claude Desktop, DOT upload KB);
 - B2B deploy/restart agent-data chỉ sau khi VPSUP G4C terminal hoặc DROOT30 chứng minh không còn collision runtime;
 - sau B2B mới Pha C lease/fencing.
 

@@ -1243,5 +1243,17 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 - Mốc dự kiến từ KQ B1: last legacy write ~30/09 08:19Z ⇒ sớm nhất khoảng 01/10 08:20Z (15:20 +07). Đây chỉ là estimate; journal live quyết định.
 - B2A không restart/recreate nên được chạy song song G4C VPS2. B2B mới chờ G4C terminal/clean collision gate.
 
+#### P63 · Claude Chat (Reviewer) · 2026-10-01 · Based_on `5d2d303` · **ACCEPT-with-delta B2A PROMPT → PROMPT mới = chính commit này** · READY `794791d` hết hiệu lực; Host READY lại sau khi Owner gật O-B2A-1, không cần vòng review nữa
+- **Đồng ý P61/P62:** tách B2A (lật công tắc, không restart) / B2B (sổ, restart sau G4C); chạy song song G4C; journal quyết định giờ lật.
+- **Tự kiểm mã (không dựa báo cáo):** `b1-ctl.sh legacy enforce` đi qua `incomex-config-apply-v0` (backup + baseline + audit); config gắn `ro` dạng THƯ MỤC (không dính bẫy inode của mount file đơn) và `workspace_tools.config()` đọc file mỗi lượt ⇒ lật không restart là đúng. `_legacy_write_gate` ghi journal **trước** khi chạy tool và chặn trước side effect; chỉ-đọc = đúng `readOnlyHint`.
+- **Blocker đã vá thẳng vào PROMPT (3 chỗ):**
+  1. **§3 cũ gần như chắc chắn làm RUN dừng phí:** “bất kỳ consumer có khả năng ghi còn khoá chung ⇒ DỪNG” bắt trúng MCP cục bộ Claude Desktop (có tool ghi) và DOT `dot/iu-cutter-*/upload_kb.py` (`upload_document` bằng khoá chung trong `.env`) — cả hai đang không ghi. Thay bằng phân loại `READ_ONLY / WRITE_DORMANT / WRITE_SCHEDULED`: chỉ `WRITE_SCHEDULED` mới DỪNG; `WRITE_DORMANT` thành chỉ-đọc theo O-B2A-1. Không cấp profile ngay trong B2A được vì profile mới = biến môi trường mới = recreate agent-data ⇒ để B2B.
+  2. **Cửa sổ 24h không thấy job tuần/chạy tay** ⇒ thêm quét tĩnh crontab/systemd timer/DOT/config MCP trên Mac.
+  3. **Đếm mọi lượt gọi ghi**, không chỉ lượt thành công: journal ghi ở cổng trước khi chạy; lượt lỗi vẫn là có người đang ghi.
+  - Kèm: dòng STATUS còn “DRAFT — CHƯA READY” lệch READY P62 ⇒ đổi câu trung tính; read-gate thêm P63 + O-B2A-1; KQ thêm bảng consumer + biển báo root.
+- **Không cần đổi:** Host (`gpt-web`), Claude Code, Codex, Hermes ghi bằng profile; Reviewer ghi qua `fs_*` (host helper, không đi qua cổng legacy của agent-data) ⇒ enforce không khoá hội đồng.
+- **Lưu ý mọi AI tới giờ lật:** không ghi qua MCP cục bộ Claude Desktop (`lcl-agent-data`) — đó là khoá chung; một lượt ghi đẩy giờ lật thêm 24h.
+- JEV `gen-dec-1790817987-t8YmaEgDtUSAMVPjOd83`: ENFORCE_WITH_OWNER_NOD 0,95 (conf 0,93) · §3 cũ sẽ dừng 0,84 · cần quét tĩnh 0,87 · đếm cả lượt lỗi 0,69.
+
 ## Owner cần quyết
-- —
+- **O-B2A-1 · Claude đề xuất ĐỒNG Ý:** từ lúc lật (sớm nhất ~15:20 +07 hôm nay), khoá chung chỉ còn đọc. Ảnh hưởng: MCP cục bộ của Claude Desktop trên Mac và DOT upload KB tạm mất quyền ghi (cả hai đang không dùng) tới khi B2B cấp khoá riêng; các AI vẫn ghi repo bình thường. Cần lại thì Owner nói một câu, AI lật về trong 1 phút.
