@@ -29,6 +29,8 @@ Nếu `LICENSE_RELEASE_FAILED` hoặc soak FAIL ⇒ không chạy G5; Host xử 
 
 Snapshot VPS1 read-only: exact CURRENT images/config/source + latest MCP/agent-data state sau B2A; G5 không chạm VPS1.
 
+Chạy **tuần tự từng stack** trên VPS2, kiểm RAM trước mỗi bước (G4C từng OOM PG lab khi chạy song song).
+
 ## G5.2 · Quyết định Host về licensing grace
 **Không sửa `directus_migrations.timestamp` chỉ để tạo 30-day grace.** Directus12.3.1 lấy Core grace từ timestamp migration `20260507A`; legacy DB thiếu default nên migration row mới NULL. G7 sẽ không dựa grace:
 1. trước downtime kiểm OIG secret metadata + licensing endpoint reachability;
@@ -72,6 +74,7 @@ Fresh copy S1 khác:
 3. mở licensing tối thiểu → `POST /license` 204, active;
 4. Nuxt4 final patch gồm login fix; Directus12 + nginx/Qdrant/agent-data;
 5. quick target acceptance: `/server/ping`, OIG active, `/login`, Directus admin browser/API, 132 routes diff đã chốt, permission negatives, representative Flow/agent-data write; **không unfreeze business writes**;
+5b. **thử rollback chỉ frontend:** khi Directus12 còn chạy, đổi sang image Nuxt3 CURRENT (không patch, SDK19) → 132 route + 9 trang + auth + browser; ghi `FRONTEND_ONLY_ROLLBACK=PASS|FAIL` kèm lỗi cụ thể; không đổi DB; xong trả về Nuxt4 rồi mới sang bước 6;
 6. rollback: `DELETE /license` khi Directus+egress còn chạy → confirm slot giảm → stop S2 → restore pre-S2 checkpoint → boot S1 Directus11/Nuxt3;
 7. SAME SLICE CURRENT + hashes PASS.
 Ghi forward duration và rollback duration theo từng bước; mục tiêu là runbook G6/G7, không đặt ngưỡng giờ tùy ý.
@@ -86,7 +89,7 @@ KQ executor hợp lệ:
 - hoặc cùng `ADMIN_UI_UNVERIFIED` nếu chỉ browser local không khả thi nhưng API/assets PASS;
 - hoặc `DỪNG · <exact blocker>`.
 
-Báo: S1 baseline; forward timings (UUID/migrate/license/Nuxt); rollback timings; activation-failure path; final CURRENT hash/SAME SLICE; activation slot before/after; login/admin result; latest agent-data/MCP consumer snapshot.
+Báo: S1 baseline; forward timings (UUID/migrate/license/Nuxt); rollback timings; activation-failure path; final CURRENT hash/SAME SLICE; activation slot before/after; login/admin result; latest agent-data/MCP consumer snapshot; `FRONTEND_ONLY_ROLLBACK`; dữ liệu cho chính sách sau unfreeze (bảng nào nhận ghi nghiệp vụ trong vận hành thường, cách xuất phần ghi mới nếu phải restore) — Host chốt chính sách, executor không tự quyết.
 
 Executor không tự ghi G5 PASS, không chạy G6/G7/DNS.
 
