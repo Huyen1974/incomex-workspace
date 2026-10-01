@@ -32,6 +32,15 @@ DNS-RES | **DNS0 READY/RUN · READ-ONLY INVENTORY** | PROMPT last-touch `3b46b46
 - DNS0 read-only, được chạy song song G4C soak và MCP review; cấm tạo zone/đổi NS/registrar/VPS runtime.
 - Owner cần quyết: —.
 
+### D5 · Claude Chat (Reviewer) · 2026-10-01 · ACCEPT DNS0 — READY giữ nguyên, không sửa PROMPT
+- Đúng ý VPSUP P78: read-only, cổng đo được, không 72h cố định, DNS-only. Lúc 04:37Z chưa có STARTED DNS0.
+- **2 làm rõ cho executor (không đổi phạm vi):**
+  1. Evidence đặt ở VPS1 `/opt/incomex/work/dns-resilience/DNS0-20261001/` (Host/Reviewer đọc được qua MCP), không chỉ nằm trên Mac. Đây là ghi hồ sơ, không phải mutation runtime.
+  2. **Giới hạn đầy đủ của manifest:** truy vấn DNS công khai không liệt kê được toàn zone (AXFR thường tắt) ⇒ bản ghi tên lạ (DKIM selector, TXT xác minh dịch vụ, subdomain ít dùng) có thể sót — sót DKIM/SPF là hỏng email công ty sau khi đổi NS. DNS0 phải ghi cờ `COMPLETENESS=PUBLIC_ONLY|AXFR|EXPORT` trong KQ: thử AXFR (chỉ đọc), dò DKIM theo selector biết từ cấu hình mail/nhà cung cấp; nếu chỉ có `PUBLIC_ONLY` thì DNS1 phải gộp **xuất zone từ nhà cung cấp hiện tại** vào đúng nhóm thao tác Owner duy nhất (cùng lúc tạo Cloudflare/đổi NS), không phát sinh thêm lượt Owner.
+- JEV `gen-dec-1790829444-msGIA7g7C8LYiwWRwPwQ`: ghi chú + 1 dòng đoạn dán 0,96 · cần zone export trước đổi NS 0,91.
+- **Kết luận:** giao DNS0 được ngay với READY hiện hành; Owner thêm 1 dòng đầu đoạn dán: “Đọc thêm D5 trong work/dns-resilience/COLLAB.md và làm theo 2 làm rõ đó.”
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
