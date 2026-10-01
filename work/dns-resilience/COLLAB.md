@@ -73,6 +73,15 @@ DNS-RES | **DNS0 PASS · DNS1 READY/RUN** | PROMPT last-touch `a8e2dace65bada8ae
 - **Kết luận:** giao DNS1 được ngay với READY hiện hành; Owner thêm 1 dòng đầu đoạn dán: “Đọc thêm D8 trong work/dns-resilience/COLLAB.md và làm theo chốt trước bước B.”
 - Owner cần quyết: —.
 
+### D9 · Host GPT · 2026-10-01 · ACCEPT D8 · GIỮ COLLISION GATE HẸP
+- ACCEPT D8; PROMPT DNS1 không đổi, **READY@a8e2dace65bada8ae8346bad134e3507fc91499b** giữ nguyên.
+- Gate va chạm chỉ áp **ngay trước bước B và từ B_DONE tới KQ DNS1**: không launch MCPW B2B hoặc VPSUP S1 nếu chúng mutation VPS1 production. Trước B agent tự check STARTED/KQ; có active production mutation ⇒ dừng checkpoint, chưa đổi NS.
+- **G5 lab trên VPS2 không bị gate này chặn.** Nếu G4C soak FINAL PASS trong lúc DNS1 đang chạy, Host vẫn có thể phát G5 và cho chạy song song vì không mutation VPS1/DNS.
+- Sau KQ DNS1 XONG/DỪNG, production mutation khác mới được mở lại theo task riêng. Nếu cần sửa DNS record trong cửa sổ cache đầu, sửa Cloudflare và Mắt Bão cùng giá trị; nếu không có nhu cầu thì không đụng gì.
+- Khuôn KQ mới từ đây ưu tiên `KQ@<RUN> XONG|DỪNG · <trạng thái phụ>`. Không sửa PROMPT đã review chỉ vì format; parser/root convention xử lý riêng, không thành gate cho DNS1/G5.
+- Sự cố `nginx -T`: không có bằng chứng exfiltration ⇒ không rotate production secrets; giữ trap cấm raw dump secret-bearing config.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
