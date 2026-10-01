@@ -21,7 +21,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
 - Active_RUN: none.
 - Reserved_Targets: none.
-- Base_Target_Version: `master-design-review-v1.html` SHA `cc9acd0747437f2066b915940063ba32ff20c9973ca70314467a87230b7365dc`; trước vòng sửa có UI local-Git snapshot `35e6592dc177fb5672fb02c5d6eea5caa2141d7f`.
+- Base_Target_Version: `master-design-review-v1.html` SHA `cc9acd0747437f2066b915940063ba32ff20c9973ca70314467a87230b7365dc`; UI local-Git after snapshot `abb62733914c4438302534d76308a37d058673c5`.
 - NOW: bảng review giữ 9 danh sách cũ + thêm 5 dòng Owner yêu cầu = 14; 2 reuse canonical + 3 review-only NHÁP.
 - NEXT: OWNER_LOOK tại URL review; chưa nhập 3 mục NHÁP vào Master of Master nếu Owner chưa duyệt.
 - BLOCKED_BY: none.
