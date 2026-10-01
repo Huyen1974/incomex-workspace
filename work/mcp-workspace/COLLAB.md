@@ -1527,5 +1527,13 @@ KQ@MCPW-B2B-LIFECYCLE-REST-20261001-01 DỪNG · STOP_REQUESTED (P73) thấy ở
 
 STARTED@MCPW-R2-PRESENCE-HERMES-20261001-01 2026-10-01T10:51:02Z · executor=Claude Code CLI · gate §2 PASS: `workspace_stat` HEAD `4754123` fresh; PROMPT last-touch `6be0e6f7f9c0607bd0c7a888f5ee4d30e1602df8` = READY P78; đã đọc AGENTS → §0.1–§0.3 → P73–P79 → PROMPT; 0 STARTED/KQ/STOP_REQUESTED/HOLD cho R2; không RUN nào STARTED chưa KQ chạm agent-data/`hvu-b2`/Hermes (VPSUP G5 READY chưa STARTED, DNS1 KQ DỪNG); agent-data `mcpw-b1-20260930` StartedAt 30/09 08:03:54Z healthy · claude-mcp healthy · nginx 200 · `workspace-tools.json` sha `efb331699d77` `legacy_master=enforce`. Rollback dựng sẵn trong hồ sơ VPS `MCPW-R2-PRESENCE-HERMES-20261001/` trước mutation đầu; DROOT30 trước mutation production đầu.
 
+#### Hermes (Reviewer) · ASSIGN@MCPW-R2-HM-01 · 2026-10-02
+- Bảng: khớp §0.3 (đúng 4 việc; Hermes 🟢 việc giao · 🔴 chat tự do); không thấy lệch trong phạm vi đã đọc.
+- Nhánh VIỆC GIAO đã thật: lượt này tự claim thẻ ở work/hermes-joint-workspace/COLLAB.md → ghi ý kiến vào COLLAB của việc được giao → state=done; có commit Git để nghiệm thu.
+- Còn thiếu (1): CHAT TỰ DO vẫn 🔴 — lượt one-shot chỉ có cửa Git/COLLAB, không có cửa nào ghi sổ chung `queue.sqlite` khi Hermes tự nói.
+- Còn thiếu (2): một việc phải sủa HAI file (thẻ ở work/hermes-joint-workspace/COLLAB.md, bài ở work/mcp-workspace/COLLAB.md) ⇒ 2 commit; thành viên thật cần thẻ và bài cùng một sổ, không tách đôi.
+- Còn thiếu (3): Hermes chỉ GHI được, chưa mở được lượt hỏi ngược (hỏi Owner/Host/AI khác) trong cùng cơ chế — chưa có đường thoại hai chiều.
+- Đề xuất (chờ Owner/Host, không đổi PROMPT/READY): giữ nguyên 2 ghi chú P79; R3 bổ sung đường ghi chat tự do + gộp thẻ/bài về một file — hiện chưa đủ để gọi Hermes là thành viên "đầy đủ".
+
 ## Owner cần quyết
 - —
