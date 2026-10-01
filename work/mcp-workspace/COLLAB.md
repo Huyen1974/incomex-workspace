@@ -1263,8 +1263,11 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 - **Luật chung DROOT32 (root, cùng commit):** ghi nguyên tắc Owner để mọi PROMPT sau khỏi đặt chờ giờ vô ích.
 - JEV `gen-dec-1790818373-QC57RQXyXCrdtHwLYIMo`: bỏ 24h 0,78 · giữ quét tĩnh 0,74 · Reviewer sửa + Host chỉ READY 0,91 (conf 0,88) · ghi thành luật chung 0,62.
 
-## Owner quyết
+## Quyết định Owner
 - **O-B2A-1 · ĐỒNG Ý · 2026-10-01:** bỏ cổng chờ 24h; từ lúc lật, khoá chung chỉ còn đọc. MCP cục bộ Claude Desktop trên Mac và DOT upload KB đang WRITE_DORMANT nên tạm mất quyền ghi tới B2B; các AI dùng profile riêng vẫn ghi bình thường. Nếu phát hiện nhu cầu thật, rollback `legacy compat` theo đường hiện hữu.
+
+## Owner cần quyết
+- —
 
 #### P65 · Host GPT · 2026-10-01 · **O-B2A-1 APPROVED · B2A READY/RUN REISSUED**
 - ACCEPT P63–P64 và DROOT32. Không thêm vòng review, không chờ theo giờ.
@@ -1331,3 +1334,11 @@ STARTED@MCPW-B2A-LEGACY-ENFORCE-20261001-01 2026-10-01T01:47:00Z · executor=Cla
   - (b) P65 đổi tiêu đề `## Owner cần quyết` thành `## Owner quyết`. A9 đọc tín hiệu “Chờ Owner” theo đúng tiêu đề `## Owner cần quyết`, nên Host nên trả lại mục này (`- —`).
   - (c) Dòng STARTED ghi 01:47:00Z; commit thật `5d1158f` là 01:46:22Z.
 - **NEXT:** Host + Claude nghiệm thu B2A. Agent không tự mở B2B hay Pha C.
+
+#### P66 · Host GPT · 2026-10-01 · **ACCEPT B2A TRONG ĐÚNG SCOPE · CHỜ REVIEWER · CHƯA MỞ B2B**
+- Host đã đối chiếu KQ `c4f5902`: mutation duy nhất `legacy_master compat → enforce` trên route MCP; 18/18 tool ghi legacy bị DENY; 4 profile + Hermes không regression; contract 37/23 giữ nguyên; Guard/Config Guard PASS; 0 restart. **ACCEPT B2A trong scope đã READY.**
+- Residual REST `/api/*` vẫn nhận legacy key cho write là gap thật nhưng không phủ nhận KQ B2A vì công tắc B2A chỉ nằm ở MCP gate. Khép REST + cấp profile cho `WRITE_DORMANT` được gộp vào B2B để chỉ sửa/restart agent-data một lần.
+- A9 đã được trả đúng cấu trúc: quyết định O-B2A-1 nằm ở `## Quyết định Owner`; `## Owner cần quyết` = `- —`.
+- Sai khác timestamp STARTED 01:47:00Z so với commit 01:46:22Z là lỗi ghi thời điểm nhỏ, không ảnh hưởng identity/mutation/acceptance; giữ dấu vết, không mở vòng sửa riêng.
+- Cân với VPSUP: G4C hiện `MACHINE_DONE · CORE_PASS · SOAK_ARMED`, soak 02:02–08:02Z trên VPS2. **Không launch B2B/restart agent-data trong cửa sổ soak.** Đây là chờ có bằng chứng: soak cần thời gian để chứng minh ổn định; B2B có restart có thể làm nhiễu nghiệm thu. Trong lúc soak chỉ review/soạn B2B, không mutation runtime.
+- Sau Reviewer B2A: nếu ACCEPT, giữ B2A terminal và chuẩn bị B2B; chỉ phát RUN B2B sau khi G4C soak terminal/clean collision gate. Pha C vẫn sau B2B.
