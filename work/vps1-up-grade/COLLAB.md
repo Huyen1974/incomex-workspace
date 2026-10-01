@@ -1093,6 +1093,24 @@ Phản biện đúng P03, không mở thêm file:
 - JEV `gen-dec-1790844076-IJ9EwcPL0a4rpuASV04e`: chạy B2B ngay song song A09R1 0,75 · chờ A09R1 0,06; `gen-dec-1790844054-Jx5fMThI0CGTOogJoI1P`: nhắc danh sách delta 0,81 · giữ điều kiện “activation lab trả sạch” như Host viết 0,82.
 - Owner cần quyết: —.
 
+### P82 · Claude Chat (Reviewer) · 2026-10-01 · Ý KIẾN VỀ SOAK G4C + BÀN GIAO PHIÊN REVIEWER MỚI
+**A. Soak G4C** (nguồn: dòng STARTED B2B trong `../mcp-workspace/COLLAB.md`, executor đọc thẳng VPS2): `VERDICT=FAIL`, trượt 2/8.
+- (1) `duration_h>=6` = 5,99994h là lỗi công thức đo (vòng soak thật 21649s ≈ 6,01h) ⇒ không phải lỗi hệ thống.
+- (2) `license_active` 11/12: lượt 07:08:34Z Directus trả `503 Under pressure` (bộ giới hạn tải); trước/sau và lúc trả đều `active` ⇒ license không mất, nhưng 503 là dấu hiệu tải thật.
+- 6/8 còn lại đạt rộng: 5xx+neterr 0,07% (ngưỡng 0,5%), 0 restart/OOM, heap Nuxt 0,06 MB/h (ngưỡng 5); activation trả sạch, lab đã dừng.
+- **Đề xuất:** Host ghi **G4 PASS có disposition 2 tiêu chí**, không chạy lại 6h. Mang 1 việc nhỏ vào G5 (không thêm gate): ghi cấu hình pressure limiter Directus 12 so với CURRENT + RAM/CPU lab quanh 07:08Z; luật giám sát license G7 coi 1 lần 503 là chập chờn (đã có “2 lần liên tiếp mới báo”).
+- JEV `gen-dec-1790845243-IiGPLTYgLbcTtZIQ2xx4`: PASS có disposition 0,73 · theo dõi 503 0,86 · chạy lại soak 0,40.
+
+**B. Bàn giao cho phiên Claude Reviewer mới — đọc mục này trước tiên**
+- **Vai:** Claude Chat = Reviewer VPSUP; GPT = Host (chỉ Host ghi `READY@`); Owner chỉ gật/lắc. Reviewer tự kiểm repo/runtime, không tin báo cáo; sửa thẳng PROMPT khi còn DRAFT; ghi P-entry; trả Owner ngắn + tin gửi GPT + dòng dán; JEV trước khi chốt; rà 2 vòng.
+- **Đọc khi mở phiên, đúng thứ tự:** `AGENTS.md` (DROOT29–32) → COLLAB này §0 → kế hoạch E 10 bước (mục “E. Kế hoạch 10 bước”) + bước 11 (P25) → P77–P82 + các mục Host mới hơn → PROMPT G5 (last-touch phải = `61dded6bad096aab32be7eab87ff0bb708e9453d`) → chỉ để biết va chạm: MCPW P70–P72 + STARTED/KQ B2B.
+- **Đang ở:** `1–6✅ [7⏳ Host ghi G4] 8⬜ 9⬜ 10⬜ 11⬜`. MCPW B2B STARTED 08:58Z (VPS1 nginx edge/agent-data, đang chạy). MMIM A09R1 (Codex) chạy song song, không va chạm.
+- **Việc Reviewer kế tiếp:** (1) xem Host ghi G4 + nghiệm thu B2B → (2) Host READY G5 @`61dded6` (đã review; chỉ kiểm READY = last-touch + chưa STARTED) → (3) review KQ G5: ROLLBACK_PASS, `FRONTEND_ONLY_ROLLBACK`, thời gian từng bước, dữ liệu cho chính sách sau unfreeze, 503/pressure → (4) Host chốt chính sách sau unfreeze + `/login` → (5) review S1 (PG16.15 + nginx1.30.5 lên VPS1, RUN riêng) → G6 → G7 (thêm dòng thử-thẳng-IP vào luật quay lui; danh sách delta VPS1 sau clone gồm B2B + A09R1).
+- **Đã đóng, không mở lại:** DNS (D11, giữ Mắt Bão); target G3 (PG16.15 · Directus 12.3.1 + OIG · Nuxt 4.5.2/Node 24.21.0 · nginx 1.30.5 · Qdrant/Kuma giữ); không sửa `directus_migrations.timestamp`; rollback 2 tầng S1/S2.
+- **Bẫy đã gặp — tránh:** (a) phiên mới không đọc SSOT ⇒ lạc sang việc phụ (GPT 01/10); (b) hỏi Owner điều §0 đã ghi (P64); (c) Reviewer viết `READY@`; (d) ghi vào thư mục task khi có STARTED chưa KQ (DROOT31); (e) hỏi JEV bằng mô tả chung chung ⇒ kết quả lệch, phải đưa dữ kiện cụ thể; (f) thêm cổng chờ giờ không thêm bằng chứng; (g) đẻ file mới — mọi ghi chép vào COLLAB này; (h) nhận nội dung việc khác ⇒ từ chối, không đọc/ghi.
+- **Công cụ:** đầu nối Incomex VPS (`gh` = repo, `code` = /opt/incomex VPS1 chỉ đọc); VPS2 không đọc trực tiếp — dựa bằng chứng executor ghi trong COLLAB; JEV connector.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
