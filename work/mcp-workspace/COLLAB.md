@@ -1277,3 +1277,57 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 ## RUN — MCPW-B2A-LEGACY-ENFORCE-20261001-01
 STARTED@MCPW-B2A-LEGACY-ENFORCE-20261001-01 2026-10-01T01:47:00Z · executor=Claude Code CLI
 - Read-gate PASS: PROMPT last-touch = `0668c0bb2f45ba1ce2ab876b5acf1ff55af7c88c` = READY P65; chưa có STARTED/KQ/STOP_REQUESTED/HOLD/READY mới cho B2A; HEAD `5eff406`. Cổng §1 (đo 01:45Z): (1) 11 `legacy_master_write` từ deploy B1 đều `codex-mcp-client` 113.190.146.165, Codex đã sang profile `codex` · (2) 0 lượt sau 30/09 08:19:05Z, journal liền mạch (gap tối đa 60s) · (3) G4C STARTED `24fb784` = `claude-code [auth:claude-code]` · (4) `b1-ctl.sh check` ROLLBACK_CHECK PASS, công tắc qua `incomex-config-apply-v0`, config mount thư mục ro. Config Guard 01:41Z 55/55 CLEAN; `legacy_master=compat`; agent-data/claude-mcp healthy, 0 restart. Lượt 01:13Z trước đó dừng `NOT_YET_LEGACY_24H` (0 mutation, 0 commit).
+
+**KQ@MCPW-B2A-LEGACY-ENFORCE-20261001-01 XONG** — Claude Code CLI · 01/10 01:46Z → 02:00Z · `READY@0668c0bb2f45ba1ce2ab876b5acf1ff55af7c88c` = commit cuối chạm PROMPT (kiểm lúc vào, DROOT30 lúc 01:50Z và ngay trước khi lật 01:55Z, trước KQ). Hồ sơ VPS: `/opt/incomex/work/mcp-workspace/MCPW-B2A-LEGACY-ENFORCE-20261001/` (`checkpoints.log` · `bin/b2a-ctl.sh` sha `d8538e3c3a64` · `results/`).
+- **Cổng §1** (đo live 01:45Z, đo lại 01:50Z và 01:55Z):
+  1. Từ lúc deploy B1 (30/09 08:03:54Z) có 11 lượt `legacy_master_write`. Cả 11 đều là `codex-mcp-client` từ 113.190.146.165, trong khoảng 08:04–08:19:05Z, chế độ compat. Codex đã chuyển sang profile `codex`.
+  2. Lượt cuối: **30/09 08:19:05Z** `workspace_transaction` /mcp. Từ đó đến lúc lật (17,6h) có 0 lượt. Journal `audit.jsonl` liền mạch, gap tối đa 60s.
+  3. Commit STARTED của G4C `24fb784` mang author `claude-code [auth:claude-code]`.
+  4. `b1-ctl.sh check`: ROLLBACK_CHECK PASS.
+- **Quét tĩnh §3 → WRITE_SCHEDULED = 0.** Đã quét: crontab root/incomex, `/etc/cron.d`, 29 systemd timer, grep `tools/call` + tên tool ghi trong `/opt/incomex` · `/usr/local` · `/root`. Phía Mac: crontab 2 dòng không chạm agent-data, 0 launchd.
+
+| Consumer dùng khoá chung | Nơi | Loại | Bằng chứng |
+|---|---|---|---|
+| Uptime-Kuma | VPS1 172.18.0.1 → /mcp | READ_ONLY | initialize mỗi phút, 0 lượt ghi |
+| `test-mcp-connectivity.sh` (cron */5, curl) | VPS1 | READ_ONLY | initialize + tools/list |
+| `mcpw-protection-guard` (cron */5) | VPS1 | READ_ONLY | workspace_stat/read |
+| `claude-kb` | container → /mcp-gpt-full | READ_ONLY | allowlist 6 tool đọc; search qua connector sau khi lật vẫn OK |
+| `dot-search-canary` · `dot-agent-status` | VPS1, chạy tay | READ_ONLY | search_knowledge |
+| MCP cục bộ Claude Desktop (`lcl-agent-data`) | Mac, fp khoá = API_KEY | **WRITE_DORMANT** | app tương tác, 0 lượt ghi sau 08:19:05Z |
+| DOT `dot/iu-cutter-v0.6-*/upload_kb.py` (5 bản) | VPS1, chạy tay | **WRITE_DORMANT** | `upload_document`; không cron/timer nào gọi |
+| Antigravity/Gemini (4 file config) | Mac | không còn là consumer | khoá cũ không khớp khoá master nào ⇒ 401 |
+
+- **Mutation duy nhất, 01:55:16Z:**
+  - Đi qua `incomex-config-apply-v0`: mutation `MCPW-B2A-LEGACY-ENFORCE-20261001-01-legacy-enforce-20261001T015516`, agent `claude-code-mcpw-b2a`, target `mcpw-workspace-tools-config`.
+  - `legacy_master`: compat → **enforce**. Config sha `a6982c41fd3f` → `efb331699d77`, chỉ đổi đúng một khoá (đã kiểm round-trip byte trước khi lật). RESULT=APPLIED · POST_ACTION=NONE · live_seen=enforce.
+  - **0 restart:** StartedAt của agent-data giữ nguyên `2026-09-30T08:03:54Z`; claude-mcp, claude-kb, nginx cũng giữ nguyên, rc=0.
+- **T1 — legacy write bị DENY:**
+  - 18/18 tool ghi (mọi tool không có `readOnlyHint`) trên /mcp → `LEGACY_WRITE_DENIED`. Cũng DENIED với `workspace_write_new` trên /mcp-gpt-full và qua route công khai `/api/mcp`.
+  - Probe dùng đối số rỗng nên 0 side effect.
+  - Journal có 20 dòng `denied=true`, đều là của probe (127.0.0.1 và 38.242.240.89); 0 dòng từ nơi khác.
+- **T2 — profile vẫn ghi được:**
+  - gpt-web, codex, claude-code đều qua cổng: trả `INVALID_ARGUMENT` do đối số rỗng, không phải DENIED.
+  - Ghi thật: STARTED `5d1158f` và chính commit KQ này, author `claude-code [auth:claude-code]`.
+  - Hermes `/mcp-agent`: 7 tool không đổi, qua cổng (`ROOT_NOT_ALLOWED`).
+  - claude-chat đi qua claude-mcp bằng khoá upstream riêng (fp ≠ API_KEY), không qua cổng legacy; Guard INV3 PASS.
+- **T3 — đường đọc không regression:** khoá chung đọc OK với `workspace_stat` (/mcp), `workspace_read` (/mcp-gpt-full) và qua route công khai. claude-kb search qua connector OK. Kuma vẫn chạy.
+- **T4 — contract trước = sau** với cả 4 khoá × 2 route:
+  - 37 tool · tools sha `fb0757523d20ff91` · schema `dbbfc590a969`.
+  - serverInfo sha `8a4b7909f0bc` (/mcp) · `69e35158d216` (/mcp-gpt-full).
+  - 19 tool đọc / 18 tool ghi. Khoá ngẫu nhiên → 401.
+  - claude-mcp: 23 tool · fp `4f1000e9aad3`.
+- **T5 — Guard:**
+  - PRE: dùng hàm snapshot của chính Guard, không gọi GitHub. Lý do: chạy PRE+POST trong cùng 60′ sẽ vượt ngân sách `rest_anon` 2/h.
+  - **Guard POST 01:56:33Z PASS:** INV1, INV2, INV3, INV7, INV10, INV5_6, CTR-WATCHDOG đều PASS. changed=[`cfg.workspace-tools.sha`], ngoài phạm vi = none.
+  - **Config Guard 01:56:30Z:** 55/55 MATCH, CLEAN (baseline do apply-v0 cập nhật).
+- **T6 — G4C:** vẫn STARTED từ 22:16:57Z, chưa có KQ. 6 container lab trên VPS2 vẫn Up, healthy, chạy từ trước lúc lật. B2A không chạm VPS2.
+- **Rollback:**
+  - Candidate compat dựng từ file live trùng đúng byte với PRE (sha `a6982c41fd3f`).
+  - Lệnh rollback: `b2a-ctl.sh legacy compat` — cùng đường apply-v0, không restart.
+  - Không lật về vì acceptance PASS ⇒ không `ROLLED_BACK`.
+- **Ngoài phạm vi = 0:** không restart/recreate service nào; không chạm Directus/PG/Qdrant/Nuxt/DNS/VPS2; không ghi `work/vps1-up-grade/`; không rotate GSM; không xoá khoá chung.
+- **Residual (không chặn RUN, chuyển Host/B2B):**
+  - (a) **Công tắc chỉ phủ route MCP.** REST của agent-data qua `/api/` công khai (`/documents` POST/PUT/PATCH/DELETE, `/kb/*`, `/chat`, `/api/webhooks`) vẫn nhận khoá chung. Nghĩa là: ghi **repo** bằng khoá chung đã bị chặn, nhưng ghi **KB qua REST** vẫn còn mở. `dot-api-health.sh` (cron 21:30 Berlin) ghi/xoá doc probe qua REST bằng khoá chung, nên không bị B2A làm hỏng. Khép REST cần sửa mã + restart ⇒ thuộc B2B.
+  - (b) P65 đổi tiêu đề `## Owner cần quyết` thành `## Owner quyết`. A9 đọc tín hiệu “Chờ Owner” theo đúng tiêu đề `## Owner cần quyết`, nên Host nên trả lại mục này (`- —`).
+  - (c) Dòng STARTED ghi 01:47:00Z; commit thật `5d1158f` là 01:46:22Z.
+- **NEXT:** Host + Claude nghiệm thu B2A. Agent không tự mở B2B hay Pha C.
