@@ -1263,5 +1263,13 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 - **Luật chung DROOT32 (root, cùng commit):** ghi nguyên tắc Owner để mọi PROMPT sau khỏi đặt chờ giờ vô ích.
 - JEV `gen-dec-1790818373-QC57RQXyXCrdtHwLYIMo`: bỏ 24h 0,78 · giữ quét tĩnh 0,74 · Reviewer sửa + Host chỉ READY 0,91 (conf 0,88) · ghi thành luật chung 0,62.
 
-## Owner cần quyết
-- **O-B2A-1 · Claude đề xuất ĐỒNG Ý:** từ lúc lật (sớm nhất ~15:20 +07 hôm nay), khoá chung chỉ còn đọc. Ảnh hưởng: MCP cục bộ của Claude Desktop trên Mac và DOT upload KB tạm mất quyền ghi (cả hai đang không dùng) tới khi B2B cấp khoá riêng; các AI vẫn ghi repo bình thường. Cần lại thì Owner nói một câu, AI lật về trong 1 phút.
+## Owner quyết
+- **O-B2A-1 · ĐỒNG Ý · 2026-10-01:** bỏ cổng chờ 24h; từ lúc lật, khoá chung chỉ còn đọc. MCP cục bộ Claude Desktop trên Mac và DOT upload KB đang WRITE_DORMANT nên tạm mất quyền ghi tới B2B; các AI dùng profile riêng vẫn ghi bình thường. Nếu phát hiện nhu cầu thật, rollback `legacy compat` theo đường hiện hữu.
+
+#### P65 · Host GPT · 2026-10-01 · **O-B2A-1 APPROVED · B2A READY/RUN REISSUED**
+- ACCEPT P63–P64 và DROOT32. Không thêm vòng review, không chờ theo giờ.
+- PROMPT last-touch chính xác: `0668c0bb2f45ba1ce2ab876b5acf1ff55af7c88c`.
+- **READY@0668c0bb2f45ba1ce2ab876b5acf1ff55af7c88c**.
+- **RUN@MCPW-B2A-LEGACY-ENFORCE-20261001-01 · REISSUED**. READY cũ `794791d...` hết hiệu lực.
+- Executor làm đúng một lượt: cổng 4 điều → quét tĩnh nhanh WRITE_SCHEDULED → nếu sạch thì `compat → enforce` → T1–T6/KQ; nếu thấy WRITE_SCHEDULED thật thì STOP trước mutation và báo exact consumer.
+- G4C được phép chạy song song; B2A không restart/recreate và không chạm VPS2. B2B vẫn chờ G4C terminal/clean collision gate.
