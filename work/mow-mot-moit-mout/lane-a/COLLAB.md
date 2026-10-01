@@ -198,3 +198,5 @@ git diff -- web-rp-current
 
 STARTED@MMIM-LANE-A09R1-20261001-01 2026-10-01T08:37:41Z · executor=Codex
 
+A09R1 PRE · dirty_exception=PASS · dependency_isolated=PASS · HEAD VPS=79d4dcb57c1cd94213076a042570fd373a75f358. Parent dirty duy nhất: web-rp-current; target scripts/hvu-b2 sạch. UI node_modules → ../../../web/node_modules (web là thư mục thật), 4585 symlink dependency đã resolve, 0 vào submodule dirty, 0 broken. Package/config/pack/lock/dependency manifest không tham chiếu web-rp-current; README chỉ nhắc nó trong lịch sử rollback, không trong lệnh build/copy. Build từ ui/.bin/nuxt + pack.mjs; output ui/.output/public/view.html → nginx/static/ui-preview/hpml-view-for-user/view.html. Nginx mount static read-only riêng, không qua submodule. NODE_PATH/NODE_OPTIONS/NUXT_EXTENDS/NUXT_LAYERS vắng; package/lock/config tracked không dirty. Sẽ audit syscall build bằng strace để đối chiếu. READY/PROMPT còn nguyên, không STOP. Baseline 5 SHA nguồn và artifact khớp A09. Không chạm web-rp-current; không sửa ban-duyet.html.
+
