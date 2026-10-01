@@ -1,12 +1,97 @@
-# PROMPT — VPSUP G4C TARGETED UUID NORMALIZATION · Directus 12.3.1 lab proof
+# PROMPT — VPSUP G5 ROLLBACK REHEARSAL · stepwise rollback on VPS2
 
-RUN_ID: VPSUP-G4C-UUID-NORMALIZE-20261001-01
-STATUS: **CHỜ READY MỚI — Reviewer đã ACCEPT có sửa (P75). READY cũ `95d5ebd…` hết hiệu lực; chỉ chạy khi COLLAB có READY do Host phát trỏ commit cuối chạm file này.**
+RUN_ID: VPSUP-G5-ROLLBACK-REHEARSAL-20261001-01
+STATUS: **DRAFT — CHƯA READY/RUN. Chỉ READY khi G4C soak FINAL=PASS và activation lab đã release sạch.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
-Report_Write_Path: **fs_* / Incomex VPS MCP · root gh → incomex-workspace/main**.
-Runtime_Write_Path: **VPS2 LAB ONLY. VPS1 production = READ-ONLY.** Không DNS/GSM/VPS1 mutation.
-Runtime VPS là SSOT; đầu vào = G4B blocker KQ `16685742…` + checkpoint A bất biến + G4 artifacts đã PASS.
+Report_Write_Path: **workspace_* / Incomex VPS MCP → incomex-workspace/main** (sau MCPW identity cutover; dùng actor `claude-code`).
+Runtime_Write_Path: **VPS2 LAB ONLY. VPS1 production = READ-ONLY.** Không DNS/GSM mutation.
+Đầu vào: G4C KQ `85b188d8…` CORE_PASS + soak FINAL khi hoàn tất; checkpoint A; DOT candidate UUID normalize; lane-C Nuxt4 patch; exact image digests.
+
+## G5.0 · Mục tiêu
+Chứng minh **rollback thật** trước khi mở G6 cutover rehearsal, theo mô hình 2 tầng để giảm downtime:
+
+- **S1 · SAFE MINORS baseline:** PostgreSQL16.15 + nginx1.30.5 + Qdrant/Kuma exact digest, nhưng Directus11.5.1/schema11.14 + Nuxt3 hiện hành vẫn phục vụ được. S1 sau khi PASS trở thành rollback baseline; không cần quay PG/nginx về minor cũ nếu S2 major lỗi.
+- **S2 · MAJOR:** targeted UUID normalize → official Directus12.3.1 migrate → OIG POST `/license` → Nuxt4 patch/runtime.
+
+Nếu S2 fail **trước khi unfreeze write**, rollback = trả activation nếu đã dùng → stop S2 → restore checkpoint pre-S2 → boot Directus11/Nuxt3 trên S1 → SAME SLICE CURRENT PASS. Không có business write mới sau freeze nên không mất dữ liệu.
+
+## G5.1 · Gate/PRE
+READY chỉ hợp lệ khi file machine-owned soak G4C `soak/FINAL` xác nhận:
+- ≥6h đủ thời lượng;
+- 5xx+neterr ≤0.5%; 0 restart/OOM; Nuxt heap slope ≤5 MB/h;
+- license active trong soak;
+- cuối soak deactivation thành công, activation slot giảm; TARGET stopped; egress đóng; secret-bearing working DB được cleanup theo P71/P72;
+- checkpoint A + G2 artifacts bất biến.
+Nếu `LICENSE_RELEASE_FAILED` hoặc soak FAIL ⇒ không chạy G5; Host xử lý đúng blocker, không tự repair.
+
+Đọc AGENTS → COLLAB §0 + KQ G4C/P75–P77 → PROMPT này → G4C `INDEX.md` + `soak/FINAL`. Ghi STARTED theo DROOT31; DROOT30 trước first VPS2 mutation.
+
+Snapshot VPS1 read-only: exact CURRENT images/config/source + latest MCP/agent-data state sau B2A; G5 không chạm VPS1.
+
+## G5.2 · Quyết định Host về licensing grace
+**Không sửa `directus_migrations.timestamp` chỉ để tạo 30-day grace.** Directus12.3.1 lấy Core grace từ timestamp migration `20260507A`; legacy DB thiếu default nên migration row mới NULL. G7 sẽ không dựa grace:
+1. trước downtime kiểm OIG secret metadata + licensing endpoint reachability;
+2. sau `migrate:latest` phải `POST /license` thành công **trước unfreeze write**;
+3. activate fail ⇒ rollback S2 ngay khi write vẫn freeze.
+G5 phải diễn tập đúng failure path này.
+
+## G5.3 · Chuẩn hoá target trước rollback test
+Reuse, không thiết kế lại:
+- `dot-directus-uuid-normalize` + ABC map sha từ G4C; dry-run phải khớp prod-size checkpoint A và plan sha;
+- candidate NULL cho đúng 1 `directus_flows.operation` orphan/rỗng;
+- extension host patch `^11 || ^12`;
+- lane-C Nuxt4 patch hiện hành.
+
+**/login:** G4C phát hiện CURRENT Nuxt3 đã trắng 200, TARGET Nuxt4 thành 500 `$t`. Đây là gap cần đóng trước G6. Dùng patch-candidate nhỏ đã có; tối đa 3 file sửa tay ngoài lane-C patch. Trên lab phải đạt `/login` HTTP 200 + hydrate + không console/server error. Fail ⇒ G5 KQ có blocker `LOGIN_PATCH_FAIL`; rollback rehearsal phần DB có thể vẫn chạy, nhưng Host không G5 PASS/G6.
+
+**Directus admin UI:** không dùng tunnel Mac chậm. Dùng browser/headless sẵn có **ngay trên VPS2/lab network** (reuse Playwright đã có; không install browser mới nếu chưa có) để tải admin HTML/assets và login flow. Nếu không có browser usable thì API login + asset integrity vẫn ghi evidence, nhưng Host quyết blocker sau; không ngồi chờ tunnel.
+
+**Lab key bị lộ transcript G4C:** không reuse/promote giá trị đó; tạo credential lab mới nếu cần. Không rotation production vì fingerprint chứng minh 0 trùng prod.
+
+## G5.4 · Rehearsal S1 baseline
+Từ fresh clone checkpoint A:
+- boot PG16.15 + Directus11.5.1 + CURRENT Nuxt3 trên S1; nginx1.30.5 exact config; Qdrant/Kuma pin như target;
+- SAME SLICE CURRENT expected + agent-data/MCP read consumers sau B2A;
+- ghi `S1_BASELINE_PASS` + hash checkpoint pre-S2.
+Không chạy lại soak dài.
+
+## G5.5 · Rehearsal activation-failure rollback
+Trên copy S1:
+1. freeze writes / bắt đầu downtime timer;
+2. run UUID DOT + official migrate 12.3.1;
+3. **chặn licensing egress có chủ đích**, thử `POST /license` ⇒ phải fail/không active;
+4. vì chưa unfreeze, rollback ngay: stop target; discard migrated DB; restore pre-S2 checkpoint; boot Directus11/Nuxt3 on S1;
+5. SAME SLICE CURRENT phải PASS; row/value hashes = pre-S2.
+Ghi `ACTIVATION_FAIL_ROLLBACK_PASS` + rollback duration. Không được tiêu activation slot.
+
+## G5.6 · Rehearsal full S2 → rollback
+Fresh copy S1 khác:
+1. freeze write + timer;
+2. UUID DOT + migrate official + extension patch;
+3. mở licensing tối thiểu → `POST /license` 204, active;
+4. Nuxt4 final patch gồm login fix; Directus12 + nginx/Qdrant/agent-data;
+5. quick target acceptance: `/server/ping`, OIG active, `/login`, Directus admin browser/API, 132 routes diff đã chốt, permission negatives, representative Flow/agent-data write; **không unfreeze business writes**;
+6. rollback: `DELETE /license` khi Directus+egress còn chạy → confirm slot giảm → stop S2 → restore pre-S2 checkpoint → boot S1 Directus11/Nuxt3;
+7. SAME SLICE CURRENT + hashes PASS.
+Ghi forward duration và rollback duration theo từng bước; mục tiêu là runbook G6/G7, không đặt ngưỡng giờ tùy ý.
+
+Nếu deactivation fail: theo P72 giữ DB/PUBLIC_URL đủ retry; không shred và KQ `LICENSE_RELEASE_FAILED`.
+
+## G5.7 · Outputs/KQ
+Hồ sơ: thêm `G5/` dưới `/opt/incomex/work/vps1-up-grade/G4-TARGET-20260930/` hoặc thư mục kế cận rõ ràng; không tạo framework mới.
+
+KQ executor hợp lệ:
+- `KQ@VPSUP-G5-ROLLBACK-REHEARSAL-20261001-01 MACHINE_DONE · ROLLBACK_PASS · LOGIN_PASS · ADMIN_UI_PASS`
+- hoặc cùng `ADMIN_UI_UNVERIFIED` nếu chỉ browser local không khả thi nhưng API/assets PASS;
+- hoặc `DỪNG · <exact blocker>`.
+
+Báo: S1 baseline; forward timings (UUID/migrate/license/Nuxt); rollback timings; activation-failure path; final CURRENT hash/SAME SLICE; activation slot before/after; login/admin result; latest agent-data/MCP consumer snapshot.
+
+Executor không tự ghi G5 PASS, không chạy G6/G7/DNS.
+
+## HISTORY — G4C/G4B/G4/G3
+**Từ marker HISTORY trở xuống chỉ là lịch sử/evidence, KHÔNG phải lệnh G5.**
 
 ## G4C.0 · Quyết định Host và mục tiêu
 Host **không chọn F2** (không tự viết DDL thay 2 migration, không tự ghi `directus_migrations`). Chọn **F1 có mục tiêu / upstream-aligned**:
