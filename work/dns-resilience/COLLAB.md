@@ -19,6 +19,7 @@ Zone đích DNS-only khớp zone nguồn từng bản ghi; đường đổi NS v
 
 ## Trạng thái
 DNS-RES | **DNS0 READY/RUN · READ-ONLY INVENTORY** | PROMPT last-touch `3b46b4650b4981d2c4b59b92ee1e26b5699222d8`; `READY@3b46b4650b4981d2c4b59b92ee1e26b5699222d8`; RUN_ID `DNSRES-DNS0-INVENTORY-20261001-01` | NEXT: Agent inventory/measure → Host review manifest + xác định bước tự động/Owner duy nhất.
+- STARTED@DNSRES-DNS0-INVENTORY-20261001-01 2026-10-01T04:47:32Z · executor=Claude Code CLI · read-gate PASS: `workspace_stat` root workspace HEAD `f15f66f` (fresh); PROMPT last-touch `3b46b4650b4981d2c4b59b92ee1e26b5699222d8` = READY D4; đã đọc AGENTS → §0 → D4/D5 → PROMPT → VPSUP P55/P56/P78/P79; 0 STOP_REQUESTED/HOLD. Write_Path báo cáo: `workspace_*` agent-data (khoá `claude-code`). Runtime_Write_Path NONE (read-only); hồ sơ theo D5 tại VPS1 `/opt/incomex/work/dns-resilience/DNS0-20261001/`.
 
 ## Quyết định
 - D1 · 2026-10-01 · Không bật Cloudflare proxy trong DNS-RES; DNS-only để không đổi nginx/TLS/real-IP.
