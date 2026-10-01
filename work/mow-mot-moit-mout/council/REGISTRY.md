@@ -19,14 +19,14 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: **HOST / DISPATCHER / INTEGRATOR**
 - Host_ID: `GPT-MMIM-260920-A`
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
-- Active_RUN: `A09R1` = READY_TO_RUN.
+- Active_RUN: none.
 - Reserved_Targets: Host giữ `ban-duyet.html#matrix-view-formula`; A09R1 chỉ HPML VPS source + lane-a ledger.
 - Base_Target_Version: prompt SHA `5c72ff994d5354c9462060a1043d4d859b23ee357eabdd708d8a2fefe04f9b27`; READY base `a3e422ed434704a1415446386311fe0e86f53410`.
-- NOW: tiếp tục tab-stability với ngoại lệ dirty hẹp; không chạm web-rp-current.
-- NEXT: nghiệm thu T1–T4 trước khi tiếp tục định nghĩa.
+- NOW: A09R1 đã Host ACCEPT; tab-stability hoàn tất theo KQ cuối.
+- NEXT: `master-design-review-v1.html` · 5 danh mục theo D102/HO.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D76–D77.
+- LAST_SYNC: D102.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
@@ -43,14 +43,14 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-A
 - Role: **EXECUTOR**
 - Write_Zone: root ui audit metadata + `lane-a/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-A09R1-20261001-01` = READY_TO_RUN.
-- Reserved_Targets: VPS `/opt/incomex/docker/nuxt-repo/scripts/hvu-b2/` + lane-a/COLLAB; `web-rp-current` và `ban-duyet.html` FORBIDDEN.
-- Base_Target_Version: prompt SHA `5c72ff994d5354c9462060a1043d4d859b23ee357eabdd708d8a2fefe04f9b27`; READY base `a3e422ed434704a1415446386311fe0e86f53410`.
-- NOW: chứng minh dependency closure loại web-rp-current, rồi mới patch reload/tab nếu PASS.
-- NEXT: KQ A09R1.
-- BLOCKED_BY: DIRTY_DEPENDENCY_UNPROVEN nếu submodule có liên quan build/deploy.
-- State: READY_TO_RUN.
-- LAST_SYNC: D76–D77.
+- Active_RUN: none.
+- Reserved_Targets: none.
+- Base_Target_Version: A09R1 KQ final; prompt SHA `5c72ff994d5354c9462060a1043d4d859b23ee357eabdd708d8a2fefe04f9b27`; READY base `a3e422ed434704a1415446386311fe0e86f53410`.
+- NOW: A09R1 XONG và đã Host ACCEPT.
+- NEXT: chờ RUN mới.
+- BLOCKED_BY: none.
+- State: IDLE.
+- LAST_SYNC: D102.
 
 ### CODEX-MMIM-B
 - Role: **EXECUTOR**
