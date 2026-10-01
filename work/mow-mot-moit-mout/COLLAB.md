@@ -1238,6 +1238,8 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 
 - D97 · 2026-10-01 · **DEF-02 + TAB-STABILITY:** Owner sửa định nghĩa: không có khái niệm cha “Nhóm”. Chỉ có **Nhóm chung** (vai trò như UI cha) và **Nhóm riêng** (vai trò như UI con). Nhóm chung dùng để sinh Nhóm riêng; nếu không cần/không sinh được Nhóm riêng thì có thể dùng Nhóm chung + config trực tiếp cho Đối tượng. Đối tượng nằm dưới Nhóm riêng hoặc được config trực tiếp từ Nhóm chung. Mặt Định nghĩa phải thể hiện đúng hai đường này; KNI-001 “Nhóm” bị loại khỏi bản nháp, KNI-002/003 giữ mã nháp để tránh xáo mã. Đồng thời Owner xác nhận lỗi tab/reload vẫn tồn tại; mở A09 cho coder có quyền VPS sửa đúng SSOT `/opt/incomex/docker/nuxt-repo/scripts/hvu-b2/`, không vá mirror/runtime minified.
 
+- D98 · 2026-10-01 · **A09 GATE PASS, READY:** PROCESS=`CHUNG.APQUYTRINH`; prompt SHA `8ab085199203fcd8eeaff04dd918480cbf8cb77ba4469c3dadc9d151148d62e8`; gate PASS trên commit `384e4ea59aec8e5fa0869e3fdcd3307cbc852950`. A09 được giao cho coder có quyền VPS đọc/ghi đúng SSOT `/opt/incomex/docker/nuxt-repo/scripts/hvu-b2/`; acceptance bắt buộc: unrelated revision không remount, real document change reload đúng một lần, section/tab hiện tại được giữ, poll/stale/rollback không hỏng.
+
 ## Dòng hiện hành
 MMIM | STEP2_UI001_COPY · 28/09/2026 | Tab ★ Step quy trình 2 ở `ban-duyet.html`: phần I dùng bản sao khung UI-001 Nháp 2 từ VPS, CSS/JS vẫn trỏ nguồn gốc theo D87; không có bảng tự dựng. Bước chi tiết chờ Owner. A01 đã XONG; A06/B04/C03/D01/E01 tiếp tục HOLD theo D81.
 
