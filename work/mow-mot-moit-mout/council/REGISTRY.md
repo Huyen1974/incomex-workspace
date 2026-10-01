@@ -19,11 +19,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: **HOST / DISPATCHER / INTEGRATOR**
 - Host_ID: `GPT-MMIM-260920-A`
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
-- Active_RUN: preparing `A09R1`.
+- Active_RUN: `A09R1` = READY_TO_RUN.
 - Reserved_Targets: Host giữ `ban-duyet.html#matrix-view-formula`; A09R1 chỉ HPML VPS source + lane-a ledger.
-- Base_Target_Version: A09 KQ source/dirty evidence + prompt mới pending gate.
+- Base_Target_Version: prompt SHA `5c72ff994d5354c9462060a1043d4d859b23ee357eabdd708d8a2fefe04f9b27`; READY base `a3e422ed434704a1415446386311fe0e86f53410`.
 - NOW: tiếp tục tab-stability với ngoại lệ dirty hẹp; không chạm web-rp-current.
-- NEXT: gate + READY A09R1; nghiệm thu T1–T4 trước khi tiếp tục định nghĩa.
+- NEXT: nghiệm thu T1–T4 trước khi tiếp tục định nghĩa.
 - BLOCKED_BY: none.
 - State: ACTIVE.
 - LAST_SYNC: D76–D77.
@@ -43,13 +43,13 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-A
 - Role: **EXECUTOR**
 - Write_Zone: root ui audit metadata + `lane-a/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-A09R1-20261001-01` = PREPARED.
+- Active_RUN: `MMIM-LANE-A09R1-20261001-01` = READY_TO_RUN.
 - Reserved_Targets: VPS `/opt/incomex/docker/nuxt-repo/scripts/hvu-b2/` + lane-a/COLLAB; `web-rp-current` và `ban-duyet.html` FORBIDDEN.
-- Base_Target_Version: A09 evidence; prompt to be gated.
+- Base_Target_Version: prompt SHA `5c72ff994d5354c9462060a1043d4d859b23ee357eabdd708d8a2fefe04f9b27`; READY base `a3e422ed434704a1415446386311fe0e86f53410`.
 - NOW: chứng minh dependency closure loại web-rp-current, rồi mới patch reload/tab nếu PASS.
 - NEXT: KQ A09R1.
 - BLOCKED_BY: DIRTY_DEPENDENCY_UNPROVEN nếu submodule có liên quan build/deploy.
-- State: PREPARED.
+- State: READY_TO_RUN.
 - LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-B

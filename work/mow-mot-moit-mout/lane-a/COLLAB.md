@@ -193,4 +193,6 @@ git diff -- web-rp-current
 **Files sửa:** chỉ append STARTED/KQ/COORD/evidence vào lane-a/COLLAB qua workspace; runtime, bundle và ban-duyet.html không sửa. Không ghi PG/Directus, không tạo file/task/RUN.
 
 **Một việc tiếp theo cho Host:** xử lý thay đổi ngoài RUN tại web-rp-current, hoặc phát PROMPT/READY mới quy định rõ ngoại lệ dirty gate. Executor không tự quyết ngoại lệ. Dừng chờ Owner/Host.
+- A09R1 HOST GATE · PASS · PROCESS=`CHUNG.APQUYTRINH` · prompt=`5c72ff994d5354c9462060a1043d4d859b23ee357eabdd708d8a2fefe04f9b27`.
+- READY@a3e422ed434704a1415446386311fe0e86f53410 · RUN_ID `MMIM-LANE-A09R1-20261001-01`.
 
