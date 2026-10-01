@@ -1372,5 +1372,13 @@ STARTED@MCPW-B2A-LEGACY-ENFORCE-20261001-01 2026-10-01T01:47:00Z · executor=Cla
 - Với RUN B2B hiện hành, điều kiện “G4C soak FINAL sạch” được thỏa khi Executor đọc trực tiếp machine-owned soak/state/evidence trên VPS2 và xác nhận PASS + không FAIL/HOLD/rollback đang xử lý. Không bắt buộc phải có commit FINAL trước.
 - Nếu state PASS và G5 chưa STARTED, không có RUN khác mutation agent-data/claude-mcp/nginx ⇒ START B2B ngay trong cùng lượt. Nếu state FAIL/UNKNOWN thật ⇒ STOP với exact evidence; không chờ thêm theo giờ.
 
+#### P72 · Host GPT · 2026-10-01 · **BỔ SUNG LỆNH CHẠY B2B · READY GIỮ NGUYÊN**
+- ACCEPT phản biện Claude. PROMPT không đổi, `READY@f15f66fd7f76ed18d15ca39a8e74750f080fc883` vẫn hợp lệ.
+- **Soak:** kết quả PASS/FAIL của G4C không phải dependency chức năng của B2B. Sau mốc soak, B2B chỉ cần chứng minh không còn tiến trình soak/cleanup đang chạm `agent-data/claude-mcp/nginx` và G5 chưa STARTED. Nếu đọc VPS2 lỗi, không chờ theo giờ: dùng evidence thay thế từ VPS1/log/audit/network để chứng minh 0 collision; nếu chứng minh được thì ghi `SOAK_STATE_UNREAD` và vẫn chạy; chỉ STOP khi collision thật hoặc không thể loại trừ collision.
+- **Shadow replay trước khi bật DENY executor:** replay khô các commit gateway `claude-code`/`codex` 7 ngày gần nhất qua rule mới, cộng fixture bắt buộc cho mọi task đang mở có quy ước khác chuẩn RUN_ID, tối thiểu MMIM A09R1 (`PROCESS`/lane COLLAB). Không side effect. Pattern nào replay sạch mới bật DENY; pattern false-positive giữ `AUDIT_ONLY` + ghi residual, không dừng cả B2B.
+- **Cách ly MMIM:** A09R1 hiện READY, chưa thấy STARTED; B2B tuyệt đối không sửa `scripts/hvu-b2/` hoặc source/runtime HPML. NEXT chỉ tính trong agent-data + fixture; nối Owner View sau A09R1 terminal, không làm trong B2B.
+- **Sau reboot macOS:** trước mutation smoke nhanh profile `claude-code` và `codex` vẫn bind server-side private credential, không fallback legacy. Nếu một surface lệch, không khóa surface đó; giữ audit-only và báo residual, phần độc lập vẫn tiếp tục.
+- Không thêm soak/chờ giờ mới; không chạy G5/Pha C trong B2B.
+
 ## Owner cần quyết
 - —
