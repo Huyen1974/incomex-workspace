@@ -12,6 +12,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - **Lời Owner 01/10 16:53 (sửa lỗi gõ):** “Mục tiêu rất đơn giản, không có ông nào làm chui được ở đấy cả. Chỉ có từng đó ông hữu hạn ⇒ vào làm việc là hệ thống nhận ra và ghi lại.” · “Cưỡng chế, tức là hệ thống tự bắt được vấn đề hoặc có thể nhắc agent tuân thủ đúng.” · Hermes: “tạm thời chưa đáng tin cậy ⇒ công tắc bằng tay trên Telegram; sau này quy trình chạy ổn thì đấu lại cho tự động.”
 
 ### 2. Thế nào là hoàn thành
+- **Owner 01/10 (O-MCPW-CLOSE):** đóng MCPW khi đạt 4 việc ở §0.3. Phần tự tính NEXT của (3) và lease của (4) chuyển sang roadmap, chỉ làm khi Owner duyệt.
 1. **Mọi AI/Agent kết nối vào workspace qua các cổng đã thiết kế và bắt buộc để lại dấu vết.** VPS/Owner View phải nhận biết được AI nào đến lượt, AI nào đang làm, AI nào đã làm xong; không còn đường tắt ghi repo hoặc làm việc ngoài cơ chế theo dõi đã duyệt.
 2. **Có lớp tương tác/read-serving an toàn trên VPS để giảm phụ thuộc vào GitHub khi tải tương tác tăng, nhưng GitHub vẫn là SSOT và write authority.** Khi bản VPS chưa phải bản mới nhất, AI/Agent phải nhận biết rõ trạng thái đó, được phép xử lý tiếp trên last-good khi phù hợp nhưng mang `freshness debt`/`recheck_required` và tự kiểm tra/refresh lại trước kết luận hay hành động cần HEAD hiện thời.
 3. **Hệ thống có cơ chế tự đẩy/tín hiệu công việc cho Agent khi kênh đó hỗ trợ** (hiện Hermes; về sau có thể mở rộng cho Claude Code `-p`, Codex Desktop hoặc Agent khác), để tiến dần tới quy trình giao việc có trật tự và tự động hoá từng phần. Việc tự động hoá phải theo vai trò/quyền đã chốt; mục tiêu trước mắt là giảm thao tác tay từng phần, sau đó mới nâng dần mức tự động hoá.
@@ -47,14 +48,14 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - R5 thử thật: vào làm · làm qua SSH · quên báo cáo · tắt ngang · 2 phiên cùng việc · Hermes ghi ý kiến · đổi config Hermes trên bản thử.
 - R4 có thể cần Owner gõ mật khẩu Mac 1 lần (cấu hình quản trị cho hook).
 
-**Luật giữ cứng:** NEXT · lease · REST · Directus · `vps1-up-grade` không phải cổng của 4 việc. Không thêm cổng chờ giờ. Phần nào kẹt (vd hook Codex thiếu theo version) ⇒ ghi residual + vẫn báo vàng, phần còn lại chạy tiếp. Ý mới ⇒ ghi “Để sau”, Owner quyết.
+**Luật giữ cứng:** NEXT · lease · REST · Directus · `vps1-up-grade` không phải cổng của 4 việc. Không thêm cổng chờ giờ. Phần nào kẹt (vd hook Codex thiếu theo version) ⇒ ghi residual + vẫn báo vàng, phần còn lại chạy tiếp. Ý mới ⇒ ghi vào roadmap, Owner quyết.
 
-**🗺 ROADMAP SAU KHI BẮT ĐƯỢC TỪNG AI — KHÔNG LÀM TRONG RUN HIỆN TẠI**
+**🗺 ROADMAP LỚN — RUN hiện tại chỉ làm bước 1; bước 2–3 Owner duyệt mới mở**
 1. **Bước hiện tại — Bắt được AI:** biết đúng ai vào làm · việc nào · bắt đầu lúc nào · còn hoạt động không · kết thúc/bỏ quên/mất tín hiệu thế nào. Đây là điều kiện phải xong trước.
 2. **Bước kế tiếp — Bảng giao việc / Quy trình công việc:** tạo một bảng chung để mỗi AI khi vào hệ thống đọc là biết **mình được giao việc gì · vai trò gì · đang ở bước nào · cần làm tiếp gì · phụ thuộc ai/cái gì · khi xong bàn giao cho ai**. Host/Owner giao việc vào một nguồn; AI đọc cùng nguồn đó, không suy từ chat rời rạc. Đây là nền cho điều phối nhiều AI có trật tự.
 3. **Sau nữa — Tự động hoá dần:** Hermes/Agent có thể tự nhận hoặc được đánh thức từ Bảng giao việc; rồi mới tính NEXT tự động và scoped lease chống ghi chồng nếu Owner duyệt.
 
-**⚪ Để sau, Owner duyệt mới làm:** Bảng giao việc/Quy trình công việc · Hermes tự động (khi quy trình ổn) · NEXT tự động · scoped lease chống ghi chồng · khoá REST/Directus.
+**⚪ Ngoài roadmap, Owner quyết riêng:** khoá REST/Directus.
 **Luật nghiệm thu:** N9 (E1–E6), ở Vòng trước.
 
 ### Vòng trước
