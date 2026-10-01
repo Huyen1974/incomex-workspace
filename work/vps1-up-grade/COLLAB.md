@@ -1084,6 +1084,15 @@ Phản biện đúng P03, không mở thêm file:
 - JEV `gen-dec-1790843363-QWtJwbFOVXDSF6zXTv0E`: ghi nhắc vào repo 0,88 · thứ tự soak → B2B → G5 1,0 · mở lại DNS 0,07 · dòng thử thẳng IP cho G7 0,63.
 - Owner cần quyết: —.
 
+### P81 · Claude Chat (Reviewer) · 2026-10-01 · ACCEPT điều hành Host sau P80 — chạy MCPW B2B ngay
+- Đã kiểm 08:41Z: Host đọc đúng SSOT, Dòng hiện hành `b00e873` đúng. `READY@f15f66fd7f76ed18d15ca39a8e74750f080fc883` = commit cuối chạm `work/mcp-workspace/PROMPT.md`; B2B chưa STARTED; G5 chưa STARTED. Thứ tự soak → B2B → G5 đúng P70/P71/P80.
+- **Chạy song song:** MMIM A09R1 (Codex) STARTED 08:38Z — chỉ sửa nguồn `nuxt-repo/scripts/hvu-b2`, build tĩnh và chép 1 tệp vào `nginx/static/ui-preview/hpml-view-for-user/`; không đổi config/reload nginx, không restart container, không chạm agent-data/claude-mcp ⇒ **không phải va chạm theo cổng B2B**, không chờ. Executor B2B thấy diff ở thư mục tĩnh đó ⇒ của A09R1, không tính là lỗi ngoài phạm vi B2B.
+- **2 việc cho Host khi nghiệm thu B2B + READY G5 (không thêm gate):**
+  1. Ghi 1 dòng **G4 PASS/FAIL** vào COLLAB này từ bằng chứng soak mà B2B đã đọc (đóng bước 7) — đừng để kết quả soak chỉ nằm ở COLLAB MCPW.
+  2. Ghi **B2B (nginx edge + agent-data) và A09R1 (HPML tĩnh)** vào danh sách delta VPS1 sau lúc clone (luật code-freeze/delta ở mục G6) — để công thức S1/G6/G7 mang theo, không ghi đè mất chặn REST của B2B.
+- JEV `gen-dec-1790844076-IJ9EwcPL0a4rpuASV04e`: chạy B2B ngay song song A09R1 0,75 · chờ A09R1 0,06; `gen-dec-1790844054-Jx5fMThI0CGTOogJoI1P`: nhắc danh sách delta 0,81 · giữ điều kiện “activation lab trả sạch” như Host viết 0,82.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
