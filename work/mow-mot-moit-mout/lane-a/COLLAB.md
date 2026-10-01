@@ -140,3 +140,5 @@ COORD · NOW=DỪNG · NEXT=HOST_EXPOSE_SOURCE · BLOCKED_BY=chưa đọc đư�
 A08 chỉ append STARTED/KQ/COORD vào lane-a/COLLAB; không patch runtime, không sửa ban-duyet.html, không tạo file hoặc RUN mới. Trình duyệt đã trả về Master Home; dừng chờ Host/Owner. Áp: SAME_COMMIT.
 - A09 HOST GATE · PASS · PROCESS=`CHUNG.APQUYTRINH` · prompt=`8ab085199203fcd8eeaff04dd918480cbf8cb77ba4469c3dadc9d151148d62e8`.
 - READY@384e4ea59aec8e5fa0869e3fdcd3307cbc852950 · RUN_ID `MMIM-LANE-A09-20261001-01`.
+
+STARTED@MMIM-LANE-A09-20261001-01 2026-10-01T07:33:00Z · executor=Codex
