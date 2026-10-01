@@ -1,12 +1,12 @@
 # PROMPT — VPSUP G5 ROLLBACK REHEARSAL · stepwise rollback on VPS2
 
 RUN_ID: VPSUP-G5-ROLLBACK-REHEARSAL-20261001-01
-STATUS: **DRAFT — CHƯA READY/RUN. Chỉ READY khi G4C soak FINAL=PASS và activation lab đã release sạch.**
+STATUS: **DRAFT — CHƯA READY/RUN. Chỉ READY khi Host đã ghi dòng `G4 PASS` trong COLLAB (PASS có disposition được tính — P84) và activation lab đã release sạch.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **workspace_* / Incomex VPS MCP → incomex-workspace/main** (sau MCPW identity cutover; dùng actor `claude-code`).
 Runtime_Write_Path: **VPS2 LAB ONLY. VPS1 production = READ-ONLY.** Không DNS/GSM mutation.
-Đầu vào: G4C KQ `85b188d8…` CORE_PASS + soak FINAL khi hoàn tất; checkpoint A; DOT candidate UUID normalize; lane-C Nuxt4 patch; exact image digests.
+Đầu vào: G4C KQ `85b188d8…` CORE_PASS + `soak/FINAL` (08:08Z, VERDICT=FAIL 2/8 đã có disposition P82/P84) + dòng Host `G4 PASS`; checkpoint A; DOT candidate UUID normalize; lane-C Nuxt4 patch; exact image digests.
 
 ## G5.0 · Mục tiêu
 Chứng minh **rollback thật** trước khi mở G6 cutover rehearsal, theo mô hình 2 tầng để giảm downtime:
@@ -17,15 +17,13 @@ Chứng minh **rollback thật** trước khi mở G6 cutover rehearsal, theo m�
 Nếu S2 fail **trước khi unfreeze write**, rollback = trả activation nếu đã dùng → stop S2 → restore checkpoint pre-S2 → boot Directus11/Nuxt3 trên S1 → SAME SLICE CURRENT PASS. Không có business write mới sau freeze nên không mất dữ liệu.
 
 ## G5.1 · Gate/PRE
-READY chỉ hợp lệ khi file machine-owned soak G4C `soak/FINAL` xác nhận:
-- ≥6h đủ thời lượng;
-- 5xx+neterr ≤0.5%; 0 restart/OOM; Nuxt heap slope ≤5 MB/h;
-- license active trong soak;
-- cuối soak deactivation thành công, activation slot giảm; TARGET stopped; egress đóng; secret-bearing working DB được cleanup theo P71/P72;
-- checkpoint A + G2 artifacts bất biến.
-Nếu `LICENSE_RELEASE_FAILED` hoặc soak FAIL ⇒ không chạy G5; Host xử lý đúng blocker, không tự repair.
+READY chỉ hợp lệ khi COLLAB có dòng Host `G4 PASS` (PASS có disposition được tính). Soak G4C đã kết thúc: `soak/FINAL` = `VERDICT=FAIL` chỉ ở 2 tiêu chí đã có disposition (P82/P84) — (1) thời lượng tính 5,99994h là lỗi công thức, vòng thật 21649s; (2) 1/12 lượt kiểm license trả `503 Under pressure`, lượt trước/sau và lúc trả đều active. **Executor không dừng vì chữ `VERDICT=FAIL` này và không chạy lại soak.** Chỉ dừng khi:
+- `soak/FINAL` khác mô tả trên (thêm tiêu chí trượt, hoặc 6 tiêu chí còn lại không còn đạt: 5xx+neterr ≤0.5% · 0 restart/OOM · Nuxt heap slope ≤5 MB/h);
+- `LICENSE_RELEASE_FAILED`, activation slot chưa trả, TARGET còn chạy, egress còn mở, hoặc working DB chứa secret chưa cleanup theo P71/P72;
+- checkpoint A + G2 artifacts không còn bất biến.
+Gặp một trong các điều trên ⇒ không chạy G5; Host xử lý đúng blocker, không tự repair.
 
-Đọc AGENTS → COLLAB §0 + KQ G4C/P75–P77 → PROMPT này → G4C `INDEX.md` + `soak/FINAL`. Ghi STARTED theo DROOT31; DROOT30 trước first VPS2 mutation.
+Đọc AGENTS → COLLAB §0 (Đường ray) + KQ G4C/P75–P84 + dòng Host `G4 PASS` → PROMPT này → G4C `INDEX.md` + `soak/FINAL`. Ghi STARTED theo DROOT31; DROOT30 trước first VPS2 mutation.
 
 Snapshot VPS1 read-only: exact CURRENT images/config/source + latest MCP/agent-data state sau B2A; G5 không chạm VPS1.
 
@@ -89,7 +87,7 @@ KQ executor hợp lệ:
 - hoặc cùng `ADMIN_UI_UNVERIFIED` nếu chỉ browser local không khả thi nhưng API/assets PASS;
 - hoặc `DỪNG · <exact blocker>`.
 
-Báo: S1 baseline; forward timings (UUID/migrate/license/Nuxt); rollback timings; activation-failure path; final CURRENT hash/SAME SLICE; activation slot before/after; login/admin result; latest agent-data/MCP consumer snapshot; `FRONTEND_ONLY_ROLLBACK`; dữ liệu cho chính sách sau unfreeze (bảng nào nhận ghi nghiệp vụ trong vận hành thường, cách xuất phần ghi mới nếu phải restore) — Host chốt chính sách, executor không tự quyết.
+Báo: S1 baseline; forward timings (UUID/migrate/license/Nuxt); rollback timings; activation-failure path; final CURRENT hash/SAME SLICE; activation slot before/after; login/admin result; latest agent-data/MCP consumer snapshot; `FRONTEND_ONLY_ROLLBACK`; pressure/503 (P82): cấu hình bộ giới hạn tải Directus 12 (`PRESSURE_LIMITER_*`) so với CURRENT + RAM/CPU/event-loop lab trong lúc chạy — chỉ ghi số, không thêm cổng; dữ liệu cho chính sách sau unfreeze (bảng nào nhận ghi nghiệp vụ trong vận hành thường, cách xuất phần ghi mới nếu phải restore) — Host chốt chính sách, executor không tự quyết.
 
 Executor không tự ghi G5 PASS, không chạy G6/G7/DNS.
 
