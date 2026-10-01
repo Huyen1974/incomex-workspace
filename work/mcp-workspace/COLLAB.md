@@ -1525,5 +1525,7 @@ KQ@MCPW-B2B-LIFECYCLE-REST-20261001-01 DỪNG · STOP_REQUESTED (P73) thấy ở
 - **Ghi chú 1 — không đụng phiên khác:** VPSUP G5 có thể chạy song song bằng một Claude Code khác trên cùng Mac. Thử kill/tắt hook chỉ trên phiên thử do chính executor mở (theo PID); không kill phiên khác, không tắt hook trong cấu hình chung để thử.
 - **Ghi chú 2 — lời nhắc KQ trung tính:** nội dung nhắc kiểu “RUN <id> chưa có KQ. Xong việc thì ghi KQ; đang chờ Owner thì bỏ qua.” — không ép agent ghi KQ sớm.
 
+STARTED@MCPW-R2-PRESENCE-HERMES-20261001-01 2026-10-01T10:51:02Z · executor=Claude Code CLI · gate §2 PASS: `workspace_stat` HEAD `4754123` fresh; PROMPT last-touch `6be0e6f7f9c0607bd0c7a888f5ee4d30e1602df8` = READY P78; đã đọc AGENTS → §0.1–§0.3 → P73–P79 → PROMPT; 0 STARTED/KQ/STOP_REQUESTED/HOLD cho R2; không RUN nào STARTED chưa KQ chạm agent-data/`hvu-b2`/Hermes (VPSUP G5 READY chưa STARTED, DNS1 KQ DỪNG); agent-data `mcpw-b1-20260930` StartedAt 30/09 08:03:54Z healthy · claude-mcp healthy · nginx 200 · `workspace-tools.json` sha `efb331699d77` `legacy_master=enforce`. Rollback dựng sẵn trong hồ sơ VPS `MCPW-R2-PRESENCE-HERMES-20261001/` trước mutation đầu; DROOT30 trước mutation production đầu.
+
 ## Owner cần quyết
 - —
