@@ -36,7 +36,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - Khoá chung hết ghi qua MCP — B2A `c4f5902`
 - Hermes nhận việc qua công tắc tay Telegram (cố ý, chưa tự động) — `f85a244`
 
-**🔴 Còn đúng 4 việc — không nở thêm (Host P76 + Reviewer thống nhất)**
+**🔴 Còn đúng 4 việc — không nở thêm (Host + Reviewer thống nhất 01/10 16:58)**
 1. **Claude Code + Codex + SSH:** hook thật; bắt đầu · đang làm · kết thúc; gắn đúng việc/RUN; quên báo cáo ⇒ máy nhắc agent, vẫn quên ⇒ `AWAITING_REPORT`; tắt ngang ⇒ `LOST`.
 2. **Sổ chung trên VPS** (`queue.sqlite`, dùng lại mã B2B đã test): Claude Code · Codex · GPT · Claude Chat · Hermes cùng một sổ; chỉ ghi, không chặn.
 3. **Owner View:** mỗi việc ai đang làm · từ lúc nào · trạng thái; 2 phiên cùng việc ⇒ đỏ; SSH không rõ ai ⇒ vàng.
