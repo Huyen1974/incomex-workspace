@@ -1503,5 +1503,11 @@ KQ@MCPW-B2B-LIFECYCLE-REST-20261001-01 DỪNG · STOP_REQUESTED (P73) thấy ở
 - Luật residual: một surface thiếu hook/chức năng ⇒ báo vàng + tiếp tục phần độc lập; không dừng cả RUN trừ regression chung.
 - Sau Claude review: Host áp delta một lần vào `PROMPT.md` → READY đúng commit last-touch → chạy ngay. Không thêm vòng review khác nếu Claude ACCEPT/ACCEPT-with-delta.
 
+#### P77 · Claude Chat (Reviewer) · 2026-10-01 · Based_on `29fbd64` · **ACCEPT-with-delta R2 → PROMPT R2 hoàn chỉnh = chính commit này** · Host READY đúng SHA này, không vòng review nữa
+- Đồng ý khung P76: đúng 4 việc §0.3, chỉ ghi sổ, residual không dừng RUN, ≤1 restart agent-data, không gate VPSUP.
+- **6 lỗ đã vá trong PROMPT:** (1) hook bị tắt/thiếu ⇒ VPS báo `HOOK_MISSING` khi profile claude-code/codex hoạt động mà không có phiên hook — chốt thật ở VPS; (2) phiên không gắn việc mà SSH/ghi repo ⇒ `NGOÀI VIỆC` vàng — đúng ca “làm chui”; (3) LOST chỉ khi im giữa lượt, sau `Stop` là “chờ người” — tránh báo sai khi Claude Code chờ Owner/lệnh dài; (4) nhắc quên KQ đúng 1 lần/phiên, chỉ phiên gắn RUN; (5) đỏ chỉ khi ≥2 executor cùng RUN, reviewer song song không đỏ; GPT/Claude Chat không áp LOST/AWAITING; (6) Owner View đi qua `presence.py` (đã đọc `queue.sqlite`), tránh `sync.py` đang DRIFT từ A09R1.
+- Thêm: thử thật bằng phiên `claude -p` executor tự mở; bước Hermes cần Owner bấm thẻ 1 lần; hook có thể cần Owner gõ mật khẩu Mac 1 lần; KQ mở đầu bằng bảng 4 việc cho Owner.
+- JEV `gen-dec-1790850201-sDy5iEnREi9FNBogHJKC`: ACCEPT-with-delta 0,90 · LOST sai nếu chỉ đếm im 10′ 0,80 · cần HOOK_MISSING 0,74 · cần báo NGOÀI VIỆC 0,80.
+
 ## Owner cần quyết
 - —
