@@ -1240,6 +1240,8 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 
 - D98 · 2026-10-01 · **A09 GATE PASS, READY:** PROCESS=`CHUNG.APQUYTRINH`; prompt SHA `8ab085199203fcd8eeaff04dd918480cbf8cb77ba4469c3dadc9d151148d62e8`; gate PASS trên commit `384e4ea59aec8e5fa0869e3fdcd3307cbc852950`. A09 được giao cho coder có quyền VPS đọc/ghi đúng SSOT `/opt/incomex/docker/nuxt-repo/scripts/hvu-b2/`; acceptance bắt buộc: unrelated revision không remount, real document change reload đúng một lần, section/tab hiện tại được giữ, poll/stale/rollback không hỏng.
 
+- D99 · 2026-10-01 · **A09 DỪNG ĐÚNG DIRTY-GATE; HOST CHỐT NGOẠI LỆ HẸP A09R1:** A09 xác minh source HPML thật tại VPS, target `scripts/hvu-b2` sạch; blocker duy nhất là submodule `web-rp-current` dirty ngoài RUN. Không reset/dọn/commit thay đổi đó. A09R1 chỉ được bỏ qua dirty nếu chứng minh `web-rp-current` hoàn toàn ngoài dependency/build/deploy closure của HPML và không có dirty nào trong target closure. Nếu không chứng minh được thì DỪNG. Mục tiêu patch giữ nguyên: global revision đổi không remount document; document đổi thật reload đúng một lần; section/tab con được giữ.
+
 ## Dòng hiện hành
 MMIM | STEP2_UI001_COPY · 28/09/2026 | Tab ★ Step quy trình 2 ở `ban-duyet.html`: phần I dùng bản sao khung UI-001 Nháp 2 từ VPS, CSS/JS vẫn trỏ nguồn gốc theo D87; không có bảng tự dựng. Bước chi tiết chờ Owner. A01 đã XONG; A06/B04/C03/D01/E01 tiếp tục HOLD theo D81.
 
