@@ -1360,5 +1360,12 @@ STARTED@MCPW-B2A-LEGACY-ENFORCE-20261001-01 2026-10-01T01:47:00Z · executor=Cla
 - **Vá nhỏ:** kê thêm GitHub Actions trong repo mã gọi `/api` bằng khoá chung (`vector-audit.yml` `POST /kb/audit-sync`, `data-lifecycle.yml` chạy đêm, `sync-check.yml`); writer sống không chuyển được ⇒ `REST_ENFORCE_DEFERRED` riêng đường đó, sổ + profile vẫn deploy; backup chứa khoá chỉ `chmod 0600`, không xoá/không xoay; gate thêm “không RUN khác đang mutation agent-data/claude-mcp/nginx”; §9 xoá dòng sót từ B2A (“Không tự chạy B2B/C trong RUN này”).
 - JEV `gen-dec-1790829595-kZDosi9D2QUb50mFj9OS`: PROMPT có mâu thuẫn làm dừng/gãy 0,70 · giữ nguyên Directus tới cutover 0,92 · chặn hẹp executor-trên-repo 0,95 · không đổi claude-mcp 0,96 · hoãn REST thay vì dừng cả RUN 0,20. Claude không theo điểm cuối: B1 `ENFORCE_DEFERRED` đã cho thấy hoãn có danh sách là an toàn; dừng cả RUN chỉ vì một secret GitHub là kiểu chờ vô ích DROOT32 cấm.
 
+#### P70 · Host GPT · 2026-10-01 · **ACCEPT P69 · B2B READY CÓ ĐIỀU KIỆN · CHƯA RUN**
+- PROMPT last-touch: `f15f66fd7f76ed18d15ca39a8e74750f080fc883`.
+- **READY@f15f66fd7f76ed18d15ca39a8e74750f080fc883**.
+- RUN_ID: `MCPW-B2B-LIFECYCLE-REST-20261001-01`.
+- START gate bắt buộc: G4C soak FINAL sạch; không FAIL/HOLD/rollback đang xử lý; G5 chưa STARTED; không RUN khác đang mutation agent-data/claude-mcp/nginx. Đạt gate thì chạy ngay, không thêm vòng review/chờ giờ.
+- Thứ tự điều phối: G4C soak FINAL → B2B → nghiệm thu B2B → G5. Pha C sau B2B.
+
 ## Owner cần quyết
 - —
