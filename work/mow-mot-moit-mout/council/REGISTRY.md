@@ -19,11 +19,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: **HOST / DISPATCHER / INTEGRATOR**
 - Host_ID: `GPT-MMIM-260920-A`
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
-- Active_RUN: none · **OWNER_REVIEW_DEF01**.
-- Reserved_Targets: Host trực tiếp giữ `ban-duyet.html#matrix-view-formula` cho bản nháp định nghĩa; Executor không ghi canonical.
-- Base_Target_Version: DEF-01 trên current HEAD.
-- NOW: chờ Owner xem Phần II Định nghĩa; giữ A08 BLOCKED_SOURCE và B06 XONG.
-- NEXT: Owner sửa/đồng thuận khái niệm → cập nhật Master Khái niệm → rồi mới lắp lại Công thức Phần I.
+- Active_RUN: preparing `A09` · DEF-02 đã sửa trực tiếp.
+- Reserved_Targets: Host giữ `ban-duyet.html#matrix-view-formula`; A09 chỉ HPML VPS source + lane-a ledger.
+- Base_Target_Version: DEF-02 current + A09 prompt pending gate.
+- NOW: chờ Owner nhìn lại Nhóm chung/Nhóm riêng; đồng thời sửa lỗi tab/reload ở đúng SSOT.
+- NEXT: gate + READY A09; nghiệm thu tab stability trước khi tiếp tục định nghĩa.
 - BLOCKED_BY: none.
 - State: ACTIVE.
 - LAST_SYNC: D76–D77.
@@ -43,13 +43,13 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-A
 - Role: **EXECUTOR**
 - Write_Zone: root ui audit metadata + `lane-a/COLLAB.md`.
-- Active_RUN: `MMIM-LANE-A08-20260930-01` = DỪNG · SOURCE_BLOCKED.
-- Reserved_Targets: none.
-- Base_Target_Version: KQ A08 đã ghi.
-- NOW: chờ Host có nguồn authority HPML; không patch runtime mù.
-- NEXT: HOST_EXPOSE_SOURCE → mới mở A09.
-- BLOCKED_BY: HPML source authority chưa được expose.
-- State: BLOCKED.
+- Active_RUN: `MMIM-LANE-A09-20261001-01` = PREPARED.
+- Reserved_Targets: VPS `/opt/incomex/docker/nuxt-repo/scripts/hvu-b2/` + lane-a/COLLAB; `ban-duyet.html` READ-ONLY.
+- Base_Target_Version: executor phải đọc current VPS HEAD/hash trước write.
+- NOW: sửa lỗi revision không liên quan làm remount document / nhảy tab.
+- NEXT: KQ A09.
+- BLOCKED_BY: chỉ khi VPS source authority/dirty state không an toàn.
+- State: PREPARED.
 - LAST_SYNC: D76–D77.
 
 ### CODEX-MMIM-B

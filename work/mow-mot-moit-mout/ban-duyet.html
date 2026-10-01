@@ -597,9 +597,13 @@
 #matrix-view-formula .cf-tier-strip b{margin-right:4px;color:#1f6a42}
 #matrix-view-formula .cf-def-note{font-size:11.5px;color:var(--mut);margin:5px 0 0}
 #matrix-view-formula .cf-def-sub{font-size:14px;margin:18px 0 8px}
-#matrix-view-formula .cf-def-map{display:grid;grid-template-columns:minmax(150px,.7fr) auto minmax(210px,1.2fr) auto minmax(190px,1fr);gap:8px;align-items:center}
-#matrix-view-formula .cf-def-node{border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:#fff}
+#matrix-view-formula .cf-def-map{display:grid;gap:8px}
+#matrix-view-formula .cf-def-route{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#matrix-view-formula .cf-def-route.alt{padding-top:8px;border-top:1px dashed var(--line)}
+#matrix-view-formula .cf-def-node{border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:#fff;min-width:150px}
 #matrix-view-formula .cf-def-node.group{border-left:5px solid #4f7ac9;background:#f4f7fd}
+#matrix-view-formula .cf-def-node.group-specific{border-left:5px solid #7b61b8;background:#f7f4fd}
+#matrix-view-formula .cf-def-node.config{border-left:5px solid #7b61b8;background:#faf7fd}
 #matrix-view-formula .cf-def-node.object{border-left:5px solid #2c9254;background:#f3faf5}
 #matrix-view-formula .cf-def-node.record{border-left:5px solid #d59c12;background:#fff9ea}
 #matrix-view-formula .cf-def-node small{display:block;color:var(--mut);font-size:11px;margin-top:3px}
@@ -613,7 +617,7 @@
 #matrix-view-formula .cf-def-table{min-width:820px;font-size:12px;margin:0}
 #matrix-view-formula .cf-def-table th,#matrix-view-formula .cf-def-table td{padding:6px 7px}
 #matrix-view-formula .cf-def-table td:first-child{white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#476052}
-@media(max-width:700px){#matrix-view-formula .cf-def-map{grid-template-columns:1fr}#matrix-view-formula .cf-def-arrow{transform:rotate(90deg)}}
+@media(max-width:700px){#matrix-view-formula .cf-def-route{display:grid;grid-template-columns:1fr}#matrix-view-formula .cf-def-arrow{transform:none;text-align:center}}
 #matrix-view-formula .cf-legacy>summary{line-height:1.5;overflow-wrap:anywhere}
 #matrix-view-formula .cf-legacy>summary small{display:block;font-weight:400;margin-top:3px}
 #matrix-view-formula .cf-legacy-note{font-size:12px;color:var(--mut);line-height:1.5}
@@ -645,12 +649,25 @@
 </div>
 
 <h4 class="cf-def-sub">Bản đồ khái niệm lõi</h4>
-<div class="cf-def-map" aria-label="Nhóm đến Đối tượng đến Bản ghi">
-  <div class="cf-def-node group"><b>NHÓM</b><small>chuẩn dùng lại</small></div>
-  <span class="cf-def-arrow">→</span>
-  <div class="cf-def-node object"><b>ĐỐI TƯỢNG / ĐỊNH NGHĨA</b><small>MOW · MOT · MOIT · MOUT · Field</small></div>
-  <span class="cf-def-arrow">→</span>
-  <div class="cf-def-node record"><b>BẢN GHI THỰC TẾ</b><small>một case / đơn hàng / giá trị cụ thể</small></div>
+<div class="cf-def-map" aria-label="Nhóm chung sinh Nhóm riêng; nếu không cần Nhóm riêng thì cấu hình trực tiếp">
+  <div class="cf-def-route">
+    <div class="cf-def-node group"><b>NHÓM CHUNG</b><small>khuôn chuẩn · như UI cha</small></div>
+    <span class="cf-def-arrow">→ sinh →</span>
+    <div class="cf-def-node group-specific"><b>NHÓM RIÊNG</b><small>chuyên môn hóa · như UI con</small></div>
+    <span class="cf-def-arrow">→</span>
+    <div class="cf-def-node object"><b>ĐỐI TƯỢNG / ĐỊNH NGHĨA</b><small>MOW · MOT · MOIT · MOUT · Field</small></div>
+    <span class="cf-def-arrow">→</span>
+    <div class="cf-def-node record"><b>BẢN GHI THỰC TẾ</b><small>một case / đơn hàng / giá trị cụ thể</small></div>
+  </div>
+  <div class="cf-def-route alt">
+    <div class="cf-def-node group"><b>NHÓM CHUNG</b><small>khuôn chuẩn</small></div>
+    <span class="cf-def-arrow">→ nếu không cần / không sinh được Nhóm riêng →</span>
+    <div class="cf-def-node config"><b>CONFIG TRỰC TIẾP</b><small>dùng chuẩn Nhóm chung + tham số</small></div>
+    <span class="cf-def-arrow">→</span>
+    <div class="cf-def-node object"><b>ĐỐI TƯỢNG</b><small>MOW · MOT · MOIT · MOUT · Field</small></div>
+    <span class="cf-def-arrow">→</span>
+    <div class="cf-def-node record"><b>BẢN GHI</b><small>case thực tế</small></div>
+  </div>
 </div>
 <div class="cf-def-example">
   <b>Ví dụ để không nhầm:</b>
@@ -661,12 +678,11 @@
 <div class="cf-def-rule"><b>Quy tắc Master:</b> một khái niệm có từ <b>2 đối tượng trở lên</b> → phải có <b>mã + Master List</b>. Vì hệ thống đã có nhiều khái niệm, tạm mở <code>ML-KNI</code> = <b>Master Khái niệm</b> để quản lý chính các định nghĩa này.</div>
 
 <div class="cf-def-groups">
-<details open><summary><b>A · Cấu trúc lõi</b> <small>Nhóm · Đối tượng · MOW→Field · Bản ghi</small></summary>
+<details open><summary><b>A · Cấu trúc lõi</b> <small>Nhóm chung · Nhóm riêng · Đối tượng · MOW→Field · Bản ghi</small></summary>
 <div class="cf-scroll"><table class="cf-def-table"><thead><tr><th>Mã nháp</th><th>Khái niệm</th><th>Định nghĩa ngắn</th><th>Ví dụ</th><th>Không phải</th></tr></thead><tbody>
-<tr><td>KNI-001</td><td><b>Nhóm</b></td><td>Lớp chuẩn hóa để nhiều đối tượng dùng chung quy tắc, tham số, UI, công cụ.</td><td>Nhóm chung · Nhóm riêng</td><td>Bản ghi nghiệp vụ</td></tr>
-<tr><td>KNI-002</td><td><b>Nhóm chung</b></td><td>Nhóm chuẩn dùng xuyên nhiều chuyên môn; ưu tiên hành động dùng lại.</td><td>Đề xuất tạo mới · Duyệt đề xuất tạo · Dùng</td><td>Nhóm của một chuyên môn duy nhất</td></tr>
-<tr><td>KNI-003</td><td><b>Nhóm riêng</b></td><td>Nhóm chuẩn của một chuyên môn; có thể nâng cấp từ Nhóm chung hoặc tạo riêng.</td><td>Nhóm chuẩn riêng cho nghiệp vụ tuyển dụng</td><td>Case/đơn hàng cụ thể</td></tr>
-<tr><td>KNI-004</td><td><b>Đối tượng</b></td><td>Định nghĩa/template là con của Nhóm; có mã và được quản lý để dùng lại.</td><td>MOW · MOT · MOIT · MOUT · Field</td><td>Bản ghi thực tế</td></tr>
+<tr><td>KNI-002</td><td><b>Nhóm chung</b></td><td>Khuôn chuẩn dùng xuyên nhiều chuyên môn, giống vai trò UI cha. Dùng để sinh Nhóm riêng; nếu không cần/không sinh được Nhóm riêng thì dùng chính Nhóm chung + config.</td><td>Đề xuất tạo mới · Duyệt đề xuất tạo · Dùng</td><td>Nhóm riêng · Đối tượng · Bản ghi</td></tr>
+<tr><td>KNI-003</td><td><b>Nhóm riêng</b></td><td>Khuôn chuyên môn hóa từ Nhóm chung, giống vai trò UI con; kế thừa chuẩn chung rồi bổ sung tham số/quy tắc riêng.</td><td>Nhóm chuẩn riêng của một chuyên môn</td><td>Nhóm chung · Case/đơn hàng cụ thể</td></tr>
+<tr><td>KNI-004</td><td><b>Đối tượng</b></td><td>Định nghĩa/template nằm dưới Nhóm riêng; khi không cần Nhóm riêng có thể được cấu hình trực tiếp từ Nhóm chung. Có mã và được quản lý để dùng lại.</td><td>MOW · MOT · MOIT · MOUT · Field</td><td>Nhóm chung/riêng · Bản ghi thực tế</td></tr>
 <tr><td>OBJ-MOW</td><td><b>MOW · Quy trình</b></td><td>Định nghĩa một quy trình có thể dùng lại.</td><td>Quy trình đề xuất tạo mới · Quy trình khai báo</td><td>Một lần chạy quy trình cho DH-001</td></tr>
 <tr><td>OBJ-MOT</td><td><b>MOT · Công việc</b></td><td>Định nghĩa công việc nằm trong MOW/quy trình.</td><td>Làm hồ sơ</td><td>Làm hồ sơ cho DH-001</td></tr>
 <tr><td>OBJ-MOIT</td><td><b>MOIT</b></td><td>Định nghĩa đầu vào/biểu mẫu nhập cho công việc.</td><td>Form nhập hồ sơ</td><td>Phiếu hồ sơ đã nhập của DH-001</td></tr>

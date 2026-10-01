@@ -1,65 +1,118 @@
-# PROMPT — LANE A08 · Tìm SSOT loader HPML gây reload
+# PROMPT — LANE A09 · Sửa lỗi Owner View tự reload / nhảy tab
 
-RUN_ID: MMIM-LANE-A08-20260930-01
-PROCESS: CHUNG.TIM
+RUN_ID: MMIM-LANE-A09-20261001-01
+PROCESS: CHUNG.APQUYTRINH
 STATUS: Chỉ chạy sau PROCESS_GATE PASS + READY của Host.
 
 Host: GPT Chat · Host_ID `GPT-MMIM-260920-A`
 Executor_Surface: Codex
 
-Write_Path: chỉ append KQ vào `work/mow-mot-moit-mout/lane-a/COLLAB.md`.
-Mọi source/runtime/canonical khác: **READ-ONLY**.
+## 0. Mục tiêu
+Fix triệt để lỗi Owner View:
+- đang ở tab con như `★ Công thức` thỉnh thoảng tự nhảy về `UI Master`;
+- có cảm giác document/iframe reload khi revision chung đổi;
+- giảm remount/tải lại không cần thiết nhưng vẫn nhận tài liệu mới thật.
 
-## 0. Registry / concurrency
-Đọc `../council/REGISTRY.md` READ-ONLY.
-B06 là writer duy nhất của `ban-duyet.html`.
-A08 không patch `ban-duyet.html`, không patch runtime.
+Không sửa nội dung nghiệp vụ `ban-duyet.html` trong RUN này.
 
-## 1. Bằng chứng A07 đã PROVEN
-Owner View có reload thừa khi `publishedRevision` đổi vì commit không liên quan dù bytes của tài liệu không đổi.
-Runtime đang phục vụ:
-`/ui-preview/hpml-view-for-user/view.html`
-A07 thấy logic kiểu `sync-status → publishedRevision → Y/H → iframe key/src`, nhưng chưa xác định SSOT source có quyền ghi.
+## 1. Nguồn SSOT / authority phải đọc trước
+A08 đã tìm được pointer nhưng ChatGPT connector không có quyền đọc VPS source.
+Dùng **đúng quyền VPS đã được Owner cấp sẵn**, không xin/đoán secret mới.
 
-## 2. Câu hỏi duy nhất
-**Source-of-truth nào sinh runtime loader HPML này, nằm ở đâu và đường deploy nào cập nhật nó?**
+Bắt buộc đọc tại VPS:
+- `/opt/incomex/docker/nuxt-repo/scripts/hvu-b2/README.md`
+- `/opt/incomex/docker/nuxt-repo/scripts/hvu-b2/ui/app.vue`
+- `ui/nuxt.config.ts`
+- `ui/pack.mjs`
+- source publisher/sync liên quan `documentPath/documentRevision/tasksPath/publishedRevision`
+- mapping/deploy đang phục vụ `/ui-preview/hpml-view-for-user/view.html`
 
-## 3. Tìm bằng chứng
-Read-only search:
-- workspace repo hiện tại;
-- các path/config/deploy manifest/script tham chiếu `hpml-view-for-user`, `sync-status`, `publishedRevision`, iframe key/src;
-- root ui nếu có source;
-- tài liệu deploy/README liên quan;
-- history chỉ đọc khi cần.
+Trước write ghi:
+- repo/path;
+- branch/HEAD;
+- dirty state;
+- SHA/hash từng file sẽ sửa;
+- lệnh build/deploy từ README.
 
-Không suy từ minified runtime nếu không truy được source authority.
+Nếu source/repo dirty bởi thay đổi không thuộc RUN hoặc authority không rõ → DỪNG, không vá mù.
 
-## 4. Kết quả chỉ được một trong hai
-### FOUND_SOURCE
-Ghi:
-- repo/root/path SSOT;
-- current hash/version;
-- write authority / deploy route;
-- runtime URL tương ứng;
-- bằng chứng source này thật sự sinh runtime đang phục vụ;
-- patch point tối thiểu cho A09.
+## 2. Bằng chứng đã có
+A07 PROVEN:
+- `publishedRevision` có thể đổi vì commit không liên quan;
+- document HTML của task hiện tại có thể byte-identical;
+- Owner View vẫn remount iframe → state/details/tab bị mất.
 
-### BLOCKED_SOURCE_UNAVAILABLE
-Ghi:
-- đã tìm những root/path nào;
-- runtime nào đọc được;
-- source authority nào còn thiếu;
-- cần expose/kết nối gì để Host có thể giao patch an toàn.
+A08 runtime live xác nhận logic:
+- poll sync-status khoảng 60s;
+- update tasks theo publishedRevision;
+- document src/key thay theo snapshot path/revision;
+- source mirror trong incomex-workspace chỉ tham khảo, KHÔNG deploy.
 
-## 5. Không làm
-- Không sửa runtime bundle trực tiếp.
-- Không sửa portal bằng cách tìm/replace mù.
-- Không sửa `ban-duyet.html`.
-- Không “fix” chỉ bằng bỏ iframe key nếu src vẫn đổi.
+## 3. Yêu cầu thiết kế patch
+Tách **metadata revision** khỏi **loaded document identity**.
+
+### Luật bắt buộc
+1. `publishedRevision` đổi **không đủ** để remount document.
+2. Chỉ thay iframe/document khi tài liệu của **task đang chọn** thực sự đổi.
+3. Ưu tiên identity đã có trong data contract như `documentRevision` / content hash.
+4. Nếu data contract hiện không có identity ổn định cho bytes document:
+   - bổ sung fingerprint/hash tối thiểu tại publisher;
+   - không dùng mtime/global HEAD làm proxy.
+5. Khi tài liệu thật đổi:
+   - reload đúng một lần;
+   - giữ task đang chọn;
+   - giữ section/tab con hiện tại, ví dụ `matrix-view-formula`;
+   - không rơi về `matrix-view-master`.
+6. Back/Forward/deep-link vẫn hoạt động.
+7. Poll status/presence vẫn hoạt động; không tắt cơ chế cập nhật để “hết reload”.
+
+## 4. Ca test bắt buộc
+### T1 · unrelated revision
+- đang mở task `mow-mot-moit-mout` + section `matrix-view-formula`;
+- publishedRevision đổi vì một task/file khác;
+- document content identity của MOW không đổi;
+- PASS khi iframe DOM không remount, tab vẫn Công thức, scroll/details/filter state không mất.
+
+### T2 · real document change
+- MOW document identity đổi thật;
+- PASS khi document cập nhật đúng một lần và vẫn vào section đang chọn.
+
+### T3 · navigation
+- click các tab con;
+- Back / Forward;
+- deep-link section;
+- reload chủ động;
+- không tự nhảy về UI Master ngoài trường hợp URL thật yêu cầu master.
+
+### T4 · load
+- không tăng số request/poll ngoài baseline;
+- không tạo vòng reload;
+- không làm trắng document khi sync lỗi/stale.
+
+## 5. Build / deploy / rollback
+Theo README runtime:
+`nuxt generate → node pack.mjs → .output/public/view.html → deploy mirror/runtime`
+(chỉ dùng lệnh thực tế trong README hiện hành, không tin dòng này nếu source đã đổi).
+
+Trước deploy giữ backup/hash last-good.
+Sau deploy kiểm:
+- live buildId/hash;
+- Owner URL thật;
+- console functional errors;
+- rollback command/path.
+
+Không push GitHub trực tiếp nếu runtime governance không cho phép.
 
 ## 6. KQ
-`KQ@MMIM-LANE-A08-20260930-01 XONG|DỪNG`
-`KQ@LANE-A A08 · PROCESS=CHUNG.TIM · PROCESS_GATE=PASS|BLOCK · source=FOUND|BLOCKED · runtime=/ui-preview/hpml-view-for-user/view.html · NEXT=A09_PATCH_HPML|HOST_EXPOSE_SOURCE`
-`COORD · NOW=XONG|DỪNG · NEXT=<...> · BLOCKED_BY=<...> · RESERVED_TARGETS=lane-a/COLLAB.md · LAST_SYNC=PRESERVE-01/A08`
+Ghi vào `work/mow-mot-moit-mout/lane-a/COLLAB.md` qua cổng workspace đã duyệt:
+`KQ@MMIM-LANE-A09-20261001-01 XONG|DỪNG`
+`KQ@LANE-A A09 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS|BLOCK · source=FOUND|BLOCKED · unrelated_remount=PASS|BLOCK · real_change=PASS|BLOCK · section_preserved=PASS|BLOCK · NEXT=<one thing>`
+
+Kèm:
+- source HEAD/hash;
+- files sửa;
+- build/deploy hash;
+- before/after evidence;
+- rollback.
 
 Dừng.
