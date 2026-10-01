@@ -9,6 +9,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - Nguyên văn Owner: “Đúng vậy chúng ta khóa lại để bắt buộc làm theo 1 con đường giúp tôi.”
 - Nguyên tắc áp (AGENTS A10-R2, nguyên văn Owner): “Quy định là không đủ, phải cưỡng chế. Không thể làm sai.”
 - **Nguyên văn Owner 01/10/2026 — việc còn lại của MCPW:** “Phiên này chúng ta có 1 việc là: xử lý làm sao để hệ thống bắt được ai đang làm (tránh việc như claude code đang code, thậm chí code xong mà hệ thống không bắt được) cái này là tiền đề báo cáo để tự động hoá 1 phần. Ngoài ra, các việc liên quan đến hermes hoàn tất để hermes có thể tham gia đầy đủ như 1 thành viên.”
+- **Lời Owner 01/10 16:53 (sửa lỗi gõ):** “Mục tiêu rất đơn giản, không có ông nào làm chui được ở đấy cả. Chỉ có từng đó ông hữu hạn ⇒ vào làm việc là hệ thống nhận ra và ghi lại.” · “Cưỡng chế, tức là hệ thống tự bắt được vấn đề hoặc có thể nhắc agent tuân thủ đúng.” · Hermes: “tạm thời chưa đáng tin cậy ⇒ công tắc bằng tay trên Telegram; sau này quy trình chạy ổn thì đấu lại cho tự động.”
 
 ### 2. Thế nào là hoàn thành
 1. **Mọi AI/Agent kết nối vào workspace qua các cổng đã thiết kế và bắt buộc để lại dấu vết.** VPS/Owner View phải nhận biết được AI nào đến lượt, AI nào đang làm, AI nào đã làm xong; không còn đường tắt ghi repo hoặc làm việc ngoài cơ chế theo dõi đã duyệt.
@@ -17,23 +18,34 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 4. **Xung đột giữa nhiều AI/Agent chạy song song phải được máy cưỡng chế, không chỉ dựa vào quy định hay để Agent tự xử lý.** VPS/gateway phải biết `work-id + RUN_ID + vai trò + phạm vi` của lượt đang được giao; các mutation chồng lấn chỉ Agent đang giữ **scoped lease** hợp lệ mới được phép thực hiện, còn review/read-only có thể cùng tồn tại và các việc/phạm vi độc lập vẫn chạy song song. Handoff/preempt chỉ theo Host/Owner; lease dùng generation/TTL để không hồi sinh phiên cũ; KQ XONG/DỪNG hoặc handoff phải giải phóng/chuyển lease. Optimistic version/head vẫn là lớp an toàn dữ liệu thứ hai, không thay cho lease điều phối.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-`[✓ Cổng ghi] → [✓ Đọc VPS] → [✓ Tên thật] → [✓ Khoá chung] → [■ Sổ “ai đang làm” + Hermes] → [□ Đóng]`
+**Mục tiêu chốt (Owner 01/10):** chỉ có 5 ông làm việc. Ông nào vào làm, máy tự nhận ra và ghi lại; không ông nào làm chui. Máy tự bắt lỗi, hoặc nhắc agent làm đúng.
+
+| Ông | Vào làm qua | Máy nhận ra bằng | Hiện |
+|---|---|---|---|
+| Claude Code | Mac · SSH · cổng MCP | hook của Claude Code | 🔴 |
+| Codex | Mac · SSH · cổng MCP | hook của Codex | 🔴 |
+| GPT Chat | cổng MCP | tên thật B1 → sổ | 🟡 có tên, chưa có sổ |
+| Claude Chat | cổng MCP | tên thật B1 → sổ | 🟡 có tên, chưa có sổ |
+| Hermes | công tắc tay Telegram · cổng MCP | thẻ + sổ Hermes → sổ chung | 🟢 việc giao · 🔴 chat tự do |
 
 **✅ Đã đạt**
 - Ghi repo chỉ qua cổng — `afadda3`
 - GitHub chậm/mất vẫn đọc được bản VPS — P02
 - Mỗi AI có tên thật do máy cấp (GPT · Claude Chat · Claude Code · Codex · Hermes) — B1 `52436cc`
 - Khoá chung hết ghi qua MCP — B2A `c4f5902`
-- Hermes nhận việc: thẻ → Owner bấm → làm → báo Telegram — `f85a244`
+- Hermes nhận việc qua công tắc tay Telegram (cố ý, chưa tự động) — `f85a244`
 
-**🔴 Còn phải đạt — đủ 4 dòng thì đóng MCPW (đo bằng thử thật)**
-1. Claude Code/Codex làm trên Mac (cả SSH): máy biết bắt đầu · đang làm · kết thúc; quên báo cáo ⇒ “chưa báo cáo” trong 10′; tắt ngang ⇒ “mất tín hiệu”.
-2. SSH không rõ ai ⇒ vàng; 2 phiên cùng 1 việc ⇒ đỏ.
-3. Owner View: mỗi việc ai đang làm, từ lúc nào.
-4. Hermes: ghi ý kiến vào việc được giao · có trong sổ chung · tự đổi cấu hình bị phát hiện.
+**Đạt khi (thử thật):** mọi hoạt động có tên trong sổ · SSH không khớp ông nào ⇒ vàng · quên báo cáo ⇒ máy nhắc, vẫn quên ⇒ “chưa báo cáo” trong 10′ · tắt ngang ⇒ “mất tín hiệu” · 2 ông cùng 1 việc ⇒ đỏ · Owner View hiện ai đang làm, từ lúc nào.
 
-**Cách làm:** 1 RUN, chỉ ghi sổ, không chặn ai (P74, P75).
-**⚪ Để sau, Owner duyệt mới làm:** tự tính “ai làm tiếp” · khoá chống ghi chồng · khoá REST/Directus.
+**Roadmap còn lại — đi đúng thứ tự:**
+`[✓ R0 nền] → [✓ R1 dừng B2B cũ] → [■ R2 soạn 1 PROMPT] → [□ R3 chạy] → [□ R4 thử 5 ca] → [□ R5 Owner gật → đóng]`
+- R1 ✓ B2B dừng trước khi đụng hệ thống (KQ DỪNG, 0 thay đổi production); mã sổ đã viết + test ⇒ dùng lại.
+- R2 🤖 GPT soạn, Claude duyệt 1 vòng, READY.
+- R3 🤖 Claude Code chạy 1 lượt: hook Claude Code/Codex + sổ chung + nhật ký SSH + Hermes ghi ý kiến vào việc được giao. Chỉ ghi sổ và nhắc, không chặn ai; ≤1 restart agent-data.
+- R4 🤖 Thử 5 ca: vào làm · làm qua SSH · quên báo cáo · tắt ngang · 2 ông cùng việc. Claude nghiệm thu.
+- R5 😊 Owner nhìn Owner View, gật.
+
+**⚪ Để sau, Owner duyệt mới làm:** Hermes tự động (khi quy trình ổn) · máy tự tính “ai làm tiếp” · khoá chống ghi chồng · khoá REST/Directus.
 **Luật nghiệm thu:** N9 (E1–E6), ở Vòng trước.
 
 ### Vòng trước
@@ -1473,4 +1485,4 @@ KQ@MCPW-B2B-LIFECYCLE-REST-20261001-01 DỪNG · STOP_REQUESTED (P73) thấy ở
 - NEXT: Host thay PROMPT lifecycle/presence theo P74/P75. Executor không tự chạy tiếp.
 
 ## Owner cần quyết
-- **O-MCPW-CLOSE** · Đóng MCPW khi đạt 4 dòng “Còn phải đạt” ở §0.3; phần “Để sau” chỉ làm khi Owner duyệt. **Đề xuất: ĐỒNG Ý.**
+- **O-MCPW-CLOSE** · Chốt mục tiêu + roadmap R1–R5 ở §0.3; đóng MCPW khi R4 đạt và Owner gật. Phần “Để sau” chỉ làm khi Owner duyệt. **Đề xuất: ĐỒNG Ý.**
