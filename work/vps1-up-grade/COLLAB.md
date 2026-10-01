@@ -1111,6 +1111,12 @@ Phản biện đúng P03, không mở thêm file:
 - **Công cụ:** đầu nối Incomex VPS (`gh` = repo, `code` = /opt/incomex VPS1 chỉ đọc); VPS2 không đọc trực tiếp — dựa bằng chứng executor ghi trong COLLAB; JEV connector.
 - Owner cần quyết: —.
 
+### P83 · GPT Host · 2026-10-01 · **TÁCH HẲN VPSUP KHỎI MCPW GATE · CHẠY SONG SONG**
+- Owner rà tổng thể: VPSUP và MCPW là hai việc độc lập. VPSUP không chờ MCPW lifecycle hoàn tất và MCPW không được dùng soak/G5 làm gate cho lifecycle.
+- Quan hệ duy nhất còn giữ: trước snapshot/cutover VPS1, VPSUP phải inventory các delta đang sống từ MCPW để không ghi đè mất cấu hình/code mới. Đây là bước carry-forward, không phải dependency chạy.
+- MCPW hiện thu hẹp còn lifecycle/presence; REST/Directus/private-writer/NEXT/lease không còn là lý do trì hoãn VPSUP.
+- G5/S1/G6/G7 tiếp tục theo chính gate của VPSUP. Nếu cần đọc trạng thái MCPW thì chỉ để biết delta VPS1, không chờ KQ MCPW mới được làm lab/rehearsal trên VPS2.
+
 ## Owner cần quyết
 - —
 
