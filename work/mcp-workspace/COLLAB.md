@@ -1325,6 +1325,7 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 - JEV `gen-dec-1790818373-QC57RQXyXCrdtHwLYIMo`: bỏ 24h 0,78 · giữ quét tĩnh 0,74 · Reviewer sửa + Host chỉ READY 0,91 (conf 0,88) · ghi thành luật chung 0,62.
 
 ## Quyết định Owner
+- **O-MCPW-CLOSE · ĐỒNG Ý · 2026-10-01 16:53:** Owner “chốt chặt các mục tiêu, chốt chặt các roadmap còn lại” ⇒ mục tiêu + roadmap R1–R5 ở §0.3 là chuẩn; đóng MCPW khi R4 đạt và Owner gật; phần “Để sau” chỉ làm khi Owner duyệt.
 - **O-B2A-1 · ĐỒNG Ý · 2026-10-01:** bỏ cổng chờ 24h; từ lúc lật, khoá chung chỉ còn đọc. MCP cục bộ Claude Desktop trên Mac và DOT upload KB đang WRITE_DORMANT nên tạm mất quyền ghi tới B2B; các AI dùng profile riêng vẫn ghi bình thường. Nếu phát hiện nhu cầu thật, rollback `legacy compat` theo đường hiện hữu.
 
 #### P65 · Host GPT · 2026-10-01 · **O-B2A-1 APPROVED · B2A READY/RUN REISSUED**
@@ -1485,4 +1486,4 @@ KQ@MCPW-B2B-LIFECYCLE-REST-20261001-01 DỪNG · STOP_REQUESTED (P73) thấy ở
 - NEXT: Host thay PROMPT lifecycle/presence theo P74/P75. Executor không tự chạy tiếp.
 
 ## Owner cần quyết
-- **O-MCPW-CLOSE** · Chốt mục tiêu + roadmap R1–R5 ở §0.3; đóng MCPW khi R4 đạt và Owner gật. Phần “Để sau” chỉ làm khi Owner duyệt. **Đề xuất: ĐỒNG Ý.**
+- —
