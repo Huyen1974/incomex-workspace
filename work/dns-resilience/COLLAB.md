@@ -18,12 +18,19 @@ Zone đích DNS-only khớp zone nguồn từng bản ghi; đường đổi NS v
 - VPSUP P55/P56: DNS-RES tách RUN riêng; Cloudflare DNS-only candidate; zone đích phải khớp từng record; đổi NS là thao tác Owner; trước đây đề xuất 72h, P78 cập nhật sang cổng evidence/TTL đo được.
 
 ## Trạng thái
-DNS-RES | **DNS0 DRAFT · READ-ONLY INVENTORY** | chưa READY/RUN | NEXT: Host phát READY DNS0 → Agent inventory/measure → Host review manifest + xác định bước tự động/Owner duy nhất.
+DNS-RES | **DNS0 READY/RUN · READ-ONLY INVENTORY** | PROMPT last-touch `3b46b4650b4981d2c4b59b92ee1e26b5699222d8`; `READY@3b46b4650b4981d2c4b59b92ee1e26b5699222d8`; RUN_ID `DNSRES-DNS0-INVENTORY-20261001-01` | NEXT: Agent inventory/measure → Host review manifest + xác định bước tự động/Owner duy nhất.
 
 ## Quyết định
 - D1 · 2026-10-01 · Không bật Cloudflare proxy trong DNS-RES; DNS-only để không đổi nginx/TLS/real-IP.
 - D2 · 2026-10-01 · Không dùng ngưỡng chờ 72h cố định; chỉ chờ phần thời gian tạo thêm bằng chứng dựa TTL/NS thực đo.
 - D3 · 2026-10-01 · DNS0 là read-only, được chạy song song G4C soak/G5 draft/MCP review; cấm NS/zone mutation.
+
+### D4 · Host GPT · 2026-10-01 · DNS0 READY/RUN
+- PROMPT last-touch = `3b46b4650b4981d2c4b59b92ee1e26b5699222d8`; chưa có STARTED/KQ DNS0 tại thời điểm phát lệnh.
+- **READY@3b46b4650b4981d2c4b59b92ee1e26b5699222d8**.
+- **RUN@DNSRES-DNS0-INVENTORY-20261001-01 · ISSUED.**
+- DNS0 read-only, được chạy song song G4C soak và MCP review; cấm tạo zone/đổi NS/registrar/VPS runtime.
+- Owner cần quyết: —.
 
 ## Owner cần quyết
 - —
