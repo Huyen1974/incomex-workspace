@@ -1065,6 +1065,25 @@ Phản biện đúng P03, không mở thêm file:
 - **Post-unfreeze policy:** chưa chốt trước dữ liệu G5. Ưu tiên frontend-only rollback nếu PASS; DB rollback sau unfreeze chỉ dùng khi có đối soát/khôi phục phần ghi mới rõ ràng; Host sẽ chốt trước G6.
 - Owner cần quyết: —.
 
+### P80 · Claude Chat (Reviewer) · 2026-10-01 · NHẮC HOST PHIÊN MỚI: QUAY VỀ KẾ HOẠCH VPSUP · DNS ĐÃ ĐÓNG
+- **Vì sao có mục này:** phiên GPT mới không đọc lại SSOT, bám việc phụ DNS (Codex/Cloudflare/câu hỏi kiến trúc). Một phần lỗi ở hội đồng: P55/P56 + Claude P78 đã đưa DNS-RES thành cổng cứng trước cutover. Owner đã huỷ (DNS-RES D11) ⇒ đóng, không bàn lại, không mở phương án DNS khác.
+- **Phiên Host mới đọc đúng 4 chỗ rồi mới điều hành:** §0 (mục tiêu) · kế hoạch E 10 bước (+ bước 11, P25) · P77–P80 · PROMPT G5 hiện hành.
+- **Đang ở đâu:** `1✅ 2✅ 3✅ 4✅ 5✅ 6✅ [7⏳ đóng soak] 8⬜ 9⬜ 10⬜ 11⬜`. Bước 7 chỉ còn ghi kết quả soak G4C (máy giữ trên VPS2, hết giờ 08:02:39Z, tệp `G4C/soak/FINAL`).
+- **Việc kế tiếp — đúng thứ tự, mỗi lượt Owner 1 việc:**
+  1. **Ghi kết quả soak** (Host tự đọc `soak/FINAL` + activation đã trả, hoặc lấy từ PRE của B2B theo MCPW P71 — không chờ Owner mang báo cáo) ⇒ G4 PASS/FAIL. FAIL ⇒ dừng, báo đúng chỉ số trượt. Sửa Dòng hiện hành: bỏ “DNS-RES MỞ SONG SONG”, ghi “DNS-RES ĐÃ HUỶ (D11)”.
+  2. PASS ⇒ **MCPW B2B** (đã READY; thứ tự đã chốt MCPW P70/P71: soak → B2B → G5).
+  3. B2B có KQ ⇒ **READY G5 @`61dded6bad096aab32be7eab87ff0bb708e9453d`** (đã qua P78/P79, không cần vòng review nữa) ⇒ Owner dán G5.
+  4. Sau G5: Host chốt chính sách sau unfreeze + thử sửa `/login` trên lab (P77/P79) ⇒ **S1** lên VPS1 (PG16.15 + nginx1.30.5, RUN riêng, cửa sổ ngắn) ⇒ **G6** tập chuyển bằng dữ liệu VPS1 mới lấy, bắt đầu khoá sửa lõi VPS1 ⇒ **G7** Owner chọn đêm ⇒ theo dõi 7 ngày ⇒ **bước 11** chuyển e-learning về VPS1 + huỷ VPS2.
+- **Hệ quả huỷ DNS (chỉ ghi, không thêm việc):**
+  - Bỏ cổng “DNS-RES PASS trước cutover” (P55/P56/P78). Giữ “không sửa DNS từ cutover tới hết 7 ngày” — không tốn gì.
+  - Khi soạn G7, thêm 1 dòng vào luật quay lui: web lỗi ⇒ thử thẳng IP VPS1 trước (bỏ qua DNS); thẳng IP chạy tốt ⇒ lỗi nhà DNS (như sự cố 29/09), **không** quay lui bản nâng cấp. Đây là phần rủi ro DNS-RES định che, nay che bằng 1 dòng.
+  - Bước 11: đổi 1 bản ghi A `elearning` trong panel Mắt Bão (TTL 300 sẵn; panel + xuất CSV đã thấy dùng được).
+  - 3 tên mới thấy trong zone (daotao/donhang/tuyenchonlaodong) trỏ VPS1 nhưng nginx/config VPS1 không có ⇒ tên cũ không dùng; không thêm việc.
+  - Terminal Claude Code DNS1 (đang chờ A_DONE): Owner chỉ cần đóng.
+- **Cách điều hành:** mỗi lượt đưa Owner đúng 1 việc kế tiếp từ danh sách trên; không mở câu hỏi kiến trúc mới giữa chừng; việc ngoài kế hoạch ⇒ ghi “sau, không gate”.
+- JEV `gen-dec-1790843363-QWtJwbFOVXDSF6zXTv0E`: ghi nhắc vào repo 0,88 · thứ tự soak → B2B → G5 1,0 · mở lại DNS 0,07 · dòng thử thẳng IP cho G7 0,63.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
