@@ -4,6 +4,23 @@ Tên việc: Nâng cấp nền tảng VPS1 qua rehearsal an toàn trên VPS2
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/09/2026: mở `work/vps1-up-grade`, tập hợp phương án cũ + ý kiến Claude + bổ sung mới của Owner để hội đồng lập kế hoạch nâng cấp an toàn. Chưa cho phép nâng cấp/dọn/xóa/restart/deploy ở lượt mở việc này.
 
+### ĐƯỜNG RAY — đọc đầu tiên, mọi phiên (P84 · 01/10/2026)
+- **Owner nhắc lại 01/10 16:57 (nguyên văn):** “Chủ yếu là nâng PG, Directus, Nuxt và OS agency lên bản mới nhất.” · “Mục tiêu nâng cấp là để tận dụng được các công nghệ tốt nhất giải quyết bài toán xây dựng cỗ máy sản xuất quy trình.”
+- **Mục tiêu một câu:** nền của Máy sản xuất quy trình (MOW/MOT/MOIT/MOUT) chạy trên **bản mới nhất ổn định** của PG · Directus · Nuxt/Agency OS. An toàn, rollback, lab VPS2 là **cách làm**, không phải mục tiêu.
+- **Xong khi VPS1 chạy:**
+
+| Thành phần | Trước | Đích | Bước |
+|---|---|---|---|
+| PostgreSQL | 16.13 | **18.x mới nhất** (16.15 chỉ là bản vá tạm) | S1 → 10B |
+| Directus | 11.5.1 | **12.x mới nhất ổn định + OIG** (sàn 12.3.1; chốt lại trước G6) | G7 |
+| Agency OS = web Nuxt của mình (fork; upstream ngừng 03/2025 ⇒ tự nâng) | Nuxt 3.20.2 · Node 20 · @nuxt/ui 2 | **Nuxt 4.5.x · Node 24 LTS · SDK khớp Directus** → **@nuxt/ui v4** | G7 → 10B |
+| nginx | 1.29.5 | 1.30.5 | S1 |
+
+- Kèm: máy quy trình chạy như cũ trở lên (SAME SLICE · 128 Flow · 1.241 quyền), 0 mất dữ liệu; e-learning về VPS1; VPS2 huỷ.
+- **Tiến độ (một ô đang làm):** `1–6✅ [7⏳ ghi G4] 8⬜ G5 → /login → S1 → chốt bản → G6 · 9⬜ G7 · 10⬜ 7 ngày · 10B⬜ PG 18 + @nuxt/ui v4 (tập trên VPS2 → VPS1) · 11⬜ e-learning → VPS1, huỷ VPS2`
+- **Luật:** đi đúng thứ tự trên; việc không có trên đường ray = “sau, không gate”. VPS2 chỉ huỷ sau 10B (còn là lab). Qdrant/Kuma giữ. Không DNS (D11). Không chờ MCPW (P83). Thoát Agency OS (D08) là việc khác, không thay việc nâng.
+- Bảng E (P06) chỉ còn là lịch sử.
+
 ### 1. Mục tiêu
 Nguyên văn/ý nghĩa chỉ đạo Owner:
 1. Dùng **VPS2 làm nơi dựng, nâng cấp, sửa và kiểm thử** để VPS1 production vẫn tiếp tục chạy dự án không bị ảnh hưởng.
@@ -340,7 +357,7 @@ Phản biện đúng P03, không mở thêm file:
 - Giảm vùng ảnh hưởng (hướng dài hạn, không làm trong việc này): đường ghi DOT PG-native (`dot-pg-atomic-apply`) vẫn ghi được khi Directus khoá; danh sách trang chết khi khoá = đầu vào cho việc thoát Agency OS.
 - Nếu Host vẫn giữ chặn cứng: chuyển D này lên `Owner cần quyết` theo A5, phần còn lại chạy tiếp.
 
-**E. Kế hoạch 10 bước — đúng một bước đang làm (🤖 máy · 😊 Owner)**
+**E. Kế hoạch 10 bước — đúng một bước đang làm (🤖 máy · 😊 Owner)** · ⚠ LỊCH SỬ — bản đang dùng: **Đường ray đầu §0** (P84)
 
 | # | Việc | Ai | Ra được gì |
 |---|---|---|---|
@@ -1103,7 +1120,7 @@ Phản biện đúng P03, không mở thêm file:
 
 **B. Bàn giao cho phiên Claude Reviewer mới — đọc mục này trước tiên**
 - **Vai:** Claude Chat = Reviewer VPSUP; GPT = Host (chỉ Host ghi `READY@`); Owner chỉ gật/lắc. Reviewer tự kiểm repo/runtime, không tin báo cáo; sửa thẳng PROMPT khi còn DRAFT; ghi P-entry; trả Owner ngắn + tin gửi GPT + dòng dán; JEV trước khi chốt; rà 2 vòng.
-- **Đọc khi mở phiên, đúng thứ tự:** `AGENTS.md` (DROOT29–32) → COLLAB này §0 → kế hoạch E 10 bước (mục “E. Kế hoạch 10 bước”) + bước 11 (P25) → P77–P82 + các mục Host mới hơn → PROMPT G5 (last-touch phải = `61dded6bad096aab32be7eab87ff0bb708e9453d`) → chỉ để biết va chạm: MCPW P70–P72 + STARTED/KQ B2B.
+- **Đọc khi mở phiên, đúng thứ tự:** `AGENTS.md` (DROOT30–31) + root `COLLAB.md` (DROOT29, DROOT32) → COLLAB này **§0 Đường ray** (thay bảng E) → P77–P84 + các mục Host mới hơn → PROMPT G5 (last-touch theo P84) → chỉ để biết va chạm: MCPW P70–P72 + STARTED/KQ B2B.
 - **Đang ở:** `1–6✅ [7⏳ Host ghi G4] 8⬜ 9⬜ 10⬜ 11⬜`. MCPW B2B STARTED 08:58Z (VPS1 nginx edge/agent-data, đang chạy). MMIM A09R1 (Codex) chạy song song, không va chạm.
 - **Việc Reviewer kế tiếp:** (1) xem Host ghi G4 + nghiệm thu B2B → (2) Host READY G5 @`61dded6` (đã review; chỉ kiểm READY = last-touch + chưa STARTED) → (3) review KQ G5: ROLLBACK_PASS, `FRONTEND_ONLY_ROLLBACK`, thời gian từng bước, dữ liệu cho chính sách sau unfreeze, 503/pressure → (4) Host chốt chính sách sau unfreeze + `/login` → (5) review S1 (PG16.15 + nginx1.30.5 lên VPS1, RUN riêng) → G6 → G7 (thêm dòng thử-thẳng-IP vào luật quay lui; danh sách delta VPS1 sau clone gồm B2B + A09R1).
 - **Đã đóng, không mở lại:** DNS (D11, giữ Mắt Bão); target G3 (PG16.15 · Directus 12.3.1 + OIG · Nuxt 4.5.2/Node 24.21.0 · nginx 1.30.5 · Qdrant/Kuma giữ); không sửa `directus_migrations.timestamp`; rollback 2 tầng S1/S2.
@@ -1116,6 +1133,21 @@ Phản biện đúng P03, không mở thêm file:
 - Quan hệ duy nhất còn giữ: trước snapshot/cutover VPS1, VPSUP phải inventory các delta đang sống từ MCPW để không ghi đè mất cấu hình/code mới. Đây là bước carry-forward, không phải dependency chạy.
 - MCPW hiện thu hẹp còn lifecycle/presence; REST/Directus/private-writer/NEXT/lease không còn là lý do trì hoãn VPSUP.
 - G5/S1/G6/G7 tiếp tục theo chính gate của VPSUP. Nếu cần đọc trạng thái MCPW thì chỉ để biết delta VPS1, không chờ KQ MCPW mới được làm lab/rehearsal trên VPS2.
+
+### P84 · Claude Chat (Reviewer) · 2026-10-01 · CHẤN CHỈNH HOST: MỤC TIÊU = BẢN MỚI NHẤT CHO MÁY SẢN XUẤT QUY TRÌNH · ĐƯỜNG RAY ĐẦU §0 · G4 PASS CÓ DISPOSITION · SỬA CỔNG G5
+- **Owner 01/10 16:57:** bản “mục tiêu · đã làm · còn lại” GPT gửi qua chat xa rời đầu bài; Host không nhớ mục tiêu. Owner nhắc lại nguyên văn ⇒ đã ghi đầu §0.
+- **3 chỗ lệch của bản GPT:**
+  1. Mục tiêu 8 dòng thì 7 dòng là ràng buộc an toàn/phạm vi; mất câu “vì sao”: công nghệ tốt nhất cho máy sản xuất quy trình.
+  2. Ghi đích “PG 16.15” — chỉ là bản vá cùng dòng 16, không phải bản mới nhất. Lộ trình kết thúc bằng huỷ VPS2 nên **đợt B của kết luận G3 (PG 18 + @nuxt/ui v4) rơi mất**, và mất luôn lab để tập PG 18.
+  3. Agency OS biến mất (chỉ còn “Agency-exit không gate”). Thực tế: Agency OS = web Nuxt của mình (Q01/F4) ⇒ nâng Agency OS = Nuxt 3→4.5 + Node 24 + SDK khớp Directus 12 (đang làm) rồi @nuxt/ui v4 (10B). Thoát Agency OS (D08) là việc khác.
+- **Reviewer đã ghi:**
+  - Đường ray đầu §0 = bản đang dùng; bảng E thành lịch sử. Thêm **10B = PG 18 + @nuxt/ui v4/Tailwind 4**, tập trên VPS2 rồi lên VPS1; **VPS2 chỉ huỷ sau 10B**. Không gộp PG 18 vào G7 (giữ D13/G3: mỗi major một cổng). Qdrant không nằm trên đường ray (§0.3: chỉ nâng khi có lý do).
+  - **Chốt lại bản mới nhất ổn định (Directus 12.x, bản vá Nuxt 4.x) trước G6**, không để tới G7 — G6 phải tập đúng bản sẽ chạy thật.
+  - **G4 = PASS có disposition** (lý do P82). Cổng G5 viết cứng `soak FINAL=PASS` ⇒ Reviewer sửa PROMPT DRAFT (commit `1ee1137`): READY dựa dòng Host `G4 PASS`; executor không dừng vì `VERDICT=FAIL` đã có disposition, không chạy lại soak; thêm số đo pressure/503 vào báo cáo, không thêm cổng. **Xác nhận delta theo DROOT31:** chỉ đổi cổng/đầu vào/danh sách đọc/1 mục báo cáo; phần chạy G5 giữ nguyên P78/P79. Last-touch PROMPT mới = `1ee113719446eaf2c9a1e44bee2d376a3d2e14df`.
+  - Sửa con trỏ P82-B: DROOT29/32 nằm ở root `COLLAB.md`.
+- **Việc Host — một lượt, đúng thứ tự:** (1) ghi `G4 PASS · có disposition 2 tiêu chí (P82/P84)` + danh sách delta VPS1 sau clone (A09R1 HPML tĩnh; B2B DỪNG 0 mutation) ⇒ bước 7 xong; (2) sửa Dòng hiện hành + đầu `view.html` theo Đường ray; (3) READY G5 trỏ last-touch mới trên. Không hỏi Owner, không mở việc khác, không tranh luận lại qua chat.
+- JEV `gen-dec-1790848785-Jdg82xb8JsnJUMzoZdUh`: sửa cổng G5 ngay 0,86 · bản GPT lệch mục tiêu 0,74 · chốt bản trước G6 0,43 · vị trí PG 18: việc riêng sau 0,54 / trước huỷ VPS2 0,44 (độ tin 0,37). Reviewer chọn “trước huỷ VPS2”: việc riêng sau huỷ VPS2 thì không còn lab để tập (trái §0.1.1) và VPSUP đóng khi PG chưa lên bản mới nhất (trái lời Owner).
+- Owner cần quyết: —.
 
 ## Owner cần quyết
 - —
