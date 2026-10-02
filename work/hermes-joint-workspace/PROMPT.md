@@ -1,12 +1,17 @@
-# PROMPT — HJW POST-PROTECT RECEIPT · báo hậu triển khai dù không đổi trạng thái
+# PROMPT — HJW · SỔ TIN BÁO + ĐIỂM DANH mỗi sáng + biên nhận sau thay đổi
 
 RUN_ID: HJW-POST-PROTECT-RECEIPT-20261002-03
 Host: GPT Chat · GPT-HJW-260922-A
-Owner_authorization: 02/10/2026 — sau mọi thay đổi production, hệ thống phải báo Telegram rằng đã đổi gì và trạng thái bảo vệ cuối cùng; không được im lặng chỉ vì mọi đèn vẫn xanh. Bổ sung theo lựa chọn Host được Owner giao 02/10 ~20:05: thêm positive heartbeat 08:00 mỗi sáng để ngày không có mutation vẫn chứng minh đường báo còn sống; dùng Guard/cron hiện hữu, không timer/bot mới.
+Owner_authorization: 02/10/2026 — sau mọi thay đổi production, hệ thống phải báo Telegram rằng đã đổi gì và trạng thái bảo vệ cuối cùng; không được im lặng chỉ vì mọi đèn vẫn xanh. Bổ sung theo lựa chọn Host được Owner giao 02/10 ~20:05: thêm positive heartbeat 08:00 mỗi sáng để ngày không có mutation vẫn chứng minh đường báo còn sống; dùng Guard/cron hiện hữu, không timer/bot mới. Bổ sung Owner 02/10 20:07 (nguyên văn ở HJW COLLAB §0): phải biết được đang báo bao nhiêu loại tin về điện thoại, bao nhiêu loại còn chạy, bao nhiêu loại đã hỏng; xử lý dứt điểm một lần rồi bảo vệ bằng Điều 30/31.
+Reviewer: Claude Chat · ACCEPT-with-delta tại P82 (bản này).
 
 ## 0. Mục tiêu duy nhất
 
-KQ `c38539d` về Kuma/Telegram **đạt kỹ thuật**, nhưng chưa đóng vì Owner chưa nhận được một biên nhận hậu triển khai khi trạng thái không đổi. Lắp và chứng minh `POST-PROTECT RECEIPT` dùng chung; không làm lại K1/K2/Kuma Down-Up.
+KQ `c38539d` về Kuma/Telegram **đạt kỹ thuật**; không làm lại K1/K2/Kuma Down-Up. Việc còn lại, theo đúng lời Owner 20:07, xếp theo thứ tự quan trọng:
+1. **Sổ tin báo + điểm danh (§2C):** máy tự trả lời mỗi ngày ba con số — đang báo bao nhiêu loại tin về điện thoại Owner · bao nhiêu loại còn chạy · bao nhiêu loại đã hỏng — và loại nào hỏng/mất/mới thêm đều lộ ra ngay.
+2. **Bản tin 08:00 mỗi sáng (§2B)** mang kết quả điểm danh đó tới điện thoại.
+3. **Biên nhận sau mỗi thay đổi production (§2).**
+Cả ba dùng chung một hàm gửi; làm một lần, có Điều 30/31 giữ.
 
 ## 1. Ranh giới
 - Không restart/reload service chỉ để tạo alert.
@@ -14,6 +19,9 @@ KQ `c38539d` về Kuma/Telegram **đạt kỹ thuật**, nhưng chưa đóng vì
 - Reuse đúng đường Telegram Owner hiện hữu; receipt không phụ thuộc Kuma state transition.
 - Reuse DOT/script-wrapper hiện hữu; nếu có common post-hook thì gắn tại đó. Nếu chưa có common hook, bổ sung nhỏ nhất vào wrapper/template hiện hữu, không dựng pipeline riêng.
 - Mọi file/config runtime mới/sửa trong RUN này tự tuân AUTO-PROTECT DROOT29/A10-R4.
+- Sổ tin báo không là file rời: danh sách chuẩn nằm trong Guard/registry hiện hữu (Config Guard canh); kết quả điểm danh ghi vào `bang-den.json` hiện hữu.
+- Gặp bí mật ghi cứng trong script (token bot, chat id…) ⇒ KHÔNG chép giá trị vào repo/KQ/tin; chỉ ghi tên file + việc nhận. Repo PUBLIC.
+- Việc của 😊 Owner: xem tin thử trên điện thoại và trả lời **một lần, gom gọn**. Không hỏi Owner chi tiết kỹ thuật.
 
 ## 2. Hành vi bắt buộc
 Sau POST-PROTECT PASS của một mutation production, gửi **đúng một** tin Telegram cho người, **tối đa 3 dòng tiếng Việt thường, có biểu tượng màu**: dòng 1 = vừa đổi gì / `NO-CHANGE VERIFY`; dòng 2 = `đèn N/N xanh · bảo vệ đủ · có đường lùi` (đỏ thì nêu tên); dòng 3 = RUN/commit ngắn. Footprint/D30/D31/Config Guard/Protection Guard/rollback chi tiết lưu trong repo/evidence, không nhồi vào tin.
@@ -26,13 +34,28 @@ Sau POST-PROTECT PASS của một mutation production, gửi **đúng một** ti
 ## 2B. Positive heartbeat 08:00 — ngày không đổi gì vẫn phải có tin
 - Reuse **chính sender + Guard/cron hiện hữu**; không service/timer/bot/token mới.
 - Mỗi ngày **08:00 Asia/Ho_Chi_Minh**, gửi đúng một tin tối đa 3 dòng:
-  1. `✅ Máy chủ: N/N đèn xanh` hoặc `🔴 Máy chủ: <tên đèn đỏ>`.
+  1. `📋 Tin báo: N loại · M chạy · K hỏng` — số lấy từ điểm danh §2C (đèn Kuma là một phần của sổ); K>0 thì kê tên; khác hôm qua thì thêm `mới: … / mất: …`. Loại hỏng được nhắc lại **mỗi sáng** cho tới khi hết.
   2. `🤖 AI hôm qua: <n> phiên · thiếu hook/ngoài sổ: <k>` — lấy deterministic từ lifecycle ledger/presence hiện hữu, không gọi LLM.
   3. `🛡️ Bảo vệ: <sạch|có cảnh báo> · 08:00`.
 - Idempotent theo ngày trong state/ledger hiện hữu; không tạo DB/sổ mới.
 - Nếu đến 08:10 chưa có delivery success marker ⇒ checker hiện hữu phải FAIL/đỏ và thử đường cảnh báo dự phòng hiện hữu. Nếu toàn bộ Telegram hỏng, việc Owner không thấy heartbeat 08:00 là dead-man cuối cùng.
 - KQ phải nói rõ **tin sẽ nằm ở khung chat Telegram nào** bằng tên hiển thị/kênh đã cấu hình; không in token/chat id bí mật.
 - Không cần chờ tới sáng mai để nghiệm thu: gọi cùng hàm một lần với nhãn `THỬ BẢN TIN 08:00`; Owner xác nhận thấy tin. Lịch thật vẫn 08:00.
+
+## 2C. Sổ tin báo + điểm danh — việc chính của RUN (Owner 02/10 20:07)
+Owner: “lẽ ra Kuma phải báo khoảng 10 loại thông tin, bằng cách nào đó nó chỉ báo có 4, 6 cái âm thầm hỏng không ai biết… Làm thế nào để biết hiện nay chúng ta báo bao nhiêu loại thông tin về điện thoại? Có bao nhiêu loại vẫn đang chạy? Có bao nhiêu loại đã hỏng rồi?” ⇒ ba con số này phải có câu trả lời **mỗi ngày, do máy tự đếm**. Ví dụ xuyên suốt: sổ lớp + điểm danh — có sổ thì mới biết lớp bao nhiêu người, ai vắng, ai mới vào.
+1. **Kiểm kê (chỉ đọc) mọi loại tin có thể tới điện thoại Owner**, không chỉ đèn Kuma:
+   a. từng đèn Kuma (21);
+   b. từng phép kiểm gộp trong đèn #22 (bất biến Guard, AD1, Config Guard) và đèn #21 (HJW control);
+   c. từng loại tin bot gửi thẳng (thẻ duyệt, bắt đầu, kết quả, commit, dừng, báo đèn câm, safe-update, biên nhận, bản tin sáng);
+   d. mọi script/cron/unit/job khác tự nhắn Telegram hoặc tự đẩy Kuma — quét mã + crontab + cron.d + systemd + job của Hermes. Reviewer đã thấy ít nhất 2 nguồn nhắn thẳng không qua đèn nào: `env-permissions-guard.sh`, `git-push-gh-daily-v2.sh`;
+   e. loại **đã từng có nay mất hoặc đã cho nghỉ** (ví dụ #13; Disk Usage + Cron Heartbeat chết 04→09/2026) — ghi để biết đã mất gì.
+2. **Sổ:** mỗi dòng = mã · tên tiếng Việt thường · nhóm · nguồn phát · đi qua đèn/bot nào · nhịp mong đợi · **cách đo còn sống** · hỏng thật thì đỏ bằng cách nào (`tự đẩy đỏ` / `im thì đỏ` / `THIẾU`) · trạng thái `chạy|hỏng|nghỉ` · lần cuối có tín hiệu · lần cuối có bằng chứng tới Telegram.
+3. **Đo “còn sống” từng loại mà không chờ đổi trạng thái:** đèn đẩy = có nhịp trong chu kỳ; đèn thăm dò = Kuma còn thăm đúng chu kỳ; phép kiểm trong #22/#21 = có kết quả ở vòng chạy gần nhất; nguồn nhắn thẳng = lần chạy gần nhất của cron/unit có thật và đúng lịch; tin bot theo sự kiện = hàm gửi còn sống (bản tin sáng là phép thử hằng ngày). Loại nào không đo được ⇒ ghi `hỏng: không đo được`, không tính là chạy.
+4. **Điểm danh trong Guard hiện hữu, cùng nhịp 5′ (không đèn/timer mới):** thực tế khác sổ theo cả hai chiều ⇒ đỏ: (i) loại ghi sổ mà mất/câm/hỏng; (ii) nguồn gửi tin tồn tại mà chưa ghi sổ (quét tất định các thư mục script/cron đã khai; ngoài tầm quét thì ghi rõ giới hạn). `nghỉ` chỉ hợp lệ khi có lời Owner ghi ở §0.
+5. **Loại đang hỏng tìm thấy khi kiểm kê:** sửa nhỏ trong scope thì sửa; không thì kê tên + việc nhận (DROOT34) và nó phải hiện trong bản tin sáng. Không giấu để đẹp số.
+6. **Chứng minh tới điện thoại:** loại nào chưa từng có bằng chứng tin tới Telegram (không có trong lịch sử Owner 27/09→02/10 và chưa thử hôm nay) ⇒ thử một lần có nhãn `THỬ`; gom trong một cửa sổ ≤10 phút, báo Owner một câu trước. Không restart dịch vụ.
+7. **Luật thêm/bớt:** từ nay thêm, bớt, đổi nguồn một loại tin báo phải sửa sổ trong cùng RUN (DROOT29/DROOT36); không ghi sổ ⇒ Guard đỏ.
 
 ## 3. Test — không restart
 1. PRE đọc current fleet/Guard/Config Guard, lifecycle ledger và current sender/receipt path.
@@ -42,12 +65,14 @@ Sau POST-PROTECT PASS của một mutation production, gửi **đúng một** ti
 5. Lưu message_id/timestamp cho cả hai; kiểm idempotency không gửi lặp.
 6. Negative: giả delivery fail ⇒ POST-PROTECT FAIL/PARTIAL và checker đỏ qua đường dự phòng; không xanh giả.
 7. Regression: Kuma fleet vẫn toàn xanh; Guard/Config Guard không drift; HJW/K1/K2 không đụng.
+8. Mutant sổ tin báo: (a) một loại ghi sổ bị câm/mất ⇒ đỏ + có tên trong bản tin thử; (b) một nguồn gửi tin lạ chưa ghi sổ ⇒ đỏ; (c) đổi một loại sang `nghỉ` mà không có lời Owner ⇒ đỏ; sổ sạch ⇒ xanh.
 
 ## 4. AUTO-PROTECT cho chính thay đổi này
 Bảng coverage bắt buộc: file/config/script vừa đổi → D30 → D31 → watchdog → rollback → ĐỦ. Nếu THIẾU thì không XONG.
 
 ## 5. KQ
-Chỉ XONG khi Owner thực nhận **cả receipt no-op và bản tin thử 08:00** qua đúng sender, có delivery proof, và lịch 08:00 đã được gắn vào cron/Guard hiện hữu:
+KQ mở đầu bằng ba con số: `TIN BÁO <UTC>: N loại · M chạy · K hỏng [tên → việc nhận]`, kèm bảng sổ gọn theo nhóm để Owner xem một lần.
+Chỉ XONG khi: sổ tin báo đủ §2C · Guard điểm danh hai chiều đang chạy · mutant §3.8 bắt đủ · Owner thực nhận **cả receipt no-op và bản tin thử 08:00 (có dòng điểm danh)** qua đúng sender, có delivery proof · lịch 08:00 đã được gắn vào cron/Guard hiện hữu:
 `KQ@HJW-POST-PROTECT-RECEIPT-20261002-03 XONG · RECEIPT_DELIVERED`
 Nếu chưa nhận:
 `KQ@HJW-POST-PROTECT-RECEIPT-20261002-03 BLOCKED · RECEIPT_NOT_DELIVERED`
