@@ -17,6 +17,7 @@
 - **Cùng commit:** lượt nào đổi trạng thái (READY, nghiệm thu KQ, PASS/FAIL bước, đổi đích/lộ trình) sửa Bảng + dòng `cập nhật` trong chính commit đó. P-entry chỉ giữ lý do/bằng chứng; không giữ dòng tóm tắt trạng thái thứ hai. Mục tiêu chỉ đổi theo lời Owner (ghi nguyên văn + ngày); nơi khác trích Bảng, không tự diễn giải lại mục tiêu.
 - **Phiên mới:** Host/Reviewer mở phiên đọc `AGENTS.md` → Bảng của việc trước mọi việc khác, trả Owner đúng 3 dòng (đang ở đâu · Host kế tiếp · Reviewer kế tiếp) rồi mới làm.
 - **Rà thường xuyên:** mỗi lượt Reviewer mở đầu bằng một dòng `Bảng: khớp | lệch <gì>` đối chiếu repo/KQ thật; lệch thì sửa ngay trong lượt. Mỗi lần chuyển bước, Host ghi Bảng, Reviewer xác nhận.
+- **Executor giữ dòng trạng thái (bổ sung 02/10):** commit ghi `STARTED@` và commit ghi `KQ@` phải sửa luôn dòng ■ Đang làm, ➡ Kế tiếp và dòng `cập nhật` của Bảng; ✅/📍/nghiệm thu vẫn do Host. Sửa Bảng không phải đổi PROMPT/READY/HOLD ⇒ executor đang chạy gặp diff chỉ ở Bảng thì chạy tiếp (DROOT30).
 - Áp đến đâu làm đến đấy: việc được chạm ở lượt kế tiếp thì dựng Bảng trong lượt đó; không mở đợt sửa riêng. **CHƯA CƯỠNG CHẾ** — đề xuất chốt ở `## Owner cần quyết` của root `COLLAB.md`.
 
 ## A1_ENTRY — Cửa vào

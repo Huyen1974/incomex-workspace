@@ -4,7 +4,7 @@ Tên việc: Nâng PG · Directus · Nuxt/Agency OS lên bản mới nhất ổn
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/09/2026: mở `work/vps1-up-grade`, tập hợp phương án cũ + ý kiến Claude + bổ sung mới của Owner để hội đồng lập kế hoạch nâng cấp an toàn. Chưa cho phép nâng cấp/dọn/xóa/restart/deploy ở lượt mở việc này.
 
-### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 · GPT Host · P89 CONSENSUS/READY — đọc đầu tiên, mọi phiên (AGENTS MT4)
+### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 11:15 +07 · Claude Reviewer · P91 — đọc đầu tiên, mọi phiên (AGENTS MT4)
 - 🎯 **Mục tiêu — Owner nguyên văn 01/10 16:57:** “Chủ yếu là nâng PG, Directus, Nuxt và OS agency lên bản mới nhất.” · “Mục tiêu nâng cấp là để tận dụng được các công nghệ tốt nhất giải quyết bài toán xây dựng cỗ máy sản xuất quy trình.”
 - 🎯 **Một câu:** nền của Máy sản xuất quy trình (MOW/MOT/MOIT/MOUT) chạy trên **bản mới nhất ổn định** của PG · Directus · Nuxt/Agency OS. An toàn, rollback, lab VPS2 là **cách làm**, không phải mục tiêu.
 - 🏁 **Xong khi VPS1 chạy:**
@@ -17,12 +17,12 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/0
 | nginx | 1.29.5 | 1.30.5 | S1 |
 
 - 🏁 Kèm: máy quy trình chạy như cũ trở lên (SAME SLICE · 128 Flow · quyền = prod), 0 mất dữ liệu; e-learning về VPS1; VPS2 huỷ.
-- 📍 **Tiến độ (đúng một ô ■):** `1–7✅ 8■ G5✅ → S1 READY@bbab83d (chờ Owner RUN) → chốt bản (probe Directus 12.4.1 + vá 5 file $t + đóng gói TARGET cuối) → G6 · 9⬜ G7 · 10⬜ 7 ngày · 10B⬜ 10B-A PG18 → 10B-B @nuxt/ui v4 · 11⬜ e-learning → VPS1, huỷ VPS2`
+- 📍 **Tiến độ (đúng một ô ■):** `1–7✅ 8■ G5✅ → **S1 đang chạy** → chốt bản (probe Directus 12.4.1 + vá 5 file $t + đóng gói TARGET cuối) → G6 · 9⬜ G7 · 10⬜ 7 ngày · 10B⬜ 10B-A PG18 → 10B-B @nuxt/ui v4 · 11⬜ e-learning → VPS1, huỷ VPS2`
 - ✅ **Đã xong:** chốt kế hoạch · G0 khảo sát · OIG key · SEC/BK1 bảo vệ + backup có thử khôi phục · VPS2 dọn + cô lập · G2 clone CURRENT + mốc · G3 chốt bản/digest · G4 PASS có disposition · **G5 rollback rehearsal PASS** (3 rollback thật, LOGIN/ADMIN/FRONTEND_ONLY PASS).
-- ■ **Đang làm:** GPT Host P89 **ACCEPT toàn bộ P88**; S1 đã **READY@`bbab83d35c1eb5e5d99357adc2372b740afea030`**, chưa RUN production.
-- ⬜ **Còn lại, đúng thứ tự:** S1 lên VPS1 (PG16.15 + nginx1.30.5) → xong S1 mới chạy **chốt bản** trên VPS2 (một RUN: probe Directus 12.4.1 bằng công thức G5 + vá 5 file `$t` + đóng gói TARGET cuối) → G6 bằng dữ liệu VPS1 mới + carry-forward mọi delta VPS1 sống (A09R1, MCPW R2…) + diễn tập checkpoint post-S2 ngay trước mở ghi → G7 → 7 ngày → 10B-A PG18 → 10B-B @nuxt/ui v4 → 11 e-learning về VPS1, huỷ VPS2.
+- ■ **Đang làm:** 🤖 Claude Code chạy **S1 trên VPS1** (PG16.15 + nginx1.30.5) từ 10:41 (STARTED 03:41Z; READY P89 = last-touch PROMPT `bbab83d`); chờ KQ. _Dòng này sửa lúc S1 đang chạy — không đổi PROMPT/READY/HOLD, executor S1 chạy tiếp (DROOT30)._
+- ⬜ **Còn lại, đúng thứ tự:** S1 lên VPS1 (PG16.15 + nginx1.30.5) → xong S1 mới chạy **chốt bản** trên VPS2 (một RUN: probe Directus 12.4.1 bằng công thức G5 + vá 5 file `$t` + đóng gói TARGET cuối) → G6 bằng dữ liệu VPS1 mới + carry-forward mọi delta VPS1 sống (A09R1, MCPW R2…) + diễn tập checkpoint post-S2 ngay trước mở ghi → G7 → 7 ngày → 10B-A PG18 (bản 18.x mới nhất lúc làm) → 10B-B @nuxt/ui v4 (bản 4.x mới nhất lúc làm) → 11 e-learning về VPS1, huỷ VPS2.
 - 🧩 **Phát sinh đã nhập đúng đường ray, không mở bước song song:** Directus 12.4.1 security probe · 5 sibling `$t` · checkpoint post-S2 phục vụ đối soát sau unfreeze · carry-forward mọi delta VPS1 sống. `/knowledge/registries` cold ~34 s và nginx `auth_limit` 503 là baseline đã biết, không gate S1.
-- ➡ **Kế tiếp:** 😊 Owner mở **phiên Claude Code mới**, dán RUN S1 · 🤖 Claude Code chạy đúng S1 rồi dừng · Host nghiệm thu KQ S1 → soạn PROMPT **chốt bản** · Reviewer review trước RUN kế tiếp.
+- ➡ **Kế tiếp:** 🤖 Claude Code ghi KQ S1 rồi dừng · Host nghiệm thu S1 + soạn PROMPT **chốt bản** (DRAFT) · Reviewer rà · Host READY · 😊 Owner mở phiên Claude Code mới, dán lệnh chốt bản.
 - ⛔ **Không làm / để sau (không gate):** DNS (D11, giữ Mắt Bão) · chờ MCPW (P83) · nâng Qdrant/Kuma · thoát Agency OS (D08, việc khác).
 - **Luật Bảng:** đi đúng thứ tự trên; việc không có trên đường ray = “sau, không gate”. Lượt nào đổi trạng thái sửa Bảng + dòng `cập nhật` cùng commit (AGENTS MT4). VPS2 chỉ huỷ sau 10B (còn là lab). 10B: PG 18 và @nuxt/ui v4 mỗi major rehearsal/rollback riêng.
 - Bảng E (P06) chỉ còn là lịch sử.
@@ -1222,6 +1222,12 @@ Phản biện đúng P03, không mở thêm file:
 - **Điểm danh roadmap hiện hành:** ✅ kế hoạch/G0/OIG/SEC-BK1/VPS2/G2/G3/G4/G5; ■ S1 READY; ⬜ chốt bản VPS2 = Directus12.4.1 probe + 5 `$t` + TARGET cuối; ⬜ G6 = fresh data + carry-forward mọi delta sống + checkpoint post-S2 trước unfreeze; ⬜ G7; ⬜ 7 ngày; ⬜ 10B-A PG18; ⬜ 10B-B @nuxt/ui v4; ⬜ e-learning về VPS1 + huỷ VPS2.
 - **Phát sinh đã hấp thụ, không mở roadmap riêng:** Directus security fix; 5 sibling `$t`; checkpoint post-S2; hot reconnect sau PG restart; nginx gateway chập ngắn; `auth_limit` 503; `/knowledge/registries` cold baseline; A09R1/MCPW R2 và mọi delta VPS1 sống phải carry-forward ở G6/G7.
 - **Kết luận điều hành:** đồng thuận P88/P89; **không cần thêm review hay chờ**. Bước duy nhất tiếp theo là Owner mở phiên Claude Code mới và RUN S1 bằng READY hiện hành.
+- Owner cần quyết: —.
+
+### P91 · Claude Chat (Reviewer) · 2026-10-02 · BẢNG LỆCH TRẠNG THÁI → ĐÃ SỬA · LỘ TRÌNH CÒN LẠI ĐÚNG · VÁ LỖ LUẬT MT4
+- **Bảng: lệch** — ghi “S1 READY, chưa RUN” trong khi S1 STARTED 03:41Z. Đã sửa ■/📍/➡ + dòng cập nhật. Không đổi PROMPT/READY/HOLD ⇒ S1 chạy tiếp (DROOT30).
+- **Lộ trình còn lại: đúng thứ tự, không thêm/bớt bước** (S1 → chốt bản → G6 → G7 → 7 ngày → 10B-A → 10B-B → 11). Chỉ ghi rõ 10B lấy **bản mới nhất ổn định tại lúc làm** (PG 18.x, @nuxt/ui 4.x), không ghim số hôm nay. Đã cân nhắc và **không** đổi: tập PG18 trong 7 ngày theo dõi (trái luật đi từng bước), huỷ VPS2 trước @nuxt/ui v4 (nâng cấp lớn phải tập trên VPS2) — JEV `gen-dec-1790912980-QDVUSCVMwOiWEZH4voLQ` 0,74 / 0,58.
+- **Gốc rễ lệch:** MT4 chưa nói ai sửa Bảng khi executor ghi STARTED/KQ ⇒ Bảng đứng yên suốt RUN. Đã bổ sung AGENTS MT4 (commit này): executor sửa ■/➡/cập nhật trong commit STARTED và KQ; ✅/📍/nghiệm thu vẫn do Host; diff chỉ ở Bảng không làm executor dừng.
 - Owner cần quyết: —.
 
 ## Owner cần quyết
