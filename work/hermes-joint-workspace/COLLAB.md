@@ -5,14 +5,14 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 19:40 +07 · GPT Host · P78 RECEIPT GAP
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 19:46 +07 · GPT Host · P79 READY
 - 🎯 Mục tiêu: Hermes/Kuma đã chạy đúng **và sau mọi mutation production Owner luôn nhận Telegram biên nhận POST-PROTECT**, kể cả khi trạng thái vẫn xanh.
 - 🏁 Xong khi: K1/K2 + Kuma fleet/Down-Up PASS · AUTO-PROTECT đủ · một `NO-CHANGE VERIFY` POST-PROTECT gửi Telegram thật có message_id.
-- 📍 Tiến độ: `[✓ Hermes/Kuma technical PASS] → [■ POST-PROTECT RECEIPT] → [□ Host+Reviewer verify] → [□ đóng]`.
-- ✅ Đã xong: K1/K2 · compat · fleet 21/21 UP · #11 Down→Up Telegram PASS · #13 retired/gỡ theo Owner · INV15 v3 · Config Guard 72/72 CLEAN.
-- ■ Đang làm: Host giữ KQ `c38539d` ở trạng thái **technical PASS / chưa CLOSE** vì thiếu receipt khi không có transition; mở RUN hẹp `HJW-POST-PROTECT-RECEIPT-20261002-03`.
-- ⬜ Còn lại: lắp receipt dùng đường Telegram hiện hữu · test no-op/verify-only nhận được tin · negative delivery fail · coverage D30/31 cho chính delta · nghiệm thu.
-- ➡ Kế tiếp: 🤖 Claude Code chạy RUN receipt; 😊 Owner chỉ cần xác nhận đã thấy tin Telegram khi được hỏi; không restart dịch vụ.
+- 📍 Tiến độ: `[✓ Hermes/Kuma technical PASS] → [■ RECEIPT RUN ISSUED] → [□ Host+Reviewer verify] → [□ đóng]`.
+- ✅ Đã xong: K1/K2 · compat · fleet 21/21 UP · #11 Down→Up Telegram PASS · #13 retired/gỡ theo Owner · INV15 v3 · Config Guard 72/72 CLEAN · luật receipt đã vào DROOT29/A10-R4.
+- ■ Đang làm: 🤖 Claude Code chạy `HJW-POST-PROTECT-RECEIPT-20261002-03`; tại P79 chưa có STARTED/KQ.
+- ⬜ Còn lại: lắp receipt dùng đường Telegram hiện hữu · no-op verify receipt · negative delivery fail · AUTO-PROTECT chính delta · nghiệm thu.
+- ➡ Kế tiếp: executor STARTED/KQ; 😊 Owner chỉ cần xác nhận đã thấy tin Telegram khi được hỏi; không restart dịch vụ.
 - ⛔ Không làm/để sau: không restart hàng loạt để ép alert · không làm lại K1/K2/Kuma Down-Up · không bot/service/monitor mới · S9 544k token để sau.
 
 ### 1. Mục tiêu
@@ -1238,3 +1238,11 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Lỗ còn lại = **biên nhận hậu triển khai**. DROOT29/A10-R4 đã bổ sung luật: POST-PROTECT PASS phải gửi Telegram receipt dù không có state transition; gửi thất bại thì KQ không XONG.
 - PROMPT mới ở đầu `PROMPT.md`: `HJW-POST-PROTECT-RECEIPT-20261002-03`. Test chính = verify-only/no-op, không mutation/restart; Owner phải nhận đúng một tin receipt có delivery proof/message_id.
 - Sau receipt PASS mới Host+Claude nghiệm thu và CLOSE HJW maintenance.
+
+### P79 · Host GPT · 2026-10-02 19:46 +07 · **SELF-CHECK PASS · READY/RUN RECEIPT**
+- Tự rà PROMPT receipt: đúng lỗ Owner vừa nêu, không restart/reload để ép alert, không tạo bot/token/service/timer/monitor mới, dùng verify-only/no-op để chứng minh báo hậu triển khai khi state không đổi.
+- PROMPT last-touch = `e4efe8d566994d82dafea6ff51b9fba967a93216`.
+- **READY@e4efe8d566994d82dafea6ff51b9fba967a93216**.
+- **RUN@HJW-POST-PROTECT-RECEIPT-20261002-03 · ISSUED.** Executor = Claude Code CLI. Reuse đường Telegram hiện hữu; receipt fail ⇒ BLOCKED/PARTIAL. Không được restart dịch vụ chỉ để tạo tin.
+- Acceptance quan trọng nhất: Owner thực nhận đúng một `POST-PROTECT · ✅ PASS` hoặc `NO-CHANGE VERIFY` receipt có message_id/timestamp, trong khi fleet/Guard vẫn xanh.
+- Sau KQ dừng; Host+Claude nghiệm thu một lượt rồi đóng maintenance.
