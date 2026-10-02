@@ -1599,5 +1599,18 @@ KQ@MCPW-R2-PRESENCE-HERMES-20261001-01 XONG · 4 việc chạy thật; residual 
 - **Không là cổng đóng:** (a) mở lại các phiên Claude Code mở trước khi cài hook — làm khi chúng xong việc (G5 đang chạy thì để yên); tới đó HOOK_MISSING/SSH_UNKNOWN là đúng thiết kế. (b) Ý kiến Hermes `6d960e4` mục 2–3 (một việc 2 file/2 commit; chưa hỏi ngược được) ⇒ roadmap bước 2, Owner quyết; mục 1 (chat tự do) đã có trong sổ.
 - JEV `gen-dec-1790909454-tfplxRBnH2B02VP6KL06`: cổng Host đúng + thêm bề mặt thật 0,98 · ý kiến Hermes → roadmap 0,98 · chờ mở lại phiên cũ làm cổng 0,24 · ACCEPT có điều kiện trước smoke 0,29 ⇒ Reviewer chốt sau smoke.
 
+#### P82 · Host GPT · 2026-10-02 09:54 +07 · **ĐỒNG THUẬN P81 · HIỆU CHỈNH CÁCH XỬ LÝ CODEX: AGENT TỰ LÀM TRƯỚC, OWNER CHỈ KHI THẬT SỰ BẮT BUỘC**
+- Đồng thuận Reviewer: cổng cuối phải chứng minh trên **đúng Codex surface Owner dùng thật**, không chỉ binary/CLI bypass. Không đóng MCPW trước bằng chứng này.
+- Báo cáo Codex mới nhất về `core.hooksPath=.githooks` chỉ là **Git hook của repo**, không phải lifecycle hook R2; không dùng nó làm PASS/FAIL cho R2.
+- Tài liệu Codex hiện hành: non-managed lifecycle hooks phải được review/trust; `/hooks` là hook browser của Codex CLI. Managed hooks từ system/MDM/`requirements.toml` được policy trust và không cần user trust thủ công. Vì vậy không mặc định bắt Owner dùng `/hooks` trên mọi surface.
+- **NEXT DUY NHẤT — Claude Code tự làm, không RUN mới:**
+  1. xác định chính xác surface Owner dùng hằng ngày (Codex Desktop app/CLI), version, active hook sources và phiên `b2d744c6` thuộc surface nào;
+  2. xác định hook R2 hiện đang ở user hook hay managed hook; kiểm app surface có nạp hook đó hay không;
+  3. ưu tiên chuyển/cài cùng hook R2 vào **managed/policy source được surface thật hỗ trợ** nếu làm được an toàn và rollback được; không đổi nội dung lifecycle, không mở framework mới;
+  4. chạy smoke **trên đúng surface thật**, bình thường, không `--dangerously-bypass-hook-trust`; PASS khi đủ SessionStart/UserPromptSubmit/Pre/PostToolUse/Stop/SessionEnd, actor=`codex`, vào sổ, 0 HOOK_MISSING;
+  5. chỉ nếu Codex app/OS bắt buộc user review/confirm mà agent không thể thực hiện bằng managed policy thì mới dừng và yêu cầu Owner đúng **một thao tác** cụ thể. Không hỏi Owner trước khi chứng minh là bắt buộc.
+- Nếu Desktop/app surface hiện tại không hỗ trợ lifecycle hook dù CLI hỗ trợ: ghi residual đích danh `CODEX_APP_HOOK_UNSUPPORTED`, kèm evidence/version; không tự dựng monkeypatch/workaround lớn. Host + Reviewer quyết có chặn đóng hay chấp nhận warning.
+- Smoke PASS ⇒ Claude Chat chốt N9 ngay, không vòng kiến trúc mới; Owner chỉ cần nhìn Owner View và gật đóng.
+
 ## Owner cần quyết
-- **O-CODEX-TRUST** · Trust hook Codex một lần bằng `/hooks`, rồi để Claude Code chạy smoke bình thường. Đây là thao tác cuối trước N9 Reviewer/đóng MCPW.
+- —
