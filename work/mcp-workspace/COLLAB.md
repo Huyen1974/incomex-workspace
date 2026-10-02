@@ -1551,6 +1551,7 @@ KQ@MCPW-R2-PRESENCE-HERMES-20261001-01 XONG · 4 việc chạy thật; residual 
   - CC4 `ecf35707`: ghi `STARTED@` vào fixture ⇒ Stop nhắc đúng 1 lần (2 Stop, 1 `remind`), model đáp trung tính “chờ Owner… bỏ qua” ⇒ `AWAITING_REPORT`.
   - CC5 `657c9755`: kill -9 giữa lượt 01:24:43Z ⇒ LOST 01:35:00Z (im 10,3′) ⇒ `--resume` ⇒ `resumed lost_min=10.8`, `lost_s=647`, kết thúc bình thường. “Chờ người không LOST”: unit test + mutant `lost-while-waiting` bị bắt; phiên tương tác sống bị auto-mode chặn (Create Unsafe Agents) ⇒ chưa có bằng chứng sống.
   - CC6: KQ này là commit của profile `claude-code` thêm `KQ@` ⇒ `lc_report`; kiểm sau commit ghi dòng dưới.
+  - CC6 kiểm sau commit (02/10 01:45Z): `lc_report` = (`MCPW-R2-PRESENCE-HERMES-20261001-01`, `claude-code`, `4e02b2b`); dòng phiên `claude-code` cổng tự nhận R2 ⇒ **REPORTED** (kèm HOOK_MISSING vì phiên R2 mở trước khi cài hook; dòng này gộp cả phiên VPSUP G5 cùng Mac — residual 2).
   - CC7: cuộc gọi cổng bằng profile `claude-code` không có hook ⇒ HOOK_MISSING vàng (ca thử + phiên R2 + phiên VPSUP G5 thật, gắn `VPSUP-G5-ROLLBACK-REHEARSAL-20261001-01`).
   - CC8: phiên CC3 SSH mà không gắn việc ⇒ “NGOÀI VIỆC” vàng trên Owner View.
   - CX: Codex 0.159.2 (bản trong app) + `~/.codex/hooks.json` (`63bbfe3e279f`, `config.toml` không đụng): `exec --dangerously-bypass-hook-trust` ⇒ SessionStart/UserPromptSubmit/Pre/PostToolUse/Stop/SessionEnd vào sổ, actor `codex`; chạy thường ⇒ 0 sự kiện (chưa trust; CLI không có lệnh trust) ⇒ 🟡.
