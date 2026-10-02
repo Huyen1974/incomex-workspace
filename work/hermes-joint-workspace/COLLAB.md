@@ -3,7 +3,17 @@
 > **CÁCH GIAO HERMES:** nói với GPT/Claude `giao Hermes: <việc>` → AI ghi `ASSIGN@` tại **COLLAB HJW này** → Telegram hiện thẻ → 😊 Owner bấm **Cho chạy**. Việc có thể yêu cầu Hermes đọc task khác; quyền ghi của Hermes vẫn theo profile đã duyệt.
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần.
+Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 14:48 +07 · GPT Host · P65
+- 🎯 Mục tiêu: Hermes runtime đang live phải dùng được thật; lỗi client/backend lệch version/schema phải được sửa và tự phát hiện nếu tái diễn.
+- 🏁 Xong khi: đúng client thật tạo session qua đúng backend thật PASS; Điều 30 có regression/negative; Điều 31 có invariant compatibility + guard/watchdog.
+- 📍 Tiến độ: `[✓ HJW baseline CLOSED] → [■ MAINT-COMPAT chẩn đoán/sửa/bảo vệ] → [□ Reviewer verify] → [□ maintenance CLOSED]`.
+- ✅ Đã xong: HJW.3/control/manual gate; MCPW R6 đã bảo vệ lifecycle/Owner View/Hermes config+gate và Protection Guard.
+- ■ Đang làm: Host đã soạn maintenance PROMPT; executor chưa STARTED.
+- ⬜ Còn lại: đo version/schema thật → sửa tối thiểu nếu lệch → real session.create → D30/D31 → reviewer.
+- ➡ Kế tiếp: 🤖 Claude Code chạy một RUN duy nhất; Host + Claude review KQ; 😊 Owner không cần thao tác trừ khi có blocker vượt scope.
+- ⛔ Không làm/để sau: không capability mới · không AUTO · không task/file/service mới · không blind `hermes update`.
 
 ### 1. Mục tiêu
 - Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
@@ -49,7 +59,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | **CLOSED 27/09/2026 · runtime control vẫn live** | HJW.3B + CONTROL-A/B + FINAL P61/P62 XONG; Founder P63 ACCEPT; FD1–FD5 đã áp nền | NEXT ngoài HJW: MCPW identity/lifecycle/direct-signal/scoped lease; Nuxt → VPSC | Hermes vẫn DUYỆT TỪNG VIỆC, AUTO rỗng; không mở thêm HJW RUN
+HJW | **FEATURE CLOSED 27/09/2026 · MAINTENANCE COMPAT OPEN 02/10/2026** | baseline HJW.3B/CONTROL/FINAL giữ nguyên; lỗi thật `session.create/cwd_explicit` chứng minh thiếu protection compatibility | MAINT-COMPAT: đo → sửa tối thiểu → Điều 30/31 → review → đóng lại | Hermes vẫn DUYỆT TỪNG VIỆC, AUTO rỗng; không thêm capability
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -1024,3 +1034,12 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - **PROMPT delta mới:** `PROMPT.md` last-touch = `4f50e0460c59fa4bc669d4f3de4f9a8b938b348b`; phần `HJW.3B DELTA` ở đầu file là authoritative cho executor mới; baseline HJW.3 bên dưới chỉ tham khảo, không làm lại.
 - **Review gate:** chỉ cần Claude Chat review exact SHA `4f50e046…`. Hermes P29 đã độc lập xác nhận hướng bridge/secret và rủi ro vận hành; không mở thêm assignment Hermes vì T5 vừa hoàn tất.
 - **CLI mới được mở ngay để read-gate/handoff**, nhưng **KHÔNG mutation** cho tới khi repo có `READY@4f50e046…` + Claude `REVIEWED@4f50e046… · ACCEPT`.
+
+### P65 · Host GPT · 2026-10-02 14:48 +07 · **MAINTENANCE REOPEN · HERMES SESSION COMPAT + ĐIỀU 30/31**
+- Owner báo lỗi dùng thật: `invalid params for session.create: cwd_explicit: Extra inputs are not permitted` và yêu cầu kiểm lại dù lượt trước từng xác nhận OK. Đây là bằng chứng acceptance cũ chưa phủ đúng client↔backend handshake.
+- Rà Hiến pháp: MCPW/R6 đã bảo vệ các phần mới của lifecycle/receiver/importer/presence/Owner View/Hermes config+gate/Protection Guard; **gap mới phát hiện = Hermes core client/backend version+schema compatibility**.
+- Không dùng kết luận từ thông báo lỗi để sửa mù. D1 bắt đo executable/version/package/schema/MainPID của client, `hermes-serve`, `hermes-gateway`; reproduce đúng một lần; phân loại A/B/C/D trước mutation.
+- Nếu package đã đồng bộ nhưng process cũ ⇒ chỉ restart cần thiết. Nếu hai package/venv lệch ⇒ dùng `hermes-safe-update` hiện hữu để đồng bộ; cấm blind update/cài song song. Tối đa restart serve + gateway.
+- Điều 30: real `session.create` đúng bề mặt Owner + regression + mismatch mutant. Điều 31: thêm invariant local `HERMES_CLIENT_BACKEND_COMPAT` vào guard hiện hữu, 2-pass, watchdog; Config Guard đăng ký đúng target version/schema còn thiếu.
+- Không task/file/service/monitor mới; AUTO rỗng; manual gate/STOP/7-tool không đổi. Sau KQ review đúng một lượt rồi đóng maintenance.
+- PROMPT maintenance được đặt ở đầu `PROMPT.md`; phần HJW FINAL cũ phía dưới chỉ lưu lịch sử, **không chạy lại**.

@@ -1,3 +1,98 @@
+# PROMPT — HJW MAINT · client/backend session.create compatibility + Điều 30/31
+
+RUN_ID: HJW-MAINT-COMPAT-20261002-01
+Host: GPT Chat · GPT-HJW-260922-A
+Executor_Surface: Claude Code CLI phiên mới trên Mac Owner.
+Runtime_Write_Path: SSH/operator VPS hiện hữu; không tạo service/task/file mới.
+Report_Write_Path: chỉ `work/hermes-joint-workspace/{COLLAB.md,PROMPT.md}` qua gateway; evidence dùng hồ sơ VPS HJW hiện hữu.
+Owner_authorization: 02/10/2026 — kiểm lại lỗi Hermes thực tế và đưa phần mới vào bảo vệ Điều 30/31.
+
+## 0. Mục tiêu duy nhất
+
+Sửa và khóa lỗi thực tế:
+`invalid params for session.create: cwd_explicit: Extra inputs are not permitted — the client and the Hermes backend are out of sync (different versions)`.
+
+Không thêm capability. Không bật AUTO. Không đổi Agent Data/P02/nginx/Nuxt/model/key/scope/toolset.
+
+PASS chỉ khi **đúng client thật → đúng backend thật** tạo được session; không chấp nhận chỉ service healthy hoặc unit test nội bộ.
+
+## 1. Hard scope / ngân sách
+
+- Trước mutation phải snapshot: binary/path/version/package/schema + unit ExecStart + MainPID/StartedAt của Hermes client/serve/gateway; Config Guard/Protection Guard current state; rollback.
+- Không chạy blind `hermes update`.
+- Tái dùng `hermes-safe-update` hiện hữu. Chỉ update/restart nếu D1 chứng minh version/schema/load-process lệch.
+- Tối đa restart `hermes-serve` và `hermes-gateway` khi thực sự cần; không restart service khác.
+- Không tạo service/timer/DB/monitor/file repo mới.
+- AUTO_ALLOWLIST cuối RUN vẫn rỗng; manual Telegram gate/STOP giữ nguyên.
+- Nếu cần vượt scope trên: DỪNG trước mutation, báo Host.
+
+## 2. D1 — chẩn đoán thật, NO MUTATION
+
+Đo và ghi evidence, không suy từ README:
+1. Client thật đang phát `session.create`: executable/path, `--version`, package/source path, schema/request fields; xác nhận nơi sinh `cwd_explicit`.
+2. `hermes-serve` + `hermes-gateway`: `systemctl show/cat` cho ExecStart/MainPID/StartedAt/EnvironmentFile (không in secret); cmdline/executable/package/source thực của process đang chạy.
+3. Backend schema thật của `session.create`: request model/fields; xác nhận có/không `cwd_explicit`.
+4. Phân loại đúng một root cause:
+   - A: client package mới / backend package cũ;
+   - B: package trên đĩa đã đồng bộ nhưng process backend chưa restart, đang giữ code cũ;
+   - C: hai service dùng khác venv/binary/package;
+   - D: lỗi khác — có evidence cụ thể.
+5. Reproduce lỗi một lần bằng **đúng đường client Owner đang dùng**, rồi dừng; không lặp lỗi.
+
+## 3. D2 — sửa tối thiểu, chỉ khi D1 đủ bằng chứng
+
+- Nếu B: restart tối thiểu service đang giữ code cũ; không update package.
+- Nếu A/C: dùng cơ chế `hermes-safe-update`/update hiện hữu để đồng bộ **cả hai đầu về cùng một bản đã xác định**, không cài song song venv/binary thứ hai; backup/rollback trước.
+- Sau thay đổi: restart `hermes-serve` → verify, rồi `hermes-gateway` → verify; không dependency-bounce key services.
+- Nếu safe-update/health fail: rollback về PRE, báo BLOCKED.
+- Không in secret/token/env values.
+
+## 4. Điều 30 — regression protection bắt buộc
+
+Tái dùng test/harness hiện hữu; không tạo framework mới:
+1. E2E thật: client Owner → `session.create` → backend PASS, bao gồm request có hành vi `cwd_explicit` đúng với version hiện hành.
+2. Regression: gateway/manual Telegram gate, STOP, AUTO rỗng, Agent Gateway 7 tool và HJW control path vẫn PASS.
+3. Negative fixture/mutant: mô phỏng client/backend schema lệch (ví dụ client có field mà backend không có) ⇒ test phải FAIL rõ ràng trước khi tuyên bố healthy.
+4. Không chỉ test version string; phải test schema/handshake thật.
+
+## 5. Điều 31 — integrity/self-detection bắt buộc
+
+Bổ sung vào **Protection Guard/Config Guard hiện hữu**, không service mới:
+1. Invariant `HERMES_CLIENT_BACKEND_COMPAT`: local/no GitHub/no LLM; kiểm executable/package identity + schema/handshake fingerprint của client↔serve/backend. Lệch hoặc backend không parse request chuẩn ⇒ FAIL.
+2. Dùng 2-pass như invariant runtime hiện hữu để tránh flap nhưng không PASS giả.
+3. Kiểm các unit/config/script/package-path thực dùng bởi serve/gateway đã nằm trong Config Guard; thiếu target nào trực tiếp quyết định version/schema thì đăng ký vào registry hiện hữu trong cùng RUN.
+4. Mutant/fixture version-schema mismatch ⇒ invariant đỏ; clean ⇒ xanh.
+5. Watchdog phải chứng minh invariant mới được chạy định kỳ; không tạo monitor mới nếu Protection Guard/Kuma hiện hữu đã bao phủ.
+
+## 6. Rà toàn bộ phần mới vừa làm
+
+Không mở task mới. Đối chiếu R6/MCPW đã đóng:
+- lifecycle/receiver/workspace_tools/importer/presence/Owner View/Hermes config+gate/Protection Guard đã có protection ⇒ giữ nguyên, không làm lại;
+- chỉ bổ sung thiếu hụt mới phát hiện là Hermes core client↔backend compatibility và đúng file/config/package-path liên quan.
+Nếu phát hiện một thành phần mới khác **thực sự live nhưng chưa được Điều 30/31 bảo vệ**, liệt kê + đưa vào guard/test hiện hữu trong scope; không dựng cơ chế mới.
+
+## 7. Acceptance
+
+PASS khi đồng thời:
+- lỗi `cwd_explicit` không reproduce trên đúng client thật;
+- client/serve/gateway cùng identity/version/schema phù hợp;
+- real `session.create` PASS;
+- `hermes-safe-update health` (nếu dùng) PASS;
+- Config Guard CLEAN; Protection Guard PASS có invariant compatibility mới;
+- mutant mismatch bị bắt;
+- manual gate/STOP/AUTO rỗng/7-tool regression PASS;
+- 0 scope creep, rollback có thật.
+
+KQ:
+`KQ@HJW-MAINT-COMPAT-20261002-01 XONG · HERMES_COMPAT_PROTECTED`
+hoặc
+`KQ@HJW-MAINT-COMPAT-20261002-01 BLOCKED · <root cause/evidence>`.
+
+Sau KQ dừng; Host + Claude Reviewer nghiệm thu một lượt. Không tự mở việc tiếp.
+
+---
+
+# VÒNG TRƯỚC — PROMPT HJW FINAL (ĐÃ ĐÓNG, KHÔNG CHẠY LẠI)
 # PROMPT — HJW FINAL · Telegram UX + closeout evidence
 
 RUN_ID: HJW-FINAL-20260926-05
