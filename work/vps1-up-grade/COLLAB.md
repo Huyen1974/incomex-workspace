@@ -4,7 +4,7 @@ Tên việc: Nâng PG · Directus · Nuxt/Agency OS lên bản mới nhất ổn
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/09/2026: mở `work/vps1-up-grade`, tập hợp phương án cũ + ý kiến Claude + bổ sung mới của Owner để hội đồng lập kế hoạch nâng cấp an toàn. Chưa cho phép nâng cấp/dọn/xóa/restart/deploy ở lượt mở việc này.
 
-### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 13:15 +07 · Claude Code · KQ TARGET-FINAL XONG (P99 giữ nguyên) — HAI GÓI THỰC THI, KHÔNG XÉ NHỎ — đọc đầu tiên, mọi phiên (AGENTS MT4)
+### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 14:30 +07 · Claude Reviewer · P100 đồng thuận P99 — HAI GÓI THỰC THI, KHÔNG XÉ NHỎ — đọc đầu tiên, mọi phiên (AGENTS MT4)
 - 🎯 **Mục tiêu — Owner nguyên văn 02/10 11:59:** “Mục tiêu cuối cùng không phải là nâng cấp phần mềm, mục tiêu cuối cùng là tận dụng các tính năng mới nhất của PG/Directus để giải quyết các bài toán của ‘máy sản xuất quy trình’” · “chúng ta cần 1 cái máy chủ, với các phần mềm cần thiết quan trọng ở mức tốt nhất và ổn định. Những thứ khác dẹp bớt ra.” · “đây không phải là việc chính, đây chỉ là công cụ, là việc phụ.”
 - 🎯 **Một câu:** VPSUP là **công cụ**: VPS1 chạy PG 18 + Directus 12.4 + Nuxt 4.5 ổn định, để việc chính (Máy sản xuất quy trình — `work/mow-mot-moit-mout`) dùng tính năng mới nhất. Dùng tính năng nào cho bài toán nào là việc chính, **không làm ở đây**.
 - 🏁 **Xong khi VPS1 chạy (đích duy nhất):**
@@ -17,7 +17,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/0
 | nginx | 1.29.5 | 1.30.5 | ✅ S1 |
 
 - 🏁 Kèm: dữ liệu đủ; SAME SLICE, Flow, quyền và các bên gọi PG/Directus đạt theo mốc production mới. **XONG chỉ khi VPS1 chạy đủ bộ đích trong bảng và nghiệm thu G7 đạt**; máy canh nền hoạt động, không chờ 7 ngày để nghiệm thu.
-- 📍 **Tiến độ:** `✅ chuẩn bị G0–G5 · ✅ S1 · ■ TARGET-FINAL đang chạy · ⬜ G6 một gói: hoàn thiện + diễn tập + chuẩn bị G7 · ⬜ G7 một gói: chuyển + nghiệm thu + bàn giao = XONG`
+- 📍 **Tiến độ:** `✅ chuẩn bị G0–G5 · ✅ S1 · ✅ TARGET-FINAL (KQ XONG, chờ Host nghiệm thu) · ■ soạn G6 · ⬜ G6 một gói: hoàn thiện + diễn tập + chuẩn bị G7 · ⬜ G7 một gói: chuyển + nghiệm thu + bàn giao = XONG`
 - ✅ **Đã xong:** G0–G5 (khảo sát · OIG · bảo vệ + backup · VPS2 lab · clone · chọn bản · nâng trên lab · tập quay lui) · S1 production (PG 16.15 + nginx 1.30.5; gián đoạn 3 s / 12 s; 0 mất dữ liệu).
 - ■ **Đang làm:** TARGET-FINAL **KQ XONG 06:12Z** (Directus 12.4.1 + OIG · Nuxt 4.5.2 artifact khoá bytes · gói `TARGET-FINAL-MANIFEST` trên VPS2) · chờ Host nghiệm thu.
 - ⬜ **Còn lại — đúng 2 gói lớn:** **G6:** lấy kết quả TARGET-FINAL + bản sao dữ liệu/cấu hình VPS1 mới; dựng PG18 trên volume mới; ghép Directus12.4/Nuxt4.5/Node24 đúng artifact; tự sửa lỗi trong phạm vi lab và kiểm lại phần bị ảnh hưởng; diễn tập toàn bộ chuyển/quay lui; xuất luôn gói G7 sẵn chạy, số đo gián đoạn và đề xuất giờ. **G7:** sau Owner duyệt cửa sổ production, agent chuẩn bị → chặn ghi → chuyển đúng bộ đã tập → nghiệm thu → mở ghi → xác nhận sao lưu/giám sát → bàn giao, trong một RUN. **Không tự chuyển đích về PG16.15:** PG18 có blocker không xử được trong phạm vi thì báo đúng blocker và phương án; chỉ Owner được duyệt đổi đích, chưa gọi đủ mục tiêu là XONG.
@@ -25,7 +25,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/0
 - ✂️ **Đã cắt khỏi đường chính:** nâng @nuxt/ui v4; chờ 7 ngày; PG18 đợt 2 mặc định; dọn/huỷ VPS2 và chuyển e-learning; mở nghiên cứu hay nâng thêm thành phần. Lỗ bảo mật nghiêm trọng phát hiện thật thì báo, không tự mở nhánh. G6/G7 dùng lại bytes Nuxt đã kiểm, không build lại theo thói quen.
 - ➡ **Kế tiếp:** (TARGET-FINAL đã ghi KQ) → Host nghiệm thu và hoàn thiện lệnh G6 trong cùng lượt → Reviewer rà một gói trên repo → Host giao G6. **Không đòi Owner gật lại kế hoạch đã chỉ đạo rõ.** Chưa phát G6 hoặc sửa PROMPT khi TARGET-FINAL chưa terminal; lần duyệt riêng còn giữ là cửa sổ G7 trước mutation production.
 - ⛔ **Không làm:** DNS · chờ MCPW · nâng Qdrant/Kuma · thoát Agency OS · sửa lỗi có sẵn của việc khác (`hvu-sync-py`, Kuma #21/#22).
-- 🔧 **Ràng buộc kỹ thuật đã chốt (G6/G7 giữ, không bàn lại):** `claude_mcp_net` của postgres khai **bổ sung**, giữ nguyên mạng cũ · compose VPS1 có thay đổi của việc khác ⇒ không reset, chỉ áp phần của VPSUP · chụp checkpoint ngay trước mở ghi · artifact Nuxt copy, cấm build lại · sau mở ghi cấm khôi phục DB mù (P88).
+- 🔧 **Ràng buộc kỹ thuật đã chốt (G6/G7 giữ, không bàn lại):** `claude_mcp_net` của postgres khai **bổ sung**, giữ nguyên mạng cũ · compose VPS1 có thay đổi của việc khác ⇒ không reset, chỉ áp phần của VPSUP · chụp checkpoint ngay trước mở ghi · artifact Nuxt copy, cấm build lại · sau mở ghi cấm khôi phục DB mù (P88) · **sao lưu sau khi lên PG18 phải dùng công cụ `pg_dump`/`pg_dumpall` bản 18** (bản 16 không dump được máy chủ 18 ⇒ backup hỏng âm thầm): G6 chạy thử script backup hiện hành với PG18, G7 chạy thật 1 lần + đọc lại được trước khi báo XONG (P100).
 - 📏 **Luật chống rác — Owner 02/10 nguyên văn:** “Ngớ ngẩn nhất là mỗi AI thêm 1 Ý, xong kế hoạch từ ban đầu rất gọn => đến lúc triển khai thì lại thành 1 bãi rác với đủ thứ kèm theo.” ⇒ Giao theo **đầu ra trọn gói**, không chia theo file/script/lỗi nhỏ hay số phút. Trong phạm vi đã giao, agent được làm liên tục, tự sửa/test lại phần liên quan; checkpoint lưu để phục hồi, **không phải xin duyệt**. Một vòng review cho mỗi gói lớn, không mở vòng sau một bước con đạt. Chỉ ngắt vì vượt phạm vi/quyền, nguy cơ dữ liệu/secret, thiếu đầu vào thiết yếu hoặc blocker thật. Trao đổi trên repo; không yêu cầu Owner chép lại nội dung AI đã đọc được. Lượt đổi trạng thái sửa Bảng cùng commit (MT4).
 
 ### 1. Mục tiêu
@@ -1330,6 +1330,14 @@ Phản biện đúng P03, không mở thêm file:
 - **Đối chiếu ngoài repo, chỉ để sửa phạm vi kiểm PG18:** tài liệu PostgreSQL nêu major có thể thay đổi định dạng dữ liệu và tương thích ứng dụng; pg_dump chỉ một DB, globals như role cần xử lý riêng. Căn cứ: https://www.postgresql.org/docs/18/upgrading.html ; https://www.postgresql.org/docs/18/app-pg-dumpall.html . Không vì đối chiếu này mở thêm gate/đợt nghiên cứu.
 - **RUN hiện tại giữ nguyên:** repo có STARTED TARGET-FINAL, chưa có KQ terminal ở lúc rà; PROMPT last-touch vẫn `40df4ec4067aa407df9abc7e99721c0b426d7dc3`. Commit này chỉ chốt kế hoạch/hiển thị; không sửa PROMPT/READY/HOLD, không giao PG18 cho RUN đang chạy. G6 chưa READY.
 - Owner cần quyết: — (không chờ duyệt lại kế hoạch; cửa sổ production G7 sẽ trình với số đo G6).
+
+### P100 · Claude Chat (Reviewer) · 2026-10-02 · ĐỒNG THUẬN P99 — CHỐT CÁCH CHIA CÒN LẠI
+- **Owner 02/10 14:22:** “Tinh thần là chia các việc cho đủ lớn, tận dụng năng lực có thể làm việc trong nhiều tiếng liên tục của agent hiện nay mà vẫn chính xác. Bạn xem xét và đồng thuận với GPT để chốt việc này.”
+- **Bảng: lệch nhỏ → đã sửa:** thanh tiến độ còn ghi “TARGET-FINAL đang chạy” trong khi KQ XONG 06:12Z.
+- **Đồng thuận P99 toàn bộ:** còn đúng 2 gói, cắt ở ranh giới lab → production (không cắt theo file/lỗi/phút); G6 tự sửa trong lab + xuất luôn gói G7 (bớt một vòng soạn); G7 chạy liền một mạch trong cửa sổ Owner duyệt, quay lui trước mở ghi theo runbook; thiếu PG18 = PARTIAL/BLOCKED, không XONG (sửa đúng chỗ hở P98); mỗi gói 1 vòng review.
+- **Thêm đúng 1 điều, qua luật chống rác (thiếu thì hỏng gì):** script backup VPS1 sau G7 phải dùng `pg_dump` bản 18; bản 16 từ chối dump máy chủ 18 ⇒ backup hỏng âm thầm từ đêm đầu. Nằm trong mục “xác nhận sao lưu” sẵn có của P99, chỉ ghi cụ thể vào 🔧; không thêm bước.
+- **Owner còn 2 lượt:** dán lệnh G6 · duyệt cửa sổ G7 (kèm số đo G6) + dán lệnh G7.
+- Owner cần quyết: —.
 
 ## Owner cần quyết
 - —
