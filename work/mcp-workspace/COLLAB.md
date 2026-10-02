@@ -21,11 +21,11 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 **Mục tiêu chốt (Owner 01/10):** chỉ có 5 ông làm việc. Ông nào vào làm, máy tự nhận ra và ghi lại; không ông nào làm chui. Máy tự bắt lỗi, hoặc nhắc agent làm đúng.
 
-**Trạng thái hiện hành · 02/10 09:54 +07**
+**Trạng thái hiện hành · 02/10 sau hậu kiểm Codex Desktop**
 | Ông/bề mặt | Hiện tại | Kết luận |
 |---|---|---|
 | Claude Code · Mac/SSH/MCP | 🟢 hook thật + sổ + AWAITING_REPORT/LOST/REPORTED + SSH correlation | ĐẠT |
-| Codex | 🟡 hook đã chạy thật bằng binary app; chưa chứng minh chắc trên đúng bề mặt Owner dùng hằng ngày khi không bypass trust | **CỔNG CUỐI** |
+| Codex Desktop (bề mặt Owner dùng thật) | 🟢 6 loại lifecycle event trong dùng thường, actor=`codex`, 0 HOOK_MISSING | ĐẠT · `9fe894c` |
 | GPT Chat | 🟢 B1 identity + activity/report vào sổ chung | ĐẠT |
 | Claude Chat | 🟢 B1 identity + importer/audit vào sổ chung | ĐẠT |
 | Hermes | 🟢 việc giao + chat tự do vào sổ; ghi ý kiến đúng task; config Guard | ĐẠT vòng hiện tại |
@@ -40,16 +40,15 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - Hermes manual Telegram gate
 - R2 lifecycle ledger chung `queue.sqlite`, audit-only, 0 DENY
 - Claude Code lifecycle + nhắc KQ + LOST/AWAITING_REPORT/REPORTED
+- Codex Desktop lifecycle trên bề mặt Owner dùng thật — `9fe894c`
 - SSH correlation + `SSH_UNKNOWN`/`NGOÀI VIỆC`
 - Owner View: sổ phiên, đỏ đúng 2 executor cùng lượt, reviewer không đỏ
 - Hermes: task + chat tự do vào sổ, ghi ý kiến đúng task, Config Guard bắt config drift
 - Host N9 sơ bộ: E1–E6 đạt; test độc lập R2 23/23 PASS
 
-**🔴 Còn đúng 1 cổng để đóng MCPW — CODEX BỀ MẶT DÙNG THẬT**
-- Phải chứng minh **đúng Codex surface Owner dùng hằng ngày** tự phát lifecycle hook khi chạy bình thường, không `--dangerously-bypass-hook-trust`.
-- Báo cáo Codex hiện tại về `core.hooksPath=.githooks` là **Git hook của repo, không phải bằng chứng lifecycle hook**.
-- Thứ tự (P82 + P83): agent tự xác định bề mặt/version/config thật → đọc bằng chứng sẵn có trong sổ + smoke **nguyên trạng** → chỉ khi hook không phát trong dùng thường mới cài **managed/policy** (chỉ phần hook, rollback đúng byte). Chỉ gọi Owner khi app/OS bắt buộc.
-- PASS khi một phiên Codex dùng thật có SessionStart/UserPromptSubmit/Pre/PostToolUse/Stop/SessionEnd, actor=`codex`, vào sổ chung và không `HOOK_MISSING`. Thiếu riêng SessionEnd ⇒ PASS kèm residual đích danh (P83).
+**🏁 Còn một việc lớn trước khi đóng MCPW — BẢO VỆ THÀNH QUẢ + N9 FINAL**
+- Không thêm capability. Chuyển những gì vừa đạt thành regression/integrity contract có máy tự kiểm theo **Điều 30 v1.2 + Điều 31 v1.2**, để làm cái mới sau này không phá lifecycle/Owner View/Hermes/hook mà không bị phát hiện.
+- Sau khi guard/test bảo vệ PASS và N9 final PASS ⇒ trình Owner gật đóng MCPW.
 
 **Phát sinh đã phân loại — không mở việc mới trong MCPW**
 - Phiên Claude Code mở trước khi cài hook ⇒ `HOOK_MISSING`/SSH_UNKNOWN; mở phiên mới tự hết, **không chặn đóng**.
@@ -60,12 +59,12 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - Hermes: một việc còn 2 commit/thẻ+bài và chưa hỏi ngược Owner/AI khác ⇒ **roadmap Bảng giao việc/Quy trình công việc**, không kéo lại vòng hiện tại.
 
 **Checkpoint hiện hành:**
-`[✓ R1 dừng B2B] → [✓ R2 thiết kế] → [✓ R3 review/READY] → [✓ R4 triển khai] → [✓ R5a N9 kỹ thuật] → [■ R5b Codex surface thật] → [□ R6 Claude N9 final + Owner gật → đóng]`
+`[✓ R1 dừng B2B] → [✓ R2 thiết kế] → [✓ R3 review/READY] → [✓ R4 triển khai] → [✓ R5 N9 kỹ thuật + Codex thật] → [■ R6 Điều 30/31 PROTECT + N9 final] → [□ Owner gật → đóng MCPW]`
 
-**Luật giữ cứng:** không NEXT · lease · REST · Directus · VPSUP trong cổng đóng hiện tại. Không chờ theo giờ. Agent tự làm mọi thứ có thể; chỉ yêu cầu Owner khi hệ điều hành/app bắt buộc tương tác người dùng.
+**Luật giữ cứng:** R6 chỉ bảo vệ/kiểm chứng cái đã đạt; không NEXT · lease · REST · Directus · VPSUP. Không chờ theo giờ. Không dùng việc bảo vệ làm cớ redesign.
 
 **🗺 ROADMAP LỚN — chỉ mở bước sau khi MCPW đóng**
-1. **Bước hiện tại — Bắt được AI:** còn đúng Codex surface dùng thật; xong bước này mới đóng MCPW.
+1. **Bước hiện tại — PROTECT + đóng:** đóng contract/test/guard Điều 30/31 cho lifecycle/Owner View/Hermes/hook; N9 final; Owner gật đóng.
 2. **Bước kế tiếp — Bảng giao việc / Quy trình công việc:** một nguồn chung để AI vào là biết **mình làm gì · vai trò · bước hiện tại · việc tiếp · dependency · bàn giao cho ai**. Gộp assignment/trạng thái/ý kiến vào cùng luồng, tránh Hermes thẻ một nơi/bài một nơi; đây cũng là chỗ thiết kế đường Hermes hỏi ngược Owner/Host/AI khác.
 3. **Sau nữa — Tự động hoá dần:** Hermes/Agent tự nhận/được wake từ Bảng giao việc; rồi mới NEXT tự động và scoped lease chống ghi chồng nếu Owner duyệt.
 
