@@ -5,14 +5,14 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 14:48 +07 · GPT Host · P65
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 14:53 +07 · GPT Host · P66
 - 🎯 Mục tiêu: Hermes runtime đang live phải dùng được thật; lỗi client/backend lệch version/schema phải được sửa và tự phát hiện nếu tái diễn.
 - 🏁 Xong khi: đúng client thật tạo session qua đúng backend thật PASS; Điều 30 có regression/negative; Điều 31 có invariant compatibility + guard/watchdog.
-- 📍 Tiến độ: `[✓ HJW baseline CLOSED] → [■ MAINT-COMPAT chẩn đoán/sửa/bảo vệ] → [□ Reviewer verify] → [□ maintenance CLOSED]`.
-- ✅ Đã xong: HJW.3/control/manual gate; MCPW R6 đã bảo vệ lifecycle/Owner View/Hermes config+gate và Protection Guard.
-- ■ Đang làm: Host đã soạn maintenance PROMPT; executor chưa STARTED.
-- ⬜ Còn lại: đo version/schema thật → sửa tối thiểu nếu lệch → real session.create → D30/D31 → reviewer.
-- ➡ Kế tiếp: 🤖 Claude Code chạy một RUN duy nhất; Host + Claude review KQ; 😊 Owner không cần thao tác trừ khi có blocker vượt scope.
+- 📍 Tiến độ: `[✓ HJW baseline CLOSED] → [■ MAINT-COMPAT RUN ISSUED] → [□ Reviewer verify] → [□ maintenance CLOSED]`.
+- ✅ Đã xong: HJW baseline; MCPW R6 protection; PROMPT maintenance `cf1f4eca` đã tự rà scope và chốt.
+- ■ Đang làm: 🤖 Claude Code CLI chạy `HJW-MAINT-COMPAT-20261002-01`; chưa có STARTED/KQ tại thời điểm P66.
+- ⬜ Còn lại: D1 version/schema → D2 fix tối thiểu nếu cần → real session.create → D30/D31 → reviewer.
+- ➡ Kế tiếp: executor ghi STARTED/KQ; Host + Claude review đúng một lượt; 😊 Owner không cần thao tác trừ blocker vượt scope.
 - ⛔ Không làm/để sau: không capability mới · không AUTO · không task/file/service mới · không blind `hermes update`.
 
 ### 1. Mục tiêu
@@ -1043,3 +1043,10 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Điều 30: real `session.create` đúng bề mặt Owner + regression + mismatch mutant. Điều 31: thêm invariant local `HERMES_CLIENT_BACKEND_COMPAT` vào guard hiện hữu, 2-pass, watchdog; Config Guard đăng ký đúng target version/schema còn thiếu.
 - Không task/file/service/monitor mới; AUTO rỗng; manual gate/STOP/7-tool không đổi. Sau KQ review đúng một lượt rồi đóng maintenance.
 - PROMPT maintenance được đặt ở đầu `PROMPT.md`; phần HJW FINAL cũ phía dưới chỉ lưu lịch sử, **không chạy lại**.
+
+### P66 · Host GPT · 2026-10-02 14:53 +07 · **READY/RUN MAINT-COMPAT**
+- Tự rà PROMPT `cf1f4eca`: scope đúng yêu cầu Owner, không capability mới, không blind update, có rollback, có real-client E2E + Điều 30/31 + mutant. Không cần thêm vòng thiết kế trước RUN.
+- PROMPT last-touch = `cf1f4eca6e67eb44bcc15298254cd21cf87d8b4b`.
+- **READY@cf1f4eca6e67eb44bcc15298254cd21cf87d8b4b**.
+- **RUN@HJW-MAINT-COMPAT-20261002-01 · ISSUED.** Executor = Claude Code CLI phiên mới. D1 NO MUTATION trước; D2 chỉ được mutation khi D1 chứng minh root cause A/B/C và có rollback. Root cause D hoặc cần vượt ngân sách ⇒ BLOCKED trước mutation.
+- Sau KQ không tự làm tiếp; Host + Claude Reviewer nghiệm thu một lượt rồi đóng maintenance.
