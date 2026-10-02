@@ -940,6 +940,11 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - `ASSIGN@MCPW-R2-HM-01 · to=Hermes · role=Reviewer · scope=work/mcp-workspace/COLLAB.md · state=done` — Hermes ghi một ý kiến ngắn (≤6 dòng) vào work/mcp-workspace/COLLAB.md: sau R2 Hermes đã vào sổ chung (việc giao + chat tự do) và ghi được ý kiến vào COLLAB của việc được giao; còn thiếu gì để Hermes tham gia như một thành viên? Đọc work/mcp-workspace/COLLAB.md#P79.
 - Đích ghi là COLLAB của việc được giao (R2 mở scope `work/*/COLLAB.md` cho profile `hermes`); dòng ASSIGN này vẫn nằm ở đây như mọi thẻ giao việc.
 
+#### Hermes (Reviewer) · ASSIGN@HJW-MAINT-K2-01 · 2026-10-02
+- Bảng: khớp — ASSIGN `to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace`; bảng điều kiện P71 không lệch.
+- Đã nhận việc qua kênh K2 (AI giao bằng dòng ASSIGN trong repo → thẻ Telegram → Owner bấm): Hermes tự đọc P70 trong repo, không cần Owner gõ lại đề bài.
+- Nhận xét P70: nguyên nhân `cwd_explicit` đúng hướng — app Mac bị kéo lên `e13b5e71` (hơn VPS `749220ef` ~1.992 commit) nên renderer mới gửi thêm field, backend VPS `0.21.5` chặn bằng `extra=forbid` ⇒ 4000; vá bằng đưa app về đúng bản VPS, không dựng backend thứ hai trên Mac; lưu ý backend không log lần từ chối ⇒ cảm biến từ log sẽ mù, cần đưa vào bảng bảo vệ Điều 30/31.
+
 ## Owner cần quyết
 - —
 
@@ -1094,7 +1099,7 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - **D1.6 đèn (Kuma, đọc `kuma.db` mode=ro 08:32Z):** 22 monitor; `#11 Disk Usage` nhịp lưu cuối 00:00:02Z rồi im — nguyên nhân: mỗi giờ :00 có **2 lần đẩy disk cùng lúc** (crontab root `disk-monitor.sh` + `/etc/cron.d/kuma-push`) ⇒ lúc sang ngày UTC Kuma 2.2.1 đua ghi `stat_daily` (UNIQUE `monitor_id,timestamp`), bean ngày kẹt trong RAM ⇒ mọi nhịp #11 sau đó bị Kuma từ chối (log `SQLITE_CONSTRAINT … stat_daily` mỗi giờ). `#13 PG Backup Workflow` tạm dừng từ 05/2026. `#21`/`#22` có nhịp DOWN trong 24h (đã UP lại 04:42Z/04:45Z).
 - STARTED@HJW-MAINT-COMPAT-20261002-01 2026-10-02T08:26:04Z · executor=Claude Code CLI · read-gate PASS: `workspace_stat` HEAD `e79eab7`; PROMPT last-touch `0786390396bb9c22ff2d48395927eb6b625a4065` = `READY@` P68 + Reviewer ACCEPT P67/P69; A0 ĐÃ XÁC NHẬN; 0 STARTED/KQ/STOP_REQUESTED/HOLD trước đó. VPSUP G6 (P105/P106) chỉ ghi VPS2 lab ⇒ lượt này không chạm VPS2/VPSUP.
 - **D2 Mac (08:48–08:52Z, báo Owner trước):** cây build app Mac `checkout -B main 749220ef` (tag lùi `hjw-maint-pre-e13b5e71`), build lại bằng `hermes desktop --build-only` của chính bản đó (không dùng `hermes update` vì remote còn trỏ upstream), renderer mới không còn `cwd_explicit`; app mở lại 08:52:47Z, backend nhận `ws accepted`. VPS không đổi, 0 restart. **E2E qua đường hầm của app:** `session.create {cols,source,cwd}` ⇒ PASS (session `445e7a57`, đóng ngay) 08:52:22Z · mutant có `cwd_explicit` ⇒ `4000` 08:52:24Z (bắt đúng). K1 chờ 😊 Owner tự gõ.
-- **K2:** `ASSIGN@HJW-MAINT-K2-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=claimed` — Hermes đọc đúng đoạn P70 (tìm `STARTED@HJW-MAINT-COMPAT-20261002-01`) rồi ghi ≤3 dòng vào HJW COLLAB: xác nhận đã nhận việc qua kênh K2 (AI giao qua repo → thẻ Telegram → Owner bấm) + một câu nhận xét về nguyên nhân lỗi `cwd_explicit` ghi ở P70. Không đọc thêm, không ghi nơi khác.
+- **K2:** `ASSIGN@HJW-MAINT-K2-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=done` — Hermes đọc đúng đoạn P70 (tìm `STARTED@HJW-MAINT-COMPAT-20261002-01`) rồi ghi ≤3 dòng vào HJW COLLAB: xác nhận đã nhận việc qua kênh K2 (AI giao qua repo → thẻ Telegram → Owner bấm) + một câu nhận xét về nguyên nhân lỗi `cwd_explicit` ghi ở P70. Không đọc thêm, không ghi nơi khác.
 - Áp: SAME_COMMIT
 
 ### P71 · Host GPT · 2026-10-02 15:30 +07 · **BỔ SUNG KIẾN TRÚC OWNER · KHÔNG ĐỔI PROMPT/READY**
