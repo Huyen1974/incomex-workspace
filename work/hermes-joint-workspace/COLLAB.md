@@ -5,15 +5,15 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng. **Lượt 20:05:** Owner giao GPT lựa chọn phương án sau ý kiến Claude P80; Host **ĐỒNG Ý** thêm positive heartbeat 08:00 mỗi sáng bằng Guard/cron hiện hữu: trạng thái đèn + số phiên AI hôm qua/cảnh báo thiếu hook hoặc ngoài sổ; không bot/timer mới.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 21:15 +07 · Claude Code CLI · P86 KQ
-- 🎯 Mục tiêu (Owner 20:07): hệ thống luôn trả lời được **có bao nhiêu loại tin có thể tới điện thoại · bao nhiêu đang chạy · bao nhiêu hỏng · loại nào mới/mất/ngoài sổ**; không còn kiểu “đường chung sống nhưng 6/10 loại âm thầm chết”.
-- 🏁 Xong khi: inventory từ nguồn thật + một sổ chuẩn · Guard đối chiếu hai chiều 5′ · U unknown được kê/Owner xử lý trong lượt · bản tin 08:00 `N loại · M chạy · K hỏng · U chưa xác định` · receipt sau mutation · Owner nhận tin thử · mutants bắt nguồn câm/nguồn lạ/nghỉ trái phép.
-- 📍 Tiến độ: `[✓ Hermes/Kuma technical PASS] → [✓ P82/P83/P84 đồng thuận] → [■ RUN bằng Claude Code phiên mới] → [□ Owner thấy tin thử] → [□ Host+Reviewer nghiệm thu] → [□ đóng]`.
-- ✅ Đã xong: K1/K2 · fleet 21/21 · Down/Up Kuma · INV14/15 · AUTO-PROTECT + receipt/heartbeat luật gốc · sổ/điểm danh đã được Founders đồng thuận · P84 rà live PASS.
-- ■ Đang làm: KQ `HJW-POST-PROTECT-RECEIPT-20261002-03` XONG (P86) — sổ tin báo 66 loại · 64 chạy · 0 hỏng · 2 chưa xác định; Owner đã nhận đủ 5 tin thử; chờ Host + Reviewer nghiệm thu.
-- ⬜ Còn lại: kiểm kê mọi nguồn thật → registry → discovery/điểm danh hai chiều → sender receipt+08:00 → thử các loại chưa có proof → mutants → KQ.
-- ➡ Kế tiếp: 🤖 Host + Reviewer nghiệm thu P86 (đọc `logs/bang-den.json` khoá `tin_bao`) · 😊 Owner xem bản tin thật đầu tiên 08:00 sáng 03/10 ở khung «Hermes VPS» · Host quyết lỗ THIẾU “cả VPS chết thì Kuma chết theo” (P86 còn lại 1).
-- ⛔ Không làm/để sau: không restart · không bot/service/timer/DB/monitor mới · không làm lại K1/K2/Kuma · không đụng VPSUP/PGNB/CWEB · S9 544k token để sau.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 21:25 +07 · GPT Host · P87 HOLD CLOSE
+- 🎯 Mục tiêu (Owner 20:07): hệ thống luôn trả lời được **có bao nhiêu loại tin có thể tới điện thoại · bao nhiêu đang chạy · bao nhiêu hỏng · loại nào mới/mất/ngoài sổ** và lớp tự kiểm không tự gây báo động giả/không chết cùng VPS.
+- 🏁 Xong khi: sổ/điểm danh/receipt/08:00 PASS **và** POST-PROTECT không tạo `rest_anon` giả **và** có dead-man nằm ngoài failure-domain của VPS hoặc Owner chấp nhận residual rõ.
+- 📍 Tiến độ: `[✓ Sổ 66 loại + Guard INV16/17] → [✓ Owner nhận 5 tin thử] → [■ Host ACCEPT chức năng / HOLD CLOSE] → [□ D30 false-positive] → [□ D31 external dead-man] → [□ Reviewer + đóng]`.
+- ✅ Đã xong: K1/K2 · Kuma 21/21 · Down/Up Telegram · sổ 66 loại = 64 chạy · 0 hỏng · 2 U có chủ · INV16/17 · Config Guard 72/72 · rollback · delivery proof · AUTO-PROTECT delta.
+- ■ Đang làm: không có RUN active; Host **không CLOSE** P86 vì còn 2 blocker D30/D31.
+- ⬜ Còn lại: (1) PRE/POST dùng snapshot/cache để không tăng `rest_anon`; test 4 lượt không đỏ giả. (2) dead-man ngoài VPS để biết ngay VPS chết/mất mạng; cần Owner chọn/cho phép cơ chế ngoài failure-domain. Hai U VPS2/Directus Flows tiếp tục hiện trong bản tin và không chặn HJW vì đã có Owner disposition.
+- ➡ Kế tiếp: vá D30 hẹp; chốt external dead-man D31; Reviewer nghiệm thu một lượt rồi CLOSE. Phiên VPSUP có thể chạy sau khi tránh xung đột file Guard hoặc sau CLOSE.
+- ⛔ Không làm lại inventory/K1/K2/Kuma; token bot cứng → việc secret/GSM; S9 544k token → residual riêng.
 
 ### 1. Mục tiêu
 - Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
@@ -1355,3 +1355,12 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
   5. **Luật thêm/bớt đã cưỡng chế:** VPSUP G7 định thêm “canh licensing → Telegram” ⇒ phải thêm dòng `TIN_BAO` trong cùng RUN (qua apply-v0), nếu không INV16 đỏ “nguồn ngoài sổ” và PRE/POST của RUN đó FAIL.
 - **Hồ sơ:** `/opt/incomex/work/hermes-joint-workspace/HJW-POST-PROTECT-RECEIPT-20261002/INDEX.md` (bin/receipt-apply.sh|receipt-rollback.sh, results/, backup/, cand/).
 - Áp: SAME_COMMIT
+
+### P87 · Host GPT · 2026-10-02 21:25 +07 · **P86 ACCEPT CHỨC NĂNG · D30/31 CHƯA ĐỦ ĐỂ CLOSE**
+- **ACCEPT:** sổ 66 loại, 64 chạy, 0 hỏng, 2 U (VPS2 + Directus Flows) đã được Owner disposition; Mac/GitHub ngoài scope theo Owner; Guard INV16 điểm danh hai chiều 5′; INV17 receipt/08:00; 5 tin thử Owner nhận; mutants + rollback + Config Guard 72/72 CLEAN.
+- **Live Host check:** VPS chính healthy; agent-data/Directus/Nuxt/Qdrant/Postgres running/healthy; disk ~45.6%; không có bằng chứng sự cố VPS hiện tại. Cảnh báo `rest_anon 5/h` của RUN đã hồi UP theo KQ lúc 21:10.
+- **BLOCKER D30:** tính năng mới tự làm 4 PRE/POST gọi anonymous GitHub, vượt AD1 `≤2/h` và tạo #22 đỏ giả. KQ tự ghi mọi RUN receipt thường có thể tái diễn. Đây là regression do chính delta mới ⇒ D30 chưa PASS triệt để. Acceptance sửa: PRE/POST phải dùng `snapshot()` hoặc cache PASS hợp lệ, 0 anonymous GitHub; chạy ≥4 PRE/POST liên tiếp không tăng `rest_anon`/không đổi #22 đỏ; mutant stale-cache vẫn fail đúng.
+- **BLOCKER D31:** Guard/Kuma/bot cùng một VPS ⇒ VPS chết/mất mạng thì checker + watchdog + sender chết cùng failure-domain. Bản tin 08:00 chỉ là dead-man thủ công, trễ tới ~24h. Muốn gọi D31 đầy đủ phải có một watcher **ngoài VPS** (dịch vụ ngoài hoặc host độc lập) canh heartbeat/public health và báo Telegram khi mất tín hiệu; chính watcher cũng phải có cấu hình/rollback/evidence theo D30/31. Chưa được Owner cho phép nên Host không tự dựng.
+- **Không blocker:** U01 VPS2 + U02 Directus Flows vì Owner đã chọn giữ U; chúng phải tiếp tục hiện trong bản tin sáng tới khi việc tương ứng xử lý, không được đổi thành RUNNING giả.
+- **Residual ngoài close:** token bot hard-coded D01–D03 → secret/GSM; S9 ~544k token → context efficiency.
+- Kết luận: **CHƯA CLOSE HJW maintenance**. Không cần chạy lại inventory; chỉ còn hai chốt trên rồi Reviewer nghiệm thu một lượt.
