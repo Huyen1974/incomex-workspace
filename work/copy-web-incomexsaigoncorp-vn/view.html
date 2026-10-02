@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
+<title>Chép web incomexsaigoncorp.vn — kế hoạch</title>
+<style>
+:root{color-scheme:light only}
+html,body{background:#fff;color:#1b1f24}
+body{font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;margin:0 auto;padding:20px;max-width:980px}
+h1{font-size:22px;margin:0 0 2px}
+h2{font-size:17px;margin:26px 0 10px;padding-top:14px;border-top:1px solid #e3e6ea}
+.sub{color:#5b6570;font-size:14px}
+.decide{border:2px solid #d92d20;background:#fff5f4;border-radius:10px;padding:14px 16px;margin:16px 0}
+.decide .t{color:#b42318;font-weight:700}
+.btn{display:inline-block;background:#12833f;color:#fff;border-radius:8px;padding:6px 14px;font-weight:700;margin-top:8px}
+.bar{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.step{flex:1 1 150px;border-radius:8px;padding:8px 10px;font-size:14px;border:1px solid #d0d5dd;background:#f2f4f7;color:#475467}
+.step.ok{background:#e7f6ec;border-color:#12833f;color:#0b5a2a}
+.step.now{background:#fff4d6;border-color:#d99a00;color:#6b4b00;font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{border:1px solid #d0d5dd;padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#f2f4f7}
+.g{background:#e7f6ec}.y{background:#fff4d6}.r{background:#fde8e6}.x{background:#f2f4f7;color:#667085}
+code{background:#f2f4f7;padding:1px 5px;border-radius:4px;font-size:13.5px}
+.ex{border-left:4px solid #1570ef;background:#f5f9ff;padding:10px 14px;border-radius:0 8px 8px 0}
+details{margin:10px 0}summary{cursor:pointer;font-weight:600}
+ul{margin:6px 0 6px 20px;padding:0}
+</style>
+</head>
+<body>
+
+<h1>Chép web incomexsaigoncorp.vn về hệ của mình</h1>
+<div class="sub">Bản 1 · 02/10/2026 · Host: Claude Chat · 🤖 làm: Codex · 😊 = việc của anh</div>
+
+<div class="decide" id="quyet">
+  <div class="t">😊 Hôm nay anh cần quyết — 1 việc</div>
+  Gật kế hoạch 3 gói bên dưới.<br>
+  <span class="btn">Đề xuất: GẬT</span>
+</div>
+
+<h2 id="tien-do">Đang ở đâu</h2>
+<div class="bar">
+  <div class="step ok">✅ Mở việc + khảo sát</div>
+  <div class="step now">■ 😊 Anh gật kế hoạch</div>
+  <div class="step">⬜ Gói 1 · CHỤP</div>
+  <div class="step">⬜ Gói 2 · DỰNG + trang thử</div>
+  <div class="step">⬜ Gói 3 · ĐỔI TÊN MIỀN</div>
+</div>
+
+<h2 id="muc-tieu">Mục tiêu (lời anh)</h2>
+<ul>
+  <li>“copy đúng cái trang Web này về, làm 1 cách đơn giản nhất cho nó giống để chạy tạm”</li>
+  <li>“giống giống, chạy được … và DOT cập nhật” · “100% dùng DOT hết với PG và Directus”</li>
+  <li>“đừng lãng phí những việc chúng ta đang làm, nhưng cũng không sa đà”</li>
+</ul>
+
+<h2 id="vi-du">Một ví dụ — xong việc này thì thêm đơn hàng thế nào</h2>
+<div class="ex">
+  Có đơn hàng mới “Hàn xì tại Aichi”.<br>
+  🤖 chạy <b>một lệnh DOT</b> → thêm 1 dòng vào bảng <code>posts</code>.<br>
+  Trang chủ (mục Đơn hàng đang tuyển) · trang Đơn hàng · trang riêng của đơn → <b>tự hiện</b>.<br>
+  Không ai đăng nhập WordPress. Không sửa mã.
+</div>
+
+<h2 id="man">Các màn — giữ nguyên địa chỉ cũ</h2>
+<table>
+  <tr><th>Màn</th><th>Địa chỉ</th><th>Lấy từ bảng</th></tr>
+  <tr><td>Trang chủ</td><td><code>/</code></td><td><code>pages</code> + <code>block_html</code> · <code>posts</code> (đơn mới, tin mới)</td></tr>
+  <tr><td>Giới thiệu · Liên hệ · Dịch vụ</td><td><code>/gioi-thieu/</code> …</td><td><code>pages</code> + <code>block_html</code></td></tr>
+  <tr><td>Đơn hàng · Cẩm nang · Tin tức · Tuyển dụng</td><td><code>/category/…/</code></td><td><code>categories</code> + <code>posts</code></td></tr>
+  <tr><td>Một bài viết</td><td><code>/tên-bài/</code></td><td><code>posts</code></td></tr>
+  <tr><td>Một đơn hàng</td><td><code>/project-post/…/</code></td><td><code>posts</code> (loại đơn hàng)</td></tr>
+  <tr><td>Giáo dục</td><td>cổng giaoduc sẵn có</td><td class="x">x · không đụng</td></tr>
+</table>
+
+<h2 id="bang">Bảng — dùng đồ có sẵn, 0 bảng mới</h2>
+<table>
+  <tr><th>Bảng (đã có, đang trống)</th><th>Chứa gì</th></tr>
+  <tr><td><code>posts</code></td><td>Bài viết + đơn hàng: tên, ngày, tóm tắt, ảnh, nội dung, chuyên mục</td></tr>
+  <tr><td><code>categories</code></td><td>4 chuyên mục</td></tr>
+  <tr><td><code>pages</code> + <code>block_html</code></td><td>Trang tĩnh, trang chủ, đầu trang, chân trang (giữ nguyên HTML cũ)</td></tr>
+  <tr><td><code>seo</code> · <code>redirects</code></td><td>Tiêu đề/mô tả tìm kiếm · địa chỉ cũ nếu phải đổi</td></tr>
+  <tr><td class="x"><code>navigation</code> · <code>globals</code> · <code>forms</code></td><td class="x">Để sau — khi làm lại giao diện</td></tr>
+</table>
+
+<h2 id="goi">Kế hoạch — 3 gói</h2>
+<table>
+  <tr><th>Gói</th><th>🤖 Codex làm</th><th>Đụng máy chủ đang chạy?</th><th>😊 Anh làm</th><th>Khi nào</th></tr>
+  <tr>
+    <td><b>1 · CHỤP</b></td>
+    <td>Chụp nguyên site cũ (bài, trang, ảnh, vỏ) · bảng kiểm kê · dựng thử ngoài máy chủ để chứng minh “nhìn như cũ”</td>
+    <td class="g">Không</td>
+    <td>Dán 1 dòng lệnh</td>
+    <td class="g">Ngay</td>
+  </tr>
+  <tr>
+    <td><b>2 · DỰNG</b></td>
+    <td>Nạp nội dung qua DOT · lớp Nuxt mỏng · tên miền thử · tự so ảnh 6 trang</td>
+    <td class="y">Có — chỉ thêm, không sửa cái đang chạy</td>
+    <td>Chuyển GPT rà 1 lượt · dán lệnh · thêm 1 bản ghi DNS thử · xem trang thử</td>
+    <td class="y">Sau khi nâng cấp máy chủ (G7) xong</td>
+  </tr>
+  <tr>
+    <td><b>3 · ĐỔI TÊN MIỀN</b></td>
+    <td>Chứng chỉ + kiểm sau đổi</td>
+    <td class="y">Có</td>
+    <td>Đổi 2 bản ghi DNS (có hướng dẫn từng bước)</td>
+    <td class="x">Khi anh muốn</td>
+  </tr>
+</table>
+<p class="sub">Vì sao Gói 2 chờ G7: bản Nuxt mới của đợt nâng cấp đã khoá. Thêm tệp trước G7 → mất khi chuyển → làm hai lần.</p>
+
+<h2 id="dot">Lệnh DOT</h2>
+<table>
+  <tr><th>Việc</th><th>DOT</th><th>Tình trạng</th></tr>
+  <tr><td>Thêm / sửa / gỡ / liệt kê bài, trang</td><td><code>dot-content-create · update · delete · list</code></td><td class="g">Có sẵn</td></tr>
+  <tr><td>Mở quyền đọc công khai</td><td><code>dot-permission-ensure</code></td><td class="g">Có sẵn</td></tr>
+  <tr><td>Nạp hàng loạt từ kho chụp</td><td>viết thêm</td><td class="x">Gói 2</td></tr>
+  <tr><td>Thêm tên miền + chứng chỉ</td><td>viết thêm (theo mẫu giaoduc)</td><td class="x">Gói 2</td></tr>
+  <tr><td>Tự kiểm: đếm trang, so ảnh, liên kết</td><td>viết thêm</td><td class="x">Gói 2</td></tr>
+</table>
+
+<h2 id="khoa">Ba khoá chống sa lầy</h2>
+<table>
+  <tr><td class="g"><b>K1</b></td><td>“Giống” = so ảnh 6 trang mẫu. Tối đa 1 vòng sửa. Không đuổi từng điểm ảnh.</td></tr>
+  <tr><td class="g"><b>K2</b></td><td>0 bảng mới. Chỉ thêm tệp, không sửa tệp đang chạy.</td></tr>
+  <tr><td class="g"><b>K3</b></td><td>Cắt hẳn: form có máy chủ · tìm kiếm · bình luận · đăng nhập · hiệu ứng trượt · thiết kế lại.</td></tr>
+</table>
+<p class="sub">Đường lùi: site WordPress cũ vẫn chạy nguyên cho tới khi anh ra lệnh đổi tên miền. Bản ghi thư không đụng.</p>
+
+<details id="bang-chung">
+  <summary>Kho bằng chứng (cho PM / AI)</summary>
+  <ul>
+    <li>Site cũ: WordPress + Flatsome (kiểu bài <code>ux-blocks</code>), Contact Form 7, Yoast, LiteSpeed, MasterSlider; cổng <code>wp-json</code> mở, trả HTML đã dựng.</li>
+    <li>Máy chủ site cũ chặn truy cập tự động sau 2 lượt từ trung tâm dữ liệu → Gói 1 chạy từ máy anh, chậm rãi.</li>
+    <li>PG <code>directus</code>: 47 bảng nhóm web Agency OS; các bảng nội dung 0 dòng.</li>
+    <li>Nuxt: có <code>pages/[...permalink].vue</code>, <code>pages/posts/</code>. nginx: khối giaoduc dùng chung Nuxt, chứng chỉ riêng.</li>
+    <li>Máy đồng bộ Task View chỉ nhận mã việc <code>[A-Za-z0-9_-]+</code> → thư mục dùng <code>-vn</code>, không dùng <code>.vn</code>.</li>
+    <li>JEV <code>gen-dec-1790936861-60jfdlClmTcwG92wvxsI</code>: lắp khung có sẵn + giữ vỏ cũ 0,98 · ảnh giữ đường dẫn 0,97 · chụp trước/dựng sau 0,40 (không chắc) · nguy cơ sa lầy 2,97/4.</li>
+    <li>CSS/JS giao diện mua bản quyền + ảnh: không đưa lên repo công khai; để ở hồ sơ VPS của việc.</li>
+    <li>Chi tiết và lời anh nguyên văn: <code>COLLAB.md</code> §0.</li>
+  </ul>
+</details>
+
+</body>
+</html>
