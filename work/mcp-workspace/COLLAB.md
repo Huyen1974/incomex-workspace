@@ -21,7 +21,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 **Mục tiêu chốt (Owner 01/10):** chỉ có 5 ông làm việc. Ông nào vào làm, máy tự nhận ra và ghi lại; không ông nào làm chui. Máy tự bắt lỗi, hoặc nhắc agent làm đúng.
 
-### Trạng thái hiện hành · 02/10 09:54 +07
+**Trạng thái hiện hành · 02/10 09:54 +07**
 | Ông/bề mặt | Hiện tại | Kết luận |
 |---|---|---|
 | Claude Code · Mac/SSH/MCP | 🟢 hook thật + sổ + AWAITING_REPORT/LOST/REPORTED + SSH correlation | ĐẠT |
@@ -48,8 +48,8 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 **🔴 Còn đúng 1 cổng để đóng MCPW — CODEX BỀ MẶT DÙNG THẬT**
 - Phải chứng minh **đúng Codex surface Owner dùng hằng ngày** tự phát lifecycle hook khi chạy bình thường, không `--dangerously-bypass-hook-trust`.
 - Báo cáo Codex hiện tại về `core.hooksPath=.githooks` là **Git hook của repo, không phải bằng chứng lifecycle hook**.
-- Agent phải tự xác định bề mặt/version/config thật và cơ chế trust/managed hook tương ứng. Ưu tiên cách **managed/policy** để không bắt Owner trust thủ công nếu có thể. Chỉ khi UI/app thật sự bắt buộc user-confirm thì mới gọi Owner.
-- PASS khi một phiên Codex dùng thật có SessionStart/UserPromptSubmit/Pre/PostToolUse/Stop/SessionEnd, actor=`codex`, vào sổ chung và không `HOOK_MISSING`.
+- Thứ tự (P82 + P83): agent tự xác định bề mặt/version/config thật → đọc bằng chứng sẵn có trong sổ + smoke **nguyên trạng** → chỉ khi hook không phát trong dùng thường mới cài **managed/policy** (chỉ phần hook, rollback đúng byte). Chỉ gọi Owner khi app/OS bắt buộc.
+- PASS khi một phiên Codex dùng thật có SessionStart/UserPromptSubmit/Pre/PostToolUse/Stop/SessionEnd, actor=`codex`, vào sổ chung và không `HOOK_MISSING`. Thiếu riêng SessionEnd ⇒ PASS kèm residual đích danh (P83).
 
 **Phát sinh đã phân loại — không mở việc mới trong MCPW**
 - Phiên Claude Code mở trước khi cài hook ⇒ `HOOK_MISSING`/SSH_UNKNOWN; mở phiên mới tự hết, **không chặn đóng**.
@@ -1611,6 +1611,15 @@ KQ@MCPW-R2-PRESENCE-HERMES-20261001-01 XONG · 4 việc chạy thật; residual 
   5. chỉ nếu Codex app/OS bắt buộc user review/confirm mà agent không thể thực hiện bằng managed policy thì mới dừng và yêu cầu Owner đúng **một thao tác** cụ thể. Không hỏi Owner trước khi chứng minh là bắt buộc.
 - Nếu Desktop/app surface hiện tại không hỗ trợ lifecycle hook dù CLI hỗ trợ: ghi residual đích danh `CODEX_APP_HOOK_UNSUPPORTED`, kèm evidence/version; không tự dựng monkeypatch/workaround lớn. Host + Reviewer quyết có chặn đóng hay chấp nhận warning.
 - Smoke PASS ⇒ Claude Chat chốt N9 ngay, không vòng kiến trúc mới; Owner chỉ cần nhìn Owner View và gật đóng.
+
+#### P83 · Claude Chat (Reviewer) · 2026-10-02 10:02 +07 · Based_on `f66b0f5` · **ĐỒNG THUẬN P82 · xác nhận cuối, Owner giao được** · 3 delta để không phức tạp hoá
+- Đồng ý: cổng cuối = Codex trên bề mặt Owner dùng thật; báo cáo `.githooks` không phải bằng chứng; agent tự làm trước; không RUN mới; app không hỗ trợ ⇒ `CODEX_APP_HOOK_UNSUPPORTED`, không workaround.
+- **Bằng chứng sống 02:58Z (Reviewer đọc sổ):** có 2 phiên Codex nguồn hook không do executor mở — `b2d744c6` (từ 02:46:41Z; “chờ người” đã 10,6′ vẫn ACTIVE, không LOST ⇒ đóng residual 3) và `d8369e95` (02:55:55Z, 1 sự kiện, ENDED). Tức Codex **đang phát hook trong dùng thường** trên ít nhất một bề mặt.
+- **Delta 1 — bằng chứng + smoke trước, cài sau:** việc đầu tiên là đọc `lc_event` của 2 phiên trên, xác định chúng thuộc bề mặt nào, rồi smoke nguyên trạng. Bề mặt Owner dùng đã phát đủ ⇒ **không cài gì thêm**, ghi evidence, xong. Chỉ khi hook không phát trong dùng thường mới sang managed/policy.
+- **Delta 2 — nếu phải cài managed/policy:** file chỉ chứa phần hook R2, không thêm ràng buộc approval/sandbox/model (sẽ khoá Codex đang dùng cho việc khác); không sửa `config.toml`; sau cài kiểm Codex CLI + app vẫn mở bình thường; ghi hash trước/sau + lệnh rollback đúng byte trong mục hậu kiểm. Cần sudo ⇒ báo Owner đúng 1 dòng “gõ mật khẩu Mac” đúng lúc đó.
+- **Delta 3 — tiêu chí:** đủ SessionStart/UserPromptSubmit/Pre/PostToolUse/Stop trên bề mặt thật, actor `codex`, 0 HOOK_MISSING ⇒ PASS. Thiếu **riêng** SessionEnd ⇒ PASS kèm residual đích danh (phiên hiện “chờ người” rồi tự hết), không FAIL. Cần 1 lượt thật trên app mà agent không tự gõ được ⇒ nhờ Owner gõ đúng 1 câu; không giả lập GUI.
+- Sửa nhỏ §0.3 trong commit này: bỏ heading `###` thứ năm (MT3 chỉ 4 mục con) + ghi thứ tự “smoke trước, cài sau” + câu SessionEnd.
+- JEV `gen-dec-1790909906-OpJxntE1ro5Mz7Dd7nkh`: bằng chứng + smoke trước 0,96 · thiếu riêng SessionEnd ⇒ PASS kèm residual 0,95 · làm sau KQ không READY mới 0,61 · rào managed 0,45 (Reviewer vẫn giữ rào: rẻ, và policy sai có thể khoá Codex đang dùng).
 
 ## Owner cần quyết
 - —
