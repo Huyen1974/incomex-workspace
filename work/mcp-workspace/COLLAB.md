@@ -21,41 +21,55 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 **Mục tiêu chốt (Owner 01/10):** chỉ có 5 ông làm việc. Ông nào vào làm, máy tự nhận ra và ghi lại; không ông nào làm chui. Máy tự bắt lỗi, hoặc nhắc agent làm đúng.
 
-| Ông | Vào làm qua | Máy nhận ra bằng | Hiện |
-|---|---|---|---|
-| Claude Code | Mac · SSH · cổng MCP | hook của Claude Code | 🔴 |
-| Codex | Mac · SSH · cổng MCP | hook của Codex | 🔴 |
-| GPT Chat | cổng MCP | tên thật B1 → sổ | 🟡 có tên, chưa có sổ |
-| Claude Chat | cổng MCP | tên thật B1 → sổ | 🟡 có tên, chưa có sổ |
-| Hermes | công tắc tay Telegram · cổng MCP | thẻ + sổ Hermes → sổ chung | 🟢 việc giao · 🔴 chat tự do |
+### Trạng thái hiện hành · 02/10 09:54 +07
+| Ông/bề mặt | Hiện tại | Kết luận |
+|---|---|---|
+| Claude Code · Mac/SSH/MCP | 🟢 hook thật + sổ + AWAITING_REPORT/LOST/REPORTED + SSH correlation | ĐẠT |
+| Codex | 🟡 hook đã chạy thật bằng binary app; chưa chứng minh chắc trên đúng bề mặt Owner dùng hằng ngày khi không bypass trust | **CỔNG CUỐI** |
+| GPT Chat | 🟢 B1 identity + activity/report vào sổ chung | ĐẠT |
+| Claude Chat | 🟢 B1 identity + importer/audit vào sổ chung | ĐẠT |
+| Hermes | 🟢 việc giao + chat tự do vào sổ; ghi ý kiến đúng task; config Guard | ĐẠT vòng hiện tại |
+| SSH không quy được actor | 🟡 hiện `SSH_UNKNOWN`, không im lặng | ĐÚNG THIẾT KẾ |
 
 **✅ Đã đạt — không làm lại**
-- Ghi repo chỉ qua cổng — `afadda3`
-- GitHub chậm/mất vẫn đọc được bản VPS — P02
-- Kết nối GPT/Claude ổn định, 37/23 công cụ — R03
-- Mỗi AI có tên thật do máy cấp (GPT · Claude Chat · Claude Code · Codex · Hermes) — B1 `52436cc`
-- Khoá chung hết ghi qua MCP — B2A `c4f5902`
-- Hermes nhận việc qua công tắc tay Telegram (cố ý, chưa tự động) — `f85a244`
+- Gateway-only-writes — `afadda3`
+- P02/read-serving VPS khi GitHub chậm/mất
+- R03: GPT/Claude ổn định, contract 37/23
+- B1: server-side identity cho 5 bề mặt
+- B2A: legacy shared key hết WRITE qua MCP
+- Hermes manual Telegram gate
+- R2 lifecycle ledger chung `queue.sqlite`, audit-only, 0 DENY
+- Claude Code lifecycle + nhắc KQ + LOST/AWAITING_REPORT/REPORTED
+- SSH correlation + `SSH_UNKNOWN`/`NGOÀI VIỆC`
+- Owner View: sổ phiên, đỏ đúng 2 executor cùng lượt, reviewer không đỏ
+- Hermes: task + chat tự do vào sổ, ghi ý kiến đúng task, Config Guard bắt config drift
+- Host N9 sơ bộ: E1–E6 đạt; test độc lập R2 23/23 PASS
 
-**🔴 Còn đúng 4 việc — không nở thêm (Host + Reviewer thống nhất 01/10 16:58)**
-1. **Claude Code + Codex + SSH:** hook thật; bắt đầu · đang làm · kết thúc; gắn đúng việc/RUN; quên báo cáo ⇒ máy nhắc agent, vẫn quên ⇒ `AWAITING_REPORT`; tắt ngang ⇒ `LOST`.
-2. **Sổ chung trên VPS** (`queue.sqlite`, dùng lại mã B2B đã test): Claude Code · Codex · GPT · Claude Chat · Hermes cùng một sổ; chỉ ghi, không chặn.
-3. **Owner View:** mỗi việc ai đang làm · từ lúc nào · trạng thái; 2 phiên cùng việc ⇒ đỏ; SSH không rõ ai ⇒ vàng.
-4. **Hermes:** ghi ý kiến vào việc được giao · việc giao + chat tự do vào sổ · đổi `~/.hermes/config.yaml` ngoài lượt ⇒ Config Guard báo.
+**🔴 Còn đúng 1 cổng để đóng MCPW — CODEX BỀ MẶT DÙNG THẬT**
+- Phải chứng minh **đúng Codex surface Owner dùng hằng ngày** tự phát lifecycle hook khi chạy bình thường, không `--dangerously-bypass-hook-trust`.
+- Báo cáo Codex hiện tại về `core.hooksPath=.githooks` là **Git hook của repo, không phải bằng chứng lifecycle hook**.
+- Agent phải tự xác định bề mặt/version/config thật và cơ chế trust/managed hook tương ứng. Ưu tiên cách **managed/policy** để không bắt Owner trust thủ công nếu có thể. Chỉ khi UI/app thật sự bắt buộc user-confirm thì mới gọi Owner.
+- PASS khi một phiên Codex dùng thật có SessionStart/UserPromptSubmit/Pre/PostToolUse/Stop/SessionEnd, actor=`codex`, vào sổ chung và không `HOOK_MISSING`.
 
-**Checkpoint (ước tính 01/10, giờ VN):**
-`[✓ R1 dừng B2B] → [■ R2 GPT soạn PROMPT ~17:30] → [□ R3 Claude duyệt + READY ~17:50] → [□ R4 Claude Code chạy 4 việc ~18:00–20:30] → [□ R5 thử thật + Claude nghiệm thu ~21:00] → [□ R6 Owner gật → đóng]`
-- R5 thử thật: vào làm · làm qua SSH · quên báo cáo · tắt ngang · 2 phiên cùng việc · Hermes ghi ý kiến · đổi config Hermes trên bản thử.
-- R4 có thể cần Owner gõ mật khẩu Mac 1 lần (cấu hình quản trị cho hook).
+**Phát sinh đã phân loại — không mở việc mới trong MCPW**
+- Phiên Claude Code mở trước khi cài hook ⇒ `HOOK_MISSING`/SSH_UNKNOWN; mở phiên mới tự hết, **không chặn đóng**.
+- “Chờ người không LOST” đã có unit/negative + phiên Codex sống chờ >10′ theo P81, **đủ bằng chứng**.
+- Owner View còn phiên test 24h rồi tự hết, **không chặn**.
+- Drift `hvu-sync-py` thuộc MMIM, **không rebaseline hộ**.
+- `presence.py` legacy jobs path trong sandbox không đọc WAL; R2 dùng JSON snapshot nên mục tiêu hiện tại không ảnh hưởng, **maintenance sau**.
+- Hermes: một việc còn 2 commit/thẻ+bài và chưa hỏi ngược Owner/AI khác ⇒ **roadmap Bảng giao việc/Quy trình công việc**, không kéo lại vòng hiện tại.
 
-**Luật giữ cứng:** NEXT · lease · REST · Directus · `vps1-up-grade` không phải cổng của 4 việc. Không thêm cổng chờ giờ. Phần nào kẹt (vd hook Codex thiếu theo version) ⇒ ghi residual + vẫn báo vàng, phần còn lại chạy tiếp. Ý mới ⇒ ghi vào roadmap, Owner quyết.
+**Checkpoint hiện hành:**
+`[✓ R1 dừng B2B] → [✓ R2 thiết kế] → [✓ R3 review/READY] → [✓ R4 triển khai] → [✓ R5a N9 kỹ thuật] → [■ R5b Codex surface thật] → [□ R6 Claude N9 final + Owner gật → đóng]`
 
-**🗺 ROADMAP LỚN — RUN hiện tại chỉ làm bước 1; bước 2–3 Owner duyệt mới mở**
-1. **Bước hiện tại — Bắt được AI:** biết đúng ai vào làm · việc nào · bắt đầu lúc nào · còn hoạt động không · kết thúc/bỏ quên/mất tín hiệu thế nào. Đây là điều kiện phải xong trước.
-2. **Bước kế tiếp — Bảng giao việc / Quy trình công việc:** tạo một bảng chung để mỗi AI khi vào hệ thống đọc là biết **mình được giao việc gì · vai trò gì · đang ở bước nào · cần làm tiếp gì · phụ thuộc ai/cái gì · khi xong bàn giao cho ai**. Host/Owner giao việc vào một nguồn; AI đọc cùng nguồn đó, không suy từ chat rời rạc. Đây là nền cho điều phối nhiều AI có trật tự.
-3. **Sau nữa — Tự động hoá dần:** Hermes/Agent có thể tự nhận hoặc được đánh thức từ Bảng giao việc; rồi mới tính NEXT tự động và scoped lease chống ghi chồng nếu Owner duyệt.
+**Luật giữ cứng:** không NEXT · lease · REST · Directus · VPSUP trong cổng đóng hiện tại. Không chờ theo giờ. Agent tự làm mọi thứ có thể; chỉ yêu cầu Owner khi hệ điều hành/app bắt buộc tương tác người dùng.
 
-**⚪ Ngoài roadmap, Owner quyết riêng:** khoá REST/Directus.
+**🗺 ROADMAP LỚN — chỉ mở bước sau khi MCPW đóng**
+1. **Bước hiện tại — Bắt được AI:** còn đúng Codex surface dùng thật; xong bước này mới đóng MCPW.
+2. **Bước kế tiếp — Bảng giao việc / Quy trình công việc:** một nguồn chung để AI vào là biết **mình làm gì · vai trò · bước hiện tại · việc tiếp · dependency · bàn giao cho ai**. Gộp assignment/trạng thái/ý kiến vào cùng luồng, tránh Hermes thẻ một nơi/bài một nơi; đây cũng là chỗ thiết kế đường Hermes hỏi ngược Owner/Host/AI khác.
+3. **Sau nữa — Tự động hoá dần:** Hermes/Agent tự nhận/được wake từ Bảng giao việc; rồi mới NEXT tự động và scoped lease chống ghi chồng nếu Owner duyệt.
+
+**⚪ Owner quyết riêng, không thuộc roadmap đóng MCPW:** khoá REST/Directus.
 **Luật nghiệm thu:** N9 (E1–E6), ở Vòng trước.
 
 ### Vòng trước
