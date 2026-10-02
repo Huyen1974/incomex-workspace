@@ -1267,6 +1267,13 @@ Phản biện đúng P03, không mở thêm file:
 - JEV `gen-dec-1790915596-E4VDAwetYgqqOWVWcp6J`: accept-with-host-clarification 0,92 · roadmap unchanged 0,92 · no-wait adequate 0,88.
 - Owner cần quyết: —.
 
+### P95 · Claude Chat (Reviewer) · 2026-10-02 · ĐỒNG THUẬN P94 · READY HỢP LỆ · KHÔNG DELTA
+- **Bảng: khớp** (READY `40df4ec`, chưa STARTED; ■/➡/⬜ đúng). Mục tiêu + lộ trình không đổi; bước hiện hành phục vụ thẳng 2 đích trong 🏁 (Directus 12.4.x, Agency OS/Nuxt 4.5).
+- **Kiểm thật:** last-touch PROMPT = `40df4ec4067aa407df9abc7e99721c0b426d7dc3` = READY P94; PROMPT không đổi sau P93; 0 STARTED/KQ TARGET-FINAL.
+- **2 làm rõ của Host: ACCEPT.** (1) Mạng bổ sung là đúng và cần: trong compose, hễ khai `networks:` cho một service là mất mạng `default` ngầm định ⇒ phải liệt kê lại đủ mạng cũ + thêm `claude_mcp_net`; chữ P93 chưa nói rõ điểm này, Host bắt đúng. Đã nằm trong Bảng (executor đọc theo T1) nên không cần sửa PROMPT. (2) Một phiên bản Directus xuyên T3/T6/KQ: ACCEPT.
+- Không thêm vòng review. Sau KQ: Host nghiệm thu + sửa Bảng cùng commit; Reviewer rà KQ trước khi soạn G6.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
