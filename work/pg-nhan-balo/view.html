@@ -38,13 +38,13 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 </head>
 <body><main>
 <h1>Luật nhãn PG — mở balo là biết có gì, dùng lại được gì, thừa gì</h1>
-<p class="mut" id="trang-thai">Bản v1.2 · 02/10/2026 21:05 · luật, vị trí và lệnh v2 đã được Claude + GPT đồng thuận · lệnh đã mở · chờ Owner dán lệnh chạy cho Codex · chạy trước khi nâng PG · chưa triển khai, không tắt, không xoá</p>
+<p class="mut" id="trang-thai">Bản v1.2 · 02/10/2026 21:45 · luật và vị trí không đổi · lượt chạy đầu dừng ở bước kiểm, máy chủ chưa bị đổi gì · lệnh đã sửa đường dẫn (v3), chờ GPT xác nhận rồi mở lại · chạy trước khi nâng PG · không tắt, không xoá</p>
 
 <span class="tang">PHẦN CHO OWNER</span>
 
 <section class="card quyet" id="quyet">
 <h2>Hôm nay anh cần quyết</h2>
-<p><strong>Lệnh đã mở.</strong> 🙂 Việc của anh: dán lệnh chạy cho Codex. <strong>Chưa dán lệnh nâng PG (G7) cho tới khi Codex báo xong:</strong> nâng PG xoá bộ đếm mà đợt dán nhãn cần để đo “còn ghi không”.</p>
+<p><strong>Chưa cần anh quyết.</strong> Lượt chạy đầu của Codex dừng ở bước kiểm, máy chủ chưa bị đổi gì: lệnh ghi thiếu một thư mục mà công cụ bắt buộc (lỗi của Claude). Claude đã sửa. 🙂 Việc của anh: đưa GPT một dòng để xác nhận phần sửa; sau đó dán lệnh chạy mới cho Codex. <strong>Chưa dán lệnh nâng PG (G7) cho tới khi dán nhãn xong.</strong></p>
 </section>
 
 <section class="card" id="tien-do">
@@ -52,8 +52,8 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <div class="bar">
 <div class="xong">1 · Khảo sát ✓</div>
 <div class="xong">2 · Luật ✓</div>
-<div class="xong">3 · Lệnh đã duyệt, đã mở ✓</div>
-<div class="dang">4 · Anh dán lệnh · Codex đặt biển, dán nhãn ▶</div>
+<div class="dang">3 · Lệnh sửa đường dẫn · GPT xác nhận ▶</div>
+<div>4 · Anh dán lệnh · Codex đặt biển, dán nhãn</div>
 <div>5 · Nghiệm thu PG · đối soát sổ DOT</div>
 <div>6 · Anh quyết theo khối</div>
 </div>
@@ -285,7 +285,7 @@ Luật: đọc bảng balo_tu_dien_nhan, các dòng nhan = 'LUAT', theo thu_tu, 
 <tr><td>Trigger khai sinh vẫn bật</td><td>166 trên 148 bảng</td></tr>
 <tr><td><code>v_registry_counts</code></td><td>8.045.245 lượt thêm cho 169 dòng</td></tr>
 <tr><td><code>pivot_results</code></td><td>2.344.199 lượt sửa cho 150 dòng</td></tr>
-<tr><td>Ảnh chụp bộ đếm 01/08</td><td>352 dòng cho schema <code>public</code> (<code>evidence/del1g-20260801/out/snap_directus_0.psv</code>); bảng ngoài <code>public</code> ở <code>ngoai_0.psv</code></td></tr>
+<tr><td>Ảnh chụp bộ đếm 01/08</td><td>352 dòng cho schema <code>public</code> (<code>evidence/del1g-20260801/out/snap_directus_0.psv</code>); bảng ngoài <code>public</code> ở <code>ngoai_0.psv</code>. Nghĩa 9 trường đã kiểm bằng phép cộng: thời điểm · bảng · lượt quét tuần tự · lượt quét chỉ mục · tổng đọc · tổng ghi · thêm · sửa · xoá</td></tr>
 <tr><td>Khoá ngoại nhìn thấy qua công cụ xem cấu trúc (quyền chỉ đọc)</td><td>0 / 161 thật có</td></tr>
 <tr><td>Làm mới balo (<code>balo-reconcile.sql</code>)</td><td>chỉ thêm dòng với tên, nơi lưu, khoá; chỉ sửa tên, nơi lưu, cờ “đã mất”; không đụng cột nhãn</td></tr>
 <tr><td>Khuôn Reports sẵn có</td><td>danh sách sống của một bảng có khoá chính một cột · báo cáo tính sống bằng <code>view_sql</code>, không tạo bảng</td></tr>
