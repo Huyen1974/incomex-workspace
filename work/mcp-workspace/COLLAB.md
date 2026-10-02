@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: GPT-MCPW-250925-A · Owner giao 25/09/2026 điều h�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) — Owner gật đề xuất `Mở lại mcp-workspace để khoá đường ghi repo chỉ qua gateway` (COLLAB gốc DROOT20).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 14:21 +07 · GPT Host · P91
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 14:31 +07 · GPT Host · P93
 - 🎯 Mục tiêu: 5 AI/Agent hữu hạn vào làm thì máy tự nhận ra và ghi lại; không ai “làm chui”; Hermes hiện giữ manual gate.
-- 🏁 Xong khi: R6 bảo vệ thành quả + N9 final + Owner gật đóng; hạn báo cáo AI là **14:00 +07 ngày 02/10/2026**.
-- 📍 Tiến độ: `[✓ R1–R6] → [✓ Host N9 PASS] → [■ Claude Reviewer final] → [□ Owner gật → đóng MCPW]`.
-- ✅ Đã xong: chức năng 5 AI/Agent · R6 `8656d03` · phiên R6 REPORTED `6c55100` · Host đối chiếu N9/P89 = PASS.
-- ■ Đang làm: Claude Reviewer chỉ còn nghiệm thu final trên KQ + live tối thiểu; **không còn executor/RUN MCPW**.
-- ⬜ CHƯA HOÀN THÀNH TẠI 14:00: (1) Claude Reviewer chưa có kết luận N9 final trên repo; (2) Owner chưa gật đóng vì còn chờ N9 final. R6/technical execution đã XONG trước hạn.
-- ➡ Kế tiếp: Claude ghi đúng một kết luận `ACCEPT` hoặc blocker thật; ACCEPT ⇒ chuyển thẳng Owner gật đóng, không vòng đồng thuận mới.
-- ⛔ Không làm/để sau: **không RUN mới để kéo dài MCPW** · không sửa residual không chặn · Bảng giao việc/NEXT/lease/REST/Directus/VPSUP để sau/ngoài scope.
+- 🏁 Xong khi: R6 bảo vệ thành quả + N9 final + Owner gật đóng.
+- 📍 Tiến độ: `[✓ R1–R6] → [✓ Host N9 PASS] → [✓ Claude N9 FINAL PASS] → [■ Owner gật → đóng MCPW]`.
+- ✅ Đã xong: chức năng 5 AI/Agent · R6 `8656d03` · phiên R6 REPORTED `6c55100` · Host P91 PASS · Reviewer P92 `95b9237` PASS.
+- ■ Đang làm: **không còn AI/executor/RUN MCPW**; chỉ chờ quyết định Owner `O-MCPW-CLOSE-FINAL`.
+- ⬜ Còn lại: Owner nhìn Owner View → nếu đúng thì ra lệnh `Đóng mcp-workspace`; Host làm thủ tục A9 move sang `work/done-tasks/`.
+- ➡ Kế tiếp sau khi đóng: Bảng giao việc / Quy trình công việc; sau đó mới tự động hóa NEXT/scoped lease nếu Owner duyệt.
+- ⛔ Không làm trước khi đóng: không sửa nợ bảo trì · không RUN mới · REST/Directus/VPSUP ngoài scope.
 
 ### 1. Mục tiêu
 - Nguyên văn Owner: “Đúng vậy chúng ta khóa lại để bắt buộc làm theo 1 con đường giúp tôi.”
@@ -1751,5 +1751,14 @@ KQ@MCPW-R6-PROTECT-CLOSE-20261002-01 XONG · PROTECTED_READY_FOR_OWNER_CLOSE
 - JEV `gen-dec-1790926078-jnnzwfwWyBYjXNdzFYTH`: ACCEPT 0,94.
 - **Kết luận:** 4/4 điều kiện đóng đạt; không có blocker. Chuyển Owner gật đóng; sau đó Host làm thủ tục đóng theo A9 (`work/done-tasks/`). Không vòng review nào nữa.
 
+#### P93 · Host GPT · 2026-10-02 14:31 +07 · Based_on `95b9237` · **ĐỒNG THUẬN P92 · MCPW READY FOR OWNER CLOSE**
+- **Mục tiêu/roadmap:** không đổi. Mục tiêu gốc “5 ông hữu hạn vào làm thì máy nhận ra/ghi lại, không làm chui; Hermes manual gate” đã đạt. P02/read-serving đã đạt từ trước; R6 chỉ bảo vệ thành quả; Host P91 + Reviewer P92 đều PASS. Không còn bước kỹ thuật nào trước đóng.
+- **Điểm danh ĐÃ XONG:** gateway-only-writes · P02/read-serving · contract 37/23 · B1 identity · B2A legacy WRITE deny · lifecycle ledger/audit · Claude Code + Codex Desktop hooks · SSH correlation/SSH_UNKNOWN · Owner View Sổ phiên/Ngoài việc/cảnh báo đỏ đúng · Hermes task/chat/manual gate/config guard · R6 Điều 30/31 · Config Guard 63/63 · Protection Guard/watchdog · N9 Host + Reviewer.
+- **Phát sinh đã xử lý:** Hermes `drift=GATE` đã hết · `hvu-sync-py` đã rebaseline đúng hash A09R1, byte source không đổi · thiếu Bảng điều khiển đã sửa P90 · R6 session đã đi đủ START→ACTIVE→REPORTED.
+- **Phát sinh chấp nhận theo thiết kế, KHÔNG phải nợ sửa:** 2-pass cảnh báo chậm tối đa 5′ · Mac hook được canh bằng `HOOK_MISSING` thay vì Config Guard VPS · R6 không tạo phiên Codex mới vì baseline Desktop `9fe894c` còn bằng chứng · contract browser nằm trong spec, không thêm JSON runner cũ để tránh đường Directus.
+- **Nợ bảo trì sau đóng, không chặn:** (1) release gate mặc định còn image cũ — hiện đã có biển bắt truyền `ACCEPTANCE_IMAGE`; (2) Playwright ghim Chromium chưa cài, hiện dùng Chromium sẵn có; (3) dòng mẫu `KQ@` trong PROMPT có thể sinh `lc_report` thừa cho gpt-web — lần sửa lifecycle sau chỉ quét COLLAB; (4) `SSH_UNKNOWN` từ cửa sổ Claude Code mở trước hook — hết khi đóng/mở lại các cửa sổ đó; (5) `sync.py` có mtime mới dù byte/hash không đổi — chỉ ghi nhận, không hành động.
+- **Roadmap sau đóng giữ nguyên:** Bước 2 = Bảng giao việc / Quy trình công việc (gộp assignment/trạng thái/ý kiến, đường Hermes hỏi ngược); Bước 3 = tự động hóa dần, rồi mới NEXT tự động + scoped lease nếu Owner duyệt. Khoá REST/Directus vẫn là quyết định riêng, không nhập vào roadmap này.
+- **Host kết luận:** đồng thuận P92, không cần triển khai thêm trước đóng. Không mở vòng review/RUN mới. Chỉ chờ Owner quyết.
+
 ## Owner cần quyết
-- **O-MCPW-CLOSE-FINAL** · Nhìn Owner View rồi gật đóng MCPW. Host P91 + Reviewer P92 đều PASS. **Đề xuất: ĐỒNG Ý.**
+- **O-MCPW-CLOSE-FINAL** · Host P91/P93 + Reviewer P92 đều PASS. Nhìn Owner View; nếu đúng, ra lệnh `Đóng mcp-workspace`. **Đề xuất: ĐỒNG Ý.**
