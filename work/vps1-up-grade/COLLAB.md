@@ -4,7 +4,7 @@ Tên việc: Nâng PG · Directus · Nuxt/Agency OS lên bản mới nhất ổn
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/09/2026: mở `work/vps1-up-grade`, tập hợp phương án cũ + ý kiến Claude + bổ sung mới của Owner để hội đồng lập kế hoạch nâng cấp an toàn. Chưa cho phép nâng cấp/dọn/xóa/restart/deploy ở lượt mở việc này.
 
-### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 15:18 +07 · GPT Host · P105 — PIN PG18.6, G6 TIẾP TỤC — đọc đầu tiên, mọi phiên (AGENTS MT4)
+### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 15:29 +07 · GPT Host · P107 — DOT/SCRIPT-ONLY 100%, G6 TIẾP TỤC — đọc đầu tiên, mọi phiên (AGENTS MT4)
 - 🎯 **Mục tiêu — Owner nguyên văn 02/10 11:59:** “Mục tiêu cuối cùng không phải là nâng cấp phần mềm, mục tiêu cuối cùng là tận dụng các tính năng mới nhất của PG/Directus để giải quyết các bài toán của ‘máy sản xuất quy trình’” · “chúng ta cần 1 cái máy chủ, với các phần mềm cần thiết quan trọng ở mức tốt nhất và ổn định. Những thứ khác dẹp bớt ra.” · “đây không phải là việc chính, đây chỉ là công cụ, là việc phụ.”
 - 🎯 **Một câu:** VPSUP là **công cụ**: VPS1 chạy PG 18 + Directus 12.4 + Nuxt 4.5 ổn định, để việc chính (Máy sản xuất quy trình — `work/mow-mot-moit-mout`) dùng tính năng mới nhất. Dùng tính năng nào cho bài toán nào là việc chính, **không làm ở đây**.
 - 🏁 **Xong khi VPS1 chạy (đích duy nhất):**
@@ -25,7 +25,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/0
 - ✂️ **Đã cắt khỏi đường chính:** nâng @nuxt/ui v4; chờ 7 ngày; PG18 đợt 2 mặc định; dọn/huỷ VPS2 và chuyển e-learning; mở nghiên cứu hay nâng thêm thành phần. Lỗ bảo mật nghiêm trọng phát hiện thật thì báo, không tự mở nhánh. G6/G7 dùng lại bytes Nuxt đã kiểm, không build lại theo thói quen.
 - ➡ **Kế tiếp:** 🤖 Claude Code làm trọn G6 tới KQ và giao sẵn gói G7 · Host nghiệm thu + Reviewer rà gói G7 một vòng · 😊 Owner duyệt cửa sổ production và dán G7.
 - ⛔ **Không làm:** DNS · chờ MCPW · nâng Qdrant/Kuma · thoát Agency OS · sửa lỗi có sẵn của việc khác (`hvu-sync-py`, Kuma #21/#22).
-- 🔧 **G6 xử lý trong cùng gói, không tách bước:** 503 khi tải cao (so với CURRENT, sửa hẹp/đối soát theo tải thực) · 33 DEFAULT hệ thống Directus thiếu (đối chiếu canonical, vá có căn cứ trên lab, kiểm tạo field/user/collection) · `pg_dump`/`pg_dumpall`/`pg_restore` 18 và backup đọc/khôi phục được · `.env NUXT_SSR_IMAGE` + extension host + mạng bổ sung + compose/delta sống · đúng bytes Nuxt TF · checkpoint nhất quán trước mở ghi, sau mở ghi cấm restore DB mù. Bằng chứng và giới hạn chi tiết nằm trong P101/PROMPT.
+- 🔧 **G6 xử lý trong cùng gói, không tách bước:** 503 khi tải cao (so với CURRENT, sửa hẹp/đối soát theo tải thực) · 33 DEFAULT hệ thống Directus thiếu (đối chiếu canonical, vá có căn cứ trên lab, kiểm tạo field/user/collection) · `pg_dump`/`pg_dumpall`/`pg_restore` 18 và backup đọc/khôi phục được · `.env NUXT_SSR_IMAGE` + extension host + mạng bổ sung + compose/delta sống · đúng bytes Nuxt TF · checkpoint nhất quán trước mở ghi, sau mở ghi cấm restore DB mù. **Directus/PG = DOT/script-wrapper 100%:** Agent không `psql`/SQL/REST/CLI/migration/restore trực tiếp; thiếu capability thì viết hoặc nâng DOT/script trước rồi dùng chính nó. Bằng chứng và giới hạn chi tiết nằm trong P101/PROMPT + DROOT26.
 - 📏 **Luật chống rác — Owner 02/10 nguyên văn:** “Ngớ ngẩn nhất là mỗi AI thêm 1 Ý, xong kế hoạch từ ban đầu rất gọn => đến lúc triển khai thì lại thành 1 bãi rác với đủ thứ kèm theo.” ⇒ Giao theo **đầu ra trọn gói**, không chia theo file/script/lỗi nhỏ hay số phút. Trong phạm vi đã giao, agent được làm liên tục, tự sửa/test lại phần liên quan; checkpoint lưu để phục hồi, **không phải xin duyệt**. Một vòng review cho mỗi gói lớn, không mở vòng sau một bước con đạt. Chỉ ngắt vì vượt phạm vi/quyền, nguy cơ dữ liệu/secret, thiếu đầu vào thiết yếu hoặc blocker thật. Trao đổi trên repo; không yêu cầu Owner chép lại nội dung AI đã đọc được. Lượt đổi trạng thái sửa Bảng cùng commit (MT4).
 
 ### 1. Mục tiêu
@@ -1396,6 +1396,14 @@ Phản biện đúng P03, không mở thêm file:
 - **Gốc rễ — không phải thiếu ghi chép mà ghi rồi không đọc lại:** §0.3 đã có từ 26/09 “Target-version policy: exact pin, không dùng `latest`”. Reviewer vi phạm hai lần: P93 tự viết “Directus 12.4.x mới nhất lúc chạy”; P102 duyệt PROMPT G6 có câu “chốt PG18 stable patch mới nhất tại PRE” mà không đối chiếu §0.3. Lỗi của Reviewer, không riêng Host.
 - **Khoá lại bằng luật (AGENTS MT4, commit này):** chỉ đạo mới ghi ngay vào §0.3; Host/Reviewer đối chiếu từng dòng §0.3 mỗi khi soạn/rà PROMPT và ghi `§0.3: đã đối chiếu`; PROMPT không được giao agent tự chọn phiên bản/thành phần/đích.
 - **G7:** gói G7 do G6 xuất phải ghi đúng 4 số trên; Reviewer rà gói G7 sẽ đối chiếu §0.3 trước tiên.
+- Owner cần quyết: —.
+
+### P107 · GPT Host · 2026-10-02 · OWNER RECONFIRM DROOT26 · DIRECTUS/PG DOT/SCRIPT-ONLY 100%
+- **Owner chỉ đạo:** đối với Directus và PostgreSQL, Agent tuyệt đối không thao tác trực tiếp; 100% qua DOT/script. Thiếu DOT thì viết mới hoặc nâng DOT cũ rồi dùng, không fallback trực tiếp.
+- **Host áp thành luật gốc trong cùng commit:** DROOT26 được siết từ “mutation DOT-only” thành **mọi interaction qua DOT/script-wrapper được quản lý**, áp cả VPS2 lab và VPS1 production. Cấm Agent tự `psql`, SQL/DDL/DML ad-hoc, REST/curl admin, Directus CLI/migration CLI, restore command trực tiếp. Official command vẫn phải do DOT/script-wrapper gọi.
+- **Không tạo loophole bằng chữ script:** script/wrapper mới phải theo chuẩn DOT DROOT27 (help · dry-run/precondition · execute · verify · rollback · secret handling · exit code); nếu dùng bền trên production thì thêm DROOT29 protection. Credential tiếp tục chỉ ở Secret Manager.
+- **G6 đang STARTED:** không sửa PROMPT/READY/HOLD. Từ P107 trở đi Agent phải tuân luật gốc khi re-read repo. KQ G6 phải ghi rõ `DOT_SCRIPT_ONLY=PASS`; nếu trước P107 đã có mutation Directus/PG bằng lệnh trực tiếp, không được dùng bằng chứng đó để PASS — phải tái thực hiện/verify qua DOT/script-wrapper hợp lệ trước KQ.
+- **G7 bắt buộc:** mọi migration, DEFAULT patch, PG restore/cutover, Directus admin mutation và rollback đều đi qua DOT/script-wrapper đã proof ở G6; Agent chỉ điều phối gọi tool, không đăng nhập hay thao tác DB/API trực tiếp.
 - Owner cần quyết: —.
 
 ## Owner cần quyết
