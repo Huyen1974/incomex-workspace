@@ -32,12 +32,13 @@ td.id{font-weight:700;white-space:nowrap;color:var(--mut)}
 .xam{background:rgba(173,181,189,.22)}
 .leg span{display:inline-block;padding:1px 8px;border-radius:4px;margin:0 6px 4px 0;font-size:12px}
 code{font-size:12.5px;word-break:break-all}
+pre{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;font-size:12.5px;line-height:1.55;white-space:pre-wrap;margin:8px 0}
 ol,ul{margin:6px 0 6px 20px;padding:0}
 </style>
 </head>
 <body><main>
 <h1>Luật nhãn PG — mở balo là biết có gì, dùng lại được gì, thừa gì</h1>
-<p class="mut" id="trang-thai">Bản nháp v0.1 · 02/10/2026 · Host: Claude Chat · chờ GPT + Codex góp ý · chưa dán nhãn nào · chỉ dán nhãn, không tắt, không xoá</p>
+<p class="mut" id="trang-thai">Bản nháp v0.2 · 02/10/2026 · Host: Claude Chat · chờ GPT + Codex góp ý · đang bàn lý thuyết: chưa dán nhãn, chưa dán biển · chỉ dán nhãn, không tắt, không xoá</p>
 
 <span class="tang">PHẦN CHO OWNER</span>
 
@@ -84,8 +85,20 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <p class="mut">Kèm một dòng mô tả “nó làm gì”, tối đa 100 ký tự. Bắt buộc với vật thuộc khối đang dùng.</p>
 </section>
 
+<section class="card" id="o-dau">
+<h2>Luật sẽ nằm ở đâu</h2>
+<p>Bàn xong mới dán. Khi dán, luật nằm <strong>ngay tại chỗ làm việc</strong>, như biển hướng dẫn ở hiện trường. Trang này khi đó chỉ còn là hồ sơ lý do.</p>
+<div class="wrap"><table>
+<tr><th>#</th><th>Biển</th><th>Đặt ở đâu</th><th>Ai đọc</th></tr>
+<tr><td class="id">B1</td><td>Biển cổng, 8 dòng</td><td>ngay trên bảng balo trong PG</td><td>🤖 AI nào mở bảng cũng thấy</td></tr>
+<tr><td class="id">B2</td><td>Từ điển giá trị và câu thử</td><td>một bảng nhỏ cạnh balo</td><td>🤖 tra khi dán; giá trị lạ bị chặn</td></tr>
+<tr><td class="id">B3</td><td>Biển công cụ, 3 dòng</td><td>trong lệnh dán nhãn</td><td>🤖 thấy lúc chạy lệnh</td></tr>
+<tr><td class="id">B4</td><td>Trang “Luật nhãn”</td><td>mục Reports, cạnh PG Census</td><td>🙂 người xem</td></tr>
+</table></div>
+</section>
+
 <section class="card" id="L">
-<h2>Mười một luật, và vì sao</h2>
+<h2>Mười hai luật, và vì sao</h2>
 <div class="wrap"><table>
 <tr><th>#</th><th>Luật</th><th>Vì sao (chuyện đã xảy ra)</th></tr>
 <tr><td class="id">L01</td><td>Nhãn chỉ nằm ở ô balo. Nhãn văn cũ giữ làm hồ sơ, không viết thêm.</td><td>Tháng 8 đã dán 100% vật bằng văn trong <code>COMMENT ON</code>, mỗi vật 2–4 KB chữ. Hai tháng sau không ai lọc được, chưa tắt được trigger nào.</td></tr>
@@ -99,6 +112,7 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <tr><td class="id">L09</td><td>Giữ hay bỏ: Owner xếp theo khối, máy suy ra từng vật.</td><td>Không ai gật nổi 2.148 lần.</td></tr>
 <tr><td class="id">L10</td><td>Dán nhãn không tắt, không xoá, không sửa gì ngoài balo và từ điển. Ghi qua DOT.</td><td>Owner chốt 02/10: chỉ dán nhãn. Luật repo: PG chỉ qua DOT.</td></tr>
 <tr><td class="id">L11</td><td>Vật mới tự có ô trống. Số “chưa dán” hiện trên Census.</td><td>Hệ sẽ lớn gấp 20–100 lần. Không có nhịp này thì nhãn cũ dần.</td></tr>
+<tr><td class="id">L12</td><td>Luật đặt thành biển ngắn ngay tại chỗ dán. Biển chỉ ghi phải làm gì; lý do để ở hồ sơ.</td><td>Owner 02/10: cuốn hướng dẫn nằm trong thư viện thì không ai đọc. Kế hoạch tháng 8 dài 4.690 dòng nằm trong thư mục tài liệu; hai tháng sau không bước nào được làm tiếp.</td></tr>
 </table></div>
 </section>
 
@@ -176,6 +190,40 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <p><strong>Nghiệm thu:</strong> không còn ô trống ở N1–N4 · hai AI dán độc lập cùng 30 bảng mẫu, trùng từ 27 trở lên · dán thử một giá trị lạ, PG từ chối.</p>
 </section>
 
+<section class="card" id="bien">
+<h2>Biển tại hiện trường: đặt ở đâu, ghi gì (đang bàn lý thuyết, dán sau khi chốt)</h2>
+<p>Mỗi nội dung một chỗ: B1 giữ luật, B2 giữ giá trị, B3 và các dòng trỏ chỉ dẫn về B1, B4 chỉ hiển thị B2.</p>
+<div class="wrap"><table>
+<tr><th>#</th><th>Vị trí chính xác</th><th>Ghi gì</th></tr>
+<tr><td class="id">B1</td><td><code>COMMENT ON TABLE public.balo_thuc_the</code>, đặt ở đầu; chữ cũ giữ nguyên bên dưới</td><td>Biển cổng 8 dòng (mẫu bên dưới). Lưu ý: <code>COMMENT ON</code> ghi đè cả khối, phải đọc ra rồi nối.</td></tr>
+<tr><td class="id">B2</td><td>Bảng từ điển mới trong PG (tên chốt khi soạn lệnh)</td><td>Mỗi dòng: nhãn · giá trị · áp cho loại vật nào · thứ tự xét · câu thử · ví dụ. Dòng KHỐI có thêm tình trạng khối do Owner xếp. Các cột nhãn của balo chỉ nhận giá trị có ở đây.</td></tr>
+<tr><td class="id">B3</td><td><code>--help</code> của lệnh DOT ghi nhãn</td><td>Biển 3 dòng (mẫu bên dưới). Lệnh từ chối giá trị không có trong B2.</td></tr>
+<tr><td class="id">B4</td><td>Mục Reports, đúc bằng khuôn report sẵn có</td><td>Trang “Luật nhãn” hiện thẳng bảng B2 cho người xem.</td></tr>
+<tr><td class="id">T1</td><td>3 file <code>AGENTS.md</code> trên VPS: <code>docker/agent-data-repo</code>, <code>docker/nuxt-repo</code>, <code>docs/mcp-writes</code></td><td>Mục “Quy ước bắt buộc từ nay” đang bảo ghi nhãn vào <code>COMMENT ON</code> của từng vật, trái L01. Thay bằng một dòng trỏ về B1.</td></tr>
+<tr><td class="id">T2</td><td>KB: quy định balo v1.9</td><td>Thêm một dòng trỏ về B1.</td></tr>
+</table></div>
+<p class="mut"><strong>Không làm đợt này:</strong> thêm dòng trỏ vào nhãn văn cũ của từng vật (2.148 lần ghi đè) · ghi chú riêng từng cột (đã gộp vào dòng 3 của biển cổng) · ghi vào trường <code>note</code> của Directus (Owner quyết 03/08).</p>
+
+<h3 id="B1">Mẫu biển cổng B1</h3>
+<pre>BIỂN · LUẬT NHÃN v1.0 · [ngày ban hành]
+Bảng này là nơi DUY NHẤT giữ nhãn của mọi bảng, view, hàm, trigger. Mỗi vật một dòng.
+Cột nhãn: nhom = KHỐI · loai = VAI · active = SỐNG · dinh = DÍNH · ket_luan = KẾT LUẬN · ghi_chu = mô tả một dòng.
+1. Muốn biết PG có gì, thừa gì: lọc bảng này. Đừng đọc nhãn văn cũ ở từng vật.
+2. Muốn dán: tra giá trị và câu thử ở bảng [từ điển]. Xét từ trên xuống, khớp câu nào dừng ở câu đó.
+3. Không chắc: ghi CHUA-RO. Cấm đoán theo tên.
+4. SỐNG, DÍNH, KẾT LUẬN do máy đo và suy. Cấm gõ tay.
+5. Ghi bằng lệnh [DOT dán nhãn], xem --help. Không SQL tay.
+6. Vật mới: chạy Làm mới để có dòng trống, rồi dán theo mục 2.
+7. Dán nhãn không tắt, không xoá, không sửa vật nào. “Bỏ được” là nhãn, không phải lệnh.
+8. Thêm giá trị mới là sửa luật: cần Owner gật.
+Lý do từng luật: repo incomex-workspace · work/pg-nhan-balo/view.html</pre>
+
+<h3 id="B3">Mẫu biển công cụ B3</h3>
+<pre>Dán nhãn vào balo_thuc_the. Chỉ nhận giá trị có trong [từ điển]; giá trị lạ bị từ chối.
+Mặc định chạy thử. Không tắt, không xoá, không sửa vật nào ngoài balo.
+Luật 8 dòng: xem ghi chú của bảng balo_thuc_the.</pre>
+</section>
+
 <section class="card" id="cot">
 <h2>Nhãn nằm ở cột nào của <code>balo_thuc_the</code> (đề xuất kỹ thuật, Reviewer chốt)</h2>
 <div class="wrap"><table>
@@ -188,12 +236,12 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <tr><td>Ngày đo</td><td>cột mới</td><td>theo L05</td></tr>
 <tr><td>Mô tả một dòng</td><td><code>ghi_chu</code> (đang có)</td><td></td></tr>
 </table></div>
-<p class="mut"><code>chuyen_mon</code> giữ nguyên, không bắt buộc. <code>lop</code> để trống (khái niệm lớp cấu tạo nghỉ). <code>kiem_soat</code> giữ nguyên. Sau đồng thuận: danh sách giá trị thành một bảng từ điển trong PG, ô nhãn chỉ nhận giá trị có trong từ điển, và hiện thêm một dòng “Luật nhãn” trong mục Reports. Bảng từ điển là thứ mới nên Host sẽ xin Owner gật riêng.</p>
+<p class="mut"><code>chuyen_mon</code> giữ nguyên, không bắt buộc. <code>lop</code> để trống (khái niệm lớp cấu tạo nghỉ). <code>kiem_soat</code> giữ nguyên. Bảng từ điển và các biển: xem mục “Biển tại hiện trường”. Bảng từ điển là thứ mới nên Host sẽ xin Owner gật riêng.</p>
 </section>
 
 <section class="card" id="hoi">
 <h2>Mời phản biện</h2>
-<p>Bảy câu hỏi Q01–Q07 nằm ở <code>COLLAB.md</code> của việc. Reviewer ghi P ở đó, nêu mã mục (L01…, C1…) trong Scope.</p>
+<p>Chín câu hỏi Q01–Q09 nằm ở <code>COLLAB.md</code> của việc. Reviewer ghi P ở đó, nêu mã mục (L01…, C1…) trong Scope.</p>
 </section>
 
 <span class="tang">KHO BẰNG CHỨNG</span>

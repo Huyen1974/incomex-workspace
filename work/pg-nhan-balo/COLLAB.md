@@ -5,15 +5,15 @@ Host: Claude Chat · Host_ID: CLAUDE-PGNB-261002-A · Owner giao 02/10/2026
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner, chat Claude 02/10/2026 16:14: “Đồng ý cho các bạn mở việc mới này.” (sau khi Host xin phép đủ 4 ý — D01). Được phép: viết luật → góp ý → đồng thuận → dán nhãn. **Chưa cho phép tắt/xoá/dời bất cứ vật nào.**
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 16:15 +07 · Claude Chat (Host) · D01 mở việc
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 16:28 +07 · Claude Chat (Host) · D05 biển tại hiện trường (luật v0.2)
 - 🎯 **Mục tiêu — Owner nguyên văn 02/10:** “Mục tiêu là phân loại hiệu quả. cả người và AI có thể dễ dàng biết được là đã có gì? Cần làm gì? Những gì thừa nên xóa đi? Hoặc nên khoanh vùng lại?” · “Chỉ cần dán nhãn thôi. Xóa thì nhanh cho nên chúng ta chưa hành động vội. Cứ dán nhãn để đấy, xóa lúc nào thì xóa.” **Vì sao:** hệ sẽ phức tạp gấp 20–100 lần; không nhìn và lọc được thì Owner không chỉ đạo được.
 - 🏁 **Xong khi:** mở trang PG Census lọc được mọi bảng · view · hàm · trigger theo 5 nhãn; không còn ô trống; dán sai giá trị thì PG từ chối. _(đề xuất Host, nằm trong tin Owner gật 02/10)_
-- 📍 **Tiến độ:** `✅ khảo sát · ✅ luật nháp v0.1 · ■ GPT + Codex góp ý → đồng thuận · ⬜ PROMPT + READY · ⬜ Codex dán · ⬜ nghiệm thu + Owner xếp khối`
-- ✅ **Đã xong:** khảo sát PG thật 02/10 (số liệu ở `view.html#so-lieu`) · luật nhãn nháp v0.1 (`view.html`).
-- ■ **Đang làm:** chờ GPT Chat + Codex đọc `view.html` và ghi P (trả lời Q01–Q07 bên dưới).
+- 📍 **Tiến độ:** `✅ khảo sát · ✅ luật nháp v0.2 · ■ GPT + Codex góp ý → đồng thuận · ⬜ PROMPT + READY · ⬜ Codex dán nhãn + dán biển · ⬜ nghiệm thu + Owner xếp khối`
+- ✅ **Đã xong:** khảo sát PG thật 02/10 (số liệu ở `view.html#so-lieu`) · luật nhãn nháp v0.2 (`view.html`): 12 luật · 5 nhãn · từ điển + câu thử · vị trí và nội dung 4 biển tại hiện trường (`#bien`).
+- ■ **Đang làm:** chờ GPT Chat + Codex đọc `view.html` và ghi P (trả lời Q01–Q09 bên dưới).
 - ⬜ **Còn lại:** Host hoà giải P → luật v1.0 · PROMPT cho Codex (chỉ dán nhãn, qua DOT) · READY · RUN · nghiệm thu · Owner xếp tình trạng từng khối.
 - ➡ **Kế tiếp:** 😊 Owner đưa dòng cửa vào cho GPT/Codex · Reviewer ghi P · Host trả lời P và chốt v1.0 · 🤖 Codex dán sau READY + RUN.
-- ⛔ **Không làm:** tắt/xoá/dời/sửa bất cứ vật nào ngoài bảng balo và bảng từ điển · viết thêm vào nhãn `COMMENT ON` cũ · dựng registry/bộ máy mới.
+- ⛔ **Không làm:** tắt/xoá/dời bất cứ vật nào · sửa thứ gì ngoài balo, bảng từ điển và các biển nêu ở `view.html#bien` · viết thêm nhãn vào `COMMENT ON` của vật khác · **dán biển trước khi chốt nội dung** (Owner 02/10: bàn lý thuyết trước) · dựng registry/bộ máy mới.
 
 ### 1. Mục tiêu
 Owner nguyên văn, chat Claude 02/10/2026:
@@ -36,10 +36,11 @@ Chỉ đạo Owner — nguyên văn, 02/10/2026:
 - “cho Agent tiến hành dán nhãn. Nhưng trước hết phải ghi rõ nguyên tắc nhãn là gì? cách dán thế nào? Sau đó cho codex chẳng hạn dán trong khoảng 1 tiếng là xong nếu có nguyên tắc rõ ràng.”
 - “Bạn soạn cho tôi về nguyên tắc dán nhãn mà bạn nghĩ là hợp lý? Có thể giải thích tại sao? Có những việc lâu quá rồi tôi sẽ không nhớ hết.” ⇒ **mỗi luật kèm “vì sao”** (chuyện đã xảy ra).
 - “Tôi đưa GPT/Codex có ý kiến. Sau khi đồng thuận thì có thể giao cho Codex thực hiện việc dán nhãn.”
+- **16:23 —** “Tuy nhiên vấn đề là. Phần dán nhãn nếu ghi ở repo thì đọc lại sẽ khó. Cái quy định dán nhãn thì tên nằm ở đâu đó ngay trên chỗ dán nhãn. Giống như nguyên tắc bảng hướng dẫn ngay tại hiện trường, chứ bạn làm 1 cuốn hướng dẫn ở trong thư viện thì đọc đến bao giờ mà ai đọc được. Một trong những nguyên tắc áp dụng triệt để là hướng dẫn ngắn gọn ngay tại hiện trường nhé. AI nào vào đấy cũng đọc được và làm luôn. Cái này bạn cũng bổ sung vào đây và bổ sung luôn vào vị trí dán chỗ nào để thống nhất với codex. Còn khi chúng ta chốt nội dung xong thì mới dán ở hiện trường. Giờ bàn trên lý thuyết trước cho nhanh.” ⇒ **L12 + `view.html#bien`**; chưa dán biển nào cho tới khi chốt.
 
 Host ghi (kỹ thuật, chờ hội đồng chốt):
-- HTML chính: `view.html` = **luật nhãn nháp v0.1**. Nền trắng chữ tối.
-- Hai nơi, hai thời kỳ, không song song: **trước đồng thuận** luật = `view.html`; **sau đồng thuận** danh sách giá trị hợp lệ = một bảng từ điển trong PG (ô nhãn chỉ nhận giá trị có trong từ điển) + một dòng “Luật nhãn” trong mục Reports. Tạo bảng từ điển là thứ mới ⇒ Host xin Owner gật riêng khi soạn PROMPT (DROOT16). Trước khi có chốt này: **CHƯA CƯỠNG CHẾ**.
+- HTML chính: `view.html` = **luật nhãn nháp v0.2**. Nền trắng chữ tối.
+- Hai nơi, hai thời kỳ, không song song: **trước đồng thuận** luật = `view.html`; **sau đồng thuận** luật = **biển tại hiện trường** (D05 · vị trí + nội dung ở `view.html#bien`), repo chỉ còn là hồ sơ lý do; trong đó danh sách giá trị hợp lệ = một bảng từ điển trong PG (ô nhãn chỉ nhận giá trị có trong từ điển) + một dòng “Luật nhãn” trong mục Reports. Tạo bảng từ điển là thứ mới ⇒ Host xin Owner gật riêng khi soạn PROMPT (DROOT16). Trước khi có chốt này: **CHƯA CƯỠNG CHẾ**.
 - Ghi nhãn chỉ qua DOT sẵn có (`dot-balo-reconcile`, `dot-pg-atomic-apply`) theo DROOT26; thiếu thì nâng DOT, không SQL tay.
 - Nhãn `COMMENT ON` cũ (07–08/2026) là **nguồn chép** KHỐI và là hồ sơ; không sửa, không viết thêm.
 - Tài liệu cũ phải đọc trước khi soạn PROMPT (VPS, chỉ đọc): `docs/BAN-DO-HE-THONG-20260729.md` · `docs/KE-HOACH-XOA-20260801.md` · KB `knowledge/dev/laws-new/pg-read-pg/balo-thuc-the-quy-dinh.md` (v1.9).
@@ -52,6 +53,7 @@ Host ghi (kỹ thuật, chờ hội đồng chốt):
 - D02 · 2026-10-02 · **Chỉ dán nhãn.** Owner: “Chỉ cần dán nhãn thôi. Xóa thì nhanh cho nên chúng ta chưa hành động vội.” Việc này không có bước tắt/xoá/dời.
 - D03 · 2026-10-02 · **Trình tự:** nơi viết luật → viết luật → thảo luận, đồng thuận → dán nhãn.
 - D04 · 2026-10-02 · **Giữ balo, bỏ loài/phân tử/nguyên tử** (nguyên văn ở §0.3).
+- D05 · 2026-10-02 · **Biển hướng dẫn tại hiện trường** (nguyên văn 16:23 ở §0.3): quy định dán nhãn nằm ngay trên chỗ dán, ngắn gọn, AI nào vào cũng đọc được và làm luôn; chốt nội dung xong mới dán biển, hiện bàn lý thuyết. ⇒ luật L12 + `view.html#bien` (4 biển B1–B4, 2 dòng trỏ T1–T2, kèm mẫu chữ để thống nhất với Codex). JEV `gen-dec-1790933083-hklqESeJ5dX1weHO6qFD`: biển chỉ ghi việc phải làm 1,00 · biển trên bảng balo 0,79 · từ điển 0,86 · `--help` DOT 0,70 · trỏ ở AGENTS.md VPS 0,74 · trang Reports 0,58 · ghi chú từng cột 0,49 (Host: gộp vào biển cổng) · trỏ từng vật 0,20 (Host: không làm đợt này) · giữ repo làm bản gốc 0,07. Áp: SAME_COMMIT.
 
 ## Owner cần quyết
 - —
@@ -64,6 +66,8 @@ Host ghi (kỹ thuật, chờ hội đồng chốt):
 - Q05 · `view.html#C5` · DÍNH đo bằng `pg_depend` + khoá ngoại + trigger + quét thân hàm đã đủ chưa; tham chiếu từ ngoài PG (Nuxt, DOT, cron) xử lý thế nào.
 - Q06 · `view.html#C4` · View và hàm ghi “Không đo được”, hay bật bộ đếm lượt gọi hàm (đổi cấu hình production ⇒ phải Owner gật riêng).
 - Q07 · `view.html#C4` · Ảnh chụp bộ đếm 01/08 ở `/opt/incomex/evidence/del1g-20260801/` có đủ 385 bảng không (Host **chưa** mở file kiểm).
+- Q08 · `view.html#bien` · Sáu vị trí B1–B4, T1–T2 có đúng là chỗ Codex/agent thật sự đi qua khi dán và khi đọc nhãn không; thiếu cửa nào; khuôn report hiện có đúc được trang “Luật nhãn” (B4) mà không viết mã không.
+- Q09 · `view.html#bien` · Mẫu chữ biển cổng B1 (8 dòng) và biển công cụ B3 (3 dòng): Codex đọc xong có làm được ngay không, thừa/thiếu dòng nào. Có nên thêm một dòng trỏ vào nhãn văn cũ của từng vật không (Host: không làm đợt này).
 
 ## Ý kiến (P)
 - — chưa có.
@@ -71,6 +75,6 @@ Host ghi (kỹ thuật, chờ hội đồng chốt):
 ## Con trỏ
 - HTML chính (Owner View): `view.html` · link `https://vps.incomexsaigoncorp.vn/knowledge/modules?task=pg-nhan-balo`
 - Trang đang chạy: `https://vps.incomexsaigoncorp.vn/reports/report-pg` + `/reports/report-balo-{table,view,function,trigger}`
-- JEV đã tham khảo (A5): `gen-dec-1790931810-jSfOPmfQrsETIAx8Nlwg` (nhãn ở cột balo 0,99 · đo 62 ngày 0,99 · gật theo khối 0,99) · `gen-dec-1790931831-1uu4vrTNm7gIIV6S3RlP` (thử 7 VAI trên 9 bảng mẫu: 9/9 rõ, conf ≥ 0,94) · `gen-dec-1790932378-wOfBs0WxuXrUsc1KJfS7` (từ điển PG 1,00 · kết luận suy từ khối 0,98).
-- Cửa vào cho Reviewer: `WS work/pg-nhan-balo · Review · luật nhãn PG v0.1 · đọc AGENTS.md → work/pg-nhan-balo/COLLAB.md → view.html · ghi P, trả lời Q01–Q07`
+- JEV đã tham khảo (A5): `gen-dec-1790931810-jSfOPmfQrsETIAx8Nlwg` (nhãn ở cột balo 0,99 · đo 62 ngày 0,99 · gật theo khối 0,99) · `gen-dec-1790931831-1uu4vrTNm7gIIV6S3RlP` (thử 7 VAI trên 9 bảng mẫu: 9/9 rõ, conf ≥ 0,94) · `gen-dec-1790932378-wOfBs0WxuXrUsc1KJfS7` (từ điển PG 1,00 · kết luận suy từ khối 0,98) · `gen-dec-1790933083-hklqESeJ5dX1weHO6qFD` (vị trí biển — D05).
+- Cửa vào cho Reviewer: `WS work/pg-nhan-balo · Review · luật nhãn PG v0.1 · đọc AGENTS.md → work/pg-nhan-balo/COLLAB.md → view.html · ghi P, trả lời Q01–Q09`
 - PROMPT: chưa có (soạn sau đồng thuận).
