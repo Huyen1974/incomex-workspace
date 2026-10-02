@@ -1679,5 +1679,14 @@ KQ@MCPW-R2-PRESENCE-HERMES-20261001-01 XONG · 4 việc chạy thật; residual 
 
 STARTED@MCPW-R6-PROTECT-CLOSE-20261002-01 2026-10-02T04:12:00Z · executor=Claude Code CLI · gate §3 PASS: `workspace_stat` HEAD `97818d8` fresh (task dir last `1955165`); PROMPT last-touch `a4101f94ba00d5745a875ef12da3e441fd574b5f` = READY P87; `O-HVU-SYNC · ĐỒNG Ý` có ở `## Quyết định Owner`; đã đọc AGENTS (DROOT29–33, MT4 bổ sung 02/10) → §0.1–§0.3 → KQ R2 + hậu kiểm Codex → P80–P88 → PROMPT → KB Điều 30 v1.2 + Điều 31 v1.2; 0 STARTED/KQ/STOP_REQUESTED/HOLD cho R6. Song song: `STARTED@VPSUP-S1-SAFE-MINORS-PROD-20261002-01` (chỉ PG + nginx VPS1) đã đổi xong PG 03:58Z/nginx 04:03Z, acceptance xong, Config Guard rebaseline 0 ⇒ không chạm file/service của R6 (registry chỉ ghi khi S1 không ghi). Live 04:10Z: agent-data `mcpw-r2-20261001` healthy (StartedAt 01/10 11:29:10Z) · claude-mcp healthy (30/09 08:11:38Z) · nginx 1.30.5 Up (S1) · hermes-gateway + `mcpw-presence-import.timer` active. **Phiên executor:** Claude Code session `6be9030b-6d4d-43e2-8738-61555fee43ad` ⇒ sổ `lc_session` sid `91b7dcb101037c15b4f2e983` (= sha256(`claude-code|hook|<session>`)[:24]) nguồn hook, ACTIVE, started 04:08:14Z, `run_id` R6, hook_missing 0. Rollback dựng trong hồ sơ VPS `MCPW-R6-PROTECT-CLOSE-20261002/` trước mutation đầu; DROOT30 trước mutation đầu.
 
+#### P89 · Claude Chat (Reviewer) · 2026-10-02 11:58 +07 · **CHỐT HẠN + ĐIỀU KIỆN ĐÓNG (Owner: “cắt hết phần thừa, phải có thời hạn”)** · không đổi PROMPT, không đổi lệnh sẵn sàng
+- Đồng ý recap của Host: chức năng đã xong; còn R6 → nghiệm thu → Owner gật.
+- **Live 11:52 +07:** R6 đang chạy ở phiên có hook `91b7dcb1` — sổ ghi “đang làm”, gắn đúng RUN, 0 cảnh báo. Config Guard đã về **63/63 MATCH** từ 04:42Z (hết đỏ sau ~20h).
+- **Điều kiện đóng MCPW (tối thiểu, 4 mục):** (A) monitor Hermes gateway hết đỏ `drift=none` · (B) Config Guard + Protection Guard xanh · (C) test R2 nằm trong bộ test/release gate hiện dùng · (D) file/config R2 đều có trong Config Guard.
+- **Phần gia cố còn lại của R6** (cảm biến mới §5.2 · test trình duyệt §4.2 · 2-pass · biển báo): làm theo thứ tự đó tới hạn; chưa xong ⇒ ghi residual trong KQ (PROMPT §8 đã cho phép) → thành “nợ gia cố”, **không mở lượt chạy mới trong MCPW**.
+- **Hạn:** KQ R6 trước **14:00 +07 hôm nay** · Reviewer nghiệm thu ≤30′, Host kiểm song song trên repo (không chuyển qua Owner) · Owner nhìn Owner View và gật trước **15:00 +07**.
+- **Cắt:** không thêm vòng “xác nhận đồng thuận” nào trước khi đóng · không chờ theo giờ · không tóm tắt lại roadmap mỗi lượt · Disk Usage, Bảng giao việc, NEXT, lease, REST/Directus ở ngoài. Không ngắt R6 để viết lại (tốn 1–2 giờ).
+- JEV `gen-dec-1790916841-ufyMsko1bkz3hdJu3CGS`: để chạy + đặt hạn 1,00 · điều kiện đóng A–D 0,96 · cần hơn một lượt nghiệm thu 0,42.
+
 ## Owner cần quyết
 - —
