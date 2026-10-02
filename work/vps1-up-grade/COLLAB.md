@@ -4,7 +4,7 @@ Tên việc: Nâng PG · Directus · Nuxt/Agency OS lên bản mới nhất ổn
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/09/2026: mở `work/vps1-up-grade`, tập hợp phương án cũ + ý kiến Claude + bổ sung mới của Owner để hội đồng lập kế hoạch nâng cấp an toàn. Chưa cho phép nâng cấp/dọn/xóa/restart/deploy ở lượt mở việc này.
 
-### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 11:12 +07 · Claude Code CLI · KQ S1 (sau P91) — đọc đầu tiên, mọi phiên (AGENTS MT4)
+### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 11:13 +07 · GPT Host · P92 — đọc đầu tiên, mọi phiên (AGENTS MT4)
 - 🎯 **Mục tiêu — Owner nguyên văn 01/10 16:57:** “Chủ yếu là nâng PG, Directus, Nuxt và OS agency lên bản mới nhất.” · “Mục tiêu nâng cấp là để tận dụng được các công nghệ tốt nhất giải quyết bài toán xây dựng cỗ máy sản xuất quy trình.”
 - 🎯 **Một câu:** nền của Máy sản xuất quy trình (MOW/MOT/MOIT/MOUT) chạy trên **bản mới nhất ổn định** của PG · Directus · Nuxt/Agency OS. An toàn, rollback, lab VPS2 là **cách làm**, không phải mục tiêu.
 - 🏁 **Xong khi VPS1 chạy:**
@@ -17,12 +17,12 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/0
 | nginx | 1.29.5 | 1.30.5 | S1 |
 
 - 🏁 Kèm: máy quy trình chạy như cũ trở lên (SAME SLICE · 128 Flow · quyền = prod), 0 mất dữ liệu; e-learning về VPS1; VPS2 huỷ.
-- 📍 **Tiến độ (đúng một ô ■):** `1–7✅ 8■ G5✅ → **S1 đang chạy** → chốt bản (probe Directus 12.4.1 + vá 5 file $t + đóng gói TARGET cuối) → G6 · 9⬜ G7 · 10⬜ 7 ngày · 10B⬜ 10B-A PG18 → 10B-B @nuxt/ui v4 · 11⬜ e-learning → VPS1, huỷ VPS2`
-- ✅ **Đã xong:** chốt kế hoạch · G0 khảo sát · OIG key · SEC/BK1 bảo vệ + backup có thử khôi phục · VPS2 dọn + cô lập · G2 clone CURRENT + mốc · G3 chốt bản/digest · G4 PASS có disposition · **G5 rollback rehearsal PASS** (3 rollback thật, LOGIN/ADMIN/FRONTEND_ONLY PASS).
-- ■ **Đang làm:** 🤖 Claude Code **xong S1 trên VPS1** — `KQ@VPSUP-S1-SAFE-MINORS-PROD-20261002-01 XONG · S1_PASS` (PG16.15 · nginx1.30.5; downtime thật PG ≈3 s · nginx ≈11–12 s; 0 rollback; 0 restart ngoài phạm vi); chờ **Host nghiệm thu KQ S1**.
-- ⬜ **Còn lại, đúng thứ tự:** S1 lên VPS1 (PG16.15 + nginx1.30.5) → xong S1 mới chạy **chốt bản** trên VPS2 (một RUN: probe Directus 12.4.1 bằng công thức G5 + vá 5 file `$t` + đóng gói TARGET cuối) → G6 bằng dữ liệu VPS1 mới + carry-forward mọi delta VPS1 sống (A09R1, MCPW R2…) + diễn tập checkpoint post-S2 ngay trước mở ghi → G7 → 7 ngày → 10B-A PG18 (bản 18.x mới nhất lúc làm) → 10B-B @nuxt/ui v4 (bản 4.x mới nhất lúc làm) → 11 e-learning về VPS1, huỷ VPS2.
-- 🧩 **Phát sinh đã nhập đúng đường ray, không mở bước song song:** Directus 12.4.1 security probe · 5 sibling `$t` · checkpoint post-S2 phục vụ đối soát sau unfreeze · carry-forward mọi delta VPS1 sống. `/knowledge/registries` cold ~34 s và nginx `auth_limit` 503 là baseline đã biết, không gate S1.
-- ➡ **Kế tiếp:** 🤖 Claude Code đã ghi KQ S1 và dừng · Host nghiệm thu S1 + soạn PROMPT **chốt bản** (DRAFT) · Reviewer rà · Host READY · 😊 Owner mở phiên Claude Code mới, dán lệnh chốt bản.
+- 📍 **Tiến độ (đúng một ô ■):** `1–7✅ 8■ G5✅ → S1✅ → **chốt TARGET DRAFT review** (Directus12.4.1 probe + 5 file $t + gói cuối) → G6 · 9⬜ G7 · 10⬜ 7 ngày · 10B⬜ 10B-A PG18 → 10B-B @nuxt/ui v4 · 11⬜ e-learning → VPS1, huỷ VPS2`
+- ✅ **Đã xong:** chốt kế hoạch · G0 khảo sát · OIG key · SEC/BK1 · VPS2 dọn/cô lập · G2 CURRENT · G3 artifact/digest · G4 PASS có disposition · G5 rollback rehearsal PASS · **S1 production PASS: PG16.15 + nginx1.30.5** (PG downtime ≈3 s; web ≈11–12 s; 132/132 route; dữ liệu/A09R1 nguyên; 0 rollback).
+- ■ **Đang làm:** Host P92 đã nghiệm thu S1; đang soạn **PROMPT chốt TARGET cuối** để Claude Reviewer rà. Chưa READY/RUN bước chốt TARGET.
+- ⬜ **Còn lại, đúng thứ tự:** chốt TARGET trên VPS2 (Directus12.4.1 security/breaking probe + vá 5 file `$t` + đóng gói artifact/runbook cuối) → G6 bằng dữ liệu VPS1 mới + carry-forward **mọi delta sống** + checkpoint post-S2 ngay trước unfreeze → G7 → 7 ngày → 10B-A PG18 (bản 18.x mới nhất lúc làm) → 10B-B @nuxt/ui v4 (bản 4.x mới nhất lúc làm) → 11 e-learning về VPS1, huỷ VPS2.
+- 🧩 **Phát sinh đã nhập đúng đường ray, không mở bước riêng:** Directus12.4.1 security probe · 5 sibling `$t` · checkpoint post-S2 · carry-forward mọi delta VPS1 sống · **topology PG↔`claude_mcp_net`** (S1 chứng minh postgres đang được attach tay ngoài compose; G6/G7 phải giữ bằng khai báo compose hoặc bước attach deterministic đã proof) · live compose VPS1 đang dirty bởi việc khác ⇒ cấm reset/ghi đè, G6 PRE phải chụp exact bytes + diff. `hvu-sync-py` drift và Kuma #21/#22 thuộc MMIM/MCPW, không do S1 và không gate chốt TARGET.
+- ➡ **Kế tiếp:** Claude Reviewer rà **P92 + PROMPT chốt TARGET DRAFT**; nếu ACCEPT/ACCEPT-with-delta thì sửa thẳng khi còn DRAFT → Host READY ngay. 😊 Owner chưa cần thao tác cho tới READY.
 - ⛔ **Không làm / để sau (không gate):** DNS (D11, giữ Mắt Bão) · chờ MCPW (P83) · nâng Qdrant/Kuma · thoát Agency OS (D08, việc khác).
 - **Luật Bảng:** đi đúng thứ tự trên; việc không có trên đường ray = “sau, không gate”. Lượt nào đổi trạng thái sửa Bảng + dòng `cập nhật` cùng commit (AGENTS MT4). VPS2 chỉ huỷ sau 10B (còn là lab). 10B: PG 18 và @nuxt/ui v4 mỗi major rehearsal/rollback riêng.
 - Bảng E (P06) chỉ còn là lịch sử.
@@ -1229,6 +1229,18 @@ Phản biện đúng P03, không mở thêm file:
 - **Bảng: lệch** — ghi “S1 READY, chưa RUN” trong khi S1 STARTED 03:41Z. Đã sửa ■/📍/➡ + dòng cập nhật. Không đổi PROMPT/READY/HOLD ⇒ S1 chạy tiếp (DROOT30).
 - **Lộ trình còn lại: đúng thứ tự, không thêm/bớt bước** (S1 → chốt bản → G6 → G7 → 7 ngày → 10B-A → 10B-B → 11). Chỉ ghi rõ 10B lấy **bản mới nhất ổn định tại lúc làm** (PG 18.x, @nuxt/ui 4.x), không ghim số hôm nay. Đã cân nhắc và **không** đổi: tập PG18 trong 7 ngày theo dõi (trái luật đi từng bước), huỷ VPS2 trước @nuxt/ui v4 (nâng cấp lớn phải tập trên VPS2) — JEV `gen-dec-1790912980-QDVUSCVMwOiWEZH4voLQ` 0,74 / 0,58.
 - **Gốc rễ lệch:** MT4 chưa nói ai sửa Bảng khi executor ghi STARTED/KQ ⇒ Bảng đứng yên suốt RUN. Đã bổ sung AGENTS MT4 (commit này): executor sửa ■/➡/cập nhật trong commit STARTED và KQ; ✅/📍/nghiệm thu vẫn do Host; diff chỉ ở Bảng không làm executor dừng.
+- Owner cần quyết: —.
+
+### P92 · GPT Host · 2026-10-02 · ACCEPT S1 · TOPOLOGY DELTA · DRAFT CHỐT TARGET CHO REVIEW
+- **Bảng: khớp sau commit này. Mục tiêu không đổi:** đưa PG · Directus · Nuxt/Agency OS lên bản mới nhất **đủ ổn định** cho Máy sản xuất quy trình; S1 chỉ là baseline trung gian và đã hoàn tất.
+- **Host ACCEPT S1 `10db62f`:** PG16.13→16.15 + nginx1.29.5→1.30.5 đúng exact digest, compose chỉ đổi 2 image và lệnh `--no-deps`; PG downtime ≈3s, web ≈11–12s; `system_identifier`/collation/DB-role-extension/FDW/95 migration/bảng chính nguyên; 132/132 route giống PRE; A09R1 5/5 hash nguyên; Directus11/Nuxt3 không restart; dependency tự reconnect, 0 restart phụ; rollback không dùng; outside-scope diff 0.
+- **Phát sinh S1 phải mang sang G6/G7:** container `postgres` có membership **`claude_mcp_net` được attach tay, không nằm trong compose**; S1 phải attach lại sau recreate để `claude-mcp query_pg` hoạt động. Đây là topology contract thật, không được quên khi G6/G7 recreate PG. Bước chốt TARGET chỉ ghi/proof cách mang theo; **không sửa production compose**. G6 PRE chụp live compose exact bytes + networks và chọn một trong hai cách đã proof: khai external network trong candidate compose hoặc post-create attach deterministic. Không reset/clean `/opt/incomex` vì working tree đã dirty từ việc khác.
+- **Residual ngoài scope S1:** Config Guard mismatch duy nhất `hvu-sync-py` = A09R1 đã biết; Kuma #21 Hermes và #22 MCPW Guard đỏ có từ trước. Chủ sở hữu = MMIM/MCPW; VPSUP không rebaseline/sửa hộ và **không dùng làm gate TARGET trên VPS2**. Trước G6 READY chỉ cần đọc KQ mới nhất của task chủ + ghi residual thật nếu còn.
+- **Roadmap không đổi cấu trúc:** ✅ G0–G5 + S1 → ■ chốt TARGET → G6 → G7 → 7 ngày → 10B-A PG18 → 10B-B @nuxt/ui v4 → e-learning về VPS1 → huỷ VPS2. Không chạy PG18 hay Nuxt UI trong 7 ngày monitor.
+- **Bước chốt TARGET — mục tiêu duy nhất:** trên VPS2, từ checkpoint pre-S2 G5, chứng minh Directus12.4.1 (security fix P88/P90) + Nuxt4.5.2/Node24 + 5 sibling `$t` + OIG + SAME SLICE/permission/security; đóng gói exact digest/patch/manifest/runbook để G6 dùng trên fresh data. Không mutation VPS1.
+- **12.4.1:** PASS ⇒ target Directus cuối = 12.4.1. Nếu blocker thật không sửa hẹp được ⇒ KQ DỪNG exact blocker; executor **không tự hạ target về 12.3.1**, vì 12.3.1 còn advisory; Host/Reviewer mới quyết fallback/risk.
+- **No-wait:** không thêm soak theo giờ chỉ vì đổi 12.3→12.4; dùng fixed-workload/replay + resource/restart metrics, vì long-soak của stack/Nuxt đã có ở G4 và G6 fresh-data còn phía trước. Chỉ machine-owned wait nếu Reviewer chỉ ra bằng chứng cần thời gian.
+- **Reviewer cần rà 5 điểm:** (1) S1 PASS; (2) topology `claude_mcp_net`/dirty compose disposition; (3) 12.4.1 test matrix; (4) 5 `$t` + artifact cuối; (5) fixed-workload thay soak giờ. Nếu cần delta, sửa thẳng PROMPT DRAFT; Host READY ngay, không thêm vòng.
 - Owner cần quyết: —.
 
 ## Owner cần quyết
