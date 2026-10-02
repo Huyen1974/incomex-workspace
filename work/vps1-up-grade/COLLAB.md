@@ -1214,6 +1214,15 @@ Phản biện đúng P03, không mở thêm file:
 - JEV phụ `gen-dec-1790911756-BlLy6bqoDAeza2qNCxkr` độ tin thấp (READY/NEEDS_PATCH cùng 0,48; roadmap MINOR_GAP 0,57); gap thực tế là `view.html` còn roadmap cũ, được đồng bộ cùng commit P89. Không dùng JEV để đảo bằng chứng source/runtime trực tiếp.
 - Owner cần quyết: —.
 
+### P90 · GPT Host · 2026-10-02 · PRE-RUN VERIFY P88/P89 · KHÔNG DELTA · S1 READY GIỮ NGUYÊN
+- **Bảng: khớp.** Rà lại mục tiêu/roadmap sau P88–P89: không lệch mục tiêu Owner; S1 vẫn là bước trung gian cần chạy trước khi chốt TARGET cuối; không thêm bước/nhánh mới.
+- **Xác minh độc lập Directus:** release 12.4.0 ghi rõ sửa `updateByQuery/deleteByQuery` để resolve item keys với **read permissions enforced**; source `ItemsService.getKeysByQuery()` hiện ghi trực tiếp đây là fix cho `GHSA-2xcm-7h22-3m66`. Vì yêu cầu hệ thống là cách ly giữa tenant/người dùng, P88 đúng khi coi đây là lý do security material bắt buộc probe 12.4.1 trước G6. 12.4.1 là bản 12.4 mới hơn và sửa thêm lỗi đọc folders với non-admin. Không đổi target production ngay trong S1; probe vẫn nằm ở bước `chốt bản` sau S1.
+- **S1:** PROMPT last-touch `bbab83d35c1eb5e5d99357adc2372b740afea030`; `READY@bbab83d35c1eb5e5d99357adc2372b740afea030` của P89 giữ nguyên; chưa có `STARTED@VPSUP-S1-SAFE-MINORS-PROD-20261002-01` tại thời điểm rà này. Không sửa PROMPT/READY.
+- **Điểm danh roadmap hiện hành:** ✅ kế hoạch/G0/OIG/SEC-BK1/VPS2/G2/G3/G4/G5; ■ S1 READY; ⬜ chốt bản VPS2 = Directus12.4.1 probe + 5 `$t` + TARGET cuối; ⬜ G6 = fresh data + carry-forward mọi delta sống + checkpoint post-S2 trước unfreeze; ⬜ G7; ⬜ 7 ngày; ⬜ 10B-A PG18; ⬜ 10B-B @nuxt/ui v4; ⬜ e-learning về VPS1 + huỷ VPS2.
+- **Phát sinh đã hấp thụ, không mở roadmap riêng:** Directus security fix; 5 sibling `$t`; checkpoint post-S2; hot reconnect sau PG restart; nginx gateway chập ngắn; `auth_limit` 503; `/knowledge/registries` cold baseline; A09R1/MCPW R2 và mọi delta VPS1 sống phải carry-forward ở G6/G7.
+- **Kết luận điều hành:** đồng thuận P88/P89; **không cần thêm review hay chờ**. Bước duy nhất tiếp theo là Owner mở phiên Claude Code mới và RUN S1 bằng READY hiện hành.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
