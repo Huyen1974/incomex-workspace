@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Luật nhãn PG</title>
+<style>
+:root{--bg:#fff;--fg:#1d1d1f;--mut:#6e6e73;--line:#d9d9de;--card:#f7f7f9;--xanh:#2f9e44;--vang:#e0a100;--do:#e03131;--xam:#adb5bd;--now:#1c7ed6}
+*{box-sizing:border-box}
+html{background:#fff}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:0 0 10px}h3{font-size:15px;margin:14px 0 6px}
+.mut{color:var(--mut);font-size:13px}
+.tang{margin:26px 0 0;padding:4px 10px;border-radius:6px;background:#1d1d1f;color:#fff;font-size:12px;font-weight:700;display:inline-block;letter-spacing:.04em}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
+.quyet{border-left:6px solid var(--xanh)}
+.bar{display:flex;gap:6px;flex-wrap:wrap}
+.bar div{flex:1;min-width:110px;padding:8px 6px;border-radius:8px;text-align:center;font-size:13px;background:rgba(173,181,189,.25)}
+.bar .xong{background:var(--xanh);color:#fff}
+.bar .dang{background:var(--now);color:#fff;font-weight:700}
+.wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;background:#fff}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+th{font-size:12px;color:var(--mut);font-weight:600}
+td.o{text-align:center;white-space:nowrap}
+td.id{font-weight:700;white-space:nowrap;color:var(--mut)}
+.xanh{background:rgba(47,158,68,.20)}
+.vang{background:rgba(224,161,0,.25)}
+.do{background:rgba(224,49,49,.18)}
+.xam{background:rgba(173,181,189,.22)}
+.leg span{display:inline-block;padding:1px 8px;border-radius:4px;margin:0 6px 4px 0;font-size:12px}
+code{font-size:12.5px;word-break:break-all}
+ol,ul{margin:6px 0 6px 20px;padding:0}
+</style>
+</head>
+<body><main>
+<h1>Luật nhãn PG — mở balo là biết có gì, dùng lại được gì, thừa gì</h1>
+<p class="mut" id="trang-thai">Bản nháp v0.1 · 02/10/2026 · Host: Claude Chat · chờ GPT + Codex góp ý · chưa dán nhãn nào · chỉ dán nhãn, không tắt, không xoá</p>
+
+<span class="tang">PHẦN CHO OWNER</span>
+
+<section class="card quyet" id="quyet">
+<h2>Hôm nay anh cần quyết</h2>
+<p><strong>Chưa có gì.</strong> 🙂 Việc của anh: đưa dòng cửa vào cho GPT và Codex để họ góp ý. 🤖 Phần còn lại hội đồng làm trên repo.</p>
+</section>
+
+<section class="card" id="tien-do">
+<h2>Tiến độ</h2>
+<div class="bar">
+<div class="xong">1 · Khảo sát ✓</div>
+<div class="xong">2 · Luật nháp ✓</div>
+<div class="dang">3 · Góp ý, đồng thuận ▶</div>
+<div>4 · Giao Codex</div>
+<div>5 · Dán nhãn</div>
+<div>6 · Nghiệm thu</div>
+</div>
+</section>
+
+<section class="card" id="vi-du">
+<h2>Hiểu nhanh bằng một ví dụ: bảng <code>pivot_results</code></h2>
+<p>Nó giống cái đồng hồ điện quay suốt ngày trong căn phòng không ai ở. Năm nhãn nói đúng điều đó:</p>
+<div class="wrap"><table>
+<tr><th>Nhãn</th><th>Giá trị</th><th>Căn cứ đo được</th></tr>
+<tr><td><strong>KHỐI</strong></td><td>Pivot</td><td>nhãn cũ đã ghi chủ sở hữu</td></tr>
+<tr><td><strong>VAI</strong></td><td>Kết quả tính</td><td>xoá sạch, chạy lại hàm là có lại</td></tr>
+<tr><td><strong>SỐNG</strong></td><td>Tự quay</td><td>2,3 triệu lượt ghi đè cho 150 dòng</td></tr>
+<tr><td><strong>DÍNH</strong></td><td>21 view, 1 hàm</td><td>máy đếm vật khác dựa vào nó</td></tr>
+<tr><td><strong>KẾT LUẬN</strong></td><td>Bỏ được hoặc Còn dính</td><td>máy suy ra sau khi anh xếp khối Pivot là tàn dư</td></tr>
+</table></div>
+</section>
+
+<section class="card" id="N">
+<h2>Năm nhãn</h2>
+<div class="wrap"><table>
+<tr><th>#</th><th>Nhãn</th><th>Câu hỏi</th><th>Giá trị</th><th>Ai điền</th></tr>
+<tr><td class="id">N1</td><td><strong>KHỐI</strong></td><td>Thuộc dự án nào?</td><td>23 mã đã có, hoặc <code>CHUA-RO</code></td><td>🤖 chép từ nhãn cũ, AI rà</td></tr>
+<tr><td class="id">N2</td><td><strong>VAI</strong></td><td>Nó là cái gì?</td><td>7 loại bảng · 5 loại hàm</td><td>🤖 AI theo câu thử</td></tr>
+<tr><td class="id">N3</td><td><strong>SỐNG</strong></td><td>Kỳ vừa qua có ghi không?</td><td>Rỗng · Đứng yên · Có ghi · Tự quay</td><td>🤖 máy đo</td></tr>
+<tr><td class="id">N4</td><td><strong>DÍNH</strong></td><td>Mấy vật ngoài khối dựa vào nó?</td><td>một con số</td><td>🤖 máy đo</td></tr>
+<tr><td class="id">N5</td><td><strong>KẾT LUẬN</strong></td><td>Giữ hay bỏ?</td><td>Giữ · Đóng băng · Bỏ được · Còn dính · Chưa rõ</td><td>🤖 máy suy từ quyết định khối của 🙂</td></tr>
+</table></div>
+<p class="mut">Kèm một dòng mô tả “nó làm gì”, tối đa 100 ký tự. Bắt buộc với vật thuộc khối đang dùng.</p>
+</section>
+
+<section class="card" id="L">
+<h2>Mười một luật, và vì sao</h2>
+<div class="wrap"><table>
+<tr><th>#</th><th>Luật</th><th>Vì sao (chuyện đã xảy ra)</th></tr>
+<tr><td class="id">L01</td><td>Nhãn chỉ nằm ở ô balo. Nhãn văn cũ giữ làm hồ sơ, không viết thêm.</td><td>Tháng 8 đã dán 100% vật bằng văn trong <code>COMMENT ON</code>, mỗi vật 2–4 KB chữ. Hai tháng sau không ai lọc được, chưa tắt được trigger nào.</td></tr>
+<tr><td class="id">L02</td><td>Mỗi nhãn một danh sách đóng. Thêm giá trị là sửa luật.</td><td>“Loài” và cột <code>classification</code> cũ: mỗi AI hiểu một kiểu, thành rác.</td></tr>
+<tr><td class="id">L03</td><td>Giá trị nào cũng phải có câu thử đo được.</td><td>“Nguyên tử / phân tử” không có phép thử, nên không ai dán giống ai.</td></tr>
+<tr><td class="id">L04</td><td>Thứ máy đo được thì cấm gõ tay. AI chỉ gán KHỐI và VAI theo câu thử.</td><td>55 bảng từng vừa “đang dùng” vừa “chết” trong cùng một nhãn, vì trộn đo với phán.</td></tr>
+<tr><td class="id">L05</td><td>Một ô một giá trị hiện hành, kèm ngày đo. Dán lại là ghi đè.</td><td>Nhãn cũ nối 7 vòng, phải dò đoạn cuối mới biết kết luận.</td></tr>
+<tr><td class="id">L06</td><td>Không chắc thì ghi <code>CHUA-RO</code>. Cấm đoán theo tên.</td><td><code>v_registry_counts</code> tên như view nhưng là bảng. Ba lần lọc theo tên đều sót.</td></tr>
+<tr><td class="id">L07</td><td>Dán theo họ: trigger theo hàm nó gọi, view theo họ.</td><td>507/685 view thuộc 4 họ. Dán từng cái là phí.</td></tr>
+<tr><td class="id">L08</td><td>SỐNG đo trên kỳ dài, từ 30 ngày. “Ghi nhiều” khác “có người dùng”.</td><td>Đo 70 phút thì cả bảng balo cũng “chết”. Pivot trông sống nhất nhưng chỉ tự ghi đè.</td></tr>
+<tr><td class="id">L09</td><td>Giữ hay bỏ: Owner xếp theo khối, máy suy ra từng vật.</td><td>Không ai gật nổi 2.148 lần.</td></tr>
+<tr><td class="id">L10</td><td>Dán nhãn không tắt, không xoá, không sửa gì ngoài balo và từ điển. Ghi qua DOT.</td><td>Owner chốt 02/10: chỉ dán nhãn. Luật repo: PG chỉ qua DOT.</td></tr>
+<tr><td class="id">L11</td><td>Vật mới tự có ô trống. Số “chưa dán” hiện trên Census.</td><td>Hệ sẽ lớn gấp 20–100 lần. Không có nhịp này thì nhãn cũ dần.</td></tr>
+</table></div>
+</section>
+
+<span class="tang">PHẦN CHO PM VÀ AGENT</span>
+
+<section class="card" id="C">
+<h2>Từ điển và câu thử</h2>
+
+<h3 id="C1">C1 · KHỐI</h3>
+<ul>
+<li>Dùng đúng 23 mã hệ đã chốt tháng 7–8 (bảng ở mục Số liệu), thêm <code>CHUA-RO</code>. Không đặt mã mới.</li>
+<li>Một vật một KHỐI. Nhãn cũ có dòng “HE (so huu)” thì lấy dòng đó; không có thì lấy mã đầu của dòng “HE:”.</li>
+<li>Trigger nhận KHỐI của hàm nó gọi.</li>
+</ul>
+
+<h3 id="C2">C2 · VAI của bảng (xét từ trên xuống, khớp câu nào dừng ở câu đó)</h3>
+<div class="wrap"><table>
+<tr><th>#</th><th>Giá trị</th><th>Câu thử</th><th>Ví dụ</th></tr>
+<tr><td class="id">1</td><td>Nền tảng</td><td>Do Directus, extension hoặc mẫu website cài sẵn; không do Incomex thiết kế.</td><td><code>directus_users</code>, <code>os_deals</code></td></tr>
+<tr><td class="id">2</td><td>Tạm / sao lưu</td><td>Là bản chụp của bảng khác tại một thời điểm; không vật nào đọc.</td><td><code>_desc_backup_fix28</code></td></tr>
+<tr><td class="id">3</td><td>Bảng nối</td><td>Chỉ gồm khoá trỏ sang hai bảng khác.</td><td><code>navigation_navigation_items</code></td></tr>
+<tr><td class="id">4</td><td>Nhật ký</td><td>Chỉ thêm dòng theo thời gian, gần như không sửa.</td><td><code>registry_changelog</code></td></tr>
+<tr><td class="id">5</td><td>Kết quả tính</td><td>Xoá sạch rồi chạy lại hàm là có lại.</td><td><code>pivot_results</code></td></tr>
+<tr><td class="id">6</td><td>Danh mục</td><td>Danh sách giá trị hoặc cấu hình để nơi khác tra; ít dòng, hiếm đổi.</td><td><code>tac_section_type_vocab</code></td></tr>
+<tr><td class="id">7</td><td>Dữ liệu</td><td>Phần còn lại: bản ghi gốc, mất là mất.</td><td><code>knowledge_documents</code></td></tr>
+</table></div>
+<p class="mut">View và trigger: VAI ghi <code>x</code> (không cần).</p>
+
+<h3 id="C3">C3 · VAI của hàm (5 giá trị đang có trên 654 hàm, giữ nguyên chữ)</h3>
+<div class="wrap"><table>
+<tr><th>Giá trị</th><th>Câu thử (đề xuất để rà lại)</th></tr>
+<tr><td>Hàm extension</td><td>Thuộc một extension của PostgreSQL.</td></tr>
+<tr><td>Trigger nội bộ</td><td>Kiểu trả về là trigger.</td></tr>
+<tr><td>DOT hành động (ghi)</td><td>Thân hàm có ghi dữ liệu hoặc đổi cấu trúc.</td></tr>
+<tr><td>DOT giám sát (đọc)</td><td>Không ghi; được gọi trực tiếp để trả kết quả đọc hoặc kiểm.</td></tr>
+<tr><td>Hàm tiện ích</td><td>Không ghi; chỉ được hàm hoặc view khác gọi.</td></tr>
+</table></div>
+
+<h3 id="C4">C4 · SỐNG (máy đo trên kỳ từ ảnh chụp bộ đếm 01/08 đến ngày dán)</h3>
+<div class="wrap"><table>
+<tr><th>Giá trị</th><th>Câu thử</th></tr>
+<tr><td>Rỗng</td><td>Không có lượt ghi trong kỳ và 0 dòng.</td></tr>
+<tr><td>Đứng yên</td><td>Không có lượt ghi trong kỳ, có dòng.</td></tr>
+<tr><td>Tự quay</td><td>Có ít nhất 1 dòng và số lượt ghi trong kỳ từ 10 lần số dòng trở lên.</td></tr>
+<tr><td>Có ghi</td><td>Có lượt ghi, không rơi vào Tự quay.</td></tr>
+</table></div>
+<p class="mut">View và hàm ghi “Không đo được”: PostgreSQL không đếm lượt đọc view, máy này chưa bật đếm lượt gọi hàm. Trigger ghi “Bật” hoặc “Tắt”. Lượt đọc không dùng làm nhãn vì bộ đếm bị chính các máy đếm quét bẩn.</p>
+
+<h3 id="C5">C5 · DÍNH</h3>
+<p>Số vật thuộc KHỐI khác đang dựa vào vật này: khoá ngoại trỏ vào, view đọc, hàm nhắc tên trong thân, trigger gắn. 0 nghĩa là rời.</p>
+
+<h3 id="C6">C6 · Tình trạng khối và KẾT LUẬN</h3>
+<p>🙂 Owner xếp mỗi khối một tình trạng: Đang dùng · Đóng băng · Tàn dư · Chưa xếp. 🤖 Máy suy ra từng vật:</p>
+<div class="wrap"><table>
+<tr><th>Khối của vật</th><th>Điều kiện thêm</th><th>KẾT LUẬN</th></tr>
+<tr><td>Đang dùng</td><td></td><td class="xanh">Giữ</td></tr>
+<tr><td>Đóng băng</td><td></td><td class="vang">Đóng băng</td></tr>
+<tr><td>Tàn dư</td><td>không vật nào của khối Đang dùng hoặc Đóng băng dựa vào</td><td class="do">Bỏ được</td></tr>
+<tr><td>Tàn dư</td><td>còn vật của khối Đang dùng hoặc Đóng băng dựa vào</td><td class="vang">Còn dính</td></tr>
+<tr><td>Chưa xếp, hoặc <code>CHUA-RO</code></td><td></td><td class="xam">Chưa rõ</td></tr>
+</table></div>
+<p class="mut">“Bỏ được” là nhãn, không phải lệnh. Không ai tắt hay xoá gì trong việc này.</p>
+</section>
+
+<section class="card" id="cach-dan">
+<h2>Cách dán và nghiệm thu</h2>
+<ol>
+<li>Làm mới balo để đủ dòng.</li>
+<li>KHỐI: chép từ nhãn cũ theo C1.</li>
+<li>VAI: bảng theo C2, hàm theo C3.</li>
+<li>SỐNG và DÍNH: máy đo, ghi ngày đo.</li>
+<li>Mô tả một dòng cho vật thuộc khối đang dùng.</li>
+<li>Owner xếp tình trạng khối, máy suy KẾT LUẬN.</li>
+</ol>
+<p><strong>Nghiệm thu:</strong> không còn ô trống ở N1–N4 · hai AI dán độc lập cùng 30 bảng mẫu, trùng từ 27 trở lên · dán thử một giá trị lạ, PG từ chối.</p>
+</section>
+
+<section class="card" id="cot">
+<h2>Nhãn nằm ở cột nào của <code>balo_thuc_the</code> (đề xuất kỹ thuật, Reviewer chốt)</h2>
+<div class="wrap"><table>
+<tr><th>Nhãn</th><th>Cột</th><th>Ghi chú</th></tr>
+<tr><td>KHỐI</td><td><code>nhom</code> (đang có)</td><td>654 hàm đang ghi tên nhóm tiếng Việt, cần quy đổi sang mã khối</td></tr>
+<tr><td>VAI</td><td><code>loai</code> (đang có)</td><td></td></tr>
+<tr><td>SỐNG</td><td><code>active</code> (đang có, đang trống)</td><td>đúng ý thiết kế gốc tháng 6: Active do máy điền</td></tr>
+<tr><td>DÍNH</td><td>cột mới, số nguyên</td><td></td></tr>
+<tr><td>KẾT LUẬN</td><td>cột mới</td><td></td></tr>
+<tr><td>Ngày đo</td><td>cột mới</td><td>theo L05</td></tr>
+<tr><td>Mô tả một dòng</td><td><code>ghi_chu</code> (đang có)</td><td></td></tr>
+</table></div>
+<p class="mut"><code>chuyen_mon</code> giữ nguyên, không bắt buộc. <code>lop</code> để trống (khái niệm lớp cấu tạo nghỉ). <code>kiem_soat</code> giữ nguyên. Sau đồng thuận: danh sách giá trị thành một bảng từ điển trong PG, ô nhãn chỉ nhận giá trị có trong từ điển, và hiện thêm một dòng “Luật nhãn” trong mục Reports. Bảng từ điển là thứ mới nên Host sẽ xin Owner gật riêng.</p>
+</section>
+
+<section class="card" id="hoi">
+<h2>Mời phản biện</h2>
+<p>Bảy câu hỏi Q01–Q07 nằm ở <code>COLLAB.md</code> của việc. Reviewer ghi P ở đó, nêu mã mục (L01…, C1…) trong Scope.</p>
+</section>
+
+<span class="tang">KHO BẰNG CHỨNG</span>
+
+<section class="card" id="so-lieu">
+<h2>Số liệu khảo sát 02/10/2026 (đo thẳng trên PG, database <code>directus</code>)</h2>
+<div class="wrap"><table>
+<tr><th>Đo</th><th>Số</th></tr>
+<tr><td>Vật trong balo</td><td>2.148 (385 bảng · 699 view · 654 hàm · 410 trigger)</td></tr>
+<tr><td>Vật đã có nhãn văn trong <code>COMMENT ON</code></td><td>100%</td></tr>
+<tr><td>Dòng balo có nhãn lọc được</td><td>654 (chỉ hàm)</td></tr>
+<tr><td>Bảng vừa ghi “đang dùng” vừa ghi “chết”</td><td>55</td></tr>
+<tr><td>Trigger khai sinh vẫn bật</td><td>166 trên 148 bảng</td></tr>
+<tr><td><code>v_registry_counts</code></td><td>8.045.245 lượt thêm cho 169 dòng</td></tr>
+<tr><td><code>pivot_results</code></td><td>2.344.199 lượt sửa cho 150 dòng</td></tr>
+</table></div>
+
+<h3>Khối × loại vật (theo chủ sở hữu ghi trong nhãn cũ)</h3>
+<p class="leg"><span class="do">đỏ · tàn dư</span><span class="vang">vàng · đóng băng</span><span class="xanh">xanh · đang dùng</span><span class="xam">xám · chưa xếp</span> Cột cuối là <strong>đề xuất sơ bộ của Host, không phải luật</strong>. Owner xếp sau khi dán xong.</p>
+<div class="wrap"><table>
+<tr><th>Khối</th><th>Bảng</th><th>View</th><th>Hàm</th><th>Đề xuất sơ bộ</th><th>Căn cứ</th></tr>
+<tr><td>HE-REGISTRY</td><td class="o">38</td><td class="o">181</td><td class="o">67</td><td class="do">Tàn dư</td><td>Owner 02/10 nêu tên registries</td></tr>
+<tr><td>HE-PIVOT</td><td class="o">2</td><td class="o">176</td><td class="o">7</td><td class="do">Tàn dư</td><td>Owner 02/10 nêu tên pivot</td></tr>
+<tr><td>HE-KHAI-SINH</td><td class="o">7</td><td class="o">109</td><td class="o">39</td><td class="do">Tàn dư</td><td>thuộc 5 bộ của kế hoạch 01/08</td></tr>
+<tr><td>HE-GOVERNANCE</td><td class="o">31</td><td class="o">43</td><td class="o">33</td><td class="do">Tàn dư</td><td>thuộc 5 bộ của kế hoạch 01/08</td></tr>
+<tr><td>HE-OS</td><td class="o">19</td><td class="o">0</td><td class="o">0</td><td class="do">Tàn dư</td><td>nhãn cũ ghi Owner đã bỏ hướng này; 24/24 bảng <code>os_*</code> rỗng</td></tr>
+<tr><td>HE-IU</td><td class="o">74</td><td class="o">50</td><td class="o">134</td><td class="vang">Đóng băng</td><td>nhãn cũ ghi Owner quyết 01/08</td></tr>
+<tr><td>HE-PROCESS</td><td class="o">8</td><td class="o">70</td><td class="o">11</td><td class="xam">Chưa xếp</td><td></td></tr>
+<tr><td>CHUA-RO</td><td class="o">30</td><td class="o">42</td><td class="o">83</td><td class="xam">Chưa xếp</td><td>phải rà trước</td></tr>
+<tr><td>HE-WORKFLOW</td><td class="o">24</td><td class="o">9</td><td class="o">4</td><td class="xam">Chưa xếp</td><td>lẫn bảng đang dùng với bộ quét <code>wf_*</code></td></tr>
+<tr><td>HE-TAXONOMY</td><td class="o">14</td><td class="o">5</td><td class="o">14</td><td class="xam">Chưa xếp</td><td>hệ loài và nhãn cũ; còn trigger bật trên nhiều bảng</td></tr>
+<tr><td>HE-TAC</td><td class="o">13</td><td class="o">0</td><td class="o">5</td><td class="xam">Chưa xếp</td><td></td></tr>
+<tr><td>HE-AI</td><td class="o">5</td><td class="o">0</td><td class="o">0</td><td class="xam">Chưa xếp</td><td></td></tr>
+<tr><td>HE-UI</td><td class="o">50</td><td class="o">0</td><td class="o">0</td><td class="xanh">Đang dùng</td><td>website đang đọc; 35/50 bảng rỗng</td></tr>
+<tr><td>HE-DIRECTUS</td><td class="o">27</td><td class="o">0</td><td class="o">0</td><td class="xanh">Đang dùng</td><td>nền tảng</td></tr>
+<tr><td>HE-EXTENSION</td><td class="o">0</td><td class="o">0</td><td class="o">229</td><td class="xanh">Đang dùng</td><td>nền tảng</td></tr>
+<tr><td>HE-HA-TANG</td><td class="o">19</td><td class="o">5</td><td class="o">13</td><td class="xanh">Đang dùng</td><td></td></tr>
+<tr><td>HE-DOT</td><td class="o">10</td><td class="o">5</td><td class="o">16</td><td class="xanh">Đang dùng</td><td></td></tr>
+<tr><td>HE-KB</td><td class="o">8</td><td class="o">4</td><td class="o">0</td><td class="xanh">Đang dùng</td><td></td></tr>
+<tr><td>HE-CONTEXT-PACK</td><td class="o">5</td><td class="o">1</td><td class="o">0</td><td class="xanh">Đang dùng</td><td></td></tr>
+<tr><td>HE-BALO</td><td class="o">1</td><td class="o">0</td><td class="o">0</td><td class="xanh">Đang dùng</td><td></td></tr>
+<tr><td><strong>Tổng</strong></td><td class="o"><strong>385</strong></td><td class="o"><strong>700</strong></td><td class="o"><strong>655</strong></td><td></td><td>700 = 699 view + 1 matview</td></tr>
+</table></div>
+<p class="mut">Ba mã chỉ xuất hiện ở vai phụ, hiện không là chủ của vật nào: HE-QT001, HE-NRM, HE-CENSUS. HE-LARK không có vật trong PG. 410 trigger chưa có khối riêng trong nhãn cũ, sẽ nhận theo hàm.</p>
+
+<h3>Nguồn</h3>
+<p class="mut">Đo trực tiếp qua đầu nối chỉ đọc 02/10/2026 · <code>/opt/incomex/docs/BAN-DO-HE-THONG-20260729.md</code> · <code>/opt/incomex/docs/KE-HOACH-XOA-20260801.md</code> · KB <code>knowledge/dev/laws-new/pg-read-pg/balo-thuc-the-quy-dinh.md</code> (v1.9) · mã JEV ở COLLAB.md. Cửa vào cho AI: AGENTS.md → work/pg-nhan-balo/COLLAB.md → view.html.</p>
+</section>
+</main></body>
+</html>
