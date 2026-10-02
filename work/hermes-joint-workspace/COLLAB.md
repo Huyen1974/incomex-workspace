@@ -5,15 +5,15 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng. **Lượt 20:05:** Owner giao GPT lựa chọn phương án sau ý kiến Claude P80; Host **ĐỒNG Ý** thêm positive heartbeat 08:00 mỗi sáng bằng Guard/cron hiện hữu: trạng thái đèn + số phiên AI hôm qua/cảnh báo thiếu hook hoặc ngoài sổ; không bot/timer mới.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 20:35 +07 · Claude Reviewer · P82 (ACCEPT-with-delta, chờ Host READY)
-- 🎯 Mục tiêu (Owner 20:07): mỗi ngày Owner biết **đang báo bao nhiêu loại tin về điện thoại · bao nhiêu loại chạy · bao nhiêu loại hỏng**; loại nào hỏng/mất/mới thêm đều lộ ra ngay — làm một lần, Điều 30/31 giữ.
-- 🏁 Xong khi: có sổ tin báo đủ mọi nguồn (không chỉ 21 đèn) · Guard điểm danh hai chiều mỗi 5′ · bản tin 08:00 mở đầu `N loại · M chạy · K hỏng` · biên nhận sau thay đổi ≤3 dòng · Owner thấy tin thử trên máy · mutant bắt đủ.
-- 📍 Tiến độ: `[✓ Hermes 2 kênh] → [✓ 21/21 đèn xanh] → [✓ Reviewer ACCEPT + delta sổ tin báo P82] → [■ Host xác nhận delta + READY] → [□ Claude Code chạy] → [□ Owner thấy tin thử] → [□ nghiệm thu/đóng]`.
-- ✅ Đã xong: K1/K2 · fleet 21/21 · Down/Up Kuma · AUTO-PROTECT/receipt root rule · Claude P80 ACCEPT receipt + đề xuất heartbeat.
-- ■ Đang làm: 🤖 GPT Host xác nhận delta P82 (§2C sổ tin báo) và phát READY trên SHA của commit P82; RUN chưa bắt đầu.
-- ⬜ Còn lại: Host READY → kiểm kê mọi loại tin → sổ + điểm danh trong Guard → hàm gửi chung (bản tin 08:00 + biên nhận) → thử + mutant → nghiệm thu.
-- ➡ Kế tiếp: 😊 Owner nhắn GPT 1 câu → 🤖 GPT xác nhận delta + READY → 😊 Owner dán lệnh cho Claude Code. **Chưa giao Claude Code chạy** khi chưa có READY mới.
-- ⛔ Không làm/để sau: không restart · không bot/service/timer mới · không làm lại K1/K2/Kuma · S9 544k token để sau.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 20:18 +07 · GPT Host · P83 READY
+- 🎯 Mục tiêu (Owner 20:07): hệ thống luôn trả lời được **có bao nhiêu loại tin có thể tới điện thoại · bao nhiêu đang chạy · bao nhiêu hỏng · loại nào mới/mất/ngoài sổ**; không còn kiểu “đường chung sống nhưng 6/10 loại âm thầm chết”.
+- 🏁 Xong khi: inventory từ nguồn thật + một sổ chuẩn · Guard đối chiếu hai chiều 5′ · 0 UNKNOWN/THIẾU không có chủ · bản tin 08:00 `N loại · M chạy · K hỏng` · receipt sau mutation · Owner nhận tin thử · mutants bắt nguồn câm/nguồn lạ/nghỉ trái phép.
+- 📍 Tiến độ: `[✓ Hermes/Kuma technical PASS] → [✓ P82 Reviewer ACCEPT-with-delta] → [✓ Host ACCEPT/READY P83] → [■ Claude Code RUN] → [□ Owner thấy tin thử] → [□ Host+Reviewer nghiệm thu] → [□ đóng]`.
+- ✅ Đã xong: K1/K2 · fleet 21/21 · Down/Up Kuma · INV14/15 · AUTO-PROTECT + receipt/heartbeat luật gốc · P82 thiết kế sổ/điểm danh.
+- ■ Đang làm: 🤖 Claude Code chạy `HJW-POST-PROTECT-RECEIPT-20261002-03`; tại P83 chưa có STARTED/KQ.
+- ⬜ Còn lại: kiểm kê mọi nguồn thật → registry → discovery/điểm danh hai chiều → sender receipt+08:00 → thử các loại chưa có proof → mutants → KQ.
+- ➡ Kế tiếp: executor STARTED/PRE; nếu còn bề mặt discovery không bao phủ thì ghi UNKNOWN/THIẾU, không được tự nhận “đã biết tất cả”; Owner chỉ xác nhận tin thử khi được hỏi.
+- ⛔ Không làm/để sau: không restart · không bot/service/timer/DB/monitor mới · không làm lại K1/K2/Kuma · S9 544k token để sau.
 
 ### 1. Mục tiêu
 - Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
@@ -1289,4 +1289,17 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - JEV `gen-dec-1790946715-Ua0s82nU1kl2IQHHAzxB`: delta của Host trả lời được 3 câu hỏi của Owner 0,10 · chỉ đếm 21 đèn là đếm thiếu 0,93 · nhận kèm delta sổ tin báo 0,99.
 - Hạn: tối 02/10 Owner thấy tin thử có dòng điểm danh; 08:00 sáng 03/10 bản tin thật đầu tiên.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **ACCEPT tại P83; xác nhận §2C + DROOT36, đồng bộ A10-R5; không sửa PROMPT.**
+
+### P83 · Host GPT · 2026-10-02 20:18 +07 · **ĐỒNG THUẬN P82 · READY/RUN**
+- **Mục tiêu được chốt lại:** không phải “Kuma có xanh không”, mà là hệ thống phải có **inventory kiểm chứng được của toàn bộ loại tín hiệu có thể tới điện thoại Owner**, và luôn trả lời được `N loại · M chạy · K hỏng · U unknown`.
+- **Đồng thuận §2C:** kiểm kê từ nguồn thật gồm Kuma, invariant nằm trong đèn gộp, bot/event, script/cron/systemd/job/Hermes; mỗi loại có nhịp/cách đo sống/đường đỏ/last-seen/last-delivered; Guard đối chiếu registry↔runtime hai chiều mỗi 5′; mutants bắt nguồn câm, nguồn lạ ngoài sổ, nghỉ trái phép.
+- **Điều kiện Host bổ sung ở mức acceptance, không sửa PROMPT:** nếu discovery còn ghi “ngoài tầm quét” hoặc có bề mặt production chưa xác định thì phải tính `UNKNOWN/THIẾU`; **không được dùng chữ “toàn bộ/đã biết hết” và không được CLOSE** cho tới khi vùng đó có owner/cách đo hoặc được Owner cho nghỉ rõ.
+- **Đã làm, không làm lại:** Hermes K1/K2 · Mac↔VPS compat · Kuma fleet 21/21 · Down/Up Telegram · #13 retired theo Owner · INV14/15 · direct protection · AUTO-PROTECT/receipt/heartbeat root rules.
+- **Còn lại trong RUN:** inventory thật → registry chung → discovery hai chiều → receipt + heartbeat 08:00 → thử một lần các loại chưa có proof tới Telegram → negative/mutant → AUTO-PROTECT delta → KQ.
+- **Phát sinh đã phân loại:** token cứng trong `git-push-gh-daily-v2.sh` chuyển việc secret/GSM, không chép secret/không kéo vào sửa tại RUN; S9 ~544k token để residual sau.
+- Root DROOT36 được GPT Founder xác nhận; A10-R5 đã đồng bộ cùng commit P83.
+- PROMPT last-touch + Reviewer ACCEPT = `4be0e5910e74d4ab9afa698ebd3e39f9305627a1`; Host **không sửa chữ PROMPT**.
+- **READY@4be0e5910e74d4ab9afa698ebd3e39f9305627a1**.
+- **RUN@HJW-POST-PROTECT-RECEIPT-20261002-03 · ISSUED.** Không restart/reload để ép alert; không hạ tiêu chuẩn bằng cách bỏ nguồn khó đo khỏi sổ.
+- Sau KQ dừng; Host + Claude Reviewer nghiệm thu đúng một lượt theo 4 con số + evidence Telegram rồi mới CLOSE.
