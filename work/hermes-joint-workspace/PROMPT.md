@@ -1,20 +1,23 @@
-# PROMPT — HJW MAINT · client/backend session.create compatibility + Điều 30/31
+# PROMPT — HJW MAINT · Hermes dùng được thật (2 kênh) + đèn đỏ máy chủ + Điều 30/31
 
 RUN_ID: HJW-MAINT-COMPAT-20261002-01
 Host: GPT Chat · GPT-HJW-260922-A
 Executor_Surface: Claude Code CLI phiên mới trên Mac Owner.
 Runtime_Write_Path: SSH/operator VPS hiện hữu; không tạo service/task/file mới.
 Report_Write_Path: chỉ `work/hermes-joint-workspace/{COLLAB.md,PROMPT.md}` qua gateway; evidence dùng hồ sơ VPS HJW hiện hữu.
-Owner_authorization: 02/10/2026 — kiểm lại lỗi Hermes thực tế và đưa phần mới vào bảo vệ Điều 30/31.
+Owner_authorization: 02/10/2026 — kiểm lại lỗi Hermes thực tế và đưa phần mới vào bảo vệ Điều 30/31. Bổ sung 14:59: Hermes nhận việc được qua cả hai kênh; xử lý “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”.
+Reviewer: Claude Chat · ACCEPT-with-delta tại P67 (bản này).
 
-## 0. Mục tiêu duy nhất
+## 0. Mục tiêu — đủ 3 điều Owner giao 02/10, không thêm
 
-Sửa và khóa lỗi thực tế:
+1. **Hermes nhận việc được thật qua cả hai kênh.** K1 = 😊 Owner giao trực tiếp trên đúng app Owner đang dùng. K2 = 🤖 AI giao qua repo (`ASSIGN` trong HJW COLLAB → thẻ Telegram → Owner bấm Cho chạy → Hermes làm, ghi kết quả). Lỗi đang chặn K1:
 `invalid params for session.create: cwd_explicit: Extra inputs are not permitted — the client and the Hermes backend are out of sync (different versions)`.
+2. **Hết cảnh “máy chủ báo đỏ mà AI vẫn báo OK”** — §6B.
+3. **Phần mới làm nằm trong khung Điều 30/31** — §4, §5, §6.
 
 Không thêm capability. Không bật AUTO. Không đổi Agent Data/P02/nginx/Nuxt/model/key/scope/toolset.
 
-PASS chỉ khi **đúng client thật → đúng backend thật** tạo được session; không chấp nhận chỉ service healthy hoặc unit test nội bộ.
+PASS chỉ khi **đúng client thật → đúng backend thật** tạo được session; không chấp nhận chỉ service healthy hoặc unit test nội bộ. Lượt kiểm trước đã báo OK trong khi Owner vẫn lỗi ⇒ K1/K2 chỉ PASS khi **chính Owner làm và thấy kết quả**; executor không PASS hộ.
 
 ## 1. Hard scope / ngân sách
 
@@ -22,14 +25,18 @@ PASS chỉ khi **đúng client thật → đúng backend thật** tạo được
 - Không chạy blind `hermes update`.
 - Tái dùng `hermes-safe-update` hiện hữu. Chỉ update/restart nếu D1 chứng minh version/schema/load-process lệch.
 - Tối đa restart `hermes-serve` và `hermes-gateway` khi thực sự cần; không restart service khác.
-- Không tạo service/timer/DB/monitor/file repo mới.
+- Không tạo service/timer/DB/monitor/file repo mới. Ngoại lệ duy nhất: MỘT file trạng thái bảng đèn trên VPS (§6B.3) do script hiện hữu ghi.
+- Tối đa 1 invariant mới. Không sửa Hermes core.
+- Việc của 😊 Owner trong RUN, báo trước và gom gọn: gõ 1 câu trên app Hermes (K1) · bấm 1 thẻ Telegram (K2). Không nhờ Owner việc khác. Thay đổi gì trên Mac Owner (cập nhật/ghim bản app Hermes) ⇒ nói Owner 1 câu trước khi làm; không gỡ/xoá gì trên Mac.
+- VPSUP G6 đang chạy song song ở cửa sổ khác: không đụng bất cứ thứ gì của VPSUP; thao tác nào va vào ⇒ DỪNG báo Host.
+- Repo PUBLIC: không ghi secret, không ghi IP máy Owner (ghi “Mac Owner”).
 - AUTO_ALLOWLIST cuối RUN vẫn rỗng; manual Telegram gate/STOP giữ nguyên.
 - Nếu cần vượt scope trên: DỪNG trước mutation, báo Host.
 
 ## 2. D1 — chẩn đoán thật, NO MUTATION
 
 Đo và ghi evidence, không suy từ README:
-1. Client thật đang phát `session.create`: executable/path, `--version`, package/source path, schema/request fields; xác nhận nơi sinh `cwd_explicit`.
+1. Client thật = bề mặt Owner dùng để giao Hermes trực tiếp; xác định từ bằng chứng trên Mac Owner, không rõ ⇒ hỏi Owner đúng 1 câu. Với client đó: executable/path, `--version`, package/source path, schema/request fields; xác nhận nơi sinh `cwd_explicit`.
 2. `hermes-serve` + `hermes-gateway`: `systemctl show/cat` cho ExecStart/MainPID/StartedAt/EnvironmentFile (không in secret); cmdline/executable/package/source thực của process đang chạy.
 3. Backend schema thật của `session.create`: request model/fields; xác nhận có/không `cwd_explicit`.
 4. Phân loại đúng một root cause:
@@ -38,6 +45,7 @@ PASS chỉ khi **đúng client thật → đúng backend thật** tạo được
    - C: hai service dùng khác venv/binary/package;
    - D: lỗi khác — có evidence cụ thể.
 5. Reproduce lỗi một lần bằng **đúng đường client Owner đang dùng**, rồi dừng; không lặp lỗi.
+6. Chụp bảng đèn (chỉ đọc): liệt kê MỌI monitor Kuma — tên · trạng thái · thông báo cuối · đỏ từ lúc nào.
 
 ## 3. D2 — sửa tối thiểu, chỉ khi D1 đủ bằng chứng
 
@@ -46,6 +54,7 @@ PASS chỉ khi **đúng client thật → đúng backend thật** tạo được
 - Sau thay đổi: restart `hermes-serve` → verify, rồi `hermes-gateway` → verify; không dependency-bounce key services.
 - Nếu safe-update/health fail: rollback về PRE, báo BLOCKED.
 - Không in secret/token/env values.
+- Ghi một dòng **giữ đồng bộ về sau**: khi một đầu tự cập nhật (ví dụ app trên Mac) thì đầu kia theo bằng cách nào — dùng cái hiện hữu (ghim bản/tắt tự cập nhật ở client, hoặc `hermes-safe-update` phía VPS); không dựng cơ chế mới.
 
 ## 4. Điều 30 — regression protection bắt buộc
 
@@ -54,14 +63,15 @@ Tái dùng test/harness hiện hữu; không tạo framework mới:
 2. Regression: gateway/manual Telegram gate, STOP, AUTO rỗng, Agent Gateway 7 tool và HJW control path vẫn PASS.
 3. Negative fixture/mutant: mô phỏng client/backend schema lệch (ví dụ client có field mà backend không có) ⇒ test phải FAIL rõ ràng trước khi tuyên bố healthy.
 4. Không chỉ test version string; phải test schema/handshake thật.
+5. K2 thật sau khi sửa: ghi MỘT `ASSIGN` nhỏ nhất theo khuôn S9 hiện hữu (đọc 1 đoạn, ghi ≤3 dòng vào HJW COLLAB) → thẻ Telegram → 😊 Owner bấm Cho chạy → Hermes commit kết quả + tin KẾT QUẢ. Đúng 1 lượt model; ghi token/thời lượng thật. Thẻ không hiện hoặc bấm không chạy ⇒ tìm nguyên nhân, sửa trong scope; không PASS hộ.
 
 ## 5. Điều 31 — integrity/self-detection bắt buộc
 
 Bổ sung vào **Protection Guard/Config Guard hiện hữu**, không service mới:
-1. Invariant `HERMES_CLIENT_BACKEND_COMPAT`: local/no GitHub/no LLM; kiểm executable/package identity + schema/handshake fingerprint của client↔serve/backend. Lệch hoặc backend không parse request chuẩn ⇒ FAIL.
+1. Invariant `HERMES_CLIENT_BACKEND_COMPAT` (local/no GitHub/no LLM). Lưu ý: app của Owner nằm trên Mac, guard trên VPS **không nhìn thấy** ⇒ không được xanh chỉ vì các phần phía VPS khớp nhau. Hai vế: (a) các thành phần Hermes phía VPS (serve/gateway/CLI) cùng một bản; (b) **cảm biến theo hậu quả**: backend vừa từ chối request vì lệch schema (`invalid params` / `Extra inputs are not permitted` ở `session.create` hoặc tương đương) ⇒ ĐỎ, báo qua đường Guard→Kuma→Telegram hiện hữu bằng một dòng tiếng Việt nói rõ “app của Owner và máy chủ Hermes lệch phiên bản”. Giữ đỏ tới khi có `session.create` thành công sau lần từ chối cuối; log không đủ để biết ⇒ dùng cửa sổ thời gian và ghi rõ giới hạn. Nguồn = log backend hiện hữu; backend không ghi log lỗi này ⇒ nêu rõ + cách tối thiểu, không vá Hermes core.
 2. Dùng 2-pass như invariant runtime hiện hữu để tránh flap nhưng không PASS giả.
 3. Kiểm các unit/config/script/package-path thực dùng bởi serve/gateway đã nằm trong Config Guard; thiếu target nào trực tiếp quyết định version/schema thì đăng ký vào registry hiện hữu trong cùng RUN.
-4. Mutant/fixture version-schema mismatch ⇒ invariant đỏ; clean ⇒ xanh.
+4. Mutant/fixture: (a) lệch bản phía VPS, (b) log có dòng backend từ chối vì lệch schema ⇒ invariant đỏ; sạch ⇒ xanh.
 5. Watchdog phải chứng minh invariant mới được chạy định kỳ; không tạo monitor mới nếu Protection Guard/Kuma hiện hữu đã bao phủ.
 
 ## 6. Rà toàn bộ phần mới vừa làm
@@ -70,6 +80,15 @@ Không mở task mới. Đối chiếu R6/MCPW đã đóng:
 - lifecycle/receiver/workspace_tools/importer/presence/Owner View/Hermes config+gate/Protection Guard đã có protection ⇒ giữ nguyên, không làm lại;
 - chỉ bổ sung thiếu hụt mới phát hiện là Hermes core client↔backend compatibility và đúng file/config/package-path liên quan.
 Nếu phát hiện một thành phần mới khác **thực sự live nhưng chưa được Điều 30/31 bảo vệ**, liệt kê + đưa vào guard/test hiện hữu trong scope; không dựng cơ chế mới.
+Đầu ra §6 = bảng đối chiếu ≤15 dòng trong KQ: `thành phần mới đang live → lớp bảo vệ (target Config Guard / invariant / test) → ĐỦ | THIẾU`; gồm cả `kuma-push.sh` + cron của nó, file bảng đèn, plugin/gate Hermes, hooks trên Mac (Claude Code managed settings, Codex hooks). Phần nằm trên Mac ngoài tầm Config Guard VPS ⇒ ghi đúng cơ chế đang phát hiện nó (cờ `HOOK_MISSING`) hoặc ghi THIẾU; không bịa bảo vệ.
+
+## 6B. Đèn đỏ máy chủ
+
+Owner 02/10: “Server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok.” Số đo Reviewer 08:04Z: ổ `/` dùng 46%, còn 53G ⇒ đĩa không đầy; đèn `Disk Usage` đỏ vì **heartbeat không tới Kuma**. `kuma-push.sh` và cron kuma-push khớp baseline Config Guard ⇒ tìm ở đường đẩy: cron có chạy dòng `disk` không · token · cấu hình monitor · phản hồi push.
+1. Tìm đúng nguyên nhân bằng chứng cứ, sửa tối thiểu (được sửa đúng monitor `Disk Usage` nếu nguyên nhân nằm ở cấu hình monitor). PASS = đèn `Disk Usage` xanh ≥2 nhịp liên tiếp.
+2. Mọi đèn đỏ khác ở D1.6: thuộc Hermes/MCPW ⇒ sửa trong scope; thuộc việc khác ⇒ KHÔNG đụng, ghi tên đèn + việc chịu trách nhiệm.
+3. Bảng đèn cho AI đọc: script hiện hữu (kuma-push hoặc Protection Guard, cùng nhịp cron sẵn có) ghi MỘT file JSON dưới `/opt/incomex/` — không nằm trong thư mục web công khai, không chứa token/URL push: `generated_at` + mỗi monitor `tên · trạng thái · thông báo · từ lúc nào`. Chỉ đọc Kuma bằng đường/credential hiện hữu; không có đường đọc sạch ⇒ nêu rõ + đề xuất, không tự mở rộng. Script bị sửa ⇒ cập nhật Config Guard qua đường apply hiện hữu, ghi old/new + lý do (DROOT29).
+4. KQ ghi đường dẫn file để Host/Reviewer tự đọc trước khi nghiệm thu (DROOT34).
 
 ## 7. Acceptance
 
@@ -81,14 +100,19 @@ PASS khi đồng thời:
 - Config Guard CLEAN; Protection Guard PASS có invariant compatibility mới;
 - mutant mismatch bị bắt;
 - manual gate/STOP/AUTO rỗng/7-tool regression PASS;
-- 0 scope creep, rollback có thật.
+- 0 scope creep, rollback có thật;
+- **K1** 😊 Owner tự gõ 1 câu trên đúng app → Hermes trả lời (đối chiếu log backend cùng phút); **K2** 1 `ASSIGN` → thẻ → Owner bấm → Hermes commit kết quả + tin KẾT QUẢ;
+- §6B: `Disk Usage` xanh ≥2 nhịp; 0 đèn đỏ thuộc Hermes/MCPW; đèn đỏ khác (nếu có) có tên + việc chịu trách nhiệm; file bảng đèn có và mới (<15′);
+- bảng đối chiếu §6 không còn dòng THIẾU trong scope.
 
-KQ:
+KQ — dòng đầu tiên bắt buộc: `ĐÈN <UTC>: <n> xanh · <m> đỏ [tên → việc chịu trách nhiệm]`, rồi:
 `KQ@HJW-MAINT-COMPAT-20261002-01 XONG · HERMES_COMPAT_PROTECTED`
 hoặc
 `KQ@HJW-MAINT-COMPAT-20261002-01 BLOCKED · <root cause/evidence>`.
 
-Sau KQ dừng; Host + Claude Reviewer nghiệm thu một lượt. Không tự mở việc tiếp.
+Owner chưa kịp thử K1/K2 ⇒ không ghi XONG: cùng tiền tố, đuôi `CHỜ OWNER THỬ · <K1|K2>`.
+
+Sau KQ dừng; Host + Claude Reviewer nghiệm thu một lượt, mở đầu bằng tự đọc file bảng đèn. Không tự mở việc tiếp.
 
 ---
 

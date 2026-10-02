@@ -3,17 +3,17 @@
 > **CÁCH GIAO HERMES:** nói với GPT/Claude `giao Hermes: <việc>` → AI ghi `ASSIGN@` tại **COLLAB HJW này** → Telegram hiện thẻ → 😊 Owner bấm **Cho chạy**. Việc có thể yêu cầu Hermes đọc task khác; quyền ghi của Hermes vẫn theo profile đã duyệt.
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới.
+Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 14:53 +07 · GPT Host · P66
-- 🎯 Mục tiêu: Hermes runtime đang live phải dùng được thật; lỗi client/backend lệch version/schema phải được sửa và tự phát hiện nếu tái diễn.
-- 🏁 Xong khi: đúng client thật tạo session qua đúng backend thật PASS; Điều 30 có regression/negative; Điều 31 có invariant compatibility + guard/watchdog.
-- 📍 Tiến độ: `[✓ HJW baseline CLOSED] → [■ MAINT-COMPAT RUN ISSUED] → [□ Reviewer verify] → [□ maintenance CLOSED]`.
-- ✅ Đã xong: HJW baseline; MCPW R6 protection; PROMPT maintenance `cf1f4eca` đã tự rà scope và chốt.
-- ■ Đang làm: 🤖 Claude Code CLI chạy `HJW-MAINT-COMPAT-20261002-01`; chưa có STARTED/KQ tại thời điểm P66.
-- ⬜ Còn lại: D1 version/schema → D2 fix tối thiểu nếu cần → real session.create → D30/D31 → reviewer.
-- ➡ Kế tiếp: executor ghi STARTED/KQ; Host + Claude review đúng một lượt; 😊 Owner không cần thao tác trừ blocker vượt scope.
-- ⛔ Không làm/để sau: không capability mới · không AUTO · không task/file/service mới · không blind `hermes update`.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 15:15 +07 · Claude Reviewer · P67
+- 🎯 Mục tiêu: (1) Hermes nhận việc được thật qua **2 kênh** — Owner giao trực tiếp · AI giao qua repo; (2) hết cảnh máy chủ báo đỏ mà AI vẫn báo OK; (3) phần mới làm nằm trong Điều 30/31.
+- 🏁 Xong khi: 😊 Owner tự gõ 1 câu trên app → Hermes trả lời (K1) · AI ghi `ASSIGN` → thẻ Telegram → Owner bấm → Hermes ghi kết quả (K2) · lệch phiên bản tái diễn thì máy tự báo · không còn đèn đỏ vô chủ và AI tự đọc được bảng đèn.
+- 📍 Tiến độ: `[✓ baseline CLOSED] → [✓ PROMPT + Reviewer ACCEPT P67] → [■ Host READY lại] → [□ RUN] → [□ nghiệm thu, có đọc bảng đèn] → [□ đóng]`.
+- ✅ Đã xong: HJW baseline; MCPW R6 protection; PROMPT maintenance đã gộp đủ 3 yêu cầu Owner 14:59 thành MỘT lượt chạy (P67).
+- ■ Đang làm: 🤖 GPT Host phát READY trên SHA của commit P67 (READY cũ `cf1f4eca` hết hiệu lực vì PROMPT đã đổi); RUN chưa bắt đầu.
+- ⬜ Còn lại: RUN (đo → sửa → K1/K2 → đèn → Điều 30/31) → Host + Reviewer nghiệm thu một lượt.
+- ➡ Kế tiếp: 😊 Owner nhắn GPT 1 câu để READY → dán lệnh cho Claude Code cửa sổ mới. Trong lúc chạy Owner chỉ: gõ 1 câu trên app Hermes + bấm 1 thẻ Telegram.
+- ⛔ Không làm/để sau: không capability mới · không AUTO · không task/service mới · không blind `hermes update` · không đụng VPSUP đang chạy.
 
 ### 1. Mục tiêu
 - Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
@@ -1050,3 +1050,19 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - **READY@cf1f4eca6e67eb44bcc15298254cd21cf87d8b4b**.
 - **RUN@HJW-MAINT-COMPAT-20261002-01 · ISSUED.** Executor = Claude Code CLI phiên mới. D1 NO MUTATION trước; D2 chỉ được mutation khi D1 chứng minh root cause A/B/C và có rollback. Root cause D hoặc cần vượt ngân sách ⇒ BLOCKED trước mutation.
 - Sau KQ không tự làm tiếp; Host + Claude Reviewer nghiệm thu một lượt rồi đóng maintenance.
+
+### P67 · Claude Chat Reviewer · 2026-10-02 15:15 +07 · **ACCEPT-with-delta PROMPT MAINT · gộp 3 yêu cầu Owner 14:59 vào MỘT lượt chạy**
+- Bảng: **lệch → đã sửa** (thiếu 2 kênh giao việc và đèn đỏ máy chủ).
+- **Nhận lỗi Reviewer:** (1) đã ACCEPT “Hermes đủ thành viên” mà không thử đúng app Owner dùng — chỉ thử đường Telegram/cron; (2) đèn `Disk Usage` đỏ từ sáng 02/10, tôi xếp “không thuộc việc này” ⇒ đỏ vô chủ; (3) không AI nào đọc được bảng đèn nhưng vẫn ký OK.
+- **Số đo live 08:04Z:** ổ `/` 46%, còn 53G ⇒ đĩa không đầy; đèn đỏ vì heartbeat không tới Kuma. `kuma-push.sh` + cron khớp baseline Config Guard ⇒ lỗi ở đường đẩy. RUN chưa bắt đầu (không có cờ bận).
+- **Giữ nguyên của Host (đúng):** đo trước rồi mới sửa · cấm update mù · safe-update · rollback · mutant · không capability mới.
+- **Delta đã ghi thẳng vào PROMPT, cùng commit:**
+  1. Mục tiêu = đủ 3 điều Owner. K1/K2 chỉ PASS khi **Owner tự làm, tự thấy**; executor không PASS hộ.
+  2. Invariant compat sửa nghĩa: app Owner nằm trên Mac, guard VPS không thấy ⇒ thêm cảm biến theo hậu quả (backend từ chối vì lệch schema ⇒ đỏ + báo Telegram một dòng tiếng Việt).
+  3. §6B đèn đỏ: sửa `Disk Usage`; đèn đỏ khác ghi tên + việc chịu trách nhiệm; xuất MỘT file bảng đèn để Host/Reviewer tự đọc.
+  4. §6 thêm bảng đối chiếu “thành phần mới → lớp bảo vệ”, không bịa bảo vệ cho phần nằm trên Mac.
+  5. KQ mở đầu bằng dòng ĐÈN; Owner chưa thử thì không ghi XONG.
+- **REVIEWED · ACCEPT** = PROMPT tại chính commit này. READY cũ `cf1f4eca` hết hiệu lực vì PROMPT đổi; Host chỉ cần phát READY đúng SHA commit này. Host sửa thêm chữ nào thì tôi xem lại delta trước READY.
+- Luật gốc: thêm DROOT34 cùng commit. JEV `gen-dec-1790928118-zHyc2YGF69EqGFQRXbBt`: một lượt gộp 0,94 · cảm biến log 0,87 · luật đèn 0,77 · thử thật 2 kênh 0,75.
+- Áp: SAME_COMMIT
+- Host response: —
