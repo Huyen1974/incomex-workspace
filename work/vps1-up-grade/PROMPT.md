@@ -1,7 +1,7 @@
 # PROMPT — VPSUP G6 · HOÀN THIỆN BỘ CUỐI + DIỄN TẬP + GÓI G7 SẴN DÙNG
 
 RUN_ID: VPSUP-G6-INTEGRATED-REHEARSAL-20261002-01
-STATUS: **DRAFT — chờ Reviewer rà một gói; CHƯA READY/RUN.**
+STATUS: **DRAFT — Reviewer P102 đã ACCEPT (cắt 2 phần thừa); chờ Host READY.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI, phiên mới có hook đã nghiệm thu.
 Report_Write_Path: Incomex VPS MCP `workspace_*` → `Huyen1974/incomex-workspace/main`, actor xác thực `claude-code`.
@@ -32,10 +32,9 @@ Tác vụ dài có state/log/checkpoint bền trên VPS và cơ chế phục h�
 ## G6.3 · Đóng các phát sinh TF trong chính bộ cuối
 **A. 33 cột DEFAULT thiếu:** lập danh sách chính xác từ fresh clone, so với canonical sạch đúng Directus12.4.1. Chỉ thêm DEFAULT đang thiếu khi có biểu thức upstream rõ, đúng kiểu và không phải tuỳ biến nghiệp vụ; giữ nguyên giá trị hiện có, PK/sequence/tenant/ACL và các default đã cấu hình. Reuse/extend DOT có dry-run/precondition/transaction/verify + SQL rollback khôi phục old default; không suy giá trị secret/provider/tenant. Test tạo field, user, collection bằng API/DOT với payload hợp lệ thông thường (fixture lab), verify và cleanup. **Không lấp đủ trường vào fixture chỉ để che lỗi server.** Default không có nguồn rõ hoặc cần đổi dữ liệu/quyền ngoài scope ⇒ ghi exact blocker. Không mở dự án chuẩn hoá toàn schema.
 
-**B. 503/pressure:** dùng fresh data và cùng ngân sách CPU/RAM, workload/harness, cache state để so CURRENT với bộ PG18 cuối; reuse đối chứng cũ nếu inputs thật sự khớp. Đo tải gần production và đỉnh cần phục vụ từ log đã có; thêm replay stress TF (~10×) để kiểm sai lệch 92 vs 26, không chỉ đếm latency. Tách Directus pressure 503, nginx auth_limit và expected auth negatives; báo mẫu số, lỗi, p95, RSS/heap, CPU/event-loop có sẵn, restart/OOM.
-- Tự sửa hẹp trong lab nếu có căn cứ (harness/concurrency/config/pool/resource trong capacity thật); kiểm lại phần bị ảnh hưởng và lưu exact delta/rollback. Không tắt pressure/rate-limit/security hay nới ngân sách vô căn cứ để lấy PASS.
-- Tải thực/đỉnh yêu cầu phải đạt tiêu chí hiện hành và không có hồi quy chưa giải quyết so baseline tương ứng. Stress vượt nhu cầu có thể là giới hạn bão hoà, nhưng phải chứng minh ranh giới bằng số đo; không tự suy “10× nên bỏ qua”. Sai lệch nghiêm trọng chưa giải thích/không đạt tải cần dùng ⇒ PARTIAL, không đánh G7_READY.
-- Fixed-workload có timeout hữu hạn; không thêm soak N giờ hay chạy mọi thứ lại từ đầu. G4C đã có long-soak, TF license unchanged; chỉ carry-forward monitoring hiện hữu.
+**B. 503/pressure (P102 gọn):** đo trên bộ PG18 cuối với dữ liệu mới, cùng ngân sách CPU/RAM như production: (1) tải thực lấy từ log production và (2) đỉnh thực ×3. **Đạt khi:** 0 lỗi 503 do Directus quá tải, 0 restart/OOM, p95 không tệ hơn CURRENT đo cùng cách. Tách 503 của nginx auth_limit và lỗi auth mong đợi. Chạy lại replay ~10× của TF **một lần để ghi số**, không điều tra tiếp nếu (1)(2) đạt.
+- (1)/(2) trượt ⇒ được sửa hẹp có căn cứ (pool/concurrency/resource trong capacity thật), kiểm lại phần bị ảnh hưởng, lưu exact delta/rollback. Không tắt pressure/rate-limit/security hay nới ngân sách vô căn cứ để lấy PASS. Vẫn không đạt ⇒ PARTIAL, không G7_READY.
+- Timeout hữu hạn; không soak N giờ. G4C đã có long-soak, TF license unchanged.
 
 **C. Sao lưu PG18 (P100):** kiểm từng entrypoint backup/cron và binary thật bằng `--version`; dùng `pg_dump`, `pg_dumpall`, `pg_restore` major18 (ưu tiên trong image18 đã pin). Bản sao pipeline backup ở lab phải dump đủ dữ liệu/globals theo policy, báo lỗi fail-closed, đọc lại checksum/nội dung và **khôi phục thử** trên đích lab riêng; không chỉ dùng file tồn tại hay pg_restore --list làm restore proof. Giữ mã hoá/retention cũ; vô hiệu side effect upload/xoá production trong thử lab. Không nâng pipeline kiến trúc mới. Gói G7 chứa đúng thay đổi tối thiểu và một lần chạy pipeline thật/read-back trước XONG, không chờ đêm.
 
@@ -46,7 +45,7 @@ Dùng runner/công thức TF/G5 đã sửa, không thiết kế framework mới.
 3. SAME SLICE/data/rights/Flow/FDW/SQL consumers, 132 routes, browser/login/admin/16 trang TF và thử tạo schema metadata trên fixture. Expected khác chỉ theo TF/migration có căn cứ; không xoá test quyền để PASS. Kiểm reconnect và network từ consumer có thật, artifact vẫn đúng hashes.
 4. Trước mở ghi: tạo checkpoint **post-S2 nhất quán** bằng native backup/snapshot có consistency proof (không `cp` volume PostgreSQL đang ghi). Ghi hash/schema/LSN/thời điểm và bảo vệ key trong checkpoint; giữ nguồn PG16/pre-S2. Tính thời gian checkpoint vào cửa sổ nếu thật sự chặn ghi.
 5. Chạy thật rollback **trước mở ghi** trên bộ PG18 mới: stop writers/target, trả activation nếu đã dùng, chuyển đúng PG16 volume + Directus11/Nuxt3 và mọi env/network cũ; verify data/consumer/SAME SLICE. Không chỉ sửa image18 về16 trên volume18. G5 proof dùng lại nhưng không thay được rollback volume PG18 mới này.
-6. Chính sách **sau mở ghi**: giữ P88 — ưu tiên sửa tiến/rollback frontend-service; cấm tự khôi phục DB PG16 cũ. Trong lab mô phỏng delta INSERT/UPDATE/DELETE nhỏ, có bảng thiếu timestamp, để chứng minh checkpoint post-S2 + hash/PK nhận diện ghi mới và bảo toàn DB lỗi. Không tuyên bố pg_dump18→PG16 là downgrade an toàn hoặc timestamp-export là đủ; chưa có đường merge được kiểm thì runbook phải dừng auto-restore và trình đúng quyết định bảo toàn dữ liệu.
+6. Chính sách **sau mở ghi**: giữ P88 — ưu tiên sửa tiến/rollback frontend-service; cấm tự khôi phục DB PG16 cũ. Cần khôi phục DB thì dừng, giữ DB lỗi, đối soát bằng checkpoint post-S2 + cách hash/PK **đã chứng minh ở G5** (không mô phỏng lại — P102), trình Owner quyết. Không tuyên bố pg_dump18→PG16 là downgrade an toàn.
 
 ## G6.5 · Đóng gói luôn G7, không tạo vòng soạn lại
 G6 phải giao chung trong hồ sơ việc trên VPS2:
