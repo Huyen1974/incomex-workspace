@@ -27,13 +27,16 @@ PRE fail-closed:
 4. Backup: kiểm đường backup VPS1 hiện hữu đang healthy + có bản production gần nhất đọc được. **Không đặt ngưỡng chờ giờ tuỳ ý và không chạy lại full backup chỉ để “cho chắc”** vì S1 là same-major PG + nginx image change đã proof. Nếu backup path đang fail/degraded thật ⇒ DỪNG trước mutation.
 5. G5 proof phải còn đọc được: `S1_BASELINE_PASS`, PG16.15/nginx1.30.5 exact artifact/digest và rollback evidence.
 6. Chuẩn bị rollback trước mutation: exact old image refs + exact old compose/config bytes; rollback chỉ hai service, không reset repo/máy.
+7. **Ghim digest + lệnh hẹp (P88):** compose đổi tag trôi `postgres:16` / `nginx:alpine` thành `postgres:16.15-trixie@sha256:…` / `nginx:1.30.5-alpine@sha256:…` đúng digest G3/G5 đã proof (PG index `1a6ab3f5…` · amd64 `a85daf0d…`; nginx index `0985e772…` · amd64 `8f84ed99…`). Chỉ dùng `docker compose pull <service>` + `docker compose up -d --no-deps <service>`; **cấm** `pull`/`up -d` không kèm tên service (sẽ kéo/recreate dịch vụ khác đang dùng tag trôi).
+8. **Mốc so sánh (P88):** ghi `system_identifier`, `datcollversion` so với bản thực tế của từng DB, danh sách DB/role/extension và số dòng các bảng chính.
 
 ## S1.2 · Thực thi
-Chạy **tuần tự**, đo downtime thật:
+Chạy **tuần tự**, đo downtime thật. Không cần chờ đêm: downtime ước < 2 phút, rollback từng service vài giây (DROOT32) — chạy khi Owner dán lệnh:
 1. DROOT30.
 2. Đổi PostgreSQL sang exact **16.15** artifact đã proof G5; không đổi PGDATA/schema/extension/config nếu không bắt buộc bởi image. Clean restart/recreate đúng service.
-3. Chờ health trực tiếp có timeout hữu hạn; không soak. PG lên ⇒ xác nhận server_version 16.15 + DB/list/role/FDW/extensions chính vẫn đúng.
-4. Đổi nginx sang exact **1.30.5** artifact đã proof G5, giữ nguyên config + static mounts; `nginx -t` trước/POST; recreate/reload đúng service theo manifest hiện hành.
+3. Chờ health trực tiếp có timeout hữu hạn; không soak. PG lên ⇒ xác nhận server_version 16.15 + DB/list/role/FDW/extensions chính vẫn đúng. **P88:** `system_identifier` = PRE (bắt lỗi gắn nhầm volume/initdb mới), `datcollversion` = actual, không bảng chính nào về 0.
+3b. **Dịch vụ phụ thuộc tự nối lại (G5 boot mới nên chưa đo được):** Directus API đọc · agent-data/MCP đọc · Hermes gateway · Kuma xanh. Dịch vụ nào không tự nối lại trong ≤ 2 phút ⇒ được restart **riêng dịch vụ đó** (`--no-deps`), ghi rõ trong KQ; không tính là ngoài phạm vi. Restart vẫn không lên ⇒ rollback PG theo mục dưới.
+4. Đổi nginx sang exact **1.30.5** artifact đã proof G5, giữ nguyên config + static mounts; `nginx -t` trước/POST; recreate/reload đúng service theo manifest hiện hành. **P88:** mọi ghi repo đi qua gateway sau nginx ⇒ chập vài giây lúc recreate; STARTED ghi trước, KQ ghi sau, lỗi ghi thì thử lại.
 5. Không rebuild Nuxt, không migrate Directus, không đổi UUID, không activate license.
 
 Nếu một service fail acceptance:
@@ -47,7 +50,8 @@ Phải PASS trước KQ:
 - Directus11.5.1 + Nuxt3 CURRENT vẫn healthy;
 - nginx1.30.5 `-t` PASS; public hosts/routes chính trả đúng baseline;
 - route chậm `/knowledge/registries` dùng timeout theo baseline G5 (~34s cold), **không coi chậm sẵn có là regression**;
-- Directus auth/admin/API smoke read-only; không tạo dữ liệu thử production mới nếu không có probe hiện hữu đã duyệt;
+- Directus auth/admin/API smoke read-only; không tạo dữ liệu thử production mới nếu không có probe hiện hữu đã duyệt. Admin login liền sau tải trang có thể dính nginx `auth_limit` (5 r/phút, burst 3) ⇒ 503 đã biết từ G5; chờ ≥ 65 s thử lại 1 lần trước khi kết luận;
+- dịch vụ phụ thuộc (agent-data/MCP, Hermes, Kuma) xanh như PRE;
 - A09R1 hashes/live artifact = PRE;
 - Config/Protection Guard: chỉ delta được phép của PG/nginx; rebaseline chỉ hai target sau acceptance, kèm old/new + reason;
 - 0 restart/mutation ngoài scope;
@@ -65,6 +69,8 @@ FAIL:
 Báo ngắn: PRE current refs · old→new exact PG/nginx refs · downtime · acceptance · Guard delta · A09R1 preserved · rollback có dùng hay không · outside-scope diff.
 
 Sau KQ **dừng**. Không tự chạy G6/G7/PG18/Nuxt UI v4.
+
+G5 PROMPT nguyên văn (runbook G6/G7 dùng lại, không thiết kế lại): `git show 1ee1137:work/vps1-up-grade/PROMPT.md`.
 
 ## HISTORY — G4C/G4B/G4/G3
 **Từ marker HISTORY trở xuống chỉ là lịch sử/evidence, KHÔNG phải lệnh S1.**
