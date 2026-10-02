@@ -14,6 +14,8 @@ h2{font-size:17px;margin:26px 0 10px;padding-top:14px;border-top:1px solid #e3e6
 .sub{color:#5b6570;font-size:14px}
 .decide{border:2px solid #d92d20;background:#fff5f4;border-radius:10px;padding:14px 16px;margin:16px 0}
 .decide .t{color:#b42318;font-weight:700}
+.decide.ok{border-color:#12833f;background:#f3fbf5}
+.decide.ok .t{color:#0b5a2a}
 .btn{display:inline-block;background:#12833f;color:#fff;border-radius:8px;padding:6px 14px;font-weight:700;margin-top:8px}
 .bar{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
 .step{flex:1 1 150px;border-radius:8px;padding:8px 10px;font-size:14px;border:1px solid #d0d5dd;background:#f2f4f7;color:#475467}
@@ -32,18 +34,18 @@ ul{margin:6px 0 6px 20px;padding:0}
 <body>
 
 <h1>Chép web incomexsaigoncorp.vn về hệ của mình</h1>
-<div class="sub">Bản 1 · 02/10/2026 · Host: Claude Chat · 🤖 làm: Codex · 😊 = việc của anh</div>
+<div class="sub">Bản 2 · 02/10/2026 17:50 · Host: Claude Chat · 🤖 làm: Codex · 😊 = việc của anh</div>
 
-<div class="decide" id="quyet">
-  <div class="t">😊 Hôm nay anh cần quyết — 1 việc</div>
-  Gật kế hoạch 3 gói bên dưới.<br>
-  <span class="btn">Đề xuất: GẬT</span>
+<div class="decide ok" id="quyet">
+  <div class="t">😊 Anh không cần quyết gì — chỉ dán 1 dòng cho GPT</div>
+  Hội đồng góp ý và chốt chi tiết. Chốt xong, anh nhận 1 dòng lệnh cho 🤖 Codex.<br>
+  <span class="sub">Lời anh 17:38: “hội đồng có ý kiến. Xong thì hãy làm.”</span>
 </div>
 
 <h2 id="tien-do">Đang ở đâu</h2>
 <div class="bar">
   <div class="step ok">✅ Mở việc + khảo sát</div>
-  <div class="step now">■ 😊 Anh gật kế hoạch</div>
+  <div class="step now">■ Hội đồng góp ý</div>
   <div class="step">⬜ Gói 1 · CHỤP</div>
   <div class="step">⬜ Gói 2 · DỰNG + trang thử</div>
   <div class="step">⬜ Gói 3 · ĐỔI TÊN MIỀN</div>
@@ -129,6 +131,12 @@ ul{margin:6px 0 6px 20px;padding:0}
   <tr><td class="g"><b>K3</b></td><td>Cắt hẳn: form có máy chủ · tìm kiếm · bình luận · đăng nhập · hiệu ứng trượt · thiết kế lại.</td></tr>
 </table>
 <p class="sub">Đường lùi: site WordPress cũ vẫn chạy nguyên cho tới khi anh ra lệnh đổi tên miền. Bản ghi thư không đụng.</p>
+
+<h2 id="kiem-ke">Kiểm kê site cũ</h2>
+<p class="x" style="padding:8px 10px;border-radius:8px">⬜ Gói 1 điền: số bài · trang · đơn hàng · ảnh · thứ không khớp.</p>
+
+<h2 id="so-anh">So ảnh: trang cũ ↔ bản dựng thử (6 trang)</h2>
+<p class="x" style="padding:8px 10px;border-radius:8px">⬜ Gói 1 điền: 6 cặp ảnh.</p>
 
 <details id="bang-chung">
   <summary>Kho bằng chứng (cho PM / AI)</summary>
