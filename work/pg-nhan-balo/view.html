@@ -38,7 +38,7 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 </head>
 <body><main>
 <h1>Luật nhãn PG — mở balo là biết có gì, dùng lại được gì, thừa gì</h1>
-<p class="mut" id="trang-thai">Bản nháp v0.2 · 02/10/2026 · Host: Claude Chat · chờ GPT + Codex góp ý · đang bàn lý thuyết: chưa dán nhãn, chưa dán biển · chỉ dán nhãn, không tắt, không xoá</p>
+<p class="mut" id="trang-thai">Bản nháp v0.3 · 02/10/2026 · Host: Claude Chat · chờ GPT + Codex góp ý · đang bàn lý thuyết: chưa dán nhãn, chưa dán biển · chỉ dán nhãn, không tắt, không xoá</p>
 
 <span class="tang">PHẦN CHO OWNER</span>
 
@@ -197,7 +197,7 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <tr><th>#</th><th>Vị trí chính xác</th><th>Ghi gì</th></tr>
 <tr><td class="id">B1</td><td><code>COMMENT ON TABLE public.balo_thuc_the</code>, đặt ở đầu; chữ cũ giữ nguyên bên dưới</td><td>Biển cổng 8 dòng (mẫu bên dưới). Lưu ý: <code>COMMENT ON</code> ghi đè cả khối, phải đọc ra rồi nối.</td></tr>
 <tr><td class="id">B2</td><td>Bảng từ điển mới trong PG (tên chốt khi soạn lệnh)</td><td>Mỗi dòng: nhãn · giá trị · áp cho loại vật nào · thứ tự xét · câu thử · ví dụ. Dòng KHỐI có thêm tình trạng khối do Owner xếp. Các cột nhãn của balo chỉ nhận giá trị có ở đây.</td></tr>
-<tr><td class="id">B3</td><td><code>--help</code> của lệnh DOT ghi nhãn</td><td>Biển 3 dòng (mẫu bên dưới). Lệnh từ chối giá trị không có trong B2.</td></tr>
+<tr><td class="id">B3</td><td><code>--help</code> của lệnh DOT ghi nhãn</td><td>Biển 3 dòng (mẫu bên dưới). Lệnh từ chối giá trị không có trong B2. Lệnh này được ghi vào sổ DOT sẵn có (mục dưới), không lập sổ thứ hai.</td></tr>
 <tr><td class="id">B4</td><td>Mục Reports, đúc bằng khuôn report sẵn có</td><td>Trang “Luật nhãn” hiện thẳng bảng B2 cho người xem.</td></tr>
 <tr><td class="id">T1</td><td>3 file <code>AGENTS.md</code> trên VPS: <code>docker/agent-data-repo</code>, <code>docker/nuxt-repo</code>, <code>docs/mcp-writes</code></td><td>Mục “Quy ước bắt buộc từ nay” đang bảo ghi nhãn vào <code>COMMENT ON</code> của từng vật, trái L01. Thay bằng một dòng trỏ về B1.</td></tr>
 <tr><td class="id">T2</td><td>KB: quy định balo v1.9</td><td>Thêm một dòng trỏ về B1.</td></tr>
@@ -224,6 +224,24 @@ Mặc định chạy thử. Không tắt, không xoá, không sửa vật nào n
 Luật 8 dòng: xem ghi chú của bảng balo_thuc_the.</pre>
 </section>
 
+<section class="card" id="so-dot">
+<h2>Balo và sổ DOT: hai sổ, một kiểu nói</h2>
+<p>Việc nâng cấp PG (<code>work/vps1-up-grade</code>) vừa lập một sổ ghi tay cho các lệnh DOT, Owner đã đồng ý 02/10. Để hai bên không mỗi bên nói một kiểu:</p>
+<div class="wrap"><table>
+<tr><th></th><th>Balo (việc này)</th><th>Sổ DOT (việc nâng cấp PG)</th></tr>
+<tr><td><strong>Ghi cái gì</strong></td><td>vật trong PG: bảng, view, hàm, trigger</td><td>lệnh DOT: công cụ chạy, nằm ngoài PG</td></tr>
+<tr><td><strong>Cập nhật</strong></td><td>🤖 máy, bấm Làm mới</td><td>ghi tay, thỉnh thoảng vào cập nhật lại</td></tr>
+<tr><td><strong>Nằm ở đâu</strong></td><td>bảng <code>balo_thuc_the</code></td><td>do việc nâng cấp PG chốt (Host chưa đọc được)</td></tr>
+</table></div>
+<p><strong>Ba điểm nối (đề xuất, chờ bên kia xác nhận):</strong></p>
+<ul>
+<li><strong>S1 · Không chép chéo.</strong> Lệnh DOT không vào balo; vật PG không liệt kê lại trong sổ DOT. Sổ DOT chỉ nhắc tên bảng hoặc hàm mà lệnh đụng tới.</li>
+<li><strong>S2 · Dùng chung từ.</strong> Cùng bộ mã KHỐI; “ghi” và “đọc” cùng nghĩa với VAI của hàm (C3); mô tả một dòng cùng kiểu.</li>
+<li><strong>S3 · Một sổ DOT.</strong> Lệnh dán nhãn của việc này ghi vào chính sổ đó. Không lập sổ thứ hai.</li>
+</ul>
+<p class="mut">Host chưa đọc được sổ: nó chưa có trên repo và không nằm trên VPS1. Ba chỗ chờ khớp với sổ thật (Q10): đường dẫn, các cột, chữ dùng cho ghi/đọc. Luật này không tự đặt định dạng cho sổ của việc khác. Bảng <code>dot_tools</code> cũ trong PG vẫn là một vật của balo, dán nhãn như mọi bảng.</p>
+</section>
+
 <section class="card" id="cot">
 <h2>Nhãn nằm ở cột nào của <code>balo_thuc_the</code> (đề xuất kỹ thuật, Reviewer chốt)</h2>
 <div class="wrap"><table>
@@ -241,7 +259,7 @@ Luật 8 dòng: xem ghi chú của bảng balo_thuc_the.</pre>
 
 <section class="card" id="hoi">
 <h2>Mời phản biện</h2>
-<p>Chín câu hỏi Q01–Q09 nằm ở <code>COLLAB.md</code> của việc. Reviewer ghi P ở đó, nêu mã mục (L01…, C1…) trong Scope.</p>
+<p>Mười câu hỏi Q01–Q10 nằm ở <code>COLLAB.md</code> của việc. Reviewer ghi P ở đó, nêu mã mục (L01…, C1…) trong Scope.</p>
 </section>
 
 <span class="tang">KHO BẰNG CHỨNG</span>
