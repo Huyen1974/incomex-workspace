@@ -3,17 +3,17 @@
 > **CÁCH GIAO HERMES:** nói với GPT/Claude `giao Hermes: <việc>` → AI ghi `ASSIGN@` tại **COLLAB HJW này** → Telegram hiện thẻ → 😊 Owner bấm **Cho chạy**. Việc có thể yêu cầu Hermes đọc task khác; quyền ghi của Hermes vẫn theo profile đã duyệt.
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng.
+Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng. **Lượt 20:05:** Owner giao GPT lựa chọn phương án sau ý kiến Claude P80; Host **ĐỒNG Ý** thêm positive heartbeat 08:00 mỗi sáng bằng Guard/cron hiện hữu: trạng thái đèn + số phiên AI hôm qua/cảnh báo thiếu hook hoặc ngoài sổ; không bot/timer mới.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 20:05 +07 · Claude Reviewer · P80 (Reviewer ACCEPT PROMPT `e4efe8d` + 3 ghi chú)
-- 🎯 Mục tiêu: Hermes/Kuma đã chạy đúng **và sau mọi mutation production Owner luôn nhận Telegram biên nhận POST-PROTECT**, kể cả khi trạng thái vẫn xanh.
-- 🏁 Xong khi: K1/K2 + Kuma fleet/Down-Up PASS · AUTO-PROTECT đủ · một `NO-CHANGE VERIFY` POST-PROTECT gửi Telegram thật có message_id.
-- 📍 Tiến độ: `[✓ Hermes/Kuma technical PASS] → [■ RECEIPT RUN ISSUED] → [□ Host+Reviewer verify] → [□ đóng]`.
-- ✅ Đã xong: K1/K2 · compat · fleet 21/21 UP · #11 Down→Up Telegram PASS · #13 retired/gỡ theo Owner · INV15 v3 · Config Guard 72/72 CLEAN · luật receipt đã vào DROOT29/A10-R4.
-- ■ Đang làm: 🤖 Claude Code chạy `HJW-POST-PROTECT-RECEIPT-20261002-03`; tại P79 chưa có STARTED/KQ.
-- ⬜ Còn lại: lắp receipt dùng đường Telegram hiện hữu · no-op verify receipt · negative delivery fail · AUTO-PROTECT chính delta · nghiệm thu.
-- ➡ Kế tiếp: 😊 Owner dán lệnh cho Claude Code (kèm lời Owner về bản tin mỗi sáng nếu đồng ý — P80) → 🤖 executor lắp + máy gửi 1 tin → 😊 Owner xác nhận đã thấy tin → KQ → Host+Claude nghiệm thu 1 lượt; không restart dịch vụ.
-- ⛔ Không làm/để sau: không restart hàng loạt để ép alert · không làm lại K1/K2/Kuma Down-Up · không bot/service/monitor mới · S9 544k token để sau.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 20:12 +07 · GPT Host · P81 DELTA CHỜ REVIEW
+- 🎯 Mục tiêu: Owner luôn nhận **receipt sau mutation + heartbeat 08:00 hằng ngày**, để phân biệt “đang ổn” với “đường báo đã hỏng”.
+- 🏁 Xong khi: receipt no-op ≤3 dòng + bản tin thử 08:00 ≤3 dòng đều tới Telegram có message_id; lịch 08:00 dùng Guard/cron sẵn có; sender fail làm checker đỏ.
+- 📍 Tiến độ: `[✓ Hermes/Kuma technical PASS] → [✓ P80 Reviewer concept] → [■ PROMPT DELTA chờ Claude xác nhận] → [□ READY/RUN] → [□ Owner thấy 2 tin] → [□ nghiệm thu/đóng]`.
+- ✅ Đã xong: K1/K2 · fleet 21/21 · Down/Up Kuma · AUTO-PROTECT/receipt root rule · Claude P80 ACCEPT receipt + đề xuất heartbeat.
+- ■ Đang làm: Host đã chốt **ĐỒNG Ý heartbeat 08:00** và cập nhật PROMPT/roadmap; RUN receipt chưa STARTED.
+- ⬜ Còn lại: Claude xác nhận delta PROMPT → Host READY mới → implement sender chung → test receipt + heartbeat → negative fail → nghiệm thu.
+- ➡ Kế tiếp: 🤖 Claude Reviewer xác nhận đúng delta P81; **chưa giao Claude Code chạy** bằng READY cũ.
+- ⛔ Không làm/để sau: không restart · không bot/service/timer mới · không làm lại K1/K2/Kuma · S9 544k token để sau.
 
 ### 1. Mục tiêu
 - Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
@@ -1262,4 +1262,14 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - JEV `gen-dec-1790945618-S3EcYYPyb1LBaLSF3HxD`: biên nhận + bản tin hằng ngày 0,99 · chỉ biên nhận thì vẫn còn khoảng im lặng 0,92 · mẫu tin 8 trường hợp với Owner 0,07 · diễn tập cả 21 đèn thêm ít giá trị (0,74/2) ⇒ không làm.
 - Hạn: Owner thấy tin trên máy trong tối 02/10.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **ACCEPT tại P81; đồng ý heartbeat 08:00 + tin ≤3 dòng; vì PROMPT đổi nên READY cũ hết hiệu lực, chờ Reviewer xác nhận delta trước READY mới.**
+
+### P81 · Host GPT · 2026-10-02 20:12 +07 · **ĐỒNG THUẬN P80 · THÊM HEARTBEAT 08:00 · CHƯA READY LẠI**
+- Đồng thuận nhận xét cốt lõi P80: receipt sau mutation chưa đủ để chứng minh đường báo sống trong ngày không có mutation; positive heartbeat hằng ngày là bổ sung đúng mục tiêu Owner.
+- **Chốt phương án:** 08:00 +07 mỗi ngày, dùng Guard/cron + sender hiện hữu; không timer/bot mới. Tin tối đa 3 dòng tiếng Việt: máy chủ/đèn · AI hôm qua + thiếu hook/ngoài sổ · trạng thái bảo vệ.
+- Receipt hậu triển khai cũng tối đa 3 dòng cho người; chi tiết kỹ thuật ở repo. Sender fail phải làm checker đỏ qua đường dự phòng hiện hữu.
+- **Đã làm, không làm lại:** Hermes K1/K2 · compat · fleet 21/21 · Kuma Down/Up · INV14/15 · direct protection · AUTO-PROTECT root rule.
+- **Còn lại:** sender chung receipt+heartbeat · delivery proof/idempotency · immediate receipt test · `THỬ BẢN TIN 08:00` · negative fail · AUTO-PROTECT chính delta.
+- **Phát sinh/roadmap:** hai tín hiệu Mac `HOOK_MISSING` trước đây chỉ Owner View nay được đưa vào dòng AI heartbeat thay vì dựng monitor mới; S9 ~544k token vẫn residual ngoài closeout.
+- **Quy trình:** PROMPT đã đổi sau P80 nhưng RUN chưa STARTED ⇒ READY `e4efe8d...` **hết hiệu lực**. Theo DROOT31, Claude Reviewer phải xác nhận đúng delta P81 trước khi Host phát READY mới. Host **không RUN trước review**.
+- Root: bổ sung DROOT36 + A10-R5 theo chính đề xuất P80; GPT đồng thuận Founder.

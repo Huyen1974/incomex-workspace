@@ -2,7 +2,7 @@
 
 RUN_ID: HJW-POST-PROTECT-RECEIPT-20261002-03
 Host: GPT Chat · GPT-HJW-260922-A
-Owner_authorization: 02/10/2026 — sau mọi thay đổi production, hệ thống phải báo Telegram rằng đã đổi gì và trạng thái bảo vệ cuối cùng; không được im lặng chỉ vì mọi đèn vẫn xanh.
+Owner_authorization: 02/10/2026 — sau mọi thay đổi production, hệ thống phải báo Telegram rằng đã đổi gì và trạng thái bảo vệ cuối cùng; không được im lặng chỉ vì mọi đèn vẫn xanh. Bổ sung theo lựa chọn Host được Owner giao 02/10 ~20:05: thêm positive heartbeat 08:00 mỗi sáng để ngày không có mutation vẫn chứng minh đường báo còn sống; dùng Guard/cron hiện hữu, không timer/bot mới.
 
 ## 0. Mục tiêu duy nhất
 
@@ -16,26 +16,38 @@ KQ `c38539d` về Kuma/Telegram **đạt kỹ thuật**, nhưng chưa đóng vì
 - Mọi file/config runtime mới/sửa trong RUN này tự tuân AUTO-PROTECT DROOT29/A10-R4.
 
 ## 2. Hành vi bắt buộc
-Sau POST-PROTECT PASS của một mutation production, gửi **đúng một** tin Telegram ngắn có: `POST-PROTECT · ✅ PASS`; RUN/commit; footprint đã đổi; Điều 30 PASS; Điều 31 PASS; Config Guard; Protection Guard; Kuma fleet; rollback.
+Sau POST-PROTECT PASS của một mutation production, gửi **đúng một** tin Telegram cho người, **tối đa 3 dòng tiếng Việt thường, có biểu tượng màu**: dòng 1 = vừa đổi gì / `NO-CHANGE VERIFY`; dòng 2 = `đèn N/N xanh · bảo vệ đủ · có đường lùi` (đỏ thì nêu tên); dòng 3 = RUN/commit ngắn. Footprint/D30/D31/Config Guard/Protection Guard/rollback chi tiết lưu trong repo/evidence, không nhồi vào tin.
 - Không có state transition vẫn phải gửi.
 - Nếu verify-only/no-op thì ghi rõ `NO-CHANGE VERIFY`, không giả là đã deploy.
 - Lưu delivery proof/message_id vào evidence/ledger hiện hữu; không tạo sổ mới.
 - Telegram fail ⇒ POST-PROTECT không success; KQ PARTIAL/BLOCKED.
 - Receipt không thay cảnh báo thật của Kuma; Down/Up vẫn theo Kuma.
 
+## 2B. Positive heartbeat 08:00 — ngày không đổi gì vẫn phải có tin
+- Reuse **chính sender + Guard/cron hiện hữu**; không service/timer/bot/token mới.
+- Mỗi ngày **08:00 Asia/Ho_Chi_Minh**, gửi đúng một tin tối đa 3 dòng:
+  1. `✅ Máy chủ: N/N đèn xanh` hoặc `🔴 Máy chủ: <tên đèn đỏ>`.
+  2. `🤖 AI hôm qua: <n> phiên · thiếu hook/ngoài sổ: <k>` — lấy deterministic từ lifecycle ledger/presence hiện hữu, không gọi LLM.
+  3. `🛡️ Bảo vệ: <sạch|có cảnh báo> · 08:00`.
+- Idempotent theo ngày trong state/ledger hiện hữu; không tạo DB/sổ mới.
+- Nếu đến 08:10 chưa có delivery success marker ⇒ checker hiện hữu phải FAIL/đỏ và thử đường cảnh báo dự phòng hiện hữu. Nếu toàn bộ Telegram hỏng, việc Owner không thấy heartbeat 08:00 là dead-man cuối cùng.
+- KQ phải nói rõ **tin sẽ nằm ở khung chat Telegram nào** bằng tên hiển thị/kênh đã cấu hình; không in token/chat id bí mật.
+- Không cần chờ tới sáng mai để nghiệm thu: gọi cùng hàm một lần với nhãn `THỬ BẢN TIN 08:00`; Owner xác nhận thấy tin. Lịch thật vẫn 08:00.
+
 ## 3. Test — không restart
-1. PRE đọc current fleet/Guard/Config Guard và current receipt path.
-2. Implement receipt tối thiểu.
-3. Chạy **verify-only/no-op POST-PROTECT** trên trạng thái hiện tại: không mutation production, không restart.
-4. Owner phải nhận đúng một receipt Telegram; lưu message_id/timestamp.
-5. Negative: giả delivery fail ⇒ POST-PROTECT phải FAIL/PARTIAL, không xanh giả.
-6. Regression: Kuma fleet vẫn toàn xanh; Guard/Config Guard không drift; HJW/K1/K2 không đụng.
+1. PRE đọc current fleet/Guard/Config Guard, lifecycle ledger và current sender/receipt path.
+2. Implement sender dùng chung cho POST-PROTECT receipt + heartbeat 08:00.
+3. Chạy **verify-only/no-op POST-PROTECT** trên trạng thái hiện tại: không mutation production, không restart; Owner nhận một receipt ≤3 dòng.
+4. Gọi cùng sender một lần với nhãn **THỬ BẢN TIN 08:00**; Owner nhận bản tin heartbeat ≤3 dòng và executor nói rõ nó nằm ở khung chat nào.
+5. Lưu message_id/timestamp cho cả hai; kiểm idempotency không gửi lặp.
+6. Negative: giả delivery fail ⇒ POST-PROTECT FAIL/PARTIAL và checker đỏ qua đường dự phòng; không xanh giả.
+7. Regression: Kuma fleet vẫn toàn xanh; Guard/Config Guard không drift; HJW/K1/K2 không đụng.
 
 ## 4. AUTO-PROTECT cho chính thay đổi này
 Bảng coverage bắt buộc: file/config/script vừa đổi → D30 → D31 → watchdog → rollback → ĐỦ. Nếu THIẾU thì không XONG.
 
 ## 5. KQ
-Chỉ XONG khi Owner thực nhận receipt no-op và có delivery proof:
+Chỉ XONG khi Owner thực nhận **cả receipt no-op và bản tin thử 08:00** qua đúng sender, có delivery proof, và lịch 08:00 đã được gắn vào cron/Guard hiện hữu:
 `KQ@HJW-POST-PROTECT-RECEIPT-20261002-03 XONG · RECEIPT_DELIVERED`
 Nếu chưa nhận:
 `KQ@HJW-POST-PROTECT-RECEIPT-20261002-03 BLOCKED · RECEIPT_NOT_DELIVERED`
