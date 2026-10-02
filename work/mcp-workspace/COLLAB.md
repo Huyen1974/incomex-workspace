@@ -56,9 +56,9 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - Hermes: task + chat tự do vào sổ, ghi ý kiến đúng task, Config Guard bắt config drift
 - Host N9 sơ bộ: E1–E6 đạt; test độc lập R2 23/23 PASS
 
-**🏁 Còn một việc lớn trước khi đóng MCPW — BẢO VỆ THÀNH QUẢ + N9 FINAL**
-- Không thêm capability. Chuyển những gì vừa đạt thành regression/integrity contract có máy tự kiểm theo **Điều 30 v1.2 + Điều 31 v1.2**, để làm cái mới sau này không phá lifecycle/Owner View/Hermes/hook mà không bị phát hiện.
-- Sau khi guard/test bảo vệ PASS và N9 final PASS ⇒ trình Owner gật đóng MCPW.
+**🏁 R6 ĐÃ XONG — CHỈ CÒN N9 FINAL + OWNER GẬT ĐÓNG**
+- R6 đã KQ XONG `8656d03`, các lớp regression/integrity Điều 30/31 đã được đóng và hậu kiểm phiên R6 đã REPORTED `6c55100`.
+- Việc còn lại duy nhất trước khi đóng: Host + Reviewer nghiệm thu N9 final; PASS ⇒ trình Owner nhìn Owner View và gật đóng. Không mở thêm RUN MCPW.
 
 **Phát sinh đã phân loại — không mở việc mới trong MCPW**
 - Phiên Claude Code mở trước khi cài hook ⇒ `HOOK_MISSING`/SSH_UNKNOWN; mở phiên mới tự hết, **không chặn đóng**.
@@ -74,7 +74,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 **Luật giữ cứng:** R6 chỉ bảo vệ/kiểm chứng cái đã đạt; không NEXT · lease · REST · Directus · VPSUP. Không chờ theo giờ. Không dùng việc bảo vệ làm cớ redesign.
 
 **🗺 ROADMAP LỚN — chỉ mở bước sau khi MCPW đóng**
-1. **Bước hiện tại — PROTECT + đóng:** đóng contract/test/guard Điều 30/31 cho lifecycle/Owner View/Hermes/hook; N9 final; Owner gật đóng.
+1. **Bước hiện tại — N9 final + đóng:** R6/Điều 30/31 đã XONG; Host + Reviewer nghiệm thu final; Owner gật đóng.
 2. **Bước kế tiếp — Bảng giao việc / Quy trình công việc:** một nguồn chung để AI vào là biết **mình làm gì · vai trò · bước hiện tại · việc tiếp · dependency · bàn giao cho ai**. Gộp assignment/trạng thái/ý kiến vào cùng luồng, tránh Hermes thẻ một nơi/bài một nơi; đây cũng là chỗ thiết kế đường Hermes hỏi ngược Owner/Host/AI khác.
 3. **Sau nữa — Tự động hoá dần:** Hermes/Agent tự nhận/được wake từ Bảng giao việc; rồi mới NEXT tự động và scoped lease chống ghi chồng nếu Owner duyệt.
 
