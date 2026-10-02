@@ -1,3 +1,102 @@
+# PROMPT — HJW KUMA FINAL CLOSEOUT · all green + Telegram both directions + direct protection
+
+RUN_ID: HJW-KUMA-CLOSEOUT-20261002-02
+Host: GPT Chat · GPT-HJW-260922-A
+Owner_authorization: 02/10/2026 — Kuma phải kiểm toàn bộ thay đổi đã thiết lập, báo về Telegram của Owner, và trạng thái cuối phải xanh.
+Executor_Surface: Claude Code CLI phiên mới hoặc tiếp phiên hiện tại nếu đã dừng sau KQ; không mở task mới.
+
+## 0. Mục tiêu duy nhất
+
+KQ `4de0d9f` **CHƯA ĐƯỢC HOST ACCEPT**. Đóng đúng lỗ Kuma/Telegram còn lại, không làm lại K1/K2/Hermes compat đã PASS.
+
+Hợp đồng Owner:
+1. Toàn bộ monitor Kuma **đang tồn tại và được coi là đang sử dụng** phải được kiểm kê.
+2. “TẤT CẢ XANH” chỉ khi: active/up = toàn bộ fleet hợp lệ; **down=0 · paused=0 · unknown=0**. Không được loại monitor paused khỏi mẫu số rồi nói all green.
+3. Mỗi monitor đang dùng phải gắn notification Telegram của Owner và cấu hình notification phải được canh.
+4. Phải có bằng chứng end-to-end hiện hành cho **cả hai chiều**: Kuma Down → Telegram và Kuma Up/recovery → Telegram.
+5. Mọi config/script/lịch cron quyết định heartbeat/Guard/notification phải được bảo vệ **trực tiếp** bằng Config Guard hoặc invariant chính xác; không chỉ chờ hậu quả đỏ.
+
+## 1. PRE — chỉ đọc
+
+- Đọc AGENTS → HJW Bảng/P70 KQ/P72/P73 → prompt này.
+- Đọc toàn bộ fleet Kuma từ nguồn thật: id · tên · loại · active/paused · trạng thái · last heartbeat · notification mapping · lần Down gần nhất · lần Up gần nhất.
+- Đọc `/opt/incomex/logs/bang-den.json` và đối chiếu 1:1 với fleet thật.
+- Đối chiếu lịch sử Telegram Owner đã cung cấp: Disk Usage có nhiều tin **Down** nhưng KQ cũ nói recovery không sinh Up vì “Kuma chưa từng ghi nhận lần hỏng” — phải giải thích mâu thuẫn bằng evidence Kuma DB/log/config, không suy đoán.
+- Snapshot `kuma-push.sh`, cron.d liên quan, root crontab/schedule liên quan, Protection Guard/INV15, Config Guard registry, Kuma monitor/notification mapping cần sửa. Rollback trước mutation.
+- Không in token/URL push.
+
+## 2. Fleet inventory — không lách paused
+
+- Xuất bảng ngắn toàn bộ monitor: `id | name | status | paused? | Telegram? | owner-task`.
+- Monitor paused/disabled/unknown:
+  - nếu vẫn là chức năng cần canh ⇒ khôi phục/fix để UP trong scope an toàn;
+  - nếu không đủ căn cứ để khẳng định không còn dùng ⇒ **BLOCKER**, không tự loại khỏi fleet, không xóa monitor;
+  - chỉ được gọi RETIRED nếu đã có quyết định/evidence rõ ràng trước đó; không tự tạo quyết định retirement.
+- Riêng #13 PG Backup Workflow: không được tính “21 xanh · 0 đỏ” là all-green khi #13 còn paused. Xác định nó còn cần hay không; nếu cần thì đưa UP; nếu chưa xác định được thì KQ PARTIAL/BLOCKED và nêu việc chịu trách nhiệm.
+
+## 3. Disk Usage — reconcile lịch sử và recovery
+
+- Xác nhận monitor ID chính xác của Disk Usage và notification mapping.
+- Giải thích bằng dòng lịch sử/state thật vì sao Telegram đã nhận nhiều Down nhưng không có Up tương ứng.
+- Kiểm sửa vừa làm (khoá nối tiếp/stat row) có giải quyết đúng state machine hay chỉ làm heartbeat trở lại.
+- Không giả disk-full. Nếu cần test notification, dùng fixture/canary an toàn §4.
+- Disk Usage cuối RUN: UP, heartbeat mới, notification Telegram gắn đúng, bang-den khớp.
+
+## 4. Telegram E2E — chứng minh Down + Up hiện hành
+
+Dùng **đường test/fixture hiện hữu** của Protection Guard/Kuma, không làm hỏng service thật, không tạo monitor mới:
+- phát đúng một cặp cảnh báo được gắn rõ `FIXTURE/TEST`: Down → recovery Up;
+- cả hai phải đi qua **Kuma notification thật tới Telegram Owner**, không dùng tin HJW bot làm bằng chứng thay thế;
+- ghi timestamp + monitor id/name + bằng chứng notification/delivery của cả Down và Up;
+- sau test monitor phải trở lại UP và không để fixture đỏ.
+Nếu không thể chứng minh Up bằng Kuma hiện hữu ⇒ BLOCKED, không dùng “✅ TẤT CẢ XANH” của bot HJW để thay thế.
+
+## 5. INV15 / bang-den — nghĩa all-green
+
+- INV15 phải FAIL khi có bất kỳ monitor đang dùng: down · paused · disabled trái phép · unknown · stale/no heartbeat · thiếu Telegram mapping · bị xóa/đổi mapping ngoài baseline · Kuma lỗi · notification channel lỗi.
+- Không whitelist #13 chỉ vì đã paused từ tháng 5, trừ khi có evidence RETIRED rõ ràng.
+- `bang-den.json` phải có tối thiểu: generated_at · total · up · down · paused · unknown · notification_missing · monitors[].
+- `all_green=true` chỉ khi down=paused=unknown=notification_missing=0 và mọi monitor hợp lệ UP.
+- Mutant/fixture phải chứng minh paused, thiếu Telegram, stale heartbeat và monitor bị xóa đều làm đỏ.
+
+## 6. Direct protection — không chỉ canh hậu quả
+
+Rà các dependency live quyết định Kuma/Guard:
+- `kuma-push.sh`
+- cron.d Kuma
+- **root crontab / schedule liên quan Disk Usage + Protection Guard**
+- Protection Guard source
+- Config Guard registry
+- monitor/notification mapping Kuma (DB/config, canh bằng INV15 nếu không thể file-guard)
+- bang-den generator/path
+
+Thiếu trực tiếp ở đâu thì đưa vào Config Guard hoặc invariant chính xác hiện hữu. Root crontab không được để “ngoài Config Guard, chỉ canh hậu quả” nếu nó quyết định nhịp monitor; nếu whole-file baseline quá nhiễu thì invariant exact line/schedule được chấp nhận, nhưng phải phát hiện sửa/xóa/thêm trùng dòng.
+
+Không tạo service/timer/monitor mới.
+
+## 7. Acceptance / KQ
+
+Chỉ XONG khi:
+- `KUMA FLEET: total=N · up=N · down=0 · paused=0 · unknown=0 · notification_missing=0`;
+- bang-den mới <15′ và khớp fleet;
+- Disk Usage UP + heartbeat mới + notification mapping đúng + mâu thuẫn Down/không-Up đã được giải thích;
+- một cặp **Kuma Down→Telegram + Kuma Up→Telegram** hiện hành PASS;
+- mọi config/schedule live ở §6 có direct protection;
+- Config Guard CLEAN; Protection Guard/INV15 PASS; mutants PASS;
+- sau fixture toàn fleet trở lại xanh.
+
+Nếu #13 hoặc monitor khác chưa thể hợp lệ hóa trong scope:
+`KQ@HJW-KUMA-CLOSEOUT-20261002-02 BLOCKED · <monitor/status/owner-task>`
+— không được ghi “tất cả xanh”.
+
+Nếu đủ:
+`KQ@HJW-KUMA-CLOSEOUT-20261002-02 XONG · KUMA_ALL_GREEN_TELEGRAM_PROTECTED`.
+
+Sau KQ dừng; Host + Claude Reviewer nghiệm thu một lượt bằng fleet/bang-den + Telegram evidence. Không tự mở việc mới.
+
+---
+
+# VÒNG TRƯỚC — HJW MAINT-COMPAT (KQ 4de0d9f · HOST CHƯA ACCEPT)
 # PROMPT — HJW MAINT · Hermes dùng được thật (2 kênh) + đèn đỏ máy chủ + Điều 30/31
 
 RUN_ID: HJW-MAINT-COMPAT-20261002-01

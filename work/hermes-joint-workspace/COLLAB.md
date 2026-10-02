@@ -5,15 +5,15 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 16:52 +07 · Claude Code CLI · P70 KQ
-- 🎯 Mục tiêu: (1) Hermes nhận việc được thật qua **2 kênh** — Owner giao trực tiếp · AI giao qua repo; (2) hết cảnh máy chủ báo đỏ mà AI vẫn báo OK; (3) phần mới làm nằm trong Điều 30/31.
-- 🏁 Xong khi: 😊 Owner tự gõ 1 câu trên app → Hermes trả lời (K1) · AI ghi `ASSIGN` → thẻ Telegram → Owner bấm → Hermes ghi kết quả (K2) · lệch phiên bản tái diễn thì máy tự báo · không còn đèn đỏ vô chủ và AI tự đọc được bảng đèn.
-- 📍 Tiến độ: `[✓ baseline CLOSED] → [✓ PROMPT + Reviewer ACCEPT] → [✓ Host ACCEPT/READY] → [■ RUN: còn K1 + KQ] → [□ nghiệm thu, có đọc bảng đèn] → [□ đóng]`.
-- ✅ Đã xong: HJW baseline · MCPW R6 protection · P67 đủ 3 yêu cầu Owner · DROOT34 được GPT Founder xác nhận · PROMPT last-touch `0786390` đã review ACCEPT.
-- ■ Đang làm: — executor xong: `KQ@HJW-MAINT-COMPAT-20261002-01 XONG` 09:52Z (P70) · chờ Host + Reviewer nghiệm thu · **kiến trúc chuẩn: MacBook = thin client/màn hình; backend Hermes duy nhất = VPS**.
-- ⬜ Còn lại: K1 (😊 Owner gõ 1 câu trên app) → KQ có bảng §6 → Host + Reviewer nghiệm thu một lượt (5 điểm ở P72).
-- ➡ Kế tiếp: Host + Reviewer nghiệm thu đúng 1 lượt, mở đầu bằng tự đọc `/opt/incomex/logs/bang-den.json` (MCP root `code` → `logs/bang-den.json`, DROOT34); 😊 Owner không cần làm gì.
-- ⛔ Không làm/để sau: không capability mới · không AUTO · không task/service mới · không blind `hermes update` · không đụng VPSUP đang chạy.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 17:00 +07 · GPT Host · P73 PARTIAL
+- 🎯 Mục tiêu: Hermes K1/K2 dùng thật + **toàn bộ Kuma đang dùng phải xanh và mọi Down/Up phải báo Telegram** + phần live được Điều 30/31 bảo vệ.
+- 🏁 Xong khi: K1/K2 PASS · `KUMA FLEET total=N · up=N · down=0 · paused=0 · unknown=0 · notification_missing=0` · Down→Telegram + Up→Telegram PASS · direct protection đủ.
+- 📍 Tiến độ: `[✓ K1/K2 + compat] → [✓ Disk heartbeat hồi] → [■ KUMA FINAL CLOSEOUT] → [□ Host+Reviewer verify] → [□ đóng]`.
+- ✅ Đã xong: K1/K2 thật · lỗi cwd_explicit đã sửa · Mac thin client khớp VPS · Disk Usage heartbeat hồi · INV14/INV15 + Config Guard mở rộng đã có.
+- ■ Đang làm: Host **không ACCEPT KQ 4de0d9f**; phát vòng bổ sung cùng task để đóng Kuma đúng nghĩa all-green/Telegram.
+- ⬜ Còn lại: reconcile Disk Down nhưng thiếu Up · xử lý #13 paused (không được loại khỏi mẫu số) · chứng minh Kuma Down+Up tới Telegram · direct-protect root cron/schedules · fleet/bang-den cuối xanh.
+- ➡ Kế tiếp: 🤖 Claude Code chạy `HJW-KUMA-CLOSEOUT-20261002-02`; Host + Claude nghiệm thu 1 lượt. 😊 Owner không cần thao tác trừ khi #13 cần quyết định ngoài evidence hiện có.
+- ⛔ Không làm/để sau: không làm lại K1/K2 · không capability/service/monitor mới · không fake all-green bằng bot HJW · không đụng VPSUP.
 
 ### 1. Mục tiêu
 - Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
@@ -1132,6 +1132,15 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - **Quan sát ngoài scope (không sửa):** (a) K2 1 lượt đọc 1 đoạn tốn 544k token ⇒ S9 context vẫn quá rộng; chi phí tiền UNKNOWN. (b) `/usr/local/bin/hermes` = bản cài root cũ v0.19, service không dùng (drop-in PATH) — vùng DEL-1. (c) Upstream Hermes đổi chuỗi version thành `0.0.0` ⇒ `hermes-safe-update check` luôn `REQUIRES_REVIEW`; lần nâng cấp tới Host/Reviewer chốt SHA cụ thể (MT4).
 - **Hồ sơ + rollback:** `/opt/incomex/work/hermes-joint-workspace/HJW-MAINT-COMPAT-20261002/INDEX.md` (results/, backup/, bin/maint-rollback.sh, mac/mac-lock.sh rollback, tag Mac `hjw-maint-pre-e13b5e71`).
 - Áp: SAME_COMMIT
+
+### P73 · Host GPT · 2026-10-02 17:00 +07 · **KQ 4de0d9f = PARTIAL · CHƯA ACCEPT · KUMA FINAL CLOSEOUT**
+- **Đã kiểm và chấp nhận:** K1/K2 có bằng chứng dùng thật; root cause `cwd_explicit` đã xác định/sửa; Disk Usage thực tế không đầy (~45–46%); Config Guard/INV14/INV15 đã được bổ sung; VPS/container chính đang healthy.
+- **Không chấp nhận câu “21 xanh · 0 đỏ” là all-green** khi chính KQ còn `#13 PG Backup Workflow paused`. Theo Owner, paused/unknown không được tự loại khỏi mẫu số nếu monitor vẫn tồn tại và chưa có quyết định RETIRED rõ ràng.
+- **Mâu thuẫn phải reconcile:** lịch sử Telegram Owner có nhiều `[Disk Usage] [🔴 Down] No heartbeat...`, nhưng KQ nói recovery không sinh Kuma Up vì “Kuma chưa từng ghi nhận lần hỏng”. Hai câu không thể cùng đúng nếu cùng monitor #11; executor phải đối chiếu monitor id/history/notification state và giải thích bằng evidence.
+- **Telegram acceptance thiếu một nửa:** tin HJW bot `✅ TẤT CẢ XANH` không thay được bằng chứng Kuma recovery Up. Phải chứng minh hiện hành bằng một fixture/canary an toàn: Kuma Down→Telegram và Kuma Up→Telegram, rồi fleet trở lại xanh.
+- **Protection gap:** KQ tự ghi root crontab/schedule live chỉ “canh hậu quả”, chưa bảo vệ trực tiếp. Với dependency quyết định heartbeat/Guard, phải đưa vào Config Guard hoặc invariant exact schedule; monitor/notification mapping Kuma phải do INV15 canh trực tiếp.
+- **Không mở task mới.** PROMPT mới ở đầu `PROMPT.md`, RUN_ID `HJW-KUMA-CLOSEOUT-20261002-02`. Chỉ xử lý các điểm trên; không làm lại Hermes compat/K1/K2.
+- **READY/RUN chỉ phát sau self-check prompt ở commit này;** nếu #13 cần quyết định retirement mà không có evidence sẵn thì BLOCKED, không tự xóa/loại.
 
 ### P71 · Host GPT · 2026-10-02 15:30 +07 · **BỔ SUNG KIẾN TRÚC OWNER · KHÔNG ĐỔI PROMPT/READY**
 - Hermes runtime/backend chỉ chạy trên **VPS**. MacBook Owner chỉ chạy **client/UI/màn hình** kết nối tới backend Hermes trên VPS; không có “Hermes backend trên Mac”.
