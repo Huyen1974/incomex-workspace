@@ -49,6 +49,8 @@ Nguyên văn/ý nghĩa chỉ đạo Owner:
 - Nếu cutover không đạt cổng trong giới hạn đã chốt thì rollback được về production trước nâng cấp mà không mất dữ liệu mới hơn điểm dừng đã định.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **OWNER 02/10 15:22 (nguyên văn):** “Các chi tiết mà tôi chỉ đạo yêu cầu các bạn phải ghi ngay trên nội dung: chi tiết cần đạt ở repo. Và phải thường xuyên đọc lại các nội dung này.” · “Tôi tưởng chúng ta đã chỉ định rõ phiên bản nâng cấp là bản bao nhiêu, vừa đảm bảo ổn định và vừa đảm bảo mới, tránh nâng cấp các bản mới nhất. Có thể có những bugs mà chúng ta chưa phát hiện được.” · “tại sao Agent lại tự động read và tự động quyết định phiên bản thế này?”
+- **PHIÊN BẢN CHỐT CỨNG (P105/P106) — agent chỉ ghim digest, không tự tra/chọn/nhảy bản:** PostgreSQL **18.6** · Directus **12.4.1** · Nuxt **4.5.2** / Node **24.21.0** · nginx **1.30.5** (Qdrant/Kuma giữ digest hiện hành). Bản mới hơn ra trong lúc làm ⇒ **không đổi**, trừ khi Host + Reviewer mở lại vì lỗ bảo mật nghiêm trọng và ghi vào đây. Vì sao hai bản này không trái “tránh bản mới nhất”: PG 18.6 là bản vá của dòng 18 đã ra ~1 năm, là đích dự kiến từ G3, lùi về 18.4 là giữ lỗi đã biết; Directus 12.4.1 là bản duy nhất vá GHSA-2xcm (rò dữ liệu giữa người dùng), rủi ro “mới” được bù bằng kiểm lab đầy đủ (TF 23/23 + G6).
 - **OWNER CHỐT SAU P06, 26/09:** “bản chất chúng ta làm như 1 SaaS vậy. 1 quản trị duy nhất là DOTs qua tài khoản tôi.” Khách đầu tiên là trường; mọi khách chỉ dùng MOT, không có quyền Studio/PG. Cách ly giữa công ty VÀ giữa người cùng công ty nếu chưa được cấp quyền. Owner tái xác nhận điều kiện OIG đáp ứng; không hỏi lại doanh thu/nhân sự. Không tự thêm quản trị thứ hai.
 - **P07 thay phần P05 mâu thuẫn:** không chờ thư xác nhận mô hình SaaS hay offline mới được chuẩn bị/nâng cấp. G7 vẫn cần key hợp lệ, telemetry, LC1–LC5, đánh giá LC6 và Owner duyệt rủi ro cụ thể cùng RUN cuối. Chốt kế hoạch chưa phải RUN hay nhận mọi rủi ro chưa đo.
 - **Bổ sung Owner 26/09 — COMMERCIAL + OWNER-ABSENT:** làm rõ mô hình Incomex bán ứng dụng/quy trình MOT cho nhiều doanh nghiệp; khách không vào Studio. Doanh thu dưới ngưỡng đã được Owner xác nhận, không hỏi lại; số tài chính cụ thể không đưa thêm vào repo công khai. Một người vận hành kỹ thuật không được tự suy thành tổng headcount pháp nhân. Trước production v12 phải có phương án khi Owner vắng mặt và licensing không liên lạc được; không coi cảnh báo Telegram là đã khôi phục dịch vụ.
@@ -1386,6 +1388,14 @@ Phản biện đúng P03, không mở thêm file:
 - **Nguyên tắc version được làm rõ:** “không chạy theo latest” áp cho việc tự nhảy major/feature line hoặc release chưa đủ bằng chứng; **không dùng nó để cố tình ở lại patch có lỗi/security đã được upstream sửa**. Exact target sau khi Host pin không được Agent tự đổi. Nếu upstream ra 18.7 trong lúc G6/G7 đang chạy, **không tự nhảy**; vẫn 18.6 trừ khi Host/Reviewer mở lại vì advisory material.
 - **G6 đang STARTED:** không sửa PROMPT/READY/HOLD theo DROOT31. P105 chỉ thu hẹp/khóa exact target đúng với image Agent vừa chọn; không đổi mutation đã làm, không cần STOP. Agent tiếp tục với 18.6, ghi full index/amd64 digest và dùng đúng bytes xuyên G6→G7.
 - **Sau P105:** Directus exact = 12.4.1; Nuxt exact = 4.5.2/Node24.21.0; PostgreSQL exact = **18.6**; nginx exact = 1.30.5. Không còn component core nào được Agent “resolve latest” trong RUN hiện hành.
+- Owner cần quyết: —.
+
+### P106 · Claude Chat (Reviewer) · 2026-10-02 · CHỈ ĐẠO OWNER VÀO §0.3 · PHIÊN BẢN CHỐT CỨNG · REVIEWER NHẬN LỖI
+- **Bảng: khớp** (P105 đã ghi đích exact). G6 đang chạy; PROMPT vẫn `440bac9`, không đổi PROMPT/READY/HOLD.
+- **Đã ghi vào §0.3 (đầu mục):** chỉ đạo Owner 02/10 15:22 nguyên văn + bảng phiên bản chốt cứng. Đồng thuận P105 (PG 18.6).
+- **Gốc rễ — không phải thiếu ghi chép mà ghi rồi không đọc lại:** §0.3 đã có từ 26/09 “Target-version policy: exact pin, không dùng `latest`”. Reviewer vi phạm hai lần: P93 tự viết “Directus 12.4.x mới nhất lúc chạy”; P102 duyệt PROMPT G6 có câu “chốt PG18 stable patch mới nhất tại PRE” mà không đối chiếu §0.3. Lỗi của Reviewer, không riêng Host.
+- **Khoá lại bằng luật (AGENTS MT4, commit này):** chỉ đạo mới ghi ngay vào §0.3; Host/Reviewer đối chiếu từng dòng §0.3 mỗi khi soạn/rà PROMPT và ghi `§0.3: đã đối chiếu`; PROMPT không được giao agent tự chọn phiên bản/thành phần/đích.
+- **G7:** gói G7 do G6 xuất phải ghi đúng 4 số trên; Reviewer rà gói G7 sẽ đối chiếu §0.3 trước tiên.
 - Owner cần quyết: —.
 
 ## Owner cần quyết
