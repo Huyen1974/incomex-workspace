@@ -5,14 +5,14 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 17:24 +07 · GPT Host · P76 ACCEPT P75
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 17:27 +07 · Claude Code CLI · P77 STARTED
 - 🎯 Mục tiêu: Hermes K1/K2 dùng thật + **toàn bộ Kuma đang dùng phải xanh và mọi Down/Up phải báo Telegram** + phần live được Điều 30/31 bảo vệ.
 - 🏁 Xong khi: K1/K2 PASS · `KUMA FLEET total=N · up=N · down=0 · paused=0 · unknown=0 · notification_missing=0` · Down→Telegram + Up→Telegram PASS · direct protection đủ.
 - 📍 Tiến độ: `[✓ K1/K2 + compat] → [✓ Disk heartbeat hồi] → [■ KUMA CLOSEOUT RUN ISSUED] → [□ #13 Owner quyết nếu cần] → [□ Host+Reviewer verify] → [□ đóng]`.
 - ✅ Đã xong: K1/K2 thật · lỗi cwd_explicit đã sửa · Mac thin client khớp VPS · Disk heartbeat hồi · KQ cũ đã trả PARTIAL · Host+Reviewer thống nhất PROMPT Kuma closeout.
-- ■ Đang làm: 🤖 Claude Code chạy `HJW-KUMA-CLOSEOUT-20261002-02`; P75 chỉ thêm 4 ghi chú thi hành, **không đổi PROMPT/READY**.
+- ■ Đang làm: 🤖 Claude Code CLI · `STARTED@HJW-KUMA-CLOSEOUT-20261002-02` 10:27Z (P77) · PRE chỉ đọc; P75 chỉ thêm 4 ghi chú thi hành, **không đổi PROMPT/READY**.
 - ⬜ Còn lại: reconcile Disk Down/thiếu Up · kiểm #13 và trình Owner gật/lắc nếu thật sự retired · test #11 Down→Up qua Kuma→Telegram · direct-protect cron/schedules · bảng §6 có cột đường Telegram · fleet/bang-den cuối xanh.
-- ➡ Kế tiếp: executor STARTED/KQ; nếu #13 cần gỡ thì trình bằng chứng + 1 đề xuất ngay trong cửa sổ; Host+Claude nghiệm thu 1 lượt sau KQ.
+- ➡ Kế tiếp: 🤖 executor PRE → bắn 1 cặp THỬ ĐƯỜNG BÁO #11 → hỏi 😊 Owner 1 lần (#13 gật/lắc + đã thấy 🔴 Down/✅ Up) → siết INV15 + bảo vệ trực tiếp → KQ; Host+Claude nghiệm thu 1 lượt sau KQ.
 - ⛔ Không làm/để sau: không làm lại K1/K2 · không capability/service/monitor mới · không fake all-green bằng bot HJW · không đụng VPSUP · nợ S9 K2 ~544k token để sau, không kéo vào closeout này.
 
 ### 1. Mục tiêu
@@ -1197,3 +1197,7 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - **Phát sinh ngoài scope:** K2 ~544k token cho việc nhỏ = S9 context chưa gọn; ghi residual sau closeout, **không mở task mới lúc này**.
 - PROMPT không đổi từ `f068de9`; **READY@f068de9ab88a6e44cf59a3c8a8ae8999a7e0d57c` và RUN P74 vẫn hiệu lực.** Không cần review/READY lại.
 - Sau KQ: Host + Claude Reviewer nghiệm thu đúng 1 lượt, mở đầu bằng fleet/bang-den + bằng chứng Telegram Down/Up; chỉ đóng khi thực sự all-green.
+
+### P77 · Claude Code CLI · 2026-10-02 · RUN `HJW-KUMA-CLOSEOUT-20261002-02`
+- STARTED@HJW-KUMA-CLOSEOUT-20261002-02 2026-10-02T10:27:01Z · executor=Claude Code CLI · read-gate PASS: PROMPT last-touch `f068de9ab88a6e44cf59a3c8a8ae8999a7e0d57c` = `READY@` P74, Reviewer ACCEPT P75, Host giữ P76; 0 STARTED/KQ/STOP_REQUESTED trước đó. Theo đúng PROMPT + 4 ghi chú P75; không làm lại K1/K2/compat; không đụng VPSUP.
+- Áp: SAME_COMMIT
