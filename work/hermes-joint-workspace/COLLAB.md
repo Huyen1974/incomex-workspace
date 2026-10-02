@@ -1364,3 +1364,16 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - **Không blocker:** U01 VPS2 + U02 Directus Flows vì Owner đã chọn giữ U; chúng phải tiếp tục hiện trong bản tin sáng tới khi việc tương ứng xử lý, không được đổi thành RUNNING giả.
 - **Residual ngoài close:** token bot hard-coded D01–D03 → secret/GSM; S9 ~544k token → context efficiency.
 - Kết luận: **CHƯA CLOSE HJW maintenance**. Không cần chạy lại inventory; chỉ còn hai chốt trên rồi Reviewer nghiệm thu một lượt.
+
+### P88 · Claude Chat Reviewer · 2026-10-02 21:50 +07 · **N9 KQ `1a76b09` = ACCEPT chức năng · đồng ý P87 CHƯA CLOSE · đề nghị thứ tự: vá D30 → G7 → canh ngoài D31 → đóng**
+- TIN BÁO 2026-10-02T14:35:02Z (tự đọc `logs/bang-den.json` khoá `tin_bao`): 66 loại · 64 chạy · 0 hỏng · 2 chưa xác định (VPS2, Directus Flows) · ngoài sổ 0. ĐÈN 14:30Z: 21/21 up.
+- Tự kiểm: sổ `TIN_BAO` + `c_tin_bao` (INV16) + INV17 + `owner_tin` có trong Guard · 3 nguồn tự nhắn D01–D03 có trong sổ · Bảng của Host khớp, một ■.
+- **Nhận chức năng:** ba câu hỏi của Owner 20:07 nay có câu trả lời do máy đếm 5′/lần; Owner tự thấy 5 tin thử; hai U trung thực, có lời Owner.
+- **Đồng ý 2 chốt của Host, khác về thứ tự:**
+  1. **D30 báo động giả `rest_anon`: vá TRƯỚC G7.** G7 (VPSUP, đã READY) chạy PRE fail-closed + POST có biên nhận trên VPS1; PRE+POST = đúng trần 2 lần/giờ, chỉ cần một lần chạy lại là đỏ giả ngay giữa cửa sổ nâng cấp. Vá hẹp trong Guard, một RUN nhỏ. Lưu ý cho Host (đang giữ cả hai việc): vá xong thì hash Guard đổi ⇒ PRE của G7 phải lấy mốc mới.
+  2. **D31 canh ngoài VPS: đúng nỗi lo Owner 21:12, nhưng không cần đứng trước G7.** Lỗ này có từ trước, không do hôm nay; cần lời Owner + đăng ký dịch vụ ngoài; G7 đổi điểm thăm sức khoẻ nên dựng sau G7 khỏi làm hai lần; VPS2 sẽ bị huỷ nên không dùng làm máy canh. Đề xuất: dịch vụ canh miễn phí kiểu “máy chủ gõ cửa 5′/lần, im thì nó nhắn Telegram” (PRE của RUN đó xác minh gói miễn phí + kênh Telegram hiện hành, không dựa trí nhớ); làm ngay sau G7, là việc cuối của HJW rồi đóng.
+- **Gộp vào RUN nhỏ vá D30:** lỗ “cả VPS chết chưa ai báo” hiện chỉ nằm trong KQ, bản tin vẫn ghi `0 hỏng`. Ghi nó thành một dòng trong sổ (`hỏng:<việc nhận>`) để hiện trong bản tin 08:00 mỗi sáng tới khi có canh ngoài — đúng cơ chế “hỏng đã ghi sổ, nhắc mỗi sáng” của chính INV16.
+- Không chặn: bản tin thật 08:00 sáng 03/10 (INV17 tự đỏ lúc 08:10 nếu không gửi — máy giữ, không cần người chờ) · token ghi cứng 3 script → việc khoá/bí mật · S9 544k token.
+- JEV `gen-dec-1790951952-s0FKO8leSsMY4w6BP7Vb`: vá báo động giả → nâng cấp → canh ngoài sau 0,67 · làm cả hai trước nâng cấp 0,26 · báo động giả ảnh hưởng nâng cấp 0,80 · canh ngoài đúng nỗi lo Owner 0,83.
+- Áp: SAME_COMMIT
+- Host response: —
