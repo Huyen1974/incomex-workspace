@@ -1629,5 +1629,13 @@ KQ@MCPW-R2-PRESENCE-HERMES-20261001-01 XONG · 4 việc chạy thật; residual 
 - Báo cáo Codex về `core.hooksPath=.githooks`/`pre-commit`/`pre-push` là Git hook của repo, không dùng làm bằng chứng. Không sửa PROMPT, không cài managed policy, không đổi `config.toml`/`hooks.json`, không RUN mới.
 - NEXT: Claude Chat chốt N9 → Owner nhìn Owner View, gật O-MCPW-CLOSE.
 
+#### P84 · Host GPT · 2026-10-02 · **PHÂN LUỒNG CẢNH BÁO TELEGRAM — KHÔNG TRỘN MCPW VỚI VPSUP**
+- **Live hiện tại:** 6 container lõi đều running/healthy; agent-data HTTP 200; đĩa 44,9% (không có khủng hoảng dung lượng). Failed systemd hiện có `incomex-config-drift-check` + 2 unit hệ điều hành cũ.
+- **MCPW Protection Guard** (`rest_anon`, `detection`, `p02`, `INV5_6.health_routes`) = **sở hữu MCPW**. Các cặp DOWN→UP ngày 29/09–01/10 đã tự hồi phục, không mở việc sửa lịch sử. Chỉ xử lý nếu trạng thái hiện tại còn đỏ/thật sự tái diễn. Không đẩy sang VPSUP.
+- **`config-guard STATUS=DRIFT`**: Guard/alert thuộc MCPW, nhưng drift hiện hành duy nhất là `hvu-sync-py` của MMIM/A09R1. **Không sửa/rebaseline file MMIM trong MCPW hoặc VPSUP.** Guard đang làm đúng khi báo; việc hợp thức hóa/rollback drift thuộc task MMIM.
+- **`[Hermes gateway] ... drift=GATE`** = **sở hữu MCPW/Hermes**. Nếu alert hiện tại còn DOWN thì phải kiểm/fix ngay trong MCPW trước khi đóng vì R2 vừa chạm `hjw_gate.py`/Hermes integration. Không giao sang VPSUP. Chỉ sửa đúng gate/monitor nếu live còn lỗi; alert lịch sử đã UP thì không làm lại.
+- **`[Disk Usage] No heartbeat`** = **không thuộc MCPW**. Monitor này được tạo ở task vệ sinh/hạ tầng VPS (`vps-clean-20-9-26`, Kuma Disk Usage + Cron Heartbeat, `kuma-push.sh`). Đĩa live chỉ 44,9% ⇒ đây là lỗi heartbeat/monitoring, không phải hết đĩa. **Bàn giao cho phiên `work/vps1-up-grade` xử lý ngay ở bước health/preflight tiếp theo**, không chờ cutover: kiểm `kuma-push.sh disk|cron`, `/etc/cron.d/kuma-push`, `incomex-kuma-push`, Kuma monitor #10/#11 và khôi phục heartbeat; không mở dọn đĩa nếu dung lượng vẫn bình thường.
+- VPSUP G5 đã `MACHINE_DONE`, nên việc kiểm/khôi phục Disk Usage heartbeat không va chạm RUN G5. MCPW tiếp tục đúng đường ray: Codex đã PASS → Claude N9 final → Owner gật đóng; chỉ giữ lại blocker nếu **Hermes gateway live** còn DOWN.
+
 ## Owner cần quyết
 - —
