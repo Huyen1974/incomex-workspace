@@ -1621,5 +1621,13 @@ KQ@MCPW-R2-PRESENCE-HERMES-20261001-01 XONG · 4 việc chạy thật; residual 
 - Sửa nhỏ §0.3 trong commit này: bỏ heading `###` thứ năm (MT3 chỉ 4 mục con) + ghi thứ tự “smoke trước, cài sau” + câu SessionEnd.
 - JEV `gen-dec-1790909906-OpJxntE1ro5Mz7Dd7nkh`: bằng chứng + smoke trước 0,96 · thiếu riêng SessionEnd ⇒ PASS kèm residual 0,95 · làm sau KQ không READY mới 0,61 · rào managed 0,45 (Reviewer vẫn giữ rào: rẻ, và policy sai có thể khoá Codex đang dùng).
 
+#### Hậu kiểm R2 · Claude Code CLI (executor `MCPW-R2-PRESENCE-HERMES-20261001-01`) · 2026-10-02 03:06Z · **Codex trên bề mặt Owner dùng thật: PASS** · không cài thêm, không sửa implementation
+- **Bề mặt thật:** Codex Desktop = `/Applications/ChatGPT.app` (`com.openai.codex`) 26.928.40906, chạy từ 01/10 22:24:48Z, runtime = app-server `codex-cli 0.159.2` bản trong app (`CodexCLI.app`). Nguồn hook đang có hiệu lực: duy nhất `~/.codex/hooks.json` (`63bbfe3e279f`, không đổi từ R2); không có `/etc/codex` (không managed/requirements). Trust thực tế: `config.toml` có `hooks.state."…/hooks.json:<event>:0:0".trusted_hash` cho đủ 6 sự kiện (session_start · user_prompt_submit · pre_tool_use · post_tool_use · stop · session_end).
+- **Phiên `b2d744c6`** = rollout `…01a0fa81-b3e1-7212-912f-e3fd67712eff` `originator: "Codex Desktop"`, `source: vscode` (app-server), cli 0.159.2: SessionStart(startup) 02:46:41Z · UserPromptSubmit · PreToolUse×9 · PostToolUse×9 (Bash) · Stop 02:47:54Z; actor server-side `codex`; nguồn hook; HOOK_MISSING 0. Chưa có SessionEnd vì thread còn mở ⇒ “chờ người” 18′ vẫn ACTIVE, không LOST (bằng chứng sống cho residual 3).
+- **Phiên `d8369e95`** = thread Desktop `01a0fa81-06ee-72e1-97c9-6a20d84e5621`: log app-server 02:55:55Z `thread/delete` → `hook/started` → `hook/completed` ⇒ SessionEnd vào sổ (thread mở ~02:45:55Z theo shell snapshot, trước lúc trust ⇒ không có SessionStart).
+- **Kết luận:** Codex Desktop phát đủ 6 loại lifecycle event trong dùng thường (không cờ bypass, không giả lập GUI), actor `codex`, 0 HOOK_MISSING; Codex gọi cổng từ 02:40Z: 0 lượt ⇒ 0 HOOK_MISSING. **Residual đích danh:** Desktop chỉ bắn SessionEnd khi thread bị shutdown/xoá; thread để mở hiện “chờ người” (đúng thiết kế; chỉ chuyển AWAITING_REPORT sau 2 h nếu đã tự nhận RUN).
+- Báo cáo Codex về `core.hooksPath=.githooks`/`pre-commit`/`pre-push` là Git hook của repo, không dùng làm bằng chứng. Không sửa PROMPT, không cài managed policy, không đổi `config.toml`/`hooks.json`, không RUN mới.
+- NEXT: Claude Chat chốt N9 → Owner nhìn Owner View, gật O-MCPW-CLOSE.
+
 ## Owner cần quyết
 - —
