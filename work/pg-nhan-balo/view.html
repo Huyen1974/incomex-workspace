@@ -38,13 +38,13 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 </head>
 <body><main>
 <h1>Luật nhãn PG — mở balo là biết có gì, dùng lại được gì, thừa gì</h1>
-<p class="mut" id="trang-thai">Bản v1.2 · 02/10/2026 20:48 · luật, vị trí và PROMPT v2 đã được Claude + GPT đồng thuận (P05) · chờ Host đặt READY · chưa triển khai, không tắt, không xoá</p>
+<p class="mut" id="trang-thai">Bản v1.2 · 02/10/2026 21:05 · luật, vị trí và lệnh v2 đã được Claude + GPT đồng thuận · lệnh đã mở · chờ Owner dán lệnh chạy cho Codex · chạy trước khi nâng PG · chưa triển khai, không tắt, không xoá</p>
 
 <span class="tang">PHẦN CHO OWNER</span>
 
 <section class="card quyet" id="quyet">
 <h2>Hôm nay anh cần quyết</h2>
-<p><strong>Chưa cần anh quyết thêm.</strong> GPT đã rà P04 và chấp nhận PROMPT v2. Claude Host chỉ còn đặt READY đúng SHA; sau đó anh dán lệnh RUN hiện hành cho Codex. Chưa đặt biển, chưa dán nhãn trên máy chủ.</p>
+<p><strong>Lệnh đã mở.</strong> 🙂 Việc của anh: dán lệnh chạy cho Codex. <strong>Chưa dán lệnh nâng PG (G7) cho tới khi Codex báo xong:</strong> nâng PG xoá bộ đếm mà đợt dán nhãn cần để đo “còn ghi không”.</p>
 </section>
 
 <section class="card" id="tien-do">
@@ -52,8 +52,8 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <div class="bar">
 <div class="xong">1 · Khảo sát ✓</div>
 <div class="xong">2 · Luật ✓</div>
-<div class="dang">3 · PROMPT v2 đã duyệt · Host đặt READY ▶</div>
-<div>4 · Codex đặt biển, dán nhãn</div>
+<div class="xong">3 · Lệnh đã duyệt, đã mở ✓</div>
+<div class="dang">4 · Anh dán lệnh · Codex đặt biển, dán nhãn ▶</div>
 <div>5 · Nghiệm thu PG · đối soát sổ DOT</div>
 <div>6 · Anh quyết theo khối</div>
 </div>
@@ -290,6 +290,94 @@ Luật: đọc bảng balo_tu_dien_nhan, các dòng nhan = 'LUAT', theo thu_tu, 
 <tr><td>Làm mới balo (<code>balo-reconcile.sql</code>)</td><td>chỉ thêm dòng với tên, nơi lưu, khoá; chỉ sửa tên, nơi lưu, cờ “đã mất”; không đụng cột nhãn</td></tr>
 <tr><td>Khuôn Reports sẵn có</td><td>danh sách sống của một bảng có khoá chính một cột · báo cáo tính sống bằng <code>view_sql</code>, không tạo bảng</td></tr>
 </table></div>
+
+<details id="bo-dem-0210"><summary><strong>Ảnh chụp bộ đếm ghi 02/10/2026 20:56 (giờ VN) — bản lưu trước khi nâng PG</strong></summary>
+<p class="mut">Host chụp qua đầu nối chỉ đọc lúc 2026-10-02T13:56:54Z từ <code>pg_stat_user_tables</code> (386 bảng; <code>stats_reset</code> trống). Mỗi dòng: bảng | lượt thêm | lượt sửa | lượt xoá, cộng dồn. <strong>84 bảng có ghi được liệt kê (đều thuộc schema <code>public</code>); 302 bảng còn lại đều 0 | 0 | 0.</strong> Nâng PG bằng dump/restore đưa bộ đếm về 0, nên đây là bản lưu cuối của kỳ này. Bản đo chính thức vẫn do Codex lấy trong lượt chạy; bản này để đối chiếu và phòng khi lượt chạy dừng sớm.</p>
+<pre>approval_requests|28|40|0
+apr_approvals|12|0|0
+balo_thuc_the|2148|1310|0
+birth_admission_permit_v2|12|11|0
+birth_backfill_ledger|10|0|0
+birth_backfill_ledger_v2|11|11|0
+birth_gateway_release_registry|5|0|0
+birth_registry|19740|0|0
+collection_registry|0|78|0
+context_pack_manifest|0|955|0
+context_pack_requests|921|921|0
+directus_access|1|0|0
+directus_activity|177391|0|0
+directus_collections|5|0|2
+directus_fields|24|0|6
+directus_permissions|62|0|13
+directus_policies|1|0|0
+directus_revisions|176863|4|0
+directus_roles|1|0|0
+directus_sessions|467|12|525
+directus_users|1|481|0
+dot_config|0|1910|0
+dot_tools|10|5|0
+entity_labels|18598|0|0
+event_outbox|5838|0|0
+event_read|5838|0|0
+knowledge_documents|3344|1524|39
+measurement_log|18612|0|0
+measurement_registry|0|18612|0
+meta_catalog|0|343916|0
+navigation_items|1|0|0
+pivot_results|1|2348520|0
+qt001_apply_rehearsal_audit|1|0|0
+qt001_authoritative_object_registry|277|1|0
+qt001_authority_identity_registry|1|0|0
+qt001_capability_behavior_registry|3|0|0
+qt001_capability_contract|4|0|0
+qt001_evidence_registry|3|0|0
+qt001_hardcode_inventory|49|14|0
+qt001_independent_review_signoff|2|0|0
+qt001_plan_content_binding|1|0|0
+qt001_plan_registry|927|744|0
+qt001_plan_snapshot|444|52|0
+qt001_readiness_guard_registry_v9|14|0|0
+qt001_review_validated_collection|5|0|0
+qt001_runtime_config|2|0|0
+qt001_signal_registry|7|0|0
+qt001_tier_registry|4|0|0
+qt001_tier_rule_registry|11|0|0
+qt001_tier_rule_registry_v2|11|77|0
+registry_changelog|41963|0|0
+sua_re_khai_niem_nhap|14|1|0
+sua_re_ui_khai_niem_nhap|32|5|0
+system_health_checks|0|1|0
+system_issues|5816|47992|2
+table_registry|7|2|0
+task_comments|479|0|479
+tasks|2|0|2
+trigger_guard_alerts|2|0|0
+universal_edges|1362|0|1110
+v_registry_counts|8054202|0|0
+v_registry_summary|154844|0|154844
+v_report_home|13|0|0
+v_report_pg|24|0|0
+wf_adapter_run_log|600|0|0
+wf_candidate_action_log|31|0|0
+wf_census_digest_v2|1920|0|0
+wf_docker_container_snapshot|1386|2772|1385
+wf_fs_dot_bin_snapshot|36113|58788|36089
+wf_fs_script_snapshot|5329|5329|5312
+wf_host_crontab_snapshot|6635|7475|6628
+wf_orphan_digest_v2|720|0|0
+wf_orphan_remediation_queue|19280|0|0
+wf_rp_coverage_digest_v2|840|0|0
+wf_scanner_run_log|121|0|0
+wf_source_adapter_health_v2|1920|0|0
+wf_systemd_timer_snapshot|2970|2970|2961
+workflow_categories|12|0|0
+workflow_change_requests|2|2|2
+workflow_discovery_source_registry|0|720|0
+workflow_scanner_registry|0|726|0
+workflow_step_relations|2|2|2
+workflow_steps|204|2|74
+workflows|10|4|4</pre>
+</details>
 
 <h3>Khối × loại vật (theo chủ sở hữu ghi trong nhãn cũ)</h3>
 <p class="leg"><span class="do">đỏ · nghi tàn dư</span><span class="vang">vàng · đã đóng băng</span><span class="xanh">xanh · đang dùng</span><span class="xam">xám · chưa rõ</span> Cột cuối là <strong>nhận định sơ bộ của Host để Owner tham khảo, không phải quyết định</strong>.</p>
