@@ -1350,6 +1350,7 @@ STARTED@MCPW-B1-IDENTITY-20260930-01 2026-09-30T06:59:00Z · executor=Claude Cod
 ## Quyết định Owner
 - **O-MCPW-CLOSE · ĐỒNG Ý · 2026-10-01 16:53:** Owner “chốt chặt các mục tiêu, chốt chặt các roadmap còn lại” ⇒ mục tiêu + roadmap R1–R6 ở §0.3 là chuẩn; đóng MCPW khi R5 thử thật đạt và Owner gật; phần “Để sau” chỉ làm khi Owner duyệt.
 - **O-B2A-1 · ĐỒNG Ý · 2026-10-01:** bỏ cổng chờ 24h; từ lúc lật, khoá chung chỉ còn đọc. MCP cục bộ Claude Desktop trên Mac và DOT upload KB đang WRITE_DORMANT nên tạm mất quyền ghi tới B2B; các AI dùng profile riêng vẫn ghi bình thường. Nếu phát hiện nhu cầu thật, rollback `legacy compat` theo đường hiện hữu.
+- **O-HVU-SYNC · ĐỒNG Ý · 2026-10-02:** Owner giao Host rà và quyết trước triển khai; Host đối chiếu độc lập: `scripts/hvu-b2/sync.py` bản A09R1 sau = `a64a59eb0468890f7463fa2699eee55bd5f84f6875b45f545a50ab12dfe46722`, đúng hash đã ghi trong lane-a và A09R1 đã Host ACCEPT ở D102. R6 được phép rebaseline **đúng một target** `hvu-sync-py` qua apply path hiện hữu, ghi old/new + lý do; **không sửa `sync.py`**. Hash live khác ⇒ cấm rebaseline và báo Host/MMIM.
 
 #### P65 · Host GPT · 2026-10-01 · **O-B2A-1 APPROVED · B2A READY/RUN REISSUED**
 - ACCEPT P63–P64 và DROOT32. Không thêm vòng review, không chờ theo giờ.
@@ -1659,5 +1660,15 @@ KQ@MCPW-R2-PRESENCE-HERMES-20261001-01 XONG · 4 việc chạy thật; residual 
 - **`O-HVU-SYNC` (Owner quyết, dưới):** Reviewer đã đo sha256 live `scripts/hvu-b2/sync.py` = `a64a59eb…dfe46722` = đúng bản A09R1 Host MMIM nghiệm thu D102 ⇒ đăng ký lại là hợp thức hoá đúng bản đã duyệt, không che lỗi. PROMPT đã viết sẵn 2 nhánh; Host chỉ cần ghi quyết định vào `## Quyết định Owner`, không sửa PROMPT.
 - JEV `gen-dec-1790911386-0WtETkNyb7kNVE68FhOF`: ACCEPT-with-delta 0,86 · rebaseline có phép trong R6 0,99 · trình duyệt trong guard định kỳ 0,28 · ngân sách 0 restart 0,73 · 2-pass 0,68 · Disk Usage vào R6 0,24 · executor tự N9 0,36.
 
+#### P87 · Host GPT · 2026-10-02 10:39 +07 · **ACCEPT P86 · O-HVU-SYNC APPROVED · R6 READY/RUN MỘT LẦN**
+- **Mục tiêu/roadmap giữ nguyên:** chức năng “bắt được 5 AI/Agent” đã đạt; R6 chỉ bảo vệ thành quả Điều 30/31 + chuẩn bị bằng chứng N9 final; sau đó Owner nhìn Owner View và gật đóng. Bảng giao việc/NEXT/lease/REST/Directus/VPSUP vẫn để sau/ngoài scope.
+- **P86 ACCEPT nguyên:** ngân sách cứng 0 restart/recreate · không build image · không sửa lifecycle/UI runtime code · ≤4 invariant mới · Owner thao tác dự kiến 0; browser guard không chạy định kỳ; periodic invariant 2-pass; executor chỉ chuẩn bị E1–E6, Host+Reviewer mới nghiệm thu N9.
+- **O-HVU-SYNC đã đủ bằng chứng và được chấp thuận:** chỉ rebaseline target guard, không mutation source MMIM. Đây là sửa bookkeeping của bộ canh để trả về trạng thái có ý nghĩa, không phải che drift.
+- **PROMPT R6 last-touch:** `a4101f94ba00d5745a875ef12da3e441fd574b5f`.
+- **READY@a4101f94ba00d5745a875ef12da3e441fd574b5f**.
+- RUN_ID: `MCPW-R6-PROTECT-CLOSE-20261002-01`.
+- Executor làm trọn một lượt theo PROMPT; không tách task nhỏ. Nếu buộc vượt ngân sách cứng hoặc chạm scope ngoài R6 ⇒ DỪNG trước mutation và báo Host.
+- Sau KQ: Claude Chat review N9 một vòng cuối; Host đối chiếu; Owner nhìn Owner View và gật O-MCPW-CLOSE. Không tự mở roadmap bước 2.
+
 ## Owner cần quyết
-- **O-HVU-SYNC** · Cho R6 đăng ký lại đúng 1 mục `hvu-sync-py` trong bộ canh (file do việc MMIM sửa 01/10, đã nghiệm thu nhưng quên đăng ký) để bộ canh MCPW hết đỏ liên tục và báo được lỗi mới. Chỉ làm khi file đúng bản đã nghiệm thu; ghi cũ/mới. Không đồng ý ⇒ bộ canh vẫn đỏ tới khi phiên MMIM tự làm. **Đề xuất: ĐỒNG Ý.**
+- —
