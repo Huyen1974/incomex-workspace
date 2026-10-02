@@ -4,7 +4,7 @@ Tên việc: Nâng PG · Directus · Nuxt/Agency OS lên bản mới nhất ổn
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/09/2026: mở `work/vps1-up-grade`, tập hợp phương án cũ + ý kiến Claude + bổ sung mới của Owner để hội đồng lập kế hoạch nâng cấp an toàn. Chưa cho phép nâng cấp/dọn/xóa/restart/deploy ở lượt mở việc này.
 
-### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 10:25 +07 · Claude Reviewer · P88 — đọc đầu tiên, mọi phiên (AGENTS MT4)
+### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 · GPT Host · P89 CONSENSUS/READY — đọc đầu tiên, mọi phiên (AGENTS MT4)
 - 🎯 **Mục tiêu — Owner nguyên văn 01/10 16:57:** “Chủ yếu là nâng PG, Directus, Nuxt và OS agency lên bản mới nhất.” · “Mục tiêu nâng cấp là để tận dụng được các công nghệ tốt nhất giải quyết bài toán xây dựng cỗ máy sản xuất quy trình.”
 - 🎯 **Một câu:** nền của Máy sản xuất quy trình (MOW/MOT/MOIT/MOUT) chạy trên **bản mới nhất ổn định** của PG · Directus · Nuxt/Agency OS. An toàn, rollback, lab VPS2 là **cách làm**, không phải mục tiêu.
 - 🏁 **Xong khi VPS1 chạy:**
@@ -17,11 +17,12 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/0
 | nginx | 1.29.5 | 1.30.5 | S1 |
 
 - 🏁 Kèm: máy quy trình chạy như cũ trở lên (SAME SLICE · 128 Flow · quyền = prod), 0 mất dữ liệu; e-learning về VPS1; VPS2 huỷ.
-- 📍 **Tiến độ (đúng một ô ■):** `1–7✅ 8■ G5✅ → S1 (chờ Host READY) → chốt bản (probe Directus 12.4.1 + vá 5 file $t + đóng gói TARGET cuối) → G6 · 9⬜ G7 · 10⬜ 7 ngày · 10B⬜ 10B-A PG18 → 10B-B @nuxt/ui v4 · 11⬜ e-learning → VPS1, huỷ VPS2`
+- 📍 **Tiến độ (đúng một ô ■):** `1–7✅ 8■ G5✅ → S1 READY@bbab83d (chờ Owner RUN) → chốt bản (probe Directus 12.4.1 + vá 5 file $t + đóng gói TARGET cuối) → G6 · 9⬜ G7 · 10⬜ 7 ngày · 10B⬜ 10B-A PG18 → 10B-B @nuxt/ui v4 · 11⬜ e-learning → VPS1, huỷ VPS2`
 - ✅ **Đã xong:** chốt kế hoạch · G0 khảo sát · OIG key · SEC/BK1 bảo vệ + backup có thử khôi phục · VPS2 dọn + cô lập · G2 clone CURRENT + mốc · G3 chốt bản/digest · G4 PASS có disposition · **G5 rollback rehearsal PASS** (3 rollback thật, LOGIN/ADMIN/FRONTEND_ONLY PASS).
-- ■ **Đang làm:** Reviewer P88 đã ACCEPT G5 + chính sách sau unfreeze; S1 ACCEPT-with-delta (PROMPT đã sửa, last-touch `bbab83d`); chờ Host READY S1.
-- ⬜ **Còn lại, đúng thứ tự:** S1 lên VPS1 (PG16.15 + nginx1.30.5) → xong S1 mới chạy **chốt bản** trên VPS2 (một RUN: probe Directus 12.4.1 bằng công thức G5 + vá 5 file `$t` + đóng gói TARGET cuối) → G6 bằng dữ liệu VPS1 mới + carry-forward mọi delta VPS1 sống (A09R1, MCPW R2…) + tập chụp checkpoint lúc mở ghi → G7 → 7 ngày → 10B-A PG18 → 10B-B @nuxt/ui v4 → 11 e-learning về VPS1, huỷ VPS2.
-- ➡ **Kế tiếp:** Host READY S1 theo last-touch `bbab83d` · 😊 Owner mở phiên Claude Code mới, dán lệnh S1 · 🤖 Claude Code chạy S1 rồi dừng · Host soạn PROMPT chốt bản · Reviewer review KQ S1.
+- ■ **Đang làm:** GPT Host P89 **ACCEPT toàn bộ P88**; S1 đã **READY@`bbab83d35c1eb5e5d99357adc2372b740afea030`**, chưa RUN production.
+- ⬜ **Còn lại, đúng thứ tự:** S1 lên VPS1 (PG16.15 + nginx1.30.5) → xong S1 mới chạy **chốt bản** trên VPS2 (một RUN: probe Directus 12.4.1 bằng công thức G5 + vá 5 file `$t` + đóng gói TARGET cuối) → G6 bằng dữ liệu VPS1 mới + carry-forward mọi delta VPS1 sống (A09R1, MCPW R2…) + diễn tập checkpoint post-S2 ngay trước mở ghi → G7 → 7 ngày → 10B-A PG18 → 10B-B @nuxt/ui v4 → 11 e-learning về VPS1, huỷ VPS2.
+- 🧩 **Phát sinh đã nhập đúng đường ray, không mở bước song song:** Directus 12.4.1 security probe · 5 sibling `$t` · checkpoint post-S2 phục vụ đối soát sau unfreeze · carry-forward mọi delta VPS1 sống. `/knowledge/registries` cold ~34 s và nginx `auth_limit` 503 là baseline đã biết, không gate S1.
+- ➡ **Kế tiếp:** 😊 Owner mở **phiên Claude Code mới**, dán RUN S1 · 🤖 Claude Code chạy đúng S1 rồi dừng · Host nghiệm thu KQ S1 → soạn PROMPT **chốt bản** · Reviewer review trước RUN kế tiếp.
 - ⛔ **Không làm / để sau (không gate):** DNS (D11, giữ Mắt Bão) · chờ MCPW (P83) · nâng Qdrant/Kuma · thoát Agency OS (D08, việc khác).
 - **Luật Bảng:** đi đúng thứ tự trên; việc không có trên đường ray = “sau, không gate”. Lượt nào đổi trạng thái sửa Bảng + dòng `cập nhật` cùng commit (AGENTS MT4). VPS2 chỉ huỷ sau 10B (còn là lab). 10B: PG 18 và @nuxt/ui v4 mỗi major rehearsal/rollback riêng.
 - Bảng E (P06) chỉ còn là lịch sử.
@@ -1202,6 +1203,15 @@ Phản biện đúng P03, không mở thêm file:
 - **Đường ray không thêm bước:** S1 → chốt bản (một RUN VPS2) → G6 → G7 → 7 ngày → 10B-A → 10B-B → 11.
 - JEV `gen-dec-1790911099-DpUljKUTIQAI7oZnJeKV`: probe 12.4.1 bắt buộc 0,94 · S1 accept-with-delta 0,92 · tuần tự 0,93 · checkpoint lúc mở ghi 0,76.
 - Nguồn Directus: directus/docs PR #831 (12.4.0: GHSA-2xcm-7h22-3m66, COLLECTION_INACTIVE, WebGL2, @unhead/vue 3) · PR #833 (12.4.1 vá lỗi folders, khuyên lên thẳng 12.4.1) · issue directus#28318 · blog ESU 10.12 (chỉ hỗ trợ bản mới nhất).
+- Owner cần quyết: —.
+
+### P89 · GPT Host · 2026-10-02 · CONSENSUS P88 · S1 READY · ROADMAP RECONCILED
+- **Host response:** ACCEPT toàn bộ P88. G5 đã đủ bằng chứng; các delta S1 chỉ là guard an toàn, không đổi phạm vi; Directus 12.4.1 bắt buộc probe trước G6 vì fix read-permission của update/delete-by-query thuộc đúng yêu cầu cách ly dữ liệu. 12.4.1 hiện là bản 12.4 mới hơn 12.4.0 và có thêm fix folders non-admin; breaking 12.4 đã được P88 đưa vào probe.
+- **READY:** `READY@bbab83d35c1eb5e5d99357adc2372b740afea030` · RUN_ID `VPSUP-S1-SAFE-MINORS-PROD-20261002-01` · Executor Claude Code CLI. Đã kiểm commit cuối chạm `PROMPT.md` vẫn đúng `bbab83d`; chưa có S1 STARTED/RUN. **Không sửa PROMPT chỉ để đổi dòng chữ DRAFT** vì sẽ đổi SHA sau review; gate thực thi là READY này + last-touch exact SHA theo A6/P88.
+- **Điểm danh đã xong:** kế hoạch/G0 · OIG · SEC/BK1 · VPS2 dọn/cô lập · G2 CURRENT · G3 exact artifacts · G4 disposition · G5 rollback rehearsal ×3 + LOGIN/ADMIN/FE rollback.
+- **Việc tiếp theo, tuần tự:** S1 → chốt bản VPS2 (Directus12.4.1 probe + 5 `$t` + TARGET cuối) → G6 (carry-forward live deltas + post-S2 checkpoint/unfreeze rehearsal) → G7 → monitor 7 ngày → PG18 → @nuxt/ui v4 → chuyển e-learning về VPS1 → huỷ VPS2.
+- **Phát sinh đã được hấp thụ, không mở roadmap mới:** security Directus; 5 `$t`; hot reconnect phụ thuộc sau PG restart; nginx gateway chập ngắn; auth_limit 503; route cold ~34 s; checkpoint post-S2; MCPW/A09R1 live deltas.
+- JEV phụ `gen-dec-1790911756-BlLy6bqoDAeza2qNCxkr` độ tin thấp (READY/NEEDS_PATCH cùng 0,48; roadmap MINOR_GAP 0,57); gap thực tế là `view.html` còn roadmap cũ, được đồng bộ cùng commit P89. Không dùng JEV để đảo bằng chứng source/runtime trực tiếp.
 - Owner cần quyết: —.
 
 ## Owner cần quyết

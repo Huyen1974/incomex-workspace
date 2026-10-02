@@ -15,8 +15,8 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <div class="muted">work/vps1-up-grade · mở 26/09/2026 · Host GPT Chat</div>
 <h1>Nâng nền Máy sản xuất quy trình lên công nghệ mới nhất ổn định</h1>
 <p class="big"><b>Mục tiêu:</b> MOW/MOT/MOIT/MOUT chạy trên nền PostgreSQL · Directus · Nuxt/Agency OS mới nhất nhưng đủ ổn định. VPS2 rehearsal, rollback và backup là <b>cách làm để đạt mục tiêu</b>, không phải mục tiêu thay thế.</p>
-<div><span class="tag">Đích PG = 18 stable</span><span class="tag">Directus = 12.x + OIG</span><span class="tag">Nuxt = 4.5.x · Node 24</span><span class="tag">10B = PG18 → @nuxt/ui v4 tuần tự</span><span class="tag">VPS2 huỷ sau 10B</span></div>
-<p class="small"><b>Tiến độ:</b> 1–7 ✅ · <b>8 ■ G5 ✅ → S1 (DRAFT review) → chốt exact bản + 5 sibling $t → G6</b> · 9 ⬜ G7 · 10 ⬜ theo dõi 7 ngày · 10B ⬜ PG18 rồi @nuxt/ui v4 · 11 ⬜ e-learning về VPS1, huỷ VPS2.</p>
+<div><span class="tag">Đích PG = 18 stable</span><span class="tag">Directus = 12.4.1 + OIG nếu probe PASS</span><span class="tag">Nuxt = 4.5.x · Node 24</span><span class="tag">10B = PG18 → @nuxt/ui v4 tuần tự</span><span class="tag">VPS2 huỷ sau 10B</span></div>
+<p class="small"><b>Tiến độ:</b> 1–7 ✅ · <b>8 ■ G5 ✅ → S1 READY → chốt bản (Directus 12.4.1 probe + 5 sibling $t + TARGET cuối) → G6</b> · 9 ⬜ G7 · 10 ⬜ theo dõi 7 ngày · 10B ⬜ PG18 rồi @nuxt/ui v4 · 11 ⬜ e-learning về VPS1, huỷ VPS2.</p>
 </section>
 
 <section class="card" id="owner">
@@ -439,7 +439,9 @@ DỪNG NGAY nếu: read-gate FAIL; một bước cần quyền ghi ngoài chỗ 
 
 <section class="card" id="status">
 <h2>10. Trạng thái hiện tại</h2>
-<p><b class="ok">G0 đã nghiệm thu.</b> SEC1 đã có PROMPT + READY; chưa RUN nên chưa có mutation mới.</p>
-<p><b>Next:</b> BK1 backup/restore proof → một lượt VPS2 tối thiểu an toàn + chuẩn bị lab → clone CURRENT và nâng VPS1. Không đầu tư sửa/nâng VPS2 dài hạn; VPS2 sẽ huỷ sau khi VPS1 ổn định 7 ngày và e-learning đã chuyển về.</p>
+<p><b class="ok">G5 rollback rehearsal đã PASS.</b> GPT + Claude đã đồng thuận S1; <b>S1 READY, chưa RUN production</b>.</p>
+<p><b>Đã xong:</b> G0 · OIG · SEC/BK1 · dọn/cô lập VPS2 · G2 CURRENT · G3 artifacts · G4 disposition · G5 rollback ×3 + LOGIN/ADMIN/frontend-only rollback.</p>
+<p><b>Phát sinh đã nhập đường ray:</b> probe Directus 12.4.1 vì security fix; vá 5 file <code>$t</code>; checkpoint post-S2 ngay trước unfreeze; carry-forward mọi delta VPS1 sống. Route <code>/knowledge/registries</code> cold ~34 s và nginx <code>auth_limit</code> 503 là baseline đã biết, không gate S1.</p>
+<p><b>Next:</b> S1 PG16.15 + nginx1.30.5 → chốt TARGET trên VPS2 → G6 → G7 → theo dõi 7 ngày → PG18 → @nuxt/ui v4 → chuyển e-learning về VPS1 → huỷ VPS2.</p>
 </section>
 </main></body></html>
