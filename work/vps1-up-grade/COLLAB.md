@@ -4,14 +4,14 @@ Tên việc: Nâng PG · Directus · Nuxt/Agency OS lên bản mới nhất ổn
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/09/2026: mở `work/vps1-up-grade`, tập hợp phương án cũ + ý kiến Claude + bổ sung mới của Owner để hội đồng lập kế hoạch nâng cấp an toàn. Chưa cho phép nâng cấp/dọn/xóa/restart/deploy ở lượt mở việc này.
 
-### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 15:03 +07 · Claude Code · STARTED G6 — đọc đầu tiên, mọi phiên (AGENTS MT4)
+### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 15:18 +07 · GPT Host · P105 — PIN PG18.6, G6 TIẾP TỤC — đọc đầu tiên, mọi phiên (AGENTS MT4)
 - 🎯 **Mục tiêu — Owner nguyên văn 02/10 11:59:** “Mục tiêu cuối cùng không phải là nâng cấp phần mềm, mục tiêu cuối cùng là tận dụng các tính năng mới nhất của PG/Directus để giải quyết các bài toán của ‘máy sản xuất quy trình’” · “chúng ta cần 1 cái máy chủ, với các phần mềm cần thiết quan trọng ở mức tốt nhất và ổn định. Những thứ khác dẹp bớt ra.” · “đây không phải là việc chính, đây chỉ là công cụ, là việc phụ.”
 - 🎯 **Một câu:** VPSUP là **công cụ**: VPS1 chạy PG 18 + Directus 12.4 + Nuxt 4.5 ổn định, để việc chính (Máy sản xuất quy trình — `work/mow-mot-moit-mout`) dùng tính năng mới nhất. Dùng tính năng nào cho bài toán nào là việc chính, **không làm ở đây**.
 - 🏁 **Xong khi VPS1 chạy (đích duy nhất):**
 
 | Thành phần | Trước | Đích | Khi nào |
 |---|---|---|---|
-| PostgreSQL | 16.13 | **18.x** mới nhất ổn định | 16.15 (S1, điểm lùi) → 18 ở G7 |
+| PostgreSQL | 16.13 | **18.6** exact (Host chốt P105; pin digest trong G6/G7) | 16.15 (S1, điểm lùi) → 18.6 ở G7 |
 | Directus | 11.5.1 | **12.4.1 + OIG**, đúng artifact đã kiểm tại TF | G7 |
 | Nuxt (web Agency OS) | 3.20 · Node 20 | **4.5.2 · Node 24.21.0**, dùng nguyên bytes TF | G7 |
 | nginx | 1.29.5 | 1.30.5 | ✅ S1 |
@@ -19,7 +19,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/0
 - 🏁 Kèm: dữ liệu đủ; SAME SLICE, Flow, quyền và các bên gọi PG/Directus đạt theo mốc production mới. **XONG chỉ khi VPS1 chạy đủ bộ đích trong bảng và nghiệm thu G7 đạt**; máy canh nền hoạt động, không chờ 7 ngày để nghiệm thu.
 - 📍 **Tiến độ:** `✅ chuẩn bị G0–G5 · ✅ S1 · ✅ TARGET-FINAL · ■ G6 READY@440bac9: hoàn thiện + diễn tập bộ cuối + chuẩn bị G7 · ⬜ G7: chuyển + nghiệm thu + bàn giao = XONG`
 - ✅ **Đã xong:** G0–G5 · S1 production PG16.15/nginx1.30.5 (`10db62f`) · TARGET-FINAL (`65ba02a`): Directus12.4.1/OIG, 5 trang `$t`, Nuxt4.5.2 khoá bytes, 23/23 kiểm 12.4, 16 trang browser, D 25/25, mạng bổ sung qua recreate. Hai phát sinh tải/DEFAULT còn phải xử lý trong G6, không coi TF là nghiệm thu production.
-- ■ **Đang làm:** 🤖 Claude Code chạy RUN `VPSUP-G6-INTEGRATED-REHEARSAL-20261002-01` (READY@`440bac9`) trên VPS2 lab, VPS1 chỉ đọc · STARTED 08:03Z · chờ KQ.
+- ■ **Đang làm:** 🤖 Claude Code chạy RUN `VPSUP-G6-INTEGRATED-REHEARSAL-20261002-01` (READY@`440bac9`) trên VPS2 lab, VPS1 chỉ đọc · STARTED 08:03Z. **PG exact đã Host pin = 18.6**; Agent chỉ pin digest/test, không còn quyền tự chọn patch khác · chờ KQ.
 - ⬜ **Còn lại — đúng 2 gói lớn:** **G6:** lấy kết quả TARGET-FINAL + bản sao dữ liệu/cấu hình VPS1 mới; dựng PG18 trên volume mới; ghép Directus12.4/Nuxt4.5/Node24 đúng artifact; tự sửa lỗi trong phạm vi lab và kiểm lại phần bị ảnh hưởng; diễn tập toàn bộ chuyển/quay lui; xuất luôn gói G7 sẵn chạy, số đo gián đoạn và đề xuất giờ. **G7:** sau Owner duyệt cửa sổ production, agent chuẩn bị → chặn ghi → chuyển đúng bộ đã tập → nghiệm thu → mở ghi → xác nhận sao lưu/giám sát → bàn giao, trong một RUN. **Không tự chuyển đích về PG16.15:** PG18 có blocker không xử được trong phạm vi thì báo đúng blocker và phương án; chỉ Owner được duyệt đổi đích, chưa gọi đủ mục tiêu là XONG.
 - 🔁 **Sau XONG — việc phụ, không chặn gì:** máy tự canh nền · chuyển e-learning về VPS1 + huỷ VPS2 khi tiện.
 - ✂️ **Đã cắt khỏi đường chính:** nâng @nuxt/ui v4; chờ 7 ngày; PG18 đợt 2 mặc định; dọn/huỷ VPS2 và chuyển e-learning; mở nghiên cứu hay nâng thêm thành phần. Lỗ bảo mật nghiêm trọng phát hiện thật thì báo, không tự mở nhánh. G6/G7 dùng lại bytes Nuxt đã kiểm, không build lại theo thói quen.
@@ -1377,6 +1377,15 @@ Phản biện đúng P03, không mở thêm file:
 ### P104 · Claude Chat (Reviewer) · 2026-10-02 · ĐỒNG THUẬN P103 · TRIỂN KHAI G6
 - **Bảng: khớp.** READY P103 = last-touch PROMPT `440bac937aa2ea6f44eebac95ac4a58f29b575ef`; PROMPT không đổi sau P102; chưa STARTED G6. Lệnh RUN P103 khớp PROMPT, không thêm phạm vi.
 - Không delta, không thêm vòng. Sau KQ G6: Host nghiệm thu + Reviewer rà gói G7 một vòng → trình Owner giờ G7.
+- Owner cần quyết: —.
+
+### P105 · GPT Host · 2026-10-02 · SỬA LỖI QUYỀN CHỌN VERSION · PIN POSTGRESQL 18.6
+- **Owner bắt đúng lỗi:** PROMPT G6 đã ghi “chốt PG18 stable patch mới nhất tại PRE”, tức vô tình giao Agent quyền chọn exact version. Điều này rộng hơn D04/version policy: Host + Reviewer phải chốt version dựa trên độ chín/security/compatibility; Agent chỉ thực thi exact target đã chốt.
+- **Lịch sử repo:** policy đã có từ 26/09: không chọn bleeding-edge chỉ vì mới; P02 từng đặt rule dòng GA đủ chín + có patch; G3 coi PG18.6 là candidate, nhưng sau khi roadmap gộp PG18 vào G6, exact patch chưa được nâng thành quyết định final trong Bảng. Đây là gap điều hành của Host, không phải quyền mặc định của Agent.
+- **Host chốt exact PostgreSQL = 18.6 cho G6/G7.** Căn cứ official 02/10: PostgreSQL 18 GA từ 25/09/2025 (major đã ~1 năm); 18.6 phát hành 13/08/2026; **18.5 không được phát hành vì regression phát hiện sau wrap**; bản trước là 18.4 (14/05/2026). 18.6 là maintenance/security release, không phải feature-major mới; quay về 18.4 chỉ để tránh chữ “latest” sẽ bỏ các security/bug fixes đã phát hành.
+- **Nguyên tắc version được làm rõ:** “không chạy theo latest” áp cho việc tự nhảy major/feature line hoặc release chưa đủ bằng chứng; **không dùng nó để cố tình ở lại patch có lỗi/security đã được upstream sửa**. Exact target sau khi Host pin không được Agent tự đổi. Nếu upstream ra 18.7 trong lúc G6/G7 đang chạy, **không tự nhảy**; vẫn 18.6 trừ khi Host/Reviewer mở lại vì advisory material.
+- **G6 đang STARTED:** không sửa PROMPT/READY/HOLD theo DROOT31. P105 chỉ thu hẹp/khóa exact target đúng với image Agent vừa chọn; không đổi mutation đã làm, không cần STOP. Agent tiếp tục với 18.6, ghi full index/amd64 digest và dùng đúng bytes xuyên G6→G7.
+- **Sau P105:** Directus exact = 12.4.1; Nuxt exact = 4.5.2/Node24.21.0; PostgreSQL exact = **18.6**; nginx exact = 1.30.5. Không còn component core nào được Agent “resolve latest” trong RUN hiện hành.
 - Owner cần quyết: —.
 
 ## Owner cần quyết
