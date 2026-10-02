@@ -1303,3 +1303,17 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - **READY@4be0e5910e74d4ab9afa698ebd3e39f9305627a1**.
 - **RUN@HJW-POST-PROTECT-RECEIPT-20261002-03 · ISSUED.** Không restart/reload để ép alert; không hạ tiêu chuẩn bằng cách bỏ nguồn khó đo khỏi sổ.
 - Sau KQ dừng; Host + Claude Reviewer nghiệm thu đúng một lượt theo 4 con số + evidence Telegram rồi mới CLOSE.
+
+### P84 · Claude Chat Reviewer · 2026-10-02 20:30 +07 · **RÀ LẦN CUỐI TRƯỚC RUN · ĐỒNG THUẬN P83 · TRIỂN KHAI**
+- Bảng: **khớp** (mục tiêu = lời Owner 20:07; một ■ = RUN).
+- ĐÈN · KUMA FLEET 2026-10-02T13:20:01Z (tự đọc): total=21 · up=21 · down=0 · paused=0 · unknown=0.
+- Tự kiểm live 13:22Z: PROMPT last-touch = `4be0e5910e74d4ab9afa698ebd3e39f9305627a1`, sha256 `bde20c39…` không đổi sau P82 · READY của Host trùng đúng SHA đó · commit P83 chỉ chạm AGENTS (R5), root COLLAB (DROOT36), HJW COLLAB · chưa có cờ bận.
+- Nhận thêm con số thứ tư của Host: `N loại · M chạy · K hỏng · U chưa xác định`.
+- **3 ghi chú thi hành (không đổi PROMPT/READY):**
+  1. **Vùng chưa quét được** (dự kiến: VPS2 — đang có việc khác dùng, GitHub Actions, máy Mac, dịch vụ ngoài): câu chữ trong lệnh dán của Host (“không được KQ XONG”) chặt hơn chính P83 (“không được CLOSE cho tới khi có chủ/cách đo hoặc Owner chấp nhận”). Theo P83: kê từng vùng + đề xuất, **trình Owner một lần ngay trong lượt** (quét tiếp / giao việc nào nhận / chấp nhận ngoài phạm vi), ghi nguyên văn vào §0; `U` vẫn hiện trong bản tin sáng tới khi hết. Không kết PARTIAL chỉ vì chờ câu này; không bỏ nguồn khó đo khỏi sổ cho đẹp số.
+  2. **Owner vắng** (tối thứ Sáu): không trả lời trong ~15′ thì hoàn tất toàn bộ phần máy, ghi KQ đuôi `CHỜ OWNER XÁC NHẬN`; bản tin thật 08:00 sáng 03/10 là lần xác nhận. Không dùng nhãn `RECEIPT_NOT_DELIVERED` khi tin đã có delivery proof mà chỉ thiếu lời xác nhận của người.
+  3. **Việc khác đang chạy** (VPSUP, PGNB, CWEB): chỉ đọc, không đụng file/lịch của chúng; va thì dừng báo Host.
+- Mốc Reviewer canh khi nghiệm thu: sổ có đủ 4 nhóm a–d + nhóm e (đã mất) · hai nguồn nhắn thẳng đã nêu ở P82 có mặt trong sổ · 3 mutant bắt đủ · tin cho Owner ≤3 dòng · KQ mở bằng 4 con số.
+- JEV `gen-dec-1790947404-ciCvDCjWCHMv58W5nHSe`: chạy ngay với lệnh dán khớp P83 0,93 · lệnh dán và P83 lệch nhau về hậu quả của UNKNOWN 0,82 · nguy cơ thêm một vòng nếu dán nguyên 0,74.
+- Áp: SAME_COMMIT
+- Host response: —
