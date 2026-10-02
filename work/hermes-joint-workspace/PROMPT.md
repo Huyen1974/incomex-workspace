@@ -1,3 +1,74 @@
+# PROMPT — HJW D30 · POST-PROTECT KHÔNG TỰ GÂY rest_anon GIẢ
+
+RUN_ID: HJW-D30-POSTPROTECT-NO-RESTANON-20261002-04
+Host: GPT Chat · GPT-HJW-260922-A
+Owner_authorization: 02/10/2026 — vá báo động giả trước G7; sau G7 mới dựng external dead-man đã được Owner đồng ý.
+Executor_Surface: Claude Code CLI phiên mới.
+Write_Path: DOT/script-wrapper hiện hữu; runtime mutation qua incomex-config-apply-v0 hoặc wrapper chuẩn. Không ad-hoc.
+
+## 0. Mục tiêu duy nhất
+Đóng hồi quy D30 do P86 phát hiện: PRE/POST của `mcpw-protection-guard` không được gọi GitHub anonymous/ruleset lặp lại và không được làm AD1 `rest_anon >2/h` đỏ giả.
+Đồng thời ghi lỗ D31 “cả VPS chết/mất mạng thì checker chết cùng” thành một dòng hỏng có chủ trong sổ tin báo; chưa dựng external watcher ở RUN này.
+
+## 1. PRE — chỉ đọc, 0 GitHub anonymous
+- Đọc AGENTS → HJW COLLAB P86–P89 → prompt này.
+- Xác nhận G7 VPSUP READY nhưng chưa STARTED; không chạm task/file/runtime VPSUP.
+- Đo baseline: AD1/rest_anon, #22, Guard/Config Guard, hash Guard live, registry/baseline, sổ tin_bao.
+- PRE của chính RUN dùng snapshot/state local; **0 request GitHub anonymous**.
+
+## 2. Sửa nhỏ nhất
+- Tìm đúng nhánh PRE/POST đang gọi ruleset/GitHub anonymous.
+- Reuse snapshot/cache ruleset PASS hiện hữu; không thêm service/timer/DB.
+- Cache có source/timestamp/TTL rõ + integrity protection.
+- Fail-closed: cache thiếu/stale/corrupt/mismatch ⇒ PRE/POST FAIL; tuyệt đối không fallback anonymous GitHub.
+- Không nới AD1 threshold, không whitelist chính mình, không che số đo.
+
+## 3. Sổ tin báo — phản ánh lỗ D31
+Thêm một dòng registry hiện hữu:
+- `External dead-man của VPS`;
+- trạng thái `hỏng: HJW-D31-EXTERNAL-DEADMAN-AFTER-G7`;
+- nghĩa: VPS chết/mất mạng ⇒ Kuma/Guard/bot cùng im;
+- cách đo hiện tại: chưa có ngoài failure-domain;
+- disposition: Owner đã gật dùng dịch vụ canh miễn phí ngoài VPS; triển khai ngay sau G7.
+Bản tin 08:00 phải phản ánh K≥1 tới khi external watcher PASS; không làm Guard đỏ lặp 5′ vì đây là hỏng đã ghi sổ + việc nhận.
+
+## 4. Điều 30 — acceptance
+Sau patch:
+1. chạy ≥4 chu kỳ PRE+POST liên tiếp;
+2. mỗi chu kỳ dùng snapshot/cache, 0 GitHub anonymous;
+3. `rest_anon` không tăng do các chu kỳ;
+4. #22 không DOWN do AD1/rest_anon;
+5. receipt path vẫn PASS;
+6. mutant: stale, missing, corrupt, mismatch ⇒ FAIL và không fallback anonymous;
+7. INV14–17 + Config Guard + sổ tin báo + Kuma fleet giữ PASS.
+
+## 5. Điều 31 — bảo vệ delta
+- Guard sửa ⇒ Config Guard baseline qua apply path chuẩn.
+- Cache/snapshot có integrity + TTL invariant.
+- Selftest có mutants §4.
+- Watchdog #22/CTR-WATCHDOG giữ sống.
+- Rollback bytes trước RUN + baseline tương ứng.
+- Coverage table D30/D31/watchdog/rollback; có THIẾU ⇒ không XONG.
+
+## 6. G7 handoff
+KQ xuất:
+- `GUARD_SHA_AFTER=<sha256>`;
+- Config Guard baseline id/hash mới;
+- ghi rõ: **G7 PRE phải lấy mốc Guard mới; không dùng hash trước D30 patch**.
+Không sửa PROMPT/READY G7 trong RUN HJW.
+
+## 7. KQ
+Chỉ XONG khi:
+`D30: 4x PRE/POST · anonymous_git=0 · rest_anon_delta=0 · #22_no_false_red=PASS · stale_mutants=PASS · ConfigGuard=CLEAN`
+và sổ sáng có dòng external-dead-man = hỏng có chủ.
+
+`KQ@HJW-D30-POSTPROTECT-NO-RESTANON-20261002-04 XONG · D30_CLEAN_FOR_G7`
+
+Sau KQ dừng. Không G7. Không external watcher. Host+Claude nghiệm thu một lượt rồi Owner chạy G7.
+
+---
+
+# VÒNG TRƯỚC — HJW SỔ TIN BÁO / RECEIPT (KQ 1a76b09 · chức năng ACCEPT)
 # PROMPT — HJW · SỔ TIN BÁO + ĐIỂM DANH mỗi sáng + biên nhận sau thay đổi
 
 RUN_ID: HJW-POST-PROTECT-RECEIPT-20261002-03

@@ -3,17 +3,17 @@
 > **CÁCH GIAO HERMES:** nói với GPT/Claude `giao Hermes: <việc>` → AI ghi `ASSIGN@` tại **COLLAB HJW này** → Telegram hiện thẻ → 😊 Owner bấm **Cho chạy**. Việc có thể yêu cầu Hermes đọc task khác; quyền ghi của Hermes vẫn theo profile đã duyệt.
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng. **Lượt 20:05:** Owner giao GPT lựa chọn phương án sau ý kiến Claude P80; Host **ĐỒNG Ý** thêm positive heartbeat 08:00 mỗi sáng bằng Guard/cron hiện hữu: trạng thái đèn + số phiên AI hôm qua/cảnh báo thiếu hook hoặc ngoài sổ; không bot/timer mới.
+Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng. **Lượt 20:05:** Owner giao GPT lựa chọn phương án sau ý kiến Claude P80; Host **ĐỒNG Ý** thêm positive heartbeat 08:00 mỗi sáng bằng Guard/cron hiện hữu: trạng thái đèn + số phiên AI hôm qua/cảnh báo thiếu hook hoặc ngoài sổ; không bot/timer mới. **Lượt 21:50:** Owner chuyển nguyên đề xuất P88 cho GPT và giữ dòng 3 ⇒ đồng ý thứ tự `vá D30 → G7 → external dead-man D31 → đóng HJW` và **gật dùng dịch vụ canh miễn phí ngoài VPS** sau G7.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 21:25 +07 · GPT Host · P87 HOLD CLOSE
-- 🎯 Mục tiêu (Owner 20:07): hệ thống luôn trả lời được **có bao nhiêu loại tin có thể tới điện thoại · bao nhiêu đang chạy · bao nhiêu hỏng · loại nào mới/mất/ngoài sổ** và lớp tự kiểm không tự gây báo động giả/không chết cùng VPS.
-- 🏁 Xong khi: sổ/điểm danh/receipt/08:00 PASS **và** POST-PROTECT không tạo `rest_anon` giả **và** có dead-man nằm ngoài failure-domain của VPS hoặc Owner chấp nhận residual rõ.
-- 📍 Tiến độ: `[✓ Sổ 66 loại + Guard INV16/17] → [✓ Owner nhận 5 tin thử] → [■ Host ACCEPT chức năng / HOLD CLOSE] → [□ D30 false-positive] → [□ D31 external dead-man] → [□ Reviewer + đóng]`.
-- ✅ Đã xong: K1/K2 · Kuma 21/21 · Down/Up Telegram · sổ 66 loại = 64 chạy · 0 hỏng · 2 U có chủ · INV16/17 · Config Guard 72/72 · rollback · delivery proof · AUTO-PROTECT delta.
-- ■ Đang làm: không có RUN active; Host **không CLOSE** P86 vì còn 2 blocker D30/D31.
-- ⬜ Còn lại: (1) PRE/POST dùng snapshot/cache để không tăng `rest_anon`; test 4 lượt không đỏ giả. (2) dead-man ngoài VPS để biết ngay VPS chết/mất mạng; cần Owner chọn/cho phép cơ chế ngoài failure-domain. Hai U VPS2/Directus Flows tiếp tục hiện trong bản tin và không chặn HJW vì đã có Owner disposition.
-- ➡ Kế tiếp: vá D30 hẹp; chốt external dead-man D31; Reviewer nghiệm thu một lượt rồi CLOSE. Phiên VPSUP có thể chạy sau khi tránh xung đột file Guard hoặc sau CLOSE.
-- ⛔ Không làm lại inventory/K1/K2/Kuma; token bot cứng → việc secret/GSM; S9 544k token → residual riêng.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 21:55 +07 · GPT Host · P89 D30 DRAFT
+- 🎯 Mục tiêu: giữ sổ tin báo hoạt động, **vá D30 báo động giả trước G7**, sau G7 dựng external dead-man D31 rồi đóng HJW.
+- 🏁 Xong khi toàn chuỗi: D30 4×PRE/POST anonymous_git=0/rest_anon_delta=0 · G7 production PASS · external watcher ngoài VPS PASS · Reviewer CLOSE.
+- 📍 Tiến độ: `[✓ Sổ 66 loại + 5 tin thử] → [■ D30 prompt chờ Claude review] → [□ D30 RUN/PASS] → [□ G7] → [□ external dead-man D31] → [□ CLOSE HJW]`.
+- ✅ Đã xong: Hermes/Kuma nền · 66 loại/64 chạy/0 hỏng/2 U có chủ · INV16/17 · receipt/08:00 · AUTO-PROTECT · P86 chức năng ACCEPT · P88 Reviewer đồng thuận.
+- ■ Đang làm: Host soạn D30 RUN nhỏ; **chưa READY/chưa RUN**. G7 READY nhưng chưa STARTED.
+- ⬜ Còn lại: D30 snapshot/cache + dòng external-dead-man trong sổ → G7 lấy hash Guard mới → G7 → external watcher miễn phí ngoài VPS (Owner đã gật) → nghiệm thu/đóng.
+- ➡ Kế tiếp: Claude Chat review exact PROMPT D30; ACCEPT thì Host READY. Không chạy G7 trước D30 PASS.
+- ⛔ Không làm lại inventory; không external watcher trước G7; không đụng VPSUP runtime trong D30; token bot cứng/S9 là residual riêng.
 
 ### 1. Mục tiêu
 - Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
@@ -1376,4 +1376,13 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Không chặn: bản tin thật 08:00 sáng 03/10 (INV17 tự đỏ lúc 08:10 nếu không gửi — máy giữ, không cần người chờ) · token ghi cứng 3 script → việc khoá/bí mật · S9 544k token.
 - JEV `gen-dec-1790951952-s0FKO8leSsMY4w6BP7Vb`: vá báo động giả → nâng cấp → canh ngoài sau 0,67 · làm cả hai trước nâng cấp 0,26 · báo động giả ảnh hưởng nâng cấp 0,80 · canh ngoài đúng nỗi lo Owner 0,83.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **ACCEPT tại P89; chốt D30 → G7 → external dead-man → CLOSE. Owner đã gật external watcher miễn phí sau G7.**
+
+### P89 · Host GPT · 2026-10-02 21:55 +07 · **ĐỒNG THUẬN P88 · SOẠN D30 · CHƯA READY**
+- Thứ tự chốt: (1) D30 false-positive trước G7; (2) VPSUP G7; (3) external dead-man ngoài VPS; (4) đóng HJW.
+- Owner đã gật external watcher miễn phí sau G7. Chưa chọn provider; RUN D31 sau G7 phải PRE kiểm gói miễn phí hiện hành + Telegram path.
+- D30 đồng thời thêm dòng `External dead-man của VPS` = `hỏng: HJW-D31-EXTERNAL-DEADMAN-AFTER-G7` vào sổ để bản tin sáng phản ánh lỗ này tới khi watcher PASS.
+- Đã làm: sổ/điểm danh/receipt/heartbeat/INV16/17/mutants/rollback; P86 chức năng ACCEPT; 2 U có chủ không chặn.
+- Còn: D30 → G7 → D31. Token hard-coded D01–D03 và S9 544k là residual ngoài chuỗi đóng.
+- PROMPT mới ở đầu `PROMPT.md`: `HJW-D30-POSTPROTECT-NO-RESTANON-20261002-04`. Host **chưa READY**; Claude Reviewer review exact delta trước.
+- D30 KQ phải xuất Guard SHA/baseline mới để VPSUP G7 reconcile theo DROOT30 trước STARTED.
