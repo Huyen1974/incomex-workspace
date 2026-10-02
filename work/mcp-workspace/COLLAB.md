@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: GPT-MCPW-250925-A · Owner giao 25/09/2026 điều h�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) — Owner gật đề xuất `Mở lại mcp-workspace để khoá đường ghi repo chỉ qua gateway` (COLLAB gốc DROOT20).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 14:31 +07 · GPT Host · P93
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 14:41 +07 · GPT Host · CLOSE
 - 🎯 Mục tiêu: 5 AI/Agent hữu hạn vào làm thì máy tự nhận ra và ghi lại; không ai “làm chui”; Hermes hiện giữ manual gate.
 - 🏁 Xong khi: R6 bảo vệ thành quả + N9 final + Owner gật đóng.
-- 📍 Tiến độ: `[✓ R1–R6] → [✓ Host N9 PASS] → [✓ Claude N9 FINAL PASS] → [■ Owner gật → đóng MCPW]`.
-- ✅ Đã xong: chức năng 5 AI/Agent · R6 `8656d03` · phiên R6 REPORTED `6c55100` · Host P91 PASS · Reviewer P92 `95b9237` PASS.
-- ■ Đang làm: **không còn AI/executor/RUN MCPW**; chỉ chờ quyết định Owner `O-MCPW-CLOSE-FINAL`.
-- ⬜ Còn lại: Owner nhìn Owner View → nếu đúng thì ra lệnh `Đóng mcp-workspace`; Host làm thủ tục A9 move sang `work/done-tasks/`.
-- ➡ Kế tiếp sau khi đóng: Bảng giao việc / Quy trình công việc; sau đó mới tự động hóa NEXT/scoped lease nếu Owner duyệt.
-- ⛔ Không làm trước khi đóng: không sửa nợ bảo trì · không RUN mới · REST/Directus/VPSUP ngoài scope.
+- 📍 Tiến độ: `[✓ R1–R6] → [✓ Host N9 PASS] → [✓ Claude N9 FINAL PASS] → [✓ Owner đồng ý đi tiếp roadmap] → [■ đóng MCPW]`.
+- ✅ Đã xong: chức năng 5 AI/Agent · P02/read-serving · R6 `8656d03` · phiên R6 REPORTED `6c55100` · Host P91/P93 PASS · Reviewer P92 `95b9237` PASS.
+- ■ Đang làm: Host thực hiện thủ tục A9 chuyển việc sang `work/done-tasks/mcp-workspace/`; không còn executor/RUN MCPW.
+- ⬜ Còn lại trong MCPW: không.
+- ➡ Kế tiếp sau khi đóng: Bảng giao việc / Quy trình công việc; **chưa tự mở task mới**, chờ Owner cho phép mở theo luật.
+- ⛔ Không làm: không sửa nợ bảo trì trước đóng · không RUN mới · REST/Directus/VPSUP ngoài scope.
 
 ### 1. Mục tiêu
 - Nguyên văn Owner: “Đúng vậy chúng ta khóa lại để bắt buộc làm theo 1 con đường giúp tôi.”
@@ -1760,5 +1760,10 @@ KQ@MCPW-R6-PROTECT-CLOSE-20261002-01 XONG · PROTECTED_READY_FOR_OWNER_CLOSE
 - **Roadmap sau đóng giữ nguyên:** Bước 2 = Bảng giao việc / Quy trình công việc (gộp assignment/trạng thái/ý kiến, đường Hermes hỏi ngược); Bước 3 = tự động hóa dần, rồi mới NEXT tự động + scoped lease nếu Owner duyệt. Khoá REST/Directus vẫn là quyết định riêng, không nhập vào roadmap này.
 - **Host kết luận:** đồng thuận P92, không cần triển khai thêm trước đóng. Không mở vòng review/RUN mới. Chỉ chờ Owner quyết.
 
+#### O-MCPW-CLOSE-FINAL · Owner · 2026-10-02
+- Owner chỉ đạo ở lượt hiện tại: “căn cứ vào báo cáo mới nhất từ Claude Code CLI, điều hành phần tiếp theo theo đúng roadmap đã đồng thuận.”
+- Roadmap hiện hành chỉ còn bước đóng MCPW; Host thực hiện A9 move sang `work/done-tasks/mcp-workspace/`.
+- Sau đóng **không tự mở task mới**. Bước kế tiếp theo roadmap là “Bảng giao việc / Quy trình công việc”, nhưng phải xin/nhận phép Owner trước khi tạo/mở việc theo luật hiện hành.
+
 ## Owner cần quyết
-- **O-MCPW-CLOSE-FINAL** · Host P91/P93 + Reviewer P92 đều PASS. Nhìn Owner View; nếu đúng, ra lệnh `Đóng mcp-workspace`. **Đề xuất: ĐỒNG Ý.**
+- —
