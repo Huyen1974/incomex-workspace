@@ -56,25 +56,25 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - Hermes: task + chat tự do vào sổ, ghi ý kiến đúng task, Config Guard bắt config drift
 - Host N9 sơ bộ: E1–E6 đạt; test độc lập R2 23/23 PASS
 
-**🏁 R6 ĐÃ XONG — CHỈ CÒN N9 FINAL + OWNER GẬT ĐÓNG**
-- R6 đã KQ XONG `8656d03`, các lớp regression/integrity Điều 30/31 đã được đóng và hậu kiểm phiên R6 đã REPORTED `6c55100`.
-- Việc còn lại duy nhất trước khi đóng: Host + Reviewer nghiệm thu N9 final; PASS ⇒ trình Owner nhìn Owner View và gật đóng. Không mở thêm RUN MCPW.
+**🏁 R6 XONG · N9 FINAL PASS (Host P91 + Reviewer P92) — CHỈ CÒN OWNER GẬT ĐÓNG**
+- R6 KQ XONG `8656d03`; 4 điều kiện đóng P89 đạt 4/4; ngân sách không vượt.
+- Việc còn lại duy nhất: Owner nhìn Owner View và gật đóng. Không mở thêm RUN MCPW. Nợ nhỏ sau đóng: xem P92.
 
 **Phát sinh đã phân loại — không mở việc mới trong MCPW**
 - Phiên Claude Code mở trước khi cài hook ⇒ `HOOK_MISSING`/SSH_UNKNOWN; mở phiên mới tự hết, **không chặn đóng**.
 - “Chờ người không LOST” đã có unit/negative + phiên Codex sống chờ >10′ theo P81, **đủ bằng chứng**.
 - Owner View còn phiên test 24h rồi tự hết, **không chặn**.
-- Drift `hvu-sync-py` thuộc MMIM, **không rebaseline hộ**.
+- Drift `hvu-sync-py` (MMIM): **đã đăng ký lại trong R6 theo O-HVU-SYNC**; Config Guard 63/63.
 - `presence.py` legacy jobs path trong sandbox không đọc WAL; R2 dùng JSON snapshot nên mục tiêu hiện tại không ảnh hưởng, **maintenance sau**.
 - Hermes: một việc còn 2 commit/thẻ+bài và chưa hỏi ngược Owner/AI khác ⇒ **roadmap Bảng giao việc/Quy trình công việc**, không kéo lại vòng hiện tại.
 
 **Checkpoint hiện hành:**
-`[✓ R1 dừng B2B] → [✓ R2 thiết kế] → [✓ R3 review/READY] → [✓ R4 triển khai] → [✓ R5 N9 kỹ thuật + Codex thật] → [✓ R6 Điều 30/31 PROTECT · KQ XONG 12:08] → [■ Host + Reviewer N9 final] → [□ Owner gật → đóng MCPW]`
+`[✓ R1 dừng B2B] → [✓ R2 thiết kế] → [✓ R3 review/READY] → [✓ R4 triển khai] → [✓ R5 N9 kỹ thuật + Codex thật] → [✓ R6 Điều 30/31 PROTECT · KQ XONG 12:08] → [✓ Host + Reviewer N9 final] → [■ Owner gật → đóng MCPW]`
 
 **Luật giữ cứng:** R6 chỉ bảo vệ/kiểm chứng cái đã đạt; không NEXT · lease · REST · Directus · VPSUP. Không chờ theo giờ. Không dùng việc bảo vệ làm cớ redesign.
 
 **🗺 ROADMAP LỚN — chỉ mở bước sau khi MCPW đóng**
-1. **Bước hiện tại — N9 final + đóng:** R6/Điều 30/31 đã XONG; Host + Reviewer nghiệm thu final; Owner gật đóng.
+1. **Bước hiện tại — đóng:** R6 + N9 final đã XONG; chờ Owner gật đóng.
 2. **Bước kế tiếp — Bảng giao việc / Quy trình công việc:** một nguồn chung để AI vào là biết **mình làm gì · vai trò · bước hiện tại · việc tiếp · dependency · bàn giao cho ai**. Gộp assignment/trạng thái/ý kiến vào cùng luồng, tránh Hermes thẻ một nơi/bài một nơi; đây cũng là chỗ thiết kế đường Hermes hỏi ngược Owner/Host/AI khác.
 3. **Sau nữa — Tự động hoá dần:** Hermes/Agent tự nhận/được wake từ Bảng giao việc; rồi mới NEXT tự động và scoped lease chống ghi chồng nếu Owner duyệt.
 
@@ -1739,5 +1739,17 @@ KQ@MCPW-R6-PROTECT-CLOSE-20261002-01 XONG · PROTECTED_READY_FOR_OWNER_CLOSE
 - **Giao Claude Reviewer — đúng 1 lượt, không nở scope:** đọc Bảng → P89 → KQ `8656d03` + hậu kiểm `6c55100` → P90/P91. Chỉ kiểm độc lập 4 điều kiện A–D, ngân sách/outside-scope, residual có blocker thật hay không và live guard còn xanh. Nếu không có blocker: ghi `ACCEPT N9 FINAL · READY FOR OWNER CLOSE`; nếu có blocker: ghi đúng blocker hiện hữu, **không tự mở RUN/sửa kỹ thuật**. Không cần thêm JEV/vòng đồng thuận.
 - Sau Claude ACCEPT: Host không review thêm vòng nữa; chuyển thẳng Owner nhìn Owner View và gật đóng MCPW.
 
+#### P92 · Claude Chat (Reviewer) · 2026-10-02 14:35 +07 · Based_on `bdb5838` · **ACCEPT N9 FINAL · READY FOR OWNER CLOSE**
+- **Tự kiểm live 14:27 +07 (không dựa KQ) — 4 điều kiện đóng P89:**
+  - (A) Hermes gateway: bản chụp heartbeat Kuma #21 trong hồ sơ R6 — UP `drift=none` liên tục từ 04:42:03Z; `hjw-gate` MATCH trong Config Guard. Reviewer không đọc trực tiếp được Kuma; không có tín hiệu ngược.
+  - (B) Config Guard: journal **63/63 MATCH · STATUS=CLEAN** mọi lượt từ 04:42Z tới 07:24Z; unit hết failed. Protection Guard: mã live có INV11–13 + 2-pass; đầu vào đang khoẻ (snapshot lifecycle 32 s, view còn nhãn); Kuma #22 UP từ 04:45Z theo bản chụp.
+  - (C) `tests/continuation` có `test_r2_presence.py` + `test_r2_import_ssh.py` (23 test); release gate: 220 passed · 37 tool · ACCEPTANCE PASS; biển báo README có.
+  - (D) Danh sách 63 target có đủ: lifecycle · server · workspace_tools · importer py/service/timer · presence · hermes-config · hjw-gate · workspace-tools-config · protection-guard.
+- **Ngân sách:** agent-data `mcpw-r2-20261001` Up 20h (StartedAt không đổi) · claude-mcp 47h · Directus 3 ngày ⇒ 0 restart do R6 (nginx/PG khởi động lại 3h trước là của VPSUP S1). 4 file cấm: sha256 + mtime y nguyên (`d5e36e88` · `a64d656c` · `3607e94d` · `f592b893`).
+- **Sổ/Owner View:** phiên R6 `91b7dcb1` nguồn hook = REPORTED, 0 cảnh báo; `red=[]`; Owner View render: mcp-workspace “Claude Code CLI · đã báo cáo”, có dòng “Ngoài việc”.
+- **Ghi nhận, không chặn đóng (nợ nhỏ, không mở RUN trong MCPW):** (1) `sync.py` của MMIM: sha256 y nguyên nhưng mtime đổi 04:41:44Z (đường đăng ký ghi lại cùng byte). (2) `run_acceptance.py` mặc định image cũ — đã có biển báo; chạy thiếu biến sẽ fail to, không PASS giả. (3) Dòng mẫu `KQ@` trong PROMPT sinh 1 dòng `lc_report` thừa cho gpt-web — vô hại; lần sửa sau chỉ nên quét COLLAB. (4) “SSH không rõ ai” 60 lượt/2h do các cửa sổ Claude Code mở trước khi cài hook — hết khi mở lại. (5) Chromium ghim của Playwright chưa cài.
+- JEV `gen-dec-1790926078-jnnzwfwWyBYjXNdzFYTH`: ACCEPT 0,94.
+- **Kết luận:** 4/4 điều kiện đóng đạt; không có blocker. Chuyển Owner gật đóng; sau đó Host làm thủ tục đóng theo A9 (`work/done-tasks/`). Không vòng review nào nữa.
+
 ## Owner cần quyết
-- —
+- **O-MCPW-CLOSE-FINAL** · Nhìn Owner View rồi gật đóng MCPW. Host P91 + Reviewer P92 đều PASS. **Đề xuất: ĐỒNG Ý.**
