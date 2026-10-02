@@ -11,7 +11,7 @@ Runtime_Write_Path: **VPS2 LAB ONLY. VPS1 production = READ-ONLY snapshot/topolo
 Chốt **TARGET cuối sẽ dùng cho G6/G7** bằng một RUN trên VPS2:
 - PostgreSQL baseline = **16.15** đã lên production ở S1;
 - nginx baseline = **1.30.5** đã lên production ở S1;
-- Directus candidate bắt buộc = **12.4.1 + OIG** vì 12.4 sửa GHSA-2xcm-7h22-3m66;
+- Directus candidate bắt buộc = **12.4.x mới nhất lúc chạy (≥ 12.4.1) + OIG** vì 12.4 sửa GHSA-2xcm-7h22-3m66;
 - Nuxt = **4.5.2 / Node24.21.0 / SDK19 / @nuxt/ui2.22.3**; vá nốt đúng 5 file `$t` cùng gốc với `login.vue`;
 - Qdrant/Kuma giữ exact digest hiện hành.
 
@@ -25,9 +25,10 @@ READY phải = commit cuối chạm PROMPT. Ghi STARTED theo DROOT31; DROOT30 tr
 PRE:
 1. G5 lab clean: 0 target container chạy; OIG slot lab đã trả; egress rule lab đã gỡ; checkpoint `vpsup-g5-ckpt-pre-s2` còn đúng hash/evidence.
 2. VPS1 read-only snapshot: PG16.15 + nginx1.30.5; exact live compose sha/bytes; `postgres` network membership, đặc biệt `claude_mcp_net`; A09R1 + agent-data/MCP/Hermes current refs. **Không chờ MCPW/MMIM terminal nếu không chạm VPS2**; chỉ ghi moving-target để G6 recheck fresh.
+   **P93:** so `docker inspect` thật với compose cho **mọi container G6/G7 sẽ tạo lại** (directus, nuxt và mọi service trong manifest): Networks · Mounts · Env keys (không value) · ExtraHosts · RestartPolicy · Labels. Mọi thứ gắn tay ngoài compose (như `claude_mcp_net` của postgres) ⇒ ghi vào manifest; chỉ đọc.
 3. Config Guard `hvu-sync-py` và Kuma #21/#22 nếu còn đỏ: ghi owner task/status, **không repair/rebaseline trong VPSUP** và không gate TARGET.
 4. OIG key chỉ metadata EXISTS; materialize qua đường lab đã proof, không log/value.
-5. Resolve Directus12.4.1 exact **index + amd64 digest** bằng registry read-only; pin digest, không dùng floating tag.
+5. Resolve Directus **bản vá 12.4.x mới nhất lúc chạy (≥ 12.4.1; có bản mới hơn thì dùng và ghi lý do)** exact **index + amd64 digest** bằng registry read-only; pin digest, không dùng floating tag.
 
 ## T2 · Fresh working copy
 - Clone checkpoint pre-S2 G5 → working TARGET-FINAL; checkpoint gốc immutable.
@@ -44,9 +45,10 @@ Trên working copy:
    - inactive collection API behavior + consumer scan;
    - directus#28318: inventory PK `0`/`''` liên quan update/delete-filter; nếu có thì test fixture và ghi blocker/expected;
    - non-admin folders behavior 12.4.1;
-   - Map interface/WebGL2 bằng browser thật;
+   - Map interface/WebGL2: đếm field dùng interface map trước; 0 ⇒ N/A, > 0 ⇒ thử bằng browser thật;
    - theme/extension compatibility (`@unhead/vue` delta) + extension host;
    - SDK19 + Nuxt consumer, agent-data/MCP/DOT/Flow representative paths.
+   - **P93:** liệt kê **đủ** (không chỉ đại diện) mọi đường update/delete theo query/filter: operation Flow `item-update`/`item-delete` có query, DOT và agent-data gọi update/delete theo filter. Đường nào chạy bằng token/accountability không phải admin ⇒ chứng minh kết quả 12.3.1 vs 12.4.x như nhau hoặc ghi khác biệt cụ thể (12.4 bắt buộc quyền READ).
 5. 167/actual collections, 128 Flow, permission count = lab/prod source; permission negatives + tenant-sensitive query tests PASS.
 
 **Nếu 12.4.1 có blocker thật không sửa hẹp được:** KQ `DỪNG · DIRECTUS1241_BLOCKER · <exact>`; không tự chọn 12.3.1 làm production target.
@@ -64,15 +66,19 @@ Chạy SAME SLICE G5 A–D + SEC trên Directus12.4.1/Nuxt final:
 - Directus admin browser login;
 - representative Flow → agent-data, permission negatives, auth/refresh;
 - Qdrant/client path giữ nguyên;
-- topology manifest cho G6/G7: ghi VPS1 live `postgres` networks và **bắt buộc giữ `claude_mcp_net`**; chuẩn bị candidate declarative external-network stanza hoặc deterministic post-create attach + verification `query_pg`. Không mutation VPS1.
+- topology manifest cho G6/G7: ghi VPS1 live `postgres` networks và **bắt buộc giữ `claude_mcp_net`**. **P93 chốt cách:** khai `claude_mcp_net` là mạng ngoài (`external: true`) trong compose cho service `postgres` — tạo lại container bao nhiêu lần cũng tự có, không dựa người nhớ. Chứng minh trên VPS2 (tạo mạng cùng tên trong lab → recreate PG → kiểm membership + kết nối). Gắn tay sau khi tạo chỉ là dự phòng nếu khai báo hỏng. Không mutation VPS1.
 
 **Không thêm soak N giờ.** Thay bằng fixed-workload/replay đủ lớn (ví dụ cùng route/slice lặp tới ≥5.000 HTTP/API request hoặc workload tương đương), ghi error/restart/RSS/heap/CPU. G4 đã có long-soak; G6 sẽ fresh-data rehearsal. Nếu Reviewer chỉ ra failure mode cần thời gian mới lộ thì giao machine-owned timer, không giữ Mac/Claude chờ.
+
+**P93 — failure mode cần thời gian duy nhất đáng xét: license** (telemetry 6 giờ/lần + làm mới license). So mã licensing/telemetry 12.3.1 ↔ 12.4.x (package `@directus/license` + nơi gọi). Không đổi ⇒ dùng lại bằng chứng soak 6 h của G4, không chờ. Có đổi ⇒ máy giữ lab chạy hết 1 chu kỳ telemetry (≥ 6 h) bằng đúng cơ chế soak máy giữ của G4C (tự trả slot cuối); executor ghi KQ phần còn lại rồi thoát, kết quả timer do máy ghi. Rò bộ nhớ chậm để G6 + 7 ngày theo dõi bắt.
 
 ## T6 · Đóng gói TARGET cuối
 PASS 12.4.1 + Nuxt final ⇒ evidence phải có:
 - exact digests: PG16.15 · Directus12.4.1 · nginx1.30.5 · Qdrant/Kuma keep · Node/Nuxt package lock;
 - UUID DOT + ABC sha + exact migration count/schema diff;
 - Nuxt final patch/hash + 6 file i18n fix (login + 5 sibling);
+- **P93:** artifact Nuxt cuối = bản build đã kiểm (`.output`/image) + sha256; G6/G7 **copy đúng bytes này, cấm build lại**;
+- patch compose chỉ gồm hunk VPSUP (pin image + mạng `claude_mcp_net`) để G7 áp và commit đúng hunk đó vào git `/opt/incomex`, không đụng thay đổi của việc khác;
 - OIG activation/deactivation result; trả slot 204 trước cleanup;
 - SAME SLICE/security/browser/fixed-workload results;
 - `TARGET-FINAL-MANIFEST` cho G6: artifacts + compose/runtime deltas + **topology PG↔claude_mcp_net** + carry-forward list pointer.
@@ -83,7 +89,7 @@ Không sửa/commit live compose VPS1 trong RUN này. Vì `/opt/incomex` đang d
 Trả OIG activation khi Directus+egress còn chạy → confirm slot giảm → stop TARGET → đóng egress → shred key/runtime-secret-bearing working copy theo runbook đã proof. Giữ checkpoint/evidence không chứa key cần cho G6.
 
 PASS:
-`KQ@VPSUP-TARGET-FINAL-20261002-01 XONG · TARGET_FINAL_PASS · DIRECTUS12.4.1 · NUXT4.5.2`
+`KQ@VPSUP-TARGET-FINAL-20261002-01 XONG · TARGET_FINAL_PASS · DIRECTUS<bản 12.4.x thật> · NUXT4.5.2`
 
 FAIL:
 `KQ@VPSUP-TARGET-FINAL-20261002-01 DỪNG · <exact blocker>`
