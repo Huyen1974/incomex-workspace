@@ -3,14 +3,14 @@
 > **CÁCH GIAO HERMES:** nói với GPT/Claude `giao Hermes: <việc>` → AI ghi `ASSIGN@` tại **COLLAB HJW này** → Telegram hiện thẻ → 😊 Owner bấm **Cho chạy**. Việc có thể yêu cầu Hermes đọc task khác; quyền ghi của Hermes vẫn theo profile đã duyệt.
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31.
+Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 15:27 +07 · Claude Code CLI · P70 STARTED
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 15:30 +07 · GPT Host · P71 BỔ SUNG
 - 🎯 Mục tiêu: (1) Hermes nhận việc được thật qua **2 kênh** — Owner giao trực tiếp · AI giao qua repo; (2) hết cảnh máy chủ báo đỏ mà AI vẫn báo OK; (3) phần mới làm nằm trong Điều 30/31.
 - 🏁 Xong khi: 😊 Owner tự gõ 1 câu trên app → Hermes trả lời (K1) · AI ghi `ASSIGN` → thẻ Telegram → Owner bấm → Hermes ghi kết quả (K2) · lệch phiên bản tái diễn thì máy tự báo · không còn đèn đỏ vô chủ và AI tự đọc được bảng đèn.
 - 📍 Tiến độ: `[✓ baseline CLOSED] → [✓ PROMPT + Reviewer ACCEPT] → [✓ Host ACCEPT/READY] → [■ RUN ISSUED] → [□ nghiệm thu, có đọc bảng đèn] → [□ đóng]`.
 - ✅ Đã xong: HJW baseline · MCPW R6 protection · P67 đủ 3 yêu cầu Owner · DROOT34 được GPT Founder xác nhận · PROMPT last-touch `0786390` đã review ACCEPT.
-- ■ Đang làm: 🤖 Claude Code CLI · `STARTED@HJW-MAINT-COMPAT-20261002-01` 08:26Z (P70) · đang D1 đo chỉ-đọc, chưa mutation.
+- ■ Đang làm: 🤖 Claude Code CLI · `STARTED@HJW-MAINT-COMPAT-20261002-01` 08:26Z (P70) · đang D1 đo chỉ-đọc, chưa mutation · **kiến trúc chuẩn: MacBook = thin client/màn hình; backend Hermes duy nhất = VPS**.
 - ⬜ Còn lại: D1 đo → sửa tối thiểu → K1/K2 → sửa/định danh đèn đỏ → bảng bảo vệ Điều 30/31 → Host + Reviewer nghiệm thu một lượt.
 - ➡ Kế tiếp: 🤖 executor D1 → D2 → báo Owner một lần gom K1+K2; 😊 Owner chỉ cần K1 gõ 1 câu trên app + K2 bấm 1 thẻ khi được yêu cầu; Host/Reviewer chờ KQ (DROOT31: không sửa PROMPT/READY).
 - ⛔ Không làm/để sau: không capability mới · không AUTO · không task/service mới · không blind `hermes update` · không đụng VPSUP đang chạy.
@@ -1091,3 +1091,10 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 ### P70 · Claude Code CLI · 2026-10-02 · RUN `HJW-MAINT-COMPAT-20261002-01`
 - STARTED@HJW-MAINT-COMPAT-20261002-01 2026-10-02T08:26:04Z · executor=Claude Code CLI · read-gate PASS: `workspace_stat` HEAD `e79eab7`; PROMPT last-touch `0786390396bb9c22ff2d48395927eb6b625a4065` = `READY@` P68 + Reviewer ACCEPT P67/P69; A0 ĐÃ XÁC NHẬN; 0 STARTED/KQ/STOP_REQUESTED/HOLD trước đó. VPSUP G6 (P105/P106) chỉ ghi VPS2 lab ⇒ lượt này không chạm VPS2/VPSUP.
 - Áp: SAME_COMMIT
+
+### P71 · Host GPT · 2026-10-02 15:30 +07 · **BỔ SUNG KIẾN TRÚC OWNER · KHÔNG ĐỔI PROMPT/READY**
+- Hermes runtime/backend chỉ chạy trên **VPS**. MacBook Owner chỉ chạy **client/UI/màn hình** kết nối tới backend Hermes trên VPS; không có “Hermes backend trên Mac”.
+- Vì RUN đã STARTED, Host **không sửa PROMPT/READY** (DROOT31). Đây là làm rõ kiến trúc để executor áp vào D1 hiện hành, không đổi scope.
+- Chẩn đoán đúng phải là: **Mac thin client/version/protocol/schema request ↔ backend/session schema trên VPS**. Nếu thấy `cwd_explicit` lệch thì tìm nơi client Mac sinh field và backend VPS từ chối field; không đi tìm hay update một backend Hermes thứ hai trên Mac.
+- K1 vẫn là Owner gõ trên app Mac và thấy kết quả, nhưng execution/model/session thực nằm ở VPS. Điều 31 cảm biến hậu quả vẫn đặt phía VPS là đúng vì nơi từ chối `session.create` chính là backend VPS.
+- Executor tiếp tục D1; không cần dừng/restart chỉ vì bổ sung này.
