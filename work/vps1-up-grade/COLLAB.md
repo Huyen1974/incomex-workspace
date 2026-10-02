@@ -4,27 +4,27 @@ Tên việc: Nâng PG · Directus · Nuxt/Agency OS lên bản mới nhất ổn
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/09/2026: mở `work/vps1-up-grade`, tập hợp phương án cũ + ý kiến Claude + bổ sung mới của Owner để hội đồng lập kế hoạch nâng cấp an toàn. Chưa cho phép nâng cấp/dọn/xóa/restart/deploy ở lượt mở việc này.
 
-### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 11:42 +07 · Claude Code · STARTED TARGET-FINAL — đọc đầu tiên, mọi phiên (AGENTS MT4)
+### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 11:58 +07 · Claude Reviewer · P96 (lộ trình gộp PG18) — đọc đầu tiên, mọi phiên (AGENTS MT4)
 - 🎯 **Mục tiêu — Owner nguyên văn 01/10 16:57:** “Chủ yếu là nâng PG, Directus, Nuxt và OS agency lên bản mới nhất.” · “Mục tiêu nâng cấp là để tận dụng được các công nghệ tốt nhất giải quyết bài toán xây dựng cỗ máy sản xuất quy trình.”
 - 🎯 **Một câu:** nền của Máy sản xuất quy trình (MOW/MOT/MOIT/MOUT) chạy trên **bản mới nhất ổn định** của PG · Directus · Nuxt/Agency OS. An toàn, rollback, lab VPS2 là **cách làm**, không phải mục tiêu.
 - 🏁 **Xong khi VPS1 chạy:**
 
 | Thành phần | Trước | Đích | Bước |
 |---|---|---|---|
-| PostgreSQL | 16.13 | **18.x mới nhất** (16.15 chỉ là bản vá tạm) | S1 → 10B |
+| PostgreSQL | 16.13 | **18.x mới nhất** (16.15 = điểm lùi an toàn của G7) | S1 → **G7** |
 | Directus | 11.5.1 | **12.4.x mới nhất (≥ 12.4.1) + OIG** nếu probe PASS (12.4 vá bảo mật GHSA-2xcm mà 12.3.1 còn lỗi; lùi 12.3.1 chỉ khi probe có blocker) — chốt trước G6 | G7 |
-| Agency OS = web Nuxt của mình (fork; upstream ngừng 03/2025 ⇒ tự nâng) | Nuxt 3.20.2 · Node 20 · @nuxt/ui 2 | **Nuxt 4.5.x · Node 24 LTS · SDK khớp Directus** → **@nuxt/ui v4** | G7 → 10B |
+| Agency OS = web Nuxt của mình (fork; upstream ngừng 03/2025 ⇒ tự nâng) | Nuxt 3.20.2 · Node 20 · @nuxt/ui 2 | **Nuxt 4.5.x · Node 24 LTS · SDK khớp Directus** → **@nuxt/ui v4** | G7 → ngay sau G7 |
 | nginx | 1.29.5 | 1.30.5 | S1 |
 
 - 🏁 Kèm: máy quy trình chạy như cũ trở lên (SAME SLICE · 128 Flow · quyền = prod), 0 mất dữ liệu; e-learning về VPS1; VPS2 huỷ.
-- 📍 **Tiến độ (đúng một ô ■):** `1–7✅ 8■ G5✅ → S1✅ → **chốt TARGET READY@40df4ec** (Directus 12.4.x probe + 5 file $t + gói cuối) → G6 · 9⬜ G7 · 10⬜ 7 ngày · 10B⬜ 10B-A PG18 → 10B-B @nuxt/ui v4 · 11⬜ e-learning → VPS1, huỷ VPS2`
+- 📍 **Tiến độ (đúng một ô ■):** `1–7✅ 8■ G5✅ → S1✅ → **chốt TARGET đang chạy** → G6 (tập MỘT lần: PG18 + Directus 12.4 + Nuxt 4.5) · 9⬜ G7 (chuyển production MỘT lần) · 10⬜ @nuxt/ui v4 · 11⬜ đủ 7 ngày ổn định (máy canh nền từ G7) → e-learning về VPS1, huỷ VPS2`
 - ✅ **Đã xong:** chốt kế hoạch · G0 khảo sát · OIG key · SEC/BK1 · VPS2 dọn/cô lập · G2 CURRENT · G3 artifact/digest · G4 PASS có disposition · G5 rollback rehearsal PASS · **S1 production PASS: PG16.15 + nginx1.30.5** (PG downtime ≈3 s; web ≈11–12 s; 132/132 route; dữ liệu/A09R1 nguyên; 0 rollback).
 - ■ **Đang làm:** 🤖 Claude Code chạy RUN `VPSUP-TARGET-FINAL-20261002-01` (READY@`40df4ec`) trên VPS2 lab, VPS1 chỉ đọc · STARTED 04:42Z · chờ KQ.
-- ⬜ **Còn lại, đúng thứ tự:** chốt TARGET trên VPS2 (Directus12.4.1 security/breaking probe + vá 5 file `$t` + đóng gói artifact/runbook cuối) → G6 bằng dữ liệu VPS1 mới + carry-forward **mọi delta sống** + checkpoint post-S2 ngay trước unfreeze → G7 → 7 ngày → 10B-A PG18 (bản 18.x mới nhất lúc làm) → 10B-B @nuxt/ui v4 (bản 4.x mới nhất lúc làm) → 11 e-learning về VPS1, huỷ VPS2.
+- ⬜ **Còn lại, đúng thứ tự (P96 gộp PG18):** chốt TARGET (đang chạy) → **G6 tập MỘT lần chuyển gộp** trên VPS2 bằng dữ liệu VPS1 mới: PG 16.15 → 18.x mới nhất (dump/restore sang ổ dữ liệu MỚI, ổ PG16 cũ giữ nguyên làm đường lùi) + Directus 12.4.x + Nuxt 4.5 + carry-forward mọi delta sống + checkpoint ngay trước mở ghi. PG18 vướng thật ⇒ G6 vẫn xong phần Directus/Nuxt, PG18 thành bước riêng làm **ngay sau G7**, không chờ → **G7 chuyển production MỘT lần** (😊 Owner chọn đêm) → máy canh 7 ngày chạy nền (không phải bước chờ) → **@nuxt/ui v4** (chỉ giao diện, lùi 15 s) → đủ 7 ngày ổn định + @nuxt/ui v4 xong ⇒ e-learning về VPS1, huỷ VPS2.
 - 🧩 **Phát sinh đã nhập đúng đường ray, không mở bước riêng:** Directus12.4.x security probe · 5 sibling `$t` · checkpoint post-S2 · carry-forward mọi delta VPS1 sống · **topology PG↔`claude_mcp_net`**. Diễn giải bắt buộc P93/P94: network external là **ADDITIVE** — giữ nguyên mọi network/default hiện có của `postgres`, chỉ thêm `claude_mcp_net`, không được thay thế network mặc định. Live compose VPS1 đang dirty bởi việc khác ⇒ cấm reset/ghi đè; G6 PRE chụp exact bytes + diff. `hvu-sync-py` drift và Kuma #21/#22 thuộc MMIM/MCPW, không gate TARGET.
 - ➡ **Kế tiếp:** 🤖 Claude Code ghi KQ TARGET-FINAL rồi dừng · Host nghiệm thu + soạn G6 · Reviewer rà.
 - ⛔ **Không làm / để sau (không gate):** DNS (D11, giữ Mắt Bão) · chờ MCPW (P83) · nâng Qdrant/Kuma · thoát Agency OS (D08, việc khác).
-- **Luật Bảng:** đi đúng thứ tự trên; việc không có trên đường ray = “sau, không gate”. Lượt nào đổi trạng thái sửa Bảng + dòng `cập nhật` cùng commit (AGENTS MT4). VPS2 chỉ huỷ sau 10B (còn là lab). 10B: PG 18 và @nuxt/ui v4 mỗi major rehearsal/rollback riêng.
+- **Luật Bảng:** đi đúng thứ tự trên; việc không có trên đường ray = “sau, không gate”. Lượt nào đổi trạng thái sửa Bảng + dòng `cập nhật` cùng commit (AGENTS MT4). VPS2 chỉ huỷ khi đủ 7 ngày ổn định + @nuxt/ui v4 xong (còn là lab). Mỗi bước/cổng/khoảng chờ phải trả lời “có cần không, gộp được không” (P96).
 - Bảng E (P06) chỉ còn là lịch sử.
 
 ### 1. Mục tiêu
@@ -1273,6 +1273,19 @@ Phản biện đúng P03, không mở thêm file:
 - **Kiểm thật:** last-touch PROMPT = `40df4ec4067aa407df9abc7e99721c0b426d7dc3` = READY P94; PROMPT không đổi sau P93; 0 STARTED/KQ TARGET-FINAL.
 - **2 làm rõ của Host: ACCEPT.** (1) Mạng bổ sung là đúng và cần: trong compose, hễ khai `networks:` cho một service là mất mạng `default` ngầm định ⇒ phải liệt kê lại đủ mạng cũ + thêm `claude_mcp_net`; chữ P93 chưa nói rõ điểm này, Host bắt đúng. Đã nằm trong Bảng (executor đọc theo T1) nên không cần sửa PROMPT. (2) Một phiên bản Directus xuyên T3/T6/KQ: ACCEPT.
 - Không thêm vòng review. Sau KQ: Host nghiệm thu + sửa Bảng cùng commit; Reviewer rà KQ trước khi soạn G6.
+- Owner cần quyết: —.
+
+### P96 · Claude Chat (Reviewer) · 2026-10-02 · GỘP PG18 VÀO G6/G7 · BỎ CHỜ 7 NGÀY TRƯỚC PG18 · TỰ NHẬN LỖI REVIEWER
+- **Owner 02/10 11:46 (nguyên văn):** “Tại sao các việc mơ hồ nhưng các bạn có thể dễ dàng đồng ý với nhau thế nhỉ” · “Chúng ta đang kéo dài lê thê cả tuần cái việc nâng cấp PG/Directus. Nếu đã nâng cấp rồi, tốn bao nhiêu thời gian và token đi vá cái cũ làm gì nhỉ?”
+- **Bảng: khớp repo nhưng lệch mục tiêu:** lộ trình cũ đặt PG18 sau G7 + chờ 7 ngày ⇒ một đích (PG18) tốn thêm 1 lần tập + 1 đêm chuyển production + ~1 tuần chờ. Reviewer đã chấp nhận từ P84–P91 mà không hỏi “có cần không” — lỗi của Reviewer.
+- **S1 không phí:** nginx 1.30.5 là đích cuối; PG 16.15 là điểm lùi an toàn của G7 (đêm G7 hỏng thì quay về đúng trạng thái S1) và đóng lỗ bảo mật 16.13 ngay. Phí là phần nghi lễ: nhiều vòng review cho một thay đổi 3 giây.
+- **Đề xuất (đã ghi vào Bảng):** G6 tập MỘT lần chuyển gộp PG18 + Directus 12.4 + Nuxt 4.5; G7 chuyển một lần. An toàn vì: dữ liệu 3,4 GB dump/restore vài phút; PG18 lên **ổ dữ liệu mới**, ổ PG16 không bị đụng ⇒ quay lui trước mở ghi chỉ là trỏ lại ổ cũ (còn đơn giản hơn G5); chính sách sau mở ghi giữ nguyên P88. G6 phải phủ thêm: đường volume mới của image PG18, checksum mặc định, extension (btree_gist/postgres_fdw/pgcrypto), Directus 12.4 + agent-data + DOT trên PG18, đo thời gian dump/restore. PG18 vướng thật ⇒ không chặn: G7 chạy Directus/Nuxt, PG18 làm ngay sau, không chờ.
+- **7 ngày** = máy canh chạy nền từ G7, không phải bước chờ. **@nuxt/ui v4** làm ngay sau G7 (chỉ giao diện, lùi 15 s). Huỷ VPS2 khi đủ 7 ngày ổn định + @nuxt/ui v4 xong.
+- **Tiết kiệm:** bớt 1 lần tập + 1 đêm chuyển production + ~1 tuần chờ; Owner bớt khoảng 6–8 lượt chuyển tin.
+- **Không ảnh hưởng RUN đang chạy:** TARGET-FINAL vẫn đúng việc (chốt Directus/Nuxt). Không đổi PROMPT/READY/HOLD; diff chỉ ở Bảng + mục P ⇒ executor chạy tiếp (MT4/DROOT30).
+- **Gốc rễ “dễ đồng ý”:** Reviewer rà “bước viết đúng chưa” mà không hỏi “bước này có cần không, gộp được không”; cả hai AI cùng thiên về “thêm cổng là an toàn”. Đã thêm câu hỏi bắt buộc vào AGENTS MT4.
+- Thay D13 (Host 26/09, tách major PG) — **GPT Host xác nhận khi nghiệm thu TARGET-FINAL**, trước khi soạn G6. GPT đã tự nêu bỏ chờ 7 ngày (chat 02/10); P96 đi thêm một bước: gộp vào cùng một lần chuyển.
+- JEV `gen-dec-1790916527-73OQO3EBLE28Pv9fbAvS`: gộp 0,85 · GPT tuần tự 0,10 · giữ như cũ 0,05 · thêm câu hỏi “có cần không” cho Reviewer 0,77.
 - Owner cần quyết: —.
 
 ## Owner cần quyết
