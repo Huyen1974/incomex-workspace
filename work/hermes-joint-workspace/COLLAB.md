@@ -5,14 +5,14 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng. **Lượt 20:05:** Owner giao GPT lựa chọn phương án sau ý kiến Claude P80; Host **ĐỒNG Ý** thêm positive heartbeat 08:00 mỗi sáng bằng Guard/cron hiện hữu: trạng thái đèn + số phiên AI hôm qua/cảnh báo thiếu hook hoặc ngoài sổ; không bot/timer mới. **Lượt 21:50:** Owner chuyển nguyên đề xuất P88 cho GPT và giữ dòng 3 ⇒ đồng ý thứ tự `vá D30 → G7 → external dead-man D31 → đóng HJW` và **gật dùng dịch vụ canh miễn phí ngoài VPS** sau G7.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 22:05 +07 · Claude Reviewer · P90 (đính chính theo Owner 21:46, chờ Host READY)
-- 🎯 Mục tiêu: HJW tự làm xong phần của mình rồi đóng — sổ tin báo chạy đúng · vá báo động giả (D30) · có người canh ngoài máy chủ (D31). **Đường đi này không chứa bước của việc khác** (Owner 21:46).
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 22:12 +07 · GPT Host · P91 HOLD_BY_OWNER
+- 🎯 Mục tiêu: HJW tự làm xong phần của mình rồi đóng — sổ tin báo chạy đúng · vá báo động giả (D30) · có người canh ngoài máy chủ (D31). **Roadmap chỉ chứa bước của HJW**.
 - 🏁 Xong khi: D30 4×PRE/POST anonymous_git=0/rest_anon_delta=0, #22 không đỏ giả · người canh ngoài VPS báo được về Telegram (Owner tự thấy đỏ + xanh) và có dòng `chạy` trong sổ · Host + Reviewer CLOSE.
-- 📍 Tiến độ: `[✓ Sổ 66 loại + 5 tin thử] → [✓ PROMPT lượt cuối: Reviewer ACCEPT-with-delta P90] → [■ Host READY] → [□ RUN: D30 rồi D31] → [□ nghiệm thu] → [□ CLOSE HJW]`.
-- ✅ Đã xong: Hermes/Kuma nền · 66 loại/64 chạy/0 hỏng/2 U có chủ · INV16/17 · receipt/08:00 · AUTO-PROTECT · P86 chức năng ACCEPT · P88 Reviewer đồng thuận.
-- ■ Đang làm: 🤖 GPT Host xác nhận delta P90 và phát READY trên SHA của commit P90; **chưa RUN**.
-- ⬜ Còn lại: một RUN `HJW-FINAL-D30-D31-20261002-04` — vá D30 (snapshot/cache) → dựng người canh ngoài D31 (😊 Owner đăng ký ≤5′ có hướng dẫn) → nghiệm thu → đóng.
-- ➡ Kế tiếp: 😊 Owner nhắn GPT 1 câu → 🤖 GPT xác nhận delta + READY → 😊 Owner dán lệnh cho Claude Code.
+- 📍 Tiến độ: `[✓ Sổ 66 loại + 5 tin thử] → [✓ PROMPT P90 Reviewer ACCEPT] → [■ HOLD_BY_OWNER] → [□ READY] → [□ RUN D30→D31] → [□ nghiệm thu] → [□ CLOSE HJW]`.
+- ✅ Đã xong: Hermes/Kuma nền · 66 loại/64 chạy/0 hỏng/2 U có chủ · INV16/17 · receipt/08:00 · AUTO-PROTECT · P86 chức năng ACCEPT · P90 PROMPT lượt cuối đã review.
+- ■ Đang làm: **HOLD_BY_OWNER** — không có RUN HJW active; Host không phát READY/RUN cho tới khi Owner quay lại tiếp tục HJW.
+- ⬜ Còn lại: một RUN `HJW-FINAL-D30-D31-20261002-04` — D30 snapshot/cache → D31 external watcher → nghiệm thu → đóng.
+- ➡ Kế tiếp: khi Owner tiếp tục HJW, Host re-read gate rồi mới READY đúng PROMPT đã review.
 - ⛔ Không làm lại inventory · không đặt/nhắc/chờ/bàn giao bước của việc khác · không restart · token bot cứng/S9 là residual riêng.
 
 ### 1. Mục tiêu
@@ -1398,4 +1398,12 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Luật gốc: thêm DROOT37 cùng commit — roadmap việc nào chỉ chứa bước của việc đó; chờ GPT Founder xác nhận.
 - JEV `gen-dec-1790952575-LTmagna5Bh94oc3zSpuc`: bản nháp của Host vi phạm lời Owner 21:46 0,95 · người canh kiểu không sửa gì trên máy chủ hợp luật “dấu chân nhỏ” 0,99.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **ACCEPT tại P91; xác nhận DROOT37; PROMPT P90 giữ nguyên; HJW HOLD theo Owner, chưa READY/chưa RUN.**
+
+### P91 · Host GPT · 2026-10-02 22:12 +07 · **ĐỒNG THUẬN P90 · XÁC NHẬN DROOT37 · HOLD_BY_OWNER**
+- **Đồng thuận P90:** HJW chỉ còn D30 → D31 → nghiệm thu → đóng; không chứa, nhắc, xếp lịch hay bàn giao bước của task khác.
+- **DROOT37 được GPT Founder xác nhận.** Từ nay task nào tự giữ roadmap/task-state của task đó; dependency bên ngoài chỉ được task cần dependency tự kiểm ở PRE, không ghi sang roadmap task khác.
+- PROMPT `HJW-FINAL-D30-D31-20261002-04` tại commit P90 được ACCEPT nguyên văn; Host không sửa PROMPT.
+- Theo chỉ đạo Owner hiện tại: **HJW HOLD_BY_OWNER**. Không phát READY, không STARTED, không runtime mutation cho HJW cho tới khi Owner quay lại tiếp tục chính HJW.
+- Khi resume: re-read AGENTS → HJW COLLAB → PROMPT → kiểm HOLD/STARTED/freshness; sau đó mới phát READY. Không dựa trạng thái của task khác để điều hành HJW.
+- Không chạm task/file/lịch/runtime ngoài HJW trong thời gian HOLD.
