@@ -1,3 +1,50 @@
+# PROMPT — HJW POST-PROTECT RECEIPT · báo hậu triển khai dù không đổi trạng thái
+
+RUN_ID: HJW-POST-PROTECT-RECEIPT-20261002-03
+Host: GPT Chat · GPT-HJW-260922-A
+Owner_authorization: 02/10/2026 — sau mọi thay đổi production, hệ thống phải báo Telegram rằng đã đổi gì và trạng thái bảo vệ cuối cùng; không được im lặng chỉ vì mọi đèn vẫn xanh.
+
+## 0. Mục tiêu duy nhất
+
+KQ `c38539d` về Kuma/Telegram **đạt kỹ thuật**, nhưng chưa đóng vì Owner chưa nhận được một biên nhận hậu triển khai khi trạng thái không đổi. Lắp và chứng minh `POST-PROTECT RECEIPT` dùng chung; không làm lại K1/K2/Kuma Down-Up.
+
+## 1. Ranh giới
+- Không restart/reload service chỉ để tạo alert.
+- Không tạo bot/token/service/timer/DB/monitor mới.
+- Reuse đúng đường Telegram Owner hiện hữu; receipt không phụ thuộc Kuma state transition.
+- Reuse DOT/script-wrapper hiện hữu; nếu có common post-hook thì gắn tại đó. Nếu chưa có common hook, bổ sung nhỏ nhất vào wrapper/template hiện hữu, không dựng pipeline riêng.
+- Mọi file/config runtime mới/sửa trong RUN này tự tuân AUTO-PROTECT DROOT29/A10-R4.
+
+## 2. Hành vi bắt buộc
+Sau POST-PROTECT PASS của một mutation production, gửi **đúng một** tin Telegram ngắn có: `POST-PROTECT · ✅ PASS`; RUN/commit; footprint đã đổi; Điều 30 PASS; Điều 31 PASS; Config Guard; Protection Guard; Kuma fleet; rollback.
+- Không có state transition vẫn phải gửi.
+- Nếu verify-only/no-op thì ghi rõ `NO-CHANGE VERIFY`, không giả là đã deploy.
+- Lưu delivery proof/message_id vào evidence/ledger hiện hữu; không tạo sổ mới.
+- Telegram fail ⇒ POST-PROTECT không success; KQ PARTIAL/BLOCKED.
+- Receipt không thay cảnh báo thật của Kuma; Down/Up vẫn theo Kuma.
+
+## 3. Test — không restart
+1. PRE đọc current fleet/Guard/Config Guard và current receipt path.
+2. Implement receipt tối thiểu.
+3. Chạy **verify-only/no-op POST-PROTECT** trên trạng thái hiện tại: không mutation production, không restart.
+4. Owner phải nhận đúng một receipt Telegram; lưu message_id/timestamp.
+5. Negative: giả delivery fail ⇒ POST-PROTECT phải FAIL/PARTIAL, không xanh giả.
+6. Regression: Kuma fleet vẫn toàn xanh; Guard/Config Guard không drift; HJW/K1/K2 không đụng.
+
+## 4. AUTO-PROTECT cho chính thay đổi này
+Bảng coverage bắt buộc: file/config/script vừa đổi → D30 → D31 → watchdog → rollback → ĐỦ. Nếu THIẾU thì không XONG.
+
+## 5. KQ
+Chỉ XONG khi Owner thực nhận receipt no-op và có delivery proof:
+`KQ@HJW-POST-PROTECT-RECEIPT-20261002-03 XONG · RECEIPT_DELIVERED`
+Nếu chưa nhận:
+`KQ@HJW-POST-PROTECT-RECEIPT-20261002-03 BLOCKED · RECEIPT_NOT_DELIVERED`
+
+Sau KQ dừng; Host+Claude nghiệm thu một lượt. Không restart hàng loạt để thay cho test receipt.
+
+---
+
+# VÒNG TRƯỚC — KUMA FINAL CLOSEOUT (KQ c38539d · kỹ thuật PASS, chờ receipt trước đóng)
 # PROMPT — HJW KUMA FINAL CLOSEOUT · all green + Telegram both directions + direct protection
 
 RUN_ID: HJW-KUMA-CLOSEOUT-20261002-02
