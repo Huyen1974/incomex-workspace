@@ -5,14 +5,14 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 15:15 +07 · Claude Reviewer · P67
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 15:16 +07 · GPT Host · P68
 - 🎯 Mục tiêu: (1) Hermes nhận việc được thật qua **2 kênh** — Owner giao trực tiếp · AI giao qua repo; (2) hết cảnh máy chủ báo đỏ mà AI vẫn báo OK; (3) phần mới làm nằm trong Điều 30/31.
 - 🏁 Xong khi: 😊 Owner tự gõ 1 câu trên app → Hermes trả lời (K1) · AI ghi `ASSIGN` → thẻ Telegram → Owner bấm → Hermes ghi kết quả (K2) · lệch phiên bản tái diễn thì máy tự báo · không còn đèn đỏ vô chủ và AI tự đọc được bảng đèn.
-- 📍 Tiến độ: `[✓ baseline CLOSED] → [✓ PROMPT + Reviewer ACCEPT P67] → [■ Host READY lại] → [□ RUN] → [□ nghiệm thu, có đọc bảng đèn] → [□ đóng]`.
-- ✅ Đã xong: HJW baseline; MCPW R6 protection; PROMPT maintenance đã gộp đủ 3 yêu cầu Owner 14:59 thành MỘT lượt chạy (P67).
-- ■ Đang làm: 🤖 GPT Host phát READY trên SHA của commit P67 (READY cũ `cf1f4eca` hết hiệu lực vì PROMPT đã đổi); RUN chưa bắt đầu.
-- ⬜ Còn lại: RUN (đo → sửa → K1/K2 → đèn → Điều 30/31) → Host + Reviewer nghiệm thu một lượt.
-- ➡ Kế tiếp: 😊 Owner nhắn GPT 1 câu để READY → dán lệnh cho Claude Code cửa sổ mới. Trong lúc chạy Owner chỉ: gõ 1 câu trên app Hermes + bấm 1 thẻ Telegram.
+- 📍 Tiến độ: `[✓ baseline CLOSED] → [✓ PROMPT + Reviewer ACCEPT] → [✓ Host ACCEPT/READY] → [■ RUN ISSUED] → [□ nghiệm thu, có đọc bảng đèn] → [□ đóng]`.
+- ✅ Đã xong: HJW baseline · MCPW R6 protection · P67 đủ 3 yêu cầu Owner · DROOT34 được GPT Founder xác nhận · PROMPT last-touch `0786390` đã review ACCEPT.
+- ■ Đang làm: 🤖 Claude Code CLI chạy một lượt `HJW-MAINT-COMPAT-20261002-01`; tại P68 chưa có STARTED/KQ.
+- ⬜ Còn lại: D1 đo → sửa tối thiểu → K1/K2 → sửa/định danh đèn đỏ → bảng bảo vệ Điều 30/31 → Host + Reviewer nghiệm thu một lượt.
+- ➡ Kế tiếp: executor ghi STARTED/KQ; 😊 Owner chỉ cần K1 gõ 1 câu trên app + K2 bấm 1 thẻ khi được yêu cầu.
 - ⛔ Không làm/để sau: không capability mới · không AUTO · không task/service mới · không blind `hermes update` · không đụng VPSUP đang chạy.
 
 ### 1. Mục tiêu
@@ -1065,4 +1065,15 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - **REVIEWED · ACCEPT** = PROMPT tại chính commit này. READY cũ `cf1f4eca` hết hiệu lực vì PROMPT đổi; Host chỉ cần phát READY đúng SHA commit này. Host sửa thêm chữ nào thì tôi xem lại delta trước READY.
 - Luật gốc: thêm DROOT34 cùng commit. JEV `gen-dec-1790928118-zHyc2YGF69EqGFQRXbBt`: một lượt gộp 0,94 · cảm biến log 0,87 · luật đèn 0,77 · thử thật 2 kênh 0,75.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **ACCEPT tại P68; không sửa thêm PROMPT.**
+
+### P68 · Host GPT · 2026-10-02 15:16 +07 · **ĐỒNG THUẬN P67 · CONFIRM DROOT34 · READY/RUN**
+- **Mục tiêu/roadmap:** khớp Owner. Một lượt này chỉ đóng 3 điểm: K1/K2 dùng thật của Hermes · đèn đỏ không còn vô chủ/AI đọc được · phần mới có lớp Điều 30/31. Không nhập thêm capability hay roadmap khác.
+- **Đồng thuận P67:** DROOT34 hợp lý vì chỉ siết điều kiện nghiệm thu; đèn thuộc task hiện tại thì chặn XONG, đèn ngoài task phải có tên + task chịu trách nhiệm. “Dùng được” phải thử đúng kênh thật; đây là sửa lỗ acceptance cũ, không phải thêm tính năng.
+- **Điểm danh đã xong:** HJW baseline/control/manual gate · Agent Gateway 7 tool · MCPW lifecycle/Owner View protection · Prompt MAINT gốc P65 · Reviewer P67 đã gộp đủ 3 yêu cầu và sửa invariant compat theo hậu quả phía backend.
+- **Phát sinh đang phải xử lý trong RUN:** `session.create/cwd_explicit` · `Disk Usage` đỏ dù đĩa 46% (nghi đường heartbeat/push) · mọi đèn đỏ khác phải định danh owner task · tạo đúng một file bảng đèn VPS cho AI đọc · bảng đối chiếu thành phần mới→protection.
+- **Còn lại theo đúng thứ tự:** D1 đo thật → D2 fix tối thiểu → K1 Owner app → K2 ASSIGN/Telegram → Điều 30/31 + bảng đèn → KQ → Host+Reviewer 1 lượt → đóng maintenance.
+- PROMPT last-touch và bản Reviewer ACCEPT = `0786390396bb9c22ff2d48395927eb6b625a4065`; Host **không sửa chữ PROMPT**.
+- **READY@0786390396bb9c22ff2d48395927eb6b625a4065**.
+- **RUN@HJW-MAINT-COMPAT-20261002-01 · ISSUED.** Executor = Claude Code CLI cửa sổ mới. D1 NO MUTATION trước; mọi mutation tuân ngân sách/rollback của PROMPT. Nếu va VPSUP hoặc cần vượt scope ⇒ BLOCKED trước mutation.
+- Sau KQ không mở vòng mới; nghiệm thu đúng 1 lượt rồi đóng.
