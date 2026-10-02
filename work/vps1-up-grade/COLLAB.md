@@ -4,7 +4,7 @@ Tên việc: Nâng PG · Directus · Nuxt/Agency OS lên bản mới nhất ổn
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/09/2026: mở `work/vps1-up-grade`, tập hợp phương án cũ + ý kiến Claude + bổ sung mới của Owner để hội đồng lập kế hoạch nâng cấp an toàn. Chưa cho phép nâng cấp/dọn/xóa/restart/deploy ở lượt mở việc này.
 
-### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 10:00 +07 · Claude Code CLI · KQ G5 — đọc đầu tiên, mọi phiên (AGENTS MT4)
+### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 10:02 +07 · GPT Host · P87 — đọc đầu tiên, mọi phiên (AGENTS MT4)
 - 🎯 **Mục tiêu — Owner nguyên văn 01/10 16:57:** “Chủ yếu là nâng PG, Directus, Nuxt và OS agency lên bản mới nhất.” · “Mục tiêu nâng cấp là để tận dụng được các công nghệ tốt nhất giải quyết bài toán xây dựng cỗ máy sản xuất quy trình.”
 - 🎯 **Một câu:** nền của Máy sản xuất quy trình (MOW/MOT/MOIT/MOUT) chạy trên **bản mới nhất ổn định** của PG · Directus · Nuxt/Agency OS. An toàn, rollback, lab VPS2 là **cách làm**, không phải mục tiêu.
 - 🏁 **Xong khi VPS1 chạy:**
@@ -17,11 +17,11 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/0
 | nginx | 1.29.5 | 1.30.5 | S1 |
 
 - 🏁 Kèm: máy quy trình chạy như cũ trở lên (SAME SLICE · 128 Flow · 1.241 quyền), 0 mất dữ liệu; e-learning về VPS1; VPS2 huỷ.
-- 📍 **Tiến độ (đúng một ô ■):** `1–7✅ 8■ G5 → /login → S1 → chốt bản → G6 · 9⬜ G7 · 10⬜ 7 ngày · 10B⬜ 10B-A PG18 → 10B-B @nuxt/ui v4 (hai sub-run tuần tự, đều tập trên VPS2 rồi mới lên VPS1) · 11⬜ e-learning → VPS1, huỷ VPS2`
-- ✅ **Đã xong:** chốt kế hoạch · G0 khảo sát · OIG key · SEC/BK1 bảo vệ + backup có thử khôi phục · VPS2 dọn + cô lập · G2 clone CURRENT + mốc · G3 chốt bản/digest · G4 nâng trên lab (PASS có disposition, P85).
-- ■ **Đang làm:** G5 tập quay lui trên VPS2 — 🤖 Claude Code đã chạy xong: `KQ@VPSUP-G5-ROLLBACK-REHEARSAL-20261001-01 MACHINE_DONE · ROLLBACK_PASS · LOGIN_PASS · ADMIN_UI_PASS` (+ FRONTEND_ONLY_ROLLBACK=PASS); chờ Host nghiệm thu.
-- ⬜ **Còn lại, đúng thứ tự:** `/login` + chính sách sau unfreeze (từ KQ G5) → S1 lên VPS1 (PG 16.15 + nginx, cửa sổ ngắn) → chốt bản mới nhất ổn định → G6 tập chuyển bằng dữ liệu VPS1 mới + mang theo delta A09R1 → G7 chuyển thật (Owner chọn đêm) → 7 ngày → 10B-A PG 18 → 10B-B @nuxt/ui v4 → 11 e-learning về VPS1, huỷ VPS2.
-- ➡ **Kế tiếp:** Host nghiệm thu KQ G5 → chốt `/login` (+5 file `$t` còn lại cùng gốc) + chính sách sau unfreeze, sửa Bảng · Reviewer review KQ G5 · 😊 Owner: không cần thao tác.
+- 📍 **Tiến độ (đúng một ô ■):** `1–7✅ 8■ G5✅ → S1(DRAFT review) → chốt exact bản + vá/verify 5 sibling $t → G6 · 9⬜ G7 · 10⬜ 7 ngày · 10B⬜ 10B-A PG18 → 10B-B @nuxt/ui v4 · 11⬜ e-learning → VPS1, huỷ VPS2`
+- ✅ **Đã xong:** chốt kế hoạch · G0 khảo sát · OIG key · SEC/BK1 bảo vệ + backup có thử khôi phục · VPS2 dọn + cô lập · G2 clone CURRENT + mốc · G3 chốt bản/digest · G4 PASS có disposition · **G5 rollback rehearsal PASS** (3 rollback thật, LOGIN/ADMIN/FRONTEND_ONLY PASS).
+- ■ **Đang làm:** Host P87 đã nghiệm thu G5 và chốt hướng hậu G5; chuẩn bị **S1 production DRAFT** để Claude Reviewer rà. Chưa READY/RUN S1.
+- ⬜ **Còn lại, đúng thứ tự:** S1 lên VPS1 (PG16.15 + nginx1.30.5) → song song chốt exact bản mới nhất ổn định + vá/verify 5 file `$t` cùng gốc trên TARGET → G6 bằng dữ liệu VPS1 mới + carry-forward A09R1 → G7 → 7 ngày → 10B-A PG18 → 10B-B @nuxt/ui v4 → 11 e-learning về VPS1, huỷ VPS2.
+- ➡ **Kế tiếp:** Claude Reviewer rà **P87 + S1 DRAFT**; nếu ACCEPT → Host READY S1 ngay. 😊 Owner chưa cần thao tác cho tới khi có READY S1.
 - ⛔ **Không làm / để sau (không gate):** DNS (D11, giữ Mắt Bão) · chờ MCPW (P83) · nâng Qdrant/Kuma · thoát Agency OS (D08, việc khác).
 - **Luật Bảng:** đi đúng thứ tự trên; việc không có trên đường ray = “sau, không gate”. Lượt nào đổi trạng thái sửa Bảng + dòng `cập nhật` cùng commit (AGENTS MT4). VPS2 chỉ huỷ sau 10B (còn là lab). 10B: PG 18 và @nuxt/ui v4 mỗi major rehearsal/rollback riêng.
 - Bảng E (P06) chỉ còn là lịch sử.
@@ -1177,6 +1177,20 @@ Phản biện đúng P03, không mở thêm file:
 - Không đổi PROMPT/READY ⇒ G5 chạy được ngay; tiêu đề khối vẫn có chữ “ĐƯỜNG RAY” nên lệnh RUN của Host vẫn trỏ đúng.
 - JEV `gen-dec-1790851647-0YzBKj2WdxjAmzLFybC6`: cưỡng chế cả hai lớp 0,73 · áp đến đâu làm đến đấy 0,84 · cổng đọc phiên mới 0,67.
 - Owner cần quyết: — (chốt cưỡng chế nằm ở root).
+
+### P87 · GPT Host · 2026-10-02 · ACCEPT G5 · CHỐT ROLLBACK SAU UNFREEZE · S1 LÀ BƯỚC KẾ TIẾP
+- **Bảng: khớp** sau commit này. Rà lại mục tiêu Owner: task chưa đổi — đích là PG · Directus · Nuxt/Agency OS mới nhất **đủ ổn định** cho Máy sản xuất quy trình; G5 chỉ là bằng chứng an toàn để đi tiếp. Roadmap giữ: G5 → S1 → chốt exact target + G6 → G7 → 7 ngày → 10B-A/B → e-learning/VPS2.
+- **Host ACCEPT G5 `817c45e`:** 3 lần rollback thật đều trả về checkpoint pre-S2 (3.987 file vật lý + hash 2 DB 0 khác) và SAME SLICE CURRENT PASS; activation-fail rollback PASS; full S2 + OIG activate/deactivate PASS; `FRONTEND_ONLY_ROLLBACK=PASS` ≈15s; LOGIN_PASS; ADMIN_UI_PASS; VPS1 0 mutation; lab sạch.
+- **Chuẩn hoá tín hiệu A9:** `KQ@VPSUP-G5-ROLLBACK-REHEARSAL-20261001-01 XONG · MACHINE_DONE · ROLLBACK_PASS · LOGIN_PASS · ADMIN_UI_PASS · FRONTEND_ONLY_ROLLBACK=PASS`.
+- **Các phát hiện không phải regression:** `/knowledge/registries` cold ~34s ở cả Directus11/12 ⇒ baseline chậm, không tối ưu trong VPSUP; 503 admin = nginx `auth_limit`, Directus G5 0×503; 2 console auth ẩn danh = lỗi CURRENT toàn cục. Không mở nhánh sửa riêng.
+- **5 file `$t` còn lại:** `register`, `forgot-password`, `logout`, `admin/users`, `error.vue` cùng gốc với login. **Không chặn S1** vì S1 giữ Nuxt3; nhưng phải vá/verify hẹp trên TARGET trước G6 để G6 rehearsal đúng artifact sẽ lên G7. Không mở RUN riêng nếu gộp được vào bước chốt target/G6-prep.
+- **Chính sách sau unfreeze — chốt từ evidence G5:** trước unfreeze, rollback DB về pre-S2 được phép và đã proof. **Sau unfreeze: cấm restore DB mù.** Thứ tự xử lý: (1) lỗi UI ⇒ frontend-only rollback (~15s) hoặc sửa tiến; (2) lỗi không đụng dữ liệu ⇒ rollback service/sửa tiến; (3) nếu buộc restore DB ⇒ freeze write, giữ nguyên DB lỗi làm bản phụ, chạy `measure.sql` hash bảng + diff theo PK để đối soát phần ghi mới, rồi mới restore/merge có kiểm soát. Mốc **unfreeze write = point-of-no-blind-return** của G6/G7.
+- **Số đo runbook:** freeze→sẵn sàng mở ghi ≈8,6 phút; rollback DB 132–175s; frontend-only ≈15s. G6/G7 dùng số đo thật, không time-box suy đoán.
+- **Version recheck 02/10 (read-only, chạy song song S1 — không tạo lượt chờ):** PostgreSQL 18.6 là stable hiện hành, PG19 vẫn beta ⇒ giữ 18.6 cho 10B-A; Nuxt 4.5.2 vẫn latest và đã proof; Node24.21.0 là LTS đã proof; Directus latest 12.4.1 (23/09) nhưng 12.4.0 có potential breaking MapLibre và 12.3.1 đã proof toàn chuỗi ⇒ giữ 12.3.1 làm baseline, chỉ delta-probe 12.4.1 trước G6 nếu Reviewer chỉ ra **lý do material** (security/feature bắt buộc), không đổi chỉ vì số mới hơn; Nuxt UI 4.11.3 vừa ra 01/10 ⇒ exact 10B-B chốt lại ở 10B, không pin bây giờ.
+- **NEXT đề xuất:** S1 production safe-minors ngay sau Reviewer ACCEPT. S1 chỉ PG16.15 + nginx1.30.5; Directus/Nuxt/DB schema giữ nguyên; bảo toàn A09R1; không DNS/MCPW.
+- **Reviewer cần phản biện đúng 4 điểm:** (1) G5 PASS; (2) post-unfreeze policy; (3) 5 sibling `$t` không chặn S1 nhưng bắt buộc trước G6; (4) S1 production scope. Nếu ACCEPT-with-delta thì sửa thẳng PROMPT S1 khi còn DRAFT; Host sẽ READY ngay, không thêm vòng.
+- JEV `gen-dec-1790910297-CxWgYNi0r4LxxtHYtGIE`: G5 PASS 0,70 (conf 0,55) · 5 sibling trước G6 không chặn S1 0,99 · post-unfreeze frontend/forward-first + reconcile 1,00 · S1 kế tiếp + version recheck song song 0,99 · Directus chỉ delta-probe nếu material 0,99.
+- Owner cần quyết: —.
 
 ## Owner cần quyết
 - —
