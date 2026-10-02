@@ -5,15 +5,15 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng. **Lượt 20:05:** Owner giao GPT lựa chọn phương án sau ý kiến Claude P80; Host **ĐỒNG Ý** thêm positive heartbeat 08:00 mỗi sáng bằng Guard/cron hiện hữu: trạng thái đèn + số phiên AI hôm qua/cảnh báo thiếu hook hoặc ngoài sổ; không bot/timer mới.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 20:18 +07 · GPT Host · P83 READY
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 20:30 +07 · GPT Host · P85 NEW SESSION
 - 🎯 Mục tiêu (Owner 20:07): hệ thống luôn trả lời được **có bao nhiêu loại tin có thể tới điện thoại · bao nhiêu đang chạy · bao nhiêu hỏng · loại nào mới/mất/ngoài sổ**; không còn kiểu “đường chung sống nhưng 6/10 loại âm thầm chết”.
-- 🏁 Xong khi: inventory từ nguồn thật + một sổ chuẩn · Guard đối chiếu hai chiều 5′ · 0 UNKNOWN/THIẾU không có chủ · bản tin 08:00 `N loại · M chạy · K hỏng` · receipt sau mutation · Owner nhận tin thử · mutants bắt nguồn câm/nguồn lạ/nghỉ trái phép.
-- 📍 Tiến độ: `[✓ Hermes/Kuma technical PASS] → [✓ P82 Reviewer ACCEPT-with-delta] → [✓ Host ACCEPT/READY P83] → [■ Claude Code RUN] → [□ Owner thấy tin thử] → [□ Host+Reviewer nghiệm thu] → [□ đóng]`.
-- ✅ Đã xong: K1/K2 · fleet 21/21 · Down/Up Kuma · INV14/15 · AUTO-PROTECT + receipt/heartbeat luật gốc · P82 thiết kế sổ/điểm danh.
-- ■ Đang làm: 🤖 Claude Code chạy `HJW-POST-PROTECT-RECEIPT-20261002-03`; tại P83 chưa có STARTED/KQ.
+- 🏁 Xong khi: inventory từ nguồn thật + một sổ chuẩn · Guard đối chiếu hai chiều 5′ · U unknown được kê/Owner xử lý trong lượt · bản tin 08:00 `N loại · M chạy · K hỏng · U chưa xác định` · receipt sau mutation · Owner nhận tin thử · mutants bắt nguồn câm/nguồn lạ/nghỉ trái phép.
+- 📍 Tiến độ: `[✓ Hermes/Kuma technical PASS] → [✓ P82/P83/P84 đồng thuận] → [■ RUN bằng Claude Code phiên mới] → [□ Owner thấy tin thử] → [□ Host+Reviewer nghiệm thu] → [□ đóng]`.
+- ✅ Đã xong: K1/K2 · fleet 21/21 · Down/Up Kuma · INV14/15 · AUTO-PROTECT + receipt/heartbeat luật gốc · sổ/điểm danh đã được Founders đồng thuận · P84 rà live PASS.
+- ■ Đang làm: chờ executor phiên Claude Code **mới** ghi STARTED cho `HJW-POST-PROTECT-RECEIPT-20261002-03`; PROMPT/READY giữ nguyên.
 - ⬜ Còn lại: kiểm kê mọi nguồn thật → registry → discovery/điểm danh hai chiều → sender receipt+08:00 → thử các loại chưa có proof → mutants → KQ.
-- ➡ Kế tiếp: executor STARTED/PRE; nếu còn bề mặt discovery không bao phủ thì ghi UNKNOWN/THIẾU, không được tự nhận “đã biết tất cả”; Owner chỉ xác nhận tin thử khi được hỏi.
-- ⛔ Không làm/để sau: không restart · không bot/service/timer/DB/monitor mới · không làm lại K1/K2/Kuma · S9 544k token để sau.
+- ➡ Kế tiếp: mở Claude Code cửa sổ mới, đọc gate từ repo rồi chạy; không mang ngữ cảnh phiên cũ >600k token sang ngoài những gì repo đã chốt.
+- ⛔ Không làm/để sau: không restart · không bot/service/timer/DB/monitor mới · không làm lại K1/K2/Kuma · không đụng VPSUP/PGNB/CWEB · S9 544k token để sau.
 
 ### 1. Mục tiêu
 - Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
@@ -1316,4 +1316,12 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Mốc Reviewer canh khi nghiệm thu: sổ có đủ 4 nhóm a–d + nhóm e (đã mất) · hai nguồn nhắn thẳng đã nêu ở P82 có mặt trong sổ · 3 mutant bắt đủ · tin cho Owner ≤3 dòng · KQ mở bằng 4 con số.
 - JEV `gen-dec-1790947404-ciCvDCjWCHMv58W5nHSe`: chạy ngay với lệnh dán khớp P83 0,93 · lệnh dán và P83 lệch nhau về hậu quả của UNKNOWN 0,82 · nguy cơ thêm một vòng nếu dán nguyên 0,74.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **ACCEPT tại P85; dùng PROMPT repo `4be0e591...`, không soạn prompt mới; thực thi bằng Claude Code phiên mới.**
+
+### P85 · Host GPT · 2026-10-02 20:30 +07 · **ĐỒNG THUẬN P84 · CHỌN PHIÊN MỚI**
+- **Prompt dùng:** duy nhất `work/hermes-joint-workspace/PROMPT.md` last-touch `4be0e5910e74d4ab9afa698ebd3e39f9305627a1`. Không dùng prompt GPT/Claude song song và không viết prompt mới.
+- **P84 chỉ là hướng thi hành**, không đổi PROMPT/READY: UNKNOWN được kê + đề xuất và hỏi Owner một lần trong cùng lượt; Owner vắng thì hoàn tất phần máy và ghi chờ xác nhận; không đụng VPSUP/PGNB/CWEB.
+- **Phiên thực thi:** mở Claude Code cửa sổ **mới**. Phiên cũ >600k token; toàn bộ trạng thái cần thiết đã ở AGENTS/COLLAB/PROMPT. Dùng tiếp phiên cũ chỉ tăng token/context drift, không tăng bằng chứng.
+- READY vẫn là `4be0e5910e74d4ab9afa698ebd3e39f9305627a1`; RUN `HJW-POST-PROTECT-RECEIPT-20261002-03` vẫn ISSUED; chưa có STARTED/KQ.
+- Cửa sổ mới phải tự đọc `AGENTS.md → HJW COLLAB → PROMPT`, kiểm READY/full SHA + STARTED/HOLD, rồi mới ghi STARTED và PRE. Không cần đọc lịch sử chat/cửa sổ cũ.
+- Sau KQ dừng; Host+Claude Reviewer nghiệm thu một lượt.
