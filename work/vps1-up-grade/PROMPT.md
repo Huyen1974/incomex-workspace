@@ -1,95 +1,101 @@
-# PROMPT — VPSUP S1 SAFE MINORS · production baseline
+# PROMPT — VPSUP CHỐT TARGET CUỐI · Directus 12.4.1 + Nuxt4 artifact
 
-RUN_ID: VPSUP-S1-SAFE-MINORS-PROD-20261002-01
-STATUS: **DRAFT — CHƯA READY/RUN. Chờ Claude Reviewer rà P87 + prompt này; chỉ Host mới ghi READY.**
+RUN_ID: VPSUP-TARGET-FINAL-20261002-01
+STATUS: **DRAFT — CHƯA READY/RUN. Chờ Claude Reviewer rà P92 + prompt này; chỉ Host ghi READY.**
 Host: GPT Chat · GPT-VPSUP-20260926-A
 Executor_Surface: Claude Code CLI trên Mac Owner.
 Report_Write_Path: **workspace_* / Incomex VPS MCP → incomex-workspace/main** (actor `claude-code`).
-Runtime_Write_Path: **VPS1 PRODUCTION — chỉ PostgreSQL + nginx và đúng manifest/config reference cần cho hai service này.** VPS2 = read-only evidence/checkpoint. Không Directus/Nuxt/UUID/OIG/PG18/Qdrant/Kuma/DNS/MCPW mutation.
+Runtime_Write_Path: **VPS2 LAB ONLY. VPS1 production = READ-ONLY snapshot/topology evidence.** Không production mutation; không DNS/MCPW/PG18/@nuxt-ui-v4.
 
-## S1.0 · Mục tiêu duy nhất
-Đưa **safe-minors baseline đã chứng minh ở G5** lên VPS1:
-- PostgreSQL **16.13 → 16.15**;
-- nginx **1.29.5 → 1.30.5**;
-- giữ nguyên Directus11.5.1/schema hiện hành, Nuxt3 CURRENT, Qdrant1.16.3, Kuma, agent-data/MCP/Hermes và dữ liệu nghiệp vụ.
+## T0 · Mục tiêu duy nhất
+Chốt **TARGET cuối sẽ dùng cho G6/G7** bằng một RUN trên VPS2:
+- PostgreSQL baseline = **16.15** đã lên production ở S1;
+- nginx baseline = **1.30.5** đã lên production ở S1;
+- Directus candidate bắt buộc = **12.4.1 + OIG** vì 12.4 sửa GHSA-2xcm-7h22-3m66;
+- Nuxt = **4.5.2 / Node24.21.0 / SDK19 / @nuxt/ui2.22.3**; vá nốt đúng 5 file `$t` cùng gốc với `login.vue`;
+- Qdrant/Kuma giữ exact digest hiện hành.
 
-S1 là **bước trung gian**, không phải đích cuối PostgreSQL của task; đích vẫn PG18 ở 10B-A. Không gộp S2 major vào RUN này.
+PASS ⇒ tạo manifest/artifact/runbook final cho G6. Không cutover VPS1 trong RUN này.
 
-## S1.1 · Read-gate / PRE
-Đọc: `AGENTS.md` → root DROOT22/29–33 → BẢNG ĐIỀU KHIỂN → P85–P87 (+ Reviewer mới hơn nếu có) → PROMPT này → KQ G5 `817c45e` + G5/INDEX.md.
+## T1 · Gate/PRE
+Đọc: `AGENTS.md` → root DROOT22/25/28–33 → BẢNG ĐIỀU KHIỂN → P88–P92 (+ Reviewer mới hơn nếu có) → PROMPT này → KQ G5 `817c45e`/G5 INDEX → KQ S1 `10db62f`.
 
-READY phải đúng commit last-touch PROMPT. Sau read-gate PASS ghi STARTED theo DROOT31; ngay trước first production mutation re-read theo DROOT30.
-
-PRE fail-closed:
-1. Không có RUN active khác đang mutation **PostgreSQL/nginx/compose reference của hai service này**. Việc khác chạm agent-data/Hermes/UI nhưng không chạm hai tài nguyên trên không phải collision.
-2. Snapshot current thực tế VPS1: exact image/digest PG16.13 + nginx1.29.5; Directus11.5.1/Nuxt3/Qdrant/Kuma/agent-data image + StartedAt; config/compose/nginx static mount + Config Guard baseline.
-3. **A09R1 phải được bảo toàn:** ghi hash trước của `scripts/hvu-b2/{ui/app.vue,sync.py,README.md,test_sync.py}` và live `nginx/static/ui-preview/hpml-view-for-user/view.html`; RUN này cấm overwrite các file đó.
-4. Backup: kiểm đường backup VPS1 hiện hữu đang healthy + có bản production gần nhất đọc được. **Không đặt ngưỡng chờ giờ tuỳ ý và không chạy lại full backup chỉ để “cho chắc”** vì S1 là same-major PG + nginx image change đã proof. Nếu backup path đang fail/degraded thật ⇒ DỪNG trước mutation.
-5. G5 proof phải còn đọc được: `S1_BASELINE_PASS`, PG16.15/nginx1.30.5 exact artifact/digest và rollback evidence.
-6. Chuẩn bị rollback trước mutation: exact old image refs + exact old compose/config bytes; rollback chỉ hai service, không reset repo/máy.
-7. **Ghim digest + lệnh hẹp (P88):** compose đổi tag trôi `postgres:16` / `nginx:alpine` thành `postgres:16.15-trixie@sha256:…` / `nginx:1.30.5-alpine@sha256:…` đúng digest G3/G5 đã proof (PG index `1a6ab3f5…` · amd64 `a85daf0d…`; nginx index `0985e772…` · amd64 `8f84ed99…`). Chỉ dùng `docker compose pull <service>` + `docker compose up -d --no-deps <service>`; **cấm** `pull`/`up -d` không kèm tên service (sẽ kéo/recreate dịch vụ khác đang dùng tag trôi).
-8. **Mốc so sánh (P88):** ghi `system_identifier`, `datcollversion` so với bản thực tế của từng DB, danh sách DB/role/extension và số dòng các bảng chính.
-
-## S1.2 · Thực thi
-Chạy **tuần tự**, đo downtime thật. Không cần chờ đêm: downtime ước < 2 phút, rollback từng service vài giây (DROOT32) — chạy khi Owner dán lệnh:
-1. DROOT30.
-2. Đổi PostgreSQL sang exact **16.15** artifact đã proof G5; không đổi PGDATA/schema/extension/config nếu không bắt buộc bởi image. Clean restart/recreate đúng service.
-3. Chờ health trực tiếp có timeout hữu hạn; không soak. PG lên ⇒ xác nhận server_version 16.15 + DB/list/role/FDW/extensions chính vẫn đúng. **P88:** `system_identifier` = PRE (bắt lỗi gắn nhầm volume/initdb mới), `datcollversion` = actual, không bảng chính nào về 0.
-3b. **Dịch vụ phụ thuộc tự nối lại (G5 boot mới nên chưa đo được):** Directus API đọc · agent-data/MCP đọc · Hermes gateway · Kuma xanh. Dịch vụ nào không tự nối lại trong ≤ 2 phút ⇒ được restart **riêng dịch vụ đó** (`--no-deps`), ghi rõ trong KQ; không tính là ngoài phạm vi. Restart vẫn không lên ⇒ rollback PG theo mục dưới.
-4. Đổi nginx sang exact **1.30.5** artifact đã proof G5, giữ nguyên config + static mounts; `nginx -t` trước/POST; recreate/reload đúng service theo manifest hiện hành. **P88:** mọi ghi repo đi qua gateway sau nginx ⇒ chập vài giây lúc recreate; STARTED ghi trước, KQ ghi sau, lỗi ghi thì thử lại.
-5. Không rebuild Nuxt, không migrate Directus, không đổi UUID, không activate license.
-
-Nếu một service fail acceptance:
-- rollback ngay service đó về exact image/config trước S1;
-- PG cùng major dùng cùng PGDATA; **không restore DB mù** nếu chỉ lỗi image/startup;
-- nếu thấy dấu hiệu integrity/data khác baseline ⇒ stop, giữ evidence và KQ DỪNG; không tự repair.
-
-## S1.3 · Acceptance production
-Phải PASS trước KQ:
-- PG16.15 healthy; DB chính truy cập được; schema/migration counts không đổi do S1;
-- Directus11.5.1 + Nuxt3 CURRENT vẫn healthy;
-- nginx1.30.5 `-t` PASS; public hosts/routes chính trả đúng baseline;
-- route chậm `/knowledge/registries` dùng timeout theo baseline G5 (~34s cold), **không coi chậm sẵn có là regression**;
-- Directus auth/admin/API smoke read-only; không tạo dữ liệu thử production mới nếu không có probe hiện hữu đã duyệt. Admin login liền sau tải trang có thể dính nginx `auth_limit` (5 r/phút, burst 3) ⇒ 503 đã biết từ G5; chờ ≥ 65 s thử lại 1 lần trước khi kết luận;
-- dịch vụ phụ thuộc (agent-data/MCP, Hermes, Kuma) xanh như PRE;
-- A09R1 hashes/live artifact = PRE;
-- Config/Protection Guard: chỉ delta được phép của PG/nginx; rebaseline chỉ hai target sau acceptance, kèm old/new + reason;
-- 0 restart/mutation ngoài scope;
-- ghi downtime thật.
-
-Không thêm soak/chờ dài. Bất kỳ check nào >15 phút phải machine-owned theo DROOT25/28 hoặc kết luận blocker thật; Claude/Mac không ngồi polling.
-
-## S1.4 · KQ / rollback
-PASS:
-`KQ@VPSUP-S1-SAFE-MINORS-PROD-20261002-01 XONG · S1_PASS · PG16.15 · NGINX1.30.5`
-
-FAIL:
-`KQ@VPSUP-S1-SAFE-MINORS-PROD-20261002-01 DỪNG · <exact blocker>`
-
-Báo ngắn: PRE current refs · old→new exact PG/nginx refs · downtime · acceptance · Guard delta · A09R1 preserved · rollback có dùng hay không · outside-scope diff.
-
-Sau KQ **dừng**. Không tự chạy G6/G7/PG18/Nuxt UI v4.
-
-G5 PROMPT nguyên văn (runbook G6/G7 dùng lại, không thiết kế lại): `git show 1ee1137:work/vps1-up-grade/PROMPT.md`.
-
-## HISTORY — G4C/G4B/G4/G3
-**Từ marker HISTORY trở xuống chỉ là lịch sử/evidence, KHÔNG phải lệnh S1.**
-## G4C.0 · Quyết định Host và mục tiêu
-Host **không chọn F2** (không tự viết DDL thay 2 migration, không tự ghi `directus_migrations`). Chọn **F1 có mục tiêu / upstream-aligned**:
-- không đổi cả 324/325 cột `char(36)`;
-- chuẩn hoá sang PostgreSQL `uuid` **chỉ** các cột mà Directus 12.3.1 canonical schema yêu cầu là UUID và các cột relation thực sự trỏ tới PK UUID đó;
-- business ID `char(36)` không liên quan Directus system UUID giữ nguyên.
-
-Mục tiêu RUN này: trên **working copy của checkpoint A**, tự sinh canonical map từ Directus12.3.1 sạch → phân loại 32 non-UUID → nếu tập candidate sạch/repair được theo luật dưới đây thì normalize trong lab → chạy official `migrate:latest` → nếu PASS tiếp tục Directus runtime + SAME SLICE và arm soak. Không chạm production.
-
-## G4C.1 · Read/PRE
-Đọc AGENTS → COLLAB §0 + KQ G4/G4B + P68–P75 → PROMPT này → hồ sơ G4B. READY phải = commit cuối chạm PROMPT. Ghi STARTED theo DROOT31; DROOT30 ngay trước first VPS2 mutation.
+READY phải = commit cuối chạm PROMPT. Ghi STARTED theo DROOT31; DROOT30 trước first VPS2 mutation.
 
 PRE:
-- checkpoint A content/meta hash = KQ G4/G4B; G2 checkpoint + lane C patch/.output/image digests khớp; TARGET 0 container; e-learning 200;
-- OIG key chỉ metadata EXISTS, **không materialize/activate trước khi `migrate:latest` PASS**;
-- VPS1 chỉ-read snapshot schema để chứng minh blocker vẫn tương đồng; không query giá trị secret.
+1. G5 lab clean: 0 target container chạy; OIG slot lab đã trả; egress rule lab đã gỡ; checkpoint `vpsup-g5-ckpt-pre-s2` còn đúng hash/evidence.
+2. VPS1 read-only snapshot: PG16.15 + nginx1.30.5; exact live compose sha/bytes; `postgres` network membership, đặc biệt `claude_mcp_net`; A09R1 + agent-data/MCP/Hermes current refs. **Không chờ MCPW/MMIM terminal nếu không chạm VPS2**; chỉ ghi moving-target để G6 recheck fresh.
+3. Config Guard `hvu-sync-py` và Kuma #21/#22 nếu còn đỏ: ghi owner task/status, **không repair/rebaseline trong VPSUP** và không gate TARGET.
+4. OIG key chỉ metadata EXISTS; materialize qua đường lab đã proof, không log/value.
+5. Resolve Directus12.4.1 exact **index + amd64 digest** bằng registry read-only; pin digest, không dùng floating tag.
 
+## T2 · Fresh working copy
+- Clone checkpoint pre-S2 G5 → working TARGET-FINAL; checkpoint gốc immutable.
+- Reuse `dot-directus-uuid-normalize`, ABC map, orphan repair candidate, extension patch và lane-C Nuxt4 patch đã proof; hash phải khớp evidence G4/G5.
+- Không dùng dữ liệu production mới trong bước này; **G6 mới là fresh-data rehearsal**.
+
+## T3 · Directus 12.4.1 security/breaking probe
+Trên working copy:
+1. UUID DOT dry-run/execute/verify như G5.
+2. Chạy official Directus12.4.1 `migrate:latest`; cấm manual mark/bypass migration.
+3. Boot 12.4.1, activate OIG qua POST `/license`; exact slot before/after.
+4. Kiểm tối thiểu các delta 12.4:
+   - **GHSA-2xcm-7h22-3m66:** bằng fixture lab non-admin chứng minh update/delete-by-query không thể resolve/mutate item mà actor không có READ;
+   - inactive collection API behavior + consumer scan;
+   - directus#28318: inventory PK `0`/`''` liên quan update/delete-filter; nếu có thì test fixture và ghi blocker/expected;
+   - non-admin folders behavior 12.4.1;
+   - Map interface/WebGL2 bằng browser thật;
+   - theme/extension compatibility (`@unhead/vue` delta) + extension host;
+   - SDK19 + Nuxt consumer, agent-data/MCP/DOT/Flow representative paths.
+5. 167/actual collections, 128 Flow, permission count = lab/prod source; permission negatives + tenant-sensitive query tests PASS.
+
+**Nếu 12.4.1 có blocker thật không sửa hẹp được:** KQ `DỪNG · DIRECTUS1241_BLOCKER · <exact>`; không tự chọn 12.3.1 làm production target.
+
+## T4 · Vá 5 sibling `$t` + build Nuxt final
+Áp cùng cách máy thay đã proof ở `login.vue` cho đúng 5 file:
+`register` · `forgot-password` · `logout` · `admin/users` · `error.vue`.
+- Không mở rộng rewrite ngoài cùng root-cause.
+- Build Nuxt4.5.2/Node24.21.0 trên VPS2 bằng builder/lane đã proof; giữ @nuxt/ui2.22.3 và SDK19 trừ khi Directus12.4.1 test chứng minh bắt buộc đổi.
+- Browser thật: login/register/forgot/logout/admin users/error path + 9 trang chính; SSR 200/expected status, hydrate, 0 page error mới, console diff disposition.
+
+## T5 · SAME SLICE + fixed workload
+Chạy SAME SLICE G5 A–D + SEC trên Directus12.4.1/Nuxt final:
+- 132 routes với baseline timeout đã disposition (`/knowledge/registries` cold có thể ~34s);
+- Directus admin browser login;
+- representative Flow → agent-data, permission negatives, auth/refresh;
+- Qdrant/client path giữ nguyên;
+- topology manifest cho G6/G7: ghi VPS1 live `postgres` networks và **bắt buộc giữ `claude_mcp_net`**; chuẩn bị candidate declarative external-network stanza hoặc deterministic post-create attach + verification `query_pg`. Không mutation VPS1.
+
+**Không thêm soak N giờ.** Thay bằng fixed-workload/replay đủ lớn (ví dụ cùng route/slice lặp tới ≥5.000 HTTP/API request hoặc workload tương đương), ghi error/restart/RSS/heap/CPU. G4 đã có long-soak; G6 sẽ fresh-data rehearsal. Nếu Reviewer chỉ ra failure mode cần thời gian mới lộ thì giao machine-owned timer, không giữ Mac/Claude chờ.
+
+## T6 · Đóng gói TARGET cuối
+PASS 12.4.1 + Nuxt final ⇒ evidence phải có:
+- exact digests: PG16.15 · Directus12.4.1 · nginx1.30.5 · Qdrant/Kuma keep · Node/Nuxt package lock;
+- UUID DOT + ABC sha + exact migration count/schema diff;
+- Nuxt final patch/hash + 6 file i18n fix (login + 5 sibling);
+- OIG activation/deactivation result; trả slot 204 trước cleanup;
+- SAME SLICE/security/browser/fixed-workload results;
+- `TARGET-FINAL-MANIFEST` cho G6: artifacts + compose/runtime deltas + **topology PG↔claude_mcp_net** + carry-forward list pointer.
+
+Không sửa/commit live compose VPS1 trong RUN này. Vì `/opt/incomex` đang dirty từ task khác, G6 PRE phải lấy exact live bytes + 3-way diff; cấm reset/clean/stash thay người khác.
+
+## T7 · Cleanup/KQ
+Trả OIG activation khi Directus+egress còn chạy → confirm slot giảm → stop TARGET → đóng egress → shred key/runtime-secret-bearing working copy theo runbook đã proof. Giữ checkpoint/evidence không chứa key cần cho G6.
+
+PASS:
+`KQ@VPSUP-TARGET-FINAL-20261002-01 XONG · TARGET_FINAL_PASS · DIRECTUS12.4.1 · NUXT4.5.2`
+
+FAIL:
+`KQ@VPSUP-TARGET-FINAL-20261002-01 DỪNG · <exact blocker>`
+
+Executor dừng sau KQ. Không tự chạy G6/G7/PG18/Nuxt UI v4.
+
+Runbook lịch sử dùng lại, không thiết kế lại:
+- G5: `git show 1ee1137:work/vps1-up-grade/PROMPT.md`
+- S1: `git show bbab83d:work/vps1-up-grade/PROMPT.md`
+
+## HISTORY — G4C/G4B/G4/G3
+**Từ marker HISTORY trở xuống chỉ là lịch sử/evidence, KHÔNG phải lệnh TARGET-FINAL.**
 ## G4C.2 · Canonical schema — không đoán bằng tên cột
 Tạo một **scratch PostgreSQL DB/volume riêng trên VPS2** và dùng exact Directus12.3.1 image để dựng schema PostgreSQL sạch/canonical. Không dùng OIG key; credential/admin scratch sinh local, không log và huỷ cùng scratch.
 
