@@ -5,14 +5,14 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 15:16 +07 · GPT Host · P68
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 15:27 +07 · Claude Code CLI · P70 STARTED
 - 🎯 Mục tiêu: (1) Hermes nhận việc được thật qua **2 kênh** — Owner giao trực tiếp · AI giao qua repo; (2) hết cảnh máy chủ báo đỏ mà AI vẫn báo OK; (3) phần mới làm nằm trong Điều 30/31.
 - 🏁 Xong khi: 😊 Owner tự gõ 1 câu trên app → Hermes trả lời (K1) · AI ghi `ASSIGN` → thẻ Telegram → Owner bấm → Hermes ghi kết quả (K2) · lệch phiên bản tái diễn thì máy tự báo · không còn đèn đỏ vô chủ và AI tự đọc được bảng đèn.
 - 📍 Tiến độ: `[✓ baseline CLOSED] → [✓ PROMPT + Reviewer ACCEPT] → [✓ Host ACCEPT/READY] → [■ RUN ISSUED] → [□ nghiệm thu, có đọc bảng đèn] → [□ đóng]`.
 - ✅ Đã xong: HJW baseline · MCPW R6 protection · P67 đủ 3 yêu cầu Owner · DROOT34 được GPT Founder xác nhận · PROMPT last-touch `0786390` đã review ACCEPT.
-- ■ Đang làm: 🤖 Claude Code CLI chạy một lượt `HJW-MAINT-COMPAT-20261002-01`; tại P68 chưa có STARTED/KQ.
+- ■ Đang làm: 🤖 Claude Code CLI · `STARTED@HJW-MAINT-COMPAT-20261002-01` 08:26Z (P70) · đang D1 đo chỉ-đọc, chưa mutation.
 - ⬜ Còn lại: D1 đo → sửa tối thiểu → K1/K2 → sửa/định danh đèn đỏ → bảng bảo vệ Điều 30/31 → Host + Reviewer nghiệm thu một lượt.
-- ➡ Kế tiếp: executor ghi STARTED/KQ; 😊 Owner chỉ cần K1 gõ 1 câu trên app + K2 bấm 1 thẻ khi được yêu cầu.
+- ➡ Kế tiếp: 🤖 executor D1 → D2 → báo Owner một lần gom K1+K2; 😊 Owner chỉ cần K1 gõ 1 câu trên app + K2 bấm 1 thẻ khi được yêu cầu; Host/Reviewer chờ KQ (DROOT31: không sửa PROMPT/READY).
 - ⛔ Không làm/để sau: không capability mới · không AUTO · không task/service mới · không blind `hermes update` · không đụng VPSUP đang chạy.
 
 ### 1. Mục tiêu
@@ -1087,3 +1087,7 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - JEV `gen-dec-1790929430-YLB7ftbg4Da0jVKrUdWj`: READY hợp lệ 0,95 · Bảng khớp mục tiêu 0,81 · triển khai ngay 0,39 / giữ lại 0,60 vì chưa rõ lượt chạy song song — đã tự kiểm bằng PROMPT VPSUP (VPS2 lab only) nên Reviewer quyết triển khai.
 - Áp: SAME_COMMIT
 - Host response: —
+
+### P70 · Claude Code CLI · 2026-10-02 · RUN `HJW-MAINT-COMPAT-20261002-01`
+- STARTED@HJW-MAINT-COMPAT-20261002-01 2026-10-02T08:26:04Z · executor=Claude Code CLI · read-gate PASS: `workspace_stat` HEAD `e79eab7`; PROMPT last-touch `0786390396bb9c22ff2d48395927eb6b625a4065` = `READY@` P68 + Reviewer ACCEPT P67/P69; A0 ĐÃ XÁC NHẬN; 0 STARTED/KQ/STOP_REQUESTED/HOLD trước đó. VPSUP G6 (P105/P106) chỉ ghi VPS2 lab ⇒ lượt này không chạm VPS2/VPSUP.
+- Áp: SAME_COMMIT
