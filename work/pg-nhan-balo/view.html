@@ -38,13 +38,13 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 </head>
 <body><main>
 <h1>Luật nhãn PG — mở balo là biết có gì, dùng lại được gì, thừa gì</h1>
-<p class="mut" id="trang-thai">Bản v1.2 · 02/10/2026 21:58 · luật và vị trí không đổi · lệnh bản 3 đã được GPT xác nhận và đã mở · chờ Owner dán lệnh chạy cho Codex · chạy trước khi nâng PG · máy chủ chưa bị đổi gì, không tắt, không xoá</p>
+<p class="mut" id="trang-thai">Bản v1.3 · 03/10/2026 06:25 · luật và vị trí không đổi · hai lượt chạy đều dừng ở bước kiểm, máy chủ chưa bị đổi gì · lệnh bản 4 đã rà lại từng bước, chờ GPT xác nhận rồi mở · không tắt, không xoá</p>
 
 <span class="tang">PHẦN CHO OWNER</span>
 
 <section class="card quyet" id="quyet">
 <h2>Hôm nay anh cần quyết</h2>
-<p><strong>Lệnh đã mở lại.</strong> 🙂 Việc của anh: dán lệnh chạy mới (RUN -02) cho Codex. Lượt đầu dừng ở bước kiểm vì lệnh ghi thiếu một thư mục (lỗi của Claude, đã sửa, GPT đã xác nhận); máy chủ chưa bị đổi gì. <strong>Chưa dán lệnh nâng PG (G7) cho tới khi Codex báo xong.</strong></p>
+<p><strong>Chưa cần anh quyết.</strong> Hai lượt chạy đều dừng ở bước kiểm vì lỗi trong lệnh của Claude; máy chủ chưa bị đổi gì. Claude đã rà lại từng bước theo mã thật của công cụ và viết lệnh bản 4. 🙂 Việc của anh: đưa GPT một dòng để xác nhận; sau đó dán lệnh chạy mới cho Codex.</p>
 </section>
 
 <section class="card" id="tien-do">
@@ -52,8 +52,8 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <div class="bar">
 <div class="xong">1 · Khảo sát ✓</div>
 <div class="xong">2 · Luật ✓</div>
-<div class="xong">3 · Lệnh bản 3 đã duyệt, đã mở ✓</div>
-<div class="dang">4 · Anh dán lệnh · Codex đặt biển, dán nhãn ▶</div>
+<div class="dang">3 · Lệnh bản 4 · GPT xác nhận ▶</div>
+<div>4 · Anh dán lệnh · Codex đặt biển, dán nhãn</div>
 <div>5 · Nghiệm thu PG · đối soát sổ DOT</div>
 <div>6 · Anh quyết theo khối</div>
 </div>
@@ -101,7 +101,7 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <tr><th>#</th><th>Biển</th><th>Đặt ở đâu</th><th>Ai đọc</th></tr>
 <tr><td class="id">B1</td><td>Các dòng luật</td><td>Dòng có <code>nhan = 'LUAT'</code>, hiển thị theo <code>thu_tu</code>; không dựa vào thứ tự lưu vật lý</td><td>AI đọc qua DOT được phép · người đọc trên Reports; còn phải kiểm cửa đọc thật</td></tr>
 <tr><td class="id">B2</td><td>Giá trị và câu thử</td><td>cùng bảng đó, các dòng sau</td><td>🤖 tra khi dán; giá trị lạ bị PG chặn</td></tr>
-<tr><td class="id">B3</td><td>Dòng trỏ, không chép luật</td><td>ghi chú của bảng balo · đầu file lệnh dán · 3 file hướng dẫn agent trên VPS</td><td>Cần chứng minh Codex thấy và đọc được luật từ cửa công cụ thật, không chỉ có dòng trỏ trong file</td></tr>
+<tr><td class="id">B3</td><td>Dòng trỏ, không chép luật</td><td>ghi chú của bảng balo · đầu file lệnh dán (3 file hướng dẫn agent trên VPS: làm sau khi nâng PG)</td><td>Cần chứng minh Codex thấy và đọc được luật từ cửa công cụ thật, không chỉ có dòng trỏ trong file</td></tr>
 <tr><td class="id">B4</td><td>Hai trang: “Balo theo khối” và “Luật nhãn”</td><td>mục Reports, cạnh PG Census</td><td>🙂 người xem</td></tr>
 </table></div>
 <p class="mut">Lý do Host báo sau phép thử 02/10: công cụ xem cấu trúc không hiện ghi chú bảng balo. GPT đồng thuận chuyển luật thành dòng dữ liệu. Khả năng đọc trên từng cửa DOT/Reports vẫn phải kiểm trong RUN; chưa coi “có bảng/FK” là bằng chứng mọi agent đều thấy luật.</p>
@@ -204,9 +204,9 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <tr><td class="id">B1</td><td>Bảng <code>public.balo_tu_dien_nhan</code>, các dòng <code>nhan = 'LUAT'</code> (L00–L10), đọc theo <code>thu_tu</code></td><td><strong>Bản gốc duy nhất của luật</strong> (mẫu bên dưới). Là dữ liệu nên đọc được bằng SELECT, qua Directus và trên trang Reports.</td></tr>
 <tr><td class="id">B2</td><td>Cùng bảng <code>public.balo_tu_dien_nhan</code>, các dòng còn lại</td><td>Mỗi dòng: nhãn · giá trị · tên hiển thị · áp cho loại vật nào · thứ tự xét · câu thử · ví dụ. Các cột nhãn của balo có khoá ngoại trỏ sang đây: PG từ chối giá trị lạ, sai nhãn và sai loại vật.</td></tr>
 <tr><td class="id">B3</td><td>Đầu mỗi file SQL dán nhãn trong <code>/opt/incomex/dot/sql/</code></td><td>Ba dòng trỏ (mẫu bên dưới), không chép luật; ghi đúng lệnh đọc luật mà Codex đã chạy được. Đợt này dùng lại cổng DOT sẵn có, không viết lệnh mới. Các file này được ghi vào sổ DOT sẵn có, không lập sổ thứ hai.</td></tr>
-<tr><td class="id">B4</td><td>Mục Reports, đúc bằng khuôn report sẵn có</td><td>Trang “Balo theo khối” (báo cáo sống tính từ balo mỗi lần mở, không tạo bảng hay view) và trang “Luật nhãn” (hiện B1 + B2, sắp theo <code>thu_tu</code>). Bốn trang balo cũ: đổi tên cột theo luật, mỗi cột nhãn có một dòng mô tả trỏ về “Luật nhãn”. Thiếu một trong hai trang mới là chưa xong.</td></tr>
+<tr><td class="id">B4</td><td>Mục Reports, đúc bằng khuôn report sẵn có</td><td>Trang “Balo theo khối” và trang “Luật nhãn” đều là báo cáo sống đọc thẳng PG mỗi lần mở (không tạo bảng hay view, không cần đăng nhập Directus); trang “Luật nhãn” hiện B1 + B2, sắp theo <code>thu_tu</code>. Thiếu một trong hai trang là chưa xong. Bốn trang balo cũ: đổi tên cột theo luật là bước làm thêm nếu đăng nhập admin Directus dùng được (đang hỏng trên máy chủ); không được thì làm bù sau.</td></tr>
 <tr><td class="id">T0</td><td><code>COMMENT ON TABLE public.balo_thuc_the</code>, đặt ở đầu; chữ cũ giữ nguyên bên dưới</td><td>Hai dòng trỏ (mẫu bên dưới). <code>COMMENT ON</code> ghi đè cả khối, phải đọc ra rồi nối.</td></tr>
-<tr><td class="id">T1</td><td>3 file <code>AGENTS.md</code> trên VPS: <code>docker/agent-data-repo</code>, <code>docker/nuxt-repo</code>, <code>docs/mcp-writes</code></td><td>Thêm một dòng trỏ về B1 ở đầu mục “Quy ước bắt buộc từ nay” (mục này đang bảo ghi nhãn vào <code>COMMENT ON</code> của từng vật, trái L01).</td></tr>
+<tr><td class="id">T1</td><td>3 file <code>AGENTS.md</code> trên VPS: <code>docker/agent-data-repo</code>, <code>docker/nuxt-repo</code>, <code>docs/mcp-writes</code></td><td>Thêm một dòng trỏ về B1 ở đầu mục “Quy ước bắt buộc từ nay” (mục này đang bảo ghi nhãn vào <code>COMMENT ON</code> của từng vật, trái L01). <strong>Hoãn sang sau khi nâng PG (G7)</strong> để không đụng mã nguồn ngay trước lúc chuyển.</td></tr>
 <tr><td class="id">T2</td><td>KB: quy định balo v1.9</td><td>Thêm một dòng trỏ về B1. KB đang khoá ghi nên làm sau.</td></tr>
 </table></div>
 <p class="mut"><strong>Không làm đợt này:</strong> thêm dòng trỏ vào nhãn văn cũ của từng vật · ghi chú riêng từng cột · ghi vào trường <code>note</code> của Directus (Owner quyết 03/08) · mô tả một dòng cho từng vật (làm sau khi Owner quyết khối nào giữ, để chỉ viết cho thứ giữ lại).</p>
