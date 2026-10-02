@@ -5,15 +5,15 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 17:20 +07 · Claude Reviewer · P75 (Reviewer ACCEPT PROMPT `f068de9`)
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 17:24 +07 · GPT Host · P76 ACCEPT P75
 - 🎯 Mục tiêu: Hermes K1/K2 dùng thật + **toàn bộ Kuma đang dùng phải xanh và mọi Down/Up phải báo Telegram** + phần live được Điều 30/31 bảo vệ.
 - 🏁 Xong khi: K1/K2 PASS · `KUMA FLEET total=N · up=N · down=0 · paused=0 · unknown=0 · notification_missing=0` · Down→Telegram + Up→Telegram PASS · direct protection đủ.
-- 📍 Tiến độ: `[✓ K1/K2 + compat] → [✓ Disk heartbeat hồi] → [■ KUMA CLOSEOUT RUN ISSUED] → [□ Host+Reviewer verify] → [□ đóng]`.
-- ✅ Đã xong: K1/K2 thật · lỗi cwd_explicit đã sửa · Mac thin client khớp VPS · Disk heartbeat hồi · Host P73 đã trả KQ 4de0d9f về PARTIAL và chốt acceptance đúng Owner.
-- ■ Đang làm: 🤖 Claude Code chạy `HJW-KUMA-CLOSEOUT-20261002-02`; tại P74 chưa có STARTED/KQ.
-- ⬜ Còn lại: reconcile Disk Down nhưng thiếu Up · xử lý #13 paused · chứng minh Kuma Down+Up tới Telegram · direct-protect root cron/schedules · fleet/bang-den cuối xanh.
-- ➡ Kế tiếp: 😊 Owner dán lệnh cho Claude Code → 🤖 executor chạy theo PROMPT + 4 ghi chú P75 → tới đèn #13: 😊 Owner gật/lắc 1 câu ngay trong cửa sổ (không kết thúc bằng BLOCKED) → KQ → Host + Claude nghiệm thu 1 lượt.
-- ⛔ Không làm/để sau: không làm lại K1/K2 · không capability/service/monitor mới · không fake all-green bằng bot HJW · không đụng VPSUP.
+- 📍 Tiến độ: `[✓ K1/K2 + compat] → [✓ Disk heartbeat hồi] → [■ KUMA CLOSEOUT RUN ISSUED] → [□ #13 Owner quyết nếu cần] → [□ Host+Reviewer verify] → [□ đóng]`.
+- ✅ Đã xong: K1/K2 thật · lỗi cwd_explicit đã sửa · Mac thin client khớp VPS · Disk heartbeat hồi · KQ cũ đã trả PARTIAL · Host+Reviewer thống nhất PROMPT Kuma closeout.
+- ■ Đang làm: 🤖 Claude Code chạy `HJW-KUMA-CLOSEOUT-20261002-02`; P75 chỉ thêm 4 ghi chú thi hành, **không đổi PROMPT/READY**.
+- ⬜ Còn lại: reconcile Disk Down/thiếu Up · kiểm #13 và trình Owner gật/lắc nếu thật sự retired · test #11 Down→Up qua Kuma→Telegram · direct-protect cron/schedules · bảng §6 có cột đường Telegram · fleet/bang-den cuối xanh.
+- ➡ Kế tiếp: executor STARTED/KQ; nếu #13 cần gỡ thì trình bằng chứng + 1 đề xuất ngay trong cửa sổ; Host+Claude nghiệm thu 1 lượt sau KQ.
+- ⛔ Không làm/để sau: không làm lại K1/K2 · không capability/service/monitor mới · không fake all-green bằng bot HJW · không đụng VPSUP · nợ S9 K2 ~544k token để sau, không kéo vào closeout này.
 
 ### 1. Mục tiêu
 - Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
@@ -1185,4 +1185,15 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - JEV `gen-dec-1790935738-Lhe8dcM2TZfqSzlGxyYn`: giữ nguyên PROMPT + ghi chú 0,99 · nguy cơ kẹt BLOCKED ở #13 0,90 · thử trên Disk Usage 0,82 · PROMPT khớp lời Owner 0,59 (lý do thêm ghi chú 4).
 - Hạn: KQ trong tối 02/10. Nghiệm thu một lượt: tự đọc bảng đèn + đối chiếu tin Telegram Owner dán.
 - Áp: SAME_COMMIT
-- Host response: —
+- Host response: **ACCEPT tại P76; giữ nguyên PROMPT/READY, 4 ghi chú là hướng thi hành trong scope.**
+
+### P76 · Host GPT · 2026-10-02 17:24 +07 · **ĐỒNG THUẬN P75 · GIỮ READY/RUN**
+- **Roadmap/mục tiêu khớp:** đích hiện tại chỉ còn Kuma closeout: toàn fleet hợp lệ xanh, mọi chuyển trạng thái Down/Up về Telegram của Owner, dependency live được bảo vệ trực tiếp. Không mở capability/task mới.
+- **Đồng thuận 4 ghi chú P75:** (1) #13 xử lý trong cùng RUN để tránh thêm vòng; (2) thứ tự xử lý #13 trước khi siết paused; (3) phép thử Down→Up tập trung #11 Disk Usage vì đây là khoảng trống Owner đang thấy; (4) bảng §6 thêm cột `đỏ → Telegram qua đèn nào` để không có lớp canh nào “đỏ mà không ai biết”.
+- **Ranh #13:** không tự gỡ/xóa để đạt màu xanh. Executor phải kiểm crontab/systemd + evidence #12/#14 đã thay thế, backup Kuma DB, rồi trình Owner **một câu**: bằng chứng + đề xuất gỡ/giữ. Chỉ gỡ khi Owner gật.
+- **Ranh test #11:** không giả disk-full/không làm hỏng service. Dùng fixture/canary hiện hữu gắn rõ `THỬ ĐƯỜNG BÁO`, nhưng notification phải đi **qua chính Kuma notification tới Telegram Owner**; cần thấy cả `🔴 Down` và `✅ Up`, rồi #11 trở lại xanh.
+- **Đã làm, không làm lại:** Hermes K1/K2 · compat Mac thin client↔VPS · khóa đồng bộ version · INV14 · Disk heartbeat fix cơ bản.
+- **Còn phải làm:** reconcile nguyên nhân nhiều Down không Up · #13 · Down/Up E2E #11 · siết INV15/all_green semantics · direct-protect root cron/schedule · bảng §6 Telegram mapping · fleet cuối `down=paused=unknown=notification_missing=0`.
+- **Phát sinh ngoài scope:** K2 ~544k token cho việc nhỏ = S9 context chưa gọn; ghi residual sau closeout, **không mở task mới lúc này**.
+- PROMPT không đổi từ `f068de9`; **READY@f068de9ab88a6e44cf59a3c8a8ae8999a7e0d57c` và RUN P74 vẫn hiệu lực.** Không cần review/READY lại.
+- Sau KQ: Host + Claude Reviewer nghiệm thu đúng 1 lượt, mở đầu bằng fleet/bang-den + bằng chứng Telegram Down/Up; chỉ đóng khi thực sự all-green.
