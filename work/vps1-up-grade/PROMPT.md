@@ -1,3 +1,73 @@
+# PROMPT — VPSUP G6 · HOÀN THIỆN BỘ CUỐI + DIỄN TẬP + GÓI G7 SẴN DÙNG
+
+RUN_ID: VPSUP-G6-INTEGRATED-REHEARSAL-20261002-01
+STATUS: **DRAFT — chờ Reviewer rà một gói; CHƯA READY/RUN.**
+Host: GPT Chat · GPT-VPSUP-20260926-A
+Executor_Surface: Claude Code CLI, phiên mới có hook đã nghiệm thu.
+Report_Write_Path: Incomex VPS MCP `workspace_*` → `Huyen1974/incomex-workspace/main`, actor xác thực `claude-code`.
+Runtime_Write_Path: **VPS2 LAB ONLY** qua DOT/wrapper lab đã nghiệm thu; VPS1 **chỉ đọc/lấy bản sao nhất quán**, không restart, sửa source/config/DB, freeze ghi hay deploy. Secret chỉ theo đường GSM/credential sẵn có, không lộ giá trị.
+
+## G6.0 · Giao đầu ra trọn gói, không xé bước
+Một RUN làm liên tục đến khi có: **PG18.x + Directus12.4.1/OIG + Nuxt4.5.2/Node24.21.0 + nginx1.30.5 chạy đạt trên dữ liệu VPS1 mới**, rollback đã thử, **gói lệnh G7 sẵn dùng** kèm số đo/giờ đề xuất. Qdrant/Kuma và UI2/SDK19 giữ như manifest TF.
+Các mục dưới là checklist nội bộ trong một RUN, KHÔNG phải các lần xin phép. Agent tự sửa lỗi trong scope lab (wrapper, migration runner, cấu hình, DEFAULT có căn cứ, pipeline backup) và kiểm lại phần bị ảnh hưởng; reuse mọi proof/artifact còn khớp. Không tự đổi đích/thiết kế nghiệp vụ, không nâng UI4, không tự hạ PG18, không mở task/service/framework mới, không chạy G7.
+Tác vụ dài có state/log/checkpoint bền trên VPS và cơ chế phục hồi khi Mac mất; không biến thời lượng thành cổng chờ hay bắt Owner canh. Chỉ dừng vì vượt quyền/phạm vi, nguy cơ dữ liệu/secret, thiếu đầu vào thiết yếu hoặc blocker thật không thể xử trong phạm vi.
+
+## G6.1 · Đọc nguồn chuẩn và chốt đầu vào
+Đọc `AGENTS.md` → root DROOT22/25–33 → Bảng điều khiển/P99–P101 và Reviewer mới hơn → PROMPT này → TF/S1/G5 INDEX + manifest. READY phải trỏ đúng last-touch PROMPT; xác nhận chưa có G6 STARTED mở, ghi STARTED + ■/➡/cập nhật trước PRE; DROOT30 trước mutation lab đầu tiên. Không sửa PROMPT khi RUN đang sống.
+- TARGET-FINAL terminal `65ba02af2d8cf149713e7d755ba9d95bfe0b486e`; S1 `10db62fc63dad80dd241220e704bc94ab6968f4a`; G5 `817c45e4fba2f40b1059eae3994687dbb29e06b4`.
+- Dossier TF trên VPS2: `/opt/incomex/work/vps1-up-grade/G4-TARGET-20260930/TF/`. Đọc `INDEX.md`, `TARGET-FINAL-MANIFEST.md`, `SHA256SUMS` và đúng artifact cần dùng; giữ full hashes. Prefix định vị: manifest `41b0e33d…`, Nuxt output `cdbee64a…`, runtime image `5cfe1dda…`, compose patch `8258bc31…`. Không dùng prefix như checksum đầy đủ.
+- Chốt PG18 stable patch mới nhất qua release notes/official registry ở PRE, ghi exact version + index/amd64 digest và giữ suốt G6/G7. Không chọn beta/PG19. Directus12.4.1 + Nuxt4.5.2 dùng đúng artifact TF, không build lại/đổi dependency theo thói quen.
+- Kiểm lab capacity trước khi dựng, chạy stack nặng lần lượt tránh OOM. Checkpoint G2/G5/TF bất biến; chưa có slot OIG lab đang giữ. Mã licensing/telemetry đã chứng minh không đổi: reuse G4C soak, **không arm lại 6h**.
+- Lấy inventory read-only mới của VPS1: image/digest, nguồn cấu hình thực + `.env NUXT_SSR_IMAGE`, extension host, network/mount/alias, mọi DB cần giữ/globals/roles/ACL/extensions/FDW, source/delta đang sống và coverage backup. Đọc KQ liên quan MCPW/MMIM chỉ để carry-forward, không chờ task độc lập.
+
+## G6.2 · Fresh data → PG18 trên volume mới → bộ ứng dụng đã chốt
+- Dùng đường dump/backup native sẵn có và DOT/wrapper để lấy bản sao mới, ghi thời điểm/snapshot từng DB; không dừng ghi production trong G6. Mang đủ các DB phải bảo toàn + globals/roles/ownership/ACL/tablespace/sequence/large objects, không chỉ DB Directus. Không bỏ dữ liệu vì tên có chữ test. Tính nhất quán xuyên DB khi cutover phải được bảo đảm bằng freeze toàn bộ writers trong runbook G7.
+- Sanitize lab theo manifest G2/TF: không mang token/credential sống vào runtime lab; vô hiệu outbound side effect/cron/Flow có lịch/webhook/retention, map FDW về lab, egress chỉ whitelist đúng khi cần. Backup/SQL dump chỉ giữ private/mã hoá theo pipeline sẵn có, không đưa lên repo public.
+- Tạo bản lab PG16 từ bản sao mới làm nguồn và điểm quay lui; tạo **volume PG18 khác hẳn**, dump/restore bằng toolchain18. Tuyệt đối không mở volume PG16 bằng binary18, không link/chia sẻ data files, không xoá/sửa volume gốc. Kiểm PGDATA/mount thực của image18, checksum/initdb, locale/collation, extension versions (gồm các extension thực có), FDW/view/function/trigger/cron. `ANALYZE` sau restore trước đo hiệu năng. PG18 mới có system_identifier mới là bình thường; kiểm đúng volume mới và bảo toàn sysid/data của nguồn PG16, không tái dùng gate S1 “sysid bằng nhau”.
+- Restore globals và dependencies đúng thứ tự; lỗi restore không được bỏ qua hoặc xoá constraint/quyền để đạt. Hash/count/sequence/owner/ACL so với nguồn theo từng DB, phân biệt metadata/volatile đã disposition và biến đổi UUID hợp lệ.
+- Áp UUID DOT + orphan candidate + official Directus migrations + extension patch đúng công thức TF trên **PG18 mới**. Đọc canonical/manifest và kiểm kết quả thay vì tự đánh dấu migration. Activate OIG bằng POST/đường settings đã proof, kiểm quyền/cách ly trước mọi mô phỏng mở ghi.
+- Dùng nguyên bytes Nuxt TF + đúng Node image. Render effective compose gồm `.env NUXT_SSR_IMAGE`; không để env cũ ghi đè image đã chọn. Network `claude_mcp_net` là external **bổ sung**, giữ networks/default/aliases cũ. Áp candidate trên lab, không sửa compose production.
+- Wrapper xác minh host/sysid/volume/network của lab theo allowlist mới, kể cả PG18 hai mạng; sửa kiểm tra sai có negative test, không bỏ fail-closed. Lỗi có thể sửa hẹp trên lab thì sửa và tiếp tục trong RUN.
+
+## G6.3 · Đóng các phát sinh TF trong chính bộ cuối
+**A. 33 cột DEFAULT thiếu:** lập danh sách chính xác từ fresh clone, so với canonical sạch đúng Directus12.4.1. Chỉ thêm DEFAULT đang thiếu khi có biểu thức upstream rõ, đúng kiểu và không phải tuỳ biến nghiệp vụ; giữ nguyên giá trị hiện có, PK/sequence/tenant/ACL và các default đã cấu hình. Reuse/extend DOT có dry-run/precondition/transaction/verify + SQL rollback khôi phục old default; không suy giá trị secret/provider/tenant. Test tạo field, user, collection bằng API/DOT với payload hợp lệ thông thường (fixture lab), verify và cleanup. **Không lấp đủ trường vào fixture chỉ để che lỗi server.** Default không có nguồn rõ hoặc cần đổi dữ liệu/quyền ngoài scope ⇒ ghi exact blocker. Không mở dự án chuẩn hoá toàn schema.
+
+**B. 503/pressure:** dùng fresh data và cùng ngân sách CPU/RAM, workload/harness, cache state để so CURRENT với bộ PG18 cuối; reuse đối chứng cũ nếu inputs thật sự khớp. Đo tải gần production và đỉnh cần phục vụ từ log đã có; thêm replay stress TF (~10×) để kiểm sai lệch 92 vs 26, không chỉ đếm latency. Tách Directus pressure 503, nginx auth_limit và expected auth negatives; báo mẫu số, lỗi, p95, RSS/heap, CPU/event-loop có sẵn, restart/OOM.
+- Tự sửa hẹp trong lab nếu có căn cứ (harness/concurrency/config/pool/resource trong capacity thật); kiểm lại phần bị ảnh hưởng và lưu exact delta/rollback. Không tắt pressure/rate-limit/security hay nới ngân sách vô căn cứ để lấy PASS.
+- Tải thực/đỉnh yêu cầu phải đạt tiêu chí hiện hành và không có hồi quy chưa giải quyết so baseline tương ứng. Stress vượt nhu cầu có thể là giới hạn bão hoà, nhưng phải chứng minh ranh giới bằng số đo; không tự suy “10× nên bỏ qua”. Sai lệch nghiêm trọng chưa giải thích/không đạt tải cần dùng ⇒ PARTIAL, không đánh G7_READY.
+- Fixed-workload có timeout hữu hạn; không thêm soak N giờ hay chạy mọi thứ lại từ đầu. G4C đã có long-soak, TF license unchanged; chỉ carry-forward monitoring hiện hữu.
+
+**C. Sao lưu PG18 (P100):** kiểm từng entrypoint backup/cron và binary thật bằng `--version`; dùng `pg_dump`, `pg_dumpall`, `pg_restore` major18 (ưu tiên trong image18 đã pin). Bản sao pipeline backup ở lab phải dump đủ dữ liệu/globals theo policy, báo lỗi fail-closed, đọc lại checksum/nội dung và **khôi phục thử** trên đích lab riêng; không chỉ dùng file tồn tại hay pg_restore --list làm restore proof. Giữ mã hoá/retention cũ; vô hiệu side effect upload/xoá production trong thử lab. Không nâng pipeline kiến trúc mới. Gói G7 chứa đúng thay đổi tối thiểu và một lần chạy pipeline thật/read-back trước XONG, không chờ đêm.
+
+## G6.4 · Diễn tập chuyển + rollback trên đúng bộ cuối
+Dùng runner/công thức TF/G5 đã sửa, không thiết kế framework mới. Diễn tập trọn chuỗi tại lab sau khi phần sửa đạt; chỉ lặp phần bị lỗi/input đổi khi cần.
+1. PRE ngoài gián đoạn: pin/pull artifact; validate effective compose/env/extension/mạng; backup available; OIG reachability; hash patches và current delta; chuẩn bị rollback. Đo tách PRE khỏi downtime.
+2. Freeze mọi writer lab tương ứng với production: không chỉ REST mà cả SQL trực tiếp từ agent/DOT/cron/Flow/queue; drain transaction và ghi mốc. Runbook G7 phải có map writer cụ thể, không giả “chặn web = hết ghi”. Dump cuối/globals trong trạng thái freeze → restore PG18 volume mới → UUID/DEFAULT/migrate → OIG → Nuxt frozen → acceptance. Không dùng DB của G6 làm nguồn data production G7.
+3. SAME SLICE/data/rights/Flow/FDW/SQL consumers, 132 routes, browser/login/admin/16 trang TF và thử tạo schema metadata trên fixture. Expected khác chỉ theo TF/migration có căn cứ; không xoá test quyền để PASS. Kiểm reconnect và network từ consumer có thật, artifact vẫn đúng hashes.
+4. Trước mở ghi: tạo checkpoint **post-S2 nhất quán** bằng native backup/snapshot có consistency proof (không `cp` volume PostgreSQL đang ghi). Ghi hash/schema/LSN/thời điểm và bảo vệ key trong checkpoint; giữ nguồn PG16/pre-S2. Tính thời gian checkpoint vào cửa sổ nếu thật sự chặn ghi.
+5. Chạy thật rollback **trước mở ghi** trên bộ PG18 mới: stop writers/target, trả activation nếu đã dùng, chuyển đúng PG16 volume + Directus11/Nuxt3 và mọi env/network cũ; verify data/consumer/SAME SLICE. Không chỉ sửa image18 về16 trên volume18. G5 proof dùng lại nhưng không thay được rollback volume PG18 mới này.
+6. Chính sách **sau mở ghi**: giữ P88 — ưu tiên sửa tiến/rollback frontend-service; cấm tự khôi phục DB PG16 cũ. Trong lab mô phỏng delta INSERT/UPDATE/DELETE nhỏ, có bảng thiếu timestamp, để chứng minh checkpoint post-S2 + hash/PK nhận diện ghi mới và bảo toàn DB lỗi. Không tuyên bố pg_dump18→PG16 là downgrade an toàn hoặc timestamp-export là đủ; chưa có đường merge được kiểm thì runbook phải dừng auto-restore và trình đúng quyết định bảo toàn dữ liệu.
+
+## G6.5 · Đóng gói luôn G7, không tạo vòng soạn lại
+G6 phải giao chung trong hồ sơ việc trên VPS2:
+- Manifest full hashes/digests cho PG18 exact, Directus12.4.1, Nuxt/Node frozen, nginx1.30.5; nguồn dữ liệu/snapshot, topology, effective env/extension, globals/DB map; các delta được phép và kết quả test/DEFAULT/load/backup.
+- Runner/runbook G7 sẵn dùng: PRE → freeze writers → dump/restore trên **dữ liệu cuối của VPS1** → chuyển → acceptance → checkpoint trước mở ghi → unfreeze → backup thật/read-back → verify monitor/bàn giao. Runner lab/production có kiểm đúng host+sysid+volume/mode, checkpoint/resume khi Mac mất, timeout/stop/rollback rõ; G6 không execute mode production.
+- Patch chỉ phần VPSUP trên compose/env/extension/backup và DEFAULT DOT; không reset/stash/commit whole dirty tree của việc khác. Guard/protection Điều30/31 dùng cơ chế hiện hữu, đăng ký đúng delta production trong G7; không rebaseline hộ task khác.
+- Rollback plan giữ artifact/volume PG16 và env cũ, vị trí key/cleanup an toàn; danh sách điều kiện trước/sau unfreeze; lỗi DNS phải kiểm bypass DNS giữ đúng Host/SNI, không quay lui DB chỉ vì tên miền lỗi.
+- Số đo thực từng đoạn, tổng gián đoạn, thời gian rollback; đề xuất một cửa sổ G7 ít sử dụng theo log và đủ dư quay lui. Không đoán “vài phút” và không bắt chờ đêm nếu số đo/rủi ro không đòi hỏi; Owner duyệt cửa sổ trước production.
+Không build lại Nuxt; G6/G7 copy đúng bytes đã kiểm. Nếu phát hiện bắt buộc sửa artifact đã đóng băng hoặc đổi phiên bản ngoài scope, báo exact blocker, không tự rewrite UI. Không xuất DB/secret/compose chứa secret lên GitHub public; repo chỉ tóm tắt + con trỏ/hash an toàn. Mọi lệnh G7 trong hồ sơ chỉ là gói bàn giao, **chưa phải READY/RUN G7**.
+
+## G6.6 · KQ, cleanup và điều kiện kết thúc
+Trước KQ: trả slot OIG khi Directus+egress còn hoạt động, xác nhận trả; stop lab target, đóng egress và làm sạch secret theo P71/P72; giữ nguồn/artifact/evidence cần thiết. Deactivate lỗi ⇒ giữ DB/PUBLIC_URL đủ retry, không shred đường cứu rồi báo sạch. Không làm thay đổi e-learning hay xoá hồ sơ/volume gốc.
+- Đạt đủ: `KQ@VPSUP-G6-INTEGRATED-REHEARSAL-20261002-01 XONG · G6_PASS · PG18=<exact> · DIRECTUS12.4.1 · NUXT4.5.2 · G7_PACKAGE_COMPLETE`.
+- Chưa đạt: `KQ@VPSUP-G6-INTEGRATED-REHEARSAL-20261002-01 DỪNG · PARTIAL · <exact blocker>`, kèm phần đã đạt và điểm tiếp tục, không yêu cầu chạy lại cả gói.
+Sửa ■/➡/cập nhật trong cùng commit KQ. Không tự nghiệm thu G7, không phát READY, không nâng production. Host nghiệm thu KQ và Reviewer rà **gói G7 đã có**; sau Owner duyệt cửa sổ mới thực thi G7. Không thêm các RUN “vá DEFAULT”, “đo tải”, “sửa backup” riêng.
+
+Nguồn kỹ thuật hẹp cho đúng implementation: https://www.postgresql.org/docs/18/upgrading.html ; https://www.postgresql.org/docs/18/app-pgdump.html ; https://www.postgresql.org/docs/18/app-pg-dumpall.html ; https://hub.docker.com/_/postgres . Tag list cache không là pin; phải resolve official digest ở PRE.
+
+## HISTORY — TARGET-FINAL đã terminal, KHÔNG CHẠY LẠI CÁC LỆNH BÊN DƯỚI
+KQ TF `65ba02a`; PROMPT đã chạy `40df4ec`. Giữ nguyên văn để tái dùng công thức/bằng chứng; chỉ khối G6 phía trên là lệnh hiện hành. Không lấy RUN_ID/STATUS/READY trong lịch sử để thực thi.
+
 # PROMPT — VPSUP CHỐT TARGET CUỐI · Directus 12.4.1 + Nuxt4 artifact
 
 RUN_ID: VPSUP-TARGET-FINAL-20261002-01

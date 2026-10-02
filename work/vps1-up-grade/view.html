@@ -16,7 +16,7 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <h1>Server đủ bộ phiên bản đã chốt để làm Máy sản xuất quy trình</h1>
 <p class="big"><b>Mục tiêu:</b> VPS1 chạy đủ PG18 + Directus12.4/OIG + Nuxt4.5/Node24 ổn định, để dùng tính năng mới cho công việc tiếp theo. Không mở rộng thành dự án dọn hạ tầng hay thiết kế tính năng nghiệp vụ.</p>
 <div><span class="tag">PG18</span><span class="tag">Directus12.4.x + OIG</span><span class="tag">Nuxt4.5 · Node24</span><span class="tag">nginx1.30.5 đã xong</span><span class="tag">Hai gói: G6 → G7</span></div>
-<p class="small"><b>Tiến độ — P99:</b> Chuẩn bị G0–G5 đã xong · S1 đã xong · <b>TARGET-FINAL đang chạy</b> → G6: hoàn thiện + diễn tập bộ cuối + gói triển khai → G7: chuyển production + nghiệm thu + bàn giao = <b>XONG</b>. Không chờ 7 ngày; e-learning/huỷ VPS2 và nâng UI4 ngoài phạm vi.</p>
+<p class="small"><b>Tiến độ — P101, đã đồng thuận Owner/Host/Reviewer:</b> Chuẩn bị G0–G5 đã xong · S1 đã xong · <b>TARGET-FINAL đã chốt Directus12.4.1 + Nuxt4.5.2</b> → <b>G6 DRAFT: hoàn thiện + diễn tập bộ PG18 cuối + gói triển khai G7</b> → G7: chuyển production + nghiệm thu + bàn giao = <b>XONG</b>. Không chờ 7 ngày; e-learning/huỷ VPS2 và nâng UI4 ngoài phạm vi.</p>
 </section>
 
 <section class="card" id="owner">
@@ -439,12 +439,12 @@ DỪNG NGAY nếu: read-gate FAIL; một bước cần quyền ghi ngoài chỗ 
 
 <section class="card" id="status">
 <h2>10. Trạng thái hiện tại</h2>
-<p><b class="ok">G0–G5 và S1 đã PASS.</b> KQ S1 ghi VPS1 đã lên PostgreSQL16.15 + nginx1.30.5. <b>TARGET-FINAL đã STARTED, chưa có KQ terminal tại lượt rà P99.</b> Trạng thái chuẩn và bản mới nhất: BẢNG ĐIỀU KHIỂN đầu <code>COLLAB.md</code>.</p>
+<p><b class="ok">G0–G5, S1 và phần chốt artifact TARGET-FINAL đã nghiệm thu.</b> VPS1 vẫn ở PG16.15/Directus11/Nuxt3; Directus12.4.1 và Nuxt4.5.2 mới được kiểm trên lab. <b>G6 DRAFT đang chờ Reviewer, chưa READY/RUN.</b> Nguồn trạng thái chuẩn: BẢNG ĐIỀU KHIỂN đầu <code>COLLAB.md</code>.</p>
 <table><thead><tr><th>Gói</th><th>Agent làm liên tục trong cùng RUN</th><th>Đầu ra</th></tr></thead><tbody>
-<tr><td><b>G6 · Hoàn thiện và diễn tập</b></td><td>Dùng lại artifact TARGET-FINAL; dữ liệu/cấu hình mới; PG18 trên volume mới; tích hợp Directus/Nuxt; sửa/test có mục tiêu; thử chuyển và quay lui; chuẩn bị luôn gói G7.</td><td>Bộ cuối đã chạy đạt, artifact khoá bytes, số đo gián đoạn và runbook G7/rollback sẵn chạy.</td></tr>
+<tr><td><b>G6 · Hoàn thiện và diễn tập</b></td><td>Dùng artifact TF + dữ liệu/cấu hình mới; PG18 volume mới; tích hợp Directus/Nuxt; xử lý 503 dưới tải và DEFAULT thiếu có căn cứ; thử sao lưu/khôi phục bằng tool18; tập chuyển/quay lui; chuẩn bị luôn gói G7.</td><td>Bộ cuối chạy đạt; dữ liệu/quyền/consumer/load/backup được kiểm; artifact khoá bytes, số đo gián đoạn và lệnh G7/rollback sẵn dùng.</td></tr>
 <tr><td><b>G7 · Chuyển và bàn giao</b></td><td>Sau duyệt cửa sổ production: chuẩn bị, chặn ghi, chuyển cả bộ đã tập, nghiệm thu, mở ghi, kiểm sao lưu/giám sát và bàn giao.</td><td>VPS1 đủ PG18 + Directus12.4/OIG + Nuxt4.5/Node24 + nginx1.30.5; dữ liệu/quyền/Flow/consumer đạt = XONG.</td></tr>
 </tbody></table>
-<p><b>Không xé nhỏ:</b> checkpoint để phục hồi, không phải chỗ xin phép. Một vòng review bình thường/gói; lỗi trong phạm vi thì agent tự sửa và test lại phần liên quan. Chỉ ngắt khi có blocker/rủi ro thật hoặc cần đổi phạm vi.</p>
+<p><b>Không xé nhỏ:</b> các phát sinh vẫn nằm trong G6/G7, không tạo bước thứ ba. 503 ở stress ~10× chưa phải kết luận production đạt; 33 DEFAULT có sẵn vẫn cần xử lý khi cản API tạo field/user/collection. Sao lưu phải dùng tool18, G6 restore thử và G7 chạy thật/read-back trước XONG. Checkpoint để phục hồi, không phải xin phép; một vòng review bình thường/gói.</p>
 <p><b>Không đổi đích âm thầm:</b> PG18 chưa đạt thì chưa được báo hoàn tất cả nhiệm vụ; Owner mới quyết phương án khác. Không tự mở PG18 đợt 2.</p>
 <p><b>Đã loại khỏi đường chính:</b> nâng UI4, chờ 7 ngày, chuyển e-learning, dọn/huỷ VPS2. Theo dõi nền dùng cơ chế hiện hữu, không kéo dài nghiệm thu. Giữ các ràng buộc kỹ thuật đã chốt: mạng bổ sung, bảo toàn delta/compose, đúng artifact, checkpoint và không restore DB mù.</p>
 </section>
