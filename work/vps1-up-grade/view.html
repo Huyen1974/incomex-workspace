@@ -439,7 +439,7 @@ DỪNG NGAY nếu: read-gate FAIL; một bước cần quyền ghi ngoài chỗ 
 
 <section class="card" id="status">
 <h2>10. Trạng thái hiện tại</h2>
-<p><b class="ok">G0–G6 đã PASS; G7 đã READY theo P110.</b> VPS1 vẫn ở PG16.15/Directus11/Nuxt3 cho tới khi Owner dán RUN G7. Bộ exact PG18.6 + Directus12.4.1/OIG + Nuxt4.5.2/Node24.21.0 đã rehearsal hai lần; dữ liệu/sequence khớp, backup/restore và rollback đã proof, DOT_SCRIPT_ONLY=PASS. <b>Chỉ còn chuyển production.</b> Owner dán RUN = duyệt bắt đầu cửa sổ; PRE fail-closed giữ VPS1 nguyên, acceptance trước mở ghi trượt thì tự rollback. Nguồn trạng thái chuẩn: BẢNG ĐIỀU KHIỂN đầu <code>COLLAB.md</code>.</p>
+<p><b class="ok">G0–G6 đã PASS; G7 lần 1 dừng an toàn ở PRE, VPS1 nguyên.</b> Blocker không phải mất admin mà là gói đọc password rỗng từ <code>.env</code>. P112 đổi machine-auth sang <code>DIRECTUS_ADMIN_TOKEN</code> trong Secret Manager; DOT sẽ xác minh đúng admin hiện hữu trước freeze. Sau cutover, chính user đó được chuẩn hóa email <code>nmhuyen@gmail.com</code> và password lưu Secret Manager; không tạo admin thứ hai. <b>G7 retry đang DRAFT, chưa READY.</b></p>
 <table><thead><tr><th>Gói</th><th>Agent làm liên tục trong cùng RUN</th><th>Đầu ra</th></tr></thead><tbody>
 <tr><td><b>G6 · PASS</b></td><td>PG18.6 + Directus12.4.1 + Nuxt4.5.2 trên fresh data; DEFAULT/load/backup/restore; cutover ×2; rollback thật; DOT 100%.</td><td>Package G7 43 file sẵn dùng; downtime 16–17′; rollback 4–4,5′.</td></tr>
 <tr><td><b>G7 · Chuyển và bàn giao</b></td><td>Sau duyệt cửa sổ production: chuẩn bị, chặn ghi, chuyển cả bộ đã tập, nghiệm thu, mở ghi, kiểm sao lưu/giám sát và bàn giao.</td><td>VPS1 đủ PG18 + Directus12.4/OIG + Nuxt4.5/Node24 + nginx1.30.5; dữ liệu/quyền/Flow/consumer đạt = XONG.</td></tr>

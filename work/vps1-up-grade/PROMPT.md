@@ -1,7 +1,7 @@
 # PROMPT — VPSUP G7 · CHUYỂN PRODUCTION MỘT LẦN + NGHIỆM THU + BÀN GIAO
 
-STATUS: **DRAFT — Reviewer P109 soạn mỏng từ gói G6 + P108; chờ Host READY.** §0.3: đã đối chiếu.
-RUN_ID: `VPSUP-G7-PROD-CUTOVER-20261002-01` · Executor: phiên Claude Code mới · **Owner dán RUN = Owner duyệt cửa sổ** (45′; gián đoạn đo ở G6: 16–17′).
+STATUS: **DRAFT RETRY — P112 sửa blocker danh tính admin; chờ Host READY mới.** §0.3: đã đối chiếu.
+RUN_ID: `VPSUP-G7-PROD-CUTOVER-20261003-02` · Executor: phiên Claude Code mới · **Owner dán RUN = Owner duyệt cửa sổ** (45′; gián đoạn đo ở G6: 16–17′).
 Đầu ra duy nhất: VPS1 chạy **PG 18.6 + Directus 12.4.1/OIG + Nuxt 4.5.2/Node 24.21.0 + nginx 1.30.5**, đủ dữ liệu/quyền, sao lưu PG18 đọc lại được, có canh licensing. Không làm gì ngoài đầu ra này (không e-learning/VPS2, không @nuxt/ui v4, không DNS).
 
 ## G7.0 · Đọc
@@ -15,20 +15,28 @@ AGENTS → BẢNG ĐIỀU KHIỂN → **§0.3 (bảng phiên bản chốt cứng
 5. Đĩa VPS1 trống ≥ 20 GB (02/10 20:45: 53 GB); bản sao lưu đêm gần nhất đọc được.
 6. Restore-verify dùng `dot-pg-restore-verify-db` **v1.1.0** từ gói, không dùng v1.0.0 đang ở prod.
 
+### G7.1A · Danh tính admin Directus — sửa blocker trước freeze
+**Owner 03/10 cho phép rõ:** kiểm và nối đúng credential Directus trong Google Secret Manager, nhưng chỉ trong DOT/script-wrapper và tuyệt đối không in/log/ghi giá trị secret.
+1. **Nguồn machine-auth chuẩn = GSM `DIRECTUS_ADMIN_TOKEN`**, không còn lấy `DIRECTUS_ADMIN_PASSWORD` từ `cron-env.sh`/`.env`. Audit GSM đã xác nhận secret này tồn tại. `dot-directus-license` phải nạp token bên trong loader đã duyệt và gọi API bằng `Authorization: Bearer`; password người dùng không được dùng cho licensing/monitor.
+2. Trước mọi freeze, DOT gọi `/users/me` bằng token đó và chỉ ghi metadata không bí mật: user id/hash, email, status, role/policy/admin_access. Phải chứng minh token thuộc **chính admin đầu tiên/Owner-admin hiện hữu**, active và có admin access. Không đạt ⇒ `DỪNG · PRE_BLOCKER_ADMIN_TOKEN_INVALID`; không dò secret khác, VPS1 nguyên.
+3. Nếu email hiện hữu khác `nmhuyen@gmail.com`, **không đổi trước freeze**; ghi cờ `OWNER_ADMIN_EMAIL_NORMALIZE=NEEDED`. Nếu đã đúng thì PASS. Không tạo admin thứ hai.
+4. Sửa `dot-directus-license` + licensing monitor dùng cùng loader token; cập nhật package `install-prod.manifest`/`SHA256SUMS`, chạy `status` read-only PASS trước freeze. Mọi thay đổi package qua DOT/script-wrapper; không direct curl/REST/SQL.
+
 ## G7.2 · Chạy — một lệnh, liền một mạch
 - `run/g7-chain.sh` đúng `G7-RUNBOOK.md`. Mọi thao tác PG/Directus qua DOT/script-wrapper (DROOT26/34); cấm psql/SQL/REST/CLI tay. Không dừng xin ý kiến giữa các bước.
 - Nghiệm thu trước mở ghi trượt ⇒ chuỗi **tự quay lui** về PG16 + Directus 11 + Nuxt3 (đã tập: 4–4,5′), trả slot OIG, ghi `KQ … DỪNG · ROLLED_BACK_PRE_UNFREEZE`.
 
 ## G7.3 · Sau mở ghi — không kéo dài gián đoạn
 - Theo runbook: Kuma `/server/health` → `/server/ping` · **sao lưu thật bằng công cụ bản 18 + restore-verify v1.1.0 đọc lại được** · Config Guard + sổ DOT + mô tả `dot_tools`.
-- **P109 theo §0.3 (thiếu ⇒ Directus 12 có thể khoá âm thầm sau 7 ngày mất licensing):** bật canh licensing trên Kuma → Telegram theo spec đã chốt (kết nối tới licensing từ mạng Directus + trạng thái license; probe không gọi activate/refresh; 2 lần lỗi liên tiếp ~10′ mới báo), qua DOT có sẵn hoặc DOT nhỏ theo DROOT27; bắn **1 tin thử** về Telegram; ghi 5 dòng “mất licensing thì làm gì” vào `G7-RUNBOOK.md` bản VPS1.
+- **P109 theo §0.3 (thiếu ⇒ Directus 12 có thể khoá âm thầm sau 7 ngày mất licensing):** bật canh licensing trên Kuma → Telegram theo spec đã chốt (kết nối tới licensing từ mạng Directus + trạng thái license; probe không gọi activate/refresh; 2 lần lỗi liên tiếp ~10′ mới báo), dùng cùng `DIRECTUS_ADMIN_TOKEN` loader; bắn **1 tin thử** về Telegram; ghi 5 dòng “mất licensing thì làm gì” vào `G7-RUNBOOK.md` bản VPS1.
+- **Chuẩn hóa Owner-admin sau khi hệ mới đã mở ghi ổn định:** giữ nguyên user id/role/policies của admin đầu tiên, **không tạo admin thứ hai**. Qua DOT, đặt email chính xác `nmhuyen@gmail.com` nếu đang khác. Password cho Owner login Studio: DOT sinh mật khẩu mạnh trong tmpfs, tạo/cập nhật GSM secret `DIRECTUS_ADMIN_PASSWORD`, cập nhật password của cùng user qua Directus API bằng admin token, rồi thử login email/password một lần qua DOT để lấy token tạm và logout; không in/log password/token. Machine automation vẫn dùng `DIRECTUS_ADMIN_TOKEN`, không dùng password. `ADMIN_EMAIL`/`ADMIN_PASSWORD` Docker chỉ là bootstrap-first-user, không còn là nguồn credential runtime.
 - Sự cố sau mở ghi ⇒ P88: sửa tiến hoặc quay lui riêng frontend/service; **cấm tự khôi phục DB**; giữ DB lỗi, dừng và báo.
 
 ## G7.4 · Giữ đường lùi
 Không xoá volume PG16, checkpoint post-S2, image cũ, gói G7; dọn chỉ khi Owner cho phép (việc phụ sau XONG).
 
 ## G7.5 · KQ
-- Đạt: `KQ@VPSUP-G7-PROD-CUTOVER-20261002-01 XONG · G7_PASS · PG18.6 · DIRECTUS12.4.1 · NUXT4.5.2 · BACKUP_PG18_PASS · LICENSE_MONITOR_PASS` + gián đoạn thật + nơi đặt hồ sơ.
+- Đạt: `KQ@VPSUP-G7-PROD-CUTOVER-20261003-02 XONG · G7_PASS · PG18.6 · DIRECTUS12.4.1 · NUXT4.5.2 · ADMIN_IDENTITY_PASS · BACKUP_PG18_PASS · LICENSE_MONITOR_PASS` + gián đoạn thật + nơi đặt hồ sơ.
 - Không đạt: `… DỪNG · ROLLED_BACK_PRE_UNFREEZE · <lý do>` hoặc `… DỪNG · <blocker>` kèm trạng thái VPS1 hiện tại.
 - Sửa ■/➡/cập nhật của Bảng cùng commit KQ; dừng và báo GPT Host.
 
