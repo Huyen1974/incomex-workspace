@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: GPT-MCPW-250925-A · Owner giao 25/09/2026 điều h�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) — Owner gật đề xuất `Mở lại mcp-workspace để khoá đường ghi repo chỉ qua gateway` (COLLAB gốc DROOT20).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 12:10 +07 · GPT Host · P90
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 14:21 +07 · GPT Host · P91
 - 🎯 Mục tiêu: 5 AI/Agent hữu hạn vào làm thì máy tự nhận ra và ghi lại; không ai “làm chui”; Hermes hiện giữ manual gate.
-- 🏁 Xong khi: R6 bảo vệ thành quả + N9 final + Owner gật đóng; **toàn bộ AI phải báo cáo trước 14:00 +07 ngày 02/10/2026**.
-- 📍 Tiến độ: `[✓ R1–R5] → [✓ R6 KQ XONG] → [■ N9 final] → [□ Owner gật → đóng MCPW]`.
-- ✅ Đã xong: chức năng 5 AI/Agent + R6 `8656d03` + hậu kiểm phiên R6 REPORTED `6c55100`.
-- ■ Đang làm: Host GPT + Claude Reviewer nghiệm thu N9 song song; **không còn executor R6**.
-- ⬜ Còn lại: N9 final → Owner nhìn Owner View/gật; việc nào chưa hoàn thành lúc 14:00 phải ghi riêng `CHƯA HOÀN THÀNH TẠI 14:00`.
-- ➡ Kế tiếp: Host/Reviewer báo kết luận trực tiếp trên repo trước 14:00; không vòng xác nhận trung gian qua Owner.
-- ⛔ Không làm/để sau: **không RUN mới để kéo dài MCPW** · Bảng giao việc/NEXT/lease/REST/Directus/VPSUP để sau/ngoài scope.
+- 🏁 Xong khi: R6 bảo vệ thành quả + N9 final + Owner gật đóng; hạn báo cáo AI là **14:00 +07 ngày 02/10/2026**.
+- 📍 Tiến độ: `[✓ R1–R6] → [✓ Host N9 PASS] → [■ Claude Reviewer final] → [□ Owner gật → đóng MCPW]`.
+- ✅ Đã xong: chức năng 5 AI/Agent · R6 `8656d03` · phiên R6 REPORTED `6c55100` · Host đối chiếu N9/P89 = PASS.
+- ■ Đang làm: Claude Reviewer chỉ còn nghiệm thu final trên KQ + live tối thiểu; **không còn executor/RUN MCPW**.
+- ⬜ CHƯA HOÀN THÀNH TẠI 14:00: (1) Claude Reviewer chưa có kết luận N9 final trên repo; (2) Owner chưa gật đóng vì còn chờ N9 final. R6/technical execution đã XONG trước hạn.
+- ➡ Kế tiếp: Claude ghi đúng một kết luận `ACCEPT` hoặc blocker thật; ACCEPT ⇒ chuyển thẳng Owner gật đóng, không vòng đồng thuận mới.
+- ⛔ Không làm/để sau: **không RUN mới để kéo dài MCPW** · không sửa residual không chặn · Bảng giao việc/NEXT/lease/REST/Directus/VPSUP để sau/ngoài scope.
 
 ### 1. Mục tiêu
 - Nguyên văn Owner: “Đúng vậy chúng ta khóa lại để bắt buộc làm theo 1 con đường giúp tôi.”
@@ -1729,6 +1729,15 @@ KQ@MCPW-R6-PROTECT-CLOSE-20261002-01 XONG · PROTECTED_READY_FOR_OWNER_CLOSE
 - Từ đây chỉ còn **N9 final**: Host GPT + Claude Reviewer kiểm song song, ghi kết luận thẳng lên repo; không thêm vòng “đồng thuận lần cuối” qua Owner.
 - KQ R6 đã có mục **Residual thật (1–9)** riêng. Không giấu residual trong chữ PASS; đến 14:00 nếu còn hạng mục review/chốt chưa xong thì ghi riêng danh sách chưa hoàn thành, không biến nó thành lý do mở lượt chạy mới.
 - Nếu N9 PASS trước hạn: chuyển thẳng Owner nhìn Owner View/gật đóng MCPW. Roadmap Bảng giao việc/NEXT/lease chỉ mở sau khi MCPW đã đóng.
+
+#### P91 · Host GPT · 2026-10-02 14:21 +07 · **B1 RÀ MỤC TIÊU + N9 HOST PASS · GIAO CLAUDE REVIEW FINAL**
+- **Mục tiêu/roadmap:** mục tiêu Owner là 5 AI/Agent hữu hạn vào làm phải bị máy nhận diện/ghi dấu; Hermes ở manual gate. Mục tiêu chức năng đã đạt từ R2/hậu kiểm Codex; R6 chỉ là bước bảo vệ thành quả Điều 30/31 rồi đóng MCPW. NEXT/lease/REST/Directus không thuộc vòng đóng hiện tại.
+- **Đối chiếu 4 điều kiện đóng P89:** (A) Hermes gateway `drift=none` 🟢 · (B) Config Guard 63/63 + Protection Guard UP 🟢 · (C) R2 có trong release gate hiện dùng, 220/220 + 37 PASS 🟢 · (D) file/config R2 đã vào Config Guard 🟢. Owner View browser + negative/mutant + watchdog cũng PASS vượt mức tối thiểu.
+- **Host đánh giá KQ `8656d03`: ACCEPT / N9 phía Host = PASS.** Ngân sách đúng: 0 restart/build, không chạm 4 file cấm, 3/4 invariant, rollback rõ, ngoài scope 0. Background command bị stop lúc 12:33 chỉ là vòng `pgrep` cũ; không phải test còn dở vì lượt chạy lại đã có clean 23/23 + mutant 13/13 và đã ghi trong KQ.
+- **Residual không chặn đóng:** release gate cần truyền `ACCEPTANCE_IMAGE`; Playwright dùng Chromium sẵn có thay version ghim; R6 không mở phiên Codex mới nhưng baseline Desktop `9fe894c` vẫn còn bằng chứng 24h. Các residual khác là maintenance/quy tắc cho lần sửa sau, không làm thiếu mục tiêu vòng này. Residual “thiếu Bảng điều khiển” đã được Host xử lý ở P90.
+- **CHƯA HOÀN THÀNH TẠI 14:00:** R6 đã XONG 12:08; nhưng chưa có commit kết luận N9 final của Claude Reviewer và vì vậy Owner chưa gật đóng. Không biến việc chậm review thành lý do mở RUN mới.
+- **Giao Claude Reviewer — đúng 1 lượt, không nở scope:** đọc Bảng → P89 → KQ `8656d03` + hậu kiểm `6c55100` → P90/P91. Chỉ kiểm độc lập 4 điều kiện A–D, ngân sách/outside-scope, residual có blocker thật hay không và live guard còn xanh. Nếu không có blocker: ghi `ACCEPT N9 FINAL · READY FOR OWNER CLOSE`; nếu có blocker: ghi đúng blocker hiện hữu, **không tự mở RUN/sửa kỹ thuật**. Không cần thêm JEV/vòng đồng thuận.
+- Sau Claude ACCEPT: Host không review thêm vòng nữa; chuyển thẳng Owner nhìn Owner View và gật đóng MCPW.
 
 ## Owner cần quyết
 - —
