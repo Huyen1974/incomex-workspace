@@ -5,6 +5,16 @@ Host: GPT Chat · Host_ID: GPT-MCPW-250925-A · Owner giao 25/09/2026 điều h�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) — Owner gật đề xuất `Mở lại mcp-workspace để khoá đường ghi repo chỉ qua gateway` (COLLAB gốc DROOT20).
 
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 12:10 +07 · GPT Host · P90
+- 🎯 Mục tiêu: 5 AI/Agent hữu hạn vào làm thì máy tự nhận ra và ghi lại; không ai “làm chui”; Hermes hiện giữ manual gate.
+- 🏁 Xong khi: R6 bảo vệ thành quả + N9 final + Owner gật đóng; **toàn bộ AI phải báo cáo trước 14:00 +07 ngày 02/10/2026**.
+- 📍 Tiến độ: `[✓ R1–R5] → [✓ R6 KQ XONG] → [■ N9 final] → [□ Owner gật → đóng MCPW]`.
+- ✅ Đã xong: chức năng 5 AI/Agent + R6 `8656d03` + hậu kiểm phiên R6 REPORTED `6c55100`.
+- ■ Đang làm: Host GPT + Claude Reviewer nghiệm thu N9 song song; **không còn executor R6**.
+- ⬜ Còn lại: N9 final → Owner nhìn Owner View/gật; việc nào chưa hoàn thành lúc 14:00 phải ghi riêng `CHƯA HOÀN THÀNH TẠI 14:00`.
+- ➡ Kế tiếp: Host/Reviewer báo kết luận trực tiếp trên repo trước 14:00; không vòng xác nhận trung gian qua Owner.
+- ⛔ Không làm/để sau: **không RUN mới để kéo dài MCPW** · Bảng giao việc/NEXT/lease/REST/Directus/VPSUP để sau/ngoài scope.
+
 ### 1. Mục tiêu
 - Nguyên văn Owner: “Đúng vậy chúng ta khóa lại để bắt buộc làm theo 1 con đường giúp tôi.”
 - Nguyên tắc áp (AGENTS A10-R2, nguyên văn Owner): “Quy định là không đủ, phải cưỡng chế. Không thể làm sai.”
@@ -59,7 +69,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User, 24/09/2026) —
 - Hermes: một việc còn 2 commit/thẻ+bài và chưa hỏi ngược Owner/AI khác ⇒ **roadmap Bảng giao việc/Quy trình công việc**, không kéo lại vòng hiện tại.
 
 **Checkpoint hiện hành:**
-`[✓ R1 dừng B2B] → [✓ R2 thiết kế] → [✓ R3 review/READY] → [✓ R4 triển khai] → [✓ R5 N9 kỹ thuật + Codex thật] → [■ R6 Điều 30/31 PROTECT + N9 final] → [□ Owner gật → đóng MCPW]`
+`[✓ R1 dừng B2B] → [✓ R2 thiết kế] → [✓ R3 review/READY] → [✓ R4 triển khai] → [✓ R5 N9 kỹ thuật + Codex thật] → [✓ R6 Điều 30/31 PROTECT · KQ XONG 12:08] → [■ Host + Reviewer N9 final] → [□ Owner gật → đóng MCPW]`
 
 **Luật giữ cứng:** R6 chỉ bảo vệ/kiểm chứng cái đã đạt; không NEXT · lease · REST · Directus · VPSUP. Không chờ theo giờ. Không dùng việc bảo vệ làm cớ redesign.
 
@@ -1712,6 +1722,13 @@ KQ@MCPW-R6-PROTECT-CLOSE-20261002-01 XONG · PROTECTED_READY_FOR_OWNER_CLOSE
 - **Residual thật:** (1) `run_acceptance.py` mặc định vẫn image r03 cũ — không sửa mã, biển báo bắt truyền `ACCEPTANCE_IMAGE`. (2) Playwright 1.57 của `web/` ghim Chromium 1200 chưa cài trên host ⇒ spec dùng `OWNER_VIEW_CHROMIUM` = Chromium 1223 có sẵn; các spec `web/` khác trên host cũng vướng điều này (ngoài R6). (3) Không thêm contract JSON vào `web/tests/contracts/` (runner Điều 31 cũ đọc thư mục đó và ghi Directus); contract nằm trong spec. (4) Hook Mac (managed settings, Codex `hooks.json`) không thuộc Config Guard VPS — cảm biến là HOOK_MISSING theo PROMPT; hiện còn 1 dòng HOOK_MISSING của phiên mở trước khi cài hook (đúng thiết kế). (5) Trong R6 không có phiên Codex mới — bằng chứng Codex Desktop vẫn là `9fe894c` + 3 phiên hook/24h. (6) Từ nay đổi `server.py`/`workspace_tools.py` (vd B2B) phải rebaseline qua apply-v0 trong RUN được cấp phép; MMIM đổi nhãn “Sổ phiên”/“Ngoài việc” có chủ đích thì sửa spec + `OWNER_VIEW_MARKS` cùng lượt (INV13 đỏ là đúng). (7) 2-pass làm cảnh báo của INV11–13 trễ tối đa 5′ (thiết kế). (8) MCPW không có khối BẢNG ĐIỀU KHIỂN (MT4) — executor không tự dựng; Host quyết. (9) Song song: VPSUP S1 KQ XONG trước mutation của R6; VPSUP TARGET đã READY chưa STARTED — Guard R6 là baseline mới trong PRE của họ.
 - **Kiểm sau commit KQ (05:08–05:09Z):** `lc_report` = (`MCPW-R6-PROTECT-CLOSE-20261002-01`, `claude-code`, `8656d03`) ⇒ phiên `91b7dcb1` **REPORTED**, Owner View việc mcp-workspace hiện “đã báo cáo” ⇒ R6 đi trọn START → ACTIVE → REPORTED trong sổ. Quan sát phụ: dòng mẫu `KQ@…` trong PROMPT cũng sinh 1 `lc_report` cho `gpt-web` (`2ad7ed2`) — không phiên executor nào bị đánh REPORTED nhầm (khớp theo actor), để Reviewer biết.
 - NEXT: Claude Chat Reviewer nghiệm thu N9 (≤30′ theo P89) → Host đối chiếu → Owner nhìn Owner View, gật O-MCPW-CLOSE trước 15:00 +07. Executor dừng ở đây.
+
+#### P90 · Host GPT · 2026-10-02 12:10 +07 · **OWNER HARD CUTOFF 14:00 · R6 ĐÃ KQ XONG**
+- Owner chốt: **trước 14:00 +07 ngày 02/10/2026, toàn bộ việc/AI trong MCPW phải có báo cáo**. Việc nào chưa hoàn thành đúng thời điểm đó phải liệt kê riêng dưới nhãn `CHƯA HOÀN THÀNH TẠI 14:00`; không được tiếp tục kéo dài bằng RUN mới.
+- R6 đã KQ XONG tại `8656d03` lúc 12:08 +07; hậu kiểm `6c55100` xác nhận chính phiên R6 đã thành `REPORTED`. Executor dừng; **không phát thêm lệnh cho Claude Code R6**.
+- Từ đây chỉ còn **N9 final**: Host GPT + Claude Reviewer kiểm song song, ghi kết luận thẳng lên repo; không thêm vòng “đồng thuận lần cuối” qua Owner.
+- KQ R6 đã có mục **Residual thật (1–9)** riêng. Không giấu residual trong chữ PASS; đến 14:00 nếu còn hạng mục review/chốt chưa xong thì ghi riêng danh sách chưa hoàn thành, không biến nó thành lý do mở lượt chạy mới.
+- Nếu N9 PASS trước hạn: chuyển thẳng Owner nhìn Owner View/gật đóng MCPW. Roadmap Bảng giao việc/NEXT/lease chỉ mở sau khi MCPW đã đóng.
 
 ## Owner cần quyết
 - —
