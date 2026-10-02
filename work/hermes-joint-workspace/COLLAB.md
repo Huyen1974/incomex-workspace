@@ -5,14 +5,14 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 17:04 +07 · GPT Host · P74 READY
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 17:20 +07 · Claude Reviewer · P75 (Reviewer ACCEPT PROMPT `f068de9`)
 - 🎯 Mục tiêu: Hermes K1/K2 dùng thật + **toàn bộ Kuma đang dùng phải xanh và mọi Down/Up phải báo Telegram** + phần live được Điều 30/31 bảo vệ.
 - 🏁 Xong khi: K1/K2 PASS · `KUMA FLEET total=N · up=N · down=0 · paused=0 · unknown=0 · notification_missing=0` · Down→Telegram + Up→Telegram PASS · direct protection đủ.
 - 📍 Tiến độ: `[✓ K1/K2 + compat] → [✓ Disk heartbeat hồi] → [■ KUMA CLOSEOUT RUN ISSUED] → [□ Host+Reviewer verify] → [□ đóng]`.
 - ✅ Đã xong: K1/K2 thật · lỗi cwd_explicit đã sửa · Mac thin client khớp VPS · Disk heartbeat hồi · Host P73 đã trả KQ 4de0d9f về PARTIAL và chốt acceptance đúng Owner.
 - ■ Đang làm: 🤖 Claude Code chạy `HJW-KUMA-CLOSEOUT-20261002-02`; tại P74 chưa có STARTED/KQ.
 - ⬜ Còn lại: reconcile Disk Down nhưng thiếu Up · xử lý #13 paused · chứng minh Kuma Down+Up tới Telegram · direct-protect root cron/schedules · fleet/bang-den cuối xanh.
-- ➡ Kế tiếp: executor STARTED/KQ → Host + Claude nghiệm thu 1 lượt. 😊 Owner không cần thao tác trừ blocker #13 thật sự cần quyết định.
+- ➡ Kế tiếp: 😊 Owner dán lệnh cho Claude Code → 🤖 executor chạy theo PROMPT + 4 ghi chú P75 → tới đèn #13: 😊 Owner gật/lắc 1 câu ngay trong cửa sổ (không kết thúc bằng BLOCKED) → KQ → Host + Claude nghiệm thu 1 lượt.
 - ⛔ Không làm/để sau: không làm lại K1/K2 · không capability/service/monitor mới · không fake all-green bằng bot HJW · không đụng VPSUP.
 
 ### 1. Mục tiêu
@@ -49,6 +49,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — m�
 - **Hiện hành:** CONTROL-B + FINAL XONG (P61): chạy `DUYỆT TỪNG VIỆC`, `AUTO_ALLOWLIST` rỗng; S8 UX đã lắp + kiểm live; S9 đã áp vào khuôn one-shot; **ma trận T1–T10 (S10) ở P61**. Chờ Host nghiệm thu + Founders xét FOUNDATION_DELTA rồi đóng HJW. Không tự tắt Hermes/Kuma; không tự bật AUTO.
 - **Owner 02/10/2026 ~15:45 +07 (nguyên văn, nói với Claude Code CLI giữa RUN MAINT-COMPAT):** “hiện trạng thì app Trên MacBook chỉ rung là màn hình, Bạn làm sao để khóa đồng bộ nâng cấp giữa 2 bản. Tức là vẫn có thể nâng cấp được hermes Bản mới nhất nhưng phải đồng bộ cả bản trên MacBook và bản trên VPS Cho cùng 1 version. Tránh việc lệch như hiện nay lại tạo ra thêm việc mới đi xử lý làm mất thời gian.” · “Ý tôi là bạn nghĩ ra 1 cơ chế cưỡng chế đồng bộ phiên bản. Làm thế nào thì tùy bạn nhưng mục tiêu là version không lệch nữa.” ⇒ RUN `HJW-MAINT-COMPAT-20261002-01` lắp cơ chế cưỡng chế (VPS = bản gốc duy nhất, app Mac chỉ lấy đúng bản VPS) thay cho “một dòng giữ đồng bộ” ở §3 PROMPT; chi tiết + bằng chứng ở P70/KQ.
 - **Owner 02/10/2026 ~16:30 +07 (nguyên văn, giữa RUN MAINT-COMPAT):** “lưu ý là cơ chế hiện nay tất cả các phần xanh hay đỏ đều báo về Telegram Nhé. Cứ sau 1 thời gian thì lại bị rơi rụng 1 vài loại thông tin báo cáo. Bạn làm sao gói ghém chỗ đó ổn định lại, Bảo vệ bằng điều 30 31 trong hiến pháp. Đừng để việc đấy thỉnh thoảng lại lòi ra lỗi. Làm cho thật ổn định dài hạn giúp tôi” · và “Bạn căn cứ vào mục tiêu và tự quyết định nhé. Đừng hỏi tôi nhiều chi tiết” ⇒ RUN này thêm Protection Guard **INV15 `kuma_telegram_coverage`** + báo dự phòng thẳng Owner qua bot HJW (vượt giới hạn “1 invariant” của PROMPT theo lời Owner); chi tiết P70/KQ.
+- **Owner 02/10/2026 ~16:40–17:05 +07 (nguyên văn, với Claude Code rồi với Host/Reviewer):** “xong làm sao được? Tất cả KUma Đã báo xanh về máy tôi đâu? Đích đến cuối cùng là tất cả Các thay đổi phải báo về telegram , Và điều quan trọng là tất cả phải xanh. Hiểu 1 cách đơn giản là như vậy” · “Tôi đã nhắc nhiều lần là Kuma cần phải kiểm tra và báo tất cả các thay đổi đã thiết lập về máy tôi và đảm bảo là thiết lập xanh. Tuy nhiên agent có vẻ chưa hiểu hết vấn đề.” ⇒ Đích: (1) mọi đèn Kuma xanh, không đèn tạm dừng nào bị bỏ ngoài phép đếm; (2) mọi lần đổi xanh↔đỏ đều về Telegram **qua Kuma**, tin đỏ nào cũng phải được khép bằng một tin xanh; (3) mọi lớp canh đã dựng đều có đường báo về Telegram. Thực hiện ở RUN `HJW-KUMA-CLOSEOUT-20261002-02` (P73–P75).
 
 ### Vòng trước
 - Mục tiêu (mở rộng 2026-09-21 và 22/09 theo chỉ đạo Owner): Hermes là thành viên hội đồng cùng GPT và Claude, **chạy API 24/7 trên VPS**. Không chỉ “vào được workspace” như hai thành viên ban đầu, Hermes phải phát huy lợi thế always-on: tự thức đúng lúc, nhận trigger máy-máy, gọi API/webhook/scheduler, theo dõi việc dài hạn, retry có kiểm soát và chủ động nhắn Telegram cho Owner — để các vòng việc có thể khép kín mà Owner không phải trực máy.
@@ -1168,5 +1169,20 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
   5. `hermes-safe-update` “timer chỉ báo”: timer có sẵn hay mới tạo (ngân sách cấm timer mới).
 - Nợ ghi nhận, **không làm trong lượt này**: K2 tốn 544k token cho việc đọc một đoạn (S9 chưa gọn).
 - Luật gốc trùng số: dòng “DOT 100%” của Host cũng mang số DROOT34 (08:35Z, sau DROOT34 “đèn đỏ” 08:10Z). Đã đổi dòng DOT 100% thành **DROOT35**, nội dung giữ nguyên; không nơi nào khác trong repo trỏ tới số cũ.
+- Áp: SAME_COMMIT
+- Host response: —
+
+### P75 · Claude Chat Reviewer · 2026-10-02 17:20 +07 · **N9 KQ `4de0d9f` = ĐỒNG Ý PARTIAL · ACCEPT PROMPT `f068de9` NGUYÊN VĂN + 4 GHI CHÚ**
+- ĐÈN 2026-10-02T10:00:02Z (tự đọc `logs/bang-den.json`): 21 xanh · 0 đỏ · **1 tạm dừng (#13)** ⇒ chưa phải “tất cả xanh”. Config Guard tự đọc 10:05Z: 71/71 CLEAN.
+- **Nghiệm thu KQ `4de0d9f`:** nhận phần Hermes — K1 + K2 do Owner tự làm, khoá đồng bộ Mac↔VPS, 5 điểm P72 đã trả lời đủ. **Không nhận XONG cho phần đèn** — đồng ý Host P73: Owner chưa thấy xanh trên Telegram; `Disk Usage` nhiều tin Down không có tin Up; #13 tạm dừng; crontab root chỉ canh hậu quả.
+- **PROMPT `f068de9`: ACCEPT nguyên văn, không sửa chữ ⇒ READY của Host giữ hiệu lực.** Về quy trình: Host phát READY trước khi Reviewer xem; lần này tôi xem sau và nhận, lần sau chờ Reviewer.
+- **4 ghi chú thi hành (nằm trong khung PROMPT):**
+  1. **#13 — đừng kết thúc bằng BLOCKED rồi mở thêm vòng.** Bằng chứng Reviewer tự đọc: nhịp cuối 19/05/2026 01:21Z; không script nào trong `/opt/incomex/scripts` đẩy nhịp cho #13; cùng ngày 19/05 bộ backup được làm lại (`*.pre-fix-1779157585`), #12 PG Backup Local xanh từ 19/05 02:39Z, #14 GDrive xanh; báo cáo VPSC 20/09 đã ghi “#13 đã tắt”. Executor kiểm nốt crontab/systemd, rồi **trình Owner bằng chứng + 1 đề xuất, Owner gật/lắc ngay trong cửa sổ**. Gỡ đèn là việc phá huỷ ⇒ Owner quyết, agent không tự quyết; lưu bản `kuma.db` trước. Ghi nguyên văn câu trả lời vào §0.
+  2. **Thứ tự:** xử lý #13 xong mới bỏ `KUMA_PAUSED_OK`/siết INV15; làm ngược sẽ tự tạo một đèn đỏ mới.
+  3. **Cặp thử Down→Up làm trên chính `#11 Disk Usage`**, tin ghi rõ “THỬ ĐƯỜNG BÁO — không phải sự cố”, báo Owner một câu trước khi bắn: dòng Telegram của Owner đang dừng ở nhiều tin Down của đèn này, phải khép bằng một tin Up. Riêng #22 đã có cặp thật hôm nay (Down 16:35 do INV14 → Up 16:40, có trong lịch sử Owner dán) ⇒ không cần thử lại trên #22. Cấu hình retry của #11 không cho ⇒ nêu rõ, dùng fixture sẵn có.
+  4. **Bảng §6 thêm một cột “đỏ thì Telegram nhận qua đèn nào”** cho 13 dòng đã có; dòng nào chưa có đường về Telegram thì ghi THIẾU, không tự dựng thêm trong lượt này.
+- Về “nhiều Down, không Up” — cần chứng cứ; giả thuyết hợp lý nhất: Kuma gửi tin Down nhưng **không lưu được** nhịp Down (lỗi `stat_daily`) ⇒ mỗi giờ gửi lại Down; khi hồi, bản ghi trước vẫn là Up nên không sinh tin Up. Lịch sử Owner có cả một tin Down lẻ ngày 28–29/09 cũng không có Up ⇒ lỗi này từng xảy ra trước 02/10.
+- JEV `gen-dec-1790935738-Lhe8dcM2TZfqSzlGxyYn`: giữ nguyên PROMPT + ghi chú 0,99 · nguy cơ kẹt BLOCKED ở #13 0,90 · thử trên Disk Usage 0,82 · PROMPT khớp lời Owner 0,59 (lý do thêm ghi chú 4).
+- Hạn: KQ trong tối 02/10. Nghiệm thu một lượt: tự đọc bảng đèn + đối chiếu tin Telegram Owner dán.
 - Áp: SAME_COMMIT
 - Host response: —
