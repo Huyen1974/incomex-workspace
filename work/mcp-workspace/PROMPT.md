@@ -5,17 +5,19 @@ Host: GPT Chat · GPT-MCPW-250925-A
 Executor_Surface: Claude Code CLI trên Mac Owner
 Report_Write_Path: `work/mcp-workspace/COLLAB.md` qua `workspace_*` profile `claude-code`
 Runtime: VPS1 production + repo/source hiện hành
-STATUS: DRAFT — CHƯA RUN. Claude Reviewer rà 1 vòng; Host READY sau review.
+STATUS: CHƯA RUN. Reviewer đã rà (P86 · ACCEPT-with-delta) — chờ Host READY đúng commit cuối chạm file này.
 
 ## 0. Mục tiêu duy nhất
 
 KHÔNG thêm capability mới.
 
+**Ngân sách cứng:** 0 restart/recreate dịch vụ (agent-data · claude-mcp · nginx · Directus · Hermes gateway/serve) · không build/đổi image · không sửa `lifecycle.py` / `server.py` / `app.vue` / `view.html` · không service/timer/cron/DB/monitor Kuma mới · tối đa 4 invariant mới · Owner thao tác dự kiến = 0. Buộc vượt bất kỳ mục nào ⇒ DỪNG trước khi làm, báo Host.
+
 Lấy toàn bộ thành quả MCPW đã đạt làm **baseline được bảo vệ**, áp ngay:
 - **Điều 30 v1.2 — Luật Bảo vệ Hồi quy:** thay đổi sau này chạm chức năng/UI phải có test chứng minh cái cũ không hỏng; UI phải có browser evidence thật.
 - **Điều 31 v1.2 — Luật Toàn Vẹn Hệ Thống:** hệ thống tự kiểm liên tục, tự phơi bày drift/lỗi; guard/watchdog cũng phải được kiểm.
 
-Sau đó chạy N9 final E1–E6. Nếu PASS ⇒
+Sau đó chuẩn bị bằng chứng theo khung E1–E6 để Host + Reviewer nghiệm thu N9 (executor không tự nghiệm thu). Đủ bằng chứng ⇒
 `KQ@MCPW-R6-PROTECT-CLOSE-20261002-01 XONG · PROTECTED_READY_FOR_OWNER_CLOSE`.
 
 Owner là người gật đóng MCPW. Executor không tự mở roadmap tiếp theo.
@@ -56,7 +58,7 @@ Không làm:
 - Directus/private writer;
 - VPSUP/DNS;
 - Hermes AUTO;
-- sửa/rebaseline `hvu-sync-py` của MMIM;
+- sửa `sync.py` của MMIM; rebaseline `hvu-sync-py` **trừ đúng ngoại lệ §6.3** (chỉ khi Owner đã ĐỒNG Ý `O-HVU-SYNC`);
 - cleanup lịch sử/test sessions ngoài cái cần cho verification;
 - framework/monitor/service mới nếu guard/test hiện hữu ghép được.
 
@@ -102,6 +104,9 @@ Bắt buộc bảo vệ tối thiểu:
 
 Nếu CI/test command hiện tại đã tự chạy `tests/continuation/test_r2_*.py` ⇒ chỉ ghi bằng chứng, **không thêm pipeline**.
 Nếu chưa chạy ⇒ thêm tối thiểu vào test workflow hiện hữu; không tạo hệ CI thứ hai.
+“Đường test tự động hiện hành” = bộ acceptance/release gate đang dùng trước khi đổi image agent-data (vd `run_acceptance.py` + `tests/continuation`), không phải GitHub Actions mới.
+
+**Biển báo tại chỗ (2–4 dòng):** ghi lệnh test phải chạy trước khi sửa/deploy vào README/biển thư mục **hiện hữu** của `tests/continuation` và của `scripts/hvu-b2` (`README.md` / `00-NHAN-THU-MUC.md`). Không tạo file mới nếu đã có chỗ ghi.
 
 ### 4.2 Owner View — browser regression theo Điều 30
 
@@ -123,6 +128,8 @@ Contract tối thiểu cho task có fixture/snapshot kiểm soát:
 
 Nếu có harness Playwright hiện hữu ⇒ thêm test vào harness đó.
 Nếu không có harness nào phù hợp ⇒ dùng công cụ browser hiện hữu để tạo test nhỏ nhất có thể tái chạy và ghi rõ residual; không kéo npm/framework lớn chỉ để đẹp hồ sơ.
+
+Giới hạn: test chạy trên **fixture**, assert theo **chữ hiển thị** — không sửa `app.vue`/build lại `view.html` chỉ để thêm `data-testid`. Thư mục `scripts/hvu-b2` dùng chung với lane MMIM: chỉ thêm file test/fixture + dòng biển báo; không sửa `sync.py`.
 
 ### 4.3 Post-change smoke
 
@@ -148,32 +155,32 @@ MCPW-owned targets tối thiểu phải được bảo vệ:
 - `presence.py` / Owner View adapter đã đổi;
 - Hermes config hash target;
 - workspace-tools lifecycle config;
-- guard/gate file R2 đã chạm nếu có.
+- `hjw_gate.py` (R2 đã đổi `8ced89b40382` → `6993c82a4755`).
+
+`app.vue`/`view.html` dùng chung với lane MMIM và được build lại hợp lệ ⇒ **không** đăng ký hash (sẽ đỏ mỗi lần MMIM build); bảo vệ bằng test trình duyệt §4.2 + cảm biến nhãn §5.2.
 
 Nếu đã có trong 61 targets và hash đúng ⇒ KEEP.
 Thiếu target của chính R2 ⇒ đăng ký qua apply path hiện hữu trong cùng RUN.
 Không rebaseline target của task khác.
 
-Drift `hvu-sync-py` MMIM phải tiếp tục hiện rõ là external drift; không giấu/không bless.
+Drift `hvu-sync-py` (MMIM A09R1): xử lý theo §6.3.
 
 ### 5.2 Protection Guard — thêm/kiểm invariant R2 bằng cơ chế hiện hữu
 
 Reuse Protection Guard/periodic/watchdog hiện hữu; không service mới.
 
-MCPW R2 phải tự phát hiện tối thiểu:
+MCPW R2 phải tự phát hiện tối thiểu (cái nào guard hiện hữu đã canh ⇒ KEEP + ghi evidence, không thêm bản thứ hai):
 1. lifecycle mode không còn `audit`;
-2. lifecycle receiver/source/config protected bị lệch;
-3. importer timer/service chết hoặc snapshot lifecycle quá cũ;
-4. lifecycle snapshot parse lỗi/mất các field cốt lõi;
-5. Owner View projection/smoke cốt lõi fail;
-6. Hermes gateway/gate/config R2-owned drift;
-7. contract 37/23 hoặc legacy B2A regression.
+2. importer chết / snapshot lifecycle quá cũ (`presence.json` khối `lifecycle.generatedAt` > 10 phút) hoặc parse lỗi/thiếu field cốt lõi;
+3. Owner View đang phục vụ mất nhãn cốt lõi (“Sổ phiên”, “Ngoài việc”) hoặc mất khối `lifecycle` — kiểm bằng đọc file/HTTP + tìm chuỗi, **không chạy trình duyệt trong guard định kỳ**;
+4. contract 37/23 hoặc legacy B2A regression (INV hiện có đã phủ ⇒ KEEP).
+Lệch byte của file/config R2 (lifecycle, importer, presence, gate, Hermes config) đã do Config Guard báo qua INV5_6 ⇒ không thêm invariant trùng.
+
+**Luật cho invariant mới:** chạy tại chỗ (không gọi GitHub — ngân sách `rest_anon` 2/h; không LLM); **2-pass** — 2 lượt liên tiếp fail mới đỏ (Điều 31 §4.4); gộp vào monitor Kuma hiện có. `INV5_6.health_routes http /=HTTPError` đã chớp DOWN→UP 3 lần/3 ngày ⇒ áp cùng luật 2-pass nếu sửa gọn trong cùng file; không điều tra lịch sử.
 
 **Mac hooks không cần monitor mới:** khi Claude Code/Codex hoạt động qua gateway/SSH mà hook không có, `HOOK_MISSING` chính là sensor Điều 31. Giữ cơ chế này.
 
-Guard phải phân biệt:
-- MCPW-owned failure ⇒ đỏ MCPW;
-- external known drift (MMIM `hvu-sync-py`) ⇒ vẫn phơi bày nhưng không tự sửa/rebaseline hộ.
+Không dựng cơ chế “ngoại lệ drift đã biết” trong guard; drift ngoài MCPW xử lý tại nguồn theo §6.3.
 
 Không sửa lịch sử DOWN→UP cũ. Chỉ sửa lỗi live còn tồn tại hoặc invariant mới chưa được canh.
 
@@ -189,16 +196,19 @@ Chỉ vá lỗ thực tế chứng minh được.
 
 ## 6. Cảnh báo Telegram hiện hành — chỉ xử lý owner MCPW
 
-Trong cùng RUN, trước KQ:
-- kiểm Protection Guard live;
-- kiểm Hermes gateway live;
-- nếu live PASS ⇒ không đào alert lịch sử;
-- nếu live DOWN do MCPW-owned delta ⇒ sửa đúng root cause trong scope + regression;
-- nếu down do MMIM external drift ⇒ ghi external blocker/owner, không sửa MMIM.
+Trong cùng RUN, trước KQ. Live PASS ⇒ không đào alert lịch sử.
 
-`Disk Usage No heartbeat` không thuộc MCPW; không chạm.
+**6.1 Hermes gateway `drift=GATE` — MCPW-owned, do R2 gây ra:** R2 đổi `hjw_gate.py` (`8ced89b40382` → `6993c82a4755`) và đã đăng ký Config Guard, nhưng baseline riêng của `hjw-control-root.py tick` chưa cập nhật ⇒ `kuma-push.sh hermes` đẩy DOWN. Hash live = `6993c82a4755` ⇒ cập nhật baseline bằng đường chính thức của HJW control (không sửa tay nếu có lệnh), ghi old/new; đạt khi `tick` trả `drift=none` và monitor “Hermes gateway” UP. Hash live khác ⇒ DỪNG, báo Host (gate bị đổi ngoài R2). Công tắc Owner (`stop`, AUTO rỗng) giữ nguyên.
 
-## 7. N9 final E1–E6
+**6.2 MCPW Protection Guard:** còn đỏ do nguyên nhân MCPW ⇒ sửa đúng gốc + regression.
+
+**6.3 `hvu-sync-py` — drift của MMIM A09R1, đang giữ INV5_6 đỏ liên tục (Kuma chỉ báo khi đổi trạng thái ⇒ lỗi mới của MCPW không còn báo được):**
+- Mặc định: không đụng; KQ ghi “Protection Guard còn đỏ do drift MMIM” (không chặn KQ).
+- **Chỉ khi `## Quyết định Owner` của COLLAB có `O-HVU-SYNC · ĐỒNG Ý`:** sha256 live của `scripts/hvu-b2/sync.py` = `a64a59eb0468890f7463fa2699eee55bd5f84f6875b45f545a50ab12dfe46722` (bản A09R1, Host MMIM nghiệm thu D102) ⇒ rebaseline **đúng một mục** `hvu-sync-py` qua apply path, ghi old/new + lý do (DROOT29); sau đó Config Guard 61/61 và Protection Guard UP. Hash khác ⇒ không rebaseline, ghi hash thật, báo Host MMIM.
+
+`Disk Usage No heartbeat` không thuộc MCPW (Config Guard cho thấy `kuma-push-sh`/`cron-kuma-push` không đổi); không chạm.
+
+## 7. Bằng chứng theo khung E1–E6 (executor chuẩn bị · nghiệm thu N9 là của Host + Reviewer)
 
 ### E1 — Scope diff
 Ngoài scope = 0. Mọi file mới/sửa phải map vào Điều30/31 protection hoặc test/guard của baseline MCPW.
@@ -244,8 +254,9 @@ PASS khi đồng thời:
 - Điều 31 Config Guard phủ toàn MCPW R2-owned files/config;
 - Protection Guard tự canh các invariant R2 quan trọng;
 - watchdog/self-protection PASS;
-- Protection Guard live không có MCPW-owned đỏ;
-- Hermes gateway live PASS hoặc lỗi external đã phân loại;
+- Hermes gateway monitor UP (`drift=none`);
+- Protection Guard không còn đỏ do MCPW; UP hẳn nếu §6.3 được Owner cho phép;
+- ngân sách cứng §0 không vượt;
 - backend R2 23/23 (hoặc suite kế thừa) PASS;
 - contract 37/23 PASS;
 - P02/B1/B2A/Hermes manual gate không regression;
@@ -267,7 +278,7 @@ KQ mở đầu bằng bảng:
 | Điều 30 Owner View/browser | |
 | Điều 31 Config Guard | |
 | Điều 31 Protection Guard/watchdog | |
-| N9 E1–E6 | |
+| Bằng chứng E1–E6 | |
 | MCPW-owned alert live | |
 
 Sau đó mới ghi evidence ngắn:

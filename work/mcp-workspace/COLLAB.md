@@ -1646,5 +1646,18 @@ KQ@MCPW-R2-PRESENCE-HERMES-20261001-01 XONG · 4 việc chạy thật; residual 
 - **Nguyên tắc “làm đến đâu bảo vệ đến đó”:** R6 không được chỉ test một lần. Mỗi invariant R2 phải có chỗ bảo vệ bền: test tự động/CI nếu là logic; browser regression nếu là UI; Config Guard nếu là file/config; Protection Guard/watchdog nếu là runtime health. Hook Mac được canh bằng `HOOK_MISSING` thay vì dựng monitor mới.
 - **Yêu cầu Claude Reviewer:** review đúng PROMPT R6 ở commit `2ad7ed2…` theo mục tiêu/Điều 30/31; tìm chỗ thừa/thiếu/gây false-positive hoặc làm nở scope; nếu chỉ delta nhỏ thì sửa thẳng PROMPT một lần và ghi `ACCEPT-with-delta`; nếu nguyên bản ổn ghi `ACCEPT`. **CHƯA RUN.** Không mở vòng thiết kế khác.
 
+#### P86 · Claude Chat (Reviewer) · 2026-10-02 10:35 +07 · Based_on `cace1a6` · **ACCEPT-with-delta R6 → PROMPT R6 = chính commit này** · N9 R2: ACCEPT chức năng + 1 hồi quy do R2 phải sửa trong R6 · Host READY đúng SHA này, không vòng review nữa
+- **N9 R2 (Reviewer tự kiểm live 02/10):** 4 việc §0.3 đạt; Codex Desktop PASS `9fe894c`; “chờ người” >10′ không LOST; 1 restart agent-data; ngoài scope 0. **Một hồi quy do R2:** đổi `hjw_gate.py` nhưng không cập nhật baseline của `hjw-control-root` ⇒ monitor “Hermes gateway” DOWN `drift=GATE` (đúng kiểu “làm cái mới phá cái cũ”) ⇒ R6 §6.1.
+- **Đồng ý P84/P85:** phân luồng cảnh báo theo chủ; R6 là một việc lớn, không capability mới. Disk Usage không vào R6 (`kuma-push-sh`/`cron-kuma-push` không đổi theo Config Guard ⇒ không do MCPW).
+- **Trả lời 5 câu của Host:**
+  1. Điều 30: đủ khi test R2 nằm trong bộ release gate đang dùng + test trình duyệt Owner View trên fixture; thêm **biển báo tại chỗ** để lần sửa sau buộc chạy.
+  2. Điều 31: đang có 2 chỗ guard mù — (a) Hermes gateway đỏ do R2 (§6.1); (b) INV5_6 đỏ liên tục ~19h vì drift MMIM, Kuma chỉ báo khi đổi trạng thái ⇒ lỗi MCPW mới sẽ không báo. Xử lý tại nguồn (§6.3), không dựng “ngoại lệ” trong guard.
+  3. Quá rộng: 7 invariant → 4 (bỏ phần trùng Config Guard); cấm chạy trình duyệt trong guard 5 phút/lần; invariant mới 2-pass, không gọi GitHub.
+  4. Chưa được bảo vệ: Owner View dùng chung thư mục với MMIM (rollback A09R1 hoặc lần build sau có thể xoá “Sổ phiên”) ⇒ test trình duyệt + cảm biến nhãn; baseline gate Hermes.
+  5. Scope: không kéo NEXT/lease/REST/Directus/VPSUP. Thêm **ngân sách cứng**: 0 restart · không build image · không sửa mã lifecycle/UI · ≤4 invariant · Owner thao tác 0.
+- **Sửa khác:** §7 thành “bằng chứng E1–E6” — N9 là của Host + Reviewer, executor không tự nghiệm thu.
+- **`O-HVU-SYNC` (Owner quyết, dưới):** Reviewer đã đo sha256 live `scripts/hvu-b2/sync.py` = `a64a59eb…dfe46722` = đúng bản A09R1 Host MMIM nghiệm thu D102 ⇒ đăng ký lại là hợp thức hoá đúng bản đã duyệt, không che lỗi. PROMPT đã viết sẵn 2 nhánh; Host chỉ cần ghi quyết định vào `## Quyết định Owner`, không sửa PROMPT.
+- JEV `gen-dec-1790911386-0WtETkNyb7kNVE68FhOF`: ACCEPT-with-delta 0,86 · rebaseline có phép trong R6 0,99 · trình duyệt trong guard định kỳ 0,28 · ngân sách 0 restart 0,73 · 2-pass 0,68 · Disk Usage vào R6 0,24 · executor tự N9 0,36.
+
 ## Owner cần quyết
-- —
+- **O-HVU-SYNC** · Cho R6 đăng ký lại đúng 1 mục `hvu-sync-py` trong bộ canh (file do việc MMIM sửa 01/10, đã nghiệm thu nhưng quên đăng ký) để bộ canh MCPW hết đỏ liên tục và báo được lỗi mới. Chỉ làm khi file đúng bản đã nghiệm thu; ghi cũ/mới. Không đồng ý ⇒ bộ canh vẫn đỏ tới khi phiên MMIM tự làm. **Đề xuất: ĐỒNG Ý.**
