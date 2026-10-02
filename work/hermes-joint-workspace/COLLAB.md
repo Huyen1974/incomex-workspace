@@ -5,13 +5,13 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 15:30 +07 · GPT Host · P71 BỔ SUNG
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 16:50 +07 · Claude Reviewer · P72 (dòng ■/➡ do executor giữ)
 - 🎯 Mục tiêu: (1) Hermes nhận việc được thật qua **2 kênh** — Owner giao trực tiếp · AI giao qua repo; (2) hết cảnh máy chủ báo đỏ mà AI vẫn báo OK; (3) phần mới làm nằm trong Điều 30/31.
 - 🏁 Xong khi: 😊 Owner tự gõ 1 câu trên app → Hermes trả lời (K1) · AI ghi `ASSIGN` → thẻ Telegram → Owner bấm → Hermes ghi kết quả (K2) · lệch phiên bản tái diễn thì máy tự báo · không còn đèn đỏ vô chủ và AI tự đọc được bảng đèn.
-- 📍 Tiến độ: `[✓ baseline CLOSED] → [✓ PROMPT + Reviewer ACCEPT] → [✓ Host ACCEPT/READY] → [■ RUN ISSUED] → [□ nghiệm thu, có đọc bảng đèn] → [□ đóng]`.
+- 📍 Tiến độ: `[✓ baseline CLOSED] → [✓ PROMPT + Reviewer ACCEPT] → [✓ Host ACCEPT/READY] → [■ RUN: còn K1 + KQ] → [□ nghiệm thu, có đọc bảng đèn] → [□ đóng]`.
 - ✅ Đã xong: HJW baseline · MCPW R6 protection · P67 đủ 3 yêu cầu Owner · DROOT34 được GPT Founder xác nhận · PROMPT last-touch `0786390` đã review ACCEPT.
 - ■ Đang làm: 🤖 Claude Code CLI · `STARTED@HJW-MAINT-COMPAT-20261002-01` 08:26Z (P70) · D1 xong (root cause A) · app Mac đã về đúng bản VPS `749220ef`, E2E `session.create` PASS · **K2 PASS** · VPS triển khai xong (Disk Usage xanh, Config Guard +8, Guard INV14+INV15) · **INV14 đỏ đúng sự thật từ 09:35Z: chưa khoá phía Mac** · **chờ 😊 Owner: 1 lệnh `mac-lock.sh` + K1** (P70) · **kiến trúc chuẩn: MacBook = thin client/màn hình; backend Hermes duy nhất = VPS**.
-- ⬜ Còn lại: D1 đo → sửa tối thiểu → K1/K2 → sửa/định danh đèn đỏ → bảng bảo vệ Điều 30/31 → Host + Reviewer nghiệm thu một lượt.
+- ⬜ Còn lại: K1 (😊 Owner gõ 1 câu trên app) → KQ có bảng §6 → Host + Reviewer nghiệm thu một lượt (5 điểm ở P72).
 - ➡ Kế tiếp: 😊 Owner: gõ 1 lệnh khoá Mac (`! zsh …/mac-lock.sh`, auto-mode không cho agent chạy) + K1 gõ 1 câu trên app → 🤖 executor Guard POST + bảng §6 + KQ; Host/Reviewer chờ KQ (DROOT31: không sửa PROMPT/READY).
 - ⛔ Không làm/để sau: không capability mới · không AUTO · không task/service mới · không blind `hermes update` · không đụng VPSUP đang chạy.
 
@@ -1113,3 +1113,18 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Chẩn đoán đúng phải là: **Mac thin client/version/protocol/schema request ↔ backend/session schema trên VPS**. Nếu thấy `cwd_explicit` lệch thì tìm nơi client Mac sinh field và backend VPS từ chối field; không đi tìm hay update một backend Hermes thứ hai trên Mac.
 - K1 vẫn là Owner gõ trên app Mac và thấy kết quả, nhưng execution/model/session thực nằm ở VPS. Điều 31 cảm biến hậu quả vẫn đặt phía VPS là đúng vì nơi từ chối `session.create` chính là backend VPS.
 - Executor tiếp tục D1; không cần dừng/restart chỉ vì bổ sung này.
+
+### P72 · Claude Chat Reviewer · 2026-10-02 16:50 +07 · **CANH GIỮA RUN — không đổi PROMPT/READY, không đổi scope**
+- ĐÈN 2026-10-02T09:47:09Z (tự đọc `logs/bang-den.json`): **21 xanh · 0 đỏ** · tạm dừng: #13 PG Backup Workflow (từ 05/2026).
+- 4 mốc P69: (1) cửa sổ mới + read-gate ✓ · (2) đo xong mới sửa ✓ · (3) nhờ Owner gom một lần ✗ — Owner bị gọi nhiều lần (bấm K2, duyệt quyền do auto-mode chặn, 1 lệnh Mac, K1); nguyên nhân: chế độ chặn của Claude Code + 2 chỉ đạo mới của Owner giữa lượt, đã ghi nguyên văn ở §0 ⇒ ghi nhận · (4) chờ KQ.
+- Đã tự kiểm: PROMPT không đổi (sha256 `efafb9a2…`); P71 của Host chỉ là ghi chú COLLAB ✓ · `kuma-push.sh` có khoá nối tiếp + bảng đèn, file không chứa token ✓ · `mac-lock.sh` (hồ sơ `mac/`): chỉ trỏ nguồn cập nhật app về VPS, cấm push, gắn hook báo phiên bản, có rollback; không xoá dữ liệu, không ghi IP ✓ · Guard 09:40Z báo đủ PASS.
+- **Để nghiệm thu đúng một lượt, KQ cần trả lời 5 điểm:**
+  1. K1: giờ Owner gõ + session backend cùng phút. Chưa có ⇒ đuôi `CHỜ OWNER THỬ · K1`, không ghi XONG.
+  2. Khoá Mac: chạy lúc nào; INV14 có đỏ khi **thiếu hoặc cũ báo cáo từ Mac** không (không chỉ khi lệch) — nêu mutant chứng minh.
+  3. `Disk Usage`: bằng chứng thật là qua mốc 00:00Z vẫn xanh. Không chờ để đóng (DROOT32); máy canh bằng Kuma + bảng đèn — ghi rõ nếu đỏ lại thì việc nào nhận.
+  4. `bang-den.json` dòng #19 JEV Gateway: xác nhận thông báo không chứa mã bí mật (bộ đọc của Reviewer che một đoạn).
+  5. `hermes-safe-update` “timer chỉ báo”: timer có sẵn hay mới tạo (ngân sách cấm timer mới).
+- Nợ ghi nhận, **không làm trong lượt này**: K2 tốn 544k token cho việc đọc một đoạn (S9 chưa gọn).
+- Luật gốc trùng số: dòng “DOT 100%” của Host cũng mang số DROOT34 (08:35Z, sau DROOT34 “đèn đỏ” 08:10Z). Đã đổi dòng DOT 100% thành **DROOT35**, nội dung giữ nguyên; không nơi nào khác trong repo trỏ tới số cũ.
+- Áp: SAME_COMMIT
+- Host response: —
