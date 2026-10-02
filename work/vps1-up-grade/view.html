@@ -16,7 +16,7 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <h1>Server đủ bộ phiên bản đã chốt để làm Máy sản xuất quy trình</h1>
 <p class="big"><b>Mục tiêu:</b> VPS1 chạy đủ PG18 + Directus12.4/OIG + Nuxt4.5/Node24 ổn định, để dùng tính năng mới cho công việc tiếp theo. Không mở rộng thành dự án dọn hạ tầng hay thiết kế tính năng nghiệp vụ.</p>
 <div><span class="tag">PG18</span><span class="tag">Directus12.4.x + OIG</span><span class="tag">Nuxt4.5 · Node24</span><span class="tag">nginx1.30.5 đã xong</span><span class="tag">Hai gói: G6 → G7</span></div>
-<p class="small"><b>Tiến độ — P108:</b> Chuẩn bị G0–G5 · S1 · TARGET-FINAL · <b>G6 đều đã PASS/Host ACCEPT</b>. Chỉ còn <b>G7 production</b>: Reviewer rà package một vòng → Host READY → Owner duyệt cửa sổ → chuyển + nghiệm thu + bàn giao = <b>XONG</b>. Rehearsal đo downtime 16–17 phút, rollback trước mở ghi 4–4,5 phút; package đề xuất cửa sổ 45 phút.</p>
+<p class="small"><b>Tiến độ — P110:</b> G0–G6 đã PASS. <b>G7 production đã Reviewer ACCEPT và Host READY@fdb5ba6.</b> Chỉ còn Owner chọn giờ và dán RUN; dán = duyệt cửa sổ. Rehearsal: downtime 16–17 phút, rollback trước mở ghi 4–4,5 phút; dành cửa sổ 45 phút. G7 PASS = <b>XONG VPSUP</b>.</p>
 </section>
 
 <section class="card" id="owner">
@@ -439,7 +439,7 @@ DỪNG NGAY nếu: read-gate FAIL; một bước cần quyền ghi ngoài chỗ 
 
 <section class="card" id="status">
 <h2>10. Trạng thái hiện tại</h2>
-<p><b class="ok">G0–G6 đã PASS; Host P108 đã nghiệm thu G6.</b> VPS1 vẫn ở PG16.15/Directus11/Nuxt3 cho tới G7; trên VPS2 bộ exact PG18.6 + Directus12.4.1/OIG + Nuxt4.5.2/Node24.21.0 đã rehearsal hai lần, dữ liệu/sequence khớp, backup/restore và rollback đã proof, DOT_SCRIPT_ONLY=PASS. <b>Chỉ còn G7 production.</b> Reviewer đang được giao rà package/runbook một vòng trước Host READY và Owner duyệt cửa sổ. Nguồn trạng thái chuẩn: BẢNG ĐIỀU KHIỂN đầu <code>COLLAB.md</code>.</p>
+<p><b class="ok">G0–G6 đã PASS; G7 đã READY theo P110.</b> VPS1 vẫn ở PG16.15/Directus11/Nuxt3 cho tới khi Owner dán RUN G7. Bộ exact PG18.6 + Directus12.4.1/OIG + Nuxt4.5.2/Node24.21.0 đã rehearsal hai lần; dữ liệu/sequence khớp, backup/restore và rollback đã proof, DOT_SCRIPT_ONLY=PASS. <b>Chỉ còn chuyển production.</b> Owner dán RUN = duyệt bắt đầu cửa sổ; PRE fail-closed giữ VPS1 nguyên, acceptance trước mở ghi trượt thì tự rollback. Nguồn trạng thái chuẩn: BẢNG ĐIỀU KHIỂN đầu <code>COLLAB.md</code>.</p>
 <table><thead><tr><th>Gói</th><th>Agent làm liên tục trong cùng RUN</th><th>Đầu ra</th></tr></thead><tbody>
 <tr><td><b>G6 · PASS</b></td><td>PG18.6 + Directus12.4.1 + Nuxt4.5.2 trên fresh data; DEFAULT/load/backup/restore; cutover ×2; rollback thật; DOT 100%.</td><td>Package G7 43 file sẵn dùng; downtime 16–17′; rollback 4–4,5′.</td></tr>
 <tr><td><b>G7 · Chuyển và bàn giao</b></td><td>Sau duyệt cửa sổ production: chuẩn bị, chặn ghi, chuyển cả bộ đã tập, nghiệm thu, mở ghi, kiểm sao lưu/giám sát và bàn giao.</td><td>VPS1 đủ PG18 + Directus12.4/OIG + Nuxt4.5/Node24 + nginx1.30.5; dữ liệu/quyền/Flow/consumer đạt = XONG.</td></tr>
