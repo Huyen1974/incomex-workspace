@@ -38,13 +38,13 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 </head>
 <body><main>
 <h1>Luật nhãn PG — mở balo là biết có gì, dùng lại được gì, thừa gì</h1>
-<p class="mut" id="trang-thai">Bản v1.1 · cập nhật review P03, 02/10/2026 17:18 · Claude + GPT đồng thuận đặt luật trong bảng cạnh balo · HOLD bản lệnh: Host sửa một lượt trước READY · chưa triển khai, không tắt, không xoá</p>
+<p class="mut" id="trang-thai">Bản v1.2 · 02/10/2026 17:45 · luật và vị trí đã đồng thuận (Claude + GPT) · lệnh v2 đã áp đủ 6 điểm P03 · chờ GPT rà delta rồi Host mở lệnh · chưa triển khai, không tắt, không xoá</p>
 
 <span class="tang">PHẦN CHO OWNER</span>
 
 <section class="card quyet" id="quyet">
 <h2>Hôm nay anh cần quyết</h2>
-<p><strong>Chưa cần anh quyết thêm hoặc dán lệnh cũ.</strong> GPT đã đồng thuận vị trí luật và ghi P03 vào repo. Claude xử lý các điểm còn thiếu của lệnh trong một lượt, chốt READY rồi mới giao Codex. Chưa đặt biển, chưa dán nhãn trên máy chủ. Đích vẫn là mở balo biết có gì, dùng lại được gì và khoanh thứ cần rà để dọn sau.</p>
+<p><strong>Chưa cần anh quyết.</strong> 🙂 Việc của anh: đưa GPT một dòng để GPT rà phần Claude vừa sửa. GPT ghi đồng thuận thì Claude mở lệnh, anh dán lệnh chạy cho Codex. Chưa đặt biển, chưa dán nhãn trên máy chủ.</p>
 </section>
 
 <section class="card" id="tien-do">
@@ -52,7 +52,7 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <div class="bar">
 <div class="xong">1 · Khảo sát ✓</div>
 <div class="xong">2 · Luật ✓</div>
-<div class="dang">3 · Vị trí đã chốt · sửa lệnh P03 ▶</div>
+<div class="dang">3 · Lệnh đã sửa · GPT rà lần cuối ▶</div>
 <div>4 · Codex đặt biển, dán nhãn</div>
 <div>5 · Nghiệm thu PG · đối soát sổ DOT</div>
 <div>6 · Anh quyết theo khối</div>
@@ -161,25 +161,25 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <tr><td>Hàm tiện ích</td><td>Không ghi; chỉ được hàm hoặc view khác gọi.</td></tr>
 </table></div>
 
-<h3 id="C4">C4 · SỐNG (cột <code>active</code>; máy đo, kỳ từ ảnh chụp bộ đếm 01/08 đến ngày đo)</h3>
+<h3 id="C4">C4 · SỐNG (cột <code>active</code>; máy đo; chỉ nói về GHI trong kỳ đo)</h3>
 <div class="wrap"><table>
 <tr><th>Giá trị</th><th>Áp cho</th><th>Câu thử</th></tr>
 <tr><td>Rỗng</td><td>bảng</td><td>Không có lượt ghi trong kỳ và 0 dòng.</td></tr>
 <tr><td>Đứng yên</td><td>bảng</td><td>Không có lượt ghi trong kỳ, có dòng.</td></tr>
-<tr><td>Tự quay</td><td>bảng</td><td>Có ít nhất 1 dòng và số lượt ghi trong kỳ từ 10 lần số dòng trở lên.</td></tr>
+<tr><td>Tự quay</td><td>bảng</td><td>Có ít nhất 1 dòng và số lượt ghi trong kỳ từ 10 lần số dòng trở lên. Là dấu hiệu cần rà, chưa phải kết luận chạy vô ích.</td></tr>
 <tr><td>Có ghi</td><td>bảng</td><td>Có lượt ghi, không rơi vào Tự quay.</td></tr>
-<tr><td>CHUA-RO</td><td>bảng</td><td>Không có mốc 01/08 hoặc không đọc được bộ đếm.</td></tr>
-<tr><td>Không đo được</td><td>view, hàm</td><td>PostgreSQL không đếm lượt đọc view; máy này không đếm lượt gọi hàm. Không suy từ bảng nguồn.</td></tr>
+<tr><td>CHUA-RO</td><td>bảng</td><td>Bảng không có trong ảnh chụp đầu kỳ, bộ đếm bị ngắt hoặc lùi, hoặc không chắc nghĩa cột của ảnh chụp. Lý do ghi trong hồ sơ.</td></tr>
+<tr><td>Không đo được</td><td>view, hàm</td><td>Trong lượt đo này: PostgreSQL không đếm lượt đọc view; máy này không đếm lượt gọi hàm. Không suy sống hay chết từ bảng nguồn.</td></tr>
 <tr><td>Bật · Tắt</td><td>trigger</td><td>Theo trạng thái trong catalog.</td></tr>
 </table></div>
-<p class="mut">Đợt này không đổi cấu hình PG để đo thêm. Lượt đọc không dùng làm nhãn vì bộ đếm bị chính các máy đếm quét bẩn.</p>
+<p class="mut">Kỳ đo = từ ảnh chụp bộ đếm 01/08/2026 đến lúc đo; chỉ dùng khi bộ đếm liên tục (không reset, không lùi) và biết chắc nghĩa cột; kỳ thật ghi trong hồ sơ. “Rỗng” và “Đứng yên” không chứng minh không ai đọc. Đợt này không đổi cấu hình PG để đo thêm; lượt đọc không dùng làm nhãn vì bộ đếm bị chính các máy đếm quét bẩn. Sau khi nâng PG, bộ đếm về 0: lần đo sau phải lấy mốc mới.</p>
 
 <h3 id="C5">C5 · DÍNH (cột <code>dinh</code>; máy đo, chỉ trong PG)</h3>
-<p>Số vật thuộc KHỐI khác đang dựa vào vật này: khoá ngoại trỏ vào, view đọc, hàm nhắc tên trong thân, trigger gắn. <strong>0 không có nghĩa là được xoá</strong>: ngoài PG còn ứng dụng, lệnh DOT, lịch chạy có thể gọi tới. DÍNH chỉ là tín hiệu để khoanh vùng.</p>
+<p>Số vật thuộc KHỐI khác đang dựa vào vật này: khoá ngoại trỏ vào, view đọc, hàm nhắc tên trong thân, trigger gắn. <strong>0 không có nghĩa là được xoá</strong>: ngoài PG còn ứng dụng, lệnh DOT, lịch chạy có thể gọi tới. DÍNH chỉ là tín hiệu để khoanh vùng, là con số tìm thấy được. Vật có KHỐI là <code>CHUA-RO</code> thì để trống DÍNH, không điền 0 giả.</p>
 
 <h3 id="C6">C6 · KẾT LUẬN (cột <code>ket_luan</code>; chỉ Owner quyết)</h3>
 <p>Giá trị: Giữ · Đóng băng · Chờ bỏ · Đã tắt · Đã dời kho. Trống nghĩa là chưa quyết. 🙂 Owner quyết theo khối trên màn “Balo theo khối”; khi đó mới ghi xuống mọi vật của khối. AI và máy không tự điền. “Chờ bỏ” là nhãn, không phải lệnh.</p>
-<p class="mut">Khối không phải một sổ riêng. Nó chỉ là màn tổng hợp từ balo (<code>v_balo_theo_khoi</code>).</p>
+<p class="mut">Khối không phải một sổ riêng. Nó chỉ là màn tổng hợp tính trực tiếp từ balo mỗi lần mở trang (báo cáo sống, không tạo bảng hay view mới). Máy không ghi, không sửa, không xoá quyết định đã có của Owner.</p>
 </section>
 
 <section class="card" id="cach-dan">
@@ -192,47 +192,46 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <li>Khoanh <code>CHUA-RO</code>.</li>
 <li>Dựng màn “Balo theo khối” để Owner quyết theo khối.</li>
 </ol>
-<p><strong>Nghiệm thu:</strong> không còn ô trống ở N1–N4 · N5 trống toàn bộ · dán thử một giá trị lạ, PG từ chối · Host chấm lại 30 bảng mẫu theo C2, trùng từ 27 trở lên · bốn trang balo cũ và nút Làm mới không hỏng.</p>
+<p><strong>Nghiệm thu:</strong> không còn ô trống ở N1–N3; N4 chỉ trống khi KHỐI chưa rõ · N5 không bị máy đụng tới · PG từ chối giá trị lạ, sai nhãn, sai loại vật · đọc được luật qua cửa công cụ thật và trên trang Reports · có đủ hai trang “Balo theo khối” và “Luật nhãn” (thiếu một trang là chưa xong) · bấm Làm mới không mất nhãn, không nhân dòng · Host chấm lại 30 bảng mẫu theo C2, trùng từ 27 trở lên · bốn trang balo cũ không hỏng · số “chưa rõ” và “không đo được” báo riêng.</p>
 </section>
 
 <section class="card" id="bien">
 <h2>Biển tại hiện trường: đặt ở đâu, ghi gì</h2>
-<p>Một bảng giữ cả luật (B1) và giá trị (B2). B3, T0, T1, T2 chỉ là dòng trỏ, không chép luật. B4 chỉ hiển thị. <strong>Vị trí đã được GPT đồng thuận tại P03. Bản lệnh vẫn HOLD để Host xử lý P03-F1–F6; chưa đặt biển thật.</strong></p>
-<p class="mut">Đổi so với bản trước: bản gốc luật chuyển từ ghi chú của bảng balo sang các dòng trong bảng từ điển. Lý do đo được: ghi chú không hiện qua SELECT, qua Directus, qua trang web, và công cụ <code>pg_schema</code> của đầu nối cũng không trả về (đã thử trên chính bảng balo). Dòng dữ liệu thì mọi đường đều thấy, và khoá ngoại từ balo dẫn thẳng tới bảng này.</p>
+<p>Một bảng giữ cả luật (B1) và giá trị (B2). B3, T0, T1, T2 chỉ là dòng trỏ, không chép luật. B4 chỉ hiển thị. <strong>Vị trí đã được GPT đồng thuận tại P03. Lệnh v2 đã áp P03-F1–F6, chờ GPT rà delta (P05); chưa đặt biển thật.</strong></p>
+<p class="mut">Đổi so với bản trước: bản gốc luật chuyển từ ghi chú của bảng balo sang các dòng trong bảng từ điển. Lý do đo được: ghi chú không hiện qua SELECT, qua Directus, qua trang web, và công cụ <code>pg_schema</code> của đầu nối cũng không trả về (đã thử trên chính bảng balo). Dòng dữ liệu thì đọc được qua SELECT, Directus và trang web. <strong>Đính chính của Host 02/10 17:45:</strong> khoá ngoại không phải biển chỉ đường — với quyền chỉ đọc, công cụ xem cấu trúc không hiện khoá ngoại nào (đo: 0/161). Khoá ngoại chỉ để PG chặn giá trị sai; việc “đọc được luật” phải được Codex thử trên cửa thật trong lượt chạy.</p>
 <div class="wrap"><table>
 <tr><th>#</th><th>Vị trí chính xác</th><th>Ghi gì</th></tr>
-<tr><td class="id">B1</td><td>Bảng <code>public.balo_tu_dien_nhan</code>, các dòng <code>nhan = 'LUAT'</code>, <code>thu_tu</code> 0–8</td><td><strong>Bản gốc duy nhất của luật</strong> (mẫu bên dưới). Là dữ liệu nên đọc được bằng SELECT, qua Directus và trên trang Reports.</td></tr>
-<tr><td class="id">B2</td><td>Cùng bảng <code>public.balo_tu_dien_nhan</code>, các dòng còn lại</td><td>Mỗi dòng: nhãn · giá trị · tên hiển thị · áp cho loại vật nào · thứ tự xét · câu thử · ví dụ. Các cột nhãn của balo có khoá ngoại trỏ sang đây: giá trị lạ bị từ chối, và ai xem cấu trúc balo cũng được dẫn tới bảng này.</td></tr>
-<tr><td class="id">B3</td><td>Đầu mỗi file SQL dán nhãn trong <code>/opt/incomex/dot/sql/</code></td><td>Ba dòng trỏ (mẫu bên dưới), không chép luật. Đợt này dùng lại cổng DOT sẵn có, không viết lệnh mới. Các file này được ghi vào sổ DOT sẵn có, không lập sổ thứ hai.</td></tr>
-<tr><td class="id">B4</td><td>Mục Reports, đúc bằng khuôn report sẵn có</td><td>Trang “Balo theo khối” (từ <code>v_balo_theo_khoi</code>) và trang “Luật nhãn” (hiện B1 + B2, cùng một bảng).</td></tr>
+<tr><td class="id">B1</td><td>Bảng <code>public.balo_tu_dien_nhan</code>, các dòng <code>nhan = 'LUAT'</code> (L00–L10), đọc theo <code>thu_tu</code></td><td><strong>Bản gốc duy nhất của luật</strong> (mẫu bên dưới). Là dữ liệu nên đọc được bằng SELECT, qua Directus và trên trang Reports.</td></tr>
+<tr><td class="id">B2</td><td>Cùng bảng <code>public.balo_tu_dien_nhan</code>, các dòng còn lại</td><td>Mỗi dòng: nhãn · giá trị · tên hiển thị · áp cho loại vật nào · thứ tự xét · câu thử · ví dụ. Các cột nhãn của balo có khoá ngoại trỏ sang đây: PG từ chối giá trị lạ, sai nhãn và sai loại vật.</td></tr>
+<tr><td class="id">B3</td><td>Đầu mỗi file SQL dán nhãn trong <code>/opt/incomex/dot/sql/</code></td><td>Ba dòng trỏ (mẫu bên dưới), không chép luật; ghi đúng lệnh đọc luật mà Codex đã chạy được. Đợt này dùng lại cổng DOT sẵn có, không viết lệnh mới. Các file này được ghi vào sổ DOT sẵn có, không lập sổ thứ hai.</td></tr>
+<tr><td class="id">B4</td><td>Mục Reports, đúc bằng khuôn report sẵn có</td><td>Trang “Balo theo khối” (báo cáo sống tính từ balo mỗi lần mở, không tạo bảng hay view) và trang “Luật nhãn” (hiện B1 + B2, sắp theo <code>thu_tu</code>). Bốn trang balo cũ: đổi tên cột theo luật, mỗi cột nhãn có một dòng mô tả trỏ về “Luật nhãn”. Thiếu một trong hai trang mới là chưa xong.</td></tr>
 <tr><td class="id">T0</td><td><code>COMMENT ON TABLE public.balo_thuc_the</code>, đặt ở đầu; chữ cũ giữ nguyên bên dưới</td><td>Hai dòng trỏ (mẫu bên dưới). <code>COMMENT ON</code> ghi đè cả khối, phải đọc ra rồi nối.</td></tr>
 <tr><td class="id">T1</td><td>3 file <code>AGENTS.md</code> trên VPS: <code>docker/agent-data-repo</code>, <code>docker/nuxt-repo</code>, <code>docs/mcp-writes</code></td><td>Thêm một dòng trỏ về B1 ở đầu mục “Quy ước bắt buộc từ nay” (mục này đang bảo ghi nhãn vào <code>COMMENT ON</code> của từng vật, trái L01).</td></tr>
 <tr><td class="id">T2</td><td>KB: quy định balo v1.9</td><td>Thêm một dòng trỏ về B1. KB đang khoá ghi nên làm sau.</td></tr>
 </table></div>
 <p class="mut"><strong>Không làm đợt này:</strong> thêm dòng trỏ vào nhãn văn cũ của từng vật · ghi chú riêng từng cột · ghi vào trường <code>note</code> của Directus (Owner quyết 03/08) · mô tả một dòng cho từng vật (làm sau khi Owner quyết khối nào giữ, để chỉ viết cho thứ giữ lại).</p>
 
-<h3 id="B1">Mẫu tám dòng luật B1 (mỗi dòng một hàng trong bảng, <code>thu_tu</code> 0–8)</h3>
-<pre>BIỂN · LUẬT NHÃN v1.0 · 02/10/2026
-0. Nhãn của mọi bảng, view, hàm, trigger trong PG chỉ nằm ở bảng balo_thuc_the, mỗi vật một dòng. Luật và giá trị hợp lệ nằm ở bảng này (balo_tu_dien_nhan).
-Năm câu hỏi, năm cột: nhom = của dự án nào (KHỐI) · loai = là cái gì (VAI) · active = còn ghi không (SỐNG) · dinh = mấy vật khối khác dựa vào (DÍNH) · ket_luan = giữ hay bỏ (KẾT LUẬN).
-1. Muốn biết PG có gì, thừa gì: lọc balo_thuc_the, hoặc xem v_balo_theo_khoi. Đừng đọc nhãn văn cũ ở từng vật.
-2. Muốn dán KHỐI, VAI: chỉ dùng giá trị ở các dòng dưới của bảng này, làm theo câu thử, xét từ trên xuống, khớp câu nào dừng ở câu đó. Giá trị lạ bị PG từ chối.
-3. Không chắc: ghi CHUA-RO. Cấm đoán theo tên.
-4. SỐNG, DÍNH do máy đo, cấm gõ tay. DÍNH = 0 không có nghĩa là được xoá: ngoài PG có thể còn nơi gọi.
-5. KẾT LUẬN chỉ Owner quyết, theo khối. AI và máy để trống.
-6. Mọi lệnh ghi đi qua cổng DOT (dot-pg-atomic-apply, dot-pg-label-apply). Không SQL tay.
-7. Vật mới: chạy Làm mới (dot-balo-reconcile) để có dòng trống, rồi dán theo mục 2.
-8. Dán nhãn không tắt, không xoá, không sửa vật nào. Thêm giá trị mới vào từ điển là sửa luật: cần Owner gật.
-Lý do từng luật: repo incomex-workspace · work/pg-nhan-balo/view.html</pre>
+<h3 id="B1">Mẫu các dòng luật B1 (mỗi dòng một hàng trong bảng: L00–L10, <code>thu_tu</code> 0–10)</h3>
+<pre>L00 · LUẬT NHÃN v1.0 · 02/10/2026. Nhãn của mọi bảng, view, hàm, trigger trong PG chỉ nằm ở bảng balo_thuc_the, mỗi vật một dòng. Luật và giá trị hợp lệ nằm ở bảng này (balo_tu_dien_nhan).
+L01 · Năm câu hỏi, năm cột: nhom = của dự án nào (KHỐI) · loai = là cái gì (VAI) · active = còn ghi không (SỐNG) · dinh = mấy vật khối khác dựa vào (DÍNH) · ket_luan = giữ hay bỏ (KẾT LUẬN).
+L02 · Muốn biết PG có gì, cần rà gì: lọc balo_thuc_the theo 5 cột trên, hoặc xem Reports › Balo theo khối. Đừng đọc nhãn văn cũ ở từng vật.
+L03 · Muốn dán KHỐI, VAI: chỉ dùng giá trị ở các dòng dưới của bảng này, làm theo câu thử, xét theo thu_tu, khớp câu nào dừng ở câu đó. Giá trị lạ, sai nhãn, sai loại vật bị PG từ chối.
+L04 · Không chắc: ghi CHUA-RO. Cấm đoán theo tên.
+L05 · SỐNG, DÍNH do máy đo, cấm gõ tay. SỐNG chỉ nói về GHI trong kỳ đo: “Rỗng”, “Đứng yên” không chứng minh không ai đọc; “Tự quay” chỉ là dấu hiệu cần rà. DÍNH chỉ đếm trong PG: bằng 0 không có nghĩa là được xoá.
+L06 · KẾT LUẬN chỉ Owner quyết, theo khối. AI và máy để trống, không sửa, không xoá quyết định đã có.
+L07 · Mọi thao tác với PG, kể cả đọc, đi qua cổng DOT (dot-pg-atomic-apply, dot-pg-label-apply, dot-balo-reconcile). Không SQL tay.
+L08 · Vật mới: bấm Làm mới (dot-balo-reconcile) để có dòng trống, rồi dán theo L03.
+L09 · Dán nhãn không tắt, không xoá, không sửa vật nào. Thêm giá trị mới vào bảng này là sửa luật: cần Owner gật.
+L10 · Lý do từng luật: repo incomex-workspace · work/pg-nhan-balo/view.html</pre>
 
 <h3 id="T0">Mẫu dòng trỏ T0 (ghi chú của bảng balo)</h3>
-<pre>LUẬT NHÃN: đọc bảng balo_tu_dien_nhan (các dòng nhan = 'LUAT' là luật, các dòng còn lại là giá trị và câu thử), hoặc trang Reports › Luật nhãn.
+<pre>LUẬT NHÃN: đọc bảng balo_tu_dien_nhan (các dòng nhan = 'LUAT' là luật, các dòng còn lại là giá trị và câu thử), hoặc trang Reports › Luật nhãn. Lệnh đọc qua DOT: [lệnh đọc luật mà Codex đã chạy được].
 Phần dưới là ghi chú cũ 07–08/2026, giữ làm hồ sơ.</pre>
 
 <h3 id="B3">Mẫu dòng trỏ B3 (đầu file lệnh)</h3>
 <pre>File này chỉ ghi nhãn vào balo_thuc_the. Chỉ dùng giá trị có trong balo_tu_dien_nhan; giá trị lạ bị PG từ chối.
 Chạy qua dot-pg-atomic-apply. Không tắt, không xoá, không sửa vật nào ngoài balo.
-Luật: đọc bảng balo_tu_dien_nhan, các dòng nhan = 'LUAT'.</pre>
+Luật: đọc bảng balo_tu_dien_nhan, các dòng nhan = 'LUAT', theo thu_tu, bằng [lệnh đọc luật mà Codex đã chạy được].</pre>
 </section>
 
 <section class="card" id="so-dot">
@@ -262,14 +261,15 @@ Luật: đọc bảng balo_tu_dien_nhan, các dòng nhan = 'LUAT'.</pre>
 <tr><td>DÍNH</td><td><code>dinh</code> (mới, số nguyên)</td><td></td></tr>
 <tr><td>KẾT LUẬN</td><td><code>ket_luan</code> (mới)</td><td>chỉ Owner</td></tr>
 <tr><td>Ngày đo</td><td><code>ngay_do</code> (mới)</td><td>theo L05</td></tr>
+<tr><td>Khoá nhãn (máy tự sinh)</td><td><code>k_khoi</code>, <code>k_vai</code>, <code>k_song</code>, <code>k_ketluan</code> (mới, không hiện trên trang)</td><td>để PG kiểm đúng nhãn và đúng loại vật: mỗi cột khoá cùng cột nhãn của nó là một khoá ngoại sang <code>balo_tu_dien_nhan (nhan, gia_tri)</code></td></tr>
 </table></div>
-<p class="mut"><code>chuyen_mon</code>, <code>kiem_soat</code>, <code>ghi_chu</code> giữ nguyên. <code>lop</code> để trống (khái niệm lớp cấu tạo nghỉ).</p>
+<p class="mut"><strong>Mã nhãn trong từ điển</strong> (cột <code>nhan</code>): <code>LUAT</code> · <code>KHOI</code> · <code>VAI_BANG</code> · <code>VAI_HAM</code> · <code>VAI_X</code> (view, trigger) · <code>SONG_BANG</code> · <code>SONG_KHONGDO</code> (view, hàm) · <code>SONG_TRIGGER</code> · <code>KETLUAN</code>. <strong>Cột khoá:</strong> <code>k_khoi</code> luôn là <code>KHOI</code>; <code>k_ketluan</code> luôn là <code>KETLUAN</code>; <code>k_vai</code> và <code>k_song</code> tính từ loại vật (phần đầu của <code>khoa_nhan_dien</code>): bảng → <code>VAI_BANG</code>/<code>SONG_BANG</code>, hàm → <code>VAI_HAM</code>/<code>SONG_KHONGDO</code>, view → <code>VAI_X</code>/<code>SONG_KHONGDO</code>, trigger → <code>VAI_X</code>/<code>SONG_TRIGGER</code>. <strong>Bốn khoá ngoại:</strong> (<code>k_khoi</code>, <code>nhom</code>) · (<code>k_vai</code>, <code>loai</code>) · (<code>k_song</code>, <code>active</code>) · (<code>k_ketluan</code>, <code>ket_luan</code>). Ô nhãn trống thì PG không kiểm; thêm giá trị mới chỉ cần thêm một dòng từ điển. <strong>Trên 4 trang balo:</strong> cột hiện tên Khối · Vai · Sống · Dính · Kết luận · Ngày đo; cột Lớp không hiện nữa. <code>chuyen_mon</code>, <code>kiem_soat</code>, <code>ghi_chu</code> giữ nguyên; <code>lop</code> để nguyên, không dùng.</p>
 </section>
 
 <section class="card" id="hoi">
 <h2>Ý kiến và lệnh chạy</h2>
-<p><strong>P03:</strong> đồng thuận vị trí; còn sửa cách đo, cửa đọc luật, phạm vi schema/DOT, bảo toàn khi Làm mới, tiêu chí nghiệm thu và bàn giao nâng PG. Chi tiết duy nhất ở <code>COLLAB.md</code>, Host sửa chính <code>PROMPT.md</code> trong một lượt, không tách thêm việc hay mở lại lựa chọn vị trí.</p>
-<p><strong>Còn giữ trên roadmap:</strong> xác minh/cập nhật sổ DOT chung và khoanh công cụ theo bằng chứng; bàn giao delta trước G7; dòng trỏ KB khi mở ghi. Sổ DOT/KB chưa xong không chặn phần PG độc lập nhưng không được biến mất khỏi danh sách còn lại. Mô tả thứ giữ lại và dọn thật để sau, chưa có lệnh tắt/dời/xoá.</p>
+<p><strong>P03 → P04:</strong> Host đã áp đủ 6 điểm của GPT vào <code>PROMPT.md</code> (v2) và trang này. Ba quyết định kỹ thuật mới của Host chờ GPT rà (P05): cách PG chặn giá trị sai (4 cột khoá + 4 khoá ngoại) · màn “Balo theo khối” là báo cáo sống, không tạo bảng hay view · đổi tên cột trên 4 trang balo. Chi tiết duy nhất ở <code>COLLAB.md</code>.</p>
+<p><strong>Còn giữ trên roadmap:</strong> xác minh/cập nhật sổ DOT chung và khoanh công cụ theo bằng chứng; bàn giao delta trước G7; dòng trỏ KB khi mở ghi. Sổ DOT/KB chưa xong không chặn phần PG độc lập nhưng không được biến mất khỏi danh sách còn lại. Mô tả thứ giữ lại và dọn thật để sau, chưa có lệnh tắt/dời/xoá. <strong>Host giữ thêm:</strong> trang “Loài” cũ còn hiện trong Reports (đề xuất ẩn sau, chờ Owner) · sau khi nâng PG phải lấy mốc đo mới · câu hỏi “thiếu gì?” trong mục tiêu chưa giải được bằng nhãn, cần một danh sách nhu cầu để so.</p>
 </section>
 
 <span class="tang">KHO BẰNG CHỨNG</span>
@@ -286,6 +286,9 @@ Luật: đọc bảng balo_tu_dien_nhan, các dòng nhan = 'LUAT'.</pre>
 <tr><td><code>v_registry_counts</code></td><td>8.045.245 lượt thêm cho 169 dòng</td></tr>
 <tr><td><code>pivot_results</code></td><td>2.344.199 lượt sửa cho 150 dòng</td></tr>
 <tr><td>Ảnh chụp bộ đếm 01/08</td><td>352 dòng cho schema <code>public</code> (<code>evidence/del1g-20260801/out/snap_directus_0.psv</code>); bảng ngoài <code>public</code> ở <code>ngoai_0.psv</code></td></tr>
+<tr><td>Khoá ngoại nhìn thấy qua công cụ xem cấu trúc (quyền chỉ đọc)</td><td>0 / 161 thật có</td></tr>
+<tr><td>Làm mới balo (<code>balo-reconcile.sql</code>)</td><td>chỉ thêm dòng với tên, nơi lưu, khoá; chỉ sửa tên, nơi lưu, cờ “đã mất”; không đụng cột nhãn</td></tr>
+<tr><td>Khuôn Reports sẵn có</td><td>danh sách sống của một bảng có khoá chính một cột · báo cáo tính sống bằng <code>view_sql</code>, không tạo bảng</td></tr>
 </table></div>
 
 <h3>Khối × loại vật (theo chủ sở hữu ghi trong nhãn cũ)</h3>
