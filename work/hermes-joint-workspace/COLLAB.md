@@ -10,9 +10,9 @@ Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — m�
 - 🏁 Xong khi: 😊 Owner tự gõ 1 câu trên app → Hermes trả lời (K1) · AI ghi `ASSIGN` → thẻ Telegram → Owner bấm → Hermes ghi kết quả (K2) · lệch phiên bản tái diễn thì máy tự báo · không còn đèn đỏ vô chủ và AI tự đọc được bảng đèn.
 - 📍 Tiến độ: `[✓ baseline CLOSED] → [✓ PROMPT + Reviewer ACCEPT] → [✓ Host ACCEPT/READY] → [■ RUN ISSUED] → [□ nghiệm thu, có đọc bảng đèn] → [□ đóng]`.
 - ✅ Đã xong: HJW baseline · MCPW R6 protection · P67 đủ 3 yêu cầu Owner · DROOT34 được GPT Founder xác nhận · PROMPT last-touch `0786390` đã review ACCEPT.
-- ■ Đang làm: 🤖 Claude Code CLI · `STARTED@HJW-MAINT-COMPAT-20261002-01` 08:26Z (P70) · D1 xong (root cause A) · app Mac đã về đúng bản VPS `749220ef`, E2E `session.create` PASS · **K2 PASS** · **chờ 😊 Owner: K1 + cho phép phần VPS/Mac bị auto-mode chặn** (P70) · **kiến trúc chuẩn: MacBook = thin client/màn hình; backend Hermes duy nhất = VPS**.
+- ■ Đang làm: 🤖 Claude Code CLI · `STARTED@HJW-MAINT-COMPAT-20261002-01` 08:26Z (P70) · D1 xong (root cause A) · app Mac đã về đúng bản VPS `749220ef`, E2E `session.create` PASS · **K2 PASS** · VPS triển khai xong (Disk Usage xanh, Config Guard +8, Guard INV14+INV15) · **INV14 đỏ đúng sự thật từ 09:35Z: chưa khoá phía Mac** · **chờ 😊 Owner: 1 lệnh `mac-lock.sh` + K1** (P70) · **kiến trúc chuẩn: MacBook = thin client/màn hình; backend Hermes duy nhất = VPS**.
 - ⬜ Còn lại: D1 đo → sửa tối thiểu → K1/K2 → sửa/định danh đèn đỏ → bảng bảo vệ Điều 30/31 → Host + Reviewer nghiệm thu một lượt.
-- ➡ Kế tiếp: 😊 Owner: K1 (gõ 1 câu trên app) + gõ tay câu cho phép triển khai (danh sách P70) → 🤖 executor chạy runbook đã soạn sẵn → KQ; Host/Reviewer chờ KQ (DROOT31: không sửa PROMPT/READY).
+- ➡ Kế tiếp: 😊 Owner: gõ 1 lệnh khoá Mac (`! zsh …/mac-lock.sh`, auto-mode không cho agent chạy) + K1 gõ 1 câu trên app → 🤖 executor Guard POST + bảng §6 + KQ; Host/Reviewer chờ KQ (DROOT31: không sửa PROMPT/READY).
 - ⛔ Không làm/để sau: không capability mới · không AUTO · không task/service mới · không blind `hermes update` · không đụng VPSUP đang chạy.
 
 ### 1. Mục tiêu
