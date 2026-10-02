@@ -5,12 +5,12 @@ Host: Claude Chat · Host_ID: CLAUDE-PGNB-261002-A · Owner giao 02/10/2026
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner, chat Claude 02/10/2026 16:14: “Đồng ý cho các bạn mở việc mới này.” (sau khi Host xin phép đủ 4 ý — D01). Được phép: viết luật → góp ý → đồng thuận → dán nhãn. **Chưa cho phép tắt/xoá/dời bất cứ vật nào.**
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 16:46 +07 · Claude Chat (Host) · P01–P02: đồng thuận luật v1.0 + PROMPT
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 16:58 +07 · Claude Chat (Host) · READY PGNB-LABEL-20261002-01
 - 🎯 **Mục tiêu — Owner nguyên văn 02/10:** “Mục tiêu là phân loại hiệu quả. cả người và AI có thể dễ dàng biết được là đã có gì? Cần làm gì? Những gì thừa nên xóa đi? Hoặc nên khoanh vùng lại?” · “Chỉ cần dán nhãn thôi. Xóa thì nhanh cho nên chúng ta chưa hành động vội. Cứ dán nhãn để đấy, xóa lúc nào thì xóa.” **Vì sao:** hệ sẽ phức tạp gấp 20–100 lần; không nhìn và lọc được thì Owner không chỉ đạo được.
 - 🏁 **Xong khi:** mở trang PG Census lọc được mọi bảng · view · hàm · trigger theo 5 nhãn; không còn ô trống ở 4 nhãn đầu (nhãn thứ 5 chỉ Owner quyết, theo khối); dán sai giá trị thì PG từ chối; có màn “Balo theo khối” nhìn 30 giây. _(đề xuất Host, nằm trong tin Owner gật 02/10)_
-- 📍 **Tiến độ:** `✅ khảo sát · ✅ luật v1.0 đồng thuận (Claude + GPT) · ■ PROMPT → READY → Owner RUN → Codex đặt biển + dán nhãn · ⬜ nghiệm thu · ⬜ Owner quyết theo khối`
+- 📍 **Tiến độ:** `✅ khảo sát · ✅ luật v1.0 đồng thuận (Claude + GPT) · ✅ PROMPT READY · ■ Owner RUN → Codex đặt biển + dán nhãn · ⬜ nghiệm thu · ⬜ Owner quyết theo khối`
 - ✅ **Đã xong:** khảo sát PG thật 02/10 (số liệu ở `view.html#so-lieu`) · luật nhãn **v1.0 đã đồng thuận** (`view.html`): tem 5 câu hỏi · 4 nguyên tắc cho người = 12 luật cho AI · từ điển + câu thử · 4 biển tại hiện trường (`#bien`) · 3 điểm nối với sổ DOT (`#so-dot`) · P01 GPT đã xử lý · `PROMPT.md` soạn xong.
-- ■ **Đang làm:** Host đặt READY cho `PROMPT.md` (RUN_ID `PGNB-LABEL-20261002-01`) · chờ 😊 Owner RUN cho Codex.
+- ■ **Đang làm:** READY đã đặt (mục `## RUN`) · chờ 😊 Owner dán lệnh RUN cho Codex.
 - ⬜ **Còn lại:** 🤖 Codex chạy RUN (đặt biển B1–B4, dán KHỐI · VAI · SỐNG · DÍNH, màn theo khối) · Host nghiệm thu (chấm lại 30 bảng mẫu) · 😊 Owner quyết giữ/đóng băng/chờ bỏ theo khối · sau đó mới viết mô tả một dòng cho thứ giữ lại · T2 (dòng trỏ trong KB) khi KB mở ghi.
 - ➡ **Kế tiếp:** 😊 Owner dán lệnh RUN cho Codex · 🤖 Codex STARTED → KQ · Host nghiệm thu · Reviewer GPT rà KQ một vòng.
 - ⛔ **Không làm:** tắt/xoá/dời bất cứ vật nào · sửa thứ gì ngoài balo, bảng từ điển và các biển nêu ở `view.html#bien` · viết thêm nhãn vào `COMMENT ON` của vật khác · điền `ket_luan` thay Owner · đổi cấu hình PG để đo thêm · viết DOT mới trong RUN này · dựng registry/bộ máy mới.
@@ -86,6 +86,10 @@ Host ghi (kỹ thuật, chờ hội đồng chốt):
   - (6) Lộ trình khoanh → tắt → dời kho → xoá giữ nguyên, xoá cần lệnh Owner riêng → **ACCEPTED**, ngoài phạm vi việc này (D02).
   - Prompt GPT soạn cho Codex: nhập nguyên ý vào `PROMPT.md`, thêm phần Host input gate (phạm vi ghi, bẫy cổng DOT, mốc đo, hồi quy).
 - P02 · Claude Chat (Host) · 02/10 · `PROMPT.md` RUN_ID `PGNB-LABEL-20261002-01`. **§0.3: đã đối chiếu** từng dòng: giữ balo ✓ · không dùng loài/phân tử/nguyên tử (cột `lop` để trống) ✓ · mỗi luật có “vì sao” ✓ · biển tại hiện trường, chốt xong mới dán ✓ · khớp sổ DOT, không sổ thứ hai ✓ · chỉ dán nhãn, không tắt/xoá ✓ · không concept mới ✓. Không giao executor tự chọn tên/đích: tên cột, bảng, view, trang đã chốt trong PROMPT §2. Scope đủ đồng thuận theo A5: không còn P `OPEN`/`OWNER`.
+
+## RUN
+- READY@098d3bf37aa646b884d5759d3082b3e1254f797f · RUN_ID `PGNB-LABEL-20261002-01` · Host Claude Chat đặt 02/10/2026 16:58 +07 · căn cứ: P01 (Reviewer GPT: không cần thêm vòng thiết kế), P02 (§0.3 đã đối chiếu), D07 (Owner lệnh giao Codex). Đây chưa phải RUN: chờ Owner.
+- Lệnh RUN cho Codex: `WS work/pg-nhan-balo · Agent · RUN PGNB-LABEL-20261002-01 · đọc AGENTS.md → work/pg-nhan-balo/COLLAB.md → PROMPT.md`
 
 ## Con trỏ
 - HTML chính (Owner View): `view.html` · link `https://vps.incomexsaigoncorp.vn/knowledge/modules?task=pg-nhan-balo`
