@@ -1,3 +1,39 @@
+# PROMPT — VPSUP G7 · CHUYỂN PRODUCTION MỘT LẦN + NGHIỆM THU + BÀN GIAO
+
+STATUS: **DRAFT — Reviewer P109 soạn mỏng từ gói G6 + P108; chờ Host READY.** §0.3: đã đối chiếu.
+RUN_ID: `VPSUP-G7-PROD-CUTOVER-20261002-01` · Executor: phiên Claude Code mới · **Owner dán RUN = Owner duyệt cửa sổ** (45′; gián đoạn đo ở G6: 16–17′).
+Đầu ra duy nhất: VPS1 chạy **PG 18.6 + Directus 12.4.1/OIG + Nuxt 4.5.2/Node 24.21.0 + nginx 1.30.5**, đủ dữ liệu/quyền, sao lưu PG18 đọc lại được, có canh licensing. Không làm gì ngoài đầu ra này (không e-learning/VPS2, không @nuxt/ui v4, không DNS).
+
+## G7.0 · Đọc
+AGENTS → BẢNG ĐIỀU KHIỂN → **§0.3 (bảng phiên bản chốt cứng)** → P105–P109 → PROMPT này → VPS2 `G6/INDEX.md` + `G6/g7/package/G7-RUNBOOK.md`. Gói G7 là kịch bản đã tập 2 lần; chạy đúng nó, không thiết kế lại.
+
+## G7.1 · PRE — chỉ đọc, trước đóng băng; một mục trượt ⇒ DỪNG, VPS1 nguyên
+1. READY khớp last-touch PROMPT; không RUN khác đang STARTED chưa KQ đụng PG/Directus/Nuxt/nginx/compose VPS1.
+2. Chuyển `G6/g7/package` VPS2 → VPS1 bằng đường đã dùng ở G6; `SHA256SUMS` = `beed98a3…` từng file; thiếu/lệch ⇒ DỪNG.
+3. Phiên bản đúng §0.3: PG `postgres:18.6-trixie` index `5a5a84b1…`/amd64 `0377e72c…` · Directus `12.4.1` · Nuxt `4.5.2`/Node `24.21.0` đúng bytes TF · nginx `1.30.5`. Lệch ⇒ DỪNG; **không tra/chọn bản khác**.
+4. Compose/.env (`NUXT_SSR_IMAGE`)/mạng/extension live = bản gói đã render (compose `97c534da…`). Khác (việc khác đã sửa từ 09:08Z) ⇒ render lại patch qua DOT trên bản live; diff chỉ được chạm hunk VPSUP; đụng thay đổi của việc khác ⇒ DỪNG.
+5. Đĩa VPS1 trống ≥ 20 GB (02/10 20:45: 53 GB); bản sao lưu đêm gần nhất đọc được.
+6. Restore-verify dùng `dot-pg-restore-verify-db` **v1.1.0** từ gói, không dùng v1.0.0 đang ở prod.
+
+## G7.2 · Chạy — một lệnh, liền một mạch
+- `run/g7-chain.sh` đúng `G7-RUNBOOK.md`. Mọi thao tác PG/Directus qua DOT/script-wrapper (DROOT26/34); cấm psql/SQL/REST/CLI tay. Không dừng xin ý kiến giữa các bước.
+- Nghiệm thu trước mở ghi trượt ⇒ chuỗi **tự quay lui** về PG16 + Directus 11 + Nuxt3 (đã tập: 4–4,5′), trả slot OIG, ghi `KQ … DỪNG · ROLLED_BACK_PRE_UNFREEZE`.
+
+## G7.3 · Sau mở ghi — không kéo dài gián đoạn
+- Theo runbook: Kuma `/server/health` → `/server/ping` · **sao lưu thật bằng công cụ bản 18 + restore-verify v1.1.0 đọc lại được** · Config Guard + sổ DOT + mô tả `dot_tools`.
+- **P109 theo §0.3 (thiếu ⇒ Directus 12 có thể khoá âm thầm sau 7 ngày mất licensing):** bật canh licensing trên Kuma → Telegram theo spec đã chốt (kết nối tới licensing từ mạng Directus + trạng thái license; probe không gọi activate/refresh; 2 lần lỗi liên tiếp ~10′ mới báo), qua DOT có sẵn hoặc DOT nhỏ theo DROOT27; bắn **1 tin thử** về Telegram; ghi 5 dòng “mất licensing thì làm gì” vào `G7-RUNBOOK.md` bản VPS1.
+- Sự cố sau mở ghi ⇒ P88: sửa tiến hoặc quay lui riêng frontend/service; **cấm tự khôi phục DB**; giữ DB lỗi, dừng và báo.
+
+## G7.4 · Giữ đường lùi
+Không xoá volume PG16, checkpoint post-S2, image cũ, gói G7; dọn chỉ khi Owner cho phép (việc phụ sau XONG).
+
+## G7.5 · KQ
+- Đạt: `KQ@VPSUP-G7-PROD-CUTOVER-20261002-01 XONG · G7_PASS · PG18.6 · DIRECTUS12.4.1 · NUXT4.5.2 · BACKUP_PG18_PASS · LICENSE_MONITOR_PASS` + gián đoạn thật + nơi đặt hồ sơ.
+- Không đạt: `… DỪNG · ROLLED_BACK_PRE_UNFREEZE · <lý do>` hoặc `… DỪNG · <blocker>` kèm trạng thái VPS1 hiện tại.
+- Sửa ■/➡/cập nhật của Bảng cùng commit KQ; dừng và báo GPT Host.
+
+## HISTORY — G6 đã terminal (KQ `4bfb1df`), KHÔNG CHẠY LẠI CÁC LỆNH BÊN DƯỚI
+
 # PROMPT — VPSUP G6 · HOÀN THIỆN BỘ CUỐI + DIỄN TẬP + GÓI G7 SẴN DÙNG
 
 RUN_ID: VPSUP-G6-INTEGRATED-REHEARSAL-20261002-01
