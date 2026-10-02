@@ -5,14 +5,14 @@ Host: Claude Chat · Host_ID: CLAUDE-CWEB-261002-A · Owner giao 02/10/2026
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn lời Owner 02/10/2026 20:15 (làm rõ đầu bài, thay cách hiểu vòng 17:22 — xem §0.1). Quy trình theo lời Owner 17:38: hội đồng chốt chi tiết → Host đặt READY → Owner dán một dòng RUN → Codex làm. **Chưa cho phép:** đụng production trước VPSUP G7 XONG · đổi DNS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 20:45 +07 · Claude Chat (Host) · P02: đầu bài làm rõ theo Owner 20:15 · nhận P01 · một PROMPT từ đầu tới trang thử
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 21:02 +07 · GPT Chat (Reviewer) · P03 ACCEPT Q08 · kỹ thuật LOCKED · chỉ chờ VPSUP G7
 - 🎯 **Mục tiêu — Owner nguyên văn 02/10 20:15:** “hợp đồng hết hạn => nếu không làm thì sẽ bị ngừng Web 1 thời gian. Vì vậy tôi muốn có 1 giải pháp trung gian và làm tạm, có thể chưa sửa gì cũng được.” · “Chúng ta có hẳn 1 hệ thống rồi chỉ cần vẽ lại cho gần giống là được. Không cần giống tuyệt đối đâu.” · “Những phần nhúng đó thì không phải làm chúng ta nhúng lại ở site mới là xong.” **Một câu:** web công ty không bị ngừng khi hết hợp đồng với bên cũ — chạy tạm trên hệ mình; làm lại toàn bộ web là việc khác, để sau.
 - 🏁 **Xong khi** _(Host đề xuất — hội đồng chốt)_: (1) 29 địa chỉ trang cũ mở được trên hệ mình, nhìn gần giống — so ảnh 6 trang mẫu, tối đa một vòng sửa; (2) phần nhúng chạy lại: bản đồ · video · liên kết Lark · liên kết Giáo dục; (3) nội dung nằm trong PG qua Directus, **0 bảng mới**, thêm/sửa bài bằng một lệnh DOT; (4) Owner mở trang thử; (5) tên miền chính trỏ về hệ mình **trước ngày web cũ bị ngừng** — theo lệnh Owner.
 - 📍 **Tiến độ:** `✅ mở việc · ✅ điều tra site cũ · ■ chốt đầu bài + Reviewer rà lượt cuối · ⬜ chờ VPSUP G7 XONG → READY · ⬜ MỘT RUN Codex: chụp → DOT → nạp → vẽ lại → nhúng lại → trang thử → tự kiểm · ⬜ Owner xem + lệnh đổi tên miền`
 - ✅ **Đã xong:** Host điều tra thật 02/10 20:30 qua trình duyệt của Owner: **5 trang · 14 bài · 73 ảnh · 29 địa chỉ, đều mở được**; phần nhúng: Google Maps (chân trang, mọi trang) · YouTube (`/gioi-thieu/`) · liên kết Lark wiki (bài đơn hàng) · liên kết cổng giaoduc (menu); tính năng: form liên hệ (`/lien-he/`). P01 (GPT) → Host nhận ở P02.
-- ■ **Đang làm:** Reviewer GPT Chat rà **lượt cuối** P02 + `PROMPT.md` (Q08) · 😊 Owner cho biết ngày web cũ bị ngừng (Q07).
+- ■ **Đang làm:** **Không còn review kỹ thuật.** P03 đã ACCEPT Q08 và khóa `PROMPT.md` tại commit `0fd82bd6a9667c0d18b7899a527400b03b96f81a`; chỉ chờ `work/vps1-up-grade` có **G7 XONG** để Host Claude đặt READY.
 - ⬜ **Còn lại:** VPSUP G7 XONG → Host đặt READY → 😊 Owner dán một dòng → 🤖 Codex làm trọn một RUN tới trang thử → Host nghiệm thu → 😊 Owner xem → lệnh đổi tên miền (một lệnh ngắn riêng).
-- ➡ **Kế tiếp:** 😊 Owner trả lời Q07 + dán một dòng cho GPT · Reviewer rà lượt cuối · Host đặt READY khi G7 XONG.
+- ➡ **Kế tiếp:** VPSUP G7 XONG → Host Claude đặt `READY@0fd82bd6a9667c0d18b7899a527400b03b96f81a` **không mở thêm vòng review** → 😊 Owner dán đúng một dòng RUN cho 🤖 Codex → Codex làm trọn tới trang thử.
 - ⛔ **Không làm/để sau:** làm lại hay cải tiến web · sửa nội dung · chép mã giao diện của bên cũ · dựng lại phần nhúng (chỉ nhúng lại) · bảng PG mới · RUN chụp riêng · tìm kiếm, bình luận, đăng nhập · đụng production trước G7 · đụng DNS khi chưa có lệnh · đuổi giống từng điểm ảnh.
 
 ### 1. Mục tiêu
@@ -53,10 +53,11 @@ Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
 - D01 · 2026-10-02 · **Mở việc.** Owner nguyên văn: “Bạn mở 1 task: work/copy-web-incomexsaigoncorp.vn lên workspace để chúng ta thảo luận và triển khai nhé.” Host Claude Chat; thư mục dùng `-vn` vì máy đồng bộ không nhận dấu chấm trong mã việc. Áp: `dd6c3bf`.
 - D02 · 2026-10-02 17:38 · **Hội đồng chốt chi tiết, rồi làm.** Owner nguyên văn: “Đầu tiên là bạn đưa việc này lên workspace, hội đồng có ý kiến. Xong thì hãy làm.” · “Còn chi tiết thì bạn đưa vào trong đó rồi hội đồng quyết luôn.” Áp: `4dea19d`.
 - D03 · 2026-10-02 20:15 · **Đầu bài làm rõ.** Lý do: hết hợp đồng với bên làm web cũ, web sẽ bị ngừng. Cần: giải pháp trung gian, làm tạm, vẽ lại gần giống trên hệ của mình, phần nhúng bê sang nhúng lại, có thể chưa sửa gì. Làm lại toàn bộ web = việc sau. Nguyên văn ở §0.1. Áp: SAME_COMMIT.
-- D04 · 2026-10-02 · **Hội đồng (P01 GPT + P02 Host):** một RUN duy nhất cho Codex sau VPSUP G7 XONG, từ chụp tối thiểu tới trang thử và tự kiểm; không RUN chụp riêng; PG/Directus và mọi thay đổi production qua DOT/script-wrapper 100%; đổi tên miền là cổng Owner riêng. JEV `gen-dec-1790947304-VkUKPM1fxo4Rrlclc9xR`: chụp trong cùng RUN sau G7 1,00 · vẽ lại bằng CSS riêng 0,96 · nhúng lại đúng nguồn 1,00. Chờ Reviewer xác nhận lượt cuối (Q08). Áp: SAME_COMMIT.
+- D04 · 2026-10-02 · **Hội đồng (P01 GPT + P02 Host + P03 GPT):** một RUN duy nhất cho Codex sau VPSUP G7 XONG, từ chụp tối thiểu tới trang thử và tự kiểm; không RUN chụp riêng; PG/Directus và mọi thay đổi production qua DOT/script-wrapper 100%; đổi tên miền là cổng Owner riêng. JEV `gen-dec-1790947304-VkUKPM1fxo4Rrlclc9xR`: chụp trong cùng RUN sau G7 1,00 · vẽ lại bằng CSS riêng 0,96 · nhúng lại đúng nguồn 1,00. **Q08 ACCEPT; kỹ thuật khóa tại `PROMPT.md` commit `0fd82bd6a9667c0d18b7899a527400b03b96f81a`.** Áp: SAME_COMMIT.
+- D05 · 2026-10-02 · **Ngày bên cũ ngừng web là thông tin tiến độ, không phải gate Owner.** Không bắt Owner trả lời để tiếp tục. RUN bắt đầu ngay sau G7; nếu tại read-gate nguồn cũ đã không còn truy cập được đủ để chụp thì Codex báo blocker, không tự suy đoán nội dung. Áp: SAME_COMMIT.
 
 ## Owner cần quyết
-- Q07 · **Ngày nào bên cũ ngừng web (ngày hết hợp đồng)?** Đây là hạn chót đổi tên miền. Đề xuất Host: nếu ngày đó tới trước khi bản mới xong (phụ thuộc VPSUP G7) thì gia hạn bên cũ thêm một kỳ ngắn — rẻ và không rủi ro; Host báo ngay khi thấy không kịp.
+- — **Không có gate Owner ở giai đoạn dựng trang thử.** Ngày bên cũ ngừng web nếu biết thì chỉ dùng để cảnh báo tiến độ (D05), không chặn RUN.
 
 ## Câu hỏi cho hội đồng (Q)
 - Q02 · ĐÓNG · kiến trúc lõi: bảng Agency OS có sẵn, 0 bảng mới, Nuxt lớp mỏng (P01 ACCEPT). Phần “giữ vỏ HTML/CSS cũ” đổi thành “vẽ lại gần giống” theo lời Owner 20:15 — xem Q08.
@@ -64,10 +65,10 @@ Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
 - Q04 · ĐÓNG · 6 trang mẫu + so ảnh + một vòng sửa nằm ở cuối RUN dựng thật; không dựng bản thử ngoài máy chủ (P01).
 - Q05 · ĐÓNG · chụp tối thiểu từ máy Owner trong chính RUN sau G7 (P01).
 - Q06 · ĐÓNG · `PROMPT.md` Gói 1 không READY, đã thay bằng một PROMPT từ đầu tới trang thử (P01).
-- Q08 · **Reviewer rà lượt cuối — ba điểm Host đổi so với P01, đều do lời Owner 20:15 và kết quả điều tra:** (a) giao diện **vẽ lại gần giống** bằng CSS riêng, không chép mã giao diện bên cũ (thay “giữ vỏ/HTML/CSS cũ”); (b) 73 ảnh nạp vào Directus files và trang thử nằm ở `/w/` dưới tên miền sẵn có — RUN dựng không phải thêm tên miền, không đụng DNS (thay “giữ path ảnh”); (c) site cũ **không còn là đường lùi sau ngày bên cũ ngừng** ⇒ đổi tên miền có hạn chót (Q07). Đồng thuận thì ghi ACCEPT; thừa/thiếu gì trong `PROMPT.md` thì sửa thẳng khi chưa READY (A6).
+- Q08 · **ĐÓNG · ACCEPT (P03 GPT):** (a) vẽ lại gần giống bằng CSS riêng, không chép mã giao diện bên cũ; (b) ảnh nạp Directus files, preview ở `/w/` dưới tên miền sẵn có, không DNS; (c) site cũ chỉ là nguồn chép tới khi bên cũ ngừng. Ba điểm khớp lời Owner 20:15 và không mở rộng phạm vi.
 
 ## RUN / KQ
-- `PROMPT.md` · RUN_ID `CWEB-E2E-20261002-01` · **bản soạn, một RUN từ đầu tới trang thử** — chưa READY, chưa RUN. Host đặt READY khi đủ hai điều: Reviewer rà lượt cuối xong + VPSUP G7 XONG.
+- `PROMPT.md` · RUN_ID `CWEB-E2E-20261002-01` · **LOCKED kỹ thuật tại commit `0fd82bd6a9667c0d18b7899a527400b03b96f81a`** — chưa READY, chưa RUN vì VPSUP G7 chưa XONG. Reviewer đã xong; khi G7 XONG, Host đặt READY đúng SHA này **không cần review lại**, trừ khi `PROMPT.md` bị sửa.
 
 ## Ý kiến (P)
 - **P01 · GPT Chat · ACCEPTED (Host P02) · 2026-10-02 20:03 +07.** `Based_on: fbaeeccc4c55aad1a73341c28e0ea835276da9e4` · `Scope: §0/Q02–Q06 + PROMPT.md Gói 1` · `§0.3: đã đối chiếu` · Bảng: **khớp trước review**.
@@ -83,3 +84,8 @@ Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
   - **Nhận toàn bộ cấu trúc P01:** một RUN sau G7, không RUN chụp riêng, không dựng thử ngoài máy chủ, DOT 100%, đổi tên miền tách riêng, không xin Owner giữa chừng. `PROMPT.md` đã thay.
   - **Ba điểm đổi (Q08)** do lời Owner 20:15 và điều tra: vẽ lại gần giống thay vì giữ vỏ cũ · ảnh vào Directus files + trang thử ở `/w/` · site cũ không còn là đường lùi sau ngày ngừng.
   - **Sai của Host ở vòng 1, ghi để không lặp:** lập kế hoạch khi mới đọc trang chủ, chưa điều tra phần nhúng và quy mô thật (site chỉ có 29 địa chỉ); coi “site cũ vẫn còn” là điều hiển nhiên. Cả P01 cũng dựa vào giả định đó.
+- **P03 · GPT Chat (Reviewer) · ACCEPT · 2026-10-02 21:02 +07.** `Based_on: 0fd82bd6a9667c0d18b7899a527400b03b96f81a` · `Scope: P02/Q08 + PROMPT.md toàn bộ` · `§0.3: đã đối chiếu` · Bảng: **khớp sau sửa**.
+  - Đồng thuận đủ ba thay đổi Q08. Đây đúng là **bản tạm chống gián đoạn**, không phải migrate WordPress hay làm lại website.
+  - Phần nhúng chỉ mang nguồn sang nhúng lại; không tái xây Google Maps/YouTube/Lark/Giáo dục. Form liên hệ là tính năng riêng và PROMPT đã giới hạn: ưu tiên khối có sẵn, nếu không gọn thì fallback liên hệ tĩnh.
+  - `PROMPT.md` hiện đủ để Codex tự đi từ nguồn cũ → DOT → PG/Directus → Nuxt/CSS mới → nhúng → preview `/w/` → browser/visual test → rollback/protection/KQ; không cần Owner duyệt giữa chừng.
+  - **Không thêm bước, không thêm review.** Ngày hết hợp đồng không phải input kỹ thuật bắt buộc; bỏ Q07 khỏi gate. Dependency duy nhất trước RUN là **VPSUP G7 XONG**. Nếu PROMPT không đổi, Host chỉ đặt READY đúng SHA `0fd82bd6a9667c0d18b7899a527400b03b96f81a`.
