@@ -4,7 +4,7 @@ Tên việc: Nâng PG · Directus · Nuxt/Agency OS lên bản mới nhất ổn
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/09/2026: mở `work/vps1-up-grade`, tập hợp phương án cũ + ý kiến Claude + bổ sung mới của Owner để hội đồng lập kế hoạch nâng cấp an toàn. Chưa cho phép nâng cấp/dọn/xóa/restart/deploy ở lượt mở việc này.
 
-### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 20:43 +07 · GPT Host · P108 — G6 ACCEPT, CHỈ CÒN G7 — đọc đầu tiên, mọi phiên (AGENTS MT4)
+### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-02 20:55 +07 · Claude Reviewer · P109 — G7 ACCEPT, CHỜ HOST READY — đọc đầu tiên, mọi phiên (AGENTS MT4)
 - 🎯 **Mục tiêu — Owner nguyên văn 02/10 11:59:** “Mục tiêu cuối cùng không phải là nâng cấp phần mềm, mục tiêu cuối cùng là tận dụng các tính năng mới nhất của PG/Directus để giải quyết các bài toán của ‘máy sản xuất quy trình’” · “chúng ta cần 1 cái máy chủ, với các phần mềm cần thiết quan trọng ở mức tốt nhất và ổn định. Những thứ khác dẹp bớt ra.” · “đây không phải là việc chính, đây chỉ là công cụ, là việc phụ.”
 - 🎯 **Một câu:** VPSUP là **công cụ**: VPS1 chạy PG 18 + Directus 12.4 + Nuxt 4.5 ổn định, để việc chính (Máy sản xuất quy trình — `work/mow-mot-moit-mout`) dùng tính năng mới nhất. Dùng tính năng nào cho bài toán nào là việc chính, **không làm ở đây**.
 - 🏁 **Xong khi VPS1 chạy (đích duy nhất):**
@@ -17,13 +17,13 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/0
 | nginx | 1.29.5 | 1.30.5 | ✅ S1 |
 
 - 🏁 Kèm: dữ liệu đủ; SAME SLICE, Flow, quyền và các bên gọi PG/Directus đạt theo mốc production mới. **XONG chỉ khi VPS1 chạy đủ bộ đích trong bảng và nghiệm thu G7 đạt**; máy canh nền hoạt động, không chờ 7 ngày để nghiệm thu.
-- 📍 **Tiến độ:** `✅ chuẩn bị G0–G5 · ✅ S1 · ✅ TARGET-FINAL · ✅ G6 PASS/Host ACCEPT · ■ G7 REVIEW: chuyển + nghiệm thu + bàn giao = XONG`
+- 📍 **Tiến độ:** `✅ chuẩn bị G0–G5 · ✅ S1 · ✅ TARGET-FINAL · ✅ G6 · ■ G7: Reviewer ACCEPT → chờ Host READY → Owner dán = XONG`
 - ✅ **Đã xong:** G0–G5 · S1 production PG16.15/nginx1.30.5 (`10db62f`) · TARGET-FINAL (`65ba02a`) · **G6 (`4bfb1df`) Host ACCEPT:** PG18.6 + Directus12.4.1/OIG + Nuxt4.5.2/Node24.21.0 trên dữ liệu VPS1 mới; data/sequence 0 khác; DEFAULT đã đóng; backup/restore PG18 PASS; rehearsal G7 ×2; rollback trước mở ghi 4–4,5′; DOT_SCRIPT_ONLY=PASS; gói G7 43 file hoàn chỉnh.
-- ■ **Đang làm:** **Reviewer rà đúng 1 vòng gói G7 production** tại `G6/g7/package` + `G7-RUNBOOK.md`; không mở lại G6. Host đã disposition p95 ×1: điểm 689→727 ms (+5,5%) nhưng KTC95% −99…+212 ms, median bằng nhau, ×3 1 057→557 ms, 0 Directus 503/restart/OOM ⇒ **không có bằng chứng hồi quy material; ACCEPT_WITH_DISPOSITION**, không tuyên bố TARGET nhanh hơn ở ×1.
-- ⬜ **Còn lại — đúng 1 gói lớn:** **G7 production:** Owner duyệt cửa sổ → agent chạy đúng package G6 một mạch: PRE ngoài downtime → freeze mọi writer → fresh dump/globals → PG18.6 volume mới → UUID/DEFAULT/migrate/OIG → Directus12.4.1 + Nuxt4.5.2 → acceptance trước mở ghi → mở ghi → backup thật + restore-verify · Kuma `/server/ping` · Config Guard/DOT registry cần thiết → bàn giao. Downtime rehearsal **16–17′**, rollback trước mở ghi **4–4,5′**, cửa sổ đề xuất **45′**. XONG chỉ khi VPS1 chạy đủ bộ đích.
+- ■ **Đang làm:** Reviewer P109 **ACCEPT G7** + soạn PROMPT G7 mỏng từ gói G6 (last-touch `fdb5ba6`); **chờ Host READY ngay**. p95 ×1: đồng ý ACCEPT_WITH_DISPOSITION của Host.
+- ⬜ **Còn lại — đúng 1 gói lớn:** **G7 production:** Owner duyệt cửa sổ → agent chạy đúng package G6 một mạch: PRE ngoài downtime → freeze mọi writer → fresh dump/globals → PG18.6 volume mới → UUID/DEFAULT/migrate/OIG → Directus12.4.1 + Nuxt4.5.2 → acceptance trước mở ghi → mở ghi → backup thật + restore-verify · Kuma `/server/ping` · **canh licensing → Telegram (§0.3)** · Config Guard/DOT registry cần thiết → bàn giao. Downtime rehearsal **16–17′**, rollback trước mở ghi **4–4,5′**, cửa sổ đề xuất **45′**. XONG chỉ khi VPS1 chạy đủ bộ đích.
 - 🔁 **Sau XONG — việc phụ, không chặn gì:** máy tự canh nền · chuyển e-learning về VPS1 + huỷ VPS2 khi tiện.
 - ✂️ **Đã cắt khỏi đường chính:** nâng @nuxt/ui v4; chờ 7 ngày; PG18 đợt 2 mặc định; dọn/huỷ VPS2 và chuyển e-learning; mở nghiên cứu hay nâng thêm thành phần. Lỗ bảo mật nghiêm trọng phát hiện thật thì báo, không tự mở nhánh. G6/G7 dùng lại bytes Nuxt đã kiểm, không build lại theo thói quen.
-- ➡ **Kế tiếp:** Reviewer ghi **một P duy nhất ACCEPT/DELTA cho G7** sau khi kiểm package/runbook; bắt buộc đối chiếu §0.3 exact version + DROOT34/DROOT26 DOT 100%, rollback tự động trước unfreeze, backup/restore-verify thật và acceptance trước mở ghi. Không thêm task/gate mới. Sau ACCEPT, Host phát READY G7 ngay; 😊 Owner chỉ duyệt cửa sổ production và dán RUN. Mốc 19:15 đã qua; package có PA2 **23:15 VN / 45′** để Owner cân nhắc sau review.
+- ➡ **Kế tiếp:** Host READY G7 theo last-touch `fdb5ba601e56e3a08becdcd5b8647723c24754f3` · 😊 Owner mở phiên Claude Code mới, dán RUN G7 — **dán = duyệt cửa sổ** (đề xuất tối 02/10 23:15, 45′; gián đoạn ~17′) · 🤖 G7 chạy một mạch tới KQ · Host nghiệm thu = XONG.
 - ⛔ **Không làm:** DNS · chờ MCPW · nâng Qdrant/Kuma · thoát Agency OS · sửa lỗi có sẵn của việc khác (`hvu-sync-py`, Kuma #21/#22).
 - 🔧 **G6 xử lý trong cùng gói, không tách bước:** 503 khi tải cao (so với CURRENT, sửa hẹp/đối soát theo tải thực) · 33 DEFAULT hệ thống Directus thiếu (đối chiếu canonical, vá có căn cứ trên lab, kiểm tạo field/user/collection) · `pg_dump`/`pg_dumpall`/`pg_restore` 18 và backup đọc/khôi phục được · `.env NUXT_SSR_IMAGE` + extension host + mạng bổ sung + compose/delta sống · đúng bytes Nuxt TF · checkpoint nhất quán trước mở ghi, sau mở ghi cấm restore DB mù. **Directus/PG = DOT/script-wrapper 100%:** Agent không `psql`/SQL/REST/CLI/migration/restore trực tiếp; thiếu capability thì viết hoặc nâng DOT/script trước rồi dùng chính nó. Bằng chứng và giới hạn chi tiết nằm trong P101/PROMPT + DROOT26.
 - 📏 **Luật chống rác — Owner 02/10 nguyên văn:** “Ngớ ngẩn nhất là mỗi AI thêm 1 Ý, xong kế hoạch từ ban đầu rất gọn => đến lúc triển khai thì lại thành 1 bãi rác với đủ thứ kèm theo.” ⇒ Giao theo **đầu ra trọn gói**, không chia theo file/script/lỗi nhỏ hay số phút. Trong phạm vi đã giao, agent được làm liên tục, tự sửa/test lại phần liên quan; checkpoint lưu để phục hồi, **không phải xin duyệt**. Một vòng review cho mỗi gói lớn, không mở vòng sau một bước con đạt. Chỉ ngắt vì vượt phạm vi/quyền, nguy cơ dữ liệu/secret, thiếu đầu vào thiết yếu hoặc blocker thật. Trao đổi trên repo; không yêu cầu Owner chép lại nội dung AI đã đọc được. Lượt đổi trạng thái sửa Bảng cùng commit (MT4).
@@ -1416,8 +1416,18 @@ Phản biện đúng P03, không mở thêm file:
 - **Reviewer tiếp theo:** đọc đúng `G6/g7/package` (43 file, SHA256SUMS `beed98a3…`) + `G7-RUNBOOK.md`, so với P108 và luật repo; ghi **một P duy nhất ACCEPT/DELTA**. Không review lại G6, không mở thêm soak/task/framework. Nếu DELTA, sửa ngay trong package/prompt hiện hành nếu thuộc phạm vi rồi chốt cùng lượt.
 - Owner cần quyết: — (chỉ duyệt cửa sổ G7 sau Reviewer ACCEPT; PA2 hiện có 23:15 VN / 45′).
 
+### P109 · Claude Chat (Reviewer) · 2026-10-02 · ACCEPT G7 (1 VÒNG) · PROMPT G7 MỎNG · 1 CHỖ THIẾU THEO §0.3
+- **Bảng: khớp**; đã cập nhật ■/➡/📍. **§0.3: đã đối chiếu** (phiên bản chốt cứng, SaaS cách ly, licensing, DOT 100%).
+- **Giới hạn trung thực:** 43 file gói nằm trên VPS2, Reviewer không có đường đọc trực tiếp; rà dựa KQ G6 (dòng 89, rất chi tiết) + P107/P108, và biến các điểm cần kiểm thành **PRE máy kiểm bắt buộc** trong PROMPT G7 (G7.1) — không thêm vòng.
+- **6 điểm P108:** (1) phiên bản đúng §0.3 + digest PG 18.6 khớp KQ → PRE 3 · (2)(3) DOT 100%, cấm lệnh tay → G7.2 · (4) tự quay lui trước mở ghi đã tập 2 lần → G7.2 · (5) backup PG18 + restore-verify v1.1.0, Kuma `/server/ping`, Config Guard → PRE 6 + G7.3 · (6) giữ delta production: gói render compose từ 09:08Z ⇒ PRE 4 bắt so lại compose/.env live, khác thì render lại chỉ hunk VPSUP, đụng việc khác thì dừng. **Tất cả đạt.**
+- **1 chỗ thiếu (đã bổ sung vào G7.3):** runbook G7 không có **canh licensing → Telegram** — việc đã chốt mang sang G7 (dòng 407, 963; §0.3 dòng “làm gì khi licensing không liên lạc được”). Thiếu ⇒ Directus 12 tự về Core và khoá sau 7 ngày mất licensing mà không ai biết. Làm sau mở ghi, không kéo dài gián đoạn.
+- **Giữ 2 điều kiện rẻ:** đĩa ≥ 20 GB (đo 20:45: 53 GB trống, RAM 11,9 GB); không xoá volume PG16/checkpoint/image cũ khi chưa có Owner.
+- **p95 ×1:** đồng ý Host ACCEPT_WITH_DISPOSITION (khác biệt nằm trong nhiễu, ×3 tốt hơn, 0×503/restart/OOM).
+- **PROMPT G7** (last-touch `fdb5ba601e56e3a08becdcd5b8647723c24754f3`): Reviewer soạn mỏng từ gói G6 để bớt một vòng soạn; Host chỉ cần READY. Owner dán RUN = duyệt cửa sổ.
+- Owner cần quyết: giờ chạy G7 (dòng ở `## Owner cần quyết`).
+
 ## Owner cần quyết
-- —
+- VPSUP · Giờ chạy G7 (chuyển production, gián đoạn ~17′, cửa sổ 45′): **đề xuất tối nay 23:15**. Anh dán RUN G7 sau khi Host READY = duyệt.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md · ../../README.md · ../README.md.
