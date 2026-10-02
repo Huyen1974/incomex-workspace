@@ -3,17 +3,17 @@
 > **CÁCH GIAO HERMES:** nói với GPT/Claude `giao Hermes: <việc>` → AI ghi `ASSIGN@` tại **COLLAB HJW này** → Telegram hiện thẻ → 😊 Owner bấm **Cho chạy**. Việc có thể yêu cầu Hermes đọc task khác; quyền ghi của Hermes vẫn theo profile đã duyệt.
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập.
+Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 18:47 +07 · Claude Code CLI · P77 KQ
-- 🎯 Mục tiêu: Hermes K1/K2 dùng thật + **toàn bộ Kuma đang dùng phải xanh và mọi Down/Up phải báo Telegram** + phần live được Điều 30/31 bảo vệ.
-- 🏁 Xong khi: K1/K2 PASS · `KUMA FLEET total=N · up=N · down=0 · paused=0 · unknown=0 · notification_missing=0` · Down→Telegram + Up→Telegram PASS · direct protection đủ.
-- 📍 Tiến độ: `[✓ K1/K2 + compat] → [✓ Disk heartbeat hồi] → [■ KUMA CLOSEOUT RUN ISSUED] → [□ #13 Owner quyết nếu cần] → [□ Host+Reviewer verify] → [□ đóng]`.
-- ✅ Đã xong: K1/K2 thật · lỗi cwd_explicit đã sửa · Mac thin client khớp VPS · Disk heartbeat hồi · KQ cũ đã trả PARTIAL · Host+Reviewer thống nhất PROMPT Kuma closeout.
-- ■ Đang làm: — executor xong: `KQ@HJW-KUMA-CLOSEOUT-20261002-02 XONG` 11:47Z (P77) · chờ Host + Reviewer nghiệm thu.
-- ⬜ Còn lại: reconcile Disk Down/thiếu Up · kiểm #13 và trình Owner gật/lắc nếu thật sự retired · test #11 Down→Up qua Kuma→Telegram · direct-protect cron/schedules · bảng §6 có cột đường Telegram · fleet/bang-den cuối xanh.
-- ➡ Kế tiếp: Host + Claude Reviewer nghiệm thu đúng 1 lượt: tự đọc `/opt/incomex/logs/bang-den.json` (MCP root `code` → `logs/bang-den.json`) + tin Telegram Down/Up #11 Owner đã xác nhận; 😊 Owner không cần làm gì.
-- ⛔ Không làm/để sau: không làm lại K1/K2 · không capability/service/monitor mới · không fake all-green bằng bot HJW · không đụng VPSUP · nợ S9 K2 ~544k token để sau, không kéo vào closeout này.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 19:40 +07 · GPT Host · P78 RECEIPT GAP
+- 🎯 Mục tiêu: Hermes/Kuma đã chạy đúng **và sau mọi mutation production Owner luôn nhận Telegram biên nhận POST-PROTECT**, kể cả khi trạng thái vẫn xanh.
+- 🏁 Xong khi: K1/K2 + Kuma fleet/Down-Up PASS · AUTO-PROTECT đủ · một `NO-CHANGE VERIFY` POST-PROTECT gửi Telegram thật có message_id.
+- 📍 Tiến độ: `[✓ Hermes/Kuma technical PASS] → [■ POST-PROTECT RECEIPT] → [□ Host+Reviewer verify] → [□ đóng]`.
+- ✅ Đã xong: K1/K2 · compat · fleet 21/21 UP · #11 Down→Up Telegram PASS · #13 retired/gỡ theo Owner · INV15 v3 · Config Guard 72/72 CLEAN.
+- ■ Đang làm: Host giữ KQ `c38539d` ở trạng thái **technical PASS / chưa CLOSE** vì thiếu receipt khi không có transition; mở RUN hẹp `HJW-POST-PROTECT-RECEIPT-20261002-03`.
+- ⬜ Còn lại: lắp receipt dùng đường Telegram hiện hữu · test no-op/verify-only nhận được tin · negative delivery fail · coverage D30/31 cho chính delta · nghiệm thu.
+- ➡ Kế tiếp: 🤖 Claude Code chạy RUN receipt; 😊 Owner chỉ cần xác nhận đã thấy tin Telegram khi được hỏi; không restart dịch vụ.
+- ⛔ Không làm/để sau: không restart hàng loạt để ép alert · không làm lại K1/K2/Kuma Down-Up · không bot/service/monitor mới · S9 544k token để sau.
 
 ### 1. Mục tiêu
 - Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
@@ -1231,3 +1231,10 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - **Còn lại (không chặn XONG của RUN này, ghi để Host quyết):** dòng 12–13 chưa có đường về Telegram (tín hiệu hook Mac chỉ hiện trên Owner View) · lỗi thiết kế Kuma “gửi tin trước khi lưu” không sửa được từ ngoài; nay INV15 bắt “Please report” trong 15′ và báo thẳng · nợ S9 K2 ~544k token (P76, để sau).
 - **Hồ sơ:** `/opt/incomex/work/hermes-joint-workspace/HJW-KUMA-CLOSEOUT-20261002/INDEX.md` (bin/, results/, backup/; kuma.db trước khi gỡ #13 ở `/var/backups/incomex-hjw-maint-compat/kuma.db.pre-closeout`).
 - Áp: SAME_COMMIT
+
+### P78 · Host GPT · 2026-10-02 19:40 +07 · **KQ c38539d TECHNICAL PASS · CHƯA CLOSE · THIẾU POST-PROTECT RECEIPT**
+- KQ Kuma closeout đạt phần kỹ thuật: fleet 21/21 UP, Down→Telegram + Up→Telegram trên #11 đã Owner xác nhận, Config/Protection Guard sạch, #13 xử lý theo Owner.
+- **Không restart dịch vụ để chứng minh reporting.** Restart chỉ thử recovery; không giải quyết lỗ “trạng thái không đổi nên Owner không nhận được báo cáo”.
+- Lỗ còn lại = **biên nhận hậu triển khai**. DROOT29/A10-R4 đã bổ sung luật: POST-PROTECT PASS phải gửi Telegram receipt dù không có state transition; gửi thất bại thì KQ không XONG.
+- PROMPT mới ở đầu `PROMPT.md`: `HJW-POST-PROTECT-RECEIPT-20261002-03`. Test chính = verify-only/no-op, không mutation/restart; Owner phải nhận đúng một tin receipt có delivery proof/message_id.
+- Sau receipt PASS mới Host+Claude nghiệm thu và CLOSE HJW maintenance.
