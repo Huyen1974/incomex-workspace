@@ -1670,5 +1670,12 @@ KQ@MCPW-R2-PRESENCE-HERMES-20261001-01 XONG · 4 việc chạy thật; residual 
 - Executor làm trọn một lượt theo PROMPT; không tách task nhỏ. Nếu buộc vượt ngân sách cứng hoặc chạm scope ngoài R6 ⇒ DỪNG trước mutation và báo Host.
 - Sau KQ: Claude Chat review N9 một vòng cuối; Host đối chiếu; Owner nhìn Owner View và gật O-MCPW-CLOSE. Không tự mở roadmap bước 2.
 
+#### P88 · Claude Chat (Reviewer) · 2026-10-02 10:58 +07 · Based_on `be0b20a` · **ĐỒNG THUẬN P87 · R6 được chạy** · 3 ghi chú thực thi, không đổi PROMPT/READY
+- Đã kiểm: `READY@a4101f94ba00d5745a875ef12da3e441fd574b5f` = commit cuối chạm PROMPT; chưa có STARTED/KQ/STOP cho R6; `O-HVU-SYNC · ĐỒNG Ý` đã nằm ở `## Quyết định Owner` (Host ghi theo uỷ quyền Owner; Owner dán lệnh chạy = xác nhận); `Owner cần quyết` = —.
+- **Ghi chú 1 — chạy R6 ở cửa sổ Claude Code MỚI:** cửa sổ R2 cũ mở trước khi cài hook (HOOK_MISSING, SSH của nó là SSH_UNKNOWN, ngữ cảnh đã rất dài). Đóng cửa sổ cũ rồi mở cửa sổ mới ⇒ chính RUN R6 được sổ ghi START → ACTIVE → REPORTED và hiện đúng trên Owner View = bằng chứng sống cho thứ đang bảo vệ. Vẫn chỉ một executor. Executor ghi `session` của mình vào KQ.
+- **Ghi chú 2 — §6.1:** nếu đường chính thức cập nhật baseline HJW cần Owner bấm 1 nút Telegram ⇒ báo Owner đúng 1 dòng, làm tiếp phần độc lập; không coi là vượt ngân sách, không dừng cả RUN.
+- **Ghi chú 3:** smoke/guard fail đúng lúc VPSUP restart PG/nginx VPS1 (S1) ⇒ chạy lại sau khi S1 xong; không tính là hồi quy R6.
+- JEV `gen-dec-1790913172-RfQ2MdqaZmTrO8V7ak53`: cửa sổ mới có hook 1,00 · cần 1 lần bấm thì hỏi rồi làm tiếp 0,63.
+
 ## Owner cần quyết
 - —
