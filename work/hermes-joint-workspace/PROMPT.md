@@ -1,18 +1,21 @@
-# PROMPT — HJW D30 · POST-PROTECT KHÔNG TỰ GÂY rest_anon GIẢ
+# PROMPT — HJW · LƯỢT CUỐI: (1) vá báo động giả D30 → (2) người canh ngoài máy chủ D31 → đóng
 
-RUN_ID: HJW-D30-POSTPROTECT-NO-RESTANON-20261002-04
+RUN_ID: HJW-FINAL-D30-D31-20261002-04
 Host: GPT Chat · GPT-HJW-260922-A
-Owner_authorization: 02/10/2026 — vá báo động giả trước G7; sau G7 mới dựng external dead-man đã được Owner đồng ý.
+Owner_authorization: 02/10/2026 — ~21:40 Owner gật dùng dịch vụ canh miễn phí ngoài VPS; 21:46 Owner: phiên này chỉ làm việc của phiên này (Hermes/workspace/tin báo), làm xong rồi đóng; không đặt, không nhắc, không chờ bước của việc khác (nguyên văn ở HJW COLLAB §0).
+Reviewer: Claude Chat · ACCEPT-with-delta tại P90 (bản này).
 Executor_Surface: Claude Code CLI phiên mới.
 Write_Path: DOT/script-wrapper hiện hữu; runtime mutation qua incomex-config-apply-v0 hoặc wrapper chuẩn. Không ad-hoc.
 
 ## 0. Mục tiêu duy nhất
-Đóng hồi quy D30 do P86 phát hiện: PRE/POST của `mcpw-protection-guard` không được gọi GitHub anonymous/ruleset lặp lại và không được làm AD1 `rest_anon >2/h` đỏ giả.
-Đồng thời ghi lỗ D31 “cả VPS chết/mất mạng thì checker chết cùng” thành một dòng hỏng có chủ trong sổ tin báo; chưa dựng external watcher ở RUN này.
+Hai việc còn lại của chính HJW, làm theo thứ tự — xong việc 1 và kiểm xong mới sang việc 2:
+1. **D30:** đóng hồi quy do P86 phát hiện — PRE/POST của `mcpw-protection-guard` không được gọi GitHub anonymous/ruleset lặp lại và không được làm AD1 `rest_anon >2/h` đỏ giả.
+2. **D31:** lỗ “cả VPS chết/mất mạng thì checker chết cùng” — dựng người canh ngoài máy chủ (§3B) và ghi nó vào sổ tin báo.
+RUN này không đọc, không nhắc, không chờ, không bàn giao cho việc nào khác (DROOT37).
 
 ## 1. PRE — chỉ đọc, 0 GitHub anonymous
 - Đọc AGENTS → HJW COLLAB P86–P89 → prompt này.
-- Xác nhận G7 VPSUP READY nhưng chưa STARTED; không chạm task/file/runtime VPSUP.
+- Không chạm task/file/lịch/runtime của việc khác; gặp va chạm trên máy chủ ⇒ dừng báo Host.
 - Đo baseline: AD1/rest_anon, #22, Guard/Config Guard, hash Guard live, registry/baseline, sổ tin_bao.
 - PRE của chính RUN dùng snapshot/state local; **0 request GitHub anonymous**.
 
@@ -23,14 +26,17 @@ Write_Path: DOT/script-wrapper hiện hữu; runtime mutation qua incomex-config
 - Fail-closed: cache thiếu/stale/corrupt/mismatch ⇒ PRE/POST FAIL; tuyệt đối không fallback anonymous GitHub.
 - Không nới AD1 threshold, không whitelist chính mình, không che số đo.
 
-## 3. Sổ tin báo — phản ánh lỗ D31
-Thêm một dòng registry hiện hữu:
-- `External dead-man của VPS`;
-- trạng thái `hỏng: HJW-D31-EXTERNAL-DEADMAN-AFTER-G7`;
-- nghĩa: VPS chết/mất mạng ⇒ Kuma/Guard/bot cùng im;
-- cách đo hiện tại: chưa có ngoài failure-domain;
-- disposition: Owner đã gật dùng dịch vụ canh miễn phí ngoài VPS; triển khai ngay sau G7.
-Bản tin 08:00 phải phản ánh K≥1 tới khi external watcher PASS; không làm Guard đỏ lặp 5′ vì đây là hỏng đã ghi sổ + việc nhận.
+## 3. Sổ tin báo — một dòng cho người canh ngoài
+Thêm một dòng vào registry hiện hữu: `Người canh ngoài máy chủ` — nghĩa: VPS chết/mất mạng ⇒ Kuma/Guard/bot cùng im, phải có nơi ngoài VPS báo thay. Khi chưa dựng xong: trạng thái `hỏng: HJW-D31 (chờ dựng)` ⇒ bản tin 08:00 phản ánh K≥1, không làm Guard đỏ lặp 5′ (hỏng đã ghi sổ + việc nhận). Dựng xong và thử PASS ở §3B ⇒ đổi thành `chạy` kèm cách đo sống.
+
+## 3B. D31 — người canh ngoài máy chủ (chỉ bắt đầu sau khi D30 ở §4 đã PASS)
+Đích: VPS1 tắt hẳn hoặc mất mạng ⇒ trong ≤15 phút Owner nhận tin Telegram từ một nơi **không nằm trên VPS1**.
+1. **Chọn dịch vụ (chỉ đọc, không dựa trí nhớ):** mở trang chính thức của 2–3 dịch vụ canh miễn phí, chọn MỘT theo tiêu chí bắt buộc: nằm ngoài VPS1 và ngoài nhà cung cấp máy chủ · gói miễn phí hiện hành cho phép cách dùng này · tự nhắn Telegram cho Owner bằng kênh của chính dịch vụ (không qua bot của ta) · chu kỳ phát hiện ≤5′. **Ưu tiên cách không phải sửa gì trên VPS1** (dịch vụ tự thăm từ ngoài một địa chỉ sức khoẻ công khai đang có); chỉ dùng cách “máy chủ gõ cửa” khi cách kia không đạt tiêu chí. Hỏi JEV trước khi chốt; ghi 3 dòng lý do.
+2. **Việc của 😊 Owner — gom một lần, ≤5 phút, hướng dẫn từng bước bấm gì ở đâu:** đăng ký bằng email của Owner · xác nhận email · bật kênh Telegram của dịch vụ. Agent không tạo tài khoản thay, không giữ mật khẩu. Khoá/địa chỉ bí mật (nếu có) chỉ nằm root-only trên VPS; không vào repo/KQ/log/tin nhắn.
+3. **Đúng MỘT phép canh.** Mô tả cấu hình (không bí mật) ghi vào hồ sơ RUN để dựng lại được.
+4. **Thử thật, không tắt máy chủ, không restart:** báo Owner một câu, rồi làm phép canh “thấy im” một cách an toàn (ví dụ trỏ tạm vào từ khoá không tồn tại, hoặc ngừng gõ cửa quá hạn) ⇒ Owner nhận tin đỏ từ dịch vụ ⇒ trả lại đúng ⇒ Owner nhận tin xanh. Nói rõ tin nằm ở khung chat nào.
+5. **Sổ tin báo:** dòng `Người canh ngoài máy chủ` = `chạy`, có cách đo sống tại chỗ (thấy lượt thăm từ ngoài trong log, hoặc lần gõ cửa gần nhất được nhận); im quá hạn ⇒ INV16 đỏ. Có sửa gì trên VPS ⇒ Config Guard + mutant + rollback theo §5.
+6. **Owner vắng hoặc chưa đăng ký được:** không tự tìm đường khác; dòng sổ giữ `hỏng: HJW-D31 (chờ Owner đăng ký)`; KQ theo §7.
 
 ## 4. Điều 30 — acceptance
 Sau patch:
@@ -50,21 +56,19 @@ Sau patch:
 - Rollback bytes trước RUN + baseline tương ứng.
 - Coverage table D30/D31/watchdog/rollback; có THIẾU ⇒ không XONG.
 
-## 6. G7 handoff
-KQ xuất:
-- `GUARD_SHA_AFTER=<sha256>`;
-- Config Guard baseline id/hash mới;
-- ghi rõ: **G7 PRE phải lấy mốc Guard mới; không dùng hash trước D30 patch**.
-Không sửa PROMPT/READY G7 trong RUN HJW.
+## 6. Trạng thái sau RUN
+KQ ghi `GUARD_SHA_AFTER=<sha256>` và Config Guard CLEAN, như mọi RUN. Không viết lời nhắn, điều kiện hay bàn giao cho việc khác.
 
 ## 7. KQ
-Chỉ XONG khi:
+KQ ghi hai dòng kết quả riêng:
 `D30: 4x PRE/POST · anonymous_git=0 · rest_anon_delta=0 · #22_no_false_red=PASS · stale_mutants=PASS · ConfigGuard=CLEAN`
-và sổ sáng có dòng external-dead-man = hỏng có chủ.
+`D31: người canh ngoài=<tên dịch vụ> · Owner nhận tin đỏ + tin xanh · dòng sổ=chạy · đo sống tại chỗ=PASS`
 
-`KQ@HJW-D30-POSTPROTECT-NO-RESTANON-20261002-04 XONG · D30_CLEAN_FOR_G7`
+Đủ cả hai:
+`KQ@HJW-FINAL-D30-D31-20261002-04 XONG · D30_CLEAN · D31_EXTERNAL_WATCH`
+D30 đạt mà Owner chưa kịp đăng ký: cùng tiền tố, đuôi `D30 XONG · D31 CHỜ OWNER` (dòng sổ giữ `hỏng: HJW-D31`).
 
-Sau KQ dừng. Không G7. Không external watcher. Host+Claude nghiệm thu một lượt rồi Owner chạy G7.
+Sau KQ dừng. Host + Claude nghiệm thu một lượt rồi đóng HJW.
 
 ---
 
