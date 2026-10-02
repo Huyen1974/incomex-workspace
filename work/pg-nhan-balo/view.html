@@ -38,13 +38,13 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 </head>
 <body><main>
 <h1>Luật nhãn PG — mở balo là biết có gì, dùng lại được gì, thừa gì</h1>
-<p class="mut" id="trang-thai">Bản v1.0 · đã đồng thuận 02/10/2026 (Host Claude Chat + Reviewer GPT Chat) · chờ Codex đặt biển và dán nhãn · chỉ dán nhãn, không tắt, không xoá</p>
+<p class="mut" id="trang-thai">Bản v1.1 · luật đã đồng thuận 02/10/2026 (Claude + GPT) · vị trí đặt biển: đề xuất của Host 17:10, chờ GPT đồng thuận rồi mới giao Codex · chỉ dán nhãn, không tắt, không xoá</p>
 
 <span class="tang">PHẦN CHO OWNER</span>
 
 <section class="card quyet" id="quyet">
 <h2>Hôm nay anh cần quyết</h2>
-<p><strong>Không cần quyết gì.</strong> 🙂 Việc của anh: dán một dòng lệnh chạy cho Codex. 🤖 Codex đặt biển và dán nhãn. Dán xong, anh xem màn “Balo theo khối” rồi quyết giữ hay bỏ cho từng khối.</p>
+<p><strong>Không cần quyết gì.</strong> 🙂 Việc của anh: đưa GPT một dòng để GPT duyệt vị trí đặt biển; GPT đồng thuận thì Host mở lệnh cho Codex. 🤖 Codex đặt biển và dán nhãn. Dán xong, anh xem màn “Balo theo khối” rồi quyết giữ hay bỏ cho từng khối.</p>
 </section>
 
 <section class="card" id="tien-do">
@@ -52,8 +52,8 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <div class="bar">
 <div class="xong">1 · Khảo sát ✓</div>
 <div class="xong">2 · Luật ✓</div>
-<div class="xong">3 · Đồng thuận ✓</div>
-<div class="dang">4 · Codex đặt biển, dán nhãn ▶</div>
+<div class="dang">3 · GPT duyệt vị trí biển ▶</div>
+<div>4 · Codex đặt biển, dán nhãn</div>
 <div>5 · Nghiệm thu</div>
 <div>6 · Anh quyết theo khối</div>
 </div>
@@ -96,14 +96,15 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 
 <section class="card" id="o-dau">
 <h2>Luật nằm ở đâu</h2>
-<p>Ngay tại chỗ làm việc, như biển hướng dẫn ở hiện trường. Trang này chỉ giữ lý do.</p>
+<p>Một chỗ duy nhất: <strong>bảng “Luật nhãn” nằm ngay cạnh balo trong PG</strong>. Người xem nó qua trang Reports, AI đọc nó bằng lệnh đọc thường: cùng một bản. Nơi khác chỉ có một dòng trỏ về đây. Trang này chỉ giữ lý do.</p>
 <div class="wrap"><table>
 <tr><th>#</th><th>Biển</th><th>Đặt ở đâu</th><th>Ai đọc</th></tr>
-<tr><td class="id">B1</td><td>Biển cổng, 8 dòng</td><td>ngay trên bảng balo trong PG</td><td>🤖 AI nào mở bảng cũng thấy</td></tr>
-<tr><td class="id">B2</td><td>Từ điển giá trị và câu thử</td><td>một bảng nhỏ cạnh balo</td><td>🤖 tra khi dán; giá trị lạ bị chặn</td></tr>
-<tr><td class="id">B3</td><td>Biển công cụ, 3 dòng</td><td>đầu mỗi file lệnh dán nhãn</td><td>🤖 thấy lúc mở lệnh</td></tr>
+<tr><td class="id">B1</td><td>Tám dòng luật</td><td>8 dòng đầu của bảng “Luật nhãn”, cạnh balo</td><td>🤖 đọc bằng lệnh đọc thường · 🙂 đọc trên trang Reports</td></tr>
+<tr><td class="id">B2</td><td>Giá trị và câu thử</td><td>cùng bảng đó, các dòng sau</td><td>🤖 tra khi dán; giá trị lạ bị PG chặn</td></tr>
+<tr><td class="id">B3</td><td>Dòng trỏ, không chép luật</td><td>ghi chú của bảng balo · đầu file lệnh dán · 3 file hướng dẫn agent trên VPS</td><td>🤖 đi đường nào cũng gặp mũi tên</td></tr>
 <tr><td class="id">B4</td><td>Hai trang: “Balo theo khối” và “Luật nhãn”</td><td>mục Reports, cạnh PG Census</td><td>🙂 người xem</td></tr>
 </table></div>
+<p class="mut">Vì sao không đặt luật ở ghi chú của bảng balo: ghi chú chỉ hiện khi tra sổ hệ thống của PG. Thử thật 02/10: công cụ xem cấu trúc của đầu nối không hiện ghi chú, lệnh đọc thường cũng không. Dòng trong bảng thì đường nào vào cũng thấy.</p>
 </section>
 
 <span class="tang">PHẦN CHO PM VÀ AGENT</span>
@@ -196,24 +197,26 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 
 <section class="card" id="bien">
 <h2>Biển tại hiện trường: đặt ở đâu, ghi gì</h2>
-<p>Mỗi nội dung một chỗ: B1 giữ luật, B2 giữ giá trị, B3 và các dòng trỏ chỉ dẫn về B1, B4 chỉ hiển thị.</p>
+<p>Một bảng giữ cả luật (B1) và giá trị (B2). B3, T0, T1, T2 chỉ là dòng trỏ, không chép luật. B4 chỉ hiển thị. <strong>Vị trí này là đề xuất của Host 02/10 17:10, chờ GPT đồng thuận (P03).</strong></p>
+<p class="mut">Đổi so với bản trước: bản gốc luật chuyển từ ghi chú của bảng balo sang các dòng trong bảng từ điển. Lý do đo được: ghi chú không hiện qua SELECT, qua Directus, qua trang web, và công cụ <code>pg_schema</code> của đầu nối cũng không trả về (đã thử trên chính bảng balo). Dòng dữ liệu thì mọi đường đều thấy, và khoá ngoại từ balo dẫn thẳng tới bảng này.</p>
 <div class="wrap"><table>
 <tr><th>#</th><th>Vị trí chính xác</th><th>Ghi gì</th></tr>
-<tr><td class="id">B1</td><td><code>COMMENT ON TABLE public.balo_thuc_the</code>, đặt ở đầu; chữ cũ giữ nguyên bên dưới</td><td>Biển cổng (mẫu bên dưới). <code>COMMENT ON</code> ghi đè cả khối, phải đọc ra rồi nối.</td></tr>
-<tr><td class="id">B2</td><td>Bảng mới <code>public.balo_tu_dien_nhan</code></td><td>Mỗi dòng: nhãn · giá trị · tên hiển thị · áp cho loại vật nào · thứ tự xét · câu thử · ví dụ. Các cột nhãn của balo chỉ nhận giá trị có ở đây.</td></tr>
-<tr><td class="id">B3</td><td>Đầu mỗi file SQL dán nhãn trong <code>/opt/incomex/dot/sql/</code></td><td>Biển 3 dòng (mẫu bên dưới). Đợt này dùng lại cổng DOT sẵn có, không viết lệnh mới. Các file này được ghi vào sổ DOT sẵn có, không lập sổ thứ hai.</td></tr>
-<tr><td class="id">B4</td><td>Mục Reports, đúc bằng khuôn report sẵn có</td><td>Trang “Balo theo khối” (từ <code>v_balo_theo_khoi</code>) và trang “Luật nhãn” (hiện bảng B2).</td></tr>
+<tr><td class="id">B1</td><td>Bảng <code>public.balo_tu_dien_nhan</code>, các dòng <code>nhan = 'LUAT'</code>, <code>thu_tu</code> 0–8</td><td><strong>Bản gốc duy nhất của luật</strong> (mẫu bên dưới). Là dữ liệu nên đọc được bằng SELECT, qua Directus và trên trang Reports.</td></tr>
+<tr><td class="id">B2</td><td>Cùng bảng <code>public.balo_tu_dien_nhan</code>, các dòng còn lại</td><td>Mỗi dòng: nhãn · giá trị · tên hiển thị · áp cho loại vật nào · thứ tự xét · câu thử · ví dụ. Các cột nhãn của balo có khoá ngoại trỏ sang đây: giá trị lạ bị từ chối, và ai xem cấu trúc balo cũng được dẫn tới bảng này.</td></tr>
+<tr><td class="id">B3</td><td>Đầu mỗi file SQL dán nhãn trong <code>/opt/incomex/dot/sql/</code></td><td>Ba dòng trỏ (mẫu bên dưới), không chép luật. Đợt này dùng lại cổng DOT sẵn có, không viết lệnh mới. Các file này được ghi vào sổ DOT sẵn có, không lập sổ thứ hai.</td></tr>
+<tr><td class="id">B4</td><td>Mục Reports, đúc bằng khuôn report sẵn có</td><td>Trang “Balo theo khối” (từ <code>v_balo_theo_khoi</code>) và trang “Luật nhãn” (hiện B1 + B2, cùng một bảng).</td></tr>
+<tr><td class="id">T0</td><td><code>COMMENT ON TABLE public.balo_thuc_the</code>, đặt ở đầu; chữ cũ giữ nguyên bên dưới</td><td>Hai dòng trỏ (mẫu bên dưới). <code>COMMENT ON</code> ghi đè cả khối, phải đọc ra rồi nối.</td></tr>
 <tr><td class="id">T1</td><td>3 file <code>AGENTS.md</code> trên VPS: <code>docker/agent-data-repo</code>, <code>docker/nuxt-repo</code>, <code>docs/mcp-writes</code></td><td>Thêm một dòng trỏ về B1 ở đầu mục “Quy ước bắt buộc từ nay” (mục này đang bảo ghi nhãn vào <code>COMMENT ON</code> của từng vật, trái L01).</td></tr>
 <tr><td class="id">T2</td><td>KB: quy định balo v1.9</td><td>Thêm một dòng trỏ về B1. KB đang khoá ghi nên làm sau.</td></tr>
 </table></div>
 <p class="mut"><strong>Không làm đợt này:</strong> thêm dòng trỏ vào nhãn văn cũ của từng vật · ghi chú riêng từng cột · ghi vào trường <code>note</code> của Directus (Owner quyết 03/08) · mô tả một dòng cho từng vật (làm sau khi Owner quyết khối nào giữ, để chỉ viết cho thứ giữ lại).</p>
 
-<h3 id="B1">Mẫu biển cổng B1</h3>
+<h3 id="B1">Mẫu tám dòng luật B1 (mỗi dòng một hàng trong bảng, <code>thu_tu</code> 0–8)</h3>
 <pre>BIỂN · LUẬT NHÃN v1.0 · 02/10/2026
-Bảng này là nơi DUY NHẤT giữ nhãn của mọi bảng, view, hàm, trigger trong PG. Mỗi vật một dòng.
+0. Nhãn của mọi bảng, view, hàm, trigger trong PG chỉ nằm ở bảng balo_thuc_the, mỗi vật một dòng. Luật và giá trị hợp lệ nằm ở bảng này (balo_tu_dien_nhan).
 Năm câu hỏi, năm cột: nhom = của dự án nào (KHỐI) · loai = là cái gì (VAI) · active = còn ghi không (SỐNG) · dinh = mấy vật khối khác dựa vào (DÍNH) · ket_luan = giữ hay bỏ (KẾT LUẬN).
-1. Muốn biết PG có gì, thừa gì: lọc bảng này, hoặc xem v_balo_theo_khoi. Đừng đọc nhãn văn cũ ở từng vật.
-2. Muốn dán KHỐI, VAI: chỉ dùng giá trị trong bảng balo_tu_dien_nhan, làm theo câu thử ở đó, xét từ trên xuống, khớp câu nào dừng ở câu đó. Giá trị lạ bị PG từ chối.
+1. Muốn biết PG có gì, thừa gì: lọc balo_thuc_the, hoặc xem v_balo_theo_khoi. Đừng đọc nhãn văn cũ ở từng vật.
+2. Muốn dán KHỐI, VAI: chỉ dùng giá trị ở các dòng dưới của bảng này, làm theo câu thử, xét từ trên xuống, khớp câu nào dừng ở câu đó. Giá trị lạ bị PG từ chối.
 3. Không chắc: ghi CHUA-RO. Cấm đoán theo tên.
 4. SỐNG, DÍNH do máy đo, cấm gõ tay. DÍNH = 0 không có nghĩa là được xoá: ngoài PG có thể còn nơi gọi.
 5. KẾT LUẬN chỉ Owner quyết, theo khối. AI và máy để trống.
@@ -222,10 +225,14 @@ Năm câu hỏi, năm cột: nhom = của dự án nào (KHỐI) · loai = là c
 8. Dán nhãn không tắt, không xoá, không sửa vật nào. Thêm giá trị mới vào từ điển là sửa luật: cần Owner gật.
 Lý do từng luật: repo incomex-workspace · work/pg-nhan-balo/view.html</pre>
 
-<h3 id="B3">Mẫu biển công cụ B3</h3>
+<h3 id="T0">Mẫu dòng trỏ T0 (ghi chú của bảng balo)</h3>
+<pre>LUẬT NHÃN: đọc bảng balo_tu_dien_nhan (các dòng nhan = 'LUAT' là luật, các dòng còn lại là giá trị và câu thử), hoặc trang Reports › Luật nhãn.
+Phần dưới là ghi chú cũ 07–08/2026, giữ làm hồ sơ.</pre>
+
+<h3 id="B3">Mẫu dòng trỏ B3 (đầu file lệnh)</h3>
 <pre>File này chỉ ghi nhãn vào balo_thuc_the. Chỉ dùng giá trị có trong balo_tu_dien_nhan; giá trị lạ bị PG từ chối.
 Chạy qua dot-pg-atomic-apply. Không tắt, không xoá, không sửa vật nào ngoài balo.
-Luật 8 dòng: xem ghi chú của bảng balo_thuc_the.</pre>
+Luật: đọc bảng balo_tu_dien_nhan, các dòng nhan = 'LUAT'.</pre>
 </section>
 
 <section class="card" id="so-dot">
