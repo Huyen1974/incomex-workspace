@@ -38,14 +38,14 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 </head>
 <body><main>
 <h1>Nhãn Balo — nhìn nhãn là biết: đã có chưa, gần giống chưa, dùng lại hay viết mới</h1>
-<p class="mut" id="trang-thai">Bản v2.0 · 03/10/2026 12:00 · đường đi: rà cách dán nhãn cũ → chốt một quy tắc dài hạn → chuẩn hoá balo đã có. Đang ở bước rà. Chưa dán gì trên máy chủ. Phần “Lịch sử 02/10” ở dưới không phải lệnh.</p>
+<p class="mut" id="trang-thai">Bản v2.1 · 03/10/2026 16:15 · đường đi: rà cách dán nhãn cũ → chốt một quy tắc dài hạn → chuẩn hoá balo đã có. Đang ở bước viết quy tắc: bản nháp v0.1 đã có, chờ GPT rà. Chưa dán gì trên máy chủ. Phần “Lịch sử 02/10” ở dưới không phải lệnh.</p>
 
 <span class="tang">PHẦN CHO OWNER</span>
 
 <section class="card quyet" id="quyet">
 <h2>Hôm nay anh cần quyết</h2>
-<p><strong>Không cần anh quyết gì.</strong> Bước rà cách dán nhãn cũ đã xong, kết quả ở bản đồ bên dưới. Tóm một câu: <strong>cách cũ hỏi đúng câu nhưng dán theo tên, nên sai hơn một phần tư và chưa giúp tìm “cái gần giống”</strong>.</p>
-<p><strong>Việc tiếp theo:</strong> 🙂 anh chuyển một khối cho GPT để rà lại bản đồ. 🤖 Hai bên khớp rồi mới viết quy tắc. Chưa dán gì trên máy chủ.</p>
+<p><strong>Không cần anh quyết gì.</strong> Bản nháp quy tắc dán nhãn đã soạn xong, nằm ngay dưới. Tóm một câu: <strong>mỗi balo trả lời năm câu hỏi, mỗi câu một chỗ; dán theo sự thật máy đọc được, không theo tên; chưa đủ căn cứ thì để trống</strong>.</p>
+<p><strong>Việc tiếp theo:</strong> 🙂 anh chuyển một khối cho GPT rà lượt cuối. 🤖 Sau đó thử quy tắc trên mẫu. Chưa dán gì trên máy chủ.</p>
 </section>
 
 <section class="card" id="tien-do">
@@ -53,8 +53,8 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <div class="bar">
 <div class="xong">1 · Mục tiêu ✓</div>
 <div class="xong">2 · Rà cách dán nhãn cũ ✓</div>
-<div class="dang">3 · GPT rà lại bản đồ ▶</div>
-<div>4 · Viết quy tắc dài hạn</div>
+<div class="xong">3 · GPT rà lại bản đồ ✓</div>
+<div class="dang">4 · Viết quy tắc dài hạn ▶</div>
 <div>5 · Thử trên mẫu</div>
 <div>6 · Chuẩn hoá balo đã có</div>
 <div>7 · Kiểm tìm nhanh</div>
@@ -64,6 +64,201 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <section class="card" id="muc-tieu">
 <h2>Nhãn để làm gì</h2>
 <p>Để 🤖 AI (người giám sát) trả lời nhanh ba câu trước khi làm một việc: <strong>cái này đã có chưa · cái gần giống đã có chưa · dùng lại, nâng cấp hay viết mới</strong>. Quy tắc phải dùng được lâu dài, cho cả balo mới về sau.</p>
+</section>
+
+<section class="card" id="quy-tac">
+<h2>Quy tắc dán nhãn Balo — bản nháp v0.1</h2>
+<p class="mut">03/10/2026 16:15 · Host soạn theo P20 · <strong>chờ GPT rà một lượt; chưa áp dụng, chưa dán gì trên máy chủ</strong> · kế thừa Quy tắc Hàm 23/07 (Rule 02) · dùng cho mọi balo đang có và balo tạo mới về sau · không thêm bảng, không thêm cột.</p>
+<p><strong>Một câu:</strong> mỗi câu hỏi có đúng một chỗ trả lời trên balo; giá trị chọn trong danh sách; căn cứ lấy từ sự thật máy đọc được trước, tên vật sau cùng; chưa đủ căn cứ thì để trống và ghi lý do.</p>
+
+<h3>1 · Năm câu hỏi, mỗi câu một chỗ</h3>
+<div class="wrap"><table>
+<tr><th>Câu hỏi</th><th>Ô trên balo</th><th>Chọn trong</th><th>Ai điền</th></tr>
+<tr><td><strong>Nó là gì, tên gì, nằm đâu, còn không?</strong></td><td><code>ten</code> · <code>noi_luu</code> · <code>khoa_nhan_dien</code> · <code>loai_census</code> · <code>da_mat</code></td><td>—</td><td>🤖 máy tự điền, không ai gõ</td></tr>
+<tr><td><strong>Thuộc miền việc nào?</strong></td><td><code>chuyen_mon</code> (mã) → <code>nhom</code> (tên nhóm cha, tra bảng)</td><td>29 mã · 16 nhóm</td><td>🤖 AI, theo mục 3</td></tr>
+<tr><td><strong>Làm việc gì?</strong></td><td>thẻ <code>[VIỆC]</code> đứng đầu <code>ghi_chu</code></td><td>7 việc</td><td>🤖 AI, theo mục 4</td></tr>
+<tr><td><strong>Đọc, ghi hay tự chạy?</strong></td><td><code>loai</code> → <code>kiem_soat</code> (suy từ <code>loai</code>)</td><td>5 vai</td><td>🤖 máy đo, theo mục 5</td></tr>
+<tr><td><strong>Có phải bản đang dùng không?</strong></td><td><code>active</code></td><td>3 trạng thái</td><td>🤖 máy đo, theo mục 6</td></tr>
+<tr><td>Mô tả ngắn và căn cứ</td><td><code>ghi_chu</code>, một dòng</td><td>khuôn mục 7</td><td>🤖 AI</td></tr>
+<tr><td class="xam">(không dùng)</td><td class="xam"><code>lop</code></td><td class="xam">—</td><td class="xam">để trống; không dùng để tìm</td></tr>
+</table></div>
+
+<h3>2 · Căn cứ để dán: bốn tầng, tầng trên thắng</h3>
+<div class="wrap"><table>
+<tr><th>Tầng</th><th>Tên</th><th>Gồm</th></tr>
+<tr><td class="id">1</td><td>Máy</td><td>Catalog PostgreSQL: loại vật, schema, kiểu trả về, khai STABLE/IMMUTABLE, thuộc extension, trigger gọi hàm nào và đang bật hay tắt, vật nào phụ thuộc vật nào</td></tr>
+<tr><td class="id">2</td><td>Đăng ký, tài liệu</td><td>Gốc họ tên ghi ở bảng miền (mục 3) · sổ trong PG (<code>trigger_registry</code>, <code>dot_tools</code>, <code>collection_registry</code>) · nhãn cũ <code>HE:</code>, <code>VUNG:</code> trên từng vật</td></tr>
+<tr><td class="id">3</td><td>Nội dung</td><td>Thân hàm · định nghĩa view · cột và khoá ngoại của bảng</td></tr>
+<tr><td class="id">4</td><td>Chữ trong tên</td><td>Từ trong tên không thuộc gốc họ đã đăng ký</td></tr>
+</table></div>
+<ul>
+<li>Xét từ tầng 1 xuống. Tầng nào cho <strong>đúng một</strong> đáp án thì dừng; tầng dưới nói khác vẫn theo tầng trên.</li>
+<li>Tầng 4 không dùng một mình. Hết tầng 3 chưa ra một đáp án ⇒ <strong>để trống ô đó</strong>, ghi ở thẻ <code>[BẰNG CHỨNG]</code>: <code>chưa đủ căn cứ: &lt;thiếu gì&gt;</code>. Không có giá trị tạm, không có giá trị mặc định.</li>
+<li>Ô nào đã dán đều khai lấy từ tầng nào. Nhãn dán từ tầng cao không bị ghi đè bằng căn cứ tầng thấp hơn.</li>
+</ul>
+
+<h3>3 · Thuộc miền nào: <code>chuyen_mon</code>, rồi <code>nhom</code></h3>
+<p><code>chuyen_mon</code> là mã máy duy nhất cho câu này. <code>nhom</code> chỉ là tên nhóm cha tra từ bảng dưới, không gán riêng. Mã hệ <code>HE-</code>, bộ FAC-01, <code>dot_tools.domain</code> là nguồn tham khảo, không phải bộ từ thứ hai.</p>
+<p>Cách gán, xét lần lượt, ra đáp án thì dừng:</p>
+<ol>
+<li>Trigger ⇒ mã của hàm nó gọi.</li>
+<li>Vật thuộc extension, hoặc nằm trong schema riêng của một miền ⇒ mã ghi ở cột “Dấu nhận diện”.</li>
+<li>Gốc họ tên: bỏ phần đầu dài nhất trong <code>fn_dot_</code>, <code>trg_fn_</code>, <code>fn_</code>, <code>trg_</code>, <code>v_</code>, <code>chk_</code>; phần đầu còn lại trùng một gốc ở cột “Dấu nhận diện” ⇒ mã đó. Ví dụ <code>fn_qt001_…</code>, <code>v_qt001_…</code>, bảng <code>qt001_…</code> đều ra <code>qt001</code>.</li>
+<li>Nhãn cũ <code>HE:</code> của chính vật, chỉ với các mã hệ ứng đúng một mã miền: QT001→<code>qt001</code> · TAC→<code>tac</code> · NRM→<code>normative</code> · PROCESS→<code>process</code> · WORKFLOW→<code>workflow</code> · KHAI-SINH→<code>birth_registry</code> · TAXONOMY, BALO→<code>classification</code> · KB, CONTEXT-PACK→<code>content_metadata</code>. Mã hệ khác không dùng làm căn cứ. Bảng đối chiếu này kiểm lại ở bước thử mẫu.</li>
+<li>Nội dung: các bảng mà vật <em>ghi</em> đều cùng một mã ⇒ mã đó. Không ghi thì xét các bảng nó <em>đọc</em>. Hàm trigger không đọc, không ghi bảng nào thì xét bảng mà trigger gọi nó đang gắn vào. Với bảng: các bảng nó trỏ khoá ngoại tới.</li>
+<li>Vẫn chưa ra ⇒ để trống.</li>
+</ol>
+<div class="wrap"><table>
+<tr><th>Nhóm (<code>nhom</code>)</th><th>Mã (<code>chuyen_mon</code>)</th><th>Miền này gồm</th><th>Dấu nhận diện</th></tr>
+<tr><td rowspan="5">Đơn vị thông tin (IU)</td><td><code>iu.staging</code></td><td>Vùng chờ của IU: tạo bản ghi chờ, duyệt, từ chối, tiêu thụ, dọn</td><td>họ <code>iu</code>, <code>cut</code> và tên có từ <code>staging</code></td></tr>
+<tr><td><code>iu.cut</code></td><td>Cắt tài liệu thành IU: yêu cầu cắt, cắt, kiểm sau cắt</td><td>gốc <code>cut</code> · họ <code>iu</code> và tên có từ <code>cut</code> · schema <code>cutter_governance</code> (đề nghị, kiểm ở bước thử)</td></tr>
+<tr><td><code>iu.collection</code></td><td>Bộ sưu tập IU: tạo bộ, thêm mảnh, checkpoint</td><td>họ <code>iu</code> và tên có từ <code>collection</code></td></tr>
+<tr><td><code>iu.event</code></td><td>Sự kiện và thông báo phát ra từ IU</td><td>họ <code>iu</code> và tên có từ <code>event</code>, <code>emit</code>, <code>notif…</code></td></tr>
+<tr><td><code>iu.core</code></td><td>Phần còn lại của Đơn vị thông tin: tạo, sửa, cây, vòng đời, lệnh vận hành</td><td>gốc <code>iu</code> hoặc schema <code>iu_core</code> (= họ <code>iu</code>), không rơi vào bốn mã trên; xét từ trên xuống</td></tr>
+<tr><td rowspan="6">Quản trị &amp; tuân thủ</td><td><code>governance</code></td><td>Luật của hệ thống và việc thi hành: luật đã ban hành, thẩm quyền, cưỡng chế</td><td>gốc <code>law</code></td></tr>
+<tr><td><code>normative</code></td><td>Văn bản quy phạm: cấp văn bản, ràng buộc, ban hành, bãi bỏ</td><td>gốc <code>nrm</code></td></tr>
+<tr><td><code>qt001</code></td><td>Cụm QT001: kế hoạch dựng, tín hiệu collection, hợp đồng năng lực, ký duyệt</td><td>gốc <code>qt001</code></td></tr>
+<tr><td><code>rp</code></td><td>Registries-Pivot: sinh hợp đồng SQL, đối chiếu, nghiệm thu trang registry</td><td>gốc <code>rp</code></td></tr>
+<tr><td><code>pa</code></td><td>Họ <code>pa</code>: đăng ký trục và quy trình, gán chủ, biểu quyết</td><td>gốc <code>pa</code></td></tr>
+<tr><td><code>tac</code></td><td>Họ <code>tac</code>: bộ thay đổi, phiên bản đơn vị, khoá sau ban hành</td><td>gốc <code>tac</code></td></tr>
+<tr><td rowspan="2">Workflow &amp; điều phối</td><td><code>workflow</code></td><td>Quy trình công việc: quét, phân loại, hàng sửa</td><td>gốc <code>wf</code></td></tr>
+<tr><td><code>process</code></td><td>Trục quy trình: điều phối, uỷ quyền, xem trước và thực thi hành động</td><td>gốc <code>process</code></td></tr>
+<tr><td rowspan="2">Sự kiện &amp; điều phối</td><td><code>event_runtime</code></td><td>Sự kiện hệ thống: ghi nhận, đánh dấu đã đọc, kiểm loại sự kiện</td><td>gốc <code>event</code></td></tr>
+<tr><td><code>queue</code></td><td>Hàng đợi việc: nhận việc, xác nhận, việc lỗi</td><td>gốc <code>job</code>, <code>queue</code></td></tr>
+<tr><td>Khai sinh &amp; vòng đời</td><td><code>birth_registry</code></td><td>Khai sinh vật mới: cổng khai sinh, chứng nhận, tiếp nhận collection</td><td>gốc <code>birth</code></td></tr>
+<tr><td>Phê duyệt &amp; an toàn</td><td><code>approval</code></td><td>Phê duyệt: yêu cầu duyệt, quorum, hết hạn</td><td>gốc <code>apr</code>, <code>approval</code></td></tr>
+<tr><td rowspan="2">Registry &amp; metadata</td><td><code>registry</code></td><td>Sổ đăng ký và danh mục của hệ thống: đồng bộ, đếm, bảo vệ sổ</td><td>— (chưa có gốc họ sạch)</td></tr>
+<tr><td><code>code_generation</code></td><td>Sinh mã định danh cho bản ghi</td><td>tên bắt đầu bằng <code>gen_code_</code></td></tr>
+<tr><td>Nhãn &amp; phân loại</td><td><code>classification</code></td><td>Nhãn, taxonomy, loài; gồm cả Balo</td><td>—</td></tr>
+<tr><td>Kiểm tra &amp; giám sát</td><td><code>audit_monitoring</code></td><td>Kiểm tra chéo, phát hiện lệch không thuộc riêng một miền</td><td>—</td></tr>
+<tr><td>Đo lường &amp; kiểm soát</td><td><code>measurement</code></td><td>Bộ đếm và phép đo</td><td>—</td></tr>
+<tr><td>Pivot &amp; báo cáo</td><td><code>pivot</code></td><td>Bảng xoay và số tổng hợp</td><td>gốc <code>pivot</code></td></tr>
+<tr><td>Nội dung &amp; tri thức</td><td><code>content_metadata</code></td><td>Nội dung, mô tả, context pack, kho tri thức</td><td>—</td></tr>
+<tr><td>Bảo mật &amp; mật mã</td><td><code>security.crypto</code></td><td>Hàm mật mã</td><td>extension <code>pgcrypto</code></td></tr>
+<tr><td rowspan="2">Hệ thống PostgreSQL</td><td><code>postgres.extension.btree_gist</code></td><td>Hàm hỗ trợ chỉ mục</td><td>extension <code>btree_gist</code></td></tr>
+<tr><td><code>postgres.extension.fdw</code></td><td>Nối sang PostgreSQL khác</td><td>extension <code>postgres_fdw</code></td></tr>
+<tr><td>Sandbox &amp; kiểm thử</td><td><code>sandbox</code></td><td>Vật thử nghiệm</td><td>schema <code>sandbox_tac</code> · gốc <code>sbx</code></td></tr>
+<tr><td>Tiện ích hệ thống</td><td><code>utility</code></td><td>Dùng chung cho nhiều miền, không thuộc riêng miền nào. Không phải chỗ để vật chưa rõ miền</td><td>—</td></tr>
+</table></div>
+<p class="mut">Gốc họ ở bảng là các gốc đã đo sạch trên 654 hàm (03/10). Miền của bảng chưa có mã: giao diện web (50 bảng), Directus (27), OS (22), AI (5) — để trống cho tới khi thêm mã theo mục 11.</p>
+
+<h3>4 · Làm việc gì: thẻ <code>[VIỆC]</code></h3>
+<p>Bảy giá trị lấy nguyên từ bộ “Hành động gì?” đã có (FAC-03). Đây là nhãn để tìm <strong>cái gần giống</strong>: cùng miền, cùng việc.</p>
+<div class="wrap"><table>
+<tr><th>Giá trị</th><th>Nghĩa</th><th>Dấu hiệu trong thân hàm / định nghĩa</th></tr>
+<tr><td>Xoá / dọn dẹp</td><td>xoá, lưu trữ, cho nghỉ</td><td>DELETE, TRUNCATE; đổi trạng thái sang đã nghỉ, đã lưu trữ</td></tr>
+<tr><td>Kết nối / tích hợp</td><td>chuyển dữ liệu giữa hai nơi</td><td>đồng bộ bảng này sang bảng kia; nhập, xuất; nối hệ ngoài</td></tr>
+<tr><td>Tạo mới</td><td>tạo bản ghi, vật, cấu hình mới</td><td>INSERT dòng nghiệp vụ mới; CREATE</td></tr>
+<tr><td>Cập nhật</td><td>sửa, làm mới, chuyển trạng thái</td><td>UPDATE; hàm trigger gán lại <code>NEW.…</code></td></tr>
+<tr><td>Báo cáo / thông báo</td><td>tổng hợp, ghi nhật ký, phát thông báo</td><td>view có đếm, gộp; chỉ ghi vào bảng nhật ký, sự kiện, thông báo</td></tr>
+<tr><td>Kiểm tra / xác minh</td><td>kiểm, soát, quét, thử</td><td>trả về đạt / không đạt hoặc danh sách vi phạm, lệch, thiếu; báo lỗi khi sai</td></tr>
+<tr><td>Đọc / truy vấn</td><td>đọc, tra, hiển thị</td><td>phần còn lại, không ghi</td></tr>
+</table></div>
+<ul>
+<li>Chọn theo <strong>điều vật được làm ra để làm</strong>, đọc từ thân hàm hoặc định nghĩa; không đọc từ tên.</li>
+<li>Ghi lại kết quả của chính lượt chạy không đổi việc: hàm quét rồi lưu kết quả quét vẫn là “Kiểm tra / xác minh”.</li>
+<li>Còn hai việc ngang nhau ⇒ lấy dòng đứng trên trong bảng.</li>
+<li>Bảng không có thẻ này. Trigger lấy việc của hàm nó gọi. Chưa đọc thân hoặc định nghĩa ⇒ chưa ghi thẻ.</li>
+</ul>
+
+<h3>5 · Đọc, ghi hay tự chạy: <code>loai</code>, rồi <code>kiem_soat</code></h3>
+<p>Giữ 5 giá trị của Rule 02. Đổi cách gán: theo sự thật máy, xét từ trên xuống, khớp dòng nào dừng ở dòng đó.</p>
+<div class="wrap"><table>
+<tr><th>#</th><th>Giá trị</th><th>Phép thử</th><th>Khi dùng lại</th></tr>
+<tr><td class="id">1</td><td>Hàm extension</td><td>hàm thuộc một extension của PostgreSQL</td><td>của nền tảng, không sửa</td></tr>
+<tr><td class="id">2</td><td>Trigger nội bộ</td><td>hàm có kiểu trả về <code>trigger</code> hoặc <code>event_trigger</code>; mọi vật loại trigger</td><td>tự chạy khi bảng đổi; không gọi trực tiếp</td></tr>
+<tr><td class="id">3</td><td>DOT hành động (ghi)</td><td>hàm khai VOLATILE và thân có lệnh ghi (INSERT, UPDATE, DELETE, MERGE, TRUNCATE, CREATE, ALTER, DROP), hoặc gọi một hàm đã mang vai này</td><td>gọi được; làm đổi dữ liệu</td></tr>
+<tr><td class="id">4</td><td>DOT giám sát (đọc)</td><td>không ghi, có đọc bảng hoặc view</td><td>gọi được; chỉ đọc</td></tr>
+<tr><td class="id">5</td><td>Hàm tiện ích</td><td>không ghi, không đọc bảng hay view nào: chỉ tính trên tham số</td><td>gọi được; không đụng dữ liệu</td></tr>
+</table></div>
+<ul>
+<li>Hàm khai STABLE hoặc IMMUTABLE thì PostgreSQL không cho ghi ⇒ không bao giờ là dòng 3.</li>
+<li>Không đọc được thân hàm (ngôn ngữ ngoài <code>sql</code>, <code>plpgsql</code>) và không thuộc extension ⇒ để trống.</li>
+<li><code>kiem_soat = true</code> khi và chỉ khi <code>loai = DOT hành động (ghi)</code>: trước khi gọi phải kiểm cổng, quyền, chạy thử. Không gán riêng.</li>
+<li><strong>Bảng và view không dán <code>loai</code>:</strong> loại vật đã có ở <code>loai_census</code>; thêm một giá trị giống nhau cho cả loại là dán cho có.</li>
+</ul>
+<p class="mut">Đo nhanh 03/10 bằng dò từ khoá trên 654 hàm: 229 · 131 · 130 · 135 · 29 theo năm dòng trên. Khoảng 179/425 hàm không thuộc extension sẽ đổi vai so với nhãn đang có. Con số đo lại ở bước thử mẫu.</p>
+
+<h3>6 · Có phải bản đang dùng: <code>active</code></h3>
+<p>Ba giá trị lấy từ bộ “Giai đoạn?” đã có (FAC-05). <code>da_mat</code> vẫn chỉ nói vật còn hay đã mất.</p>
+<div class="wrap"><table>
+<tr><th>Giá trị</th><th>Nghĩa</th><th>Bằng chứng phải có (một trong các dòng)</th></tr>
+<tr><td class="xanh">Hoạt động</td><td>đang nối vào hệ đang chạy</td><td>trigger đang bật · hàm được một trigger đang bật gọi · vật được một vật “Hoạt động” khác đọc, ghi, gọi · vật thuộc extension đang cài · sổ đăng ký ghi đang dùng, hoặc mã DOT / web đang triển khai gọi tới nó · nhãn cũ <code>VUNG: DANG DUNG</code></td></tr>
+<tr><td class="vang">Tạm dừng</td><td>còn nguyên nhưng đang bị tắt</td><td>trigger đang tắt · hàm trigger mà mọi trigger gọi nó đều tắt</td></tr>
+<tr><td class="do">Ngưng sử dụng</td><td>đã bị thay hoặc cho nghỉ</td><td>sổ đăng ký hoặc tài liệu ghi đã thay, đã nghỉ · trong cùng họ phiên bản (<code>tên</code>, <code>tên_v2</code>…) đã có bản khác “Hoạt động”, còn bản này không có bằng chứng nào ở dòng “Hoạt động”</td></tr>
+<tr><td class="xam">(để trống)</td><td>chưa đủ căn cứ</td><td>không có bằng chứng nào ở trên</td></tr>
+</table></div>
+<ul>
+<li>“Không thấy ai gọi” không phải bằng chứng: máy hiện không đếm lượt gọi hàm, và ngoài PG còn lệnh DOT, web, lịch chạy.</li>
+<li>Số phiên bản lớn nhất không phải bằng chứng.</li>
+<li><code>active</code> không phải kết luận giữ hay bỏ. Việc đó nằm ngoài quy tắc này.</li>
+</ul>
+
+<h3>7 · Mô tả và căn cứ: <code>ghi_chu</code></h3>
+<pre>[VIỆC] … | [MỤC ĐÍCH] … | [KHI DÙNG] … | [BẰNG CHỨNG] … | [TỪ KHÓA] …</pre>
+<ul>
+<li>Một dòng, thẻ đúng thứ tự, ngăn bằng <code> | </code>. Thẻ không áp dụng cho loại vật thì bỏ.</li>
+<li><code>[VIỆC]</code>: đúng một giá trị ở mục 4.</li>
+<li><code>[MỤC ĐÍCH]</code>: một câu, bắt đầu bằng động từ, nói vật làm gì với cái gì (bảng: lưu cái gì). Viết từ thân hàm, định nghĩa, cột; không viết lại tên. Chưa đọc ⇒ chưa viết.</li>
+<li><code>[KHI DÙNG]</code>: tình huống nên tìm tới vật này. Vật “Ngưng sử dụng”: ghi “không dùng; bản thay: &lt;tên&gt;” khi biết.</li>
+<li><code>[BẰNG CHỨNG]</code>: <code>miền: … · vai: … · việc: … · dùng: …</code>; mỗi phần ghi tầng căn cứ (máy · gốc họ · sổ đăng ký · nhãn HE · thân) hoặc <code>chưa đủ căn cứ: &lt;thiếu gì&gt;</code>.</li>
+<li><code>[TỪ KHÓA]</code>: 3–8 từ người tìm sẽ gõ, tiếng Việt và tiếng Anh. Không chép tên vật, mã miền, vai (đã có ở ô khác).</li>
+<li>Bỏ so với khuôn cũ: <code>[INPUT]</code> (chữ ký đã nằm trong <code>khoa_nhan_dien</code>) · <code>[TÁC ĐỘNG]</code>, <code>[GỌI]</code> (đã nằm ở <code>loai</code>, <code>kiem_soat</code>).</li>
+</ul>
+
+<h3>8 · Dán theo từng loại vật</h3>
+<div class="wrap"><table>
+<tr><th>Loại vật</th><th><code>chuyen_mon</code></th><th><code>[VIỆC]</code></th><th><code>loai</code></th><th><code>active</code></th><th>Thẻ trong <code>ghi_chu</code></th></tr>
+<tr><td><strong>Bảng</strong></td><td>schema → gốc họ → nhãn HE → bảng nó trỏ tới</td><td class="xam">không có</td><td class="xam">không dán</td><td>mục 6</td><td>MỤC ĐÍCH · KHI DÙNG · BẰNG CHỨNG · TỪ KHÓA</td></tr>
+<tr><td><strong>Hàm</strong></td><td>extension, schema → gốc họ → nhãn HE → bảng nó ghi, đọc</td><td>theo thân hàm</td><td>mục 5</td><td>mục 6</td><td>đủ 5 thẻ</td></tr>
+<tr><td><strong>View</strong></td><td>schema → gốc họ → nhãn HE → vật nó đọc</td><td>Đọc, Kiểm tra hoặc Báo cáo, theo định nghĩa</td><td class="xam">không dán</td><td>mục 6</td><td>đủ 5 thẻ</td></tr>
+<tr><td><strong>Trigger</strong></td><td>= hàm nó gọi</td><td>= hàm nó gọi</td><td>Trigger nội bộ</td><td>bật ⇒ Hoạt động · tắt ⇒ Tạm dừng</td><td>VIỆC · MỤC ĐÍCH do máy ghép: “Khi &lt;sự kiện&gt; trên &lt;bảng&gt; thì chạy &lt;hàm&gt;” · BẰNG CHỨNG</td></tr>
+</table></div>
+<p>Thứ tự dán: bảng → hàm → view → trigger, vì vật sau lấy căn cứ từ vật trước.</p>
+
+<h3>9 · Ví dụ thật trên máy</h3>
+<p><strong>Nhãn cũ đúng, giữ; chỉ nâng căn cứ</strong> — hàm <code>iu_core.fn_iu_staging_approve</code>:</p>
+<pre>chuyen_mon: iu.staging · nhom: Đơn vị thông tin (IU) · loai: DOT hành động (ghi) · kiem_soat: true · active: (trống)
+ghi_chu: [VIỆC] Cập nhật | [MỤC ĐÍCH] Chuyển một bản ghi IU đang chờ từ pending sang approved, ghi người duyệt và hồ sơ duyệt; từ chối khi cổng ghi staging đang đóng | [KHI DÙNG] Khi cần duyệt một bản ghi IU ở vùng chờ | [BẰNG CHỨNG] miền: gốc họ iu + từ staging · vai: thân hàm có UPDATE · việc: thân hàm · dùng: chưa đủ căn cứ: chưa dò mã DOT, web gọi tới | [TỪ KHÓA] phê duyệt, vùng chờ, staging, approve, pending</pre>
+<p><strong>Nhãn cũ sai vì dán theo tên</strong> — hàm <code>fn_auto_approve_add</code>. Nhãn đang có: <code>DOT hành động (ghi)</code>, tức “agent gọi được, có ghi”. Sự thật máy: kiểu trả về là <code>trigger</code>; trigger <code>trg_apr_auto_approve</code> trên bảng <code>approval_requests</code> đang bật và gọi nó; thân hàm chỉ thêm một câu vào ghi chú của yêu cầu, không còn tự duyệt gì. Theo quy tắc:</p>
+<pre>chuyen_mon: approval · loai: Trigger nội bộ · kiem_soat: false · active: Hoạt động
+ghi_chu: [VIỆC] Cập nhật | [MỤC ĐÍCH] Thêm vào ghi chú của yêu cầu loại add câu báo “tự duyệt đã tắt, phải qua quorum”; không tự duyệt | [KHI DÙNG] Tra cơ chế tự chạy trên approval_requests; không gọi trực tiếp | [BẰNG CHỨNG] miền: bảng mà trigger gắn vào (approval_requests, gốc họ approval) · vai: máy, kiểu trả về trigger · việc: thân hàm · dùng: máy, trigger đang bật | [TỪ KHÓA] tự duyệt, quorum, auto-approve, yêu cầu duyệt</pre>
+<p><strong>Tác động khác với việc</strong> — hàm <code>fn_dot_wf_orphan_detector</code>. Nhãn đang có: <code>DOT giám sát (đọc)</code>. Thân hàm có DELETE, INSERT, UPDATE trên ba bảng (<code>wf_orphan_digest</code>, <code>wf_scanner_run_log</code>, <code>workflow_scanner_registry</code>) ⇒ <code>loai: DOT hành động (ghi)</code>, <code>kiem_soat: true</code>. Việc nó làm ra để làm vẫn là quét ⇒ <code>[VIỆC] Kiểm tra / xác minh</code>. Có hai bản (bản gốc và <code>_v2</code>): <code>active</code> của cả hai để trống cho tới khi có bằng chứng bản nào đang được gọi.</p>
+
+<h3>10 · AI tìm thế nào</h3>
+<div class="wrap"><table>
+<tr><th>Bước</th><th>Câu hỏi</th><th>Lọc bằng</th><th>Ra gì</th></tr>
+<tr><td class="id">1</td><td>Đã có đúng cái này chưa?</td><td><code>ten</code>, <code>khoa_nhan_dien</code> (hàm: cả chữ ký), <code>loai_census</code>, <code>da_mat = false</code></td><td>có ⇒ đã có; sang bước 3 với chính vật đó</td></tr>
+<tr><td class="id">2</td><td>Gần giống đã có chưa?</td><td><code>chuyen_mon</code> (chưa chắc mã thì <code>nhom</code>) + thẻ <code>[VIỆC]</code> + một hai từ ở <code>[TỪ KHÓA]</code>, <code>[MỤC ĐÍCH]</code>. Chưa chắc miền ⇒ bỏ lọc miền, giữ việc + từ khoá</td><td>tập ứng viên, đích không quá khoảng 20 vật; nhiều hơn thì thêm điều kiện, không đọc tay</td></tr>
+<tr><td class="id">3</td><td>Dùng lại, nâng cấp hay viết mới?</td><td>chỉ đọc ứng viên: <code>active</code>, <code>loai</code>, <code>kiem_soat</code>, chữ ký, <code>[MỤC ĐÍCH]</code>, <code>[KHI DÙNG]</code>, <code>[BẰNG CHỨNG]</code></td><td>kết luận theo bảng dưới</td></tr>
+</table></div>
+<div class="wrap"><table>
+<tr><th>Ứng viên tốt nhất</th><th>Kết luận</th></tr>
+<tr><td class="xanh">“Hoạt động”, đúng việc, đầu vào đủ</td><td><strong>Dùng lại</strong></td></tr>
+<tr><td class="vang">“Hoạt động”, đúng việc, thiếu đầu vào hoặc thiếu một phần việc</td><td><strong>Nâng cấp</strong> chính vật đó</td></tr>
+<tr><td class="vang">Chỉ có “Ngưng sử dụng” hoặc “Tạm dừng”</td><td>tìm bản thay ghi ở <code>[KHI DÙNG]</code>; không có thì hỏi người giám sát trước khi viết mới</td></tr>
+<tr><td class="xam"><code>active</code> trống, hoặc ô dùng để lọc ghi “chưa đủ căn cứ”</td><td>chưa kết luận: đọc thân, định nghĩa và kiểm bằng chứng đang dùng của vật đó trước</td></tr>
+<tr><td class="do">Không có ứng viên</td><td><strong>Viết mới</strong>; vật mới dán nhãn ngay theo quy tắc này</td></tr>
+</table></div>
+
+<h3>11 · Thêm giá trị, balo mới, đổi quy tắc</h3>
+<ul>
+<li><strong>Thêm giá trị</strong> (mã miền, nhóm, việc, vai, trạng thái) chỉ khi: có từ 3 vật thật không xếp được vào giá trị đang có · không trùng nghĩa giá trị đang có · có một câu định nghĩa và dấu nhận diện · mã miền thì chỉ rõ nhóm cha. Sửa quy tắc trước (tăng số bản, ghi ngày, lý do), dán sau. Đang dán thì không tự đặt giá trị mới.</li>
+<li><strong>Balo mới:</strong> máy tạo dòng. Bên tạo ra vật khai nhãn ngay lúc tạo theo đúng quy tắc này và đặt tên theo gốc họ của miền. Chưa khai thì các ô để trống, lượt dán sau xử lý như mọi vật.</li>
+<li><strong>Vật đổi</strong> (sửa thân hàm, bật tắt trigger, có bản mới thay) ⇒ dán lại các ô bị ảnh hưởng; ghi đè, không nối thêm.</li>
+<li><strong>Ghi nhãn chỉ qua DOT.</strong> Chỉ làm sau khi quy tắc này qua bước thử mẫu.</li>
+<li><strong>Nơi đặt lâu dài:</strong> khi đạt, bản này thay Rule 02 trong kho <code>label-rules/</code> (Rule 02 mục 9: sửa tài liệu, tăng số bản, rồi mới áp cho loại balo thứ hai).</li>
+</ul>
+
+<h3>12 · Sáu điểm xin GPT rà</h3>
+<ol>
+<li>Mục 3: gốc họ tên đã đăng ký xếp trên nhãn HE và trên nội dung. Lý do: gốc họ là quy ước ghi trong quy tắc, khác với đoán từ chữ trong tên.</li>
+<li>Mục 5: <code>loai</code> chia theo tác động dữ liệu đo được, thay cho “điểm gọi hữu ích cho Agent” của Rule 02; giữ nguyên 5 tên. Hệ quả: khoảng 179/425 hàm đổi vai; chữ “DOT” trong hai giá trị không còn nghĩa “đã đăng ký là DOT”. Có cần đổi tên hai giá trị đó không?</li>
+<li>Mục 5 và 4: bảng, view không dán <code>loai</code>; bảng không có thẻ <code>[VIỆC]</code>.</li>
+<li>Mục 6: <code>active</code> dùng 3 giá trị FAC-05; “không thấy ai gọi” thì để trống, không ghi “Ngưng sử dụng”.</li>
+<li>Mục 7: khuôn <code>ghi_chu</code> còn 5 thẻ (bỏ INPUT, TÁC ĐỘNG, GỌI; thêm VIỆC).</li>
+<li>Mục 3: bốn miền của bảng chưa có mã (web 50 · Directus 27 · OS 22 · AI 5) và bốn mã viết tắt chưa có câu định nghĩa nghiệp vụ (<code>qt001</code>, <code>rp</code>, <code>pa</code>, <code>tac</code>). Host đề nghị chốt ở bước thử mẫu.</li>
+</ol>
 </section>
 
 <section class="card" id="ban-do">
