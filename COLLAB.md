@@ -27,6 +27,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/done-tasks/dns-resilience/` · **TERMINAL · CANCELLED_BY_OWNER 01/10** · DNS/NS Mắt Bão giữ nguyên; 0 Cloudflare production mutation; DNS0 giữ làm inventory/reference.
 - `work/done-tasks/vps-clean-20-9-26/` · đã archive Done từ trước; bỏ khỏi danh sách active stale.
 - `work/done-tasks/mcp-workspace/` · đã archive Done từ trước; bỏ khỏi danh sách active stale.
+- `work/done-tasks/to-chuyen-gia/` · **XONG · Owner xác nhận đóng 03/10/2026** · hướng dẫn Tổ chuyên gia/Tổ tư vấn + Word dẫn xuất đã chốt; archive để tra cứu/mở lại khi cần.
 - Archive: `work/done-tasks/` · **một nơi duy nhất cho việc terminal** theo DROOT11; tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
 
 ## Quyết định Owner
