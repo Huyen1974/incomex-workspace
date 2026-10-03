@@ -5,15 +5,15 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng. **Lượt 20:05:** Owner giao GPT lựa chọn phương án sau ý kiến Claude P80; Host **ĐỒNG Ý** thêm positive heartbeat 08:00 mỗi sáng bằng Guard/cron hiện hữu: trạng thái đèn + số phiên AI hôm qua/cảnh báo thiếu hook hoặc ngoài sổ; không bot/timer mới. **Lượt 21:50:** Owner chuyển nguyên đề xuất P88 cho GPT và giữ dòng 3 ⇒ đồng ý thứ tự `vá D30 → G7 → external dead-man D31 → đóng HJW` và **gật dùng dịch vụ canh miễn phí ngoài VPS** sau G7.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-03 07:53 +07 · GPT Host · P93 READY
-- 🎯 Mục tiêu: HJW tự làm xong phần của mình rồi đóng — sổ tin báo chạy đúng · vá báo động giả (D30) · có người canh ngoài máy chủ (D31). **Roadmap chỉ chứa bước của HJW**.
-- 🏁 Xong khi: D30 4×PRE/POST anonymous_git=0/rest_anon_delta=0, #22 không đỏ giả · người canh ngoài VPS báo được về Telegram (Owner tự thấy đỏ + xanh) và có dòng `chạy` trong sổ · Host + Reviewer CLOSE.
-- 📍 Tiến độ: `[✓ Sổ 66 loại + 5 tin thử] → [✓ Reviewer ACCEPT P92] → [✓ Host READY P93] → [■ RUN D30→D31] → [□ nghiệm thu] → [□ CLOSE HJW]`.
-- ✅ Đã xong: Hermes/Kuma nền · 66 loại/64 chạy/0 hỏng/2 U có chủ · INV16/17 · receipt/08:00 · AUTO-PROTECT · P86 chức năng ACCEPT · P92 rà lại PROMPT + 5 sửa nhỏ PASS · DROOT38 được Founders xác nhận.
-- ■ Đang làm: READY đã phát cho `HJW-FINAL-D30-D31-20261002-04`; chưa có STARTED/KQ. Executor phải read-gate và tự giữ PRE nếu rơi vào cửa sổ 07:55–08:10 hoặc bản tin 08:00 chưa có.
-- ⬜ Còn lại: D30 snapshot/cache + 4×PRE/POST/mutants → D31 external watcher → một receipt cuối → nghiệm thu → đóng.
-- ➡ Kế tiếp: Owner dùng đúng **một câu cố định DROOT38** gửi Claude Code; repo tự quyết RUN/SHA.
-- ⛔ Không làm lại inventory · không đặt/nhắc/chờ/bàn giao bước của việc khác · không restart · token bot cứng/S9 là residual riêng.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-03 20:55 +07 · GPT Host · P94 HERMES READINESS CHECK
+- 🎯 Mục tiêu: HJW tự làm xong phần của mình rồi đóng — trước khi chạy lượt sửa cuối, cho **Hermes tự kiểm toàn bộ đường kết nối và khả năng tham gia HJW**, báo cáo lên repo để Host tổng hợp lỗi rồi sửa một thể.
+- 🏁 Xong khi: có báo cáo Hermes `READY|PARTIAL|BLOCKED` về identity/gateway/workspace/Telegram/assignment/model/tool/write/report + phạm vi Hermes có thể tham gia; sau đó Host tổng hợp và mới quyết delta sửa cuối.
+- 📍 Tiến độ: `[✓ Sổ 66 loại + 5 tin thử] → [✓ P92/P93 prompt+READY] → [■ Hermes readiness diagnostic qua Owner approval] → [□ Host tổng hợp] → [□ final D30→D31] → [□ nghiệm thu/CLOSE]`.
+- ✅ Đã xong: Hermes/Kuma nền · 66 loại/64 chạy/0 hỏng/2 U có chủ · INV16/17 · receipt/08:00 · AUTO-PROTECT · P92/P93.
+- ■ Đang làm: **tạm HOLD RUN cuối trước STARTED** để lấy một báo cáo độc lập từ Hermes; Claude Code chỉ tạo assignment, không chạy thay Hermes. Owner bấm `Cho chạy`; Hermes tự kiểm và tự ghi báo cáo.
+- ⬜ Còn lại: Hermes report → Host rà/đối chiếu → gom vấn đề → sửa một thể → nghiệm thu → đóng.
+- ➡ Kế tiếp: Claude Code tạo đúng assignment spec P94 và dừng sau khi báo assignment ID + trạng thái thẻ Telegram.
+- ⛔ Hermes diagnostic không sửa file/config/runtime ngoài chính dòng assignment + báo cáo COLLAB; không chạy D30/D31; không mở quyền mới; không bấm thay Owner.
 
 ### 1. Mục tiêu
 - Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
@@ -1429,3 +1429,22 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - DROOT38 áp ngay: Owner chỉ dùng câu cố định, không chép RUN/SHA; executor tự đọc repo và dừng nếu Reviewer/READY không cùng bản, HOLD/cờ bận hoặc gate không đạt.
 - Vì hiện gần 08:00, READY không cho phép mutation trái §1: nếu vào cửa sổ 07:55–08:10 hoặc bản tin sáng chưa gửi, executor chỉ PRE/read-only rồi chờ đúng gate của PROMPT.
 - Sau KQ dừng; Host + Reviewer nghiệm thu một lượt rồi CLOSE HJW.
+
+### P94 · Host GPT · 2026-10-03 20:55 +07 · **HERMES READINESS DIAGNOSTIC TRƯỚC LƯỢT SỬA CUỐI**
+- Owner yêu cầu: Claude Code giao việc cho Hermes qua cơ chế `ASSIGN@` hiện hữu; Owner tự bấm `Cho chạy`; Hermes tự kiểm toàn bộ phần kết nối/tham gia HJW và ghi báo cáo lên repo. Sau đó Host đọc báo cáo, tổng hợp vấn đề và xử lý một thể.
+- Vì P93 RUN cuối chưa STARTED, Host **tạm HOLD execution** của `HJW-FINAL-D30-D31-20261002-04` cho tới khi hoàn tất diagnostic; không sửa PROMPT P92/P93.
+- Claude Code **không làm diagnostic thay Hermes**. Nhiệm vụ duy nhất của Claude Code: đọc schema assignment hiện hành, ghi một ASSIGN mới vào HJW COLLAB, xác nhận thẻ Telegram đã tạo/đang chờ Owner, rồi dừng.
+- Assignment cần tạo: `ASSIGN@HJW-HERMES-READINESS-20261003-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`.
+- Nội dung assignment sau approval, Hermes tự làm, **chỉ diagnostic/report**:
+  1. xác nhận identity server-side của Hermes + profile/capability đang dùng; không tin `clientInfo` tự khai;
+  2. kiểm Agent Gateway/session/model có hoạt động và model thực sự wake sau approval;
+  3. kiểm read path: đọc được AGENTS + đúng đoạn HJW COLLAB/PROMPT cần thiết qua `root=workspace`, không dò root khác;
+  4. kiểm write path bằng chính việc claim assignment + ghi báo cáo vào HJW COLLAB qua `workspace_edit` expected_version; không ghi task khác;
+  5. kiểm Telegram approval lifecycle: thẻ xuất hiện → Owner bấm → trạng thái approval/claimed được nhận; không AI bấm thay;
+  6. kiểm đường báo bắt đầu/kết thúc về Telegram và delivery proof/message_id nếu hệ thống expose;
+  7. kiểm tool allowlist/scope: liệt kê tool thật Hermes thấy; thử một thao tác ngoài scope **chỉ nếu có safe-deny fixture hiện hữu**, phải bị chặn; không tạo fixture mới;
+  8. đọc mục tiêu HJW hiện hành và kết luận Hermes có thể tham gia phần nào (`Reviewer/diagnostic/read-write report`) và phần nào không thể/không được tự làm (`root/production mutation/Owner approval`);
+  9. báo mọi lỗi/thiếu thành danh sách, **không tự sửa**, không đổi config/runtime/quyền;
+  10. kết quả cuối: `HERMES_READINESS=READY|PARTIAL|BLOCKED` + bảng ngắn `surface | status | evidence | limitation` + `recommended_role`.
+- Ghi report ngay dưới assignment trong HJW COLLAB; đổi `state=open→claimed→done|blocked` theo lifecycle hiện hữu. Nếu không thể ghi repo thì gửi Telegram blocker và giữ `blocked` nếu schema cho phép.
+- Không chạy D30/D31, không restart, không tạo file/task/service/token/monitor, không sửa quyền. Sau report dừng để Host kiểm.
