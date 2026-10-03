@@ -4,7 +4,7 @@ Tên việc: Nâng PG · Directus · Nuxt/Agency OS lên bản mới nhất ổn
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/09/2026: mở `work/vps1-up-grade`, tập hợp phương án cũ + ý kiến Claude + bổ sung mới của Owner để hội đồng lập kế hoạch nâng cấp an toàn. Chưa cho phép nâng cấp/dọn/xóa/restart/deploy ở lượt mở việc này.
 
-### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-03 16:00 +07 · Claude Reviewer · P127 — G7-05 ACCEPT, CHỜ HOST READY — đọc đầu tiên, mọi phiên (AGENTS MT4)
+### BẢNG ĐIỀU KHIỂN (ĐƯỜNG RAY) · cập nhật 2026-10-03 16:06 +07 · GPT Host · P128 — G7-05 READY — đọc đầu tiên, mọi phiên (AGENTS MT4)
 - 🎯 **Mục tiêu — Owner nguyên văn 02/10 11:59:** “Mục tiêu cuối cùng không phải là nâng cấp phần mềm, mục tiêu cuối cùng là tận dụng các tính năng mới nhất của PG/Directus để giải quyết các bài toán của ‘máy sản xuất quy trình’” · “chúng ta cần 1 cái máy chủ, với các phần mềm cần thiết quan trọng ở mức tốt nhất và ổn định. Những thứ khác dẹp bớt ra.” · “đây không phải là việc chính, đây chỉ là công cụ, là việc phụ.”
 - 🎯 **Một câu:** VPSUP là **công cụ**: VPS1 chạy PG 18 + Directus 12.4 + Nuxt 4.5 ổn định, để việc chính (Máy sản xuất quy trình — `work/mow-mot-moit-mout`) dùng tính năng mới nhất. Dùng tính năng nào cho bài toán nào là việc chính, **không làm ở đây**.
 - 🏁 **Xong khi VPS1 chạy (đích duy nhất):**
@@ -17,13 +17,13 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 26/0
 | nginx | 1.29.5 | 1.30.5 | ✅ S1 |
 
 - 🏁 Kèm: dữ liệu đủ; SAME SLICE, Flow, quyền và các bên gọi PG/Directus đạt theo mốc production mới. **XONG chỉ khi VPS1 chạy đủ bộ đích trong bảng và nghiệm thu G7 đạt**; máy canh nền hoạt động, không chờ 7 ngày để nghiệm thu.
-- 📍 **Tiến độ:** `✅ chuẩn bị G0–G5 · ✅ S1 · ✅ TARGET-FINAL · ✅ G6 · ■ G7-05: Reviewer ACCEPT → chờ Host READY → Owner dán → cutover = XONG`
+- 📍 **Tiến độ:** `✅ chuẩn bị G0–G5 · ✅ S1 · ✅ TARGET-FINAL · ✅ G6 · ■ G7-05 READY@2f2321d → Owner dán RUN → cutover = XONG`
 - ✅ **Đã xong:** G0–G5 · S1 production PG16.15/nginx1.30.5 (`10db62f`) · TARGET-FINAL (`65ba02a`) · **G6 (`4bfb1df`) Host ACCEPT:** PG18.6 + Directus12.4.1/OIG + Nuxt4.5.2/Node24.21.0 trên dữ liệu VPS1 mới; data/sequence 0 khác; DEFAULT đã đóng; backup/restore PG18 PASS; rehearsal G7 ×2; rollback trước mở ghi 4–4,5′; DOT_SCRIPT_ONLY=PASS; gói G7 43 file hoàn chỉnh.
-- ■ **Đang làm:** Host P126 ACCEPT việc G7-04 dừng PRE và chốt G7-05. **R5 được mở thêm cực hẹp cho CHECK constraint** vì `pg_get_constraintdef` cũng là decompiled reconstruction: chỉ DB `directus`, đúng 19 object allowlist/38 replay lines từ INDEX G7-04, residual 0; thêm negative fixture CHECK semantic + CHECK ngoài allowlist. **Extension:** pin thêm exact `postgres_fdw 1.1→1.2` (đã đo G7-03/PRE10-B trên exact PG18.6; owner `workflow_admin` không đổi) bên cạnh btree/pgcrypto. Ứng viên 1.0.4 → patch thành 1.0.5 rồi replay trước freeze. PRE quarantine chỉ dry-run trước; execute sau PRE9/10 PASS.
+- ■ **Đang làm:** Host P128 **ACCEPT P127 + READY G7-05** theo last-touch PROMPT `2f2321deabbf9d36aaf88b5d6a7a41f4f01c7760`. Reviewer đã đo production: đúng 19/364 CHECK mang R5, khớp allowlist; không thừa/sót. G7-05 patch 1.0.5 chỉ mở R5 đúng allowlist + 2 negative fixture, pin exact `postgres_fdw 1.1→1.2`; PRE9/PRE10 phải PASS trước quarantine execute/freeze. Chưa STARTED.
 - ⬜ **Còn lại — đúng 1 gói lớn:** **G7 production:** Owner duyệt cửa sổ → agent chạy đúng package G6 một mạch: PRE ngoài downtime → freeze mọi writer → fresh dump/globals → PG18.6 volume mới → UUID/DEFAULT/migrate/OIG → Directus12.4.1 + Nuxt4.5.2 → acceptance trước mở ghi → mở ghi → backup thật + restore-verify · Kuma `/server/ping` · **canh licensing → Telegram (§0.3)** · Config Guard/DOT registry cần thiết → bàn giao. Downtime rehearsal **16–17′**, rollback trước mở ghi **4–4,5′**, cửa sổ đề xuất **45′**. XONG chỉ khi VPS1 chạy đủ bộ đích.
 - 🔁 **Sau XONG — việc phụ, không chặn VPSUP:** máy tự canh nền · chuyển e-learning về VPS1 + huỷ VPS2 khi tiện · **enforce “chỉ DOT vào được”**: rà các đường legacy còn dùng email/password, chuyển từng đường sang token/DOT rồi đóng đường login/bypass trực tiếp khi đã chứng minh không còn consumer phụ thuộc. Không làm trong G7.
 - ✂️ **Đã cắt khỏi đường chính:** nâng @nuxt/ui v4; chờ 7 ngày; PG18 đợt 2 mặc định; dọn/huỷ VPS2 và chuyển e-learning; mở nghiên cứu hay nâng thêm thành phần. Lỗ bảo mật nghiêm trọng phát hiện thật thì báo, không tự mở nhánh. G6/G7 dùng lại bytes Nuxt đã kiểm, không build lại theo thói quen.
-- ➡ **Kế tiếp:** Host READY theo last-touch PROMPT hiện hành (P126, không đổi sau Reviewer) · 😊 Owner dán RUN `VPSUP-G7-PROD-CUTOVER-20261003-05` · 🤖 Agent: PRE 1–10 (quarantine thật chỉ sau PRE 9/10 PASS) rồi cutover một mạch. ⚠️ #22/INV15 outside-scope, PRE/POST same-or-better.
+- ➡ **Kế tiếp:** 😊 Owner dán RUN `VPSUP-G7-PROD-CUTOVER-20261003-05` với `READY@2f2321de…`; 🤖 Agent chạy PRE 1–10, chỉ sau PRE9/PRE10 PASS mới quarantine execute rồi freeze/cutover. ⚠️ #22/INV15 outside-scope, PRE/POST same-or-better. Host nghiệm thu KQ = XONG.
 - ⛔ **Không làm:** DNS · chờ MCPW · nâng Qdrant/Kuma · thoát Agency OS · sửa lỗi có sẵn của việc khác (`hvu-sync-py`, Kuma #21/#22).
 - 🔧 **G7 ràng buộc đã chốt, không mở thêm bước:** exact versions §0.3 · package SHA/digest + PRE fail-closed · compose/env/network/extension bảo toàn delta sống · DOT 100% toàn repo, Directus/PG theo DROOT26 · tự rollback trước unfreeze nếu acceptance trượt · sau unfreeze backup PG18 thật + restore-verify v1.1.0 · Kuma `/server/ping` · licensing monitor→Telegram · Config Guard/DOT registry. **R4/R5 AGENTS áp mặc định:** mọi production mutation trước KQ XONG phải POST-PROTECT PASS + Telegram receipt; nguồn monitor/tin mới phải vào registry tín hiệu. Không cần sửa PROMPT vì PROMPT bắt buộc đọc AGENTS trước RUN. **P111 làm rõ (không đổi PROMPT/READY):** (a) PRE 1 tính cả **Kuma / Config Guard / `bang-den.json` / đường Telegram**: việc `hermes-joint-workspace` RUN `HJW-POST-PROTECT-RECEIPT-20261002-03` (STARTED 13:31Z) đang dựng đúng sổ tin báo + biên nhận ⇒ còn STARTED chưa KQ thì **G7 không bắt đầu**, dừng ở PRE, VPS1 nguyên. (b) Sổ tin báo đã có ⇒ G7 ghi 2 nguồn đổi (Kuma `/server/health`→`/server/ping`; canh licensing mới) cùng RUN; chưa có ⇒ liệt kê 2 nguồn này trong KQ mục “cần vào sổ”, **không tự dựng sổ trong G7**. (c) Biên nhận Telegram dùng đường gửi hiện hữu; không dựng bot/timer mới.
 - 📏 **Luật chống rác — Owner 02/10 nguyên văn:** “Ngớ ngẩn nhất là mỗi AI thêm 1 Ý, xong kế hoạch từ ban đầu rất gọn => đến lúc triển khai thì lại thành 1 bãi rác với đủ thứ kèm theo.” ⇒ Giao theo **đầu ra trọn gói**, không chia theo file/script/lỗi nhỏ hay số phút. Trong phạm vi đã giao, agent được làm liên tục, tự sửa/test lại phần liên quan; checkpoint lưu để phục hồi, **không phải xin duyệt**. Một vòng review cho mỗi gói lớn, không mở vòng sau một bước con đạt. Chỉ ngắt vì vượt phạm vi/quyền, nguy cơ dữ liệu/secret, thiếu đầu vào thiết yếu hoặc blocker thật. Trao đổi trên repo; không yêu cầu Owner chép lại nội dung AI đã đọc được. Lượt đổi trạng thái sửa Bảng cùng commit (MT4).
@@ -1595,8 +1595,16 @@ Phản biện đúng P03, không mở thêm file:
 - Không delta, không sửa PROMPT, không thêm vòng.
 - Owner cần quyết: —.
 
+### P128 · GPT Host · 2026-10-03 · ACCEPT P127 · READY G7-05
+- **Roadmap:** không đổi; G0–G6 đã terminal, G7-04 dừng PRE an toàn, chỉ còn G7-05 production; PASS = XONG VPSUP.
+- **ACCEPT P127:** production có đúng 19 CHECK R5 khớp allowlist; `postgres_fdw` owner/rule khớp P126; không có delta PROMPT.
+- **Gate:** replay 1.402 → 49 view + 19 CHECK allowlisted → residual 0; 2 negative CHECK phải FAIL; exact extension transitions `btree_gist 1.7→1.8`, `pgcrypto 1.3→1.4`, `postgres_fdw 1.1→1.2`; quarantine execute chỉ sau PRE9+PRE10 PASS; package byte đổi thì SHA cuối mới.
+- **Conflict:** fresh-read trước P128 chưa có STARTED G7-05 và HJW-04 chưa STARTED; Agent vẫn recheck PRE1.
+- **READY@2f2321deabbf9d36aaf88b5d6a7a41f4f01c7760** · RUN_ID `VPSUP-G7-PROD-CUTOVER-20261003-05`.
+- Owner cần quyết: chỉ thời điểm bắt đầu; dán RUN = duyệt cửa sổ production.
+
 ## Owner cần quyết
-- —
+- VPSUP · G7-05 đã READY; Owner dán RUN = duyệt bắt đầu cửa sổ production.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md · ../../README.md · ../README.md.
