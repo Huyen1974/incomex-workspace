@@ -1,3 +1,94 @@
+# PROMPT — HJW · ASSIGNMENT CONTRACT V1 + HERMES READINESS CANONICAL
+
+RUN_ID: HJW-ASSIGN-CONTRACT-READINESS-20261003-05
+STATUS: DRAFT — chờ Claude Founder/Reviewer ACCEPT P95 rồi Host READY
+Host: GPT Chat · GPT-HJW-260922-A
+Executor_Surface: Claude Code CLI phiên mới
+Write_Path: DOT/script-wrapper hiện hữu; repo qua workspace_*; runtime mutation chỉ qua wrapper quản lý
+Owner_authorization: 03/10/2026 — chuẩn hóa giao việc chung, Hermes phải tự readiness rồi Host tổng hợp lỗi trước lượt sửa cuối.
+
+## 0. Mục tiêu duy nhất của RUN này
+1. Cưỡng chế Assignment Contract V1 để mọi AI/Agent/dispatcher dùng cùng một ngôn ngữ.
+2. Sau khi contract + tests PASS, tạo **một assignment canonical** cho Hermes tự kiểm readiness.
+3. Nhận báo cáo Hermes trên repo và KQ; **không sửa D30/D31 trong RUN này**. Host sẽ đọc report rồi gom lỗi vào lượt sửa cuối.
+
+## 1. PRE / khám phá mã thật
+- Đọc AGENTS → root COLLAB DROOT37–39 → HJW Bảng + P94–P95 → prompt này.
+- Xác nhận RUN cũ chưa STARTED; READY cũ hết hiệu lực do prompt này là last-touch mới.
+- Tìm đúng runtime hiện hữu đang: parse assignment → tạo card → xử lý callback approval → queue/claim → wake Hermes → gửi START/RESULT.
+- Ghi đường file/config/job thật + hash trước sửa. Không suy từ tài liệu.
+- Không tạo service/DB/bot/token/route mới; reuse đường HJW hiện hữu.
+- Legacy -01/-02 nếu đang có chỉ là evidence; không dùng làm acceptance canonical.
+
+## 2. Assignment Contract V1 — parser bắt buộc
+Trong COLLAB HJW dùng đúng machine-zone:
+`<!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->`
+`ASSIGN_V1 {"id":"...","to":"Hermes","role":"Reviewer|Agent","generation":1,"state":"open|claimed|done|blocked","approval":"owner","task":"...","output":"...","read":["..."],"write":["..."],"spec_ref":"...","run":"... optional"}`
+`<!-- MACHINE_ASSIGNMENTS_V1:END -->`
+
+Luật:
+- Chỉ dòng bắt đầu **cột 1** bằng `ASSIGN_V1 ` và nằm giữa đúng hai marker mới được parse.
+- Mọi legacy `ASSIGN@`, prose, quote, backtick, code sample, lịch sử ngoài zone = inert.
+- Required: id,to,role,generation,state,approval,task,output,read,write,spec_ref. task/output rỗng hoặc "." = invalid.
+- Identity người giao lấy từ gateway/Git author server-side, không từ field JSON.
+- role=Agent có mutation phải thêm `run=<RUN_ID hiện hành>` và vẫn qua A6 READY/RUN/HOLD; Reviewer không được tự mutation production.
+- `spec_ref` phải unique trong cùng task; dispatcher hash canonical JSON + bytes spec để bind approval.
+
+## 3. Approval / claim / queue
+- Record valid + state=open ⇒ gửi đúng 1 card PENDING APPROVAL; 0 model.
+- Owner bấm Cho chạy ⇒ tạo ticket bền: assignment id + generation + content/spec hash + approved_at + Owner identity. AI không bấm thay.
+- Record/spec đổi sau duyệt ⇒ ticket invalid, không claim; muốn đổi phải generation+1 và duyệt lại.
+- Approval không đồng nghĩa START. Với `cron.max_parallel_jobs=1`: nếu slot bận, card chuyển `ĐÃ DUYỆT · XẾP HÀNG`; queue order approved_at rồi id.
+- Khi slot rảnh: deterministic gate → expected_version claim open→claimed → gửi BẮT ĐẦU thành công → mới wake model.
+- Telegram lỗi trước BẮT ĐẦU ⇒ không wake.
+- Hai record cùng id+generation: exact replay idempotent; khác nội dung = invalid/conflict, không chọn đại.
+
+## 4. Kết quả chuẩn
+Hermes hoàn tất phải trong cùng commit:
+- đổi canonical record claimed→done|blocked;
+- ghi detailed report tại report_ref;
+- ghi `RESULT_V1 {"id":"...","generation":1,"status":"done|blocked","summary":"...","commit":"<40hex>","next":"...","report_ref":"..."}`.
+Telegram KẾT QUẢ lấy từ RESULT_V1/structured state; không suy prose.
+Blocked phải nêu blocker + ai/việc nào nhận tiếp. Không tự mở quyền.
+
+## 5. Test cưỡng chế trước khi giao Hermes
+Bắt buộc PASS:
+A. prose chứa nguyên legacy marker + state=open ⇒ 0 card.
+B. code/backtick/example ⇒ 0 card.
+C. canonical valid ⇒ đúng 1 card.
+D. task="." / thiếu output / spec_ref không tồn tại ⇒ 0 card + validation error.
+E. duplicate exact same id/gen ⇒ 1 card, 1 model tối đa.
+F. same id/gen nhưng payload khác ⇒ conflict, 0 claim.
+G. Owner approve rồi sửa spec ⇒ ticket invalid, 0 claim.
+H. 2 assignment canonical cùng approved ⇒ max 1 claimed; việc 2 = queued; sau done việc 1 mới claim việc 2.
+I. Owner reject ⇒ 0 model.
+J. Telegram pre-start failure ⇒ 0 model.
+K. write/read ngoài scope safe-deny fixture hiện hữu ⇒ blocked.
+L. restart dispatcher không mất durable approval/queue/idempotency.
+M. RESULT thiếu commit/report_ref ⇒ không được DONE.
+Có mutant/negative + rollback; delta runtime vào Config/Protection Guard theo DROOT29–31.
+
+## 6. Readiness canonical của Hermes
+Chỉ sau §5 PASS:
+- Tạo machine-zone nếu chưa có.
+- Tạo spec `SPEC@HJW-HERMES-READINESS-20261003-02` trong COLLAB HJW, nội dung theo P94/P95: identity server-side/profile; gateway/session/model wake; workspace read/write; Telegram approval/start/result proof; tool allowlist/scope; role Hermes có thể/không được làm; lỗi/thiếu; kết luận READY|PARTIAL|BLOCKED.
+- Tạo canonical id `HJW-HERMES-READINESS-20261003-02`, role=Reviewer, approval=owner, read AGENTS + HJW, write chỉ HJW COLLAB.
+- Claude Code chỉ tạo record/spec và xác nhận card. Owner tự bấm.
+- Hermes tự claim/run/report; Claude Code không làm thay.
+- Nếu Owner chưa duyệt, KQ = CHECKPOINT chờ Owner, không giả READY.
+
+## 7. KQ
+XONG chỉ khi Contract V1 enforcement + §5 tests PASS **và** Hermes có RESULT_V1 + report repo:
+`KQ@HJW-ASSIGN-CONTRACT-READINESS-20261003-05 XONG · CONTRACT_V1_PASS · HERMES_READINESS=<READY|PARTIAL|BLOCKED>`
+
+Nếu contract/tests fail: rollback delta, `KQ@... DỪNG · CONTRACT_BLOCKED:<lý do>`.
+Nếu contract PASS nhưng chờ Owner: `KQ@... DỪNG · CONTRACT_V1_PASS · HERMES_WAITING_OWNER`.
+
+Sau KQ dừng. Host đọc report Hermes, tổng hợp các vấn đề rồi mới soạn lượt cuối D30/D31 + residual readiness.
+
+---
+
+# VÒNG TRƯỚC — HJW FINAL D30/D31 (P92/P93; READY cũ hết hiệu lực sau prompt này)
 # PROMPT — HJW · LƯỢT CUỐI: (1) vá báo động giả D30 → (2) người canh ngoài máy chủ D31 → đóng
 
 RUN_ID: HJW-FINAL-D30-D31-20261002-04
