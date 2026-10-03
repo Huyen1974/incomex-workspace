@@ -1,30 +1,30 @@
 # PROMPT — VPSUP G7 · CHUYỂN PRODUCTION MỘT LẦN + NGHIỆM THU + BÀN GIAO
 
-STATUS: **DRAFT RETRY-03 — P117 đồng bộ static token hiện hành Directus DB → GSM; chờ Reviewer ACCEPT + Host READY.** §0.3: đã đối chiếu.
+STATUS: **DRAFT RETRY-03 — P117 + P118 Reviewer DELTA (admin active chưa có token; sửa SHA gói); chờ Host READY.** §0.3: đã đối chiếu.
 RUN_ID: `VPSUP-G7-PROD-CUTOVER-20261003-03` · Executor: phiên Claude Code mới · **Owner dán RUN = Owner duyệt cửa sổ** (45′; gián đoạn đo ở G6: 16–17′).
 Đầu ra duy nhất: VPS1 chạy **PG 18.6 + Directus 12.4.1/OIG + Nuxt 4.5.2/Node 24.21.0 + nginx 1.30.5**, đủ dữ liệu/quyền, sao lưu PG18 đọc lại được, có canh licensing. Không làm gì ngoài đầu ra này (không e-learning/VPS2, không @nuxt/ui v4, không DNS).
 
 ## G7.0 · Đọc
-AGENTS → BẢNG ĐIỀU KHIỂN → **§0.3 (bảng phiên bản chốt cứng)** → P105–P117 → PROMPT này → VPS2 `G6/INDEX.md` + `G6/g7/package/G7-RUNBOOK.md`. Gói G7 là kịch bản đã tập 2 lần; chạy đúng nó, không thiết kế lại.
+AGENTS → BẢNG ĐIỀU KHIỂN → **§0.3 (bảng phiên bản chốt cứng)** → P105–P118 → PROMPT này → VPS2 `G6/INDEX.md` + `G6/g7/package/G7-RUNBOOK.md`. Gói G7 là kịch bản đã tập 2 lần; chạy đúng nó, không thiết kế lại.
 
 ## G7.1 · PRE — chỉ đọc, trước đóng băng; một mục trượt ⇒ DỪNG, VPS1 nguyên
 1. READY khớp last-touch PROMPT; không RUN khác đang STARTED chưa KQ đụng PG/Directus/Nuxt/nginx/compose/Guard VPS1. Đặc biệt recheck `HJW-FINAL-D30-D31-20261002-04`: tại P117 mới READY, chưa STARTED; nếu lúc RUN đã STARTED chưa KQ thì DỪNG ở PRE, không freeze.
-2. Chuyển `G6/g7/package` VPS2 → VPS1 bằng đường đã dùng ở G6; `SHA256SUMS` = `beed98a3…` từng file; thiếu/lệch ⇒ DỪNG.
+2. Gói G7 = **bản đã vá ở KQ `-02`** (DOT license 1.1.0), hồ sơ VPS1 `/opt/incomex/work/vps1-up-grade/G7/VPSUP-G7-PROD-CUTOVER-20261003-02-pkgfix/`; `SHA256SUMS` = **`2ea22689…`** (43/43). Chưa đủ gói ở VPS1 ⇒ lấy gói gốc VPS2 (`beed98a3…`) qua đường G6, áp đúng bản vá `-02`, kiểm ra `2ea22689…`. Thiếu/lệch ⇒ DỪNG. (P118: số `beed98a3…` cũ không còn đúng sau KQ `-02`.)
 3. Phiên bản đúng §0.3: PG `postgres:18.6-trixie` index `5a5a84b1…`/amd64 `0377e72c…` · Directus `12.4.1` · Nuxt `4.5.2`/Node `24.21.0` đúng bytes TF · nginx `1.30.5`. Lệch ⇒ DỪNG; **không tra/chọn bản khác**.
 4. Compose/.env (`NUXT_SSR_IMAGE`)/mạng/extension live = bản gói đã render (compose `97c534da…`). Khác (việc khác đã sửa từ 09:08Z) ⇒ render lại patch qua DOT trên bản live; diff chỉ được chạm hunk VPSUP; đụng thay đổi của việc khác ⇒ DỪNG.
 5. Đĩa VPS1 trống ≥ 20 GB (02/10 20:45: 53 GB); bản sao lưu đêm gần nhất đọc được.
 6. Restore-verify dùng `dot-pg-restore-verify-db` **v1.1.0** từ gói, không dùng v1.0.0 đang ở prod.
 
 ### G7.1A · Đồng bộ machine token hiện hành Directus → GSM — sửa blocker cuối, trước freeze
-**KQ `-02` đã chứng minh GSM `DIRECTUS_ADMIN_TOKEN` v1 (22/05) stale/401. Không rotate Directus theo phản xạ.** Directus lưu static token của user tại `directus_users.token`; mục tiêu là đồng bộ token **đang chạy trong Directus** sang GSM, không thay token Directus và không tạo admin khác.
+**KQ `-02` đã chứng minh GSM `DIRECTUS_ADMIN_TOKEN` v1 (22/05) stale/401. P118 đo thật (chỉ đọc, 03/10 09:40):** `directus_users` có đúng 2 user admin — `173a0ab6…` (hash md5 id) **suspended**, có static token (khớp với GSM 401: Directus từ chối token của user bị khoá) · `dea4e64c…` **active, KHÔNG có static token**. Vậy không có token admin sống nào để “đồng bộ”; phải **thêm** token cho đúng admin active (thêm, không thay; không tạo admin khác; không bật lại user suspended).
 
-**Cổng Owner bắt buộc trong câu RUN:** cho phép DOT/script-wrapper (a) đọc nội bộ `directus_users.token` của đúng machine-admin identity qua PG; (b) ghi **một version mới** cho GSM `DIRECTUS_ADMIN_TOKEN`; (c) đọc GSM `DIRECTUS_OIG_LICENSE_KEY` trong bước license. Không được enumerate/đọc secret khác; không in/log/repo/chat bất kỳ giá trị secret nào.
+**Cổng Owner bắt buộc trong câu RUN (P118):** cho phép DOT/script-wrapper (a) **đặt static token mới cho đúng admin đang active, chỉ khi cột token của user đó đang trống** (qua PG wrapper, không đổi cột nào khác); (b) ghi **một version mới** GSM `DIRECTUS_ADMIN_TOKEN`; (c) đọc GSM `DIRECTUS_OIG_LICENSE_KEY` trong bước license. Không được enumerate/đọc secret khác; không in/log/repo/chat bất kỳ giá trị secret nào.
 
 1. Reuse DOT/wrapper hiện có; nếu thiếu đúng capability này thì viết **một DOT hẹp** `dot-directus-admin-token-sync` theo DROOT27, chỉ nằm trong gói/evidence G7. Agent không được chạy psql/curl/gcloud tay.
-2. DOT đọc metadata Directus qua PG wrapper để chọn **đúng một** machine identity hiện hữu: `active` + effective `admin_access` + static token không rỗng. Có thể dùng email admin hiện hữu chỉ như metadata để disambiguate; không đổi email/password. 0 hoặc >1 ứng viên không giải được chắc chắn ⇒ `DỪNG · PRE_BLOCKER_ADMIN_IDENTITY_AMBIGUOUS`.
-3. DOT giữ `directus_users.token` chỉ trong memory/tmpfs/root-only, output duy nhất fingerprint + user-id hash + status/admin flag. Dùng chính token DB gọi `/users/me`; phải trả đúng cùng user active + admin access. Fail ⇒ `DỪNG · PRE_BLOCKER_CURRENT_DIRECTUS_TOKEN_INVALID`; **không rotate**, không dò credential khác.
-4. Nếu token DB PASS và fingerprint khác GSM stale: DOT pipe **chính token DB hiện hành** qua stdin để tạo version mới của GSM `DIRECTUS_ADMIN_TOKEN`; **0 mutation Directus**. Không disable version GSM cũ trong G7 trước khi KQ XONG.
-5. DOT đọc lại `latest` từ GSM qua loader rồi gọi `/users/me`; phải cùng user-id hash/admin. Fail sau khi đã tạo version ⇒ disable version GSM mới nếu an toàn + ghi blocker; Directus vẫn nguyên.
+2. DOT chọn **đúng một** user `active` + effective `admin_access` (kỳ vọng `dea4e64c…`); bỏ qua user suspended, không đụng token của nó. 0 hoặc >1 admin active ⇒ `DỪNG · PRE_BLOCKER_ADMIN_IDENTITY_AMBIGUOUS`. Không đổi email/password.
+3. Admin active **đã có** token (nếu số đo đã khác) ⇒ dùng chính token đó, không tạo mới. **Chưa có** (như số đo) ⇒ DOT sinh token ngẫu nhiên mạnh trong tmpfs, ghi qua PG wrapper với điều kiện `id = <admin active> AND token IS NULL` (đúng 1 dòng, không cột khác). Giá trị chỉ ở memory/tmpfs/root-only; output chỉ fingerprint + uid hash. Token này đi theo dữ liệu sang PG18 khi cutover.
+4. Gọi `/users/me` bằng token đó: phải đúng cùng user, active, admin. Chưa nhận ⇒ xoá cache Directus một lần qua DOT rồi thử lại; vẫn fail ⇒ trả token về NULL (known-good), `DỪNG · PRE_BLOCKER_ADMIN_TOKEN_SET_FAILED`; không dò credential khác.
+5. PASS ⇒ pipe token qua stdin tạo version mới GSM `DIRECTUS_ADMIN_TOKEN`; đọc lại `latest` qua loader + `/users/me` phải cùng uid hash/admin. Fail ⇒ disable version GSM mới + trả token Directus về NULL, ghi blocker. Không disable version GSM cũ trước KQ XONG.
 6. `dot-directus-license whoami/status` phải PASS bằng GSM `latest`; package dùng bản DOT license 1.1.0 đã vá ở KQ `-02`, cập nhật `install-prod.manifest`/`SHA256SUMS` nếu byte thay đổi (gói `-02` hiện `2ea22689…`).
 7. Cũng trước freeze, qua loader thử đọc **đúng** GSM `DIRECTUS_OIG_LICENSE_KEY` vào tmpfs/non-logging path để chứng minh secret accessible; không activate/refresh ở PRE. Không đọc được ⇒ DỪNG khi VPS1 runtime vẫn nguyên.
 8. Đây là mutation GSM production credential. Nếu đã ghi version GSM mới mà RUN dừng trước cutover, vẫn phải khép footprint đó theo AGENTS R4 (verify/rollback-known-good + receipt phù hợp) trước KQ DỪNG.
