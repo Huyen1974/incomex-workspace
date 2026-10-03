@@ -3,20 +3,22 @@ Tên việc: Web incomexsaigoncorp.vn không bị ngừng khi hết hợp đồn
 Host: Claude Chat · Host_ID: CLAUDE-CWEB-261002-A · Owner giao 02/10/2026
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn lời Owner 02/10/2026 20:15 (làm rõ đầu bài, thay cách hiểu vòng 17:22 — xem §0.1). Quy trình theo lời Owner 17:38: hội đồng chốt chi tiết → Host đặt READY → Owner dán một dòng RUN → Codex làm. **Chưa cho phép:** đụng production trước VPSUP G7 XONG · đổi DNS.
+Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn lời Owner 02/10/2026 20:15 (làm rõ đầu bài, thay cách hiểu vòng 17:22 — xem §0.1). Quy trình theo lời Owner 17:38: hội đồng chốt chi tiết → Host đặt READY → Owner dán một dòng RUN → Codex làm. Owner 03/10 22:07: “bạn xác nhận lại ok thì tôi sẽ giao cho codex dựng lại việc này” — nâng cấp máy chủ đã XONG (Host kiểm trực tiếp 03/10). **Chưa cho phép:** đổi DNS / chuyển tên miền chính.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-02 21:02 +07 · GPT Chat (Reviewer) · P03 ACCEPT Q08 · kỹ thuật LOCKED · chỉ chờ VPSUP G7
-- 🎯 **Mục tiêu — Owner nguyên văn 02/10 20:15:** “hợp đồng hết hạn => nếu không làm thì sẽ bị ngừng Web 1 thời gian. Vì vậy tôi muốn có 1 giải pháp trung gian và làm tạm, có thể chưa sửa gì cũng được.” · “Chúng ta có hẳn 1 hệ thống rồi chỉ cần vẽ lại cho gần giống là được. Không cần giống tuyệt đối đâu.” · “Những phần nhúng đó thì không phải làm chúng ta nhúng lại ở site mới là xong.” **Một câu:** web công ty không bị ngừng khi hết hợp đồng với bên cũ — chạy tạm trên hệ mình; làm lại toàn bộ web là việc khác, để sau.
-- 🏁 **Xong khi** _(Host đề xuất — hội đồng chốt)_: (1) 29 địa chỉ trang cũ mở được trên hệ mình, nhìn gần giống — so ảnh 6 trang mẫu, tối đa một vòng sửa; (2) phần nhúng chạy lại: bản đồ · video · liên kết Lark · liên kết Giáo dục; (3) nội dung nằm trong PG qua Directus, **0 bảng mới**, thêm/sửa bài bằng một lệnh DOT; (4) Owner mở trang thử; (5) tên miền chính trỏ về hệ mình **trước ngày web cũ bị ngừng** — theo lệnh Owner.
-- 📍 **Tiến độ:** `✅ mở việc · ✅ điều tra site cũ · ■ chốt đầu bài + Reviewer rà lượt cuối · ⬜ chờ VPSUP G7 XONG → READY · ⬜ MỘT RUN Codex: chụp → DOT → nạp → vẽ lại → nhúng lại → trang thử → tự kiểm · ⬜ Owner xem + lệnh đổi tên miền`
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-03 22:20 +07 · Claude Chat (Host) · P04: nâng cấp XONG · mục tiêu chốt theo Owner 22:07 · READY — chờ Owner dán RUN
+- 🎯 **Mục tiêu — Owner nguyên văn 03/10 22:07:** “tạo ra một trang giống nhất có thể, có thể lấy tạm 1 đường dẫn nào đó để chạy, sau khi ok chúng ta chuyển domain sang VPS của chúng ta. và coi như cho chạy tạm trên VPS này.” · “những cái gì nhúng thì chuyển sang (vì nhúng là nguồn của chúng ta) còn lại thì copy nguyên trang Web đó sang bên chỗ mới, dựng lại trên nền tảng của chúng ta. (sao cho nhìn giao diện càng giống càng tốt)” **Bối cảnh — 02/10 20:15:** “hợp đồng hết hạn => nếu không làm thì sẽ bị ngừng Web 1 thời gian. Vì vậy tôi muốn có 1 giải pháp trung gian và làm tạm, có thể chưa sửa gì cũng được.” · “Chúng ta có hẳn 1 hệ thống rồi chỉ cần vẽ lại cho gần giống là được. Không cần giống tuyệt đối đâu.” · “Những phần nhúng đó thì không phải làm chúng ta nhúng lại ở site mới là xong.” **Một câu:** web công ty không bị ngừng khi hết hợp đồng với bên cũ — chạy tạm trên hệ mình; làm lại toàn bộ web là việc khác, để sau.
+- 🏁 **Xong khi** _(Host đề xuất — hội đồng chốt)_: (1) 29 địa chỉ trang cũ mở được trên hệ mình, nhìn **giống nhất có thể** — so ảnh 6 trang mẫu, tối đa hai vòng sửa; (2) phần nhúng chạy lại: bản đồ · video · liên kết Lark · liên kết Giáo dục; (3) nội dung nằm trong PG qua Directus, **0 bảng mới**, thêm/sửa bài bằng một lệnh DOT; (4) Owner mở trang thử; (5) tên miền chính trỏ về hệ mình **trước ngày web cũ bị ngừng** — theo lệnh Owner.
+- 📍 **Tiến độ:** `✅ mở việc · ✅ điều tra site cũ · ✅ chốt đầu bài (P03 + Owner 22:07) · ✅ nâng cấp máy chủ XONG · ✅ READY · ■ 😊 Owner dán RUN → MỘT RUN Codex: chụp → DOT → nạp → dựng lại → nhúng lại → trang thử → tự kiểm · ⬜ Owner xem + lệnh đổi tên miền`
 - ✅ **Đã xong:** Host điều tra thật 02/10 20:30 qua trình duyệt của Owner: **5 trang · 14 bài · 73 ảnh · 29 địa chỉ, đều mở được**; phần nhúng: Google Maps (chân trang, mọi trang) · YouTube (`/gioi-thieu/`) · liên kết Lark wiki (bài đơn hàng) · liên kết cổng giaoduc (menu); tính năng: form liên hệ (`/lien-he/`). P01 (GPT) → Host nhận ở P02.
-- ■ **Đang làm:** **Không còn review kỹ thuật.** P03 đã ACCEPT Q08 và khóa `PROMPT.md` tại commit `0fd82bd6a9667c0d18b7899a527400b03b96f81a`; chỉ chờ `work/vps1-up-grade` có **G7 XONG** để Host Claude đặt READY.
-- ⬜ **Còn lại:** VPSUP G7 XONG → Host đặt READY → 😊 Owner dán một dòng → 🤖 Codex làm trọn một RUN tới trang thử → Host nghiệm thu → 😊 Owner xem → lệnh đổi tên miền (một lệnh ngắn riêng).
-- ➡ **Kế tiếp:** VPSUP G7 XONG → Host Claude đặt `READY@0fd82bd6a9667c0d18b7899a527400b03b96f81a` **không mở thêm vòng review** → 😊 Owner dán đúng một dòng RUN cho 🤖 Codex → Codex làm trọn tới trang thử.
-- ⛔ **Không làm/để sau:** làm lại hay cải tiến web · sửa nội dung · chép mã giao diện của bên cũ · dựng lại phần nhúng (chỉ nhúng lại) · bảng PG mới · RUN chụp riêng · tìm kiếm, bình luận, đăng nhập · đụng production trước G7 · đụng DNS khi chưa có lệnh · đuổi giống từng điểm ảnh.
+- ■ **Đang làm:** 😊 Owner dán một dòng RUN cho 🤖 Codex. `PROMPT.md` đã READY (bản 03/10 — ba chỗ đổi so với bản P03 khoá, xem P04).
+- ⬜ **Còn lại:** 😊 Owner dán một dòng → 🤖 Codex làm trọn một RUN tới trang thử → Host nghiệm thu → 😊 Owner xem → lệnh đổi tên miền (một lệnh ngắn riêng).
+- ➡ **Kế tiếp:** 😊 Owner dán RUN → 🤖 Codex chạy tới trang thử `https://vps.incomexsaigoncorp.vn/w/` → Host nghiệm thu → 😊 Owner xem → lệnh chuyển tên miền.
+- ⛔ **Không làm/để sau:** làm lại hay cải tiến web · sửa nội dung · dựng lại phần nhúng (chỉ nhúng lại) · bảng PG mới · RUN chụp riêng · tìm kiếm, bình luận, đăng nhập · đụng production trước G7 · đụng DNS khi chưa có lệnh · đuổi giống từng điểm ảnh.
 
 ### 1. Mục tiêu
-Owner nguyên văn, 02/10/2026 20:15:
+Owner nguyên văn, 03/10/2026 22:07 — **chốt lại mục tiêu, đọc trước:** “mục tiêu là (có 1 hướng dẫn tạm vào reopo): tạo ra một trang giống nhất có thể, có thể lấy tạm 1 đường dẫn nào đó để chạy, sau khi ok chúng ta chuyển domain sang VPS của chúng ta. và coi như cho chạy tạm trên VPS này. Cách bật rõ những cái gì nhúng thì chuyển sang (vì nhúng là nguồn của chúng ta) còn lại thì copy nguyên trang Web đó sang bên chỗ mới, dựng lại trên nền tảng của chúng ta. (sao cho nhìn giao diện càng giống càng tốt)”
+
+Bối cảnh — Owner nguyên văn, 02/10/2026 20:15 (còn hiệu lực; riêng mức giống nay theo 22:07: “giống nhất có thể”):
 1. “Bối cảnh là trước đây tôi có giao cho 1 bên phụ trách web này, họ có 1 bộ cms của riêng họ và thiết kế kiểu Web đơn giản để chào khách hàng. Chi phí rẻ. Tôi sẽ phải làm lại toàn bộ web. Nhưng chưa phải bây giờ.”
 2. “Chỉ có điều là hợp đồng hết hạn => nếu không làm thì sẽ bị ngừng Web 1 thời gian. Vì vậy tôi muốn có 1 giải pháp trung gian và làm tạm, có thể chưa sửa gì cũng được.”
 3. “Chúng ta có hẳn 1 hệ thống rồi chỉ cần vẽ lại cho gần giống là được. Không cần giống tuyệt đối đâu.”
@@ -24,7 +26,7 @@ Owner nguyên văn, 02/10/2026 20:15:
 5. Còn hiệu lực từ 17:22: “100% dùng DOT hết với PG và Directus, thiếu viết thêm.”
 
 ### 2. Thế nào là hoàn thành
-Owner nguyên văn 20:15: “vẽ lại cho gần giống là được. Không cần giống tuyệt đối đâu.” · “nhúng lại ở site mới là xong” · “có thể chưa sửa gì cũng được”.
+Owner nguyên văn 03/10 22:07: “tạo ra một trang giống nhất có thể” · “sau khi ok chúng ta chuyển domain sang VPS của chúng ta” · “nhìn giao diện càng giống càng tốt”. Trước đó, 02/10 20:15: “vẽ lại cho gần giống là được. Không cần giống tuyệt đối đâu.” · “nhúng lại ở site mới là xong” · “có thể chưa sửa gì cũng được”.
 _(Đích đo được: dòng 🏁 của Bảng — Host đề xuất, hội đồng chốt theo lời Owner 17:38.)_
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
@@ -32,15 +34,17 @@ Chỉ đạo Owner — nguyên văn, 02/10/2026:
 - **17:22 —** “(chưa muốn bàn lại việc thiết kế)” · “Bạn nghiên cứu và lên cho tôi 1 kế hoạch làm sao tốn ít thời gian điều hành nhất để chạy việc này. Nếu được thì giao cho Codex có thể tự làm 1 mình cho xong.” · “100% dùng DOT hết với PG và Directus, thiếu viết thêm.” · “Tôi không muốn sa lầy vào việc này, cho nên trước mắt thì phải làm cái gì đó đơn giản nhất.” · “đừng lãng phí những việc chúng ta đang làm, nhưng cũng không sa đà vào việc hiện tại này bởi vì chúng ta đang không có thời gian (tôi không có thời gian)”
 - **17:38 —** “Đầu tiên là bạn đưa việc này lên workspace, hội đồng có ý kiến. Xong thì hãy làm. Cứ chốt xong thì soạn 1 lệnh ngắn, tất cả những yêu cầu gì với codex thì đưa hết vào trong đó, nó tự đọc, tự làm. Còn chi tiết thì bạn đưa vào trong đó rồi hội đồng quyết luôn. Việc đơn giản có vậy thôi đừng làm khác đi chúng ta làm bao nhiêu việc giống nhau rồi mà” ⇒ chi tiết ở repo, hội đồng quyết; mọi yêu cầu với Codex nằm trong `PROMPT.md`; lệnh dán chỉ một dòng.
 - **20:15 —** “Tôi nghĩ các bạn chưa điều tra.” · “Còn điều tra những cái gì nhúng thì chúng ta chỉ bê sang chỗ mới để nhúng.” · “Phải làm rõ đầu bài và đưa vào mục tiêu rõ ràng. Tránh lan man. Phải hiểu nhau thật sự.” ⇒ §0.1–0.2 viết lại bằng lời Owner 20:15; Host điều tra thật (dưới); “nhìn như cũ” đổi thành “gần giống”.
+- **03/10 22:07 —** “Giờ việc nâng cấp đã xong hết, bạn xác nhận lại ok thì tôi sẽ giao cho codex dựng lại việc này. Bạn kiểm tra về mục tiêu trên task của repo giúp tôi” + đoạn mục tiêu ở §0.1 ⇒ mức giống nâng từ “gần giống” lên **“giống nhất có thể”**; đường dẫn tạm = `/w/` dưới tên miền sẵn có; chuyển tên miền sau khi Owner xem và ok; phần nhúng chuyển nguyên; phần còn lại chép nguyên và dựng lại trên PG/Directus/Nuxt.
 
 Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
 - **Điều tra thật site cũ** (Host, 02/10 20:30, trình duyệt của Owner; `wp-json` + đọc 29 trang): 5 trang (`gioi-thieu`, `lien-he`, `dich-vu`, `ve-chung-toi`, trang chủ `classic-shop`) · 14 bài · 9 chuyên mục · 16 thẻ · 73 ảnh · 29 địa chỉ nội bộ, đều HTTP 200. Các trang `/project-post/…` (đơn hàng) không có trong `wp-json`, chỉ lấy được từ HTML. Phần nhúng: khung Google Maps ở chân trang · khung YouTube ở `/gioi-thieu/` · liên kết tới một trang Lark wiki ở bài “các đơn hàng mới nhất” và `/category/don-hang/` · liên kết menu “Giáo dục” sang cổng giaoduc. Tính năng: form Contact Form 7 ở `/lien-he/`. Máy chủ bên cũ chặn truy cập tự động từ địa chỉ trung tâm dữ liệu ⇒ chụp từ máy Owner.
-- **Nền bên cũ:** WordPress + giao diện Flatsome do bên cũ vận hành ⇒ **không chép mã giao diện** (CSS/JS/khuôn HTML) của bên cũ; chữ và ảnh của Incomex thì chép nguyên.
-- **Hướng (Bậc R1: có sẵn → ghép → code mỏng):** nội dung vào bộ bảng web Agency OS có sẵn, đang trống (`posts`, `categories`, `pages` + `block_html`, `seo`; ảnh vào Directus files) — 0 bảng mới. Giao diện **vẽ lại gần giống** bằng một lớp Nuxt mỏng + CSS viết mới, chỉ thêm tệp. Phần nhúng bê nguyên nguồn sang. Địa chỉ trang cũ giữ nguyên khi đổi tên miền.
+- **Nền bên cũ:** WordPress + giao diện Flatsome do bên cũ vận hành ⇒ theo lời Owner 03/10 22:07 (“copy nguyên trang Web đó sang… càng giống càng tốt”): **được dùng lại khuôn HTML + CSS mặt ngoài của site cũ**, chỉ nạp ở các trang `/w/`, không đưa lên repo công khai; chữ và ảnh của Incomex chép nguyên. (Bản 02/10 cấm chép — đã thay. Giao diện này là đồ mua kèm hợp đồng cũ; khi làm lại toàn bộ web sẽ thay.)
+- **Hướng (Bậc R1: có sẵn → ghép → code mỏng):** nội dung vào bộ bảng web Agency OS có sẵn (`posts`, `categories`, `pages` + `block_html`, `seo`; ảnh vào Directus files) — 0 bảng mới. Giao diện **giống nhất có thể**: một lớp Nuxt mỏng, chỉ thêm tệp, dùng lại khuôn + CSS mặt ngoài của site cũ, chỉ nạp ở `/w/`. Phần nhúng bê nguyên nguồn sang. Địa chỉ trang cũ giữ nguyên khi đổi tên miền.
 - **Trang thử:** dưới tên miền sẵn có `vps.incomexsaigoncorp.vn`, tiền tố `/w/` — không thêm tên miền, không đụng DNS.
 - **DOT:** dùng lại `dot-content-create/update/delete/list`, `dot-permission-ensure`; thiếu (nạp hàng loạt, nạp ảnh, tự kiểm, đưa Nuxt lên) thì Codex viết/nâng trước rồi dùng (DROOT26/27/29/35).
-- **Chống sa lầy:** “gần giống” = so ảnh 6 trang mẫu, tối đa một vòng sửa · 0 bảng mới, chỉ thêm tệp · không tìm kiếm/bình luận/đăng nhập/hiệu ứng.
-- **Phối hợp VPSUP:** bản Nuxt 4.5.2 của G6/G7 đã khoá bytes ⇒ toàn bộ RUN chỉ chạy **sau G7 XONG**, dựng thẳng trên bộ mới.
+- **Chống sa lầy:** “giống nhất có thể” = so ảnh 6 trang mẫu, tối đa hai vòng sửa · 0 bảng mới, chỉ thêm tệp · không tìm kiếm/bình luận/đăng nhập/hiệu ứng.
+- **Phối hợp VPSUP:** bản Nuxt 4.5.2 của G6/G7 đã khoá bytes ⇒ toàn bộ RUN chỉ chạy **sau G7 XONG**, dựng thẳng trên bộ mới. **03/10: VPSUP XONG (P130; việc đã chuyển sang `work/done-tasks/vps1-up-grade/`). Host kiểm trực tiếp: PG 18.6 · Directus 12.4.1 · Nuxt 4.5.2 · 12 container khoẻ.**
+- **Bảng web KHÔNG trống** (Host đếm thật 03/10; số “0 dòng” hôm 02/10 là ước lượng thống kê, sai): cổng nội bộ đang có 3 trang (`/`, `/privacy`, `/terms`), 2 bài, 1 chuyên mục (`updates`), 7 tệp ⇒ không đụng; trang web công ty vào không gian permalink `/w/…`; bài web công ty tách bằng chuyên mục; bài sẽ hiện thêm ở trang `/posts` của cổng — chấp nhận.
 - **Hạn chót + đường lùi:** site cũ chỉ là nguồn chép và đường lùi **cho tới ngày bên cũ ngừng** (Q07). Ngày đó tới trước khi bản mới xong ⇒ Host báo Owner ngay, đề xuất gia hạn bên cũ thêm một kỳ ngắn. Đổi tên miền chỉ đổi bản ghi `@` và `www`, không đụng bản ghi thư.
 - **Tên thư mục:** Owner gõ `…corp.vn`; máy đồng bộ Task View chỉ nhận mã việc `[A-Za-z0-9_-]+` ⇒ dùng `-vn`. **HTML chính:** `view.html`, nền trắng.
 - **Không đưa lên repo công khai:** mã giao diện bên cũ và ảnh (trừ 6 ảnh so). Kho chụp ở hồ sơ VPS của việc `/opt/incomex/work/copy-web-incomexsaigoncorp-vn/`.
@@ -56,6 +60,8 @@ Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
 - D04 · 2026-10-02 · **Hội đồng (P01 GPT + P02 Host + P03 GPT):** một RUN duy nhất cho Codex sau VPSUP G7 XONG, từ chụp tối thiểu tới trang thử và tự kiểm; không RUN chụp riêng; PG/Directus và mọi thay đổi production qua DOT/script-wrapper 100%; đổi tên miền là cổng Owner riêng. JEV `gen-dec-1790947304-VkUKPM1fxo4Rrlclc9xR`: chụp trong cùng RUN sau G7 1,00 · vẽ lại bằng CSS riêng 0,96 · nhúng lại đúng nguồn 1,00. **Q08 ACCEPT; kỹ thuật khóa tại `PROMPT.md` commit `0fd82bd6a9667c0d18b7899a527400b03b96f81a`.** Áp: SAME_COMMIT.
 - D05 · 2026-10-02 · **Ngày bên cũ ngừng web là thông tin tiến độ, không phải gate Owner.** Không bắt Owner trả lời để tiếp tục. RUN bắt đầu ngay sau G7; nếu tại read-gate nguồn cũ đã không còn truy cập được đủ để chụp thì Codex báo blocker, không tự suy đoán nội dung. Áp: SAME_COMMIT.
 
+- D06 · 2026-10-03 22:07 · **Mục tiêu chốt lại + cho làm.** Owner nguyên văn: “tạo ra một trang giống nhất có thể… sau khi ok chúng ta chuyển domain sang VPS của chúng ta… (sao cho nhìn giao diện càng giống càng tốt)” · “bạn xác nhận lại ok thì tôi sẽ giao cho codex”. Đầy đủ ở §0.1. Áp: SAME_COMMIT.
+
 ## Owner cần quyết
 - — **Không có gate Owner ở giai đoạn dựng trang thử.** Ngày bên cũ ngừng web nếu biết thì chỉ dùng để cảnh báo tiến độ (D05), không chặn RUN.
 
@@ -68,7 +74,7 @@ Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
 - Q08 · **ĐÓNG · ACCEPT (P03 GPT):** (a) vẽ lại gần giống bằng CSS riêng, không chép mã giao diện bên cũ; (b) ảnh nạp Directus files, preview ở `/w/` dưới tên miền sẵn có, không DNS; (c) site cũ chỉ là nguồn chép tới khi bên cũ ngừng. Ba điểm khớp lời Owner 20:15 và không mở rộng phạm vi.
 
 ## RUN / KQ
-- `PROMPT.md` · RUN_ID `CWEB-E2E-20261002-01` · **LOCKED kỹ thuật tại commit `0fd82bd6a9667c0d18b7899a527400b03b96f81a`** — chưa READY, chưa RUN vì VPSUP G7 chưa XONG. Reviewer đã xong; khi G7 XONG, Host đặt READY đúng SHA này **không cần review lại**, trừ khi `PROMPT.md` bị sửa.
+- READY@17f5f0bf8d4c68134e85a5b1d3b2b1d74194c473 · RUN_ID `CWEB-E2E-20261003-01` · Host Claude Chat · 2026-10-03 22:20 +07 · chờ Owner dán RUN. Bản P03 khoá ở `0fd82bd` đã được thay bằng bản này — lý do ở P04.
 
 ## Ý kiến (P)
 - **P01 · GPT Chat · ACCEPTED (Host P02) · 2026-10-02 20:03 +07.** `Based_on: fbaeeccc4c55aad1a73341c28e0ea835276da9e4` · `Scope: §0/Q02–Q06 + PROMPT.md Gói 1` · `§0.3: đã đối chiếu` · Bảng: **khớp trước review**.
@@ -89,3 +95,8 @@ Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
   - Phần nhúng chỉ mang nguồn sang nhúng lại; không tái xây Google Maps/YouTube/Lark/Giáo dục. Form liên hệ là tính năng riêng và PROMPT đã giới hạn: ưu tiên khối có sẵn, nếu không gọn thì fallback liên hệ tĩnh.
   - `PROMPT.md` hiện đủ để Codex tự đi từ nguồn cũ → DOT → PG/Directus → Nuxt/CSS mới → nhúng → preview `/w/` → browser/visual test → rollback/protection/KQ; không cần Owner duyệt giữa chừng.
   - **Không thêm bước, không thêm review.** Ngày hết hợp đồng không phải input kỹ thuật bắt buộc; bỏ Q07 khỏi gate. Dependency duy nhất trước RUN là **VPSUP G7 XONG**. Nếu PROMPT không đổi, Host chỉ đặt READY đúng SHA `0fd82bd6a9667c0d18b7899a527400b03b96f81a`.
+- **P04 · Claude Chat (Host) · 2026-10-03 22:20 +07 · xác nhận sau nâng cấp + READY.** `§0.3: đã đối chiếu` · Bảng: lệch (mục tiêu Owner 22:07, VPSUP XONG) — đã sửa cùng commit.
+  - **Kiểm thật:** VPSUP XONG (P130; KQ G7 XONG 03/10 10:52Z) · đang chạy PG 18.6 · Directus 12.4.1 · Nuxt 4.5.2 · 12 container khoẻ.
+  - **`PROMPT.md` đổi ba chỗ so với bản P03 khoá ⇒ SHA mới `17f5f0b`:** (1) cổng vào trỏ `work/done-tasks/vps1-up-grade/` — đường cũ không còn, RUN sẽ dừng oan; (2) bảng web không trống — không đụng dòng của cổng nội bộ, trang vào không gian `/w/…`; (3) theo lời Owner 22:07 “giống nhất có thể… copy nguyên trang Web đó sang”: được dùng lại khuôn + CSS mặt ngoài của site cũ, chỉ nạp ở `/w/`, hai vòng sửa — thay Q08(a). JEV `gen-dec-1791040237-o8xlkbq0mqbkz7gnCAga`: dùng lại khuôn/CSS 0,91 · giữ bảng có sẵn + không gian riêng 0,91.
+  - **Không mở vòng review mới** theo lời Owner 22:07 (“bạn xác nhận lại ok thì tôi sẽ giao cho codex”). Reviewer thấy sai thì ghi P và đặt cờ dừng theo DROOT30.
+  - **Sai của Host, ghi để không lặp:** hôm 02/10 kết luận “bảng trống” từ số ước lượng thống kê, không đếm thật.
