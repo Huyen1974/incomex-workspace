@@ -12,11 +12,9 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - **Cửa vào phiên mới:** `WS gốc · Host GPT · tiếp quản phiên 2026-09-23 · đọc AGENTS.md → COLLAB.md · làm theo mục Handoff phiên mới; trước khi thao tác một việc phải đọc COLLAB.md của việc đó.`
 
 ## Đang làm
-- `work/gsm-access-audit/` · GSM · Host Claude · audit caller/tần suất + tồn kho version Google Secret Manager; PROMPT GSM-A1 chỉ đọc READY, chờ RUN cho Claude Code CLI.
-- `work/hermes-joint-workspace/` · HJW · **CLOSED 27/09/2026** · FINAL `f56c205`, Host P62 + Founder P63; FD1–FD5 đã áp nền tại `d0202c2`. Runtime control vẫn live ở chế độ DUYỆT TỪNG VIỆC, AUTO rỗng. Residual direct-signal/lifecycle/lease + runtime visibility chuyển MCPW; Nuxt → VPSC.
-- `work/vps-clean-20-9-26/` · VPSC · Claude mở việc: đĩa VPS 87% (trống 13GB, ~3 tuần chạm 95%) — PROMPT khảo sát chỉ đọc chờ GPT review; xoá thật chờ R03 CLOSED. Quan sát mới từ HJW: Nuxt đã tự restart nhiều lần, lượt 26/09 do V8 heap sau ~26h; không phải OOM host/không causal HJW — đưa vào vòng ổn định VPS sau, không chặn HJW.
+- `work/gsm-access-audit/` · GSM · Host Claude · **GSM-A1 audit đã XONG** (167 access/30 ngày, không rỉ máu); còn GSM.3–GSM.5: thiết kế giảm call → review/Owner duyệt → triển khai/đo lại. Giữ active.
+- `work/hermes-joint-workspace/` · HJW · **ACTIVE · P94 HERMES READINESS CHECK**: đang HOLD lượt sửa cuối để Hermes tự báo cáo readiness; #22/INV15 thuộc HJW. Còn Hermes report → Host tổng hợp → final D30/D31 → nghiệm thu/CLOSE.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
-- `work/mcp-workspace/` · MCPW · Host GPT · **B1 XONG/ACCEPT · B2A ACCEPT (P66+P67) · B2B PROMPT ACCEPT-with-delta (Claude P69) — chờ Host READY gắn gate soak G4C FINAL, RUN ngay sau soak (~15:02 +07), trước G5** · B2A `RUN_ID MCPW-B2A-LEGACY-ENFORCE-20261001-01` KQ `c4f5902`. **Từ 01/10 01:55Z, khoá chung agent-data CHỈ ĐỌC trên route MCP** (tool ghi → `LEGACY_WRITE_DENIED`; REST `/api/documents…` chưa phủ → B2B). Tạm mất quyền ghi tới B2B: MCP cục bộ Claude Desktop (`lcl-agent-data`) · DOT `dot/iu-cutter-*/upload_kb.py`. Owner cần mở lại tạm thì chỉ cần nói một câu: AI chạy `b2a-ctl.sh legacy compat` trong hồ sơ VPS B2A (apply-v0, không restart). **Cổng ghi hiện hành:** Claude Code executor → `workspace_*` profile `claude-code`; `fs_*` của connector claude.ai dành cho Claude Chat/Reviewer.
 - `work/graph-server/` · GS · Host GPT Chat · D02 product-first (Owner): trial Cognee+Neo4j vs Graphiti+Neo4j; Claude P02→P03 đồng ý; chờ Hermes; nguyên tắc R1 khoá ở §0.
 - `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
 - `work/pg-nhan-balo/` · PGNB · **Mục tiêu D16/P17:** chỉ các đối tượng **đã có Balo**; rà cách dán nhãn cũ → giữ phần hợp lý/sửa phần chưa hợp lý → văn bản hoá thành chuẩn dài hạn cho cả Balo hiện có và Balo mới về sau. Đích: AI/con người trả lời nhanh `đã có chưa? / gần giống đã có chưa? / dùng lại, nâng cấp hay viết mới?` khi số lượng lên hàng nghìn. **P19 khảo sát cách cũ xong; P20 GPT ACCEPT bản đồ và chốt hướng sửa:** một vocabulary miền chuẩn; `nhom` là roll-up của `chuyen_mon`; vai trò gán từ bằng chứng máy thay vì tên; bắt buộc có “làm việc gì” + lifecycle/currentness nhưng ưu tiên biểu diễn bằng trường hiện có trước khi thêm schema; `lop` freeze; exact/near-match/reuse trở thành hợp đồng tìm kiếm. **P21 (03/10 16:15): Host đã soạn bản nháp quy tắc dài hạn v0.1 — `work/pg-nhan-balo/view.html#quy-tac`; chờ Reviewer rà một lượt (P22), rồi thử mẫu. Chưa runtime mutation. DOT 100%; **VPSUP đã terminal XONG P130/P131**, trước runtime chỉ cần re-read DOT/runtime hiện hành và reuse/nâng đường hiện hữu, không tạo đường song song.**
@@ -25,7 +23,11 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đã xong
 - `work/done-tasks/vps1-up-grade/` · **VPSUP XONG 03/10/2026 · P130 Reviewer CLOSE + P131 Host FINAL ACCEPT** · VPS1 production = PG18.6 + Directus12.4.1/OIG + Nuxt4.5.2/Node24.21.0 + nginx1.30.5.
-- Archive: `work/done-tasks/` · vị trí folder là trạng thái Done (DROOT11); tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
+- `work/done-tasks/hpml-view-for-user/` · **CLOSED theo chỉ đạo Owner 23/09** · đã move đúng DROOT11; lịch sử/UI assembly giữ nguyên để tra cứu/mở lại.
+- `work/done-tasks/dns-resilience/` · **TERMINAL · CANCELLED_BY_OWNER 01/10** · DNS/NS Mắt Bão giữ nguyên; 0 Cloudflare production mutation; DNS0 giữ làm inventory/reference.
+- `work/done-tasks/vps-clean-20-9-26/` · đã archive Done từ trước; bỏ khỏi danh sách active stale.
+- `work/done-tasks/mcp-workspace/` · đã archive Done từ trước; bỏ khỏi danh sách active stale.
+- Archive: `work/done-tasks/` · **một nơi duy nhất cho việc terminal** theo DROOT11; tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
 
 ## Quyết định Owner
 - DROOT01 · 2026-09-20 · Mọi công việc nằm dưới `work/<work-id>/`; không đặt prompt/test/evidence/archive của công việc ở root.
