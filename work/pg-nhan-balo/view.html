@@ -38,14 +38,14 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 </head>
 <body><main>
 <h1>Luật nhãn PG — mở balo là biết có gì, dùng lại được gì, thừa gì</h1>
-<p class="mut" id="trang-thai">Bản v1.4 · 03/10/2026 08:15 · luật/vị trí không đổi · Host đã chạy thử trọn phần dựng nhãn trên PostgreSQL 16 và 18 · lệnh sửa thêm 6 chỗ lệch máy thật, chờ GPT xác nhận · chưa chạy trên máy chủ · không tắt, không xoá</p>
+<p class="mut" id="trang-thai"><strong>D13 — phạm vi cũ bên dưới đã bị Owner thu hồi.</strong> RUN hiện hành chỉ: tìm vật chưa có nhãn → dán nhãn theo cơ chế Balo hiện hữu → reconcile/verify. Không tạo hệ nhãn, bảng, cột, FK hay report mới. Nội dung 5 trục phía dưới chỉ còn là lịch sử thảo luận, không phải lệnh thực thi.</p>
 
 <span class="tang">PHẦN CHO OWNER</span>
 
 <section class="card quyet" id="quyet">
 <h2>Hôm nay anh cần quyết</h2>
-<p><strong>🙂 Anh chưa chuyển lệnh cho Codex.</strong> Tôi đã tự chạy thử trọn phần dựng nhãn trên hai bản PostgreSQL (16 đang dùng và 18 sắp lên) với đủ 2.148 dòng thật: chạy được, PG chặn đúng giá trị sai. Nhưng khi đọc mã công cụ bảo vệ và công cụ kiểm trang, tôi thấy lệnh còn 6 chỗ nói lệch máy thật; để nguyên thì Codex dừng lần ba. Tôi đã sửa thẳng vào lệnh.</p>
-<p><strong>Việc của anh, theo thứ tự:</strong> 1 · chuyển một khối cho GPT để xác nhận phần sửa · 2 · cho phiên Hermes chạy xong lượt vá công cụ bảo vệ · 3 · quay lại đây, tôi kiểm máy rồi đưa đúng một câu cho Codex · 4 · nâng PG chạy sau cùng.</p>
+<p><strong>Không cần anh quyết thêm về thiết kế.</strong> Mục tiêu đã được sửa về đúng yêu cầu: chỉ dán nhãn cho vật đang thiếu nhãn để Balo nhận/phân loại; vật đã có nhãn giữ nguyên.</p>
+<p><strong>Việc tiếp theo:</strong> Host đọc lại PROMPT tối giản và mở READY; Codex tự tìm phần thiếu nhãn, dry-run, dán và verify trong một lượt.</p>
 </section>
 
 <section class="card" id="tien-do">
@@ -53,10 +53,9 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <div class="bar">
 <div class="xong">1 · Khảo sát ✓</div>
 <div class="xong">2 · Luật ✓</div>
-<div class="dang">3 · Lệnh đã thử trên PG 16/18, sửa 6 chỗ · chờ GPT xác nhận ▶</div>
-<div>4 · Anh dán lệnh · Codex đặt biển, dán nhãn</div>
-<div>5 · Nghiệm thu PG · đối soát sổ DOT</div>
-<div>6 · Anh quyết theo khối</div>
+<div class="xong">3 · Owner reset scope ✓</div>
+<div class="dang">4 · Host READY → Codex dán phần thiếu nhãn ▶</div>
+<div>5 · Reconcile/verify · nghiệm thu</div>
 </div>
 </section>
 
