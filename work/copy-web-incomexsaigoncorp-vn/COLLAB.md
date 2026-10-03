@@ -5,14 +5,14 @@ Host: Claude Chat · Host_ID: CLAUDE-CWEB-261002-A · Owner giao 02/10/2026
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chốt cuối 03/10/2026 22:30: mục tiêu là **copy web cũ sang VPS của Incomex, chạy giống cũ nhất có thể, rồi chuyển DNS sang để duy trì khoảng thời gian tạm trước khi xây lại toàn bộ**; web cũ dự kiến hết hạn khoảng 1 tuần nữa. Nếu dùng PG/Directus thì dữ liệu phải **tách thành nhóm/collection nhìn tên là biết thuộc web Incomex và có ghi chú rõ để không lẫn về sau**. Quy trình: hội đồng chốt kỹ thuật → Host READY → Owner dán một dòng RUN → Codex làm. **Chưa cho phép:** đổi DNS / chuyển tên miền chính trong RUN dựng trang thử.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-03 23:00 +07 · Codex (Executor) · STARTED CWEB-E2E-20261003-02
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-03 23:59 +07 · Codex (Executor) · KQ DỪNG CWEB-E2E-20261003-02
 - 🎯 **Mục tiêu — Owner chốt cuối 03/10 22:30:** copy toàn bộ web hiện tại từ bên cũ sang VPS của Incomex → kiểm cho chạy/hiển thị **giống cũ nhất có thể** → sau khi kỹ thuật đạt thì chuyển DNS sang VPS để chạy tạm; web cũ còn khoảng **1 tuần** trước khi hết hạn; xây lại toàn bộ web là việc sau. Phần nhúng bê đúng nguồn sang. Nếu dùng PG/Directus, dữ liệu web này phải có namespace/group/ghi chú riêng, không lẫn hệ khác.
 - 🏁 **Xong khi:** (1) 29 địa chỉ cũ có bản tương ứng trên VPS, desktop/mobile nhìn giống cũ nhất có thể và không link/ảnh hỏng; (2) Maps · YouTube · Lark · Giáo dục và form liên hệ hoạt động/fallback đúng phạm vi; (3) dữ liệu web tạm nằm trong namespace Directus riêng `web_incomex`, collection/file đều ghi chú rõ nguồn/đích; **không ghi vào collection dùng chung**; (4) trang thử `/w/` PASS và có rollback/protection; (5) bước kỹ thuật tiếp theo chỉ còn cutover DNS theo lệnh Owner.
 - 📍 **Tiến độ:** `✅ mở việc · ✅ điều tra site cũ · ✅ nâng cấp máy chủ XONG · ✅ mục tiêu chốt cuối · ✅ PROMPT v02 sửa namespace · ✅ READY v02 · ■ 😊 Owner dán RUN → Codex làm trọn tới trang thử · ⬜ cutover DNS`
 - ✅ **Đã xong:** Host điều tra thật 02/10 20:30 qua trình duyệt của Owner: **5 trang · 14 bài · 73 ảnh · 29 địa chỉ, đều mở được**; phần nhúng: Google Maps (chân trang, mọi trang) · YouTube (`/gioi-thieu/`) · liên kết Lark wiki (bài đơn hàng) · liên kết cổng giaoduc (menu); tính năng: form liên hệ (`/lien-he/`). P01 (GPT) → Host nhận ở P02.
-- ■ **Đang làm:** 🤖 Codex nhận Owner RUN trực tiếp, STARTED `CWEB-E2E-20261003-02`; READY khớp `39c1d17168a7948ea1498cc25b92739d82760b11`, G7 XONG, đúng PG18.6/Directus12.4.1/Nuxt4.5.2 và `/w` chưa dùng. Sổ phiên hiện chỉ có executor HJW đang chờ người, không đang đổi VPS1. Đang chụp nguồn và chuẩn bị DOT tới trang thử.
+- ■ **Đang làm:** 🤖 Codex đã ghi KQ **DỪNG** `CWEB-E2E-20261003-02`: chụp nguồn xong và giữ trên VPS; PRE-PROTECT không đạt (đèn #22 đỏ trước mutation CWEB). Chưa nạp Directus hoặc dựng `/w/`.
 - ⬜ **Còn lại:** Host re-READY → 😊 Owner dán một dòng → 🤖 Codex làm trọn một RUN tới trang thử → Host nghiệm thu → chuyển DNS theo lệnh Owner.
-- ➡ **Kế tiếp:** 🤖 Codex làm liền từ chụp nguồn → namespace/DOT → `/w/` → browser/hồi quy/bảo vệ/rollback → KQ; Host nghiệm thu rồi Owner ra lệnh cutover DNS riêng.
+- ➡ **Kế tiếp:** Host đọc KQ và đối chiếu cổng bảo vệ trước lệnh chạy tiếp; bản chụp đã kiểm hash được giữ trong hồ sơ CWEB để dùng lại.
 - ⛔ **Không làm/để sau:** làm lại hay cải tiến web · sửa nội dung · dựng lại phần nhúng (chỉ nhúng lại) · bảng/collection ngoài khu `web_incomex` · ghi vào collection dùng chung · RUN chụp riêng · tìm kiếm, bình luận, đăng nhập · đụng production trước G7 · đụng DNS khi chưa có lệnh · đuổi giống từng điểm ảnh.
 
 ### 1. Mục tiêu
@@ -79,6 +79,22 @@ Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
 - Q09 · **ĐÓNG · P05 GPT:** dữ liệu web Incomex dùng namespace riêng `web_incomex`, đúng 2 collection + folder file riêng + note metadata; không dùng collection chung.
 
 ## RUN / KQ
+- KQ@CWEB-E2E-20261003-02 DỪNG · PRE-PROTECT FAIL: `INV15.kuma_telegram_coverage` — đèn #22 `MCPW Protection Guard` đỏ trước mutation CWEB; → việc `work/hermes-joint-workspace/` (P98); dừng theo DROOT37, không sửa bảo vệ của việc khác.
+  - Số liệu: bài **14 chụp / 0 nạp** · trang **5 chụp / 0 nạp** · tệp **73 chụp (69 ảnh + 4 PDF) / 0 nạp** · địa chỉ **29 cũ 200 / 0 trang thử được nghiệm thu** · DOT mới **0 production; 2 nguồn chuẩn bị + 1 wrapper lưu bằng chứng** · commit STARTED `a5abc3087016249f9dc2dc741f08f80cab2d7b75`; KQ + 3 dòng Bảng + `view.html#kiem-ke` cùng commit chứa dòng này.
+  - Cổng vào đã kiểm: READY/PROMPT last-touch `39c1d17168a7948ea1498cc25b92739d82760b11`; PG18.6/Directus12.4.1/Nuxt4.5.2 đúng live; G7 XONG; `/w` chưa dùng. HJW P98 chỉ PRE/read-only, đang chờ mutation; không có runtime conflict tại gate.
+  - A đã hoàn tất từ máy Owner: JSON 5/14/9/16/73; HTML 29 đường dẫn chuẩn; 267 tài nguyên; 12 ảnh chuẩn của đúng 6 trang ở 1366/390. Bản chụp giữ tại `/opt/incomex/work/copy-web-incomexsaigoncorp-vn/chup/`; 318 tệp nguồn + 13 tệp bằng chứng khớp SHA256. Các HTML trùng đường `//` của lượt đầu được giữ làm dấu vết, số địa chỉ chuẩn vẫn là 29.
+  - Sai khác điều tra: WordPress trả **69 ảnh + 4 PDF**, không phải 73 ảnh. Hai lượt gặp curl 16 (HTTP/2 framing), đã chờ ≥5′ và thử lại; HTTP/1.1 giữ nguyên nguồn/IP. `phone-icon.png` 404 chỉ là tham chiếu CSS không dùng: inventory trình duyệt của cả 6 mẫu không có tệp này; bằng chứng và lỗi gốc được giữ, không tự tạo ảnh.
+  - B–H sau PRE chưa thực hiện: chưa bootstrap/nạp/permission; chưa sửa nguồn Nuxt/nginx, chưa deploy, chưa thử form/row/hồi quy/so ảnh mới. Không thao tác PG/Directus trực tiếp; không đổi DNS. `dot-web-incomex.py` trong hồ sơ là **bản nháp chưa hoàn chỉnh, chưa cài/đăng ký, chưa dùng**. Lưu bằng chứng qua `cweb-evidence-stage.py`: dry-run mặc định, execute chỉ hồ sơ, verify và rollback giữ bằng chứng; không production mutation.
+  - Hai mũ: Executor chụp và chuẩn bị nguồn; tự rà lại cổng bảo vệ/luật DROOT37 trước mutation. JEV là tham khảo thêm, không cấp phép/chặn: `gen-dec-1791045497-X70p1MAz9jvf4tb6tgVj` (stop_hjw 0,72; upgrade_cweb 0,27). Quyết định dừng căn cứ quy tắc và PRE thật.
+  - **ĐÈN: 21 xanh · 1 đỏ** · #22 `MCPW Protection Guard` → HJW; snapshot `2026-10-03T16:50:02Z`, paused=0, unknown=0. Wrapper lưu bằng chứng verify EXIT 0; rollback không có runtime/data đã triển khai, EXIT 0.
+  - PRE thật: `evidence/guard-pre-CWEB-E2E-20261003-02-20261003T163224Z.json` (13 checks PASS, 1 FAIL). POST-PROTECT/receipt chưa chạy vì chưa triển khai; không dùng lỗi baseline để báo XONG.
+  - Manifest SHA256 `397e9df3dd8874db4136db77addcd3363fbc6055ce1845656c236a3e22532682`; archive SHA256 `a04e7f51eeaa890e1bd970c072908cad84799d0689cd2b7ef1906c49fe941e74`. Lần lưu đầu bị auto-review timeout trước execution; lần thử lại được duyệt, wrapper execute/verify thành công.
+  - Output thật (không coi nguồn chụp PASS là production PASS):
+    ```text
+    INV15.kuma_telegram_coverage FAIL đèn «MCPW Protection Guard» đỏ
+    GUARD PRE CWEB-E2E-20261003-02: FAIL
+    {"verify": "PASS", "source_files": 318, "evidence_files": 13, "counts": {"pages": 5, "posts": 14, "categories": 9, "tags": 16, "media": 73}, "routes": 29, "bad": []}
+    ```
 - STARTED@CWEB-E2E-20261003-02 2026-10-03T15:59:31Z · executor=codex · Owner RUN trực tiếp; read-gate PASS, READY khớp PROMPT v02; G7 XONG, `/w` trống, không executor khác đang đổi VPS1.
 - ~~READY v01 `17f5f0bf8d4c68134e85a5b1d3b2b1d74194c473` · RUN_ID `CWEB-E2E-20261003-01`~~ — **INVALID** do Owner 22:30 đổi yêu cầu data separation và `PROMPT.md` đã sửa.
 - READY@39c1d17168a7948ea1498cc25b92739d82760b11 · RUN_ID `CWEB-E2E-20261003-02` · Host Claude Chat · 2026-10-03 22:50 +07 · `PROMPT.md` v02 · chờ Owner dán RUN.
