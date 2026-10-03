@@ -1,5 +1,5 @@
 # COLLAB — copy-web-incomexsaigoncorp-vn
-Tên việc: Web incomexsaigoncorp.vn không bị ngừng khi hết hợp đồng bên cũ — chạy tạm trên hệ của mình, gần giống, nhúng lại phần nhúng
+Tên việc: Web incomexsaigoncorp.vn không bị ngừng khi hết hợp đồng bên cũ — chạy tạm trên hệ của mình, giống cũ nhất có thể, nhúng lại phần nhúng
 Host: Claude Chat · Host_ID: CLAUDE-CWEB-261002-A · Owner giao 02/10/2026
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
