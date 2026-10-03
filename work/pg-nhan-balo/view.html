@@ -37,27 +37,88 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 </style>
 </head>
 <body><main>
-<h1>Luật nhãn PG — mở balo là biết có gì, dùng lại được gì, thừa gì</h1>
-<p class="mut" id="trang-thai"><strong>D13 — phạm vi cũ bên dưới đã bị Owner thu hồi.</strong> RUN hiện hành chỉ: tìm vật chưa có nhãn → dán nhãn theo cơ chế Balo hiện hữu → reconcile/verify. Không tạo hệ nhãn, bảng, cột, FK hay report mới. Nội dung 5 trục phía dưới chỉ còn là lịch sử thảo luận, không phải lệnh thực thi.</p>
+<h1>Nhãn Balo — nhìn nhãn là biết: đã có chưa, gần giống chưa, dùng lại hay viết mới</h1>
+<p class="mut" id="trang-thai">Bản v2.0 · 03/10/2026 12:00 · đường đi: rà cách dán nhãn cũ → chốt một quy tắc dài hạn → chuẩn hoá balo đã có. Đang ở bước rà. Chưa dán gì trên máy chủ. Phần “Lịch sử 02/10” ở dưới không phải lệnh.</p>
 
 <span class="tang">PHẦN CHO OWNER</span>
 
 <section class="card quyet" id="quyet">
 <h2>Hôm nay anh cần quyết</h2>
-<p><strong>Không cần anh quyết gì.</strong> Việc chỉ còn một câu: điền các ô đang trống của balo, đủ và đúng. Đo thật 03/10: cả 2.148 vật đã có balo; trang Hàm đã đủ (654); <strong>ba trang Bảng (385) · View (699) · Trigger (410) đang trống</strong>.</p>
-<p><strong>Việc tiếp theo:</strong> 🤖 Codex điền ba trang đó theo đúng cách đã điền trang Hàm (trigger theo hàm nó gọi, view theo bảng nó đọc). Không bảng mới, cột mới, trang mới. 🙂 Anh chuyển một khối cho GPT xác nhận một dòng, rồi một câu cho Codex.</p>
+<p><strong>Không cần anh quyết gì.</strong> Bước rà cách dán nhãn cũ đã xong, kết quả ở bản đồ bên dưới. Tóm một câu: <strong>cách cũ hỏi đúng câu nhưng dán theo tên, nên sai hơn một phần tư và chưa giúp tìm “cái gần giống”</strong>.</p>
+<p><strong>Việc tiếp theo:</strong> 🙂 anh chuyển một khối cho GPT để rà lại bản đồ. 🤖 Hai bên khớp rồi mới viết quy tắc. Chưa dán gì trên máy chủ.</p>
 </section>
 
 <section class="card" id="tien-do">
 <h2>Tiến độ</h2>
 <div class="bar">
-<div class="xong">1 · Khảo sát ✓</div>
-<div class="xong">2 · Luật ✓</div>
-<div class="xong">3 · Owner reset scope ✓</div>
-<div class="dang">4 · GPT xác nhận một dòng → Codex điền 3 trang trống ▶</div>
-<div>5 · Reconcile/verify · nghiệm thu</div>
+<div class="xong">1 · Mục tiêu ✓</div>
+<div class="xong">2 · Rà cách dán nhãn cũ ✓</div>
+<div class="dang">3 · GPT rà lại bản đồ ▶</div>
+<div>4 · Viết quy tắc dài hạn</div>
+<div>5 · Thử trên mẫu</div>
+<div>6 · Chuẩn hoá balo đã có</div>
+<div>7 · Kiểm tìm nhanh</div>
 </div>
 </section>
+
+<section class="card" id="muc-tieu">
+<h2>Nhãn để làm gì</h2>
+<p>Để 🤖 AI (người giám sát) trả lời nhanh ba câu trước khi làm một việc: <strong>cái này đã có chưa · cái gần giống đã có chưa · dùng lại, nâng cấp hay viết mới</strong>. Quy tắc phải dùng được lâu dài, cho cả balo mới về sau.</p>
+</section>
+
+<section class="card" id="ban-do">
+<h2>Bản đồ nhãn hiện có (đo trên máy 03/10)</h2>
+<p class="leg"><span class="xanh">xanh · ổn</span><span class="vang">vàng · giúp một phần</span><span class="do">đỏ · trống hoặc sai</span><span class="xam">xám · chưa từng dùng</span> x = ô này không nhằm trả lời câu đó</p>
+
+<h3>1 · Ô nào đã điền</h3>
+<div class="wrap"><table>
+<tr><th>Ô trên balo</th><th>Hàm 654</th><th>Bảng 385</th><th>View 699</th><th>Trigger 410</th></tr>
+<tr><td>Nhóm</td><td class="o xanh">654</td><td class="o do">0</td><td class="o do">0</td><td class="o do">0</td></tr>
+<tr><td>Loài (vai)</td><td class="o xanh">654</td><td class="o do">0</td><td class="o do">0</td><td class="o do">0</td></tr>
+<tr><td>Chuyên môn</td><td class="o xanh">654</td><td class="o do">0</td><td class="o do">0</td><td class="o do">0</td></tr>
+<tr><td>Ghi chú</td><td class="o xanh">654</td><td class="o do">0</td><td class="o do">0</td><td class="o do">0</td></tr>
+<tr><td>Lớp</td><td class="o xam">0</td><td class="o xam">0</td><td class="o xam">0</td><td class="o xam">0</td></tr>
+<tr><td>Active</td><td class="o xam">0</td><td class="o xam">0</td><td class="o xam">0</td><td class="o xam">0</td></tr>
+</table></div>
+
+<h3>2 · Mỗi ô có giúp ba câu hỏi không</h3>
+<div class="wrap"><table>
+<tr><th>Ô</th><th>Trả lời câu gì</th><th>Đang dùng</th><th>Đã có chưa?</th><th>Gần giống chưa?</th><th>Dùng lại được?</th><th>Vướng ở đâu</th></tr>
+<tr><td>Tên · nơi lưu · loại vật</td><td>máy tự điền</td><td class="o">2.148</td><td class="o xanh">được</td><td class="o">x</td><td class="o">x</td><td>đúng 100%</td></tr>
+<tr><td>Chuyên môn</td><td>thuộc miền việc nào</td><td class="o">29 mã</td><td class="o vang">một phần</td><td class="o vang">một phần</td><td class="o">x</td><td>gán theo tên; nhóm to nhất 188 vật; chưa có định nghĩa từng mã</td></tr>
+<tr><td>Nhóm</td><td>miền việc, tên cho người đọc</td><td class="o">16 tên</td><td class="o vang">một phần</td><td class="o vang">một phần</td><td class="o">x</td><td>chỉ là phép gộp của Chuyên môn</td></tr>
+<tr><td>Loài (vai)</td><td>gọi được không, đọc hay ghi</td><td class="o">5 vai</td><td class="o">x</td><td class="o">x</td><td class="o do">sai 27%</td><td>116/425 hàm lệch sự thật trên máy; 45 hàm ghi “gọi được” thật ra là hàm trigger</td></tr>
+<tr><td>Kiểm soát</td><td>phải qua cổng trước khi gọi</td><td class="o">có / không</td><td class="o">x</td><td class="o">x</td><td class="o vang">trùng</td><td>giống hệt Loài (654/654)</td></tr>
+<tr><td>Ghi chú</td><td>mô tả 7 thẻ</td><td class="o">654 dòng</td><td class="o vang">một phần</td><td class="o do">không</td><td class="o vang">một phần</td><td>mục đích, từ khoá = tên hàm viết lại; hai thẻ trùng Loài; thẻ “bằng chứng” thì tốt</td></tr>
+<tr><td>Lớp</td><td>nguyên tử, phân tử…</td><td class="o">0</td><td class="o xam">—</td><td class="o xam">—</td><td class="o xam">—</td><td>khái niệm anh đã bỏ</td></tr>
+<tr><td>Active</td><td>còn hoạt động không</td><td class="o">0</td><td class="o xam">—</td><td class="o xam">—</td><td class="o xam">—</td><td>chưa có định nghĩa</td></tr>
+</table></div>
+
+<h3>3 · Một ví dụ: “đã có cái quét vật mồ côi chưa?”</h3>
+<p>Trên máy đang có <strong>22 vật</strong> liên quan: 8 hàm, 3 bảng, 8 view, 3 trigger. Tám hàm nằm rải ở 3 mã chuyên môn và 3 vai; 14 vật còn lại không có nhãn. Hôm nay AI chỉ tìm ra chúng bằng cách dò chữ “orphan” trong tên. Có hàm bản 1 và bản 2, không nhãn nào nói bản nào đang dùng.</p>
+
+<h3>4 · Giữ gì, sửa gì</h3>
+<div class="wrap"><table>
+<tr><th class="xanh">Giữ</th><th class="do">Sửa</th></tr>
+<tr><td>Mỗi vật một balo, một bảng duy nhất</td><td>Dán theo tên (386/425 hàm) → dán theo sự thật máy đọc được</td></tr>
+<tr><td>Phần máy tự điền: tên, nơi lưu, loại, còn hay mất</td><td>Một ý ghi ở 4 chỗ → một chỗ</td></tr>
+<tr><td>Hai câu hỏi “thuộc miền nào” và “gọi được không”</td><td>Thiếu câu “làm việc gì” và “bản nào đang dùng” → không tìm được cái gần giống</td></tr>
+<tr><td>Thẻ “bằng chứng”: nhãn tự khai căn cứ</td><td>5 bộ từ khác nhau cho cùng câu “thuộc miền nào” (16 · 29 · 23 · 29 · 35 giá trị) → một bộ</td></tr>
+<tr><td>Chỉ lấp ô trống; không chắc thì để trống</td><td>Ba trong bốn loại vật chưa có nhãn; Lớp, Active bỏ không</td></tr>
+</table></div>
+
+<h3>5 · Bốn cách dán nhãn đã từng dùng</h3>
+<div class="wrap"><table>
+<tr><th>Khi nào</th><th>Dán gì, ở đâu</th><th>Phủ</th><th>Vì sao chưa đủ</th></tr>
+<tr><td>trước 06/2026</td><td>Bảng nhãn riêng, 10 câu hỏi (chuyên môn, vai, hành động, giai đoạn…), máy tự dán</td><td class="o">907.531 dòng</td><td>dán cho bản ghi, không dán cho bảng, view, hàm; quá nhiều, không ai đọc</td></tr>
+<tr><td>06/2026</td><td>Balo: một bảng, 7 ô</td><td class="o">2.148 vật</td><td>ô để trống, chờ quy tắc</td></tr>
+<tr><td>23/07/2026</td><td>Quy tắc cho Hàm, điền 654 hàm</td><td class="o">1 trong 4 loại</td><td>dán theo tên</td></tr>
+<tr><td>29/07 – 03/08</td><td>Ghi chú dài trên từng vật (mã hệ, vùng…)</td><td class="o">100% vật</td><td>văn xuôi 2–3 nghìn chữ mỗi vật, không lọc được</td></tr>
+</table></div>
+<p class="mut">Số đo và nguồn: COLLAB.md mục P19.</p>
+</section>
+
+<span class="tang">LỊCH SỬ 02/10 — đề xuất 5 nhãn đã thu hồi, không phải lệnh</span>
 
 <section class="card" id="tem">
 <h2>Mỗi vật một tem, năm câu hỏi</h2>
