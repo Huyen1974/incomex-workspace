@@ -1,6 +1,6 @@
 # PROMPT — pg-nhan-balo
 RUN_ID: PGNB-LABEL-20261002-03
-Bản lệnh: v4 · 03/10/2026 · P08 + P09 hardening sau KQ DỪNG RUN -01/-02. **Vẫn một PROMPT v4, không tạo bản lệnh mới.** Luật, 5 nhãn và phạm vi PG lõi không đổi; P09 siết preflight để bắt lỗi dự báo được trước mutation. **P10 (Host, 03/10 08:15):** thêm 6 điểm Host đo được khi tự chạy thử trên PostgreSQL 16.15 và 18.4 tại chỗ và đọc mã Guard/verify — đánh dấu «P10» ngay tại chỗ; không đổi luật, 5 nhãn, phạm vi PG.
+Bản lệnh: v4 · 03/10/2026 · **P11 rút gọn điều hành** sau khi P10 đã chạy thử phần PG trên 16.15/18.4. Vẫn một PROMPT, không tạo v5. Chi tiết thử nghiệm/bug công cụ nằm ở COLLAB P10; prompt này chỉ giữ việc Codex phải làm + chốt an toàn bắt buộc.
 Executor_Surface: Codex
 Write_Path: repo = cổng `workspace_*` (hoặc `fs_*` nếu bề mặt bind được) · VPS1 = chỉ qua các DOT ở §1.5
 Trạng thái: chỉ chạy khi `COLLAB.md` có `READY@<sha>` trùng commit cuối chạm file này, và Owner đã RUN.
@@ -8,30 +8,20 @@ Trạng thái: chỉ chạy khi `COLLAB.md` có `READY@<sha>` trùng commit cu�
 ## 0. Một câu
 Đặt luật nhãn lên hiện trường và dán 4 nhãn đầu cho mọi vật còn tồn tại trong `balo_thuc_the` (VPS1, database `directus`). **Chỉ dán nhãn.** Không tắt, không xoá, không dời, không đổi cấu hình PG. Đích: Owner mở trang “Balo theo khối”, 30 giây là biết khối nào cần rà.
 
-**Cách chạy lượt này: thử hết rồi mới quyết, không dừng ở lỗi đầu tiên** (§1.5–§1.6). Mục tiêu là chạy tới KQ trong một RUN.
+**Codex tự làm trọn gói.** Trước mutation chỉ smoke các cổng thật một lần; lỗi thì gom đủ và DỪNG một lần. Đạt thì chạy thẳng tới KQ, không quay lại hội đồng giữa chừng.
 
 ## 1. Read-gate (trước mọi thay đổi production)
 1. Đọc `AGENTS.md` → `work/pg-nhan-balo/COLLAB.md` (§0, Bảng, D01–D11, P01–P10, KQ của RUN -01 và -02) → file này → `view.html`: `#C` (từ điển + câu thử), `#bien` (vị trí, mẫu B1/T0/B3), `#cot` (cột + khoá nhãn), `#so-dot`. **Luật nằm ở `view.html`; file này không chép lại luật.** Trước khi bảng luật tồn tại trong PG, `view.html` là bản luật để làm.
 2. `READY@` trong COLLAB = commit cuối chạm `PROMPT.md`. Lệch → DỪNG.
 3. Ghi `STARTED@PGNB-LABEL-20261002-03 <UTC> · executor=Codex` vào COLLAB + sửa dòng ■/➡/`cập nhật` của Bảng (MT4, DROOT31).
-4. **Cổng va chạm production của chính RUN:** kiểm lại READY/HOLD/STOP của `pg-nhan-balo` ngay trước mutation đầu tiên và sau mọi khoảng chờ (DROOT30). Không điều hành, xếp lịch hay sửa task khác (DROOT37). Nếu DOT/shared guard/lock hiện hữu báo đang có mutation production khác trên VPS1 thì DỪNG an toàn và chỉ ghi blocker; không tự xử lý việc kia. **«P10» Hai điều kiện chờ, tự đọc ngay ở read-gate (DROOT37: việc này tự đọc trạng thái việc kia, không điều hành):** (a) `work/vps1-up-grade/COLLAB.md` có `STARTED@` của một RUN G7 mà chưa có `KQ@` cùng RUN ⇒ DỪNG ngay, không chạy phép thử nào trên VPS1 (đang chuyển PG; giữa hai việc chưa có khoá máy). (b) Guard chưa đạt điều kiện ở N6 ⇒ DỪNG ở bảng năng lực. Host chỉ đặt READY khi đã thấy cả hai điều kiện qua; executor vẫn tự kiểm lại lúc chạy.
-5. **Bảng năng lực — thử thật MỌI dòng, gom kết quả, rồi mới quyết.** “Đổi production” = làm đổi PG, Directus, `table_registry` hoặc runtime. Tạo file SQL/spec và thêm dòng manifest trong phạm vi §2 để thử **không** tính là đổi production. File cũ của RUN -02 (`balo-nhan-doc-registry.sql`) để nguyên làm bằng chứng, không dùng.
-
-| # | Cần | Dùng (Host đã đối chiếu mã DOT 03/10) | Phép thử trước khi đổi production | Bắt buộc? |
-|---|---|---|---|---|
-| N1 | Đọc PG | `dot-pg-atomic-apply <file.sql>` với file chỉ có SELECT (một tham số; file dưới `/opt/incomex/dot/sql/`; có dòng sha256 trong `approved-sql-manifest.tsv`; chạy bằng role `workflow_admin`) | chạy thật một file đọc, ví dụ đếm balo theo `loai_census`; phải in kết quả | CÓ |
-| N2 | Ghi cấu trúc + dữ liệu | cùng cổng | **hai lớp bắt buộc:** (a) các file B1/B6 + manifest chạy với `PG_CONTAINER=__pgnb_validation_never__` phải qua path/hash/guard rồi dừng rc=3; (b) chạy một file probe thật qua cùng DOT, chỉ tạo TEMP dictionary + TEMP balo-probe trong cùng session rồi áp **đúng 4 biểu thức STORED + 4 FK tổ hợp** như thiết kế cuối, insert vài dòng hợp lệ; rc=0. TEMP tự biến mất khi session kết thúc, không để lại schema production. Không PASS (b) thì cấm DDL thật. | CÓ |
-| N3 | Ghi chú bảng balo | `dot-pg-label-apply [--check] <file.sql>`; file dưới `/opt/incomex/dot/sql/labels/`; dòng trong `approved-label-manifest.tsv` (công cụ không tự thêm) | `--check` trên file T0 (soạn sau khi đọc ghi chú hiện có bằng N1) | CÓ |
-| N4 | Hai trang báo cáo sống | `dot-report-publish --spec-file <json> [--dry-run]` (v2: ghi registry nội bộ, không cần admin Directus); spec ở `/opt/incomex/dot/specs/` | **thử chính công cụ report:** tạo hai spec cuối cùng với đúng id/route/shape nhưng `view_sql` probe chỉ đọc hằng hoặc `balo_thuc_the` hiện có; chạy `--dry-run` cả hai phải PASS. `dot-table-ui-verify --table-id tbl_report_pg` hiện hữu cũng PASS. Sau B1/B6, thay `view_sql` bằng truy vấn cuối và `--dry-run` lại từng spec trước publish. **«P10» Bẫy của `dot-table-ui-verify` (Host đã tái hiện):** phép so xếp các dòng theo chuỗi JSON; phía API giữ thứ tự cột của SELECT, phía PG theo thứ tự khoá jsonb (tên ngắn trước) ⇒ `view_sql` của CẢ HAI trang phải có **cột đầu tiên tên `stt`** = số thứ tự duy nhất (`row_number() OVER (…)::int`), mọi cột khác tên từ 4 ký tự trở lên, và không trả cột kiểu `date` (ép sang chữ). Sai một điều ⇒ verify báo `live rows differ` dù dữ liệu đúng, và lúc đó dòng registry đã ghi. Hai mẫu sẵn có `report_home`, `report_pg` đều mở bằng `stt`; mẫu truy vấn đã thử ở `view.html#ddl-mau`. | CÓ |
-| N5 | Làm mới balo | `dot-balo-reconcile --verify` / `--sync` | `--verify` PASS | CÓ |
-| N6 | POST-PROTECT + đèn + known-good | cơ chế DROOT29/DROOT34 hiện hữu (`mcpw-protection-guard`, bảng đèn `tin_bao`) | **trước mutation:** xác định executable/CLI thật; đọc được bảng đèn bằng `mcpw-protection-guard tin-bao` hoặc nguồn `logs/bang-den.json` hiện hành; chốt exact PRE/snapshot local (0 GitHub anonymous), exact POST `mcpw-protection-guard post --pre <file> --receipt "<đổi gì>" --run "<RUN · commit>" --rollback <script>`. Phải có coverage D30/D31 cho footprint thật và một đường `rollback/known-good` được Guard chấp nhận. Với DDL additive không DROP qua cổng, known-good chỉ được chấp nhận nếu N2 TEMP PASS + B0 đủ + các write path cũ/regression giữ nguyên; nếu Guard yêu cầu rollback vật lý mà không có DOT hợp lệ → N6 HỎNG, cấm mutation. **«P10» Sự thật Host đọc từ mã `/opt/incomex/scripts/mcpw-protection-guard` (bản 03/10 08:00):** CLI thật là `pre --label <L> [--out <thư mục>]` và `post --label <L> --pre <file> [--allow '<regex>'] --receipt … --run … --rollback <đường dẫn> [--out …]`; **`--label` là bắt buộc**. POST so snapshot với PRE: khoá nào đổi mà không khớp `--allow` ⇒ FAIL và không gửi biên nhận; RUN này chắc chắn làm đổi `git.ws.*` và `git.gh.*` (commit STARTED/KQ lên repo) ⇒ phải khai đúng hai nhóm khoá đó trong `--allow`; khoá khác đổi thì không nới, ghi rõ nguyên nhân. `--rollback` chỉ cần là đường dẫn có thật. **Bản Guard đang chạy gọi 1 REST GitHub ẩn danh ở mỗi `pre` và mỗi `post`** (ngân sách AD1 ≤ 2/giờ, periodic đã dùng 1) ⇒ chừng nào bản vá “PRE/POST dùng cache, 0 GitHub ẩn danh” của việc HJW chưa lên thì N6 HỎNG. Kiểm bằng đọc mã Guard đang chạy và KQ của việc HJW; không tự vá Guard, không chạy lặp `pre`/`post` để thử; trong RUN mỗi lệnh `pre` và `post` chạy đúng một lần. | CÓ |
-| N7 | Đổi tên cột 4 trang balo | đường này đã biết phụ thuộc admin Directus và đang hỏng | **KHÔNG CHẠY trong RUN -03.** Giữ 4 spec/trang cũ nguyên trạng; chỉ kiểm chúng vẫn mở được ở B10. Đầu việc đổi tên/ẩn `Lớp` giữ OPEN cho lượt sau khi đường admin được sửa. | KHÔNG |
-
-6. **Quy tắc quyết định**
-   - Thử đủ N1–N6 dù có dòng hỏng. Mọi dòng “CÓ” đạt → **chạy tiếp ngay, không hỏi lại**. Có dòng “CÓ” hỏng → DỪNG **một lần** với danh sách đầy đủ mọi dòng hỏng + lệnh + output thật.
-   - Guard từ chối file vì chuỗi cấm (§5.1): viết lại câu SQL để không nêu tên vật (lọc theo `stt`, hoặc để PG tự lấy tên từ catalog lúc chạy). RUN này **không cần đọc hay ghi trực tiếp** bảng nào thuộc danh sách cấm; nếu thấy cần → bước đó sai thiết kế: bỏ nếu không bắt buộc, DỪNG nếu bắt buộc. Không nới guard, không dùng mẹo ghép chuỗi để nhắm vào các bảng đó.
-   - Sau khi đã đổi production: mỗi file SQL là một giao dịch. Lỗi ở bước bắt buộc → dừng tại đó và làm đúng đường rollback/known-good mà N6 đã chốt; không tự bịa đường lùi. B8c/B9 không chạy trong RUN này nên không thể tạo lỗi giữa chừng.
-   - Thiếu năng lực thật → không làm tay, không viết DOT mới, không sửa mã DOT trong RUN này.
+4. **Một cổng an toàn chung:** ngay trước mutation, kiểm READY/HOLD/STOP của chính việc + shared production lock/Guard theo AGENTS. Nếu máy đang bận bởi mutation khác hoặc Guard chung chưa healthy ⇒ DỪNG một lần với `BLOCKER HẠ TẦNG CHUNG`; không đọc/điều hành task khác để tự xử lý.
+5. **Preflight tối thiểu — Codex tự làm, không quay lại hội đồng:**
+   - `dot-pg-atomic-apply`: chạy một SELECT thật; kiểm các file SQL cuối qua path/hash/guard. P10 đã integration-test DDL/ràng buộc trên PG 16.15 và 18.4 với đủ 2.148 dòng; **không dựng lại lab**. Chỉ TEMP-probe lại nếu live PG/schema khác bằng chứng P10.
+   - `dot-pg-label-apply --check`: dùng đúng `sql/labels/` + label manifest.
+   - `dot-report-publish`: dry-run hai spec bằng truy vấn probe trên vật đang có; sau khi có dữ liệu mới dry-run truy vấn cuối. Dùng đúng mẫu đã thử ở `view.html#ddl-mau`.
+   - `dot-balo-reconcile --verify`: phải PASS.
+   - Shared production Guard: dùng **CLI chuẩn hiện hành của hệ thống**, không chép/reimplement tham số Guard trong prompt này. Guard/preflight phải healthy trước mutation; POST-PROTECT theo AGENTS DROOT29/DROOT34 sau mutation.
+   - Thử hết các mục trên rồi mới quyết. Có lỗi ⇒ báo **một KQ DỪNG duy nhất** liệt kê đủ blocker. Tất cả đạt ⇒ chạy thẳng B0→B10, không hỏi lại.
 
 ## 2. Được đổi — danh sách đóng
 **PostgreSQL `directus.public`**
@@ -81,7 +71,7 @@ Trạng thái: chỉ chạy khi `COLLAB.md` có `READY@<sha>` trùng commit cu�
 - **B9 · ĐỂ OPEN.** Q10 sổ DOT, T1 (`AGENTS.md`) và T2 (KB) không thuộc đường bắt buộc của RUN -03; không đọc/sửa task khác để “bàn giao” hay cập nhật sổ (DROOT37). KQ chỉ ghi chúng còn OPEN.
 - **B10 · Làm mới, hồi quy, POST-PROTECT.** Chụp nhãn theo `khoa_nhan_dien` → `dot-balo-reconcile --sync` → chụp lại: không mất/đổi nhãn, không nhân dòng; bảng `balo_tu_dien_nhan` xuất hiện thành dòng mới → dán theo luật (SỐNG=`CHUA-RO` vì sinh sau mốc). SQL dán nhãn chạy lại không đụng `ket_luan`. 4 trang balo cũ + 2 trang mới mở bằng browser thật; `dot-balo-reconcile --verify` PASS. Sau đó chạy POST-PROTECT đúng kế hoạch N6 trên **footprint PRE→POST thật**: D30 regression · D31 integrity/drift · watchdog/self-check · rollback/known-good. POST phải gửi receipt Telegram và lưu `message_id`/delivery proof. Cuối cùng đọc bảng đèn thật bằng đường N6 và ghi `ĐÈN: n xanh · m đỏ`; đèn đỏ thuộc PGNB hoặc thiếu receipt ⇒ chưa XONG.
 
-## 5. Bẫy đã biết (Host đã đối chiếu mã và số liệu thật)
+## 5. Bằng chứng kỹ thuật đã kiểm — tham khảo, không tạo thêm gate
 1. `dot-pg-atomic-apply` từ chối mọi file chứa chuỗi `meta_catalog`, `birth_registry`, `table_registry`, `v_registry_`, `qt001_` — **kể cả file chỉ có SELECT, kể cả trong chú thích hay dữ liệu** (RUN -02 dừng vì điều này). ⇒ không file nào của việc này được chứa các chuỗi đó: SQL khoá theo `stt`; tên bảng (nếu cần) do PG lấy từ catalog lúc chạy; cột `vi_du` của từ điển tránh các tên đó; ảnh chụp 01/08 không nạp vào PG (B4 tính ở ngoài). Cổng cũng chặn `DELETE FROM`, `TRUNCATE`, mọi `DROP`, `BEGIN/COMMIT/ROLLBACK/SAVEPOINT` ở đầu câu lệnh (khối `DO $$ … $$` thì được), và dòng bắt đầu bằng `\`.
 2. Cổng atomic chặn mọi DROP ⇒ DDL additive không có đường DROP qua cổng. Vì vậy **không được dùng câu “để nguyên là vô hại” làm rollback**. Trước mutation phải PASS N2 TEMP-probe + N6 rollback/known-good; sau mutation phải PASS regression write path cũ và POST-PROTECT. N6 không chấp nhận known-good ⇒ DỪNG trước DDL thật.
 3. Cột tự sinh không được tham chiếu cột tự sinh khác: biểu thức khoá tính từ `khoa_nhan_dien`, không từ `loai_census`.
@@ -107,7 +97,7 @@ Trạng thái: chỉ chạy khi `COLLAB.md` có `READY@<sha>` trùng commit cu�
 
 ## 7. KQ
 Ghi vào `work/pg-nhan-balo/COLLAB.md` một khối ngắn `KQ@PGNB-LABEL-20261002-03 XONG|DỪNG` (kèm sửa ■/➡/`cập nhật` của Bảng):
-- bảng N1–N7: từng dòng ĐẠT/HỎNG + lệnh + output thật; N7 ghi `DEFERRED theo P09`, không chạy;
+- preflight tối thiểu: từng cổng PASS/FAIL + lệnh/output thật; nếu FAIL phải là danh sách đầy đủ trong một lần;
 - số vật đã dán đủ · **báo riêng** số `CHUA-RO` theo từng nhãn và số `Không đo được`; kỳ đo thật của SỐNG;
 - các khối cần rà (toàn rỗng / đứng yên / tự quay) — là dấu hiệu, không phải kết luận;
 - các đầu việc deferred: đổi tên cột/ẩn `Lớp`, Q10, T1, T2;
