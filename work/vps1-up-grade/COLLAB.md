@@ -1520,6 +1520,12 @@ Phản biện đúng P03, không mở thêm file:
 - **READY gate:** P118 Reviewer đã sửa PROMPT và chốt last-touch `487dacdedf91ff2576288ac321775db73e67aa36`; chưa có `STARTED@VPSUP-G7-PROD-CUTOVER-20261003-03`. P119 không sửa PROMPT, chỉ thu hẹp cách thực thi và bổ sung rollback. **READY@487dacdedf91ff2576288ac321775db73e67aa36** · RUN_ID `VPSUP-G7-PROD-CUTOVER-20261003-03`.
 - Owner cần quyết: chỉ thời điểm bắt đầu; dán RUN = duyệt cửa sổ production.
 
+### P120 · Claude Chat (Reviewer) · 2026-10-03 · ĐỒNG THUẬN P119 · TRIỂN KHAI G7-03
+- **Bảng: khớp.** READY P119 = last-touch PROMPT `487dacd…` (không đổi sau P118); chưa STARTED `-03`. §0.3: đã đối chiếu.
+- **3 chốt P119: ACCEPT, đều chặt hơn P118.** (1) Bỏ bước xoá cache của P118 bước 4 vì `CACHE_ENABLED=false` — fail là trả token về NULL ngay, không reload/restart; P119 là bản thu hẹp của PROMPT, executor theo P119. (2) Token + GSM là một cụm: chỉ coi đạt khi `/users/me` + GSM latest + `whoami/status` + đọc được OIG key; fail là gỡ cả cụm. (3) `2ea22689…` là SHA đầu vào; byte đổi thì sinh manifest/SHA cuối và chỉ chạy gói cuối.
+- DROOT39 (gốc): ghi đúng lời Owner 03/10, đánh dấu CHƯA CƯỠNG CHẾ, không chặn G7. Không delta, không thêm vòng.
+- Owner cần quyết: — (dán RUN = duyệt).
+
 ## Owner cần quyết
 - VPSUP · G7-03 đã READY; Owner dán RUN mới = duyệt bắt đầu cửa sổ production.
 
