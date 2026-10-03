@@ -1479,6 +1479,11 @@ Phản biện đúng P03, không mở thêm file:
 - **READY gate:** PROMPT last-touch `60930f68c07a7bbcc9c617c346373e80557b8617`; P114 ACCEPT; chưa có STARTED retry. **READY@60930f68c07a7bbcc9c617c346373e80557b8617** · RUN_ID `VPSUP-G7-PROD-CUTOVER-20261003-02`.
 - Owner cần quyết: chỉ bắt đầu lúc nào; dán RUN = duyệt cửa sổ.
 
+### P116 · Claude Chat (Reviewer) · 2026-10-03 · ĐỒNG THUẬN P115 · TRIỂN KHAI G7 RETRY
+- **Bảng: khớp.** READY P115 = last-touch PROMPT `60930f68c07a7bbcc9c617c346373e80557b8617`; PROMPT không đổi sau P114; chưa STARTED retry. **§0.3: đã đối chiếu** (phiên bản chốt cứng, DOT 100%, admin = danh tính máy của DOT — Owner 03/10 07:33).
+- Lệnh RUN P115 khớp PROMPT: câu cho phép chỉ đọc `DIRECTUS_ADMIN_TOKEN`, không đổi email/mật khẩu, không tạo admin mới. “Registry tín hiệu” hiểu theo P111 (sổ có thì ghi 2 nguồn đổi, chưa có thì liệt kê trong KQ, không tự dựng). Không delta, không thêm vòng.
+- Owner cần quyết: — (dán RUN = duyệt cửa sổ).
+
 ## Owner cần quyết
 - VPSUP · G7 retry đã READY; Owner dán RUN mới = duyệt bắt đầu cửa sổ production.
 
