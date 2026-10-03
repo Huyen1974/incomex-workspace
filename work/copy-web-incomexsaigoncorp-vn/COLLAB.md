@@ -5,15 +5,15 @@ Host: Claude Chat · Host_ID: CLAUDE-CWEB-261002-A · Owner giao 02/10/2026
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chốt cuối 03/10/2026 22:30: mục tiêu là **copy web cũ sang VPS của Incomex, chạy giống cũ nhất có thể, rồi chuyển DNS sang để duy trì khoảng thời gian tạm trước khi xây lại toàn bộ**; web cũ dự kiến hết hạn khoảng 1 tuần nữa. Nếu dùng PG/Directus thì dữ liệu phải **tách thành nhóm/collection nhìn tên là biết thuộc web Incomex và có ghi chú rõ để không lẫn về sau**. Quy trình: hội đồng chốt kỹ thuật → Host READY → Owner dán một dòng RUN → Codex làm. **Chưa cho phép:** đổi DNS / chuyển tên miền chính trong RUN dựng trang thử.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-03 22:30 +07 · GPT Chat (Reviewer) · P05/D07: mục tiêu cuối + namespace riêng · READY cũ mất hiệu lực, chờ Host re-READY
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-03 22:50 +07 · Claude Chat (Host) · P06: nhận P05/D07, không blocker · READY v02 — chờ Owner dán RUN
 - 🎯 **Mục tiêu — Owner chốt cuối 03/10 22:30:** copy toàn bộ web hiện tại từ bên cũ sang VPS của Incomex → kiểm cho chạy/hiển thị **giống cũ nhất có thể** → sau khi kỹ thuật đạt thì chuyển DNS sang VPS để chạy tạm; web cũ còn khoảng **1 tuần** trước khi hết hạn; xây lại toàn bộ web là việc sau. Phần nhúng bê đúng nguồn sang. Nếu dùng PG/Directus, dữ liệu web này phải có namespace/group/ghi chú riêng, không lẫn hệ khác.
 - 🏁 **Xong khi:** (1) 29 địa chỉ cũ có bản tương ứng trên VPS, desktop/mobile nhìn giống cũ nhất có thể và không link/ảnh hỏng; (2) Maps · YouTube · Lark · Giáo dục và form liên hệ hoạt động/fallback đúng phạm vi; (3) dữ liệu web tạm nằm trong namespace Directus riêng `web_incomex`, collection/file đều ghi chú rõ nguồn/đích; **không ghi vào collection dùng chung**; (4) trang thử `/w/` PASS và có rollback/protection; (5) bước kỹ thuật tiếp theo chỉ còn cutover DNS theo lệnh Owner.
-- 📍 **Tiến độ:** `✅ mở việc · ✅ điều tra site cũ · ✅ nâng cấp máy chủ XONG · ✅ mục tiêu chốt cuối · ✅ PROMPT v02 sửa namespace · ■ Host Claude re-READY · ⬜ Owner dán RUN → Codex làm trọn tới trang thử · ⬜ cutover DNS`
+- 📍 **Tiến độ:** `✅ mở việc · ✅ điều tra site cũ · ✅ nâng cấp máy chủ XONG · ✅ mục tiêu chốt cuối · ✅ PROMPT v02 sửa namespace · ✅ READY v02 · ■ 😊 Owner dán RUN → Codex làm trọn tới trang thử · ⬜ cutover DNS`
 - ✅ **Đã xong:** Host điều tra thật 02/10 20:30 qua trình duyệt của Owner: **5 trang · 14 bài · 73 ảnh · 29 địa chỉ, đều mở được**; phần nhúng: Google Maps (chân trang, mọi trang) · YouTube (`/gioi-thieu/`) · liên kết Lark wiki (bài đơn hàng) · liên kết cổng giaoduc (menu); tính năng: form liên hệ (`/lien-he/`). P01 (GPT) → Host nhận ở P02.
-- ■ **Đang làm:** Host Claude **chỉ re-READY** `PROMPT.md` v02 tại commit `39c1d17168a7948ea1498cc25b92739d82760b11`. READY v01 `17f5f0b…` đã vô hiệu vì Owner đổi yêu cầu dữ liệu sau đó. Không mở lại thiết kế/review.
+- ■ **Đang làm:** 😊 Owner dán một dòng RUN `CWEB-E2E-20261003-02` cho 🤖 Codex. `PROMPT.md` v02 đã READY (Host P06).
 - ⬜ **Còn lại:** Host re-READY → 😊 Owner dán một dòng → 🤖 Codex làm trọn một RUN tới trang thử → Host nghiệm thu → chuyển DNS theo lệnh Owner.
-- ➡ **Kế tiếp:** Claude Host đặt READY đúng SHA prompt v02 → 😊 Owner dán RUN → 🤖 Codex chạy tới `https://vps.incomexsaigoncorp.vn/w/` → nghiệm thu → cutover DNS.
-- ⛔ **Không làm/để sau:** làm lại hay cải tiến web · sửa nội dung · dựng lại phần nhúng (chỉ nhúng lại) · bảng PG mới · RUN chụp riêng · tìm kiếm, bình luận, đăng nhập · đụng production trước G7 · đụng DNS khi chưa có lệnh · đuổi giống từng điểm ảnh.
+- ➡ **Kế tiếp:** 😊 Owner dán RUN → 🤖 Codex chạy tới `https://vps.incomexsaigoncorp.vn/w/` → nghiệm thu → cutover DNS.
+- ⛔ **Không làm/để sau:** làm lại hay cải tiến web · sửa nội dung · dựng lại phần nhúng (chỉ nhúng lại) · bảng/collection ngoài khu `web_incomex` · ghi vào collection dùng chung · RUN chụp riêng · tìm kiếm, bình luận, đăng nhập · đụng production trước G7 · đụng DNS khi chưa có lệnh · đuổi giống từng điểm ảnh.
 
 ### 1. Mục tiêu
 Owner chốt cuối, 03/10/2026 22:30 — **đọc trước:** “Mục tiêu cuối cùng là copy được trang Web từ cái cũ sang VPS của chúng ta => sau đó chuyển dns sang. Khoảng độ 1 tuần nữa là web cũ hết hạn => chúng ta sẽ chuyển tạm sang đây rồi xây dựng lại sau. Mục tiêu chỉ cần duy trì cho nó chạy giống với cái cũ nhất có thể.” · “Nếu sử dụng đến PG/Directus thì phải phân rõ nhóm là table/collection ghi chú là của web incomex … để sau này khỏi lẫn lộn.”
@@ -79,8 +79,8 @@ Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
 - Q09 · **ĐÓNG · P05 GPT:** dữ liệu web Incomex dùng namespace riêng `web_incomex`, đúng 2 collection + folder file riêng + note metadata; không dùng collection chung.
 
 ## RUN / KQ
-- ~~READY@17f5f0bf8d4c68134e85a5b1d3b2b1d74194c473 · RUN_ID `CWEB-E2E-20261003-01`~~ — **INVALID** do Owner 22:30 đổi yêu cầu data separation và `PROMPT.md` đã sửa.
-- `PROMPT.md` v02 · commit cuối chạm prompt `39c1d17168a7948ea1498cc25b92739d82760b11` · RUN_ID `CWEB-E2E-20261003-02` · **chờ Host Claude re-READY đúng SHA này; không review lại trừ khi prompt bị sửa tiếp.**
+- ~~READY v01 `17f5f0bf8d4c68134e85a5b1d3b2b1d74194c473` · RUN_ID `CWEB-E2E-20261003-01`~~ — **INVALID** do Owner 22:30 đổi yêu cầu data separation và `PROMPT.md` đã sửa.
+- READY@39c1d17168a7948ea1498cc25b92739d82760b11 · RUN_ID `CWEB-E2E-20261003-02` · Host Claude Chat · 2026-10-03 22:50 +07 · `PROMPT.md` v02 · chờ Owner dán RUN.
 
 ## Ý kiến (P)
 - **P01 · GPT Chat · ACCEPTED (Host P02) · 2026-10-02 20:03 +07.** `Based_on: fbaeeccc4c55aad1a73341c28e0ea835276da9e4` · `Scope: §0/Q02–Q06 + PROMPT.md Gói 1` · `§0.3: đã đối chiếu` · Bảng: **khớp trước review**.
@@ -106,8 +106,12 @@ Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
   - **`PROMPT.md` đổi ba chỗ so với bản P03 khoá ⇒ SHA mới `17f5f0b`:** (1) cổng vào trỏ `work/done-tasks/vps1-up-grade/` — đường cũ không còn, RUN sẽ dừng oan; (2) bảng web không trống — không đụng dòng của cổng nội bộ, trang vào không gian `/w/…`; (3) theo lời Owner 22:07 “giống nhất có thể… copy nguyên trang Web đó sang”: được dùng lại khuôn + CSS mặt ngoài của site cũ, chỉ nạp ở `/w/`, hai vòng sửa — thay Q08(a). JEV `gen-dec-1791040237-o8xlkbq0mqbkz7gnCAga`: dùng lại khuôn/CSS 0,91 · giữ bảng có sẵn + không gian riêng 0,91.
   - **Không mở vòng review mới** theo lời Owner 22:07 (“bạn xác nhận lại ok thì tôi sẽ giao cho codex”). Reviewer thấy sai thì ghi P và đặt cờ dừng theo DROOT30.
   - **Sai của Host, ghi để không lặp:** hôm 02/10 kết luận “bảng trống” từ số ước lượng thống kê, không đếm thật.
-- **P05 · GPT Chat (Reviewer) · OPEN chờ Host re-READY · 2026-10-03 22:30 +07.** `Based_on: 0338c137 + Owner 22:30` · `Scope: mục tiêu + data model + PROMPT.md` · `§0.3: đã đối chiếu`.
+- **P05 · GPT Chat (Reviewer) · ACCEPTED (Host P06) · 2026-10-03 22:30 +07.** `Based_on: 0338c137 + Owner 22:30` · `Scope: mục tiêu + data model + PROMPT.md` · `§0.3: đã đối chiếu`.
   - Mục tiêu cuối đã ghi đúng: **copy web cũ sang VPS → chạy giống cũ nhất có thể → chuyển DNS; khoảng 1 tuần trước khi nguồn cũ hết hạn; xây lại sau**.
   - Phát hiện blocker thiết kế trong READY v01: dùng `posts/pages/categories/forms/inbox` chung sẽ lẫn với cổng nội bộ, trái chỉ đạo mới. Đã sửa prompt v02 sang namespace riêng tối thiểu: `web_incomex_content`, `web_incomex_inbox`, group `web_incomex`, Files folder `web-incomex`, note `[WEB_INCOMEX]`.
   - Đây là **thay đổi bắt buộc theo lời Owner**, không phải mở rộng thiết kế. Hai collection là mức tối thiểu để vừa chứa toàn bộ content vừa tách inbox; chuyên mục/thẻ để field JSON/string, không tạo thêm table.
   - G7 đã XONG và VPS health hiện xanh cho PG/Directus/Nuxt. Không còn blocker kỹ thuật đã biết ngoài việc Host phải re-READY đúng SHA prompt mới. Sau READY, Owner có thể giao Codex ngay; không mở thêm vòng hội đồng.
+- **P06 · Claude Chat (Host) · 2026-10-03 22:50 +07 · nhận P05/D07 + READY v02.** `§0.3: đã đối chiếu` · Bảng: khớp sau sửa.
+  - Đã đọc trọn `PROMPT.md` v02; commit cuối chạm tệp = `39c1d17` (Host kiểm bằng lịch sử tệp). Không thấy blocker mới; không mở lại thiết kế.
+  - Hai điểm Host sẽ kiểm khi nghiệm thu, không chặn RUN: (1) `web_incomex_inbox` có đường ghi công khai cho form — phải không đọc công khai được và không ghi được trường ngoài spec; (2) hai collection mới là bảng PG mới — phải có đăng ký bảo vệ theo DROOT29 như PROMPT ghi.
+  - `view.html` đã cập nhật theo D07 (khu riêng `web_incomex`).

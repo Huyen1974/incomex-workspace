@@ -33,7 +33,7 @@ ul{margin:6px 0 6px 20px;padding:0}
 <body>
 
 <h1>Web incomexsaigoncorp.vn — chạy tạm trên hệ của mình</h1>
-<div class="sub">Bản 4 · 03/10/2026 22:20 · Host: Claude Chat · 🤖 làm: Codex · 😊 = việc của anh</div>
+<div class="sub">Bản 5 · 03/10/2026 22:50 · Host: Claude Chat · 🤖 làm: Codex · 😊 = việc của anh</div>
 
 <div class="decide" id="quyet">
   <div class="t">😊 Việc của anh: dán 1 dòng lệnh cho 🤖 Codex</div>
@@ -71,7 +71,7 @@ ul{margin:6px 0 6px 20px;padding:0}
   <tr><td>Video YouTube</td><td>Giới thiệu</td><td class="g">Nhúng lại</td></tr>
   <tr><td>Liên kết Lark (đơn hàng)</td><td>Bài đơn hàng</td><td class="g">Giữ liên kết</td></tr>
   <tr><td>Liên kết Giáo dục</td><td>Menu</td><td class="g">Giữ liên kết</td></tr>
-  <tr><td>Form liên hệ</td><td>Liên hệ</td><td class="y">Dùng form có sẵn của hệ; không được thì hiện điện thoại + email</td></tr>
+  <tr><td>Form liên hệ</td><td>Liên hệ</td><td class="y">Form gần như cũ, tin nhắn vào khu riêng; lỗi thì hiện điện thoại + email</td></tr>
 </table>
 
 <h2 id="cach-lam">Cách làm — 🤖 Codex, một lần chạy</h2>
@@ -82,22 +82,22 @@ ul{margin:6px 0 6px 20px;padding:0}
 
 <h2 id="vi-du">Ví dụ — thêm một đơn hàng sau này</h2>
 <div class="ex">
-  🤖 chạy <b>một lệnh DOT</b> → thêm 1 dòng vào bảng <code>posts</code> → trang chủ và trang Đơn hàng <b>tự hiện</b>.
+  🤖 chạy <b>một lệnh DOT</b> → thêm 1 dòng vào bảng <code>web_incomex_content</code> → trang chủ và trang Đơn hàng <b>tự hiện</b>.
 </div>
 
-<h2 id="bang">Bảng — đồ có sẵn, 0 bảng mới</h2>
+<h2 id="bang">Bảng — khu riêng “Web Incomex”, không lẫn hệ khác</h2>
 <table>
   <tr><th>Bảng</th><th>Chứa gì</th></tr>
-  <tr><td><code>posts</code></td><td>Bài viết + đơn hàng</td></tr>
-  <tr><td><code>categories</code></td><td>Chuyên mục</td></tr>
-  <tr><td><code>pages</code> + <code>block_html</code></td><td>5 trang tĩnh</td></tr>
-  <tr><td><code>seo</code></td><td>Tiêu đề, mô tả tìm kiếm</td></tr>
-  <tr><td>Tệp Directus</td><td>73 ảnh</td></tr>
+  <tr><td><code>web_incomex_content</code></td><td>5 trang + 14 bài + đơn hàng</td></tr>
+  <tr><td><code>web_incomex_inbox</code></td><td>Tin từ form liên hệ</td></tr>
+  <tr><td>Thư mục tệp <code>web-incomex</code></td><td>73 ảnh</td></tr>
+  <tr><td class="x">Ghi chú trên mỗi bảng</td><td class="x"><code>[WEB_INCOMEX]</code> · incomexsaigoncorp.vn</td></tr>
+  <tr><td class="x">Bảng dùng chung của cổng nội bộ</td><td class="x">x · không ghi vào</td></tr>
 </table>
 
 <h2 id="khong">Không làm</h2>
 <table>
-  <tr><td class="x">Làm lại / cải tiến web · sửa nội dung · bảng mới · tìm kiếm, bình luận, đăng nhập · đụng tên miền khi anh chưa ra lệnh</td></tr>
+  <tr><td class="x">Làm lại / cải tiến web · sửa nội dung · ghi lẫn vào bảng dùng chung · tìm kiếm, bình luận, đăng nhập · đụng tên miền khi anh chưa ra lệnh</td></tr>
 </table>
 
 <h2 id="so-anh">So ảnh: trang cũ ↔ trang mới (6 trang)</h2>
@@ -108,7 +108,7 @@ ul{margin:6px 0 6px 20px;padding:0}
   <ul>
     <li>Site cũ: WordPress + giao diện Flatsome do bên cũ vận hành; 5 trang: gioi-thieu, lien-he, dich-vu, ve-chung-toi, trang chủ; 9 chuyên mục, 16 thẻ.</li>
     <li>Máy chủ bên cũ chặn truy cập tự động từ trung tâm dữ liệu → chụp từ máy anh.</li>
-    <li>Hệ mình: bộ bảng web Agency OS có sẵn, đang trống; DOT nội dung có sẵn.</li>
+    <li>Hệ mình: dữ liệu web công ty ở khu riêng <code>web_incomex</code> (2 bảng + 1 thư mục tệp); không ghi vào bảng dùng chung (D07).</li>
     <li>Trang thử: <code>vps.incomexsaigoncorp.vn/w/</code> — không thêm tên miền.</li>
     <li>Vì sao chờ G7: bản Nuxt mới đã khoá; thêm tệp trước G7 sẽ mất khi chuyển.</li>
     <li>JEV <code>gen-dec-1790947304-VkUKPM1fxo4Rrlclc9xR</code>: một lần chạy sau G7 1,00 · vẽ lại bằng CSS riêng 0,96 · nhúng lại đúng nguồn 1,00.</li>
