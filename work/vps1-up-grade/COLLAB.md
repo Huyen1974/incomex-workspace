@@ -1508,6 +1508,9 @@ Phản biện đúng P03, không mở thêm file:
 - JEV `gen-dec-1790994793-Gunx9l77JH31RugMzd60`: thêm token cho admin active 0,76 · giữ P117 0,20 · bật lại user khoá 0,04 · đặt lại mật khẩu 0.
 - Owner cần quyết: —.
 
+## Owner cần quyết
+- —
+
 ## Con trỏ
 - Luật: ../../AGENTS.md · ../../README.md · ../README.md.
 - Hệ quy trình đích: ../mow-mot-moit-mout/COLLAB.md.
