@@ -38,13 +38,14 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 </head>
 <body><main>
 <h1>Luật nhãn PG — mở balo là biết có gì, dùng lại được gì, thừa gì</h1>
-<p class="mut" id="trang-thai">Bản v1.3 · 03/10/2026 07:42 · luật/vị trí không đổi · RUN -01/-02 đều dừng an toàn trước production · GPT P09 đã tự rà B0→B10 và harden chính PROMPT v4 · chờ Host đặt READY RUN -03 · không tắt, không xoá</p>
+<p class="mut" id="trang-thai">Bản v1.4 · 03/10/2026 08:15 · luật/vị trí không đổi · Host đã chạy thử trọn phần dựng nhãn trên PostgreSQL 16 và 18 · lệnh sửa thêm 6 chỗ lệch máy thật, chờ GPT xác nhận · chưa chạy trên máy chủ · không tắt, không xoá</p>
 
 <span class="tang">PHẦN CHO OWNER</span>
 
 <section class="card quyet" id="quyet">
 <h2>Hôm nay anh cần quyết</h2>
-<p><strong>Không cần anh duyệt thêm kỹ thuật.</strong> GPT đã tự rà từng bước B0→B10, không gật máy móc và đã vá ngay các điểm có thể làm Codex dừng lần ba trên chính PROMPT v4. Claude Host chỉ còn đặt READY đúng commit này; sau đó anh dán một lệnh RUN -03 cho Codex.</p>
+<p><strong>🙂 Anh chưa chuyển lệnh cho Codex.</strong> Tôi đã tự chạy thử trọn phần dựng nhãn trên hai bản PostgreSQL (16 đang dùng và 18 sắp lên) với đủ 2.148 dòng thật: chạy được, PG chặn đúng giá trị sai. Nhưng khi đọc mã công cụ bảo vệ và công cụ kiểm trang, tôi thấy lệnh còn 6 chỗ nói lệch máy thật; để nguyên thì Codex dừng lần ba. Tôi đã sửa thẳng vào lệnh.</p>
+<p><strong>Việc của anh, theo thứ tự:</strong> 1 · chuyển một khối cho GPT để xác nhận phần sửa · 2 · cho phiên Hermes chạy xong lượt vá công cụ bảo vệ · 3 · quay lại đây, tôi kiểm máy rồi đưa đúng một câu cho Codex · 4 · nâng PG chạy sau cùng.</p>
 </section>
 
 <section class="card" id="tien-do">
@@ -52,7 +53,7 @@ ol,ul{margin:6px 0 6px 20px;padding:0}
 <div class="bar">
 <div class="xong">1 · Khảo sát ✓</div>
 <div class="xong">2 · Luật ✓</div>
-<div class="dang">3 · PROMPT v4 đã P09 harden · Host READY ▶</div>
+<div class="dang">3 · Lệnh đã thử trên PG 16/18, sửa 6 chỗ · chờ GPT xác nhận ▶</div>
 <div>4 · Anh dán lệnh · Codex đặt biển, dán nhãn</div>
 <div>5 · Nghiệm thu PG · đối soát sổ DOT</div>
 <div>6 · Anh quyết theo khối</div>
@@ -264,6 +265,47 @@ Luật: đọc bảng balo_tu_dien_nhan, các dòng nhan = 'LUAT', theo thu_tu, 
 <tr><td>Khoá nhãn (máy tự sinh)</td><td><code>k_khoi</code>, <code>k_vai</code>, <code>k_song</code>, <code>k_ketluan</code> (mới, không hiện trên trang)</td><td>để PG kiểm đúng nhãn và đúng loại vật: mỗi cột khoá cùng cột nhãn của nó là một khoá ngoại sang <code>balo_tu_dien_nhan (nhan, gia_tri)</code></td></tr>
 </table></div>
 <p class="mut"><strong>Mã nhãn trong từ điển</strong> (cột <code>nhan</code>): <code>LUAT</code> · <code>KHOI</code> · <code>VAI_BANG</code> · <code>VAI_HAM</code> · <code>VAI_X</code> (view, trigger) · <code>SONG_BANG</code> · <code>SONG_KHONGDO</code> (view, hàm) · <code>SONG_TRIGGER</code> · <code>KETLUAN</code>. <strong>Cột khoá:</strong> <code>k_khoi</code> luôn là <code>KHOI</code>; <code>k_ketluan</code> luôn là <code>KETLUAN</code>; <code>k_vai</code> và <code>k_song</code> tính từ loại vật (phần đầu của <code>khoa_nhan_dien</code>): bảng → <code>VAI_BANG</code>/<code>SONG_BANG</code>, hàm → <code>VAI_HAM</code>/<code>SONG_KHONGDO</code>, view → <code>VAI_X</code>/<code>SONG_KHONGDO</code>, trigger → <code>VAI_X</code>/<code>SONG_TRIGGER</code>. <strong>Bốn khoá ngoại:</strong> (<code>k_khoi</code>, <code>nhom</code>) · (<code>k_vai</code>, <code>loai</code>) · (<code>k_song</code>, <code>active</code>) · (<code>k_ketluan</code>, <code>ket_luan</code>). Ô nhãn trống thì PG không kiểm; thêm giá trị mới chỉ cần thêm một dòng từ điển. <strong>Trên 4 trang balo:</strong> cột hiện tên Khối · Vai · Sống · Dính · Kết luận · Ngày đo; cột Lớp không hiện nữa. <code>chuyen_mon</code>, <code>kiem_soat</code>, <code>ghi_chu</code> giữ nguyên; <code>lop</code> để nguyên, không dùng.</p>
+<h3 id="ddl-mau">Mẫu Host đã chạy thật (PostgreSQL 16.15 và 18.4, đủ 2.148 dòng balo, 03/10)</h3>
+<p class="mut">Chạy sau khi nhãn đã hợp lệ; chạy sớm thì PG từ chối và lùi sạch. Cột khoá tính từ <code>khoa_nhan_dien</code>, phải ghi rõ <code>STORED</code> (PG 18 mặc định là cột ảo, không gắn khoá ngoại được).</p>
+<pre>ALTER TABLE public.balo_thuc_the
+  ADD COLUMN k_khoi text GENERATED ALWAYS AS ('KHOI'::text) STORED,
+  ADD COLUMN k_vai text GENERATED ALWAYS AS (CASE split_part(khoa_nhan_dien, ':', 1) WHEN 'table' THEN 'VAI_BANG' WHEN 'function' THEN 'VAI_HAM' WHEN 'view' THEN 'VAI_X' WHEN 'trigger' THEN 'VAI_X' END) STORED,
+  ADD COLUMN k_song text GENERATED ALWAYS AS (CASE split_part(khoa_nhan_dien, ':', 1) WHEN 'table' THEN 'SONG_BANG' WHEN 'function' THEN 'SONG_KHONGDO' WHEN 'view' THEN 'SONG_KHONGDO' WHEN 'trigger' THEN 'SONG_TRIGGER' END) STORED,
+  ADD COLUMN k_ketluan text GENERATED ALWAYS AS ('KETLUAN'::text) STORED;
+ALTER TABLE public.balo_thuc_the
+  ADD CONSTRAINT balo_nhan_khoi_fk    FOREIGN KEY (k_khoi, nhom)        REFERENCES public.balo_tu_dien_nhan (nhan, gia_tri),
+  ADD CONSTRAINT balo_nhan_vai_fk     FOREIGN KEY (k_vai, loai)         REFERENCES public.balo_tu_dien_nhan (nhan, gia_tri),
+  ADD CONSTRAINT balo_nhan_song_fk    FOREIGN KEY (k_song, active)      REFERENCES public.balo_tu_dien_nhan (nhan, gia_tri),
+  ADD CONSTRAINT balo_nhan_ketluan_fk FOREIGN KEY (k_ketluan, ket_luan) REFERENCES public.balo_tu_dien_nhan (nhan, gia_tri);</pre>
+<p class="mut">Hai truy vấn trang đã qua bộ lọc của <code>dot-report-publish</code> và khớp từng giá trị theo cách so của <code>dot-table-ui-verify</code>. Cột đầu phải là <code>stt</code> duy nhất, các cột khác tên từ 4 ký tự, không trả cột kiểu ngày.</p>
+<pre>-- Luật nhãn
+SELECT row_number() OVER (ORDER BY thu_tu, id)::int AS stt,
+       nhan, gia_tri, ten_hien_thi, ap_cho, cau_thu, vi_du
+FROM balo_tu_dien_nhan
+ORDER BY thu_tu, id
+
+-- Balo theo khối
+SELECT row_number() OVER (ORDER BY COALESCE(b.nhom, chr(1)))::int AS stt,
+       COALESCE(b.nhom, '(chưa dán)') AS khoi,
+       count(*) AS so_vat,
+       count(*) FILTER (WHERE b.loai_census = 'table') AS so_bang,
+       count(*) FILTER (WHERE b.loai_census = 'view') AS so_view,
+       count(*) FILTER (WHERE b.loai_census = 'function') AS so_ham,
+       count(*) FILTER (WHERE b.loai_census = 'trigger') AS so_trigger,
+       count(*) FILTER (WHERE b.loai_census = 'table' AND b.active = 'Rỗng') AS bang_rong,
+       count(*) FILTER (WHERE b.loai_census = 'table' AND b.active = 'Đứng yên') AS bang_dung_yen,
+       count(*) FILTER (WHERE b.loai_census = 'table' AND b.active = 'Tự quay') AS bang_tu_quay,
+       count(*) FILTER (WHERE b.loai_census = 'table' AND b.active = 'Có ghi') AS bang_co_ghi,
+       count(*) FILTER (WHERE b.nhom = 'CHUA-RO' OR b.loai = 'CHUA-RO' OR b.active = 'CHUA-RO') AS chua_ro,
+       count(*) FILTER (WHERE b.active = 'Không đo được') AS khong_do_duoc,
+       sum(b.dinh) AS tong_dinh,
+       CASE WHEN count(b.ket_luan) = 0 THEN NULL
+            WHEN count(DISTINCT b.ket_luan) = 1 AND count(b.ket_luan) = count(*) THEN max(b.ket_luan)
+            ELSE 'lẫn' END AS ket_luan
+FROM balo_thuc_the b
+WHERE NOT b.da_mat
+GROUP BY b.nhom
+ORDER BY 1</pre>
 </section>
 
 <section class="card" id="hoi">
