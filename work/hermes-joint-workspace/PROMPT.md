@@ -1,62 +1,93 @@
 # PROMPT — HJW · ASSIGNMENT CONTRACT V1 + HERMES READINESS CANONICAL
 
 RUN_ID: HJW-ASSIGN-CONTRACT-READINESS-20261003-05
-STATUS: DRAFT — chờ Claude Founder/Reviewer ACCEPT P95 rồi Host READY
+STATUS: Reviewer ACCEPT-with-delta tại HJW P96 (Claude Chat · 03/10) — chờ Host rà delta P96 rồi READY trên commit cuối chạm file này
+Reviewer: Claude Chat · P96 (13 chỉnh, liệt kê ở HJW COLLAB P96)
 Host: GPT Chat · GPT-HJW-260922-A
 Executor_Surface: Claude Code CLI phiên mới
-Write_Path: DOT/script-wrapper hiện hữu; repo qua workspace_*; runtime mutation chỉ qua wrapper quản lý
+Write_Path: DOT/script-wrapper hiện hữu; repo qua workspace_*; runtime mutation chỉ qua wrapper quản lý. Chỉ được nạp lại đúng dịch vụ Hermes của HJW (điều kiện ở §1); không dựng lại/khởi động lại container dùng chung (Agent Data, Claude MCP).
 Owner_authorization: 03/10/2026 — chuẩn hóa giao việc chung, Hermes phải tự readiness rồi Host tổng hợp lỗi trước lượt sửa cuối.
 
 ## 0. Mục tiêu duy nhất của RUN này
+Ba bước, làm đúng thứ tự. Xong bước nào ghi một dòng `BƯỚC <n> PASS · <giờ>` vào mục P của executor trong COLLAB rồi mới sang bước sau; phiên bị ngắt thì phiên mới làm tiếp từ dòng mốc cuối.
+0. **Dọn Guard trước (§1B):** đưa đèn #22 về xanh đúng cách và vá báo động giả D30. Lý do: RUN này sửa file được bảo vệ nên phải chạy PRE/POST của Guard nhiều lần; để nguyên D30 thì chính RUN này lại làm #22 đỏ giả (đã gặp ở P86), và #22 đang đỏ thật.
 1. Cưỡng chế Assignment Contract V1 để mọi AI/Agent/dispatcher dùng cùng một ngôn ngữ.
 2. Sau khi contract + tests PASS, tạo **một assignment canonical** cho Hermes tự kiểm readiness.
-3. Nhận báo cáo Hermes trên repo và KQ; **không sửa D30/D31 trong RUN này**. Host sẽ đọc report rồi gom lỗi vào lượt sửa cuối.
+3. Nhận báo cáo Hermes trên repo và KQ. **Không làm D31 (dựng người canh ngoài máy chủ) và không sửa lỗi do readiness phát hiện trong RUN này** — Host đọc report rồi gom vào lượt cuối.
+
+Chuẩn mọi AI/Agent phải theo nằm ở **AGENTS A9-GLB** (bảng GIAO – LÀM – BÁO) và root **DROOT40**; prompt này là phần làm cho máy cưỡng chế đúng chuẩn đó. Prompt lệch chuẩn ở đâu ⇒ dừng, báo Host, không tự chọn.
+RUN này không đọc, không nhắc, không chờ, không bàn giao cho việc nào khác (DROOT37).
 
 ## 1. PRE / khám phá mã thật
-- Đọc AGENTS → root COLLAB DROOT37–39 → HJW Bảng + P94–P95 → prompt này.
+- Đọc AGENTS (gồm A9-GLB) → root COLLAB DROOT34 · DROOT37 · DROOT38 · DROOT40 → HJW Bảng + §0 + P94–P96 → prompt này. COLLAB HJW nặng ~400 KB: tìm đúng đoạn, không đọc cả file.
+- **Đọc bảng đèn** `/opt/incomex/logs/bang-den.json` (DROOT34) và ghi `ĐÈN: n xanh · m đỏ` + tên đèn đỏ + lý do máy ghi. Lúc Reviewer đọc (03/10 22:20 +07): 22 đèn · 21 xanh · 1 đỏ = #22, lý do `p02`, đỏ từ 10:25 +07.
+- PRE của chính RUN dùng snapshot/state local; **0 request GitHub anonymous**.
 - Xác nhận RUN cũ chưa STARTED; READY cũ hết hiệu lực do prompt này là last-touch mới.
 - Tìm đúng runtime hiện hữu đang: parse assignment → tạo card → xử lý callback approval → queue/claim → wake Hermes → gửi START/RESULT.
 - Ghi đường file/config/job thật + hash trước sửa. Không suy từ tài liệu.
+- **Bản đồ hiện trạng** (≤12 dòng, ghi vào hồ sơ RUN và KQ — Reviewer chưa đọc được mã bộ đọc lệnh nên đây là bằng chứng gốc): bộ đọc lệnh nằm ở file nào · quét những file nào · khớp bằng mẫu gì · ai ghi `claimed` (máy hay model) · vé đang gắn với cái gì · chữ trên thẻ và tin KẾT QUẢ lấy từ đâu · hạn chạy một việc là bao lâu · thẻ chờ bao lâu thì hết hạn · còn vé/lệnh dạng cũ nào đang treo.
+- **Giữ phần CONTROL-B đã nghiệm thu** (vé một lần, sổ cái, chống trùng, cổng 0-token trước khi gọi model, khuôn thẻ S8): RUN này chỉ thay bộ đọc đầu vào, nguồn chữ trên thẻ, cách khóa nội dung, hàng chờ và định dạng kết quả. Phần nào đã có và test còn PASS thì không viết lại.
+- **Sửa ở phía Hermes trước** (plugin `hjw-control`, `hjw_gate.py`, job `ws-dispatch`). Buộc phải sửa mã trong container dùng chung, hoặc cần credential/route/token mới ⇒ DỪNG trước mutation, KQ DỪNG kèm bản đồ + phương án.
+- **Nạp lại dịch vụ:** chỉ đúng dịch vụ Hermes của HJW, qua wrapper chuẩn, khi không có việc Hermes nào đang chạy, có đường lùi; không làm trong 07:55–08:10 +07.
 - Không tạo service/DB/bot/token/route mới; reuse đường HJW hiện hữu.
 - Legacy -01/-02 nếu đang có chỉ là evidence; không dùng làm acceptance canonical.
+- Vé/lệnh dạng cũ còn treo trong sổ cái ⇒ cho hết hạn sạch (0 model), liệt kê trong KQ.
+
+## 1B. Bước 0 — dọn Guard trước khi sửa gì khác
+1. **Đèn #22 (đang đỏ vì `p02`).** `p02` = ảnh / giờ khởi động / mã nguồn của hai container cổng (`incomex-agent-data`, `incomex-claude-mcp`) khác mốc Guard đã chốt. Nếu lúc chạy #22 đã xanh ⇒ ghi lại, bỏ qua mục này. Còn đỏ ⇒ kiểm ngay trên máy: hai container healthy · ảnh và giờ khởi động khớp một lần deploy/khởi động lại có dấu vết qua đường chuẩn · mã các file được canh khớp mã nguồn đang deploy. Khớp ⇒ chốt lại mốc bằng **lệnh chuẩn sẵn có của Guard** (không sửa tay file trạng thái, không nới ngưỡng, không tắt phép kiểm), rồi xác nhận #22 xanh trên Kuma. Không khớp, không giải thích được, hoặc không có lệnh chuẩn ⇒ DỪNG với KQ đuôi `GUARD_BLOCKED:p02 <lý do>`; không làm tiếp.
+2. **Vá D30 + ghi lỗ D31 vào sổ.** Làm đúng §2 + §3 + §4 (mục 1–4, 6, 7) + §5 của khối `VÒNG TRƯỚC — HJW FINAL D30/D31` bên dưới (đã rà ở P92); riêng bảng coverage ở §5 chỉ tính D30/watchdog/rollback. **Không làm §3B (dựng người canh ngoài)** — dòng sổ `Người canh ngoài máy chủ` giữ `hỏng: HJW-D31 (chờ dựng)` để bản tin 08:00 nói thật. D30 không đạt ⇒ rollback về bytes trước RUN, DỪNG với KQ đuôi `GUARD_BLOCKED:D30 <lý do>`; không làm tiếp.
+3. Xong: ghi `BƯỚC 0 PASS` + dòng `D30: 4x PRE/POST · anonymous_git=0 · rest_anon_delta=0 · #22_no_false_red=PASS · stale_mutants=PASS · ConfigGuard=CLEAN` + `ĐÈN: n xanh · 0 đỏ`.
+
+Mọi PRE/POST của Guard ở các bước sau dùng đường đã vá; `rest_anon` tăng vì RUN này ⇒ dừng, coi như D30 chưa đạt.
 
 ## 2. Assignment Contract V1 — parser bắt buộc
 Trong COLLAB HJW dùng đúng machine-zone:
 `<!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->`
-`ASSIGN_V1 {"id":"...","to":"Hermes","role":"Reviewer|Agent","generation":1,"state":"open|claimed|done|blocked","approval":"owner","task":"...","output":"...","read":["..."],"write":["..."],"spec_ref":"...","run":"... optional"}`
+`ASSIGN_V1 {"id":"...","to":"Hermes","role":"Reviewer|Agent","generation":1,"state":"open|claimed|done|blocked","task":"...","output":"...","read":["..."],"write":["..."],"spec_ref":"...","run":"... optional"}`
 `<!-- MACHINE_ASSIGNMENTS_V1:END -->`
 
 Luật:
-- Chỉ dòng bắt đầu **cột 1** bằng `ASSIGN_V1 ` và nằm giữa đúng hai marker mới được parse.
+- **Vùng máy ở đâu:** trong `COLLAB.md` của chính việc đang mở cần Hermes (`work/<việc>/COLLAB.md`); việc đã đóng (`done-tasks`) và mọi file khác = inert. Phạm vi file bộ đọc quét giữ như hiện tại — ghi rõ vào bản đồ; nếu hiện tại khác `work/*/COLLAB.md` thì ghi lệch vào KQ, không tự mở rộng.
+- **Marker là nguyên một dòng:** cả dòng đúng bằng marker, bắt đầu cột 1. Nhắc tên marker trong câu văn/backtick = inert. Mỗi file đúng MỘT vùng; hai BEGIN, thiếu END, vùng lồng nhau ⇒ cả vùng vô hiệu + báo lỗi (§3).
+- Chỉ dòng bắt đầu **cột 1** bằng `ASSIGN_V1 ` hoặc `RESULT_V1 ` và nằm giữa đúng hai marker mới được parse; mỗi record là một dòng JSON.
 - Mọi legacy `ASSIGN@`, prose, quote, backtick, code sample, lịch sử ngoài zone = inert.
-- Required: id,to,role,generation,state,approval,task,output,read,write,spec_ref. task/output rỗng hoặc "." = invalid.
-- Identity người giao lấy từ gateway/Git author server-side, không từ field JSON.
+- Required: id,to,role,generation,state,task,output,read,write,spec_ref. task/output rỗng hoặc "." = invalid. `to` chỉ nhận `Hermes`. `id` không trùng trong file. Trường ngoài danh sách (trừ `run`) ⇒ invalid.
+- **Không có trường `approval`:** chạy tự động hay chờ Owner do cấu hình máy chủ quyết (hiện `AUTO_ALLOWLIST` rỗng ⇒ việc nào cũng chờ Owner bấm); người giao không tự khai quyền.
+- `read`/`write` là đường file cụ thể (kèm tên đoạn nếu file lớn); Hermes không đọc/ghi ngoài danh sách.
+- Identity người giao lấy từ gateway/Git author server-side, không từ field JSON. Người giao là Hermes (tự giao cho mình) ⇒ invalid.
 - role=Agent có mutation phải thêm `run=<RUN_ID hiện hành>` và vẫn qua A6 READY/RUN/HOLD; Reviewer không được tự mutation production.
-- `spec_ref` phải unique trong cùng task; dispatcher hash canonical JSON + bytes spec để bind approval.
+- **Khối SPEC:** `spec_ref` = mã của một khối nằm cùng file, giữa hai dòng marker nguyên dòng `<!-- SPEC_V1:<mã>:BEGIN -->` và `<!-- SPEC_V1:<mã>:END -->`; mỗi mã đúng một khối; thiếu khối ⇒ invalid. SPEC phải tự đủ: việc gì, đọc đúng đoạn nào, ghi ở đâu, đầu ra là gì, khi nào thì `blocked`.
+- **Khóa nội dung:** hash = sha256(JSON chuẩn hóa của record **bỏ trường `state`** + bytes giữa hai marker SPEC). Đổi `state` (claim, done) không đổi hash; đổi bất kỳ chữ nào khác ⇒ hash đổi.
 
 ## 3. Approval / claim / queue
-- Record valid + state=open ⇒ gửi đúng 1 card PENDING APPROVAL; 0 model.
-- Owner bấm Cho chạy ⇒ tạo ticket bền: assignment id + generation + content/spec hash + approved_at + Owner identity. AI không bấm thay.
+- Record valid + state=open ⇒ gửi đúng 1 card PENDING APPROVAL; 0 model. Chữ trên thẻ lấy từ trường: người giao (theo commit) → Hermes · `task` · `output` · chỉ đọc hay có ghi (theo `write`) · `id` + `generation`. Khuôn thẻ S8 giữ nguyên.
+- **Sai thì phải kêu:** record/vùng/SPEC không hợp lệ ⇒ 0 card, 0 model, và đúng MỘT tin «LỆNH KHÔNG HỢP LỆ» (mã hoặc số dòng + chỗ sai + người giao) về khung chat Hermes; cùng một lỗi không nhắc lại ở nhịp sau. Im lặng không được vừa mang nghĩa “không có việc” vừa mang nghĩa “lệnh hỏng”.
+- Owner bấm Cho chạy ⇒ tạo ticket bền: file + assignment id + generation + hash (§2) + approved_at + Owner identity. AI không bấm thay.
 - Record/spec đổi sau duyệt ⇒ ticket invalid, không claim; muốn đổi phải generation+1 và duyệt lại.
 - Approval không đồng nghĩa START. Với `cron.max_parallel_jobs=1`: nếu slot bận, card chuyển `ĐÃ DUYỆT · XẾP HÀNG`; queue order approved_at rồi id.
-- Khi slot rảnh: deterministic gate → expected_version claim open→claimed → gửi BẮT ĐẦU thành công → mới wake model.
+- Khi slot rảnh: deterministic gate → **máy** ghi claim open→claimed (expected_version) → gửi BẮT ĐẦU thành công → mới wake model.
+- **Đề bài máy đưa Hermes khi đánh thức** = đúng record + đúng bytes khối SPEC đã được duyệt (cùng hash) + danh sách `read`/`write`. Hermes không phải đi tìm lệnh trong COLLAB và **không xét lại “lệnh có thật không”**: đã được đánh thức bằng vé hợp lệ thì làm đúng SPEC; không làm được ⇒ `blocked` + lý do + ai nhận tiếp. Không có kết quả kiểu “không thấy việc”.
+- **Quá hạn:** `claimed` mà hết hạn chạy sẵn có vẫn chưa có RESULT hợp lệ (kể cả do không gửi được BẮT ĐẦU) ⇒ máy tự ghi `blocked` + `RESULT_V1` lý do quá hạn, gửi tin KẾT QUẢ, nhả lượt cho việc đang xếp hàng. Dùng con số hạn hiện có, ghi vào KQ.
 - Telegram lỗi trước BẮT ĐẦU ⇒ không wake.
 - Hai record cùng id+generation: exact replay idempotent; khác nội dung = invalid/conflict, không chọn đại.
 
 ## 4. Kết quả chuẩn
 Hermes hoàn tất phải trong cùng commit:
 - đổi canonical record claimed→done|blocked;
-- ghi detailed report tại report_ref;
-- ghi `RESULT_V1 {"id":"...","generation":1,"status":"done|blocked","summary":"...","commit":"<40hex>","next":"...","report_ref":"..."}`.
+- ghi báo cáo chi tiết thành một mục P trong cùng file (số mục đó = report_ref);
+- ghi `RESULT_V1 {"id":"...","generation":1,"status":"done|blocked","summary":"...","next":"...","report_ref":"..."}`.
+Dòng `RESULT_V1` nằm trong vùng máy, cột 1, như record. `report_ref` = số mục P báo cáo trong cùng file (ví dụ `P97`); mục đó phải có thật. `summary` ≤ 300 ký tự, nói kết quả, không kể quá trình.
+**Mã commit do máy điền, Hermes không tự khai:** một commit không thể chứa mã của chính nó; máy lấy mã của commit đã đưa dòng RESULT vào (tác giả phải là identity Hermes phía server) rồi đưa lên tin KẾT QUẢ.
 Telegram KẾT QUẢ lấy từ RESULT_V1/structured state; không suy prose.
 Blocked phải nêu blocker + ai/việc nào nhận tiếp. Không tự mở quyền.
 
 ## 5. Test cưỡng chế trước khi giao Hermes
+**Chạy trên fixture/cách ly:** A–Q không gửi tin nào tới Owner và không cần Owner bấm (callback Owner giả lập trong fixture; không ghi lệnh thử vào COLLAB thật của việc nào). R là quan sát trên máy thật, không tạo tin. Lượt thật duy nhất trên kênh Owner là thẻ readiness ở §6.
 Bắt buộc PASS:
 A. prose chứa nguyên legacy marker + state=open ⇒ 0 card.
 B. code/backtick/example ⇒ 0 card.
 C. canonical valid ⇒ đúng 1 card.
-D. task="." / thiếu output / spec_ref không tồn tại ⇒ 0 card + validation error.
+D. task="." / thiếu output / trường lạ / khối SPEC không tồn tại ⇒ 0 card + đúng một tin «LỆNH KHÔNG HỢP LỆ», không lặp ở nhịp sau.
 E. duplicate exact same id/gen ⇒ 1 card, 1 model tối đa.
 F. same id/gen nhưng payload khác ⇒ conflict, 0 claim.
 G. Owner approve rồi sửa spec ⇒ ticket invalid, 0 claim.
@@ -65,26 +96,54 @@ I. Owner reject ⇒ 0 model.
 J. Telegram pre-start failure ⇒ 0 model.
 K. write/read ngoài scope safe-deny fixture hiện hữu ⇒ blocked.
 L. restart dispatcher không mất durable approval/queue/idempotency.
-M. RESULT thiếu commit/report_ref ⇒ không được DONE.
+M. RESULT thiếu trường / `report_ref` không trỏ tới mục P có thật / id-generation không khớp vé / tác giả commit không phải Hermes ⇒ không được DONE.
+N. `claimed` quá hạn không có RESULT ⇒ máy ghi `blocked` + tin KẾT QUẢ + việc đang xếp hàng được chạy.
+O. Đổi `state` open→claimed→done không làm vé hết hiệu lực; đổi một chữ trong `task` sau duyệt ⇒ vé hết hiệu lực.
+P. Marker nhắc trong câu văn/backtick, hai BEGIN, thiếu END ⇒ 0 card + một tin báo lỗi vùng.
+Q. Người giao là Hermes ⇒ invalid. Dòng `RESULT_V1` ngoài vùng máy ⇒ inert, không sinh tin KẾT QUẢ.
+R. Sau deploy, COLLAB thật hiện tại (còn đủ dòng dạng cũ trong lịch sử) qua ≥3 nhịp `ws-dispatch` ⇒ 0 thẻ mới, 0 model.
 Có mutant/negative + rollback; delta runtime vào Config/Protection Guard theo DROOT29–31.
+**Sổ tin báo (DROOT36):** loại tin mới hoặc đổi nguồn (`LỆNH KHÔNG HỢP LỆ`, `ĐÃ DUYỆT · XẾP HÀNG`, kết quả do quá hạn…) phải ghi vào sổ `TIN_BAO` trong cùng RUN. Sau RUN: không loại nào hỏng ngoài dòng `HJW-D31` đã ghi ở Bước 0, không loại nào ngoài sổ.
+Hồ sơ RUN đặt cạnh các hồ sơ HJW trước trên máy chủ, có INDEX + đường lùi một lệnh.
 
 ## 6. Readiness canonical của Hermes
 Chỉ sau §5 PASS:
-- Tạo machine-zone nếu chưa có.
-- Tạo spec `SPEC@HJW-HERMES-READINESS-20261003-02` trong COLLAB HJW, nội dung theo P94/P95: identity server-side/profile; gateway/session/model wake; workspace read/write; Telegram approval/start/result proof; tool allowlist/scope; role Hermes có thể/không được làm; lỗi/thiếu; kết luận READY|PARTIAL|BLOCKED.
-- Tạo canonical id `HJW-HERMES-READINESS-20261003-02`, role=Reviewer, approval=owner, read AGENTS + HJW, write chỉ HJW COLLAB.
+- Tạo machine-zone trong HJW COLLAB nếu chưa có (ngay dưới Bảng điều khiển).
+- Tạo khối SPEC mã `HJW-HERMES-READINESS-20261003-02` trong COLLAB HJW: **chép nguyên văn §6B**, không thêm bớt (đây là đề bài cho một agent — Host + Reviewer đã rà, executor không soạn lại).
+- Tạo record: id `HJW-HERMES-READINESS-20261003-02` · to Hermes · role Reviewer · generation 1 · state open · task `Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo` · output `Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1` · read [`AGENTS.md`, `work/hermes-joint-workspace/COLLAB.md`] · write [`work/hermes-joint-workspace/COLLAB.md`] · spec_ref cùng mã.
 - Claude Code chỉ tạo record/spec và xác nhận card. Owner tự bấm.
 - Hermes tự claim/run/report; Claude Code không làm thay.
-- Nếu Owner chưa duyệt, KQ = CHECKPOINT chờ Owner, không giả READY.
+- Thẻ ra rồi: báo Owner đúng một câu “thẻ đã tới khung chat Hermes VPS, mời anh bấm Cho chạy”. Chờ tối đa 15 phút (DROOT28); chưa bấm ⇒ KQ checkpoint ở §7, không giả READY. Sau checkpoint không cần RUN mới: Owner bấm lúc nào thì máy chạy lúc đó, Host + Reviewer nghiệm thu từ repo.
+- **Nghiệm thu lượt thật (DROOT34c):** đúng 1 thẻ → Owner bấm → record `claimed` do máy ghi → tin BẮT ĐẦU → Hermes ghi mục P + `RESULT_V1` trong một commit → tin KẾT QUẢ có mã commit do máy điền. Hermes trả kiểu “không thấy việc”/NOOP ⇒ contract CHƯA đạt. Ghi số token và thời gian thật của lượt này vào KQ (lượt -01 tốn ~160k token).
+
+## 6B. Nguyên văn khối SPEC cho Hermes (chép y nguyên vào giữa hai marker SPEC, không thêm bớt)
+VIỆC: Hermes tự kiểm khả năng tham gia HJW. Chỉ kiểm và báo cáo; không sửa gì.
+ĐỌC (qua MCP root=workspace, đúng đoạn, không đọc cả file): `AGENTS.md` phần A9-GLB · `work/hermes-joint-workspace/COLLAB.md`: Bảng điều khiển, §0, vùng máy, khối SPEC này.
+GHI: chỉ `work/hermes-joint-workspace/COLLAB.md`, một commit duy nhất, có expected_version.
+KIỂM 8 điểm, mỗi điểm một dòng `điểm | đạt / không / chưa thử | bằng chứng | giới hạn`:
+1. Danh tính: Hermes đang vào workspace bằng profile nào (chỉ tên profile); nhãn tác giả commit do Host kiểm sau.
+2. Đánh thức: đề bài nhận được có đúng là record + SPEC này không (chép lại `id` và `generation` nhận được).
+3. Đọc: đọc được AGENTS và đúng các đoạn HJW nêu ở trên.
+4. Ghi: ghi được mục P + dòng kết quả vào HJW COLLAB.
+5. Ngoài phạm vi: thử ghi một file ngoài danh sách GHI **chỉ khi** có sẵn fixture từ-chối-an-toàn; không có ⇒ ghi “chưa thử”, không tạo fixture.
+6. Công cụ: liệt kê tên các tool Hermes thực sự thấy trong lượt này.
+7. Tin Telegram (thẻ, BẮT ĐẦU, KẾT QUẢ): Hermes không tự thấy được ⇒ ghi “máy kiểm”, không đoán.
+8. Vai trò: việc Hermes làm được trong HJW (rà soát, chẩn đoán, ghi báo cáo) và việc không được tự làm (đổi cấu hình/quyền, việc cần root, tự duyệt, tự giao việc).
+KẾT LUẬN: một dòng `HERMES_READINESS=READY|PARTIAL|BLOCKED` + danh sách lỗi/thiếu (không tự sửa).
+ĐẦU RA: một mục P mới của Hermes chứa bảng trên + kết luận; trong vùng máy: đổi record sang `done` (hoặc `blocked`) và thêm một dòng `RESULT_V1` có `report_ref` = số mục P đó. Tất cả trong một commit.
+BLOCKED khi: không đọc được file nêu trên, không ghi được, hoặc SPEC mâu thuẫn — ghi lý do + người nhận tiếp là Host GPT. Không trả lời “không thấy việc”.
+CẤM: đổi cấu hình/runtime/quyền, restart, tạo file/task/service/token, ghi việc khác, chạy D30/D31, tự giao việc; không ghi token, khóa, id chat, địa chỉ IP vào báo cáo (repo công khai).
 
 ## 7. KQ
-XONG chỉ khi Contract V1 enforcement + §5 tests PASS **và** Hermes có RESULT_V1 + report repo:
+XONG chỉ khi Bước 0 (§1B) PASS + Contract V1 enforcement + §5 tests PASS **và** lượt thật §6 đạt (Hermes có RESULT_V1 + mục P trên repo):
 `KQ@HJW-ASSIGN-CONTRACT-READINESS-20261003-05 XONG · CONTRACT_V1_PASS · HERMES_READINESS=<READY|PARTIAL|BLOCKED>`
 
-Nếu contract/tests fail: rollback delta, `KQ@... DỪNG · CONTRACT_BLOCKED:<lý do>`.
+Nếu Bước 0 không đạt: `KQ@... DỪNG · GUARD_BLOCKED:<p02|D30> <lý do>` (chưa đụng contract).
+Nếu contract/tests fail: rollback delta của bước contract (giữ Bước 0 đã PASS), `KQ@... DỪNG · CONTRACT_BLOCKED:<lý do>`.
 Nếu contract PASS nhưng chờ Owner: `KQ@... DỪNG · CONTRACT_V1_PASS · HERMES_WAITING_OWNER`.
 
-Sau KQ dừng. Host đọc report Hermes, tổng hợp các vấn đề rồi mới soạn lượt cuối D30/D31 + residual readiness.
+Trước khi ghi KQ: đọc lại bảng đèn và ghi `ĐÈN: n xanh · m đỏ` (DROOT34; còn đèn đỏ thuộc HJW ⇒ không XONG) · dòng điểm danh sổ tin báo · `GUARD_SHA_AFTER` + Config Guard CLEAN · gửi đúng MỘT biên nhận ≤3 dòng tiếng Việt thường cho thay đổi của RUN (DROOT29).
+Sau KQ dừng. Host đọc report Hermes, tổng hợp các vấn đề rồi mới soạn lượt cuối: D31 (người canh ngoài máy chủ) + lỗi readiness còn lại. Khi KQ có `CONTRACT_V1_PASS`, **Host** (không phải executor) đổi dòng hiệu lực ở AGENTS A9-GLB và ghi chú đầu HJW COLLAB.
 
 ---
 
