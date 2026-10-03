@@ -1,26 +1,27 @@
 # COLLAB — pg-nhan-balo
-Tên việc: Dán nhãn phần còn thiếu để Balo nhận/phân loại đúng
+Tên việc: Chuẩn hoá quy tắc dán nhãn Balo → dán phần còn thiếu trên các Balo đã có
 Host: Claude Chat · Host_ID: CLAUDE-PGNB-261002-A · Owner giao 02/10/2026
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN LẠI 03/10/2026** — chỉ dán nhãn cho những vật chưa có nhãn để Balo nhận/phân loại; vật đã có nhãn không đụng. **Không tắt/xoá/dời, không tạo hệ nhãn/schema/report mới.**
+Xác nhận User: **ĐANG CHỜ OWNER XÁC NHẬN LẠI MỤC TIÊU SAU KHI GPT VIẾT RÕ 03/10/2026.** Phạm vi đề xuất hiện hành: chỉ làm với **những đối tượng đã có Balo thông tin** nhưng còn thiếu/chưa chuẩn nhãn; đối tượng chưa có Balo thì **bỏ qua, không phải việc này**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-03 · GPT Chat (Reviewer) · D14/P15: CHƯA CHỐT DÁN NHÃN — audit coverage 12 loại trước
-- 🎯 **Trạng thái mục tiêu:** Owner vừa xác nhận **chưa chốt** giả định “mọi đối tượng đã có Balo”. Canonical cho thấy Census có 12 loại nhưng `dot-balo-reconcile` hiện chỉ phủ 4 loại `table/view/function/trigger`. Vì vậy số `2148/2148` của P13 chỉ nói về 4 loại đó, không chứng minh toàn bộ PG đã có Balo. **HOLD mọi dán nhãn cho tới khi audit live 12 loại xong.**
-- 🏁 **Xong audit khi:** có bảng live-vs-Balo đủ 12 loại, tách rõ `coverage gap` · `scope gap` · `annotation gap`; không mutation. Sau audit Owner mới chốt phạm vi dán nhãn.
-- 📍 **Tiến độ:** `✅ phát hiện P13 suy rộng sai từ 2148 · ✅ canonical xác nhận reconcile chỉ 4/12 loại · ■ AUDIT READ-ONLY 12 loại · ⬜ Owner chốt phạm vi thật · ⬜ mới soạn/READY lệnh dán nhãn`
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-03 · GPT Chat (Reviewer) · D15/P16: VIẾT LẠI MỤC TIÊU — chờ Owner xác nhận trước khi làm tiếp
+- 🎯 **MỤC TIÊU HIỆN HÀNH — đề nghị Owner xác nhận:** (1) xác định rõ **“dán nhãn chuẩn” là gì**: nhãn nào cần có, ý nghĩa từng nhãn, giá trị hợp lệ, căn cứ để gán, thứ tự ưu tiên khi có nhiều căn cứ, và cách xử lý khi chưa đủ căn cứ; (2) kiểm tra cách dán nhãn hiện nay đã có quy định thành văn bản, thống nhất và đủ rõ để người + AI cùng hiểu/chạy giống nhau chưa; nếu chưa thì **thống nhất và ghi thành một quy định chuẩn**; (3) sau khi quy định đã chốt, **chỉ dán/điền các nhãn còn thiếu trên những Balo đã tồn tại và thuộc phạm vi cần dùng hiện nay**; Balo nào đã đúng thì không đụng; đối tượng chưa có Balo thì bỏ qua, không mở rộng coverage trong task này.
+- 🏁 **Xong việc khi:** có **một quy định dán nhãn chuẩn bằng văn bản** đủ để người/AI áp dụng thống nhất; đã rà cách dán hiện nay theo quy định đó; và các **Balo đã có nhưng còn thiếu nhãn** được điền đúng theo quy định. Không tạo Balo mới cho đối tượng chưa có Balo.
+- 📍 **Tiến độ:** `■ Owner xác nhận mục tiêu viết lại · ⬜ kiểm tra quy định dán nhãn hiện có · ⬜ nếu thiếu thì chốt/ghi thành văn bản chuẩn · ⬜ xác định Balo đã có nhưng còn thiếu nhãn · ⬜ Codex dán phần thiếu theo quy định · ⬜ verify`
 - ✅ **Đã xong:** Host đã báo khảo sát 02/10 (`view.html#so-lieu`; GPT chưa đo lại runtime) · luật lõi 5 nhãn + vị trí luật đã đồng thuận · `PROMPT.md` v2 đã áp P03-F1–F6 (P04) · **P05 GPT đã rà ba delta F3 và đồng thuận, không cần prompt mới/không mở thêm vòng thiết kế**. Đây vẫn là thiết kế/review; chưa đặt biển, chưa dán nhãn, chưa nghiệm thu runtime.
-- ■ **Đang làm:** chỉ audit, zero mutation. P13/P14 về quy tắc dán Bảng/View/Trigger **chưa được chấp nhận** vì premise “cả 2.148 = mọi đối tượng PG” sai phạm vi. PROMPT đã có override audit-only; mọi phần dán nhãn phía dưới tạm HOLD.
-- ⬜ **Còn lại — đường chính:** Codex xác định phần thiếu nhãn thật → chỉ dán phần đó → chạy reconcile/verify → báo số đã dán và số còn chưa rõ. Không đặt biển mới, không dựng report mới, không phân loại lại toàn bộ Balo.
-- ⬜ **Phát sinh trong scope:** chỉ có danh sách vật chưa đủ căn cứ để dán nhãn (`CHUA-RO`). Các ý Q10/G7/SỐNG-DÍNH/report/đổi UI/dọn rác thuộc việc khác hoặc lịch sử cũ, **không nằm trong roadmap hiện hành của PGNB**.
-- ➡ **Kế tiếp:** giao Codex/agent chạy đúng RUN audit read-only `PGNB-AUDIT-COVERAGE-20261003-01`; nhận báo cáo số liệu xong mới quay lại Owner. **Không READY/RUN lệnh dán nhãn hiện tại.**
+- ■ **Đang làm:** **chỉ sửa lại mục tiêu trên task cho đúng lời Owner; chưa audit, chưa dán nhãn, chưa giao agent.** Mọi PROMPT/RUN cũ tạm HOLD cho tới khi Owner xác nhận mục tiêu này.
+- ⬜ **Còn lại — đường chính:** sau khi Owner xác nhận mục tiêu: rà **quy tắc dán nhãn hiện có** trước; chỉ khi quy tắc đã rõ và thành văn bản mới giao Codex điền các ô nhãn còn thiếu trên Balo đã có.
+- ⬜ **Ngoài scope:** đối tượng chưa có Balo · mở rộng Balo sang loại/object khác · tạo schema/report/hệ nhãn mới · đánh giá rác/thừa · xoá/dời · G7/HJW/Q10/T1/T2. Không kéo các việc này vào PGNB.
+- ➡ **Kế tiếp:** **chờ Owner xác nhận mục tiêu viết lại ở trên.** Sau xác nhận mới kiểm tra “dán nhãn chuẩn” hiện đã được quy định thế nào; chưa giao Codex.
 - ⛔ **Không làm:** dán lại/đổi nhãn đã có · đo SỐNG/DÍNH · đánh giá rác/thừa · tắt/xoá/dời · tạo bảng/cột/FK/view/report/trigger/cron/registry mới · sửa UI · xử lý việc G7/HJW/Q10/T1/T2. Hạ tầng chung nếu chặn thì chỉ báo blocker, không kéo vào scope.
 
-- D14 · 2026-10-03 · **Owner: CHƯA CHỐT** — có thể không phải mọi đối tượng đang có Balo; yêu cầu kiểm tra hoặc giao agent kiểm tra, không đoán.
-- P15 · GPT Chat (Reviewer) · **HOLD P13/P14.** Canonical v1.9: Census = 12 loại; `dot-balo-reconcile` scope hiện hành chỉ 4 loại. Do đó 2.148 = coverage của 4 loại, không phải toàn bộ Census. Chuyển PROMPT sang audit-only, zero mutation; phải đo live 12 loại và tách coverage/scope/annotation gap trước khi chốt dán nhãn.
+- D14 · 2026-10-03 · **Owner: CHƯA CHỐT** — không suy rộng phạm vi Balo; không đoán.
+- D15 · 2026-10-03 · **Owner làm rõ mục tiêu:** không có ý định dán tất cả mọi thứ; cái nào chưa làm Balo thì bỏ qua. Task này trước hết phải định nghĩa **dán nhãn chuẩn**, kiểm tra cách dán hiện nay đã chuẩn/chưa và đã thành văn bản/chưa; nếu chưa thì thống nhất, ghi thành văn bản; sau đó mới dán phần nhãn còn thiếu trên các Balo đã có. Mục đích là nhãn phải giúp phân loại/hiểu được, không phải dán cho có.
+- P16 · GPT Chat (Reviewer) · **ĐÃ VIẾT LẠI MỤC TIÊU; CHỜ OWNER XÁC NHẬN.** Dừng audit 12 loại và mọi RUN dán nhãn cho tới khi Owner xác nhận mục tiêu mới ở Bảng.
 
 ### 1. Mục tiêu
-> **LƯU Ý:** các mục tiêu rộng ngày 02/10 bên dưới là lịch sử. **D13 ngày 03/10 là phạm vi hiện hành và có quyền ưu tiên:** chỉ dán nhãn phần còn thiếu để Balo nhận/phân loại.
+> **PHẠM VI HIỆN HÀNH CHỜ OWNER XÁC NHẬN — D15/P16 có quyền ưu tiên:** không mở rộng coverage Balo. Việc này chỉ chuẩn hoá **quy tắc dán nhãn** và sau đó điền nhãn còn thiếu trên **các Balo đã có**. Đối tượng chưa có Balo không thuộc task.
 
 Owner nguyên văn, chat Claude 02/10/2026:
 1. “Tôi đã tạo ra 1 cơ chế đọc để hiểu trong PG có những gì, nhằm tránh mù mờ.” · “Mục đích là mô tả rõ đinh nghĩa, phân ra để biết chúng ta có gì? Thiếu gì? Cần làm thêm gì? Khi cần đến 1 việc thì kiểm tra nhanh để biết? Đã có gì rồi? Có thể dùng lại hay phải làm mới? Ví dụ như cần đến DOT/function.... thì có thể xem trong liệt kê.”
