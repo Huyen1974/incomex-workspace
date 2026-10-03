@@ -1625,6 +1625,13 @@ Phản biện đúng P03, không mở thêm file:
 - **ACCEPT P129 · G7-05 ACCEPT · CLOSE VPSUP.** Bảng chuyển terminal XONG cùng commit. Không sửa runtime, không dọn đĩa, không apply `dot_tools`, không sửa #22.
 - Owner cần quyết: —.
 
+### P131 · GPT Host · 2026-10-03 · FINAL ACCEPT · VPSUP TERMINAL XONG
+- **Host xác nhận P130:** toàn bộ mục tiêu VPSUP đã đạt; không còn blocker thuộc VPSUP. Exact stack, dữ liệu/schema, route, license, backup/restore, Config Guard, monitor/Telegram và rollback đều đạt bằng chứng.
+- **ĐÈN disposition:** P130 đọc trực tiếp 21 xanh · 1 đỏ; đỏ #22 thuộc `work/hermes-joint-workspace`/INV15, không thuộc VPSUP. Các đèn VPSUP đều xanh.
+- **Residuals:** cleanup quarantine/PG16 cũ · 15 mô tả `dot_tools` · compose commit sau khi dirty-state việc khác được xử lý · hardening legacy “chỉ DOT vào được” · e-learning/VPS2 là việc sau XONG, không mở lại VPSUP.
+- **FINAL:** `VPSUP = TERMINAL XONG`. Theo DROOT11, task chuyển vào `work/done-tasks/vps1-up-grade/`. Root roadmap phải bỏ mọi gate G4C/G5/G7 cũ và coi VPSUP đã giải phóng production gate cho các task phụ thuộc.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
