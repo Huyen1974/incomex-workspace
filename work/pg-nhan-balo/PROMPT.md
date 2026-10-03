@@ -1,8 +1,41 @@
 # PROMPT — pg-nhan-balo
-RUN_ID: PGNB-LABEL-MISSING-20261003-01
+RUN_ID: PGNB-AUDIT-COVERAGE-20261003-01
 Executor_Surface: Codex
 
-## 0. Mục tiêu duy nhất — Owner xác nhận 03/10/2026
+## 0A. OVERRIDE HIỆN HÀNH — AUDIT ONLY, ZERO MUTATION
+
+Owner chưa chốt phạm vi dán nhãn. **Không dán nhãn, không sync, không WRITE PG/VPS.** Chỉ kiểm tra và báo cáo coverage Balo trên máy thật.
+
+Canonical đã xác nhận:
+- Census định nghĩa 12 loại: `schema | table | view | matview | sequence | function | procedure | trigger | constraint | index | foreign_table | column`;
+- `dot-balo-reconcile` hiện chỉ có scope `table | view | function | trigger`.
+
+Vì vậy số `2148/2148` chỉ chứng minh reconcile đủ trong 4 loại này; **không được kết luận mọi object PG đều có Balo**.
+
+### Audit bắt buộc
+Dùng đường đọc/DOT hiện hữu, read-only, để lập bảng 12 dòng:
+`loại | live_pg | balo_active | thiếu_dòng_balo | balo_dư/stale | ghi_chú`.
+
+Bắt buộc phân biệt 3 trường hợp:
+1. **Coverage gap:** object live thuộc một loại nhưng không có dòng tương ứng trong `balo_thuc_the`.
+2. **Scope gap:** loại Census chưa thuộc scope reconcile hiện hành; không gọi đây là "thiếu nhãn".
+3. **Annotation gap:** đã có dòng Balo nhưng các ô nhãn/thông tin đang trống.
+
+Riêng 4 loại đang reconcile (`table/view/function/trigger`): đối chiếu theo identity thật và liệt kê số object live thiếu dòng Balo, nếu có.
+Riêng 8 loại còn lại: báo live count, Balo có/không, và căn cứ canonical rằng reconcile chưa mở scope.
+Sau đó, với các dòng Balo đang tồn tại, đếm ô trống theo từng cột nhãn hiện hữu và theo `loai_census`.
+
+### KQ audit
+Ghi `KQ@PGNB-AUDIT-COVERAGE-20261003-01 XONG|DỪNG` vào COLLAB với:
+- bảng 12 loại;
+- tổng live PG theo 12 loại;
+- tổng dòng Balo active;
+- coverage gap / scope gap / annotation gap tách riêng;
+- kết luận **chỉ là số liệu**, không đề xuất dán gì nếu chưa được Owner chốt.
+
+Nếu không có đường đọc hợp lệ cho một phép đo thì ghi `UNKNOWN` + blocker; không đoán, không thay bằng số cũ trong repo.
+
+## 0. Mục tiêu dán nhãn — TẠM HOLD, chỉ dùng sau khi Owner chốt audit
 
 **Chỉ dán nhãn cho những thứ CHƯA CÓ NHÃN để Balo nhận/phân loại được chúng.**
 
