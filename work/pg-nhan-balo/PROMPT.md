@@ -23,6 +23,20 @@ Nếu tài liệu của việc này mâu thuẫn với canonical hoặc mục ti
 5. Gate an toàn chung của hệ thống thuộc hạ tầng chung. Nếu gate chung chặn thì trả đúng một blocker; **không sửa/đẻ thêm yêu cầu vào PROMPT này**.
 6. Không tắt, xoá, dời bất cứ vật nào.
 
+## 1b. Phần thiếu là gì, dán theo quy tắc nào (Host đo 03/10 — P13)
+
+**Đo thật:** cả 2.148 vật đã có dòng Balo, không vật nào nằm ngoài. Hàm 654/654 đã đủ `nhom` · `loai` · `chuyen_mon` · `ghi_chu` theo Rule 02 (`label-rules/02-function-balo-agent-discovery.md`) ⇒ không đụng. **Bảng 385 · view 699 · trigger 410: mọi ô nhãn đang trống ⇒ đây là phần thiếu.** Rule 02 chỉ phủ hàm; `label-rules/` chưa có quy tắc cho ba loại này. RUN này điền ba loại đó **theo đúng hợp đồng cột và danh sách giá trị của Rule 02**, chỉ thêm các dòng sau (không thêm cột, bảng, khoá hay trang nào):
+
+- **Trigger:** `chuyen_mon`, `nhom` = của hàm nó gọi (đã đo: 410/410 hàm đó có nhãn) · `loai` = `Trigger nội bộ`.
+- **View:** `chuyen_mon`, `nhom` = của bảng nó đọc, lần theo `pg_depend` tới bảng gốc; các bảng gốc khác miền ⇒ theo họ tên view khi họ đó trùng một họ hàm đã dán (`v_qt001_*`, `v_rp_*`, `v_birth_*`, `v_process_*`, `v_iu_*`…) · `loai` = `View đọc`.
+- **Bảng — `chuyen_mon`** theo thứ tự bằng chứng: (1) cùng họ tên hoặc cùng schema với một họ hàm đã dán ⇒ slug của họ đó; (2) không có ⇒ theo mã hệ ở dòng `HE:` trong nhãn cũ của chính bảng: IU→`iu.core` · TAC→`tac` · PIVOT→`pivot` · WORKFLOW→`workflow` · PROCESS→`process` · TAXONOMY, BALO→`classification` · KHAI-SINH→`birth_registry` · REGISTRY→`registry` · GOVERNANCE→`governance` · KB, CONTEXT-PACK→`content_metadata` · HA-TANG, DOT→`utility` · DIRECTUS→`directus` · UI, OS→`web` · AI→`ai`.
+- **Bảng — `loai`** = một trong 7, xét theo thứ tự, khớp câu nào dừng ở câu đó: `Nền tảng` (do Directus, extension hoặc mẫu website cài sẵn) · `Tạm / sao lưu` (bản chụp của bảng khác, không vật nào đọc) · `Bảng nối` (chỉ gồm khoá trỏ sang hai bảng khác) · `Nhật ký` (chỉ thêm dòng theo thời gian) · `Kết quả tính` (xoá đi chạy lại hàm là có lại) · `Danh mục` (danh sách giá trị hoặc cấu hình để nơi khác tra) · `Dữ liệu` (phần còn lại). Căn cứ là cột, khoá ngoại, `pg_depend`; không theo tên.
+- **`nhom` của cả ba loại** = suy từ `chuyen_mon` bằng đúng cặp slug→nhóm đang có trên 654 hàm (đọc từ Balo; đã đo: mỗi slug đúng một nhóm). Ba slug chưa có ở hàm: `directus`→`Nền tảng Directus` · `web`→`Web & giao diện` · `ai`→`AI & agent`. Không đặt thêm tên nào khác.
+- **`ghi_chu`** = một dòng theo khuôn Rule 02 §3.7, chỉ gồm sự thật lấy từ catalog. Trigger: thời điểm · sự kiện · bảng · hàm gọi · đang bật hay tắt, kèm `[GỌI] INTERNAL_TRIGGER; không gọi trực tiếp`. View: đọc từ những bảng/view nào. Bảng: vai + trỏ khoá ngoại tới bảng nào, được bảng nào trỏ tới. Thẻ `[BẰNG CHỨNG]` ghi nguồn. Không viết mô tả suy đoán.
+- **Không ghi:** `lop`, `active` (Rule 02 §3.4–3.5: chưa có danh sách chuẩn) · `kiem_soat` (giữ `false`).
+- **Chỉ lấp ô đang trống.** Ô nào không đủ căn cứ ⇒ để trống ô đó, đưa vật vào danh sách `CHUA-RO` kèm lý do.
+- **Cách ghi:** trước khi ghi, xuất toàn bộ dòng Balo ra hồ sơ `/opt/incomex/work/pg-nhan-balo/` (đường lùi). Ghi bằng `dot-pg-atomic-apply`: file `/opt/incomex/dot/sql/balo-nhan-*.sql` + dòng sha256 trong `approved-sql-manifest.tsv`; UPDATE khoá theo `stt`, luôn có `WHERE <ô> IS NULL`. Cổng này từ chối mọi file chứa chuỗi `meta_catalog`, `birth_registry`, `table_registry`, `qt001_`, `v_registry_` (kể cả trong chú thích hay giá trị) ⇒ file không nêu tên vật; chữ trong `ghi_chu` do PG ghép từ catalog lúc chạy; **giá trị `chuyen_mon`/`nhom` chép từ một dòng hàm mẫu theo `stt`, không gõ chữ** (slug `birth_registry` cũng là chuỗi bị chặn).
+
 ## 2. Việc Codex làm — một lượt
 
 ### A. Kiểm hiện trạng
