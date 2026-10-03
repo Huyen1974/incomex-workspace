@@ -1,26 +1,35 @@
 # PROMPT — VPSUP G7 · CHUYỂN PRODUCTION MỘT LẦN + NGHIỆM THU + BÀN GIAO
 
-STATUS: **DRAFT RETRY — P112 sửa blocker danh tính admin; P114 Reviewer cắt bước đổi email/mật khẩu admin; chờ Host READY lại.** §0.3: đã đối chiếu.
-RUN_ID: `VPSUP-G7-PROD-CUTOVER-20261003-02` · Executor: phiên Claude Code mới · **Owner dán RUN = Owner duyệt cửa sổ** (45′; gián đoạn đo ở G6: 16–17′).
+STATUS: **DRAFT RETRY-03 — P117 đồng bộ static token hiện hành Directus DB → GSM; chờ Reviewer ACCEPT + Host READY.** §0.3: đã đối chiếu.
+RUN_ID: `VPSUP-G7-PROD-CUTOVER-20261003-03` · Executor: phiên Claude Code mới · **Owner dán RUN = Owner duyệt cửa sổ** (45′; gián đoạn đo ở G6: 16–17′).
 Đầu ra duy nhất: VPS1 chạy **PG 18.6 + Directus 12.4.1/OIG + Nuxt 4.5.2/Node 24.21.0 + nginx 1.30.5**, đủ dữ liệu/quyền, sao lưu PG18 đọc lại được, có canh licensing. Không làm gì ngoài đầu ra này (không e-learning/VPS2, không @nuxt/ui v4, không DNS).
 
 ## G7.0 · Đọc
-AGENTS → BẢNG ĐIỀU KHIỂN → **§0.3 (bảng phiên bản chốt cứng)** → P105–P114 → PROMPT này → VPS2 `G6/INDEX.md` + `G6/g7/package/G7-RUNBOOK.md`. Gói G7 là kịch bản đã tập 2 lần; chạy đúng nó, không thiết kế lại.
+AGENTS → BẢNG ĐIỀU KHIỂN → **§0.3 (bảng phiên bản chốt cứng)** → P105–P117 → PROMPT này → VPS2 `G6/INDEX.md` + `G6/g7/package/G7-RUNBOOK.md`. Gói G7 là kịch bản đã tập 2 lần; chạy đúng nó, không thiết kế lại.
 
 ## G7.1 · PRE — chỉ đọc, trước đóng băng; một mục trượt ⇒ DỪNG, VPS1 nguyên
-1. READY khớp last-touch PROMPT; không RUN khác đang STARTED chưa KQ đụng PG/Directus/Nuxt/nginx/compose VPS1.
+1. READY khớp last-touch PROMPT; không RUN khác đang STARTED chưa KQ đụng PG/Directus/Nuxt/nginx/compose/Guard VPS1. Đặc biệt recheck `HJW-FINAL-D30-D31-20261002-04`: tại P117 mới READY, chưa STARTED; nếu lúc RUN đã STARTED chưa KQ thì DỪNG ở PRE, không freeze.
 2. Chuyển `G6/g7/package` VPS2 → VPS1 bằng đường đã dùng ở G6; `SHA256SUMS` = `beed98a3…` từng file; thiếu/lệch ⇒ DỪNG.
 3. Phiên bản đúng §0.3: PG `postgres:18.6-trixie` index `5a5a84b1…`/amd64 `0377e72c…` · Directus `12.4.1` · Nuxt `4.5.2`/Node `24.21.0` đúng bytes TF · nginx `1.30.5`. Lệch ⇒ DỪNG; **không tra/chọn bản khác**.
 4. Compose/.env (`NUXT_SSR_IMAGE`)/mạng/extension live = bản gói đã render (compose `97c534da…`). Khác (việc khác đã sửa từ 09:08Z) ⇒ render lại patch qua DOT trên bản live; diff chỉ được chạm hunk VPSUP; đụng thay đổi của việc khác ⇒ DỪNG.
 5. Đĩa VPS1 trống ≥ 20 GB (02/10 20:45: 53 GB); bản sao lưu đêm gần nhất đọc được.
 6. Restore-verify dùng `dot-pg-restore-verify-db` **v1.1.0** từ gói, không dùng v1.0.0 đang ở prod.
 
-### G7.1A · Danh tính admin Directus — sửa blocker trước freeze
-**Owner 03/10 cho phép rõ:** kiểm và nối đúng credential Directus trong Google Secret Manager, nhưng chỉ trong DOT/script-wrapper và tuyệt đối không in/log/ghi giá trị secret.
-1. **Nguồn machine-auth chuẩn = GSM `DIRECTUS_ADMIN_TOKEN`**, không còn lấy `DIRECTUS_ADMIN_PASSWORD` từ `cron-env.sh`/`.env`. Audit GSM đã xác nhận secret này tồn tại. `dot-directus-license` phải nạp token bên trong loader đã duyệt và gọi API bằng `Authorization: Bearer`; password người dùng không được dùng cho licensing/monitor.
-2. Trước mọi freeze, DOT gọi `/users/me` bằng token đó và chỉ ghi metadata không bí mật: user id/hash, email, status, role/policy/admin_access. Phải chứng minh token thuộc **chính admin đầu tiên/Owner-admin hiện hữu**, active và có admin access. Không đạt ⇒ `DỪNG · PRE_BLOCKER_ADMIN_TOKEN_INVALID`; không dò secret khác, VPS1 nguyên.
-3. Email admin khác `nmhuyen@gmail.com` hay không: **chỉ ghi lại để biết, không đổi trong G7** (P114). Không tạo admin thứ hai.
-4. Sửa `dot-directus-license` + licensing monitor dùng cùng loader token; cập nhật package `install-prod.manifest`/`SHA256SUMS`, chạy `status` read-only PASS trước freeze. Mọi thay đổi package qua DOT/script-wrapper; không direct curl/REST/SQL.
+### G7.1A · Đồng bộ machine token hiện hành Directus → GSM — sửa blocker cuối, trước freeze
+**KQ `-02` đã chứng minh GSM `DIRECTUS_ADMIN_TOKEN` v1 (22/05) stale/401. Không rotate Directus theo phản xạ.** Directus lưu static token của user tại `directus_users.token`; mục tiêu là đồng bộ token **đang chạy trong Directus** sang GSM, không thay token Directus và không tạo admin khác.
+
+**Cổng Owner bắt buộc trong câu RUN:** cho phép DOT/script-wrapper (a) đọc nội bộ `directus_users.token` của đúng machine-admin identity qua PG; (b) ghi **một version mới** cho GSM `DIRECTUS_ADMIN_TOKEN`; (c) đọc GSM `DIRECTUS_OIG_LICENSE_KEY` trong bước license. Không được enumerate/đọc secret khác; không in/log/repo/chat bất kỳ giá trị secret nào.
+
+1. Reuse DOT/wrapper hiện có; nếu thiếu đúng capability này thì viết **một DOT hẹp** `dot-directus-admin-token-sync` theo DROOT27, chỉ nằm trong gói/evidence G7. Agent không được chạy psql/curl/gcloud tay.
+2. DOT đọc metadata Directus qua PG wrapper để chọn **đúng một** machine identity hiện hữu: `active` + effective `admin_access` + static token không rỗng. Có thể dùng email admin hiện hữu chỉ như metadata để disambiguate; không đổi email/password. 0 hoặc >1 ứng viên không giải được chắc chắn ⇒ `DỪNG · PRE_BLOCKER_ADMIN_IDENTITY_AMBIGUOUS`.
+3. DOT giữ `directus_users.token` chỉ trong memory/tmpfs/root-only, output duy nhất fingerprint + user-id hash + status/admin flag. Dùng chính token DB gọi `/users/me`; phải trả đúng cùng user active + admin access. Fail ⇒ `DỪNG · PRE_BLOCKER_CURRENT_DIRECTUS_TOKEN_INVALID`; **không rotate**, không dò credential khác.
+4. Nếu token DB PASS và fingerprint khác GSM stale: DOT pipe **chính token DB hiện hành** qua stdin để tạo version mới của GSM `DIRECTUS_ADMIN_TOKEN`; **0 mutation Directus**. Không disable version GSM cũ trong G7 trước khi KQ XONG.
+5. DOT đọc lại `latest` từ GSM qua loader rồi gọi `/users/me`; phải cùng user-id hash/admin. Fail sau khi đã tạo version ⇒ disable version GSM mới nếu an toàn + ghi blocker; Directus vẫn nguyên.
+6. `dot-directus-license whoami/status` phải PASS bằng GSM `latest`; package dùng bản DOT license 1.1.0 đã vá ở KQ `-02`, cập nhật `install-prod.manifest`/`SHA256SUMS` nếu byte thay đổi (gói `-02` hiện `2ea22689…`).
+7. Cũng trước freeze, qua loader thử đọc **đúng** GSM `DIRECTUS_OIG_LICENSE_KEY` vào tmpfs/non-logging path để chứng minh secret accessible; không activate/refresh ở PRE. Không đọc được ⇒ DỪNG khi VPS1 runtime vẫn nguyên.
+8. Đây là mutation GSM production credential. Nếu đã ghi version GSM mới mà RUN dừng trước cutover, vẫn phải khép footprint đó theo AGENTS R4 (verify/rollback-known-good + receipt phù hợp) trước KQ DỪNG.
+
+Email admin chỉ ghi metadata nếu cần; **không đổi email/mật khẩu trong G7** (P114/P115). Machine automation dùng `DIRECTUS_ADMIN_TOKEN`.
 
 ## G7.2 · Chạy — một lệnh, liền một mạch
 - `run/g7-chain.sh` đúng `G7-RUNBOOK.md`. Mọi thao tác PG/Directus qua DOT/script-wrapper (DROOT26/34); cấm psql/SQL/REST/CLI tay. Không dừng xin ý kiến giữa các bước.
@@ -36,7 +45,7 @@ AGENTS → BẢNG ĐIỀU KHIỂN → **§0.3 (bảng phiên bản chốt cứng
 Không xoá volume PG16, checkpoint post-S2, image cũ, gói G7; dọn chỉ khi Owner cho phép (việc phụ sau XONG).
 
 ## G7.5 · KQ
-- Đạt: `KQ@VPSUP-G7-PROD-CUTOVER-20261003-02 XONG · G7_PASS · PG18.6 · DIRECTUS12.4.1 · NUXT4.5.2 · ADMIN_IDENTITY_PASS · BACKUP_PG18_PASS · LICENSE_MONITOR_PASS` + gián đoạn thật + nơi đặt hồ sơ.
+- Đạt: `KQ@VPSUP-G7-PROD-CUTOVER-20261003-03 XONG · G7_PASS · PG18.6 · DIRECTUS12.4.1 · NUXT4.5.2 · ADMIN_TOKEN_SYNC_PASS · ADMIN_IDENTITY_PASS · BACKUP_PG18_PASS · LICENSE_MONITOR_PASS` + gián đoạn thật + nơi đặt hồ sơ.
 - Không đạt: `… DỪNG · ROLLED_BACK_PRE_UNFREEZE · <lý do>` hoặc `… DỪNG · <blocker>` kèm trạng thái VPS1 hiện tại.
 - Sửa ■/➡/cập nhật của Bảng cùng commit KQ; dừng và báo GPT Host.
 
