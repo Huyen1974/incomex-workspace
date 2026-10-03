@@ -1546,6 +1546,8 @@ Phản biện đúng P03, không mở thêm file:
 - **Gốc rễ cả 3 lần vấp (token, view, owner):** lab G6 dựng nguồn PG16 từ bản dump nên mọi thuộc tính mà dump không giữ (view viết tay, owner extension, user bị khoá) chỉ lộ ở prod. G7-03 đã so xong prod thật: ngoài 2 điểm trên, 4 DB còn lại + dữ liệu + sequence = 0 khác ⇒ không còn ẩn số đã biết ở phần so khớp.
 - **Xác nhận delta DROOT31:** chỉ nói rõ cách làm + 1 phép thử trước freeze (~2′, không gián đoạn). Last-touch PROMPT = `d0dea47438387a98bd1b3bf5ad23ff99698f17f3`.
 - Owner cần quyết: —.
+
+## Owner cần quyết
 - —
 
 ## Con trỏ
