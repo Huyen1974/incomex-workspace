@@ -16,7 +16,7 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <h1>Server đủ bộ phiên bản đã chốt để làm Máy sản xuất quy trình</h1>
 <p class="big"><b>Mục tiêu:</b> VPS1 chạy đủ PG18 + Directus12.4/OIG + Nuxt4.5/Node24 ổn định, để dùng tính năng mới cho công việc tiếp theo. Không mở rộng thành dự án dọn hạ tầng hay thiết kế tính năng nghiệp vụ.</p>
 <div><span class="tag">PG18</span><span class="tag">Directus12.4.x + OIG</span><span class="tag">Nuxt4.5 · Node24</span><span class="tag">nginx1.30.5 đã xong</span><span class="tag">Hai gói: G6 → G7</span></div>
-<p class="small"><b>Tiến độ — P119:</b> G0–G6 đã PASS; G7-01/-02 dừng an toàn ở PRE. P118 đo thật: admin active chưa có token, admin cũ có token nhưng suspended. Host ACCEPT và đã READY G7-03: DOT chỉ thêm token cho đúng active admin khi đang NULL, verify rồi mới ghi GSM; mọi auth mutation provisional phải rollback sạch nếu PRE chưa hoàn tất. Owner dán RUN → G7 PASS = <b>XONG VPSUP</b>.</p>
+<p class="small"><b>Tiến độ — P121:</b> G0–G6 đã PASS. G7-03 đã rollback sạch trước mở ghi; dữ liệu/sequence 0 khác, blocker là 2 dạng PG18 deparse view. G7-04 đang DRAFT: comparator phải replay 1.402 diff→0 và negative FAIL trước downtime, extension owner giữ đúng nguồn, target PG18 failed được quarantine an toàn. Reviewer một vòng → Host READY → G7 PASS = <b>XONG VPSUP</b>.</p>
 </section>
 
 <section class="card" id="owner">
@@ -439,7 +439,7 @@ DỪNG NGAY nếu: read-gate FAIL; một bước cần quyền ghi ngoài chỗ 
 
 <section class="card" id="status">
 <h2>10. Trạng thái hiện tại</h2>
-<p><b class="ok">G0–G6 đã PASS; G7-02 dừng ở PRE, VPS1 runtime nguyên.</b> P118 xác nhận đúng 1 admin active chưa có static token; admin token cũ thuộc user suspended. G7-03 sẽ tạo token mới <b>chỉ</b> khi active admin vẫn <code>token IS NULL</code>, verify identity, rồi lưu GSM; fail trước freeze thì trả token về NULL + disable GSM version mới. Cache Directus đang tắt nên không clear/restart. <b>READY@487dacd.</b></p>
+<p><b class="ok">G7-03 rollback sạch; VPS1 đã về PG16.15/Directus11.5.1/Nuxt3 và healthy.</b> Machine token + GSM v2 đã PASS và được giữ. Schema raw lệch 1.402 dòng nhưng 100% thuộc 2 kiểu view deparse; G7-04 không ignore mà canonicalize đúng 2 rule có đếm/residual=0, replay trước freeze. Extension owner phải khớp nguồn; PG18 failed dir chỉ quarantine. <b>G7-04 chưa READY, chờ Reviewer.</b></p>
 <table><thead><tr><th>Gói</th><th>Agent làm liên tục trong cùng RUN</th><th>Đầu ra</th></tr></thead><tbody>
 <tr><td><b>G6 · PASS</b></td><td>PG18.6 + Directus12.4.1 + Nuxt4.5.2 trên fresh data; DEFAULT/load/backup/restore; cutover ×2; rollback thật; DOT 100%.</td><td>Package G7 43 file sẵn dùng; downtime 16–17′; rollback 4–4,5′.</td></tr>
 <tr><td><b>G7 · Chuyển và bàn giao</b></td><td>Sau duyệt cửa sổ production: chuẩn bị, chặn ghi, chuyển cả bộ đã tập, nghiệm thu, mở ghi, kiểm sao lưu/giám sát và bàn giao.</td><td>VPS1 đủ PG18 + Directus12.4/OIG + Nuxt4.5/Node24 + nginx1.30.5; dữ liệu/quyền/Flow/consumer đạt = XONG.</td></tr>
