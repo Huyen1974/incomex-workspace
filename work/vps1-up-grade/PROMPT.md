@@ -1,23 +1,23 @@
 # PROMPT — VPSUP G7 · CHUYỂN PRODUCTION MỘT LẦN + NGHIỆM THU + BÀN GIAO
 
-STATUS: **DRAFT RETRY-04 — P121 + P122 + P123 + P124 Reviewer DELTA (so owner extension theo quy tắc, không theo danh tính từng member); chờ Host READY.** §0.3: đã đối chiếu.
-RUN_ID: `VPSUP-G7-PROD-CUTOVER-20261003-04` · Executor: phiên Claude Code mới · **Owner dán RUN = Owner duyệt cửa sổ** (45′; G7-03 thực đo gián đoạn 9′53″ rồi rollback trước unfreeze).
+STATUS: **DRAFT RETRY-05 — P126 xử lý KQ G7-04: R5 cho CHECK có allowlist + pin postgres_fdw 1.1→1.2; chờ Reviewer ACCEPT + Host READY.** §0.3: đã đối chiếu.
+RUN_ID: `VPSUP-G7-PROD-CUTOVER-20261003-05` · Executor: phiên Claude Code mới · **Owner dán RUN = Owner duyệt cửa sổ** (45′; G7-04 dừng PRE trước freeze, 0 downtime).
 Đầu ra duy nhất: VPS1 chạy **PG 18.6 + Directus 12.4.1/OIG + Nuxt 4.5.2/Node 24.21.0 + nginx 1.30.5**, đủ dữ liệu/quyền, sao lưu PG18 đọc lại được, có canh licensing. Không làm gì ngoài đầu ra này (không e-learning/VPS2, không @nuxt/ui v4, không DNS).
 
 ## G7.0 · Đọc
-AGENTS → BẢNG ĐIỀU KHIỂN → **§0.3 (bảng phiên bản chốt cứng)** → P105–P124 → PROMPT này → hồ sơ G7-03 `INDEX.md` + package cuối SHA `53fb7908f9c6a557e5b5e486057c004faf8affef868c6859f96db6d495a9704e` + G6 `G7-RUNBOOK.md`. G7-04 là cùng gói production, chỉ đóng các blocker đã đo; không thiết kế lại.
+AGENTS → BẢNG ĐIỀU KHIỂN → **§0.3 (bảng phiên bản chốt cứng)** → P105–P126 → PROMPT này → hồ sơ G7-04 `INDEX.md` + ứng viên `pkg-candidate-1.0.4` SHA `2e283dd6483e7adb7e85b6f831889300033137038af7206a4c1fc92cf4011b06` + package G7-03 final SHA `53fb7908f9c6a557e5b5e486057c004faf8affef868c6859f96db6d495a9704e`. G7-05 vẫn là cùng gói production; chỉ đóng blocker deterministic đã đo.
 
 ## G7.1 · PRE — chỉ đọc, trước đóng băng; một mục trượt ⇒ DỪNG, VPS1 nguyên
 1. READY khớp last-touch PROMPT; không RUN khác đang STARTED chưa KQ đụng PG/Directus/Nuxt/nginx/compose/Guard VPS1. Recheck `HJW-FINAL-D30-D31-20261002-04`; nếu STARTED chưa KQ ⇒ DỪNG ở PRE, không mutation/freeze. Ghi PRE trạng thái Kuma #22/INV15; đây là lỗi nền đã có, G7 không sửa, POST phải same-or-better và không được tuyên bố fleet all-green nếu vẫn đỏ.
-2. **Baseline package đầu vào = package cuối G7-03, 44 tệp, SHA256SUMS `53fb7908f9c6a557e5b5e486057c004faf8affef868c6859f96db6d495a9704e`.** Nó đã chứa `dot-directus-admin-token-sync`, `dot-directus-license` 1.1.0 và `dot-stack-cutover` 1.0.3. Nếu G7-04 sửa bất kỳ byte nào (verify-data/owner/quarantine/DOT/manifest) ⇒ regenerate `install-prod.manifest` + `SHA256SUMS`, ghi full final hash và chỉ chain package cuối. Không dùng lại SHA cũ sau khi byte đổi.
+2. **Baseline patch đầu vào = ứng viên G7-04 `dot-stack-cutover` 1.0.4**, hồ sơ `G7-04/pkg-candidate-1.0.4/`, `SHA256SUMS` `2e283dd6483e7adb7e85b6f831889300033137038af7206a4c1fc92cf4011b06` (chưa cài). Gói G7-03 final `53fb7908…` giữ nguyên. G7-05 patch ứng viên thành **1.0.5** chỉ theo P126; mọi byte đổi ⇒ regenerate `install-prod.manifest` + `SHA256SUMS`, ghi full final hash và chain chỉ final package.
 3. Phiên bản đúng §0.3: PG `postgres:18.6-trixie` index `5a5a84b1…`/amd64 `0377e72c…` · Directus `12.4.1` · Nuxt `4.5.2`/Node `24.21.0` đúng bytes TF · nginx `1.30.5`. Lệch ⇒ DỪNG; **không tra/chọn bản khác**.
 4. Compose/.env (`NUXT_SSR_IMAGE`)/mạng/extension live = bản gói đã render (compose `97c534da…`). Khác (việc khác đã sửa từ 09:08Z) ⇒ render lại patch qua DOT trên bản live; diff chỉ được chạm hunk VPSUP; đụng thay đổi của việc khác ⇒ DỪNG.
 5. Đĩa VPS1 trống ≥ 20 GB; bản sao lưu đêm gần nhất đọc được. Fresh sample sau G7-03 ~48,7 GB trống.
 6. Restore-verify dùng `dot-pg-restore-verify-db` **v1.1.0** từ gói, không dùng v1.0.0 cũ.
 7. **Machine identity đã terminal PASS từ G7-03:** admin active `dea4e64c…` có token máy; GSM `DIRECTUS_ADMIN_TOKEN` v2 cùng fingerprint; `/users/me` + `whoami` PASS; `DIRECTUS_OIG_LICENSE_KEY` readable; admin suspended không đổi. G7-04 chỉ verify lại qua DOT/loader, **không tạo/rotate token, không đổi email/password**. Bất kỳ lệch identity/fingerprint ⇒ DỪNG PRE.
-8. **Quarantine target PG18 failed trước `pg18-init`:** nếu `/opt/workflow/postgres18` còn non-empty từ G7-03, chỉ qua DOT/wrapper: chứng minh PG16 live healthy · path không mounted · không được live compose/env/reference dùng · marker/owner/mode phù hợp failed target G7-03. PASS ⇒ rename nguyên tử sang `/opt/workflow/postgres18.failed-g7-03` (hoặc tên collision-safe cùng nghĩa) và tạo `/opt/workflow/postgres18` sạch với owner/mode đúng image PG18. Không `rm -rf`; thư mục quarantine giữ tới sau XONG. Preconditions không chắc ⇒ DỪNG PRE.
-9. **Patch/test comparator TRƯỚC freeze:** replay `verify-data` mới trên cặp schema artifacts đã lưu của G7-03. Bắt buộc tái hiện raw diff 1.402 dòng của DB `directus`, phân loại 100% vào đúng 2 rule view-deparse ở G7.1B, residual 0. Thêm negative fixture một diff ngoài allowlist ⇒ comparator phải FAIL. Không đạt hai phép này ⇒ DỪNG PRE, không downtime.
-10. **Thử cách giữ ownership extension TRƯỚC freeze (P122+P123):** trên một PG18.6 nháp (ngoài production, xoá sau khi thử), DOT tạo DB + role `directus` (NOLOGIN, có CREATE trên DB) rồi chạy đúng bước G7.1C. Không chỉ kiểm `pg_extension.extowner`: trước thử, DOT chụp từ PG16 production nguồn **ownership vector đầy đủ của mọi member object** thuộc `btree_gist` và `pgcrypto` (extension object + các function/operator/type/opclass/opfamily/cast/schema object hoặc loại member thực tế khác), chỉ metadata/owner, không secret. Sau pre-create ở PG18 nháp, chụp cùng vector bằng cùng DOT/cùng quy tắc định danh và so theo **quy tắc sở hữu** (P124), không đòi trùng từng member: **đo thật nguồn (P124, chỉ đọc):** `btree_gist` 1.7 = 258 member (188 function · 26 opclass · 26 opfamily · 12 operator · 6 type), `pgcrypto` 1.3 = 36 function; **100% member owner `workflow_admin` = bootstrap superuser (oid 10)**; extension object owner `directus`. PASS khi đồng thời: (a) extension object owner trên nháp = `directus`; (b) **mọi** member trên nháp có owner = bootstrap superuser của nháp và bản thân bootstrap đó là `workflow_admin` như nguồn; (c) member có mặt ở cả hai bên cùng owner. Số member khác nhau **chỉ được chấp nhận khi `extversion` hai bên khác nhau** (bản extension mặc định của PG18 có thể mới hơn) — ghi số thêm/bớt theo loại, không phải FAIL. Cùng `extversion` mà member lệch, hoặc bất kỳ member nào owner khác bootstrap, hoặc extension owner khác `directus` ⇒ `DỪNG · PRE_BLOCKER_EXTENSION_MEMBER_OWNER`, không freeze, không sửa catalog, không ALTER owner hàng loạt, báo exact object/type/source_owner/target_owner cho Host.
+8. **Quarantine target PG18 failed — DRY-RUN trước:** `pg18-quarantine` phải chứng minh PG16 live healthy · `/opt/workflow/postgres18` không mounted/container/live compose/env/reference · marker/sysid/owner/mode khớp failed target G7-03. PRE 8 chỉ dry-run; chưa rename khi PRE 9/10 chưa đạt.
+9. **Patch/test comparator TRƯỚC freeze:** từ ứng viên 1.0.4 tạo `dot-stack-cutover` **1.0.5** chỉ với delta P126. Replay artifacts G7-03/G7-04 phải tái hiện raw **1.402 dòng** = 1.364 dòng trong 49 VIEW/MATVIEW + **38 dòng thuộc đúng 19 named CHECK constraints** đã ghi trong G7-04 `INDEX.md`; sau canonicalization residual 0. Negative fixture hiện hữu vẫn PASS và bổ sung 2 fixture CHECK: (a) semantic change trong một CHECK allowlisted nhưng không phải R5 ⇒ comparator FAIL; (b) một CHECK mới ngoài allowlist dù có hình R5 ⇒ FAIL. Không đạt ⇒ DỪNG PRE, không downtime.
+10. **Thử ownership/version extension TRƯỚC freeze (P122–P126):** chạy lại PRE 10 trên exact PG18.6 nháp bằng candidate 1.0.5. Exact transitions duy nhất được phép: `btree_gist 1.7→1.8`, `pgcrypto 1.3→1.4`, **`postgres_fdw 1.1→1.2`**. `btree_gist`/`pgcrypto`: extension owner `directus`, mọi member owner bootstrap `workflow_admin`; `postgres_fdw`: extension owner `workflow_admin` giữ nguyên và member ownership phải theo bootstrap `workflow_admin`. Target extversion ngoài `1.8/1.4/1.2`, owner sai, hoặc mapping/transition khác ⇒ `DỪNG · PRE_BLOCKER_EXTENSION_MEMBER_OWNER`, không freeze, không sửa catalog/ALTER owner hàng loạt.
 
 ### G7.1A · Machine identity — chỉ verify, không sửa lại
 G7-03 đã tạo machine token đúng admin active và GSM v2, rollback production stack không rollback credential vì credential đã verify PASS và là đích lâu dài. G7-04 chỉ:
@@ -26,24 +26,30 @@ G7-03 đã tạo machine token đúng admin active và GSM v2, rollback producti
 3. Đọc đúng `DIRECTUS_OIG_LICENSE_KEY` qua loader vào tmpfs/non-logging path; không enumerate/đọc secret khác.
 4. Admin suspended `173a0ab6…` phải vẫn suspended và không bị chạm; không tạo admin/email/password/token mới.
 
-### G7.1B · Schema equivalence PG16→PG18 — không nới cổng, chỉ canonicalize deparse view có kiểm soát
-Nguồn chuẩn vẫn là **PG16 production gốc**, không thay bằng một PG16 dựng lại từ dump. PostgreSQL `pg_get_viewdef`/catalog output là decompiled reconstruction, nên khác textual giữa major có thể không phải khác ngữ nghĩa. Comparator giữ 4 normalization hiện hữu và thêm **đúng 2** rule đã đo ở G7-03, **chỉ trong definition của VIEW/MATERIALIZED VIEW**:
-- R5: `= ANY ((ARRAY['x'::character varying,…])::text[])` ↔ `= ANY (ARRAY[('x'::character varying)::text,…])` (cast array↔element tương đương).
-- R6: hằng trong nhánh UNION được PG18 deparse thêm alias ngầm `AS text` hoặc `AS "varchar"`.
+### G7.1B · Schema equivalence PG16→PG18 — canonicalize deparse có object gate
+Nguồn chuẩn vẫn là **PG16 production gốc**. PostgreSQL `pg_get_viewdef()` và `pg_get_constraintdef()` đều là decompiled reconstruction, không phải SQL gốc. Comparator giữ 4 normalization hiện hữu:
+- **R5** `= ANY ((ARRAY['x'::character varying,…])::text[])` ↔ `= ANY (ARRAY[('x'::character varying)::text,…])`.
+- **R6** alias ngầm `AS text` / `AS "varchar"` trong UNION.
 
-PASS chỉ khi đồng thời:
-- data rows/content 5 DB = 0 diff; sequences = 0 diff;
-- 4 DB schema còn lại = 0 raw residual như G7-03;
-- mọi raw diff của DB `directus` sau 4 rule cũ nằm trong VIEW/MATERIALIZED VIEW và match **chính xác R5 hoặc R6**; ghi count từng rule + danh sách object bị chạm;
-- sau R5/R6, normalized residual = **0**;
-- bất kỳ diff ngoài view, pattern thứ ba, object mất/thêm, hoặc residual >0 ⇒ FAIL và auto rollback trước unfreeze.
-Không dùng wildcard/whitespace blanket normalization; không “ignore view”. Negative fixture ở PRE phải chứng minh comparator vẫn bắt một diff ngoài allowlist.
+Scope G7-05:
+- VIEW/MATERIALIZED VIEW trong DB `directus`: R5/R6 như G7-03/04;
+- CHECK constraint: **R5 chỉ đúng 19 named object allowlist** lấy từ G7-04 INDEX; replay expected 38 raw lines. R6 không áp cho CHECK.
 
-### G7.1C · Extension ownership — bảo toàn nguồn
-Tại freeze, DOT chụp **extension object + full member ownership vector** của source cho các extension trong 5 DB. **P122 đo thật (chỉ đọc, prod PG16):** DB `directus` có `btree_gist` 1.7 + `pgcrypto` 1.3 extension owner `directus` (DB owner `workflow_admin`); hai extension này **trusted**, role `directus` có quyền CREATE trên DB; `pg_db_role_setting` = 0. PostgreSQL docs: với trusted extension do non-superuser cài, **extension object** thuộc caller nhưng **contained objects mặc định thuộc bootstrap superuser** trừ khi script gán khác; target PG18 bootstrap là `workflow_admin`. Vì vậy pre-create dưới `directus` chỉ được dùng sau khi PRE 10 PASS theo **quy tắc sở hữu P124** (extension owner `directus` + mọi member owner = bootstrap `workflow_admin`; số member chỉ được khác khi `extversion` khác). **Cách candidate:** trước `pg_restore` vào PG18, DOT tạo sẵn hai extension dưới role `directus` (`SET ROLE directus; CREATE EXTENSION IF NOT EXISTS … SCHEMA public`); **cấm** `ALTER EXTENSION … OWNER TO` (không có syntax này), cấm sửa `pg_extension`/`pg_shdepend`, và cấm tự ALTER owner hàng loạt member objects nếu PRE 10 thấy lệch. Sau restore, trước verify cuối: áp **cùng quy tắc sở hữu P124** như PRE 10; extension owner khác `directus`, hoặc member nào owner khác bootstrap `workflow_admin` ⇒ FAIL trước unfreeze.
+PASS chỉ khi:
+- data rows/content 5 DB = 0 diff; sequences = 0 diff; 4 DB schema khác = 0 residual;
+- replay artifact raw 1.402 đúng multiset G7-04; 49 view + 19 allowlisted CHECK phân loại hết; normalized residual = 0;
+- actual cutover report từng `db/object/type/rule/count`; CHECK ngoài allowlist, pattern thứ ba, semantic diff ngoài R5/R6, object mất/thêm hoặc residual >0 ⇒ FAIL + auto rollback trước unfreeze.
+Không blanket whitespace/wildcard; không ignore toàn bộ view/CHECK. Negative fixtures phải bắt semantic CHECK change và CHECK ngoài allowlist.
+
+### G7.1C · Extension ownership/version — exact transition, bảo toàn quy tắc nguồn
+Tại freeze, DOT chụp extversion + extension owner + member ownership rules. Exact transitions duy nhất G7-05:
+- `btree_gist 1.7→1.8`: extension owner `directus`; mọi member target owner `workflow_admin`;
+- `pgcrypto 1.3→1.4`: extension owner `directus`; mọi member target owner `workflow_admin`;
+- `postgres_fdw 1.1→1.2`: extension owner `workflow_admin` giữ nguyên; member owner theo bootstrap `workflow_admin`.
+Trước `pg_restore`, DOT pre-create `btree_gist`/`pgcrypto` dưới role `directus` theo P122; `postgres_fdw` theo source/restore rule đã proof. **Cấm** `ALTER EXTENSION … OWNER TO`, sửa catalog, hoặc tự ALTER owner hàng loạt. Sau restore, extversion/owner/member rule khác bất kỳ transition trên ⇒ FAIL trước unfreeze.
 
 ## G7.2 · Chạy — một lệnh, liền một mạch
-- Trước freeze, package final phải chứa comparator đã replay PASS/negative PASS, extension-owner restore và quarantine helper; regenerate SHA nếu byte đổi. Sau đó `run/g7-chain.sh` đúng `G7-RUNBOOK.md`. Mọi thao tác PG/Directus qua DOT/script-wrapper (DROOT26/35/39); cấm psql/SQL/REST/CLI tay. Không dừng xin ý kiến giữa các bước.
+- Chỉ sau PRE 9 + PRE 10 PASS mới chạy **quarantine execute** qua DOT: rename failed target collision-safe, tạo target PG18 sạch đúng owner/mode; không `rm -rf`. Sau đó package final phải là `dot-stack-cutover` 1.0.5 đã replay PASS/negative PASS + exact extension transitions; regenerate manifest/SHA và record full final hash. Rồi `run/g7-chain.sh` đúng `G7-RUNBOOK.md`. Mọi thao tác PG/Directus qua DOT/script-wrapper (DROOT26/35/39); cấm psql/SQL/REST/CLI tay. Không dừng xin ý kiến giữa các bước.
 - Nghiệm thu trước mở ghi trượt ⇒ chuỗi **tự quay lui** về PG16 + Directus 11 + Nuxt3 (đã tập: 4–4,5′), trả slot OIG, ghi `KQ … DỪNG · ROLLED_BACK_PRE_UNFREEZE`.
 
 ## G7.3 · Sau mở ghi — không kéo dài gián đoạn
@@ -56,7 +62,7 @@ Tại freeze, DOT chụp **extension object + full member ownership vector** c�
 Không xoá volume PG16, checkpoint post-S2, image cũ, gói G7; dọn chỉ khi Owner cho phép (việc phụ sau XONG).
 
 ## G7.5 · KQ
-- Đạt: `KQ@VPSUP-G7-PROD-CUTOVER-20261003-04 XONG · G7_PASS · PG18.6 · DIRECTUS12.4.1 · NUXT4.5.2 · SCHEMA_CANONICAL_PASS · EXT_OWNER_PASS · ADMIN_IDENTITY_PASS · BACKUP_PG18_PASS · LICENSE_MONITOR_PASS` + gián đoạn thật + nơi đặt hồ sơ.
+- Đạt: `KQ@VPSUP-G7-PROD-CUTOVER-20261003-05 XONG · G7_PASS · PG18.6 · DIRECTUS12.4.1 · NUXT4.5.2 · SCHEMA_CANONICAL_PASS · CHECK_R5_PASS · EXT_OWNER_PASS · POSTGRES_FDW_1_2_PASS · ADMIN_IDENTITY_PASS · BACKUP_PG18_PASS · LICENSE_MONITOR_PASS` + gián đoạn thật + nơi đặt hồ sơ.
 - Không đạt: `… DỪNG · ROLLED_BACK_PRE_UNFREEZE · <lý do>` hoặc `… DỪNG · <blocker>` kèm trạng thái VPS1 hiện tại.
 - Sửa ■/➡/cập nhật của Bảng cùng commit KQ; dừng và báo GPT Host.
 
