@@ -16,7 +16,7 @@ body{margin:0}.wrap{max-width:1180px;margin:auto;padding:24px}.hero,.card{backgr
 <h1>Server đủ bộ phiên bản đã chốt để làm Máy sản xuất quy trình</h1>
 <p class="big"><b>Mục tiêu:</b> VPS1 chạy đủ PG18 + Directus12.4/OIG + Nuxt4.5/Node24 ổn định, để dùng tính năng mới cho công việc tiếp theo. Không mở rộng thành dự án dọn hạ tầng hay thiết kế tính năng nghiệp vụ.</p>
 <div><span class="tag">PG18</span><span class="tag">Directus12.4.x + OIG</span><span class="tag">Nuxt4.5 · Node24</span><span class="tag">nginx1.30.5 đã xong</span><span class="tag">Hai gói: G6 → G7</span></div>
-<p class="small"><b>Tiến độ — P121:</b> G0–G6 đã PASS. G7-03 đã rollback sạch trước mở ghi; dữ liệu/sequence 0 khác, blocker là 2 dạng PG18 deparse view. G7-04 đang DRAFT: comparator phải replay 1.402 diff→0 và negative FAIL trước downtime, extension owner giữ đúng nguồn, target PG18 failed được quarantine an toàn. Reviewer một vòng → Host READY → G7 PASS = <b>XONG VPSUP</b>.</p>
+<p class="small"><b>Tiến độ — P123:</b> G0–G6 đã PASS; G7-03 rollback sạch. G7-04 đã đóng schema comparator/quarantine và cách candidate giữ extension owner. Trước READY còn một phép chứng minh: full ownership vector của mọi member trong <code>btree_gist</code>/<code>pgcrypto</code> phải khớp PG16 nguồn ↔ PG18 nháp, vì trusted extension có thể để contained objects thuộc bootstrap superuser. Reviewer xác nhận delta này → Host READY → G7 PASS = <b>XONG VPSUP</b>.</p>
 </section>
 
 <section class="card" id="owner">
