@@ -1,5 +1,5 @@
 # PROMPT — copy-web-incomexsaigoncorp-vn · MỘT RUN từ đầu tới trang thử
-RUN_ID: CWEB-E2E-20261003-02
+RUN_ID: CWEB-E2E-20261004-03
 Trạng thái: xem `COLLAB.md` của việc. Chỉ chạy khi ở đó có dòng READY mang đúng SHA commit cuối chạm tệp này **và** Owner đã dán lệnh RUN.
 Executor_Surface: Codex (máy Owner + đường tới VPS1 đã nghiệm thu của Codex).
 Write_Path: repo `incomex-workspace` qua cổng `workspace_*`, chỉ trong `work/copy-web-incomexsaigoncorp-vn/`, commit tiền tố `[Codex]` · VPS1: mọi thay đổi chỉ qua DOT/script-wrapper · hồ sơ việc `/opt/incomex/work/copy-web-incomexsaigoncorp-vn/` (tạo bằng `mkdir`).
@@ -7,9 +7,11 @@ Write_Path: repo `incomex-workspace` qua cổng `workspace_*`, chỉ trong `work
 
 ## 0. Cổng vào — chỉ đọc; sai một điều thì DỪNG, không đổi gì
 1. Đọc `AGENTS.md` → `COLLAB.md` của việc (Bảng + §0) → tệp này. READY khớp SHA.
+1a. Đây là **RUN tiếp nối** sau KQ DỪNG của RUN-02. Snapshot nguồn đã chụp đủ và verify: `/opt/incomex/work/copy-web-incomexsaigoncorp-vn/chup/`, manifest SHA256 `397e9df3dd8874db4136db77addcd3363fbc6055ce1845656c236a3e22532682`, archive SHA256 `a04e7f51eeaa890e1bd970c072908cad84799d0689cd2b7ef1906c49fe941e74`. Verify khớp ⇒ **tái sử dụng, không crawl/chụp lại**; chỉ lấy lại phần cụ thể nếu file thiếu/hỏng có bằng chứng.
 2. Nâng cấp máy chủ đã XONG — Host kiểm 03/10: `work/done-tasks/vps1-up-grade/COLLAB.md` có KQ G7 XONG; VPS1 đang chạy PG 18.6 · Directus 12.4.1 · Nuxt 4.5.2. Kiểm lại bằng DOT/health sẵn có; lệch phiên bản ⇒ DỪNG.
 3. Không executor nào khác đang thay đổi VPS1 (bảng ai-đang-làm của MCPW + `COLLAB.md` gốc). Có ⇒ DỪNG, báo một dòng.
-4. Tiền tố `/w` chưa được dùng trong Nuxt và nginx. Đã dùng ⇒ DỪNG.
+3a. Đọc bảng đèn. `INV15.kuma_telegram_coverage` / #22 `MCPW Protection Guard` phải xanh trước mutation. Nếu vẫn đỏ ⇒ DỪNG đúng DROOT37 và chỉ trỏ `work/hermes-joint-workspace`; **không sửa HJW trong CWEB**.
+4. Tiền tố `/w` chưa được dùng trong Nuxt và nginx. Đã dùng do một RUN CWEB hợp lệ trước đó thì kiểm trạng thái và tiếp tục idempotent; do việc khác dùng ⇒ DỪNG.
 5. Ghi `STARTED@<RUN_ID> <UTC> · executor=codex` vào `COLLAB.md` + sửa 3 dòng Bảng (■ Đang làm · ➡ Kế tiếp · `cập nhật`).
 
 ## 1. Đầu bài — lời Owner 03/10/2026 22:07, không diễn giải thêm
@@ -27,7 +29,7 @@ Write_Path: repo `incomex-workspace` qua cổng `workspace_*`, chỉ trong `work
 - Mã Nuxt: `/opt/incomex/docker/nuxt-repo/web` (có `pages/[...permalink].vue`, `pages/posts/`). DOT dùng chung hiện có chỉ tái dùng khi đúng scope; thiếu schema/content capability cho namespace mới thì viết/nâng DOT trước, không fallback thao tác trực tiếp.
 
 ## 3. Việc — làm liền một mạch, không xin duyệt giữa chừng
-**A. Chụp** (từ máy Owner · chỉ GET · ≤ 1 yêu cầu/giây · chạy tiếp được): JSON `pages|posts|categories|tags|media` (`per_page=100`, `_embed=1`) · HTML của 29 địa chỉ (từ liên kết trang chủ + trường `link`) · 73 tệp ảnh đang dùng · CSS, phông, biểu tượng mà 6 trang mẫu nạp · ảnh chụp màn hình 6 trang mẫu rộng 1366 và 390 làm chuẩn so. Lưu ở hồ sơ việc `chup/` + `MANIFEST.json` (sha256).
+**A. Nguồn — ĐÃ XONG ở RUN-02:** verify snapshot/manifest theo §0.1a rồi đi thẳng B. Không lặp lại crawl/chụp nếu verify PASS.
 
 **B. DOT trước, thao tác sau** (DROOT26/27/29/35): kê DOT dùng được trên bộ hiện tại. Thiếu thì viết/nâng rồi dùng chính nó. Bắt buộc có một đường bootstrap idempotent cho namespace `web_incomex`: tạo/verify Directus group + đúng 2 collection + fields + notes + Files folder; dry-run mặc định; chạy lại không nhân đôi; rollback chỉ chạm namespace này. Tiếp đó dùng DOT cho nạp hàng loạt từ `chup/`, nạp ảnh, permission read-only published, tự kiểm trang và deploy Nuxt (tái dùng DOT/script mà việc nâng cấp bàn giao; thiếu thì bọc lệnh chính thức thành script-wrapper). Mỗi DOT mới có `--help`, dry-run, verify, rollback, secret handling và mã thoát.
 
@@ -72,9 +74,10 @@ Write_Path: repo `incomex-workspace` qua cổng `workspace_*`, chỉ trong `work
 
 ## 5. Dừng (ghi KQ DỪNG + lý do một dòng) khi
 - Cổng vào sai · `COLLAB.md` có `STOP_REQUESTED`/HOLD · trước nhóm thay đổi production đầu tiên phải đọc lại `COLLAB.md` + tệp này (DROOT30).
-- Site cũ chặn hoặc đã ngừng: nghỉ 5 phút, thử lại tối đa 3 lần, vẫn không lấy đủ ⇒ dừng, không tự suy đoán nội dung.
-- Hồi quy đỏ sau khi đưa lên ⇒ chạy đường lùi rồi dừng. Đèn đỏ do chính RUN này ⇒ chưa XONG.
+- #22/HJW vẫn đỏ theo §0.3a; không điều hành/sửa việc khác từ CWEB.
+- Snapshot đã verify ở RUN-02 bị thiếu/hỏng và site cũ không thể lấy lại phần bắt buộc ⇒ dừng, không tự suy đoán nội dung.
+- Hồi quy đỏ sau khi đã tự sửa các lỗi thuộc phạm vi CWEB và thử lại ⇒ chạy đường lùi rồi dừng. **Không DỪNG vì lỗi code/DOT/CSS/config do chính RUN này tạo nếu còn có thể tự sửa trong phạm vi; tự sửa → verify → tiếp tục đến trang thử.** Đèn đỏ do chính RUN này ⇒ chưa XONG.
 
 ## 6. Kết thúc
 - Ghi vào `COLLAB.md` một dòng `KQ@<RUN_ID> XONG` hoặc `KQ@<RUN_ID> DỪNG · <lý do>` kèm số liệu một dòng (bài · trang · ảnh đã nạp · địa chỉ 200 · DOT mới · commit) + sửa 3 dòng Bảng, cùng commit.
-- Trả Owner đúng một dòng: `XONG · https://vps.incomexsaigoncorp.vn/w/` hoặc `DỪNG`.
+- Chỉ được trả `XONG · https://vps.incomexsaigoncorp.vn/w/` khi browser thật desktop 1366 + mobile 390 PASS, 29 route tương ứng PASS, nhúng/form đã thử, collection/file đúng namespace, hồi quy ngoài `/w/` PASS, POST-PROTECT + receipt PASS, và đã đối chiếu chi tiết với bản cũ/chi tiết con người duyệt theo yêu cầu Owner 04/10. Nếu chưa có web chạy được thì **không dùng từ XONG**.
