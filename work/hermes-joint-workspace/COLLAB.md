@@ -1,19 +1,19 @@
 # COLLAB — Hermes Joint Workspace
 
-> **CÁCH GIAO HERMES:** nói với GPT/Claude `giao Hermes: <việc>` → AI ghi `ASSIGN@` tại **COLLAB HJW này** → Telegram hiện thẻ → 😊 Owner bấm **Cho chạy**. Việc có thể yêu cầu Hermes đọc task khác; quyền ghi của Hermes vẫn theo profile đã duyệt.
+> **TẠM THỜI · 03/10:** kênh `ASSIGN@` legacy đang **DEGRADED** sau sự cố false-dispatch/NOOP. Không dùng legacy làm nghiệm thu cuối. Assignment Contract V1 ở P95 đang chờ Founder review + runtime enforcement; chỉ sau PASS mới dùng làm đường giao chuẩn.
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng. **Lượt 20:05:** Owner giao GPT lựa chọn phương án sau ý kiến Claude P80; Host **ĐỒNG Ý** thêm positive heartbeat 08:00 mỗi sáng bằng Guard/cron hiện hữu: trạng thái đèn + số phiên AI hôm qua/cảnh báo thiếu hook hoặc ngoài sổ; không bot/timer mới. **Lượt 21:50:** Owner chuyển nguyên đề xuất P88 cho GPT và giữ dòng 3 ⇒ đồng ý thứ tự `vá D30 → G7 → external dead-man D31 → đóng HJW` và **gật dùng dịch vụ canh miễn phí ngoài VPS** sau G7.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-03 20:55 +07 · GPT Host · P94 HERMES READINESS CHECK
-- 🎯 Mục tiêu: HJW tự làm xong phần của mình rồi đóng — trước khi chạy lượt sửa cuối, cho **Hermes tự kiểm toàn bộ đường kết nối và khả năng tham gia HJW**, báo cáo lên repo để Host tổng hợp lỗi rồi sửa một thể.
-- 🏁 Xong khi: có báo cáo Hermes `READY|PARTIAL|BLOCKED` về identity/gateway/workspace/Telegram/assignment/model/tool/write/report + phạm vi Hermes có thể tham gia; sau đó Host tổng hợp và mới quyết delta sửa cuối.
-- 📍 Tiến độ: `[✓ Sổ 66 loại + 5 tin thử] → [✓ P92/P93 prompt+READY] → [■ Hermes readiness diagnostic qua Owner approval] → [□ Host tổng hợp] → [□ final D30→D31] → [□ nghiệm thu/CLOSE]`.
-- ✅ Đã xong: Hermes/Kuma nền · 66 loại/64 chạy/0 hỏng/2 U có chủ · INV16/17 · receipt/08:00 · AUTO-PROTECT · P92/P93.
-- ■ Đang làm: **tạm HOLD RUN cuối trước STARTED** để lấy một báo cáo độc lập từ Hermes; Claude Code chỉ tạo assignment, không chạy thay Hermes. Owner bấm `Cho chạy`; Hermes tự kiểm và tự ghi báo cáo.
-- ⬜ Còn lại: Hermes report → Host rà/đối chiếu → gom vấn đề → sửa một thể → nghiệm thu → đóng.
-- ➡ Kế tiếp: Claude Code tạo đúng assignment spec P94 và dừng sau khi báo assignment ID + trạng thái thẻ Telegram.
-- ⛔ Hermes diagnostic không sửa file/config/runtime ngoài chính dòng assignment + báo cáo COLLAB; không chạy D30/D31; không mở quyền mới; không bấm thay Owner.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-03 22:10 +07 · GPT Host · P95 ASSIGNMENT CONTRACT V1 DRAFT
+- 🎯 Mục tiêu: sửa dứt điểm **hợp đồng giao việc chung** trước, để GPT/Claude/Claude Code/Hermes + dispatcher cùng hiểu đúng một ngôn ngữ; sau đó mới lấy readiness thật của Hermes và gom các lỗi còn lại sửa một thể.
+- 🏁 Xong chặng hiện tại khi: parser chỉ nhận `ASSIGN_V1` canonical trong machine-zone · approval/claim/queue/dedup/report cùng contract · negative tests PASS · Hermes chạy readiness thật và ghi report repo.
+- 📍 Tiến độ: `[✓ phát hiện false-dispatch -01 + Hermes NOOP] → [■ Contract V1 + PROMPT draft P95] → [□ Claude Founder review] → [□ runtime enforcement + tests] → [□ Hermes readiness canonical] → [□ Host tổng hợp] → [□ final D30/D31 + lỗi còn lại] → [□ CLOSE]`.
+- ✅ Đã xong: sổ tin báo/INV16/17/receipt · bằng chứng -01: thẻ được phát từ prose P94, Owner duyệt, Hermes chạy ~160k token nhưng NOOP/0 commit/0 mutation · hiện `cron.max_parallel_jobs=1`.
+- ■ Đang làm: **HOLD mọi final mutation**; legacy assignment chỉ dùng làm evidence, không nghiệm thu. Owner đã đồng ý retry `-02`, nhưng tại P95 `-02` chưa có trên repo; nếu xuất hiện bằng legacy trước enforcement thì chỉ ghi evidence, không coi PASS cuối.
+- ⬜ Còn lại: Founder chốt Contract V1 → sửa parser/dispatcher/Telegram lifecycle → canonical readiness → Host đọc report → gom lỗi → final D30/D31.
+- ➡ Kế tiếp: Claude Chat review P95 + PROMPT active mới; chưa READY/chưa RUN.
+- ⛔ Không tạo thêm assignment legacy; không để prose/code sample kích hoạt; không chạy D30/D31 cho tới sau readiness canonical.
 
 ### 1. Mục tiêu
 - Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
@@ -1434,7 +1434,7 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Owner yêu cầu: Claude Code giao việc cho Hermes qua cơ chế `ASSIGN@` hiện hữu; Owner tự bấm `Cho chạy`; Hermes tự kiểm toàn bộ phần kết nối/tham gia HJW và ghi báo cáo lên repo. Sau đó Host đọc báo cáo, tổng hợp vấn đề và xử lý một thể.
 - Vì P93 RUN cuối chưa STARTED, Host **tạm HOLD execution** của `HJW-FINAL-D30-D31-20261002-04` cho tới khi hoàn tất diagnostic; không sửa PROMPT P92/P93.
 - Claude Code **không làm diagnostic thay Hermes**. Nhiệm vụ duy nhất của Claude Code: đọc schema assignment hiện hành, ghi một ASSIGN mới vào HJW COLLAB, xác nhận thẻ Telegram đã tạo/đang chờ Owner, rồi dừng.
-- Assignment cần tạo: `ASSIGN@HJW-HERMES-READINESS-20261003-01 · to=Hermes · role=Reviewer · scope=work/hermes-joint-workspace · state=open`.
+- **INERT / sự cố đã biết:** P94 từng chứa một ví dụ legacy có id `HJW-HERMES-READINESS-20261003-01` trong prose; dispatcher đã phát thẻ nhầm từ ví dụ này. Không còn coi dòng prose đó là assignment.
 - Nội dung assignment sau approval, Hermes tự làm, **chỉ diagnostic/report**:
   1. xác nhận identity server-side của Hermes + profile/capability đang dùng; không tin `clientInfo` tự khai;
   2. kiểm Agent Gateway/session/model có hoạt động và model thực sự wake sau approval;
@@ -1448,3 +1448,16 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
   10. kết quả cuối: `HERMES_READINESS=READY|PARTIAL|BLOCKED` + bảng ngắn `surface | status | evidence | limitation` + `recommended_role`.
 - Ghi report ngay dưới assignment trong HJW COLLAB; đổi `state=open→claimed→done|blocked` theo lifecycle hiện hữu. Nếu không thể ghi repo thì gửi Telegram blocker và giữ `blocked` nếu schema cho phép.
 - Không chạy D30/D31, không restart, không tạo file/task/service/token/monitor, không sửa quyền. Sau report dừng để Host kiểm.
+
+### P95 · Host GPT · 2026-10-03 22:10 +07 · **ROOT CAUSE + ASSIGNMENT CONTRACT V1 · DRAFT CHỜ CLAUDE FOUNDER**
+- **Sự cố -01:** dispatcher quét prose P94 thấy marker legacy + `state=open` nên tự phát thẻ; Telegram ghi nguồn GPT Chat/Work. Owner bấm đúng thẻ. Hermes lại đọc semantic và kết luận “đây chỉ là câu yêu cầu Claude Code tạo assignment, chưa có assignment thật” ⇒ NOOP/BLOCKED. Hai phía dùng hai ngôn ngữ khác nhau.
+- **Thiệt hại đo được:** 1 approval vô ích · ~159.785 token model · 0 commit Hermes · 0 runtime/config mutation. Đây là lỗi hệ thống/AI, không phải Owner.
+- **Bằng chứng thiết kế mâu thuẫn:** COLLAB cũ định nghĩa legacy `ASSIGN\@` là “dấu máy đọc, một dòng, không phụ thuộc vị trí”; trong thực hành Hermes lại cần một record giao thật riêng. Vì vậy không thể sửa bằng nhắc AI “viết rõ hơn”.
+- **Concurrency:** hiện `cron.max_parallel_jobs=1`. Hai assignment có thể cùng được duyệt nhưng chỉ một job được claim/wake; việc còn lại phải là `ĐÃ DUYỆT · XẾP HÀNG`. Muốn chạy model thật song song >1 là thay đổi kiến trúc riêng, không tự bật trong HJW này.
+- **Contract V1 đề xuất:** machine-zone duy nhất + `ASSIGN_V1 {JSON}` · fields bắt buộc · approval ticket bind content hash · state/approval tách nhau · claim mới được wake · dedup/generation · `RESULT_V1` · Telegram lấy structured fields · negative tests cưỡng chế. Legacy prose/backtick/example phải inert.
+- **Machine zone dự kiến (chưa active tới runtime PASS):** marker `MACHINE_ASSIGNMENTS_V1:BEGIN/END`; chỉ dòng cột 1 bắt đầu `ASSIGN_V1 ` ở giữa marker được parser nhận. Chi tiết việc nằm ở `spec_ref`; approval hash bind cả record + bytes của spec.
+- **Readiness canonical sau enforcement:** id `HJW-HERMES-READINESS-20261003-02`, role Reviewer, Owner approval, task/output không rỗng; Hermes tự kiểm identity/gateway/model/read/write/Telegram/tool-scope/report và trả `READY|PARTIAL|BLOCKED`. Claude Code không làm thay.
+- **Acceptance runtime:** prose marker legacy = 0 card · canonical valid = 1 card · task `.` invalid · duplicate exact = 1 card/1 model · sửa spec sau duyệt = ticket invalid · 2 việc approved = tối đa 1 claimed · reject = 0 model · pre-start Telegram fail = 0 model · scope deny = blocked · restart không mất queue/ticket · final result có repo commit + Telegram cùng id/generation.
+- **Roadmap:** Contract review → enforcement/test → Hermes readiness canonical → Host tổng hợp report → final repair một lần (D30/D31 + lỗi readiness) → nghiệm thu/CLOSE.
+- DROOT39 sẽ ghi root dạng **draft chờ Claude Founder exact-review**; chưa đồng bộ AGENTS A9 và chưa tuyên bố runtime compliant.
+- PROMPT active đổi sang RUN contract/readiness riêng; READY P93 cũ hết hiệu lực khi PROMPT được chạm. Không chạy executor tới Reviewer ACCEPT + Host READY mới.
