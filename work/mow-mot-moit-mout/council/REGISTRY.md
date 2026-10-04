@@ -21,12 +21,12 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
 - Active_RUN: none.
 - Reserved_Targets: none.
-- Base_Target_Version: `ban-duyet.html#matrix-view-formula` SHA `0c7801baf425130966624f7c44ec8514a638d241213a42ab0fbb20061181ba8a`; Owner View live đã kiểm mặt mặc định 9 card + Kho AI đóng.
-- NOW: Phần II có 27 định nghĩa, mỗi dòng mang STT cố định 1–27 làm ID người; 9 card/Kho AI chỉ là mặt ưu tiên và không còn là hệ STT riêng.
-- NEXT: OWNER dùng STT của kho định nghĩa để trao đổi/chốt; mục mới nhận số tiếp theo.
+- Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
+- NOW: 27 định nghĩa đã có 27 Master List mapping live; 4 xanh reuse nguyên bản, 23 list mới rỗng dùng chung UI.MASTER cha + 5 cột thiết yếu.
+- NEXT: OWNER rà 27 schema/5 cột trên `definition-master-index-v1.html`; chỉ chỉnh schema, chưa điền dữ liệu thật nếu chưa chốt.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D109.
+- LAST_SYNC: D110.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
