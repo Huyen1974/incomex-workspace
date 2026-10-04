@@ -589,6 +589,22 @@
 #matrix-view-formula .cf-two-views{grid-template-columns:repeat(2,minmax(0,1fr))}
 #matrix-view-formula .cf-two-views p{margin:5px 0;font-size:14px;line-height:1.6}
 #matrix-view-formula .cf-two-views small{display:block;margin:5px 0 0;font-size:12px}
+#matrix-view-formula .cf-core{border:1px solid #cfe0d2;background:#f7fbf8;border-radius:14px;padding:14px;margin:10px 0 20px}
+#matrix-view-formula .cf-core-principle{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+#matrix-view-formula .cf-core-principle b{font-size:16px;color:#174f35}
+#matrix-view-formula .cf-core-principle span{font-size:12px;color:var(--mut)}
+#matrix-view-formula .cf-core-zone{margin-top:12px}
+#matrix-view-formula .cf-core-zone>h4{margin:0 0 7px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut)}
+#matrix-view-formula .cf-core-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#matrix-view-formula .cf-core-card{border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 11px;min-width:0}
+#matrix-view-formula .cf-core-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px}
+#matrix-view-formula .cf-core-title b{font-size:14px;color:var(--ink)}
+#matrix-view-formula .cf-core-tag{font-size:10px;font-weight:700;color:#1f6a42;background:#edf7ef;border-radius:8px;padding:2px 6px;white-space:nowrap}
+#matrix-view-formula .cf-core-card p{font-size:12px;line-height:1.45;color:#3d4a43;margin:0}
+#matrix-view-formula .cf-core-pair{list-style:none;margin:4px 0 0;padding:0;font-size:12px;line-height:1.45;color:#3d4a43}
+#matrix-view-formula .cf-core-pair li{margin:3px 0;padding-left:10px;position:relative}
+#matrix-view-formula .cf-core-pair li:before{content:'•';position:absolute;left:0;color:#1f6a42;font-weight:700}
+#matrix-view-formula .cf-core-pair b{color:var(--ink)}
 #matrix-view-formula .cf-def-intro{font-size:13px;line-height:1.55;margin:6px 0 12px}
 #matrix-view-formula .cf-def-existing{border:1px solid #cfe3d3;background:#f4faf5;border-radius:12px;padding:10px 12px;margin:8px 0 14px}
 #matrix-view-formula .cf-def-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;font-size:13px}
@@ -628,8 +644,39 @@
 #matrix-view-formula .cf-flow .a{align-self:center;transform:rotate(90deg);line-height:1}
 #matrix-view-formula .cf-return{align-self:center;text-align:center}
 #matrix-view-formula .cf-two-views{grid-template-columns:minmax(0,1fr)}
+#matrix-view-formula .cf-core-grid{grid-template-columns:minmax(0,1fr)}
 }
 </style><section class="owner-part"><div class="wf4-top"><h2>Công thức và định nghĩa</h2></div>
+<section class="cf-core" aria-labelledby="cf-core-title">
+  <div class="cf-core-principle"><b id="cf-core-title">CÔNG THỨC = ghép các thành phần đã định nghĩa</b><span>Mặt này dành cho người · chi tiết để phía dưới cho AI/máy.</span></div>
+
+  <div class="cf-core-zone">
+    <h4>A · Định vị vấn đề</h4>
+    <div class="cf-core-grid">
+      <div class="cf-core-card"><div class="cf-core-title"><b>1 · BƯỚC</b><span class="cf-core-tag">1 → 7</span></div><p>Đang ở giai đoạn nào trong công thức 7 bước.</p></div>
+      <div class="cf-core-card"><div class="cf-core-title"><b>2 · TẦNG</b><span class="cf-core-tag">T7 → T0</span></div><p>Đang xử lý vấn đề ở mức nào trong hệ tầng.</p></div>
+      <div class="cf-core-card"><div class="cf-core-title"><b>3 · NHÓM</b><span class="cf-core-tag">CHA / CON</span></div><ul class="cf-core-pair"><li><b>Nhóm cha</b> · quy tắc/config dùng toàn hệ thống hoặc diện rộng.</li><li><b>Nhóm con</b> · quy tắc/config dùng trong 1 chuyên môn.</li></ul></div>
+    </div>
+  </div>
+
+  <div class="cf-core-zone">
+    <h4>B · Tổ chức việc</h4>
+    <div class="cf-core-grid">
+      <div class="cf-core-card"><div class="cf-core-title"><b>4 · UI</b><span class="cf-core-tag">CHA / CON</span></div><ul class="cf-core-pair"><li><b>UI cha</b> · khuôn giao diện + hành vi dùng chung.</li><li><b>UI con</b> · dùng khuôn cha + config cho ngữ cảnh/chuyên môn cụ thể.</li></ul></div>
+      <div class="cf-core-card"><div class="cf-core-title"><b>5 · QUY TRÌNH</b><span class="cf-core-tag">T2</span></div><p>Chuỗi công việc phối hợp để tạo ra một kết quả nghiệp vụ.</p></div>
+      <div class="cf-core-card"><div class="cf-core-title"><b>6 · CÔNG VIỆC</b><span class="cf-core-tag">T1</span></div><p>Một việc cụ thể trong Quy trình; có đầu vào, đầu ra và điều kiện hoàn thành.</p></div>
+    </div>
+  </div>
+
+  <div class="cf-core-zone">
+    <h4>C · Dữ liệu &amp; giao việc</h4>
+    <div class="cf-core-grid">
+      <div class="cf-core-card"><div class="cf-core-title"><b>7 · FORM</b><span class="cf-core-tag">T0.5</span></div><ul class="cf-core-pair"><li><b>MOIT</b> · Form / dữ liệu đầu vào.</li><li><b>MOUT</b> · Form / dữ liệu đầu ra.</li></ul></div>
+      <div class="cf-core-card"><div class="cf-core-title"><b>8 · FIELD</b><span class="cf-core-tag">T0</span></div><p>Đơn vị dữ liệu nhỏ nhất cần khai báo, nhập, tính hoặc hiển thị.</p></div>
+      <div class="cf-core-card"><div class="cf-core-title"><b>9 · NTGV</b><span class="cf-core-tag">GIAO VIỆC</span></div><p>Quy định ai/AI làm gì, nhận gì, giao gì, cho ai và theo điều kiện nào.</p></div>
+    </div>
+  </div>
+</section>
 <h3 id="cf-b05-seven">I. Công thức · 1. Công thức 7 bước chung</h3>
 <div class="cf-flow" role="group" aria-label="7 bước chung: Tìm rồi Dùng, hoặc tạo mới qua bước 3 đến 7 rồi quay về Dùng">
 <div class="cf-flow-start" data-formula-step="1"><b>1</b> Tìm</div>
