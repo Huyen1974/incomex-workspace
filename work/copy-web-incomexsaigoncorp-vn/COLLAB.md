@@ -11,7 +11,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chốt cuối 03/10/2026 22:30: mục
 - 📍 **Tiến độ:** `✅ RUN-03 dựng web /w/ · ✅ 32 route/Directus/form/nhúng/protection PASS · ⛔ RUN-03 DỪNG chỉ vì yêu cầu JPEG GitHub cũ · ✅ PROMPT RUN-04 + READY · ■ 😊 Owner dán RUN-04 → Codex hoàn thiện độc lập tài nguyên + thử tên miền chính ở root (chậm nhất ≈07/10) · ⬜ Owner duyệt · ⬜ cutover DNS: cấp chứng chỉ trước (1 bản ghi TXT) → đổi `@`/`www`, trước ≈10/10`
 - ✅ **Đã xong:** Host điều tra thật 02/10 20:30 qua trình duyệt của Owner: **5 trang · 14 bài · 73 ảnh · 29 địa chỉ, đều mở được**; phần nhúng: Google Maps (chân trang, mọi trang) · YouTube (`/gioi-thieu/`) · liên kết Lark wiki (bài đơn hàng) · liên kết cổng giaoduc (menu); tính năng: form liên hệ (`/lien-he/`). P01 (GPT) → Host nhận ở P02.
 - ■ **Đang làm:** Trang `/w/` đã chạy thật và kỹ thuật RUN-03 cơ bản PASS. **Không còn chờ ngoại lệ Git.** GPT kiểm live 10:44 thấy còn 3 lỗi tài nguyên: Google Fonts + FontAwesome bị CSP chặn và một stylesheet `/w/assets/*.bin` sai MIME. RUN-04 sẽ self-host font/icon/CSS/JS/ảnh/PDF, audit 0 dependency GitHub/web cũ, lưu 6 JPEG QA trên VPS evidence và mô phỏng domain root trước cutover.
-- ⬜ **Còn lại:** Host READY RUN-04 → Codex chỉ harden phần còn lại: self-host asset → sửa MIME/CSP → audit 32 route → host-header/root cutover simulation + TLS path → regression/protection → `CUTOVER_READY`. Không dựng/nạp lại web.
+- ⬜ **Còn lại:** 😊 Owner dán RUN-04 → Codex chỉ harden phần còn lại: self-host asset → sửa MIME/CSP → audit 32 route → host-header/root cutover simulation + TLS path → regression/protection → `CUTOVER_READY`. Không dựng/nạp lại web.
 - ➡ **Kế tiếp:** Host đã READY (P10). 😊 Owner dán một dòng RUN-04 cho 🤖 Codex. Khi `CUTOVER_READY`, Owner chỉ cần duyệt và ra lệnh cutover DNS.
 - ⛔ **Không làm/để sau:** làm lại/cải tiến web · sửa nội dung · dựng lại phần nhúng · ghi collection chung · dùng GitHub làm kho ảnh/runtime asset · phụ thuộc host WordPress cũ · đổi DNS khi chưa có lệnh.
 
@@ -80,7 +80,7 @@ Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
 - Q09 · **ĐÓNG · P05 GPT:** dữ liệu web Incomex dùng namespace riêng `web_incomex`, đúng 2 collection + folder file riêng + note metadata; không dùng collection chung.
 
 ## RUN / KQ
-- `PROMPT.md` RUN_ID `CWEB-E2E-20261004-04` · last-touch `7bd0833a35986bc6ba1612bc220da9a156e27778` · **CHƯA READY**; scope chỉ hardening độc lập tài nguyên + cutover-ready, không dựng/nạp lại.
+- `PROMPT.md` RUN_ID `CWEB-E2E-20261004-04` · last-touch cũ `7bd0833…` (GPT) → Host bổ sung mục F ở `3db72e8`; **READY ở dòng dưới (P10)**; scope chỉ hardening độc lập tài nguyên + cutover-ready, không dựng/nạp lại.
 - READY@3db72e801c0c4ec706792b20c5280952247fbff7 · RUN_ID `CWEB-E2E-20261004-04` · Host Claude Chat · 2026-10-04 11:05 +07 · `PROMPT.md` RUN-04 (hoàn thiện site độc lập + cutover-ready) · chờ Owner dán RUN.
 - KQ@CWEB-E2E-20261004-03 DỪNG · **lịch sử:** web thật và kiểm kỹ thuật đã PASS; chỉ bị prompt cũ chặn vì 6 JPEG chưa lên GitHub. D08 bỏ yêu cầu GitHub binary; 6 JPEG giữ VPS evidence.
   - Số liệu: **14 bài · 5 trang · 8 đơn hàng · 73 tệp đã nạp (69 ảnh + 4 PDF) · 32 địa chỉ 200 (29 gốc + 3 bổ sung) · 3 DOT mới**. STARTED `b9feac88f04fc218a01ea03c4f3b8a1200294e0f`; nguồn Nuxt private `ed76ba064155b5a41854628165d46963c2f4528c`; DOT/protection `284f48e95eacabfbd0e10150585b68699869146f`; adapter Guard `3080c9c9580b9c8afc1b2fa35b792c7dca3c8a51`. KQ + 3 dòng Bảng + đúng #kiem-ke/#so-anh cùng commit chứa dòng này.
