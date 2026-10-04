@@ -1,10 +1,11 @@
 # PROMPT — HJW · FINAL CLOSE: HOST AUTHORITY + ACTIVE TASK DISPATCH + D31
 
 RUN_ID: HJW-FINAL-CLOSE-20261004-06
-STATUS: DRAFT — Host GPT soạn tại P102 sau Claude P101; CHƯA READY, chờ Claude Reviewer rà đúng bản này
+STATUS: Reviewer ACCEPT-with-delta tại HJW P103 (Claude Chat · 04/10) — chờ Host rà delta P103 rồi READY trên commit cuối chạm file này
+Reviewer: Claude Chat · P103 (9 chỉnh, liệt kê ở HJW COLLAB P103)
 Host: GPT Chat · GPT-HJW-260922-A
 Executor_Surface: Claude Code CLI phiên mới
-Write_Path: repo qua workspace_*; mọi runtime mutation qua DOT/script-wrapper hiện hữu; không ad-hoc
+Write_Path: repo qua workspace_*; mọi runtime mutation qua DOT/script-wrapper hiện hữu; không ad-hoc. Được nạp lại đúng dịch vụ Hermes của HJW (`hermes-gateway`) tối đa một lần theo điều kiện §1; không dựng lại/khởi động lại container dùng chung.
 Owner_authorization: mục tiêu HJW đã xác nhận; Owner 04/10 chốt mô hình Owner → hội đồng/review → Host giao → worker làm; human approval hiện là cổng tạm; AUTO để sau.
 
 ## 0. Mục tiêu duy nhất
@@ -21,15 +22,28 @@ Hoàn thiện MANUAL an toàn để có thể đóng HJW mà năng lực giao He
 
 Sau KQ RUN này, **Host GPT tự làm nghiệm thu cuối** bằng một assignment thật đã được Claude rà ở §8; executor không được ghi assignment nghiệm thu đó.
 
+**Thứ tự làm:** §1 PRE (chỉ đọc) → §1B checkpoint Owner một lần → §§2–5 và §7 (sửa máy, tự chạy, không hỏi thêm) → KQ. Xong nhóm nào ghi một dòng `BƯỚC <tên> PASS · <giờ>` vào mục P của executor; phiên bị ngắt thì phiên mới làm tiếp từ dòng mốc cuối. RUN này không đọc nội dung, không nhắc, không điều hành việc nào khác (DROOT37).
+
 ## 1. PRE — fail closed
-- Đọc AGENTS A2/A5/A6/A9-GLB → root DROOT34/37/38/40/41 → HJW Bảng + §0 + P98–P102 → prompt này.
-- Đọc `bang-den.json` + sổ tin báo. Baseline kỳ vọng từ P101: 22 xanh · 0 đỏ; 71 loại · 68 chạy · 1 hỏng D31 · 2 U. Lệch thì ghi thực tế; đỏ thuộc HJW ⇒ không mutation ngoài phần sửa chính đỏ đó.
+- Đọc AGENTS A2/A5/A6/A9-GLB → root DROOT34/37/38/40/41 → HJW Bảng + §0 + P98–P103 → prompt này. COLLAB HJW nặng ~450 KB: tìm đúng đoạn, không đọc cả file.
+- Đọc `bang-den.json` + sổ tin báo. Reviewer tự đọc 04/10 10:40 +07: 22 xanh · 0 đỏ; 72 loại · 69 chạy · 1 hỏng D31 · 2 U. Lệch thì ghi thực tế; đỏ thuộc HJW ⇒ không mutation ngoài phần sửa chính đỏ đó.
 - Xác nhận RUN-05 đã KQ XONG; RUN-06 chưa STARTED; PROMPT last-touch = READY sau review; không HOLD/STOP.
-- Shared VPS1 gate như P97: trước first mutation và mỗi nhóm mutation/POST-PROTECT, nếu executor khác đang mutation shared VPS1 thì chỉ read-only/recheck, không giẫm.
+- **Cổng máy chủ dùng chung (P97, làm rõ):** Owner báo 04/10 10:40 một executor khác đang làm việc trên VPS1. Trước first mutation và trước mỗi nhóm mutation/POST-PROTECT kiểm đủ ba dấu hiệu: (a) việc khác có cờ bận chưa có KQ; (b) tín hiệu `Đang làm` của việc khác trong 15 phút gần nhất; (c) trên máy đang có tiến trình deploy/build/apply của executor khác. Có một dấu hiệu ⇒ HJW chỉ đọc, chờ và kiểm lại mỗi 10 phút bằng lệnh tất định (không gọi model); không ghi KQ DỪNG chỉ vì bận. Hết bận ⇒ đọc lại COLLAB + PROMPT + READY/HOLD/STOP + bảng đèn rồi mới mutation. Đây là cổng tài nguyên của HJW, không điều hành việc khác (DROOT37).
 - Lập map mã thật: gate/parser, lifecycle, queue/ticket, local workspace/HVU source, Config Guard targets, `ws-handoff-watch`, host attribution source.
 - 0 GitHub anonymous trong PRE/POST; D30 đã PASS là regression bắt buộc.
 - Không restart container dùng chung. Nếu cần sửa Agent Data/Claude MCP container/credential/route/token mới ⇒ DỪNG trước mutation.
+- Nạp lại `hermes-gateway`: tối đa một lần, qua wrapper chuẩn, khi không có việc Hermes nào đang chạy, có đường lùi. Không áp thay đổi Guard và không nạp lại trong 07:55–08:10 +07 (bản tin sáng).
+- Giữ phần đã PASS ở RUN-05 (vùng máy, khóa nội dung, hàng chờ, máy ghi claimed, RESULT, tin báo lỗi): chỉ thêm đúng phần của RUN này, không viết lại.
 - Executor **không sửa dòng `Host:` của bất kỳ task nào** và không ghi assignment thật cho Hermes.
+
+## 1B. Checkpoint Owner — MỘT lần, ngay sau PRE, trước mọi mutation
+Gom mọi việc cần Owner vào một lần ngồi; sau đó RUN tự chạy, không hỏi thêm. Hướng dẫn từng bước bấm gì ở đâu, tiếng Việt thường, không thuật ngữ.
+1. **Xin phép một lần cho cả nhóm thay đổi của RUN** (nêu ≤5 dòng: áp bản mới bộ điều phối Hermes + Guard qua đường apply chuẩn; nạp lại `hermes-gateway` một lần; cho nghỉ hoặc đổi `ws-handoff-watch` theo câu trả lời ở mục 3). Lý do: ở RUN-05 bộ lọc an toàn của executor chặn bước áp thay đổi tới khi Owner chọn cho phép, RUN đứng chờ gần 6 giờ.
+2. **D31 — đăng ký và thử người canh ngoài** theo §6. Phần này không thay đổi gì trên VPS1 nên làm được cả khi máy chủ đang có executor khác.
+3. **Gật/lắc `ws-handoff-watch`** theo §5, kèm con số 30 ngày đã kiểm kê.
+
+Ghi nguyên văn lựa chọn của Owner vào HJW COLLAB §0.3 ngay sau checkpoint.
+Owner vắng ⇒ giữ cờ bận, 0 mutation, không tự tìm đường khác; quá 30 phút chưa có Owner ⇒ ghi KQ chờ ở §9; Owner quay lại thì cùng RUN làm tiếp sau khi đọc lại theo DROOT30.
 
 ## 2. Host-only issuer — cưỡng chế đúng vai trò
 Mục tiêu: quyền kỹ thuật không tạo quyền điều hành.
@@ -38,15 +52,16 @@ Mục tiêu: quyền kỹ thuật không tạo quyền điều hành.
 - Với từng active task có assignment: tìm dòng bắt đầu `Host:` trong chính `work/<task>/COLLAB.md`.
 - **Host authority identity** = Git/gateway server-side author của commit gần nhất thực sự thay đổi dòng `Host:`; không lấy tên text, không tin `Host_ID` làm auth.
 - Assignment issuer identity = server-side author của commit tạo/thay ASSIGN_V1 generation đó.
+- “Server-side author” = đúng cách A9 đang nhận actor: author email là email gateway đã biết + nhãn client do gateway đặt. Commit không đi qua gateway (SSH/local/legacy) ⇒ danh tính `unknown` ⇒ fail-closed, kể cả khi tên tác giả trông giống Host.
 - Chỉ issuer == Host authority identity mới valid. Khác ⇒ INVALID, 0 card/0 model, đúng một tin «LỆNH KHÔNG HỢP LỆ» nêu task/id + issuer≠Host.
-- Thẻ hợp lệ hiển thị “Từ: <Host identity đã xác minh>”, không lấy field tự khai.
+- Thẻ hợp lệ hiển thị “Từ: <Host identity đã xác minh>” và **tên việc** (thư mục việc) để Owner biết thẻ thuộc việc nào; tin KẾT QUẢ ghi “Tới: Host” theo đúng Host đã xác minh của việc đó, không ghi cứng tên. Không lấy field tự khai.
 
 ### 2.2 Chốt chống tự phong Host
 - RUN này không được sửa Host line.
 - Host-stamp và ASSIGN **không được phát sinh trong cùng commit**; assignment phải tham chiếu một Host-stamp đã tồn tại ở revision trước.
 - Task không có Host line, không truy được commit author, hoặc Host line ambiguous ⇒ assignment fail-closed `HOST_AUTHORITY_UNKNOWN`.
 - Việc Owner đổi Host vẫn theo A2; **không** xây cơ chế đổi Host mới trong RUN này. Sau Owner đổi Host, chính Host mới đóng dấu line ở một commit riêng trước assignment đầu tiên; executor không làm hộ.
-- Fixture bắt buộc: Host đúng → card; non-Host/Claude Code/Hermes tự giao → 0 model; same-commit Host+ASSIGN → reject; missing/ambiguous stamp → reject.
+- Fixture bắt buộc: Host đúng → card; non-Host/Claude Code/Hermes tự giao → 0 model; same-commit Host+ASSIGN → reject; missing/ambiguous stamp → reject; commit ngoài gateway mang tên giống Host → reject; dòng `Host:` bị người khác sửa sau đó → lệnh của Host cũ bị reject (Host = người sửa gần nhất).
 
 ## 3. Scanner active task — kênh sống sau khi HJW đóng
 - Scanner chỉ quét đúng một tầng `work/*/COLLAB.md` của task đang mở; không quét `work/done-tasks/*`, root COLLAB, archive/history.
@@ -54,12 +69,14 @@ Mục tiêu: quyền kỹ thuật không tạo quyền điều hành.
 - Dùng local/HVU/workspace source hiện hữu, fail-closed; không thêm GitHub polling/webhook/DB/service mới.
 - Assignment có thể `read` đúng path explicit trong workspace; `write` của Hermes trong steady-state phải nằm trong thư mục task phát assignment. Ngoài thư mục task ⇒ invalid trước card.
 - Dedup/ticket/queue hiện hữu áp toàn cục; `cron.max_parallel_jobs=1` giữ nguyên.
-- Fixture: hai active tasks có assignment hợp lệ → queue đúng; task Done/archived → inert; HJW được mô phỏng move Done nhưng assignment task khác vẫn được phát hiện.
+- Fixture: hai active tasks có assignment hợp lệ → queue đúng; task Done/archived → inert; HJW được mô phỏng move Done nhưng assignment task khác vẫn được phát hiện; cùng một `id` ở hai việc → hai vé riêng (vé gắn file + id + generation).
+- **Chạy thử khô trước khi bật quét thật:** cho bộ đọc mới đọc toàn bộ `work/*/COLLAB.md` đang mở ở chế độ không gửi tin ⇒ phải ra 0 thẻ, 0 tin lỗi (các file này đầy câu văn và dạng lệnh cũ). Ra khác 0 ⇒ không bật, xem từng dòng gây ra, sửa bộ đọc; không sửa COLLAB của việc khác. Sau khi bật: ≥3 nhịp `ws-dispatch` trên máy thật ⇒ 0 thẻ mới, 0 model, 0 tin lỗi; ghi danh sách file đã quét vào KQ.
 
 ## 4. Scope deny live — 0 model
 - Dùng **credential/profile Hermes hiện hữu**, không in secret.
 - Chọn một file workspace ngoài write-scope của Hermes; gửi một `workspace_edit` vô hại được thiết kế không thể mutation nếu lớp scope lỗi (expected_version sai **và** old_str không thể match).
 - PASS chỉ khi gateway trả **explicit scope/permission deny** trước content/version semantics; `VERSION_CONFLICT`/TEXT_NOT_FOUND = INCONCLUSIVE, không được coi PASS. Hash file trước=sau.
+- Trước khi thử, đọc mã gateway để biết phạm vi được kiểm trước hay sau phiên bản/nội dung, ghi một dòng vào bản đồ. **INCONCLUSIVE không phải ngõ cụt:** không tính PASS, không sửa container dùng chung, không rollback phần khác; chạy test hồi quy phạm vi sẵn có của gateway nếu có, ghi `SCOPE_DENY=INCONCLUSIVE` vào KQ; Host + Reviewer quyết trước khi CLOSE.
 - Giữ fixture server-side scope deny đang có nếu có; không dựng fixture mới trên production.
 - Bổ sung post-result verifier: mỗi commit/result Hermes, machine lấy changed paths của commit và so với `write[]`; có path ngoài allowlist ⇒ RESULT không được DONE, chuyển blocked + báo.
 - Không wake Hermes cho test này.
@@ -67,9 +84,9 @@ Mục tiêu: quyền kỹ thuật không tạo quyền điều hành.
 ## 5. Legacy `ws-handoff-watch` — Owner quyết một lần
 Trước checkpoint, inventory read-only: 30 ngày gần nhất watch đã phát bao nhiêu tin và nguồn nào còn dùng `ASSIGN@`.
 
-Tại checkpoint D31 (§6), hỏi Owner cùng một lần:
+Tại checkpoint §1B, hỏi Owner cùng một lần (nêu kèm con số 30 ngày vừa kiểm kê):
 **“Đề xuất GẬT: cho nghỉ `ws-handoff-watch` legacy vì ASSIGN@ đã bị cấm và watch không còn giá trị. Gật hay lắc?”**
-- **GẬT:** disable qua managed config/wrapper hiện hữu; bỏ loại tin/consumer tương ứng khỏi sổ theo đúng lifecycle retired, có rollback; không xóa code/history.
+- **GẬT:** disable qua managed config/wrapper hiện hữu; bỏ loại tin/consumer tương ứng khỏi sổ theo đúng lifecycle retired, có rollback; không xóa code/history. Sổ chỉ cho nghỉ khi có nguyên văn lời Owner trong §0.3.
 - **LẮC:** không đọc `ASSIGN@` nữa; repurpose chính watch hiện hữu thành nhắc **thẻ Contract V1 pending >2 giờ**, dùng ticket/queue structured data; không service/timer mới.
 - Cả hai nhánh phải có test âm + Config Guard + rollback. Không dừng RUN sau khi Owner đã trả lời.
 
@@ -78,28 +95,31 @@ Tại checkpoint D31 (§6), hỏi Owner cùng một lần:
 
 ### 6.1 Provider đã pre-screen, runtime chỉ re-verify
 Host pre-screen 04/10/2026:
-- **Ưu tiên UptimeEye:** free có 5-minute check, commercial use allowed, Telegram ở free/all channels, no credit card; có probe APAC/Singapore theo docs.
-- **Fallback PingZen** nếu UptimeEye không đăng ký/cấu hình được mà không cần thẻ: free commercial, 1-minute checks, Telegram; probe bên ngoài VPS1.
+- **Ưu tiên UptimeEye:** free có 5-minute check, commercial use allowed, Telegram ở free/all channels, no credit card; vùng đo APAC theo docs là ghi nhận của Host, Reviewer chưa xác minh được.
+- **Fallback HetrixTools** (thay PingZen) nếu UptimeEye không đăng ký/cấu hình được mà không cần thẻ: hoạt động từ 2015, gói free 15 monitor, 1 phút, chọn được điểm đo Singapore/Tokyo, Telegram ở mọi gói. Reviewer chưa xác minh được hai điều trên trang giá: không cần thẻ + điều khoản cho dùng thương mại ⇒ executor xác minh trên trang chính thức trước khi dùng; không đạt ⇒ dừng D31.
+- **Không dùng PingZen:** trang chính thức ghi điểm đo chỉ ở Nga và Belarus, không nêu đơn vị vận hành.
+- Reviewer đã tự mở trang chính thức UptimeEye 04/10 10:45 +07: free 5 monitor · 5 phút · mọi kênh báo gồm Telegram · không thẻ · cho dùng thương mại · đơn vị LaunchX GmbH · 14 ngày Pro rồi về free. Gói free không nêu vùng đo — không phải tiêu chí bắt buộc (tiêu chí: ngoài VPS1 và ngoài nhà cung cấp máy chủ). Cấu hình ngay ở mức gói free (5 phút) để hết 14 ngày không đổi hành vi.
 Executor re-check **official pages** ngay trước checkpoint; nếu cả hai không còn đạt tiêu chí ⇒ DỪNG D31, không tự chọn dịch vụ thứ ba.
 
 ### 6.2 Endpoint
 - Reuse một URL public ổn định đang có trên VPS1, không tạo route mới. Ưu tiên health/public page trả 2xx; thêm query riêng kiểu `?hjw_external_watch=1` nếu không đổi behavior để log nhận diện probe.
 - Không dùng bot Telegram nội bộ của VPS1 cho alert; dùng bot/channel của provider.
 
-### 6.3 Việc Owner — gom ≤5 phút
+### 6.3 Việc Owner tại checkpoint §1B — thao tác khoảng 5 phút, chờ hai tin thử khoảng 10–15 phút (không cần ngồi canh)
 Claude Code hướng dẫn đúng từng bước trên UI, không cầm password/token:
 1. tạo/đăng nhập UptimeEye free (fallback PingZen nếu cần), không nhập thẻ;
 2. tạo đúng **một** HTTP monitor URL §6.2, interval 5 phút hoặc nhanh hơn;
 3. kết nối Telegram của provider và gửi test;
-4. trả lời trong cùng checkpoint: **“xong + GẬT/LẮC ws-handoff-watch”**.
-Owner vắng ⇒ ghi checkpoint `D31_WAITING_OWNER`, không tự tìm đường khác; cùng RUN resume sau.
+4. làm phép thử đỏ→xanh ở §6.4 theo hướng dẫn từng bước của executor (chính Owner sửa địa chỉ trên trang dịch vụ; executor không có tài khoản);
+5. trả lời trong cùng checkpoint: **“xong + GẬT/LẮC ws-handoff-watch”**.
+Owner vắng ⇒ theo quy tắc chờ ở §1B; không tự tìm đường khác.
 
 ### 6.4 Test đỏ→xanh an toàn
 - Không shutdown/restart VPS.
-- Tạm đổi target monitor phía provider sang path chắc chắn fail/404 hoặc điều kiện fail tương đương → Owner nhận DOWN Telegram provider.
-- Trả lại target đúng → Owner nhận UP.
+- **Owner** tạm sửa địa chỉ của monitor trên trang dịch vụ sang một đường chắc chắn lỗi (404) do executor đưa sẵn để chép → Owner nhận tin DOWN từ Telegram của dịch vụ. Executor theo dõi access log để báo Owner “dịch vụ đã thăm, tin sẽ tới trong khoảng N phút”.
+- Owner sửa lại đúng địa chỉ ban đầu → Owner nhận tin UP. Chính Owner xác nhận đã thấy cả hai tin (DROOT34c).
 - Ghi rõ provider + monitor name + thời điểm DOWN/UP, không ghi secret/chat-id.
-- Dòng F01 `Người canh ngoài máy chủ` đổi `hỏng→chạy`; cách đo sống local: nhận diện request query riêng trong access log hoặc bằng chứng tương đương từ lượt probe gần nhất. Im quá hạn theo invariant hiện hữu ⇒ registry/INV cảnh báo khi VPS còn sống.
+- Ở pha sửa máy (sau cổng máy chủ dùng chung): dòng F01 `Người canh ngoài máy chủ` đổi `hỏng→chạy`; cách đo sống local: nhận diện request query riêng trong access log hoặc bằng chứng tương đương từ lượt probe gần nhất. Im quá hạn theo invariant hiện hữu ⇒ registry/INV cảnh báo khi VPS còn sống.
 - Không dựng agent/timer/bot mới trên VPS.
 
 ## 7. Sửa chữ #22 + bảo vệ cuối
@@ -109,6 +129,9 @@ Owner vắng ⇒ ghi checkpoint `D31_WAITING_OWNER`, không tự tìm đường 
 - Mọi file/config/script delta → Config Guard/Protection Guard Điều30/31 + mutant + watchdog + rollback.
 - Cuối RUN: 22/22 xanh; sổ tin báo không còn hỏng D31; 2 U giữ đúng disposition nếu chưa được task này giải quyết; 0 loại ngoài sổ.
 - Đúng một receipt production ≤3 dòng.
+- **Sổ tin báo (DROOT36):** mọi loại tin thêm/đổi nguồn/cho nghỉ trong RUN phải sửa sổ `TIN_BAO` trong cùng RUN; sau RUN 0 loại ngoài sổ.
+- `AUTO_ALLOWLIST` rỗng trước và sau RUN: ghi bằng chứng (giá trị + hash file) vào KQ.
+- Hồ sơ RUN đặt cạnh các hồ sơ HJW trước trên máy chủ, có INDEX + đường lùi một lệnh cho từng nhóm thay đổi.
 
 ## 8. SPEC nghiệm thu SAU RUN — Claude review trước, executor KHÔNG ghi
 Sau RUN KQ XONG, Host GPT sẽ tự đóng dấu line `Host:` của HJW bằng commit Host riêng rồi, ở commit sau, tự ghi assignment:
@@ -118,19 +141,28 @@ Sau RUN KQ XONG, Host GPT sẽ tự đóng dấu line `Host:` của HJW bằng c
 - output: một mục P ngắn + RESULT_V1
 - read: **chỉ** `AGENTS.md` phần A9-GLB và HJW Bảng + line Host + SPEC này
 - write: chỉ HJW COLLAB
-SPEC:
-“Đọc đúng A9-GLB và Bảng/Host của HJW. Nêu tối đa 3 điểm một agent mới có thể hiểu nhầm hoặc thấy mâu thuẫn; nếu không có ghi ‘0 điểm’. Không sửa luật/runtime/quyền. Kết luận `HOST_AUTH_ACCEPT=PASS|PARTIAL|BLOCKED`. Ghi một mục P + RESULT_V1.”
-Owner bấm đúng một thẻ. Acceptance: card issuer = Host GPT server-side identity; machine claim/start; Hermes result; non-Host fixture đã PASS. Chi phí thật chỉ lấy provider ledger nếu expose, nếu không = UNKNOWN.
+SPEC — Host chép nguyên văn 8 dòng dưới đây vào giữa hai marker SPEC (Reviewer đã rà ở P103; không thêm bớt):
+VIỆC: Rà chuẩn GIAO – LÀM – BÁO từ góc nhìn một agent mới đọc lần đầu. Chỉ đọc và ghi một báo cáo; không sửa luật, runtime, quyền.
+ĐỌC (qua MCP root=workspace, tìm đúng đoạn, không đọc cả file): `AGENTS.md` — các gạch đầu dòng bắt đầu bằng “A9-GLB” và bảng ngay dưới chúng; `work/hermes-joint-workspace/COLLAB.md` — khối “BẢNG ĐIỀU KHIỂN”, dòng bắt đầu bằng “Host:”, vùng máy và khối SPEC này. Không đọc gì khác.
+GHI: chỉ `work/hermes-joint-workspace/COLLAB.md`, một commit duy nhất, có expected_version.
+LÀM: nêu tối đa 3 điểm mà một agent mới có thể hiểu nhầm, hoặc hai chỗ nói khác nhau; mỗi điểm một dòng `chỗ nào | hiểu nhầm thế nào | đề nghị sửa một câu`. Không có thì ghi “0 điểm”.
+KẾT LUẬN: một dòng `A9_GLB_REVIEW=<0|1|2|3> điểm`.
+ĐẦU RA: một mục P mới của Hermes (số mục lấy theo đề bài máy đưa) chứa các dòng trên; trong vùng máy đổi record sang `done` (hoặc `blocked`) và thêm một dòng RESULT_V1 có report_ref = số mục P đó. Tất cả trong một commit.
+BLOCKED khi: không đọc được đoạn nêu trên hoặc không ghi được — ghi lý do, người nhận tiếp là Host GPT. Không trả lời “không thấy việc”.
+CẤM: đọc/ghi ngoài danh sách, đổi cấu hình/quyền, tự giao việc; không ghi token, khóa, id chat, địa chỉ IP (repo công khai).
+Owner bấm đúng một thẻ. **`HOST_AUTH_ACCEPT` do Host + Claude kết luận từ bằng chứng máy, không phải Hermes** (Hermes không nhìn thấy thẻ hay danh tính người giao): thẻ ghi người giao = Host GPT theo danh tính phía server + tên việc; máy ghi claimed; tin BẮT ĐẦU; Hermes ghi mục P + RESULT trong một commit; tin KẾT QUẢ; fixture người-không-phải-Host đã PASS ở RUN. Chi phí thật chỉ lấy provider ledger nếu expose, nếu không = UNKNOWN; ghi số token để so với lượt readiness (224k).
 
 ## 9. KQ RUN-06
-XONG chỉ khi §§2–7 PASS:
-`KQ@HJW-FINAL-CLOSE-20261004-06 XONG · HOST_AUTH_ENFORCED · ACTIVE_TASK_SCAN_PASS · SCOPE_DENY_PASS · LEGACY_HANDOFF=<RETIRED|PENDING_REMINDER> · D31_EXTERNAL_WATCH=<provider> · PROTECTION=CLEAN`
+XONG chỉ khi §§2–7 PASS (riêng phép thử sống ở §4 được phép `INCONCLUSIVE` nếu bộ đối chiếu sau lượt PASS — ghi đúng sự thật vào KQ):
+`KQ@HJW-FINAL-CLOSE-20261004-06 XONG · HOST_AUTH_ENFORCED · ACTIVE_TASK_SCAN_PASS · SCOPE_DENY=<PASS|INCONCLUSIVE> · SCOPE_VERIFIER_PASS · LEGACY_HANDOFF=<RETIRED|PENDING_REMINDER> · D31_EXTERNAL_WATCH=<provider> · AUTO_ALLOWLIST=EMPTY · PROTECTION=CLEAN`
 
-Nếu chờ Owner ở §6:
-`KQ@HJW-FINAL-CLOSE-20261004-06 DỪNG · D31_WAITING_OWNER · RUNTIME_SAFE`
-— đây là checkpoint, không cần prompt/RUN mới; Owner hoàn tất thì executor re-read DROOT30 rồi tiếp tục cùng RUN.
+Nếu chờ Owner ở checkpoint §1B quá 30 phút:
+`KQ@HJW-FINAL-CLOSE-20261004-06 DỪNG · OWNER_CHECKPOINT_WAITING · RUNTIME_SAFE`
+— đây là checkpoint (0 mutation), không cần prompt/RUN mới; Owner hoàn tất thì executor re-read DROOT30 rồi tiếp tục cùng RUN.
 
 Nếu bất kỳ enforcement/protection fail: rollback delta tương ứng, KQ DỪNG với blocker cụ thể; không CLOSE.
+
+Trước khi ghi KQ: tự đọc lại bảng đèn, ghi `ĐÈN: n xanh · m đỏ` + dòng điểm danh sổ tin báo (DROOT34); còn đèn đỏ thuộc HJW ⇒ không XONG.
 
 Sau KQ XONG, executor dừng. **Không** đổi A9-GLB sang MỞ ĐỦ, không move Done. Host làm §8; Claude nghiệm thu §8; nếu PASS và đèn/sổ sạch thì Host mới:
 1. đổi A9-GLB từ MỞ MỘT PHẦN → **MỞ ĐỦ · MANUAL**;
