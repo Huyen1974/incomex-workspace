@@ -79,7 +79,7 @@ Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
 - Q09 · **ĐÓNG · P05 GPT:** dữ liệu web Incomex dùng namespace riêng `web_incomex`, đúng 2 collection + folder file riêng + note metadata; không dùng collection chung.
 
 ## RUN / KQ
-- `PROMPT.md` continuation · RUN_ID `CWEB-E2E-20261004-03` · last-touch `8242d7eef9072940107952ce4aaf57cd925e3066` · **CHƯA READY**; chỉ chạy sau khi #22 HJW xanh. RUN này tái dùng snapshot RUN-02 và đi thẳng B–H.
+- `PROMPT.md` continuation · RUN_ID `CWEB-E2E-20261004-03` · last-touch `8242d7eef9072940107952ce4aaf57cd925e3066` · READY ở dòng dưới (P08); PROMPT tự dừng ở cổng vào nếu #22 chưa xanh hoặc VPS1 chưa rảnh. RUN này tái dùng snapshot RUN-02 và đi thẳng B–H.
 - READY@8242d7eef9072940107952ce4aaf57cd925e3066 · RUN_ID `CWEB-E2E-20261004-03` · Host Claude Chat · 2026-10-04 07:25 +07 · `PROMPT.md` RUN-03 (tiếp nối, dùng lại snapshot) · chờ điều kiện vào + Owner dán RUN.
 - KQ@CWEB-E2E-20261003-02 DỪNG · PRE-PROTECT FAIL: `INV15.kuma_telegram_coverage` — đèn #22 `MCPW Protection Guard` đỏ trước mutation CWEB; → việc `work/hermes-joint-workspace/` (P98); dừng theo DROOT37, không sửa bảo vệ của việc khác.
   - **Owner bổ sung trực tiếp 04/10/2026 00:05 +07 — chuẩn nghiệm thu sau khi dựng:** “Sau khi xong hãy kiểm tra từng chi tiết để đảm bảo trải nghiệm của người dùng là giống nhau tuyệt đối hoặc ít nhất là giống nhất có thể so với cái cũ nhé. Nhưng cái đã được con người duyệt thường là chuẩn bạn chỉ cần đo lại và làm đúng là ok.”
