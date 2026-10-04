@@ -590,6 +590,19 @@
 #matrix-view-formula .cf-two-views p{margin:5px 0;font-size:14px;line-height:1.6}
 #matrix-view-formula .cf-two-views small{display:block;margin:5px 0 0;font-size:12px}
 #matrix-view-formula .cf-core{border:1px solid #cfe0d2;background:#f7fbf8;border-radius:14px;padding:14px;margin:10px 0 20px}
+#matrix-view-formula .cf-master-hub{border:1px solid #bfd5c4;background:#fff;border-radius:12px;padding:10px 12px;margin:10px 0 14px}
+#matrix-view-formula .cf-master-hub-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+#matrix-view-formula .cf-master-hub-head b{font-size:14px;color:#174f35}
+#matrix-view-formula .cf-master-hub-head span{font-size:11px;color:var(--mut)}
+#matrix-view-formula .cf-master-hub-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+#matrix-view-formula .cf-master-hub-link{display:block;border:1px solid var(--line);border-radius:9px;padding:8px 9px;background:#fff;color:var(--ink);text-decoration:none;font-size:12px;line-height:1.35}
+#matrix-view-formula .cf-master-hub-link:hover{border-color:#7ca98a;background:#f7fbf8}
+#matrix-view-formula .cf-master-hub-link b{display:block;font-size:12.5px}
+#matrix-view-formula .cf-master-hub-link small{display:block;color:var(--mut);font-size:10.5px;margin-top:2px}
+#matrix-view-formula .cf-master-hub-link.primary{border-color:#8fba9b;background:#f2f9f4}
+#matrix-view-formula .cf-master-hub-quick{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px;font-size:11px;color:var(--mut)}
+#matrix-view-formula .cf-master-hub-quick a,#matrix-view-formula .cf-master-inline{display:inline-block;border:1px solid #d5e3d8;border-radius:8px;padding:3px 7px;background:#f7fbf8;color:#1f6a42;text-decoration:none;font-weight:600}
+#matrix-view-formula .cf-master-hub-quick a:hover,#matrix-view-formula .cf-master-inline:hover{border-color:#7ca98a;background:#edf7ef}
 #matrix-view-formula .cf-core-principle{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 #matrix-view-formula .cf-core-principle b{font-size:16px;color:#174f35}
 #matrix-view-formula .cf-core-principle span{font-size:12px;color:var(--mut)}
@@ -665,12 +678,21 @@
 #matrix-view-formula .cf-return{align-self:center;text-align:center}
 #matrix-view-formula .cf-two-views{grid-template-columns:minmax(0,1fr)}
 #matrix-view-formula .cf-core-grid{grid-template-columns:minmax(0,1fr)}
+#matrix-view-formula .cf-master-hub-links{grid-template-columns:minmax(0,1fr)}
 #matrix-view-formula .cf-pool-groups{grid-template-columns:minmax(0,1fr)}
 }
 </style><section class="owner-part"><div class="wf4-top"><h2>Công thức và định nghĩa</h2></div>
 <section class="cf-core" aria-labelledby="cf-core-title">
   <div class="cf-core-principle"><b id="cf-core-title">CÔNG THỨC = ghép các thành phần đã định nghĩa</b><span>Mặt này dành cho người · chi tiết để phía dưới cho AI/máy.</span></div>
-  
+  <nav class="cf-master-hub" aria-label="Trung tâm Master List">
+    <div class="cf-master-hub-head"><b>TRUNG TÂM MASTER LIST</b><span>Một chỗ vào nhanh để kiểm tra và ghi đúng danh mục.</span></div>
+    <div class="cf-master-hub-links">
+      <a class="cf-master-hub-link primary" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html" target="_blank" rel="noopener"><b>27 Master List ↗</b><small>27 định nghĩa · 4 xanh dùng lại · 23 rỗng sẵn sàng</small></a>
+      <a class="cf-master-hub-link" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" target="_blank" rel="noopener"><b>Duyệt thiết kế Master ↗</b><small>Xem mapping, cột và thiết kế từng Master</small></a>
+      <a class="cf-master-hub-link" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html" target="_blank" rel="noopener"><b>Master of Master ↗</b><small>Danh mục Master gốc hiện có</small></a>
+    </div>
+    <div class="cf-master-hub-quick"><span>Danh sách xanh:</span><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html" target="_blank" rel="noopener">MOW ↗</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html" target="_blank" rel="noopener">MOT ↗</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html" target="_blank" rel="noopener">MOIT ↗</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-master-v1.html" target="_blank" rel="noopener">MOUT ↗</a></div>
+  </nav>
 
   <div class="cf-core-zone">
     <h4>A · Định vị vấn đề</h4>
@@ -707,7 +729,7 @@
 
 <details class="cf-pool" id="cf-component-pool">
   <summary>Kho thành phần · AI dùng chính <span>11 mục · mặc định ẩn · mở khi cần</span></summary>
-  <p class="cf-pool-note">Đây vẫn là <b>cùng một kho định nghĩa</b>. “Đưa lên” chỉ đổi mặt xem để người dùng ghép công thức; không tạo khái niệm mới và không đổi canonical.</p>
+  <p class="cf-pool-note">Đây vẫn là <b>cùng một kho định nghĩa</b>. “Đưa lên” chỉ đổi mặt xem để người dùng ghép công thức; không tạo khái niệm mới và không đổi canonical. <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html" target="_blank" rel="noopener">Mở 27 Master List ↗</a></p>
   <div class="cf-pool-groups">
     <section class="cf-pool-group"><h5>D · Bản ghi &amp; con người</h5>
       <article class="cf-pool-item" data-component-id="record" data-component-stt="10" data-component-name="BẢN GHI" data-component-tag="THỰC TẾ"><div class="cf-pool-item-head"><b>BẢN GHI</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Một trường hợp thực tế sinh ra khi định nghĩa được áp vào dữ liệu/case cụ thể.</p></article>
@@ -767,7 +789,7 @@
 <div class="cf-route"><span class="cf-condition">Nếu chưa có / không dùng được</span><div class="cf-chain"><span class="s" data-formula-step="3"><b>3</b> Đề xuất tạo mới</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="4"><b>4</b> Duyệt đề xuất tạo</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="5"><b>5</b> Khai báo</span><span class="a" aria-hidden="true">→</span><span class="s bot" data-formula-step="6"><b>6</b> Test</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="7"><b>7</b> Duyệt cho dùng</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Quay về 2 Dùng</span></div></div>
 </div></div>
 <h3 id="cf-definitions">II. Định nghĩa <small style="font-weight:500;color:var(--mut)">· 27 danh mục hiện có · bản nháp để Owner góp ý</small></h3>
-<p class="cf-def-intro"><b>STT = ID cho con người:</b> mỗi định nghĩa có một số tự nhiên cố định; đổi tên/nhóm/ẩn-hiện không đổi số. Mục mới lấy số tiếp theo. Mã <code>KNI-*</code> / <code>OBJ-*</code> là mã máy riêng.</p>
+<p class="cf-def-intro"><b>STT = ID cho con người:</b> mỗi định nghĩa có một số tự nhiên cố định; đổi tên/nhóm/ẩn-hiện không đổi số. Mục mới lấy số tiếp theo. Mã <code>KNI-*</code> / <code>OBJ-*</code> là mã máy riêng. <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html" target="_blank" rel="noopener">27 Master List của các định nghĩa ↗</a></p>
 
 <div class="cf-def-existing">
   <div class="cf-def-head"><b>Đã có / tạm dùng · hệ tầng T7 → T0</b><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T2&amp;che-do=de-xuat&amp;edit=WF-0001" target="_blank" rel="noopener">Mở nguồn UI-005 ↗</a></div>
