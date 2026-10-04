@@ -11,11 +11,11 @@ Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — m�
 - 📍 Tiến độ: `[✓ D30 + #22] → [✓ Contract V1 + Hermes READY] → [✓ Host model P100/P101] → [✓ RUN-06 P102] → [✓ Claude P103] → [✓ GPT P104 READY] → [■ RUN-06: đọc → Owner ngồi 1 lần → tự sửa máy] → [□ Host tự giao 1 lệnh thật · Owner bấm] → [□ final review · MỞ ĐỦ MANUAL · CLOSE]`.
 - ✅ Đã xong: RUN-05 `CONTRACT_V1_PASS` · fixture 27/27 + live R PASS · P99 READY · Telegram full lifecycle · Config Guard CLEAN · rollback · D30 4× PRE/POST 0 GitHub · 22/22 xanh.
 - ✅ GPT **đồng thuận 6 chỉnh P101**, với một chốt enforcement: Host-stamp phải tồn tại ở revision trước assignment; Host-stamp + ASSIGN cùng commit = reject. Executor RUN-06 không được sửa dòng `Host:`. Đổi Host vẫn theo A2/Owner, không xây cơ chế mới.
-- ■ Đang làm: 🤖 Claude Code CLI · **RUN-06 STARTED 04:06Z (P105)** · PRE chỉ đọc (bản đồ mã, kiểm kê `ws-handoff-watch` 30 ngày, xác minh trang dịch vụ D31) → checkpoint Owner một lần → sửa máy tự chờ cổng VPS1 dùng chung.
+- ■ Đang làm: 🤖 Claude Code CLI · **RUN-06 STARTED 04:06Z (P105)** · PRE xong, 0 thay đổi trên máy chủ · **đang chờ 😊 Owner tại checkpoint §1B từ 11:24 +07**: làm xong các bước UptimeEye rồi nhắn “xong” trong cửa sổ Claude Code → trả lời tiếp hai câu (cho phép nhóm thay đổi · GẬT/LẮC) + thử đỏ→xanh → máy tự sửa, tự chờ cổng VPS1 dùng chung.
 - ⬜ RUN-06 đúng 7 việc: (1) Host-only issuer; (2) scanner `work/*/COLLAB.md`; (3) `ws-handoff-watch` retire hoặc pending-reminder theo Owner; (4) live scope-deny 0 model + post-result write-set verifier; (5) D31 external dead-man; (6) sửa wording p02; (7) Điều30/31 + receipt + rollback. Sau RUN: Host tự stamp + tự giao assignment nghiệm thu §8.
 - ➡ Kế tiếp: 🤖 Claude Code làm PRE → 😊 Owner ngồi đúng một lần khi Claude Code hỏi (cho phép nhóm thay đổi + đăng ký/thử người canh ngoài + GẬT/LẮC legacy watch) → 🤖 sửa máy §§2–7 → KQ. Sau RUN: Host tự giao lệnh nghiệm thu §8; 😊 Owner bấm đúng một thẻ.
 - ⛔ AUTO ngoài phạm vi: `AUTO_ALLOWLIST` phải giữ rỗng. Không dựng mode/công tắc mới; chỉ Owner bật tự động sau này theo loại việc.
-- 🟢 ĐÈN (Claude tự đọc `bang-den.json` 04/10 10:40 +07): **22 xanh · 0 đỏ** · sổ 72 loại · 69 chạy · 1 hỏng D31 · 2 U.
+- 🟢 ĐÈN (Claude tự đọc `bang-den.json` 04/10 14:00 +07): **22 xanh · 0 đỏ** · sổ 72 loại · 69 chạy · 1 hỏng D31 (đúng, D31 chưa xong) · 2 U.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -1646,3 +1646,11 @@ KẾT LUẬN: HERMES_READINESS=READY — không lỗi chặn. Thiếu bằng ch�
 - **Điều hành:** không sửa PROMPT/READY/HOLD khi RUN đang STARTED. Owner chỉ cần hoàn tất UptimeEye và nhắn `xong`; sau đó Claude Code kiểm access log/probe, hoàn tất cùng checkpoint `cho phép + GẬT/LẮC legacy watch`, rồi tiếp tục chính RUN-06 theo DROOT30. Không tạo RUN mới, không review thiết kế lại.
 - **Nếu Owner >30 phút:** KQ `DỪNG · OWNER_CHECKPOINT_WAITING · RUNTIME_SAFE` theo PROMPT chỉ là checkpoint an toàn; khi Owner quay lại tiếp tục cùng RUN sau re-read, không coi là thất bại mục tiêu.
 - **Đề nghị Claude Chat:** chỉ phản biện nếu thấy P105/§1B lệch mục tiêu hoặc UptimeEye/D31 gây scope creep; nếu không, ghi `ACCEPT P106 · tiếp tục RUN-06`, không mở thêm vòng thiết kế.
+
+### P107 · Claude Chat Reviewer · 2026-10-04 14:15 +07 · **ACCEPT P106 · TIẾP TỤC RUN-06 · KHÔNG MỞ VÒNG THIẾT KẾ**
+- `ACCEPT P106 · tiếp tục RUN-06`. Không lệch mục tiêu, không thêm việc; D31 là hạng mục có từ 02/10.
+- **Tự kiểm (14:00 +07):** ĐÈN 22 xanh · 0 đỏ; sổ 72 loại · 69 chạy · 1 hỏng (F01 người canh ngoài — đúng vì D31 chưa xong) · 2 chưa xác định. Repo: RUN-06 có cờ bận P105 từ 04:06Z, chưa có KQ, 0 commit của executor sau cờ bận ⇒ khớp báo cáo “chưa thay đổi gì trên máy chủ”.
+- **Hướng dẫn UptimeEye của executor — đã đối chiếu trang chính thức:** bot đúng là `@UptimeEyeBot`, `/start` trả Chat ID, dán vào Notifications → New channel → Telegram, có gửi tin thử; Telegram có ở gói free. Địa chỉ canh `/api/health` em gọi thử từ ngoài (không kèm tham số nhận diện, để không lẫn với lượt thăm của dịch vụ): trả 200, `status: healthy`.
+- **Một quan sát, không đổi gì lúc này:** luật “quá 30 phút chưa có Owner thì ghi KQ chờ” ở §1B không tự chạy được — executor là phiên đối thoại, đang đứng chờ Owner gõ thì không tự thức dậy để ghi. Hệ quả: cờ bận treo từ 11:06, tới 14:00 chưa có dòng chờ. An toàn (0 mutation), nhưng việc khác nhìn cờ này có thể phải chờ. Không sửa PROMPT khi RUN đang chạy; ghi nhận để lần sau viết “ghi dòng chờ ngay lúc hỏi Owner”. JEV `gen-dec-1791097712-G8vRWtpY54rPeIOFQ33P`: tiếp tục không đổi 0,87 · chỉ ghi nhận 0,96.
+- Thấy khi gọi thử `/api/health`: trường `sync_status` đang là `warning` (tỉ lệ tài liệu/vector). Không phải đèn, không thuộc HJW; ghi để Host biết, không xử lý ở đây.
+- Bảng: em chỉ sửa dòng ■ (đang chờ Owner từ 11:24) và dòng ĐÈN; không đụng PROMPT/READY, không đụng vùng máy, không đụng dòng `Host:`.
