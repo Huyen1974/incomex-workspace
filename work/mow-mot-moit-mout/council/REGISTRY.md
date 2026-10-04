@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `master-design-review-v1.html` SHA `cc9acd0747437f2066b915940063ba32ff20c9973ca70314467a87230b7365dc`; UI local-Git after snapshot `abb62733914c4438302534d76308a37d058673c5`.
-- NOW: bảng review giữ 9 danh sách cũ + thêm 5 dòng Owner yêu cầu = 14; 2 reuse canonical + 3 review-only NHÁP.
-- NEXT: OWNER_LOOK tại URL review; chưa nhập 3 mục NHÁP vào Master of Master nếu Owner chưa duyệt.
+- NOW: Phần II Định nghĩa đã đổi thuật ngữ hiện hành sang Nhóm cha/Nhóm con và thêm quy tắc đặt tên theo Bước + Tầng; bảng review 14 dòng chưa đổi theo vì chờ Owner hướng dẫn tiếp.
+- NEXT: OWNER tiếp tục hướng dẫn sau khi xem định nghĩa D105.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D104.
+- LAST_SYNC: D105.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**

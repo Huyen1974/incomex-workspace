@@ -649,26 +649,27 @@
 </div>
 
 <h4 class="cf-def-sub">Bản đồ khái niệm lõi</h4>
-<div class="cf-def-map" aria-label="Nhóm chung sinh Nhóm riêng; nếu không cần Nhóm riêng thì cấu hình trực tiếp">
+<div class="cf-def-map" aria-label="Nhóm cha dùng rộng; Nhóm con dùng trong một chuyên môn; nếu không cần Nhóm con thì cấu hình trực tiếp từ Nhóm cha">
   <div class="cf-def-route">
-    <div class="cf-def-node group"><b>NHÓM CHUNG</b><small>khuôn chuẩn · như UI cha</small></div>
-    <span class="cf-def-arrow">→ sinh →</span>
-    <div class="cf-def-node group-specific"><b>NHÓM RIÊNG</b><small>chuyên môn hóa · như UI con</small></div>
+    <div class="cf-def-node group"><b>NHÓM CHA</b><small>dùng chung toàn hệ thống / diện rộng · như UI cha</small></div>
+    <span class="cf-def-arrow">→ chuyên môn hóa →</span>
+    <div class="cf-def-node group-specific"><b>NHÓM CON</b><small>dùng chung trong 1 chuyên môn · như UI con</small></div>
     <span class="cf-def-arrow">→</span>
     <div class="cf-def-node object"><b>ĐỐI TƯỢNG / ĐỊNH NGHĨA</b><small>MOW · MOT · MOIT · MOUT · Field</small></div>
     <span class="cf-def-arrow">→</span>
     <div class="cf-def-node record"><b>BẢN GHI THỰC TẾ</b><small>một case / đơn hàng / giá trị cụ thể</small></div>
   </div>
   <div class="cf-def-route alt">
-    <div class="cf-def-node group"><b>NHÓM CHUNG</b><small>khuôn chuẩn</small></div>
-    <span class="cf-def-arrow">→ nếu không cần / không sinh được Nhóm riêng →</span>
-    <div class="cf-def-node config"><b>CONFIG TRỰC TIẾP</b><small>dùng chuẩn Nhóm chung + tham số</small></div>
+    <div class="cf-def-node group"><b>NHÓM CHA</b><small>quy tắc / quy định / config dùng rộng</small></div>
+    <span class="cf-def-arrow">→ nếu không cần Nhóm con →</span>
+    <div class="cf-def-node config"><b>CONFIG TRỰC TIẾP</b><small>dùng chuẩn Nhóm cha + tham số</small></div>
     <span class="cf-def-arrow">→</span>
     <div class="cf-def-node object"><b>ĐỐI TƯỢNG</b><small>MOW · MOT · MOIT · MOUT · Field</small></div>
     <span class="cf-def-arrow">→</span>
     <div class="cf-def-node record"><b>BẢN GHI</b><small>case thực tế</small></div>
   </div>
 </div>
+<div class="cf-def-rule"><b>Quy tắc đặt tên Nhóm:</b> tên phải bắt đầu bằng <b>Nhóm cha</b> hoặc <b>Nhóm con</b>, sau đó ghép <b>Bước trong 7 bước</b> + <b>Tầng T7→T0</b> + thành phần khác khi cần. Mục tiêu: nhìn tên là hiểu ngay nhóm áp dụng ở bước nào, tầng nào và phạm vi nào. Khuôn: <code>Nhóm cha|Nhóm con · B&lt;1–7&gt; &lt;Tên bước&gt; · &lt;T7–T0&gt; &lt;Tên tầng&gt; · &lt;thành phần khác nếu cần&gt;</code>.</div>
 <div class="cf-def-example">
   <b>Ví dụ để không nhầm:</b>
   <span><strong>MOT “Làm hồ sơ”</strong> = định nghĩa công việc, <b>chưa phải bản ghi</b>.</span>
@@ -678,11 +679,11 @@
 <div class="cf-def-rule"><b>Quy tắc Master:</b> một khái niệm có từ <b>2 đối tượng trở lên</b> → phải có <b>mã + Master List</b>. Vì hệ thống đã có nhiều khái niệm, tạm mở <code>ML-KNI</code> = <b>Master Khái niệm</b> để quản lý chính các định nghĩa này.</div>
 
 <div class="cf-def-groups">
-<details open><summary><b>A · Cấu trúc lõi</b> <small>Nhóm chung · Nhóm riêng · Đối tượng · MOW→Field · Bản ghi</small></summary>
+<details open><summary><b>A · Cấu trúc lõi</b> <small>Nhóm cha · Nhóm con · Đối tượng · MOW→Field · Bản ghi</small></summary>
 <div class="cf-scroll"><table class="cf-def-table"><thead><tr><th>Mã nháp</th><th>Khái niệm</th><th>Định nghĩa ngắn</th><th>Ví dụ</th><th>Không phải</th></tr></thead><tbody>
-<tr><td>KNI-002</td><td><b>Nhóm chung</b></td><td>Khuôn chuẩn dùng xuyên nhiều chuyên môn, giống vai trò UI cha. Dùng để sinh Nhóm riêng; nếu không cần/không sinh được Nhóm riêng thì dùng chính Nhóm chung + config.</td><td>Đề xuất tạo mới · Duyệt đề xuất tạo · Dùng</td><td>Nhóm riêng · Đối tượng · Bản ghi</td></tr>
-<tr><td>KNI-003</td><td><b>Nhóm riêng</b></td><td>Khuôn chuyên môn hóa từ Nhóm chung, giống vai trò UI con; kế thừa chuẩn chung rồi bổ sung tham số/quy tắc riêng.</td><td>Nhóm chuẩn riêng của một chuyên môn</td><td>Nhóm chung · Case/đơn hàng cụ thể</td></tr>
-<tr><td>KNI-004</td><td><b>Đối tượng</b></td><td>Định nghĩa/template nằm dưới Nhóm riêng; khi không cần Nhóm riêng có thể được cấu hình trực tiếp từ Nhóm chung. Có mã và được quản lý để dùng lại.</td><td>MOW · MOT · MOIT · MOUT · Field</td><td>Nhóm chung/riêng · Bản ghi thực tế</td></tr>
+<tr><td>KNI-002</td><td><b>Nhóm cha</b></td><td>Tập quy tắc, quy định hoặc cấu hình dùng chung cho toàn hệ thống hoặc phạm vi rộng, giống vai trò UI cha. Có thể quy định các thành phần bắt buộc phải khai báo, nguyên tắc phải tuân thủ và dữ liệu cần config. Dùng để tạo/chuyên môn hóa thành Nhóm con; nếu không cần Nhóm con thì dùng Nhóm cha + config trực tiếp.</td><td>Chuẩn dùng chung cho một Bước/Tầng trên nhiều chuyên môn</td><td>Nhóm con · Đối tượng · Bản ghi</td></tr>
+<tr><td>KNI-003</td><td><b>Nhóm con</b></td><td>Tập quy tắc, quy định hoặc cấu hình dùng chung <b>trong 1 chuyên môn</b>, giống vai trò UI con. Kế thừa phần dùng chung từ Nhóm cha rồi bổ sung các thành phần cần khai báo, nguyên tắc và dữ liệu config riêng của chuyên môn đó.</td><td>Chuẩn dùng chung của một Bước/Tầng trong một chuyên môn</td><td>Nhóm cha · Case/đơn hàng cụ thể</td></tr>
+<tr><td>KNI-004</td><td><b>Đối tượng</b></td><td>Định nghĩa/template nằm dưới Nhóm con; khi không cần Nhóm con có thể được cấu hình trực tiếp từ Nhóm cha. Có mã và được quản lý để dùng lại.</td><td>MOW · MOT · MOIT · MOUT · Field</td><td>Nhóm cha/con · Bản ghi thực tế</td></tr>
 <tr><td>OBJ-MOW</td><td><b>MOW · Quy trình</b></td><td>Định nghĩa một quy trình có thể dùng lại.</td><td>Quy trình đề xuất tạo mới · Quy trình khai báo</td><td>Một lần chạy quy trình cho DH-001</td></tr>
 <tr><td>OBJ-MOT</td><td><b>MOT · Công việc</b></td><td>Định nghĩa công việc nằm trong MOW/quy trình.</td><td>Làm hồ sơ</td><td>Làm hồ sơ cho DH-001</td></tr>
 <tr><td>OBJ-MOIT</td><td><b>MOIT</b></td><td>Định nghĩa đầu vào/biểu mẫu nhập cho công việc.</td><td>Form nhập hồ sơ</td><td>Phiếu hồ sơ đã nhập của DH-001</td></tr>
