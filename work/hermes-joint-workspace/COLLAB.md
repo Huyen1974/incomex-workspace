@@ -15,7 +15,8 @@ Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — m�
 - ⬜ RUN-06 đúng 7 việc: (1) Host-only issuer; (2) scanner `work/*/COLLAB.md`; (3) `ws-handoff-watch` retire hoặc pending-reminder theo Owner; (4) live scope-deny 0 model + post-result write-set verifier; (5) D31 external dead-man; (6) sửa wording p02; (7) Điều30/31 + receipt + rollback. Sau RUN: Host tự stamp + tự giao assignment nghiệm thu §8.
 - ➡ Kế tiếp: 😊 Owner dán một câu → 🤖 Claude Code sửa máy, không chờ Owner → D31 làm sau cùng: 😊 Owner chỉ tự tạo tài khoản dịch vụ canh (việc AI không được làm hộ), phần cấu hình và thử đỏ→xanh AI làm hộ tối đa → KQ. Sau RUN: Host tự giao lệnh nghiệm thu §8; 😊 Owner bấm đúng một thẻ.
 - ⛔ AUTO ngoài phạm vi: `AUTO_ALLOWLIST` phải giữ rỗng. Không dựng mode/công tắc mới; chỉ Owner bật tự động sau này theo loại việc.
-- 🟢 ĐÈN (Claude tự đọc `bang-den.json` 04/10 14:00 +07): **22 xanh · 0 đỏ** · sổ 72 loại · 69 chạy · 1 hỏng D31 (đúng, D31 chưa xong) · 2 U.
+- 🟢 ĐÈN (Claude tự đọc `bang-den.json` 04/10 15:35 +07): **22 xanh · 0 đỏ** · sổ 72 loại · 69 chạy · 1 hỏng D31 (đúng, D31 chưa xong) · 2 U.
+- ⏳ Tự kiểm 15:35 +07 (Claude Chat): chưa có commit nào của executor sau P105, chưa có thư mục hồ sơ RUN-06 trên máy chủ ⇒ **RUN-06 vẫn đứng ở chỗ chờ 😊 Owner dán một câu (P108)**; máy chủ an toàn, 0 thay đổi.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
