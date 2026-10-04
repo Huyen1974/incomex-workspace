@@ -781,12 +781,15 @@
   render();
 })();
 </script>
-<h3 id="cf-b05-seven">I. Công thức · 1. Công thức 7 bước chung <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a></h3>
-<div class="cf-flow" role="group" aria-label="7 bước chung: Tìm rồi Dùng, hoặc tạo mới qua bước 3 đến 7 rồi quay về Dùng">
+<h3 id="cf-b05-seven">I. Công thức · CT-001 · Vòng đời tổng <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a> <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-001" target="_self">Chi tiết →</a></h3>
+<p class="cf-definition"><b>Nhìn nhanh:</b> <code>Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }</code></p>
+<div class="cf-flow" role="group" aria-label="CT-001 Vòng đời tổng: Tìm rồi Dùng, Tạo mới, Sửa hoặc Vô hiệu">
 <div class="cf-flow-start" data-formula-step="1"><b>1</b> Tìm</div>
 <div class="cf-branches">
 <div class="cf-route"><span class="cf-condition">Nếu đã có + dùng được</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="2"><b>2</b> Dùng</span></div></div>
-<div class="cf-route"><span class="cf-condition">Nếu chưa có / không dùng được</span><div class="cf-chain"><span class="s" data-formula-step="3"><b>3</b> Đề xuất tạo mới</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="4"><b>4</b> Duyệt đề xuất tạo</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="5"><b>5</b> Khai báo</span><span class="a" aria-hidden="true">→</span><span class="s bot" data-formula-step="6"><b>6</b> Test</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="7"><b>7</b> Duyệt cho dùng</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Quay về 2 Dùng</span></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu chưa có / không dùng được · TẠO MỚI</span><div class="cf-chain"><span class="s" data-formula-step="3"><b>3</b> Đề xuất tạo mới</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="4"><b>4</b> Duyệt đề xuất tạo</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="5"><b>5</b> Khai báo</span><span class="a" aria-hidden="true">→</span><span class="s bot" data-formula-step="6"><b>6</b> Test</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="7"><b>7</b> Duyệt cho dùng</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu đã có + cần thay đổi</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s"><b>↻</b> Sửa</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu không còn dùng</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s"><b>×</b> Vô hiệu / Nghỉ hưu</span></div></div>
 </div></div>
 <h3 id="cf-definitions">II. Định nghĩa <small style="font-weight:500;color:var(--mut)">· 27 danh mục hiện có · bản nháp để Owner góp ý</small></h3>
 <p class="cf-def-intro"><b>STT = ID cho con người:</b> mỗi định nghĩa có một số tự nhiên cố định; đổi tên/nhóm/ẩn-hiện không đổi số. Mục mới lấy số tiếp theo. Mã <code>KNI-*</code> / <code>OBJ-*</code> là mã máy riêng. <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html" target="_self">27 Master List của các định nghĩa →</a></p>
