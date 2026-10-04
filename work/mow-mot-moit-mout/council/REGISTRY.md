@@ -21,7 +21,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
 - Active_RUN: none.
 - Reserved_Targets: none.
-- Base_Target_Version: `master-design-review-v1.html` SHA `cc9acd0747437f2066b915940063ba32ff20c9973ca70314467a87230b7365dc`; UI local-Git after snapshot `abb62733914c4438302534d76308a37d058673c5`.
+- Base_Target_Version: `ban-duyet.html#matrix-view-formula` SHA `ec909ef886466a4b78f9f9df135344b40eb31d10dd89b364bd86236c8038dfd4`; Owner View live đã kiểm 1280/390.
 - NOW: đầu trang `★ Công thức` đã có mặt người 9 thành phần lõi, chia 3 cụm × 3 để nhìn nhanh; chi tiết định nghĩa vẫn giữ phía dưới cho AI/máy.
 - NEXT: OWNER duyệt mặt 9 thành phần rồi tiếp tục đưa công thức/nguyên tắc lắp ráp.
 - BLOCKED_BY: none.
