@@ -61,30 +61,33 @@ ul{margin:6px 0 6px 20px;padding:0}
   <tr><td class="x"><b>Không phải</b></td><td>Làm lại toàn bộ web — việc khác, để sau</td></tr>
 </table>
 
-<h2 id="kiem-ke">Trang thử đã chạy — RUN CWEB-E2E-20261004-03</h2>
-<p><b>Kiểm kỹ thuật đạt.</b> <a href="https://vps.incomexsaigoncorp.vn/w/" target="_blank" rel="noopener">Mở trang Web Incomex</a>. Các dòng “web thử chưa có/chờ dựng” ở đầu tài liệu là trạng thái trước RUN-03; kết quả hiện tại ở mục này.</p>
+<h2 id="kiem-ke">Trang thử hoàn tất — CUTOVER_READY</h2>
+<p><b>RUN CWEB-E2E-20261004-04 đã đạt.</b> <a href="https://vps.incomexsaigoncorp.vn/w/" target="_blank" rel="noopener">Mở trang Web Incomex</a>. Đây là kết quả hiện tại; các dòng chờ dựng ở phần trước là lịch sử. DNS chờ lệnh chuyển tên miền riêng.</p>
 <table>
-<tr><th>Trang</th><th>Bài</th><th>Đơn hàng</th><th>Tệp đã nạp</th><th>Địa chỉ đạt</th></tr>
+<tr><th>Trang</th><th>Bài</th><th>Đơn hàng</th><th>Tệp</th><th>Địa chỉ đạt</th></tr>
 <tr><td>5</td><td>14</td><td>8</td><td>73 · 69 ảnh + 4 PDF</td><td>32 · HTTP 200</td></tr>
 </table>
-<p>Tái dùng snapshot 318 tệp nguồn + 13 bằng chứng, khớp SHA256. Đã bổ sung đúng 3 trang đơn hàng còn thiếu, tìm thấy qua liên kết trong trang Dự án; giữ nguyên nội dung và dùng lại ảnh đã chụp. Tổng 29 địa chỉ ban đầu + 3 địa chỉ bổ sung.</p>
-<p>Đã mở và cuộn từng trang: 32/32 đạt, không ảnh hỏng, không liên kết nội bộ chết và không tải tài nguyên từ máy chủ bên cũ. Đối chiếu 6 mẫu ở 1366/390, tối đa hai vòng sửa, giữ HTML/CSS, phông chữ, hình ảnh và nội dung nguồn. Khác biệt còn lại được ghi theo từng mẫu ở mục So ảnh.</p>
+<p>Giữ snapshot 318 tệp nguồn + 13 bằng chứng đã duyệt, không nạp/dựng lại phần đã PASS. Tài nguyên web đã tự phục vụ từ VPS/Directus: ảnh, PDF, CSS, JS, font, icon và favicon. Kiểm 231 tài nguyên: <b>0 yêu cầu site-owned tới GitHub/web cũ · 0 lỗi MIME</b>. Bảy tài nguyên nguồn đã chết được ghi rõ và giữ khoảng trống tương ứng.</p>
+<p>Đã mở đủ 32 trang trong trình duyệt thật: phông tải đủ, không ảnh hỏng, không lỗi console. Sáu mẫu cũ/mới đã đo lại đúng chiều rộng 1366 và 390, cuộn và so chi tiết sau khi font tải. Giữ thiết kế, nội dung, cách dùng quen thuộc; khác biệt còn lại ở mục So ảnh.</p>
 <table>
 <tr><th>Tính năng</th><th>Kết quả thử thật</th></tr>
-<tr><td>Menu điện thoại</td><td>Mở, đóng, Escape và đi tới trang đúng</td></tr>
-<tr><td>Google Maps</td><td>Đã thấy nền bản đồ và vị trí</td></tr>
-<tr><td>YouTube</td><td>Video nguồn ở trang Giới thiệu đã phát</td></tr>
-<tr><td>Lark</td><td>Hai liên kết danh sách được giữ; mở đúng tài liệu</td></tr>
-<tr><td>Giáo dục</td><td>Mở đúng cổng; chuyển tới đăng nhập của cổng như hiện có</td></tr>
-<tr><td>Liên hệ</td><td>Gửi thành công, lưu 1 tin thử vào khu riêng; tên/email bắt buộc như form cũ; lỗi có điện thoại/email</td></tr>
+<tr><td>Menu điện thoại</td><td>Mở, đóng, Escape và tới đúng trang; giữ kết quả PASS</td></tr>
+<tr><td>Maps · YouTube</td><td>Bản đồ có nền/vị trí, video nguồn đã phát; giữ phần nhúng đã PASS</td></tr>
+<tr><td>Lark · Giáo dục</td><td>Hai tài liệu đúng nguồn; cổng Giáo dục tới đăng nhập như hiện có</td></tr>
+<tr><td>Liên hệ</td><td>Giữ form và tên/email bắt buộc; thông báo gửi thành công/lỗi. Hai lần thử root apex/www đã lưu vào inbox riêng; lần thử /w/ trước được giữ.</td></tr>
+<tr><td>Nội dung mới</td><td>Thêm đơn hàng thử qua DOT đã hiện, rồi gỡ đúng dòng thử; không nạp lại dữ liệu đã đạt</td></tr>
 </table>
-<p>Dữ liệu thuộc nhóm <b>Web Incomex — incomexsaigoncorp.vn</b>: đúng 2 bảng riêng và thư mục tệp riêng, ghi chú nguồn đầy đủ. Bảy collection dùng chung giữ nguyên số lượng và hash. Thêm đơn hàng thử qua DOT đã hiện ở trang chủ/chuyên mục, sau đó gỡ đúng dòng thử.</p>
-<p><b>Bảo vệ đạt:</b> hồi quy 132 địa chỉ cổng đạt; POST-PROTECT đạt, biên nhận số 115 đã gửi với đường lùi. <b>ĐÈN: 22 xanh · 0 đỏ</b> (04/10 10:32 +07). Đã kiểm đường lùi dry-run; giữ bản Nuxt trước và chỉ ẩn dữ liệu của RUN này.</p>
-<p class="y"><b>Chưa chốt XONG:</b> sáu ảnh ghép đã tạo, mỗi ảnh dưới 250 KB, nhưng cổng workspace chỉ nhận UTF-8. Chờ Owner trả lời ngoại lệ đã gửi để lưu đúng sáu JPEG vào repo và nhúng vào mục So ảnh. Trang thử vẫn đang chạy. DNS chờ lệnh riêng.</p>
+<p>Dữ liệu thuộc nhóm <b>Web Incomex — incomexsaigoncorp.vn</b>: đúng 2 collection và 1 thư mục tệp riêng, có ghi chú nguồn. Bảy collection dùng chung giữ nguyên số lượng và hash trước/sau.</p>
+<p><b>Root tên miền đã thử:</b> 6 mẫu trên apex và trang chủ www được mở thật trước khi dừng Chrome local theo Owner. Kiểm cuối 20 địa chỉ HTTP trên hai Host đạt; đường dẫn, form và chia sẻ dùng URL root đúng. Bốn đường cổng nội bộ trên mỗi Host trả trang 404 của công ty, không lộ portal.</p>
+<p><b>Đường chuyển HTTPS đã chuẩn bị:</b> thử DNS-01 lấy đủ challenge apex/www rồi dừng trước xác thực, chưa cấp/cài chứng chỉ và chưa đổi DNS. Khi Owner ra lệnh: lấy TXT mới → Owner thêm TXT → cấp/cài chứng chỉ và chuyển HTTP sang HTTPS → kiểm HTTPS trên VPS bằng SNI → mới đổi @/www → kiểm live/đường lùi → bật gia hạn tự động. HTTP challenge root và bộ hẹn giờ chứng chỉ đã kiểm; các bản ghi thư giữ nguyên.</p>
+<p><b>Bảo vệ đạt:</b> hồi quy 132 địa chỉ cổng PASS; POST-PROTECT đủ 15 kiểm tra PASS, biên nhận <b>117</b> đã gửi. <b>ĐÈN: 22 xanh · 0 đỏ</b>. Đường lùi dry-run đạt, trả giao diện về bản RUN-03 và giữ 27 nội dung/73 Files đã được duyệt. Sáu JPEG QA đã lưu trên VPS, không còn việc chờ GitHub.</p>
 <details><summary>Bằng chứng và đường lùi dành cho người vận hành</summary>
-<p>Hồ sơ: <code>/opt/incomex/work/copy-web-incomexsaigoncorp-vn/evidence/</code>: <code>browser-verify.json</code>, <code>browser-evidence-manifest.json</code>, <code>portal-regression.log</code>, <code>guard-selftest.log</code>, <code>post-protect-retry.log</code>, <code>known-good.json</code>, <code>rollback-dry-run.json</code>. Bộ 35 tệp bằng chứng trình duyệt đã lưu và kiểm hash.</p>
-<p>Đường lùi một lệnh: <code>/opt/incomex/dot/bin/dot-web-incomex-deploy rollback --execute</code>. Trả Nuxt về bản trước và ẩn 27 dòng content của RUN; giữ schema, Files, inbox và bằng chứng; không đụng dữ liệu chung.</p>
-<p>Thêm 203 tệp nguồn riêng, không sửa tệp nguồn Nuxt cũ. Bản chạy thêm một import vào entry đã biên dịch để nối phần /w/. Chính sách khung chỉ thêm Maps/YouTube cho /w/, các đường khác giữ nguyên. Bảo vệ hiện có theo dõi 206 tệp nguồn và 1806 tệp chạy; tự kiểm phát hiện hash sai đã đạt.</p>
+<p>Hồ sơ: <code>/opt/incomex/work/copy-web-incomexsaigoncorp-vn/evidence/CWEB-E2E-20261004-04/</code>: <code>cweb-browser-routes.json</code>, <code>browser-verify.json</code>, <code>browser-evidence-manifest.json</code>, <code>portal-regression.log</code>, <code>guard-selftest.log</code>, <code>post-protect-retry.log</code>, <code>rollback-dry-run.json</code>, <code>tls-plan.json</code>. Bộ ảnh và manifest SHA256 đã kiểm.</p>
+<p>Output thật: <code>GUARD SELFTEST: PASS</code>; <code>CUTOVER_ACCEPT run=CWEB-E2E-20261004-04 tag=acc-103958 =&gt; PASS</code>; <code>GUARD POST CWEB-E2E-20261004-04: PASS</code>; <code>OUT OF SCOPE none</code>; <code>RECEIPT message_id=117</code>. Tệp POST: <code>guard-post-CWEB-E2E-20261004-04-20261004T105712Z.json</code>, 15 kiểm tra, ngoài phạm vi 0.</p>
+<p>PRE gốc và POST đầu được giữ. Workspace worker tự khởi động lại lúc 09:17:25Z do SQLite locked; cấu hình/code không đổi, service active. <code>observed-worker-restart.json</code> ghi bằng chứng; lần kiểm lại chỉ chấp nhận đúng trường trạng thái service này, giữ đầy đủ 15 kiểm tra.</p>
+<p>Đường lùi: <code>/opt/incomex/dot/bin/dot-web-incomex-deploy rollback --execute</code>. Bản trước: <code>/opt/incomex/deploys/nuxt-output-before-CWEB-E2E-20261004-04</code>. Giữ schema, 27 content, 73 Files, inbox và bằng chứng; không đụng dữ liệu chung.</p>
+<p>Bảo vệ theo dõi 233 tệp nguồn và 1831 tệp chạy; tự kiểm từ chối hash sai. Code SSOT trên VPS: Nuxt <code>132ff4935db682b2214bdccb59b674f2c8ba29eb</code>, DOT <code>e4b2b0b121cfd19e26041191c0bb7f8ed21258a0</code>. HTTPS candidate: <code>/opt/incomex/work/copy-web-incomexsaigoncorp-vn/tls/company-https-server.conf.candidate</code>; chưa nạp.</p>
+<p>Đã dừng Chrome local theo Owner; ghi nhận sự cố/phục hồi và giới hạn thao tác tại Handoff trong <code>COLLAB.md</code>. Kiểm cuối dùng trình duyệt trong Codex và công cụ VPS.</p>
 </details>
 
 <h2 id="cach-lam">Cách làm — 🤖 Codex, một lần chạy</h2>
@@ -114,15 +117,19 @@ ul{margin:6px 0 6px 20px;padding:0}
 </table>
 
 <h2 id="so-anh">So ảnh: trang cũ ↔ trang mới (6 trang)</h2>
-<p>Đã so đúng 6 mẫu, mỗi ảnh ghép có bản cũ/mới ở 1366 và 390. Giữ thiết kế đã được con người duyệt; không khẳng định giống tuyệt đối từng điểm ảnh. Ảnh đã tạo xong và kiểm JPEG/SHA256, chờ ngoại lệ đường lưu nêu ở mục Kiểm kê.</p>
-<table><tr><th>Mẫu · JPEG</th><th>Dung lượng</th><th>Khác biệt còn lại sau hai vòng sửa</th></tr>
-<tr><td>01.jpg</td><td>234410 byte</td><td>Trang chủ: thứ tự khối, nút, chữ và ảnh giữ nguyên; ảnh ngoài màn hình/phần đối tác hiện khác thời điểm khi cuộn; banner giữ khung đầu, không chạy trượt.</td></tr>
-<tr><td>02.jpg</td><td>243631 byte</td><td>Giới thiệu: giữ nội dung, khoảng trống và bố cục nguồn; video đã phát; ảnh tải khi cuộn làm ảnh toàn trang khác thời điểm.</td></tr>
-<tr><td>03.jpg</td><td>138029 byte</td><td>Liên hệ: giữ hình dạng và trường bắt buộc của form; thêm thông báo gửi thành công/lỗi để tin đi vào khu riêng.</td></tr>
-<tr><td>04.jpg</td><td>156046 byte</td><td>Đơn hàng: giữ bài và cả hai liên kết Lark; phần đối tác/bản đồ hiện khác thời điểm tải trong ảnh toàn trang.</td></tr>
-<tr><td>05.jpg</td><td>238120 byte</td><td>Bài Tin vui: giữ chữ, ảnh, cột bên và liên kết chia sẻ; phần đối tác và độ xuống dòng còn phụ thuộc thời điểm tải/phông khi chụp.</td></tr>
-<tr><td>06.jpg</td><td>241562 byte</td><td>Đơn hàng Sơn nhà cửa: giữ chữ, ảnh, nội dung và chia sẻ; phần đối tác và độ xuống dòng còn khác giữa hai thời điểm chụp.</td></tr>
+<p>Đã đo lại đúng 1366 và 390, lấy 24 ảnh thô sau khi phông tải và cuộn thật, ghép thành 6 JPEG dưới 250 KB. Giữ thiết kế đã được con người duyệt; nội dung, chữ, ảnh, cột bên và thao tác chính giống nhất có thể. Không khẳng định giống tuyệt đối từng điểm ảnh.</p>
+<table><tr><th>Mẫu · JPEG</th><th>Dung lượng</th><th>Khác biệt còn lại</th></tr>
+<tr><td>01.jpg · Trang chủ</td><td>206576 byte</td><td>Banner giữ khung đầu, không chạy trượt; tiêu đề đối tác/phần chuyển động ở cuối trang hiện khác thời điểm.</td></tr>
+<tr><td>02.jpg · Giới thiệu</td><td>234991 byte</td><td>Nội dung, bố cục, video và ảnh giữ nguồn; thời điểm tải ảnh khi cuộn và tiêu đề đối tác cuối trang còn khác.</td></tr>
+<tr><td>03.jpg · Liên hệ</td><td>51914 byte</td><td>Giữ hình dạng và trường bắt buộc; thêm thông báo gửi thành công/lỗi. Bản đồ và phần đối tác phụ thuộc thời điểm tải.</td></tr>
+<tr><td>04.jpg · Đơn hàng</td><td>59611 byte</td><td>Giữ bài, cột bên và hai liên kết Lark; tiêu đề đối tác/bản đồ cuối trang hiện khác thời điểm.</td></tr>
+<tr><td>05.jpg · Bài Tin vui</td><td>105835 byte</td><td>Giữ chữ, ảnh, cột bên và chia sẻ bằng URL đầy đủ; tiêu đề đối tác và vài chỗ xuống dòng còn khác.</td></tr>
+<tr><td>06.jpg · Đơn hàng Sơn nhà cửa</td><td>85703 byte</td><td>Giữ nội dung, ảnh và chia sẻ bằng URL đầy đủ; tiêu đề đối tác và vài chỗ xuống dòng còn khác.</td></tr>
 </table>
+<details><summary>Vị trí ảnh và kiểm chứng dành cho người vận hành</summary>
+<p>Sáu JPEG: <code>/opt/incomex/work/copy-web-incomexsaigoncorp-vn/evidence/so-anh/01.jpg</code> đến <code>06.jpg</code>; <code>manifest.json</code> ghi dung lượng/SHA256. Lưu trên VPS, không đưa tài nguyên runtime hoặc JPEG QA lên GitHub.</p>
+<p>Bộ 24 ảnh thô và bằng chứng trình duyệt nằm trong hồ sơ RUN-04. Đã sửa sai số viewport của ảnh RUN-03 bằng đo <code>innerWidth</code> thật, không chụp/nạp lại snapshot nội dung đã PASS. Trang chủ mobile mới/cũ cùng có độ tràn nguồn 440 ở viewport 390; năm mẫu còn lại rộng 390.</p>
+</details>
 
 <details id="bang-chung">
   <summary>Kho bằng chứng (cho PM / AI)</summary>
