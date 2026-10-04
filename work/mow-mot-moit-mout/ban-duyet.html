@@ -582,8 +582,15 @@
 #matrix-view-formula .cf-route{position:relative;padding:12px 0 0;min-width:0}
 #matrix-view-formula .cf-route:before{content:"";position:absolute;left:-24px;top:25px;width:18px;border-top:2px solid #9bb9a4}
 #matrix-view-formula .cf-condition{display:block;margin-bottom:7px;font-size:13px;color:var(--mut)}
-#matrix-view-formula .cf-flow .cf-chain{gap:6px;min-width:0}
+#matrix-view-formula .cf-flow .cf-chain{gap:6px;min-width:0;align-items:center}
+#matrix-view-formula .cf-flow .cf-chain>.a:first-child{width:22px;flex:0 0 22px;text-align:center}
 #matrix-view-formula .cf-flow .s{white-space:normal;font-size:14px;padding:7px 10px;line-height:1.4}
+#matrix-view-formula .cf-flow .s.cf-create{min-width:118px;display:inline-flex;align-items:center}
+#matrix-view-formula .cf-flow .s.cf-create .cf-step-label{display:inline-block;line-height:1.15}
+#matrix-view-formula .cf-flow .s.cf-edit{background:#fff8e8;border-color:#e3cf9e;color:#6d5926}
+#matrix-view-formula .cf-flow .s.cf-edit b{background:#8b7438}
+#matrix-view-formula .cf-flow .s.cf-retire{background:#fff2f2;border-color:#dfbcbc;color:#7a4141}
+#matrix-view-formula .cf-flow .s.cf-retire b{background:#965353}
 #matrix-view-formula .cf-return{font-size:13px;font-weight:600;color:#1f4d3a}
 #matrix-view-formula .cf-definition{margin:8px 0;max-width:760px;line-height:1.6}
 #matrix-view-formula .cf-two-views{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -787,9 +794,9 @@
 <div class="cf-flow-start" data-formula-step="1"><b>1</b> Tìm</div>
 <div class="cf-branches">
 <div class="cf-route"><span class="cf-condition">Nếu đã có + dùng được</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="2"><b>2</b> Dùng</span></div></div>
-<div class="cf-route"><span class="cf-condition">Nếu chưa có / không dùng được · TẠO MỚI</span><div class="cf-chain"><span class="s" data-formula-step="3"><b>3</b> Đề xuất tạo mới</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="4"><b>4</b> Duyệt đề xuất tạo</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="5"><b>5</b> Khai báo</span><span class="a" aria-hidden="true">→</span><span class="s bot" data-formula-step="6"><b>6</b> Test</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="7"><b>7</b> Duyệt cho dùng</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
-<div class="cf-route"><span class="cf-condition">Nếu đã có + cần thay đổi</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s"><b>↻</b> Sửa</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
-<div class="cf-route"><span class="cf-condition">Nếu không còn dùng</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s"><b>×</b> Vô hiệu / Nghỉ hưu</span></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu chưa có / không dùng được · TẠO MỚI</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s cf-create" data-formula-step="3"><b>3</b><span class="cf-step-label">Đề xuất tạo<br>mới</span></span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="4"><b>4</b> Duyệt đề xuất tạo</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="5"><b>5</b> Khai báo</span><span class="a" aria-hidden="true">→</span><span class="s bot" data-formula-step="6"><b>6</b> Test</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="7"><b>7</b> Duyệt cho dùng</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu đã có + cần thay đổi</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s cf-edit"><b>↻</b> Sửa</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu không còn dùng</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s cf-retire"><b>×</b> Vô hiệu / Nghỉ hưu</span></div></div>
 </div></div>
 <h3 id="cf-definitions">II. Định nghĩa <small style="font-weight:500;color:var(--mut)">· 27 danh mục hiện có · bản nháp để Owner góp ý</small></h3>
 <p class="cf-def-intro"><b>STT = ID cho con người:</b> mỗi định nghĩa có một số tự nhiên cố định; đổi tên/nhóm/ẩn-hiện không đổi số. Mục mới lấy số tiếp theo. Mã <code>KNI-*</code> / <code>OBJ-*</code> là mã máy riêng. <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html" target="_self">27 Master List của các định nghĩa →</a></p>
