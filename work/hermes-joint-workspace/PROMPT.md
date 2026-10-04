@@ -22,7 +22,7 @@ Hoàn thiện MANUAL an toàn để có thể đóng HJW mà năng lực giao He
 
 Sau KQ RUN này, **Host GPT tự làm nghiệm thu cuối** bằng một assignment thật đã được Claude rà ở §8; executor không được ghi assignment nghiệm thu đó.
 
-**Thứ tự làm:** §1 PRE (chỉ đọc) → §1B checkpoint Owner một lần → §§2–5 và §7 (sửa máy, tự chạy, không hỏi thêm) → KQ. Xong nhóm nào ghi một dòng `BƯỚC <tên> PASS · <giờ>` vào mục P của executor; phiên bị ngắt thì phiên mới làm tiếp từ dòng mốc cuối. RUN này không đọc nội dung, không nhắc, không điều hành việc nào khác (DROOT37).
+**Thứ tự làm:** §1 PRE (chỉ đọc) → §1B checkpoint Owner một lần → §§2–7 (sửa máy, tự chạy, không hỏi thêm; phần Owner của §5 và §6 đã làm xong ở §1B) → KQ. Xong nhóm nào ghi một dòng `BƯỚC <tên> PASS · <giờ>` vào mục P của executor; phiên bị ngắt thì phiên mới làm tiếp từ dòng mốc cuối. RUN này không đọc nội dung, không nhắc, không điều hành việc nào khác (DROOT37).
 
 ## 1. PRE — fail closed
 - Đọc AGENTS A2/A5/A6/A9-GLB → root DROOT34/37/38/40/41 → HJW Bảng + §0 + P98–P103 → prompt này. COLLAB HJW nặng ~450 KB: tìm đúng đoạn, không đọc cả file.
@@ -107,7 +107,7 @@ Executor re-check **official pages** ngay trước checkpoint; nếu cả hai kh
 
 ### 6.3 Việc Owner tại checkpoint §1B — thao tác khoảng 5 phút, chờ hai tin thử khoảng 10–15 phút (không cần ngồi canh)
 Claude Code hướng dẫn đúng từng bước trên UI, không cầm password/token:
-1. tạo/đăng nhập UptimeEye free (fallback PingZen nếu cần), không nhập thẻ;
+1. tạo/đăng nhập UptimeEye free (chỉ chuyển sang HetrixTools khi §6.1 cho phép), không nhập thẻ;
 2. tạo đúng **một** HTTP monitor URL §6.2, interval 5 phút hoặc nhanh hơn;
 3. kết nối Telegram của provider và gửi test;
 4. làm phép thử đỏ→xanh ở §6.4 theo hướng dẫn từng bước của executor (chính Owner sửa địa chỉ trên trang dịch vụ; executor không có tài khoản);
@@ -139,7 +139,7 @@ Sau RUN KQ XONG, Host GPT sẽ tự đóng dấu line `Host:` của HJW bằng c
 - role: Reviewer · generation 1
 - task: `Rà chuẩn GIAO–LÀM–BÁO từ góc nhìn một agent mới`
 - output: một mục P ngắn + RESULT_V1
-- read: **chỉ** `AGENTS.md` phần A9-GLB và HJW Bảng + line Host + SPEC này
+- read: **chỉ** `AGENTS.md` phần A9-GLB và HJW Bảng + line Host + SPEC này (trong record ghi hai đường file `AGENTS.md` và `work/hermes-joint-workspace/COLLAB.md`; đoạn cụ thể nằm ở SPEC)
 - write: chỉ HJW COLLAB
 SPEC — Host chép nguyên văn 8 dòng dưới đây vào giữa hai marker SPEC (Reviewer đã rà ở P103; không thêm bớt):
 VIỆC: Rà chuẩn GIAO – LÀM – BÁO từ góc nhìn một agent mới đọc lần đầu. Chỉ đọc và ghi một báo cáo; không sửa luật, runtime, quyền.
