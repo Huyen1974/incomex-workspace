@@ -21,7 +21,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Write_Zone: parent COLLAB · PROMPT/lane prompts khi điều hành · canonical theo Owner scope.
 - Active_RUN: none.
 - Reserved_Targets: none.
-- Base_Target_Version: `ban-duyet.html#matrix-view-formula` SHA `ec909ef886466a4b78f9f9df135344b40eb31d10dd89b364bd86236c8038dfd4`; Owner View live đã kiểm 1280/390.
+- Base_Target_Version: `ban-duyet.html#matrix-view-formula` SHA `0c7801baf425130966624f7c44ec8514a638d241213a42ab0fbb20061181ba8a`; Owner View live đã kiểm mặt mặc định 9 card + Kho AI đóng.
 - NOW: `★ Công thức` có 9 mục mặt người + Kho AI 10–20 thu gọn; mục Kho AI có thể đưa lên/trả xuống mặt người mà không tạo định nghĩa mới.
 - NEXT: OWNER duyệt cách chia kho/mặt người và chọn thành phần nào cần ghim thường trực khi bắt đầu viết công thức.
 - BLOCKED_BY: none.
