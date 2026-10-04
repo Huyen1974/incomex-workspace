@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D116 đã làm đậm Tên + Tình trạng theo triết lý UI.MASTER trên toàn renderer definition; live screenshot PASS. Master Ghép STT21/ML-DEF-021 đã tồn tại và sẵn sàng chứa GHEP-xxx.
-- NEXT: Owner rà mặt 27 Master List và bắt đầu ghi Ghép/công thức đầu tiên.
+- NOW: D117 đổi tên hiển thị STT21 thành `Công thức`; Master tương ứng là `ML-DEF-021 · Master Công thức`. ID/mã/prefix giữ nguyên.
+- NEXT: Owner rà mặt 27 Master List và bắt đầu ghi Công thức đầu tiên.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D116.
+- LAST_SYNC: D117.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
