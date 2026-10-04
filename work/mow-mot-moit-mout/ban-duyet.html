@@ -605,6 +605,24 @@
 #matrix-view-formula .cf-core-pair li{margin:3px 0;padding-left:10px;position:relative}
 #matrix-view-formula .cf-core-pair li:before{content:'•';position:absolute;left:0;color:#1f6a42;font-weight:700}
 #matrix-view-formula .cf-core-pair b{color:var(--ink)}
+#matrix-view-formula .cf-pool{border:1px solid var(--line);border-radius:12px;background:#fff;margin:-8px 0 20px;overflow:hidden}
+#matrix-view-formula .cf-pool>summary{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 13px;font-size:13px;font-weight:700;color:var(--ink);list-style:none}
+#matrix-view-formula .cf-pool>summary::-webkit-details-marker{display:none}
+#matrix-view-formula .cf-pool>summary span{font-size:11px;font-weight:500;color:var(--mut)}
+#matrix-view-formula .cf-pool[open]>summary{border-bottom:1px solid var(--line);background:#fafcfb}
+#matrix-view-formula .cf-pool-note{font-size:11.5px;color:var(--mut);margin:10px 12px 0;line-height:1.45}
+#matrix-view-formula .cf-pool-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:10px 12px 12px}
+#matrix-view-formula .cf-pool-group{border:1px solid #e5ebe6;border-radius:10px;padding:9px;background:#fbfcfb}
+#matrix-view-formula .cf-pool-group h5{margin:0 0 6px;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
+#matrix-view-formula .cf-pool-item{border-top:1px solid #edf0ed;padding:7px 0}
+#matrix-view-formula .cf-pool-item:first-of-type{border-top:0;padding-top:2px}
+#matrix-view-formula .cf-pool-item-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#matrix-view-formula .cf-pool-item-head b{font-size:12px;color:var(--ink)}
+#matrix-view-formula .cf-pool-item p{margin:3px 0 0;font-size:11.5px;line-height:1.42;color:#4c5851}
+#matrix-view-formula .cf-pool-btn,#matrix-view-formula .cf-unpin-btn{border:1px solid #cfd9d1;background:#fff;color:#1f6a42;border-radius:8px;padding:3px 7px;font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap}
+#matrix-view-formula .cf-pool-btn[aria-pressed="true"]{background:#edf7ef}
+#matrix-view-formula .cf-human-extra-zone{border-top:1px dashed #bfd0c2;padding-top:10px}
+#matrix-view-formula .cf-pinned-card .cf-core-title{margin-bottom:4px}
 #matrix-view-formula .cf-def-intro{font-size:13px;line-height:1.55;margin:6px 0 12px}
 #matrix-view-formula .cf-def-existing{border:1px solid #cfe3d3;background:#f4faf5;border-radius:12px;padding:10px 12px;margin:8px 0 14px}
 #matrix-view-formula .cf-def-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;font-size:13px}
@@ -645,6 +663,7 @@
 #matrix-view-formula .cf-return{align-self:center;text-align:center}
 #matrix-view-formula .cf-two-views{grid-template-columns:minmax(0,1fr)}
 #matrix-view-formula .cf-core-grid{grid-template-columns:minmax(0,1fr)}
+#matrix-view-formula .cf-pool-groups{grid-template-columns:minmax(0,1fr)}
 }
 </style><section class="owner-part"><div class="wf4-top"><h2>Công thức và định nghĩa</h2></div>
 <section class="cf-core" aria-labelledby="cf-core-title">
@@ -676,7 +695,67 @@
       <div class="cf-core-card"><div class="cf-core-title"><b>9 · NTGV</b><span class="cf-core-tag">GIAO VIỆC</span></div><p>Quy định ai/AI làm gì, nhận gì, giao gì, cho ai và theo điều kiện nào.</p></div>
     </div>
   </div>
+
+  <div class="cf-core-zone cf-human-extra-zone" id="cf-human-extra-zone" hidden>
+    <h4>D · Đang đưa thêm lên mặt người</h4>
+    <div class="cf-core-grid" id="cf-human-extra"></div>
+  </div>
 </section>
+
+<details class="cf-pool" id="cf-component-pool">
+  <summary>Kho thành phần · AI dùng chính <span>11 mục · mặc định ẩn · mở khi cần</span></summary>
+  <p class="cf-pool-note">Đây vẫn là <b>cùng một kho định nghĩa</b>. “Đưa lên” chỉ đổi mặt xem để người dùng ghép công thức; không tạo khái niệm mới và không đổi canonical.</p>
+  <div class="cf-pool-groups">
+    <section class="cf-pool-group"><h5>D · Bản ghi &amp; con người</h5>
+      <article class="cf-pool-item" data-component-id="record" data-component-no="10" data-component-name="BẢN GHI" data-component-tag="THỰC TẾ"><div class="cf-pool-item-head"><b>10 · BẢN GHI</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Một trường hợp thực tế sinh ra khi định nghĩa được áp vào dữ liệu/case cụ thể.</p></article>
+      <article class="cf-pool-item" data-component-id="role" data-component-no="11" data-component-name="VAI TRÒ" data-component-tag="AI / NGƯỜI"><div class="cf-pool-item-head"><b>11 · VAI TRÒ</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Ai hoặc loại tác nhân nào được tham gia thực hiện/duyệt một việc.</p></article>
+      <article class="cf-pool-item" data-component-id="permission" data-component-no="12" data-component-name="QUYỀN" data-component-tag="KIỂM SOÁT"><div class="cf-pool-item-head"><b>12 · QUYỀN</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Được xem, tạo, sửa, duyệt, chạy hoặc quản trị đến mức nào.</p></article>
+    </section>
+    <section class="cf-pool-group"><h5>E · Luồng &amp; điều kiện</h5>
+      <article class="cf-pool-item" data-component-id="status" data-component-no="13" data-component-name="TRẠNG THÁI" data-component-tag="VÒNG ĐỜI"><div class="cf-pool-item-head"><b>13 · TRẠNG THÁI</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Tình trạng hiện tại của một đối tượng/bản ghi trong vòng đời.</p></article>
+      <article class="cf-pool-item" data-component-id="condition" data-component-no="14" data-component-name="ĐIỀU KIỆN" data-component-tag="KHI NÀO"><div class="cf-pool-item-head"><b>14 · ĐIỀU KIỆN</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Quy tắc xác định khi nào được bắt đầu, chuyển bước hoặc kết thúc.</p></article>
+    </section>
+    <section class="cf-pool-group"><h5>F · Thực thi</h5>
+      <article class="cf-pool-item" data-component-id="tool" data-component-no="15" data-component-name="TOOL" data-component-tag="THỰC THI"><div class="cf-pool-item-head"><b>15 · TOOL</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Công cụ người hoặc AI dùng để thực hiện một thao tác.</p></article>
+      <article class="cf-pool-item" data-component-id="dot" data-component-no="16" data-component-name="DOT" data-component-tag="MÁY"><div class="cf-pool-item-head"><b>16 · DOT</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Tool chuẩn hóa để AI/máy thực hiện thao tác có kiểm soát và dùng lại.</p></article>
+      <article class="cf-pool-item" data-component-id="test" data-component-no="17" data-component-name="TEST" data-component-tag="KIỂM"><div class="cf-pool-item-head"><b>17 · TEST</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Phép kiểm xác nhận kết quả đã đạt yêu cầu hay chưa.</p></article>
+    </section>
+    <section class="cf-pool-group"><h5>G · Tin cậy &amp; liên kết</h5>
+      <article class="cf-pool-item" data-component-id="evidence" data-component-no="18" data-component-name="BẰNG CHỨNG" data-component-tag="CHỨNG MINH"><div class="cf-pool-item-head"><b>18 · BẰNG CHỨNG</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Dữ liệu/source chứng minh một việc đã xảy ra hoặc đạt yêu cầu.</p></article>
+      <article class="cf-pool-item" data-component-id="code" data-component-no="19" data-component-name="MÃ" data-component-tag="DANH TÍNH"><div class="cf-pool-item-head"><b>19 · MÃ</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Danh tính ổn định để tìm, tham chiếu và dùng lại không nhầm.</p></article>
+      <article class="cf-pool-item" data-component-id="dependency" data-component-no="20" data-component-name="PHỤ THUỘC" data-component-tag="LIÊN KẾT"><div class="cf-pool-item-head"><b>20 · PHỤ THUỘC</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Quan hệ quy định cái gì phải có/xong trước thì cái khác mới được thực hiện.</p></article>
+    </section>
+  </div>
+</details>
+<script>
+(function(){
+  const pool=document.getElementById('cf-component-pool');
+  const zone=document.getElementById('cf-human-extra-zone');
+  const host=document.getElementById('cf-human-extra');
+  if(!pool||!zone||!host)return;
+  const key='mmim.formula.human-components.v1';
+  const selected=new Set();
+  try{(JSON.parse(sessionStorage.getItem(key)||'[]')||[]).forEach(id=>selected.add(String(id)))}catch(_e){}
+  const save=()=>{try{sessionStorage.setItem(key,JSON.stringify([...selected]))}catch(_e){}};
+  const render=()=>{
+    host.innerHTML='';
+    pool.querySelectorAll('.cf-pool-item').forEach(item=>{
+      const id=item.dataset.componentId;
+      const pin=item.querySelector('[data-pin-component]');
+      const on=selected.has(id);
+      if(pin){pin.setAttribute('aria-pressed',on?'true':'false');pin.textContent=on?'✓ Đang hiện':'↑ Đưa lên'}
+      if(!on)return;
+      const card=document.createElement('div');card.className='cf-core-card cf-pinned-card';card.dataset.componentId=id;
+      card.innerHTML='<div class="cf-core-title"><b>'+item.dataset.componentNo+' · '+item.dataset.componentName+'</b><span class="cf-core-tag">'+item.dataset.componentTag+'</span></div><p>'+item.querySelector('p').innerHTML+'</p><button type="button" class="cf-unpin-btn" data-unpin-component="'+id+'">↓ Trả về kho AI</button>';
+      host.appendChild(card);
+    });
+    zone.hidden=selected.size===0;save();
+  };
+  pool.addEventListener('click',event=>{const btn=event.target.closest('[data-pin-component]');if(!btn)return;const item=btn.closest('.cf-pool-item');if(!item)return;const id=item.dataset.componentId;selected.has(id)?selected.delete(id):selected.add(id);render()});
+  host.addEventListener('click',event=>{const btn=event.target.closest('[data-unpin-component]');if(!btn)return;selected.delete(btn.dataset.unpinComponent);render()});
+  render();
+})();
+</script>
 <h3 id="cf-b05-seven">I. Công thức · 1. Công thức 7 bước chung</h3>
 <div class="cf-flow" role="group" aria-label="7 bước chung: Tìm rồi Dùng, hoặc tạo mới qua bước 3 đến 7 rồi quay về Dùng">
 <div class="cf-flow-start" data-formula-step="1"><b>1</b> Tìm</div>

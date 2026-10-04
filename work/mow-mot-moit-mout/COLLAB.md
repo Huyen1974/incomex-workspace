@@ -1256,6 +1256,8 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 
 - D106 · 2026-10-04 · **MẶT NGƯỜI · 9 THÀNH PHẦN LÕI:** đầu trang `★ Công thức` thêm mặt tóm tắt dành cho con người theo nguyên tắc `Công thức = ghép các thành phần đã định nghĩa`. Không dùng bảng/list dài; chia **3 cụm × 3 mục**: A Định vị = Bước · Tầng · Nhóm; B Tổ chức việc = UI · Quy trình(T2) · Công việc(T1); C Dữ liệu & giao việc = Form(T0.5) · Field(T0) · NTGV. Nhóm/UI/Form thể hiện ngay 2 dòng con Cha-Con hoặc MOIT-MOUT để liếc là hiểu. Đây là 9 thành phần được đưa lên mặt người trước; các thành phần khác vẫn để chi tiết phía dưới/AI dùng và chỉ đưa lên khi Owner cần ghép công thức. Kiểm live Owner View `?task=mow-mot-moit-mout&section=matrix-view-formula`: 1280px hiển thị đủ 3 cụm × 3 gần trong một màn; 390px xếp dọc theo từng cụm, mỗi cụm chỉ 3 mục; HTTP 200.
 
+- D107 · 2026-10-04 · **MỘT KHO ĐỊNH NGHĨA · HAI MẶT NHÌN:** giữ 9 mục D106 làm mặt người thường trực. Thêm `Kho thành phần · AI dùng chính`, mặc định thu gọn, chứa 10–20 và chia 4 cụm tối đa 3 mục/cụm: Bản ghi/Vai trò/Quyền · Trạng thái/Điều kiện · Tool/DOT/Test · Bằng chứng/Mã/Phụ thuộc. Mỗi mục có `↑ Đưa lên`; khi chọn sẽ xuất hiện dưới mặt người và có `↓ Trả về kho AI`. Chuyển chỉ là **view preference trong phiên**, không tạo định nghĩa thứ hai/không đổi canonical; muốn một mục thành thường trực thì Owner chốt rồi mới đổi mặc định nguồn.
+
 ## Dòng hiện hành
 MMIM | STEP2_UI001_COPY · 28/09/2026 | Tab ★ Step quy trình 2 ở `ban-duyet.html`: phần I dùng bản sao khung UI-001 Nháp 2 từ VPS, CSS/JS vẫn trỏ nguồn gốc theo D87; không có bảng tự dựng. Bước chi tiết chờ Owner. A01 đã XONG; A06/B04/C03/D01/E01 tiếp tục HOLD theo D81.
 

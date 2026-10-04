@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `ban-duyet.html#matrix-view-formula` SHA `ec909ef886466a4b78f9f9df135344b40eb31d10dd89b364bd86236c8038dfd4`; Owner View live đã kiểm 1280/390.
-- NOW: đầu trang `★ Công thức` đã có mặt người 9 thành phần lõi, chia 3 cụm × 3 để nhìn nhanh; chi tiết định nghĩa vẫn giữ phía dưới cho AI/máy.
-- NEXT: OWNER duyệt mặt 9 thành phần rồi tiếp tục đưa công thức/nguyên tắc lắp ráp.
+- NOW: `★ Công thức` có 9 mục mặt người + Kho AI 10–20 thu gọn; mục Kho AI có thể đưa lên/trả xuống mặt người mà không tạo định nghĩa mới.
+- NEXT: OWNER duyệt cách chia kho/mặt người và chọn thành phần nào cần ghim thường trực khi bắt đầu viết công thức.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D106.
+- LAST_SYNC: D107.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
