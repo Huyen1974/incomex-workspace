@@ -1258,7 +1258,9 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 
 - D107 · 2026-10-04 · **MỘT KHO ĐỊNH NGHĨA · HAI MẶT NHÌN:** giữ 9 mục D106 làm mặt người thường trực. Thêm `Kho thành phần · AI dùng chính`, mặc định thu gọn, chứa 10–20 và chia 4 cụm tối đa 3 mục/cụm: Bản ghi/Vai trò/Quyền · Trạng thái/Điều kiện · Tool/DOT/Test · Bằng chứng/Mã/Phụ thuộc. Mỗi mục có `↑ Đưa lên`; khi chọn sẽ xuất hiện dưới mặt người và có `↓ Trả về kho AI`. Chuyển chỉ là **view preference trong phiên**, không tạo định nghĩa thứ hai/không đổi canonical; muốn một mục thành thường trực thì Owner chốt rồi mới đổi mặc định nguồn. Kiểm live Owner View 1280px: mặc định chỉ hiện 9 card + một thanh `Kho thành phần · AI dùng chính · 11 mục` đang đóng; HTTP 200.
 
-- D108 · 2026-10-04 · **STT = ID CON NGƯỜI CỐ ĐỊNH:** gắn STT cố định cho toàn bộ 20 thành phần hiện có: `STT 1` Bước → `STT 20` Phụ thuộc. STT không đổi khi ẩn/hiện, đổi nhóm, đưa lên mặt người hoặc trả về Kho AI; mục mới chỉ lấy số tiếp theo, không đánh lại/tái dùng số cũ. UI hiển thị rõ tiền tố `STT <n>` và pin từ Kho AI giữ nguyên STT.
+- D108 · 2026-10-04 · **SUPERSEDED BỞI D109:** lượt này đã hiểu STT là số của 20 card tóm tắt. Owner làm rõ STT phải thuộc từng dòng của kho định nghĩa chi tiết; D109 thay thế để chỉ còn một hệ STT.
+
+- D109 · 2026-10-04 · **STT = ID CON NGƯỜI CỦA KHO ĐỊNH NGHĨA:** Phần II hiện có đúng **27 định nghĩa**. Gắn cứng `STT 1→27` vào từng dòng bằng cột hiển thị + `data-def-stt`: A=1–9, B=10–15, C=16–20, D=21–27. STT đã cấp không đổi khi đổi tên/nhóm/ẩn-hiện; mục mới lấy số tiếp theo, không đánh lại/tái dùng số cũ. `KNI-*`/`OBJ-*` vẫn là mã máy riêng. Mặt 9 card + Kho AI không còn mang STT chính thức để tránh hai hệ số.
 
 ## Dòng hiện hành
 MMIM | STEP2_UI001_COPY · 28/09/2026 | Tab ★ Step quy trình 2 ở `ban-duyet.html`: phần I dùng bản sao khung UI-001 Nháp 2 từ VPS, CSS/JS vẫn trỏ nguồn gốc theo D87; không có bảng tự dựng. Bước chi tiết chờ Owner. A01 đã XONG; A06/B04/C03/D01/E01 tiếp tục HOLD theo D81.

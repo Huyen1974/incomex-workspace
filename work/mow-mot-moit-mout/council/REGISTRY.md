@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `ban-duyet.html#matrix-view-formula` SHA `0c7801baf425130966624f7c44ec8514a638d241213a42ab0fbb20061181ba8a`; Owner View live đã kiểm mặt mặc định 9 card + Kho AI đóng.
-- NOW: `★ Công thức` có 20 thành phần mang STT cố định làm ID người; 1–9 mặt người, 10–20 trong Kho AI thu gọn; di chuyển giữa hai mặt không đổi STT.
-- NEXT: OWNER dùng STT để trao đổi/chốt các thành phần và công thức tiếp theo.
+- NOW: Phần II có 27 định nghĩa, mỗi dòng mang STT cố định 1–27 làm ID người; 9 card/Kho AI chỉ là mặt ưu tiên và không còn là hệ STT riêng.
+- NEXT: OWNER dùng STT của kho định nghĩa để trao đổi/chốt; mục mới nhận số tiếp theo.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D108.
+- LAST_SYNC: D109.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
