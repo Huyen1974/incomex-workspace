@@ -5,14 +5,14 @@ Host: Claude Chat · Host_ID: CLAUDE-CWEB-261002-A · Owner giao 02/10/2026
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chốt cuối 03/10/2026 22:30: mục tiêu là **copy web cũ sang VPS của Incomex, chạy giống cũ nhất có thể, rồi chuyển DNS sang để duy trì khoảng thời gian tạm trước khi xây lại toàn bộ**; web cũ dự kiến hết hạn khoảng 1 tuần nữa. Nếu dùng PG/Directus thì dữ liệu phải **tách thành nhóm/collection nhìn tên là biết thuộc web Incomex và có ghi chú rõ để không lẫn về sau**. Quy trình: hội đồng chốt kỹ thuật → Host READY → Owner dán một dòng RUN → Codex làm. **Chưa cho phép:** đổi DNS / chuyển tên miền chính trong RUN dựng trang thử.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-04 07:38 +07 · Codex (Agent) · RUN-03 STARTED · cổng vào PASS; tiếp tục B–H
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-04 10:36 +07 · Codex (Agent) · RUN-03: web thật kiểm đạt; chờ lưu 6 ảnh
 - 🎯 **Mục tiêu — Owner chốt cuối 03/10 22:30:** copy toàn bộ web hiện tại từ bên cũ sang VPS của Incomex → kiểm cho chạy/hiển thị **giống cũ nhất có thể** → sau khi kỹ thuật đạt thì chuyển DNS sang VPS để chạy tạm; web cũ còn khoảng **1 tuần** trước khi hết hạn; xây lại toàn bộ web là việc sau. Phần nhúng bê đúng nguồn sang. Nếu dùng PG/Directus, dữ liệu web này phải có namespace/group/ghi chú riêng, không lẫn hệ khác.
 - 🏁 **Xong khi:** (1) 29 địa chỉ cũ có bản tương ứng trên VPS, desktop/mobile nhìn giống cũ nhất có thể và không link/ảnh hỏng; (2) Maps · YouTube · Lark · Giáo dục và form liên hệ hoạt động/fallback đúng phạm vi; (3) dữ liệu web tạm nằm trong namespace Directus riêng `web_incomex`, collection/file đều ghi chú rõ nguồn/đích; **không ghi vào collection dùng chung**; (4) trang thử `/w/` PASS và có rollback/protection; (5) bước kỹ thuật tiếp theo chỉ còn cutover DNS theo lệnh Owner. **Hạn chót:** web cũ ngừng ≈10/10/2026 (Owner 03/10: “khoảng 1 tuần nữa”) ⇒ trang thử PASS chậm nhất ≈07/10, Owner xem + đổi DNS xong trước ≈09/10.
 - 📍 **Tiến độ:** `✅ điều tra/chụp nguồn RUN-02 · ✅ snapshot 318 tệp verify · ⛔ RUN-02 DỪNG trước mutation vì #22 HJW đỏ · ✅ PROMPT RUN-03 + READY · ■ chờ điều kiện vào: #22 xanh + VPS1 rảnh → 😊 Owner dán RUN · ⬜ Codex B–H tới web /w/ chạy thật (chậm nhất ≈07/10) · ⬜ Owner xem · ⬜ cutover DNS trước ≈10/10`
 - ✅ **Đã xong:** Host điều tra thật 02/10 20:30 qua trình duyệt của Owner: **5 trang · 14 bài · 73 ảnh · 29 địa chỉ, đều mở được**; phần nhúng: Google Maps (chân trang, mọi trang) · YouTube (`/gioi-thieu/`) · liên kết Lark wiki (bài đơn hàng) · liên kết cổng giaoduc (menu); tính năng: form liên hệ (`/lien-he/`). P01 (GPT) → Host nhận ở P02.
-- ■ **Đang làm:** Codex đang thực thi `CWEB-E2E-20261004-03` từ snapshot RUN-02: hash/318 tệp nguồn + 13 bằng chứng PASS; PG18.6/Directus12.4.1/Nuxt4.5.2 healthy; bảng đèn 22/22 xanh, không executor khác đang chạy. Chưa nạp dữ liệu/chưa deploy; đang hoàn thiện DOT và lớp `/w/`.
+- ■ **Đang làm:** Trang https://vps.incomexsaigoncorp.vn/w/ đã chạy thật: 32 route/6 mẫu desktop-mobile/nhúng/form/hồi quy 132 route PASS; 27 content + 73 Files đúng khu riêng; POST-PROTECT receipt=115, 22/22 đèn xanh. Chưa chốt XONG vì cổng workspace không lưu được JPEG; 6 ảnh so đã chuẩn bị, chờ ngoại lệ đường Git đã hỏi.
 - ⬜ **Còn lại:** điều kiện vào đạt (#22 xanh, VPS1 rảnh) → 😊 Owner dán RUN-03 → 🤖 Codex tiếp tục từ snapshot: bootstrap DOT/namespace → nạp → Nuxt `/w/` → nhúng/form → browser desktop/mobile → sửa sai lệch → POST-PROTECT → KQ XONG → cutover DNS.
-- ➡ **Kế tiếp:** Codex làm liền B–H: DOT/namespace riêng → nạp 73 tệp + nội dung → Nuxt `/w/` → nhúng/form → đối chiếu 29 đường dẫn + desktop/mobile với chuẩn cũ → hồi quy/protection/rollback → KQ. DNS chờ lệnh riêng của Owner.
+- ➡ **Kế tiếp:** Owner trả lời ngoại lệ đã gửi cho đúng 6 ảnh so; Codex lưu ảnh + nhúng view và kiểm Owner View đúng revision để chốt XONG. Sau đó Owner xem trang thử; DNS cần lệnh riêng.
 - ⛔ **Không làm/để sau:** làm lại hay cải tiến web · sửa nội dung · dựng lại phần nhúng (chỉ nhúng lại) · bảng/collection ngoài khu `web_incomex` · ghi vào collection dùng chung · RUN chụp riêng · tìm kiếm, bình luận, đăng nhập · đụng production trước G7 · đụng DNS khi chưa có lệnh · đuổi giống từng điểm ảnh.
 
 ### 1. Mục tiêu
@@ -79,6 +79,33 @@ Host ghi (kỹ thuật — Host đề xuất, hội đồng chốt):
 - Q09 · **ĐÓNG · P05 GPT:** dữ liệu web Incomex dùng namespace riêng `web_incomex`, đúng 2 collection + folder file riêng + note metadata; không dùng collection chung.
 
 ## RUN / KQ
+- KQ@CWEB-E2E-20261004-03 DỪNG · chỉ còn lưu 6 JPEG so ảnh: workspace_* chỉ nhận UTF-8; chờ Owner trả lời ngoại lệ Git đã gửi. Trang thử chạy thật và các kiểm kỹ thuật PASS; chưa ghi XONG khi hồ sơ ảnh chưa đủ.
+  - Số liệu: **14 bài · 5 trang · 8 đơn hàng · 73 tệp đã nạp (69 ảnh + 4 PDF) · 32 địa chỉ 200 (29 gốc + 3 bổ sung) · 3 DOT mới**. STARTED `b9feac88f04fc218a01ea03c4f3b8a1200294e0f`; nguồn Nuxt private `ed76ba064155b5a41854628165d46963c2f4528c`; DOT/protection `284f48e95eacabfbd0e10150585b68699869146f`; adapter Guard `3080c9c9580b9c8afc1b2fa35b792c7dca3c8a51`. KQ + 3 dòng Bảng + đúng #kiem-ke/#so-anh cùng commit chứa dòng này.
+  - Bước 0–2 / A: đọc skill/OR/Hiến pháp/luật, READY khớp `8242d7eef9072940107952ce4aaf57cd925e3066`; snapshot 318+13 hash PASS; PG18.6/Directus12.4.1/Nuxt4.5.2 đúng và healthy; không executor khác. Tái sử dụng snapshot; chỉ lấy đúng 3 HTML còn thiếu theo liên kết /project/du-an/, không đổi manifest gốc và không crawl lại.
+  - Bước 3 / B–F: 100% PG/Directus qua DOT; bootstrap idempotent, dry-run mặc định, help/verify/rollback. Metadata group web_incomex, đúng 2 physical collection, path unique, featured_image M2O directus_files, notes [WEB_INCOMEX], Files folder web-incomex. Public chỉ đọc published; inbox create tối thiểu, không public read. Nạp 27 dòng và 73 Files; chữ/ảnh giữ nguồn.
+  - Nuxt lớp đọc/hiển thị /w/: thêm 203 tệp riêng, không sửa nguồn Nuxt có sẵn, không thêm gói/nâng runtime. Để nối /w/, entry server đã biên dịch thêm đúng một import; các byte bản G7 còn lại giữ nguyên. CSP thêm đúng google.com/youtube.com chỉ cho /w/ qua Config Guard, baseline/mode sạch; giaoduc và mọi đường khác giữ CSP cũ.
+  - Bước 4–5 / G — hai mũ: Executor dựng/deploy; tự rà lại từng trang, so bố cục/chữ/ảnh/header/footer và thử menu/form/embed theo nguồn đã duyệt. Browser thật 32 route, 6 mẫu × 1366/390, 0 ảnh hỏng/0 link nội bộ chết/0 origin tài nguyên bên cũ. Hai vòng sửa: ảnh project, phần thẻ/chia sẻ và hai Lark links được giữ. Maps thấy nền/pin, video nguồn phát, Lark mở đúng Docs, Giáo dục mở đúng cổng/login. Nút tư vấn href=# có sẵn ở nguồn được giữ nguyên.
+  - Form thử gửi thật lưu riêng row `4197c7da-d203-4f32-8a7c-92a6c778b091`, source_path=/lien-he/, status=new; tên/email required như nguồn, message optional. Dòng thử content đã thấy ở home/category rồi gỡ đúng ID do RUN tạo. Bảy collection dùng chung byte hash/số lượng trước–sau bằng nhau; /posts không có bài web công ty.
+  - H / protection: 207 target mới vào Config Guard hiện có; INV18 vào Guard #22, không bot/timer mới. Watch 206 nguồn/1806 runtime/27 content/6 route; mutant hash thật bị từ chối. Selftest/periodic/post PASS, theo dõi sau deploy >5 phút. POST retry giữ PRE gốc; cho phép duy nhất worker workspace đã tự restart vì SQLite lock (02:17:25Z), source SHA không đổi, service active; không sửa code/config/service HJW.
+  - **ĐÈN: 22 xanh · 0 đỏ** · POST 2026-10-04T03:32:04Z · biên nhận Hermes VPS message_id=115: “đèn 22/22 xanh · bảo vệ đủ · có đường lùi”. `known-good.json` đã lưu.
+  - Đường lùi: `/opt/incomex/dot/bin/dot-web-incomex-deploy rollback --execute`; dry-run PASS, bản trước index SHA `93614b18e68bf8db8ab81f71c2d0a3ed733322b31c269eb21a9e480ff50c590e`. Chỉ ẩn 27 owned content, giữ Files/schema/inbox/evidence; không xóa dữ liệu có sẵn.
+  - Bước 6 / hồ sơ: 35 bằng chứng browser lưu VPS, manifest hash; 6 JPEG 138029–243631 byte đã ghép và kiểm. Khác biệt còn lại mỗi mẫu ghi trong #so-anh: tải ảnh/khung/hiện khi cuộn, độ xuống dòng; banner không trượt theo scope cho phép. Repo ảnh chưa ghi: native workspace_import_file FILE_DOWNLOAD_FAILED; backend import giải mã UTF-8 nên JPEG không thể qua cổng hiện có. 6 ảnh đã chuẩn bị đúng assets/so-anh/01.jpg–06.jpg, chỉ chờ ngoại lệ đã hỏi, chưa push Git. Không thay đường ghi hoặc sửa MCP/HJW khi chưa được cho phép. DNS chờ lệnh riêng Owner.
+  - Hồ sơ bằng chứng chuẩn: `/opt/incomex/work/copy-web-incomexsaigoncorp-vn/evidence/` (`browser-verify.json`, `browser-evidence-manifest.json`, `post-protect-retry.log`, `guard-selftest.log`, `guard-periodic-cweb.log`, `portal-regression.log`, `rollback-dry-run.json`, `observed-worker-restart.json`). Output thật:
+    ```text
+    {"verify":"PASS","content_rows":27,"published_public":27,"folder_files":73,"images":69,"pdf":4,"errors":[]}
+    {"watch":"PASS","namespace":"web_incomex","published":27,"routes":6,"runtime_files":1806,"source_files":206,"watchdog":"mutant rejected","errors":[]}
+    CHECK: live=248 in_catalog=248 missing=0 removed=0 changed=0
+    STATUS=CLEAN
+    SLICE_A=PASS
+    CUTOVER_ACCEPT run=CWEB-E2E-20261004-03 tag=acc-031436 => PASS
+    GUARD SELFTEST: PASS
+    INV15.kuma_telegram_coverage PASS fleet 22/22 · up=22 down=0 paused=0 unknown=0
+    OUT OF SCOPE none
+    RECEIPT message_id=115 · khung Hermes VPS
+    GUARD POST CWEB-E2E-20261004-03: PASS
+    POST_PROTECT PASS receipt=115
+    ```
+
 - `PROMPT.md` continuation · RUN_ID `CWEB-E2E-20261004-03` · last-touch `8242d7eef9072940107952ce4aaf57cd925e3066` · READY ở dòng dưới (P08); PROMPT tự dừng ở cổng vào nếu #22 chưa xanh hoặc VPS1 chưa rảnh. RUN này tái dùng snapshot RUN-02 và đi thẳng B–H.
 - READY@8242d7eef9072940107952ce4aaf57cd925e3066 · RUN_ID `CWEB-E2E-20261004-03` · Host Claude Chat · 2026-10-04 07:25 +07 · `PROMPT.md` RUN-03 (tiếp nối, dùng lại snapshot) · chờ điều kiện vào + Owner dán RUN.
 - STARTED@CWEB-E2E-20261004-03 2026-10-04 00:37:20 UTC · executor=codex · READY khớp `8242d7eef9072940107952ce4aaf57cd925e3066`; cửa vào PASS: snapshot verify exit 0, runtime đúng phiên bản/healthy, 22/22 đèn xanh (2026-10-04T00:30:01Z), lifecycle không executor khác, `/w` chưa có.

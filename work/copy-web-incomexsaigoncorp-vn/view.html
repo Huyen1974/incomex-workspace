@@ -60,21 +60,31 @@ ul{margin:6px 0 6px 20px;padding:0}
   <tr><td class="x"><b>Không phải</b></td><td>Làm lại toàn bộ web — việc khác, để sau</td></tr>
 </table>
 
-<h2 id="kiem-ke">Nguồn đã chụp — RUN 03/10/2026</h2>
+<h2 id="kiem-ke">Trang thử đã chạy — RUN CWEB-E2E-20261004-03</h2>
+<p><b>Kiểm kỹ thuật đạt.</b> <a href="https://vps.incomexsaigoncorp.vn/w/" target="_blank" rel="noopener">Mở trang Web Incomex</a>. Trạng thái RUN-02 bên dưới là lịch sử; kết quả hiện tại ở mục này.</p>
 <table>
-  <tr><th>Trang</th><th>Bài</th><th>Tệp ảnh/PDF</th><th>Địa chỉ cũ</th></tr>
-  <tr><td>5</td><td>14</td><td>73 · 69 ảnh + 4 PDF</td><td>29 · trả 200</td></tr>
+<tr><th>Trang</th><th>Bài</th><th>Đơn hàng</th><th>Tệp đã nạp</th><th>Địa chỉ đạt</th></tr>
+<tr><td>5</td><td>14</td><td>8</td><td>73 · 69 ảnh + 4 PDF</td><td>32 · HTTP 200</td></tr>
 </table>
-<p>Đã giữ bản chụp trên VPS: 318 tệp nguồn · 267 tài nguyên giao diện · 12 ảnh chuẩn của 6 trang, rộng 1366 và 390. Kiểm SHA256: khớp toàn bộ 318 tệp nguồn và 13 tệp bằng chứng.</p>
-<p class="x"><b>DỪNG trước khi nạp hoặc dựng trang thử.</b> PRE-PROTECT không đạt: đèn #22 “MCPW Protection Guard” đỏ, thuộc HJW. Bảng đèn: 21 xanh · 1 đỏ (16:50 UTC, 03/10). Directus chưa nạp dữ liệu; trang /w/ chưa được dựng/nghiệm thu.</p>
+<p>Tái dùng snapshot 318 tệp nguồn + 13 bằng chứng, khớp SHA256. Đã bổ sung đúng 3 trang đơn hàng còn thiếu, tìm thấy qua liên kết trong trang Dự án; giữ nguyên nội dung và dùng lại ảnh đã chụp. Tổng 29 địa chỉ ban đầu + 3 địa chỉ bổ sung.</p>
+<p>Đã mở và cuộn từng trang: 32/32 đạt, không ảnh hỏng, không liên kết nội bộ chết và không tải tài nguyên từ máy chủ bên cũ. Đối chiếu 6 mẫu ở 1366/390, tối đa hai vòng sửa, giữ HTML/CSS, phông chữ, hình ảnh và nội dung nguồn. Khác biệt còn lại được ghi theo từng mẫu ở mục So ảnh.</p>
 <table>
-  <tr><th>Phần nhúng / tính năng</th><th>Ở đâu</th><th>Site mới</th></tr>
-  <tr><td>Bản đồ Google</td><td>Chân trang</td><td class="g">Nhúng lại</td></tr>
-  <tr><td>Video YouTube</td><td>Giới thiệu</td><td class="g">Nhúng lại</td></tr>
-  <tr><td>Liên kết Lark (đơn hàng)</td><td>Bài đơn hàng</td><td class="g">Giữ liên kết</td></tr>
-  <tr><td>Liên kết Giáo dục</td><td>Menu</td><td class="g">Giữ liên kết</td></tr>
-  <tr><td>Form liên hệ</td><td>Liên hệ</td><td class="y">Form gần như cũ, tin nhắn vào khu riêng; lỗi thì hiện điện thoại + email</td></tr>
+<tr><th>Tính năng</th><th>Kết quả thử thật</th></tr>
+<tr><td>Menu điện thoại</td><td>Mở, đóng, Escape và đi tới trang đúng</td></tr>
+<tr><td>Google Maps</td><td>Đã thấy nền bản đồ và vị trí</td></tr>
+<tr><td>YouTube</td><td>Video nguồn ở trang Giới thiệu đã phát</td></tr>
+<tr><td>Lark</td><td>Hai liên kết danh sách được giữ; mở đúng tài liệu</td></tr>
+<tr><td>Giáo dục</td><td>Mở đúng cổng; chuyển tới đăng nhập của cổng như hiện có</td></tr>
+<tr><td>Liên hệ</td><td>Gửi thành công, lưu 1 tin thử vào khu riêng; tên/email bắt buộc như form cũ; lỗi có điện thoại/email</td></tr>
 </table>
+<p>Dữ liệu thuộc nhóm <b>Web Incomex — incomexsaigoncorp.vn</b>: đúng 2 bảng riêng và thư mục tệp riêng, ghi chú nguồn đầy đủ. Bảy collection dùng chung giữ nguyên số lượng và hash. Thêm đơn hàng thử qua DOT đã hiện ở trang chủ/chuyên mục, sau đó gỡ đúng dòng thử.</p>
+<p><b>Bảo vệ đạt:</b> hồi quy 132 địa chỉ cổng đạt; POST-PROTECT đạt, biên nhận số 115 đã gửi với đường lùi. <b>ĐÈN: 22 xanh · 0 đỏ</b> (04/10 10:32 +07). Đã kiểm đường lùi dry-run; giữ bản Nuxt trước và chỉ ẩn dữ liệu của RUN này.</p>
+<p class="y"><b>Chưa chốt XONG:</b> sáu ảnh ghép đã tạo, mỗi ảnh dưới 250 KB, nhưng cổng workspace chỉ nhận UTF-8. Chờ Owner trả lời ngoại lệ đã gửi để lưu đúng sáu JPEG vào repo và nhúng vào mục So ảnh. Trang thử vẫn đang chạy. DNS chờ lệnh riêng.</p>
+<details><summary>Bằng chứng và đường lùi dành cho người vận hành</summary>
+<p>Hồ sơ: <code>/opt/incomex/work/copy-web-incomexsaigoncorp-vn/evidence/</code>: <code>browser-verify.json</code>, <code>browser-evidence-manifest.json</code>, <code>portal-regression.log</code>, <code>guard-selftest.log</code>, <code>post-protect-retry.log</code>, <code>known-good.json</code>, <code>rollback-dry-run.json</code>. Bộ 35 tệp bằng chứng trình duyệt đã lưu và kiểm hash.</p>
+<p>Đường lùi một lệnh: <code>/opt/incomex/dot/bin/dot-web-incomex-deploy rollback --execute</code>. Trả Nuxt về bản trước và ẩn 27 dòng content của RUN; giữ schema, Files, inbox và bằng chứng; không đụng dữ liệu chung.</p>
+<p>Thêm 203 tệp nguồn riêng, không sửa tệp nguồn Nuxt cũ. Bản chạy thêm một import vào entry đã biên dịch để nối phần /w/. Chính sách khung chỉ thêm Maps/YouTube cho /w/, các đường khác giữ nguyên. Bảo vệ hiện có theo dõi 206 tệp nguồn và 1806 tệp chạy; tự kiểm phát hiện hash sai đã đạt.</p>
+</details>
 
 <h2 id="cach-lam">Cách làm — 🤖 Codex, một lần chạy</h2>
 <div class="chain">
@@ -103,7 +113,15 @@ ul{margin:6px 0 6px 20px;padding:0}
 </table>
 
 <h2 id="so-anh">So ảnh: trang cũ ↔ trang mới (6 trang)</h2>
-<p class="x" style="padding:8px 10px;border-radius:8px">⬜ 🤖 điền khi chạy xong.</p>
+<p>Đã so đúng 6 mẫu, mỗi ảnh ghép có bản cũ/mới ở 1366 và 390. Giữ thiết kế đã được con người duyệt; không khẳng định giống tuyệt đối từng điểm ảnh. Ảnh đã tạo xong và kiểm JPEG/SHA256, chờ ngoại lệ đường lưu nêu ở mục Kiểm kê.</p>
+<table><tr><th>Mẫu · JPEG</th><th>Dung lượng</th><th>Khác biệt còn lại sau hai vòng sửa</th></tr>
+<tr><td>01.jpg</td><td>234410 byte</td><td>Trang chủ: thứ tự khối, nút, chữ và ảnh giữ nguyên; ảnh ngoài màn hình/phần đối tác hiện khác thời điểm khi cuộn; banner giữ khung đầu, không chạy trượt.</td></tr>
+<tr><td>02.jpg</td><td>243631 byte</td><td>Giới thiệu: giữ nội dung, khoảng trống và bố cục nguồn; video đã phát; ảnh tải khi cuộn làm ảnh toàn trang khác thời điểm.</td></tr>
+<tr><td>03.jpg</td><td>138029 byte</td><td>Liên hệ: giữ hình dạng và trường bắt buộc của form; thêm thông báo gửi thành công/lỗi để tin đi vào khu riêng.</td></tr>
+<tr><td>04.jpg</td><td>156046 byte</td><td>Đơn hàng: giữ bài và cả hai liên kết Lark; phần đối tác/bản đồ hiện khác thời điểm tải trong ảnh toàn trang.</td></tr>
+<tr><td>05.jpg</td><td>238120 byte</td><td>Bài Tin vui: giữ chữ, ảnh, cột bên và liên kết chia sẻ; phần đối tác và độ xuống dòng còn phụ thuộc thời điểm tải/phông khi chụp.</td></tr>
+<tr><td>06.jpg</td><td>241562 byte</td><td>Đơn hàng Sơn nhà cửa: giữ chữ, ảnh, nội dung và chia sẻ; phần đối tác và độ xuống dòng còn khác giữa hai thời điểm chụp.</td></tr>
+</table>
 
 <details id="bang-chung">
   <summary>Kho bằng chứng (cho PM / AI)</summary>
