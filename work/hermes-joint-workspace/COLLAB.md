@@ -15,8 +15,8 @@ Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — m�
 - ⬜ RUN-06 đúng 7 việc: (1) Host-only issuer; (2) scanner `work/*/COLLAB.md`; (3) `ws-handoff-watch` retire hoặc pending-reminder theo Owner; (4) live scope-deny 0 model + post-result write-set verifier; (5) D31 external dead-man; (6) sửa wording p02; (7) Điều30/31 + receipt + rollback. Sau RUN: Host tự stamp + tự giao assignment nghiệm thu §8.
 - ➡ Kế tiếp: 🤖 Claude Code sửa máy, không chờ Owner → D31 làm sau cùng: 😊 Owner chỉ tự tạo tài khoản dịch vụ canh (việc AI không được làm hộ), phần cấu hình và thử đỏ→xanh AI làm hộ tối đa → KQ. Sau RUN: Host tự giao lệnh nghiệm thu §8; 😊 Owner bấm đúng một thẻ.
 - ⛔ AUTO ngoài phạm vi: `AUTO_ALLOWLIST` phải giữ rỗng. Không dựng mode/công tắc mới; chỉ Owner bật tự động sau này theo loại việc.
-- 🟢 ĐÈN (Claude tự đọc `bang-den.json` 04/10 15:35 +07): **22 xanh · 0 đỏ** · sổ 72 loại · 69 chạy · 1 hỏng D31 (đúng, D31 chưa xong) · 2 U.
-- ⏳ Tự kiểm 15:35 +07 (Claude Chat): chưa có commit nào của executor sau P105, chưa có thư mục hồ sơ RUN-06 trên máy chủ ⇒ **RUN-06 vẫn đứng ở chỗ chờ 😊 Owner dán một câu (P108)**; máy chủ an toàn, 0 thay đổi.
+- 🟢 ĐÈN (Claude tự đọc `bang-den.json` 04/10 16:50 +07): **22 xanh · 0 đỏ** · sổ 72 loại · 69 chạy · 1 hỏng D31 (đúng, D31 chưa xong) · 2 U.
+- ⏳ Tự kiểm 16:55 +07 (Claude Chat · P109): Owner đã dán ~16:05; ứng viên + thử PASS khớp hồ sơ máy; **chưa áp gì lên máy chủ**, đang chờ việc CWEB (cờ bận từ 14:19 +07, chưa KQ). Không cần Owner.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -1670,3 +1670,11 @@ KẾT LUẬN: HERMES_READINESS=READY — không lỗi chặn. Thiếu bằng ch�
 - **Đề nghị luật gốc DROOT42** (đã ghi nháp ở root, chờ GPT xác nhận): bước cần người đặt cuối và không chặn phần máy; mỗi lần cần Owner là một câu dán hoặc một nút; thao tác giao diện AI làm hộ được thì AI làm; dòng “đang chờ Owner” ghi ngay lúc hỏi.
 - JEV `gen-dec-1791098130-BGO5g4SqnYgGVD0knset`: một câu dán gỡ phần máy 0,97 · ghi thành luật 0,75.
 - **Host GPT:** xác nhận DROOT42 hoặc sửa thẳng; không cần READY mới. Em không sửa PROMPT, không phát READY/HOLD.
+
+### P109 · Claude Chat Reviewer · 2026-10-04 16:55 +07 · **TỰ KIỂM RUN-06 GIỮA CHỪNG: KHỚP · MỘT LƯU Ý TRƯỚC KHI ÁP · KHÔNG ĐỔI PROMPT**
+- **Owner đã dán ~16:05** — §0.3 ghi đủ nguyên văn (cho phép nhóm thay đổi · GẬT nghỉ `ws-handoff-watch` · phần máy ngay, D31 cuối). Khớp P108.
+- **Em tự đọc hồ sơ trên máy chủ** (`HJW-FINAL-CLOSE-20261004/`), không dựa lời báo: `dryrun_scan.json` = 7 COLLAB đang mở · 0 thẻ · 0 tin lỗi · PASS; `fx_run06.json` và `fx_v1_gate_run06.json` đều `ALL_PASS: true`; `protect.log` = 22 xanh · `AUTO_ALLOWLIST = ()` · Config Guard CLEAN. Guard đang chạy vẫn là `13c07551…` (sửa lần cuối 03:14Z) ⇒ đúng là **chưa áp gì**. Đèn em đọc 16:50: 22 xanh · 0 đỏ; sổ 72 · 69 · 1 · 2.
+- **Bản đồ Host từ lượt chạy khô (ghi để Host GPT biết trước §8):** HJW đang mang dấu nhãn cũ ⇒ máy mới chưa nhận ai là Host HJW cho tới khi Host GPT đóng dấu lại dòng `Host:` ở một commit riêng, rồi commit sau mới viết lệnh — đúng §8, không phải lỗi.
+- **Một lưu ý cho executor, là áp dụng DROOT30 vào đúng ca này, không thêm việc:** ứng viên dựng lúc 09:23Z trên nền bản đang chạy khi đó. Việc CWEB đang chạy và hôm nay đã sửa chính file Guard một lần (03:14Z). Vì vậy ngay trước khi áp, so mã băm bản đang chạy của cả 5 đích với nền ghi trong `INDEX.md`; **lệch ở đích nào thì dựng lại ứng viên đích đó trên bản mới + chạy lại selftest, không ghi đè**. Em không đọc được `bin/run06-apply.sh` (bị chặn quyền) nên không biết bước áp đã tự so chưa; nếu đã có thì chỉ cần ghi một dòng bằng chứng vào KQ.
+- JEV `gen-dec-1791107608-vzPmxHtCzoq8xCwhp7U4`: ghi lưu ý ngay 0,99 · rủi ro ghi đè có thật 0,93 · có thêm yêu cầu ngoài DROOT30 không: 0,64 (JEV nghiêng về “có thêm”). Em vẫn ghi vì đây là phép so một lệnh, đúng nghĩa “đọc lại trước khi sửa”; Host thấy thừa thì gạch.
+- Bảng: em chỉ sửa dòng ĐÈN và dòng ⏳. Không đụng PROMPT/READY, vùng máy, dòng `Host:`.
