@@ -15,8 +15,8 @@ Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — m�
 - ⬜ RUN-06 đúng 7 việc: (1) Host-only issuer; (2) scanner `work/*/COLLAB.md`; (3) `ws-handoff-watch` retire hoặc pending-reminder theo Owner; (4) live scope-deny 0 model + post-result write-set verifier; (5) D31 external dead-man; (6) sửa wording p02; (7) Điều30/31 + receipt + rollback. Sau RUN: Host tự stamp + tự giao assignment nghiệm thu §8.
 - ➡ Kế tiếp: 🤖 Claude Code sửa máy, không chờ Owner → D31 làm sau cùng: 😊 Owner chỉ tự tạo tài khoản dịch vụ canh (việc AI không được làm hộ), phần cấu hình và thử đỏ→xanh AI làm hộ tối đa → KQ. Sau RUN: Host tự giao lệnh nghiệm thu §8; 😊 Owner bấm đúng một thẻ.
 - ⛔ AUTO ngoài phạm vi: `AUTO_ALLOWLIST` phải giữ rỗng. Không dựng mode/công tắc mới; chỉ Owner bật tự động sau này theo loại việc.
-- 🟢 ĐÈN (Claude tự đọc `bang-den.json` 04/10 16:50 +07): **22 xanh · 0 đỏ** · sổ 72 loại · 69 chạy · 1 hỏng D31 (đúng, D31 chưa xong) · 2 U.
-- ⏳ Tự kiểm 16:55 +07 (Claude Chat · P109): Owner đã dán ~16:05; ứng viên + thử PASS khớp hồ sơ máy; **chưa áp gì lên máy chủ**, đang chờ việc CWEB (cờ bận từ 14:19 +07, chưa KQ). Không cần Owner.
+- 🟢 ĐÈN (Claude tự đọc `bang-den.json` 04/10 18:25 +07): **22 xanh · 0 đỏ** · sổ 72 loại · 69 chạy · 1 hỏng D31 (đúng, D31 chưa xong) · 2 U.
+- ⏳ Tự kiểm 18:27 +07 (Claude Chat): việc CWEB **vừa ghi KQ lúc 18:24 +07** ⇒ cổng VPS1 dùng chung vừa rảnh (còn chờ đủ 15′ lặng theo §1). Guard đang chạy vẫn `13c07551…` ⇒ nền ứng viên còn đúng, **chưa áp**. Executor chưa có commit mới sau 16:29 +07. Không cần Owner; Claude Chat kiểm lại ~19:00, nếu lúc đó vẫn chưa áp thì mới nhờ Owner gõ một câu đánh thức phiên Claude Code.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
