@@ -593,6 +593,7 @@
 #matrix-view-formula .cf-core-principle{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 #matrix-view-formula .cf-core-principle b{font-size:16px;color:#174f35}
 #matrix-view-formula .cf-core-principle span{font-size:12px;color:var(--mut)}
+#matrix-view-formula .cf-stt-rule{font-size:11.5px;color:#536158;margin:-5px 0 10px;padding:6px 9px;border-left:3px solid #8fb69a;background:#f2f8f3;border-radius:0 8px 8px 0}
 #matrix-view-formula .cf-core-zone{margin-top:12px}
 #matrix-view-formula .cf-core-zone>h4{margin:0 0 7px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut)}
 #matrix-view-formula .cf-core-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
@@ -668,31 +669,32 @@
 </style><section class="owner-part"><div class="wf4-top"><h2>Công thức và định nghĩa</h2></div>
 <section class="cf-core" aria-labelledby="cf-core-title">
   <div class="cf-core-principle"><b id="cf-core-title">CÔNG THỨC = ghép các thành phần đã định nghĩa</b><span>Mặt này dành cho người · chi tiết để phía dưới cho AI/máy.</span></div>
+  <div class="cf-stt-rule"><b>STT = ID cho con người · cố định.</b> Ẩn/hiện, đổi nhóm hoặc đưa lên/trả về Kho AI không đổi STT. Thành phần mới lấy số tiếp theo; không đánh lại số cũ.</div>
 
   <div class="cf-core-zone">
     <h4>A · Định vị vấn đề</h4>
     <div class="cf-core-grid">
-      <div class="cf-core-card"><div class="cf-core-title"><b>1 · BƯỚC</b><span class="cf-core-tag">1 → 7</span></div><p>Đang ở giai đoạn nào trong công thức 7 bước.</p></div>
-      <div class="cf-core-card"><div class="cf-core-title"><b>2 · TẦNG</b><span class="cf-core-tag">T7 → T0</span></div><p>Đang xử lý vấn đề ở mức nào trong hệ tầng.</p></div>
-      <div class="cf-core-card"><div class="cf-core-title"><b>3 · NHÓM</b><span class="cf-core-tag">CHA / CON</span></div><ul class="cf-core-pair"><li><b>Nhóm cha</b> · quy tắc/config dùng toàn hệ thống hoặc diện rộng.</li><li><b>Nhóm con</b> · quy tắc/config dùng trong 1 chuyên môn.</li></ul></div>
+      <div class="cf-core-card" data-component-stt="1"><div class="cf-core-title"><b>STT 1 · BƯỚC</b><span class="cf-core-tag">1 → 7</span></div><p>Đang ở giai đoạn nào trong công thức 7 bước.</p></div>
+      <div class="cf-core-card" data-component-stt="2"><div class="cf-core-title"><b>STT 2 · TẦNG</b><span class="cf-core-tag">T7 → T0</span></div><p>Đang xử lý vấn đề ở mức nào trong hệ tầng.</p></div>
+      <div class="cf-core-card" data-component-stt="3"><div class="cf-core-title"><b>STT 3 · NHÓM</b><span class="cf-core-tag">CHA / CON</span></div><ul class="cf-core-pair"><li><b>Nhóm cha</b> · quy tắc/config dùng toàn hệ thống hoặc diện rộng.</li><li><b>Nhóm con</b> · quy tắc/config dùng trong 1 chuyên môn.</li></ul></div>
     </div>
   </div>
 
   <div class="cf-core-zone">
     <h4>B · Tổ chức việc</h4>
     <div class="cf-core-grid">
-      <div class="cf-core-card"><div class="cf-core-title"><b>4 · UI</b><span class="cf-core-tag">CHA / CON</span></div><ul class="cf-core-pair"><li><b>UI cha</b> · khuôn giao diện + hành vi dùng chung.</li><li><b>UI con</b> · dùng khuôn cha + config cho ngữ cảnh/chuyên môn cụ thể.</li></ul></div>
-      <div class="cf-core-card"><div class="cf-core-title"><b>5 · QUY TRÌNH</b><span class="cf-core-tag">T2</span></div><p>Chuỗi công việc phối hợp để tạo ra một kết quả nghiệp vụ.</p></div>
-      <div class="cf-core-card"><div class="cf-core-title"><b>6 · CÔNG VIỆC</b><span class="cf-core-tag">T1</span></div><p>Một việc cụ thể trong Quy trình; có đầu vào, đầu ra và điều kiện hoàn thành.</p></div>
+      <div class="cf-core-card" data-component-stt="4"><div class="cf-core-title"><b>STT 4 · UI</b><span class="cf-core-tag">CHA / CON</span></div><ul class="cf-core-pair"><li><b>UI cha</b> · khuôn giao diện + hành vi dùng chung.</li><li><b>UI con</b> · dùng khuôn cha + config cho ngữ cảnh/chuyên môn cụ thể.</li></ul></div>
+      <div class="cf-core-card" data-component-stt="5"><div class="cf-core-title"><b>STT 5 · QUY TRÌNH</b><span class="cf-core-tag">T2</span></div><p>Chuỗi công việc phối hợp để tạo ra một kết quả nghiệp vụ.</p></div>
+      <div class="cf-core-card" data-component-stt="6"><div class="cf-core-title"><b>STT 6 · CÔNG VIỆC</b><span class="cf-core-tag">T1</span></div><p>Một việc cụ thể trong Quy trình; có đầu vào, đầu ra và điều kiện hoàn thành.</p></div>
     </div>
   </div>
 
   <div class="cf-core-zone">
     <h4>C · Dữ liệu &amp; giao việc</h4>
     <div class="cf-core-grid">
-      <div class="cf-core-card"><div class="cf-core-title"><b>7 · FORM</b><span class="cf-core-tag">T0.5</span></div><ul class="cf-core-pair"><li><b>MOIT</b> · Form / dữ liệu đầu vào.</li><li><b>MOUT</b> · Form / dữ liệu đầu ra.</li></ul></div>
-      <div class="cf-core-card"><div class="cf-core-title"><b>8 · FIELD</b><span class="cf-core-tag">T0</span></div><p>Đơn vị dữ liệu nhỏ nhất cần khai báo, nhập, tính hoặc hiển thị.</p></div>
-      <div class="cf-core-card"><div class="cf-core-title"><b>9 · NTGV</b><span class="cf-core-tag">GIAO VIỆC</span></div><p>Quy định ai/AI làm gì, nhận gì, giao gì, cho ai và theo điều kiện nào.</p></div>
+      <div class="cf-core-card" data-component-stt="7"><div class="cf-core-title"><b>STT 7 · FORM</b><span class="cf-core-tag">T0.5</span></div><ul class="cf-core-pair"><li><b>MOIT</b> · Form / dữ liệu đầu vào.</li><li><b>MOUT</b> · Form / dữ liệu đầu ra.</li></ul></div>
+      <div class="cf-core-card" data-component-stt="8"><div class="cf-core-title"><b>STT 8 · FIELD</b><span class="cf-core-tag">T0</span></div><p>Đơn vị dữ liệu nhỏ nhất cần khai báo, nhập, tính hoặc hiển thị.</p></div>
+      <div class="cf-core-card" data-component-stt="9"><div class="cf-core-title"><b>STT 9 · NTGV</b><span class="cf-core-tag">GIAO VIỆC</span></div><p>Quy định ai/AI làm gì, nhận gì, giao gì, cho ai và theo điều kiện nào.</p></div>
     </div>
   </div>
 
@@ -707,23 +709,23 @@
   <p class="cf-pool-note">Đây vẫn là <b>cùng một kho định nghĩa</b>. “Đưa lên” chỉ đổi mặt xem để người dùng ghép công thức; không tạo khái niệm mới và không đổi canonical.</p>
   <div class="cf-pool-groups">
     <section class="cf-pool-group"><h5>D · Bản ghi &amp; con người</h5>
-      <article class="cf-pool-item" data-component-id="record" data-component-no="10" data-component-name="BẢN GHI" data-component-tag="THỰC TẾ"><div class="cf-pool-item-head"><b>10 · BẢN GHI</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Một trường hợp thực tế sinh ra khi định nghĩa được áp vào dữ liệu/case cụ thể.</p></article>
-      <article class="cf-pool-item" data-component-id="role" data-component-no="11" data-component-name="VAI TRÒ" data-component-tag="AI / NGƯỜI"><div class="cf-pool-item-head"><b>11 · VAI TRÒ</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Ai hoặc loại tác nhân nào được tham gia thực hiện/duyệt một việc.</p></article>
-      <article class="cf-pool-item" data-component-id="permission" data-component-no="12" data-component-name="QUYỀN" data-component-tag="KIỂM SOÁT"><div class="cf-pool-item-head"><b>12 · QUYỀN</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Được xem, tạo, sửa, duyệt, chạy hoặc quản trị đến mức nào.</p></article>
+      <article class="cf-pool-item" data-component-id="record" data-component-stt="10" data-component-name="BẢN GHI" data-component-tag="THỰC TẾ"><div class="cf-pool-item-head"><b>STT 10 · BẢN GHI</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Một trường hợp thực tế sinh ra khi định nghĩa được áp vào dữ liệu/case cụ thể.</p></article>
+      <article class="cf-pool-item" data-component-id="role" data-component-stt="11" data-component-name="VAI TRÒ" data-component-tag="AI / NGƯỜI"><div class="cf-pool-item-head"><b>STT 11 · VAI TRÒ</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Ai hoặc loại tác nhân nào được tham gia thực hiện/duyệt một việc.</p></article>
+      <article class="cf-pool-item" data-component-id="permission" data-component-stt="12" data-component-name="QUYỀN" data-component-tag="KIỂM SOÁT"><div class="cf-pool-item-head"><b>STT 12 · QUYỀN</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Được xem, tạo, sửa, duyệt, chạy hoặc quản trị đến mức nào.</p></article>
     </section>
     <section class="cf-pool-group"><h5>E · Luồng &amp; điều kiện</h5>
-      <article class="cf-pool-item" data-component-id="status" data-component-no="13" data-component-name="TRẠNG THÁI" data-component-tag="VÒNG ĐỜI"><div class="cf-pool-item-head"><b>13 · TRẠNG THÁI</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Tình trạng hiện tại của một đối tượng/bản ghi trong vòng đời.</p></article>
-      <article class="cf-pool-item" data-component-id="condition" data-component-no="14" data-component-name="ĐIỀU KIỆN" data-component-tag="KHI NÀO"><div class="cf-pool-item-head"><b>14 · ĐIỀU KIỆN</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Quy tắc xác định khi nào được bắt đầu, chuyển bước hoặc kết thúc.</p></article>
+      <article class="cf-pool-item" data-component-id="status" data-component-stt="13" data-component-name="TRẠNG THÁI" data-component-tag="VÒNG ĐỜI"><div class="cf-pool-item-head"><b>STT 13 · TRẠNG THÁI</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Tình trạng hiện tại của một đối tượng/bản ghi trong vòng đời.</p></article>
+      <article class="cf-pool-item" data-component-id="condition" data-component-stt="14" data-component-name="ĐIỀU KIỆN" data-component-tag="KHI NÀO"><div class="cf-pool-item-head"><b>STT 14 · ĐIỀU KIỆN</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Quy tắc xác định khi nào được bắt đầu, chuyển bước hoặc kết thúc.</p></article>
     </section>
     <section class="cf-pool-group"><h5>F · Thực thi</h5>
-      <article class="cf-pool-item" data-component-id="tool" data-component-no="15" data-component-name="TOOL" data-component-tag="THỰC THI"><div class="cf-pool-item-head"><b>15 · TOOL</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Công cụ người hoặc AI dùng để thực hiện một thao tác.</p></article>
-      <article class="cf-pool-item" data-component-id="dot" data-component-no="16" data-component-name="DOT" data-component-tag="MÁY"><div class="cf-pool-item-head"><b>16 · DOT</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Tool chuẩn hóa để AI/máy thực hiện thao tác có kiểm soát và dùng lại.</p></article>
-      <article class="cf-pool-item" data-component-id="test" data-component-no="17" data-component-name="TEST" data-component-tag="KIỂM"><div class="cf-pool-item-head"><b>17 · TEST</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Phép kiểm xác nhận kết quả đã đạt yêu cầu hay chưa.</p></article>
+      <article class="cf-pool-item" data-component-id="tool" data-component-stt="15" data-component-name="TOOL" data-component-tag="THỰC THI"><div class="cf-pool-item-head"><b>STT 15 · TOOL</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Công cụ người hoặc AI dùng để thực hiện một thao tác.</p></article>
+      <article class="cf-pool-item" data-component-id="dot" data-component-stt="16" data-component-name="DOT" data-component-tag="MÁY"><div class="cf-pool-item-head"><b>STT 16 · DOT</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Tool chuẩn hóa để AI/máy thực hiện thao tác có kiểm soát và dùng lại.</p></article>
+      <article class="cf-pool-item" data-component-id="test" data-component-stt="17" data-component-name="TEST" data-component-tag="KIỂM"><div class="cf-pool-item-head"><b>STT 17 · TEST</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Phép kiểm xác nhận kết quả đã đạt yêu cầu hay chưa.</p></article>
     </section>
     <section class="cf-pool-group"><h5>G · Tin cậy &amp; liên kết</h5>
-      <article class="cf-pool-item" data-component-id="evidence" data-component-no="18" data-component-name="BẰNG CHỨNG" data-component-tag="CHỨNG MINH"><div class="cf-pool-item-head"><b>18 · BẰNG CHỨNG</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Dữ liệu/source chứng minh một việc đã xảy ra hoặc đạt yêu cầu.</p></article>
-      <article class="cf-pool-item" data-component-id="code" data-component-no="19" data-component-name="MÃ" data-component-tag="DANH TÍNH"><div class="cf-pool-item-head"><b>19 · MÃ</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Danh tính ổn định để tìm, tham chiếu và dùng lại không nhầm.</p></article>
-      <article class="cf-pool-item" data-component-id="dependency" data-component-no="20" data-component-name="PHỤ THUỘC" data-component-tag="LIÊN KẾT"><div class="cf-pool-item-head"><b>20 · PHỤ THUỘC</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Quan hệ quy định cái gì phải có/xong trước thì cái khác mới được thực hiện.</p></article>
+      <article class="cf-pool-item" data-component-id="evidence" data-component-stt="18" data-component-name="BẰNG CHỨNG" data-component-tag="CHỨNG MINH"><div class="cf-pool-item-head"><b>STT 18 · BẰNG CHỨNG</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Dữ liệu/source chứng minh một việc đã xảy ra hoặc đạt yêu cầu.</p></article>
+      <article class="cf-pool-item" data-component-id="code" data-component-stt="19" data-component-name="MÃ" data-component-tag="DANH TÍNH"><div class="cf-pool-item-head"><b>STT 19 · MÃ</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Danh tính ổn định để tìm, tham chiếu và dùng lại không nhầm.</p></article>
+      <article class="cf-pool-item" data-component-id="dependency" data-component-stt="20" data-component-name="PHỤ THUỘC" data-component-tag="LIÊN KẾT"><div class="cf-pool-item-head"><b>STT 20 · PHỤ THUỘC</b><button type="button" class="cf-pool-btn" data-pin-component>↑ Đưa lên</button></div><p>Quan hệ quy định cái gì phải có/xong trước thì cái khác mới được thực hiện.</p></article>
     </section>
   </div>
 </details>
@@ -746,7 +748,7 @@
       if(pin){pin.setAttribute('aria-pressed',on?'true':'false');pin.textContent=on?'✓ Đang hiện':'↑ Đưa lên'}
       if(!on)return;
       const card=document.createElement('div');card.className='cf-core-card cf-pinned-card';card.dataset.componentId=id;
-      card.innerHTML='<div class="cf-core-title"><b>'+item.dataset.componentNo+' · '+item.dataset.componentName+'</b><span class="cf-core-tag">'+item.dataset.componentTag+'</span></div><p>'+item.querySelector('p').innerHTML+'</p><button type="button" class="cf-unpin-btn" data-unpin-component="'+id+'">↓ Trả về kho AI</button>';
+      card.innerHTML='<div class="cf-core-title"><b>'+'STT '+item.dataset.componentStt+' · '+item.dataset.componentName+'</b><span class="cf-core-tag">'+item.dataset.componentTag+'</span></div><p>'+item.querySelector('p').innerHTML+'</p><button type="button" class="cf-unpin-btn" data-unpin-component="'+id+'">↓ Trả về kho AI</button>';
       host.appendChild(card);
     });
     zone.hidden=selected.size===0;save();
