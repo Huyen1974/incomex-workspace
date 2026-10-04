@@ -3,12 +3,12 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-04 11:00 +07 · GPT · D110
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-04 14:10 +07 · GPT · D112
 🎯 Mục tiêu: **27 danh mục định nghĩa → khoảng 27 Master List sẵn sàng ghi dữ liệu**, để UI/DOT/Tool/Field/Nhóm/Quy trình/Công việc mới luôn có đúng chỗ đăng ký.
 🏁 Xong khi: 27 định nghĩa có mapping Master List; list xanh dùng lại nguyên bản; list còn thiếu có STT · ID · Tên + 5 cột thiết yếu và mở được trên web.
 📍 Tiến độ: 27 định nghĩa ✓ → ■ 27 Master List live → □ Owner rà cột → □ điền dữ liệu dần
 ✅ Đã xong: STT định nghĩa 1–27 cố định · 4 list xanh MOW/MOT/MOIT/MOUT xác nhận reuse · UI.MASTER cha giữ nguyên.
-■ Đang làm: D111 đã đưa Trung tâm Master List vào ngay trang ★ Công thức; đang chờ Owner rà cách tiếp cận và 5 cột.
+■ Đang làm: D112 đã tạo Master Ghép + trang chi tiết riêng + đăng ký Master of Master; chờ Owner bắt đầu đưa công thức đầu tiên vào.
 ⬜ Còn lại: Owner chỉnh cột nếu cần → sau đó mới điền dữ liệu thật từng Master List.
 ➡ Kế tiếp: 😊 Owner mở trang 27 list · Host sửa theo góp ý · Reviewer rà preserve/reuse · 🤖 agent chỉ điền dữ liệu sau khi schema được chốt.
 ⛔ Không làm/để sau: không redesign 4 list xanh; không tạo 23 renderer riêng; chưa nối PG/Directus; chưa tự điền dữ liệu thật.
@@ -115,6 +115,7 @@ Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đ�
 - Mục tiêu vận hành: có UI/DOT/Tool/Field/Nhóm/Quy trình/Công việc mới thì biết ngay Master List nào nhận nó và mã/ID nằm ở đâu.
 - Không clone HTML cho từng list: một renderer cha + config/data riêng theo Master List.
 - **OWNER 04/10/2026 · D111:** trang ★ Công thức phải có **Trung tâm Master List** và nhiều cửa vào cùng kho 27 list để người/AI đang ở đâu cũng dễ kiểm tra, truy cập và đối chiếu thông tin.
+- **OWNER 04/10/2026 · D112:** từ 2 công thức trở lên phải có Master List; dùng STT 21 hiện có, gọi ngắn là **Ghép**. Master Ghép phải có chỗ ghi ngay từ đầu, tên ngắn + giải thích + trang chi tiết riêng; đăng ký trong Master of Master.
 **CỔNG HỘI ĐỒNG D46 — 7 VẤN ĐỀ: 5 OPEN + 2 ĐÃ CHỐT.** Quy trình: **GPT đề xuất → Claude phản biện/đề xuất → Owner chốt → đưa vào Danh mục đã chốt → Agent thực thi → kiểm xong mới đánh “ĐÃ KIỂM XONG”.** Mọi AI/Agent phải **đọc Danh mục đã chốt trước các vấn đề OPEN**.
 
 **DANH MỤC ĐÃ CHỐT — BẮT BUỘC ĐỌC TRƯỚC**
@@ -1283,6 +1284,8 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 - D110 · 2026-10-04 · **27 ĐỊNH NGHĨA → 27 MASTER LIST SẴN SÀNG GHI:** lập SSOT definition-master-registry-v1.js cho STT 1–27 với ID ổn định ML-DEF-001→ML-DEF-027; definition-master-data-v1.js là kho dữ liệu rỗng cho list mới. **4 list xanh** MOW/MOT/MOIT/MOUT chỉ reuse URL/UI hiện hành, không sửa source của chúng. **23 list còn lại** mở qua một child duy nhất definition-master-v1.html?stt=<n>, dùng nguyên UI.MASTER cha và renderer master-list.js; mỗi list có đúng mặt dữ liệu tối thiểu STT · ID · Tên + 5 cột thiết yếu. Index definition-master-index-v1.html hiển thị đủ 27 mapping, cột Tình trạng phân biệt ✓ Dùng lại · xanh và Rỗng · sẵn sàng; master-design-review-v1.html đưa index 27 lên mặt chính, 14 dòng review cũ gập xuống lịch sử. Kiểm live: index HTTP200 đủ 27; ca DOT STT24/ML-DEF-024 HTTP200 với cột Tool nền · Input contract · Output contract · Quyền · Trạng thái; 4 source xanh giữ nguyên hash.
 
 - D111 · 2026-10-04 · **TRUNG TÂM MASTER LIST NGAY TRÊN ★ CÔNG THỨC:** thêm một hub ngắn ngay dưới nguyên tắc `CÔNG THỨC = ghép các thành phần đã định nghĩa`, gồm cửa chính `27 Master List`, `Duyệt thiết kế Master`, `Master of Master` và 4 cửa nhanh list xanh MOW/MOT/MOIT/MOUT. Thêm cửa phụ từ `Kho thành phần · AI dùng chính` và ngay đầu `II. Định nghĩa` về cùng index 27. Tất cả link trỏ thẳng VPS `/ui-preview/mcp-writes/`, không tạo bản dữ liệu hay UI song song.
+
+- D112 · 2026-10-04 · **MASTER GHÉP · CÓ CHỖ GHI TRƯỚC KHI TẠO CÔNG THỨC:** STT21/KNI-017 đổi tên hiển thị `Công thức` → **Ghép** nhưng giữ nguyên STT/mã. `ML-DEF-021` đổi thành **Master Ghép**, quy ước record ID `GHEP-xxx`, cột list = `STT · ID · Tên · Giải thích · Thành phần ghép · Biểu thức · Điều kiện áp dụng · Trạng thái`; danh sách đang rỗng nhưng có nút `Tạo Ghép`. Tạo `ghep-detail-v1.html` làm mặt chi tiết cho từng GHEP-xxx với giải thích, thành phần, biểu thức, điều kiện, trạng thái, phiên bản, mục tiêu, ví dụ, ghi chú cấu hình. Master of Master thêm dòng 85 `CAT-247* · Danh mục Ghép · công thức`; tổng catalog 84→85 và các guard/UI count liên quan đã cập nhật. ★ Công thức có cửa trực tiếp `Master Ghép` + `Mẫu chi tiết`.
 
 ## Dòng hiện hành
 MMIM | STEP2_UI001_COPY · 28/09/2026 | Tab ★ Step quy trình 2 ở `ban-duyet.html`: phần I dùng bản sao khung UI-001 Nháp 2 từ VPS, CSS/JS vẫn trỏ nguồn gốc theo D87; không có bảng tự dựng. Bước chi tiết chờ Owner. A01 đã XONG; A06/B04/C03/D01/E01 tiếp tục HOLD theo D81.
