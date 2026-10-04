@@ -22,7 +22,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D119 đã chỉnh UI CT-001: trục hành động đầu thẳng hàng; Đề xuất tạo mới 2 dòng; Sửa vàng nhạt; Vô hiệu/Nghỉ hưu đỏ nhạt. Logic không đổi.
+- NOW: D119 live PASS: trục Dùng/Tạo mới/Sửa/Vô hiệu thẳng hàng; Đề xuất tạo mới 2 dòng; Sửa vàng nhạt; Vô hiệu/Nghỉ hưu đỏ nhạt. Logic không đổi.
 - NEXT: Owner duyệt format CT-001; nếu chốt thì dùng format này cho các công thức tiếp theo.
 - BLOCKED_BY: none.
 - State: ACTIVE.
