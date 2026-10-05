@@ -2464,3 +2464,61 @@ JEV `gen-dec-1791183549-bjxYWfQ3NbeZlpazWm3t`: nhận kèm sửa bắt buộc 0,
 **5 · Còn treo:** hai tin UptimeEye (Owner chưa trả lời) · nguyên văn “bàn ≠ giao ≠ được chạy” (Host ghi) · file này 628 KB.
 
 **6 · Hai vòng rà:** V1 — lấy chín phép thử và bảng A–M dò từng node: mục nào không nằm trong dòng PASS của node nào thì là hở; đối chiếu từng node với lời Owner đã ghi ở mục 3. V2 — gốc rễ: luật “chưa xong thì ở lại node” chỉ chặt khi (a) không ai trong hai AI tự nới được dòng PASS, và (b) node phụ thuộc hãng ngoài có lối ra chính thức. Thiếu (a) thì việc trôi sang node sau; thiếu (b) thì lộ trình kẹt.
+
+### P135 · Claude Chat Reviewer/Founder · 2026-10-05 14:50 +07 · **HO — BÀN GIAO CHO PHIÊN CLAUDE CHAT KẾ TIẾP**
+*(Không có ý kiến mới. Phiên này đã dài, đã bị nén ngữ cảnh một lần; cắt ở mốc đã chốt thiết kế và lộ trình. Mục này để phiên sau vào việc ngay, Owner không phải nhắc lại.)*
+
+**A · Việc đầu tiên của phiên mới — làm đúng thứ tự, không hỏi lại Owner**
+1. Đọc `AGENTS.md` (A2, A5, A6, A9 + A9-GLB) và `COLLAB.md` gốc (DROOT30–42).
+2. Đọc file này: mục 0 ở đầu file (nhất là 0.9, 0.10, 0.14, 0.15, 0.17) · mục “3. Chi tiết cần đạt” (lời Owner nguyên văn) · P130 → P135. Lưu ý P131 và P133 nằm trong vùng mục 0, không nằm cuối file.
+3. **Tự đọc phần cuối của phiên chat trước:** dùng công cụ xem các phiên gần đây, lấy phiên về `hermes-joint-workspace` cập nhật chiều 05/10/2026, đọc khoảng 10 lượt cuối. Từ khoá tìm: “P134”, “roadmap 6 node”, “K1-PRE”, “Hermes-Mac IP”.
+4. `fs_log` file này: xem từ commit `a9a6a4b` tới nay Host đã ghi gì. Đọc lại bản mới nhất trước mọi lần sửa.
+5. Xong mới làm theo khối Owner dán.
+
+**B · Đang ở đâu**
+`[✓ Nền Hermes] → [✓ Chốt thiết kế V0] → [✓ Chốt lộ trình sáu node] → [■ N1 Đầu nối lên mây — đang chờ đề bài] → [□ N2 Dots] → [□ N3 Hermes-Mac] → [□ N4 Lõi hội đồng] → [□ N5 Hai cấp] → [□ N6 Nghiệm thu, đóng]`
+- **Chờ Host (GPT):** thêm R1–R7 + bảng chủ phép thử của P134 vào 0.17 · soạn **một** PROMPT N1 · dọn SSOT theo P134 mục 4.
+- **Việc kế của Claude Chat:** rà PROMPT N1 **một lượt**, cùng lúc kiểm R1–R7 đã vào 0.17 chưa. PROMPT N1 phải có: S1–S3 (P132) · R4 dừng một lần trước khi sửa · Pha D do hai phiên chat tự làm lúc Mac ngủ · “chuyển hết” theo lời Owner 13:25 · ai thi hành + bước cần Owner đặt cuối · cổng máy chủ dùng chung · bảo vệ Điều 30/31 ngay trong RUN · không file mới.
+- **Khối Owner đang giữ để dán cho Host (14:40):** đọc P134 · thêm R1–R7 + bảng chủ · soạn PROMPT N1 · dọn SSOT · ghi nguyên văn “bàn ≠ giao ≠ được chạy” · hai dòng Owner chọn: đích cuối = T1–T9 (GẬT/LẮC) và hai tin UptimeEye (CÓ/KHÔNG). Nếu `fs_log` cho thấy Host chưa phản hồi P134 thì đưa lại khối này cho Owner.
+
+**C · Còn treo**
+
+| | Việc | Ai | Ghi chú |
+|---|---|---|---|
+| 🟡 | Owner tự thấy hai tin UptimeEye sáng 05/10: CÓ/KHÔNG | 😊 Owner | Host coi là đã xác nhận (0.8); Reviewer coi là báo cáo của Codex do Owner chuyển (DROOT34c). Một chữ của Owner là khép. |
+| 🟡 | Owner gật đích cuối = chín phép thử T1–T9 (0.10) | 😊 Owner | N6 lấy 0.10 làm đích mà 0.10 còn nhãn “đề nghị”. |
+| ⚪ | Nguyên văn lời Owner về “bàn ≠ giao ≠ được chạy” vào mục 3 | 🤖 Host | Lời nói với Host, Claude Chat không có bản gốc. |
+| ⚪ | Khôi phục dòng tiêu đề «BẢNG ĐIỀU KHIỂN» (mất ở commit `a7fedc3`) + dọn 0.7, 0.15-E/F, 0.16 | 🤖 Host | Reviewer nhắc, không sửa hộ. |
+| ⚪ | File này ~630 KB: lưu trữ các mục P cũ vào một kho có mục lục | 😊 Owner gật trước | Không chặn. Chưa làm gì. |
+
+**D · Dữ kiện đã đọc trực tiếp, dùng cho N1** *(05/10, qua quyền đọc máy chủ; phiên sau kiểm lại nếu dựa vào)*
+- Route MCP trên máy chủ (chỉ tên): `claude-mcp` (Incomex_VPS) · `claude-kb` (Incomex_KB) · `gpt-mcp` (cổng GPT) · `jev-mcp` (JEV) · `api/mcp-agent` (cổng agent chung, hồ sơ Hermes) · bản Lark trên máy chủ (`lark-mcp-remote`, mặc định đọc + chạy thử) · `cowork-mcp` / `cowork-runner` (chưa rõ ai dùng). **Địa chỉ đầy đủ của các route này là chìa khoá — không bao giờ ghi lên repo.**
+- Sổ tin báo đang canh: cổng GPT đủ 37 tool · cổng Claude đủ 23 tool · cổng Hermes 7 tool + khoá. Đèn 22/22 xanh lúc 06:50Z.
+- Phía Claude Chat: việc hội đồng chỉ đi qua Incomex_VPS và JEV (đều ở máy chủ). Ba đầu nối agent-data (bản Mac), directus, lark-crud-gateway tới phiên chat qua cầu nối của app desktop; Mac ngủ là mất. Đầu nối Incomex_VPS cũng có nhóm tool directus ⇒ đầu nối directus trên Mac có thể trùng (chưa kiểm).
+- Cấu hình nginx đọc được: không có luật lọc theo IP, chỉ giới hạn nhịp. **Chưa đọc được:** tường lửa, SSH, các file route nằm trong thư mục bí mật.
+- App Hermes trên Mac nối về Hermes-VPS bằng đường của chính app (Owner tự thử 02/10). Lời “một bản cài làm hai vai” là lời Hermes do Owner chuyển, chưa kiểm.
+
+**E · Luật làm việc Owner đã dặn — phiên sau giữ nguyên**
+- Vai: Claude Chat = Reviewer/đồng sáng lập của **đúng một việc** này. Nội dung việc khác: từ chối, không đọc, không ghi (DROOT37).
+- Trả lời Owner: tiếng Việt có dấu, rất ngắn, nôm na · **đúng một việc** cho Owner (😊) · thanh tiến độ **đúng một ô ■** · câu hỏi nào cũng kèm đề nghị, Owner chỉ gật/lắc · bảng có màu · báo hai vòng rà · chi tiết ghi lên repo, không kể ra chat.
+- Hỏi JEV trước khi chốt; JEV chỉ góp ý; khi không theo JEV thì nói rõ.
+- Tự kiểm trên máy, không tin báo cáo của agent. Thứ Owner tự dùng thì chỉ tính khi Owner tự thấy.
+- Mọi lời dặn của Owner: ghi **nguyên văn ngay** vào mục 3.
+- Không file mới, không việc mới khi Owner chưa gật. Mỗi lượt chỉ một đề bài.
+- Không hẹn giờ tự kiểm (Owner 05/10 11:10): chỉ làm khi Owner chuyển việc.
+- Repo công khai: không ghi bí mật, token, chat id, IP của Owner, địa chỉ đầy đủ của đầu nối.
+- Không sửa dòng Host, không sửa vùng máy, không chép chữ máy đọc vào mục P của mình. Không ghi vào file này khi đang có lệnh Hermes ở trạng thái đã nhận mà chưa xong. Không sửa PROMPT/READY khi RUN đang chạy.
+- Hermes vẫn chờ Owner bấm; danh sách tự động rỗng; chỉ Owner bật.
+
+**F · Lỗi đã mắc, đừng lặp**
+- Đêm 04/10: ba lần xin Owner dán khối đánh thức Claude Code trong khi máy chỉ ngủ và tự chạy tiếp. Chờ lâu không đặt lên máy xách tay; đừng kéo Owner vào khi chưa chắc.
+- Dùng lẫn chữ: **bấm chuông** chỉ để báo sai thẩm quyền; liên lạc viên báo “tới lượt” gọi là **gọi lượt**.
+- Không đổ lỗi chuyển tin cho Owner: khối dán tới nhầm nơi là lỗi của AI soạn khối.
+- Không xếp việc của task khác vào lộ trình của task này.
+- Reviewer nhắc Host sửa Bảng, không sửa hộ phần Host đã chốt.
+
+**G · Mẹo công cụ**
+- Ghi bằng `fs_edit` có `expected_version`; `old_str` phải khớp đúng một chỗ; Host vừa commit thì đọc lại rồi mới ghi; đổi nội dung thì đổi `operation_id`.
+- Mục P mới của Claude Chat nối vào **cuối file**. Lời Owner nối vào cuối mục 3 (ngay trước “Vòng trước”).
+- Đọc máy chủ bằng root `code` (chỉ đọc): bảng đèn ở `logs/bang-den.json`; cấu hình nginx ở `docker/nginx/conf.d/default.conf`. Đoạn bị che không dùng làm `old_str`.
+- File này lớn: tìm bằng `fs_search` rồi đọc đúng đoạn, không đọc cả file.
