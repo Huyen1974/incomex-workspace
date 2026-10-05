@@ -13,7 +13,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · **GSM-A1 audit đã XONG** (167 access/30 ngày, không rỉ máu); còn GSM.3–GSM.5: thiết kế giảm call → review/Owner duyệt → triển khai/đo lại. Giữ active.
-- `work/hermes-joint-workspace/` · HJW · **ACTIVE · P119 RUN-06 ACCEPT · HOST-STAMP §8 DONE**: RUN-06/D31/P117 protection PASS; 22/22 xanh, sổ 71·69·0·2, AUTO_ALLOWLIST rỗng, Config Guard CLEAN. GPT Host đã đóng dấu Host ở commit riêng; **chưa phát assignment cùng commit**. Kế tiếp GPT phát §8 ở commit sau → Owner bấm 1 thẻ → Hermes review → final ACCEPT → MỞ ĐỦ MANUAL → CLOSE.
+- `work/hermes-joint-workspace/` · HJW · **ACTIVE · P120 §8 ASSIGNMENT OPEN**: RUN-06/D31/P117 protection PASS; Host-stamp P119 ở commit riêng; GPT Host đã phát `HJW-HOST-AUTH-ACCEPT-20261004-01` ở commit sau. Chờ Owner bấm đúng 1 thẻ → Hermes review A9-GLB → final ACCEPT → MỞ ĐỦ MANUAL → CLOSE.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/graph-server/` · GS · Host GPT Chat · D02 product-first (Owner): trial Cognee+Neo4j vs Graphiti+Neo4j; Claude P02→P03 đồng ý; chờ Hermes; nguyên tắc R1 khoá ở §0.
 - `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
