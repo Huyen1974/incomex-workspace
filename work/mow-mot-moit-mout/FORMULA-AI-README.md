@@ -4,7 +4,7 @@
 **Project:** `work/mow-mot-moit-mout`  
 **Owner-gated concept:** Công thức và nghĩa khái niệm.  
 **AI-owned implementation:** schema Master, UI chi tiết, coverage, test, bằng chứng, reuse mapping, kỹ thuật triển khai.  
-**Cập nhật gần nhất:** 2026-10-05 · D140.
+**Cập nhật gần nhất:** 2026-10-06 · D141.
 
 > BẮT BUỘC ĐỌC FILE NÀY trước khi sửa Công thức, Định nghĩa, Master List, UI con/cha, coverage hoặc config liên quan MMIM.
 
@@ -157,6 +157,7 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 | DISC-008 | Liệt kê trực tiếp dễ sót và nhanh thành “đống rác”. | Phải quét bằng công thức + coverage. |
 | DISC-009 | Tích Descartes toàn bộ sẽ sinh nhiều tổ hợp vô nghĩa. | Bắt buộc Applicability Gate trước khi tạo/thiết kế. |
 | DISC-010 | Không thể nói “đủ UI” nếu chưa có bằng chứng độ phủ. | Cần Coverage Matrix và trạng thái từng ô. |
+| DISC-011 | CT-004 `Bước con + Tầng ⇒ Nhóm con` sinh được candidate Nhóm con, nhưng định nghĩa Nhóm con lại yêu cầu `trong 1 chuyên môn`. | Không tự thêm Chuyên môn vào CT-004. Master test giữ cột Chuyên môn = OPEN; cần Owner quyết đây là dimension của công thức hay dimension config/instantiate sau. |
 
 ### D139 · bằng chứng đầu tiên của cách tiếp cận
 `CT-003 = Bước + Tầng ⇒ Nhóm cha` tại **T0 Field** đã sinh 7 bản ghi B1→B7 trong `ML-DEF-001`.
@@ -177,6 +178,30 @@ Chi tiết dùng UI.MASTER cha và giữ:
 - ghi chú/evidence.
 
 **Trạng thái:** `NHÁP · TEST GHÉP`, chưa canonical, chưa nối PG.
+
+### D141 · test CT-004 Nhóm con tại T0
+`CT-004 = Bước con + Tầng ⇒ Nhóm con` với Bước con **1.1 / 1.2 / 1.3** và **T0 Field** đã sinh 3 candidate trong `ML-DEF-002`:
+- `NHCN-001 · 1.1 Tìm thường · T0 Field`
+- `NHCN-002 · 1.2 Tìm nâng cao · T0 Field`
+- `NHCN-003 · 1.3 Xác nhận phù hợp · T0 Field`
+
+Cả 3 kế thừa Nhóm cha `NHC-001 · B1 Tìm · T0 Field`.
+
+List thử Nhóm con dùng 5 cột:
+- Bước con
+- Tầng
+- Nhóm cha
+- Chuyên môn
+- Trạng thái
+
+Chi tiết dùng UI.MASTER cha và giữ:
+- công thức nguồn CT-004;
+- Bước con/Tầng/Nhóm cha kế thừa;
+- Chuyên môn;
+- mục tiêu/phần kế thừa/chuẩn riêng;
+- config key + required + ý nghĩa.
+
+**Phát hiện quan trọng:** `Chuyên môn` hiện là `OPEN · chưa gắn` vì CT-004 không cung cấp chiều này. Không được tự sửa formula.
 
 ---
 
@@ -231,7 +256,7 @@ Mỗi ô cuối cùng phải trả lời:
 - Rà D139 với Owner; nếu chốt mới nhân sang tầng khác.
 
 ## P1 · cần kiểm bằng làm thật
-- Chạy CT-004 Nhóm con trên một slice thật.
+- CT-004 Nhóm con: **ĐÃ TEST D141 tại 1.x + T0**; còn OPEN việc Chuyên môn thuộc công thức hay config/instantiate.
 - Chạy CT-005 Quy trình trên một slice thật.
 - Chạy CT-006 UI Con và map reuse UI cha.
 - Chạy CT-007 Config trên một bản ghi thật.
@@ -285,6 +310,18 @@ Owner cần quyết:
 ```
 
 **Nguyên tắc:** cố giải bằng định nghĩa/công thức hiện có trước; chỉ đề xuất CT mới khi có evidence thực tế.
+
+### FC-001 · Chuyên môn trong Nhóm con?
+```text
+Vấn đề thực tế: CT-004 sinh candidate Nhóm con từ Bước con + Tầng nhưng không cho biết chuyên môn nào.
+Evidence: D141 · ML-DEF-002 · NHCN-001..003 đều phải để Chuyên môn = OPEN.
+Công thức hiện tại không đủ vì: định nghĩa KNI-003 nói Nhóm con dùng trong 1 chuyên môn.
+Đề xuất A: giữ CT-004; Chuyên môn là dimension config/instantiate sau, không nằm trong formula.
+Đề xuất B: sửa CT-004 thành Bước con + Tầng + Chuyên môn ⇒ Nhóm con.
+Ảnh hưởng tới CT/UI/Master: Master Nhóm con, naming, coverage, CT-005/006/007 downstream.
+Có thể giải quyết bằng implementation mà không thêm công thức không? CHƯA CHẮC.
+Owner cần quyết: A hay B khi muốn canonical hóa Nhóm con.
+```
 
 ---
 
