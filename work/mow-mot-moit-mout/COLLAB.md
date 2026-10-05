@@ -1286,6 +1286,8 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 
 - D111 · 2026-10-04 · **TRUNG TÂM MASTER LIST NGAY TRÊN ★ CÔNG THỨC:** thêm một hub ngắn ngay dưới nguyên tắc `CÔNG THỨC = ghép các thành phần đã định nghĩa`, gồm cửa chính `27 Master List`, `Duyệt thiết kế Master`, `Master of Master` và 4 cửa nhanh list xanh MOW/MOT/MOIT/MOUT. Thêm cửa phụ từ `Kho thành phần · AI dùng chính` và ngay đầu `II. Định nghĩa` về cùng index 27. Tất cả link trỏ thẳng VPS `/ui-preview/mcp-writes/`, không tạo bản dữ liệu hay UI song song.
 
+- D127 · 2026-10-05 · **CĂN HÀNG 3–7 / Ô 4 XUỐNG 2 DÒNG:** để mắt quét dễ hơn, các ô chính 3–7 dùng cùng min-height 58px và căn giữa; riêng `4 · Duyệt đề xuất tạo` xuống 2 dòng giống ô 3. Không đổi logic hay tên bước.
+
 - D126 · 2026-10-05 · **CT-001 = MỘT CÔNG THỨC / MỘT DÒNG MASTER:** Owner chốt toàn bộ khối `Vòng đời tổng` (Nhìn nhanh + bản đồ 1–9 + lớp bóc nhỏ 1.x + quy tắc ký hiệu) là **một công thức duy nhất**. Đã bọc toàn bộ UI thành một `cf-formula-piece` để nhìn là một miếng. Master Công thức được đổi semantics: chỉ các record không có `parentId` mới là dòng Master; hiện chỉ còn `1 · CT-001 · Vòng đời tổng`. Các node 1–9 / 1.x vẫn giữ trong data để không mất chi tiết nhưng là **cấu trúc nội bộ**, không phải công thức Master riêng; trang Chi tiết CT-001 tự tổng hợp và hiển thị toàn bộ cấu trúc đó. Sẵn sàng chuyển sang công thức thứ 2.
 
 - D125 · 2026-10-05 · **THU GỌN Ô ĐỜI CON:** thêm `Thu gọn ↑` vào góc phải mọi panel con 1–9. Cơ chế thuần HTML: mở bằng `#formula-root-N`, đóng bằng `#formula-children`; không dùng JS. Khi đóng vẫn đứng tại khu `Bóc nhỏ theo từng gốc` và trang trở lại một dải mỏng. LIVE VERIFY yêu cầu: `#formula-root-4` mở 4.1–4.4; `#formula-children` đóng toàn bộ panel.
