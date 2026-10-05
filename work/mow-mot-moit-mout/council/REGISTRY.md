@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D149 đã tạo CAT-248* · Master Config theo nguyên tắc MASTER FIRST; CFG-TEST-001 được ghi ngay. Master of Master = 86; CT-005/006/007 đều có Master đầu ra.
-- NEXT: tiếp tục test/ghi Config thật để phân loại dần; FC-002 chỉ còn câu semantics definition/runtime. Codex Change Propagation audit vẫn PENDING nhưng không chặn chỉ đạo trực tiếp.
+- NOW: D150 đã sửa placement: `master-design-review-v1.html#ct-output-review` hiển thị trực tiếp Master Quy trình + Master UI con + Master Config; source riêng chỉ là phụ. Quy tắc PRIMARY_OWNER_SURFACE đã ghi vào README/Change Propagation.
+- NEXT: tiếp tục rà các Master ngay trên mặt Owner này; Config tiếp tục ghi/phân loại dần. Codex Change Propagation audit vẫn PENDING nhưng không chặn chỉ đạo trực tiếp.
 - BLOCKED_BY: Phạm vi chuyên môn + semantics Config A/B/C là concept OPEN; MOW migration cần map trước khi đổi canonical.
 - State: ACTIVE.
-- LAST_SYNC: D149.
+- LAST_SYNC: D150.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**

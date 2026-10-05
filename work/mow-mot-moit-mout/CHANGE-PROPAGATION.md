@@ -37,8 +37,10 @@ OWNER/EVIDENCE:
 IMPACT_PROFILE:
 ```
 
-## 2. Xác định SSOT
+## 2. Xác định SSOT + OWNER SURFACE
 Không sửa view trước SSOT. Tra `CHANGE-IMPACT-MAP.json` để biết nguồn chuẩn.
+
+Đồng thời xác định **PRIMARY_OWNER_SURFACE** nếu Owner đã chốt nơi nhìn/duyệt. SSOT là nơi dữ liệu sống; OWNER SURFACE là nơi Owner phải nhìn thấy nó. **Có source đúng nhưng biến mất khỏi mặt Owner đã chốt vẫn là FAIL.**
 
 ## 3. Quét ảnh hưởng TRƯỚC khi ghi
 Tìm ít nhất theo:
@@ -134,6 +136,12 @@ Kiểm:
 - dữ liệu hiện có;
 - live page.
 
+## E. Thay đổi / tạo Master đang được Owner rà
+- Nếu Owner đã chốt mặt rà (MMIM hiện là `ui/master-design-review-v1.html`) thì **Master phải được render/nhúng ngay trên mặt đó**.
+- Có thể có file/page riêng làm SSOT/source kỹ thuật, nhưng link ra ngoài chỉ là phụ.
+- Không tự đổi PRIMARY_OWNER_SURFACE, không biến thao tác đang làm dở thành một luồng điều hướng mới.
+- Live verify phải kiểm cả: source riêng **và** Master có thực sự xuất hiện trên mặt Owner.
+
 ---
 
 # Quy tắc số đếm
@@ -154,6 +162,7 @@ COLLAB và KQ cũ là evidence. Nếu quyết định mới đảo quyết đị
 - [ ] Đã update SSOT trước view.
 - [ ] Đã quét stale reference sau sửa.
 - [ ] Đã kiểm live.
+- [ ] Nếu có PRIMARY_OWNER_SURFACE, đối tượng vẫn nhìn/thao tác được ngay trên mặt đó.
 - [ ] Số đếm khớp.
 - [ ] Không draft nào lọt canonical.
 - [ ] COLLAB/REGISTRY có evidence.
