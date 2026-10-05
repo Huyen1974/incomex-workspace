@@ -12,6 +12,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - **Cửa vào phiên mới:** `WS gốc · Host GPT · tiếp quản phiên 2026-09-23 · đọc AGENTS.md → COLLAB.md · làm theo mục Handoff phiên mới; trước khi thao tác một việc phải đọc COLLAB.md của việc đó.`
 
 ## Đang làm
+- `work/vps-clean-20-9-26/` · VPSC · **REOPENED 05/10 · P30/R6 DRAFT**: current disk 65,7%/free ~35,24 GB; sửa checker PASS giả + Queue SQLite lock/write amplification; bịt log/deploy/transaction/residual VPSUP; giảm knowledge payload; safe cleanup target ≥45 GB nếu đủ candidate an toàn. Chờ Claude Reviewer một vòng rồi Host READY.
 - `work/gsm-access-audit/` · GSM · Host Claude · **GSM-A1 audit đã XONG** (167 access/30 ngày, không rỉ máu); còn GSM.3–GSM.5: thiết kế giảm call → review/Owner duyệt → triển khai/đo lại. Giữ active.
 - `work/hermes-joint-workspace/` · HJW · **ACTIVE · P131 V0 CHỐT · K1-PRE DRAFT READ-ONLY**: V0 tối giản đã chốt; A9 Hermes `MỞ ĐỦ · MANUAL`, AUTO rỗng. Roadmap Owner: **K1 cloud-first connectors → K2 OpenAI Dots → K3 Hermes-Mac residual → M1**. Hiện chỉ có đề bài K1-PRE inventory, 0 mutation; chờ Claude review rồi mới soạn RUN K1.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
@@ -25,7 +26,6 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - `work/done-tasks/vps1-up-grade/` · **VPSUP XONG 03/10/2026 · P130 Reviewer CLOSE + P131 Host FINAL ACCEPT** · VPS1 production = PG18.6 + Directus12.4.1/OIG + Nuxt4.5.2/Node24.21.0 + nginx1.30.5.
 - `work/done-tasks/hpml-view-for-user/` · **CLOSED theo chỉ đạo Owner 23/09** · đã move đúng DROOT11; lịch sử/UI assembly giữ nguyên để tra cứu/mở lại.
 - `work/done-tasks/dns-resilience/` · **TERMINAL · CANCELLED_BY_OWNER 01/10** · DNS/NS Mắt Bão giữ nguyên; 0 Cloudflare production mutation; DNS0 giữ làm inventory/reference.
-- `work/done-tasks/vps-clean-20-9-26/` · đã archive Done từ trước; bỏ khỏi danh sách active stale.
 - `work/done-tasks/mcp-workspace/` · đã archive Done từ trước; bỏ khỏi danh sách active stale.
 - `work/done-tasks/to-chuyen-gia/` · **XONG · Owner xác nhận đóng 03/10/2026** · hướng dẫn Tổ chuyên gia/Tổ tư vấn + Word dẫn xuất đã chốt; archive để tra cứu/mở lại khi cần.
 - Archive: `work/done-tasks/` · **một nơi duy nhất cho việc terminal** theo DROOT11; tìm/mở lại việc cũ trên Task html view bằng lệnh `Mở lại <id>`.
