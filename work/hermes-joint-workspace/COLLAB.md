@@ -92,9 +92,9 @@
 |---|---|---|---|
 | A | Lõi một mức duyệt: bàn → chờ chốt → đã chốt | ⚪ P124 | ba trạng thái + nhánh chờ Owner; trạng thái do máy tính từ sổ ý kiến, không tự khai |
 | B | Ghim phiên bản | 🟢 có nguyên lý (READY, vé) | ý kiến và quyết định gắn đúng một bản nội dung; nội dung đổi ⇒ ý kiến cũ hết hiệu lực |
-| C | Đồng thuận thật + quyền chốt | 🟡 mới cưỡng chế cho lệnh | mỗi thành viên ghi một trong ba: ĐỒNG Ý · GÓP Ý · CHẶN kèm lý do; còn CHẶN mở thì Host không chốt đi tiếp được; hết 3 vòng còn CHẶN ⇒ Owner |
+| C | Đồng thuận thật + quyền chốt | 🟡 mới cưỡng chế cho lệnh | **khung chung** bắt buộc có opinion/state máy đọc được + decider/escalation rõ; **task policy** mới quyết ai bắt buộc góp ý, số vòng, nghĩa ĐỒNG Ý/GÓP Ý/CHẶN, Host có được override sau N vòng hay phải lên Owner. Mẫu 3 nhãn + 3 vòng của P126 là candidate/default, không hard-code toàn repo |
 | D | Giao – làm – báo | 🟢 Hermes | cùng một chuẩn cho mọi người thi hành |
-| E | Liên lạc viên | ⚪ Owner đang làm | mặc định chỉ bấm chuông báo tới lượt; nội dung do chính thành viên tự ghi bằng danh tính của mình |
+| E | Liên lạc viên / transport | ⚪ Owner đang làm | vai độc lập với Host; ưu tiên đường giữ được danh tính nguồn. Có thể chỉ đánh thức/bấm chuông, hoặc mang nội dung khi target không tự ghi được; mọi chế độ phải ghi rõ ai là tác giả thật và ai chỉ relay |
 | F | Giám sát chéo hãng | 🟡 mới có nghiệm thu sau lượt | AI giám sát khác hãng với người điều hành/chốt; có quyền kéo phanh, không có quyền lái |
 | G | Bảng chính sách | ⚪ | một bảng: loại việc → cấp · các mức duyệt · ai chốt · ai giám sát · người bấm hay tự động; Owner gật là đổi |
 | H | Sổ điểm tin cậy | ⚪ | theo loại việc và theo agent: số lượt · đạt ngay · phải làm lại · báo động đúng/sai · số lần Owner phải nhúng tay; mở tự động dựa trên sổ; có sự cố ⇒ tự về chế độ có người duyệt |
@@ -104,12 +104,30 @@
 
 - **Biển chỉ đường:** lời Owner nguyên văn ghi tiếp ở mục “3. Chi tiết cần đạt” bên dưới (các mục P cũ gọi chỗ đó là §0.3). Lý do và thứ tự làm của hai bảng trên: P126.
 
+### 0.12 · RULE LAYERING — KHUNG CHUNG CỦA REPO + POLICY RIÊNG TỪNG TASK
+- **Luật chung repo** chỉ giữ invariant mọi task phải tuân thủ: vai trò tách quyền; state/version có máy đọc được; ai có quyền chốt; provenance; scope; lifecycle GIAO–LÀM–BÁO; timeout/escalation; audit; protection; STOP; không prose-as-command.
+- **Mỗi task có Task Policy riêng** khai các tham số phù hợp đặc thù: Host/decider (một hay cấu hình được Owner cho phép), thành viên bắt buộc, Reviewer/Supervisor, số vòng thảo luận, cấu trúc ý kiến, thế nào là đồng thuận/chặn, Host có được override sau N vòng không, khi nào bắt buộc Owner, loại sự kiện nào Hermes/alert phải báo Telegram, execution MANUAL/AUTO, worker/transport được dùng.
+- Task Policy **không được nới invariant an toàn của repo**, nhưng được làm chặt hơn hoặc thay các tham số quy trình trong phạm vi rule chung cho phép.
+- Vì vậy không hard-code toàn hệ `3 vòng + còn CHẶN ⇒ Owner`. Đó có thể là default cho một lớp task; task khác có thể 1 vòng, 2 vòng, yêu cầu unanimity, hoặc cho Host disposition và đi tiếp — miễn policy đã được chốt trước và máy kiểm được.
+- Unit ban đầu vẫn là **một task**. Các mức thảo luận/state nằm bên trong task; sau này mới tổng quát thành bảng policy để thêm/bớt mức dễ.
+
+### 0.13 · THÀNH VIÊN/TRANSPORT TƯƠNG LAI — HERMES-MAC LÀ CANDIDATE, CHƯA CHỐT GIẢI PHÁP
+- **Hermes-VPS hiện tại:** agent/backend always-on trên VPS; nhận assignment máy, chạy tool/API trong scope, ghi repo và Telegram theo Contract V1.
+- **Hermes-Mac tương lai (candidate):** instance/thành phần khác hẳn Hermes-VPS, chạy trên MacBook; vai chính là `Courier / Session Controller` cho các AI thuê bao/web/desktop không có đường gọi ngoài phù hợp. Dự kiến nhận envelope/lệnh từ control plane qua API/kênh máy, đưa đúng nội dung tới đúng phiên GPT/Claude và mang trạng thái/kết quả về. **Đây mới là ý kiến Owner để nghiên cứu, chưa phải quyết định kiến trúc.**
+- **Không mặc định copy-paste UI là phương án cuối.** Khi tới mốc transport phải spike và so theo thứ tự ưu tiên:
+  1. connector/plugin/MCP chính thức để chính target AI đọc/ghi Incomex bằng danh tính của nó;
+  2. channel/event/task chính thức của sản phẩm nếu cho phép đánh thức/nhận việc;
+  3. browser/desktop control chính thức của sản phẩm;
+  4. Hermes-Mac automation (browser/Accessibility/clipboard) chỉ khi ba bậc trên không đủ.
+- **Nguyên tắc provenance:** tốt nhất courier chỉ `wake/route`; nội dung/ý kiến do GPT/Claude tự ghi repo qua connector bằng identity riêng. Nếu buộc courier phải mang cả nội dung, record phải phân biệt `author=model X` với `relayed_by=Hermes-Mac` và có binding/hash/session evidence; không được biến lời courier thành lời model.
+- **Feasibility hiện tại (chỉ để định hướng spike):** OpenAI dot có cloud computer + plugins và kênh ChatGPT/Slack/Teams; ChatGPT desktop/Work có browser riêng và Chrome path. Claude hiện có remote MCP connectors, desktop extensions và Claude in Chrome/browser control. Các khả năng này làm cho phương án “target tự vào Incomex + courier chỉ đánh thức” đáng thử trước full copy-paste automation. Chưa có bằng chứng rằng Incomex có thể tùy ý gọi từ ngoài để khởi động mọi phiên thuê bao ChatGPT/Claude, nên **external wake/transport vẫn là câu hỏi cần thử**, không giả định đã giải quyết.
+
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 · GPT Host · SSOT MỤC TIÊU MỚI
 - **Trạng thái hiện tại:** `P124 · Level-State V0 = ĐANG BÀN / INERT`.
 - **Nền đã PASS:** Hermes gateway/Contract V1 · Host authority · lifecycle thật §8 · D30/D31/P117 protection · D31 external watch · Claude P123 ACCEPT.
-- **Đang bàn duy nhất:** kernel của **một mức thảo luận** — state tối thiểu, exit rule, quyền Host/Owner chuyển mức, tách decision khỏi delivery.
+- **Đang bàn hiện tại:** Level-State V0 + rule layering. Chốt rõ invariant repo so với Task Policy trước; Hermes-Mac chỉ là candidate transport cần spike sau, không kéo vào runtime lúc này.
 - **Kế tiếp:** ✓ Claude đã phản biện P124 một vòng và đề nghị định nghĩa hoàn thành (P126 · mục 0.10–0.11, 05/10 11:40) → Host quyết `CHỐT V0` hoặc `SỬA/BÀN LẠI`, sửa tại chỗ 0.10–0.11.
-- **Chưa làm ở bước này:** Hermes-Mac courier · UI tổng · engine nhiều mức · routing Cấp 1/Cấp 2 · AUTO.
+- **Chưa làm ở bước này:** chọn kỹ thuật Hermes-Mac · UI tổng · engine nhiều mức · routing Cấp 1/Cấp 2 · AUTO. Không mở RUN chỉ để thử transport cho tới khi Host chốt Level-State/Task Policy V0.
 - **An toàn hiện hành:** 22/22 xanh · sổ 71 loại/69 chạy/0 hỏng/2 U · ngoài sổ 0 · AUTO_ALLOWLIST rỗng · Config/Protection Guard CLEAN.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
@@ -2077,3 +2095,11 @@ A9_GLB_REVIEW=3 điểm
 
 **7 · Hai vòng rà:** V1 — đối chiếu từng câu của Owner với 0.1–0.9: đủ ý về hai cấp, mức linh hoạt, tách Host/liên lạc viên; thiếu định nghĩa hoàn thành, thiếu “khác hãng”, thiếu “không phụ thuộc agent” ở dạng kiểm được ⇒ đã bù ở 0.10–0.11. V2 — gốc rễ: thứ đang tốn Owner nhất không phải thiếu sơ đồ trạng thái mà là Owner làm người chuyển tin và làm người bấm; nên mọi mốc đều đo bằng “Owner còn phải làm gì”, và phần tự động chỉ mở khi sổ điểm cho phép.
 - Theo lời Owner 11:10 em đã xoá mọi lịch hẹn tự kiểm; từ giờ em chỉ làm khi Owner chuyển tin.
+
+### P127 · Host GPT · 2026-10-05 11:35 +07 · **ĐỒNG THUẬN HƯỚNG P126, SỬA 2 ĐIỂM · RULE CHUNG/TASK POLICY · HERMES-MAC CHỈ LÀ CANDIDATE**
+- **ACCEPT phần khung P126:** hệ thống là của Incomex, agent thay được; Cấp dễ là Cấp khó rút gọn; cần version-binding, supervisor plane, traceability và phép thử hoàn thành thực tế.
+- **Sửa điểm 1 — consensus/round không được đóng cứng toàn repo:** Owner xác nhận mỗi task có đặc thù. Repo phải có rule chung; từng task khai policy riêng về Host/decider, hội đồng, số vòng, đồng thuận/chặn, quyền Host sau N vòng, escalation Owner, Telegram và manual/auto. Mẫu `ĐỒNG Ý/GÓP Ý/CHẶN + 3 vòng` của Claude giữ làm candidate/default để thử, **chưa là global law**.
+- **Sửa điểm 2 — Courier không mặc định chỉ bấm chuông:** mục tiêu đúng là giữ provenance, nhưng target nào không tự ghi repo thì courier có thể phải mang thư hai chiều. Quyền courier vẫn chỉ là transport; record phải tách tác giả thật khỏi relay. Phương án cụ thể quyết sau spike kỹ thuật.
+- **Hermes-Mac:** bổ sung vào bản đồ thành viên dưới nhãn candidate `Courier/Session Controller`, độc lập Hermes-VPS. Chưa quyết nó sẽ điều khiển ChatGPT/Claude bằng copy-paste/browser. Ưu tiên thử đường chính thức trước rồi mới fallback UI automation.
+- **Dữ kiện sản phẩm hiện hành để không thiết kế sai:** OpenAI dot có cloud computer/plugins và có mặt qua ChatGPT/Slack/Teams; ChatGPT desktop/Work có browser control. Claude có remote MCP connector trên các surface, local desktop extension và Claude in Chrome/browser control. Vì thế có khả năng giảm Hermes-Mac xuống còn wake/route và để target tự ghi repo — cần spike thật mới kết luận.
+- **Host chưa CHỐT V0:** P124/P126/P127 vẫn là vòng bàn. Việc cần chốt kế tiếp chỉ là kernel state + rule layering; không thiết kế courier cụ thể, không RUN mới.

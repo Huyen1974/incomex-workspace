@@ -13,7 +13,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · **GSM-A1 audit đã XONG** (167 access/30 ngày, không rỉ máu); còn GSM.3–GSM.5: thiết kế giảm call → review/Owner duyệt → triển khai/đo lại. Giữ active.
-- `work/hermes-joint-workspace/` · HJW · **ACTIVE · SSOT MỤC TIÊU MỚI · LEVEL-STATE V0 ĐANG BÀN**: nền Hermes/Host-authority/D30-31/§8 đã PASS. Mục tiêu hiện hành: một hệ điều hành chung hỗ trợ **Cấp 1 một AI điều hành** và **Cấp 2 hội đồng AI**, cùng kernel thảo luận→Host chốt→delivery→execution→review; trạng thái/mức linh hoạt để thêm-bớt dễ. P124 đang bàn lớp đầu tiên Level-State V0; chưa làm courier/UI/engine nhiều mức/AUTO.
+- `work/hermes-joint-workspace/` · HJW · **ACTIVE · P127 LEVEL-STATE/RULE-LAYERING ĐANG BÀN**: nền Hermes/Host-authority/D30-31/§8 PASS. SSOT mới hỗ trợ Cấp 1 một AI và Cấp 2 hội đồng. P127 tách **rule chung repo** khỏi **Task Policy** (rounds/consensus/Host/escalation/Telegram linh hoạt từng task); Hermes-Mac được ghi là candidate Courier/Session Controller độc lập Hermes-VPS, chưa chốt kỹ thuật. Chưa RUN courier/UI/engine nhiều mức/AUTO.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/graph-server/` · GS · Host GPT Chat · D02 product-first (Owner): trial Cognee+Neo4j vs Graphiti+Neo4j; Claude P02→P03 đồng ý; chờ Hermes; nguyên tắc R1 khoá ở §0.
 - `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
