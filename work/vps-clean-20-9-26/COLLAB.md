@@ -31,8 +31,6 @@ Owner 05/10/2026: “có không cần dùng thì bỏ đi”; và bổ sung: “
 - §0.3: **đã đối chiếu P29/P30/P31/D15 + AGENTS MT3/MT4; phạm vi vòng 3 thắng phạm vi vòng 2.**
 
 ### Vòng trước
-
-### Vòng trước · lịch sử
 Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User 23/09 tại D11; Owner giao "rà soát thêm và điều hành tiếp" điểm P18 ngày 23/09)
 
 ### 1. Mục tiêu
