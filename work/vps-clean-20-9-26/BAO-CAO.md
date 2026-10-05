@@ -4,9 +4,100 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
-## R6 — VPS khỏe + bịt rò dung lượng · 05/10/2026 · executor=Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · ĐANG CHẠY
+## R6 — VPS khỏe + bịt rò dung lượng · 05/10/2026 · executor=Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ DỪNG (chỉ còn worker v2 chờ Host)
 
-RUN_ID `VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01` · READY@`7449baba55141c9a01fa6bc5244a84c73ea0f971` · STARTED 09:40Z (P36). Hồ sơ VPS: `/opt/incomex/work/vps-clean-20-9-26/R6-20261005/`. Mục này còn cập nhật tới KQ.
+RUN_ID `VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01` · READY@`7449baba55141c9a01fa6bc5244a84c73ea0f971` · STARTED 09:40Z (P36) · mốc giữa P38 · tiếp theo P41 + câu Owner (M15, đọc test, cổng v2, tắt lịch APR) · KQ 18:30Z (P42). Hồ sơ VPS: `/opt/incomex/work/vps-clean-20-9-26/R6-20261005/` (MUTATION_MANIFEST.tsv, pre/, f0/, f1/xoa.log, c1/, c4/, c6/, c7/, a/, b/, m17/, post/). Gián đoạn ~2 giờ mạng Mac (10:35→12:54Z); chờ Host 13:25→17:58Z.
+
+### 1. CHO OWNER
+- **Ổ đĩa:** trống **35,10 → 52,12 GB (48,55 GiB, dùng 49%)** — vượt đích 45 GiB. Xoá đúng 29 mục Host duyệt P41: 25 thư mục tạm CWEB + dữ liệu PG16 cũ + 2 thư mục PG18 hỏng + DB thử `directus_gov_test_20260602` (đã cất Drive mã hoá + khôi phục thử đạt). Sau từng mục PG/Nuxt healthy, web 200.
+- **Không để tăng lại:** sổ dung lượng máy-đọc + đèn #11 mỗi giờ đỏ khi: đĩa ≥80% · thư mục tên lạ >24h · quá hạn · quá trần · trống giảm ≥2 GiB/24h hoặc ≥3 GiB/7 ngày. Mọi log nối thêm có trần. Hiện: xanh.
+- **Tin cậy:** `dot-nrm-verify` hết PASS giả; lịch `dot-apr-execute` (chết từ 04/2026, 54.175 lỗi) đã tắt, không chạy bù.
+- **Chưa xong:** worker hết tự khởi động lại nhưng **ghi rỗi chưa giảm**; bản sửa thứ hai trượt cổng test 22/23 ⇒ không nạp (fail-closed), chờ Host quyết.
+- POST-PROTECT PASS · biên nhận Telegram **message_id 129** · Config Guard 336/336 · Kuma 22/22 xanh.
+
+### 2. Kết quả từng phần
+| Phần | Kết quả | Bằng chứng chính |
+|---|---|---|
+| A checker | **M15 PASS** · 16 DOT chỉ lập bảng (mục 5) | bản gốc trên DB KHÔNG tồn tại: “6 PASS, 0 FAIL”; bản vá: 0 PASS/6 FAIL; dữ liệu thật 3 PASS/3 FAIL (7 · 2 · 3 — trùng Reviewer P40), check 4 mới = 0. Bộ HC 30 check: 9 FAIL là dữ liệu thật (rollup=fail đúng). |
+| B worker | **PARTIAL** | v1 (4 delta) nạp 12:56:50Z: NRestarts 11→0, 0 Traceback/lock-crash 5,5 giờ, 4 lần `queue_locked_retry` thay vì chết. Ghi rỗi 5 s: trước 647–926 lần/2,6–3,7 MB → sau 672–1.072 lần (toàn bộ `cancelled_write_bytes`). Gốc còn lại (strace): không có kết nối giữ nền ⇒ mỗi lần đóng SQLite xoá `-wal/-shm` rồi tạo lại (~15 vòng/2 s). v2 (1 kết nối giữ nền/process) — phân xử tải ~4: gốc 3 & 2 đỏ, v2 1 & 1 đỏ; **cổng P41 (tải <2 phải 23/23): 22/23** (`test_acc1_slow_github_12_parallel_reads_bounded`, tải 1,80→3,72 trong lúc chạy) ⇒ không nạp. |
+| C0 kiểm kê | PASS | một lượt `find -xdev` (154 s, ionice): du 63,02 GiB ↔ df 63,1 GiB (lệch ≈0,13 GB = metadata + 222 MB deleted-open WAL PG). Giải thích ≈92% phần tăng 43→66% (mục 4). |
+| C1 log | PASS | `/etc/logrotate.d/incomex` `9ace0786→ 3fec7c75`: mọi `*.log` ở `/var/log/incomex`, `/opt/incomex/logs{,/integrity,/sr-mow}` xoay >20 MiB, 5 bản nén, ≤180 ngày, copytruncate; `logrotate -d` 0 lỗi mới/0 trùng; ép xoay `dot-apr-execute.log` ⇒ writer ghi tiếp 13:05Z. |
+| C2 deploys | PASS | đồ thị tham chiếu (mount/unit/cron/compose/nginx/DOT/symlink/fd); giữ n4, before-03/04, build-04, release-04. |
+| C3 transaction | BOUNDED-ALARM | 214 MB; chưa sửa GC (nằm trong image agent-data); nằm dưới dòng sổ `/opt/incomex/data` trần 2 GiB ⇒ vượt là #11 đỏ. |
+| C4 D-proof | PASS | restore-verify bản đêm PG18 sau cutover `20261004T183701Z`: `directus` 393 bảng 0 lệch, `incomex_metadata` 10 bảng; gov_test → `rescue/vpsc-r6/directus_gov_test_20260602-20261005T130834Z.sql.gz.gpg` 93.810.520 B md5 `9611fffd40e5ab1ca9087d9e7f58109a` (luồng = Drive) + restore-verify 327 bảng/3.160.221 dòng 0 lệch; hạn giữ `rescue/vpsc-r6/` 12 tháng. |
+| C5 nhóm cũ | giữ | keeper image tuần + BuildKit 5 GB, PG backup 7–8 ngày (1,95 GiB), Qdrant 8 bản (1,62 GiB), Lark luật (f), context-pack (b), results TTL 7 ngày — đo lại trong taxonomy, không đổi. |
+| C6 sổ | PASS | `scripts/storage-registry.tsv` + `scripts/storage-watch.py` (Config Guard); phủ mục con của `/opt/incomex`, `/opt/workflow`, `deploys`, `work`, `work/done-tasks`; thử âm 13/13; lượt thật đầu đỏ CAP đúng nhóm PLAN_T, sau xoá xanh; thư mục N1 mới (`dot/connector-sync`, hồ sơ HJW) đã thuộc dòng `dot`/`work/*` ⇒ 0 tên lạ (ràng buộc HJW P151 đạt). |
+| C7 dốc + #11 | PASS (watch còn chờ) | `disk-monitor.sh` gọi storage-watch mỗi giờ, bỏ `docker system df` (D10); `kuma-push.sh disk` đọc state (state cũ >130′ ⇒ DOWN “STALE”), fixture 5/5; Kuma #11 18:21:55Z “OK disk 50% so dung luong xanh”. Chuỗi df theo giờ máy tự ghi từ 13:06Z 05/10. |
+| D knowledge | DEFERRED_CWEB | CWEB chưa cutover; `/knowledge/dev/ssot/vps/vps-architecture` 3.194.580 B, 2,3–4,6 s; không build/deploy. |
+| E HTTP/OS | chỉ báo | mục 6. |
+| F xoá | **T PASS 25/25 · D PASS 4/4** | `f1/xoa.log`: plan tính lại SHA = duyệt + trùng byte f0; từng mục đường dẫn tuyệt đối, sha_object trùng, không trùng/chứa mount (chỉ mount cha CHỈ-ĐỌC `/opt/incomex` của claude-mcp), health sau mỗi mục; thứ tự failed-g7-03 → 05a → PG16 data → DROP gov_test; DOT từ chối `directus`/`incomex_metadata`/`workflow`. |
+
+### 3. Mutation thật (đúng MUTATION_MANIFEST)
+| M | Đích | Trước → sau (sha256 16) | Đường áp |
+|---|---|---|---|
+| M1/M2 | agent-data-repo `workspace_runtime.py` / `scripts/workspace-exec-worker.py` (B v1) | `8801e99f→ 2089758a` / `6b89a83e→ bec9ceb8` | git cục bộ `9457406` + restart `incomex-workspace-exec` |
+| M3 | `/etc/logrotate.d/incomex` | `9ace0786→ 3fec7c75` | install (không thuộc Config Guard) |
+| M4/M5 | `scripts/storage-watch.py` / `scripts/storage-registry.tsv` | mới `a4fe17c5` / `cde8e2ea` | install + baseline + `guard-registry` apply-v0 |
+| M6 | `scripts/disk-monitor.sh` | `e2ceb124→ dc62d21c` | apply-v0 |
+| M7 | `scripts/kuma-push.sh` | `3d9e3402→ 9b6d83e0` | apply-v0 |
+| M8 | `scripts/mcpw-protection-guard` (sổ tin báo dòng A11, 1 dòng) | `5df600db→ 2082b59f` | apply-v0 (dựng lại trên bản HJW N1 đã đổi) |
+| M9 | `scripts/backup-to-gdrive.sh` (hạn giữ `rescue/vpsc-r6/` 365d) | `27a9c127→ 7740b42c` | apply-v0 |
+| M10 | `dot/bin/dot-pg-db-retire` 1.0.0 | mới `87844c24` | install + git dot `3bfbd06` + Config Guard |
+| M11 | Config Guard `registry.tsv` (+3 đích) | `2639bdf4→ d1083acf` | apply-v0 `guard-registry` |
+| M15 | `dot/bin/dot-nrm-verify` | `b51a059f→ c6f5eb85` | install + git dot `3e3475c` |
+| M17 | crontab root: 1 dòng `dot-apr-execute */5` → chú thích `#VPSC-R6-OFF` | bản trước `m17/crontab-root.truoc` | `crontab` (không thuộc Config Guard; 2 dòng lịch Guard canh còn nguyên) |
+| M12–M14 | state `/var/lib/incomex/disk-watch/` · Drive `rescue/vpsc-r6/` · xoá T/D | — | xem C4, F |
+| (không nạp) | M16 worker v2 | giữ v1 | cổng 22/23 |
+
+Git cục bộ `/opt/incomex` `178f9bc` (storage-watch, registry, disk-monitor, backup-to-gdrive). Config Guard drift sau cùng **CLEAN 336/336**.
+
+### 4. Phần tăng 43% (24/09) → 66% (05/10) ≈ 22,8 GiB — giải thích ≈92%
+| Nguồn | GiB | Sự kiện / cách đo |
+|---|---|---|
+| PG18 `postgres18` + 2 `failed-g7-*` | 12,42 | G7-03/05 03/10 (birth time); 2 bản hỏng đã xoá |
+| CWEB `deploys` (build/release/retained + n4) | 2,96 | CWEB RUN-03/04 04/10; 25 mục đã xoá |
+| containerd (image G7) | +1,44 | 7,905 (R5b) → 9,34 |
+| dump `incomex_metadata` hằng đêm + staging BK1 | +1,61 | BK1 27/09 (pg/ 9×108 MB + data-files/metadata trong staging) |
+| hồ sơ `done-tasks/vps1-up-grade` | +0,80 | birth 27/09 |
+| `/var/lib/hermes` | +0,84 | 3,90 (V1b) → 4,74 |
+| log container + hvu-b2 + mcp-helper + hồ sơ CWEB | +0,88 | byte mới theo mtime (ước tính) |
+| **Cộng** | **≈20,95 (92%)** | phần còn lại ≈1,8 GiB: nhiều nhóm <0,2 GiB + vòng xoay |
+Nhóm ngoài gốc sổ: containerd 9,34 (keeper tuần + BuildKit 5 GB) · journal 1,0 (trần 1G) · log container (50 MB×3) · Hermes `/var/lib/hermes` 4,74 + `/usr/local/lib/hermes-agent` 2,85 + `/var/backups/hermes` 2,29 (chủ HJW; luật (e) một phần; snapshot tĩnh) · `/var/lib/incomex/backup-staging` 0,92 (script tự tỉa) · cache `/root` ≈1,6 (tĩnh). Inode 1,28 M → 1,08 M.
+
+### 5. A · bảng 16 DOT có mẫu nuốt lỗi (chỉ lập bảng, không sửa đại trà — P41)
+| Loại | DOT |
+|---|---|
+| PROVEN_FALSE_PASS (đã vá M15) | `dot-nrm-verify` |
+| NEEDS_FOLLOWUP (lỗi SQL ⇒ rỗng ⇒ `${X:-0}` ⇒ PASS) | `dot-collection-health` (15 chỗ; đang có lỗi SQL sống: bảng/cột đã bỏ) · `dot-apr-health` (4) · `dot-doc-partition` (“OK bảng rỗng” khi lỗi) · `dot-script-lint`, `dot-nrm-lifecycle`, `dot-nrm-discover`, `dot-kb-verify.sh` (`run_pg … 2>/dev/null`, chưa kiểm chỗ dùng) |
+| SAFE_DEFAULT | `dot-gov-verify` (lỗi ⇒ FAIL) · `dot-apr-execute` (lỗi ⇒ bỏ qua; lịch đã tắt) · `dot-hc-executor` (5 guard + self-test) · `dot-nrm-sync`, `vps-retention.sh`, `pg-dump-permission-guard-monitor.sh`, `dot-trigger-guard`, `code-backup-to-gdrive.sh` (số hiển thị/mã thoát) |
+Lỗi SQL sống 30 giờ + chủ (ngoài VPSC): `verify_counts()` btrim(integer) (hàm PG; truth-gate báo FAIL đúng) · `git_sha` (`dot-context-pack-build.sh`, rơi về WARN) · `fn_log_issue` entity_code >50 (`dot-context-pack-verify.sh`, mất ghi issue) · Flow Directus ghi thẳng `meta_catalog` 28 lần/30 giờ (guard chặn đúng) · cú pháp plpgsql 02:00Z.
+
+### 6. Phát hiện còn lại (ghi nhận, không sửa mò)
+- APR: đường `dot-apr-execute` ngủ từ 20/04; còn đúng 1 yêu cầu đã duyệt chưa áp (APR-0234). Ngoài phạm vi VPSC — chờ Owner chỉ định việc.
+- Presence 502 ×3 (23:30Z, 23:38Z 04/10; 02:40Z 05/10): agent-data đóng kết nối, trùng giây `/health` + MCP `initialize`; chưa đủ gốc. Directus 503 thoáng qua lúc :00 (cụm cron). Đèn #6 “Nuxt Web” 404 chập chờn có từ trước (14h: 5, 15h: 7, 17h: 2 lần/giờ 05/10) — làm Guard INV15 đỏ thoáng lúc 18:22Z, chạy lại PASS.
+- `incomex-agent-data` StartedAt đổi 14:29:59Z 05/10 do HJW N1 (canary) lúc R6 đang chờ — không do R6.
+- Swap: trống 0,73 GB (PRE) → ~4 MB (Reviewer 20:35 +07) → 1,08 GB (POST); RAM khả dụng ~6–7 GB; chưa rõ tiến trình, không đụng swap.
+- `logrotate` có sẵn 2 lỗi quyền `/var/log/reconcile-*.log` (không do R6). Thiếu sót của R6: ảnh chụp Guard PRE chỉ có sau các mutation (POST so với ảnh đó + so tay với baseline PRE trong `pre/`).
+
+### 7. Điều 30/31 (coverage THIẾU = 0 cho phần đã áp)
+| Thành phần | Hồi quy | Toàn vẹn | Canh | Lùi |
+|---|---|---|---|---|
+| storage-watch + sổ + #11 | fixture 13/13 + 5/5 | Config Guard | Kuma #11 (cũ >130′ ⇒ đỏ) | apply-v0 bản `.orig` |
+| logrotate | `-d` + ép xoay thật | sha manifest | logrotate.service | `c1/incomex.orig` |
+| worker v1 | 219/220 + 23/23 | git agent-data-repo | systemd + journal | `b/orig` + restart |
+| dot-nrm-verify | âm 0/6 + thật 3/3 | git dot | log cron 03:00Z | `a/dot-nrm-verify.orig` |
+| tắt lịch APR | 0 dòng hoạt động | Guard INV15 dòng lịch | Guard | `m17/crontab-root.truoc` |
+| dot-pg-db-retire + xoá | deny âm 3/3 + SHA/sha_object | Config Guard | Guard POST PASS | T tái tạo · D Drive+restore · gov_test `restore` |
+| Guard A11 + kuma-push | Guard pre/post PASS | Config Guard | Kuma #22 | apply-v0 `.orig` |
+Biên nhận Telegram A10-R4: **message_id 129** (khung Hermes VPS), `post/guard-post-vpsc-r6-final-20261005T182550Z.json`.
+
+### 8. Đề nghị lên root (§9, không gate R6)
+POST-PROTECT của mọi việc thêm cột `để lại gì trên đĩa | bytes | hạn giữ | owner` — VPSUP và CWEB đều qua nghiệm thu với hàng tồn không hạn (13 GiB + 3 GiB). Nay sổ dung lượng làm chốt kỹ thuật: việc mới tạo thư mục ngoài sổ ⇒ #11 đỏ sau 24 giờ.
+
+### 9. Còn lại · ai nhận
+- **Host:** quyết B v2 — (a) cho một lượt cổng lúc máy rỗi (ví dụ đêm, tải <1) để đạt 23/23 rồi nạp; hoặc (b) chấp nhận B PARTIAL. Code v2 + test ở `b/` (`repo-patched`, `p02*.log`).
+- **Máy:** chuỗi df theo giờ + taxonomy ngày tự ghi; dốc ≥2 GiB/24h hoặc ≥3 GiB/7 ngày tự đỏ #11 → Telegram. Owner không phải làm gì.
+- **Reviewer/Host:** nghiệm thu KQ, sau một chu kỳ ngày xanh thì đóng VPSC.
 
 ### F0 · Kế hoạch xoá chờ Host duyệt (agent CHƯA xoá gì)
 

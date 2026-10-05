@@ -5,15 +5,15 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · GPT Host · P41 — ACCEPT P40 · PLAN_T/D APPROVED · R6 TIẾP TỤC NGAY
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 01:30 +07 · Claude Code (Agent) · P42 — KQ R6 DỪNG · chỉ còn worker v2 chờ Host
 - 🎯 **Mục tiêu:** Owner 05/10: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) … làm tiếp cho hoàn thiện”; trọng tâm = VPS khỏe + storage bounded, không đóng trên tín hiệu xanh giả.
 - 🏁 **Xong khi:** free disk ≥45 GiB nếu xoá an toàn · `dot-nrm-verify` hết false-PASS + có bảng phân loại 16 DOT · worker 0 restart/lock và write-idle giảm ≥80% · storage watch/#11 live · lịch `dot-apr-execute` đã tắt · core POST-PROTECT same-or-better · watcher ngày xanh.
 - 📍 **Tiến độ:** `✅ P37 plan · ✅ P38 mid-run · ✅ P39 Host · ✅ P40 Reviewer · ✅ P41 approve T/D + delta · ■ Agent tiếp cùng R6 → cleanup + M15 + v2 gate + tắt APR → #11/POST/KQ → watcher ngày → đóng`.
 - ✅ **Đã xong thật:** C1 logrotate PASS · C4 backup/restore + gov_test encrypted Drive rescue PASS · storage registry/watch fixtures PASS · worker v1 NRestarts 11→0 · core containers healthy · N1 P149 phần máy xong, không waiter/background mutation, chỉ còn 3 acceptance thủ công.
-- ■ **Đang làm:** R6 giữ quyền mutation VPS; N1 chỉ acceptance/read-only khi tiện, không resume server mutation cho tới khi R6 KQ/POST xong. Agent tiếp đúng cùng RUN, không RUN mới.
+- ■ **Đang làm:** R6 đã KQ DỪNG 18:30Z (P42) — cờ bận hết, VPS thả quyền mutation cho N1. Đã xong: trống 48,55 GiB · T 25/25 + D 4/4 · M15 · lịch APR tắt · #11 sổ dung lượng live · POST-PROTECT PASS (biên nhận 129). Chờ: Host quyết worker v2 (cổng 22/23).
 - 🔗 **Ràng buộc nhận từ HJW P150/P151:** nếu R6 cần rebuild agent-data thì thực hiện **sau KQ N1** và đăng ký release mới qua `dot-connector-sync promote` trước khi coi INV20 xanh; trước khi bật đèn #11/storage-watch mới, nếu độ sâu sổ phủ tới đó thì thêm các thư mục N1 mới (`dot/connector-sync` và hồ sơ N1) vào storage registry để không báo `tên lạ`. Không sửa HJW từ VPSC.
 - ⬜ **Còn lại:** rehash+xoá T/D từng mục an toàn → M15 checker → worker v2 chỉ khi test idle <2 đạt 23/23 → tắt lịch APR 5′, không replay → bật #11/A11 → POST-PROTECT + Telegram → KQ → watcher ngày → đóng VPSC.
-- ➡ **Kế tiếp:** 😊 Owner gửi đúng một câu continuation bên dưới cho Claude Code; 🤖 agent tự đọc P40–P41 và tiếp cùng RUN. Khi có lệch SHA/test thì fail-closed báo Host, không hỏi mở scope mới.
+- ➡ **Kế tiếp:** Host nghiệm thu P42 + quyết B v2 (một lượt cổng lúc máy rỗi rồi nạp, hoặc chấp nhận PARTIAL) · 🤖 máy tự ghi chu kỳ ngày (#11 tự đỏ nếu dốc) · 😊 Owner: không cần làm gì.
 - ⛔ **Không làm/để sau:** không mass-fix 16 DOT · không sửa/bật lại APR · không speculative-fix 502/503 · không swapoff/on · không DNS/CWEB/Knowledge/HJW mutation; Graph không thuộc roadmap VPSC.
 
 ### 1. Mục tiêu
@@ -395,6 +395,15 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **Roadmap đóng:** VPSC kết thúc tại `POST-PROTECT/KQ → watcher ngày xanh → CLOSE`; bỏ Graph preflight khỏi task này. 502/503 + swap chỉ ghi residual/quan sát, không sửa mò.
 - **Điểm danh phát sinh đã hấp thụ:** false-PASS checker = M15; worker WAL churn = v2 gate; APR log storm = disable schedule; #11 live/A11 = sau cleanup; 16 DOT pattern = inventory only; không mở task mới.
 - Owner cần quyết: —.
+
+### P42 · Claude Code CLI (Agent) · 06/10/2026 01:30 +07 · KQ R6
+- Based_on P41 `be402e4` + câu Owner (M15, đọc test VPS, cổng v2, tắt lịch APR) · DROOT30: PROMPT vẫn `7449bab`, 0 STOP; ràng buộc HJW P151 đã đọc — R6 không dựng lại agent-data; thư mục N1 mới đã thuộc dòng sổ `dot` + `work/*` (0 tên lạ).
+- **F:** PLAN_T tính lại `93883314…` = HOST_APPROVED_DELETE_T ⇒ xoá 25/25; PLAN_D tính lại `f97136b1…` = HOST_APPROVED_DELETE_D ⇒ failed-g7-03 → failed-g7-05a → PG16 data → DROP gov_test; health sau từng mục; 3 chốt P40 giữ đủ. Trống 35,10 → **52,12 GB (48,55 GiB)**.
+- **M15 ✅** · **M17 lịch APR tắt ✅** · **#11 + A11 ✅** · **POST-PROTECT PASS**, biên nhận Telegram message_id 129 · Config Guard 336/336 · Kuma 22/22.
+- **B v2 ❌ cổng:** lượt P41 bắt đầu tải 1,80 → 22/23 (`test_acc1_slow_github_12_parallel_reads_bounded`) ⇒ KHÔNG nạp (fail-closed). Worker v1 giữ: 0 restart/lock 5,5 giờ, ghi rỗi chưa giảm.
+- JEV `gen-dec-1791224848-WBAzEHhUKhmsDvCq6220` (bằng chứng phụ): DỪNG 0,63 vs XONG-kèm-PARTIAL 0,37 (độ tin 0,25) — chọn DỪNG theo “lệch test thì fail-closed và báo Host”.
+- Chi tiết: `BAO-CAO.md` mục R6 (cùng commit).
+- KQ@VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01 DỪNG · DISK=50,75 GB dùng / 52,12 GB trống (48,55 GiB) · CHECKER=M15 PASS + bảng 16 DOT · QUEUE=PARTIAL (0 restart/lock; ghi rỗi chưa giảm; v2 cổng 22/23 không nạp) · STORAGE_BOUND=PASS · DELETE_T=PASS 25/25 · DELETE_D=PASS 4/4 · KNOWLEDGE=DEFERRED_CWEB · HEALTH=PASS (Guard POST, receipt 129) · WATCH=POST_WATCH_REQUIRED · ai nhận tiếp: Host (B v2)
 
 ## Owner cần quyết
 - —
