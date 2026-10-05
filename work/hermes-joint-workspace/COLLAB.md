@@ -426,10 +426,10 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Trước first mutation: DROOT30 + fresh lights/registry + PROMPT last-touch/READY/HOLD/STOP. Gate sạch mới ghi `N1_R4_OWNER_APPROVED · RESUME_SAME_RUN` và tiếp tục Pha C.
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 20:26 +07 · GPT Host · **P145 OWNER GO · RESUME N1**
-- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4 Host+Claude đồng thuận] → [■ HOLD: VPS cleanup đang chạy + chờ Owner GẬT] → [□ resume cùng N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
+- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4 consensus] → [✓ Owner GO] → [■ Claude Code session mới fresh-gate → resume cùng N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
 - **Roadmap SSOT:** không đổi `N1 → N2 → N3 → N4 → N5 → N6`; chưa xong N1 thì không sang N2.
 - **N1 hiện tại:** 9/10 ALREADY_TWIN; 1 Directus POLICY_HOLD; exact R4 scope đã khóa tại P144; security Lark phải xử lý trước N1 XONG.
-- **Kế tiếp duy nhất:** VPS cleanup terminal → fresh shared-resource/DROOT30 gate → Owner GẬT exact R4 → Claude Code resume **cùng RUN** `HJW-N1-CLOUD-TWIN-SYNC-20261005-01`.
+- **Kế tiếp duy nhất:** cửa sổ Claude Code CLI mới → fresh shared-resource/DROOT30 gate; nếu VPSC không còn active mutation/lock thì resume **cùng RUN** `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` từ R4; nếu còn mutation thật thì dừng và báo.
 - **Việc tay Owner cuối N1:** dán 2 connector Claude web · restart app Claude · gập/mở Mac cho D2; chỉ thêm admin-password nếu user-level hook bất khả thi.
 - **Không làm:** không sửa PROMPT đang chạy · không mở N2 · không dọn GPT legacy registration · không harden Directus Mac legacy trong N1.
 
