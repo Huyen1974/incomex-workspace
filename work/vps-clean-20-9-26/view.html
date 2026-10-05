@@ -17,12 +17,12 @@ small{color:#666}
 </style>
 </head>
 <body>
-<h1>Dọn đĩa VPS · 20/09/2026</h1>
-<p><span class="tag">Đã dọn đợt 1 · đang hậu kiểm</span><span class="tag">Bước 2: kiểm toán, không đụng production</span><span class="tag">Chưa chạm production</span></p>
+<h1>VPS khỏe + bịt rò dung lượng · vòng 05/10/2026</h1>
+<p><span class="tag">P29 audit xong</span><span class="tag">R6 sửa gốc + retention</span><span class="tag">DRAFT chờ Reviewer</span></p>
 
-<div class="box"><strong>Anh cần quyết (Q06):</strong> cho lượt cuối — đổi mã Google Drive bị lộ (anh bấm "Cho phép" 1 lần), bịt nốt các vòi còn lại (mỗi vòi hai khoá), đặt hạn giữ cho backup trên Drive (30 ngày + mỗi tháng 1 bản), cứu rồi xoá ~9GB dump cũ. Đề xuất: <strong>gật</strong>. Dự kiến ổ trống 44 → ~53GB.</div>
+<div class="box"><strong>Hiện trạng:</strong> disk 65,7% · còn ~35,24 GB; dịch vụ chính đang healthy. Audit mới phát hiện Queue SQLite lock/write amplification, checker có PASS giả khi SQL lỗi, knowledge payload ~3,2 MB, và log/deploy/transaction + residual VPSUP chưa chứng minh bounded. <strong>Mục tiêu R6:</strong> sửa gốc trước, dọn sau; không xóa active/rollback chỉ để đạt số.</div>
 
-<div class="bar" id="TIEN-DO"><span>✔ 1 Mở việc</span><span>✔ 2 Khảo sát</span><span>✔ 3 Kiểm chéo</span><span>✔ 4 Anh duyệt</span><span class="now">▶ 5 Dọn + khoá vòi</span><span>□ 6 Theo dõi, đóng</span></div>
+<div class="bar" id="TIEN-DO"><span>✔ P29 Audit</span><span class="now">▶ P30/R6 Review</span><span>□ READY</span><span>□ Claude Code RUN</span><span>□ Verify</span><span>□ Đóng</span></div>
 
 <h2 id="TINH-HINH">1. Tình hình — không phải mất một nửa, mà đã mất hết</h2>
 <table>
