@@ -5,14 +5,14 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 16:40 +07 · Claude Code (Agent) · P36 — R6 STARTED
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 17:20 +07 · Claude Code (Agent) · P37 — R6 PLAN_T/D CHỜ HOST DUYỆT
 - 🎯 **Mục tiêu:** Owner 05/10: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) … làm tiếp cho hoàn thiện”; vì VPS phải khỏe lâu dài chứ không chỉ dọn một lần.
 - 🏁 **Xong khi:** checker không PASS giả · worker không lock/write-loop · mọi nguồn non-business bounded/unknown-name có chuông · cleanup có plan+hash/offsite fallback · core health same-or-better · watcher một chu kỳ ngày không vượt slope gate; capacity 45 GiB chỉ đạt nếu an toàn.
 - 📍 **Tiến độ:** `✅ P29 audit · ✅ P31 DELTA · ✅ P32 apply · ✅ P33 ACCEPT · ✅ P34 READY · ✅ N1 dừng checkpoint P141 · ✅ Owner GO · ■ Claude Code R6 → PLAN_T/D Host duyệt → cleanup → KQ → hậu kiểm → đóng`.
 - ✅ **Đã xong:** PROMPT R6 final-review = `7449baba55141c9a01fa6bc5244a84c73ea0f971`; N1 hiện `KQ DỪNG · N1_R4_WAITING_REVIEW`, không phải mutation đang tiếp tục; Owner xác nhận “N1 đã tạm dừng để phân tích” và “giờ dọn đi được rồi”.
-- ■ **Đang làm:** 🤖 Claude Code CLI · R6 STARTED 09:40Z trên READY `7449bab` · PRE baseline → A/B/C/E · chờ: không.
+- ■ **Đang làm:** 🤖 Claude Code CLI · R6 (STARTED 09:40Z) · PRE + C4 restore proof xong; PLAN_T/PLAN_D đã ghi P37 · chờ: Host duyệt exact SHA; song song A/B/C/E.
 - ⬜ **Còn lại:** Agent A/B/C/E → ghi PLAN_T/PLAN_D SHA → Host duyệt exact SHA → cleanup → POST-PROTECT → watcher ngày → nghiệm thu; sau cleanup mới thuận lợi cho Graph RUN-1.
-- ➡ **Kế tiếp:** 🤖 Claude Code chạy PRE→A/B/C/E rồi ghi PLAN_T/PLAN_D SHA · Host GPT trực duyệt exact SHA ngay khi có · 😊 Owner: không cần làm gì.
+- ➡ **Kế tiếp:** Host GPT ghi `HOST_APPROVED_DELETE_T@<PLAN_T_SHA256>` / `HOST_APPROVED_DELETE_D@<PLAN_D_SHA256>` (đủ 64 hex, P37) · 🤖 Claude Code tiếp A/B/C/E · 😊 Owner: có thể phải bấm cho phép một lần ở máy khi tới bước xoá.
 - ⛔ **Không làm/để sau:** DNS/cert CWEB · reboot VPS · build/deploy knowledge trước CWEB cutover · auto-delete `/opt/incomex/work` · sửa HJW business logic; không xoá mù để đạt 45 GiB.
 
 ### 1. Mục tiêu
@@ -333,6 +333,15 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - STARTED@VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01 2026-10-05T09:40Z · executor=Claude Code CLI (Mac → SSH root VPS1)
 - Based_on HEAD `12810fb` · PROMPT last-touch `7449baba55141c9a01fa6bc5244a84c73ea0f971` = READY P34/P35 ✓ · read-gate `workspace_stat` PASS (sha nội dung COLLAB/PROMPT khớp clone).
 - Fresh-check 09:39Z: repo không có STARTED mở chạm nginx/agent-data/PG/Directus (HJW N1 = KQ DỪNG `N1_R4_WAITING_REVIEW`, P142 chỉ rà; CWEB RUN04 XONG chờ cutover; graph-server/PGNB chỉ bàn) · VPS1: 0 phiên SSH khác (3 tmux cũ 22/05), 0 tiến trình dot/rclone/pg_dump/tar, 12 container Up · đĩa 66%, trống 35.106.123.776 B.
+
+### P37 · Claude Code CLI (Agent) · 05/10/2026 17:20 +07 · F0 PLAN_T/PLAN_D · CHỜ HOST DUYỆT
+- **PLAN_T_SHA256=93883314da118d50ed576cb14e45377896397cbb6dfde5d70548dba3dcdd3c9b** · 25 thư mục CWEB-03/prepared-/repair-/retained- trong `/opt/incomex/deploys` · 3.067.944.960 B.
+- **PLAN_D_SHA256=f97136b1f401a80f30a5bf359db42b096e2d88ef1665b4b7eb0621e40f9dff09** · 4 mục: `/opt/workflow/postgres/data` (PG16) 3.681.226.752 B · `/opt/workflow/postgres18.failed-g7-03` 4.523.646.976 B · `/opt/workflow/postgres18.failed-g7-05a` 4.516.126.720 B · DB `directus_gov_test_20260602` 1.263.621.823 B.
+- Danh sách từng dòng + cách tính: `BAO-CAO.md` mục R6 · F0 (cùng commit); tệp gốc `R6-20261005/f0/PLAN_{T,D}.tsv` trên VPS1. Tính 2 lần, trùng byte.
+- Bằng chứng D (C4): restore-verify bản đêm PG18 sau cutover `20261004T183701Z` PASS `directus` (393 bảng, 0 lệch) + `incomex_metadata` (10 bảng); G7 verify-data 03/10 `data_diff=0` cả 5 DB; bản mã hoá trước cutover trên Drive đọc được md5. `postgres/{backups,init}` đang mount ⇒ chỉ xoá `postgres/data`. gov_test: archive Drive + restore-verify chạy **trước** drop (DOT mới `dot-pg-db-retire` tự từ chối nếu thiếu).
+- Sau T + D: trống ≈ 48,6 GiB (đích 45 GiB). **Agent chưa xoá gì.** Cần Host ghi đúng `HOST_APPROVED_DELETE_T@<PLAN_T_SHA256>` và/hoặc `HOST_APPROVED_DELETE_D@<PLAN_D_SHA256>`; ngay trước xoá agent tính lại sha, lệch ⇒ không xoá. Trong lúc chờ, A/B/C/E chạy tiếp.
+- JEV `gen-dec-1791194760-tUycbC5u9AgRFXF1VYJy` (bằng chứng phụ): T hợp lệ 0,82 · D “thiếu bằng chứng” 0,59 (độ tin 0,37) ⇒ đã bổ sung verify-data G7 + DB `workflow`/`postgres` còn trong PG18.
+- Lưu ý vận hành: bộ phân quyền auto-mode của phiên Claude Code đã chặn một lệnh đọc repo (nhãn “Cloud Storage Mass Delete”) lúc 10:14Z; bước xoá thật có thể cần Owner bấm cho phép ở máy — agent sẽ hỏi đúng một câu khi tới bước đó.
 
 ## Owner cần quyết
 - —

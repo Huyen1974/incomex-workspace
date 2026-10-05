@@ -4,6 +4,65 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## R6 — VPS khỏe + bịt rò dung lượng · 05/10/2026 · executor=Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · ĐANG CHẠY
+
+RUN_ID `VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01` · READY@`7449baba55141c9a01fa6bc5244a84c73ea0f971` · STARTED 09:40Z (P36). Hồ sơ VPS: `/opt/incomex/work/vps-clean-20-9-26/R6-20261005/`. Mục này còn cập nhật tới KQ.
+
+### F0 · Kế hoạch xoá chờ Host duyệt (agent CHƯA xoá gì)
+
+| Mã | Nội dung | Byte | PLAN_SHA256 |
+|---|---|---|---|
+| **T** (tái tạo được) | 25 thư mục CWEB-03 / prepared-, repair-, retained- trong `/opt/incomex/deploys` | 3.067.944.960 | `93883314da118d50ed576cb14e45377896397cbb6dfde5d70548dba3dcdd3c9b` |
+| **D** (dữ liệu/đường lùi cũ, D15) | PG16 `/opt/workflow/postgres/data` · `postgres18.failed-g7-03` · `postgres18.failed-g7-05a` · DB `directus_gov_test_20260602` | 13.984.622.271 | `f97136b1f401a80f30a5bf359db42b096e2d88ef1665b4b7eb0621e40f9dff09` |
+
+- **Tệp gốc (SSOT của mã băm):** `R6-20261005/f0/PLAN_T.tsv`, `PLAN_D.tsv` trên VPS1. Mỗi dòng `group⇥path|id⇥bytes⇥reason⇥reference_proof⇥recovery⇥sha256_object`; PLAN_SHA256 = `LC_ALL=C sort -u PLAN | sha256sum` (LF, không metadata động). `sha256_object` thư mục = sha256 của `find DIR -printf '%P\t%y\t%s\t%T@\n' | LC_ALL=C sort`; DB = vân tay `dot-pg-db-retire` (sha256 `datname|oid|owner|size`). Tính hai lần, trùng byte.
+- **Tham chiếu (T):** 0 mount container · 0 tham chiếu trong unit/cron/compose/nginx/`dot/bin`/`scripts` · 0 symlink · 0 tiến trình mở. DOT `dot-web-incomex-deploy` cố định RUN=`CWEB-E2E-20261004-04` ⇒ **GIỮ** `nuxt-output-n4` (live, mount), `nuxt-output-before-CWEB-E2E-20261004-04` (rollback, `known-good.json`), `cweb-build-CWEB-E2E-20261004-04`, `nuxt-output-CWEB-E2E-20261004-04`; giữ thêm `nuxt-output-before-CWEB-E2E-20261004-03` (bản G7 trước CWEB) và mọi thư mục cũ khác.
+- **Bằng chứng D (C4):** `dot-pg-restore-verify-db` trên bản đêm PG18 **sau** cutover `20261004T183701Z`: `directus` PASS (393 bảng, COMPARISON_MISMATCHES=0, đối chứng âm fail-closed, 0 dư) · `incomex_metadata` PASS (10 bảng). G7 `verify-data` 03/10 10:12Z: `data_diff=0` cả 5 DB ⇒ PG18 = PG16 lúc cutover. Bản mã hoá trước cutover `incomex-prod-{directus,metadata}-db-20261002T183701Z` trên Drive đọc được md5 (`93ae6199…`, `35dac1db…`). `/opt/workflow/postgres/{backups,init}` đang mount vào PG18 ⇒ chỉ xoá `postgres/data`. DB `gov_test`: 0 kết nối, 0 FDW; `dot-pg-db-retire archive` → `rescue/vpsc-r6/` (gpg khoá công khai, md5 luồng = Drive) + `dot-pg-restore-verify-db` PASS **trước** `drop`; DOT tự từ chối nếu thiếu.
+- **Sau T + D:** trống ≈ 32,7 + 15,9 ≈ **48,6 GiB** (đích 45 GiB).
+
+PLAN_D (đủ dòng, rút gọn cột reason/proof/recovery — nguyên văn trong tệp gốc):
+
+| path/id | bytes | sha256_object |
+|---|---|---|
+| `/opt/workflow/postgres/data` | 3681226752 | `f7679c5a7df3404dd4d53d7b6c2783cbec9a84fe5c5c9605b75ced28b54959f7` |
+| `/opt/workflow/postgres18.failed-g7-03` | 4523646976 | `2b038bfed77b7961c16f5702812fdafb56882204b71a75ca0e778c217e846b35` |
+| `/opt/workflow/postgres18.failed-g7-05a` | 4516126720 | `d2168877f5b852467dccebdd2039e4160838f331c21b7bf93f7c62e353d32c84` |
+| `pg:directus_gov_test_20260602` | 1263621823 | `ce9c1bbd83b23f68a9f64bdee599c10ce16eb55a67d1e981e0308e9d5efe05e8` |
+
+PLAN_T (25 dòng, tiền tố `/opt/incomex/deploys/`; `C03/C04` = `CWEB-E2E-20261004-03/-04`; `nuxt-output-` lược):
+
+| thư mục | bytes | sha256_object |
+|---|---|---|
+| `cweb-build-C03` | 1614422016 | `6796cb3d…0841` |
+| `C03` | 61329408 | `2f29e00e…c930` |
+| `prepared-retained-C03-20261004T023756Z` | 61108224 | `2d0a2dba…188f` |
+| `prepared-retained-C03-20261004T024433Z` | 61194240 | `3f3e4cb5…7154` |
+| `prepared-retained-C03-20261004T024645Z` | 61190144 | `73978dd2…c131` |
+| `prepared-retained-C03-20261004T025918Z` | 61190144 | `e636ea0f…7aebd` |
+| `prepared-retained-C03-20261004T030627Z` | 61341696 | `ac97c38b…1c80` |
+| `prepared-retained-C04-20261004T094328Z` | 64217088 | `463f24c9…f971` |
+| `prepared-retained-C04-20261004T095601Z` | 64311296 | `11b9707e…16cb` |
+| `prepared-retained-C04-20261004T100158Z` | 64311296 | `0ec3f513…ddbe` |
+| `prepared-retained-C04-20261004T101644Z` | 64315392 | `8c3472dc…1ced9` |
+| `repair-retained-C03-20261004T015413Z` | 41164800 | `7b86ef6e…dd84` |
+| `repair-retained-C03-20261004T015851Z` | 41160704 | `7b86ef6e…dd84` |
+| `repair-retained-C03-20261004T023815Z` | 61095936 | `2d0a2dba…188f` |
+| `repair-retained-C03-20261004T024444Z` | 61190144 | `3f3e4cb5…7154` |
+| `repair-retained-C03-20261004T024658Z` | 61190144 | `73978dd2…c131` |
+| `repair-retained-C03-20261004T025930Z` | 61194240 | `e636ea0f…7aebd` |
+| `repair-retained-C03-20261004T030639Z` | 61341696 | `ac97c38b…1c80` |
+| `repair-retained-C04-20261004T074728Z` | 61325312 | `2f29e00e…c930` |
+| `repair-retained-C04-20261004T094351Z` | 64217088 | `463f24c9…f971` |
+| `repair-retained-C04-20261004T095626Z` | 64311296 | `11b9707e…16cb` |
+| `repair-retained-C04-20261004T100226Z` | 64311296 | `0ec3f513…ddbe` |
+| `repair-retained-C04-20261004T101736Z` | 64319488 | `8c3472dc…1ced9` |
+| `retained-C03-20261004T015041Z` | 61095936 | `2d0a2dba…188f` |
+| `retained-C03-20261004T015423Z` | 61095936 | `2d0a2dba…188f` |
+
+Ghi chú: nhiều thư mục trùng `sha256_object` vì DOT CWEB chép bằng `copytree` giữ mtime — là bản sao y hệt nhau, càng không cần giữ.
+
+---
+
 ## Rà soát chỉ đọc 05/10/2026 — VPS-AUDIT-20261005-01 · phát hiện mới, chưa triển khai fix
 
 Owner yêu cầu trực tiếp: đọc log mới nhất, tìm lỗi/chậm và dữ liệu thừa làm tăng ổ cứng; báo cáo vấn đề + đề xuất trước. Khảo sát 11:58–12:16 giờ Việt Nam; log tập trung 12 giờ gần nhất (từ 00:00 ngày 05/10), có đối chiếu thời gian bắt đầu để loại lỗi cũ. Based_on workspace HEAD `6b3c43374189a17cc7f9249b7d41226b676e080e`. Không đổi kết quả lịch sử ngày 23/09, không mở lại RUN dọn cũ hay CWEB, không đụng phần đã PASS.
