@@ -330,12 +330,20 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **T1–T9:** giữ là acceptance hiện hành, AI không được nới; N6 FINAL CLOSE cần Owner ratify 0.10 trước khi đóng. Việc này không chặn N1–N5.
 - **Kế tiếp:** soạn một PROMPT N1 lớn theo 0.17 + P132 S1–S3 + R4; Claude review PROMPT N1 một lượt, đồng thời kiểm R1–R7 đã phản ánh đủ. Sau ACCEPT mới READY/RUN N1.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 14:55 +07 · GPT Host · **P136 ROADMAP LOCKED**
-- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap khóa] → [■ soạn/review PROMPT N1] → [□ N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
+### P137 · Host GPT · 2026-10-05 15:20 +07 · **PROMPT N1 DRAFT · CLOUD TWIN + SYNC, KHÔNG MOVE KHỎI MAC**
+- Owner làm rõ mục tiêu N1: MacBook vẫn là môi trường đầy đủ cho việc nhỏ/cụ thể; cloud là **bản song sinh phục vụ automation**, không phải đích di cư.
+- Đã sửa 0.9/0.17 N1: `MOVE` → `ALREADY_TWIN / SYNC_EXISTING / CREATE_CLOUD_TWIN / MAC_ONLY_EXCEPTION`; bản Mac không uninstall/disable/repoint-away.
+- `PROMPT.md` đã thay từ RUN-06 sang N1 DRAFT tại commit `dc27c2d3262e1ea38313d08e3e2eacafc256759d`; SHA nội dung `c89a7a39bc4780cc7e6fd68f6233a1e5a18a3bce489556301a9ad360226be1fb`.
+- PROMPT N1 là một RUN lớn: PRE inventory P132 → R4 checkpoint nếu có mutation → tạo/hoàn thiện cloud twin → Mac-off proof + Mac-on regression → sync canary + drift negative → D30/31/protection → KQ.
+- **Sync dài hạn:** không sync filesystem mù; mỗi nhóm connector có một approved source/release/template, secret inject riêng, một action/apply cập nhật cả Mac+cloud; canary phải chứng minh không sửa tay target thứ hai, target convergence ≤10 phút.
+- **CHƯA READY/RUN.** Claude review đúng một lượt theo §10 PROMPT; 0 blocker ⇒ Host mới READY@last-touch và RUN N1.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 15:20 +07 · GPT Host · **P137 PROMPT N1 DRAFT**
+- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap khóa] → [✓ PROMPT N1 DRAFT] → [■ Claude review N1] → [□ READY/RUN N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
 - **Thiết kế V0:** `CHỐT`; A9 Hermes `MỞ ĐỦ · MANUAL`; AUTO_ALLOWLIST rỗng.
 - **Roadmap SSOT:** `N1 Cloud Foundation → N2 Dots → N3 Hermes-Mac → N4 Council Core → N5 Dual-mode/Flexible Levels → N6 Final Acceptance/Close`.
 - **Luật khóa:** R1–R7 + bảng chủ phép thử tại 0.17. Không node con, không TODO vô chủ, không PASS bằng cách dời việc chưa xong.
-- **Kế tiếp duy nhất:** PROMPT N1 đầy đủ theo nghĩa **cloud twin + sync, không move khỏi Mac**; P132 K1-PRE là Pha A, không chạy riêng. N1 có checkpoint R4 trong cùng RUN trước mutation nếu có thay đổi thật.
+- **Kế tiếp duy nhất:** Claude review `PROMPT.md` N1 last-touch `dc27c2d...` đúng một lượt; không bàn lại roadmap/V0. Sau ACCEPT, Host sửa delta nếu có → READY@full SHA → RUN N1.
 - **Chưa cần Owner:** không có thao tác mới trước khi PROMPT N1 được Reviewer ACCEPT. Hai xác nhận cũ UptimeEye/T1–T9 không chặn N1; T1–T9 chỉ bắt buộc ratify trước N6 CLOSE.
 - **Không dựng thêm:** workflow engine · DB/state service · UI · score engine · supervisor service ở ngoài node tương ứng.
 - **An toàn:** trạng thái đèn/registry phải fresh-read lại ngay trước READY/RUN N1; không dùng số 22 cố định làm invariant vì số đèn có thể tăng.
