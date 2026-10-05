@@ -4,7 +4,7 @@
 **Project:** `work/mow-mot-moit-mout`  
 **Owner-gated concept:** Công thức và nghĩa khái niệm.  
 **AI-owned implementation:** schema Master, UI chi tiết, coverage, test, bằng chứng, reuse mapping, kỹ thuật triển khai.  
-**Cập nhật gần nhất:** 2026-10-06 · D141.
+**Cập nhật gần nhất:** 2026-10-06 · D142.
 
 > BẮT BUỘC ĐỌC FILE NÀY trước khi sửa Công thức, Định nghĩa, Master List, UI con/cha, coverage hoặc config liên quan MMIM.
 
@@ -158,6 +158,8 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 | DISC-009 | Tích Descartes toàn bộ sẽ sinh nhiều tổ hợp vô nghĩa. | Bắt buộc Applicability Gate trước khi tạo/thiết kế. |
 | DISC-010 | Không thể nói “đủ UI” nếu chưa có bằng chứng độ phủ. | Cần Coverage Matrix và trạng thái từng ô. |
 | DISC-011 | CT-004 `Bước con + Tầng ⇒ Nhóm con` sinh được candidate Nhóm con, nhưng định nghĩa Nhóm con lại yêu cầu `trong 1 chuyên môn`. | Không tự thêm Chuyên môn vào CT-004. Master test giữ cột Chuyên môn = OPEN; cần Owner quyết đây là dimension của công thức hay dimension config/instantiate sau. |
+| DISC-012 | `Cùng chuyên môn / ngoài chuyên môn` là phân loại có ý nghĩa thực tế, nhưng chưa đủ evidence để thành khái niệm mới. | TREO: ưu tiên thử như thuộc tính/quan hệ của Nhóm con với T3 trước; chỉ đề xuất concept mới nếu nó có logic, reuse hoặc vòng đời độc lập. |
+| DISC-013 | Master Nhóm cha/Nhóm con đã có UI thực tế, không nên tiếp tục để `UI.MASTER` như danh tính UI. | Gán UI con riêng `UI-030` / `UI-031`; implementation vẫn reuse renderer `UI.MASTER` cha. Đăng ký vào child UI registry + Master UI con.
 
 ### D139 · bằng chứng đầu tiên của cách tiếp cận
 `CT-003 = Bước + Tầng ⇒ Nhóm cha` tại **T0 Field** đã sinh 7 bản ghi B1→B7 trong `ML-DEF-001`.
@@ -202,6 +204,17 @@ Chi tiết dùng UI.MASTER cha và giữ:
 - config key + required + ý nghĩa.
 
 **Phát hiện quan trọng:** `Chuyên môn` hiện là `OPEN · chưa gắn` vì CT-004 không cung cấp chiều này. Không được tự sửa formula.
+
+**OPEN-SPECIALTY-SCOPE · TREO, CHƯA BỎ:**
+- `Cùng chuyên môn / ngoài chuyên môn` là một classification cần giữ lại để kiểm tiếp.
+- Chưa tạo khái niệm mới.
+- Thứ tự thử trước khi đề xuất concept mới: (1) reuse quan hệ với T3 Chuyên môn; (2) thử attribute/config kiểu `specialty_scope = SAME | CROSS | OPEN` trên Nhóm con hoặc instance; (3) nếu nhiều slice cho thấy nó chi phối công thức, mới đề xuất thêm `Chuyên môn` vào CT-004; (4) chỉ tạo Master/khái niệm riêng nếu phạm vi chuyên môn có lifecycle/reuse/rule độc lập.
+
+**UI ownership D142:**
+- `UI-030 · Master Nhóm cha` → `ML-DEF-001`.
+- `UI-031 · Master Nhóm con` → `ML-DEF-002`.
+- Cả hai là UI con riêng ở trạng thái `đã có bản tạm · chờ duyệt`; renderer kỹ thuật vẫn kế thừa `UI.MASTER` cha.
+- Hai UI đã được đăng ký trong `child-ui-registry.json` và `ML-DEF-018 · Master UI con`, không còn “vô chủ”.
 
 ---
 
@@ -256,7 +269,7 @@ Mỗi ô cuối cùng phải trả lời:
 - Rà D139 với Owner; nếu chốt mới nhân sang tầng khác.
 
 ## P1 · cần kiểm bằng làm thật
-- CT-004 Nhóm con: **ĐÃ TEST D141 tại 1.x + T0**; còn OPEN việc Chuyên môn thuộc công thức hay config/instantiate.
+- CT-004 Nhóm con: **ĐÃ TEST D141 tại 1.x + T0**; UI riêng `UI-031` đã đăng ký D142; còn OPEN việc Chuyên môn thuộc công thức, quan hệ T3 hay config/instantiate.
 - Chạy CT-005 Quy trình trên một slice thật.
 - Chạy CT-006 UI Con và map reuse UI cha.
 - Chạy CT-007 Config trên một bản ghi thật.
@@ -318,9 +331,10 @@ Evidence: D141 · ML-DEF-002 · NHCN-001..003 đều phải để Chuyên môn =
 Công thức hiện tại không đủ vì: định nghĩa KNI-003 nói Nhóm con dùng trong 1 chuyên môn.
 Đề xuất A: giữ CT-004; Chuyên môn là dimension config/instantiate sau, không nằm trong formula.
 Đề xuất B: sửa CT-004 thành Bước con + Tầng + Chuyên môn ⇒ Nhóm con.
+Đề xuất C: chưa đổi formula; dùng quan hệ T3 + thuộc tính `specialty_scope = SAME | CROSS | OPEN` để test việc cùng/ngoài chuyên môn. Chỉ nâng thành concept mới nếu có rule/lifecycle/reuse độc lập.
 Ảnh hưởng tới CT/UI/Master: Master Nhóm con, naming, coverage, CT-005/006/007 downstream.
-Có thể giải quyết bằng implementation mà không thêm công thức không? CHƯA CHẮC.
-Owner cần quyết: A hay B khi muốn canonical hóa Nhóm con.
+Có thể giải quyết bằng implementation mà không thêm công thức không? CHƯA CHẮC; ưu tiên test C trước.
+Owner cần quyết: A/B/C khi muốn canonical hóa Nhóm con; hiện trạng TREO, không bỏ.
 ```
 
 ---

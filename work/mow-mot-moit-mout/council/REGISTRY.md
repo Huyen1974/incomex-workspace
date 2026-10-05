@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D141 đã test CT-004 tại 1.x + T0: 3 Nhóm con NHCN-001..003; Master list 5 cột và drawer detail đã chạy live. Concept gap: Chuyên môn bắt buộc theo định nghĩa nhưng vắng trong CT-004, đang để OPEN và ghi FC-001.
-- NEXT: Owner rà Master Nhóm con và quyết FC-001 khi muốn canonical hóa: Chuyên môn nằm trong formula hay config/instantiate sau.
-- BLOCKED_BY: none cho test; canonical Nhóm con chờ Owner quyết FC-001.
+- NOW: D142 đã gán UI con riêng cho Master Nhóm cha/Nhóm con: UI-030/UI-031, đăng ký child registry + ML-DEF-018 và index xanh; renderer vẫn reuse UI.MASTER cha. Phạm vi `cùng/ngoài chuyên môn` tiếp tục TREO, chưa tạo concept mới.
+- NEXT: tiếp tục test thực tế với `specialty_scope`/quan hệ T3 trước; chỉ đưa Owner quyết A/B/C của FC-001 khi có thêm evidence.
+- BLOCKED_BY: none cho UI/test; canonical Nhóm con vẫn OPEN ở concept Chuyên môn.
 - State: ACTIVE.
-- LAST_SYNC: D141.
+- LAST_SYNC: D142.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
