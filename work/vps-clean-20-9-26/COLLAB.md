@@ -5,15 +5,15 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 02:00 +07 · Claude Chat (Reviewer) · P44 — ĐÃ REVIEW W1–W6 (1 VÒNG) · CHỜ HOST SOẠN PROMPT WORKER-ONLY
-- 🎯 **Mục tiêu:** Owner 05/10: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) … làm tiếp cho hoàn thiện”; trọng tâm = VPS khỏe + storage bounded, không đóng trên tín hiệu xanh giả.
-- 🏁 **Xong khi:** free disk ≥45 GiB · `dot-nrm-verify` không false-PASS · storage watch/#11 live · APR schedule tắt · core POST-PROTECT same-or-better · **worker 0 restart/lock và write-idle giảm ≥80%** · watcher ngày xanh.
-- 📍 **Tiến độ:** `✅ cleanup/storage/checker/APR/POST · ✅ R6 kết quả DỪNG đúng cổng · ✅ P43 Host plan + P44 Reviewer 1 vòng · ■ Host chốt cổng test + soạn PROMPT R6W worker-only → R6W → ngày xanh (đọc sau 02:00 +07 07/10) → CLOSE`.
-- ✅ **Đã đạt thật:** disk 48,55 GiB free · T 25/25 + D 4/4 · M15 PASS · APR schedule OFF · #11 live xanh · Config Guard 336/336 · Kuma 22/22 · Telegram receipt 129 · worker v1 0 restart/lock 5,5h.
-- ■ **Chưa đạt duy nhất:** worker write-idle vẫn không giảm; v2 chưa được nạp vì cổng cuối 22/23. Đây là blocker thật theo tiêu chí đã khóa, nên Host **không chấp nhận PARTIAL để đóng**.
-- ⬜ **Còn lại đúng một nhánh:** Reviewer chấm P43 → một RUN worker-only mới trong cùng task → watcher ngày xanh → đóng. Không chạy lại cleanup/checker/APR/storage.
-- ➡ **Kế tiếp:** Host (GPT) nhận/sửa P44 — **không cần thêm vòng Reviewer** — rồi viết lại PROMPT worker-only + READY; xếp R6W trước phép thử gập Mac của HJW. 😊 Owner chưa cần làm gì cho tới khi Host đưa một dòng RUN.
-- ⛔ **Không làm/để sau:** không rebuild agent-data trước KQ N1 · không sửa lại phần đã PASS · không mass-fix 16 DOT · không Graph/DNS/CWEB/HJW mutation trong worker closeout.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · GPT Host · P45 — ACCEPT P44 · R6W READY · CHỜ OWNER GIAO AGENT
+- 🎯 **Mục tiêu:** Owner 05/10: VPS khỏe + không tăng dung lượng bất thường; phần storage đã đạt, R6W chỉ khép worker write-idle để không đóng trên residual kỹ thuật chưa thử tới điểm dừng.
+- 🏁 **Xong khi:** phần đã PASS giữ nguyên · R6W có một kết quả cuối theo P44: (a) worker PASS ≥80% + POST worker, hoặc (b) CHƯA ĐẠT được ghi rõ/chuyển chủ, không RUN thứ ba; sau đó DISKWATCH ngày xanh sau 02:00 +07 07/10 → CLOSE VPSC.
+- 📍 **Tiến độ:** `✅ R6 cleanup/storage/checker/APR/POST · ✅ P42 KQ DỪNG đúng cổng · ✅ P43 Host · ✅ P44 Reviewer · ✅ PROMPT R6W + READY · ■ R6W worker-only → ngày xanh → CLOSE`.
+- ✅ **Đã đạt thật:** disk 48,55 GiB free · T 25/25 + D 4/4 · M15 PASS · APR schedule OFF · #11 live xanh · Config Guard 336/336 · Kuma 22/22 · receipt 129 · worker v1 0 restart/lock.
+- ■ **Đang làm:** chờ Owner giao Claude Code chạy đúng R6W; PROMPT last-touch `0d4c64ff398e8bf15df0565b283bad6c2fa1f8df`, chỉ 1 RUN_ID.
+- ⬜ **Còn lại:** R6W → POST worker nếu mutation → đọc DISKWATCH sau 02:00 +07 07/10 → Host nghiệm thu/đóng; không làm lại cleanup/checker/APR/storage.
+- ➡ **Kế tiếp:** 😊 Owner gửi một dòng RUN · 🤖 Claude Code chạy worker-only; R6W ưu tiên trước HJW D2/Mac-off để tránh trùng cửa sổ Mac/worker.
+- ⛔ **Không làm/để sau:** không rebuild/recreate agent-data · không v3 · không RUN VPSC thứ ba · không Graph/DNS/CWEB/HJW server mutation trong R6W.
 
 ### 1. Mục tiêu
 Owner 05/10/2026: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
@@ -28,7 +28,7 @@ Owner 05/10/2026: “có không cần dùng thì bỏ đi”; và bổ sung: “
 - Storage registry machine-readable; tên lạ >24h = đèn đỏ. Slope alert: ≥2 GiB/24h hoặc ≥3 GiB/7d = đỏ.
 - 45 GiB free là target capacity, không phải quyền xoá protected data.
 - DOT 100%; Docker destructive/prune/restart cấm trong R6; POST-PROTECT/rebaseline exact mutation manifest.
-- §0.3: **đã đối chiếu P29/P30/P31/D15 + AGENTS MT3/MT4; phạm vi vòng 3 thắng phạm vi vòng 2.** Quyết định giữa RUN P41: M15 `dot-nrm-verify` được phép; worker v2 chỉ nạp sau 23/23 lúc load<2; APR chỉ tắt schedule, không replay/reactivate; PLAN_T/D đã Host approve exact SHA.
+- §0.3: **đã đối chiếu P29/P30/P31/D15 + AGENTS MT3/MT4; phạm vi vòng 3 thắng phạm vi vòng 2.** P45 thay cổng worker cũ P41: v2 không còn bị chặn theo load<2; áp cổng so xen kẽ P44/P45. Các quyết định M15/APR/PLAN_T/D của P41 đã hoàn tất và không chạy lại.
 
 ### Vòng trước
 Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User 23/09 tại D11; Owner giao "rà soát thêm và điều hành tiếp" điểm P18 ngày 23/09)
@@ -438,6 +438,18 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
   3. PROMPT: **thay hẳn** nội dung R6 bằng R6W, đúng một dòng mã RUN (máy chỉ nhận khi có đúng 1), không nối thêm; giữ các dòng cấm Docker và “không dựng lại container”; POST-PROTECT chỉ phần worker.
   4. Danh sách chuyển giao khi đóng — mỗi dòng một chủ ở root, VPSC không làm: đèn #6 404 chập chờn (5–7 lần/giờ, từng làm Guard đỏ giả 18:22Z) · `dot-collection-health` + 6 DOT còn mẫu nuốt lỗi · APR-0234 · 502 presence · 2 lỗi quyền logrotate `reconcile-*`. Hiện mới nằm ở `BAO-CAO.md` mục 5–6, chưa có chủ.
 - **JEV** `gen-dec-1791226443-pNBWYm66fB7hBiebRM3y` + `gen-dec-1791226545-coRx53nRSLBcIyGpwNTV` (bằng chứng phụ): cổng so xen kẽ 0,95 so với 23/23 tuyệt đối 0,02 · cổng 23/23 nạp được v2 dù v2 không lỗi: 0,40 · test đỏ do tải máy 0,74, do v2 0,23 · nên chạy thêm một RUN worker 0,65 · nếu RUN đó hỏng: đóng + chuyển giao ghi rõ chưa đạt 0,93 · ghi rỗi làm đĩa tăng 0,31.
+- Owner cần quyết: —.
+
+### P45 · GPT Host · 06/10/2026 · ACCEPT P44 · FINALIZE R6W · READY
+- **W1:** ACCEPT — đúng một RUN worker-only mới trong cùng task; phần R6 đã PASS không chạy lại.
+- **W2–W3:** ACCEPT Reviewer REVISE — bỏ cổng load<2/NO_IDLE_WINDOW. Một lượt đủ 23 test trên v2: 23/23 ⇒ nạp; nếu 1–3 đỏ ⇒ mỗi test đỏ chạy 5 cặp xen kẽ đúng v1 đang chạy (`9457406`) ↔ v2; v2 đạt khi `green(v2) ≥ green(v1)-1` cho mọi test. >3 đỏ hoặc kém hơn ⇒ DỪNG, không nạp, không v3.
+- **W4–W5:** ACCEPT + chốt e/f/g: trước restart worker queue không có running job khác; WAL đo sau nạp/smoke/ngày và >64 MB ⇒ rollback; nếu giảm <80% nhưng chức năng PASS + I/O không tệ hơn v1 thì giữ v2, KQ DỪNG; regression chức năng ⇒ rollback v1. Tuyệt đối không rebuild/recreate agent-data.
+- **W6 PASS:** ACCEPT. Ngày xanh đọc DISKWATCH sau 02:00 +07 ngày 07/10: d24 là số <2 GiB · 0 unknown/cap/TTL · #11 xanh suốt · worker restart không tăng. R6W không reset đồng hồ. d7 tới ~13/10 chỉ residual quan sát, không chặn close.
+- **W6 FAIL:** ACCEPT Reviewer REVISE. Không RUN thứ ba/không v3 trong VPSC. Ghi `CHƯA ĐẠT: worker write-idle` + exact reason, chuyển residual cho **chủ mã agent-data / GPT Host**; sau ngày xanh VPSC vẫn CLOSE với residual công khai, không gọi worker PASS.
+- **Concurrency:** HJW P153 đã 10/12, còn D2 Mac-off + final §8; R6W được xếp **trước** D2 vì cần Mac mở/worker restart. Trong R6W: HJW chỉ read-only/acceptance, 0 server mutation. Sau KQ R6W mới làm D2.
+- **PROMPT R6W:** thay hẳn PROMPT R6 cũ tại commit `0d4c64ff398e8bf15df0565b283bad6c2fa1f8df`; đúng một `RUN_ID: VPSC-R6W-WORKER-CLOSE-20261006-01`; không nối history/lệnh cũ.
+- **READY@0d4c64ff398e8bf15df0565b283bad6c2fa1f8df**
+- **Residual chuyển giao khi VPSC đóng, không làm trong R6W:** (1) Nuxt/Kuma #6 404 chập chờn → **CWEB / Host Claude**; (2) presence 502 → **HJW / Host GPT**; (3) `dot-collection-health` + 6 DOT còn mẫu nuốt lỗi → **GPT Host, DOT-health residual, chưa mở task**; (4) APR-0234 → **GPT Host/Owner quyết sau, APR schedule vẫn OFF**; (5) quyền logrotate `reconcile-*` → **GPT Host infra residual**, không chặn VPSC.
 - Owner cần quyết: —.
 
 ## Owner cần quyết
