@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D147 chuyển cơ chế nhớ việc sang event-driven/quota-conscious: Bảng+README+REGISTRY giữ PENDING; mở phiên/STARTED/KQ/Owner decision/status change là trigger. Reminder automation đã disable; không polling nền mặc định.
-- NEXT: 😊 Owner giao Codex chạy `PROMPT-CHANGE-PROPAGATION.md` · RUN_ID `MMIM-CHANGE-PROP-20261006-01`; `KQ@` là event để Host nghiệm thu và chuyển bước.
-- BLOCKED_BY: chờ Owner giao Codex; canonical UI Nhóm cha/Nhóm con vẫn chờ Owner duyệt, Chuyên môn vẫn OPEN.
+- NOW: D148 đã test CT-005/006/007 trên một slice B5/T0 và rà 27 Master. CT-005 reuse FIELD.KHAI nhưng lộ schema MOW legacy; CT-006 reuse UI-018; CT-007 lộ thiếu Master Config. Master Field/UI cha/UI con/Nhóm con đã sửa các điểm rõ ràng và live PASS.
+- NEXT: Owner rà FC-002 Config + 3 gap UI cha; Host tiếp tục slice kế khi Owner muốn. Codex Change Propagation audit vẫn PENDING nhưng không chặn chỉ đạo trực tiếp.
+- BLOCKED_BY: chỉ các quyết định concept: Config A/B/C, Phạm vi chuyên môn; MOW migration cần map trước khi đổi canonical.
 - State: ACTIVE.
-- LAST_SYNC: D147.
+- LAST_SYNC: D148.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**

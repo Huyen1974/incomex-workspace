@@ -51,6 +51,24 @@
         "ID not reassigned"
       ]
     },
+    "FORMULA_OUTPUT_MASTER_TEST": {
+      "ssot": "FORMULA-AI-README + relevant Master registry/data",
+      "required_update": [
+        "one smallest formula slice with explicit inputs/result",
+        "reuse-before-create check against existing Master/process/UI",
+        "relevant Master schema review without contaminating canonical data",
+        "master-design-review-v1.html review surface",
+        "FORMULA-AI-README discovery/open items",
+        "COLLAB/REGISTRY"
+      ],
+      "verify": [
+        "result is REUSE / NEED_CREATE / OPEN with evidence",
+        "draft/test record is visibly noncanonical",
+        "related Master live pages still render",
+        "no approved UI/Master count is inflated by test candidates",
+        "concept gaps are escalated instead of silently invented"
+      ]
+    },
     "FORMULA_CHANGE": {
       "ssot": "ui/definition-master-data-v1.js#ML-DEF-021 + work/mow-mot-moit-mout/ban-duyet.html",
       "required_update": [

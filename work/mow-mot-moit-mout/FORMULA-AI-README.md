@@ -4,7 +4,7 @@
 **Project:** `work/mow-mot-moit-mout`  
 **Owner-gated concept:** Công thức và nghĩa khái niệm.  
 **AI-owned implementation:** schema Master, UI chi tiết, coverage, test, bằng chứng, reuse mapping, kỹ thuật triển khai.  
-**Cập nhật gần nhất:** 2026-10-06 · D145.
+**Cập nhật gần nhất:** 2026-10-06 · D148.
 
 > BẮT BUỘC ĐỌC FILE NÀY trước khi sửa Công thức, Định nghĩa, Master List, UI con/cha, coverage hoặc config liên quan MMIM.
 >
@@ -84,9 +84,9 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 - **UI Con:** UI áp khuôn cha vào đúng Bước/Tầng/Nhóm/ngữ cảnh.
 - **Quy trình:** một quy trình được tạo từ công thức CT-005; không đồng nghĩa “List Quy trình”.
 - **Bản ghi:** instance/case thực tế của một định nghĩa.
-- **NTGV:** nguyên tắc giao việc; quy định ai/AI làm gì, nhận gì, giao gì, cho ai, theo điều kiện nào.
-- **Người làm:** tác nhân thực hiện theo NTGV.
-- **Trigger:** sự kiện/điều kiện kích hoạt. Hiện dùng trong CT-007 nhưng **chưa có định nghĩa riêng trong bộ 27**.
+- **NTGV:** nguyên tắc giao việc; quy định ai/AI làm gì, nhận gì, giao gì, cho ai, theo điều kiện nào. Nguồn Master cũ liên quan: CAT-218 (loại nguyên tắc) + CAT-219 (nguyên tắc NẾU…THÌ…).
+- **Người làm:** tác nhân thực hiện theo NTGV; nguồn người/vai hiện có ở CAT-213/CAT-214.
+- **Trigger:** sự kiện/điều kiện kích hoạt. Dùng trong CT-007; chưa có định nghĩa riêng trong bộ 27 nhưng **đã có Master cũ CAT-221 · Danh mục trigger tín hiệu**.
 - **MOW / MOT / MOIT / MOUT / Field:** các đối tượng canonical của hệ, xem mục 6.
 
 ---
@@ -164,6 +164,11 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 | DISC-012 | `Cùng chuyên môn / ngoài chuyên môn` là phân loại có ý nghĩa thực tế, nhưng chưa đủ evidence để thành khái niệm mới. | TREO: ưu tiên thử như thuộc tính/quan hệ của Nhóm con với T3 trước; chỉ đề xuất concept mới nếu nó có logic, reuse hoặc vòng đời độc lập. |
 | DISC-013 | SUPERSEDED BY DISC-014 · Bản phác thảo Nhóm cha/Nhóm con từng được gán thử UI-030/UI-031 trước khi Owner duyệt. | Không dùng làm canonical. |
 | DISC-014 | Master UI con chỉ chứa UI con đã OK/chốt; bản phác thảo chưa duyệt không được nhập Master UI con. | Khôi phục `child-ui-registry.json` về 29 UI established; `ML-DEF-018` đồng bộ đủ 29. Nhóm cha/Nhóm con tiếp tục dùng màn review nhưng không có UI-xxx canonical cho tới khi Owner duyệt. |
+| DISC-015 | CT-005 test tại `B5 + T0 + NHC-005` không cần sinh quy trình mới ngay: process map đã có `FIELD.KHAI`. | Reuse-before-create. Master MOW cần lưu/tra được Bước + Tầng + Nhóm; schema UI-001 T3/T2/T1 hiện là legacy, chưa đổi canonical khi chưa map 7 dòng hiện có. |
+| DISC-016 | CT-006 cùng slice với `UI.CONFIG` resolve được về `UI-018 · Field · khai báo trường`. | Master UI con 5 cột hiện đủ nếu dùng cột `Ngữ cảnh` chứa Bước/Tầng/Nhóm. Không ép Chuyên môn thành cột. Đồng thời phát hiện 3/29 UI established (`UI-008/011/012`) chưa có UI cha. |
+| DISC-017 | CT-007 sinh `Config` nhưng không có Master Config/định nghĩa Config trong bộ 27. `UI.CONFIG` chỉ là **khuôn UI cha**, không phải Config output. | Không tự tạo Master mới. CAT-226 `Sổ áp dụng · bật nơi · lúc` là ứng viên liên quan nhưng chưa chứng minh cùng nghĩa; mở FC-002. |
+| DISC-018 | Master Field cũ có `Form cha` + `Bắt buộc`, mâu thuẫn CT-002 vì Field T0 độc lập và có thể dùng nhiều form. | Đã sửa Master Field thành `Kiểu dữ liệu · Nhóm quản lý · Nguồn dữ liệu · Validation chung · Trạng thái`; required/default theo nơi dùng thuộc liên kết Field↔Form (CAT-208*)/Config. |
+| DISC-019 | Quy tắc “mọi Master chỉ 5 cột” không nên tuyệt đối hóa. | CT-007 prototype cần 6 cột để không mất input: `Ngữ cảnh · UI cha · Bản ghi · Người làm(NTGV) · Trigger · Trạng thái`. Giữ list gọn nhưng không cắt dữ liệu bắt buộc. |
 
 ### D139 · bằng chứng đầu tiên của cách tiếp cận
 `CT-003 = Bước + Tầng ⇒ Nhóm cha` tại **T0 Field** đã sinh 7 bản ghi B1→B7 trong `ML-DEF-001`.
@@ -197,7 +202,7 @@ List thử Nhóm con dùng 5 cột:
 - Bước con
 - Tầng
 - Nhóm cha
-- Chuyên môn
+- Phạm vi chuyên môn
 - Trạng thái
 
 Chi tiết dùng UI.MASTER cha và giữ:
@@ -219,6 +224,20 @@ Chi tiết dùng UI.MASTER cha và giữ:
 - Chưa cấp/gắn UI-xxx vào Master UI con cho tới khi Owner chốt UI.
 - `child-ui-registry.json` và `ML-DEF-018 · Master UI con` chỉ chứa **29 UI con đã OK** từ baseline trước đó.
 - Sau khi Owner duyệt UI Nhóm cha/Nhóm con, mới cấp/khôi phục ID UI-xxx và thêm vào Master UI con.
+
+### D148 · test CT-005/006/007 trên đúng một slice B5/T0
+**Slice duy nhất:** `B5 · Khai báo + T0 · Field + NHC-005`. CT-006/007 thêm `UI.CONFIG`; CT-007 thêm bản ghi demo `full_name`, người khai báo theo NTGV và trigger mở bước Khai báo.
+
+- **CT-005 · Quy trình:** `B5 + T0 + NHC-005 ⇒ Quy trình` → tìm thấy `FIELD.KHAI` trong process map ⇒ **REUSE candidate**, không sinh quy trình mới. Schema review tạm cho Master MOW: `Bước · Tầng · Nhóm · Mục tiêu · Trạng thái`. UI-001 hiện vẫn schema legacy T3/T2/T1; chỉ ghi review row `CT005-B5-T0-001`, không đụng 7 MOW canonical.
+- **CT-006 · UI Con:** `B5 + T0 + NHC-005 + UI.CONFIG ⇒ UI Con` → **reuse UI-018**. Master UI con giữ 5 cột `UI cha · Ngữ cảnh · Đối tượng · URL · Trạng thái`; `Ngữ cảnh` là nơi mang Bước/Tầng/Nhóm. Không tạo UI mới.
+- **CT-007 · Config:** prototype `CFG-TEST-001` cần `Ngữ cảnh · UI cha · Bản ghi · Người làm(NTGV) · Trigger · Trạng thái`. Chưa có Master Config đích; không tự canonical hóa.
+
+**Rà Master cùng lượt:**
+- ML-DEF-017 Master UI cha: điền 6 UI cha thật từ `parent_id` của 29 UI con; 26/29 đã gắn, `UI-008/UI-011/UI-012` còn OPEN cha.
+- ML-DEF-018 Master UI con: đổi label `Chuyên môn / Ngữ cảnh` → `Ngữ cảnh`; 3 UI thiếu cha hiển thị `OPEN · chưa gắn` thay vì dấu `—`.
+- ML-DEF-008 Master Field: bỏ `Form cha` và `Bắt buộc` khỏi schema intrinsic theo DISC-018.
+- ML-DEF-002: đổi label `Chuyên môn` → `Phạm vi chuyên môn` để phản ánh đây vẫn là vấn đề OPEN.
+- Các Master 3, 9–16, 19–27 chưa lộ mâu thuẫn trong slice D148 ⇒ preserve; không sửa chỉ để đồng bộ hình thức.
 
 ---
 
@@ -273,13 +292,12 @@ Mỗi ô cuối cùng phải trả lời:
 - Rà D139 với Owner; nếu chốt mới nhân sang tầng khác.
 
 ## P1 · cần kiểm bằng làm thật
-- CT-004 Nhóm con: **ĐÃ TEST D141 tại 1.x + T0**; UI riêng `UI-031` đã đăng ký D142; còn OPEN việc Chuyên môn thuộc công thức, quan hệ T3 hay config/instantiate.
-- Chạy CT-005 Quy trình trên một slice thật.
-- Chạy CT-006 UI Con và map reuse UI cha.
-- Chạy CT-007 Config trên một bản ghi thật.
-- Kiểm xem CT-007 có thực sự cần thêm **Trạng thái / Quyền / Điều kiện** hay không. **Không tự thêm vào công thức** trước khi có evidence + Owner duyệt.
-- Trigger đang dùng trong CT-007 nhưng chưa có định nghĩa riêng trong 27 definitions.
-- NTGV/Người làm cần map rõ với Role/Quyền nếu implementation thực tế đòi hỏi.
+- CT-004 Nhóm con: **ĐÃ TEST D141 tại 1.x + T0**; UI vẫn review-only, chưa canonical; còn OPEN việc Phạm vi chuyên môn thuộc công thức, quan hệ T3 hay config/instantiate.
+- CT-005 Quy trình: **ĐÃ TEST D148 B5/T0/NHC-005**; reuse candidate `FIELD.KHAI`. OPEN: map review schema `Bước/Tầng/Nhóm` vào 7 dòng Master MOW legacy trước khi đổi UI-001 canonical.
+- CT-006 UI Con: **ĐÃ TEST D148**; reuse `UI-018`, không tạo UI. OPEN: xác định UI cha cho `UI-008/UI-011/UI-012`.
+- CT-007 Config: **ĐÃ TEST D148 bằng 1 bản ghi demo**; schema 6 cột đã lộ rõ. OPEN: nơi canonical của Config (FC-002) + quyền/điều kiện nếu ca thật chứng minh cần.
+- Trigger: nguồn Master hiện có `CAT-221`; chưa đưa thành định nghĩa trong bộ 27.
+- NTGV/Người làm: nguồn hiện có CAT-218/219 + CAT-213/214; cần map quyền khi implementation thực tế đòi hỏi.
 
 ## P2 · định nghĩa còn mở
 - Step ↔ MOT: chưa chốt.
@@ -339,6 +357,19 @@ Công thức hiện tại không đủ vì: định nghĩa KNI-003 nói Nhóm co
 Ảnh hưởng tới CT/UI/Master: Master Nhóm con, naming, coverage, CT-005/006/007 downstream.
 Có thể giải quyết bằng implementation mà không thêm công thức không? CHƯA CHẮC; ưu tiên test C trước.
 Owner cần quyết: A/B/C khi muốn canonical hóa Nhóm con; hiện trạng TREO, không bỏ.
+```
+
+### FC-002 · Config phải nằm ở Master nào?
+```text
+Vấn đề thực tế: CT-007 đã sinh được một Config candidate nhưng bộ 27 không có định nghĩa/Master Config.
+Evidence: D148 · slice B5/T0/NHC-005 + UI.CONFIG + bản ghi full_name + người khai báo + trigger.
+Điểm cần phân biệt: UI.CONFIG = khuôn giao diện; Config output = kết quả cấu hình/binding, không phải một thứ.
+Đề xuất A: Config là định nghĩa dùng lại ⇒ cần KNI/Master Config riêng.
+Đề xuất B: Config là bản ghi áp dụng/runtime ⇒ ghi vào sổ/binding hiện có; CAT-226 là ứng viên cần kiểm nghĩa.
+Đề xuất C: tách Definition Config + Application Record nếu ca thật chứng minh cần cả hai.
+Ảnh hưởng: CT-007, Master of Master, UI Config, Bản ghi, Trigger, NTGV, Coverage.
+Có thể giải quyết bằng implementation mà không thêm concept không? CHƯA KẾT LUẬN; cần thêm 1–2 slice thật.
+Owner cần quyết: khi đủ evidence, chọn A/B/C; hiện OPEN, không tạo Master mới vội.
 ```
 
 ---

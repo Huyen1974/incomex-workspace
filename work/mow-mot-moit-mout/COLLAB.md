@@ -3,15 +3,15 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 02:05 +07 · GPT · D147
-🎯 Mục tiêu: **27 danh mục định nghĩa → khoảng 27 Master List sẵn sàng ghi dữ liệu**, để UI/DOT/Tool/Field/Nhóm/Quy trình/Công việc mới luôn có đúng chỗ đăng ký.
-🏁 Xong khi: 27 định nghĩa có mapping Master List; thay đổi một tiêu chí được lan truyền đúng tới các Master/UI/index liên quan và có bằng chứng kiểm live.
-📍 Tiến độ: 27 định nghĩa ✓ → Master live ✓ → công thức/nhóm đang test ✓ → ■ audit Change Propagation → □ tiếp tục coverage/UI
-✅ Đã xong: CT-001→007 · test Nhóm cha/Nhóm con T0 · Master UI con trả về 29 UI đã OK · tạo Change Propagation + Impact Map.
-■ Đang làm: D145 đã soạn quy trình + prompt audit; **chưa có KQ Codex cho RUN `MMIM-CHANGE-PROP-20261006-01`**. D147 đã bỏ reminder automation và chuyển sang điều hành event-driven.
-⬜ Còn lại: Codex audit/fix stale current-live → Host nghiệm thu KQ → dùng quy trình này cho mọi thay đổi tiếp theo.
-➡ Kế tiếp: 😊 **Owner giao Codex chạy `PROMPT-CHANGE-PROPAGATION.md`** · 🤖 Codex audit · `KQ@` là event chuyển bước · Host nghiệm thu · Reviewer kiểm zero stale ref.
-⛔ Không làm/để sau: không dùng schedule/polling chỉ để nhắc việc nội bộ; không duyệt UI Nhóm cha/Nhóm con thay Owner; không đưa draft vào Master UI con; chưa nối PG/Directus.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 02:40 +07 · GPT · D148
+🎯 Mục tiêu: **dùng CT-003→007 để quét dần và làm các Master List đủ nghĩa**, không tạo/trùng thứ khi chưa cần.
+🏁 Xong khi: mỗi công thức đã test slice nhỏ; Master liên quan có schema đủ dùng; gap concept được treo rõ để Owner chỉ quyết phần concept.
+📍 Tiến độ: CT-003 ✓ → CT-004 ✓ → ■ CT-005/006/007 slice T0 + audit Master → □ chốt gap Config/MOW/UI cha → □ Coverage T0
+✅ Đã xong: test CT-005/006/007 trên B5/T0/NHC-005; điền 6 UI cha; Master UI con giữ 29 UI established; sửa Master Field và nhãn Phạm vi chuyên môn.
+■ Đang làm: D148 đã LIVE PASS review CT-005/006/007. OPEN: Master MOW legacy chưa có Bước/Tầng/Nhóm; 3 UI con chưa có UI cha; CT-007 chưa có Master Config đích.
+⬜ Còn lại: thêm evidence để chốt FC-002 Config · map MOW legacy trước migration · xác định cha UI-008/011/012 · Codex Change Propagation audit vẫn PENDING nhưng không chặn chỉ đạo trực tiếp hiện tại.
+➡ Kế tiếp: 😊 Owner rà kết quả D148/FC-002 · Host tiếp tục slice kế hoặc xử lý điểm Owner chốt · 🤖 Codex audit Change Propagation khi Owner giao.
+⛔ Không làm/để sau: không tự tạo Master Config; không tự gán cha cho 3 UI thiếu evidence; không đổi 7 MOW canonical khi chưa map; không đưa UI draft vào Master UI con.
 
 - Nhiệm vụ trực tiếp 28/09/2026: tab **★ Step quy trình 2** ngay sau Step quy trình hiện có. Phần **I. Danh sách quy trình** hiển thị **nguyên bản UI cha** `mow-master-nhap2-v1.html` trên VPS; không tái tạo bảng/cột/format trong `ban-duyet.html` (D85). **Các bước chi tiết** giữ khung chờ hướng dẫn.
 
@@ -1285,6 +1285,8 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 - D110 · 2026-10-04 · **27 ĐỊNH NGHĨA → 27 MASTER LIST SẴN SÀNG GHI:** lập SSOT definition-master-registry-v1.js cho STT 1–27 với ID ổn định ML-DEF-001→ML-DEF-027; definition-master-data-v1.js là kho dữ liệu rỗng cho list mới. **4 list xanh** MOW/MOT/MOIT/MOUT chỉ reuse URL/UI hiện hành, không sửa source của chúng. **23 list còn lại** mở qua một child duy nhất definition-master-v1.html?stt=<n>, dùng nguyên UI.MASTER cha và renderer master-list.js; mỗi list có đúng mặt dữ liệu tối thiểu STT · ID · Tên + 5 cột thiết yếu. Index definition-master-index-v1.html hiển thị đủ 27 mapping, cột Tình trạng phân biệt ✓ Dùng lại · xanh và Rỗng · sẵn sàng; master-design-review-v1.html đưa index 27 lên mặt chính, 14 dòng review cũ gập xuống lịch sử. Kiểm live: index HTTP200 đủ 27; ca DOT STT24/ML-DEF-024 HTTP200 với cột Tool nền · Input contract · Output contract · Quyền · Trạng thái; 4 source xanh giữ nguyên hash.
 
 - D111 · 2026-10-04 · **TRUNG TÂM MASTER LIST NGAY TRÊN ★ CÔNG THỨC:** thêm một hub ngắn ngay dưới nguyên tắc `CÔNG THỨC = ghép các thành phần đã định nghĩa`, gồm cửa chính `27 Master List`, `Duyệt thiết kế Master`, `Master of Master` và 4 cửa nhanh list xanh MOW/MOT/MOIT/MOUT. Thêm cửa phụ từ `Kho thành phần · AI dùng chính` và ngay đầu `II. Định nghĩa` về cùng index 27. Tất cả link trỏ thẳng VPS `/ui-preview/mcp-writes/`, không tạo bản dữ liệu hay UI song song.
+
+- D148 · 2026-10-06 · **TEST CT-005/006/007 · 1 SLICE B5/T0 + RÀ 27 MASTER:** áp profile `FORMULA_OUTPUT_MASTER_TEST`, chỉ dùng `B5 Khai báo + T0 Field + NHC-005`; CT-006/007 thêm UI.CONFIG, CT-007 thêm bản ghi demo/NTGV/Trigger. CT-005 tìm thấy `FIELD.KHAI` ⇒ reuse candidate; ghi review row noncanonical và schema tạm Master MOW `Bước/Tầng/Nhóm/Mục tiêu/Trạng thái`, chưa đổi UI-001 legacy. CT-006 ⇒ reuse `UI-018`, Master UI con giữ 5 cột nhưng đổi `Chuyên môn / Ngữ cảnh` → `Ngữ cảnh`. CT-007 ⇒ lộ gap thật: chưa có Master Config; prototype cần 6 cột `Ngữ cảnh/UI cha/Bản ghi/Người làm/Trigger/Trạng thái`, mở FC-002, không tự tạo. Rà 27 Master: sửa Master Field bỏ Form cha+Bắt buộc vì Field độc lập; Master Nhóm con đổi `Phạm vi chuyên môn`; ML-DEF-017 điền 6 UI cha thật; phát hiện UI-008/011/012 parent_id=null và hiển thị OPEN thay vì `—`. Các Master 3,9–16,19–27 chưa lộ mâu thuẫn trong slice nên preserve. LIVE PASS: master-design-review có 3 card CT; ML-DEF-017=6 row; ML-DEF-018=29 row/3 OPEN cha; ML-DEF-008 schema mới.
 
 - D147 · 2026-10-06 · **ĐIỀU HÀNH EVENT-DRIVEN · TIẾT KIỆM QUOTA:** Owner bác reminder automation cho việc nội bộ vì polling/schedule vô thức có thể tốn quota và không phải cơ chế điều hành đúng. Reminder vừa tạo đã được disable. Root AGENTS + MMIM README + CHANGE-PROPAGATION chốt: PENDING được nhớ bằng Bảng/README/REGISTRY và được kích bởi event `mở phiên | STARTED@ | KQ@ | Owner decision | status/dependency change`; không có event thì không chạy nền. Automation chỉ dùng khi có trigger/cadence thật sự, Owner yêu cầu/duyệt và lợi ích rõ hơn quota. Mục tiêu dài hạn: trạng thái/event tự kích hoạt quy trình, không polling.
 
