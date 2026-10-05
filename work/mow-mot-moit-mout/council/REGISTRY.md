@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D128 đã tạo CT-002 `Ghép tầng`: T7–T3 là nửa bối cảnh mờ/thu gọn; T2–T0 là nửa ghép luôn hiện. Master Công thức có CT-001 + CT-002.
-- NEXT: Owner rà cách chia hai nửa và tên CT-002; sau đó bóc công thức con nếu cần.
+- NOW: D129 CT-002 dùng đúng MOW/MOT/MOIT/MOUT/Field; MOIT và MOUT tách thành hai hàng cơ chế riêng trong cùng cụm T0.5, mỗi hàng nối Field riêng. T7–T3 vẫn mờ/thu gọn.
+- NEXT: Owner rà cơ chế tách MOIT/MOUT; nếu chốt thì dùng pattern này cho các công thức ghép khác.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D128.
+- LAST_SYNC: D129.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
