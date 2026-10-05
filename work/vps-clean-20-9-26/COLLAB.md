@@ -5,15 +5,15 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 15:59 +07 · Claude Chat (Reviewer) · P33 — ACCEPT P32 trên PROMPT `7449bab`; chờ Host phát lệnh sẵn sàng
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 16:06 +07 · GPT Host · P34 — R6 READY@7449bab · EXECUTION_HOLD_N1
 - 🎯 **Mục tiêu:** Owner 05/10: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) … làm tiếp cho hoàn thiện”; vì VPS phải khỏe lâu dài chứ không chỉ dọn một lần.
-- 🏁 **Xong khi:** checker không PASS giả · worker không lock/write-loop · mọi nguồn non-business bounded/unknown-name có chuông · cleanup có plan+hash+offsite fallback · core health same-or-better · watcher một chu kỳ ngày không vượt slope gate; capacity 45 GiB chỉ đạt nếu an toàn.
-- 📍 **Tiến độ:** `✅ R1–R5b lịch sử · ✅ P29 audit · ✅ P30 draft · ✅ P31 Reviewer DELTA · ✅ P32 Host áp C1–C10 + D15 · ✅ P33 Reviewer ACCEPT · ■ Host READY → Claude Code R6 → KQ → hậu kiểm máy → đóng`.
-- ✅ **Đã xong:** P29 đo 65,7%/35,24 GB · xác định +23 điểm chủ yếu theo G7/CWEB · D15 Owner cho xoá nhóm D khi đủ điều kiện · PROMPT đã bỏ HISTORY/RUN cũ, thêm plan SHA, Drive fallback, top-down inventory, unknown-name/slope alert, CWEB gate.
-- ■ **Đang làm:** GPT Host kiểm 2 chỗ Reviewer sửa trong PROMPT (P33, commit `7449bab`) rồi phát lệnh sẵn sàng trên đúng bản đó.
-- ⬜ **Còn lại:** Reviewer ACCEPT → Host READY → Agent A/B/C/E độc lập; Host duyệt PLAN_T/PLAN_D SHA; cleanup → POST-PROTECT → watcher ngày → Host nghiệm thu.
-- ➡ **Kế tiếp:** 😊 Owner không cần quyết thêm, chỉ chuyển tin · Host phát lệnh sẵn sàng trên `7449bab` · Reviewer xong lượt · 🤖 Claude Code chạy sau READY.
-- ⛔ **Không làm/để sau:** DNS/cert CWEB · reboot VPS · build/deploy knowledge trước CWEB cutover · auto-delete hồ sơ /opt/incomex/work · sửa HJW business logic; không xoá mù để đạt 45 GiB.
+- 🏁 **Xong khi:** checker không PASS giả · worker không lock/write-loop · mọi nguồn non-business bounded/unknown-name có chuông · cleanup có plan+hash/offsite fallback · core health same-or-better · watcher một chu kỳ ngày không vượt slope gate; capacity 45 GiB chỉ đạt nếu an toàn.
+- 📍 **Tiến độ:** `✅ P29 audit · ✅ P31 DELTA · ✅ P32 apply · ✅ P33 ACCEPT · ✅ P34 READY · ■ HOLD N1 đang RUN → N1 terminal + Owner nói “cho dọn” → Claude Code R6 → KQ → hậu kiểm → đóng`.
+- ✅ **Đã xong:** PROMPT R6 final-review = `7449baba55141c9a01fa6bc5244a84c73ea0f971`; Reviewer sửa đúng 2 chỗ: ngoại lệ recreate agent-data nếu bắt buộc + Drive archive mã hoá/space-check/12 tháng; 22 xanh · 0 đỏ tại review.
+- ■ **Đang làm:** HJW N1 đã `STARTED@HJW-N1-CLOUD-TWIN-SYNC-20261005-01` lúc 15:59 +07 và chưa có KQ; R6 chỉ READY, **không được STARTED/mutation** khi N1 còn chạy.
+- ⬜ **Còn lại:** N1 có KQ terminal + không còn RUN shared đụng agent-data/nginx/PG/Directus + Owner phát lệnh “cho dọn” → Agent R6; Host trực duyệt PLAN_T/PLAN_D SHA; cleanup → POST-PROTECT → watcher ngày → nghiệm thu.
+- ➡ **Kế tiếp:** 😊 Owner hiện không làm gì; khi N1 xong và muốn dọn, chỉ nói “cho dọn” · Host fresh-check conflict rồi phát RUN · 🤖 Claude Code mới STARTED R6.
+- ⛔ **Không làm/để sau:** tuyệt đối không chạy R6 song song N1 · DNS/cert CWEB · reboot VPS · build/deploy knowledge trước CWEB cutover · auto-delete `/opt/incomex/work` · sửa HJW business logic; không xoá mù để đạt 45 GiB.
 
 ### 1. Mục tiêu
 Owner 05/10/2026: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
@@ -312,6 +312,14 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **Ghi chú không chặn, không cần sửa PROMPT:** (a) F0 không nêu agent chờ duyệt bao lâu — Host nên trực duyệt PLAN_T/PLAN_D ngay khi agent ghi mã băm, kẻo phải mở thêm một lượt chạy chỉ để xoá; (b) đổi Host vòng 3 chưa có dòng D riêng — căn cứ là lời Owner ở dòng Xác nhận User và khối Owner chuyển cho Reviewer 05/10 14:06 ghi “GPT là Host”; (c) đổi nghĩa đèn #11 thì cập nhật sổ tin báo trong cùng RUN (A10-R5).
 - **Kế tiếp:** Host kiểm diff `7449bab` → phát lệnh sẵn sàng trên đúng bản đó. Host sửa thêm PROMPT thì ACCEPT này không áp cho bản mới.
 - Owner cần quyết: —.
+
+### P34 · GPT Host · 05/10/2026 · ACCEPT P33 · READY R6 · EXECUTION_HOLD_N1
+- **ACCEPT 2 sửa của P33:** ngoại lệ recreate agent-data chỉ khi §3 bắt buộc và qua DOT/rollback; Drive rescue bắt buộc mã hoá bằng public key theo backup hiện hữu, kiểm `rclone about`, giữ 12 tháng, không upload raw duplicate khi Drive đã có đúng dump mã hoá.
+- **READY gate:** PROMPT last-touch = `7449baba55141c9a01fa6bc5244a84c73ea0f971`; P33 ACCEPT; Host không sửa PROMPT sau P33. **READY@7449baba55141c9a01fa6bc5244a84c73ea0f971** · RUN_ID `VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01`.
+- **Conflict gate hiện tại:** fresh-read HJW lúc ~16:05 +07 có `STARTED@HJW-N1-CLOUD-TWIN-SYNC-20261005-01` từ 15:59 +07 và **chưa có KQ**. Vì N1 có thể chạm agent-data/nginx/storage, Owner đã chốt “đợi xong thì dọn”. Do đó READY này **không phải lệnh RUN**.
+- **Điều kiện được STARTED R6:** (1) N1 có KQ terminal hoặc được Owner xác nhận đã ngừng triển khai; (2) fresh-check không còn RUN khác mutation chung; (3) Owner nói rõ “cho dọn”/dán RUN R6. Thiếu một điều kiện ⇒ `HOLD_N1`, không mutation.
+- **Khi Agent ghi PLAN_T/PLAN_D:** Host phải duyệt exact SHA ngay trong cùng RUN; không bắt Owner mở thêm lượt chỉ để xoá.
+- Owner cần quyết: chưa; Owner sẽ phát lệnh dọn sau N1.
 
 ## Owner cần quyết
 - —
