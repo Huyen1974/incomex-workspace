@@ -272,23 +272,28 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 
 #### N1 · K1 · CLOUD CONNECTOR FOUNDATION — 1 PROMPT
 - **Pha A · PRE read-only:** dùng nguyên K1-PRE đã Claude P132 rà (S1–S3): inventory an toàn, 8 ô, không endpoint/secret/IP/user-path, không phép ghi thử.
-- **Pha B · quyết định trong RUN:** xếp `KEEP_CLOUD / REPOINT / MOVE / MAC_ONLY`; chỉ hành động khi bằng chứng đủ. Không dựng gateway mới.
-- **Pha C · thực thi:** repoint toàn bộ server-equivalent; move các connector council-critical cloudable còn lại bằng cách reuse nhỏ nhất; MAC_ONLY giữ nguyên có lý do.
-- **Pha D · nghiệm thu:** Mac ngủ/tắt → GPT Chat + Claude Chat vẫn đọc/ghi repo bằng identity riêng và đọc bằng chứng server; tool/schema cần cho hội đồng đủ; ngoài scope bị chặn.
-- **Pha E · bảo vệ:** D30/31/Guard/rollback/receipt.
-- **PASS N1:** `0 council-critical cloudable connector phụ thuộc Mac`; mọi ngoại lệ MAC_ONLY có lý do + health/Guard. Không tách K1-PRE thành RUN riêng.
+- **Pha B · xếp loại:** `KEEP_CLOUD / REPOINT / MOVE / MAC_ONLY`; bao phủ **toàn bộ custom Incomex MCP/connector đã kiểm kê**, kể cả của hội đồng và người thi hành. Không dựng gateway mới.
+- **R4 checkpoint:** nếu có bất kỳ `REPOINT/MOVE` hoặc thay đổi cấu hình thật, executor ghi danh sách thay đổi chính xác + rollback từng dòng rồi dừng **trong cùng RUN**. Host + Reviewer soát; đụng cấu hình server hoặc đưa secret mới lên server ⇒ Owner gật một lần. Không có mutation ⇒ bỏ checkpoint.
+- **Pha C · thực thi:** repoint mọi server-equivalent; move mọi connector cloudable bằng reuse nhỏ nhất. `MAC_ONLY` chỉ hợp lệ khi có lý do kỹ thuật thật; để lại Mac vì lý do khác cần Owner chấp nhận.
+- **Pha D · nghiệm thu độc lập:** khi Mac ngủ/gập, **GPT Chat + Claude Chat tự thực hiện** đọc/ghi repo bằng identity riêng + đọc bằng chứng server; executor trên Mac không tự chứng nhận bước này. Tool/schema cần cho hội đồng đủ, ngoài scope bị chặn.
+- **Pha E · bảo vệ trong node:** D30/31 + Config/Protection Guard + negative proof + rollback/receipt.
+- **PASS N1:** Pha D PASS + `0 custom Incomex connector cloudable còn phụ thuộc Mac`; mọi `MAC_ONLY` có lý do kỹ thuật + health/Guard; mọi thay đổi đã nằm trong protection. Không tách K1-PRE thành RUN riêng.
 
 #### N2 · K2 · OPENAI DOTS INTEGRATION — 1 PROMPT
 - **Mục tiêu:** cắm Dot như một agent thay được, chưa giao điều hành production.
-- **Trong cùng RUN:** thử theo bậc chính thức → repo access/identity/scope → external wake → negative scope → protection.
-- **Kết quả hợp lệ có hai loại:** `DIRECT_PASS` (access + wake đều chạy) hoặc `COURIER_REQUIRED` khi đường chính thức đã đo đủ nhưng hãng không cho external wake/access phù hợp; trường hợp hai được Host+Reviewer chuyển residual cụ thể sang N3, không code lách UI trong N2.
-- **Không được PASS N2 kiểu mơ hồ:** phải biết chính xác Dot vào hệ theo identity/transport nào và phần nào còn cần courier.
+- **Trong cùng RUN:** thử theo bậc chính thức → repo access/identity/scope → external wake → negative scope → protection R3.
+- **Kết quả ưu tiên:** `DIRECT_PASS` khi access + identity/scope + wake đều chạy bằng đường hãng hỗ trợ.
+- Nếu đường chính thức cho access nhưng không cho wake phù hợp, ghi `COURIER_REQUIRED`; nếu gói/vùng/tính năng chưa cho cả access cần thiết, ghi `VENDOR_LIMIT`. Cả hai phải có bằng chứng và **một câu hỏi Owner theo R5**; chỉ sau Owner chấp nhận defer mới được MOVE_TO N3/đi tiếp.
+- **Không được PASS mơ hồ:** phải biết chính xác Dot dùng identity/transport nào, negative scope đã PASS, phần residual là gì; không code lách UI trong N2. Mã/config mới phải qua R3 trước KQ.
 
 #### N3 · K3 · HERMES-MAC COURIER CUTOVER — 1 PROMPT
 - **Phạm vi:** chỉ residual sau N1/N2; phần direct đã chạy thì không làm lại.
 - **Kiến trúc tối giản:** Mac luôn gọi ra/pull queue từ server; credential/identity riêng; không cần IP tĩnh/inbound port; không dùng chung consumer bot với Hermes-VPS.
-- **Trong cùng RUN:** inventory residual → chọn control path chính thức/browser/desktop tốt nhất → cài bản nhỏ nhất → map session → relay/gọi lượt → provenance → retry/idempotency → heartbeat khi có thư chờ → D30/31.
-- **PASS N3:** ít nhất một vòng GPT↔Claude thật không cần Owner copy-paste; nếu Dot còn residual thì đi qua cùng cơ chế; Mac ngủ/tắt không mất/nhân đôi thư và chỉ cảnh báo khi có work pending quá hạn.
+- **Một envelope duy nhất theo R6:** reuse dạng GIAO–KẾT QUẢ/lifecycle đã có làm canonical envelope; courier chỉ route/relay, không có quyền chốt hoặc tạo lệnh mới.
+- **Trong cùng RUN:** inventory residual → chọn control path chính thức/browser/desktop tốt nhất → cài bản nhỏ nhất → map session → relay/gọi lượt → provenance → retry/idempotency → heartbeat khi có thư chờ → protection R3.
+- **Negative bắt buộc:** courier sửa payload ⇒ thư vô hiệu + Telegram; courier thử ghi quyết định/lệnh vượt quyền ⇒ bị chặn; duplicate/retry không giao hai lần.
+- Nếu control path bị hãng chặn dù đã đo đủ, áp R5 `VENDOR_LIMIT` và hỏi Owner một câu; không tự nới PASS.
+- **PASS N3:** ít nhất một vòng GPT↔Claude thật không cần Owner copy-paste; nếu Dot có residual đã Owner chuyển thì đi cùng cơ chế; Mac ngủ/tắt không mất/nhân đôi thư và chỉ cảnh báo khi có work pending quá hạn; negative + protection PASS.
 
 #### N4 · M1 · COUNCIL CORE V1 — 1 PROMPT
 - **Trong cùng RUN:** thêm `TASK_POLICY_V1(required_members)` + `FLOW_EVENT_V1`; scanner suy state; chạy **một mức thật** `rà kết quả agent + duyệt prompt kế tiếp` với GPT/Claude; Host chốt; dùng đường GIAO hiện hữu (`ASSIGN_V1/READY`) để worker chạy; reviewer nghiệm thu.
