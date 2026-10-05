@@ -425,7 +425,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Vì VPSC repo còn marker STARTED, trước mutation phải fresh-check shared-resource/process/lock. Nếu còn mutation thật thì dừng; nếu chỉ paused/no active mutation như Owner xác nhận thì tiếp tục. Không sửa trạng thái VPSC.
 - Trước first mutation: DROOT30 + fresh lights/registry + PROMPT last-touch/READY/HOLD/STOP. Gate sạch mới ghi `N1_R4_OWNER_APPROVED · RESUME_SAME_RUN` và tiếp tục Pha C.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 20:37 +07 · Claude Code (P146) · **P146 RESUME N1 · PHA C ĐANG CHẠY**
+### P147 · Host GPT · 2026-10-05 21:44 +07 · **NHẮC D30/31: LÀM XONG HẠNG MỤC NÀO → BẢO VỆ HẠNG MỤC ĐÓ NGAY**
+- PROMPT hiện hành **đã có** R3 (`code/config tạo trong N1 phải được bảo vệ ngay trong RUN này`), E4 Protection và PASS §8.10 (`mọi mutation nằm trong D30/31 + protection`).
+- Host làm rõ cách thi hành để tránh hiểu E4 là “để cuối mới bảo vệ”: **mỗi hạng mục độc lập vừa hoàn thành và smoke PASS thì trước khi sang hạng mục độc lập kế tiếp phải đưa chính phần đó vào D30/31 + Config/Protection Guard/INV tương ứng + negative/mutant cần thiết + rollback/receipt, rồi re-check protection PASS.**
+- Không để một thay đổi đã chạy tốt nhưng còn “trần” trong thời gian làm các thay đổi khác. Nếu protection của hạng mục chưa PASS ⇒ hạng mục đó **chưa được coi là xong**, ở lại cùng bước để hoàn thiện/rollback.
+- E4 cuối RUN là **final completeness sweep/recheck**, không phải lần đầu mới thêm protection.
+- Áp ngay cho phần còn lại của P146: sync command/sổ/fingerprint · INV20 · revision evidence · Lark route/token/launcher · Claude-web routes/identity · Directus-flow DOT · canary path. Phần nào dùng chung một atomic apply/restart có thể bảo vệ theo chính nhóm atomic đó, nhưng không dồn tất cả tới cuối N1.
+- Quy tắc này chỉ làm rõ DROOT30/31 + R3 hiện hữu, **không đổi PROMPT/scope/READY**.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 21:44 +07 · GPT Host · **P147 PROTECT-AS-YOU-GO · N1 PHA C ĐANG CHẠY**
 - **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4 consensus] → [✓ Owner GO] → [✓ fresh-gate P146] → [■ N1 Pha C → D → E · Claude Code] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
 - **Roadmap SSOT:** không đổi `N1 → N2 → N3 → N4 → N5 → N6`; chưa xong N1 thì không sang N2.
 - **N1 hiện tại:** 9/10 ALREADY_TWIN; 1 Directus POLICY_HOLD; exact R4 scope đã khóa tại P144; security Lark phải xử lý trước N1 XONG.
