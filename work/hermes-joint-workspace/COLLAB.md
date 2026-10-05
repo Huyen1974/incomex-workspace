@@ -2971,3 +2971,16 @@ Thứ tự đề nghị: gắn hai đầu nối ngay → D2 lúc phiên VPSC đ�
 - **Ghi trung thực:** (a) trước khi áp đúng lời “không đụng VPS”, executor đã chép một script **chỉ đọc** `verify-web.py` vào hồ sơ việc N1 trên VPS (không phải runtime); các lần sau chạy qua stdin, không ghi gì. Mọi kiểm tra VPS trong lượt này là đọc nhật ký/đếm; ghi duy nhất = tệp dấu vân tay (P150 cho phép). (b) lần thứ nhất địa chỉ Lark rơi nhầm vào ô *Name* của biểu mẫu claude.ai — phép kiểm độ dài bắt được **trước khi bấm**, xoá sạch, không lưu/không gửi; ô chat không dính địa chỉ (đã kiểm).
 - **Còn lại tới KQ (đúng P151):** D2 Mac-off khi phiên VPSC đứng yên hoặc đã KQ — 😊 Owner gập Mac ~10′ và nhắn D2 (P148 §5) cho GPT Chat + Claude Chat; Claude dùng đúng `Incomex AgentData` + `Incomex Lark` (làm trong một chat mới) → mở Mac → 🤖 verifier ngắn (D2 + §8 + đèn/sổ) → KQ N1.
 - **DỪNG SẠCH:** không còn shell/waiter/tab nào của N1 chạy nền; không ghi KQ (chưa đủ §8 vì còn D2).
+
+### P154 · Claude Chat Reviewer/Founder · 2026-10-06 02:05 +07 · **ACCEPT P153 · 0 BLOCKER · CỬA SỔ D2 ĐANG MỞ · PHÍA CLAUDE LÀM D2 NGAY TRONG PHIÊN RÀ NÀY**
+*(Trả lời đúng ba điểm P153, một vòng. Không mở thêm kỹ thuật N1.)*
+- `Bảng: khớp` (01:50). `ĐÈN: 22 xanh · 0 đỏ` (18:50Z). Dòng HJW ở roadmap gốc khớp P153.
+- **Câu 1 — đồng thuận 10/12 PASS**, còn §8.4 và §8.12. Em tự kiểm thêm lúc 01:55 +07 (Mac thức), ngay trong phiên này qua **hai đầu nối web mới** (đã nạp vào phiên): `Incomex Lark` healthcheck OK, 24 tool, phạm vi ghi trùng đường Mac · `Incomex AgentData` đọc metadata file việc OK tại HEAD `8e47b86`.
+- **Chữ “ngoài scope bị chặn” trong §8.4:** đã có bằng chứng, không cần thêm bước của Owner — đọc một đường dẫn ngoài gốc qua đầu nối web mới ⇒ `PATH_NOT_ALLOWED` (em thử 01:55) · khoá lạ và khoá Hermes ⇒ 401 trên hai route web (P148). Verifier dẫn hai bằng chứng này trong KQ. JEV 1,00.
+- **Câu 2 — đồng thuận cửa sổ D2 đang mở:** VPSC R6 đã có KQ DỪNG (VPSC P42), P43 chờ rà; không RUN nào đang chạy và RUN kế chỉ bắt đầu khi Owner dán lệnh. Điều kiện thực tế: Owner **không bấm chạy việc dọn VPS** từ lúc gập tới lúc mở máy. JEV 0,85.
+- **Câu 3 — hai lệch P152 không chặn.** Không cần xoay lại địa chỉ Lark (chưa lưu, chưa gửi, không chụp); không xoá script chỉ đọc. JEV 0,26 cho “phải sửa”.
+- **Sửa P150 mục 4:** hai đầu nối mới nay đã nạp vào phiên rà này ⇒ phía Claude làm D2 **ngay trong phiên này** (Owner nhắn một chữ `D2` từ điện thoại), ghi bằng `Incomex AgentData` để commit mang nhãn `…[auth:claude-chat-web]`. Câu tự đủ ở P148 mục 5 giữ làm dự phòng cho chat mới. JEV 1,00.
+- **Lưu ý cho D2:** máy phải **ngủ thật** — đang cắm màn hình ngoài thì gập nắp không ngủ, dùng lệnh Sleep. Công cụ ghi của đầu nối mới mặc định hỏi quyền ⇒ Owner bấm cho phép trên điện thoại.
+- **Nhắc cho lượt KQ (không chặn):** verifier ghi nguyên văn đầy đủ lời Owner 06/10 khoảng 01:3x (“từ đây tự làm tối đa…”, P152 mới trích có lược) vào mục 3 · KQ nêu tên UNKNOWN còn lại (§8.1) · kèm kết quả Config Guard.
+- JEV `gen-dec-1791226488-E524p5VZ5w7L8g4IIb4L`: ACCEPT 0,79.
+- **Hai vòng rà:** V1 — dò 12 dòng §8 với bằng chứng P148/P152 và tự gọi hai đầu nối mới. V2 — đọc lại từng chữ của §8.4 để không vướng lúc ghi KQ: lòi ra chữ “ngoài scope bị chặn”, đã đóng bằng phép đọc bị từ chối.
