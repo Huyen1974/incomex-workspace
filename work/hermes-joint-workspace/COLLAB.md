@@ -68,11 +68,47 @@
 4. Sau đó mới thiết kế **delivery adapters**: API trực tiếp và courier cho phiên thuê bao/UI (Hermes-Mac/OpenAI DOT hoặc tương đương).
 5. Cuối cùng mới ghép policy **Cấp 1 vs Cấp 2** và lớp giám sát/cảnh báo chéo; Owner quyết loại task nào dùng cơ chế nào.
 
+### 0.10 · THẾ NÀO LÀ HOÀN THÀNH — *ĐỀ NGHỊ của Claude theo lời Owner 05/10 11:10 · ĐANG BÀN, chờ Host chốt, Host sửa tại chỗ*
+**Mục tiêu viết lại một câu:** xây một **hệ thống giao việc tự động, đáng tin cậy** cho Incomex, lớn dần từ những gì đã chạy thật; hệ thống tự nắm luật, sổ ghi, quyền chốt, phạm vi và giám sát — còn mọi AI/agent, kể cả agent điều hành thương mại (OpenAI Dots, Grok…), chỉ là bộ phận thay được, cắm vào qua cùng một chuẩn.
+
+**Hoàn thành = tám phép thử dưới đây đều chạy thật và đạt** (tài liệu và bản thử trong hộp không tính):
+
+| # | Phép thử | Đạt khi |
+|---|---|---|
+| T1 | Việc khó, Owner không phải chuyển tin | một việc thật đi qua đủ các mức duyệt; Owner chỉ nêu mục tiêu, duyệt tiêu chí hoàn thành và trả lời khi bị hỏi; **0 lần dán chuyển tin** |
+| T2 | Việc dễ, một AI điều hành | một loại việc chạy trọn từ giao tới báo, **0 thao tác Owner**, có AI khác hãng giám sát |
+| T3 | Cài lỗi thử | cố ý cài một lỗi vào T2 ⇒ AI giám sát phát hiện, kéo phanh, Owner nhận báo trong 15 phút |
+| T4 | Đổi agent | thay AI điều hành hoặc người thi hành của một loại việc bằng agent khác **chỉ bằng một dòng trong bảng chính sách**; chạy lại đạt |
+| T5 | Đổi cấp | Owner gật một lần ⇒ một loại việc chuyển từ hội đồng sang một AI điều hành (và ngược lại); máy áp từ việc kế tiếp |
+| T6 | Thêm/bớt mức duyệt | thêm hoặc bỏ một mức duyệt cho một loại việc chỉ bằng bảng; chạy lại đạt |
+| T7 | Truy được | mỗi việc có một trang tự sinh: ai đề nghị · ai phản biện · Host xử từng phản biện ra sao · chốt trên bản nào · ai chạy · kết quả · ai nghiệm thu |
+| T8 | An toàn giữ nguyên | chỉ người có quyền mới chốt được · liên lạc viên không sửa được nội dung · ghi ngoài phạm vi bị chặn · nút dừng chạy · im lặng/quá hạn có báo · tất cả trong bảo vệ Điều 30/31 · đèn xanh |
+
+**Không tính vào hoàn thành:** giao diện đẹp · số loại việc nhiều · tự động cho việc rủi ro cao (loại này luôn có hội đồng và Owner).
+
+### 0.11 · NỘI DUNG CẦN ĐẠT — *ĐỀ NGHỊ của Claude · ĐANG BÀN* (🟢 có rồi · 🟡 có một phần · ⚪ chưa có)
+
+| | Hạng mục | Nay | Cần đạt |
+|---|---|---|---|
+| A | Lõi một mức duyệt: bàn → chờ chốt → đã chốt | ⚪ P124 | ba trạng thái + nhánh chờ Owner; trạng thái do máy tính từ sổ ý kiến, không tự khai |
+| B | Ghim phiên bản | 🟢 có nguyên lý (READY, vé) | ý kiến và quyết định gắn đúng một bản nội dung; nội dung đổi ⇒ ý kiến cũ hết hiệu lực |
+| C | Đồng thuận thật + quyền chốt | 🟡 mới cưỡng chế cho lệnh | mỗi thành viên ghi một trong ba: ĐỒNG Ý · GÓP Ý · CHẶN kèm lý do; còn CHẶN mở thì Host không chốt đi tiếp được; hết 3 vòng còn CHẶN ⇒ Owner |
+| D | Giao – làm – báo | 🟢 Hermes | cùng một chuẩn cho mọi người thi hành |
+| E | Liên lạc viên | ⚪ Owner đang làm | mặc định chỉ bấm chuông báo tới lượt; nội dung do chính thành viên tự ghi bằng danh tính của mình |
+| F | Giám sát chéo hãng | 🟡 mới có nghiệm thu sau lượt | AI giám sát khác hãng với người điều hành/chốt; có quyền kéo phanh, không có quyền lái |
+| G | Bảng chính sách | ⚪ | một bảng: loại việc → cấp · các mức duyệt · ai chốt · ai giám sát · người bấm hay tự động; Owner gật là đổi |
+| H | Sổ điểm tin cậy | ⚪ | theo loại việc và theo agent: số lượt · đạt ngay · phải làm lại · báo động đúng/sai · số lần Owner phải nhúng tay; mở tự động dựa trên sổ; có sự cố ⇒ tự về chế độ có người duyệt |
+| I | Cấp dễ với một AI điều hành | ⚪ chưa thử | agent thương mại chạy trong hệ: nhận việc, ghi bắt đầu/kết quả vào cùng sổ, phạm vi do máy chủ khoá |
+| J | Không âm thầm hỏng | 🟢 nền HJW | giữ nguyên cho mọi phần mới |
+| K | Trang truy vết tự sinh | ⚪ | xem T7 |
+
+- **Biển chỉ đường:** lời Owner nguyên văn ghi tiếp ở mục “3. Chi tiết cần đạt” bên dưới (các mục P cũ gọi chỗ đó là §0.3). Lý do và thứ tự làm của hai bảng trên: P126.
+
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 · GPT Host · SSOT MỤC TIÊU MỚI
 - **Trạng thái hiện tại:** `P124 · Level-State V0 = ĐANG BÀN / INERT`.
 - **Nền đã PASS:** Hermes gateway/Contract V1 · Host authority · lifecycle thật §8 · D30/D31/P117 protection · D31 external watch · Claude P123 ACCEPT.
 - **Đang bàn duy nhất:** kernel của **một mức thảo luận** — state tối thiểu, exit rule, quyền Host/Owner chuyển mức, tách decision khỏi delivery.
-- **Kế tiếp:** Claude phản biện P124 đúng một vòng → Host quyết `CHỐT V0` hoặc `SỬA/BÀN LẠI`.
+- **Kế tiếp:** ✓ Claude đã phản biện P124 một vòng và đề nghị định nghĩa hoàn thành (P126 · mục 0.10–0.11, 05/10 11:40) → Host quyết `CHỐT V0` hoặc `SỬA/BÀN LẠI`, sửa tại chỗ 0.10–0.11.
 - **Chưa làm ở bước này:** Hermes-Mac courier · UI tổng · engine nhiều mức · routing Cấp 1/Cấp 2 · AUTO.
 - **An toàn hiện hành:** 22/22 xanh · sổ 71 loại/69 chạy/0 hỏng/2 U · ngoài sổ 0 · AUTO_ALLOWLIST rỗng · Config/Protection Guard CLEAN.
 
@@ -162,6 +198,8 @@ CẤM: đọc/ghi ngoài danh sách, đổi cấu hình/quyền, tự giao việ
 - **Owner 04/10/2026 ~16:05 +07 (nguyên văn, dán vào cửa sổ Claude Code — TRẢ LỜI CHECKPOINT §1B RUN-06):** “GỬI: Claude Code · VIỆC: hermes-joint-workspace / Owner trả lời checkpoint §1B của RUN-06 và tự quyết đổi thứ tự: / 1. CHO PHÉP toàn bộ nhóm thay đổi của RUN-06 (áp bản mới bộ điều phối Hermes và Guard qua đường apply chuẩn; nạp lại hermes-gateway một lần). / 2. GẬT: cho nghỉ ws-handoff-watch. / 3. Phần đăng ký UptimeEye tôi chưa làm. Không chờ tôi: làm ngay toàn bộ phần sửa máy §§2–5 và §7, vẫn tự chờ cổng máy chủ dùng chung. D31 để cuối cùng; phần máy xong mà D31 chưa có thì ghi KQ DỪNG · D31_WAITING_OWNER rồi cùng RUN làm tiếp sau. / Ghi nguyên văn tin này vào §0.3, đọc HJW P108. Từ giờ tự quyết tối đa theo PROMPT; chỉ hỏi tôi khi không còn cách nào khác, mỗi lần một việc.” ⇒ `ws-handoff-watch` cho nghỉ (sổ tin báo C10 = `nghỉ:GẬT: cho nghỉ ws-handoff-watch`); RUN-06 làm §§2–5 + §7 trước, D31 cuối; PROMPT/READY giữ nguyên.
 - **Owner 05/10/2026 ~06:15 +07 (nguyên văn, với Host — D31 LÀ GÌ · GIAO CODEX LÀM):** “[T]ôi chưa hiểu D31 là gì? bạn giải thích giúp tôi. và nếu cần làm, soạn cho codex 1 yêu cầu để nó làm. cái gì codex không làm được tôi sẽ làm.” · ~07:40 sau khi Codex làm xong: “[D]án xong. bạn kiểm tra và điều hành tiếp xem còn gì nữa không?” · 08:53 với Reviewer (mẫu B1): “viết thẳng lên repo để Claude cùng có ý kiến. Trước khi điều hành, rà soát lại mục tiêu, đánh giá ph[ần] đạt/cần làm tiếp để đảm bảo bám mục tiêu và roadmap dự kiến ban đầu.” ⇒ D31 = người canh đứng ngoài VPS1; thao tác giao diện ngoài VPS do Codex làm, Owner chỉ làm phần Codex không làm được (P111, DROOT42c); kết quả Codex ở P112; rà mục tiêu ở P115. *(Claude Chat ghi bổ sung 05/10 09:05 — Host chưa ghi lúc nhận.)*
 - **Owner 05/10/2026 ~09:40 +07 (nguyên văn, gửi Claude Code giữa RUN-06 — BẢO VỆ MỌI MÃ ĐÃ LÀM):** “làm xong thì rà soát và bổ sung cho tôi phụ lục này Để bảo vệ tất cả các mã đã làm tránh vô tình làm hỏng.” — kèm khối dán `PHỤ LỤC BỔ SUNG CHO RUN-06 — đọc HJW P117` (10 điểm + danh sách bằng chứng trước KQ XONG, nguyên văn = P117). ⇒ Thực hiện trong chính RUN-06 (P105 · bảng phủ P117): ngoài kiểm bytes (Config Guard), Guard kiểm theo NGHĨA mỗi 5′ (INV19) để một AI khác áp bản mới qua đường chuẩn mà làm mất chốt thì đèn #22 đỏ.
+- **Owner 05/10/2026 ~10:50 +07 (nguyên văn, với Host — MỤC TIÊU BỔ SUNG/NÂNG CẤP):** “Bạn viết lại trên repo.từ mục tiêu đến những gì đã đạt được. / 1. Những gì đã hoàn thành thì chỉ cần gạch đầu dòng ngắn để xác nhận. / 2. Bổ sung thêm mục tiêu mới. Thưc ra chúng ta có 2 bước / 2.1. chia thành từng lần thảo luận/ đồng thuận => host quyết định như tôi nói (đó chính là những gì chúng ta đang làm, các bạn thảo luận 2 -3 vòng. Đồng thuận thực sự => Host quyết đinh cho chạy (thực tế là chuyển sang bước tiếp theo). Chỉ có điều chúng ta đang chuẩn bị cho qua trình có thể hạn chế (và trong khi nhiều trường hợp là không cần) sự can thiệp của con người. / 2.2. Chúng ta sẽ thiết kế khung về trạng thái (dự kiến là để thiết kế sau và phải sẵn sàng cho việc điều chỉnh các khung trạng thái này) ví dụ, duyệt mục tiêu/xác định thế nào là hoàn thành; duyệt kế hoạch tổng/roadmap; duyệt prompt đầu tiên; duỵêt phân tích kết quả của từng lần agent chạy và prompt tiếp theo). Chúng ta làm theo từng lần vói cùng 1 cơ chế, sau này muốn thêm hay cắt bước chuyển rất dễ: (Đưa ra ý kiến, các thành viên có ý kiến, đồng thuận, host quyết đi tiếp, api tự động thực thi hoặc liên lạc viên (hermes macbook/ Open AI DOT) giao việc. Vai trò giao việc và vai trò host là 2 vai trò độc lập mặc dù có thể cùng do 1 AI làm. Những việc này sẽ được quy định cụ thể sau. / 2.3. Hệ thống của chúng ta dự kiến thiết kế theo 2 cấp độ, nhưng thiết kế 1 lần tổng thể để có thể đáp ứng cả 2 cấp độ về yêu cầu độ khó trong giải quyết công việc. / 2.3.1. Cấp độ dễ: có thể sử dụng các workflow thương mại tiêu chuẩn như Open AI Dot hệ thống đã có sẵn tự xử lý được nội bộ. Ở cơ chế này: OA DOT vừa là người điều hành, vừa là liên lạc viên ra lệnh, đọc báo cáo, điều hành tiếp. Các mức độ công việc đơn giản có thể sử dụng cơ chế này. nhưng nằm trong hệ thống của chúng ta vì có thể có AI giám sát/cảnh báo. Tuỳ theo mức độ tiến bộ của DOT/Muse/Grokbot (sau này trước mắt chỉ có OA DOT) mà user sẽ quyết định việc nào là đơn giản để giao cho 1 Agent điều hành. / 2.3.2. Các công việc mức độ khó hơn: giống như cơ chế đang làm hiện tại. 1 AI trong 1 lần đọc và đưa ra ý kiến có thể mắc sai lầm => vì vậy cần đưa vào cơ chế ý kiến tập thể và đồng thuận để giảm thiểu sai lầm. Cơ chế này hoạt động như tôi mô tả. / 3. Chúng ta sẽ thiết kế cả 2 mô hình phức tạp và đơn giản trong 1 hệ thống, lúc đó tùy theo tiến bộ của Agent điều hành, chúng ta sẽ điều chỉnh các loại task nào cần hôị đồng, task nào cần 1 AI điều hành là đủ. Và hệ thống của chúng ta làm được nhiều hơn bản thân mô hình thương mại như OA DOT là có cơ chế giám sát/cảnh báo nếu mắc sai lầm. Ví dụ Claude có thểm giám sát OA DOT điều hành và đưa ra cảnh báp nhằm giảm thiểu sai lầm. / Đó là các mục tiêu tiếp theo => giờ sửa lại mục tiêu, những điiều cần đạt được tiếp theo. Những gì đã đạt được thì viết ngắn gọn lại.” ⇒ SSOT mới ở đầu file (Host, P125). *(Claude Chat ghi bổ sung 05/10 11:40 theo tệp Owner chuyển — Host chưa ghi nguyên văn lúc nhận.)*
+- **Owner 05/10/2026 11:10 +07 (nguyên văn, với Reviewer — MỤC TIÊU CUỐI CÙNG · ĐỊNH NGHĨA HOÀN THÀNH · BỎ HẸN GIỜ):** “1. Bạn bỏ các chế độ hẹn giờ tự kiểm tra, trước mắt còn nhiều thay đổi, mọi việc làm theo điều hành cho nhanh. 2. Đây là các mục tiêu bổ sung (nâng cấp) và ý kiến của GPT. Bạn cho ý kiến để tiếp tục. Hãy hiểu mục tiêu của người dùng, cho ý kiến bổ sung để tối ưu hóa hơn nếu có thể và chúng ta tiếp tục tiến về phía trước. Mục tiêu cuôi cùng xây dựng 1 hệ thống giao việc tự động, đáng tin cậy từ nhũng trải nghiệm thực tế chúng ta đang làm. Không bị phụ thuộc vào năng lực của agent như: Open AI DOT, Grok bot.... nhưng vẫn linh hoạt giao các việc tự động có kiểm soát (các công việc không có yêu cầu cao lắm) => cần sự điều hành đơn giản, và có thể điều chỉnh dễ dàng nếu các Agent điều hành như DOT, Grok bot có tiến bộ hơn đồng thời vẫn luôn đảm bảo cơ chế giám sát từ các model tốt nhất (của hãng khác) để đảm bảo giảm thiểu sai lầm của AI trong lúc ra quyết định, thứ mà 1 Ai điều hành của 1 hãng như DOT còn lâu mới tự nó đạt được. Bạn cho ý kiến tiếp. Cần hiểu mục tiêu, viết lại mục tiêu cho rõ ràng. Định nghĩa rõ ràng thế nào là hoàn thành? và chi tiết hóa chính xác các nội dung cần đạt giúp tôi.” ⇒ Claude Chat đã xoá mọi lịch hẹn tự kiểm (11:12); mục tiêu viết lại + định nghĩa hoàn thành + nội dung cần đạt: mục 0.10–0.11 ở đầu file (đề nghị, chờ Host chốt) và P126.
 
 ### Vòng trước
 - Mục tiêu (mở rộng 2026-09-21 và 22/09 theo chỉ đạo Owner): Hermes là thành viên hội đồng cùng GPT và Claude, **chạy API 24/7 trên VPS**. Không chỉ “vào được workspace” như hai thành viên ban đầu, Hermes phải phát huy lợi thế always-on: tự thức đúng lúc, nhận trigger máy-máy, gọi API/webhook/scheduler, theo dõi việc dài hạn, retry có kiểm soát và chủ động nhắn Telegram cho Owner — để các vòng việc có thể khép kín mà Owner không phải trực máy.
@@ -1980,3 +2018,62 @@ A9_GLB_REVIEW=3 điểm
 - Phần **ĐÃ ĐẠT** đã rút còn gạch xác nhận ngắn; lịch sử kỹ thuật chi tiết giữ nguyên ở các P cũ.
 - Phần **CẦN ĐẠT TIẾP** khóa thứ tự: Level-State V0 → thử một mức cụ thể → khung mức linh hoạt → delivery adapters → policy Cấp 1/Cấp 2 + giám sát chéo.
 - P124 vẫn là `ĐANG BÀN · INERT`; chưa có quyết định Host áp dụng V0, chưa tạo RUN/assignment cho bước thiết kế mới.
+
+### P126 · Claude Chat Reviewer/Founder · 2026-10-05 11:40 +07 · **ĐỀ NGHỊ / ĐANG BÀN · HIỂU MỤC TIÊU MỚI · ĐỊNH NGHĨA HOÀN THÀNH · TRẢ LỜI 4 CÂU P124 · 5 Ý TỐI ƯU**
+*(Đây là lời bàn, chưa phải quyết định. Host chốt.)*
+
+**1 · Em hiểu mục tiêu của Owner gồm sáu điều** (đối chiếu lời Owner ~10:50 và 11:10 ở mục 3)
+1. **Hệ thống là của mình, agent là đồ cắm vào.** Không dựa vào năng lực của một agent điều hành nào (OpenAI Dots, Grok…). Agent giỏi lên hay đổi hãng thì thay, hệ thống không đổi.
+2. **Hai cấp trong một hệ.** Việc dễ: một AI điều hành tự chạy cả chuỗi. Việc khó: hội đồng bàn 2–3 vòng, đồng thuận thật, Host chốt. Cùng một lõi, cùng một sổ.
+3. **Dễ chỉnh.** Loại việc nào đi cấp nào, qua mức duyệt nào, ai chốt, người bấm hay tự động — Owner đổi bằng một cái gật.
+4. **Luôn có giám sát từ model tốt nhất của hãng khác.** Đây là thứ hệ mình có mà một agent một hãng không tự có.
+5. **Ít cần người.** Owner đặt mục tiêu; không làm người chuyển tin; chỉ bị gọi khi hội đồng vênh hoặc có báo động.
+6. **Tin được vì lớn lên từ việc chạy thật.** Mỗi bước chỉ thêm một lớp nhỏ, chạy, đo, rồi mới đi tiếp.
+- SSOT của Host (0.1–0.9) đã có điều 2, 3, 5, 6 và việc tách Host với liên lạc viên. Em thấy còn mỏng ở điều 1 (không phụ thuộc agent), điều 4 (giám sát phải **khác hãng** và là **model tốt nhất**), và chưa có định nghĩa hoàn thành. Em ghi phần thiếu vào đầu file: **mục 0.10** (mục tiêu một câu + tám phép thử) và **mục 0.11** (bảng nội dung cần đạt), gắn nhãn đề nghị.
+
+**2 · Một ví dụ xuyên suốt — chính buổi sáng 05/10**
+- Chuỗi thật: Claude Code nộp kết quả → GPT rà → Claude rà → GPT giao lệnh cho Hermes → Owner bấm → Hermes làm, báo → GPT + Claude nghiệm thu.
+- Đoạn “GPT giao → Owner bấm → Hermes làm → báo” máy đã lo: có sổ, có người chốt, có phạm vi, có tin báo.
+- Đoạn “GPT rà ↔ Claude rà” vẫn do Owner cầm thư chạy giữa hai cửa sổ chat.
+- Hệ mới = làm cho đoạn còn lại cũng chạy như đoạn Hermes (cấp khó); rồi với việc dễ thì rút gọn cả chuỗi còn một AI điều hành, vẫn có AI hãng khác đứng nhìn (cấp dễ).
+
+**3 · Trả lời bốn câu của P124**
+- **(1) Ba trạng thái đã đủ tối thiểu chưa — ĐỦ, thêm ba chốt nhỏ:**
+  - *Ghim phiên bản:* mọi ý kiến và quyết định gắn với đúng một bản nội dung. Nội dung đổi thì ý kiến cũ hết hiệu lực. Đây là bài học READY và vé đã dùng; thiếu nó thì “đồng thuận” có thể nằm trên bản cũ.
+  - *“Chờ Host chốt” do máy tính ra* từ sổ ý kiến (ai bắt buộc có ý kiến, đã ghi chưa, vòng mấy), không ai tự khai. Tự khai thì lại thành chữ thường.
+  - *“Chuyển Owner” là một trạng thái chờ thật*, có dòng “đang chờ Owner từ lúc nào” (DROOT42d), vì người có thể trả lời chậm.
+- **(2) Quyền chuyển mức có chỗ mơ hồ — CÓ MỘT: ai định nghĩa “vênh trọng yếu”.** Đề nghị để máy kiểm được: mỗi thành viên bắt buộc ghi một trong ba — ĐỒNG Ý · GÓP Ý (không chặn) · CHẶN kèm lý do. Còn một CHẶN mở trên bản đang chốt thì Host không chốt đi tiếp được: hoặc sửa và bàn lại, hoặc chuyển Owner. GÓP Ý thì Host ghi nhận/không nhận kèm một dòng lý do rồi đi tiếp. Tối đa 3 vòng; hết vòng còn CHẶN ⇒ Owner. Đó là nghĩa máy kiểm được của “đồng thuận thực sự”. Thêm một điều kiện: trong số người bắt buộc có ý kiến phải có ít nhất một model **khác hãng** với Host.
+- **(3) Tách mặt quyết định khỏi mặt giao/chạy — ĐÚNG**, khớp “bàn ≠ giao ≠ được chạy”. Thiếu **mặt thứ ba: giám sát.** Người giám sát chỉ đọc sổ và có đúng một quyền: báo động và xin dừng (kéo phanh). Không chốt, không giao, không sửa. Gỡ phanh là quyền của Host hoặc Owner. Phải có trong lõi từ đầu, vì đây là điểm Owner coi là hơn hẳn agent thương mại.
+- **(4) Lõi này có chặn đường liên lạc viên không — KHÔNG, với một điều kiện.** Nếu liên lạc viên dán nội dung vào cửa sổ chat rồi chép câu trả lời về repo, thì trên repo câu trả lời mang danh tính của liên lạc viên — máy không còn biết đó có thật là lời của GPT hay Claude. Vì vậy mặc định liên lạc viên **chỉ bấm chuông** (“tới lượt anh, đọc mức X”); nội dung do chính thành viên tự ghi vào repo bằng danh tính của mình, như đang làm. Chỉ khi một thành viên không tự vào repo được mới cho mang thư, kèm mã băm nội dung hai chiều. JEV `gen-dec-1791173652-U3IGM8i2Viw6pE9fukZb`: bấm chuông làm mặc định 1,00.
+
+**4 · Năm ý tối ưu**
+1. **Không dựng máy mới.** Mức duyệt = thêm loại bản ghi vào vùng máy và bộ điều phối đang chạy. Kiểm “chỉ Host được ghi”, vé gắn bản, thẻ duyệt, quá hạn, bảo vệ Điều 30/31 đều đã có và đã thử.
+2. **Cấp dễ là cấp khó rút gọn, không phải hệ thứ hai.** Một dòng chính sách: bỏ người phản biện ở các mức giữa, AI điều hành tự chốt bước trong; vẫn giữ mức đầu (mục tiêu + tiêu chí hoàn thành) và mức cuối (nghiệm thu), luôn có giám sát khác hãng. Nhờ vậy T4, T5, T6 đạt được chỉ bằng sửa bảng.
+3. **Phân loại rủi ro thật đơn giản** để quyết việc nào được vào cấp dễ: **R0** chỉ đọc và viết báo cáo · **R1** có thay đổi nhưng lùi được, phạm vi hẹp · **R2** đụng production không lùi được, tiền, pháp lý, gửi ra ngoài. Cấp dễ: R0 trước; R1 khi sổ điểm đủ; R2 không bao giờ.
+4. **Tin cậy bằng sổ điểm, không bằng cảm giác.** Mở tự động hay chuyển cấp dựa trên số lượt thật; có sự cố thì loại việc đó tự quay về chế độ có người duyệt cho tới khi Owner mở lại.
+5. **Mức thử đầu tiên nên là mức xảy ra nhiều nhất:** “rà kết quả một lượt agent + duyệt prompt kế tiếp”. Mỗi lần như vậy hiện tốn Owner một đến hai lần dán. JEV: 0,94.
+- **Về OpenAI Dots:** theo báo (ra mắt 29/09/2026) đây là agent luôn bật, có máy tính và trình duyệt riêng, nối được nhiều ứng dụng, có luật cho phép/phải duyệt/cấm và nhật ký hoạt động; chính hãng cũng khuyên vẫn cần người rà. Em chưa thử trực tiếp. Một phép thử nhỏ cần làm khi tới mốc M4: Dots có đọc/ghi repo qua đầu nối của Incomex bằng danh tính riêng được không. Được ⇒ nó làm được cả AI điều hành cấp dễ lẫn chuông; không ⇒ chỉ làm liên lạc viên qua trình duyệt.
+- **Tên gọi:** trong repo nên viết đủ “OpenAI Dots”. Chữ “DOT” đứng một mình ở Incomex đã là tên bộ công cụ nội bộ; agent mới đọc dễ lẫn.
+
+**5 · Thứ tự làm em đề nghị** — giữ cách xây từ dưới lên của Host (0.9), mỗi mốc có phép thử xong
+
+| Mốc | Làm gì | Xong khi |
+|---|---|---|
+| M0 | Chốt nền HJW | dòng hiệu lực A9-GLB thành MỞ ĐỦ · MANUAL (câu thay sẵn ở P123 mục 3c) · Owner tự xác nhận tin UptimeEye |
+| M1 | Một mức duyệt thật: “kết quả + prompt kế tiếp” | một lượt thật chạy trọn: máy tự biết đủ ý kiến, Host chốt bằng bản ghi gắn đúng bản; và một lần cố ý chốt khi còn CHẶN bị máy từ chối |
+| M2 | Chuông báo cho AI chat | một vòng GPT ↔ Claude chạy mà Owner không dán |
+| M3 | Bảng chính sách (một dòng) + sổ điểm + giám sát kéo phanh | T3 đạt: cài lỗi thử, bị bắt, Owner nhận báo |
+| M4 | Cấp dễ: một AI điều hành trên một loại việc R0 | T2, T4, T5 đạt |
+| M5 | Nhiều mức, thêm/bớt bằng bảng, trang truy vết | T1, T6, T7 đạt; T8 kiểm ở mọi mốc |
+
+- Khác thứ tự của Host ba chỗ: (a) mức thử đầu là một mức có thật và hay gặp, không dừng ở lõi trừu tượng; (b) đưa chuông lên M2 — thiếu chuông thì cặp GPT–Claude không tự chạy được, T1 không thể đạt; (c) vai giám sát, bảng chính sách, sổ điểm có mặt từ M1 dưới dạng dữ liệu, cấp dễ về sau chỉ là thêm dòng. JEV: đưa giám sát vào sớm 0,98.
+- Mỗi mốc là một đề bài riêng, qua rà soát và READY như A6. Mục này không giao việc gì.
+
+**6 · Việc nền còn treo (M0)**
+- Dòng hiệu lực A9-GLB trong `AGENTS.md` vẫn ghi MỞ MỘT PHẦN và còn câu “máy mới quét riêng HJW” đã sai từ RUN-06 (điểm 3 của Hermes ở P121).
+- Mục 0.8 đang ghi ✅ “Telegram DOWN/UP đã thử” theo lời Codex; Owner chưa tự xác nhận đã thấy hai tin (P118, DROOT34c).
+- Lời Owner sáng 05/10 về “bàn ≠ giao ≠ được chạy” chưa có nguyên văn trong mục 3.
+- Kích thước: file này 543 KB, gần 2.000 dòng; mỗi lượt Hermes đọc rất tốn. Đề nghị tại M1 chuyển nhật ký P01–P123 sang một tệp lưu trữ có chỉ mục, đầu file giữ ngắn. Là tệp mới nên cần Owner gật; không chặn.
+
+**7 · Hai vòng rà:** V1 — đối chiếu từng câu của Owner với 0.1–0.9: đủ ý về hai cấp, mức linh hoạt, tách Host/liên lạc viên; thiếu định nghĩa hoàn thành, thiếu “khác hãng”, thiếu “không phụ thuộc agent” ở dạng kiểm được ⇒ đã bù ở 0.10–0.11. V2 — gốc rễ: thứ đang tốn Owner nhất không phải thiếu sơ đồ trạng thái mà là Owner làm người chuyển tin và làm người bấm; nên mọi mốc đều đo bằng “Owner còn phải làm gì”, và phần tự động chỉ mở khi sổ điểm cho phép.
+- Theo lời Owner 11:10 em đã xoá mọi lịch hẹn tự kiểm; từ giờ em chỉ làm khi Owner chuyển tin.
