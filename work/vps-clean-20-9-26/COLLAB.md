@@ -5,16 +5,15 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 01:30 +07 · Claude Code (Agent) · P42 — KQ R6 DỪNG · chỉ còn worker v2 chờ Host
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · GPT Host · P43 — R6 DỪNG ĐÚNG · CHỈ CÒN WORKER · CHỜ CLAUDE REVIEW 1 VÒNG
 - 🎯 **Mục tiêu:** Owner 05/10: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) … làm tiếp cho hoàn thiện”; trọng tâm = VPS khỏe + storage bounded, không đóng trên tín hiệu xanh giả.
-- 🏁 **Xong khi:** free disk ≥45 GiB nếu xoá an toàn · `dot-nrm-verify` hết false-PASS + có bảng phân loại 16 DOT · worker 0 restart/lock và write-idle giảm ≥80% · storage watch/#11 live · lịch `dot-apr-execute` đã tắt · core POST-PROTECT same-or-better · watcher ngày xanh.
-- 📍 **Tiến độ:** `✅ P37 plan · ✅ P38 mid-run · ✅ P39 Host · ✅ P40 Reviewer · ✅ P41 approve T/D + delta · ■ Agent tiếp cùng R6 → cleanup + M15 + v2 gate + tắt APR → #11/POST/KQ → watcher ngày → đóng`.
-- ✅ **Đã xong thật:** C1 logrotate PASS · C4 backup/restore + gov_test encrypted Drive rescue PASS · storage registry/watch fixtures PASS · worker v1 NRestarts 11→0 · core containers healthy · N1 P149 phần máy xong, không waiter/background mutation, chỉ còn 3 acceptance thủ công.
-- ■ **Đang làm:** R6 đã KQ DỪNG 18:30Z (P42) — cờ bận hết, VPS thả quyền mutation cho N1. Đã xong: trống 48,55 GiB · T 25/25 + D 4/4 · M15 · lịch APR tắt · #11 sổ dung lượng live · POST-PROTECT PASS (biên nhận 129). Chờ: Host quyết worker v2 (cổng 22/23).
-- 🔗 **Ràng buộc nhận từ HJW P150/P151:** nếu R6 cần rebuild agent-data thì thực hiện **sau KQ N1** và đăng ký release mới qua `dot-connector-sync promote` trước khi coi INV20 xanh; trước khi bật đèn #11/storage-watch mới, nếu độ sâu sổ phủ tới đó thì thêm các thư mục N1 mới (`dot/connector-sync` và hồ sơ N1) vào storage registry để không báo `tên lạ`. Không sửa HJW từ VPSC.
-- ⬜ **Còn lại:** rehash+xoá T/D từng mục an toàn → M15 checker → worker v2 chỉ khi test idle <2 đạt 23/23 → tắt lịch APR 5′, không replay → bật #11/A11 → POST-PROTECT + Telegram → KQ → watcher ngày → đóng VPSC.
-- ➡ **Kế tiếp:** Host nghiệm thu P42 + quyết B v2 (một lượt cổng lúc máy rỗi rồi nạp, hoặc chấp nhận PARTIAL) · 🤖 máy tự ghi chu kỳ ngày (#11 tự đỏ nếu dốc) · 😊 Owner: không cần làm gì.
-- ⛔ **Không làm/để sau:** không mass-fix 16 DOT · không sửa/bật lại APR · không speculative-fix 502/503 · không swapoff/on · không DNS/CWEB/Knowledge/HJW mutation; Graph không thuộc roadmap VPSC.
+- 🏁 **Xong khi:** free disk ≥45 GiB · `dot-nrm-verify` không false-PASS · storage watch/#11 live · APR schedule tắt · core POST-PROTECT same-or-better · **worker 0 restart/lock và write-idle giảm ≥80%** · watcher ngày xanh.
+- 📍 **Tiến độ:** `✅ cleanup/storage/checker/APR/POST · ✅ R6 KQ DỪNG đúng cổng · ■ P43 Host worker-only plan → Claude review 1 vòng → R6W worker-only → watcher ngày → CLOSE`.
+- ✅ **Đã đạt thật:** disk 48,55 GiB free · T 25/25 + D 4/4 · M15 PASS · APR schedule OFF · #11 live xanh · Config Guard 336/336 · Kuma 22/22 · Telegram receipt 129 · worker v1 0 restart/lock 5,5h.
+- ■ **Chưa đạt duy nhất:** worker write-idle vẫn không giảm; v2 chưa được nạp vì cổng cuối 22/23. Đây là blocker thật theo tiêu chí đã khóa, nên Host **không chấp nhận PARTIAL để đóng**.
+- ⬜ **Còn lại đúng một nhánh:** Reviewer chấm P43 → một RUN worker-only mới trong cùng task → watcher ngày xanh → đóng. Không chạy lại cleanup/checker/APR/storage.
+- ➡ **Kế tiếp:** Claude Reviewer chỉ phản biện W1–W6 ở P43; nếu ACCEPT, Host soạn/finalize PROMPT worker-only + READY. 😊 Owner chưa cần làm gì.
+- ⛔ **Không làm/để sau:** không rebuild agent-data trước KQ N1 · không sửa lại phần đã PASS · không mass-fix 16 DOT · không Graph/DNS/CWEB/HJW mutation trong worker closeout.
 
 ### 1. Mục tiêu
 Owner 05/10/2026: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
@@ -404,6 +403,20 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - JEV `gen-dec-1791224848-WBAzEHhUKhmsDvCq6220` (bằng chứng phụ): DỪNG 0,63 vs XONG-kèm-PARTIAL 0,37 (độ tin 0,25) — chọn DỪNG theo “lệch test thì fail-closed và báo Host”.
 - Chi tiết: `BAO-CAO.md` mục R6 (cùng commit).
 - KQ@VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01 DỪNG · DISK=50,75 GB dùng / 52,12 GB trống (48,55 GiB) · CHECKER=M15 PASS + bảng 16 DOT · QUEUE=PARTIAL (0 restart/lock; ghi rỗi chưa giảm; v2 cổng 22/23 không nạp) · STORAGE_BOUND=PASS · DELETE_T=PASS 25/25 · DELETE_D=PASS 4/4 · KNOWLEDGE=DEFERRED_CWEB · HEALTH=PASS (Guard POST, receipt 129) · WATCH=POST_WATCH_REQUIRED · ai nhận tiếp: Host (B v2)
+
+### P43 · GPT Host · 06/10/2026 · NGHIỆM THU P42 · KHÔNG ACCEPT PARTIAL · ĐỀ XUẤT WORKER-ONLY FINAL
+- **Rà mục tiêu:** phần storage/rò/đo lường đã đạt đúng mục tiêu Owner; không cần mở lại R6 rộng. Blocker duy nhất còn đúng acceptance là worker write-idle ≥80%. Vì tiêu chí này đã ghi từ P30/P41, Host không hạ chuẩn sau khi test trượt.
+- **Fresh Host:** disk ~49,3% used, free ~52,1 GB; core containers healthy; Agent Data/UI 200; RAM available ~6,6 GB. Swap đã tự nhả đáng kể, không can thiệp. Current load ~2,13/3,12/3,43 nên **chưa phải cửa chạy gate <2 ngay lúc đọc**.
+- **Concurrency:** HJW P151 chỉ còn acceptance cuối; VPSC không được rebuild/recreate agent-data trước KQ N1. Worker closeout chỉ host-side; nếu host-side không đủ giảm ≥80% thì DỪNG báo Host, **không** tự rebuild container.
+- **W1 · Scope:** giữ nguyên task `work/vps-clean-20-9-26`; mở đúng một RUN worker-only mới, dự kiến `VPSC-R6W-WORKER-CLOSE-20261006-01`. Không sửa/dọn/check lại T/D, M15, APR, storage-watch, #11, CWEB, HJW.
+- **W2 · Idle gate:** executor fresh-check 0 shared mutation + 1-minute load <2 trước test. Có thể poll máy tối đa 20 phút; không có cửa <2 ⇒ `DỪNG · NO_IDLE_WINDOW`, 0 mutation. Không yêu cầu Owner ngồi chờ.
+- **W3 · Test gate:** chạy đúng tệp 23 test đã dùng ở P40/P42 trên v2. Chỉ khi **23/23 trong một lượt đầy đủ** mới được nạp v2 host-side. Nếu lại 22/23 hoặc fail khác ⇒ không nạp; lưu exact test/timing/load và DỪNG, không viết v3 trong cùng RUN.
+- **W4 · Deploy boundary:** nạp v2 **host worker only**; tuyệt đối không rebuild/recreate `incomex-agent-data` trong RUN này. Giữ rollback v1 exact commit/hash. Sau nạp smoke queue/status/cancel/recovery; 0 duplicate, 0 database-lock crash, NRestarts không tăng.
+- **W5 · Write acceptance:** sau settle ngắn, đo cùng phương pháp P29/R6 tối thiểu 3 mẫu × 5 s. PASS khi median `syscw` và write_bytes giảm **≥80%** so canonical baseline P29 `840 syscw / 3,33 MB per 5 s` (tương đương median ≤168 syscw và ≤0,666 MB/5 s), đồng thời không regression test/health. Không PASS nếu chỉ giảm restart mà write churn còn.
+- **W6 · Sau PASS:** POST-PROTECT đúng phần worker-only + Telegram receipt; cập nhật BAO-CAO/Bảng. Watcher ngày tiếp tục độc lập; VPSC chỉ CLOSE sau watcher-day xanh. Nếu worker-only DỪNG, task giữ active với đúng blocker worker, không kéo phần đã PASS trở lại.
+- **JEV phụ:** `gen-dec-1791225431-rU5cQJEE3v6n8xOnAuJo` chọn worker-only closeout thay vì accept PARTIAL/broad reopen = 1,00; Host chịu quyết định.
+- **Reviewer cần trả 3 câu:** (1) ACCEPT/REVISE W1–W3; (2) ACCEPT/REVISE W4–W5; (3) ACCEPT/REVISE W6. Không mở thêm scope nếu không có safety blocker mới.
+- Owner cần quyết: —.
 
 ## Owner cần quyết
 - —
