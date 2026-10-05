@@ -296,20 +296,25 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **PASS N3:** ít nhất một vòng GPT↔Claude thật không cần Owner copy-paste; nếu Dot có residual đã Owner chuyển thì đi cùng cơ chế; Mac ngủ/tắt không mất/nhân đôi thư và chỉ cảnh báo khi có work pending quá hạn; negative + protection PASS.
 
 #### N4 · M1 · COUNCIL CORE V1 — 1 PROMPT
-- **Trong cùng RUN:** thêm `TASK_POLICY_V1(required_members)` + `FLOW_EVENT_V1`; scanner suy state; chạy **một mức thật** `rà kết quả agent + duyệt prompt kế tiếp` với GPT/Claude; Host chốt; dùng đường GIAO hiện hữu (`ASSIGN_V1/READY`) để worker chạy; reviewer nghiệm thu.
-- **Negative bắt buộc:** Host chốt sớm → decision vô hiệu + Telegram; AI bấm bell semantic → HOLD → Owner resolve; content_ref đổi → opinion cũ không còn hiệu lực.
-- **PASS N4:** một vòng thật `bàn → chốt → giao → chạy → báo → nghiệm thu` chạy trọn, Owner không chuyển tin thủ công; chỉ approval MANUAL hiện hành nếu policy còn yêu cầu.
+- **Trong cùng RUN:** thêm `TASK_POLICY_V1(required_members)` + `FLOW_EVENT_V1`; scanner suy state; chạy **một mức thật** `rà kết quả agent + duyệt prompt kế tiếp` với GPT/Claude; Host chốt; canonical envelope R6 gọi đường GIAO hiện hữu (`ASSIGN_V1/READY`) để worker chạy; reviewer nghiệm thu.
+- **Negative bắt buộc:** Host chốt sớm → decision vô hiệu + Telegram; GIAO khi chưa có decision hợp lệ → không phát thẻ/không chạy; AI bấm bell semantic → HOLD → Owner resolve; `content_ref` đổi → opinion cũ mất hiệu lực.
+- **Protection R3 trong cùng RUN:** parser/evaluator/config mới vào D30/31 + Config/Protection Guard + mutants/rollback/receipt trước KQ.
+- **PASS N4:** một vòng thật `bàn → chốt → giao → chạy → báo → nghiệm thu` chạy trọn, Owner không chuyển tin thủ công; negative + protection PASS; chỉ approval MANUAL hiện hành nếu policy còn yêu cầu.
 
-#### N5 · M2 · FLEX POLICY + DUAL MODE — 1 PROMPT
-- **Mục tiêu:** biến N4 từ một mức hard-code thành cùng một lõi cấu hình được.
-- **Trong cùng RUN:** thêm/bớt/đổi thứ tự mức bằng policy; Cấp 2 hội đồng; Cấp 1 một AI điều hành cho loại việc an toàn; giám sát/bell độc lập; đổi agent bằng policy; không UI mới nếu file/table đủ dùng.
-- **PASS N5:** một task Cấp 2 + một task Cấp 1 chạy thật; đổi một agent, đổi cấp, thêm/bớt một mức chỉ bằng policy và đều chạy lại PASS.
+#### N5 · M2 · FLEX POLICY + DUAL MODE — 1 PROMPT, 2 PHA
+- **Mục tiêu:** biến N4 từ một mức hard-code thành cùng một lõi cấu hình được, đồng thời đạt lần đầu T1–T7 theo R2.
+- **Pha 1 · Cấp 2:** policy nhiều mức, thêm/bớt/đổi thứ tự mức; chạy một việc khó đầu-cuối không Owner chuyển tin; trace T7 sinh trực tiếp từ event log (không bắt UI riêng). PASS pha 1 = T1 + T6 + T7.
+- **Pha 2 · Cấp 1:** một AI điều hành loại việc an toàn + AI khác hãng giám sát/bell; cài lỗi thử; đổi agent; đổi Cấp 1↔Cấp 2 bằng policy. Agent điều hành không bắt buộc là Dot. PASS pha 2 = T2–T5.
+- **AUTO:** chỉ Owner bật cho đúng một loại việc sau bằng chứng/lượt thật theo policy; bell trên loại đang AUTO ⇒ tự rơi về MANUAL. Không có AUTO ngầm.
+- **Protection R3:** toàn bộ policy/evaluator/config của cả hai pha được guard/mutant/rollback ngay trong N5.
+- **PASS N5:** pha 1 + pha 2 đều PASS; T1–T7 đã có live proof ở node chủ; đổi agent/cấp/mức không sửa code lõi.
 
 #### N6 · F1 · FINAL ACCEPTANCE + HARDEN + CLOSE — 1 PROMPT
-- **Chạy trọn T1–T9** trên các case an toàn/đã chọn; không dùng mock thay live proof nơi T yêu cầu thật.
-- Bổ sung đúng phần còn thiếu để T1–T9 đạt, không mở tính năng trang trí; trace có thể sinh trực tiếp từ event log, không bắt UI riêng.
-- Đưa toàn bộ N1–N5 vào Config/Protection Guard + mutants/negative proof + rollback/watchdog/receipts; final 22/22 xanh, sổ sạch, AUTO chỉ mở đúng loại Owner đã duyệt.
-- **PASS N6:** không residual blocker; mọi residual không cần cho mục tiêu được disposition rõ; Host + Reviewer FINAL ACCEPT → CLOSE HJW.
+- **Chỉ nghiệm thu lại + harden + close:** rerun trọn T1–T9 trên case an toàn/đã chọn; không dùng mock thay live proof nơi T yêu cầu thật.
+- **CẤM xây bù năng lực lần đầu:** nếu T1–T7 chưa từng PASS ở node chủ theo R2 thì N6 FAIL và `RETURN_TO:<node chủ>`; không implement feature đó trong N6. N6 chỉ được sửa lỗi final hardening/regression không làm thay đổi năng lực/scope sản phẩm.
+- Kiểm lại protection của N1–N5: Config/Protection Guard + mutants/negative proof + rollback/watchdog/receipts; không rebaseline để làm xanh. **Mọi đèn phải xanh và không có nguồn ngoài sổ/ngoài phép đếm**; AUTO chỉ đúng loại Owner đã duyệt.
+- **T8 đạt lần đầu tại N6** bằng bằng chứng tổng thể; T7 chỉ rerun vì đã thuộc N5.
+- **PASS N6:** Owner đã ratify bộ acceptance cuối 0.10; T1–T9 rerun PASS; không residual blocker; Host + Reviewer FINAL ACCEPT → CLOSE HJW.
 
 ### P133 · Host GPT · 2026-10-05 14:20 +07 · **CHỐT ROADMAP 6 NODE LỚN · K1-PRE GỘP VÀO N1**
 - **ACCEPT P132 S1–S3.** Bản K1-PRE đã rà trở thành Pha A của N1, không chạy như một prompt/node độc lập.
