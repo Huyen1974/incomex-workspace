@@ -1,50 +1,149 @@
 # PROMPT — VPSC R6 · VPS HEALTH + DISK-LEAK CLOSEOUT 05/10/2026
 
-STATUS: **DRAFT — chờ Claude Reviewer ACCEPT + GPT Host READY**
-RUN_ID: `VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01`
-Executor: **Claude Code CLI** · một RUN trọn gói · repo/runtime theo AGENTS, DOT 100% cho mutation hệ thống/data/config.
+STATUS: **DRAFT — P31 DELTA đang được Host áp; chờ Claude Reviewer xác nhận diff + GPT Host READY**
+RUN_ID: VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01
+Executor_Surface: Claude Code CLI trên Mac → SSH root VPS theo đường hiện hữu
+Write_Path: repo SSOT qua `workspace_*` profile Claude Code; runtime/config qua DOT/script-wrapper + Config Guard
+Evidence_Dir: `/opt/incomex/work/vps-clean-20-9-26/R6-20261005/`
+DOT 100% cho runtime/data/config; không direct SQL/psql/Directus REST.
 
-## 0 · Đích duy nhất
-VPS khỏe và ổ đĩa không còn tăng bất thường vì dữ liệu vận hành/tạm không bounded. Không dọn để đẹp số; phải **sửa gốc + đặt trần tự động + dọn phần chứng minh an toàn + đo lại**.
+## 0 · Đích
+VPS khỏe và ổ đĩa không tăng bất thường vì dữ liệu vận hành/tạm không bounded. Sửa gốc trước, đặt trần tự động, dọn phần chứng minh an toàn, đo lại. **Không xoá active/rollback/bằng chứng cần thiết chỉ để đạt số.**
 
-## 1 · PRE — trước mutation
-1. Đọc `AGENTS.md` → root `COLLAB.md` → task Bảng/P29/P30 → mục audit 05/10 trong `BAO-CAO.md` → PROMPT này. Fresh-check CWEB/HJW/PGNB: nếu đang có RUN mutation chung nginx/agent-data/PG/Directus thì chỉ audit phần không va chạm và dừng trước mutation shared.
-2. Chụp baseline: `df -B1` + `df -i` + phân rã bytes theo nhóm; **đối chiếu df↔du** và `lsof +L1`/deleted-open để bắt bytes đã unlink nhưng process còn giữ; containers/StartedAt/health; HTTP `/`, `/w/`, Agent Data/UI, knowledge page; `systemctl --failed`; Kuma/Guard; journal/log mới từ 00:00 05/10. Không raw dump config/secret. Chụp thêm I/O/perf bounded sample (`vmstat`/iowait/pressure, swap, process/container hot spots) để phân biệt CPU thật với write churn.
-3. Baseline tham chiếu: disk ~65,7%, free ~35,24 GB. Inventory bắt buộc cả: log app · deploy CWEB · workspace transactions · Docker/build cache · backup PG · Qdrant · Owner View/context pack · PG18 quarantine/PG16 cũ.
-4. Không reboot trong RUN. Không DNS/cert CWEB. Không direct SQL/Directus REST/psql; thiếu capability thì sửa/viết DOT/wrapper trước.
+Owner D15 (05/10 15:31): dữ liệu/artifact thực sự không còn dùng thì được xoá. Nếu không còn cần ở VPS nhưng chưa đủ tự tin xoá thẳng, **archive một bản lên Google Drive bằng đường backup/rclone hiện hữu, verify checksum/size/readback rồi mới xoá local**. Không mở lại `vps1-up-grade`.
 
-## 2 · A — Sửa checker trước để số đo đáng tin
-- Rà đúng 30 check và fresh log: thiếu cột/bảng, `enum_range(text)`, `btrim(integer)`, `git_sha`, logger > varchar(50), Flow ghi trực tiếp `meta_catalog`.
-- Sửa theo catalog/contract hiện hành, không theo giả định cũ. Query/runner lỗi ⇒ `ERROR/UNKNOWN` và rollup **không PASS**; cấm fallback exception/null thành `0` hoặc “không có lỗi”.
-- Caller cần refresh count phải đi đường approved `refresh_registry_counts`/DOT tương đương; giữ rào chắn chặn direct meta_catalog write.
-- Logger/reference: giữ full reference trong evidence/field đúng contract; nếu cần short key thì deterministic, không cắt làm mất truy vết.
-- Negative: cố ý lỗi query/thiếu column/sai type phải làm checker FAIL/UNKNOWN.
-- Rerun 30 check; mỗi fail còn lại phải được phân loại `REAL_DATA_ISSUE` hoặc `CHECKER_FIXED/PASS`, không còn SQL execution error ẩn.
+## 1 · PRE + luật cứng
+1. Đọc `AGENTS.md` → root `COLLAB.md` → Bảng + D15 + P29–P32 → audit 05/10 trong `BAO-CAO.md` → PROMPT này.
+2. Fresh-check CWEB/HJW/PGNB. Nếu có RUN mutation chung nginx/agent-data/PG/Directus thì phần va chạm **DỪNG**, các phần độc lập A/B/C/E được tiếp tục theo bảng phụ thuộc §7.
+3. Baseline: `df -B1 /` + `df -i`; một lượt `ionice -c3 nice -n19 du -x` top-down; reconcile df↔du; `lsof +L1`; container/StartedAt/health; HTTP `/`, `/w/`, Agent Data/UI, knowledge sample; failed units; Kuma/Guard; I/O/load/swap bounded sample.
+4. Một lượt full-disk `du/find` duy nhất trong PRE; các lượt sau chỉ đo taxonomy đã lập.
+5. **CẤM Docker:** `docker buildx`, `docker builder`, `docker system df|prune`, `docker image prune`, `docker volume prune`, mọi `-f/--force`. Chỉ-read bằng `docker ps`, `docker image ls`, `docker volume ls`, `docker inspect`, `docker info`, log/compose config read-only. Không restart dockerd/containerd, không recreate container trong R6.
+6. Không reboot VPS. Không DNS/cert CWEB. Không đổi PG/Directus schema ngoài approved DOT. Không raw dump secret/config.
+7. Trước mutation, tạo `MUTATION_MANIFEST`: exact file/config dự kiến sửa + before hash + component + rollback. Chỉ các mục này được rebaseline Config Guard sau verify; file phát sinh ngoài manifest ⇒ DỪNG phần đó.
+8. POST-PROTECT bắt buộc: before/after hash, regression, Guard/Config Guard, watchdog/monitor, rollback/known-good, Telegram receipt. Bảng Điều 30/31 còn THIẾU ⇒ KQ PARTIAL.
 
-## 3 · B — Sửa Queue/worker lock + write amplification
-- Source đã proof: `Queue.__init__` đang bootstrap schema + `migrate_legacy()`; Queue được tạo ở execute/status/cancel/checkpoint/metric/server response.
-- Thiết kế lại: bootstrap/migration **init-once có lock/idempotency**, fast-path constructor không `BEGIN IMMEDIATE`/migration; process/module reuse Queue ở server/handlers/worker; giữ WAL/synchronous hiện hữu trừ khi có bằng chứng cần đổi.
-- `disk_state`/flags/heartbeat chỉ ghi khi state đổi hoặc cadence bounded; status read không tạo write phụ. Metric có thể vẫn ghi event nhưng không được kéo bootstrap/migration theo từng response; batch/aggregate nếu cần để giảm write mà không mất observability.
-- Giữ operation_id idempotency, cancel critical-phase, recovery, queue order/concurrency.
-- Test: concurrent status/cancel + 2 job nhỏ + restart/recovery fixture; 0 `database is locked`, 0 duplicate job. Đo lại cùng mẫu 5 s idle: `syscw`/write_bytes giảm **≥80%** so P29 (840 syscw / 3,33 MB write_bytes) hoặc giải thích exact unavoidable writes; restart counter không tăng.
+## 2 · A — Checker truth trước
+Phạm vi hẹp: chỉ sửa **cơ chế lỗi thực thi ⇒ ERROR/UNKNOWN, rollup không PASS** và các câu query/checker sai hiện hành; không đổi schema nghiệp vụ.
+- Rà 30 check + fresh logs: missing table/column, `enum_range(text)`, `btrim(integer)`, `git_sha`, logger > varchar(50), direct `meta_catalog` write.
+- Quét thêm mẫu nuốt lỗi trong DOT/checker: `2>/dev/null || true`, biến rỗng/NULL bị coi 0, default-on-error.
+- Caller refresh counts phải dùng approved `refresh_registry_counts`/DOT tương đương; guard direct meta_catalog write giữ nguyên.
+- Negative fixtures: lỗi SQL, missing column, wrong type, empty result do execution failure ⇒ FAIL/UNKNOWN.
+- Rerun 30 check; từng fail còn lại phân loại `REAL_DATA_ISSUE` hoặc `CHECKER_FIXED/PASS`; 0 SQL execution error ẩn.
 
-## 4 · C — Bịt mọi nguồn tăng dung lượng + dọn an toàn
+## 3 · B — Queue/worker: sửa tối thiểu đúng gốc
+Không “thiết kế lại” Queue, không batch metric nếu chưa cần. Chỉ bốn delta:
+1. `disk_state()` dùng Queue đã có/reuse và chỉ ghi flag khi giá trị đổi.
+2. `migrate_legacy()` đọc flag trước; chỉ `BEGIN IMMEDIATE` khi chưa migrate.
+3. Schema/bootstrap chỉ một lần cho mỗi process/path; fast-path constructor/status không migration/write.
+4. Worker bắt `database is locked` và retry bounded/backoff, không chết/restart loop.
+Giữ nguyên schema, ordering, operation_id idempotency, cancel/critical/recovery semantics.
+- Host worker đọc source trực tiếp; container agent-data dùng image. Áp phía host trước; nếu 5s idle đã giảm ≥80% write + 0 lock thì **không rebuild/restart agent-data** chỉ để đồng bộ. Nếu bắt buộc rebuild: dùng DOT deploy hiện hữu + rollback tag + DROOT10.
+- Chạy `tests/continuation/` và concurrent status/cancel + 2 job nhỏ + recovery fixture.
+- PASS: 0 lock, 0 duplicate job, restart counter không tăng; mẫu 5s idle `syscw` và write_bytes giảm ≥80% từ 840 / 3,33 MB hoặc giải thích chính xác unavoidable writes.
 
-### C0 Leak sweep bắt buộc — không bỏ sót nguồn ngoài danh sách P29
-- Reconcile `df` với tổng `du`; **deleted-but-open file** phải = 0 bytes bất thường hoặc có owner/ETA xử lý. Không restart process chỉ để giải phóng nếu chưa biết writer.
-- Inventory riêng: Docker container JSON logs · writable layers/overlay2 · named/anonymous volumes; `pg_wal`/archive/status; Qdrant live storage/snapshots; `/tmp` · `/var/tmp` · `/var/cache` · systemd journal · coredump; workspace state/results/uploads/jobs; inode hotspots. Dữ liệu nghiệp vụ/live DB được phân loại `BUSINESS_GROWTH`, không xoá/cap mù nhưng phải có owner + expected growth.
-- Với **mọi** nhóm non-business, kết quả cuối bắt buộc có: `current_bytes · growth_driver · hard_cap_bytes (nếu áp dụng) · TTL/age · protected_set · cleanup_trigger · owner`. Thiếu một trường ⇒ STORAGE_BOUND chưa PASS.
-- Mọi cleaner/keeper sửa trong R6 phải có **dry-run**, fail-closed protected set, rerun idempotent; chạy lần 2 ngay sau cleanup phải đề xuất **0 destructive action mới** nếu không có dữ liệu mới.
-### C1 Log ứng dụng
-- Mở rộng logrotate hiện có cho `/var/log/incomex` append logs (pivot-refresh, dot-apr-execute, pivot-results-refresh và nhóm tương tự). Chọn rotate/reopen/copytruncate theo writer thật; numeric cap + age + compress. Verify writer tiếp tục ghi sau rotate và tổng local có trần tính được.
-### C2 Deploy/CWEB
-- Lập graph reference active/rollback từ compose/systemd/nginx/symlink/manifest/deploy scripts. **Bảo vệ current CWEB + exact rollback** (`nuxt-output-before-CWEB-E2E-20261004-04` nếu còn là rollback thật).
-- Candidate `cweb-build-*`, prepared/repair/retained cũ chỉ được dọn khi 0 reference + tái tạo được. Update keeper để naming CWEB mới được bounded, không chỉ regex Nuxt cũ.
-### C3 Workspace transactions
-- `prepared/push_unknown/rollback_conflict` luôn giữ. Completed: chỉ GC/compact bulky before-image khi commit đã tồn tại/đã push/hash đối chiếu được; giữ manifest + audit metadata. Đặt **age + size high-water** có số; thử dry-run + pending fixture để chứng minh không xoá recovery-needed.
-### C4 Residual VPSUP
-- Inventory `/opt/workflow/postgres18.failed-g7-03`, `.failed-g7-05a`, PG16 old volume/data. Chỉ cleanup khi 0 live mount/reference + current PG18 healthy + backup Drive/restore-verify còn chứng minh đường phục hồi. Không chắc ⇒ `PROTECTED`, không xoá; ghi bytes và lý do.
-### C5 Existing bounded groups
+## 4 · C — Inventory top-down + bounded storage
+
+### C0 · Không bỏ sót
+- Top-down `du -x /`; tổng taxonomy + `CHƯA_PHÂN_LOẠI` phải giải thích df-used. `CHƯA_PHÂN_LOẠI > 1 GiB` ⇒ tách tiếp đến dưới ngưỡng.
+- Giải thích ≥90% phần tăng 43%→66% theo ngày/sự kiện bằng `logs/disk-monitor.log`.
+- Inventory bắt buộc thêm: `directus_gov_test_20260602`; `/opt/incomex/work/**`; `/opt/incomex/logs`; Docker image/container logs/writable layers/volumes; PG WAL/temp; Qdrant; `/tmp`/`/var/tmp`/`/var/cache`; journal/coredump; workspace results/uploads/jobs/transactions; `/var/lib/hermes`; home/cache công cụ AI; kernel cũ; inode hotspots; 2 PG18 quarantine + PG16 cũ.
+- Business/live data = `BUSINESS_GROWTH`: không cap/xoá mù nhưng có owner + expected growth.
+- Mỗi non-business group phải có: `current_bytes · growth_driver · hard_cap_bytes · TTL/age · protected_set · cleanup_trigger · owner`. Thiếu trường ⇒ STORAGE_BOUND chưa PASS.
+
+### C1 · Log
+Mở rộng logrotate hiện hữu cho `/var/log/incomex` và `/opt/incomex/logs` append logs. Chọn reopen/copytruncate theo writer thật; numeric size cap + age + compress. Verify writer vẫn ghi sau rotate.
+
+### C2 · CWEB/deploy
+Reference graph từ compose/systemd/nginx/symlink/manifest/deploy/rollback. Bảo vệ current CWEB + exact rollback còn hiệu lực. Build/prepared/repair/retained cũ chỉ candidate khi 0 reference + reproducible.
+Không thêm regex từng tên mới làm giải pháp gốc; dùng storage registry §C7.
+
+### C3 · Workspace transactions
+- `prepared/push_unknown/rollback_conflict` luôn giữ.
+- Completed: chỉ compact/GC bulky before-image khi commit tồn tại trên remote + before/after hashes đủ truy vết; giữ manifest/audit metadata.
+- Có age + size high-water; dry-run + pending fixture phải chứng minh recovery-needed không bị đụng.
+
+### C4 · Residual VPSUP + DB thử
+Nhóm dữ liệu `D`: PG16 cũ, `postgres18.failed-g7-03`, `.failed-g7-05a`, DB `directus_gov_test_20260602`.
+Điều kiện:
+- 0 live mount/ref/unit/container;
+- current PG18 healthy;
+- backup PG18 **sau cutover** ở Drive + restore-verify PASS;
+- DB test: logical dump qua DOT → Drive → checksum/list/readback verify trước DROP.
+Nếu không còn runtime use nhưng vẫn có nghi ngờ phục hồi: **archive cold copy lên Drive trước khi xoá local**:
+- raw dir/old cluster: stream archive one-by-one qua rclone/đường backup hiện hữu, tránh tạo duplicate lớn trên VPS; manifest + SHA256/size + Drive object listing/readback;
+- chỉ khi offsite verify PASS + Host approve đúng SHA plan mới xoá local.
+Hồ sơ `/opt/incomex/work` không xoá trong R6; chỉ report bytes/đề xuất offsite archive cho task Done.
+
+### C5 · Existing bounded groups
+Recheck Docker image keeper/build cache, PG backup, Qdrant snapshots, Owner View revisions, context pack, workspace results TTL. Naming mới không được bypass keeper.
+
+### C6 · Storage registry: tên lạ = đỏ
+Dùng cơ chế hiện hữu `vps-retention.sh` + `disk-monitor.sh`; registry machine-readable mỗi dòng:
+`path_pattern | class | cap_bytes | ttl | protected_set | owner`.
+Phủ ít nhất direct children của `/opt/incomex/deploys`, `/opt/workflow`, `/opt/incomex`. Mục không match registry và tồn tại >24h ⇒ đèn #11 đỏ + tên, **không tự xoá**.
+`/opt/incomex/work`: cap tổng + per-task, không auto-delete evidence.
+Negative fixture: unknown-dir age giả ⇒ đỏ; remove fixture ⇒ xanh.
+
+### C7 · Slope alert + watcher
+`disk-monitor.sh` mỗi giờ ghi df bytes; mỗi ngày ghi bytes theo storage registry taxonomy.
+Đèn #11 đỏ khi **bất kỳ**:
+- used ≥80%;
+- free giảm ≥2 GiB/24h;
+- free giảm ≥3 GiB/7 ngày;
+- unknown path >24h.
+Thử âm fixture trước PASS. RUN chỉ smoke ≥30 phút; kết luận “hết rò” cuối cùng lấy từ **một chu kỳ ngày** do máy tự ghi sau R6, không dựa Mac/người quay lại đo. Sau RUN có thể ghi `POST_WATCH_REQUIRED`; Owner không phải làm gì.
+
+## 5 · F0 — Destructive plan + duyệt SHA
+Agent **không tự xoá**.
+
+Lập canonical delete plan, mỗi dòng:
+`group | path/id | bytes | reason | reference_proof | recovery/offsite | sha256/object`.
+Tách:
+- **T** = tái tạo được (obsolete build/prepared/repair/retained, rotated logs/cache).
+- **D** = từng là data/rollback: PG16 cũ, 2 PG18 failed dirs, `directus_gov_test_20260602`.
+
+Tính `PLAN_T_SHA256`, `PLAN_D_SHA256`, ghi vào COLLAB.
+- T: chỉ xoá sau `HOST_APPROVED_DELETE_T@<sha>`.
+- D: Owner D15 đã cho phép nguyên tắc; vẫn chỉ xoá sau `HOST_APPROVED_DELETE_D@<sha>` và điều kiện C4 PASS.
+- Ngay trước xoá tính lại canonical SHA; lệch ⇒ không xoá.
+- Nếu Host chưa duyệt trong cùng phiên: giữ nguyên, ghi `PROTECTED_WAITING_APPROVAL`, các phần khác tiếp tục.
+- Nếu artifact D không còn dùng nhưng proof chưa đủ tự tin: archive Drive + verify như C4 trước khi đưa vào D plan.
+Sau cleanup chạy dry-run lần 2 ⇒ 0 destructive candidate mới nếu không có dữ liệu hợp lệ mới.
+
+Mục tiêu capacity = **45 GiB free** (= 48,3 GB thập phân), chỉ là target; không xoá protected data để đạt số.
+
+## 6 · D — Knowledge performance: DEFER nếu CWEB chưa cutover
+Phần này chạy sau cùng.
+- Nếu CWEB chưa `CUTOVER XONG`/chưa ở done-tasks: chỉ đo + chuẩn bị source patch; **không build/deploy Nuxt**, ghi `KNOWLEDGE=DEFERRED_CWEB`; không làm R6 fail.
+- Sau CWEB cutover: dùng đúng DOT deploy quản `nuxt-output-n4`, giữ patch CWEB, update rollback known-good, chạy lại regression CWEB.
+- Bỏ initial full-tree; minimal index/lazy branch/versioned cache; không đổi ACL.
+- Target ≥60% raw bytes reduction và local p95 ≤1,5s; đo raw bytes + TTFB. Không UA-block thô làm giải pháp chính.
+
+## 7 · E — HTTP/Hermes/OS + bảng dừng/tiếp
+A, B, C, E độc lập: phần nào trượt thì ghi blocker rồi tiếp tục phần độc lập khác.
+F phụ thuộc C + Host approval. D phụ thuộc CWEB gate.
+- Correlate presence 502/root 404/503 theo timestamp/backend; chỉ sửa khi có root cause; không tăng timeout/restart/tắt alert để che.
+- Hermes chỉ technical maintenance proof được; không chen thiết kế HJW.
+- Không đổi PG config.
+- failed units: phân biệt boot-old/current. Reboot-required chỉ lập preflight/rollback/time proposal; **không reboot R6**.
+
+## 8 · Cleanup/POST-PROTECT/nghiệm thu
+Sau mutation:
+- core containers/StartedAt expected; `/`, `/w/`, Agent Data/UI, Directus, PG, Qdrant, critical CWEB; Guard/Config Guard/Kuma same-or-better;
+- rebaseline **chỉ** file trong MUTATION_MANIFEST, ghi before→after hash + reason;
+- Điều 30/31 coverage THIẾU 0; rollback/known-good; Telegram receipt;
+- storage inventory cuối đủ taxonomy; every non-business = BOUNDED hoặc blocker;
+- capacity ≥45 GiB nếu đủ candidate safe; nếu không, report exact protected bytes, không xoá mù.
+
+## 9 · Root-policy proposal (không gate R6)
+Ghi một đề xuất vào P/KQ để Founders cân nhắc đưa lên root:
+POST-PROTECT của mọi task thêm cột `để lại gì trên đĩa | bytes | hạn giữ | owner`, để task mới không tạo hàng tồn vô hạn. Không tự sửa luật root trong R6 nếu chưa có quyết định riêng.
+
+## 10 · KQ
+KQ@VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01 XONG|DỪNG · DISK=<used/free> · CHECKER=<...> · QUEUE=<...> · STORAGE_BOUND=<...> · DELETE_T=<...> · DELETE_D=<...> · KNOWLEDGE=<PASS|DEFERRED_CWEB|...> · HEALTH=<...> · WATCH=<PASS|POST_WATCH_REQUIRED>
+
+Cập nhật Bảng + `BAO-CAO.md` cùng commit KQ. Không tự archive; Host nghiệm thu.
+## C5 Existing bounded groups
 - Recheck Docker image keeper/build-cache 5 GB, PG backup keeper, Qdrant snapshots, Owner View revisions, context pack, workspace results TTL. Nếu keeper đang fail/không còn match naming mới thì sửa cùng cơ chế hiện hữu, không dựng cleaner song song.
 
 ## 5 · D — Knowledge payload / bot pressure
