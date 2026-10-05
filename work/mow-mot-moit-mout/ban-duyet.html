@@ -577,7 +577,7 @@
 
 #matrix-view-formula .cf-flow{margin:10px 0 20px}
 #matrix-view-formula .cf-flow-start{display:inline-flex;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:#f1f6f2;font-weight:600}
-#matrix-view-formula .cf-flow b{display:inline-flex;align-items:center;justify-content:center;min-width:30px;width:auto;height:22px;padding:0 6px;border-radius:99px;background:#1f4d3a;color:#fff;font-size:10.5px;line-height:22px;text-align:center;margin-right:5px;flex-shrink:0;box-sizing:border-box}
+#matrix-view-formula .cf-flow b.cf-root-no{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;padding:0;border-radius:50%;background:#1f4d3a;color:#fff;font-size:12px;line-height:34px;text-align:center;margin-right:7px;flex:0 0 34px;box-sizing:border-box}
 #matrix-view-formula .cf-branches{border-left:2px solid #9bb9a4;margin-left:22px;padding-left:22px}
 #matrix-view-formula .cf-route{position:relative;padding:12px 0 0;min-width:0}
 #matrix-view-formula .cf-route:before{content:"";position:absolute;left:-24px;top:25px;width:18px;border-top:2px solid #9bb9a4}
@@ -603,7 +603,7 @@
 #matrix-view-formula .cf-subrow{padding:7px 0;border-top:1px solid #eef1ee}
 #matrix-view-formula .cf-subrow:first-of-type{border-top:0;padding-top:1px}
 #matrix-view-formula .cf-subtitle{display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:12.5px;color:var(--ink)}
-#matrix-view-formula .cf-subno{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:20px;padding:0 5px;border-radius:99px;background:#214f3d;color:#fff;font-size:10px;font-weight:700;flex:0 0 auto;box-sizing:border-box}
+#matrix-view-formula .cf-subroot{display:flex;align-items:center;gap:8px;margin-bottom:6px}.cf-subroot-second{margin-top:13px;padding-top:10px;border-top:1px solid #eef1ee}#matrix-view-formula .cf-subroot b{font-size:13px}#matrix-view-formula .cf-subroot small{display:block;margin-top:1px;color:var(--mut);font-size:9.5px}#matrix-view-formula .cf-rootbadge{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#214f3d;color:#fff;font-size:12px;font-weight:700;flex:0 0 32px}#matrix-view-formula .cf-rootbadge.warn{background:#8b7438}#matrix-view-formula .cf-rootbadge.bad{background:#965353}#matrix-view-formula .cf-subno{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;border-radius:5px;background:#315e4b;color:#fff;font-size:9.5px;font-weight:700;flex:0 0 28px;box-sizing:border-box}
 #matrix-view-formula .cf-subexpr{font-size:11.5px;line-height:1.5;color:#46534c}
 #matrix-view-formula .cf-subexpr code{white-space:normal;background:#f2f5f2;border-radius:6px;padding:2px 5px;color:#27332d}
 #matrix-view-formula .cf-subnote{margin-top:4px;font-size:10.5px;color:var(--mut)}
@@ -612,7 +612,7 @@
 #matrix-view-formula .cf-pill.ok{background:#edf7ef;color:#356743;border:1px solid #d5e7d8}
 #matrix-view-formula .cf-pill.warn{background:#fff8e8;color:#795f22;border:1px solid #ead8a8}
 #matrix-view-formula .cf-pill.bad{background:#fff1f1;color:#834848;border:1px solid #e7caca}
-#matrix-view-formula .cf-map-label{margin:14px 0 6px;font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
+#matrix-view-formula .cf-map-label{margin:14px 0 6px;font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}#matrix-view-formula .cf-notation-rule{margin-top:9px;border-top:1px dashed #d8e1da;padding-top:7px}#matrix-view-formula .cf-notation-rule>summary{cursor:pointer;font-size:10.5px;font-weight:700;color:var(--mut)}#matrix-view-formula .cf-notation-items{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0;font-size:10.5px;color:#526059}#matrix-view-formula .cf-notation-items span{display:flex;align-items:center;gap:5px}#matrix-view-formula .cf-demo-root,#matrix-view-formula .cf-demo-child,#matrix-view-formula .cf-demo-grand{display:inline-flex;align-items:center;justify-content:center;background:#315e4b;color:#fff;font-style:normal;font-weight:700}#matrix-view-formula .cf-demo-root{width:30px;height:30px;border-radius:50%}#matrix-view-formula .cf-demo-child{width:26px;height:26px;border-radius:5px;font-size:9px}#matrix-view-formula .cf-demo-grand{min-width:34px;height:18px;padding:0 4px;border-radius:4px;font-size:8.5px}#matrix-view-formula .cf-notation-rule p{margin:5px 0 0;font-size:10.5px;color:var(--mut)}
 #matrix-view-formula .cf-two-views{grid-template-columns:repeat(2,minmax(0,1fr))}
 #matrix-view-formula .cf-two-views p{margin:5px 0;font-size:14px;line-height:1.6}
 #matrix-view-formula .cf-two-views small{display:block;margin:5px 0 0;font-size:12px}
@@ -809,42 +809,80 @@
   render();
 })();
 </script>
-<h3 id="cf-b05-seven">I. Công thức · 1 · CT-001 · Vòng đời tổng <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a> <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-001" target="_self">Chi tiết →</a></h3>
+<h3 id="cf-b05-seven">I. Công thức · CT-001 · Vòng đời tổng <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a> <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-001" target="_self">Chi tiết →</a></h3>
 <p class="cf-definition"><b>Nhìn nhanh:</b> <code>Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }</code></p>
-<div class="cf-map-label">1 · Bản đồ vòng đời tổng</div>
-<div class="cf-flow" role="group" aria-label="CT-001 Vòng đời tổng: Tìm rồi Dùng, Tạo mới, Sửa hoặc Vô hiệu">
-<div class="cf-flow-start" data-formula-step="1.1"><b>1.1</b> Tìm</div>
+<div class="cf-map-label">Bản đồ vòng đời tổng · gốc 1–9</div>
+<div class="cf-flow" role="group" aria-label="CT-001 Vòng đời tổng: các gốc 1 đến 9">
+<div class="cf-flow-start" data-formula-step="1"><b class="cf-root-no">1</b> Tìm</div>
 <div class="cf-branches">
-<div class="cf-route"><span class="cf-condition">Nếu đã có + dùng được</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="1.2"><b>1.2</b> Dùng</span></div></div>
-<div class="cf-route"><span class="cf-condition">Nếu chưa có / không dùng được · TẠO MỚI</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s cf-create" data-formula-step="1.3"><b>1.3</b><span class="cf-step-label">Đề xuất tạo<br>mới</span></span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="1.4"><b>1.4</b> Duyệt đề xuất tạo</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="1.5"><b>1.5</b> Khai báo</span><span class="a" aria-hidden="true">→</span><span class="s bot" data-formula-step="1.6"><b>1.6</b> Test</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="1.7"><b>1.7</b> Duyệt cho dùng</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
-<div class="cf-route"><span class="cf-condition">Nếu đã có + cần thay đổi</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s cf-edit" data-formula-step="1.8"><b>1.8</b> Sửa</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
-<div class="cf-route"><span class="cf-condition">Nếu không còn dùng</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s cf-retire" data-formula-step="1.9"><b>1.9</b> Vô hiệu / Nghỉ hưu</span></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu đã có + dùng được</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="2"><b class="cf-root-no">2</b> Dùng</span></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu chưa có / không dùng được · TẠO MỚI</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s cf-create" data-formula-step="3"><b class="cf-root-no">3</b><span class="cf-step-label">Đề xuất tạo<br>mới</span></span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="4"><b class="cf-root-no">4</b> Duyệt đề xuất tạo</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="5"><b class="cf-root-no">5</b> Khai báo</span><span class="a" aria-hidden="true">→</span><span class="s bot" data-formula-step="6"><b class="cf-root-no">6</b> Test</span><span class="a" aria-hidden="true">→</span><span class="s" data-formula-step="7"><b class="cf-root-no">7</b> Duyệt cho dùng</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu đã có + cần thay đổi</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s cf-edit" data-formula-step="8"><b class="cf-root-no">8</b> Sửa</span><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu không còn dùng</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><span class="s cf-retire" data-formula-step="9"><b class="cf-root-no">9</b> Vô hiệu / Nghỉ hưu</span></div></div>
 </div></div>
-<section class="cf-subformulas" aria-label="9 công thức con của CT-001">
-  <div class="cf-subformulas-head"><b>1.1–1.9 · Công thức con</b><span>Cùng số này dùng trong đồ họa và Master Công thức.</span></div>
+<section class="cf-subformulas" aria-label="Bóc nhỏ công thức theo gốc 1 đến 9">
+  <div class="cf-subformulas-head"><b>Bóc nhỏ theo từng gốc</b><span>Gốc = 1–9 · Con = 1.1, 1.2… · Cháu = 1.1.1…</span></div>
   <div class="cf-subgrid">
     <article class="cf-subgroup">
-      <h4>A · TÌM &amp; DÙNG</h4>
-      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.1</span><b>Tìm</b></div><div class="cf-subexpr">Yêu cầu → Tìm → Kiểm phù hợp → <span class="cf-pill ok">Đạt</span> / <span class="cf-pill warn">Cần xác nhận</span> / <span class="cf-pill bad">Không đạt</span></div></div>
-      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.2</span><b>Dùng</b></div><div class="cf-subexpr">Chọn → Máy kiểm → Người bấm Dùng → Máy áp dụng → Xác nhận</div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge">1</span><div><b>Tìm</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.1</span><b>Tìm thường</b></div><div class="cf-subexpr">Gõ yêu cầu → Kết quả gần đúng giảm dần → khớp 100% = <span class="cf-pill ok">xanh</span></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.2</span><b>Tìm nâng cao</b></div><div class="cf-subexpr">Tìm thường chưa đủ → Advanced Search → thu hẹp kết quả</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.3</span><b>Xác nhận phù hợp</b></div><div class="cf-subexpr">Kết quả → Máy kiểm → <span class="cf-pill ok">Xanh</span> / <span class="cf-pill warn">Vàng</span> / <span class="cf-pill bad">Đỏ</span></div></div>
     </article>
     <article class="cf-subgroup">
-      <h4>B · PHÁT SINH &amp; DUYỆT</h4>
-      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.3</span><b>Đề xuất tạo mới</b></div><div class="cf-subexpr">Ý tưởng → <span class="cf-pill master">Master · Mới ghi nhận</span> → Chuẩn hóa → <span class="cf-pill master">Master · Đã chuẩn hóa</span> → Giao phụ trách</div><div class="cf-subnote">Cùng 1 bản ghi Master · chỉ cập nhật trạng thái.</div></div>
-      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.4</span><b>Duyệt đề xuất</b></div><div class="cf-subexpr">Đề xuất → <span class="cf-pill ok">Duyệt</span> / <span class="cf-pill warn">Làm rõ</span> / <span class="cf-pill bad">Từ chối</span> → Cập nhật Master → Chuyển tiếp</div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge">2</span><div><b>Dùng</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">2.1</span><b>Người chọn Dùng</b></div><div class="cf-subexpr">Báo cáo đủ điều kiện → Người xác nhận Dùng</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">2.2</span><b>Máy áp dụng &amp; xác nhận</b></div><div class="cf-subexpr">Người bấm Dùng → Máy áp dụng → Ghi kết quả → Xác nhận đã dùng được</div></div>
     </article>
     <article class="cf-subgroup">
-      <h4>C · ĐÚC &amp; ĐƯA VÀO DÙNG</h4>
-      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.5</span><b>Khai báo</b></div><div class="cf-subexpr"><code>CHUNG + RIÊNG + CÒN THIẾU → Hồ sơ khai báo</code></div></div>
-      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.6</span><b>Test</b></div><div class="cf-subexpr">Khai báo → Test → Bằng chứng → <span class="cf-pill ok">PASS</span> / <span class="cf-pill bad">FAIL</span></div><div class="cf-subnote">FAIL → quay lại Khai báo.</div></div>
-      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.7</span><b>Duyệt cho dùng</b></div><div class="cf-subexpr">PASS + Bằng chứng → Người có thẩm quyền → <span class="cf-pill ok">Cho dùng</span> / <span class="cf-pill bad">Không duyệt</span></div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge">3</span><div><b>Đề xuất tạo mới</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3.1</span><b>Ghi nhận ý tưởng</b></div><div class="cf-subexpr">Ý tưởng ngắn → <span class="cf-pill master">Master · Mới ghi nhận</span></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3.2</span><b>Chuẩn hóa đề xuất</b></div><div class="cf-subexpr">Master · Mới ghi nhận → Chuẩn hóa</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3.3</span><b>Cập nhật Master</b></div><div class="cf-subexpr">Chuẩn hóa xong → <span class="cf-pill master">Master · Đã chuẩn hóa</span></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3.4</span><b>Giao phụ trách</b></div><div class="cf-subexpr">Master · Đã chuẩn hóa → Giao người phụ trách</div></div>
     </article>
     <article class="cf-subgroup">
-      <h4>D · BẢO TRÌ VÒNG ĐỜI</h4>
-      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.8</span><b>Sửa</b></div><div class="cf-subexpr">Đã có + cần thay đổi → <span class="cf-pill warn">Sửa</span> → Dùng</div><div class="cf-subnote">OPEN · sẽ bóc nhỏ sau.</div></div>
-      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.9</span><b>Vô hiệu / Nghỉ hưu</b></div><div class="cf-subexpr">Không còn dùng → <span class="cf-pill bad">Vô hiệu / Nghỉ hưu</span></div><div class="cf-subnote">OPEN · sẽ bóc nhỏ sau.</div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge">4</span><div><b>Duyệt đề xuất</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4.1</span><b>Ra quyết định</b></div><div class="cf-subexpr">Đề xuất → <span class="cf-pill ok">Duyệt</span> / <span class="cf-pill warn">Làm rõ</span> / <span class="cf-pill bad">Từ chối</span></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4.2</span><b>Cập nhật Master</b></div><div class="cf-subexpr">Quyết định → cập nhật chính bản ghi Master</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4.3</span><b>Báo người đề xuất</b></div><div class="cf-subexpr">Kết quả → MOT người đề xuất</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4.4</span><b>Chuyển bước</b></div><div class="cf-subexpr">Duyệt → Khai báo · Làm rõ → nhánh làm rõ · Từ chối → dừng</div></div>
+    </article>
+    <article class="cf-subgroup">
+      <div class="cf-subroot"><span class="cf-rootbadge">5</span><div><b>Khai báo</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">5.1</span><b>Khai báo chung</b></div><div class="cf-subexpr">Chuẩn chung → Form khai báo chung</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">5.2</span><b>Khai báo riêng</b></div><div class="cf-subexpr">Chuyên môn → Nhóm con → Form khai báo riêng</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">5.3</span><b>Rà phần còn thiếu</b></div><div class="cf-subexpr"><code>TỔNG − CHUNG − RIÊNG = CÒN THIẾU</code></div></div>
+    </article>
+    <article class="cf-subgroup">
+      <div class="cf-subroot"><span class="cf-rootbadge">6</span><div><b>Test</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">6.1</span><b>Test theo khai báo</b></div><div class="cf-subexpr">Khai báo → Chạy test → Thu bằng chứng</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">6.2</span><b>PASS</b></div><div class="cf-subexpr"><span class="cf-pill ok">PASS</span> → 7 Duyệt cho dùng</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">6.3</span><b>FAIL</b></div><div class="cf-subexpr"><span class="cf-pill bad">FAIL</span> → 5.3; nếu cần → 5.1 / 5.2 → Test lại</div></div>
+    </article>
+    <article class="cf-subgroup">
+      <div class="cf-subroot"><span class="cf-rootbadge">7</span><div><b>Duyệt cho dùng</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7.1</span><b>Đóng gói báo cáo</b></div><div class="cf-subexpr">PASS + Bằng chứng → Báo cáo duyệt</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7.2</span><b>Giao người duyệt</b></div><div class="cf-subexpr">Báo cáo → MOT người có thẩm quyền</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7.3</span><b>Người phê duyệt</b></div><div class="cf-subexpr">Người duyệt → <span class="cf-pill ok">Cho dùng</span> / <span class="cf-pill bad">Không duyệt</span></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7.4</span><b>Cập nhật Master &amp; hiệu lực</b></div><div class="cf-subexpr">Cho dùng → Cập nhật Master → Có hiệu lực → Dùng</div></div>
+    </article>
+    <article class="cf-subgroup cf-subgroup-compact">
+      <div class="cf-subroot"><span class="cf-rootbadge warn">8</span><div><b>Sửa</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subnote">Chưa bóc nhỏ · khi cần sẽ dùng 8.1, 8.2…</div>
+      <div class="cf-subroot cf-subroot-second"><span class="cf-rootbadge bad">9</span><div><b>Vô hiệu / Nghỉ hưu</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subnote">Chưa bóc nhỏ · khi cần sẽ dùng 9.1, 9.2…</div>
     </article>
   </div>
+  <details class="cf-notation-rule">
+    <summary>Quy tắc ký hiệu · dùng lại</summary>
+    <div class="cf-notation-items">
+      <span><i class="cf-demo-root">1</i><b>Đời ông / gốc:</b> 1–9 · hình tròn lớn.</span>
+      <span><i class="cf-demo-child">1.1</i><b>Đời con:</b> 1.1, 1.2… · hình vuông nhỏ hơn.</span>
+      <span><i class="cf-demo-grand">1.1.1</i><b>Đời cháu:</b> 1.1.1… · hình chữ nhật nhỏ hơn nữa.</span>
+    </div>
+    <p>Số hiển thị phải trùng trong đồ họa và Master Công thức. Mã <code>CT-xxx</code> là ID máy, không thay cho số phân cấp của con người.</p>
+  </details>
 </section>
 <h3 id="cf-definitions">II. Định nghĩa <small style="font-weight:500;color:var(--mut)">· 27 danh mục hiện có · bản nháp để Owner góp ý</small></h3>
 <p class="cf-def-intro"><b>STT = ID cho con người:</b> mỗi định nghĩa có một số tự nhiên cố định; đổi tên/nhóm/ẩn-hiện không đổi số. Mục mới lấy số tiếp theo. Mã <code>KNI-*</code> / <code>OBJ-*</code> là mã máy riêng. <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html" target="_self">27 Master List của các định nghĩa →</a></p>

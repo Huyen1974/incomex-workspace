@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D121 đã đảo bản đồ CT-001 lên trước, đánh số phân cấp 1.1–1.9 trên đồ họa và Master Công thức; công thức con chia 4 khối 2×2.
-- NEXT: Owner rà cách đánh số/hierarchy; sau đó bóc sâu từng 1.x thành 1.x.1 khi cần.
+- NOW: D122 trả gốc CT-001 về 1–9, dùng tròn lớn; phần con mới dùng x.y vuông; quy tắc cháu x.y.z chữ nhật đã cất ẩn để tái dùng. Master Công thức đã đồng bộ humanNo theo cùng hệ.
+- NEXT: Owner rà trực tiếp hierarchy + hình tượng; nếu chốt thì dùng nguyên tắc này cho mọi công thức khác.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D121.
+- LAST_SYNC: D122.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
