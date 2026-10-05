@@ -4,7 +4,7 @@
 **Project:** `work/mow-mot-moit-mout`  
 **Owner-gated concept:** Công thức và nghĩa khái niệm.  
 **AI-owned implementation:** schema Master, UI chi tiết, coverage, test, bằng chứng, reuse mapping, kỹ thuật triển khai.  
-**Cập nhật gần nhất:** 2026-10-06 · D142.
+**Cập nhật gần nhất:** 2026-10-06 · D144.
 
 > BẮT BUỘC ĐỌC FILE NÀY trước khi sửa Công thức, Định nghĩa, Master List, UI con/cha, coverage hoặc config liên quan MMIM.
 
@@ -159,7 +159,8 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 | DISC-010 | Không thể nói “đủ UI” nếu chưa có bằng chứng độ phủ. | Cần Coverage Matrix và trạng thái từng ô. |
 | DISC-011 | CT-004 `Bước con + Tầng ⇒ Nhóm con` sinh được candidate Nhóm con, nhưng định nghĩa Nhóm con lại yêu cầu `trong 1 chuyên môn`. | Không tự thêm Chuyên môn vào CT-004. Master test giữ cột Chuyên môn = OPEN; cần Owner quyết đây là dimension của công thức hay dimension config/instantiate sau. |
 | DISC-012 | `Cùng chuyên môn / ngoài chuyên môn` là phân loại có ý nghĩa thực tế, nhưng chưa đủ evidence để thành khái niệm mới. | TREO: ưu tiên thử như thuộc tính/quan hệ của Nhóm con với T3 trước; chỉ đề xuất concept mới nếu nó có logic, reuse hoặc vòng đời độc lập. |
-| DISC-013 | Master Nhóm cha/Nhóm con đã có UI thực tế, không nên tiếp tục để `UI.MASTER` như danh tính UI. | Gán UI con riêng `UI-030` / `UI-031`; implementation vẫn reuse renderer `UI.MASTER` cha. Đăng ký vào child UI registry + Master UI con.
+| DISC-013 | SUPERSEDED BY DISC-014 · Bản phác thảo Nhóm cha/Nhóm con từng được gán thử UI-030/UI-031 trước khi Owner duyệt. | Không dùng làm canonical. |
+| DISC-014 | Master UI con chỉ chứa UI con đã OK/chốt; bản phác thảo chưa duyệt không được nhập Master UI con. | Khôi phục `child-ui-registry.json` về 29 UI established; `ML-DEF-018` đồng bộ đủ 29. Nhóm cha/Nhóm con tiếp tục dùng màn review nhưng không có UI-xxx canonical cho tới khi Owner duyệt. |
 
 ### D139 · bằng chứng đầu tiên của cách tiếp cận
 `CT-003 = Bước + Tầng ⇒ Nhóm cha` tại **T0 Field** đã sinh 7 bản ghi B1→B7 trong `ML-DEF-001`.
@@ -210,11 +211,11 @@ Chi tiết dùng UI.MASTER cha và giữ:
 - Chưa tạo khái niệm mới.
 - Thứ tự thử trước khi đề xuất concept mới: (1) reuse quan hệ với T3 Chuyên môn; (2) thử attribute/config kiểu `specialty_scope = SAME | CROSS | OPEN` trên Nhóm con hoặc instance; (3) nếu nhiều slice cho thấy nó chi phối công thức, mới đề xuất thêm `Chuyên môn` vào CT-004; (4) chỉ tạo Master/khái niệm riêng nếu phạm vi chuyên môn có lifecycle/reuse/rule độc lập.
 
-**UI ownership D142:**
-- `UI-030 · Master Nhóm cha` → `ML-DEF-001`.
-- `UI-031 · Master Nhóm con` → `ML-DEF-002`.
-- Cả hai là UI con riêng ở trạng thái `đã có bản tạm · chờ duyệt`; renderer kỹ thuật vẫn kế thừa `UI.MASTER` cha.
-- Hai UI đã được đăng ký trong `child-ui-registry.json` và `ML-DEF-018 · Master UI con`, không còn “vô chủ”.
+**UI review D144:**
+- Master Nhóm cha và Master Nhóm con **đã có màn phác thảo/review**, nhưng chưa được tính là UI con canonical.
+- Chưa cấp/gắn UI-xxx vào Master UI con cho tới khi Owner chốt UI.
+- `child-ui-registry.json` và `ML-DEF-018 · Master UI con` chỉ chứa **29 UI con đã OK** từ baseline trước đó.
+- Sau khi Owner duyệt UI Nhóm cha/Nhóm con, mới cấp/khôi phục ID UI-xxx và thêm vào Master UI con.
 
 ---
 
