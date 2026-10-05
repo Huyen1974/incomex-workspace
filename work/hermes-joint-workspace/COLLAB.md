@@ -47,10 +47,10 @@
 - Ngược lại, một task Cấp 1 vẫn có thể được AI khác giám sát và phát cảnh báo; ví dụ một reviewer như Claude có thể theo dõi một DOT đang điều hành và báo khi thấy rủi ro.
 - Decision plane phải độc lập với delivery plane để hỗ trợ cả API trực tiếp và courier/UI về sau.
 
-### 0.7 · Cách xây
-- **Kiến trúc phải nhìn đủ xa để không đi cụt, nhưng triển khai từng bước từ dưới lên.**
-- Không làm một bản thiết kế khổng lồ rồi mới chạy. Mỗi lượt chỉ khóa một lớp nhỏ, chạy/đo/review, rồi Host mới quyết đi bước tiếp theo.
-- Bước hiện tại: **Level-State V0** cho một mức thảo luận. Chưa thiết kế/triển khai Hermes-Mac courier, UI tổng, engine nhiều mức hay AUTO.
+### 0.7 · Cách xây — ĐÃ KHÓA HƯỚNG
+- **Kiến trúc V0 đã chốt đủ để triển khai; từ đây ưu tiên làm theo roadmap 0.17, không mở lại vòng thiết kế trừ khi xuất hiện blocker thật.**
+- Thực thi theo node lớn kiểu G7: mỗi node = một PROMPT đã review + một RUN + một KQ canon; PRE/checkpoint/negative test là pha nội bộ.
+- Không mở tính năng ngoài node đang chạy; không tách việc nhỏ thành roadmap mới. Host/Reviewer chỉ được làm rõ hoặc làm chặt, không tự nới PASS/đích đã Owner khóa.
 
 ### 0.8 · ĐÃ ĐẠT — chỉ xác nhận ngắn
 - ✅ Agent Gateway + Contract V1 cho Hermes: giao/nhận/báo chuẩn, prose không thành lệnh.
@@ -71,7 +71,8 @@
 
 **Nguyên tắc node:** PRE/checkpoint/negative test là **pha nội bộ**, không phải node/prompt riêng. Việc chưa xong phải `CONTINUE_SAME_NODE`; chỉ được `MOVE_TO:Nx` khi Host + Reviewer cùng ghi rõ residual đó thuộc tự nhiên node sau và không làm sai acceptance của node hiện tại. Không có TODO vô chủ giữa hai node.
 
-### 0.10 · THẾ NÀO LÀ HOÀN THÀNH — *ĐỀ NGHỊ của Claude theo lời Owner 05/10 11:10 · ĐANG BÀN, chờ Host chốt, Host sửa tại chỗ*
+### 0.10 · ĐÍCH CUỐI T1–T9 — BỘ ACCEPTANCE HIỆN HÀNH · **AI KHÔNG ĐƯỢC NỚI**
+> T1–T9 là working acceptance của roadmap. Chỉ Owner được phê/nới/bỏ một phép thử. N1–N5 vẫn triển khai theo PASS riêng; N6 không được FINAL CLOSE nếu Owner chưa ratify bộ T1–T9 hoặc một bản thay thế do chính Owner chốt.
 **Mục tiêu viết lại một câu:** xây một **hệ thống giao việc tự động, đáng tin cậy** cho Incomex, lớn dần từ những gì đã chạy thật; hệ thống tự nắm luật, sổ ghi, quyền chốt, phạm vi và giám sát — còn mọi AI/agent, kể cả agent điều hành thương mại (OpenAI Dots, Grok…), chỉ là bộ phận thay được, cắm vào qua cùng một chuẩn.
 
 **Hoàn thành = chín phép thử dưới đây đều chạy thật và đạt** (tài liệu và bản thử trong hộp không tính):
@@ -192,14 +193,12 @@
 - Hermes-Mac/courier không nằm trong kernel M1, nhưng theo quyết định Owner **K1→K2→K3 được làm trước M1** để chuẩn bị đường nối; K3 chỉ xử lý phần còn thiếu sau K1/K2.
 - Không archive/di chuyển lịch sử P lúc này chỉ để đẹp file; nếu chi phí đọc trở thành blocker thật mới xử lý theo Owner gật.
 
-**F. M1 kỹ thuật nhỏ nhất để chứng minh lõi**
-- Chọn đúng **một mức thật**: `rà kết quả một lượt agent + duyệt prompt kế tiếp`.
-- Trên **một task thử thật**, thêm 1 `TASK_POLICY_V1`; GPT/Claude ghi `FLOW_EVENT_V1 opinion` trên cùng `content_ref`; scanner tự hiện `CHỜ_HOST_CHỐT`; Host ghi `decision`; chưa nối worker ở lần đầu.
-- Phép âm bắt buộc: Host cố chốt khi policy chưa cho phép ⇒ máy reject + chuông Telegram. Đây vừa kiểm state vừa kiểm “vai nào quyền nấy”.
-- PASS M1 khi: đúng state suy ra · đúng version binding · đúng Host gate · chuông thật tới Telegram · 0 service/DB/UI mới · rollback chỉ là revert parser/policy block.
-- **Sau M1 mới quyết** có nối `decision=ĐI_TIẾP` vào `ASSIGN_V1`, rồi sau nữa mới làm gọi lượt/courier. Không làm ba bước trong một RUN.
+**F. M1/N4 · ghi chú thiết kế — THỨ TỰ/PASS THỰC THI THEO 0.17**
+- Lõi vẫn dùng một mức thật `rà kết quả agent + duyệt prompt kế tiếp`, `TASK_POLICY_V1` + `FLOW_EVENT_V1`, state suy ra và các negative proof đã chốt.
+- **0.17 thay thế thứ tự cũ:** N4 phải chạy trọn trong cùng node `bàn → chốt → giao → worker chạy → báo → nghiệm thu`; không còn tách “chưa nối worker ở lần đầu”.
+- Courier/transport đã được xử lý ở N1–N3 trước N4. Mọi acceptance/negative/protection của N4 lấy theo 0.17/R1–R7.
 
-### 0.16 · BA VIỆC NỀN KẾT NỐI — LÀM TRƯỚC (Owner 05/10 13:25) — *cách làm gọn nhất: ĐỀ NGHỊ của Claude · ĐANG BÀN, chờ Host chốt*
+### 0.16 · NGUỒN ĐẦU VÀO K1/K2/K3 — **LỊCH SỬ THIẾT KẾ; THỰC THI THEO 0.17**
 Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề nghị: **K1 → K2 → K3 → rồi mới M1** (lõi một mức ở 0.15). Việc trước làm việc sau nhỏ đi. Ba việc này là đường nối, không làm lõi phức tạp thêm.
 
 | | Việc | Cách gọn nhất, dùng thứ đang có | Xong khi |
