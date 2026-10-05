@@ -1,0 +1,128 @@
+{
+  "schema": "mmim-change-impact-map-v1",
+  "rule": "Every change event must select one or more profiles. required_update applies only when condition matches; verify targets must be checked even if derived.",
+  "profiles": {
+    "UI_CHILD_DRAFT": {
+      "ssot": "review surface / working data only",
+      "forbidden": [
+        "ui/child-ui-registry.json",
+        "ML-DEF-018"
+      ],
+      "required_update": [
+        "relevant review page/data",
+        "work/mow-mot-moit-mout/COLLAB.md",
+        "work/mow-mot-moit-mout/FORMULA-AI-README.md when concept/status matters"
+      ],
+      "verify": [
+        "ui/master-design-review-v1.html",
+        "no canonical UI-xxx added"
+      ]
+    },
+    "UI_CHILD_APPROVAL": {
+      "ssot": "ui/child-ui-registry.json",
+      "required_update": [
+        "ui/child-ui-registry.json",
+        "ui/definition-master-data-v1.js#ML-DEF-018",
+        "entity/master reference to approved UI",
+        "current review/status surfaces",
+        "work/mow-mot-moit-mout/COLLAB.md",
+        "work/mow-mot-moit-mout/council/REGISTRY.md"
+      ],
+      "verify": [
+        "ui/danh-muc-ui-con-v1.html",
+        "ui/definition-master-v1.html?stt=18",
+        "ui/definition-master-index-v1.html",
+        "ui/master-design-review-v1.html",
+        "counts and URLs"
+      ]
+    },
+    "UI_CHILD_REVOKE": {
+      "ssot": "ui/child-ui-registry.json",
+      "required_update": [
+        "remove/mark noncanonical in current registries",
+        "ML-DEF-018",
+        "entity/master references",
+        "current status surfaces",
+        "COLLAB/REGISTRY"
+      ],
+      "verify": [
+        "no current surface treats revoked UI as approved",
+        "history preserved",
+        "ID not reassigned"
+      ]
+    },
+    "FORMULA_CHANGE": {
+      "ssot": "ui/definition-master-data-v1.js#ML-DEF-021 + work/mow-mot-moit-mout/ban-duyet.html",
+      "required_update": [
+        "ML-DEF-021",
+        "formula UI",
+        "FORMULA-AI-README",
+        "downstream Master candidates created by formula",
+        "COLLAB/REGISTRY"
+      ],
+      "verify": [
+        "formula count/order",
+        "detail page",
+        "coverage/discovery downstream",
+        "old expression not left on current surfaces"
+      ]
+    },
+    "DEFINITION_CHANGE": {
+      "ssot": "FORMULA-AI-README + definition master registry",
+      "required_update": [
+        "definition registry",
+        "definition data/schema if affected",
+        "Master of Master/current mapping",
+        "formula references",
+        "UI labels/aliases",
+        "COLLAB/REGISTRY"
+      ],
+      "verify": [
+        "stable IDs preserved",
+        "old name only historical/alias",
+        "current UI consistent"
+      ]
+    },
+    "MASTER_SCHEMA_CHANGE": {
+      "ssot": "ui/definition-master-registry-v1.js",
+      "required_update": [
+        "definition-master-registry",
+        "definition-master-data compatibility",
+        "ui-child-content renderer mapping",
+        "master-list/drawer when needed",
+        "COLLAB/REGISTRY"
+      ],
+      "verify": [
+        "definition-master-v1 live list",
+        "detail drawer",
+        "index columns",
+        "existing records render without loss"
+      ]
+    },
+    "NAME_OR_ALIAS_CHANGE": {
+      "ssot": "entity-specific canonical registry",
+      "required_update": [
+        "current display names",
+        "aliases/backward references",
+        "Master labels",
+        "formula/readme references if semantic"
+      ],
+      "verify": [
+        "ID unchanged",
+        "old name remains only alias/history where needed"
+      ]
+    },
+    "STATUS_OR_COUNT_CHANGE": {
+      "ssot": "entity-specific canonical registry/data",
+      "required_update": [
+        "current summary/status badges",
+        "dependent counts",
+        "COLLAB/REGISTRY"
+      ],
+      "verify": [
+        "all current counts recomputed from SSOT",
+        "historical KQ not rewritten"
+      ]
+    }
+  }
+}

@@ -4,9 +4,11 @@
 **Project:** `work/mow-mot-moit-mout`  
 **Owner-gated concept:** Công thức và nghĩa khái niệm.  
 **AI-owned implementation:** schema Master, UI chi tiết, coverage, test, bằng chứng, reuse mapping, kỹ thuật triển khai.  
-**Cập nhật gần nhất:** 2026-10-06 · D144.
+**Cập nhật gần nhất:** 2026-10-06 · D145.
 
 > BẮT BUỘC ĐỌC FILE NÀY trước khi sửa Công thức, Định nghĩa, Master List, UI con/cha, coverage hoặc config liên quan MMIM.
+>
+> **Nếu thay đổi một tiêu chí/trạng thái/tên/UI/Master có thể ảnh hưởng nhiều nơi:** đọc tiếp `CHANGE-PROPAGATION.md` + `CHANGE-IMPACT-MAP.json` và chạy Change Event trước khi sửa.
 
 Nếu file này mâu thuẫn với **quyết định Owner mới hơn trong COLLAB**, quyết định Owner mới hơn thắng và AI phải cập nhật lại README này ngay trong cùng lượt làm.
 
@@ -52,6 +54,7 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 6. Một Master/Công thức chỉ là canonical khi có nguồn/decision rõ; draft/test phải ghi trạng thái.
 7. Không tạo Cartesian product mù. Mọi tổ hợp phải qua **Applicability Gate**.
 8. Không tuyên bố “đủ UI” bằng cảm giác; phải có **Coverage + Evidence**.
+9. **Change propagation bắt buộc:** thay đổi một tiêu chí không được sửa một chỗ rồi dừng; phải quét impact map, update/verify toàn bộ current/live target và chỉ đóng khi không còn stale reference.
 
 ---
 
