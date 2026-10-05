@@ -1,6 +1,6 @@
 # PROMPT — VPSC R6 · VPS HEALTH + DISK-LEAK CLOSEOUT 05/10/2026
 
-STATUS: **DRAFT — P31 DELTA đã được Host áp tại P32; chờ Claude Reviewer xác nhận diff + GPT Host READY**
+STATUS: **DRAFT — P31 DELTA đã được Host áp tại P32; Claude Reviewer đã xác nhận diff + sửa 2 chỗ tại P33; chờ GPT Host READY trên đúng bản này**
 RUN_ID: VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01
 Executor_Surface: Claude Code CLI trên Mac → SSH root VPS theo đường hiện hữu
 Write_Path: repo SSOT qua `workspace_*` profile Claude Code; runtime/config qua DOT/script-wrapper + Config Guard
@@ -13,11 +13,11 @@ VPS khỏe và ổ đĩa không tăng bất thường vì dữ liệu vận hàn
 Owner D15 (05/10 15:31): dữ liệu/artifact thực sự không còn dùng thì được xoá. Owner bổ sung 15:34: nếu không còn cần ở VPS nhưng chưa đủ tự tin xoá thẳng, **archive một bản lên Google Drive bằng đường backup/rclone hiện hữu, verify checksum/size/readback rồi mới xoá local**. Không mở lại `vps1-up-grade`.
 
 ## 1 · PRE + luật cứng
-1. Đọc `AGENTS.md` → root `COLLAB.md` → Bảng + D15 + P29–P32 → audit 05/10 trong `BAO-CAO.md` → PROMPT này.
+1. Đọc `AGENTS.md` → root `COLLAB.md` → Bảng + D15 + P29–P33 → audit 05/10 trong `BAO-CAO.md` → PROMPT này.
 2. Fresh-check CWEB/HJW/PGNB. Nếu có RUN mutation chung nginx/agent-data/PG/Directus thì phần va chạm **DỪNG**, các phần độc lập A/B/C/E được tiếp tục theo bảng phụ thuộc §7.
 3. Baseline: `df -B1 /` + `df -i`; một lượt `ionice -c3 nice -n19 du -x` top-down; reconcile df↔du; `lsof +L1`; container/StartedAt/health; HTTP `/`, `/w/`, Agent Data/UI, knowledge sample; failed units; Kuma/Guard; I/O/load/swap bounded sample.
 4. Một lượt full-disk `du/find` duy nhất trong PRE; các lượt sau chỉ đo taxonomy đã lập.
-5. **CẤM Docker:** `docker buildx`, `docker builder`, `docker system df|prune`, `docker image prune`, `docker volume prune`, mọi `-f/--force`. Chỉ-read bằng `docker ps`, `docker image ls`, `docker volume ls`, `docker inspect`, `docker info`, log/compose config read-only. Không restart dockerd/containerd, không recreate container trong R6.
+5. **CẤM Docker:** `docker buildx`, `docker builder`, `docker system df|prune`, `docker image prune`, `docker volume prune`, mọi `-f/--force`. Chỉ-read bằng `docker ps`, `docker image ls`, `docker volume ls`, `docker inspect`, `docker info`, log/compose config read-only. Không restart dockerd/containerd; không recreate container trong R6, trừ đúng một ngoại lệ nêu ở §3 (rebuild agent-data khi bắt buộc, qua DOT deploy hiện hữu).
 6. Không reboot VPS. Không DNS/cert CWEB. Không đổi PG/Directus schema ngoài approved DOT. Không raw dump secret/config.
 7. Trước mutation, tạo `MUTATION_MANIFEST`: exact file/config dự kiến sửa + before hash + component + rollback. Chỉ các mục này được rebaseline Config Guard sau verify; file phát sinh ngoài manifest ⇒ DỪNG phần đó.
 8. POST-PROTECT bắt buộc: before/after hash, regression, Guard/Config Guard, watchdog/monitor, rollback/known-good, Telegram receipt. Bảng Điều 30/31 còn THIẾU ⇒ KQ PARTIAL.
@@ -72,6 +72,9 @@ Nhóm dữ liệu `D`: PG16 cũ, `postgres18.failed-g7-03`, `.failed-g7-05a`, DB
 Nếu không còn runtime use nhưng vẫn có nghi ngờ phục hồi: **archive cold copy lên Drive trước khi xoá local**:
 - raw dir/old cluster: stream archive one-by-one qua rclone/đường backup hiện hữu, tránh tạo duplicate lớn trên VPS; manifest + SHA256/size + Drive listing/readback;
 - chỉ khi offsite verify PASS + Host approve đúng SHA plan mới xoá local.
+- Mọi bản đưa lên Drive đi đúng khuôn đã chạy ở R3 mục 3.2 (xem `BAO-CAO.md`): `tar` hoặc dump → `gzip` → `gpg` bằng khoá công khai của `backup-to-gdrive.sh` (kiểm vân tay trước) → `rclone rcat` vào `rescue/vpsc-r6/` của đích mã hoá. **Không plaintext lên Drive; không tìm/giải mã bằng khoá bí mật trên VPS** (VPS chỉ có khoá công khai) — “readback” = md5 + size của luồng mã hoá khớp đối tượng trên Drive.
+- Trước khi tải: `rclone about` chứng minh Drive còn trống ≥ dung lượng bản tải + 10 GiB cho backup đêm; thiếu ⇒ không tải, ghi blocker. Đặt hạn giữ 12 tháng cho `rescue/vpsc-r6/` bằng cơ chế hạn giữ Drive hiện hữu.
+- Nếu Drive đã có bản dump mã hoá của đúng dữ liệu đó (backup đêm cuối trước cutover hoặc `rescue/vpsup-bk1/`, md5/size đọc được) ⇒ coi là đã có bản offsite, không tải thêm raw dir.
 Hồ sơ `/opt/incomex/work` không xoá trong R6; chỉ report bytes/đề xuất offsite archive cho task Done.
 
 ### C5 · Existing bounded groups
