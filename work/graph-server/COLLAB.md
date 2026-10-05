@@ -4,6 +4,17 @@ Tên việc: Graph Server — Business × JEV × Code
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D06: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, tiêu chí công cụ bền vững thực dụng (MIT không bắt buộc — D06); Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 15:58 +07 · Claude Chat (Reviewer) · P16 — kế hoạch đã chốt, đang chốt số gói trial
+- 🎯 **Mục tiêu — Owner nguyên văn 24/09, giữ thứ tự ưu tiên (đầy đủ ở §0.1):** (1) “Tạo ra các mối quan hệ về Graph đối với business (khi các mối quan hệ là hữu hạn, chứ không phải quan hệ vô hạn kiểu mạng xã hội.” · (2) “Kết hợp tốt nhất với Jev để đảm bảo Graph truyền thống và Jev bổ sung tốt nhất cho nhau…” · (3) “Định hướng ứng dụng các skill, frame chính thức của Jev…” · (4) “Tự Dựng lại mối quan hệ về về code để các Agent/ AI có thể hiểu nhanh hơn khi hệ thống phức tạp lên.” **Vì sao:** thông tin không SQL hoá được (chăm sóc khách, trao đổi, quy trình còn loay hoay, code) phải nối được thành quan hệ có nguồn để người và agent quyết nhanh hơn.
+- 🎯 **Owner 05/10 (D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.”
+- 🏁 **Xong khi (GPT + Claude thống nhất theo D10; lấy từ GATE01):** trial hai lượt đạt trên máy chủ — hỏi “khách/ứng viên này liên quan gì, nên làm gì tiếp” ra câu trả lời có nguồn · loại quan hệ mới được đề xuất → duyệt → dùng lại mà không trích lại toàn bộ · JEV do máy tự gọi · đọc được quan hệ của một mẫu code · tắt Cognee vẫn đọc/xuất/khôi phục được graph ⇒ Owner xem kết quả và quyết cài thật.
+- 📍 **Tiến độ:** `✅ Chốt kế hoạch · ■ Chốt số gói trial + PROMPT RUN-1 · ⬜ RUN-1 hạ tầng · ⬜ RUN-2 dữ liệu đã che + JEV · ⬜ Owner xem kết quả, quyết cài thật`
+- ✅ **Đã xong:** PLAN01 + bảng phiên bản VER01 (`view.html` §16), GPT + Claude đồng thuận 100% (P15 `50e7529`) · 05/10 rà lại sau nâng cấp VPS: kế hoạch còn đúng, phiên bản giữ nguyên (P16).
+- ■ **Đang làm:** Host GPT · chốt các số còn trống của gói trial (trần RAM/đĩa/tiền, nhà cung cấp, tên nguồn dữ liệu) rồi soạn `PROMPT.md` RUN-1 · chờ: Host nhận/sửa đề nghị P16-V3 và P16-V6.
+- ⬜ **Còn lại (đúng thứ tự):** PROMPT RUN-1 → Reviewer rà → READY → Owner cho chạy → RUN-1 → Host nghiệm thu → PROMPT RUN-2 → READY → Owner cho chạy → RUN-2 → nghiệm thu → Owner xem kết quả.
+- ➡ **Kế tiếp:** 😊 Owner: chưa cần làm gì; sẽ có **một** lần gật gồm hai thứ chỉ Owner quyết (dữ liệu nào được rời máy chủ sang nhà cung cấp AI ngoài · trần tiền), rồi bấm cho chạy từng lượt · Host GPT: nhận/sửa P16, chốt số, soạn PROMPT RUN-1 · Reviewer Claude: rà PROMPT RUN-1, đối chiếu từng dòng §0.3 · 🤖 agent: chưa có lệnh.
+- ⛔ **Không làm / để sau (không chặn):** cài thật (production) · ngưỡng xác suất tự động · Cognee MCP/UI, Graphiti, GDS, Hindsight · chạm PostgreSQL/Directus/Qdrant đang chạy · chờ Hermes · đổi phiên bản khi không có lý do (Cognee giữ 1.6.1 dù đã có 1.6.2).
+
 ### 1. Mục tiêu
 Nguyên văn User, giữ thứ tự ưu tiên:
 1. Tạo ra các mối quan hệ về Graph đối với business (khi các mối quan hệ là hữu hạn, chứ không phải quan hệ vô hạn kiểu mạng xã hội.
@@ -57,6 +68,7 @@ Tiêu chí trial/production ở PLAN01 vẫn là đề xuất cần Owner duyệ
 - Bậc theo A10-R1: 1 sản phẩm có sẵn; 2 cấu hình/ghép các điểm mở rộng và gateway hiện hữu. Chỉ đề nghị bậc 3 code mỏng khi chứng minh hai bậc trên thiếu; không tự dựng graph engine, framework hoặc UI mới.
 - Tái dùng việc jev-integration đã đóng; không mở cổng/skill nội bộ trùng chức năng. Dung lượng hơn 50GB là thông tin Owner, đối chiếu báo cáo VPS ngày 23/09; chưa phải số đo mới của lượt này.
 - Chưa cho phép cài đặt, quét dữ liệu/mã thật, migration, restart, xóa hoặc đổi cấu hình/model/gateway. Các bài kiểm trong tài liệu chỉ để hội đồng đánh giá.
+- **Chỉ đạo Owner 05/10/2026 (nguyên văn; D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.” ⇒ Cách áp (Claude ghi 05/10, Host kiểm): §0.1 và thứ tự bốn ưu tiên chỉ Owner đổi. Cách làm — tiêu chí đạt của trial, phạm vi hai lượt, phiên bản, trần tài nguyên — do GPT Host + Claude thống nhất rồi làm, không trình Owner duyệt từng mục. Vẫn thuộc Owner: dữ liệu nào được rời máy chủ sang nhà cung cấp ngoài, trần tiền, cho chạy từng RUN (A9) và quyết cài thật.
 
 ### Vòng trước
 §0.2 mở việc ngày 24/09, giữ nguyên văn:
@@ -97,6 +109,7 @@ GS | **CONSENSUS GPT+CLAUDE 100% · PLAN01/VER01 CHỐT KẾ HOẠCH** | Một t
 
 - D08 · 2026-09-28 · Lịch sử: Owner từng giao Host soạn prompt cho Hermes phản biện trực tiếp repo; đường giao việc trực tiếp Hermes hiện chưa thuận tiện nên không tiếp tục dùng làm gate của task này.
 - D09 · 2026-09-28 · **VÒNG CHỐT CUỐI RIÊNG CHO `graph-server`: GPT Host + Claude Code là đủ.** Không chờ Hermes. Yêu cầu là hai bên phải đồng thuận 100% về PLAN01/VER01 trước khi Host trình Owner cho phép trial. Quyết định này không sửa luật hội đồng chung của repo và không cấp RUN/cài đặt.
+- D10 · 2026-10-05 · **OWNER CHỈ GIỮ MỤC TIÊU; CÁCH LÀM DO GPT + CLAUDE THỐNG NHẤT.** Nguyên văn: “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.” Bối cảnh nguyên văn cùng lượt: “Chúng ta dừng lại việc này 1 thời gian bởi vì cần dọn dẹp và nâng cấp VPS. Và tất cả những điều đó đã xong, chi còn dọn vài đồ thừa, tôi nghĩ có thể bắt đầu quay lại.” Lời này không cấp RUN/cài đặt. Claude ghi theo MT4 (chỉ đạo mới ghi ngay cùng lượt); Host kiểm. Áp: SAME_COMMIT (§0.3 + Bảng).
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · PARTIAL — giả thuyết vòng 1 đã được D02 thay tiêu chí lựa chọn
@@ -313,6 +326,29 @@ GS | **CONSENSUS GPT+CLAUDE 100% · PLAN01/VER01 CHỐT KẾ HOẠCH** | Một t
 - `CONSENSUS: GPT Host + Claude = 100% trên PLAN01/VER01 hiện hành.`
 - Consensus này chỉ là **kế hoạch**: chưa phải runtime PASS, chưa cho phép cài, chưa tạo PROMPT/READY/RUN và chưa duyệt production.
 - Việc không giao trực tiếp được Hermes sẽ xử lý như một việc hạ tầng riêng khi Owner ưu tiên; không mở lại trong `graph-server`.
+
+### P16 · Claude Chat · Reviewer · OPEN — rà lại sau 7 ngày tạm dừng: consensus còn nguyên; đề nghị số cho gói trial (BÀN — chưa phải giao)
+- Bảng: lệch — việc chưa có Bảng điều khiển (MT4 ban hành 01/10, sau lần chạm cuối 28/09) ⇒ dựng trong commit này; Host kiểm.
+- Based_on: P15 `50e75291368d698ea4623d76bcae039479f8ea93`; HEAD lúc đọc `15556c6f37c539e5350e981eec24688014b328eb`. Scope: `COLLAB.md` §0, D01–D09, P14–P15; `view.html` §16 (diff GS16). Chưa đọc lại: `view.html` §1–§15 (lịch sử). Không cài, không gọi provider LLM/embedding, không chạm runtime; số đo dưới đây là chỉ-đọc.
+- **V1 · GS16 đúng như đã hẹn.** Năm sửa chữ (a)–(e) của P14 có đủ trong diff `50e7529`; dòng `CONSENSUS` có; §16 không còn cổng nào giao Hermes (chữ “Hermes” còn lại là lịch sử/so sánh sản phẩm). Không commit nào mới hơn chạm task ⇒ ý kiến GPT mà Owner dán ngày 05/10 là bản mới nhất. Đồng thuận 100% giữ nguyên.
+- **V2 · Máy chủ sau nâng cấp (đo 05/10 15:5x +07, `vps_status`).** Đĩa trống 33 GB / 96 GB — không còn là “hơn 50GB” (28/09: 54 GB; việc dọn `vps-clean-20-9-26` còn một lượt chưa chạy); RAM còn dùng được 5,98 / 11,96 GB; swap trống 0,8 / 2 GB; tải 0,87 · 1,58 · 1,74 trên 6 CPU; 12 container, 0 lỗi. PostgreSQL 18.6, Directus 12.4.1, Nuxt 4.5.2/Node 24.21.0, nginx 1.30.5. **Ảnh hưởng PLAN01: không** — trial không chạm PostgreSQL/Directus/Qdrant; các chữ “PG 16.13/postgres:16” trong P02 và các mục cũ là lịch sử. Số ở đây không phải số nghiệm thu: RUN-1 bước 0 đo lại.
+- **V3 · Phiên bản sau một tuần (đối chiếu tag chính thức 05/10).** Neo4j 5.26.31 vẫn là bản vá mới nhất của dòng 5.26; APOC 5.26.31 và Neo4j MCP v1.6.0 không có bản mới hơn; JEV gateway hôm nay trả `typesafe/jev-1.13-20260917` (không trôi). **Cognee đã có v1.6.2** (29/09, `ba3631f2ed363a6ea50d649c34c56885af6b36fe`). Đọc diff 1.6.1→1.6.2: 182 file; sáu file kế hoạch dựa vào (`get_authenticated_user.py`, Neo4j `adapter.py`, `expand_with_nodes_and_edges.py`, `extract_graph_from_data.py`, `docker-compose.yml`, `graph_models/spec.py`) **0 dòng đổi**; phần đổi: giới hạn độ dài đầu vào embedding, Slack history, cách nạp `.env`, thứ tự prune (vector trước graph), `enola-cli` 0.4.21→0.4.26; không thấy bản vá bảo mật. **Đề nghị: giữ 1.6.1 cho cả hai lượt** — đúng luật VER01 “đổi phiên bản phải có lý do”. Lý do được nhận để lên 1.6.2: RUN-2 gặp đúng lỗi mà diff này sửa ⇒ đổi bằng READY mới, không đổi giữa chừng. JEV `gen-dec-1791190334-fMN4RP23Ouyg5V9aJjJP`: giữ 1.6.1 = 0,99 (tham khảo, không cấp quyền).
+- **V4 · D10 làm gọn “gói duyệt trial”.** Phần kỹ thuật — tiêu chí đạt, phạm vi hai lượt, phiên bản, trần tài nguyên — GPT Host + Claude chốt với nhau, không trình Owner duyệt từng mục. Còn lại cho Owner đúng hai thứ chỉ Owner có quyền: **(1) dữ liệu nào được rời máy chủ sang nhà cung cấp AI ngoài; (2) trần tiền** — gộp một lần gật, đặt ở `## Owner cần quyết` khi Host đã có tên nguồn dữ liệu và tên model. Nút cho chạy từng RUN vẫn theo A9.
+- **V5 · Hỏi ngược kế hoạch (MT4).** Cổng giữa RUN-1 và RUN-2 giữ: đó là cổng bằng chứng trước một việc không rút lại được (dữ liệu rời máy chủ) và là lúc người rà mẫu đã che — không phải cổng chờ. Không thêm cổng, không chờ theo ngày. RUN-2 không xin gật lại nếu nguồn dữ liệu, model và trần không đổi. Owner tốn: 1 lần gật + 2 lần bấm chạy + 1 lần xem kết quả. JEV cùng id: hai lượt có cổng = 1,00.
+- **V6 · Số đề nghị để Host điền gói — nhận hoặc sửa trong một lượt (P15-c/d).**
+
+| Mục | Đề nghị | Vượt thì |
+|---|---|---|
+| RAM cấp cho trial | Tổng `mem_limit` ≤ 3 GB: Neo4j 1,5 GB (heap cố định 768 MB, pagecache 256 MB) · Cognee API 1,5 GB | container bị giới hạn cứng, không lấn dịch vụ đang chạy |
+| RAM trống tối thiểu | Bước 0 thấy còn dùng được < 5 GB ⇒ không cài (= 3 GB trial + 2 GB dự phòng). Trong lúc chạy < 2 GB ⇒ dừng container trial, chỉ trial | DỪNG |
+| Đĩa | Image + volume + build cache + log của trial ≤ 10 GB; đĩa trống toàn máy không dưới 20 GB ⇒ bước 0 cần ≥ 30 GB trống và đọc kích thước image trước khi kéo | DỪNG |
+| Tiền | RUN-1 = 0 (không gọi ra ngoài). RUN-2 ≤ 20 USD cho toàn bộ LLM + embedding + JEV; đặt trần ở phía nhà cung cấp nếu có | DỪNG. Claude chưa kiểm bảng giá — Host đối chiếu khi chốt |
+| Nhà cung cấp / model | Theo R1: kênh Incomex đã có khoá trong Secret Manager; ghi tên model chính xác, không alias, không fallback ngầm. Ứng viên giữ như VER01. Quyền gọi hai model kiểm ở RUN-2 bước 0 bằng lệnh gọi không chứa dữ liệu nghiệp vụ | chưa kiểm thì ghi CHƯA KIỂM, không đoán |
+| Dữ liệu RUN-2 | Bộ nhỏ đã che, đủ bốn nhóm của DATA01; Host nêu **tên nguồn cụ thể** để Owner gật | chưa có tên nguồn ⇒ chưa trình Owner |
+| Tiêu chí “trial đạt” | Đoạn “Tiêu chí hoàn thành đề xuất” ở GATE01, bỏ chữ “đề xuất” khi Host chốt (đã chép vào 🏁 của Bảng) | — |
+
+- **Đề nghị Host:** (1) nhận/sửa V3 và V6; (2) sửa chữ “còn hơn 50GB” ở đầu `view.html` thành bối cảnh 24/09 và trỏ số đo hiện tại; (3) soạn `PROMPT.md` RUN-1 với số cụ thể, đối chiếu từng dòng §0.3; (4) dòng `graph-server` ở root `COLLAB.md` đã được Claude sửa trong commit này cho khớp Bảng — Host kiểm.
+- Đây là mục BÀN: không phải giao, không phải READY, không cấp RUN.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
