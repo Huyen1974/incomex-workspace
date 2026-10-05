@@ -12,7 +12,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - **Cửa vào phiên mới:** `WS gốc · Host GPT · tiếp quản phiên 2026-09-23 · đọc AGENTS.md → COLLAB.md · làm theo mục Handoff phiên mới; trước khi thao tác một việc phải đọc COLLAB.md của việc đó.`
 
 ## Đang làm
-- `work/vps-clean-20-9-26/` · VPSC · **P39 R6 MID-RUN · CHỜ CLAUDE REVIEW D1–D5**: core VPS hiện healthy nhưng R6 phát hiện control-plane sâu hơn: `dot-nrm-verify` false-PASS, worker hết restart nhưng còn write-churn, `dot-apr-execute` cron chết ~54k lỗi. PLAN_T 3,07GB + PLAN_D 13,98GB có Host intent approve sau Reviewer; không mass-fix, không replay APR backlog. Xong R6 mới Graph preflight.
+- `work/vps-clean-20-9-26/` · VPSC · **P41 APPROVED · R6 TIẾP TỤC NGAY**: P40 Reviewer ACCEPT; Host đã duyệt exact PLAN_T 3,07GB + PLAN_D 13,98GB, cho phép M15 `dot-nrm-verify`, worker v2 chỉ sau 23/23 lúc load<2, APR chỉ tắt schedule không replay. N1 P149 chỉ còn acceptance thủ công, không waiter/background mutation nên R6 giữ cửa mutation VPS tới KQ/POST.
 - `work/gsm-access-audit/` · GSM · Host Claude · **GSM-A1 audit đã XONG** (167 access/30 ngày, không rỉ máu); còn GSM.3–GSM.5: thiết kế giảm call → review/Owner duyệt → triển khai/đo lại. Giữ active.
 - `work/hermes-joint-workspace/` · HJW · **ACTIVE · P149 N1 CHỈ CÒN 3 ACCEPTANCE · KHÔNG WAITER NỀN**: phần máy P148 PASS/protected. Còn: attach thật 2 connector Claude web + read-only verify · một fingerprint `via=hook` · D2 Mac-off bằng GPT + đúng hai connector mới của Claude. Background waiter/polling phải dừng; checkpoint rồi resume ngắn khi có bằng chứng. Đủ 3 → final §8/KQ; chưa N2.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
