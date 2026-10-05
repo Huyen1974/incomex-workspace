@@ -4,15 +4,15 @@ Tên việc: Graph Server — Business × JEV × Code
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D06: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, tiêu chí công cụ bền vững thực dụng (MIT không bắt buộc — D06); Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 04:16 +07 · Claude Code CLI · RUN-1 KQ DỪNG sạch — chờ Host
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 04:21 +07 · GPT Host · P19 — RUN-1 core PASS, R4 chặn đúng T19; chờ Claude review cách khóa
 - 🎯 **Mục tiêu — Owner nguyên văn 24/09, giữ thứ tự ưu tiên (đầy đủ ở §0.1):** (1) “Tạo ra các mối quan hệ về Graph đối với business (khi các mối quan hệ là hữu hạn, chứ không phải quan hệ vô hạn kiểu mạng xã hội.” · (2) “Kết hợp tốt nhất với Jev để đảm bảo Graph truyền thống và Jev bổ sung tốt nhất cho nhau…” · (3) “Định hướng ứng dụng các skill, frame chính thức của Jev…” · (4) “Tự Dựng lại mối quan hệ về về code để các Agent/ AI có thể hiểu nhanh hơn khi hệ thống phức tạp lên.” **Vì sao:** thông tin không SQL hoá được (chăm sóc khách, trao đổi, quy trình còn loay hoay, code) phải nối được thành quan hệ có nguồn để người và agent quyết nhanh hơn.
 - 🎯 **Owner 05/10 (D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.”
 - 🏁 **Xong khi (GPT + Claude thống nhất theo D10; lấy từ GATE01):** trial hai lượt đạt trên máy chủ — hỏi “khách/ứng viên này liên quan gì, nên làm gì tiếp” ra câu trả lời có nguồn · loại quan hệ mới được đề xuất → duyệt → dùng lại mà không trích lại toàn bộ · JEV do máy tự gọi · đọc được quan hệ của một mẫu code · tắt Cognee vẫn đọc/xuất/khôi phục được graph ⇒ Owner xem kết quả và quyết cài thật.
-- 📍 **Tiến độ:** `✅ Chốt kế hoạch · ✅ Khóa baseline/roadmap · ✅ PROMPT READY · ■ RUN-1 hạ tầng · ⬜ RUN-2 dữ liệu đã che + JEV · ⬜ Owner xem kết quả, quyết production`
-- ✅ **Đã xong:** PLAN01/VER01 consensus 100% · P17 khóa Cognee 1.6.1, baseline model RUN-2, trần RAM/đĩa/tiền và roadmap GS-RM1 · PROMPT RUN-1 commit `27274667812007a134d9dc4509d9e2854b69a7d2`.
-- ■ **Đang làm:** RUN-1 `KQ DỪNG` (2026-10-05T21:16Z): hạ tầng chạy được — K1/PERSIST/K4/DUMP-RESTORE PASS, T18 PARTIAL — nhưng T19 hỏng 1 mục: route tự đăng ký tài khoản của Cognee mở, không có công tắc cấu hình. Trial đã gỡ sạch, giữ image/data/backup; production như PRE. Chờ Host quyết cách chặn.
-- ⬜ **Còn lại (đúng thứ tự):** RUN-1 KQ → Host nghiệm thu → chốt dữ liệu được ra ngoài/trần tiền RUN-2 → PROMPT/READY/RUN-2 → nghiệm thu → Owner xem kết quả.
-- ➡ **Kế tiếp:** 😊 Owner: không cần làm gì · Host GPT + Reviewer Claude: nghiệm thu evidence VPS, chọn cách chặn route đăng ký (a/b/c ở KQ) + mitigation T18 → sửa PROMPT/READY một lượt ngắn dựng lại trial bằng 1 lệnh · 🤖 Claude Code: không chạy tiếp khi chưa có READY mới. RUN-2 chưa được phép.
+- 📍 **Tiến độ:** `✅ Chốt kế hoạch · ✅ Baseline · ✅ N1 release · ✅ RUN-1 core infra · ■ R4 security/identity closeout · ⬜ RUN-2 dữ liệu đã che + JEV · ⬜ Owner xem kết quả`
+- ✅ **Đã xong:** R0/R1/R2 · RUN-1 chứng minh Neo4j/Cognee đúng version, K1 backend Neo4j, persistence/recreate, K4 Cognee-off, dump/restore, resource caps và rollback production đều PASS; evidence ở VPS. Đây là nền để thử mục tiêu, **chưa phải business/JEV/code goal PASS**.
+- ■ **Đang làm:** R4 nghiệm thu còn đúng 2 việc: **T19** self-registration phải bị khóa ở security boundary; **T18** same-name identity phải có mitigation cho dữ liệu trial. Không đổi stack, không RUN-2.
+- ⬜ **Còn lại (đúng thứ tự):** Claude review P19 → Host sửa PROMPT một lượt ngắn đóng T19/T18 → RUN-1B security closeout → Host nghiệm thu R4 → RUN-2 → nghiệm thu → Owner xem kết quả.
+- ➡ **Kế tiếp:** 😊 Owner: không cần làm gì · Reviewer Claude: phản biện P19 trực tiếp repo · Host GPT: chỉ sau review mới soạn READY mới · 🤖 Claude Code: chưa chạy tiếp.
 - ⛔ **Không làm / để sau (không chặn):** cài thật (production) · ngưỡng xác suất tự động · Cognee MCP/UI, Graphiti, GDS, Hindsight · chạm PostgreSQL/Directus/Qdrant đang chạy · chờ Hermes · đổi phiên bản khi không có lý do (Cognee giữ 1.6.1 dù đã có 1.6.2).
 
 ### 1. Mục tiêu
@@ -86,6 +86,7 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
+GS | **R3 CORE PASS · R4 BLOCKED T19/T18** | RUN-1 KQ DỪNG đúng guard; không đổi stack; production == PRE | NEXT: Claude review P19 → RUN-1B đóng security/identity gate | RUN-2 CHƯA ĐƯỢC PHÉP.
 STARTED@GS-RUN1-INFRA-20261006-01 2026-10-05T20:11:00Z · executor=Claude Code CLI · read-gate PASS: Write_Path `workspace_*` root workspace HEAD `270c8a6` đọc được; PROMPT last-touch `27274667812007a134d9dc4509d9e2854b69a7d2` = `READY@` dòng hiện hành/P18; 0 STARTED/KQ/STOP_REQUESTED/HOLD mới cho RUN này; đã đọc AGENTS → Bảng+§0 → PROMPT → view §16 → root COLLAB (HJW/GS) → HJW P151–P155 (N1 10/12, còn D2 + §8.12; VPSC đã đóng `32b15d0`). Runtime path SSH `contabo` (vmi3080463) đọc được.
 KQ@GS-RUN1-INFRA-20261006-01 DỪNG · 2026-10-05T21:16Z · executor=Claude Code CLI · blocker `T19_OPEN_SELF_REGISTER` (cổng an toàn T19 hỏng 1 mục; Cognee 1.6.1 không có công tắc cấu hình; sửa cần đổi cổng/thành phần — ngoài scope RUN-1 ⇒ Host quyết) · trial đã rollback sạch, production == PRE · evidence `/opt/incomex/work/graph-server/evidence/GS-RUN1-INFRA-20261006-01/` (00-gates, MANIFEST, pre/pull/k1/t18/t19/persist/post/rollback) · runtime `/opt/incomex/work/graph-server/runtime/run1/` (mode 700).
 - **Gate:** read-gate + N1 release PASS (mutation N1 cuối 14:51Z, 0 executor/job, docker events chỉ cron DOT, VPSC đã đóng, Kuma 22/22) · DROOT30 trước pull PASS.
@@ -378,9 +379,9 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 |---|---|---|
 | R0 · DESIGN LOCK | PLAN01/VER01 + stack + relation/JEV governance | ✅ XONG · P15 consensus 100% |
 | R1 · BASELINE LOCK | version, model, resource/cost caps, dữ liệu trial rules | ✅ XONG · P17 |
-| R2 · N1 RELEASE GATE | chỉ chuẩn bị; không mutation Graph trong khi HJW N1 STARTED | 🔵 HIỆN TẠI · `EXECUTION_HOLD_N1` |
-| R3 · RUN-1 PRE/INFRA | fresh preflight; Neo4j 5.26.31 + APOC + Cognee 1.6.1 API; auth/network/volume/restore; fixture giả; không LLM/JEV ngoài | ⬜ sau N1 terminal + Owner RUN |
-| R4 · RUN-1 ACCEPT | K1/T19/PERSIST/K4/T18 construction/resource; Host nghiệm thu bằng evidence | ⬜ PASS mới mở R5 |
+| R2 · N1 RELEASE GATE | fresh-check shared mutation/busy trước Graph | ✅ PASS trong RUN-1 · N1 server mutation đã sạch |
+| R3 · RUN-1 PRE/INFRA | Neo4j 5.26.31 + APOC + Cognee 1.6.1; persistence/restore/resource/rollback; không LLM/JEV ngoài | ✅ CORE PASS · KQ DỪNG chỉ vì acceptance R4 |
+| R4 · RUN-1 ACCEPT | K1/T19/PERSIST/K4/T18 construction/resource | ■ **HIỆN TẠI: T19 FAIL self-register; T18 PARTIAL identity** · phải closeout trước R5 |
 | R5 · RUN-2 DATA+JEV | bộ nhỏ đã che; `gpt-5.6-luna` + `text-embedding-3-large`; JEV SHADOW; T13–T18/T20/K3; cost ≤5 USD | ⬜ chỉ sau R4 PASS + Owner đã gật dữ liệu ra ngoài/trần tiền + RUN riêng |
 | R6 · RESULT/PROD DECISION | đo quality/cost/resource; nếu extraction yếu mới A/B GPT-6 Luna/Terra; Owner xem kết quả rồi mới quyết production | ⬜ cuối trial |
 
@@ -396,6 +397,20 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 - RUN-1 tuyệt đối không gọi LLM/embedding/JEV ngoài và không gửi dữ liệu nghiệp vụ. RUN-2 vẫn khóa.
 - `READY@27274667812007a134d9dc4509d9e2854b69a7d2` — full SHA commit cuối chạm PROMPT.md. READY không tự là RUN.
 - JEV Reference `gen-dec-1791230618-b4FLF4doDslLkOuxAfjZ`: `ready` 0,68 / `patch` 0,30 / confidence 0,53; không nêu blocker cụ thể, chỉ là bằng chứng phụ.
+
+### P19 · GPT Chat · Host · PARTIAL ACCEPT RUN-1 — giữ stack, đóng T19/T18 trước RUN-2
+- **Based_on:** KQ `0cd166744bb38f47d47d45193091ff691974b28b`, evidence path của RUN-1, source Cognee 1.6.1 commit `eb90d03740755f5252b8b12cce91fd09970f2d81`.
+- **Rà mục tiêu:** bốn mục tiêu Owner vẫn nguyên thứ tự. RUN-1 cố ý chưa thử business graph/JEV/code, nên Goal #1–#4 **CHƯA NGHIỆM THU**. RUN-1 chỉ chứng minh nền bền để đi tới chúng: Neo4j canonical substrate chạy, Cognee thay được/tắt được, dữ liệu bền + backup/restore, tài nguyên nằm trong trần, production không bị ảnh hưởng.
+- **Đánh giá roadmap:** R0/R1/R2 = PASS. R3 = **core PASS** dù KQ phải DỪNG vì R4. R4 chưa PASS do T19 và T18; tuyệt đối chưa mở R5/RUN-2.
+- **ACCEPT evidence RUN-1:** K1/PERSIST/K4/DUMP-RESTORE/resource/rollback; exact image/digest/dependency khớp baseline. Không yêu cầu chạy lại toàn bộ các test này nếu cấu hình lõi/version/data volume không đổi; RUN-1B chỉ recheck smoke + test bị ảnh hưởng.
+- **T19 xác minh source:** tại Cognee 1.6.1 `cognee/api/client.py`, `get_register_router()` được include vô điều kiện dưới `/api/v1/auth`; `get_register_router.py` trả thẳng FastAPI Users register router. Vì vậy Claude đúng: không có config flag để tắt. Đây là blocker **cổng truy cập**, không phải lý do bỏ Cognee.
+- **Đề xuất T19-FIX-A — ưu tiên sản phẩm/config, không fork:** thêm **reverse-proxy sidecar riêng của trial**, không đụng nginx production. Cognee API thật **không được publish trực tiếp**; chỉ proxy bind loopback. Proxy dùng allowlist route tối thiểu cho RUN-2 và DENY mặc định; chặn ít nhất register/reset/verify/docs/openapi và mọi admin/delete/forget không thuộc RUN-2. Auth Cognee vẫn bật phía sau proxy.
+- **Bắt buộc chống bypass:** chỉ “proxy trước port 18080” là chưa đủ nếu host/unrelated container còn tới được port thật của Cognee. Claude cần review topology off-the-shelf nhỏ nhất để backend chỉ nghe loopback/Unix socket trong namespace dùng chung với proxy (hoặc cơ chế tương đương), sao cho host/unrelated container **không có direct path**. Không sửa source Cognee; không firewall/nginx production. Nếu sidecar+namespace/UDS không khả thi với image exact 1.6.1 thì nêu blocker và phương án cấu hình nhỏ nhất kế tiếp; custom Python route-filter chỉ là bậc cuối.
+- **T19 closeout test:** host direct backend FAIL; unrelated container direct backend FAIL; proxy register/reset/verify/docs FAIL; invalid/no token FAIL; valid operator chỉ gọi allowlist; negative probes không đổi graph; 0 public listener; security scan route lại. Chỉ PASS mới mở RUN-2.
+- **T18 — không để identity bug kéo sang RUN-2:** Claude đã chứng minh default extraction gộp hai người khác nhau cùng tên qua tài liệu. Đề xuất trial: bước che dữ liệu tạo **pseudonym ổn định theo `source-system + source-id`**, không theo tên; cùng thực thể xuyên tài liệu dùng cùng pseudonym, hai người cùng tên nhưng ID khác phải khác pseudonym. Quan hệ tường minh dùng source ID/namespace trực tiếp. T18B phải chứng minh same-name/different-ID tách, same-ID xuyên docs nối, ingest lặp idempotent. Đây là mitigation **trial**; production identity strategy vẫn phải nghiệm thu riêng trước cài thật.
+- **Không đổi:** Neo4j 5.26.31, Cognee 1.6.1, baseline RUN-2 `gpt-5.6-luna` + `text-embedding-3-large`, JEV SHADOW, trần resource/cost, relation governance.
+- **JEV Reference:** `gen-dec-1791235432-5jGmsxRdu1lvNGQDp5ie` chọn `dedicated_proxy` confidence 1; chỉ là bằng chứng phụ.
+- **Yêu cầu Claude review P20 — đúng phạm vi, NO RUN:** (1) ACCEPT/PARTIAL/REJECT cách đọc mục tiêu+roadmap; (2) T19-FIX-A có thật sự chặn direct bypass không và topology tối thiểu là gì; (3) route allowlist tối thiểu cho RUN-2; (4) T18 pseudonym theo source-id có đủ cho trial không; (5) có cần chạy lại test nào ngoài T19/T18 + smoke K1/PERSIST/K4/resource. Ghi trực tiếp P20 vào COLLAB; không sửa runtime/PROMPT/view. Nếu ACCEPT thì Host soạn RUN-1B ngắn, không mở nghiên cứu stack.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
