@@ -3,15 +3,15 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-04 16:10 +07 · GPT · D113
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 01:55 +07 · GPT · D146
 🎯 Mục tiêu: **27 danh mục định nghĩa → khoảng 27 Master List sẵn sàng ghi dữ liệu**, để UI/DOT/Tool/Field/Nhóm/Quy trình/Công việc mới luôn có đúng chỗ đăng ký.
-🏁 Xong khi: 27 định nghĩa có mapping Master List; list xanh dùng lại nguyên bản; list còn thiếu có STT · ID · Tên + 5 cột thiết yếu và mở được trên web.
-📍 Tiến độ: 27 định nghĩa ✓ → ■ 27 Master List live → □ Owner rà cột → □ điền dữ liệu dần
-✅ Đã xong: STT định nghĩa 1–27 cố định · 4 list xanh MOW/MOT/MOIT/MOUT xác nhận reuse · UI.MASTER cha giữ nguyên.
-■ Đang làm: D113 đã kiểm live xong các cửa Master trong Owner View; chờ Owner bấm thử lại trên máy của mình.
-⬜ Còn lại: Owner chỉnh cột nếu cần → sau đó mới điền dữ liệu thật từng Master List.
-➡ Kế tiếp: 😊 Owner mở trang 27 list · Host sửa theo góp ý · Reviewer rà preserve/reuse · 🤖 agent chỉ điền dữ liệu sau khi schema được chốt.
-⛔ Không làm/để sau: không redesign 4 list xanh; không tạo 23 renderer riêng; chưa nối PG/Directus; chưa tự điền dữ liệu thật.
+🏁 Xong khi: 27 định nghĩa có mapping Master List; thay đổi một tiêu chí được lan truyền đúng tới các Master/UI/index liên quan và có bằng chứng kiểm live.
+📍 Tiến độ: 27 định nghĩa ✓ → Master live ✓ → công thức/nhóm đang test ✓ → ■ audit Change Propagation → □ tiếp tục coverage/UI
+✅ Đã xong: CT-001→007 · test Nhóm cha/Nhóm con T0 · Master UI con trả về 29 UI đã OK · tạo Change Propagation + Impact Map.
+■ Đang làm: D145 đã soạn quy trình + prompt audit; **chưa có KQ Codex cho RUN `MMIM-CHANGE-PROP-20261006-01`**.
+⬜ Còn lại: Codex audit/fix stale current-live → Host nghiệm thu KQ → dùng quy trình này cho mọi thay đổi tiếp theo.
+➡ Kế tiếp: 😊 **Owner giao Codex chạy `PROMPT-CHANGE-PROPAGATION.md`** · 🤖 Codex audit · Host nghiệm thu · Reviewer kiểm zero stale ref.
+⛔ Không làm/để sau: không duyệt UI Nhóm cha/Nhóm con thay Owner; không đưa draft vào Master UI con; chưa nối PG/Directus.
 
 - Nhiệm vụ trực tiếp 28/09/2026: tab **★ Step quy trình 2** ngay sau Step quy trình hiện có. Phần **I. Danh sách quy trình** hiển thị **nguyên bản UI cha** `mow-master-nhap2-v1.html` trên VPS; không tái tạo bảng/cột/format trong `ban-duyet.html` (D85). **Các bước chi tiết** giữ khung chờ hướng dẫn.
 
@@ -1285,6 +1285,8 @@ KQ@LANE-A A01 · PROCESS=CHUNG.APQUYTRINH · PROCESS_GATE=PASS · HEAD=a66d9d068
 - D110 · 2026-10-04 · **27 ĐỊNH NGHĨA → 27 MASTER LIST SẴN SÀNG GHI:** lập SSOT definition-master-registry-v1.js cho STT 1–27 với ID ổn định ML-DEF-001→ML-DEF-027; definition-master-data-v1.js là kho dữ liệu rỗng cho list mới. **4 list xanh** MOW/MOT/MOIT/MOUT chỉ reuse URL/UI hiện hành, không sửa source của chúng. **23 list còn lại** mở qua một child duy nhất definition-master-v1.html?stt=<n>, dùng nguyên UI.MASTER cha và renderer master-list.js; mỗi list có đúng mặt dữ liệu tối thiểu STT · ID · Tên + 5 cột thiết yếu. Index definition-master-index-v1.html hiển thị đủ 27 mapping, cột Tình trạng phân biệt ✓ Dùng lại · xanh và Rỗng · sẵn sàng; master-design-review-v1.html đưa index 27 lên mặt chính, 14 dòng review cũ gập xuống lịch sử. Kiểm live: index HTTP200 đủ 27; ca DOT STT24/ML-DEF-024 HTTP200 với cột Tool nền · Input contract · Output contract · Quyền · Trạng thái; 4 source xanh giữ nguyên hash.
 
 - D111 · 2026-10-04 · **TRUNG TÂM MASTER LIST NGAY TRÊN ★ CÔNG THỨC:** thêm một hub ngắn ngay dưới nguyên tắc `CÔNG THỨC = ghép các thành phần đã định nghĩa`, gồm cửa chính `27 Master List`, `Duyệt thiết kế Master`, `Master of Master` và 4 cửa nhanh list xanh MOW/MOT/MOIT/MOUT. Thêm cửa phụ từ `Kho thành phần · AI dùng chính` và ngay đầu `II. Định nghĩa` về cùng index 27. Tất cả link trỏ thẳng VPS `/ui-preview/mcp-writes/`, không tạo bản dữ liệu hay UI song song.
+
+- D146 · 2026-10-06 · **CỬA VÀO VẬN HÀNH + PENDING KHÔNG ĐƯỢC QUÊN:** tạo `work/mow-mot-moit-mout/README.md` làm START HERE, không phải kho tài liệu mới: nó chỉ đường tới Bảng/Công thức/Change Propagation/Impact Map/Prompt và có `VIỆC ĐANG CHỜ`. Root AGENTS thêm luật: file vận hành không có đường đọc/call từ entrypoint/Master thì chưa hoàn thành; project có Change Propagation thì bắt buộc impact scan. Cập nhật BẢNG ĐIỀU KHIỂN lên D146: NEXT Owner = giao Codex chạy `PROMPT-CHANGE-PROPAGATION.md`, RUN_ID `MMIM-CHANGE-PROP-20261006-01`; Host phiên mới phải nhắc nếu chưa có KQ XONG. HANDOFF đổi thứ tự đọc để Bảng + README đứng trước file chuyên môn.
 
 - D145 · 2026-10-06 · **QUY TRÌNH LAN TRUYỀN THAY ĐỔI / CHANGE PROPAGATION:** Owner chỉ ra lỗi hệ thống: đổi một tiêu chí nhưng agent không tự quét/cập nhật các bảng liên quan. Tạo `CHANGE-PROPAGATION.md` (8 bước Change Event → SSOT → impact scan → applicability → transaction → stale scan → live verify → evidence) và `CHANGE-IMPACT-MAP.json` machine-readable cho các profile UI_CHILD_DRAFT/APPROVAL/REVOKE, FORMULA_CHANGE, DEFINITION_CHANGE, MASTER_SCHEMA_CHANGE, NAME_OR_ALIAS_CHANGE, STATUS_OR_COUNT_CHANGE. FORMULA-AI-README + HANDOFF thêm gate bắt buộc đọc. Soạn `PROMPT-CHANGE-PROPAGATION.md` cho Codex audit ngay case D144; mục tiêu là zero stale current/live ref, preserve history, và Codex được quyền bổ sung impact map nếu phát hiện target thiếu. Đây là quy trình lặp lại cho mọi thay đổi sau.
 

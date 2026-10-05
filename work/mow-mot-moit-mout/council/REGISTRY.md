@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D145 có quy trình Change Propagation + impact map bắt buộc cho mọi thay đổi lan nhiều bảng; prompt Codex audit D144 đã READY ở `PROMPT-CHANGE-PROPAGATION.md`.
-- NEXT: Codex chạy audit/fix theo Change Event CE-20261006-001; sau đó dùng cùng quy trình cho mọi thay đổi lặp lại.
-- BLOCKED_BY: không có blocker kỹ thuật; canonical UI Nhóm cha/Nhóm con vẫn chờ Owner duyệt, Chuyên môn vẫn OPEN.
+- NOW: D146 đã có START HERE `README.md`, Bảng điều khiển và root AGENTS cùng trỏ Change Propagation; pending Codex audit được ghi ở cả README+Bảng nên phiên mới bắt buộc nhắc Owner.
+- NEXT: 😊 Owner giao Codex chạy `PROMPT-CHANGE-PROPAGATION.md` · RUN_ID `MMIM-CHANGE-PROP-20261006-01`; Host nghiệm thu KQ trước khi coi quy trình đã được audit.
+- BLOCKED_BY: chờ Owner giao Codex; canonical UI Nhóm cha/Nhóm con vẫn chờ Owner duyệt, Chuyên môn vẫn OPEN.
 - State: ACTIVE.
-- LAST_SYNC: D145.
+- LAST_SYNC: D146.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
