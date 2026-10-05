@@ -345,12 +345,12 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - `READY@b83da96e5369aace4f2f21d764e51bc8e91eb1fc`
 - **CHƯA RUN trong commit này.** Owner/Host giao executor sau READY; executor phải chạy đúng RUN_ID `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` và dừng R4 nếu có mutation/ngoại lệ cần duyệt.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 15:45 +07 · GPT Host · **P139 N1 READY**
-- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap khóa] → [✓ PROMPT N1] → [✓ Claude P138 ACCEPT] → [✓ Host P139 READY] → [■ chờ RUN N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 16:00 +07 · Claude Code (executor) · **P140 N1 STARTED · Pha A chỉ đọc**
+- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap khóa] → [✓ PROMPT N1] → [✓ Claude P138 ACCEPT] → [✓ Host P139 READY] → [■ RUN N1 đang chạy · Claude Code · Pha A inventory chỉ đọc] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
 - **Thiết kế V0:** `CHỐT`; A9 Hermes `MỞ ĐỦ · MANUAL`; AUTO_ALLOWLIST rỗng.
 - **Roadmap SSOT:** `N1 Cloud Foundation → N2 Dots → N3 Hermes-Mac → N4 Council Core → N5 Dual-mode/Flexible Levels → N6 Final Acceptance/Close`.
 - **Luật khóa:** R1–R7 + bảng chủ phép thử tại 0.17. Không node con, không TODO vô chủ, không PASS bằng cách dời việc chưa xong.
-- **Kế tiếp duy nhất:** giao Claude Code chạy `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` theo READY `b83da96e...`; không bàn lại roadmap/V0. Pha A read-only chạy một mạch; có mutation/`POLICY_HOLD`/khác biệt quyền/Mac change thì dừng đúng R4 trong cùng RUN.
+- **Kế tiếp duy nhất:** 🤖 Claude Code đang chạy `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` (STARTED P140) — Pha A inventory chỉ đọc; có mutation/`POLICY_HOLD`/khác biệt quyền/Mac change thì dừng đúng R4 trong cùng RUN, mốc chờ ghi ở P140. Host/Reviewer: không sửa PROMPT/READY khi cờ bận còn (DROOT31).
 - **Chưa cần Owner:** không có thao tác mới trước khi PROMPT N1 được Reviewer ACCEPT. Hai xác nhận cũ UptimeEye/T1–T9 không chặn N1; T1–T9 chỉ bắt buộc ratify trước N6 CLOSE.
 - **Không dựng thêm:** workflow engine · DB/state service · UI · score engine · supervisor service ở ngoài node tương ứng.
 - **An toàn:** trạng thái đèn/registry phải fresh-read lại ngay trước READY/RUN N1; không dùng số 22 cố định làm invariant vì số đèn có thể tăng.
@@ -2640,3 +2640,6 @@ JEV `gen-dec-1791183549-bjxYWfQ3NbeZlpazWm3t`: nhận kèm sửa bắt buộc 0,
 - D3: khi nghiệm thu em tự gọi một tool chỉ đọc của từng đầu nối Mac qua cầu nối app desktop, để có bằng chứng từ đúng kênh Owner dùng (DROOT34c).
 
 **7 · Hai vòng rà:** V1 — đặt từng câu của lời Owner (15:22 và lời với Host) cạnh từng mục PROMPT: câu nào của Owner chưa có dòng PROMPT thi hành, dòng PROMPT nào có thể làm ngược. V2 — gốc rễ: “đồng bộ nhanh về sau” chỉ thật khi (a) hai nơi chạy cùng một bộ mã, (b) lệch do máy tự thấy, (c) cải tiến trên Mac không bao giờ bị ghi đè âm thầm. Thiếu một trong ba thì N1 chỉ là một lần sao chép rồi lại lệch.
+
+### P140 · Claude Code CLI · 2026-10-05 · RUN `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` · Based_on `READY@b83da96e5369aace4f2f21d764e51bc8e91eb1fc` (P139) + Reviewer ACCEPT P138 cùng bản
+- STARTED@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 2026-10-05T08:59:00Z · executor=Claude Code CLI · read-gate PASS: Write_Path gateway `workspace_*` (root workspace, HEAD `7449bab`) đọc được bằng `workspace_stat` (không ghi thử); PROMPT last-touch `b83da96e5369aace4f2f21d764e51bc8e91eb1fc` = `READY@` P139 = bản Reviewer P138 ACCEPT; 0 STARTED/KQ/STOP_REQUESTED/HOLD cho RUN này; HJW `## Owner cần quyết` = `- —`; Owner chuyển câu lệnh chuẩn (DROOT38). Pha A chỉ đọc bắt đầu; đèn/registry đọc fresh trong Pha A.
