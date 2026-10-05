@@ -157,13 +157,51 @@
 - Chuông chỉ dùng cho sai quyền hoặc sai quy trình và phải nêu được luật bị vi phạm. Không nêu được luật thì đó là ý kiến, ghi vào vòng bàn.
 - Một từ một nghĩa: từ nay “bấm chuông” chỉ có nghĩa này. Việc liên lạc viên báo “tới lượt anh” gọi là **gọi lượt** (P126 từng dùng lẫn chữ).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 · GPT Host · SSOT MỤC TIÊU MỚI
-- **Trạng thái hiện tại:** `P124 · Level-State V0 = ĐANG BÀN / INERT`.
-- **Nền đã PASS:** Hermes gateway/Contract V1 · Host authority · lifecycle thật §8 · D30/D31/P117 protection · D31 external watch · Claude P123 ACCEPT.
-- **Đang bàn hiện tại:** Level-State V0 + rule layering. Chốt rõ invariant repo so với Task Policy trước; Hermes-Mac chỉ là candidate transport cần spike sau, không kéo vào runtime lúc này.
-- **Kế tiếp:** ✓ Claude đã phản biện P124 một vòng và đề nghị định nghĩa hoàn thành (P126 · mục 0.10–0.11, 05/10 11:40) → Owner 11:47 bổ sung nguyên tắc “vai nào quyền nấy, sai thì bấm chuông”: Claude ghi đề nghị ở 0.14 + P128 (12:10) → Host quyết `CHỐT V0` hoặc `SỬA/BÀN LẠI`, sửa tại chỗ 0.10–0.11 và 0.14.
-- **Chưa làm ở bước này:** chọn kỹ thuật Hermes-Mac · UI tổng · engine nhiều mức · routing Cấp 1/Cấp 2 · AUTO. Không mở RUN chỉ để thử transport cho tới khi Host chốt Level-State/Task Policy V0.
-- **An toàn hiện hành:** 22/22 xanh · sổ 71 loại/69 chạy/0 hỏng/2 U · ngoài sổ 0 · AUTO_ALLOWLIST rỗng · Config/Protection Guard CLEAN.
+### 0.15 · TỐI ƯU KỸ THUẬT V0 — *ĐỀ NGHỊ Host · ĐANG BÀN*
+**Nguyên tắc:** đạt yêu cầu bằng **ít thành phần và ít trạng thái lưu nhất**. Không dựng máy mới nếu parser/scanner hiện tại làm được.
+
+**A. Chỉ giữ 4 invariant máy phải cưỡng chế ở M1**
+1. **Đúng người/đúng vai:** identity phía server + Task Policy xác định quyền; sai quyền ⇒ reject + chuông.
+2. **Đúng bản:** mọi opinion/decision gắn `content_ref`/hash; nội dung đổi ⇒ opinion/decision cũ không dùng cho bản mới.
+3. **Đúng điều kiện chuyển mức:** máy tính từ policy + event; Host không thể chốt khi policy chưa cho phép.
+4. **Chuông = HOLD:** có chuông mở ⇒ bước sau không chạy; chuông đi thẳng Telegram bằng đường hiện hữu, không qua model lọc.
+
+**B. Không xây state store/DB mới — dùng repo như event log**
+- **Record 1: `TASK_POLICY_V1`** — một block nhỏ cho task, ghim trước khi chạy. V0 chỉ cần các tham số thật sự dùng: `required_members` · `max_rounds` · `decision_rule` · `bell_resolver` · `notify`; `decider` mặc định lấy từ dòng `Host:` nên không khai trùng nếu không cần override được Owner duyệt.
+- Không có DSL tổng quát. `decision_rule` dùng **enum/preset ít lựa chọn**, ví dụ: `NO_BLOCK` · `HOST_AFTER_MAX` · `OWNER_AFTER_MAX`. Sau này thiếu mới thêm; không xây expression engine.
+- **Record 2: `FLOW_EVENT_V1`** — append-only, một dạng record duy nhất với `kind` = `opinion | decision | bell | bell_resolve`; actor do server suy ra, không cho caller tự khai. Chung các trường: `level_id · content_ref · round · kind`; phần riêng chỉ thêm dữ liệu tối thiểu (`stance/note`, `decision`, hoặc `rule_ref/evidence_ref`).
+- **Không lưu thêm `state=` bằng tay.** Scanner tự suy ra state hiện hành từ policy + event: `ĐANG_BÀN` · `CHỜ_HOST_CHỐT` · `ĐÃ_CHỐT` · `BELL_HOLD`. Như vậy không có hai nguồn sự thật để lệch nhau.
+- Khi Host đã quyết `ĐI_TIẾP` tới thực thi, **không phát minh execution record mới**: dùng lại `ASSIGN_V1/RESULT_V1` đã PASS.
+
+**C. Chuông dùng đúng hạ tầng đã có**
+- Vi phạm máy tự biết (sai Host, sai vòng, sai content_ref, courier sửa payload...) ⇒ scanner/gateway tạo cùng một event chuông và gửi Telegram qua bot hiện tại.
+- Vi phạm chỉ AI/con người nhận ra ⇒ AI ghi `FLOW_EVENT_V1 kind=bell` kèm `rule_ref + evidence_ref`; scanner chỉ kiểm quyền/hình thức rồi gửi, **không gọi model phán chuông đúng hay sai trước khi báo**.
+- Resolver theo Task Policy; người bị bấm không tự resolve. M1 chưa cần “sổ điểm chuông”; chỉ log event. Score để sau khi đã có dữ liệu thật.
+
+**D. Người sau kiểm người trước — tối giản**
+- Không bắt mỗi agent chạy một verifier phức tạp. **Máy kiểm mọi rule máy đọc được trước.** Người nhận chỉ có nghĩa vụ: nếu thấy vi phạm semantic/quyền mà máy chưa bắt thì `không làm + bấm chuông`.
+- Như vậy “bất tuân” là fail-closed đơn giản, không phải thêm một supervisor engine.
+
+**E. Những thứ P126/P128 đúng về mục tiêu nhưng HOÃN kỹ thuật để giảm tải**
+- `khác hãng giám sát mọi task`: giữ là policy/đích, chưa dựng scheduler/service riêng ở M1.
+- `sổ điểm tin cậy`, `trang trace tự sinh`, `bảng policy UI`, `đổi cấp một click`, `T1–T9 toàn hệ`: giữ làm acceptance dài hạn; **không phải điều kiện để M1 chạy**.
+- Hermes-Mac/courier: không nằm trong M1. M1 chỉ chứng minh discussion/decision/bell kernel trên repo; transport làm sau.
+- Không archive/di chuyển lịch sử P lúc này chỉ để đẹp file; nếu chi phí đọc trở thành blocker thật mới xử lý theo Owner gật.
+
+**F. M1 kỹ thuật nhỏ nhất để chứng minh lõi**
+- Chọn đúng **một mức thật**: `rà kết quả một lượt agent + duyệt prompt kế tiếp`.
+- Trên **một task thử thật**, thêm 1 `TASK_POLICY_V1`; GPT/Claude ghi `FLOW_EVENT_V1 opinion` trên cùng `content_ref`; scanner tự hiện `CHỜ_HOST_CHỐT`; Host ghi `decision`; chưa nối worker ở lần đầu.
+- Phép âm bắt buộc: Host cố chốt khi policy chưa cho phép ⇒ máy reject + chuông Telegram. Đây vừa kiểm state vừa kiểm “vai nào quyền nấy”.
+- PASS M1 khi: đúng state suy ra · đúng version binding · đúng Host gate · chuông thật tới Telegram · 0 service/DB/UI mới · rollback chỉ là revert parser/policy block.
+- **Sau M1 mới quyết** có nối `decision=ĐI_TIẾP` vào `ASSIGN_V1`, rồi sau nữa mới làm gọi lượt/courier. Không làm ba bước trong một RUN.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 · GPT Host · P129 VÒNG TỐI ƯU KỸ THUẬT
+- **Trạng thái:** `ĐANG BÀN / INERT` — chưa RUN.
+- **Nền đã PASS:** Hermes gateway/Contract V1 · Host authority · lifecycle thật §8 · D30/D31/P117 protection · D31 external watch.
+- **Đang tối ưu:** giữ bức tranh vai–quyền/chuông nhưng **giảm phần kỹ thuật xuống tối thiểu**: repo hiện tại làm sổ, scanner/gateway hiện tại làm máy trạng thái, Telegram hiện tại làm chuông; không dựng workflow engine/DB/UI/service mới.
+- **Candidate M1:** chỉ 2 record mới `TASK_POLICY_V1` + `FLOW_EVENT_V1`; execution tiếp tục dùng `ASSIGN_V1/RESULT_V1` hiện có.
+- **Chưa làm:** Hermes-Mac · score engine · trang trace tự sinh · policy UI · engine nhiều mức · Cấp 1/AUTO. Các mục này là đích dài hạn, không phải prerequisite của M1.
+- **An toàn hiện hành:** 22/22 xanh · sổ 71/69/0/2 · AUTO_ALLOWLIST rỗng · Config/Protection Guard CLEAN.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
