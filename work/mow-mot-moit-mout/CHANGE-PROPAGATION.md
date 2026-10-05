@@ -5,6 +5,8 @@ Một thay đổi ở **concept / công thức / Master / UI / trạng thái / t
 
 **Nguyên tắc:** máy phải nhớ hộ người. Không bắt Owner nhắc từng bảng phải sửa.
 
+**Cơ chế nhớ/điều hành:** event-driven. Change Event, STARTED/KQ, Owner decision và status transition phải cập nhật Bảng/NEXT/REGISTRY. **Không dùng schedule/polling nền chỉ để nhắc việc nội bộ**; automation chỉ khi có trigger thời gian/điều kiện thật, Owner duyệt và lợi ích đủ bù quota.
+
 ## Gate bắt buộc
 Trước khi sửa, phân loại thay đổi:
 

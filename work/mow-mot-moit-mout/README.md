@@ -37,6 +37,14 @@ Bắt buộc dùng:
 Chuỗi:
 `Change Event → SSOT → quét impact trước → UPDATE/VERIFY/N-A → sửa → quét stale sau → kiểm live → evidence/KQ`.
 
+### Điều hành PENDING · event-driven, không polling
+- **Không tạo schedule/automation nền chỉ để nhắc một việc nội bộ repo.** Việc đó tốn quota nhưng không làm hệ thống thông minh hơn.
+- PENDING phải nằm trong **BẢNG ĐIỀU KHIỂN + README này + council/REGISTRY**.
+- Trigger mặc định là **sự kiện**, không phải thời gian: `mở phiên`, `STARTED@`, `KQ@`, `Owner duyệt`, `status đổi`, `dependency đổi`.
+- Khi mở phiên, Host đọc Bảng/NEXT và nêu việc PENDING nếu chưa có KQ; đây là cơ chế “nhớ”.
+- Automation chỉ được cân nhắc khi có nhu cầu thời gian/điều kiện bên ngoài thật sự, Owner yêu cầu/duyệt, và cadence được chọn theo chi phí quota.
+- Mục tiêu dài hạn: các event/status tự kích hoạt đúng quy trình; **không polling vô thức**.
+
 ## 4. Sổ vận hành ngắn
 
 | Artifact | Dùng khi nào | Trạng thái |
@@ -61,7 +69,7 @@ Chuỗi:
   `KQ@MMIM-CHANGE-PROP-20261006-01 XONG`
   và Host nghiệm thu.
 
-**Quy tắc Host:** nếu mở phiên mới mà PENDING này chưa có KQ XONG, phải nhắc Owner ngay trong phần “Kế tiếp”; không được âm thầm đi sang việc khác.
+**Quy tắc Host:** nếu mở phiên mới mà PENDING này chưa có KQ XONG, phải nêu ngay trong phần “Kế tiếp”; không được âm thầm đi sang việc khác. **Không dùng reminder automation mặc định để làm việc này.**
 
 ## 6. Câu giao Codex
 
