@@ -9,7 +9,7 @@ VPS khỏe và ổ đĩa không còn tăng bất thường vì dữ liệu vận
 
 ## 1 · PRE — trước mutation
 1. Đọc `AGENTS.md` → root `COLLAB.md` → task Bảng/P29/P30 → mục audit 05/10 trong `BAO-CAO.md` → PROMPT này. Fresh-check CWEB/HJW/PGNB: nếu đang có RUN mutation chung nginx/agent-data/PG/Directus thì chỉ audit phần không va chạm và dừng trước mutation shared.
-2. Chụp baseline: `df` + phân rã bytes theo nhóm; containers/StartedAt/health; HTTP `/`, `/w/`, Agent Data/UI, knowledge page; `systemctl --failed`; Kuma/Guard; journal/log mới từ 00:00 05/10. Không raw dump config/secret.
+2. Chụp baseline: `df -B1` + `df -i` + phân rã bytes theo nhóm; **đối chiếu df↔du** và `lsof +L1`/deleted-open để bắt bytes đã unlink nhưng process còn giữ; containers/StartedAt/health; HTTP `/`, `/w/`, Agent Data/UI, knowledge page; `systemctl --failed`; Kuma/Guard; journal/log mới từ 00:00 05/10. Không raw dump config/secret. Chụp thêm I/O/perf bounded sample (`vmstat`/iowait/pressure, swap, process/container hot spots) để phân biệt CPU thật với write churn.
 3. Baseline tham chiếu: disk ~65,7%, free ~35,24 GB. Inventory bắt buộc cả: log app · deploy CWEB · workspace transactions · Docker/build cache · backup PG · Qdrant · Owner View/context pack · PG18 quarantine/PG16 cũ.
 4. Không reboot trong RUN. Không DNS/cert CWEB. Không direct SQL/Directus REST/psql; thiếu capability thì sửa/viết DOT/wrapper trước.
 
@@ -29,6 +29,12 @@ VPS khỏe và ổ đĩa không còn tăng bất thường vì dữ liệu vận
 - Test: concurrent status/cancel + 2 job nhỏ + restart/recovery fixture; 0 `database is locked`, 0 duplicate job. Đo lại cùng mẫu 5 s idle: `syscw`/write_bytes giảm **≥80%** so P29 (840 syscw / 3,33 MB write_bytes) hoặc giải thích exact unavoidable writes; restart counter không tăng.
 
 ## 4 · C — Bịt mọi nguồn tăng dung lượng + dọn an toàn
+
+### C0 Leak sweep bắt buộc — không bỏ sót nguồn ngoài danh sách P29
+- Reconcile `df` với tổng `du`; **deleted-but-open file** phải = 0 bytes bất thường hoặc có owner/ETA xử lý. Không restart process chỉ để giải phóng nếu chưa biết writer.
+- Inventory riêng: Docker container JSON logs · writable layers/overlay2 · named/anonymous volumes; `pg_wal`/archive/status; Qdrant live storage/snapshots; `/tmp` · `/var/tmp` · `/var/cache` · systemd journal · coredump; workspace state/results/uploads/jobs; inode hotspots. Dữ liệu nghiệp vụ/live DB được phân loại `BUSINESS_GROWTH`, không xoá/cap mù nhưng phải có owner + expected growth.
+- Với **mọi** nhóm non-business, kết quả cuối bắt buộc có: `current_bytes · growth_driver · hard_cap_bytes (nếu áp dụng) · TTL/age · protected_set · cleanup_trigger · owner`. Thiếu một trường ⇒ STORAGE_BOUND chưa PASS.
+- Mọi cleaner/keeper sửa trong R6 phải có **dry-run**, fail-closed protected set, rerun idempotent; chạy lần 2 ngay sau cleanup phải đề xuất **0 destructive action mới** nếu không có dữ liệu mới.
 ### C1 Log ứng dụng
 - Mở rộng logrotate hiện có cho `/var/log/incomex` append logs (pivot-refresh, dot-apr-execute, pivot-results-refresh và nhóm tương tự). Chọn rotate/reopen/copytruncate theo writer thật; numeric cap + age + compress. Verify writer tiếp tục ghi sau rotate và tổng local có trần tính được.
 ### C2 Deploy/CWEB
@@ -54,9 +60,12 @@ VPS khỏe và ổ đĩa không còn tăng bất thường vì dữ liệu vận
 
 ## 7 · F — Cleanup execute + nghiệm thu
 - Trước destructive cleanup tạo canonical plan: path/id · bytes · reason · reference proof · rollback/recovery replacement · SHA256 plan. Chỉ xóa/move đúng allowlist đã proof ở C; ambiguous ⇒ giữ.
-- Sau fix/cleanup: disk target **free ≥45 GB** nếu đủ candidate an toàn; nếu protected artifacts khiến <45 GB thì KQ PARTIAL + exact protected bytes, không xóa mù.
+- Sau fix/cleanup: disk target **free ≥45 GB** nếu đủ candidate an toàn; nếu protected artifacts khiến <45 GB thì KQ PARTIAL + exact protected bytes, không xóa mù. **45 GB chỉ là mục tiêu capacity, không thay tiêu chí leak-closed.**
 - Core: containers/StartedAt expected, `/`, `/w/`, Agent Data/UI, Directus, PG, Qdrant, CWEB routes critical, Guard/Config Guard/Kuma same-or-better; không secret leak.
-- Storage inventory cuối phải có `group · bytes · growth source · retention/cap · next cleanup · owner`; mọi non-business source = BOUNDED hoặc blocker rõ.
+- Storage inventory cuối phải có `group · bytes · growth source · hard_cap_bytes · TTL/age · protected_set · next cleanup · owner`; mọi non-business source = BOUNDED hoặc blocker rõ.
+- **Slope proof:** chụp bytes theo cùng taxonomy tối thiểu tại PRE, ngay sau cleanup, và ≥2 mốc sau đó trong cửa sổ ≥30 phút khi hệ thống idle/hoạt động bình thường; với nguồn theo job, chạy/quan sát đúng một trigger đại diện nếu an toàn. Tính Δbytes/time theo group. Không được kết luận “đã hết rò” chỉ từ một snapshot. Nếu không thể chờ đủ cửa sổ trong RUN, cài/giữ watcher hiện hữu + ghi `POST_WATCH_REQUIRED`; Host chỉ đóng hoàn toàn sau cửa sổ hậu kiểm.
+- Cleaner/keeper đã sửa phải rerun dry-run lần 2 ⇒ 0 candidate mới ngoài dữ liệu phát sinh hợp lệ.
+- Performance POST: cùng bounded sample PRE/POST, không tăng iowait/swap churn/load bất thường; nếu load còn cao phải chỉ ra process/container causal.
 - Gửi Telegram receipt theo R4 nếu có production mutation.
 
 ## 8 · KQ
