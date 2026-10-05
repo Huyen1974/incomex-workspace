@@ -5,14 +5,14 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · GPT Host · P45 — ACCEPT P44 · R6W READY · CHỜ OWNER GIAO AGENT
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 02:12 +07 · Claude Code (Agent) · P46 — R6W STARTED
 - 🎯 **Mục tiêu:** Owner 05/10: VPS khỏe + không tăng dung lượng bất thường; phần storage đã đạt, R6W chỉ khép worker write-idle để không đóng trên residual kỹ thuật chưa thử tới điểm dừng.
 - 🏁 **Xong khi:** phần đã PASS giữ nguyên · R6W có một kết quả cuối theo P44: (a) worker PASS ≥80% + POST worker, hoặc (b) CHƯA ĐẠT được ghi rõ/chuyển chủ, không RUN thứ ba; sau đó DISKWATCH ngày xanh sau 02:00 +07 07/10 → CLOSE VPSC.
 - 📍 **Tiến độ:** `✅ R6 cleanup/storage/checker/APR/POST · ✅ P42 KQ DỪNG đúng cổng · ✅ P43 Host · ✅ P44 Reviewer · ✅ PROMPT R6W + READY · ■ R6W worker-only → ngày xanh → CLOSE`.
 - ✅ **Đã đạt thật:** disk 48,55 GiB free · T 25/25 + D 4/4 · M15 PASS · APR schedule OFF · #11 live xanh · Config Guard 336/336 · Kuma 22/22 · receipt 129 · worker v1 0 restart/lock.
-- ■ **Đang làm:** chờ Owner giao Claude Code chạy đúng R6W; PROMPT last-touch `0d4c64ff398e8bf15df0565b283bad6c2fa1f8df`, chỉ 1 RUN_ID.
+- ■ **Đang làm:** 🤖 Claude Code CLI · R6W STARTED 19:12Z trên READY `0d4c64f` · PRE → cổng test v2 → nạp worker host → đo · chờ: không.
 - ⬜ **Còn lại:** R6W → POST worker nếu mutation → đọc DISKWATCH sau 02:00 +07 07/10 → Host nghiệm thu/đóng; không làm lại cleanup/checker/APR/storage.
-- ➡ **Kế tiếp:** 😊 Owner gửi một dòng RUN · 🤖 Claude Code chạy worker-only; R6W ưu tiên trước HJW D2/Mac-off để tránh trùng cửa sổ Mac/worker.
+- ➡ **Kế tiếp:** 🤖 Claude Code chạy R6W tới KQ (~30–60′) · HJW D2/Mac-off đợi sau KQ R6W · 😊 Owner: không cần làm gì.
 - ⛔ **Không làm/để sau:** không rebuild/recreate agent-data · không v3 · không RUN VPSC thứ ba · không Graph/DNS/CWEB/HJW server mutation trong R6W.
 
 ### 1. Mục tiêu
@@ -451,6 +451,11 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **READY@0d4c64ff398e8bf15df0565b283bad6c2fa1f8df**
 - **Residual chuyển giao khi VPSC đóng, không làm trong R6W:** (1) Nuxt/Kuma #6 404 chập chờn → **CWEB / Host Claude**; (2) presence 502 → **HJW / Host GPT**; (3) `dot-collection-health` + 6 DOT còn mẫu nuốt lỗi → **GPT Host, DOT-health residual, chưa mở task**; (4) APR-0234 → **GPT Host/Owner quyết sau, APR schedule vẫn OFF**; (5) quyền logrotate `reconcile-*` → **GPT Host infra residual**, không chặn VPSC.
 - Owner cần quyết: —.
+
+### P46 · Claude Code CLI (Agent) · 06/10/2026 02:12 +07 · STARTED R6W
+- STARTED@VPSC-R6W-WORKER-CLOSE-20261006-01 2026-10-05T19:12Z · executor=Claude Code CLI (Mac → SSH root VPS1)
+- Based_on HEAD `7b18755` · PROMPT last-touch `0d4c64ff398e8bf15df0565b283bad6c2fa1f8df` = READY P45 ✓ · read-gate `workspace_stat` PASS.
+- Fresh-check 19:09Z: HJW P155 chỉ còn D2 thao tác tay Owner (0 mutation máy chủ) · VPS 0 build/deploy/compose/pg_dump đang chạy, 0 phiên SSH ngoài tmux cũ · `incomex-agent-data` chạy mã từ image (`/app/agent_data`), repo chỉ mount làm gốc workspace ⇒ nạp v2 phía host không đổi mã container.
 
 ## Owner cần quyết
 - —
