@@ -12,7 +12,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - **Cửa vào phiên mới:** `WS gốc · Host GPT · tiếp quản phiên 2026-09-23 · đọc AGENTS.md → COLLAB.md · làm theo mục Handoff phiên mới; trước khi thao tác một việc phải đọc COLLAB.md của việc đó.`
 
 ## Đang làm
-- `work/vps-clean-20-9-26/` · VPSC · **P34 READY@7449bab · EXECUTION_HOLD_N1**: Reviewer P33 ACCEPT; R6 kỹ thuật sẵn sàng nhưng HJW N1 đang STARTED nên tuyệt đối chưa chạy. Khi N1 terminal/Owner xác nhận ngừng triển khai và nói “cho dọn”, Host fresh-check conflict rồi phát RUN; cleanup vẫn theo PLAN_T/PLAN_D SHA + Drive fallback mã hoá.
+- `work/vps-clean-20-9-26/` · VPSC · **P35 OWNER GO · R6 ĐƯỢC PHÉP RUN**: N1 đã dừng checkpoint P141 để phân tích; Owner ưu tiên dọn VPS trước khi cài Graph. Dùng nguyên READY `7449baba55141c9a01fa6bc5244a84c73ea0f971`; Agent fresh-check conflict rồi chạy R6, PLAN_T/PLAN_D phải chờ Host duyệt exact SHA trước xoá.
 - `work/gsm-access-audit/` · GSM · Host Claude · **GSM-A1 audit đã XONG** (167 access/30 ngày, không rỉ máu); còn GSM.3–GSM.5: thiết kế giảm call → review/Owner duyệt → triển khai/đo lại. Giữ active.
 - `work/hermes-joint-workspace/` · HJW · **ACTIVE · P140 N1 STARTED**: RUN `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` bắt đầu 05/10 08:59Z; read-gate PASS, Pha A mở đầu chỉ-đọc, node sẽ tiếp tục cloud twin + sync theo PROMPT đã READY. Không chạy mutation VPS/Docker độc lập chồng lên N1 nếu chưa có gate riêng.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
