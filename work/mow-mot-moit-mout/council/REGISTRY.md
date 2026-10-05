@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D132 chốt chiều lắp ráp trái→phải bằng `=>`: `Field => {MOIT | MOUT} => MOT => MOW`; bối cảnh `T3 => T4 => T5 => T6 => T7`.
-- NEXT: Owner rà CT-002; nếu chốt thì dùng `A => B` làm chuẩn mọi công thức lắp ráp.
+- NOW: D133 thêm nickname human-first: CT-001=`Bước`, CT-002=`Tầng`; chữ lớn là điểm nhìn chính, tên đầy đủ giữ nhỏ để không mất canonical.
+- NEXT: Owner rà tỷ lệ chữ/nhịp card; sau đó tiếp tục công thức kế tiếp.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D132.
+- LAST_SYNC: D133.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
