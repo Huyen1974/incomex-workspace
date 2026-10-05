@@ -442,11 +442,20 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Sau attach + read-only verify:** dừng sạch Claude Code, không chạy waiter. Owner gập Mac/nhắn D2 khi tiện. Có bằng chứng D2 thì mở/resume ngắn → fresh §8/đèn/registry → KQ N1.
 - **Stop-hook nhắc VPSC là false attribution/noise:** không ghi KQ VPSC, không tiếp tục VPSC; ghi residual control-plane để xử lý sau N1, không kéo vào N1.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 00:52 +07 · GPT Host · **P149 N1 3 ACCEPTANCE CUỐI · KHÔNG WAITER NỀN**
+### P151 · Host GPT · 2026-10-06 01:35 +07 · **ACCEPT P150 · N1 CHỈ CÒN THAO TÁC CUỐI, GẬP MAC CHỈ LÀ PHÉP THỬ MỘT LẦN**
+- **Đồng thuận P150.** Phần máy N1 đã xong/protected; không mở lại kỹ thuật. Chạy song song với VPSC chỉ phần **không đụng VPS**.
+- **Bây giờ làm đúng 1 việc:** trong phiên N1, gắn `Incomex AgentData` rồi verify read-only; xong thật mới gắn `Incomex Lark` rồi verify read-only. Sau đó dừng sạch terminal N1.
+- **Chưa gập Mac khi VPSC đang mutation.** “Gập Mac” chỉ là acceptance D2 một lần để mô phỏng Mac không tồn tại và chứng minh GPT/Claude web vẫn làm việc bằng cloud twin. Đây không phải cách vận hành thường ngày.
+- **Khi VPSC ở checkpoint yên hoặc đã KQ:** Owner gập Mac khoảng 10 phút → dùng điện thoại/chat cloud gửi D2 cho GPT Chat + Claude Chat; Claude phải dùng đúng hai connector mới. Mở Mac lại → verifier N1 kiểm fingerprint `via=hook` + §8 → KQ N1.
+- **Fingerprint `via=hook` không phải việc tay riêng:** tự phát sinh khi mở một managed session Claude Code/Codex mới; chỉ cần verify trước KQ.
+- **Không waiter nền:** tới bước Owner thì checkpoint + stop; có bằng chứng mới resume ngắn. Không giữ shell/polling để “đợi”.
+- **Roadmap không đổi:** `N1 → N2 → N3 → N4 → N5 → N6`.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 01:35 +07 · GPT Host · **P151 N1 THAO TÁC CUỐI RÕ RÀNG**
 - **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4] → [✓ phần máy P148] → [■ attach 2 connector web] → [□ fingerprint via=hook] → [□ D2 Mac-off] → [□ final §8 + KQ N1] → [□ N2]`.
 - **Roadmap SSOT:** không đổi `N1 → N2 → N3 → N4 → N5 → N6`; chưa xong N1 thì không sang N2.
 - **N1 hiện tại:** phần máy đã PASS/protected; Lark rotation/argv remediation xong; chỉ còn 3 acceptance P149 trước KQ.
-- **Kế tiếp duy nhất:** Claude Code mở lại 2 hộp thoại connector **từng cái một**, verify read-only qua đúng connector mới rồi dừng sạch terminal; Owner làm D2 khi tiện; sau đó resume ngắn để verify fingerprint + §8 và ghi KQ.
+- **Kế tiếp duy nhất:** **BÂY GIỜ** gắn 2 connector web từng cái một + verify read-only → dừng sạch N1. **SAU KHI VPSC yên/KQ** mới gập Mac ~10′ làm D2 → mở Mac → verifier ngắn + KQ N1.
 - **Việc tay Owner còn lại:** thêm 2 connector Claude web theo hộp thoại từng cái · gập/mở Mac cho D2. Hook đã cài; chỉ cần một phiên managed mới để sinh `via=hook`.
 - **Không làm:** không sửa PROMPT đang chạy · không mở N2 · không dọn GPT legacy registration · không harden Directus Mac legacy trong N1.
 
