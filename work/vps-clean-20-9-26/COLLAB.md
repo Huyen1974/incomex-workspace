@@ -5,14 +5,14 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 · GPT Host · P35 — OWNER GO · R6 ĐƯỢC PHÉP STARTED
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 16:40 +07 · Claude Code (Agent) · P36 — R6 STARTED
 - 🎯 **Mục tiêu:** Owner 05/10: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) … làm tiếp cho hoàn thiện”; vì VPS phải khỏe lâu dài chứ không chỉ dọn một lần.
 - 🏁 **Xong khi:** checker không PASS giả · worker không lock/write-loop · mọi nguồn non-business bounded/unknown-name có chuông · cleanup có plan+hash/offsite fallback · core health same-or-better · watcher một chu kỳ ngày không vượt slope gate; capacity 45 GiB chỉ đạt nếu an toàn.
 - 📍 **Tiến độ:** `✅ P29 audit · ✅ P31 DELTA · ✅ P32 apply · ✅ P33 ACCEPT · ✅ P34 READY · ✅ N1 dừng checkpoint P141 · ✅ Owner GO · ■ Claude Code R6 → PLAN_T/D Host duyệt → cleanup → KQ → hậu kiểm → đóng`.
 - ✅ **Đã xong:** PROMPT R6 final-review = `7449baba55141c9a01fa6bc5244a84c73ea0f971`; N1 hiện `KQ DỪNG · N1_R4_WAITING_REVIEW`, không phải mutation đang tiếp tục; Owner xác nhận “N1 đã tạm dừng để phân tích” và “giờ dọn đi được rồi”.
-- ■ **Đang làm:** R6 được phép STARTED trên đúng READY `7449bab`; Agent phải fresh-check lại conflict trước mutation và chạy theo PROMPT hiện hành.
+- ■ **Đang làm:** 🤖 Claude Code CLI · R6 STARTED 09:40Z trên READY `7449bab` · PRE baseline → A/B/C/E · chờ: không.
 - ⬜ **Còn lại:** Agent A/B/C/E → ghi PLAN_T/PLAN_D SHA → Host duyệt exact SHA → cleanup → POST-PROTECT → watcher ngày → nghiệm thu; sau cleanup mới thuận lợi cho Graph RUN-1.
-- ➡ **Kế tiếp:** 😊 Owner dán đúng lệnh RUN ngắn · 🤖 Claude Code tự đọc repo và chạy; khi có PLAN_T/PLAN_D thì báo Host duyệt ngay.
+- ➡ **Kế tiếp:** 🤖 Claude Code chạy PRE→A/B/C/E rồi ghi PLAN_T/PLAN_D SHA · Host GPT trực duyệt exact SHA ngay khi có · 😊 Owner: không cần làm gì.
 - ⛔ **Không làm/để sau:** DNS/cert CWEB · reboot VPS · build/deploy knowledge trước CWEB cutover · auto-delete `/opt/incomex/work` · sửa HJW business logic; không xoá mù để đạt 45 GiB.
 
 ### 1. Mục tiêu
@@ -328,6 +328,11 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - Owner GO cho RUN `VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01`. Agent vẫn phải PRE fresh-check không có RUN shared mới trước mutation.
 - Khi PLAN_T/PLAN_D xuất hiện, Agent không xoá trước; Host duyệt exact SHA ngay. Nhóm D theo D15/Drive fallback mã hoá.
 - Owner cần quyết: —.
+
+### P36 · Claude Code CLI (Agent) · 05/10/2026 16:40 +07 · STARTED R6
+- STARTED@VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01 2026-10-05T09:40Z · executor=Claude Code CLI (Mac → SSH root VPS1)
+- Based_on HEAD `12810fb` · PROMPT last-touch `7449baba55141c9a01fa6bc5244a84c73ea0f971` = READY P34/P35 ✓ · read-gate `workspace_stat` PASS (sha nội dung COLLAB/PROMPT khớp clone).
+- Fresh-check 09:39Z: repo không có STARTED mở chạm nginx/agent-data/PG/Directus (HJW N1 = KQ DỪNG `N1_R4_WAITING_REVIEW`, P142 chỉ rà; CWEB RUN04 XONG chờ cutover; graph-server/PGNB chỉ bàn) · VPS1: 0 phiên SSH khác (3 tmux cũ 22/05), 0 tiến trình dot/rclone/pg_dump/tar, 12 container Up · đĩa 66%, trống 35.106.123.776 B.
 
 ## Owner cần quyết
 - —
