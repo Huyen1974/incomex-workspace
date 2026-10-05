@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D135 sửa hierarchy thị giác: Bước con giữ cấp dưới 22px; CT-003/004/005 thành formula-piece cấp gốc full-width, nickname 30px ngang Bước/Tầng, công thức + hình họa riêng.
-- NEXT: Owner rà nhịp/cỡ 3 công thức cấp gốc rồi hướng dẫn tiếp.
+- NOW: D136 thứ tự UI đã đúng CT-001→005; Bước con chỉ nằm trong CT-001. Mặt người ưu tiên nickname + công thức; nhãn Nhìn nhanh bỏ, metadata/chú giải hạ nhỏ/mờ.
+- NEXT: Owner rà lại nhịp 5 công thức theo thứ tự rồi hướng dẫn tiếp.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D135.
+- LAST_SYNC: D136.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**

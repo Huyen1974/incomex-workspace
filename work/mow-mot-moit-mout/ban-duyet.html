@@ -598,12 +598,17 @@
 #matrix-view-formula .cf-flow .s.cf-retire{background:#fff2f2;border-color:#dfbcbc;color:#7a4141}
 #matrix-view-formula .cf-flow .s.cf-retire b{background:#965353}
 #matrix-view-formula .cf-return{font-size:13px;font-weight:600;color:#1f4d3a}
-#matrix-view-formula .cf-definition{margin:8px 0;max-width:760px;line-height:1.6}
+#matrix-view-formula .cf-definition{margin:4px 0 9px;max-width:900px;line-height:1.3}
+#matrix-view-formula .cf-formula-expression{margin:2px 0 10px;font-size:17px;font-weight:700;line-height:1.35;color:#20362c}
+#matrix-view-formula .cf-formula-expression code{font-size:17px;font-weight:700;background:#f1f4f2;border-radius:6px;padding:3px 7px;color:#20362c}
 #matrix-view-formula .cf-formula-piece{border:1px solid #cfded3;border-radius:14px;background:#fff;padding:13px 14px 10px;margin:12px 0 20px}
 #matrix-view-formula .cf-formula-piece>h3{margin-top:0}
 #matrix-view-formula .cf-formula-titlebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 8px;padding-bottom:2px}
 #matrix-view-formula .cf-formula-nick{font-size:30px;line-height:1;font-weight:800;letter-spacing:-.035em;color:#173f30}
-#matrix-view-formula .cf-formula-full{font-size:11.5px;font-weight:600;color:#6e7a73;border-left:1px solid #d7e1da;padding-left:10px;white-space:nowrap}
+#matrix-view-formula .cf-formula-full{font-size:9.5px;font-weight:500;color:#9aa39e;border-left:1px solid #e2e8e4;padding-left:9px;white-space:nowrap}
+#matrix-view-formula .cf-formula-actions{opacity:.72}
+#matrix-view-formula .cf-formula-actions:hover{opacity:1}
+#matrix-view-formula .cf-formula-actions .cf-master-inline{font-size:9.5px;padding:2px 6px}
 #matrix-view-formula .cf-formula-actions{display:flex;align-items:center;gap:6px;margin-left:auto;flex-wrap:wrap}
 @media(max-width:640px){#matrix-view-formula .cf-formula-nick{font-size:26px}#matrix-view-formula .cf-formula-actions{margin-left:0;width:100%}#matrix-view-formula .cf-formula-full{white-space:normal}}
 #matrix-view-formula .cf-formula-piece .cf-subformulas{margin-bottom:0}
@@ -614,8 +619,8 @@
 #matrix-view-formula .cf-tier-context[open]{opacity:.78}
 #matrix-view-formula .cf-tier-main{border-top:1px dashed #d8e1da;padding-top:10px}
 #matrix-view-formula .cf-tier-main-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
-#matrix-view-formula .cf-tier-main-head b{font-size:12px;color:#214b39}
-#matrix-view-formula .cf-tier-main-head span{font-size:10px;color:#66756c}
+#matrix-view-formula .cf-tier-main-head b{font-size:10px;color:#7d8982;font-weight:600}
+#matrix-view-formula .cf-tier-main-head span{font-size:9px;color:#a0a8a3}
 #matrix-view-formula .cf-tier-chain{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 #matrix-view-formula .cf-tier-chain-muted{padding:9px 10px 10px}
 #matrix-view-formula .cf-tier-node{display:inline-flex;align-items:center;gap:7px;border:1px solid #dce4de;border-radius:10px;background:#fff;padding:6px 9px;min-height:48px;box-sizing:border-box}
@@ -645,14 +650,12 @@
 #matrix-view-formula .cf-derived-divider{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:14px 0 8px;padding-top:10px;border-top:1px dashed #d9e2dc}
 #matrix-view-formula .cf-derived-divider b{font-size:11px;color:#3b5648}
 #matrix-view-formula .cf-derived-divider span{font-size:9.5px;color:#8a938e}
-#matrix-view-formula .cf-derived-root{margin:10px 0 12px;padding:13px 14px 11px;background:#fff}
-#matrix-view-formula .cf-derived-look{margin:4px 0 7px;font-size:13px;color:#27352e}
-#matrix-view-formula .cf-derived-look code{font-size:13px;background:#f1f4f2;border-radius:5px;padding:2px 6px}
-#matrix-view-formula .cf-derived-formula{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:50px;margin:2px 0 7px}
-#matrix-view-formula .cf-derived-formula span,#matrix-view-formula .cf-derived-formula strong{display:inline-flex;align-items:center;justify-content:center;border:1px solid #cfdcd2;border-radius:9px;background:#f7faf8;padding:8px 12px;font-size:14px;font-weight:700;color:#26382f}
+#matrix-view-formula .cf-derived-root{margin:12px 0 16px;padding:13px 14px 11px;background:#fff}
+#matrix-view-formula .cf-derived-formula{display:flex;align-items:center;gap:9px;flex-wrap:wrap;min-height:56px;margin:1px 0 7px}
+#matrix-view-formula .cf-derived-formula span,#matrix-view-formula .cf-derived-formula strong{display:inline-flex;align-items:center;justify-content:center;border:1px solid #cfdcd2;border-radius:9px;background:#f7faf8;padding:9px 14px;font-size:16px;font-weight:750;color:#26382f}
 #matrix-view-formula .cf-derived-formula strong{background:#eef5f0;border-color:#bfd3c5;color:#183e2f}
-#matrix-view-formula .cf-derived-formula b{font-size:18px;color:#6f7e76}
-#matrix-view-formula .cf-derived-note{margin:0;font-size:9.5px;line-height:1.45;color:#8a938e}
+#matrix-view-formula .cf-derived-formula b{font-size:20px;color:#6f7e76}
+#matrix-view-formula .cf-derived-note{margin:0;font-size:8.5px;line-height:1.4;color:#a0a8a3}
 @media(max-width:760px){#matrix-view-formula .cf-child-hint{margin-left:0;width:100%}}
 #matrix-view-formula .cf-subgrid{display:block}
 #matrix-view-formula .cf-subgroup{display:none;min-width:0;border:1px solid #e1e8e3;border-radius:10px;background:#fff;padding:9px}
@@ -670,7 +673,7 @@
 #matrix-view-formula .cf-pill.ok{background:#edf7ef;color:#356743;border:1px solid #d5e7d8}
 #matrix-view-formula .cf-pill.warn{background:#fff8e8;color:#795f22;border:1px solid #ead8a8}
 #matrix-view-formula .cf-pill.bad{background:#fff1f1;color:#834848;border:1px solid #e7caca}
-#matrix-view-formula .cf-map-label{margin:14px 0 6px;font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}#matrix-view-formula .cf-notation-rule{margin-top:9px;border-top:1px dashed #d8e1da;padding-top:7px}#matrix-view-formula .cf-notation-rule>summary{cursor:pointer;font-size:10.5px;font-weight:700;color:var(--mut)}#matrix-view-formula .cf-notation-items{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0;font-size:10.5px;color:#526059}#matrix-view-formula .cf-notation-items span{display:flex;align-items:center;gap:5px}#matrix-view-formula .cf-demo-root,#matrix-view-formula .cf-demo-child,#matrix-view-formula .cf-demo-grand{display:inline-flex;align-items:center;justify-content:center;background:#315e4b;color:#fff;font-style:normal;font-weight:700}#matrix-view-formula .cf-demo-root{width:30px;height:30px;border-radius:50%}#matrix-view-formula .cf-demo-child{width:26px;height:26px;border-radius:5px;font-size:9px}#matrix-view-formula .cf-demo-grand{min-width:34px;height:18px;padding:0 4px;border-radius:4px;font-size:8.5px}#matrix-view-formula .cf-notation-rule p{margin:5px 0 0;font-size:10.5px;color:var(--mut)}
+#matrix-view-formula .cf-map-label{margin:12px 0 6px;font-size:9px;font-weight:600;color:#9aa39e;text-transform:uppercase;letter-spacing:.04em}#matrix-view-formula .cf-notation-rule{margin-top:9px;border-top:1px dashed #d8e1da;padding-top:7px}#matrix-view-formula .cf-notation-rule>summary{cursor:pointer;font-size:10.5px;font-weight:700;color:var(--mut)}#matrix-view-formula .cf-notation-items{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0;font-size:10.5px;color:#526059}#matrix-view-formula .cf-notation-items span{display:flex;align-items:center;gap:5px}#matrix-view-formula .cf-demo-root,#matrix-view-formula .cf-demo-child,#matrix-view-formula .cf-demo-grand{display:inline-flex;align-items:center;justify-content:center;background:#315e4b;color:#fff;font-style:normal;font-weight:700}#matrix-view-formula .cf-demo-root{width:30px;height:30px;border-radius:50%}#matrix-view-formula .cf-demo-child{width:26px;height:26px;border-radius:5px;font-size:9px}#matrix-view-formula .cf-demo-grand{min-width:34px;height:18px;padding:0 4px;border-radius:4px;font-size:8.5px}#matrix-view-formula .cf-notation-rule p{margin:5px 0 0;font-size:10.5px;color:var(--mut)}
 #matrix-view-formula .cf-two-views{grid-template-columns:repeat(2,minmax(0,1fr))}
 #matrix-view-formula .cf-two-views p{margin:5px 0;font-size:14px;line-height:1.6}
 #matrix-view-formula .cf-two-views small{display:block;margin:5px 0 0;font-size:12px}
@@ -869,7 +872,7 @@
 </script>
 <section class="cf-formula-piece" id="formula-ct-001" aria-label="CT-001 · Vòng đời tổng">
 <div class="cf-formula-titlebar" id="cf-b05-seven"><div class="cf-formula-nick">Bước</div><div class="cf-formula-full">CT-001 · Vòng đời tổng</div><div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-001" target="_self">Chi tiết →</a></div></div>
-<p class="cf-definition"><b>Nhìn nhanh:</b> <code>Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }</code></p>
+<div class="cf-formula-expression"><code>Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }</code></div>
 <div class="cf-map-label">Bản đồ vòng đời tổng · gốc 1–9</div>
 <div class="cf-flow" role="group" aria-label="CT-001 Vòng đời tổng: các gốc 1 đến 9">
 <a class="cf-flow-start cf-root-link" href="#formula-root-1"><b class="cf-root-no">1</b> Tìm</a>
@@ -935,46 +938,6 @@
       <div class="cf-subnote">Chưa bóc nhỏ · khi cần sẽ dùng 9.1, 9.2…</div>
     </article>
   </div>
-  <div class="cf-derived-divider"><b>Công thức cấp gốc</b><span>Cùng cấp nhìn với Bước / Tầng.</span></div>
-
-  <article class="cf-formula-piece cf-derived-root" id="formula-ct-003" aria-label="CT-003 · Nhóm cha">
-    <div class="cf-formula-titlebar">
-      <div class="cf-formula-nick">Nhóm cha</div>
-      <div class="cf-formula-full">CT-003</div>
-      <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-003" target="_self">Chi tiết →</a></div>
-    </div>
-    <p class="cf-derived-look"><b>Nhìn nhanh:</b> <code>Bước + Tầng</code></p>
-    <div class="cf-derived-formula cf-derived-formula-root" aria-label="Bước cộng Tầng">
-      <span>Bước</span><b>+</b><span>Tầng</span><b>⇒</b><strong>Nhóm cha</strong>
-    </div>
-    <p class="cf-derived-note">Chuẩn dùng rộng · chi tiết để AI xử lý.</p>
-  </article>
-
-  <article class="cf-formula-piece cf-derived-root" id="formula-ct-004" aria-label="CT-004 · Nhóm con">
-    <div class="cf-formula-titlebar">
-      <div class="cf-formula-nick">Nhóm con</div>
-      <div class="cf-formula-full">CT-004</div>
-      <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-004" target="_self">Chi tiết →</a></div>
-    </div>
-    <p class="cf-derived-look"><b>Nhìn nhanh:</b> <code>Bước con + Tầng</code></p>
-    <div class="cf-derived-formula cf-derived-formula-root" aria-label="Bước con cộng Tầng">
-      <span>Bước con</span><b>+</b><span>Tầng</span><b>⇒</b><strong>Nhóm con</strong>
-    </div>
-    <p class="cf-derived-note">Chuẩn trong chuyên môn · chi tiết để AI xử lý.</p>
-  </article>
-
-  <article class="cf-formula-piece cf-derived-root" id="formula-ct-005" aria-label="CT-005 · List Quy trình">
-    <div class="cf-formula-titlebar">
-      <div class="cf-formula-nick">List Quy trình</div>
-      <div class="cf-formula-full">CT-005</div>
-      <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-005" target="_self">Chi tiết →</a></div>
-    </div>
-    <p class="cf-derived-look"><b>Nhìn nhanh:</b> <code>Bước + Tầng + Nhóm</code></p>
-    <div class="cf-derived-formula cf-derived-formula-root" aria-label="Bước cộng Tầng cộng Nhóm">
-      <span>Bước</span><b>+</b><span>Tầng</span><b>+</b><span>Nhóm</span><b>⇒</b><strong>List Quy trình</strong>
-    </div>
-    <p class="cf-derived-note">Nhóm tạm tính đời ông; nếu quá phức tạp thì tách thành quy trình độc lập sau.</p>
-  </article>
   <details class="cf-notation-rule">
     <summary>Quy tắc ký hiệu · dùng lại</summary>
     <div class="cf-notation-items">
@@ -989,7 +952,7 @@
 
 <section class="cf-formula-piece cf-tier-formula" id="formula-ct-002" aria-label="CT-002 · Ghép tầng">
 <div class="cf-formula-titlebar"><div class="cf-formula-nick">Tầng</div><div class="cf-formula-full">CT-002 · Ghép tầng</div><div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-002" target="_self">Chi tiết →</a></div></div>
-<p class="cf-definition"><b>Nhìn nhanh:</b> <code>Field =&gt; { MOIT | MOUT } =&gt; MOT =&gt; MOW</code></p>
+<div class="cf-formula-expression"><code>Field =&gt; { MOIT | MOUT } =&gt; MOT =&gt; MOW</code></div>
 <details class="cf-tier-context">
   <summary><span><b>Nửa bối cảnh · T3 =&gt; T4 =&gt; T5 =&gt; T6 =&gt; T7</b> · cùng chiều lắp ráp</span><small>Mở khi cần ↓</small></summary>
   <div class="cf-tier-chain cf-tier-chain-muted" aria-label="Bối cảnh lắp ráp từ T3 lên T7">
@@ -1019,6 +982,42 @@
   <p><b>Nửa bối cảnh</b> = mờ + thu gọn mặc định. <b>Nửa ghép</b> = rõ + luôn hiện. <code>A =&gt; B</code> = A lắp vào B; chiều đọc luôn từ tầng thấp bên trái lên tầng cao bên phải. Các node đời ông dùng cùng hình tròn lớn như CT-001.</p>
 </details>
 </section>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-003" aria-label="CT-003 · Nhóm cha">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">Nhóm cha</div>
+    <div class="cf-formula-full">CT-003</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-003" target="_self">Chi tiết →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Bước cộng Tầng tạo Nhóm cha">
+    <span>Bước</span><b>+</b><span>Tầng</span><b>⇒</b><strong>Nhóm cha</strong>
+  </div>
+  <p class="cf-derived-note">Chuẩn dùng rộng · chi tiết để AI xử lý.</p>
+</article>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-004" aria-label="CT-004 · Nhóm con">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">Nhóm con</div>
+    <div class="cf-formula-full">CT-004</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-004" target="_self">Chi tiết →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Bước con cộng Tầng tạo Nhóm con">
+    <span>Bước con</span><b>+</b><span>Tầng</span><b>⇒</b><strong>Nhóm con</strong>
+  </div>
+  <p class="cf-derived-note">Chuẩn trong chuyên môn · chi tiết để AI xử lý.</p>
+</article>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-005" aria-label="CT-005 · List Quy trình">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">List Quy trình</div>
+    <div class="cf-formula-full">CT-005</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-005" target="_self">Chi tiết →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Bước cộng Tầng cộng Nhóm tạo List Quy trình">
+    <span>Bước</span><b>+</b><span>Tầng</span><b>+</b><span>Nhóm</span><b>⇒</b><strong>List Quy trình</strong>
+  </div>
+  <p class="cf-derived-note">Nhóm tạm tính đời ông; nếu quá phức tạp thì tách thành quy trình độc lập sau.</p>
+</article>
 
 <h3 id="cf-definitions">II. Định nghĩa <small style="font-weight:500;color:var(--mut)">· 27 danh mục hiện có · bản nháp để Owner góp ý</small></h3>
 <p class="cf-def-intro"><b>STT = ID cho con người:</b> mỗi định nghĩa có một số tự nhiên cố định; đổi tên/nhóm/ẩn-hiện không đổi số. Mục mới lấy số tiếp theo. Mã <code>KNI-*</code> / <code>OBJ-*</code> là mã máy riêng. <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html" target="_self">27 Master List của các định nghĩa →</a></p>
