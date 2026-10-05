@@ -242,6 +242,34 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Không được dồn nợ kỹ thuật mơ hồ:** residual do lỗi/chưa làm xong của chính node thì ở lại node; chỉ residual thuộc bản chất node sau mới được chuyển.
 - **Mỗi node phải đủ lớn để tạo năng lực dùng được**, tương tự G7: không coi inventory, smoke, migration, protection hay acceptance là các dự án riêng nếu chúng phục vụ cùng một mục tiêu node.
 
+**R1 · PASS chỉ Owner được nới/bỏ.** Host + Reviewer được làm rõ hoặc làm chặt. `MOVE_TO:<node>` chỉ áp cho phần nằm ngoài dòng PASS hiện tại; không được dùng để hợp thức hoá việc node chưa đạt. Mọi MOVE_TO phải ghi vào Bảng và được node nhận chép lại.
+
+**R2 · Mỗi phép thử có một node chủ, phải PASS lần đầu tại node đó.** N6 chỉ rerun toàn bộ + hardening/close; nếu phép thử chưa từng PASS ở node chủ thì N6 FAIL và trả về đúng node chủ, không xây năng lực mới lần đầu.
+
+| Phép thử/năng lực | N1 | N2 | N3 | N4 | N5 | N6 |
+|---|---|---|---|---|---|---|
+| Mac-off: hội đồng vẫn làm việc | ● | | | | | ↻ |
+| T1 việc khó, 0 lần chuyển tin | | | ○ | ○ một mức | ● | ↻ |
+| T2 việc dễ, một AI điều hành | | ○ nếu Dot dùng được | | | ● | ↻ |
+| T3 cài lỗi thử | | | | | ● | ↻ |
+| T4 đổi agent | | | | | ● | ↻ |
+| T5 đổi cấp | | | | | ● | ↻ |
+| T6 thêm/bớt mức | | | | | ● | ↻ |
+| T7 truy vết từ event log | | | | ○ nền | ● | ↻ |
+| T8 an toàn tổng thể | ○ | ○ | ○ | ○ | ○ | ● |
+| T9 courier sửa thư / vượt quyền | | | ● | | | ↻ |
+| T9 Host chốt/giao sai trình tự | | | | ● | | ↻ |
+
+**R3 · Node nào tạo/sửa mã hoặc cấu hình thì bảo vệ ngay trong chính RUN đó.** D30/31, Config/Protection Guard, mutant/negative proof, rollback/receipt tương ứng phải PASS trước KQ node. N6 chỉ rerun/đối chiếu tổng, không để N4/N5 trần tới cuối.
+
+**R4 · N1 có đúng một checkpoint trước mutation, chỉ khi thật sự có thứ phải sửa.** Executor hoàn tất inventory/xếp loại/danh sách thay đổi/rollback từng dòng rồi dừng trong **cùng RUN**. Host + Reviewer soát một lượt; nếu đụng cấu hình server hoặc đưa secret mới lên server thì Owner gật một lần. Không có mutation cần làm thì bỏ checkpoint và đi thẳng acceptance.
+
+**R5 · Node phụ thuộc hãng có lối ra chính thức nhưng không được tự nới PASS.** Khi N2 hoặc pha đầu N3 đã đo đủ đường chính thức mà tính năng/gói/vùng của hãng không cho, ghi `VENDOR_LIMIT` + bằng chứng + đề nghị một phương án và hỏi Owner đúng một câu. Chỉ khi Owner chấp nhận `DEFERRED_BY_VENDOR` mới được PASS node với residual đã định danh; Owner không chấp nhận thì ở lại node. Không code lách UI để giả PASS.
+
+**R6 · Một dạng thư/envelope duy nhất giữa N3–N4.** Reuse dạng GIAO–KẾT QUẢ hiện có làm canonical envelope; không đẻ transport schema thứ hai. N3 bắt buộc negative: courier sửa payload ⇒ thư vô hiệu + Telegram; courier thử chốt/ra lệnh vượt quyền ⇒ bị chặn. N4 bắt buộc negative: GIAO khi chưa có decision hợp lệ ⇒ không phát thẻ/không chạy.
+
+**R7 · N5 là node nặng nhất nhưng vẫn một PROMPT/RUN, chia 2 pha và ghi checkpoint nội bộ.** Pha 1: policy + nhiều mức ở Cấp 2, đạt T1/T6/T7. Pha 2: Cấp 1 một AI + AI khác hãng giám sát + cài lỗi + đổi agent/cấp, đạt T2–T5. Agent Cấp 1 không bắt buộc là Dot. AUTO chỉ Owner bật cho đúng một loại việc sau đủ bằng chứng thật; bell trên loại AUTO ⇒ tự rơi về MANUAL. Mã/config mới của cả hai pha phải qua R3 trước PASS.
+
 #### N1 · K1 · CLOUD CONNECTOR FOUNDATION — 1 PROMPT
 - **Pha A · PRE read-only:** dùng nguyên K1-PRE đã Claude P132 rà (S1–S3): inventory an toàn, 8 ô, không endpoint/secret/IP/user-path, không phép ghi thử.
 - **Pha B · quyết định trong RUN:** xếp `KEEP_CLOUD / REPOINT / MOVE / MAC_ONLY`; chỉ hành động khi bằng chứng đủ. Không dựng gateway mới.
