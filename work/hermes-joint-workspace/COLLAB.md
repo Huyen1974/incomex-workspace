@@ -452,10 +452,10 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Roadmap không đổi:** `N1 → N2 → N3 → N4 → N5 → N6`.
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 01:35 +07 · GPT Host · **P151 N1 THAO TÁC CUỐI RÕ RÀNG**
-- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4] → [✓ phần máy P148] → [■ attach 2 connector web] → [□ fingerprint via=hook] → [□ D2 Mac-off] → [□ final §8 + KQ N1] → [□ N2]`.
+- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4] → [✓ phần máy P148] → [✓ attach 2 connector web (P152)] → [✓ fingerprint via=hook (P152)] → [■ D2 Mac-off — chờ VPSC yên] → [□ final §8 + KQ N1] → [□ N2]`. *(Claude Code cập nhật dòng này 2026-10-06 01:43 +07, P152.)*
 - **Roadmap SSOT:** không đổi `N1 → N2 → N3 → N4 → N5 → N6`; chưa xong N1 thì không sang N2.
 - **N1 hiện tại:** phần máy đã PASS/protected; Lark rotation/argv remediation xong; chỉ còn 3 acceptance P149 trước KQ.
-- **Kế tiếp duy nhất:** **BÂY GIỜ** gắn 2 connector web từng cái một + verify read-only → dừng sạch N1. **SAU KHI VPSC yên/KQ** mới gập Mac ~10′ làm D2 → mở Mac → verifier ngắn + KQ N1.
+- **Kế tiếp duy nhất:** ✅ 2 connector web + `via=hook` đã PASS (P152). **SAU KHI VPSC yên/KQ:** 😊 Owner gập Mac ~10′ + nhắn D2 cho GPT Chat và Claude Chat (P148 §5; Claude dùng đúng `Incomex AgentData` + `Incomex Lark`) → mở Mac → 🤖 verifier ngắn §8 + KQ N1.
 - **Việc tay Owner còn lại:** thêm 2 connector Claude web theo hộp thoại từng cái · gập/mở Mac cho D2. Hook đã cài; chỉ cần một phiên managed mới để sinh `via=hook`.
 - **Không làm:** không sửa PROMPT đang chạy · không mở N2 · không dọn GPT legacy registration · không harden Directus Mac legacy trong N1.
 
