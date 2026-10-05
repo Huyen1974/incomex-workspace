@@ -1,6 +1,23 @@
 # COLLAB — vps-clean-20-9-26
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
+
+### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
+Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
+
+### BẢNG ĐIỀU KHIỂN · 05/10/2026 · GPT Host · P30 — R6 DRAFT, chờ Reviewer
+- 🎯 **Mục tiêu:** VPS khỏe, checker phản ánh đúng sự thật, không còn nguồn vận hành/tạm tăng dung lượng vô hạn; dọn phần chắc chắn an toàn nhưng không hy sinh rollback/bằng chứng cần thiết.
+- 📍 **Tiến độ:** `✅ R1–R5b lịch sử · ✅ P29 audit 05/10 · ■ P30/R6 DRAFT → Reviewer 1 vòng → Host READY → Claude Code 1 RUN → nghiệm thu/đóng`.
+- ✅ **Đã xác nhận:** current sample ~13:31 +07: disk 65,7% / trống ~35,24 GB; RAM khả dụng ~6,2 GB; container chính healthy; Agent Data/UI 200. P29 có bằng chứng worker SQLite lock/write amplification, checker SQL lỗi/PASS giả, knowledge payload ~3,2 MB + bot pressure, log/deploy/transaction chưa bounded.
+- 🔴 **Ưu tiên gốc:** (1) checker lỗi phải FAIL/UNKNOWN, không nuốt thành 0/PASS; (2) `Queue()` hiện chạy init/migration khi khởi tạo và đang được gọi ở status/cancel/metric/API → sửa init-once/reuse, không chữa bằng tăng timeout; (3) mọi nguồn non-business phải có retention/cap tự động.
+- 💽 **Khoảng dung lượng phải kiểm đủ:** `/var/log/incomex`; `/opt/incomex/deploys` CWEB; workspace transactions; Docker/build cache; backup/Qdrant/Owner View/context pack; **2 PG18 quarantine ~4,3 GB/cái + PG16 cũ từ VPSUP**. Không coi phần nào là rác trước khi reference scan.
+- 🌐 **Hiệu năng:** knowledge page phải bỏ tải full-tree ban đầu/có cache-versioned; không đổi quyền public/private khi chưa có căn cứ. 502/404 phải correlate theo log, không restart/tăng timeout để che.
+- ⛔ **Không làm trong R6:** DNS CWEB/cert cutover; reboot VPS; đổi Directus/PG schema bằng SQL tay; dọn active/rollback artifact; sửa HJW business logic ngoài nguyên nhân trực tiếp. DOT 100% cho runtime/data/config.
+- 🏁 **Xong khi:** checker không execution-error/PASS giả; worker không lock/restart và idle write giảm rõ; mọi non-business source bounded; safe cleanup đưa trống về **≥45 GB nếu có đủ dữ liệu an toàn để dọn** (không đạt vì protected bytes thì báo PARTIAL, không xóa mù); knowledge response giảm ≥60% bytes và không regression; core health/Guard/Telegram same-or-better.
+- ➡ **Kế tiếp:** Claude Reviewer rà đúng P30 + PROMPT R6 một vòng; không mở task mới.
+- Owner cần quyết: —.
+
+### Vòng trước · lịch sử
 Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User 23/09 tại D11; Owner giao "rà soát thêm và điều hành tiếp" điểm P18 ngày 23/09)
 
 ### 1. Mục tiêu
@@ -176,6 +193,16 @@ GPT đã đọc `AGENTS.md`, `COLLAB.md` và toàn bộ `PROMPT.md@c0ddf9e` cho 
 
 
 - P29 · Codex · Based_on `6b3c43374189a17cc7f9249b7d41226b676e080e` · 05/10/2026 · **OPEN — hậu kiểm VPS theo yêu cầu trực tiếp Owner, chỉ đọc/báo cáo trước fix**. Báo cáo chuẩn tại `BAO-CAO.md`, mục “Rà soát chỉ đọc 05/10/2026 — VPS-AUDIT-20261005-01”. Mới phát hiện worker SQLite lock/restart và ghi nền lặp; checker lỗi SQL có nhánh PASS giả; trang tri thức ~3,2 MB/bot tải nhiều; presence502/root404 thoáng qua; log/CWEB-retained/transaction chưa có trần phù hợp; Hermes và reboot cần hoàn tất bảo trì. Đĩa 65,7%, trống35,24GB; các keeper cũ vẫn chạy nhưng chưa đủ cơ sở nói mọi nguồn thừa đã bịt. **ĐỀ XUẤT, CHƯA TRIỂN KHAI**; không đổi CLOSED/Host/PROMPT/READY cũ, không sửa phần CWEB đã PASS, không sửa/xóa/restart production. NEXT: Owner/Host dùng báo cáo này để giao phạm vi fix; ưu tiên worker + checker, sau đó tải web/HTTP và giữ dữ liệu. Evidence và giới hạn đã ghi một nơi trong BAO-CAO; JEV `gen-dec-1791177687-MKB7nV9XuZnrSRE9yyFp`.
+
+### P30 · GPT Host · 05/10/2026 · ACCEPT P29 CÓ BỔ SUNG · DRAFT R6
+- **ACCEPT P29:** báo cáo phân biệt đúng lỗi mới/lỗi boot cũ, không quy mọi tăng đĩa là leak, và không tự mutation.
+- **Bổ sung 1 — worker:** đọc source hiện hành xác nhận `Queue.__init__` tạo schema + `migrate_legacy()` và nhiều đường `Queue(w.state_dir())`/`Queue(...).metric` chạy trên status/cancel/response; đây là gốc hợp lý của write amplification/lock. R6 phải tách bootstrap/migration khỏi fast-path và reuse Queue/process state; giữ idempotency/cancel/recovery semantics.
+- **Bổ sung 2 — residual VPSUP:** inventory 2 quarantine PG18 (`postgres18.failed-g7-03`, `.failed-g7-05a`, ~4,3 GB/cái) + PG16 cũ. Chỉ được cleanup nếu 0 live reference/mount + PG18 backup/Drive restore proof còn PASS + rollback tương đương đã thay thế; không chắc thì giữ/protect và tính bytes.
+- **Bổ sung 3 — cleanup không theo tên:** CWEB đang CUTOVER_READY; keeper phải bảo vệ exact active output + exact rollback ref. Prepared/repair/build cũ chỉ xóa khi unreferenced + reproducible; update keeper để tên mới không lọt lại.
+- **Bổ sung 4 — transaction GC:** `prepared/push_unknown/rollback_conflict` tuyệt đối giữ. Completed transaction chỉ compact/GC bulky before-image khi Git commit/push/hash đủ truy vết và metadata manifest/audit được giữ; đặt age+size cap có số, không xoá lịch sử audit tùy tiện.
+- **Bổ sung 5 — current snapshot:** Host đọc độc lập lúc ~13:31 +07: disk vẫn 65,7%/35,24 GB, HTTP Agent Data/UI 200; Nginx sample có request 6–16 s nên tải chậm vẫn là vấn đề sống.
+- **Run design:** một gói R6; sửa truth/checker → worker → retention/cleanup → knowledge/HTTP → maintenance findings → verify. Không reboot trong RUN; reboot-required chỉ lập preflight/đề xuất.
+- Owner cần quyết: —.
 
 ## Owner cần quyết
 - —
