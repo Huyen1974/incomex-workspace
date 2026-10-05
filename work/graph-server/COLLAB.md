@@ -4,15 +4,15 @@ Tên việc: Graph Server — Business × JEV × Code
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D06: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, tiêu chí công cụ bền vững thực dụng (MIT không bắt buộc — D06); Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 15:58 +07 · Claude Chat (Reviewer) · P16 — kế hoạch đã chốt, đang chốt số gói trial
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 02:55 +07 · GPT Host · P18 — PROMPT RUN-1 đã soạn, chuẩn bị READY/RUN
 - 🎯 **Mục tiêu — Owner nguyên văn 24/09, giữ thứ tự ưu tiên (đầy đủ ở §0.1):** (1) “Tạo ra các mối quan hệ về Graph đối với business (khi các mối quan hệ là hữu hạn, chứ không phải quan hệ vô hạn kiểu mạng xã hội.” · (2) “Kết hợp tốt nhất với Jev để đảm bảo Graph truyền thống và Jev bổ sung tốt nhất cho nhau…” · (3) “Định hướng ứng dụng các skill, frame chính thức của Jev…” · (4) “Tự Dựng lại mối quan hệ về về code để các Agent/ AI có thể hiểu nhanh hơn khi hệ thống phức tạp lên.” **Vì sao:** thông tin không SQL hoá được (chăm sóc khách, trao đổi, quy trình còn loay hoay, code) phải nối được thành quan hệ có nguồn để người và agent quyết nhanh hơn.
 - 🎯 **Owner 05/10 (D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.”
 - 🏁 **Xong khi (GPT + Claude thống nhất theo D10; lấy từ GATE01):** trial hai lượt đạt trên máy chủ — hỏi “khách/ứng viên này liên quan gì, nên làm gì tiếp” ra câu trả lời có nguồn · loại quan hệ mới được đề xuất → duyệt → dùng lại mà không trích lại toàn bộ · JEV do máy tự gọi · đọc được quan hệ của một mẫu code · tắt Cognee vẫn đọc/xuất/khôi phục được graph ⇒ Owner xem kết quả và quyết cài thật.
-- 📍 **Tiến độ:** `✅ Chốt kế hoạch · ■ Chốt số gói trial + PROMPT RUN-1 · ⬜ RUN-1 hạ tầng · ⬜ RUN-2 dữ liệu đã che + JEV · ⬜ Owner xem kết quả, quyết cài thật`
-- ✅ **Đã xong:** PLAN01 + bảng phiên bản VER01 (`view.html` §16), GPT + Claude đồng thuận 100% (P15 `50e7529`) · 05/10 rà lại sau nâng cấp VPS: kế hoạch còn đúng, phiên bản giữ nguyên (P16).
-- ■ **Đang làm:** Host GPT · chốt các số còn trống của gói trial (trần RAM/đĩa/tiền, nhà cung cấp, tên nguồn dữ liệu) rồi soạn `PROMPT.md` RUN-1 · chờ: Host nhận/sửa đề nghị P16-V3 và P16-V6.
-- ⬜ **Còn lại (đúng thứ tự):** PROMPT RUN-1 → Reviewer rà → READY → Owner cho chạy → RUN-1 → Host nghiệm thu → PROMPT RUN-2 → READY → Owner cho chạy → RUN-2 → nghiệm thu → Owner xem kết quả.
-- ➡ **Kế tiếp:** 😊 Owner: chưa cần làm gì; sẽ có **một** lần gật gồm hai thứ chỉ Owner quyết (dữ liệu nào được rời máy chủ sang nhà cung cấp AI ngoài · trần tiền), rồi bấm cho chạy từng lượt · Host GPT: nhận/sửa P16, chốt số, soạn PROMPT RUN-1 · Reviewer Claude: rà PROMPT RUN-1, đối chiếu từng dòng §0.3 · 🤖 agent: chưa có lệnh.
+- 📍 **Tiến độ:** `✅ Chốt kế hoạch · ✅ Khóa baseline/roadmap · ■ PROMPT RUN-1 → READY/RUN · ⬜ RUN-1 hạ tầng · ⬜ RUN-2 dữ liệu đã che + JEV · ⬜ Owner xem kết quả, quyết production`
+- ✅ **Đã xong:** PLAN01/VER01 consensus 100% · P17 khóa Cognee 1.6.1, baseline model RUN-2, trần RAM/đĩa/tiền và roadmap GS-RM1 · N1 phần server về cơ bản xong, còn D2/final human test.
+- ■ **Đang làm:** GPT Host · soạn/chốt `PROMPT.md` RUN-1 và READY; Claude Code khi nhận RUN tự fresh-check N1/server busy rồi tự làm tối đa, không hỏi Owner chi tiết kỹ thuật.
+- ⬜ **Còn lại (đúng thứ tự):** RUN-1 → Host nghiệm thu → chốt dữ liệu được ra ngoài/trần tiền RUN-2 → PROMPT/READY/RUN-2 → nghiệm thu → Owner xem kết quả.
+- ➡ **Kế tiếp:** 😊 Owner: chỉ dán RUN cho Claude Code rồi có thể đi ngủ; Host: đặt READY đúng SHA · 🤖 Claude Code: tự hành động RUN-1 trong scope, không chờ nền; nếu unsafe thì KQ DỪNG sạch. RUN-2 chưa được phép.
 - ⛔ **Không làm / để sau (không chặn):** cài thật (production) · ngưỡng xác suất tự động · Cognee MCP/UI, Graphiti, GDS, Hindsight · chạm PostgreSQL/Directus/Qdrant đang chạy · chờ Hermes · đổi phiên bản khi không có lý do (Cognee giữ 1.6.1 dù đã có 1.6.2).
 
 ### 1. Mục tiêu
@@ -111,7 +111,8 @@ GS | **ROADMAP LOCKED · EXECUTION_HOLD_N1** | PLAN01/VER01 consensus 100%; base
 - D09 · 2026-09-28 · **VÒNG CHỐT CUỐI RIÊNG CHO `graph-server`: GPT Host + Claude Code là đủ.** Không chờ Hermes. Yêu cầu là hai bên phải đồng thuận 100% về PLAN01/VER01 trước khi Host trình Owner cho phép trial. Quyết định này không sửa luật hội đồng chung của repo và không cấp RUN/cài đặt.
 - D10 · 2026-10-05 · **OWNER CHỈ GIỮ MỤC TIÊU; CÁCH LÀM DO GPT + CLAUDE THỐNG NHẤT.** Nguyên văn: “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.” Bối cảnh nguyên văn cùng lượt: “Chúng ta dừng lại việc này 1 thời gian bởi vì cần dọn dẹp và nâng cấp VPS. Và tất cả những điều đó đã xong, chi còn dọn vài đồ thừa, tôi nghĩ có thể bắt đầu quay lại.” Lời này không cấp RUN/cài đặt. Claude ghi theo MT4 (chỉ đạo mới ghi ngay cùng lượt); Host kiểm. Áp: SAME_COMMIT (§0.3 + Bảng).
 
-- D11 · 2026-10-05 · Owner yêu cầu Host lập **một roadmap duy nhất** cho `graph-server` để điều hành không lạc đề và hỏi có được cài song song khi HJW N1 đang nâng cấu trúc điều hành hay phải chờ. Host chốt: được chuẩn bị kế hoạch/PROMPT ngay nhưng **không mutation/cài Graph khi N1 còn STARTED**; chỉ giải phóng sau N1 terminal + fresh preflight. Không cần chờ N2–N6 nếu preflight không thấy conflict.
+- D11 · 2026-10-05 · Owner yêu cầu Host lập **một roadmap duy nhất** cho `graph-server` để điều hành không lạc đề và hỏi có được cài song song khi HJW N1 đang nâng cấu trúc điều hành hay phải chờ. Host chốt: chuẩn bị kế hoạch/PROMPT ngay; mutation Graph chỉ sau fresh-check chứng minh phần **server mutation** của N1 đã kết thúc. Không cần chờ N2–N6 hoặc chữ terminal nếu N1 chỉ còn D2/final human test và không còn shared mutation/busy.
+- D12 · 2026-10-06 · Owner: “N1 về cơ bản đã xong, chỉ cần thử… soạn prompt cuối cho chạy tiếp… yêu cầu Claude chủ động tối đa vì sau đây tôi sẽ đi ngủ.” Host áp: cho phép tạo/READY và truyền RUN **RUN-1 hạ tầng** trong scope GS-RM1; Claude tự xử kỹ thuật tối đa, không kéo Owner vào chi tiết; không chờ nền; unsafe/out-of-scope thì KQ DỪNG sạch. D12 **không cấp RUN-2**, không cấp gửi dữ liệu công ty ra provider.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · PARTIAL — giả thuyết vòng 1 đã được D02 thay tiêu chí lựa chọn
@@ -329,7 +330,7 @@ GS | **ROADMAP LOCKED · EXECUTION_HOLD_N1** | PLAN01/VER01 consensus 100%; base
 - Consensus này chỉ là **kế hoạch**: chưa phải runtime PASS, chưa cho phép cài, chưa tạo PROMPT/READY/RUN và chưa duyệt production.
 - Việc không giao trực tiếp được Hermes sẽ xử lý như một việc hạ tầng riêng khi Owner ưu tiên; không mở lại trong `graph-server`.
 
-### P16 · Claude Chat · Reviewer · OPEN — rà lại sau 7 ngày tạm dừng: consensus còn nguyên; đề nghị số cho gói trial (BÀN — chưa phải giao)
+### P16 · Claude Chat · Reviewer · ACCEPTED by P17 — rà lại sau 7 ngày tạm dừng; V3/V6 đã Host nhận
 - Bảng: lệch — việc chưa có Bảng điều khiển (MT4 ban hành 01/10, sau lần chạm cuối 28/09) ⇒ dựng trong commit này; Host kiểm.
 - Based_on: P15 `50e75291368d698ea4623d76bcae039479f8ea93`; HEAD lúc đọc `15556c6f37c539e5350e981eec24688014b328eb`. Scope: `COLLAB.md` §0, D01–D09, P14–P15; `view.html` §16 (diff GS16). Chưa đọc lại: `view.html` §1–§15 (lịch sử). Không cài, không gọi provider LLM/embedding, không chạm runtime; số đo dưới đây là chỉ-đọc.
 - **V1 · GS16 đúng như đã hẹn.** Năm sửa chữ (a)–(e) của P14 có đủ trong diff `50e7529`; dòng `CONSENSUS` có; §16 không còn cổng nào giao Hermes (chữ “Hermes” còn lại là lịch sử/so sánh sản phẩm). Không commit nào mới hơn chạm task ⇒ ý kiến GPT mà Owner dán ngày 05/10 là bản mới nhất. Đồng thuận 100% giữ nguyên.
@@ -374,6 +375,14 @@ GS | **ROADMAP LOCKED · EXECUTION_HOLD_N1** | PLAN01/VER01 consensus 100%; base
 - **Kỷ luật roadmap:** mọi phiên chỉ làm mốc hiện tại và điều kiện mở mốc kế; không nghiên cứu lại stack/model nếu không có blocker/evidence mới. Thay version/model/scope → ghi delta và chạy lại test liên quan, không đổi âm thầm.
 - **JEV Reference:** `gen-dec-1791191983-nm4fJtdkn3Xj5YkfVm3Y` → `prepare_hold` cho N1 gate (p=0,98/conf=0,97) và `gpt56_luna` cho baseline model (p=1/conf=1); chỉ là bằng chứng phụ.
 - **NEXT cụ thể:** trong lúc N1 chạy, Host được phép biên tập nội dung RUN-1 trên repo khi Owner giao/cho phép tạo PROMPT; **không phát READY/RUN mutation trước khi R2 được giải phóng**.
+
+### P18 · GPT Chat · Host · DRAFT PROMPT RUN-1 — 06/10/2026
+- Based_on: P15 consensus; P16/P17 baseline; D12; HJW P155/root hiện ghi N1 10/12, phần còn lại D2/final human test. RUN-1 không phụ thuộc RUN-2/provider.
+- `§0.3: đã đối chiếu` từng dòng. PROMPT khóa exact version/component/ports/resources; không giao agent tự chọn latest/model/scope.
+- N1 gate được sửa theo **mục đích an toàn**: Claude fresh-check phần server mutation/busy; nếu chỉ còn human D2/final thì được giải phóng hold, nếu còn mutation thật thì KQ DỪNG — không poll/chờ.
+- DROOT42/43: Owner đi ngủ; Claude tự làm tối đa trong scope, không hỏi kỹ thuật; không giữ terminal chờ; ngoài scope/unsafe thì dừng sạch.
+- RUN-1 tuyệt đối không gọi LLM/embedding/JEV ngoài và không gửi dữ liệu nghiệp vụ. RUN-2 vẫn khóa.
+- Host sẽ đặt READY theo full SHA commit cuối chạm PROMPT.md sau commit này; READY không tự là RUN.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
