@@ -13,7 +13,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · **GSM-A1 audit đã XONG** (167 access/30 ngày, không rỉ máu); còn GSM.3–GSM.5: thiết kế giảm call → review/Owner duyệt → triển khai/đo lại. Giữ active.
-- `work/hermes-joint-workspace/` · HJW · **ACTIVE · D31_CODEX PASS · CHỜ CLAUDE CODE FINALIZE RUN-06**: Host-only issuer + active-task scanner + scope deny/verifier + legacy retire + wording p02 + final protection PASS; 22/22 xanh, AUTO_ALLOWLIST rỗng, Config Guard CLEAN. Codex/Owner báo UptimeEye PASS (1 monitor 5′, Telegram test + DOWN/UP, Free/no card). Claude Code phải resume cùng RUN-06: verify VPS access-log probe → F01 `chạy` → final protection/receipt → KQ XONG. Sau đó GPT Host giao 1 assignment thật → MỞ ĐỦ MANUAL → CLOSE.
+- `work/hermes-joint-workspace/` · HJW · **ACTIVE · P116 CHỜ CLAUDE CODE KQ XONG**: machine PASS; D31 UptimeEye PASS; VPS thấy nhịp 5′, F01 runtime chạy; 22/22 xanh, sổ 71·69·0·2, AUTO_ALLOWLIST rỗng, Config Guard CLEAN. Claude Code chỉ còn đồng bộ F01/sổ nếu stale + receipt/protection + KQ RUN-06 XONG; container one-shot nhận diện 1 dòng, không chặn. Sau KQ GPT Host tự giao §8 → MỞ ĐỦ MANUAL → CLOSE.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/graph-server/` · GS · Host GPT Chat · D02 product-first (Owner): trial Cognee+Neo4j vs Graphiti+Neo4j; Claude P02→P03 đồng ý; chờ Hermes; nguyên tắc R1 khoá ở §0.
 - `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
