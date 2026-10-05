@@ -5,14 +5,14 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 02:12 +07 · Claude Code (Agent) · P46 — R6W STARTED
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 02:25 +07 · Claude Code (Agent) · P47 — KQ R6W DỪNG · CHƯA ĐẠT worker write-idle
 - 🎯 **Mục tiêu:** Owner 05/10: VPS khỏe + không tăng dung lượng bất thường; phần storage đã đạt, R6W chỉ khép worker write-idle để không đóng trên residual kỹ thuật chưa thử tới điểm dừng.
 - 🏁 **Xong khi:** phần đã PASS giữ nguyên · R6W có một kết quả cuối theo P44: (a) worker PASS ≥80% + POST worker, hoặc (b) CHƯA ĐẠT được ghi rõ/chuyển chủ, không RUN thứ ba; sau đó DISKWATCH ngày xanh sau 02:00 +07 07/10 → CLOSE VPSC.
 - 📍 **Tiến độ:** `✅ R6 cleanup/storage/checker/APR/POST · ✅ P42 KQ DỪNG đúng cổng · ✅ P43 Host · ✅ P44 Reviewer · ✅ PROMPT R6W + READY · ■ R6W worker-only → ngày xanh → CLOSE`.
 - ✅ **Đã đạt thật:** disk 48,55 GiB free · T 25/25 + D 4/4 · M15 PASS · APR schedule OFF · #11 live xanh · Config Guard 336/336 · Kuma 22/22 · receipt 129 · worker v1 0 restart/lock.
-- ■ **Đang làm:** 🤖 Claude Code CLI · R6W STARTED 19:12Z trên READY `0d4c64f` · PRE → cổng test v2 → nạp worker host → đo · chờ: không.
+- ■ **Đang làm:** R6W đã KQ DỪNG 19:23Z (P47) — cờ bận hết. v2 đã nạp worker host (cổng xen kẽ PASS, smoke PASS, 0 restart) nhưng ghi rỗi 481/5 s > 168 ⇒ CHƯA ĐẠT; gốc đã rõ (kết nối giữ nền chưa mở WAL). Chờ: watcher-day sau 02:00 +07 07/10.
 - ⬜ **Còn lại:** R6W → POST worker nếu mutation → đọc DISKWATCH sau 02:00 +07 07/10 → Host nghiệm thu/đóng; không làm lại cleanup/checker/APR/storage.
-- ➡ **Kế tiếp:** 🤖 Claude Code chạy R6W tới KQ (~30–60′) · HJW D2/Mac-off đợi sau KQ R6W · 😊 Owner: không cần làm gì.
+- ➡ **Kế tiếp:** Host nghiệm thu P47 + ghi residual worker cho chủ mã agent-data · HJW D2/Mac-off được làm từ giờ · 🤖 máy tự ghi watcher-day · 😊 Owner: không cần làm gì.
 - ⛔ **Không làm/để sau:** không rebuild/recreate agent-data · không v3 · không RUN VPSC thứ ba · không Graph/DNS/CWEB/HJW server mutation trong R6W.
 
 ### 1. Mục tiêu
@@ -456,6 +456,15 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - STARTED@VPSC-R6W-WORKER-CLOSE-20261006-01 2026-10-05T19:12Z · executor=Claude Code CLI (Mac → SSH root VPS1)
 - Based_on HEAD `7b18755` · PROMPT last-touch `0d4c64ff398e8bf15df0565b283bad6c2fa1f8df` = READY P45 ✓ · read-gate `workspace_stat` PASS.
 - Fresh-check 19:09Z: HJW P155 chỉ còn D2 thao tác tay Owner (0 mutation máy chủ) · VPS 0 build/deploy/compose/pg_dump đang chạy, 0 phiên SSH ngoài tmux cũ · `incomex-agent-data` chạy mã từ image (`/app/agent_data`), repo chỉ mount làm gốc workspace ⇒ nạp v2 phía host không đổi mã container.
+
+### P47 · Claude Code CLI (Agent) · 06/10/2026 02:25 +07 · KQ R6W
+- **Cổng test:** lượt đủ v2 22/23 (đỏ acc1, tải 4,37→3,41) ⇒ 5 cặp xen kẽ acc1: v1 1/5 xanh, v2 3/5 ⇒ `3 ≥ 0` PASS ⇒ nạp.
+- **Nạp:** chỉ worker host, `workspace_runtime.py` `2089758a→74922f6f`, git cục bộ `8fe2ea8`, PID 227368→923986; Guard PRE trước nạp PASS; queue 0 job chạy; container agent-data không đổi (chạy mã image).
+- **Smoke PASS:** A completed exit 0 · B gửi lại cùng operation_id `replayed` (0 trùng) → cancelled · 0 container sót · NRestarts 0 · 0 lock/Traceback · WAL 0 B ≤ 64 MB.
+- **Ghi rỗi:** trung vị 736 → 481 syscw, 3,01 → 1,97 MB / 5 s (−35%) ⇒ **CHƯA ĐẠT** (đích ≤168 / ≤0,666 MB); không tệ hơn v1 ⇒ giữ v2 theo §4. Gốc: kết nối giữ nền không chạy câu nào nên SQLite chưa mở `-wal/-shm` (worker chỉ 1 fd `queue.sqlite`) ⇒ vẫn xoá/tạo WAL mỗi lần đóng. Sửa 1 dòng (chạy 1 câu đọc) = v3, PROMPT cấm ⇒ không làm.
+- **POST-PROTECT worker PASS** (Guard: chỉ `svc.incomex-workspace-exec` + `git.agent-data-repo.head` đổi) · biên nhận Telegram message_id 130 · Config Guard 336/336.
+- **Residual chuyển giao:** worker write-idle → **chủ mã agent-data / Host GPT** (đề nghị cụ thể + cách đo ở BAO-CAO R6W mục 5; chỉ phía host, không cần dựng container). Phần này không làm đĩa tăng (toàn bộ ghi bị huỷ trước khi xuống đĩa).
+- KQ@VPSC-R6W-WORKER-CLOSE-20261006-01 DỪNG · CHƯA ĐẠT: worker write-idle · median 481 syscw / 1,97 MB mỗi 5 s > đích 168 / 0,666 MB · kết nối giữ nền v2 không mở WAL (sqlite3 mở lười, chưa chạy câu nào) · TEST=cổng xen kẽ PASS (v2 3/5 ≥ v1 1/5) · WAL=0 B · HEALTH=PASS (smoke, Guard POST, receipt 130) · v2 giữ · ai nhận tiếp: chủ mã agent-data / Host GPT
 
 ## Owner cần quyết
 - —

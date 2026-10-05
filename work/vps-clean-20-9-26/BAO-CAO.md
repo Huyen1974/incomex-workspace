@@ -4,6 +4,48 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## R6W — Worker ghi rỗi · 06/10/2026 (19:12–19:23Z 05/10) · executor=Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ DỪNG · CHƯA ĐẠT worker write-idle
+
+RUN_ID `VPSC-R6W-WORKER-CLOSE-20261006-01` · READY@`0d4c64ff398e8bf15df0565b283bad6c2fa1f8df` · STARTED P46 `29f15c9`. Hồ sơ VPS: `/opt/incomex/work/vps-clean-20-9-26/R6W-20261006/`. Phần R6 đã PASS không chạm lại; không dựng lại agent-data; không HJW.
+
+### 1. CHO OWNER
+- Worker hàng đợi đã nạp bản v2 (chỉ phía host). Chạy đúng: smoke đạt, 0 khởi động lại, 0 khoá.
+- **Ghi lúc rỗi CHƯA đạt:** trung vị 481 lệnh ghi / 1,97 MB mỗi 5 giây (đích ≤168 / ≤0,666 MB; trước nạp 736 / 3,01 MB). Toàn bộ là ghi bị huỷ trước khi xuống đĩa ⇒ **không làm đĩa tăng**; cái giá là một phần nhỏ CPU.
+- Đã tìm ra vì sao v2 không ăn: kết nối giữ nền được mở nhưng chưa chạy câu lệnh nào ⇒ SQLite chưa mở tệp WAL ⇒ vẫn bị xoá/tạo lại. Sửa là một dòng, nhưng PROMPT cấm viết v3 trong RUN này ⇒ chuyển chủ mã agent-data.
+
+### 2. Cổng test (P45 §2)
+| Bước | Kết quả | Tải đầu→cuối |
+|---|---|---|
+| 2.1 lượt đủ 23 test trên v2 | 22/23 — đỏ `test_acc1_slow_github_12_parallel_reads_bounded` (118 s) | 4,37 → 3,41 |
+| 2.2 acc1 × 5 cặp xen kẽ v1 (`9457406`) → v2 | v1: ✗ ✓ ✗ ✗ ✗ = **1/5** · v2: ✓ ✗ ✓ ✗ ✓ = **3/5** | 2,75–5,81 |
+| Tiêu chí `green(v2) ≥ green(v1) − 1` | 3 ≥ 0 ⇒ **PASS — được nạp** | — |
+Hồ sơ: `t21-full-v2.log`, `t22-acc1-pairs.log`, `repo-v1/` (bản sao đúng mã đang chạy), `repo-v2/` (v1 + 5 dòng kết nối giữ nền; `diff -rq` chỉ 1 tệp). Lượt đủ bộ `tests/continuation` trên v2 ở R6 (`R6-20261005/b/test-v2.log`): 217/220, 3 đỏ đều là test định thời p02 (gồm các test recovery/persistence PASS).
+
+### 3. Nạp + smoke (§3)
+- Trước nạp: Guard PRE PASS (`post/guard-pre-vpsc-r6w-pre-*.json`); queue 0 job running/queued; bản lùi `rollback/workspace_runtime.v1.py` (`2089758a`).
+- Nạp 19:18:48Z: `agent_data/workspace_runtime.py` `2089758a → 74922f6f`, git cục bộ agent-data-repo `8fe2ea8`; worker script không đổi (`bec9ceb8`); restart `incomex-workspace-exec` PID 227368 → 923986. Container `incomex-agent-data` chạy mã image `/app/agent_data` (`8801e99f`), repo chỉ mount làm gốc workspace ⇒ không đổi, không dựng lại.
+- Smoke qua đúng đường MCP: job A `ls` ⇒ completed exit 0 (17 s) · job B `sleep 90` ⇒ gửi lại cùng `operation_id` trả `replayed: true` cùng job_id (0 trùng) ⇒ cancel ⇒ `cancelled`, 0 container job sót · NRestarts 0 · 0 `database is locked`/Traceback từ lúc nạp. Một lần `WORKSPACE_BUSY` (gốc đang bận bởi phiên khác) rồi qua sau 10 s.
+- WAL: sau nạp và sau smoke `queue.sqlite-wal` không tồn tại (0 B) ≤ 64 MB.
+
+### 4. Đo ghi rỗi (§4, `io5.py`, cùng MainPID)
+| | Mẫu syscw | Trung vị syscw | Trung vị write_bytes | CPU/5 s |
+|---|---|---|---|---|
+| Trước (v1, PID 227368) | 634 · 752 · 736 | 736 | 3.014.656 | 0,30 |
+| Sau (v2, PID 923986) | 736 · 481 · 192 | **481** | **1.970.176** | 0,92 |
+| Đích P45 | — | ≤168 | ≤666.000 | — |
+write_bytes = cancelled_write_bytes ở mọi mẫu. **Giảm 35% ⇒ CHƯA ĐẠT**; không tệ hơn v1 + smoke PASS ⇒ **giữ v2** theo §4.
+
+### 5. Gốc còn lại (chuyển chủ mã agent-data / Host GPT)
+- `/proc/<pid>/fd` của worker sau nạp: chỉ **1** fd `queue.sqlite`, không có `-wal`/`-shm`. `sqlite3.connect()` mở tệp WAL/shm lười — chỉ khi câu lệnh đầu tiên chạy. Kết nối giữ nền của v2 không chạy câu nào ⇒ không giữ được WAL ⇒ mỗi lần đóng kết nối còn lại vẫn checkpoint + xoá `-wal/-shm` (như strace R6).
+- Đề nghị cho chủ mã (không làm trong VPSC): sau `sqlite3.connect` của kết nối giữ nền chạy một câu đọc (vd `SELECT 1 FROM flags LIMIT 1`) rồi kiểm `/proc/<pid>/fd` có `-wal`/`-shm`; đo lại bằng `io5.py`. Chỉ cần phía host (worker giữ WAL sống cho mọi tiến trình khác), không cần dựng lại container.
+
+### 6. POST-PROTECT (chỉ phần worker)
+- Guard POST so PRE thật: thay đổi = `svc.incomex-workspace-exec` + `git.agent-data-repo.head` (đúng dấu vết R6W), ngoài phạm vi = 0 ⇒ **PASS** (`post/guard-post-vpsc-r6w-final2-*.json`; lượt đầu FAIL vì regex cho phép thiếu mục repo head — đã sửa đúng dấu vết, không nới).
+- Biên nhận Telegram **message_id 130**. Config Guard CLEAN 336/336. Workspace-runtime không thuộc Config Guard (như R6).
+- Lùi: `install rollback/workspace_runtime.v1.py` → `agent_data/workspace_runtime.py` + restart `incomex-workspace-exec` (hoặc `git revert 8fe2ea8`).
+
+---
+
 ## R6 — VPS khỏe + bịt rò dung lượng · 05/10/2026 · executor=Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ DỪNG (chỉ còn worker v2 chờ Host)
 
 RUN_ID `VPSC-R6-HEALTH-LEAK-CLOSEOUT-20261005-01` · READY@`7449baba55141c9a01fa6bc5244a84c73ea0f971` · STARTED 09:40Z (P36) · mốc giữa P38 · tiếp theo P41 + câu Owner (M15, đọc test, cổng v2, tắt lịch APR) · KQ 18:30Z (P42). Hồ sơ VPS: `/opt/incomex/work/vps-clean-20-9-26/R6-20261005/` (MUTATION_MANIFEST.tsv, pre/, f0/, f1/xoa.log, c1/, c4/, c6/, c7/, a/, b/, m17/, post/). Gián đoạn ~2 giờ mạng Mac (10:35→12:54Z); chờ Host 13:25→17:58Z.
