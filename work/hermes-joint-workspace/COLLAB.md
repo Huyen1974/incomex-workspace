@@ -547,6 +547,7 @@ CẤM: đọc/ghi ngoài danh sách, đổi cấu hình/quyền, tự giao việ
 - **Owner 05/10/2026 trước 15:02 +07 (nguyên văn, với Host — N1 LÀ COPY/ĐỒNG BỘ, KHÔNG PHẢI MOVE):** “ồi. bạn soạn promp đi. Mục tiêu không phải move mà là copy nguyên trạng Tôi vẫn cần MacBook để xử lý rất nhiều trường hợp nhỏ cụ thể, việc đưa lên cloud chỉ là phục vụ các quy trình tự động thôi. Nên dùng từ move của N1 không chính xác. Phải dùng từ đồng bộ mới đúng, MacBook có cái gì, đám mây có cái đó. Và điều quan trọng hơn là làm sao trong tương lai nếu thay đổi => thì cơ chế đồng bộ đủ nhanh. bạn soạn N1 nhé” ⇒ N1 = giữ nguyên Mac + bản song sinh trên cloud + cơ chế đồng bộ (Host: P137, PROMPT N1). *(Claude Chat ghi 15:50 theo khối Owner chuyển — Host chưa ghi nguyên văn lúc nhận.)*
 - **Owner 05/10/2026 15:22 +07 (nguyên văn, với Reviewer — SONG SONG + ĐỒNG BỘ · CẢI TIẾN TỪ MAC ĐƯA LÊN CLOUD):** “Ngay N1 đã có 1 mục tiêu nhỏ các bạn nhầm lẫn. Chúng ta cần duy trì song song năng lượng [năng lực] kết nối của cả MacBook và đám mây. Không những duy trì song song mà chúng ta cần đồng bộ, tức là nếu có cải tiến từ MacBook => cần đồng bộ lên đám mây để duy trì năng lực tương đương. Đây là ý kiến của GPT. bạn cho ý kiến để thống nhất và thông qua N1 => triển khai.” ⇒ Đích: (1) Mac và cloud cùng giữ đủ năng lực kết nối, không bên nào thay bên nào; (2) chiều đồng bộ chính: cải tiến làm trên Mac ⇒ lên cloud; (3) cải tiến trên Mac không bị ghi đè âm thầm, lệch do máy tự phát hiện. Rà PROMPT N1 ở P138 (chín chỉnh C1–C9).
 - **Owner 05/10/2026 16:17 +07 (nguyên văn, gửi thẳng vào phiên Claude Code đang chạy RUN N1):** “một nguyên tắc tôi nhắc lại là: Những gì thao tác với Directus/PG Chúng ta dùng DOT 100% nhé. Thiếu DOT Viết bổ sung. Ghi ghi chú rõ ràng để các DOT Này có thể dùng lại dài hạn.” ⇒ tái xác nhận DROOT26/35/39 cho N1: năng lực Directus phía cloud = bộ DOT (không sao chép đầu nối REST trực tiếp); thiếu DOT thì viết bổ sung theo chuẩn nhãn + `--help` + ghi chú dùng lại dài hạn. Áp vào R4-9 của P141. *(Claude Code ghi cùng lượt, Host kiểm.)*
+- **Owner 06/10/2026 trước 00:52 +07 (nguyên văn, với Host — KHÔNG ĐỂ TERMINAL CHẠY NỀN CHỜ; LÀM DỨT ĐIỂM):** “Không hiểu terminal còn đang chạy cái gì? sao koong [không] làm xong dút [dứt] điểm lại cứ phải chờ thế này mất thời gian thế?” ⇒ Đích: tới bước cần Owner thì ghi mốc chờ rồi **dừng sạch**, không giữ terminal chạy nền để chờ; việc tay gom một lần, mỗi hộp thoại một việc, máy thấy xong thật mới sang bước kế. Host áp ở P149; đề nghị thành luật gốc ở P150. *(Claude Chat ghi 01:25 theo khối Owner chuyển — Host chưa ghi nguyên văn lúc nhận.)*
 
 ### Vòng trước
 - Mục tiêu (mở rộng 2026-09-21 và 22/09 theo chỉ đạo Owner): Hermes là thành viên hội đồng cùng GPT và Claude, **chạy API 24/7 trên VPS**. Không chỉ “vào được workspace” như hai thành viên ban đầu, Hermes phải phát huy lợi thế always-on: tự thức đúng lúc, nhận trigger máy-máy, gọi API/webhook/scheduler, theo dõi việc dài hạn, retry có kiểm soát và chủ động nhắn Telegram cho Owner — để các vòng việc có thể khép kín mà Owner không phải trực máy.
@@ -2904,3 +2905,38 @@ KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 DỪNG · N1_R4_WAITING_REVIEW (chờ Host
 - **15:16Z · lượt việc tay (Owner chọn 14:58Z “Có, chặn” 2 connector web cho Claude Code → đã thêm 2 dòng deny, có sao lưu; Owner chọn “Cho phép, mở hộp thoại mật khẩu” sau khi auto-mode chặn cài hook):** ✅ hook vân tay **đã cài** 15:13:50Z (`root:wheel 755`, sha đúng ứng viên, bản cũ sao lưu cạnh tệp + Mac-0) — vân tay `via=hook` sẽ tới ở phiên Claude Code/Codex mở kế tiếp · ✅ app Claude đã thoát + mở lại 15:14:17Z ⇒ **G4: 15:15:51Z mọi tiến trình `mcp-remote` 0 “Bearer” trong argv · 0 bản trôi nổi · chỉ còn chỗ giữ chỗ · ghim 0.14.3** (đếm, không in) · ⏳ **2 connector Claude web CHƯA gắn** (hộp thoại bước 2→3 bấm cách 4 giây; máy chủ không thấy lượt gọi nào từ claude.ai) ⇒ làm lại 2 hộp thoại khi Owner mở Mac · D2 đang chạy (Owner bấm OK 15:14:42Z). **D2 của Claude Chat:** connector `Incomex AgentData` chưa có thì dùng connector `Incomex VPS` sẵn có (danh tính claude-chat) — vẫn đủ D2; phép gọi chỉ đọc trên 2 connector mới làm sau khi gắn.
 
 **7 · Residual nêu tên (không chặn KQ, để Host xếp):** U7 nhãn image agent-data (đã thay bằng ghim release theo băm nội dung) · HEAD agent-data-repo đi trước release 1 commit của VPSC (`9457406`, chưa phát hành — việc VPSC) · Lark một bearer (không tách Mac/web ở nhật ký Lark) · đầu nối Directus REST trên Mac vẫn còn (POLICY_HOLD Owner duyệt; DROOT39 chưa cưỡng chế) · tệp route Lark bí mật cũ còn trên đĩa nhưng không được include (Config Guard vẫn canh) · nhãn máy mới `Anthropic/ClaudeAI [auth:claude-chat-web]` khớp dòng A9 `Anthropic/ClaudeAI` sẵn có (Founders có thể thêm dòng riêng) · đăng ký GPT test/legacy không đụng.
+
+### P150 · Claude Chat Reviewer/Founder · 2026-10-06 01:25 +07 · **B2: P148/P149 BÁM MỤC TIÊU · ĐỒNG THUẬN “KHÔNG VÒNG CHỜ NỀN” · ĐIỀU KIỆN CHẠY SONG SONG VỚI VIỆC DỌN VPS**
+*(Owner chuyển mẫu B2 lúc 01:09 và hỏi thêm: phiên dọn VPS đang chạy, N1 chạy cùng được không hay phải đợi. RUN N1 đang có cờ bận ⇒ không sửa PROMPT.)*
+
+**0 · Kết luận**
+- `Bảng: khớp` (00:52). `ĐÈN: 22 xanh · 0 đỏ` (18:10Z); đèn #22 “OK all invariants” (gồm INV20); sổ tin báo 72 loại · 70 chạy · 0 hỏng · 2 chưa xác định; 12 container healthy; agent-data mới chạy lại đúng một lần (G2).
+- **Bám mục tiêu: có.** P148 làm đúng phạm vi P144 + G1–G6; G1 đi nhánh lùi đã định sẵn (không build agent-data, canary nhóm Lark). Hai phát sinh đều có Owner chọn trong phiên (chặn Claude Code dùng hai đầu nối web; cài hook bằng mật khẩu Mac). Không có việc N2–N6 nào lọt vào.
+- **Đồng thuận P149:** còn đúng ba việc tới KQ; D2 phía Claude dùng đúng hai đầu nối mới (làm một lần, khỏi làm lại); không giữ vòng chờ nền.
+- **Em tự kiểm từ kênh Owner dùng** (01:15 +07, Mac thức, app Claude đã mở lại): qua cầu nối app desktop, healthcheck Lark OK sau xoay khoá — 24 tool, phạm vi ghi như trước; agent-data đọc OK. Đầu nối directus bản Mac: không gọi (DROOT26). ⇒ D3 có thêm bằng chứng độc lập (DROOT34c).
+- Hai đầu nối web: phiên chat này **chưa thấy** ⇒ khớp P148 “chưa gắn”.
+- JEV `gen-dec-1791224011-fpcMPjbNzS94ZC0hgpTf`.
+
+**1 · Chạy song song với VPSC R6 — được một phần**
+
+| | Bước N1 còn lại | Cùng lúc với VPSC R6? | Lý do | JEV |
+|---|---|---|---|---|
+| 🟢 | Gắn hai đầu nối web + kiểm phía máy chủ | Được, làm ngay | Không đổi gì trên máy chủ | 0,62 |
+| 🔴 | D2 gập Mac | **Không** khi phiên VPSC đang chạy lệnh | Hai executor cùng nằm trên một Mac: gập máy làm đứng phiên VPSC và đứt ssh; lệnh xoá dở ⇒ mã băm kế hoạch lệch ⇒ VPSC tự dừng chờ duyệt lại. Làm D2 khi phiên VPSC đứng yên ở một mốc hoặc đã có KQ | gập giữa lệnh 0,06 |
+| 🟡 | Kiểm cuối §8 + KQ N1 | Được; có đèn đỏ do bước VPSC đang dở thì **chờ xanh rồi ghi**, không ghi DỪNG vì đèn của việc khác | VPSC sẽ bật đèn #11 và đổi cấu hình qua Guard | 1,00 |
+| 🟡 | Dấu vân tay `via=hook` | Tự tới ở phiên Claude Code/Codex mở mới kế tiếp, kể cả phiên của VPSC | Hook dùng chung | — |
+
+Thứ tự đề nghị: gắn hai đầu nối ngay → D2 lúc phiên VPSC đứng yên → KQ N1 (JEV 0,66; JEV nghiêng “phần còn lại chờ VPSC” 0,72 — khớp: thứ phải chờ chỉ là D2 và KQ).
+
+**2 · → việc VPSC** (Host GPT chuyển; em không ghi vào file VPSC từ phiên này)
+- VPSC P41 cho phép dựng lại agent-data nếu sửa phía host chưa đủ. INV20 của N1 đang ghim agent-data theo bản `f2c7266` bằng băm nội dung ⇒ dựng lại mà không đăng ký bản mới thì đèn #22 đỏ. Đề nghị: dựng lại (nếu cần) **sau KQ N1**, không trong cửa sổ D2, và đăng ký bản mới qua `dot-connector-sync promote`. Đường build của `apply agent-data` chưa chạy thật lần nào trong N1 (chỉ chạy “đã khớp”) ⇒ lần đầu dùng phải coi là deploy có soát. JEV 0,77.
+- Trước khi bật đèn #11 theo sổ lưu trữ mới: nếu sổ phủ tới độ sâu đó thì thêm tên các thư mục N1 vừa tạo (`dot/connector-sync`, hồ sơ việc N1), tránh đỏ “tên lạ”.
+- N1 không đụng máy chủ nữa ngoài tệp dấu vân tay; quyền sửa máy chủ thuộc VPSC như P41 ghi.
+
+**3 · Đề nghị một câu cho luật gốc** (Founders; Host ghi khi cập nhật lần tới) — DROOT42 thêm (e): “Tới bước cần người: ghi mốc chờ rồi **dừng sạch**, không dựng vòng chờ nền giữ terminal; hộp thoại việc tay mỗi lần một việc và chỉ sang bước kế khi máy đã thấy việc trước xong thật.” Căn cứ: lời Owner 06/10 (mục 3) + lượt 22:14 hai hộp thoại trôi trong 4 giây.
+
+**4 · D2:** phía Claude làm trong **một chat mới trên điện thoại** bằng câu ở P148 mục 5 (tự đủ ngữ cảnh). Phiên rà dài này không chắc nạp được đầu nối mới. JEV 0,97.
+
+**5 · Còn treo, không chặn N1:** lời nhắc hook nhầm RUN (mã VPSC hiện trong phiên HJW) → việc MCPW (đã đóng), Host xếp chủ · các residual P148 mục 7.
+
+**6 · Hai vòng rà:** V1 — đối chiếu P148 với phạm vi P144/G1–G6 từng dòng; tự đo đèn, container, cầu nối Mac. V2 — gốc rễ của “cứ phải chờ”: ba việc cuối đều là việc tay nên chờ là đúng, giữ terminal chạy để chờ là sai; và hai executor cùng nằm trên một Mac nên “gập máy” là điểm chạm duy nhất giữa hai việc.
