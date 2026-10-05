@@ -5,17 +5,32 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 15:34 +07 · Claude Chat (Reviewer) · D15 — Owner cho xoá hàng tồn nâng cấp; R6 DRAFT chờ Host sửa theo P31
-- 🎯 **Mục tiêu:** VPS khỏe, checker phản ánh đúng sự thật, không còn nguồn vận hành/tạm tăng dung lượng vô hạn; dọn phần chắc chắn an toàn nhưng không hy sinh rollback/bằng chứng cần thiết.
-- 📍 **Tiến độ:** `✅ R1–R5b lịch sử · ✅ P29 audit 05/10 · ✅ P30 R6 DRAFT · ✅ P31 Reviewer 1 vòng = DELTA · ■ Host sửa PROMPT + §0 theo P31 → Reviewer xác nhận đúng diff → Host READY → Claude Code 1 RUN → nghiệm thu/đóng`.
-- ✅ **Đã xác nhận:** current sample ~13:31 +07: disk 65,7% / trống ~35,24 GB; RAM khả dụng ~6,2 GB; container chính healthy; Agent Data/UI 200. P29 có bằng chứng worker SQLite lock/write amplification, checker SQL lỗi/PASS giả, knowledge payload ~3,2 MB + bot pressure, log/deploy/transaction chưa bounded.
-- 🔴 **Ưu tiên gốc:** (1) checker lỗi phải FAIL/UNKNOWN, không nuốt thành 0/PASS; (2) `Queue()` hiện chạy init/migration khi khởi tạo và đang được gọi ở status/cancel/metric/API → sửa init-once/reuse, không chữa bằng tăng timeout; (3) mọi nguồn non-business phải có retention/cap tự động.
-- 💽 **Khoảng dung lượng phải kiểm đủ:** `/var/log/incomex`; `/opt/incomex/deploys` CWEB; workspace transactions; Docker/build cache; backup/Qdrant/Owner View/context pack; **2 PG18 quarantine ~4,3 GB/cái + PG16 cũ từ VPSUP**. Không coi phần nào là rác trước khi reference scan.
-- 🌐 **Hiệu năng:** knowledge page phải bỏ tải full-tree ban đầu/có cache-versioned; không đổi quyền public/private khi chưa có căn cứ. 502/404 phải correlate theo log, không restart/tăng timeout để che.
-- ⛔ **Không làm trong R6:** DNS CWEB/cert cutover; reboot VPS; đổi Directus/PG schema bằng SQL tay; dọn active/rollback artifact; sửa HJW business logic ngoài nguyên nhân trực tiếp. DOT 100% cho runtime/data/config.
-- 🏁 **Xong khi:** checker không execution-error/PASS giả; worker không lock/restart và idle write giảm rõ; mọi non-business source bounded; safe cleanup đưa trống về **≥45 GB nếu có đủ dữ liệu an toàn để dọn** (không đạt vì protected bytes thì báo PARTIAL, không xóa mù); knowledge response giảm ≥60% bytes và không regression; core health/Guard/Telegram same-or-better.
-- ➡ **Kế tiếp:** GPT Host xử lý P31 (10 mục, có chữ đề xuất) trong một lượt sửa → Claude Reviewer xác nhận đúng diff đó, không mở điểm mới → Host READY. 😊 Owner: đã gật 05/10 15:31 (D15) — không còn việc chờ Owner; làm tiếp ngay trong việc này, không mở lại `vps1-up-grade`, không mở task mới.
-- Owner cần quyết: —.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 15:45 +07 · GPT Host · P32 — P31 C1–C10 đã áp, chờ Reviewer xác nhận diff
+- 🎯 **Mục tiêu:** Owner 05/10: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) … làm tiếp cho hoàn thiện”; vì VPS phải khỏe lâu dài chứ không chỉ dọn một lần.
+- 🏁 **Xong khi:** checker không PASS giả · worker không lock/write-loop · mọi nguồn non-business bounded/unknown-name có chuông · cleanup có plan+hash+offsite fallback · core health same-or-better · watcher một chu kỳ ngày không vượt slope gate; capacity 45 GiB chỉ đạt nếu an toàn.
+- 📍 **Tiến độ:** `✅ R1–R5b lịch sử · ✅ P29 audit · ✅ P30 draft · ✅ P31 Reviewer DELTA · ✅ P32 Host áp C1–C10 + D15 · ■ Reviewer xác nhận diff → Host READY → Claude Code R6 → KQ → hậu kiểm máy → đóng`.
+- ✅ **Đã xong:** P29 đo 65,7%/35,24 GB · xác định +23 điểm chủ yếu theo G7/CWEB · D15 Owner cho xoá nhóm D khi đủ điều kiện · PROMPT đã bỏ HISTORY/RUN cũ, thêm plan SHA, Drive fallback, top-down inventory, unknown-name/slope alert, CWEB gate.
+- ■ **Đang làm:** Claude Reviewer chỉ xác nhận đúng diff P32/PROMPT; không mở điểm mới trừ mâu thuẫn do chính diff.
+- ⬜ **Còn lại:** Reviewer ACCEPT → Host READY → Agent A/B/C/E độc lập; Host duyệt PLAN_T/PLAN_D SHA; cleanup → POST-PROTECT → watcher ngày → Host nghiệm thu.
+- ➡ **Kế tiếp:** 😊 Owner không cần quyết thêm · Host chờ Reviewer · Reviewer xác nhận diff · 🤖 Claude Code chạy sau READY.
+- ⛔ **Không làm/để sau:** DNS/cert CWEB · reboot VPS · build/deploy knowledge trước CWEB cutover · auto-delete hồ sơ /opt/incomex/work · sửa HJW business logic; không xoá mù để đạt 45 GiB.
+
+### 1. Mục tiêu
+Owner 05/10/2026: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
+
+### 2. Thế nào là hoàn thành
+Owner 05/10/2026: “có không cần dùng thì bỏ đi”; và bổ sung: “nếu thực sự không dùng thì xoá đi, đừng làm ảnh hưởng, còn nếu thấy không tự tin, tải 1 bản về GGD rồi xoá.”
+
+### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- Phạm vi R6 = A checker truth · B Queue/worker · C storage/retention/cleanup · E HTTP/OS technical; F cleanup theo SHA. Knowledge D chỉ deploy sau CWEB cutover.
+- Destructive cleanup: Owner đã cho nguyên tắc; agent vẫn không tự xoá. Host duyệt exact PLAN_T/PLAN_D hash. Nhóm D phải có PG18 restore proof; nếu còn nghi ngờ nhưng không cần local thì archive Google Drive + checksum/readback trước xoá.
+- Top-down inventory phải reconcile df/du và giải thích ≥90% phần tăng 43→66%; unknown >1 GiB phải tách tiếp.
+- Storage registry machine-readable; tên lạ >24h = đèn đỏ. Slope alert: ≥2 GiB/24h hoặc ≥3 GiB/7d = đỏ.
+- 45 GiB free là target capacity, không phải quyền xoá protected data.
+- DOT 100%; Docker destructive/prune/restart cấm trong R6; POST-PROTECT/rebaseline exact mutation manifest.
+- §0.3: **đã đối chiếu P29/P30/P31/D15 + AGENTS MT3/MT4; phạm vi vòng 3 thắng phạm vi vòng 2.**
+
+### Vòng trước
 
 ### Vòng trước · lịch sử
 Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User 23/09 tại D11; Owner giao "rà soát thêm và điều hành tiếp" điểm P18 ngày 23/09)
@@ -45,11 +60,11 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User 23/09 tại D11;
 - Bổ sung phạm vi 2026-09-23 (lời Owner trong phiên Host): "đổi giờ VPS từ giờ Đức sang GMT+7 (Asia/Ho_Chi_Minh), GIỮ NGUYÊN thời điểm chạy thật của mọi lịch" (D09) — thuộc lượt khép việc R4b.
 - Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 (D01) và bổ sung chính sách storage 2026-09-21 (D02); Host đã đưa D02 vào `PROMPT.md` và `view.html` (T1–T6); phạm vi múi giờ do chính Owner nêu 2026-09-23 (D09).
 
-Host: Claude Chat · Host_ID: CLAUDE-VPSC-260920-A · mở việc theo lệnh Owner 2026-09-20
+Host: GPT Chat · Host_ID: GPT-VPSC-261005-R6 · vòng 3 theo lệnh Owner 05/10; Host lịch sử vòng 1–2: Claude Chat · CLAUDE-VPSC-260920-A
 HTML chính: `view.html`
 
-## Dòng hiện hành
-VPSC | Dọn đĩa VPS + khoá vòi rò | ĐÃ ĐÓNG 23/09 (vòng 2) | CLOSED · 2026-09-23 · KQ@VPSC-R5B-20260924-01 XONG · mọi nguồn không phải nghiệp vụ có trần (5 vòi + image + build cache), đĩa 43% · xem BAO-CAO mục KẾT CUỐI | NEXT: — | BLOCK: —
+## Lịch sử trạng thái vòng 1–2
+- Vòng 2 đã đóng 23/09 với KQ R5b; trạng thái hiện hành nằm duy nhất ở BẢNG ĐIỀU KHIỂN vòng 3 phía trên.
 
 - PROMPT hiện hành: `PROMPT.md` · RUN_ID `VPSC-R5B-20260924-01` · tiếp nối R5 theo P25: (B5) restart dockerd 1 lần có kiểm soát nạp trần build cache 5GiB; (C') KEEP_SET v2 hữu hạn (ACTIVE_ROLLBACK_SET + ân hạn 30 ngày) cài ở chế độ thử `L_XOA=0` + kế hoạch xoá chờ Host duyệt · CÓ MUTATION, KHÔNG xoá image. Giấy phép: dòng R5b dưới.
 - **Giấy phép R5b:** PROMPT_SHA = `80ea8339852743b61d63239ca012b993f38bad86` (áp P26 + P27; các bản trước hết hiệu lực) · **OWNER_APPROVED@80ea8339852743b61d63239ca012b993f38bad86** (D08 + D13: Owner giao Host "phân tích và điều hành tiếp" sau R5; cho phép rõ 1 lần `systemctl restart docker` theo B5) · **Host READY@80ea8339852743b61d63239ca012b993f38bad86** — preflight 23/09 ~07:45Z (Host tự gọi): đĩa 44%, trống ~55GB; 12 container, 0 có vấn đề (cowork-runner lên lại 4 giờ trước do tự thoát rc=0, đã ghi ở R5); cổng NO_CONCURRENT agent tự kiểm lại. **RUN chỉ hợp lệ khi có thêm `GPT REVIEWED@` cùng SHA.** Thời điểm bấm: bất kỳ lúc nào (P26).
@@ -100,7 +115,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | ĐÃ ĐÓNG 23/09 (vòng 2) | CLOSED �
 - Nguồn: `vps_status` resources/containers · `fs_list` gốc code · `query_pg`. Nghi phạm: `view.html` §2.
 
 ## Quyết định Owner
-- D15 · 2026-10-05 15:31 +07 · **Owner (nguyên văn, trả lời câu hỏi của Reviewer ở P31·C1):** “có không cần dùng thì bỏ đi.” · “Chúng ta coi việc này là nhiệm vụ nối dài của nâng cấp VPS hoặc task nào mà bạn đang edit => để thống nhất làm tiếp cho xong”. **Ghi nhận (Claude Reviewer ghi; Host kiểm và đưa vào §0.3 vòng 3):** (a) Owner cho phép xoá **nhóm D** của P31·C1 — thư mục dữ liệu PG16 cũ, hai thư mục PG18 hỏng, database `directus_gov_test_20260602` — kèm đúng điều kiện đã nêu khi hỏi: máy chứng minh bản sao lưu PG18 sau cutover khôi phục được, Host duyệt đúng danh sách theo mã băm, agent không tự quyết; không cần hỏi lại Owner cho nhóm này. (b) Làm tiếp **ngay trong `work/vps-clean-20-9-26`**: việc này được dọn hàng tồn do việc nâng cấp để lại; không mở lại `vps1-up-grade`, không mở việc mới. (c) Không suy rộng: hồ sơ dưới `/opt/incomex/work/` và mọi thứ ngoài danh sách Host đã duyệt vẫn giữ. JEV `gen-dec-1791189140-c3WSgLk6fCdBBCuFAnhx` (bằng chứng phụ): làm tiếp trong việc này 0,99 · lời Owner là cho phép xoá 0,90.
+- D15 · 2026-10-05 15:31 +07 · **Owner (nguyên văn, trả lời câu hỏi của Reviewer ở P31·C1):** “có không cần dùng thì bỏ đi.” · “Chúng ta coi việc này là nhiệm vụ nối dài của nâng cấp VPS hoặc task nào mà bạn đang edit => để thống nhất làm tiếp cho xong”. **Ghi nhận (Claude Reviewer ghi; Host kiểm và đưa vào §0.3 vòng 3):** (a) Owner cho phép xoá **nhóm D** của P31·C1 — thư mục dữ liệu PG16 cũ, hai thư mục PG18 hỏng, database `directus_gov_test_20260602` — kèm đúng điều kiện đã nêu khi hỏi: máy chứng minh bản sao lưu PG18 sau cutover khôi phục được, Host duyệt đúng danh sách theo mã băm, agent không tự quyết; không cần hỏi lại Owner cho nhóm này. (b) Làm tiếp **ngay trong `work/vps-clean-20-9-26`**: việc này được dọn hàng tồn do việc nâng cấp để lại; không mở lại `vps1-up-grade`, không mở việc mới. (c) Không suy rộng: hồ sơ dưới `/opt/incomex/work/` và mọi thứ ngoài danh sách Host đã duyệt vẫn giữ. (d) Bổ sung Owner 05/10 15:34: nếu artifact/data không còn cần trên VPS nhưng chưa đủ tự tin xoá thẳng, tải/archive một bản lên Google Drive trước, verify checksum/size/readback rồi mới xoá local; Drive dùng làm offsite cold archive, không vì lo xa mà giữ rác trên VPS. JEV `gen-dec-1791189140-c3WSgLk6fCdBBCuFAnhx` (bằng chứng phụ): làm tiếp trong việc này 0,99 · lời Owner là cho phép xoá 0,90.
 - D01 · 2026-09-20 · Mở việc tại `work/vps-clean-20-9-26/`: đánh giá vì sao đĩa VPS đầy nhanh, đề xuất dọn phần không dùng để có chỗ cài Graph DB.
 - D02 · 2026-09-21 · Owner chốt nguyên tắc storage: VPS ưu tiên dữ liệu business + working set runtime thực sự cần để chạy. Dữ liệu vận hành không phải business không được tăng vô hạn: cần giữ dài hạn thì offload Google Drive/off-VPS; tái tạo được thì giới hạn TTL/retention rồi purge. `3GB/tháng ngoài business` chỉ là ngưỡng báo động/điều tra, không phải mức tăng được coi là PASS. Owner giao nhóm kỹ thuật tự quyết chi tiết.
 - D03 · 2026-09-21 · Owner: giao Claude Code CLI chạy R1, sau đó chuyển **Codex giám sát** — Codex là bên thẩm tra độc lập ở VPSC.3 (PASS/REVISE/BLOCK từng nhóm). Để giữ độc lập: GPT (bên thẩm tra) soạn đề bài cho Codex bằng cách sửa chính `PROMPT.md` sau khi R1 xong, Claude review; Codex chỉ đọc, không mutation.
@@ -275,6 +290,20 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - Host: xử lý C1–C10 trong một lượt (PROMPT đổi ⇒ mã commit mới) → Reviewer xác nhận đúng diff → Host phát lệnh sẵn sàng.
 - Owner: một câu gật/lắc cho nhóm D ở C1 — Reviewer đã hỏi trực tiếp 05/10, đề xuất **gật**; chưa có trả lời thì nhóm D giữ nguyên và kết quả ghi PARTIAL về dung lượng. **→ Owner đã gật 05/10 15:31, xem D15.**
 
+### P32 · GPT Host · 05/10/2026 · APPLY P31 C1–C10 + D15 · CHỜ REVIEWER DIFF-CONFIRM
+- **C1:** thêm PLAN_T/PLAN_D + SHA; Owner D15 đã cho nhóm D, Host vẫn duyệt exact hash; Drive fallback trước xoá khi còn nghi ngờ.
+- **C2:** đưa Docker hard-ban vào phần hiệu lực; full-disk scan ionice/nice một lượt.
+- **C3:** knowledge deploy defer tới sau CWEB cutover; chưa cutover = DEFERRED_CWEB, không chặn R6.
+- **C4:** §0 vòng 3 + Host + Bảng MT4 đã sửa; phạm vi vòng 3 thắng lịch sử.
+- **C5:** PROMPT chỉ còn một RUN_ID; Executor/Write_Path/Evidence_Dir + MUTATION_MANIFEST + POST-PROTECT/rebaseline đã có.
+- **C6:** top-down df↔du, CHƯA_PHÂN_LOẠI >1 GiB phải tách; đủ 5 nguồn Reviewer bổ sung.
+- **C7:** storage registry machine-readable; tên lạ >24h = #11 đỏ.
+- **C8:** slope alert bytes/24h/7d + watcher một chu kỳ ngày; RUN smoke không thay hậu kiểm.
+- **C9:** Queue fix thu hẹp đúng 4 delta; không broad redesign/batch metric.
+- **C10:** A/B/C/E độc lập; F phụ thuộc C+duyệt; 45 GiB ghi đúng đơn vị; root-policy storage residue chỉ là proposal, không tự sửa luật root.
+- **Prompt last-touch thay đổi:** cần Claude Reviewer xác nhận đúng diff P32; nếu ACCEPT thì Host READY ngay, không vòng mới.
+- Owner cần quyết: —.
+
 ## Owner cần quyết
 - —
 
@@ -284,8 +313,8 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **H2 · CHUYỂN GIAO khi đóng VPSC 23/09 — chưa làm, không gấp · HVU archive recovery cũ:** `/opt/incomex/deploys/hvu-archive01-20260922` đã hết vai trò active recovery sau `HVU-VPSARCHIVE01` PASS + HVU CLOSED. Trước move phải quét lại unit/compose/nginx/timer/symlink/pointer; nếu vẫn không reference thì phân loại `ARCHIVE_SAFE` và move cùng filesystem vào `/opt/incomex/work/done-tasks/hpml-view-for-user/history/deploys/`, cập nhật pointer còn sống, hash trước/sau. Nếu còn reference → giữ nguyên, không ép.
 - **Không đụng:** `hvu-b3-20260921`, `hvu-b3-cleanup-20260922`, runtime `sr-mow-d30d31` cho tới khi có migration riêng chứng minh an toàn.
 
-## NEXT
-- **ĐÃ ĐÓNG 23/09 (vòng 2).** Không còn RUN nào. Theo dõi sau (không chặn): BAO-CAO mục KẾT CUỐI.
+## NEXT · lịch sử vòng 1–2
+- Vòng 2 đã đóng 23/09; không dùng mục lịch sử này để điều hành vòng 3.
 - (lịch sử) **VÒNG 2 (P18):** GPT review PROMPT R5 → ghi `GPT REVIEWED@<full SHA>` → Owner RUN bằng dòng lệnh trong mục Giấy phép R5 → Host nghiệm thu → GPT đóng P18 → Đóng vps-clean-20-9-26.
 - (lịch sử) ĐÃ ĐÓNG 23/09 (D11) rồi mở lại vì P18. Việc treo đã chuyển giao — xem BAO-CAO mục KẾT · Chuyển giao (1–8); mục 1 (`live-restore`) và mục 2 (image/build cache) nay thuộc vòng 2.
 - (lịch sử R4b, đã chạy) Owner RUN R4b (Claude Code CLI trên Mac, phiên mới sạch, chế độ D08) bằng dòng: `WS work/vps-clean-20-9-26 · Agent · RUN VPSC-R4B-20260923-01 · đọc AGENTS.md → work/vps-clean-20-9-26/COLLAB.md → work/vps-clean-20-9-26/PROMPT.md · READY@0a08377d915f0dae0417e63175728e0d3de60282`. Trong lúc chạy không giao việc khác đụng VPS.
