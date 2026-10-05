@@ -62,7 +62,7 @@
 - ✅ A9 đã làm rõ cơ bản `BÀN ≠ GIAO ≠ ĐƯỢC CHẠY`; Hermes P121 và Claude P123 đã review vòng thật.
 
 ### 0.9 · ROADMAP THỰC THI — 6 NODE LỚN, MỖI NODE 1 PROMPT/1 RUN
-1. **N1 = K1 · CLOUD CONNECTOR TWIN + SYNC FOUNDATION** — kiểm kê + tạo/hoàn thiện **cloud twin** cho toàn bộ custom Incomex connector đủ điều kiện, **không tháo/bỏ bản Mac**; thiết lập cơ chế đồng bộ thay đổi nhanh giữa nguồn đã duyệt và hai runtime + nghiệm thu Mac-off + protection trong **một RUN**.
+1. **N1 = K1 · CLOUD CONNECTOR TWIN + SYNC FOUNDATION** — kiểm kê + tạo/hoàn thiện **cloud twin** cho toàn bộ custom Incomex connector đủ điều kiện, **không tháo/bỏ bản Mac**; chiều cải tiến chính là **Mac → nguồn approved → cloud**, máy tự phát hiện `MAC_AHEAD` nhưng không tự ghi đè Mac/không tự đẩy cloud khi chưa duyệt; connector cloudable vướng luật gốc dùng `POLICY_HOLD` để Owner quyết tại R4; nghiệm thu Mac-off + sync/drift + protection trong **một RUN**.
 2. **N2 = K2 · OPENAI DOTS INTEGRATION** — thử/triển khai đường chính thức tốt nhất cho repo identity/scope và external wake; residual thật sự do giới hạn hãng được hội đồng chuyển N3.
 3. **N3 = K3 · HERMES-MAC COURIER CUTOVER** — xử lý toàn bộ residual transport/session còn cần Mac sau N1/N2; chạy một vòng GPT↔Claude (và Dot nếu cần) mà Owner không copy-paste.
 4. **N4 = M1 · COUNCIL CORE V1** — triển khai V0 thật trên mức `rà kết quả agent + duyệt prompt kế tiếp`, có opinion/decision/bell + nối sang đường GIAO hiện hữu và chạy trọn một vòng thật.
@@ -272,11 +272,11 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 
 #### N1 · K1 · CLOUD CONNECTOR TWIN + SYNC FOUNDATION — 1 PROMPT
 - **Pha A · PRE read-only:** dùng nguyên K1-PRE đã Claude P132 rà (S1–S3): inventory an toàn, 8 ô, không endpoint/secret/IP/user-path, không phép ghi thử.
-- **Pha B · xếp loại:** `ALREADY_TWIN / SYNC_EXISTING / CREATE_CLOUD_TWIN / MAC_ONLY_EXCEPTION`; bao phủ **toàn bộ custom Incomex MCP/connector đã kiểm kê**, kể cả của hội đồng và người thi hành. Mục tiêu là **copy/đồng bộ**, không migrate khỏi Mac. Không dựng gateway mới.
-- **R4 checkpoint:** nếu có bất kỳ `SYNC_EXISTING / CREATE_CLOUD_TWIN` hoặc thay đổi cấu hình thật, executor ghi danh sách thay đổi chính xác + rollback từng dòng + **cách đồng bộ về sau** rồi dừng **trong cùng RUN**. Host + Reviewer soát; đụng cấu hình server hoặc đưa secret mới lên server ⇒ Owner gật một lần. Không có mutation ⇒ bỏ checkpoint.
+- **Pha B · xếp loại:** `ALREADY_TWIN / SYNC_EXISTING / CREATE_CLOUD_TWIN / MAC_ONLY_EXCEPTION / POLICY_HOLD`; bao phủ **toàn bộ custom Incomex MCP/connector đã kiểm kê**, kể cả của hội đồng và người thi hành. `POLICY_HOLD` = làm cloud twin được về kỹ thuật nhưng luật gốc đang hạn chế mở đường/quyền đó ⇒ không tự tạo, Owner quyết từng dòng ở R4. Mục tiêu là **copy/đồng bộ**, không migrate khỏi Mac. Chiều cải tiến chính: Mac → nguồn approved → cloud; `MAC_AHEAD` chỉ báo, không tự ghi đè/đẩy. Không dựng gateway mới.
+- **R4 checkpoint:** nếu có bất kỳ `SYNC_EXISTING / CREATE_CLOUD_TWIN / POLICY_HOLD`, `LỆCH CÓ CHỦ Ý`, để lại Mac, thay đổi cấu hình thật hoặc **đổi bất cứ thứ gì trên Mac của Owner**, executor ghi danh sách thay đổi chính xác + backup/rollback từng dòng + **cách đồng bộ về sau** rồi dừng **trong cùng RUN**. Host + Reviewer soát; Owner gật một lần cho toàn nhóm cần quyết. Không có mutation/ngoại lệ cần quyết ⇒ bỏ checkpoint.
 - **Pha C · thực thi:** giữ nguyên bản Mac đang dùng; tạo/hoàn thiện **cloud twin tương đương chức năng** cho mọi connector cloudable bằng reuse nhỏ nhất. Cloud/web workflow dùng bản cloud; Mac tiếp tục dùng bản local khi Owner cần. `MAC_ONLY_EXCEPTION` chỉ hợp lệ khi thật sự không thể tạo cloud twin về kỹ thuật. Credential có thể tách riêng theo runtime; không yêu cầu clone bí mật byte-for-byte.
 - **Pha D · nghiệm thu độc lập:** (1) khi Mac ngủ/gập, **GPT Chat + Claude Chat tự thực hiện** đọc/ghi repo bằng identity riêng + đọc bằng chứng server; executor trên Mac không tự chứng nhận; (2) khi Mac hoạt động lại, các connector local vẫn dùng được như trước, không bị giảm chức năng; (3) parity tool/schema cần thiết giữa Mac↔cloud được đo và ghi.
-- **Pha E · đồng bộ dài hạn + bảo vệ trong node:** ưu tiên một **nguồn thay đổi đã duyệt** cho code/template/schema; Mac và cloud cùng lấy cùng release/config template, secret inject riêng. Một thay đổi tương lai không được yêu cầu sửa tay hai nơi: phải có một thao tác sync/apply tất định hoặc existing apply path cập nhật cả hai, có version/hash/drift check; mục tiêu bắt kịp trong một chu kỳ apply/guard bình thường (target ≤10 phút, không chờ copy-paste). Sau đó D30/31 + Config/Protection Guard + negative proof + rollback/receipt.
+- **Pha E · đồng bộ dài hạn + bảo vệ trong node:** mỗi nhóm có một **nguồn approved** cho code/template/schema; Mac và cloud chạy cùng mã/cùng bản, secret inject riêng. Cải tiến làm trên Mac mà nguồn chưa có ⇒ máy phát hiện `MAC_AHEAD`, **không ghi đè Mac và không tự đẩy cloud**; sau duyệt, đưa thay đổi vào nguồn rồi một action/apply tất định cập nhật cloud và đồng bộ hai runtime. Mac cũ hơn nguồn thì mới được nâng Mac từ nguồn. Máy tự gửi/so dấu vân tay khi Mac có phiên làm việc; Mac ngủ chỉ ghi last-seen, không đỏ. Target hội tụ ≤10 phút / một chu kỳ apply+Guard, không sửa tay target thứ hai. Sau đó D30/31 + Config/Protection Guard + negative proof + rollback/receipt.
 - **PASS N1:** Pha D PASS + mọi custom Incomex connector cloudable có **cloud twin dùng được** trong khi bản Mac vẫn còn nguyên chức năng; mọi `MAC_ONLY_EXCEPTION` có lý do kỹ thuật; đã chứng minh ít nhất một **sync canary an toàn** từ nguồn đã duyệt → hai runtime mà không sửa tay target thứ hai; drift bị phát hiện/báo; mọi thay đổi nằm trong protection. Không tách PRE thành RUN riêng.
 
 #### N2 · K2 · OPENAI DOTS INTEGRATION — 1 PROMPT
@@ -338,12 +338,19 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Sync dài hạn:** không sync filesystem mù; mỗi nhóm connector có một approved source/release/template, secret inject riêng, một action/apply cập nhật cả Mac+cloud; canary phải chứng minh không sửa tay target thứ hai, target convergence ≤10 phút.
 - **CHƯA READY/RUN.** Claude review đúng một lượt theo §10 PROMPT; 0 blocker ⇒ Host mới READY@last-touch và RUN N1.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 15:20 +07 · GPT Host · **P137 PROMPT N1 DRAFT**
-- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap khóa] → [✓ PROMPT N1 DRAFT] → [■ Claude review N1] → [□ READY/RUN N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
+### P139 · Host GPT · 2026-10-05 15:45 +07 · **ACCEPT C1–C9 · N1 READY**
+- **Đồng thuận:** ACCEPT toàn bộ C1–C9 của Claude P138. Không sửa thêm `PROMPT.md`; Reviewer ACCEPT và Host READY cùng đúng bản last-touch `b83da96e5369aace4f2f21d764e51bc8e91eb1fc`.
+- Hai chốt Host kiểm riêng: `MAC_AHEAD` chỉ phát hiện/báo, không tự ghi đè Mac hay tự promote cloud; parity quyền bằng Mac chỉ trong giới hạn luật gốc, trường hợp vướng rule đi `POLICY_HOLD` + Owner R4. Đủ an toàn để RUN.
+- VPS sample trước READY fresh ~35s: container chính healthy, workspace/agent-data/ui sạch; P138 fresh-read báo 22/22 xanh, registry 71·69·0·2, 0 cờ bận/lệnh Hermes mở. Runtime vẫn phải fresh-read lại khi executor START theo PROMPT.
+- `READY@b83da96e5369aace4f2f21d764e51bc8e91eb1fc`
+- **CHƯA RUN trong commit này.** Owner/Host giao executor sau READY; executor phải chạy đúng RUN_ID `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` và dừng R4 nếu có mutation/ngoại lệ cần duyệt.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 15:45 +07 · GPT Host · **P139 N1 READY**
+- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap khóa] → [✓ PROMPT N1] → [✓ Claude P138 ACCEPT] → [✓ Host P139 READY] → [■ chờ RUN N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
 - **Thiết kế V0:** `CHỐT`; A9 Hermes `MỞ ĐỦ · MANUAL`; AUTO_ALLOWLIST rỗng.
 - **Roadmap SSOT:** `N1 Cloud Foundation → N2 Dots → N3 Hermes-Mac → N4 Council Core → N5 Dual-mode/Flexible Levels → N6 Final Acceptance/Close`.
 - **Luật khóa:** R1–R7 + bảng chủ phép thử tại 0.17. Không node con, không TODO vô chủ, không PASS bằng cách dời việc chưa xong.
-- **Kế tiếp duy nhất:** Claude review `PROMPT.md` N1 last-touch `dc27c2d...` đúng một lượt; không bàn lại roadmap/V0. Sau ACCEPT, Host sửa delta nếu có → READY@full SHA → RUN N1.
+- **Kế tiếp duy nhất:** giao Claude Code chạy `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` theo READY `b83da96e...`; không bàn lại roadmap/V0. Pha A read-only chạy một mạch; có mutation/`POLICY_HOLD`/khác biệt quyền/Mac change thì dừng đúng R4 trong cùng RUN.
 - **Chưa cần Owner:** không có thao tác mới trước khi PROMPT N1 được Reviewer ACCEPT. Hai xác nhận cũ UptimeEye/T1–T9 không chặn N1; T1–T9 chỉ bắt buộc ratify trước N6 CLOSE.
 - **Không dựng thêm:** workflow engine · DB/state service · UI · score engine · supervisor service ở ngoài node tương ứng.
 - **An toàn:** trạng thái đèn/registry phải fresh-read lại ngay trước READY/RUN N1; không dùng số 22 cố định làm invariant vì số đèn có thể tăng.
@@ -397,6 +404,7 @@ CẤM: đọc/ghi ngoài danh sách, đổi cấu hình/quyền, tự giao việ
 - Các client/route Agent Data hiện hành vẫn hoạt động sau thay đổi; auth bypass cũ đã bị đóng và có regression test.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **Nguyên văn Owner 05/10 về trạng thái:** “Ví dụ khi nào, hội đồng nhất trí thông qua, host mới là người quyết định giao. Và lúc đó worker mới được thực hiện. Cơ chế này cần rõ rõ ràng, vì hermes chỉ là agent đầu tiên theo hướng này.” → SSOT rút gọn: **BÀN ≠ CHỐT ≠ GIAO ≠ ĐƯỢC CHẠY**; draft/review không phải assignment, Host decision không tự đồng nghĩa worker chạy.
 - Giữ nguyên task/folder HJW hiện tại; **không tạo project/task/file mới**. Chỉ sửa file nguồn/config/test hiện hữu; nếu bắt buộc phải tạo file mới thì DỪNG xin Owner.
 - Kiến trúc Host chốt để review: một route generic (không `/mcp-hermes`), credential → profile server-side; policy profile dùng config hiện hữu `WORKSPACE_CONFIG`, secret thật chỉ ở server/root secret material, không ghi repo/config plaintext.
 - Authenticated `agent_id` phải do server suy ra từ credential và dùng cho attribution/presence/Git author signal; `clientInfo` chỉ là metadata, không có quyền quyết định identity/capability.
