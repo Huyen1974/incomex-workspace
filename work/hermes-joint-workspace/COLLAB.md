@@ -166,19 +166,19 @@
 1. **Đúng người/đúng vai:** identity phía server + Task Policy xác định quyền; sai quyền ⇒ reject + chuông.
 2. **Đúng bản:** mọi opinion/decision gắn `content_ref`/hash; nội dung đổi ⇒ opinion/decision cũ không dùng cho bản mới.
 3. **Đúng điều kiện chuyển mức:** máy tính từ policy + event; Host không thể chốt khi policy chưa cho phép.
-4. **Chuông = HOLD:** có chuông mở ⇒ bước sau không chạy; chuông đi thẳng Telegram bằng đường hiện hữu, không qua model lọc.
+4. **Sai thì fail-closed + báo:** lỗi máy tự xác định ⇒ bước sai vô hiệu ngay + Telegram, không bắt Owner gỡ; `bell` do AI/người bấm cho lỗi semantic/quyền máy chưa phân xử ⇒ `BELL_HOLD` tới khi authority hợp lệ resolve.
 
 **B. Không xây state store/DB mới — dùng repo như event log**
-- **Record 1: `TASK_POLICY_V1`** — một block nhỏ cho task, ghim trước khi chạy. V0 chỉ cần các tham số thật sự dùng: `required_members` · `max_rounds` · `decision_rule` · `bell_resolver` · `notify`; `decider` mặc định lấy từ dòng `Host:` nên không khai trùng nếu không cần override được Owner duyệt.
-- Không có DSL tổng quát. `decision_rule` dùng **enum/preset ít lựa chọn**, ví dụ: `NO_BLOCK` · `HOST_AFTER_MAX` · `OWNER_AFTER_MAX`. Sau này thiếu mới thêm; không xây expression engine.
-- **Record 2: `FLOW_EVENT_V1`** — append-only, một dạng record duy nhất với `kind` = `opinion | decision | bell | bell_resolve`; actor do server suy ra, không cho caller tự khai. Chung các trường: `level_id · content_ref · round · kind`; phần riêng chỉ thêm dữ liệu tối thiểu (`stance/note`, `decision`, hoặc `rule_ref/evidence_ref`).
+- **Record 1: `TASK_POLICY_V1`** — V0 bắt buộc đúng **một field nghiệp vụ: `required_members`**. Host/decider lấy từ dòng `Host:`. Mặc định chặt: còn CHẶN thì chưa chốt; nội dung đổi = vòng mới; quá 3 vòng còn CHẶN ⇒ Owner. Chỉ khi một task muốn nới/đổi mặc định mới thêm override tối thiểu và phải qua authority mà Global Rule/Owner cho phép.
+- Không DSL, không expression engine. Mỗi sự thật chỉ khai một nơi; số vòng và state do máy suy ra.
+- **Record 2: `FLOW_EVENT_V1`** — append-only, `kind = opinion | decision | bell | bell_resolve`; actor do server suy ra. V0 chung chỉ cần `content_ref · kind`; `round` bỏ vì máy đếm theo chuỗi `content_ref`; `note` bỏ vì lý do nằm trong mục P và event chỉ trỏ ref. M1 chỉ có một loại mức nên chưa cần `level_id`; tới khi thật sự có nhiều mức cùng hoạt động mới thêm.
 - **Không lưu thêm `state=` bằng tay.** Scanner tự suy ra state hiện hành từ policy + event: `ĐANG_BÀN` · `CHỜ_HOST_CHỐT` · `ĐÃ_CHỐT` · `BELL_HOLD`. Như vậy không có hai nguồn sự thật để lệch nhau.
 - Khi Host đã quyết `ĐI_TIẾP` tới thực thi, **không phát minh execution record mới**: dùng lại `ASSIGN_V1/RESULT_V1` đã PASS.
 
 **C. Chuông dùng đúng hạ tầng đã có**
-- Vi phạm máy tự biết (sai Host, sai vòng, sai content_ref, courier sửa payload...) ⇒ scanner/gateway tạo cùng một event chuông và gửi Telegram qua bot hiện tại.
-- Vi phạm chỉ AI/con người nhận ra ⇒ AI ghi `FLOW_EVENT_V1 kind=bell` kèm `rule_ref + evidence_ref`; scanner chỉ kiểm quyền/hình thức rồi gửi, **không gọi model phán chuông đúng hay sai trước khi báo**.
-- Resolver theo Task Policy; người bị bấm không tự resolve. M1 chưa cần “sổ điểm chuông”; chỉ log event. Score để sau khi đã có dữ liệu thật.
+- **M1 chỉ kiểm tại scanner hiện hữu**, không sửa gateway/choke point dùng chung: sai Host/điều kiện/content_ref ⇒ record quyết định vô hiệu + Telegram. Vi phạm semantic mà AI thấy ⇒ `FLOW_EVENT_V1 kind=bell` + `rule_ref/evidence_ref`; scanner kiểm hình thức/quyền rồi gửi, không gọi model lọc trước.
+- Bell do AI bấm mới HOLD; resolver V0 mặc định Owner, người bị bấm không tự resolve. Chưa cần score.
+- **Ranh giới pha:** M1 chưa tự nối decision→worker nên scanner 2 phút là đủ. Trước ngày bật auto-dispatch, evaluator này phải được re-check đồng bộ ngay tại đường dispatch `decision→ASSIGN` để không có race; đó là reuse cùng evaluator, không dựng subsystem mới.
 
 **D. Người sau kiểm người trước — tối giản**
 - Không bắt mỗi agent chạy một verifier phức tạp. **Máy kiểm mọi rule máy đọc được trước.** Người nhận chỉ có nghĩa vụ: nếu thấy vi phạm semantic/quyền mà máy chưa bắt thì `không làm + bấm chuông`.
@@ -187,7 +187,7 @@
 **E. Những thứ P126/P128 đúng về mục tiêu nhưng HOÃN kỹ thuật để giảm tải**
 - `khác hãng giám sát mọi task`: giữ là policy/đích, chưa dựng scheduler/service riêng ở M1.
 - `sổ điểm tin cậy`, `trang trace tự sinh`, `bảng policy UI`, `đổi cấp một click`, `T1–T9 toàn hệ`: giữ làm acceptance dài hạn; **không phải điều kiện để M1 chạy**.
-- Hermes-Mac/courier: không nằm trong M1. M1 chỉ chứng minh discussion/decision/bell kernel trên repo; transport làm sau.
+- Hermes-Mac/courier không nằm trong kernel M1, nhưng theo quyết định Owner **K1→K2→K3 được làm trước M1** để chuẩn bị đường nối; K3 chỉ xử lý phần còn thiếu sau K1/K2.
 - Không archive/di chuyển lịch sử P lúc này chỉ để đẹp file; nếu chi phí đọc trở thành blocker thật mới xử lý theo Owner gật.
 
 **F. M1 kỹ thuật nhỏ nhất để chứng minh lõi**
