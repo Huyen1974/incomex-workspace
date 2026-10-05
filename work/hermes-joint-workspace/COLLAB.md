@@ -202,9 +202,9 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 
 | | Việc | Cách gọn nhất, dùng thứ đang có | Xong khi |
 |---|---|---|---|
-| K1 | Chuyển mọi đầu nối MCP của Claude/GPT lên đám mây | Bước 1 chỉ kiểm kê, không đổi gì: đầu nối nào đang chạy trên Mac, ai dùng, trên máy chủ đã có bản tương đương chưa. Bước 2: trỏ sang bản trên máy chủ đã có; thứ nào chưa có mới dời. Không dựng cổng mới: dùng cổng danh tính và Guard hiện có | tắt Mac mà GPT và Claude (bản web) vẫn đọc/ghi repo và dùng đủ công cụ cho việc hội đồng · còn 0 đầu nối chạy trên Mac (thứ buộc phải ở Mac thì ghi rõ lý do) · mỗi đầu nối có danh tính riêng, nằm trong bảo vệ Điều 30/31 |
-| K2 | Nối OpenAI Dots theo đường tốt nhất | Thử theo bậc thang 0.13, dừng ở bậc đầu tiên chạy được: Dots tự vào repo qua đầu nối chính thức, danh tính riêng, quyền hẹp → kênh chính thức để gọi nó → trình duyệt riêng của nó. Chưa giao nó điều hành việc gì | Dots đọc được một mục và ghi được một dòng trên repo bằng danh tính riêng (khác danh tính GPT chat) · ghi ngoài phạm vi bị chặn · có một cách gọi nó mà Owner không phải dán · ghi rõ điều Dots chưa làm được |
-| K3 | Cài Hermes-Mac, độc lập với Hermes trên VPS, làm liên lạc viên | Bản nhỏ nhất: thay thao tác dán của Owner. AI soạn khối chuyển tin chuẩn (DROOT38) → Owner bấm một nút trên Telegram → Hermes-Mac dán nguyên văn vào đúng phiên. Chỉ đưa thư và gọi lượt; không quyết, không sửa. Kéo việc từ máy chủ, không nghe chung bot Telegram với Hermes trên VPS | một vòng GPT ↔ Claude chạy mà Owner chỉ bấm nút, không dán · nội dung tới nơi trùng từng chữ với bản gốc trên repo · có danh tính riêng · có nhịp sống trong sổ tin báo: Mac ngủ hoặc tắt thì có báo, không âm thầm |
+| K1 | Cloud-first các MCP/connector của hội đồng | **K1-PRE chỉ kiểm kê, 0 mutation.** Với từng connector: ai dùng · runtime ở Mac/VPS/cloud · endpoint/auth/identity · tool/schema · secret source · cloud equivalent · có phụ thuộc local GUI/session không. Migration sau review: cái server đã có thì repoint; chưa có nhưng cloudable mới move; local-only giữ và ghi lý do. Không dựng gateway mới | tắt Mac mà GPT/Claude web vẫn đủ đường **hội đồng** để đọc/ghi repo và dùng tool cloud-eligible · **0 connector council-critical cloudable còn phụ thuộc Mac** · mọi ngoại lệ Mac-only có lý do + heartbeat/guard phù hợp · identity riêng + Điều 30/31 |
+| K2 | Nối OpenAI Dots theo đường chính thức tốt nhất | Thử bậc thang 0.13: plugin/connector trước, rồi channel chính thức, rồi browser của dot. Chưa giao điều hành. Đo **hai gate riêng**: (A) access/identity/scope repo; (B) hệ thống Incomex có đánh thức/giao việc cho dot mà Owner không copy-paste được hay không | K2-A PASS khi dot đọc/ghi một dòng bằng identity riêng và ngoài scope bị chặn. K2-B PASS nếu có đường wake được hãng hỗ trợ; nếu tài liệu/smoke chứng minh **không có external wake phù hợp**, ghi blocker chính thức và chuyển phần đó sang K3 — không code lách UI trong K2 |
+| K3 | Hermes-Mac Courier/Session Controller — chỉ phần residual sau K1/K2 | Bước đầu spike đường chính thức/browser/desktop control; sau đó cài **bản nhỏ nhất** chỉ cho các phiên còn buộc phải qua Mac. Nhận envelope từ máy chủ, gọi lượt hoặc relay nguyên văn; không quyết, không sửa. Identity/heartbeat riêng, không dùng chung consumer bot với Hermes-VPS | một vòng GPT↔Claude còn cần Mac chạy mà Owner không copy-paste; payload khớp bản gốc/provenance rõ; Mac ngủ/tắt có báo; phần nào K1/K2 đã giải quyết thì K3 **không làm lại** |
 
 - **K1 đi trước vì nó làm K2, K3 nhỏ đi:** đầu nối đã ở trên mây thì các phiên chat và Dots tự vào repo bằng danh tính của mình; liên lạc viên chỉ còn việc gọi lượt.
 - **K3 đổi một điều Owner đã chốt ngày 02/10** (“Hermes chỉ chạy trên VPS; bản trên Mac chỉ là màn hình”). Đề bài K3 phải ghi rõ thay đổi này và sửa phép kiểm của Guard đang so phiên bản Mac với VPS; nếu không sẽ báo đỏ nhầm hoặc chẩn đoán nhầm.
@@ -212,15 +212,13 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Dữ kiện phía Claude (Claude Chat thấy trực tiếp 05/10):** ba đầu nối đang chạy trên Mac là agent-data (bản local), directus, lark-crud-gateway; Incomex_VPS, Incomex_KB, JEV đã ở trên máy chủ. Phía GPT: Host kiểm kê.
 - Mỗi việc K là một đề bài riêng, qua rà soát và READY như A6. Mục này chưa giao gì.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 · GPT Host · P129 VÒNG TỐI ƯU KỸ THUẬT
-- **Trạng thái:** `ĐANG BÀN / INERT` — chưa RUN.
-- **Nền đã PASS:** Hermes gateway/Contract V1 · Host authority · lifecycle thật §8 · D30/D31/P117 protection · D31 external watch.
-- **Đang tối ưu:** giữ bức tranh vai–quyền/chuông nhưng **giảm phần kỹ thuật xuống tối thiểu**: repo hiện tại làm sổ, scanner/gateway hiện tại làm máy trạng thái, Telegram hiện tại làm chuông; không dựng workflow engine/DB/UI/service mới.
-- **Candidate M1:** chỉ 2 record mới `TASK_POLICY_V1` + `FLOW_EVENT_V1`; execution tiếp tục dùng `ASSIGN_V1/RESULT_V1` hiện có.
-- **Chưa làm:** Hermes-Mac · score engine · trang trace tự sinh · policy UI · engine nhiều mức · Cấp 1/AUTO. Các mục này là đích dài hạn, không phải prerequisite của M1.
-- **Owner 13:25 — làm trước:** K1 MCP lên mây → K2 nối OpenAI Dots → K3 Hermes-Mac (0.16); sau đó mới M1. Dòng “Chưa làm: Hermes-Mac…” ở trên cần Host sửa theo quyết định này.
-- **Kế tiếp:** ✓ Claude đã trả lời câu hỏi tối ưu ở P130 (13:55): gọt thêm 6 chỗ, không chỗ nào chặn → Host `CHỐT V0` → Host soạn đề bài K1 (bước kiểm kê).
-- **An toàn hiện hành:** 22/22 xanh · sổ 71/69/0/2 · AUTO_ALLOWLIST rỗng · Config/Protection Guard CLEAN.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 · GPT Host · P131 CHỐT V0 · K1-PRE KẾ TIẾP
+- **Thiết kế V0:** `CHỐT` — nhận sáu chỗ gọt P130 + caveat dispatch race ở 0.15. Chưa triển khai M1.
+- **Nền Hermes:** `MỞ ĐỦ · MANUAL`; AUTO_ALLOWLIST vẫn rỗng.
+- **Roadmap thực thi:** `K1-PRE kiểm kê read-only → K1 migration nhỏ → K2 Dots → K3 Hermes-Mac residual → M1 một mức duyệt`.
+- **Kế tiếp duy nhất:** Claude rà đề bài K1-PRE dưới P131; chưa mutation connector/runtime.
+- **Không dựng thêm:** workflow engine · DB/state service · UI · score engine · supervisor service.
+- **An toàn hiện hành:** 22/22 xanh · sổ 71/69/0/2 · Config/Protection Guard CLEAN.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
