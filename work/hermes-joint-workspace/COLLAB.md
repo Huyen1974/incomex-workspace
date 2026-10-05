@@ -425,11 +425,11 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Vì VPSC repo còn marker STARTED, trước mutation phải fresh-check shared-resource/process/lock. Nếu còn mutation thật thì dừng; nếu chỉ paused/no active mutation như Owner xác nhận thì tiếp tục. Không sửa trạng thái VPSC.
 - Trước first mutation: DROOT30 + fresh lights/registry + PROMPT last-touch/READY/HOLD/STOP. Gate sạch mới ghi `N1_R4_OWNER_APPROVED · RESUME_SAME_RUN` và tiếp tục Pha C.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 20:26 +07 · GPT Host · **P145 OWNER GO · RESUME N1**
-- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4 consensus] → [✓ Owner GO] → [■ Claude Code session mới fresh-gate → resume cùng N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 20:37 +07 · Claude Code (P146) · **P146 RESUME N1 · PHA C ĐANG CHẠY**
+- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4 consensus] → [✓ Owner GO] → [✓ fresh-gate P146] → [■ N1 Pha C → D → E · Claude Code] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
 - **Roadmap SSOT:** không đổi `N1 → N2 → N3 → N4 → N5 → N6`; chưa xong N1 thì không sang N2.
 - **N1 hiện tại:** 9/10 ALREADY_TWIN; 1 Directus POLICY_HOLD; exact R4 scope đã khóa tại P144; security Lark phải xử lý trước N1 XONG.
-- **Kế tiếp duy nhất:** cửa sổ Claude Code CLI mới → fresh shared-resource/DROOT30 gate; nếu VPSC không còn active mutation/lock thì resume **cùng RUN** `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` từ R4; nếu còn mutation thật thì dừng và báo.
+- **Kế tiếp duy nhất:** 🤖 Claude Code chạy Pha C (exact scope P144/G1–G6) → D1/D3 → E cùng RUN `HJW-N1-CLOUD-TWIN-SYNC-20261005-01`; 😊 Owner chưa cần làm gì tới khi executor gom một lần việc tay cuối (dán 2 connector · mở lại app Claude · gập Mac D2).
 - **Việc tay Owner cuối N1:** dán 2 connector Claude web · restart app Claude · gập/mở Mac cho D2; chỉ thêm admin-password nếu user-level hook bất khả thi.
 - **Không làm:** không sửa PROMPT đang chạy · không mở N2 · không dọn GPT legacy registration · không harden Directus Mac legacy trong N1.
 
@@ -2829,3 +2829,13 @@ KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 DỪNG · N1_R4_WAITING_REVIEW (chờ Host
 **5 · D2 khi tới:** có thêm bằng chứng tự nhiên — Mac ngủ, Claude Chat gọi một tool chỉ đọc của hai đầu nối mới gắn.
 
 **6 · Hai vòng rà:** V1 — dò từng dòng R4 theo câu hỏi “dòng PASS nào của §8 cần nó; bỏ thì gãy gì”. V2 — gốc rễ: vì 9/10 chỉ là cầu nối, thứ thật sự phải đồng bộ chỉ còn ba tệp trên Mac và danh sách đầu nối của ba app; thay đổi nào lớn hơn thế phải tự chứng minh là cần.
+
+### P146 · Claude Code CLI · 2026-10-05 · RUN `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` · **RESUME CÙNG RUN SAU OWNER GO P145 · FRESH GATE PASS**
+- Based_on: `READY@b83da96e5369aace4f2f21d764e51bc8e91eb1fc` (P139) · STARTED P140 `ba109fb` · R4 P141 `243545f` · exact scope P144 + G1–G6 P143 · Owner GO P145 `1636e0e`. Phiên Claude Code CLI mới; **không** STARTED mới, **không** RUN_ID mới.
+- **DROOT30 13:33–13:36Z:** PROMPT last-touch vẫn `b83da96e…` = READY P139; 0 STOP_REQUESTED / READY mới; HOLD P144 (chờ dọn VPS) được P145 gỡ bằng xác nhận Owner.
+- **Cổng tài nguyên chung:** VPSC repo còn `STARTED@VPSC-R6-…` (P36) chưa KQ — **không sửa trạng thái VPSC**. Thực tế: phiên Claude Code của VPSC trên Mac còn mở nhưng không có lệnh con (không shell/ssh); VPS1 không có tiến trình DOT/xoá/build/dump/đồng bộ nào của VPSC, không khoá VPSC; tệp mới nhất trong hồ sơ R6 lúc 13:23:57Z ⇒ **paused, không mutation/lock** đúng như Owner xác nhận. Bề mặt khác: một đường chuyển cổng của Codex (không shell), Guard cron bình thường.
+- `ĐÈN: 22 xanh · 0 đỏ` (13:30Z) · sổ tin báo `71 loại · 69 chạy · 0 hỏng · 2 chưa xác định` (vùng VPS2, vùng Directus Flows/PG) · ngoài sổ 0. Write_Path `workspace_stat` PASS (HEAD `1636e0e`, không ghi thử).
+- JEV `gen-dec-1791207355-uS8t6VgZbsgWSY5qRR3D`: resume cùng RUN 0,95 · VPSC đang mutation 0,11.
+- **INC-3 (ghi trung thực, không lặp giá trị):** một lệnh liệt kê tiến trình trên Mac in kèm đối số của `mcp-remote` ⇒ bearer + đoạn bí mật route Lark lại lọt vào bản ghi phiên Claude Code (không vào repo/log VPS). Đúng credential đã nằm trong diện xoay R4-11/G4 ⇒ không đổi phạm vi; từ đây chỉ in tên tiến trình rút gọn.
+
+**BƯỚC N1-R4 APPROVED** · `N1_R4_OWNER_APPROVED · RESUME_SAME_RUN` · 13:37Z · Pha C bắt đầu theo exact scope P144 (G1–G6 P143), không thêm mutation ngoài danh sách; DROOT30 lặp lại trước mỗi nhóm mutation.
