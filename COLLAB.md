@@ -12,7 +12,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - **Cửa vào phiên mới:** `WS gốc · Host GPT · tiếp quản phiên 2026-09-23 · đọc AGENTS.md → COLLAB.md · làm theo mục Handoff phiên mới; trước khi thao tác một việc phải đọc COLLAB.md của việc đó.`
 
 ## Đang làm
-- `work/vps-clean-20-9-26/` · VPSC · **P41 APPROVED · R6 TIẾP TỤC NGAY**: P40 Reviewer ACCEPT; Host đã duyệt exact PLAN_T 3,07GB + PLAN_D 13,98GB, cho phép M15 `dot-nrm-verify`, worker v2 chỉ sau 23/23 lúc load<2, APR chỉ tắt schedule không replay. N1 P149 chỉ còn acceptance thủ công, không waiter/background mutation nên R6 giữ cửa mutation VPS tới KQ/POST.
+- `work/vps-clean-20-9-26/` · VPSC · **P43 · R6 RỘNG ĐÃ DỪNG ĐÚNG · CHỈ CÒN WORKER**: disk 48,55 GiB free, storage/checker/APR/#11/POST đều PASS; blocker duy nhất là worker write-idle chưa giảm ≥80%. Host không accept PARTIAL và đề xuất đúng một RUN worker-only mới trong cùng task; chờ Claude review W1–W6 một vòng.
 - `work/gsm-access-audit/` · GSM · Host Claude · **GSM-A1 audit đã XONG** (167 access/30 ngày, không rỉ máu); còn GSM.3–GSM.5: thiết kế giảm call → review/Owner duyệt → triển khai/đo lại. Giữ active.
 - `work/hermes-joint-workspace/` · HJW · **ACTIVE · P151 N1 THAO TÁC CUỐI**: phần máy P148 PASS/protected. **Bây giờ** attach thật 2 connector Claude web từng cái + read-only verify rồi dừng sạch N1. **Sau khi VPSC yên/KQ** mới D2: gập Mac ~10′ để chứng minh cloud không phụ thuộc Mac; fingerprint `via=hook` tự sinh ở managed session mới. Đủ → final §8/KQ; chưa N2.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
