@@ -5,15 +5,16 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 02:25 +07 · Claude Code (Agent) · P47 — KQ R6W DỪNG · CHƯA ĐẠT worker write-idle
-- 🎯 **Mục tiêu:** Owner 05/10: VPS khỏe + không tăng dung lượng bất thường; phần storage đã đạt, R6W chỉ khép worker write-idle để không đóng trên residual kỹ thuật chưa thử tới điểm dừng.
-- 🏁 **Xong khi:** phần đã PASS giữ nguyên · R6W có một kết quả cuối theo P44: (a) worker PASS ≥80% + POST worker, hoặc (b) CHƯA ĐẠT được ghi rõ/chuyển chủ, không RUN thứ ba; sau đó DISKWATCH ngày xanh sau 02:00 +07 07/10 → CLOSE VPSC.
-- 📍 **Tiến độ:** `✅ R6 cleanup/storage/checker/APR/POST · ✅ P42 KQ DỪNG đúng cổng · ✅ P43 Host · ✅ P44 Reviewer · ✅ PROMPT R6W + READY · ■ R6W worker-only → ngày xanh → CLOSE`.
-- ✅ **Đã đạt thật:** disk 48,55 GiB free · T 25/25 + D 4/4 · M15 PASS · APR schedule OFF · #11 live xanh · Config Guard 336/336 · Kuma 22/22 · receipt 129 · worker v1 0 restart/lock.
-- ■ **Đang làm:** R6W đã KQ DỪNG 19:23Z (P47) — cờ bận hết. v2 đã nạp worker host (cổng xen kẽ PASS, smoke PASS, 0 restart) nhưng ghi rỗi 481/5 s > 168 ⇒ CHƯA ĐẠT; gốc đã rõ (kết nối giữ nền chưa mở WAL). Chờ: watcher-day sau 02:00 +07 07/10.
-- ⬜ **Còn lại:** R6W → POST worker nếu mutation → đọc DISKWATCH sau 02:00 +07 07/10 → Host nghiệm thu/đóng; không làm lại cleanup/checker/APR/storage.
-- ➡ **Kế tiếp:** Host nghiệm thu P47 + ghi residual worker cho chủ mã agent-data · HJW D2/Mac-off được làm từ giờ · 🤖 máy tự ghi watcher-day · 😊 Owner: không cần làm gì.
-- ⛔ **Không làm/để sau:** không rebuild/recreate agent-data · không v3 · không RUN VPSC thứ ba · không Graph/DNS/CWEB/HJW server mutation trong R6W.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · GPT Host · P48 — CLEANUP ĐẠT · KHÔNG CÒN BLOCKER LỚN VỀ ĐĨA · CHỜ WATCHER-DAY + CLAUDE XÁC NHẬN
+- 🎯 **Mục tiêu Owner:** VPS khỏe, không tăng dung lượng bất thường, dữ liệu/artifact không cần thì bỏ/đưa offsite an toàn; không đóng trên tín hiệu xanh giả.
+- 🏁 **Xong khi:** cleanup/storage protection đạt + watcher-day xanh sau 02:00 +07 07/10; residual ngoài phạm vi phải có tên/chủ, không bị che thành PASS.
+- 📍 **Tiến độ:** `✅ cleanup 29 mục · ✅ free >45 GiB · ✅ log/retention/storage-watch/#11 · ✅ checker/APR · ✅ POST/Guard/Kuma · ✅ worker restart/lock hết · ✅ worker residual đã thử tới điểm dừng P47 · ■ watcher-day → Claude/Host final review → CLOSE`.
+- ✅ **Fresh Host:** disk ~49,5% used, free ~52,0 GB; disk pressure=false; PG/Directus/Nuxt/Qdrant/Agent Data healthy; Agent Data/UI HTTP 200; RAM available ~7,1 GB. Không có dấu hiệu production/disk emergency.
+- ✅ **Kết luận cleanup:** mục tiêu dọn đĩa + bịt nguồn tăng bất thường **đã đạt về kỹ thuật**. Worker residual còn lại không làm đĩa tăng: v2 giảm churn ~35%, toàn bộ write_bytes tương ứng cancelled_write_bytes; vấn đề còn là CPU/syscall inefficiency, không phải storage leak.
+- 🟡 **Residual worker:** chưa đạt ngưỡng nội bộ ≥80%; gốc đã rõ (keepalive connection chưa thực thi câu đọc nên SQLite chưa mở WAL). Theo P45/P47 không v3/RUN thứ ba trong VPSC; chuyển chủ agent-data/GPT, không chặn cleanup CLOSE sau watcher-day.
+- ⬜ **Còn lại trong VPSC:** đúng 1 việc — đọc DISKWATCH sau 02:00 +07 ngày 07/10; nếu d24 <2 GiB, 0 unknown/cap/TTL, #11 xanh, worker restart không tăng ⇒ Host đóng VPSC. Không reset đồng hồ.
+- ➡ **Kế tiếp:** Claude Reviewer phản biện P48 đúng 3 câu dưới; HJW D2/Mac-off được phép làm từ bây giờ vì R6W đã KQ/cờ bận gỡ. 😊 Owner không cần làm gì cho VPSC trước watcher-day.
+- ⛔ **Không làm:** không v3 worker trong VPSC · không mở lại cleanup/checker/APR · không sửa residual task khác để “làm đẹp” trước CLOSE.
 
 ### 1. Mục tiêu
 Owner 05/10/2026: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
@@ -465,6 +466,16 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **POST-PROTECT worker PASS** (Guard: chỉ `svc.incomex-workspace-exec` + `git.agent-data-repo.head` đổi) · biên nhận Telegram message_id 130 · Config Guard 336/336.
 - **Residual chuyển giao:** worker write-idle → **chủ mã agent-data / Host GPT** (đề nghị cụ thể + cách đo ở BAO-CAO R6W mục 5; chỉ phía host, không cần dựng container). Phần này không làm đĩa tăng (toàn bộ ghi bị huỷ trước khi xuống đĩa).
 - KQ@VPSC-R6W-WORKER-CLOSE-20261006-01 DỪNG · CHƯA ĐẠT: worker write-idle · median 481 syscw / 1,97 MB mỗi 5 s > đích 168 / 0,666 MB · kết nối giữ nền v2 không mở WAL (sqlite3 mở lười, chưa chạy câu nào) · TEST=cổng xen kẽ PASS (v2 3/5 ≥ v1 1/5) · WAL=0 B · HEALTH=PASS (smoke, Guard POST, receipt 130) · v2 giữ · ai nhận tiếp: chủ mã agent-data / Host GPT
+
+### P48 · GPT Host · 06/10/2026 · NGHIỆM THU P47 · CLEANUP ĐẠT · MỜI CLAUDE FINAL REVIEW
+- **Rà mục tiêu/roadmap:** VPSC không phải task “tối ưu mọi thứ trên VPS”; đích là dọn hàng tồn + chặn tái tăng dung lượng + giữ VPS khỏe. Theo đích đó, R6/R6W đã đạt mọi hạng mục storage/health bắt buộc trừ watcher-day dài hạn. Không mở thêm RUN kỹ thuật trong VPSC.
+- **Bằng chứng đạt:** 29 mục T/D đã xoá đúng plan; free ~48,4–48,6 GiB sau cleanup và fresh Host vẫn ~52,0 GB thập phân (~48,4 GiB); storage-watch/#11/log caps live; M15 false-PASS sửa; APR schedule OFF; POST-PROTECT/Guard/Kuma/Telegram PASS; core services healthy.
+- **Worker residual — đánh giá mức độ:** không đạt KPI nội bộ write-idle ≥80%, nhưng đã hết lỗi có hại trực tiếp (restart/lock), smoke/idempotency/cancel PASS, v2 tốt hơn v1 ~35%; write phát sinh bị cancel trước persistence nên **không phải nguyên nhân làm đầy disk**. Chi phí còn lại khoảng CPU/syscall idle; chuyển cho chủ agent-data/GPT sau VPSC, không gọi PASS worker.
+- **Không còn “vấn đề lớn” trong phạm vi cleanup:** không thấy disk pressure, PG18/Directus/Nuxt/Qdrant/Agent Data đều healthy. Nếu watcher-day đỏ thì mở lại đánh giá; nếu xanh thì đủ đóng VPSC với residual worker công khai.
+- **Residual ngoài VPSC đã có chủ:** Nuxt/Kuma #6 404 → CWEB/Claude; presence 502 → HJW/GPT; `dot-collection-health` + 6 DOT pattern → GPT root/DOT-health residual; APR-0234 → GPT/Owner, schedule OFF; logrotate `reconcile-*` permission → GPT infra residual. Không tự mở task mới.
+- **Watcher-day final gate:** sau 02:00 +07 07/10: d24 là số <2 GiB · 0 unknown path >24h · 0 cap/TTL breach · #11 xanh liên tục · worker restart counter không tăng. d7 chưa sạch tới ~13/10 chỉ ghi residual quan sát.
+- **Claude Reviewer trả đúng 3 câu:** (1) ACCEPT/REVISE kết luận “cleanup đạt, không còn blocker lớn về disk/health”; (2) ACCEPT/REVISE worker residual không chặn CLOSE sau watcher-day; (3) ACCEPT/REVISE danh sách/chủ residual ngoài VPSC. Không mở thêm scope nếu không có evidence mới nghiêm trọng.
+- Owner cần quyết: —.
 
 ## Owner cần quyết
 - —
