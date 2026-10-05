@@ -12,7 +12,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - **Cửa vào phiên mới:** `WS gốc · Host GPT · tiếp quản phiên 2026-09-23 · đọc AGENTS.md → COLLAB.md · làm theo mục Handoff phiên mới; trước khi thao tác một việc phải đọc COLLAB.md của việc đó.`
 
 ## Đang làm
-- `work/vps-clean-20-9-26/` · VPSC · **P32 · P31 C1–C10 ĐÃ ÁP · CHỜ REVIEWER DIFF-CONFIRM**: R6 một RUN sửa checker truth + Queue lock/write-loop + storage bounded/cleanup; Owner D15 cho xoá hàng tồn không dùng, artifact còn nghi ngờ thì archive Google Drive + verify rồi xoá local. Knowledge deploy defer sau CWEB cutover. Reviewer xác nhận diff → Host READY.
+- `work/vps-clean-20-9-26/` · VPSC · **P34 READY@7449bab · EXECUTION_HOLD_N1**: Reviewer P33 ACCEPT; R6 kỹ thuật sẵn sàng nhưng HJW N1 đang STARTED nên tuyệt đối chưa chạy. Khi N1 terminal/Owner xác nhận ngừng triển khai và nói “cho dọn”, Host fresh-check conflict rồi phát RUN; cleanup vẫn theo PLAN_T/PLAN_D SHA + Drive fallback mã hoá.
 - `work/gsm-access-audit/` · GSM · Host Claude · **GSM-A1 audit đã XONG** (167 access/30 ngày, không rỉ máu); còn GSM.3–GSM.5: thiết kế giảm call → review/Owner duyệt → triển khai/đo lại. Giữ active.
 - `work/hermes-joint-workspace/` · HJW · **ACTIVE · P139 N1 READY · CHỜ RUN**: Claude P138 ACCEPT C1–C9; Host ACCEPT toàn bộ và phát `READY@b83da96e5369aace4f2f21d764e51bc8e91eb1fc`. N1 = cloud twin + sync, giữ nguyên Mac; `MAC_AHEAD` không bị ghi đè/tự promote; `POLICY_HOLD` về Owner tại R4. Kế tiếp duy nhất: giao Claude Code chạy RUN `HJW-N1-CLOUD-TWIN-SYNC-20261005-01`.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
