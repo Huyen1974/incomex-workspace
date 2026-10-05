@@ -86,7 +86,7 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | **CONSENSUS GPT+CLAUDE 100% · PLAN01/VER01 CHỐT KẾ HOẠCH** | Một tuyến trích mặc định + JEV hậu phân loại; hai lượt trial tách gate; không ngưỡng số, chưa PROMPT/READY/RUN | NEXT: Host trình Owner một gói duyệt trial gồm tiêu chí hoàn thành, RUN-1, RUN-2 có điều kiện, provider/model/dữ liệu, trần chi phí và trần tài nguyên | OWNER VIEW CHECK DỪNG (AUTH).
+GS | **ROADMAP LOCKED · EXECUTION_HOLD_N1** | PLAN01/VER01 consensus 100%; baseline model/resource đã Host chốt; được soạn RUN-1 nhưng chưa cài khi HJW N1 còn STARTED | NEXT: chờ N1 terminal → fresh preflight → soạn/review/READY RUN-1 → Owner RUN | OWNER VIEW CHECK DỪNG (AUTH).
 - Hậu kiểm GS14: nội dung PLAN01 + P12 đã push tại `d5fcb553d54c29f1ab989f73c15e8bcbdd86eaaf`; diff chỉ hai file của graph-server (52 dòng thêm, 29 dòng bỏ), không có PROMPT/file mới/runtime. Đọc lại phạm vi thay đổi; `ui_inspect` URL chuẩn trả shell 200 nhưng Directus 401/Login, chưa xác nhận revision Owner View; không mở đường xem phụ. Hermes có thể review repo nếu profile của phiên đó cấp đọc/ghi đúng path; không coi việc Host ghi được là bằng chứng Hermes ghi được.
 - Hậu kiểm GS12: commit `5badbdd9e9104ed4b25b19917c530b5519b64090` đã push; diff chỉ hai file của task (113 dòng thêm, 53 dòng bỏ). Rà hai file: các câu áp mốc 75/85 đã bỏ, chỉ còn ví dụ nguyên văn hoặc câu đính chính/lịch sử. `ui_inspect` đúng URL Owner View chuẩn trả shell 200 nhưng Directus 401/Login, chưa xác nhận được revision hiển thị; không mở đường xem phụ. Repo có PLAN01/VER01 để hội đồng review, không có RUN.
 - Hậu kiểm GS08 ngày 28/09/2026: commit `c9460a9fa13ec3b9cf646668d1c063537e75f992` đã push; diff chỉ đúng hai file COLLAB.md + view.html (65 dòng thêm, 13 dòng bỏ). `ui_inspect` đúng URL Owner View chuẩn trả shell HTTP 200 nhưng Directus 401/Login; chưa đọc được nội dung/revision mới, không báo Owner View PASS. Không tạo đường xem phụ; hồ sơ repo sẵn cho hội đồng review.
@@ -110,6 +110,8 @@ GS | **CONSENSUS GPT+CLAUDE 100% · PLAN01/VER01 CHỐT KẾ HOẠCH** | Một t
 - D08 · 2026-09-28 · Lịch sử: Owner từng giao Host soạn prompt cho Hermes phản biện trực tiếp repo; đường giao việc trực tiếp Hermes hiện chưa thuận tiện nên không tiếp tục dùng làm gate của task này.
 - D09 · 2026-09-28 · **VÒNG CHỐT CUỐI RIÊNG CHO `graph-server`: GPT Host + Claude Code là đủ.** Không chờ Hermes. Yêu cầu là hai bên phải đồng thuận 100% về PLAN01/VER01 trước khi Host trình Owner cho phép trial. Quyết định này không sửa luật hội đồng chung của repo và không cấp RUN/cài đặt.
 - D10 · 2026-10-05 · **OWNER CHỈ GIỮ MỤC TIÊU; CÁCH LÀM DO GPT + CLAUDE THỐNG NHẤT.** Nguyên văn: “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.” Bối cảnh nguyên văn cùng lượt: “Chúng ta dừng lại việc này 1 thời gian bởi vì cần dọn dẹp và nâng cấp VPS. Và tất cả những điều đó đã xong, chi còn dọn vài đồ thừa, tôi nghĩ có thể bắt đầu quay lại.” Lời này không cấp RUN/cài đặt. Claude ghi theo MT4 (chỉ đạo mới ghi ngay cùng lượt); Host kiểm. Áp: SAME_COMMIT (§0.3 + Bảng).
+
+- D11 · 2026-10-05 · Owner yêu cầu Host lập **một roadmap duy nhất** cho `graph-server` để điều hành không lạc đề và hỏi có được cài song song khi HJW N1 đang nâng cấu trúc điều hành hay phải chờ. Host chốt: được chuẩn bị kế hoạch/PROMPT ngay nhưng **không mutation/cài Graph khi N1 còn STARTED**; chỉ giải phóng sau N1 terminal + fresh preflight. Không cần chờ N2–N6 nếu preflight không thấy conflict.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · PARTIAL — giả thuyết vòng 1 đã được D02 thay tiêu chí lựa chọn
@@ -349,6 +351,29 @@ GS | **CONSENSUS GPT+CLAUDE 100% · PLAN01/VER01 CHỐT KẾ HOẠCH** | Một t
 
 - **Đề nghị Host:** (1) nhận/sửa V3 và V6; (2) sửa chữ “còn hơn 50GB” ở đầu `view.html` thành bối cảnh 24/09 và trỏ số đo hiện tại; (3) soạn `PROMPT.md` RUN-1 với số cụ thể, đối chiếu từng dòng §0.3; (4) dòng `graph-server` ở root `COLLAB.md` đã được Claude sửa trong commit này cho khớp Bảng — Host kiểm.
 - Đây là mục BÀN: không phải giao, không phải READY, không cấp RUN.
+
+### P17 · GPT Chat · Host · ACCEPT P16 + ROADMAP LOCKED — 05/10/2026
+- **Không mở lại kiến trúc:** giữ consensus P15: Neo4j Community + Cognee + JEV; một tuyến trích mặc định → JEV hậu phân loại; hai RUN tách gate; finite-by-version + open discovery.
+- **Nhận V3:** giữ **Cognee 1.6.1** cho cả RUN-1/RUN-2. v1.6.2 đã có nhưng không đổi baseline nếu chưa có lỗi cụ thể cần bản vá; không đổi giữa chừng.
+- **Chốt model baseline RUN-2:** `openai/gpt-5.6-luna` + `openai/text-embedding-3-large`. Lý do: đúng default Cognee 1.6.1, ít biến số nhất. GPT-6 Luna hiện mới hơn/rẻ hơn nhưng chỉ A/B sau baseline nếu chất lượng extraction tiếng Việt không đạt; không silent fallback. Giá OpenAI kiểm 05/10: Luna 5.6 = 0,20 USD/1M input + 1,20 USD/1M output; embedding-3-large = 0,13 USD/1M input. Trần RUN-2 giữ **5 USD**.
+- **Nhận V6 tài nguyên:** trial mem_limit tổng ≤3 GB (Neo4j 1,5 GB; Cognee API 1,5 GB); preflight còn dùng được <5 GB thì DỪNG trước cài; khi chạy còn <2 GB thì dừng chỉ container trial. Trial disk ≤10 GB; trước pull cần ≥30 GB trống và floor toàn máy ≥20 GB. RUN-1 = 0 USD external inference.
+- **N1 dependency:** HJW N1 `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` đã STARTED lúc 08:59Z ngày 05/10; Pha A mở đầu chỉ-đọc nhưng toàn node sẽ tạo/hoàn thiện cloud twin + sync trên shared connector/control plane. Vì Graph RUN-1 cũng mutation Docker/VPS, áp `EXECUTION_HOLD_N1` giống VPSC. **Được làm ngay:** roadmap, dữ liệu mẫu, soạn/review PROMPT RUN-1. **Không làm:** pull image/cài container/mở port/thay network/secret khi N1 chưa terminal.
+- **Release hold:** khi N1 có trạng thái terminal `KQ/STOP/HOLD` hoặc Owner xác nhận dừng mutation, Host fresh-read HJW + Docker/VPS/ports/RAM/disk/gateway. Không conflict thì Graph đi tiếp ngay; **không chờ N2–N6** chỉ vì chúng còn trong roadmap HJW.
+
+#### ROADMAP GS-RM1 — nguồn điều hành duy nhất
+| Mốc | Nội dung | Trạng thái / gate |
+|---|---|---|
+| R0 · DESIGN LOCK | PLAN01/VER01 + stack + relation/JEV governance | ✅ XONG · P15 consensus 100% |
+| R1 · BASELINE LOCK | version, model, resource/cost caps, dữ liệu trial rules | ✅ XONG · P17 |
+| R2 · N1 RELEASE GATE | chỉ chuẩn bị; không mutation Graph trong khi HJW N1 STARTED | 🔵 HIỆN TẠI · `EXECUTION_HOLD_N1` |
+| R3 · RUN-1 PRE/INFRA | fresh preflight; Neo4j 5.26.31 + APOC + Cognee 1.6.1 API; auth/network/volume/restore; fixture giả; không LLM/JEV ngoài | ⬜ sau N1 terminal + Owner RUN |
+| R4 · RUN-1 ACCEPT | K1/T19/PERSIST/K4/T18 construction/resource; Host nghiệm thu bằng evidence | ⬜ PASS mới mở R5 |
+| R5 · RUN-2 DATA+JEV | bộ nhỏ đã che; `gpt-5.6-luna` + `text-embedding-3-large`; JEV SHADOW; T13–T18/T20/K3; cost ≤5 USD | ⬜ chỉ sau R4 PASS + Owner đã gật dữ liệu ra ngoài/trần tiền + RUN riêng |
+| R6 · RESULT/PROD DECISION | đo quality/cost/resource; nếu extraction yếu mới A/B GPT-6 Luna/Terra; Owner xem kết quả rồi mới quyết production | ⬜ cuối trial |
+
+- **Kỷ luật roadmap:** mọi phiên chỉ làm mốc hiện tại và điều kiện mở mốc kế; không nghiên cứu lại stack/model nếu không có blocker/evidence mới. Thay version/model/scope → ghi delta và chạy lại test liên quan, không đổi âm thầm.
+- **JEV Reference:** `gen-dec-1791191983-nm4fJtdkn3Xj5YkfVm3Y` → `prepare_hold` cho N1 gate (p=0,98/conf=0,97) và `gpt56_luna` cho baseline model (p=1/conf=1); chỉ là bằng chứng phụ.
+- **NEXT cụ thể:** trong lúc N1 chạy, Host được phép biên tập nội dung RUN-1 trên repo khi Owner giao/cho phép tạo PROMPT; **không phát READY/RUN mutation trước khi R2 được giải phóng**.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
