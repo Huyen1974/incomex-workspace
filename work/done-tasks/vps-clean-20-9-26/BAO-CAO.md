@@ -4,6 +4,99 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## Rà soát chỉ đọc 05/10/2026 — VPS-AUDIT-20261005-01 · phát hiện mới, chưa triển khai fix
+
+Owner yêu cầu trực tiếp: đọc log mới nhất, tìm lỗi/chậm và dữ liệu thừa làm tăng ổ cứng; báo cáo vấn đề + đề xuất trước. Khảo sát 11:58–12:16 giờ Việt Nam; log tập trung 12 giờ gần nhất (từ 00:00 ngày 05/10), có đối chiếu thời gian bắt đầu để loại lỗi cũ. Based_on workspace HEAD `6b3c43374189a17cc7f9249b7d41226b676e080e`. Không đổi kết quả lịch sử ngày 23/09, không mở lại RUN dọn cũ hay CWEB, không đụng phần đã PASS.
+
+**Kết quả:** VPS đang chạy, chưa cạn tài nguyên; vẫn có lỗi nền và khoảng trống trong quy tắc giữ dữ liệu. Chưa đủ cơ sở khẳng định mọi nguồn tích lũy thừa đã bịt. Đây là báo cáo và phương án, không phải kết quả sửa lỗi.
+
+### Cho Owner
+
+- Đĩa dùng **65,7%**, còn **35,24 GB**; RAM khả dụng khoảng **6 GB**. 12 container đang chạy, healthcheck các dịch vụ chính đạt tại thời điểm đo. Web gốc và `/w/` trả 200.
+- Sau khi quét thư mục kết thúc, CPU còn nhàn 58–87%, chờ đĩa 4–9%, không swap vào/ra trong mẫu; không thấy OOM/lỗi đĩa trong log kernel 12 giờ đã đọc. VPS chưa quá tải kéo dài trong mẫu này. Quét dung lượng của lượt audit từng làm tăng chờ đĩa lên 23–28%, không dùng đỉnh đó làm tải nền.
+- So với hồ sơ 23/09 (43%), đĩa tăng khoảng 23 điểm phần trăm. Chưa phân loại hết khoảng tăng này; không quy toàn bộ thành dữ liệu thừa, không ngoại suy tốc độ tăng tháng từ mẫu vài phút.
+
+| Thứ tự | Vấn đề đang có / bằng chứng mới | Tác động và hướng sửa đề xuất |
+|---|---|---|
+| 1 | Worker workspace lỗi `database is locked` lúc **02:17 ngày 05/10**, systemd báo restart counter 8. Mỗi vòng 0,1 giây lại mở Queue, chạy kiểm khởi tạo/migration và ghi cờ dung lượng; mẫu 5 giây có 840 lần gọi ghi, 0,78 giây CPU. | Lãng phí CPU/ghi nền và có thể gián đoạn hàng đợi. Khởi tạo/migration một lần; tái dùng Queue; đo dung lượng theo khoảng hợp lý hoặc sự kiện; chỉ ghi khi trạng thái đổi; retry khóa có giới hạn, không làm chết worker, giữ tính không chạy lặp của job. SQLite đã bật WAL và timeout 5 giây, nên bật WAL lại không giải quyết gốc. |
+| 1 | Các DOT/checker vẫn lỗi sáng nay: thiếu cột/bảng, sai kiểu `btrim(integer)`, `enum_range(text)`, logger vượt varchar(50). Có nhánh chuyển kết quả truy vấn lỗi thành 0 rồi báo PASS. HC chạy 30 phép kiểm: 17 đạt, 4 cảnh báo, 9 lỗi nghiêm trọng; riêng kiểm nhịp sống/độ phủ/khóa đều PASS. | Màu xanh dịch vụ không chứng minh phép kiểm đúng. Sửa checker theo catalog/luật hiện hành qua DOT; lỗi thực thi phải FAIL/UNKNOWN, không mặc định 0; sửa định danh logger và giữ đầy đủ tham chiếu. Một Flow còn ghi trực tiếp meta_catalog và bị rào chắn chặn: sửa caller sang refresh_registry_counts, giữ rào chắn. Sau đó mới xác minh từng lỗi chất lượng dữ liệu thật. |
+| 2 | Trang kiến trúc VPS công khai trả **3.194.580 byte / 3,17 giây**. Renderer tải toàn bộ cây tri thức mỗi trang (`limit:-1`). Trong cửa sổ Nginx, 397 request được nhận diện bot qua User-Agent trả khoảng **880 MB**; 287 cảnh báo đệm phản hồi ra file tạm. | Có tải nền và phản hồi quá lớn. Giảm cây menu ban đầu, tải nhánh khi mở, dùng index/cache dùng chung có phiên bản, chỉ lấy trường cần thiết. Dùng cấu hình nén/cache sẵn có phù hợp quyền truy cập. Xác nhận phạm vi tri thức công khai; nội dung nội bộ cần kiểm quyền, robots chỉ hỗ trợ giảm crawl. Chưa có bằng chứng lộ bí mật. |
+| 2 | `/api/presence/event` có 3 lần 502, lần cuối **09:40**; upstream đóng trước khi trả header. Kuma thấy web gốc 404 5 lần trong 12 giờ, lần cuối **11:38**; có 503 thoáng qua ở Directus/Nuxt. Hiện kiểm lại trả 200. | Có gián đoạn ngắn, chưa xác định cùng nguyên nhân. Đối chiếu request ID với worker/backend đúng thời điểm; sửa lifecycle/readiness và retry sự kiện không gây lặp nếu cần. Không kết luận do SQLite, không tăng timeout hoặc tắt báo động để che lỗi. |
+| 2 | Một số log ứng dụng chỉ nối thêm, chưa có rule xoay; tên bản giữ lại CWEB không khớp keeper Nuxt hiện tại; lịch sử transaction cũng chưa có giới hạn đã chứng minh. | Mở rộng cơ chế giữ dữ liệu đang có, xác định bản đang chạy/rollback và bằng chứng cần giữ trước khi dọn. Chi tiết dung lượng bên dưới. |
+| Theo lịch bảo trì | Hermes cảnh báo serve có thể vẫn chạy mã trước update; user D-Bus/cgroup không dùng được, job cron là con trực tiếp và có thể bị dừng khi gateway restart. Updater chủ động dừng vì phiên bản upstream bất thường. VPS đã chạy 234 ngày và có reboot-required; apt sáng nay timeout chờ mạng. | Hoàn tất đối chiếu serve/gateway qua safe-updater hiện có; bảo đảm job không bị mất khi restart. Không ép update có version bất thường. Kiểm wait-online và lên lịch reboot có kiểm tra trước/sau, không reboot ngay trong audit. |
+
+### Dữ liệu thừa và giới hạn dung lượng
+
+Các cơ chế cũ **vẫn hoạt động**:
+- Log 12 container đã có giới hạn (đa số 50 MB × 3), thư mục log container khoảng 317 MB; journal khoảng 1 GB và đã đặt trần 1G.
+- Backup PG có keeper 7 ngày, log mới nhất báo thành công và dọn; thực tế 9 cặp khoảng 2,09 GB (cách tính tuổi ngày của keeper có thể giữ sang ngày thứ 8).
+- Qdrant giữ 8 snapshot, khoảng 1,74 GB; log mới có kiểm SHA và xóa snapshot phía server. Owner View giữ 3 revision. Context-pack tạm khoảng 46,7 MB, keeper vẫn dọn.
+- Docker keeper tuần vừa chạy 04/10, xóa 1 image, `loi=0 unresolved=0`; kho image vật lý khoảng 10,52 GB. BuildKit có trần 5 GB, cache đo khoảng 200 MB. Layer dùng chung nên không cộng kích thước image để ước tính thu hồi.
+- Kết quả workspace có TTL 7 ngày: 1.001 kết quả, 0 quá 7 ngày; payload upload cũ đã được dọn, không coi metadata upload còn lại là payload rò rỉ.
+
+Các khoảng trống **chưa khép**:
+1. Log nối thêm trong `/var/log/incomex`: pivot-refresh 15,74 MB; dot-apr-execute 14,84 MB; pivot-results-refresh 14,01 MB, cùng một số log khác. Chưa thấy rule xoay tương ứng. Đề xuất thêm vào cấu hình logrotate hiện có, có nén/tuổi/trần và kiểm writer sau xoay.
+2. `/opt/incomex/deploys` khoảng **3,77 GB**. Riêng bản build `cweb-build-CWEB-E2E-20261004-03` **1,61 GB**; nhiều bản prepared/repair/retained của chính đợt CWEB chúng ta làm nằm ngoài regex keeper `nuxt-output.truoc-...`. Không phải toàn bộ 3,77 GB đều được phép xóa: output đang chạy và `nuxt-output-before-CWEB-E2E-20261004-04` còn vai trò rollback. Cần lập danh mục tham chiếu, giữ active/rollback, rồi áp chính sách sẵn có cho phần tái tạo được và lưu bằng chứng cần giữ.
+3. Workspace có 587 transaction, 388 quá 7 ngày; thư mục khoảng **214 MB**. GC hiện giữ before-image/tombstone để truy vết, chưa chứng minh có trần. Cần chính sách tuổi/trần hoặc chuyển bằng chứng qua kênh lưu trữ đã có; không xóa lịch sử kiểm toán tùy tiện.
+4. Dung lượng trống hiện thấp hơn mục tiêu cũ ≥45 GB. Không đủ chuỗi quan sát dài hạn để tuyên bố ngừng tăng hoàn toàn; sau sửa nên theo dõi dung lượng từng nhóm và thử keeper với dữ liệu đủ tuổi.
+
+### Bằng chứng đã làm sạch — output thật
+
+Snapshot tài nguyên lúc 12:14 giờ Việt Nam:
+```json
+{"disk_total_bytes":102888095744,"disk_free_bytes":35239198720,"disk_used_percent":65.7,"MemAvailable_kB":6170464,"SwapTotal_kB":2097148,"SwapFree_kB":1050248,"load_average":[3.7353515625,3.81689453125,3.75439453125]}
+```
+
+GET công khai lúc 12:08; cột: HTTP, giây, byte:
+```text
+/                                          200 1.267743 27356
+/w/                                        200 0.433994 62354
+/api/registry/composition                   200 0.263929 12539
+/knowledge/dev/ssot/vps/vps-architecture     200 3.174462 3194580
+/robots.txt                                200 0.082328 269
+```
+
+Trích log giữ timezone gốc (+02:00 = chậm hơn giờ Việt Nam 5 giờ):
+```text
+2026-10-04T21:17:28+02:00 ... workspace_runtime.py, line 39, in migrate_legacy
+2026-10-04T21:17:28+02:00 ... db.execute('BEGIN IMMEDIATE')
+2026-10-04T21:17:28+02:00 ... sqlite3.OperationalError: database is locked
+2026-10-04T21:17:28+02:00 ... Scheduled restart job, restart counter is at 8.
+2026-10-05 03:00:08.902 UTC ... ERROR: function enum_range(text) does not exist
+2026-10-05 04:00:02.168 UTC ... ERROR: function btrim(integer) does not exist
+2026-10-05 04:00:06.546 UTC ... ERROR: column "git_sha" does not exist
+2026-10-05 04:30:13.646 UTC ... ERROR: value too long for type character varying(50)
+[INFO] run_id=29c5b397-d219-429a-92c4-d5b82134ef33 total=30 executed=30 passed=17 fail_warn=4 fail_crit=9 skipped=0 duration=105s rollup=fail
+```
+Worker đo 12:15:55:
+```json
+{"seconds":5.00506067276001,"delta":{"rchar":1533402,"wchar":387664,"syscr":512,"syscw":840,"read_bytes":0,"write_bytes":3334144,"cancelled_write_bytes":2650112},"cpu_seconds":0.78}
+```
+Số ghi trên là hoạt động ghi/ghi lại; có cancelled writes. Không dùng làm tốc độ tăng dung lượng.
+
+Nguồn đối chiếu: journal worker/Hermes/apt; log 12 container; Nginx access/error; cron/logrotate/retention scripts; nguồn worker tại `scripts/workspace-exec-worker.py:151–186` và `agent_data/workspace_runtime.py:13–70,140–180`; DOT nrm/collection/hc; renderer `web/pages/knowledge/[...slug].vue`; kiểm thư mục đúng nhóm. Không chạy SQL/Directus REST trực tiếp. Không lưu secret/IP người truy cập vào báo cáo. Các failed unit cloud-init và wait-online có mốc boot tháng 02/2026, không tính là lỗi mới của CWEB. Warning đệm Nginx không tự chứng minh rò rỉ ổ đĩa lâu dài.
+
+### 3 câu Tuyên ngôn và kiểm từng bước
+
+1. **Vĩnh viễn?** Đề xuất xử lý vòng ghi/khóa, contract checker và rule giữ dữ liệu; dọn tay một lần hoặc restart không đủ. Chưa triển khai nên chưa tuyên bố đã fix gốc.
+2. **Nhầm được không?** Checker lỗi phải dừng/UNKNOWN; keeper phải bảo vệ active/rollback và bằng chứng; job retry phải không chạy lặp. Đây là điều kiện phải kiểm trước khi áp dụng.
+3. **100% tự động?** Tái dùng keeper/rotation/monitor hiện có. Sau triển khai phải chứng minh qua lượt chạy thật, worker không chết vì lock, và theo dõi theo nhóm dữ liệu. Hiện các khoảng trống được ghi là còn mở.
+
+- [x] B0 nền tảng: đọc skill Incomex, OR 7.58 rev51, HP 4.6.3 rev45, luật 41 và luật VPS liên quan; theo chỉ đạo Owner chỉ đọc/báo cáo.
+- [x] B1 nhận việc: giới hạn log mới, rà sức khỏe/tải/dung lượng; không thực hiện mutation production.
+- [x] B2 nghĩ trước: phân biệt lỗi khi triển khai/lỗi cũ, liveness/kết quả kiểm, ghi I/O/tăng đĩa; ưu tiên nguồn và cấu hình hiện có.
+- [x] B3 thực hiện audit: đọc log/cấu hình/nguồn, đo tài nguyên và GET; không code, xóa dữ liệu, sửa schema hay khởi động lại.
+- [x] B4 đổi mũ reviewer: kiểm chéo trace với nguồn, keeper với số file và tuổi, cảnh báo với trạng thái hiện tại; không có deploy trong scope.
+- [x] B5 verify thật: output ở trên. HTTP hiện tại tốt không xóa các lỗi gián đoạn đã thấy. Nguyên nhân presence502 và tốc độ tăng dài hạn chưa chốt.
+- [x] B6 báo cáo: cập nhật tại chỗ BAO-CAO + P29 trong COLLAB, theo D04 (KB chỉ đọc). OR không cần cập nhật vì chưa đổi quy tắc/hệ thống; phần còn mở và đề xuất ghi P29, không tạo việc/luật mới.
+- [x] B7 desktop review: có 3 câu, evidence và giới hạn. JEV đã kiểm mức ưu tiên `gen-dec-1791177687-MKB7nV9XuZnrSRE9yyFp`: worker/checker chọn high xác suất 0,96/0,91. Các mục khác vẫn dùng phán đoán theo ảnh hưởng và cửa sổ bảo trì; không biến reboot-required thành chỉ đạo restart khẩn cấp.
+
+Khi thực hiện lượt fix được giao tiếp theo: worker + checker trước; giảm tải tri thức/đối chiếu lỗi HTTP; khép chính sách giữ dữ liệu sau phân loại; hoàn tất Hermes/bảo trì theo cửa sổ phù hợp. Không nghiệm thu thay các việc đó trong lượt audit.
+
+Tham khảo kỹ thuật: [SQLite WAL](https://www.sqlite.org/wal.html) vẫn chỉ có một writer tại một thời điểm; [busy_timeout](https://www.sqlite.org/pragma.html#pragma_busy_timeout) hỗ trợ chờ khóa, không thay thế việc bỏ ghi lặp.
+
+---
+
 ## KẾT CUỐI — Đóng việc · 23/09/2026 · Host (Claude Chat) · CLOSED (KQ@VPSC-R5B-20260924-01 XONG)
 
 ### Cho Owner (30 giây) — mọi nguồn làm đầy đĩa đều đã có trần
