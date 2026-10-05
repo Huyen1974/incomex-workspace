@@ -627,7 +627,7 @@
 #matrix-view-formula .cf-tier-dual-row+ .cf-tier-dual-row{border-top:1px solid #e6ece8;padding-top:5px}
 #matrix-view-formula .cf-tier-dual-row strong{font-size:11.5px;color:#25352d}
 #matrix-view-formula .cf-tier-dual-row small{font-size:9px;color:#7e8983;white-space:nowrap}
-#matrix-view-formula .cf-tier-plus{color:#6f7e76;font-size:17px;font-weight:600;line-height:1}
+#matrix-view-formula .cf-tier-assemble{color:#5f7067;font-size:13px;font-weight:700;line-height:1;white-space:nowrap}
 @media(max-width:600px){#matrix-view-formula .cf-tier-chain{flex-direction:column;align-items:stretch}#matrix-view-formula .cf-tier-arrow{align-self:center;transform:rotate(90deg)}}
 #matrix-view-formula .cf-subformulas{margin:10px 0 18px;border:1px solid #d7e3da;border-radius:12px;background:#fbfdfb;padding:11px 12px}
 #matrix-view-formula .cf-subformulas-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:9px}
@@ -928,34 +928,34 @@
 
 <section class="cf-formula-piece cf-tier-formula" id="formula-ct-002" aria-label="CT-002 · Ghép tầng">
 <h3> I. Công thức · CT-002 · Ghép tầng <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a> <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-002" target="_self">Chi tiết →</a></h3>
-<p class="cf-definition"><b>Nhìn nhanh:</b> <code>MOW + MOT + { MOIT | MOUT } + Field</code></p>
+<p class="cf-definition"><b>Nhìn nhanh:</b> <code>Field &lt;= { MOIT | MOUT } &lt;= MOT &lt;= MOW</code></p>
 <details class="cf-tier-context">
-  <summary><span><b>Nửa bối cảnh · T7 → T3</b> · không tham gia trực tiếp vào ghép</span><small>Mở khi cần ↓</small></summary>
-  <div class="cf-tier-chain cf-tier-chain-muted" aria-label="Bối cảnh T7 đến T3">
-    <div class="cf-tier-node"><b>T7</b><span>Lĩnh vực</span></div><span class="cf-tier-arrow">→</span>
-    <div class="cf-tier-node"><b>T6</b><span>Công ty</span></div><span class="cf-tier-arrow">→</span>
-    <div class="cf-tier-node"><b>T5</b><span>Khối</span></div><span class="cf-tier-arrow">→</span>
-    <div class="cf-tier-node"><b>T4</b><span>Phòng ban</span></div><span class="cf-tier-arrow">→</span>
-    <div class="cf-tier-node"><b>T3</b><span>Chuyên môn</span></div>
+  <summary><span><b>Nửa bối cảnh · T3 &lt;= T4 &lt;= T5 &lt;= T6 &lt;= T7</b> · cùng chiều lắp ráp</span><small>Mở khi cần ↓</small></summary>
+  <div class="cf-tier-chain cf-tier-chain-muted" aria-label="Bối cảnh lắp ráp từ T3 lên T7">
+    <div class="cf-tier-node"><b>T3</b><span>Chuyên môn</span></div><span class="cf-tier-assemble">&lt;=</span>
+    <div class="cf-tier-node"><b>T4</b><span>Phòng ban</span></div><span class="cf-tier-assemble">&lt;=</span>
+    <div class="cf-tier-node"><b>T5</b><span>Khối</span></div><span class="cf-tier-assemble">&lt;=</span>
+    <div class="cf-tier-node"><b>T6</b><span>Công ty</span></div><span class="cf-tier-assemble">&lt;=</span>
+    <div class="cf-tier-node"><b>T7</b><span>Lĩnh vực</span></div>
   </div>
 </details>
 <div class="cf-tier-main">
-  <div class="cf-tier-main-head"><b>Phần ghép · 5 đối tượng ngang hàng</b><span>Luôn hiển thị</span></div>
-  <div class="cf-tier-chain" aria-label="Năm đối tượng ghép ngang hàng MOW MOT MOIT MOUT Field">
-    <div class="cf-tier-node active"><b>T2</b><span><strong>MOW</strong></span></div><span class="cf-tier-plus">+</span>
-    <div class="cf-tier-node active"><b>T1</b><span><strong>MOT</strong></span></div><span class="cf-tier-plus">+</span>
+  <div class="cf-tier-main-head"><b>Bản đồ lắp ráp · tầng thấp → tầng cao</b><span>Luôn hiển thị</span></div>
+  <div class="cf-tier-chain" aria-label="Lắp ráp từ Field lên MOW">
+    <div class="cf-tier-node active"><b>T0</b><span><strong>Field</strong></span></div><span class="cf-tier-assemble">&lt;=</span>
     <div class="cf-tier-dual" aria-label="T0.5 có hai đối tượng độc lập MOIT và MOUT">
       <span class="cf-tier-dual-label">T0.5</span>
       <div class="cf-tier-dual-row"><strong>MOIT</strong><small>cơ chế riêng</small></div>
       <div class="cf-tier-dual-row"><strong>MOUT</strong><small>cơ chế riêng</small></div>
-    </div><span class="cf-tier-plus">+</span>
-    <div class="cf-tier-node active"><b>T0</b><span><strong>Field</strong></span></div>
+    </div><span class="cf-tier-assemble">&lt;=</span>
+    <div class="cf-tier-node active"><b>T1</b><span><strong>MOT</strong></span></div><span class="cf-tier-assemble">&lt;=</span>
+    <div class="cf-tier-node active"><b>T2</b><span><strong>MOW</strong></span></div>
   </div>
-  <p class="cf-tier-note">Tầng chỉ là nhãn phân loại. MOW, MOT, MOIT, MOUT và Field đều là đối tượng ghép ngang hàng; MOIT/MOUT cùng T0.5 nhưng tách riêng vì cơ chế khác nhau.</p>
+  <p class="cf-tier-note"><b>Quy ước:</b> <code>A &lt;= B</code> nghĩa là A là phần nhỏ hơn/tầng thấp hơn được lắp vào B. Vì vậy Field (T0) luôn ở ngoài cùng bên trái; đọc từ trái sang phải để đi từ tầng thấp lên tầng cao.</p>
 </div>
 <details class="cf-notation-rule">
   <summary>Quy tắc CT-002 · dùng lại</summary>
-  <p><b>Nửa bối cảnh</b> = mờ + thu gọn mặc định. <b>Nửa ghép</b> = rõ + luôn hiện. Các node đời ông dùng cùng hình tròn lớn như CT-001.</p>
+  <p><b>Nửa bối cảnh</b> = mờ + thu gọn mặc định. <b>Nửa ghép</b> = rõ + luôn hiện. <code>A &lt;= B</code> = A lắp vào B; chiều đọc luôn từ tầng thấp bên trái lên tầng cao bên phải. Các node đời ông dùng cùng hình tròn lớn như CT-001.</p>
 </details>
 </section>
 
