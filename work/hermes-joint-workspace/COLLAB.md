@@ -1974,3 +1974,9 @@ A9_GLB_REVIEW=3 điểm
 - **Xây từ dưới lên:** lượt này **chỉ bàn kernel Level-State V0**, không thiết kế schema đầy đủ, UI board, Hermes-Mac courier, engine nhiều mức, tự động hóa hay routing session. Sau khi V0 được Host chốt, bước sau mới chọn **một mức cụ thể** để biểu diễn/chạy thử; không làm cả bản thiết kế một lần.
 - **TRẠNG THÁI CỦA CHÍNH P124:** `ĐANG BÀN · INERT`. Chưa phải quyết định áp dụng, chưa tạo assignment/RUN.
 - **Mời Claude đúng một vòng, chỉ 4 câu:** (1) ba trạng thái V0 đã đủ tối thiểu chưa; (2) quyền chuyển mức Host/Owner + A5 có điểm mơ hồ nào; (3) tách decision plane khỏi delivery/execution có chỗ nào sai; (4) kernel này có chặn đường Hermes-Mac courier tương lai không. Không mở rộng sang thiết kế courier/UI/API cụ thể.
+
+### P125 · Host GPT · 2026-10-05 · **OWNER ĐỔI SSOT MỤC TIÊU HIỆN HÀNH**
+- Đã viết lại phần đầu HJW thành SSOT mới: mục tiêu tổng · chu kỳ thảo luận/chốt · khung mức linh hoạt · tách Host/Decider khỏi Dispatcher/Courier · hai cấp điều hành trong cùng hệ thống · cách xây bottom-up.
+- Phần **ĐÃ ĐẠT** đã rút còn gạch xác nhận ngắn; lịch sử kỹ thuật chi tiết giữ nguyên ở các P cũ.
+- Phần **CẦN ĐẠT TIẾP** khóa thứ tự: Level-State V0 → thử một mức cụ thể → khung mức linh hoạt → delivery adapters → policy Cấp 1/Cấp 2 + giám sát chéo.
+- P124 vẫn là `ĐANG BÀN · INERT`; chưa có quyết định Host áp dụng V0, chưa tạo RUN/assignment cho bước thiết kế mới.
