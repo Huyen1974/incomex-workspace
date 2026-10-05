@@ -593,6 +593,26 @@
 #matrix-view-formula .cf-flow .s.cf-retire b{background:#965353}
 #matrix-view-formula .cf-return{font-size:13px;font-weight:600;color:#1f4d3a}
 #matrix-view-formula .cf-definition{margin:8px 0;max-width:760px;line-height:1.6}
+#matrix-view-formula .cf-subformulas{margin:10px 0 18px;border:1px solid #d7e3da;border-radius:12px;background:#fbfdfb;padding:11px 12px}
+#matrix-view-formula .cf-subformulas-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:9px}
+#matrix-view-formula .cf-subformulas-head b{font-size:14px;color:#214b39}
+#matrix-view-formula .cf-subformulas-head span{font-size:11px;color:var(--mut)}
+#matrix-view-formula .cf-subgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#matrix-view-formula .cf-subgroup{min-width:0;border:1px solid #e1e8e3;border-radius:10px;background:#fff;padding:9px}
+#matrix-view-formula .cf-subgroup h4{margin:0 0 7px;font-size:10.5px;letter-spacing:.04em;color:var(--mut)}
+#matrix-view-formula .cf-subrow{padding:7px 0;border-top:1px solid #eef1ee}
+#matrix-view-formula .cf-subrow:first-of-type{border-top:0;padding-top:1px}
+#matrix-view-formula .cf-subtitle{display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:12.5px;color:var(--ink)}
+#matrix-view-formula .cf-subno{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#214f3d;color:#fff;font-size:10.5px;font-weight:700;flex:0 0 20px}
+#matrix-view-formula .cf-subexpr{font-size:11.5px;line-height:1.5;color:#46534c}
+#matrix-view-formula .cf-subexpr code{white-space:normal;background:#f2f5f2;border-radius:6px;padding:2px 5px;color:#27332d}
+#matrix-view-formula .cf-subnote{margin-top:4px;font-size:10.5px;color:var(--mut)}
+#matrix-view-formula .cf-pill{display:inline-block;border-radius:999px;padding:1px 6px;font-size:10.5px;font-weight:600;white-space:nowrap}
+#matrix-view-formula .cf-pill.master{background:#eef4ef;color:#315b45;border:1px solid #d3e0d6}
+#matrix-view-formula .cf-pill.ok{background:#edf7ef;color:#356743;border:1px solid #d5e7d8}
+#matrix-view-formula .cf-pill.warn{background:#fff8e8;color:#795f22;border:1px solid #ead8a8}
+#matrix-view-formula .cf-pill.bad{background:#fff1f1;color:#834848;border:1px solid #e7caca}
+#matrix-view-formula .cf-map-label{margin:14px 0 6px;font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
 #matrix-view-formula .cf-two-views{grid-template-columns:repeat(2,minmax(0,1fr))}
 #matrix-view-formula .cf-two-views p{margin:5px 0;font-size:14px;line-height:1.6}
 #matrix-view-formula .cf-two-views small{display:block;margin:5px 0 0;font-size:12px}
@@ -685,6 +705,7 @@
 #matrix-view-formula .cf-return{align-self:center;text-align:center}
 #matrix-view-formula .cf-two-views{grid-template-columns:minmax(0,1fr)}
 #matrix-view-formula .cf-core-grid{grid-template-columns:minmax(0,1fr)}
+#matrix-view-formula .cf-subgrid{grid-template-columns:minmax(0,1fr)}
 #matrix-view-formula .cf-master-hub-links{grid-template-columns:minmax(0,1fr)}
 #matrix-view-formula .cf-pool-groups{grid-template-columns:minmax(0,1fr)}
 }
@@ -790,6 +811,28 @@
 </script>
 <h3 id="cf-b05-seven">I. Công thức · CT-001 · Vòng đời tổng <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a> <a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-001" target="_self">Chi tiết →</a></h3>
 <p class="cf-definition"><b>Nhìn nhanh:</b> <code>Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }</code></p>
+<section class="cf-subformulas" aria-label="7 công thức con của CT-001">
+  <div class="cf-subformulas-head"><b>7 công thức con · chuẩn chung</b><span>Mỗi dòng = một mảnh đủ ngắn để rà sai / thiếu.</span></div>
+  <div class="cf-subgrid">
+    <article class="cf-subgroup">
+      <h4>A · TÌM &amp; DÙNG</h4>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1</span><b>Tìm</b></div><div class="cf-subexpr">Yêu cầu → Tìm → Kiểm phù hợp → <span class="cf-pill ok">Đạt</span> / <span class="cf-pill warn">Cần xác nhận</span> / <span class="cf-pill bad">Không đạt</span></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">2</span><b>Dùng</b></div><div class="cf-subexpr">Chọn → Máy kiểm → Người bấm Dùng → Máy áp dụng → Xác nhận</div></div>
+    </article>
+    <article class="cf-subgroup">
+      <h4>B · PHÁT SINH &amp; DUYỆT</h4>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3</span><b>Đề xuất tạo mới</b></div><div class="cf-subexpr">Ý tưởng → <span class="cf-pill master">Master · Mới ghi nhận</span> → Chuẩn hóa → <span class="cf-pill master">Master · Đã chuẩn hóa</span> → Giao phụ trách</div><div class="cf-subnote">Cùng 1 bản ghi Master · chỉ cập nhật trạng thái.</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4</span><b>Duyệt đề xuất</b></div><div class="cf-subexpr">Đề xuất → <span class="cf-pill ok">Duyệt</span> / <span class="cf-pill warn">Làm rõ</span> / <span class="cf-pill bad">Từ chối</span> → Cập nhật Master → Chuyển tiếp</div></div>
+    </article>
+    <article class="cf-subgroup">
+      <h4>C · ĐÚC &amp; ĐƯA VÀO DÙNG</h4>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">5</span><b>Khai báo</b></div><div class="cf-subexpr"><code>CHUNG + RIÊNG + CÒN THIẾU → Hồ sơ khai báo</code></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">6</span><b>Test</b></div><div class="cf-subexpr">Khai báo → Test → Bằng chứng → <span class="cf-pill ok">PASS</span> / <span class="cf-pill bad">FAIL</span></div><div class="cf-subnote">FAIL → quay lại Khai báo.</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7</span><b>Duyệt cho dùng</b></div><div class="cf-subexpr">PASS + Bằng chứng → Người có thẩm quyền → <span class="cf-pill ok">Cho dùng</span> / <span class="cf-pill bad">Không duyệt</span></div></div>
+    </article>
+  </div>
+</section>
+<div class="cf-map-label">Bản đồ vòng đời tổng</div>
 <div class="cf-flow" role="group" aria-label="CT-001 Vòng đời tổng: Tìm rồi Dùng, Tạo mới, Sửa hoặc Vô hiệu">
 <div class="cf-flow-start" data-formula-step="1"><b>1</b> Tìm</div>
 <div class="cf-branches">
