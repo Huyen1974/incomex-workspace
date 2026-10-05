@@ -4,7 +4,7 @@
 **Project:** `work/mow-mot-moit-mout`  
 **Owner-gated concept:** Công thức và nghĩa khái niệm.  
 **AI-owned implementation:** schema Master, UI chi tiết, coverage, test, bằng chứng, reuse mapping, kỹ thuật triển khai.  
-**Cập nhật gần nhất:** 2026-10-06 · D148.
+**Cập nhật gần nhất:** 2026-10-06 · D149.
 
 > BẮT BUỘC ĐỌC FILE NÀY trước khi sửa Công thức, Định nghĩa, Master List, UI con/cha, coverage hoặc config liên quan MMIM.
 >
@@ -50,11 +50,12 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 2. Một vấn đề phức tạp phải được chia thành các thành phần đơn giản đủ rõ rồi mới ghép.
 3. Mặt người: nickname + công thức + hình họa; text dài để AI đọc.
 4. **Preserve by default. Reuse before create.**
-5. Bất cứ việc gì phát sinh phải **ghi Master trước khi xử lý**, rồi cập nhật chính bản ghi đó.
-6. Một Master/Công thức chỉ là canonical khi có nguồn/decision rõ; draft/test phải ghi trạng thái.
-7. Không tạo Cartesian product mù. Mọi tổ hợp phải qua **Applicability Gate**.
-8. Không tuyên bố “đủ UI” bằng cảm giác; phải có **Coverage + Evidence**.
-9. **Change propagation bắt buộc:** thay đổi một tiêu chí không được sửa một chỗ rồi dừng; phải quét impact map, update/verify toàn bộ current/live target và chỉ đóng khi không còn stale reference.
+5. **MASTER FIRST / LIST FIRST:** bất cứ loại thứ gì có thể phát sinh nhiều bản ghi/biến thể (Nhóm, Quy trình, UI, Config, Tool, Trigger...) phải **có Master List để ghi trước khi xử lý sâu**. Chưa chốt hết định nghĩa/loại không phải lý do để để đối tượng trôi ngoài Master; ghi trước → phân loại sau → chuẩn hóa dần.
+6. Bất cứ việc gì phát sinh phải **ghi Master trước khi xử lý**, rồi cập nhật chính bản ghi đó. Nếu chưa biết Master nào phù hợp thì đó là một gap phải mở ngay, không được xử lý xong rồi mới nghĩ nơi ghi.
+7. Một Master/Công thức chỉ là canonical khi có nguồn/decision rõ; draft/test phải ghi trạng thái.
+8. Không tạo Cartesian product mù. Mọi tổ hợp phải qua **Applicability Gate**.
+9. Không tuyên bố “đủ UI” bằng cảm giác; phải có **Coverage + Evidence**.
+10. **Change propagation bắt buộc:** thay đổi một tiêu chí không được sửa một chỗ rồi dừng; phải quét impact map, update/verify toàn bộ current/live target và chỉ đóng khi không còn stale reference.
 
 ---
 
@@ -169,6 +170,7 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 | DISC-017 | CT-007 sinh `Config` nhưng không có Master Config/định nghĩa Config trong bộ 27. `UI.CONFIG` chỉ là **khuôn UI cha**, không phải Config output. | Không tự tạo Master mới. CAT-226 `Sổ áp dụng · bật nơi · lúc` là ứng viên liên quan nhưng chưa chứng minh cùng nghĩa; mở FC-002. |
 | DISC-018 | Master Field cũ có `Form cha` + `Bắt buộc`, mâu thuẫn CT-002 vì Field T0 độc lập và có thể dùng nhiều form. | Đã sửa Master Field thành `Kiểu dữ liệu · Nhóm quản lý · Nguồn dữ liệu · Validation chung · Trạng thái`; required/default theo nơi dùng thuộc liên kết Field↔Form (CAT-208*)/Config. |
 | DISC-019 | Quy tắc “mọi Master chỉ 5 cột” không nên tuyệt đối hóa. | CT-007 prototype cần 6 cột để không mất input: `Ngữ cảnh · UI cha · Bản ghi · Người làm(NTGV) · Trigger · Trạng thái`. Giữ list gọn nhưng không cắt dữ liệu bắt buộc. |
+| DISC-020 | Owner chốt lại nguyên tắc tổng quát: Config có thể có nhiều loại và còn hiệu chỉnh dài, nhưng **danh sách phải tồn tại trước**. | Tạo `CAT-248* · Master Config` + `config-master-v1.html`; ghi `CFG-TEST-001` ngay. Việc phân loại/định nghĩa Config tiếp tục OPEN, không chặn việc quản lý danh sách. |
 
 ### D139 · bằng chứng đầu tiên của cách tiếp cận
 `CT-003 = Bước + Tầng ⇒ Nhóm cha` tại **T0 Field** đã sinh 7 bản ghi B1→B7 trong `ML-DEF-001`.
@@ -230,7 +232,7 @@ Chi tiết dùng UI.MASTER cha và giữ:
 
 - **CT-005 · Quy trình:** `B5 + T0 + NHC-005 ⇒ Quy trình` → tìm thấy `FIELD.KHAI` trong process map ⇒ **REUSE candidate**, không sinh quy trình mới. Schema review tạm cho Master MOW: `Bước · Tầng · Nhóm · Mục tiêu · Trạng thái`. UI-001 hiện vẫn schema legacy T3/T2/T1; chỉ ghi review row `CT005-B5-T0-001`, không đụng 7 MOW canonical.
 - **CT-006 · UI Con:** `B5 + T0 + NHC-005 + UI.CONFIG ⇒ UI Con` → **reuse UI-018**. Master UI con giữ 5 cột `UI cha · Ngữ cảnh · Đối tượng · URL · Trạng thái`; `Ngữ cảnh` là nơi mang Bước/Tầng/Nhóm. Không tạo UI mới.
-- **CT-007 · Config:** prototype `CFG-TEST-001` cần `Ngữ cảnh · UI cha · Bản ghi · Người làm(NTGV) · Trigger · Trạng thái`. Chưa có Master Config đích; không tự canonical hóa.
+- **CT-007 · Config:** prototype `CFG-TEST-001` cần `Ngữ cảnh · UI cha · Bản ghi · Người làm(NTGV) · Trigger · Trạng thái`. D149 đã tạo `CAT-248* · Master Config` để ghi ngay; `CFG-TEST-001` là dòng đầu tiên. Semantics/loại Config vẫn OPEN, nhưng **việc có Master List không còn OPEN**.
 
 **Rà Master cùng lượt:**
 - ML-DEF-017 Master UI cha: điền 6 UI cha thật từ `parent_id` của 29 UI con; 26/29 đã gắn, `UI-008/UI-011/UI-012` còn OPEN cha.
@@ -238,6 +240,18 @@ Chi tiết dùng UI.MASTER cha và giữ:
 - ML-DEF-008 Master Field: bỏ `Form cha` và `Bắt buộc` khỏi schema intrinsic theo DISC-018.
 - ML-DEF-002: đổi label `Chuyên môn` → `Phạm vi chuyên môn` để phản ánh đây vẫn là vấn đề OPEN.
 - Các Master 3, 9–16, 19–27 chưa lộ mâu thuẫn trong slice D148 ⇒ preserve; không sửa chỉ để đồng bộ hình thức.
+
+### D149 · MASTER CONFIG · GHI TRƯỚC, PHÂN LOẠI SAU
+Owner chốt nguyên tắc chung: “có nhiều Config khác nhau, là cái gì còn bàn dài; đầu tiên phải có chỗ để ghi danh sách”.
+
+Đã làm:
+- tạo `CAT-248* · Danh mục Config` trong Master of Master (85→86 Master);
+- tạo `config-master-v1.html` + `config-master-data-v1.js`;
+- ghi ngay `CFG-TEST-001 · Config · Khai báo Field · full_name` từ ca CT-007;
+- Master Config tạm hiển thị: `Loại/Nhóm · Ngữ cảnh · Đối tượng/Bản ghi · UI cha · Người làm(NTGV) · Trigger · Trạng thái`;
+- vùng review CT-005/006/007 nay nối thẳng ba Master đầu ra: **Master Quy trình · Master UI con · Master Config**.
+
+**Khóa nghĩa:** Master Config tồn tại là quyết định đã chốt. Phân loại/semantics Config còn OPEN và được hiệu chỉnh dần trên chính Master này.
 
 ---
 
@@ -295,7 +309,7 @@ Mỗi ô cuối cùng phải trả lời:
 - CT-004 Nhóm con: **ĐÃ TEST D141 tại 1.x + T0**; UI vẫn review-only, chưa canonical; còn OPEN việc Phạm vi chuyên môn thuộc công thức, quan hệ T3 hay config/instantiate.
 - CT-005 Quy trình: **ĐÃ TEST D148 B5/T0/NHC-005**; reuse candidate `FIELD.KHAI`. OPEN: map review schema `Bước/Tầng/Nhóm` vào 7 dòng Master MOW legacy trước khi đổi UI-001 canonical.
 - CT-006 UI Con: **ĐÃ TEST D148**; reuse `UI-018`, không tạo UI. OPEN: xác định UI cha cho `UI-008/UI-011/UI-012`.
-- CT-007 Config: **ĐÃ TEST D148 bằng 1 bản ghi demo**; schema 6 cột đã lộ rõ. OPEN: nơi canonical của Config (FC-002) + quyền/điều kiện nếu ca thật chứng minh cần.
+- CT-007 Config: **ĐÃ TEST D148 bằng 1 bản ghi demo; D149 đã có Master Config CAT-248***. OPEN chỉ còn semantics/phân loại Config (FC-002) + quyền/điều kiện nếu ca thật chứng minh cần.
 - Trigger: nguồn Master hiện có `CAT-221`; chưa đưa thành định nghĩa trong bộ 27.
 - NTGV/Người làm: nguồn hiện có CAT-218/219 + CAT-213/214; cần map quyền khi implementation thực tế đòi hỏi.
 
@@ -359,17 +373,17 @@ Có thể giải quyết bằng implementation mà không thêm công thức kh�
 Owner cần quyết: A/B/C khi muốn canonical hóa Nhóm con; hiện trạng TREO, không bỏ.
 ```
 
-### FC-002 · Config phải nằm ở Master nào?
+### FC-002 · Config được phân loại/lưu như thế nào?
 ```text
-Vấn đề thực tế: CT-007 đã sinh được một Config candidate nhưng bộ 27 không có định nghĩa/Master Config.
-Evidence: D148 · slice B5/T0/NHC-005 + UI.CONFIG + bản ghi full_name + người khai báo + trigger.
+Owner D149 đã chốt một phần: BẤT KỂ semantics cuối cùng, Config phải có Master List trước. CAT-248* · Master Config đã tồn tại và nhận record ngay khi phát sinh.
+Vấn đề còn OPEN: Config là định nghĩa dùng lại, bản ghi áp dụng/runtime, hay cần cả hai lớp?
+Evidence: D148 · slice B5/T0/NHC-005 + UI.CONFIG + bản ghi full_name + người khai báo + trigger; D149 · CFG-TEST-001 đã được ghi vào Master Config.
 Điểm cần phân biệt: UI.CONFIG = khuôn giao diện; Config output = kết quả cấu hình/binding, không phải một thứ.
-Đề xuất A: Config là định nghĩa dùng lại ⇒ cần KNI/Master Config riêng.
-Đề xuất B: Config là bản ghi áp dụng/runtime ⇒ ghi vào sổ/binding hiện có; CAT-226 là ứng viên cần kiểm nghĩa.
-Đề xuất C: tách Definition Config + Application Record nếu ca thật chứng minh cần cả hai.
-Ảnh hưởng: CT-007, Master of Master, UI Config, Bản ghi, Trigger, NTGV, Coverage.
-Có thể giải quyết bằng implementation mà không thêm concept không? CHƯA KẾT LUẬN; cần thêm 1–2 slice thật.
-Owner cần quyết: khi đủ evidence, chọn A/B/C; hiện OPEN, không tạo Master mới vội.
+Đề xuất A: một dòng Master Config là definition/reusable config; runtime/application record nằm sổ khác.
+Đề xuất B: một dòng Master Config chính là config instance/binding; CAT-226 có thể là nguồn runtime liên quan.
+Đề xuất C: Master Config quản lý definition, và liên kết tới application/runtime records khi cần.
+Ảnh hưởng: CT-007, CAT-248*, CAT-226, UI Config, Bản ghi, Trigger, NTGV, Coverage.
+Owner cần quyết: A/B/C khi có thêm evidence. Không được xóa/hoãn Master Config trong lúc chờ.
 ```
 
 ---
