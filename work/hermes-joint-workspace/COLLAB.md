@@ -22,7 +22,8 @@ Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — m�
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
 RESULT_V1 {"id":"HJW-HERMES-READINESS-20261003-02","generation":1,"status":"done","summary":"Hermes tự kiểm 8 điểm: nhận đúng record+SPEC, đọc AGENTS A9-GLB và COLLAB OK, ghi mục P99 + RESULT_V1. Điểm 5 (chặn ghi ngoài phạm vi) chưa thử, điểm 7 (tin Telegram) máy kiểm. Kết luận READY.","next":"Host GPT kiểm nhãn tác giả commit; máy kiểm tin Telegram; Host tổng hợp lỗi readiness (điểm 5, 7).","report_ref":"P99"}
-ASSIGN_V1 {"id":"HJW-HOST-AUTH-ACCEPT-20261004-01","to":"Hermes","role":"Reviewer","generation":1,"state":"claimed","task":"Rà chuẩn GIAO–LÀM–BÁO từ góc nhìn một agent mới","output":"Một mục P ngắn + RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HOST-AUTH-ACCEPT-20261004-01"}
+ASSIGN_V1 {"id":"HJW-HOST-AUTH-ACCEPT-20261004-01","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Rà chuẩn GIAO–LÀM–BÁO từ góc nhìn một agent mới","output":"Một mục P ngắn + RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HOST-AUTH-ACCEPT-20261004-01"}
+RESULT_V1 {"id":"HJW-HOST-AUTH-ACCEPT-20261004-01","generation":1,"status":"done","summary":"Rà A9-GLB được 3 điểm: (1) COLLAB còn ghi vùng máy 'chưa active' nhưng vùng đã sống; (2) dòng văn xuôi chứa 'Host:' dễ bị nhận là Host-stamp; (3) luật quét chỉ 1 file nhưng dạng lệnh nói 'mỗi file một vùng'. Đã ghi P121 kèm đề nghị sửa mỗi chỗ một câu.","next":"Host GPT + Claude quyết HOST_AUTH_ACCEPT theo P121; Hermes không tự kết luận quyền Host.","report_ref":"P121"}
 <!-- MACHINE_ASSIGNMENTS_V1:END -->
 <!-- SPEC_V1:HJW-HERMES-READINESS-20261003-02:BEGIN -->
 VIỆC: Hermes tự kiểm khả năng tham gia HJW. Chỉ kiểm và báo cáo; không sửa gì.
@@ -1836,3 +1837,10 @@ KẾT LUẬN: HERMES_READINESS=READY — không lỗi chặn. Thiếu bằng ch�
 - SPEC §8 được chép nguyên văn 8 dòng từ PROMPT đã Reviewer P103 rà; không thêm/bớt nội dung.
 - Acceptance mong đợi: máy xác minh issuer == Host-stamp P119 → tạo đúng 1 thẻ; Owner bấm → machine claim + BẮT ĐẦU → Hermes ghi một P + RESULT trong một commit → KẾT QUẢ. Nếu issuer không khớp/same-commit/record sai thì phải 0 model và báo lỗi, không sửa lách.
 - Owner không cần làm gì khác ngoài bấm đúng một thẻ này. Sau RESULT, Host + Claude mới quyết `HOST_AUTH_ACCEPT`; Hermes không tự kết luận quyền Host.
+
+### P121 · Hermes · 2026-10-05 · HJW-HOST-AUTH-ACCEPT-20261004-01
+Rà chuẩn GIAO–LÀM–BÁO từ góc nhìn agent mới đọc lần đầu (A9-GLB) — 3 điểm:
+- COLLAB.md còn nguyên câu "Machine zone dự kiến (chưa active tới runtime PASS)" trong khi vùng máy đã sống và record đã `claimed` | Agent mới tưởng vùng máy chưa hoạt động nên không dùng nó để giao/nhận việc | Sửa một câu: "Vùng máy đang hoạt động tại `work/hermes-joint-workspace/COLLAB.md`; chỉ máy đọc, người không sửa tay."
+- AGENTS.md A9-GLB nói nhận Host bằng "dòng bắt đầu bằng `Host:`", nhưng COLLAB.md có nhiều dòng văn xuôi chứa "… Đề xuất Host: …" | Agent mới lấy nhầm một dòng văn xuôi làm Host-stamp rồi suy ra sai người giao việc | Sửa một câu: "Chỉ dòng có `Host:` ở cột 1 mới là Host-stamp; chữ `Host:` nằm trong câu văn là lời, không phải dấu."
+- AGENTS.md A9-GLB mục (a) giới hạn "máy chỉ quét vùng máy của riêng `work/hermes-joint-workspace/COLLAB.md`" nhưng ô "dạng lệnh Hermes" lại nói "mỗi file một vùng" | Agent mới tưởng được ghi lệnh vào vùng máy của `COLLAB.md` ở việc khác | Sửa một câu: "Tới khi lượt cuối của việc HJW PASS, chỉ `COLLAB.md` của việc HJW được quét; file khác chưa nhận lệnh."
+A9_GLB_REVIEW=3 điểm
