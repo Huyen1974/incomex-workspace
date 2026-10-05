@@ -638,6 +638,24 @@
 #matrix-view-formula .cf-subformulas-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:9px}
 #matrix-view-formula .cf-subformulas-head b{font-size:14px;color:#214b39}
 #matrix-view-formula .cf-subformulas-head span{font-size:11px;color:var(--mut)}
+#matrix-view-formula .cf-child-titlebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;padding:8px 10px;border-radius:10px;background:#edf4ef;border:1px solid #d4e1d7}
+#matrix-view-formula .cf-child-nick{font-size:22px;line-height:1;font-weight:800;letter-spacing:-.02em;color:#214b39}
+#matrix-view-formula .cf-child-full{font-size:10.5px;color:#718078;border-left:1px solid #cfddd2;padding-left:9px}
+#matrix-view-formula .cf-child-hint{font-size:10.5px;color:#77847d;margin-left:auto}
+#matrix-view-formula .cf-derived-divider{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:11px 0 8px;padding-top:9px;border-top:1px dashed #d9e2dc}
+#matrix-view-formula .cf-derived-divider b{font-size:11px;color:#3b5648}
+#matrix-view-formula .cf-derived-divider span{font-size:9.5px;color:#8a938e}
+#matrix-view-formula .cf-derived-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#matrix-view-formula .cf-derived-card{border:1px solid #dce5de;border-radius:11px;background:#fff;padding:10px;min-width:0}
+#matrix-view-formula .cf-derived-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:9px}
+#matrix-view-formula .cf-derived-nick{font-size:23px;line-height:1.05;font-weight:800;letter-spacing:-.025em;color:#214b39}
+#matrix-view-formula .cf-derived-top small{display:block;margin-top:3px;font-size:9px;color:#9aa39e}
+#matrix-view-formula .cf-derived-top>a{font-size:9.5px;color:#557061;text-decoration:none;white-space:nowrap}
+#matrix-view-formula .cf-derived-formula{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-height:42px;margin:2px 0 7px}
+#matrix-view-formula .cf-derived-formula span{display:inline-flex;align-items:center;justify-content:center;border:1px solid #cfdcd2;border-radius:8px;background:#f7faf8;padding:6px 10px;font-size:13px;font-weight:700;color:#26382f}
+#matrix-view-formula .cf-derived-formula b{font-size:18px;color:#6f7e76}
+#matrix-view-formula .cf-derived-card p{margin:0;font-size:9.5px;line-height:1.45;color:#8a938e}
+@media(max-width:760px){#matrix-view-formula .cf-derived-grid{grid-template-columns:1fr}#matrix-view-formula .cf-child-hint{margin-left:0;width:100%}}
 #matrix-view-formula .cf-subgrid{display:block}
 #matrix-view-formula .cf-subgroup{display:none;min-width:0;border:1px solid #e1e8e3;border-radius:10px;background:#fff;padding:9px}
 
@@ -864,7 +882,7 @@
 <div class="cf-route"><span class="cf-condition">Nếu không còn dùng</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><a class="s cf-retire cf-root-link" href="#formula-root-9"><b class="cf-root-no">9</b> Vô hiệu / Nghỉ hưu</a></div></div>
 </div></div>
 <section class="cf-subformulas" id="formula-children" aria-label="Bóc nhỏ công thức theo gốc 1 đến 9">
-  <div class="cf-subformulas-head"><b>Bóc nhỏ theo từng gốc</b><span id="cf-subhint">Bấm một gốc 1–9 trên bản đồ để mở đời con.</span></div>
+  <div class="cf-child-titlebar"><div class="cf-child-nick">Bước con</div><div class="cf-child-full">CT-001 · bóc nhỏ bên trong Bước</div><span class="cf-child-hint" id="cf-subhint">Bấm gốc 1–9 để mở chi tiết.</span></div>
   <div class="cf-subgrid">
     <article class="cf-subgroup" id="formula-root-1" data-root="1">
       <div class="cf-subroot"><span class="cf-rootbadge">1</span><div><b>Tìm</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
@@ -917,6 +935,24 @@
     <article class="cf-subgroup cf-subgroup-compact" id="formula-root-9" data-root="9">
       <div class="cf-subroot"><span class="cf-rootbadge bad">9</span><div><b>Vô hiệu / Nghỉ hưu</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
       <div class="cf-subnote">Chưa bóc nhỏ · khi cần sẽ dùng 9.1, 9.2…</div>
+    </article>
+  </div>
+  <div class="cf-derived-divider"><b>Công thức tiếp theo</b><span>Nickname + công thức là điểm nhìn chính; chú giải để mờ.</span></div>
+  <div class="cf-derived-grid">
+    <article class="cf-derived-card" id="formula-ct-003" aria-label="CT-003 · Nhóm cha">
+      <div class="cf-derived-top"><div><div class="cf-derived-nick">Nhóm cha</div><small>CT-003</small></div><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-003" target="_self">Chi tiết →</a></div>
+      <div class="cf-derived-formula" aria-label="Bước cộng Tầng"><span>Bước</span><b>+</b><span>Tầng</span></div>
+      <p>Chuẩn dùng rộng · phần chi tiết để AI xử lý.</p>
+    </article>
+    <article class="cf-derived-card" id="formula-ct-004" aria-label="CT-004 · Nhóm con">
+      <div class="cf-derived-top"><div><div class="cf-derived-nick">Nhóm con</div><small>CT-004</small></div><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-004" target="_self">Chi tiết →</a></div>
+      <div class="cf-derived-formula" aria-label="Bước con cộng Tầng"><span>Bước con</span><b>+</b><span>Tầng</span></div>
+      <p>Chuẩn trong chuyên môn · phần chi tiết để AI xử lý.</p>
+    </article>
+    <article class="cf-derived-card" id="formula-ct-005" aria-label="CT-005 · List Quy trình">
+      <div class="cf-derived-top"><div><div class="cf-derived-nick">List Quy trình</div><small>CT-005</small></div><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-005" target="_self">Chi tiết →</a></div>
+      <div class="cf-derived-formula" aria-label="Bước cộng Tầng cộng Nhóm"><span>Bước</span><b>+</b><span>Tầng</span><b>+</b><span>Nhóm</span></div>
+      <p>Nhóm tạm tính đời ông; quá phức tạp thì tách thành quy trình độc lập sau.</p>
     </article>
   </div>
   <details class="cf-notation-rule">
