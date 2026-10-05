@@ -923,7 +923,8 @@
     el.addEventListener('click',()=>toggleRoot(el.dataset.formulaStep));
     el.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRoot(el.dataset.formulaStep)}});
   });
-  closeAll();
+  const initial=new URLSearchParams(location.search).get('formulaRoot');
+  if(/^[1-9]$/.test(initial||''))toggleRoot(initial);else closeAll();
 })();
 </script>
 <h3 id="cf-definitions">II. Định nghĩa <small style="font-weight:500;color:var(--mut)">· 27 danh mục hiện có · bản nháp để Owner góp ý</small></h3>
