@@ -123,7 +123,7 @@
 - **Onboard Agent Gateway mới:** ngoài profile + credential phải thêm **một dòng mapping riêng** vào bảng trên cho đúng nhãn server-side của agent đó trước khi agent bắt đầu ghi tự động. Không dùng wildcard `agent-gw/` chung vì mỗi agent phải hiện tên riêng trên Task View.
 
 - **A9-GLB · CHUẨN GIAO – LÀM – BÁO (DROOT40)** — Owner 03/10/2026: “giao việc thì phải giao chuẩn, thực hiện cũng phải thực hiện chuẩn, và báo cáo cũng phải theo chuẩn.” Việc giao cho máy thi hành chỉ đi một trong hai đường dưới đây, mỗi đường đúng ba nhịp; ngoài hai đường này không có cách giao nào khác.
-- **A9-GLB · HIỆU LỰC MÁY (cột Hermes): MỞ MỘT PHẦN từ 04/10/2026.** Máy đã cưỡng chế dạng lệnh (`work/hermes-joint-workspace` RUN-05: `CONTRACT_V1_PASS`): câu văn và dạng lệnh cũ không còn phát thẻ. Tới khi lượt cuối của việc đó PASS: (a) máy mới quét vùng máy của riêng `work/hermes-joint-workspace/COLLAB.md` — việc khác chưa giao Hermes qua repo được; (b) chỉ Host của việc được ghi lệnh (máy cưỡng chế từ lượt cuối, DROOT41); (c) mọi lệnh đều chờ Owner bấm. Host đổi dòng này thành MỞ ĐỦ khi lượt cuối PASS. Cột Claude Code có hiệu lực như cũ theo A6.
+- **A9-GLB · HIỆU LỰC MÁY (cột Hermes): MỞ ĐỦ · MANUAL từ 05/10/2026.** Máy cưỡng chế (`work/hermes-joint-workspace` RUN-05 + RUN-06): (a) quét vùng máy của mọi `work/*/COLLAB.md` đang mở, mỗi file một vùng; việc đã Done thì trơ; câu văn và dạng lệnh cũ không phát thẻ; (b) chỉ Host của việc được ghi lệnh (DROOT41); (c) mọi lệnh đều chờ Owner bấm — tự động chỉ Owner bật sau, theo loại việc. Cột Claude Code có hiệu lực như cũ theo A6.
 
 | Nhịp | Giao cho **Claude Code** (thi hành qua máy Owner) | Giao cho **Hermes** (tự chạy trên máy chủ) |
 |---|---|---|

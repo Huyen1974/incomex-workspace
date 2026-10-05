@@ -61,12 +61,13 @@
 - ✅ D31 UptimeEye bên ngoài VPS hoạt động; F01 chạy, Telegram DOWN/UP đã thử.
 - ✅ A9 đã làm rõ cơ bản `BÀN ≠ GIAO ≠ ĐƯỢC CHẠY`; Hermes P121 và Claude P123 đã review vòng thật.
 
-### 0.9 · CẦN ĐẠT TIẾP THEO
-1. **Chốt Level-State V0**: trạng thái tối thiểu của một mức thảo luận, quyền chuyển mức, decision record và exit rule.
-2. Chọn **một mức cụ thể** để biểu diễn/chạy thử bằng cơ chế V0; không làm tất cả mức cùng lúc.
-3. Sau khi một mức chạy ổn mới thiết kế **khung mức linh hoạt** để thêm/bỏ/đổi thứ tự dễ dàng.
-4. Sau đó mới thiết kế **delivery adapters**: API trực tiếp và courier cho phiên thuê bao/UI (Hermes-Mac/OpenAI DOT hoặc tương đương).
-5. Cuối cùng mới ghép policy **Cấp 1 vs Cấp 2** và lớp giám sát/cảnh báo chéo; Owner quyết loại task nào dùng cơ chế nào.
+### 0.9 · CẦN ĐẠT TIẾP THEO — ROADMAP ĐÃ CHỐT
+1. ✅ **CHỐT V0 về thiết kế**: kernel tối giản ở 0.15; chưa triển khai M1.
+2. **K1 · Cloud-first MCP/connectors**: kiểm kê read-only trước; chỉ dời/trỏ những đầu nối hội đồng có thể chạy cloud. Mac-only được giữ nếu có lý do kỹ thuật rõ.
+3. **K2 · OpenAI Dots**: nối theo đường chính thức tốt nhất; tách hai phép thử `repo access/identity/scope` và `external wake`. Không giả định có API đánh thức nếu hãng không hỗ trợ.
+4. **K3 · Hermes-Mac Courier**: làm phần còn thiếu sau K1/K2, độc lập Hermes-VPS; chỉ transport/session-control, không quyết định.
+5. **M1 · một mức duyệt thật**: triển khai kernel V0 trên đúng một mức `rà kết quả agent + duyệt prompt kế tiếp`, rồi mới quyết nối sang worker.
+6. Sau M1 mới mở dần: nhiều mức · Cấp 1/Cấp 2 · trust score · trace UI · AUTO, theo nhu cầu thật; không dựng trước.
 
 ### 0.10 · THẾ NÀO LÀ HOÀN THÀNH — *ĐỀ NGHỊ của Claude theo lời Owner 05/10 11:10 · ĐANG BÀN, chờ Host chốt, Host sửa tại chỗ*
 **Mục tiêu viết lại một câu:** xây một **hệ thống giao việc tự động, đáng tin cậy** cho Incomex, lớn dần từ những gì đã chạy thật; hệ thống tự nắm luật, sổ ghi, quyền chốt, phạm vi và giám sát — còn mọi AI/agent, kể cả agent điều hành thương mại (OpenAI Dots, Grok…), chỉ là bộ phận thay được, cắm vào qua cùng một chuẩn.
