@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D123 live PASS: mặc định chỉ nhìn Bản đồ gốc 1–9; bấm gốc mới mở đúng một panel đời con; con 22px vuông, giải thích nhạt hơn; rule ông/con/cháu vẫn cất ẩn để tái dùng.
-- NEXT: Owner rà cảm giác nhìn/click; nếu chốt thì áp cùng progressive-disclosure cho các công thức khác.
+- NOW: D124 thay click JS bằng native anchor + CSS `:target`; live kiểm mặc định đóng và `#formula-root-3` mở đúng 3.1–3.4. Không phụ thuộc sandbox JS nữa.
+- NEXT: Owner bấm lại trực tiếp 1–9 trên trang knowledge; nếu PASS thì giữ cơ chế này làm chuẩn progressive disclosure.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D123.
+- LAST_SYNC: D124.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
