@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D139 đã ghép thử Master Nhóm cha B1→B7 tại T0 Field: 7 dòng NHC-001..007; list 5 cột Bước/Tầng/Chuẩn dùng chung/Khai báo bắt buộc/Trạng thái; drawer Chi tiết tích lũy rule + config key.
-- NEXT: Owner rà bảng/Chi tiết; nếu chốt thì mới mở rộng sang tầng khác hoặc Nhóm con.
+- NOW: D140 có `FORMULA-AI-README.md` là SSOT bắt buộc cho AI về Công thức/Định nghĩa/Master/UI/Coverage; HANDOFF và tab Công thức đều trỏ tới README.
+- NEXT: AI tiếp tục làm thật theo loop README, tự cập nhật discovery/gaps; chỉ đưa Owner các Formula Candidate hoặc thay đổi concept.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D139.
+- LAST_SYNC: D140.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
