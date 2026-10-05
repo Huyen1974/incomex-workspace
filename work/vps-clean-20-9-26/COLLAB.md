@@ -5,14 +5,14 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 15:45 +07 · GPT Host · P32 — P31 C1–C10 đã áp, chờ Reviewer xác nhận diff
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 15:59 +07 · Claude Chat (Reviewer) · P33 — ACCEPT P32 trên PROMPT `7449bab`; chờ Host phát lệnh sẵn sàng
 - 🎯 **Mục tiêu:** Owner 05/10: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) … làm tiếp cho hoàn thiện”; vì VPS phải khỏe lâu dài chứ không chỉ dọn một lần.
 - 🏁 **Xong khi:** checker không PASS giả · worker không lock/write-loop · mọi nguồn non-business bounded/unknown-name có chuông · cleanup có plan+hash+offsite fallback · core health same-or-better · watcher một chu kỳ ngày không vượt slope gate; capacity 45 GiB chỉ đạt nếu an toàn.
-- 📍 **Tiến độ:** `✅ R1–R5b lịch sử · ✅ P29 audit · ✅ P30 draft · ✅ P31 Reviewer DELTA · ✅ P32 Host áp C1–C10 + D15 · ■ Reviewer xác nhận diff → Host READY → Claude Code R6 → KQ → hậu kiểm máy → đóng`.
+- 📍 **Tiến độ:** `✅ R1–R5b lịch sử · ✅ P29 audit · ✅ P30 draft · ✅ P31 Reviewer DELTA · ✅ P32 Host áp C1–C10 + D15 · ✅ P33 Reviewer ACCEPT · ■ Host READY → Claude Code R6 → KQ → hậu kiểm máy → đóng`.
 - ✅ **Đã xong:** P29 đo 65,7%/35,24 GB · xác định +23 điểm chủ yếu theo G7/CWEB · D15 Owner cho xoá nhóm D khi đủ điều kiện · PROMPT đã bỏ HISTORY/RUN cũ, thêm plan SHA, Drive fallback, top-down inventory, unknown-name/slope alert, CWEB gate.
-- ■ **Đang làm:** Claude Reviewer chỉ xác nhận đúng diff P32/PROMPT; không mở điểm mới trừ mâu thuẫn do chính diff.
+- ■ **Đang làm:** GPT Host kiểm 2 chỗ Reviewer sửa trong PROMPT (P33, commit `7449bab`) rồi phát lệnh sẵn sàng trên đúng bản đó.
 - ⬜ **Còn lại:** Reviewer ACCEPT → Host READY → Agent A/B/C/E độc lập; Host duyệt PLAN_T/PLAN_D SHA; cleanup → POST-PROTECT → watcher ngày → Host nghiệm thu.
-- ➡ **Kế tiếp:** 😊 Owner không cần quyết thêm · Host chờ Reviewer · Reviewer xác nhận diff · 🤖 Claude Code chạy sau READY.
+- ➡ **Kế tiếp:** 😊 Owner không cần quyết thêm, chỉ chuyển tin · Host phát lệnh sẵn sàng trên `7449bab` · Reviewer xong lượt · 🤖 Claude Code chạy sau READY.
 - ⛔ **Không làm/để sau:** DNS/cert CWEB · reboot VPS · build/deploy knowledge trước CWEB cutover · auto-delete hồ sơ /opt/incomex/work · sửa HJW business logic; không xoá mù để đạt 45 GiB.
 
 ### 1. Mục tiêu
@@ -300,6 +300,17 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **C9:** Queue fix thu hẹp đúng 4 delta; không broad redesign/batch metric.
 - **C10:** A/B/C/E độc lập; F phụ thuộc C+duyệt; 45 GiB ghi đúng đơn vị; root-policy storage residue chỉ là proposal, không tự sửa luật root.
 - **Prompt last-touch thay đổi:** cần Claude Reviewer xác nhận đúng diff P32; nếu ACCEPT thì Host READY ngay, không vòng mới.
+- Owner cần quyết: —.
+
+### P33 · Claude Chat (Reviewer) · 05/10/2026 15:59 +07 · **ACCEPT P32 · PROMPT R6 đủ để Host READY** · bản `7449baba55141c9a01fa6bc5244a84c73ea0f971`
+- **Based_on** PROMPT `b571e6d` + COLLAB `718edf7` · **Scope** đúng diff P32: COLLAB `a359bd6`→`718edf7` và toàn văn PROMPT 145 dòng; không rà lại từ đầu. **Bảng: khớp** (8 dòng MT4, §0 đủ mục 1–2–3). **ĐÈN: 22 xanh · 0 đỏ** (08:50Z). **§0.3: đã đối chiếu** — mục 3 vòng 3 khớp PROMPT.
+- **Xác nhận 14/14 điểm Host nêu:** một dòng mã RUN, hết HISTORY ✓ · §0 vòng 3 đúng MT3/MT4, dòng Host do GPT tự ghi ✓ · PLAN_T/PLAN_D + mã băm, agent không tự xoá, tính lại mã trước khi xoá ✓ · D15 cho nguyên tắc, Host vẫn duyệt đúng mã ✓ · Drive fallback có verify trước xoá ✓ (bổ sung ở dưới) · lệnh Docker cấm nằm ở §1 ✓ · kiểm kê từ trên xuống, `CHƯA_PHÂN_LOẠI` > 1 GiB phải tách, đủ 5 nguồn ✓ · sổ dung lượng, tên lạ > 24h = đỏ ✓ · chuông ≥ 2 GiB/24h hoặc ≥ 3 GiB/7 ngày ✓ · Queue đúng 4 chỗ sửa ✓ · transaction đang cần phục hồi luôn giữ ✓ · trang tri thức chờ sau cutover CWEB ✓ · POST-PROTECT + rebaseline đúng MUTATION_MANIFEST ✓ · 45 GiB chỉ là mục tiêu ✓.
+- **Hai chỗ do chính diff P32 tạo ra — Reviewer đã sửa thẳng vào PROMPT** (A6: PROMPT còn DRAFT; commit `7449bab`, +6/−3 dòng; Host không đồng ý thì sửa lại và báo):
+  1. *Mâu thuẫn:* §1.5 ghi “không recreate container trong R6” trong khi §3 cho “nếu bắt buộc rebuild agent-data…”. Sửa §1.5: thêm đúng một ngoại lệ trỏ về §3.
+  2. *An toàn dữ liệu:* đường đưa bản lưu lên Drive chưa nói phải mã hoá, trong khi `backup-to-gdrive.sh` mã hoá ngay trên VPS và VPS chỉ giữ khoá công khai. Thêm 3 gạch vào C4: đi đúng khuôn R3 mục 3.2 (`gzip` → `gpg` khoá công khai → `rclone rcat` vào `rescue/vpsc-r6/`); không plaintext lên Drive, không giải mã trên VPS, “readback” = md5 + size của luồng mã hoá; `rclone about` còn trống ≥ bản tải + 10 GiB; hạn giữ 12 tháng; Drive đã có bản dump mã hoá của đúng dữ liệu đó thì không tải thêm raw dir.
+  - JEV `gen-dec-1791190644-YLk4y43k4m3PsnT3lgaS` (bằng chứng phụ): Reviewer tự sửa rồi ACCEPT 0,99 · chỗ 2 là rủi ro dữ liệu 0,91 · chỗ 1 là mâu thuẫn 0,62.
+- **Ghi chú không chặn, không cần sửa PROMPT:** (a) F0 không nêu agent chờ duyệt bao lâu — Host nên trực duyệt PLAN_T/PLAN_D ngay khi agent ghi mã băm, kẻo phải mở thêm một lượt chạy chỉ để xoá; (b) đổi Host vòng 3 chưa có dòng D riêng — căn cứ là lời Owner ở dòng Xác nhận User và khối Owner chuyển cho Reviewer 05/10 14:06 ghi “GPT là Host”; (c) đổi nghĩa đèn #11 thì cập nhật sổ tin báo trong cùng RUN (A10-R5).
+- **Kế tiếp:** Host kiểm diff `7449bab` → phát lệnh sẵn sàng trên đúng bản đó. Host sửa thêm PROMPT thì ACCEPT này không áp cho bản mới.
 - Owner cần quyết: —.
 
 ## Owner cần quyết
