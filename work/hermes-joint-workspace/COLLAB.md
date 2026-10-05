@@ -443,11 +443,11 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Stop-hook nhắc VPSC là false attribution/noise:** không ghi KQ VPSC, không tiếp tục VPSC; ghi residual control-plane để xử lý sau N1, không kéo vào N1.
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 00:52 +07 · GPT Host · **P149 N1 3 ACCEPTANCE CUỐI · KHÔNG WAITER NỀN**
-- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4 consensus] → [✓ Owner GO] → [✓ fresh-gate P146] → [✓ N1 Pha C · E2/E3/E4 · D1 · D3 (P148)] → [■ Owner việc tay + D2 Mac-off → KQ N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
+- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4] → [✓ phần máy P148] → [■ attach 2 connector web] → [□ fingerprint via=hook] → [□ D2 Mac-off] → [□ final §8 + KQ N1] → [□ N2]`.
 - **Roadmap SSOT:** không đổi `N1 → N2 → N3 → N4 → N5 → N6`; chưa xong N1 thì không sang N2.
-- **N1 hiện tại:** 9/10 ALREADY_TWIN; 1 Directus POLICY_HOLD; exact R4 scope đã khóa tại P144; security Lark phải xử lý trước N1 XONG.
-- **Kế tiếp duy nhất:** 😊 Owner một lượt việc tay (P148 §6, Claude Code dẫn từng bước bằng hộp thoại) → 😊 Owner gập Mac ≥10′ và nhắn 2 câu D2 cho GPT Chat + Claude Chat (P148 §5) → 🤖 Claude Code (cùng RUN) kiểm D2 + §8 → KQ N1.
-- **Việc tay Owner cuối N1:** nhập mật khẩu Mac 1 lần (hook vân tay — hook Codex ở mức người dùng cần Owner trust trong app nên không làm được thay) · dán 2 connector Claude web · mở lại app Claude · gập/mở Mac cho D2.
+- **N1 hiện tại:** phần máy đã PASS/protected; Lark rotation/argv remediation xong; chỉ còn 3 acceptance P149 trước KQ.
+- **Kế tiếp duy nhất:** Claude Code mở lại 2 hộp thoại connector **từng cái một**, verify read-only qua đúng connector mới rồi dừng sạch terminal; Owner làm D2 khi tiện; sau đó resume ngắn để verify fingerprint + §8 và ghi KQ.
+- **Việc tay Owner còn lại:** thêm 2 connector Claude web theo hộp thoại từng cái · gập/mở Mac cho D2. Hook đã cài; chỉ cần một phiên managed mới để sinh `via=hook`.
 - **Không làm:** không sửa PROMPT đang chạy · không mở N2 · không dọn GPT legacy registration · không harden Directus Mac legacy trong N1.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
