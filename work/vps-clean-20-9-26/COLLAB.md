@@ -5,7 +5,7 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 14:58 +07 · Claude Chat (Reviewer) · P31 — R6 DRAFT: Reviewer trả DELTA, chờ Host sửa
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 15:34 +07 · Claude Chat (Reviewer) · D15 — Owner cho xoá hàng tồn nâng cấp; R6 DRAFT chờ Host sửa theo P31
 - 🎯 **Mục tiêu:** VPS khỏe, checker phản ánh đúng sự thật, không còn nguồn vận hành/tạm tăng dung lượng vô hạn; dọn phần chắc chắn an toàn nhưng không hy sinh rollback/bằng chứng cần thiết.
 - 📍 **Tiến độ:** `✅ R1–R5b lịch sử · ✅ P29 audit 05/10 · ✅ P30 R6 DRAFT · ✅ P31 Reviewer 1 vòng = DELTA · ■ Host sửa PROMPT + §0 theo P31 → Reviewer xác nhận đúng diff → Host READY → Claude Code 1 RUN → nghiệm thu/đóng`.
 - ✅ **Đã xác nhận:** current sample ~13:31 +07: disk 65,7% / trống ~35,24 GB; RAM khả dụng ~6,2 GB; container chính healthy; Agent Data/UI 200. P29 có bằng chứng worker SQLite lock/write amplification, checker SQL lỗi/PASS giả, knowledge payload ~3,2 MB + bot pressure, log/deploy/transaction chưa bounded.
@@ -14,7 +14,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đ�
 - 🌐 **Hiệu năng:** knowledge page phải bỏ tải full-tree ban đầu/có cache-versioned; không đổi quyền public/private khi chưa có căn cứ. 502/404 phải correlate theo log, không restart/tăng timeout để che.
 - ⛔ **Không làm trong R6:** DNS CWEB/cert cutover; reboot VPS; đổi Directus/PG schema bằng SQL tay; dọn active/rollback artifact; sửa HJW business logic ngoài nguyên nhân trực tiếp. DOT 100% cho runtime/data/config.
 - 🏁 **Xong khi:** checker không execution-error/PASS giả; worker không lock/restart và idle write giảm rõ; mọi non-business source bounded; safe cleanup đưa trống về **≥45 GB nếu có đủ dữ liệu an toàn để dọn** (không đạt vì protected bytes thì báo PARTIAL, không xóa mù); knowledge response giảm ≥60% bytes và không regression; core health/Guard/Telegram same-or-better.
-- ➡ **Kế tiếp:** GPT Host xử lý P31 (10 mục, có chữ đề xuất) trong một lượt sửa → Claude Reviewer xác nhận đúng diff đó, không mở điểm mới → Host READY. 😊 Owner: một câu gật/lắc về xoá đường lùi nâng cấp (P31·C1) — chưa trả lời thì phần đó giữ nguyên, phần khác vẫn chạy. Không mở task mới.
+- ➡ **Kế tiếp:** GPT Host xử lý P31 (10 mục, có chữ đề xuất) trong một lượt sửa → Claude Reviewer xác nhận đúng diff đó, không mở điểm mới → Host READY. 😊 Owner: đã gật 05/10 15:31 (D15) — không còn việc chờ Owner; làm tiếp ngay trong việc này, không mở lại `vps1-up-grade`, không mở task mới.
 - Owner cần quyết: —.
 
 ### Vòng trước · lịch sử
@@ -100,6 +100,7 @@ VPSC | Dọn đĩa VPS + khoá vòi rò | ĐÃ ĐÓNG 23/09 (vòng 2) | CLOSED �
 - Nguồn: `vps_status` resources/containers · `fs_list` gốc code · `query_pg`. Nghi phạm: `view.html` §2.
 
 ## Quyết định Owner
+- D15 · 2026-10-05 15:31 +07 · **Owner (nguyên văn, trả lời câu hỏi của Reviewer ở P31·C1):** “có không cần dùng thì bỏ đi.” · “Chúng ta coi việc này là nhiệm vụ nối dài của nâng cấp VPS hoặc task nào mà bạn đang edit => để thống nhất làm tiếp cho xong”. **Ghi nhận (Claude Reviewer ghi; Host kiểm và đưa vào §0.3 vòng 3):** (a) Owner cho phép xoá **nhóm D** của P31·C1 — thư mục dữ liệu PG16 cũ, hai thư mục PG18 hỏng, database `directus_gov_test_20260602` — kèm đúng điều kiện đã nêu khi hỏi: máy chứng minh bản sao lưu PG18 sau cutover khôi phục được, Host duyệt đúng danh sách theo mã băm, agent không tự quyết; không cần hỏi lại Owner cho nhóm này. (b) Làm tiếp **ngay trong `work/vps-clean-20-9-26`**: việc này được dọn hàng tồn do việc nâng cấp để lại; không mở lại `vps1-up-grade`, không mở việc mới. (c) Không suy rộng: hồ sơ dưới `/opt/incomex/work/` và mọi thứ ngoài danh sách Host đã duyệt vẫn giữ. JEV `gen-dec-1791189140-c3WSgLk6fCdBBCuFAnhx` (bằng chứng phụ): làm tiếp trong việc này 0,99 · lời Owner là cho phép xoá 0,90.
 - D01 · 2026-09-20 · Mở việc tại `work/vps-clean-20-9-26/`: đánh giá vì sao đĩa VPS đầy nhanh, đề xuất dọn phần không dùng để có chỗ cài Graph DB.
 - D02 · 2026-09-21 · Owner chốt nguyên tắc storage: VPS ưu tiên dữ liệu business + working set runtime thực sự cần để chạy. Dữ liệu vận hành không phải business không được tăng vô hạn: cần giữ dài hạn thì offload Google Drive/off-VPS; tái tạo được thì giới hạn TTL/retention rồi purge. `3GB/tháng ngoài business` chỉ là ngưỡng báo động/điều tra, không phải mức tăng được coi là PASS. Owner giao nhóm kỹ thuật tự quyết chi tiết.
 - D03 · 2026-09-21 · Owner: giao Claude Code CLI chạy R1, sau đó chuyển **Codex giám sát** — Codex là bên thẩm tra độc lập ở VPSC.3 (PASS/REVISE/BLOCK từng nhóm). Để giữ độc lập: GPT (bên thẩm tra) soạn đề bài cho Codex bằng cách sửa chính `PROMPT.md` sau khi R1 xong, Claude review; Codex chỉ đọc, không mutation.
@@ -272,7 +273,7 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 
 **E · Kế tiếp**
 - Host: xử lý C1–C10 trong một lượt (PROMPT đổi ⇒ mã commit mới) → Reviewer xác nhận đúng diff → Host phát lệnh sẵn sàng.
-- Owner: một câu gật/lắc cho nhóm D ở C1 — Reviewer đã hỏi trực tiếp 05/10, đề xuất **gật**; chưa có trả lời thì nhóm D giữ nguyên và kết quả ghi PARTIAL về dung lượng.
+- Owner: một câu gật/lắc cho nhóm D ở C1 — Reviewer đã hỏi trực tiếp 05/10, đề xuất **gật**; chưa có trả lời thì nhóm D giữ nguyên và kết quả ghi PARTIAL về dung lượng. **→ Owner đã gật 05/10 15:31, xem D15.**
 
 ## Owner cần quyết
 - —
