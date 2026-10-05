@@ -4,15 +4,15 @@ Tên việc: Graph Server — Business × JEV × Code
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D06: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, tiêu chí công cụ bền vững thực dụng (MIT không bắt buộc — D06); Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 02:55 +07 · GPT Host · P18 — RUN-1 READY, chờ Claude STARTED
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 03:12 +07 · Claude Code CLI · RUN-1 STARTED — đang chạy
 - 🎯 **Mục tiêu — Owner nguyên văn 24/09, giữ thứ tự ưu tiên (đầy đủ ở §0.1):** (1) “Tạo ra các mối quan hệ về Graph đối với business (khi các mối quan hệ là hữu hạn, chứ không phải quan hệ vô hạn kiểu mạng xã hội.” · (2) “Kết hợp tốt nhất với Jev để đảm bảo Graph truyền thống và Jev bổ sung tốt nhất cho nhau…” · (3) “Định hướng ứng dụng các skill, frame chính thức của Jev…” · (4) “Tự Dựng lại mối quan hệ về về code để các Agent/ AI có thể hiểu nhanh hơn khi hệ thống phức tạp lên.” **Vì sao:** thông tin không SQL hoá được (chăm sóc khách, trao đổi, quy trình còn loay hoay, code) phải nối được thành quan hệ có nguồn để người và agent quyết nhanh hơn.
 - 🎯 **Owner 05/10 (D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.”
 - 🏁 **Xong khi (GPT + Claude thống nhất theo D10; lấy từ GATE01):** trial hai lượt đạt trên máy chủ — hỏi “khách/ứng viên này liên quan gì, nên làm gì tiếp” ra câu trả lời có nguồn · loại quan hệ mới được đề xuất → duyệt → dùng lại mà không trích lại toàn bộ · JEV do máy tự gọi · đọc được quan hệ của một mẫu code · tắt Cognee vẫn đọc/xuất/khôi phục được graph ⇒ Owner xem kết quả và quyết cài thật.
 - 📍 **Tiến độ:** `✅ Chốt kế hoạch · ✅ Khóa baseline/roadmap · ✅ PROMPT READY · ■ RUN-1 hạ tầng · ⬜ RUN-2 dữ liệu đã che + JEV · ⬜ Owner xem kết quả, quyết production`
 - ✅ **Đã xong:** PLAN01/VER01 consensus 100% · P17 khóa Cognee 1.6.1, baseline model RUN-2, trần RAM/đĩa/tiền và roadmap GS-RM1 · PROMPT RUN-1 commit `27274667812007a134d9dc4509d9e2854b69a7d2`.
-- ■ **Đang làm:** chờ Claude Code nhận RUN và ghi STARTED; executor tự fresh-check N1/server busy, resource/security gates rồi tự làm tối đa, không hỏi Owner chi tiết kỹ thuật.
+- ■ **Đang làm:** 🤖 Claude Code CLI chạy RUN `GS-RUN1-INFRA-20261006-01` (STARTED 2026-10-05T20:11Z): N1 release gate → PRE chỉ-đọc → cài trial loopback → test T19/K1/persist/K4/restore/T18; không chờ Owner.
 - ⬜ **Còn lại (đúng thứ tự):** RUN-1 KQ → Host nghiệm thu → chốt dữ liệu được ra ngoài/trần tiền RUN-2 → PROMPT/READY/RUN-2 → nghiệm thu → Owner xem kết quả.
-- ➡ **Kế tiếp:** 😊 Owner: dán đúng một dòng RUN rồi có thể đi ngủ · 🤖 Claude Code: chạy đúng PROMPT READY, không chờ nền; unsafe/out-of-scope thì KQ DỪNG sạch. RUN-2 chưa được phép.
+- ➡ **Kế tiếp:** 😊 Owner: không cần làm gì · 🤖 Claude Code: ghi `KQ@GS-RUN1-INFRA-20261006-01` · Host GPT: nghiệm thu bằng evidence VPS. RUN-2 chưa được phép.
 - ⛔ **Không làm / để sau (không chặn):** cài thật (production) · ngưỡng xác suất tự động · Cognee MCP/UI, Graphiti, GDS, Hindsight · chạm PostgreSQL/Directus/Qdrant đang chạy · chờ Hermes · đổi phiên bản khi không có lý do (Cognee giữ 1.6.1 dù đã có 1.6.2).
 
 ### 1. Mục tiêu
@@ -86,6 +86,7 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
+STARTED@GS-RUN1-INFRA-20261006-01 2026-10-05T20:11:00Z · executor=Claude Code CLI · read-gate PASS: Write_Path `workspace_*` root workspace HEAD `270c8a6` đọc được; PROMPT last-touch `27274667812007a134d9dc4509d9e2854b69a7d2` = `READY@` dòng hiện hành/P18; 0 STARTED/KQ/STOP_REQUESTED/HOLD mới cho RUN này; đã đọc AGENTS → Bảng+§0 → PROMPT → view §16 → root COLLAB (HJW/GS) → HJW P151–P155 (N1 10/12, còn D2 + §8.12; VPSC đã đóng `32b15d0`). Runtime path SSH `contabo` (vmi3080463) đọc được.
 GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fresh-check N1 server mutation/busy; chỉ còn D2/final human test thì được giải phóng hold, còn mutation thật thì KQ DỪNG | NEXT: RUN `GS-RUN1-INFRA-20261006-01` → Claude tự hành động tối đa | OWNER VIEW CHECK DỪNG (AUTH).
 - Hậu kiểm GS14: nội dung PLAN01 + P12 đã push tại `d5fcb553d54c29f1ab989f73c15e8bcbdd86eaaf`; diff chỉ hai file của graph-server (52 dòng thêm, 29 dòng bỏ), không có PROMPT/file mới/runtime. Đọc lại phạm vi thay đổi; `ui_inspect` URL chuẩn trả shell 200 nhưng Directus 401/Login, chưa xác nhận revision Owner View; không mở đường xem phụ. Hermes có thể review repo nếu profile của phiên đó cấp đọc/ghi đúng path; không coi việc Host ghi được là bằng chứng Hermes ghi được.
 - Hậu kiểm GS12: commit `5badbdd9e9104ed4b25b19917c530b5519b64090` đã push; diff chỉ hai file của task (113 dòng thêm, 53 dòng bỏ). Rà hai file: các câu áp mốc 75/85 đã bỏ, chỉ còn ví dụ nguyên văn hoặc câu đính chính/lịch sử. `ui_inspect` đúng URL Owner View chuẩn trả shell 200 nhưng Directus 401/Login, chưa xác nhận được revision hiển thị; không mở đường xem phụ. Repo có PLAN01/VER01 để hội đồng review, không có RUN.
