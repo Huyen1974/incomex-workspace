@@ -1,22 +1,80 @@
 # COLLAB — Hermes Joint Workspace
 
-> **04/10 · trạng thái sau RUN-05:** Contract V1 **PASS kỹ thuật**, nhưng kênh AI→Hermes **chưa mở đại trà** cho tới khi cưỡng chế thêm DROOT41: chỉ **Host hiện hành của task** mới có quyền phát assignment worker. Nút Owner vẫn là `approval_mode=manual` tạm thời. Owner nhắn Hermes trực tiếp vẫn dùng như hiện tại.
+> **SSOT mục tiêu hiện hành · Owner 05/10/2026:** nền giao việc Hermes đã PASS; từ đây HJW chuyển sang xây **khung điều hành AI nhiều mức** theo kiểu bottom-up. Lịch sử quyết định cũ giữ ở các mục P phía dưới để đối chiếu, không dùng làm mục tiêu hiện hành.
 
-## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: **ĐÃ XÁC NHẬN — Owner 24/09/2026**: (1) **Có** — mở RUN mới, có review, để vá lỗi authentication Agent Data và đồng thời tạo đường ghi hẹp; (2) **Hermes chỉ là agent đầu tiên** — Agent Data phải trở thành kênh chung để các agent hiện tại/tương lai (Claude Code, agent tự tạo...) tương tác với GitHub/workspace và bắt đầu được sử dụng dần. **Bổ sung Owner 02/10/2026:** kiểm lại lỗi Hermes thực tế `session.create/cwd_explicit`, đồng thời rà phần mới và đưa thiếu hụt vào bảo vệ Điều 30/31; không mở task mới. **Bổ sung Owner 02/10/2026 14:59:** Hermes phải nhận việc được qua **cả hai kênh** (Owner giao trực tiếp + AI giao qua repo); xử lý việc “server báo đỏ hàng loạt nhưng agent vẫn báo mọi thứ ok”; đưa hết phần mới làm vào khung bảo vệ Điều 30/31. **Làm rõ Owner 02/10/2026 15:30:** Hermes runtime/backend **chỉ chạy trên VPS**; bản/app trên MacBook chỉ là **màn hình/thin client** nối thẳng tới Hermes trên VPS, không có backend Hermes thứ hai trên Mac. Vì vậy D1 phải kiểm **client/protocol/schema phía Mac ↔ backend duy nhất trên VPS**, không được chẩn đoán theo mô hình “Hermes Mac ↔ Hermes VPS” như hai runtime độc lập. **Bổ sung Owner 02/10/2026 ~19:40:** sau khi triển khai/thay đổi xong, nếu mọi đèn vẫn xanh thì hệ thống vẫn phải **chủ động báo Telegram một biên nhận hậu triển khai**; không được im lặng chỉ vì không có state transition. Không restart dịch vụ hàng loạt chỉ để ép alert; test receipt riêng. **Lượt 20:05:** Owner giao GPT lựa chọn phương án sau ý kiến Claude P80; Host **ĐỒNG Ý** thêm positive heartbeat 08:00 mỗi sáng bằng Guard/cron hiện hữu: trạng thái đèn + số phiên AI hôm qua/cảnh báo thiếu hook hoặc ngoài sổ; không bot/timer mới. **Lượt 21:50:** Owner chuyển nguyên đề xuất P88 cho GPT và giữ dòng 3 ⇒ đồng ý thứ tự `vá D30 → G7 → external dead-man D31 → đóng HJW` và **gật dùng dịch vụ canh miễn phí ngoài VPS** sau G7. **Owner 03/10 ~20:50 (nguyên văn mục tiêu Hermes):** “Giờ bạn soạn 1 prompt để claude code giao việc cho hermes => qua con người xác nhận => hermes chạy tiếp. Nhiệm vụ là: hermes tự kiểm tra toàn bộ phần kết nối và tham gia vào việc này. Báo cáo tình trạng kết nối và sẵn sàng tham gia nhiệm vụ trên repo. Sau đó bạn kiểm tra xem báo cáo thế nào và báo cáo lại tôi? => lúc đó bạn tổng hợp lại các vấn đề và sửa 1 thể.”
+## 0. MỤC TIÊU HIỆN HÀNH — SSOT · BẮT BUỘC ĐỌC TRƯỚC
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 10:55 +07 · GPT Host · P124 LEVEL-STATE V0 ĐANG BÀN
-- 🎯 Mục tiêu dài hạn: **Owner đặt mục tiêu → hội đồng AI thảo luận/review → Host chốt/phát assignment → worker thi hành → Reviewer nghiệm thu → Host đóng**; quyền kỹ thuật không tạo quyền điều hành.
-- 🏁 HJW chỉ đóng khi: D30/#22 sạch · Contract V1 + Host-authority cưỡng chế · scanner active-task vẫn sống sau khi HJW Done · live scope-deny proof · D31 external dead-man · legacy handoff xử lý · một lệnh thật do chính Host giao chạy trọn vòng · 22/22 xanh · không residual blocker.
-- 📍 Tiến độ: `[✓ nền giao việc Hermes + RUN-06/D31/P117] → [✓ §8 Host thật giao · Hermes báo · Claude P123 ACCEPT] → [■ P124: bàn Level-State V0 cho từng mức thảo luận] → [□ Host CHỐT V0 hoặc SỬA/BÀN LẠI] → [□ sau đó mới làm bước kế tiếp; không thiết kế cả hệ thống một lần]`.
-- ✅ Đã xong: RUN-05 `CONTRACT_V1_PASS` · fixture 27/27 + live R PASS · P99 READY · Telegram full lifecycle · Config Guard CLEAN · rollback · D30 4× PRE/POST 0 GitHub · 22/22 xanh.
-- ✅ GPT **đồng thuận 6 chỉnh P101**, với một chốt enforcement: Host-stamp phải tồn tại ở revision trước assignment; Host-stamp + ASSIGN cùng commit = reject. Executor RUN-06 không được sửa dòng `Host:`. Đổi Host vẫn theo A2/Owner, không xây cơ chế mới.
-- ■ Đang làm: **P124 LEVEL-STATE V0 = DRAFT/ĐANG BÀN, inert**. Nền HJW hiện tại đã PASS; Owner yêu cầu trước khi đóng khóa thêm lớp trạng thái cho từng mức thảo luận để sau này mở rộng nhiều agent/transport mà không nhầm `bàn · chốt · giao · chạy`. Chưa sửa runtime/schema/UI.
-- ⬜ RUN-06 đúng 7 việc: (1) Host-only issuer; (2) scanner `work/*/COLLAB.md`; (3) `ws-handoff-watch` retire hoặc pending-reminder theo Owner; (4) live scope-deny 0 model + post-result write-set verifier; (5) D31 external dead-man; (6) sửa wording p02; (7) Điều30/31 + receipt + rollback. Sau RUN: Host tự stamp + tự giao assignment nghiệm thu §8.
-- ➡ Kế tiếp: 🤖 Claude rà đúng **một lớp P124**: state của một mức thảo luận + quyền chuyển mức + tách quyết định khỏi transport. Sau phản biện, 🤖 Host chỉ chọn `CHỐT V0` hoặc `SỬA/BÀN LẠI`. **Chưa** thiết kế/triển khai Hermes-Mac courier, UI tổng, engine nhiều cấp hay AUTO.
-- ⛔ AUTO ngoài phạm vi: `AUTO_ALLOWLIST` phải giữ rỗng. Không dựng mode/công tắc mới; chỉ Owner bật tự động sau này theo loại việc.
-- 🟢 ĐÈN (Claude Chat tự đọc `bang-den.json` 05/10 10:20 +07, sau lượt Hermes): **22 xanh · 0 đỏ** · sổ 71 loại · 69 chạy · 0 hỏng · 2 U · ngoài sổ 0 · C10 nghỉ theo lời Owner · F01 = chạy · Guard `UP OK all invariants` (có INV19) · Config Guard CLEAN.
-- ⏳ **ĐANG CHỜ 😊 OWNER từ 09:45 +07 05/10 (Claude Chat hỏi, DROOT42d) — không chặn máy:** một câu gật/lắc — sáng nay Owner có tự thấy hai tin của UptimeEye trong Telegram (báo sập, rồi báo đã hồi) không (P118, DROOT34c). Chưa trả lời thì máy vẫn chạy tiếp tới KQ; câu này chỉ cần có trước CLOSE. *(Việc 08:45 — dán khối cho Claude Code — đã xong: executor chạy tiếp từ ~09:25.)* Sau KQ XONG: 🤖 Host GPT đóng dấu dòng `Host:` rồi giao lệnh §8 → 😊 Owner bấm đúng một thẻ. *(Việc 05:20 — tạo tài khoản UptimeEye — đã xong 07:42.)* *(Ghi cũ — đã hết hiệu lực: cổng VPS1 rảnh, executor tự chạy tiếp lúc 22:03Z, không cần Owner dán câu.)* ~~**ĐANG CHỜ 😊 OWNER từ 19:07 +07 (Claude Chat hỏi, ghi ngay lúc hỏi theo DROOT42d):** cổng rảnh từ 18:24, đã quá 15′ lặng kể cả tính từ commit 18:36 của việc CWEB; tới 19:05 executor **không có commit, không có file mới trong hồ sơ** (mốc cuối 16:31), Guard đang chạy vẫn `13c07551…` ⇒ phiên Claude Code đứng yên (phiên đối thoại không tự thức). Việc duy nhất của Owner: dán một câu “cổng đã rảnh, tiếp tục RUN-06, làm liền một mạch tới KQ, phải chờ thì tự chờ trong cùng lượt”. Owner chưa dán thì máy chủ vẫn an toàn (0 thay đổi). ACCEPT P110. JEV `gen-dec-1791115433-K6hr6fqw6Ux2F9E2tZUU`: phiên đứng yên 0,86 · JEV nghiêng “chờ thêm 15′ rồi mới hỏi” 0,67 (độ tin 0,34) — em hỏi ngay vì câu dán vô hại nếu máy đang sống, còn chờ thì 86% là mất thêm thời gian.~~
+### 0.1 · Đích tổng
+- Xây **một hệ điều hành điều phối AI của Incomex** có thể dùng chung cho cả việc đơn giản và việc phức tạp; cùng một lõi trạng thái, quyền quyết định, giao việc, báo cáo, giám sát và cảnh báo.
+- Giảm tối đa thao tác của Owner nhưng không làm mờ quyền quyết định: AI được tự làm trong phạm vi đã được giao; điểm chuyển mức phải có người/AI có quyền chốt rõ ràng.
+- Hệ thống phải làm được nhiều hơn một workflow thương mại đơn lẻ: ngoài điều hành còn có **AI khác giám sát/phản biện/cảnh báo** để giảm sai lầm của agent điều hành.
+
+### 0.2 · Một lần thảo luận/chốt = một chu kỳ chuẩn
+- Mỗi **mức thảo luận** là một chu kỳ riêng: `ĐƯA VẤN ĐỀ → CÁC THÀNH VIÊN NÊU Ý KIẾN/PHẢN BIỆN → ĐỦ ĐIỀU KIỆN CHỐT → CHỜ HOST CHỐT → HOST QUYẾT ĐỊNH`.
+- Thông thường hội đồng trao đổi 2–3 vòng theo A5; “đồng thuận” là đã xử lý đủ các phản biện trọng yếu, không bắt buộc hình thức tất cả cùng nói “yes”. Còn vênh trọng yếu sau vòng cuối ⇒ chuyển Owner quyết.
+- **Host là decider mặc định**: chỉ Host (hoặc người được Owner chỉ định cho loại mức đó) được quyết `ĐI TIẾP · SỬA/BÀN LẠI · HOLD · CHUYỂN OWNER`.
+- `ĐANG BÀN` không phải `ĐÃ CHỐT`; `ĐÃ CHỐT` cũng chưa đồng nghĩa worker đã chạy. Chuyển mức và chạy worker là hai hành vi khác nhau.
+
+### 0.3 · Khung mức/trạng thái phải linh hoạt
+- Các mức dự kiến có thể gồm: **duyệt mục tiêu + tiêu chí hoàn thành → duyệt roadmap → duyệt prompt đầu tiên → duyệt báo cáo từng lượt agent + prompt tiếp theo**.
+- Đây **không phải danh sách hard-code**. Sau này Owner có thể thêm, bỏ, đổi thứ tự hoặc gộp mức mà không phải sửa lõi điều phối.
+- Mỗi mức dùng cùng một kernel thảo luận/chốt nhưng có `exit rule` riêng: khi nào đủ ý kiến, ai được chốt, điều kiện nào bắt buộc chuyển Owner.
+- Khung trạng thái chi tiết sẽ thiết kế sau; hiện chỉ khóa nguyên tắc để các bước sau không đi cụt.
+
+### 0.4 · Tách quyền quyết định khỏi vai trò giao việc
+- **Host/Decider:** xem ý kiến hội đồng và quyết có chuyển mức/ra lệnh hay không.
+- **Dispatcher/Courier:** chỉ chuyển đúng quyết định/lệnh đã có tới worker và chuyển phản hồi về; **không tự quyết, không sửa nội dung, không tự nâng trạng thái**.
+- Hai vai trò là **độc lập về quyền**, dù trong một cấu hình cụ thể cùng một AI có thể kiêm cả hai.
+- Sau khi Host chốt `ĐI TIẾP`:
+  - worker có API ⇒ hệ thống có thể giao/chạy qua API; hiện còn cổng MANUAL của Owner, sau này chỉ Owner mới bật AUTO cho từng loại việc đã nghiệm thu;
+  - worker chỉ có gói thuê bao/UI ⇒ dùng **liên lạc viên** tương lai (ví dụ Hermes-Mac hoặc một agent điều hành như OpenAI DOT) để đưa yêu cầu vào đúng phiên và mang kết quả về. Transport không thay Host.
+
+### 0.5 · Hai cấp độ điều hành trong CÙNG một hệ thống
+**Cấp 1 · Việc đơn giản / một AI điều hành**
+- Có thể dùng workflow thương mại tiêu chuẩn hoặc agent điều hành mạnh (trước mắt ví dụ OpenAI DOT; sau này có thể thay/đổi theo năng lực sản phẩm).
+- Agent điều hành có thể tự xử lý chuỗi nội bộ và có thể kiêm luôn vai trò liên lạc viên.
+- Vẫn nằm trong hệ thống Incomex: có log/state chung và có thể có AI khác giám sát/cảnh báo khi phát hiện lệch.
+- Owner quyết loại task nào đủ đơn giản để giao cho một agent; phạm vi này có thể mở rộng khi DOT/agent thương mại tiến bộ.
+
+**Cấp 2 · Việc khó / hội đồng AI**
+- Một AI đọc một lượt có thể sai ⇒ dùng nhiều AI góp ý/phản biện để huy động trí tuệ tập thể.
+- Hội đồng không thay quyền Host: hội đồng tạo bằng chứng/ý kiến; Host disposition và quyết chuyển mức; worker thi hành; Reviewer nghiệm thu; Host đóng.
+- Mục tiêu là giảm xác suất quyết định sai của người điều hành mà không biến hệ thống thành bỏ phiếu đa số.
+
+### 0.6 · Yêu cầu kiến trúc chung
+- **Thiết kế một lõi chung đủ cho cả Cấp 1 và Cấp 2**, để sau này chỉ đổi policy/routing: task nào chạy một agent, task nào cần hội đồng.
+- Khi agent điều hành thương mại tiến bộ, Owner có thể chuyển thêm loại task từ Cấp 2 → Cấp 1 mà không thay hệ thống nền.
+- Ngược lại, một task Cấp 1 vẫn có thể được AI khác giám sát và phát cảnh báo; ví dụ một reviewer như Claude có thể theo dõi một DOT đang điều hành và báo khi thấy rủi ro.
+- Decision plane phải độc lập với delivery plane để hỗ trợ cả API trực tiếp và courier/UI về sau.
+
+### 0.7 · Cách xây
+- **Kiến trúc phải nhìn đủ xa để không đi cụt, nhưng triển khai từng bước từ dưới lên.**
+- Không làm một bản thiết kế khổng lồ rồi mới chạy. Mỗi lượt chỉ khóa một lớp nhỏ, chạy/đo/review, rồi Host mới quyết đi bước tiếp theo.
+- Bước hiện tại: **Level-State V0** cho một mức thảo luận. Chưa thiết kế/triển khai Hermes-Mac courier, UI tổng, engine nhiều mức hay AUTO.
+
+### 0.8 · ĐÃ ĐẠT — chỉ xác nhận ngắn
+- ✅ Agent Gateway + Contract V1 cho Hermes: giao/nhận/báo chuẩn, prose không thành lệnh.
+- ✅ Chỉ Host hợp lệ được phát assignment; Host-stamp và assignment tách commit, machine identity kiểm phía server.
+- ✅ Lifecycle thật đã chạy đủ: Host giao → Owner duyệt → machine claim/BẮT ĐẦU → Hermes làm → RESULT/KẾT QUẢ → Reviewer nghiệm thu.
+- ✅ Scope deny + changed-path verifier + scanner mọi task đang mở; legacy handoff đã retire.
+- ✅ Điều 30/31 + INV19 + rollback/receipt + Config/Protection Guard; 22/22 xanh, AUTO_ALLOWLIST rỗng.
+- ✅ D31 UptimeEye bên ngoài VPS hoạt động; F01 chạy, Telegram DOWN/UP đã thử.
+- ✅ A9 đã làm rõ cơ bản `BÀN ≠ GIAO ≠ ĐƯỢC CHẠY`; Hermes P121 và Claude P123 đã review vòng thật.
+
+### 0.9 · CẦN ĐẠT TIẾP THEO
+1. **Chốt Level-State V0**: trạng thái tối thiểu của một mức thảo luận, quyền chuyển mức, decision record và exit rule.
+2. Chọn **một mức cụ thể** để biểu diễn/chạy thử bằng cơ chế V0; không làm tất cả mức cùng lúc.
+3. Sau khi một mức chạy ổn mới thiết kế **khung mức linh hoạt** để thêm/bỏ/đổi thứ tự dễ dàng.
+4. Sau đó mới thiết kế **delivery adapters**: API trực tiếp và courier cho phiên thuê bao/UI (Hermes-Mac/OpenAI DOT hoặc tương đương).
+5. Cuối cùng mới ghép policy **Cấp 1 vs Cấp 2** và lớp giám sát/cảnh báo chéo; Owner quyết loại task nào dùng cơ chế nào.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 · GPT Host · SSOT MỤC TIÊU MỚI
+- **Trạng thái hiện tại:** `P124 · Level-State V0 = ĐANG BÀN / INERT`.
+- **Nền đã PASS:** Hermes gateway/Contract V1 · Host authority · lifecycle thật §8 · D30/D31/P117 protection · D31 external watch · Claude P123 ACCEPT.
+- **Đang bàn duy nhất:** kernel của **một mức thảo luận** — state tối thiểu, exit rule, quyền Host/Owner chuyển mức, tách decision khỏi delivery.
+- **Kế tiếp:** Claude phản biện P124 đúng một vòng → Host quyết `CHỐT V0` hoặc `SỬA/BÀN LẠI`.
+- **Chưa làm ở bước này:** Hermes-Mac courier · UI tổng · engine nhiều mức · routing Cấp 1/Cấp 2 · AUTO.
+- **An toàn hiện hành:** 22/22 xanh · sổ 71 loại/69 chạy/0 hỏng/2 U · ngoài sổ 0 · AUTO_ALLOWLIST rỗng · Config/Protection Guard CLEAN.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
