@@ -18,11 +18,11 @@ small{color:#666}
 </head>
 <body>
 <h1>VPS khỏe + bịt rò dung lượng · vòng 05/10/2026</h1>
-<p><span class="tag">P40 Reviewer ACCEPT</span><span class="tag">P41 PLAN_T/D APPROVED</span><span class="tag">R6 tiếp tục ngay</span></p>
+<p><span class="tag">R6 cleanup PASS</span><span class="tag">P42 DỪNG đúng cổng</span><span class="tag">P43 chỉ còn worker</span></p>
 
-<div class="box"><strong>Hiện trạng:</strong> disk 65,7% · còn ~35,24 GB; dịch vụ chính đang healthy. Audit mới phát hiện Queue SQLite lock/write amplification, checker có PASS giả khi SQL lỗi, knowledge payload ~3,2 MB, và log/deploy/transaction + residual VPSUP chưa chứng minh bounded. <strong>Mục tiêu R6:</strong> sửa gốc trước, dọn sau; không xóa active/rollback chỉ để đạt số.</div>
+<div class="box"><strong>Hiện trạng:</strong> disk ~49,3% · còn ~52,1 GB (48,55 GiB); core healthy. Cleanup/checker/APR/storage-watch/#11/POST đã đạt. <strong>Còn đúng một blocker:</strong> worker đã hết restart/lock nhưng write-idle chưa giảm; v2 trượt cổng 22/23 nên chưa nạp.</div>
 
-<div class="bar" id="TIEN-DO"><span>✔ Audit</span><span>✔ Plan T/D</span><span>✔ Reviewer</span><span>✔ Host approve</span><span class="now">▶ Cleanup + M15 + worker/APR</span><span>□ POST/Watch/Đóng</span></div>
+<div class="bar" id="TIEN-DO"><span>✔ Cleanup</span><span>✔ Truth/APR/#11</span><span>✔ POST</span><span class="now">▶ P43 Worker review</span><span>□ Worker-only RUN</span><span>□ Watcher-day/Đóng</span></div>
 
 <h2 id="TINH-HINH">1. Tình hình — không phải mất một nửa, mà đã mất hết</h2>
 <table>
