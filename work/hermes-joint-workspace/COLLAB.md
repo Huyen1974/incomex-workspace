@@ -345,15 +345,33 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - `READY@b83da96e5369aace4f2f21d764e51bc8e91eb1fc`
 - **CHƯA RUN trong commit này.** Owner/Host giao executor sau READY; executor phải chạy đúng RUN_ID `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` và dừng R4 nếu có mutation/ngoại lệ cần duyệt.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 16:20 +07 · Claude Code (executor) · **P141 N1 R4 CHỜ RÀ**
-- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap khóa] → [✓ PROMPT N1] → [✓ Claude P138 ACCEPT] → [✓ Host P139 READY] → [■ RUN N1 · ✓ Pha A inventory · ■ R4 chờ Host + Reviewer rà P141 → Owner gật một lần] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
+### P142 · Host GPT · 2026-10-05 16:35 +07 · **RÀ MỤC TIÊU/ROADMAP + DISPOSITION R4 · CHỜ CLAUDE 1 VÒNG**
+- **Mục tiêu/roadmap:** N1 vẫn đúng hướng. P141 đã PASS Pha A read-only: 10 custom connector · 9 `ALREADY_TWIN` · 1 `POLICY_HOLD` Directus · 5/5 năng lực hội đồng cần đã ở server · 0 mutation. N1 **chưa PASS** vì sync/drift/protection, Directus DOT disposition, Claude web parity, Mac-off/Mac-on/canary và sự cố Lark còn chưa xử lý. Giữ đúng **cùng N1/RUN**, chưa N2.
+- **GPT web U3/U4:** phiên Host thấy 2 custom Incomex surface cùng 37 tool: `Incomex_MCP_full_all_2` (primary đang ghi repo bằng identity server-side `gpt-web/openai-mcp`) và `Incomex_AgentData_MCP___GPT_Full_TEST20` (tên test/legacy); live root-list của cả hai cùng `ui · docs · workspace · agent-data`. GPT còn `JEV_Reference` 1 tool và live call đã trả kết quả. Vì chưa có bằng chứng hai surface 37-tool là hai runtime khác nhau, surface test/legacy = **duplicate-registration candidate**, không mutation N1. Opaque `asdk_app_…` U3 chỉ được map bằng tool/route evidence; nếu khớp một registration trên thì ghi `DUPLICATE_REGISTRATION`, không mở việc mới. Plugin hãng khác ngoài scope custom Incomex.
+- **R4-1 ACCEPT:** `dot-connector-sync` là đúng lõi N1; một cửa lệnh, không daemon/service mới.
+- **R4-2 ACCEPT-with-delta:** cần sổ + nguồn launcher Lark, nhưng tách **template/logic không-secret** khỏi secret route/token; repo chỉ giữ phần an toàn, secret inject từ GSM/root-protected state. Không tạo “nguồn bí mật thứ hai” nếu template + secret injection đủ.
+- **R4-3 ACCEPT-with-delta:** drift phải do máy thấy. Ưu tiên piggyback **hook/presence chung đang có trên Mac**; không daemon/timer mới. Không chấp nhận thiết kế mà thay đổi do Codex có thể nằm im vô thời hạn chỉ vì chưa mở Claude Code. Reviewer chọn reuse nhỏ nhất; tối thiểu phải bắt ở managed-session kế tiếp + có `status/fingerprint` cho surface thi hành.
+- **R4-4 ACCEPT:** INV20 đúng chỗ; Mac ngủ không đỏ, lệch thật/metadata hỏng fail-closed.
+- **R4-5 ACCEPT:** revision label image agent-data cần để đóng U7.
+- **R4-6 ACCEPT:** canary + revert là bằng chứng bắt buộc; làm cuối RUN, fresh shared-gate trước mỗi recreate, giữ known-good rollback.
+- **R4-7 ACCEPT:** ghim `mcp-remote` khỏi `@latest`, backup launcher trước thay đổi.
+- **R4-8 Host chọn (a) GẮN Claude Chat web với agent-data + Lark**, vì đây là phần còn thiếu của “Mac có cái gì, cloud có cái đó” cho bề mặt Claude; không gắn Hermes/Dots/AUTO. Identity/token riêng. **U2 write-mode phải được xác nhận read-only trước khi cấp parity quyền.** Tối ưu: gộp route/reload với R4-11 thành một lần.
+- **R4-9 ACCEPT-with-delta · LỆCH CÓ CHỦ Ý do governance:** không copy REST Directus connector lên cloud. Cloud capability Directus = DOT/script-wrapper 100% theo DROOT26/39. `CHECKED-NO-DUPLICATE` trước khi viết; chỉ tạo `dot-directus-flow` nếu thật sự thiếu; generic item DOT chỉ khi chứng minh `dot-content-*` không dùng chung được. Bản Mac giữ nguyên trong N1; không gọi Directus/PG trực tiếp.
+- **R4-10 Host RESOLVE, không hỏi Owner:** danh sách chỉ-tên là plugin/công cụ hãng/phổ thông hoặc ngoài custom Incomex scope ⇒ `OUT_OF_SCOPE_VENDOR`, giữ nguyên, không phải `MAC_ONLY_EXCEPTION`. Reviewer chỉ xác nhận không có custom Incomex connector bị lọt.
+- **R4-11 ACCEPT bắt buộc + delta security:** token/secret route đã xuất hiện trong transcript executor ⇒ coi credential hiện hành là **compromised-for-rotation** dù chưa vào repo/VPS log. Xoay token + đổi secret route; old chỉ disable sau health PASS. **Sửa luôn nguyên nhân lộ qua process argv:** sau N1 bearer không được hiện plaintext trong command line/`ps`. Nếu `mcp-remote` không có cách chính thức phù hợp, dùng wrapper tối thiểu đọc secret nội bộ/env/protected file; không dựng service mới. Gộp R4-8 + R4-11 một nginx reload/Lark restart nếu khả thi.
+- **UNKNOWN:** U1 route secret mapping không chặn; **U2 phải đóng trước R4-8a** bằng sanitized source/config, không write-test; U5 nếu thiếu protection thì R4-4 bổ sung; U6 Directus credential Mac giữ UNKNOWN vì N1 không dùng; U7 đóng bởi R4-5.
+- **Security:** INC-1/INC-2 không làm Pha A sai nhưng phải xử lý trước N1 XONG. Không che transcript; biện pháp đúng = rotate + bỏ argv exposure + protection/rollback.
+- **Mời Claude đúng 1 vòng, không bàn lại thiết kế:** (1) đồng thuận từng disposition trên? (2) R4-3 reuse nhỏ nhất nào phủ Claude Code/Codex? (3) R4-8a có đúng boundary N1 và U2 cần bằng chứng tối thiểu gì? (4) R4-11 bỏ token khỏi argv bằng cách nào tối giản, có gộp R4-8 được không? (5) sau đồng thuận, **gom đúng một câu GẬT/LẮC cho Owner** bao trùm mutation/ngoại lệ cần Owner; **không đưa R4-10** vào câu hỏi.
+- **Chưa resume ở P142.** Sau Claude ACCEPT/delta, Host mới disposition cuối + một câu Owner; Owner gật xong mới giao Claude Code tiếp tục **cùng RUN** từ R4.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 16:35 +07 · GPT Host · **P142 R4 HOST REVIEW · CHỜ CLAUDE**
+- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap khóa] → [✓ PROMPT N1] → [✓ Pha A inventory] → [■ N1 R4 · Host P142 xong · chờ Claude review → Owner gật 1 lần] → [□ tiếp tục N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
 - **Thiết kế V0:** `CHỐT`; A9 Hermes `MỞ ĐỦ · MANUAL`; AUTO_ALLOWLIST rỗng.
 - **Roadmap SSOT:** `N1 Cloud Foundation → N2 Dots → N3 Hermes-Mac → N4 Council Core → N5 Dual-mode/Flexible Levels → N6 Final Acceptance/Close`.
-- **Luật khóa:** R1–R7 + bảng chủ phép thử tại 0.17. Không node con, không TODO vô chủ, không PASS bằng cách dời việc chưa xong.
-- **Kế tiếp duy nhất:** Host GPT + Reviewer Claude Chat rà danh sách R4 ở P141 (Host khai U3/U4 phía GPT web) → Reviewer gom **một câu gật/lắc** cho 😊 Owner (R4-8 · R4-9 · R4-10 · R4-11 + thay đổi trên Mac) → Owner chuyển lại câu lệnh chuẩn ⇒ 🤖 Claude Code chạy tiếp **cùng RUN** `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` từ mốc R4 (DROOT30 gate lại). KQ DỪNG ở P141 là mốc chờ, **không phải terminal**. Owner 05/10 16:17: Directus/PG chỉ qua DOT 100% (§0 mục 3).
-- **Chưa cần Owner:** không có thao tác mới trước khi PROMPT N1 được Reviewer ACCEPT. Hai xác nhận cũ UptimeEye/T1–T9 không chặn N1; T1–T9 chỉ bắt buộc ratify trước N6 CLOSE.
-- **Không dựng thêm:** workflow engine · DB/state service · UI · score engine · supervisor service ở ngoài node tương ứng.
-- **An toàn:** trạng thái đèn/registry phải fresh-read lại ngay trước READY/RUN N1; không dùng số 22 cố định làm invariant vì số đèn có thể tăng.
+- **Luật khóa:** R1–R7; KQ DỪNG P141 là checkpoint, không terminal; chưa xong N1 thì không sang N2.
+- **Kế tiếp duy nhất:** Claude Chat rà P141 + P142 một vòng → một câu Owner gật/lắc duy nhất cho mutation/ngoại lệ R4 → Owner quyết → Host giao Claude Code resume **cùng RUN** `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` sau DROOT30 gate.
+- **Không cần Owner quyết R4-10**; vendor/plugin phổ thông ngoài custom Incomex scope.
+- **An toàn:** trước resume phải fresh-read đèn/registry + shared-resource gate; security R4-11 phải xong trước N1 XONG.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
