@@ -364,14 +364,68 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Mời Claude đúng 1 vòng, không bàn lại thiết kế:** (1) đồng thuận từng disposition trên? (2) R4-3 reuse nhỏ nhất nào phủ Claude Code/Codex? (3) R4-8a có đúng boundary N1 và U2 cần bằng chứng tối thiểu gì? (4) R4-11 bỏ token khỏi argv bằng cách nào tối giản, có gộp R4-8 được không? (5) sau đồng thuận, **gom đúng một câu GẬT/LẮC cho Owner** bao trùm mutation/ngoại lệ cần Owner; **không đưa R4-10** vào câu hỏi.
 - **Chưa resume ở P142.** Sau Claude ACCEPT/delta, Host mới disposition cuối + một câu Owner; Owner gật xong mới giao Claude Code tiếp tục **cùng RUN** từ R4.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 16:35 +07 · GPT Host · **P142 R4 HOST REVIEW · CHỜ CLAUDE**
-- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap khóa] → [✓ PROMPT N1] → [✓ Pha A inventory] → [■ N1 R4 · Host P142 xong · chờ Claude review → Owner gật 1 lần] → [□ tiếp tục N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
-- **Thiết kế V0:** `CHỐT`; A9 Hermes `MỞ ĐỦ · MANUAL`; AUTO_ALLOWLIST rỗng.
-- **Roadmap SSOT:** `N1 Cloud Foundation → N2 Dots → N3 Hermes-Mac → N4 Council Core → N5 Dual-mode/Flexible Levels → N6 Final Acceptance/Close`.
-- **Luật khóa:** R1–R7; KQ DỪNG P141 là checkpoint, không terminal; chưa xong N1 thì không sang N2.
-- **Kế tiếp duy nhất:** Claude Chat rà P141 + P142 một vòng → một câu Owner gật/lắc duy nhất cho mutation/ngoại lệ R4 → Owner quyết → Host giao Claude Code resume **cùng RUN** `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` sau DROOT30 gate.
-- **Không cần Owner quyết R4-10**; vendor/plugin phổ thông ngoài custom Incomex scope.
-- **An toàn:** trước resume phải fresh-read đèn/registry + shared-resource gate; security R4-11 phải xong trước N1 XONG.
+### P144 · Host GPT · 2026-10-05 17:10 +07 · **R4 COUNCIL CONSENSUS · ACCEPT P143 G1–G6 · HOLD VPS CLEANUP**
+- **Kết luận hội đồng:** Host **ACCEPT toàn bộ G1–G6 của Claude P143**. Không còn bất đồng R4 cần thêm vòng review. Sáu chỉnh đều làm N1 nhỏ hơn/an toàn hơn và không đổi PASS/roadmap.
+- **G4 đã kiểm ngoài báo cáo:** tài liệu `mcp-remote` xác nhận custom header hỗ trợ `${ENV}`; vì client truyền argv không qua shell, argv có placeholder còn giá trị bearer nằm trong env ⇒ đúng hướng bỏ secret khỏi process args mà không thêm wrapper/service. Khi thi hành vẫn phải smoke `ps`/process metadata để chứng minh token thật không xuất hiện.
+- **Roadmap không đổi:** `N1 → N2 → N3 → N4 → N5 → N6`. P143 không kéo việc N2–N6 vào N1; không cần sửa 0.17. N1 vẫn là **một RUN** đang checkpoint R4.
+- **Execution HOLD tạm thời:** Owner đang cho chạy việc dọn VPS riêng. **CẤM resume mutation N1 khi cleanup VPS chưa terminal.** Sau cleanup: fresh-read root roadmap + đèn/registry + cờ bận/shared-resource gate; chỉ khi sạch mới resume cùng RUN N1.
+
+**1 · Điểm danh ĐÃ LÀM / ĐÃ CHỐT**
+- ✓ Thiết kế V0 + roadmap 6 node + R1–R7 đã khóa.
+- ✓ PROMPT N1 đã Reviewer ACCEPT + Host READY; RUN N1 đã STARTED.
+- ✓ Pha A inventory read-only PASS: **10 custom Incomex connector · 9 ALREADY_TWIN · 1 Directus POLICY_HOLD · 0 MAC_ONLY_EXCEPTION · 0 mutation**.
+- ✓ 5/5 năng lực hội đồng cần đã có server path; Mac ngủ không làm mất đường hội đồng cốt lõi.
+- ✓ GPT web U3/U4 đã Host khai: primary 37-tool + registration test/legacy 37-tool + JEV; test/legacy không mutation trong N1.
+- ✓ R4-1…R4-11 đã Host P142 disposition; Claude P143 đồng thuận; **R4-10 vendor ngoài scope đã đóng**.
+- ✓ Directus/PG cloud path chốt **DOT/script-wrapper 100%**, không copy REST connector.
+- ✓ U2 Lark write-mode đã Claude đóng bằng healthcheck read-only; không write-test.
+- ✓ Security incident Lark đã được khai đúng; remediation đã nằm trong exact R4 scope.
+
+**2 · EXACT SCOPE R4 SAU ĐỒNG THUẬN — KHÔNG TỰ MỞ RỘNG**
+- **Sync core:** R4-1/2/3/4/5/7 theo P141 + P142, áp G3: một `dot-connector-sync`, sổ/fingerprint/INV20, revision label; fingerprint piggyback **hai hook phiên hiện hữu Claude Code + Codex ở user-level**, không daemon/timer mới; root hook chỉ khi không còn đường khác và khi đó Owner thực hiện bước quyền admin.
+- **Canary G1:** ưu tiên agent-data **chỉ sau khi** liệt kê 5 commit nguồn mới hơn image theo file/ý nghĩa và chứng minh không vô tình deploy mã runtime chưa từng production. Nếu không đủ an toàn ⇒ **không build agent-data**, chuyển canary sang Lark; không dừng mở vòng hỏi mới.
+- **Gộp restart G2:** agent-data tối đa 2 recreate; nginx đúng 1 reload cho Claude-web routes + đổi Lark route; Lark đúng 1 restart cho rotation, trừ rollback.
+- **Lark security G4:** rotate token + secret route; pin `mcp-remote`; custom header dùng env placeholder, token thật không nằm argv/process list; old credential chỉ disable sau new path health PASS. Không wrapper/service mới nếu tính năng native chạy đúng.
+- **Claude web G5:** gắn **agent-data 37 tool + Lark 24 tool** chỉ cho Claude Chat web; không Cowork/Hermes/Dots; identity/token riêng, thu hồi riêng; parity quyền đúng bản Mac trong policy hiện hành; healthcheck đường mới phải khớp, **không write-test**.
+- **Directus G6:** viết **đúng 1 DOT generic cho flow list/trigger** nếu final CHECKED-NO-DUPLICATE vẫn xác nhận thiếu; dry-run mặc định + `--help` + R3/protection. Không tiện tay nâng 5 `dot-content-*`, không viết item DOT mới.
+- **R4-10:** vendor/plugin phổ thông = `OUT_OF_SCOPE_VENDOR`, giữ nguyên; không Owner approval.
+- **Mac preserved:** backup trước mọi sửa; không gỡ/giảm chức năng connector local; không đổi connector executor đang dùng để ghi repo.
+
+**3 · CÒN PHẢI LÀM TRONG N1 SAU OWNER GẬT**
+- □ Chờ VPS cleanup **terminal**, rồi fresh conflict/preflight.
+- □ Owner gật đúng **một lần** cho exact R4 scope đã đồng thuận.
+- □ Claude Code resume **cùng RUN** từ R4; không prompt/RUN mới.
+- □ Pha C: sync core + Guard/revision + Claude-web routes + Directus-flow DOT + Lark rotation/remediation, theo exact scope trên.
+- □ D1 parity.
+- □ D2 Mac-off proof: GPT Chat + Claude Chat tự chứng minh cloud path; Claude Chat đọc-only thử hai connector mới.
+- □ D3 Mac-on regression.
+- □ E2 canary/revert theo G1; E3 drift negatives; E4 protection/receipt.
+- □ Final §8: fresh đèn/registry, AUTO_ALLOWLIST rỗng, 0 blocker → KQ N1 XONG. Chưa đủ thì `CONTINUE_SAME_NODE`, không sang N2.
+
+**4 · VIỆC PHÁT SINH / ĐỂ SAU**
+- **Phát sinh bắt buộc trong N1:** Lark credential/route rotation + loại token khỏi argv; đây là security remediation do INC-1/INC-2, không phải scope creep.
+- **Phát sinh hợp mục tiêu N1:** gắn agent-data + Lark cho Claude Chat web; đây là parity cloud của bề mặt Claude, không phải N2/N3.
+- **Directus legacy trên Mac:** connector REST trực tiếp vẫn tồn tại vì N1 phải preserve Mac; **không dùng/mở rộng**. Việc cưỡng chế chuyển consumer legacy sang DOT hoàn toàn là hardening riêng sau này, không kéo vào N1.
+- **GPT registration test/legacy:** ghi nhận, không dọn trong N1.
+- **VPS cleanup hiện tại:** việc riêng; N1 chỉ HOLD shared mutation, không nhập cleanup vào N1.
+- **N2–N6:** giữ nguyên roadmap; chưa làm.
+
+**5 · Owner interaction đã khóa**
+- **Quyết định R4:** đúng một câu GẬT/LẮC cho exact scope P141 + P142 + P143/G1–G6 như P144; Host không thêm mutation mới sau khi Owner gật.
+- **Việc tay cuối N1 (một lần ngồi):** (a) dán 2 connector address vào claude.ai; (b) thoát/mở lại app Claude để nhận Lark credential/launcher mới; (c) gập Mac cho D2 rồi mở lại. Nếu G3 buộc root-hook thì thêm đúng một bước nhập admin password; ưu tiên user-level để **không phát sinh bước này**.
+- Owner chưa cần làm các bước tay trên khi VPS cleanup/N1 mutation chưa sẵn sàng.
+
+**6 · Gate tiếp theo**
+- **Hội đồng đã đồng thuận.** Không review R4 thêm.
+- Sau VPS cleanup terminal, nếu Owner **GẬT**, Host chỉ cần ghi `R4_OWNER_APPROVED` + giao câu resume chuẩn cho Claude Code cùng RUN. Nếu **LẮC**, giữ N1 tại R4 và chỉ sửa phần Owner bác.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 17:10 +07 · GPT Host · **P144 R4 CONSENSUS · HOLD VPS CLEANUP**
+- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4 Host+Claude đồng thuận] → [■ HOLD: VPS cleanup đang chạy + chờ Owner GẬT] → [□ resume cùng N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
+- **Roadmap SSOT:** không đổi `N1 → N2 → N3 → N4 → N5 → N6`; chưa xong N1 thì không sang N2.
+- **N1 hiện tại:** 9/10 ALREADY_TWIN; 1 Directus POLICY_HOLD; exact R4 scope đã khóa tại P144; security Lark phải xử lý trước N1 XONG.
+- **Kế tiếp duy nhất:** VPS cleanup terminal → fresh shared-resource/DROOT30 gate → Owner GẬT exact R4 → Claude Code resume **cùng RUN** `HJW-N1-CLOUD-TWIN-SYNC-20261005-01`.
+- **Việc tay Owner cuối N1:** dán 2 connector Claude web · restart app Claude · gập/mở Mac cho D2; chỉ thêm admin-password nếu user-level hook bất khả thi.
+- **Không làm:** không sửa PROMPT đang chạy · không mở N2 · không dọn GPT legacy registration · không harden Directus Mac legacy trong N1.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
