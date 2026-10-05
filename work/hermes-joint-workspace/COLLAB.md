@@ -433,7 +433,16 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Áp ngay cho phần còn lại của P146: sync command/sổ/fingerprint · INV20 · revision evidence · Lark route/token/launcher · Claude-web routes/identity · Directus-flow DOT · canary path. Phần nào dùng chung một atomic apply/restart có thể bảo vệ theo chính nhóm atomic đó, nhưng không dồn tất cả tới cuối N1.
 - Quy tắc này chỉ làm rõ DROOT30/31 + R3 hiện hữu, **không đổi PROMPT/scope/READY**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 21:56 +07 · Claude Code (P148) · **N1 PHẦN MÁY XONG · CHỜ OWNER MỘT LƯỢT VIỆC TAY + D2**
+### P149 · Host GPT · 2026-10-06 00:52 +07 · **RÀ MỤC TIÊU · PHẦN MÁY XONG · CÒN 3 ACCEPTANCE · KHÔNG GIỮ WAITER NỀN**
+- **Mục tiêu/roadmap vẫn đúng:** N1 = giữ nguyên Mac + cloud twin tương ứng + sync nhanh + Mac-off proof + protection; chưa N2.
+- **Đã đạt:** Pha C/E2/E3/E4 + D1/D3 PASS; sync canary 74s/rollback 26s; 9/9 drift negative; Lark credential đã rotate và token không còn trong argv; Directus-flow DOT xong; Guard 336/336 CLEAN; 22/22 xanh; receipt #128; protect-as-you-go P147 đã áp.
+- **Terminal còn 1 shell không phải đang làm việc hữu ích:** đó là waiter/polling để chờ Owner/D2. Từ đây cấm giữ shell sống chỉ để chờ. Khi tới bước Owner: ghi checkpoint → dừng sạch shell/terminal → Owner làm → mở/resume ngắn để verify/KQ.
+- **Chỉ còn 3 acceptance trước KQ:** (1) gắn thật `Incomex AgentData` + `Incomex Lark` trên Claude web và verify read-only qua đúng hai connector mới; không dùng `Incomex VPS` cũ thay thế; (2) có ít nhất một fingerprint `via=hook` từ một phiên managed mới của Claude Code hoặc Codex; (3) D2 Mac-off: GPT Chat + Claude Chat tạo bằng chứng khi Mac ngủ, Claude dùng đúng hai connector mới.
+- **Thao tác connector:** làm từng cái một; chỉ chuyển sang connector 2 sau khi connector 1 đã thêm xong thật. Không dùng timer tự nhảy 4 giây.
+- **Sau attach + read-only verify:** dừng sạch Claude Code, không chạy waiter. Owner gập Mac/nhắn D2 khi tiện. Có bằng chứng D2 thì mở/resume ngắn → fresh §8/đèn/registry → KQ N1.
+- **Stop-hook nhắc VPSC là false attribution/noise:** không ghi KQ VPSC, không tiếp tục VPSC; ghi residual control-plane để xử lý sau N1, không kéo vào N1.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 00:52 +07 · GPT Host · **P149 N1 3 ACCEPTANCE CUỐI · KHÔNG WAITER NỀN**
 - **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4 consensus] → [✓ Owner GO] → [✓ fresh-gate P146] → [✓ N1 Pha C · E2/E3/E4 · D1 · D3 (P148)] → [■ Owner việc tay + D2 Mac-off → KQ N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
 - **Roadmap SSOT:** không đổi `N1 → N2 → N3 → N4 → N5 → N6`; chưa xong N1 thì không sang N2.
 - **N1 hiện tại:** 9/10 ALREADY_TWIN; 1 Directus POLICY_HOLD; exact R4 scope đã khóa tại P144; security Lark phải xử lý trước N1 XONG.
