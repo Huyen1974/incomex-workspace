@@ -61,13 +61,15 @@
 - ✅ D31 UptimeEye bên ngoài VPS hoạt động; F01 chạy, Telegram DOWN/UP đã thử.
 - ✅ A9 đã làm rõ cơ bản `BÀN ≠ GIAO ≠ ĐƯỢC CHẠY`; Hermes P121 và Claude P123 đã review vòng thật.
 
-### 0.9 · CẦN ĐẠT TIẾP THEO — ROADMAP ĐÃ CHỐT
-1. ✅ **CHỐT V0 về thiết kế**: kernel tối giản ở 0.15; chưa triển khai M1.
-2. **K1 · Cloud-first MCP/connectors**: kiểm kê read-only trước; chỉ dời/trỏ những đầu nối hội đồng có thể chạy cloud. Mac-only được giữ nếu có lý do kỹ thuật rõ.
-3. **K2 · OpenAI Dots**: nối theo đường chính thức tốt nhất; tách hai phép thử `repo access/identity/scope` và `external wake`. Không giả định có API đánh thức nếu hãng không hỗ trợ.
-4. **K3 · Hermes-Mac Courier**: làm phần còn thiếu sau K1/K2, độc lập Hermes-VPS; chỉ transport/session-control, không quyết định.
-5. **M1 · một mức duyệt thật**: triển khai kernel V0 trên đúng một mức `rà kết quả agent + duyệt prompt kế tiếp`, rồi mới quyết nối sang worker.
-6. Sau M1 mới mở dần: nhiều mức · Cấp 1/Cấp 2 · trust score · trace UI · AUTO, theo nhu cầu thật; không dựng trước.
+### 0.9 · ROADMAP THỰC THI — 6 NODE LỚN, MỖI NODE 1 PROMPT/1 RUN
+1. **N1 = K1 · CLOUD CONNECTOR FOUNDATION** — kiểm kê + phân loại + repoint/move toàn bộ connector hội đồng đủ điều kiện + nghiệm thu Mac-off + protection trong **một RUN**.
+2. **N2 = K2 · OPENAI DOTS INTEGRATION** — thử/triển khai đường chính thức tốt nhất cho repo identity/scope và external wake; residual thật sự do giới hạn hãng được hội đồng chuyển N3.
+3. **N3 = K3 · HERMES-MAC COURIER CUTOVER** — xử lý toàn bộ residual transport/session còn cần Mac sau N1/N2; chạy một vòng GPT↔Claude (và Dot nếu cần) mà Owner không copy-paste.
+4. **N4 = M1 · COUNCIL CORE V1** — triển khai V0 thật trên mức `rà kết quả agent + duyệt prompt kế tiếp`, có opinion/decision/bell + nối sang đường GIAO hiện hữu và chạy trọn một vòng thật.
+5. **N5 = M2 · FLEX POLICY + DUAL MODE** — cùng lõi chạy được nhiều mức cấu hình và cả Cấp 1 một AI / Cấp 2 hội đồng; đổi agent/cấp/mức bằng policy, không sửa code lõi.
+6. **N6 = F1 · FINAL ACCEPTANCE + HARDEN + CLOSE** — chạy T1–T9, đưa mọi phần mới vào Điều 30/31, rollback/watchdog/trace tối thiểu, 22/22 xanh, 0 blocker rồi CLOSE.
+
+**Nguyên tắc node:** PRE/checkpoint/negative test là **pha nội bộ**, không phải node/prompt riêng. Việc chưa xong phải `CONTINUE_SAME_NODE`; chỉ được `MOVE_TO:Nx` khi Host + Reviewer cùng ghi rõ residual đó thuộc tự nhiên node sau và không làm sai acceptance của node hiện tại. Không có TODO vô chủ giữa hai node.
 
 ### 0.10 · THẾ NÀO LÀ HOÀN THÀNH — *ĐỀ NGHỊ của Claude theo lời Owner 05/10 11:10 · ĐANG BÀN, chờ Host chốt, Host sửa tại chỗ*
 **Mục tiêu viết lại một câu:** xây một **hệ thống giao việc tự động, đáng tin cậy** cho Incomex, lớn dần từ những gì đã chạy thật; hệ thống tự nắm luật, sổ ghi, quyền chốt, phạm vi và giám sát — còn mọi AI/agent, kể cả agent điều hành thương mại (OpenAI Dots, Grok…), chỉ là bộ phận thay được, cắm vào qua cùng một chuẩn.
@@ -233,11 +235,60 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 
 **CẤM trong PRE:** tạo service/cổng/token mới; sửa config Claude/GPT/Mac/VPS; copy secret; restart; migrate; rebaseline Guard. PRE chỉ đọc và ghi báo cáo repo. Claude Reviewer chỉ rà bảng/đề xuất; sau ACCEPT Host mới soạn RUN mutation K1.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 · GPT Host · P131 CHỐT V0 · K1-PRE KẾ TIẾP
+### 0.17 · QUY TẮC THỰC THI ROADMAP KIỂU G7 — SSOT
+- **Một node = một PROMPT được review + một RUN_ID + một KQ canon.** Bên trong được có nhiều pha/gate nhưng không tách prompt nhỏ chỉ vì cần đo PRE, chờ health hay nghiệm thu.
+- **Nếu bị ngắt/crash/chờ Owner/external:** resume **cùng node/RUN** từ bằng chứng repo; không mở node mới để tiếp tục việc cũ.
+- **Chỉ đổi generation/prompt trong cùng node** khi hội đồng sửa scope/acceptance vật chất; vẫn là node đó, review lại bản mới.
+- **Gate chuyển node:** Reviewer ACCEPT + Host PASS/CLOSE node; mọi mục trong scope hoặc đã XONG, hoặc có `MOVE_TO:<node>` kèm lý do + owner của residual + vì sao không làm giảm acceptance hiện tại.
+- **Không được dồn nợ kỹ thuật mơ hồ:** residual do lỗi/chưa làm xong của chính node thì ở lại node; chỉ residual thuộc bản chất node sau mới được chuyển.
+- **Mỗi node phải đủ lớn để tạo năng lực dùng được**, tương tự G7: không coi inventory, smoke, migration, protection hay acceptance là các dự án riêng nếu chúng phục vụ cùng một mục tiêu node.
+
+#### N1 · K1 · CLOUD CONNECTOR FOUNDATION — 1 PROMPT
+- **Pha A · PRE read-only:** dùng nguyên K1-PRE đã Claude P132 rà (S1–S3): inventory an toàn, 8 ô, không endpoint/secret/IP/user-path, không phép ghi thử.
+- **Pha B · quyết định trong RUN:** xếp `KEEP_CLOUD / REPOINT / MOVE / MAC_ONLY`; chỉ hành động khi bằng chứng đủ. Không dựng gateway mới.
+- **Pha C · thực thi:** repoint toàn bộ server-equivalent; move các connector council-critical cloudable còn lại bằng cách reuse nhỏ nhất; MAC_ONLY giữ nguyên có lý do.
+- **Pha D · nghiệm thu:** Mac ngủ/tắt → GPT Chat + Claude Chat vẫn đọc/ghi repo bằng identity riêng và đọc bằng chứng server; tool/schema cần cho hội đồng đủ; ngoài scope bị chặn.
+- **Pha E · bảo vệ:** D30/31/Guard/rollback/receipt.
+- **PASS N1:** `0 council-critical cloudable connector phụ thuộc Mac`; mọi ngoại lệ MAC_ONLY có lý do + health/Guard. Không tách K1-PRE thành RUN riêng.
+
+#### N2 · K2 · OPENAI DOTS INTEGRATION — 1 PROMPT
+- **Mục tiêu:** cắm Dot như một agent thay được, chưa giao điều hành production.
+- **Trong cùng RUN:** thử theo bậc chính thức → repo access/identity/scope → external wake → negative scope → protection.
+- **Kết quả hợp lệ có hai loại:** `DIRECT_PASS` (access + wake đều chạy) hoặc `COURIER_REQUIRED` khi đường chính thức đã đo đủ nhưng hãng không cho external wake/access phù hợp; trường hợp hai được Host+Reviewer chuyển residual cụ thể sang N3, không code lách UI trong N2.
+- **Không được PASS N2 kiểu mơ hồ:** phải biết chính xác Dot vào hệ theo identity/transport nào và phần nào còn cần courier.
+
+#### N3 · K3 · HERMES-MAC COURIER CUTOVER — 1 PROMPT
+- **Phạm vi:** chỉ residual sau N1/N2; phần direct đã chạy thì không làm lại.
+- **Kiến trúc tối giản:** Mac luôn gọi ra/pull queue từ server; credential/identity riêng; không cần IP tĩnh/inbound port; không dùng chung consumer bot với Hermes-VPS.
+- **Trong cùng RUN:** inventory residual → chọn control path chính thức/browser/desktop tốt nhất → cài bản nhỏ nhất → map session → relay/gọi lượt → provenance → retry/idempotency → heartbeat khi có thư chờ → D30/31.
+- **PASS N3:** ít nhất một vòng GPT↔Claude thật không cần Owner copy-paste; nếu Dot còn residual thì đi qua cùng cơ chế; Mac ngủ/tắt không mất/nhân đôi thư và chỉ cảnh báo khi có work pending quá hạn.
+
+#### N4 · M1 · COUNCIL CORE V1 — 1 PROMPT
+- **Trong cùng RUN:** thêm `TASK_POLICY_V1(required_members)` + `FLOW_EVENT_V1`; scanner suy state; chạy **một mức thật** `rà kết quả agent + duyệt prompt kế tiếp` với GPT/Claude; Host chốt; dùng đường GIAO hiện hữu (`ASSIGN_V1/READY`) để worker chạy; reviewer nghiệm thu.
+- **Negative bắt buộc:** Host chốt sớm → decision vô hiệu + Telegram; AI bấm bell semantic → HOLD → Owner resolve; content_ref đổi → opinion cũ không còn hiệu lực.
+- **PASS N4:** một vòng thật `bàn → chốt → giao → chạy → báo → nghiệm thu` chạy trọn, Owner không chuyển tin thủ công; chỉ approval MANUAL hiện hành nếu policy còn yêu cầu.
+
+#### N5 · M2 · FLEX POLICY + DUAL MODE — 1 PROMPT
+- **Mục tiêu:** biến N4 từ một mức hard-code thành cùng một lõi cấu hình được.
+- **Trong cùng RUN:** thêm/bớt/đổi thứ tự mức bằng policy; Cấp 2 hội đồng; Cấp 1 một AI điều hành cho loại việc an toàn; giám sát/bell độc lập; đổi agent bằng policy; không UI mới nếu file/table đủ dùng.
+- **PASS N5:** một task Cấp 2 + một task Cấp 1 chạy thật; đổi một agent, đổi cấp, thêm/bớt một mức chỉ bằng policy và đều chạy lại PASS.
+
+#### N6 · F1 · FINAL ACCEPTANCE + HARDEN + CLOSE — 1 PROMPT
+- **Chạy trọn T1–T9** trên các case an toàn/đã chọn; không dùng mock thay live proof nơi T yêu cầu thật.
+- Bổ sung đúng phần còn thiếu để T1–T9 đạt, không mở tính năng trang trí; trace có thể sinh trực tiếp từ event log, không bắt UI riêng.
+- Đưa toàn bộ N1–N5 vào Config/Protection Guard + mutants/negative proof + rollback/watchdog/receipts; final 22/22 xanh, sổ sạch, AUTO chỉ mở đúng loại Owner đã duyệt.
+- **PASS N6:** không residual blocker; mọi residual không cần cho mục tiêu được disposition rõ; Host + Reviewer FINAL ACCEPT → CLOSE HJW.
+
+### P133 · Host GPT · 2026-10-05 14:20 +07 · **CHỐT ROADMAP 6 NODE LỚN · K1-PRE GỘP VÀO N1**
+- **ACCEPT P132 S1–S3.** Bản K1-PRE đã rà trở thành Pha A của N1, không chạy như một prompt/node độc lập.
+- **Lý do đổi roadmap:** tránh điều hành vi mô và mất trọng tâm. Mỗi prompt phải tạo một năng lực hoàn chỉnh; checkpoint chỉ là nội bộ như G7.
+- **Quy tắc residual:** chưa xong vì lỗi của node ⇒ tiếp tục cùng node. Chỉ chuyển node khi residual thực chất thuộc node sau và có Host+Reviewer disposition. Không “để sau” chung chung.
+- **ROADMAP V1 = N1→N2→N3→N4→N5→N6** như 0.17. Đây là roadmap thực thi SSOT; K1/K2/K3/M1 cũ là tên tương ứng bên trong N1–N4.
+- **Kế tiếp:** Claude chỉ rà roadmap P133/0.17 ở mức boundary/acceptance; không bàn lại V0. Nếu 0 blocker ⇒ Host soạn **một PROMPT N1 đầy đủ**, lấy nguyên P132 K1-PRE làm Pha A và cho Claude review một lần trước RUN.
 - **Thiết kế V0:** `CHỐT` — nhận sáu chỗ gọt P130 + caveat dispatch race ở 0.15. Chưa triển khai M1.
 - **Nền Hermes:** `MỞ ĐỦ · MANUAL`; AUTO_ALLOWLIST vẫn rỗng.
-- **Roadmap thực thi:** `K1-PRE kiểm kê read-only → K1 migration nhỏ → K2 Dots → K3 Hermes-Mac residual → M1 một mức duyệt`.
-- **Kế tiếp duy nhất:** Host đưa ba sửa bắt buộc của P132 vào đề bài K1-PRE (dùng nguyên «bản đã rà» ở P132 thì không cần rà lại), ghi rõ ai khai phần nào, rồi cho chạy; chưa mutation connector/runtime. *(Claude Chat cập nhật 14:05 — đã rà xong P131: ACCEPT kèm điều kiện.)*
+- **Roadmap thực thi SSOT:** `N1 Cloud Foundation → N2 Dots → N3 Hermes-Mac → N4 Council Core → N5 Dual-mode/Flexible Levels → N6 Final Acceptance/Close`.
+- **Kế tiếp duy nhất:** Claude rà boundary/acceptance roadmap P133; sau 0 blocker, Host soạn **một PROMPT N1 lớn**. K1-PRE P132 là Pha A bên trong N1, không chạy riêng.
 - **Không dựng thêm:** workflow engine · DB/state service · UI · score engine · supervisor service.
 - **An toàn hiện hành:** 22/22 xanh · sổ 71/69/0/2 · Config/Protection Guard CLEAN.
 
