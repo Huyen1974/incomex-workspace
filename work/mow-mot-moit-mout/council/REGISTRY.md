@@ -22,11 +22,11 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Active_RUN: none.
 - Reserved_Targets: none.
 - Base_Target_Version: `definition-master-registry-v1.js` SHA `19aa669e5e1706f6082c4a9062194cdda7161a54d010b53779594d6108d9cf1b`; `master-design-review-v1.html` SHA `7672ce1305bb858cae1600551294bfcfc92101d877b69ee84adf9793652c4280`; `master-list.js` SHA `3043a7119a4003301d7c5e3cae557c4663913791b6508bf794bee0996759c118`.
-- NOW: D125 thêm nút `Thu gọn ↑` bằng anchor thuần HTML cho mọi panel đời con; mở `#formula-root-N`, đóng `#formula-children`.
-- NEXT: Owner thử mở/thu gọn; nếu PASS thì giữ pattern này làm chuẩn progressive disclosure.
+- NOW: D126 chốt CT-001 là một công thức duy nhất: toàn bộ UI được bọc thành một miếng; Master Công thức chỉ hiện một dòng CT-001, còn 1–9 / 1.x là cấu trúc nội bộ trong Chi tiết.
+- NEXT: chuyển sang thiết kế công thức thứ 2, giữ nguyên format CT-001 làm mẫu.
 - BLOCKED_BY: none.
 - State: ACTIVE.
-- LAST_SYNC: D125.
+- LAST_SYNC: D126.
 
 ### GPT-MMIM-CHAT2-260928-A
 - Role: **COUNCIL / IDEA / REVIEW**
