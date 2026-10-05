@@ -580,7 +580,7 @@
 #matrix-view-formula .cf-root-link:focus-visible{outline:2px solid #9fbea9;outline-offset:2px}
 #matrix-view-formula .cf-root-link:hover{border-color:#a7c2ae}
 #matrix-view-formula .cf-subgroup:target{display:block;scroll-margin-top:12px}
-#matrix-view-formula .cf-subclose{float:right;font-size:10px;color:#718078;text-decoration:none;font-weight:600}
+#matrix-view-formula .cf-subclose{margin-left:auto;font-size:10px;color:#718078;text-decoration:none;font-weight:600;border:1px solid #dbe4dd;border-radius:7px;padding:3px 7px;background:#fafcfb;white-space:nowrap}#matrix-view-formula .cf-subclose:hover{background:#f1f5f2;color:#42564b}
 #matrix-view-formula .cf-flow-start{display:inline-flex;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:#f1f6f2;font-weight:600}
 #matrix-view-formula .cf-flow b.cf-root-no{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;padding:0;border-radius:50%;background:#1f4d3a;color:#fff;font-size:12px;line-height:34px;text-align:center;margin-right:7px;flex:0 0 34px;box-sizing:border-box}
 #matrix-view-formula .cf-branches{border-left:2px solid #9bb9a4;margin-left:22px;padding-left:22px}
@@ -826,59 +826,59 @@
 <div class="cf-route"><span class="cf-condition">Nếu đã có + cần thay đổi</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><a class="s cf-edit cf-root-link" href="#formula-root-8"><b class="cf-root-no">8</b> Sửa</a><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
 <div class="cf-route"><span class="cf-condition">Nếu không còn dùng</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><a class="s cf-retire cf-root-link" href="#formula-root-9"><b class="cf-root-no">9</b> Vô hiệu / Nghỉ hưu</a></div></div>
 </div></div>
-<section class="cf-subformulas" aria-label="Bóc nhỏ công thức theo gốc 1 đến 9">
+<section class="cf-subformulas" id="formula-children" aria-label="Bóc nhỏ công thức theo gốc 1 đến 9">
   <div class="cf-subformulas-head"><b>Bóc nhỏ theo từng gốc</b><span id="cf-subhint">Bấm một gốc 1–9 trên bản đồ để mở đời con.</span></div>
   <div class="cf-subgrid">
     <article class="cf-subgroup" id="formula-root-1" data-root="1">
-      <div class="cf-subroot"><span class="cf-rootbadge">1</span><div><b>Tìm</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge">1</span><div><b>Tìm</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.1</span><b>Tìm thường</b></div><div class="cf-subexpr">Gõ yêu cầu → Kết quả gần đúng giảm dần → khớp 100% = <span class="cf-pill ok">xanh</span></div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.2</span><b>Tìm nâng cao</b></div><div class="cf-subexpr">Tìm thường chưa đủ → Advanced Search → thu hẹp kết quả</div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.3</span><b>Xác nhận phù hợp</b></div><div class="cf-subexpr">Kết quả → Máy kiểm → <span class="cf-pill ok">Xanh</span> / <span class="cf-pill warn">Vàng</span> / <span class="cf-pill bad">Đỏ</span></div></div>
     </article>
     <article class="cf-subgroup" id="formula-root-2" data-root="2">
-      <div class="cf-subroot"><span class="cf-rootbadge">2</span><div><b>Dùng</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge">2</span><div><b>Dùng</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">2.1</span><b>Người chọn Dùng</b></div><div class="cf-subexpr">Báo cáo đủ điều kiện → Người xác nhận Dùng</div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">2.2</span><b>Máy áp dụng &amp; xác nhận</b></div><div class="cf-subexpr">Người bấm Dùng → Máy áp dụng → Ghi kết quả → Xác nhận đã dùng được</div></div>
     </article>
     <article class="cf-subgroup" id="formula-root-3" data-root="3">
-      <div class="cf-subroot"><span class="cf-rootbadge">3</span><div><b>Đề xuất tạo mới</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge">3</span><div><b>Đề xuất tạo mới</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3.1</span><b>Ghi nhận ý tưởng</b></div><div class="cf-subexpr">Ý tưởng ngắn → <span class="cf-pill master">Master · Mới ghi nhận</span></div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3.2</span><b>Chuẩn hóa đề xuất</b></div><div class="cf-subexpr">Master · Mới ghi nhận → Chuẩn hóa</div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3.3</span><b>Cập nhật Master</b></div><div class="cf-subexpr">Chuẩn hóa xong → <span class="cf-pill master">Master · Đã chuẩn hóa</span></div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3.4</span><b>Giao phụ trách</b></div><div class="cf-subexpr">Master · Đã chuẩn hóa → Giao người phụ trách</div></div>
     </article>
     <article class="cf-subgroup" id="formula-root-4" data-root="4">
-      <div class="cf-subroot"><span class="cf-rootbadge">4</span><div><b>Duyệt đề xuất</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge">4</span><div><b>Duyệt đề xuất</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4.1</span><b>Ra quyết định</b></div><div class="cf-subexpr">Đề xuất → <span class="cf-pill ok">Duyệt</span> / <span class="cf-pill warn">Làm rõ</span> / <span class="cf-pill bad">Từ chối</span></div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4.2</span><b>Cập nhật Master</b></div><div class="cf-subexpr">Quyết định → cập nhật chính bản ghi Master</div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4.3</span><b>Báo người đề xuất</b></div><div class="cf-subexpr">Kết quả → MOT người đề xuất</div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4.4</span><b>Chuyển bước</b></div><div class="cf-subexpr">Duyệt → Khai báo · Làm rõ → nhánh làm rõ · Từ chối → dừng</div></div>
     </article>
     <article class="cf-subgroup" id="formula-root-5" data-root="5">
-      <div class="cf-subroot"><span class="cf-rootbadge">5</span><div><b>Khai báo</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge">5</span><div><b>Khai báo</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">5.1</span><b>Khai báo chung</b></div><div class="cf-subexpr">Chuẩn chung → Form khai báo chung</div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">5.2</span><b>Khai báo riêng</b></div><div class="cf-subexpr">Chuyên môn → Nhóm con → Form khai báo riêng</div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">5.3</span><b>Rà phần còn thiếu</b></div><div class="cf-subexpr"><code>TỔNG − CHUNG − RIÊNG = CÒN THIẾU</code></div></div>
     </article>
     <article class="cf-subgroup" id="formula-root-6" data-root="6">
-      <div class="cf-subroot"><span class="cf-rootbadge">6</span><div><b>Test</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge">6</span><div><b>Test</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">6.1</span><b>Test theo khai báo</b></div><div class="cf-subexpr">Khai báo → Chạy test → Thu bằng chứng</div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">6.2</span><b>PASS</b></div><div class="cf-subexpr"><span class="cf-pill ok">PASS</span> → 7 Duyệt cho dùng</div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">6.3</span><b>FAIL</b></div><div class="cf-subexpr"><span class="cf-pill bad">FAIL</span> → 5.3; nếu cần → 5.1 / 5.2 → Test lại</div></div>
     </article>
     <article class="cf-subgroup" id="formula-root-7" data-root="7">
-      <div class="cf-subroot"><span class="cf-rootbadge">7</span><div><b>Duyệt cho dùng</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge">7</span><div><b>Duyệt cho dùng</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7.1</span><b>Đóng gói báo cáo</b></div><div class="cf-subexpr">PASS + Bằng chứng → Báo cáo duyệt</div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7.2</span><b>Giao người duyệt</b></div><div class="cf-subexpr">Báo cáo → MOT người có thẩm quyền</div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7.3</span><b>Người phê duyệt</b></div><div class="cf-subexpr">Người duyệt → <span class="cf-pill ok">Cho dùng</span> / <span class="cf-pill bad">Không duyệt</span></div></div>
       <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7.4</span><b>Cập nhật Master &amp; hiệu lực</b></div><div class="cf-subexpr">Cho dùng → Cập nhật Master → Có hiệu lực → Dùng</div></div>
     </article>
     <article class="cf-subgroup cf-subgroup-compact" id="formula-root-8" data-root="8">
-      <div class="cf-subroot"><span class="cf-rootbadge warn">8</span><div><b>Sửa</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge warn">8</span><div><b>Sửa</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
       <div class="cf-subnote">Chưa bóc nhỏ · khi cần sẽ dùng 8.1, 8.2…</div>
     </article>
     <article class="cf-subgroup cf-subgroup-compact" id="formula-root-9" data-root="9">
-      <div class="cf-subroot"><span class="cf-rootbadge bad">9</span><div><b>Vô hiệu / Nghỉ hưu</b><small>Đời ông / gốc</small></div></div>
+      <div class="cf-subroot"><span class="cf-rootbadge bad">9</span><div><b>Vô hiệu / Nghỉ hưu</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
       <div class="cf-subnote">Chưa bóc nhỏ · khi cần sẽ dùng 9.1, 9.2…</div>
     </article>
   </div>
