@@ -4,7 +4,7 @@
 **Project:** `work/mow-mot-moit-mout`  
 **Owner-gated concept:** Công thức và nghĩa khái niệm.  
 **AI-owned implementation:** schema Master, UI chi tiết, coverage, test, bằng chứng, reuse mapping, kỹ thuật triển khai.  
-**Cập nhật gần nhất:** 2026-10-06 · D150.
+**Cập nhật gần nhất:** 2026-10-06 · D151.
 
 > BẮT BUỘC ĐỌC FILE NÀY trước khi sửa Công thức, Định nghĩa, Master List, UI con/cha, coverage hoặc config liên quan MMIM.
 >
@@ -53,7 +53,7 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 5. **MASTER FIRST / LIST FIRST:** bất cứ loại thứ gì có thể phát sinh nhiều bản ghi/biến thể (Nhóm, Quy trình, UI, Config, Tool, Trigger...) phải **có Master List để ghi trước khi xử lý sâu**. Chưa chốt hết định nghĩa/loại không phải lý do để để đối tượng trôi ngoài Master; ghi trước → phân loại sau → chuẩn hóa dần.
 6. Bất cứ việc gì phát sinh phải **ghi Master trước khi xử lý**, rồi cập nhật chính bản ghi đó. Nếu chưa biết Master nào phù hợp thì đó là một gap phải mở ngay, không được xử lý xong rồi mới nghĩ nơi ghi.
 7. Một Master/Công thức chỉ là canonical khi có nguồn/decision rõ; draft/test phải ghi trạng thái.
-8. **OWNER REVIEW SURFACE LÀ HỢP ĐỒNG VỊ TRÍ:** nếu Owner đã chốt một trang là nơi rà/duyệt Master (hiện là `master-design-review-v1.html`), Master đang được rà phải **hiện ngay trên mặt đó**. Trang/file riêng chỉ là source/implementation hoặc cửa “mở riêng”; không được tự chuyển luồng Owner sang trang mới.
+8. **OWNER REVIEW SURFACE LÀ HỢP ĐỒNG DANH SÁCH:** nếu Owner đã chốt một bảng/trang để rà Master (hiện là bảng Master trong `master-design-review-v1.html`), Master liên quan phải **có đúng một dòng trong chính bảng đó** với trạng thái/UI/link phù hợp. Không tự nhúng cả trang chi tiết, không dựng dashboard song song, không chuyển Owner sang luồng khác. Trang riêng chỉ là đích khi bấm dòng.
 9. Không tạo Cartesian product mù. Mọi tổ hợp phải qua **Applicability Gate**.
 10. Không tuyên bố “đủ UI” bằng cảm giác; phải có **Coverage + Evidence**.
 11. **Change propagation bắt buộc:** thay đổi một tiêu chí không được sửa một chỗ rồi dừng; phải quét impact map, update/verify toàn bộ current/live target và chỉ đóng khi không còn stale reference.
@@ -172,7 +172,8 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 | DISC-018 | Master Field cũ có `Form cha` + `Bắt buộc`, mâu thuẫn CT-002 vì Field T0 độc lập và có thể dùng nhiều form. | Đã sửa Master Field thành `Kiểu dữ liệu · Nhóm quản lý · Nguồn dữ liệu · Validation chung · Trạng thái`; required/default theo nơi dùng thuộc liên kết Field↔Form (CAT-208*)/Config. |
 | DISC-019 | Quy tắc “mọi Master chỉ 5 cột” không nên tuyệt đối hóa. | CT-007 prototype cần 6 cột để không mất input: `Ngữ cảnh · UI cha · Bản ghi · Người làm(NTGV) · Trigger · Trạng thái`. Giữ list gọn nhưng không cắt dữ liệu bắt buộc. |
 | DISC-020 | Owner chốt lại nguyên tắc tổng quát: Config có thể có nhiều loại và còn hiệu chỉnh dài, nhưng **danh sách phải tồn tại trước**. | Tạo `CAT-248* · Master Config` + `config-master-v1.html`; ghi `CFG-TEST-001` ngay. Việc phân loại/định nghĩa Config tiếp tục OPEN, không chặn việc quản lý danh sách. |
-| DISC-021 | D149 sai placement: có Master Config nhưng lại đẩy Owner sang trang riêng, trong khi `master-design-review-v1.html` đã được chốt là mặt rà Master. | D150 đưa trực tiếp Master Quy trình + Master UI con + Master Config vào `#ct-output-review` bằng iframe nguồn; trang riêng chỉ là source phụ. Từ nay placement đã Owner chốt là invariant, không tự đổi. |
+| DISC-021 | SUPERSEDED BY DISC-022 · D149 đúng là thiếu Master Config trong bảng rà, nhưng D150 lại over-correct bằng cách nhúng 3 bảng lớn vào cùng trang. | Không dùng cách iframe nhúng dài. |
+| DISC-022 | Owner chốt nghĩa đúng của mặt rà: **một bảng duy nhất liệt kê các Master; dòng nào có UI/list thật thì đánh xanh**. | D151 bỏ 3 iframe, giữ bảng duy nhất; đổi row 4 thành `Master Quy trình / MOW`, giữ `Master UI con` row 18, thêm row 28 `CAT-248* · Master Config` xanh. |
 
 ### D139 · bằng chứng đầu tiên của cách tiếp cận
 `CT-003 = Bước + Tầng ⇒ Nhóm cha` tại **T0 Field** đã sinh 7 bản ghi B1→B7 trong `ML-DEF-001`.
@@ -251,7 +252,7 @@ Owner chốt nguyên tắc chung: “có nhiều Config khác nhau, là cái gì
 - tạo `config-master-v1.html` + `config-master-data-v1.js`;
 - ghi ngay `CFG-TEST-001 · Config · Khai báo Field · full_name` từ ca CT-007;
 - Master Config tạm hiển thị: `Loại/Nhóm · Ngữ cảnh · Đối tượng/Bản ghi · UI cha · Người làm(NTGV) · Trigger · Trạng thái`;
-- vùng review CT-005/006/007 nay **hiển thị trực tiếp** ba Master đầu ra ngay trong `master-design-review-v1.html#ct-output-review`: **Master Quy trình · Master UI con · Master Config**; các trang riêng chỉ là nguồn phụ/mở riêng.
+- bảng Master ngay dưới vùng CT-005/006/007 là nơi duy nhất Owner rà danh sách: row 4 `Master Quy trình / MOW` xanh UI-001; row 18 `Master UI con`; row 28 `Master Config` xanh. Không nhúng các list dài vào vùng CT.
 
 **Khóa nghĩa:** Master Config tồn tại là quyết định đã chốt. Phân loại/semantics Config còn OPEN và được hiệu chỉnh dần trên chính Master này.
 

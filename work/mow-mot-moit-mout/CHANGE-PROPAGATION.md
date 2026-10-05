@@ -40,7 +40,7 @@ IMPACT_PROFILE:
 ## 2. Xác định SSOT + OWNER SURFACE
 Không sửa view trước SSOT. Tra `CHANGE-IMPACT-MAP.json` để biết nguồn chuẩn.
 
-Đồng thời xác định **PRIMARY_OWNER_SURFACE** nếu Owner đã chốt nơi nhìn/duyệt. SSOT là nơi dữ liệu sống; OWNER SURFACE là nơi Owner phải nhìn thấy nó. **Có source đúng nhưng biến mất khỏi mặt Owner đã chốt vẫn là FAIL.**
+Đồng thời xác định **PRIMARY_OWNER_SURFACE** nếu Owner đã chốt nơi nhìn/duyệt. SSOT là nơi dữ liệu sống; OWNER SURFACE là bảng/index Owner dùng để rà. **Đối tượng phải có dòng/trạng thái/link trong đúng bảng đó; không có nghĩa phải nhúng toàn bộ UI chi tiết vào mặt rà.**
 
 ## 3. Quét ảnh hưởng TRƯỚC khi ghi
 Tìm ít nhất theo:
@@ -137,10 +137,12 @@ Kiểm:
 - live page.
 
 ## E. Thay đổi / tạo Master đang được Owner rà
-- Nếu Owner đã chốt mặt rà (MMIM hiện là `ui/master-design-review-v1.html`) thì **Master phải được render/nhúng ngay trên mặt đó**.
-- Có thể có file/page riêng làm SSOT/source kỹ thuật, nhưng link ra ngoài chỉ là phụ.
-- Không tự đổi PRIMARY_OWNER_SURFACE, không biến thao tác đang làm dở thành một luồng điều hướng mới.
-- Live verify phải kiểm cả: source riêng **và** Master có thực sự xuất hiện trên mặt Owner.
+- Nếu Owner đã chốt bảng rà (MMIM hiện là bảng Master trong `ui/master-design-review-v1.html`) thì **thêm/cập nhật đúng một dòng trong bảng đó**.
+- Dòng tối thiểu: ID · Tên Master · tình trạng · UI/list hiện có · cột chính/link.
+- Nếu UI/list thật đã có thì đánh xanh theo quy ước hiện hành; nếu chưa có thì giữ trạng thái rỗng/nháp đúng thực tế.
+- File/page riêng là đích khi bấm dòng; **không tự nhúng cả bảng/page chi tiết vào mặt rà**.
+- Không tạo bảng review song song hoặc dashboard mới chỉ để biểu diễn cùng thông tin.
+- Live verify: dòng xuất hiện đúng trong PRIMARY_OWNER_SURFACE, status/UI đúng, link mở đúng source.
 
 ---
 
@@ -162,7 +164,7 @@ COLLAB và KQ cũ là evidence. Nếu quyết định mới đảo quyết đị
 - [ ] Đã update SSOT trước view.
 - [ ] Đã quét stale reference sau sửa.
 - [ ] Đã kiểm live.
-- [ ] Nếu có PRIMARY_OWNER_SURFACE, đối tượng vẫn nhìn/thao tác được ngay trên mặt đó.
+- [ ] Nếu có PRIMARY_OWNER_SURFACE, đối tượng có đúng một dòng trong bảng đã chốt; status/UI/link khớp và không sinh view song song.
 - [ ] Số đếm khớp.
 - [ ] Không draft nào lọt canonical.
 - [ ] COLLAB/REGISTRY có evidence.
