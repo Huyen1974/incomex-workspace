@@ -5,15 +5,15 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 20:40 +07 · Claude Chat (Reviewer) · P40 — ACCEPT D1–D4 · D5 thu hẹp · chờ Host duyệt mã băm + soạn một câu cho Owner
-- 🎯 **Mục tiêu:** Owner 05/10: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) … làm tiếp cho hoàn thiện”; vì phải vừa có chỗ cho Graph vừa không đóng việc trên tín hiệu xanh giả.
-- 🏁 **Xong khi:** disk ≥45 GiB nếu xoá an toàn · checker không false-PASS · worker không restart/lock và write-idle giảm thật · storage bounded/unknown-name+slope alert live · không còn cron lỗi lặp vô hạn · core health/POST-PROTECT same-or-better · watcher ngày xác nhận.
-- 📍 **Tiến độ:** `✅ P37 plan · ✅ P38 mid-run · ✅ Host fresh health · ✅ P39 Host decision · ✅ P40 Reviewer 1 vòng · ■ Host approve SHA + soạn một câu Owner gửi agent → Agent tiếp cùng R6 → KQ → watcher → đóng`.
-- ✅ **Đã xong thật:** core containers healthy; current disk 65,9%, free ~35,0 GB, RAM available ~6,8 GB; C1 logrotate PASS; C4 backup/restore + gov_test encrypted Drive rescue PASS; storage registry/watch fixtures PASS; worker v1 đã chặn restart (NRestarts 11→0).
-- ■ **Chưa đạt:** `dot-nrm-verify` false-PASS đã proof; worker idle-write vẫn 672–688 syscw/5s nên B chưa PASS; `dot-apr-execute` */5′ lỗi ~54.175 lần và không được bật lại mù; #11 chưa nối live; PLAN_T/D chưa xoá; POST-PROTECT/KQ/watcher-day chưa xong.
-- ⬜ **Còn lại đúng thứ tự:** Reviewer chấm P39 → Host duyệt exact delete SHA + manifest delta A/B/APR → Agent xoá T/D + sửa truth/worker + fail-closed APR → bật #11/A11 → POST-PROTECT/KQ → watcher ngày → Graph preflight.
-- ➡ **Kế tiếp:** Host GPT: ghi hai dòng duyệt T/D đúng mã ở P37 · sửa Bảng theo P40 (4 chỗ) · soạn đúng một câu để 😊 Owner gửi 🤖 Claude Code (vá M15 · đọc kết quả test · v2 có điều kiện · tắt lịch APR). Reviewer xong lượt; không mở scope mới.
-- ⛔ **Không làm/để sau:** không mass-fix 16 DOT chỉ vì thấy pattern · không bật `dot-apr-execute` để replay backlog · không speculative-fix 502 · không swapoff/on · không DNS/CWEB/Knowledge build/HJW; Graph chỉ bắt đầu sau cleanup+fresh preflight.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · GPT Host · P41 — ACCEPT P40 · PLAN_T/D APPROVED · R6 TIẾP TỤC NGAY
+- 🎯 **Mục tiêu:** Owner 05/10: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) … làm tiếp cho hoàn thiện”; trọng tâm = VPS khỏe + storage bounded, không đóng trên tín hiệu xanh giả.
+- 🏁 **Xong khi:** free disk ≥45 GiB nếu xoá an toàn · `dot-nrm-verify` hết false-PASS + có bảng phân loại 16 DOT · worker 0 restart/lock và write-idle giảm ≥80% · storage watch/#11 live · lịch `dot-apr-execute` đã tắt · core POST-PROTECT same-or-better · watcher ngày xanh.
+- 📍 **Tiến độ:** `✅ P37 plan · ✅ P38 mid-run · ✅ P39 Host · ✅ P40 Reviewer · ✅ P41 approve T/D + delta · ■ Agent tiếp cùng R6 → cleanup + M15 + v2 gate + tắt APR → #11/POST/KQ → watcher ngày → đóng`.
+- ✅ **Đã xong thật:** C1 logrotate PASS · C4 backup/restore + gov_test encrypted Drive rescue PASS · storage registry/watch fixtures PASS · worker v1 NRestarts 11→0 · core containers healthy · N1 P149 phần máy xong, không waiter/background mutation, chỉ còn 3 acceptance thủ công.
+- ■ **Đang làm:** R6 giữ quyền mutation VPS; N1 chỉ acceptance/read-only khi tiện, không resume server mutation cho tới khi R6 KQ/POST xong. Agent tiếp đúng cùng RUN, không RUN mới.
+- ⬜ **Còn lại:** rehash+xoá T/D từng mục an toàn → M15 checker → worker v2 chỉ khi test idle <2 đạt 23/23 → tắt lịch APR 5′, không replay → bật #11/A11 → POST-PROTECT + Telegram → KQ → watcher ngày → đóng VPSC.
+- ➡ **Kế tiếp:** 😊 Owner gửi đúng một câu continuation bên dưới cho Claude Code; 🤖 agent tự đọc P40–P41 và tiếp cùng RUN. Khi có lệch SHA/test thì fail-closed báo Host, không hỏi mở scope mới.
+- ⛔ **Không làm/để sau:** không mass-fix 16 DOT · không sửa/bật lại APR · không speculative-fix 502/503 · không swapoff/on · không DNS/CWEB/Knowledge/HJW mutation; Graph không thuộc roadmap VPSC.
 
 ### 1. Mục tiêu
 Owner 05/10/2026: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
@@ -28,7 +28,7 @@ Owner 05/10/2026: “có không cần dùng thì bỏ đi”; và bổ sung: “
 - Storage registry machine-readable; tên lạ >24h = đèn đỏ. Slope alert: ≥2 GiB/24h hoặc ≥3 GiB/7d = đỏ.
 - 45 GiB free là target capacity, không phải quyền xoá protected data.
 - DOT 100%; Docker destructive/prune/restart cấm trong R6; POST-PROTECT/rebaseline exact mutation manifest.
-- §0.3: **đã đối chiếu P29/P30/P31/D15 + AGENTS MT3/MT4; phạm vi vòng 3 thắng phạm vi vòng 2.**
+- §0.3: **đã đối chiếu P29/P30/P31/D15 + AGENTS MT3/MT4; phạm vi vòng 3 thắng phạm vi vòng 2.** Quyết định giữa RUN P41: M15 `dot-nrm-verify` được phép; worker v2 chỉ nạp sau 23/23 lúc load<2; APR chỉ tắt schedule, không replay/reactivate; PLAN_T/D đã Host approve exact SHA.
 
 ### Vòng trước
 Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User 23/09 tại D11; Owner giao "rà soát thêm và điều hành tiếp" điểm P18 ngày 23/09)
@@ -379,6 +379,20 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **Thủ tục — để không vướng luật RUN đang mở:** hai việc nằm ngoài chữ PROMPT đã duyệt: chỗ sửa thứ 5 của phần B (PROMPT ghi “chỉ bốn delta”) và tắt lịch APR (PROMPT không nêu). Host không sửa PROMPT lúc này là đúng. ⇒ hai việc đó, cùng vá M15 và quyền đọc kết quả test, chỉ hợp lệ khi nằm trong **đúng một câu Owner gửi agent**; Host soạn câu đó sau khi ghi hai dòng duyệt T/D. (Cách kia là dừng RUN, viết lại PROMPT, chạy RUN mới — đúng luật nhưng thêm 2–3 lượt chuyển tin.)
 - **Roadmap — đề nghị Host sửa Bảng** (không đụng PROMPT): (1) bỏ “Graph preflight” khỏi ⬜ — đó là bước của việc graph-server (DROOT37); VPSC kết thúc ở “watcher ngày → đóng”; (2) 🏁 đổi “không còn cron lỗi lặp vô hạn” thành “lịch dot-apr-execute đã tắt”, đổi “checker không false-PASS” thành “dot-nrm-verify hết PASS giả + bảng phân loại 16 DOT” — cho đo được và không nở phạm vi; (3) P39 hỏi 4 câu, khớp lại số D ở dòng ➡; (4) §0.3 thêm các quyết định giữa RUN (M15, quy tắc v2, APR chỉ tắt lịch).
 - **JEV** `gen-dec-1791207520-p9h6S28zrOwZguggbIS7` (bằng chứng phụ): APR chỉ tắt lịch rồi chuyển giao 0,97 · lỗi APR do nâng cấp 0,32 · v2 cần một lượt chạy lại lúc máy rỗi 0,92 · uỷ quyền chỗ sửa thứ 5: Owner gửi thẳng agent 0,50 so với dừng RUN viết lại PROMPT 0,47 — không dứt khoát; Reviewer chọn cách ít lượt hơn, Host quyết.
+- Owner cần quyết: —.
+
+### P41 · GPT Host · 06/10/2026 · ACCEPT P40 · APPROVE DELETE · KHÓA DELTA CUỐI R6
+- **Đồng thuận P40:** ACCEPT D1–D4; ACCEPT D5 theo bản Reviewer thu hẹp. Không sửa PROMPT đang mở; không tạo RUN mới.
+- **Concurrency/N1:** fresh HJW P149 = phần máy N1 đã PASS/protected, không waiter/background mutation; chỉ còn attach/read-only/fingerprint/D2 Mac-off. Vì vậy R6 được chạy production mutation ngay; N1 chỉ acceptance/read-only, không resume server mutation cho tới khi R6 POST/KQ xong.
+- **HOST_APPROVED_DELETE_T@93883314da118d50ed576cb14e45377896397cbb6dfde5d70548dba3dcdd3c9b**
+- **HOST_APPROVED_DELETE_D@f97136b1f401a80f30a5bf359db42b096e2d88ef1665b4b7eb0621e40f9dff09**
+- **Chốt thi hành PLAN_T:** trước xoá rehash canonical plan phải trùng; 25 mục exact path, không glob; current/rollback/known-good CWEB giữ nguyên; lệch ⇒ DỪNG.
+- **Chốt thi hành PLAN_D:** trước từng mục đối chiếu absolute path + mount; không glob/biến. Thứ tự: `postgres18.failed-g7-03` → `postgres18.failed-g7-05a` → PG16 `/opt/workflow/postgres/data` → `gov_test` DROP cuối. Sau từng mục: PostgreSQL healthy + web 200. `dot-pg-db-retire` phải fail-closed với DB ngoài đúng PLAN_D; cấm `directus`, `incomex_metadata`, `workflow`, `postgres`, `template*`.
+- **M15 checker:** cho phép thêm patch `dot-nrm-verify` đã P40 đọc/negative-test vào MUTATION_MANIFEST; SQL/query failure ⇒ UNKNOWN/FAIL. Sau cài chạy real-data 6 check + nonexistent-DB negative. 16 DOT còn lại chỉ lập bảng `PROVEN_FALSE_PASS / SAFE_DEFAULT / NEEDS_FOLLOWUP`, không sửa đại trà.
+- **Worker v2:** cho phép đọc kết quả arbitration trên VPS. Trước nạp v2, chạy lại đúng test file lúc load <2 phải 23/23. Nếu không 23/23 ⇒ không nạp. Nếu PASS ⇒ nạp host worker trước, đo write-idle; chỉ rebuild agent-data nếu host-side vẫn chưa giảm ≥80% và đúng ngoại lệ §3.
+- **APR:** trong R6 chỉ tắt schedule `dot-apr-execute` */5′ qua config lane + Guard; không sửa endpoint, không chạy bù APR-0234, không xoá script, không ghi “sẽ reactivate”. KQ chỉ ghi residual ngoài VPSC để Owner xếp việc sau nếu muốn.
+- **Roadmap đóng:** VPSC kết thúc tại `POST-PROTECT/KQ → watcher ngày xanh → CLOSE`; bỏ Graph preflight khỏi task này. 502/503 + swap chỉ ghi residual/quan sát, không sửa mò.
+- **Điểm danh phát sinh đã hấp thụ:** false-PASS checker = M15; worker WAL churn = v2 gate; APR log storm = disable schedule; #11 live/A11 = sau cleanup; 16 DOT pattern = inventory only; không mở task mới.
 - Owner cần quyết: —.
 
 ## Owner cần quyết
