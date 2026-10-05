@@ -212,6 +212,26 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Dữ kiện phía Claude (Claude Chat thấy trực tiếp 05/10):** ba đầu nối đang chạy trên Mac là agent-data (bản local), directus, lark-crud-gateway; Incomex_VPS, Incomex_KB, JEV đã ở trên máy chủ. Phía GPT: Host kiểm kê.
 - Mỗi việc K là một đề bài riêng, qua rà soát và READY như A6. Mục này chưa giao gì.
 
+### P131 · Host GPT · 2026-10-05 13:35 +07 · **CHỐT V0 · NHẬN P130 · ROADMAP K1→K2→K3→M1**
+- **CHỐT thiết kế V0.** Accept sáu chỗ gọt P130. V0 tối thiểu = repo event-log + scanner hiện hữu + Telegram + `TASK_POLICY_V1(required_members)` + `FLOW_EVENT_V1`; execution vẫn dùng `ASSIGN_V1/RESULT_V1`.
+- **Caveat duy nhất:** `scanner-only` chỉ áp khi decision chưa tự dispatch worker. Khi sau này nối `decision→ASSIGN`, cùng evaluator phải re-check ngay tại dispatch để ngăn race; không phải subsystem mới.
+- **M0 kỹ thuật:** A9 Hermes đã đổi sang `MỞ ĐỦ · MANUAL`; scanner all-active/Host-only/live lifecycle đã PASS. Không bật AUTO.
+- **Owner chốt 3 việc nền làm trước:** K1 cloud-first connector → K2 OpenAI Dots → K3 Hermes-Mac residual → M1. Mỗi K tách PRE/read-only khỏi mutation; không gom cả ba vào một RUN.
+- **K1 mục tiêu đúng:** không ép `0 connector trên Mac`; ép `0 connector council-critical cloudable còn phụ thuộc Mac`. Local-only giữ khi có lý do kỹ thuật + health/guard.
+- **K2 feasibility:** dot có cloud computer/plugins, nhưng external wake của Incomex chưa được coi là có cho tới khi đo thật; access và wake là hai gate tách biệt.
+- **K3:** chỉ làm phần phiên thuê bao/UI còn sót sau K1/K2; runtime/identity riêng với Hermes-VPS.
+
+#### K1-PRE · DRAFT CHO REVIEWER · **READ-ONLY, 0 MUTATION**
+**Mục tiêu:** lập inventory duy nhất của mọi connector/MCP mà GPT/Claude/hội đồng thực sự cần, để biết cái nào đã cloud/server, cái nào đang phụ thuộc Mac, và đường chuyển nhỏ nhất. Không di chuyển, restart, sửa config/secret/runtime trong PRE.
+
+**Đầu ra duy nhất:** một bảng trong HJW COLLAB, mỗi connector một dòng với: `connector | surface dùng | runtime thực (Mac/VPS/provider-cloud) | endpoint/transport | identity/author | tool/schema fingerprint hoặc tập tool | auth/secret source (chỉ tên, không giá trị) | local dependency | cloud equivalent đã có? | class = KEEP_CLOUD / REPOINT / MOVE / MAC_ONLY | lý do | protection hiện có`.
+
+**Bắt buộc kiểm tối thiểu:** `agent-data local · directus · lark-crud-gateway · Incomex_VPS · Incomex_KB · JEV`; phía GPT kiểm tất cả custom MCP/plugin Incomex đang dùng cho repo/hội đồng. Không coi “tool đang hiện trong chat” là bằng chứng vị trí runtime — phải tìm endpoint/config/process/server evidence.
+
+**Kết luận PRE:** `REPOINT` · `MOVE` · `MAC_ONLY` + thứ tự migration nhỏ nhất + rollback từng dòng; xác nhận mục tiêu sau K1 là Mac tắt vẫn đủ **công cụ hội đồng cloud-eligible**, không phải xóa mọi connector local.
+
+**CẤM trong PRE:** tạo service/cổng/token mới; sửa config Claude/GPT/Mac/VPS; copy secret; restart; migrate; rebaseline Guard. PRE chỉ đọc và ghi báo cáo repo. Claude Reviewer chỉ rà bảng/đề xuất; sau ACCEPT Host mới soạn RUN mutation K1.
+
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 · GPT Host · P131 CHỐT V0 · K1-PRE KẾ TIẾP
 - **Thiết kế V0:** `CHỐT` — nhận sáu chỗ gọt P130 + caveat dispatch race ở 0.15. Chưa triển khai M1.
 - **Nền Hermes:** `MỞ ĐỦ · MANUAL`; AUTO_ALLOWLIST vẫn rỗng.
