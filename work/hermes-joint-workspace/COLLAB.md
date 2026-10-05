@@ -419,7 +419,13 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Hội đồng đã đồng thuận.** Không review R4 thêm.
 - Sau VPS cleanup terminal, nếu Owner **GẬT**, Host chỉ cần ghi `R4_OWNER_APPROVED` + giao câu resume chuẩn cho Claude Code cùng RUN. Nếu **LẮC**, giữ N1 tại R4 và chỉ sửa phần Owner bác.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 17:10 +07 · GPT Host · **P144 R4 CONSENSUS · HOLD VPS CLEANUP**
+### P145 · Host GPT · 2026-10-05 20:26 +07 · **OWNER GO · RESUME CÙNG N1 SAU FRESH CONCURRENCY GATE**
+- Owner xác nhận phiên VPS cleanup đã tạm dừng và yêu cầu tiếp tục N1 theo exact R4 P144/G1–G6 P143. Đây là Owner approval để resume cùng RUN hiện tại.
+- Ưu tiên **cửa sổ Claude Code CLI mới**. Không tạo RUN mới/STARTED mới; đọc AGENTS → root COLLAB → HJW COLLAB → PROMPT → P141–P145 và resume `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` từ R4.
+- Vì VPSC repo còn marker STARTED, trước mutation phải fresh-check shared-resource/process/lock. Nếu còn mutation thật thì dừng; nếu chỉ paused/no active mutation như Owner xác nhận thì tiếp tục. Không sửa trạng thái VPSC.
+- Trước first mutation: DROOT30 + fresh lights/registry + PROMPT last-touch/READY/HOLD/STOP. Gate sạch mới ghi `N1_R4_OWNER_APPROVED · RESUME_SAME_RUN` và tiếp tục Pha C.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 20:26 +07 · GPT Host · **P145 OWNER GO · RESUME N1**
 - **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4 Host+Claude đồng thuận] → [■ HOLD: VPS cleanup đang chạy + chờ Owner GẬT] → [□ resume cùng N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
 - **Roadmap SSOT:** không đổi `N1 → N2 → N3 → N4 → N5 → N6`; chưa xong N1 thì không sang N2.
 - **N1 hiện tại:** 9/10 ALREADY_TWIN; 1 Directus POLICY_HOLD; exact R4 scope đã khóa tại P144; security Lark phải xử lý trước N1 XONG.
