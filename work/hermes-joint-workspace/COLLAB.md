@@ -441,6 +441,8 @@ CẤM: đọc/ghi ngoài danh sách, đổi cấu hình/quyền, tự giao việ
 - **Owner 05/10/2026 13:52 +07 (nguyên văn, với Reviewer — CHỐT VÒNG CUỐI · HERMES-MAC CÙNG MỘT BẢN CÀI · IP KHÔNG CỐ ĐỊNH):** “Rà soát và chốt vòng cuối giúp tôi. về hermes, tôi đã xác nhận với hermes, là cùng trên bản cài hiện nay vừa có thể làm màn hình hermes cho bản đang cài trên VPS và có thể chạy bản cài hermes độc lập. hermes chạm 100% qua API => có 1 vấn đề nhỏ cần phải xét kỹ là trên macbook thường không có IP cố định, có gọi được API không? Và nếu để gọi trong môi trường IP không cố định thì giải pháp là gì? (internet ADSL ở Việt Nam mỗi lần khởi động lại là đổi IP, hơn nữa MacBook mang cho người, các nguồn internet khác nhau => IP sẽ khác nhau)” ⇒ (1) rà vòng cuối: P132 — ACCEPT đề bài K1-PRE kèm ba sửa bắt buộc; (2) Hermes-Mac: một bản cài trên Mac làm hai vai (màn hình cho Hermes-VPS + một Hermes độc lập) — lời Hermes do Owner chuyển, K3-PRE kiểm thật trước khi dựa vào; (3) IP không cố định: Hermes-Mac luôn là bên gọi ra và nhận mặt bằng chìa khoá riêng, không phụ thuộc IP — P132 mục 2, dòng K3 ở 0.16.
 - **Owner 05/10/2026 14:25 +07 (nguyên văn, với Reviewer — CHỐT LUÔN ROADMAP ĐỂ KHÔNG LỆCH HƯỚNG):** “Để quá trình điều hành không bị lệch hướng, chúng ta chốt luôn cà [cả] roadmap. Bạn thấy ý kiến về roadmap của GPT trước khi cho triển khai.” ⇒ lộ trình thực thi sáu node N1→N6 (Host chốt ở P133, mục 0.17); Reviewer rà ở P134: nhận, kèm bảy câu phải thêm. Từ đây điều hành bám 0.17: chưa xong thì ở lại node; đổi node hay nới dòng PASS phải theo luật ghi ở đó.
 - **Owner 05/10/2026 14:41 +07 (nguyên văn, với Reviewer — CHUYỂN PHIÊN · HO):** “Phiên này đã quá dài chưa? bạn viết 1 HO để phiên tiếp theo tiếp tục nếu bạn. thấy chuyển phiên là hợp lý, HO cần nhắc chuyên sau tự đọc phần cuối của phim này để tôi không cần phải nhắc lại ngữ cảnh mất thời gian (nếu thấy cần thiết chuyện phiên)” ⇒ chuyển phiên ở mốc đã chốt lộ trình; HO ở P135. Phiên Claude Chat mới **tự đọc** P135 và phần cuối phiên trước, không hỏi lại Owner ngữ cảnh.
+- **Owner 05/10/2026 trước 15:02 +07 (nguyên văn, với Host — N1 LÀ COPY/ĐỒNG BỘ, KHÔNG PHẢI MOVE):** “ồi. bạn soạn promp đi. Mục tiêu không phải move mà là copy nguyên trạng Tôi vẫn cần MacBook để xử lý rất nhiều trường hợp nhỏ cụ thể, việc đưa lên cloud chỉ là phục vụ các quy trình tự động thôi. Nên dùng từ move của N1 không chính xác. Phải dùng từ đồng bộ mới đúng, MacBook có cái gì, đám mây có cái đó. Và điều quan trọng hơn là làm sao trong tương lai nếu thay đổi => thì cơ chế đồng bộ đủ nhanh. bạn soạn N1 nhé” ⇒ N1 = giữ nguyên Mac + bản song sinh trên cloud + cơ chế đồng bộ (Host: P137, PROMPT N1). *(Claude Chat ghi 15:50 theo khối Owner chuyển — Host chưa ghi nguyên văn lúc nhận.)*
+- **Owner 05/10/2026 15:22 +07 (nguyên văn, với Reviewer — SONG SONG + ĐỒNG BỘ · CẢI TIẾN TỪ MAC ĐƯA LÊN CLOUD):** “Ngay N1 đã có 1 mục tiêu nhỏ các bạn nhầm lẫn. Chúng ta cần duy trì song song năng lượng [năng lực] kết nối của cả MacBook và đám mây. Không những duy trì song song mà chúng ta cần đồng bộ, tức là nếu có cải tiến từ MacBook => cần đồng bộ lên đám mây để duy trì năng lực tương đương. Đây là ý kiến của GPT. bạn cho ý kiến để thống nhất và thông qua N1 => triển khai.” ⇒ Đích: (1) Mac và cloud cùng giữ đủ năng lực kết nối, không bên nào thay bên nào; (2) chiều đồng bộ chính: cải tiến làm trên Mac ⇒ lên cloud; (3) cải tiến trên Mac không bị ghi đè âm thầm, lệch do máy tự phát hiện. Rà PROMPT N1 ở P138 (chín chỉnh C1–C9).
 
 ### Vòng trước
 - Mục tiêu (mở rộng 2026-09-21 và 22/09 theo chỉ đạo Owner): Hermes là thành viên hội đồng cùng GPT và Claude, **chạy API 24/7 trên VPS**. Không chỉ “vào được workspace” như hai thành viên ban đầu, Hermes phải phát huy lợi thế always-on: tự thức đúng lúc, nhận trigger máy-máy, gọi API/webhook/scheduler, theo dõi việc dài hạn, retry có kiểm soát và chủ động nhắn Telegram cho Owner — để các vòng việc có thể khép kín mà Owner không phải trực máy.
@@ -2579,3 +2581,54 @@ JEV `gen-dec-1791183549-bjxYWfQ3NbeZlpazWm3t`: nhận kèm sửa bắt buộc 0,
 - Mục P mới của Claude Chat nối vào **cuối file**. Lời Owner nối vào cuối mục 3 (ngay trước “Vòng trước”).
 - Đọc máy chủ bằng root `code` (chỉ đọc): bảng đèn ở `logs/bang-den.json`; cấu hình nginx ở `docker/nginx/conf.d/default.conf`. Đoạn bị che không dùng làm `old_str`.
 - File này lớn: tìm bằng `fs_search` rồi đọc đúng đoạn, không đọc cả file.
+
+### P138 · Claude Chat Reviewer/Founder · 2026-10-05 15:50 +07 · **RÀ PROMPT N1 MỘT LƯỢT: ACCEPT-with-delta · 9 CHỈNH ĐÃ SỬA VÀO PROMPT · CHỜ HOST READY**
+*(Rà đúng năm điểm §10 của PROMPT. Không bàn lại roadmap/V0. Không triển khai.)*
+
+**0 · Kết luận**
+- `Bảng: khớp` (P137, 15:20). `ĐÈN: 22 xanh · 0 đỏ` (08:20Z) · sổ tin báo 71 loại · 69 chạy · 0 hỏng · 2 chưa xác định (08:25Z). Không cờ bận, không lệnh Hermes đang mở.
+- **ACCEPT PROMPT N1.** Khung và các pha của Host giữ nguyên. Chín chỉnh C1–C9 em đã sửa thẳng vào `PROMPT.md` (A6: bản còn DRAFT; tiền lệ P103 → P104). ACCEPT này gắn với **commit cuối chạm PROMPT.md = chính commit ghi mục này** (Áp: SAME_COMMIT).
+- Vì sao em sửa thẳng thay vì chỉ liệt kê: câu lệnh chạy chuẩn đòi Reviewer ACCEPT và Host READY trên cùng một bản (DROOT38c); Host sửa sau ACCEPT thì em phải xác nhận lại (DROOT31) ⇒ thêm một vòng Owner chuyển tin. Host đọc diff của commit này: đồng ý ⇒ READY trên nó; không đồng ý chỗ nào ⇒ sửa đúng chỗ đó và chuyển em xác nhận đúng delta đó.
+- R1–R7 đã có trong 0.17 (kiểm cùng lượt như đã hẹn ở P134): đủ. T7 chuyển về N5 (P136): ĐỒNG Ý; lưu ý T7 vẫn là “một trang người đọc được cho mỗi việc”, xét ở đề bài N5.
+- JEV `gen-dec-1791188958-9zlo7fOZ43R0zqjBcVu6`: nhận kèm chỉnh nhỏ 0,83 · Reviewer sửa thẳng bản DRAFT 0,99.
+
+**1 · Lời Owner 15:22 làm đổi điều gì** (nguyên văn ở mục 3)
+- Bản của Host đã đúng “không move, giữ Mac, cloud có bản song sinh”. Còn thiếu **chiều**: Owner nói “cải tiến từ MacBook ⇒ đồng bộ lên đám mây”. Bản nháp viết “khi Mac online lại, sync đưa Mac về approved version” và “approved source thắng” ⇒ một cải tiến vừa làm trên Mac mà chưa kịp vào nguồn có thể bị ghi đè. Đó là chỗ có thể chạy ngược ý Owner ⇒ C1.
+
+**2 · Chín chỉnh đã áp**
+
+| | Chỗ trong PROMPT | Chỉnh | Vì sao | JEV |
+|---|---|---|---|---|
+| C1 | E1, E2, E3, §8.8–8.9, dòng đầu | Chiều chính Mac ⇒ nguồn ⇒ cloud. Mac có thứ nguồn chưa có ⇒ không ghi đè, không hạ Mac, không tự áp lên cloud; ghi `MAC_AHEAD` + báo; canary bắt đầu từ phía Mac | Lời Owner 15:22 | 0,99 |
+| C2 | E1, §8.9 | Lệch do máy phát hiện: Mac tự gửi dấu vân tay (đầu nối · bản · tên tool) qua đường gọi-ra đã có mỗi khi có phiên làm việc. Thêm đầu nối mới trên Mac cũng là lệch. Mac ngủ không làm đèn đỏ | “Tương lai thay đổi thì đồng bộ đủ nhanh” không thể dựa vào ai đó nhớ chạy lệnh; tránh đỏ giả mỗi đêm (P132) | 0,99 · 1,00 |
+| C3 | §0.3, §3.1, §8.3, §8.6 | Twin = **cùng mã nguồn, cùng bản** với bản Mac, đủ toàn bộ tool. Đầu nối khác bộ mã có tool na ná không tính là twin | “Copy nguyên trạng”. Hai bộ mã thì mỗi cải tiến phải sửa hai nơi ⇒ không đồng bộ nhanh được. Cũng bớt việc: không phải ghép hay viết lại | 0,83 (đủ toàn bộ tool: 0,57) |
+| C4 | §0.4, §4 mục 4, R4, §8.6 | Quyền của twin mặc định bằng bản Mac; executor không tự thu hẹp, không tự mở rộng; mọi khác biệt vào danh sách `LỆCH CÓ CHỦ Ý` soát ở R4 | Bản nháp ghi “cloud phải có scope hẹp” = tự đặt hạn chế, trái lời Owner 18/09 (hạn chế phải xin phép trước) và trái “MacBook có cái gì, đám mây có cái đó” | 1,00 |
+| C5 | §3.2, R4, §8.3 | Thêm loại `POLICY_HOLD`: lên mây được về kỹ thuật nhưng luật gốc hạn chế mở thêm đường (DROOT26/39 với Directus/PostgreSQL) ⇒ không tự tạo, không tự gắn nhãn Mac-only; Owner quyết từng dòng ở R4 | Không có loại này thì executor chỉ còn hai lối: vi phạm luật gốc, hoặc gắn nhãn sai | 0,88 |
+| C6 | R4, Pha C mục 9 | Thay đổi trên Mac của Owner cũng nằm trong danh sách Owner gật; sao lưu cấu hình trước; không đổi đầu nối executor đang dùng để ghi repo | Mac là máy làm việc của Owner; “giữ nguyên” phải có đường lùi. Không tốn thêm lượt vì R4 đằng nào cũng dừng | 0,52 — JEV không nghiêng; em giữ theo luật “sửa môi trường thật không cho agent tự quyết” |
+| C7 | §3.3, §8.1 | Đầu nối tự dựng trên Mac có dòng đầy đủ; dòng chỉ-tên phải kèm lý do và được soát ở R4; đầu nối đăng ký trên web do Host và Claude Chat tự khai | Câu “không khảo sát sâu nếu không liên quan” để executor tự loại. JEV nghiêng giữ dạng chỉ-tên (0,86) ⇒ em không bắt đủ 9 ô, chỉ bắt có lý do và có người soát | theo JEV một nửa |
+| C8 | dòng đầu, D2, R4 | Ghi rõ hai bước cần Owner (gật một lần ở R4 · gập Mac một lần). D2 không chặn phần máy: Owner chưa sẵn sàng thì làm tiếp D3 và Pha E. Dừng chờ thì ghi mốc ngay lúc dừng | DROOT42; RUN-06 từng đứng hơn bốn giờ vì một bước cần người đặt giữa. JEV muốn giữ D2 ở giữa (0,87) ⇒ em giữ thứ tự của Host, chỉ thêm câu “không chặn” | theo JEV |
+| C9 | Pha C mục 10–11, E1, E2 mục 7, E4, §8.11 | Twin “dùng được” = gọi được từ phía máy chủ. Tạo twin ≠ cấp cho agent tự động (gắn vào hồ sơ Hermes/Dots là việc node sau). Một cửa lệnh có `--help`. Nhóm nguồn khác chỉ cần chạy “đã khớp”. Biển tại cửa; câu cho AGENTS do Founders ghi | Ranh giới N1 với N2–N5; DROOT27; bớt canary | không gắn trong N1 0,72 · một canary + chạy khớp 0,68 |
+
+**3 · Năm điểm Host hỏi**
+1. Copy/sync, không move: đúng. Thiếu chiều và phép chống ghi đè ⇒ C1, C2.
+2. R1/R3/R4 + S1–S3: đủ; không thấy chỗ lộ địa chỉ hay bí mật. R4 thiếu thay đổi trên Mac và các khác biệt về quyền ⇒ C4–C6.
+3. Ranh giới: không lấn N2–N4 sau khi có câu “tạo twin ≠ cấp cho agent tự động” (C9).
+4. Đơn giản hơn được ở ba chỗ: twin cùng bộ mã (C3) · một cửa lệnh · không canary cho từng nhóm (C9). **Không bỏ phép âm nào** của E3 (JEV 0,35 cho việc gộp ⇒ giữ đủ bốn).
+5. Kẽ hở PASS: chữ “cần thiết” ở §0.3/§8.6 (C3) · “trong scope” ở §8.1 (C7) · ngoại lệ không có người soát (C5). Đã đóng.
+
+**4 · Việc Host làm khi READY** (vùng của Host, em không sửa hộ)
+- Thêm `POLICY_HOLD` và câu “chiều chính Mac ⇒ cloud” vào 0.9/0.17 N1 cho khớp PROMPT.
+- Ghi nguyên văn lời Owner với Host về “bàn ≠ giao ≠ được chạy” (còn treo từ P130). Lời Owner về “copy, không move” em đã ghi vào mục 3 theo khối Owner chuyển.
+- Cập nhật Bảng.
+
+**5 · Phần Claude Chat tự khai cho bảng kiểm kê** (thấy trong phiên chat; nơi chạy thật do executor xác minh)
+- Trên máy chủ: `Incomex_VPS` 23 tool · `Incomex_KB` 7 tool · `JEV` 1 tool.
+- Qua cầu nối app desktop tới Mac (Mac ngủ là mất): `agent-data` bản Mac 37 tool · `directus` 10 tool · `lark-crud-gateway` 24 tool.
+- Của hãng/phổ thông, ngoài phạm vi: Google Drive · Claude Docs · Claude in Chrome · công cụ sẵn có của app.
+- Dự đoán để liệu việc (bảng sẽ khẳng định hay bác): `agent-data` bản Mac có 37 tên tool trùng bộ của cổng GPT ⇒ nhiều khả năng `ALREADY_TWIN`. `directus` bản Mac có tạo/sửa/xoá/kích flow, bản trên máy chủ chỉ 4 tool ⇒ nhiều khả năng `POLICY_HOLD`. `lark-crud-gateway` có xoá bảng/trường/bản ghi, bản trên máy chủ mặc định đọc + chạy thử ⇒ `CREATE_CLOUD_TWIN` kèm câu hỏi quyền ghi/xoá. Tức R4 gần chắc có một câu gộp cho Owner.
+
+**6 · Ghi chú cho lúc chạy**
+- D2: phiên chat không tự thức. Tới D2 em hỏi Owner một câu: cho em đặt đúng một lần hẹn để tự làm phép thử lúc Mac ngủ (không phải tự kiểm định kỳ mà Owner đã bỏ lúc 11:10), hoặc Owner nhắn từ điện thoại.
+- D3: khi nghiệm thu em tự gọi một tool chỉ đọc của từng đầu nối Mac qua cầu nối app desktop, để có bằng chứng từ đúng kênh Owner dùng (DROOT34c).
+
+**7 · Hai vòng rà:** V1 — đặt từng câu của lời Owner (15:22 và lời với Host) cạnh từng mục PROMPT: câu nào của Owner chưa có dòng PROMPT thi hành, dòng PROMPT nào có thể làm ngược. V2 — gốc rễ: “đồng bộ nhanh về sau” chỉ thật khi (a) hai nơi chạy cùng một bộ mã, (b) lệch do máy tự thấy, (c) cải tiến trên Mac không bao giờ bị ghi đè âm thầm. Thiếu một trong ba thì N1 chỉ là một lần sao chép rồi lại lệch.
