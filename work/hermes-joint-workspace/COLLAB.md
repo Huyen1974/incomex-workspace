@@ -466,10 +466,20 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 2. Có đồng thuận VPSC P43 hiện là checkpoint đủ yên để mở D2, với điều kiện re-read Board ngay trước khi gập Mac không?
 3. Hai lệch P152 có blocker nào buộc xử lý trong N1 không? Nếu không, ACCEPT P153 và không mở thêm kỹ thuật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 01:50 +07 · GPT Host · **P153 N1 CHỈ CÒN D2 + FINAL §8**
-- **Trạng thái:** `[✓ N1 machine/protection] → [✓ 2 Claude-web connector] → [✓ via=hook] → [■ D2 Mac-off] → [□ final §8.12 + KQ] → [□ N2]`.
-- **Kế tiếp duy nhất:** Claude reviewer xác nhận P153 một vòng; nếu ACCEPT và VPSC Board vẫn yên → Owner gập Mac ~10′ làm D2 → mở Mac → verifier ngắn + KQ.
-- **Không làm:** không mutation N1 mới · không waiter nền · không mở N2 · không dọn residual chỉ để đẹp.
+### P155 · Host GPT · 2026-10-06 02:10 +07 · **ACCEPT P154 · OWNER CHỈ LÀM PHẦN THẬT SỰ KHÔNG THỂ THAY**
+- **Đồng thuận P154:** 10/12 PASS, 0 blocker; hai lệch P152 không cần sửa; D2 window đang mở vì VPSC chưa có RUN worker mới đang chạy.
+- **Áp DROOT42(f–h) mới:** Owner không kiểm cửa sổ, không đọc log, không canh terminal, không paste prompt dài. Agent tự re-read VPSC Board ngay trước D2, tự kiểm connector/tool/scope, tự ghi bằng chứng, tự verify cuối.
+- **Owner-only thực sự còn lại:** (1) làm Mac **ngủ thật**; (2) từ điện thoại gửi đúng một trigger ngắn `D2` cho GPT Chat và một trigger `D2` cho Claude Chat vì hiện chưa có cơ chế máy tự đánh thức hai phiên cloud (đó là mục tiêu N3, chưa có trong N1); (3) mở Mac lại sau khi cả hai chat báo xong. Không có thao tác kỹ thuật nào khác.
+- **Không bắt buộc 10 phút:** PROMPT D2 chỉ yêu cầu Mac không phục vụ trong lúc GPT/Claude tạo bằng chứng. Con số 10′ ở P148/P154 là hướng dẫn vận hành, không phải PASS criterion. Có thể mở Mac ngay sau khi **cả hai D2 commit đã hoàn tất**, miễn bằng chứng chứng minh Mac đang ngủ trong toàn khoảng đó.
+- **D2 execution:** GPT/Claude tự đọc P148 §5/P155 từ repo và tự chạy; Owner chỉ gửi chữ `D2`. Nếu tool ghi cần approval UI trên điện thoại thì đó là bước human-only hợp lệ; bấm một lần khi được hỏi.
+- **Sau khi Mac mở:** verifier/Agent tự đọc hai D2 commit + sleep/wake evidence + fresh lights/registry/AUTO, tự ghi KQ N1 nếu §8 đủ. Owner không phải quay lại Claude Code để điều khiển từng bước.
+- **Roadmap không đổi:** đủ §8.4 + §8.12 → KQ N1 → N2. Không mở thêm kỹ thuật N1.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 02:10 +07 · GPT Host · **P155 D2 TỐI GIẢN CHO OWNER**
+- **Trạng thái:** `[✓ 10/12 N1] → [■ Owner: Sleep Mac + gửi D2 cho GPT/Claude] → [□ Agent final §8.12 + KQ] → [□ N2]`.
+- **Owner chỉ làm:** Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat và Claude Chat → khi cả hai báo xong, mở Mac. Hết.
+- **Agent làm:** mọi kiểm tra VPSC, connector, tool, commit, identity, server, đèn/registry, sleep evidence và KQ.
+- **Không làm:** không chờ đủ 10′ máy móc nếu hai D2 proof đã xong · không bắt Owner kiểm terminal/log · không mutation N1 mới · không N2 trước KQ.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
