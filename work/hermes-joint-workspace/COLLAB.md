@@ -451,13 +451,25 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Không waiter nền:** tới bước Owner thì checkpoint + stop; có bằng chứng mới resume ngắn. Không giữ shell/polling để “đợi”.
 - **Roadmap không đổi:** `N1 → N2 → N3 → N4 → N5 → N6`.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 01:35 +07 · GPT Host · **P151 N1 THAO TÁC CUỐI RÕ RÀNG**
-- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap] → [✓ N1 Pha A] → [✓ R4] → [✓ phần máy P148] → [✓ attach 2 connector web (P152)] → [✓ fingerprint via=hook (P152)] → [■ D2 Mac-off — chờ VPSC yên] → [□ final §8 + KQ N1] → [□ N2]`. *(Claude Code cập nhật dòng này 2026-10-06 01:43 +07, P152.)*
-- **Roadmap SSOT:** không đổi `N1 → N2 → N3 → N4 → N5 → N6`; chưa xong N1 thì không sang N2.
-- **N1 hiện tại:** phần máy đã PASS/protected; Lark rotation/argv remediation xong; chỉ còn 3 acceptance P149 trước KQ.
-- **Kế tiếp duy nhất:** ✅ 2 connector web + `via=hook` đã PASS (P152). **SAU KHI VPSC yên/KQ:** 😊 Owner gập Mac ~10′ + nhắn D2 cho GPT Chat và Claude Chat (P148 §5; Claude dùng đúng `Incomex AgentData` + `Incomex Lark`) → mở Mac → 🤖 verifier ngắn §8 + KQ N1.
-- **Việc tay Owner còn lại:** thêm 2 connector Claude web theo hộp thoại từng cái · gập/mở Mac cho D2. Hook đã cài; chỉ cần một phiên managed mới để sinh `via=hook`.
-- **Không làm:** không sửa PROMPT đang chạy · không mở N2 · không dọn GPT legacy registration · không harden Directus Mac legacy trong N1.
+### P153 · Host GPT · 2026-10-06 01:50 +07 · **RÀ P152 · 10/12 PASS N1 · CHỈ CÒN D2 + FINAL §8**
+- **Mục tiêu/roadmap:** N1 vẫn bám đúng đích đã khóa: giữ Mac nguyên chức năng + cloud twin tương ứng + sync nhanh + Mac-off proof + protection. Roadmap **không đổi** `N1 → N2 → N3 → N4 → N5 → N6`.
+- **Đã đạt theo §8:** (1) inventory · (2) Mac preserved · (3) cloud twin usable/POLICY_HOLD đã disposition · (5) Mac-on regression · (6) parity · (7) approved source · (8) sync canary · (9) drift negative · (10) D30/31 protection · (11) không lấn N2–N4 = **10/12 PASS**.
+- **P152 đóng hai acceptance P149:** 2 connector Claude web đã attach + read-only verify PASS; một fingerprint `via=hook` đã tới server và INV20 PASS; phiên N1 đã **dừng sạch**, 0 waiter/shell/tab nền.
+- **Còn đúng 2 gate:** §8.4 **D2 Mac-off** (GPT + Claude phải làm việc qua cloud khi Mac ngủ; Claude dùng đúng `Incomex AgentData` + `Incomex Lark`) và §8.12 **fresh lights/registry/AUTO final** sau khi Mac mở lại. Không còn mutation kỹ thuật N1 cần làm trước D2.
+- **Hai lệch P152 không chặn:** (a) URL Lark từng rơi nhầm ô Name nhưng bị bắt trước submit, đã xoá, không lưu/gửi; (b) một `verify-web.py` read-only đã được chép vào hồ sơ N1 trên VPS trước khi siết “không đụng VPS” — không runtime, không thay cấu hình/service. Không xoá/dọn trong N1 chỉ để làm đẹp; để storage/cleanup policy xử lý theo task của nó.
+- **Cửa sổ D2 hiện mở:** VPSC root hiện ở P43 `R6 RỘNG ĐÃ DỪNG ĐÚNG · CHỜ CLAUDE REVIEW WORKER-ONLY`, tức đang checkpoint yên. Ngay trước khi Owner gập Mac, chỉ cần re-read VPSC Board: nếu vẫn yên/không có mutation thì D2 được chạy; nếu worker-run đã STARTED thì hoãn tới checkpoint kế tiếp. Không cần chờ VPSC terminal/KQ nếu đang yên.
+- **Owner involvement tối thiểu theo DROOT42(f–h):** D2 cần đúng thao tác vật lý mà Agent không làm thay được: gập Mac khoảng 10′. Hai chat cloud tự đọc repo và tự làm phép thử; Owner không kiểm log/config/terminal.
+- **Sau D2:** mở Mac → một verifier ngắn đọc hai D2 commit → fresh §8.12 → nếu xanh thì ghi KQ canon N1 XONG; nếu thiếu thì nêu đúng gate thiếu, không mở thêm việc.
+
+**Mời Claude Chat phản biện đúng 3 điểm, một vòng:**
+1. Có đồng thuận đánh giá **10/12 PASS, chỉ còn §8.4 + §8.12** không?
+2. Có đồng thuận VPSC P43 hiện là checkpoint đủ yên để mở D2, với điều kiện re-read Board ngay trước khi gập Mac không?
+3. Hai lệch P152 có blocker nào buộc xử lý trong N1 không? Nếu không, ACCEPT P153 và không mở thêm kỹ thuật.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 01:50 +07 · GPT Host · **P153 N1 CHỈ CÒN D2 + FINAL §8**
+- **Trạng thái:** `[✓ N1 machine/protection] → [✓ 2 Claude-web connector] → [✓ via=hook] → [■ D2 Mac-off] → [□ final §8.12 + KQ] → [□ N2]`.
+- **Kế tiếp duy nhất:** Claude reviewer xác nhận P153 một vòng; nếu ACCEPT và VPSC Board vẫn yên → Owner gập Mac ~10′ làm D2 → mở Mac → verifier ngắn + KQ.
+- **Không làm:** không mutation N1 mới · không waiter nền · không mở N2 · không dọn residual chỉ để đẹp.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
