@@ -5,16 +5,16 @@
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 02:45 +07 · Claude Chat (Reviewer) · P49 — ACCEPT P48 (3/3) · OWNER D16: BỎ CỔNG CHỜ NGÀY · CHỜ HOST ĐÓNG
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · GPT Host · P50 — FINAL ACCEPT · CLOSED
 - 🎯 **Mục tiêu Owner:** VPS khỏe, không tăng dung lượng bất thường, dữ liệu/artifact không cần thì bỏ/đưa offsite an toàn; không đóng trên tín hiệu xanh giả.
-- 🏁 **Xong khi:** cleanup/storage protection đạt (đã đạt) · residual ngoài phạm vi có tên/chủ, không bị che thành PASS (đã có) · Host ghi kết luận đóng. **D16 (Owner 06/10): không giữ việc mở để chờ ngày xanh** — máy tự canh sau khi đóng (chuông #11 mỗi giờ + bản tin 08:00); đỏ ⇒ Telegram ⇒ mở vòng mới.
-- 📍 **Tiến độ:** `✅ cleanup 29 mục · ✅ free >45 GiB · ✅ log/retention/storage-watch/#11 · ✅ checker/APR · ✅ POST/Guard/Kuma · ✅ worker restart/lock hết · ✅ worker residual đã thử tới điểm dừng P47 · ✅ P49 Reviewer final review · ■ Host ghi kết luận đóng → CLOSE (không chờ ngày)`.
-- ✅ **Fresh Host:** disk ~49,5% used, free ~52,0 GB; disk pressure=false; PG/Directus/Nuxt/Qdrant/Agent Data healthy; Agent Data/UI HTTP 200; RAM available ~7,1 GB. Không có dấu hiệu production/disk emergency.
-- ✅ **Kết luận cleanup:** mục tiêu dọn đĩa + bịt nguồn tăng bất thường **đã đạt về kỹ thuật**. Worker residual còn lại không làm đĩa tăng: v2 giảm churn ~35%, toàn bộ write_bytes tương ứng cancelled_write_bytes; vấn đề còn là CPU/syscall inefficiency, không phải storage leak.
-- 🟡 **Residual worker:** chưa đạt ngưỡng nội bộ ≥80%; gốc đã rõ (keepalive connection chưa thực thi câu đọc nên SQLite chưa mở WAL). Theo P45/P47 không v3/RUN thứ ba trong VPSC; chuyển chủ agent-data/GPT, không chặn cleanup CLOSE sau watcher-day.
-- ⬜ **Còn lại trong VPSC:** đúng 1 việc — Host ghi kết luận đóng (`BAO-CAO.md` mục KẾT + root). Không còn bước chờ: số giảm-24-giờ thật có từ ~02:00 +07 07/10 và do chuông máy tự canh, không ai phải ngồi đọc.
-- ➡ **Kế tiếp:** Host (GPT) đóng VPSC ngay theo D16 + P49 — không cần thêm vòng Reviewer. HJW D2 không còn bị VPSC chặn. 😊 Owner không cần làm gì; không cần giữ Mac hay terminal nào cho việc này.
-- ⛔ **Không làm:** không v3 worker trong VPSC · không mở lại cleanup/checker/APR · không sửa residual task khác để “làm đẹp” trước CLOSE.
+- 🏁 **Xong khi:** cleanup/storage protection đạt · residual có tên/chủ · máy tự canh sau đóng. **ĐÃ ĐẠT.**
+- 📍 **Tiến độ:** `✅ audit · ✅ dọn 29 mục · ✅ free >45 GiB · ✅ chặn tăng lại · ✅ checker/APR · ✅ POST/Guard/Kuma · ✅ worker thử tới điểm dừng · ✅ final review · ✅ CLOSED`.
+- ✅ **Kết quả:** disk ~49–50% used, ~48,4 GiB free; PG18/Directus/Nuxt/Qdrant/Agent Data healthy; #11 + storage-watch mỗi giờ + bản tin 08:00 tiếp tục chạy độc lập.
+- ✅ **Đóng trung thực:** worker write-idle chỉ giảm ~35%, chưa đạt KPI 80%; residual chuyển chủ agent-data/GPT, **không phải disk leak và không chặn close**.
+- ■ **Đang làm:** —.
+- ⬜ **Còn lại trong VPSC:** —. Nếu #11/heartbeat đỏ thì mở vòng mới theo sự cố thật; không giữ task mở để chờ thời gian.
+- ➡ **Kế tiếp:** 😊 Owner không làm gì cho VPSC; terminal/Mac được giải phóng cho việc khác.
+- ⛔ **Ngoài phạm vi đã có chủ:** Nuxt/Kuma #6 404 → CWEB/Claude · presence 502 → HJW/GPT · DOT-health/APR-0234/logrotate permission → GPT root.
 
 ### 1. Mục tiêu
 Owner 05/10/2026: “rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
@@ -488,6 +488,15 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **Kiểm tra định kỳ (Owner: “cần thì…”):** đã có sẵn bằng máy (mỗi giờ + 08:00), tốn 0 lượt AI ⇒ không lập thêm lịch AI, khớp luật gốc mới về không polling nền; chỉ lập khi Owner yêu cầu.
 - **Bài học quy trình gửi Host (đề nghị đưa lên gốc; Reviewer không sửa luật gốc):** (i) RUN không dừng giữa chừng chờ duyệt — việc cần duyệt thì tách hai RUN ngắn: khảo sát → ra kế hoạch → kết thúc · duyệt · thi hành; (ii) không đặt cổng “chờ N giờ/ngày” giữ việc mở — quan sát dài do máy canh + chuông, việc đóng ngay khi có kết quả.
 - **JEV** `gen-dec-1791229009-2Hk5og3F6lr1QNM1yEkw` (bằng chứng phụ): đóng ngay, chuông đỏ thì mở lại 0,99 · giữ mở tới sau 02:00 07/10 0,01 · chờ thêm có mang bằng chứng mới 0,21 · cần thêm lịch AI kiểm định kỳ 0,14.
+- Owner cần quyết: —.
+
+### P50 · GPT Host · 06/10/2026 · FINAL ACCEPT · CLOSE NOW
+- **ACCEPT P49 3/3 + D16.** Mục tiêu VPSC đã đạt: dọn 29 mục, free >45 GiB, storage bounded/alert live, checker/APR/POST protection đạt, core healthy.
+- **Không chờ 24h/7d để giữ việc mở.** `DISKWATCH` + Kuma #11 chạy mỗi giờ và bản tin 08:00 chạy độc lập; số d24 thật có từ ~02:00 +07 07/10, d7 từ ~13/10. Nếu đỏ thì Telegram báo và mở vòng mới.
+- **Worker residual công khai:** v2 giảm churn ~35%, chưa đạt KPI 80%; không làm disk tăng, không restart/lock; chủ tiếp theo = agent-data/GPT. Không gọi worker PASS.
+- **Không lập lịch AI định kỳ:** machine watcher hiện hữu đủ; chỉ tạo automation nếu Owner yêu cầu riêng.
+- **Terminal/task:** không còn RUN mở, không giữ Mac/terminal chờ. VPSC chuyển Done ngay theo DROOT11/A9.
+- **Residual ngoài VPSC:** giữ nguyên chủ đã ghi P48/P49/root; không mở task mới tại closeout.
 - Owner cần quyết: —.
 
 ## Owner cần quyết

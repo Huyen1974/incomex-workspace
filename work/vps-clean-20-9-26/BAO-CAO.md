@@ -4,6 +4,17 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## KẾT · FINAL CLOSE · 06/10/2026
+- **Trạng thái:** CLOSED theo Owner D16 + Claude P49 + Host P50; không chờ 24h/7d giữ task mở.
+- **Đĩa:** sau cleanup còn khoảng 48,4–48,6 GiB free, vượt đích 45 GiB; 29 mục thừa đã xoá đúng plan; core services healthy.
+- **Chặn tái tăng:** log caps/retention + storage registry/watch + Kuma #11 chạy mỗi giờ; bản tin sức khoẻ 08:00 tiếp tục độc lập sau close. Đỏ ⇒ Telegram ⇒ mở vòng mới.
+- **Độ tin cậy:** `dot-nrm-verify` false-PASS đã sửa; APR schedule lỗi đã OFF, không replay; POST-PROTECT/Config Guard/Kuma/Telegram PASS.
+- **Residual worker — CHƯA ĐẠT nhưng không chặn close:** v2 giảm write-churn khoảng 35% (736→481 syscw/5s; 3,01→1,97 MB/5s), chưa đạt KPI 80%; write là cancelled trước persistence nên không làm đầy disk; 0 restart/lock; gốc còn lại đã rõ và chuyển chủ agent-data/GPT.
+- **Mốc quan sát:** d24 có ý nghĩa đầy đủ từ khoảng 02:00 +07 07/10; d7 từ khoảng 13/10. Không giữ task/terminal mở để chờ các mốc này; watcher máy tự canh.
+- **Residual ngoài VPSC:** Nuxt/Kuma #6 404 → CWEB/Claude; presence 502 → HJW/GPT; DOT-health patterns + APR-0234 + logrotate permission → GPT root. Không mở task mới trong closeout.
+
+---
+
 ## R6W — Worker ghi rỗi · 06/10/2026 (19:12–19:23Z 05/10) · executor=Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ DỪNG · CHƯA ĐẠT worker write-idle
 
 RUN_ID `VPSC-R6W-WORKER-CLOSE-20261006-01` · READY@`0d4c64ff398e8bf15df0565b283bad6c2fa1f8df` · STARTED P46 `29f15c9`. Hồ sơ VPS: `/opt/incomex/work/vps-clean-20-9-26/R6W-20261006/`. Phần R6 đã PASS không chạm lại; không dựng lại agent-data; không HJW.
