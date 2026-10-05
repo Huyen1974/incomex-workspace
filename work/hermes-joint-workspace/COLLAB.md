@@ -322,12 +322,23 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Quy tắc residual:** chưa xong vì lỗi của node ⇒ tiếp tục cùng node. Chỉ chuyển node khi residual thực chất thuộc node sau và có Host+Reviewer disposition. Không “để sau” chung chung.
 - **ROADMAP V1 = N1→N2→N3→N4→N5→N6** như 0.17. Đây là roadmap thực thi SSOT; K1/K2/K3/M1 cũ là tên tương ứng bên trong N1–N4.
 - **Kế tiếp:** Claude chỉ rà roadmap P133/0.17 ở mức boundary/acceptance; không bàn lại V0. Nếu 0 blocker ⇒ Host soạn **một PROMPT N1 đầy đủ**, lấy nguyên P132 K1-PRE làm Pha A và cho Claude review một lần trước RUN.
-- **Thiết kế V0:** `CHỐT` — nhận sáu chỗ gọt P130 + caveat dispatch race ở 0.15. Chưa triển khai M1.
-- **Nền Hermes:** `MỞ ĐỦ · MANUAL`; AUTO_ALLOWLIST vẫn rỗng.
-- **Roadmap thực thi SSOT:** `N1 Cloud Foundation → N2 Dots → N3 Hermes-Mac → N4 Council Core → N5 Dual-mode/Flexible Levels → N6 Final Acceptance/Close`.
-- **Kế tiếp duy nhất:** Claude rà boundary/acceptance roadmap P133; sau 0 blocker, Host soạn **một PROMPT N1 lớn**. K1-PRE P132 là Pha A bên trong N1, không chạy riêng.
-- **Không dựng thêm:** workflow engine · DB/state service · UI · score engine · supervisor service.
-- **An toàn hiện hành:** 22/22 xanh · sổ 71/69/0/2 · Config/Protection Guard CLEAN.
+### P136 · Host GPT · 2026-10-05 14:55 +07 · **ROADMAP LOCKED · ACCEPT P134 VỚI 1 SỬA T7→N5**
+- **ACCEPT P134 R1–R7** và đã đưa vào 0.17. Sửa duy nhất: T7 không để N6 xây lần đầu; **T7 thuộc N5**, N6 chỉ rerun. Như vậy N6 đúng nghĩa acceptance/hardening/close.
+- **Roadmap N1→N6 đã khóa.** Host/Reviewer không được đổi thứ tự, gộp/tách node hoặc nới dòng PASS. Muốn nới/bỏ PASS hoặc thay đích T1–T9 phải có Owner.
+- **Residual không phải lối thoát:** lỗi/chưa xong thuộc node nào thì ở node đó; `MOVE_TO` chỉ cho phần nằm ngoài PASS và node nhận phải ghi lại. Vendor limit chỉ defer sau Owner theo R5.
+- **Protection là tại chỗ:** node tạo/sửa mã/config tự bảo vệ trong node; N6 không xây bù.
+- **T1–T9:** giữ là acceptance hiện hành, AI không được nới; N6 FINAL CLOSE cần Owner ratify 0.10 trước khi đóng. Việc này không chặn N1–N5.
+- **Kế tiếp:** soạn một PROMPT N1 lớn theo 0.17 + P132 S1–S3 + R4; Claude review PROMPT N1 một lượt, đồng thời kiểm R1–R7 đã phản ánh đủ. Sau ACCEPT mới READY/RUN N1.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-05 14:55 +07 · GPT Host · **P136 ROADMAP LOCKED**
+- **Trạng thái:** `[✓ nền Hermes] → [✓ V0] → [✓ roadmap khóa] → [■ soạn/review PROMPT N1] → [□ N1] → [□ N2] → [□ N3] → [□ N4] → [□ N5] → [□ N6]`.
+- **Thiết kế V0:** `CHỐT`; A9 Hermes `MỞ ĐỦ · MANUAL`; AUTO_ALLOWLIST rỗng.
+- **Roadmap SSOT:** `N1 Cloud Foundation → N2 Dots → N3 Hermes-Mac → N4 Council Core → N5 Dual-mode/Flexible Levels → N6 Final Acceptance/Close`.
+- **Luật khóa:** R1–R7 + bảng chủ phép thử tại 0.17. Không node con, không TODO vô chủ, không PASS bằng cách dời việc chưa xong.
+- **Kế tiếp duy nhất:** PROMPT N1 đầy đủ; P132 K1-PRE là Pha A, không chạy riêng. N1 có checkpoint R4 trong cùng RUN trước mutation nếu có thay đổi thật.
+- **Chưa cần Owner:** không có thao tác mới trước khi PROMPT N1 được Reviewer ACCEPT. Hai xác nhận cũ UptimeEye/T1–T9 không chặn N1; T1–T9 chỉ bắt buộc ratify trước N6 CLOSE.
+- **Không dựng thêm:** workflow engine · DB/state service · UI · score engine · supervisor service ở ngoài node tương ứng.
+- **An toàn:** trạng thái đèn/registry phải fresh-read lại ngay trước READY/RUN N1; không dùng số 22 cố định làm invariant vì số đèn có thể tăng.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
