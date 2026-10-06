@@ -2,7 +2,8 @@
 
 > **SSOT mục tiêu hiện hành · Owner 05/10/2026:** nền giao việc Hermes đã PASS; từ đây HJW chuyển sang xây **khung điều hành AI nhiều mức** theo kiểu bottom-up. Lịch sử quyết định cũ giữ ở các mục P phía dưới để đối chiếu, không dùng làm mục tiêu hiện hành.
 
-## 0. MỤC TIÊU HIỆN HÀNH — SSOT · BẮT BUỘC ĐỌC TRƯỚC
+## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
+> **Tiêu đề này là khoá máy đọc — không đổi chữ.** Ngày 05/10 nó bị đổi thành “MỤC TIÊU HIỆN HÀNH — SSOT…” nên trang VPS của Owner báo “Chưa có mục tiêu”; khôi phục 06/10 (P164).
 > **Một nguồn cho Owner (06/10, AGENTS MT4):** mục tiêu và tiêu chí hoàn thành mà Owner đọc trên VPS nằm ở ô `### 1. Mục tiêu` và `### 2. Thế nào là hoàn thành` bên dưới — trang VPS tự rút từ hai ô đó. Mục 0 này là phần thiết kế và lộ trình chi tiết cho AI. Đổi mục tiêu hay tiêu chí ⇒ sửa hai ô đó trong cùng commit.
 
 ### 0.1 · Đích tổng
@@ -3091,4 +3092,11 @@ D2-GPT 2026-10-06T04:31Z · đọc OK · ghi OK · server OK
 - **Việc khác có thể cũng lệch như vậy** (mục tiêu mới nằm ngoài ô `### 1`): chưa đo; luật mới áp ở lượt chạm kế tiếp của từng việc.
 - `Bảng: khớp` (12:00) · `Ô 1–2: khớp` (vừa sửa).
 - **Hai vòng rà:** V1 — đọc trạng thái đồng bộ, dữ liệu và mã hiển thị của trang VPS trên máy chủ; đối chiếu ô `### 1`/`### 2` với mục 0. V2 — gốc rễ: lỗi nằm ở chỗ ghi, không ở đường truyền; thêm một nơi ghi mới cho cùng một thông tin là cách chắc chắn tạo ra hai sự thật.
+
+### P164 · Claude Chat Reviewer/Founder (co-host) · 2026-10-06 15:20 +07 · **CHỖ ĐỨT THẬT: TIÊU ĐỀ MỤC 0 BỊ ĐỔI CHỮ — ĐÃ KHÔI PHỤC**
+- **Sửa lại P163:** em viết “máy rút đúng nhưng rút cái cũ” là chưa đúng. Em kiểm dữ liệu máy vừa sinh sau commit P163: mục HJW vẫn là “Chưa có mục tiêu”, ba ô rỗng.
+- **Nguyên nhân đọc từ mã đồng bộ** (`scripts/hvu-b2/sync.py`, chỉ đọc): máy tìm đúng tiêu đề `## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC`, rồi trong mục đó tìm đúng bốn tiêu đề con và dòng `Xác nhận User:`. Ngày 05/10, khi nâng cấp mục tiêu, tiêu đề mục 0 của HJW bị đổi thành “MỤC TIÊU HIỆN HÀNH — SSOT · BẮT BUỘC ĐỌC TRƯỚC” ⇒ máy không còn thấy mục 0 ⇒ trang Owner mất cả ba ô, chỉ còn khung `view.html` cũ.
+- **Đã làm (cùng commit):** khôi phục đúng tiêu đề; ghi ngay dưới tiêu đề rằng đây là khoá máy đọc; AGENTS MT4 liệt kê sáu khoá máy đọc không được đổi chữ.
+- **Máy đã có cảnh báo mà không ai nghe:** mã đồng bộ gắn nhãn “§0 chưa chuẩn” cho việc này từ 05/10, nhưng nhãn chỉ hiện trên trang VPS, nơi không AI nào nhìn → việc `hpml-view-for-user`: đưa cảnh báo “§0 chưa chuẩn” về chỗ AI đọc đầu phiên (hoặc vào sổ tin báo).
+- **Kiểm sau sửa:** em đọc lại dữ liệu máy sinh ở lần đồng bộ kế tiếp và báo Owner; chưa thấy ba ô có nội dung thì chưa tính là xong.
 
