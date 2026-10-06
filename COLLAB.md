@@ -14,7 +14,6 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đang làm
 - `work/hermes-joint-workspace/` · HJW · **ACTIVE · P168 N1 CLOSED · N2 PROMPT DRAFT CHỜ CLAUDE 1 VÒNG**: roadmap giữ `N2→N6`; không làm lại D2. Soạn/review N2 chạy ngay, không chờ thời gian. RUN N2 chỉ sau Reviewer ACCEPT + fresh protection PASS. Owner 0 thao tác lúc này.
-- 🔴 **ĐÈN #22 / CWEB post-close hygiene** · web vẫn chạy; gốc lỗi là runtime/protection còn phụ thuộc đường thư mục việc sau archive. **Owner 06/10 đã chốt CWEB về nghiệp vụ là ĐÓNG và cấm mọi kiểu agent mở việc rồi chờ giờ/ngày.** Xử lý: đúng một lượt Claude Code khi được giao — nếu cần reopen thì ngay trong lượt → chuyển runtime refs ra vị trí ổn định → gọi check/one-shot hiện hữu ngay, không sleep/poll → verify → đóng lại trước khi kết thúc. Blocker thì trả trạng thái đóng + KQ DỪNG sạch. 404 lẻ chỉ monitor; chỉ mở vòng mới khi thành sự cố thật. HJW P168.
 - `work/hpml-view-for-user/` · HVU · Host GPT Chat · **MỞ LẠI 06/10 theo lời Owner 14:59** (`2ebbdac`): trang VPS chỉ là kênh để Owner xem trực tiếp thứ các AI viết trên repo, nhất là tiến độ theo thời gian thực; sửa chỗ làm trang hiện nội dung cũ + thêm đèn canh. PROMPT `HVU-OWNERVIEW02-20261006-01` **NHÁP** (Claude Chat soạn, HVU P36) · chờ Host GPT rà một vòng → READY → một lượt Claude Code → đóng lại. Không gộp vào phiên HJW.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/graph-server/` · GS · Host GPT Chat · **R5 BUSINESS-ORACLE READY@606de081a6996bc9ca6759e212d2b3ce81bbbdef · D14 TRIAL AUTONOMY**: exact Lark links = oracle → deterministic pseudonym text → Graph/JEV reconstruct; ≤20 snippets, 1 holdout relation + 4 negatives; `gpt-5.6-luna` + `text-embedding-3-small`, cap R5 1 USD; no bulk KB/notes. RUN `GS-R5-BUSINESS-ORACLE-20261006-03`.
@@ -23,6 +22,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - NEXT chung: **VPSUP terminal XONG P130/P131 (03/10); các gate G4C/G5/G7 cũ hết hiệu lực.** MCPW/HJW/CWEB/PGNB tiếp tục theo Bảng điều khiển riêng của từng task; không dùng mốc VPSUP cũ làm điều kiện chờ.
 
 ## Đã xong
+- `work/done-tasks/copy-web-incomexsaigoncorp-vn/` · CWEB · **ĐÓNG · Owner đóng 06/10** · đèn #22 sau đóng việc đã xử một lượt `KQ@CWEB-ROOT-RELOCATE-20261006-01 XONG` (09:18Z, không reopen): dữ liệu chạy/cứu hộ của 3 DOT CWEB + 2 tệp tls chuyển ra `/var/lib/incomex-web-incomex` (DROOT12) · Config Guard 336/336 CLEAN · Guard UP · `ĐÈN: 22 xanh · 0 đỏ`. 404 lẻ chỉ monitor (HJW P168).
 - `work/done-tasks/vps1-up-grade/` · **VPSUP XONG 03/10/2026 · P130 Reviewer CLOSE + P131 Host FINAL ACCEPT** · VPS1 production = PG18.6 + Directus12.4.1/OIG + Nuxt4.5.2/Node24.21.0 + nginx1.30.5.
 - `work/done-tasks/dns-resilience/` · **TERMINAL · CANCELLED_BY_OWNER 01/10** · DNS/NS Mắt Bão giữ nguyên; 0 Cloudflare production mutation; DNS0 giữ làm inventory/reference.
 - `work/done-tasks/mcp-workspace/` · đã archive Done từ trước; bỏ khỏi danh sách active stale.

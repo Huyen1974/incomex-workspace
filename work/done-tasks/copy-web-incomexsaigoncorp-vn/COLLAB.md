@@ -21,6 +21,17 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chốt cuối 03/10/2026 22:30: mục
 - Phần copy được coi hoàn thành; lịch sử cutover DNS/cert giữ lại làm reference, không còn là pending của task này.
 - Owner cần quyết: —.
 
+### KQ@CWEB-ROOT-RELOCATE-20261006-01 XONG · Claude Code · 2026-10-06 16:20 +07 · **ĐÈN #22 XANH · CWEB VẪN ĐÓNG**
+*(Owner giao trực tiếp một lượt theo HJW P168 + root `Đang làm`; DROOT43: không chờ timer/cron. Không reopen, không sửa web.)*
+- **Gốc (fresh-check 09:02Z) — đúng P167:** Config Guard `MATCH=334 · MISSING=2` = `tls/cweb-tls.py` + `tls/company-https-server.conf.candidate` đăng ký theo đường thư mục việc cũ; Guard INV18 (`dot-web-incomex watch`) lỗi cùng hai đường. Thêm: 3 DOT `dot-web-incomex*` và `tls/cweb-tls.py` gõ cứng `ROOT` vào đường cũ ⇒ mọi chế độ của `dot-web-incomex-deploy`, kể cả rollback chạy thử, đều hỏng.
+- **Reopen: không cần** — bản gốc còn nguyên trong `done-tasks`, sửa thẳng từ đó; CWEB giữ ĐÓNG suốt lượt. JEV `gen-dec-1791277657-xqLn4UJ5eZeVyT3BhhmM`: không cần reopen 0,91 · vị trí `/var/lib` 0,81 · chép đúng phần DOT đọc 0,99.
+- **Đã làm 09:15:56–09:16:02Z** (auto-mode hỏi, Owner chọn “Cho phép áp”): chép 603 tệp DOT đọc qua `ROOT` (chup, project-patch, source, tls, backup, accept, evidence, các json sở hữu) sang `/var/lib/incomex-web-incomex` (root:root 0700, khớp sha từng tệp; hồ sơ gốc không đổi byte) → đổi `ROOT` trong 3 DOT (1.1.1 · 1.2.1 · 1.1.1) và `tls/cweb-tls.py` → registry Config Guard: 2 dòng tls sang đường mới → `web-incomex-protection.json`. Năm tệp đang canh đều đi qua `incomex-config-apply-v0` (mutation `CWEB-ROOT-RELOCATE-20261006-01`, 5/5 APPLIED). Cây DOT commit `b09211d`; sổ `00-SO-DOT` `--check` sạch.
+- **Kiểm ngay bằng one-shot hiện hữu:** Config Guard `TOTAL=336 MATCH=336 · STATUS=CLEAN`, unit `incomex-config-drift-check` hết failed · `dot-web-incomex watch` PASS (27 bài · 6 route) · `dot-web-incomex-deploy rollback` chạy thử PASS trên ROOT mới · Guard periodic một lượt 09:18:10Z `UP OK all invariants` · `kuma-push.sh cron` một lượt làm mới bảng đèn.
+- `ĐÈN: 22 xanh · 0 đỏ` (bảng đèn 09:18:24Z; #6 Nuxt Web up · #22 up) · tin báo 72 loại · 70 chạy · 0 hỏng · 2 chưa xác định · `/w/` 200. Failed unit còn 2 cái nền hệ điều hành (cloud-init, networkd-wait-online), không thuộc CWEB.
+- **Hồ sơ VPS:** thư mục `CWEB-ROOT-RELOCATE-20261006-01/` trong hồ sơ việc này (pre · apply · post · final.json, copy-manifest, apply-log). **Rollback:** `bin/relocate.py rollback --execute` trả 5 tệp canh về bản `.pre` của apply-v0.
+- **Từ nay:** việc web Incomex mới (DNS/cert, sửa web) dùng 3 DOT như cũ, dữ liệu chạy ở `/var/lib/incomex-web-incomex`; đóng/chuyển thư mục CWEB không còn làm đỏ đèn.
+- CWEB: **ĐÓNG**. Owner cần quyết: —.
+
 ### 1. Mục tiêu
 Owner chốt cuối, 03/10/2026 22:30 — **đọc trước:** “Mục tiêu cuối cùng là copy được trang Web từ cái cũ sang VPS của chúng ta => sau đó chuyển dns sang. Khoảng độ 1 tuần nữa là web cũ hết hạn => chúng ta sẽ chuyển tạm sang đây rồi xây dựng lại sau. Mục tiêu chỉ cần duy trì cho nó chạy giống với cái cũ nhất có thể.” · “Nếu sử dụng đến PG/Directus thì phải phân rõ nhóm là table/collection ghi chú là của web incomex … để sau này khỏi lẫn lộn.”
 
