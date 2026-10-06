@@ -135,6 +135,17 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - State: ACTIVE.
 - LAST_SYNC: 2026-10-06T08:49:39Z · D154 STARTED.
 
+### CODEX-MMIM-TOTAL-20261006
+- Role: OWNER-DIRECTED IMPLEMENTATION · D155.
+- Write_Zone: Master index Total + loader/shared mapping; docs MMIM.
+- Active_RUN: D155 chỉ đạo trực tiếp Owner.
+- Reserved_Targets: ui-child-content-v1.js, ui-child-from-parent-v1.js, definition-master-index-v1.html.
+- NOW: STARTED · Total tự đếm sau Tên.
+- NEXT: kiểm dữ liệu/live và ghi KQ.
+- BLOCKED_BY: none.
+- State: ACTIVE.
+- LAST_SYNC: 2026-10-06 · D155.
+
 ## Proposal contract
 
 Mỗi proposal Council append vào ledger riêng, tối thiểu:

@@ -109,6 +109,10 @@ Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đ�
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
+**OWNER 06/10/2026 · D155 · TOTAL:** thêm cột `Total` ngay sau `Tên` trong bảng 28 Master (Master of Master theo nghĩa quản lý các Master khác). Tự đếm theo nguồn thật của danh sách con; mở/tải lại bảng lấy dữ liệu mới; không giữ số viết tay.
+- STARTED D155 · 2026-10-06T08:55:24.481Z. CE-MMIM-TOTAL-20261006: MASTER_SCHEMA_CHANGE + STATUS_OR_COUNT_CHANGE. UPDATE ui-child-content, adapter nạp nguồn, index cache; VERIFY vị trí cột, 35/115, các list reuse, Config, Công thức chỉ đếm dòng gốc, thiếu nguồn ≠ 0, cập nhật khi dữ liệu đổi. N/A: không đổi records/CT/canonical UI, không polling/DB. Phạm vi không overlap D154 ban-duyet.
+
+
 **OWNER 06/10/2026 · D153 · ĐIỀN ĐỦ MASTER NHÓM:** Bước 1–7 + Tầng T0–T2 ⇒ ghi toàn bộ Nhóm cha; Bước con 1.x–7.x + Tầng T0–T2 ⇒ ghi toàn bộ Nhóm con. Theo CT-002 giữ Field/T0, MOIT/T0.5, MOUT/T0.5, MOT/T1, MOW/T2 riêng: 35 cha và 115 con (23 bước con). Giữ ID/dữ liệu cũ; danh mục đầy đủ không có nghĩa rule/config/vận hành đã duyệt.
 - STARTED D153: 2026-10-06T08:42:24.822Z; PROCESS CHUNG.APQUYTRINH PASS (job 162400546e2e404fb82b1406b3502628). Owner giao trực tiếp, không thay active RUN khác.
 - CE-MMIM-GROUPS-20261006: STATUS_OR_COUNT_CHANGE + FORMULA_OUTPUT_MASTER_TEST; UPDATE definition-master-data (001/002), child mapping Tầng/detail, registry sourceHint, đường nạp/cache; VERIFY 35/115 coverage, unique ID/cặp nguồn, 115 quan hệ cha đúng bước gốc và tầng/đối tượng, bảo toàn 10 dòng cũ và các Master khác, UI list/detail/index. README/FORMULA/COLLAB/council cập nhật kết quả. N/A: không đổi CT hay định nghĩa/canonical UI; không DB.
