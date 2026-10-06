@@ -40,6 +40,12 @@ Nếu file này mâu thuẫn với **quyết định Owner mới hơn trong COLL
 - Khóa chống trùng hiện hành D158: `chainId + stepRef + tierRef`; mỗi Nhóm con có `parentGroupId` cùng đối tượng/tầng, đúng Bước gốc. `tierRef` phân biệt MOIT/MOUT tại T0.5.
 - **Độ phủ danh mục: FULL cho phạm vi Owner giao.** Rule/config/bộ trường bắt buộc chưa hoàn thiện vẫn hiển thị thiếu; Chuyên môn Nhóm con giữ OPEN. Đây không phải kết luận các nhóm đã được duyệt để vận hành. Không đổi công thức/khái niệm hoặc canonical UI.
 
+## D158 · Master Quy trình · Owner 06/10/2026 21:48 +07
+
+ML-DEF-004 hiện có **35 quy trình CH-001**, dẫn xuất một-một từ Nhóm cha: B1–B7 × Field/T0, MOIT/T0.5, MOUT/T0.5, MOT/T1, MOW/T2. Không ghép chéo Bước/Tầng với Nhóm cha khác. Tên = Quy trình · Tên Chuỗi · Bước · Tầng/Đối tượng; sourceGroupId trỏ Nhóm cha, trường chung đọc từ SSOT. CT-005 giữ nguyên.
+
+ID mặc định MOW-NHC-xxx; riêng NHC-005 reuse bản review CT005-B5-T0-001 và processRef FIELD.KHAI đã có. Mục tiêu riêng cũ được giữ, mục tiêu chưa có hiển thị chưa khai báo. Các dòng là DANH MỤC · CHƯA HOÀN THIỆN CẤU HÌNH, chưa phê duyệt vận hành. Total tự đếm35. URL mow-master-nhap2-v1.html mở Master mới; `?legacy=1` và link chi-tiet cũ vẫn giữ7 demo legacy. mow-master-v1.html và backend không sửa. Ghi chú 'MOW giữ nguyên' ở mục 18:09 là lịch sử trước cập nhật này.
+
 ## D158 · Đồng bộ danh mục từ Nhóm con · Owner 06/10/2026 18:09 +07
 
 - Tên nhóm: `Nhóm cha/con · Tên Chuỗi · Bước/Bước con · Tầng/Đối tượng`, sinh từ trường SSOT, giữ ID và legacyName. ParentGroup cập nhật theo parentGroupId; coverageKey gồm chainId.

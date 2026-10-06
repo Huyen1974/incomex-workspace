@@ -171,7 +171,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - Role: OWNER-DIRECTED IMPLEMENTATION.
 - Active_RUN: none · D158 XONG thiết kế/UI.
 - Reserved_Targets: none.
-- NOW: Tên 35 cha/115 con có Chuỗi; Task/MOIT/MOUT mỗi loại115 dẫn xuất từ Nhóm con, Total tự đếm. VM propagation và live index/list PASS; 11 công thức/29 Master giữ nguyên.
+- NOW: Master Quy trình35 dòng CH-001 từ Nhóm cha, coverage7×5 và Total35 PASS; seed FIELD.KHAI/legacy giữ nguyên. Tên 35 cha/115 con có Chuỗi; Task/MOIT/MOUT mỗi loại115 dẫn xuất từ Nhóm con, Total tự đếm. VM propagation và live index/list PASS; 11 công thức/29 Master giữ nguyên.
 - NEXT: Owner rà tên/cột, hoàn thiện cấu hình từng loại. Danh mục UI đã đồng bộ; mapping demo/backend giữ riêng, chưa migrate.
 - State: IDLE.
 - LAST_SYNC: 2026-10-06 · D158 KQ; follow-up thay 3 SVG vector Owner (29.600 bytes), kiểm ảnh hiển thị và console PASS.
