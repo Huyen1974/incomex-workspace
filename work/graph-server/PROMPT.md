@@ -1,313 +1,369 @@
-# PROMPT — GS-R4-CODE-FIRST-20261006-02
+# PROMPT — GS-R5-BUSINESS-ORACLE-20261006-03
 
 ## 0. LỆNH / PHẠM VI
 
-RUN_ID: `GS-R4-CODE-FIRST-20261006-02`
+RUN_ID: `GS-R5-BUSINESS-ORACLE-20261006-03`
 Executor_Surface: Claude Code CLI
 Repo: `Huyen1974/incomex-workspace` · branch `main`
 Task: `work/graph-server`
 Repo Write_Path: Incomex workspace gateway `workspace_*` · root `workspace`
-Runtime Write_Path: terminal/SSH hiện hữu tới VPS1; không tạo credential/gateway mới.
+Runtime Write_Path: terminal/SSH hiện hữu tới VPS1 + đường đọc Lark hiện hữu; không tạo connector/credential mới.
 
-Owner 06/10 đổi thứ tự trial:
-1. **quy mô nhỏ**;
-2. **code graph trước** vì quan hệ code có ground truth rõ, dễ chấm;
-3. embedding phải dùng **đúng model OpenAI mà Agent Data hiện dùng**;
-4. vector Graph trial lưu **PostgreSQL/pgvector riêng**, độc lập Qdrant;
-5. dữ liệu trial là disposable; trước production phải xóa sạch và rebuild;
-6. KB hiện có nhiều nội dung cũ/nhiễu ⇒ **không ingest KB rộng trong RUN này**; KB curation là mốc roadmap bắt buộc trước production.
+Owner 06/10 ủy quyền GPT + Claude **tự quyết toàn bộ trial kỹ thuật trong phạm vi nhỏ**. Chỉ khi chuyển sang **production/quy mô triển khai thật** mới phải xin Owner.
 
-Đây là RUN triển khai micro-trial code-first. Owner cho phép thử model trong phạm vi dưới đây.
-Không dùng dữ liệu cá nhân/Lark/customer trong RUN này.
+Mục tiêu duy nhất của RUN này:
+- kiểm **business graph + finite catalog/open discovery + JEV SHADOW** bằng một bộ dữ liệu có ground truth máy chấm được;
+- không mở rộng nguồn;
+- không chứng minh bằng cảm giác/reviewer prose nếu có oracle deterministic.
 
-§0.3: đọc lại và đối chiếu trước mutation.
+Không bulk-ingest KB.
+Không lấy customer notes tự do ở lượt này.
+Không hành động business.
+Không production mutation.
 
-## 1. READ-GATE / READY / STARTED
+§0.3: đọc/đối chiếu toàn bộ trước mutation.
 
-1. Bind đúng repo/workspace; đọc:
-   - `AGENTS.md`
-   - BẢNG + §0 + D mới nhất + P21/P22 của `work/graph-server/COLLAB.md`
-   - `work/graph-server/PROMPT.md`
-   - `work/graph-server/view.html` §16/roadmap hiện hành
-   - root `COLLAB.md` dòng Graph/HJW
-2. Xác minh READY full SHA khớp commit cuối chạm PROMPT; không HOLD/STOP/READY mới; không STARTED chưa KQ cho RUN_ID này.
-3. Gate PASS → ghi:
-   `STARTED@GS-R4-CODE-FIRST-20261006-02 <UTC> · executor=Claude Code CLI`
-   rồi mới PRE.
-4. Gate fail → 0 runtime mutation, KQ DỪNG.
+## 1. READ-GATE / STARTED
 
-## 2. PRE — FRESH RUNTIME GATES
+Đọc theo thứ tự:
+1. `AGENTS.md`
+2. BẢNG + §0 + D13/D14 + P26–P28 của `work/graph-server/COLLAB.md`
+3. `work/graph-server/PROMPT.md`
+4. `work/graph-server/view.html` roadmap/PLAN01 hiện hành
+5. root `COLLAB.md` dòng Graph.
+
+Xác minh:
+- READY full SHA = commit cuối chạm PROMPT;
+- không HOLD/STOP/READY mới;
+- không STARTED cùng RUN chưa có KQ.
+
+PASS → ghi:
+`STARTED@GS-R5-BUSINESS-ORACLE-20261006-03 <UTC> · executor=Claude Code CLI`
+
+FAIL → 0 runtime mutation, KQ DỪNG.
+
+Trước first runtime mutation: DROOT30 freshness gate.
+
+## 2. NGUYÊN TẮC BÀI THỬ — ORACLE TRƯỚC, AI SAU
+
+Không dùng AI để tạo đáp án.
+
+Ground truth lấy từ **link field Lark thật** trong Base `88 - Phái cử`.
+Sau khi oracle được freeze + hash, mới tạo text đã che và mới gọi OpenAI/JEV.
+
+Nguồn DUY NHẤT:
+- `Đơn hàng - Chính thức` — `tblh7nrQpK8TqIs2`
+- `TTS - Thông tin` — `tblKnzaih6154r2e`
+- `Nghiệp đoàn` — `tblG18kR9aFhWrJW`
+- `Xí nghiệp` — `tblqFRpClTG0OCjE`
+
+Không đọc PTTT notes, KB, COLLAB, code hoặc nguồn business khác để làm corpus R5.
+
+### 2.1 Schema freeze
+Đọc schema Lark read-only và ghi vào evidence:
+- field id + field name + type của primary key/source-id/link fields liên quan;
+- xác nhận thực tế các field tương đương:
+  - TTS ↔ Đơn hàng tiến cử;
+  - TTS ↔ Đơn hàng trúng tuyển;
+  - Đơn hàng ↔ Nghiệp đoàn;
+  - Đơn hàng ↔ Xí nghiệp.
+Tên field có thể khác lịch sử; **field ID/runtime schema mới là ground truth**.
+
+Nếu một trong bốn relation không tồn tại/không đọc được:
+- không mở rộng sang Base khác;
+- dùng tối đa các exact-link relation còn đủ để có 3 relation types;
+- nếu còn <3 relation types ⇒ DỪNG `INSUFFICIENT_ORACLE_RELATIONS`.
+
+### 2.2 Sample
+Chọn deterministic, không cherry-pick theo kết quả AI:
+- sắp record theo source record ID;
+- chọn tập nhỏ đầu tiên thỏa relation coverage;
+- tối đa **20 text snippets**;
+- mục tiêu:
+  - 8–12 positive snippets từ exact links;
+  - 2–4 positive snippets cho relation holdout/new-type;
+  - 4 negative controls từ cặp cùng entity types nhưng **không có link** trong oracle.
+- ít nhất 3 orders và 4 TTS pseudonyms nếu dữ liệu cho phép.
+
+Freeze manifest + oracle **trước model call**, sha256 cả hai.
+
+## 3. PRIVACY / PSEUDONYM
+
+Không gửi ra ngoài:
+- tên người;
+- tên xí nghiệp/nghiệp đoàn thật;
+- điện thoại/email;
+- CCCD/hộ chiếu/giấy tờ;
+- raw record ID;
+- credential/secret;
+- text field ngoài template đã định.
+
+Pseudonym ổn định từ `source-table-id + source-record-id`, mapping local mode 600:
+- `tts_001`
+- `order_001`
+- `union_001`
+- `company_001`
+
+Cùng source ID ⇒ cùng pseudonym.
+Khác source ID ⇒ không được trùng.
+Mapping không Git, không provider, không evidence public.
+
+Leak scan corpus trước provider:
+- 0 tên thật;
+- 0 raw Lark record id;
+- 0 phone/email/document number;
+- 0 secret.
+
+Fail ⇒ DỪNG trước external call.
+
+## 4. TEXT PROJECTION — DETERMINISTIC
+
+Text không lấy từ AI. Tạo bằng fixed Vietnamese templates từ oracle:
+
+- candidate:
+  `<tts> được tiến cử cho <order>.`
+- selected:
+  `<tts> đã trúng tuyển <order>.`
+- union:
+  `<order> thuộc nghiệp đoàn <union>.`
+- company:
+  `<order> tuyển lao động cho xí nghiệp <company>.`
+
+Nếu runtime schema dùng relation tương đương nhưng khác nghĩa, sửa template **trước model call** để phản ánh đúng link thực; lưu template version trong manifest.
+
+Negative controls:
+`<entityA> và <entityB> là hai mã độc lập trong bộ kiểm thử; không có liên kết nguồn giữa hai mã.`
+
+Không paraphrase AI.
+Không thêm facts ngoài oracle.
+
+## 5. CATALOG v0.1 — CLOSED-WORLD DECISION × OPEN-WORLD DISCOVERY
+
+Từ các relation thật tìm được, chọn:
+- 3 relation types vào catalog APPROVED v0.1;
+- **1 relation type thật làm HOLDOUT**, cố tình không có trong catalog để test discovery.
+
+Ưu tiên nếu đủ dữ liệu:
+- `CANDIDATE_FOR_ORDER`
+- `SELECTED_FOR_ORDER`
+- `ORDER_MANAGED_BY_UNION`
+- HOLDOUT: `ORDER_FOR_COMPANY`
+
+Catalog v0.1 được freeze/hash trước model call.
+
+JEV classification choices cho mỗi extracted candidate:
+- các APPROVED types hợp source/target;
+- `NEW_RELATION`;
+- `NO_RELATION`.
+
+Không dùng threshold 75/85.
+Không cho JEV invent exact source/target.
+Không cấp action permission.
+
+## 6. TRIAL RUNTIME
+
+Dựng **fresh R5 trial state**, không trộn R4 corpus:
+- Neo4j Community 5.26.31 + APOC 5.26.31
+- Cognee 1.6.1 pinned
+- PGVector trial `pgvector/pgvector:0.8.6-pg18-trixie`, reuse exact R4 artifact/digest đã có local; không pull latest
+- embedding `openai/text-embedding-3-small`, 1536
+- LLM `openai/gpt-5.6-luna`
+- JEV existing gateway, model thực phải ghi từ response
+- `HASH_API_KEY=true`
+- `BIND_ADDRESS=127.0.0.1`, no Cognee host port
+- telemetry off
+- no Cognee MCP/UI
+- Qdrant production untouched
+- PostgreSQL production read-only untouched.
+
+Fresh R5 volumes/dataset names:
+`TRIAL_ONLY · GS-R5-BUSINESS-ORACLE-20261006-03`
+
+Không import R4 code graph vào R5.
+
+Resource gates:
+- RAM available >= 5.5 GB trước start;
+- RAM available <2 GB khi chạy ⇒ stop trial;
+- disk floor >=20 GB;
+- total active R5 trial footprint <=10 GB.
+- không đổi swap; record PRE/POST.
+
+## 7. EXTRACTION — MỘT TUYẾN MẶC ĐỊNH
+
+Nạp **chỉ text projection** vào Cognee default text/KnowledgeGraph path.
+Không custom GraphSchemaSpec.
+Không custom extraction prompt nếu default path chạy được.
+Không dùng structured oracle làm input cho extraction.
+
+Mỗi snippet phải giữ:
+- snippet_id;
+- source pseudonyms;
+- oracle relation id ở file local riêng;
+- provenance hash.
+
+Raw relation output phải lưu trước JEV mapping để có thể tái phân loại mà không re-extract.
+
+## 8. JEV SHADOW — TỰ GỌI SAU EXTRACTION
+
+R5 harness phải tự gọi JEV cho từng candidate relation sau extraction; không phụ thuộc executor nhớ gọi thủ công từng item.
+
+Dùng bounded `choice`:
+approved shortlist + NEW_RELATION + NO_RELATION.
+
+Input JEV chỉ gồm:
+- raw relation text;
+- pseudonym source/target types;
+- candidate approved choices;
+- evidence snippet.
+
+Không đưa oracle label vào JEV state.
+
+Ghi receipt:
+- result id;
+- model;
+- probabilities/confidence;
+- choice;
+- snippet id.
+
+Nếu JEV connector unavailable/model call fail:
+- retry hữu hạn;
+- vẫn fail ⇒ KQ DỪNG vì Goal #2 là core R5.
+
+## 9. DISCOVERY TEST — KHÔNG RE-EXTRACT
+
+Với holdout relation:
+1. catalog v0.1 không có type đó;
+2. JEV phải chọn `NEW_RELATION` thay vì force-map type cũ;
+3. lưu candidate + evidence;
+4. trong sandbox trial, giả lập human approve bằng deterministic test step:
+   - tạo catalog v0.2 thêm đúng holdout type từ oracle;
+5. **không gọi Cognee extraction lại**;
+6. chỉ classify lại raw candidate đã lưu với catalog v0.2;
+7. PASS nếu map sang type vừa được thêm.
+
+Không auto-approve mọi edge cùng type.
+Đây chỉ là test catalog evolution.
+
+## 10. NEGATIVE CONTROL
+
+4 negative snippets phải:
+- không tạo canonical positive edge;
+- JEV = `NO_RELATION`.
+
+Nếu extraction sinh candidate từ negative:
+- vẫn đưa JEV;
+- PASS nếu policy không canonicalize và receipt phản ánh NO_RELATION.
+
+## 11. METRICS / ACCEPTANCE
+
+### A. Oracle pairing
+Đối chiếu bằng source/target pseudonym + relation type.
+
+### B. Positive relation extraction
+- pair recall = **100%** trên sample nhỏ;
+- false source/target pair = **0**.
+
+### C. Approved relation mapping
+- approved-type precision = **100%**;
+- approved-type recall = **100%**.
+
+### D. Holdout discovery
+- v0.1: **100% holdout items → NEW_RELATION**
+- không holdout nào bị force-map approved type.
+- v0.2 reclassification: **100% → holdout approved type**, không re-extract.
+
+### E. Negative controls
+- canonical false positive = **0/4**
+- JEV NO_RELATION = **4/4**.
+
+### F. Graph answers
+Freeze ít nhất 5 deterministic questions từ oracle, ví dụ:
+- TTS nào được tiến cử cho order_X?
+- TTS nào trúng tuyển order_X?
+- order_X thuộc union nào?
+- order_X tuyển cho company nào?
+
+Query graph và so exact set:
+- **5/5 exact answer**.
+
+### G. Provenance
+Mỗi canonical edge phải trace được:
+edge → raw candidate/snippet → manifest/oracle source pseudonym.
+Không lưu raw identity thật trong graph.
+
+### H. Vector smoke
+3 semantic queries over R5 snippets:
+- >=3/3 expected snippet/entity trong top-3.
+Qdrant point/config PRE = POST.
+
+### I. Cost
+External R5 cost cap **<= 1 USD**.
+Nếu provider không có ledger, report UNKNOWN + call/token counts; không vượt overall trial cap 5 USD.
+
+## 12. CÁCH ĐỌC KẾT QUẢ
+
+PASS chỉ chứng minh:
+- pipeline business relation trên **oracle-controlled micro-sample** đáng tin;
+- finite catalog + discovery + JEV integration hoạt động kỹ thuật.
+
+PASS **không chứng minh**:
+- mọi ghi chú chăm sóc khách tự do đều tốt;
+- KB hiện tại sạch;
+- production scale;
+- action automation.
+
+Nếu PASS:
+- không mở rộng sample tự động;
+- chuyển roadmap sang R6 KB curation/source freeze;
+- chỉ sau khi technical evidence + curation đủ mới trình Owner production scope.
+
+Nếu metric core lệch:
+- không đổi threshold để “cho qua”;
+- ghi chính xác false positive/negative;
+- KQ DỪNG hoặc PASS-WITH-LIMITS theo evidence;
+- không mở rộng nguồn.
+
+## 13. CLEANUP / DISPOSABLE
+
+Kết thúc:
+- stop/remove R5 containers/network;
+- giữ R5 volumes/evidence cho Host review;
+- dry-run wipe command chứng minh xóa đúng R5 scope;
+- không xóa R4 evidence;
+- production services/health phải == PRE.
+
+Không production install.
+Không destructive KB cleanup.
+
+## 14. KQ / REPO
 
 Evidence:
-`/opt/incomex/work/graph-server/evidence/GS-R4-CODE-FIRST-20261006-02/`
-
-Runtime:
-`/opt/incomex/work/graph-server/runtime/run1/`
-(reuse retained RUN-1 trial data/config only after hash/version check; do not touch production).
-
-PRE read-only:
-- production containers/health;
-- Docker networks/volumes/images;
-- RAM/swap/load/disk/inode;
-- listeners;
-- current trial files/data/backup hashes;
-- Qdrant collection point count/read-only snapshot;
-- production PostgreSQL status **read-only only**; do not enable extension/create schema/db there.
-
-Hard resource gates:
-- RAM available >= **5.5 GB** before starting 3 trial services;
-- disk free >= **25 GB**;
-- floor disk >= **20 GB**;
-- trial footprint <= **10 GB**;
-- during run RAM available < **2 GB** ⇒ stop only trial services;
-- do not change swap; record PRE/POST swap because RUN-1 left swap nearly full.
-
-Production health regression ⇒ stop trial + rollback.
-
-Before first runtime mutation: DROOT30 freshness gate.
-
-## 3. CURRENT EMBEDDING MODEL — MUST MATCH AGENT DATA
-
-Do not assume from memory.
-
-Read current Agent Data runtime **without exposing secrets**:
-- inspect `QDRANT_EMBED_MODEL` effective env/config in the running Agent Data service;
-- if unset, verify current main source `Huyen1974/agent-data-test/agent_data/vector_store.py` default.
-
-Known source evidence at prompt time:
-`self.embedding_model = os.getenv("QDRANT_EMBED_MODEL", "text-embedding-3-small")`.
-
-Effective model rule:
-- if runtime `QDRANT_EMBED_MODEL` is set ⇒ use exactly that model;
-- if unset ⇒ use `text-embedding-3-small`.
-
-Record exact model + vector dimension in KQ.
-For Cognee configure the equivalent explicit OpenAI model, e.g. `openai/text-embedding-3-small` when effective model is `text-embedding-3-small`.
-No silent fallback/local HuggingFace model.
-
-Embedding API key: reuse existing OpenAI secret path already used by Incomex; never print/store secret in repo/evidence.
-
-## 4. VECTOR STORAGE — DEDICATED DISPOSABLE PGVECTOR
-
-Qdrant is OUT OF SCOPE for Graph writes.
-
-Cognee 1.6.1 pinned source has official `PGVectorAdapter` and `VECTOR_DB_PROVIDER=pgvector`.
-
-Create a **dedicated trial PostgreSQL+pgvector container**, NOT production PG.
-
-Logical container:
-`graph-pgvector-trial`
-
-Rules:
-- prefer official `pgvector/pgvector` image compatible with PostgreSQL 18;
-- resolve an exact immutable image digest before create; no `latest`;
-- if suitable official pg18 artifact cannot be pinned, DỪNG rather than touch production PG;
-- no host port publish;
-- internal trial network only;
-- memory limit **768 MB**;
-- persistent trial volume under graph trial scope;
-- unique random trial DB password, secret file mode 600.
-
-Cognee config:
-- `VECTOR_DB_PROVIDER=pgvector`
-- `VECTOR_DATASET_DATABASE_HANDLER=pgvector` if required by pinned code;
-- point vector connection only to `graph-pgvector-trial`;
-- verify `CREATE EXTENSION vector` succeeded and vector tables are in trial PG.
-
-Qdrant proof:
-- PRE and POST point counts/config unchanged;
-- no Qdrant env/key/URL supplied to Cognee trial.
-
-Production PG proof:
-- no CREATE EXTENSION/db/schema/table;
-- no config mutation;
-- no restart.
-
-## 5. REBUILD TRIAL SERVICES WITH T19 FIX-B
-
-Keep:
-- Neo4j Community 5.26.31 + APOC 5.26.31
-- Cognee 1.6.1 exact pinned image/source
-- `HASH_API_KEY=true`
-- resource limits from prior RUN, plus pgvector 768 MB.
-
-Cognee:
-- `BIND_ADDRESS=127.0.0.1`
-- **NO `ports:` publish**
-- API listens only `127.0.0.1:8000` in its own network namespace
-- harness executes inside Cognee container/namespace.
-- no Cognee MCP/UI.
-
-T19 closeout:
-1. host `127.0.0.1:18080` = no listener;
-2. host → Cognee container IP:8000 = fail;
-3. unrelated container same trial network → Cognee:8000 = fail;
-4. unrelated container other network → fail;
-5. inside Cognee namespace listener only `127.0.0.1:8000`.
-Root/docker-admin is privileged boundary outside T19.
-
-Smoke only:
-- K1 provider still Neo4j;
-- retained synthetic fixture readable;
-- persistence hash unchanged;
-- resource footprint.
-
-Do not repeat full K4/dump-restore unless version/core volume changed.
-
-## 6. CODE-FIRST DATASET — SMALL / NO KB BULK
-
-Source only:
-`/opt/incomex/dot/`
-
-PRE inventory read-only; choose the **smallest coherent code subset** satisfying:
-- prefer Python package/module supported by Cognee code graph;
-- 10–30 source files;
-- <= **250 KB** total source text;
-- at least 3 modules/files with deterministic import/call/declaration relations;
-- include 1–3 relevant tests if available;
-- exclude `.env`, credential/config secret files, logs, data dumps, vendor, build, generated, node_modules, caches.
-
-Before external call:
-- secret scan;
-- 0 credential/API key/private key/password/token;
-- create manifest path + sha256 + byte count;
-- if scan fails, reduce sample; do not redact a secret and keep surrounding sensitive config—exclude file.
-
-No Lark, no customer data, no broad KB ingestion in this RUN.
-
-## 7. BUILD CODE GRAPH — PRODUCT FIRST
-
-Use **Cognee 1.6.1 built-in code graph path first** (Enola/integrated code pipeline from pinned release).
-Do not build an Incomex parser/framework if built-in path is available.
-
-Ground truth / oracle is deterministic:
-- for Python use AST/import graph and direct symbol definitions/calls;
-- for another supported language use existing parser/tool already present;
-- AI/JEV never determines whether an import/call literally exists.
-
-Graph targets:
-- Neo4j stores code nodes/edges;
-- exact deterministic relations where supported: DECLARES / IMPORTS / CALLS / DEPENDS_ON (or Cognee's equivalent canonical labels);
-- provenance includes source file + revision/hash.
-
-Minimum useful graph:
-- >= 15 deterministic edges total;
-- >= 5 source files represented;
-- no secret/config files.
-
-Accuracy acceptance:
-- sample >= 15 oracle facts;
-- **sampled precision = 100%** for edges Cognee claims as exact deterministic relations;
-- **sampled recall >= 80%** on the chosen oracle facts;
-- every miss/unsupported construct listed; do not hide dynamic-language limitations.
-
-If Cognee built-in code graph cannot ingest the selected supported subset without custom framework changes:
-- DỪNG with exact blocker;
-- do not replace it by a new custom graph engine in this RUN.
-
-## 8. EMBEDDING + PGVECTOR SMOKE
-
-Use the exact effective Agent Data embedding model from §3.
-
-Embed only the selected code micro-dataset.
-Store embeddings in trial PGVector.
-
-Verify:
-- embedding vector dimension matches model;
-- vector row/table count > 0;
-- simple semantic query over code returns a relevant symbol/file in top results;
-- record query and expected rationale, not secret/source dump;
-- Qdrant point count unchanged.
-
-Do not mix vectors made by another model into the same trial collection/schema.
-If effective embedding model cannot be called through existing OpenAI account, DỪNG; do not silently use another model.
-
-## 9. OPTIONAL SMALL MODEL/JEV SEMANTIC SMOKE
-
-Owner allows trying model, but deterministic code graph remains primary.
-
-LLM baseline if needed:
-- `gpt-5.6-luna`
-- only secret-scanned code subset;
-- no fallback model without recording.
-
-Use LLM only for a **small semantic layer**, e.g. classify 5–10 modules/symbol groups into bounded roles such as:
-`gateway | persistence | guard | workflow | ui | other`.
-Do not use LLM to invent literal imports/calls.
-
-If JEV Reference/gateway is already bound to Claude Code:
-- run 3–10 bounded SHADOW judgments on already selected candidate roles/impacts;
-- record model/result id/confidence;
-- JEV does not authorize writes or create exact code edges.
-If JEV tool is not bound, record `JEV_SMOKE=CHUA_KIEM`; do not add a new connector in this RUN.
-
-External-call cost cap for this RUN: **<= 1 USD**.
-If no reliable provider cost ledger is available, bound by dataset size/call count and report cost UNKNOWN; never exceed the existing overall trial cap 5 USD.
-
-## 10. TRIAL DATA IS DISPOSABLE
-
-Mark all graph/vector/code dataset state:
-`TRIAL_ONLY · GS-R4-CODE-FIRST-20261006-02`
-
-Do not mix trial data with production sources.
-
-At KQ:
-- stop trial containers unless evidence requires them running;
-- keep trial volumes only for Host/Claude review;
-- document one-command/one-scope wipe of Neo4j trial data + PGVector trial DB/volume + Cognee trial metadata.
-
-**Do not wipe before review.**
-Roadmap requires mandatory wipe/reset before production build.
-
-## 11. ROADMAP / KB RULE
-
-This RUN must not ingest the existing KB broadly.
-
-Record in KQ that production cannot begin before:
-1. KB inventory;
-2. classify each candidate source: CURRENT/KEEP · ARCHIVE · DELETE-CANDIDATE · RECHECK;
-3. deduplicate/retire stale material with Owner approval for destructive deletion;
-4. freeze the official source scope;
-5. wipe all trial graph/vector state;
-6. rebuild production graph/vector clean from approved sources.
-
-No destructive KB deletion in this RUN.
-
-## 12. KQ / PASS
-
-Repo: only update `work/graph-server/COLLAB.md` + BẢNG/KQ; do not create progress files in Git.
-Evidence stays VPS runtime path.
-
-KQ commit:
-`[Claude Code] GS-R4-CODE-FIRST-20261006-02 · graph-server · <XONG|DỪNG>`
-
-XONG requires:
-- T19 FIX-B PASS;
-- Neo4j/Cognee still correct versions;
-- dedicated PGVector trial works;
-- effective embedding model confirmed and reused;
-- Qdrant unchanged;
-- production PG untouched;
-- code graph minimum + accuracy criteria pass;
-- secret scan pass;
-- resource gates pass;
-- production health unchanged;
-- trial wipe path proven/documented.
-
-T18 business-identity is **not a blocker in this code-only RUN**; it returns as a gate before business-person data.
-
-If security/vector/code graph core passes but optional JEV semantic smoke is unavailable, KQ may be XONG with `JEV_SMOKE=CHUA_KIEM`; Goal #2/#3 remains open for later.
-
-No business RUN and no production install in this RUN.
-
-## 13. AUTONOMY
-
-Owner asked to continue.
-Within scope, Claude Code should self-resolve technical details, inspect pinned source, retry boundedly, and choose the smallest valid configuration.
-Do not ask Owner about Docker commands, exact pgvector digest, test fixture mechanics, or minor config.
-Out-of-scope/production mutation/secret exposure/need to change stack ⇒ KQ DỪNG cleanly.
-
-Final line:
-`XONG · GS-R4-CODE-FIRST-20261006-02 · <commit>`
-or
-`DỪNG · GS-R4-CODE-FIRST-20261006-02 · <blocker> · <commit>`
+`/opt/incomex/work/graph-server/evidence/GS-R5-BUSINESS-ORACLE-20261006-03/`
+
+Repo chỉ cập nhật:
+- `work/graph-server/COLLAB.md`
+- BẢNG/KQ.
+Không tạo progress/review file Git.
+
+KQ:
+`KQ@GS-R5-BUSINESS-ORACLE-20261006-03 XONG|DỪNG`
+
+Commit:
+`[Claude Code] GS-R5-BUSINESS-ORACLE-20261006-03 · graph-server · <XONG|DỪNG>`
+
+Cuối cùng trả đúng một dòng:
+`XONG · GS-R5-BUSINESS-ORACLE-20261006-03 · <commit>`
+hoặc
+`DỪNG · GS-R5-BUSINESS-ORACLE-20261006-03 · <blocker> · <commit>`
+
+## 15. AUTONOMY
+
+Owner đã ủy quyền trial cho GPT + Claude:
+- tự quyết kỹ thuật nhỏ trong scope;
+- không hỏi Owner về record nào, field nào, Docker command, retry, số sample trong giới hạn;
+- không mở rộng Base/table/source;
+- không tăng sample >20;
+- không đổi model/provider;
+- không production mutation.
+
+Nếu muốn vượt bất kỳ giới hạn trên ⇒ DỪNG; production/quy mô thật phải xin Owner.
