@@ -483,8 +483,8 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 12:00 +07 · GPT Host · **P159 OWNER XONG · CÒN MACHINE-ONLY FINAL VERIFIER**
-- **Trạng thái:** `[✓ 10/12 N1 nền] → [✓ D2 cloud proofs GPT+Claude] → [■ machine-only: sleep/wake + §8.12] → [□ KQ N1] → [□ N2]`.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 14:19 +07 · GPT Host · **P160 FINAL VERIFIER CHẠY NGAY · KHÔNG CHỜ TIMER**
+- **Trạng thái:** `[✓ nền N1] → [✓ D2 GPT+Claude] → [■ Claude Code final verifier ngay] → [□ KQ N1] → [□ N2]`.
 - **Owner:** ✅ XONG hoàn toàn cho N1. Đã Sleep Mac → gửi `D2` từ điện thoại → mở Mac lại. Không còn thao tác Owner.
 - **Agent làm:** P157 Claude cloud proof PASS · P158 GPT cloud proof PASS, identities đúng. Verifier runtime-capable tự đọc sleep/wake evidence + `/opt/incomex/logs/bang-den.json` + registry + `AUTO_ALLOWLIST`, rồi KQ nếu đủ; không gọi Owner.
 - **Không làm:** không “để chiều/qua đêm” · không bắt Owner kiểm terminal/log · không dùng service-health thay bảng đèn DROOT34 · không mutation N1 mới · không N2 trước KQ.
@@ -3027,4 +3027,19 @@ D2-GPT 2026-10-06T04:31Z · đọc OK · ghi OK · server OK
 - **DROOT34 fail-closed:** profile GPT hiện chỉ expose roots `workspace|agent-data|ui|docs`; root `code` cũ không còn, nên GPT không đọc được file root-only `/opt/incomex/logs/bang-den.json`. Execution sandbox cũng xác nhận không mount `/opt/incomex/logs`. Vì vậy Host **không ký giả §8.12/XONG** bằng số cũ.
 - **Machine-only final verifier, không Owner:** executor có runtime access ở checkpoint sạch kế tiếp phải chỉ đọc: (1) sleep/wake log của Mac bao trùm hai commit D2; (2) `/opt/incomex/logs/bang-den.json` fresh và ghi `ĐÈN: n xanh · 0 đỏ`; (3) sổ tin báo fresh, ngoài sổ=0; (4) Config/Protection Guard gồm INV20 CLEAN; (5) `AUTO_ALLOWLIST=()` vẫn rỗng. Nếu tất cả PASS → ghi ngay KQ canon N1 XONG; nếu không → nêu đúng blocker, không mở thêm scope.
 - **Owner không còn việc. Graph không bị chặn:** final verifier là việc máy vài phút ở checkpoint runtime-access; không giữ Mac/terminal/task treo và không được trì hoãn qua buổi theo DROOT43.
+
+### P160 · GPT Host · 2026-10-06 14:19 +07 · **RESUME N1 FINAL VERIFIER NGAY · KHÔNG CHỜ TIMER**
+- Owner báo Mac đã khởi động lại và phiên Claude trên Mac cũng đã lên lại. **N1 chưa KQ**; không có lý do chờ thêm.
+- Đây là **CONTINUE_SAME_RUN** `HJW-N1-CLOUD-TWIN-SYNC-20261005-01`, chỉ final verifier; **không PROMPT mới, không task mới, không N2 trước KQ**.
+- Executor phù hợp: **Claude Code CLI phiên đang sống trên Mac** (runtime/SSH access). Làm ngay, read-only trước; không hỏi Owner.
+- Kiểm đúng 6 điểm:
+  1. Mac sleep/wake log bao trùm hai commit D2: Claude `ca43f1c...` và GPT `13aca3b...`.
+  2. Sau reboot, hook/fingerprint + connector Mac trở lại bình thường; `dot-connector-sync check`/INV20 PASS, không `MAC_AHEAD/MAC_BEHIND` trái ý.
+  3. Đọc **fresh** `/opt/incomex/logs/bang-den.json`: ghi số xanh/đỏ; 0 đỏ mới được XONG.
+  4. Sổ tin báo fresh: `hỏng=0`, `ngoài sổ=0`; UNKNOWN đã có chủ/đúng baseline không được tự biến thành blocker mới.
+  5. Config Guard + Protection Guard/INV20 CLEAN.
+  6. `AUTO_ALLOWLIST=()` vẫn rỗng; manual governance không bị đổi.
+- **Cấm chờ cron/timer:** nếu chỉ stale/heartbeat do reboot mà hệ thống có one-shot/check/push hiện hữu, executor tự gọi đúng cơ chế hiện hữu **một lần**, không sửa config/code, rồi đọc lại ngay. Không chờ 5/10/30 phút. Nếu vẫn đỏ thật → ghi đúng đèn + owner task, KQ `DỪNG`; không mở scope.
+- Nếu 6/6 PASS: ghi ngay `KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS`, cập nhật Bảng thành `✓ N1 → ■ N2`, và dừng sạch. **Không cần Reviewer thêm một vòng** vì P154 đã ACCEPT acceptance cuối; đây chỉ là thu bằng chứng máy đã thiếu.
+- Owner: **0 thao tác**.
 
