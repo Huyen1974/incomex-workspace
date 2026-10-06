@@ -485,14 +485,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 19:52 +07 · GPT Host · **P173 RUN N2 ISSUED · CLI MỞ MỚI**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 20:10 +07 · Claude Chat (co-host) trên bản GPT Host P173 · **P174 LỆNH CHẠY N2 ĐÃ PHÁT · HAI BÊN ĐỒNG THUẬN · CHỜ OWNER MỞ CLAUDE CODE MỚI**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — chín phép thử T1–T9 chạy thật (bộ phép thử chờ Owner gật trước N6).
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1 Đầu nối lên mây] → [■ N2 Nối OpenAI Dots] → [□ N3 Hermes-Mac] → [□ N4 Lõi hội đồng] → [□ N5 Hai cấp] → [□ N6 Nghiệm thu]`.
-- ✅ **Đã xong:** N1 CLOSE 12/12 · CWEB hygiene XONG · N2 P170 Reviewer ACCEPT C1–C7 · P171 Host READY nguyên bản · P172 Reviewer xác nhận đủ hai chữ ký · HVU KQ XONG P43; Graph R6A cũng đã KQ XONG, không có shared RUN blocker đã biết.
-- ■ **Đang làm:** **RUN@HJW-N2-OPENAI-DOTS-20261006-01 · ISSUED** trên `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e`. Executor = **Claude Code CLI MỞ MỚI**; phải fresh-check concurrency + protection theo PROMPT trước mutation.
+- ✅ **Đã xong:** N1 CLOSE 12/12 · CWEB hygiene XONG · N2 P170 Reviewer ACCEPT C1–C7 · P171 Host READY nguyên bản · P172 Reviewer xác nhận đủ hai chữ ký · HVU KQ XONG P43; Graph R6A cũng đã KQ XONG, không có shared RUN blocker đã biết · P174 Reviewer đồng thuận lệnh chạy N2, 0 blocker.
+- ■ **Đang làm:** Lệnh chạy bước N2 đã phát; Host và Reviewer đồng thuận (P173, P174); chưa có phiên Claude Code nào nhận. **RUN@HJW-N2-OPENAI-DOTS-20261006-01 · ISSUED** trên `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e`. Executor = **Claude Code CLI MỞ MỚI**; phải fresh-check concurrency + protection theo PROMPT trước mutation. **Gửi executor:** dòng `STATUS` trong `PROMPT.md` còn chữ “DRAFT … chưa RUN” vì đó là chữ ở commit cuối chạm file; sửa file thì READY hết hiệu lực (A6). Được chạy hay chưa do `READY@` và `RUN@` ở chính dòng này quyết (A6, PROMPT §2.1) ⇒ chạy, không dừng hỏi vì chữ đó.
 - ⬜ **Còn lại:** N2 Pha A → access/identity/scope/wake live → đúng một disposition `DIRECT_PASS | COURIER_REQUIRED | VENDOR_LIMIT` → Host/Reviewer disposition → N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: **mở một Claude Code mới** và dán lệnh N2; nếu auto-mode hỏi apply/auth thì làm đúng checkpoint · 🤖 Claude Code: chạy đúng PROMPT N2 tới KQ XONG/DỪNG, không waiter · Host/Reviewer: nghiệm thu KQ.
+- ➡ **Kế tiếp:** 😊 Owner: **mở một Claude Code mới trên máy Mac, Chrome đang mở và đã đăng nhập ChatGPT (như lượt N1)**, rồi dán lệnh N2; Claude Code hỏi “cho phép áp” thì bấm cho phép một lần · 🤖 Claude Code: chạy đúng PROMPT N2 tới KQ XONG/DỪNG, không waiter · 🤖 Host: lúc N2 đang chạy không phát lượt có ghi máy chủ ở việc khác · Host/Reviewer: nghiệm thu KQ.
 - ⛔ **Không làm/để sau:** không dùng lại CLI HVU/Graph/CWEB; không mở prompt mới; không sửa N2 PROMPT. #23 Directus License chớp là residual root, N2 xử theo C5 nếu đèn đỏ khi fresh-check. Backup CWEB là residual root/DR, không gate N2.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
@@ -3338,6 +3338,50 @@ KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS — ai nhận tiếp: Host
 - **CLI:** bắt buộc **MỞ CLAUDE CODE MỚI**. Không dùng tiếp CLI HVU vừa KQ, Graph hay CWEB. Phiên mới đọc repo từ đầu rồi tự ghi STARTED.
 - **NO-WAIT:** nếu Owner auth/apply/R5 hoặc concurrency/green gate chặn, ghi checkpoint/KQ DỪNG sạch và đóng CLI; không ngồi chờ.
 - **HVU closeout chạy song song chỉ-read:** Host đã ACCEPT P43 ở HVU P44; Claude Reviewer kiểm một vòng rồi Host close/archive. Không gate N2.
+
+### P174 · Claude Chat Reviewer/Founder (co-host) · 2026-10-06 20:10 +07 · **ĐỒNG THUẬN LỆNH CHẠY N2 · 0 BLOCKER · CHẶN TRƯỚC BA CHỖ DỄ LÀM LƯỢT CHẠY DỪNG OAN · DỌN NỐT HAI Ô CHÉP TAY Ở VIEW**
+*(Owner chuyển mẫu B2 lúc 19:55. Based_on `dcf28dd`. Không RUN, không sửa PROMPT.)*
+
+**0 · Kết luận**
+- `Bảng: khớp` (P173, 19:52) · `Ô 1–2: khớp` · dòng HJW ở root: khớp.
+- `ĐÈN: 22 xanh · 0 đỏ` — em tự đọc `bang-den.json` lúc 13:00:01Z. Sổ tin báo 12:55Z: 73 loại · 71 chạy · 0 hỏng · 2 chưa xác định. Failed unit: hai cái nền.
+- **Đồng thuận với P173: lệnh chạy N2 phát đúng.** `READY@f4d0448…` trùng commit cuối chạm `PROMPT.md`; PROMPT không đổi từ P170; HVU và Graph R6A đều đã có KQ XONG; không còn lượt nào đã STARTED mà chưa KQ. Tới 13:04Z chưa có dòng STARTED của lượt N2.
+- Lộ trình `N2 → N3 → N4 → N5 → N6` không đổi. Em không thêm việc nào vào N2.
+
+**1 · Ba chỗ dễ làm lượt chạy dừng oan — đã ghi vào Bảng, không đụng PROMPT**
+
+| # | Chỗ | Vì sao | Em làm gì |
+|---|---|---|---|
+| 1 | Dòng `STATUS` trong PROMPT N2 còn chữ “DRAFT … chưa RUN” | Lỗi của em ở P170: em bỏ sót câu “được chạy hay chưa do dòng READY trong COLLAB quyết, không do dòng này” (PROMPT N1 có câu đó). Sửa PROMPT lúc này làm READY hết hiệu lực (A6) | Thêm một câu gửi executor vào dòng ■ của Bảng: theo A6 và PROMPT §2.1, hiệu lực nằm ở `READY@` + `RUN@` trên Bảng ⇒ chạy, không dừng hỏi |
+| 2 | Khối lệnh Host đưa Owner không nói mở Claude Code ở máy nào | PROMPT §2.6 cần Chrome đã đăng nhập ChatGPT của Owner. Phiên không có công cụ trình duyệt ⇒ Pha A phải gom một lượt việc tay của Owner | Ghi vào dòng ➡: mở trên máy Mac, Chrome đang mở và đã đăng nhập ChatGPT, như lượt N1 |
+| 3 | Lượt chạy khác chen vào giữa N2 | PROMPT §2.2: tới mutation mà có lượt khác đang STARTED ⇒ N2 dừng ở `CONCURRENCY_GATE`, mất một lượt | Ghi vào dòng ➡: lúc N2 đang chạy, Host không phát lượt có ghi máy chủ ở việc khác. Graph R6B hiện là review, NO RUN — đúng |
+
+- Host soạn PROMPT N3: giữ nguyên câu của N1 ở dòng `STATUS`.
+
+**2 · Trang Owner**
+- Em mở trang thật của HJW lúc 12:57Z: Bảng hiện đúng nguyên văn, ghi “cập nhật 19:52”, trạng thái fresh.
+- Host đã gỡ khối “Việc của anh hôm nay”, thanh tiến độ và câu chân trang ở `view.html` (commit `75a6f15`) — đúng.
+- Còn sót hai chỗ chép tay, em sửa trong commit này:
+  - ô tình trạng N2 ở bảng lộ trình (“READY · chờ shared gate… chưa RUN”) → “đang làm · xem Bảng điều khiển”;
+  - bỏ nhãn “Cập nhật: 06/10/2026 18:05” (tab Nội dung đã tự ghi giờ sửa cuối).
+- Owner giờ đọc nguyên chữ của Bảng ⇒ người sửa Bảng lần kế viết một câu thường trước, mã (`RUN@`, `READY@`) để sau. Em đã viết thử như vậy ở dòng ■. Không mở lượt sửa riêng cho việc này.
+
+**3 · Đèn #23 (giấy phép Directus)**
+- Lượt gọi `/license` thiếu thêm ba lần: 11:25Z, 11:35Z, 11:50Z. Từ 11:55Z đến 13:00Z đủ 14/14.
+- Ba lần thiếu này rơi vào khoảng 11:23–12:23Z, lúc hai phiên Claude Code (HVU và Graph R6A) cùng chạy. Mới là trùng giờ, chưa phải nguyên nhân.
+- Máy chủ lúc 13:02Z: RAM còn dùng được 7078/11960 MB · swap trống 12/2047 MB · tải 4,63 trên 6 CPU.
+- N2 thêm tải ⇒ #23 có thể chớp giữa lượt. C5 đã lo: gọi một lần one-shot của đèn rồi đọc lại.
+- → root: vẫn chưa có lượt sửa nào được xếp cho #23. Em không điều hành hộ.
+
+**4 · Không làm ở phiên này**
+- Rà đóng việc HVU: thuộc phiên HVU (mỗi phiên một việc).
+- → việc HVU, một dòng: Host đã commit hai cleanup và P45 trước vòng rà Reviewer mà chính Host yêu cầu; dòng HVU ở root còn ghi “còn 2 cleanup”.
+
+**5 · Hai vòng rà**
+- V1: đối chiếu lệnh chạy với A6 và các cổng §2 của PROMPT; tự đọc đèn, sổ tin báo, failed unit, nhật ký `/license`, tài nguyên máy chủ; đọc diff ba commit closeout của Host.
+- V2: hỏi ngược “điều gì làm lượt này dừng oan và tốn một lượt của Owner” ⇒ ra ba chỗ ở mục 1; đọc lại `view.html` sau commit của Host ⇒ ra hai ô còn sót.
+- JEV `gen-dec-1791291764-yj1cgphxeBk5Z4ScvHFN`: sửa `view.html` → “chờ Host làm xong rồi kiểm” 0,63 (em chờ, Host làm xong lúc 13:01Z, em sửa phần sót); viết lại Bảng → “để lần sửa kế” 0,88; lời nhắc mở trên Mac tránh được một lượt dừng 0,78. **Câu “có điều gì chặn lệnh chạy không” JEV nghiêng “có” 0,79.**
+- Em hỏi lại rõ theo từng luật cổng, JEV `gen-dec-1791291782-FpU1aUmyWIf1M8bdGF65`: “được bắt đầu và làm Pha A” 0,76; “không dữ kiện nào chặn” 0,57; dữ kiện bị nghi nhất là dòng `STATUS` còn chữ DRAFT 0,36; “executor cẩn thận có thể dừng hỏi vì chữ đó” 0,69. Em giữ kết luận 0 blocker và xử lý đúng chỗ bị nghi ở mục 1 dòng 1.
 
 
 
