@@ -12,7 +12,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 ✅ D155: cột Total sau Tên tự đếm theo nguồn của từng Master, cập nhật khi mở/tải lại bảng; không sửa số tay.
 ✅ D154: hàng Tạo mới 3→7 đã cố định, màn hình hẹp cuộn cục bộ; 6 độ rộng, bàn phím/chi tiết và đúng URL Owner PASS.
 ✅ D156: CT-005 dùng Nhóm cha; thêm CT-005.1 Task sau 005; Master Nhóm con/MOT có Gộp ? và Tách ?; Total Công thức tự tăng 8.
-■ Đang làm: hoàn thiện chuẩn/config theo ca thực tế; Chuyên môn Nhóm con vẫn OPEN. Gộp/Tách có hợp đồng hồ sơ riêng; chưa có ca thật/backend CRUD.
+■ Đang làm: Codex cập nhật D157 — SSOT Nhóm con và CT-005.1/.2/.3; hoàn thiện chuẩn/config theo ca thực tế; Chuyên môn Nhóm con vẫn OPEN. Gộp/Tách có hợp đồng hồ sơ riêng; chưa có ca thật/backend CRUD.
 ⬜ Còn lại: tiếp tục ghi/test Config thật vào CAT-248* để lộ loại; map MOW legacy; xác định cha UI-008/011/012; Codex Change Propagation audit vẫn PENDING nhưng không chặn chỉ đạo trực tiếp.
 ➡ Kế tiếp: Owner xem hàng Bước CT-001 đã sửa và Master Nhóm cha/con dòng 1/2; hoàn thiện rule/config từng nhóm trên danh mục đã đủ. Audit Change Propagation vẫn PENDING riêng; FC-002 chỉ bàn semantics Config.
 ⛔ Không làm/để sau: không xóa/hoãn Master chỉ vì định nghĩa chưa hoàn thiện; không tự gán cha cho 3 UI thiếu evidence; không đổi 7 MOW canonical khi chưa map.
@@ -111,6 +111,9 @@ Mốc hoàn thành theo ba tầng (đề xuất — chờ Owner gật; 6 điểm
 Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đầu vào và kết quả cần đạt của phần được chọn → thực hiện theo bước bằng công cụ có thật → kiểm kết quả đã lưu, nhánh lỗi và khả năng dùng lại. Ghi phần đã đạt, phần còn thiếu và nơi bị tắc. Một phần đạt chưa có nghĩa toàn máy đạt; lỗi hoặc thiếu đầu vào thì chưa đưa phần đó vào dùng chính thức.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+**OWNER 06/10/2026 · D157:** Nhóm con là SSOT gốc cho Task, MOIT, MOUT và UI con; Gộp/Tách theo hồ sơ tại Nhóm con. Sửa CT-005.1 thành Nhóm con ⇒ Task; thêm CT-005.2 MOIT và CT-005.3 MOUT cùng định dạng. Giữ bức tranh đơn giản để nhìn toàn cảnh; phân biệt Chế tạo cỗ máy / Vận hành cỗ máy / Sản xuất quy trình, định nghĩa ngắn và chú thích ngay công thức. Owner yêu cầu góp ý cách phân loại; phần định nghĩa/ràng buộc mới của AI là đề xuất, chưa tự đổi canonical.
+- STARTED@MMIM-D157-20261006 · executor=Codex · Owner trực tiếp. CE-MMIM-D157: FORMULA_CHANGE; APPROVED phần công thức/SSOT theo Owner, DRAFT diễn giải ba tiến trình. UPDATE ML-DEF-021, ban-duyet, sourceHint/help/cache, FORMULA/COLLAB/council; VERIFY Total10, thứ tự005.1/.2/.3, dữ liệu hiện hữu giữ nguyên. Chưa nối/migrate backend các Master: cần mapping có chứng cứ; không bịa quan hệ 1:1 từ các số lượng hiện hữu.
 
 **OWNER 06/10/2026 · D156:** sửa CT-005 thành **Bước + Tầng + Nhóm cha ⇒ Quy trình**. Thêm **CT-005.1 · Bước con + Tầng ⇒ Task** ngay sau CT-005, cùng định dạng; tạm có đầu vào giống Nhóm con, không gộp hai khái niệm. Master Nhóm con và Task thêm **Gộp / Tách** có “?” chuẩn UI cha. Phần chuẩn đi theo công thức; Gộp/Tách ít gặp quản lý bằng hồ sơ riêng để tránh nhầm/sai. “99%” là mục tiêu thiết kế của Owner, không phải số đo.
 - STARTED D156: 2026-10-06T09:17:50.554Z. PROCESS CHUNG.APQUYTRINH PASS (job a3754bdb334e42f196eeacee11f1db6c). CE-MMIM-CT0051-20261006: FORMULA_CHANGE + MASTER_SCHEMA_CHANGE + STATUS_OR_COUNT_CHANGE. UPDATE ban-duyet CT-005/005.1, Master Công thức/data, registry Nhóm con/MOT, shared renderer và cache, review CT-005, FORMULA/README/COLLAB/council. VERIFY thứ tự 005→005.1→006, Total Công thức 8, 115 nhóm con/7 Task giữ nguyên, “?” hover/focus, gộp/tách tham chiếu hồ sơ không phải nút thực thi. N/A: không sinh Task mới, không gộp/tách dữ liệu thật, không DB/canonical UI mới, không đổi CT-006/007.

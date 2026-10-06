@@ -157,6 +157,16 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - State: IDLE.
 - LAST_SYNC: 2026-10-06 · D156.
 
+### CODEX-MMIM-D157
+- Role: OWNER-DIRECTED IMPLEMENTATION; không thay Host.
+- Active_RUN: MMIM-D157-20261006.
+- Reserved_Targets: CT-005.1/.2/.3, ghi chú SSOT và ba tiến trình, help/cache/docs liên quan.
+- NOW: cập nhật công thức theo Owner; định nghĩa ba tiến trình là đề xuất để thảo luận.
+- NEXT: kiểm live và báo giới hạn mapping dữ liệu.
+- BLOCKED_BY: none.
+- State: ACTIVE.
+- LAST_SYNC: 2026-10-06 · D157 STARTED.
+
 ## Proposal contract
 
 Mỗi proposal Council append vào ledger riêng, tối thiểu:
