@@ -3,6 +3,7 @@
 > **SSOT mục tiêu hiện hành · Owner 05/10/2026:** nền giao việc Hermes đã PASS; từ đây HJW chuyển sang xây **khung điều hành AI nhiều mức** theo kiểu bottom-up. Lịch sử quyết định cũ giữ ở các mục P phía dưới để đối chiếu, không dùng làm mục tiêu hiện hành.
 
 ## 0. MỤC TIÊU HIỆN HÀNH — SSOT · BẮT BUỘC ĐỌC TRƯỚC
+> **Một nguồn cho Owner (06/10, AGENTS MT4):** mục tiêu và tiêu chí hoàn thành mà Owner đọc trên VPS nằm ở ô `### 1. Mục tiêu` và `### 2. Thế nào là hoàn thành` bên dưới — trang VPS tự rút từ hai ô đó. Mục 0 này là phần thiết kế và lộ trình chi tiết cho AI. Đổi mục tiêu hay tiêu chí ⇒ sửa hai ô đó trong cùng commit.
 
 ### 0.1 · Đích tổng
 - Xây **một hệ điều hành điều phối AI của Incomex** có thể dùng chung cho cả việc đơn giản và việc phức tạp; cùng một lõi trạng thái, quyền quyết định, giao việc, báo cáo, giám sát và cảnh báo.
@@ -527,15 +528,26 @@ CẤM: đọc/ghi ngoài danh sách, đổi cấu hình/quyền, tự giao việ
 <!-- SPEC_V1:HJW-HOST-AUTH-ACCEPT-20261004-01:END -->
 
 ### 1. Mục tiêu
-- Dùng **Agent Data làm Agent Gateway chung tới GitHub/workspace**, không làm một route riêng chỉ cho Hermes. Hermes là client/profile đầu tiên; các agent sau dùng lại cùng cơ chế.
-- Vá lỗ hổng authentication đã phát hiện ở HJW.2B1 **trước khi** bật đường agent mới.
-- Mỗi agent phải có credential/capability riêng do server xác thực và enforce; không dùng master key chung, không tin tên client tự khai để cấp quyền.
+- Owner nâng cấp ngày 05/10/2026. Dưới đây là bản tóm; nguyên văn ở mục 3, thiết kế và lộ trình chi tiết ở mục 0.
+- Xây một hệ thống giao việc tự động, đáng tin cậy, lớn lên từ những gì đang chạy thật.
+- Không phụ thuộc năng lực của agent điều hành thương mại như OpenAI Dots hay Grok, nhưng vẫn giao tự động có kiểm soát cho các việc yêu cầu không cao.
+- Một hệ, hai cấp: việc dễ do một AI điều hành lo; việc khó do hội đồng AI bàn rồi Host quyết. Owner quyết loại việc nào thuộc cấp nào.
+- Luôn có AI tốt nhất của hãng khác giám sát và cảnh báo để giảm sai lầm khi AI ra quyết định.
+- Vai nào quyền nấy: ai làm sai quyền, kể cả Host, thì người kế tiếp không làm theo và bấm chuông tới Owner.
+- Điều hành đơn giản, dùng tối đa thứ đang có, dễ điều chỉnh khi agent của các hãng tiến bộ.
 
 ### 2. Thế nào là hoàn thành
-- Có **một Agent Gateway chung** với profile server-side theo agent: credential riêng, tool allowlist, read/write root+path scope riêng, attribution đáng tin và revoke/rollback rõ.
-- Hermes dùng profile đầu tiên và PASS read/write thật trong scope được cấp; ngoài scope/tool bị chặn ở server.
-- Thêm agent tương lai chỉ cần thêm profile + secret/config tương ứng, **không viết thêm route code theo từng agent**.
-- Các client/route Agent Data hiện hành vẫn hoạt động sau thay đổi; auth bypass cũ đã bị đóng và có regression test.
+- Chín phép thử dưới đây chạy thật và đều đạt. Bộ này do hội đồng đề nghị, đang chờ Owner gật; AI không được nới. Chi tiết ở mục 0.10.
+- T1: một việc khó đi hết các mức duyệt, Owner không phải dán chuyển tin lần nào.
+- T2: một loại việc dễ do một AI điều hành lo trọn, Owner không thao tác, có AI hãng khác giám sát.
+- T3: cài một lỗi thử, AI giám sát bắt được, phanh lại, Owner nhận báo trong 15 phút.
+- T4: đổi agent bằng một dòng trong bảng chính sách.
+- T5: Owner gật một lần, loại việc đổi cấp giữa hội đồng và một AI điều hành.
+- T6: thêm hoặc bớt một mức duyệt chỉ bằng bảng.
+- T7: mỗi việc có một trang truy vết tự sinh.
+- T8: an toàn giữ nguyên: đúng quyền, đúng phạm vi, nút dừng chạy, im lặng có báo, đèn xanh.
+- T9: Host chốt sớm hoặc liên lạc viên sửa nội dung thì người kế tiếp không làm theo, chuông tới Owner trong 5 phút.
+- Lộ trình sáu bước: N1 đầu nối lên mây, N2 nối OpenAI Dots, N3 Hermes trên Mac đưa thư, N4 lõi hội đồng, N5 hai cấp đổi bằng bảng, N6 nghiệm thu và đóng. Bước đang làm xem Bảng điều khiển.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - **Nguyên văn Owner 05/10 về trạng thái:** “Ví dụ khi nào, hội đồng nhất trí thông qua, host mới là người quyết định giao. Và lúc đó worker mới được thực hiện. Cơ chế này cần rõ rõ ràng, vì hermes chỉ là agent đầu tiên theo hướng này.” → SSOT rút gọn: **BÀN ≠ CHỐT ≠ GIAO ≠ ĐƯỢC CHẠY**; draft/review không phải assignment, Host decision không tự đồng nghĩa worker chạy.
@@ -587,10 +599,12 @@ CẤM: đọc/ghi ngoài danh sách, đổi cấu hình/quyền, tự giao việ
 - **Owner 05/10/2026 15:22 +07 (nguyên văn, với Reviewer — SONG SONG + ĐỒNG BỘ · CẢI TIẾN TỪ MAC ĐƯA LÊN CLOUD):** “Ngay N1 đã có 1 mục tiêu nhỏ các bạn nhầm lẫn. Chúng ta cần duy trì song song năng lượng [năng lực] kết nối của cả MacBook và đám mây. Không những duy trì song song mà chúng ta cần đồng bộ, tức là nếu có cải tiến từ MacBook => cần đồng bộ lên đám mây để duy trì năng lực tương đương. Đây là ý kiến của GPT. bạn cho ý kiến để thống nhất và thông qua N1 => triển khai.” ⇒ Đích: (1) Mac và cloud cùng giữ đủ năng lực kết nối, không bên nào thay bên nào; (2) chiều đồng bộ chính: cải tiến làm trên Mac ⇒ lên cloud; (3) cải tiến trên Mac không bị ghi đè âm thầm, lệch do máy tự phát hiện. Rà PROMPT N1 ở P138 (chín chỉnh C1–C9).
 - **Owner 05/10/2026 16:17 +07 (nguyên văn, gửi thẳng vào phiên Claude Code đang chạy RUN N1):** “một nguyên tắc tôi nhắc lại là: Những gì thao tác với Directus/PG Chúng ta dùng DOT 100% nhé. Thiếu DOT Viết bổ sung. Ghi ghi chú rõ ràng để các DOT Này có thể dùng lại dài hạn.” ⇒ tái xác nhận DROOT26/35/39 cho N1: năng lực Directus phía cloud = bộ DOT (không sao chép đầu nối REST trực tiếp); thiếu DOT thì viết bổ sung theo chuẩn nhãn + `--help` + ghi chú dùng lại dài hạn. Áp vào R4-9 của P141. *(Claude Code ghi cùng lượt, Host kiểm.)*
 - **Owner 06/10/2026 trước 00:52 +07 (nguyên văn, với Host — KHÔNG ĐỂ TERMINAL CHẠY NỀN CHỜ; LÀM DỨT ĐIỂM):** “Không hiểu terminal còn đang chạy cái gì? sao koong [không] làm xong dút [dứt] điểm lại cứ phải chờ thế này mất thời gian thế?” ⇒ Đích: tới bước cần Owner thì ghi mốc chờ rồi **dừng sạch**, không giữ terminal chạy nền để chờ; việc tay gom một lần, mỗi hộp thoại một việc, máy thấy xong thật mới sang bước kế. Host áp ở P149; đề nghị thành luật gốc ở P150. *(Claude Chat ghi 01:25 theo khối Owner chuyển — Host chưa ghi nguyên văn lúc nhận.)*
-- **Owner 06/10/2026 14:29 +07 (nguyên văn, với Reviewer — TRANG OWNER ĐỌC TRÊN VPS CÒN NỘI DUNG CŨ):** “vấn đề trong nội dung công việc tôi đọc trên VPS vẫn thấy nội dung khá cũ. Thậm chí mục tiêu còn cập nhật từ ngày 24 tháng 9. Tức là cách đây hơn 10 ngày. Vậy những nội dung N1 - N6 đang cập nhật ở đâu? Kiểm tra lại việc này xem nào?” ⇒ Đích: trang Owner đọc (`view.html`, AGENTS A8) luôn mang mục tiêu, lộ trình và tình trạng mới nhất; cập nhật COLLAB mà không cập nhật trang Owner là chưa xong. Xử lý ở P160.
-- **Owner 06/10/2026 14:37 +07 (nguyên văn, với Reviewer — CLAUDE LÀM CO-HOST · VÌ SAO AI ĐỌC ĐƯỢC CÒN OWNER THÌ KHÔNG):** “Không cần, bạn làm co host luôn cũng được. Vấn đề là, tại sao tất cả các AI đều đọc được, trước đó các nội dung các bản bàn rất chính xác. Nhưng tại sao riêng tôi lại không đọc được?” ⇒ (1) Claude Chat được tự làm phần việc của Host về luật, Bảng và trang Owner, không phải chuyển qua GPT. Claude hiểu hẹp: quyền chốt và giao việc vẫn theo dòng `Host:` hiện hành (máy đang dựa vào dòng đó), không đổi cho tới khi Owner nói rõ. (2) Thông tin đúng mà Owner không thấy là lỗi hệ thống, phải sửa ở gốc — P161.
+- **Owner 06/10/2026 14:29 +07 (nguyên văn, với Reviewer — TRANG OWNER ĐỌC TRÊN VPS CÒN NỘI DUNG CŨ):** “vấn đề trong nội dung công việc tôi đọc trên VPS vẫn thấy nội dung khá cũ. Thậm chí mục tiêu còn cập nhật từ ngày 24 tháng 9. Tức là cách đây hơn 10 ngày. Vậy những nội dung N1 - N6 đang cập nhật ở đâu? Kiểm tra lại việc này xem nào?” ⇒ Đích: trang Owner đọc (`view.html`, AGENTS A8) luôn mang mục tiêu, lộ trình và tình trạng mới nhất; cập nhật COLLAB mà không cập nhật trang Owner là chưa xong. Xử lý ở P161 (Claude).
+- **Owner 06/10/2026 14:37 +07 (nguyên văn, với Reviewer — CLAUDE LÀM CO-HOST · VÌ SAO AI ĐỌC ĐƯỢC CÒN OWNER THÌ KHÔNG):** “Không cần, bạn làm co host luôn cũng được. Vấn đề là, tại sao tất cả các AI đều đọc được, trước đó các nội dung các bản bàn rất chính xác. Nhưng tại sao riêng tôi lại không đọc được?” ⇒ (1) Claude Chat được tự làm phần việc của Host về luật, Bảng và trang Owner, không phải chuyển qua GPT. Claude hiểu hẹp: quyền chốt và giao việc vẫn theo dòng `Host:` hiện hành (máy đang dựa vào dòng đó), không đổi cho tới khi Owner nói rõ. (2) Thông tin đúng mà Owner không thấy là lỗi hệ thống, phải sửa ở gốc — P162, P163.
+- **Owner 06/10/2026 14:41 +07 (nguyên văn, với Reviewer — MỘT SSOT, KHÔNG LÀM HAI LẦN):** “Tại sao không đồng bôn [bộ] giữa trang của tôi và trang của AI. 1 SSOT thôi chứ? ai lại đi làm 2 lần, trang này tôi tải từ VPS về mà. Kể cả tín hiệu đang thực hiện cũng được truyền về theo thời gian thực. Tại sao thông tin này lại bị ngắt quãng?” ⇒ Đích: một nguồn duy nhất; trang Owner là hiển thị tự động của chính nguồn AI ghi; không chép tay bản thứ hai. Xử lý ở P163.
 
 ### Vòng trước
+- **Mục tiêu và tiêu chí của vòng 24/09 (đã đạt — xem 0.8; chuyển từ ô `### 1`/`### 2` xuống đây ngày 06/10):** Mục tiêu: dùng Agent Data làm Agent Gateway chung tới GitHub/workspace, không làm route riêng cho Hermes; vá lỗ hổng authentication trước khi bật đường agent mới; mỗi agent có credential/capability riêng do server xác thực, không dùng master key chung. Hoàn thành khi: có một Agent Gateway chung với profile server-side theo agent; Hermes dùng profile đầu tiên và PASS read/write thật trong scope, ngoài scope bị chặn; thêm agent sau chỉ cần thêm profile + secret/config; các client/route hiện hành vẫn chạy, auth bypass cũ đã đóng và có regression test.
 - Mục tiêu (mở rộng 2026-09-21 và 22/09 theo chỉ đạo Owner): Hermes là thành viên hội đồng cùng GPT và Claude, **chạy API 24/7 trên VPS**. Không chỉ “vào được workspace” như hai thành viên ban đầu, Hermes phải phát huy lợi thế always-on: tự thức đúng lúc, nhận trigger máy-máy, gọi API/webhook/scheduler, theo dõi việc dài hạn, retry có kiểm soát và chủ động nhắn Telegram cho Owner — để các vòng việc có thể khép kín mà Owner không phải trực máy.
 - Nhiệm vụ/phạm vi: (1) nối Hermes qua Agent Data đang có, không mở đường ghi Git thứ ba, không đưa tài khoản GitHub Owner lên VPS, không cấp sudo rộng; (2) tái dùng GitHub webhook + backstop đang chạy nhưng chỉ wake theo assignment máy đọc hợp lệ; (3) **thiết kế đầy đủ lớp automation/orchestration của Hermes trước khi triển khai**, xác định trigger → quyết định → hành động → retry/dedup → báo Owner/handoff; (4) **thiết kế secret boundary riêng cho bề mặt VPS**: không mặc định cho Hermes/VPS quyền truy cập trực tiếp rộng vào Google Secret Manager (GSM). Phải đọc kết quả `work/gsm-access-audit/`, xác định threat model và tối thiểu hoá credential/quyền GSM/secret material tồn tại trên VPS; ưu tiên chỉ đưa đúng bí mật tối thiểu cho đúng process/thời điểm thay vì cho agent khả năng duyệt/đọc kho secret. Giải pháp cụ thể do hội đồng review rồi mới chốt.
 - Tiêu chí xong: T1–T8 hiện có + **T9 Secret boundary** (Hermes không giữ quyền GSM rộng/không cần thiết; đường cấp secret, rotation, failure/compromise đã được review và test) + **T10 Automation value** (ít nhất các đường webhook/assignment, scheduled/backstop, API action và Telegram notification/handoff được thiết kế, chống trùng, có retry/cost/observability và nghiệm thu thật theo scope đã chốt). Sau đó mới cập nhật luật gốc hội đồng 3 thành viên.
@@ -3030,7 +3044,7 @@ D2-GPT 2026-10-06T04:31Z · đọc OK · ghi OK · server OK
 - **Machine-only final verifier, không Owner:** executor có runtime access ở checkpoint sạch kế tiếp phải chỉ đọc: (1) sleep/wake log của Mac bao trùm hai commit D2; (2) `/opt/incomex/logs/bang-den.json` fresh và ghi `ĐÈN: n xanh · 0 đỏ`; (3) sổ tin báo fresh, ngoài sổ=0; (4) Config/Protection Guard gồm INV20 CLEAN; (5) `AUTO_ALLOWLIST=()` vẫn rỗng. Nếu tất cả PASS → ghi ngay KQ canon N1 XONG; nếu không → nêu đúng blocker, không mở thêm scope.
 - **Owner không còn việc. Graph không bị chặn:** final verifier là việc máy vài phút ở checkpoint runtime-access; không giữ Mac/terminal/task treo và không được trì hoãn qua buổi theo DROOT43.
 
-### P160 · Claude Chat Reviewer/Founder · 2026-10-06 14:50 +07 · **TRANG OWNER (`view.html`) CŨ TỪ 26/09 — ĐÃ VIẾT LẠI THEO HIỆN TRẠNG · ĐỀ NGHỊ MỘT CÂU LUẬT ĐỂ KHÔNG TÁI DIỄN**
+### P161 · Claude Chat Reviewer/Founder · 2026-10-06 14:50 +07 · **TRANG OWNER (`view.html`) CŨ TỪ 26/09 — ĐÃ VIẾT LẠI THEO HIỆN TRẠNG · ĐỀ NGHỊ MỘT CÂU LUẬT ĐỂ KHÔNG TÁI DIỄN**
 - **Lời Owner 14:29** (nguyên văn ở mục 3): trang việc trên VPS còn nội dung 24–26/09; N1–N6 đang cập nhật ở đâu?
 - **Sự thật đo được:** `view.html` (trang chính cho Owner theo A8) sửa lần cuối 26/09 (`f56c205`). Từ 05/10 mọi cập nhật mục tiêu, thiết kế V0, lộ trình N1–N6 và Bảng điều khiển chỉ ghi vào `COLLAB.md`. MT4 đặt Bảng trong COLLAB; không câu luật nào buộc đồng bộ sang trang Owner ⇒ mười ngày trang Owner đứng yên.
 - **Phần lỗi:** Host không cập nhật trang Owner. Reviewer (em) mỗi lượt chỉ kiểm `Bảng: khớp`, không mở trang Owner. Em nhận phần mình.
@@ -3039,8 +3053,8 @@ D2-GPT 2026-10-06T04:31Z · đọc OK · ghi OK · server OK
 - **Việc kế trên trang Owner:** khi N1 có KQ, người ghi Bảng đổi ô N1 thành xong và chuyển ô ■ sang N2 trên cả hai nơi.
 - **Hai vòng rà:** V1 — đo lịch sử `view.html`, đọc A8 và MT4, đối chiếu từng ô của trang mới với COLLAB. V2 — gốc rễ: có hai nơi mang trạng thái (Bảng cho AI, trang HTML cho Owner) nhưng chỉ một nơi nằm trong vòng kiểm mỗi lượt.
 
-### P161 · Claude Chat Reviewer/Founder (co-host theo lời Owner 14:37) · 2026-10-06 15:00 +07 · **VÌ SAO AI ĐỌC ĐƯỢC CÒN OWNER THÌ KHÔNG · ĐÃ GHI LUẬT MT4**
-- `Bảng: khớp` (12:00) · `Trang Owner: khớp` (viết lại ở P160; máy chủ đã có bản `10dc4dc` trong kho hiển thị).
+### P162 · Claude Chat Reviewer/Founder (co-host theo lời Owner 14:37) · 2026-10-06 15:00 +07 · **VÌ SAO AI ĐỌC ĐƯỢC CÒN OWNER THÌ KHÔNG · ĐÃ GHI LUẬT MT4**
+- `Bảng: khớp` (12:00) · `Trang Owner: khớp` (viết lại ở P161; máy chủ đã có bản `10dc4dc` trong kho hiển thị).
 - **Gốc rễ:** AI vào repo qua đầu nối và luật buộc đọc `COLLAB.md` đầu mỗi phiên, nên AI luôn thấy bản mới. Owner vào qua trang VPS, trang đó chỉ hiện `view.html`. Không AI nào dùng trang VPS nên không AI nào thấy nó cũ; luật MT4 chỉ giữ Bảng trong COLLAB. Thông tin đúng, đặt ở nơi chỉ AI nhìn.
 - **Đã sửa ở luật (cùng commit này):** AGENTS MT4 thêm dòng “Trang Owner đi cùng Bảng”. Áp cho mọi việc, từ lượt chạm kế tiếp.
 - **Chưa sửa ở máy** → việc `hpml-view-for-user`: trang VPS tự so ngày sửa cuối của `view.html` với Bảng và báo khi lệch; khi đó không còn phụ thuộc AI nhớ. Em không làm trong HJW.
@@ -3060,4 +3074,21 @@ D2-GPT 2026-10-06T04:31Z · đọc OK · ghi OK · server OK
 - **Cấm chờ cron/timer:** nếu chỉ stale/heartbeat do reboot mà hệ thống có one-shot/check/push hiện hữu, executor tự gọi đúng cơ chế hiện hữu **một lần**, không sửa config/code, rồi đọc lại ngay. Không chờ 5/10/30 phút. Nếu vẫn đỏ thật → ghi đúng đèn + owner task, KQ `DỪNG`; không mở scope.
 - Nếu 6/6 PASS: ghi ngay `KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS`, cập nhật Bảng thành `✓ N1 → ■ N2`, và dừng sạch. **Không cần Reviewer thêm một vòng** vì P154 đã ACCEPT acceptance cuối; đây chỉ là thu bằng chứng máy đã thiếu.
 - Owner: **0 thao tác**.
+
+### P163 · Claude Chat Reviewer/Founder (co-host) · 2026-10-06 15:10 +07 · **MỘT SSOT: ĐƯỜNG ỐNG VẪN CHẠY, AI GHI MỤC TIÊU MỚI LỆCH KHỎI Ô MÁY ĐỌC — ĐÃ NỐI LẠI**
+*(Hai mục P của Claude lúc 14:50 và 15:00 đổi số thành P161, P162 vì trùng P160 của GPT lúc 14:19.)*
+- **Lời Owner 14:41** (nguyên văn ở mục 3): một SSOT thôi; ai lại làm hai lần; tín hiệu đang làm còn về theo thời gian thực, sao thông tin này bị ngắt?
+- **Đo được:**
+  - Đường đồng bộ GitHub → VPS đang chạy tốt: trạng thái `fresh`, bản đang hiện là commit của hai phút trước; dữ liệu từng việc được máy rút từ `COLLAB.md`.
+  - Trang VPS có sẵn ba ô tự rút: mục tiêu (`### 1`), hoàn thành (`### 2`), chi tiết (`### 3`); và một khung hiện `view.html`.
+  - Ngày 05/10 mục tiêu nâng cấp được viết vào một mục mới `## 0` (0.1–0.17). Hai ô `### 1`/`### 2` vẫn giữ nội dung vòng 24/09 ⇒ máy rút đúng, nhưng rút cái cũ. `view.html` cũng đứng từ 26/09.
+- **Kết luận:** không phải thiếu đồng bộ. AI đã ghi mục tiêu mới **bên cạnh** ô mà máy đọc. Câu luật em thêm ở P162 (“sửa cả hai nơi”) là sai hướng, đúng như Owner nói: làm hai lần. Đã thay.
+- **Đã làm (cùng commit):**
+  - Ghi mục tiêu 05/10 vào ô `### 1`, chín phép thử vào ô `### 2` (câu thường, không ký hiệu định dạng). Mục tiêu và tiêu chí vòng 24/09 chuyển xuống `### Vòng trước`, không xoá.
+  - Đầu mục 0 thêm một dòng chỉ đường: mục 0 là chi tiết cho AI; ô Owner đọc là `### 1`/`### 2`.
+  - AGENTS MT4: thay câu “Trang Owner đi cùng Bảng” bằng “Một nguồn cho Owner”.
+- **Còn hở, không thuộc HJW** → việc `hpml-view-for-user`: trang VPS chưa tự hiện Bảng điều khiển (đang ở bước nào, ai làm, việc của Owner). Cho tới khi có, phần đó trên `view.html` là bản chụp tay. Ba ô hiện nguyên chữ, không hiện định dạng — cũng thuộc việc đó.
+- **Việc khác có thể cũng lệch như vậy** (mục tiêu mới nằm ngoài ô `### 1`): chưa đo; luật mới áp ở lượt chạm kế tiếp của từng việc.
+- `Bảng: khớp` (12:00) · `Ô 1–2: khớp` (vừa sửa).
+- **Hai vòng rà:** V1 — đọc trạng thái đồng bộ, dữ liệu và mã hiển thị của trang VPS trên máy chủ; đối chiếu ô `### 1`/`### 2` với mục 0. V2 — gốc rễ: lỗi nằm ở chỗ ghi, không ở đường truyền; thêm một nơi ghi mới cho cùng một thông tin là cách chắc chắn tạo ra hai sự thật.
 
