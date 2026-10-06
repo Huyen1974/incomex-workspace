@@ -485,12 +485,12 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 20:18 +07 · Claude Code CLI · **P176 N2 ĐÃ BẮT ĐẦU · PHA A ĐANG ĐO (CHỈ ĐỌC)**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 20:46 +07 · Claude Code CLI · **P176 N2 PHA A · CHỜ OWNER MỘT NÚT (thử đọc vào dot)**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — chín phép thử T1–T9 chạy thật (bộ phép thử chờ Owner gật trước N6).
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1 Đầu nối lên mây] → [■ N2 Nối OpenAI Dots] → [□ N3 Hermes-Mac] → [□ N4 Lõi hội đồng] → [□ N5 Hai cấp] → [□ N6 Nghiệm thu]`.
 - ✅ **Đã xong:** N1 CLOSE 12/12 · CWEB hygiene XONG · N2 P170 Reviewer ACCEPT C1–C7 · P171 Host READY nguyên bản · P172/P174 Reviewer xác nhận đủ chữ ký + lệnh chạy đúng, 0 blocker · HVU KQ/cleanup xong · Graph R6A KQ XONG · đèn P174 22/22 xanh.
-- ■ **Đang làm:** Lượt chạy N2 đã bắt đầu lúc 20:17 (Claude Code CLI trên Mac): đang làm Pha A chỉ đọc — đo dot trên tài liệu OpenAI chính thức và tài khoản thật, chưa cài gì. `STARTED@HJW-N2-OPENAI-DOTS-20261006-01` (P176) trên `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e`.
+- ■ **Đang làm:** Lượt chạy N2 đã bắt đầu lúc 20:17 (Claude Code CLI trên Mac): Pha A chỉ đọc gần xong (tài liệu chính thức + tài khoản thật + máy chủ). **20:46 chờ Owner bấm một nút** cho phép gửi vào dot một tin thử chỉ đọc (bộ lọc an toàn của Claude Code chặn tự gõ); chưa cài gì. `STARTED@HJW-N2-OPENAI-DOTS-20261006-01` (P176) trên `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e`.
 - ⬜ **Còn lại:** N2 Pha A → access/identity/scope/wake live → đúng một disposition `DIRECT_PASS | COURIER_REQUIRED | VENDOR_LIMIT` → Host/Reviewer disposition → N3 → N4 → N5 → N6.
 - ➡ **Kế tiếp:** 🤖 Claude Code: Pha A → bảng năng lực → nếu được áp thay đổi thì hỏi “Cho phép áp” đúng một lần → tới KQ XONG/DỪNG · 😊 Owner: chỉ bấm khi được hỏi · 🤖 Host: từ lúc N2 STARTED tới KQ **không phát RUN có ghi máy chủ ở việc khác**.
 - ⛔ **Không làm/để sau:** không sửa N2 PROMPT; không dùng CLI HVU/Graph/CWEB; không viết prompt mới. #23 Directus License thuộc root: không gate N2; nếu còn tái diễn thì root xử một lượt bounded **sau KQ N2**, không chen mutation. Backup CWEB residual root/DR, không gate N2.
@@ -3393,6 +3393,7 @@ KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS — ai nhận tiếp: Host
 
 ### P176 · Claude Code CLI · 2026-10-06 · RUN `HJW-N2-OPENAI-DOTS-20261006-01` · Based_on `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e` (P171) + Reviewer ACCEPT P170 cùng bản + RUN P173/P175
 - STARTED@HJW-N2-OPENAI-DOTS-20261006-01 2026-10-06T13:17:00Z · executor=Claude Code CLI (phiên mới trên Mac) · read-gate PASS: Write_Path gateway `workspace_*` (root workspace, HEAD `626fb9d`) đọc được bằng `workspace_stat`; PROMPT last-touch `f4d0448…` = READY P171 = bản Reviewer P170; 0 STARTED/KQ/STOP_REQUESTED cho RUN này; HJW `## Owner cần quyết` = `- —`. Dòng `STATUS: DRAFT` trong PROMPT bỏ qua theo P174/P175 (quyền chạy = READY + RUN). Concurrency: các việc đang mở không còn lượt nào STARTED mà chưa KQ (HVU P43, Graph R6A P33 đã KQ; phiên Claude Code của hai lượt đó đã kết thúc). Pha A chỉ đọc bắt đầu; đèn/sổ tin báo đọc fresh trước mutation đầu tiên (§2.3).
+- 13:46Z `CHECKPOINT_N2_OWNER_ACTION` (trong phiên, một nút): Pha A câu (c) cần gõ một tin thử **chỉ đọc** vào dot qua Chrome (§2.6); bộ lọc auto-mode của Claude Code chặn, không lách ⇒ hỏi Owner một lần. 0 mutation máy chủ, 0 tin đã gửi vào dot. Owner không bấm ⇒ ghi KQ DỪNG sạch, không chờ.
 
 
 
