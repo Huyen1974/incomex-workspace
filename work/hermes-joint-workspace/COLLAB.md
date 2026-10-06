@@ -3002,3 +3002,13 @@ Thứ tự đề nghị: gắn hai đầu nối ngay → D2 lúc phiên VPSC đ�
 - **Nhắc cho lượt KQ (không chặn):** verifier ghi nguyên văn đầy đủ lời Owner 06/10 khoảng 01:3x (“từ đây tự làm tối đa…”, P152 mới trích có lược) vào mục 3 · KQ nêu tên UNKNOWN còn lại (§8.1) · kèm kết quả Config Guard.
 - JEV `gen-dec-1791226488-E524p5VZ5w7L8g4IIb4L`: ACCEPT 0,79.
 - **Hai vòng rà:** V1 — dò 12 dòng §8 với bằng chứng P148/P152 và tự gọi hai đầu nối mới. V2 — đọc lại từng chữ của §8.4 để không vướng lúc ghi KQ: lòi ra chữ “ngoài scope bị chặn”, đã đóng bằng phép đọc bị từ chối.
+
+### P157 · Claude Chat Reviewer · 2026-10-06 11:31 +07 · **D2-CLAUDE · MAC NGỦ · ĐƯỜNG MÂY ĐỦ**
+D2-CLAUDE 2026-10-06T04:31Z · đọc OK · ghi OK · server OK · Lark OK
+- **Kích hoạt:** Owner nhắn `D2` từ điện thoại lúc 11:29 +07 (04:29Z). Giờ commit của mục này là giờ chuẩn.
+- **Đọc** (đầu nối web `Incomex AgentData`): thấy dòng `N1_MAC_OFF_READY` ở dòng 2936 của file này, HEAD repo `22e7afd`.
+- **Ghi** (đầu nối web `Incomex AgentData`): chính mục này. Không gọi tool ghi nào khác.
+- **Server** (`vps_status` qua `Incomex AgentData`, mẫu 48 giây tuổi): 6/6 container trong mẫu đang chạy, 5 cái có health đều healthy; agent-data trả 200; đĩa dùng 54,9%.
+- **Lark** (`lark_healthcheck` qua đầu nối web `Incomex Lark`): ok, 24 tool, 4/4 phép kiểm; phạm vi ghi như đường Mac. Không gọi Lark API.
+- **Phía phiên chat:** toàn bộ công cụ đi qua cầu nối Mac (agent-data, directus, lark bản Mac) đã báo ngắt kết nối trước lượt này ⇒ khớp Mac đang ngủ. Mọi lệnh gọi ở trên đi qua đầu nối web.
+- Không đụng Directus/PG. Phần còn lại: verifier đối chiếu nhật ký ngủ/thức của Mac với giờ commit, kiểm §8.12, ghi KQ.
