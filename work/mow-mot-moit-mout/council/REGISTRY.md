@@ -169,11 +169,12 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 
 ### CODEX-MMIM-D158
 - Role: OWNER-DIRECTED IMPLEMENTATION.
-- Active_RUN: MMIM-D158-20261006.
-- Reserved_Targets: CT002.1 và CT003–007, shared Chuỗi metadata, Master schema/renderer/icon/docs.
-- NOW: D158 đang triển khai.
-- NEXT: kiểm UI.
-- State: ACTIVE.
+- Active_RUN: none · D158 XONG thiết kế/UI.
+- Reserved_Targets: none.
+- NOW: Chuỗi SSOT/3icon/8công thức/cột Master đã kiểm; 11 công thức và29Master, giữ35/115 nhóm.
+- NEXT: Owner xem hình họa; mapping backend giữ OPEN theo D157.
+- State: IDLE.
+- LAST_SYNC: 2026-10-06 · D158 KQ.
 
 ## Proposal contract
 
