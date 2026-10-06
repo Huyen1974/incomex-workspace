@@ -14,6 +14,12 @@ Nếu file này mâu thuẫn với **quyết định Owner mới hơn trong COLL
 
 ---
 
+## Config · Nguyên tắc Owner 06/10/2026 22:09 +07
+
+Khai báo nguyên tắc nếu/thì một lần để hệ thống nhận diện theo ngữ cảnh; Config tham chiếu nguồn chung. Bảy câu hỏi: (1) bắt đầu từ đâu; (2) kết thúc ở đâu; (3) điều kiện — NTĐK/thiết lập lẻ; (4) trigger — NTTG/từng trigger; (5) ai làm — NTGV; (6) báo cáo cho ai — nguyên tắc báo cáo/cá nhân; (7) chuyển tiếp cho ai — nguyên tắc chuyển tiếp/cá nhân. Điều kiện và trigger là hai mục riêng. Bản ghi: cần mô tả nguyên tắc xác định bản ghi áp dụng; chi tiết chưa chốt. Chưa chốt ưu tiên/xử lý nhiều rule cùng khớp; không tự lập runtime engine hoặc gán giá trị cho bản ghi demo.
+
+SSOT nội dung: `ui/config-master-data-v1.js#CONFIG_PRINCIPLES`, được dùng chung trong chi tiết CT-007 và drawer Master Config. CT-007 giữ nguyên công thức, chỉ bổ sung nguyên tắc chi tiết. Đây là nguyên tắc thiết kế, chưa phải bằng chứng tự động hóa đã chạy.
+
 ## Master Config · D152 · 06/10/2026
 - UI đang rà: [Master Config](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/config-master-v1.html), dòng 28 trong bảng duyệt hiện hành.
 - Dùng nguyên UI.MASTER cha `mot-master-v1.html`; schema/nhãn SSOT tại `ui/config-master-data-v1.js#CONFIG_MASTER_SCHEMA`. Không còn renderer bảng riêng.
