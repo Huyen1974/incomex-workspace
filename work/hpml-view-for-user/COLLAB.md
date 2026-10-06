@@ -29,14 +29,14 @@ Hướng đúng: một đường duy nhất theo §12, cấm URL tạm, không n
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn lời Owner 06/10/2026 14:59 (vòng mở lại; ghi ở ô 1).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 15:25 +07 · Claude Chat · P37 (HO cho phiên mới)
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 15:40 +07 · Claude Chat · P38 (Reviewer đã thử đề bài trên dữ liệu thật, sửa và ACCEPT; chờ Host READY)
 - 🎯 **Mục tiêu (Owner 06/10 14:59, nguyên văn):** “các bạn cứ bàn trên repo, viết cái gì ra thì chayn xuống VPS. VPS đơn giản chỉ là cái kênh để cho user có thể xem trực tiếp và dễ nhìn. Đặc biệt là thông tin tiến độ theo thời gian thực (ai đang làm? ai vừa làm)”. **Vì sao:** đây là bước đầu của hệ thống giao việc tự động mà Owner giám sát được bất cứ lúc nào; ngày 06/10 trang hiện mục tiêu cũ 12 ngày mà không ai được báo.
 - 🏁 **Xong khi:** Bảng điều khiển và mục tiêu của mọi việc đang làm tự hiện trên trang sau mỗi lần ghi repo, không ai chép tay · AI lỡ đổi tiêu đề thì trang vẫn hiện và có nhắc; không đọc nổi thì đèn đỏ nêu tên việc · “ai vừa làm / ai đang làm” chạy như cũ · có bộ thử + quay lui.
 - 📍 **Tiến độ:** `✅ Mở lại + mục tiêu` · `■ Hội đồng rà đề bài` · `⬜ Claude Code làm một lượt` · `⬜ Nghiệm thu + đóng`
-- ✅ **Đã xong:** tìm ra gốc lỗi và sửa riêng cho HJW (HJW P164, `dd3d158`, kiểm `d7fd142`) · mở lại việc này (`2ebbdac`) · đề bài nháp OWNERVIEW02 (P36).
-- ■ **Đang làm:** phiên mới tiếp quản theo HO ở P37 · Host GPT Chat rà đề bài nháp đúng một vòng → READY.
+- ✅ **Đã xong:** tìm ra gốc lỗi và sửa riêng cho HJW (HJW P164, `dd3d158`, kiểm `d7fd142`) · mở lại việc này (`2ebbdac`) · đề bài nháp OWNERVIEW02 (P36) · Reviewer phiên mới thử đề bài trên dữ liệu thật, sửa và ACCEPT (P38).
+- ■ **Đang làm:** Host GPT Chat rà `PROMPT.md` bản P38 đúng một vòng → READY (Reviewer Claude đã ACCEPT đúng bản này).
 - ⬜ **Còn lại:** một lượt Claude Code (máy đồng bộ + trang + đèn canh + bộ thử) → Host nghiệm thu, Reviewer xác nhận → đóng, chuyển lại `done-tasks`.
-- ➡ **Kế tiếp:** 😊 Owner: chuyển một khối cho phiên mới · phiên mới: đọc P37, làm phần D theo vai · Host GPT: rà `PROMPT.md`, đồng ý nguyên bản thì phát READY · Reviewer Claude (phiên mới): rà lại bằng mắt mới, rồi chỉ rà phần Host đổi · 🤖 Claude Code: chạy sau READY.
+- ➡ **Kế tiếp:** 😊 Owner: chuyển một khối cho GPT Chat · Host GPT: rà `PROMPT.md` bản P38, đồng ý nguyên bản thì phát READY, muốn đổi thì sửa thẳng và ghi P39 · Reviewer Claude: chỉ rà đúng phần Host đổi · 🤖 Claude Code: chạy sau READY.
 - ⛔ **Không làm:** trang mới hay đường xem thứ hai · GitHub→VPS cho mã · đụng cổng ghi, đầu nối, webhook, presence · đổi bố cục nào khác ngoài thêm đúng một ô Bảng điều khiển · hệ thống giao việc tự động (thuộc HJW N3–N6).
 
 ### 1. Mục tiêu
@@ -51,6 +51,7 @@ Owner 06/10/2026 14:59, nguyên văn: “Đừng phức tạp hóa vấn đề l
 5. Có bộ thử và lớp canh để lần sau sửa gì cũng không làm hỏng lại; quay lui được trong vài phút.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- Owner 06/10/2026 15:24 (nguyên văn, giao phiên mới): “Chúng ta làm 1 workspace incomex để AI thảo luận, rồi chuyển về VPS cho user đọc. Vừa rôi có 1 tai nạn. Ai đổ gì đó, user không được cập nhật thông tin. không có gì cảnh báo => hệ thống vẫn còn chưa có độ tin cậy cao. Đây là ý kiến của phiên cũ HO. bạn rà soát, mở lại , làm nốt để cơ chế 1 SSOT về thông tin từ repo luôn được đảm bảo nhé.”
 - Owner 06/10/2026 14:59 (nguyên văn, phần còn lại): “=> Cần gì bạn viết cho 1 phiên claude code mới để nó làm nốt, tôi sẽ mở 1 phiên tương ứng bên GPT. Các nguyên tắc đơn giản là: 1. Kế hoạch thống nhất trên repo để dễ theo dõi và có tài liệu lưu lại. 2. Hội đồng đồng thuận rồi làm. Phim này đang tập trung vào N1-N6 nên không nên làm loãng quá nhiều thông tin.”
 - Owner 06/10/2026 14:41 (nguyên văn): “Tại sao không đồng bôn giữa trang của tôi và trang của AI. 1 SSOT thôi chứ? ai lại đi làm 2 lần, trang này tôi tải từ VPS về mà. Kể cả tín hiệu đang thực hiện cũng được truyền về theo thời gian thực. Tại sao thông tin này lại bị ngắt quãng?”
 - Owner 06/10/2026 14:29 (nguyên văn): “vấn đề trong nội dung công việc tôi đọc trên VPS vẫn thấy nội dung khá cũ. Thậm chí mục tiêu còn cập nhật từ ngày 24 tháng 9. Tức là cách đây hơn 10 ngày.”
@@ -810,6 +811,36 @@ cổng ghi ─▶ presence.py (15 giây) ─▶ presence.json ─▶ “Đang l�
 8. Trả lời Owner: rất ngắn, đúng một việc cho Owner, đúng một khối để chuyển; chi tiết để ở repo.
 
 **G. Xong thì dọn ba chỗ.** Host nghiệm thu → Reviewer xác nhận → (1) `Đóng hpml-view-for-user` (chuyển về `work/done-tasks/`, sửa root `COLLAB.md`); (2) gỡ câu “CÒN HỞ” trong `AGENTS.md` MT4 vì trang đã tự hiện Bảng; (3) bỏ phần “đang ở đâu” chép tay trong `work/hermes-joint-workspace/view.html`.
+
+## P38 · Claude Chat (phiên mới · người soạn + Reviewer) · 2026-10-06 15:40 +07 · THỬ ĐỀ BÀI TRÊN DỮ LIỆU THẬT · SỬA 9 CHỖ · REVIEWER ACCEPT
+Bảng: khớp · Ô 1–2: khớp · §0.3: đã đối chiếu (thêm lời Owner 15:24) · Based_on repo `3287922` · Scope: `PROMPT.md` toàn bộ · JEV `gen-dec-1791275629-8fXSy2STLUiUSOmakPZe` · Áp: SAME_COMMIT.
+
+**Đã tự thử, không tin lời tả:** đọc mã đang chạy (root `code`): `sync.py` 482 dòng, `ui/app.vue` dòng 1–60 và 136–163, `00-NHAN-THU-MUC.md`, `README.md` (theo từ khoá), `scripts/mcpw-protection-guard` (danh sách INV, dòng 628–719) · mở trang đang phục vụ khoảng 15:30: `fresh`, mục tiêu 14:59 hiện đúng, 0 lỗi console · viết bản thử cách đọc theo đề bài rồi chạy trên 5 việc đang làm, 9 việc đã xong và đúng bản HJW lúc hỏng (`d1ce5a8`: cách đọc mới ra được mục tiêu, kèm lời nhắc).
+
+| # | Chỗ trong đề bài | Thử ra gì | Sửa thành | JEV |
+|---|---|---|---|---|
+| 1 | F1 · Bảng kết thúc ở đâu | “tới `### ` kế tiếp” ⇒ HJW 43 dòng (35 dòng vùng máy giao Hermes), `pg-nhan-balo` 27 dòng (18 dòng D14–P21) | dừng sau dòng ⛔; thiếu ⛔ ⇒ dừng ở tiêu đề mọi cấp hoặc `<!--` + lời nhắc; trần 40 dòng ⇒ cả năm việc ra 8–9 dòng | 0,93 |
+| 2 | F1 · chữ của Bảng | tiêu đề Bảng HJW còn `**`; MMIM không có `- ` đầu dòng, việc khác có | `title` qua `clean_line`; bỏ `- ` đầu dòng | — |
+| 3 | F3 · “bỏ giới hạn chiều cao ô Mục tiêu” | trái D-HVU-0610-1 và dòng ⛔ của Bảng; ô Mục tiêu MMIM 10.418 ký tự sẽ đẩy “ai vừa làm, ai đang làm” khỏi màn hình; ô 2 vốn không có giới hạn | bỏ câu này, giữ nguyên bốn ô | 1,00 |
+| 4 | F2 · `### Vòng trước` lệch chữ | tiêu đề vòng cũ rơi vào vòng hiện hành ⇒ trắng mục tiêu | nhận theo đầu dòng + lời nhắc; ba tiêu đề 1–2–3 vẫn “đúng một lần” | 0,92 giữ “đúng một lần” |
+| 5 | F5 · số INV, nhịp báo | để agent tự tìm số | chốt INV21 (đã đọc: cao nhất INV20), nhóm hai-lượt như INV11–13, sổ tin báo `B-HVU01` | — |
+| 6 | F5(b) · canh đồng bộ đứng | “chỉ thêm nếu chưa có” | đã đọc guard: không phép nào đọc `lastSuccessAt`, AD1 đếm cả lượt lỗi ⇒ thêm; agent chỉ còn kiểm đèn Kuma | 0,88 giữ điều kiện gốc |
+| 7 | F5/F6 · lớp canh cho ô mới trên trang | bảng POST-PROTECT đòi watchdog, đề bài không nêu ⇒ agent phải tự chọn | thêm mốc `control-board` vào INV13 | 0,50 không chắc — Reviewer quyết theo DROOT29 |
+| 8 | F1/F3/F4 · nhánh lỗi, dữ liệu cũ, câu chữ trên trang | trường mới vắng ở nhánh “không đọc được việc”; “một câu giải thích” để ngỏ | nêu giá trị từng trường; trang coi vắng là rỗng; chốt nguyên văn câu vàng và hai `data-testid` | — |
+| 9 | Mục 5–6 · nghiệm thu | “năm việc” gõ cứng; vòng thử sống lẫn với commit kết quả; “ký hiệu thô” mơ hồ (`_…_` ở `pg-nhan-balo`) | mọi việc Now tại revision publish; đo bằng commit checkpoint sau bước 2; đúng bốn ký hiệu | — |
+
+Thêm một biển chỉ đường ở mục 0 của đề bài: `view.html` (407 KB, chưa có Sổ phiên) và `ui-assembly/app.vue` (9,9 KB; bản đang chạy 41 KB) trong thư mục việc này trên repo là bản tham chiếu cũ — cấm dùng làm nguồn.
+
+**Cân rồi, không đổi:** P2 (file có thay đổi chưa commit ⇒ dừng) — Reviewer định nới, JEV 0,95 giữ nguyên ⇒ giữ · thiếu Bảng chỉ vàng, không đỏ · một lượt, 0 điểm chờ Owner (hỏi ngược MT4: không bước nào bỏ hay gộp được nữa).
+
+**Chưa kiểm được — Host xem trước khi phát READY:**
+1. Trạng thái Git của `docker/nuxt-repo` (Reviewer không có công cụ đọc). Host đọc được thì kiểm sáu file ở P2; có thay đổi dở ⇒ xử trước, khỏi phí một lượt Claude Code.
+2. Manifest Config Guard và danh sách đèn Kuma — đề bài đã ghi luật quyết cho cả hai nhánh, agent không phải tự chọn.
+3. Ô 2 vẫn là lời AI, Owner chưa gật riêng — không chặn.
+
+**Khi đóng việc (bổ sung mục G của P37):** (4) bản tham chiếu cũ trên repo: cập nhật theo bản đang chạy hoặc gom vào kho lưu có INDEX — Host đề xuất, Owner gật.
+
+**Đồng thuận:** **Reviewer ACCEPT** đúng bản `PROMPT.md` ở commit của mục này. Host đồng ý nguyên bản ⇒ phát READY trỏ commit cuối chạm `PROMPT.md`, sửa Bảng cùng commit. Host muốn đổi ⇒ sửa thẳng `PROMPT.md`, ghi P39; Claude rà đúng phần đổi một vòng.
 
 ## Owner cần quyết
 - —
