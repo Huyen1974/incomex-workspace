@@ -3,12 +3,12 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 04:40 +07 · GPT · D151
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · Codex · D152
 🎯 Mục tiêu: **dùng CT-003→007 để quét dần và làm các Master List đủ nghĩa; thứ gì phát sinh phải có Master để ghi trước**.
 🏁 Xong khi: mỗi đầu ra CT có Master List; record phát sinh được ghi trước khi phân loại/chuẩn hóa; gap concept được treo rõ để Owner chỉ quyết phần concept.
 📍 Tiến độ: CT-003 ✓ → CT-004 ✓ → CT-005 ✓ Master MOW → CT-006 ✓ Master UI con → ■ CT-007 ✓ Master Config → □ tiếp tục Coverage T0
 ✅ Đã xong: D151 trả đúng thiết kế một bảng: row 4 `Master Quy trình / MOW` xanh UI-001; row 18 `Master UI con`; row 28 `Master Config` xanh; bỏ phần iframe nhúng dài D150.
-■ Đang làm: semantics/phân loại Config còn OPEN nhưng không chặn ghi danh sách. MOW legacy và 3 UI con thiếu UI cha vẫn là gap riêng.
+■ Đang làm: D152 rà nhãn/cột Master Config, đưa về UI cha; semantics/phân loại Config vẫn OPEN. MOW legacy và 3 UI con thiếu UI cha là gap riêng.
 ⬜ Còn lại: tiếp tục ghi/test Config thật vào CAT-248* để lộ loại; map MOW legacy; xác định cha UI-008/011/012; Codex Change Propagation audit vẫn PENDING nhưng không chặn chỉ đạo trực tiếp.
 ➡ Kế tiếp: Host tiếp tục test slice nhỏ/Coverage theo chỉ đạo Owner; FC-002 chỉ bàn semantics Config, không bàn có/không có Master nữa.
 ⛔ Không làm/để sau: không xóa/hoãn Master chỉ vì định nghĩa chưa hoàn thiện; không tự gán cha cho 3 UI thiếu evidence; không đổi 7 MOW canonical khi chưa map.
@@ -107,6 +107,9 @@ Mốc hoàn thành theo ba tầng (đề xuất — chờ Owner gật; 6 điểm
 Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đầu vào và kết quả cần đạt của phần được chọn → thực hiện theo bước bằng công cụ có thật → kiểm kết quả đã lưu, nhánh lỗi và khả năng dùng lại. Ghi phần đã đạt, phần còn thiếu và nơi bị tắc. Một phần đạt chưa có nghĩa toàn máy đạt; lỗi hoặc thiếu đầu vào thì chưa đưa phần đó vào dùng chính thức.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+**OWNER 06/10/2026 · D152 · MASTER CONFIG:** chế tạo cỗ máy sản xuất quy trình; có UI thiết kế, quy trình vận hành/chế tạo máy. Mỗi loại đối tượng có từ hai phần tử cần Master theo UI cha; nhãn/cột phải phù hợp nhu cầu quản lý. Owner giao Codex nghiên cứu và sửa Master Config theo hiểu biết hiện có, bổ sung dần. Dùng một bảng duyệt hiện hành; báo cáo tại HJW bằng con trỏ về MMIM.
+
 **OWNER 04/10/2026 · D110 · 27 MASTER LIST CHO 27 ĐỊNH NGHĨA**
 - Mỗi định nghĩa STT 1–27 phải có một Master List/đích ghi rõ ràng.
 - **UI cha đã có → mọi list mới phải dùng nguyên UI.MASTER cha**, không dựng renderer riêng.
@@ -1943,3 +1946,11 @@ KQ@OWNER-BANDUYET-20260924-02 XONG
 ## D · MOW-SSOT-DIRECT · 28/09/2026
 - Owner chốt: một SSOT cho mỗi UI và logic; các lối vào đấu thẳng tới nguồn đó, không tạo bản sao. Quy tắc thao tác nằm tại `AGENTS.md` mục A1; mục này chỉ ghi quyết định và đường vào hiện hành.
 - Đường vào đã rà: `master-design-review-v1.html` → danh sách CAT-003? (`mow-master-nhap2-v1.html` nạp `nhap2-items.js`) → `mow-unified-canvas-v2.html` T2 · Đề xuất → `mow-insert-position-v1.js`. Khi sửa tiếp, kiểm cả trang Canvas trực tiếp và đường từ danh sách của Owner. Áp: SAME_COMMIT.
+
+## D152 · Master Config — nhãn/cột quản lý · 06/10/2026 · Codex
+- STARTED: 2026-10-06T08:20:46.756Z; chỉ đạo trực tiếp Owner; phạm vi CAT-248* và đường vào liên quan. Không thay Host, active RUN hay FC-002.
+- PROCESS: CHUNG.APQUYTRINH; process gate PASS (job 0aebba13ae1a4a2a993569255b92f4e9, exit 0).
+- CHANGE_EVENT: CE-MMIM-CONFIG-20261006; MASTER_SCHEMA_CHANGE; trạng thái bản thiết kế; sửa nhãn/cột và dùng nguyên UI.MASTER cha.
+- UPDATE: ui/config-master-v1.html, config-master-data-v1.js (schema SSOT), ui-child-from-parent-v1.js, ui-child-content-v1.js, master-drawer-view-v1.js, master-list.js, definition-master-index-v1.html, master-design-review-v1.html; README/discovery, impact map, COLLAB và council; HJW chỉ thêm con trỏ.
+- VERIFY: bảo toàn CFG-TEST-001; 6 cột quản lý + STT/ID/Tên; mở chi tiết đủ trường cũ; index 28 dòng; UI cha và các master hiện hữu không đổi nghĩa. N/A: definition-master-registry (27 định nghĩa không đổi), child-ui-registry (29 UI canonical không đổi), DB/runtime (chưa kết nối).
+- NOW: chỉnh schema và dùng lại renderer cha. NEXT: kiểm UI thật rồi trả Owner duyệt. FC-002 vẫn OPEN; không tự chốt definition so với runtime binding.

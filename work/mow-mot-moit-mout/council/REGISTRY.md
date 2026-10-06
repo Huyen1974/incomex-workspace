@@ -101,6 +101,17 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - State: READY_TO_RUN.
 - LAST_SYNC: D79.
 
+### CODEX-MMIM-CONFIG-20261006
+- Role: **OWNER-DIRECTED DESIGN / IMPLEMENTATION**; không thay Host.
+- Write_Zone: D152 Master Config và phụ thuộc UI; metadata MMIM; HJW con trỏ.
+- Active_RUN: D152 · yêu cầu trực tiếp Owner.
+- Reserved_Targets: 8 ui files nêu trong CE-MMIM-CONFIG-20261006; không overlap reservation active khác.
+- NOW: STARTED · schema/nhãn + reuse UI cha.
+- NEXT: kiểm list/detail/index/regression rồi báo Owner.
+- BLOCKED_BY: none; FC-002 giữ OPEN.
+- State: ACTIVE.
+- LAST_SYNC: 2026-10-06T08:20:46.756Z · D152.
+
 ## Proposal contract
 
 Mỗi proposal Council append vào ledger riêng, tối thiểu:
