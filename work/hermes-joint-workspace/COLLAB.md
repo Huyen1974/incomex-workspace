@@ -483,11 +483,11 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 11:11 +07 · GPT Host · **P156 N1 ĐÓNG D2 HÔM NAY · KHÔNG CHỜ LỊCH**
-- **Trạng thái:** `[✓ 10/12 N1] → [■ D2 tại checkpoint sạch kế tiếp của Graph hôm nay] → [□ Agent final §8.12 + KQ ngay] → [□ N2]`.
-- **Owner chỉ làm:** Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat và Claude Chat → khi cả hai báo xong, mở Mac. Hết.
-- **Agent làm:** mọi kiểm tra VPSC, connector, tool, commit, identity, server, đèn/registry, sleep evidence và KQ.
-- **Không làm:** không “để chiều/qua đêm” · không chờ đủ 10′ máy móc nếu hai D2 proof đã xong · không bắt Owner kiểm terminal/log · không mutation N1 mới · không N2 trước KQ.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 12:00 +07 · GPT Host · **P159 OWNER XONG · CÒN MACHINE-ONLY FINAL VERIFIER**
+- **Trạng thái:** `[✓ 10/12 N1 nền] → [✓ D2 cloud proofs GPT+Claude] → [■ machine-only: sleep/wake + §8.12] → [□ KQ N1] → [□ N2]`.
+- **Owner:** ✅ XONG hoàn toàn cho N1. Đã Sleep Mac → gửi `D2` từ điện thoại → mở Mac lại. Không còn thao tác Owner.
+- **Agent làm:** P157 Claude cloud proof PASS · P158 GPT cloud proof PASS, identities đúng. Verifier runtime-capable tự đọc sleep/wake evidence + `/opt/incomex/logs/bang-den.json` + registry + `AUTO_ALLOWLIST`, rồi KQ nếu đủ; không gọi Owner.
+- **Không làm:** không “để chiều/qua đêm” · không bắt Owner kiểm terminal/log · không dùng service-health thay bảng đèn DROOT34 · không mutation N1 mới · không N2 trước KQ.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -3020,4 +3020,11 @@ D2-GPT 2026-10-06T04:31Z · đọc OK · ghi OK · server OK
 - **Server** (`vps_status summary`, mẫu fresh): `incomex-agent-data` running/healthy + HTTP 200; Directus/Nuxt/Qdrant/Postgres running/healthy; workspace Git sạch tại HEAD đọc được; đĩa dùng ~54,9%.
 - Hai failed unit hệ thống `cloud-init.service` và `systemd-networkd-wait-online.service` là residual nền đã tồn tại, không phải blocker D2.
 - Bằng chứng D2-GPT được tạo trong cùng cửa sổ Mac ngủ với P157 D2-CLAUDE; verifier cuối chỉ còn đối chiếu sleep/wake evidence + §8.12 rồi ghi KQ N1 nếu xanh.
+
+### P159 · GPT Host · 2026-10-06 12:00 +07 · **D2 CLOUD PROOFS ĐỦ · OWNER XONG · FINAL VERIFIER CHỈ DÀNH CHO MÁY**
+- **D2 cloud path:** PASS hai phía. Claude commit `ca43f1cbbb6a20f8a73fa4c1b1e79d46d6275fa4` mang identity `Anthropic/ClaudeAI [auth:claude-chat-web]`; GPT commit `13aca3b60879f9d84947abd074ef3869e90538c0` mang identity `openai-mcp [auth:gpt-web]`. Cả hai đọc+ghi+server khi cầu nối Mac không phục vụ; Claude thêm Lark health PASS. Out-of-scope deny đã có ở P154.
+- **Sau Owner mở Mac:** GPT tự fresh-read `vps_status`: agent-data healthy/HTTP 200; Directus/Nuxt/Qdrant/Postgres healthy; workspace Git sạch; disk ~54,9%. Đây chỉ là service evidence, **không thay bảng đèn**.
+- **DROOT34 fail-closed:** profile GPT hiện chỉ expose roots `workspace|agent-data|ui|docs`; root `code` cũ không còn, nên GPT không đọc được file root-only `/opt/incomex/logs/bang-den.json`. Execution sandbox cũng xác nhận không mount `/opt/incomex/logs`. Vì vậy Host **không ký giả §8.12/XONG** bằng số cũ.
+- **Machine-only final verifier, không Owner:** executor có runtime access ở checkpoint sạch kế tiếp phải chỉ đọc: (1) sleep/wake log của Mac bao trùm hai commit D2; (2) `/opt/incomex/logs/bang-den.json` fresh và ghi `ĐÈN: n xanh · 0 đỏ`; (3) sổ tin báo fresh, ngoài sổ=0; (4) Config/Protection Guard gồm INV20 CLEAN; (5) `AUTO_ALLOWLIST=()` vẫn rỗng. Nếu tất cả PASS → ghi ngay KQ canon N1 XONG; nếu không → nêu đúng blocker, không mở thêm scope.
+- **Owner không còn việc. Graph không bị chặn:** final verifier là việc máy vài phút ở checkpoint runtime-access; không giữ Mac/terminal/task treo và không được trì hoãn qua buổi theo DROOT43.
 

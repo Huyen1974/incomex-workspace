@@ -14,7 +14,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 
 ## Đang làm
 - `work/gsm-access-audit/` · GSM · Host Claude · **GSM-A1 audit đã XONG** (167 access/30 ngày, không rỉ máu); còn GSM.3–GSM.5: thiết kế giảm call → review/Owner duyệt → triển khai/đo lại. Giữ active.
-- `work/hermes-joint-workspace/` · HJW · **ACTIVE · P156 N1 10/12 · D2 PHẢI ĐÓNG HÔM NAY**: VPSC đã terminal close; không còn dependency. D2 làm tại checkpoint sạch kế tiếp của Graph hôm nay, không để chiều/qua đêm; xong hai cloud proof → final §8.12 ngay → N1 XONG; chưa N2.
+- `work/hermes-joint-workspace/` · HJW · **ACTIVE · P159 OWNER XONG · D2 CLOUD PROOFS PASS**: GPT+Claude cloud identities đã PASS khi Mac ngủ; Owner đã mở Mac và không còn việc. Còn machine-only final verifier: sleep/wake + fresh bang-den/registry/Guard/INV20/AUTO → đủ thì KQ N1 ngay; chưa N2. Không dùng service-health thay DROOT34.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/graph-server/` · GS · Host GPT Chat · **R4 CODE-FIRST READY@25f3d76dd105269f69b2b2641bd9a55ddd92cef0**: Owner D13 đổi trial sang code graph nhỏ trước; embedding fresh-check đúng Agent Data (`QDRANT_EMBED_MODEL`, default main `text-embedding-3-small`); vector PGVector trial riêng, Qdrant/PG production không đụng; KB broad ingest hoãn, R6 curate, R7 wipe + clean rebuild. RUN `GS-R4-CODE-FIRST-20261006-02`.
 - `work/quy-trinh-ve-UI/` · UIPROC · **Host Claude Chat** (Owner đổi 24/09, `CLAUDE-UIPROC-260924-A`) · đồng thuận phương pháp GPT+Claude xong (D03–D06, commit `2d97d18`); chờ Hermes; tiếp là bài thi FIELD trong MMIM.
