@@ -111,6 +111,10 @@ Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đ�
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
+**OWNER 06/10/2026 · D156:** sửa CT-005 thành **Bước + Tầng + Nhóm cha ⇒ Quy trình**. Thêm **CT-005.1 · Bước con + Tầng ⇒ Task** ngay sau CT-005, cùng định dạng; tạm có đầu vào giống Nhóm con, không gộp hai khái niệm. Master Nhóm con và Task thêm **Gộp / Tách** có “?” chuẩn UI cha. Phần chuẩn đi theo công thức; Gộp/Tách ít gặp quản lý bằng hồ sơ riêng để tránh nhầm/sai. “99%” là mục tiêu thiết kế của Owner, không phải số đo.
+- STARTED D156: 2026-10-06T09:17:50.554Z. PROCESS CHUNG.APQUYTRINH PASS (job a3754bdb334e42f196eeacee11f1db6c). CE-MMIM-CT0051-20261006: FORMULA_CHANGE + MASTER_SCHEMA_CHANGE + STATUS_OR_COUNT_CHANGE. UPDATE ban-duyet CT-005/005.1, Master Công thức/data, registry Nhóm con/MOT, shared renderer và cache, review CT-005, FORMULA/README/COLLAB/council. VERIFY thứ tự 005→005.1→006, Total Công thức 8, 115 nhóm con/7 Task giữ nguyên, “?” hover/focus, gộp/tách tham chiếu hồ sơ không phải nút thực thi. N/A: không sinh Task mới, không gộp/tách dữ liệu thật, không DB/canonical UI mới, không đổi CT-006/007.
+
+
 **OWNER 06/10/2026 · D155 · TOTAL:** thêm cột `Total` ngay sau `Tên` trong bảng 28 Master (Master of Master theo nghĩa quản lý các Master khác). Tự đếm theo nguồn thật của danh sách con; mở/tải lại bảng lấy dữ liệu mới; không giữ số viết tay.
 - STARTED D155 · 2026-10-06T08:55:24.481Z. CE-MMIM-TOTAL-20261006: MASTER_SCHEMA_CHANGE + STATUS_OR_COUNT_CHANGE. UPDATE ui-child-content, adapter nạp nguồn, index cache; VERIFY vị trí cột, 35/115, các list reuse, Config, Công thức chỉ đếm dòng gốc, thiếu nguồn ≠ 0, cập nhật khi dữ liệu đổi. N/A: không đổi records/CT/canonical UI, không polling/DB. Phạm vi không overlap D154 ban-duyet.
 
