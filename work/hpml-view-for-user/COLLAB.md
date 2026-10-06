@@ -29,12 +29,12 @@ Hướng đúng: một đường duy nhất theo §12, cấm URL tạm, không n
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn lời Owner 06/10/2026 14:59 (vòng mở lại; ghi ở ô 1).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 18:27 +07 · Claude Code CLI (executor) · **STARTED · BƯỚC 1/4 ĐÃ ÁP**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 19:17 +07 · Claude Code CLI (executor) · **STARTED · BƯỚC 3/4 ĐÃ ÁP · THỬ VÒNG SỐNG**
 - 🎯 **Mục tiêu (Owner 06/10 14:59, nguyên văn):** “các bạn cứ bàn trên repo, viết cái gì ra thì chayn xuống VPS. VPS đơn giản chỉ là cái kênh để cho user có thể xem trực tiếp và dễ nhìn. Đặc biệt là thông tin tiến độ theo thời gian thực (ai đang làm? ai vừa làm)”.
 - 🏁 **Xong khi:** Bảng điều khiển + mục tiêu tự xuống trang; đổi tiêu đề không làm mất dữ liệu; lỗi parse có đèn; “ai vừa làm/đang làm” giữ đúng; có test + rollback.
 - 📍 **Tiến độ:** `✅ Mở lại + mục tiêu` · `✅ Hội đồng rà đề bài` · `✅ READY` · `■ RUN ISSUED — Claude Code mới` · `⬜ Nghiệm thu + đóng`.
 - ✅ **Đã xong:** P36 draft · P38 Reviewer ACCEPT · P39 Host ACCEPT + `READY@376722de82c366009a08693313d59cd0b42e9716`.
-- ■ **Đang làm:** **RUN@HVU-OWNERVIEW02-20261006-01 · STARTED 11:07Z** · Claude Code CLI: đọc trước P1–P6 PASS (P42) · bước 1 `sync.py` đã áp, đang kiểm lần đồng bộ thật → bước 2 trang → bước 3 Guard; chờ: không chờ ai.
+- ■ **Đang làm:** **RUN@HVU-OWNERVIEW02-20261006-01 · STARTED 11:07Z** · Claude Code CLI: đọc trước P1–P6 PASS (P42) · bước 1 `sync.py` · bước 2 trang · bước 3 Guard INV21 đã áp và xanh; đang thử vòng sống (commit này) → bước 4 KQ; chờ: không chờ ai.
 - ⬜ **Còn lại:** Claude Code chạy một lượt đến KQ XONG/DỪNG → Host nghiệm thu → Reviewer xác nhận nếu cần → đóng lại Done.
 - ➡ **Kế tiếp:** 🤖 Claude Code: chạy tới KQ XONG/DỪNG trong lượt này · Host: nghiệm thu khi có KQ · 😊 Owner: 0 thao tác.
 - ⛔ **Không làm:** không dùng terminal Graph cho HVU · không dùng terminal CWEB cũ · không mở HJW N2 lúc này · không waiter/polling.
