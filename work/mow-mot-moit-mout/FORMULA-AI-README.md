@@ -4,7 +4,7 @@
 **Project:** `work/mow-mot-moit-mout`  
 **Owner-gated concept:** Công thức và nghĩa khái niệm.  
 **AI-owned implementation:** schema Master, UI chi tiết, coverage, test, bằng chứng, reuse mapping, kỹ thuật triển khai.  
-**Cập nhật gần nhất:** 2026-10-06 · D157.
+**Cập nhật gần nhất:** 2026-10-06 · D158.
 
 > BẮT BUỘC ĐỌC FILE NÀY trước khi sửa Công thức, Định nghĩa, Master List, UI con/cha, coverage hoặc config liên quan MMIM.
 >
@@ -37,10 +37,22 @@ Nếu file này mâu thuẫn với **quyết định Owner mới hơn trong COLL
 - [Master Nhóm cha](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=1): `NHC-001…035`; thêm 28, giữ nguyên 7 dòng cũ.
 - [Master Nhóm con](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=2): `NHCN-001…115`; thêm 112, giữ nguyên 3 dòng cũ.
 - Số Bước con B1→B7: **3, 2, 4, 4, 3, 3, 4 = 23**. Không tạo B8/B9 hoặc bước con chưa có nguồn.
-- Khóa chống trùng: `stepRef + tierRef`; mỗi Nhóm con có `parentGroupId` cùng đối tượng/tầng, đúng Bước gốc. `tierRef` phân biệt MOIT/MOUT tại T0.5.
+- Khóa chống trùng hiện hành D158: `chainId + stepRef + tierRef`; mỗi Nhóm con có `parentGroupId` cùng đối tượng/tầng, đúng Bước gốc. `tierRef` phân biệt MOIT/MOUT tại T0.5.
 - **Độ phủ danh mục: FULL cho phạm vi Owner giao.** Rule/config/bộ trường bắt buộc chưa hoàn thiện vẫn hiển thị thiếu; Chuyên môn Nhóm con giữ OPEN. Đây không phải kết luận các nhóm đã được duyệt để vận hành. Không đổi công thức/khái niệm hoặc canonical UI.
 
+## D158 · Chuỗi là nguyên liệu · 06/10/2026
+
+- **CT-002.1 · Chuỗi** đặt dưới Tầng. SSOT mã/tên/định nghĩa/icon tại `ui/chuoi-data-v1.js`: CH-001 Chế tạo cỗ máy; CH-002 Vận hành cỗ máy; CH-003 Cỗ máy sản xuất quy trình.
+- **Nguyên liệu dùng chung:** Bước/Bước con (CT-001), Tầng (CT-002); Chuỗi (CT-002.1) xác định tiến trình. Từ CT-003 đến CT-007, kể cả 005.1/.2/.3, thêm Chuỗi vào đầu. Trong công thức hiện tại dùng icon CH-001; hover/focus có tên. Không hiểu Chuỗi là trạng thái vòng đời record.
+- **SSOT Nhóm con giữ nguyên:** Task/MOIT/MOUT/UI con và ngoại lệ Gộp/Tách tham chiếu Nhóm con **cùng Chuỗi**. Chuỗi đầu công thức là ngữ cảnh ràng buộc, không tạo thêm tổ hợp khác Chuỗi của Nhóm con.
+- **Master:** schema có `chainId`; nhãn lấy từ danh mục Chuỗi. Bộ dữ liệu thiết kế đang bàn khai báo CH-001 ở scope review, item override khi có chỉ đạo; không suy từ tên record. Không đổi ID, không nhân ba 35 cha/115 con. Khóa nhóm mở rộng `chainId + stepRef + tierRef`; liên kết cha/con phải khớp Chuỗi. Chưa là migration PG/Directus hoặc bằng chứng backend cưỡng chế.
+- **Master Chuỗi:** ML-DEF-028 / KNI-024 / STT28, dùng UI.MASTER hiện có, 3 giá trị từ cùng nguồn; không chép bộ enum riêng. Có 28 Master định nghĩa + Config = 29 dòng ngoài; Total vẫn ngay sau Tên, Chuỗi kế tiếp. Công thức: 11 gốc.
+- **Icon:** ba vùng cắt nguyên ảnh Owner, không vẽ lại: `chuoi-icons-v1.svg#che-tao`, `#van-hanh`, `#san-xuat`; cùng một payload để cache. CSS `chuoi-ui-v1.css`; công thức chỉ icon, Master dùng chữ.
+- **Mặt người:** giải thích dài CT-003→007 thu vào Chi tiết; nội dung/nguồn vẫn giữ cho AI. CT-001/002 không thêm Chuỗi và giữ bố cục.
+
 ## D157 · Một gốc Nhóm con; ba tiến trình · 06/10/2026
+
+> Lịch sử: D158 chốt tên Chuỗi, bổ sung vào công thức và Master; tổng 10 và đề xuất bộ chọn dưới đây đã được cập nhật bởi D158.
 
 - **Chỉ đạo Owner:** Nhóm con là SSOT cho cấu trúc chung của Task, MOIT, MOUT và UI con. CT-005.1 = Nhóm con ⇒ Task; CT-005.2 = Nhóm con ⇒ MOIT; CT-005.3 = Nhóm con ⇒ MOUT. Tổng hiện tại 10 công thức gốc.
 - **Gộp/Tách:** một hồ sơ ngoại lệ tại Nhóm con; các đối tượng phụ thuộc tham chiếu cùng hồ sơ. Không chỉnh cơ cấu/ngoại lệ độc lập ở Task, MOIT, MOUT hoặc UI con. Trường đặc thù mỗi loại vẫn thuộc đối tượng đó.
@@ -149,20 +161,23 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 |---|---|---|
 | CT-001 | **Bước** | `Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }` |
 | CT-002 | **Tầng** | `Field => { MOIT | MOUT } => MOT => MOW` · T3→T7 chỉ bối cảnh, thu gọn |
-| CT-003 | **Nhóm cha** | `Bước + Tầng ⇒ Nhóm cha` |
-| CT-004 | **Nhóm con** | `Bước con + Tầng ⇒ Nhóm con` |
-| CT-005 | **Quy trình** | `Bước + Tầng + Nhóm cha ⇒ Quy trình` |
-| CT-005.1 | **Task** | `Nhóm con ⇒ Task` |
-| CT-005.2 | **MOIT** | `Nhóm con ⇒ MOIT` |
-| CT-005.3 | **MOUT** | `Nhóm con ⇒ MOUT` |
-| CT-006 | **UI Con** | `Bước + Tầng + Nhóm + UI cha ⇒ UI Con` |
-| CT-007 | **Config** | `Bước + Tầng + Nhóm + UI cha + Bản ghi + Người làm (NTGV) + Trigger ⇒ Config` |
+| CT-002.1 | **Chuỗi** | `CH-001 · CH-002 · CH-003` — ba icon; tên hiện khi hover/focus |
+| CT-003 | **Nhóm cha** | `Chuỗi + Bước + Tầng ⇒ Nhóm cha` |
+| CT-004 | **Nhóm con** | `Chuỗi + Bước con + Tầng ⇒ Nhóm con` |
+| CT-005 | **Quy trình** | `Chuỗi + Bước + Tầng + Nhóm cha ⇒ Quy trình` |
+| CT-005.1 | **Task** | `Chuỗi + Nhóm con ⇒ Task` |
+| CT-005.2 | **MOIT** | `Chuỗi + Nhóm con ⇒ MOIT` |
+| CT-005.3 | **MOUT** | `Chuỗi + Nhóm con ⇒ MOUT` |
+| CT-006 | **UI Con** | `Chuỗi + Bước + Tầng + Nhóm + UI cha ⇒ UI Con` |
+| CT-007 | **Config** | `Chuỗi + Bước + Tầng + Nhóm + UI cha + Bản ghi + Người làm (NTGV) + Trigger ⇒ Config` |
 
 **Luật Master:** một dòng CT-xxx = một công thức hoàn chỉnh. Các node nội bộ 1–9 / 1.x của CT-001 không phải công thức Master riêng.
 
 ---
 
-# 6. 27 ĐỊNH NGHĨA HIỆN HÀNH
+# 6. 28 ĐỊNH NGHĨA HIỆN HÀNH
+
+28. **KNI-024 · Chuỗi** — thành phần xác định một trong ba tiến trình; danh mục và nghĩa tại D158/chuoi-data-v1.js. Bước/Tầng là nguyên liệu dùng chung.
 
 ## A. Cấu trúc lõi · 1–9
 1. **KNI-002 · Nhóm cha** — tập quy tắc/quy định/config dùng chung toàn hệ thống hoặc diện rộng; có thể chuyên môn hóa thành Nhóm con; nếu không cần Nhóm con thì dùng Nhóm cha + config trực tiếp.
