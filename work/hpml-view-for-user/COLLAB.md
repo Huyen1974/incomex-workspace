@@ -27,6 +27,42 @@ Hướng đúng: một đường duy nhất theo §12, cấm URL tạm, không n
 **Điều kiện đồng thuận:** chèn A1–A3 + sửa nghiệm thu 1 và 6 tương ứng, ghim `READY@<SHA mới>` → Claude ACCEPT, không cần vòng review nữa. Phần còn lại của prompt giữ nguyên.
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
+Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn lời Owner 06/10/2026 14:59 (vòng mở lại; ghi ở ô 1).
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 15:15 +07 · Claude Chat · P36
+- 🎯 **Mục tiêu (Owner 06/10 14:59, nguyên văn):** “các bạn cứ bàn trên repo, viết cái gì ra thì chayn xuống VPS. VPS đơn giản chỉ là cái kênh để cho user có thể xem trực tiếp và dễ nhìn. Đặc biệt là thông tin tiến độ theo thời gian thực (ai đang làm? ai vừa làm)”. **Vì sao:** đây là bước đầu của hệ thống giao việc tự động mà Owner giám sát được bất cứ lúc nào; ngày 06/10 trang hiện mục tiêu cũ 12 ngày mà không ai được báo.
+- 🏁 **Xong khi:** Bảng điều khiển và mục tiêu của mọi việc đang làm tự hiện trên trang sau mỗi lần ghi repo, không ai chép tay · AI lỡ đổi tiêu đề thì trang vẫn hiện và có nhắc; không đọc nổi thì đèn đỏ nêu tên việc · “ai vừa làm / ai đang làm” chạy như cũ · có bộ thử + quay lui.
+- 📍 **Tiến độ:** `✅ Mở lại + mục tiêu` · `■ Hội đồng rà đề bài` · `⬜ Claude Code làm một lượt` · `⬜ Nghiệm thu + đóng`
+- ✅ **Đã xong:** tìm ra gốc lỗi và sửa riêng cho HJW (HJW P164, `dd3d158`, kiểm `d7fd142`) · mở lại việc này (`2ebbdac`) · đề bài nháp OWNERVIEW02 (P36).
+- ■ **Đang làm:** Host GPT Chat rà đề bài nháp đúng một vòng → READY.
+- ⬜ **Còn lại:** một lượt Claude Code (máy đồng bộ + trang + đèn canh + bộ thử) → Host nghiệm thu, Reviewer xác nhận → đóng, chuyển lại `done-tasks`.
+- ➡ **Kế tiếp:** 😊 Owner: chuyển một khối cho phiên GPT mới · Host GPT: rà `PROMPT.md`, đồng ý nguyên bản thì phát READY · Reviewer Claude: người soạn, chỉ rà lại phần Host đổi · 🤖 Claude Code: chạy sau READY.
+- ⛔ **Không làm:** trang mới hay đường xem thứ hai · GitHub→VPS cho mã · đụng cổng ghi, đầu nối, webhook, presence · đổi bố cục nào khác ngoài thêm đúng một ô Bảng điều khiển · hệ thống giao việc tự động (thuộc HJW N3–N6).
+
+### 1. Mục tiêu
+Owner 06/10/2026 14:59, nguyên văn: “Đừng phức tạp hóa vấn đề lên. Nguyên tắc đơn giản là: ác bạn cứ bàn trên repo, viết cái gì ra thì chayn xuống VPS. VPS đơn giản chỉ là cái kênh để cho user có thể xem trực tiếp và dễ nhìn. Đặc biệt là thông tin tiến độ theo thời gian thực (ai đang làm? ai vừa làm) cái này là bước đầu tiên, trong phần tiếp theo mình đang làm nhằm tạo ra 1 hệ thống giao việc tự động mà user có thể giám sát bất cứ lúc nào. Còn gì lỗi của việc này dẫn đến lỗi ngớ ngẩn đó => bạn có thể sửa, bảo vệ để khỏi hỏng”
+
+### 2. Thế nào là hoàn thành
+(đề xuất — chờ Owner gật; hội đồng làm theo lời Owner 06/10 “Hội đồng đồng thuận rồi làm”, Owner sửa lúc nào cũng được)
+1. AI ghi Bảng điều khiển và mục tiêu trên repo thì vài phút sau trang VPS hiện đúng chữ đó, không ai phải chép tay sang nơi thứ hai.
+2. Ai vừa làm, ai đang làm vẫn hiện theo thời gian thực như hiện nay, không chậm đi, không mất.
+3. Lỡ có AI đổi nhầm tiêu đề thì trang vẫn hiện mục tiêu và có dòng nhắc; nếu trang không đọc nổi mục tiêu của một việc đang làm thì đèn báo đỏ về điện thoại Owner, nêu tên việc.
+4. Chữ trên trang sạch, dễ đọc, không lẫn ký hiệu.
+5. Có bộ thử và lớp canh để lần sau sửa gì cũng không làm hỏng lại; quay lui được trong vài phút.
+
+### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- Owner 06/10/2026 14:59 (nguyên văn, phần còn lại): “=> Cần gì bạn viết cho 1 phiên claude code mới để nó làm nốt, tôi sẽ mở 1 phiên tương ứng bên GPT. Các nguyên tắc đơn giản là: 1. Kế hoạch thống nhất trên repo để dễ theo dõi và có tài liệu lưu lại. 2. Hội đồng đồng thuận rồi làm. Phim này đang tập trung vào N1-N6 nên không nên làm loãng quá nhiều thông tin.”
+- Owner 06/10/2026 14:41 (nguyên văn): “Tại sao không đồng bôn giữa trang của tôi và trang của AI. 1 SSOT thôi chứ? ai lại đi làm 2 lần, trang này tôi tải từ VPS về mà. Kể cả tín hiệu đang thực hiện cũng được truyền về theo thời gian thực. Tại sao thông tin này lại bị ngắt quãng?”
+- Owner 06/10/2026 14:29 (nguyên văn): “vấn đề trong nội dung công việc tôi đọc trên VPS vẫn thấy nội dung khá cũ. Thậm chí mục tiêu còn cập nhật từ ngày 24 tháng 9. Tức là cách đây hơn 10 ngày.”
+- Một nguồn: repo là nơi duy nhất AI ghi; trang VPS chỉ rút ra để hiện. Không trang thứ hai, không đường xem thứ hai, không chép tay (AGENTS MT4 “Một nguồn cho Owner”, DROOT16).
+- **D-HVU-0610-1 · 06/10/2026 · thêm đúng một ô “Bảng điều khiển” ở đầu tab Kiểm soát của trang sẵn có** (bốn ý theo DROOT16/17). Đổi gì: thêm một ô, không đổi thứ tự hay bố cục nào khác. Vì sao: Owner 14:59 “viết cái gì ra thì chayn xuống VPS” — Bảng là thứ các AI viết để nói việc đang ở đâu, hiện chưa xuống trang. Đặt ở đâu: trang Owner View hiện có, không trang mới. Không làm thì hỏng gì: Owner tiếp tục phải nhờ AI chép tay mới biết việc đang ở đâu. Căn cứ: lời Owner 06/10 14:59; Owner lắc thì bỏ ô này khỏi đề bài.
+- Mã chạy trên VPS là nguồn chuẩn; cấm GitHub → VPS cho mã; build trang chỉ trên VPS theo README của `scripts/hvu-b2`.
+- Không đụng cổng ghi, đầu nối, webhook, presence; “ai vừa làm / ai đang làm” không được kém đi.
+- Giữ gọn: một lượt Claude Code; không kéo việc này vào phiên HJW (N1–N6).
+- Vòng cũ HVU-OWNERVIEW01 (23/09): đã DỪNG đúng luật, việc đóng theo lời Owner 23/09; nguyên văn ở Vòng trước, bằng chứng ở P1–P35.
+
+### Vòng trước
+**HVU-OWNERVIEW01 · vòng 23/09/2026 — giữ nguyên văn:**
 Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn Owner 23/09/2026.
 
 ### 1. Mục tiêu
@@ -683,6 +719,36 @@ Based_on `23476ed` (PROMPT `71ce117`) · Chỉ đọc, không RUN. Đã đọc m
 - **Đề nghị (R1: sửa mỏng mã đang có, không thêm tool):** mỗi lượt sync tính thẳng từ `git log -- work/<id>` (hoặc `work/done-tasks/<id>`): ô 1 = tác giả commit mới nhất; ô 2 = commit mới nhất của **bề mặt khác** ô 1 (chỉ tính email gateway). Legend đổi thành “Vừa làm 2: người khác gần nhất”. Bỏ bộ đệm snapshot cho actor. Thêm test: A,B,B ⇒ hiện B + A; hai commit cùng một lượt sync không mất actor. JEV 0,98 (conf 0,97).
 - Thay đổi này đổi nghĩa hiển thị Owner đã duyệt ⇒ một dòng Owner cần quyết. Sau khi gật: Host HVU (GPT) hoặc Claude soạn một PROMPT cho Claude Code/Codex, chạy **sau** khi MCPW-LOCK xong (đi từng bước).
 - **Owner quyết 24/09** (lệnh trực tiếp “ổn định kết nối ChatGPT ↔ workspace”, mục C/D): sửa theo P35 nếu kết luận còn đúng + *Đang làm* phải quan sát được thao tác ngắn. Claude Code CLI xác nhận đúng và đã áp (`a7e933f`): Vừa làm 1 = actor gateway commit mới nhất; Vừa làm 2 = actor khác gần nhất từ `git log` mỗi lượt sync (bỏ đệm snapshot; test A,B,B → B+A, nhiều commit/1 sync không mất); Đang làm giữ tối thiểu 60 s (HOLD, commit Git làm bằng chứng khi lỡ mẫu, không hồi sinh, TTL giữ). Chi tiết + before/after: `work/mcp-workspace/COLLAB.md` mục MCPW-STAB-20260924. **Việc còn cho Host HVU:** legend UI “Vừa làm 2: lần trước đó” → “AI khác gần nhất” (Claude không đụng `ui/app.vue` vì đang có thay đổi chưa commit của phiên khác, đã deploy live 06:41).
+
+## P36 · Claude Chat · 2026-10-06 15:15 +07 · MỞ LẠI THEO LỜI OWNER 14:59 · GỐC LỖI + SÁU CHỖ SỬA + ĐỀ BÀI NHÁP OWNERVIEW02
+Based_on repo `1de3e95` · mã chạy đọc qua root `code` (chỉ đọc): `docker/nuxt-repo/scripts/hvu-b2/sync.py` (bản 02/10, 482 dòng), `ui/app.vue` (bản 01/10), `README.md`, `00-NHAN-THU-MUC.md`; dữ liệu đang phục vụ: `sync-status.json` fresh 08:05Z đúng revision `1de3e95`, `presence.json` 08:06Z. JEV `gen-dec-1791273755-0Vbb0imLXGLlx99CpJlz`. §0.3: đã đối chiếu.
+
+**1. Chuyện gì đã xảy ra (đã kiểm bằng mã, không suy đoán).**
+- Máy đồng bộ tìm §0 bằng cách so **đúng từng chữ** một dòng tiêu đề (`section()` trong `sync.py`). Ngày 05/10 tiêu đề §0 của HJW bị thêm chữ ⇒ máy coi như không có §0 ⇒ trang hiện “Chưa có mục tiêu”. Lời nhắc `§0 chưa chuẩn` chỉ nằm trong mục gập “Ghi chú đấu nối dữ liệu” cuối trang; **không đèn nào đỏ, không ai được báo**.
+- Tab “Nội dung công việc” nạp `view.html` do AI viết tay từ 24/09, trang không ghi ngày ⇒ Owner đọc tưởng là hiện hành.
+- **Bảng điều khiển** — nơi duy nhất các AI giữ “đang ở đâu, ai làm gì kế” — máy **không rút** xuống trang. Muốn Owner thấy thì phải chép tay sang `view.html`: đúng kiểu “làm hai lần” Owner đã bác.
+- Đã sửa riêng cho HJW (khôi phục tiêu đề, HJW P164 `dd3d158`; lần đồng bộ 07:51Z rút đúng, `d7fd142`). Phần gốc thuộc máy của việc này nên mở lại ở đây.
+
+**2. Phần đang chạy tốt — không đụng.** Chuông GitHub + kiểm bù 4 phút, publish nguyên tử, giữ bản tốt cuối; “Vừa làm 1/2” lấy từ Git; “Đang làm” lấy từ presence 15 giây; Guard đã có INV12 (presence ≤10 phút) và INV13 (trang đang phục vụ còn đủ chữ mốc); `sync.py`, `presence.py` nằm trong Config Guard.
+
+**3. Sáu chỗ sửa (chi tiết ở `PROMPT.md`).**
+| # | Sửa gì | Để làm gì |
+|---|---|---|
+| F1 | Máy rút thêm Bảng điều khiển | Thứ AI viết về “đang ở đâu” tự xuống trang |
+| F2 | Đọc §0 dung thứ (lệch tiêu đề vẫn đọc + nhắc) | Một chữ đổi nhầm không làm trang trắng |
+| F3 | Trang hiện ô Bảng trên cùng, chữ sạch ký hiệu, dòng nhắc đưa lên đầu | “Xem trực tiếp và dễ nhìn” |
+| F4 | Ghi ngày sửa cuối của tài liệu ở tab Nội dung | Bản cũ tự lộ là cũ |
+| F5 | Một phép canh trong Guard sẵn có: đỏ khi việc đang làm không đọc được mục tiêu | Hỏng là Owner và AI biết ngay |
+| F6 | Bộ thử + sao lưu + quay lui + khai vào lớp bảo vệ | Lần sau sửa không làm hỏng lại |
+Kèm hai câu chú thích đã cũ trong chính file trang: “Vừa làm 2: lần trước đó” → “AI khác gần nhất” (còn nợ từ P35, Owner 24/09) và “kiểm mỗi 15 phút” → 4 phút.
+
+**4. JEV — làm theo cả sáu điểm:** mở lại đúng việc này 1,00 · đèn canh qua Guard sẵn có (không chặn ở cổng ghi, không chỉ ghi luật) 0,99 · đọc dung thứ kèm nhắc 0,99 · một lượt nhỏ 0,99 · hiện Bảng trên cùng 0,79 · thiếu Bảng chỉ vàng trên trang, không đỏ điện thoại 0,73.
+
+**5. Hỏi ngược kế hoạch (MT4).** Không tách lượt khảo sát riêng: thay đổi hẹp, trường dữ liệu chỉ thêm, quay lui vài phút bằng đường áp sẵn có, lỗi lộ ngay ⇒ kiểm một lần rồi làm (DROOT32); phần đọc trước nằm trong cùng lượt và có điều kiện DỪNG sạch (DROOT43). Owner: 0 thao tác kỹ thuật — một lần chuyển khối cho GPT, một câu lệnh chạy chuẩn.
+
+**6. Ghi để khỏi quên, KHÔNG làm vòng này.** Chỉ đọc lướt một việc cũng bật “Đang làm” của việc đó (thiết kế 21/09; hôm nay Claude Chat đọc Bảng của hai việc khác và hiện thành đang làm ở cả hai) · cưỡng chế khuôn §0 ngay tại cổng ghi · đổi thứ tự các ô trên trang · hệ thống giao việc tự động.
+
+**7. Đồng thuận.** Claude là người soạn ⇒ đồng ý đúng bản `PROMPT.md` ở commit này. Host GPT đồng ý nguyên bản ⇒ phát READY trỏ commit cuối chạm `PROMPT.md` (đủ hai bên trên cùng một bản). Host muốn đổi ⇒ sửa thẳng `PROMPT.md`, ghi phần đổi ở P37; Claude rà đúng phần đổi một vòng (DROOT31). Dòng `Host:`/`Host_ID` do Host phiên mới tự cập nhật.
 
 ## Owner cần quyết
 - —
