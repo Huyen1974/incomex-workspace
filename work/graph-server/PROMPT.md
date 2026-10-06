@@ -1,291 +1,313 @@
-# PROMPT — GS-RUN1-INFRA-20261006-01
+# PROMPT — GS-R4-CODE-FIRST-20261006-02
 
 ## 0. LỆNH / PHẠM VI
 
-RUN_ID: `GS-RUN1-INFRA-20261006-01`
+RUN_ID: `GS-R4-CODE-FIRST-20261006-02`
 Executor_Surface: Claude Code CLI
 Repo: `Huyen1974/incomex-workspace` · branch `main`
 Task: `work/graph-server`
 Repo Write_Path: Incomex workspace gateway `workspace_*` · root `workspace`
-Runtime Write_Path: terminal/SSH path hiện hữu tới VPS1; không tạo credential/gateway mới.
+Runtime Write_Path: terminal/SSH hiện hữu tới VPS1; không tạo credential/gateway mới.
 
-Đây là **RUN-1 HẠ TẦNG** của roadmap GS-RM1. Owner 06/10 yêu cầu Claude **tự hành động tối đa trong scope** vì Owner đi ngủ. Không hỏi Owner chi tiết kỹ thuật; tự kiểm, tự làm, tự verify, tự rollback phần trial khi cần. Chỉ dừng khi:
-1. cổng an toàn thất bại;
-2. cần đổi scope/version/component/port/quyền đã khóa;
-3. cần chạm production ngoài scope;
-4. cần quyết định thật sự chỉ Owner được quyết.
+Owner 06/10 đổi thứ tự trial:
+1. **quy mô nhỏ**;
+2. **code graph trước** vì quan hệ code có ground truth rõ, dễ chấm;
+3. embedding phải dùng **đúng model OpenAI mà Agent Data hiện dùng**;
+4. vector Graph trial lưu **PostgreSQL/pgvector riêng**, độc lập Qdrant;
+5. dữ liệu trial là disposable; trước production phải xóa sạch và rebuild;
+6. KB hiện có nhiều nội dung cũ/nhiễu ⇒ **không ingest KB rộng trong RUN này**; KB curation là mốc roadmap bắt buộc trước production.
 
-**KHÔNG chạy RUN-2. KHÔNG gửi dữ liệu công ty ra provider. KHÔNG gọi LLM/embedding/JEV bên ngoài trong RUN-1.**
+Đây là RUN triển khai micro-trial code-first. Owner cho phép thử model trong phạm vi dưới đây.
+Không dùng dữ liệu cá nhân/Lark/customer trong RUN này.
 
-§0.3: phải đọc lại và đối chiếu từng dòng trước mutation.
+§0.3: đọc lại và đối chiếu trước mutation.
 
-## 1. READ-GATE + READY
+## 1. READ-GATE / READY / STARTED
 
-1. Bind đúng repo/workspace; kiểm một read của Write_Path `workspace_*`.
-2. Đọc theo thứ tự:
+1. Bind đúng repo/workspace; đọc:
    - `AGENTS.md`
-   - BẢNG + §0 của `work/graph-server/COLLAB.md`
+   - BẢNG + §0 + D mới nhất + P21/P22 của `work/graph-server/COLLAB.md`
    - `work/graph-server/PROMPT.md`
-   - `work/graph-server/view.html` §16 PLAN01/VER01/TEST01/GATE01
-   - root `COLLAB.md` dòng HJW + Graph
-   - phần trạng thái mới nhất P154/P155 (hoặc mới hơn) của `work/hermes-joint-workspace/COLLAB.md`
-3. Xác minh:
-   - `READY@<full SHA>` trong graph-server COLLAB khớp commit cuối chạm PROMPT.md;
-   - không có HOLD/STOP/READY mới cho RUN này;
-   - không có `STARTED@GS-RUN1-INFRA-20261006-01` chưa có KQ.
-4. Gate FAIL ⇒ **0 runtime mutation**, ghi KQ DỪNG.
+   - `work/graph-server/view.html` §16/roadmap hiện hành
+   - root `COLLAB.md` dòng Graph/HJW
+2. Xác minh READY full SHA khớp commit cuối chạm PROMPT; không HOLD/STOP/READY mới; không STARTED chưa KQ cho RUN_ID này.
+3. Gate PASS → ghi:
+   `STARTED@GS-R4-CODE-FIRST-20261006-02 <UTC> · executor=Claude Code CLI`
+   rồi mới PRE.
+4. Gate fail → 0 runtime mutation, KQ DỪNG.
 
-Ngay sau read-gate PASS, trước PRE:
-- ghi `STARTED@GS-RUN1-INFRA-20261006-01 <UTC> · executor=Claude Code CLI` vào COLLAB;
-- cập nhật BẢNG: RUN-1 đang chạy; không sửa mục tiêu/PLAN01.
+## 2. PRE — FRESH RUNTIME GATES
 
-## 2. N1 RELEASE GATE — KHÔNG CHỜ NỀN
+Evidence:
+`/opt/incomex/work/graph-server/evidence/GS-R4-CODE-FIRST-20261006-02/`
 
-Mục đích là tránh đè mutation chung, không chờ chữ “N1 XONG” máy móc.
-
-Được giải phóng EXECUTION_HOLD_N1 và đi tiếp nếu fresh evidence cho thấy **phần server mutation của HJW N1 đã kết thúc**, kể cả N1 còn D2/final human test. Tối thiểu phải cùng đúng:
-- trạng thái HJW mới nhất chỉ còn D2/final acceptance hoặc terminal;
-- không còn executor N1 đang mutation agent-data/nginx/Lark/shared connector runtime;
-- không còn busy/lease/STOP đang giữ vùng Docker/VPS dùng chung;
-- root/HJW không ghi một server mutation kế tiếp đang active;
-- protection/guard dùng chung không đỏ.
-
-Nếu N1 vẫn còn server mutation thật hoặc evidence mâu thuẫn:
-- không poll/chờ;
-- ghi KQ DỪNG sạch với `N1_MUTATION_STILL_ACTIVE`;
-- không pull image, không tạo container/network/volume/secret.
-
-Repo đổi do task khác: re-read rồi tiếp tục nếu graph PROMPT/READY/HOLD không đổi.
-
-## 3. PRE — CHỈ ĐỌC TRƯỚC FIRST MUTATION
-
-Ghi toàn bộ bằng chứng vào:
-`/opt/incomex/work/graph-server/evidence/GS-RUN1-INFRA-20261006-01/`
-
-Runtime root:
+Runtime:
 `/opt/incomex/work/graph-server/runtime/run1/`
+(reuse retained RUN-1 trial data/config only after hash/version check; do not touch production).
 
-Không ghi runtime/evidence vào Git.
+PRE read-only:
+- production containers/health;
+- Docker networks/volumes/images;
+- RAM/swap/load/disk/inode;
+- listeners;
+- current trial files/data/backup hashes;
+- Qdrant collection point count/read-only snapshot;
+- production PostgreSQL status **read-only only**; do not enable extension/create schema/db there.
 
-PRE bắt buộc:
-- `docker ps`, networks, volumes, image inventory;
-- RAM/swap/load; disk free/inodes;
-- listener/port inventory;
-- trạng thái production containers;
-- guard/protection hiện hành;
-- xác minh không có runtime Graph trial cũ trùng tên.
+Hard resource gates:
+- RAM available >= **5.5 GB** before starting 3 trial services;
+- disk free >= **25 GB**;
+- floor disk >= **20 GB**;
+- trial footprint <= **10 GB**;
+- during run RAM available < **2 GB** ⇒ stop only trial services;
+- do not change swap; record PRE/POST swap because RUN-1 left swap nearly full.
 
-Hard gates:
-- RAM available **>= 5 GB** trước cài;
-- disk free **>= 30 GB** trước pull/build;
-- floor toàn VPS sau mutation **>= 20 GB**;
-- tổng trial disk (images + runtime + volumes + build cache + logs) **<= 10 GB**;
-- không có port conflict ở `127.0.0.1:17474`, `127.0.0.1:17687`, `127.0.0.1:18080`.
+Production health regression ⇒ stop trial + rollback.
 
-Không tự tăng swap, restart Docker daemon, restart PG/Directus/Qdrant/nginx hay sửa firewall production.
+Before first runtime mutation: DROOT30 freshness gate.
 
-Nếu hard gate fail ⇒ KQ DỪNG, 0 cài.
+## 3. CURRENT EMBEDDING MODEL — MUST MATCH AGENT DATA
 
-Trước first mutation: chạy lại DROOT30 freshness gate.
+Do not assume from memory.
 
-## 4. BASELINE KHÓA — KHÔNG TỰ ĐỔI
+Read current Agent Data runtime **without exposing secrets**:
+- inspect `QDRANT_EMBED_MODEL` effective env/config in the running Agent Data service;
+- if unset, verify current main source `Huyen1974/agent-data-test/agent_data/vector_store.py` default.
 
-### Thành phần
-- Neo4j Community: **5.26.31-community**
-- APOC core: **5.26.31**
-- Cognee: **1.6.1**
-- Neo4j MCP: **1.6.0** chỉ khi cần cho read-only verification; không bắt buộc dựng service riêng nếu cypher-shell đủ.
-- Python: **3.12** nếu artifact Cognee 1.6.1 yêu cầu runtime Python.
-- Không Cognee MCP.
-- Không Cognee UI.
-- Không Graphiti.
-- Không GDS.
-- Không Hindsight.
-- Không codebase-memory-mcp.
-- Không PostgreSQL/pgvector profile.
-- Không Qdrant integration.
+Known source evidence at prompt time:
+`self.embedding_model = os.getenv("QDRANT_EMBED_MODEL", "text-embedding-3-small")`.
 
-RUN-1 không dùng model/provider nào.
+Effective model rule:
+- if runtime `QDRANT_EMBED_MODEL` is set ⇒ use exactly that model;
+- if unset ⇒ use `text-embedding-3-small`.
 
-### Artifact
-Ưu tiên artifact/package/image **official, exact 1.6.1**, pin digest/lock.
-Không `latest`; không `main`; không nâng lẻ dependency.
-Không deploy mã Incomex từ GitHub xuống VPS.
-Nếu Cognee 1.6.1 không có artifact official/immutable đủ để xác định đúng release, **DỪNG trước cài Cognee**, báo blocker; không tự clone/fork source để “cho chạy bằng được”.
+Record exact model + vector dimension in KQ.
+For Cognee configure the equivalent explicit OpenAI model, e.g. `openai/text-embedding-3-small` when effective model is `text-embedding-3-small`.
+No silent fallback/local HuggingFace model.
 
-Neo4j/APOC: ghi platform + image digest + checksum artifact vào KQ trước cài.
+Embedding API key: reuse existing OpenAI secret path already used by Incomex; never print/store secret in repo/evidence.
 
-## 5. RUNTIME ISOLATION — TÊN/ĐÍCH ĐÃ KHÓA
+## 4. VECTOR STORAGE — DEDICATED DISPOSABLE PGVECTOR
 
-Docker Compose project: `graph-server-trial`
-Network: `graph-server-trial-net`
+Qdrant is OUT OF SCOPE for Graph writes.
 
-Container logical names:
-- `graph-neo4j-trial`
-- `graph-cognee-trial`
+Cognee 1.6.1 pinned source has official `PGVectorAdapter` and `VECTOR_DB_PROVIDER=pgvector`.
 
-Host bindings:
-- Neo4j HTTP: `127.0.0.1:17474`
-- Neo4j Bolt: `127.0.0.1:17687`
-- Cognee API: `127.0.0.1:18080` → map tới listen port chính thức của Cognee 1.6.1 đã xác minh từ artifact.
+Create a **dedicated trial PostgreSQL+pgvector container**, NOT production PG.
 
-Memory hard limits:
-- Neo4j: **1.5 GB**
-  - heap: **768 MB**
-  - pagecache: **256 MB**
-- Cognee API: **1.5 GB**
-- tổng trial <= **3 GB**
+Logical container:
+`graph-pgvector-trial`
 
-Dùng persistent paths/volumes dưới runtime root; mount đúng những path Cognee 1.6.1 thật sự cần sau khi đối chiếu artifact. Không mount Docker socket; không privileged; không mount source/secret toàn VPS.
+Rules:
+- prefer official `pgvector/pgvector` image compatible with PostgreSQL 18;
+- resolve an exact immutable image digest before create; no `latest`;
+- if suitable official pg18 artifact cannot be pinned, DỪNG rather than touch production PG;
+- no host port publish;
+- internal trial network only;
+- memory limit **768 MB**;
+- persistent trial volume under graph trial scope;
+- unique random trial DB password, secret file mode 600.
 
-Không expose 0.0.0.0 / public Internet.
-Không reload nginx cho RUN-1.
-Không thêm DNS/cert/public route.
+Cognee config:
+- `VECTOR_DB_PROVIDER=pgvector`
+- `VECTOR_DATASET_DATABASE_HANDLER=pgvector` if required by pinned code;
+- point vector connection only to `graph-pgvector-trial`;
+- verify `CREATE EXTENSION vector` succeeded and vector tables are in trial PG.
 
-## 6. SECRET / AUTH
+Qdrant proof:
+- PRE and POST point counts/config unchanged;
+- no Qdrant env/key/URL supplied to Cognee trial.
 
-Không dùng password mặc định.
-Không in secret vào terminal transcript, repo, COLLAB, evidence hoặc chat.
+Production PG proof:
+- no CREATE EXTENSION/db/schema/table;
+- no config mutation;
+- no restart.
 
-Neo4j:
-- auth ON;
-- generate secret trial ngẫu nhiên;
-- lưu bằng secret mechanism hiện hữu nếu có; nếu không, trial-only env file dưới runtime root, mode 600, không commit.
+## 5. REBUILD TRIAL SERVICES WITH T19 FIX-B
 
-Cognee target config:
-- `GRAPH_DATABASE_PROVIDER=neo4j`
-- `ENABLE_BACKEND_ACCESS_CONTROL=false`
-- `REQUIRE_AUTHENTICATION=true`
-- metadata/vector backend chỉ theo baseline Cognee 1.6.1; không mở PG/Qdrant.
+Keep:
+- Neo4j Community 5.26.31 + APOC 5.26.31
+- Cognee 1.6.1 exact pinned image/source
+- `HASH_API_KEY=true`
+- resource limits from prior RUN, plus pgvector 768 MB.
 
-Runtime Cognee phải không nhận OpenAI/provider key trong RUN-1.
-Nếu có thể, đặt runtime network/egress sao cho API không thể gọi inference provider; pull/install phase tách khỏi runtime phase.
+Cognee:
+- `BIND_ADDRESS=127.0.0.1`
+- **NO `ports:` publish**
+- API listens only `127.0.0.1:8000` in its own network namespace
+- harness executes inside Cognee container/namespace.
+- no Cognee MCP/UI.
 
-## 7. CÀI / KHỞI ĐỘNG
+T19 closeout:
+1. host `127.0.0.1:18080` = no listener;
+2. host → Cognee container IP:8000 = fail;
+3. unrelated container same trial network → Cognee:8000 = fail;
+4. unrelated container other network → fail;
+5. inside Cognee namespace listener only `127.0.0.1:8000`.
+Root/docker-admin is privileged boundary outside T19.
 
-Chỉ sau toàn bộ gate PASS:
-1. tạo runtime dirs + manifest cấu hình;
-2. pull/install exact artifacts;
-3. xác minh digest/version trước start;
-4. start Neo4j trial;
-5. kiểm health/auth/loopback;
-6. start Cognee API trial với Neo4j provider + auth bắt buộc;
-7. không bật component khác.
+Smoke only:
+- K1 provider still Neo4j;
+- retained synthetic fixture readable;
+- persistence hash unchanged;
+- resource footprint.
 
-Không sửa production Docker compose/project/network.
+Do not repeat full K4/dump-restore unless version/core volume changed.
 
-Nếu một lỗi kỹ thuật thông thường nằm trong scope:
-- tự đọc log/source exact release;
-- sửa cấu hình nhỏ nhất;
-- retry hữu hạn;
-- ghi before/after.
-Không hỏi Owner.
+## 6. CODE-FIRST DATASET — SMALL / NO KB BULK
 
-Nếu sửa đòi đổi version/component/public exposure/production service ⇒ DỪNG.
+Source only:
+`/opt/incomex/dot/`
 
-## 8. TEST RUN-1
+PRE inventory read-only; choose the **smallest coherent code subset** satisfying:
+- prefer Python package/module supported by Cognee code graph;
+- 10–30 source files;
+- <= **250 KB** total source text;
+- at least 3 modules/files with deterministic import/call/declaration relations;
+- include 1–3 relevant tests if available;
+- exclude `.env`, credential/config secret files, logs, data dumps, vendor, build, generated, node_modules, caches.
 
-### T19 · Security
-Chứng minh:
-- no token → reject;
-- wrong token → reject;
-- valid token → chỉ operation được phép;
-- không có public listener;
-- không default credential;
-- hidden/alternate write path không bypass auth;
-- direct Neo4j write credential không được giao cho agent surface;
-- before/after graph không đổi sau negative probes.
+Before external call:
+- secret scan;
+- 0 credential/API key/private key/password/token;
+- create manifest path + sha256 + byte count;
+- if scan fails, reduce sample; do not redact a secret and keep surrounding sensitive config—exclude file.
 
-### K1 · Backend thật
-Chứng minh:
-- runtime provider = Neo4j;
-- Neo4j có fixture node/edge;
-- không có runtime graph ở Ladybug/Kuzu;
-- cấu hình chỉ tới trial Neo4j.
+No Lark, no customer data, no broad KB ingestion in this RUN.
 
-Không gọi LLM để tạo fixture.
-Dùng structured/synthetic path hoặc graph adapter chính thức không cần inference. Nếu Cognee path bắt buộc embedding/provider cho thao tác đó, ghi CHƯA KIỂM phần write-via-Cognee; vẫn phải chứng minh provider/config Neo4j.
+## 7. BUILD CODE GRAPH — PRODUCT FIRST
 
-### Persistence
-- tạo fixture tổng hợp, không PII;
-- restart trial containers → fixture còn;
-- recreate trial containers với cùng persistent data → fixture còn.
+Use **Cognee 1.6.1 built-in code graph path first** (Enola/integrated code pipeline from pinned release).
+Do not build an Incomex parser/framework if built-in path is available.
 
-### K4 · Cognee-off
-- stop Cognee trial;
-- Neo4j vẫn đọc/query/export được fixture qua đường độc lập.
+Ground truth / oracle is deterministic:
+- for Python use AST/import graph and direct symbol definitions/calls;
+- for another supported language use existing parser/tool already present;
+- AI/JEV never determines whether an import/call literally exists.
 
-### Dump/restore
-- tạo dump/backup Neo4j trial;
-- stop original trial services nếu cần;
-- restore vào **fresh isolated restore-check volume/container** cùng version, không ghi đè production;
-- verify fixture bằng query;
-- giữ backup/evidence.
-Không cần chạy original + restore-check Neo4j đồng thời nếu vượt RAM cap.
+Graph targets:
+- Neo4j stores code nodes/edges;
+- exact deterministic relations where supported: DECLARES / IMPORTS / CALLS / DEPENDS_ON (or Cognee's equivalent canonical labels);
+- provenance includes source file + revision/hash.
 
-### T18 construction — synthetic only
-Dùng code/package Cognee 1.6.1, **không LLM call**, để kiểm hành vi identity tối thiểu:
-- hai chunk/tài liệu có cùng tên nhưng là hai thực thể khác;
-- cùng source-id qua ingest lặp;
-- thiếu ID.
-Nếu default construction có nguy cơ gộp cùng tên như PLAN01 dự đoán:
-- ghi `T18=PARTIAL/BLOCKER_FOR_IDENTITY_DATA`;
-- không cố fork Cognee;
-- RUN-1 hạ tầng vẫn có thể XONG nếu các gate an toàn khác PASS;
-- RUN-2 bắt buộc có mitigation dữ liệu/ID được Host review trước nạp.
+Minimum useful graph:
+- >= 15 deterministic edges total;
+- >= 5 source files represented;
+- no secret/config files.
 
-### Resource
-Trong chạy:
-- RAM available < **2 GB** ⇒ dừng chỉ trial containers, KQ DỪNG;
-- disk free < **20 GB** hoặc trial footprint > **10 GB** ⇒ dừng/rollback trial;
-- production health suy giảm so PRE ⇒ dừng trial + verify production phục hồi.
+Accuracy acceptance:
+- sample >= 15 oracle facts;
+- **sampled precision = 100%** for edges Cognee claims as exact deterministic relations;
+- **sampled recall >= 80%** on the chosen oracle facts;
+- every miss/unsupported construct listed; do not hide dynamic-language limitations.
 
-## 9. ROLLBACK
+If Cognee built-in code graph cannot ingest the selected supported subset without custom framework changes:
+- DỪNG with exact blocker;
+- do not replace it by a new custom graph engine in this RUN.
 
-Mọi artifact tạo mới phải có nhãn RUN_ID.
+## 8. EMBEDDING + PGVECTOR SMOKE
 
-Nếu FAIL sau mutation:
-- stop/remove chỉ trial containers/network được tạo bởi RUN;
-- không xóa evidence/backup;
-- không xóa dữ liệu production;
-- cleanup trial image/cache chỉ khi chính RUN này kéo/tạo và cần để phục hồi disk floor;
-- verify production containers/guard trở lại PRE state;
-- ghi KQ DỪNG + blocker.
+Use the exact effective Agent Data embedding model from §3.
 
-Không “sửa production để trial chạy”.
+Embed only the selected code micro-dataset.
+Store embeddings in trial PGVector.
 
-## 10. KQ / REPO
+Verify:
+- embedding vector dimension matches model;
+- vector row/table count > 0;
+- simple semantic query over code returns a relevant symbol/file in top results;
+- record query and expected rationale, not secret/source dump;
+- Qdrant point count unchanged.
 
-Evidence chi tiết ở VPS path đã nêu.
-Repo chỉ ghi summary vào `work/graph-server/COLLAB.md`; không tạo progress/evidence file Git mới.
+Do not mix vectors made by another model into the same trial collection/schema.
+If effective embedding model cannot be called through existing OpenAI account, DỪNG; do not silently use another model.
 
-Kết thúc bắt buộc:
-- cập nhật BẢNG cùng commit KQ;
-- ghi `KQ@GS-RUN1-INFRA-20261006-01 XONG|DỪNG`;
-- tóm tắt version/digest, PRE resources, ports, tests, footprint, rollback status, blocker cho RUN-2;
-- commit qua workspace gateway với tiền tố:
-  `[Claude Code] GS-RUN1-INFRA-20261006-01 · graph-server · <XONG|DỪNG>`
+## 9. OPTIONAL SMALL MODEL/JEV SEMANTIC SMOKE
 
-`XONG` chỉ khi:
-- N1 release gate an toàn;
-- security/auth/network PASS;
-- resource gates PASS;
-- Neo4j backend + persistence + dump/restore + Cognee-off PASS;
-- production không suy giảm;
-- mọi PARTIAL (ví dụ T18 identity) được ghi rõ thành gate RUN-2, không bị giấu.
+Owner allows trying model, but deterministic code graph remains primary.
 
-**Không soạn/chạy RUN-2 trong cùng lượt.**
+LLM baseline if needed:
+- `gpt-5.6-luna`
+- only secret-scanned code subset;
+- no fallback model without recording.
 
-## 11. TỰ HÀNH ĐỘNG / KHÔNG ĐÁNH THỨC OWNER
+Use LLM only for a **small semantic layer**, e.g. classify 5–10 modules/symbol groups into bounded roles such as:
+`gateway | persistence | guard | workflow | ui | other`.
+Do not use LLM to invent literal imports/calls.
 
-Owner đi ngủ. Áp DROOT42 + DROOT43:
-- tự xử hết kỹ thuật nằm trong scope;
-- không nhắn hỏi Owner về command, Docker, port, secret, retry, log, cấu hình;
-- không giữ terminal chỉ để chờ N1/Owner;
-- nếu đến bước thật sự ngoài scope hoặc cần Owner → checkpoint + KQ DỪNG sạch;
-- không tạo waiter/poll nền.
+If JEV Reference/gateway is already bound to Claude Code:
+- run 3–10 bounded SHADOW judgments on already selected candidate roles/impacts;
+- record model/result id/confidence;
+- JEV does not authorize writes or create exact code edges.
+If JEV tool is not bound, record `JEV_SMOKE=CHUA_KIEM`; do not add a new connector in this RUN.
 
-Cuối cùng trả đúng một dòng cho Owner:
-`XONG · GS-RUN1-INFRA-20261006-01 · <commit>`
-hoặc
-`DỪNG · GS-RUN1-INFRA-20261006-01 · <blocker ngắn> · <commit>`
+External-call cost cap for this RUN: **<= 1 USD**.
+If no reliable provider cost ledger is available, bound by dataset size/call count and report cost UNKNOWN; never exceed the existing overall trial cap 5 USD.
+
+## 10. TRIAL DATA IS DISPOSABLE
+
+Mark all graph/vector/code dataset state:
+`TRIAL_ONLY · GS-R4-CODE-FIRST-20261006-02`
+
+Do not mix trial data with production sources.
+
+At KQ:
+- stop trial containers unless evidence requires them running;
+- keep trial volumes only for Host/Claude review;
+- document one-command/one-scope wipe of Neo4j trial data + PGVector trial DB/volume + Cognee trial metadata.
+
+**Do not wipe before review.**
+Roadmap requires mandatory wipe/reset before production build.
+
+## 11. ROADMAP / KB RULE
+
+This RUN must not ingest the existing KB broadly.
+
+Record in KQ that production cannot begin before:
+1. KB inventory;
+2. classify each candidate source: CURRENT/KEEP · ARCHIVE · DELETE-CANDIDATE · RECHECK;
+3. deduplicate/retire stale material with Owner approval for destructive deletion;
+4. freeze the official source scope;
+5. wipe all trial graph/vector state;
+6. rebuild production graph/vector clean from approved sources.
+
+No destructive KB deletion in this RUN.
+
+## 12. KQ / PASS
+
+Repo: only update `work/graph-server/COLLAB.md` + BẢNG/KQ; do not create progress files in Git.
+Evidence stays VPS runtime path.
+
+KQ commit:
+`[Claude Code] GS-R4-CODE-FIRST-20261006-02 · graph-server · <XONG|DỪNG>`
+
+XONG requires:
+- T19 FIX-B PASS;
+- Neo4j/Cognee still correct versions;
+- dedicated PGVector trial works;
+- effective embedding model confirmed and reused;
+- Qdrant unchanged;
+- production PG untouched;
+- code graph minimum + accuracy criteria pass;
+- secret scan pass;
+- resource gates pass;
+- production health unchanged;
+- trial wipe path proven/documented.
+
+T18 business-identity is **not a blocker in this code-only RUN**; it returns as a gate before business-person data.
+
+If security/vector/code graph core passes but optional JEV semantic smoke is unavailable, KQ may be XONG with `JEV_SMOKE=CHUA_KIEM`; Goal #2/#3 remains open for later.
+
+No business RUN and no production install in this RUN.
+
+## 13. AUTONOMY
+
+Owner asked to continue.
+Within scope, Claude Code should self-resolve technical details, inspect pinned source, retry boundedly, and choose the smallest valid configuration.
+Do not ask Owner about Docker commands, exact pgvector digest, test fixture mechanics, or minor config.
+Out-of-scope/production mutation/secret exposure/need to change stack ⇒ KQ DỪNG cleanly.
+
+Final line:
+`XONG · GS-R4-CODE-FIRST-20261006-02 · <commit>`
+or
+`DỪNG · GS-R4-CODE-FIRST-20261006-02 · <blocker> · <commit>`
