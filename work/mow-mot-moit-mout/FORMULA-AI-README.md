@@ -4,7 +4,7 @@
 **Project:** `work/mow-mot-moit-mout`  
 **Owner-gated concept:** Công thức và nghĩa khái niệm.  
 **AI-owned implementation:** schema Master, UI chi tiết, coverage, test, bằng chứng, reuse mapping, kỹ thuật triển khai.  
-**Cập nhật gần nhất:** 2026-10-06 · D151.
+**Cập nhật gần nhất:** 2026-10-06 · D152.
 
 > BẮT BUỘC ĐỌC FILE NÀY trước khi sửa Công thức, Định nghĩa, Master List, UI con/cha, coverage hoặc config liên quan MMIM.
 >
@@ -13,6 +13,13 @@
 Nếu file này mâu thuẫn với **quyết định Owner mới hơn trong COLLAB**, quyết định Owner mới hơn thắng và AI phải cập nhật lại README này ngay trong cùng lượt làm.
 
 ---
+
+## Master Config · D152 · 06/10/2026
+- UI đang rà: [Master Config](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/config-master-v1.html), dòng 28 trong bảng duyệt hiện hành.
+- Dùng nguyên UI.MASTER cha `mot-master-v1.html`; schema/nhãn SSOT tại `ui/config-master-data-v1.js#CONFIG_MASTER_SCHEMA`. Không còn renderer bảng riêng.
+- Mặt danh sách: **STT · ID · Tên · Loại config · Mục đích · Áp dụng cho · Phạm vi sử dụng · Người phụ trách · Trạng thái**. “Loại config” không gộp Nhóm cha/con; người phụ trách quản lý khác người thực hiện theo NTGV.
+- Chi tiết: UI cha, người thực hiện, kích hoạt khi, phiên bản, tham số, bằng chứng áp dụng, nguồn/ghi chú. Thông tin chưa biết hiển thị chưa khai báo/chưa phân công, không tự bịa.
+- `CFG-TEST-001` giữ toàn bộ trường gốc và trạng thái nháp/test. Chưa nối DB hoặc có UI CRUD. FC-002 vẫn OPEN; chưa quyết nghĩa canonical của Config hay quan hệ định nghĩa/lần áp dụng.
 
 # 1. RANH GIỚI QUYẾT ĐỊNH
 

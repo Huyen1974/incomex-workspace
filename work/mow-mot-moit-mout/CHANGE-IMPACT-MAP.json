@@ -102,10 +102,10 @@
       ]
     },
     "MASTER_SCHEMA_CHANGE": {
-      "ssot": "ui/definition-master-registry-v1.js",
+      "ssot": "ui/definition-master-registry-v1.js for definitions; ui/config-master-data-v1.js#CONFIG_MASTER_SCHEMA for Master Config",
       "required_update": [
-        "definition-master-registry",
-        "definition-master-data compatibility",
+        "relevant schema source (definition-master-registry or config-master-data CONFIG_MASTER_SCHEMA)",
+        "existing record data compatibility in the affected Master",
         "ui-child-content renderer mapping",
         "master-list/drawer when needed",
         "COLLAB/REGISTRY"

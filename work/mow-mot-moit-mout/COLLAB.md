@@ -7,10 +7,10 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 🎯 Mục tiêu: **dùng CT-003→007 để quét dần và làm các Master List đủ nghĩa; thứ gì phát sinh phải có Master để ghi trước**.
 🏁 Xong khi: mỗi đầu ra CT có Master List; record phát sinh được ghi trước khi phân loại/chuẩn hóa; gap concept được treo rõ để Owner chỉ quyết phần concept.
 📍 Tiến độ: CT-003 ✓ → CT-004 ✓ → CT-005 ✓ Master MOW → CT-006 ✓ Master UI con → ■ CT-007 ✓ Master Config → □ tiếp tục Coverage T0
-✅ Đã xong: D151 trả đúng thiết kế một bảng: row 4 `Master Quy trình / MOW` xanh UI-001; row 18 `Master UI con`; row 28 `Master Config` xanh; bỏ phần iframe nhúng dài D150.
-■ Đang làm: D152 rà nhãn/cột Master Config, đưa về UI cha; semantics/phân loại Config vẫn OPEN. MOW legacy và 3 UI con thiếu UI cha là gap riêng.
+✅ Đã xong: D151 giữ một bảng Master; D152 Master Config đã dùng UI cha, 6 cột quản lý và drawer đủ thông tin, bảo toàn bản ghi test. List/detail/index/đường vào đã kiểm; chờ Owner góp ý.
+■ Đang làm: hoàn thiện dần loại/tham số Config bằng ca thực tế; semantics/phân loại Config vẫn OPEN. MOW legacy và 3 UI con thiếu UI cha là gap riêng.
 ⬜ Còn lại: tiếp tục ghi/test Config thật vào CAT-248* để lộ loại; map MOW legacy; xác định cha UI-008/011/012; Codex Change Propagation audit vẫn PENDING nhưng không chặn chỉ đạo trực tiếp.
-➡ Kế tiếp: Host tiếp tục test slice nhỏ/Coverage theo chỉ đạo Owner; FC-002 chỉ bàn semantics Config, không bàn có/không có Master nữa.
+➡ Kế tiếp: Owner xem Master Config dòng 28; bổ sung Config thực tế rồi tiếp tục slice nhỏ/Coverage. Audit Change Propagation vẫn PENDING riêng; FC-002 chỉ bàn semantics Config.
 ⛔ Không làm/để sau: không xóa/hoãn Master chỉ vì định nghĩa chưa hoàn thiện; không tự gán cha cho 3 UI thiếu evidence; không đổi 7 MOW canonical khi chưa map.
 
 - Nhiệm vụ trực tiếp 28/09/2026: tab **★ Step quy trình 2** ngay sau Step quy trình hiện có. Phần **I. Danh sách quy trình** hiển thị **nguyên bản UI cha** `mow-master-nhap2-v1.html` trên VPS; không tái tạo bảng/cột/format trong `ban-duyet.html` (D85). **Các bước chi tiết** giữ khung chờ hướng dẫn.
@@ -1954,3 +1954,16 @@ KQ@OWNER-BANDUYET-20260924-02 XONG
 - UPDATE: ui/config-master-v1.html, config-master-data-v1.js (schema SSOT), ui-child-from-parent-v1.js, ui-child-content-v1.js, master-drawer-view-v1.js, master-list.js, definition-master-index-v1.html, master-design-review-v1.html; README/discovery, impact map, COLLAB và council; HJW chỉ thêm con trỏ.
 - VERIFY: bảo toàn CFG-TEST-001; 6 cột quản lý + STT/ID/Tên; mở chi tiết đủ trường cũ; index 28 dòng; UI cha và các master hiện hữu không đổi nghĩa. N/A: definition-master-registry (27 định nghĩa không đổi), child-ui-registry (29 UI canonical không đổi), DB/runtime (chưa kết nối).
 - NOW: chỉnh schema và dùng lại renderer cha. NEXT: kiểm UI thật rồi trả Owner duyệt. FC-002 vẫn OPEN; không tự chốt definition so với runtime binding.
+
+## KQ · D152 · Master Config · 2026-10-06T08:26:33.850Z
+- STATUS: XONG phần triển khai bản thiết kế; chờ Owner góp ý. - UI đang rà: [Master Config](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/config-master-v1.html), dòng 28 trong bảng duyệt hiện hành.
+- Dùng nguyên UI.MASTER cha `mot-master-v1.html`; schema/nhãn SSOT tại `ui/config-master-data-v1.js#CONFIG_MASTER_SCHEMA`. Không còn renderer bảng riêng.
+- Mặt danh sách: **STT · ID · Tên · Loại config · Mục đích · Áp dụng cho · Phạm vi sử dụng · Người phụ trách · Trạng thái**. “Loại config” không gộp Nhóm cha/con; người phụ trách quản lý khác người thực hiện theo NTGV.
+- Chi tiết: UI cha, người thực hiện, kích hoạt khi, phiên bản, tham số, bằng chứng áp dụng, nguồn/ghi chú. Thông tin chưa biết hiển thị chưa khai báo/chưa phân công, không tự bịa.
+- `CFG-TEST-001` giữ toàn bộ trường gốc và trạng thái nháp/test. Chưa nối DB hoặc có UI CRUD. FC-002 vẫn OPEN; chưa quyết nghĩa canonical của Config hay quan hệ định nghĩa/lần áp dụng.
+
+- UI transactions: `6e65229713894108b5e62f18d4888080`, `c9d72b14850848b5b40571acbb488114`; có version/backups của workspace tool. Schema/data SHA `52760d65ab2e8df39be15ddcf70b814b09b95224c23cb6c83cfbddaff4d3af99`; shell SHA `39e51e5d332ce0c82c00251b51723071fb7694c0bcc74d86b1ce85fd7b1ae83e`.
+- Verification: CHUNG.APQUYTRINH gate PASS; JS syntax PASS; so từng key/value gốc của CFG-TEST-001 không mất/thay. Live HTTP200: Config list + drawer đủ 4 nhóm chi tiết; review root; route CAT-248*; index 28 dòng và nhãn lấy từ schema; MOT 7 rows; MOUT 6 rows + drawer RPT-0010 giữ nguyên. Screenshot desktop kiểm cột rõ, không tràn. Parent `mot-master-v1.html` hash không đổi `85da2f858f1f5e3f9e01110c110886c5c15cde043b47642068956324948c421e`.
+- Stale scan: chuỗi nhãn cũ không còn ở ui (863 files, no next_cursor). Canonical definitions/UI registries không đổi. Giới hạn kiểm: chưa kiểm CRUD vì chưa có CRUD; không coi bản thiết kế là vận hành. Browser báo Google Fonts bị CSP chặn, cùng lỗi đã có trên UI cha MOT; không có lỗi JS trong các lần kiểm.
+- Discovery: README + FORMULA-AI-README + CHANGE-IMPACT-MAP; HJW §3 chỉ đặt con trỏ theo nơi Owner muốn đọc. Audit RUN MMIM-CHANGE-PROP-20261006-01 vẫn PENDING riêng.
+- NEXT: Owner xem dòng 28 Master Config; bổ sung một config thực tế để tiếp tục hoàn thiện phân loại/tham số theo nhu cầu. Không cần chốt FC-002 để tiếp tục ghi Master.

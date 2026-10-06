@@ -555,6 +555,9 @@ CẤM: đọc/ghi ngoài danh sách, đổi cấu hình/quyền, tự giao việ
 - Lộ trình sáu bước: N1 đầu nối lên mây, N2 nối OpenAI Dots, N3 Hermes trên Mac đưa thư, N4 lõi hội đồng, N5 hai cấp đổi bằng bảng, N6 nghiệm thu và đóng. Bước đang làm xem Bảng điều khiển.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+- **Owner 06/10/2026 · Master Config (MMIM D152):** đã chỉnh bản thiết kế theo UI cha, với cột **Loại config · Mục đích · Áp dụng cho · Phạm vi sử dụng · Người phụ trách · Trạng thái**, ngoài STT/ID/Tên. [Mở Master Config](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/config-master-v1.html) hoặc dòng 28 của [bảng duyệt Master](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html). Bấm dòng để xem chi tiết; hiện có 1 bản ghi nháp/test. Báo cáo và nguồn kỹ thuật giữ tại `work/mow-mot-moit-mout/COLLAB.md` D152; đây chỉ là con trỏ theo nơi Owner đọc, không đổi mục tiêu/RUN HJW.
+
 - **Nguyên văn Owner 05/10 về trạng thái:** “Ví dụ khi nào, hội đồng nhất trí thông qua, host mới là người quyết định giao. Và lúc đó worker mới được thực hiện. Cơ chế này cần rõ rõ ràng, vì hermes chỉ là agent đầu tiên theo hướng này.” → SSOT rút gọn: **BÀN ≠ CHỐT ≠ GIAO ≠ ĐƯỢC CHẠY**; draft/review không phải assignment, Host decision không tự đồng nghĩa worker chạy.
 - Giữ nguyên task/folder HJW hiện tại; **không tạo project/task/file mới**. Chỉ sửa file nguồn/config/test hiện hữu; nếu bắt buộc phải tạo file mới thì DỪNG xin Owner.
 - Kiến trúc Host chốt để review: một route generic (không `/mcp-hermes`), credential → profile server-side; policy profile dùng config hiện hữu `WORKSPACE_CONFIG`, secret thật chỉ ở server/root secret material, không ghi repo/config plaintext.
