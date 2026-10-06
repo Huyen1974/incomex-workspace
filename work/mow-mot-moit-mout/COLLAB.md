@@ -3,15 +3,15 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · Codex · D153
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · Codex · D153/D154
 🎯 Mục tiêu: **dùng CT-003→007 để quét dần và làm các Master List đủ nghĩa; thứ gì phát sinh phải có Master để ghi trước**.
 🏁 Xong khi: mỗi đầu ra CT có Master List; record phát sinh được ghi trước khi phân loại/chuẩn hóa; gap concept được treo rõ để Owner chỉ quyết phần concept.
 📍 Tiến độ: CT-003 ✓ → CT-004 ✓ → CT-005 ✓ Master MOW → CT-006 ✓ Master UI con → ■ CT-007 ✓ Master Config → □ tiếp tục Coverage T0
 ✅ Đã xong: D151 giữ một bảng Master; D152 Master Config đã dùng UI cha, 6 cột quản lý và drawer đủ thông tin, bảo toàn bản ghi test. List/detail/index/đường vào đã kiểm; chờ Owner góp ý.
 ✅ D153: đã ghi đủ 35 Nhóm cha và 115 Nhóm con T0–T2; mỗi nhánh 7 cha/23 con, không thiếu/trùng; kiểm liên kết và UI PASS.
-■ Đang làm: hoàn thiện chuẩn/config theo ca thực tế; Chuyên môn Nhóm con vẫn OPEN.
+■ Đang làm: D154 sửa hàng Tạo mới CT-001 theo Owner; hoàn thiện chuẩn/config theo ca thực tế và Chuyên môn Nhóm con vẫn OPEN.
 ⬜ Còn lại: tiếp tục ghi/test Config thật vào CAT-248* để lộ loại; map MOW legacy; xác định cha UI-008/011/012; Codex Change Propagation audit vẫn PENDING nhưng không chặn chỉ đạo trực tiếp.
-➡ Kế tiếp: Owner xem Master Nhóm cha/con dòng 1/2; hoàn thiện rule/config từng nhóm trên danh mục đã đủ. Audit Change Propagation vẫn PENDING riêng; FC-002 chỉ bàn semantics Config.
+➡ Kế tiếp: D154 kiểm hàng 3→7 ở nhiều độ rộng và đúng URL Owner. Owner xem Master Nhóm cha/con dòng 1/2; hoàn thiện rule/config từng nhóm trên danh mục đã đủ. Audit Change Propagation vẫn PENDING riêng; FC-002 chỉ bàn semantics Config.
 ⛔ Không làm/để sau: không xóa/hoãn Master chỉ vì định nghĩa chưa hoàn thiện; không tự gán cha cho 3 UI thiếu evidence; không đổi 7 MOW canonical khi chưa map.
 
 - Nhiệm vụ trực tiếp 28/09/2026: tab **★ Step quy trình 2** ngay sau Step quy trình hiện có. Phần **I. Danh sách quy trình** hiển thị **nguyên bản UI cha** `mow-master-nhap2-v1.html` trên VPS; không tái tạo bảng/cột/format trong `ban-duyet.html` (D85). **Các bước chi tiết** giữ khung chờ hướng dẫn.
@@ -1998,3 +1998,12 @@ KQ@OWNER-BANDUYET-20260924-02 XONG
 - Kiểm tự động trước ghi: 35/35 và 115/115; 0 ID trùng, 0 cặp nguồn trùng; đủ 7/23 trên mỗi nhánh; 115/115 parent references đúng bước gốc và tầng/đối tượng; mọi key/value cũ của 10 dòng cũ giữ nguyên; dữ liệu của 25 Master còn lại không đổi.
 - UI thật HTTP200: danh sách cha thấy đủ 35 ID; danh sách con thấy đủ 115 ID; mở NHCN-115 đúng 7.4/T2/MOW → NHC-035, drawer định vị T2 (đã bỏ hardcode Field/T0). Index vẫn 28 Master, hai link đúng. Parent HTML SHA vẫn `85da2f858f1f5e3f9e01110c110886c5c15cde043b47642068956324948c421e`. JS syntax PASS; process gate PASS. Chỉ gặp cảnh báo Google Fonts/CSP vốn có, không lỗi JS.
 - NEXT: hoàn thiện chuẩn/config theo từng nhóm thực tế; không cần sinh lại danh mục. Audit Change Propagation PENDING là RUN riêng; không nhận đã hoàn tất audit đó.
+
+## D154 · CT-001 — ổn định hàng Tạo mới · 06/10/2026 · Codex
+- STARTED: 2026-10-06T08:49:39Z; chỉ đạo trực tiếp Owner về bước 7 xuống sai hàng; phạm vi layout CT-001, không thay Host/RUN lane-c cũ.
+- Executor_Surface: Codex; Write_Path: workspace_* root workspace; PROCESS: CHUNG.APQUYTRINH; PROCESS_GATE=PASS (job cd071317ca3b4c6eac7b30061dff638d, exit 0, catalog SHA 734c9d722baa8d74052b374b4bab9892e805c1ded515534db0d78f8e855064e1).
+- OWNER_ENTRY: https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-formula → /ui-preview/hpml-view-for-user/view.html → #hvu-task-document → data/revisions/<publishedRevision>/documents/mow-mot-moit-mout/ban-duyet.html#matrix-view-formula.
+- SSOT đã xác minh trên UI “HTML nguyên bản từ GitHub”: work/mow-mot-moit-mout/ban-duyet.html#formula-ct-001 (workspace/Git), version 734c9d722baa8d74052b374b4bab9892e805c1ded515534db0d78f8e855064e1. Đây là sơ đồ/tài liệu Công thức đang được publisher README §12 đồng bộ; không sửa cache Owner View hoặc các nguồn UI tương tác root ui.
+- CHANGE_EVENT: CE-MMIM-CT001-LAYOUT-20261006; PRESENTATION_ONLY; cũ=flex-wrap để mũi tên/bước rời tự xuống hàng; mới=nhánh 3→7 một hàng, cuộn ngang cục bộ khi thiếu chỗ, thẻ/mũi tên không co hoặc xuống hàng.
+- UPDATE: CSS + lớp/khả năng focus riêng nhánh Tạo mới trong ban-duyet.html; COLLAB/Bảng điều khiển và Registry. VERIFY: source diff, 1–9/link/nhánh 2/8/9, CT-002→007, geometry nhiều độ rộng, focus/cuộn tới bước 7, đúng URL Owner và snapshot fresh. N/A: ML-DEF-021, FORMULA-AI-README, impact map, DB/app runtime (không đổi concept/dữ liệu/công thức hoặc quan hệ).
+- NOW: sửa bố cục hẹp đúng nguồn; NEXT: kiểm hàng/mũi tên + đường Owner rồi ghi KQ; FC-002 và Change Propagation audit vẫn nguyên trạng.

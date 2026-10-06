@@ -123,6 +123,18 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - State: IDLE.
 - LAST_SYNC: 2026-10-06 · D153.
 
+### CODEX-MMIM-CT001-LAYOUT-20261006
+- Role: OWNER-DIRECTED IMPLEMENTATION · D154; không thay Host.
+- Write_Zone: ban-duyet.html#formula-ct-001 layout + metadata COLLAB/Registry.
+- Active_RUN: none · chỉ đạo trực tiếp Owner 2026-10-06T08:49:39Z.
+- Reserved_Targets: ban-duyet.html CSS/markup nhánh Tạo mới CT-001.
+- Base_Target_Version: 734c9d722baa8d74052b374b4bab9892e805c1ded515534db0d78f8e855064e1.
+- NOW: cố định một hàng 3→7, không tự co/thả bước sang hàng khác.
+- NEXT: kiểm source/geometry nhiều độ rộng, cuộn/focus và đúng URL Owner; ghi KQ.
+- BLOCKED_BY: none.
+- State: ACTIVE.
+- LAST_SYNC: 2026-10-06T08:49:39Z · D154 STARTED.
+
 ## Proposal contract
 
 Mỗi proposal Council append vào ledger riêng, tối thiểu:
