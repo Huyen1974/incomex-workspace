@@ -140,13 +140,21 @@ Không sửa/paraphrase/cắt nội dung đoạn.
 
 Mapping record_id→order_xxx local mode 600; không Git/provider/evidence public.
 
+**RAW-TEXT EXECUTOR BOUNDARY:**
+- Lark fetch, sample selection, leak scan, freeze và provider payload phải chạy trong script cục bộ trên VPS.
+- CẤM in/cat/grep raw description, oracle label, raw record id hoặc private mapping ra stdout/stderr của Claude Code.
+- Terminal/Claude chỉ được thấy count, pseudonym, hash, length, pass/fail, metric và receipt id; evidence công khai cũng không chứa raw text.
+- Private raw corpus/oracle/mapping để dưới runtime R6B mode 700/600.
+
 Trước provider:
 - phone/email/document-number scan;
-- existing local privacy/DLP scan cho PERSON nếu có;
-- tên nghiệp đoàn/xí nghiệp: tạo dictionary local từ Base và scan exact/normalized;
-- nếu đoạn có tên người hoặc nghi PII/proper-name nhạy cảm mà scanner không chắc ⇒ loại đoạn, lấy record kế tiếp; không sửa chữ.
+- dùng existing local privacy/DLP scanner cho PERSON nếu có;
+- nếu scanner PERSON không có, dùng deterministic local name-dictionary/regex path hiện hữu; không nhờ Claude đọc raw text bằng mắt. Nếu không thể kiểm tên người một cách cục bộ đáng tin ⇒ DỪNG `PII_SCAN_UNAVAILABLE`.
+- tên nghiệp đoàn/xí nghiệp: tạo dictionary local từ Base và scan exact/normalized; dictionary không in giá trị ra terminal.
+- nếu đoạn có tên người hoặc nghi PII/proper-name nhạy cảm ⇒ loại đoạn, lấy record kế tiếp; không sửa chữ.
 
 Leak gate phải 0.
+Chỉ sau leak gate, raw description mới được gửi tới đúng OpenAI model của trial và JEV qua gateway hiện hữu. Không gửi raw text tới provider/surface khác.
 Không đủ 16 sau leak gate ⇒ DỪNG.
 
 ## 6. FREEZE — TRƯỚC MODEL CALL ĐẦU TIÊN
