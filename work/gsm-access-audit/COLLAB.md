@@ -3,6 +3,21 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN — Owner 2026-09-22**: việc nhỏ nhưng cần làm để tránh “rỉ máu”; lập riêng trên GitHub/workspace để chuyển phiên khác.
 
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · GPT Host · FINAL CLOSED BY OWNER
+- 🎯 **Mục tiêu:** xác định GSM có “rỉ máu” đáng xử lý hay không.
+- 🏁 **Xong khi:** Owner xác nhận không còn việc thực tế phải tiếp tục. **ĐÃ ĐẠT 06/10/2026.**
+- 📍 **Tiến độ:** `✅ GSM-A1 audit · ✅ 167 access/30 ngày, không rỉ máu · ✅ Owner đóng · ✅ CLOSED`.
+- ✅ **Đã xong:** audit đủ để kết luận không có vấn đề đáng giữ task active.
+- ■ **Đang làm:** —.
+- ⬜ **Còn lại:** —; GSM.3–GSM.5 lịch sử bị hủy theo quyết định đóng.
+- ➡ **Kế tiếp:** không có; chỉ mở lại nếu sau này có số đo mới cho thấy GSM gây vấn đề thật.
+- ⛔ **Không làm:** không tối ưu/caching/mutation chỉ để hoàn thành roadmap cũ.
+
+### P-CLOSE · GPT Host · 06/10/2026 · OWNER CLOSE
+- Owner cho `gsm-access-audit` thành hoàn thành để làm sạch workspace.
+- Kết luận giữ lại: Access 167/30 ngày không phải “rỉ máu”; storage version ~2,10 USD/tháng là số đã biết, không phải lý do giữ task active.
+- Owner cần quyết: —.
+
 ### 1. Mục tiêu
 - Mục tiêu: xác định chính xác **ai/cơ chế nào đang gọi Google Secret Manager (GSM), gọi bao nhiêu, vì sao phải gọi**, rồi loại các lượt gọi vô lý để giảm phụ thuộc Google, quota/latency/rủi ro và chi phí nếu có.
 *(đề xuất — chờ Owner gật; giữ nguyên câu chữ §0 cũ)*
@@ -26,7 +41,7 @@ Host: **Claude Chat** · Host_ID `CC-GSM-0922` · Owner giao 2026-09-22 ("rà so
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-GSM | Audit/tối ưu lượt gọi Secret Manager | việc 3/5 | GSM-A1 KQ XONG (Access 167/30 ngày = 1,7 % miễn phí · lưu trữ 41 version ≈ 2,10 USD/tháng · không rỉ máu) | NEXT: Host `CC-GSM-0922` nghiệm thu README §8 rồi soạn GSM.3 (2 câu hỏi Owner đã nêu ở view.html) | BLOCK: —
+GSM | CLOSED BY OWNER 06/10/2026 | GSM-A1 audit đủ kết luận: Access 167/30 ngày, không rỉ máu · không triển khai GSM.3–GSM.5 | NEXT: — | BLOCK: —
 
 ## Quyết định Owner
 - D01 · 2026-09-22 · Không bỏ GSM vội. Trước tiên phải tìm caller/tần suất/nguyên nhân và tối ưu cơ chế truy cập.

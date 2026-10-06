@@ -5,6 +5,21 @@ Host: Claude Chat · Host_ID: CLAUDE-UIPROC-260924-A (phiên A tiếp tục từ
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner giao trực tiếp và bổ sung ngày 24/09/2026 trong ChatGPT.
 
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · GPT Host · FINAL CLOSED BY OWNER
+- 🎯 **Mục tiêu:** giữ lại lịch sử phương pháp UI để tra cứu; không còn việc thực tế phải tiếp tục.
+- 🏁 **Xong khi:** Owner xác nhận không cần làm tiếp. **ĐÃ ĐẠT 06/10/2026.**
+- 📍 **Tiến độ:** `✅ lịch sử đã lưu · ✅ Owner đóng · ✅ CLOSED`.
+- ✅ **Đã xong:** D03–D08 và `view.html` giữ nguyên làm reference.
+- ■ **Đang làm:** —.
+- ⬜ **Còn lại:** —; FIELD/tool/workflow lịch sử không còn pending.
+- ➡ **Kế tiếp:** không có.
+- ⛔ **Không làm:** không chạy FIELD/cài tool/mutation runtime chỉ để hoàn tất roadmap cũ.
+
+### P-CLOSE · GPT Host · 06/10/2026 · OWNER CLOSE
+- Owner cho `quy-trinh-ve-UI` thành hoàn thành để làm sạch workspace.
+- CLOSED; giữ artifact hiện có để tham khảo, không coi các mục lịch sử chưa triển khai là nợ phải tiếp tục.
+- Owner cần quyết: —.
+
 ### 1. Mục tiêu
 1. Chốt được quy trình vẽ UI chuẩn, đảm bảo không bị thiếu. Liệt kê các câu hỏi chuẩn phải trả lời từng bước và phải có câu trả lời chính xác mới là hoàn thành.
 2. Chốt được quy trình liệt kê hợp đồng thông tin => để tạo được danh mục hợp đồng thông tin, danh mục khai báo.
