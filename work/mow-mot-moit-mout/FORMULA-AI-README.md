@@ -4,7 +4,7 @@
 **Project:** `work/mow-mot-moit-mout`  
 **Owner-gated concept:** Công thức và nghĩa khái niệm.  
 **AI-owned implementation:** schema Master, UI chi tiết, coverage, test, bằng chứng, reuse mapping, kỹ thuật triển khai.  
-**Cập nhật gần nhất:** 2026-10-06 · D156.
+**Cập nhật gần nhất:** 2026-10-06 · D157.
 
 > BẮT BUỘC ĐỌC FILE NÀY trước khi sửa Công thức, Định nghĩa, Master List, UI con/cha, coverage hoặc config liên quan MMIM.
 >
@@ -40,7 +40,19 @@ Nếu file này mâu thuẫn với **quyết định Owner mới hơn trong COLL
 - Khóa chống trùng: `stepRef + tierRef`; mỗi Nhóm con có `parentGroupId` cùng đối tượng/tầng, đúng Bước gốc. `tierRef` phân biệt MOIT/MOUT tại T0.5.
 - **Độ phủ danh mục: FULL cho phạm vi Owner giao.** Rule/config/bộ trường bắt buộc chưa hoàn thiện vẫn hiển thị thiếu; Chuyên môn Nhóm con giữ OPEN. Đây không phải kết luận các nhóm đã được duyệt để vận hành. Không đổi công thức/khái niệm hoặc canonical UI.
 
-## D156 · Công thức Task và hồ sơ ngoại lệ · 06/10/2026
+## D157 · Một gốc Nhóm con; ba tiến trình · 06/10/2026
+
+- **Chỉ đạo Owner:** Nhóm con là SSOT cho cấu trúc chung của Task, MOIT, MOUT và UI con. CT-005.1 = Nhóm con ⇒ Task; CT-005.2 = Nhóm con ⇒ MOIT; CT-005.3 = Nhóm con ⇒ MOUT. Tổng hiện tại 10 công thức gốc.
+- **Gộp/Tách:** một hồ sơ ngoại lệ tại Nhóm con; các đối tượng phụ thuộc tham chiếu cùng hồ sơ. Không chỉnh cơ cấu/ngoại lệ độc lập ở Task, MOIT, MOUT hoặc UI con. Trường đặc thù mỗi loại vẫn thuộc đối tượng đó.
+- **Ký hiệu:** ⇒ chỉ quan hệ dẫn xuất/tương ứng. Không dùng chuỗi dấu = để suy đồng nhất kiểu dữ liệu, ID hoặc tự suy số lượng 1:1. CT-002 vẫn mô tả cấu trúc thành phần; không bị thay bằng quan hệ SSOT này. CT-006 vẫn giữ đầu vào UI cha, lấy ngữ cảnh chung từ Nhóm con khi mapping được xác minh.
+- **Diễn giải đề xuất để Owner góp ý:** Chế tạo máy = tạo/nâng cấp năng lực máy; Vận hành máy = điều khiển, theo dõi và duy trì máy hoạt động đúng; Sản xuất quy trình = dùng máy tạo quy trình nghiệp vụ cụ thể. Phân biệt theo mục đích/đầu ra, không chỉ theo tên Field/Form/MOT/MOW. Hiện đang thiết kế chế tạo máy (khớp mục tiêu §0).
+- **Đề xuất biểu diễn:** một bức tranh dùng chung, chọn ngữ cảnh ba tiến trình ở đầu; chỉ mở công thức/chi tiết liên quan khi cần. Ngữ cảnh phải hiện bằng chữ, không chỉ màu. Dùng lại công cụ không tạo bản sao danh mục. Phân loại theo lần sử dụng; một công cụ có thể phục vụ nhiều tiến trình. Đây là đề xuất, chưa thay bộ giá trị Thuộc cũ hoặc tạo filter production.
+- **Giới hạn thực thi:** đã cập nhật công thức/ghi chú; chưa migrate các Master mẫu và chưa cưỡng chế đồng bộ dữ liệu. 115 Nhóm con, 7 MOT, 6 MOIT, 6 MOUT là các tập hiện hữu khác quy mô, không tự bịa mapping. Cần liên kết về Nhóm con có evidence trước khi coi SSOT vận hành đã hoàn tất. Không sinh bản ghi hàng loạt, không thay ID/canonical UI.
+- **Tránh nhầm cho AI:** tách loại đối tượng, ngữ cảnh sử dụng và trạng thái triển khai; không hiểu “dùng chung concept” là “cùng bản ghi”. Việc chạy quy trình nghiệp vụ đã sản xuất là sử dụng sản phẩm, không tự gộp vào “vận hành máy tạo quy trình”.
+
+## D156 · Lịch sử công thức Task và hồ sơ ngoại lệ · 06/10/2026
+
+> Phần đầu vào CT-005.1 và tổng 8 dưới đây đã được D157 thay thế; giữ để tra lịch sử.
 
 - **CT-005:** `Bước + Tầng + Nhóm cha ⇒ Quy trình`.
 - **CT-005.1:** `Bước con + Tầng ⇒ Task`, độc lập, đặt ngay sau CT-005. Tạm có cùng đầu vào với CT-004; không coi Task và Nhóm con là một đối tượng.
@@ -140,7 +152,9 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 | CT-003 | **Nhóm cha** | `Bước + Tầng ⇒ Nhóm cha` |
 | CT-004 | **Nhóm con** | `Bước con + Tầng ⇒ Nhóm con` |
 | CT-005 | **Quy trình** | `Bước + Tầng + Nhóm cha ⇒ Quy trình` |
-| CT-005.1 | **Task** | `Bước con + Tầng ⇒ Task` |
+| CT-005.1 | **Task** | `Nhóm con ⇒ Task` |
+| CT-005.2 | **MOIT** | `Nhóm con ⇒ MOIT` |
+| CT-005.3 | **MOUT** | `Nhóm con ⇒ MOUT` |
 | CT-006 | **UI Con** | `Bước + Tầng + Nhóm + UI cha ⇒ UI Con` |
 | CT-007 | **Config** | `Bước + Tầng + Nhóm + UI cha + Bản ghi + Người làm (NTGV) + Trigger ⇒ Config` |
 
