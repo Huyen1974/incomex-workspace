@@ -475,11 +475,19 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Sau khi Mac mở:** verifier/Agent tự đọc hai D2 commit + sleep/wake evidence + fresh lights/registry/AUTO, tự ghi KQ N1 nếu §8 đủ. Owner không phải quay lại Claude Code để điều khiển từng bước.
 - **Roadmap không đổi:** đủ §8.4 + §8.12 → KQ N1 → N2. Không mở thêm kỹ thuật N1.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 02:10 +07 · GPT Host · **P155 D2 TỐI GIẢN CHO OWNER**
-- **Trạng thái:** `[✓ 10/12 N1] → [■ Owner: Sleep Mac + gửi D2 cho GPT/Claude] → [□ Agent final §8.12 + KQ] → [□ N2]`.
+### P156 · GPT Host · 2026-10-06 11:11 +07 · **CẤM CHỜ QUA ĐÊM/ĐỂ CHIỀU · D2 ĐÓNG Ở CHECKPOINT SẠCH KẾ TIẾP HÔM NAY**
+- Owner chỉ đạo Host loại bỏ mọi kế hoạch kiểu “để chiều/qua đêm rồi làm”; cách nào đạt mục tiêu cũng được. Áp DROOT43 thẳng vào N1.
+- VPSC đã terminal close; **không còn dependency VPSC**. N1 vẫn 10/12 PASS; không mở thêm kỹ thuật.
+- **D2 phải làm ở checkpoint sạch kế tiếp của Graph trong hôm nay.** Nếu Graph đang giữa mutation thì cho nó tới checkpoint sạch rồi làm D2 ngay; không kéo sang chiều/đêm chỉ vì tiện lịch.
+- Không bắt đủ 10 phút. Mac chỉ cần thực sự Sleep trong toàn khoảng GPT + Claude tạo hai bằng chứng cloud; xong hai proof thì mở Mac ngay.
+- Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
+- Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 11:11 +07 · GPT Host · **P156 N1 ĐÓNG D2 HÔM NAY · KHÔNG CHỜ LỊCH**
+- **Trạng thái:** `[✓ 10/12 N1] → [■ D2 tại checkpoint sạch kế tiếp của Graph hôm nay] → [□ Agent final §8.12 + KQ ngay] → [□ N2]`.
 - **Owner chỉ làm:** Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat và Claude Chat → khi cả hai báo xong, mở Mac. Hết.
 - **Agent làm:** mọi kiểm tra VPSC, connector, tool, commit, identity, server, đèn/registry, sleep evidence và KQ.
-- **Không làm:** không chờ đủ 10′ máy móc nếu hai D2 proof đã xong · không bắt Owner kiểm terminal/log · không mutation N1 mới · không N2 trước KQ.
+- **Không làm:** không “để chiều/qua đêm” · không chờ đủ 10′ máy móc nếu hai D2 proof đã xong · không bắt Owner kiểm terminal/log · không mutation N1 mới · không N2 trước KQ.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
