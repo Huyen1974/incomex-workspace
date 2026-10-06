@@ -40,6 +40,14 @@ Nếu file này mâu thuẫn với **quyết định Owner mới hơn trong COLL
 - Khóa chống trùng hiện hành D158: `chainId + stepRef + tierRef`; mỗi Nhóm con có `parentGroupId` cùng đối tượng/tầng, đúng Bước gốc. `tierRef` phân biệt MOIT/MOUT tại T0.5.
 - **Độ phủ danh mục: FULL cho phạm vi Owner giao.** Rule/config/bộ trường bắt buộc chưa hoàn thiện vẫn hiển thị thiếu; Chuyên môn Nhóm con giữ OPEN. Đây không phải kết luận các nhóm đã được duyệt để vận hành. Không đổi công thức/khái niệm hoặc canonical UI.
 
+## D158 · Đồng bộ danh mục từ Nhóm con · Owner 06/10/2026 18:09 +07
+
+- Tên nhóm: `Nhóm cha/con · Tên Chuỗi · Bước/Bước con · Tầng/Đối tượng`, sinh từ trường SSOT, giữ ID và legacyName. ParentGroup cập nhật theo parentGroupId; coverageKey gồm chainId.
+- **35 cha / 115 con; Task, MOIT, MOUT mỗi loại 115 dòng** trong phạm vi CH-001. ML-DEF-005/006/007 là view dẫn xuất từ ML-DEF-002, không chép ba bộ dữ liệu độc lập. Tên/Chuỗi/Bước con/Tầng/Gộp/Tách đều lấy nhóm gốc; thêm nhóm gốc thì danh sách và Total đổi theo khi tải lại.
+- ID mới ổn định: TSK-NHCN-xxx / MOIT-NHCN-xxx / MOUT-NHCN-xxx. sourceGroupId trỏ NHCN-xxx. Các ID demo cũ không tái sử dụng hoặc tự ánh xạ; demo giữ tại URL cũ với `?legacy=1`.
+- Đường vào mot-master-v1.html, moit-master-v1.html, mout-master-v1.html hiện mở danh mục dẫn xuất, cùng UI.MASTER cha; bảng ngoài đọc Total từ danh mục này. MOW giữ nguyên.
+- Đây là **đồng bộ danh mục thiết kế**, trạng thái DANH MỤC · CHƯA CẤU HÌNH; chưa tạo task chạy thật, form nghiệp vụ hay migrate PG/Directus. Các ghi chú lịch sử nói danh sách còn 7/6/6 hoặc chưa đồng bộ UI bị thay thế bởi mục này; mapping demo/backend vẫn chưa thực hiện.
+
 ## D158 · Chuỗi là nguyên liệu · 06/10/2026
 
 - **CT-002.1 · Chuỗi** đặt dưới Tầng. SSOT mã/tên/định nghĩa/icon tại `ui/chuoi-data-v1.js`: CH-001 Chế tạo cỗ máy; CH-002 Vận hành cỗ máy; CH-003 Cỗ máy sản xuất quy trình.
