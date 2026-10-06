@@ -5,15 +5,21 @@ Host: Claude Chat · Host_ID: CLAUDE-CWEB-261002-A · Owner giao 02/10/2026
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chốt cuối 03/10/2026 22:30: mục tiêu là **copy web cũ sang VPS của Incomex, chạy giống cũ nhất có thể, rồi chuyển DNS sang để duy trì khoảng thời gian tạm trước khi xây lại toàn bộ**; web cũ dự kiến hết hạn khoảng 1 tuần nữa. Nếu dùng PG/Directus thì dữ liệu phải **tách thành nhóm/collection nhìn tên là biết thuộc web Incomex và có ghi chú rõ để không lẫn về sau**. Quy trình: hội đồng chốt kỹ thuật → Host READY → Owner dán một dòng RUN → Codex làm. **Chưa cho phép:** đổi DNS / chuyển tên miền chính trong RUN dựng trang thử.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-04 18:31 +07 · GPT Chat (Reviewer) · P13 ACCEPT RUN-04 · CUTOVER_READY · chỉ còn cutover
-- 🎯 **Mục tiêu — Owner chốt cuối 03/10 22:30:** copy toàn bộ web hiện tại từ bên cũ sang VPS của Incomex → kiểm cho chạy/hiển thị **giống cũ nhất có thể** → sau khi kỹ thuật đạt thì chuyển DNS sang VPS để chạy tạm; web cũ còn khoảng **1 tuần** trước khi hết hạn; xây lại toàn bộ web là việc sau. Phần nhúng bê đúng nguồn sang. Nếu dùng PG/Directus, dữ liệu web này phải có namespace/group/ghi chú riêng, không lẫn hệ khác.
-- 🏁 **Xong khi:** (1) các URL cũ có bản tương ứng trên VPS, desktop/mobile giống cũ nhất có thể; (2) Maps · YouTube · Lark · Giáo dục và form hoạt động; (3) dữ liệu/tệp web nằm riêng trong `web_incomex`; (4) **mọi asset site-owned (ảnh/PDF/CSS/JS/font/icon/favicon) tự phục vụ từ VPS/Directus, 0 runtime dependency vào GitHub hoặc web cũ**; (5) Host `incomexsaigoncorp.vn`/`www` đã mô phỏng ở root URL cũ và đường TLS cutover rõ; (6) chỉ còn lệnh cutover DNS. Hạn web cũ ≈10/10.
-- 📍 **Tiến độ:** `✅ RUN-03 dựng web /w/ · ✅ RUN-04 site tự chủ tài nguyên + root preflight · ✅ Reviewer P13 ACCEPT CUTOVER_READY · ■ 😊 Owner duyệt/ra lệnh cutover · ⬜ hạ TTL → TXT DNS-01 → cert apex+www → full preflight 32 URL × 2 Host + portal 404 → đổi @/www → live verify → auto-renew · ⬜ đóng CWEB`
-- ✅ **Đã xong:** (1) chụp/verify nguồn; (2) namespace riêng `web_incomex` + 27 content + 73 Files, không đụng collection chung; (3) `/w/` chạy thật, 32 route 200; (4) form gửi thật, Maps/YouTube/Lark/Giáo dục đã thử; (5) 6 mẫu desktop/mobile đã so và sửa 2 vòng; (6) hồi quy 132 route + Config/Protection Guard + rollback + POST-PROTECT receipt=115 PASS; (7) 6 JPEG QA đã lưu/chuẩn bị evidence VPS, GitHub binary không còn là gate.
-- ■ **Đang làm:** Reviewer đã kiểm độc lập live desktop 1366 + mobile 390: HTTP 200, **console 0 lỗi**. Đối chiếu KQ RUN-04: 32/32 route `/w/`, 231 site-owned resources, external site-owned request=0, MIME lỗi=0, root apex/www preflight, portal bị chặn, POST-PROTECT 15/15 + receipt=117, ĐÈN 22 xanh/0 đỏ. **Không đề nghị sửa thêm code trước cutover.**
-- ⬜ **Còn lại:** chỉ cutover. Sau Owner duyệt: (1) hạ TTL `@`/`www`; (2) thêm TXT DNS-01; (3) cấp/cài cert thật cho apex + `www`; (4) **trước khi đổi traffic, local resolve/SNI kiểm đủ 32 URL trên cả apex và `www` = 64 phép thử, console/resource sạch; `/knowledge`, `/posts`, `/reports`, `/login` phải 404 site công ty trên cả hai Host; form/root links PASS**; (5) mới đổi `@`/`www`; (6) live verify lại các phép thử trọng yếu + monitor; fail thì rollback DNS; (7) bật/verify auto-renew cert.
-- ➡ **Kế tiếp:** 😊 Owner ra lệnh cutover riêng. Không cần thêm RUN sửa web nếu chưa xuất hiện lỗi mới.
-- ⛔ **Không làm/để sau:** làm lại/cải tiến web · sửa nội dung · dựng lại phần nhúng · ghi collection chung · dùng GitHub làm kho ảnh/runtime asset · phụ thuộc host WordPress cũ · đổi DNS khi chưa có lệnh.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · GPT Host · FINAL CLOSED BY OWNER
+- 🎯 **Mục tiêu:** copy web cũ sang VPS, giống cũ nhất có thể, tự chủ tài nguyên và sẵn sàng dùng khi cần.
+- 🏁 **Xong khi:** phần copy kỹ thuật hoàn tất và Owner xác nhận đóng task. **ĐÃ ĐẠT 06/10/2026.**
+- 📍 **Tiến độ:** `✅ RUN-03 dựng /w/ · ✅ RUN-04 tự chủ tài nguyên · ✅ 32/32 route · ✅ CUTOVER_READY · ✅ Owner đóng · ✅ CLOSED`.
+- ✅ **Đã xong:** namespace `web_incomex`; 27 content + 73 Files; form/nhúng PASS; 231 site-owned resources tự host; console 0 lỗi; rollback/POST-PROTECT/đèn PASS.
+- ■ **Đang làm:** —.
+- ⬜ **Còn lại trong task copy-web:** —.
+- ➡ **Kế tiếp:** không có. Nếu sau này Owner muốn đổi DNS/cert/domain thì xử lý như thao tác/công việc riêng tại thời điểm đó, không giữ CWEB active.
+- ⛔ **Không làm:** không sửa thêm web chỉ để hoàn tất roadmap cũ; không đổi DNS/cert trong closeout này.
+
+### P-CLOSE · GPT Host · 06/10/2026 · OWNER CLOSE
+- Owner xác nhận `copy-web-incomexsaigoncorp-vn` chuyển xong/đóng để làm sạch workspace.
+- RUN-04 đã `KQ@CWEB-E2E-20261004-04 XONG · CUTOVER_READY`; không có RUN sửa web sống.
+- Phần copy được coi hoàn thành; lịch sử cutover DNS/cert giữ lại làm reference, không còn là pending của task này.
+- Owner cần quyết: —.
 
 ### 1. Mục tiêu
 Owner chốt cuối, 03/10/2026 22:30 — **đọc trước:** “Mục tiêu cuối cùng là copy được trang Web từ cái cũ sang VPS của chúng ta => sau đó chuyển dns sang. Khoảng độ 1 tuần nữa là web cũ hết hạn => chúng ta sẽ chuyển tạm sang đây rồi xây dựng lại sau. Mục tiêu chỉ cần duy trì cho nó chạy giống với cái cũ nhất có thể.” · “Nếu sử dụng đến PG/Directus thì phải phân rõ nhóm là table/collection ghi chú là của web incomex … để sau này khỏi lẫn lộn.”
