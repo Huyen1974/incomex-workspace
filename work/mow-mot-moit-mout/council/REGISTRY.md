@@ -149,12 +149,12 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-CT0051-20261006
 - Role: OWNER-DIRECTED IMPLEMENTATION · D156.
 - Write_Zone: CT-005/005.1; Gộp/Tách nhóm con và MOT/Task; dependent labels/cache/docs.
-- Active_RUN: D156 chỉ đạo trực tiếp Owner.
-- Reserved_Targets: ban-duyet CT-005/005.1; definition-master-data/registry; master-list; mot-master; ui-child-content/adapter; definition shell/index/detail; review CT-005.
-- NOW: STARTED · công thức + cột ngoại lệ.
-- NEXT: kiểm source/live; ghi KQ.
+- Active_RUN: none · D156 XONG.
+- Reserved_Targets: none.
+- NOW: PASS · CT-005 Nhóm cha, CT-005.1 Task; hai cột ngoại lệ ở Nhóm con/MOT; Total 8.
+- NEXT: Owner xem; hồ sơ ngoại lệ triển khai theo ca thật, chưa có backend CRUD.
 - BLOCKED_BY: none; semantics khác giữ nguyên.
-- State: ACTIVE.
+- State: IDLE.
 - LAST_SYNC: 2026-10-06 · D156.
 
 ## Proposal contract

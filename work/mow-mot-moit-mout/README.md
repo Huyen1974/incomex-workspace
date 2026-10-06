@@ -87,6 +87,10 @@ Chuỗi:
 
 [Bảng 28 Master](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html) có cột **Total ngay sau Tên**, đếm từ nguồn đang dùng ở list con. Tự nạp lại nguồn khi mở/tải lại bảng; không sửa total tay. Công thức chỉ đếm dòng gốc; MOIT/MOUT theo mã duy nhất; thiếu nguồn hiển thị —, mảng rỗng hiển thị 0. Logic ở `ui/ui-child-content-v1.js`, nạp nguồn ở `ui/ui-child-from-parent-v1.js`; dữ liệu không đổi. Xem KQ D155 trong COLLAB.
 
+## D156 · Công thức và ngoại lệ Gộp/Tách
+
+CT-005 dùng **Nhóm cha**; **CT-005.1 · Bước con + Tầng ⇒ Task** đứng ngay sau 005, tổng 8 công thức. Master Nhóm con và MOT/Task có **Gộp / Tách** với ? theo UI cha, tham chiếu mã hồ sơ riêng. Dữ liệu chuẩn giữ nguyên; chưa có hồ sơ thật hoặc backend CRUD. Trước khi lập hồ sơ ngoại lệ, đọc hợp đồng ở `FORMULA-AI-README.md` D156; mỗi hồ sơ giữ nguồn/kết quả/lý do/quyết định/bằng chứng. Chưa sinh Task mới trong lượt này.
+
 ## 5. VIỆC ĐANG CHỜ — KHÔNG ĐƯỢC QUÊN
 
 **PENDING:** giao Codex chạy audit Change Propagation đầu tiên.

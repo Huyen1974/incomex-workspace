@@ -11,7 +11,8 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 ✅ D153: đã ghi đủ 35 Nhóm cha và 115 Nhóm con T0–T2; mỗi nhánh 7 cha/23 con, không thiếu/trùng; kiểm liên kết và UI PASS.
 ✅ D155: cột Total sau Tên tự đếm theo nguồn của từng Master, cập nhật khi mở/tải lại bảng; không sửa số tay.
 ✅ D154: hàng Tạo mới 3→7 đã cố định, màn hình hẹp cuộn cục bộ; 6 độ rộng, bàn phím/chi tiết và đúng URL Owner PASS.
-■ Đang làm: hoàn thiện chuẩn/config theo ca thực tế; Chuyên môn Nhóm con vẫn OPEN.
+✅ D156: CT-005 dùng Nhóm cha; thêm CT-005.1 Task sau 005; Master Nhóm con/MOT có Gộp ? và Tách ?; Total Công thức tự tăng 8.
+■ Đang làm: hoàn thiện chuẩn/config theo ca thực tế; Chuyên môn Nhóm con vẫn OPEN. Gộp/Tách có hợp đồng hồ sơ riêng; chưa có ca thật/backend CRUD.
 ⬜ Còn lại: tiếp tục ghi/test Config thật vào CAT-248* để lộ loại; map MOW legacy; xác định cha UI-008/011/012; Codex Change Propagation audit vẫn PENDING nhưng không chặn chỉ đạo trực tiếp.
 ➡ Kế tiếp: Owner xem hàng Bước CT-001 đã sửa và Master Nhóm cha/con dòng 1/2; hoàn thiện rule/config từng nhóm trên danh mục đã đủ. Audit Change Propagation vẫn PENDING riêng; FC-002 chỉ bàn semantics Config.
 ⛔ Không làm/để sau: không xóa/hoãn Master chỉ vì định nghĩa chưa hoàn thiện; không tự gán cha cho 3 UI thiếu evidence; không đổi 7 MOW canonical khi chưa map.
@@ -113,6 +114,15 @@ Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đ�
 
 **OWNER 06/10/2026 · D156:** sửa CT-005 thành **Bước + Tầng + Nhóm cha ⇒ Quy trình**. Thêm **CT-005.1 · Bước con + Tầng ⇒ Task** ngay sau CT-005, cùng định dạng; tạm có đầu vào giống Nhóm con, không gộp hai khái niệm. Master Nhóm con và Task thêm **Gộp / Tách** có “?” chuẩn UI cha. Phần chuẩn đi theo công thức; Gộp/Tách ít gặp quản lý bằng hồ sơ riêng để tránh nhầm/sai. “99%” là mục tiêu thiết kế của Owner, không phải số đo.
 - STARTED D156: 2026-10-06T09:17:50.554Z. PROCESS CHUNG.APQUYTRINH PASS (job a3754bdb334e42f196eeacee11f1db6c). CE-MMIM-CT0051-20261006: FORMULA_CHANGE + MASTER_SCHEMA_CHANGE + STATUS_OR_COUNT_CHANGE. UPDATE ban-duyet CT-005/005.1, Master Công thức/data, registry Nhóm con/MOT, shared renderer và cache, review CT-005, FORMULA/README/COLLAB/council. VERIFY thứ tự 005→005.1→006, Total Công thức 8, 115 nhóm con/7 Task giữ nguyên, “?” hover/focus, gộp/tách tham chiếu hồ sơ không phải nút thực thi. N/A: không sinh Task mới, không gộp/tách dữ liệu thật, không DB/canonical UI mới, không đổi CT-006/007.
+
+### KQ · D156 · CT-005/005.1 và Gộp/Tách · 06/10/2026
+- STATUS: PASS phần công thức/UI theo Owner. CT-005 = Bước + Tầng + Nhóm cha ⇒ Quy trình; CT-005.1 = Bước con + Tầng ⇒ Task, là công thức gốc độc lập đứng ngay sau CT-005. Cùng markup/class của khối công thức cũ; CT-006/007 không đổi.
+- Master Nhóm con và MOT/Task thêm Gộp/Tách trước Trạng thái. Dùng đúng class/tooltip hover và focus của UI cha; dấu ? có tabindex và aria-label giải thích ≥2→1 / 1→≥2 cùng hồ sơ riêng. Cột đọc mergeCaseIds/splitCaseIds; — = chưa ghi nhận hồ sơ; drawer có phần tham chiếu ngoại lệ. Không tạo case giả, không thực thi gộp/tách hoặc thay dữ liệu task.
+- Hồ sơ riêng: hợp đồng và giới hạn triển khai ghi tại FORMULA-AI-README D156. Chưa có backend/form CRUD hồ sơ; chưa có ca thật. 99% là mục tiêu thiết kế, không phải tỷ lệ đo.
+- UI transaction: 8c858ab0cb9d46e28b257555dfbb7a13. Data SHA 3759af736b281f2cfaeb451887078fb3baa2f7f2893eb0d0b07fe1290817ed50; renderer 25c9b1856e1946a9183d7b8855a08d53151eb6034ddcd58e7b773f17f8b2a411. Repo formula/display commit fea296861b5dd7c810a177a39d77b2bb2bf2d353; ban-duyet SHA 80cb23401fdc1e990d914e8af65fc7609af6b80f3d88fc894686d176d32697e8.
+- Verify: gate CHUNG.APQUYTRINH PASS; JS syntax PASS; so dữ liệu các Master ngoài 004/021 không đổi, Nhóm con vẫn 115. Live HTTP200: Master Công thức có đúng thứ tự 005→005.1→006, 8 gốc; CT-005.1 detail đúng; hai Master có Gộp ?/Tách ? và full aria help; MOT drawer giữ MOIT/MOUT và thêm references; Total index = 115 Nhóm con, 7 MOT, 8 Công thức. MOIT vẫn 6 dòng và không bị thêm Gộp/Tách. Không lỗi JS; Google Fonts/CSP là cảnh báo có sẵn ở UI cha.
+- Giới hạn kiểm: portal Knowledge dùng đăng nhập; khối công thức ban-duyet đã kiểm đúng markup/thứ tự trên nguồn repo, các trang UI public và detail đã kiểm live. Không gọi kết quả này là nghiệm thu vận hành hồ sơ ngoại lệ.
+- NEXT: Owner xem công thức và hai Master; khi có ca Gộp/Tách thật, lập hồ sơ theo hợp đồng đã ghi. Không tự sinh 115 Task hoặc sửa công thức khác.
 
 
 **OWNER 06/10/2026 · D155 · TOTAL:** thêm cột `Total` ngay sau `Tên` trong bảng 28 Master (Master of Master theo nghĩa quản lý các Master khác). Tự đếm theo nguồn thật của danh sách con; mở/tải lại bảng lấy dữ liệu mới; không giữ số viết tay.
