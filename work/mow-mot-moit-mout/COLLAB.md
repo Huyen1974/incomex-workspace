@@ -3,7 +3,7 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · Codex · D153/D154 KQ
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 16:56 +07 · Codex · D157 KQ
 🎯 Mục tiêu: **dùng CT-003→007 để quét dần và làm các Master List đủ nghĩa; thứ gì phát sinh phải có Master để ghi trước**.
 🏁 Xong khi: mỗi đầu ra CT có Master List; record phát sinh được ghi trước khi phân loại/chuẩn hóa; gap concept được treo rõ để Owner chỉ quyết phần concept.
 📍 Tiến độ: CT-003 ✓ → CT-004 ✓ → CT-005 ✓ Master MOW → CT-006 ✓ Master UI con → ■ CT-007 ✓ Master Config → □ tiếp tục Coverage T0
@@ -12,9 +12,10 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 ✅ D155: cột Total sau Tên tự đếm theo nguồn của từng Master, cập nhật khi mở/tải lại bảng; không sửa số tay.
 ✅ D154: hàng Tạo mới 3→7 đã cố định, màn hình hẹp cuộn cục bộ; 6 độ rộng, bàn phím/chi tiết và đúng URL Owner PASS.
 ✅ D156: CT-005 dùng Nhóm cha; thêm CT-005.1 Task sau 005; Master Nhóm con/MOT có Gộp ? và Tách ?; Total Công thức tự tăng 8.
-■ Đang làm: Codex cập nhật D157 — SSOT Nhóm con và CT-005.1/.2/.3; hoàn thiện chuẩn/config theo ca thực tế; Chuyên môn Nhóm con vẫn OPEN. Gộp/Tách có hợp đồng hồ sơ riêng; chưa có ca thật/backend CRUD.
+✅ D157: CT-005.1/.2/.3 cùng gốc Nhóm con, Total Công thức 10; ghi chú Gộp/Tách và ba tiến trình đã có. SSOT dữ liệu chưa nối/migrate.
+■ Đang làm: thảo luận ba ngữ cảnh theo đầu ra; hoàn thiện chuẩn/config theo ca thực tế; Chuyên môn Nhóm con vẫn OPEN. Gộp/Tách có hợp đồng hồ sơ riêng; chưa có ca thật/backend CRUD.
 ⬜ Còn lại: tiếp tục ghi/test Config thật vào CAT-248* để lộ loại; map MOW legacy; xác định cha UI-008/011/012; Codex Change Propagation audit vẫn PENDING nhưng không chặn chỉ đạo trực tiếp.
-➡ Kế tiếp: Owner xem hàng Bước CT-001 đã sửa và Master Nhóm cha/con dòng 1/2; hoàn thiện rule/config từng nhóm trên danh mục đã đủ. Audit Change Propagation vẫn PENDING riêng; FC-002 chỉ bàn semantics Config.
+➡ Kế tiếp: Owner góp ý định nghĩa Chế tạo/Vận hành/Sản xuất; xác minh mapping Nhóm con trước khi đồng bộ Master; hoàn thiện rule/config từng nhóm trên danh mục đã đủ. Audit Change Propagation vẫn PENDING riêng; FC-002 chỉ bàn semantics Config.
 ⛔ Không làm/để sau: không xóa/hoãn Master chỉ vì định nghĩa chưa hoàn thiện; không tự gán cha cho 3 UI thiếu evidence; không đổi 7 MOW canonical khi chưa map.
 
 - Nhiệm vụ trực tiếp 28/09/2026: tab **★ Step quy trình 2** ngay sau Step quy trình hiện có. Phần **I. Danh sách quy trình** hiển thị **nguyên bản UI cha** `mow-master-nhap2-v1.html` trên VPS; không tái tạo bảng/cột/format trong `ban-duyet.html` (D85). **Các bước chi tiết** giữ khung chờ hướng dẫn.
@@ -117,6 +118,14 @@ Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đ�
 
 **OWNER 06/10/2026 · D156:** sửa CT-005 thành **Bước + Tầng + Nhóm cha ⇒ Quy trình**. Thêm **CT-005.1 · Bước con + Tầng ⇒ Task** ngay sau CT-005, cùng định dạng; tạm có đầu vào giống Nhóm con, không gộp hai khái niệm. Master Nhóm con và Task thêm **Gộp / Tách** có “?” chuẩn UI cha. Phần chuẩn đi theo công thức; Gộp/Tách ít gặp quản lý bằng hồ sơ riêng để tránh nhầm/sai. “99%” là mục tiêu thiết kế của Owner, không phải số đo.
 - STARTED D156: 2026-10-06T09:17:50.554Z. PROCESS CHUNG.APQUYTRINH PASS (job a3754bdb334e42f196eeacee11f1db6c). CE-MMIM-CT0051-20261006: FORMULA_CHANGE + MASTER_SCHEMA_CHANGE + STATUS_OR_COUNT_CHANGE. UPDATE ban-duyet CT-005/005.1, Master Công thức/data, registry Nhóm con/MOT, shared renderer và cache, review CT-005, FORMULA/README/COLLAB/council. VERIFY thứ tự 005→005.1→006, Total Công thức 8, 115 nhóm con/7 Task giữ nguyên, “?” hover/focus, gộp/tách tham chiếu hồ sơ không phải nút thực thi. N/A: không sinh Task mới, không gộp/tách dữ liệu thật, không DB/canonical UI mới, không đổi CT-006/007.
+
+### KQ · D157 · 06/10/2026
+- KQ@MMIM-D157-20261006 XONG phần công thức/ghi chú; PARTIAL về SSOT dữ liệu vận hành: chưa mapping/migration.
+- PROCESS CHUNG.APQUYTRINH PASS job 2fbccaed933446a1b537cc8adfa540d3. UI transaction 8d2c7b719b12447f8699d1b181c1210a; repo công thức/ghi chú 89dfeb6e3428ba1a25b4e1a43c99d715fb43dc97.
+- CT-005.1/.2/.3 dùng Nhóm con làm gốc; bổ sung ghi chú Gộp/Tách cùng nguồn và ba tiến trình (diễn giải đề xuất) ngay khối công thức. Không đổi CT-002/006/007, ID hoặc các bản ghi nghiệp vụ.
+- Live HTTP200 Master21 đúng 10 công thức, đúng thứ tự; index Total10, Nhóm con115/MOT7/MOIT6/MOUT6 giữ nguyên. Header help Nhóm con xác nhận nội dung SSOT. Cảnh báo Google Fonts CSP có sẵn, không thấy lỗi JS trên các trang đã kiểm.
+- Owner Knowledge portal: công cụ inspect báo BROWSER_UNAVAILABLE; chỉ xác minh source ban-duyet đã cập nhật, không tuyên bố đã kiểm live trang này.
+- NEXT: thảo luận ba ngữ cảnh theo đầu ra; đề xuất một bức tranh + bộ chọn ngữ cảnh, không nhân ba bộ danh mục. Chưa dựng filter, chưa thay enum Thuộc cũ. Phải map bản ghi hiện có về Nhóm con có evidence trước khi coi đồng bộ SSOT hoàn tất; không lấy số lượng các Master mẫu làm mapping.
 
 ### KQ · D156 · CT-005/005.1 và Gộp/Tách · 06/10/2026
 - STATUS: PASS phần công thức/UI theo Owner. CT-005 = Bước + Tầng + Nhóm cha ⇒ Quy trình; CT-005.1 = Bước con + Tầng ⇒ Task, là công thức gốc độc lập đứng ngay sau CT-005. Cùng markup/class của khối công thức cũ; CT-006/007 không đổi.

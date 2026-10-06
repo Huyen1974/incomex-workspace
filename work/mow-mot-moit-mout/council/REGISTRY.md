@@ -159,13 +159,13 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 
 ### CODEX-MMIM-D157
 - Role: OWNER-DIRECTED IMPLEMENTATION; không thay Host.
-- Active_RUN: MMIM-D157-20261006.
-- Reserved_Targets: CT-005.1/.2/.3, ghi chú SSOT và ba tiến trình, help/cache/docs liên quan.
-- NOW: cập nhật công thức theo Owner; định nghĩa ba tiến trình là đề xuất để thảo luận.
-- NEXT: kiểm live và báo giới hạn mapping dữ liệu.
-- BLOCKED_BY: none.
-- State: ACTIVE.
-- LAST_SYNC: 2026-10-06 · D157 STARTED.
+- Active_RUN: none · D157 phần công thức XONG.
+- Reserved_Targets: none.
+- NOW: công thức/ghi chú và Total10 đã kiểm; SSOT dữ liệu chưa mapping/migration.
+- NEXT: Owner góp ý ba ngữ cảnh theo đầu ra; một bức tranh chung + chọn ngữ cảnh là đề xuất.
+- BLOCKED_BY: mapping dữ liệu hiện có cần evidence; không bịa quan hệ.
+- State: IDLE.
+- LAST_SYNC: 2026-10-06 · D157 KQ.
 
 ## Proposal contract
 
