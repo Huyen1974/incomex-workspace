@@ -4,15 +4,15 @@ Tên việc: Graph Server — Business × JEV × Code
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D06: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, tiêu chí công cụ bền vững thực dụng (MIT không bắt buộc — D06); Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 16:02 +07 · GPT Host · P28 — R5 business-oracle PROMPT đã soạn; trial tự quyết, production mới xin Owner
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 16:02 +07 · GPT Host · P28 — R5 BUSINESS-ORACLE READY, chờ Claude STARTED
 - 🎯 **Mục tiêu — Owner nguyên văn 24/09, giữ thứ tự ưu tiên (đầy đủ ở §0.1):** (1) “Tạo ra các mối quan hệ về Graph đối với business (khi các mối quan hệ là hữu hạn, chứ không phải quan hệ vô hạn kiểu mạng xã hội.” · (2) “Kết hợp tốt nhất với Jev để đảm bảo Graph truyền thống và Jev bổ sung tốt nhất cho nhau…” · (3) “Định hướng ứng dụng các skill, frame chính thức của Jev…” · (4) “Tự Dựng lại mối quan hệ về về code để các Agent/ AI có thể hiểu nhanh hơn khi hệ thống phức tạp lên.” **Vì sao:** thông tin không SQL hoá được (chăm sóc khách, trao đổi, quy trình còn loay hoay, code) phải nối được thành quan hệ có nguồn để người và agent quyết nhanh hơn.
 - 🎯 **Owner 05/10 (D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.”
 - 🏁 **Trial hoàn thành khi bốn mục tiêu đều có bằng chứng đúng phạm vi:** (1) business micro-trial trả được quan hệ/câu hỏi có nguồn, vừa map loại đã duyệt vừa giữ discovery loại mới; (2) Graph sinh candidate nhỏ và JEV được máy gọi SHADOW đúng bounded judgment; (3) receipt/model/pattern JEV chính thức đủ để tái dùng, không biến JEV thành graph engine/quyền ghi; (4) code graph giúp agent điều hướng dependency/impact với trust policy rõ và roadmap phủ nốt shell DOT · SQL · Nuxt · import cấp file. Nền phải export/restore được khi tắt Cognee; trước production phải curate KB, xóa sạch trial và clean rebuild. Owner xem kết quả rồi mới quyết production.
 - 📍 **Tiến độ:** `✅ R0 thiết kế · ✅ R1 baseline · ✅ R2 N1 gate · ✅ R3 core infra · ✅ R4 CODE-FIRST PASS-WITH-LIMITS · ■ R5 BUSINESS-ORACLE micro-trial · ⬜ R6 KB curation/source freeze · ⬜ R7 Owner production gate + trial wipe/clean build`
 - ✅ **Đã xong:** R4 code-first đã đóng; nền/isolations/PGVector/embedding/code/JEV smoke có bằng chứng. Owner D14 đã ủy quyền GPT+Claude tự quyết các trial nhỏ; không còn gate Owner giữa trial.
 - ■ **Đang làm:** R5 dùng **link Lark thật làm oracle**, rồi tạo text projection đã che từ chính oracle; tối đa 20 snippets, có negative controls và 1 relation holdout khỏi catalog để test discovery + JEV. Không ingest KB/notes tự do.
-- ⬜ **Còn lại:** READY/RUN R5 → Host nghiệm thu Goal #1–#3 ở mức technical oracle · R6 curate/freeze KB + chốt code gaps · khi kỹ thuật đáng tin mới trình Owner phạm vi production ở R7, wipe trial rồi clean build nếu được duyệt.
-- ➡ **Kế tiếp:** 😊 Owner: không cần làm gì trong trial · Host GPT: final-check/READY R5 · 🤖 Claude Code: chạy R5 tự chủ trong scope; vượt scope thì DỪNG.
+- ⬜ **Còn lại:** RUN/KQ R5 → Host nghiệm thu Goal #1–#3 ở mức technical oracle · R6 curate/freeze KB + chốt code gaps · khi kỹ thuật đáng tin mới trình Owner phạm vi production ở R7, wipe trial rồi clean build nếu được duyệt.
+- ➡ **Kế tiếp:** 😊 Owner: không cần làm gì trong trial · 🤖 Claude Code: chạy đúng `READY@606de081a6996bc9ca6759e212d2b3ce81bbbdef`, tự chủ trong scope; vượt scope thì DỪNG.
 - ⛔ **Không làm / để sau (không chặn):** cài thật (production) · ngưỡng xác suất tự động · Cognee MCP/UI, Graphiti, GDS, Hindsight · chạm PostgreSQL/Directus/Qdrant đang chạy · chờ Hermes · đổi phiên bản khi không có lý do (Cognee giữ 1.6.1 dù đã có 1.6.2).
 
 ### 1. Mục tiêu
@@ -99,7 +99,7 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | **R4 PASS-WITH-LIMITS · R5 ORACLE PROMPT DRAFT** | Owner D14 ủy quyền trial nhỏ; exact Lark links làm oracle, không bulk KB | NEXT: Host final-check → READY/RUN `GS-R5-BUSINESS-ORACLE-20261006-03`.
+GS | **R5 BUSINESS-ORACLE READY@606de081a6996bc9ca6759e212d2b3ce81bbbdef** | D14 trial autonomy; exact Lark links làm oracle; ≤20 snippets; no bulk KB | NEXT: RUN `GS-R5-BUSINESS-ORACLE-20261006-03` → Claude tự chạy trong scope.
 STARTED@GS-R4-CODE-FIRST-20261006-02 2026-10-06T07:21:30Z · executor=Claude Code CLI · read-gate PASS: Write_Path `workspace_*` root workspace HEAD `223b549` đọc được; PROMPT last-touch `25f3d76dd105269f69b2b2641bd9a55ddd92cef0` = READY ở P22; 0 STARTED/KQ/STOP_REQUESTED/HOLD cho RUN này; đã đọc AGENTS → Bảng+§0 → D13 → P21–P23 → PROMPT → view §16 → root COLLAB (GS/HJW); SSH `contabo` (vmi3080463) đọc được. **Gate Reviewer:** P23 = PARTIAL (chưa ACCEPT văn bản bản `25f3d76`) ⇒ executor hỏi Owner một câu; **Owner chọn “Chạy ngay, tự áp S1–S4”** ⇒ áp trong quyền PROMPT §6/§13: S1 pgvector `0.8.6-pg18-trixie` + đối chiếu digest · S2 `TELEMETRY_DISABLED=1` + chỉ cho ra OpenAI · S3 vector code qua `index_vectors=True` (chỉ trường `name`) · S4 mẫu `cutter_agent/orchestrator`. JEV `gen-dec-1791271170-jwpWSasdtPHxYXOaUU4w` gợi ý dừng (0,91) — bằng chứng phụ, Owner quyết khác. §0.3: đã đối chiếu — dòng “không gửi dữ liệu ra ngoài” của R4-PREP cũ được D13 thay cho code subset đã secret-scan.
 KQ@GS-R4-CODE-FIRST-20261006-02 DỪNG · 2026-10-06T08:00Z · executor=Claude Code CLI · blocker `R4_PRECISION_EDGE_TYPES`: PROMPT §7 đòi precision 100%; đo toàn bộ 748 cạnh code ⇒ 738 đúng, 10 sai (`instantiates` 9 = tham chiếu kiểu: isinstance/chú thích kiểu/alias kiểu/duyệt Enum; `calls` 1 = truyền hàm làm giá trị cho `staticmethod`) · mọi mục XONG khác PASS (P24) · trial đã hạ, production == PRE, Qdrant/PG production nguyên · evidence `/opt/incomex/work/graph-server/evidence/GS-R4-CODE-FIRST-20261006-02/` (00-KQ.md) · runtime `/opt/incomex/work/graph-server/runtime/run1/` (MANIFEST-R4.md, compose.r4.yaml, scripts/r4/).
 GS | **R3 CORE PASS · R4 BLOCKED T19/T18** | RUN-1 KQ DỪNG đúng guard; không đổi stack; production == PRE | NEXT: Claude review P19 → RUN-1B đóng security/identity gate | RUN-2 CHƯA ĐƯỢC PHÉP.
@@ -567,7 +567,7 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 - **R5 model/cost:** `gpt-5.6-luna` cho extraction/semantic; embedding **đúng Agent Data** `text-embedding-3-small`; tổng external cost cap 5 USD. Owner gate chỉ cấp phép dữ liệu đã che rời VPS, không tự là RUN.
 - **Reviewer:** P26 chấp thuận trước sau C1–C3, nên không cần thêm vòng review để đóng R4. Chỉ review PROMPT R5 sau khi Owner gật.
 
-### P28 · GPT Chat · Host · DRAFT R5 ORACLE — Owner D14 trial autonomy
+### P28 · GPT Chat · Host · READY R5 ORACLE — Owner D14 trial autonomy
 - **Thiết kế chọn:** `paired_ground_truth` — exact link Lark là oracle, rồi deterministic text projection pseudonym; JEV Reference `gen-dec-1791277138-ZYYRN4ue50Zp1p7L4K4L` chọn phương án này probability/confidence 1 vì chấm đúng/sai khách quan, privacy thấp và test được map + discovery.
 - **Nguồn khóa:** chỉ 4 bảng Base `88 - Phái cử`: Order `tblh7nrQpK8TqIs2`, TTS `tblKnzaih6154r2e`, Union `tblG18kR9aFhWrJW`, Company `tblqFRpClTG0OCjE`. Executor đọc runtime schema/field IDs trước; không mở Base/table khác.
 - **Sample:** ≤20 snippets; oracle freeze/hash trước model call; 8–12 positive approved, 2–4 holdout new-relation, 4 negative controls. Selection deterministic theo record ID, không cherry-pick theo output AI.
@@ -577,6 +577,8 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 - **Ranh giới:** đây là technical oracle trial, không chứng minh messy free-form customer notes hay production scale. PASS thì chuyển R6 curation/source freeze, không tự mở rộng corpus.
 - **Model:** `gpt-5.6-luna`; embedding `text-embedding-3-small` 1536; R5 cost cap ≤1 USD (overall trial cap 5 USD). Fresh R5 Neo4j/PGVector/Cognee state, không trộn R4.
 - **§0.3: đã đối chiếu.** D14 cho phép Host READY/RUN trial này sau final-check, không cần Owner gate/reviewer shuttle riêng; Claude Code vẫn phải read-gate và có quyền DỪNG nếu blocker.
+- `READY@606de081a6996bc9ca6759e212d2b3ce81bbbdef` — full SHA commit cuối chạm PROMPT.md.
+- JEV readiness `gen-dec-1791277542-JeGbw5HVRkuUArkFWhye`: `ready` 0,65 / `patch` 0,34 / confidence 0,47; không nêu blocker cụ thể, chỉ là bằng chứng phụ.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
