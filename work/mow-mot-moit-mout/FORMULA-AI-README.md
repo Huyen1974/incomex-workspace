@@ -4,7 +4,7 @@
 **Project:** `work/mow-mot-moit-mout`  
 **Owner-gated concept:** Công thức và nghĩa khái niệm.  
 **AI-owned implementation:** schema Master, UI chi tiết, coverage, test, bằng chứng, reuse mapping, kỹ thuật triển khai.  
-**Cập nhật gần nhất:** 2026-10-06 · D153.
+**Cập nhật gần nhất:** 2026-10-06 · D156.
 
 > BẮT BUỘC ĐỌC FILE NÀY trước khi sửa Công thức, Định nghĩa, Master List, UI con/cha, coverage hoặc config liên quan MMIM.
 >
@@ -39,6 +39,18 @@ Nếu file này mâu thuẫn với **quyết định Owner mới hơn trong COLL
 - Số Bước con B1→B7: **3, 2, 4, 4, 3, 3, 4 = 23**. Không tạo B8/B9 hoặc bước con chưa có nguồn.
 - Khóa chống trùng: `stepRef + tierRef`; mỗi Nhóm con có `parentGroupId` cùng đối tượng/tầng, đúng Bước gốc. `tierRef` phân biệt MOIT/MOUT tại T0.5.
 - **Độ phủ danh mục: FULL cho phạm vi Owner giao.** Rule/config/bộ trường bắt buộc chưa hoàn thiện vẫn hiển thị thiếu; Chuyên môn Nhóm con giữ OPEN. Đây không phải kết luận các nhóm đã được duyệt để vận hành. Không đổi công thức/khái niệm hoặc canonical UI.
+
+## D156 · Công thức Task và hồ sơ ngoại lệ · 06/10/2026
+
+- **CT-005:** `Bước + Tầng + Nhóm cha ⇒ Quy trình`.
+- **CT-005.1:** `Bước con + Tầng ⇒ Task`, độc lập, đặt ngay sau CT-005. Tạm có cùng đầu vào với CT-004; không coi Task và Nhóm con là một đối tượng.
+- Master Công thức hiện có **8 công thức gốc**; Total đếm tự động. Các cấu trúc con bên trong công thức không tính thêm.
+- Master Nhóm con và MOT/Task có cột **Gộp** (`mergeCaseIds`) và **Tách** (`splitCaseIds`), trước Trạng thái. Dấu “?” theo UI cha: gộp hai hoặc nhiều task thành một; tách một task thành hai hoặc nhiều task. Ô cột chỉ giữ mã hồ sơ riêng; không phải nút thực thi. `—` = chưa ghi nhận hồ sơ, không khẳng định đã rà và không có ngoại lệ.
+- **Phần chuẩn theo công thức; ngoại lệ có hồ sơ riêng.** “99%” là mục tiêu thiết kế Owner nêu, chưa phải tỷ lệ đo.
+- Hợp đồng hồ sơ riêng khi có ca thực tế: ID hồ sơ, loại Gộp/Tách, loại đối tượng, danh sách mã nguồn, danh sách mã kết quả, Bước con/Tầng và phiên bản công thức, lý do, quyết định/người duyệt, trạng thái, bằng chứng, liên kết thay thế/kế thừa. Gộp: ≥2 nguồn → 1 kết quả. Tách: 1 nguồn → ≥2 kết quả. Các bản ghi liên quan cùng tham chiếu một hồ sơ để không tạo các bản giải thích khác nhau.
+- Chưa có ca ngoại lệ thật được cung cấp: không bịa hồ sơ hoặc sửa/xóa bản ghi; không tự gộp/tách. Chưa có backend/form CRUD hồ sơ ngoại lệ. Khi phát sinh ca đầu tiên dùng hợp đồng trên để hoàn thiện chỗ lưu riêng và UI phù hợp trong phạm vi Owner giao.
+- Giữ 115 Nhóm con và 7 Task hiện có; lượt này chưa giao sinh toàn bộ Task từ CT-005.1. Không đổi CT-006/007 hoặc các UI canonical khác.
+
 
 # 1. RANH GIỚI QUYẾT ĐỊNH
 
@@ -127,7 +139,8 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 | CT-002 | **Tầng** | `Field => { MOIT | MOUT } => MOT => MOW` · T3→T7 chỉ bối cảnh, thu gọn |
 | CT-003 | **Nhóm cha** | `Bước + Tầng ⇒ Nhóm cha` |
 | CT-004 | **Nhóm con** | `Bước con + Tầng ⇒ Nhóm con` |
-| CT-005 | **Quy trình** | `Bước + Tầng + Nhóm ⇒ Quy trình` |
+| CT-005 | **Quy trình** | `Bước + Tầng + Nhóm cha ⇒ Quy trình` |
+| CT-005.1 | **Task** | `Bước con + Tầng ⇒ Task` |
 | CT-006 | **UI Con** | `Bước + Tầng + Nhóm + UI cha ⇒ UI Con` |
 | CT-007 | **Config** | `Bước + Tầng + Nhóm + UI cha + Bản ghi + Người làm (NTGV) + Trigger ⇒ Config` |
 
@@ -192,7 +205,7 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 | DISC-012 | `Cùng chuyên môn / ngoài chuyên môn` là phân loại có ý nghĩa thực tế, nhưng chưa đủ evidence để thành khái niệm mới. | TREO: ưu tiên thử như thuộc tính/quan hệ của Nhóm con với T3 trước; chỉ đề xuất concept mới nếu nó có logic, reuse hoặc vòng đời độc lập. |
 | DISC-013 | SUPERSEDED BY DISC-014 · Bản phác thảo Nhóm cha/Nhóm con từng được gán thử UI-030/UI-031 trước khi Owner duyệt. | Không dùng làm canonical. |
 | DISC-014 | Master UI con chỉ chứa UI con đã OK/chốt; bản phác thảo chưa duyệt không được nhập Master UI con. | Khôi phục `child-ui-registry.json` về 29 UI established; `ML-DEF-018` đồng bộ đủ 29. Nhóm cha/Nhóm con tiếp tục dùng màn review nhưng không có UI-xxx canonical cho tới khi Owner duyệt. |
-| DISC-015 | CT-005 test tại `B5 + T0 + NHC-005` không cần sinh quy trình mới ngay: process map đã có `FIELD.KHAI`. | Reuse-before-create. Master MOW cần lưu/tra được Bước + Tầng + Nhóm; schema UI-001 T3/T2/T1 hiện là legacy, chưa đổi canonical khi chưa map 7 dòng hiện có. |
+| DISC-015 | CT-005 test tại `B5 + T0 + NHC-005` không cần sinh quy trình mới ngay: process map đã có `FIELD.KHAI`. | Reuse-before-create. Master MOW cần lưu/tra được Bước + Tầng + Nhóm cha (D156); schema UI-001 T3/T2/T1 hiện là legacy, chưa đổi canonical khi chưa map 7 dòng hiện có. |
 | DISC-016 | CT-006 cùng slice với `UI.CONFIG` resolve được về `UI-018 · Field · khai báo trường`. | Master UI con 5 cột hiện đủ nếu dùng cột `Ngữ cảnh` chứa Bước/Tầng/Nhóm. Không ép Chuyên môn thành cột. Đồng thời phát hiện 3/29 UI established (`UI-008/011/012`) chưa có UI cha. |
 | DISC-017 | CT-007 sinh `Config` nhưng không có Master Config/định nghĩa Config trong bộ 27. `UI.CONFIG` chỉ là **khuôn UI cha**, không phải Config output. | Không tự tạo Master mới. CAT-226 `Sổ áp dụng · bật nơi · lúc` là ứng viên liên quan nhưng chưa chứng minh cùng nghĩa; mở FC-002. |
 | DISC-018 | Master Field cũ có `Form cha` + `Bắt buộc`, mâu thuẫn CT-002 vì Field T0 độc lập và có thể dùng nhiều form. | Đã sửa Master Field thành `Kiểu dữ liệu · Nhóm quản lý · Nguồn dữ liệu · Validation chung · Trạng thái`; required/default theo nơi dùng thuộc liên kết Field↔Form (CAT-208*)/Config. |
@@ -336,7 +349,7 @@ Mỗi ô cuối cùng phải trả lời:
 
 ## P1 · cần kiểm bằng làm thật
 - CT-004 Nhóm con: **D141 test 1.x + T0; D153 đã ghi đủ 115 nhóm cho 1.x–7.x × 5 nhánh T0–T2**; UI vẫn review-only, chưa canonical; còn OPEN việc Phạm vi chuyên môn thuộc công thức, quan hệ T3 hay config/instantiate.
-- CT-005 Quy trình: **ĐÃ TEST D148 B5/T0/NHC-005**; reuse candidate `FIELD.KHAI`. OPEN: map review schema `Bước/Tầng/Nhóm` vào 7 dòng Master MOW legacy trước khi đổi UI-001 canonical.
+- CT-005 Quy trình: **ĐÃ TEST D148 B5/T0/NHC-005**; reuse candidate `FIELD.KHAI`. OPEN: map review schema `Bước/Tầng/Nhóm cha` vào 7 dòng Master MOW legacy trước khi đổi UI-001 canonical.
 - CT-006 UI Con: **ĐÃ TEST D148**; reuse `UI-018`, không tạo UI. OPEN: xác định UI cha cho `UI-008/UI-011/UI-012`.
 - CT-007 Config: **ĐÃ TEST D148 bằng 1 bản ghi demo; D149 đã có Master Config CAT-248***. OPEN chỉ còn semantics/phân loại Config (FC-002) + quyền/điều kiện nếu ca thật chứng minh cần.
 - Trigger: nguồn Master hiện có `CAT-221`; chưa đưa thành định nghĩa trong bộ 27.
