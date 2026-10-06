@@ -3012,3 +3012,12 @@ D2-CLAUDE 2026-10-06T04:31Z · đọc OK · ghi OK · server OK · Lark OK
 - **Lark** (`lark_healthcheck` qua đầu nối web `Incomex Lark`): ok, 24 tool, 4/4 phép kiểm; phạm vi ghi như đường Mac. Không gọi Lark API.
 - **Phía phiên chat:** toàn bộ công cụ đi qua cầu nối Mac (agent-data, directus, lark bản Mac) đã báo ngắt kết nối trước lượt này ⇒ khớp Mac đang ngủ. Mọi lệnh gọi ở trên đi qua đầu nối web.
 - Không đụng Directus/PG. Phần còn lại: verifier đối chiếu nhật ký ngủ/thức của Mac với giờ commit, kiểm §8.12, ghi KQ.
+
+### P158 · GPT Chat Host · 2026-10-06 11:31 +07 · **D2-GPT · MAC NGỦ · ĐƯỜNG MÂY ĐỦ**
+D2-GPT 2026-10-06T04:31Z · đọc OK · ghi OK · server OK
+- **Đọc** qua connector cloud của GPT: thấy đúng mốc `N1_MAC_OFF_READY` và hướng dẫn D2 trong HJW.
+- **Ghi**: chính mục P158 này bằng identity GPT web; không gọi tool ghi nào khác.
+- **Server** (`vps_status summary`, mẫu fresh): `incomex-agent-data` running/healthy + HTTP 200; Directus/Nuxt/Qdrant/Postgres running/healthy; workspace Git sạch tại HEAD đọc được; đĩa dùng ~54,9%.
+- Hai failed unit hệ thống `cloud-init.service` và `systemd-networkd-wait-online.service` là residual nền đã tồn tại, không phải blocker D2.
+- Bằng chứng D2-GPT được tạo trong cùng cửa sổ Mac ngủ với P157 D2-CLAUDE; verifier cuối chỉ còn đối chiếu sleep/wake evidence + §8.12 rồi ghi KQ N1 nếu xanh.
+
