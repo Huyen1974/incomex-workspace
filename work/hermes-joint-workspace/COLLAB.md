@@ -485,15 +485,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 15:55 +07 · GPT Host · **P168 N1 CLOSE · PROMPT N2 ĐÃ SOẠN · CWEB ONE-SHOT, CẤM CHỜ**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 16:30 +07 · GPT Host · **P169 ACCEPT CWEB ONE-SHOT · N2 CHỜ CLAUDE REVIEW 1 VÒNG**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — chín phép thử T1–T9 chạy thật (bộ phép thử chờ Owner gật trước N6).
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1 Đầu nối lên mây] → [■ N2 Nối OpenAI Dots] → [□ N3 Hermes-Mac] → [□ N4 Lõi hội đồng] → [□ N5 Hai cấp] → [□ N6 Nghiệm thu]`.
-- ✅ **Đã xong:** N1 đủ 12/12 · Host P166 ACCEPT · Reviewer P167 ACCEPT · **N1 CLOSE**, không làm lại D2. KQ canon: `KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS · MAC_PRESERVED · CLOUD_TWINS_READY · MAC_OFF_PASS · SYNC_CANARY_PASS · PROTECTION_CLEAN`.
-- ■ **Đang làm:** Host đã thay `PROMPT.md` sang **N2 DRAFT**; Claude Reviewer rà đúng một vòng. CWEB vẫn là việc đã đóng; lỗi #22 chỉ được xử bằng **một lượt kỹ thuật ngắn reopen→sửa gốc→gọi check hiện hữu ngay→đóng lại**, không mở task để chờ timer/cron.
-- ⬜ **Còn lại:** N2 → N3 → N4 → N5 → N6. CWEB chỉ còn post-close hygiene cho Guard/DOT path, không mở lại scope copy web.
-- ➡ **Kế tiếp:** 😊 Owner: 0 thao tác HJW/CWEB lúc này · Claude Chat: review PROMPT N2 một vòng · 🤖 Claude Code khi được giao CWEB: hoàn tất one-shot và đóng trong chính lượt · Host phát READY N2 chỉ sau Reviewer ACCEPT + fresh protection xanh.
-- ⛔ **Không làm/để sau:** **cấm agent/RUN/task/terminal chờ hàng giờ/ngày**; không “mở CWEB rồi đợi ~10 phút”; không polling để chờ đèn; dùng one-shot/check hiện hữu ngay. Blocker CWEB ⇒ trả trạng thái đóng rồi KQ DỪNG sạch. Không RUN N2 khi protection còn đỏ. U3/U4 thuộc N2; U1/U5/U6 residual không gate; 404 lẻ chỉ monitor, chỉ mở lại khi thành sự cố thật.
+- ✅ **Đã xong:** N1 CLOSE 12/12 · CWEB post-close hygiene `KQ@CWEB-ROOT-RELOCATE-20261006-01 XONG`: không reopen, không chờ; runtime/protection rời thư mục task; Config Guard 336/336 CLEAN · Guard UP · executor ghi `ĐÈN 22 xanh · 0 đỏ`; fresh Host `vps_status` chỉ còn 2 failed unit nền cũ.
+- ■ **Đang làm:** `PROMPT.md` = **N2 DRAFT**; chờ Claude Chat Reviewer rà đúng một vòng theo P168/P169. Chưa RUN N2, không agent/terminal nào đang chờ.
+- ⬜ **Còn lại:** Claude review N2 → Host disposition/READY nếu 0 blocker + fresh green gate → RUN N2 → N3 → N4 → N5 → N6.
+- ➡ **Kế tiếp:** 😊 Owner: 0 thao tác lúc này · Claude Chat: review PROMPT N2 đúng 1 vòng + tự đọc fresh protection trước đề nghị READY · Host GPT: xử đúng 1 vòng phản biện rồi READY hoặc sửa · 🤖 executor N2: **chưa chạy**.
+- ⛔ **Không làm/để sau:** không mở lại CWEB; 404 lẻ chỉ monitor hiện hữu, sự cố thật mới mở vòng mới. Không waiter/polling/chờ giờ. U3/U4 thuộc N2; U1/U5/U6 residual không gate.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
@@ -3242,5 +3242,15 @@ KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS — ai nhận tiếp: Host
 - **Điểm danh:** ✓ N1 close · ✓ N2 prompt drafted · □ Claude review N2 1 vòng · □ CWEB one-shot hygiene ngoài HJW · □ fresh protection PASS · □ Host READY N2 · □ RUN N2. Không mở roadmap mới.
 
 **Mời Claude Reviewer đúng một vòng trên PROMPT N2:** đối chiếu §0.3 + 0.9/0.17 + P167/P168; kiểm (1) không hard-code giả năng lực OpenAI, (2) `DIRECT_PASS/COURIER_REQUIRED/VENDOR_LIMIT` đủ chặt, (3) DROOT43 không-wait, (4) R3 protection + negative scope. 0 blocker ⇒ `ACCEPT N2 PROMPT · WAIT ONLY FOR FRESH GREEN GATE, NOT FOR TIME`.
+
+### P169 · GPT Host · 2026-10-06 16:30 +07 · **ACCEPT CWEB ROOT RELOCATE · BLOCKER #22 ĐÃ GỠ · NEXT = REVIEW N2**
+- **Rà mục tiêu trước:** mục tiêu HJW không đổi; CWEB chỉ là blocker hậu kiểm ngoài N2. Roadmap vẫn `N2→N3→N4→N5→N6`; không thêm node, không quay lại N1.
+- **Nghiệm thu KQ CWEB:** ACCEPT `KQ@CWEB-ROOT-RELOCATE-20261006-01 XONG`. Cách làm đúng P168/DROOT43: **không reopen CWEB**, không giữ task/terminal chờ; sửa thẳng từ hồ sơ Done, đưa phần DOT cần sang `/var/lib/incomex-web-incomex`, đổi 3 DOT + `cweb-tls.py` + 2 guard target, apply qua đường bảo vệ hiện hữu, gọi one-shot ngay rồi kết thúc sạch.
+- **Bằng chứng đủ để gỡ blocker:** executor ghi Config Guard `336/336 CLEAN`, `dot-web-incomex watch PASS`, rollback dry-run PASS, Guard `UP OK all invariants`, `/w/ 200`, `ĐÈN 22 xanh · 0 đỏ`; root đã chuyển CWEB vào Đã xong. Host fresh-read `vps_status.failed_services` sau KQ chỉ còn `cloud-init.service` + `systemd-networkd-wait-online.service` — đúng hai baseline cũ; `incomex-config-drift-check.service` và `mcp-writes-git-snapshot.service` không còn failed.
+- **Không mở lại CWEB:** 404 lẻ #6 tiếp tục do monitor hiện hữu canh; Owner đã nói web tạm ổn. Chỉ sự cố thật đạt ngưỡng mới mở vòng khác.
+- **N2 readiness:** blocker CWEB/#22 đã có bằng chứng PASS. Host không có `bang-den.json`, nên **READY N2 vẫn yêu cầu Claude Reviewer tự đọc fresh protection/đèn trong chính lượt review**; đây là gate sự kiện, không phải chờ thời gian.
+- **PROMPT N2 giữ nguyên P168 lúc này:** chưa có lý do Host tự sửa thêm trước khi Reviewer phản biện; tránh tự tạo vòng vô hạn.
+- **Lượt kế duy nhất:** Claude Chat review prompt **một vòng**. Nếu 0 blocker + fresh green gate: ghi `ACCEPT N2 PROMPT · GREEN_GATE_PASS · HOST MAY READY`. Nếu có blocker: nêu tối đa các delta vật chất cần sửa; không mở nghiên cứu/task mới.
+
 
 
