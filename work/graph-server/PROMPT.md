@@ -245,8 +245,9 @@ edge → JEV receipt → source document/order_xxx → source text hash.
 
 ## 10. 8 NEGATIVE SIBLING TESTS
 
-For each pair below, use the selected description of occupation A and ask bounded yes/no:
+For each pair below, use **the first selected order by ascending `Mã đơn hàng` within occupation A** and ask bounded yes/no:
 “Đoạn này có thuộc nghề B không?”
+Cấm chọn giữa hai đoạn dựa trên nội dung/model output.
 
 Expected = NO for all:
 1. Sơn kim loại × Sơn xây dựng
