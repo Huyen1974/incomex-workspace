@@ -34,7 +34,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn lời Owner 06/10/2026 1
 - 🏁 **Xong khi:** Bảng điều khiển + mục tiêu tự xuống trang; đổi tiêu đề không làm mất dữ liệu; lỗi parse có đèn; “ai vừa làm/đang làm” giữ đúng; có test + rollback.
 - 📍 **Tiến độ:** `✅ Mở lại + mục tiêu` · `✅ Hội đồng rà đề bài` · `✅ READY` · `■ RUN ISSUED — Claude Code mới` · `⬜ Nghiệm thu + đóng`.
 - ✅ **Đã xong:** P36 draft · P38 Reviewer ACCEPT · P39 Host ACCEPT + `READY@376722de82c366009a08693313d59cd0b42e9716`.
-- ■ **Đang làm:** **RUN@HVU-OWNERVIEW02-20261006-01 · ISSUED**. Executor = **Claude Code CLI phiên mới**. Graph R5 được phép chạy song song vì scope hiện hành không chạm `scripts/hvu-b2`, `mcpw-protection-guard` hay baseline Config Guard; dù vậy executor phải chạy P4 fresh-check và tự DỪNG nếu thực tế khác.
+- ■ **Đang làm:** **RUN@HVU-OWNERVIEW02-20261006-01 · ISSUED**. Executor = **Claude Code CLI phiên mới**. Graph R5 đã KQ XONG; không còn gate từ Graph. Executor vẫn phải chạy P4 fresh-check và tự DỪNG nếu xuất hiện shared conflict mới trước mutation.
 - ⬜ **Còn lại:** Claude Code chạy một lượt đến KQ XONG/DỪNG → Host nghiệm thu → Reviewer xác nhận nếu cần → đóng lại Done.
 - ➡ **Kế tiếp:** 😊 Owner: mở **một Claude Code mới** và dán lệnh RUN chuẩn · 🤖 Claude Code: đọc READY/PROMPT, fresh-check P1–P5 rồi chạy tới KQ, không chờ.
 - ⛔ **Không làm:** không dùng terminal Graph cho HVU · không dùng terminal CWEB cũ · không mở HJW N2 lúc này · không waiter/polling.
