@@ -64,6 +64,25 @@ Chuỗi:
 - Chi tiết: UI cha, người thực hiện, kích hoạt khi, phiên bản, tham số, bằng chứng áp dụng, nguồn/ghi chú. Thông tin chưa biết hiển thị chưa khai báo/chưa phân công, không tự bịa.
 - `CFG-TEST-001` giữ toàn bộ trường gốc và trạng thái nháp/test. Chưa nối DB hoặc có UI CRUD. FC-002 vẫn OPEN; chưa quyết nghĩa canonical của Config hay quan hệ định nghĩa/lần áp dụng.
 
+## D153 · Danh mục Nhóm cha / Nhóm con T0–T2 · 06/10/2026
+
+Đã ghi vào hai Master hiện hữu theo chỉ đạo Owner: **35 Nhóm cha** (B1–B7 × 5 nhánh) và **115 Nhóm con** (23 Bước con × 5 nhánh). Nguồn Bước/Bước con: CT-001 trong `ML-DEF-021`; đối tượng/tầng: CT-002. MOIT và MOUT cùng T0.5 nhưng là hai nhánh riêng.
+
+| Tầng / đối tượng | Nhóm cha | Nhóm con |
+|---|---:|---:|
+| T0 · Field | 7 | 23 |
+| T0.5 · MOIT | 7 | 23 |
+| T0.5 · MOUT | 7 | 23 |
+| T1 · MOT | 7 | 23 |
+| T2 · MOW | 7 | 23 |
+| Tổng | 35 | 115 |
+
+- [Master Nhóm cha](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=1): `NHC-001…035`; thêm 28, giữ nguyên 7 dòng cũ.
+- [Master Nhóm con](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=2): `NHCN-001…115`; thêm 112, giữ nguyên 3 dòng cũ.
+- Số Bước con B1→B7: **3, 2, 4, 4, 3, 3, 4 = 23**. Không tạo B8/B9 hoặc bước con chưa có nguồn.
+- Khóa chống trùng: `stepRef + tierRef`; mỗi Nhóm con có `parentGroupId` cùng đối tượng/tầng, đúng Bước gốc. `tierRef` phân biệt MOIT/MOUT tại T0.5.
+- **Độ phủ danh mục: FULL cho phạm vi Owner giao.** Rule/config/bộ trường bắt buộc chưa hoàn thiện vẫn hiển thị thiếu; Chuyên môn Nhóm con giữ OPEN. Đây không phải kết luận các nhóm đã được duyệt để vận hành. Không đổi công thức/khái niệm hoặc canonical UI.
+
 ## 5. VIỆC ĐANG CHỜ — KHÔNG ĐƯỢC QUÊN
 
 **PENDING:** giao Codex chạy audit Change Propagation đầu tiên.

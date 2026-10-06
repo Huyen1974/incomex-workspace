@@ -4,7 +4,7 @@
 **Project:** `work/mow-mot-moit-mout`  
 **Owner-gated concept:** Công thức và nghĩa khái niệm.  
 **AI-owned implementation:** schema Master, UI chi tiết, coverage, test, bằng chứng, reuse mapping, kỹ thuật triển khai.  
-**Cập nhật gần nhất:** 2026-10-06 · D152.
+**Cập nhật gần nhất:** 2026-10-06 · D153.
 
 > BẮT BUỘC ĐỌC FILE NÀY trước khi sửa Công thức, Định nghĩa, Master List, UI con/cha, coverage hoặc config liên quan MMIM.
 >
@@ -20,6 +20,25 @@ Nếu file này mâu thuẫn với **quyết định Owner mới hơn trong COLL
 - Mặt danh sách: **STT · ID · Tên · Loại config · Mục đích · Áp dụng cho · Phạm vi sử dụng · Người phụ trách · Trạng thái**. “Loại config” không gộp Nhóm cha/con; người phụ trách quản lý khác người thực hiện theo NTGV.
 - Chi tiết: UI cha, người thực hiện, kích hoạt khi, phiên bản, tham số, bằng chứng áp dụng, nguồn/ghi chú. Thông tin chưa biết hiển thị chưa khai báo/chưa phân công, không tự bịa.
 - `CFG-TEST-001` giữ toàn bộ trường gốc và trạng thái nháp/test. Chưa nối DB hoặc có UI CRUD. FC-002 vẫn OPEN; chưa quyết nghĩa canonical của Config hay quan hệ định nghĩa/lần áp dụng.
+
+## D153 · Danh mục Nhóm cha / Nhóm con T0–T2 · 06/10/2026
+
+Đã ghi vào hai Master hiện hữu theo chỉ đạo Owner: **35 Nhóm cha** (B1–B7 × 5 nhánh) và **115 Nhóm con** (23 Bước con × 5 nhánh). Nguồn Bước/Bước con: CT-001 trong `ML-DEF-021`; đối tượng/tầng: CT-002. MOIT và MOUT cùng T0.5 nhưng là hai nhánh riêng.
+
+| Tầng / đối tượng | Nhóm cha | Nhóm con |
+|---|---:|---:|
+| T0 · Field | 7 | 23 |
+| T0.5 · MOIT | 7 | 23 |
+| T0.5 · MOUT | 7 | 23 |
+| T1 · MOT | 7 | 23 |
+| T2 · MOW | 7 | 23 |
+| Tổng | 35 | 115 |
+
+- [Master Nhóm cha](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=1): `NHC-001…035`; thêm 28, giữ nguyên 7 dòng cũ.
+- [Master Nhóm con](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=2): `NHCN-001…115`; thêm 112, giữ nguyên 3 dòng cũ.
+- Số Bước con B1→B7: **3, 2, 4, 4, 3, 3, 4 = 23**. Không tạo B8/B9 hoặc bước con chưa có nguồn.
+- Khóa chống trùng: `stepRef + tierRef`; mỗi Nhóm con có `parentGroupId` cùng đối tượng/tầng, đúng Bước gốc. `tierRef` phân biệt MOIT/MOUT tại T0.5.
+- **Độ phủ danh mục: FULL cho phạm vi Owner giao.** Rule/config/bộ trường bắt buộc chưa hoàn thiện vẫn hiển thị thiếu; Chuyên môn Nhóm con giữ OPEN. Đây không phải kết luận các nhóm đã được duyệt để vận hành. Không đổi công thức/khái niệm hoặc canonical UI.
 
 # 1. RANH GIỚI QUYẾT ĐỊNH
 
@@ -312,11 +331,11 @@ Mỗi ô cuối cùng phải trả lời:
 ## P0 · cần làm để chứng minh mô hình
 - Tạo Coverage Matrix cho `Bước/Bước con × Tầng`.
 - Dùng status OPEN/N-A/REUSE/HAVE/NEED_CREATE/VERIFIED.
-- Quét T0 trước, không mở toàn hệ thống.
-- Rà D139 với Owner; nếu chốt mới nhân sang tầng khác.
+- D153 Owner đã giao mở danh mục Nhóm đến T2: đủ 35 cha/115 con. Coverage danh mục hoàn tất; coverage UI/vận hành vẫn phải kiểm theo ca thực tế.
+- Giữ nội dung chi tiết D139 đã có; nhóm mới chỉ điền nguồn/quan hệ chắc chắn, chưa tự chốt rule/config hay Chuyên môn.
 
 ## P1 · cần kiểm bằng làm thật
-- CT-004 Nhóm con: **ĐÃ TEST D141 tại 1.x + T0**; UI vẫn review-only, chưa canonical; còn OPEN việc Phạm vi chuyên môn thuộc công thức, quan hệ T3 hay config/instantiate.
+- CT-004 Nhóm con: **D141 test 1.x + T0; D153 đã ghi đủ 115 nhóm cho 1.x–7.x × 5 nhánh T0–T2**; UI vẫn review-only, chưa canonical; còn OPEN việc Phạm vi chuyên môn thuộc công thức, quan hệ T3 hay config/instantiate.
 - CT-005 Quy trình: **ĐÃ TEST D148 B5/T0/NHC-005**; reuse candidate `FIELD.KHAI`. OPEN: map review schema `Bước/Tầng/Nhóm` vào 7 dòng Master MOW legacy trước khi đổi UI-001 canonical.
 - CT-006 UI Con: **ĐÃ TEST D148**; reuse `UI-018`, không tạo UI. OPEN: xác định UI cha cho `UI-008/UI-011/UI-012`.
 - CT-007 Config: **ĐÃ TEST D148 bằng 1 bản ghi demo; D149 đã có Master Config CAT-248***. OPEN chỉ còn semantics/phân loại Config (FC-002) + quyền/điều kiện nếu ca thật chứng minh cần.

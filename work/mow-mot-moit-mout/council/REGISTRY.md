@@ -115,12 +115,12 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-GROUPS-20261006
 - Role: OWNER-DIRECTED IMPLEMENTATION · D153.
 - Write_Zone: ML-DEF-001/002 và mapping/sourceHint/cache; docs MMIM.
-- Active_RUN: D153 chỉ đạo trực tiếp Owner.
-- Reserved_Targets: definition-master-data, definition-master-registry, ui-child-content, ui-child-from-parent, definition-master shell/index; review metadata nếu ảnh hưởng.
-- NOW: STARTED · ghi đủ 35 cha/115 con từ nguồn CT-001/002.
-- NEXT: kiểm coverage/dedupe/quan hệ + UI thật, ghi KQ.
+- Active_RUN: none · D153 XONG.
+- Reserved_Targets: none.
+- NOW: PASS · đủ 35 cha/115 con; bảo toàn 10 dòng cũ; coverage/quan hệ/UI đã kiểm.
+- NEXT: Owner xem hai Master; hoàn thiện chuẩn/config từng nhóm.
 - BLOCKED_BY: none; không tự chốt Chuyên môn.
-- State: ACTIVE.
+- State: IDLE.
 - LAST_SYNC: 2026-10-06 · D153.
 
 ## Proposal contract
