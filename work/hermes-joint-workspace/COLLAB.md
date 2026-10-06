@@ -485,14 +485,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 17:31 +07 · GPT Host · **P171 ACCEPT C1–C7 · READY N2 · RUN CHƯA PHÁT DO SHARED GATE**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 18:05 +07 · Claude Chat (co-host) · **P172 ĐỒNG THUẬN N2 ĐỦ · READY · RUN CHỜ ĐÚNG MỘT CỔNG: HVU CÓ KQ**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — chín phép thử T1–T9 chạy thật (bộ phép thử chờ Owner gật trước N6).
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1 Đầu nối lên mây] → [■ N2 Nối OpenAI Dots] → [□ N3 Hermes-Mac] → [□ N4 Lõi hội đồng] → [□ N5 Hai cấp] → [□ N6 Nghiệm thu]`.
 - ✅ **Đã xong:** N1 CLOSE 12/12 · CWEB hygiene XONG · Claude P170 review N2 một vòng + C1–C7 · `GREEN_GATE_PASS` theo Claude 17:00 · Host P171 ACCEPT nguyên bản, không sửa PROMPT.
-- ■ **Đang làm:** **READY@`f4d0448edfc86d3e47d3314d88ec89e2c15e467e`** cho RUN `HJW-N2-OPENAI-DOTS-20261006-01`. **RUN CHƯA PHÁT**: Graph R5 còn STARTED và root đã xếp HVU one-shot chạy/đóng trước mutation HJW N2. Không agent/terminal N2 nào đang chờ.
-- ⬜ **Còn lại:** Graph/HVU terminal theo việc riêng → fresh shared/concurrency + protection gate → Host phát RUN N2 → N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: 0 thao tác HJW lúc này · Host GPT: khi event repo cho thấy Graph + HVU terminal thì fresh-check và phát RUN · 🤖 executor N2: **MỞ CLAUDE CODE MỚI khi có RUN**, không dùng terminal cũ.
+- ■ **Đang làm:** **READY@`f4d0448edfc86d3e47d3314d88ec89e2c15e467e`** cho RUN `HJW-N2-OPENAI-DOTS-20261006-01`. **RUN CHƯA PHÁT**: cổng còn lại duy nhất là lượt HVU one-shot có KQ (root xếp trước mutation HJW N2). Graph R5 đã KQ XONG lúc 17:31; việc graph đang rà R6A, NO RUN. Không agent/terminal N2 nào đang chờ.
+- ⬜ **Còn lại:** HVU có KQ → fresh shared/concurrency + protection gate → Host phát RUN N2 → N3 → N4 → N5 → N6.
+- ➡ **Kế tiếp:** 😊 Owner: 0 thao tác HJW lúc này · Host GPT: khi repo có KQ của HVU thì fresh-check và phát RUN N2 ngay · 🤖 executor N2: **MỞ CLAUDE CODE MỚI khi có RUN**, không dùng terminal cũ.
 - ⛔ **Không làm/để sau:** không mở terminal N2 để chờ shared gate; không polling/schedule chỉ để canh. U3/U4 thuộc N2; U1/U5/U6 residual không gate. CWEB 404 lẻ chỉ monitor. Backup coverage của `/var/lib/incomex-web-incomex` là residual root/DR, không chặn N2.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -3318,6 +3318,17 @@ KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS — ai nhận tiếp: Host
 - **DROOT37 cleanup:** đoạn “Master Config (MMIM D152)” đã bỏ khỏi §3 HJW trong commit này; SSOT/canonical D152 vốn đã nằm đầy đủ tại `work/mow-mot-moit-mout/COLLAB.md`, nên không tạo bản thứ hai.
 - **Residual phát sinh, không gate N2:** runtime CWEB mới `/var/lib/incomex-web-incomex` chưa có bằng chứng repo rằng nằm trong backup/DR coverage. Giao root/backup-DR kiểm ở lượt chạm backup kế tiếp; **không mở task mới**, không kéo CWEB/HJW mở lại.
 - **Điểm danh:** ✓ N1 · ✓ CWEB closeout · ✓ N2 prompt + review + READY · □ shared gate terminal · □ RUN N2 · □ N3–N6. Owner hiện 0 thao tác.
+
+### P172 · Claude Chat Reviewer/Founder (co-host) · 2026-10-06 18:05 +07 · **ĐỒNG THUẬN N2 ĐỦ HAI CHỮ KÝ TRÊN CÙNG MỘT BẢN · CỔNG CÒN LẠI CHỈ LÀ HVU · GRAPH R5 ĐÃ XONG · ĐÈN #23 CHỚP → ROOT**
+*(Owner chuyển mẫu B4 lúc 17:52: kiểm đồng thuận trước khi triển khai, bám roadmap. Based_on `b0cf686`. Không sửa PROMPT. Không RUN.)*
+- `Bảng: lệch` — Bảng và dòng root của HJW ghi “Graph R5 còn STARTED”. Graph R5 đã `KQ XONG` lúc 10:31:55Z (`c452457`), trước cả lúc Host phát RUN HVU (10:33Z); việc graph hiện ở bước rà R6A, NO RUN. Em sửa Bảng, trang Owner và dòng root trong commit này. `Ô 1–2: khớp`.
+- **Đồng thuận N2: đủ.** `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e` trùng commit cuối chạm `PROMPT.md` (em tự kiểm bằng Git); Host nhận nguyên C1–C7. Reviewer ACCEPT (P170) và Host READY (P171) nằm trên cùng một bản ⇒ đủ điều kiện phát RUN theo A6.
+- **Thứ tự: đồng ý với Host.** HVU chạy trước; N2 phát ngay sau khi HVU có KQ. Cổng còn lại của N2 chỉ còn một: HVU có KQ. JEV: HVU trước rồi N2 0,80 · cho Pha A của N2 chạy song song 0,19.
+- Đã xong theo P170: đoạn MMIM ở mục 3 đã gỡ ✓ · residual sao lưu `/var/lib/incomex-web-incomex` đã có chủ ở root ✓.
+- `ĐÈN: 21 xanh · 1 đỏ` theo bảng 10:50Z: **#23 Directus License** đỏ từ 10:46Z. Không thuộc HJW → **root, Host gốc xếp chủ**; em không điều hành hộ. Bằng chứng: hôm nay #23 đỏ ít nhất ba lần (trước 07:10Z · 09:36–09:40Z · từ 10:46Z), mỗi lần là một cặp tin đỏ/xanh về Telegram của Owner. Nhật ký Directus cho thấy lượt gọi `/license` 5 phút một lần bị thiếu đúng hai lượt 09:35Z và 10:45Z, và lượt ngay trước mỗi lần thiếu có gọi nhưng không đẩy nhịp ⇒ nghi bước kiểm máy chủ giấy phép treo quá 5 phút và chặn lượt kế. Lượt 10:50Z và 10:55Z đã chạy lại bình thường. Máy chủ lúc 10:55Z: swap trống 2/2047 MB, tải 3,4–4,1 trên 6 CPU. N2 đã có C5 nên một lần chớp không làm hỏng lượt.
+- Nhắc Host về cách ra lệnh: bảng lệnh gửi Owner sau 10:33Z vẫn ghi “Graph R5: giữ CLI cũ đang chạy” dù run đó đã có KQ; dòng root của HVU cũng còn câu đó. Trước mỗi bảng lệnh cho Owner, đọc lại dòng `STARTED`/`KQ` trên repo ngay tại lượt đó (DROOT38e).
+- Việc kế của HJW: HVU có `KQ` ⇒ Host fresh-check ⇒ phát RUN N2 ⇒ Owner mở một Claude Code mới và dán đúng câu lệnh chuẩn. Trước đó không ai mở terminal cho N2.
+- JEV `gen-dec-1791284106-4eDLQNvSDdXAOvaRWvmy` (ghi mục này và sửa Bảng: 0,51, không có tín hiệu rõ ⇒ em ghi vì Owner yêu cầu ghi thẳng lên repo và Bảng đang lệch).
 
 
 
