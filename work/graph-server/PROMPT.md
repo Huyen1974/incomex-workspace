@@ -1,192 +1,354 @@
-# PROMPT — GS-R6A-CODE-TRUST-20261006-04
+# PROMPT — GS-R6B-FREETEXT-OCCUPATION-20261006-05
 
 ## 0. LỆNH / PHẠM VI
 
-RUN_ID: `GS-R6A-CODE-TRUST-20261006-04`
+RUN_ID: `GS-R6B-FREETEXT-OCCUPATION-20261006-05`
 Executor_Surface: Claude Code CLI
 Repo: `Huyen1974/incomex-workspace` · branch `main`
 Task: `work/graph-server`
 Repo Write_Path: Incomex workspace gateway `workspace_*` · root `workspace`
-Runtime Write_Path: terminal/SSH hiện hữu tới VPS1.
+Runtime Write_Path: terminal/SSH hiện hữu tới VPS1 + đường đọc Lark hiện hữu.
 
-Owner đã ủy quyền trial nhỏ cho GPT + Claude; chỉ production/quy mô thật mới xin phép.
+Owner D14: GPT + Claude tự quyết trial nhỏ; chỉ production/quy mô thật mới xin Owner.
 
-ĐÂY LÀ R6A RẤT HẸP:
-- chỉ kiểm độ tin của file-level import/dependency trên đúng corpus R4;
-- chỉ bật Neo4j bằng volume R4 đang giữ;
-- 0 Cognee, 0 PGVector, 0 OpenAI, 0 JEV, 0 Lark, 0 KB;
-- không trích xuất lại code;
-- không sản phẩm dự phòng;
-- không custom parser;
-- không tạo graph engine hay pipeline mới.
+MỤC TIÊU DUY NHẤT:
+- đo khả năng đọc **văn bản thật do nhân viên tự gõ** và suy ra nghề trong một catalog hữu hạn;
+- oracle nằm ở **một cột nhãn riêng**, đóng băng trước model call;
+- kiểm cả in-catalog, holdout/NEW, negative sibling, canonical graph và provenance.
 
-§0.3: đọc/đối chiếu toàn bộ trước mutation.
+Đây KHÔNG phải bài chăm sóc khách hàng.
+Không bulk KB.
+Không mở Base/table khác.
+Không production mutation.
 
-## 1. READ-GATE
+§0.3: đọc/đối chiếu trước mutation.
+
+## 1. READ-GATE / STARTED
 
 Đọc:
 1. `AGENTS.md`
-2. BẢNG + §0 + D15 + P29–P32 trong `work/graph-server/COLLAB.md`
+2. BẢNG + §0 + D14/D15 + P33–P36 của `work/graph-server/COLLAB.md`
 3. `work/graph-server/PROMPT.md`
 4. `work/graph-server/view.html` roadmap hiện hành
 5. root `COLLAB.md` dòng Graph.
 
-Xác minh READY full SHA khớp commit cuối chạm PROMPT; không HOLD/STOP/READY mới; không STARTED cùng RUN chưa có KQ.
+Xác minh READY full SHA = commit cuối chạm PROMPT; không HOLD/STOP/READY mới; không STARTED cùng RUN chưa có KQ.
 
 PASS → ghi:
-`STARTED@GS-R6A-CODE-TRUST-20261006-04 <UTC> · executor=Claude Code CLI`
+`STARTED@GS-R6B-FREETEXT-OCCUPATION-20261006-05 <UTC> · executor=Claude Code CLI`
 
 FAIL → 0 runtime mutation, KQ DỪNG.
 
 Trước first runtime mutation: DROOT30 freshness gate.
 
-## 2. NGUỒN / ORACLE KHÓA
+## 2. NGUỒN DUY NHẤT / SCHEMA FREEZE
 
-R4 evidence:
-`/opt/incomex/work/graph-server/evidence/GS-R4-CODE-FIRST-20261006-02/`
+Base: `88 - Phái cử`
+Table: `Đơn hàng - Chính thức` · `tblh7nrQpK8TqIs2`
 
-R4 runtime:
-`/opt/incomex/work/graph-server/runtime/run1/`
+Input text DUY NHẤT:
+- `Tên và nội dung công việc cụ thể:` · `fldJ3K1OdR`
 
-Dùng đúng `MANIFEST-R4.md`, `compose.r4.yaml`, retained Neo4j R4 data volume và đúng R4 source snapshot:
-`/opt/incomex/dot/iu-cutter-v0.6/cutter_agent/orchestrator/` (+ `phases/` đã có trong R4 sample).
+Oracle label DUY NHẤT:
+- `Nghành nghề xin visa:` · `fldHUYGtLA`
 
-Oracle = Python stdlib `ast` deterministic trên đúng source snapshot/hash R4. Không AI/reviewer làm oracle.
+Selection-only fields:
+- `Mã đơn hàng` — đọc runtime schema để lấy exact field id;
+- `Loại Visa` — đọc runtime schema để lấy exact field id.
 
-PRE:
-- hash/source path khớp R4 evidence;
-- production containers/health/ports + Qdrant/PG status read-only;
-- nếu R4 volume/source drift ⇒ DỪNG `R4_STATE_MISSING_OR_DRIFTED`.
+CẤM model/corpus nhận:
+- `TÊN ĐƠN HÀNG`;
+- oracle label;
+- Loại Visa;
+- mọi field khác.
 
-## 3. CHỈ BẬT NEO4J R4
+Ghi schema field ids/types vào evidence trước khi đọc corpus.
 
-Dùng đúng Neo4j Community 5.26.31 + retained R4 data volume/config/auth.
-Chỉ start Neo4j từ R4 compose/manifest.
-Không Cognee/pgvector.
-Không pull image.
-Không public port mới.
-Dùng docker exec/cypher-shell hoặc loopback port R4 hiện hữu.
-0 outbound network calls.
+## 3. ORACLE NORMALIZATION — KHÓA TRƯỚC KHI ĐỌC KẾT QUẢ MODEL
 
-## 4. MỘT GRAPH DATA QUERY DUY NHẤT
+Normalization:
+- Unicode NFC;
+- trim/collapse whitespace;
+- case-insensitive cho matching alias;
+- ngoài các alias dưới đây, nhãn nghề giữ nguyên nội dung.
 
-Trước query, đọc evidence/export R4 đã có để xác nhận label/property shape của dependency node; không chạy chuỗi query dò schema.
+Alias map bị khóa theo P35:
+1. `Lắp cốp pha panen` ←
+   - `Lắp cốp pha panen`
+   - `Lắp đặt cốt pha panen`
+   - `Lắp cốt pha panen xây dựng`
+2. `Chế biến thuỷ sản không gia nhiệt` ←
+   - `Chế biến thuỷ sản không gia nhiệt`
+   - `CHẾ BIẾN THỰC PHẨM THỦY SẢN KHÔNG GIA NHIỆT`
+3. `Sơn kim loại` ←
+   - `Sơn kim loại`
+   - `Sơn (Sơn kim loại)`
+4. `Gia công kim loại tấm` ←
+   - `Gia công tấm kim loại`
+   - `Gia công kim loại tấm`
+5. `Dựng giàn giáo` ←
+   - `Dựng giàn giáo`
+   - `Giàn giáo xây dựng`
+6. `Vệ sinh toà nhà` ← chính nó
+7. `Cấp liệu bê tông bằng áp lực` ← chính nó
+8. `Gia công cơ khí` ←
+   - `Gia công cơ khí`
+   - `Gia công cơ khí (Tiện thông thường)`
 
-Sau đó chạy **một Cypher data query duy nhất** lấy toàn bộ dependency nodes cần cho bài test, tối thiểu:
-- source file path;
-- dependency target text/name;
-- source line;
-- provenance/node id nếu có.
+Không gộp ngoài map này.
+Đặc biệt KHÔNG gộp `Làm sắt` với `GIA CÔNG CỐT THÉP`.
 
-Không query lần hai để sửa đáp án.
-Hai câu hỏi mẫu ở §6 phải trả lời từ cùng result set này.
+Loại khỏi catalog/sample:
+- mọi record `Loại Visa = Tokutei`;
+- oracle label `CK-Cơ khí,điện tử và kim loại`.
 
-## 5. NORMALIZE / ORACLE COMPARE
+## 4. SAMPLE — ĐÚNG 16 ĐOẠN, DETERMINISTIC
 
-Từ result set:
-- lấy relative imports trong package;
-- normalize relative module → target file path theo Python package semantics;
-- không LLM;
-- không source parser mới.
+### 4.1 Approved vA: 12 đoạn
+6 nghề × 2 đơn:
+- Lắp cốp pha panen
+- Chế biến thuỷ sản không gia nhiệt
+- Sơn kim loại
+- Gia công kim loại tấm
+- Dựng giàn giáo
+- Vệ sinh toà nhà
 
-Oracle:
-- Python stdlib `ast` như R4;
-- pair key = `(source_file,target_file/module)`;
-- duplicate statements cùng pair không thành extra pair;
-- line metadata graph phải là line hợp lệ của pair.
+### 4.2 Holdout: 4 đoạn
+2 nghề × 2 đơn:
+- Cấp liệu bê tông bằng áp lực
+- Gia công cơ khí
 
-Expected P31:
-- 89 relative import statements;
-- **88 unique pairs**.
+### 4.3 Cách chọn
+Trong mỗi nghề:
+- sort `Mã đơn hàng` tăng dần;
+- chọn record đầu tiên có input text >= 40 ký tự;
+- record thứ hai tiếp theo có text >=40 và text không giống hệt record thứ nhất;
+- nếu record bị leak-scan loại, lấy record kế tiếp cùng nghề.
 
-Nếu AST snapshot hiện tại không ra 88 unique pairs ⇒ DỪNG `ORACLE_DRIFT`; không đổi expected.
+Không chọn theo nội dung/ngữ nghĩa.
+Không cherry-pick theo model output.
 
-PASS pair-set:
-- graph = **88/88** oracle pairs;
-- 0 extra.
+Không đủ **đúng 16** đoạn ⇒ DỪNG `INSUFFICIENT_FREETEXT_SAMPLE`.
+Không tự đổi nghề/nguồn.
 
-## 6. HAI CÂU HỎI TỪ CÙNG RESULT SET
+## 5. PRIVACY / LEAK GATE
 
-Q1 direct: “Những file nào import `enums.py`?”
-- exact source-file set từ 88-pair result;
-- so exact AST oracle set.
+Tài liệu đưa ra provider:
+`order_xxx + nguyên văn fldJ3K1OdR`.
 
-Q2 transitive: “`runner.py` phụ thuộc gián tiếp những file nào?”
-- dựng transitive closure deterministic **trong bộ nhớ** từ cùng 88 direct pairs;
-- cycle-safe, unique;
-- exact equality với closure từ AST oracle.
+Không sửa/paraphrase/cắt nội dung đoạn.
 
-Không query graph lần hai.
-Không ghi edge mới vào Neo4j.
+Mapping record_id→order_xxx local mode 600; không Git/provider/evidence public.
 
-## 7. ACCEPTANCE
+Trước provider:
+- phone/email/document-number scan;
+- existing local privacy/DLP scan cho PERSON nếu có;
+- tên nghiệp đoàn/xí nghiệp: tạo dictionary local từ Base và scan exact/normalized;
+- nếu đoạn có tên người hoặc nghi PII/proper-name nhạy cảm mà scanner không chắc ⇒ loại đoạn, lấy record kế tiếp; không sửa chữ.
 
-XONG chỉ khi:
-1. Neo4j R4 đọc nguyên vẹn.
-2. 88/88 unique file-import pairs, 0 extra.
-3. file+line provenance hợp lệ.
-4. Q1 exact.
-5. Q2 exact.
-6. production PRE=POST.
-7. 0 external call.
-8. chỉ start/stop Neo4j trial; R4 volume content không bị mutate bởi test.
+Leak gate phải 0.
+Không đủ 16 sau leak gate ⇒ DỪNG.
 
-Nếu PASS, KQ đề nghị Host nâng:
-`CODE-EDGE-TRUST v0.3: file-level imports represented by dependency nodes = EXACT_POSITIVE`.
+## 6. FREEZE — TRƯỚC MODEL CALL ĐẦU TIÊN
 
-Ghi rõ: relation tồn tại ở dependency-node representation; không bắt buộc có file→file edge để được coi là có dữ liệu.
-Materialize `GS_CODE_IMPORTS` nếu production cần hiệu năng là quyết định R7, không làm ở R6A.
+Freeze + SHA256:
+- runtime schema;
+- alias normalization map;
+- full normalized occupation catalog;
+- sample record ids + order pseudonyms;
+- oracle labels;
+- catalog vA;
+- holdout list;
+- 8 negative sibling tests;
+- raw input text hashes.
 
-Nếu fail:
-- KQ DỪNG + exact mismatch;
-- không fallback product;
-- không parser/filter;
-- không đổi version.
+Freeze timestamp phải trước external/model call đầu tiên.
+Sau freeze cấm đổi sample/oracle/catalog để cứu metric.
 
-## 8. KHÔNG LÀM TRONG R6A
+## 7. CATALOG vA / vB
 
-Không free-text business.
-Không Nuxt.
-Không shell DOT.
-Không SQL/PG relationship build.
-Không KB curation.
+Relation type cố định:
+`ORDER_HAS_OCCUPATION`.
 
-Roadmap sau R6A:
-- R6B FREE-TEXT ORACLE;
-- R6C NUXT ORACLE;
-- R6D DOT/SQL EXPLICIT-LINK COVERAGE;
-- R6E KB CURATION/SOURCE FREEZE.
+Đây là test **catalog VALUE**, không phải relation-type discovery (R5 đã test relation type).
 
-## 9. CLEANUP
+Catalog vA:
+- toàn bộ normalized occupation labels hợp lệ còn lại trong 84 labels sau exclusions;
+- TRỪ hai holdout occupations:
+  - Cấp liệu bê tông bằng áp lực
+  - Gia công cơ khí
+- thêm đúng một choice:
+  `NOT_IN_CATALOG`.
 
-Stop/remove temporary R6A Neo4j container/network nếu tạo riêng.
-Giữ nguyên R4 volume/evidence.
-Không xóa R4/R5 data.
-Verify production == PRE.
+Expected khoảng 27 nghề + NOT_IN_CATALOG; ghi số thực sau freeze.
 
-## 10. KQ / REPO
+JEV:
+- bounded `choice`;
+- SHADOW;
+- receipt: result id/model/probabilities/confidence/choice/order_id;
+- không threshold 75/85;
+- không business action.
+
+Catalog vB:
+- thêm đúng hai holdout occupations;
+- reclassify **same frozen evidence**, không re-ingest/re-extract text.
+
+## 8. STACK — REUSE R5, KHÔNG THÊM THÀNH PHẦN
+
+Fresh R6B trial state, không trộn R5/R4 corpus.
+
+Exact baseline:
+- Neo4j Community 5.26.31 + APOC 5.26.31
+- Cognee 1.6.1 pinned
+- PGVector trial `pgvector/pgvector:0.8.6-pg18-trixie`
+- embedding `openai/text-embedding-3-small` 1536
+- LLM `openai/gpt-5.6-luna`
+- JEV existing gateway; record actual returned model
+- `HASH_API_KEY=true`
+- `BIND_ADDRESS=127.0.0.1`; no Cognee host port
+- telemetry off
+- Qdrant production untouched
+- PostgreSQL production untouched.
+
+Egress/inference/isolation/wipe = cùng pattern R5.
+R6B external cost cap <= **1 USD**; overall trial cap 5 USD.
+
+## 9. INGEST / CLASSIFY / CANONICAL GRAPH
+
+Ingest each frozen document into Cognee for document/provenance/vector layer.
+Raw Cognee relations are evidence/candidates only, never business truth.
+
+Occupation judgment:
+- JEV reads only `order_xxx + raw description` + catalog vA choices;
+- oracle label is NEVER in JEV/model input.
+
+Policy:
+- vA approved choice ⇒ create one `:GS_CANONICAL` `ORDER_HAS_OCCUPATION` edge to occupation node;
+- `NOT_IN_CATALOG` ⇒ store candidate/evidence, do not force canonical occupation;
+- each order may have **max one** canonical occupation edge.
+
+vB:
+- add holdouts;
+- reclassify same evidence;
+- create holdout canonical edges only after vB result.
+
+Every canonical edge must trace:
+edge → JEV receipt → source document/order_xxx → source text hash.
+
+## 10. 8 NEGATIVE SIBLING TESTS
+
+For each pair below, use the selected description of occupation A and ask bounded yes/no:
+“Đoạn này có thuộc nghề B không?”
+
+Expected = NO for all:
+1. Sơn kim loại × Sơn xây dựng
+2. Dựng giàn giáo × Lắp cốp pha panen
+3. Lắp cốp pha panen × Xây dựng thành gia cố
+4. Gia công kim loại tấm × Hàn
+5. Gia công kim loại tấm × ÉP KIM LOẠI
+6. Chế biến thuỷ sản không gia nhiệt × Chế biến thịt bò, thịt lợn
+7. Vệ sinh toà nhà × Trát vữa
+8. Dựng giàn giáo × Trát vữa
+
+Không tạo canonical edge từ negative test.
+
+## 11. GRAPH QUESTIONS
+
+Sau vB, 8 occupation groups × 2 orders.
+
+Từ canonical graph trả lời exact:
+A. Với mỗi group, “đơn nào cùng nghề với `order_x`?” → đúng order còn lại trong cặp.
+B. Với mỗi nghề N, “các đơn thử thuộc nghề N?” → đúng exact 2-order set.
+
+=> **16/16 query assertions** exact.
+Mỗi answer phải có provenance về source description.
+
+## 12. BASELINE DIFFICULTY — BẮT BUỘC BÁO
+
+Trước model output scoring, tính:
+1. string-match baseline: bao nhiêu/16 raw descriptions tự chứa oracle occupation label hoặc alias tương ứng (Unicode/case normalized substring);
+2. text length chars: min + median.
+
+KQ phải ghi hai số này.
+Nếu string baseline >= **14/16**, KQ bắt buộc ghi:
+`EASY_BASELINE: bài này chủ yếu chứng minh pipeline trên văn bản thật có nhãn lộ trong text; không chứng minh semantic extraction khó.`
+
+Không đổi sample để làm bài khó hơn.
+
+## 13. ACCEPTANCE
+
+Core target:
+- vA approved: **12/12** đúng occupation;
+- vA holdout: **4/4 NOT_IN_CATALOG**, 0 force-map;
+- vB holdout: **4/4** đúng occupation, không re-extract;
+- canonical extra edge: **0**;
+- negative sibling: **8/8 NO**;
+- graph questions: **16/16 exact**;
+- provenance: **16/16** canonical edges trace source+receipt;
+- production PRE=POST;
+- leak gate PASS;
+- cost <=1 USD hoặc UNKNOWN chỉ khi ledger provider không có, nhưng token/call counts phải ghi.
+
+### Oracle suspect
+Human label có thể sai.
+Nếu mismatch:
+- giữ nguyên frozen oracle;
+- ghi mỗi mismatch đúng một dòng:
+  - `MACHINE_ERROR`, hoặc
+  - `ORACLE_SUSPECT` + lý do từ evidence.
+- không tự sửa oracle/alias/sample.
+
+Báo **raw metric** và **machine metric excluding ORACLE_SUSPECT**.
+Có ORACLE_SUSPECT ⇒ Host đọc là PASS-WITH-LIMITS tối đa, không được báo “perfect”.
+
+## 14. KHÔNG SUY RỘNG
+
+R6B PASS chỉ chứng minh:
+- văn bản thật của **mô tả công việc đơn hàng** có thể map vào catalog nghề trong sample;
+- catalog holdout không bị force-map;
+- canonical graph/JEV/provenance hoạt động.
+
+Không chứng minh:
+- chăm sóc khách hàng;
+- chat/email;
+- ghi chú phát sinh;
+- KB;
+- production scale.
+
+Base 88 gần như không có free-text care/exchange.
+R6E phải xác định **văn bản chăm sóc khách/trao đổi thật nằm ở đâu** trước production scope.
+
+## 15. CLEANUP / KQ
 
 Evidence:
-`/opt/incomex/work/graph-server/evidence/GS-R6A-CODE-TRUST-20261006-04/`
+`/opt/incomex/work/graph-server/evidence/GS-R6B-FREETEXT-OCCUPATION-20261006-05/`
 
-Repo chỉ cập nhật `work/graph-server/COLLAB.md` Bảng/KQ; không tạo progress/review file.
+Kết thúc:
+- stop/remove R6B containers/network;
+- giữ volume/evidence cho Host review;
+- dry-run wipe đúng R6B scope;
+- production == PRE.
+
+Repo chỉ cập nhật `work/graph-server/COLLAB.md` Bảng/KQ.
+Không tạo progress file Git.
 
 KQ:
-`KQ@GS-R6A-CODE-TRUST-20261006-04 XONG|DỪNG`
+`KQ@GS-R6B-FREETEXT-OCCUPATION-20261006-05 XONG|DỪNG`
 
 Commit:
-`[Claude Code] GS-R6A-CODE-TRUST-20261006-04 · graph-server · <XONG|DỪNG>`
+`[Claude Code] GS-R6B-FREETEXT-OCCUPATION-20261006-05 · graph-server · <XONG|DỪNG>`
 
 Final:
-`XONG · GS-R6A-CODE-TRUST-20261006-04 · <commit>`
+`XONG · GS-R6B-FREETEXT-OCCUPATION-20261006-05 · <commit>`
 hoặc
-`DỪNG · GS-R6A-CODE-TRUST-20261006-04 · <blocker> · <commit>`
+`DỪNG · GS-R6B-FREETEXT-OCCUPATION-20261006-05 · <blocker> · <commit>`
 
-## 11. AUTONOMY
+## 16. AUTONOMY
 
-Trong scope R6A Claude tự quyết chi tiết Docker/Cypher/AST comparison.
+Claude tự xử chi tiết kỹ thuật trong đúng 9 điều kiện P35 đã khóa.
 Không hỏi Owner.
-Không mở rộng scope.
+Không đổi nguồn/nghề/sample count/model/provider/stack.
+Không mở KB.
 Không production mutation.
 
-Nếu cần sản phẩm thứ hai, parser mới, version mới hoặc corpus mới ⇒ DỪNG; không tự mở.
+Nếu không thể thỏa đủ 9 điều kiện P35 ⇒ DỪNG, không tự sửa thiết kế.
