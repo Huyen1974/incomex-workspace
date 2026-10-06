@@ -592,7 +592,8 @@
 #matrix-view-formula .cf-flow .s{white-space:normal;font-size:14px;padding:7px 10px;line-height:1.4}
 #matrix-view-formula .cf-flow .s.cf-main-step{display:inline-flex;align-items:center;min-height:58px;box-sizing:border-box}
 /* CT-001: cả nhánh Tạo mới giữ một hàng; khung hẹp cuộn cục bộ. */
-#matrix-view-formula #formula-ct-001 .cf-create-chain{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;max-width:100%;box-sizing:border-box;padding:4px 4px 10px;scroll-padding-inline:4px;scrollbar-width:thin}
+#matrix-view-formula #formula-ct-001 .cf-create-chain{flex-direction:row;flex-wrap:nowrap;align-items:center;gap:4px;overflow-x:auto;overflow-y:hidden;max-width:100%;box-sizing:border-box;padding:4px 4px 10px;scroll-padding-inline:4px;scrollbar-width:thin}
+#matrix-view-formula #formula-ct-001 .cf-create-chain>.a{transform:none;line-height:normal}
 #matrix-view-formula #formula-ct-001 .cf-create-chain>*{flex-shrink:0}
 #matrix-view-formula #formula-ct-001 .cf-create-chain>.s{white-space:nowrap;height:58px}
 #matrix-view-formula #formula-ct-001 .cf-create-chain>.cf-return{white-space:nowrap}
