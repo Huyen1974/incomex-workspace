@@ -4,7 +4,7 @@ Tên việc: Graph Server — Business × JEV × Code
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D06: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, tiêu chí công cụ bền vững thực dụng (MIT không bắt buộc — D06); Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 11:08 +07 · GPT Host · P22 — Owner đổi trial sang code-first; PROMPT mới đã soạn, chuẩn bị READY/RUN
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 11:08 +07 · GPT Host · P22 — CODE-FIRST RUN READY, chờ Claude STARTED
 - 🎯 **Mục tiêu — Owner nguyên văn 24/09, giữ thứ tự ưu tiên (đầy đủ ở §0.1):** (1) “Tạo ra các mối quan hệ về Graph đối với business (khi các mối quan hệ là hữu hạn, chứ không phải quan hệ vô hạn kiểu mạng xã hội.” · (2) “Kết hợp tốt nhất với Jev để đảm bảo Graph truyền thống và Jev bổ sung tốt nhất cho nhau…” · (3) “Định hướng ứng dụng các skill, frame chính thức của Jev…” · (4) “Tự Dựng lại mối quan hệ về về code để các Agent/ AI có thể hiểu nhanh hơn khi hệ thống phức tạp lên.” **Vì sao:** thông tin không SQL hoá được (chăm sóc khách, trao đổi, quy trình còn loay hoay, code) phải nối được thành quan hệ có nguồn để người và agent quyết nhanh hơn.
 - 🎯 **Owner 05/10 (D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.”
 - 🏁 **Xong khi (GPT + Claude thống nhất theo D10; lấy từ GATE01):** trial hai lượt đạt trên máy chủ — hỏi “khách/ứng viên này liên quan gì, nên làm gì tiếp” ra câu trả lời có nguồn · loại quan hệ mới được đề xuất → duyệt → dùng lại mà không trích lại toàn bộ · JEV do máy tự gọi · đọc được quan hệ của một mẫu code · tắt Cognee vẫn đọc/xuất/khôi phục được graph ⇒ Owner xem kết quả và quyết cài thật.
@@ -12,7 +12,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 - ✅ **Đã xong:** Neo4j/Cognee nền bền; K1/PERSIST/K4/DUMP-RESTORE/resource/rollback PASS; T19 đã có cấu hình fix thống nhất. RUN-1 chưa tạo bằng chứng cho 4 mục tiêu Owner.
 - ■ **Đang làm:** R4 code-first: đóng T19, dựng PGVector trial riêng, xác minh/reuse đúng embedding model Agent Data, secret-scan một code subset nhỏ từ DOT, dựng code graph và chấm bằng ground truth deterministic. Không ingest KB/Lark/customer rộng.
 - ⬜ **Còn lại:** R4 KQ → Host nghiệm thu → R5 business micro-trial nhỏ từ nguồn đã khoanh · R6 bắt buộc lọc/chuẩn hóa KB trước production · R7 xóa sạch trial graph/vector/data rồi rebuild production từ nguồn chính thức.
-- ➡ **Kế tiếp:** 😊 Owner: không cần quyết thêm cho R4 · Host GPT: READY prompt `25f3d76...` · 🤖 Claude Code: chạy code-first micro-trial tự chủ tối đa; unsafe/out-of-scope thì KQ DỪNG.
+- ➡ **Kế tiếp:** 😊 Owner: chỉ giao RUN cho Claude Code · 🤖 Claude Code: chạy đúng `READY@25f3d76dd105269f69b2b2641bd9a55ddd92cef0`, code-first micro-trial tự chủ tối đa; unsafe/out-of-scope thì KQ DỪNG.
 - ⛔ **Không làm / để sau (không chặn):** cài thật (production) · ngưỡng xác suất tự động · Cognee MCP/UI, Graphiti, GDS, Hindsight · chạm PostgreSQL/Directus/Qdrant đang chạy · chờ Hermes · đổi phiên bản khi không có lý do (Cognee giữ 1.6.1 dù đã có 1.6.2).
 
 ### 1. Mục tiêu
@@ -453,7 +453,9 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 - **Acceptance R4:** T19 PASS · PGVector hoạt động · embedding đúng model Agent Data · Qdrant unchanged · production PG untouched · >=15 deterministic code edges · sampled precision 100%/recall >=80% · production health/resource PASS · wipe path trial được chứng minh.
 - **KB-noise rule:** R4/R5 không bulk-ingest KB. R6 curation là bắt buộc; destructive delete vẫn phải Owner duyệt. R7 xóa trial state rồi clean rebuild production.
 - **Cost:** code-first external calls cap ≤1 USD trong tổng trial cap 5 USD. Không silent model fallback.
-- **NEXT:** Host đặt READY theo full SHA `25f3d76dd105269f69b2b2641bd9a55ddd92cef0` sau final prompt check; rồi truyền RUN cho Claude Code.
+- `READY@25f3d76dd105269f69b2b2641bd9a55ddd92cef0` — full SHA commit cuối chạm PROMPT.md.
+- JEV readiness `gen-dec-1791260446-tgR3OXj9jU4UxNpYPNGH`: `ready` 0,64 / `patch` 0,35 / confidence 0,46; không nêu blocker cụ thể, chỉ là bằng chứng phụ.
+- **NEXT:** truyền RUN `GS-R4-CODE-FIRST-20261006-02` cho Claude Code.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
