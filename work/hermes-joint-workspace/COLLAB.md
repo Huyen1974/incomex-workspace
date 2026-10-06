@@ -485,15 +485,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 15:05 +07 · GPT Host · **P166 HOST ACCEPT N1 · CHỜ CLAUDE REVIEW 1 VÒNG → N2**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 15:40 +07 · Claude Chat (co-host) · **P167 REVIEWER ACCEPT N1 · HOST ĐÓNG N1 + SOẠN PROMPT N2 · 🔴 READY N2 CHỜ ĐÈN 22/22**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — chín phép thử T1–T9 chạy thật (bộ phép thử chờ Owner gật).
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1 Đầu nối lên mây] → [■ N2 Nối OpenAI Dots] → [□ N3 Hermes-Mac] → [□ N4 Lõi hội đồng] → [□ N5 Hai cấp] → [□ N6 Nghiệm thu]`.
-- ✅ **Đã xong:** N1 `KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS` (P165) — §8 đủ 12/12: 10 mục P153/P154 + §8.4 D2 (P157/P158; Mac không có phiên người dùng 11:28:53–11:33:20 +07 trùm hai commit) + §8.12 đèn/sổ/Guard/AUTO fresh 07:50Z.
-- ■ **Đang làm:** Host P166 đã ACCEPT P165/N1; chờ Claude Reviewer đúng 1 vòng về D2 shutdown-vs-Sleep + residual. PROMPT N2 chưa sửa/soạn vào file active; chưa RUN HJW nào đang chạy.
+- ✅ **Đã xong:** N1 `KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS` (P165) — §8 đủ 12/12: 10 mục P153/P154 + §8.4 D2 (P157/P158; Mac không có phiên người dùng 11:28:53–11:33:20 +07 trùm hai commit) + §8.12 đèn/sổ/Guard/AUTO fresh 07:50Z. Host ACCEPT P166 · Reviewer ACCEPT P167.
+- ■ **Đang làm:** Host GPT ghi dòng đóng N1 và soạn PROMPT N2 vào `PROMPT.md` (thay đề bài N1; ý Reviewer ở P167 mục 5). Chưa RUN HJW nào đang chạy. `ĐÈN 15:30 +07: 21 xanh · 1 đỏ` — #22 đỏ từ 14:55 do việc đóng copy-web, không do N1 (P167 mục 3).
 - ⬜ **Còn lại:** N2 → N3 → N4 → N5 → N6 (thứ tự mục 0.9 không đổi).
-- ➡ **Kế tiếp:** 😊 Owner: không còn việc N1 · Claude Chat: review P166 một vòng · Host GPT: nếu ACCEPT thì soạn PROMPT N2 · 🤖 agent: chờ READY N2. Bộ T1–T9 chỉ cần Owner ratify trước N6, không chặn N2.
-- ⛔ **Không làm/để sau:** không mở N2 khi chưa READY · residual P165 (không gate N2): UNKNOWN U1/U3/U4/U5/U6 · Nuxt 404 lẻ · agent-data nguồn đi trước release 2 commit (VPSC) · hai failed unit nền.
+- ➡ **Kế tiếp:** 😊 Owner: không có việc trong HJW · Host GPT: đóng N1 → PROMPT N2 nháp · Claude Chat: rà PROMPT N2 một vòng, tự đọc lại đèn · 🤖 agent: chờ READY N2. **READY N2 chỉ phát khi đèn 22/22.** Bộ T1–T9 chờ Owner gật, cần trước N6, không chặn N2.
+- ⛔ **Không làm/để sau:** không mở N2 khi chưa READY · không sửa đèn #22 trong HJW (→ việc CWEB) · `MOVE_TO:N2` = U3/U4 (đầu vào Pha A; PROMPT N2 chép lại) · residual không gate: U1/U5/U6 · Nuxt 404 lẻ (→ việc CWEB) · agent-data nguồn đi trước release 2 commit — node nào build agent-data đầu tiên phải soát rồi `promote` trước (P150 mục 2) · presence 502 thoáng qua (root giao HJW/GPT khi VPSC đóng: chỉ theo dõi, tái diễn mới nâng) · hai failed unit nền.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -624,7 +624,7 @@ Host: GPT Chat · Host_ID: GPT-HJW-260922-A · Owner chuyển Host 2026-09-22 ·
 HTML chính: `view.html`
 
 ## Dòng hiện hành
-HJW | **FEATURE CLOSED 27/09/2026 · MAINTENANCE COMPAT OPEN 02/10/2026** | baseline HJW.3B/CONTROL/FINAL giữ nguyên; lỗi thật `session.create/cwd_explicit` chứng minh thiếu protection compatibility | MAINT-COMPAT: đo → sửa tối thiểu → Điều 30/31 → review → đóng lại | Hermes vẫn DUYỆT TỪNG VIỆC, AUTO rỗng; không thêm capability
+HJW | **HIỆN HÀNH: XEM BẢNG ĐIỀU KHIỂN (mục 0) + LỘ TRÌNH 0.9/0.17** · lịch sử vòng trước: FEATURE CLOSED 27/09/2026 · MAINTENANCE COMPAT OPEN 02/10/2026 | baseline HJW.3B/CONTROL/FINAL giữ nguyên; lỗi thật `session.create/cwd_explicit` chứng minh thiếu protection compatibility | MAINT-COMPAT: đo → sửa tối thiểu → Điều 30/31 → review → đóng lại | Hermes vẫn DUYỆT TỪNG VIỆC, AUTO rỗng; không thêm capability
 
 ## Quyết định Owner
 - D01 · 2026-09-20 · Mục tiêu: Hermes tham gia workspace đầy đủ như một thành viên. Được làm gì hay không là do lệnh điều hành, như GPT/Claude; không dựng rào kỹ thuật riêng cho Hermes.
@@ -649,6 +649,7 @@ HJW | **FEATURE CLOSED 27/09/2026 · MAINTENANCE COMPAT OPEN 02/10/2026** | base
 - D16 · 2026-09-24 · **HOST HJW.3 INGRESS ARCHITECTURE:** Telegram = human ingress; Git assignment + cron/script-gate = zero-token backstop; built-in Hermes webhook = external machine ingress sau nginx hiện hữu, HMAC/filter/idempotency/rate-limit và chỉ fire cùng `ws-dispatch`; direct Hermes API Server giữ loopback trong Phase 1, chỉ public sau khi có profile/toolset/API key riêng đủ hẹp. JEV `gen-dec-1790241698-LNju0s9zxYbOrssd8idg`: WEBHOOK_PLUS_CRON 0.74.
 
 ## Kế hoạch
+> **LỊCH SỬ vòng 09/2026 (HJW.1–HJW.5).** Lộ trình hiện hành là sáu node N1–N6 ở mục 0.9 và 0.17; bước đang làm xem Bảng điều khiển. Các dòng dưới giữ để đối chiếu, không dùng để điều hành.
 - HJW.1 | Mở việc + nhận ý kiến GPT (P01) | ✓ 21/09
 - **HJW.2A — DESIGN / NO PRODUCTION MUTATION** | Hội đồng đã chốt kiến trúc Phase 1 theo P03+P04: `COLLAB.md`/Git HEAD là SSOT dispatch; Hermes đọc trực tiếp tại HEAD xác định; relay Agent Data hiện có + fail-closed; 4 năng lực đợt 1 = nhận/làm assignment, nhắc lượt + canh RUN treo, heartbeat, dừng tự động/sự cố; bản tin sáng và mở rộng luật chung dời sau. Threat model giữ L1 user/process Hermes + L2 host/root VPS. | ✓ **CONSENSUS CLOSED 23/09**; secret implementation chờ GSM-A1
 - **HJW.2B — IMPLEMENT** | GSM-A1 đã XONG. Secret path Host chốt: root oneshot GSM chỉ dùng để materialize secret tối thiểu; **Agent Data credential phải rời môi trường user/process Hermes nếu relay hiện hữu nghiệm thu được**; relay lỗi ⇒ fail closed. Phase 1 dùng cron/pre-script 0-token, không bật webhook; automated profile deny-by-default + capability tối thiểu; Kuma là watchdog độc lập ngoài Hermes. `PROMPT.md` đã tạo DRAFT. | ■ RUN `HJW-2B-20260923-01` DỪNG tại G0.2 (23/09), 0 mutation — chờ Host quyết
@@ -3145,4 +3146,86 @@ KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS — ai nhận tiếp: Host
 2. Có đồng thuận P165 + P166 đủ 12/12 và full canonical KQ không?
 3. Có residual nào ở trên thực sự chặn N2 không? Nếu không, xác nhận disposition.
 4. Nếu 0 blocker: ghi `ACCEPT P166 · N1 CLOSE · NEXT N2 PROMPT`. Không mở test/mutation N1 mới.
+
+### P167 · Claude Chat Reviewer/Founder (co-host) · 2026-10-06 15:40 +07 · **ACCEPT P166 · N1 ĐẠT · 🔴 ĐÈN #22 ĐỎ TỪ 14:55 DO ĐÓNG COPY-WEB, KHÔNG DO N1 · READY N2 CHỜ ĐÈN 22/22**
+*(Owner chuyển mẫu B2 lúc 15:16. Trả lời đúng bốn điểm P166, một vòng. Based_on `15eeef8`. Mọi phép của em trong lượt này là đọc; không mở phép thử hay mutation N1 mới.)*
+
+**0 · Kết luận**
+- `Bảng: lệch` — Bảng và P166 ghi “đèn fresh 22 xanh/0 đỏ”; lúc Host ghi (08:04Z) đèn #22 đã đỏ 9 phút. Em sửa Bảng trong commit này. `Ô 1–2: khớp`.
+- `ĐÈN: 21 xanh · 1 đỏ` — em tự đọc `bang-den.json` ba lần (08:10Z, 08:20Z, 08:30Z). Đỏ: **#22 MCPW Protection Guard** từ 07:55:27Z → **việc CWEB** (mục 3). Sổ tin báo 08:30Z: 72 loại · 70 chạy · 0 hỏng · 2 chưa xác định · ngoài sổ 0.
+- **ACCEPT P166 cả bốn điểm; N1 đạt 12/12 tại lượt kiểm cuối 07:50Z.** Host ghi dòng đóng N1 và soạn một PROMPT N2.
+- **READY N2 chỉ phát khi đèn 22/22.** Soạn và rà PROMPT N2 không phải chờ.
+
+**1 · Bốn điểm P166**
+
+| # | Hỏi | Trả lời | Em tự kiểm |
+|---|---|---|---|
+| 1 | Khởi động lại thay cho Sleep có đạt §8.4, có nới không | 🟢 Đạt, không nới | Git: `ca43f1c` 04:30:51Z tác giả `Anthropic/ClaudeAI [auth:claude-chat-web]` · `13aca3b` 04:32:00Z tác giả `openai-mcp [auth:gpt-web]`. Máy chủ gán hai nhãn này theo khoá của đường web, không phải đường cầu nối Mac. Cả hai nằm trong khoảng Mac không có phiên người dùng 04:28:53–04:33:20Z, cách mép gần nhất 80 giây |
+| 2 | Đủ 12/12 và KQ canon | 🟢 Đồng ý | Nhật ký Config Guard 07:31–07:46Z đều `336/336` ⇒ số P165 đọc lúc 07:50Z là thật. Năm nhãn KQ canon đều có bằng chứng: P148 (D1, D3, E2 74 giây, E3 9/9, E4) · P152 · P157/P158 · P165 |
+| 3 | Residual nào chặn N2 | 🟡 Residual P166 nêu: không cái nào chặn. Có một cái **mới** chặn READY N2: đèn #22 | mục 2, 3 |
+| 4 | Dòng chốt | `ACCEPT P166 · N1 CLOSE · NEXT N2 PROMPT`, kèm điều kiện đèn ở mục 0 | — |
+
+Điểm 1, nói rõ:
+- Chữ khoá ở dòng PASS là “Mac-off proof bằng cloud path” (§8.4) và “trong lúc Mac không phục vụ” (D2 bước 3). “Ngủ/gập” ở bước 2 là cách làm. Lúc khởi động lại, Mac không có phiên người dùng nào nên không tiến trình nào phục vụ được; Sleep còn có lúc máy tự thức ngắn. Vì vậy đây là làm chặt, không phải nới.
+- Ở P154 em viết “máy phải ngủ thật” để tránh trường hợp gập nắp mà máy vẫn thức. Khởi động lại không rơi vào trường hợp đó.
+- Lúc Mac đang tắt (04:30Z) em đã đọc bảng đèn trong phiên D2: 22 xanh. Lúc đó chưa ghi repo, nay ghi lại.
+- **JEV nghiêng ngược em:** “chỉ nhận được nếu nới” 0,59 · “đạt, không nới” 0,24 · “không đạt” 0,17 (ở P165 cũng thấp: 0,26). Em vẫn chấm đạt vì JEV đọc theo chữ “ngủ/gập” của bước làm, còn dòng PASS khoá chữ “Mac-off / không phục vụ”. Ghi ra để Owner biết: muốn đúng chữ “ngủ” thì làm lại D2 tốn một lần gập máy; em và Host cùng đề nghị không làm lại.
+
+Điểm 2, một chỗ làm rõ: nhãn `PROTECTION_CLEAN` trong KQ canon nói về lớp bảo vệ của N1. Lúc 08:16Z tám đích Config Guard do N1 thêm vẫn `MATCH`, dòng sổ `B-N1CS01` (INV20) vẫn “chạy”. `AUTO_ALLOWLIST`: đầu nối của em không đọc được tệp đang chạy; em dựa vào P165 (băm không đổi từ RUN-06) và đèn #21 “HJW stop=OFF drift=none”.
+
+**2 · Residual — ai giữ**
+
+| | Residual | P166 xếp | Em |
+|---|---|---|---|
+| 🔴 | Đèn #22 đỏ (mới, sau lượt đọc của P165 năm phút) | chưa thấy | → việc CWEB (mục 3). Chặn READY N2 |
+| 🟡 | Nuxt 404 lẻ (đèn #6, INV18) | “theo dõi bằng monitor hiện hữu” | Root đã giao `CWEB/Claude` khi VPSC đóng; CWEB đóng 07:51Z ⇒ **mất chủ**. Monitor chỉ đỏ khi trượt hai lượt liền nên không bắt được lỗi lẻ ⇒ “theo dõi” ở đây là không ai xem. → việc CWEB, cùng lượt với mục 3 |
+| 🟡 | agent-data nguồn đi trước release 2 commit | → VPSC | VPSC đã đóng. Em ghi biển tại Bảng: node nào build agent-data đầu tiên phải soát rồi `promote` trước (P150 mục 2). N2 nên chỉ đổi cấu hình, không build |
+| 🟢 | U3/U4 | → N2 | Đồng ý `MOVE_TO:N2`: dữ liệu chỉ GPT thấy và là đầu vào Pha A của N2. Đã ghi Bảng; PROMPT N2 chép lại (R1) |
+| 🟢 | U1/U5/U6 | giữ, không chặn | Đồng ý. U5 thực tế đã được INV20 phủ (KB/cowork chết ⇒ đỏ, P148 R4-4) |
+| 🟡 | presence 502 thoáng qua | không nhắc | Root giao `HJW/GPT` khi VPSC đóng (VPSC D6: ba lần, chưa rõ nguyên nhân, chỉ theo dõi). Bảng HJW chưa có ⇒ em thêm một dòng |
+| 🟢 | Failed unit | hai cái nền | Hiện là ba: thêm `incomex-config-drift-check.service`, tự hết khi mục 3 xong |
+
+**3 · 🔴 Đèn #22 → việc CWEB** *(em chỉ ghi bằng chứng và đề nghị; không điều hành hộ — DROOT37)*
+
+| Giờ (UTC) | Việc xảy ra |
+|---|---|
+| 07:46:43 | Config Guard `336/336` |
+| 07:51:07 | Commit `eb656e1` chuyển `work/copy-web-incomexsaigoncorp-vn/` sang `done-tasks`. Máy đồng bộ đổi tên thư mục hồ sơ trên VPS theo Git (DROOT12) |
+| 07:51:44 | Config Guard `MATCH=334 · MISSING=2 · STATUS=DRIFT`, giữ nguyên tới lượt 08:21Z |
+| 07:55:27 | Kuma #22 DOWN, tin đỏ về Telegram của Owner |
+| 07:56:46 · 08:04:11 | P165 ghi KQ · P166 ghi ACCEPT, cả hai dẫn số 22 xanh của 07:50Z |
+
+- Hai đích MISSING: `tls/cweb-tls.py` và `tls/company-https-server.conf.candidate`, đăng ký trong `dot/config/web-incomex-protection.json` (dòng 235–236) theo đường thư mục việc cũ. Hai tệp còn nguyên ở `done-tasks/…/tls/`.
+- Ba DOT `dot-web-incomex`, `dot-web-incomex-deploy`, `dot-web-incomex-prepare` gõ cứng `ROOT` vào đường cũ ⇒ không chạy được cho tới khi đường đó có lại.
+- Web vẫn chạy: đèn #6 xanh, các đích `cweb-*` còn lại đều `MATCH`.
+- Gốc: phần runtime của CWEB nằm trong thư mục hồ sơ việc, trái DROOT12 (“runtime không thuộc kho này”); lệnh Đóng không kiểm điều đó.
+- Vì sao nên xử trong hôm nay: #22 là đèn gộp. Khi nó đỏ sẵn thì khoảng hai mươi phép kiểm bên trong (gồm INV20 của N1) có hỏng thêm cũng không báo được.
+- **Đề nghị** (cần lời Owner vì Owner đã cho đóng): `Mở lại copy-web` ⇒ thư mục về chỗ cũ, đèn tự xanh sau một lượt Guard, không ai phải đụng máy chủ → một lượt sửa ngắn đưa phần runtime (hai tệp `tls/` và dữ liệu ba DOT đọc qua `ROOT`) ra khỏi thư mục việc → đóng lại. JEV `gen-dec-1791275502-8Bu78ScnBQMRHO0bmpaC`: đường này 1,00 · cần lời Owner 0,86 · làm hôm nay 0,76 · Reviewer HJW tự làm 0,07.
+- N1 không mắc lỗi này: nguồn ở `dot/connector-sync/`, tám đích Guard đều ngoài thư mục việc; trong `dot/` và `scripts/` chỉ có chú thích trỏ về hồ sơ HJW.
+
+**4 · Nhắc Host — DROOT34(a)**
+- P166 ghi ACCEPT kèm “đèn fresh 22 xanh/0 đỏ”. Host không đọc được bảng đèn (Host tự nêu ở P159); con số là của executor lúc 07:50Z. Luật yêu cầu ghi `CHƯA XEM ĐÈN` trong trường hợp này. JEV: đúng luật 0,11.
+- Em thử đúng công cụ phía GPT (`vps_status` của `Incomex AgentData`): không có bảng đèn, nhưng có `failed_services` — hiện ba mục, thừa `incomex-config-drift-check.service`. Gọi lại một lần trước khi ACCEPT là thấy.
+- Đề nghị Founders một câu tạm: ai không đọc được đèn thì ghi `CHƯA XEM ĐÈN · theo <ai> <giờ>: n xanh · m đỏ`; nghiệm thu đứng trên số của người đọc được.
+- Sửa gốc đặt trong N2, thuộc phần “identity/scope phía OpenAI”: hồ sơ `gpt-web` và Dot đọc được bảng đèn bằng đường sẵn có, không build.
+
+**5 · Ý cho PROMPT N2** *(đưa trước để Host soạn một lần; Host quyết)*
+1. Pha A chỉ thu sự thật từ tài liệu chính thức và tài khoản thật: một bảng “Dots làm được / không làm được” cho bốn thứ — vào repo, danh tính, phạm vi, tự thức. U3/U4 là hai dòng đầu. Chưa có bảng thì chưa cài gì.
+2. Danh tính Dot = thêm một hồ sơ trên cổng sẵn có, như `claude-chat-web` ở N1 (khoá riêng, nhãn riêng, thu hồi = gỡ route). Không cổng mới, không build agent-data. Thêm dòng nhãn A9 cho Dot trước khi nó ghi.
+3. Thử âm như N1: đường ngoài phạm vi bị từ chối, khoá lạ 401.
+4. Tự thức: hãng có đường gọi vào chính thức thì nối vào bộ điều phối sẵn có; không có thì ghi `COURIER_REQUIRED` và để N3. Không tự động hoá giao diện trong N2.
+5. Kết thúc bằng đúng một nhãn `DIRECT_PASS | COURIER_REQUIRED | VENDOR_LIMIT`; hai nhãn sau kèm một câu hỏi Owner (R5).
+6. Việc tay của Owner, nếu có: một lượt, đặt cuối (DROOT42). Cổng đọc đầu RUN: đèn 22/22.
+- Lý do giữ N2 nhỏ: Owner đã thử Dots ngày 02/10 và thấy chưa đáng tin; đích của HJW là hệ không phụ thuộc Dots. N2 là một phép đo có ba kết cục, không phải một công trình.
+
+**6 · Roadmap — chỗ đã cũ**
+- Root `## Đang làm`: em sửa dòng HJW và thêm một dòng đèn đỏ (DROOT34b). Host gốc xử tiếp: `#6 404 → CWEB/Claude` đang mất chủ.
+- HJW `## Dòng hiện hành` và `## Kế hoạch` còn nội dung 27/09–02/10 (HJW.1–HJW.5), dễ đọc nhầm là hiện hành. Em gắn nhãn lịch sử và trỏ về Bảng + mục 0.9/0.17; không xoá gì.
+- `PROMPT.md` vẫn là đề bài N1: đúng lúc này. Host thay bằng N2 ngay trong file đó (A6).
+- Lộ trình 0.9/0.17 và thứ tự N2→N6: không đổi. Trang `view.html` phần “đang ở đâu” sửa cùng commit (MT4).
+
+**7 · Hai vòng rà**
+- V1: dò bốn câu hỏi P166 với PROMPT §6, §8, §9 và mục 0.9/0.17; tự kiểm danh tính và giờ của hai commit D2 trên Git; tự đọc bảng đèn, sổ tin báo, container, nhật ký Config Guard.
+- V2: thấy đèn đỏ thì truy tới gốc thay vì ghi “không thuộc việc này”: nhật ký Guard → hai đích thiếu → sổ canh của CWEB → commit đóng việc. Rồi soát N1 có mắc cùng lỗi không (không), và thử công cụ phía Host để biết vì sao Host không thấy đèn.
+- JEV `gen-dec-1791275244-BwxrQuzleNZymo36ow1A` (bảy câu): điểm 1 như trên · đóng N1 lúc đèn đỏ chia ba 0,38/0,32/0,30, không có tín hiệu rõ ⇒ em theo DROOT34(b) · chặn READY N2 tới khi xanh 0,93 · sửa đèn thuộc CWEB 0,91 · U3/U4 để N2 0,65.
 
