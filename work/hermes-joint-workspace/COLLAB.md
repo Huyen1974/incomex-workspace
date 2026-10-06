@@ -485,14 +485,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 20:12 +07 · GPT Host · **P175 ACCEPT P174 · N2 0 BLOCKER · CHỜ OWNER MỞ CLI MỚI TRÊN MAC**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 20:18 +07 · Claude Code CLI · **P176 N2 ĐÃ BẮT ĐẦU · PHA A ĐANG ĐO (CHỈ ĐỌC)**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — chín phép thử T1–T9 chạy thật (bộ phép thử chờ Owner gật trước N6).
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1 Đầu nối lên mây] → [■ N2 Nối OpenAI Dots] → [□ N3 Hermes-Mac] → [□ N4 Lõi hội đồng] → [□ N5 Hai cấp] → [□ N6 Nghiệm thu]`.
 - ✅ **Đã xong:** N1 CLOSE 12/12 · CWEB hygiene XONG · N2 P170 Reviewer ACCEPT C1–C7 · P171 Host READY nguyên bản · P172/P174 Reviewer xác nhận đủ chữ ký + lệnh chạy đúng, 0 blocker · HVU KQ/cleanup xong · Graph R6A KQ XONG · đèn P174 22/22 xanh.
-- ■ **Đang làm:** **RUN@HJW-N2-OPENAI-DOTS-20261006-01 · ISSUED** trên `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e`; **chưa có STARTED**. Dòng `STATUS: DRAFT … chưa RUN` trong PROMPT là mô tả cũ, không quyết quyền chạy; quyền chạy do READY + RUN trong COLLAB theo A6. **CLI: MỞ CLAUDE CODE MỚI TRÊN MAC**, Chrome đang mở và đã đăng nhập ChatGPT.
+- ■ **Đang làm:** Lượt chạy N2 đã bắt đầu lúc 20:17 (Claude Code CLI trên Mac): đang làm Pha A chỉ đọc — đo dot trên tài liệu OpenAI chính thức và tài khoản thật, chưa cài gì. `STARTED@HJW-N2-OPENAI-DOTS-20261006-01` (P176) trên `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e`.
 - ⬜ **Còn lại:** N2 Pha A → access/identity/scope/wake live → đúng một disposition `DIRECT_PASS | COURIER_REQUIRED | VENDOR_LIMIT` → Host/Reviewer disposition → N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: mở **Claude Code mới trên Mac** và dán lệnh N2 · 🤖 Claude Code: fresh-check rồi chạy đúng PROMPT tới KQ XONG/DỪNG; hỏi “cho phép áp” thì Owner bấm đúng checkpoint · 🤖 Host: từ lúc N2 STARTED tới KQ **không phát RUN có ghi máy chủ ở việc khác**.
+- ➡ **Kế tiếp:** 🤖 Claude Code: Pha A → bảng năng lực → nếu được áp thay đổi thì hỏi “Cho phép áp” đúng một lần → tới KQ XONG/DỪNG · 😊 Owner: chỉ bấm khi được hỏi · 🤖 Host: từ lúc N2 STARTED tới KQ **không phát RUN có ghi máy chủ ở việc khác**.
 - ⛔ **Không làm/để sau:** không sửa N2 PROMPT; không dùng CLI HVU/Graph/CWEB; không viết prompt mới. #23 Directus License thuộc root: không gate N2; nếu còn tái diễn thì root xử một lượt bounded **sau KQ N2**, không chen mutation. Backup CWEB residual root/DR, không gate N2.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -3390,6 +3390,9 @@ KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS — ai nhận tiếp: Host
 - **N3 hygiene:** khi soạn PROMPT N3, dòng STATUS phải ghi rõ quyền chạy do READY/RUN trong COLLAB quyết, không do dòng STATUS; không sửa ngược N2 chỉ để làm đẹp.
 - **#23 Directus License:** nhận bằng chứng P174 về các nhịp thiếu 11:25Z/11:35Z/11:50Z. Root owner = GPT root. Không gate N2 và không chen mutation khi N2 STARTED. Sau KQ N2, nếu còn tái diễn thì xử một lượt bounded: fresh-check → chẩn đoán/fix → one-shot verify → đóng; không mở waiter/task kéo dài.
 - **Điểm danh:** ✓ N1 · ✓ CWEB · ✓ HVU KQ + cleanup · ✓ N2 prompt/review/READY/RUN ISSUED · □ N2 STARTED/KQ · □ N3–N6. Phát sinh #23 có chủ root, không thêm node HJW.
+
+### P176 · Claude Code CLI · 2026-10-06 · RUN `HJW-N2-OPENAI-DOTS-20261006-01` · Based_on `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e` (P171) + Reviewer ACCEPT P170 cùng bản + RUN P173/P175
+- STARTED@HJW-N2-OPENAI-DOTS-20261006-01 2026-10-06T13:17:00Z · executor=Claude Code CLI (phiên mới trên Mac) · read-gate PASS: Write_Path gateway `workspace_*` (root workspace, HEAD `626fb9d`) đọc được bằng `workspace_stat`; PROMPT last-touch `f4d0448…` = READY P171 = bản Reviewer P170; 0 STARTED/KQ/STOP_REQUESTED cho RUN này; HJW `## Owner cần quyết` = `- —`. Dòng `STATUS: DRAFT` trong PROMPT bỏ qua theo P174/P175 (quyền chạy = READY + RUN). Concurrency: các việc đang mở không còn lượt nào STARTED mà chưa KQ (HVU P43, Graph R6A P33 đã KQ; phiên Claude Code của hai lượt đó đã kết thúc). Pha A chỉ đọc bắt đầu; đèn/sổ tin báo đọc fresh trước mutation đầu tiên (§2.3).
 
 
 
