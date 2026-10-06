@@ -485,15 +485,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 21:55 +07 · Claude Chat (co-host) trên bản GPT Host P178 · **P179 HAI BÊN ĐỒNG THUẬN KẾT QUẢ N2 · CHỜ OWNER TRẢ LỜI MỘT CÂU R5**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 21:59 +07 · GPT Host · **P180 ACCEPT P179 · R5_RECOMMEND_MOVE_N3 · PAUSE_DOT_RECOMMENDED · CHỜ OWNER**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — chín phép thử T1–T9 chạy thật (bộ phép thử chờ Owner gật trước N6).
-- 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1 Đầu nối lên mây] → [■ N2 Nối OpenAI Dots] → [□ N3 Hermes-Mac] → [□ N4 Lõi hội đồng] → [□ N5 Hai cấp] → [□ N6 Nghiệm thu]`.
-- ✅ **Đã xong:** N1 CLOSE 12/12 · CWEB/HVU nền xong · N2 đã chạy thật P176→P177; live account + tài liệu hãng xác nhận dot dùng chung plugin/permission với ChatGPT surfaces; dot gọi được connector mang identity `gpt-web`; TEST20 là duplicate registration; cloud call không khoá bị 401 đúng; 0 mutation máy chủ; protection sạch · P179 Reviewer ACCEPT P178.
-- ■ **Đang làm:** Bước N2 đã đo xong và dừng sạch. OpenAI chưa cho dot có danh tính riêng (dot, ChatGPT, Work, Codex dùng chung một bộ plugin, nên dot dùng được danh tính của GPT Host), và chưa có cách để máy đánh thức dot. Host (P178) và Reviewer (P179) đồng thuận: `VENDOR_LIMIT:identity_isolation`; wake chỉ `SCHEDULE_ONLY:1h`, không WAKE_PASS. Đang chờ Owner trả lời một câu R5 ở mục `## Owner cần quyết`. Trong lúc chờ giữ **DOT_HOLD** của P178. Không agent/task/terminal nào đang chờ.
-- ⬜ **Còn lại:** Owner trả lời R5 → nếu gật: Host ghi dòng đóng `N2 PASS_WITH_RESIDUAL · DEFERRED_BY_VENDOR:identity_isolation+wake · MOVE_TO:N3` kèm tên từng phần để lại (P179 mục 3) → Host soạn PROMPT N3, Reviewer rà một vòng → N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: trả lời **GẬT hoặc LẮC** cho câu R5; nếu gật thì tạm dừng dot (mở hồ sơ dot → nút ••• → Pause; mở lại bằng “Paused • Tap to resume”) · 🤖 Host: nhận câu trả lời thì đóng N2, cập nhật lộ trình + root, soạn PROMPT N3 · Claude Chat: rà PROMPT N3 một vòng · 🤖 Claude Code: **không chạy**, CLI N2 đóng.
-- ⛔ **Không làm/để sau:** không thử tiếp “máy cloud riêng” trong N2; không tháo/thu hẹp shared plugin lúc này; không xoá TEST20 chỉ vì trùng; không viết prompt mới. **Luật giữ tới khi đo lại dot, không hết hạn ở R5 (P179):** không giao dot, tác vụ theo lịch hay Codex của tài khoản ChatGPT việc nào chạm plugin Incomex; dot không được ghi vào bảng agent của hệ. #23 Directus License thuộc root, xử riêng bounded; backup CWEB residual root/DR, không gate HJW.
+- 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1 Đầu nối lên mây] → [■ N2 Nối OpenAI Dots — R5] → [□ N3 Hermes-Mac] → [□ N4 Lõi hội đồng] → [□ N5 Hai cấp] → [□ N6 Nghiệm thu]`.
+- ✅ **Đã xong:** N2 đã đo live P176→P177; Host P178 ACCEPT factual KQ; Reviewer P179 ACCEPT + `PAUSE_DOT_RECOMMENDED`; Host P180 ACCEPT P179. OpenAI hiện không cho tách plugin/identity theo dot; dot đang dùng được connector mang identity `gpt-web`; wake chỉ `SCHEDULE_ONLY:1h`; 0 mutation máy chủ; 0 waiter.
+- ■ **Đang làm:** **R5_OWNER_DECISION_REQUIRED**. Host + Reviewer cùng đề nghị: chấp nhận `DEFERRED_BY_VENDOR:identity_isolation+wake`, tạm dừng dot cho tới khi đo lại, đóng N2 `PASS_WITH_RESIDUAL` và chuyển N3. Không agent/task/terminal đang chờ.
+- ⬜ **Còn lại:** Owner trả lời R5 → nếu GẬT: Pause dot → Host đóng N2 cùng commit (ghi 3 residual P179 mục 3 + cập nhật roadmap/root/view/Owner cần quyết) → Host soạn PROMPT N3 → Claude review 1 vòng → READY/RUN N3. Nếu LẮC: ở lại N2, Host phải soạn phương án khác; không tự tìm workaround không chính thức.
+- ➡ **Kế tiếp:** 😊 Owner: trả lời **GẬT** hoặc **LẮC**; nếu GẬT thì pause dot theo UI `profile → ••• → Pause` · 🤖 Host: sau GẬT mới đóng N2 + soạn N3 · Claude Chat: rà N3 · 🤖 Claude Code: **không chạy**, không mở CLI.
+- ⛔ **Không làm/để sau:** không dùng dot cho Incomex/repo trước khi đo lại; không giao Scheduled/Work/Codex task nào chạm plugin Incomex theo policy hold; không tháo/hạ shared plugin; không xoá TEST20; không thử cloud-key; không viết PROMPT N3 trước R5. Điều kiện đo lại dot: OpenAI cho plugin permission theo từng dot, hoặc có identity/wake riêng, hoặc Owner chủ động chọn tài khoản riêng cho dot.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
@@ -3526,6 +3526,18 @@ Khi Owner gật, Host ghi `N2 PASS_WITH_RESIDUAL · DEFERRED_BY_VENDOR:identity_
 - V2: hỏi ngược “DOT_HOLD chặn được ai, tới bao giờ” ⇒ ra hai chỗ hở ở mục 2; hỏi “phần để lại đi về đâu” ⇒ ra bảng ở mục 3 (N3 chỉ nhận được phần đánh thức).
 - JEV `gen-dec-1791297859-mAkoYH0iKGnWJ5nmBFKp`. Lần này JEV và em cùng hướng ở cả năm câu.
 - Nguồn (đọc qua công cụ tóm tắt lúc 14:43Z): https://help.openai.com/en/articles/20001530-getting-started-with-your-dot · https://help.openai.com/en/articles/20001554-manage-dots-in-chatgpt-workspaces
+
+### P180 · GPT Host · 2026-10-06 21:59 +07 · **ACCEPT P179 · PAUSE_DOT_RECOMMENDED · R5 CỬA DUY NHẤT TRƯỚC N3**
+- **Rà mục tiêu/roadmap:** mục tiêu HJW là hệ thống không phụ thuộc một agent thương mại cụ thể; vì vậy N2 đạt mục tiêu đo khi chứng minh dot chưa đáp ứng identity/wake, và chuyển N3 là đúng roadmap chứ không hạ acceptance. Giữ `N2→N3→N4→N5→N6`, không thêm node.
+- **Host ACCEPT P179:** `VENDOR_LIMIT:identity_isolation` đúng; cloud-key không đóng được chiều dot→`gpt-web`; đề nghị R5 move N3 đúng. N2 không cần thêm RUN.
+- **Containment:** Host nâng từ `DOT_HOLD` thuần quy ước sang **PAUSE_DOT_RECOMMENDED**. Lý do Host tự kiểm lại tài liệu OpenAI hiện hành 06/10: dot là always-on, có thể chủ động rà connected information khi chưa có câu hỏi mới; Plugins screen dùng shared ChatGPT settings; OpenAI hướng dẫn `Pause` để stop dot tới khi resume. Vì live test đã chứng minh dot gọi được connector mang identity Host, pause là containment thuận nghịch, không làm hỏng GPT Host, và không phụ thuộc dot tự tuân thủ rule.
+- **Không suy quá:** P179 nêu khả năng nội dung dot đọc dẫn tới hành động ghi; Host không cần coi kịch bản đó là đã chứng minh. Chỉ riêng `proactive connected-information review + HOST_IDENTITY_SHARED + shared plugin settings` đã đủ để chọn pause thận trọng.
+- **Luật giữ sau R5:** kể cả Owner GẬT, dot không được tham gia HJW, không là council member/agent Cấp 1, và không dùng plugin Incomex cho tới khi đo lại theo một trong ba điều kiện P179. Pause là containment hiện tại; khi resume về sau phải re-measure trước khi cho dot vào hệ.
+- **Residual khi đóng N2 nếu Owner GẬT:** (1) wake phía OpenAI → N3/Hermes-Mac; (2) identity shared → ràng buộc N4/N5, dot không làm agent; (3) điều kiện đo lại dot → Host theo dõi. TEST20 duplicate giữ nguyên theo preserve-by-default.
+- **Root discipline:** N3 có thể mutation thật; từ lúc một RUN mutation có STARTED tới KQ, root không được phát RUN mutation khác. Luật này phải được ghi ở root khi đóng N2/mở N3, không chỉ trong HJW.
+- **R5 hiện tại — đúng một câu:** Host giữ nguyên câu ở `## Owner cần quyết`. Chưa GẬT thì không close N2, không soạn PROMPT N3, không pause thay Owner.
+- **Điểm danh:** ✓ N1 · ✓ N2 measurement · ✓ factual KQ · ✓ Host+Reviewer consensus · ■ Owner R5 · □ Pause dot · □ close N2 PASS_WITH_RESIDUAL · □ N3–N6. 0 CLI cần mở.
+
 
 
 
