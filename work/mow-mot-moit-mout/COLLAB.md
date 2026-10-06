@@ -9,6 +9,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 📍 Tiến độ: CT-003 ✓ → CT-004 ✓ → CT-005 ✓ Master MOW → CT-006 ✓ Master UI con → ■ CT-007 ✓ Master Config → □ tiếp tục Coverage T0
 ✅ Đã xong: D151 giữ một bảng Master; D152 Master Config đã dùng UI cha, 6 cột quản lý và drawer đủ thông tin, bảo toàn bản ghi test. List/detail/index/đường vào đã kiểm; chờ Owner góp ý.
 ✅ D153: đã ghi đủ 35 Nhóm cha và 115 Nhóm con T0–T2; mỗi nhánh 7 cha/23 con, không thiếu/trùng; kiểm liên kết và UI PASS.
+✅ D155: cột Total sau Tên tự đếm theo nguồn của từng Master, cập nhật khi mở/tải lại bảng; không sửa số tay.
 ■ Đang làm: D154 sửa hàng Tạo mới CT-001 theo Owner; hoàn thiện chuẩn/config theo ca thực tế và Chuyên môn Nhóm con vẫn OPEN.
 ⬜ Còn lại: tiếp tục ghi/test Config thật vào CAT-248* để lộ loại; map MOW legacy; xác định cha UI-008/011/012; Codex Change Propagation audit vẫn PENDING nhưng không chặn chỉ đạo trực tiếp.
 ➡ Kế tiếp: D154 kiểm hàng 3→7 ở nhiều độ rộng và đúng URL Owner. Owner xem Master Nhóm cha/con dòng 1/2; hoàn thiện rule/config từng nhóm trên danh mục đã đủ. Audit Change Propagation vẫn PENDING riêng; FC-002 chỉ bàn semantics Config.
@@ -111,6 +112,14 @@ Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đ�
 
 **OWNER 06/10/2026 · D155 · TOTAL:** thêm cột `Total` ngay sau `Tên` trong bảng 28 Master (Master of Master theo nghĩa quản lý các Master khác). Tự đếm theo nguồn thật của danh sách con; mở/tải lại bảng lấy dữ liệu mới; không giữ số viết tay.
 - STARTED D155 · 2026-10-06T08:55:24.481Z. CE-MMIM-TOTAL-20261006: MASTER_SCHEMA_CHANGE + STATUS_OR_COUNT_CHANGE. UPDATE ui-child-content, adapter nạp nguồn, index cache; VERIFY vị trí cột, 35/115, các list reuse, Config, Công thức chỉ đếm dòng gốc, thiếu nguồn ≠ 0, cập nhật khi dữ liệu đổi. N/A: không đổi records/CT/canonical UI, không polling/DB. Phạm vi không overlap D154 ban-duyet.
+
+### KQ · D155 · Total tự động · 06/10/2026
+- PASS: cột Total ngay sau Tên trong bảng 28 Master; không sửa dữ liệu con. UI transaction `24d66c6217ce4733a1e4e1d6b715b661`.
+- Nguồn đếm: definition-master-data theo từng masterId; Master Công thức chỉ đếm 7 dòng gốc như list; Config từ CONFIG_MASTER_DATA; MOW từ nhap2-items; MOT từ items của UI cha; MOIT/MOUT đếm mã duy nhất từ cùng nguồn như list con. Không hardcode total.
+- Mỗi lần mở/tải lại index nạp lại registry/data/config/MOW bằng URL phiên mới; parent HTML revalidate. Không polling nền. Nguồn có mảng rỗng=0; không có nguồn=—. Dữ liệu đổi thì Total đổi ở lần mở/tải lại tiếp theo.
+- Kết quả live HTTP200: Nhóm cha 35, Nhóm con 115, MOW 7, MOT 7, MOIT 6, MOUT 6, UI cha 6, UI con 29, Công thức 7, Config 1; 28 dòng giữ nguyên. Header đúng STT/ID/Tên/Total/...; screenshot đã kiểm.
+- Test trong bộ nhớ: thêm dòng giả vào nguồn cha làm Total 35→36; bỏ nguồn MOW trả —, không 0; không ghi test vào dữ liệu thật. JS syntax PASS; process gate CHUNG.APQUYTRINH PASS job 00e51ec1c2db43028d93ac2c6e57d632. Browser chỉ có cảnh báo Google Fonts/CSP vốn có, không lỗi JS.
+- NEXT: Owner dùng bảng hiện hành; không cần cập nhật số tay. D154 và audit PENDING giữ phạm vi riêng.
 
 
 **OWNER 06/10/2026 · D153 · ĐIỀN ĐỦ MASTER NHÓM:** Bước 1–7 + Tầng T0–T2 ⇒ ghi toàn bộ Nhóm cha; Bước con 1.x–7.x + Tầng T0–T2 ⇒ ghi toàn bộ Nhóm con. Theo CT-002 giữ Field/T0, MOIT/T0.5, MOUT/T0.5, MOT/T1, MOW/T2 riêng: 35 cha và 115 con (23 bước con). Giữ ID/dữ liệu cũ; danh mục đầy đủ không có nghĩa rule/config/vận hành đã duyệt.

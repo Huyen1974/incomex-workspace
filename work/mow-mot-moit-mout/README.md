@@ -83,6 +83,10 @@ Chuỗi:
 - Khóa chống trùng: `stepRef + tierRef`; mỗi Nhóm con có `parentGroupId` cùng đối tượng/tầng, đúng Bước gốc. `tierRef` phân biệt MOIT/MOUT tại T0.5.
 - **Độ phủ danh mục: FULL cho phạm vi Owner giao.** Rule/config/bộ trường bắt buộc chưa hoàn thiện vẫn hiển thị thiếu; Chuyên môn Nhóm con giữ OPEN. Đây không phải kết luận các nhóm đã được duyệt để vận hành. Không đổi công thức/khái niệm hoặc canonical UI.
 
+## D155 · Total của các Master
+
+[Bảng 28 Master](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html) có cột **Total ngay sau Tên**, đếm từ nguồn đang dùng ở list con. Tự nạp lại nguồn khi mở/tải lại bảng; không sửa total tay. Công thức chỉ đếm dòng gốc; MOIT/MOUT theo mã duy nhất; thiếu nguồn hiển thị —, mảng rỗng hiển thị 0. Logic ở `ui/ui-child-content-v1.js`, nạp nguồn ở `ui/ui-child-from-parent-v1.js`; dữ liệu không đổi. Xem KQ D155 trong COLLAB.
+
 ## 5. VIỆC ĐANG CHỜ — KHÔNG ĐƯỢC QUÊN
 
 **PENDING:** giao Codex chạy audit Change Propagation đầu tiên.
