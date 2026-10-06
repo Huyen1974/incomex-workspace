@@ -29,12 +29,12 @@ Hướng đúng: một đường duy nhất theo §12, cấm URL tạm, không n
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn lời Owner 06/10/2026 14:59 (vòng mở lại; ghi ở ô 1).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 18:07 +07 · Claude Code CLI (executor) · **STARTED · CLAUDE CODE ĐANG CHẠY**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 18:27 +07 · Claude Code CLI (executor) · **STARTED · BƯỚC 1/4 ĐÃ ÁP**
 - 🎯 **Mục tiêu (Owner 06/10 14:59, nguyên văn):** “các bạn cứ bàn trên repo, viết cái gì ra thì chayn xuống VPS. VPS đơn giản chỉ là cái kênh để cho user có thể xem trực tiếp và dễ nhìn. Đặc biệt là thông tin tiến độ theo thời gian thực (ai đang làm? ai vừa làm)”.
 - 🏁 **Xong khi:** Bảng điều khiển + mục tiêu tự xuống trang; đổi tiêu đề không làm mất dữ liệu; lỗi parse có đèn; “ai vừa làm/đang làm” giữ đúng; có test + rollback.
 - 📍 **Tiến độ:** `✅ Mở lại + mục tiêu` · `✅ Hội đồng rà đề bài` · `✅ READY` · `■ RUN ISSUED — Claude Code mới` · `⬜ Nghiệm thu + đóng`.
 - ✅ **Đã xong:** P36 draft · P38 Reviewer ACCEPT · P39 Host ACCEPT + `READY@376722de82c366009a08693313d59cd0b42e9716`.
-- ■ **Đang làm:** **RUN@HVU-OWNERVIEW02-20261006-01 · STARTED 11:07Z** · Claude Code CLI đang chạy P1–P6 rồi F1–F6; chờ: không chờ ai.
+- ■ **Đang làm:** **RUN@HVU-OWNERVIEW02-20261006-01 · STARTED 11:07Z** · Claude Code CLI: đọc trước P1–P6 PASS (P42) · bước 1 `sync.py` đã áp, đang kiểm lần đồng bộ thật → bước 2 trang → bước 3 Guard; chờ: không chờ ai.
 - ⬜ **Còn lại:** Claude Code chạy một lượt đến KQ XONG/DỪNG → Host nghiệm thu → Reviewer xác nhận nếu cần → đóng lại Done.
 - ➡ **Kế tiếp:** 🤖 Claude Code: chạy tới KQ XONG/DỪNG trong lượt này · Host: nghiệm thu khi có KQ · 😊 Owner: 0 thao tác.
 - ⛔ **Không làm:** không dùng terminal Graph cho HVU · không dùng terminal CWEB cũ · không mở HJW N2 lúc này · không waiter/polling.
@@ -849,6 +849,7 @@ Thêm một biển chỉ đường ở mục 0 của đề bài: `view.html` (40
 
 ## Ý kiến (P)
 - **P39 · GPT Chat (Host) · ACCEPT + READY · 2026-10-06 17:10 +07.** `Based_on: P38 + PROMPT 376722de + fresh root/CWEB/HJW/VPS git`. Mục tiêu khớp Owner: repo là SSOT thông tin, VPS chỉ là view dẫn xuất; sửa đúng gốc lỗi tiêu đề khiến HJW không xuống VPS mà không có cảnh báo. Host đồng thuận đủ F1–F6, không thêm scope. Fresh-check: CWEB đã CLOSED, `CWEB-ROOT-RELOCATE` XONG; runtime Git sạch; HJW N2 chưa STARTED. Giao nhau duy nhất tiềm năng là shared `mcpw-protection-guard`/Config Guard, đã được P4 cổng vào cưỡng chế nên không cần sửa PROMPT. Ưu tiên chạy HVU một lượt tới KQ rồi đóng sạch trước mutation shared khác.
+- **P42 · Claude Code CLI (executor) · đọc trước P1–P6 · 2026-10-06 18:27 +07.** `Based_on: READY@376722de · STARTED fe13e17`. **P1** đèn 22/22 xanh (11:00Z) · sổ tin báo 72 loại · 70 chạy · 0 hỏng · 2 chưa xác định · 4 nghỉ; không đỏ liên quan Owner View. **P2** sáu file đề bài chạm sạch (`nuxt-repo` chỉ có `web-rp-current` dở từ trước, không thuộc lượt này). **P3** mốc xanh: 31 unittest · webhook 7/7 · trình duyệt fixture 3/3. **P4** không RUN nào STARTED chưa KQ chạm `scripts/hvu-b2`, Guard hay Config Guard (HJW N2 chưa RUN; GS R6A chưa RUN). **P5** số INV cao nhất INV20 ⇒ dùng **INV21**; không đèn Kuma nào canh `sync-status.json` (22 đèn, 0 khớp) ⇒ giữ nhánh (b); Config Guard giữ `hvu-sync-py` và `mcpw-protection-guard`; `view.html` đang phục vụ **không** có mục ⇒ thay nguyên tử theo README A09R1; sổ tin báo theo mẫu `B-N1CS01`. **P6** 502 trong 24 giờ: `presence.json` 0 · `sync-status.json` 0. **Bước 1:** 44 ca thử xanh (31 cũ + 13 mới) · so mã cũ/mới trên dữ liệu thật `308b346`: 14/14 việc, 0 trường cũ đổi, chỉ thêm `board`/`goalWarnings`/`documentCommit` · `sync.py` áp qua `incomex-config-apply-v0` (`a64a59eb` → `b15b5189`, Owner cho phép áp 18:2x). Commit này là checkpoint kích một lần đồng bộ thật bằng mã mới. Hồ sơ + quay lui: `/opt/incomex/work/hpml-view-for-user/HVU-OWNERVIEW02-20261006/` (`rollback.sh --check` PASS).
 
 ## Owner cần quyết
 - —
