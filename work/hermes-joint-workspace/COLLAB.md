@@ -485,14 +485,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 20:46 +07 · Claude Code CLI · **P176 N2 PHA A · CHỜ OWNER MỘT NÚT (thử đọc vào dot)**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 20:35 +07 · Claude Code CLI · **P177 KQ N2 DỪNG · VENDOR_LIMIT:identity_isolation · CHỜ HOST/REVIEWER + OWNER R5**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — chín phép thử T1–T9 chạy thật (bộ phép thử chờ Owner gật trước N6).
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1 Đầu nối lên mây] → [■ N2 Nối OpenAI Dots] → [□ N3 Hermes-Mac] → [□ N4 Lõi hội đồng] → [□ N5 Hai cấp] → [□ N6 Nghiệm thu]`.
 - ✅ **Đã xong:** N1 CLOSE 12/12 · CWEB hygiene XONG · N2 P170 Reviewer ACCEPT C1–C7 · P171 Host READY nguyên bản · P172/P174 Reviewer xác nhận đủ chữ ký + lệnh chạy đúng, 0 blocker · HVU KQ/cleanup xong · Graph R6A KQ XONG · đèn P174 22/22 xanh.
-- ■ **Đang làm:** Lượt chạy N2 đã bắt đầu lúc 20:17 (Claude Code CLI trên Mac): Pha A chỉ đọc gần xong (tài liệu chính thức + tài khoản thật + máy chủ). **20:46 chờ Owner bấm một nút** cho phép gửi vào dot một tin thử chỉ đọc (bộ lọc an toàn của Claude Code chặn tự gõ); chưa cài gì. `STARTED@HJW-N2-OPENAI-DOTS-20261006-01` (P176) trên `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e`.
+- ■ **Đang làm:** Lượt chạy N2 đã dừng sạch lúc 20:35. Dot của OpenAI dùng chung plugin với ChatGPT nên không tách được danh tính riêng; dot còn gọi được connector mang danh tính Host. Không thay đổi gì trên máy chủ. 0 agent/task/terminal đang chờ. `KQ@HJW-N2-OPENAI-DOTS-20261006-01 DỪNG · VENDOR_LIMIT:identity_isolation` (P177).
 - ⬜ **Còn lại:** N2 Pha A → access/identity/scope/wake live → đúng một disposition `DIRECT_PASS | COURIER_REQUIRED | VENDOR_LIMIT` → Host/Reviewer disposition → N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 🤖 Claude Code: Pha A → bảng năng lực → nếu được áp thay đổi thì hỏi “Cho phép áp” đúng một lần → tới KQ XONG/DỪNG · 😊 Owner: chỉ bấm khi được hỏi · 🤖 Host: từ lúc N2 STARTED tới KQ **không phát RUN có ghi máy chủ ở việc khác**.
+- ➡ **Kế tiếp:** 🤖 Host + Reviewer: rà P177, xử phát hiện HOST_IDENTITY_SHARED (P177 mục 6) · 🤖 Host: hỏi Owner đúng một câu R5 (P177 mục 7) · 😊 Owner: trả lời câu đó · 🤖 Claude Code: không còn việc; chỉ chạy tiếp cùng RUN nếu Host sửa lệnh.
 - ⛔ **Không làm/để sau:** không sửa N2 PROMPT; không dùng CLI HVU/Graph/CWEB; không viết prompt mới. #23 Directus License thuộc root: không gate N2; nếu còn tái diễn thì root xử một lượt bounded **sau KQ N2**, không chen mutation. Backup CWEB residual root/DR, không gate N2.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -3393,7 +3393,67 @@ KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS — ai nhận tiếp: Host
 
 ### P176 · Claude Code CLI · 2026-10-06 · RUN `HJW-N2-OPENAI-DOTS-20261006-01` · Based_on `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e` (P171) + Reviewer ACCEPT P170 cùng bản + RUN P173/P175
 - STARTED@HJW-N2-OPENAI-DOTS-20261006-01 2026-10-06T13:17:00Z · executor=Claude Code CLI (phiên mới trên Mac) · read-gate PASS: Write_Path gateway `workspace_*` (root workspace, HEAD `626fb9d`) đọc được bằng `workspace_stat`; PROMPT last-touch `f4d0448…` = READY P171 = bản Reviewer P170; 0 STARTED/KQ/STOP_REQUESTED cho RUN này; HJW `## Owner cần quyết` = `- —`. Dòng `STATUS: DRAFT` trong PROMPT bỏ qua theo P174/P175 (quyền chạy = READY + RUN). Concurrency: các việc đang mở không còn lượt nào STARTED mà chưa KQ (HVU P43, Graph R6A P33 đã KQ; phiên Claude Code của hai lượt đó đã kết thúc). Pha A chỉ đọc bắt đầu; đèn/sổ tin báo đọc fresh trước mutation đầu tiên (§2.3).
-- 13:46Z `CHECKPOINT_N2_OWNER_ACTION` (trong phiên, một nút): Pha A câu (c) cần gõ một tin thử **chỉ đọc** vào dot qua Chrome (§2.6); bộ lọc auto-mode của Claude Code chặn, không lách ⇒ hỏi Owner một lần. 0 mutation máy chủ, 0 tin đã gửi vào dot. Owner không bấm ⇒ ghi KQ DỪNG sạch, không chờ.
+- 13:27Z *(sửa giờ ở P177: commit `e8882fe` ghi nhầm 13:46Z)* `CHECKPOINT_N2_OWNER_ACTION` (trong phiên, một nút): Pha A câu (c) cần gõ một tin thử **chỉ đọc** vào dot qua Chrome (§2.6); bộ lọc auto-mode của Claude Code chặn, không lách ⇒ hỏi Owner một lần. 0 mutation máy chủ, 0 tin đã gửi vào dot. Owner không bấm ⇒ ghi KQ DỪNG sạch, không chờ.
+
+### P177 · Claude Code CLI · 2026-10-06 20:35 +07 · RUN `HJW-N2-OPENAI-DOTS-20261006-01` · **KQ DỪNG · VENDOR_LIMIT:identity_isolation** · Based_on `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e` · STARTED P176 `ad624e7`
+- KQ@HJW-N2-OPENAI-DOTS-20261006-01 DỪNG · VENDOR_LIMIT:identity_isolation · R5_OWNER_DECISION_REQUIRED · CONTINUE_SAME_NODE · 2026-10-06T13:35Z · executor=Claude Code CLI · 0 mutation máy chủ · 0 khoá/route/hồ sơ N2 được tạo (không có gì phải tắt) · **0 agent/task/terminal đang chờ**.
+- DROOT30 ngay trước KQ (13:32Z): PROMPT last-touch vẫn `f4d0448…`; 0 STOP_REQUESTED/HOLD/READY mới; HJW không có commit của người khác từ STARTED.
+
+**0 · Kết luận**
+- Dot của Owner **gọi được connector mang danh tính Host** (`Incomex MCP full all 2` và bản TEST20, danh tính máy `openai-mcp [auth:gpt-web]`) ⇒ `HOST_IDENTITY_SHARED` — mục 6, cho Host + Reviewer; executor không tự xử.
+- Hãng **không cho gắn hay giới hạn plugin theo từng dot**: plugin dùng chung giữa dot, ChatGPT, Work và Codex (tài liệu chính thức + tài khoản thật) ⇒ không tách danh tính hai chiều bằng đường chính thức ⇒ `VENDOR_LIMIT:identity_isolation` (§0, §5.5, §8). Không áp danh sách thay đổi §4.
+- Wake: dot **không có đường đánh thức từ máy** chính thức; chỉ có lịch người đặt (tối đa mỗi giờ, lượt nào cũng chạy mô hình) ⇒ `SCHEDULE_ONLY:1h`, không tính WAKE_PASS.
+- `ĐÈN: 22 xanh · 0 đỏ` (bảng đèn 13:30:02Z) · Config Guard 336/336 CLEAN (13:29:30Z) · Guard UP OK all invariants (13:30:31Z) · sổ tin báo 73 loại · 71 chạy · 0 hỏng · 2 chưa xác định · ngoài sổ 0.
+
+**1 · Bảng Pha A** *(tài khoản thật: gói cá nhân Pro `prolite`, có một dot đang hoạt động; tài liệu: help.openai.com bài 20001530 · 20001554 · 20001529 · 20001275 · 10291617 · 12584461 · 20001256, đọc qua Chrome 06/10 vì tải thẳng bị 403)*
+
+| # | Năng lực | Đường chính thức | Live account thấy gì | Identity | Scope | Wake/trigger | Evidence | Kết luận |
+|---|---|---|---|---|---|---|---|---|
+| 1 | (a) Dot gọi connector MCP tuỳ biến | Plugins (developer mode, MCP app) | Dot liệt kê 18 mục, có 2 connector Incomex; gọi `workspace_stat` được cả hai: head `d068a43` + sha256 PROMPT `94ebc51a…` khớp Git | `openai-mcp [auth:gpt-web]` (nginx chèn khoá gpt-web) | route `gpt-full` 37 tool có ghi | — | Log máy chủ 13:29:36Z + 13:29:40Z hai lượt `workspace_stat` route GPT-FULL | **CÓ** |
+| 2 | (b) Gắn/giới hạn plugin theo từng dot | Tab Plugins dùng chung | Settings → Plugins một danh sách chung, quyền theo plugin; menu dot trên web chỉ Rename/Pause/Reboot/Delete | — | theo plugin, không theo dot | — | Tài liệu: “Plugin permissions are shared across dots, ChatGPT, ChatGPT Work, and Codex” | **KHÔNG** |
+| 3 | (c) Dot thấy/gọi connector danh tính Host | — | Có, đọc được cả bản chính và TEST20 | gpt-web | 37 tool, plugin chính “Allow all tools” | — | Như dòng 1; máy chủ không phân biệt dot với GPT Chat (xen 13:29:44Z/13:30:37Z lượt ghi của GPT Host cùng route) | **CÓ ⇒ HOST_IDENTITY_SHARED** |
+| 4 | Máy cloud riêng của dot gọi HTTPS | Cloud computer + network access | Dot chạy curl tới `/api/mcp-agent` không khoá ⇒ 401 | chưa có (không khoá) | — | — | nginx 13:29:53Z `POST /api/mcp-agent 401`, UA curl/8.14.1 | Có đường ra mạng. Dùng thì phải đặt khoá lên máy dot (ngoài danh sách), và vẫn không đóng chiều dot→gpt-web (dòng 3) |
+| 5 | Lịch/kiểm định kỳ của dot | Reminder/recurring của dot | Theo lịch người đặt | — | — | Lịch, tối đa mỗi giờ ở gói trả phí, mỗi lượt chạy mô hình | Tài liệu dot + Scheduled | `SCHEDULE_ONLY:1h`, không phải wake |
+| 6 | Tác vụ Work theo lịch | Scheduled tasks | Hộp tạo tác vụ: Hourly/Daily/Weekdays/Weekly/Monthly/Custom, model GPT-6.1 Sol; không có lựa chọn sự kiện hay nhắm dot (đã bấm Cancel, không tạo) | plugin chung | — | Lịch | Trang Scheduled | Work, không phải dot |
+| 7 | Tác vụ Work theo sự kiện | Event-triggered (webhook-based): thư Gmail mới, tin kênh Slack, hoạt động PR GitHub; ≤30 lượt/giờ | Không thử tạo (cần tạo task + PR/thư, chưa duyệt — §6.3) | plugin chung | — | Sự kiện hãng hỗ trợ | Tài liệu Work + Scheduled | Chạy trong Work; tài liệu không cho Work đánh thức dot |
+| 8 | Dot trong Slack/Teams/nhắn tin | Slack (dot có nút Slack), Teams (workspace), nhắn tin beta chỉ ở Mỹ | Profile dot có nút Slack | danh tính Slack riêng của dot | — | “Only a dot’s owner can direct it” — tin của người/bot khác không khởi động dot | Tài liệu Manage dots | Bot của máy không đánh thức được dot |
+| 9 | Webhook/API cho dot | — | Không có | — | — | Không | Bốn trang tài liệu về dot/Work không nhắc | Không có |
+| 10 | Work Cloud Browser | Cloud browser | Settings → Cloud computer: cookie riêng cho Work và cho dot | — | — | — | Trang cài đặt | Không giúp danh tính hay wake |
+| 11 | U3 · `Incomex MCP full all 2` | App `asdk_app_6aafbb49…`, dev mode, nối 20/09, auth None, “Allow all tools” | URL băm 12 ký tự `bfda593fa36f` | gpt-web | 37 | — | Băm URL trong trình duyệt, không hiện URL | **PRIMARY** |
+| 12 | U4 · `Incomex AgentData MCP — GPT Full TEST20` | App `asdk_app_6aabf213…`, dev mode, nối 19/09, auth None, “Allow low-risk tools” | Cùng băm `bfda593fa36f` | gpt-web | 37 | — | Như trên | **DUPLICATE_REGISTRATION** (cùng route, cùng runtime) |
+
+**2 · Delta + rollback:** không áp gì. (b) = không ⇒ §4 cấm áp danh sách cho đường plugin. Đường máy cloud riêng (đặt khoá `openai-dot` lên máy của dot) chỉ cho dot thêm một danh tính, vẫn để mở chiều dot→gpt-web qua plugin chung ⇒ không đạt cách ly hai chiều ⇒ kết luận VENDOR_LIMIT thay vì xin DELTA_REVIEW. Rollback: không cần. Dấu vết duy nhất: một tin thử chỉ đọc + câu trả lời trong cuộc trò chuyện của dot (gửi 13:29:06Z sau khi Owner cho phép); dot không ghi, không lập lịch (Scheduled giữ nguyên 5 mục). Tab trình duyệt của executor đã đóng; tab của Owner không chạm.
+
+**3 · Bốn năng lực**
+- Access: dot đọc được repo qua plugin chung, nhưng bằng danh tính Host ⇒ không tính ACCESS_PASS cho danh tính dot.
+- Identity: không đạt do hãng — không có cách để dot có danh tính riêng mà vẫn không mượn được danh tính Host.
+- Scope: chưa đo (không tạo hồ sơ dot). Phạm vi thực tế hiện nay của dot = phạm vi gpt-web 37 tool, có ghi.
+- Wake: không có đường chính thức cho dot; chỉ `SCHEDULE_ONLY:1h`; Work theo sự kiện không đánh thức dot. Không có trigger phù hợp nên không chạy phép kích §6.
+
+**4 · Phép thử âm**
+1. Không khoá ⇒ 401: ĐẠT (curl của dot, 13:29:53Z).
+2. Ghi ngoài phạm vi: không làm (không có hồ sơ dot; không tạo fixture).
+3. Mượn danh tính qua metadata: máy chủ gán danh tính theo route/khoá; lượt đọc của dot ghi nhận là gpt-full/gpt-web — chính là vấn đề cách ly.
+4. Thu hồi hồ sơ dot: không áp dụng (không tạo).
+5. Cách ly hai chiều (lệnh đọc): chiều dot→gpt-web **GỌI ĐƯỢC** ⇒ không ghi IDENTITY_PASS ⇒ `VENDOR_LIMIT:identity_isolation` đúng §5.5. Chiều GPT Chat→route của dot: không thử vì không có route; theo tài liệu, plugin đăng ký cho dot cũng hiện cho GPT Chat.
+
+**5 · Bảo vệ:** 0 mutation máy chủ ⇒ không có footprint, không có biên nhận POST-PROTECT. Số đèn/Guard ở mục 0. AUTO_ALLOWLIST không chạm.
+
+**6 · 🔴 HOST_IDENTITY_SHARED — cho Host + Reviewer (executor không tự xử)**
+- Dot luôn bật, dùng chung plugin `Incomex MCP full all 2` ở mức “Allow all tools” ⇒ khi Owner giao việc cho dot, dot ghi được repo dưới nhãn `openai-mcp [auth:gpt-web]` — đúng danh tính máy dùng để nhận Host HJW (DROOT41). Về kỹ thuật dot có thể phát `ASSIGN_V1` như Host. Máy chủ không phân biệt được.
+- Theo tài liệu, công cụ rà nền tự động của dot không được đổi nội dung qua plugin; rủi ro nằm ở việc được giao cho dot.
+- Gợi ý để Host/Owner chọn, không làm trong N2: hạ quyền plugin `Incomex MCP full all 2` về hỏi trước khi ghi; gỡ đăng ký trùng TEST20; hoặc Custom Rules cho dot “không dùng plugin Incomex” (chỉ là lời nhắc, không cưỡng chế phía máy chủ).
+
+**7 · R5 — một câu Host hỏi Owner, một phương án đề nghị**
+- Đề nghị: chấp nhận `DEFERRED_BY_VENDOR:identity_isolation+wake` ⇒ Host ghi dòng đóng `N2 PASS_WITH_RESIDUAL · DEFERRED_BY_VENDOR:identity_isolation+wake · MOVE_TO:N3`. Agent Cấp 1 ở N5 không bắt buộc là dot (R7). Đo lại dot khi OpenAI cho gắn plugin theo từng dot hoặc có webhook/API đánh thức dot.
+- Không đề nghị: đặt khoá riêng lên máy cloud của dot. Cách này không đóng chiều dot→gpt-web; muốn đóng phải gỡ connector Incomex khỏi ChatGPT, khi đó GPT Host mất đường.
+
+**8 · Ghi chú**
+- Owner bấm một lần (cho phép gửi tin thử vào dot; bộ lọc auto-mode chặn tự gõ). Không OAuth, không đăng nhập.
+- Sửa giờ: dòng checkpoint ở P176 (commit `e8882fe`) ghi nhầm 13:46Z/20:46; giờ thật 13:27Z/20:27 — đã sửa trong commit này.
+- → root: dòng HJW ở `## Đang làm` còn “CHƯA STARTED”; Host gốc cập nhật (executor không sửa root).
+- JEV `gen-dec-1791293198-BASsOCoBU6QN3ehUxfgh` (trước thử thật: gắn theo dot 0,06 · hỏi Owner một lần rồi thử 0,69) · `gen-dec-1791293545-mTI1dQqb8aVwT0o3pxND` (sau thử thật: VENDOR_LIMIT:identity_isolation 0,98 · HOST_IDENTITY_SHARED 0,95 · TEST20 = DUPLICATE_REGISTRATION 1,00 · wake: không có đường chính thức 0,60, lịch theo giờ 0,35).
+- Không ghi secret, URL connector hay IP vào mục này; URL chỉ so bằng băm 12 ký tự ngay trong trình duyệt.
 
 
 
