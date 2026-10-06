@@ -29,14 +29,14 @@ Hướng đúng: một đường duy nhất theo §12, cấm URL tạm, không n
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn lời Owner 06/10/2026 14:59 (vòng mở lại; ghi ở ô 1).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 19:52 +07 · GPT Chat (Host) · **P44 HOST ACCEPT KQ · CHỜ CLAUDE REVIEW 1 VÒNG → CLOSE**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 20:00 +07 · GPT Chat (Host) · **P45 SSOT CLOSEOUT CLEANUP XONG · CHỜ CLAUDE CLOSE-CHECK → CLOSE**
 - 🎯 **Mục tiêu (Owner 06/10 14:59, nguyên văn):** “các bạn cứ bàn trên repo, viết cái gì ra thì chayn xuống VPS. VPS đơn giản chỉ là cái kênh để cho user có thể xem trực tiếp và dễ nhìn. Đặc biệt là thông tin tiến độ theo thời gian thực (ai đang làm? ai vừa làm)”.
 - 🏁 **Xong khi:** Bảng điều khiển + mục tiêu tự xuống trang; đổi tiêu đề không làm mất dữ liệu; lỗi parse có đèn; “ai vừa làm/đang làm” giữ đúng; có test + rollback.
 - 📍 **Tiến độ:** `✅ Mở lại + mục tiêu` · `✅ Hội đồng rà đề bài` · `✅ RUN` · `✅ KQ XONG` · `■ Host ACCEPT / Reviewer close-check`.
 - ✅ **Đã xong:** KQ `HVU-OWNERVIEW02-20261006-01 XONG` (P43): live round-trip 22 s; 14/14 dữ liệu thật không đổi trường cũ; 44 unittest + 7/7 webhook + browser fixture/LIVE PASS; INV21 + INV13 mutant PASS; Config Guard 336/336 CLEAN; rollback check PASS; Telegram receipt PASS; 22/22 xanh tại KQ.
-- ■ **Đang làm:** Host P44 **ACCEPT về kỹ thuật**; Claude Chat Reviewer kiểm đúng một vòng dữ liệu đang phục vụ + 2 cleanup closeout, rồi CLOSE nếu 0 blocker. Không còn executor/terminal HVU đang chạy.
-- ⬜ **Còn lại:** Reviewer xác nhận → Host close/archive `done-tasks`; khi close gỡ câu MT4 “CÒN HỞ” và bỏ phần “đang ở đâu” chép tay của HJW view nếu Reviewer xác nhận đúng.
-- ➡ **Kế tiếp:** 😊 Owner: 0 thao tác HVU · Claude Reviewer: review P43/P44 một vòng, không RUN · Host: close ngay nếu ACCEPT · 🤖 agent: không chạy thêm.
+- ■ **Đang làm:** Phần kỹ thuật đã được Host P44 ACCEPT. Hai cleanup Host-only cũng đã xong: AGENTS MT4 bỏ trạng thái `CÒN HỞ` và ghi rõ Owner View/Bảng là nguồn trạng thái; HJW `view.html` bỏ khối trạng thái hiện hành chép tay và bỏ yêu cầu phải sửa view cùng lúc. Không còn executor/terminal HVU đang chạy.
+- ⬜ **Còn lại:** chỉ Claude Reviewer close-check read-only → Host close/archive `done-tasks`. Không còn mutation/runtime work.
+- ➡ **Kế tiếp:** 😊 Owner: 0 thao tác HVU · Claude Reviewer: xác nhận KQ + cleanup đúng một vòng, **không RUN** · Host: close ngay nếu ACCEPT · 🤖 agent: không chạy thêm.
 - ⛔ **Không làm:** không mở lại RUN HVU; không chờ timer; không dùng HVU để chặn HJW N2 — N2 được phát RUN riêng ngay sau KQ HVU.
 
 ### 1. Mục tiêu
@@ -877,6 +877,10 @@ Thêm một biển chỉ đường ở mục 0 của đề bài: `view.html` (40
     Config Guard 336/336 CLEAN · đèn 22/22 xanh (12:19Z) · sổ 73 loại · 71 chạy · 0 hỏng · 2 chưa xác định · `rollback.sh --check` PASS. 0 THIẾU.
   - **Ghi thật:** (1) Sổ phiên của việc này đỏ “2 PHIÊN”: ngoài phiên này có một phiên Claude Code CLI khác (bắt đầu 11:24Z, không RUN, im từ ~11:28Z) chạm việc này; sổ Config Guard từ lúc STARTED chỉ có 2 lượt áp của RUN này và `scripts/hvu-b2` chỉ do RUN này đổi ⇒ không phải xung đột cùng phạm vi, không dừng. (2) Phép âm `lastSuccessAt` 40′ lần đầu chấm sai vì làm tròn (39,99′); đã sửa cách làm tròn trước khi áp. (3) `nuxt-repo` còn `web-rp-current` dở từ trước, không chạm. (4) Chưa làm, để Host khi đóng việc (P37 mục G): gỡ câu “CÒN HỞ” trong AGENTS MT4 và bản chụp tay “đang ở đâu” trong `work/hermes-joint-workspace/view.html`.
   - **Cho Owner:** Trang việc giờ tự hiện Bảng điều khiển ngay đầu tab Kiểm soát, đúng chữ các AI ghi trên repo; AI sửa thì khoảng nửa phút sau trang đổi theo. Lỡ có AI đổi nhầm tiêu đề, trang vẫn hiện mục tiêu và có dòng nhắc màu vàng ở đầu. Nếu trang không đọc được mục tiêu của việc đang làm, hoặc đồng bộ đứng quá 35 phút, đèn số 22 đỏ và báo về điện thoại, nêu tên việc. Chữ trong các ô mục tiêu đã sạch ký hiệu; tab Nội dung ghi rõ tài liệu sửa lần cuối lúc nào. Xem: https://vps.incomexsaigoncorp.vn/knowledge/modules?task=hpml-view-for-user
+
+### P45 · GPT Chat (Host) · 2026-10-06 20:00 +07 · SSOT CLOSEOUT CLEANUP COMPLETE
+- Không mở thêm RUN. Hai tàn dư tài liệu của cơ chế cũ đã dọn bằng repo edit: `AGENTS.md` commit `956065148eb5c402b2d9935e8bbcd91faad3f02d` đổi `CÒN HỞ` → `ĐÃ KHÉP`; `work/hermes-joint-workspace/view.html` commit `75a6f158882e62281d2880ff05c0ace1cac4f6f6` bỏ trạng thái hiện hành chép tay và câu bắt sửa view cùng lúc.
+- Kết luận Host: mục tiêu của phiên này — **repo/COLLAB là SSOT thông tin; VPS Owner View là dẫn xuất tự động có cảnh báo khi lệch/hỏng** — đã đạt. Chỉ còn Reviewer close-check + archive, không còn việc triển khai.
 
 ## Owner cần quyết
 - —
