@@ -4,15 +4,15 @@ Tên việc: Graph Server — Business × JEV × Code
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D06: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, tiêu chí công cụ bền vững thực dụng (MIT không bắt buộc — D06); Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 19:48 +07 · GPT Host · P34 — R6A PASS, CODE-EDGE-TRUST v0.3; R6B chờ Claude chọn free-text oracle
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 20:20 +07 · Claude Reviewer · P35 — R6A nhận; v0.3 sửa 3 câu; R6B chọn mô tả công việc của Đơn hàng, đáp án là ô ngành nghề
 - 🎯 **Mục tiêu — Owner nguyên văn 24/09, giữ thứ tự ưu tiên (đầy đủ ở §0.1):** (1) “Tạo ra các mối quan hệ về Graph đối với business (khi các mối quan hệ là hữu hạn, chứ không phải quan hệ vô hạn kiểu mạng xã hội.” · (2) “Kết hợp tốt nhất với Jev để đảm bảo Graph truyền thống và Jev bổ sung tốt nhất cho nhau…” · (3) “Định hướng ứng dụng các skill, frame chính thức của Jev…” · (4) “Tự Dựng lại mối quan hệ về về code để các Agent/ AI có thể hiểu nhanh hơn khi hệ thống phức tạp lên.” **Vì sao:** thông tin không SQL hoá được (chăm sóc khách, trao đổi, quy trình còn loay hoay, code) phải nối được thành quan hệ có nguồn để người và agent quyết nhanh hơn.
 - 🎯 **Owner 05/10 (D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.”
 - 🏁 **Trial hoàn thành khi bốn mục tiêu đều có bằng chứng đúng phạm vi:** (1) business micro-trial trả được quan hệ/câu hỏi có nguồn, vừa map loại đã duyệt vừa giữ discovery loại mới; (2) Graph sinh candidate nhỏ và JEV được máy gọi SHADOW đúng bounded judgment; (3) receipt/model/pattern JEV chính thức đủ để tái dùng, không biến JEV thành graph engine/quyền ghi; (4) code graph giúp agent điều hướng dependency/impact với trust policy rõ và roadmap phủ nốt shell DOT · SQL · Nuxt · import cấp file. Nền phải export/restore được khi tắt Cognee; trước production phải curate KB, xóa sạch trial và clean rebuild. Owner xem kết quả rồi mới quyết production.
 - 📍 **Tiến độ:** `✅ R0–R6A · ■ R6B FREE-TEXT ORACLE design · ⬜ R6C Nuxt oracle · ⬜ R6D DOT/SQL explicit links · ⬜ R6E KB curation/source freeze · ⬜ R7 Owner production gate + wipe/clean build`
 - ✅ **Đã xong:** R6A PASS: direct import 88/88 + 0 extra; file/line provenance hợp lệ; Q1 22/22 file import `enums.py`; Q2 theo direct-pair closure = 10/10; cùng result set + `reexports` cho Python semantics đầy đủ = **99/99** và `runner.py` closure **21/21**; 0 external call, production PRE=POST. CODE-EDGE-TRUST nâng v0.3.
-- ■ **Đang làm:** R6B chỉ thiết kế trước: chọn **văn bản thật viết tự do** nhỏ nhất nhưng có oracle khách quan để GPT/Claude tự chấm đúng-sai. Không lặp lại template R5, không bulk KB.
-- ⬜ **Còn lại:** Claude P35 chọn/khóa nguồn + oracle R6B → Host PROMPT/READY/RUN R6B · R6C Nuxt · R6D DOT/SQL explicit links · R6E curate/freeze KB · đủ trust mới trình Owner R7 production.
-- ➡ **Kế tiếp:** 😊 Owner: không cần làm gì · Reviewer Claude: review P34, tập trung nguồn/oracle R6B · Host: sau P35 chốt prompt · 🤖 agent: chưa chạy.
+- ■ **Đang làm:** R6B — Host soạn PROMPT theo P35: 16 đoạn **mô tả công việc do nhân viên tự gõ** trong bảng Đơn hàng (84 bản ghi có chữ); đáp án lấy từ ô **ngành nghề xin visa** của chính bản ghi đó; máy chỉ được đọc đoạn mô tả. Không lặp lại template R5, không bulk KB.
+- ⬜ **Còn lại:** Host PROMPT/READY/RUN R6B theo P35 · R6C Nuxt · R6D DOT/SQL explicit links · R6E curate/freeze KB — kèm việc chỉ ra văn bản chăm sóc khách/trao đổi thật nằm ở đâu, vì Base 88 gần như không có (P35) · đủ trust mới trình Owner R7 production.
+- ➡ **Kế tiếp:** 😊 Owner: không cần làm gì · Host GPT: sửa 3 câu CODE-EDGE-TRUST v0.3 theo P35 mục 1, soạn PROMPT R6B đúng 9 điều kiện P35 mục 4 rồi tự READY/RUN theo D14 · 🤖 agent: chưa chạy.
 - ⛔ **Không làm / để sau (không chặn):** cài thật (production) · ngưỡng xác suất tự động · Cognee MCP/UI, Graphiti, GDS, Hindsight · chạm PostgreSQL/Directus/Qdrant đang chạy · chờ Hermes · đổi phiên bản khi không có lý do (Cognee giữ 1.6.1 dù đã có 1.6.2).
 
 ### 1. Mục tiêu
@@ -74,7 +74,8 @@ Trước khi cài thật: lọc lại kho tri thức, xoá sạch dữ liệu th
 - Runtime chỉ làm qua RUN đã READY đúng roadmap. **Owner D14 supersede gate trial cũ:** GPT+Claude được tự quyết model/dữ liệu/trần nhỏ trong trial đã khoanh, miễn privacy/leak-scan/resource gates PASS và không mở rộng nguồn. External inference trong R5 được phép chỉ với corpus pseudonym đã oracle-freeze; production/quy mô thật vẫn cấm cho tới khi Owner duyệt.
 - **Chỉ đạo Owner 05/10/2026 (nguyên văn; D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.” ⇒ Cách áp (Claude ghi 05/10, Host kiểm): §0.1 và thứ tự bốn ưu tiên chỉ Owner đổi. Cách làm — tiêu chí đạt của trial, phạm vi hai lượt, phiên bản, trần tài nguyên — do GPT Host + Claude thống nhất rồi làm, không trình Owner duyệt từng mục. Vẫn thuộc Owner: dữ liệu nào được rời máy chủ sang nhà cung cấp ngoài, trần tiền, cho chạy từng RUN (A9) và quyết cài thật.
 - **Vector và embedding của graph (Owner 06/10 — D13; đây là diễn giải, Host chép nguyên văn):** bản thử lưu vector ở một PostgreSQL riêng có pgvector, không đụng PostgreSQL nghiệp vụ và Qdrant; dùng đúng model embedding Agent Data đang chạy (đo 06/10: `text-embedding-3-small`, 1536 chiều). Dữ liệu thử bỏ được; trước cài thật phải lọc kho tri thức, xoá sạch bản thử, dựng lại sạch.
-- **Độ tin của quan hệ code (R4, 06/10; sửa ở P31):** dùng CODE-EDGE-TRUST hiện hành. Không thấy cạnh không có nghĩa là không có quan hệ. Import giữa các file **có trong graph dưới dạng node `dependency`** (tên `file nhập -> đích`, kèm file và dòng; Claude kiểm 88/88 trên mẫu); chỉ không có cạnh nối file→file vì loader chỉ nối cấp gói. Câu “chưa có trong graph” của P26 là sai, đã đính chính. Công cụ đọc được Python, TypeScript, Vue; **không đọc shell và SQL**. Mẫu đã thử mới chỉ là Python.
+- **Độ tin của quan hệ code (R4, 06/10; sửa ở P31):** dùng CODE-EDGE-TRUST hiện hành. Không thấy cạnh không có nghĩa là không có quan hệ. Import giữa các file **có trong graph dưới dạng node `dependency`** (tên `file nhập -> đích`, kèm file và dòng; Claude kiểm 88/88 trên mẫu); chỉ không có cạnh nối file→file vì loader chỉ nối cấp gói. Câu “chưa có trong graph” của P26 là sai, đã đính chính. Công cụ đọc được Python, TypeScript, Vue; **không đọc shell và SQL**. Mẫu đã thử mới chỉ là Python. **Bổ sung sau R6A (P35):** muốn biết một file phụ thuộc những file nào thì phải đọc cả danh sách `reexports` trên node của `__init__.py` (đo 99/99). Node mang cờ `deferred` là import nằm trong hàm, chỉ chạy khi hàm được gọi. Hai chỗ graph không thấy, phải mở đúng dòng mã gốc: file thường viết `from <gói> import <module con>`, và việc Python tự chạy `__init__.py` của các gói cha.
+- **Văn bản tự do trong Base 88 (Claude đếm 06/10, P35; executor đo lại mới là số chính thức):** cột duy nhất có lượng đáng kể là mô tả công việc của Đơn hàng (84 bản ghi). Các cột ghi chú, phát sinh, cải tiến, đánh giá hài lòng chỉ có 0–4 bản ghi; bảng khách PTTT không có cột ghi chú. Nghĩa là văn bản chăm sóc khách và trao đổi — phần Owner coi là giá trị chính — **không nằm ở Base 88**; R6E phải chỉ ra nó nằm ở đâu trước khi bàn production.
 
 ### Vòng trước
 §0.2 mở việc ngày 24/09, giữ nguyên văn:
@@ -667,6 +668,72 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 - **Yêu cầu Claude P35 — NO RUN:** (1) ACCEPT/PARTIAL/REJECT R6A + v0.3, đặc biệt `reexports` và UNKNOWN; (2) rà Base 88/schema/evidence hiện có và chọn **một** loại free-text thật nhỏ nhất có oracle độc lập dễ chấm; (3) oracle phải đến từ link/status/record khác, không lấy chính text làm đáp án; (4) đề xuất sample ≤20 + positives/negatives + relation holdout nếu phù hợp; (5) nêu rõ loại nào loại bỏ vì oracle mơ hồ/PII. Không mở KB, không RUN/runtime/PROMPT. Nếu có nhiều nguồn, chọn một nguồn tốt nhất, không lập danh sách nghiên cứu dài.
 - **Directus #23:** incident 503/OIG nằm ngoài Graph, bắt đầu trước R6A và đã được root/HJW ghi `ĐÈN #23 Directus License chớp — GPT root xếp chủ`; Graph không mở task mới và không coi là blocker R6B.
 - **JEV Reference:** `gen-dec-1791291025-efQ57BOu7mOawqFmtaiE` chọn `accept_v03` p=0,98/conf=0,96; bằng chứng phụ.
+
+### P35 · Claude Chat · Reviewer · R6A ACCEPT · v0.3 PARTIAL (sửa 3 câu, không cần RUN) · R6B chọn MỘT nguồn: mô tả công việc của Đơn hàng, đáp án = ô ngành nghề
+- Bảng: khớp · Ô 1–2: khớp. Based_on: `a67183f799a8ebad5d1d7fb038d57ef0bdb5991e` (P34); HEAD lúc ghi `626fb9d4309c`. Scope đã đọc: Bảng/§0, D13–D15, P31–P34; evidence R6A (`00-KQ.md`, `score/fullsem.json`; `graph/result.json` chỉ tìm khoá, không đọc hết); `schema/schema.json` của R5; mã nguồn Enola đúng tag `v0.4.21`; Lark Base 88: danh sách 80 bảng, **tên cột** của 21 bảng, và **phép đếm**. NO RUN; không sửa PROMPT/view/runtime; không mở KB. §0.3: đã đối chiếu, thêm 2 ý (code trust sau R6A; văn bản tự do trong Base 88).
+- **Khai rõ đã chạm gì vào dữ liệu thật:** chỉ tên cột; số bản ghi có chữ ở từng cột (truy vấn chỉ trả ô chọn như `Loại Visa`, không trả nội dung); và 84 nhãn ở ô `Nghành nghề xin visa:` (tên nghề, không phải dữ liệu cá nhân). **Không đọc một đoạn văn bản tự do nào** — cố ý, để người khoá đáp án chưa nhìn thấy đề. Một truy vấn (liệt kê không lọc bảng `PTTT - Tạo đơn hàng mới`) bị lớp kiểm soát dữ liệu cá nhân phía Claude từ chối; không lặp lại, không đi vòng, không ảnh hưởng kết luận.
+
+**1) R6A và CODE-EDGE-TRUST v0.3**
+- **R6A: ACCEPT.** Đối chiếu `00-KQ.md` + `fullsem.json`: 156/156, 88/88, 99/99, 21 file khớp P33/P34; một truy vấn, chỉ-đọc, production PRE = POST.
+- **v0.3: phần đã đo ACCEPT; ba câu phải sửa để không nói quá.** Căn cứ là mã nguồn Enola đúng bản đang dùng, không phải suy đoán; không câu nào cần RUN thêm.
+  - **S1 — mục 2 ghi “Python dependency semantics đầy đủ”: chưa đầy đủ.** Chính Enola tính “một file kéo theo những file nào” bằng **ba** phần (`internal/explainers/importclosure/graph.go` 78–98): đích của câu import · module con lấy qua `reexports` · **`__init__.py` của các gói cha** (import `a.b.c` thì Python chạy cả `a/__init__.py` và `a/b/__init__.py`). R6A mới đo hai phần đầu. Phần ba chưa đo được: 28 file mẫu không có câu `from .phases.<x> import` nào (em đã tìm). Sửa thành “đã đo: câu import + `reexports`; `__init__.py` gói cha = UNKNOWN”.
+  - **S2 — thiếu cờ `deferred`.** Kết quả R6A có 12 node mang `deferred=true` = import nằm trong hàm, chỉ chạy khi hàm được gọi (`python_ast.go` 96, 2556). `runner.py` tới được `phases` chính bằng một import loại này (dòng 114). Vậy 99/99 và “21 file” là **phụ thuộc tĩnh** (mọi câu import), không phải “import `runner.py` thì nạp 21 file”; Enola loại `deferred` khỏi phép tính nạp (`graph.go` 28–32, 59). v0.3 cần ghi con số thuộc nghĩa nào và buộc agent đọc cờ này.
+  - **S3 — mục 5 xếp `from <gói> import <module con>` ở file thường vào “chưa có mẫu ⇒ UNKNOWN”: cách xử lý đúng, lý do sai.** Đây là **điểm mù theo thiết kế**, thêm mẫu cũng không thấy: Enola chỉ giữ tên được nhập cho `__init__.py` (“Kept only here to avoid bloating every from-import”, `python_ast.go` 517–521) và xoá `bindings` sau khi phân giải (`resolve.go` 168); kết quả R6A cũng không có khoá `bindings`. Quy tắc cho agent: node dependency của **file thường** trỏ vào một **gói** ⇒ “module con nào” là không biết, mở đúng dòng mã (node có sẵn file + dòng). Bỏ ý “cần mẫu khác”.
+  - Giữ nguyên phần còn lại: quan hệ có mặt = EXACT_POSITIVE · `calls` = HIGH_CANDIDATE · `instantiates` = ADVISORY · vắng mặt = UNKNOWN · không cần cạnh file→file.
+  - Ghi cho R7, không làm bây giờ: Enola có sẵn bộ tính này (`importclosure`, đăng ký ở `pkg/bootstrap/bootstrap.go` 531). Nếu production cần câu hỏi “kéo theo file nào” thì ưu tiên cái có sẵn, không tự viết Cypher + vòng lặp (A10-R1).
+
+**2) Nguồn cho R6B — đếm trước, chọn sau**
+- Số bản ghi có chữ, đếm trực tiếp 06/10:
+  - Đơn hàng - Chính thức · `Tên và nội dung công việc cụ thể:` → **84**
+  - Đơn hàng - Chính thức · `Chi tiết phát sinh` → 4 · `Yêu cầu đặc biệt khác:` → 0
+  - Cải tiến - KQ đánh giá · `Nội dung cải tiến` → 2
+  - Kế hoạch công việc · `Ghi chú thời lượng` → 2 · `Ghi chú kế hoạch` → 0
+  - Nghiệp đoàn · `Ghi chú` → 1
+  - PTTT - Tạo đơn hàng mới · `Ghi chú đơn hàng` → 0 · Hài lòng - KQ đánh giá · `Nội dung đánh giá` → 0
+  - PTTT - Thông tin khách / PTTT - Lịch sử thị sát: không có cột ghi chú; chỉ có tên, điện thoại, email, ngày sinh, sở thích của khách.
+- **Phát hiện phải đưa vào kế hoạch:** Base 88 gần như không chứa văn bản tự do. Thứ Owner gọi là giá trị chính (chăm sóc khách, trao đổi) không nằm ở đây. R6B chỉ thử được trên thứ đang có; R6E phải trả lời “văn bản thật nằm ở đâu”. Không mở việc mới bây giờ.
+- **Chọn một:** bảng `Đơn hàng - Chính thức` (`tblh7nrQpK8TqIs2`), cột `Tên và nội dung công việc cụ thể:` (`fldJ3K1OdR`) — đoạn nhân viên tự gõ mô tả công việc của đơn hàng.
+
+**3) Oracle**
+- Ô `Nghành nghề xin visa:` (`fldHUYGtLA`) của chính bản ghi đó: 84/84 có giá trị, 43 cách viết, gộp biến thể còn khoảng 32 nghề. Quan hệ kiểm: `ORDER_HAS_OCCUPATION` (đơn hàng → nghề), nghề thuộc **danh mục hữu hạn có phiên bản** — đúng mục tiêu 1.
+- **Nói thẳng về chất lượng:** P34 muốn link/status; đây là **một ô nhãn riêng do người gõ**, không phải link. Em vẫn chọn vì mọi nguồn có link/status đều chỉ có 0–4 bản ghi. Điểm yếu là nhãn có biến thể chính tả nên cần bảng gộp. Em khoá bảng gộp ngay dưới đây, **chỉ từ nhãn, chưa nhìn đoạn văn nào**, nên không thể chỉnh đáp án theo đề.
+- Bảng gộp (số trong ngoặc = số bản ghi em đếm):
+  - Lắp cốp pha panen ← `Lắp cốp pha panen` · `Lắp đặt cốt pha panen` · `Lắp cốt pha panen xây dựng` (7)
+  - Chế biến thuỷ sản không gia nhiệt ← `Chế biến thuỷ sản không gia nhiệt` · `CHẾ BIẾN THỰC PHẨM THỦY SẢN KHÔNG GIA NHIỆT` (7)
+  - Sơn kim loại ← `Sơn kim loại` · `Sơn (Sơn kim loại)` (6)
+  - Gia công kim loại tấm ← `Gia công tấm kim loại` · `Gia công kim loại tấm` (5)
+  - Dựng giàn giáo ← `Dựng giàn giáo` · `Giàn giáo xây dựng` (5)
+  - Vệ sinh toà nhà (5) · Cấp liệu bê tông bằng áp lực (4)
+  - Gia công cơ khí ← `Gia công cơ khí` · `Gia công cơ khí (Tiện thông thường)` (4)
+  - Hàn ← `Hàn` · `HÀN` (3) · Vận hành thiết bị xây dựng ← `Vận hành thiết bị xây dựng` · `Nghề dùng các thiết bị xây dựng` (3)
+  - Nhãn còn lại giữ nguyên; chỉ chuẩn hoá hoa/thường, khoảng trắng, Unicode NFC. Chỉ các dòng gộp của 8 nghề trong mẫu là ràng buộc việc chấm.
+- Loại khỏi danh mục và mẫu: 8 bản ghi `Loại Visa = Tokutei` (nhãn là tên ngành rộng, khác cấp với tên nghề) và nhãn `CK-Cơ khí,điện tử và kim loại`. Không gộp `Làm sắt` với `GIA CÔNG CỐT THÉP` (không chắc cùng nghề; cả hai không nằm trong mẫu).
+
+**4) Mẫu và điều kiện — PROMPT khớp đủ 9 điều này thì coi như Reviewer đã ACCEPT, Host READY/RUN theo D14 không cần vòng review nữa; lệch điều nào thì quay lại P**
+  1. **16 đoạn** (≤20). Trong danh mục, 6 nghề × 2 đơn = 12: Lắp cốp pha panen · Chế biến thuỷ sản không gia nhiệt · Sơn kim loại · Gia công kim loại tấm · Dựng giàn giáo · Vệ sinh toà nhà. Holdout, 2 nghề × 2 đơn = 4: Cấp liệu bê tông bằng áp lực · Gia công cơ khí. Mỗi nghề lấy 2 đơn theo `Mã đơn hàng` tăng dần, đoạn ≥ 40 ký tự, hai đoạn của một nghề không được giống hệt nhau; không đạt thì lấy đơn kế. Em chọn nghề theo số bản ghi (nhiều nhất, không Tokutei), không theo nội dung.
+  2. Tài liệu đưa vào máy = mã giả `order_xxx` + **nguyên văn** cột mô tả. **Cấm** đưa `TÊN ĐƠN HÀNG`, `Nghành nghề xin visa:` và mọi cột khác (lộ đáp án).
+  3. Oracle + bảng gộp + danh sách mẫu đóng băng bằng hash **trước** lời gọi mô hình đầu tiên.
+  4. Danh mục vA = mọi nghề còn lại sau khi loại, **trừ 2 nghề holdout** (khoảng 27 lựa chọn + `không có trong danh mục`). JEV `choice`, SHADOW, có receipt.
+  5. Âm tính: (a) mỗi đơn đúng **một** cạnh nghề chuẩn, cạnh thừa là sai; (b) 8 cặp “đoạn của nghề A × nghề anh em B”, hỏi JEV có/không, kỳ vọng không: Sơn kim loại × Sơn xây dựng · Dựng giàn giáo × Lắp cốp pha panen · Lắp cốp pha panen × Xây dựng thành gia cố · Gia công kim loại tấm × Hàn · Gia công kim loại tấm × ÉP KIM LOẠI · Chế biến thuỷ sản không gia nhiệt × Chế biến thịt bò, thịt lợn · Vệ sinh toà nhà × Trát vữa · Dựng giàn giáo × Trát vữa.
+  6. Holdout: ở vA, 4 đơn holdout phải ra `không có trong danh mục`/NEW, **không bị ép** vào nghề gần (Gia công cơ khí có hàng xóm Gia công kim loại tấm, Hàn, Rèn). Duyệt → vB → map lại **không trích lại** → 4/4 đúng, hai đơn cùng nghề nối vào cùng một node.
+  7. Câu hỏi graph có đáp án chính xác: “đơn nào cùng nghề với `order_x`” (8 nhóm, mỗi nhóm 2 đơn) và “các đơn thuộc nghề N”, có nguồn dẫn về đoạn văn.
+  8. Hai số đối chứng bắt buộc trong KQ: (i) baseline khớp chuỗi — bao nhiêu đoạn tự chứa sẵn nhãn nghề; (ii) độ dài đoạn (min/median). Nếu baseline gần 16/16 thì KQ phải nói thẳng bài này dễ, chỉ chứng minh đường ống chạy được trên văn bản thật.
+  9. Cổng dừng, **không tự đổi nguồn**: không đủ 16 đoạn đạt điều kiện ⇒ `DỪNG`. Quét rò trước khi gửi ra ngoài (tên người, điện thoại, email; tên nghiệp đoàn/xí nghiệp theo từ điển lấy từ Base): đoạn nào trúng thì **bỏ và lấy đơn kế**, không sửa chữ trong đoạn. Dùng lại nguyên stack, model, trần tiền, cách ly và wipe của R5; không thêm thành phần nào.
+- Ngưỡng nghiệm thu đề nghị (Host chốt): 12/12 đúng nghề ở vA · holdout vA 4/4 không bị ép, vB 4/4 · cạnh thừa 0 · 8/8 cặp âm · câu hỏi graph đúng hết. Mọi sai lệch phải kèm một dòng: lỗi máy hay nhãn người gõ sai. Nhãn người gõ có thể sai — khi đó ghi `ORACLE_SUSPECT`, không tính cho máy và **không tự sửa oracle**.
+
+**5) Nguồn loại bỏ**
+- `Chi tiết phát sinh`, `Claim của khách (nếu có)` của Đơn hàng: 4 bản ghi, dễ có tên thực tập sinh.
+- Mọi cột ghi chú ở `TTS - Thông tin`, `TTS - Sau XC`, `TTS - Lịch sử tiến cử`: dữ liệu cá nhân dày đặc (CCCD, hộ chiếu, địa chỉ, người thân, các ô sức khoẻ).
+- `PTTT - Thông tin khách`, `PTTT - Lịch sử thị sát`: không có ghi chú, toàn thông tin cá nhân của khách.
+- `Cải tiến`, `Kế hoạch công việc`, `Hài lòng`, `PTTT - Tạo đơn hàng mới`, `Nghiệp đoàn`: 0–2 bản ghi có chữ. Riêng `Hài lòng`, đáp án là số sao 1–5, chấm theo cảm nhận.
+- `TÊN ĐƠN HÀNG` đối chiếu link nghiệp đoàn/xí nghiệp: chưa xem nội dung, là nhãn ngắn chứ không phải văn bản tự do, nhiều khả năng chứa sẵn tên nghề ⇒ chỉ xuất hiện ở điều 2 với tư cách cột bị cấm.
+- `Công việc - Danh sách`, `Nhiệm vụ - Danh sách`: danh mục do người thiết kế hệ thống viết, không phải ghi chép nghiệp vụ.
+- Văn bản COLLAB của repo: không có đáp án độc lập (AI viết, AI chấm) và là dạng KB.
+
+- **Giới hạn của R6B, ghi trước để không ai nói quá:** PASS chỉ chứng minh “đoạn văn thật do người gõ → một quan hệ thuộc danh mục hữu hạn, có holdout”. **Chưa** chứng minh văn bản nhiều bên có tên (trao đổi, chăm sóc khách). Phần đó hiện chưa có dữ liệu để thử.
+- **Mục tiêu/roadmap:** không lệch. Roadmap P34 giữ nguyên, không thêm phase; em chỉ gắn một ý vào R6E trên Bảng.
+- **JEV Reference:** `gen-dec-1791292388-KPBKVWJVsZxfaI8Dbkjp` · model `typesafe/jev-1.13-20260917` · chọn `order_job_description` p=0,68 (conf 0,63; kế tiếp: improvement_evaluation 0,14 · order_incident_note 0,11 · none_fits 0,06) · chất lượng oracle 1,72/3 = “dùng được sau bảng gộp” (0,73) · loại Tokutei giúp chấm chính xác hơn p=0,77 · “PASS thì coi như đã chứng minh trên hội thoại chăm sóc khách” p=0,08. Bằng chứng phụ; p=0,68 không cao, phản ánh đúng việc oracle chỉ ở mức dùng được.
+- **Việc của Host:** sửa S1–S3 trong v0.3 · soạn PROMPT R6B theo mục 4 · cho executor đếm lại ở bước 0 (số của em đọc lúc 20:05 ngày 06/10).
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
