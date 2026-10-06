@@ -29,14 +29,14 @@ Hướng đúng: một đường duy nhất theo §12, cấm URL tạm, không n
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn lời Owner 06/10/2026 14:59 (vòng mở lại; ghi ở ô 1).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 15:15 +07 · Claude Chat · P36
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 15:25 +07 · Claude Chat · P37 (HO cho phiên mới)
 - 🎯 **Mục tiêu (Owner 06/10 14:59, nguyên văn):** “các bạn cứ bàn trên repo, viết cái gì ra thì chayn xuống VPS. VPS đơn giản chỉ là cái kênh để cho user có thể xem trực tiếp và dễ nhìn. Đặc biệt là thông tin tiến độ theo thời gian thực (ai đang làm? ai vừa làm)”. **Vì sao:** đây là bước đầu của hệ thống giao việc tự động mà Owner giám sát được bất cứ lúc nào; ngày 06/10 trang hiện mục tiêu cũ 12 ngày mà không ai được báo.
 - 🏁 **Xong khi:** Bảng điều khiển và mục tiêu của mọi việc đang làm tự hiện trên trang sau mỗi lần ghi repo, không ai chép tay · AI lỡ đổi tiêu đề thì trang vẫn hiện và có nhắc; không đọc nổi thì đèn đỏ nêu tên việc · “ai vừa làm / ai đang làm” chạy như cũ · có bộ thử + quay lui.
 - 📍 **Tiến độ:** `✅ Mở lại + mục tiêu` · `■ Hội đồng rà đề bài` · `⬜ Claude Code làm một lượt` · `⬜ Nghiệm thu + đóng`
 - ✅ **Đã xong:** tìm ra gốc lỗi và sửa riêng cho HJW (HJW P164, `dd3d158`, kiểm `d7fd142`) · mở lại việc này (`2ebbdac`) · đề bài nháp OWNERVIEW02 (P36).
-- ■ **Đang làm:** Host GPT Chat rà đề bài nháp đúng một vòng → READY.
+- ■ **Đang làm:** phiên mới tiếp quản theo HO ở P37 · Host GPT Chat rà đề bài nháp đúng một vòng → READY.
 - ⬜ **Còn lại:** một lượt Claude Code (máy đồng bộ + trang + đèn canh + bộ thử) → Host nghiệm thu, Reviewer xác nhận → đóng, chuyển lại `done-tasks`.
-- ➡ **Kế tiếp:** 😊 Owner: chuyển một khối cho phiên GPT mới · Host GPT: rà `PROMPT.md`, đồng ý nguyên bản thì phát READY · Reviewer Claude: người soạn, chỉ rà lại phần Host đổi · 🤖 Claude Code: chạy sau READY.
+- ➡ **Kế tiếp:** 😊 Owner: chuyển một khối cho phiên mới · phiên mới: đọc P37, làm phần D theo vai · Host GPT: rà `PROMPT.md`, đồng ý nguyên bản thì phát READY · Reviewer Claude (phiên mới): rà lại bằng mắt mới, rồi chỉ rà phần Host đổi · 🤖 Claude Code: chạy sau READY.
 - ⛔ **Không làm:** trang mới hay đường xem thứ hai · GitHub→VPS cho mã · đụng cổng ghi, đầu nối, webhook, presence · đổi bố cục nào khác ngoài thêm đúng một ô Bảng điều khiển · hệ thống giao việc tự động (thuộc HJW N3–N6).
 
 ### 1. Mục tiêu
@@ -749,6 +749,67 @@ Kèm hai câu chú thích đã cũ trong chính file trang: “Vừa làm 2: l�
 **6. Ghi để khỏi quên, KHÔNG làm vòng này.** Chỉ đọc lướt một việc cũng bật “Đang làm” của việc đó (thiết kế 21/09; hôm nay Claude Chat đọc Bảng của hai việc khác và hiện thành đang làm ở cả hai) · cưỡng chế khuôn §0 ngay tại cổng ghi · đổi thứ tự các ô trên trang · hệ thống giao việc tự động.
 
 **7. Đồng thuận.** Claude là người soạn ⇒ đồng ý đúng bản `PROMPT.md` ở commit này. Host GPT đồng ý nguyên bản ⇒ phát READY trỏ commit cuối chạm `PROMPT.md` (đủ hai bên trên cùng một bản). Host muốn đổi ⇒ sửa thẳng `PROMPT.md`, ghi phần đổi ở P37; Claude rà đúng phần đổi một vòng (DROOT31). Dòng `Host:`/`Host_ID` do Host phiên mới tự cập nhật.
+
+## P37 · Claude Chat · 2026-10-06 15:25 +07 · HO — BÀN GIAO CHO PHIÊN MỚI
+Owner 06/10/2026 15:19, nguyên văn: “tôi đã tạo ra phiên mới, giờ bạn có thể viết 1 handoff về việc lỗi không đồng bộ giữa repo và VPS vừa rồi, phương án fix bổ sung như bạn đề xuất. cho 1 phiên mới làm nốt việc đó (phiên này cũng dài rồi)”
+
+**A. Đọc đúng thứ tự này — không hỏi lại Owner ngữ cảnh**
+1. `AGENTS.md`: MT3, MT4 (đoạn “Một nguồn cho Owner”), A6, A9.
+2. File này: Bảng điều khiển → ô 1–3 → P36 (gốc lỗi + sáu chỗ sửa + JEV) → mục này.
+3. `PROMPT.md` của việc này (bản nháp, chưa READY).
+4. Chỉ khi cần kiểm lại: mã chạy, root `code`, chỉ đọc — `docker/nuxt-repo/scripts/hvu-b2/`: `sync.py`, `ui/app.vue`, `README.md`, `00-NHAN-THU-MUC.md`.
+
+**B. Chuyện gì đã xảy ra — một ví dụ xuyên suốt: việc HJW**
+```
+AI ghi COLLAB.md ─push─▶ GitHub ─chuông / 4 phút─▶ sync.py ─▶ tasks.json ─▶ trang Owner · tab Kiểm soát
+                                                    └ so ĐÚNG TỪNG CHỮ tiêu đề §0      ◀ chỗ ĐỨT 05/10
+view.html (AI viết tay) ───────────────────────────▶ tab Nội dung công việc, không ghi ngày ◀ bản CŨ 24/09
+Bảng điều khiển trong COLLAB ── không có đường xuống trang                           ◀ chỗ THIẾU
+cổng ghi ─▶ presence.py (15 giây) ─▶ presence.json ─▶ “Đang làm”                       (chạy tốt, không đụng)
+```
+| Lúc | Việc | Hậu quả |
+|---|---|---|
+| 24/09 | AI viết tay `view.html` của HJW | Tab Nội dung hiện mãi bản này, không ai biết nó cũ |
+| 05/10 | Nâng mục tiêu HJW, tiêu đề §0 bị thêm chữ | Máy không thấy §0 ⇒ trang “Chưa có mục tiêu”; lời nhắc nằm trong mục gập, không đèn nào đỏ |
+| 06/10 14:29 | Owner mở trang, thấy nội dung 24/09 | Lỗi lộ ra nhờ Owner, không nhờ máy |
+| 06/10 14:49 | Khôi phục tiêu đề (HJW P164) | 14:51 trang rút đúng lại cho HJW |
+| 06/10 15:02–15:14 | Mở lại việc này, ghi mục tiêu + đề bài nháp | 15:16 máy publish đúng mục tiêu mới của việc này |
+
+**C. Trạng thái lúc bàn giao**
+| Hạng mục | Trạng thái | Bằng chứng |
+|---|---|---|
+| Gốc lỗi xác định bằng đọc mã | ✅ | P36 mục 1 |
+| HJW đã thông | ✅ | HJW P164 · `dd3d158` · `d7fd142` |
+| Luật “Một nguồn cho Owner” + sáu khoá máy đọc | ✅ | `AGENTS.md` MT4 |
+| Việc này mở lại, §0 + Bảng vòng mới | ✅ | `2ebbdac` · `ce3758a`; máy publish 08:16Z đúng mục tiêu, đúng mã RUN mới, không lời nhắc §0 |
+| Đề bài OWNERVIEW02 | 🟡 nháp | commit cuối chạm `PROMPT.md` = `ce3758a` |
+| Host rà một vòng → READY | ⬜ | — |
+| Một lượt Claude Code | ⬜ | — |
+| Nghiệm thu + đóng việc | ⬜ | — |
+
+**D. Việc của phiên mới — theo vai**
+- **Phiên mới là GPT Chat ⇒ Host.** (1) Trả Owner ba dòng theo MT4. (2) Rà `PROMPT.md` đúng một vòng, đối chiếu từng dòng ô 3. Đồng ý nguyên bản ⇒ ghi READY trỏ commit cuối chạm `PROMPT.md`, sửa Bảng cùng commit. Muốn đổi ⇒ sửa thẳng `PROMPT.md`, ghi phần đổi ở P38; cần Claude Chat rà đúng phần đổi một vòng. (3) Đưa Owner đúng một câu lệnh chạy chuẩn DROOT38(c) cho Claude Code. (4) Sau khi có kết quả: nghiệm thu theo mục 5 của đề bài, tự mở trang kiểm, cập nhật dòng `Host:`/`Host_ID`.
+- **Phiên mới là Claude Chat ⇒ thay phiên Claude cũ (người soạn + Reviewer).** (1) Trả Owner ba dòng theo MT4. (2) Đọc lại đề bài bằng mắt người lạ: chỗ nào agent có thể hiểu sai hoặc phải tự chọn thì sửa thẳng `PROMPT.md` **trước** khi Host phát READY, ghi P38. (3) Host đổi gì thì rà đúng phần đổi một vòng. (4) Sau khi có kết quả: tự kiểm bằng dữ liệu đang phục vụ (mục F5), không tin báo cáo; xác nhận rồi để Host đóng việc.
+- **Claude Code ⇒** chỉ chạy khi có READY; làm đúng đề bài.
+
+**E. Điểm chưa kiểm, để ngỏ — nói thật**
+- Ba điều đề bài giao agent xác định bằng đọc (P5): số INV kế tiếp còn trống; đã có phép nào canh `sync-status.json` chưa; mục Config Guard nào giữ `view.html` đang phục vụ. Phiên cũ không đọc được ruột guard (bộ lọc bí mật che). Host đọc được thì chốt số cụ thể trước READY.
+- Chưa chạy phép thử trình duyệt nào. Chưa biết `ui/app.vue` trên VPS có thay đổi dở của phiên khác không (đề bài P2 sẽ dừng nếu có).
+- Tồn dư “presence 502” ở root `COLLAB.md`: chưa ai đo; đề bài P6 chỉ đếm, không sửa.
+- Ô 2 là lời AI diễn đạt, Owner chưa gật riêng — không chặn việc.
+- D-HVU-0610-1 (thêm ô Bảng điều khiển) dựa trên lời Owner 14:59. Owner lắc ⇒ bỏ phần ô này khỏi F1/F3, các phần khác giữ.
+
+**F. Bẫy đã gặp — đừng lặp**
+1. Không đổi một chữ sáu khoá máy đọc (`AGENTS.md` MT4). Bảng điều khiển đặt giữa dòng `Xác nhận User:` và `### 1. Mục tiêu`.
+2. Chưa có kết quả thật thì không viết vào file này dòng kết quả của RUN hiện hành (tiền tố KQ@ liền mã RUN rồi chữ XONG hoặc DỪNG), cũng không viết READY kèm 40 ký tự hex giả — máy đọc đúng các dòng đó làm trạng thái.
+3. `## Owner cần quyết` mà khác `- —` thì trang hiện “Chờ Owner”.
+4. Chỉ đọc lướt `COLLAB.md` của việc khác cũng bật “Đang làm” ở việc đó khoảng 10 phút — hạn chế đọc ngoài việc mình.
+5. Sau mỗi lần ghi: chờ một lần đồng bộ rồi tự đọc `docker/nginx/static/ui-preview/hpml-view-for-user/data/sync-status.json` và `tasks.json` (root `code`) để xác nhận. Không kết luận trong chính commit vừa đẩy (luật 23/09 ở đầu file này).
+6. Mã chạy nằm ở VPS; root `code` chỉ đọc; không ai sửa mã chạy ngoài một RUN có READY.
+7. Giờ ở tiêu đề mục P lấy giờ thật (+07); phiên cũ từng ghi sớm khoảng 30 phút ở HJW P161–P164.
+8. Trả lời Owner: rất ngắn, đúng một việc cho Owner, đúng một khối để chuyển; chi tiết để ở repo.
+
+**G. Xong thì dọn ba chỗ.** Host nghiệm thu → Reviewer xác nhận → (1) `Đóng hpml-view-for-user` (chuyển về `work/done-tasks/`, sửa root `COLLAB.md`); (2) gỡ câu “CÒN HỞ” trong `AGENTS.md` MT4 vì trang đã tự hiện Bảng; (3) bỏ phần “đang ở đâu” chép tay trong `work/hermes-joint-workspace/view.html`.
 
 ## Owner cần quyết
 - —
