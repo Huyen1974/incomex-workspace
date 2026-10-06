@@ -123,6 +123,7 @@
 | `codex` | Codex | Codex CLI / GPT Work |
 | `openai-mcp` | GPT Chat/Work | Hiện metadata chưa tách chắc GPT Chat với GPT Work; dùng tên quen thuộc gộp, không đoán sâu hơn |
 | `agent-gw/hermes` | Hermes | Hermes qua Agent Gateway; identity server-side từ credential/profile `hermes` |
+| `agent-gw/openai-dot` | OpenAI Dot | dot của Owner qua Agent Gateway; identity server-side từ credential/profile `openai-dot` (HJW N2 — dòng đặt trước, hồ sơ chỉ tồn tại sau khi N2 tạo) |
 | `Claude via MCP` | — (trước B3) | Tên chung cũ của cổng Claude, không biết app nào → xám, không tạo hàng |
 | `AI via Incomex Workspace` | — (trước B3) | Tên chung cũ của cổng Workspace, không biết ai → xám, không tạo hàng |
 
