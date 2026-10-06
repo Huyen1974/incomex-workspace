@@ -3,14 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
 <title>Hermes Joint Workspace</title>
 <style>
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:1120px;margin:36px auto;padding:0 22px;line-height:1.55;color:#171717}
-h1,h2{line-height:1.2}.tag{display:inline-block;border:1px solid #bbb;border-radius:999px;padding:3px 10px;margin-right:6px;font-size:13px}
+html{background:#fff;color-scheme:light}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:1120px;margin:36px auto;padding:0 22px;line-height:1.55;color:#171717;background:#fff}
+h1,h2{line-height:1.2}h2{margin-top:34px}.tag{display:inline-block;border:1px solid #bbb;border-radius:999px;padding:3px 10px;margin:0 6px 6px 0;font-size:13px}
 .box{border:1px solid #ddd;border-radius:12px;padding:16px 18px;margin:14px 0;background:#fafafa}
+.todo{border:2px solid #1a7f43;background:#eefaf2}
 table{border-collapse:collapse;width:100%;margin:12px 0}th,td{border:1px solid #ddd;padding:8px;vertical-align:top;text-align:left}
 .wrap{overflow-x:auto}pre{white-space:pre;overflow-x:auto;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;padding:14px}
-.bar{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.bar span{flex:1;min-width:120px;border:1px solid #ccc;border-radius:8px;padding:8px;text-align:center;font-size:14px}
+.bar{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.bar span{flex:1;min-width:110px;border:1px solid #ccc;border-radius:8px;padding:8px;text-align:center;font-size:14px}
 .bar .now{background:#171717;color:#fff;border-color:#171717}
 .g{background:#dcf5e6}.y{background:#fdf1c7}.r{background:#fbd9da}.n{background:#eee;color:#555}.x{color:#999}
 small{color:#666}
@@ -18,107 +21,131 @@ small{color:#666}
 </head>
 <body>
 <h1>Hermes Joint Workspace</h1>
-<p><span class="tag">HOST REVIEW</span><span class="tag">Hội đồng: GPT · Claude · Hermes</span><span class="tag">Host: GPT Chat</span><span class="tag">24/09: đã gỡ khoá Agent Data khỏi Hermes</span></p>
+<p><span class="tag">Hệ giao việc tự động của Incomex</span><span class="tag">Host: GPT Chat</span><span class="tag">Reviewer: Claude Chat</span><span class="tag">Cập nhật: 06/10/2026 14:50</span></p>
 
-<div class="box"><strong>HJW.3B — KQ XONG 25/09 (P34).</strong> Webhook public <code>/hooks/hermes/incomex-dispatch</code> đã sống sau nginx: chỉ nhận chữ ký V2; V1/GitHub/GitLab/Svix/Linear bị từ chối; 21/21 ca ngoài PASS; canary sạch; rate-limit 7×401 + 5×429; HARD-STOP → Kuma báo DOWN sau 1,5 phút rồi UP lại; mọi lượt webhook/cron 0 LLM. Chi phí thật T5 = 0,046569 USD (số nhà cung cấp). Rủi ro còn lại đã chấp nhận: bắt được một request hợp lệ thì trong 5 phút có thể rung chuông lại bằng id mới — không gọi là chống phát lại tuyệt đối. <em>Lịch sử:</em> <strong>READY + RUN ISSUED · <code>9b62bf46…</code>.</strong> G1/G2/STOP + webhook local đã PASS; T5 self-wake phần Git đã PASS. Phiên Claude Code CLI mới chỉ làm delta còn lại: UDS bridge, webhook secret, nginx public hardening, Kuma và closeout. Hai gate gián đoạn duy nhất phải báo Owner trước: <strong>recreate nginx</strong> và <strong>restart Hermes serve→gateway</strong>.</div>
-
-<div class="box"><strong>Baseline HJW.3 đã chạy xong phần nền.</strong> Không làm lại G1/G2/STOP/local webhook. T5 Git self-wake đã có commit claim + done của Hermes; Telegram/ledger/token-cost còn phải được CLI mới đối chiếu để đóng T5/T6 hoàn toàn.</div>
-
-<div class="bar" id="TIEN-DO"><span class="g">✓ 1 Mở việc</span><span class="g">✓ 2 Thiết kế</span><span class="g">✓ 3 RUN HJW-2B1</span><span class="now">▶ 4 Nghiệm thu</span><span>□ 5 Ghi luật/Đóng</span></div>
-
-<h2 id="MUC-TIEU">1. Mục tiêu — Owner cập nhật 2026-09-24</h2>
-<ol>
-<li><strong>Hermes là thành viên đầy đủ</strong> của hội đồng GPT · Claude · Hermes; tùy phân công có thể làm Host/Reviewer/Agent như các surface khác.</li>
-<li><strong>Không chỉ parity:</strong> Hermes sống 24/7 trên VPS và chạy API nên phải tận dụng các năng lực khác GPT/Claude: webhook, scheduler/backstop, API workflow, long-running watch/retry và Telegram với Owner.</li>
-<li><strong>Secret boundary:</strong> vì Hermes nằm trên VPS, không mặc định cho process Hermes/VPS quyền truy cập rộng Google Secret Manager. Hội đồng phải thiết kế cơ chế cấp đúng secret tối thiểu, rotation/revoke/failure rõ ràng và đối chiếu kết quả GSM audit trước khi triển khai.</li>
-<li><strong>Kênh workspace:</strong> Agent Data trở thành <strong>Agent Gateway chung</strong> tới GitHub/workspace; Hermes là client đầu tiên, các agent sau dùng cùng cơ chế profile/credential/scope. Không mở cửa ghi Git thứ ba, không đưa tài khoản GitHub Owner lên VPS.</li>
-<li><strong>Cách làm:</strong> Assembly First · thiết kế trước triển khai · tự động nhưng tiết kiệm token/tài nguyên · không dựng framework mới nếu hạ tầng hiện có đủ.</li>
-</ol>
-<p><small>Ví dụ: repo là nhà kho. Không thành viên nào mở kho bằng thẻ cá nhân của anh; ai cũng đi qua quầy bảo vệ trên VPS (giữ chìa riêng của kho, ghi sổ, chặn hai người sửa chồng). Hermes ở sẵn trong toà nhà nên chỉ cần đi qua đúng quầy đó.</small></p>
-
-<h2 id="SO-DO">2. Sơ đồ</h2>
-<pre>
-Owner ──Telegram "WS …"──▶ Hermes (VPS, chạy 24/7)
-                              │ relay nội bộ 127.0.0.1:6533
-GPT Chat · Claude Code ───────┼──▶ cửa Agent Data (workspace_*) ──┐
-Claude Chat ──────────────────────▶ cửa Claude (fs_*) ────────────┴──▶ GitHub incomex-workspace
-</pre>
-
-<h2 id="HIEN-TRANG">3. Hiện trạng — đỏ tắc · vàng cảnh báo · xanh ok · xám chưa đo · x không cần</h2>
-<div class="wrap"><table>
-<thead><tr><th>Hạng mục</th><th>GPT Chat</th><th>Claude Chat</th><th>Claude Code</th><th>Hermes</th></tr></thead>
+<div class="box todo" id="HOM-NAY">
+<strong>😊 Việc của anh hôm nay</strong>
+<table>
+<thead><tr><th></th><th>Việc</th><th>Đề nghị</th></tr></thead>
 <tbody>
-<tr><td>Cửa ghi đã audit (D12)</td><td class="g">workspace_*</td><td class="g">fs_*</td><td class="g">workspace_*</td><td class="y">relay 6533 sống; chưa khai mcp_servers/chưa live-call</td></tr>
-<tr><td>Đường tới cửa</td><td class="g">ok</td><td class="g">ok</td><td class="g">ok</td><td class="y">relay 6533 đã có; nhãn cũ lưu ý cổng 8000/8080 → đo lại</td></tr>
-<tr><td>Khoá vào cửa</td><td class="y">khoá chung</td><td class="g">riêng</td><td class="y">khoá chung</td><td class="y">24/09: đã gỡ khoá chủ Agent Data khỏi env Hermes (cả serve + gateway). Chưa có khoá hẹp: cần sửa mã nhỏ ở Agent Data (chờ anh quyết)</td></tr>
-<tr><td>Biết dùng MCP</td><td class="g">ok</td><td class="g">ok</td><td class="g">ok</td><td class="g">mcp_servers trong config.yaml, HTTP + header</td></tr>
-<tr><td>Nạp luật WS</td><td class="g">ok</td><td class="g">ok</td><td class="g">ok</td><td class="y">mới có AGENTS.md riêng của Hermes</td></tr>
-<tr><td>Tên trong commit</td><td class="g">[GPT]</td><td class="g">[Claude]</td><td class="y">[Claude Code] chưa vào A4</td><td class="n">[Hermes]</td></tr>
-<tr><td>Kênh Owner gọi</td><td class="g">app</td><td class="g">app</td><td class="g">terminal</td><td class="g">Telegram, chạy cả khi gập Mac</td></tr>
-<tr><td>Sống · phiên bản · model · chi phí</td><td class="x">x</td><td class="x">x</td><td class="x">x</td><td class="g">v0.21.4 đã đo; budget ngoài HJW theo D10</td></tr>
+<tr><td class="y">1</td><td>Bước N1 đã xong phần làm và phần thử. Còn 🤖 agent kiểm cuối rồi ghi kết quả.</td><td>Dán câu lệnh chạy N1 vào Claude Code (Claude Chat đã đưa).</td></tr>
+<tr><td class="n">2</td><td>Chín phép thử ở mục 2 là đích cuối của cả việc. Chờ anh gật. Không gấp, cần trước bước N6.</td><td>GẬT</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="bar" id="TIEN-DO"><span class="g">✓ Nền Hermes</span><span class="g">✓ Thiết kế</span><span class="g">✓ Lộ trình</span><span class="now">■ N1 Đầu nối lên mây</span><span>□ N2 Dots</span><span>□ N3 Hermes-Mac</span><span>□ N4 Lõi hội đồng</span><span>□ N5 Hai cấp</span><span>□ N6 Nghiệm thu</span></div>
+
+<h2 id="MUC-TIEU">1. Mục tiêu — Owner nâng cấp 05/10/2026</h2>
+<div class="box"><strong>Xây một hệ thống giao việc tự động, đáng tin cậy, lớn lên từ những gì đang chạy thật.</strong> Hệ thống tự giữ luật, sổ ghi, quyền chốt và giám sát. Mọi AI, kể cả agent điều hành của hãng (OpenAI Dots, Grok…), chỉ là bộ phận thay được.</div>
+<table>
+<tbody>
+<tr><td><strong>Hai cấp trong cùng một hệ</strong></td><td>Việc dễ: một AI điều hành lo trọn, vẫn có AI khác giám sát. Việc khó: hội đồng AI bàn 2–3 vòng, Host quyết. Anh quyết loại việc nào thuộc cấp nào.</td></tr>
+<tr><td><strong>Giám sát chéo hãng</strong></td><td>Luôn có AI của hãng khác theo dõi và cảnh báo khi AI điều hành sai.</td></tr>
+<tr><td><strong>Vai nào quyền nấy</strong></td><td>Ai làm sai quyền, kể cả Host, thì người kế tiếp không làm theo và bấm chuông. Chuông tới Telegram của anh.</td></tr>
+<tr><td><strong>Đơn giản, đổi được</strong></td><td>Dùng tối đa thứ đang có. Đổi agent, đổi cấp, thêm bớt mức duyệt bằng một dòng trong bảng.</td></tr>
+</tbody>
+</table>
+<p><small>Tóm từ lời anh ngày 05/10. Nguyên văn: COLLAB.md mục 3.</small></p>
+
+<h2 id="HOAN-THANH">2. Thế nào là hoàn thành — chín phép thử chạy thật</h2>
+<div class="wrap"><table>
+<thead><tr><th>#</th><th>Phép thử</th><th>Đạt ở bước</th><th>Tình trạng</th></tr></thead>
+<tbody>
+<tr><td>T1</td><td>Việc khó đi hết các mức duyệt, anh không phải dán chuyển tin lần nào</td><td>N5</td><td class="n">chưa</td></tr>
+<tr><td>T2</td><td>Việc dễ: một AI điều hành lo trọn, anh không thao tác, có AI hãng khác giám sát</td><td>N5</td><td class="n">chưa</td></tr>
+<tr><td>T3</td><td>Cài lỗi thử: AI giám sát bắt được, phanh lại, anh nhận báo trong 15 phút</td><td>N5</td><td class="n">chưa</td></tr>
+<tr><td>T4</td><td>Đổi agent bằng một dòng trong bảng</td><td>N5</td><td class="n">chưa</td></tr>
+<tr><td>T5</td><td>Anh gật một lần, loại việc đổi cấp (hội đồng ↔ một AI)</td><td>N5</td><td class="n">chưa</td></tr>
+<tr><td>T6</td><td>Thêm hoặc bớt một mức duyệt bằng bảng</td><td>N5</td><td class="n">chưa</td></tr>
+<tr><td>T7</td><td>Mỗi việc có một trang truy vết tự sinh: ai đề nghị, ai phản biện, ai chốt, ai làm, ai nghiệm thu</td><td>N5</td><td class="n">chưa</td></tr>
+<tr><td>T8</td><td>An toàn giữ nguyên: đúng quyền, đúng phạm vi, nút dừng chạy, im lặng có báo, đèn xanh</td><td>N6</td><td class="y">nền đã có</td></tr>
+<tr><td>T9</td><td>Bấm chuông: Host chốt sớm hoặc liên lạc viên sửa nội dung thì người kế tiếp không làm theo, chuông tới anh trong 5 phút</td><td>N3, N4</td><td class="n">chưa</td></tr>
 </tbody>
 </table></div>
-<p><strong>Cộng dồn Hermes:</strong> 1 đỏ (chưa khai cửa) · 2 vàng · 3 xám — không cần xây mới gì.</p>
-<p><small>Bảng này là ảnh chụp ngày 20/09; trạng thái hiện hành xem mục 4 (cập nhật 26/09). Claude kiểm 2026-09-20 trên HEAD 7da09c7: mã agent-data (xác thực bằng một khoá chung), unit hermes-agentdata-relay, tài liệu MCP của Hermes (hermes-agent.nousresearch.com).</small></p>
+<p><small>Bộ phép thử này chờ anh gật. AI không được nới; chỉ anh được đổi. Tài liệu và bản thử trong hộp không tính.</small></p>
 
-<h2 id="TIEU-CHI">4. Tiêu chí xong — gọi thật mới PASS</h2>
-<table>
-<thead><tr><th>Mã</th><th>Tiêu chí</th></tr></thead>
+<h2 id="LO-TRINH">3. Lộ trình sáu bước — xanh xong · vàng đang làm · xám chưa làm</h2>
+<div class="wrap"><table>
+<thead><tr><th>Bước</th><th>Làm gì</th><th>Xong khi</th><th>Tình trạng</th></tr></thead>
 <tbody>
-<tr><td>T1 Đọc</td><td>Hermes đọc được mọi file, luôn là bản mới nhất. — <strong>26/09: ĐẠT</strong>.</td></tr>
-<tr><td>T2 Ghi</td><td>Chạy đủ bài 9 bước của R03 tại <code>work/hermes-joint-workspace/_thu-nghiem/hermes/</code>. — <strong>26/09: ĐẠT MỘT PHẦN</strong>: Hermes đã ghi thật nhiều lần trong HJW (có hoàn tác sạch); bài 9 bước chưa từng chạy.</td></tr>
-<tr><td>T3 Chéo</td><td>GPT/Claude thấy ngay commit của Hermes và ngược lại; ghi bằng version cũ bị từ chối. — <strong>26/09: ĐẠT</strong>.</td></tr>
-<tr><td>T4 Tên</td><td>Commit của Hermes mang tiền tố <code>[Hermes]</code> và attribution qua gateway đủ phân biệt Hermes trong tín hiệu <code>Vừa làm/Đang làm</code>. — <strong>26/09: ĐẠT MỘT PHẦN</strong>: tên máy đúng ở cả 11 commit; 4 commit tự động gần đây thiếu chữ [Hermes] — đã sửa lời giao, chờ lượt sau.</td></tr>
-<tr><td>T5 Gọi</td><td>Anh gõ câu <code>WS …</code> vào Telegram → Hermes đọc AGENTS → COLLAB, làm đúng việc, trả tối đa 3 dòng STATUS · COMMIT · NEXT. — <strong>26/09: ĐẠT MỘT PHẦN</strong>: Hermes tự nhận việc và báo đúng 3 dòng qua Telegram; anh gõ “WS …” trong chat chưa thử chính thức.</td></tr>
-<tr><td>T6 Chi phí</td><td>Đo được Hermes đang chạy model gì và tốn bao nhiêu mỗi lượt. — <strong>26/09: ĐẠT</strong>: 4 lượt thật tổng 0,094 USD theo số OpenRouter (Hermes tự ước lệch nhiều, không dùng).</td></tr>
-<tr><td>T7 Tự thức</td><td>Phase 1 dùng cron + pre-script deterministic khoảng 2 phút; HEAD/assignment không đổi ⇒ 0 LLM, assignment mới ⇒ wake đúng một lần. Không bật webhook platform ở Phase 1. — <strong>26/09: ĐẠT</strong>: thực tế ~3 phút/lần (không phải 2); lúc rảnh 0 lượt model; webhook đã bật từ HJW.3B.</td></tr>
-<tr><td>T8 Vượt quyền</td><td>Hermes STOP, ghi blocker và báo Owner qua Telegram; không tự mở scope hay tự vượt gate. — <strong>26/09: ĐẠT MỘT PHẦN</strong>: máy chủ chặn vượt quyền và Hermes tự báo BLOCKED; việc ghi dòng tắc vào COLLAB chưa chạy thật.</td></tr>
-<tr><td>T9 Secret boundary</td><td>Hermes không giữ quyền GSM rộng/không cần thiết; đường cấp secret tối thiểu, rotation/revoke và failure/compromise được review + test theo threat model. — <strong>26/09: ĐẠT MỘT PHẦN</strong>: không quyền GSM, khoá riêng thu hồi được; rủi ro còn lại đã ghi rõ.</td></tr>
-<tr><td>T10 Automation value</td><td>Webhook/assignment, scheduler/backstop, API action, retry/dedup và Telegram notification/handoff được thiết kế và nghiệm thu đủ để chứng minh lợi thế always-on thực tế. — <strong>26/09: ĐẠT MỘT PHẦN</strong>: duyệt từng việc chạy trọn vòng thật; chế độ tự động chưa bật vì token/lượt còn cao.</td></tr>
+<tr><td><strong>N1</strong> Đầu nối lên mây</td><td>Mây có đủ đầu nối như Mac. Giữ nguyên Mac. Cải tiến từ Mac đồng bộ lên mây.</td><td>Mac ngủ, GPT và Claude vẫn làm việc được; lệch thì máy tự báo</td><td class="y">đang làm: còn kiểm cuối</td></tr>
+<tr><td><strong>N2</strong> Nối OpenAI Dots</td><td>Thử đường chính thức để Dots vào repo bằng danh tính riêng và tự thức khi có việc.</td><td>Nối thẳng được; hoặc chứng minh phải qua liên lạc viên; hoặc hãng chưa cho thì anh quyết</td><td class="n">chưa</td></tr>
+<tr><td><strong>N3</strong> Hermes-Mac đưa thư</td><td>Hermes trên Mac gọi lượt giữa các phiên GPT và Claude thay anh.</td><td>Một vòng GPT ↔ Claude thật, anh không copy-paste</td><td class="n">chưa</td></tr>
+<tr><td><strong>N4</strong> Lõi hội đồng</td><td>Ý kiến → Host chốt → giao → làm → báo → nghiệm thu, có chuông.</td><td>Một vòng thật chạy trọn đầu cuối</td><td class="n">chưa</td></tr>
+<tr><td><strong>N5</strong> Hai cấp, đổi bằng bảng</td><td>Cùng một lõi chạy việc dễ (một AI) và việc khó (hội đồng).</td><td>Một việc dễ và một việc khó chạy thật; đổi agent, cấp, mức không sửa mã</td><td class="n">chưa</td></tr>
+<tr><td><strong>N6</strong> Nghiệm thu, đóng</td><td>Chạy lại cả chín phép thử cùng lúc.</td><td>Chín phép thử đạt, mọi đèn xanh</td><td class="n">chưa</td></tr>
+</tbody>
+</table></div>
+<p><small>Mỗi bước một đề bài và một lượt chạy. Chưa xong thì ở lại bước đó. Điều kiện xong của mỗi bước chỉ anh được nới.</small></p>
+
+<h2 id="N1">4. Bước N1 đang ở đâu</h2>
+<div class="wrap"><table>
+<thead><tr><th></th><th>Hạng mục</th><th>Kết quả</th></tr></thead>
+<tbody>
+<tr><td class="g">✓</td><td>Kiểm kê đầu nối</td><td>10 đầu nối tự dựng; 9 cái đã có sẵn trên máy chủ</td></tr>
+<tr><td class="g">✓</td><td>Directus</td><td>Không chép lên mây; đi bằng DOT theo lời anh; đã viết thêm một DOT còn thiếu</td></tr>
+<tr><td class="g">✓</td><td>Claude trên web</td><td>Đã gắn bộ kho tri thức (37 công cụ) và Lark (24 công cụ), như trên Mac</td></tr>
+<tr><td class="g">✓</td><td>Đồng bộ Mac → mây</td><td>Một lệnh; thử thật 74 giây, lùi lại 26 giây</td></tr>
+<tr><td class="g">✓</td><td>Tự thấy lệch</td><td>Máy canh; 9/9 phép thử lệch bắt đúng; Mac ngủ không báo đỏ giả</td></tr>
+<tr><td class="g">✓</td><td>Khoá Lark</td><td>Đã đổi sau sự cố lộ trong bản ghi phiên; khoá cũ đã tắt</td></tr>
+<tr><td class="g">✓</td><td>Thử Mac ngủ (06/10 11:30)</td><td>GPT và Claude đều đọc, ghi repo và xem máy chủ được</td></tr>
+<tr><td class="y">■</td><td>🤖 Kiểm cuối và ghi kết quả</td><td>Chờ agent chạy: đối chiếu nhật ký ngủ/thức của Mac, đọc bảng đèn</td></tr>
+</tbody>
+</table></div>
+
+<h2 id="KHUNG">5. Cả hệ thống trong bảy câu</h2>
+<pre>
+😊 Owner: mục tiêu · gật/lắc · gỡ chuông
+
+[Bàn] thành viên ──▶ [Chốt] Host ──▶ [Giao] ──▶ [Làm] người thi hành ──▶ [Báo] ──▶ [Nghiệm thu]
+      ▲                                                          
+  liên lạc viên chỉ gọi lượt        sai quyền ở bất kỳ bước nào ⇒ 🔔 chuông ⇒ Telegram của Owner
+</pre>
+<ol>
+<li><strong>Mỗi vai một quyền.</strong> Ngoài phần mình là không được làm, kể cả Host.</li>
+<li><strong>Luật viết trước, ghim lại.</strong> Việc đang chạy thì không ai tự đổi luật.</li>
+<li><strong>Bàn ≠ chốt ≠ giao ≠ được chạy.</strong> Mỗi bước ghi sổ bằng danh tính của chính người làm.</li>
+<li><strong>Người sau kiểm người trước.</strong></li>
+<li><strong>Sai quyền thì không làm theo và bấm chuông.</strong> Khác ý về nội dung thì nói trong vòng bàn.</li>
+<li><strong>Chuông luôn tới Owner.</strong> Người bị bấm không tự gỡ chuông.</li>
+<li><strong>Không âm thầm.</strong> Im lặng, quá hạn, chuông hỏng đều phải kêu.</li>
+</ol>
+<div class="wrap"><table>
+<thead><tr><th>Vai</th><th>Được làm</th><th>Không được làm</th></tr></thead>
+<tbody>
+<tr><td>😊 Owner</td><td>đặt mục tiêu · duyệt luật của việc · gỡ chuông · bật tự động</td><td>—</td></tr>
+<tr><td>Host</td><td>chốt một mức, giao việc khi đã đủ điều kiện</td><td>chốt sớm · đổi luật giữa chừng · tự gỡ chuông</td></tr>
+<tr><td>Thành viên hội đồng</td><td>nêu ý kiến: đồng ý · góp ý · chặn</td><td>chốt · giao</td></tr>
+<tr><td>Liên lạc viên</td><td>chuyển nguyên văn · gọi lượt</td><td>sửa nội dung · chốt · đổi trạng thái</td></tr>
+<tr><td>🤖 Người thi hành</td><td>làm đúng lệnh hợp lệ · báo kết quả</td><td>làm ngoài phạm vi · tự nghiệm thu</td></tr>
+<tr><td>Người nghiệm thu / giám sát</td><td>kiểm · nhận hay không nhận</td><td>sửa hộ · chốt thay Host</td></tr>
+<tr><td>🤖 Máy báo (Hermes trên VPS)</td><td>chuyển mọi chuông tới Telegram của Owner</td><td>giữ, lọc, đánh giá chuông</td></tr>
+</tbody>
+</table></div>
+<p><small>Lõi thiết kế Host đã chốt 05/10. Bảy câu và bảng vai là đề nghị của Claude theo lời anh 05/10 11:47, sẽ chạy thật ở N3–N4.</small></p>
+
+<h2 id="NEN">6. Nền đã có (20/09 → 04/10)</h2>
+<table>
+<tbody>
+<tr><td class="g">✓</td><td>Hermes là thành viên hội đồng, chạy 24/7 trên VPS, vào repo qua cổng chung bằng khoá riêng, chỉ ghi đúng việc được giao</td></tr>
+<tr><td class="g">✓</td><td>Chuẩn giao – làm – báo cho Hermes: chỉ Host giao; chữ viết thường không thành lệnh</td></tr>
+<tr><td class="g">✓</td><td>Mỗi lượt Hermes tự chạy có thẻ Telegram “Cho chạy / Không chạy”; có nút “Dừng tất cả”. Chưa loại việc nào tự động</td></tr>
+<tr><td class="g">✓</td><td>Một vòng thật đã chạy đủ: Host giao → anh duyệt → Hermes làm → báo → nghiệm thu</td></tr>
+<tr><td class="g">✓</td><td>Bảng đèn 22/22 xanh; sổ tin báo; người canh bên ngoài máy chủ (UptimeEye)</td></tr>
 </tbody>
 </table>
-<p><small>Nguồn sự thật chi tiết (bằng chứng + giới hạn từng mục): bảng T1–T10 trong HJW COLLAB, mục P61.</small></p>
 
-<h2 id="KE-HOACH">5. Kế hoạch</h2>
+<h2 id="NGUON">7. Cho PM và AI — nguồn chi tiết</h2>
 <table>
-<thead><tr><th>Việc</th><th>Làm gì</th><th>Ai</th><th>Khi nào</th></tr></thead>
 <tbody>
-<tr><td>HJW.1</td><td>Mở việc: mục tiêu, hiện trạng, tiêu chí.</td><td>Claude mở · GPT review</td><td>✓ xong</td></tr>
-<tr><td>HJW.2A — Design</td><td>Đã chốt: COLLAB/Git HEAD là SSOT dispatch; Hermes đọc trực tiếp tại HEAD xác định; relay hiện có fail-closed; Phase 1 chỉ giữ nhận/làm assignment, nhắc lượt+canh RUN treo, heartbeat và cơ chế dừng; threat model L1 Hermes + L2 VPS/root.</td><td>GPT Host + Claude Reviewer</td><td>✓ consensus 23/09</td></tr>
-<tr><td>HJW.2B</td><td>RUN đầu đã DỪNG an toàn tại G0.2, 0 mutation.</td><td>Claude Code CLI</td><td>■ DỪNG hợp lệ</td></tr>
-<tr><td>HJW.2B1</td><td>SEC-CLEAN + capability audit theo PROMPT <code>d4090d3c…</code>.</td><td>Claude Code CLI · GPT Host</td><td>✓ XONG 24/09 · SEC-CLEAN PASS · MIN_CODE_CHANGE</td></tr>
-<tr><td>HJW.2C</td><td>Auth patch + generic Agent Gateway + Hermes narrow profile; scope/identity/revoke/revert/live client registration.</td><td>Claude Code CLI · GPT Host · Claude review</td><td>✓ HOST ACCEPTED 24/09</td></tr>
-<tr><td>HJW.3B</td><td>Closeout: T5/T6 evidence + UNIX socket bridge + secret webhook + nginx public hardening + Kuma + canary.</td><td>Claude Code CLI mới · GPT Host</td><td>✓ KQ XONG 25/09 · Host chấp nhận P35</td></tr>
-<tr><td>HJW-CONTROL</td><td>Nút “Cho chạy” trên Telegram trước mỗi lượt Hermes + báo nhận/kết quả. <strong>Pha A 26/09 xong:</strong> bộ điều phối trên VPS giờ không thể tự gọi model, kể cả khi script lỗi — đo thật 0 lượt model; Hermes tự nhận việc theo giao việc đang <em>tạm dừng có chủ đích</em>. <strong>Pha B 26/09 đã lắp và thử xong (P51):</strong> Hermes giữ đủ công cụ chat; mỗi lượt Hermes tự chạy phải có thẻ Telegram “Cho chạy / Không chạy / Xem việc / Dừng tất cả”; bấm xong máy gửi BẮT ĐẦU trước khi gọi model và KẾT QUẢ sau khi xong; mọi commit của Hermes được báo Telegram; thay đổi lạ ở bộ điều khiển báo trong ≤5 phút. Anh đã thử nút Dừng tất cả: máy dừng sau 31 giây, Hermes không tự mở lại được. Muốn mở lại: nói với Host “mở lại HJW”. Lượt thử thật: lần 1 hỏng do lời giao thiếu tên kho (lỗi của Claude Code; Hermes không ghi gì, không chạy đôi); lần 2 (anh và Host cho phép) Hermes trả lời đúng câu hỏi bằng P52 — mọi bước đều báo Telegram, đúng một lượt model sau khi anh bấm. Chế độ vẫn là duyệt từng việc; chưa có loại việc nào tự động. Đây là chốt vận hành có người, không phải hàng rào chống giả mạo tuyệt đối. <strong>Lượt FINAL 26/09 (P61):</strong> mọi tin HJW nay cùng một khuôn “HJW · loại tin · trạng thái” + dòng “Từ → Tới” (😊 người, 🤖 AI/máy); nút Cho chạy xanh lá, Xem việc xanh dương, Dừng tất cả đỏ; bấm xong Telegram báo “Đã nhận” ngay và chính thẻ đổi thành ĐÃ DUYỆT / ĐÃ TỪ CHỐI kèm giờ (hai nút quyết định biến mất). Tin thử #50 và tin ghim đã được làm mới, không gọi model.</td><td>Claude Code CLI · GPT Host</td><td>✓ Pha B XONG 26/09 (P51, Host nhận P54) · ✓ FINAL 26/09 (P61)</td></tr>
-<tr><td>HJW.4</td><td>Chỉ sau PASS mới cập nhật luật gốc/phần hiển thị nào thực sự cần cho hội đồng 3 thành viên và attribution <code>[Hermes]</code>; không tự đổi điều khoản Founders nếu Owner chưa quyết.</td><td>Host + Reviewer</td><td>◐ 5 đề xuất luật (FD1–FD5, P61) chờ GPT + Claude Chat</td></tr>
-<tr><td>HJW.5</td><td>Đóng: đối chiếu T1–T10.</td><td>Host</td><td>◐ bảng T1–T10 cuối đã lập (mục 4), chờ Host đối chiếu rồi đóng</td></tr>
+<tr><td>Mục tiêu, thiết kế, luật lộ trình</td><td><code>COLLAB.md</code> mục 0 (0.9 lộ trình · 0.10 chín phép thử · 0.14 vai–quyền · 0.17 luật từng bước)</td></tr>
+<tr><td>Đang ở đâu, ai làm gì</td><td><code>COLLAB.md</code> → Bảng điều khiển</td></tr>
+<tr><td>Lời Owner nguyên văn</td><td><code>COLLAB.md</code> mục 3</td></tr>
+<tr><td>Đề bài đang chạy</td><td><code>PROMPT.md</code></td></tr>
+<tr><td>Bản cũ của trang này (26/09)</td><td>lịch sử Git, commit <code>f56c205</code></td></tr>
 </tbody>
 </table>
-
-<h2 id="HOST-CHOT">6. Host chốt HJW.2A sau P03</h2>
-<table>
-<thead><tr><th>Khối</th><th>Chốt</th></tr></thead>
-<tbody>
-<tr><td>Giao việc</td><td><code>ASSIGN@</code> nằm trong COLLAB/Git là SSOT. Phase 1 không sửa <code>tasks.json</code>; Hermes đọc trực tiếp tại HEAD xác định. Không xác định được HEAD/freshness → fail closed, không wake LLM.</td></tr>
-<tr><td>Vai trò</td><td>Hermes có thể Agent/Reviewer/Host; Host chỉ Owner giao, Agent chỉ chạy khi có RUN hợp lệ + READY đúng SHA.</td></tr>
-<tr><td>Bảo mật</td><td>Giữ cả 2 threat level: user/process Hermes bị chiếm và toàn VPS/root bị chiếm. User Hermes không có GSM credential; root/VPS IAM vẫn phải tối thiểu theo từng secret và chờ GSM-A1.</td></tr>
-<tr><td>Secret</td><td>GSM-A1: Hermes chỉ fetch lúc start, access 0 USD. Relay 6533 phải giữ Agent Data credential ngoài user/process Hermes; nếu relay không isolation được thì DỪNG, không hạ chuẩn. OpenRouter/Telegram tiếp tục tmpfs root→Hermes; ngân sách ngoài HJW.</td></tr>
-<tr><td>Dừng</td><td><code>hermes pause</code> = STOP-AUTO. Root flag = STOP-DISPATCH cho các đường HJW đã bọc/gate. Không gọi nó là hard kill cho tới khi test mọi entry path. HARD-STOP thực sự = root/operator dừng gateway/service và nghiệm thu không có run mới.</td></tr>
-<tr><td>Trigger / quyền</td><td>Phase 1 cron-gate ≤5 phút; lỗi gate phải in <code>wakeAgent:false</code> nếu không Hermes sẽ wake. Quyền cron dùng <code>platform_toolsets.cron</code> + denylist tất định; cron không có interactive approval. Write chỉ HJW.</td></tr>
-</tbody>
-</table>
-<p><strong>HJW.2B1 XONG 24/09.</strong> Khoá chủ Agent Data đã ra khỏi Hermes. Owner đã nâng mục tiêu: HJW.2C không làm route riêng cho Hermes mà xây <strong>một Agent Gateway chung</strong>; mỗi agent có profile/credential/scope riêng, thêm agent sau bằng cấu hình thay vì viết route mới.</p>
-<p><strong>HJW.2C HOST ACCEPTED 24/09.</strong> Lỗ xác thực đã vá; Hermes nối Agent Gateway bằng khoá riêng, đọc toàn workspace và chỉ ghi HJW. <strong>Giới hạn đã biết:</strong> <code>workspace_result_read</code> vẫn bị cấm vì result state chưa bind profile; kết quả search/log quá một trang có thể bị cắt và chưa đọc tiếp được. File dài vẫn đọc đầy đủ bằng <code>workspace_read</code> cửa sổ + cursor. Không mở thêm quyền ở vòng này.</p>
-
-<h2 id="KHONG-LAM">7. Không làm ở vòng này</h2>
-<ul>
-<li>HJW.2C được phép sửa <strong>Agent Data hiện hữu</strong> theo PROMPT đã review; không dựng server/service/port/listener mới và không tạo file/task/project mới.</li>
-<li>Không mặc định cấp cho Hermes quyền Google Secret Manager trực tiếp/rộng; secret path phải qua thiết kế HJW.2A.</li>
-<li>Không mở cửa ghi thứ ba, không đưa tài khoản của anh lên VPS.</li>
-<li>Không đánh thức Hermes trên mọi push. Chỉ assignment máy đọc hợp lệ mới được gọi LLM; backstop dùng cùng logic và chống trùng.</li>
-</ul>
-
-<h2 id="DIEU-KIEN">8. Điều kiện chuyển sang làm</h2>
-<p>NEXT: Host nghiệm thu lượt FINAL (P61) và bảng T1–T10; GPT Chat + Claude Chat xét 5 đề xuất luật (FD1–FD5: không để placeholder <code>${VAR}</code> thành secret; chi phí thật lấy từ nhà cung cấp; khuôn tin gửi anh; lời giao cho agent chạy không người trực; bảng T1–T10 là nguồn sự thật). Sau đó đóng HJW. Anh chưa cần làm gì thêm. Chế độ vẫn duyệt từng việc; chưa có loại việc nào tự động. Muốn dừng mọi lượt Hermes tự chạy: bấm Dừng tất cả (đỏ) dưới bất kỳ tin HJW nào (có một tin ghim); mở lại: nói với Host “mở lại HJW”.</p>
+<p><small>Trang này là trang chính cho Owner (AGENTS A8). Đổi mục tiêu, lộ trình hoặc bước đang làm thì phải sửa trang này cùng lúc.</small></p>
 </body>
 </html>
