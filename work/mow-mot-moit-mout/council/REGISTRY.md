@@ -174,7 +174,7 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - NOW: Chuỗi SSOT/3icon/8công thức/cột Master đã kiểm; 11 công thức và29Master, giữ35/115 nhóm.
 - NEXT: Owner xem hình họa; mapping backend giữ OPEN theo D157.
 - State: IDLE.
-- LAST_SYNC: 2026-10-06 · D158 KQ.
+- LAST_SYNC: 2026-10-06 · D158 KQ; follow-up thay 3 SVG vector Owner (29.600 bytes), kiểm ảnh hiển thị và console PASS.
 
 ## Proposal contract
 

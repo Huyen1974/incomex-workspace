@@ -114,6 +114,8 @@ Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đ�
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
+**D158 follow-up · 2026-10-06 · DONE:** Theo yêu cầu Owner, thay icon crop bằng nguyên 3 file vector Claude/Owner cung cấp: machine-building.svg (9.923 bytes), machine-operation.svg (10.020 bytes), automated-process.svg (9.657 bytes), tổng 29.600 bytes. Không có ảnh bitmap/base64/script trong SVG. Mapping cập nhật tại chuoi-data-v1.js; cập nhật nguồn Công thức, chi tiết CT-002.1 và cache loader. Giữ nguyên công thức, kích thước CSS, nhãn và tooltip. UI transaction cf2ec56580a1487a86a69f5d59ed8522; source commit 736b8864c784bddbbafedba2d1c4f84fef2f1d38. Kiểm trang chi tiết HTTP 200, console_errors=0; screenshot cả ba icon hiển thị rõ. Asset cũ giữ để rollback.
+
 **OWNER 06/10/2026 17:21 +07 · D158:** thêm CT-002.1 Chuỗi dưới Tầng; ba tiến trình Chế tạo cỗ máy / Vận hành cỗ máy / Cỗ máy sản xuất quy trình, icon từ hình Owner không chữ, hover có nghĩa. Từ Nhóm cha trở xuống thêm Chuỗi vào đầu công thức. Mọi Master có Chuỗi bằng chữ; dữ liệu hiện bàn thuộc Chế tạo cỗ máy. Bước/Bước con và Tầng dùng chung ba Chuỗi. Tối giản mặt người.
 - STARTED@MMIM-D158-20261006 · executor=Codex · Owner trực tiếp. PROCESS CHUNG.APQUYTRINH PASS job 2c7f471f86ab4fbebe3d19b08b3074f6. CE-D158: FORMULA_CHANGE + MASTER_SCHEMA_CHANGE. UPDATE nguồn công thức, Chuỗi dùng chung, renderer/schema/index/review/icon/docs. Giữ ID và số nhóm; danh mục Chuỗi dùng lại UI Master hiện có. Không tạo task hay UI cha mới.
 
