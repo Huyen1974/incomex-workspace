@@ -4,15 +4,15 @@ Tên việc: Graph Server — Business × JEV × Code
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D06: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, tiêu chí công cụ bền vững thực dụng (MIT không bắt buộc — D06); Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 04:21 +07 · GPT Host · P21 — nhận P20; chờ Owner gật dữ liệu ngoài + $5, rồi RUN chuẩn bị R4
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 11:08 +07 · GPT Host · P22 — Owner đổi trial sang code-first; PROMPT mới đã soạn, chuẩn bị READY/RUN
 - 🎯 **Mục tiêu — Owner nguyên văn 24/09, giữ thứ tự ưu tiên (đầy đủ ở §0.1):** (1) “Tạo ra các mối quan hệ về Graph đối với business (khi các mối quan hệ là hữu hạn, chứ không phải quan hệ vô hạn kiểu mạng xã hội.” · (2) “Kết hợp tốt nhất với Jev để đảm bảo Graph truyền thống và Jev bổ sung tốt nhất cho nhau…” · (3) “Định hướng ứng dụng các skill, frame chính thức của Jev…” · (4) “Tự Dựng lại mối quan hệ về về code để các Agent/ AI có thể hiểu nhanh hơn khi hệ thống phức tạp lên.” **Vì sao:** thông tin không SQL hoá được (chăm sóc khách, trao đổi, quy trình còn loay hoay, code) phải nối được thành quan hệ có nguồn để người và agent quyết nhanh hơn.
 - 🎯 **Owner 05/10 (D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.”
 - 🏁 **Xong khi (GPT + Claude thống nhất theo D10; lấy từ GATE01):** trial hai lượt đạt trên máy chủ — hỏi “khách/ứng viên này liên quan gì, nên làm gì tiếp” ra câu trả lời có nguồn · loại quan hệ mới được đề xuất → duyệt → dùng lại mà không trích lại toàn bộ · JEV do máy tự gọi · đọc được quan hệ của một mẫu code · tắt Cognee vẫn đọc/xuất/khôi phục được graph ⇒ Owner xem kết quả và quyết cài thật.
-- 📍 **Tiến độ:** `✅ R0 thiết kế · ✅ R1 baseline · ✅ R2 N1 gate · ✅ R3 core infra · ■ R4 dữ liệu an toàn + T19/T18 closeout · ⬜ R5 RUN-2 Graph+JEV · ⬜ R6 Owner xem kết quả`
-- ✅ **Đã xong:** stack/roadmap consensus · Neo4j/Cognee đúng version · K1/PERSIST/K4/DUMP-RESTORE/resource/rollback PASS · production == PRE. RUN-1 mới chứng minh nền, **4 mục tiêu Owner chưa có bằng chứng nghiệm thu**.
-- ■ **Đang làm:** R4.0 chờ Owner gật đúng một việc: bộ nguồn thử đã nêu + chỉ bản đã che được gửi OpenAI + trần 5 USD. Sau đó một RUN chuẩn bị cục bộ sẽ đóng T19 bằng loopback/no-port, dựng mẫu đã che và quét rò; không gọi provider.
-- ⬜ **Còn lại (đúng thứ tự):** Owner gật R4.0 → RUN-R4-PREP local → Host+Claude nghiệm thu T19/mẫu → R5 RUN-2 external + JEV SHADOW → nghiệm thu 4 mục tiêu → R6 Owner quyết production.
-- ➡ **Kế tiếp:** 😊 Owner: gật/không dòng `Owner cần quyết` cuối file · Host GPT: sau gật soạn PROMPT R4-PREP · Reviewer Claude: rà prompt một lượt · 🤖 Claude Code: chưa chạy tiếp.
+- 📍 **Tiến độ:** `✅ R0 thiết kế · ✅ R1 baseline · ✅ R2 N1 gate · ✅ R3 core infra · ■ R4 CODE-FIRST micro-trial · ⬜ R5 business micro-trial · ⬜ R6 KB curation · ⬜ R7 trial wipe + production clean build`
+- ✅ **Đã xong:** Neo4j/Cognee nền bền; K1/PERSIST/K4/DUMP-RESTORE/resource/rollback PASS; T19 đã có cấu hình fix thống nhất. RUN-1 chưa tạo bằng chứng cho 4 mục tiêu Owner.
+- ■ **Đang làm:** R4 code-first: đóng T19, dựng PGVector trial riêng, xác minh/reuse đúng embedding model Agent Data, secret-scan một code subset nhỏ từ DOT, dựng code graph và chấm bằng ground truth deterministic. Không ingest KB/Lark/customer rộng.
+- ⬜ **Còn lại:** R4 KQ → Host nghiệm thu → R5 business micro-trial nhỏ từ nguồn đã khoanh · R6 bắt buộc lọc/chuẩn hóa KB trước production · R7 xóa sạch trial graph/vector/data rồi rebuild production từ nguồn chính thức.
+- ➡ **Kế tiếp:** 😊 Owner: không cần quyết thêm cho R4 · Host GPT: READY prompt `25f3d76...` · 🤖 Claude Code: chạy code-first micro-trial tự chủ tối đa; unsafe/out-of-scope thì KQ DỪNG.
 - ⛔ **Không làm / để sau (không chặn):** cài thật (production) · ngưỡng xác suất tự động · Cognee MCP/UI, Graphiti, GDS, Hindsight · chạm PostgreSQL/Directus/Qdrant đang chạy · chờ Hermes · đổi phiên bản khi không có lý do (Cognee giữ 1.6.1 dù đã có 1.6.2).
 
 ### 1. Mục tiêu
@@ -126,6 +126,7 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 
 - D11 · 2026-10-05 · Owner yêu cầu Host lập **một roadmap duy nhất** cho `graph-server` để điều hành không lạc đề và hỏi có được cài song song khi HJW N1 đang nâng cấu trúc điều hành hay phải chờ. Host chốt: chuẩn bị kế hoạch/PROMPT ngay; mutation Graph chỉ sau fresh-check chứng minh phần **server mutation** của N1 đã kết thúc. Không cần chờ N2–N6 hoặc chữ terminal nếu N1 chỉ còn D2/final human test và không còn shared mutation/busy.
 - D12 · 2026-10-06 · Owner: “N1 về cơ bản đã xong, chỉ cần thử… soạn prompt cuối cho chạy tiếp… yêu cầu Claude chủ động tối đa vì sau đây tôi sẽ đi ngủ.” Host áp: cho phép tạo/READY và truyền RUN **RUN-1 hạ tầng** trong scope GS-RM1; Claude tự xử kỹ thuật tối đa, không kéo Owner vào chi tiết; không chờ nền; unsafe/out-of-scope thì KQ DỪNG sạch. D12 **không cấp RUN-2**, không cấp gửi dữ liệu công ty ra provider.
+- D13 · 2026-10-06 · **OWNER CODE-FIRST / SMALL / DISPOSABLE:** Owner cho phép thử model; yêu cầu trial quy mô nhỏ, ưu tiên dựng Graph quan hệ **code trước** vì có ground truth rõ; chưa graph hóa KB rộng vì KB có nhiều thông tin cũ/nhiễu. Embedding phải dùng **đúng model OpenAI đang dùng trong Agent Data** để giữ nhất quán không gian vector. Vector Graph trial lưu **PostgreSQL/pgvector riêng, độc lập Qdrant**; trial có thể xóa. Trước production bắt buộc có mốc **lọc/curate KB**, khoanh nguồn chính thức, **xóa toàn bộ trial graph/vector/data và rebuild sạch**. D13 cho phép gửi code subset đã secret-scan tới OpenAI trong trial với trần hiện hữu; business/PII ngoài scope lượt này.
 
 ## Ý kiến hội đồng
 ### P01 · GPT Host · PARTIAL — giả thuyết vòng 1 đã được D02 thay tiêu chí lựa chọn
@@ -381,15 +382,14 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 | R1 · BASELINE LOCK | version, model, resource/cost caps, dữ liệu trial rules | ✅ XONG · P17 |
 | R2 · N1 RELEASE GATE | fresh-check shared mutation/busy trước Graph | ✅ PASS trong RUN-1 · N1 server mutation đã sạch |
 | R3 · RUN-1 PRE/INFRA | Neo4j 5.26.31 + APOC + Cognee 1.6.1; persistence/restore/resource/rollback; không LLM/JEV ngoài | ✅ CORE PASS · KQ DỪNG chỉ vì acceptance R4 |
-| R4.0 · OWNER EXTERNAL-DATA GATE | chốt nguồn thử + quyền gửi **bản đã che** ra OpenAI + trần 5 USD | ■ **HIỆN TẠI · chờ 1 dòng gật cuối file** |
-| R4.1 · LOCAL PREP + CLOSEOUT | Cognee `BIND_ADDRESS=127.0.0.1`, bỏ host port; 4 probe T19 + smoke K1/PERSIST/resource; dựng bộ mẫu đã che + T18 pseudonym + leak scan; **0 provider call** | ⬜ 1 RUN mới sau Owner gật |
-| R4.2 · ACCEPT | Host + Claude rà KQ T19 và chính bộ mẫu đã che; K4/dump-restore không chạy lại nếu lõi/version/volume không đổi | ⬜ PASS mới mở R5 |
-| R5 · RUN-2 DATA+JEV | gửi đúng bộ mẫu đã duyệt; `gpt-5.6-luna` + `text-embedding-3-large`; JEV SHADOW; T13–T18/T20/K3; cost ≤5 USD | ⬜ RUN riêng sau R4.2 PASS |
-| R6 · RESULT/PROD DECISION | đo quality/cost/resource; nếu extraction yếu mới A/B GPT-6 Luna/Terra; Owner xem kết quả rồi mới quyết production | ⬜ cuối trial |
+| R4 · CODE-FIRST MICRO-TRIAL | T19 loopback/no-port · PGVector trial riêng · xác minh embedding model Agent Data · code subset DOT nhỏ · Cognee code graph · deterministic oracle · vector search · optional JEV semantic SHADOW | ■ **HIỆN TẠI · PROMPT `GS-R4-CODE-FIRST-20261006-02`** |
+| R5 · BUSINESS MICRO-TRIAL | chỉ một tập business nhỏ đã khoanh/che; quan hệ hữu hạn+discovery + JEV; **không bulk-ingest KB** | ⬜ sau R4 PASS |
+| R6 · KB CURATION / SOURCE FREEZE | inventory KB; CURRENT/KEEP · ARCHIVE · DELETE-CANDIDATE · RECHECK; dedup/stale filtering; Owner duyệt mọi delete phá hủy; freeze nguồn production | ⬜ bắt buộc trước production |
+| R7 · TRIAL WIPE + CLEAN PROD BUILD | xóa Neo4j/PGVector/Cognee trial data; xác minh sạch; dựng production từ nguồn chính thức đã curate; không mang trial corpus sang | ⬜ sau R6 + Owner quyết production |
 
 - **Kỷ luật roadmap:** mọi phiên chỉ làm mốc hiện tại và điều kiện mở mốc kế; không nghiên cứu lại stack/model nếu không có blocker/evidence mới. Thay version/model/scope → ghi delta và chạy lại test liên quan, không đổi âm thầm.
 - **JEV Reference:** `gen-dec-1791191983-nm4fJtdkn3Xj5YkfVm3Y` → `prepare_hold` cho N1 gate (p=0,98/conf=0,97) và `gpt56_luna` cho baseline model (p=1/conf=1); chỉ là bằng chứng phụ.
-- **NEXT cụ thể:** R2/R3 đã xong. Hiện chỉ làm R4.0. Sau Owner gật, soạn đúng một PROMPT R4-PREP local; không ghép external inference vào lượt này.
+- **NEXT cụ thể:** Owner D13 đã thay R4 cũ. Chỉ làm R4 CODE-FIRST theo PROMPT active; business/KB rộng hoãn tới R5/R6.
 
 ### P18 · GPT Chat · Host · DRAFT PROMPT RUN-1 — 06/10/2026
 - Based_on: P15 consensus; P16/P17 baseline; D12; HJW P155/root hiện ghi N1 10/12, phần còn lại D2/final human test. RUN-1 không phụ thuộc RUN-2/provider.
@@ -442,9 +442,18 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
   4. **Code:** sample nhỏ từ `/opt/incomex/dot/` trên VPS, chỉ source file liên quan dependency/call graph; exclude `.env`, secrets, config nhạy cảm, vendor/build/generated; secret scan = 0 trước khi vào dataset.
 - **Masking gate:** 0 tên thật · 0 số điện thoại · 0 email · 0 CCCD/hộ chiếu/số giấy tờ · 0 credential/secret. ID nghiệp vụ thành pseudonym ổn định; mapping chỉ local mode 600. R4-PREP không có provider key và không gọi ngoài.
 - **Phát sinh RUN-1 cần giữ nhưng không mở thêm gate:** (a) swap host sau RUN-1 còn gần đầy dù RAM available tốt ⇒ R4-PREP ghi PRE/POST swap và R6 dùng để sizing, không tự tăng swap; (b) giữ `HASH_API_KEY=true` vì Cognee mặc định lưu API key rõ; (c) RUN-1 dùng `COGNEE_SKIP_PREFLIGHT=true` để không kéo model local khi không có provider key — R5 phải ghim explicit OpenAI LLM/embedding trước start để không silent fallback/tải HuggingFace. Đây là cấu hình/test delta, không đổi stack.
-- **Owner gate duy nhất về dữ liệu ngoài/tiền:** chỉ khi Owner gật dòng cuối file mới được phép sau R4.2 PASS gửi **bộ đã che** của 4 nguồn trên sang OpenAI bằng `gpt-5.6-luna` + `text-embedding-3-large`, tổng cost cap 5 USD. Gật này không phải RUN; mỗi RUN vẫn theo A9.
+- **D13 supersede gate cũ cho code-first:** Owner đã cho phép thử model trên code subset nhỏ đã secret-scan. Lượt R4 dùng `gpt-5.6-luna` nếu cần semantic layer và **embedding model phải fresh-check theo Agent Data runtime**; code main hiện dùng `QDRANT_EMBED_MODEL` default `text-embedding-3-small`. Business/PII external vẫn chưa được mặc định phép; sẽ có gate riêng ở R5 nếu cần.
 - **JEV Reference:** `gen-dec-1791237008-uEqljRztY4ZHjAdby8Hh` → `config_prep` p=0,99/conf=0,98; bằng chứng phụ.
-- **Consensus:** GPT Host + Claude thống nhất hướng kỹ thuật P20/P21. Còn đúng Owner gate R4.0; sau gật Host soạn PROMPT R4-PREP, Reviewer rà một lượt, rồi mới READY/RUN.
+- **Consensus P20/P21 vẫn giữ cho T19/T18**, nhưng D13 đổi thứ tự trial. Prompt code-first đã soạn tại commit `25f3d76dd105269f69b2b2641bd9a55ddd92cef0`; T18 business identity trở lại gate ở R5, không block code-only R4.
+
+### P22 · GPT Chat · Host · APPLIED OWNER D13 — code-first + embedding consistency + PGVector trial
+- **Embedding source of truth:** GitHub current main `Huyen1974/agent-data-test/agent_data/vector_store.py` đọc 06/10: `QDRANT_EMBED_MODEL`, default `text-embedding-3-small`. PROMPT bắt Claude đọc runtime env; runtime override thắng default. Không dùng `text-embedding-3-large` chỉ vì Cognee default.
+- **Vector:** Cognee 1.6.1 pinned source có official `PGVectorAdapter` + `VECTOR_DB_PROVIDER=pgvector`; JEV `gen-dec-1791260034-XAHUZu2gu1n9k9NrJbj9` chọn **isolated disposable pgvector** confidence 1. Vì vậy dùng PostgreSQL+pgvector trial container riêng, không chạm PG production và không gửi vector sang Qdrant.
+- **Code-first scope:** `/opt/incomex/dot/`, 10–30 source files, ≤250KB, secret-scan, built-in Cognee code graph trước; ground truth parser/AST. Exact code edges không giao LLM/JEV phán đoán. Semantic model/JEV chỉ SHADOW trên tập nhỏ.
+- **Acceptance R4:** T19 PASS · PGVector hoạt động · embedding đúng model Agent Data · Qdrant unchanged · production PG untouched · >=15 deterministic code edges · sampled precision 100%/recall >=80% · production health/resource PASS · wipe path trial được chứng minh.
+- **KB-noise rule:** R4/R5 không bulk-ingest KB. R6 curation là bắt buộc; destructive delete vẫn phải Owner duyệt. R7 xóa trial state rồi clean rebuild production.
+- **Cost:** code-first external calls cap ≤1 USD trong tổng trial cap 5 USD. Không silent model fallback.
+- **NEXT:** Host đặt READY theo full SHA `25f3d76dd105269f69b2b2641bd9a55ddd92cef0` sau final prompt check; rồi truyền RUN cho Claude Code.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
@@ -453,4 +462,4 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 - Gateway Agent: ../hermes-joint-workspace/COLLAB.md — việc độc lập.
 
 ## Owner cần quyết
-- **R4.0 · Đề xuất: GẬT.** Cho phép trial sau khi R4.2 PASS gửi sang **OpenAI** chỉ **bộ dữ liệu đã che** được tạo từ 4 nguồn P21 (Lark `88 - Phái cử`: quan hệ Đơn hàng–TTS–Nghiệp đoàn/Xí nghiệp; `PTTT - Thông tin khách` + `PTTT - Lịch sử thị sát`; excerpt `work/mow-mot-moit-mout/COLLAB.md`; code sample `/opt/incomex/dot/` đã secret-scan), dùng đúng `gpt-5.6-luna` + `text-embedding-3-large`, tổng chi phí tối đa **5 USD**. Dữ liệu gốc/mapping/secret không rời VPS. **Gật này không tự phát RUN.**
+- —
