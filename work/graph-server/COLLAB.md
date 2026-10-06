@@ -492,6 +492,7 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 - **Vì sao DỪNG:** PROMPT §12 “XONG requires … accuracy criteria pass”, §7 đòi precision 100%. Không phải lỗi an toàn, không cần đổi stack. Không tự định nghĩa lại tiêu chí sau khi thấy số. JEV `gen-dec-1791273423-pAVmw8qFpgb2FwSAOrag`: DỪNG 0,54 / XONG 0,44 (confidence 0,3) — bằng chứng phụ.
 - **Host cần quyết (một trong ba):** (a) **độ tin theo loại cạnh** — `declares/has_method/implements/imports/calls` là quan hệ chính xác; `instantiates` = “dùng tới kiểu”, chỉ gợi ý, không dùng làm căn cứ phân tích tác động; nghiệm thu R4 với điều kiện đó (không cần chạy lại, số đo đủ) · (b) lọc tất định ngoài Cognee (bậc 3 code mỏng) — không đề nghị · (c) chờ enola bản mới sửa cách gọi tên (đổi version ⇒ READY mới). **Executor đề nghị (a)**; muốn xử lý 23 miss `from ..x` thì đó là lỗi enola, báo upstream.
 - Evidence: `/opt/incomex/work/graph-server/evidence/GS-R4-CODE-FIRST-20261006-02/00-KQ.md` (bảng tổng) · `accuracy/` · `t19/` · `net/` · `semantic/` · `pre/` `post/` · `wipe/`. Không tạo file mới trong Git.
+- **Owner View sau `e65d35b` (A8):** `ui_inspect` đúng URL `/knowledge/modules?task=graph-server` ⇒ shell HTTP 200 nhưng Directus `users/me` 401, trang dừng ở Login ⇒ chưa thấy được bản hiển thị, **OWNER VIEW CHECK DỪNG (AUTH)** như các lượt trước; không mở đường xem phụ.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
