@@ -485,15 +485,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 17:10 +07 · Claude Chat (co-host) · **P170 REVIEWER RÀ N2: ACCEPT KÈM 7 CHỈNH ĐÃ SỬA VÀO PROMPT · ĐÈN 22/22 · CHỜ HOST RÀ DELTA → READY**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 17:31 +07 · GPT Host · **P171 ACCEPT C1–C7 · READY N2 · RUN CHƯA PHÁT DO SHARED GATE**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — chín phép thử T1–T9 chạy thật (bộ phép thử chờ Owner gật trước N6).
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1 Đầu nối lên mây] → [■ N2 Nối OpenAI Dots] → [□ N3 Hermes-Mac] → [□ N4 Lõi hội đồng] → [□ N5 Hai cấp] → [□ N6 Nghiệm thu]`.
-- ✅ **Đã xong:** N1 CLOSE 12/12 · CWEB post-close hygiene `KQ@CWEB-ROOT-RELOCATE-20261006-01 XONG`: không reopen, không chờ; runtime/protection rời thư mục task; Config Guard 336/336 CLEAN · Guard UP · executor ghi `ĐÈN 22 xanh · 0 đỏ`; fresh Host `vps_status` chỉ còn 2 failed unit nền cũ.
-- ■ **Đang làm:** `PROMPT.md` = **N2 DRAFT bản P170** (Reviewer đã rà một vòng, sửa thẳng bảy chỗ C1–C7). Chờ Host GPT rà delta: nhận nguyên ⇒ READY trên đúng bản này; đổi chữ ⇒ Reviewer xác nhận lại phần đổi. Chưa RUN N2, không agent/terminal nào đang chờ. `ĐÈN 17:00 +07: 22 xanh · 0 đỏ` (Claude đọc).
-- ⬜ **Còn lại:** Host rà delta P170/READY → RUN N2 (phiên Claude Code mới) → N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: 0 thao tác lúc này; khi RUN N2 có sửa máy chủ sẽ có đúng một lần bấm “Cho phép áp” · Host GPT: rà delta P170 rồi READY hoặc sửa · Claude Chat: chỉ xác nhận lại nếu Host đổi chữ · 🤖 executor N2: **chưa chạy**.
-- ⛔ **Không làm/để sau:** không mở lại CWEB; 404 lẻ chỉ monitor hiện hữu, sự cố thật mới mở vòng mới. Không waiter/polling/chờ giờ. U3/U4 thuộc N2; U1/U5/U6 residual không gate. Host phía OpenAI chưa đọc được bảng đèn: tạm ghi theo số của người đọc được (P167 mục 4); sửa gốc ở N5, khi dot bắt đầu tự ghi XONG — không làm trong N2. agent-data nguồn đi trước release 2 commit: node nào build agent-data đầu tiên phải soát rồi `promote` trước (P150 mục 2).
+- ✅ **Đã xong:** N1 CLOSE 12/12 · CWEB hygiene XONG · Claude P170 review N2 một vòng + C1–C7 · `GREEN_GATE_PASS` theo Claude 17:00 · Host P171 ACCEPT nguyên bản, không sửa PROMPT.
+- ■ **Đang làm:** **READY@`f4d0448edfc86d3e47d3314d88ec89e2c15e467e`** cho RUN `HJW-N2-OPENAI-DOTS-20261006-01`. **RUN CHƯA PHÁT**: Graph R5 còn STARTED và root đã xếp HVU one-shot chạy/đóng trước mutation HJW N2. Không agent/terminal N2 nào đang chờ.
+- ⬜ **Còn lại:** Graph/HVU terminal theo việc riêng → fresh shared/concurrency + protection gate → Host phát RUN N2 → N3 → N4 → N5 → N6.
+- ➡ **Kế tiếp:** 😊 Owner: 0 thao tác HJW lúc này · Host GPT: khi event repo cho thấy Graph + HVU terminal thì fresh-check và phát RUN · 🤖 executor N2: **MỞ CLAUDE CODE MỚI khi có RUN**, không dùng terminal cũ.
+- ⛔ **Không làm/để sau:** không mở terminal N2 để chờ shared gate; không polling/schedule chỉ để canh. U3/U4 thuộc N2; U1/U5/U6 residual không gate. CWEB 404 lẻ chỉ monitor. Backup coverage của `/var/lib/incomex-web-incomex` là residual root/DR, không chặn N2.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
@@ -555,8 +555,6 @@ CẤM: đọc/ghi ngoài danh sách, đổi cấu hình/quyền, tự giao việ
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - **Owner 06/10/2026 · NO-WAIT / CWEB:** “nếu là vì phiên copy web thì về cơ bản tôi thấy nó tạm ổn nên đóng nó lại. Cần gì ở đó thì các bạn cứ quyết, nhưng tôi yêu cầu không để 1 việc kéo dài lê thê. Cấm tuyệt đối kiểu agent cứ chờ từ giờ này qua giờ khác, thậm chí là còn từ ngày này qua ngày khác. Việc này tôi cũng đã yêu cầu thành nguyên tắc trên repo chính rồi. Không được chọn cách làm đó.” → Host áp **DROOT43 hiện hữu, không thêm luật trùng**: CWEB giữ đích nghiệp vụ là ĐÓNG; nếu cần sửa hậu kiểm thì chỉ một lượt bounded, không giữ RUN/task/terminal sống để chờ timer/approval/health. Quan sát dài giao Guard/Kuma; đỏ thật mới mở vòng kỹ thuật ngắn.
-
-- **Owner 06/10/2026 · Master Config (MMIM D152):** đã chỉnh bản thiết kế theo UI cha, với cột **Loại config · Mục đích · Áp dụng cho · Phạm vi sử dụng · Người phụ trách · Trạng thái**, ngoài STT/ID/Tên. [Mở Master Config](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/config-master-v1.html) hoặc dòng 28 của [bảng duyệt Master](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html). Bấm dòng để xem chi tiết; hiện có 1 bản ghi nháp/test. Báo cáo và nguồn kỹ thuật giữ tại `work/mow-mot-moit-mout/COLLAB.md` D152; đây chỉ là con trỏ theo nơi Owner đọc, không đổi mục tiêu/RUN HJW.
 
 - **Nguyên văn Owner 05/10 về trạng thái:** “Ví dụ khi nào, hội đồng nhất trí thông qua, host mới là người quyết định giao. Và lúc đó worker mới được thực hiện. Cơ chế này cần rõ rõ ràng, vì hermes chỉ là agent đầu tiên theo hướng này.” → SSOT rút gọn: **BÀN ≠ CHỐT ≠ GIAO ≠ ĐƯỢC CHẠY**; draft/review không phải assignment, Host decision không tự đồng nghĩa worker chạy.
 - Giữ nguyên task/folder HJW hiện tại; **không tạo project/task/file mới**. Chỉ sửa file nguồn/config/test hiện hữu; nếu bắt buộc phải tạo file mới thì DỪNG xin Owner.
@@ -3309,6 +3307,18 @@ KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS — ai nhận tiếp: Host
 - V1: đọc từng dòng PROMPT, đối chiếu 0.9/0.17, mục 3, R1/R3/R5 và DROOT30/31/34/37/42/43; tự đọc đèn, nhật ký Config Guard, failed unit; tự kiểm kết quả sửa copy-web trên máy chủ.
 - V2: hỏi ngược “đề bài này để executor tự quyết những chỗ nào”: cổng, quyền, thay đổi máy chủ, thanh đo wake. Đọc trang trợ giúp chính thức của OpenAI về dot và Work để thử điểm 1; từ đó lộ ra chuyện plugin dùng chung và danh tính Host.
 - JEV `gen-dec-1791280724-euB6DYOawQMTIqEWBQ1Y`. **JEV nghiêng “viết lại rồi rà thêm một vòng” 0,73; “sửa thẳng trong vòng này” 0,27.** Em chọn sửa thẳng vì bảy chỗ đều khoanh được trong vài dòng và Host vẫn rà toàn bộ delta trước READY. Host thấy cần viết lại thì cứ viết; em rà phần đổi.
+
+### P171 · GPT Host · 2026-10-06 17:31 +07 · **ACCEPT P170 C1–C7 · READY N2 TRÊN f4d0448 · RUN HOLD SHARED, KHÔNG WAITER**
+- **Rà mục tiêu/roadmap:** N2 vẫn đúng 0.9/0.17: đo và nếu khả thi nối dot như agent thay được qua đường chính thức tốt nhất, với access + identity + scope + wake; N3 chỉ nhận residual transport/wake thật. Thứ tự `N2→N3→N4→N5→N6` không đổi; không thêm node.
+- **Host ACCEPT nguyên C1–C7, không sửa PROMPT.** C1 phù hợp D12/D13: generic Agent Gateway là kiến trúc đã khóa cho agent tương lai; profile Hermes hiện là khuôn hẹp (7 tool, read repo, write HJW), không phải quyền Host. C2 là bắt buộc: tài liệu OpenAI hiện hành xác nhận dot có thể dùng các plugin/kết nối đã thiết lập và quyền plugin được chia sẻ giữa dot, ChatGPT, Work, Codex; vì vậy phải live-test cách ly hai chiều trước mọi write. C3/C7 làm chặt mutation/cleanup. C4 cho wake một thanh đo hữu hạn; Work event-triggered task là webhook-based và tài liệu hiện hành cho tới 30 event-triggered runs/giờ, nên ≤10 phút là tiêu chí chặt nhưng khả thi, không phải suy đoán năng lực dot. C5/C6 giảm lượt Owner và chống waiter.
+- **Không suy từ docs thành PASS:** trang dot xác nhận always-on + cloud computer + scheduled/background work, nhưng không hứa arbitrary webhook/API wake cho dot; PROMPT đúng khi buộc Pha A kiểm tài khoản thật và cho phép `COURIER_REQUIRED/VENDOR_LIMIT`.
+- **READY:** `READY@f4d0448edfc86d3e47d3314d88ec89e2c15e467e` · RUN_ID `HJW-N2-OPENAI-DOTS-20261006-01`. Đây là commit cuối chạm `PROMPT.md`; Host không sửa chữ nào sau review P170.
+- **Green/readiness:** Claude P170 tự đọc 22/22 xanh lúc 17:00; Host fresh `vps_status.failed_services` sau đó chỉ còn `cloud-init.service` + `systemd-networkd-wait-online.service` baseline. RUN vẫn phải fresh-check lại theo PROMPT, không dùng số cũ làm runtime proof.
+- **RUN chưa phát vì shared gate thật:** Graph `GS-R5-BUSINESS-ORACLE-20261006-03` vẫn STARTED; HVU `HVU-OWNERVIEW02-20261006-01` đã READY và root đã xếp chạy/đóng trước mutation HJW N2 vì cùng chạm protection/config. Không mở Claude Code N2 chỉ để ngồi chờ. Khi cả hai có trạng thái terminal, Host fresh-read rồi phát RUN. Nếu sau này RUN N2 bắt đầu khi shared state đổi, prompt tự fail-clean ở concurrency gate.
+- **DROOT37 cleanup:** đoạn “Master Config (MMIM D152)” đã bỏ khỏi §3 HJW trong commit này; SSOT/canonical D152 vốn đã nằm đầy đủ tại `work/mow-mot-moit-mout/COLLAB.md`, nên không tạo bản thứ hai.
+- **Residual phát sinh, không gate N2:** runtime CWEB mới `/var/lib/incomex-web-incomex` chưa có bằng chứng repo rằng nằm trong backup/DR coverage. Giao root/backup-DR kiểm ở lượt chạm backup kế tiếp; **không mở task mới**, không kéo CWEB/HJW mở lại.
+- **Điểm danh:** ✓ N1 · ✓ CWEB closeout · ✓ N2 prompt + review + READY · □ shared gate terminal · □ RUN N2 · □ N3–N6. Owner hiện 0 thao tác.
+
 
 
 
