@@ -8,7 +8,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 v
 🏁 Xong khi: mỗi đầu ra CT có Master List; record phát sinh được ghi trước khi phân loại/chuẩn hóa; gap concept được treo rõ để Owner chỉ quyết phần concept.
 📍 Tiến độ: CT-003 ✓ → CT-004 ✓ → CT-005 ✓ Master MOW → CT-006 ✓ Master UI con → ■ CT-007 ✓ Master Config → □ tiếp tục Coverage T0
 ✅ Đã xong: D151 giữ một bảng Master; D152 Master Config đã dùng UI cha, 6 cột quản lý và drawer đủ thông tin, bảo toàn bản ghi test. List/detail/index/đường vào đã kiểm; chờ Owner góp ý.
-■ Đang làm: hoàn thiện dần loại/tham số Config bằng ca thực tế; semantics/phân loại Config vẫn OPEN. MOW legacy và 3 UI con thiếu UI cha là gap riêng.
+■ Đang làm: D153 ghi đủ Nhóm cha B1–7 × T0–T2 và Nhóm con 1.x–7.x × T0–T2; kiểm coverage và liên kết cha. Config/Chuyên môn còn OPEN riêng.
 ⬜ Còn lại: tiếp tục ghi/test Config thật vào CAT-248* để lộ loại; map MOW legacy; xác định cha UI-008/011/012; Codex Change Propagation audit vẫn PENDING nhưng không chặn chỉ đạo trực tiếp.
 ➡ Kế tiếp: Owner xem Master Config dòng 28; bổ sung Config thực tế rồi tiếp tục slice nhỏ/Coverage. Audit Change Propagation vẫn PENDING riêng; FC-002 chỉ bàn semantics Config.
 ⛔ Không làm/để sau: không xóa/hoãn Master chỉ vì định nghĩa chưa hoàn thiện; không tự gán cha cho 3 UI thiếu evidence; không đổi 7 MOW canonical khi chưa map.
@@ -107,6 +107,11 @@ Mốc hoàn thành theo ba tầng (đề xuất — chờ Owner gật; 6 điểm
 Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đầu vào và kết quả cần đạt của phần được chọn → thực hiện theo bước bằng công cụ có thật → kiểm kết quả đã lưu, nhánh lỗi và khả năng dùng lại. Ghi phần đã đạt, phần còn thiếu và nơi bị tắc. Một phần đạt chưa có nghĩa toàn máy đạt; lỗi hoặc thiếu đầu vào thì chưa đưa phần đó vào dùng chính thức.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+**OWNER 06/10/2026 · D153 · ĐIỀN ĐỦ MASTER NHÓM:** Bước 1–7 + Tầng T0–T2 ⇒ ghi toàn bộ Nhóm cha; Bước con 1.x–7.x + Tầng T0–T2 ⇒ ghi toàn bộ Nhóm con. Theo CT-002 giữ Field/T0, MOIT/T0.5, MOUT/T0.5, MOT/T1, MOW/T2 riêng: 35 cha và 115 con (23 bước con). Giữ ID/dữ liệu cũ; danh mục đầy đủ không có nghĩa rule/config/vận hành đã duyệt.
+- STARTED D153: 2026-10-06T08:42:24.822Z; PROCESS CHUNG.APQUYTRINH PASS (job 162400546e2e404fb82b1406b3502628). Owner giao trực tiếp, không thay active RUN khác.
+- CE-MMIM-GROUPS-20261006: STATUS_OR_COUNT_CHANGE + FORMULA_OUTPUT_MASTER_TEST; UPDATE definition-master-data (001/002), child mapping Tầng/detail, registry sourceHint, đường nạp/cache; VERIFY 35/115 coverage, unique ID/cặp nguồn, 115 quan hệ cha đúng bước gốc và tầng/đối tượng, bảo toàn 10 dòng cũ và các Master khác, UI list/detail/index. README/FORMULA/COLLAB/council cập nhật kết quả. N/A: không đổi CT hay định nghĩa/canonical UI; không DB.
+
 
 **OWNER 06/10/2026 · D152 · MASTER CONFIG:** chế tạo cỗ máy sản xuất quy trình; có UI thiết kế, quy trình vận hành/chế tạo máy. Mỗi loại đối tượng có từ hai phần tử cần Master theo UI cha; nhãn/cột phải phù hợp nhu cầu quản lý. Owner giao Codex nghiên cứu và sửa Master Config theo hiểu biết hiện có, bổ sung dần. Dùng một bảng duyệt hiện hành; báo cáo tại HJW bằng con trỏ về MMIM.
 
