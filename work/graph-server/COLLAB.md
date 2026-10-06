@@ -4,15 +4,15 @@ Tên việc: Graph Server — Business × JEV × Code
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D06: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, tiêu chí công cụ bền vững thực dụng (MIT không bắt buộc — D06); Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 15:19 +07 · GPT Host · P25 — R4 cơ chế đạt, chờ Claude xác nhận trust policy theo loại cạnh
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 15:55 +07 · Claude Chat (Reviewer) · P26 — R4 ACCEPT · no rerun (có điều kiện chép C1–C3); chờ Host đóng R4
 - 🎯 **Mục tiêu — Owner nguyên văn 24/09, giữ thứ tự ưu tiên (đầy đủ ở §0.1):** (1) “Tạo ra các mối quan hệ về Graph đối với business (khi các mối quan hệ là hữu hạn, chứ không phải quan hệ vô hạn kiểu mạng xã hội.” · (2) “Kết hợp tốt nhất với Jev để đảm bảo Graph truyền thống và Jev bổ sung tốt nhất cho nhau…” · (3) “Định hướng ứng dụng các skill, frame chính thức của Jev…” · (4) “Tự Dựng lại mối quan hệ về về code để các Agent/ AI có thể hiểu nhanh hơn khi hệ thống phức tạp lên.” **Vì sao:** thông tin không SQL hoá được (chăm sóc khách, trao đổi, quy trình còn loay hoay, code) phải nối được thành quan hệ có nguồn để người và agent quyết nhanh hơn.
 - 🎯 **Owner 05/10 (D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.”
 - 🏁 **Xong khi (GPT + Claude thống nhất theo D10; lấy từ GATE01):** trial hai lượt đạt trên máy chủ — hỏi “khách/ứng viên này liên quan gì, nên làm gì tiếp” ra câu trả lời có nguồn · loại quan hệ mới được đề xuất → duyệt → dùng lại mà không trích lại toàn bộ · JEV do máy tự gọi · đọc được quan hệ của một mẫu code · tắt Cognee vẫn đọc/xuất/khôi phục được graph ⇒ Owner xem kết quả và quyết cài thật.
 - 📍 **Tiến độ:** `✅ R0 thiết kế · ✅ R1 baseline · ✅ R2 N1 gate · ✅ R3 core infra · ■ R4 CODE-FIRST acceptance policy · ⬜ R5 business micro-trial · ⬜ R6 KB curation · ⬜ R7 trial wipe + production clean build`
 - ✅ **Đã xong:** hạ tầng/isolations/T19/PGVector/embedding-consistency/Qdrant+PG-production untouched/secret-scan/resource/semantic 5/5/JEV SHADOW đều PASS. Code graph Python micro-trial đã đo **toàn bộ**: 509 node, 748 edge, precision 98,66%, recall 96,4%; 420/420 cạnh cấu trúc chính xác tuyệt đối.
-- ■ **Đang làm:** Host P25 đề xuất **trust tier theo edge type** thay vì ép mọi edge cùng mức fact. KQ lịch sử P24 vẫn là `DỪNG` vì PROMPT cũ đòi 100%; không sửa lịch sử sau khi thấy số. Chờ Claude xác nhận policy; nếu ACCEPT thì đóng R4 **không chạy lại**.
+- ■ **Đang làm:** Claude P26 = `R4 ACCEPT · no rerun` có điều kiện: Host chép C1–C3 vào CODE-EDGE-TRUST v0.2 — toàn bộ `instantiates` là advisory vì graph không lưu dấu resolve; 84 import giữa các file bị loader bỏ nên graph chưa trả lời được “file nào phụ thuộc file nào”; recall 96,4% không gồm import cấp file. KQ lịch sử P24 giữ `DỪNG`. Không chạy lại.
 - ⬜ **Còn lại:** P26 Claude review trust policy → nếu ACCEPT, R4 PASS-WITH-LIMITS → R5 business micro-trial nhỏ · R6 curate KB bắt buộc · R7 wipe trial + clean production build. Goal #4 toàn hệ thống vẫn PARTIAL vì shell/SQL/Nuxt chưa phủ.
-- ➡ **Kế tiếp:** 😊 Owner: không cần làm gì · Reviewer Claude: review P25 đúng 5 câu, NO RUN · 🤖 Claude Code: không chạy tiếp; trial đã hạ, dữ liệu giữ để review.
+- ➡ **Kế tiếp:** 😊 Owner: không cần làm gì · Host GPT: chép C1–C3, đóng R4 PASS-WITH-LIMITS, sửa hồ sơ P26 (a)–(d), rồi nêu **một dòng** Owner gật cho dữ liệu business của R5 · Reviewer Claude: đã ghi P26; rà PROMPT R5 khi có · 🤖 Claude Code: không chạy tiếp; trial đã hạ, dữ liệu giữ để review.
 - ⛔ **Không làm / để sau (không chặn):** cài thật (production) · ngưỡng xác suất tự động · Cognee MCP/UI, Graphiti, GDS, Hindsight · chạm PostgreSQL/Directus/Qdrant đang chạy · chờ Hermes · đổi phiên bản khi không có lý do (Cognee giữ 1.6.1 dù đã có 1.6.2).
 
 ### 1. Mục tiêu
@@ -47,11 +47,14 @@ Bối cảnh nguyên văn User: “Gốc rễ nhất là chúng ta đã dọn VP
 **Làm rõ mới nhất — nguyên văn Owner 28/09/2026:** “Các con số là tôi lấy ví dụ thôi chứ không phải chốt tỷ lệ xác suất từng đó.”
 
 ### 2. Thế nào là hoàn thành
-Phạm vi hiện tại — nguyên văn Owner 28/09/2026:
-- “Bạn rà soát cái cần là tất cả các chi tiết phải được đưa vào kế hoạch để tất cả phải hiểu thống nhất và hiểu đúng. Tránh mỗi Ai lại làm theo 1 kiểu.”
-- “Bạn tiếp tục rà soát và cập nhật kế hoạch giúp tôi để tiến tới đồng thuận nhé”
-- Lượt hiện tại theo D09: chốt PLAN01/VER01 bằng đồng thuận GPT Host + Claude; không chờ Hermes. Việc đường giao trực tiếp Hermes đang không thuận tiện là vấn đề hạ tầng riêng, không phải gate của `graph-server`.
-Tiêu chí trial/production ở PLAN01 vẫn là đề xuất cần Owner duyệt; việc chốt kế hoạch không phải RUN triển khai.
+(đề xuất — chờ Owner gật; theo lời Owner 05/10 Owner chỉ giữ mục tiêu, phần này do GPT và Claude thống nhất; Claude ghi 06/10, Host kiểm)
+Việc này xong khi bản thử trên máy chủ chứng minh được bốn điều theo đúng thứ tự mục tiêu, rồi Owner xem kết quả và quyết có cài thật hay không.
+Một: hỏi “khách hoặc ứng viên này liên quan gì, nên làm gì tiếp” thì hệ thống trả lời được, có kèm nguồn. Loại quan hệ mới được đề xuất, được duyệt, rồi dùng lại mà không phải trích lại toàn bộ.
+Hai: JEV do máy tự gọi để chấm từng lựa chọn, không phụ thuộc người hay AI nhớ mà gọi.
+Ba: cách dùng JEV bám theo hướng dẫn chính thức để về sau dùng tiếp được.
+Bốn: agent đọc được quan hệ trong mã của hệ thống, kèm mức tin cậy theo từng loại quan hệ.
+Tắt lớp Cognee vẫn đọc, xuất và khôi phục được graph.
+Trước khi cài thật: lọc lại kho tri thức, xoá sạch dữ liệu thử, dựng lại từ nguồn chính thức.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - Artifact hiện hành đúng luật: `COLLAB.md` điều phối · `view.html` là HTML chính · tối đa một `PROMPT.md` active theo A6. Không tạo file review/progress/handoff/bản nháp song song; evidence runtime để ở VPS path của RUN.
@@ -69,6 +72,8 @@ Tiêu chí trial/production ở PLAN01 vẫn là đề xuất cần Owner duyệ
 - Tái dùng việc jev-integration đã đóng; không mở cổng/skill nội bộ trùng chức năng. Dung lượng hơn 50GB là thông tin Owner, đối chiếu báo cáo VPS ngày 23/09; chưa phải số đo mới của lượt này.
 - Runtime chỉ làm qua RUN đã READY đúng roadmap. RUN-1 hạ tầng đã KQ DỪNG sạch sau khi core PASS; hiện chưa cho RUN-2/external inference. R4-PREP kế tiếp chỉ được đọc nguồn đã chọn, tạo bản đã che cục bộ và đóng T19/T18 trong trial; không gửi dữ liệu ra ngoài cho tới khi Owner gật dòng cuối file và R4 PASS.
 - **Chỉ đạo Owner 05/10/2026 (nguyên văn; D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.” ⇒ Cách áp (Claude ghi 05/10, Host kiểm): §0.1 và thứ tự bốn ưu tiên chỉ Owner đổi. Cách làm — tiêu chí đạt của trial, phạm vi hai lượt, phiên bản, trần tài nguyên — do GPT Host + Claude thống nhất rồi làm, không trình Owner duyệt từng mục. Vẫn thuộc Owner: dữ liệu nào được rời máy chủ sang nhà cung cấp ngoài, trần tiền, cho chạy từng RUN (A9) và quyết cài thật.
+- **Vector và embedding của graph (Owner 06/10 — D13; đây là diễn giải, Host chép nguyên văn):** bản thử lưu vector ở một PostgreSQL riêng có pgvector, không đụng PostgreSQL nghiệp vụ và Qdrant; dùng đúng model embedding Agent Data đang chạy (đo 06/10: `text-embedding-3-small`, 1536 chiều). Dữ liệu thử bỏ được; trước cài thật phải lọc kho tri thức, xoá sạch bản thử, dựng lại sạch.
+- **Độ tin của quan hệ code (R4, 06/10):** dùng CODE-EDGE-TRUST hiện hành (P25 + sửa ở P26). Không thấy cạnh không có nghĩa là không có quan hệ. Import giữa các file hiện chưa có trong graph. Mẫu đã thử chỉ là Python; shell DOT, SQL và Nuxt chưa phủ.
 
 ### Vòng trước
 §0.2 mở việc ngày 24/09, giữ nguyên văn:
@@ -76,6 +81,13 @@ Phạm vi lượt giao hiện tại, nguyên văn User:
 - “tạo 1 task tên work/graph-server”
 - “Đưa các nội dung lên đây theo đúng quy đjnh để hội đồng bắt đầu có ý kiến.”
 Các mục tiêu và lời Owner các vòng trước vẫn giữ tại §0.1; mọi đề xuất kiến trúc lịch sử không tự thành quyết định đã duyệt.
+
+§0.2 vòng 28/09 (chuyển xuống ngày 06/10 theo MT4), giữ nguyên văn:
+Phạm vi hiện tại — nguyên văn Owner 28/09/2026:
+- “Bạn rà soát cái cần là tất cả các chi tiết phải được đưa vào kế hoạch để tất cả phải hiểu thống nhất và hiểu đúng. Tránh mỗi Ai lại làm theo 1 kiểu.”
+- “Bạn tiếp tục rà soát và cập nhật kế hoạch giúp tôi để tiến tới đồng thuận nhé”
+- Lượt theo D09: chốt PLAN01/VER01 bằng đồng thuận GPT Host + Claude; không chờ Hermes. Việc đường giao trực tiếp Hermes đang không thuận tiện là vấn đề hạ tầng riêng, không phải gate của `graph-server`.
+Tiêu chí trial/production ở PLAN01 khi đó là đề xuất cần Owner duyệt; việc chốt kế hoạch không phải RUN triển khai.
 
 Host: GPT Chat
 Host_ID: GPT-GRAPH-20260924-A — ID điều phối do Host tự đặt.
@@ -515,6 +527,20 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
   3. Kiểm câu “9 false instantiates đều thiếu target_id” có đủ để giữ unresolved ở advisory; nếu cần hiệu chỉnh chỉ sửa policy, không chạy lại.
   4. Có đồng ý `calls` chỉ HIGH_CANDIDATE và phải deterministic revalidate trước impact/automation không.
   5. Với evidence hiện có, có thể đóng R4 `PASS-WITH-LIMITS` **không rerun** hay còn blocker kỹ thuật cụ thể nào. Nếu ACCEPT, ghi rõ `R4 ACCEPT · no rerun`; nếu PARTIAL phải nêu đúng blocker tối thiểu.
+
+### P26 · Claude Chat · Reviewer · ACCEPT CÓ ĐIỀU KIỆN — `R4 ACCEPT · no rerun` khi Host chép C1–C3 vào policy; không còn blocker kỹ thuật
+- Bảng: khớp · Ô 1–2: lệch — ô 2 còn chữ phạm vi biên tập 28/09 (trang Owner đang rút đúng chữ này); đã sửa trong commit này, bản cũ chuyển xuống `### Vòng trước`; Host kiểm.
+- Based_on: P25 `9d1208cb465eec46e325580eb25b15a425ee2456`; KQ/P24 `e65d35b`; evidence đọc trực tiếp trên VPS hôm nay (`00-KQ.md`, `accuracy/summary.json`, `accuracy/adjudication-raw.tsv`, `run/codegraph.log`); nguồn Enola tag v0.4.21 `f6fca219…` (`docs/schema/facts.md`) và Cognee v1.6.1 (`cognee/tasks/code_graph/extract_code_graph.py`, `enola.py`). Chưa đọc: đủ 748 dòng `precision-edges.tsv` (chỉ đọc đầu file + bảng tổng), `recall-oracle.tsv`. Không RUN, không chạm runtime, không sửa PROMPT/view.
+- **(1) Điểm danh mục tiêu + roadmap — ACCEPT.** #1 chưa kiểm; #2, #3 mới một phần nhỏ; #4 một phần, có bằng chứng trên mẫu Python. Giữ R5 → R6 → R7. Bổ sung ở C2 và mục Nhắc Host.
+- **(2) Hợp đồng Enola — Host đọc ĐÚNG.** `facts.md` v0.4.21: `instantiates` = “Source constructs an instance of target via a constructor call”; `calls` = “Source calls target”; có `names` riêng cho symbol truyền như dữ liệu; “Use `target_id` when present. When absent, preserve `target` as an unresolved reference… Do not choose an arbitrary fact when `target_id` is absent.” ⇒ đồng ý không đổi nghĩa `instantiates`; 10 cạnh sai là giới hạn của công cụ.
+- **(3) C1 · Tầng 3 như đang viết KHÔNG áp được trên graph đang lưu.** `build_code_graph_edges` của Cognee 1.6.1: có `target_id` thì nối thẳng; không có thì **tự khớp theo tên hoặc đuôi tên duy nhất** rồi ghi một cạnh bình thường. Thuộc tính cạnh chỉ có `source_node_id`, `target_node_id`, `relationship_name`, `edge_text`, `updated_at` — **không có dấu nào cho biết cạnh đến từ `target_id` hay từ khớp tên**. Vậy trong Neo4j không truy vấn ra được “cạnh thiếu target_id”. Bằng chứng: cả 13 cạnh `instantiates` mà oracle không thấy đều có origin `name:<tên>` (9 sai; 4 đúng là `raise err(...)` qua alias); bằng chứng lưu lại không cho biết trong 131 cạnh còn lại bao nhiêu cũng là khớp tên. **Sửa policy, không chạy lại:** cho tới khi graph có dấu phân biệt, **toàn bộ loại `instantiates` = ADVISORY**; việc tách “đã resolve / chưa resolve” ghi thành việc của R7 (lưu snapshot `.enola` thô hoặc thêm dấu khi nạp — quyết ở R7, không làm bây giờ).
+- **(4) `calls` = HIGH_CANDIDATE — ACCEPT.** 183/184 đúng, 23 sót. Log còn cho thấy nhiều quan hệ `calls` tới thành viên Enum bị loader bỏ vì không resolve — bỏ là đúng. Phải kiểm tất định lại trước mọi kết luận tác động hoặc tự động hoá.
+- **(5) C2 · `imports` — đúng nhưng gần như vắng mặt; phải ghi thành giới hạn số một.** `run/codegraph.log` có **84 dòng** `Skipping relation 'imports' … target 'cutter_agent/orchestrator/<file>' is unresolved` (ví dụ `approval -> .enums`, `runner -> .state_store`, `phases/backup -> ..run_context`): Enola **có phát hiện** import giữa các file, loader Cognee **bỏ**, không phải “gộp” như P24 viết. Graph chỉ còn 3 cạnh `imports` cấp gói. Hệ quả: graph hiện **không trả lời được “file nào phụ thuộc file nào”** — đúng thứ agent cần nhất để hiểu hệ thống. Oracle chỉ có 2 fact `imports` (`summary.json`) nên **recall 96,4% không tính 84 quan hệ này**. Sửa chữ: `imports` giữ ở EXACT_POSITIVE cho cạnh có mặt, kèm câu “độ phủ cấp file gần bằng 0; ABSENCE_IS_UNKNOWN áp trước hết cho `imports`”; mọi chỗ nêu 96,4% thêm “so với oracle không gồm import cấp file”. Cách khắc phục (bản mới hơn, cấu hình, hay dùng `calls` xuyên file thay thế) để R7 quyết; không đổi version bây giờ.
+- **C3 · Ghi số đúng tên.** “420/420” là precision của bốn loại cấu trúc, trong đó `imports` chỉ có n = 3; viết “417/417 cho `declares`/`has_method`/`implements`, cộng 3/3 `imports` cấp gói”.
+- **Kết luận — `R4 ACCEPT · no rerun`**, có hiệu lực khi Host chép C1–C3 vào CODE-EDGE-TRUST (thành v0.2) và vào danh sách giới hạn; không cần vòng rà nữa. Không còn blocker kỹ thuật: số liệu đủ, an toàn đạt, không cần lọc hay parser riêng. KQ lịch sử giữ `DỪNG`.
+- **CODE-EDGE-TRUST v0.2 đề nghị (gọn):** EXACT_POSITIVE = `declares`, `has_method`, `implements`, và `imports` cho cạnh có mặt · HIGH_CANDIDATE = `calls` · ADVISORY = toàn bộ `instantiates` (cho tới khi có dấu resolve) · ABSENCE_IS_UNKNOWN cho mọi loại, nặng nhất ở `imports` cấp file · giữ cạnh thô, không lọc, không sửa Enola/Cognee.
+- **Nhắc Host — hồ sơ còn lệch (không chặn R4, cần xong trước PROMPT R5):** (a) VER01 và hàng R1 thẻ roadmap trong `view.html` vẫn ghi “LanceDB tích hợp cho trial” và `text-embedding-3-large` — đã nhắc ở P23-S6; (b) §0.3 chưa có nguyên văn lời Owner 06/10 của D13 — Claude đã thêm một dòng diễn giải kỹ thuật, Host chép nguyên văn; (c) dòng Owner gật dữ liệu business đã bị xoá khỏi `## Owner cần quyết` khi đổi sang code-first ⇒ R5 cần lại **một dòng** (nguồn nào · bản đã che · model · trần tiền) trước khi soạn PROMPT, kèm điều kiện T18 ở P20/P21; (d) mục tiêu #4: thêm vào roadmap một dòng “phủ shell DOT / SQL / Nuxt + import cấp file” ở R6–R7 để không bị quên.
+- JEV `gen-dec-1791275428-3aSOosMPJLhnDVfaHGjo` (`typesafe/jev-1.13-20260917`): đóng R4 sau khi sửa chữ = 0,97 · tầng 3 áp được trên graph đang lưu = 0,14 · `instantiates` nguyên loại là advisory = 0,90 · `imports` “đúng nhưng gần như vắng” = 0,91. Bằng chứng phụ, không cấp quyền.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
