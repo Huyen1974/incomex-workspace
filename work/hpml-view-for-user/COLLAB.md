@@ -29,15 +29,15 @@ Hướng đúng: một đường duy nhất theo §12, cấm URL tạm, không n
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn lời Owner 06/10/2026 14:59 (vòng mở lại; ghi ở ô 1).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 17:10 +07 · GPT Chat (Host) · P39 ACCEPT P38 · READY OWNERVIEW02
-- 🎯 **Mục tiêu (Owner 06/10 14:59, nguyên văn):** “các bạn cứ bàn trên repo, viết cái gì ra thì chayn xuống VPS. VPS đơn giản chỉ là cái kênh để cho user có thể xem trực tiếp và dễ nhìn. Đặc biệt là thông tin tiến độ theo thời gian thực (ai đang làm? ai vừa làm)”. **Vì sao:** đây là bước đầu của hệ thống giao việc tự động mà Owner giám sát được bất cứ lúc nào; ngày 06/10 trang hiện mục tiêu cũ 12 ngày mà không ai được báo.
-- 🏁 **Xong khi:** Bảng điều khiển và mục tiêu của mọi việc đang làm tự hiện trên trang sau mỗi lần ghi repo, không ai chép tay · AI lỡ đổi tiêu đề thì trang vẫn hiện và có nhắc; không đọc nổi thì đèn đỏ nêu tên việc · “ai vừa làm / ai đang làm” chạy như cũ · có bộ thử + quay lui.
-- 📍 **Tiến độ:** `✅ Mở lại + mục tiêu` · `✅ Hội đồng rà đề bài` · `✅ Host READY` · `■ Claude Code làm một lượt` · `⬜ Nghiệm thu + đóng`
-- ✅ **Đã xong:** tìm ra gốc lỗi và sửa riêng cho HJW (HJW P164, `dd3d158`, kiểm `d7fd142`) · mở lại việc này (`2ebbdac`) · đề bài nháp OWNERVIEW02 (P36) · Reviewer phiên mới thử đề bài trên dữ liệu thật, sửa và ACCEPT (P38).
-- ■ **Đang làm:** Chờ Owner giao đúng một lệnh cho Claude Code chạy `HVU-OWNERVIEW02-20261006-01`. Host fresh-check: VPS Git sạch; CWEB đã đóng và `CWEB-ROOT-RELOCATE` XONG, không còn executor CWEB; HJW N2 chưa STARTED. Giao nhau tiềm năng duy nhất là shared `mcpw-protection-guard`/Config Guard, đã có P4 concurrency gate trong PROMPT.
-- ⬜ **Còn lại:** một lượt Claude Code (máy đồng bộ + trang + đèn canh + bộ thử) → Host nghiệm thu, Reviewer xác nhận → đóng, chuyển lại `done-tasks`.
-- ➡ **Kế tiếp:** 😊 Owner giao lệnh chuẩn cho Claude Code. Không cần vòng hội đồng nữa trước RUN; Reviewer Claude đã ACCEPT đúng PROMPT last-touch `376722de82c366009a08693313d59cd0b42e9716`.
-- ⛔ **Không làm:** trang mới hay đường xem thứ hai · GitHub→VPS cho mã · đụng cổng ghi, đầu nối, webhook, presence · đổi bố cục nào khác ngoài thêm đúng một ô Bảng điều khiển · hệ thống giao việc tự động (thuộc HJW N3–N6) · không điều hành/sửa CWEB (đã đóng) hay HJW từ lượt này.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 17:34 +07 · GPT Chat (Host) · **P40 RUN ISSUED · MỞ CLAUDE CODE MỚI**
+- 🎯 **Mục tiêu (Owner 06/10 14:59, nguyên văn):** “các bạn cứ bàn trên repo, viết cái gì ra thì chayn xuống VPS. VPS đơn giản chỉ là cái kênh để cho user có thể xem trực tiếp và dễ nhìn. Đặc biệt là thông tin tiến độ theo thời gian thực (ai đang làm? ai vừa làm)”.
+- 🏁 **Xong khi:** Bảng điều khiển + mục tiêu tự xuống trang; đổi tiêu đề không làm mất dữ liệu; lỗi parse có đèn; “ai vừa làm/đang làm” giữ đúng; có test + rollback.
+- 📍 **Tiến độ:** `✅ Mở lại + mục tiêu` · `✅ Hội đồng rà đề bài` · `✅ READY` · `■ RUN ISSUED — Claude Code mới` · `⬜ Nghiệm thu + đóng`.
+- ✅ **Đã xong:** P36 draft · P38 Reviewer ACCEPT · P39 Host ACCEPT + `READY@376722de82c366009a08693313d59cd0b42e9716`.
+- ■ **Đang làm:** **RUN@HVU-OWNERVIEW02-20261006-01 · ISSUED**. Executor = **Claude Code CLI phiên mới**. Graph R5 được phép chạy song song vì scope hiện hành không chạm `scripts/hvu-b2`, `mcpw-protection-guard` hay baseline Config Guard; dù vậy executor phải chạy P4 fresh-check và tự DỪNG nếu thực tế khác.
+- ⬜ **Còn lại:** Claude Code chạy một lượt đến KQ XONG/DỪNG → Host nghiệm thu → Reviewer xác nhận nếu cần → đóng lại Done.
+- ➡ **Kế tiếp:** 😊 Owner: mở **một Claude Code mới** và dán lệnh RUN chuẩn · 🤖 Claude Code: đọc READY/PROMPT, fresh-check P1–P5 rồi chạy tới KQ, không chờ.
+- ⛔ **Không làm:** không dùng terminal Graph cho HVU · không dùng terminal CWEB cũ · không mở HJW N2 lúc này · không waiter/polling.
 
 ### 1. Mục tiêu
 Owner 06/10/2026 14:59, nguyên văn: “Đừng phức tạp hóa vấn đề lên. Nguyên tắc đơn giản là: ác bạn cứ bàn trên repo, viết cái gì ra thì chayn xuống VPS. VPS đơn giản chỉ là cái kênh để cho user có thể xem trực tiếp và dễ nhìn. Đặc biệt là thông tin tiến độ theo thời gian thực (ai đang làm? ai vừa làm) cái này là bước đầu tiên, trong phần tiếp theo mình đang làm nhằm tạo ra 1 hệ thống giao việc tự động mà user có thể giám sát bất cứ lúc nào. Còn gì lỗi của việc này dẫn đến lỗi ngớ ngẩn đó => bạn có thể sửa, bảo vệ để khỏi hỏng”
@@ -843,7 +843,8 @@ Thêm một biển chỉ đường ở mục 0 của đề bài: `view.html` (40
 **Đồng thuận:** **Reviewer ACCEPT** đúng bản `PROMPT.md` ở commit của mục này. Host đồng ý nguyên bản ⇒ phát READY trỏ commit cuối chạm `PROMPT.md`, sửa Bảng cùng commit. Host muốn đổi ⇒ sửa thẳng `PROMPT.md`, ghi P39; Claude rà đúng phần đổi một vòng.
 
 ## RUN / KQ
-- READY@376722de82c366009a08693313d59cd0b42e9716 · RUN_ID `HVU-OWNERVIEW02-20261006-01` · Host GPT Chat · 2026-10-06 17:10 +07 · Reviewer Claude P38 ACCEPT cùng bản PROMPT · chờ Owner giao Claude Code.
+- READY@376722de82c366009a08693313d59cd0b42e9716 · RUN_ID `HVU-OWNERVIEW02-20261006-01` · Host GPT Chat · Reviewer Claude P38 ACCEPT cùng bản PROMPT.
+- **RUN@HVU-OWNERVIEW02-20261006-01 · ISSUED · 2026-10-06 17:34 +07.** Executor: **Claude Code CLI phiên mới**. Không dùng terminal Graph/CWEB/HJW cũ. P4 concurrency gate bắt buộc trước mutation; fail ⇒ KQ DỪNG sạch, không chờ.
 
 ## Ý kiến (P)
 - **P39 · GPT Chat (Host) · ACCEPT + READY · 2026-10-06 17:10 +07.** `Based_on: P38 + PROMPT 376722de + fresh root/CWEB/HJW/VPS git`. Mục tiêu khớp Owner: repo là SSOT thông tin, VPS chỉ là view dẫn xuất; sửa đúng gốc lỗi tiêu đề khiến HJW không xuống VPS mà không có cảnh báo. Host đồng thuận đủ F1–F6, không thêm scope. Fresh-check: CWEB đã CLOSED, `CWEB-ROOT-RELOCATE` XONG; runtime Git sạch; HJW N2 chưa STARTED. Giao nhau duy nhất tiềm năng là shared `mcpw-protection-guard`/Config Guard, đã được P4 cổng vào cưỡng chế nên không cần sửa PROMPT. Ưu tiên chạy HVU một lượt tới KQ rồi đóng sạch trước mutation shared khác.
