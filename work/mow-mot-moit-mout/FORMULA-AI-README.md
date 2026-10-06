@@ -47,7 +47,7 @@ Nếu file này mâu thuẫn với **quyết định Owner mới hơn trong COLL
 - **SSOT Nhóm con giữ nguyên:** Task/MOIT/MOUT/UI con và ngoại lệ Gộp/Tách tham chiếu Nhóm con **cùng Chuỗi**. Chuỗi đầu công thức là ngữ cảnh ràng buộc, không tạo thêm tổ hợp khác Chuỗi của Nhóm con.
 - **Master:** schema có `chainId`; nhãn lấy từ danh mục Chuỗi. Bộ dữ liệu thiết kế đang bàn khai báo CH-001 ở scope review, item override khi có chỉ đạo; không suy từ tên record. Không đổi ID, không nhân ba 35 cha/115 con. Khóa nhóm mở rộng `chainId + stepRef + tierRef`; liên kết cha/con phải khớp Chuỗi. Chưa là migration PG/Directus hoặc bằng chứng backend cưỡng chế.
 - **Master Chuỗi:** ML-DEF-028 / KNI-024 / STT28, dùng UI.MASTER hiện có, 3 giá trị từ cùng nguồn; không chép bộ enum riêng. Có 28 Master định nghĩa + Config = 29 dòng ngoài; Total vẫn ngay sau Tên, Chuỗi kế tiếp. Công thức: 11 gốc.
-- **Icon:** ba vùng cắt nguyên ảnh Owner, không vẽ lại: `chuoi-icons-v1.svg#che-tao`, `#van-hanh`, `#san-xuat`; cùng một payload để cache. CSS `chuoi-ui-v1.css`; công thức chỉ icon, Master dùng chữ.
+- **Icon:** dùng nguyên ba SVG vector Owner cung cấp: `machine-building.svg` (CH-001), `machine-operation.svg` (CH-002), `automated-process.svg` (CH-003), tổng 29.600 bytes. Mapping SSOT tại `chuoi-data-v1.js`; CSS `chuoi-ui-v1.css`; công thức chỉ icon, Master dùng chữ. Asset raster cũ chỉ lưu để rollback, không dùng trong UI hiện tại.
 - **Mặt người:** giải thích dài CT-003→007 thu vào Chi tiết; nội dung/nguồn vẫn giữ cho AI. CT-001/002 không thêm Chuỗi và giữ bố cục.
 
 ## D157 · Một gốc Nhóm con; ba tiến trình · 06/10/2026
