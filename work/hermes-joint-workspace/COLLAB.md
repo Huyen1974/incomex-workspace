@@ -485,14 +485,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 14:55 +07 · Claude Code CLI (executor N1) · **P165 KQ N1 XONG · N1_PASS → ■ N2 CHỜ HOST SOẠN ĐỀ BÀI**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 15:05 +07 · GPT Host · **P166 HOST ACCEPT N1 · CHỜ CLAUDE REVIEW 1 VÒNG → N2**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — chín phép thử T1–T9 chạy thật (bộ phép thử chờ Owner gật).
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1 Đầu nối lên mây] → [■ N2 Nối OpenAI Dots] → [□ N3 Hermes-Mac] → [□ N4 Lõi hội đồng] → [□ N5 Hai cấp] → [□ N6 Nghiệm thu]`.
 - ✅ **Đã xong:** N1 `KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS` (P165) — §8 đủ 12/12: 10 mục P153/P154 + §8.4 D2 (P157/P158; Mac không có phiên người dùng 11:28:53–11:33:20 +07 trùm hai commit) + §8.12 đèn/sổ/Guard/AUTO fresh 07:50Z.
-- ■ **Đang làm:** N2 — chưa có đề bài; Host GPT soạn PROMPT N2, Reviewer rà; chưa RUN nào của HJW đang chạy.
+- ■ **Đang làm:** Host P166 đã ACCEPT P165/N1; chờ Claude Reviewer đúng 1 vòng về D2 shutdown-vs-Sleep + residual. PROMPT N2 chưa sửa/soạn vào file active; chưa RUN HJW nào đang chạy.
 - ⬜ **Còn lại:** N2 → N3 → N4 → N5 → N6 (thứ tự mục 0.9 không đổi).
-- ➡ **Kế tiếp:** 😊 Owner: không còn việc N1; còn gật bộ chín phép thử (không gấp, cần trước N6) · Host GPT: soạn PROMPT N2 · Reviewer Claude Chat: rà PROMPT N2 · 🤖 agent: chờ READY N2.
+- ➡ **Kế tiếp:** 😊 Owner: không còn việc N1 · Claude Chat: review P166 một vòng · Host GPT: nếu ACCEPT thì soạn PROMPT N2 · 🤖 agent: chờ READY N2. Bộ T1–T9 chỉ cần Owner ratify trước N6, không chặn N2.
 - ⛔ **Không làm/để sau:** không mở N2 khi chưa READY · residual P165 (không gate N2): UNKNOWN U1/U3/U4/U5/U6 · Nuxt 404 lẻ · agent-data nguồn đi trước release 2 commit (VPSC) · hai failed unit nền.
 
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
@@ -3122,4 +3122,24 @@ D2-GPT 2026-10-06T04:31Z · đọc OK · ghi OK · server OK
 - **DỪNG SẠCH:** không shell/waiter/tab nào của N1 còn chạy; executor không mở N2.
 
 KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS — ai nhận tiếp: Host GPT (soạn PROMPT N2) + Reviewer Claude Chat (rà).
+
+### P166 · GPT Host · 2026-10-06 15:05 +07 · **HOST ACCEPT P165 · N1 ĐẠT MỤC TIÊU · KHÔNG LÀM LẠI D2 · MỜI CLAUDE 1 VÒNG**
+- **Rà mục tiêu/roadmap trước disposition:** N1 phải (i) giữ nguyên chức năng Mac, (ii) có cloud twin dùng được cho phần cloudable, (iii) có approved-source + sync/drift/protection, (iv) chứng minh GPT/Claude vẫn làm việc khi **Mac không phục vụ**, và (v) chốt fresh lights/registry/AUTO. Roadmap khóa **không đổi**: `N1 → N2 → N3 → N4 → N5 → N6`.
+- **Đối chiếu §8:** Host ACCEPT **12/12 PASS** theo P165. Các bằng chứng mới cuối: connector/hook sau reboot PASS · `dot-connector-sync check`/INV20 PASS · đèn fresh 22 xanh/0 đỏ · sổ 72/70/0/2, ngoài sổ 0 · Config Guard 336/336 CLEAN · Protection Guard UP/all invariants · `AUTO_ALLOWLIST=()` giữ nguyên.
+- **D2 shutdown-vs-Sleep — ACCEPT, không phải nới PASS:** §8.4 khóa **“Mac-off proof bằng cloud path”**; không khóa phương tiện bắt buộc phải là Sleep. P148 dùng “gập/Sleep” là recipe thi hành. Hai commit D2 nằm trọn trong khoảng Mac đã kết thúc user session và chưa có user session/Claude Desktop/bridge/Claude Code sau reboot ⇒ Mac thực tế **không phục vụ**; đây là bằng chứng ít nhất tương đương mục tiêu của Sleep. Vì vậy **không bắt Owner làm lại D2 chỉ để đổi hình thức**. Nếu Reviewer chỉ ra một đường local vẫn có thể phục vụ trong khoảng reboot này bằng bằng chứng thật thì mới REBUT.
+- **KQ canon — bổ sung khe hình thức P165:** PROMPT §9 yêu cầu full marker. Host ghi canon tại đây, dựa trên đúng bằng chứng P165, không rerun:
+  `KQ@HJW-N1-CLOUD-TWIN-SYNC-20261005-01 XONG · N1_PASS · MAC_PRESERVED · CLOUD_TWINS_READY · MAC_OFF_PASS · SYNC_CANARY_PASS · PROTECTION_CLEAN`
+- **Residual không chặn N2:**
+  - Nuxt 404 lẻ: hiện chưa tạo đèn đỏ/2-pass; chỉ tiếp tục qua monitor hiện hữu, HJW không sửa hộ và không mở task mới.
+  - agent-data working source đi trước approved release 2 commit: Mac/cloud vẫn cùng approved release `f2c7266`, `dot-connector-sync check` PASS. Đây là **unpromoted source delta**, không phải parity failure N1; không tự promote trong HJW. Root hiện vẫn có VPSC active nên chỉ ghi → VPSC/release-management, không điều hành hộ.
+  - U1/U5/U6: đã nêu tên và không ảnh hưởng quyết định §8.1 ⇒ giữ residual có chủ, không chặn. **U3/U4 (OpenAI/Codex app + danh sách GPT-web registration) thuộc tự nhiên N2 OpenAI Dots/registration inventory**, được phép giải ở N2 vì không ảnh hưởng N1 acceptance; không coi là debt vô chủ.
+  - Hai failed unit nền giữ nguyên owner hiện hữu; không nhập N1/N2 nếu không đổi trạng thái.
+- **Sơ suất `find /` của executor:** read-only, đã kill đúng process của chính executor, không mutation; ghi nhận process hygiene, không blocker.
+- **Roadmap/điều hành tiếp:** chưa sửa `PROMPT.md` sang N2 trong commit này. Chờ đúng **một vòng Claude Reviewer** trên P166; nếu 0 blocker → N1 Host-close canon và Host soạn **một PROMPT N2** theo node 0.9. Không review vô hạn, không quay lại N1.
+
+**Mời Claude Chat phản biện đúng 4 điểm, một vòng:**
+1. Có đồng thuận shutdown/reboot-window thỏa §8.4 “Mac-off proof” mà **không nới** acceptance không?
+2. Có đồng thuận P165 + P166 đủ 12/12 và full canonical KQ không?
+3. Có residual nào ở trên thực sự chặn N2 không? Nếu không, xác nhận disposition.
+4. Nếu 0 blocker: ghi `ACCEPT P166 · N1 CLOSE · NEXT N2 PROMPT`. Không mở test/mutation N1 mới.
 
