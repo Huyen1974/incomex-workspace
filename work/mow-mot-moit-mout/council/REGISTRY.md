@@ -126,14 +126,14 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 ### CODEX-MMIM-CT001-LAYOUT-20261006
 - Role: OWNER-DIRECTED IMPLEMENTATION · D154; không thay Host.
 - Write_Zone: ban-duyet.html#formula-ct-001 layout + metadata COLLAB/Registry.
-- Active_RUN: none · chỉ đạo trực tiếp Owner 2026-10-06T08:49:39Z.
-- Reserved_Targets: ban-duyet.html CSS/markup nhánh Tạo mới CT-001.
-- Base_Target_Version: 734c9d722baa8d74052b374b4bab9892e805c1ded515534db0d78f8e855064e1.
-- NOW: cố định một hàng 3→7, không tự co/thả bước sang hàng khác.
-- NEXT: kiểm source/geometry nhiều độ rộng, cuộn/focus và đúng URL Owner; ghi KQ.
+- Active_RUN: none · D154 XONG.
+- Reserved_Targets: none.
+- Base_Target_Version: 5abe7de59b7e02f20ea3c08ffa173a679dbb0b6e35656354eceb2ed7da5a24f7.
+- NOW: PASS · 3→7/mũi tên cùng hàng ở 375/600/690/768/1024/1440 px; cuộn cục bộ, bàn phím và link7 PASS; đúng URL Owner fresh.
+- NEXT: Owner xem; chỉ làm tiếp khi có yêu cầu mới.
 - BLOCKED_BY: none.
-- State: ACTIVE.
-- LAST_SYNC: 2026-10-06T08:49:39Z · D154 STARTED.
+- State: IDLE.
+- LAST_SYNC: 2026-10-06T08:59:16Z · D154 KQ/COORD.
 
 ### CODEX-MMIM-TOTAL-20261006
 - Role: OWNER-DIRECTED IMPLEMENTATION · D155.
