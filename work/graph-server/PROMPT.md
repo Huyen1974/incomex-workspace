@@ -1,407 +1,246 @@
-# PROMPT — GS-R6E-SOURCE-MANIFEST-20261007-09
-
-## 0. LỆNH / PHẠM VI
-
-RUN_ID: `GS-R6E-SOURCE-MANIFEST-20261007-09`
-Executor_Surface: Claude Code CLI
-Repo: `Huyen1974/incomex-workspace` · branch `main`
-Task: `work/graph-server`
-Repo Write_Path: Incomex workspace gateway `workspace_*` · root `workspace`
-Runtime Write_Path: terminal/SSH hiện hữu tới VPS1.
-
-Owner D14: trial nhỏ được tự quyết trong scope; production/quy mô thật chỉ R7 Owner duyệt.
-
-MỤC TIÊU DUY NHẤT:
-- tạo **manifest whitelist nguồn được phép vào Graph production v1**;
-- kiểm kê **có biên**, không kiểm kê toàn hệ thống;
-- xếp từng nguồn trong biên vào đúng một loại:
-  `CURRENT/KEEP · ARCHIVE · DELETE-CANDIDATE · RECHECK`;
-- freeze danh sách + cách chụp + trust contract để R7 clean build dùng.
-
-R6E KHÔNG:
-- dọn KB;
-- xoá/di chuyển/sửa file;
-- sửa COMMENT/registry;
-- ingest Neo4j/Cognee;
-- build production;
-- đọc nội dung/title tài liệu KB;
-- đụng Lark;
-- mở lại care/chat discovery;
-- gọi LLM/JEV;
-- tạo parser/graph feature mới.
-
-Manifest = **danh sách cho vào**. Thứ không có dòng `CURRENT/KEEP` trong manifest v1 thì không vào Graph v1.
-
-## 1. READ-GATE
-
-Đọc:
-1. `AGENTS.md`
-2. BẢNG + §0 + D13–D15 + P49–P52 của `work/graph-server/COLLAB.md`
-3. `work/graph-server/PROMPT.md`
-4. `work/graph-server/view.html`
-5. root `COLLAB.md` dòng Graph.
-
-Xác minh READY full SHA = commit cuối chạm PROMPT; không HOLD/STOP/READY mới; không STARTED cùng RUN chưa có KQ.
-
-PASS → ghi:
-`STARTED@GS-R6E-SOURCE-MANIFEST-20261007-09 <UTC> · executor=Claude Code CLI`
-
-FAIL → 0 runtime mutation, KQ DỪNG.
-
-## 2. BIÊN KIỂM KÊ U1–U3 — CẤM MỞ RỘNG
-
-### U1 · Nguồn đã dùng trong R4–R6D
-Chỉ metadata/provenance của các source đã xuất hiện trong evidence:
-- R4/R6A Python sample source (frozen `dot/iu-cutter-v0.6`) — để xếp loại, không ingest;
-- R5 Base 88 explicit-link source — chỉ dùng evidence cũ, **không đọc Lark**;
-- R6B/R6B0 trial runtime/evidence;
-- R6C Nuxt source;
-- R6D PG/DOT sources.
-
-### U2 · Ứng viên production đã khóa ở P51
-Đúng các lớp/candidate này:
-
-1. PostgreSQL trigger native catalog (capture contract = R6D `Q_TRG`).
-2. DOT live command existence: `/opt/incomex/dot/bin` + `/opt/incomex/dot/00-SO-DOT.tsv`.
-3. DOT registry declarations: `public.dot_tools` theo R6D `Q_DOT`.
-4. Python first-party candidate roots, xác nhận tồn tại tại runtime:
-   - `/opt/incomex/docker/agent-data-repo`
-   - `/opt/incomex/lark-client` — tuyệt đối loại `.venv`
-   - `/opt/incomex/claude-mcp`
-   - `/opt/incomex/claude-kb`
-   - `/opt/incomex/scripts`
-5. TS/Vue source:
-   - `/opt/incomex/docker/nuxt-repo/web`
-6. Các nguồn P51 đã xếp ARCHIVE/RECHECK:
-   - PG: `trigger_registry`, `dot_domains`, `dot_operations`, `_recon_dot_fs_inventory`, `entity_dependencies`, họ `v_qt001_*`, `dot_iu_command_catalog`, `iu_relation`, `universal_edges`;
-   - FK/view native dependency counts;
-   - `knowledge_documents`;
-   - `normative_registry` (metadata/count/link coverage only; không mở KB);
-   - conceptual source `Lark Base 88 explicit links` = RECHECK/Owner decision, **không đọc Lark**;
-   - care/chat = no source.
-
-Nếu một exact path candidate không tồn tại:
-- chỉ được resolve **cùng basename trong /opt/incomex, depth tối đa 2**;
-- thấy 0 hoặc >1 candidate ⇒ ghi RECHECK `PATH_UNRESOLVED`;
-- không search toàn filesystem.
-
-### U3 · Trial artifacts
-Chỉ:
-- `/opt/incomex/work/graph-server/runtime/`
-- `/opt/incomex/work/graph-server/evidence/`
-
-Phân theo từng RUN/task folder.
-Không xoá.
-
-### Ngoài biên
-Thấy source khác ⇒ tăng `OUT_OF_SCOPE_COUNT`/ghi category ngắn nếu dễ xác định; **không xếp loại, không đào tiếp**.
-
-## 3. READ-ONLY GATE
-
-### PostgreSQL
-Dùng đúng role read-only đã chứng minh ở R6D:
-- non-superuser;
-- transaction read-only;
-- 0 INSERT/UPDATE/DELETE/DDL.
-
-Cho phép ở R6E:
-- SELECT metadata/catalog trong U1/U2;
-- đọc COMMENT của object trong biên;
-- aggregate counts trên `knowledge_documents`;
-- aggregate metadata của `normative_registry`.
-
-Cấm output row-level business/KB content.
-
-### Filesystem/Git
-Chỉ:
-- stat/list/hash;
-- `git rev-parse HEAD`, `git status --porcelain`, `git ls-files`;
-- đọc metadata labels `00-NHAN-THU-MUC.md`, `GHI-CHU-CAY-GIT.md`, phần bản đồ hệ thống P51 đã dùng;
-- không sửa mtime/content/permissions.
-
-Production PRE = POST bắt buộc.
-
-## 4. KB — CHỈ 3 PHÉP ĐẾM TỔNG HỢP
-
-Nếu cần mapping tên cột do schema drift:
-- được đọc `information_schema.columns` của `knowledge_documents`;
-- không đọc row content/title.
-
-Sau đó chỉ ba aggregate families:
-
-### KB-A · TOTAL
-Xuất duy nhất aggregate:
-- row count;
-- tổng `length(content)`;
-- min/max create/update timestamps nếu cột tồn tại.
-
-### KB-B · FOLDER × MONTH
-Group bằng **bucket thư mục**, không xuất full document path/title:
-- top-level/known class bucket;
-- month(create/update theo query đã freeze);
-- count.
-
-Evidence public chỉ bucket + count.
-
-### KB-C · BYTE-DUPLICATE COUNTS
-Dùng `md5(content)` trong SQL chỉ để aggregate:
-- số duplicate hash groups;
-- tổng redundant rows.
-Không xuất hash, content, title, path từng tài liệu.
-
-`knowledge_documents` luôn xếp:
-`RECHECK · NOT_IN_V1`
-trong R6E, bất kể số đếm.
-Không chọn một subset KB trong RUN này.
-
-`normative_registry` chỉ ghi aggregate:
-- active/current rule count theo status hiện hữu;
-- số row có document path/link non-null;
-- nếu có thể đối chiếu existence mà không xuất nội dung/title thì ghi count-only.
-Không đưa KB vào KEEP từ phép đối chiếu này.
-
-## 5. CODE ROOT INVENTORY
-
-Với từng exact candidate code root U2:
-
-1. xác nhận path;
-2. tìm git root bằng `git -C <root> rev-parse --show-toplevel`;
-3. record:
-   - git HEAD;
-   - dirty tracked/untracked count;
-   - branch nếu có;
-   - tracked file count theo extension;
-   - label `00-NHAN-THU-MUC.md` có/không + metadata life-state/date nếu label có;
-4. file hash inventory:
-   - chỉ `git ls-files` dưới candidate root;
-   - không hash `.git`, `.venv`, `node_modules`, `.nuxt`, `.output`, cache/build artifacts;
-   - hash list để private evidence; repo/KQ chỉ count + aggregate hash.
-5. cross-tree duplicate:
-   - so hash của tracked files giữa các **candidate KEEP roots**;
-   - nếu cùng bytes xuất hiện ở hai cây candidate KEEP ⇒ cả hai liên quan xuống `RECHECK · CROSS_TREE_DUPLICATE` cho đến R7;
-   - không xoá.
-
-Nếu root không có git, dirty, label missing/expired/frozen/dead:
-- không sửa;
-- xếp theo §6, thường RECHECK/ARCHIVE.
-
-### Trust contract cho code
-- Python: v0.3 chỉ chứng minh tool behavior trên sample frozen; candidate source root có thể KEEP, nhưng manifest phải ghi:
-  `R7_REVERIFY=AST_ORACLE_REQUIRED_BEFORE_INGEST`.
-- TS/Vue: v0.4 trust = explicit-static directory→target trên measured slice; candidate Nuxt root KEEP chỉ với scope trust đó; file-level/auto-import vẫn theo UNKNOWN/residual.
-
-## 6. LUẬT XẾP LOẠI — 4 CÂU, DỪNG Ở CÂU ĐẦU TRÚNG
-
-Áp cùng một thứ tự cho mỗi source row trong U1–U3:
-
-### RULE-1 → DELETE-CANDIDATE
-Là:
-- dữ liệu/runtime trial; hoặc
-- rỗng có bằng chứng; hoặc
-- byte-identical duplicate của một source đã giữ.
-
-Chỉ lập danh sách.
-**Không xoá.**
-Tên/path một mình không đủ làm căn cứ duplicate/delete.
-
-### RULE-2 → ARCHIVE
-Nhãn/provenance sẵn có chứng minh một trong:
-- frozen/dead/disabled target;
-- bản copy/mirror của source gốc;
-- version cũ đã superseded;
-- vendored/external library không phải first-party source.
-
-Để nguyên tại chỗ; không vào Graph v1.
-
-### RULE-3 → RECHECK
-Thiếu **bất kỳ** điều kiện nào:
-1. label/currentness evidence còn hạn ≤6 tháng;
-2. read-only capture method + hash;
-3. measured trust contract đúng relation/source type;
-4. Owner privacy/scope decision nếu source có personal/business data.
-
-Ngoài ra code root:
-- no git / dirty / unresolved path / cross-tree duplicate ⇒ RECHECK.
-
-### RULE-4 → CURRENT/KEEP
-Chỉ khi:
-- source gốc;
-- đang sống theo label/currentness;
-- chụp read-only + hash được;
-- relation type có trust contract đã đo;
-- privacy decision không thiếu.
-
-Mỗi source row phải ghi `rule_hit=1|2|3|4`.
-Không được override thủ công sau khi thấy kết quả.
-
-## 7. NHÓM XẾP LOẠI ĐÃ KHÓA / EXPECTED POLICY
-
-Đây là policy expectation, nhưng RUN vẫn phải áp §6 và ghi evidence:
-
-### KEEP candidates
-- PG native trigger catalog;
-- DOT disk live command source;
-- DOT registry declaration source `dot_tools` với trust=DECLARED;
-- first-party Python code roots nào PASS §5/§6;
-- Nuxt web root nếu PASS §5/§6.
-
-### ARCHIVE expected
-- stale/frozen PG registries/views P51 nêu;
-- `dot/iu-cutter*`;
-- `lark-client/.venv`;
-- deploy/copy/context-pack/evidence copies;
-- 78 backup entries trong `dot/bin`;
-- historical evidence folders = ARCHIVE, không delete.
-
-### RECHECK expected
-- FK/view native dependencies;
-- `universal_edges`;
-- `knowledge_documents` whole class = NOT_IN_V1;
-- Lark Base88 business links = OWNER_SCOPE_REQUIRED;
-- any code root failing KEEP gate;
-- care/chat = NO_SOURCE.
-
-### DELETE-CANDIDATE expected
-- trial runtime folders;
-- proven empty/byte-identical duplicate if any.
-Không delete.
-
-## 8. MANIFEST OUTPUT
-
-Evidence:
-`/opt/incomex/work/graph-server/evidence/GS-R6E-SOURCE-MANIFEST-20261007-09/`
-
-Tạo:
-- `production-source-manifest.csv`
-- `production-source-manifest.json`
-- `manifest.sha256`
-- `inventory.json`
-- `classification-replay.json`
-- `owner-decisions-r7.md`
-- `00-KQ.md`
-- `EVIDENCE.sha256`.
-
-Mỗi manifest row tối thiểu:
-- source_id / class_id;
-- exact location hoặc conceptual source id;
-- origin_or_copy;
-- label region/life_state/measure_date;
-- capture_method **nguyên văn command/query**;
-- count summary;
-- aggregate/source hash;
-- trust_contract (`v0.3/v0.4/v0.5/UNKNOWN`);
-- exclusions;
-- classification;
-- rule_hit;
-- missing_gate / residual;
-- R7_reverify requirement.
-
-Freeze manifest SHA256.
-“Freeze” = chốt **whitelist + capture contract + reference snapshot**.
-R7 clean build phải chụp dữ liệu thật lại; không reuse trial snapshot như production data.
-
-## 9. E1–E6 PASS
-
-### E1 · ZERO MUTATION
-- PG read-only pre/post proof;
-- production PRE=POST;
-- 0 delete/move/edit/ingest;
-- 0 Neo4j/Cognee container started;
-- 0 provider call/cost.
-
-### E2 · BOUNDED COMPLETENESS
-- mọi source trong U1–U3 xuất hiện đúng một lần trong inventory/manifest classification;
-- đúng một classification + một `rule_hit`;
-- ngoài biên không bị kéo vào.
-
-### E3 · KEEP GATES COMPLETE
-Mỗi KEEP row có:
-- capture method;
-- count;
-- hash;
-- valid current label;
-- measured trust contract.
-Code KEEP:
-- git HEAD;
-- dirty count = 0;
-- no cross-tree duplicate hashes.
-Python KEEP luôn có `AST_ORACLE_REQUIRED_BEFORE_INGEST`.
-
-### E4 · DETERMINISTIC REPLAY
-Chạy classifier lần hai **trên frozen inventory**, không reread production.
-Output classification phải byte-identical / same hash.
-
-### E5 · TRUST/UNKNOWN HONEST
-- không KEEP row thiếu measured trust;
-- UNKNOWN list v0.5 giữ nguyên;
-- TS/Vue file-level/auto-import limits giữ nguyên;
-- care/chat = NO_SOURCE;
-- KB = RECHECK whole class, NOT_IN_V1, aggregate-only;
-- business Lark links = RECHECK/OWNER_SCOPE_REQUIRED.
-
-### E6 · R7 DECISION BUNDLE
-`owner-decisions-r7.md` có đúng các nhóm:
-1. Graph v1 KB: đề xuất **không đưa KB cũ vào v1**.
-2. KB cleanup: việc riêng sau R7; Owner chọn archive-index-first vs selective delete. Không làm trong Graph task.
-3. Business Graph: có cho phép explicit Lark Base88 links vào production scope không + privacy rule.
-4. Care/chat: có bắt đầu capture/connect nguồn không.
-5. Trial cleanup: xoá private R6B/R6B0 + wipe trial runtime/evidence theo scope nào sau quyết định production.
-6. R5 OpenAI cost: `UNKNOWN, estimate ≤0.47 USD` cần ghi trong R7 report.
-7. R7 build gates:
-   - rerun Python AST oracle trên actual KEEP Python trees trước ingest;
-   - nếu thêm FK/view relations thì phải có R6D-style identity/set gate;
-   - fresh capture hashes for all KEEP sources.
-
-Mỗi decision có:
-- `WHY`
-- `HOST_RECOMMENDATION`
-- `OWNER_CHOICE`.
-Không yêu cầu Owner trả lời trong R6E.
-
-## 10. STOP RULES
-
-DỪNG nếu:
-- cần mutation để đo;
-- read-only PG path không chứng minh được;
-- cần đọc KB content/title;
-- cần đụng Lark;
-- cần search ngoài U1–U3 để phân loại;
-- classifier cần subjective/manual exception;
-- cần cài package/LLM/JEV.
-
-Không rerun để đổi classification.
-Source dirty/missing label/unknown ⇒ RECHECK, **không phải blocker toàn RUN** nếu vẫn đo được read-only và manifest ghi đủ lý do.
-
-## 11. KQ / CLEANUP
-
-Không có trial DB/graph container.
-Runtime nếu cần:
-`/opt/incomex/work/graph-server/runtime/r6e/`
-chỉ scripts/temp inventory, không business content.
-
-Cuối RUN:
-- rerun PRE/POST metadata;
-- freeze evidence;
-- wipe dry-run runtime/r6e only;
-- không xoá R6B/R6B0/R6C/R6D artifacts.
-
-Repo:
-- chỉ update Bảng/KQ trong `work/graph-server/COLLAB.md`;
-- không sửa PROMPT/view ở executor.
-
-KQ:
-`KQ@GS-R6E-SOURCE-MANIFEST-20261007-09 XONG|DỪNG`
+# PROMPT — GS-R7-PROD-CLEAN-BUILD-20261007-10
+
+## 0. STATUS
+RUN_ID: GS-R7-PROD-CLEAN-BUILD-20261007-10
+Status: DRAFT · NO READY · NO RUN UNTIL OWNER RELEASE
+
+Host design decision P57:
+- mặc định phương án R7 = GẬT cả 6 lựa chọn đã hội tụ ở P55/P56;
+- đây là quyết định điều hành/design của Host, chưa phải quyền mutation production;
+- trước STARTED bắt buộc có OWNER_RELEASE và READY theo full SHA commit cuối chạm PROMPT.
+
+## 1. GOAL
+Dựng Graph production v1 sạch, không reuse trial graph/data snapshot làm production seed.
+
+Lane S · SYSTEM/CODE:
+- PostgreSQL native trigger relations;
+- live DOT command existence;
+- DOT registry declarations;
+- code trees vượt qua runtime identity + source-set + oracle gates.
+
+Lane B · BUSINESS STRUCTURED, chỉ nếu Owner release giữ R7-2=GẬT:
+- CANDIDATE_FOR_ORDER
+- SELECTED_FOR_ORDER
+- ORDER_MANAGED_BY_UNION
+- ORDER_FOR_COMPANY
+
+Không thuộc v1:
+- KB cũ;
+- care/chat free text;
+- function/script body inferred relations;
+- Nuxt auto-import/runtime/generated ngoài trust scope;
+- JEV/LLM runtime.
+
+## 2. OWNER RELEASE GATE
+Trước STARTED:
+1. đọc AGENTS.md, BẢNG/§0/P55–P57 và PROMPT này;
+2. phải có OWNER_RELEASE@GS-R7-PROD-CLEAN-BUILD-20261007-10 do Host ghi sau Owner approval;
+3. READY full SHA phải đúng commit cuối chạm PROMPT;
+4. không HOLD/STOP/STARTED chưa KQ.
+
+Thiếu OWNER_RELEASE hoặc READY => DỪNG trước mọi mutation.
+
+## 3. SAFETY
+- preserve-by-default;
+- không sửa PG/Directus/Lark/code source để cứu gate;
+- không delete/archive source systems;
+- không LLM/JEV/provider calls;
+- không nới gate sau khi thấy số;
+- lane fail thì fail-closed, không phá lane khác.
+
+## 4. B1 · MANIFEST v1.1
+Dùng frozen R6E inventory + policy final P55/P56: 5 KEEP / 31 ARCHIVE / 7 DELETE-CANDIDATE / 15 RECHECK.
+Materialize production-source-manifest-v1.1 + SHA256 trước ingest.
+Không rewrite evidence P53.
+RECHECK chỉ được nâng nếu B2/B5/B6 sinh bằng chứng mới.
+Mỗi dòng phải trỏ exact capture method, trust contract, file-set hash và provenance.
+
+## 5. B2 · RUNTIME IDENTITY CHO MỌI CODE TREE
+Áp cho agent-data-repo, claude-mcp, claude-kb, Nuxt web và mọi tree muốn vào v1.
+
+Python image-built service:
+- chứng minh deploy/service gắn đúng source root;
+- so hash source trong container/image với approved source snapshot khi material tồn tại;
+- không đủ material => RECHECK/OUT, không suy từ image name/date/branch.
+
+Nuxt:
+- chứng minh deploy/build path thuộc đúng nuxt-repo/web;
+- nếu có build stamp/source commit thì bind;
+- nếu không, running build == HEAD giữ UNKNOWN.
+
+## 6. B3 · EXACT SOURCE FILE SET
+Không ingest whole repo.
+
+Python:
+- chỉ tracked first-party *.py trong approved root.
+
+TS/Vue:
+- chỉ tracked first-party *.ts và *.vue trong approved Nuxt root.
+
+Loại generated/vendor/cache:
+.git, .venv, venv, site-packages, node_modules, .nuxt, .output, node-compile-cache, build/dist/tmp/cache và tương đương.
+Không xoá file.
+Freeze exact relative file list + per-file SHA256 + aggregate hash.
+
+## 7. B4 · ORACLE TRÊN ĐÚNG B3 SET
+Python:
+- chạy R6A-style independent AST oracle trên từng admitted Python tree;
+- không copy 88/88 hay 99/99 từ trial.
+
+TS/Vue:
+- TypeScript 5.9.3 + @vue/compiler-sfc 3.5.25;
+- explicit static import/export-from;
+- canonical exact gate ở directory→target;
+- file-level/auto-import/dynamic/generated giữ limits v0.4.
+
+Nếu oracle unavailable => affected tree OUT, không cài package để cứu.
+
+## 8. B5 · PG / DOT FRESH CAPTURE
+Re-run R6D-style read-only capture.
+PG native trigger catalog = source truth trong measured scope.
+DOT disk = command existence truth.
+dot_tools = DECLARED only.
+Freeze/hash trước load.
+Re-run exact identity/set/provenance gates.
+FK/view không thêm mặc định; chỉ thêm nếu Host explicit và có R6D-style exact gate.
+
+## 9. B6 · BASE88 STRUCTURED BUSINESS, CONDITIONAL
+Chỉ nếu OWNER_RELEASE có R7-2=GẬT.
+
+Read-only bằng đường Lark hiện hữu.
+Chỉ đọc:
+- exact link fields cho 4 relations;
+- record IDs;
+- business code của order/union/company nếu có.
+
+Không ingest:
+- tên người;
+- contact;
+- free text;
+- notes;
+- phone/email/address;
+- field ngoài scope.
+
+Identity:
+- person/TTS = table + record_id only;
+- order/union/company = table + record_id canonical key + business code property.
+
+Pre-load:
+- export exact node/edge sets;
+- freeze/hash;
+- reverse-link symmetry nếu nguồn có hai chiều.
+
+Post-load:
+- graph edge set = export edge set;
+- 0 extra / 0 missing;
+- each edge có provenance + snapshot UTC.
+
+B6 fail => Lane B OUT; Lane S vẫn tiếp tục.
+Không LLM/JEV.
+
+## 10. B7 · IDENTITY / COLLISION
+- mỗi node ID class-prefixed + deterministic;
+- 0 key collision across PG/DOT/code/Base88;
+- cùng file hash không được nằm trong hai admitted code trees nếu không có explicit justification;
+- mọi imported relation family có provenance.
+
+## 11. BUILD
+Chỉ sau B1–B7 PASS cho lane tương ứng mới dựng production graph.
+
+Baseline:
+- Neo4j Community 5.26.31
+- APOC core 5.26.31 khi cần
+- Cognee 1.6.1 chỉ ở pipeline code đã duyệt
+- Enola 0.4.21 cho code supported
+- 0 model/provider call.
+
+Production phải rebuild được từ manifest/captures.
+Trial volumes không làm production seed.
+
+## 12. B8 · FINAL ACCEPTANCE
+A. Precompute oracle answers rồi mới hỏi graph.
+Phủ:
+- Python imports/dependency từ mỗi admitted tree;
+- TS/Vue explicit imports;
+- PG triggers;
+- DOT existence/DECLARED;
+- Base88 4 relations nếu Lane B active;
+- UNKNOWN questions cho body/runtime/free-text gaps.
+
+B. Trust honesty:
+- giữ đúng v0.3/v0.4/v0.5 limits;
+- Base88 chỉ exact structured snapshot;
+- KB NOT_IN_V1;
+- care/chat NO_SOURCE;
+- JEV/LLM not active runtime.
+
+C. Cognee-off survivability:
+- canonical Neo4j vẫn query/export được khi Cognee stopped;
+- backup/export;
+- restore vào fresh isolated Neo4j;
+- key/count checks match.
+
+D. Production health:
+- health/resources;
+- no unintended public exposure;
+- no source mutation;
+- no model/provider traffic.
+
+## 13. CLEANUP ORDER
+Nếu OWNER_RELEASE có R7-6=GẬT:
+
+Có thể xoá sớm đúng 3 private paths sau exact dry-run/path guard:
+- runtime/r5/private
+- runtime/r6b/private
+- runtime/r6b0/private
+
+Không xoá broad trial trước B8 PASS.
+
+Sau B8 PASS:
+- wipe approved trial runtime/Neo4j/pgvector volumes bằng existing wipe scripts;
+- evidence giữ ARCHIVE;
+- không xoá source/code/KB/Lark data.
+
+B8 fail => giữ trial rollback/evidence, không broad-clean.
+
+## 14. OWNER DECISIONS ENCODED
+OWNER_RELEASE phải encode:
+R7-1 install code/system v1;
+R7-2 Base88 structured lane;
+R7-3 exclude old KB;
+R7-4 KB cleanup separate/archive-index-first;
+R7-5 care/chat post-R7 source task;
+R7-6 cleanup order/private paths.
+
+## 15. KQ
+Evidence path:
+/opt/incomex/work/graph-server/evidence/GS-R7-PROD-CLEAN-BUILD-20261007-10/
+
+KQ repo phải ghi:
+- Owner release;
+- B1–B8;
+- manifest v1.1 hash;
+- admitted code roots + B3 hashes;
+- PG/DOT snapshot hashes;
+- Base88 hash nếu active;
+- graph counts;
+- acceptance Q/A;
+- Cognee-off export/restore;
+- cleanup receipts;
+- residual UNKNOWNs.
 
 Final:
-`XONG · GS-R6E-SOURCE-MANIFEST-20261007-09 · <commit>`
-hoặc
-`DỪNG · GS-R6E-SOURCE-MANIFEST-20261007-09 · <blocker> · <commit>`
+KQ@GS-R7-PROD-CLEAN-BUILD-20261007-10 XONG|DỪNG
 
-## 12. AUTONOMY
+## 16. AUTONOMY
+Sau OWNER_RELEASE + READY:
+- Claude tự chạy B1–B8;
+- không hỏi Owner kỹ thuật;
+- fail-closed;
+- không nới gate;
+- một KQ cuối.
 
-Claude tự xử read-only inventory/scripts/classifier trong đúng U1–U3.
-Không hỏi Owner.
-Không delete/archive/move.
-Không ingest/build.
-Không đổi policy sau khi thấy số.
-Ngoài biên ⇒ ghi OUT_OF_SCOPE, không đào.
+Trước OWNER_RELEASE:
+- NO STARTED;
+- NO production mutation;
+- NO cleanup.
