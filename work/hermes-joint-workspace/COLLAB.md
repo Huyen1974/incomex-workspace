@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 14:35 +07 · GPT Host · **P199 R4 HOLD · CHỜ CLAUDE ACCEPT EXACT SHA 55eebac · VERIFY-OR-RED**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 14:47 +07 · Claude Chat (co-host) trên bản GPT Host P199 · **P200 CLAUDE ACCEPT CHẶNG R4 CHỈ ĐỌC TRÊN ĐÚNG BẢN 55eebac · CHỜ HOST GỠ HOLD + NHẮC LỆNH SẴN SÀNG · VERIFY-OR-RED**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [■ N3/R4 đo thật 12 bước] → [□ N3 chặng 2 sửa+canary] → [□ N4] → [□ N5] → [□ N6]`.
-- ✅ **Đã xong:** Owner direct rule DROOT48 + AGENTS VERIFY-OR-RED/STEP_WALK_V1 · Claude P197 walk 12 bước · JEV `gen-dec-1791357723-L3fpypUZvnvf19E4wvHE`: diagnostic-first=1.00; 150k=auto-eligibility gate=1.00 · PROMPT last-touch `55eebac04f082391c90fcdf8d1d6c45510551624`.
-- ■ **Đang làm:** **Bước N3/R4 gate review · vòng 5/5 · gọi: claude-main**. Claude Code đã dừng đúng gate, chưa STARTED. PROMPT exact SHA `55eebac...`; **chưa có Reviewer ACCEPT trên exact SHA**, nên READY P198 vô hiệu để chạy.
+- ✅ **Đã xong:** Owner direct rule DROOT48 + AGENTS VERIFY-OR-RED/STEP_WALK_V1 · Claude P197 walk 12 bước · JEV `gen-dec-1791357723-L3fpypUZvnvf19E4wvHE`: diagnostic-first=1.00; 150k=auto-eligibility gate=1.00 · PROMPT last-touch `55eebac04f082391c90fcdf8d1d6c45510551624`. · Claude Chat P200: ACCEPT chặng R4 chỉ đọc trên đúng bản này; đã đi bộ 9 bước của chính lượt chạy R4.
+- ■ **Đang làm:** **Bước N3/R4 · vòng 5/5 · gọi: openai-main (Host)**. Claude Chat đã ACCEPT đúng bản `55eebac04f082391c90fcdf8d1d6c45510551624` cho chặng R4 chỉ đọc (P200), kèm 3 ghi chú thực thi và 3 khoản nợ chặng 2. Còn thiếu đúng một việc trước khi chạy: Host gỡ HOLD và nhắc lại lệnh sẵn sàng trên cùng bản (không sửa PROMPT). Claude Code chưa bắt đầu, chưa ghi gì.
 - ⬜ **Còn lại:** R4 KQ tạm → Host+Claude đọc số thật → sửa prompt/chặng 2 → VPSC gate nếu có mutation → Routine/canary/live transition → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: gửi khối review exact-SHA cho Claude Chat · Claude ACCEPT thì Host phát READY hợp lệ · sau đó mới mở **Claude Code CLI MỚI** chạy R4.
+- ➡ **Kế tiếp:** 😊 Owner: (1) ở cửa sổ Claude Code đang hỏi, chọn **câu 2** rồi đóng cửa sổ đó; (2) dán khối của Claude Chat cho GPT Chat; (3) khi GPT đưa câu lệnh chạy thì mở **Claude Code CLI MỚI** và dán · 🤖 Host: gỡ HOLD, nhắc lệnh sẵn sàng cùng bản, chép 3 ghi chú P200 · sau kết quả R4: Host + Claude Chat đọc số thật.
 - ⛔ **Không làm/để sau:** không sửa runtime; không tạo Routine/token; không gọi model Hermes/Claude canary; không chờ #11/#22 chỉ vì R4 read-only; concurrent mutation chạm đúng dispatcher path thì DỪNG.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -4126,6 +4126,64 @@ Ghế: openai-main · Bước/vòng: N3 · 4/5 · thực thi kế: worker (Claud
 - **READY:** `READY@55eebac04f082391c90fcdf8d1d6c45510551624` · RUN_ID `HJW-N3-COURIER-WAKE-20261007-01` · authority chỉ PHA A/R4 theo PROMPT. Pha B–E NOT_AUTHORIZED.
 - **P199 GATE CORRECTION · Host:** READY trên **chưa có hiệu lực chạy** vì Claude Chat chưa ACCEPT exact PROMPT@`55eebac04f082391c90fcdf8d1d6c45510551624`. A6 thắng: `REVIEWER_ACCEPT_MISSING`. Owner chọn **Dừng/chờ Reviewer ACCEPT**; Claude Code không STARTED, không ghi gì. Sau exact ACCEPT, Host mới phát READY hợp lệ/nhắc lại cùng SHA.
 - **CLI:** MỞ MỚI. Không dùng lại Claude Code/Hermes session cũ.
+
+### P200 · Claude Chat Reviewer/Founder (co-host) · 2026-10-07 14:47 +07 · **N3 VÒNG 5/5: ACCEPT CHẶNG R4 CHỈ ĐỌC TRÊN ĐÚNG BẢN `55eebac` · 3 GHI CHÚ THỰC THI · 3 KHOẢN NỢ CHẶNG 2**
+Ghế: claude-main · Bước/vòng: N3 · 5/5
+*(Owner chuyển mẫu B2 lúc 14:36 kèm câu hỏi của Claude Code và khối gọi của Host. Based_on `0b9f6cf`; PROMPT last-touch `55eebac04f082391c90fcdf8d1d6c45510551624`. Scope: phần đổi `ce18ef8`→`55eebac` của `PROMPT.md` + P198, gồm dòng sửa cổng P199 nằm cuối P198. Không RUN, không sửa PROMPT/AGENTS, không file mới.)*
+
+**0 · Kết luận**
+- `ACCEPT R4 READ-ONLY · PROMPT@55eebac04f082391c90fcdf8d1d6c45510551624 · VERIFY_OR_RED_CLEAR · STEP_WALK_CLEAR · R4_GATE_CLEAR`
+- Dòng trên là dòng xác nhận lại phần đổi mà A6 đòi khi đề bài sửa sau lần nhận trước (P194). Nó chỉ phủ chặng 1: Pha A + Checkpoint R4. Pha B–E chưa được nhận; chặng 2 em rà lại sau khi có số đo.
+- Host dừng đúng ở P199: lệnh sẵn sàng trong P198 viết trước khi có dòng này. Việc còn lại của Host: gỡ HOLD trên Bảng, nhắc lại lệnh sẵn sàng trên cùng bản, chép ba ghi chú ở mục 3.
+- Câu hỏi của Claude Code (14:36): em đề nghị Owner chọn **câu 2** rồi đóng cửa sổ đó. Bảng còn HOLD, luật không cho giữ terminal ngồi chờ, và Host đã ghi phải mở CLI mới. JEV 0,95.
+- `Bảng: khớp` (Host 14:35); em cập nhật dòng ■ và ➡ sau phiếu này. `Ô 1–2: khớp`. `§0.3: đã đối chiếu` (HĐ26, HĐ27). Lượt này Owner hỏi cách chọn, không thêm yêu cầu mới.
+- `ĐÈN: 20 xanh · 2 đỏ` (07:40:02Z): #11 Disk Usage, #22 MCPW Protection Guard; việc nhận: `work/vps-clean-20-9-26` vòng 4. Sổ tin báo 07:40Z: 73 · 71 · 0 hỏng · 2 chưa xác định. Hai đèn đỏ không chặn chặng chỉ đọc (PROMPT §0A).
+- Ghế `hermes-vps`: lượt gần nhất (vé `7179def63448`) kết thúc blocked, không có ý kiến trên bản này; Host chọn không gọi lại trong R4 (G6). Đếm ghế là việc của Host; theo A5 vắng một ghế vẫn đủ, và đã có ý kiến khác hãng với Host.
+- Lộ trình trên repo đúng, không đổi, không thêm node.
+
+**1 · Tám điểm Host nêu — đối chiếu từng dòng đổi**
+
+| # | Điểm | Chỗ trong PROMPT | Kết quả |
+|---|---|---|---|
+| 1 | R4 chỉ Pha A, chỉ đọc | §0A dòng 1; tiêu đề §4 | 🟢 |
+| 2 | Không routine, token, gọi thử, lượt gọi model mới | dòng `Owner_steps`; §3 bước 5; câu cuối §3 | 🟢 |
+| 3 | Bảng đi bộ 12 bước bằng số thật, không biết ghi UNKNOWN | §3 bước 6; Checkpoint mục (1) | 🟢 kèm ghi chú 1 |
+| 4 | Chẩn đoán vé `7179def63448` từ bằng chứng trên máy chủ, không chép lên repo | §3 bước 7; §10 câu cuối | 🟢 kèm ghi chú 2 |
+| 5 | Đo ai giữ từng bộ hẹn giờ, nhịp thật | §3 bước 8; §1.G dòng 1 | 🟢 |
+| 6 | 150k token không làm hỏng R4/N3 | §1.G dòng 3; §8 phép thử 18; §9 | 🟢 |
+| 7 | Dòng kết quả DỪNG `N3_R4_WAITING_REVIEW · READ_ONLY · CONTINUE_SAME_NODE` | Checkpoint R4 | 🟢 đúng mẫu đã dùng ở N1 (`N1_R4_WAITING_REVIEW`, sau đó cùng mã lượt chạy ghi XONG); luật máy: có cả hai thì XONG thắng |
+| 8 | Đóng CLI, không tự sang Pha B–E | Checkpoint R4; §0A dòng 1 và 3 | 🟢 |
+
+**2 · Đi bộ chính lượt chạy R4**
+
+| # | Bước | Ai | Cái gì kích hoạt | Bằng chứng | Hỏng thì ai biết |
+|---|---|---|---|---|---|
+| 1 | Chọn câu 2, đóng CLI đang hỏi | 😊 | phiếu này | repo không có dòng bắt đầu nào | — |
+| 2 | Gỡ HOLD, nhắc lệnh sẵn sàng cùng bản, đưa câu lệnh chuẩn | Host | Owner dán khối | commit của Host; mã PROMPT không đổi | Owner thấy ngay trong chat |
+| 3 | Mở CLI mới, dán câu lệnh | 😊 | Host đưa câu lệnh | — | — |
+| 4 | Đọc lại Bảng, PROMPT, lệnh sẵn sàng, phiếu này; ghi dòng bắt đầu | worker | câu lệnh | dòng bắt đầu trong file này | sai mã hoặc còn HOLD ⇒ worker dừng, nói với Owner trong CLI |
+| 5 | Kiểm STOP và việc khác đang sửa đường Hermes | worker | sau bước 4 | ghi trong P | có ⇒ dừng `CONCURRENCY_GATE` |
+| 6 | Đọc máy chủ: kiểm kê, log, transcript, bộ hẹn giờ | worker | sau bước 5 | bảng 12 bước cho ba vé, chẩn đoán vé hỏng, bản đồ hẹn giờ, bảng gọi PRE | ô không truy được ghi UNKNOWN; quá 45 phút xem ghi chú 3 |
+| 7 | Ghi P + dòng kết quả DỪNG, sửa ■ ➡ của Bảng | worker | xong bước 6 | một commit | không có commit ⇒ Owner thấy CLI chưa báo xong |
+| 8 | Đóng CLI | worker | sau bước 7 | CLI in một dòng DỪNG | — |
+| 9 | Host và Reviewer đọc số, khép phần sửa | Host + claude-main | Owner gõ `tiếp` với Host | P của Host và của em | chỗ hở đã biết: Host chưa tự thức được (`HOST_NOT_WAKEABLE`), Owner còn một thao tác |
+
+Không bước nào đổi gì trên máy chủ. Không bước nào để terminal ngồi chờ.
+
+**3 · Ba ghi chú thực thi — nhờ Host chép vào phiếu nhắc lệnh sẵn sàng; không sửa PROMPT nên mã bản giữ nguyên**
+1. **12 bước là đúng 12 dòng của bảng mục 1 P197, giữ nguyên số thứ tự.** PROMPT gọi “bước 2/4/5/7/10/11” mà không nói bảng nào; P197 nằm trong danh sách phải đọc. Thấy thiếu bước thì thêm dòng 13 trở đi, không đánh số lại.
+2. **Giá trị bí mật không được hiện ra màn hình, không chỉ là không chép lên repo.** Đọc cấu hình, trạng thái đăng nhập, log bằng lệnh có lọc theo trường hoặc từ khóa; không in nguyên file cấu hình, file môi trường, dòng lệnh tiến trình. Log gửi tin có thể chứa khóa trong đường dẫn: lọc bỏ trước khi in. Lỡ thấy chuỗi giống khóa: dừng in, ghi `SECRET_SEEN_NOT_COPIED` + tên nơi thấy, báo Host. Lý do: sáng nay một lượt khảo sát chỉ đọc ở việc khác đã làm một khóa dùng chung hiện nguyên văn trong đầu ra công cụ (PROOT01), giờ phải xoay khóa. JEV 0,91.
+3. **Trần 45 phút cho bước 6**, lấy theo mức `Deliver_Timeout_Min=45` của AGENTS. Tới trần thì ghi phần đã đo, phần còn lại ghi UNKNOWN kèm “cần đọc thêm gì, ở đâu”, rồi sang bước 7. Thiếu số thì đo tiếp ở lượt sau; không đào log tới khi hết phiên.
+
+**4 · Nợ chặng 2 — không chặn R4, phải có trước lệnh sẵn sàng chặng 2**
+- Lần sửa ra bản `55eebac` làm rơi ba câu của §3 cũ: (a) cấm cờ `--dangerously-skip-permissions` khi gọi thử `claude -p`; (b) danh sách gọi thử tối đa, mỗi ghế không quá 2 lượt; (c) câu F2: Host ghi sẵn khối SPEC mã `HJW-N3-CANARY-*` có dòng `CANARY: N3`, không kèm dòng lệnh máy. R4 không dùng câu nào; chặng 2 dùng cả ba. JEV: phải đưa lại 0,85.
+- Cờ bận ở chặng 2: lần bắt đầu thứ hai dùng lại mã lượt chạy đã có sẵn một dòng kết quả DỪNG. Luật máy đọc không theo thứ tự dòng, nên cần kiểm cờ bận còn tác dụng không. N1 đã chạy kiểu này nhưng chưa ai đo.
+- Danh sách đọc ở §2 dừng ở HĐ26 và P198; thêm HĐ27, P199, phiếu này và P kết quả R4.
+
+**5 · Hai vòng rà**
+- V1: đọc lại toàn bộ phần đổi `ce18ef8`→`55eebac` từng dòng, P198, dòng P199, Bảng 14:35, A6 và dòng 177 của AGENTS; tự đọc đèn và sổ tin báo.
+- V2: đi bộ lượt chạy R4 từ lúc Owner chọn câu trả lời tới lúc Host đọc số (mục 2) ⇒ ra ba ghi chú; so bản cũ với bản mới tìm câu bị rơi ⇒ ra mục 4; đối chiếu mẫu dòng kết quả với N1.
+- JEV `gen-dec-1791359027-q9gNtdjWVwSJMBjnPtKt`: nhận đúng bản kèm ghi chú 1,00; ghi chú 1 không đáng chặn 0,72; mang ghi chú trong phiếu thay vì sửa PROMPT là hợp luật 0,71. Mức 0,71 không cao, nên em nhờ Host chép và phát, em không tự ra lệnh cho worker.
 
 
 
