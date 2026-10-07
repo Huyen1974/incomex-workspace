@@ -1,8 +1,8 @@
-# PROMPT — GS-R6C-NUXT-ORACLE-20261007-07
+# PROMPT — GS-R6D-DOT-SQL-EXPLICIT-20261007-08
 
 ## 0. LỆNH / PHẠM VI
 
-RUN_ID: `GS-R6C-NUXT-ORACLE-20261007-07`
+RUN_ID: `GS-R6D-DOT-SQL-EXPLICIT-20261007-08`
 Executor_Surface: Claude Code CLI
 Repo: `Huyen1974/incomex-workspace` · branch `main`
 Task: `work/graph-server`
@@ -12,348 +12,347 @@ Runtime Write_Path: terminal/SSH hiện hữu tới VPS1.
 Owner D14: GPT + Claude tự quyết trial nhỏ; production/quy mô thật mới xin Owner.
 
 MỤC TIÊU DUY NHẤT:
-- kiểm độ tin cậy của Graph trên **explicit static imports** của một lát Nuxt/TypeScript/Vue thật;
-- chấm chính ở cấp **thư mục importer → đích import**, đúng representation Enola/Cognee hiện tại;
-- cấp file chỉ đo/giải thích, KHÔNG dùng recall >=95% làm gate.
+- chứng minh đường nạp Graph cho **quan hệ tường minh có nguồn xác định**, nơi Enola không parse shell DOT/SQL;
+- Họ A: PostgreSQL native catalog trigger → table/function + trạng thái tại snapshot;
+- Họ B: lệnh DOT tồn tại trên đĩa ↔ khai báo registry hiện hữu;
+- không suy từ thân hàm/script.
 
 KHÔNG:
-- audit toàn frontend;
-- Nuxt auto-import;
-- dynamic import/require làm acceptance;
-- generated routes/plugin injection;
-- LLM/JEV/vector;
-- cài package/parser mới;
-- custom regex parser;
-- production mutation.
+- parse shell/SQL;
+- đọc thân hàm `prosrc` / `pg_get_functiondef`;
+- đọc nội dung script DOT;
+- LLM/JEV/vector/Cognee;
+- sửa PG/Directus/DOT registry;
+- tạo registry mới;
+- dùng view dò chữ/callgraph để bù UNKNOWN;
+- nối Neo4j trực tiếp vào PG.
 
-§0.3: đọc/đối chiếu toàn bộ trước runtime mutation.
+§0.3: đọc/đối chiếu trước mọi mutation trial.
 
-## 1. READ-GATE / STARTED
+## 1. READ-GATE
 
 Đọc:
 1. `AGENTS.md`
-2. BẢNG + §0 + D14/D15 + P41–P44 của `work/graph-server/COLLAB.md`
+2. BẢNG + §0 + D14/D15 + P45–P48 của `work/graph-server/COLLAB.md`
 3. `work/graph-server/PROMPT.md`
-4. `work/graph-server/view.html` roadmap
+4. `work/graph-server/view.html`
 5. root `COLLAB.md` dòng Graph.
 
-Xác minh:
-- READY full SHA = commit cuối chạm PROMPT;
-- không HOLD/STOP/READY mới;
-- không STARTED cùng RUN chưa có KQ.
+Xác minh READY full SHA = commit cuối chạm PROMPT; không HOLD/STOP/READY mới; không STARTED cùng RUN chưa có KQ.
 
 PASS → ghi:
-`STARTED@GS-R6C-NUXT-ORACLE-20261007-07 <UTC> · executor=Claude Code CLI`
+`STARTED@GS-R6D-DOT-SQL-EXPLICIT-20261007-08 <UTC> · executor=Claude Code CLI`
 
 FAIL → 0 runtime mutation, KQ DỪNG.
 
-Trước mutation đầu: DROOT30 freshness gate.
+## 2. PG READ-ONLY GATE — BẮT BUỘC
 
-## 2. SOURCE SSOT / PRE
+Chỉ được dùng **đường PG read-only hiện hữu** tương đương role mà cổng `query_pg` dùng.
+Không dùng owner/superuser.
+Không tạo role.
+Không in credential.
 
-Production source SSOT, **READ-ONLY**:
-`/opt/incomex/docker/nuxt-repo/web`
+Trước ba query:
+- `BEGIN READ ONLY`
+- `SET LOCAL default_transaction_read_only=on`
+- ghi evidence:
+  - current_user;
+  - `rolsuper=false`;
+  - `has_table_privilege(current_user,'public.trigger_registry','INSERT')=false`;
+  - `has_table_privilege(current_user,'public.dot_tools','INSERT')=false`.
 
-Không sửa source, node_modules, .nuxt, mtime, ownership hoặc Git state.
+Không chứng minh được read-only path ⇒
+`DỪNG · NO_READONLY_PG_PATH`.
 
-PRE ghi:
-- source Git HEAD/status;
-- SHA256 + mtime của 16 sample files + 3 config files;
-- SHA256 + mtime của:
-  - `node_modules/typescript/package.json`
-  - `node_modules/@vue/compiler-sfc/package.json`
-- package versions phải đúng:
-  - `typescript==5.9.3`
-  - `@vue/compiler-sfc==3.5.25`
-- production containers/health read-only baseline.
+PG chỉ SELECT catalog/registry. Không INSERT/UPDATE/DELETE/DDL/CALL.
 
-Nếu source/config/package thiếu hoặc version lệch ⇒ DỪNG `R6C_SOURCE_OR_ORACLE_DRIFT`.
+## 3. BA SELECT DUY NHẤT — CHÉP NGUYÊN
 
-## 3. SAMPLE — KHÓA ĐÚNG 16 FILE THEO P43
+### Q_TRG · PostgreSQL native catalog — SOURCE OF TRUTH
+```sql
+SELECT n.nspname AS tbl_schema, c.relname AS tbl, t.tgname AS trg,
+       pn.nspname AS fn_schema, p.proname AS fn,
+       pg_get_function_identity_arguments(p.oid) AS fn_args, t.tgenabled AS enabled_code
+FROM pg_trigger t
+JOIN pg_class c ON c.oid = t.tgrelid  JOIN pg_namespace n  ON n.oid  = c.relnamespace
+JOIN pg_proc  p ON p.oid = t.tgfoid   JOIN pg_namespace pn ON pn.oid = p.pronamespace
+WHERE NOT t.tgisinternal ORDER BY 1, 2, 3;
+```
 
-Chép byte-exact, giữ relative path, sang:
-`/opt/incomex/work/graph-server/runtime/r6c/sample/`
+### Q_REG · trigger_registry — INDEPENDENT CROSS-CHECK ONLY
+```sql
+SELECT code, trigger_name, table_name, function_name, enabled FROM trigger_registry ORDER BY code;
+```
 
-16 files:
+### Q_DOT · dot_tools — DECLARATION ONLY
+```sql
+SELECT code, name, file_path, paired_dot, status FROM dot_tools ORDER BY code;
+```
 
-### components/modules/comment-module/
-1. `components/modules/comment-module/CommentInput.vue`
-2. `components/modules/comment-module/CommentModule.vue`
-3. `components/modules/comment-module/CommentThread.vue`
-4. `components/modules/comment-module/types.ts`
-5. `components/modules/comment-module/composables/useComments.ts`
-6. `components/modules/comment-module/partials/CheckpointPanel.vue`
+CẤM query thêm để cứu kết quả.
+Metadata role/read-only ở §2 không tính là source query.
 
-### components/modules/workflow-module/partials/
-7. `components/modules/workflow-module/partials/InlineWcrPopup.vue`
-8. `components/modules/workflow-module/partials/ProcessRegistryView.vue`
-9. `components/modules/workflow-module/partials/StepsTimeline.vue`
-10. `components/modules/workflow-module/partials/WcrIntakePanel.vue`
+## 4. DOT DISK SOURCE
 
-### direct targets
-11. `types/tasks.ts`
-12. `types/checkpoints.ts`
-13. `types/workflow-dsl.ts`
-14. `types/workflows.ts`
-15. `composables/useCheckpoints.ts`
+Source of truth về lệnh DOT đang tồn tại:
+- `/opt/incomex/dot/00-SO-DOT.tsv`
+- sorted filename list thực tế dưới `/opt/incomex/dot/bin/`.
 
-### importer
-16. `pages/knowledge/workflows/[id].vue`
+Không chạy `dot-dot-catalog`.
+Không đọc nội dung script.
 
-Ba file cấu hình chép kèm, byte-exact:
-17. `package.json`
-18. `tsconfig.json`
-19. `.nuxt/tsconfig.json`
+Freeze:
+- SHA256 `00-SO-DOT.tsv`;
+- sorted basename list của `dot/bin`;
+- hash list.
 
-Không chép `nuxt.config.ts`.
-Không mở rộng sample.
-Không thay file vì metric xấu.
+Nếu TSV lệch directory:
+- directory hiện hữu thắng về EXISTENCE;
+- ghi exact diff;
+- không sửa TSV.
 
-Sau copy:
-- verify hash source == sample cho cả 19 file;
-- freeze manifest + SHA256 **trước oracle/extraction**.
+Tên bị surface filter che nếu có: không in tên; vẫn được tính local/count/hash.
 
-## 4. ORACLE ĐỘC LẬP — DÙNG GÓI CÓ SẴN, KHÔNG CÀI
+## 5. NGUỒN CẤM / CHỈ ĐỐI CHIẾU
 
-Oracle packages:
-- TypeScript compiler API 5.9.3;
-- @vue/compiler-sfc 3.5.25.
+KHÔNG dùng làm source truth hoặc graph input:
+- `dot_iu_command_catalog`
+- `iu_relation`
+- `entity_dependencies`
+- `universal_edges`
+- `_recon_dot_fs_inventory`
+- `v_qt001_callgraph_edges_v2`
+- `v_qt001_native_dependency_edges_v6`
+- `directus_relations`
+- `trigger_registry` cho trạng thái truth
+- `dot_tools` cho command existence truth.
 
-Runtime:
-1. ưu tiên `node` hiện hữu trên VPS;
-2. nếu không có, chỉ được dùng local image `node:20-alpine` nếu image đã tồn tại:
-   - `--pull never`
-   - `--network none`
-   - source/node_modules mount read-only.
-3. không có cả hai ⇒ DỪNG `ORACLE_RUNTIME_UNAVAILABLE`.
+`trigger_registry` và `dot_tools` chỉ cross-check/DECLARED.
 
-CẤM npm/pnpm install, download, network.
-`NODE_DISABLE_COMPILE_CACHE=1`.
-cwd/output/temp đều dưới `runtime/r6c`.
+## 6. SNAPSHOT / FREEZE TRƯỚC NẠP
 
-Oracle script được viết mỏng chỉ để gọi API hai gói, **không tự parse syntax bằng regex**.
+Xuất local dưới:
+`/opt/incomex/work/graph-server/runtime/r6d/input/`
 
-Oracle:
-- Vue: compiler-sfc tách `<script>` / `<script setup>` và map line về file .vue gốc.
-- TypeScript compiler API lấy:
-  - top-level static `import ... from`
-  - top-level static `export ... from`
-- `import type` tính như explicit static dependency.
-- dynamic `import()` / `require()` nếu thấy: **đếm riêng, OUT_OF_SCOPE acceptance**.
-- Nuxt auto-import/generated behavior: không oracle, UNKNOWN.
+Files:
+- `q_trg.csv`
+- `q_reg.csv`
+- `q_dot.csv`
+- `dot_disk.tsv`
+- `FREEZE.sha256`
+- `snapshot-meta.json` timestamp UTC + row counts.
 
-Alias/module resolution:
-- đọc `tsconfig.json` + `.nuxt/tsconfig.json` bằng TypeScript config parser;
-- relative import: resolve từ importer directory;
-- alias `~/...`: resolve theo config/root;
-- package external: giữ package specifier theo rule frozen.
+Permissions 700 dir / 600 files.
+Hash toàn bộ trước Neo4j load.
 
-Oracle output freeze trước Enola:
-- statement list: importer file, line, raw specifier, resolved target, internal/external, type-only yes/no;
-- unique `(file,target)`;
-- unique `(directory,target)`;
-- SHA256.
+Số P47 đo sáng 07/10 chỉ là reference.
+**Acceptance tính theo frozen RUN snapshot.**
+Nếu khác P47: báo diff; không tự coi là lỗi, không rerun để nâng số.
 
-Không in source body.
+Cuối RUN chạy lại đúng Q_TRG/Q_REG/Q_DOT read-only:
+- hash không đổi ⇒ stable snapshot;
+- đổi ⇒ ghi `SOURCE_CHANGED_DURING_RUN` + exact row-key diff.
+Không sửa nguồn.
 
-## 5. EXTRACTION — ENOLA/COGNEE, 0 LLM
+## 7. GRAPH SCHEMA — FRESH NEO4J, KHÔNG COGNEE
 
-Fresh R6C runtime:
-`/opt/incomex/work/graph-server/runtime/r6c/`
-
-Reuse exact local Enola/Cognee code-graph path/version đã dùng R4:
-- Enola 0.4.21
-- Cognee 1.6.1
-- fresh Neo4j R6C volume/network
-- không import R4 graph
-- không PGVector
-- không Cognee API/UI
-- không OpenAI
-- không JEV
+Fresh R6D Neo4j:
+- Community 5.26.31 local image;
+- `--pull never`;
+- 0 public port;
+- internal/loopback only;
+- volume riêng R6D;
 - 0 outbound.
 
-Prefer reuse reviewed R4 scripts/config where applicable; only adapt source/sample/output path.
-Không sửa extractor/loader.
+Nạp bằng `LOAD CSV` từ file snapshot.
+Neo4j **không** có PG credentials/network route.
 
-Neo4j:
-- Community 5.26.31
-- local image only; `--pull never`
-- loopback/docker-internal only.
+Unique IDs:
 
-Enola output `.enola/facts.jsonl` phải được giữ raw trước Cognee loader.
+### Họ A · PostgreSQL triggers
+- `:PgTable{id = tbl_schema+'.'+tbl}`
+- `:PgTrigger{id = tbl_schema+'.'+tbl+'.'+trg}`
+- `:PgFunction{id = fn_schema+'.'+fn+'('+fn_args+')'}`
 
-## 6. POPULATION CHẤM
+Edges:
+- `(:PgTrigger)-[:ON_TABLE]->(:PgTable)`
+- `(:PgTrigger)-[:EXECUTES]->(:PgFunction)`
 
-Chỉ score dependency facts/nodes mà `file_path` thuộc 16 sample files.
+PgTrigger properties:
+- `enabled_code`
+- `source='pg_catalog'`
+- `snapshot_utc`
+- `source_file`
+- `source_row`.
 
-Expected node name key theo semantics P43:
-`<directory_of_importer> -> <normalized_target>`
+### Họ B · DOT
+- `:DotCommand{id=<basename from disk source>}`
+- `:DotRegistryEntry{id=<dot_tools.code>}`
 
-Normalization phải freeze trước extraction:
-- importer directory = relative POSIX directory của file;
-- relative target = resolved path/module theo oracle;
-- alias target = resolved theo tsconfig;
-- external package = normalized package specifier;
-- extension/index normalization phải dùng một rule duy nhất và ghi evidence trước chấm.
+`REGISTERS`:
+1. nếu `file_path` có giá trị và basename(file_path) == DotCommand.id ⇒ edge;
+2. nếu `file_path` trống và `name` == DotCommand.id ⇒ edge;
+3. nếu `file_path` có giá trị nhưng file không còn ⇒ **không edge**, dù name trùng;
+4. không fuzzy/normalized-name matching ngoài trim newline của serialization.
 
-Hai cấp phải báo riêng:
+`PAIRED_WITH`:
+- chỉ tạo khi `paired_dot` bằng **đúng một code** tồn tại;
+- multi-code/composite string ⇒ không edge.
 
-### A. File-level — CHỈ ĐO
-- oracle statement count;
-- unique (file,target) pair count;
-- Enola dependency fact count;
-- Enola unique fact-id count;
-- Cognee node count;
-- file-level precision/recall nếu reconstruct được từ provenance.
+DOT edge properties:
+- `trust='DECLARED'`
+- snapshot/source file/source row.
 
-KHÔNG gate PASS bằng recall file-level.
+Không graph hóa status/last_executed/usage_count thành runtime truth.
 
-### B. Directory-level — GATE CHÍNH
-- expected set = unique `(directory,target)` from oracle.
-- actual set = dependency-node names after Cognee.
-- đây là thước đo exact chính.
+## 8. TRUST SEMANTICS — KHÓA TRƯỚC LOAD
 
-## 7. 6 ĐIỀU KIỆN PASS — TẤT CẢ PHẢI ĐẠT
+Nếu PASS, chỉ được đề xuất Host nâng v0.5:
 
-### C1 · DIRECTORY SET EXACT
-Actual dependency-node name set =
-oracle `<directory> -> <target>` set.
-**0 extra, 0 missing.**
+1. `EXACT_AT_SNAPSHOT`
+   - PgTrigger existence;
+   - ON_TABLE;
+   - EXECUTES;
+   - enabled_code;
+   - DotCommand existence từ disk snapshot.
+   - Vắng trigger/DotCommand = không có **tại snapshot source truth tương ứng**.
 
-### C2 · PROVENANCE TRUE
-Mỗi node actual phải có `(file_path,line)` trỏ tới **một câu explicit static import/export thật** trong oracle có cùng expected node name.
+2. `DECLARED`
+   - DotRegistryEntry;
+   - REGISTERS;
+   - PAIRED_WITH.
+   - Không chứng minh command chạy thật hay body gọi gì.
 
-PASS = 100% nodes provenance-valid.
+3. `UNKNOWN`
+   - function body → table/function;
+   - DOT body → table/function;
+   - DOT calls DOT ngoài declared paired_dot;
+   - scheduling/execution history;
+   - Python/TS ↔ DOT/SQL;
+   - relation không có explicit source.
 
-### C3 · SOURCE CLASS EXACT
-`source=internal|external` của Enola/Cognee phải khớp oracle rule cho 100% scored nodes/facts.
-Nếu Cognee không giữ property nhưng raw Enola giữ, score ở raw Enola và ghi rõ representation loss; canonical conclusion chỉ dựa trên layer thật sự có field.
+Không suy từ text/body/regex để lấp UNKNOWN.
 
-### C4 · COUNTS EXPLAINED
-Báo đủ:
-- oracle static statement count;
-- oracle unique (file,target);
-- oracle unique (directory,target);
-- Enola dependency fact count;
-- Enola unique fact IDs;
-- Cognee dependency node count.
+## 9. C1–C6 PASS — TẤT CẢ PHẢI ĐẠT
 
-Node count PASS nếu:
-- bằng oracle unique (directory,target), **hoặc**
-- bằng oracle unique (file,target).
+### C1 · READ-ONLY + SNAPSHOT INTEGRITY
+- PG read-only preflight PASS.
+- 4 source snapshots frozen+hashed trước load.
+- production PRE=POST.
+- Q_TRG/Q_REG/Q_DOT post-run:
+  - stable ⇒ PASS;
+  - nếu source đổi do bên khác, graph vẫn phải khớp frozen snapshot và báo `SOURCE_CHANGED_DURING_RUN`; executor không rerun.
 
-Ra số khác cả hai ⇒ DỪNG + exact diff.
-Không sửa rule sau khi thấy số.
+### C2 · IDENTITY EXACT
+Graph node unique counts = unique IDs từ frozen input.
+Bắt buộc chứng minh:
+- `public.unit_version` ≠ `sandbox_tac.unit_version`;
+- overload function identity giữ `fn_args`;
+- duplicate DOT registry rows không gộp sai command node.
+0 key collision ngoài rule.
 
-### C5 · 3 GRAPH QUESTIONS
-Q1. “Thư mục nào import `types/tasks`?” → exact directory set theo oracle.
+### C3 · PG LOAD FIDELITY
+Tập ON_TABLE + EXECUTES trong graph = exact frozen Q_TRG-derived sets.
+0 extra, 0 missing.
+Mỗi edge có provenance snapshot/source row.
 
-Q2. “`pages/knowledge/workflows/[id].vue` import những đích explicit-static nào?”
-File này đứng một mình trong directory scope của sample, nên graph phải trả exact target set theo oracle.
+### C4 · TRIGGER REGISTRY CROSS-CHECK
+Từ frozen Q_REG:
+- exact MATCH/MISSING/NAME_MISMATCH;
+- exact enabled mismatch count so với Q_TRG;
+- graph state luôn theo Q_TRG.
 
-Q3. “Những file nào trong `components/modules/comment-module` import `types/tasks`?”
-- nếu graph representation vẫn giữ đủ file provenance để trả exact set ⇒ exact match;
-- nếu Cognee gộp node directory-level ⇒ đáp án đúng bắt buộc:
-  `UNKNOWN_FROM_GRAPH`
-  + đúng **một** provenance witness file;
-- cấm suy/điền đủ file set từ source/oracle khi trả lời “bằng graph”.
+PASS = báo cáo cross-check **chính xác 100% theo hai frozen files**.
+Không yêu cầu registry phải đầy đủ hay enabled phải đúng.
 
-### C6 · ZERO PRODUCTION DRIFT
-- production PRE = POST;
-- 16 source files + 3 config files SHA/mtime unchanged;
-- TypeScript/compiler-sfc package SHA/mtime unchanged;
-- no source/node_modules/.nuxt write;
-- R6C containers/network removed;
-- 0 outbound/provider cost.
+### C5 · DOT FIDELITY / DRIFT
+Từ frozen disk + Q_DOT:
+- expected REGISTERS set = graph set;
+- expected PAIRED_WITH set = graph set;
+- report exact:
+  - registry rows không nối được;
+  - disk commands không có registry edge;
+  - commands có nhiều registry rows;
+  - composite paired_dot bị bỏ.
+0 extra, 0 missing theo deterministic rule.
 
-## 8. CHỈ ĐẾM, KHÔNG CHẤM
+PASS không có nghĩa dot_tools đúng; chỉ graph phản ánh disk truth + registry declarations.
 
-Ghi evidence, không dùng PASS/FAIL:
-- Enola fact counts theo `kind`;
-- relation counts;
-- Vue component symbol count;
-- Vue/template `calls` count;
-- Neo4j `imports` edge count nếu có;
-- route fact cho `pages/knowledge/workflows/[id].vue`;
-- dynamic import/require count nếu có;
-- số source files toàn Nuxt không có explicit import nếu đo sẵn được bằng bounded local grep/parser; **không scan/audit thêm chỉ để lấy số này**.
+### C6 · 8 GRAPH QUESTIONS
+Oracle tính từ frozen input **trước** khi hỏi graph:
 
-Semantics cảnh báo:
-- Vue `calls` có thể nghĩa template-use, không mặc định là function call;
-- `import type` không được Enola đánh dấu riêng ⇒ import presence không đồng nghĩa runtime load.
+1. Với `public.dot_tools`: trigger nào chạy, gọi hàm nào, enabled_code nào?
+2. `public.dot_domains` có trigger không?
+3. Trigger trên `unit_version` — tách schema.
+4. `trg_count_dot_tools` enabled/disabled? Nếu Q_REG khác, trả catalog truth + `REGISTRY_MISMATCH`.
+5. `public.refresh_registry_count()` đọc/ghi bảng nào? ⇒ `UNKNOWN_FROM_GRAPH`.
+6. DOT nào đọc/ghi `dot_tools`? ⇒ `UNKNOWN_FROM_GRAPH`.
+7. `dot-dot-catalog`: disk existence? registry edge?
+8. `dot-schema-ensure`: một command node; bao nhiêu registry entries trỏ tới nó?
 
-## 9. KẾT LUẬN ĐƯỢC PHÉP
+PASS:
+- Q1–Q4 exact frozen Q_TRG;
+- Q5–Q6 đúng UNKNOWN, không dò body;
+- Q7–Q8 exact frozen disk/Q_DOT.
 
-Nếu PASS, Host có thể nâng sau review:
-`CODE-EDGE-TRUST v0.4`
+## 10. KHÔNG ĐƯỢC NÓI QUÁ
 
-Chỉ được nói:
-- TS/Vue **explicit static imports** chính xác ở cấp directory→target trong sample đã đo;
-- file-level fidelity được đo nhưng **không bảo đảm** nếu Cognee gộp node;
-- provenance có thể dùng để quay về một file/line làm chứng.
+PASS chỉ chứng minh:
+- PostgreSQL trigger catalog relations exact tại snapshot;
+- DOT command existence exact theo disk snapshot;
+- DOT registry relations graph hóa đúng deterministic DECLARED rule.
 
-CẤM nói:
-- “Graph đã phủ dependency Nuxt”;
-- “auto-import đã được phủ”;
-- “route/runtime dependency đã chính xác”;
-- “mọi file Nuxt có dependency đầy đủ”.
+PASS KHÔNG chứng minh:
+- SQL function/table dependency nói chung;
+- script DOT body dependency;
+- execution history/schedule;
+- DOT calls DOT thật;
+- toàn bộ SQL/code relation.
 
-Nuxt auto-import, generated types/routes, dynamic/runtime behavior = UNKNOWN trừ evidence riêng.
+“DOT/SQL” ở R6D = **explicit native/declared metadata coverage**, không phải parser coverage.
 
-## 10. RESIDUALS — GHI, KHÔNG MỞ VIỆC TRONG RUN
-
-Không làm trong R6C:
-1. auto-import oracle từ `.nuxt/components.d.ts` / `.nuxt/imports.d.ts` — Host quyết sau R6C;
-2. CODE-EDGE-TRUST v0.4 — Host nghiệm thu sau KQ;
-3. Presidio+Stanza — chỉ nếu Owner mở lại free-text source scope;
-4. R5 OpenAI extraction cost vẫn `UNKNOWN (ước ≤0.47 USD)` — chốt ở R7 report;
-5. Directus License #23 — root/HJW, ngoài Graph;
-6. xóa `runtime/r6b/private` và `runtime/r6b0/private` — **chờ Owner gật**, R6C không xoá.
-
-## 11. EVIDENCE / CLEANUP / KQ
+## 11. CLEANUP / KQ
 
 Evidence:
-`/opt/incomex/work/graph-server/evidence/GS-R6C-NUXT-ORACLE-20261007-07/`
+`/opt/incomex/work/graph-server/evidence/GS-R6D-DOT-SQL-EXPLICIT-20261007-08/`
 
-Evidence gồm tối thiểu:
+Tối thiểu:
 - PRE/POST;
-- sample manifest + hashes;
-- oracle script hash + oracle.json/hash;
-- raw Enola facts hash/counts;
-- node/provenance diff;
-- metrics.json;
-- 3 graph-question results;
-- 00-KQ.md.
+- read-only proof;
+- frozen hashes/counts;
+- expected sets;
+- Neo4j counts/diffs;
+- C1–C6;
+- 8 graph answers;
+- 00-KQ.md;
+- EVIDENCE.sha256.
 
 Cleanup:
-- stop/remove R6C containers/network;
-- giữ R6C volume/evidence cho Host review;
-- wipe dry-run R6C scope;
-- không xóa R4/R5/R6B evidence/private.
+- stop/remove R6D container/network;
+- giữ R6D volume + evidence cho Host;
+- wipe dry-run only;
+- không xoá R6B/R6B0 private copies;
+- không xoá R6C runtime.
 
-Repo:
-- chỉ cập nhật `work/graph-server/COLLAB.md` Bảng/KQ;
-- không tạo progress/review file Git.
+Repo chỉ update Bảng/KQ trong task COLLAB.
+Không sửa PROMPT/view ở executor.
 
 KQ:
-`KQ@GS-R6C-NUXT-ORACLE-20261007-07 XONG|DỪNG`
-
-Commit:
-`[Claude Code] GS-R6C-NUXT-ORACLE-20261007-07 · graph-server · <XONG|DỪNG>`
+`KQ@GS-R6D-DOT-SQL-EXPLICIT-20261007-08 XONG|DỪNG`
 
 Final:
-`XONG · GS-R6C-NUXT-ORACLE-20261007-07 · <commit>`
+`XONG · GS-R6D-DOT-SQL-EXPLICIT-20261007-08 · <commit>`
 hoặc
-`DỪNG · GS-R6C-NUXT-ORACLE-20261007-07 · <blocker> · <commit>`
+`DỪNG · GS-R6D-DOT-SQL-EXPLICIT-20261007-08 · <blocker> · <commit>`
 
 ## 12. AUTONOMY
 
-Claude tự xử Docker/Node/oracle/extraction/scoring mechanics trong scope.
+Claude tự xử export CSV/local Neo4j/LOAD CSV/scoring trong scope.
 Không hỏi Owner.
-Không cài package.
-Không sửa production source.
-Không đổi sample.
-Không gọi model/JEV.
-Không mở auto-import follow-up trong cùng RUN.
+Không đổi nguồn/query/rules.
+Không rerun để nâng số.
+Không viết parser.
+Không dùng body text.
+Không mutation production.
 
-Nếu oracle packages/runtime không dùng được, sample drift, hoặc cần custom parser/patch extractor ⇒ DỪNG sạch.
+Nếu cần source/query thứ tư, write privilege, parser mới hoặc sửa registry ⇒ DỪNG sạch.
