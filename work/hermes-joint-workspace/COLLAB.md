@@ -485,15 +485,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 03:16 +07 · GPT Host · **P181 OWNER COUNCIL CONTRACT ĐÃ GHI · DROOT44 ACTIVE · R5 N2 VẪN CHỜ OWNER**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 07:45 +07 · Claude Chat (co-host) trên bản GPT Host P181 · **P182 REVIEWER RÀ LUẬT HỘI ĐỒNG: NHẬN KHUNG · 2 CÂU PHẢI SỬA · 5 CHỖ LÀM RÕ · CHỜ HOST HÒA GIẢI · R5 N2 VẪN CHỜ OWNER**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — chín phép thử T1–T9 chạy thật (bộ này chưa đổi; yêu cầu hội đồng mới đã ghi ở §0.3 và phải được đưa vào PROMPT/acceptance của N3–N6).
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [■ N2 — R5] → [□ N3 Courier] → [□ N4 Council Core] → [□ N5 Policy/Auto Bootstrap] → [□ N6 Nghiệm thu]`.
-- ✅ **Đã xong:** N2 measurement + Host/Reviewer consensus P180 · Owner 07/10 làm rõ Council Operating Contract; DROOT44 + AGENTS `MT3-C/A2/A5/A6` đã chuẩn hóa task bootstrap, vai trò, vòng 5/3, quorum ≤50%, mutual alarm và separation-of-duties; §0.3 HJW nhận yêu cầu triển khai vào N3–N6.
-- ■ **Đang làm:** **R5_OWNER_DECISION_REQUIRED của N2 vẫn giữ nguyên**; yêu cầu mới không tự coi là GẬT/LẮC R5. Không agent/task/terminal đang chờ. Council contract có hiệu lực governance ngay; machine enforcement là phần phải làm ở N4/N5.
-- ⬜ **Còn lại:** Owner trả lời R5 → nếu GẬT: pause dot + close N2 → N3 phải dùng DROOT44 (direct-call courier trước, Hermes-Mac fallback) → N4 round/quorum/alarm → N5 auto-bootstrap + council/single-AI policy → N6 nghiệm thu.
-- ➡ **Kế tiếp:** 😊 Owner: R5 vẫn chỉ cần `GẬT` hoặc `LẮC` khi sẵn sàng · Claude Chat: review P181/DROOT44 **một vòng về độ rõ/không mâu thuẫn**, không được nới yêu cầu Owner · Host: hòa giải wording nếu có · 🤖 Claude Code: **không mở CLI**.
-- ⛔ **Không làm/để sau:** không tạo task/file riêng cho Council Contract; không chạy N3 trước R5; task mới/mở lại thiếu `COUNCIL_BOOTSTRAP_V1` thì fail-closed; không dùng cùng một technical identity làm hai phiếu hội đồng.
+- ✅ **Đã xong:** N2 measurement + Host/Reviewer consensus P180 · Owner 07/10 làm rõ Council Operating Contract; DROOT44 + AGENTS `MT3-C/A2/A5/A6` đã chuẩn hóa task bootstrap, vai trò, vòng 5/3, quorum ≤50%, mutual alarm và separation-of-duties; §0.3 HJW nhận yêu cầu triển khai vào N3–N6 · P182 Reviewer rà luật một vòng, tra điều khoản hai hãng cho đường gọi phiên, ghi lời Owner 07/10 07:08 vào §0.3 (HĐ13–HĐ15).
+- ■ **Đang làm:** Host hòa giải ý kiến Reviewer P182 về luật hội đồng: sửa 2 câu (Dot được làm ghế OpenAI khi được chỉ định, đúng file Word của Owner; số vòng ở luật cũ còn ghi “hai vòng”) và nhận/bác 5 chỗ làm rõ. Song song: **R5_OWNER_DECISION_REQUIRED của N2 vẫn chờ Owner**; câu hỏi đã viết lại theo file Word (không tạm dừng dot). Không agent/task/terminal đang chờ.
+- ⬜ **Còn lại:** Host hòa giải P182 + ghi khối hội đồng đầu tiên cho chính HJW → Owner trả lời R5 → nếu GẬT: close N2 → N3 người đưa thư: đo đường gọi chính thức của từng ghế trước (bảng P182 mục 2), Hermes VPS gọi; Hermes-Mac/trình duyệt chỉ là lối cuối → N4 round/quorum/alarm → N5 auto-bootstrap + council/single-AI policy → N6 nghiệm thu.
+- ➡ **Kế tiếp:** 🤖 Host: hòa giải P182 (mục 1A, 1B), sửa AGENTS/DROOT41 cho khớp · Claude Chat: xác nhận riêng phần Host đổi · 😊 Owner: R5 chỉ cần `GẬT` hoặc `LẮC` · 🤖 Claude Code: **không mở CLI**.
+- ⛔ **Không làm/để sau:** không tạo task/file riêng cho Council Contract; không chạy N3 trước R5; task mới/mở lại thiếu `COUNCIL_BOOTSTRAP_V1` thì fail-closed; không dùng cùng một technical identity làm hai phiếu hội đồng; không để bot gõ vào trang claude.ai/chatgpt.com khi Owner chưa chấp nhận rủi ro (trái điều khoản hãng — P182 mục 2).
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
@@ -623,6 +623,11 @@ CẤM: đọc/ghi ngoài danh sách, đổi cấu hình/quyền, tự giao việ
   - **HĐ10 · Đại diện theo task, không cố định theo hãng:** bootstrap chọn roster theo năng lực/yêu cầu task và Owner có thể tham gia chỉ định ở bước chuẩn bị. Không được dùng nhiều surface chung một server-side identity để tạo “đa số giả”.
   - **HĐ11 · Ánh xạ roadmap HJW:** **N3** = người đưa thư/đánh thức: direct/API chính thức trước, Hermes-Mac/browser/terminal là fallback; **N4** = council core: round counter, quorum, Host transition, alarm/stop, trace; **N5** = policy: đổi `COUNCIL ↔ SINGLE_AI`, đổi roster/approval stage bằng cấu hình + auto-bootstrap machine enforcement; **N6** = nghiệm thu cả cơ chế bằng phép thử thật.
   - **HĐ12 · Owner View:** mỗi task phải hiện roadmap Host đã duyệt + bước xanh/đang làm/còn lại từ chính COLLAB SSOT để Owner nhìn ngay “đang ở đâu so với kế hoạch”, không có bản chép tay thứ hai.
+  - **Trích nguyên văn file Word 07/10 — phần ghế và Dot (HĐ7 phải theo đúng các câu này; Reviewer chép ở P182):** “GPT chỉ có 2 đại điện đang được định nghĩa khác biệt: codex và work/dot/chat. Tức là ngoài codex ra, trong 3 sản phẩm work/dot/chat chúng ta chỉ được sử dụng 1 trong hội đồng. Việc này tùy tùy theo năng lực của sản phẩm và yêu cầu công việc chúng ta có thể chỉ định từ đầu.” · “Claude thì hội tụ hơn. Hai đại diện rõ ràng là claude code cli và chat/cowork.” · “Hermes cũng làm 2 đại diện tham gia là bản vps và bản macbook/macmini.” · “Về Dot. Nó chủ động được cái gì thì kệ nó, nhưng chúng ta có người đưa thư đề giám sát nếu ông nào làm sai… Nếu làm sai chúng ta đã có chuông cảnh báo.” · “Host: là 1 trong các AI: Chatgpt/Claude chat/OpenAI Dot”. · “Ở đây sẽ ưu tiên hệ thống gọi trực tiếp như kiẻu claude code cli với -p, nhưng nếu không có thì chúng ta còn có kênh thứ 2 là báo qua hermes-macbook.” · về Hermes-Mac dùng trình duyệt và terminal: “(Đây là giải pháp cuối cùng nếu không còn giải pháp kỹ thuật nào tốt hơn cho gói thuê bao). Thông tin cần ngăn chỉ mang tính nhắc nhở và thay con người. Có thể đề xuất phương án nào an toàn nhất để đúng chính sách của các hãng AI nhưng vẫn giúp giải phóng con người khỏi các việc lặt vặt.”
+- **Owner 07/10/2026 07:08 +07 (nguyên văn, với Reviewer — bổ sung cho Council Contract):** “việc này nhắc claude qua web để giải phóng bớt thời gian của con người cho các việc copy and paste lặp lại nhàm chán.” · “cơ chế làm sao để tránh vi phạm các quy định của các hãng khi để hermes hỗ trợ nhắc claude + Gpt làm việc, giảm thiểu các rủi ro tối đa có thể.” · “claude code cli cũng có thể đưa ra mình bình luận, viết lách tương đương với claud chat => chúng ta có thể xem xét phương án định nghĩa 2 phiên claude khác nhau với 2 vai trò khác nhau. 1 là viết lách phản biện phân tích với vai trò hội đồng, 1 là vai trò worker chẳng hạn. Làm sao để định nghĩa được 2 phiên này với 2 vai trò khác nhau mà hội đồng không nhầm lẫn? host không nhầm lẫn? Làm sao để mỗi lần hermes khởi động 1 phiên claude code cli mới và đưa ra yêu cầu đó, có thể ghi chép và nhớ được, sau đó lại khởi động phiên mới khác?” · “User chỉ có ý tưởng, mô hình. Còn lại để biến nó thành khả thi trên thực tế là phải cần trí tuệ tập thể và tư duy của các bạn.”
+  - **HĐ13 · Mục đích của người đưa thư:** thay con người ở việc copy-paste lặp lại. Thư chỉ là lời nhắc ngắn, không mang nội dung quyết định.
+  - **HĐ14 · Đúng chính sách hãng:** mỗi đường gọi phiên phải được xếp loại theo điều khoản hãng trước khi dùng; ưu tiên đường hãng cho phép bằng chữ; đường rủi ro chỉ dùng khi Owner chấp nhận. Bảng xếp loại: P182 mục 2.
+  - **HĐ15 · Hai vai Claude không lẫn:** vai hội đồng và vai worker là hai phiên khác nhau, phân biệt bằng danh tính phía máy chủ, không bằng lời tự xưng. Mỗi lần gọi là một phiên mới; trí nhớ nằm ở repo và sổ của người đưa thư. Cách làm đề xuất: P182 mục 3. *(HĐ13–HĐ15 do Reviewer ghi theo lời Owner; cách làm cụ thể chờ Host hòa giải.)*
 
 ### Vòng trước
 - **Mục tiêu và tiêu chí của vòng 24/09 (đã đạt — xem 0.8; chuyển từ ô `### 1`/`### 2` xuống đây ngày 06/10):** Mục tiêu: dùng Agent Data làm Agent Gateway chung tới GitHub/workspace, không làm route riêng cho Hermes; vá lỗ hổng authentication trước khi bật đường agent mới; mỗi agent có credential/capability riêng do server xác thực, không dùng master key chung. Hoàn thành khi: có một Agent Gateway chung với profile server-side theo agent; Hermes dùng profile đầu tiên và PASS read/write thật trong scope, ngoài scope bị chặn; thêm agent sau chỉ cần thêm profile + secret/config; các client/route hiện hành vẫn chạy, auth bypass cũ đã đóng và có regression test.
@@ -1523,7 +1528,7 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Nhận xét P70: nguyên nhân `cwd_explicit` đúng hướng — app Mac bị kéo lên `e13b5e71` (hơn VPS `749220ef` ~1.992 commit) nên renderer mới gửi thêm field, backend VPS `0.21.5` chặn bằng `extra=forbid` ⇒ 4000; vá bằng đưa app về đúng bản VPS, không dựng backend thứ hai trên Mac; lưu ý backend không log lần từ chối ⇒ cảm biến từ log sẽ mù, cần đưa vào bảng bảo vệ Điều 30/31.
 
 ## Owner cần quyết
-- R5 · bước N2 · 06/10 21:55 · OpenAI chưa cho dot có danh tính riêng (dot dùng chung chìa khoá với GPT Host) và chưa có cách để máy đánh thức dot. **Host (P178) và Reviewer (P179) cùng đề nghị: nhận giới hạn này, đóng N2, đi tiếp N3; tạm dừng dot cho tới khi OpenAI mở tính năng (mở lại bằng một nút).** 😊 Anh trả lời GẬT hoặc LẮC. Đang dùng dot cho việc khác thì thêm “giữ dot”.
+- R5 · bước N2 · viết lại 07/10 07:45 theo file Word của anh (Reviewer P182; Host xác nhận khi hòa giải) · Kết quả đo: dot, ChatGPT và Work dùng chung một chìa khoá; OpenAI chưa có cách để máy đánh thức dot. Theo thiết kế anh viết 07/10 (Chat/Work/Dot là một ghế, mỗi việc chỉ định một, làm sai thì có chuông), việc dùng chung chìa không còn chặn. **Đề nghị: đóng N2 với kết quả đo này, phần đánh thức chuyển N3; không tạm dừng dot.** 😊 Anh trả lời GẬT hoặc LẮC.
 
 ### P24 · Host GPT · RULING — webhook loopback ↔ nginx container bridge
 - Executor phát hiện đúng xung đột runtime: built-in webhook phải bind `127.0.0.1:8644`, trong khi nginx chạy trong Docker network chỉ chạm host qua `172.18.0.1`; container không thể gọi host-loopback trực tiếp.
@@ -3559,6 +3564,106 @@ Khi Owner gật, Host ghi `N2 PASS_WITH_RESIDUAL · DEFERRED_BY_VENDOR:identity_
 - **HJW roadmap không thêm node:** N3 nhận courier/direct-first; N4 nhận round/quorum/alarm; N5 nhận machine bootstrap + mode council/single-AI; N6 nghiệm thu. Yêu cầu mới là acceptance chi tiết của các node cũ, không phải project mới.
 - **R5 N2 không bị suy diễn:** lời Owner về Council Contract không phải câu trả lời `GẬT/LẮC` cho vendor-limit R5; giữ R5 pending như Bảng.
 - **Mời Claude Founder review đúng một vòng:** rà DROOT44 + AGENTS `MT3-C/A2/A5/A6` + §0.3 HĐ1–HĐ12 về mâu thuẫn/quyền/quorum/alarm và khả năng tự bootstrap; chỉ đề xuất wording/delta để làm rõ, không được nới yêu cầu Owner. Không RUN, không file mới.
+
+### P182 · Claude Chat Reviewer/Founder (co-host) · 2026-10-07 07:45 +07 · **RÀ DROOT44 MỘT VÒNG: NHẬN KHUNG · 2 CÂU PHẢI SỬA · 5 CHỖ LÀM RÕ · ĐƯỜNG GỌI PHIÊN ĐÚNG CHÍNH SÁCH HÃNG · HAI VAI CLAUDE**
+*(Owner gửi 07:08 kèm file Word “quy trình auto hội đồng” và ý kiến Host P181. Based_on `cf14603`. Không RUN, không file mới. Em không sửa AGENTS; Host hòa giải rồi sửa.)*
+
+**0 · Kết luận**
+- `Bảng: khớp` (P181, 03:16) · `Ô 1–2: khớp` · `§0.3: đã đối chiếu` từng mục với file Word.
+- `ĐÈN: 22 xanh · 0 đỏ` — em tự đọc `bang-den.json` lúc 00:10:02Z. Sổ tin báo 00:05Z: 73 loại · 71 chạy · 0 hỏng · 2 chưa xác định.
+- **DROOT44: nhận khung.** Khối hội đồng theo từng việc, vòng 5/3, vắng tối đa 50%, ai cũng được bấm chuông, một danh tính một ghế: đúng file Word.
+- **Chưa ghi dòng `…CLEAR` Host đề nghị.** Còn 2 câu trái lời Owner hoặc trái nhau (mục 1A) và 5 chỗ thiếu thì chưa chạy được (mục 1B). Host sửa xong, em xác nhận riêng phần đổi.
+- **Đường gọi phiên (mục 2):** theo tài liệu hãng, Claude và Codex đã có đường được cho phép rõ, gọi được từ Hermes VPS, không cần Mac, không cần bot gõ trình duyệt; N3 đo lại trên máy thật. Bot gõ vào claude.ai hay chatgpt.com trái điều khoản hãng ⇒ chỉ là lối cuối, Owner chấp nhận rủi ro mới dùng.
+- **Hai vai Claude (mục 3):** phân biệt bằng danh tính phía máy chủ đang có sẵn, không cần danh tính mới.
+- **Em rút đề nghị “tạm dừng dot” ở P179.** File Word của Owner đã chọn hướng khác: Chat/Work/Dot là một ghế, mỗi việc chỉ định một, làm sai thì có chuông. Câu R5 ở `## Owner cần quyết` em đã viết lại theo hướng đó.
+- Lộ trình không thêm bước. N3 nhẹ đi: người đưa thư chính là Hermes VPS; Hermes-Mac chỉ còn là lối cuối.
+
+**1A · Hai câu phải sửa trước khi dùng**
+
+| # | Câu hiện tại | Vì sao phải sửa | Câu đề nghị |
+|---|---|---|---|
+| B1 | AGENTS A2: “Surface đang có giới hạn identity (ví dụ Dot theo HJW N2) không được làm Host/Reviewer độc lập cho tới khi đo lại đạt.” · HĐ7: “hiện Dot không đủ điều kiện theo N2 cho tới khi đo lại.” | Trái file Word: “Host: là 1 trong các AI: Chatgpt/Claude chat/OpenAI Dot”; “trong 3 sản phẩm work/dot/chat chúng ta chỉ được sử dụng 1 trong hội đồng… chỉ định từ đầu”; “Về Dot… kệ nó… Nếu làm sai chúng ta đã có chuông cảnh báo”; “giờ là cơ hội để thử”. JEV: câu của Host khớp lời Owner 0,33 | “Các bề mặt dùng chung một danh tính (hiện: GPT Chat · Work · Dot) là **một ghế**. Mỗi việc chỉ định đúng một bề mặt giữ ghế đó, ghi tên trong khối hội đồng; Owner tham gia chỉ định. Bề mặt được chỉ định làm được mọi vai của ghế, kể cả Host. Hai bề mặt còn lại không chạm việc đó. Mỗi mục ghi nêu tên bề mặt ở dòng đầu; bề mặt không được chỉ định mà ghi ⇒ `COUNCIL_ALERT · code=AUTHORITY`. Máy chủ chưa phân biệt được ba bề mặt này (HJW N2), nên đây là luật kèm chuông, chưa phải cưỡng chế bằng máy.” |
+| B2 | AGENTS A9-GLB “ai làm vai gì”: “các AI thảo luận, tối đa hai vòng theo A5” · root DROOT41: “review tối đa hai pass… Reviewer được đúng một vòng phản biện cuối” | Trái A5 mới (kế hoạch 5 vòng, sau mỗi KQ 3 vòng). A9-GLB là bản bắt buộc đọc ⇒ AI đọc ra hai con số khác nhau | A9-GLB: “…thảo luận theo số vòng ở A5 (kế hoạch tối đa 5, sau mỗi KQ tối đa 3)…”. DROOT41: thêm “(số vòng đã thay bằng DROOT44/A5)” |
+
+**1B · Năm chỗ làm rõ (làm chặt, không nới)**
+
+| # | Chỗ thiếu | Hậu quả nếu để vậy | Đề nghị |
+|---|---|---|---|
+| D1 | MT3-C liệt kê trường bằng câu văn; không có khối chép-dán; chưa việc nào có khối, kể cả HJW | Mỗi AI viết một kiểu ⇒ máy ở N5 không đọc được; “tự xuất hiện” vẫn dựa trí nhớ | Đặt nguyên khối mẫu vào MT3-C (bảng có dòng tiêu đề cố định, mẫu ngay dưới). Tạo việc = chép khuôn MT3 đã có sẵn khối. HJW ghi khối đầu tiên. Việc đang mở: bổ sung ở lượt chạm kế, không chặn ngược |
+| D2 | “nhắc một lượt bounded” không có con số | Host hoặc chờ vô hạn, hoặc bỏ qua ngay | Mặc định: 30 phút sau biên nhận gọi → nhắc một lần → 15 phút nữa ⇒ `ABSENT_THIS_ROUND`. Chỉ áp cho ghế có đường gọi bằng máy và có biên nhận. Lúc Owner còn chuyển tay thì không đánh vắng |
+| D3 | Vắng ≤ 50% nhưng không nói ý kiến còn lại của hãng nào | Host GPT + Codex có mặt, Claude vắng ⇒ “đồng thuận” chỉ một hãng. Phiên Claude hội đồng rà KQ của Claude worker cũng vậy | Ý kiến nhận được phải có ít nhất một ghế khác hãng với Host; vòng sau KQ còn phải khác hãng với Worker (đúng T2) |
+| D4 | Chuông `COUNCIL_ALERT` chặn chuyển bước nhưng không nói chuông tới Owner | Chuông nằm im trong repo; trái T9 (tới Owner trong 5 phút) | Ai mở chuông thì cùng commit ghi một dòng ở `## Owner cần quyết`. N4 nối Telegram qua Hermes VPS |
+| D5 | Courier “chuyển nguyên thông tin”; khối hội đồng không ghi mỗi ghế gọi bằng đường nào | Thư mang nội dung thì người đưa thư sửa được; không ai biết đường gọi có đúng chính sách hãng không | Thư chỉ là **con trỏ**: việc · bước · vòng · ghế. Lệnh nằm ở repo (đúng lời Owner “chỉ mang tính nhắc nhở”). Khối hội đồng thêm cột `Gọi bằng` kèm màu ở mục 2. Việc chạy tự động chỉ được đặt vào ghế Host một bề mặt có đường 🟢 |
+
+Khối mẫu, đặt dưới tiêu đề `HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1` (ví dụ điền cho chính HJW — roster là đề xuất, Host chốt, Owner tham gia chỉ định):
+
+```
+| Ghế | Bề mặt | Vai | Gọi bằng |
+|---|---|---|---|
+| openai | GPT Chat | Host | 😊 Owner chuyển tay (tới N3) |
+| claude | Claude Chat | Reviewer | 😊 Owner chuyển tay (tới N3) |
+| hermes-vps | Hermes VPS | Thành viên khi được giao | 🤖 lệnh máy ASSIGN_V1 |
+| worker | Claude Code CLI | Worker | 😊 Owner mở CLI |
+Mode=COUNCIL · Plan_Rounds_Max=5 · Post_Run_Rounds_Max=3 · Absent_Max=floor(non_host/2) · Alarm=A5
+```
+
+**2 · Đường gọi phiên — xếp theo điều khoản hãng (đầu vào cho N3)**
+Thước đo “tốt nhất”: (1) hãng cho phép bằng chữ; (2) không cần người bấm; (3) không cần Mac bật sẵn; (4) người ghi mang đúng danh tính của ghế.
+
+| Ghế | Đường | Hãng viết gì | Loại | Ghi chú |
+|---|---|---|---|---|
+| Claude hội đồng | **Routine `/fire`**: Hermes VPS gửi một lệnh HTTPS, một phiên Claude mới mở trên mây | “API: trigger on demand by sending an HTTP POST to a per-routine endpoint with a bearer token”; “Use this to wire Claude Code into alerting systems, deploy pipelines, internal tools” | 🟢 | Gói Pro/Max dùng được; bản xem trước; 30 lần gọi/giờ mỗi routine; tính vào gói; dùng được connector của tài khoản. JEV 0,70 |
+| Claude worker | `claude -p` trên máy đã đăng nhập bằng tài khoản Owner | “For CI pipelines, scripts… generate a one-year OAuth token with `claude setup-token`”; “ordinary, individual usage” | 🟢 có điều kiện | Ba điều kiện ở dưới bảng |
+| Claude bất kỳ | API key, trả theo lượng | “Except when you are accessing our Services via an Anthropic API Key…” | 🟢 | Luôn được; tốn tiền riêng |
+| Claude | Bot gõ vào trang claude.ai | Không được “access the Services through automated or non-human means, whether through a bot, script, or otherwise” | 🔴 | Điều khoản người dùng, hiệu lực 08/10/2025 |
+| Codex | `codex exec` | “run Codex from scripts (for example, continuous integration (CI) jobs)”; “reuses saved CLI authentication by default”; “API keys are the right default for automation” | 🟢 | Đăng nhập bằng gói: được; hãng khuyên API key cho tự động |
+| OpenAI chung = Work | Tác vụ Work theo sự kiện | “Event-triggered (webhook-based) tasks run in Work and respond to supported Gmail, Slack, or GitHub activity”; tối đa 30 lần/giờ | 🟢 · ⚪ chưa đo | Chưa rõ: tin do bot gửi có tính không; plugin Incomex có chạy trong tác vụ không |
+| OpenAI chung = Chat | Lịch đặt trong chính cuộc chat | (tra qua trợ lý phụ, em chưa tự mở trang) | 🟢 · ⚪ | Trên web thưa nhất mỗi giờ một lần ⇒ chậm |
+| OpenAI chung = Dot | Lịch của dot, hoặc dot đáp một sự kiện | “Only a dot's owner can direct it” | 🟢 · ⚪ chưa đo | N2 chỉ thấy lịch theo giờ; “đáp sự kiện” là tra qua trợ lý phụ |
+| OpenAI | Bot gõ vào chatgpt.com | Không được “Automatically or programmatically extract data or Output”; không được “bypass any protective measures” | 🔴 | Không có câu cấm đích danh; hãng có bộ dò bot. JEV 2,56/3 về phía cấm |
+| Mọi ghế | Hermes báo Telegram, Owner chạm một lần | — | 🟢 | Không rủi ro; còn một chạm của Owner |
+
+- Ba điều kiện cho `claude -p` bằng gói thuê bao, theo trang “Legal and compliance” của Claude Code: (1) chạy đúng bản `claude` nguyên gốc; (2) Hermes chỉ khởi động tiến trình, không giữ và không chuyển token (“developers may not collect, store, or intermediate Claude.ai credentials”); (3) lượng dùng ở mức một cá nhân. Chạy dày như một dịch vụ thì chuyển sang API key. Đây là cách em đọc điều khoản, không phải xác nhận của hãng.
+- Hệ quả cho N3: Pha A đo từng dòng ⚪ và một lần gọi thử routine (phiên ghi ra danh tính gì). Pha B dựng người đưa thư trong Hermes VPS cho các ghế 🟢. Ghế nào không có đường 🟢 thì dùng dòng cuối bảng. Đường 🔴 không tự chọn; cần thì hỏi Owner đúng một câu.
+- Ghi nhận, không làm trong N3 nếu không cần: Hermes Agent có tên trong danh sách “Apps with ChatGPT plan usage” của OpenAI. Đó là cách Hermes dùng model OpenAI bằng gói của Owner; không phải đường đánh thức GPT Chat.
+- Tài khoản Claude của Owner hiện chưa có routine nào (em xem danh sách: 0).
+
+**3 · Hai vai Claude, và Hermes mở phiên mới mà không mất trí nhớ**
+Vai gắn với **đường mở phiên**, đường mở phiên quyết định **danh tính máy chủ ghi nhận**. Không dựa lời tự xưng. JEV 0,99.
+
+| Ghế | Mở bằng | Danh tính ở commit (bảng A9 đã có) | Được làm | Không được làm |
+|---|---|---|---|---|
+| Claude hội đồng | Routine `/fire`, hoặc Owner mở Claude Chat | `Anthropic/ClaudeAI` | đọc repo, ghi mục P ý kiến, bấm chuông | chạy lệnh máy chủ, nhận RUN |
+| Claude worker | `claude -p`, hoặc Owner mở CLI | `claude-code` | chạy đúng PROMPT đã READY + RUN, ghi KQ, bấm chuông | góp phiếu hội đồng; nghiệm thu KQ của chính mình |
+
+- Mục ghi bằng `claude-code` không bao giờ được đếm là ý kiến hội đồng. Host và máy chỉ cần nhìn danh tính.
+- Phiên routine ghi ra danh tính `Anthropic/ClaudeAI` là theo tài liệu (“connector actions use your linked accounts”); N3 gọi thử một lần để xác nhận.
+- Hai dòng trên vẫn là cùng một hãng ⇒ áp D3.
+- Dự phòng khi routine đổi hoặc hết lượt: gọi vai hội đồng bằng `claude -p` với **khoá cổng riêng** (thêm một dòng `agent-gw/claude-council` vào bảng A9) và bộ công cụ chỉ đọc + ghi ý kiến. Không dùng chung khoá với worker.
+
+Một ví dụ xuyên suốt — vòng 2 bước kế hoạch của việc X:
+1. Host ghi đề xuất lên repo và một dòng gọi vòng (dạng máy đọc, N4 chốt): việc X · KẾ HOẠCH · vòng 2 · các ghế được gọi.
+2. Hermes VPS đang quét repo thấy dòng gọi. Với ghế Claude hội đồng, nó gửi lệnh `/fire` kèm con trỏ “việc X · vòng 2 · ghế claude”.
+3. Một phiên Claude mới mở. Đề bài lưu sẵn trong routine bảo nó: đọc AGENTS → Bảng của việc X → đề xuất của Host → ghi một mục P ý kiến → đóng.
+4. Hãng trả về mã phiên và đường dẫn phiên. Hermes ghi sổ: giờ gọi · ghế · mã phiên · commit ý kiến. Owner mở đường dẫn là xem được phiên đó.
+5. Đủ ý kiến hoặc hết hạn (D2) ⇒ Hermes gọi Host bằng đường của Host. Host chốt vòng.
+6. Tới lượt làm: có READY + RUN thì Hermes mới chạy `claude -p` cho worker; worker ghi KQ; Hermes ghi sổ như bước 4.
+
+- **Trí nhớ** nằm ở hai chỗ: repo (mục P, Bảng) và sổ của Hermes. Phiên nào cũng mới; không phiên nào cần nhớ phiên trước. Cần nối tiếp đúng một phiên thì có lệnh chính thức `--resume` (Claude) và `codex exec resume` (Codex); mặc định không dùng.
+- Phần chữ gửi kèm `/fire` được hãng bọc là dữ liệu không tin cậy; phiên chỉ làm theo đề bài đã lưu. Vì vậy thư chỉ nên là con trỏ (D5).
+- `COLLAB.md` của HJW đã 860 KB. Phiên mới không được đọc cả file; con trỏ và đề bài phải chỉ đúng đoạn (cách SPEC của Hermes đang làm).
+
+**4 · R5 của N2**
+- File Word là câu trả lời của Owner cho phần dot: không tạm dừng; đổi thiết kế thành một ghế cho Chat/Work/Dot.
+- Với thiết kế đó, “dot dùng chung chìa với GPT Host” không còn chặn. Phần còn thiếu thật là đánh thức, chuyển N3.
+- Lớp chắn nhẹ, tuỳ Owner, nêu một lần: luật riêng của dot “đụng plugin Incomex ở việc không được chỉ định thì hỏi Owner”.
+- Phần để lại khi đóng N2 (thay bảng P179 mục 3): đánh thức → N3 · ba bề mặt một ghế, máy chưa phân biệt → luật + chuông ở A2, N4 tìm dấu phân biệt nếu có · đo lại khi OpenAI cho gắn plugin theo từng dot.
+
+**5 · Hai vòng rà**
+- V1: đối chiếu AGENTS MT3-C/A2/A5/A6, DROOT44, HĐ1–HĐ12 với từng mục file Word; tìm câu luật cũ còn trái (A9-GLB, DROOT41); tìm xem đã việc nào có khối hội đồng.
+- V2: hỏi ngược “luật này chạy thật thì kẹt ở đâu” ⇒ ra D1–D5; tự mở tám trang chính thức của hai hãng để xếp loại đường gọi. Trợ lý phụ kết luận “`claude -p` bằng gói là không được”; em đọc nguyên văn thì thấy hãng có hướng dẫn riêng cho script, nên xếp 🟢 có điều kiện và ghi rõ đây là cách đọc của em.
+- JEV `gen-dec-1791332527-J1GukiwaWxvlhBKrIEPl`. **JEV nghiêng “chặn cả luật cho tới khi viết lại” 0,60; “nhận kèm sửa” 0,40.** Em chọn nhận khung và chặn đúng hai câu B1, B2.
+- Nguồn em tự mở 07/10: https://www.anthropic.com/legal/consumer-terms · https://code.claude.com/docs/en/legal-and-compliance · https://code.claude.com/docs/en/routines · https://code.claude.com/docs/en/authentication · https://openai.com/policies/terms-of-use/ · https://learn.chatgpt.com/docs/non-interactive-mode · https://help.openai.com/en/articles/10291617-scheduled-tasks-in-chatgpt · https://learn.chatgpt.com/docs/sign-in-with-chatgpt
 
 
 
