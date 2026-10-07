@@ -248,7 +248,7 @@ Không sửa rule sau khi thấy số.
 ### C5 · 3 GRAPH QUESTIONS
 Q1. “Thư mục nào import `types/tasks`?” → exact directory set theo oracle.
 
-Q2. “`pages/knowledge/workflows/[id].vue` import những đích explicit-static nào?”  
+Q2. “`pages/knowledge/workflows/[id].vue` import những đích explicit-static nào?”
 File này đứng một mình trong directory scope của sample, nên graph phải trả exact target set theo oracle.
 
 Q3. “Những file nào trong `components/modules/comment-module` import `types/tasks`?”
