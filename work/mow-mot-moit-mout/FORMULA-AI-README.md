@@ -1,5 +1,7 @@
 # FORMULA-AI-README · MMIM
 
+> **Toàn bộ UI cha/con:** đọc [UI-DESIGN-STANDARD.md](UI-DESIGN-STANDARD.md) và áp dụng cổng kiểm bàn giao tại đó. Mục Master dưới đây chỉ quy định riêng cho bảng danh sách, không thay quy chuẩn Canvas/Config/Studio/Review/Workspace.
+
 ## Quy chuẩn thị giác UI.MASTER — bắt buộc · Owner 07/10/2026
 
 CE-20261007-MASTER-EMPHASIS · APPROVED theo yêu cầu Owner. Phạm vi: mọi Master hiện tại và tương lai dùng UI.MASTER; không đổi dữ liệu/khái niệm.

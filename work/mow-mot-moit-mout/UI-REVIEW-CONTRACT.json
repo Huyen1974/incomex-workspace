@@ -1,0 +1,185 @@
+{
+  "version": "ui-review-v1",
+  "required_checks": [
+    "structure",
+    "emphasis",
+    "labels",
+    "interaction",
+    "responsive",
+    "console",
+    "data_scope"
+  ],
+  "parents": [
+    "UI.MASTER",
+    "UI.CANVAS",
+    "UI.CONFIG",
+    "UI.STUDIO",
+    "UI.REVIEW",
+    "UI.WORKSPACE"
+  ],
+  "registered_children": [
+    {
+      "id": "UI-001",
+      "parent": "UI.MASTER",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html"
+    },
+    {
+      "id": "UI-002",
+      "parent": "UI.MASTER",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html"
+    },
+    {
+      "id": "UI-003",
+      "parent": "UI.MASTER",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/duyet-ntgv-v1.html"
+    },
+    {
+      "id": "UI-004",
+      "parent": "UI.MASTER",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-gopy-list-v1.html"
+    },
+    {
+      "id": "UI-005",
+      "parent": "UI.CANVAS",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T2&che-do=thuong"
+    },
+    {
+      "id": "UI-006",
+      "parent": "UI.CONFIG",
+      "url": "https://vps.incomexsaigoncorp.vn/admin-new-modt?tang=T1&che-do=de-xuat"
+    },
+    {
+      "id": "UI-007",
+      "parent": "UI.STUDIO",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-studio-v1.html"
+    },
+    {
+      "id": "UI-008",
+      "parent": null,
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-builder-v3.html"
+    },
+    {
+      "id": "UI-009",
+      "parent": "UI.REVIEW",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html?chi-tiet=WF-0001"
+    },
+    {
+      "id": "UI-010",
+      "parent": "UI.WORKSPACE",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-dashboard-v1.html?cong-viec=MOT-2599"
+    },
+    {
+      "id": "UI-011",
+      "parent": null,
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-nhap2-checkpoints.html?quy-trinh=WF-0001"
+    },
+    {
+      "id": "UI-012",
+      "parent": null,
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-nhap2-data-events.html?quy-trinh=WF-0001"
+    },
+    {
+      "id": "UI-013",
+      "parent": "UI.MASTER",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html"
+    },
+    {
+      "id": "UI-014",
+      "parent": "UI.MASTER",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-master-v1.html"
+    },
+    {
+      "id": "UI-015",
+      "parent": "UI.STUDIO",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-studio-v1.html"
+    },
+    {
+      "id": "UI-016",
+      "parent": "UI.STUDIO",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-studio-v1.html"
+    },
+    {
+      "id": "UI-017",
+      "parent": "UI.CONFIG",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-config-v1.html"
+    },
+    {
+      "id": "UI-018",
+      "parent": "UI.CONFIG",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T0&form=MOIT&che-do=de-xuat&khai-bao=moi"
+    },
+    {
+      "id": "UI-019",
+      "parent": "UI.CANVAS",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T0.5&che-do=thuong&form=MOIT&cong-viec=T01"
+    },
+    {
+      "id": "UI-020",
+      "parent": "UI.CANVAS",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T0.5&che-do=thuong&form=MOUT&cong-viec=T01"
+    },
+    {
+      "id": "UI-021",
+      "parent": "UI.CANVAS",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T0&che-do=thuong&form=MOIT&cong-viec=T01"
+    },
+    {
+      "id": "UI-022",
+      "parent": "UI.MASTER",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/field-master-v1.html"
+    },
+    {
+      "id": "UI-023",
+      "parent": "UI.CANVAS",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T7&che-do=thuong"
+    },
+    {
+      "id": "UI-024",
+      "parent": "UI.CANVAS",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T6&che-do=thuong"
+    },
+    {
+      "id": "UI-025",
+      "parent": "UI.CANVAS",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T5&che-do=thuong"
+    },
+    {
+      "id": "UI-026",
+      "parent": "UI.CANVAS",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T4&che-do=thuong"
+    },
+    {
+      "id": "UI-027",
+      "parent": "UI.CANVAS",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T3&che-do=thuong"
+    },
+    {
+      "id": "UI-028",
+      "parent": "UI.CANVAS",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-unified-canvas-v2.html?tang=T1&che-do=thuong"
+    },
+    {
+      "id": "UI-029",
+      "parent": "UI.MASTER",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/tim-kiem-chung-v1.html"
+    }
+  ],
+  "receipt_example": {
+    "source_version": "commit-or-sha",
+    "scope": [
+      "UI-001"
+    ],
+    "results": [
+      {
+        "id": "UI-001",
+        "url": "actual Owner URL",
+        "checks": {
+          "structure": {
+            "status": "NOT_TESTED",
+            "evidence": ""
+          }
+        }
+      }
+    ]
+  }
+}
