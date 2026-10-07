@@ -5,14 +5,14 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 18:20 +07 · Claude Chat (Reviewer) · P63 trên nền P62 của Host
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 · GPT Chat (Host) · P64
 - 🎯 **Mục tiêu Owner:** VPS ổn định lâu dài, ít chuông nhưng đúng; không quay lại dọn ổ mỗi tháng và không để báo giả che lỗi thật.
-- 🏁 **Xong khi:** storage tăng có tên + control + chuông đúng nghĩa; #22 chỉ canh đường giám sát; transient một lần không page; nợ bằng chứng không giả outage nhưng vẫn chặn close; mã có Đ30/31; 502/503 chỉ sửa lõi khi có root-cause proof.
-- 📍 **Tiến độ:** `✅ thiết kế nền · ✅ S1a đo thật · ✅ Host P62 viết R7 theo số thật · ✅ Claude P63 ACCEPT kèm 4 sửa · ■ Host áp 4 sửa + READY SHA cuối · ⬜ Codex final · ⬜ R7 · ⬜ nghiệm thu · ⬜ N2a 3 source debt · ⬜ N2b nếu evidence/Owner gate · ⬜ 08:00 sạch → FINAL CLOSE`
-- ✅ **Đã xong:** S1a 99,2% disk attribution; 0 HOST_DOWN/36h; phân loại đủ 19 event; Kuma UNIQUE root cause; noise thật 0,07 MiB; PG/Qdrant có history dài. PROMPT R7 đã kích hoạt lại và khóa vào evidence P61.
-- ■ **Đang làm:** post-KQ review vòng 1/3: **Claude Chat P63 = ACCEPT S1a + ACCEPT thiết kế R7 theo số đo, kèm 4 sửa nhất quán bắt buộc trước READY** (bối cảnh cũ trái số đo · fixture theo mô hình nợ · trạng thái 3 nguồn sau R7 · same-or-better là luật máy cho mọi RUN). Host áp rồi READY; không cần vòng riêng với Claude. **Chưa READY mutation.**
-- ⬜ **Còn lại:** Claude review → Host disposition → Codex final cùng SHA cuối → R7 → nghiệm thu → N2a exact retention/control cho transactions/helper/mcp-roots → N2b chỉ nếu D6 chứng minh hoặc Owner duyệt key rotation → 08:00 sạch → close.
-- ➡ **Kế tiếp:** Host áp 4 sửa của P63 vào PROMPT → READY SHA cuối → Codex final kiểm cả 4 sửa trên đúng SHA đó → RUN R7. Chưa có Codex ACCEPT đúng SHA cuối thì không RUN.
+- 🏁 **Xong khi:** storage tăng có tên + control + chuông đúng nghĩa; #22 chỉ canh monitoring pipeline; transient một lần không page; debt không giả outage nhưng vẫn chặn close; mã có Đ30/31; 502/503 chỉ sửa lõi khi có root-cause proof.
+- 📍 **Tiến độ:** `✅ thiết kế nền · ✅ S1a đo thật · ✅ P62 measured R7 · ✅ Claude P63 ACCEPT + 4 sửa · ✅ Host P64 áp 4 sửa + READY · ■ Codex final · ⏸ R7 chờ Graph KQ · ⬜ R7 · ⬜ nghiệm thu · ⬜ N2a · ⬜ N2b nếu cần · ⬜ 08:00 sạch → FINAL CLOSE`
+- ✅ **Đã xong:** toàn bộ 4 sửa P63 đã áp vào PROMPT last-touch `e70606d`; context S1a nhất quán, fixture debt/fault thống nhất, 3 source debt có rate+hạn, SAME-OR-BETTER thành luật máy trong C3 cho mọi RUN mới. Claude P63 đã đủ cross-vendor, không cần quay lại Claude trước RUN.
+- ■ **Đang làm:** Codex final review đúng PROMPT@`e70606d`. Review chỉ đọc có thể chạy song song. **Graph R7 đã STARTED 17:37 +07 và chưa KQ, nên VPSC R7 mutation bị NO_CONCURRENT chặn cho tới Graph KQ.**
+- ⬜ **Còn lại:** Codex ACCEPT cùng SHA → đợi Graph KQ → Claude Code R7 → Host/Codex/Claude nghiệm thu → N2a exact control 3 source debt → N2b chỉ theo evidence/Owner gate → 08:00 sạch → close.
+- ➡ **Kế tiếp:** Codex final; nếu ACCEPT thì không còn vòng thiết kế nào. Khi Graph KQ xong, dùng lệnh DROOT38 chuẩn để chạy R7; executor tự re-read shared-VPS gate.
 - ⛔ **Giữ hẹp:** R7 không xoá Graph, không tự đặt TTL, không nâng Kuma/uvicorn, không restart lõi, không xoay key.
 
 ### 1. Mục tiêu
@@ -43,7 +43,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 | **S0a · Đo trước, chỉ đọc** | Claude Code CLI | P60 + Host READY measure-only | **ĐÃ XONG 20′** | P61/BAO-CAO: 99,2% disk · 19 alert · noise · business history | Host đã nhận KQ | **S0b** |
 | **S0b · Review measured R7** | Claude Chat → Host → Codex | P62 + PROMPT measured R7 | ≤3 vòng sau KQ theo A5 | reviewer phải bám P61; không đưa lại giả định đã bị số đo bác | Host thấy DELTA ngay trên repo; blocker giữ HOLD | S1 khi Claude không blocker + Codex ACCEPT cùng SHA |
 | S1 · R7 thi hành | Claude Code CLI | Host READY mutation + Codex ACCEPT cùng SHA + không busy/HOLD | Một RUN bounded; **không sleep/wait** | A/B/C/D + fixtures · full taxonomy · alert E2E · PRE/POST same-or-better · receipt | Host + Owner nhận KQ cùng lượt; realtime chỉ FAULT_NOW | S2 |
-| S2 · Nghiệm thu R7 | Host + Codex + Claude Reviewer khi cần cross-vendor | KQ R7 | ≤3 vòng review theo A5; không waiter | diff/commit · report · runtime/monitor evidence · mọi `UNVERIFIED/UNKNOWN` giữ đỏ | Host ghi DELTA/HOLD cùng lượt; Owner chỉ bị gọi nếu chạm quyền Owner | S3 hoặc quay S1 bằng RUN sửa mới |
+| S2 · Nghiệm thu R7 | Host + Codex + Claude Reviewer khi cần cross-vendor | KQ R7 | ≤3 vòng review theo A5; không waiter | diff/commit · report · runtime/monitor evidence · mọi `UNVERIFIED/UNKNOWN` giữ **CHƯA ĐẠT**, không giả PASS; chỉ `FAULT_NOW` mới page đỏ realtime | Host ghi DELTA/HOLD cùng lượt; Owner chỉ bị gọi nếu chạm quyền Owner | S3 hoặc quay S1 bằng RUN sửa mới |
 | S3a · N2a checkpoint chỉ đọc | Claude Code CLI | R7 có `NAMED_UNVALVED`, `BUSINESS_LEARNING` cần control/evidence, hoặc capacity-control thiếu | Một checkpoint bounded cho từng nhóm nguồn; không mutation | nguồn/tốc độ/class · control hiện hữu · options · rollback · quyền cần thiết | Host nhận KQ checkpoint ngay; nguồn chưa rõ vẫn đỏ/không close | S3b hoặc watcher tiếp tục học nếu chỉ thiếu lịch sử BUSINESS |
 | S3b · N2a bịt nguồn | Claude Code CLI | S3a đủ evidence + Host/Owner gate nếu thao tác phá huỷ/quyền riêng | Một RUN bounded theo exact plan; không tự chọn số chưa đo | TTL/retention/cap/logrotate hoặc capacity envelope/alarm VERIFIED + POST proof | Host + Owner qua KQ/Telegram trong cùng lượt; fail giữ nguồn `UNVALVED` | S4 hoặc S5 |
 | S4 · N2b auth/lõi (nếu cần) | Claude Code CLI | D6 có proof; key rotation cần O-R7-KEY; core 502 chỉ khi root-cause đủ evidence | Mỗi risk-family một RUN bounded | auth: consumer inventory + key mới sống/key cũ chết + rollback; core: root-cause→fix→health/smoke | KQ cùng lượt; core/Kuma health báo theo nhịp hiện hữu, lỗi không bị che | S5 |
@@ -123,7 +123,8 @@ Host: GPT Chat · Host_ID: GPT-VPSC-261007-R7B · vòng 4 tiếp quản theo ch�
 HTML chính: `view.html`
 
 ## Giấy phép vòng 4
-- **S1a:** KQ XONG@`f9554b8`, giấy phép measure-only đã dùng xong và **không được tái dùng**. **R7 mutation hiện DRAFT/HOLD**, PROMPT đã đổi sau S1a; chưa có Host READY/Codex ACCEPT mới.
+- **S1a:** KQ XONG@`f9554b8`, giấy phép measure-only đã dùng xong và không được tái dùng.
+- **R7 mutation:** PROMPT last-touch `e70606d70c535efc37864efd44eb511d553da3e0` · **READY@e70606d70c535efc37864efd44eb511d553da3e0 · Host GPT Chat**. RUN chỉ hợp lệ sau `CODEX ACCEPT@e70606d70c535efc37864efd44eb511d553da3e0` và khi shared-VPS NO_CONCURRENT PASS. Hiện Graph R7 đang STARTED ⇒ review được, mutation chưa được chạy.
 - STARTED@VPSC-R7-S1A-MEASURE-20261007-01 2026-10-07T10:07Z · executor=Claude Code CLI · READ_ONLY · read-gate: PROMPT last-touch = READY `ce7122ce` · SSH VPS1 + workspace_* PASS · không STARTED mở ở việc khác
 - KQ@VPSC-R7-S1A-MEASURE-20261007-01 XONG · READ_ONLY · 0 mutation production · 10:28Z · disk +8,002 GiB gọi tên 99,2% (Graph trial 7,379 GiB = 7,92/10 GB) · đang chảy ≈0,28 GiB/ngày NAMED_UNVALVED · 19 tin: SERVICE_REAL 8 · PROBE_FALSE 8 · DUPLICATE 2 · PIPELINE 1 · HOST_DOWN 0 · UNKNOWN 0 · Kuma = SQLITE UNIQUE `stat_minutely` (nội bộ) · PRE_RED_SET=∅ · NOISE 0,07 MiB · 6 mục UNKNOWN · BAO-CAO §S1a · P61
 - Lệnh executor chuẩn theo DROOT38 (chỉ dùng sau khi có READY mới + CODEX ACCEPT cùng SHA): `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
@@ -820,6 +821,19 @@ Trước READY của bản sửa, Host bổ sung bảng tại COLLAB cho đúng 
 - **Phạm vi:** không đề nghị thêm việc. R7 đã thu hẹp đúng D21 (3 lớp hiện hữu, không thêm dịch vụ).
 - **JEV** `gen-dec-1791370734-QWtKRENAWeGAvD2iTu78` (bằng chứng phụ): kết luận “ACCEPT kèm sửa bắt buộc, không thêm vòng” 0,92 · bối cảnh cũ để lại “dễ gây làm sai” 0,93 · ba nguồn nên là nợ đã đăng ký có hạn ngắn 0,99 · fixture trái luật nợ 0,59 · trạng thái ba nguồn sau R7 còn mơ hồ 0,56 · RUN đã READY của việc khác sẽ bị cổng mới từ chối 0,77 · phần Graph không vi phạm DROOT37 nếu là luật chung + một dòng con trỏ 0,63 (vi phạm 0,35). Lệch: JEV nghiêng giữ “chỉ miễn RUN đã STARTED” 0,64 thay vì miễn theo thời điểm READY — Reviewer theo JEV, không đề nghị nới luật, chỉ để con trỏ.
 - **Trạng thái P63: ACCEPT kèm 4 sửa.** Host áp 4 sửa → READY SHA cuối → Codex final kiểm cả 4 trên đúng SHA đó → RUN. **Không cần quay lại Claude trước RUN**; Claude rà lại ở bước nghiệm thu KQ R7. Owner cần quyết: — cho P63.
+
+### P64 · GPT Chat (Host) · 07/10/2026 · ACCEPT P63 4/4 · READY SHA CUỐI · CHỈ CÒN CODEX FINAL
+- **Kết luận điều hành sớm:** đồng thuận P63. Không cần khảo sát thêm; S1a đã đủ để chốt thiết kế. Bốn điểm P63 là consistency/safety, không đổi phạm vi.
+- **(1) Context:** §0 B/D đã thay bằng số S1a; PRE đọc P59–P64 + BAO-CAO S1a; report dùng 8 child died. Mốc đầu D2 sửa thành `05/10 23:20Z` theo chính cửa sổ 05/10 22:00Z→07/10 10:16Z và thứ tự log.
+- **(2) Debt fixture:** t3/t6/t7 đã tách `DEBT` khỏi `FAULT_NOW`; debt trong hạn không page nhưng không được VERIFIED/close; quá hạn hoặc vượt điều kiện mới realtime đỏ. STEP_WALK S2 đổi từ “giữ đỏ” sang `CHƯA ĐẠT`.
+- **(3) Ba source đang tăng:** đăng ký `CONTROL_DEBT` trong R7 với `due=KQ_R7+3d`, reference group rate S1a `0,28 GiB/day`; page khi aggregate >`0,56 GiB/day`, source có rate riêng >2× rate, hoặc quá hạn. `UNVALVED_GROWING` dành cho source chưa đăng ký. Không TTL/xoá trong R7.
+- **(4) SAME-OR-BETTER:** C3 nay bắt PRE của **mọi RUN mới** lưu `PRE_RED_SET` + pipeline health và POST tự so; NEW_RED/reason xấu hơn/pause/hạ guard/pipeline xấu hơn = FAIL; PREEXISTING_SAME ngoài footprint được liệt kê không fail. Thêm negative fixtures n9–n11. READY cũ chưa STARTED không được legacy-exempt.
+- **Bổ sung nhất quán từ P63:** #11 sender đã xác định 600 s; R7 giữ một sender push duy nhất, bỏ push hourly trùng; #23 interval 960 s và #11 1860 s (`3×cadence+60`) để tránh safeBeat rơi đúng phút push; lỗi Kuma “lặp” phải là ≥2 event riêng biệt, không đếm một log line ba lần.
+- **Graph/DROOT37:** luật hard-cap viết chung cho mọi EVENT group; Graph chỉ là dòng đầu tiên 10 GB. Không điều hành/xoá/retention Graph trong VPSC. Root hiện cho thấy **Graph R7 đã STARTED 17:37 +07** trước khi cổng VPSC này được cài, nên nó thuộc run đang chạy và không bị hồi tố. VPSC R7 phải chờ Graph KQ theo NO_CONCURRENT.
+- **Điểm danh đã làm:** khảo sát PROOT01 · P53/P55/P57/P59 · S1a P61 · measured R7 P62 · cross-vendor P63 · P64 4 sửa + READY. **Cần làm tiếp:** Codex final → Graph KQ → R7 → nghiệm thu → N2a 3 debt → N2b nếu proof/key gate → 08:00 sạch → close.
+- **Phát sinh còn mở:** key dùng chung đã lộ (O-R7-KEY, chưa chặn R7) · 8 child died chưa root-cause · 3 control debt · 2 mục registry 08:00 UNKNOWN từ trước. Không mở thêm task trong P64.
+- **READY:** `READY@e70606d70c535efc37864efd44eb511d553da3e0`. Mời Codex final kiểm đúng SHA này, tập trung 4 sửa P63; nếu ACCEPT thì chuyển RUN ngay khi shared-VPS gate sạch. Không cần Claude review lại trước RUN.
+- Owner cần quyết: — cho P64. O-R7-KEY chỉ cần khi tới N2b rotate key.
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
