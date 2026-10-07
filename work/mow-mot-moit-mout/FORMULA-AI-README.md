@@ -518,3 +518,9 @@ Không xóa discovery cũ; nếu sai thì đánh **SUPERSEDED BY DISC-xxx** đ�
 - [ ] Discovery mới đã cập nhật README.
 - [ ] Nếu phát sinh formula candidate, đã tách riêng để Owner duyệt.
 
+
+
+## Tên và mức thị giác công thức · Owner 07/10/2026
+Tên chuẩn hiển thị: **MOW** (trước gọi Quy trình), **MOT** (trước gọi Task). Master MOW35, Master MOT115; ID và dẫn xuất từ Nhóm cha/Nhóm con không đổi. Công thức và Master/detail phải lấy cùng cách gọi. Giữ mã TSK-* vì mã ổn định, không đổi tên Chuỗi “Cỗ máy sản xuất quy trình”.
+
+Treeview công thức: mức0 Nhóm cha + MOW; mức1 Nhóm con + MOT + MOIT + MOUT + UI con; mức2 Config. Đây là độ thụt phục vụ con người, **không phải quan hệ dữ liệu mới**. Không tự thêm parentId, không sửa thứ tự CT hoặc công thức ghép vì độ thụt.

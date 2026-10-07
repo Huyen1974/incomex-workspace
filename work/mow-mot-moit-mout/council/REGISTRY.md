@@ -195,3 +195,9 @@ Lifecycle:
 `IDEA → READY_FOR_HOST → ACCEPTED | PARTIAL | REJECTED | STALE | SUPERSEDED`.
 
 Sau ACCEPTED/PARTIAL: Host promote phần được nhận vào parent decision/canonical/PROMPT. RUN/KQ thuộc hệ thực thi chính, **không** tiếp tục quản trong proposal.
+
+
+## Codex · CE-20261007-TREE-NAMES · KQ
+- NOW: hoàn tất 3 mức thụt công thức theo Owner; tên MOW/MOT đồng bộ công thức, Master và bản ghi dẫn xuất.
+- VERIFY: đúng URL Owner, mức0/1/2 lần lượt margin0/32/64px; index29, MOW35/MOT115.
+- NEXT: tiếp tục nhận góp ý Owner. BLOCKED_BY none; Reserved_Targets none.

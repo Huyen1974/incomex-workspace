@@ -2100,3 +2100,13 @@ KQ@OWNER-BANDUYET-20260924-02 XONG
 - NOW: đã triển khai, tiếp tục rà trực tiếp cùng Owner. NEXT: dùng cùng quy chuẩn khi thêm tầng mới; không nhân bản nút điều hướng riêng.
 
 
+
+
+## KQ · CE-20261007-TREE-NAMES · Owner 07/10/2026
+- STATE APPROVED: yêu cầu trực tiếp Owner; chỉ thay biểu diễn và tên, không đổi logic/quan hệ công thức.
+- Visual tree: mức0 Nhóm cha/MOW; mức1 Nhóm con/MOT/MOIT/MOUT/UI con; mức2 Config. Giữ thứ tự CT và ID; 32px/nấc, màn hẹp18px/nấc; nhánh nối nhẹ, không thêm chữ lên công thức.
+- SSOT tên: definition-master-registry-v1.js + definition-master-data-v1.js. Quy trình→MOW; Task→MOT trong CT005/005.1, tên Master và tên bản ghi dẫn xuất. ID TSK-* giữ nguyên. Tên Chuỗi “Cỗ máy sản xuất quy trình” giữ nguyên vì là khái niệm Chuỗi.
+- UPDATE: ban-duyet.html; registry/data; master-design-review; cache loader/detail. Không đổi PG, schema, seed ID hay số lượng.
+- VERIFY trên URL Owner section=detail-formula-chi-tiet-9: 8 công thức có vị trí x31/x63/x95 đúng 3 mức; tên MOW/MOT đúng. Master tổng vẫn29; MOW35, MOT115, MOIT115, MOUT115.
+- UI transactions48c4bb55edfd419e99328b965a94c3cc +094f884e7d0c40daaf6837c21a95ba06; repo UI5d079e2e3d5790e35b8cd866ac00a39163d12ac9.
+- NEXT: Owner tiếp tục rà hình họa; phân tầng chỉ là thị giác, không suy thành parentId hoặc đổi SSOT Nhóm con.
