@@ -4,14 +4,14 @@ Tên việc: Tools quy trình — làm theo quy trình ra được sản phẩm
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: CHƯA XÁC NHẬN — chỉ còn thiếu Owner chỉ định Host (AGENTS MT3-C/A2, Q01). **Mục tiêu ĐÃ CHỐT:** Owner 07/10/2026 22:15 nói trực tiếp “coi các mục tiêu tôi đã liệt ở đây là mục tiêu chốt” — 6 mục + 1 mục bổ sung, nguyên văn ở ô 1 (D02). Không AI nào hỏi lại, rút gọn hay viết lại các mục này.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 22:33 +07 · Claude Chat · P02
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 05:55 +07 · Claude Chat · P03
 - 🎯 Mục tiêu: Owner nguyên văn — “Quy trình hoá các tool Chế tạo cỗ máy, Vận hành cỗ máy, Cỗ máy sản xuất quy trình, có chia theo các nhóm nhỏ.” · “làm theo quy trình là phải xong” · đủ 7 mục chốt đọc ở ô 1, dòng này không thay ô 1. Vì sao (Owner): “số quy trình sẽ rất nhiều => chúng ta sẽ tập hợp toàn bộ các tools quy trình lên 1 task để có thể làm việc xuyên suốt, dài hạn, hội đồng AI dễ dàng có ý kiến đóng góp.”
 - 🏁 Xong khi: theo ô 2 — một quy trình chỉ tính đạt khi người hoặc agent làm đúng theo nó ra được sản phẩm thật; chưa ra thì sửa quy trình rồi chạy lại. Đích đo cụ thể do hội đồng chốt ở bước kế hoạch.
 - 📍 Tiến độ: ■ Khởi tạo / chỉ định Host → □ Chuẩn hóa → □ Áp dụng, kiểm chứng → □ Mở rộng và cải tiến.
 - ✅ Đã xong: tạo task và ba file (P01 · GPT). Sửa §0 theo chỉ đạo trực tiếp Owner 22:15 (P02 · Claude): 7 mục tiêu chốt lên ô 1 nguyên văn, thêm mục tiêu bổ sung về chuẩn ngành IT, Bảng sửa đúng MT4/DROOT50, thêm dòng Tên việc, ghi việc vào root Đang làm.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chọn nền chuẩn ngành IT cho ba lớp và sổ (mục 7); hoàn thiện cách phân nhóm/mẫu ba lớp; kiểm kê và nối nguồn; áp thử để sửa quy trình; chuẩn hóa phần lặp lại; tự động hóa phần đủ điều kiện; theo dõi sai sót đến khi đóng. Đây là các đầu việc cần đạt, chưa phải roadmap đã duyệt.
-- ➡ Kế tiếp: 😊 Owner gật Q01 (chỉ định Host) · NEXT_TRIGGER=OWNER_HOST_DESIGNATED · Host nhận việc, ghi dòng Host, mở vòng 1/5 chốt “thế nào là hoàn thành” + nền chuẩn + roadmap · Reviewer đối chiếu 7 mục ô 1 · 🤖 agent chưa có lượt thực thi.
+- ➡ Kế tiếp: 😊 Owner sửa/duyệt bản viết lại ô 1 (Q02 · nháp ở P03) · 😊 Owner gật Q01 (chỉ định Host) · NEXT_TRIGGER=OWNER_HOST_DESIGNATED · Host nhận việc, ghi dòng Host, mở vòng 1/5 chốt “thế nào là hoàn thành” + nền chuẩn + roadmap · Reviewer đối chiếu 7 mục ô 1 · 🤖 agent chưa có lượt thực thi.
 - ⛔ Không làm/để sau: tạo task không bao gồm triển khai DOT/script, bảng PG, đổi runtime/UI production hay chuyển dữ liệu đang dùng ở MOW.
 
 ### 1. Mục tiêu
@@ -54,6 +54,14 @@ Nhiệm vụ/phạm vi lượt này: tạo đúng một task tên `tools-quy-tri
 | TQT-REQ-05 | Ba lớp: for design; for execute; for DOT/script. | Giữ đủ hợp đồng riêng của từng lớp tại TQT-LAYERS; có liên kết giữa các lớp, không tự coi bản thiết kế là bản tự động hóa. |
 | TQT-REQ-06 | Sai sót chưa sửa ngay phải vào một sổ tổng hợp, theo dõi tiến trình/vòng đời đến khi xong; trước mắt repo/VPS, khi ổn định chuyển bảng PG riêng. | Sổ có mã, nguồn, người theo dõi/xử lý/kiểm, trạng thái, bước tiếp, điều kiện đóng, bằng chứng và lịch sử; việc hoãn vẫn được theo dõi. Chuyển PG về sau giữ mã/lịch sử và chỉ một nguồn hiện hành. |
 | TQT-REQ-07 | Mục 7 (bổ sung): nền là chuẩn tốt nhất của ngành IT, sau đó mới thêm phần riêng Incomex. | Mỗi chuẩn/mẫu/khung của task ghi một dòng `Nền: <chuẩn ngành IT> · Riêng Incomex: <thêm gì, vì sao chuẩn ngành chưa đủ>`. Chọn nền theo thước AGENTS A10-R1: có sẵn · nhiều người dùng · còn được duy trì · vừa cỡ Incomex (lấy khung, không bê cả bộ). Chưa tìm được chuẩn ngành ⇒ ghi `Nền: CHƯA TÌM` và tính là chưa đạt; không tự dựng rồi gọi là chuẩn. Phần đã phác thảo trước mục 7 (TQT-LAYERS, TQT-REGISTER, 9 Tools nguồn, khung trang nội dung) phải được đối chiếu lại theo dòng này. |
+
+#### TQT-DIR — chỉ đạo Owner về phần mục tiêu · 08/10/2026 05:44 (nguyên văn)
+Trạng thái: Claude soạn bản viết lại ô 1 (nháp ở P03, đã gửi Owner trong chat). **Owner sửa/duyệt xong mới đưa lên ô 1 thành lời Owner; tới lúc đó ô 1 hiện hành vẫn là bản 07/10.**
+- Ba lớp: “phải hiểu theo cả 2 nghĩa. Với những phần sẽ viết thành DOT thì đúng, bản chất đây sẽ là trạng thái cuối cùng, nhưng sẽ có những quy trình mà mãi chỉ ở lớp design hoặc execute không lên DOT (trừ những quy trình bắt buộc tương tác với Dirrectus/PG thì phải lên theo luật vì phải DOT 100%. Lý do dot mất thời gian, kém linh hoạt. Ví dụ thiêt kê UI chỉ cần ở mức design là đủ, không cần mức cao hơn.”
+- Ranh giới: “tạm thời trước như ý bạn đã để đỡ lan man. Thực ra chúng ta đã chia 3 chuỗi, quy trình nghiệp vụ thuộc chuỗi thứ 3 "cỗ máy sản xuất quy trình" => "(phái cử, tuyển dụng…)," thuộc chuỗi cuối CMSXQT này.”
+- Sổ và PG: “bản chất là giờ thì làm sổ cho nhanh, sau này mọi thứ sẽ đưa vào PG hết để lấy quan hệ, theo dõi vòng đời tự động... phức tạp thì chỉ có PG mới giải quyết được. Nhưng giờ AI "chép tay" cho nhanh.”
+- Cách viết ô mục tiêu: “nên viết lại thành gjach đầu dòng, sao cho ý không bị sai đi. và cần ngắn gọn, dài quá con người bắt đầu cũng không nhớ. Nếu có thể, bạn hãy viết lại phần chỉ đạo của user trước. Tôi sửa/duyệt xong thì coi như đó thành lời User đưa lên. User chỉ đọc phần đó => viết sao để dễ nhìn, AI hay viết dài xong rồi các bạn cũng chẳng đọc kỹ hay sai. Con người cần nhìn vào đơn gỉan (kiểu công thức ) mới tư duy được.”
+- Owner đã gật trong cùng tin: nối mục 1 với ba Chuỗi đã định nghĩa ở MMIM (D158 · CH-001/002/003 · SSOT VPS `ui/chuoi-data-v1.js`, Master Chuỗi ML-DEF-028) kèm định nghĩa tool; sửa lỗi gõ; thêm câu đích tổng; đưa “dễ nhìn với con người” thành mục tiêu; “xét nguyên tắc giao việc” là luật giao việc của MOT, không phải luật hội đồng AI.
 
 #### TQT-LAYERS — ba lớp Owner yêu cầu
 | Lớp | Dùng cho | Nội dung bắt buộc | Đích hoàn thành |
@@ -114,9 +122,12 @@ Chưa có. Đây là lần tạo task đầu tiên theo lệnh Owner 07/10/2026.
 - HUMAN_DIRECTIVE@TQT-CREATE-20261007 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/ · step=khởi tạo · recorded_by=OpenAI-main · quote="tạo cho tôi một task: tools-quy-trinh trên incomex workspace repo." · text=Tạo task và ghi đầy đủ mục tiêu/chi tiết Owner giao trong cùng tin nhắn. · audit=Tin nhắn trực tiếp Owner tại phiên tạo task, 2026-10-07; commit khởi tạo.
 - **D02 · 2026-10-07 22:15 · EFFECTIVE:** Owner chốt mục tiêu — 6 mục đã liệt kê là mục tiêu chốt, cộng một mục tiêu bổ sung (nền là chuẩn tốt nhất của ngành IT, sau đó mới thêm phần riêng Incomex). Ô 1 chép đủ, nguyên văn; TQT-REQ chỉ là bảng kiểm trỏ về ô 1 (thay câu “toàn bộ 6 yêu cầu được ghi tại TQT-REQ” của D01). Phần còn lại các AI bàn với nhau trên repo. Áp: SAME_COMMIT.
 - HUMAN_DIRECTIVE@TQT-GOALS-20261007 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/ §0 + mục tiêu bổ sung · step=chốt mục tiêu · recorded_by=Claude-review · quote="Đây là yêu cầu của tôi. Nguyên tắc AI phải đưa rõ ràng các mục tiêu user chốt lên. Đằng này GPT lại không đưa lên. bạn rà soát và sửa lại, coi các mục tiêu tôi đã liệt ở đây là mục tiêu chốt. Phải đưa lên để các AI hiểu. từ đó các bạn muốn viết gì thì bàn với nhau. Tôi chỉ bổ sung thêm 1 ý nữa (mục tiêu bổ sung): Các chuẩn mực này được ứng dụng các chuẩn mực tốt nhất của ngày IT làm nền cơ bản. Sau đó mới bổ sung các phần riêng của incomex. Bạn xem xét lại và sửa đổi thêm giúp tôi nhé. GPT rõ ràng không đọc hết luật của repo" · text=Đưa đủ các mục tiêu Owner đã chốt lên ô 1 nguyên văn; thêm mục tiêu bổ sung về chuẩn ngành IT; rà và sửa các chỗ P01 lệch luật repo. · audit=Tin nhắn trực tiếp Owner tại phiên Claude Chat, 2026-10-07 22:15 +07; commit P02.
+- **D03 · 2026-10-08 05:44 · EFFECTIVE:** Owner yêu cầu viết lại ô 1 thành gạch đầu dòng ngắn, kiểu công thức, không sai ý; Claude soạn trong chat, **Owner sửa/duyệt xong mới thành lời Owner và đưa lên ô 1**. Các làm rõ về ba lớp, ranh giới, sổ/PG: nguyên văn ở TQT-DIR.
+- HUMAN_DIRECTIVE@TQT-REWRITE-20261008 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/ §0 ô 1–2 · step=chốt mục tiêu · recorded_by=Claude-review · quote="Nếu có thể, bạn hãy viết lại phần chỉ đạo của user trước. Tôi sửa/duyệt xong thì coi như đó thành lời User đưa lên. […] => Viết lại toàn bộ dưới chat phần mục tiêu giúp tôi. Ok hãy đưa lên nhé." · text=Viết lại ô mục tiêu ngắn, kiểu công thức; chỉ đưa lên repo sau khi Owner sửa/duyệt. · audit=Tin nhắn trực tiếp Owner tại phiên Claude Chat, 2026-10-08 05:44 +07; nguyên văn đầy đủ ở TQT-DIR.
 
 ## Owner cần quyết
 - **Q01 — Chỉ định Host của tools-quy-trinh (việc duy nhất còn cần Owner).** Đề xuất: Host = GPT Chat; Claude Chat = Reviewer, được giao sửa §0/Bảng và phần trình bày cho người đọc. Lý do: GPT ghi repo không tốn quota và đang giữ nguồn Tools CTCM; Claude khác hãng giữ mục tiêu để lỗi P01 không lặp lại. Owner gật, hoặc nêu tên khác. Theo AGENTS MT3-C/A2 và DROOT46 quyền chỉ định Host thuộc Owner; không cần xác nhận lại tên task hay 7 mục tiêu.
+- **Q02 — Duyệt bản viết lại ô 1 (và ô 2 rút gọn).** Bản nháp ở P03, Claude đã gửi Owner trong chat 08/10. Owner sửa/duyệt xong thì bản đó thành lời Owner, lên ô 1; bản 07/10 chuyển xuống mục Vòng trước, không xoá.
 
 ## Ý kiến và bằng chứng
 ### P01 · Ghi nhận và tạo task theo yêu cầu trực tiếp · OPEN
@@ -156,4 +167,43 @@ Ghế: Claude-review · Bước/vòng: Khởi tạo · 0/5
 - Kiểm trang Owner sau commit `b85e59dc4d665d9266853ccf5bfc568f0cfeef7d` (07/10 22:34–22:36 +07): đồng bộ sau 20 giây; đúng URL `…/knowledge/modules?task=tools-quy-trinh` hiện tên việc mới, Bảng P02 và ô Mục tiêu đủ 7 mục; dữ liệu trang không có cảnh báo §0; giai đoạn Mục tiêu hiện «Chờ Owner» đúng với Q01. Đã nhìn ảnh chụp thật. Ô Mục tiêu trên trang cao tối đa khoảng 9 dòng nên mục 5–7 phải cuộn trong ô mới thấy → việc hpml-view-for-user (chỉ ghi nhận, không điều hành hộ).
 - Phần chưa đọc/kiểm: chưa rà toàn bộ COLLAB MOW và nội dung 9 Tools trên VPS; chưa mở bản gốc các chuẩn ngành nêu trên; chưa đánh giá lại bố cục `view.html`.
 - Đề nghị Host (khi có): vòng 1 chốt ô 2 và nền chuẩn cho ba lớp + sổ trước khi vẽ lại trang; GPT Chat xác nhận DROOT51 với tư cách Founder.
+- Phản hồi Host: chưa có Host được Owner chỉ định.
+
+### P03 · Nháp viết lại ô 1 theo chỉ đạo Owner 08/10 05:44 · OWNER
+Ghế: Claude-review · Bước/vòng: Chốt mục tiêu · 0/5
+- Bảng: khớp · Ô 1–2: khớp (bản 07/10 vẫn hiện hành cho tới khi Owner duyệt nháp dưới đây).
+- Based_on: `cd12611b085a9d32a333ccd2605a2bc606d44d95`. Scope: §0 ô 1–2 của việc này; chưa sửa hai ô. Đây là **NHÁP — chưa phải mục tiêu**; AI không làm theo nháp.
+- Đã đối chiếu nguồn: ba tên ở mục 1 là ba Chuỗi của MMIM D158 (`ui/chuoi-data-v1.js`: CH-001 CTCM · CH-002 VHCM · CH-003 CMSXQT) — P01 và P02 đều chưa nối; “nguyên tắc giao việc” trong MMIM là hàm luật của MOT (COLLAB MMIM dòng Owner 26/09), P01 xếp nhầm sang nhóm “Giao việc / hội đồng”.
+- JEV `gen-dec-1791413306-Nm4Mt5gjEBIcE16xt5bW` + `gen-dec-1791413401-gIrhDj0rPBnHFr3l0fhT` (bằng chứng phụ): Owner duyệt trước rồi mới đưa lên 0,93; giữ đúng ý 7 mục gốc 0,84–0,92; phần ba lớp 0,55 và ranh giới 0,47 kém chắc ⇒ đã viết lại hai dòng đó sát chữ Owner; dễ nhìn 2,1/3.
+- Nháp ô 1 (chữ thường, không bảng; 5 dòng đầu để nhớ, phần dưới để tra):
+
+```text
+Đích: việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm.
+
+Công thức
+1. Tool quy trình = các bước + đủ câu hỏi phải trả lời + thế nào là xong.
+2. Danh mục = 3 Chuỗi × nhóm chuyên môn × 3 lớp.
+3. Đạt = làm theo là xong, ra sản phẩm. Còn mắc → sửa quy trình → làm lại.
+4. Chuẩn mực = chuẩn tốt nhất của ngành IT làm nền + phần riêng Incomex thêm sau.
+
+Giải nghĩa
+5. 3 Chuỗi: CTCM Chế tạo cỗ máy · VHCM Vận hành cỗ máy · CMSXQT Cỗ máy sản xuất quy trình.
+6. Nhóm chuyên môn: thiết kế UI · config · xét nguyên tắc giao việc (của MOT)… → người dễ nhận diện, đánh giá, góp ý.
+7. Lớp design = đủ câu hỏi → thiết kế thành công. Cho việc sáng tạo ban đầu: vẽ UI, lên danh sách, config.
+8. Lớp execute = câu hỏi + thứ tự bước + thế nào là xong. Cho agent làm lặp lại.
+9. Lớp DOT/script = mục tiêu + thế nào là xong + trigger. Máy tự chạy.
+10. Phần sẽ viết thành DOT → DOT là trạng thái cuối. Chạm Directus/PG → bắt buộc DOT.
+11. Phần còn lại: ở design hoặc execute mãi, không lên DOT — DOT mất thời gian, kém linh hoạt. Vd thiết kế UI: design là đủ.
+
+Cách làm
+12. Hội đồng AI hiệu chỉnh, bổ sung liên tục → quy trình ngày càng hoàn thiện.
+13. Sai sót chưa sửa ngay → ghi một sổ, theo vòng đời tới khi xong.
+14. Giờ AI ghi tay trên repo/VPS cho nhanh → sau mọi thứ vào PG (lấy quan hệ, vòng đời tự động).
+15. Cho người đọc: chuẩn mực, dễ nhìn, một khuôn. Nửa phút biết có gì, thiếu gì, tắc ở đâu.
+
+Chưa làm lúc này: quy trình nghiệp vụ (phái cử, tuyển dụng…). Chúng thuộc Chuỗi 3 CMSXQT; để sau cho đỡ lan man.
+```
+
+- Nháp ô 2 rút gọn (đề xuất — mốc của cả việc do hội đồng chốt): `Một quy trình đạt = người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật. Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lại.`
+- Khi Owner duyệt: thay ô 1–2 bằng bản Owner đã sửa; bản 07/10 chuyển nguyên văn xuống `Vòng trước`; cập nhật Bảng 🎯 và cột trỏ của TQT-REQ; đóng Q02.
 - Phản hồi Host: chưa có Host được Owner chỉ định.
