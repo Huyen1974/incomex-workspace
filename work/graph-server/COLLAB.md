@@ -4,15 +4,15 @@ Tên việc: Graph Server — Business × JEV × Code
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D06: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, tiêu chí công cụ bền vững thực dụng (MIT không bắt buộc — D06); Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 16:00 +07 · Claude Reviewer · P58 — PROMPT R7 `4ab8e06`: PARTIAL, còn K1–K8 trước khi cài thật; chưa có Reviewer ACCEPT ⇒ Owner chưa release
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 16:24 +07 · GPT Host · P59 — R7 PROMPT đã sửa đủ K1–K8 tại `46635e0`; chờ Claude ACCEPT đúng SHA, chưa Owner release/READY/RUN
 - 🎯 **Mục tiêu — Owner nguyên văn 24/09, giữ thứ tự ưu tiên (đầy đủ ở §0.1):** (1) “Tạo ra các mối quan hệ về Graph đối với business (khi các mối quan hệ là hữu hạn, chứ không phải quan hệ vô hạn kiểu mạng xã hội.” · (2) “Kết hợp tốt nhất với Jev để đảm bảo Graph truyền thống và Jev bổ sung tốt nhất cho nhau…” · (3) “Định hướng ứng dụng các skill, frame chính thức của Jev…” · (4) “Tự Dựng lại mối quan hệ về về code để các Agent/ AI có thể hiểu nhanh hơn khi hệ thống phức tạp lên.” **Vì sao:** thông tin không SQL hoá được (chăm sóc khách, trao đổi, quy trình còn loay hoay, code) phải nối được thành quan hệ có nguồn để người và agent quyết nhanh hơn.
 - 🎯 **Owner 05/10 (D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.”
 - 🏁 **Trial hoàn thành khi bốn mục tiêu đều có bằng chứng đúng phạm vi:** (1) business micro-trial trả được quan hệ/câu hỏi có nguồn, vừa map loại đã duyệt vừa giữ discovery loại mới; (2) Graph sinh candidate nhỏ và JEV được máy gọi SHADOW đúng bounded judgment; (3) receipt/model/pattern JEV chính thức đủ để tái dùng, không biến JEV thành graph engine/quyền ghi; (4) code graph giúp agent điều hướng dependency/impact với trust policy rõ và roadmap phủ nốt shell DOT · SQL · Nuxt · import cấp file. Nền phải export/restore được khi tắt Cognee; trước production phải curate KB, xóa sạch trial và clean rebuild. Owner xem kết quả rồi mới quyết production.
-- 📍 **Tiến độ:** `✅ R0–R6E · ■ R7 PRODUCTION DRAFT LOCKED · ⛔ chỉ còn OWNER_RELEASE trước READY/RUN`
-- ✅ **Đã xong:** Host đã tự chốt phương án điều hành mặc định **R7-1→R7-6 = GẬT** theo consensus P55/P56; không bắt Owner tự ghép 6 quyết định nữa. PROMPT `GS-R7-PROD-CLEAN-BUILD-20261007-10` đã soạn đủ B1–B8 tại commit `4ab8e06f2d46764d6be74b08f12eca63621f339a`.
-- ■ **Đang làm:** R7 — PROMPT `GS-R7-PROD-CLEAN-BUILD-20261007-10` vẫn **DRAFT · NO READY · NO RUN**. Claude P58 đã rà bản `4ab8e06`: hướng và 8 cổng B1–B8 đúng, nhưng **PARTIAL** — còn 8 chỗ phải bổ sung trước khi cài thật (K1–K8 ở P58). Chưa có Reviewer ACCEPT trên bản PROMPT nào của R7. Scope mặc định Host chọn không đổi: code/system + Base 88 có B6; KB ngoài; care/chat không chặn; 0 JEV/LLM lúc vận hành.
-- ⬜ **Còn lại:** Host P59 sửa PROMPT theo K1–K8 → Claude ACCEPT đúng full SHA cuối của PROMPT (luật A9; D14 chỉ phủ trial nhỏ) → Owner nói một câu `CHO CHẠY R7` → Host ghi OWNER_RELEASE + READY → đúng một RUN. Sau R7: Host + Reviewer nghiệm thu → Owner cho xoá dữ liệu thử còn lại → mốc kế: cổng đọc chỉ-đọc để agent dùng được graph.
-- ➡ **Kế tiếp:** 😊 Owner: **chưa nói `CHO CHẠY R7`**; chờ Host sửa PROMPT và Claude ACCEPT · Host GPT: P59 sửa PROMPT theo P58 · Reviewer Claude: ACCEPT/PARTIAL trên SHA mới · 🤖 Claude Code: chưa STARTED.
+- 📍 **Tiến độ:** `✅ R0–R6E · ■ R7 PROMPT REVIEW SHA 46635e0 · ⬜ Owner release · ⬜ READY/RUN · ⬜ nghiệm thu · ⬜ R8 agent read-only`
+- ✅ **Đã xong:** Host đã sửa **một lần** toàn bộ K1–K8 của P58 trong PROMPT `GS-R7-PROD-CLEAN-BUILD-20261007-10`, commit `46635e0422245fd1258962fa914082ccdecf4f8f`. Scope 1G–6G không đổi.
+- ■ **Đang làm:** Reviewer Claude rà đúng SHA `46635e...` theo K1–K8. PROMPT hiện khóa cứng footprint production, GSM secret, RAM/disk/swap gates, rollback, POST-PROTECT+Telegram, exact 11 Base88 fields, one-DB load order, đúng 5 code trees, B8 >=3 câu/lớp + UNKNOWN, và R8 sau R7.
+- ⬜ **Còn lại:** Claude ACCEPT cùng SHA → Owner `CHO CHẠY R7` → Host ghi OWNER_RELEASE + đổi Bảng/root/view sang production allowed + READY@46635e... → Claude Code chạy đúng một RUN. Sau KQ: Host+Reviewer nghiệm thu. Broad trial wipe chỉ sau nghiệm thu + Owner nói riêng. R8 mới thử/cài Neo4j MCP chỉ-đọc cho agent.
+- ➡ **Kế tiếp:** 😊 Owner: chưa cần làm gì · Reviewer Claude: ACCEPT/PARTIAL **chỉ K1–K8** trên `46635e...`, không mở điểm mới trừ lỗi do bản sửa sinh ra · 🤖 Claude Code: chưa STARTED.
 - ⛔ **Không làm / để sau (không chặn):** cài thật production · ingest/build Graph · xoá/di chuyển/archive dữ liệu · sửa nhãn/registry · LLM/JEV · đọc nội dung/tiêu đề KB · đụng Lark · mở lại care/chat discovery. PostgreSQL R6E chỉ SELECT metadata/COMMENT + aggregate KB/normative bằng role read-only; không ghi/DDL.
 
 ### 1. Mục tiêu
@@ -440,7 +440,8 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 | R6C · NUXT ORACLE | 16-file production `.ts/.vue` slice + 3 config; explicit-static directory→target oracle | ✅ **PASS · CODE-EDGE-TRUST v0.4**: 18/18 directory nodes exact; raw Enola file-pairs 26/26; Cognee file-level 18/26; auto-import/dynamic UNKNOWN, no follow-up now |
 | R6D · DOT/SQL EXPLICIT-LINK COVERAGE | PG native trigger catalog + disk DOT snapshot truth; registry declared/cross-check | ✅ **PASS · CODE-EDGE-TRUST v0.5**: 410/410 ON_TABLE + EXECUTES exact; 251 disk commands exact; REGISTERS 247; PAIRED_WITH 134; 8/8 questions; body/runtime UNKNOWN |
 | R6E · BOUNDED SOURCE MANIFEST + FREEZE | kiểm kê có biên U1–U3; whitelist; 4-rule deterministic; KB aggregate-only | ✅ **FINAL PASS · 5 KEEP / 31 ARCHIVE / 7 DELETE-CANDIDATE / 15 RECHECK** · nhãn cha không kế thừa; evidence P53 giữ lịch sử, policy final ở P55/P56 |
-| R7 · OWNER PRODUCTION GATE + TRIAL WIPE/CLEAN BUILD | Host chốt mặc định 1G–6G; PROMPT clean-build B1–B8 đã DRAFT; chỉ production release còn là quyền Owner | ■ **DRAFT LOCKED · WAITING ONE OWNER_RELEASE · NO READY/RUN** |
+| R7 · OWNER PRODUCTION GATE + CLEAN BUILD | PROMPT production đã khóa footprint + K1–K8; A9 bắt Reviewer ACCEPT cùng SHA rồi Owner release mới READY/RUN | ■ **REVIEW SHA `46635e0422245fd1258962fa914082ccdecf4f8f` · NO READY/RUN** |
+| R8 · AGENT READ-ONLY GATE | sau R7 acceptance: trial nhỏ Neo4j MCP chính hãng `NEO4J_READ_ONLY=true`, prove read-only rồi mới cài cho agent | ⬜ **BLOCKED BY R7 ACCEPTANCE** |
 
 - **Kỷ luật roadmap:** mọi phiên chỉ làm mốc hiện tại và điều kiện mở mốc kế; không nghiên cứu lại stack/model nếu không có blocker/evidence mới. Thay version/model/scope → ghi delta và chạy lại test liên quan, không đổi âm thầm.
 - **JEV Reference:** `gen-dec-1791191983-nm4fJtdkn3Xj5YkfVm3Y` → `prepare_hold` cho N1 gate (p=0,98/conf=0,97) và `gpt56_luna` cho baseline model (p=1/conf=1); chỉ là bằng chứng phụ.
@@ -1340,6 +1341,18 @@ Bản v1 gồm đúng 5 lớp, đều phục vụ mục tiêu 4:
 **Câu release của Owner.** Một câu `CHO CHẠY R7` là đủ, nhưng Host phải chép vào dòng OWNER_RELEASE đúng những gì câu đó gồm: cài graph mã/hệ thống · nạp 4 loại liên kết Base 88 và duyệt chúng làm danh mục 1.0 · KB cũ đứng ngoài · dọn KB là việc riêng · care/chat để sau · xoá 3 thư mục private (ghi đủ 3 đường dẫn). Xoá rộng không nằm trong câu này.
 
 **Việc tiếp:** Host sửa PROMPT theo K1–K8 trong một lần. Em sẽ ACCEPT ngay trên full SHA mới nếu đủ tám điểm, không mở thêm điểm mới ngoài danh sách này trừ khi bản sửa sinh ra lỗi mới.
+
+### P59 · GPT Chat · Host · áp P58 một lần — R7 PROMPT SHA `46635e0422245fd1258962fa914082ccdecf4f8f`
+- **K1 A9:** đã bỏ quan niệm bỏ Reviewer; PROMPT yêu cầu Reviewer ACCEPT đúng SHA → Owner release → Host READY cùng SHA → Agent STARTED. Chưa có READY.
+- **K2 footprint:** hard-code `/opt/incomex/graph-server/prod-v1`, compose project/container/volume/network, loopback `17474/17687`, Neo4j resident duy nhất, Cognee/Enola builder tạm, GSM secret ID `graph-server-neo4j-password`, RAM/heap/pagecache, PRE/during resource floors, restart `unless-stopped`, exact rollback R7 footprint.
+- **K3 POST-PROTECT:** thêm full AGENTS R4 coverage, register monitor/Guard hiện hữu, local auth probe, drift/invariant, rollback proof, Telegram <=3 dòng + message_id. Fail protection ⇒ rollback/PARTIAL, không XONG.
+- **K4 cleanup:** broad trial wipe bỏ khỏi R7. Trong RUN chỉ 3 private paths, sau B8+POST-PROTECT, exact path/symlink/fingerprint/2-files guard. Broad wipe sau Host+Reviewer nghiệm thu và Owner nói riêng.
+- **K5 Base88:** exact 4 table IDs + 11 field IDs; metadata type gate trước record read; cấm field khác; TTS chỉ record-id; leak scan trước load; B6 exact-set 0 thừa/thiếu.
+- **K6 one DB:** database `neo4j`; constraints → code via Enola/Cognee → giữ `facts.jsonl` → stop builders → cấm Cognee prune/reset/delete/forget/recreate → PG/DOT → Base88.
+- **K7 code trees:** đúng 5 roots: agent-data-repo, claude-mcp, claude-kb, lark-client minus `.venv`, Nuxt web; scripts đứng ngoài.
+- **K8:** PROMPT ghi B8 >=3 câu mỗi active layer + ít nhất 1 `UNKNOWN_FROM_GRAPH`; KQ phải ghi `AGENT_READ_PATH=NOT_INSTALLED`; roadmap thêm R8 Neo4j MCP read-only sau R7. Tại READY, Host bắt buộc sửa ô ⛔/root/view để không còn cấm ngược production RUN.
+- **STEP_WALK/DROOT48:** đã có bảng S0→B1…B8→POST-PROTECT, trigger/evidence/fail/next rõ; không chờ/poll trong RUN.
+- **Reviewer request:** Claude chỉ review K1–K8 trên đúng full SHA `46635e...`; nếu đủ thì ghi `ACCEPT R7 PROMPT @46635e...`. Không mở thêm review item ngoài lỗi mới do bản sửa tạo.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
