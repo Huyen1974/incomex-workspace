@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 18:24 +07 · GPT Host · **P210 READY 2A HỢP LỆ · EXECUTION_GATE=WAIT_GRAPH_R7_KQ · CHƯA RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 20:28 +07 · Claude Code CLI (worker) · **P211 N3 2A ĐANG CHẠY · CỜ BẬN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
-- ■ **Đang làm:** **Bước N3 chặng 2a · READY hợp lệ nhưng execution gate đang chặn**. P209 exact ACCEPT + P210 `READY@e2cc3efb9315905e05c680c63cd87b276a18d090` đã đủ chữ ký; Graph R7 vẫn STARTED từ 17:37 và chưa KQ ⇒ **Owner chưa mở CLI HJW**.
+- ■ **Đang làm:** **Bước N3 chặng 2a · worker Claude Code CLI đang chạy từ 20:28 +07 (P211, cờ bận mới sau checkpoint P204)** · trình tự PRE → sửa → khuôn thử → áp + bảo vệ → khói → KQ DỪNG chờ canary · gọi: — (worker không gọi ghế nào). Graph R7 đã có kết quả 19:50 +07 nên cổng P210 đã mở.
 - ⬜ **Còn lại:** Graph R7 KQ → Owner mở Claude Code CLI MỚI cho HJW → worker 2a → Host 2 live canary/Owner bấm 2 lần → tích lũy 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: **chờ cửa sổ Graph báo KQ rồi `/exit`**, sau đó mở **Claude Code CLI MỚI** cho HJW và dán đúng một câu chuẩn DROOT38(c) · 🤖 worker 2a: PRE phải fresh-check shared VPS, sạch mới mutation; xong ghi KQ DỪNG + đóng CLI · 🤖 Host: sau đó phát 2 canary.
+- ➡ **Kế tiếp:** 😊 Owner: không thao tác trong lúc worker chạy · 🤖 worker 2a: xong ghi kết quả DỪNG `N3_2A_DEPLOYED_WAITING_LIVE_CANARY` + đóng CLI (cổng/khuôn thử/bảo vệ hỏng ⇒ hoàn về bản cũ, DỪNG sạch) · 🤖 Host: sau kết quả mới phát 2 canary · Reviewer: chưa có việc.
 - ⛔ **Không làm/để sau:** không mở CLI HJW khi Graph/VPSC/shared-VPS task khác còn STARTED; không mở 2b/Routine; không hack vendor ticker; READY không đồng nghĩa được phép mutation khi execution gate còn đỏ.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -4488,6 +4488,12 @@ Ghế: openai-main · Bước/vòng: N3 post-KQ · 1/3 · thực thi kế: worke
 - **Roadmap:** không đổi node: `✓ N1 → ✓ N2 → ✓ N3 chặng 1 → ■ N3 2a → □ N3 2b → □ N4 → □ N5 → □ N6`.
 - **Owner action còn lại trước worker:** đúng 1 thao tác **sau Graph KQ** — mở CLI HJW mới và dán câu chuẩn. Không cần quay lại xin READY.
 - **RUN:** chưa phát/không mutation khi Graph còn STARTED.
+
+### P211 · Claude Code CLI · 2026-10-07 20:28 +07 · RUN `HJW-N3-COURIER-WAKE-20261007-01` · **BẮT ĐẦU CHẶNG 2A SỬA ĐƯỜNG HERMES** · Based_on `READY@e2cc3efb9315905e05c680c63cd87b276a18d090` (P210) + Reviewer exact ACCEPT P209 cùng bản
+Ghế: Claude Code CLI (worker, không tính phiếu hội đồng) · Bước/vòng: N3 chặng 2a · 1/3
+- STARTED@HJW-N3-COURIER-WAKE-20261007-01 2026-10-07T13:28Z · executor=Claude Code CLI (phiên mới trên Mac) · phase=2a · cờ bận MỚI sau checkpoint P203→P204 (dòng kết quả DỪNG ở P204 thuộc chặng R4, không phải kết quả lượt này) · read-gate PASS: Write_Path gateway `workspace_*` (root workspace, HEAD `83f6d05`, fresh) đọc được bằng `workspace_stat`; PROMPT last-touch `e2cc3ef…` = READY P210 = bản Reviewer P209; dòng `STATUS: DRAFT_2A…` trong PROMPT là nhãn lúc soạn (P210 nói rõ); cổng P210 đã mở: Graph R7 có kết quả XONG `a5fb97c` 12:50Z, phiên Graph đã thoát; VPSC R7 mới READY chờ Codex, chưa bắt đầu; 0 STOP_REQUESTED/COUNCIL_ALERT mở; HJW `## Owner cần quyết` = `- —`; Owner chuyển câu lệnh chuẩn DROOT38 trong phiên này.
+- **Câu P210 về dùng lại RUN_ID — đo trước khi ghi:** trên VPS chỉ một tệp mã đọc dấu bắt đầu (`run06-shared-gate.sh` của chính HJW, bỏ qua HJW); `ws-run-watch` chỉ đọc kết quả (sẽ không báo lại kết quả DỪNG mới của lượt này — residual); bộ đồng bộ trang Owner chỉ đọc kết quả. Không cổng máy nào điều hành cờ bận HJW bị đọc nhầm; chỗ có thể đọc nhầm là người/AI việc khác dò bằng grep ⇒ theo P209/P210, dòng gốc root COLLAB ghi HJW bận ngay trong commit này. JEV `gen-dec-1791379548-9bY3Ob4fX4hFp2DtDNxk`: đi tiếp 0,76 (độ tin 0,52) ⇒ không dùng mã `RUN_ID_LIFECYCLE_AMBIGUOUS`.
+- Quyền: chỉ §3 chặng 2a (R1–R7); không Routine/token/hãng khác, không ghi ASSIGN, không mở 2b. Mốc từng bước ghi ở P kết quả.
 
 
 
