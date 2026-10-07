@@ -112,7 +112,7 @@ Ghi vào **sổ tin báo hiện hữu** và bảng trong P KQ; không mở file 
 - Owner luôn chỉ định Host. N3 **không** được viết logic tự chọn Host.
 - Task bootstrap chỉ ghi phần riêng; defaults lấy từ AGENTS, không copy lại.
 - Không tạo task/project/file/service/DB/route public mới.
-- **Candidate creation đã review nhưng CHƯA được Owner duyệt:** trước RUN, khi final review ACCEPT và gate sạch, Host hỏi Owner đúng một lần để tạo (a) ≤1 Claude Routine canary cho `claude-main`: API trigger duy nhất, không schedule/GitHub; chọn đúng repo `Huyen1974/incomex-workspace` nếu form yêu cầu repo. Theo docs Anthropic hiện hành, routine có thể push branch bằng GitHub identity đã nối; N3 **không đổi branch protection/ruleset** và không dựa vào một công tắc UI không được docs bảo đảm. Prompt §11 cấm mọi git write/push/PR. Sau mỗi Routine call executor hậu kiểm: `main` không có commit ngoài cổng, **không nhánh mới, không PR mới**; sai ⇒ FAIL + pause Routine. Ghi residual `ROUTINE_GIT_PUSH_PATH` cho N4. Nếu giao diện có tùy chọn cho phép push rộng hơn thì giữ tắt. Environment `Default` + Trusted network; dưới Connectors **gỡ toàn bộ connector mặc định rồi chỉ giữ đúng connector Incomex dùng để đọc/ghi HJW**; (b) ≤1 secret item cho mỗi hãng trong loader hiện hữu. KQ không PASS ⇒ routine/token N3 vừa tạo phải pause/revoke trong cùng RUN nếu API/UI cho phép an toàn.
+- **Candidate creation đã review nhưng CHƯA được Owner duyệt — chỉ chặng 2b:** sau disposition 2a, trước RUN 2b, khi final review 2b ACCEPT và gate sạch, Host hỏi Owner đúng một lần để tạo (a) ≤1 Claude Routine canary cho `claude-main`: API trigger duy nhất, không schedule/GitHub; chọn đúng repo `Huyen1974/incomex-workspace` nếu form yêu cầu repo. Theo docs Anthropic hiện hành, routine có thể push branch bằng GitHub identity đã nối; N3 **không đổi branch protection/ruleset** và không dựa vào một công tắc UI không được docs bảo đảm. Prompt §11 cấm mọi git write/push/PR. Sau mỗi Routine call executor hậu kiểm: `main` không có commit ngoài cổng, **không nhánh mới, không PR mới**; sai ⇒ FAIL + pause Routine. Ghi residual `ROUTINE_GIT_PUSH_PATH` cho N4. Nếu giao diện có tùy chọn cho phép push rộng hơn thì giữ tắt. Environment `Default` + Trusted network; dưới Connectors **gỡ toàn bộ connector mặc định rồi chỉ giữ đúng connector Incomex dùng để đọc/ghi HJW**; (b) ≤1 secret item cho mỗi hãng trong loader hiện hữu. KQ không PASS ⇒ routine/token N3 vừa tạo phải pause/revoke trong cùng RUN nếu API/UI cho phép an toàn.
 - Ngoài danh sách trên hoặc muốn tạo file/service/route ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED`, nêu exact delta + rollback.
 - Không install package/CLI chỉ để thử. Ưu tiên binary/client/routine đã có. Cần login mới ⇒ checkpoint. **Riêng VPS thiếu CLI của một hãng: không cài, không dừng** — ghi residual `INSTALL_REQUIRED:<vendor>` rồi chạy tiếp các pha khác; chỉ DỪNG vì residual này nếu cuối cùng không còn official automated path nào live-pass.
 - Không dùng raw token/session cookie/auth export từ browser.
@@ -164,8 +164,8 @@ Sau KQ worker + CLI đóng, Host mới phát hai ASSIGN canary riêng, Owner b�
 ID dùng `HJW-N3-CANARY-*`; P canary không tính phiếu hội đồng. Mỗi vé phải tự ghi ba latency §1.G.
 
 ### Chặng 2A · NGHIỆM THU LỚP HERMES
-- Hai canary trên phải đạt toàn bộ R3–R7; failure canary phải closed/result-notice ≤60 s đủ evidence.
-- Lớp Hermes chỉ ghi **PASS** khi có **3 success tickets liên tiếp** sau sửa, tự báo ba latency, **và** 1 failure canary đạt. Hai success còn thiếu ưu tiên lấy từ việc hội đồng thật kế tiếp; không tạo model call chỉ để đủ số.
+- Hai canary trên phải đạt toàn bộ §1.G (`click→claimed/BẮT ĐẦU ≤30 s` · claim→model không chờ tick của ta · `model_end→repo+KẾT QUẢ ≤60 s` · tự báo ba latency · đúng 1 NEXT); failure canary phải closed/result-notice ≤60 s đủ evidence.
+- Lớp Hermes chỉ ghi **PASS** khi có **3 success tickets liên tiếp** sau sửa, mỗi vé tự báo ba latency **và đạt SLA §1.G**, **và** 1 failure canary đạt. Hai success còn thiếu ưu tiên lấy từ việc hội đồng thật kế tiếp; không tạo model call chỉ để đủ số.
 - Nếu owned path đạt mà residual còn duy nhất vendor ticker 60 s làm SLA chưa đạt ⇒ `R5_CANDIDATE:HERMES_TICKER_60S`, đưa Owner quyết; không hack vendor.
 - Chỉ sau disposition 2a mới mở 2b.
 
@@ -281,7 +281,7 @@ Cần một việc cấm ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED · CONTINUE_SAM
 ## 9. Disposition
 
 ### PASS
-`KQ@HJW-N3-COURIER-WAKE-20261007-01 XONG · N3_PASS · AUTO1_PRIMARY_COURIER_PASS · MULTI_VENDOR_WAKE_MEASURED · CLAUDE_DUAL_ROLE_MEASURED · SELF_PULL_SAFETY_MEASURED · NO_BROWSER_AUTOMATION · PROTECTION_CLEAN`
+`KQ@<RUN_ID> XONG · N3_PASS · AUTO1_PRIMARY_COURIER_PASS · MULTI_VENDOR_WAKE_MEASURED · CLAUDE_DUAL_ROLE_MEASURED · SELF_PULL_SAFETY_MEASURED · NO_BROWSER_AUTOMATION · PROTECTION_CLEAN`
 
 PASS yêu cầu:
 - ≥1 Anthropic official automated path live-pass;
