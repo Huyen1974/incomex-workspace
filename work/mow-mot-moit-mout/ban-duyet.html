@@ -658,6 +658,13 @@
 #matrix-view-formula .cf-derived-divider b{font-size:11px;color:#3b5648}
 #matrix-view-formula .cf-derived-divider span{font-size:9.5px;color:#8a938e}
 #matrix-view-formula .cf-derived-root{margin:12px 0 16px;padding:13px 14px 11px;background:#fff}
+/* Owner 2026-10-07: visual levels only; not a change to formula dependencies. */
+#matrix-view-formula .cf-derived-root[data-visual-depth]{--cf-indent:32px;position:relative}
+#matrix-view-formula .cf-derived-root[data-visual-depth="1"]{margin-left:var(--cf-indent)}
+#matrix-view-formula .cf-derived-root[data-visual-depth="2"]{margin-left:calc(var(--cf-indent) * 2)}
+#matrix-view-formula .cf-derived-root[data-visual-depth="1"]::before,#matrix-view-formula .cf-derived-root[data-visual-depth="2"]::before{content:"";position:absolute;left:calc(-1 * var(--cf-indent));top:0;width:calc(var(--cf-indent) - 8px);height:27px;border-left:2px solid #c5d1c9;border-bottom:2px solid #c5d1c9;border-bottom-left-radius:5px}
+@media(max-width:600px){#matrix-view-formula .cf-derived-root[data-visual-depth]{--cf-indent:18px}}
+
 #matrix-view-formula .cf-derived-formula{display:flex;align-items:center;gap:9px;flex-wrap:wrap;min-height:56px;margin:1px 0 7px}
 #matrix-view-formula .cf-derived-formula span,#matrix-view-formula .cf-derived-formula strong{display:inline-flex;align-items:center;justify-content:center;border:1px solid #cfdcd2;border-radius:9px;background:#f7faf8;padding:9px 14px;font-size:16px;font-weight:750;color:#26382f}
 #matrix-view-formula .cf-derived-formula strong{background:#eef5f0;border-color:#bfd3c5;color:#183e2f}
@@ -1017,7 +1024,7 @@
  <details class="cf-notation-rule"><summary>Chi tiết</summary><p>Bước/Bước con và Tầng là nguyên liệu dùng chung. Chuỗi xác định tiến trình: mỗi công thức lắp ráp từ Nhóm cha phải có Chuỗi ở đầu. Hiện đang thiết kế CH-001 Chế tạo cỗ máy; mọi nhóm tham chiếu phải khớp Chuỗi. Một SSOT tại chuoi-data-v1.js; Gộp/Tách theo Nhóm con cùng Chuỗi.</p></details>
 </section>
 
-<article class="cf-formula-piece cf-derived-root" id="formula-ct-003" aria-label="CT-003 · Nhóm cha">
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-003" data-visual-depth="0" aria-label="CT-003 · Nhóm cha">
   <div class="cf-formula-titlebar">
     <div class="cf-formula-nick">Nhóm cha</div>
     <div class="cf-formula-full">CT-003</div>
@@ -1031,7 +1038,7 @@
   </details>
 </article>
 
-<article class="cf-formula-piece cf-derived-root" id="formula-ct-004" aria-label="CT-004 · Nhóm con">
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-004" data-visual-depth="1" aria-label="CT-004 · Nhóm con">
   <div class="cf-formula-titlebar">
     <div class="cf-formula-nick">Nhóm con</div>
     <div class="cf-formula-full">CT-004</div>
@@ -1045,36 +1052,36 @@
   </details>
 </article>
 
-<article class="cf-formula-piece cf-derived-root" id="formula-ct-005" aria-label="CT-005 · Quy trình">
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-005" data-visual-depth="0" aria-label="CT-005 · MOW">
   <div class="cf-formula-titlebar">
-    <div class="cf-formula-nick">Quy trình</div>
+    <div class="cf-formula-nick">MOW</div>
     <div class="cf-formula-full">CT-005</div>
     <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-005" target="_self">Chi tiết →</a></div>
   </div>
-  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Chuỗi cộng Bước cộng Tầng cộng Nhóm cha tạo Quy trình">
-    <span>Chuỗi</span><b>+</b><span>Bước</span><b>+</b><span>Tầng</span><b>+</b><span>Nhóm cha</span><b>⇒</b><strong>Quy trình</strong>
+  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Chuỗi cộng Bước cộng Tầng cộng Nhóm cha tạo MOW">
+    <span>Chuỗi</span><b>+</b><span>Bước</span><b>+</b><span>Tầng</span><b>+</b><span>Nhóm cha</span><b>⇒</b><strong>MOW</strong>
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
-  <p class="cf-derived-note">Quy trình dùng đúng Bước, Tầng và Nhóm cha.</p>
+  <p class="cf-derived-note">MOW dùng đúng Bước, Tầng và Nhóm cha.</p>
   </details>
 </article>
 
-<article class="cf-formula-piece cf-derived-root" id="formula-ct-005-1" aria-label="CT-005.1 · Task">
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-005-1" data-visual-depth="1" aria-label="CT-005.1 · MOT">
   <div class="cf-formula-titlebar">
-    <div class="cf-formula-nick">Task</div>
+    <div class="cf-formula-nick">MOT</div>
     <div class="cf-formula-full">CT-005.1</div>
     <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-005.1" target="_self">Chi tiết →</a></div>
   </div>
-  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Chuỗi cộng Nhóm con tạo Task">
-    <span>Chuỗi</span><b>+</b><span>Nhóm con</span><b>⇒</b><strong>Task</strong>
+  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Chuỗi cộng Nhóm con tạo MOT">
+    <span>Chuỗi</span><b>+</b><span>Nhóm con</span><b>⇒</b><strong>MOT</strong>
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
-  <p class="cf-derived-note">Nhóm con là SSOT gốc. Task, MOIT, MOUT và UI con cùng tham chiếu Nhóm con; Gộp/Tách ghi một lần tại gốc, các phần phụ thuộc kế thừa.</p>
+  <p class="cf-derived-note">Nhóm con là SSOT gốc. MOT, MOIT, MOUT và UI con cùng tham chiếu Nhóm con; Gộp/Tách ghi một lần tại gốc, các phần phụ thuộc kế thừa.</p>
   <p class="cf-derived-note"><b>Đang thiết kế: Chế tạo máy.</b> Phân biệt ba tiến trình (diễn giải đề xuất): <b>Chế tạo máy</b> = tạo/nâng cấp năng lực máy; <b>Vận hành máy</b> = điều khiển, theo dõi và duy trì máy hoạt động đúng; <b>Sản xuất quy trình</b> = dùng máy tạo quy trình nghiệp vụ cụ thể. Cùng khuôn công thức, khác mục đích và đầu ra; không suy phạm vi chỉ từ tên Field/Form/MOT/MOW.</p>
   </details>
 </article>
 
-<article class="cf-formula-piece cf-derived-root" id="formula-ct-005-2" aria-label="CT-005.2 · MOIT">
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-005-2" data-visual-depth="1" aria-label="CT-005.2 · MOIT">
   <div class="cf-formula-titlebar">
     <div class="cf-formula-nick">MOIT</div>
     <div class="cf-formula-full">CT-005.2</div>
@@ -1084,12 +1091,12 @@
     <span>Chuỗi</span><b>+</b><span>Nhóm con</span><b>⇒</b><strong>MOIT</strong>
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
-  <p class="cf-derived-note">Cùng gốc Nhóm con với Task; kế thừa hồ sơ Gộp/Tách tại gốc. ⇒ là dẫn xuất/tương ứng, không đồng nhất loại đối tượng.</p>
+  <p class="cf-derived-note">Cùng gốc Nhóm con với MOT; kế thừa hồ sơ Gộp/Tách tại gốc. ⇒ là dẫn xuất/tương ứng, không đồng nhất loại đối tượng.</p>
   </details>
   
 </article>
 
-<article class="cf-formula-piece cf-derived-root" id="formula-ct-005-3" aria-label="CT-005.3 · MOUT">
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-005-3" data-visual-depth="1" aria-label="CT-005.3 · MOUT">
   <div class="cf-formula-titlebar">
     <div class="cf-formula-nick">MOUT</div>
     <div class="cf-formula-full">CT-005.3</div>
@@ -1099,12 +1106,12 @@
     <span>Chuỗi</span><b>+</b><span>Nhóm con</span><b>⇒</b><strong>MOUT</strong>
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
-  <p class="cf-derived-note">Cùng gốc Nhóm con với Task; kế thừa hồ sơ Gộp/Tách tại gốc. ⇒ là dẫn xuất/tương ứng, không đồng nhất loại đối tượng.</p>
+  <p class="cf-derived-note">Cùng gốc Nhóm con với MOT; kế thừa hồ sơ Gộp/Tách tại gốc. ⇒ là dẫn xuất/tương ứng, không đồng nhất loại đối tượng.</p>
   </details>
   
 </article>
 
-<article class="cf-formula-piece cf-derived-root" id="formula-ct-006" aria-label="CT-006 · UI Con">
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-006" data-visual-depth="1" aria-label="CT-006 · UI Con">
   <div class="cf-formula-titlebar">
     <div class="cf-formula-nick">UI Con</div>
     <div class="cf-formula-full">CT-006</div>
@@ -1118,7 +1125,7 @@
   </details>
 </article>
 
-<article class="cf-formula-piece cf-derived-root" id="formula-ct-007" aria-label="CT-007 · Config">
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-007" data-visual-depth="2" aria-label="CT-007 · Config">
   <div class="cf-formula-titlebar">
     <div class="cf-formula-nick">Config</div>
     <div class="cf-formula-full">CT-007</div>
