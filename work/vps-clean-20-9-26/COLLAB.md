@@ -9,10 +9,10 @@ Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07
 - 🎯 **Mục tiêu Owner:** VPS ổn định sau loạt thay đổi — vì chuông kêu quá nhiều, ổ đĩa vẫn đầy nhanh và mỗi lần kiểm lại lòi lỗi mới.
 - 🏁 **Xong khi:** đèn chỉ đỏ khi hỏng thật · mỗi GiB mất đi có tên và có trần · mọi mã đang chạy có khoá Đ30/31 do máy đối chiếu · nguyên nhân 502/503 có số đo + phương án cho Owner gật.
 - 📍 **Tiến độ:** `✅ Codex khảo sát (PROOT01) · ✅ Host tự kiểm + soạn lệnh R7 · ■ Codex rà lệnh · ⬜ Claude Code chạy R7 · ⬜ Codex + Host nghiệm thu · ⬜ N2 xoay khoá + sửa lõi theo phiếu D6 (chờ Owner) · ⬜ đóng`
-- ✅ **Đã xong:** khảo sát chỉ đọc; Host kiểm lại 6 điểm chính bằng mã/log thật và thêm 4 phát hiện (P51); PROMPT R7 `4d4ea53` (Host tự rà vòng 2 xong).
+- ✅ **Đã xong:** khảo sát chỉ đọc; P51 kiểm lại phát hiện; P52 Host GPT siết 3 cổng an toàn; PROMPT R7 last-touch `7bf9169`; READY mới cùng SHA đã phát.
 - ■ **Đang làm:** Bước kế hoạch · vòng 1/5 · gọi: Codex (Reviewer) · chờ `CODEX ACCEPT@` hoặc DELTA.
 - ⬜ **Còn lại:** RUN R7 (4 gói A→B→C→D, một lượt, không restart lõi) → nghiệm thu → N2.
-- ➡ **Kế tiếp:** 😊 Owner dán 1 khối cho Codex; Codex ACCEPT thì dán dòng RUN cho Claude Code · Reviewer Codex rà PROMPT · 🤖 Claude Code chờ.
+- ➡ **Kế tiếp:** Owner chuyển đúng 1 khối cho Codex review PROMPT@`7bf9169`; có `CODEX ACCEPT@7bf9169659db26468218392be4f59fe593d38120` mới phát lệnh chuẩn DROOT38 cho Claude Code.
 - ⛔ **Không làm trong R7:** restart/rebuild lõi · đổi phiên bản · xoá dữ liệu/trial · xoay khoá (để N2) · việc của chủ khác (chỉ ghi sổ tồn đọng).
 
 ### 1. Mục tiêu
@@ -29,7 +29,8 @@ Owner 07/10/2026: “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng 
 | codex | OpenAI | Codex (Mac) | Reviewer | Owner chuyển tay |
 | claude-code | Anthropic | Claude Code CLI (Mac) | Worker | Owner chuyển dòng RUN (DROOT38) |
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
-- **D17 · Owner 07/10 (trực tiếp):** Claude Chat xem báo cáo Codex và điều hành sửa; Claude Code CLI sửa; Codex tiếp tục giám sát.
+- **D17 · Owner 07/10 (lịch sử, trực tiếp với Claude Chat):** Claude Chat xem báo cáo Codex và điều hành sửa; Claude Code CLI sửa; Codex tiếp tục giám sát.
+- **D18 · Owner 07/10 10:42 +07 (trực tiếp với GPT Chat):** “Chuyển sang bạn host nhé.” ⇒ GPT Chat là Host hiện hành; Claude Code CLI vẫn sửa; Codex vẫn Reviewer/giám sát.
 - Một lệnh duy nhất cho Claude Code (R7), bốn gói A→B→C→D; mỗi gói tự bảo vệ xong mới sang gói sau (Owner 05/10: bảo vệ đến đâu chắc đến đó).
 - Không restart/rebuild 6 container lõi, không đổi phiên bản, không xoá, không xoay khoá trong R7; việc cần các thứ đó đi vào phiếu D6 → Owner gật → N2.
 - Đèn: luật 2 lần trượt phải đúng trên cả 22 đèn; không tắt/tạm dừng đèn, không hạ ngưỡng để lấy xanh (Owner 02/10: mọi thay đổi phải báo về Telegram và phải xanh thật).
