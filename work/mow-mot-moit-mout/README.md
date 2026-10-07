@@ -1,11 +1,14 @@
 # README · MMIM · START HERE
 
-> **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R38). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
+> **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R42). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
 
 > **Mọi thay đổi UI:** đọc [Quy chuẩn UI cha](UI-DESIGN-STANDARD.md) trước; bàn giao phải có phiếu theo [UI-REVIEW-CONTRACT.json](UI-REVIEW-CONTRACT.json) và chạy `check-ui-review.py`. AI chịu trách nhiệm kiểm, không đẩy Owner thành tester. Kết quả rà: [UI-AUDIT-20261007.md](UI-AUDIT-20261007.md).
 
 > **Cửa vào bắt buộc của việc `work/mow-mot-moit-mout`.**
 > Nếu một file/quy trình/tool mới không được nối từ README / Bảng điều khiển / Master tương ứng thì coi như **chưa được đăng ký vận hành**.
+
+## Thử thiết kế theo MOW · Owner 07/10/2026
+[MOW-NHC-001 · UI theo thứ tự MOT](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001), mở từ số MOT trong Master MOW. Quy tắc R39–R42. Mapping UI dùng lại tại ML-DEF-018.UI-029.motBindings; tên/thứ tự theo Nhóm con. 3 MOT, 2 bước có UI dùng lại; bước1.3 chờ thiết kế. [Phiếu kiểm](UI-REVIEW-MOW001.json): PARTIAL, desktop đã kiểm; mobile/in A4 chưa kiểm.
 
 ## 1. Mỗi phiên phải đọc gì?
 

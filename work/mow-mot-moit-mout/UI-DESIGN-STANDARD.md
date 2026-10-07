@@ -1,6 +1,6 @@
 # Quy chuẩn UI cha — đọc trước khi thiết kế
 
-> **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R38). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
+> **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R42). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
 > **Thông tin chính rõ; thông tin phụ lùi lại. Cùng loại việc dùng cùng một khuôn. AI kiểm trước, Owner quyết thiết kế.**
 Owner 07/10/2026 11:08 +07. CE-20261007-UI-PARENT-STANDARD. Đây là văn bản hóa mẫu/chỉ đạo đã có, không phải đợt thiết kế mới.
 
