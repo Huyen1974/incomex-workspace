@@ -3,6 +3,9 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
+### Owner 07/10/2026 14:29 +07 · Rules rõ và viết tắt Chuỗi
+APPROVED · UI Master/Công thức/Rules là ba mục dùng, opacity1; các mục khác tham khảo opacity0.5. CTCM / VHCM / CMSXQT theo tên Owner chốt; quy định tập trung R18. Đã áp ở renderer Master dùng chung (tên, cột, lọc, cây); tooltip giữ tên đầy đủ, tìm nhận cả hai cách; không đổi dữ liệu nghiệp vụ. Kiểm live Nhóm cha35/Nhóm con115/MOW35/MOT115/MOIT115/MOUT115, Master Chuỗi3, Config1 và Master of Master29. KQ chi tiết UI-AUDIT-20261007.md. Không mở task mới; audit toàn UI cũ vẫn PARTIAL.
+
 ### Chỉ đạo Owner 07/10/2026 13:11 +07 · tập hợp Rules
 HUMAN_DIRECTIVE@RULES-RECOVERY EFFECTIVE · Owner yêu cầu rà Help/ghi chú MOW/MOT và thư mục Mac “quy trình”, lọc nội dung tốt, đổi tab UIs thành Rules ngắn gọn để chuẩn hóa thiết kế; không mở task mới.
 CE-20261007-RULES-RECOVERY · APPROVED về việc tập hợp/đổi tab; không tự phê duyệt lại các đề xuất cũ.
