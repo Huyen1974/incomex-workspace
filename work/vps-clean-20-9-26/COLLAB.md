@@ -10,9 +10,9 @@ Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07
 - 🏁 **Xong khi:** mỗi phần tăng của ổ đĩa **có tên · có cơ chế kiểm soát phù hợp · có chuông**; phần đang chảy hiện tại đã được gọi tên; máy tự phát bản tin 08:00 với một cửa sổ 24h sạch; đèn nói thật; mã chạy có khoá Đ30/31; 502/503 có kết luận/bước sửa theo bằng chứng.
 - 📍 **Tiến độ:** `✅ khảo sát · ✅ P53 7 DELTA · ✅ P55 3 DELTA · ✅ Host P56 sửa roadmap/PROMPT · ■ Codex rà SHA mới · ⬜ Claude Code R7 · ⬜ nghiệm thu R7 · ⬜ N2a bịt nguồn chưa có van · ⬜ N2b khoá/auth + lõi 502 nếu bằng chứng yêu cầu · ⬜ 08:00 sạch → FINAL CLOSE`
 - ✅ **Đã xong:** PROOT01/P51–P55; 7 DELTA Codex + 3 DELTA Claude đã được Host disposition; PROMPT đã đổi theo P55 nên READY `62b55a3` hết hiệu lực.
-- ■ **Đang làm:** Bước kế hoạch · vòng 3/5 · Host P56 đã sửa PROMPT; chuẩn bị phát READY mới rồi mời Codex rà đúng SHA mới. Claude P55 = RESOLVED.
+- ■ **Đang làm:** Bước kế hoạch · vòng 3/5 · READY mới đã phát cho PROMPT@`e282fcf5`; mời Codex rà đúng SHA này. Claude P55 = RESOLVED.
 - ⬜ **Còn lại:** Reviewer ACCEPT → R7 (gọi tên drift + lắp đo/chuông/khoá) → nghiệm thu → **N2a** sửa từng nguồn `UNVALVED` → **N2b** xoay khoá lộ + sửa lõi 502/503 chỉ nếu D6 có đủ bằng chứng → bản tin 08:00 có đủ 24h sau mutation storage cuối cùng → đóng.
-- ➡ **Kế tiếp:** fresh-read PROMPT hiện hành → Host READY mới → Codex review; chưa ACCEPT trên SHA cuối thì không RUN.
+- ➡ **Kế tiếp:** Codex review `e282fcf5`; ACCEPT thì mới phát lệnh chuẩn DROOT38 cho Claude Code. Chưa ACCEPT trên SHA cuối thì không RUN.
 - ⛔ **Không làm trong R7:** restart/rebuild lõi · đổi phiên bản · xoá dữ liệu/trial · xoay khoá; các việc này chỉ sang N2a/N2b khi có nguồn/bằng chứng cụ thể.
 
 ### 1. Mục tiêu
@@ -106,7 +106,7 @@ Host: GPT Chat · Host_ID: GPT-VPSC-261007-R7B · vòng 4 tiếp quản theo ch�
 HTML chính: `view.html`
 
 ## Giấy phép vòng 4
-- **R7 HOLD do P55/P56 sửa PROMPT:** READY `62b55a3fd49aa3b457629020038c9f4a3f0589c0` **HẾT HIỆU LỰC**. Host sẽ phát READY mới sau fresh-read PROMPT last-touch; trước đó **không RUN**.
+- **R7:** PROMPT last-touch `e282fcf5f3801fb1e99eb540f8bd548822c6f00a` · **READY@e282fcf5f3801fb1e99eb540f8bd548822c6f00a · Host GPT Chat**. READY `62b55a3fd49aa3b457629020038c9f4a3f0589c0` hết hiệu lực. **RUN chỉ hợp lệ khi có `CODEX ACCEPT@e282fcf5f3801fb1e99eb540f8bd548822c6f00a`.**
 - Lệnh executor chuẩn theo DROOT38 (chỉ dùng sau khi có READY mới + CODEX ACCEPT cùng SHA): `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
 
 ## Lịch sử trạng thái vòng 1–2
@@ -640,7 +640,7 @@ CODEX DELTA@7bf9169659db26468218392be4f59fe593d38120
 - **Điểm danh đã xong:** PROOT01 khảo sát · P51 kiểm chứng · P52 siết gate · P53 7 DELTA · P54 áp 7 DELTA + CHANGE_EVENT · P55 cross-vendor review · P56 áp 3 DELTA vào PROMPT/roadmap. **Phát sinh đã nhận:** khoá API lộ (N2b) · current storage drift · thiếu van theo từng class · 502/503 chưa chứng minh nguyên nhân.
 - **Còn phải làm:** Codex review SHA mới → Claude Code R7 → Codex+Host nghiệm thu → N2a exact fixes nguồn chưa có van → N2b nếu cần → 08:00 sạch → FINAL CLOSE. Nếu R7 B không gọi được nguồn đang chảy, dừng ở B và dùng watcher đã lắp để thu thêm bằng chứng; không gọi XONG.
 - **Nhận xét số 11:00 của P55:** giảm ~0,06 GiB trong một giờ là bằng chứng có biến động thật nhưng **không đủ để suy tốc độ ổn định 0,5 GiB/ngày**; nếu nhịp 0,06 GiB/giờ kéo dài thì còn lớn hơn (~1,44 GiB/ngày). Vì vậy giữ trạng thái BLOCKER, không suy nguyên nhân.
-- **P55 RESOLVED.** PROMPT đã sửa; READY cũ hết hiệu lực; bước tiếp chỉ là Codex rà đúng SHA mới. Owner cần quyết: — cho P56.
+- **P55 RESOLVED.** PROMPT đã sửa; Host fresh-read và phát `READY@e282fcf5f3801fb1e99eb540f8bd548822c6f00a`; bước tiếp chỉ là Codex rà đúng SHA này. Owner cần quyết: — cho P56.
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
