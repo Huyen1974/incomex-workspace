@@ -9,7 +9,7 @@
 
 ## Tools · CTCM · Quy trình thiết kế và kiểm UI
 [Master Tool](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=23) → [Quy trình Tools và áp thử MOW-NHC-001](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/tools-playbook-v1.html). Quy tắc R46–R48.
-SSOT nội dung: VPS `definition-master-data-v1.js`, `ML-DEF-023`, TOOL-CTCM-001…009; thanh **Quy trình - Tools** ngay trang Công thức (sau D) và trang Tools dùng cùng `tools-catalog-v1.js`, đọc cùng SSOT. Tool008 quản lý UI thiếu/lỗi; Tool009 đóng gói DOT. Mỗi quy trình có Bước/Câu hỏi/Việc phải làm. Phiếu kiểm thanh Công thức: `UI-REVIEW-FORMULA-TOOLS.json` (desktop đã kiểm, mobile chưa kiểm). Hai công thức thao tác CT-TOOLS-UI/CT-TOOLS-CFG ở ML-DEF-021 là đề xuất, không thay công thức sinh đối tượng.
+SSOT nội dung: VPS `definition-master-data-v1.js`, `ML-DEF-023`, TOOL-CTCM-001…009; thanh **Quy trình - Tools** ngay trang Công thức (sau D) và trang Tools dùng cùng `tools-catalog-v1.js`, đọc cùng SSOT. Tool008 quản lý UI thiếu/lỗi; Tool009 đóng gói DOT. Mỗi quy trình có Bước/Câu hỏi/Việc phải làm. Phiếu kiểm thanh Công thức: `UI-REVIEW-FORMULA-TOOLS.json` (đã kiểm desktop và màn hẹp cho riêng thanh Tools). Hai công thức thao tác CT-TOOLS-UI/CT-TOOLS-CFG ở ML-DEF-021 là đề xuất, không thay công thức sinh đối tượng.
 Bộ rà ban đầu: 8 câu/MOT × 3 MOT = 24 ô; 16 nhánh nền và 6 việc còn thiếu. Chưa đạt hành trình đầu–cuối; chưa triển khai DOT mới. Ba màn là hợp đồng thiết kế, chưa phải ba UI hoàn chỉnh. Nhánh đúng: 1→3 hoặc 1→2→3. Không gán 95% là tỷ lệ đã đo.
 Phiếu kiểm trang hướng dẫn: `UI-REVIEW-TOOLS.json`; không dùng kết quả trang hướng dẫn thay kết quả hành trình tìm Field.
 

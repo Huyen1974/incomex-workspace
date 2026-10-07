@@ -25,8 +25,8 @@
           "evidence": "Mouse open/close outer and Tool8; Enter opens outer; detail showed seven lifecycle steps and OPEN-03 example."
         },
         "responsive": {
-          "status": "NOT_TESTED",
-          "evidence": "Desktop screenshot checked; separate mobile validation not performed. Table has overflow container."
+          "status": "PASS",
+          "evidence": "Desktop and narrow650px viewport inspected. Tool8 opens; table scrollWidth580/clientWidth459 with overflowX auto. Viewport reset. Scoped responsive test, not full mobile portal audit."
         },
         "console": {
           "status": "PASS",
@@ -59,6 +59,6 @@
       }
     }
   ],
-  "status": "PARTIAL",
-  "notes": "Requested desktop section verified. Mobile not tested. Not a claim that MOW-NHC-001 end-to-end or DOT automation is complete."
+  "status": "PASS",
+  "notes": "Requested Tools section verified at desktop and narrow viewport. Not a claim that MOW-NHC-001 end-to-end or DOT automation is complete."
 }
