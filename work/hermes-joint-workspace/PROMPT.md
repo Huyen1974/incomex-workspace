@@ -7,7 +7,7 @@ Reviewer: Claude Chat
 Executor_Surface: Claude Code CLI phiên MỚI trên Mac cho inventory/orchestration + SSH/trusted-runner checks; các phiên canary được N3 gọi phải là phiên MỚI tách vai theo §5
 Write_Path: repo qua workspace_*; runtime/config chỉ qua DOT/wrapper/apply path hiện hữu; không ad-hoc
 Node: N3 / 6 · Automation target = AUTO1 ASSISTED
-Owner_steps: 0 trong inventory/canary nếu auth hiện hữu đủ. Chỉ gọi Owner cho OAuth/account approval/human-only thật sự hoặc mutation approval mà auto-mode bắt buộc. DROOT43: checkpoint + KQ DỪNG sạch, không giữ terminal/model/browser chờ.
+Owner_steps: 0 nếu binding/auth hiện hữu đủ. Nếu canary bắt buộc phải tạo routine/secret chính thức mới, gom **đúng một checkpoint Owner** với 4 ý `tạo gì · vì sao · ở đâu · không làm thì hỏng gì`; Owner không duyệt ⇒ KQ DỪNG sạch. DROOT43: không giữ terminal/model/browser chờ.
 
 ## 0. Mục tiêu duy nhất
 
@@ -43,7 +43,7 @@ Class chỉ một trong:
 Hermes VPS/trusted runner phải live-call bằng đường chính thức được **ít nhất một Anthropic seat** và **ít nhất một OpenAI-family seat** (OpenAI-main hoặc Codex), hoặc chứng minh bằng evidence rằng vendor hiện không cho và ghi residual rõ.
 
 Canary phải:
-- 0 Owner copy-paste sau khi bắt đầu;
+- 0 Owner copy-paste sau khi bắt đầu; bằng chứng = courier log `t0` + provider/session receipt + commit/P do **chính identity đích** ghi, và giữa `t0`→commit đó không có tin/commit thao tác từ Owner;
 - courier chỉ gửi `task · step · round · seat · pointer`, không gửi prompt semantic;
 - phiên đích tự đọc đúng đoạn repo rồi ghi đúng một receipt/P ngắn;
 - có provider/session/run id hoặc receipt tương đương;
@@ -68,7 +68,8 @@ Worker không tự nghiệm thu KQ của chính mình.
 
 ### E. Safety/policy
 - official docs hiện hành của từng hãng được re-check ngay trong RUN;
-- không copy session/login credential từ Mac lên VPS;
+- **cấm** chép file/key/cookie của phiên đăng nhập sẵn có từ Mac/browser lên VPS;
+- credential chính thức dành cho script (API key/OAuth token do Owner tạo qua flow hãng, ví dụ `claude setup-token`) chỉ được đặt vào **loader secret hiện hữu**; model/Hermes không đọc giá trị; tạo mới chỉ sau checkpoint Owner ở §2;
 - secret chỉ qua loader/secret boundary hiện hữu;
 - không cài browser bot, extension automation, scraping output;
 - global STOP hiện hữu phải thắng courier;
@@ -83,8 +84,8 @@ Bảng điều khiển phải ghi:
 Mỗi P hội đồng/canary mở đầu:
 `Ghế: <seat> · Bước/vòng: N3 · k/5`.
 Sổ gọi tối thiểu:
-`ai gọi ai · lúc nào · path class · provider session/receipt · commit/result`.
-Không tạo Owner View/DB/service mới; dùng SSOT + trang hiện hữu.
+`ai gọi ai · lúc nào · path class · provider session/receipt · server identity · commit/result`.
+Ghi vào **sổ tin báo hiện hữu** và bảng trong P KQ; không mở file mới. Không tạo Owner View/DB/service mới.
 
 ## 2. Luật khóa
 
@@ -93,7 +94,8 @@ Không tạo Owner View/DB/service mới; dùng SSOT + trang hiện hữu.
 - Owner luôn chỉ định Host. N3 **không** được viết logic tự chọn Host.
 - Task bootstrap chỉ ghi phần riêng; defaults lấy từ AGENTS, không copy lại.
 - Không tạo task/project/file/service/DB/route public mới.
-- Nếu thiếu capability mà muốn tạo file/service mới ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED`, nêu exact delta + rollback; Host/Reviewer sửa PROMPT/READY trước.
+- **Candidate creation đã review nhưng CHƯA được Owner duyệt:** nếu Pha A chứng minh cần thiết, hỏi Owner đúng một lần để tạo (a) ≤1 Claude Routine chỉ có **API trigger, không schedule**, scope đúng repo/canary của `claude-main`; (b) ≤1 secret item cho mỗi hãng trong loader hiện hữu. Prompt hỏi phải đủ 4 ý A0. Owner gật mới tạo; Owner không gật ⇒ `AUTH_OWNER_ACTION_REQUIRED`. KQ không PASS ⇒ routine/secret N3 vừa tạo phải disable/revoke trong cùng RUN nếu API cho phép an toàn.
+- Ngoài danh sách trên hoặc muốn tạo file/service/route ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED`, nêu exact delta + rollback.
 - Không install package/CLI chỉ để thử. Ưu tiên binary/client/routine đã có. Cần install/login mới ⇒ checkpoint.
 - Không dùng raw token/session cookie/auth export từ browser.
 - DROOT30/31/35/42/43, Config/Protection Guard và NO-WAIT áp nguyên.
@@ -113,7 +115,8 @@ Không tạo Owner View/DB/service mới; dùng SSOT + trang hiện hữu.
    - current schedules/events/self-pull mechanisms;
    - Mac fallback readiness, nhưng không mở browser automation.
 4. Đọc official docs hiện hành của Anthropic/OpenAI cho đúng path sẽ thử; ghi URL/title/date vào P, không chép dài.
-5. Chốt wake matrix PRE và danh sách **tối đa 2 canary call/seat** trước call đầu.
+5. Chốt wake matrix PRE và danh sách canary **ngay trong P READY**: `seat · bề mặt · official path · max_calls≤2`. Codex là canary seat, không mặc nhiên có phiếu HJW. `openai-main` chỉ gọi **bề mặt đã được Owner chỉ định (hiện GPT Chat)**; Work/Dot chỉ đo capability, không được ghi P vào HJW ở N3.
+6. Phiên canary chỉ có gateway tools đọc/ghi đúng HJW COLLAB; **không shell, không tool gọi AI khác**, có trần call/time.
 
 Không live-call model nếu chưa biết path/policy/auth.
 
@@ -147,7 +150,7 @@ Gọi một phiên Claude mới bằng **official path tốt nhất đã đo**:
 - đọc đúng pointer;
 - không code/runtime;
 - ghi đúng một P canary ngắn vào HJW COLLAB;
-- P mở đầu `Ghế: ... · Bước/vòng: N3 · <k>/5`;
+- P mở đầu `CANARY · Ghế: ... · Bước/vòng: N3 · <k>/5`; **P canary không tính phiếu hội đồng**;
 - đóng phiên.
 
 ### C2 Worker canary
@@ -177,7 +180,10 @@ Kết luận:
 
 ## 7. PHA E — MINIMAL ENABLEMENT
 
-Chỉ nếu A–D chứng minh một `PRIMARY_DIRECT` đúng policy và **existing Hermes dispatcher/courier reuse được**.
+Chỉ nếu A–D chứng minh một `PRIMARY_DIRECT` đúng policy và **existing Hermes dispatcher/courier reuse được**. `PRIMARY_DIRECT` phải có `t_claim - t0 ≤ Claim_Timeout_Min` lấy từ AGENTS. `trusted runner` = VPS/wrapper/DOT **đang có**, không thêm runner mới.
+
+**Authority gate:** courier chỉ đưa thư khi có **chuông/lệnh do identity server-side của Host hiện hành hoặc Owner ghi** trong đúng scope (Bảng/ASSIGN_V1/canonical call record). Commit/P của ghế khác **không tạo lượt gọi**. Pha E giữ `Automation_Level=AUTO0`, không đổi chế độ approval, không thêm `AUTO_ALLOWLIST`; việc bật AUTO1 cho HJW là quyết định Owner **sau KQ N3**.
+- Đặt trần daily calls per seat trong config hiện hữu trước enable; canary vẫn max 2/seat.
 
 Được phép:
 - sửa cấu hình/logic **hiện hữu** của HJW courier/dispatcher;
@@ -207,6 +213,8 @@ Cần một việc cấm ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED · CONTINUE_SAM
 8. Browser/UI-only path ⇒ không automate.
 9. Policy source stale/không truy cập được ⇒ không enable.
 10. Self-pull trễ ⇒ không PRIMARY_DIRECT.
+11. Mac ngủ/tắt khi có thư chờ ⇒ thư không mất, không nhân đôi; pending quá hạn mới cảnh báo.
+12. Chuông/lệnh do ghế không phải Host/Owner ghi ⇒ **0 lượt gọi**.
 
 ## 9. Disposition
 
@@ -216,14 +224,16 @@ Cần một việc cấm ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED · CONTINUE_SAM
 PASS yêu cầu:
 - ≥1 Anthropic official automated path live-pass;
 - ≥1 OpenAI-family official automated path live-pass;
-- Owner 0 copy-paste trong live canary;
-- receipt + identity + dedup/STOP proof.
+- Owner 0 thao tác/copy-paste trong live canary;
+- negative tests §8 **đều PASS trên fixture, 0 tin thử tới Owner**;
+- receipt + server identity + dedup/STOP proof.
 
-Không bắt mọi seat PRIMARY_DIRECT; residual/class phải rõ.
+Đường chỉ chạy từ Hermes-Mac = residual `PRIMARY_MAC_ONLY`, **không tính PASS**. Không bắt mọi seat PRIMARY_DIRECT; residual/class phải rõ.
 
 ### PASS_WITH_RESIDUAL
+Chỉ được dùng khi **≥1 official automated path chạy thật với 0 thao tác Owner** và toàn bộ negative §8 PASS; vendor family còn lại phải có `VENDOR_LIMIT|POLICY_UNCERTAIN|AUTH_OWNER_ACTION_REQUIRED` kèm evidence.
 `KQ@... XONG · N3_PASS_WITH_RESIDUAL · <residuals> · MOVE_TO:N4`
-Host/Reviewer quyết residual trước N4.
+**0 đường automated live-pass ⇒ DỪNG**, không MOVE_TO N4. Host/Reviewer quyết residual trước N4.
 
 ### DỪNG
 `POLICY_UNCERTAIN:<path>` · `VENDOR_LIMIT:<path>` · `AUTH_OWNER_ACTION_REQUIRED` · `DELTA_REVIEW_REQUIRED` · `CONCURRENCY_GATE` · `EXTERNAL_GREEN_GATE` · `PROTECTION_FAIL`.
