@@ -7,6 +7,15 @@ GPT dùng app MCP AgentData đang hiện hành, root `workspace`: đọc cửa s
 
 **Cấu trúc repo dài hạn:** root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, `work/`; mọi công việc nằm ở `work/<work-id>/`; việc đã xong nằm ở `work/done-tasks/<work-id>/` (AGENTS A9). Test/chứng tích/archive phải nằm trong đúng thư mục công việc, không rải ở root. **Cổng nghiệp vụ bắt buộc** theo `AGENTS.md#A0_OBJECTIVE`: `COLLAB.md` của mỗi việc phải mở đầu bằng mục tiêu/nhiệm vụ User đã xác nhận; chưa xác nhận thì chưa được lập kế hoạch hay thực thi.
 
+## NO-WAIT — nguyên tắc điều hành bắt buộc
+
+Repo này **không điều hành bằng trạng thái treo/chờ**. Nguồn luật chuẩn là `AGENTS.md` DROOT50–DROOT51; README chỉ nêu ngắn để người mới nhìn thấy ngay:
+- Execution chỉ dùng `READY → STARTED → XONG|DỪNG`. Không tạo mới `WAIT/HOLD/PENDING/PAUSED/TREO`.
+- `READY` chỉ khi có thể chạy ngay. `STARTED` chỉ khi executor đang thực sự làm. Gặp blocker/gate đỏ/cần thời gian/sự kiện ⇒ `KQ DỪNG`, nhả busy/shared resource, đóng terminal/model.
+- Điều kiện tương lai dùng đúng một `NEXT_TRIGGER`; watcher/Guard/Kuma/dispatcher canh. **Owner không có nhiệm vụ theo dõi hoặc nhớ hộ.**
+- **Ngoại lệ phải chờ là Owner-only.** AI muốn giữ RUN/task/terminal/process sống để đợi phải xin Owner trước từng lần bằng `WAIT_EXCEPTION_REQUEST`, nêu rõ: giữ cái gì · tối đa bao lâu · exit trigger · ai/máy canh · chi phí/rủi ro · và vì sao **không thể** dùng từng phương án thay thế: `DỪNG+rerun`, `NEXT_TRIGGER`, watcher/Guard/Kuma, tách lượt/checkpoint, hoặc nhả resource/chạy việc khác. Chưa có Owner `WAIT_EXCEPTION_APPROVED` ⇒ bắt buộc DỪNG.
+- Một ngoại lệ được duyệt không được suy rộng sang lần khác; hết thời hạn/trigger là tự hết hiệu lực. Không được dùng ngoại lệ chờ để giữ shared-VPS busy nếu resource có thể nhả và tái lấy an toàn.
+
 **Client binding:** trên tài khoản ChatGPT Pro hiện tại của Owner không có Refresh app. Chỉ sau khi server/tool/schema/build đã chốt mới tạo **một MCP app mới** trỏ đúng server hiện hữu, giữ nguyên URL/auth/secret, Scan Tools một lần và đối chiếu tool + schema + metadata/build với catalog trước khi Owner Connect bằng tay. Giữ app cũ làm rollback cho tới khi app mới PASS nghiệm thu thật. Phía Claude: reconnect connector và mở phiên mới khi cần. Thiếu công cụ phải kiểm client binding trước khi kết luận server thiếu.
 
 ## Shared Workspace Technical Contract — v1.4, 2026-09-26
