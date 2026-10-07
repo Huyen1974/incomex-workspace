@@ -1,5 +1,12 @@
 # MMIM · Council / Surface Registry
 
+## Codex · CE-20261007-RULES-RECOVERY · KQ
+- NOW: đã tập hợp Rules8 nhóm/38 mục, đổi tab UIs; giữ nguồn cũ và phục hồi14 Help NHAP2 bị khuất. README/Help dẫn về Rules.
+- VERIFY: 8 nhóm mở/đóng,38 ID, Master MOW/Nháp2/MOT Help; bằng chứng UI-AUDIT-20261007.md.
+- NEXT: dùng Rules khi sửa thiết kế; tiếp tục gap audit toàn UI, không tuyên bố toàn UI đạt.
+- BLOCKED_BY: none cho Rules recovery; responsive/toàn UI audit vẫn PARTIAL riêng.
+- RESERVED_TARGETS: none. LAST_SYNC: 2026-10-07.
+
 ## Codex · CE-20261007-NAV · KQ
 - Owner trực tiếp giao chuẩn hóa Quay lại/Home cho 29 Master và các tầng tương lai.
 - NOW: shared navigation đã triển khai ở UI cha và review/detail; không thêm Master/UI ID.

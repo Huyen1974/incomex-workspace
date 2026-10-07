@@ -8,7 +8,7 @@ HUMAN_DIRECTIVE@RULES-RECOVERY EFFECTIVE · Owner yêu cầu rà Help/ghi chú M
 CE-20261007-RULES-RECOVERY · APPROVED về việc tập hợp/đổi tab; không tự phê duyệt lại các đề xuất cũ.
 SSOT tuyến Owner: knowledge/modules → ban-duyet.html → matrix-view-uis. UPDATE tab nhãn Rules, bản quy định tập trung; giữ nguyên nội dung UIs cũ trong mục tham khảo. VERIFY Help/BOOK/MOT, README và các đường vào. Nguồn cũ giữ nguyên; luật mâu thuẫn chỉ đạo mới phải ghi superseded/chờ chốt, không xóa lý do lịch sử.
 Phát hiện ban đầu: SHA của BOOK, mow-help-doc và mot-help trên VPS khớp bản backup Mac tháng9; chưa có bằng chứng ba file nguồn này bị mất. Rủi ro nằm ở đường nạp/hiển thị và nhiều bản nội dung chồng nhau.
-■ Đang rà và hợp nhất; tiêu chí: Rules gọn, truy nguồn từng nhóm, không mất Help gốc, kiểm tab thật trước báo xong.
+✓ KQ Rules recovery: UIs → Rules, 8 nhóm/38 quy tắc ngắn có nguồn và ghi chỗ superseded; giữ danh mục UIs cũ. Khôi phục14 mục NHAP2 Help bị khuất, giữ BOOK/MOW/MOT nguồn cũ; Help/README trỏ về Rules. Đã kiểm source và tab thật8 nhóm + ba trang Help. Evidence/giới hạn: UI-AUDIT-20261007.md. NEXT: áp dụng Rules khi sửa thiết kế; audit toàn UI vẫn PARTIAL như khối dưới, không lấy việc tập hợp luật làm bằng chứng đã triển khai hết.
 
 ### Cập nhật 07/10/2026 11:37 +07 · rà chi tiết UI cha
 HUMAN_DIRECTIVE@UI-PARENT-PARITY EFFECTIVE · task=mow-mot-moit-mout · scope=UI đã duyệt, quy chuẩn và áp dụng ngược · recorded_by=Codex · quote="Sau khi quy định rồi => áp dụng ngược lại đúng quy định đó xem đã ổn chưa, tự bạn có thể so sánh được sự khác nhau mà?"
