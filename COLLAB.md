@@ -13,7 +13,7 @@ Cấu trúc bắt buộc: root chỉ có `AGENTS.md`, `README.md`, `COLLAB.md`, 
 - **Cửa vào phiên mới:** `WS gốc · Host GPT · tiếp quản phiên 2026-09-23 · đọc AGENTS.md → COLLAB.md · làm theo mục Handoff phiên mới; trước khi thao tác một việc phải đọc COLLAB.md của việc đó.`
 
 ## Đang làm
-- `work/hermes-joint-workspace/` · HJW · **P188 N3 PROMPT DRAFT · CLAUDE REVIEW VÒNG 1/5 · CHƯA READY/RUN**: N2 đã PASS_WITH_RESIDUAL P187; F1–F4 đã áp. Prompt N3 đo official direct invocation primary, self-pull safety net, Hermes-Mac fallback, Claude dual-role fresh sessions và policy live. Owner 0 thao tác lúc này.
+- `work/hermes-joint-workspace/` · HJW · **P189 N3 DRAFT SỬA SAU AUDIT WORKER · REVIEW VÒNG 1/5 · CHƯA READY/RUN**: Claude Code audit đúng vai, không tính phiếu; Host ACCEPT B1–B4, B5 có checkpoint Owner nếu cần routine/secret. Đã sửa stale N3/AUTO4, authority gate, measurable PASS, credential boundary. Gọi `claude-main, hermes-vps`.
 - `work/hpml-view-for-user/` · HVU · **KQ XONG · HOST ACCEPT · SSOT CLEANUP XONG · CHỜ CLAUDE CLOSE-CHECK → ARCHIVE**: không còn executor/terminal; hai cleanup AGENTS/HJW view đã xong P45. Không gate HJW N2.
 - `work/mow-mot-moit-mout/` · MMIM · Host GPT · file gốc đã import nguyên byte; chuẩn bị giao Codex gom tài liệu liên quan vào `information/`.
 - `work/graph-server/` · GS · Host GPT Chat · **P46 · R6C PASS · CODE-EDGE-TRUST v0.4 · R6D REVIEW**: explicit TS/Vue imports exact 18/18 directory→target; raw Enola 26/26 file-pairs, Cognee graph 18/26; auto-import/generated/runtime remain UNKNOWN and no follow-up now. Current R6D: Claude P47 khóa exact DOT/SQL registry sources/oracle; no parser/new registry, NO RUN. Owner decisions remain non-blocking: care/chat scope R7 + delete two private R6B copies.

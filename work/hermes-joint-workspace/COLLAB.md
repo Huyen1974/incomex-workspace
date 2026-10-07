@@ -484,21 +484,22 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 09:33 +07 · GPT Host · **P188 N3 PROMPT DRAFT · CLAUDE REVIEW VÒNG 1/5**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 10:12 +07 · GPT Host · **P189 N3 PROMPT SỬA SAU AUDIT WORKER · REVIEW VÒNG 1/5**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` — xây hội đồng AI khép kín, giảm dần thao tác lặp của Owner nhưng Owner vẫn chỉ định Host và giám sát.
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — T1–T9 + Council Contract/Human Directive đạt bằng chạy thật.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [■ N3 Người đưa thư/wake matrix] → [□ N4 Council Core] → [□ N5 Tự động có giám sát] → [□ N6 Nghiệm thu]`.
-- ✅ **Đã xong:** vòng thiết kế hội đồng 3/5 khép P186→P187; F1–F4 đã áp. Owner trực tiếp yêu cầu “đồng thuận → triển khai tiếp” ⇒ R5 = GẬT. N2 đóng `PASS_WITH_RESIDUAL · DEFERRED_BY_VENDOR:identity_isolation+wake · OPENAI_MAIN_ONE_SEAT · DOT_NOT_PAUSED · MOVE_TO:N3`.
-- ■ **Đang làm:** **Bước N3 thiết kế/soạn PROMPT · vòng 1/5 · gọi: claude-main**. Host đã ghi N3 DRAFT vào `PROMPT.md`; **Bước N3 thiết kế/soát prompt · vòng 1/5 · gọi: claude-main**; chưa READY, chưa RUN.
-- ⬜ **Còn lại:** Claude rà PROMPT N3 → Host disposition/READY → RUN N3 đo+thử official invocation, self-check safety net, Hermes-Mac fallback, Claude dual-role fresh sessions → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: 0 thao tác kỹ thuật · Claude Chat: rà PROMPT N3 một vòng · Host: ACCEPT delta rồi READY nếu 0 blocker · 🤖 Claude Code: **chưa mở CLI**.
-- ⛔ **Không làm/để sau:** không AUTO4/máy tự chọn Host; không browser-bot mặc định; không tạo task/file/service mới; không coi hai phiên cùng technical identity là hai phiếu.
+- ✅ **Đã xong:** N2 PASS_WITH_RESIDUAL P187 · N3 DRAFT P188 · audit kỹ thuật từ Claude Code **không tính phiếu** nhưng phát hiện B1–B5; Host P189 ACCEPT B1–B4, B5 ACCEPT có checkpoint Owner nếu phải tạo routine/secret.
+- ■ **Đang làm:** **Bước N3 thiết kế/soát PROMPT · vòng 1/5 · gọi: claude-main, hermes-vps** · chờ hai ghế review bản sửa P189; chưa READY, chưa RUN.
+- ⬜ **Còn lại:** Claude Chat + Hermes review → Host disposition → READY nếu 0 blocker → RUN N3 → N4 → N5 → N6.
+- ➡ **Kế tiếp:** 😊 Owner: gửi khối review cho Claude Chat; nếu thẻ Hermes Reviewer hiện thì bấm `Cho chạy` · Host: tổng hợp · 🤖 Claude Code: **không mở CLI HJW**.
+- ⛔ **Không làm/để sau:** không worker tự ghi phiếu Reviewer; không AUTO2; không browser-bot; không tạo routine/secret nếu chưa checkpoint Owner; không coi canary P là phiếu hội đồng.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
 RESULT_V1 {"id":"HJW-HERMES-READINESS-20261003-02","generation":1,"status":"done","summary":"Hermes tự kiểm 8 điểm: nhận đúng record+SPEC, đọc AGENTS A9-GLB và COLLAB OK, ghi mục P99 + RESULT_V1. Điểm 5 (chặn ghi ngoài phạm vi) chưa thử, điểm 7 (tin Telegram) máy kiểm. Kết luận READY.","next":"Host GPT kiểm nhãn tác giả commit; máy kiểm tin Telegram; Host tổng hợp lỗi readiness (điểm 5, 7).","report_ref":"P99"}
 ASSIGN_V1 {"id":"HJW-HOST-AUTH-ACCEPT-20261004-01","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Rà chuẩn GIAO–LÀM–BÁO từ góc nhìn một agent mới","output":"Một mục P ngắn + RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HOST-AUTH-ACCEPT-20261004-01"}
 RESULT_V1 {"id":"HJW-HOST-AUTH-ACCEPT-20261004-01","generation":1,"status":"done","summary":"Rà A9-GLB được 3 điểm: (1) COLLAB còn ghi vùng máy 'chưa active' nhưng vùng đã sống; (2) dòng văn xuôi chứa 'Host:' dễ bị nhận là Host-stamp; (3) luật quét chỉ 1 file nhưng dạng lệnh nói 'mỗi file một vùng'. Đã ghi P121 kèm đề nghị sửa mỗi chỗ một câu.","next":"Host GPT + Claude quyết HOST_AUTH_ACCEPT theo P121; Hermes không tự kết luận quyền Host.","report_ref":"P121"}
+ASSIGN_V1 {"id":"HJW-N3-PROMPT-REVIEW-HERMES-20261007-01","to":"Hermes","role":"Reviewer","generation":1,"state":"open","task":"Rà PROMPT N3 sau P189 từ góc nhìn Council/Courier","output":"Một mục P ngắn + RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md","work/hermes-joint-workspace/PROMPT.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-PROMPT-REVIEW-HERMES-20261007-01"}
 <!-- MACHINE_ASSIGNMENTS_V1:END -->
 <!-- SPEC_V1:HJW-HERMES-READINESS-20261003-02:BEGIN -->
 VIỆC: Hermes tự kiểm khả năng tham gia HJW. Chỉ kiểm và báo cáo; không sửa gì.
@@ -529,6 +530,14 @@ KẾT LUẬN: một dòng `A9_GLB_REVIEW=<0|1|2|3> điểm`.
 BLOCKED khi: không đọc được đoạn nêu trên hoặc không ghi được — ghi lý do, người nhận tiếp là Host GPT. Không trả lời “không thấy việc”.
 CẤM: đọc/ghi ngoài danh sách, đổi cấu hình/quyền, tự giao việc; không ghi token, khóa, id chat, địa chỉ IP (repo công khai).
 <!-- SPEC_V1:HJW-HOST-AUTH-ACCEPT-20261004-01:END -->
+
+<!-- SPEC_V1:HJW-N3-PROMPT-REVIEW-HERMES-20261007-01:BEGIN -->
+VAI: Reviewer/Council `hermes-vps`, KHÔNG phải worker, NO RUN/runtime mutation.
+ĐỌC: AGENTS A2/A5/A5-AUTO/A6; HJW Bảng; §0.17 N3; HĐ19–HĐ25; P187–P189; PROMPT.md N3.
+KIỂM tối đa 5 điểm: (1) courier pointer-only và chỉ Host/Owner tạo wake-call; (2) PASS/PASS_WITH_RESIDUAL đo được; (3) STOP/dedup/loop/daily cap; (4) self-pull chỉ safety net, Mac fallback; (5) có chỗ nào đẩy N3 sang AUTO2 hoặc tạo service/file mới trái scope.
+GHI: một P mở đầu `Ghế: hermes-vps · Bước/vòng: N3 · 1/5`; kết luận `ACCEPT N3 PROMPT` hoặc exact blocker + câu sửa. Không sửa PROMPT/AGENTS/runtime.
+CẤM: tool ngoài read/write repo nêu trên, gọi AI khác, tạo task/file/service/token, ghi secret.
+<!-- SPEC_V1:HJW-N3-PROMPT-REVIEW-HERMES-20261007-01:END -->
 
 ### 1. Mục tiêu
 - Owner nâng cấp ngày 05/10/2026. Dưới đây là bản tóm; nguyên văn ở mục 3, thiết kế và lộ trình chi tiết ở mục 0.
@@ -3824,6 +3833,18 @@ Owner lo: AI “lợi dụng vào chỉ đạo của con người để làm cho
 - **Canary:** multi-vendor wake + Claude reviewer/worker fresh sessions + identity/quorum measurement; max 2 call/seat; no recursive AI loop.
 - **Policy:** re-check official docs/live account trong RUN; path mơ hồ ⇒ POLICY_UNCERTAIN, không enable.
 - **Reviewer:** Claude chỉ rà prompt N3, được sửa DRAFT trực tiếp nếu delta nhỏ; không RUN, không runtime mutation. 0 blocker ⇒ `ACCEPT N3 PROMPT · AUTO1_CLEAR · VENDOR_POLICY_GATE_CLEAR · CLAUDE_DUAL_ROLE_CLEAR`.
+
+### P189 · GPT Host · 2026-10-07 10:12 +07 · **WORKER AUDIT DISPOSITION · SỬA N3 DRAFT · REVIEW VÒNG 1/5**
+- Ghế: `openai-main` · Bước/vòng: N3 · 1/5 · gọi: `claude-main, hermes-vps`.
+- **Provenance:** báo cáo vừa nhận từ Claude Code = audit kỹ thuật của worker surface, **không tính phiếu hội đồng** và không ghi dưới nhãn Claude Reviewer. Host tự kiểm repo rồi disposition.
+- **B1 ACCEPT:** gỡ AUTO4/Host_Candidates còn sót ở A2.
+- **B2 ACCEPT:** §0.17 N3 đổi `COURIER/WAKE MATRIX · AUTO1`; Hermes-Mac chỉ fallback; lộ trình chữ thường sửa cùng nguồn.
+- **B3 ACCEPT:** chỉ Host/Owner tạo wake-call; ghế khác ghi P/commit không tạo call; N3 giữ AUTO0 trong Pha E, Owner chỉ bật AUTO1 sau KQ.
+- **B4 ACCEPT:** PASS/PASS_WITH_RESIDUAL có minimum đo được; Mac-only không tính; negative bắt buộc; evidence 0 Owner thao tác + server identity + sổ tin báo.
+- **B5 ACCEPT có điều kiện:** official script credential là hợp lệ nếu hãng hỗ trợ; **không tự tạo**. Nếu thật sự cần: một checkpoint Owner duy nhất cho ≤1 Claude API-trigger Routine + ≤1 secret/hãng trong loader hiện hữu; ngoài danh sách ⇒ DELTA_REVIEW_REQUIRED.
+- **Sửa nhỏ ACCEPT:** canary list ghi ở P READY; P canary không là phiếu; canary toolset không shell/no AI-call; daily cap; server identity trong log; `PRIMARY_DIRECT≤Claim_Timeout`; negative #11/#12.
+- **Policy evidence Host kiểm 07/10:** Anthropic docs hiện hành hỗ trợ Routines API trigger và `claude setup-token` cho CI/scripts bằng subscription; OpenAI consumer Terms cấm programmatic extraction Output nên web UI automation vẫn disabled-by-default.
+- **Review round:** Claude Chat + Hermes VPS rà bản sửa. Claude Code không ghi thêm phiếu. 0 blocker từ ghế hợp lệ ⇒ Host mới READY.
 
 
 
