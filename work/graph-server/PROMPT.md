@@ -1,39 +1,42 @@
-# PROMPT — GS-R6D-DOT-SQL-EXPLICIT-20261007-08
+# PROMPT — GS-R6E-SOURCE-MANIFEST-20261007-09
 
 ## 0. LỆNH / PHẠM VI
 
-RUN_ID: `GS-R6D-DOT-SQL-EXPLICIT-20261007-08`
+RUN_ID: `GS-R6E-SOURCE-MANIFEST-20261007-09`
 Executor_Surface: Claude Code CLI
 Repo: `Huyen1974/incomex-workspace` · branch `main`
 Task: `work/graph-server`
 Repo Write_Path: Incomex workspace gateway `workspace_*` · root `workspace`
 Runtime Write_Path: terminal/SSH hiện hữu tới VPS1.
 
-Owner D14: GPT + Claude tự quyết trial nhỏ; production/quy mô thật mới xin Owner.
+Owner D14: trial nhỏ được tự quyết trong scope; production/quy mô thật chỉ R7 Owner duyệt.
 
 MỤC TIÊU DUY NHẤT:
-- chứng minh đường nạp Graph cho **quan hệ tường minh có nguồn xác định**, nơi Enola không parse shell DOT/SQL;
-- Họ A: PostgreSQL native catalog trigger → table/function + trạng thái tại snapshot;
-- Họ B: lệnh DOT tồn tại trên đĩa ↔ khai báo registry hiện hữu;
-- không suy từ thân hàm/script.
+- tạo **manifest whitelist nguồn được phép vào Graph production v1**;
+- kiểm kê **có biên**, không kiểm kê toàn hệ thống;
+- xếp từng nguồn trong biên vào đúng một loại:
+  `CURRENT/KEEP · ARCHIVE · DELETE-CANDIDATE · RECHECK`;
+- freeze danh sách + cách chụp + trust contract để R7 clean build dùng.
 
-KHÔNG:
-- parse shell/SQL;
-- đọc thân hàm `prosrc` / `pg_get_functiondef`;
-- đọc nội dung script DOT;
-- LLM/JEV/vector/Cognee;
-- sửa PG/Directus/DOT registry;
-- tạo registry mới;
-- dùng view dò chữ/callgraph để bù UNKNOWN;
-- nối Neo4j trực tiếp vào PG.
+R6E KHÔNG:
+- dọn KB;
+- xoá/di chuyển/sửa file;
+- sửa COMMENT/registry;
+- ingest Neo4j/Cognee;
+- build production;
+- đọc nội dung/title tài liệu KB;
+- đụng Lark;
+- mở lại care/chat discovery;
+- gọi LLM/JEV;
+- tạo parser/graph feature mới.
 
-§0.3: đọc/đối chiếu trước mọi mutation trial.
+Manifest = **danh sách cho vào**. Thứ không có dòng `CURRENT/KEEP` trong manifest v1 thì không vào Graph v1.
 
 ## 1. READ-GATE
 
 Đọc:
 1. `AGENTS.md`
-2. BẢNG + §0 + D14/D15 + P45–P48 của `work/graph-server/COLLAB.md`
+2. BẢNG + §0 + D13–D15 + P49–P52 của `work/graph-server/COLLAB.md`
 3. `work/graph-server/PROMPT.md`
 4. `work/graph-server/view.html`
 5. root `COLLAB.md` dòng Graph.
@@ -41,318 +44,364 @@ KHÔNG:
 Xác minh READY full SHA = commit cuối chạm PROMPT; không HOLD/STOP/READY mới; không STARTED cùng RUN chưa có KQ.
 
 PASS → ghi:
-`STARTED@GS-R6D-DOT-SQL-EXPLICIT-20261007-08 <UTC> · executor=Claude Code CLI`
+`STARTED@GS-R6E-SOURCE-MANIFEST-20261007-09 <UTC> · executor=Claude Code CLI`
 
 FAIL → 0 runtime mutation, KQ DỪNG.
 
-## 2. PG READ-ONLY GATE — BẮT BUỘC
+## 2. BIÊN KIỂM KÊ U1–U3 — CẤM MỞ RỘNG
 
-Chỉ được dùng **đường PG read-only hiện hữu** tương đương role mà cổng `query_pg` dùng.
-Không dùng owner/superuser.
-Không tạo role.
-Không in credential.
+### U1 · Nguồn đã dùng trong R4–R6D
+Chỉ metadata/provenance của các source đã xuất hiện trong evidence:
+- R4/R6A Python sample source (frozen `dot/iu-cutter-v0.6`) — để xếp loại, không ingest;
+- R5 Base 88 explicit-link source — chỉ dùng evidence cũ, **không đọc Lark**;
+- R6B/R6B0 trial runtime/evidence;
+- R6C Nuxt source;
+- R6D PG/DOT sources.
 
-Trước ba query:
-- `BEGIN READ ONLY`
-- `SET LOCAL default_transaction_read_only=on`
-- ghi evidence:
-  - current_user;
-  - `rolsuper=false`;
-  - `has_table_privilege(current_user,'public.trigger_registry','INSERT')=false`;
-  - `has_table_privilege(current_user,'public.dot_tools','INSERT')=false`.
+### U2 · Ứng viên production đã khóa ở P51
+Đúng các lớp/candidate này:
 
-Không chứng minh được read-only path ⇒
-`DỪNG · NO_READONLY_PG_PATH`.
+1. PostgreSQL trigger native catalog (capture contract = R6D `Q_TRG`).
+2. DOT live command existence: `/opt/incomex/dot/bin` + `/opt/incomex/dot/00-SO-DOT.tsv`.
+3. DOT registry declarations: `public.dot_tools` theo R6D `Q_DOT`.
+4. Python first-party candidate roots, xác nhận tồn tại tại runtime:
+   - `/opt/incomex/docker/agent-data-repo`
+   - `/opt/incomex/lark-client` — tuyệt đối loại `.venv`
+   - `/opt/incomex/claude-mcp`
+   - `/opt/incomex/claude-kb`
+   - `/opt/incomex/scripts`
+5. TS/Vue source:
+   - `/opt/incomex/docker/nuxt-repo/web`
+6. Các nguồn P51 đã xếp ARCHIVE/RECHECK:
+   - PG: `trigger_registry`, `dot_domains`, `dot_operations`, `_recon_dot_fs_inventory`, `entity_dependencies`, họ `v_qt001_*`, `dot_iu_command_catalog`, `iu_relation`, `universal_edges`;
+   - FK/view native dependency counts;
+   - `knowledge_documents`;
+   - `normative_registry` (metadata/count/link coverage only; không mở KB);
+   - conceptual source `Lark Base 88 explicit links` = RECHECK/Owner decision, **không đọc Lark**;
+   - care/chat = no source.
 
-PG chỉ SELECT catalog/registry. Không INSERT/UPDATE/DELETE/DDL/CALL.
+Nếu một exact path candidate không tồn tại:
+- chỉ được resolve **cùng basename trong /opt/incomex, depth tối đa 2**;
+- thấy 0 hoặc >1 candidate ⇒ ghi RECHECK `PATH_UNRESOLVED`;
+- không search toàn filesystem.
 
-## 3. BA SELECT DUY NHẤT — CHÉP NGUYÊN
+### U3 · Trial artifacts
+Chỉ:
+- `/opt/incomex/work/graph-server/runtime/`
+- `/opt/incomex/work/graph-server/evidence/`
 
-### Q_TRG · PostgreSQL native catalog — SOURCE OF TRUTH
-```sql
-SELECT n.nspname AS tbl_schema, c.relname AS tbl, t.tgname AS trg,
-       pn.nspname AS fn_schema, p.proname AS fn,
-       pg_get_function_identity_arguments(p.oid) AS fn_args, t.tgenabled AS enabled_code
-FROM pg_trigger t
-JOIN pg_class c ON c.oid = t.tgrelid  JOIN pg_namespace n  ON n.oid  = c.relnamespace
-JOIN pg_proc  p ON p.oid = t.tgfoid   JOIN pg_namespace pn ON pn.oid = p.pronamespace
-WHERE NOT t.tgisinternal ORDER BY 1, 2, 3;
-```
+Phân theo từng RUN/task folder.
+Không xoá.
 
-### Q_REG · trigger_registry — INDEPENDENT CROSS-CHECK ONLY
-```sql
-SELECT code, trigger_name, table_name, function_name, enabled FROM trigger_registry ORDER BY code;
-```
+### Ngoài biên
+Thấy source khác ⇒ tăng `OUT_OF_SCOPE_COUNT`/ghi category ngắn nếu dễ xác định; **không xếp loại, không đào tiếp**.
 
-### Q_DOT · dot_tools — DECLARATION ONLY
-```sql
-SELECT code, name, file_path, paired_dot, status FROM dot_tools ORDER BY code;
-```
+## 3. READ-ONLY GATE
 
-CẤM query thêm để cứu kết quả.
-Metadata role/read-only ở §2 không tính là source query.
+### PostgreSQL
+Dùng đúng role read-only đã chứng minh ở R6D:
+- non-superuser;
+- transaction read-only;
+- 0 INSERT/UPDATE/DELETE/DDL.
 
-## 4. DOT DISK SOURCE
+Cho phép ở R6E:
+- SELECT metadata/catalog trong U1/U2;
+- đọc COMMENT của object trong biên;
+- aggregate counts trên `knowledge_documents`;
+- aggregate metadata của `normative_registry`.
 
-Source of truth về lệnh DOT đang tồn tại:
-- `/opt/incomex/dot/00-SO-DOT.tsv`
-- sorted filename list thực tế dưới `/opt/incomex/dot/bin/`.
+Cấm output row-level business/KB content.
 
-Không chạy `dot-dot-catalog`.
-Không đọc nội dung script.
+### Filesystem/Git
+Chỉ:
+- stat/list/hash;
+- `git rev-parse HEAD`, `git status --porcelain`, `git ls-files`;
+- đọc metadata labels `00-NHAN-THU-MUC.md`, `GHI-CHU-CAY-GIT.md`, phần bản đồ hệ thống P51 đã dùng;
+- không sửa mtime/content/permissions.
 
-Freeze:
-- SHA256 `00-SO-DOT.tsv`;
-- sorted basename list của `dot/bin`;
-- hash list.
+Production PRE = POST bắt buộc.
 
-Nếu TSV lệch directory:
-- directory hiện hữu thắng về EXISTENCE;
-- ghi exact diff;
-- không sửa TSV.
+## 4. KB — CHỈ 3 PHÉP ĐẾM TỔNG HỢP
 
-Tên bị surface filter che nếu có: không in tên; vẫn được tính local/count/hash.
+Nếu cần mapping tên cột do schema drift:
+- được đọc `information_schema.columns` của `knowledge_documents`;
+- không đọc row content/title.
 
-## 5. NGUỒN CẤM / CHỈ ĐỐI CHIẾU
+Sau đó chỉ ba aggregate families:
 
-KHÔNG dùng làm source truth hoặc graph input:
-- `dot_iu_command_catalog`
-- `iu_relation`
-- `entity_dependencies`
-- `universal_edges`
-- `_recon_dot_fs_inventory`
-- `v_qt001_callgraph_edges_v2`
-- `v_qt001_native_dependency_edges_v6`
-- `directus_relations`
-- `trigger_registry` cho trạng thái truth
-- `dot_tools` cho command existence truth.
+### KB-A · TOTAL
+Xuất duy nhất aggregate:
+- row count;
+- tổng `length(content)`;
+- min/max create/update timestamps nếu cột tồn tại.
 
-`trigger_registry` và `dot_tools` chỉ cross-check/DECLARED.
+### KB-B · FOLDER × MONTH
+Group bằng **bucket thư mục**, không xuất full document path/title:
+- top-level/known class bucket;
+- month(create/update theo query đã freeze);
+- count.
 
-## 6. SNAPSHOT / FREEZE TRƯỚC NẠP
+Evidence public chỉ bucket + count.
 
-Xuất local dưới:
-`/opt/incomex/work/graph-server/runtime/r6d/input/`
+### KB-C · BYTE-DUPLICATE COUNTS
+Dùng `md5(content)` trong SQL chỉ để aggregate:
+- số duplicate hash groups;
+- tổng redundant rows.
+Không xuất hash, content, title, path từng tài liệu.
 
-Files:
-- `q_trg.csv`
-- `q_reg.csv`
-- `q_dot.csv`
-- `dot_disk.tsv`
-- `FREEZE.sha256`
-- `snapshot-meta.json` timestamp UTC + row counts.
+`knowledge_documents` luôn xếp:
+`RECHECK · NOT_IN_V1`
+trong R6E, bất kể số đếm.
+Không chọn một subset KB trong RUN này.
 
-Permissions 700 dir / 600 files.
-Hash toàn bộ trước Neo4j load.
+`normative_registry` chỉ ghi aggregate:
+- active/current rule count theo status hiện hữu;
+- số row có document path/link non-null;
+- nếu có thể đối chiếu existence mà không xuất nội dung/title thì ghi count-only.
+Không đưa KB vào KEEP từ phép đối chiếu này.
 
-Số P47 đo sáng 07/10 chỉ là reference.
-**Acceptance tính theo frozen RUN snapshot.**
-Nếu khác P47: báo diff; không tự coi là lỗi, không rerun để nâng số.
+## 5. CODE ROOT INVENTORY
 
-Cuối RUN chạy lại đúng Q_TRG/Q_REG/Q_DOT read-only:
-- hash không đổi ⇒ stable snapshot;
-- đổi ⇒ ghi `SOURCE_CHANGED_DURING_RUN` + exact row-key diff.
-Không sửa nguồn.
+Với từng exact candidate code root U2:
 
-## 7. GRAPH SCHEMA — FRESH NEO4J, KHÔNG COGNEE
+1. xác nhận path;
+2. tìm git root bằng `git -C <root> rev-parse --show-toplevel`;
+3. record:
+   - git HEAD;
+   - dirty tracked/untracked count;
+   - branch nếu có;
+   - tracked file count theo extension;
+   - label `00-NHAN-THU-MUC.md` có/không + metadata life-state/date nếu label có;
+4. file hash inventory:
+   - chỉ `git ls-files` dưới candidate root;
+   - không hash `.git`, `.venv`, `node_modules`, `.nuxt`, `.output`, cache/build artifacts;
+   - hash list để private evidence; repo/KQ chỉ count + aggregate hash.
+5. cross-tree duplicate:
+   - so hash của tracked files giữa các **candidate KEEP roots**;
+   - nếu cùng bytes xuất hiện ở hai cây candidate KEEP ⇒ cả hai liên quan xuống `RECHECK · CROSS_TREE_DUPLICATE` cho đến R7;
+   - không xoá.
 
-Fresh R6D Neo4j:
-- Community 5.26.31 local image;
-- `--pull never`;
-- 0 public port;
-- internal/loopback only;
-- volume riêng R6D;
-- 0 outbound.
+Nếu root không có git, dirty, label missing/expired/frozen/dead:
+- không sửa;
+- xếp theo §6, thường RECHECK/ARCHIVE.
 
-Nạp bằng `LOAD CSV` từ file snapshot.
-Neo4j **không** có PG credentials/network route.
+### Trust contract cho code
+- Python: v0.3 chỉ chứng minh tool behavior trên sample frozen; candidate source root có thể KEEP, nhưng manifest phải ghi:
+  `R7_REVERIFY=AST_ORACLE_REQUIRED_BEFORE_INGEST`.
+- TS/Vue: v0.4 trust = explicit-static directory→target trên measured slice; candidate Nuxt root KEEP chỉ với scope trust đó; file-level/auto-import vẫn theo UNKNOWN/residual.
 
-Unique IDs:
+## 6. LUẬT XẾP LOẠI — 4 CÂU, DỪNG Ở CÂU ĐẦU TRÚNG
 
-### Họ A · PostgreSQL triggers
-- `:PgTable{id = tbl_schema+'.'+tbl}`
-- `:PgTrigger{id = tbl_schema+'.'+tbl+'.'+trg}`
-- `:PgFunction{id = fn_schema+'.'+fn+'('+fn_args+')'}`
+Áp cùng một thứ tự cho mỗi source row trong U1–U3:
 
-Edges:
-- `(:PgTrigger)-[:ON_TABLE]->(:PgTable)`
-- `(:PgTrigger)-[:EXECUTES]->(:PgFunction)`
+### RULE-1 → DELETE-CANDIDATE
+Là:
+- dữ liệu/runtime trial; hoặc
+- rỗng có bằng chứng; hoặc
+- byte-identical duplicate của một source đã giữ.
 
-PgTrigger properties:
-- `enabled_code`
-- `source='pg_catalog'`
-- `snapshot_utc`
-- `source_file`
-- `source_row`.
+Chỉ lập danh sách.
+**Không xoá.**
+Tên/path một mình không đủ làm căn cứ duplicate/delete.
 
-### Họ B · DOT
-- `:DotCommand{id=<basename from disk source>}`
-- `:DotRegistryEntry{id=<dot_tools.code>}`
+### RULE-2 → ARCHIVE
+Nhãn/provenance sẵn có chứng minh một trong:
+- frozen/dead/disabled target;
+- bản copy/mirror của source gốc;
+- version cũ đã superseded;
+- vendored/external library không phải first-party source.
 
-`REGISTERS`:
-1. nếu `file_path` có giá trị và basename(file_path) == DotCommand.id ⇒ edge;
-2. nếu `file_path` trống và `name` == DotCommand.id ⇒ edge;
-3. nếu `file_path` có giá trị nhưng file không còn ⇒ **không edge**, dù name trùng;
-4. không fuzzy/normalized-name matching ngoài trim newline của serialization.
+Để nguyên tại chỗ; không vào Graph v1.
 
-`PAIRED_WITH`:
-- chỉ tạo khi `paired_dot` bằng **đúng một code** tồn tại;
-- multi-code/composite string ⇒ không edge.
+### RULE-3 → RECHECK
+Thiếu **bất kỳ** điều kiện nào:
+1. label/currentness evidence còn hạn ≤6 tháng;
+2. read-only capture method + hash;
+3. measured trust contract đúng relation/source type;
+4. Owner privacy/scope decision nếu source có personal/business data.
 
-DOT edge properties:
-- `trust='DECLARED'`
-- snapshot/source file/source row.
+Ngoài ra code root:
+- no git / dirty / unresolved path / cross-tree duplicate ⇒ RECHECK.
 
-Không graph hóa status/last_executed/usage_count thành runtime truth.
+### RULE-4 → CURRENT/KEEP
+Chỉ khi:
+- source gốc;
+- đang sống theo label/currentness;
+- chụp read-only + hash được;
+- relation type có trust contract đã đo;
+- privacy decision không thiếu.
 
-## 8. TRUST SEMANTICS — KHÓA TRƯỚC LOAD
+Mỗi source row phải ghi `rule_hit=1|2|3|4`.
+Không được override thủ công sau khi thấy kết quả.
 
-Nếu PASS, chỉ được đề xuất Host nâng v0.5:
+## 7. NHÓM XẾP LOẠI ĐÃ KHÓA / EXPECTED POLICY
 
-1. `EXACT_AT_SNAPSHOT`
-   - PgTrigger existence;
-   - ON_TABLE;
-   - EXECUTES;
-   - enabled_code;
-   - DotCommand existence từ disk snapshot.
-   - Vắng trigger/DotCommand = không có **tại snapshot source truth tương ứng**.
+Đây là policy expectation, nhưng RUN vẫn phải áp §6 và ghi evidence:
 
-2. `DECLARED`
-   - DotRegistryEntry;
-   - REGISTERS;
-   - PAIRED_WITH.
-   - Không chứng minh command chạy thật hay body gọi gì.
+### KEEP candidates
+- PG native trigger catalog;
+- DOT disk live command source;
+- DOT registry declaration source `dot_tools` với trust=DECLARED;
+- first-party Python code roots nào PASS §5/§6;
+- Nuxt web root nếu PASS §5/§6.
 
-3. `UNKNOWN`
-   - function body → table/function;
-   - DOT body → table/function;
-   - DOT calls DOT ngoài declared paired_dot;
-   - scheduling/execution history;
-   - Python/TS ↔ DOT/SQL;
-   - relation không có explicit source.
+### ARCHIVE expected
+- stale/frozen PG registries/views P51 nêu;
+- `dot/iu-cutter*`;
+- `lark-client/.venv`;
+- deploy/copy/context-pack/evidence copies;
+- 78 backup entries trong `dot/bin`;
+- historical evidence folders = ARCHIVE, không delete.
 
-Không suy từ text/body/regex để lấp UNKNOWN.
+### RECHECK expected
+- FK/view native dependencies;
+- `universal_edges`;
+- `knowledge_documents` whole class = NOT_IN_V1;
+- Lark Base88 business links = OWNER_SCOPE_REQUIRED;
+- any code root failing KEEP gate;
+- care/chat = NO_SOURCE.
 
-## 9. C1–C6 PASS — TẤT CẢ PHẢI ĐẠT
+### DELETE-CANDIDATE expected
+- trial runtime folders;
+- proven empty/byte-identical duplicate if any.
+Không delete.
 
-### C1 · READ-ONLY + SNAPSHOT INTEGRITY
-- PG read-only preflight PASS.
-- 4 source snapshots frozen+hashed trước load.
-- production PRE=POST.
-- Q_TRG/Q_REG/Q_DOT post-run:
-  - stable ⇒ PASS;
-  - nếu source đổi do bên khác, graph vẫn phải khớp frozen snapshot và báo `SOURCE_CHANGED_DURING_RUN`; executor không rerun.
-
-### C2 · IDENTITY EXACT
-Graph node unique counts = unique IDs từ frozen input.
-Bắt buộc chứng minh:
-- `public.unit_version` ≠ `sandbox_tac.unit_version`;
-- overload function identity giữ `fn_args`;
-- duplicate DOT registry rows không gộp sai command node.
-0 key collision ngoài rule.
-
-### C3 · PG LOAD FIDELITY
-Tập ON_TABLE + EXECUTES trong graph = exact frozen Q_TRG-derived sets.
-0 extra, 0 missing.
-Mỗi edge có provenance snapshot/source row.
-
-### C4 · TRIGGER REGISTRY CROSS-CHECK
-Từ frozen Q_REG:
-- exact MATCH/MISSING/NAME_MISMATCH;
-- exact enabled mismatch count so với Q_TRG;
-- graph state luôn theo Q_TRG.
-
-PASS = báo cáo cross-check **chính xác 100% theo hai frozen files**.
-Không yêu cầu registry phải đầy đủ hay enabled phải đúng.
-
-### C5 · DOT FIDELITY / DRIFT
-Từ frozen disk + Q_DOT:
-- expected REGISTERS set = graph set;
-- expected PAIRED_WITH set = graph set;
-- report exact:
-  - registry rows không nối được;
-  - disk commands không có registry edge;
-  - commands có nhiều registry rows;
-  - composite paired_dot bị bỏ.
-0 extra, 0 missing theo deterministic rule.
-
-PASS không có nghĩa dot_tools đúng; chỉ graph phản ánh disk truth + registry declarations.
-
-### C6 · 8 GRAPH QUESTIONS
-Oracle tính từ frozen input **trước** khi hỏi graph:
-
-1. Với `public.dot_tools`: trigger nào chạy, gọi hàm nào, enabled_code nào?
-2. `public.dot_domains` có trigger không?
-3. Trigger trên `unit_version` — tách schema.
-4. `trg_count_dot_tools` enabled/disabled? Nếu Q_REG khác, trả catalog truth + `REGISTRY_MISMATCH`.
-5. `public.refresh_registry_count()` đọc/ghi bảng nào? ⇒ `UNKNOWN_FROM_GRAPH`.
-6. DOT nào đọc/ghi `dot_tools`? ⇒ `UNKNOWN_FROM_GRAPH`.
-7. `dot-dot-catalog`: disk existence? registry edge?
-8. `dot-schema-ensure`: một command node; bao nhiêu registry entries trỏ tới nó?
-
-PASS:
-- Q1–Q4 exact frozen Q_TRG;
-- Q5–Q6 đúng UNKNOWN, không dò body;
-- Q7–Q8 exact frozen disk/Q_DOT.
-
-## 10. KHÔNG ĐƯỢC NÓI QUÁ
-
-PASS chỉ chứng minh:
-- PostgreSQL trigger catalog relations exact tại snapshot;
-- DOT command existence exact theo disk snapshot;
-- DOT registry relations graph hóa đúng deterministic DECLARED rule.
-
-PASS KHÔNG chứng minh:
-- SQL function/table dependency nói chung;
-- script DOT body dependency;
-- execution history/schedule;
-- DOT calls DOT thật;
-- toàn bộ SQL/code relation.
-
-“DOT/SQL” ở R6D = **explicit native/declared metadata coverage**, không phải parser coverage.
-
-## 11. CLEANUP / KQ
+## 8. MANIFEST OUTPUT
 
 Evidence:
-`/opt/incomex/work/graph-server/evidence/GS-R6D-DOT-SQL-EXPLICIT-20261007-08/`
+`/opt/incomex/work/graph-server/evidence/GS-R6E-SOURCE-MANIFEST-20261007-09/`
 
-Tối thiểu:
-- PRE/POST;
-- read-only proof;
-- frozen hashes/counts;
-- expected sets;
-- Neo4j counts/diffs;
-- C1–C6;
-- 8 graph answers;
-- 00-KQ.md;
-- EVIDENCE.sha256.
+Tạo:
+- `production-source-manifest.csv`
+- `production-source-manifest.json`
+- `manifest.sha256`
+- `inventory.json`
+- `classification-replay.json`
+- `owner-decisions-r7.md`
+- `00-KQ.md`
+- `EVIDENCE.sha256`.
 
-Cleanup:
-- stop/remove R6D container/network;
-- giữ R6D volume + evidence cho Host;
-- wipe dry-run only;
-- không xoá R6B/R6B0 private copies;
-- không xoá R6C runtime.
+Mỗi manifest row tối thiểu:
+- source_id / class_id;
+- exact location hoặc conceptual source id;
+- origin_or_copy;
+- label region/life_state/measure_date;
+- capture_method **nguyên văn command/query**;
+- count summary;
+- aggregate/source hash;
+- trust_contract (`v0.3/v0.4/v0.5/UNKNOWN`);
+- exclusions;
+- classification;
+- rule_hit;
+- missing_gate / residual;
+- R7_reverify requirement.
 
-Repo chỉ update Bảng/KQ trong task COLLAB.
-Không sửa PROMPT/view ở executor.
+Freeze manifest SHA256.
+“Freeze” = chốt **whitelist + capture contract + reference snapshot**.
+R7 clean build phải chụp dữ liệu thật lại; không reuse trial snapshot như production data.
+
+## 9. E1–E6 PASS
+
+### E1 · ZERO MUTATION
+- PG read-only pre/post proof;
+- production PRE=POST;
+- 0 delete/move/edit/ingest;
+- 0 Neo4j/Cognee container started;
+- 0 provider call/cost.
+
+### E2 · BOUNDED COMPLETENESS
+- mọi source trong U1–U3 xuất hiện đúng một lần trong inventory/manifest classification;
+- đúng một classification + một `rule_hit`;
+- ngoài biên không bị kéo vào.
+
+### E3 · KEEP GATES COMPLETE
+Mỗi KEEP row có:
+- capture method;
+- count;
+- hash;
+- valid current label;
+- measured trust contract.
+Code KEEP:
+- git HEAD;
+- dirty count = 0;
+- no cross-tree duplicate hashes.
+Python KEEP luôn có `AST_ORACLE_REQUIRED_BEFORE_INGEST`.
+
+### E4 · DETERMINISTIC REPLAY
+Chạy classifier lần hai **trên frozen inventory**, không reread production.
+Output classification phải byte-identical / same hash.
+
+### E5 · TRUST/UNKNOWN HONEST
+- không KEEP row thiếu measured trust;
+- UNKNOWN list v0.5 giữ nguyên;
+- TS/Vue file-level/auto-import limits giữ nguyên;
+- care/chat = NO_SOURCE;
+- KB = RECHECK whole class, NOT_IN_V1, aggregate-only;
+- business Lark links = RECHECK/OWNER_SCOPE_REQUIRED.
+
+### E6 · R7 DECISION BUNDLE
+`owner-decisions-r7.md` có đúng các nhóm:
+1. Graph v1 KB: đề xuất **không đưa KB cũ vào v1**.
+2. KB cleanup: việc riêng sau R7; Owner chọn archive-index-first vs selective delete. Không làm trong Graph task.
+3. Business Graph: có cho phép explicit Lark Base88 links vào production scope không + privacy rule.
+4. Care/chat: có bắt đầu capture/connect nguồn không.
+5. Trial cleanup: xoá private R6B/R6B0 + wipe trial runtime/evidence theo scope nào sau quyết định production.
+6. R5 OpenAI cost: `UNKNOWN, estimate ≤0.47 USD` cần ghi trong R7 report.
+7. R7 build gates:
+   - rerun Python AST oracle trên actual KEEP Python trees trước ingest;
+   - nếu thêm FK/view relations thì phải có R6D-style identity/set gate;
+   - fresh capture hashes for all KEEP sources.
+
+Mỗi decision có:
+- `WHY`
+- `HOST_RECOMMENDATION`
+- `OWNER_CHOICE`.
+Không yêu cầu Owner trả lời trong R6E.
+
+## 10. STOP RULES
+
+DỪNG nếu:
+- cần mutation để đo;
+- read-only PG path không chứng minh được;
+- cần đọc KB content/title;
+- cần đụng Lark;
+- cần search ngoài U1–U3 để phân loại;
+- classifier cần subjective/manual exception;
+- cần cài package/LLM/JEV.
+
+Không rerun để đổi classification.
+Source dirty/missing label/unknown ⇒ RECHECK, **không phải blocker toàn RUN** nếu vẫn đo được read-only và manifest ghi đủ lý do.
+
+## 11. KQ / CLEANUP
+
+Không có trial DB/graph container.
+Runtime nếu cần:
+`/opt/incomex/work/graph-server/runtime/r6e/`
+chỉ scripts/temp inventory, không business content.
+
+Cuối RUN:
+- rerun PRE/POST metadata;
+- freeze evidence;
+- wipe dry-run runtime/r6e only;
+- không xoá R6B/R6B0/R6C/R6D artifacts.
+
+Repo:
+- chỉ update Bảng/KQ trong `work/graph-server/COLLAB.md`;
+- không sửa PROMPT/view ở executor.
 
 KQ:
-`KQ@GS-R6D-DOT-SQL-EXPLICIT-20261007-08 XONG|DỪNG`
+`KQ@GS-R6E-SOURCE-MANIFEST-20261007-09 XONG|DỪNG`
 
 Final:
-`XONG · GS-R6D-DOT-SQL-EXPLICIT-20261007-08 · <commit>`
+`XONG · GS-R6E-SOURCE-MANIFEST-20261007-09 · <commit>`
 hoặc
-`DỪNG · GS-R6D-DOT-SQL-EXPLICIT-20261007-08 · <blocker> · <commit>`
+`DỪNG · GS-R6E-SOURCE-MANIFEST-20261007-09 · <blocker> · <commit>`
 
 ## 12. AUTONOMY
 
-Claude tự xử export CSV/local Neo4j/LOAD CSV/scoring trong scope.
+Claude tự xử read-only inventory/scripts/classifier trong đúng U1–U3.
 Không hỏi Owner.
-Không đổi nguồn/query/rules.
-Không rerun để nâng số.
-Không viết parser.
-Không dùng body text.
-Không mutation production.
-
-Nếu cần source/query thứ tư, write privilege, parser mới hoặc sửa registry ⇒ DỪNG sạch.
+Không delete/archive/move.
+Không ingest/build.
+Không đổi policy sau khi thấy số.
+Ngoài biên ⇒ ghi OUT_OF_SCOPE, không đào.
