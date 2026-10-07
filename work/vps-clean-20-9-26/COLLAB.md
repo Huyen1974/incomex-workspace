@@ -5,21 +5,21 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 11:55 +07 · Claude Chat (Reviewer) · P55 trên nền P54 của Host
-- 🎯 **Mục tiêu Owner:** VPS ổn định sau loạt thay đổi — vì chuông kêu quá nhiều, ổ đĩa vẫn đầy nhanh và mỗi lần kiểm lại lòi lỗi mới.
-- 🏁 **Xong khi:** đèn nói thật · mọi tăng dung lượng có tên/chủ/cap/TTL · unknown không vượt ngưỡng nhiễu và có receipt 24h mới sau R7 · mọi mã chạy có khoá Đ30/31 · 502/503 có số đo + phương án.
-- 📍 **Tiến độ:** `✅ Codex khảo sát · ✅ P53 DELTA · ✅ Host P54 sửa 7 DELTA + cổng storage thật · ■ Codex review lại · ⬜ Claude Code chạy R7 · ⬜ Codex + Host nghiệm thu R7 · ⬜ máy chứng minh 24h · ⬜ FINAL CLOSE`
-- ✅ **Đã xong:** P53 đã xử lý đủ; PROMPT last-touch `62b55a3`; D19 đã thay tiêu chí đóng.
-- ■ **Đang làm:** Bước kế hoạch · vòng 2/5 · gọi Codex Reviewer rà đúng PROMPT@`62b55a3` · **Claude Chat P55 OPEN: 3 DELTA chặn RUN (định nghĩa “tăng lạ” · gọi tên trôi nền ngay trong RUN · lộ trình thiếu nút bịt) — chờ Host.**
-- ⬜ **Còn lại:** Codex ACCEPT → Claude Code R7 → nghiệm thu → máy tự chứng minh FINAL_CLOSE_GATE 24h; N2 auth/lõi là lượt riêng theo bằng chứng D6.
-- ➡ **Kế tiếp:** Host trả lời P55 (nhận ⇒ PROMPT đổi SHA, Codex rà SHA mới · bác ⇒ ghi lý do); còn P OPEN hoặc chưa có ACCEPT trên đúng SHA cuối thì không RUN.
-- ⛔ **Không làm trong R7:** restart/rebuild lõi · đổi phiên bản · xoá dữ liệu/trial · xoay khoá (để N2) · việc của chủ khác (chỉ ghi sổ tồn đọng).
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 13:16 +07 · GPT Chat (Host) · P56
+- 🎯 **Mục tiêu Owner:** VPS ổn định lâu dài — không quay lại dọn ổ mỗi tháng; mọi tăng dung lượng phải hiểu được và bị kiểm soát.
+- 🏁 **Xong khi:** mỗi phần tăng của ổ đĩa **có tên · có cơ chế kiểm soát phù hợp · có chuông**; phần đang chảy hiện tại đã được gọi tên; máy tự phát bản tin 08:00 với một cửa sổ 24h sạch; đèn nói thật; mã chạy có khoá Đ30/31; 502/503 có kết luận/bước sửa theo bằng chứng.
+- 📍 **Tiến độ:** `✅ khảo sát · ✅ P53 7 DELTA · ✅ P55 3 DELTA · ✅ Host P56 sửa roadmap/PROMPT · ■ Codex rà SHA mới · ⬜ Claude Code R7 · ⬜ nghiệm thu R7 · ⬜ N2a bịt nguồn chưa có van · ⬜ N2b khoá/auth + lõi 502 nếu bằng chứng yêu cầu · ⬜ 08:00 sạch → FINAL CLOSE`
+- ✅ **Đã xong:** PROOT01/P51–P55; 7 DELTA Codex + 3 DELTA Claude đã được Host disposition; PROMPT đã đổi theo P55 nên READY `62b55a3` hết hiệu lực.
+- ■ **Đang làm:** Bước kế hoạch · vòng 3/5 · Host P56 đã sửa PROMPT; chuẩn bị phát READY mới rồi mời Codex rà đúng SHA mới. Claude P55 = RESOLVED.
+- ⬜ **Còn lại:** Reviewer ACCEPT → R7 (gọi tên drift + lắp đo/chuông/khoá) → nghiệm thu → **N2a** sửa từng nguồn `UNVALVED` → **N2b** xoay khoá lộ + sửa lõi 502/503 chỉ nếu D6 có đủ bằng chứng → bản tin 08:00 có đủ 24h sau mutation storage cuối cùng → đóng.
+- ➡ **Kế tiếp:** fresh-read PROMPT hiện hành → Host READY mới → Codex review; chưa ACCEPT trên SHA cuối thì không RUN.
+- ⛔ **Không làm trong R7:** restart/rebuild lõi · đổi phiên bản · xoá dữ liệu/trial · xoay khoá; các việc này chỉ sang N2a/N2b khi có nguồn/bằng chứng cụ thể.
 
 ### 1. Mục tiêu
 Owner 07/10/2026: “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.” Lời Owner giao Codex ngay trước đó: “1 số dịch vụ tôi thấy dow/up quá nhiều và ngoài ra chúng ta đã bịt dò ổ cứng, kiểm tra lại nhiều lần, nhưng mỗi lần kiểm tra xong vẫn phát hiện ra 1 vài lỗi => ổ cứng vẫn đầy nhanh hơn mong đợi.” và “Chúng ta đã có điều 30/31 trong hiến pháp để bảo vệ các mã đã viết, việc này đã được bảo vệ đầy đủ chưa? có gì đang bug cần xử lý không?”
 
 ### 2. Thế nào là hoàn thành
-Owner 07/10/2026 bổ sung: **không được coi là xong khi còn khoảng 0,5 GiB/ngày tăng ở dạng không xác định; không chấp nhận một tháng lại quay lại dọn VPS.** XONG thật khi: (1) tăng do cài/build/trial có tên + owner + run/event + cap + TTL/retention; (2) tăng nền chưa rõ nguồn bị chặn/đo fail-closed, không được hợp thức hóa bằng nâng trần; (3) R7 PASS xong phải có receipt máy 24h mới chứng minh `UNKNOWN_DELTA_24H ≤64 MiB`, không cap/TTL breach, mọi tăng >128 MiB có tên; (4) 7d watcher tiếp tục canh `UNKNOWN_DELTA_7D ≤128 MiB`; (5) Điều 30/31 và 502/503 đạt như mục tiêu vòng 4. 24h là máy tự canh, không giữ terminal/Owner chờ.
+Owner 07/10/2026: **không được coi là xong khi còn khoảng 0,5 GiB/ngày tăng ở dạng không xác định; không chấp nhận một tháng lại quay lại dọn VPS.** Diễn giải Host: XONG thật khi **mỗi phần tăng có tên, có cơ chế kiểm soát phù hợp và có chuông; phần đang chảy hiện tại đã được gọi tên; máy tự gửi bằng chứng một ngày sạch mà không cần Owner/terminal chờ.** Số/ngưỡng kỹ thuật nằm ở §0.3/PROMPT và phải dựa trên số đo, không gán thành lời Owner.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
@@ -37,7 +37,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 - Một lệnh duy nhất cho Claude Code (R7), bốn gói A→B→C→D; mỗi gói tự bảo vệ xong mới sang gói sau (Owner 05/10: bảo vệ đến đâu chắc đến đó).
 - Không restart/rebuild 6 container lõi, không đổi phiên bản, không xoá, không xoay khoá trong R7; việc cần các thứ đó đi vào phiếu D6 → Owner gật → N2.
 - Đèn: luật 2 lần trượt phải đúng trên cả 22 đèn; không tắt/tạm dừng đèn, không hạ ngưỡng để lấy xanh (Owner 02/10: mọi thay đổi phải báo về Telegram và phải xanh thật).
-- Ổ đĩa: sổ phủ cả filesystem bằng allocated bytes/dedup; **trôi nền ~0,4–0,5 GiB/ngày hiện tại là BLOCKER**. Planned install/build/trial phải có CHANGE_EVENT + cap/TTL; Graph cap đúng `10_000_000_000` B. Unknown >64 MiB/24h hoặc >128 MiB/7d = đỏ; mọi tăng >128 MiB không có event/name = đỏ; không tự xanh khi cửa sổ trượt.
+- Ổ đĩa: sổ phủ cả filesystem bằng allocated bytes/dedup; **trôi nền hiện tại là BLOCKER tới khi gọi tên**. Mỗi dòng phải là `STATIC | ROTATING | BUSINESS | EVENT`; `ROTATING` phải chứng minh van thật, `BUSINESS` dùng tốc độ/forecast đo thật (không áp quota ngày chung), `EVENT` phải có CHANGE_EVENT trước ghi. Nhiễu phép đo phải đo 3 lượt; nếu noise guard >64 MiB thì phép đo chưa đủ tốt để close. Graph cap đúng `10_000_000_000` B. `UNVALVED/UNKNOWN_CLASS/ACTIVE_UNATTRIBUTED` = đỏ.
 - Đ30/31: POST-PROTECT phải tính footprint thật và đòi đủ 4 ô cho từng tệp đã đổi (AGENTS A10-R4); sổ mã đang chạy N/M/K.
 - Không giữ terminal chờ (D16); canh dài hạn do máy; Codex nghiệm thu một lượt sau KQ, không lập lịch AI.
 - Bài học PROOT01: không in tệp có khoá ra đầu ra công cụ.
@@ -106,7 +106,7 @@ Host: GPT Chat · Host_ID: GPT-VPSC-261007-R7B · vòng 4 tiếp quản theo ch�
 HTML chính: `view.html`
 
 ## Giấy phép vòng 4
-- **R7:** PROMPT last-touch `62b55a3fd49aa3b457629020038c9f4a3f0589c0` · **READY@62b55a3fd49aa3b457629020038c9f4a3f0589c0 · Host GPT Chat**. READY `7bf9169659db26468218392be4f59fe593d38120` hết hiệu lực. **RUN chỉ hợp lệ khi có `CODEX ACCEPT@62b55a3fd49aa3b457629020038c9f4a3f0589c0`.**
+- **R7 HOLD do P55/P56 sửa PROMPT:** READY `62b55a3fd49aa3b457629020038c9f4a3f0589c0` **HẾT HIỆU LỰC**. Host sẽ phát READY mới sau fresh-read PROMPT last-touch; trước đó **không RUN**.
 - Lệnh executor chuẩn theo DROOT38 (chỉ dùng sau khi có READY mới + CODEX ACCEPT cùng SHA): `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
 
 ## Lịch sử trạng thái vòng 1–2
@@ -630,6 +630,17 @@ CODEX DELTA@7bf9169659db26468218392be4f59fe593d38120
 - **Phạm vi:** ba DELTA đều siết đúng D19, không mở việc mới; N2a là nút còn thiếu để đạt D19, không phải mở rộng. Không đề nghị thêm gì cho A, C, D.
 - **JEV** `gen-dec-1791348297-S9dPAjzOjQWGQ83nvCKc` (bằng chứng phụ): cổng 24h có thể qua trong khi vẫn rò 0,75 · ngưỡng 64 MiB có số đo nhiễu chống lưng 0,06 · phải gọi tên ngay trong RUN 0,63 (đẩy sang 24h 0,37) · bằng chứng 24h bằng máy hợp lời Owner mới 0,72 · C2 có thể chặn XONG 0,79 · trước lượt này thiếu ý kiến khác hãng 0,83 · kết luận “vài DELTA chặn” 0,97 · các DELTA phục vụ mục tiêu 0,89. Lệch: JEV nghiêng “đồng hồ 24h bắt đầu khi cả RUN đạt” 0,78 — Reviewer vẫn đề nghị bản tin cuốn chiếu vì nó bỏ hẳn bài toán T0; Host quyết.
 - **Trạng thái P55: OPEN (chặn RUN) → Host.** Nếu Codex ACCEPT `62b55a3` trước khi Host xử lý: vẫn chưa RUN, vì PROMPT sẽ đổi SHA. Owner cần quyết: —.
+
+### P56 · GPT Chat (Host) · 07/10/2026 13:16 +07 · DISPOSITION P55 · ACCEPT 3/3 VỀ MỤC TIÊU, CHỈNH 2 CHI TIẾT TRIỂN KHAI · ROADMAP MỚI
+- **Rà mục tiêu:** P55 bám đúng D19. Lỗ thật là `có tên vị trí ≠ tăng hợp lệ`; một dòng catch-all/image/log có thể có tên nhưng vẫn tăng vô hạn. Kết luận cũ chỉ theo `UNKNOWN byte` chưa đủ để chống tái phát hàng tháng.
+- **DELTA 1 — ACCEPT, chỉnh cách chốt ngưỡng:** áp 4 kiểu hành vi `STATIC/ROTATING/BUSINESS/EVENT`; `TĂNG_LẠ` là phần vượt envelope từng dòng + unexplained delta. Đồng ý phải đo noise trước. **Không nhận con số 128 MiB/ngày chung cho BUSINESS** vì chưa có bằng chứng; business dùng growth/forecast đo thật + capacity alarm. `64 MiB` chỉ là trần cho **độ nhiễu phép đo**: noise guard >64 MiB ⇒ chưa đủ chất lượng để close, không phải ngân sách rò.
+- **DELTA 2 — ACCEPT mục tiêu, không chờ 2 giờ:** R7 phải gọi tên drift đang diễn ra bằng disk-monitor/service logs/mtime-ctime/allocated bytes/deleted-open/Docker/journald/agent-data/AI artifacts. Nếu RUN tự nhiên có nhiều mẫu thì dùng; **cấm sleep/wait để đủ ≥2h** theo D16/DROOT43. Hết B vẫn active mà chưa gọi tên trong sai số đo ⇒ `B=CHƯA ĐẠT · ACTIVE_UNATTRIBUTED`, không được đẩy thành historical rồi kết luận xong.
+- **DELTA 3 — ACCEPT:** thêm node **N2a · bịt nguồn chưa có van** sau R7 review. Mỗi nguồn R7 gọi tên phải có exact control: TTL/retention/cap/logrotate đối với dữ liệu tái tạo; capacity envelope/alarm đối với nghiệp vụ; destructive cleanup chỉ theo quyền đã có/Owner gate. N2b riêng cho khoá lộ + lõi 502/503 theo D6. Không mở task khác.
+- **Bằng chứng cuối:** dùng chính bản tin 08:00, không dựng receipt mới. `stable_since` là mutation storage cuối cùng; bản tin đầu tiên có đủ cửa sổ 24h sau mốc đó phải ghi `tăng lạ 24h = 0 nguồn` (số học không vượt measured noise), `nguồn chưa có van = 0`, không breach. Storage watcher tích luỹ bằng chứng độc lập kể cả C/D còn xử lý; FINAL CLOSE của cả VPSC vẫn cần mọi blocker A/B/C/D/N2 đã xong.
+- **Điểm danh đã xong:** PROOT01 khảo sát · P51 kiểm chứng · P52 siết gate · P53 7 DELTA · P54 áp 7 DELTA + CHANGE_EVENT · P55 cross-vendor review · P56 áp 3 DELTA vào PROMPT/roadmap. **Phát sinh đã nhận:** khoá API lộ (N2b) · current storage drift · thiếu van theo từng class · 502/503 chưa chứng minh nguyên nhân.
+- **Còn phải làm:** Codex review SHA mới → Claude Code R7 → Codex+Host nghiệm thu → N2a exact fixes nguồn chưa có van → N2b nếu cần → 08:00 sạch → FINAL CLOSE. Nếu R7 B không gọi được nguồn đang chảy, dừng ở B và dùng watcher đã lắp để thu thêm bằng chứng; không gọi XONG.
+- **Nhận xét số 11:00 của P55:** giảm ~0,06 GiB trong một giờ là bằng chứng có biến động thật nhưng **không đủ để suy tốc độ ổn định 0,5 GiB/ngày**; nếu nhịp 0,06 GiB/giờ kéo dài thì còn lớn hơn (~1,44 GiB/ngày). Vì vậy giữ trạng thái BLOCKER, không suy nguyên nhân.
+- **P55 RESOLVED.** PROMPT đã sửa; READY cũ hết hiệu lực; bước tiếp chỉ là Codex rà đúng SHA mới. Owner cần quyết: — cho P56.
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
