@@ -5,7 +5,7 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 10:25 +07 · Claude Chat (Host) · P51
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 10:42 +07 · GPT Chat (Host) · P52
 - 🎯 **Mục tiêu Owner:** VPS ổn định sau loạt thay đổi — vì chuông kêu quá nhiều, ổ đĩa vẫn đầy nhanh và mỗi lần kiểm lại lòi lỗi mới.
 - 🏁 **Xong khi:** đèn chỉ đỏ khi hỏng thật · mỗi GiB mất đi có tên và có trần · mọi mã đang chạy có khoá Đ30/31 do máy đối chiếu · nguyên nhân 502/503 có số đo + phương án cho Owner gật.
 - 📍 **Tiến độ:** `✅ Codex khảo sát (PROOT01) · ✅ Host tự kiểm + soạn lệnh R7 · ■ Codex rà lệnh · ⬜ Claude Code chạy R7 · ⬜ Codex + Host nghiệm thu · ⬜ N2 xoay khoá + sửa lõi theo phiếu D6 (chờ Owner) · ⬜ đóng`
@@ -25,7 +25,7 @@ Owner 07/10/2026: “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
 |---|---|---|---|---|
-| claude-chat | Anthropic | Claude Chat | Host | Owner chuyển tay |
+| gpt-chat | OpenAI | GPT Chat | Host | Owner chuyển tay |
 | codex | OpenAI | Codex (Mac) | Reviewer | Owner chuyển tay |
 | claude-code | Anthropic | Claude Code CLI (Mac) | Worker | Owner chuyển dòng RUN (DROOT38) |
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
@@ -98,12 +98,12 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User 23/09 tại D11;
 - Bổ sung phạm vi 2026-09-23 (lời Owner trong phiên Host): "đổi giờ VPS từ giờ Đức sang GMT+7 (Asia/Ho_Chi_Minh), GIỮ NGUYÊN thời điểm chạy thật của mọi lịch" (D09) — thuộc lượt khép việc R4b.
 - Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 (D01) và bổ sung chính sách storage 2026-09-21 (D02); Host đã đưa D02 vào `PROMPT.md` và `view.html` (T1–T6); phạm vi múi giờ do chính Owner nêu 2026-09-23 (D09).
 
-Host: Claude Chat · Host_ID: CLAUDE-VPSC-261007-R7 · vòng 4 theo chỉ đạo trực tiếp Owner 07/10 (D17); Host lịch sử: vòng 3 GPT Chat · GPT-VPSC-261005-R6 · vòng 1–2 Claude Chat · CLAUDE-VPSC-260920-A
+Host: GPT Chat · Host_ID: GPT-VPSC-261007-R7B · vòng 4 tiếp quản theo chỉ đạo trực tiếp Owner 07/10; Host lịch sử: Claude Chat mở vòng 4/P51 · vòng 3 GPT Chat · GPT-VPSC-261005-R6 · vòng 1–2 Claude Chat · CLAUDE-VPSC-260920-A
 HTML chính: `view.html`
 
 ## Giấy phép vòng 4
-- **R7:** PROMPT last-touch `4d4ea53366112070d641c953b2eb28561993e438` · Host READY@4d4ea53366112070d641c953b2eb28561993e438 · **RUN chỉ hợp lệ khi có thêm một dòng `CODEX ACCEPT@` mang cùng SHA** (tiền lệ R5b). Sửa PROMPT ⇒ READY này hết hiệu lực, Host READY lại.
-- Dòng RUN cho Claude Code (phiên mới sạch, chỉ dán sau khi Codex ACCEPT): `WS work/vps-clean-20-9-26 · Agent · RUN VPSC-R7-TRUTH-20261007-01 · đọc AGENTS.md → work/vps-clean-20-9-26/COLLAB.md → work/vps-clean-20-9-26/PROMPT.md · READY@4d4ea53366112070d641c953b2eb28561993e438`
+- **R7 HOLD do chuyển Host + sửa PROMPT:** READY cũ `4d4ea53366112070d641c953b2eb28561993e438` của Claude Chat **HẾT HIỆU LỰC**. Host GPT sẽ phát READY mới sau commit này; trước đó **không RUN**.
+- Lệnh executor chuẩn theo DROOT38 (chỉ dùng sau khi có READY mới + CODEX ACCEPT cùng SHA): `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
 
 ## Lịch sử trạng thái vòng 1–2
 - Vòng 2 đã đóng 23/09 với KQ R5b; trạng thái hiện hành nằm duy nhất ở BẢNG ĐIỀU KHIỂN vòng 3 phía trên.
@@ -556,6 +556,15 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **JEV** `gen-dec-1791342523-GGIwEfB4D0gZBdQrQnUw` (bằng chứng phụ): đặt việc ở vòng 4 VPSC 0,74 (mở task mới 0,23) · mẫu ổ đĩa “bậc + trôi chậm” 0,93 · luật 2 lần trượt đặt trong DOT 0,99 · con chết do supervisor coi tiến trình bận là chết 0,82 · gói D đo trước, đề xuất sau 1,00 · xoay khoá lượt riêng sau R7 có Owner duyệt 1,00 · dữ liệu Graph: ghi sổ + giao chủ việc 0,97 · câu “bảo vệ đủ” của lượt sửa worker là hợp lệ 0,07 · Owner giao Claude Chat điều hành 0,65 (⇒ ghi rõ ở D17 để Owner lắc nếu sai).
 - **Host tự rà vòng 2 (10:27 +07) → PROMPT `4d4ea53`:** Owner có luật “thay đổi production không để agent tự quyết dù có điều kiện” ⇒ rút hai chỗ cho agent tự quyết: D4 (hạ trần trình duyệt) và “sửa các bộ đẩy khác như A1” nay chỉ đo + đưa vào phiếu D6; thêm: ghi nguyên tử cho tệp cron đang gọi, đường POST khi gói C dừng. READY chuyển sang SHA mới (mục Giấy phép vòng 4).
 - Owner cần quyết: O-R7-KEY, O-R7-DONE (dưới; không chặn R7).
+
+### P52 · GPT Chat (Host tiếp quản) · 07/10/2026 10:42 +07 · RÀ R7 · SIẾT 3 CỔNG AN TOÀN
+- **Owner chuyển Host:** GPT Chat nhận ghế Host VPSC vòng 4; Claude Chat trở thành Host lịch sử của P51. READY cũ không được tái dùng.
+- **Disposition báo cáo Codex/P51:** ACCEPT hướng xử lý. Codex từ đây chỉ là Reviewer/giám sát: được đọc runtime, thử âm chỉ đọc và ghi ACCEPT/DELTA; **không sửa production, không phát READY/RUN, không tự nghiệm thu cuối**. Claude Code CLI là Worker duy nhất cho R7; Host GPT quyết chuyển bước.
+- **Ba delta bắt buộc đã đưa vào PROMPT:** (1) B2 partition filesystem không chồng lấn/không xuyên mount/pseudo-fs + timeout fail-closed; (2) C2 cấm bless hash đang chạy nếu chưa chứng minh provenance từ repo/artifact đã nghiệm thu; (3) Guard không tự chứng minh an toàn cho chính bản sửa Guard — cần bằng chứng độc lập và Codex hậu kiểm.
+- **Blast radius giữ nguyên:** không restart/recreate/rebuild 6 dịch vụ lõi · không đổi version · không xoá · không xoay khoá · không đổi auth · không direct PG/Directus · không tắt/hạ đèn. D chỉ đo + đề xuất.
+- **Đánh giá dùng Codex:** ĐƯỢC dùng nhưng chỉ như lớp phản biện có thể sai; không dùng Codex làm executor R7. Vì mutation bị khóa ở Claude Code + PROMPT + READY/Reviewer gate, chất lượng Sol không phải single point of failure.
+- **Bước kế:** Host phát READY mới theo commit last-touch PROMPT; sau đó Codex review đúng bản mới. Chưa có ACCEPT thì không RUN.
+- Owner cần quyết: không có gì để R7 đi tiếp; O-R7-KEY vẫn tách N2 sau nghiệm thu.
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
