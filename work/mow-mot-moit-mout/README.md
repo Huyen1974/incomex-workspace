@@ -1,6 +1,6 @@
 # README · MMIM · START HERE
 
-> **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R42). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
+> **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R45). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
 
 > **Mọi thay đổi UI:** đọc [Quy chuẩn UI cha](UI-DESIGN-STANDARD.md) trước; bàn giao phải có phiếu theo [UI-REVIEW-CONTRACT.json](UI-REVIEW-CONTRACT.json) và chạy `check-ui-review.py`. AI chịu trách nhiệm kiểm, không đẩy Owner thành tester. Kết quả rà: [UI-AUDIT-20261007.md](UI-AUDIT-20261007.md).
 
