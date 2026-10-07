@@ -10,9 +10,9 @@ Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07
 - 🏁 **Xong khi:** storage có tên/control/chuông đúng nghĩa; cảnh báo khẩn cấp chỉ báo lỗi cần xử lý ngay; nợ bằng chứng không giả thành outage; monitoring pipeline tự được canh; mã có Đ30/31; 502/503 có kết luận theo bằng chứng.
 - 📍 **Tiến độ:** `✅ P53/P55/P57 · ✅ Claude P59 · ✅ Host P60 disposition · ■ S1a đo read-only ≤60′ · ⬜ Host chốt R7 bằng số thật · ⬜ Codex final · ⬜ R7 · ⬜ nghiệm thu · ⬜ N2a/N2b nếu cần · ⬜ 08:00 sạch → FINAL CLOSE`
 - ✅ **Đã xong:** thiết kế nền + STEP_WALK; P59 được Host ACCEPT 3/3 về gốc lỗi; live snapshot của Host cho thấy hiện không có bằng chứng VPS down tổng thể.
-- ■ **Đang làm:** chuyển node sang **S0a/S1a đo trước**: một RUN chỉ đọc để gọi tên disk drift và phân loại DOWN/UP; PROMPT mutation R7 tạm INERT.
+- ■ **Đang làm:** **S0a/S1a đo trước** đã READY@`ce7122ce`; chờ Claude Code chạy read-only ≤60′, gọi tên disk drift và phân loại DOWN/UP; PROMPT mutation R7 tạm INERT.
 - ⬜ **Còn lại:** S1a → Host disposition số thật → Codex final review mutation R7 → R7 → nghiệm thu → N2a/N2b theo evidence → 08:00 sạch → đóng.
-- ➡ **Kế tiếp:** Host phát READY cho S1a measure-only; Claude Code đo xong dừng. Chưa có S1a KQ thì không phát R7 mutation.
+- ➡ **Kế tiếp:** Owner chuyển đúng một lệnh S1a cho Claude Code; đo xong dừng. Chưa có S1a KQ thì không phát R7 mutation.
 - ⛔ **Không mutation production trong S1a.** R7/N2 vẫn HOLD.
 
 ### 1. Mục tiêu
@@ -122,7 +122,7 @@ Host: GPT Chat · Host_ID: GPT-VPSC-261007-R7B · vòng 4 tiếp quản theo ch�
 HTML chính: `view.html`
 
 ## Giấy phép vòng 4
-- **S1a MEASURE_ONLY đang chờ READY mới.** Mọi READY R7 mutation trước đây hết hiệu lực. Sau S1a, Host phải sửa lại chính PROMPT này về RUN mutation và review/READY lại; không tái dùng giấy phép S1a cho mutation.
+- **S1a MEASURE_ONLY:** PROMPT last-touch `ce7122ce17f4fc8fe78344d746b02550531a4352` · **READY@ce7122ce17f4fc8fe78344d746b02550531a4352 · Host GPT Chat**. Chỉ hợp lệ cho `VPSC-R7-S1A-MEASURE-20261007-01` read-only; **không cấp bất kỳ mutation nào**. Mọi READY R7 mutation cũ hết hiệu lực.
 - Lệnh executor chuẩn theo DROOT38 (chỉ dùng sau khi có READY mới + CODEX ACCEPT cùng SHA): `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
 
 ## Lịch sử trạng thái vòng 1–2
