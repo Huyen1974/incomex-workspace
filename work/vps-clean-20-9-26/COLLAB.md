@@ -5,14 +5,14 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 13:16 +07 · GPT Chat (Host) · P56
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 14:31 +07 · Codex (Reviewer) · P57
 - 🎯 **Mục tiêu Owner:** VPS ổn định lâu dài — không quay lại dọn ổ mỗi tháng; mọi tăng dung lượng phải hiểu được và bị kiểm soát.
 - 🏁 **Xong khi:** mỗi phần tăng của ổ đĩa **có tên · có cơ chế kiểm soát phù hợp · có chuông**; phần đang chảy hiện tại đã được gọi tên; máy tự phát bản tin 08:00 với một cửa sổ 24h sạch; đèn nói thật; mã chạy có khoá Đ30/31; 502/503 có kết luận/bước sửa theo bằng chứng.
-- 📍 **Tiến độ:** `✅ khảo sát · ✅ P53 7 DELTA · ✅ P55 3 DELTA · ✅ Host P56 sửa roadmap/PROMPT · ■ Codex rà SHA mới · ⬜ Claude Code R7 · ⬜ nghiệm thu R7 · ⬜ N2a bịt nguồn chưa có van · ⬜ N2b khoá/auth + lõi 502 nếu bằng chứng yêu cầu · ⬜ 08:00 sạch → FINAL CLOSE`
+- 📍 **Tiến độ:** `✅ khảo sát · ✅ P53 7 DELTA · ✅ P55 3 DELTA · ✅ Host P56 sửa roadmap/PROMPT · ✅ Codex P57: DELTA · ■ Host khép LEARNING + bảng bước/SLA · ⬜ Claude Code R7 · ⬜ nghiệm thu R7 · ⬜ N2a bịt nguồn chưa có van · ⬜ N2b khoá/auth + lõi 502 nếu bằng chứng yêu cầu · ⬜ 08:00 sạch → FINAL CLOSE`
 - ✅ **Đã xong:** PROOT01/P51–P55; 7 DELTA Codex + 3 DELTA Claude đã được Host disposition; PROMPT đã đổi theo P55 nên READY `62b55a3` hết hiệu lực.
-- ■ **Đang làm:** Bước kế hoạch · vòng 3/5 · READY mới đã phát cho PROMPT@`e282fcf5`; mời Codex rà đúng SHA này. Claude P55 = RESOLVED.
+- ■ **Đang làm:** Bước kế hoạch · vòng 3/5 · Codex đã trả DELTA P57 cho PROMPT@`e282fcf5`: khóa máy LEARNING/thiếu proof + bổ sung bảng bước/SLA theo DROOT48 mới. Chờ Host xử lý, chưa ACCEPT.
 - ⬜ **Còn lại:** Reviewer ACCEPT → R7 (gọi tên drift + lắp đo/chuông/khoá) → nghiệm thu → **N2a** sửa từng nguồn `UNVALVED` → **N2b** xoay khoá lộ + sửa lõi 502/503 chỉ nếu D6 có đủ bằng chứng → bản tin 08:00 có đủ 24h sau mutation storage cuối cùng → đóng.
-- ➡ **Kế tiếp:** Codex review `e282fcf5`; ACCEPT thì mới phát lệnh chuẩn DROOT38 cho Claude Code. Chưa ACCEPT trên SHA cuối thì không RUN.
+- ➡ **Kế tiếp:** Host xử lý P57, bổ sung bảng STEP_WALK trong COLLAB trước READY bản sửa rồi chuyển Codex rà SHA cuối; chưa ACCEPT thì không RUN.
 - ⛔ **Không làm trong R7:** restart/rebuild lõi · đổi phiên bản · xoá dữ liệu/trial · xoay khoá; các việc này chỉ sang N2a/N2b khi có nguồn/bằng chứng cụ thể.
 
 ### 1. Mục tiêu
@@ -641,6 +641,40 @@ CODEX DELTA@7bf9169659db26468218392be4f59fe593d38120
 - **Còn phải làm:** Codex review SHA mới → Claude Code R7 → Codex+Host nghiệm thu → N2a exact fixes nguồn chưa có van → N2b nếu cần → 08:00 sạch → FINAL CLOSE. Nếu R7 B không gọi được nguồn đang chảy, dừng ở B và dùng watcher đã lắp để thu thêm bằng chứng; không gọi XONG.
 - **Nhận xét số 11:00 của P55:** giảm ~0,06 GiB trong một giờ là bằng chứng có biến động thật nhưng **không đủ để suy tốc độ ổn định 0,5 GiB/ngày**; nếu nhịp 0,06 GiB/giờ kéo dài thì còn lớn hơn (~1,44 GiB/ngày). Vì vậy giữ trạng thái BLOCKER, không suy nguyên nhân.
 - **P55 RESOLVED.** PROMPT đã sửa; Host fresh-read và phát `READY@e282fcf5f3801fb1e99eb540f8bd548822c6f00a`; bước tiếp chỉ là Codex rà đúng SHA này. Owner cần quyết: — cho P56.
+
+### P57 · Codex (Reviewer) · 07/10/2026 14:31 +07 · REVIEW P53–P56 · DELTA
+
+CODEX DELTA@e282fcf5f3801fb1e99eb540f8bd548822c6f00a
+
+- **Based_on:** AGENTS → A0/Bảng + P53–P56 → toàn PROMPT đúng last-touch `e282fcf5f3801fb1e99eb540f8bd548822c6f00a`, SHA256 `fdb68a0b2a0ba605a15e4cfe9e21f60771e03906beb871dd04b0c904eb631126`. Fresh-read tại HEAD `e9067ca5dea73ec70b1564cd3746d6649742c670`: nội dung PROMPT không đổi. AGENTS cập nhật trong lúc review: last-touch `611c399b3507a593892f31aa967ad09c16bc4325`, thêm DROOT48 VERIFY-OR-RED và STEP_WALK_V1; đã đọc delta này.
+- **Scope:** review thiết kế/kế hoạch; không SSH, không thử live, không sửa PROMPT/runtime. Chỉ ghi verdict và Bảng theo yêu cầu Owner. Ba nhánh rà nội bộ không tạo ghế/quorum mới; đây không phải nghiệm thu runtime.
+- **Verdict:** chưa ACCEPT. **P53 đã khép đủ 7 DELTA ở mức DESIGN_READY**. P55 đã khép drift hiện tại/N2a/08:00, nhưng nhánh BUSINESS chưa đủ bằng chứng cần ràng buộc máy rõ; thêm yêu cầu điều hành DROOT48 vừa có.
+
+| Đối chiếu | Kết quả |
+|---|---|
+| P53 · PRE/Kuma/proof Đ30 | §2.4 + C3 + §7: baseline độc lập trước A, không reset/legacy cho R7; config monitor_id thành footprint; artifact tồn tại/PASS/run_id/post-hash + fixture n5–n8. DESIGN_READY. |
+| P53 · đối soát/đơn vị/retry | B2–B4: allocated bytes, dedup toàn cục/shared layer, Graph đúng 10.000.000.000 B, cùng cửa sổ/version; A2 maxretries=1 + F-S/F-F. DESIGN_READY. |
+| P55 · class/noise | STATIC/ROTATING/EVENT và nguồn thiếu van đã có luật/fixture. Noise đo thật, 64 MiB là trần chất lượng; toàn filesystem, không phải quota ngày/mỗi dòng. BUSINESS không còn quota 128 MiB/ngày. Còn DELTA 1 bên dưới. |
+| P55 · current drift/N2a/đóng | B7 cấm đẩy active drift thành historical, ACTIVE_UNATTRIBUTED chưa đạt, không sleep 2h; NAMED_UNVALVED phải sang N2a. §8 dùng 08:00 đủ 24h sau mutation storage cuối, storage tích luỹ độc lập C/D nhưng đóng cả VPSC cần mọi blocker xong. DESIGN_READY. |
+| CHANGE_EVENT | B6 + C3 bắt khai trước PRE và đối chiếu event/actual/cap/hạn. Không dùng giảm ở dòng khác để bù tăng của event. Đã khép ở mức thiết kế; độ đúng của triển khai phải được thử/đo sau RUN. |
+
+**DELTA 1 · BUSINESS/LEARNING phải là nhánh máy chưa đạt — B6 dòng 66, B4 và FINAL_CLOSE_GATE dòng 106.**
+
+B6 cho thiếu lịch sử lập envelope ⇒ `LEARNING`, chỉ nói không che một bậc tăng đột biến. Các điều kiện máy đỏ đang liệt kê UNVALVED/UNKNOWN_CLASS; close chỉ kiểm tăng lạ=0, chưa có van=0, không breach. Chưa khóa cách tính/đầu ra khi envelope chưa tồn tại.
+
+Phản ví dụ cần fixture: PG tăng đều 0,5 GiB/ngày, có tên/owner/capacity alarm, nhưng chưa đủ lịch sử kiểm chứng envelope; không có bậc đột biến. Nếu bỏ dòng LEARNING khỏi phép tính vượt envelope thì có thể báo tăng lạ=0/UNVALVED=0 và đóng, trong khi vẫn thêm 15 GiB/tháng. Luật VERIFY-OR-RED đã cấm cách hiểu đó; cần đưa đúng luật vào nhánh máy, không chỉ trông vào diễn giải của Worker.
+
+**Sửa tối thiểu:** dòng LEARNING hoặc thiếu proof envelope/forecast/capacity-control ⇒ CHƯA ĐẠT/đỏ; không được dùng miễn SLOPE, mặc định thiếu số thành 0, ghi “tăng lạ 24h = 0 nguồn” hay qua FINAL_CLOSE_GATE. Thêm fixture BUSINESS thiếu lịch sử tăng đều và fixture thiếu proof. Watcher tiếp tục thu lịch sử; không đặt quota ngày mới, không giữ terminal/Owner chờ.
+
+**DELTA 2 · bảng bước/SLA theo DROOT48 — đầu vào điều hành hiện hành.**
+
+[AGENTS §A6, STEP_WALK_V1](https://github.com/Huyen1974/incomex-workspace/blob/611c399b3507a593892f31aa967ad09c16bc4325/AGENTS.md#L115) yêu cầu: “prompt có chuỗi nhiều bước/đa tác nhân phải có bảng trước READY”, mỗi bước đủ `bước · ai làm · trigger · deadline/SLA · evidence phải đo · hỏng thì ai biết và trong bao lâu · bước kế`. Search PROMPT/COLLAB hiện hành chưa có bảng này; Bảng roadmap không chứa SLA/evidence/đường báo lỗi cho từng bước.
+
+Trước READY của bản sửa, Host bổ sung bảng tại COLLAB cho đúng chuỗi hiện có: R7 → nghiệm thu → N2a → N2b nếu cần → 08:00 → đóng. N2a/N2b có số đo quyết định cách sửa thì tách checkpoint chỉ đọc trước mutation ngay trong node, không mặc định số/chỉ tô xanh vì có đề xuất. Không mở task hay cơ chế mới. Đây là yêu cầu mới từ AGENTS trong lúc review, tách khỏi kết luận các DELTA P53 đã được sửa.
+
+- **Không mở DELTA thêm:** không coi thiếu proof live trước RUN là lỗi kế hoạch; không coi thiếu một tên fixture riêng cho CHANGE_EVENT là blocker. C3 yêu cầu actual theo chính event đã đủ về thiết kế. B3/B4 buộc B6 trên đúng cửa sổ 24h/7d, nên tăng dưới noise ở một ngày vẫn phải bị xét trên 7d; không đọc thành ngân sách rò hằng ngày.
+- **JEV phụ trợ:** `gen-dec-1791358168-OlA9iXnIitZ8zXyu1SyW` chọn overall DELTA và chưa đạt STEP_WALK; riêng LEARNING nghiêng luật VERIFY đã bao phủ. Reviewer vẫn yêu cầu cưỡng chế rõ phép tính/đầu ra B6/close theo chính luật đó, không coi ý kiến JEV là proof máy.
+- **Bàn giao:** Host xử lý hai DELTA, giữ những phần đã khép, khóa SHA cuối rồi chuyển Reviewer rà lại. Không có ACCEPT cho `e282fcf5f3801fb1e99eb540f8bd548822c6f00a`; Reviewer không phát READY/RUN.
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
