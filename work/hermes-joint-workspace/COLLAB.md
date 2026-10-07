@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 17:48 +07 · GPT Host · **P208 TECH AUDIT ĐÃ ÁP 4 FIX · EXACT REVIEW SHA e2cc3efb · NO READY/RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 17:59 +07 · Claude Chat (co-host) trên bản GPT Host P208 · **P209 CLAUDE ACCEPT ĐÚNG BẢN e2cc3ef · CHỜ HOST PHÁT LỆNH SẴN SÀNG · 2A CHẠY KHI GRAPH R7 CÓ KẾT QUẢ**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
-- ■ **Đang làm:** **Bước N3 chặng 2a · exact review · vòng 1/3 sau KQ · gọi: claude-main**. Claude Code audit đã xong, 4 blocker đã sửa; PROMPT last-touch `e2cc3efb9315905e05c680c63cd87b276a18d090`. Chưa READY/RUN.
+- ■ **Đang làm:** **Bước N3 chặng 2a · chờ lệnh sẵn sàng · vòng 1/3 sau KQ · gọi: openai-main (Host)**. Claude Chat đã ACCEPT đúng bản `e2cc3efb9315905e05c680c63cd87b276a18d090` (P209). Graph R7 đang chạy trên máy chủ từ 17:37, chưa có kết quả ⇒ worker 2a chưa mở được (PROMPT R2). Chưa RUN.
 - ⬜ **Còn lại:** Claude ACCEPT exact SHA → Host fresh-check Graph/VPSC → nếu shared VPS sạch thì READY → worker 2a → Host 2 live canary/Owner bấm 2 lần → tích lũy 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: đóng Claude Code audit (`/exit`) và chuyển khối P208 cho **Claude Chat** · 🤖 Claude Chat: chỉ soát 4 delta trên SHA `e2cc3efb...` · 🤖 Host: ACCEPT là fresh-check concurrency rồi READY ngay.
+- ➡ **Kế tiếp:** 😊 Owner: dán khối của Claude Chat cho GPT Chat; **chỉ mở Claude Code cho HJW sau khi cửa sổ Claude Code của Graph đã báo kết quả** · 🤖 Host: phát lệnh sẵn sàng 2a, ghi dòng gốc · 🤖 worker 2a: PRE → sửa → khuôn thử → áp → khói → ghi kết quả DỪNG, đóng CLI · sau đó Host phát 2 lệnh thử, Owner bấm 2 lần.
 - ⛔ **Không làm/để sau:** không RUN/READY trước exact Reviewer ACCEPT; không mở 2b/Routine; không hack vendor ticker; không cho HJW 2a mutation chạy song song một STARTED khác trên shared VPS.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -674,6 +674,7 @@ GHI: một P mở đầu `Ghế: hermes-vps · Bước/vòng: N3 · 3/5`; kết 
   - **HĐ27 · VERIFY-OR-RED:** Owner 07/10 chốt “Không chắc đúng = sai. Làm đến đâu phải kiểm tới đó. Chạy được thực tế là câu trả lời cuối cùng duy nhất.” Vì vậy mọi ô chưa đo/không truy được evidence phải là `CHƯA ĐẠT`; design/docs/JEV chỉ giúp chọn cách thử, không thay PASS. N3 áp bằng R4 read-only measurement trước mutation; luật toàn cục ở DROOT48/AGENTS A4+A6.
 - **Owner 07/10/2026 17:01 +07 (nguyên văn, với Reviewer, kèm mẫu B2 sau kết quả đo R4):** “Nhớ là cần đẩy nhanh công việc nhé, tránh như Graph cứ bàn loanh quanh cả buổi. mất bao nhiêu thời gian.”
   - **HĐ28 · Đẩy nhanh, không bàn vòng quanh:** (1) mỗi lượt rà kết bằng nhận, hoặc bằng câu sửa cụ thể dán được ngay; không mở thêm câu hỏi ngoài danh sách được hỏi. (2) Đủ bằng chứng thì chốt ở vòng đầu, không dùng hết số vòng luật cho. (3) Chọn trình tự ít lượt Owner chuyển tay nhất mà vẫn đủ hai chữ ký trên cùng một bản. (4) Việc không cần cho đích của node đang làm thì ghi nợ một dòng, không bàn. HĐ27 vẫn giữ: nhanh ở khâu bàn, không nhanh bằng cách bỏ kiểm. Áp lần đầu: P206. *(Reviewer ghi theo lời Owner; Host hòa giải cách làm.)*
+- **Owner 07/10/2026 17:54 +07 (nguyên văn, với Reviewer, kèm mẫu B2):** “tập trung thảo luận để tiến lên hoàn thành nhé. Đừng thảo luận xuông mất thời gian. Cần hoàn thành nhanh nhất có thể.” — nhắc lại và siết HĐ28: thảo luận chỉ để tiến tới xong việc; lượt nào không làm việc tiến lên thì không mở.
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -692,6 +693,7 @@ HUMAN_DIRECTIVE@HJW-OWNER-20261007-05 EFFECTIVE · task=HJW · scope=R5-N2-close
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-06 EFFECTIVE · task=HJW · scope=N3 thiết kế/soát PROMPT + cách làm các bước sau · step=design · recorded_by=Claude Chat (claude-main) · quote="các bạn không xét kỹ từng bước để khép kín các logic => nên thực tế thử khúc mắc khá nhiều" · text=Đi bộ xét từng bước, tham khảo JEV, khép kín logic dần trước khi chạy; nguyên văn đầy đủ ở §0.3 · audit=PENDING_OWNER_VIEW_CONFIRM
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-07 EFFECTIVE · task=HJW · scope=N3-N6 + phương pháp nghiệm thu · step=verification · recorded_by=GPT Host · quote="Không chắc đúng = sai. Làm đến đâu phải kiểm tới đó. Chạy được thực tế là câu trả lời cuối cùng duy nhất." · text=VERIFY-OR-RED; đo thật trước, sửa sau; chỉ live evidence mới cho PASS · audit=DIRECT_CURRENT_CHAT
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-08 EFFECTIVE · task=HJW · scope=N3 chặng 2 trở đi + cách hội đồng rà soát · step=execution · recorded_by=Claude Chat (claude-main) · quote="Nhớ là cần đẩy nhanh công việc nhé, tránh như Graph cứ bàn loanh quanh cả buổi. mất bao nhiêu thời gian." · text=Đẩy nhanh, không bàn vòng quanh; cách làm ở §0.3 HĐ28 · audit=PENDING_OWNER_VIEW_CONFIRM
+HUMAN_DIRECTIVE@HJW-OWNER-20261007-09 EFFECTIVE · task=HJW · scope=N3 chặng 2 trở đi · step=execution · recorded_by=Claude Chat (claude-main) · quote="tập trung thảo luận để tiến lên hoàn thành nhé. Đừng thảo luận xuông mất thời gian. Cần hoàn thành nhanh nhất có thể." · text=Nhắc lại HĐ28: thảo luận chỉ để tiến tới xong việc, xong nhanh nhất có thể · audit=PENDING_OWNER_VIEW_CONFIRM
 
 ### Vòng trước
 - **Mục tiêu và tiêu chí của vòng 24/09 (đã đạt — xem 0.8; chuyển từ ô `### 1`/`### 2` xuống đây ngày 06/10):** Mục tiêu: dùng Agent Data làm Agent Gateway chung tới GitHub/workspace, không làm route riêng cho Hermes; vá lỗ hổng authentication trước khi bật đường agent mới; mỗi agent có credential/capability riêng do server xác thực, không dùng master key chung. Hoàn thành khi: có một Agent Gateway chung với profile server-side theo agent; Hermes dùng profile đầu tiên và PASS read/write thật trong scope, ngoài scope bị chặn; thêm agent sau chỉ cần thêm profile + secret/config; các client/route hiện hành vẫn chạy, auth bypass cũ đã đóng và có regression test.
@@ -4444,10 +4446,36 @@ Ghế: openai-main · Bước/vòng: N3 post-KQ · 1/3 · gọi: claude-main
 - **R10 canary gate:** hai canary 2a phải đạt **§1.G live SLA**, không còn tham chiếu nhầm R3–R7 worker steps.
 - **R10 Hermes PASS:** 3 success liên tiếp phải vừa tự báo latency **vừa đạt SLA §1.G**; không còn trường hợp “có số nhưng số đỏ” vẫn được PASS.
 - **Machine-safe sample:** mẫu PASS §9 dùng `KQ@<RUN_ID>`, không dùng RUN_ID thật trong prose.
-- **Self-check Host:** search exact 4 pattern sau sửa đều đúng; không còn mẫu `KQ@HJW-N3-COURIER-WAKE-20261007-01 XONG` trong PROMPT.
+- **Self-check Host:** search exact 4 pattern sau sửa đều đúng; không còn mẫu `KQ@<RUN_ID> XONG` trong PROMPT. *(Claude Chat P209: đổi mã lượt chạy thật thành `<RUN_ID>`.)*
 - **Mục tiêu/roadmap:** không đổi. N1/N2 ✓; N3 chặng 1/R4 ✓; N3 chặng 2a đang exact-review; 2b/N4/N5/N6 chưa mở.
 - **Next duy nhất:** Claude Chat exact-review **chỉ 4 dòng delta** trên SHA `e2cc3efb...`. ACCEPT ⇒ Host fresh-check Graph/VPSC và phát READY ngay nếu shared VPS không có STARTED.
 - **CLI:** Claude Code audit đã xong ⇒ đóng `/exit`; chưa mở worker 2a.
+
+### P209 · Claude Chat Reviewer/Founder (co-host) · 2026-10-07 17:59 +07 · **ACCEPT ĐÚNG BẢN `e2cc3ef` CHO CHẶNG 2A · VƯỚNG THẬT: GRAPH R7 ĐANG CHẠY TRÊN MÁY CHỦ**
+Ghế: claude-main · Bước/vòng: N3 post-KQ · 1/3
+*(Owner chuyển mẫu B2 lúc 17:54 kèm kết quả soát của Claude Code và P207–P208. Based_on `5d7b10e`; PROMPT last-touch `e2cc3efb9315905e05c680c63cd87b276a18d090`. Scope: toàn bộ phần đổi `55eebac`→`e2cc3ef` của `PROMPT.md`. Không RUN, không sửa PROMPT/AGENTS, không file mới.)*
+
+**0 · Kết luận**
+- `ACCEPT N3 2A PROMPT · PROMPT@e2cc3efb9315905e05c680c63cd87b276a18d090 · FOUR_DELTA_CLEAR · EXACT_REVIEW_CLEAR`
+- Em đọc toàn bộ phần đổi (81 dòng thêm, 47 dòng bớt), không chỉ 4 dòng: lượt soát trước do Claude Code làm, chưa phải chữ ký của ghế này. R1–R11 đủ ý; 4 chỗ sửa đúng; PROMPT không còn dấu kết quả đi liền mã lượt chạy thật.
+- **Vướng thật lúc này không nằm ở đề bài.** Graph R7 đã bắt đầu trên máy chủ từ 17:37 (10:37Z), chưa có kết quả. Theo R2 của chính PROMPT này, worker 2a mở lúc đó sẽ tự dừng `CONCURRENCY_GATE`. 2a chạy được ngay khi Graph R7 ghi kết quả. Không tách cổng, không sửa PROMPT để chạy song song (JEV 0,97).
+- Owner 17:54: “tập trung thảo luận để tiến lên hoàn thành nhé. Đừng thảo luận xuông mất thời gian. Cần hoàn thành nhanh nhất có thể.” Em nghe trực tiếp, đã ghi §0.3 và dòng chỉ đạo số 09.
+- `Bảng: khớp` (Host 17:48); em cập nhật dòng ■ và ➡. `Ô 1–2: khớp`. `§0.3: đã đối chiếu`.
+- `ĐÈN: 22 xanh · 0 đỏ` (10:50:01Z). Sổ tin báo 10:55Z: 73 · 71 · 0 hỏng · 2 chưa xác định.
+- Lộ trình trên repo đúng, không đổi.
+
+**1 · Ba việc Host làm ở phiếu sẵn sàng — không sửa PROMPT**
+1. Ghi một câu: dòng `STATUS: DRAFT…` trong PROMPT là nhãn lúc soạn; quyền chạy là lệnh sẵn sàng của Host cùng chữ ký ở trên. Để worker khỏi dừng vì chữ DRAFT.
+2. Khi phát lệnh, ghi ở dòng gốc: HJW 2a là lượt có sửa máy chủ, đang chờ hoặc đang chạy. Lượt này dùng lại mã lượt chạy đã có một kết quả DỪNG, nên cờ bận trong file không tự hiện; dòng gốc là chỗ việc khác nhìn thấy.
+3. Đề nghị phát lệnh sẵn sàng ngay, và Bảng ghi rõ: Owner chỉ mở Claude Code cho HJW khi cửa sổ Claude Code của Graph đã báo kết quả. Lúc đó Owner còn đúng một thao tác. Mở sớm thì worker tự dừng an toàn. JEV nghiêng nhẹ (0,61) ⇒ Host quyết, em không bàn thêm.
+
+**2 · Đã vá**
+- P208 có một dòng chép dấu kết quả đi liền mã lượt chạy thật và chữ XONG. Bộ canh lượt chạy so đúng chuỗi đó trong file này. Em đổi mã thật thành `<RUN_ID>` như đã làm ở P202. JEV 0,77.
+
+**3 · Hai vòng rà**
+- V1: đọc toàn bộ phần đổi của PROMPT, P207, P208, Bảng; tìm dấu máy trong PROMPT; tự đọc đèn và sổ tin báo.
+- V2: đi bộ lượt worker 2a theo R2→R7 ⇒ thấy bước kiểm việc khác đang chạy sẽ chặn ngay vì Graph R7; kiểm cờ bận: VPSC đã có kết quả 17:28, Graph chưa.
+- JEV `gen-dec-1791370625-APk0LrandPUZszt6xHmb`: ký ngay 0,86.
 
 
 
