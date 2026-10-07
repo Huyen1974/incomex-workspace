@@ -9,7 +9,7 @@ GPT dùng app MCP AgentData đang hiện hành, root `workspace`: đọc cửa s
 
 ## NO-WAIT — nguyên tắc điều hành bắt buộc
 
-Repo này **không điều hành bằng trạng thái treo/chờ**. Nguồn luật chuẩn là `AGENTS.md` DROOT50–DROOT51; README chỉ nêu ngắn để người mới nhìn thấy ngay:
+Repo này **không điều hành bằng trạng thái treo/chờ**. Nguồn luật chuẩn là `AGENTS.md` DROOT50 + DROOT52; README chỉ nêu ngắn để người mới nhìn thấy ngay:
 - Execution chỉ dùng `READY → STARTED → XONG|DỪNG`. Không tạo mới `WAIT/HOLD/PENDING/PAUSED/TREO`.
 - `READY` chỉ khi có thể chạy ngay. `STARTED` chỉ khi executor đang thực sự làm. Gặp blocker/gate đỏ/cần thời gian/sự kiện ⇒ `KQ DỪNG`, nhả busy/shared resource, đóng terminal/model.
 - Điều kiện tương lai dùng đúng một `NEXT_TRIGGER`; watcher/Guard/Kuma/dispatcher canh. **Owner không có nhiệm vụ theo dõi hoặc nhớ hộ.**
