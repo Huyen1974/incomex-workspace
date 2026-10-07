@@ -1,5 +1,18 @@
 # FORMULA-AI-README · MMIM
 
+## Quy chuẩn thị giác UI.MASTER — bắt buộc · Owner 07/10/2026
+
+CE-20261007-MASTER-EMPHASIS · APPROVED theo yêu cầu Owner. Phạm vi: mọi Master hiện tại và tương lai dùng UI.MASTER; không đổi dữ liệu/khái niệm.
+- **SSOT giao diện:** `ui/master-list.js`, khuôn `ui/mot-master-v1.html`. UI con chỉ khai dữ liệu, nhãn và cột; không tự dựng CSS hoặc tắt phân cấp thị giác.
+- **Master định nghĩa:** cột **Tên** và **Trạng thái** (key `state`/`readiness`, khi có) là điểm nhấn đậm. Các cột STT, ID, Chuỗi, Bước, Tầng, tham chiếu và thông tin phụ giữ nhạt theo UI cha. Không làm mọi cột đậm. “Nhạt” không có nghĩa là ẩn hoặc vô hiệu hóa.
+- Kế thừa đúng token hiện có: tên/trạng thái nội dung #1d1d1f, weight 700; tiêu đề chính #515154, weight 700; nội dung phụ #b0b0b5, weight 400; tiêu đề phụ #bcbcc1, weight 400. Trạng thái đạt giữ xanh semantic sẵn có. Bảng cây cũ giữ các cột T3/T2/T1 theo chuẩn cha hiện hữu.
+- Renderer tự bật chuẩn cho bảng có `definitionColumns`; không được gán `focusFourColumns:false` trong adapter Master. Cột mới mặc định là phụ; muốn thêm điểm nhấn phải có quyết định Owner và sửa SSOT chung.
+- Dùng chung cả điều hướng, tìm kiếm/lọc, chi tiết và dấu ? của UI cha. Ngoại lệ phải ghi rõ lý do/phạm vi và được Owner chốt; không nhân bản mẫu theo từng Master.
+- **Trước khi sửa:** đọc mục này, đối chiếu renderer và adapter; tìm override ảnh hưởng tất cả Master.
+- **Trước khi báo xong:** mở đúng URL Owner, kiểm computed style của tên/trạng thái/cột phụ, thử tìm kiếm và mở/đóng chi tiết; kiểm thêm một Master cùng renderer và Config khi có ảnh hưởng. Đối chiếu số bản ghi không đổi. Phải phân biệt kiểm nguồn với kiểm live; chưa kiểm được thì ghi rõ, không báo PASS.
+- Thay đổi lần này: bỏ override tắt chuẩn ở nhóm/derived và Config; đưa mặc định vào renderer chung. Tài liệu này là đầu mối quy chuẩn, không sao chép quy tắc sang nhiều README.
+
+
 ## Điều hướng chung · Owner 07/10/2026
 SSOT UI: `ui/design-navigation-v1.js`; được nạp từ khuôn `mot-master-v1.html`, renderer `master-list.js` và shell `eco-nav.js`. Trang review và chi tiết CT nạp trực tiếp, mount idempotent. 28 Master định nghĩa + Config cùng kế thừa UI.MASTER; không hardcode danh sách 29 vào bộ điều hướng.
 
