@@ -5,15 +5,15 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 20:27 +07 · Codex (Final Reviewer) · P65
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 21:22 +07 · GPT Chat (Host) · P66
 - 🎯 **Mục tiêu Owner:** VPS ổn định lâu dài, ít chuông nhưng đúng; không quay lại dọn ổ mỗi tháng và không để báo giả che lỗi thật.
 - 🏁 **Xong khi:** storage tăng có tên + control + chuông đúng nghĩa; #22 chỉ canh monitoring pipeline; transient một lần không page; debt không giả outage nhưng vẫn chặn close; mã có Đ30/31; 502/503 chỉ sửa lõi khi có root-cause proof.
-- 📍 **Tiến độ:** `✅ thiết kế nền · ✅ S1a đo thật · ✅ P62 measured R7 · ✅ Claude P63 ACCEPT + 4 sửa · ✅ Host P64 áp 4 sửa + READY · ✅ Codex P65 ACCEPT · ⏸ R7 chờ Graph KQ · ⬜ R7 · ⬜ nghiệm thu · ⬜ N2a · ⬜ N2b nếu cần · ⬜ 08:00 sạch → FINAL CLOSE`
-- ✅ **Đã xong:** toàn bộ 4 sửa P63 đã áp vào PROMPT last-touch `e70606d`; context S1a nhất quán, fixture debt/fault thống nhất, 3 source debt có rate+hạn, SAME-OR-BETTER thành luật máy trong C3 cho mọi RUN mới. Claude P63 đã đủ cross-vendor, không cần quay lại Claude trước RUN. P65 Codex đã ACCEPT cùng SHA, chỉ kế hoạch/DESIGN_READY; chưa runtime PASS.
-- ■ **Đang làm:** Review kế hoạch đã khép: CODEX ACCEPT cùng PROMPT@`e70606d`. **VPSC R7 mutation vẫn bị chặn tới khi Graph KQ và NO_CONCURRENT sạch**; executor phải fresh-read gate trước mutation.
-- ⬜ **Còn lại:** đợi Graph KQ → Claude Code R7 → Host/Codex/Claude nghiệm thu → N2a exact control 3 source debt → N2b chỉ theo evidence/Owner gate → 08:00 sạch → close.
-- ➡ **Kế tiếp:** Host điều hành R7 sau Graph KQ + shared-VPS gate sạch, theo READY/ACCEPT cùng SHA `e70606d`; executor tự re-read gate trước mutation và mỗi gói. Sau KQ mới nghiệm thu runtime.
-- ⛔ **Giữ hẹp:** R7 không xoá Graph, không tự đặt TTL, không nâng Kuma/uvicorn, không restart lõi, không xoay key.
+- 📍 **Tiến độ:** `✅ thiết kế nền · ✅ S1a · ✅ Claude P63 · ✅ Host READY · ✅ Codex P65 ACCEPT · ✅ Graph R7 KQ · ⏸ HOLD HJW N3-2a shared VPS · ■ READY TO RUN VPSC R7 · ⬜ R7 · ⬜ nghiệm thu · ⬜ N2a/N2b · ⬜ 08:00 sạch → FINAL CLOSE`
+- ✅ **Đã xong:** kế hoạch R7 đã đóng review; `READY@e70606d70c535efc37864efd44eb511d553da3e0` + `CODEX ACCEPT@e70606d70c535efc37864efd44eb511d553da3e0` cùng bản PROMPT. Graph R7 đã có KQ `PASS-WITH-LIMITS`, không còn blocker Graph.
+- ■ **Đang làm:** **READY TO RUN nhưng HOLD duy nhất vì HJW N3 chặng 2a đang STARTED từ 13:28Z và có mutation shared VPS** (`hjw_gate.py` · `hjw-control` · `ws-dispatch` · Protection Guard), trùng đúng vùng C/Guard của VPSC. Chạy lúc này sẽ fail NO_CONCURRENT hoặc tạo race; không phát executor lúc HJW còn bận.
+- ⬜ **Còn lại:** HJW có KQ mới sau P211/root bỏ cờ bận → Claude Code R7 ngay → Host/Codex/Claude nghiệm thu → N2a 3 source debt → N2b chỉ theo evidence/Owner gate → 08:00 sạch → close.
+- ➡ **Kế tiếp:** không thêm review. Ngay khi HJW KQ và shared-VPS gate sạch, Owner chuyển đúng **một lệnh DROOT38 chuẩn** cho Claude Code; executor tự re-read READY/ACCEPT/NO_CONCURRENT trước mutation và trước mỗi gói.
+- ⛔ **Không chạy R7 khi HJW còn STARTED.** R7 vẫn giữ hẹp: không xoá Graph, không tự đặt TTL, không nâng Kuma/uvicorn, không restart lõi, không xoay key.
 
 ### 1. Mục tiêu
 Owner 07/10/2026: “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.” Lời Owner giao Codex ngay trước đó: “1 số dịch vụ tôi thấy dow/up quá nhiều và ngoài ra chúng ta đã bịt dò ổ cứng, kiểm tra lại nhiều lần, nhưng mỗi lần kiểm tra xong vẫn phát hiện ra 1 vài lỗi => ổ cứng vẫn đầy nhanh hơn mong đợi.” và “Chúng ta đã có điều 30/31 trong hiến pháp để bảo vệ các mã đã viết, việc này đã được bảo vệ đầy đủ chưa? có gì đang bug cần xử lý không?”
@@ -854,6 +854,14 @@ CODEX ACCEPT@e70606d70c535efc37864efd44eb511d553da3e0
 - **Shared VPS giữ chặn:** theo Owner/P64, Graph R7 đang STARTED chưa KQ. ACCEPT này chỉ khép review; không tháo NO_CONCURRENT. VPSC runtime phải đợi Graph KQ, rồi executor fresh-read task/PROMPT/shared-VPS gate và kiểm sạch trước mutation, kiểm lại trước mỗi gói. Không hồi tố RUN Graph đang chạy.
 - **JEV phụ trợ:** `gen-dec-1791379480-OO6ODEm464uAZQCfmUoC` tổng có độ chắc thấp; `gen-dec-1791379591-hXLUyyOYubNQllNa0Pzv` đối chiếu riêng hai ca trên xác nhận luật no-page hiện hữu. Reviewer quyết ACCEPT từ yêu cầu rõ, các fixture và phạm vi; không dùng ý kiến JEV thay proof runtime.
 - **Bước kế thuộc Host:** sau Graph KQ + NO_CONCURRENT sạch, điều hành R7 theo SHA này; nghiệm thu implementation sau KQ, tiếp N2a/N2b theo evidence và cổng 08:00. Không còn blocker thiết kế mới từ review này; VPSC chưa đóng.
+
+### P66 · GPT Chat (Host) · 07/10/2026 21:22 +07 · FINAL RELEASE PREPARED · HOLD CHỈ VÌ HJW SHARED-VPS
+- **Codex P65:** ACCEPT đúng SHA `e70606d70c535efc37864efd44eb511d553da3e0`; thiết kế không còn blocker. READY của Host cùng SHA vẫn hiệu lực vì PROMPT không đổi.
+- **Graph:** root hiện ghi `P64 · R7 PASS-WITH-LIMITS`; blocker Graph đã hết.
+- **Blocker duy nhất:** HJW N3 chặng 2a đang STARTED từ `2026-10-07 13:28Z`, có mutation shared VPS vào Protection Guard/dispatch. Đây là xung đột thật với R7 gói C và PRE/POST. Theo NO_CONCURRENT, **không nên chạy VPSC ngay**; nếu chạy, executor chỉ chờ tối đa 10 phút rồi DỪNG CONCURRENCY nếu HJW chưa xong.
+- **Release state:** `DESIGN_ACCEPTED + HOST_READY + CODEX_ACCEPT = đủ`; không cần Claude/Codex/GPT bàn thêm. Khi HJW có P/KQ mới sau P211 và root bỏ `CỜ BẬN`, R7 được phép chạy ngay bằng lệnh DROOT38 chuẩn, không cần READY mới nếu PROMPT không đổi.
+- **Lệnh đã chuẩn bị:** `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
+- Owner cần quyết: — cho P66; chỉ cần phát lệnh khi HJW hết cờ bận.
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
