@@ -658,6 +658,11 @@
 #matrix-view-formula .cf-derived-divider b{font-size:11px;color:#3b5648}
 #matrix-view-formula .cf-derived-divider span{font-size:9.5px;color:#8a938e}
 #matrix-view-formula .cf-derived-root{margin:12px 0 16px;padding:13px 14px 11px;background:#fff}
+/* Owner: yellow star distinguishes the two outer formula groups, not workflow status. */
+#matrix-view-formula :is(#formula-ct-003,#formula-ct-005){background:#fff9e8;border-color:#e5c96c;border-left:4px solid #d5a820}
+#matrix-view-formula :is(#formula-ct-003,#formula-ct-005) .cf-formula-nick{color:#795b0b}
+#matrix-view-formula :is(#formula-ct-003,#formula-ct-005) .cf-formula-nick::before{content:"★";color:#c99808;margin-right:7px}
+#matrix-view-formula :is(#formula-ct-003,#formula-ct-005) .cf-derived-formula strong{background:#fff0ba;border-color:#dfbf57;color:#6b510b}
 /* Owner 2026-10-07: visual levels only; not a change to formula dependencies. */
 #matrix-view-formula .cf-derived-root[data-visual-depth]{--cf-indent:32px;position:relative}
 #matrix-view-formula .cf-derived-root[data-visual-depth="1"]{margin-left:var(--cf-indent)}
