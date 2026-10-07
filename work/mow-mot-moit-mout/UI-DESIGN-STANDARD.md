@@ -25,7 +25,7 @@ Nguồn đăng ký: ui/child-ui-registry.json (29 UI con), ML-DEF-017 (6 họ). 
 
 ## 3. Quy tắc riêng Master hiện hành
 Chi tiết token/đậm-nhạt: xem mục “Quy chuẩn thị giác UI.MASTER” trong [FORMULA-AI-README.md](FORMULA-AI-README.md). Đây là một nguồn chi tiết; không nhân bản token.
-Các số đo Master trong bản ghi lịch sử phía dưới chỉ để truy nguồn; quyết định cập nhật 07/10 thắng số đo cũ.
+Thông số Master lấy từ nguồn hiện hành ở trên; không sử dụng số đo lịch sử để dựng lại.
 Navigation phải kiểm từ đúng nơi Owner mở (cả trang trực tiếp và khung Knowledge nếu dùng). Link tồn tại không chứng minh bấm được; hiện còn lỗi sandbox Knowledge mở Master, không được ghi PASS cho đường đó.
 
 ## 4. Cổng bàn giao bắt buộc
@@ -73,9 +73,7 @@ Dùng lại khuôn đã chọn; thay nhãn và dữ liệu đúng chỗ. Các g�
 
 ### Thông số và nguồn cho AI triển khai
 
-- Font Be Vietnam Pro; thân trang 14px/1.5; bảng 12.5px; header thực tế 10px, weight 600.
-- Đo trên UI-001: Tên #2c2c2e; T3 #6e6e73; T2/T1 đang #b0b0b5. Mã/header phụ dùng khoảng #bcbcc1; STT #c8c8cd.
-- Nguồn master-list.js có quy tắc nhấn Tên/T3/T2/T1 nhưng lớp đang chạy cho độ nhạt khác nhau. Giữ hiện trạng; mức nhấn bốn cột còn cần Owner xem, không tự coi tất cả đã đồng nhất.
+- Kế thừa CSS/renderer hiện hành. Token chính/phụ và cột nhấn lấy từ FORMULA-AI-README.md; cấu hình schema quyết định cột. Không tái sử dụng số đo cũ của UI-001 làm chuẩn mới.
 [mot-theme-v1.css](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-theme-v1.css) · [master-list.js](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-list.js) · [mow-master-nhap2-v1.html](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html)
 
 
@@ -178,7 +176,7 @@ Dùng lại khuôn đã chọn; thay nhãn và dữ liệu đúng chỗ. Các g�
 ### T1 · biến thể đã chuẩn hóa
 
 - Thường: giữ chuẩn hai cột và audit. Đề xuất: toàn bộ Config, cùng mẫu New MODT; các hàng trái/phải khớp nhau.
-- Bảng mapping chuẩn T1 có 9 cột: Nội dung chuyên môn · Collection · Field · Địa chỉ dữ liệu · Kiểu dữ liệu · Hợp đồng JSON · Test · Tình trạng · Ghi chú.
+- Schema mapping phải đọc từ đúng phiên bản New MODT. Kiểm live 07/10/2026 thấy 10 cột, có thêm “Check field tương tự”; mô tả 9 cột cũ không còn đủ. Đây là ghi nhận hiện trạng, không phải tự duyệt một schema mới; không xóa cột để khớp tài liệu cũ.
 - Chỉ thay mã/tên task, inputItems, referenceItems và giá trị mapping. Giữ tên/thứ tự cột, tooltip, khoảng cách, chiều cao hàng và ký hiệu — / ✓.
 - Header nhạt nhưng weight ít nhất 600; chữ nháp giữ kiểu placeholder. Kiểm lệch hàng 0px, tooltip đủ nội dung và data-t1-audit="ok".
 
@@ -200,5 +198,7 @@ Dùng lại khuôn đã chọn; thay nhãn và dữ liệu đúng chỗ. Các g�
 - Thử tìm/lọc, mở chi tiết, quay lại, nhập và phản hồi liên quan; kiểm lỗi trình duyệt.
 - Ghi riêng: đúng khuôn UI; nhãn đã rà; config đã rà; đã nối dữ liệu thật. Không đánh dấu xong tất cả chỉ vì UI hiện được.
 
-Còn cần xem cùng Owner: Master hiện nhấn Tên rõ hơn T3/T2/T1; chưa có một cấu hình cột riêng đã chốt cho mọi UI con. Giữ khuôn hiện có, liệt kê chênh lệch khi làm từng UI; không tự tăng số màn hay đổi độ nhấn.
+Các trường hợp chưa gán cha hoặc chưa nối dữ liệu phải ghi riêng trong báo cáo; không yêu cầu Owner kiểm lại những quy tắc thị giác đã chốt.
 
+## 6. Kết quả rà gần nhất
+Xem [UI-AUDIT-20261007.md](UI-AUDIT-20261007.md). Phạm vi đạt hiển thị không đồng nghĩa mọi thao tác/responsive đã đạt.
