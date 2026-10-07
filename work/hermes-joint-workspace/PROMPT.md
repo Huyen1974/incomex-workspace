@@ -1,13 +1,13 @@
 # PROMPT — HJW · N3 COURIER / WAKE MATRIX · AUTO1 ASSISTED
 
 RUN_ID: HJW-N3-COURIER-WAKE-20261007-01
-STATUS: R4_MEASURE_ONLY · Host P198 ACCEPT P197 + DROOT48 · lượt kế chỉ PHA A/R4 read-only · CHƯA READY tại dòng này. READY/RUN hiện hành trong HJW COLLAB mới là quyền chạy.
+STATUS: DRAFT_2A_HERMES_REPAIR · Host áp P206 sau R4/P204 · CHẶNG 2A CHỈ SỬA ĐƯỜNG HERMES · CHƯA REVIEW EXACT SHA · CHƯA READY/RUN. READY/RUN hiện hành trong HJW COLLAB mới là quyền chạy.
 Host: GPT Chat · GPT-HJW-260922-A · Owner đã chỉ định cho HJW hiện tại
 Reviewer: Claude Chat
 Executor_Surface: Claude Code CLI phiên MỚI trên Mac cho inventory/orchestration + SSH/trusted-runner checks; các phiên canary được N3 gọi phải là phiên MỚI tách vai theo §5
 Write_Path: repo qua workspace_*; runtime/config chỉ qua DOT/wrapper/apply path hiện hữu; không ad-hoc
 Node: N3 / 6 · Automation target = AUTO1 ASSISTED
-Owner_steps: **R4 read-only = 0 bước tay.** Không tạo Routine/token, không login mới, không approval, không canary model mới. Sau R4 và hội đồng review, chặng 2 mới có tối đa 1 bước tay Routine/token theo thiết kế đã duyệt.
+Owner_steps: **Chặng 2a deploy = 0 bước tay trong lúc worker chạy.** Sau KQ worker và CLI đã đóng, Host mới phát đúng 2 vé thử Hermes; Owner bấm `Cho chạy` 2 lần. **Chặng 2b** mới có tối đa 1 bước tay tạo Routine/token; 2b chưa được phép ở 2a.
 
 ## 0. Mục tiêu duy nhất
 
@@ -22,11 +22,12 @@ N3 phải đo + thử + nếu đủ điều kiện thì bật một lớp **cour
 
 N3 không xây Council Core N4, không tự chọn Host, không mở AUTO2/AUTO3.
 
-### 0A. PHASE GATE — R4 MEASUREMENT FIRST
-- **READY đầu tiên của N3 chỉ cho phép PHA A + Checkpoint R4 ở cuối §3. Pha B–E = NOT_AUTHORIZED.** Executor chạm bất kỳ mutation/routine/token/live-canary mới nào trước R4 review ⇒ STOP + KQ DỪNG.
-- Chặng R4 là read-only diagnostic; không cần chờ #11/#22/VPSC vì không mutation. Nếu một RUN khác đang mutation **đúng Hermes dispatcher/approval/queue/log path đang đo** làm số liệu không còn ổn định ⇒ `CONCURRENCY_GATE`, dừng sạch; task khác không chạm path này không gate R4.
-- Sau KQ R4, Host + Reviewer đọc số thật, sửa **cùng PROMPT.md** nếu cần, phát READY mới cho **cùng RUN_ID/node**; CLI mới, không resume terminal cũ.
-- Nguyên tắc DROOT48: `CHƯA ĐO/UNKNOWN` = CHƯA ĐẠT; không suy từ docs, design hay trial cũ để tô xanh.
+### 0A. PHASE GATE — N3 CHẶNG 2A / 2B
+- **R4 measurement đã xong ở P204. Chặng 2a chỉ sửa đường Hermes đã đo:** `hjw_gate.py`, plugin `hjw-control`, lịch job `ws-dispatch`, prompt/toolset của Hermes one-shot và guard/protection tương ứng. **Không Routine/token/Claude/OpenAI path, không AUTO2, không N4.**
+- **Chặng 2b = NOT_AUTHORIZED trong RUN 2a.** 2b chỉ mở sau worker 2a KQ DỪNG + 2 live canary 2a + Host/Reviewer disposition.
+- DROOT48 áp nguyên: design/test fixture không thay live PASS. Mọi `UNKNOWN` vẫn CHƯA ĐẠT.
+- Trước mutation 2a, PRE phải fail-closed nếu STOP/alert mở, có Hermes ticket đang mở, hoặc **bất kỳ việc khác đang STARTED trên shared VPS**; không giữ terminal chờ, ghi `CONCURRENCY_GATE` rồi đóng CLI.
+- Không sửa code/parser Owner View riêng trong 2a. Queue truth thuộc D2; lỗi `Chờ Owner` giả đã được Claude xử bằng cấu trúc COLLAB ở P202 và chỉ cần regression check.
 
 ## 1. Acceptance — N3 xong khi
 
