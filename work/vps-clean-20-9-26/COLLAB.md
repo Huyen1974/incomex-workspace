@@ -5,14 +5,14 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 · GPT Chat (Host) · P60
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 17:07 +07 · Claude Code CLI (Worker) · STARTED S1a
 - 🎯 **Mục tiêu Owner:** VPS ổn định lâu dài, cảnh báo dễ hiểu; không quay lại dọn ổ mỗi tháng và không bị DOWN/UP giả làm mất thời gian.
 - 🏁 **Xong khi:** storage có tên/control/chuông đúng nghĩa; cảnh báo khẩn cấp chỉ báo lỗi cần xử lý ngay; nợ bằng chứng không giả thành outage; monitoring pipeline tự được canh; mã có Đ30/31; 502/503 có kết luận theo bằng chứng.
 - 📍 **Tiến độ:** `✅ P53/P55/P57 · ✅ Claude P59 · ✅ Host P60 disposition · ■ S1a đo read-only ≤60′ · ⬜ Host chốt R7 bằng số thật · ⬜ Codex final · ⬜ R7 · ⬜ nghiệm thu · ⬜ N2a/N2b nếu cần · ⬜ 08:00 sạch → FINAL CLOSE`
 - ✅ **Đã xong:** thiết kế nền + STEP_WALK; P59 được Host ACCEPT 3/3 về gốc lỗi; live snapshot của Host cho thấy hiện không có bằng chứng VPS down tổng thể.
-- ■ **Đang làm:** **S0a/S1a đo trước** đã READY@`ce7122ce`; chờ Claude Code chạy read-only ≤60′, gọi tên disk drift và phân loại DOWN/UP; PROMPT mutation R7 tạm INERT.
+- ■ **Đang làm:** **S1a đo trước** · Claude Code CLI đang chạy `VPSC-R7-S1A-MEASURE-20261007-01` từ 10:07Z, READ_ONLY ≤60′ (hết hạn 11:07Z): disk 7,9 GiB · DOWN/UP 6 nhãn · Kuma exception · PRE_RED_SET · noise · BUSINESS history; PROMPT mutation R7 tạm INERT.
 - ⬜ **Còn lại:** S1a → Host disposition số thật → Codex final review mutation R7 → R7 → nghiệm thu → N2a/N2b theo evidence → 08:00 sạch → đóng.
-- ➡ **Kế tiếp:** Owner chuyển đúng một lệnh S1a cho Claude Code; đo xong dừng. Chưa có S1a KQ thì không phát R7 mutation.
+- ➡ **Kế tiếp:** 🤖 Claude Code ghi `## S1a · đo trước` vào BAO-CAO + KQ rồi dừng → Host GPT chốt R7 bằng số thật. Chưa có S1a KQ thì không phát R7 mutation.
 - ⛔ **Không mutation production trong S1a.** R7/N2 vẫn HOLD.
 
 ### 1. Mục tiêu
@@ -123,6 +123,7 @@ HTML chính: `view.html`
 
 ## Giấy phép vòng 4
 - **S1a MEASURE_ONLY:** PROMPT last-touch `ce7122ce17f4fc8fe78344d746b02550531a4352` · **READY@ce7122ce17f4fc8fe78344d746b02550531a4352 · Host GPT Chat**. Chỉ hợp lệ cho `VPSC-R7-S1A-MEASURE-20261007-01` read-only; **không cấp bất kỳ mutation nào**. Mọi READY R7 mutation cũ hết hiệu lực.
+- STARTED@VPSC-R7-S1A-MEASURE-20261007-01 2026-10-07T10:07Z · executor=Claude Code CLI · READ_ONLY · read-gate: PROMPT last-touch = READY `ce7122ce` · SSH VPS1 + workspace_* PASS · không STARTED mở ở việc khác
 - Lệnh executor chuẩn theo DROOT38 (chỉ dùng sau khi có READY mới + CODEX ACCEPT cùng SHA): `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
 
 ## Lịch sử trạng thái vòng 1–2
