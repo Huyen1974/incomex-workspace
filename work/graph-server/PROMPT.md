@@ -1,259 +1,359 @@
-# PROMPT — GS-R6B0-SOURCE-MEASURE-20261007-06
+# PROMPT — GS-R6C-NUXT-ORACLE-20261007-07
 
 ## 0. LỆNH / PHẠM VI
 
-RUN_ID: `GS-R6B0-SOURCE-MEASURE-20261007-06`
+RUN_ID: `GS-R6C-NUXT-ORACLE-20261007-07`
 Executor_Surface: Claude Code CLI
 Repo: `Huyen1974/incomex-workspace` · branch `main`
 Task: `work/graph-server`
 Repo Write_Path: Incomex workspace gateway `workspace_*` · root `workspace`
-Runtime Write_Path: terminal/SSH hiện hữu tới VPS1 + đường đọc Lark hiện hữu.
+Runtime Write_Path: terminal/SSH hiện hữu tới VPS1.
 
 Owner D14: GPT + Claude tự quyết trial nhỏ; production/quy mô thật mới xin Owner.
 
-ĐÂY LÀ R6B0 — ĐÚNG MỘT LƯỢT ĐO SỐ:
-- chỉ đo hai candidate đã khóa ở P39, thứ tự C3 → C1;
-- không model/LLM/JEV;
-- không Cognee/Neo4j/PGVector;
-- không cài Presidio/Stanza hay package nào;
-- không đọc thêm base/table/surface;
-- không đọc raw text bằng mắt;
-- raw text không được in ra terminal/Claude/repo/evidence.
+MỤC TIÊU DUY NHẤT:
+- kiểm độ tin cậy của Graph trên **explicit static imports** của một lát Nuxt/TypeScript/Vue thật;
+- chấm chính ở cấp **thư mục importer → đích import**, đúng representation Enola/Cognee hiện tại;
+- cấp file chỉ đo/giải thích, KHÔNG dùng recall >=95% làm gate.
 
-Mục tiêu: quyết định có đủ **trao đổi công việc nội bộ** để mở R6B1 hay không.
+KHÔNG:
+- audit toàn frontend;
+- Nuxt auto-import;
+- dynamic import/require làm acceptance;
+- generated routes/plugin injection;
+- LLM/JEV/vector;
+- cài package/parser mới;
+- custom regex parser;
+- production mutation.
 
-§0.3: đọc/đối chiếu trước mutation.
+§0.3: đọc/đối chiếu toàn bộ trước runtime mutation.
 
-## 1. READ-GATE
+## 1. READ-GATE / STARTED
 
 Đọc:
 1. `AGENTS.md`
-2. BẢNG + §0 + D14/D15 + P37–P40 của `work/graph-server/COLLAB.md`
+2. BẢNG + §0 + D14/D15 + P41–P44 của `work/graph-server/COLLAB.md`
 3. `work/graph-server/PROMPT.md`
-4. roadmap hiện hành trong `work/graph-server/view.html`
+4. `work/graph-server/view.html` roadmap
 5. root `COLLAB.md` dòng Graph.
 
-Xác minh READY full SHA = commit cuối chạm PROMPT; không HOLD/STOP/READY mới; không STARTED cùng RUN chưa có KQ.
+Xác minh:
+- READY full SHA = commit cuối chạm PROMPT;
+- không HOLD/STOP/READY mới;
+- không STARTED cùng RUN chưa có KQ.
 
 PASS → ghi:
-`STARTED@GS-R6B0-SOURCE-MEASURE-20261007-06 <UTC> · executor=Claude Code CLI`
+`STARTED@GS-R6C-NUXT-ORACLE-20261007-07 <UTC> · executor=Claude Code CLI`
 
-FAIL → 0 data read beyond gate, KQ DỪNG.
+FAIL → 0 runtime mutation, KQ DỪNG.
 
-## 2. CHỈ HAI CANDIDATE — CẤM MỞ NGUỒN THỨ BA
+Trước mutation đầu: DROOT30 freshness gate.
 
-### C3 — ưu tiên 1
-Base: `07 - Quản lý công việc ưu tiên`
-Table: `Cải tiến` · `tbl2MIHGtfYUJxyO`
-Text candidate:
-- `Nội dung cải tiến` · `fldweh4ncT`
-Oracle candidate:
-- link `Đầu việc cải tiến` · `flddAwzJ4H`
+## 2. SOURCE SSOT / PRE
 
-Không dùng:
-- lookup `Nội dung công việc` làm input/model;
-- `Đánh giá cải tiến` làm oracle.
+Production source SSOT, **READ-ONLY**:
+`/opt/incomex/docker/nuxt-repo/web`
 
-Quan hệ tương lai nếu PASS:
-`IMPROVEMENT_PROPOSAL_FOR_TASK` (tên canonical có thể Host chốt ở R6B1).
+Không sửa source, node_modules, .nuxt, mtime, ownership hoặc Git state.
 
-### C1 — ưu tiên 2
-Base: `07 - Quản lý công việc ưu tiên`
-Table: `Giao việc không tiêu chuẩn` · `tbl5b8o8OFSwrapD`
-Text candidate:
-- `Nội dung yêu cầu` · `fldIPCO6H7`
-Oracle candidate:
-- link `ĐH liên quan (nếu cần)` · `fldgsvJsZF`
+PRE ghi:
+- source Git HEAD/status;
+- SHA256 + mtime của 16 sample files + 3 config files;
+- SHA256 + mtime của:
+  - `node_modules/typescript/package.json`
+  - `node_modules/@vue/compiler-sfc/package.json`
+- package versions phải đúng:
+  - `typescript==5.9.3`
+  - `@vue/compiler-sfc==3.5.25`
+- production containers/health read-only baseline.
 
-Không dùng TTS link.
-Không dùng `Thực hiện` làm oracle.
+Nếu source/config/package thiếu hoặc version lệch ⇒ DỪNG `R6C_SOURCE_OR_ORACLE_DRIFT`.
 
-Quan hệ tương lai nếu PASS:
-`NONSTANDARD_REQUEST_FOR_ORDER`.
+## 3. SAMPLE — KHÓA ĐÚNG 16 FILE THEO P43
 
-CẤM:
-- C2/C4;
-- 14 base chưa khảo sát;
-- PostgreSQL/Directus khác;
-- Gmail/chat/KB;
-- source mới do executor tự nghĩ.
+Chép byte-exact, giữ relative path, sang:
+`/opt/incomex/work/graph-server/runtime/r6c/sample/`
 
-## 3. RAW-TEXT BOUNDARY
+16 files:
 
-Dùng script cục bộ trên VPS.
-Ưu tiên reuse `r6b_read.py` / `r6b_lengths.py` đã có; được chỉnh tham số/path trong runtime, không tạo framework mới.
+### components/modules/comment-module/
+1. `components/modules/comment-module/CommentInput.vue`
+2. `components/modules/comment-module/CommentModule.vue`
+3. `components/modules/comment-module/CommentThread.vue`
+4. `components/modules/comment-module/types.ts`
+5. `components/modules/comment-module/composables/useComments.ts`
+6. `components/modules/comment-module/partials/CheckpointPanel.vue`
 
-Raw records:
-- private runtime dir mode 700;
-- private files mode 600;
-- không Git;
-- không evidence public;
-- không stdout/stderr.
+### components/modules/workflow-module/partials/
+7. `components/modules/workflow-module/partials/InlineWcrPopup.vue`
+8. `components/modules/workflow-module/partials/ProcessRegistryView.vue`
+9. `components/modules/workflow-module/partials/StepsTimeline.vue`
+10. `components/modules/workflow-module/partials/WcrIntakePanel.vue`
 
-Terminal chỉ được thấy:
-- table/candidate id;
-- count;
-- length metrics;
-- ratios;
-- hash;
-- PASS/FAIL.
+### direct targets
+11. `types/tasks.ts`
+12. `types/checkpoints.ts`
+13. `types/workflow-dsl.ts`
+14. `types/workflows.ts`
+15. `composables/useCheckpoints.ts`
 
-Không dùng `cat`, `grep`, debug print hay Python traceback chứa raw value.
-Nếu script lỗi có nguy cơ in raw text ⇒ dừng, sửa logging local trước rồi mới rerun cùng measurement.
+### importer
+16. `pages/knowledge/workflows/[id].vue`
 
-## 4. ĐO C3 RỒI C1 — MỖI CANDIDATE CÙNG BỘ METRIC
+Ba file cấu hình chép kèm, byte-exact:
+17. `package.json`
+18. `tsconfig.json`
+19. `.nuxt/tsconfig.json`
 
-Schema freeze trước read:
-- xác nhận field id/name/type;
-- ghi schema hash.
+Không chép `nuxt.config.ts`.
+Không mở rộng sample.
+Không thay file vì metric xấu.
 
-Với **mỗi candidate**, script chỉ xuất các số:
+Sau copy:
+- verify hash source == sample cho cả 19 file;
+- freeze manifest + SHA256 **trước oracle/extraction**.
 
-1. total records;
-2. records có text;
-3. records có **text + oracle**;
-4. length chars trên records có text+oracle:
-   - min
-   - median
-   - p75
-   - count >=80
-   - count >=200
-   - count có newline;
-5. leak/label-overlap ratio:
-   - tỉ lệ text trùng nguyên hoặc chứa normalized display value của một field khác trong cùng record, kể cả lookup;
-   - normalization rule phải freeze trước khi tính và dùng y hệt cho C3/C1;
-6. uniqueness ratio = unique normalized text / nonempty text;
-7. oracle coverage ratio;
-8. số oracle values khác nhau;
-9. qualified_count = records đồng thời:
-   - text >=80 chars;
-   - oracle có giá trị;
-   - không bị exact duplicate text.
+## 4. ORACLE ĐỘC LẬP — DÙNG GÓI CÓ SẴN, KHÔNG CÀI
 
-Không in raw oracle/display values.
+Oracle packages:
+- TypeScript compiler API 5.9.3;
+- @vue/compiler-sfc 3.5.25.
 
-## 5. SOURCE GATE — PHẢI ĐẠT ĐỦ NĂM
+Runtime:
+1. ưu tiên `node` hiện hữu trên VPS;
+2. nếu không có, chỉ được dùng local image `node:20-alpine` nếu image đã tồn tại:
+   - `--pull never`
+   - `--network none`
+   - source/node_modules mount read-only.
+3. không có cả hai ⇒ DỪNG `ORACLE_RUNTIME_UNAVAILABLE`.
 
-Một candidate PASS khi đồng thời:
+CẤM npm/pnpm install, download, network.
+`NODE_DISABLE_COMPILE_CACHE=1`.
+cwd/output/temp đều dưới `runtime/r6c`.
 
-G1. >=16 records text >=80 chars **và có oracle**.
-G2. median text length >=80.
-G3. leak/label-overlap ratio <=20%.
-G4. uniqueness ratio >=80%.
-G5. oracle có >=6 distinct values.
+Oracle script được viết mỏng chỉ để gọi API hai gói, **không tự parse syntax bằng regex**.
 
-Không hạ ngưỡng.
-Không bỏ gate.
-Không đổi normalization sau khi thấy số.
+Oracle:
+- Vue: compiler-sfc tách `<script>` / `<script setup>` và map line về file .vue gốc.
+- TypeScript compiler API lấy:
+  - top-level static `import ... from`
+  - top-level static `export ... from`
+- `import type` tính như explicit static dependency.
+- dynamic `import()` / `require()` nếu thấy: **đếm riêng, OUT_OF_SCOPE acceptance**.
+- Nuxt auto-import/generated behavior: không oracle, UNKNOWN.
 
-## 6. QUY TẮC CHỌN TẤT ĐỊNH
+Alias/module resolution:
+- đọc `tsconfig.json` + `.nuxt/tsconfig.json` bằng TypeScript config parser;
+- relative import: resolve từ importer directory;
+- alias `~/...`: resolve theo config/root;
+- package external: giữ package specifier theo rule frozen.
 
-Sau khi đo cả C3 và C1:
+Oracle output freeze trước Enola:
+- statement list: importer file, line, raw specifier, resolved target, internal/external, type-only yes/no;
+- unique `(file,target)`;
+- unique `(directory,target)`;
+- SHA256.
 
-1. C3 PASS 5/5 ⇒ SELECT=C3.
-2. else C1 PASS 5/5 ⇒ SELECT=C1.
-3. else xét COMBINED chỉ khi:
-   - C3 qualified_count >=6;
-   - C1 qualified_count >=6;
-   - total qualified_count >=16.
-   Khi đó tính lại G1–G5 trên union bằng cùng normalization.
-   COMBINED PASS 5/5 ⇒ SELECT=C3+C1.
-4. else ⇒ DỪNG `NO_FREETEXT_SOURCE_GATE_PASS`.
+Không in source body.
 
-Không chọn source theo “gần đạt”.
-Không thêm candidate.
+## 5. EXTRACTION — ENOLA/COGNEE, 0 LLM
 
-## 7. PRIVACY — R6B0 CHỈ GHI NĂNG LỰC, KHÔNG CÀI
+Fresh R6C runtime:
+`/opt/incomex/work/graph-server/runtime/r6c/`
 
-R6B0 không cần PERSON-scan raw corpus vì không có external model call.
+Reuse exact local Enola/Cognee code-graph path/version đã dùng R4:
+- Enola 0.4.21
+- Cognee 1.6.1
+- fresh Neo4j R6C volume/network
+- không import R4 graph
+- không PGVector
+- không Cognee API/UI
+- không OpenAI
+- không JEV
+- 0 outbound.
 
-Chỉ xác minh read-only:
-- `lark_client.pii` hiện có structured-id regex nhưng không PERSON NER;
-- chưa có local PERSON scanner đã nghiệm thu.
+Prefer reuse reviewed R4 scripts/config where applicable; only adapt source/sample/output path.
+Không sửa extractor/loader.
 
-Ứng viên **cho R6B1 nếu source PASS**, không cài ở R6B0:
-- `presidio-analyzer==2.2.364`
-- `stanza==1.15.0`
-- Stanza Vietnamese VLSP NER.
+Neo4j:
+- Community 5.26.31
+- local image only; `--pull never`
+- loopback/docker-internal only.
 
-Nguồn upstream Host đã fresh-check 07/10/2026:
-- Presidio/Data Privacy Stack: MIT, maintained, Stanza supported as NLP engine; default config English nên R6B1 phải cấu hình vi explicitly.
-- Stanza 1.15.0: Apache-2.0; official Vietnamese VLSP NER exists; official table reports F1 82.44 overall, **không đủ để coi PERSON recall của Incomex đã đạt**.
+Enola output `.enola/facts.jsonl` phải được giữ raw trước Cognee loader.
 
-Không tin benchmark công bố thay cho local gate.
+## 6. POPULATION CHẤM
 
-## 8. OUTPUT PASS — KHÔNG CHẠY R6B1 TRONG CÙNG RUN
+Chỉ score dependency facts/nodes mà `file_path` thuộc 16 sample files.
 
-Nếu SELECT=C3/C1/COMBINED:
-- KQ XONG `SOURCE_GATE_PASS:<selection>`;
-- ghi đủ metrics nhưng không raw text;
-- giữ private sample data local;
-- đề xuất R6B1 là RUN riêng.
+Expected node name key theo semantics P43:
+`<directory_of_importer> -> <normalized_target>`
 
-R6B1 tương lai phải:
-1. cài Presidio+Stanza trong vùng trial riêng, exact pinned versions;
-2. tải model trước rồi disable auto-download;
-3. đo PERSON recall tại chỗ **trước** khi dùng để lọc corpus;
-4. chỉ nếu privacy gate PASS mới làm free-text oracle <=16 đoạn.
+Normalization phải freeze trước extraction:
+- importer directory = relative POSIX directory của file;
+- relative target = resolved path/module theo oracle;
+- alias target = resolved theo tsconfig;
+- external package = normalized package specifier;
+- extension/index normalization phải dùng một rule duy nhất và ghi evidence trước chấm.
 
-Không cài gì trong R6B0.
+Hai cấp phải báo riêng:
 
-## 9. OUTPUT FAIL — STOP RULE
+### A. File-level — CHỈ ĐO
+- oracle statement count;
+- unique (file,target) pair count;
+- Enola dependency fact count;
+- Enola unique fact-id count;
+- Cognee node count;
+- file-level precision/recall nếu reconstruct được từ provenance.
 
-Nếu không source nào PASS:
-- KQ DỪNG `NO_FREETEXT_SOURCE_GATE_PASS`;
-- **không đào thêm nguồn**;
-- trong `## Owner cần quyết` ghi đúng một dòng:
-  `R6B free-text: hệ thống hiện chưa có nguồn trao đổi đủ chuẩn để thử. Đề xuất dừng free-text ở mức R5 đã chứng minh cơ chế, đi tiếp R6C; việc bắt đầu ghi care/exchange hoặc nối hộp thư/chat để R7 quyết production scope.`
-- roadmap chuyển current sang R6C; R6B1 = BLOCKED_BY_SOURCE.
-- không chờ Owner để R6C được tiếp tục theo D14.
+KHÔNG gate PASS bằng recall file-level.
 
-Đây là stop rule cuối cho discovery hiện tại.
-Không có lượt discovery thứ ba.
+### B. Directory-level — GATE CHÍNH
+- expected set = unique `(directory,target)` from oracle.
+- actual set = dependency-node names after Cognee.
+- đây là thước đo exact chính.
 
-## 10. KQ / EVIDENCE / CLEANUP
+## 7. 6 ĐIỀU KIỆN PASS — TẤT CẢ PHẢI ĐẠT
+
+### C1 · DIRECTORY SET EXACT
+Actual dependency-node name set =
+oracle `<directory> -> <target>` set.
+**0 extra, 0 missing.**
+
+### C2 · PROVENANCE TRUE
+Mỗi node actual phải có `(file_path,line)` trỏ tới **một câu explicit static import/export thật** trong oracle có cùng expected node name.
+
+PASS = 100% nodes provenance-valid.
+
+### C3 · SOURCE CLASS EXACT
+`source=internal|external` của Enola/Cognee phải khớp oracle rule cho 100% scored nodes/facts.
+Nếu Cognee không giữ property nhưng raw Enola giữ, score ở raw Enola và ghi rõ representation loss; canonical conclusion chỉ dựa trên layer thật sự có field.
+
+### C4 · COUNTS EXPLAINED
+Báo đủ:
+- oracle static statement count;
+- oracle unique (file,target);
+- oracle unique (directory,target);
+- Enola dependency fact count;
+- Enola unique fact IDs;
+- Cognee dependency node count.
+
+Node count PASS nếu:
+- bằng oracle unique (directory,target), **hoặc**
+- bằng oracle unique (file,target).
+
+Ra số khác cả hai ⇒ DỪNG + exact diff.
+Không sửa rule sau khi thấy số.
+
+### C5 · 3 GRAPH QUESTIONS
+Q1. “Thư mục nào import `types/tasks`?” → exact directory set theo oracle.
+
+Q2. “`pages/knowledge/workflows/[id].vue` import những đích explicit-static nào?”  
+File này đứng một mình trong directory scope của sample, nên graph phải trả exact target set theo oracle.
+
+Q3. “Những file nào trong `components/modules/comment-module` import `types/tasks`?”
+- nếu graph representation vẫn giữ đủ file provenance để trả exact set ⇒ exact match;
+- nếu Cognee gộp node directory-level ⇒ đáp án đúng bắt buộc:
+  `UNKNOWN_FROM_GRAPH`
+  + đúng **một** provenance witness file;
+- cấm suy/điền đủ file set từ source/oracle khi trả lời “bằng graph”.
+
+### C6 · ZERO PRODUCTION DRIFT
+- production PRE = POST;
+- 16 source files + 3 config files SHA/mtime unchanged;
+- TypeScript/compiler-sfc package SHA/mtime unchanged;
+- no source/node_modules/.nuxt write;
+- R6C containers/network removed;
+- 0 outbound/provider cost.
+
+## 8. CHỈ ĐẾM, KHÔNG CHẤM
+
+Ghi evidence, không dùng PASS/FAIL:
+- Enola fact counts theo `kind`;
+- relation counts;
+- Vue component symbol count;
+- Vue/template `calls` count;
+- Neo4j `imports` edge count nếu có;
+- route fact cho `pages/knowledge/workflows/[id].vue`;
+- dynamic import/require count nếu có;
+- số source files toàn Nuxt không có explicit import nếu đo sẵn được bằng bounded local grep/parser; **không scan/audit thêm chỉ để lấy số này**.
+
+Semantics cảnh báo:
+- Vue `calls` có thể nghĩa template-use, không mặc định là function call;
+- `import type` không được Enola đánh dấu riêng ⇒ import presence không đồng nghĩa runtime load.
+
+## 9. KẾT LUẬN ĐƯỢC PHÉP
+
+Nếu PASS, Host có thể nâng sau review:
+`CODE-EDGE-TRUST v0.4`
+
+Chỉ được nói:
+- TS/Vue **explicit static imports** chính xác ở cấp directory→target trong sample đã đo;
+- file-level fidelity được đo nhưng **không bảo đảm** nếu Cognee gộp node;
+- provenance có thể dùng để quay về một file/line làm chứng.
+
+CẤM nói:
+- “Graph đã phủ dependency Nuxt”;
+- “auto-import đã được phủ”;
+- “route/runtime dependency đã chính xác”;
+- “mọi file Nuxt có dependency đầy đủ”.
+
+Nuxt auto-import, generated types/routes, dynamic/runtime behavior = UNKNOWN trừ evidence riêng.
+
+## 10. RESIDUALS — GHI, KHÔNG MỞ VIỆC TRONG RUN
+
+Không làm trong R6C:
+1. auto-import oracle từ `.nuxt/components.d.ts` / `.nuxt/imports.d.ts` — Host quyết sau R6C;
+2. CODE-EDGE-TRUST v0.4 — Host nghiệm thu sau KQ;
+3. Presidio+Stanza — chỉ nếu Owner mở lại free-text source scope;
+4. R5 OpenAI extraction cost vẫn `UNKNOWN (ước ≤0.47 USD)` — chốt ở R7 report;
+5. Directus License #23 — root/HJW, ngoài Graph;
+6. xóa `runtime/r6b/private` và `runtime/r6b0/private` — **chờ Owner gật**, R6C không xoá.
+
+## 11. EVIDENCE / CLEANUP / KQ
 
 Evidence:
-`/opt/incomex/work/graph-server/evidence/GS-R6B0-SOURCE-MEASURE-20261007-06/`
+`/opt/incomex/work/graph-server/evidence/GS-R6C-NUXT-ORACLE-20261007-07/`
 
-Evidence public chỉ:
-- schema ids/types/hash;
-- metric JSON;
-- gate result;
-- script hashes;
-- no raw text/oracle values/record ids.
+Evidence gồm tối thiểu:
+- PRE/POST;
+- sample manifest + hashes;
+- oracle script hash + oracle.json/hash;
+- raw Enola facts hash/counts;
+- node/provenance diff;
+- metrics.json;
+- 3 graph-question results;
+- 00-KQ.md.
 
-Private:
-`/opt/incomex/work/graph-server/runtime/r6b0/private/`
-mode 700/600.
+Cleanup:
+- stop/remove R6C containers/network;
+- giữ R6C volume/evidence cho Host review;
+- wipe dry-run R6C scope;
+- không xóa R4/R5/R6B evidence/private.
 
-Kết thúc:
-- không container mới;
-- không provider call;
-- cost 0;
-- production untouched;
-- wipe dry-run private path, chưa xoá thật theo preserve-by-default.
-
-Repo chỉ cập nhật `work/graph-server/COLLAB.md` Bảng/KQ.
+Repo:
+- chỉ cập nhật `work/graph-server/COLLAB.md` Bảng/KQ;
+- không tạo progress/review file Git.
 
 KQ:
-`KQ@GS-R6B0-SOURCE-MEASURE-20261007-06 XONG|DỪNG`
+`KQ@GS-R6C-NUXT-ORACLE-20261007-07 XONG|DỪNG`
 
 Commit:
-`[Claude Code] GS-R6B0-SOURCE-MEASURE-20261007-06 · graph-server · <XONG|DỪNG>`
+`[Claude Code] GS-R6C-NUXT-ORACLE-20261007-07 · graph-server · <XONG|DỪNG>`
 
 Final:
-`XONG · GS-R6B0-SOURCE-MEASURE-20261007-06 · <selection> · <commit>`
+`XONG · GS-R6C-NUXT-ORACLE-20261007-07 · <commit>`
 hoặc
-`DỪNG · GS-R6B0-SOURCE-MEASURE-20261007-06 · NO_FREETEXT_SOURCE_GATE_PASS · <commit>`
+`DỪNG · GS-R6C-NUXT-ORACLE-20261007-07 · <blocker> · <commit>`
 
-## 11. AUTONOMY
+## 12. AUTONOMY
 
-Claude tự xử read-only schema/fetch/script mechanics trong đúng C3/C1.
+Claude tự xử Docker/Node/oracle/extraction/scoring mechanics trong scope.
 Không hỏi Owner.
-Không mở source thứ ba.
 Không cài package.
-Không model call.
-Không production mutation.
+Không sửa production source.
+Không đổi sample.
+Không gọi model/JEV.
+Không mở auto-import follow-up trong cùng RUN.
 
-Bất kỳ nhu cầu vượt phạm vi ⇒ DỪNG.
+Nếu oracle packages/runtime không dùng được, sample drift, hoặc cần custom parser/patch extractor ⇒ DỪNG sạch.
