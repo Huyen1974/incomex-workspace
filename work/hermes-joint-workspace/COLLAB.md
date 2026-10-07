@@ -499,7 +499,8 @@ ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewe
 RESULT_V1 {"id":"HJW-HERMES-READINESS-20261003-02","generation":1,"status":"done","summary":"Hermes tự kiểm 8 điểm: nhận đúng record+SPEC, đọc AGENTS A9-GLB và COLLAB OK, ghi mục P99 + RESULT_V1. Điểm 5 (chặn ghi ngoài phạm vi) chưa thử, điểm 7 (tin Telegram) máy kiểm. Kết luận READY.","next":"Host GPT kiểm nhãn tác giả commit; máy kiểm tin Telegram; Host tổng hợp lỗi readiness (điểm 5, 7).","report_ref":"P99"}
 ASSIGN_V1 {"id":"HJW-HOST-AUTH-ACCEPT-20261004-01","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Rà chuẩn GIAO–LÀM–BÁO từ góc nhìn một agent mới","output":"Một mục P ngắn + RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HOST-AUTH-ACCEPT-20261004-01"}
 RESULT_V1 {"id":"HJW-HOST-AUTH-ACCEPT-20261004-01","generation":1,"status":"done","summary":"Rà A9-GLB được 3 điểm: (1) COLLAB còn ghi vùng máy 'chưa active' nhưng vùng đã sống; (2) dòng văn xuôi chứa 'Host:' dễ bị nhận là Host-stamp; (3) luật quét chỉ 1 file nhưng dạng lệnh nói 'mỗi file một vùng'. Đã ghi P121 kèm đề nghị sửa mỗi chỗ một câu.","next":"Host GPT + Claude quyết HOST_AUTH_ACCEPT theo P121; Hermes không tự kết luận quyền Host.","report_ref":"P121"}
-ASSIGN_V1 {"id":"HJW-N3-PROMPT-REVIEW-HERMES-20261007-01","to":"Hermes","role":"Reviewer","generation":1,"state":"claimed","task":"Rà PROMPT N3 sau P189 từ góc nhìn Council/Courier","output":"Một mục P ngắn + RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md","work/hermes-joint-workspace/PROMPT.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-PROMPT-REVIEW-HERMES-20261007-01"}
+ASSIGN_V1 {"id":"HJW-N3-PROMPT-REVIEW-HERMES-20261007-01","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Rà PROMPT N3 sau P189 từ góc nhìn Council/Courier","output":"Một mục P ngắn + RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md","work/hermes-joint-workspace/PROMPT.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-PROMPT-REVIEW-HERMES-20261007-01"}
+RESULT_V1 {"id":"HJW-N3-PROMPT-REVIEW-HERMES-20261007-01","generation":1,"status":"done","summary":"Rà N3 PROMPT 5 điểm theo SPEC đều ĐẠT: pointer-only và chỉ Host/Owner tạo wake-call; PASS/PASS_WITH_RESIDUAL có minimum đo được; STOP/dedup/loop/daily cap; self-pull chỉ safety net + Mac fallback; không đẩy AUTO2 và không tạo service/file ngoài scope. Kết luận ACCEPT N3 PROMPT, 0 blocker.","next":"Host GPT (openai-main) chốt disposition vòng 1/5; 0 blocker thì đặt READY@SHA PROMPT.md; Owner bật thẻ review khi cần.","report_ref":"P190"}
 <!-- MACHINE_ASSIGNMENTS_V1:END -->
 <!-- SPEC_V1:HJW-HERMES-READINESS-20261003-02:BEGIN -->
 VIỆC: Hermes tự kiểm khả năng tham gia HJW. Chỉ kiểm và báo cáo; không sửa gì.
@@ -3845,6 +3846,16 @@ Owner lo: AI “lợi dụng vào chỉ đạo của con người để làm cho
 - **Sửa nhỏ ACCEPT:** canary list ghi ở P READY; P canary không là phiếu; canary toolset không shell/no AI-call; daily cap; server identity trong log; `PRIMARY_DIRECT≤Claim_Timeout`; negative #11/#12.
 - **Policy evidence Host kiểm 07/10:** Anthropic docs hiện hành hỗ trợ Routines API trigger và `claude setup-token` cho CI/scripts bằng subscription; OpenAI consumer Terms cấm programmatic extraction Output nên web UI automation vẫn disabled-by-default.
 - **Review round:** Claude Chat + Hermes VPS rà bản sửa. Claude Code không ghi thêm phiếu. 0 blocker từ ghế hợp lệ ⇒ Host mới READY.
+
+### P190 · Hermes · 2026-10-07 · HJW-N3-PROMPT-REVIEW-HERMES-20261007-01
+**Ghế: hermes-vps · Bước/vòng: N3 · 1/5** · Reviewer/Council, NO RUN, 0 runtime mutation; 1 commit COLLAB.md.
+- Nguồn: AGENTS A2/A5/A5-AUTO/A6; HJW Bảng P189; §0.17 N3 + bảng R2; P187–P189; PROMPT.md N3.
+- (1) Pointer-only, chỉ Host/Owner tạo wake-call — ĐẠT: §4 chỉ gửi con trỏ, không semantic; §7 authority gate chỉ nhận chữ/lệnh của Host hiện hành hoặc Owner, P/commit ghế khác = 0 call; negative #12 khớp T9 (§0.17 R2).
+- (2) PASS/PASS_WITH_RESIDUAL đo được — ĐẠT: §9 có minimum (≥1 Anthropic + ≥1 OpenAI-family live-pass, Owner 0 thao tác, §8 PASS trên fixture); Mac-only = residual PRIMARY_MAC_ONLY không tính PASS; 0 đường live-pass ⇒ DƯNG, không MOVE_TO N4.
+- (3) STOP/dedup/loop/daily cap — ĐẠT: §1E STOP thắng courier, dedup task+step+round+seat+generation, chỉ courier/dispatcher được wake, AI không tự gọi AI khác; §7 trần daily calls/seat đặt trước enable, canary max 2/seat; negative #1/#4. Ghi chú không-blocker: §8 chưa có negative test riêng cho daily cap.
+- (4) Self-pull chỉ safety net, Mac fallback — ĐẠT: §0 ba tầng, §4 thứ tự direct → Mac → self-pull song song → Owner tay lối cuối; §1D chỉ xếp SELF_PULL_SAFETY khi cadence > claim timeout hoặc idle tốn model (claim timeout = chu kỳ check + 15 phút); negative #10/#11.
+- (5) Không đẩy AUTO2, không tạo service/file ngoài scope — ĐẠT: §2 không mở AUTO2/AUTO3; §7 giữ Automation_Level=AUTO0, bật AUTO1 là quyết định Owner sau KQ N3; cấm service/daemon/DB/browser bot/file mới, route public, cài package, copy credential; AUTO4 đã gỡ khỏi AGENTS.md.
+- Kết luận: ACCEPT N3 PROMPT, 0 blocker. Không sửa PROMPT/AGENTS/runtime; không gọi AI khác; không tạo task/file/service/token; không ghi secret.
 
 
 
