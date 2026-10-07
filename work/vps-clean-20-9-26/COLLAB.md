@@ -9,7 +9,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07
 - 🎯 **Mục tiêu Owner:** VPS ổn định sau loạt thay đổi — vì chuông kêu quá nhiều, ổ đĩa vẫn đầy nhanh và mỗi lần kiểm lại lòi lỗi mới.
 - 🏁 **Xong khi:** đèn chỉ đỏ khi hỏng thật · mỗi GiB mất đi có tên và có trần · mọi mã đang chạy có khoá Đ30/31 do máy đối chiếu · nguyên nhân 502/503 có số đo + phương án cho Owner gật.
 - 📍 **Tiến độ:** `✅ Codex khảo sát (PROOT01) · ✅ Host tự kiểm + soạn lệnh R7 · ■ Codex rà lệnh · ⬜ Claude Code chạy R7 · ⬜ Codex + Host nghiệm thu · ⬜ N2 xoay khoá + sửa lõi theo phiếu D6 (chờ Owner) · ⬜ đóng`
-- ✅ **Đã xong:** khảo sát chỉ đọc; Host kiểm lại 6 điểm chính bằng mã/log thật và thêm 4 phát hiện (P51); PROMPT R7 `7425784`.
+- ✅ **Đã xong:** khảo sát chỉ đọc; Host kiểm lại 6 điểm chính bằng mã/log thật và thêm 4 phát hiện (P51); PROMPT R7 `4d4ea53` (Host tự rà vòng 2 xong).
 - ■ **Đang làm:** Bước kế hoạch · vòng 1/5 · gọi: Codex (Reviewer) · chờ `CODEX ACCEPT@` hoặc DELTA.
 - ⬜ **Còn lại:** RUN R7 (4 gói A→B→C→D, một lượt, không restart lõi) → nghiệm thu → N2.
 - ➡ **Kế tiếp:** 😊 Owner dán 1 khối cho Codex; Codex ACCEPT thì dán dòng RUN cho Claude Code · Reviewer Codex rà PROMPT · 🤖 Claude Code chờ.
@@ -102,8 +102,8 @@ Host: Claude Chat · Host_ID: CLAUDE-VPSC-261007-R7 · vòng 4 theo chỉ đạo
 HTML chính: `view.html`
 
 ## Giấy phép vòng 4
-- **R7:** PROMPT last-touch `7425784874b3ec14f2cfe1b42c7030eab1895bd9` · Host READY@7425784874b3ec14f2cfe1b42c7030eab1895bd9 · **RUN chỉ hợp lệ khi có thêm một dòng `CODEX ACCEPT@` mang cùng SHA** (tiền lệ R5b). Sửa PROMPT ⇒ READY này hết hiệu lực, Host READY lại.
-- Dòng RUN cho Claude Code (phiên mới sạch, chỉ dán sau khi Codex ACCEPT): `WS work/vps-clean-20-9-26 · Agent · RUN VPSC-R7-TRUTH-20261007-01 · đọc AGENTS.md → work/vps-clean-20-9-26/COLLAB.md → work/vps-clean-20-9-26/PROMPT.md · READY@7425784874b3ec14f2cfe1b42c7030eab1895bd9`
+- **R7:** PROMPT last-touch `4d4ea53366112070d641c953b2eb28561993e438` · Host READY@4d4ea53366112070d641c953b2eb28561993e438 · **RUN chỉ hợp lệ khi có thêm một dòng `CODEX ACCEPT@` mang cùng SHA** (tiền lệ R5b). Sửa PROMPT ⇒ READY này hết hiệu lực, Host READY lại.
+- Dòng RUN cho Claude Code (phiên mới sạch, chỉ dán sau khi Codex ACCEPT): `WS work/vps-clean-20-9-26 · Agent · RUN VPSC-R7-TRUTH-20261007-01 · đọc AGENTS.md → work/vps-clean-20-9-26/COLLAB.md → work/vps-clean-20-9-26/PROMPT.md · READY@4d4ea53366112070d641c953b2eb28561993e438`
 
 ## Lịch sử trạng thái vòng 1–2
 - Vòng 2 đã đóng 23/09 với KQ R5b; trạng thái hiện hành nằm duy nhất ở BẢNG ĐIỀU KHIỂN vòng 3 phía trên.
@@ -552,8 +552,9 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
   - **D+1 · 502 có một giả thuyết cụ thể, kiểm được.** `uvicorn --workers 2`, ghim 0.35.0; supervisor đa tiến trình ping tiến trình con, quá 5 s không trả lời thì kill + thay (khớp mẫu: restart=0, không OOM, 18–44 s mới có tiến trình mới); cờ `--timeout-worker-healthcheck` chỉ có từ **0.37.0** (release notes uvicorn). Swap đầy từ Graph RUN-1 (“phần bị đẩy ra là uvicorn/hermes production”) + Chrome OOM trong cgroup 6 GiB ⇒ tiến trình con bị treo vì thiếu RAM là ứng viên số 1. CHƯA chứng minh — R7 gói D đo, không sửa lõi.
 - **Quyết định điều hành:** một RUN `VPSC-R7-TRUTH-20261007-01`, bốn gói A (chuông giả) → B (ổ đĩa) → C (khoá Đ30/31) → D (chứng minh 502/503 + phiếu đề xuất); không restart lõi, không đổi phiên bản, không xoá, không xoay khoá. `Bậc: 2 cấu hình/ghép + 3 code mỏng` trên script hiện hữu — bậc 1 không đạt vì luật riêng của sổ dung lượng/Guard không có sản phẩm thay; phần đo dùng thứ có sẵn của kernel (PSI/cgroup).
 - **Xoay khoá lộ (PROOT01 mục cuối): OWNER.** Đề xuất Host: ĐỒNG Ý xoay, thành lượt riêng N2 sau khi R7 được nghiệm thu, qua DOT/wrapper có kiểm kê bên dùng → dry-run → đổi đồng bộ → khoá cũ bị từ chối → đường lùi. Không gộp vào R7 vì đổi xác thực có thể cắt chính các đầu nối đang dùng để giám sát.
-- **Mời Codex rà (một lượt nếu được):** (a) luật B4 “SLOPE không đỏ khi ≥ 90% phần giảm quy về dòng có trần còn dưới trần” có mở lỗ nào không; (b) C3 manifest PRE/POST + bảng 4 ô có phá lượt POST của việc khác đang chạy không; (c) A2 `maxretries=2 / 60 s` cho đèn chủ động có che sự cố thật nào không; (d) D4 hạ trần trình duyệt 2 GiB đã đủ điều kiện an toàn chưa. Trả một dòng `CODEX ACCEPT@<sha last-touch PROMPT>` (đầu dòng) hoặc DELTA; delta nhỏ không đổi phạm vi được sửa thẳng PROMPT khi còn chưa STARTED (Host READY lại).
+- **Mời Codex rà (một lượt nếu được):** (a) luật B4 “SLOPE không đỏ khi ≥ 90% phần giảm quy về dòng có trần còn dưới trần” có mở lỗ nào không; (b) C3 manifest PRE/POST + bảng 4 ô có phá lượt POST của việc khác đang chạy không; (c) A2 `maxretries=2 / 60 s` cho đèn chủ động có che sự cố thật nào không; (d) số đề nghị ở D4 (trần trình duyệt 2 GiB, 1 phiên — chỉ đề xuất, không đổi trong R7) có hợp lý không. Trả một dòng `CODEX ACCEPT@<sha last-touch PROMPT>` (đầu dòng) hoặc DELTA; delta nhỏ không đổi phạm vi được sửa thẳng PROMPT khi còn chưa STARTED (Host READY lại).
 - **JEV** `gen-dec-1791342523-GGIwEfB4D0gZBdQrQnUw` (bằng chứng phụ): đặt việc ở vòng 4 VPSC 0,74 (mở task mới 0,23) · mẫu ổ đĩa “bậc + trôi chậm” 0,93 · luật 2 lần trượt đặt trong DOT 0,99 · con chết do supervisor coi tiến trình bận là chết 0,82 · gói D đo trước, đề xuất sau 1,00 · xoay khoá lượt riêng sau R7 có Owner duyệt 1,00 · dữ liệu Graph: ghi sổ + giao chủ việc 0,97 · câu “bảo vệ đủ” của lượt sửa worker là hợp lệ 0,07 · Owner giao Claude Chat điều hành 0,65 (⇒ ghi rõ ở D17 để Owner lắc nếu sai).
+- **Host tự rà vòng 2 (10:27 +07) → PROMPT `4d4ea53`:** Owner có luật “thay đổi production không để agent tự quyết dù có điều kiện” ⇒ rút hai chỗ cho agent tự quyết: D4 (hạ trần trình duyệt) và “sửa các bộ đẩy khác như A1” nay chỉ đo + đưa vào phiếu D6; thêm: ghi nguyên tử cho tệp cron đang gọi, đường POST khi gói C dừng. READY chuyển sang SHA mới (mục Giấy phép vòng 4).
 - Owner cần quyết: O-R7-KEY, O-R7-DONE (dưới; không chặn R7).
 
 ## Owner cần quyết
