@@ -3,11 +3,11 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: CHƯA XÁC NHẬN — chỉ còn chỉ định Host theo AGENTS MT3-C/A2. Owner đã giao trực tiếp việc tạo task, tên task và toàn bộ mục tiêu/phạm vi tại tin nhắn ngày 07/10/2026; không yêu cầu xác nhận lại các nội dung đã giao.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 22:00 +07 · GPT Chat · P01
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 22:03 +07 · GPT Chat · P01
 - 🎯 Mục tiêu: theo ô 1 bên dưới; gom đầu mối để con người và hội đồng AI làm việc xuyên suốt.
 - 🏁 Xong khi: theo ô 2 bên dưới. Riêng lượt tạo task: đúng tên, đủ yêu cầu, có cửa đọc, danh mục nguồn và sổ vấn đề.
 - 📍 Tiến độ: ■ Khởi tạo / chỉ định Host → □ Chuẩn hóa → □ Áp dụng, kiểm chứng → □ Mở rộng và cải tiến.
-- ✅ Đã xong: khởi tạo hồ sơ task, ghi đủ 6 yêu cầu, nối 9 Tools nguồn và sổ MOW đã có, mở sổ vấn đề của task. Áp: SAME_COMMIT.
+- ✅ Đã xong: tạo task và ba file tại `5299be93672f1cbfe7dde06dbd706d4319621a02`; đủ 6 yêu cầu, nối 9 Tools nguồn/sổ MOW và mở sổ task. Đã kiểm task xuất hiện trên Owner View, đọc được đúng mục tiêu/tiêu chí và trang nội dung.
 - ■ Đang làm: Bước khởi tạo · vòng 0/5 · gọi: chưa gọi ghế · chờ Owner chỉ định Host; chưa mở vòng hội đồng chính thức.
 - ⬜ Còn lại: hoàn thiện cách phân nhóm/mẫu ba lớp; kiểm kê và nối nguồn; áp thử để sửa quy trình; chuẩn hóa phần lặp lại; tự động hóa phần đủ điều kiện; theo dõi sai sót đến khi đóng. Đây là các đầu việc cần đạt, chưa phải roadmap đã duyệt.
 - ➡ Kế tiếp: 😊 Owner chỉ định Host; Host nhận việc và tổ chức hội đồng theo AGENTS; Reviewer đối chiếu 6 yêu cầu; 🤖 agent chưa có lượt thực thi.
@@ -103,5 +103,7 @@ Ghế: OpenAI-main · Bước/vòng: Khởi tạo · 0/5
 - Đã đối chiếu đủ 6 yêu cầu. Tách ba chiều phân loại để không trộn phạm vi cỗ máy với lớp sử dụng. Sổ mới có một khoảng trống Owner đã nêu; sổ MOW giữ con trỏ gốc.
 - Đọc/kiểm nguồn: README và các mục Tools ngày 07/10 trong COLLAB MOW; `ui/definition-master-data-v1.js` version `844f47b1bb5f216a380cfb27fef0cdb24f7b99e4d0a2062e2e1d9aa078d2bcaa`; trang Tools CTCM HTTP 200, hiển thị đúng 9 Tools, không có console error trong lần kiểm.
 - Phần chưa đọc/kiểm: không rà toàn bộ COLLAB MOW/lịch sử và toàn bộ quy trình của Incomex; không kiểm chứng production của các Tools. Chưa dùng kết quả kiểm tài liệu để kết luận các quy trình đã đạt.
-- Kết quả ghi: ba file khởi tạo trong cùng commit, Áp: SAME_COMMIT. Kiểm repo và Owner View được ghi bổ sung sau khi có kết quả thật.
+- Kết quả ghi: `5299be93672f1cbfe7dde06dbd706d4319621a02`, pushed=true, không warning; diff chỉ ba file trong task, 246 dòng thêm; workspace_list đọc lại đủ ba file, git_status sạch.
+- Kiểm live 07/10/2026 22:00–22:02 +07: mở đúng Owner View `https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content`, HTTP 200; ảnh thật thấy task được chọn trong danh sách 7 việc Now, đúng Bảng, ô mục tiêu và tiêu chí. HTML do pipeline chuẩn publish tại `data/revisions/5299be93672f1cbfe7dde06dbd706d4319621a02/documents/tools-quy-trinh/view.html` trả HTTP 200; ui_inspect đọc đủ ba chiều, các nhóm, 9 Tools và TQT-ISS-001; trang nội dung không có console error. Đã nhìn ảnh bố cục desktop.
+- Giới hạn phép kiểm: ảnh từ engine kiểm có glyph tiếng Việt thiếu ở cả khung portal và trang nội dung; văn bản UTF-8 do ui_inspect đọc đúng. Khung portal có lỗi auth 401/serviceWorker cũng quan sát được khi đọc nguồn trước khởi tạo; không sửa nền tảng trong task này. Chưa kiểm responsive, chưa kiểm chứng các quy trình production. Nghiệm thu ở đây chỉ là tạo task/nguồn/sổ và đường đọc hiện hữu.
 - Phản hồi Host: chưa có Host được Owner chỉ định.
