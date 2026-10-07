@@ -4,6 +4,141 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## S1a · đo trước
+`VPSC-R7-S1A-MEASURE-20261007-01` · 07/10/2026 10:07–10:28Z · READ_ONLY · READY@`ce7122ce` (Host GPT Chat) · executor=Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · evidence VPS `/opt/incomex/work/vps-clean-20-9-26/S1A-20261007/` (`health-snapshot.txt` · `alerts/` · `disk/`) · JEV `gen-dec-1791368614-uLzUc8EIzUrNabbZQpjY` (bằng chứng phụ).
+
+**Cho Owner (3 dòng):** 🟢 36 giờ qua VPS **không lần nào sập** (0/19 tin là máy chết); 58% số tin DOWN/UP là giả hoặc lặp: 8 tin đèn giấy phép #23 bắn sau đúng một lần trượt, 2 tin #22 chỉ nhắc lại #11, 1 tin là lỗi nội bộ của Kuma. 🟡 Trong ~8,0 GiB mất sau dọn đã gọi được tên 99,2%: 7,38 GiB (92%) là thử nghiệm Graph (image neo4j/cognee/pgvector + mỗi lượt GS ~0,5 GiB, chưa có hạn giữ). Phần còn tăng hiện nay ≈0,28 GiB/ngày, nằm ở các hàng đợi/nhật ký đã có tên nhưng chưa có van. 🔵 Đề xuất 3 thay đổi đơn giản, không thêm dịch vụ (§9).
+
+### 1 · Sức khoẻ lúc đo (10:07Z)
+- Máy khởi động lần cuối 12/02/2026 (uptime 237 ngày, `last -x` chỉ có một lần boot). 6 dịch vụ lõi đều running, 5 có healthcheck đều healthy, restart=0. HTTP `/` 200 0,81 s · `/api/health` 200 0,53 s · `/knowledge/modules` 200 0,27 s. Failed unit: chỉ `cloud-init` + `systemd-networkd-wait-online` cũ.
+- Load 1,51 / 6 CPU · MemAvailable 6,2 GiB / 11,7 · **swap 1,61/2,0 GiB đã dùng** · PSI memory 0 · `df /` used 59.437.641.728 B · free 43.433.676.800 B (40,45 GiB) · 58%.
+- ⚠ `incomex-agent-data`: `State.OOMKilled=true` (restart=0) ⇒ đã có tiến trình trong container bị OOM ở lượt chạy hiện tại; liên quan 8 lần `Child process died` (§2) — **nguyên nhân từng lần: UNKNOWN** (việc D2 của R7).
+
+### 2 · DOWN/UP 36 giờ — thật hay giả (05/10 22:00Z → 07/10 10:16Z)
+Nguồn: bản sao chỉ đọc `kuma.db` (heartbeat `important`) · log Docker Kuma/nginx/Directus/agent-data · `license-watch.log` · `mcpw-guard.log` · mã Guard. Máy **không** khởi động lại từ 12/02 (`last -x`: một boot) ⇒ HOST_DOWN = 0.
+
+| DOWN→UP (UTC) | Đèn | Kéo dài | Trigger | Dịch vụ thật cùng lúc | Nhãn |
+|---|---|---|---|---|---|
+| 05/10 23:10→23:15 | #19 JEV Gateway | 5′ | `TOOL_ERROR` | 1 lượt evaluate lỗi, lượt sau UP | SERVICE_REAL (thoáng qua) |
+| 06/10 00:36, 03:56, 07:06, 09:36, 10:46, 11:26, 11:37, 14:56 (8 lần) | #23 License | 3′–4′12 mỗi lần | Kuma tự sinh “No heartbeat in the time window” | DOT nhận Directus `503 SERVICE_UNAVAILABLE` đúng 1 lượt trước ~1′; license=active | PROBE_FALSE ×8 |
+| 06/10 07:54→07:59 | #4 OPS Proxy | 5′ | 503 | nginx trả 503 cho Kuma ~1 s; Directus cùng giây 200 chậm 1,1–1,2 s | SERVICE_REAL (thoáng qua; 5′ do `interval=300`) |
+| 06/10 07:55→09:18 | #22 Guard | 1h23′ | INV18 web_incomex mất nguồn `tls/*` + INV5_6 config DRIFT | drift thật do CWEB dời runtime | SERVICE_REAL (integrity) |
+| 06/10 15:05→15:10 | #22 Guard | 5′ | AD1 GEN=2 hồi quy detection | `ad1-watch` p95 348 s > 300 | SERVICE_REAL (chỉ báo phụ) |
+| 06/10 15:44→15:49 | #4 OPS Proxy | 5′ | 503 | nginx 503; Directus chậm 0,7–1,3 s | SERVICE_REAL (thoáng qua) |
+| 06/10 19:00→21:00 | #11 Disk | 2h | SLOPE24 −6,92 GiB | giảm thật; UP vì cửa sổ 24h trượt qua, không vì sửa | SERVICE_REAL (capacity) |
+| 06/10 19:10→21:05 | #22 Guard | 1h55′ | chỉ INV15 “đèn «Disk Usage» đỏ” | không gì khác đỏ | DUPLICATE_PROPAGATION |
+| 07/10 02:00→09:00 | #11 Disk | 7h | SLOPE24 −2,24…−2,67 GiB | giảm thật; UP vì cửa sổ trượt | SERVICE_REAL (capacity) |
+| 07/10 02:10→09:10 | #22 Guard | 7h | INV15 «Disk Usage» đỏ (+ INV2 502 lúc 02:10) | agent-data `Child process died` 02:10:10, thay sau 32 s ⇒ 502 thật ~30 s; phần còn lại chỉ vì #11 | DUPLICATE_PROPAGATION |
+| 07/10 06:54→06:59 | #4 OPS Proxy | 5′ | 503 | nginx 503 | SERVICE_REAL (thoáng qua) |
+| 07/10 ~08:15→08:30 | Guard → bot thẳng Owner | ~15′ | INV15 bắt dòng Kuma `[MONITOR] ERROR: Please report…` | lỗi nội bộ Kuma (§3) | PIPELINE_KUMA_TELEGRAM |
+
+**Đếm 19 sự kiện:** SERVICE_REAL **8** (42%: OPS 3 · Disk 2 · JEV 1 · Guard-CWEB 1 · Guard-AD1 1 — tất cả thoáng qua/capacity, không dịch vụ lõi nào ngừng) · PROBE_FALSE **8** (42%, toàn #23) · DUPLICATE_PROPAGATION **2** (10,5%) · PIPELINE_KUMA_TELEGRAM **1** (5,3%) · HOST_DOWN **0** · UNKNOWN **0**. ⇒ **58% số tin không phải lỗi dịch vụ**; 0 lần VPS sập.
+- #23: 10 lượt DOT trượt đơn lẻ trong 36h, 8 thành cặp DOWN/UP. 503 đến từ chính Directus (DOT gọi thẳng mạng Docker, không qua nginx); log request Directus 0 dòng 503/138k ⇒ bị chặn trước logger — **nghiêng pressure limiter, chưa có body ⇒ chưa chứng minh**.
+- Chỉ PENDING, không thành tin: #6 Nuxt 404 ×20 · #3 Directus 503 ×7 · #7 PG 502 ×2 (cả hai trùng đúng giây agent-data child chết 18:29:54, 02:22:26).
+- agent-data: **8 lần** `Child process died` trong 36h (06/10 23:20, 04:50, 07:24, 08:10, 18:29; 07/10 02:10, 02:22, 03:03), mỗi lần 13–41 s mới có tiến trình thay. `docker inspect`: `State.OOMKilled=true`, restart=0; swap còn 0,4/2 GiB. Nguyên nhân từng lần: **UNKNOWN** (việc D2 của R7).
+
+### 3 · Exception gốc Kuma 08:10:05Z
+```
+08:10:05.29 WARN Monitor #11 'Disk Usage': Failing: No heartbeat in the time window | Interval: 3600 | Type: push
+08:10:05.64 Trace: insert into `stat_minutely` (down,monitor_id,…,timestamp,up) values (2, 11, 0,0,0, 1791360600, 0)
+            - SQLITE_CONSTRAINT: UNIQUE constraint failed: stat_minutely.monitor_id, stat_minutely.timestamp
+            at Timeout.safeBeat (/app/server/model/monitor.js:1130:25)
+08:10:05.72 ERROR: Please report to https://github.com/louislam/uptime-kuma/issues
+08:10:05.73 INFO: Try to restart the monitor
+```
+- **Kuma internal error, không phải Telegram send failed:** nhịp push #11 (08:10:05.271) và nhịp “No heartbeat” do timer Kuma tự sinh (08:10:05.29) rơi cùng ô phút ⇒ đua UNIQUE trên `stat_minutely`. Log Kuma 36h: 0 dòng lỗi gửi notification. Cùng họ lỗi đã có ở `stat_daily` 9 lần ngày 02/10.
+- #11 đang được đẩy mỗi 10′ nhưng khai `interval=3600`; khi #11 DOWN, timer Kuma vẫn bắn “No heartbeat” đúng :10:05 mỗi giờ. Nguồn đẩy 10′: **UNKNOWN**.
+- Tin Owner nhận là của Guard: INV15 gặp dòng lỗi ⇒ `coverage_alert` gửi thẳng qua bot HJW ~08:15Z, tin hồi 08:30:49Z. message_id hai tin + từng tin Kuma: **UNKNOWN** (Kuma không lưu id).
+
+### 4 · #11 → #22: CÓ duplicate propagation, 2/2 cặp
+- 06/10 19:00:11 #11 DOWN → 19:10:32 #22 DOWN; 21:00:07 #11 UP → 21:05:27 #22 UP.
+- 07/10 02:00:05 #11 DOWN → 02:10:33 #22 DOWN; 09:00:12 #11 UP → 09:10:22 #22 UP.
+- Mã: `c_kuma_coverage` (`scripts/mcpw-protection-guard` ~1065) `elif status == 0: state.append(f"đèn «{name}» đỏ")` ⇒ mọi đèn đỏ làm INV15 FAIL. Phụ: khi #22 DOWN, INV15 còn đếm lại chính #22 (fail x80, x81…) — `_own_down` chỉ khớp một nửa lượt.
+- HJW-N3-COURIER-WAKE: 0 dòng trong Kuma/Guard; `KQ@HJW-N3-COURIER-WAKE-20261007-01 DỪNG · N3_R4_WAITING_REVIEW` là kết quả checkpoint PROMPT HJW định sẵn (PROMPT HJW dòng 140; “0 thay đổi máy chủ”) ⇒ **workflow checkpoint, không phải lỗi máy, không gộp vào VPS outage**.
+
+### 5 · PRE_RED_SET (10:15:49Z)
+- Kuma **22/22 UP**, 0 paused/unknown; `bang-den.json` 10:10:02Z all_green ⇒ **`PRE_RED_SET = ∅`**.
+- Sát ngưỡng: #11 UP từ 09:00:12 nhưng `d24=1,94 GiB` (ngưỡng 2) ⇒ bậc kế tiếp có thể đỏ lại.
+- Nợ bản tin (không phải đèn): 73 loại tin · 71 chạy · 0 hỏng · **2 chưa xác định** (VPS2 · Directus Flows/PostgreSQL).
+
+### 6 · 7,9 GiB đi đâu (allocated bytes · mốc sau dọn 05/10 18:19Z = 06/10 01:19 +07)
+Chuỗi `df-bytes.tsv`/`disk-monitor.log` (log ghi giờ **CEST +02**, không phải +07): **used +8,002 GiB** từ 05/10 18:20Z tới 07/10 10:00Z. Gồm 5 bậc cộng +7,253 GiB và trôi nền +0,749 GiB/39 h (≈0,46 GiB/ngày).
+
+| Bậc (UTC) | Used | Khớp việc (birth time / LastTagTime) |
+|---|---|---|
+| 05/10 20→21Z | +5,076 GiB | Graph RUN-1 pull `neo4j` 20:18Z + `cognee` 20:24Z (containerd) + `graph-server/runtime/run1` 20:21Z |
+| 06/10 07→08Z | +0,605 | pull `pgvector` 07:34Z + Neo4j run1 ghi tiếp + `hermes-work.img` (ctime) |
+| 06/10 10→11Z | +0,648 | `runtime/r5` 09:59Z (Neo4j 2×250 MiB tx-log + pgvector) |
+| 07/10 01→02Z | +0,522 | `runtime/r6c` 01:31Z (2×250 MiB) + snapshot Qdrant đêm |
+| 07/10 04→05Z | +0,402 | `runtime/r6d` 04:00Z (2×250 MiB); apt 04:44Z chỉ vài MB |
+
+| Nguồn | Delta GiB | Bằng chứng | Còn tăng? | Có control? |
+|---|---|---|---|---|
+| Image Graph trial trong `/var/lib/containerd` (neo4j · cognee · pgvector, nay `<none>`, không container nào dùng) | **+4,684** | blob/snapshot birth ≥ mốc; containerd 9,342→14,154 | Không (0 pull từ 06/10 07:34Z; +64 KB/7′) | **Không** TTL/retention image |
+| `/opt/incomex/work/graph-server/runtime` (run1 1,088 · r5 0,574 · r6c 0,511 · r6d 0,505 · r6e 0,003) + evidence 0,014 | **+2,695** | `du -d4` + birth từng thư mục | Theo sự kiện: ~+0,5 GiB mỗi lượt GS | **Không** TTL. Graph tổng 7,379 GiB = **7,92 GB / cap 10 GB (79%)**, còn chỗ ≈4 lượt |
+| `/opt/incomex/data` (chủ yếu `workspace-tools/transactions`: 873 mục từ 18/09, 0,32 GiB, 127 mục mới ngày 07/10) | +0,150 | taxonomy | **Có**, ≈0,06 GiB/ngày | **UNVALVED** (transactions không GC) |
+| `/var/lib/incomex-mcp-helper` (queue 12.654 tệp từ 17/09; p02 7.004 tệp) | +0,091 | `tree.json` R6 | **Có** (+0,9 MB/7′) | **UNVALVED** (không TTL) |
+| `/var/lib/docker/containers` (json log) | +0,135 | `tree.json` | Có (+0,3 MB/7′) | Van `max-size 50m × 3` (daemon.json) |
+| `/var/lib/incomex` (backup-staging, `LOCAL_KEEP=1`) | +0,184 | `tree.json` + ls | Theo cỡ dữ liệu | Có van (giữ 1 bộ) |
+| `/var/log` (journal 1,031 GiB) | +0,094 | `journalctl --disk-usage` | Ít | journald `SystemMaxUse=1G` (đã chạm trần) + logrotate |
+| `/opt/incomex/mcp-roots` | +0,047 | taxonomy | Có (+3,7 MB/7′, git) | UNKNOWN |
+| CWEB `/var/lib/incomex-web-incomex` +0,064 · `incomex-config-guard-v0` +0,034 · `hermes` +0,025 | +0,123 | `tree.json` | Ít | — |
+| `hjw-control` −0,088 · `/tmp` −0,019 · backups +0,010 | −0,097 | | | pg `-mtime +RETENTION_DAYS` · qdrant giữ 8 bản |
+| `/opt/workflow/postgres18` (BUSINESS) | −0,170 | taxonomy | 0/7′ | — |
+
+- **Đã gọi tên 7,936 / 8,002 GiB = 99,2%** (Graph trial 7,379 = 92%; nguồn nhỏ +0,557). **UNKNOWN +0,066 GiB.** Lưu ý: dòng `/var` so với `tree.json` R6 lúc 05/10 09:40Z, sớm hơn mốc 8,6 h; các phần mới đã kiểm bằng birth time. `hermes-work.img` là tệp sparse 8 GiB, hiện cấp 0,2 GiB; delta chưa đo ⇒ UNKNOWN.
+- **Đang chảy bây giờ:** 05→10Z hôm nay +0,062 GB/5 h ≈ **0,28 GiB/ngày**. Khớp các nguồn **đã có tên nhưng chưa có van** (workspace-tools/transactions · mcp-helper queue · mcp-roots) + docker log còn dưới trần. Tốc độ từng nguồn mới chỉ có mẫu 7′ ⇒ **ước tính**; chưa đủ để chia ≥90% phần đang chảy theo nguồn. Trạng thái B7 hiện là `NAMED_UNVALVED`, không phải `ACTIVE_UNATTRIBUTED`.
+- Deleted-open 83,9 MB (5 pg_wal + 1 log `/tmp`), ổn định.
+- `scripts/storage-watch.py` chỉ có gốc `/opt/incomex`, `/opt/workflow` ⇒ không thấy 4,68 GiB containerd. Đó là lý do SLOPE24 đỏ mà không gọi được tên (đúng như PROMPT gói B).
+
+### 7 · Noise phép đo (3 lượt liền, sau khi nhánh cảnh báo đã dừng ghi)
+| Lượt (UTC) | df_used | `du -x -B1 -s /` | UNEXPLAINED |
+|---|---|---|---|
+| 10:19:10–10:20:21 | 59.498.020.864 | 59.340.677.120 | 157.343.744 |
+| 10:20:21–10:20:31 | 59.498.131.456 | 59.340.754.944 | 157.376.512 |
+| 10:20:31–10:20:41 | 59.498.115.072 | 59.340.812.288 | 157.302.784 |
+
+**MEASURE_NOISE = 73.728 B (0,07 MiB)**; xấu nhất theo khung df đầu/cuối 0,20 MiB ⇒ **NOISE_GUARD = 3× ≈ 0,2–0,6 MiB**, rất xa trần chất lượng 64 MiB. UNEXPLAINED ổn định ≈150 MiB (deleted-open ~80 MiB + nội bộ ext4) ⇒ đủ làm baseline `FS_METADATA/OVERHEAD`. Lượt noise chạy chồng lên lúc nhánh cảnh báo còn ghi đã bị huỷ, không lấy mẫu.
+
+### 8 · Lịch sử BUSINESS có sẵn (trước khi kết luận LEARNING)
+| Ứng viên | Cỡ vật lý hiện tại | Nguồn lịch sử | Số mẫu · khoảng | Tốc độ đo được |
+|---|---|---|---|---|
+| PG18 data `/opt/workflow/postgres18` | 2,820 GB | taxonomy (05/10 13:06Z, 18:19Z; 06/10 18:00Z) + đo nay | **4 mẫu · 1,9 ngày** | **giảm** 4,28→2,82 GB (drop gov_test + vacuum) |
+| ↳ proxy: dump `directus` gz | 121,9 MB | `backups/pg/backup.log` | **180 đêm · 09/04→07/10 (181 ngày)** | TB +0,47 MB/ngày; 6 ngày gần nhất +64 KB/ngày |
+| ↳ proxy: dump `incomex_metadata` gz | 108,2 MB | như trên | 11 · 28/09→07/10 | ≈ +35 KB/ngày |
+| Qdrant data `/opt/incomex/docker/qdrant/data` | 223 MB | `qdrant-backup.log` (cỡ snapshot) | **157 · 04/05→07/10 (156 ngày)** | 135→211 MB ≈ +0,5 MB/ngày; 2 ngày gần nhất +1,0 MB/ngày |
+| Directus uploads | 17,3 MB | mtime tệp | 73 tệp, tất cả trong 10/2026 (một đợt) | chưa đủ mẫu |
+
+- **Kết luận số:** BUSINESS tăng cỡ **MB/ngày**, không giải thích được GiB. Lịch sử proxy (dump/snapshot) đã đủ ≥7 mẫu ngày trải ≥6 ngày cho PG và Qdrant. Riêng cỡ **vật lý** của PGDATA chỉ có 4 mẫu/1,9 ngày, còn Directus uploads chưa đủ mẫu ⇒ theo P60 vẫn là **EVIDENCE_DEBT/LEARNING**: ghi nợ, không đặt quota, không phải đèn đỏ.
+
+### 9 · Đề xuất tối đa 3 thay đổi (đơn giản nhất · không thêm bot/service/DB · Host chốt số)
+1. **#22 chỉ canh đường giám sát.** Bỏ nhánh `elif status == 0: state.append("đèn «…» đỏ")` trong `c_kuma_coverage` (INV15) đối với đèn dịch vụ. #22 chỉ đỏ khi chính đường giám sát hỏng: Kuma chết, đèn mất/bị pause, heartbeat/bảng đèn cũ, gửi tin hỏng, Guard chết. Lỗi nội bộ Kuma (`stat_minutely` UNIQUE) ghi vào bản tin 08:00 với nhãn “Kuma nội bộ”, không nhắn như sự cố dịch vụ. ⇒ bỏ **2/19 tin** và ~9 h #22 đỏ; POST của việc khác không còn bị #11 khoá.
+2. **Trượt 2 lần liên tiếp mới DOWN, đặt ở nguồn.** #23 do DOT tự đếm (A1). Push monitor (#23, #11) có `interval` khớp nhịp đẩy thật, để Kuma không tự sinh “No heartbeat” khi lỡ một nhịp và không dồn timer vào cùng ô phút. Hiện #11 khai `interval=3600` nhưng được đẩy mỗi 10′; nguồn đẩy 10′ chưa rõ. Đèn chủ động #4 OPS Proxy / #19 JEV dùng `maxretries=1, retryInterval=60` (A2). ⇒ bỏ **8 PROBE_FALSE + tới 4 cặp 503 dài ~1 s** trong 19 tin. Sau 1+2 còn khoảng 5/19 tin: #11 ×2 (capacity thật) · #22 CWEB · #22 AD1 · Kuma nội bộ, trong đó Kuma nội bộ đã chuyển sang 08:00.
+3. **Ổ đĩa: đặt tên + van cho đúng 3 nguồn đã đo** (B2/B4/B7 hiện hữu, không xoá trong R7):
+   - Graph trial (92%): image containerd + `runtime/run*` vào một dòng EVENT, có CHANGE_EVENT và cap `10_000_000_000` B. Hiện đang 79%. Hạn giữ do GS/Owner quyết.
+   - TTL cho `workspace-tools/transactions` và queue `incomex-mcp-helper`, hai nguồn UNVALVED đang chảy.
+   - Taxonomy phủ `/` (gồm `/var/lib/containerd`). SLOPE không tự xanh khi cửa sổ trượt.
+
+### 10 · Phạm vi đã giữ · tác động của phép đo · còn UNKNOWN
+- **0 mutation production:** không sửa Kuma/config/cron/script, không restart/reload, không gửi Telegram, không xoá dữ liệu, không đổi version/key, không stress. Directus/PG không đụng; dữ liệu PG chỉ lấy từ log backup và `du`. Không chạy `docker system df`/buildx. Không chạy phần FUTURE_R7_DESIGN A→D.
+- **Ghi duy nhất trên VPS:** evidence dir, 53,35 MB lúc 10:22Z, đỉnh ~178 MB lúc 10:12Z.
+  - Bản sao `.backup` của `kuma.db` (30,5 MB) có chứa cấu hình bot. Đã chmod 600, trích bản đã lọc `kuma-evidence.db` (token đã che, đếm lại 0), rồi xoá bản sao lúc 10:16Z. Đây là tệp của chính S1a, không phải dữ liệu production.
+  - Log thô ~100 MB đã gzip còn 7,9 MB.
+  - Hai lệnh `pkill -f` của chính phiên đo khớp nhầm shell ssh của nó (rc 255). Chỉ tiến trình đo bị dừng; sau đó kill theo PID.
+  - Chuỗi giờ dùng reconcile chốt lúc 10:00Z, trước khi S1a ghi gì.
+- **UNKNOWN (giữ CHƯA ĐẠT):**
+  - message_id/delivery từng tin Kuma và 2 tin bot Guard 08:15/08:30Z.
+  - Body 503 Directus: pressure limiter chưa chứng minh. Log request 0/138k dòng 503 ⇒ bị chặn trước logger.
+  - Nguồn đẩy #11 mỗi 10′.
+  - Nguyên nhân 8 lần agent-data child chết (OOMKilled=true là manh mối, chưa phân loại).
+  - 0,066 GiB không tên + delta `hermes-work.img`.
+  - Tốc độ đang chảy theo từng nguồn (mới có mẫu 7′).
+- **JEV (phụ):** khớp nhãn #22-Disk = DUPLICATE (0,66), #23 = PROBE_FALSE (0,86), #11 = SERVICE_REAL (0,78), lỗi Kuma = PIPELINE (0,93); 3 đề xuất đơn giản 0,90/0,89/0,70 (bot dedup mới 0,04, nâng Kuma 0,02).
+  - **Lệch:** #4 OPS Proxy 503 JEV nghiêng PROBE_FALSE (0,97). Executor giữ SERVICE_REAL thoáng qua vì Directus/nginx trả 503 thật cho probe; độ dài 5′ là do `interval=300`, `maxretries=0`. Host quyết nhãn.
+  - #22-CWEB: JEV không chắc (0,35).
+
+---
+
 ## KẾT · FINAL CLOSE · 06/10/2026
 - **Trạng thái:** CLOSED theo Owner D16 + Claude P49 + Host P50; không chờ 24h/7d giữ task mở.
 - **Đĩa:** sau cleanup còn khoảng 48,4–48,6 GiB free, vượt đích 45 GiB; 29 mục thừa đã xoá đúng plan; core services healthy.
