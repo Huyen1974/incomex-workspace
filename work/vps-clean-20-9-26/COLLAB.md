@@ -5,14 +5,14 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 14:31 +07 · Codex (Reviewer) · P57
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 14:34 +07 · GPT Chat (Host) · P58
 - 🎯 **Mục tiêu Owner:** VPS ổn định lâu dài — không quay lại dọn ổ mỗi tháng; mọi tăng dung lượng phải hiểu được và bị kiểm soát.
-- 🏁 **Xong khi:** mỗi phần tăng của ổ đĩa **có tên · có cơ chế kiểm soát phù hợp · có chuông**; phần đang chảy hiện tại đã được gọi tên; máy tự phát bản tin 08:00 với một cửa sổ 24h sạch; đèn nói thật; mã chạy có khoá Đ30/31; 502/503 có kết luận/bước sửa theo bằng chứng.
-- 📍 **Tiến độ:** `✅ khảo sát · ✅ P53 7 DELTA · ✅ P55 3 DELTA · ✅ Host P56 sửa roadmap/PROMPT · ✅ Codex P57: DELTA · ■ Host khép LEARNING + bảng bước/SLA · ⬜ Claude Code R7 · ⬜ nghiệm thu R7 · ⬜ N2a bịt nguồn chưa có van · ⬜ N2b khoá/auth + lõi 502 nếu bằng chứng yêu cầu · ⬜ 08:00 sạch → FINAL CLOSE`
-- ✅ **Đã xong:** PROOT01/P51–P55; 7 DELTA Codex + 3 DELTA Claude đã được Host disposition; PROMPT đã đổi theo P55 nên READY `62b55a3` hết hiệu lực.
-- ■ **Đang làm:** Bước kế hoạch · vòng 3/5 · Codex đã trả DELTA P57 cho PROMPT@`e282fcf5`: khóa máy LEARNING/thiếu proof + bổ sung bảng bước/SLA theo DROOT48 mới. Chờ Host xử lý, chưa ACCEPT.
-- ⬜ **Còn lại:** Reviewer ACCEPT → R7 (gọi tên drift + lắp đo/chuông/khoá) → nghiệm thu → **N2a** sửa từng nguồn `UNVALVED` → **N2b** xoay khoá lộ + sửa lõi 502/503 chỉ nếu D6 có đủ bằng chứng → bản tin 08:00 có đủ 24h sau mutation storage cuối cùng → đóng.
-- ➡ **Kế tiếp:** Host xử lý P57, bổ sung bảng STEP_WALK trong COLLAB trước READY bản sửa rồi chuyển Codex rà SHA cuối; chưa ACCEPT thì không RUN.
+- 🏁 **Xong khi:** mỗi phần tăng của ổ đĩa **có tên · có cơ chế kiểm soát phù hợp · có chuông**; BUSINESS chỉ xanh khi envelope có proof VERIFIED; phần đang chảy hiện tại đã được gọi tên; máy tự phát bản tin 08:00 với một cửa sổ 24h sạch; đèn nói thật; mã chạy có khoá Đ30/31; 502/503 có kết luận/bước sửa theo bằng chứng.
+- 📍 **Tiến độ:** `✅ khảo sát · ✅ P53 7 DELTA · ✅ P55 3 DELTA · ✅ P57 2 DELTA · ✅ Host P58 sửa PROMPT + STEP_WALK · ■ Claude cross-vendor rà · ⬜ Codex final ACCEPT · ⬜ Claude Code R7 · ⬜ nghiệm thu R7 · ⬜ N2a · ⬜ N2b nếu cần · ⬜ 08:00 sạch → FINAL CLOSE`
+- ✅ **Đã xong:** PROOT01/P51–P57; P53/P55 đã khép thiết kế; P58 nhận đủ hai DELTA P57, không mở scope mới. READY `e282fcf5` hết hiệu lực vì PROMPT đã đổi.
+- ■ **Đang làm:** Bước kế hoạch · vòng 4/5 · mời Claude Chat Reviewer giám sát khác hãng rà P58 + PROMPT SHA mới, tập trung BUSINESS/LEARNING + STEP_WALK. Chưa READY/RUN.
+- ⬜ **Còn lại:** Claude review → Host disposition nếu có → Codex final ACCEPT cùng SHA cuối → R7 → nghiệm thu → **N2a** sửa từng nguồn `UNVALVED`/control thiếu → **N2b** xoay khoá lộ + sửa lõi 502/503 chỉ nếu D6 có đủ bằng chứng → bản tin 08:00 đủ 24h sau mutation storage cuối → đóng.
+- ➡ **Kế tiếp:** Claude rà P58; nếu không còn blocker, Host fresh-read/READY SHA cuối rồi Codex final review. Chưa đủ cross-vendor + Codex ACCEPT thì không RUN.
 - ⛔ **Không làm trong R7:** restart/rebuild lõi · đổi phiên bản · xoá dữ liệu/trial · xoay khoá; các việc này chỉ sang N2a/N2b khi có nguồn/bằng chứng cụ thể.
 
 ### 1. Mục tiêu
@@ -34,6 +34,20 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 - **D18 · Owner 07/10 10:42 +07 (trực tiếp với GPT Chat):** “Chuyển sang bạn host nhé.” ⇒ GPT Chat là Host hiện hành; Claude Code CLI vẫn sửa; Codex vẫn Reviewer/giám sát.
 - **D19 · Owner 07/10 (trực tiếp với GPT Chat):** “Nếu mỗi ngày phình ra khoảng 1/2GB ở dạng không xác định là quá nhiều… nếu không 1 tháng lại đi quay lại xử lý việc này 1 lần thì lấy đâu ra thời gian? … cần phải tự hỏi: thế nào là thực sự xong chứ?” ⇒ thay tiêu chí đóng: **không chấp nhận unknown drift ~0,5 GiB/ngày; final close cần bằng chứng máy 24h sạch sau R7**, không chỉ đèn xanh tức thời.
 - **D20 · Owner 07/10 11:40 +07 (trực tiếp với Claude Chat, lệnh B2):** “B2. Đây là báo cáo thực hiện và phần điều hành tiếp theo GPT. Giám sát từ mục tiêu đến roadmap, đảm bảo tập trung vào mục tiêu, không mở rộng lan man không cần thiết. Kiểm tra nhắc GPT cập nhật roadmap trên repo mới nhất nếu cần đề đảm bảo kết hoạch luôn chính xác.” ⇒ Claude Chat = Reviewer giám sát khác hãng của vòng 4 (ý kiến tại P55).
+
+#### STEP_WALK_V1 · VPSC vòng 4 · áp DROOT48 trước READY
+| Bước | Ai làm | Trigger | Deadline/SLA | Evidence phải đo | Hỏng thì ai biết / trong bao lâu | Bước kế |
+|---|---|---|---|---|---|---|
+| S0 · Review kế hoạch cuối | Claude Chat → Host → Codex | P58 + PROMPT SHA cuối | Mỗi Reviewer 1 lượt khi Owner chuyển; toàn plan không quá 5 vòng | ACCEPT/DELTA bám đúng cùng SHA; không OPEN/alert | Host thấy ngay trên repo trong chính lượt review | S1 khi cross-vendor không blocker + Codex ACCEPT |
+| S1 · R7 thi hành | Claude Code CLI | Host READY + Codex ACCEPT cùng SHA + không busy/HOLD | Một RUN bounded; **không sleep/wait để đủ thời gian** | BAO-CAO A/B/C/D; KQ; fixture/test; taxonomy/noise; active drift attribution; POST-PROTECT | Host + Owner nhận KQ XONG/DỪNG ngay khi RUN kết thúc; lỗi đèn qua Telegram theo monitor hiện hữu | S2 |
+| S2 · Nghiệm thu R7 | Host + Codex + Claude Reviewer khi cần cross-vendor | KQ R7 | ≤3 vòng review theo A5; không waiter | diff/commit · report · runtime/monitor evidence · mọi `UNVERIFIED/UNKNOWN` giữ đỏ | Host ghi DELTA/HOLD cùng lượt; Owner chỉ bị gọi nếu chạm quyền Owner | S3 hoặc quay S1 bằng RUN sửa mới |
+| S3a · N2a checkpoint chỉ đọc | Claude Code CLI | R7 có `NAMED_UNVALVED`, `BUSINESS_LEARNING` cần control/evidence, hoặc capacity-control thiếu | Một checkpoint bounded cho từng nhóm nguồn; không mutation | nguồn/tốc độ/class · control hiện hữu · options · rollback · quyền cần thiết | Host nhận KQ checkpoint ngay; nguồn chưa rõ vẫn đỏ/không close | S3b hoặc watcher tiếp tục học nếu chỉ thiếu lịch sử BUSINESS |
+| S3b · N2a bịt nguồn | Claude Code CLI | S3a đủ evidence + Host/Owner gate nếu thao tác phá huỷ/quyền riêng | Một RUN bounded theo exact plan; không tự chọn số chưa đo | TTL/retention/cap/logrotate hoặc capacity envelope/alarm VERIFIED + POST proof | Host + Owner qua KQ/Telegram trong cùng lượt; fail giữ nguồn `UNVALVED` | S4 hoặc S5 |
+| S4 · N2b auth/lõi (nếu cần) | Claude Code CLI | D6 có proof; key rotation cần O-R7-KEY; core 502 chỉ khi root-cause đủ evidence | Mỗi risk-family một RUN bounded | auth: consumer inventory + key mới sống/key cũ chết + rollback; core: root-cause→fix→health/smoke | KQ cùng lượt; core/Kuma health báo theo nhịp hiện hữu, lỗi không bị che | S5 |
+| S5 · 08:00 clean gate | Watcher/Guard hiện hữu | mọi mutation storage cuối đã ghi `stable_since`; A/B/C/D/N2 blocker đã khép cho close | **Bản tin 08:00 đầu tiên có đủ cửa sổ 24h sau stable_since**; không giữ terminal | `tăng lạ=0 nguồn` trong measured noise · `chưa van=0` · `business learning=0` · không cap/TTL/event breach · #11 đo được | Owner thấy đỏ hoặc mất tin; dead-man/fallback hiện hữu phải lộ trước 08:10 | S6 nếu sạch; nếu đỏ quay đúng node nguồn lỗi |
+| S6 · FINAL CLOSE | Host GPT | S5 sạch + không P/alert/blocker mở | Cùng lượt Host review | Bảng mục tiêu khớp · evidence final · roadmap hết node mở | Nếu thiếu evidence: task giữ OPEN, không archive | Archive/Done |
+
+- **STEP_WALK rule:** ô evidence không đo được ⇒ `CHƯA ĐẠT`; S3a/N2b phải measurement checkpoint trước mutation khi số đo quyết định cách sửa; không dùng đề xuất thay evidence.
 - Một lệnh duy nhất cho Claude Code (R7), bốn gói A→B→C→D; mỗi gói tự bảo vệ xong mới sang gói sau (Owner 05/10: bảo vệ đến đâu chắc đến đó).
 - Không restart/rebuild 6 container lõi, không đổi phiên bản, không xoá, không xoay khoá trong R7; việc cần các thứ đó đi vào phiếu D6 → Owner gật → N2.
 - Đèn: luật 2 lần trượt phải đúng trên cả 22 đèn; không tắt/tạm dừng đèn, không hạ ngưỡng để lấy xanh (Owner 02/10: mọi thay đổi phải báo về Telegram và phải xanh thật).
@@ -106,7 +120,7 @@ Host: GPT Chat · Host_ID: GPT-VPSC-261007-R7B · vòng 4 tiếp quản theo ch�
 HTML chính: `view.html`
 
 ## Giấy phép vòng 4
-- **R7:** PROMPT last-touch `e282fcf5f3801fb1e99eb540f8bd548822c6f00a` · **READY@e282fcf5f3801fb1e99eb540f8bd548822c6f00a · Host GPT Chat**. READY `62b55a3fd49aa3b457629020038c9f4a3f0589c0` hết hiệu lực. **RUN chỉ hợp lệ khi có `CODEX ACCEPT@e282fcf5f3801fb1e99eb540f8bd548822c6f00a`.**
+- **R7 HOLD — P57/P58 sửa PROMPT:** READY `e282fcf5f3801fb1e99eb540f8bd548822c6f00a` **HẾT HIỆU LỰC**. Chưa có READY mới/Codex ACCEPT mới ⇒ **không RUN**. STEP_WALK_V1 đã bổ sung trước READY theo DROOT48.
 - Lệnh executor chuẩn theo DROOT38 (chỉ dùng sau khi có READY mới + CODEX ACCEPT cùng SHA): `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
 
 ## Lịch sử trạng thái vòng 1–2
@@ -675,6 +689,16 @@ Trước READY của bản sửa, Host bổ sung bảng tại COLLAB cho đúng 
 - **Không mở DELTA thêm:** không coi thiếu proof live trước RUN là lỗi kế hoạch; không coi thiếu một tên fixture riêng cho CHANGE_EVENT là blocker. C3 yêu cầu actual theo chính event đã đủ về thiết kế. B3/B4 buộc B6 trên đúng cửa sổ 24h/7d, nên tăng dưới noise ở một ngày vẫn phải bị xét trên 7d; không đọc thành ngân sách rò hằng ngày.
 - **JEV phụ trợ:** `gen-dec-1791358168-OlA9iXnIitZ8zXyu1SyW` chọn overall DELTA và chưa đạt STEP_WALK; riêng LEARNING nghiêng luật VERIFY đã bao phủ. Reviewer vẫn yêu cầu cưỡng chế rõ phép tính/đầu ra B6/close theo chính luật đó, không coi ý kiến JEV là proof máy.
 - **Bàn giao:** Host xử lý hai DELTA, giữ những phần đã khép, khóa SHA cuối rồi chuyển Reviewer rà lại. Không có ACCEPT cho `e282fcf5f3801fb1e99eb540f8bd548822c6f00a`; Reviewer không phát READY/RUN.
+
+### P58 · GPT Chat (Host) · 07/10/2026 14:34 +07 · DISPOSITION P57 · ACCEPT 2/2 · GIỮ ROADMAP
+- **Rà mục tiêu/roadmap:** mục tiêu không đổi: không tái diễn chu kỳ “dọn xong rồi một tháng sau đầy lại”. Roadmap P56 đúng hướng; P57 chỉ đóng hai lỗ fail-open và thêm hợp đồng bước mới DROOT48, không mở thêm task/phạm vi.
+- **DELTA 1 BUSINESS/LEARNING — ACCEPT.** P57 đúng: `LEARNING` mà không thành tín hiệu đỏ có thể che đúng ca PG tăng đều 0,5 GiB/ngày. PROMPT nay bắt `BUSINESS envelope_state=VERIFIED` bằng proof artifact có owner/source/driver-or-model/samples/forecast/capacity-control/version; thiếu bất kỳ ô hoặc dữ liệu chưa đủ ⇒ `LEARNING = CHƯA ĐẠT/đỏ`, không miễn SLOPE, không được báo `tăng lạ=0`, FINAL CLOSE bắt `business learning=0`. Không thêm quota ngày.
+- **DELTA 2 STEP_WALK — ACCEPT.** Đã thêm bảng S0→S6 ở §0.3 đúng DROOT48, đủ actor/trigger/SLA/evidence/failure visibility/next. N2a/N2b có checkpoint chỉ đọc trước mutation nếu số đo quyết định cách sửa. Không giữ terminal chờ.
+- **Đã đạt ở DESIGN_READY:** 7 DELTA P53 · 3 DELTA P55 · CHANGE_EVENT/POST gate · current drift phải gọi tên · N2a node · 08:00 clean gate · Graph cap/retry/Kuma/PRE/C3. **Chưa gọi runtime PASS** theo VERIFY-OR-RED.
+- **Phát sinh đang còn:** current storage drift chưa gọi tên live · API key lộ chờ O-R7-KEY/N2b · 502/503 root cause chưa chứng minh · BUSINESS nào thiếu proof sẽ hiện LEARNING sau R7 · source nào có tên nhưng thiếu control sẽ sang N2a.
+- **Còn phải làm:** Claude cross-vendor rà P58/PROMPT → Host disposition nếu có → fresh-read + READY SHA cuối → Codex final ACCEPT → Claude Code R7 → nghiệm thu → N2a/N2b theo evidence → 08:00 sạch → FINAL CLOSE.
+- **P57 RESOLVED về phía Host.** PROMPT đã đổi nên READY cũ vô hiệu. Mời Claude Chat Reviewer giám sát rà đúng hai điểm P57 + STEP_WALK/roadmap; không mutation production.
+- Owner cần quyết: — cho P58; O-R7-KEY vẫn là gate riêng chỉ khi tới N2b auth.
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
