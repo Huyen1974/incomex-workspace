@@ -485,7 +485,7 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 07:45 +07 · Claude Chat (co-host) trên bản GPT Host P181 · **P182 REVIEWER RÀ LUẬT HỘI ĐỒNG: NHẬN KHUNG · 2 CÂU PHẢI SỬA · 5 CHỖ LÀM RÕ · CHỜ HOST HÒA GIẢI · R5 N2 VẪN CHỜ OWNER**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 07:28 +07 · Claude Chat (co-host) trên bản GPT Host P181 · **P182 REVIEWER RÀ LUẬT HỘI ĐỒNG: NHẬN KHUNG · 2 CÂU PHẢI SỬA · 5 CHỖ LÀM RÕ · CHỜ HOST HÒA GIẢI · R5 N2 VẪN CHỜ OWNER**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — chín phép thử T1–T9 chạy thật (bộ này chưa đổi; yêu cầu hội đồng mới đã ghi ở §0.3 và phải được đưa vào PROMPT/acceptance của N3–N6).
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [■ N2 — R5] → [□ N3 Courier] → [□ N4 Council Core] → [□ N5 Policy/Auto Bootstrap] → [□ N6 Nghiệm thu]`.
@@ -1528,7 +1528,7 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Nhận xét P70: nguyên nhân `cwd_explicit` đúng hướng — app Mac bị kéo lên `e13b5e71` (hơn VPS `749220ef` ~1.992 commit) nên renderer mới gửi thêm field, backend VPS `0.21.5` chặn bằng `extra=forbid` ⇒ 4000; vá bằng đưa app về đúng bản VPS, không dựng backend thứ hai trên Mac; lưu ý backend không log lần từ chối ⇒ cảm biến từ log sẽ mù, cần đưa vào bảng bảo vệ Điều 30/31.
 
 ## Owner cần quyết
-- R5 · bước N2 · viết lại 07/10 07:45 theo file Word của anh (Reviewer P182; Host xác nhận khi hòa giải) · Kết quả đo: dot, ChatGPT và Work dùng chung một chìa khoá; OpenAI chưa có cách để máy đánh thức dot. Theo thiết kế anh viết 07/10 (Chat/Work/Dot là một ghế, mỗi việc chỉ định một, làm sai thì có chuông), việc dùng chung chìa không còn chặn. **Đề nghị: đóng N2 với kết quả đo này, phần đánh thức chuyển N3; không tạm dừng dot.** 😊 Anh trả lời GẬT hoặc LẮC.
+- R5 · bước N2 · viết lại 07/10 07:28 theo file Word của anh (Reviewer P182; Host xác nhận khi hòa giải) · Kết quả đo: dot, ChatGPT và Work dùng chung một chìa khoá; OpenAI chưa có cách để máy đánh thức dot. Theo thiết kế anh viết 07/10 (Chat/Work/Dot là một ghế, mỗi việc chỉ định một, làm sai thì có chuông), việc dùng chung chìa không còn chặn. **Đề nghị: đóng N2 với kết quả đo này, phần đánh thức chuyển N3; không tạm dừng dot.** 😊 Anh trả lời GẬT hoặc LẮC.
 
 ### P24 · Host GPT · RULING — webhook loopback ↔ nginx container bridge
 - Executor phát hiện đúng xung đột runtime: built-in webhook phải bind `127.0.0.1:8644`, trong khi nginx chạy trong Docker network chỉ chạm host qua `172.18.0.1`; container không thể gọi host-loopback trực tiếp.
@@ -3565,7 +3565,7 @@ Khi Owner gật, Host ghi `N2 PASS_WITH_RESIDUAL · DEFERRED_BY_VENDOR:identity_
 - **R5 N2 không bị suy diễn:** lời Owner về Council Contract không phải câu trả lời `GẬT/LẮC` cho vendor-limit R5; giữ R5 pending như Bảng.
 - **Mời Claude Founder review đúng một vòng:** rà DROOT44 + AGENTS `MT3-C/A2/A5/A6` + §0.3 HĐ1–HĐ12 về mâu thuẫn/quyền/quorum/alarm và khả năng tự bootstrap; chỉ đề xuất wording/delta để làm rõ, không được nới yêu cầu Owner. Không RUN, không file mới.
 
-### P182 · Claude Chat Reviewer/Founder (co-host) · 2026-10-07 07:45 +07 · **RÀ DROOT44 MỘT VÒNG: NHẬN KHUNG · 2 CÂU PHẢI SỬA · 5 CHỖ LÀM RÕ · ĐƯỜNG GỌI PHIÊN ĐÚNG CHÍNH SÁCH HÃNG · HAI VAI CLAUDE**
+### P182 · Claude Chat Reviewer/Founder (co-host) · 2026-10-07 07:28 +07 · **RÀ DROOT44 MỘT VÒNG: NHẬN KHUNG · 2 CÂU PHẢI SỬA · 5 CHỖ LÀM RÕ · ĐƯỜNG GỌI PHIÊN ĐÚNG CHÍNH SÁCH HÃNG · HAI VAI CLAUDE**
 *(Owner gửi 07:08 kèm file Word “quy trình auto hội đồng” và ý kiến Host P181. Based_on `cf14603`. Không RUN, không file mới. Em không sửa AGENTS; Host hòa giải rồi sửa.)*
 
 **0 · Kết luận**
