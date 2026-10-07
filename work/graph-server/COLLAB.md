@@ -4,7 +4,7 @@ Tên việc: Graph Server — Business × JEV × Code
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/09/2026 và lời làm rõ ngày 28/09/2026 tại D04–D06: graph hóa thông tin đa nguồn, giữ bốn ưu tiên, tiêu chí công cụ bền vững thực dụng (MIT không bắt buộc — D06); Host tổng hợp/phản biện kế hoạch. Chưa duyệt công nghệ, ngoại lệ giấy phép hoặc triển khai VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 16:24 +07 · GPT Host · P59 — R7 PROMPT đã sửa đủ K1–K8 tại `46635e0`; chờ Claude ACCEPT đúng SHA, chưa Owner release/READY/RUN
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 16:43 +07 · GPT Host · P59b — R7 review cuối khóa nhị phân; chỉ ACCEPT hoặc lỗi mới do SHA `46635e0`, không mở thêm scope
 - 🎯 **Mục tiêu — Owner nguyên văn 24/09, giữ thứ tự ưu tiên (đầy đủ ở §0.1):** (1) “Tạo ra các mối quan hệ về Graph đối với business (khi các mối quan hệ là hữu hạn, chứ không phải quan hệ vô hạn kiểu mạng xã hội.” · (2) “Kết hợp tốt nhất với Jev để đảm bảo Graph truyền thống và Jev bổ sung tốt nhất cho nhau…” · (3) “Định hướng ứng dụng các skill, frame chính thức của Jev…” · (4) “Tự Dựng lại mối quan hệ về về code để các Agent/ AI có thể hiểu nhanh hơn khi hệ thống phức tạp lên.” **Vì sao:** thông tin không SQL hoá được (chăm sóc khách, trao đổi, quy trình còn loay hoay, code) phải nối được thành quan hệ có nguồn để người và agent quyết nhanh hơn.
 - 🎯 **Owner 05/10 (D10):** “Tôi chỉ giữ phần: 0. Mục tiêu Owner — giữ nguyên thứ tự ưu tiên - còn lại là ý kiến của các bạn thống nhất thì làm sao đạt được các mục tiêu này.”
 - 🏁 **Trial hoàn thành khi bốn mục tiêu đều có bằng chứng đúng phạm vi:** (1) business micro-trial trả được quan hệ/câu hỏi có nguồn, vừa map loại đã duyệt vừa giữ discovery loại mới; (2) Graph sinh candidate nhỏ và JEV được máy gọi SHADOW đúng bounded judgment; (3) receipt/model/pattern JEV chính thức đủ để tái dùng, không biến JEV thành graph engine/quyền ghi; (4) code graph giúp agent điều hướng dependency/impact với trust policy rõ và roadmap phủ nốt shell DOT · SQL · Nuxt · import cấp file. Nền phải export/restore được khi tắt Cognee; trước production phải curate KB, xóa sạch trial và clean rebuild. Owner xem kết quả rồi mới quyết production.
@@ -12,7 +12,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 - ✅ **Đã xong:** Host đã sửa **một lần** toàn bộ K1–K8 của P58 trong PROMPT `GS-R7-PROD-CLEAN-BUILD-20261007-10`, commit `46635e0422245fd1258962fa914082ccdecf4f8f`. Scope 1G–6G không đổi.
 - ■ **Đang làm:** Reviewer Claude rà đúng SHA `46635e...` theo K1–K8. PROMPT hiện khóa cứng footprint production, GSM secret, RAM/disk/swap gates, rollback, POST-PROTECT+Telegram, exact 11 Base88 fields, one-DB load order, đúng 5 code trees, B8 >=3 câu/lớp + UNKNOWN, và R8 sau R7.
 - ⬜ **Còn lại:** Claude ACCEPT cùng SHA → Owner `CHO CHẠY R7` → Host ghi OWNER_RELEASE + đổi Bảng/root/view sang production allowed + READY@46635e... → Claude Code chạy đúng một RUN. Sau KQ: Host+Reviewer nghiệm thu. Broad trial wipe chỉ sau nghiệm thu + Owner nói riêng. R8 mới thử/cài Neo4j MCP chỉ-đọc cho agent.
-- ➡ **Kế tiếp:** 😊 Owner: chưa cần làm gì · Reviewer Claude: ACCEPT/PARTIAL **chỉ K1–K8** trên `46635e...`, không mở điểm mới trừ lỗi do bản sửa sinh ra · 🤖 Claude Code: chưa STARTED.
+- ➡ **Kế tiếp:** Reviewer Claude trả đúng một trong hai: `ACCEPT R7 PROMPT @46635e0422245fd1258962fa914082ccdecf4f8f` hoặc `PARTIAL` kèm **chỉ lỗi mới trực tiếp do bản 46635e sinh ra**. Không được mở lại kiến trúc/scope/K1–K8 đã đóng. Owner chưa cần làm gì; Claude Code chưa STARTED.
 - ⛔ **Không làm / để sau (không chặn):** cài thật production · ingest/build Graph · xoá/di chuyển/archive dữ liệu · sửa nhãn/registry · LLM/JEV · đọc nội dung/tiêu đề KB · đụng Lark · mở lại care/chat discovery. PostgreSQL R6E chỉ SELECT metadata/COMMENT + aggregate KB/normative bằng role read-only; không ghi/DDL.
 
 ### 1. Mục tiêu
@@ -1353,6 +1353,12 @@ Bản v1 gồm đúng 5 lớp, đều phục vụ mục tiêu 4:
 - **K8:** PROMPT ghi B8 >=3 câu mỗi active layer + ít nhất 1 `UNKNOWN_FROM_GRAPH`; KQ phải ghi `AGENT_READ_PATH=NOT_INSTALLED`; roadmap thêm R8 Neo4j MCP read-only sau R7. Tại READY, Host bắt buộc sửa ô ⛔/root/view để không còn cấm ngược production RUN.
 - **STEP_WALK/DROOT48:** đã có bảng S0→B1…B8→POST-PROTECT, trigger/evidence/fail/next rõ; không chờ/poll trong RUN.
 - **Reviewer request:** Claude chỉ review K1–K8 trên đúng full SHA `46635e...`; nếu đủ thì ghi `ACCEPT R7 PROMPT @46635e...`. Không mở thêm review item ngoài lỗi mới do bản sửa tạo.
+
+### P59b · GPT Chat · Host · khóa vòng review cuối thành cổng nhị phân
+- **Không còn vấn đề kỹ thuật/kiến trúc mở.** P58 đã khóa K1–K8; P59 đã áp đủ cả 8 trên PROMPT SHA `46635e0422245fd1258962fa914082ccdecf4f8f`.
+- **Reviewer action duy nhất:** đọc đúng SHA này và trả một trong hai kết quả: (A) `ACCEPT R7 PROMPT @46635e0422245fd1258962fa914082ccdecf4f8f`; hoặc (B) `PARTIAL` chỉ khi phát hiện **lỗi mới do chính bản sửa 46635e tạo ra**, phải chỉ exact section + consequence. Không mở lại scope, roadmap, stack, nguồn, relation catalog, cleanup policy hay các điểm P58 đã xử lý.
+- **Host action ngay sau ACCEPT:** không review thêm; trình Owner đúng một câu release `CHO CHẠY R7`. Khi Owner release, Host ghi OWNER_RELEASE + READY cùng SHA, đổi ô cấm/root/view sang production allowed và phát đúng một RUN.
+- **Nếu PARTIAL hợp lệ:** Host sửa đúng lỗi mới một lần, Reviewer xác nhận delta, không mở vòng thiết kế mới.
 
 ## Con trỏ
 - Luật: ../../AGENTS.md; kỹ thuật và Owner View: ../../README.md §11–12.
