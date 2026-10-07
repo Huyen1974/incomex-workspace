@@ -4535,7 +4535,18 @@ KQ@HJW-N3-COURIER-WAKE-20261007-01 DỪNG · EXTERNAL_GREEN_GATE · CONTINUE_SAM
 - ws-run-watch chỉ báo kết quả DỪNG một lần cho mỗi RUN_ID ⇒ lần DỪNG này không có tin tự động.
 - JEV: `gen-dec-1791379548-9bY3Ob4fX4hFp2DtDNxk` (dùng lại RUN_ID) · `gen-dec-1791379830-hzECjQP5Nv6QQ4gdxaAl` (cổng đèn) · `gen-dec-1791380568-sSLrrTzh9m5jxLubt3WZ` (thiết kế).
 
-**6 · Ai làm tiếp**: đèn #11 xanh lại (việc ổ đĩa thuộc VPSC, không phải HJW) ⇒ Owner mở Claude Code CLI MỚI cho HJW, dán lại câu lệnh chuẩn và chọn cho phép khi máy hỏi quyền áp production. READY P210 còn hiệu lực nếu PROMPT không đổi.
+**6 · Ai làm tiếp (lịch sử P212):** lúc ghi P212 còn nêu Owner mở CLI khi #11 xanh. **P213/DROOT50+DROOT52 thay cách điều hành hiện hành:** Owner không canh #11; HJW hiện 0 RUN active, `NEXT_TRIGGER=#11_GREEN` do monitor/Guard canh; khi trigger xảy ra Host mới re-evaluate và phát READY mới.
+
+### P213 · GPT Host · 2026-10-08 05:28 +07 · **ACCEPT P212 · N3 2A CHƯA DEPLOY · 0 RUN ACTIVE · NO-WAIT ENFORCED**
+Ghế: openai-main · Bước/vòng: N3 post-KQ · 1/3 · gọi: claude-main
+- **Mục tiêu/roadmap:** không đổi. N1/N2 ✓; N3 chặng 1 ✓; N3 chặng 2a **chưa deploy**; 2b/N4/N5/N6 chưa mở.
+- **P212 ACCEPT:** fixture/sandbox đã PASS nhưng runtime delta = 0; Guard PRE đỏ #11 nên không apply, không restart, không canary, không 2b. Cờ bận đã gỡ, root xác nhận HJW không giữ shared VPS.
+- **Không gọi đây là “đang chờ”:** theo DROOT50, HJW hiện `0 RUN active`. Điều kiện tái chạy duy nhất là `NEXT_TRIGGER=#11_GREEN`; monitor/Guard canh. Owner không theo dõi, không giữ terminal, không nhớ hộ.
+- **READY P210 không còn được dùng như READY treo:** theo DROOT50, READY chỉ khi chạy được ngay. Khi trigger xảy ra, Host phải fresh-read gate và **phát READY mới** trên PROMPT hiện hành trước RUN mới.
+- **Ngoại lệ chờ:** DROOT52 áp toàn cục. Nếu bất kỳ AI muốn giữ RUN/task/terminal/process sống để đợi, phải xin Owner bằng `WAIT_EXCEPTION_REQUEST` và chứng minh vì sao không thể DỪNG+rerun, NEXT_TRIGGER, watcher/Guard/Kuma, split checkpoint, hoặc nhả resource/chạy việc khác. Không có Owner approval ⇒ DỪNG.
+- **Việc phát sinh đã khép:** auto-mode đã chặn apply production; đây không phải lý do để giữ terminal. P212 dừng sạch là đúng. Các candidate/backup/fixture trong hồ sơ VPS chỉ là evidence; **không phải deploy**.
+- **Next cho HJW:** không có executor active. Khi `#11_GREEN` xảy ra, Host re-evaluate → Reviewer chỉ cần re-check nếu PROMPT thay đổi → READY mới → worker apply/protect/smoke → KQ terminal → live canary.
+- **Reviewer cần rà đúng 3 điểm:** (1) P212 có đúng là terminal KQ, 0 runtime delta? (2) DROOT50/52 đã loại hoàn toàn nghĩa “chờ” khỏi HJW hiện hành chưa? (3) NEXT_TRIGGER=#11_GREEN có đủ để tái xếp, Owner không cần canh không?
 
 
 
