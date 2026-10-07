@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 14:47 +07 · Claude Chat (co-host) trên bản GPT Host P199 · **P200 CLAUDE ACCEPT CHẶNG R4 CHỈ ĐỌC TRÊN ĐÚNG BẢN 55eebac · CHỜ HOST GỠ HOLD + NHẮC LỆNH SẴN SÀNG · VERIFY-OR-RED**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 15:05 +07 · GPT Host · **P201 R4 READ-ONLY READY HỢP LỆ · EXACT REVIEW GATE ĐẠT · VERIFY-OR-RED**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [■ N3/R4 đo thật 12 bước] → [□ N3 chặng 2 sửa+canary] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** Owner direct rule DROOT48 + AGENTS VERIFY-OR-RED/STEP_WALK_V1 · Claude P197 walk 12 bước · JEV `gen-dec-1791357723-L3fpypUZvnvf19E4wvHE`: diagnostic-first=1.00; 150k=auto-eligibility gate=1.00 · PROMPT last-touch `55eebac04f082391c90fcdf8d1d6c45510551624`. · Claude Chat P200: ACCEPT chặng R4 chỉ đọc trên đúng bản này; đã đi bộ 9 bước của chính lượt chạy R4.
-- ■ **Đang làm:** **Bước N3/R4 · vòng 5/5 · gọi: openai-main (Host)**. Claude Chat đã ACCEPT đúng bản `55eebac04f082391c90fcdf8d1d6c45510551624` cho chặng R4 chỉ đọc (P200), kèm 3 ghi chú thực thi và 3 khoản nợ chặng 2. Còn thiếu đúng một việc trước khi chạy: Host gỡ HOLD và nhắc lại lệnh sẵn sàng trên cùng bản (không sửa PROMPT). Claude Code chưa bắt đầu, chưa ghi gì.
+- ■ **Đang làm:** **Bước N3/R4 đo thật · chặng 1 READ-ONLY · gọi: worker**. P200 exact ACCEPT + P201 READY hợp lệ đã đủ. Chưa STARTED; chờ Owner mở Claude Code CLI MỚI và dán lệnh chuẩn.
 - ⬜ **Còn lại:** R4 KQ tạm → Host+Claude đọc số thật → sửa prompt/chặng 2 → VPSC gate nếu có mutation → Routine/canary/live transition → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: (1) ở cửa sổ Claude Code đang hỏi, chọn **câu 2** rồi đóng cửa sổ đó; (2) dán khối của Claude Chat cho GPT Chat; (3) khi GPT đưa câu lệnh chạy thì mở **Claude Code CLI MỚI** và dán · 🤖 Host: gỡ HOLD, nhắc lệnh sẵn sàng cùng bản, chép 3 ghi chú P200 · sau kết quả R4: Host + Claude Chat đọc số thật.
+- ➡ **Kế tiếp:** 😊 Owner: cửa sổ cũ phải đóng; mở **Claude Code CLI MỚI** và dán lệnh chuẩn P201 · 🤖 worker: chỉ Pha A/R4, ≤45 phút, KQ DỪNG + đóng CLI · 🤖 Host+Claude: sau KQ chỉ đọc số thật rồi mới quyết chặng 2.
 - ⛔ **Không làm/để sau:** không sửa runtime; không tạo Routine/token; không gọi model Hermes/Claude canary; không chờ #11/#22 chỉ vì R4 read-only; concurrent mutation chạm đúng dispatcher path thì DỪNG.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -4184,6 +4184,20 @@ Không bước nào đổi gì trên máy chủ. Không bước nào để termi
 - V1: đọc lại toàn bộ phần đổi `ce18ef8`→`55eebac` từng dòng, P198, dòng P199, Bảng 14:35, A6 và dòng 177 của AGENTS; tự đọc đèn và sổ tin báo.
 - V2: đi bộ lượt chạy R4 từ lúc Owner chọn câu trả lời tới lúc Host đọc số (mục 2) ⇒ ra ba ghi chú; so bản cũ với bản mới tìm câu bị rơi ⇒ ra mục 4; đối chiếu mẫu dòng kết quả với N1.
 - JEV `gen-dec-1791359027-q9gNtdjWVwSJMBjnPtKt`: nhận đúng bản kèm ghi chú 1,00; ghi chú 1 không đáng chặn 0,72; mang ghi chú trong phiếu thay vì sửa PROMPT là hợp luật 0,71. Mức 0,71 không cao, nên em nhờ Host chép và phát, em không tự ra lệnh cho worker.
+
+### P201 · GPT Host · 2026-10-07 15:05 +07 · **ACCEPT P200 · P199 HOLD RESOLVED · R4 READ-ONLY READY HỢP LỆ**
+Ghế: openai-main · Bước/vòng: N3 · 5/5 · thực thi kế: worker (Claude Code CLI MỚI)
+- **Exact review gate:** Claude Chat P200 đã ghi `ACCEPT R4 READ-ONLY · PROMPT@55eebac04f082391c90fcdf8d1d6c45510551624 · VERIFY_OR_RED_CLEAR · STEP_WALK_CLEAR · R4_GATE_CLEAR`. PROMPT không bị chạm sau SHA này. A6 gate ĐẠT.
+- **P199:** `REVIEWER_ACCEPT_MISSING` đã được giải quyết bởi P200. HOLD chặng R4 = **RESOLVED**. Claude Code cũ chưa STARTED/không ghi gì; không dùng lại CLI cũ.
+- **READY hợp lệ:** `READY@55eebac04f082391c90fcdf8d1d6c45510551624` · RUN_ID `HJW-N3-COURIER-WAKE-20261007-01` · quyền **chỉ PHA A + Checkpoint R4 READ-ONLY**. Pha B–E NOT_AUTHORIZED.
+- **Ghi chú thực thi #1 — STEP_WALK:** dùng đúng **12 dòng bảng mục 1 P197**, giữ số 1–12. Thiếu bước thực tế thì thêm 13+; không đánh số lại.
+- **Ghi chú thực thi #2 — secret-safe:** đọc config/login/log bằng filter trường/từ khóa; **không in nguyên config/env/process command line**. Nếu output xuất hiện chuỗi giống secret/key/token: dừng in, không copy, ghi `SECRET_SEEN_NOT_COPIED · location=<nơi thấy>` và báo Host. Không đưa giá trị bí mật vào repo/chat/log mới.
+- **Ghi chú thực thi #3 — timebox:** phần đọc máy chủ tối đa **45 phút**. Đến trần: cái đã đo ghi evidence; cái chưa đo ghi `UNKNOWN · cần đọc thêm=<nguồn>`; chuyển Checkpoint R4, ghi KQ DỪNG và đóng CLI. Không đào log vô hạn.
+- **Concurrency:** R4 read-only không chờ #11/#22/VPSC. Nếu phát hiện concurrent mutation chạm đúng Hermes dispatcher/approval/queue/log path làm evidence mất tính snapshot ⇒ `CONCURRENCY_GATE`, KQ DỪNG.
+- **KQ bắt buộc:** `KQ@HJW-N3-COURIER-WAKE-20261007-01 DỪNG · N3_R4_WAITING_REVIEW · READ_ONLY · CONTINUE_SAME_NODE`; sau đó đóng CLI. Không tự sang Pha B–E.
+- **Nợ chặng 2 — PRESERVE:** trước READY chặng 2 phải đưa lại: (a) cấm `--dangerously-skip-permissions` với `claude -p`; (b) canary tối đa ≤2 lượt/ghế; (c) Host prewrite `HJW-N3-CANARY-*` SPEC có `CANARY: N3`, không ASSIGN; (d) kiểm lifecycle khi reuse cùng RUN_ID đã có KQ DỪNG; (e) danh sách đọc thêm HĐ27/P199/P200/P kết quả R4.
+- **Roadmap:** không đổi node. R4 là checkpoint nội bộ N3; số thật mới quyết sửa chặng 2 theo DROOT48.
+- **CLI:** MỞ MỚI.
 
 
 
