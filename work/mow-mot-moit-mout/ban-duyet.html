@@ -1353,6 +1353,40 @@
 </details>
 </div>
 </section></div>
+<script>
+/* Owner 2026-10-07: two working subtabs; other design branches are reference only. */
+(()=>{
+ const root=document.getElementById('matrix-view-formula');if(!root)return;
+ const owner=root.querySelector(':scope > .owner-part');if(!owner)return;
+ const title=owner.querySelector(':scope > .wf4-top');if(title)title.hidden=true;
+ const content=document.createElement('div');content.id='formula-definitions';content.setAttribute('role','tabpanel');content.setAttribute('aria-labelledby','formula-subtab-definitions');
+ while(owner.firstChild)content.append(owner.firstChild);
+ const tabs=document.createElement('div');tabs.className='cf-subtabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Các phần Công thức');
+ tabs.innerHTML='<button type="button" role="tab" id="formula-subtab-definitions" aria-controls="formula-definitions" aria-selected="true">Công thức và định nghĩa</button><button type="button" role="tab" id="formula-subtab-review" aria-controls="formula-design-review" aria-selected="false" tabindex="-1">Master Duyệt thiết kế</button>';
+ const review=document.createElement('section');review.id='formula-design-review';review.setAttribute('role','tabpanel');review.setAttribute('aria-labelledby','formula-subtab-review');review.hidden=true;
+ review.innerHTML='<p class="cf-review-link"><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" target="_blank" rel="noopener">Mở Master Duyệt thiết kế riêng ↗</a></p><iframe title="Master Duyệt thiết kế" data-src="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" style="display:block;width:100%;height:85vh;min-height:650px;border:1px solid #dce4dc;border-radius:10px;background:white"></iframe>';
+ const note=document.createElement('p');note.className='cf-reference-note';note.textContent='Các phần khác giữ làm tham khảo. Thiết kế tiếp theo theo hướng dẫn từng bước của Owner.';
+ owner.append(tabs,note,content,review);
+ const style=document.createElement('style');style.textContent='#matrix-view-formula .cf-subtabs{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #dce4dc;margin:0 0 8px;padding-bottom:8px}#matrix-view-formula .cf-subtabs button{font:600 14px/1.4 inherit;font-family:inherit;font-size:14px;padding:10px 14px;border:1px solid #cfd8d2;border-radius:8px;background:#fff;color:#66736b;cursor:pointer}#matrix-view-formula .cf-subtabs button[aria-selected="true"]{background:#eef3ef;color:#243c2d;border-color:#8fa796}#matrix-view-formula .cf-subtabs button:focus-visible{outline:2px solid #516c5b;outline-offset:3px}#matrix-view-formula .cf-reference-note{font-size:11px;color:#849088;margin:0 0 14px}#matrix-view-formula .cf-review-link{font-size:12px;margin:8px 0}#matrix-view-formula [role="tabpanel"][hidden]{display:none!important}';
+ root.prepend(style);
+ const buttons=[...tabs.querySelectorAll('button')];
+ function select(id,write=false){
+  const isReview=id==='formula-design-review';
+  content.hidden=isReview;review.hidden=!isReview;
+  buttons.forEach((b,i)=>{const on=i===(isReview?1:0);b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;});
+  const frame=review.querySelector('iframe');if(isReview&&!frame.hasAttribute('src'))frame.src=frame.dataset.src;
+  if(write)location.hash=isReview?'formula-design-review':'formula-definitions';
+ }
+ function restore(){let id='';try{id=decodeURIComponent(location.hash.slice(1));}catch{}select(id==='formula-design-review'?'formula-design-review':'formula-definitions');}
+ buttons.forEach(b=>b.addEventListener('click',()=>select(b.getAttribute('aria-controls'),true)));
+ tabs.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();let i=buttons.indexOf(document.activeElement);i=e.key==='Home'?0:e.key==='End'?1:1-Math.max(0,i);buttons[i].focus();buttons[i].click();});
+ window.addEventListener('hashchange',restore);window.addEventListener('popstate',restore);restore();
+ for(const panel of document.querySelectorAll('.tab-panel[data-matrix-panel]'))if(panel!==root){
+  panel.dataset.referenceOnly='true';
+  const hint=document.createElement('p');hint.textContent='Tham khảo · Thiết kế tiếp theo theo hướng dẫn của Owner trong nhánh Công thức.';hint.style.cssText='font-size:12px;color:#849088;margin:8px 0';panel.prepend(hint);
+ }
+})();
+</script>
 </main><script>(function(){
 const tabs=[...document.querySelectorAll('.matrix-tabs [data-matrix-view]')];
 const panels=[...document.querySelectorAll('.tab-panel[data-matrix-panel]')];
