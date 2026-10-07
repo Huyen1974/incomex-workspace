@@ -1,11 +1,34 @@
-# PROMPT — VPSC R7 · CHUÔNG NÓI THẬT · Ổ ĐĨA CÓ TÊN CÓ TRẦN · MÃ CÓ KHOÁ · 07/10/2026
+# PROMPT — VPSC S1a · ĐO TRƯỚC, XÂY SAU · DISK + ALERT FORENSIC · 07/10/2026
 
-STATUS: chỉ được chạy khi `COLLAB.md` của việc có ĐỦ hai dòng mang cùng SHA last-touch của tệp này: `READY@<sha>` (Host GPT Chat) và `CODEX ACCEPT@<sha>` (Reviewer Codex). Thiếu một ⇒ DỪNG trước mọi thay đổi.
-RUN_ID: VPSC-R7-TRUTH-20261007-01
-Executor_Surface: Claude Code CLI trên Mac → VPS1 (`vmi3080463`) qua đường SSH/DOT hiện hữu
-Write_Path: tài liệu = repo qua `workspace_*`/`fs_*` · runtime = DOT/script-wrapper + Config Guard (`incomex-config-apply-v0`) + git cục bộ `/opt/incomex`
-Evidence_Dir: `/opt/incomex/work/vps-clean-20-9-26/R7-20261007/` (tạo bằng `mkdir`)
-Báo cáo: thêm mục `## R7` vào `work/vps-clean-20-9-26/BAO-CAO.md` — không tạo tệp báo cáo mới.
+STATUS: **MEASURE_ONLY**. Chỉ được chạy khi `COLLAB.md` có `READY@<sha>` của Host GPT Chat trùng commit cuối chạm PROMPT. **Không cần CODEX ACCEPT cho checkpoint chỉ đọc này.** Mọi mutation production/runtime = CẤM; các mục R7 A→D bên dưới là `FUTURE_R7_DESIGN` và **INERT trong RUN này**.
+RUN_ID: VPSC-R7-S1A-MEASURE-20261007-01
+Executor_Surface: Claude Code CLI trên Mac → VPS1 (`vmi3080463`) qua SSH/read-only + DOT/script-wrapper read-only hiện hữu
+Write_Path: chỉ tài liệu SSOT = repo qua `workspace_*`/`fs_*`; runtime/VPS/Kuma/Docker/systemd = **READ-ONLY**; Directus/PG kể cả đọc chỉ qua DOT/wrapper hiện hữu
+Evidence_Dir: `/opt/incomex/work/vps-clean-20-9-26/S1A-20261007/` — chỉ evidence mới, không sửa runtime/config
+Báo cáo: thêm `## S1a · đo trước` vào `work/vps-clean-20-9-26/BAO-CAO.md` + P/KQ trong COLLAB; không tạo file tiến độ khác.
+
+## S1a · checkpoint chỉ đọc · tối đa 60 phút · KẾT THÚC SAU ĐO
+**Mục tiêu:** trả lời bằng số thật hai câu: (1) ~7,9 GiB sau cleanup đã đi đâu, phần nào còn tăng; (2) từng DOWN/UP Telegram là VPS thật hỏng, dịch vụ con lỗi, probe/monitor sai, hay chính đường Kuma/Telegram lỗi.
+
+1. **Health snapshot live:** uptime/boot; 6 dịch vụ lõi status/health/StartedAt/restart-count; HTTP chính + latency; failed units; CPU/load/RAM/swap; `df -B1 /`. Không restart/reload.
+2. **Forensic cảnh báo 36h:** đọc Kuma DB/log + Guard/bảng đèn/log sender **chỉ đọc**. Với mọi DOWN/UP/cảnh báo có trong cửa sổ, tối thiểu các mẫu Owner nêu (`Disk Usage`, `MCPW Protection Guard`, `OPS Proxy`, INV2 502, Kuma `[MONITOR] ERROR: Please report...`), nộp bảng `thời gian · monitor · thời lượng · trigger · trạng thái service thật cùng lúc · phân loại` với đúng một nhãn: `HOST_DOWN | SERVICE_REAL | PROBE_FALSE | PIPELINE_KUMA_TELEGRAM | DUPLICATE_PROPAGATION | UNKNOWN`.
+   - Với lỗi Kuma `08:10:05Z [MONITOR] ERROR: Please report...`: lấy **các dòng trước/sau đủ để thấy exception gốc**; không suy chỉ từ câu cuối. Kiểm delivery log/message-id để tách `Kuma internal error` khỏi `Telegram send failed`.
+   - Kiểm `INV15`: một monitor dịch vụ đỏ thật có đang làm #22 đỏ chỉ vì “fleet có red” hay không; ghi rõ duplicate fanout #11→#22 nếu có.
+   - Kiểm `HJW-N3-COURIER-WAKE-20261007-01`: xác nhận `KQ DỪNG` là checkpoint workflow hay lỗi máy; không gộp vào VPS outage.
+3. **Forensic disk:** lấy mốc cleanup 06/10 01:19 +07 ~48,546 GiB free và chuỗi disk-monitor tới hiện tại. Đối soát allocated bytes trên filesystem `/` cho tối thiểu: Docker image/overlay/volumes/container logs · containerd · `/var/log`/journald · deleted-open · `/var/lib/incomex*` · agent-data transactions/GC · `workspace-tools`/snapshot · AI session/artifact/log · Graph trial · phần còn lại `/opt,/var,/home,/root,/tmp,/usr`. Liệt kê top tăng theo mốc/mtime/ctime; **reconcile ≥90% phần giảm free-space nếu evidence cho phép**, phần còn lại `UNKNOWN`, không đoán.
+4. **Đo noise:** 3 taxonomy/read-only snapshot liên tiếp trong lúc **không chủ động mutation**, không chờ dài; mục tiêu ≤10 phút tổng. Tính `MEASURE_NOISE=max(UNEXPLAINED)-min(...)`. Nếu bản thân phép đo thay đổi log/cache, định lượng self-impact.
+5. **Đo BUSINESS history trước khi xây:** tìm dữ liệu lịch sử sẵn có trước (nightly backup size, DB/Qdrant metrics/log snapshots). Với mỗi BUSINESS candidate ghi số mẫu/ngày/span hiện có; chưa đủ thì chỉ ghi debt, không tự tạo quota.
+6. **Đầu ra bắt buộc:**
+   - bảng `7,9 GiB đi đâu` (nguồn · delta · bằng chứng · còn tăng? · có control?);
+   - bảng `DOWN/UP thật hay giả` + tỷ lệ/count theo 6 nhãn;
+   - exception gốc của Kuma 08:10:05Z nếu đọc được;
+   - `PRE_RED_SET` = monitor đỏ lúc đo + lý do, để R7 POST sau này so `same-or-better`;
+   - đề xuất **tối đa 3 thay đổi đơn giản nhất**, ưu tiên bỏ duplicate/false alert hơn là thêm service.
+7. **CẤM:** sửa Kuma/config/cron/script, gửi tin thử, restart/reload, xoá/dọn, đổi version/key, stress/load test, `cat` secret/.env, Directus/PG trực tiếp. Đụng quyền/secret ⇒ ghi `UNKNOWN` và đi tiếp phần độc lập.
+8. **SLA:** tối đa 60 phút; không sleep để chờ số đẹp. Hết 60 phút ghi KQ với phần đo được và `UNKNOWN` còn lại.
+9. Kết thúc: `KQ@VPSC-R7-S1A-MEASURE-20261007-01 XONG|DỪNG · READ_ONLY · <tóm tắt>` rồi **DỪNG sạch**. Không chạy các mục R7 A→D bên dưới.
+
+> **FUTURE_R7_DESIGN — INERT TRONG S1a:** toàn bộ mục từ `## 0` trở xuống giữ làm thiết kế cho RUN mutation kế tiếp; Host sẽ cập nhật bằng số S1a rồi review/READY lại.
 
 ## 0 · Vì sao có lượt này (đọc trước — bạn không có ký ức phiên trước)
 Owner 07/10: chuông Telegram DOWN/UP quá nhiều; ổ đĩa vẫn đầy nhanh, mỗi lần kiểm lại lòi lỗi mới; hỏi Điều 30/31 đã bảo vệ đủ chưa. Codex khảo sát chỉ đọc (root `COLLAB.md`, dòng **PROOT01**); Host tự kiểm lại và bổ sung (`COLLAB.md` việc này, **P51**). Bốn gốc, mỗi gốc một gói:
