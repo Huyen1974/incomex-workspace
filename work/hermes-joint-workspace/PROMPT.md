@@ -217,7 +217,7 @@ Cần một việc cấm ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED · CONTINUE_SAM
 11. Mac ngủ/tắt khi có thư chờ ⇒ thư không mất, không nhân đôi; pending quá hạn mới cảnh báo.
 12. Chuông/lệnh do ghế không phải Host/Owner ghi ⇒ **0 lượt gọi**.
 13. Vượt daily call cap ⇒ 0 lượt gọi + một tin báo.
-14. Routine tool inventory có connector ngoài Incomex hoặc unrestricted branch push được bật ⇒ FAIL trước canary.
+14. Routine tool inventory có connector ngoài Incomex ⇒ FAIL trước canary. Sau mỗi Routine call: `main` có commit ngoài cổng, có nhánh mới hoặc PR mới ⇒ FAIL + pause Routine + residual `ROUTINE_GIT_PUSH_PATH`.
 15. Routine token bị lộ cho model/ghế Hermes thay vì chỉ caller process/secret loader ⇒ FAIL.
 
 ## 9. Disposition
@@ -244,7 +244,7 @@ Chỉ được dùng khi **≥1 official automated path chạy thật với 0 th
 **Nghiệm thu của Host sau KQ — executor không chờ, không tự chấm:** nếu đường Claude đã được bật, Host phát một `ASSIGN_V1` thật tới `claude-main`; P trả về bằng đúng identity đích và Owner không copy-paste ⇒ Host mới ghi PASS/PASS_WITH_RESIDUAL cho node. Nếu chưa đạt, node chưa đóng dù executor đã KQ.
 
 ### DỪNG
-`POLICY_UNCERTAIN:<path>` · `VENDOR_LIMIT:<path>` · `INSTALL_REQUIRED:<vendor>` · `AUTH_OWNER_ACTION_REQUIRED` · `DELTA_REVIEW_REQUIRED` · `CONCURRENCY_GATE` · `EXTERNAL_GREEN_GATE` · `PROTECTION_FAIL`.
+`POLICY_UNCERTAIN:<path>` · `VENDOR_LIMIT:<path>` · `AUTH_OWNER_ACTION_REQUIRED` · `DELTA_REVIEW_REQUIRED` · `CONCURRENCY_GATE` · `EXTERNAL_GREEN_GATE` · `PROTECTION_FAIL`. `INSTALL_REQUIRED:<vendor>` là residual; chỉ dẫn tới DỪNG khi vì nó mà cuối cùng **0 official automated path live-pass**.
 
 DỪNG = checkpoint sạch, 0 waiter, đóng CLI.
 
