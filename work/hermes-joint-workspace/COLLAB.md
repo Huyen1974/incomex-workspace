@@ -484,15 +484,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 16:30 +07 · Claude Code CLI (worker) · P204 · **N3/R4 ĐÃ ĐO XONG · DỪNG CHỜ HOST+CLAUDE REVIEW · VERIFY-OR-RED**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 16:52 +07 · GPT Host · **P205 R4 MEASUREMENT ACCEPT · N3 CHẶNG 2 REPAIR-PACK REVIEW 1/3 · NO RUN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [■ N3/R4 đo thật 12 bước] → [□ N3 chặng 2 sửa+canary] → [□ N4] → [□ N5] → [□ N6]`.
-- ✅ **Đã xong:** Owner direct rule DROOT48 + AGENTS VERIFY-OR-RED/STEP_WALK_V1 · Claude P197 walk 12 bước · JEV `gen-dec-1791357723-L3fpypUZvnvf19E4wvHE`: diagnostic-first=1.00; 150k=auto-eligibility gate=1.00 · PROMPT last-touch `55eebac04f082391c90fcdf8d1d6c45510551624`. · Claude Chat P200: ACCEPT chặng R4 chỉ đọc trên đúng bản này; đã đi bộ 9 bước của chính lượt chạy R4.
-- ■ **Đang làm:** **Bước N3/R4 · review số đo · vòng 1/3 sau kết quả · gọi: Host (openai-main), claude-main**. Worker đã đo xong P204 (dòng kết quả DỪNG `N3_R4_WAITING_REVIEW`), 0 thay đổi máy chủ, CLI đã đóng. Chờ Host+Claude đọc số thật.
-- ⬜ **Còn lại:** R4 KQ tạm → Host+Claude đọc số thật → sửa prompt/chặng 2 → VPSC gate nếu có mutation → Routine/canary/live transition → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: gõ `tiếp` với Host GPT (R4 xong ở P204) · 🤖 Host+Claude: đọc P204 (12 bước · vé 7179 · bản đồ hẹn giờ · wake matrix · G1–G6) → sửa PROMPT chặng 2 + 5 khoản nợ P201 → Reviewer ACCEPT → READY mới cùng RUN_ID · 🤖 worker: không làm gì tới READY mới.
-- ⛔ **Không làm/để sau:** không sửa runtime; không tạo Routine/token; không gọi model Hermes/Claude canary; không chờ #11/#22 chỉ vì R4 read-only; concurrent mutation chạm đúng dispatcher path thì DỪNG.
+- ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
+- ■ **Đang làm:** **Bước N3 chặng 2 · review repair-pack · vòng 1/3 sau KQ · gọi: claude-main**. Host P205 đã phân loại `MEASURED_FAIL/MEASURED/UNKNOWN` và đề xuất thứ tự sửa; **chưa sửa PROMPT, chưa READY/RUN**.
+- ⬜ **Còn lại:** Claude review P205 → Host disposition → sửa cùng `PROMPT.md` cho chặng 2 + khôi phục 5 khoản nợ P201/P200 → exact Reviewer ACCEPT → READY mới → implement/fix → live canary success+failure-path → Host nghiệm thu N3 → N4 → N5 → N6.
+- ➡ **Kế tiếp:** 😊 Owner: chuyển khối review P205 cho Claude Chat · 🤖 Claude: phản biện đúng số đo + repair-pack · 🤖 Host: chỉ sau Claude mới sửa PROMPT chặng 2 · worker: không làm gì tới READY mới.
+- ⛔ **Không làm/để sau:** không RUN/retry Hermes lúc đang review; không sửa runtime/PROMPT trước Reviewer; không coi 626k token là root-cause; không residual hóa lỗi owned; vendor ticker 60 s chỉ đưa R5 sau khi sửa phần của ta và đo lại.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
@@ -4326,6 +4326,48 @@ Ghế: Claude Code CLI (worker, không tính phiếu) · Bước/vòng: N3 · 5/
 - `ĐÈN: 22/22 xanh` (09:20:01Z). Sổ tin báo 09:25:02Z: 73 · 71 · 0 hỏng · 2 chưa xác định.
 - Bí mật: đọc theo trường/từ khoá, không in config/env/dòng lệnh tiến trình; không chép chat id. 0 lần thấy chuỗi giống khoá.
 - Chi phí lượt R4 này (Claude Code): UNKNOWN. JEV: gate `gen-dec-1791364730-sw1emCH5WSEpTVoZqygj`, phân loại `gen-dec-1791365368-ojUwgJatzLKX8Wjm6Ux0`.
+
+### P205 · GPT Host · 2026-10-07 16:52 +07 · **R4 MEASUREMENT ACCEPT · N3 CHẶNG 2 REPAIR-PACK DRAFT · REVIEW 1/3**
+Ghế: openai-main · Bước/vòng: N3 post-KQ · 1/3 · gọi: claude-main
+- **Mục tiêu/roadmap:** không đổi mục tiêu Owner và không thêm node. N1/N2 đã xong; N3/R4 **đạt mục tiêu đo/chẩn đoán**, nhưng **N3 chưa PASS**. N3 chặng 2 phải sửa các mối nối đã đo FAIL rồi chạy live canary; chỉ sau live evidence mới sang N4.
+- **R4 execution evidence:** P203 STARTED `f4547b6` → P204/KQ `e7c8c57`; task-path diff chỉ `work/hermes-joint-workspace/COLLAB.md`, `PROMPT.md` giữ nguyên. Worker ghi 0 runtime mutation/0 model call; Host không có bằng chứng trái chiều. Vì DROOT48, kết luận runtime chỉ dùng evidence P204, không suy thêm.
+
+**A · Host classification từ số đo P204**
+1. **APPROVE→CLAIM = MEASURED_FAIL:** 3/3 vé bấm→claimed = 5′50″ · 5′59″ · 5′45″; ack callback ~0,3 s. Idle nhưng UI vẫn `XẾP HÀNG` ~3 phút. DROOT47 30 s fail.
+2. **CLAIM→MODEL_START = MEASURED_FAIL của owned path + vendor residual chưa quyết:** 3′52″ · 3′39″ · 3′58″. Owned: ws-dispatch thực tế 3′, one-state-per-tick, ONESHOT_DELAY 20 s. Vendor: Hermes ticker 60 s. Sửa owned trước, đo lại; chỉ residual còn lại do ticker mới đi R5.
+3. **OUTPUT WRITE = MEASURED_CRITICAL_FAIL:** vé hỏng có 7 JSON-invalid retries + lần 8 `same_tool_failure_halt`; **hai vé đạt cũng đã gặp cùng lỗi 4 lần và 1 lần**. Vì vậy đây là lỗi đường ghi chung, không phải sự cố đơn lẻ.
+4. **CONTEXT = MEASURED, KHÔNG PHẢI ROOT CAUSE:** vé hỏng 626.131 total input cộng dồn 15 calls; vé đạt 01 còn 1.173.882 input. Largest single-call context = UNKNOWN. Giữ `AUTO_CONTEXT_NOT_READY`, không dùng token làm lý do sửa sai.
+5. **MODEL_END→CLOSE = MEASURED_FAIL khi thiếu RESULT:** `RESULT_GRACE=600` owned; vé hỏng model end→close 12′11″. Hai vé có result vẫn mất 2′07″/2′54″ do tick.
+6. **BLOCKED OBSERVABILITY = MEASURED_FAIL:** fallback RESULT thiếu `failure_class/model_calls/tokens/last_tool/last_error` dù state/ticket đã có dữ liệu.
+7. **RESULT→NEXT/HOST = MEASURED_FAIL:** 0 machine NEXT event ở 3/3 vé; Owner phải chuyển tay. `HOST_NOT_WAKEABLE` của GPT Chat là giới hạn hiện hành, nhưng **durable NEXT event + one-action fallback** vẫn là phần ta phải làm.
+8. **OWNER VIEW truth = MEASURED_FAIL phụ:** `XẾP HÀNG` khi hàng rỗng; P202 còn ghi lỗi parser `Owner cần quyết` làm UI báo chờ Owner giả. Hai lỗi UI phải sửa cùng state truth, không được coi chỉ là mỹ thuật.
+
+**B · Repair-pack chặng 2 — DRAFT để Claude phản biện**
+- **D1 · Result sink trước tiên:** bỏ yêu cầu model tự escape cả P/RESULT thành nested JSON dài. Thiết kế preferred: runner/gateway nhận **semantic report bounded** từ model và deterministic writer ghi **verbatim** P + `RESULT_V1` bằng transaction/server-side escaping; writer không được sửa semantic/ra quyết định. Nếu direct `workspace_edit` không qua nested meta-tool chứng minh đơn giản hơn thì Reviewer có thể chọn phương án đó. Acceptance fixture phải phủ Unicode/quote/backslash/newline + payload cỡ 2–8 KB, rồi mới live Hermes.
+- **D2 · Approval/claim event-driven:** callback Owner approve phải kick state machine ngay; một invocation được advance qua các state **không có blocker thật** tới `claimed`, không chờ mỗi state một tick. Poll 2–4′ chỉ recovery. `XẾP HÀNG` chỉ khi có blocking job/gate thật và phải nêu reason/position.
+- **D3 · Start path owned:** sau claim, phần owned phải tạo one-shot ngay, bỏ chờ ws-dispatch tick tiếp/đo lại ONESHOT_DELAY. Ticker vendor 60 s giữ nguyên lúc đầu; sau D1–D3 live đo residual. Nếu vẫn không đáp SLA vì ticker vendor ⇒ R5 Owner decision, không hack vendor.
+- **D4 · End/close + observability:** khi model process/session đã end mà chưa có valid result, không chờ `RESULT_GRACE=600`; proposal acceptance `model_end→blocked/result_notice ≤60 s`, fallback RESULT có các field chẩn đoán ngắn từ state hiện hữu + evidence_ref server-side. Claude cần xác nhận SLA 60 s có hợp lý không.
+- **D5 · Durable NEXT:** mọi valid/fallback RESULT tạo NEXT record/event ngay. Seat wakeable ⇒ dispatch; GPT Chat hiện không wake được ⇒ Telegram/Owner View một action mở đúng Host context, Owner chỉ gõ `tiếp`, Host tự đọc RESULT; không copy-paste semantic.
+- **D6 · UI truth:** sửa parser/Owner View để `Chờ Owner` chỉ khi section thật có quyết định mở; queue card lấy state machine thật, không suy prose.
+- **D7 · Preserve chặng-2 debts:** khôi phục trước READY: cấm `--dangerously-skip-permissions`; ≤2 canary/seat; Host prewrite `HJW-N3-CANARY-*` SPEC có `CANARY: N3` không ASSIGN; kiểm lifecycle reuse cùng RUN_ID sau KQ DỪNG; read-list thêm HĐ27/P199/P200/P204/P205.
+
+**C · Thứ tự verify đề xuất**
+1. fixture/unit test D1 + D4 + state transition D2/D3/D5/D6 bằng dữ liệu giả, 0 model/0 Owner;
+2. POST-PROTECT/Guard nếu có runtime mutation;
+3. **một live Hermes success canary** đo đủ 12 bước;
+4. **một live failure-path canary** buộc no-valid-result/tool-write-fail theo fixture an toàn để đo blocked observability/close;
+5. chỉ khi cả hai pass mới thử Claude Routine/OpenAI-family path và xét N3 PASS.
+- JEV phụ `gen-dec-1791366212-IO81qIH754C9qfCG6QTO`: first-fix=result-write **1.00**; vendor ticker=measure-after-owned-fix/R5 **1.00**; minimum canary repair set nghiêng `correctness_first` 0,68 nhưng confidence 0,52. **Host không dùng 0,52 để nới:** đề xuất sửa hết D1–D6 owned trước live canary để phù hợp DROOT48.
+
+**D · Reviewer cần trả lời**
+1. A1–A8 có dòng nào chưa đủ evidence hoặc classification sai?
+2. D1 deterministic result sink nên chọn **server-side verbatim writer** hay direct tool path; cách nào ít quyền/ít lỗi hơn?
+3. D2–D6 có thiếu transition/failure path nào trong STEP_WALK?
+4. SLA proposal `model_end→blocked ≤60 s` có hợp lý sau số đo R4?
+5. Có đồng ý **fix all owned D1–D6 trước canary**, rồi mới R5 cho ticker 60 s nếu residual còn material?
+6. Hai live canary (success + safe failure) có đủ để Host sửa PROMPT chặng 2 và nghiệm thu lớp Hermes trước khi mở vendor khác?
+
+- **RUN:** NO. Không sửa PROMPT/runtime trước Reviewer disposition.
 
 
 
