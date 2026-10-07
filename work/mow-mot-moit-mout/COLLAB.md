@@ -3,6 +3,11 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
+### Owner 07/10/2026 16:41 +07 · Quy trình - Tools ngay trang Công thức
+Owner giao trực tiếp thêm thanh thu/mở cùng A–D, liệt kê quy trình chuẩn ngành và bổ sung vòng đời UI thiếu/lỗi. Đã thêm thanh `formula-process-tools`, đọc Master Tool SSOT qua renderer chung `tools-catalog-v1.js`; trang Tools dùng cùng renderer. 9 quy trình: 7 quy trình trước bổ sung bước/câu hỏi/đầu ra; Tool008 tách rõ quản lý thiếu/lỗi; Tool009 đóng gói/phát hành DOT (giữ legacyName của008).
+Vòng đời đề xuất: Ghi nhận → Phân loại → Giao xử lý → Đang xử lý → Chờ kiểm → Đóng, có nhánh quay lại/mở lại/bị chặn/trùng/để sau. Ghi cùng Sổ việc còn thiếu của MOW; Host phụ trách theo dõi, assignee xử lý, người kiểm xác minh. Chưa có assignee thực không ghi Đang xử lý. Quy trình ghi rõ nơi lưu, thông tin tối thiểu, vai trò, mốc rà và ví dụ OPEN-03. Chưa bật máy giao việc/nhắc hạn/triển khai DOT. Mục tiêu dùng lại75% là định hướng, không phải số đo hay chuẩn ngành bắt buộc.
+Không tạo task mới; không sửa cấu hình vận hành. Tiếp theo cùng Owner áp từng quy trình, bắt đầu Tool008; giữ yêu cầu nghiệp vụ chưa rõ trong sổ.
+
 ### Owner 07/10/2026 · Tools CTCM và kiểm như người mới
 Yêu cầu: chuẩn hóa việc lặp lại, ba MOT Tìm Field / Tìm nâng cao khi cần / Xác nhận phù hợp; xây quy trình và dần viết DOT.
 Đã đăng ký 8 quy trình đề xuất trong Master Tool có sẵn (ML-DEF-023), không tạo master hay task mới. Trang `/ui-preview/mcp-writes/tools-playbook-v1.html` đọc nội dung từ SSOT; gồm 8 câu/MOT, 24 ô áp thử, 16 nhánh nền, sổ 6 việc thiếu và lộ trình Tool→DOT. Hai công thức thao tác đề xuất tại ML-DEF-021; Rules R46–R48.
