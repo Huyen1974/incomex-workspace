@@ -102,7 +102,7 @@ Host: GPT Chat · Host_ID: GPT-VPSC-261007-R7B · vòng 4 tiếp quản theo ch�
 HTML chính: `view.html`
 
 ## Giấy phép vòng 4
-- **R7 HOLD do chuyển Host + sửa PROMPT:** READY cũ `4d4ea53366112070d641c953b2eb28561993e438` của Claude Chat **HẾT HIỆU LỰC**. Host GPT sẽ phát READY mới sau commit này; trước đó **không RUN**.
+- **R7:** PROMPT last-touch `7bf9169659db26468218392be4f59fe593d38120` · **READY@7bf9169659db26468218392be4f59fe593d38120 · Host GPT Chat** · READY cũ `4d4ea53366112070d641c953b2eb28561993e438` của Claude Chat **HẾT HIỆU LỰC**. **RUN chỉ hợp lệ khi có thêm `CODEX ACCEPT@7bf9169659db26468218392be4f59fe593d38120`.**
 - Lệnh executor chuẩn theo DROOT38 (chỉ dùng sau khi có READY mới + CODEX ACCEPT cùng SHA): `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
 
 ## Lịch sử trạng thái vòng 1–2
@@ -563,7 +563,7 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **Ba delta bắt buộc đã đưa vào PROMPT:** (1) B2 partition filesystem không chồng lấn/không xuyên mount/pseudo-fs + timeout fail-closed; (2) C2 cấm bless hash đang chạy nếu chưa chứng minh provenance từ repo/artifact đã nghiệm thu; (3) Guard không tự chứng minh an toàn cho chính bản sửa Guard — cần bằng chứng độc lập và Codex hậu kiểm.
 - **Blast radius giữ nguyên:** không restart/recreate/rebuild 6 dịch vụ lõi · không đổi version · không xoá · không xoay khoá · không đổi auth · không direct PG/Directus · không tắt/hạ đèn. D chỉ đo + đề xuất.
 - **Đánh giá dùng Codex:** ĐƯỢC dùng nhưng chỉ như lớp phản biện có thể sai; không dùng Codex làm executor R7. Vì mutation bị khóa ở Claude Code + PROMPT + READY/Reviewer gate, chất lượng Sol không phải single point of failure.
-- **Bước kế:** Host phát READY mới theo commit last-touch PROMPT; sau đó Codex review đúng bản mới. Chưa có ACCEPT thì không RUN.
+- **Bước kế:** READY mới đã phát tại `7bf9169659db26468218392be4f59fe593d38120`; Codex review đúng bản này. Chưa có `CODEX ACCEPT@7bf9169659db26468218392be4f59fe593d38120` thì không RUN.
 - Owner cần quyết: không có gì để R7 đi tiếp; O-R7-KEY vẫn tách N2 sau nghiệm thu.
 
 ## Owner cần quyết
