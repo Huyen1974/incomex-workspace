@@ -19,7 +19,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07
 Owner 07/10/2026: “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.” Lời Owner giao Codex ngay trước đó: “1 số dịch vụ tôi thấy dow/up quá nhiều và ngoài ra chúng ta đã bịt dò ổ cứng, kiểm tra lại nhiều lần, nhưng mỗi lần kiểm tra xong vẫn phát hiện ra 1 vài lỗi => ổ cứng vẫn đầy nhanh hơn mong đợi.” và “Chúng ta đã có điều 30/31 trong hiến pháp để bảo vệ các mã đã viết, việc này đã được bảo vệ đầy đủ chưa? có gì đang bug cần xử lý không?”
 
 ### 2. Thế nào là hoàn thành
-(đề xuất — chờ Owner gật) Telegram chỉ đỏ khi có sự cố thật: một lần trượt lẻ không báo, tin đỏ nêu đúng lý do. Mỗi GiB ổ đĩa mất đi đều có tên và có trần: chuông nói rõ chỗ nào tăng, không đo được thì đỏ. Mọi mã đang chạy đều có khoá Điều 30/31, và câu “bảo vệ đủ” chỉ xuất hiện khi máy đã đối chiếu từng tệp vừa đổi. Lỗi 502/503 có nguyên nhân được chứng minh bằng số đo và có phương án sửa để Owner gật.
+Owner 07/10/2026 bổ sung: **không được coi là xong khi còn khoảng 0,5 GiB/ngày tăng ở dạng không xác định; không chấp nhận một tháng lại quay lại dọn VPS.** XONG thật khi: (1) tăng do cài/build/trial có tên + owner + run/event + cap + TTL/retention; (2) tăng nền chưa rõ nguồn bị chặn/đo fail-closed, không được hợp thức hóa bằng nâng trần; (3) R7 PASS xong phải có receipt máy 24h mới chứng minh `UNKNOWN_DELTA_24H ≤64 MiB`, không cap/TTL breach, mọi tăng >128 MiB có tên; (4) 7d watcher tiếp tục canh `UNKNOWN_DELTA_7D ≤128 MiB`; (5) Điều 30/31 và 502/503 đạt như mục tiêu vòng 4. 24h là máy tự canh, không giữ terminal/Owner chờ.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
@@ -31,10 +31,11 @@ Owner 07/10/2026: “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng 
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 - **D17 · Owner 07/10 (lịch sử, trực tiếp với Claude Chat):** Claude Chat xem báo cáo Codex và điều hành sửa; Claude Code CLI sửa; Codex tiếp tục giám sát.
 - **D18 · Owner 07/10 10:42 +07 (trực tiếp với GPT Chat):** “Chuyển sang bạn host nhé.” ⇒ GPT Chat là Host hiện hành; Claude Code CLI vẫn sửa; Codex vẫn Reviewer/giám sát.
+- **D19 · Owner 07/10 (trực tiếp với GPT Chat):** “Nếu mỗi ngày phình ra khoảng 1/2GB ở dạng không xác định là quá nhiều… nếu không 1 tháng lại đi quay lại xử lý việc này 1 lần thì lấy đâu ra thời gian? … cần phải tự hỏi: thế nào là thực sự xong chứ?” ⇒ thay tiêu chí đóng: **không chấp nhận unknown drift ~0,5 GiB/ngày; final close cần bằng chứng máy 24h sạch sau R7**, không chỉ đèn xanh tức thời.
 - Một lệnh duy nhất cho Claude Code (R7), bốn gói A→B→C→D; mỗi gói tự bảo vệ xong mới sang gói sau (Owner 05/10: bảo vệ đến đâu chắc đến đó).
 - Không restart/rebuild 6 container lõi, không đổi phiên bản, không xoá, không xoay khoá trong R7; việc cần các thứ đó đi vào phiếu D6 → Owner gật → N2.
 - Đèn: luật 2 lần trượt phải đúng trên cả 22 đèn; không tắt/tạm dừng đèn, không hạ ngưỡng để lấy xanh (Owner 02/10: mọi thay đổi phải báo về Telegram và phải xanh thật).
-- Ổ đĩa: sổ phủ cả filesystem; phần chưa có tên > 1 GiB = đỏ; nhóm Graph trial trần 10 GiB (quyết định graph-server); chuông nêu tên chỗ tăng; không tự xanh khi chưa có tên.
+- Ổ đĩa: sổ phủ cả filesystem bằng allocated bytes/dedup; **trôi nền ~0,4–0,5 GiB/ngày hiện tại là BLOCKER**. Planned install/build/trial phải có CHANGE_EVENT + cap/TTL; Graph cap đúng `10_000_000_000` B. Unknown >64 MiB/24h hoặc >128 MiB/7d = đỏ; mọi tăng >128 MiB không có event/name = đỏ; không tự xanh khi cửa sổ trượt.
 - Đ30/31: POST-PROTECT phải tính footprint thật và đòi đủ 4 ô cho từng tệp đã đổi (AGENTS A10-R4); sổ mã đang chạy N/M/K.
 - Không giữ terminal chờ (D16); canh dài hạn do máy; Codex nghiệm thu một lượt sau KQ, không lập lịch AI.
 - Bài học PROOT01: không in tệp có khoá ra đầu ra công cụ.
@@ -103,7 +104,7 @@ Host: GPT Chat · Host_ID: GPT-VPSC-261007-R7B · vòng 4 tiếp quản theo ch�
 HTML chính: `view.html`
 
 ## Giấy phép vòng 4
-- **R7:** PROMPT last-touch `7bf9169659db26468218392be4f59fe593d38120` · **READY@7bf9169659db26468218392be4f59fe593d38120 · Host GPT Chat** · READY cũ `4d4ea53366112070d641c953b2eb28561993e438` của Claude Chat **HẾT HIỆU LỰC**. **RUN chỉ hợp lệ khi có thêm `CODEX ACCEPT@7bf9169659db26468218392be4f59fe593d38120`.**
+- **R7 HOLD — P53 DELTA + D19:** PROMPT đã đổi sau `7bf9169`; READY `7bf9169659db26468218392be4f59fe593d38120` **HẾT HIỆU LỰC**. Chưa có READY mới/CODEX ACCEPT mới ⇒ **không RUN**.
 - Lệnh executor chuẩn theo DROOT38 (chỉ dùng sau khi có READY mới + CODEX ACCEPT cùng SHA): `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
 
 ## Lịch sử trạng thái vòng 1–2
@@ -598,6 +599,14 @@ CODEX DELTA@7bf9169659db26468218392be4f59fe593d38120
 - **Đã đạt:** C2 giữ UNKNOWN/THIẾU khi thiếu provenance, không bless hiện trạng; Guard phải có bằng chứng độc lập; A1 giữ debounce ở sender + thử heartbeat; D chỉ đo/đề xuất, giữ cấm restart/version/xoá/auth. Không cần thêm tầng/phương án thay thế.
 - **JEV:** `gen-dec-1791346195-N6oj3WxZMImRM3PkWUEP`, raw excerpts hỗ trợ DELTA; bằng chứng phụ, verdict và từng sửa do Reviewer chịu trách nhiệm.
 - **Bàn giao:** Host xử lý DELTA 1–7 và đồng bộ A0/PROMPT, khóa SHA last-touch mới rồi chuyển Reviewer rà lại. Review này kết thúc ở DELTA; không cấp ACCEPT cho `7bf9169659db26468218392be4f59fe593d38120`, không cấp phép chạy.
+
+### P54 · GPT Chat (Host) · 07/10/2026 · ACCEPT P53 DELTA 1–7 + SIẾT “XONG THẬT” THEO D19
+- **P53:** ACCEPT đủ 7 DELTA. Host đã sửa PROMPT: PRE baseline độc lập trước A; footprint Kuma; proof Đ30 bind hash/version; taxonomy cùng cửa sổ; allocated-byte + inode dedup; Graph cap đúng 10.000.000.000 B; Kuma hai lỗi liên tiếp ⇒ `maxretries=1`.
+- **Đánh giá 0,4–0,5 GiB/ngày:** nếu lặp là khoảng 12–15 GiB/tháng, **không chấp nhận**. Bằng chứng hiện chỉ cho thấy phần lớn 7,5 GiB đã có bậc gắn Graph/R6C; phần ~0,4–0,5 GiB/ngày là residual ước lượng **chưa chứng minh là leak liên tục**, nhưng cũng **chưa được phép kết luận đã bịt**.
+- **Nguyên tắc mới:** byte tăng phải rơi vào file/layer/log/DB/cache/deleted-open/fs metadata. Tăng do cài chương trình là hợp lệ **chỉ khi có CHANGE_EVENT + owner + cap + TTL/retention**; nếu không vẫn là unknown.
+- **Cổng đóng:** R7 chạy xong chưa đóng VPSC. Máy tự lấy T0 và chứng minh 24h mới `UNKNOWN_DELTA≤64 MiB`, không breach; không giữ terminal/Owner chờ. 7d watcher tiếp tục ≤128 MiB. Fail ⇒ đỏ, không close/hoặc mở lại.
+- **Trạng thái:** bản `7bf9169` bị thay; chưa READY mới cho tới khi Host fresh-read PROMPT hiện hành rồi phát SHA mới. Codex sẽ review lại đúng SHA mới; vẫn chỉ Reviewer, 0 production mutation.
+- Owner cần quyết: không có; D19 là chỉ đạo trực tiếp, Host áp luôn.
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
