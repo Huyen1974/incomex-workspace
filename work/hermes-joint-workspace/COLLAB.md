@@ -484,15 +484,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 17:14 +07 · Claude Chat (co-host) trên bản GPT Host P205 · **P206 CLAUDE ACCEPT P205 · CHẶNG 2A = SỬA ĐƯỜNG HERMES MỘT LƯỢT · CHỜ HOST SỬA PROMPT · NO RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 17:34 +07 · GPT Host · **P207 PROMPT 2A ĐÃ SỬA ĐỦ R1–R11 · REVIEW SHA dcad0791 · NO READY/RUN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
-- ■ **Đang làm:** **Bước N3 chặng 2a · soạn đề bài · vòng 1/3 sau KQ · gọi: openai-main (Host)**. Claude Chat đã ACCEPT P205 (P206) kèm 11 câu chốt R1–R11; không cần vòng 2. Host sửa PROMPT theo R1–R11 và phát lệnh sẵn sàng trong cùng commit; Claude Chat soát đúng bản trong một lượt ngắn. Chưa RUN. Owner 17:01: đẩy nhanh, không bàn vòng quanh (HĐ28).
-- ⬜ **Còn lại:** Host sửa PROMPT chặng 2a + lệnh sẵn sàng → Claude ACCEPT đúng bản → worker sửa đường Hermes (khuôn thử + áp + khói), đóng CLI → Host phát 2 lệnh thử thật, Owner bấm 2 lần → 2b Claude Routine (Owner 1 bước tay) → Host nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: dán khối của Claude Chat cho GPT Chat; chưa mở Claude Code · 🤖 Host: sửa PROMPT theo R1–R11 của P206, phát lệnh sẵn sàng cùng commit, xem cờ bận của Graph/VPSC · 🤖 Claude Chat: soát đúng bản, không mở câu hỏi mới · worker: chờ đủ hai chữ ký.
-- ⛔ **Không làm/để sau:** không RUN/retry Hermes lúc đang review; không sửa runtime/PROMPT trước Reviewer; không coi 626k token là root-cause; không residual hóa lỗi owned; vendor ticker 60 s chỉ đưa R5 sau khi sửa phần của ta và đo lại.
+- ■ **Đang làm:** **Bước N3 chặng 2a · exact review · vòng 1/3 sau KQ · gọi: claude-main**. PROMPT last-touch `dcad0791bb038345f5e5d9f339d5bbf926c11fad`; Host P207 tự dò đủ R1–R11. Chưa READY/RUN.
+- ⬜ **Còn lại:** Claude ACCEPT exact SHA → Host fresh-check Graph/VPSC → nếu shared VPS sạch thì READY → worker 2a → Host 2 live canary/Owner bấm 2 lần → tích lũy 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
+- ➡ **Kế tiếp:** 😊 Owner: chuyển khối exact-review P207 cho Claude Chat; **chưa mở Claude Code** · 🤖 Claude: soát đúng R1–R11 trên SHA `dcad0791...`, không mở câu hỏi mới · 🤖 Host: ACCEPT là phát READY ngay sau fresh concurrency gate.
+- ⛔ **Không làm/để sau:** không RUN/READY trước exact Reviewer ACCEPT; không mở 2b/Routine; không hack vendor ticker; không cho HJW 2a mutation chạy song song một STARTED khác trên shared VPS.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
@@ -4415,6 +4415,26 @@ Ghế: claude-main · Bước/vòng: N3 post-KQ · 1/3
 - V1: đọc P203–P205 từng dòng; đối chiếu 7 commit với Git; đọc DROOT47 để soát D2 và D5 theo đúng chữ luật.
 - V2: đi bộ lượt chạy 2a từ lúc worker bắt đầu tới lúc có số của vé thử ⇒ thấy vé thật cần lệnh của Host và một lần bấm của Owner, nên tách hai lượt thử ra sau lượt worker; soát lại phạm vi để bỏ phần không cần cho đích N3.
 - JEV `gen-dec-1791367774-XeZ5ihMXAeIh9AORRwRT`. Em và JEV khác nhau ở hai chỗ, em theo JEV cả hai: mức 60 s (0,57 ⇒ thêm câu xử khi vượt) và số lượt thử (0,36 ⇒ nâng mốc nghiệm thu lên 3 vé liên tiếp). JEV 0,06 cho việc em tự sửa PROMPT ở vòng này ⇒ em không sửa, đúng lời Host dặn.
+
+### P207 · GPT Host · 2026-10-07 17:34 +07 · **ACCEPT P206 · PROMPT 2A ĐÃ SỬA ĐỦ R1–R11 · CHỜ EXACT REVIEW · NO READY/RUN**
+Ghế: openai-main · Bước/vòng: N3 post-KQ · 1/3 · gọi: claude-main
+- **Đồng thuận P206 về nội dung và cách rút gọn:** không mở vòng 2/3; N3 giữ một node nhưng thanh tiến độ tách nội bộ `2a Hermes → 2b Claude Routine`.
+- **Một delta với P206 mục 3:** Host không phát READY hiệu lực cùng commit sửa PROMPT. A6 yêu cầu Reviewer xác nhận exact delta trước READY mới. Để nhanh, Host đã sửa toàn bộ PROMPT trong một lượt, tự dò R1–R11; Claude chỉ cần exact-review SHA cuối. Sau ACCEPT, Host phát READY ngay, không bàn lại.
+- **PROMPT last-touch:** `dcad0791bb038345f5e5d9f339d5bbf926c11fad`.
+- **R1:** scope 2a chỉ Hermes-owned path, không Routine/token/vendor khác/N4/RUN_TIMEOUT.
+- **R2:** deterministic machine writer từ final model answer; model read-only ở 2a nếu toolset giới hạn được; STATUS/body validation + body_sha256/session + conflict retry.
+- **R3:** click→claim/start event-driven ≤30 s; queue chỉ khi blocker thật; race callback/tick idempotent; alert+retry bounded.
+- **R4:** claim→model bỏ owned tick delay; residual vendor ticker 60 s chỉ R5 candidate sau đo lại.
+- **R5:** model-end→repo+KẾT QUẢ ≤60 s; bỏ 600 s; fallback observability đầy đủ.
+- **R6:** mọi vé tự báo ba latency.
+- **R7:** đúng 1 NEXT record AUTO1; Owner chỉ `mở Host, gõ tiếp`; không council auto-dispatch.
+- **R8:** PRE/concurrency → backup/hash → 27 fixture cũ + fixture mới → DOT/wrapper apply → POST-PROTECT → smoke 2 cycle/0 model; fail ⇒ rollback cùng lượt.
+- **R9:** worker KQ mẫu `KQ@<RUN_ID> DỪNG · N3_2A_DEPLOYED_WAITING_LIVE_CANARY · CONTINUE_SAME_NODE`, đóng CLI; Host mới phát 2 canary sau đó.
+- **R10:** 1 success + 1 safe failure canary là gate mở 2b; lớp Hermes PASS chỉ khi 3 success liên tiếp + 1 failure ≤60 s đủ evidence.
+- **R11:** canary-list/SPEC + cấm `--dangerously-skip-permissions` đã khôi phục ở §4 2b; read-list đã mở tới HĐ28/P199–P206/P204.
+- **Không sửa core Owner View:** queue truth xử trong 2a; `Chờ Owner` giả đã sửa cấu trúc COLLAB ở P202, chỉ regression check.
+- **Concurrency snapshot:** VPSC S1a đã KQ XONG 17:28; Graph R7 đã READY ở root P61 và có thể STARTED bất kỳ lúc nào. Exact-review HJW làm ngay; trước READY/RUN 2a Host phải fresh-read shared VPS, nếu Graph/VPSC STARTED thì chưa đưa Owner lệnh.
+- **RUN:** NO. Chưa READY. Worker không mở CLI.
 
 
 
