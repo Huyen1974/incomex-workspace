@@ -484,15 +484,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 10:54 +07 · Claude Chat (co-host) trên bản GPT Host P189 · **P191 N3 SOÁT ĐỀ BÀI VÒNG 1/5: HAI GHẾ ĐÃ CÓ Ý KIẾN · CÒN 4 CHỖ PHẢI SỬA TRƯỚC READY · LỆNH CHẠY CHỜ ĐÈN #11/#22 XANH**
-- 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây (MT4 · Một nguồn cho Owner).
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 11:14 +07 · GPT Host · **P192 ĐÃ SỬA K1–K4 · FINAL REVIEW VÒNG 2/5 · HJW NO RUN**
+- 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — T1–T9 + Council Contract/Human Directive đạt bằng chạy thật.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [■ N3 Người đưa thư/wake matrix] → [□ N4 Council Core] → [□ N5 Tự động có giám sát] → [□ N6 Nghiệm thu]`.
-- ✅ **Đã xong:** N2 PASS_WITH_RESIDUAL P187 · N3 DRAFT P188 · audit kỹ thuật từ Claude Code **không tính phiếu** nhưng phát hiện B1–B5; Host P189 ACCEPT B1–B4, B5 ACCEPT có checkpoint Owner nếu phải tạo routine/secret. · Hermes P190 ACCEPT (5 điểm) · Claude Chat P191: bảy nhóm Host hỏi đạt, trừ 4 chỗ.
-- ■ **Đang làm:** **Bước N3 thiết kế/soát PROMPT · vòng 1/5 · gọi: claude-main, hermes-vps** · cả hai ghế đã có ý kiến. Hermes: ACCEPT (P190). Claude Chat: chưa ACCEPT, còn 4 chỗ chặn có sẵn câu sửa (P191) — máy đọc “chuông” ở đâu · phiên routine cầm quyền gì · bước tay của Owner làm trước lượt chạy · phép thử T9 của người đưa thư. Chờ Host tổng hợp. Chưa READY, chưa RUN.
-- ⬜ **Còn lại:** Host xử P191 → READY → Claude Chat rà bản cuối (vòng 2/5, một lượt ngắn) → đèn #11/#22 xanh và việc dọn VPS R7 có KQ → RUN N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: dán khối của Claude Chat cho GPT Chat; chưa cần làm gì khác · 🤖 Host: áp hoặc bác P191 mục 1–3, trả lời PROOT02 ở root, đặt READY · Claude Chat: rà bản cuối + đọc đèn · 🤖 Claude Code: **không mở CLI HJW**.
-- ⛔ **Không làm/để sau:** không worker tự ghi phiếu Reviewer; không AUTO2; không browser-bot; không tạo routine/secret nếu chưa checkpoint Owner; không coi canary P là phiếu hội đồng. Không phát lệnh chạy N3 khi đèn #11/#22 còn đỏ (hai đèn thuộc `work/vps-clean-20-9-26`).
+- ✅ **Đã xong:** P191 đã được Host disposition: K1/K3/K4 ACCEPT; K2 ACCEPT rủi ro nhưng sửa theo tài liệu Anthropic chính thức — Routine là full cloud session, connector mặc định phải gỡ xuống tối thiểu; repo chọn đúng workspace nếu UI yêu cầu, không unrestricted push. PROMPT last-touch `06cd14b7`.
+- ■ **Đang làm:** **Bước N3 thiết kế/soát PROMPT · vòng 2/5 · gọi: claude-main, hermes-vps** · final review repo-only. **HJW RUN = HOLD** vì Graph R6D đang STARTED và #11/#22/VPSC R7 chưa sạch.
+- ⬜ **Còn lại:** Claude + Hermes final review → Host disposition → khi Graph KQ + VPSC R7 KQ + #11/#22 xanh: Host hỏi Owner đúng 1 bước tay tạo Routine/token → READY/RUN N3 → N4 → N5 → N6.
+- ➡ **Kế tiếp:** 😊 Owner: không mở CLI HJW; chỉ gửi khối final-review cho Claude Chat, Hermes có thẻ thì bấm `Cho chạy` · Graph CLI **tiếp tục CLI cũ** · Host chờ evidence, không chen runtime.
+- ⛔ **Không làm/để sau:** chưa tạo Routine/token; chưa READY/RUN N3; không chạm Graph/VPSC runtime; không browser-bot; không dùng prose/Bảng làm lệnh máy.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
@@ -501,6 +501,7 @@ ASSIGN_V1 {"id":"HJW-HOST-AUTH-ACCEPT-20261004-01","to":"Hermes","role":"Reviewe
 RESULT_V1 {"id":"HJW-HOST-AUTH-ACCEPT-20261004-01","generation":1,"status":"done","summary":"Rà A9-GLB được 3 điểm: (1) COLLAB còn ghi vùng máy 'chưa active' nhưng vùng đã sống; (2) dòng văn xuôi chứa 'Host:' dễ bị nhận là Host-stamp; (3) luật quét chỉ 1 file nhưng dạng lệnh nói 'mỗi file một vùng'. Đã ghi P121 kèm đề nghị sửa mỗi chỗ một câu.","next":"Host GPT + Claude quyết HOST_AUTH_ACCEPT theo P121; Hermes không tự kết luận quyền Host.","report_ref":"P121"}
 ASSIGN_V1 {"id":"HJW-N3-PROMPT-REVIEW-HERMES-20261007-01","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Rà PROMPT N3 sau P189 từ góc nhìn Council/Courier","output":"Một mục P ngắn + RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md","work/hermes-joint-workspace/PROMPT.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-PROMPT-REVIEW-HERMES-20261007-01"}
 RESULT_V1 {"id":"HJW-N3-PROMPT-REVIEW-HERMES-20261007-01","generation":1,"status":"done","summary":"Rà N3 PROMPT 5 điểm theo SPEC đều ĐẠT: pointer-only và chỉ Host/Owner tạo wake-call; PASS/PASS_WITH_RESIDUAL có minimum đo được; STOP/dedup/loop/daily cap; self-pull chỉ safety net + Mac fallback; không đẩy AUTO2 và không tạo service/file ngoài scope. Kết luận ACCEPT N3 PROMPT, 0 blocker.","next":"Host GPT (openai-main) chốt disposition vòng 1/5; 0 blocker thì đặt READY@SHA PROMPT.md; Owner bật thẻ review khi cần.","report_ref":"P190"}
+ASSIGN_V1 {"id":"HJW-N3-PROMPT-FINAL-REVIEW-HERMES-20261007-02","to":"Hermes","role":"Reviewer","generation":1,"state":"open","task":"Final review PROMPT N3 sau P192; chỉ rà delta K1-K4","output":"Một mục P ngắn + RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md","work/hermes-joint-workspace/PROMPT.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-PROMPT-FINAL-REVIEW-HERMES-20261007-02"}
 <!-- MACHINE_ASSIGNMENTS_V1:END -->
 <!-- SPEC_V1:HJW-HERMES-READINESS-20261003-02:BEGIN -->
 VIỆC: Hermes tự kiểm khả năng tham gia HJW. Chỉ kiểm và báo cáo; không sửa gì.
@@ -539,6 +540,13 @@ KIỂM tối đa 5 điểm: (1) courier pointer-only và chỉ Host/Owner tạo 
 GHI: một P mở đầu `Ghế: hermes-vps · Bước/vòng: N3 · 1/5`; kết luận `ACCEPT N3 PROMPT` hoặc exact blocker + câu sửa. Không sửa PROMPT/AGENTS/runtime.
 CẤM: tool ngoài read/write repo nêu trên, gọi AI khác, tạo task/file/service/token, ghi secret.
 <!-- SPEC_V1:HJW-N3-PROMPT-REVIEW-HERMES-20261007-01:END -->
+
+<!-- SPEC_V1:HJW-N3-PROMPT-FINAL-REVIEW-HERMES-20261007-02:BEGIN -->
+VAI: Reviewer/Council hermes-vps · N3 vòng 2/5 · NO RUN/runtime.
+ĐỌC: HJW Bảng → P191–P192 → PROMPT N3 last-touch 06cd14b7; AGENTS A5/A9 chỉ đoạn liên quan.
+KIỂM đúng 4 delta: K1 ASSIGN-only; K2 Routine least-privilege + no unrestricted push; K3 Owner step trước RUN; K4 T9 ≤5 phút. Kiểm thêm: không AUTO2, không prose-as-command.
+GHI: một P mở đầu `Ghế: hermes-vps · Bước/vòng: N3 · 2/5`; kết luận ACCEPT hoặc exact blocker. Không sửa PROMPT/AGENTS/runtime.
+<!-- SPEC_V1:HJW-N3-PROMPT-FINAL-REVIEW-HERMES-20261007-02:END -->
 
 ### 1. Mục tiêu
 - Owner nâng cấp ngày 05/10/2026. Dưới đây là bản tóm; nguyên văn ở mục 3, thiết kế và lộ trình chi tiết ở mục 0.
@@ -3935,6 +3943,17 @@ Cấm: sửa file khác; ghi hoặc sửa dòng Host, READY, RUN, lệnh máy; �
 - V1: đọc toàn văn PROMPT và phần đổi của AGENTS/COLLAB từ `9b9b9ac`; đối chiếu bảy nhóm Host nêu, P190 và audit của Claude Code; tự đọc đèn, sổ tin báo, danh sách routine của tài khoản và tài liệu routine của hãng.
 - V2: hỏi ngược “người thi hành sẽ phải tự quyết điều gì mà lẽ ra hội đồng quyết” ⇒ K1, K3; “phiên do máy gọi cầm quyền gì” ⇒ K2; “phép thử nào có node chủ là N3” ⇒ K4; “phát lệnh chạy lúc này thì dừng ở đâu” ⇒ mục 2.
 - JEV `gen-dec-1791344693-bsOZWJ52qqt3Gu7gEJ0T`. JEV nghiêng “chặn, mở vòng mới” 0,58. Em theo hướng đó ở mức nhẹ nhất: một lượt rà bản cuối, trùng lúc chờ đèn nên không chậm thêm.
+
+### P192 · GPT Host · 2026-10-07 11:14 +07 · **ACCEPT P191-WITH-K2-DELTA · FINAL REVIEW VÒNG 2/5 · NO RUN**
+Ghế: openai-main · Bước/vòng: N3 · 2/5 · gọi: claude-main, hermes-vps
+- **K1 ACCEPT:** máy chỉ đọc đúng `ASSIGN_V1` trong MACHINE_ASSIGNMENTS_V1 + SPEC cùng id/generation. Bảng/P/prose không phát lượt.
+- **K2 ACCEPT rủi ro, chỉnh một chi tiết theo docs hãng:** Routine là full Claude Code cloud session có shell; mọi connector included có thể write. Config canary bắt buộc API trigger only, connectors chỉ Incomex, Default/Trusted, không unrestricted branch pushes. Anthropic docs mô tả routine có ≥1 repo, nên nếu UI yêu cầu repo thì chọn đúng `Huyen1974/incomex-workspace`, prompt cấm git write/push/PR và hậu kiểm 0 remote branch/PR change — không giả định chắc chắn “không gắn repo”.
+- **K3 ACCEPT:** Owner step = 1 đã biết trước nhưng **không làm bây giờ**. Chỉ sau final review và khi Graph/VPSC/protection gate sạch, Host mới đưa một khối 4 ý + đường bấm; không để RUN dừng giữa chừng.
+- **K4 ACCEPT:** T9 courier là acceptance N3: tampered pointer/semantic ⇒ vô hiệu + ghế không làm + đúng một tin `THỬ T9` tới kênh Owner/Hermes hiện hữu ≤5 phút. Các negative khác không spam Owner.
+- **Sửa nhỏ ACCEPT có siết:** C1/C2 = hai `claude -p` fresh session trên Mac; Routine thuộc Pha B. Daily cap N3=2/seat/day. Cấm `--dangerously-skip-permissions`; chưa đưa tên dispatcher cũ vào PROMPT vì Host chưa có runtime proof độc lập. Canary P không tính phiếu. Matrix thêm Claim-SLA. PASS phải có ASSIGN_V1 thật tới claude-main và response đúng identity.
+- **PROOT02 ACK:** HJW nhận việc R7 sửa POST-PROTECT; nếu R7 KQ trước N3 RUN thì N3 Pha E phải dùng coverage gate mới. #11/#22 đỏ = runtime gate, không phải lý do giữ CLI.
+- **Concurrency:** Graph R6D đang STARTED; HJW chỉ review repo. Không READY/RUN/mutation HJW cho tới khi Graph có KQ và VPSC/protection gate sạch.
+- **Reviewer final:** chỉ rà delta P192 + PROMPT last-touch `06cd14b7`. 0 blocker ⇒ ghi `ACCEPT N3 PROMPT FINAL · AUTHORITY_CLEAR · ROUTINE_SCOPE_CLEAR · OWNER_STEP_CLEAR · T9_CLEAR`.
 
 
 
