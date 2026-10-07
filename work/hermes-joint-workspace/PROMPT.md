@@ -1,154 +1,247 @@
-# PROMPT — HJW · N2 OPENAI DOTS INTEGRATION
+# PROMPT — HJW · N3 COURIER / WAKE MATRIX · AUTO1 ASSISTED
 
-RUN_ID: HJW-N2-OPENAI-DOTS-20261006-01
-STATUS: DRAFT · Host P168 soạn · Claude P170 đã rà một vòng và sửa thẳng bảy chỗ C1–C7 (bảng ở P170 mục 2) · chờ Host rà delta rồi READY; chưa RUN
-Host: GPT Chat · GPT-HJW-260922-A
+RUN_ID: HJW-N3-COURIER-WAKE-20261007-01
+STATUS: DRAFT · Host P188 soạn sau N2 PASS_WITH_RESIDUAL/P187 · chờ Claude Reviewer vòng 1/5 · CHƯA READY · CHƯA RUN
+Host: GPT Chat · GPT-HJW-260922-A · Owner đã chỉ định cho HJW hiện tại
 Reviewer: Claude Chat
-Primary_Executor: Claude Code CLI cho server/config/protection và cho thao tác giao diện OpenAI qua Chrome đã đăng nhập của Owner (§2 mục 6); dot của Owner là target surface phải tự tạo live evidence bằng identity của chính nó
+Executor_Surface: Claude Code CLI phiên MỚI trên Mac cho inventory/orchestration + SSH/trusted-runner checks; các phiên canary được N3 gọi phải là phiên MỚI tách vai theo §5
 Write_Path: repo qua workspace_*; runtime/config chỉ qua DOT/wrapper/apply path hiện hữu; không ad-hoc
-Node: N2 / 6 · Roadmap SSOT HJW 0.9 + 0.17
-Owner_steps: Pha A = 0. Có mutation ⇒ dự kiến đúng một lần bấm “Cho phép áp” khi Claude Code hỏi (auto-mode chặn ghi máy chủ). Ngoài ra chỉ gọi Owner cho một thao tác human-only thật sự (OAuth/account approval) hoặc đúng một quyết định R5. **Không giữ RUN/task/terminal/browser sống để chờ Owner.**
+Node: N3 / 6 · Automation target = AUTO1 ASSISTED
+Owner_steps: 0 trong inventory/canary nếu auth hiện hữu đủ. Chỉ gọi Owner cho OAuth/account approval/human-only thật sự hoặc mutation approval mà auto-mode bắt buộc. DROOT43: checkpoint + KQ DỪNG sạch, không giữ terminal/model/browser chờ.
 
 ## 0. Mục tiêu duy nhất
-Cắm **dot của Owner (OpenAI “dots”) như một agent thay được** vào HJW bằng đường **chính thức tốt nhất, ít thay đổi nhất, kiểm chứng được** (Owner 05/10: “kết nối tối ưu GPT DOT”); chưa giao Dot điều hành production.
 
-**Đích là dot.** ChatGPT Work (tác vụ theo lịch/sự kiện) là đường chính thức của cùng tài khoản: được dùng làm “chuông cửa” nếu dot không có trigger riêng, và ghi thành dòng riêng trong bảng Pha A. Không trộn hai sản phẩm thành một.
+Biến phần **nhắc lượt/copy-paste giữa các AI** thành máy làm, nhưng vẫn giữ Owner là người chỉ định Host và còn điều hành ở giai đoạn đầu.
 
-Đo và nếu khả thi triển khai đủ bốn năng lực:
-1. **Repo access** — target OpenAI đọc/ghi đúng workspace/repo được phép.
-2. **Identity** — ghi bằng identity server-side riêng, không mượn `gpt-web/openai-mcp` hay courier; **cách ly hai chiều**: dot không dùng được danh tính `gpt-web` (danh tính máy đang dùng để kiểm quyền Host, DROOT41) và phiên GPT Chat không dùng được danh tính của dot.
-3. **Scope** — read/write do server/gateway cưỡng chế; ngoài phạm vi bị từ chối.
-4. **External wake** — event/task hợp lệ đánh thức dot mà Owner không copy-paste. **Thanh đo (Host + Reviewer làm rõ, không nới):** tín hiệu do máy phát, không người bấm ⇒ dot tự chạy đúng một lượt và ghi nhận trong **≤ 10 phút**; lúc không có việc thì không tốn lượt mô hình (D05).
+N3 phải đo + thử + nếu đủ điều kiện thì bật một lớp **courier/wake AUTO1** có ba tầng:
+1. **Đường chính:** Hermes VPS/trusted runner gọi **official direct invocation** của hãng bằng một con trỏ ngắn tới SSOT repo.
+2. **Lưới an toàn song song:** self-pull/event/schedule chính thức của chính AI nếu hãng có; không được coi đường chậm/đốt model khi idle là đường chính.
+3. **Fallback:** Hermes-Mac/Mac mini dùng official local CLI/app; Owner tay là lối cuối.
 
-N2 kết thúc bằng đúng một phân loại:
-- `DIRECT_PASS`: access + identity + scope + live external wake đều PASS bằng đường hãng hỗ trợ.
-- `COURIER_REQUIRED`: access + identity + scope PASS nhưng hãng không có wake phù hợp sau khi đã đo đủ; residual sang N3 theo R5. Chỉ có lịch cố định mà lần nào cũng chạy mô hình, hoặc trễ hơn thanh đo ⇒ ghi kèm `SCHEDULE_ONLY:<chu kỳ>`, **không** tính WAKE_PASS; Owner quyết ở R5.
-- `VENDOR_LIMIT`: gói/vùng/tính năng chặn một năng lực bắt buộc khác. Gồm cả trường hợp hãng không cho cách ly danh tính: `VENDOR_LIMIT:identity_isolation`.
+**Browser UI automation/scraping = DISABLED_BY_DEFAULT.** Không bot gõ vào chatgpt.com/claude.ai để giả courier.
 
-Không code lách UI để giả PASS.
+N3 không xây Council Core N4, không tự chọn Host, không mở AUTO2/AUTO3.
 
-## 1. Luật khóa
-- Đọc `AGENTS.md` → root `COLLAB.md` → HJW Bảng → §0.3 → §0.9 → §0.17 → P167 → P168 → file này.
-- Áp A6, DROOT30/31/34/37/42/43 và R1/R3/R5 tại §0.17.
-- **DROOT43:** cần Owner auth/approval/R5 ⇒ checkpoint + `KQ DỪNG` sạch rồi tắt executor; resume **cùng RUN_ID**, không mở waiter/RUN/node mới.
-- Không mở task/project/file tiến độ mới; không dựng gateway/service/DB/UI mới nếu đường hiện hữu đủ.
-- **Cổng và quyền khởi đầu của dot do Host + Reviewer chốt, executor không tự chọn:** dot vào bằng **cổng agent chung D13** (`/api/mcp-agent`, cùng loại với Hermes), hồ sơ riêng `openai-dot` **sao khuôn hồ sơ `hermes`** (cùng bộ tool, cùng kiểu phạm vi đọc/ghi), nhãn máy `agent-gw/openai-dot`. **Không** cấp route 37 tool của `gpt-web`/`claude-chat-web`. Lý do: T4 đòi đổi agent bằng một dòng chính sách nên các agent phải cùng khuôn; mở rộng quyền là việc của chính sách ở N5, do Owner. Dòng nhãn A9 cho `agent-gw/openai-dot` đã có trong AGENTS (P170); executor không sửa AGENTS.
-- Không build/release `agent-data` trong N2 trừ khi evidence chứng minh blocker duy nhất và Host+Reviewer sửa prompt/READY trước.
-- `AUTO_ALLOWLIST` giữ rỗng; N2 không bật AUTO.
-- Không ghi secret/token/private IP/chat id vào repo.
-- Mutation N2 phải vào D30/31 + Config/Protection Guard + rollback/receipt trong chính N2.
-- Không sửa CWEB/#22 trong N2. Green gate là điều kiện RUN/mutation, không phải lý do agent ngồi chờ.
+## 1. Acceptance — N3 xong khi
 
-## 2. Cổng vào — không chờ
-1. Re-read Bảng + prompt; READY phải trỏ đúng last-touch; không HOLD/STOP.
-2. Fresh-check shared mutation/concurrency. RUN khác đang `STARTED` chưa KQ trên máy chủ dùng chung ⇒ Pha A vẫn làm; tới mutation mà còn vậy ⇒ `KQ DỪNG · CONCURRENCY_GATE`, không chờ.
-3. Fresh protection/registry:
-   - Pha A read-only được làm kể cả khi có đèn ngoài N2 đang đỏ.
-   - Trước mutation đầu tiên và live acceptance cuối: protection phải PASS/green bởi surface check được thật.
-   - Đỏ ngoài N2 ⇒ gọi **đúng một lần** cơ chế one-shot/check hiện hữu của chính đèn đó (tiền lệ P160; không sửa config/code) rồi đọc lại ngay; còn đỏ ⇒ `KQ DỪNG · EXTERNAL_GREEN_GATE` kèm tên đèn. **Không sleep/poll.** (06/10 đèn #23 tự đỏ 4 phút rồi xanh; một lần chớp không được làm hỏng cả lượt.)
-4. Dùng tài khoản/surface OpenAI thật + tài liệu OpenAI chính thức hiện hành; không dùng blog/community làm nguồn năng lực.
-5. Sign-in/OAuth/consent nếu thật sự cần thì gom thành **một lượt human-only**, không hỏi lắt nhắt.
-6. **Thao tác giao diện OpenAI:** executor làm qua Chrome đã đăng nhập của Owner theo cách N1 P152 — địa chỉ/khoá bí mật chỉ đi qua clipboard; kiểm đúng ô và độ dài trước khi bấm; không chụp màn hình khi bí mật đang hiện; trả lại nguyên trạng tab và bản nháp của Owner. Phiên không có công cụ trình duyệt ⇒ gom thành đúng một lượt việc tay ở checkpoint, không tự tìm đường khác. Chỉ dùng để cài đặt, quan sát và gõ câu khởi động cho phép thử Pha C; **không** dùng để giả wake (§6 mục 5).
+### A. Wake matrix thật
+Có bảng cho tối thiểu các surface/seat hiện hành:
+- OpenAI-main: GPT Chat/Work/Dot — một ghế, task chọn đúng một bề mặt;
+- Codex;
+- Claude Chat/Cowork hoặc cloud/routine nếu tài khoản có;
+- Claude Code CLI;
+- Hermes VPS;
+- Hermes-Mac/Mac mini.
 
-## 3. PHA A — INVENTORY CHÍNH THỨC + LIVE ACCOUNT · READ-ONLY
-Lập một bảng:
-`Năng lực | đường chính thức | live account thấy gì | identity | scope | wake/trigger | evidence | kết luận`.
+Mỗi hàng:
+`Seat | Vendor | Official path | Current account sees | Auth boundary | Server identity | Trigger | Claim latency | Idle model cost | Quota/cost | Receipt | Policy source/date | Live result | Class`
 
-Bắt buộc giải U3/U4 trước mutation:
-- GPT hiện thấy `Incomex_MCP_full_all_2` primary 37-tool, identity `gpt-web/openai-mcp`.
-- GPT còn thấy `Incomex_AgentData_MCP___GPT_Full_TEST20` 37-tool, cùng roots — **duplicate-registration candidate**, chưa xoá chỉ vì tên “test”.
-- Map opaque app/connector IDs bằng manifest/tool/route evidence thành `PRIMARY / DUPLICATE_REGISTRATION / DISTINCT_RUNTIME / UNKNOWN_WITH_REASON`.
-- Liệt kê registration/plugin/app mà target thực sự thấy; không suy từ memory.
+Class chỉ một trong:
+`PRIMARY_DIRECT | SELF_PULL_SAFETY | LOCAL_FALLBACK | MANUAL_ONLY | POLICY_UNCERTAIN | VENDOR_LIMIT`.
 
-Đo đường chính thức theo thứ tự (mỗi dòng: tài liệu chính thức + tài khoản thật):
-1. Plugin/App/connected app hiện hữu, gồm connector MCP tuỳ biến. Trả lời rõ ba câu **trước mọi mutation**: (a) dot có gọi được connector MCP tuỳ biến không; (b) hãng có cho gắn/giới hạn connector theo từng dot không; (c) **hiện tại** dot có thấy hoặc gọi được connector mang danh tính Host (`Incomex_MCP_full_all_2`, bản TEST20) không — thử bằng một lệnh **đọc**, không ghi. (c) = có ⇒ ghi ngay phát hiện `HOST_IDENTITY_SHARED` lên COLLAB cho Host + Reviewer; không tự xử.
-2. Máy cloud riêng của dot: có gọi ra một địa chỉ HTTPS bằng khoá riêng được không. Nếu plugin là cài đặt dùng chung của tài khoản thì đây có thể là đường duy nhất tách được danh tính.
-3. **Liệt kê đủ mọi loại trigger chính thức**, không chỉ GitHub: lịch/kiểm định kỳ của dot · tác vụ Work theo lịch · tác vụ Work theo sự kiện, **chỉ cho event hãng thật sự hỗ trợ** · dot trong Slack/Teams nếu tài khoản có. Chấm từng loại theo thanh đo ở §0 mục 4. Máy chủ Incomex phát đúng một sự kiện mà hãng hỗ trợ để gọi dot (“chuông cửa”) là đường chính thức, không phải lách.
-4. Work Cloud Browser/browser chính thức khi cần signed-in action.
-5. Sau đó mới kết luận thiếu external wake.
+### B. Primary courier canary
+Hermes VPS/trusted runner phải live-call bằng đường chính thức được **ít nhất một Anthropic seat** và **ít nhất một OpenAI-family seat** (OpenAI-main hoặc Codex), hoặc chứng minh bằng evidence rằng vendor hiện không cho và ghi residual rõ.
 
-Ứng viên Reviewer đọc ở trang trợ giúp OpenAI ngày 06/10 qua công cụ tóm tắt — **phải kiểm lại trên tài khoản thật, không coi là sự thật**: plugin của dot dùng chung cài đặt ChatGPT của tài khoản · dot tự làm việc theo lịch/kiểm định kỳ và rà nền, có máy cloud riêng · Work có tác vụ theo sự kiện cho thư Gmail mới, tin Slack mới, hoạt động PR GitHub (tối đa 30 lần/giờ) và lịch tối đa một lần/giờ ở gói trả phí · trang về dot không nhắc webhook/API.
+Canary phải:
+- 0 Owner copy-paste sau khi bắt đầu;
+- courier chỉ gửi `task · step · round · seat · pointer`, không gửi prompt semantic;
+- phiên đích tự đọc đúng đoạn repo rồi ghi đúng một receipt/P ngắn;
+- có provider/session/run id hoặc receipt tương đương;
+- log start/end/latency/identity/result, không lộ secret;
+- max 2 live calls/seat trong RUN này.
 
-**Không suy diễn:** cloud browser hay event task không tự chứng minh arbitrary external wake vào một chat/agent bất kỳ.
+### C. Claude dual-role trial
+Thử hai phiên Claude **MỚI**:
+1. `role=reviewer`: đọc N3 pointer + đúng đoạn cần thiết, ghi đúng một mục P nhận xét/canary receipt.
+2. `role=worker`: nhận một sub-assignment N3 đã duyệt sẵn, làm một tác vụ an toàn/bounded và ghi canary result.
 
-Pha A chưa có bảng ⇒ **cấm cài/config**. Nếu đã đủ bằng chứng `VENDOR_LIMIT`, đi thẳng §8.
+Bắt buộc đo identity phía server:
+- nếu cả hai cùng `claude-code` ⇒ hai vai dùng được nhưng **không tính hai seat/quorum độc lập**;
+- nếu routine/cloud và CLI có identity khác thật ⇒ ghi evidence rồi mới tính khác seat.
+Worker không tự nghiệm thu KQ của chính mình.
 
-## 4. PHA B — DELTA TỐI THIỂU / CHECKPOINT
-Nếu access + identity + scope làm được bằng gateway hiện hữu:
-- **Executor chỉ được tự áp các thay đổi trong danh sách này** (cùng khuôn N1 R4-8a, hội đồng đã soát): (1) một khoá mới trong GSM cho hồ sơ dot; (2) một hồ sơ `openai-dot` trên cổng agent bằng config hiện hữu; (3) một route bí mật tới cổng agent sinh bằng `dot-connector-sync` (nâng DOT thêm đúng loại route này nếu chưa có); (4) dòng sổ `connectors.json` + INV20 + Config Guard + sổ tin báo cho đúng những thứ vừa thêm; (5) nạp lại agent-data **tối đa một lần**, không build. Mọi thứ đi qua `incomex-config-apply-v0`.
-- **Cần gì ngoài danh sách** (đặt khoá lên máy cloud của dot, thêm đường phát thư/Slack/PR để rung chuông, nối app mới của Owner, đổi quyền hồ sơ khác…) ⇒ ghi exact change + rollback + negative tests rồi `KQ DỪNG · DELTA_REVIEW_REQUIRED · CONTINUE_SAME_NODE`; Host + Reviewer soát một lượt, resume cùng RUN.
-- Pha A trả lời (b) = không (plugin không gắn riêng được cho dot) ⇒ đường plugin không tách được danh tính: **không áp danh sách trên cho đường plugin**; xét đường máy cloud riêng của dot (ngoài danh sách ⇒ `DELTA_REVIEW_REQUIRED`) hoặc kết luận `VENDOR_LIMIT:identity_isolation`.
-- Identity target riêng: hồ sơ `openai-dot`, nhãn `agent-gw/openai-dot` (§1); server suy từ credential, `clientInfo` không quyết identity.
-- Read/write scope tách riêng và enforce ở choke point chung.
-- Thu hồi profile không làm surface GPT/Claude khác hỏng.
-- Mapping attribution A9 cho `agent-gw/openai-dot` đã có (P170); executor kiểm có dòng đó trước first write.
-- **Không cổng mới, duplicate proxy, build agent-data** nếu config hiện hữu đủ.
+### D. Self-pull safety net
+Đo ít nhất một cơ chế self-pull/event/schedule chính thức nếu tài khoản/hãng có.
+- cadence > claim timeout hoặc idle vẫn tốn model ⇒ chỉ `SELF_PULL_SAFETY`, không PRIMARY;
+- ghế chỉ có self-check: claim timeout = chu kỳ check + 15 phút;
+- không tạo polling model dày để cố đạt SLA.
 
-Nếu cần server config/secret hoặc Owner OAuth:
-- ghi exact change + rollback + negative tests;
-- Owner human-only thật sự ⇒ `CHECKPOINT_N2_OWNER_ACTION` + đúng một thao tác + `KQ DỪNG · CONTINUE_SAME_NODE`; tắt executor, không chờ.
+### E. Safety/policy
+- official docs hiện hành của từng hãng được re-check ngay trong RUN;
+- không copy session/login credential từ Mac lên VPS;
+- secret chỉ qua loader/secret boundary hiện hữu;
+- không cài browser bot, extension automation, scraping output;
+- global STOP hiện hữu phải thắng courier;
+- dedup/idempotency: cùng `task+step+round+seat+generation` không wake hai lần;
+- chống loop: chỉ courier/dispatcher được wake seat; AI nhận việc không được tự gọi AI khác trong canary;
+- không có COUNCIL_ALERT / DIRECTIVE_INTEGRITY_ALERT mở ở scope;
+- POST-PROTECT/Config Guard/rollback receipt nếu có mutation runtime.
 
-## 5. PHA C — ACCESS / IDENTITY / SCOPE LIVE
-Chỉ khi gate sạch:
-- Reuse gateway/profile/config hiện hữu.
-- Target OpenAI tự làm ít nhất một read và, nếu scope cho phép, một write vô hại vào **fixture/đường đã có và được phép**; không tạo fixture/file mới để test.
-- Write/commit mang identity target riêng phía server.
+### F. Owner visibility
+Bảng điều khiển phải ghi:
+`Bước N3 · vòng k/5 · gọi: <seat...>`.
+Mỗi P hội đồng/canary mở đầu:
+`Ghế: <seat> · Bước/vòng: N3 · k/5`.
+Sổ gọi tối thiểu:
+`ai gọi ai · lúc nào · path class · provider session/receipt · commit/result`.
+Không tạo Owner View/DB/service mới; dùng SSOT + trang hiện hữu.
 
-Negative bắt buộc:
-1. credential/profile lạ ⇒ 401/deny;
-2. read/write ngoài scope qua fixture deny/path hiện hữu ⇒ bị chặn; không tạo fixture mới;
-3. client metadata không thể mượn identity khác;
-4. thu hồi target profile không làm GPT/Claude mất đường;
-5. cách ly hai chiều, thử bằng lệnh **đọc**: dot gọi qua connector/route mang danh tính `gpt-web` ⇒ không gọi được; phiên GPT Chat gọi route của dot ⇒ không gọi được. Một trong hai chiều gọi được ⇒ **không ghi IDENTITY_PASS**; phân loại `VENDOR_LIMIT:identity_isolation` (§8).
+## 2. Luật khóa
 
-Phép thử ghi ngoài phạm vi chỉ dùng fixture deny sẵn có của cổng agent, loại mà lỡ thành công cũng không đổi nội dung thật; lỡ thành công ⇒ dừng ngay, coi là sự cố.
+- Đọc: `AGENTS.md` → root COLLAB DROOT40–46 → HJW Bảng → §0.3 HĐ19–HĐ25 → P186 → P187 → file này.
+- §0.3: đã đối chiếu. F1–F4 P186 là bắt buộc.
+- Owner luôn chỉ định Host. N3 **không** được viết logic tự chọn Host.
+- Task bootstrap chỉ ghi phần riêng; defaults lấy từ AGENTS, không copy lại.
+- Không tạo task/project/file/service/DB/route public mới.
+- Nếu thiếu capability mà muốn tạo file/service mới ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED`, nêu exact delta + rollback; Host/Reviewer sửa PROMPT/READY trước.
+- Không install package/CLI chỉ để thử. Ưu tiên binary/client/routine đã có. Cần install/login mới ⇒ checkpoint.
+- Không dùng raw token/session cookie/auth export từ browser.
+- DROOT30/31/35/42/43, Config/Protection Guard và NO-WAIT áp nguyên.
+- RUN khác đang STARTED trên shared runtime: inventory read-only được làm; trước mutation phải clear, không chờ.
+- Chính sách hãng là gate sống: docs cũ trong P182/P185 chỉ là đầu vào; executor phải re-check official docs hiện hành trước live test.
+- Policy wording mơ hồ cho subscription automation ⇒ `POLICY_UNCERTAIN`, **không enable** và không lách bằng web UI.
 
-Không PASS vì Host/Claude làm thay target.
+## 3. PHA A — INVENTORY / POLICY / BINDING · READ-ONLY
 
-## 6. PHA D — EXTERNAL WAKE
-1. Tìm trigger/capability chính thức trên live account.
-2. Có trigger phù hợp + fixture/event an toàn **đã tồn tại** ⇒ live-test: event → Work/Dot nhận → target tự đọc ref → ghi acknowledgement/evidence bằng identity riêng. Mỗi lần kích quan sát **tối đa 10 phút**, **tối đa hai lần kích**; không đạt ⇒ ghi kết quả và kết luận, không ngồi chờ thêm.
-3. Không tạo PR/repo/task/fixture mới nếu chưa được duyệt.
-4. Capability chỉ hỗ trợ event hẹp nhưng không đáp ứng HJW ⇒ ghi giới hạn, không DIRECT_PASS.
-5. **Không browser/desktop automation để giả wake trong N2**; phần đó thuộc N3.
-6. Cần Owner/action để tạo live proof ⇒ checkpoint + KQ DỪNG, không waiter; không hạ acceptance thành docs-only.
+1. Fresh-read Bảng + PROMPT + READY; chỉ bắt đầu RUN khi READY đúng last-touch.
+2. Kiểm STOP/concurrency/protection hiện hành.
+3. Inventory **không cài gì**:
+   - Hermes VPS dispatcher/courier/runtime hiện hữu;
+   - command/client/routine/Work/Codex/Claude paths đang có trên VPS/Mac;
+   - auth: linked account / API key / subscription login / none;
+   - server-side author labels đã thấy;
+   - current schedules/events/self-pull mechanisms;
+   - Mac fallback readiness, nhưng không mở browser automation.
+4. Đọc official docs hiện hành của Anthropic/OpenAI cho đúng path sẽ thử; ghi URL/title/date vào P, không chép dài.
+5. Chốt wake matrix PRE và danh sách **tối đa 2 canary call/seat** trước call đầu.
 
-## 7. PHA E — PROTECTION R3
-Mutation N2 phải có:
-- Điều 30/31;
-- Config/Protection Guard + negative/mutant tương ứng;
-- rollback dry-run/known-good;
-- receipt/trace;
-- fresh protection PASS trước KQ.
+Không live-call model nếu chưa biết path/policy/auth.
 
-Không rebaseline để che drift; đỏ ngoài N2 thì dừng sạch, không sửa hộ.
+## 4. PHA B — PRIMARY DIRECT INVOCATION CANARY
 
-## 8. DISPOSITION / R5
-### DIRECT_PASS
-Chỉ khi access live + identity riêng live + scope/negative live + external wake live + R3 protection đều PASS.
-`KQ@HJW-N2-OPENAI-DOTS-20261006-01 XONG · DIRECT_PASS · ACCESS_PASS · IDENTITY_PASS · SCOPE_PASS · WAKE_PASS · PROTECTION_CLEAN`
+Thứ tự:
+1. **Hermes VPS/trusted runner → official direct invocation**.
+2. Nếu VPS không thể vì auth/policy nhưng official local path có sẵn: Hermes-Mac/Mac mini fallback.
+3. Self-pull chạy song song như safety net, không thay direct path nếu quá chậm.
+4. Owner manual = classification cuối, không dùng để giả PASS.
 
-### COURIER_REQUIRED
-Access + identity + scope PASS, nhưng chính thức không có wake phù hợp.
-`KQ@HJW-N2-OPENAI-DOTS-20261006-01 DỪNG · COURIER_REQUIRED · R5_OWNER_DECISION_REQUIRED · CONTINUE_SAME_NODE`
-Dừng sạch ngay. Host hỏi Owner đúng một câu: chấp nhận residual wake chuyển N3 hay giữ N2.
+Mỗi call chỉ gửi pointer:
+`HJW · N3 · vòng <k> · seat <id> · đọc AGENTS → HJW Bảng → P/section <ref> · làm đúng role`.
 
-### VENDOR_LIMIT
-Capability/gói/vùng chặn một năng lực bắt buộc:
-`KQ@HJW-N2-OPENAI-DOTS-20261006-01 DỪNG · VENDOR_LIMIT:<năng_lực> · R5_OWNER_DECISION_REQUIRED · CONTINUE_SAME_NODE`
-Kèm official + live evidence và một phương án đề nghị; không code lách. Trước KQ `VENDOR_LIMIT`: mọi khoá/route/hồ sơ N2 đã tạo phải ở trạng thái **tắt** (bật lại được bằng một lệnh nếu Owner chấp nhận ở R5); không để đường sống mà không ai dùng; Guard sạch.
+Target tự lấy semantic content từ repo.
 
-### Sau khi Owner trả lời R5
-Chấp nhận ⇒ Host ghi dòng đóng `N2 PASS_WITH_RESIDUAL · DEFERRED_BY_VENDOR:<phần> · MOVE_TO:N3` vào Bảng, không cần RUN thêm. Không chấp nhận ⇒ ở lại N2, Host sửa PROMPT cho lượt kế.
+Đo:
+- provider/session/run receipt;
+- t0/t_claim/t_result;
+- server identity/commit author label;
+- model call count nếu thấy được;
+- lỗi/policy/auth.
 
-## 9. Đầu ra bắt buộc
-Trong HJW COLLAB:
-1. bảng Pha A;
-2. exact delta + rollback nếu có;
-3. kết quả access / identity / scope / wake;
-4. negative tests;
-5. protection/receipt;
-6. đúng một disposition `DIRECT_PASS | COURIER_REQUIRED | VENDOR_LIMIT`;
-7. Bảng cập nhật; nếu DỪNG ghi rõ **0 agent/task/terminal đang chờ**.
+Path cần browser automation để lấy Output ⇒ classify `POLICY_UNCERTAIN|MANUAL_ONLY`, không chạy.
 
-Không mở N3 trước Host + Reviewer disposition R5.
+## 5. PHA C — CLAUDE DUAL-ROLE FRESH SESSION
+
+### C1 Reviewer canary
+Gọi một phiên Claude mới bằng **official path tốt nhất đã đo**:
+- role=reviewer;
+- đọc đúng pointer;
+- không code/runtime;
+- ghi đúng một P canary ngắn vào HJW COLLAB;
+- P mở đầu `Ghế: ... · Bước/vòng: N3 · <k>/5`;
+- đóng phiên.
+
+### C2 Worker canary
+Gọi **một phiên mới khác**, role=worker.
+Sub-assignment N3 cho phép:
+- chỉ đọc một fixture/đoạn hiện hữu được chọn trước;
+- làm tác vụ bounded không ảnh hưởng production;
+- nếu cần ghi, chỉ ghi một canary result vào HJW COLLAB;
+- không tự review kết quả;
+- đóng phiên.
+
+Không dùng `--resume` mặc định.
+
+Kết luận identity:
+`SAME_IDENTITY_TWO_ROLES` hoặc `SEPARATE_IDENTITIES`.
+
+## 6. PHA D — SELF-PULL SAFETY NET
+
+Với mechanism chính thức có sẵn:
+- đo cadence thật;
+- xác định model call khi idle;
+- không tạo lịch dày hơn chỉ để đạt claim SLA;
+- không tạo schedule mới nếu Owner chưa duyệt và existing mechanism không có fixture an toàn.
+
+Kết luận:
+`SAFETY_NET_PASS | SAFETY_NET_TOO_SLOW | SAFETY_NET_COSTLY_IDLE | NOT_AVAILABLE`.
+
+## 7. PHA E — MINIMAL ENABLEMENT
+
+Chỉ nếu A–D chứng minh một `PRIMARY_DIRECT` đúng policy và **existing Hermes dispatcher/courier reuse được**.
+
+Được phép:
+- sửa cấu hình/logic **hiện hữu** của HJW courier/dispatcher;
+- thêm mapping seat→official path trong config hiện hữu;
+- thêm dedup/receipt/STOP check vào code hiện hữu;
+- cập nhật Config/Protection Guard + sổ tin báo nếu path mới tạo loại tin mới;
+- apply qua wrapper/DOT hiện hữu, rollback + post-protect cùng RUN.
+
+Không được:
+- tạo service/daemon/database/browser bot/file mới;
+- mở route public mới;
+- cài package/CLI;
+- copy credential;
+- bật AUTO2/AUTO3.
+
+Cần một việc cấm ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED · CONTINUE_SAME_NODE`.
+
+## 8. Negative tests
+
+1. Duplicate pointer cùng generation ⇒ 1 wake.
+2. Seat ngoài roster ⇒ không wake.
+3. Courier mang semantic/prompt thay vì pointer ⇒ reject.
+4. STOP active ⇒ 0 wake.
+5. Alert mở trong scope ⇒ không wake mutation role.
+6. Reviewer cố worker mutation / worker cố làm reviewer quorum ⇒ block/không tính.
+7. Same technical identity ⇒ không đếm hai seat.
+8. Browser/UI-only path ⇒ không automate.
+9. Policy source stale/không truy cập được ⇒ không enable.
+10. Self-pull trễ ⇒ không PRIMARY_DIRECT.
+
+## 9. Disposition
+
+### PASS
+`KQ@HJW-N3-COURIER-WAKE-20261007-01 XONG · N3_PASS · AUTO1_PRIMARY_COURIER_PASS · MULTI_VENDOR_WAKE_MEASURED · CLAUDE_DUAL_ROLE_MEASURED · SELF_PULL_SAFETY_MEASURED · NO_BROWSER_AUTOMATION · PROTECTION_CLEAN`
+
+PASS yêu cầu:
+- ≥1 Anthropic official automated path live-pass;
+- ≥1 OpenAI-family official automated path live-pass;
+- Owner 0 copy-paste trong live canary;
+- receipt + identity + dedup/STOP proof.
+
+Không bắt mọi seat PRIMARY_DIRECT; residual/class phải rõ.
+
+### PASS_WITH_RESIDUAL
+`KQ@... XONG · N3_PASS_WITH_RESIDUAL · <residuals> · MOVE_TO:N4`
+Host/Reviewer quyết residual trước N4.
+
+### DỪNG
+`POLICY_UNCERTAIN:<path>` · `VENDOR_LIMIT:<path>` · `AUTH_OWNER_ACTION_REQUIRED` · `DELTA_REVIEW_REQUIRED` · `CONCURRENCY_GATE` · `EXTERNAL_GREEN_GATE` · `PROTECTION_FAIL`.
+
+DỪNG = checkpoint sạch, 0 waiter, đóng CLI.
+
+## 10. Báo cáo cuối
+
+Một P ngắn:
+1. `Ghế · Bước/vòng`;
+2. wake matrix PRE→POST;
+3. receipts/latency/identity;
+4. Claude dual-role result;
+5. self-pull result;
+6. runtime delta + rollback nếu có;
+7. negative tests;
+8. exact residual;
+9. Owner action = 0 hoặc đúng một human-only;
+10. đề nghị Host: `PASS | PASS_WITH_RESIDUAL | DỪNG`.
+
+Không paste secret, session cookie, private URL/token hay raw provider response dài.

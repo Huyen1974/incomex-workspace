@@ -485,12 +485,12 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 09:33 +07 · GPT Host · **P187 N2 ĐÓNG PASS_WITH_RESIDUAL · N3 PROMPT DRAFT · VÒNG 1/5**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 09:33 +07 · GPT Host · **P188 N3 PROMPT DRAFT · CLAUDE REVIEW VÒNG 1/5**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` — xây hội đồng AI khép kín, giảm dần thao tác lặp của Owner nhưng Owner vẫn chỉ định Host và giám sát.
 - 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — T1–T9 + Council Contract/Human Directive đạt bằng chạy thật.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [■ N3 Người đưa thư/wake matrix] → [□ N4 Council Core] → [□ N5 Tự động có giám sát] → [□ N6 Nghiệm thu]`.
 - ✅ **Đã xong:** vòng thiết kế hội đồng 3/5 khép P186→P187; F1–F4 đã áp. Owner trực tiếp yêu cầu “đồng thuận → triển khai tiếp” ⇒ R5 = GẬT. N2 đóng `PASS_WITH_RESIDUAL · DEFERRED_BY_VENDOR:identity_isolation+wake · OPENAI_MAIN_ONE_SEAT · DOT_NOT_PAUSED · MOVE_TO:N3`.
-- ■ **Đang làm:** **Bước N3 thiết kế/soạn PROMPT · vòng 1/5 · gọi: claude-main**. Host đã soạn N3 DRAFT để Reviewer rà; **chưa READY, chưa RUN**.
+- ■ **Đang làm:** **Bước N3 thiết kế/soạn PROMPT · vòng 1/5 · gọi: claude-main**. Host đã ghi N3 DRAFT vào `PROMPT.md`; **Bước N3 thiết kế/soát prompt · vòng 1/5 · gọi: claude-main**; chưa READY, chưa RUN.
 - ⬜ **Còn lại:** Claude rà PROMPT N3 → Host disposition/READY → RUN N3 đo+thử official invocation, self-check safety net, Hermes-Mac fallback, Claude dual-role fresh sessions → N4 → N5 → N6.
 - ➡ **Kế tiếp:** 😊 Owner: 0 thao tác kỹ thuật · Claude Chat: rà PROMPT N3 một vòng · Host: ACCEPT delta rồi READY nếu 0 blocker · 🤖 Claude Code: **chưa mở CLI**.
 - ⛔ **Không làm/để sau:** không AUTO4/máy tự chọn Host; không browser-bot mặc định; không tạo task/file/service mới; không coi hai phiên cùng technical identity là hai phiếu.
@@ -3817,6 +3817,14 @@ Owner lo: AI “lợi dụng vào chỉ đạo của con người để làm cho
 - **N2 CLOSE:** `N2 PASS_WITH_RESIDUAL · DEFERRED_BY_VENDOR:identity_isolation+wake · OPENAI_MAIN_ONE_SEAT · DOT_NOT_PAUSED · MOVE_TO:N3`. Kết quả N2 là measurement thật; shared identity được quản trị bằng một ghế OpenAI-main + alarm, wake chuyển N3.
 - **Thiết kế hội đồng vòng 3/5:** khép tại P187; không mở vòng 4 vì Host nhận đủ F1–F4.
 - **N3:** Host soạn lại chính `PROMPT.md` thành N3 DRAFT; Claude Chat review vòng 1/5. Chưa READY/RUN, 0 CLI HJW mở.
+
+### P188 · GPT Host · 2026-10-07 09:33 +07 · **SOẠN PROMPT N3 · REVIEW VÒNG 1/5 · CHƯA READY/RUN**
+- Ghế: `openai-main` · Bước/vòng: N3 · 1/5 · gọi: `claude-main`.
+- **§0.3:** đã đối chiếu HĐ19–HĐ25 + F1–F4 P186 + DROOT44–46.
+- **Prompt N3:** chỉ AUTO1; official direct invocation qua Hermes VPS/trusted runner là primary; self-pull là safety net; Hermes-Mac fallback; browser automation disabled.
+- **Canary:** multi-vendor wake + Claude reviewer/worker fresh sessions + identity/quorum measurement; max 2 call/seat; no recursive AI loop.
+- **Policy:** re-check official docs/live account trong RUN; path mơ hồ ⇒ POLICY_UNCERTAIN, không enable.
+- **Reviewer:** Claude chỉ rà prompt N3, được sửa DRAFT trực tiếp nếu delta nhỏ; không RUN, không runtime mutation. 0 blocker ⇒ `ACCEPT N3 PROMPT · AUTO1_CLEAR · VENDOR_POLICY_GATE_CLEAR · CLAUDE_DUAL_ROLE_CLEAR`.
 
 
 
