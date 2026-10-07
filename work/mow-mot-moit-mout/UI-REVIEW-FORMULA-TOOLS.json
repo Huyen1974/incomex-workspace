@@ -1,0 +1,64 @@
+{
+  "source_version": "035c76e199ad6b485d375d13fba2a43ab35ceabe + UI 22515de6bbc14bd89e9f0f6b6c16b6d9 /7e7c9e8538aa40d6819f11bd581a5624",
+  "scope": [
+    "FORMULA-PROCESS-TOOLS"
+  ],
+  "results": [
+    {
+      "id": "FORMULA-PROCESS-TOOLS",
+      "url": "https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-formula",
+      "checks": {
+        "structure": {
+          "status": "PASS",
+          "evidence": "Actual Owner View contains new collapsed section after D,9 Tool child details rendered from ML-DEF-023; no copied catalogue."
+        },
+        "emphasis": {
+          "status": "PASS",
+          "evidence": "Screenshot /tmp/formula-process-tools.jpg: inherits A-D parent summary; names primary, IDs secondary."
+        },
+        "labels": {
+          "status": "PASS",
+          "evidence": "Exact label Quy trình - Tools; CTCM; nine procedures with steps/questions/output; lifecycle states, roles and design-only/no automation explicit."
+        },
+        "interaction": {
+          "status": "PASS",
+          "evidence": "Mouse open/close outer and Tool8; Enter opens outer; detail showed seven lifecycle steps and OPEN-03 example."
+        },
+        "responsive": {
+          "status": "NOT_TESTED",
+          "evidence": "Desktop screenshot checked; separate mobile validation not performed. Table has overflow container."
+        },
+        "console": {
+          "status": "PASS",
+          "evidence": "No tools/catalog errors observed. Existing portal Directus Auth Init Error present before change09:42 and after09:48, unrelated to guide rendering; not claimed system-wide clean."
+        },
+        "data_scope": {
+          "status": "PASS",
+          "evidence": "Only procedure documentation and formula UI; existing IDs preserved,008 legacyName retained,009 separates DOT packaging. No task created or runtime workflow executed."
+        }
+      },
+      "parity": {
+        "baseline_url": "https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-formula",
+        "baseline_version": "f1bbe2ed7288784c63ca0c92e0866fd4a396ffede650ed5c11b72c628fd16d43",
+        "observed_version": "6fcc60acd8095a7724cdc7f0d5633bd7e750a4b40a1c173fa77f053635b535a8",
+        "measurements": [
+          {
+            "part": "outer_summary",
+            "property": "fontSize",
+            "expected": "16px",
+            "actual": "16px"
+          },
+          {
+            "part": "outer_summary",
+            "property": "padding",
+            "expected": "8px 10px",
+            "actual": "8px 10px"
+          }
+        ],
+        "differences": []
+      }
+    }
+  ],
+  "status": "PARTIAL",
+  "notes": "Requested desktop section verified. Mobile not tested. Not a claim that MOW-NHC-001 end-to-end or DOT automation is complete."
+}
