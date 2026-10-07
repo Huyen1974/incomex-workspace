@@ -11,6 +11,7 @@ CE-20261007-MASTER-EMPHASIS · APPROVED theo yêu cầu Owner. Phạm vi: mọi 
 - **Trước khi sửa:** đọc mục này, đối chiếu renderer và adapter; tìm override ảnh hưởng tất cả Master.
 - **Trước khi báo xong:** mở đúng URL Owner, kiểm computed style của tên/trạng thái/cột phụ, thử tìm kiếm và mở/đóng chi tiết; kiểm thêm một Master cùng renderer và Config khi có ảnh hưởng. Đối chiếu số bản ghi không đổi. Phải phân biệt kiểm nguồn với kiểm live; chưa kiểm được thì ghi rõ, không báo PASS.
 - Thay đổi lần này: bỏ override tắt chuẩn ở nhóm/derived và Config; đưa mặc định vào renderer chung. Tài liệu này là đầu mối quy chuẩn, không sao chép quy tắc sang nhiều README.
+- Kiểm live 07/10/2026: MOW 35 dòng; Tên/Trạng thái weight 700, màu rgb(29,29,31); cột phụ weight 400, rgb(176,176,181). Tìm MOW-NHC-001 còn 1 dòng; mở/đóng drawer đạt và xoá tìm kiếm trả lại danh sách. Config đạt cùng token; Nhóm cha 35 dòng kế thừa ml-focus-four. Đã xem screenshot MOW. Phạm vi kiểm live: 3 Master đại diện; không tuyên bố đã bấm từng trang của toàn bộ 29 Master.
 
 
 ## Điều hướng chung · Owner 07/10/2026
