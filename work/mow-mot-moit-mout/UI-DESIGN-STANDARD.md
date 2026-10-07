@@ -10,10 +10,18 @@ Owner 07/10/2026 11:08 +07. CE-20261007-UI-PARENT-STANDARD. Đây là văn bản
 5. Màu có nghĩa thống nhất; không trang trí thêm, không làm tất cả đậm. Không áp máy móc bảng màu/cột của Master List lên form, Canvas hoặc Workspace.
 6. Một nguồn quy chuẩn; sửa cha rồi kiểm các con bị ảnh hưởng. Owner không phải người nhớ checklist hoặc phát hiện lỗi lặp lại.
 
+## 1.1. Dùng lại trước, khai riêng sau
+Mục tiêu Owner: chuẩn hóa khoảng 2/3 công việc để giảm làm lại và đào tạo; đây là mục tiêu thiết kế, chưa phải tỷ lệ đã đo đạt.
+- Mỗi UI phải có cha/phiên bản nguồn và bảng “giữ nguyên / cấu hình riêng”. Chưa tìm cha thì tra registry, không tự vẽ.
+- Phần chung: bố cục, chữ, màu, khoảng cách, công cụ, điều hướng, trợ giúp, phản hồi. Phần riêng: dữ liệu, nhãn nghiệp vụ, cột/field và luật được schema cho phép.
+- Search tại chỗ là cùng một công cụ đặt lại ở các danh sách; tìm xuyên tầng dẫn tới một UI-029. Help lấy một BOOK, chọn nội dung theo ngữ cảnh. Không tạo nhiều trung tâm cùng chức năng.
+- Đối chiếu từng chi tiết, không chỉ nhận xét “trông tương tự”. Mỗi sai khác phải được sửa ở nguồn chung hoặc ghi ngoại lệ có căn cứ. Chữ thân Master không bold; token chính xác ở FORMULA-AI-README.
+- Sửa xong áp ngược quy định lên UI: đo style → bấm hành vi → kiểm dữ liệu → xem ảnh → ghi kết quả. Không lấy tài liệu mới do AI viết để hợp thức hóa UI con sai.
+
 ## 2. Danh mục đối chiếu
 | Họ UI cha | Phần chính cần thấy ngay | Phần phụ | Nguồn thực thi |
 |---|---|---|---|
-| UI.MASTER | Tên, trạng thái; ngữ cảnh theo schema | ID, tham chiếu, metadata | mot-master-v1.html + master-list.js |
+| UI.MASTER | Tên bằng tương phản, weight 400; ngữ cảnh theo schema | ID, tham chiếu, metadata; trạng thái theo semantic | mot-master-v1.html + master-list.js |
 | UI.CANVAS | Tên thẻ, trạng thái, bước đang xem | Mã, mô tả bổ trợ, chi tiết mở thêm | mow-unified-canvas-v2.html |
 | UI.CONFIG | Nhóm đang cấu hình, trường nhập, Test/tình trạng | Mapping kỹ thuật, placeholder, hướng dẫn | New MODT / moit-config / modal Field |
 | UI.STUDIO | Thành phần đang chọn, ô nhập, preview | Mã và giải thích kỹ thuật | mot/moit/mout-studio; mot-theme + mot-render |

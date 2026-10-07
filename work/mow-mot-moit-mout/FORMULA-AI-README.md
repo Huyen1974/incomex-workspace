@@ -4,17 +4,18 @@
 
 ## Quy chuẩn thị giác UI.MASTER — bắt buộc · Owner 07/10/2026
 
-CE-20261007-MASTER-EMPHASIS · APPROVED theo yêu cầu Owner. Phạm vi: mọi Master hiện tại và tương lai dùng UI.MASTER; không đổi dữ liệu/khái niệm.
-- **SSOT giao diện:** `ui/master-list.js`, khuôn `ui/mot-master-v1.html`. UI con chỉ khai dữ liệu, nhãn và cột; không tự dựng CSS hoặc tắt phân cấp thị giác.
-- **Master định nghĩa:** cột **Tên** và **Trạng thái** (key `state`/`readiness`, khi có) là điểm nhấn đậm. Các cột STT, ID, Chuỗi, Bước, Tầng, tham chiếu và thông tin phụ giữ nhạt theo UI cha. Không làm mọi cột đậm. “Nhạt” không có nghĩa là ẩn hoặc vô hiệu hóa.
-- Kế thừa đúng token hiện có: tên/trạng thái nội dung #1d1d1f, weight 700; tiêu đề chính #515154, weight 700; nội dung phụ #b0b0b5, weight 400; tiêu đề phụ #bcbcc1, weight 400. Trạng thái đạt giữ xanh semantic sẵn có. Bảng cây cũ giữ các cột T3/T2/T1 theo chuẩn cha hiện hữu.
-- Renderer tự bật chuẩn cho bảng có `definitionColumns`; không được gán `focusFourColumns:false` trong adapter Master. Cột mới mặc định là phụ; muốn thêm điểm nhấn phải có quyết định Owner và sửa SSOT chung.
-- Dùng chung cả điều hướng, tìm kiếm/lọc, chi tiết và dấu ? của UI cha. Ngoại lệ phải ghi rõ lý do/phạm vi và được Owner chốt; không nhân bản mẫu theo từng Master.
-- **Trước khi sửa:** đọc mục này, đối chiếu renderer và adapter; tìm override ảnh hưởng tất cả Master.
-- **Trước khi báo xong:** mở đúng URL Owner, kiểm computed style của tên/trạng thái/cột phụ, thử tìm kiếm và mở/đóng chi tiết; kiểm thêm một Master cùng renderer và Config khi có ảnh hưởng. Đối chiếu số bản ghi không đổi. Phải phân biệt kiểm nguồn với kiểm live; chưa kiểm được thì ghi rõ, không báo PASS.
-- Thay đổi lần này: bỏ override tắt chuẩn ở nhóm/derived và Config; đưa mặc định vào renderer chung. Tài liệu này là đầu mối quy chuẩn, không sao chép quy tắc sang nhiều README.
-- Kiểm live 07/10/2026: MOW 35 dòng; Tên/Trạng thái weight 700, màu rgb(29,29,31); cột phụ weight 400, rgb(176,176,181). Tìm MOW-NHC-001 còn 1 dòng; mở/đóng drawer đạt và xoá tìm kiếm trả lại danh sách. Config đạt cùng token; Nhóm cha 35 dòng kế thừa ml-focus-four. Đã xem screenshot MOW. Phạm vi kiểm live: 3 Master đại diện; không tuyên bố đã bấm từng trang của toàn bộ 29 Master.
+CE-20261007-UI-PARENT-PARITY · APPROVED theo chỉ đạo Owner. Thay thế hướng dẫn weight 700 sai ở vòng trước.
+**Mục tiêu: dùng lại khuôn đã duyệt; chỉ khai phần nghiệp vụ riêng. “Rõ” không đồng nghĩa “bold”.**
 
+- SSOT thực thi: `ui/master-list.js`; khuôn `ui/mot-master-v1.html`. Theme và Help trước nằm riêng trong MOW đã chuyển về renderer chung. Adapter chỉ cung cấp dữ liệu, nhãn, schema cột/bộ lọc, liên kết và nội dung chi tiết; không tự đổi font, màu, khoảng cách, vị trí hay hành vi.
+- Mẫu đối chiếu: `mow-master-nhap2-v1.html?legacy=1`. Chữ tên trong dòng **weight 400, #2c2c2e**; metadata **400, #b0b0b5**; mã **400, #bcbcc1**. Header bảng **600, #bcbcc1, 10px**, padding 9px 12px; body 12.5px/18.75px. Heading 600. Không thêm viền đen/text-shadow cho chữ. Trạng thái giữ semantic của mẫu; không tự đậm toàn cột.
+- Nhấn bằng tương phản chính/phụ; không dùng opacity trên cả bảng khiến nút/tooltip cũng mờ. Cột mới mặc định là phụ. Bảng cây giữ quan hệ/ngữ cảnh T3/T2/T1 của cha; không áp bảng định nghĩa lên mọi biến thể.
+- **Tìm trong danh sách:** một component trong toolbar, tìm mã/tên/giá trị schema đang quản lý. Bộ lọc cùng mẫu, chỉ hiện chiều có dữ liệu; không bày bộ lọc tầng không áp dụng. Xóa tìm kiếm phải trả danh sách ban đầu.
+- **Tìm kiếm chung:** một thiết kế UI-029 (`tim-kiem-chung-v1.html`), cùng điểm vào toolbar và return về nơi mở; không nhân bản trung tâm tìm kiếm trong mỗi Master. Dữ liệu hiện là demo, không được gọi là đã nối toàn hệ thống.
+- **Help:** một nút và panel cùng mẫu; nguồn nội dung `incomex-book-v1.js` (BOOK). Dùng phần chung + ngữ cảnh, không tạo một trung tâm hỗ trợ riêng cho từng danh sách. Tooltip ? chỉ giải thích tại chỗ; không thay Help. `mow-help-doc.js` đã retired.
+- Điều hướng dùng `design-navigation-v1.js`; chi tiết dùng drawer chung, đóng/Escape giữ tìm kiếm và bộ lọc. Các ngoại lệ do cấu trúc dữ liệu phải khai schema, không viết CSS riêng.
+- **Cổng kiểm bắt buộc:** chốt URL mẫu + phiên bản trước sửa; lập danh sách ảnh hưởng; so computed style từng thành phần (font/weight/size/line-height/spacing/màu/nền/viền/padding/radius), thứ tự vùng/cột, trạng thái rỗng và nội dung dài; bấm tìm/lọc/Help/?/mở/đóng/Home; xem console; kiểm số bản ghi; kiểm rộng/hẹp khi công cụ xác nhận đúng kích thước. Khác biệt chưa giải thích = FAIL, chưa kiểm = NOT_TESTED; không tự PASS.
+- Không suy 29 Master danh mục là toàn bộ 29 UI con. Kết quả và giới hạn từng phạm vi ở `UI-AUDIT-20261007.md`. Số đo là hợp đồng để phát hiện hồi quy, không phải lý do sửa mẫu đã duyệt cho khớp UI con.
 
 ## Điều hướng chung · Owner 07/10/2026
 SSOT UI: `ui/design-navigation-v1.js`; được nạp từ khuôn `mot-master-v1.html`, renderer `master-list.js` và shell `eco-nav.js`. Trang review và chi tiết CT nạp trực tiếp, mount idempotent. 28 Master định nghĩa + Config cùng kế thừa UI.MASTER; không hardcode danh sách 29 vào bộ điều hướng.
