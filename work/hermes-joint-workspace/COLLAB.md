@@ -288,14 +288,13 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Nếu đường chính thức cho access nhưng không cho wake phù hợp, ghi `COURIER_REQUIRED`; nếu gói/vùng/tính năng chưa cho cả access cần thiết, ghi `VENDOR_LIMIT`. Cả hai phải có bằng chứng và **một câu hỏi Owner theo R5**; chỉ sau Owner chấp nhận defer mới được MOVE_TO N3/đi tiếp.
 - **Không được PASS mơ hồ:** phải biết chính xác Dot dùng identity/transport nào, negative scope đã PASS, phần residual là gì; không code lách UI trong N2. Mã/config mới phải qua R3 trước KQ.
 
-#### N3 · K3 · HERMES-MAC COURIER CUTOVER — 1 PROMPT
-- **Phạm vi:** chỉ residual sau N1/N2; phần direct đã chạy thì không làm lại.
-- **Kiến trúc tối giản:** Mac luôn gọi ra/pull queue từ server; credential/identity riêng; không cần IP tĩnh/inbound port; không dùng chung consumer bot với Hermes-VPS.
-- **Một envelope duy nhất theo R6:** reuse dạng GIAO–KẾT QUẢ/lifecycle đã có làm canonical envelope; courier chỉ route/relay, không có quyền chốt hoặc tạo lệnh mới.
-- **Trong cùng RUN:** inventory residual → chọn control path chính thức/browser/desktop tốt nhất → cài bản nhỏ nhất → map session → relay/gọi lượt → provenance → retry/idempotency → heartbeat khi có thư chờ → protection R3.
-- **Negative bắt buộc:** courier sửa payload ⇒ thư vô hiệu + Telegram; courier thử ghi quyết định/lệnh vượt quyền ⇒ bị chặn; duplicate/retry không giao hai lần.
-- Nếu control path bị hãng chặn dù đã đo đủ, áp R5 `VENDOR_LIMIT` và hỏi Owner một câu; không tự nới PASS.
-- **PASS N3:** ít nhất một vòng GPT↔Claude thật không cần Owner copy-paste; nếu Dot có residual đã Owner chuyển thì đi cùng cơ chế; Mac ngủ/tắt không mất/nhân đôi thư và chỉ cảnh báo khi có work pending quá hạn; negative + protection PASS.
+#### N3 · K3 · COURIER / WAKE MATRIX · AUTO1 — 1 PROMPT
+- **Phạm vi:** residual transport/wake sau N1/N2; phần direct đã chạy thì không làm lại.
+- **Kiến trúc:** Hermes VPS/trusted runner gọi official direct invocation là đường chính; self-pull/event/schedule chính thức chạy song song làm safety net; Hermes-Mac/Mac mini chỉ là fallback local. Browser automation và cài đặt mới không thuộc N3 nếu chưa qua delta review.
+- **Một envelope duy nhất theo R6:** courier chỉ chuyển pointer `task · step · round · seat` + receipt; không chốt, không sửa semantic, không tạo lệnh mới.
+- **Trong cùng RUN:** inventory/policy/binding → canary official-call → Claude dual-role fresh sessions → self-pull safety net → nếu đủ gate mới minimal enablement trên runtime hiện hữu → provenance/dedup/STOP → protection R3.
+- **Negative bắt buộc:** courier sửa payload ⇒ reject + báo; non-Host bell ⇒ 0 wake; duplicate/retry không giao hai lần; same identity không tạo hai phiếu; browser-only path không tự automate.
+- **PASS N3:** theo PROMPT.md N3 hiện hành + HĐ22–HĐ24; ít nhất một official automated path chạy thật với 0 Owner copy-paste, negative/protection PASS; residual vendor còn lại phải phân loại rõ. **Mac ngủ/tắt khi có thư chờ ⇒ không mất và không nhân đôi thư** là negative #11 của PROMPT, không phải lý do biến Mac thành đường chính.
 
 #### N4 · M1 · COUNCIL CORE V1 — 1 PROMPT
 - **Trong cùng RUN:** thêm `TASK_POLICY_V1(required_members)` + `FLOW_EVENT_V1`; scanner suy state; chạy **một mức thật** `rà kết quả agent + duyệt prompt kế tiếp` với GPT/Claude; Host chốt; canonical envelope R6 gọi đường GIAO hiện hữu (`ASSIGN_V1/READY`) để worker chạy; reviewer nghiệm thu.
@@ -551,7 +550,7 @@ CẤM: đọc/ghi ngoài danh sách, đổi cấu hình/quyền, tự giao việ
 - T7: mỗi việc có một trang truy vết tự sinh.
 - T8: an toàn giữ nguyên: đúng quyền, đúng phạm vi, nút dừng chạy, im lặng có báo, đèn xanh.
 - T9: Host chốt sớm hoặc liên lạc viên sửa nội dung thì người kế tiếp không làm theo, chuông tới Owner trong 5 phút.
-- Lộ trình sáu bước: N1 đầu nối lên mây, N2 nối OpenAI Dots, N3 Hermes trên Mac đưa thư, N4 lõi hội đồng, N5 hai cấp đổi bằng bảng, N6 nghiệm thu và đóng. Bước đang làm xem Bảng điều khiển.
+- Lộ trình sáu bước: N1 đầu nối lên mây, N2 đo OpenAI Dots, N3 người đưa thư/wake matrix — Hermes VPS gọi đường chính thức, Hermes-Mac dự phòng, N4 lõi hội đồng, N5 hai cấp/tự động có giám sát, N6 nghiệm thu và đóng. Bước đang làm xem Bảng điều khiển.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - **Owner 06/10/2026 · NO-WAIT / CWEB:** “nếu là vì phiên copy web thì về cơ bản tôi thấy nó tạm ổn nên đóng nó lại. Cần gì ở đó thì các bạn cứ quyết, nhưng tôi yêu cầu không để 1 việc kéo dài lê thê. Cấm tuyệt đối kiểu agent cứ chờ từ giờ này qua giờ khác, thậm chí là còn từ ngày này qua ngày khác. Việc này tôi cũng đã yêu cầu thành nguyên tắc trên repo chính rồi. Không được chọn cách làm đó.” → Host áp **DROOT43 hiện hữu, không thêm luật trùng**: CWEB giữ đích nghiệp vụ là ĐÓNG; nếu cần sửa hậu kiểm thì chỉ một lượt bounded, không giữ RUN/task/terminal sống để chờ timer/approval/health. Quan sát dài giao Guard/Kuma; đỏ thật mới mở vòng kỹ thuật ngắn.
