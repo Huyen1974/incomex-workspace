@@ -169,13 +169,15 @@ ID dùng `HJW-N3-CANARY-*`; P canary không tính phiếu hội đồng. Mỗi v
 - Nếu owned path đạt mà residual còn duy nhất vendor ticker 60 s làm SLA chưa đạt ⇒ `R5_CANDIDATE:HERMES_TICKER_60S`, đưa Owner quyết; không hack vendor.
 - Chỉ sau disposition 2a mới mở 2b.
 
-## 4. PHA B — PRIMARY DIRECT INVOCATION CANARY — NOT AUTHORIZED IN R4
+## 4. CHẶNG 2B — VENDOR PATHS / PRIMARY DIRECT INVOCATION — NOT AUTHORIZED IN 2A
 
-Thứ tự:
+**Chỉ mở sau 2a disposition.** Giữ thứ tự:
 1. **Hermes VPS/trusted runner → official direct invocation**.
 2. Nếu VPS không thể vì auth/policy nhưng official local path có sẵn: Hermes-Mac/Mac mini fallback.
 3. Self-pull chạy song song như safety net, không thay direct path nếu quá chậm.
 4. Owner manual = classification cuối, không dùng để giả PASS.
+5. **Host** ghi danh sách canary trong P READY; executor chỉ được **bớt**, không được thêm/đổi path. Candidate tối đa: `claude-main · Routine API · ≤2`; `worker · Claude Code CLI · claude -p trên Mac · ≤2`; `Codex · codex exec · ≤2, chỉ nếu CLI đã có`; `openai-main · GPT Chat · chỉ đo self-check/capability, không ghi HJW nếu không có official direct path`. Work/Dot chỉ đo capability, không ghi P vào HJW ở N3. **Cùng commit READY**, Host ghi sẵn các khối SPEC canary mã `HJW-N3-CANARY-*`, mỗi khối có dòng `CANARY: N3`, **không kèm ASSIGN_V1** để scanner hiện hành không phát thẻ/không báo lỗi. Executor không tự viết SPEC hay dòng lệnh máy.
+6. Canary `claude -p`: toolset phải được giới hạn theo đường hiện hữu, không dùng shell để chạm runtime và **cấm `--dangerously-skip-permissions`**. Canary Routine: Anthropic luôn cung cấp shell trong cloud session; chấp nhận điều đó nhưng cấu hình least-privilege đúng §2(a), prompt §11 cấm shell/git/connector ngoài Incomex. Mọi canary cấm tool gọi AI khác, có trần call/time.
 
 Mỗi call chỉ gửi pointer đúng năm trường, không thêm prose:
 `task=hermes-joint-workspace · step=N3 · round=<k> · seat=<id> · assignment_id=<mã>`.
@@ -268,10 +270,13 @@ Cần một việc cấm ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED · CONTINUE_SAM
 13. Vượt daily call cap ⇒ 0 lượt gọi + một tin báo.
 14. Routine tool inventory có connector ngoài Incomex ⇒ FAIL trước canary. Sau mỗi Routine call: `main` có commit ngoài cổng, có nhánh mới hoặc PR mới ⇒ FAIL + pause Routine + residual `ROUTINE_GIT_PUSH_PATH`.
 15. Routine token bị lộ cho model/ghế Hermes thay vì chỉ caller process/secret loader ⇒ FAIL.
-16. Owner approve khi dispatcher idle mà `claimed/BẮT ĐẦU` >30 s, hoặc UI nói `XẾP HÀNG` nhưng không nêu blocker/job thật ⇒ FAIL.
-17. `RESULT_V1 done|blocked` mà sau 30 s không có durable NEXT event; Host wake được nhưng không auto-dispatch, hoặc Host chưa wake được mà Owner phải copy-paste/kể lại kết quả ⇒ FAIL.
-18. Đọc toàn HJW COLLAB lớn không có exception được review ⇒ FAIL. `total_input >150k` ⇒ ghi `AUTO_CONTEXT_NOT_READY` và tối ưu trước khi xét AUTO; **không tự làm fail R4/N3**.
-19. Model kết thúc không có P/RESULT hợp lệ và machine fallback không cung cấp `failure_class + provider/session + usage + last_tool/error/evidence_ref` đủ để Host chẩn đoán ⇒ `OBSERVABILITY_FAIL`.
+16. Owner click khi dispatcher idle mà `claimed/BẮT ĐẦU` >30 s, hoặc UI nói `XẾP HÀNG` nhưng không có blocker thật ⇒ FAIL.
+17. Callback + recovery tick race tạo >1 claim/run ⇒ FAIL.
+18. Result body thiếu/sai STATUS, rỗng, >12 KB, chứa machine marker/authority line mà writer vẫn ghi như success ⇒ FAIL.
+19. Version conflict >3 retry không chuyển `WRITE_CONFLICT` blocked ⇒ FAIL.
+20. Model end mà repo result + KẾT QUẢ notice >60 s ⇒ FAIL/R5 theo ownership; fallback thiếu `failure_class/model_calls/tokens/last_tool/last_error/evidence_ref` ⇒ `OBSERVABILITY_FAIL`.
+21. RESULT không tạo đúng 1 NEXT record hoặc bắt Owner copy-paste semantic ⇒ FAIL.
+22. Đọc toàn HJW COLLAB lớn không có exception ⇒ FAIL. `total_input >150k` ⇒ `AUTO_CONTEXT_NOT_READY`, không tự làm fail 2a/N3.
 
 ## 9. Disposition
 
