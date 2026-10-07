@@ -3,6 +3,10 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
+### Owner 07/10/2026 18:03 +07 · Ba màn hình dùng thật và kiểm lại Tools
+Owner giao trực tiếp: MOW-NHC-001 tách 3 MOT thành 3 màn riêng đúng trạng thái nhân viên mới; minh hoạ để phần phụ. Làm theo Tools phải tới kết quả mục tiêu; phát hiện thiếu câu hỏi phải hiệu chỉnh Tool và kiểm lại. CE-20261007-MOW001-THREE-SCREENS; thiết kế REVIEW, không tự thêm UI canonical hoặc nối mutation production. UPDATE: walkthrough, biến thể Field của UI-029, Master Tool/pilot, Rules R47, README/receipt. VERIFY: SSOT tên/MOT, trạng thái trống, 1→3/1→2→3, quay lại, xác nhận và tách minh hoạ. N/A: DNS, cấu hình PG/Directus, DOT production. Chuyên môn/đích xác nhận/JEV vẫn cần dữ kiện; không tự bịa.
+Kiểm trực tiếp đang BLOCKED: trình duyệt báo không xác minh được admin policy truy cập VPS, không bypass. Tiếp tục sửa nguồn và kiểm logic; chưa được báo live PASS.
+
 ### Owner 07/10/2026 17:36 +07 · Mọi bước phải đi đến đích thật
 Đã bổ sung hợp đồng chung cho cả 9 Tools: đầu vào → thao tác → đích đến → đọc lại/kiểm → người nhận → điều kiện xong. Tám câu kiểm bắt buộc gồm thao tác, địa chỉ thật, cách thực hiện, xác nhận lưu/nhận, người giữ việc, nhánh lỗi/thiếu đích, điều kiện xong và bàn giao. Chưa giải quyết được đích đến phải ghi BLOCKED, không được báo hoàn tất.
 
