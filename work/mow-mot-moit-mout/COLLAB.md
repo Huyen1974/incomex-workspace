@@ -3,7 +3,10 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 17:42 +07 · Codex · D158 KQ
+### Cập nhật 07/10/2026 · Quy chuẩn UI cha
+Owner yêu cầu rà tất cả UI cha và chuẩn hóa trách nhiệm AI kiểm. Đã viết UI-DESIGN-STANDARD.md, gắn README và bản đọc nhanh UI Master; tạo UI-REVIEW-CONTRACT.json + check-ui-review.py. Đã kiểm hiển thị đủ 29 Master, đối chiếu sáu họ UI; gate từ chối phiếu thiếu/chưa kiểm. **Audit PARTIAL**, giới hạn và bằng chứng tại UI-AUDIT-20261007.md. Không giao Owner làm tester; AI phải hoàn tất kiểm phạm vi mỗi lần sửa trước khi báo PASS. Chưa có CI chặn deploy. Các quyết định/dữ liệu trước giữ nguyên.
+
+### BẢNG ĐIỀU KHIỂN · mốc trước 2026-10-06 17:42 +07 · Codex · D158 KQ
 🎯 Mục tiêu: **dùng CT-003→007 để quét dần và làm các Master List đủ nghĩa; thứ gì phát sinh phải có Master để ghi trước**.
 🏁 Xong khi: mỗi đầu ra CT có Master List; record phát sinh được ghi trước khi phân loại/chuẩn hóa; gap concept được treo rõ để Owner chỉ quyết phần concept.
 📍 Tiến độ: CT-003 ✓ → CT-004 ✓ → CT-005 ✓ Master MOW → CT-006 ✓ Master UI con → ■ CT-007 ✓ Master Config → □ tiếp tục Coverage T0

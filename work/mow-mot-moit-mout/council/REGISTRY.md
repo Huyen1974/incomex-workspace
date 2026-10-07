@@ -185,6 +185,13 @@ Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bả
 - State: IDLE.
 - LAST_SYNC: 2026-10-06 · D158 KQ; follow-up thay 3 SVG vector Owner (29.600 bytes), kiểm ảnh hiển thị và console PASS.
 
+### Cập nhật Codex 07/10/2026 — quy chuẩn UI cha
+- Owner yêu cầu chuẩn hóa mọi họ UI, AI tự kiểm; không giao Owner làm tester.
+- SSOT: UI-DESIGN-STANDARD.md; README và UI Master có đường dẫn/bản đọc nhanh.
+- Đã kiểm hiển thị 29 Master danh mục, đối chiếu sáu họ UI; chi tiết UI-AUDIT-20261007.md.
+- Audit PARTIAL; không tuyên bố hồi quy mọi thao tác/responsive. Cổng check-ui-review.py đã kiểm từ chối thiếu bằng chứng/NOT_TESTED; chưa là CI deploy.
+- Tiếp tục kiểm đúng phạm vi mỗi lần sửa; giữ các gap concept/backend riêng.
+
 ## Proposal contract
 
 Mỗi proposal Council append vào ledger riêng, tối thiểu:
