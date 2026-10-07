@@ -61,10 +61,14 @@ Trần dòng mới = max(đo × 1,25 ; đo + 0,5 GiB), làm tròn lên 0,25 GiB,
 
 **B4 · chuông không tự lành.** SLOPE chỉ được miễn khi **trên đúng cùng cửa sổ B3**, ≥90% phần giảm được quy về các dòng có trần, các dòng đó vẫn dưới trần, và phần còn lại không vi phạm B6. Vượt trần / vô danh là điều kiện theo MỨC ⇒ đỏ tới khi dọn hoặc trần được sửa qua Config Guard; không xanh lại chỉ vì mốc thời gian trượt qua. Chưa đủ hai snapshot tương ứng ⇒ đỏ.
 
-**B5 · bản tin 08:00** (vẫn trong 3 dòng): `💽 trống X GiB · 24h −Y · lớn nhất: <tên> +Z`.
+**B5 · bản tin 08:00** (vẫn trong 3 dòng): `💽 trống X GiB · 24h −Y · chưa rõ +U · lớn nhất: <tên> +Z`.
 
-Thử (fixture qua các biến `SW_*`, không đụng dữ liệu thật): t1 mục lạ ngoài `/opt` +2,1 GiB ⇒ đỏ đúng tên · t2 nhóm Graph tăng trong trần ⇒ không đỏ, có dòng bản tin · t3 nhóm vượt trần ⇒ đỏ và còn đỏ sau khi mốc 24h trượt qua · t4 UNEXPLAINED 1,5 GiB ⇒ đỏ · t5–t8 bốn ca B1 đều đỏ, rc ≠ 0.
-Chạy thật một lượt `daily`: nộp bảng đối soát `df` ↔ Σ dòng (UNEXPLAINED ≤ 1 GiB; lớn hơn ⇒ tách tiếp; không tách được ⇒ nêu rõ phần còn lại) + 10 dòng lớn nhất. Sau gói B đèn #11 phải phản ánh ĐÚNG thực tế: xanh nếu mọi phần tăng có tên và dưới trần; còn đỏ thì lý do nêu tên thủ phạm — không ép xanh.
+**B6 · tách “cài đặt có chủ” khỏi “rò nền” — cổng thật sự XONG.** Tăng do cài/build/trial **được phép nhưng phải khai trước** bằng `CHANGE_EVENT` trong sổ hiện hữu: `run_id · owner · start_ts · declared categories/paths · cap_bytes · retention/TTL hoặc lý do giữ`; POST ghi actual delta và PASS/OVER_CAP. Program mới >128 MiB mà không có CHANGE_EVENT/registry trước khi ghi ⇒ phần tăng là `UNKNOWN`, đèn đỏ; không được hợp thức hoá sau bằng cách tăng trần. Sau khi loại đúng các CHANGE_EVENT đã chứng minh, tính `UNKNOWN_DELTA_24H` và `UNKNOWN_DELTA_7D` trên cùng cặp snapshot B3. **Đỏ nếu >64 MiB/24h hoặc >128 MiB/7d. Đây là ngưỡng nhiễu đo, không phải “ngân sách rò”; tăng vô danh lặp lại phải được gọi tên, không cộng dồn hợp lệ theo tháng.** Mức ~0,4–0,5 GiB/ngày hiện tại là BLOCKER, không được gọi XONG.
+
+**B7 · giải bài toán hiện tại, không chỉ lắp chuông.** Đối soát chuỗi 06/10→07/10: tách các bậc đã có bằng chứng Graph/R6C/cài đặt khỏi phần trôi nền. Với phần lịch sử không đủ bằng chứng để gọi tên, ghi `HISTORICAL_UNRESOLVED` thay vì đoán; nó chỉ được coi là **không còn đang rò** khi cửa sổ mới sau R7 đạt FINAL_CLOSE_GATE ở §8. Không được biến “không tái hiện” thành “đã biết nguyên nhân”.
+
+Thử (fixture qua các biến `SW_*`, không đụng dữ liệu thật): t1 mục lạ ngoài `/opt` +2,1 GiB ⇒ đỏ đúng tên · t2 nhóm Graph tăng trong `10_000_000_000` B ⇒ không đỏ, có dòng bản tin · t3 nhóm vượt trần ⇒ đỏ và còn đỏ sau khi mốc 24h trượt qua · t4 UNEXPLAINED 1,5 GiB ⇒ đỏ · t5–t8 bốn ca B1 đều đỏ, rc ≠ 0 · t9 unknown 0,5 GiB/24h ⇒ đỏ · t10 CHANGE_EVENT hợp lệ dưới cap ⇒ không coi là rò · t11 tăng >128 MiB không event ⇒ đỏ · t12 historical unresolved + fresh 24h clean ⇒ lịch sử giữ nhãn unresolved, không báo rò hiện hành.
+Chạy thật một lượt `daily`: nộp bảng đối soát `df` ↔ Σ dòng + 10 dòng lớn nhất + bảng CHANGE_EVENT; phần stock chênh cố định phải có `FS_METADATA/OVERHEAD`, còn **delta vô danh** chịu B6. Sau gói B đèn #11 phải phản ánh ĐÚNG thực tế; không ép xanh.
 
 ## 5 · Gói C — mã có khoá thật (Điều 30/31)
 **C1 · đăng ký ngay** `docker/agent-data-repo/scripts/workspace-exec-worker.py` + unit `incomex-workspace-exec.service` (tệp nguồn và bản cài trong systemd) vào Config Guard. Trước khi đăng ký, đối chiếu hash với bản v2 đã nghiệm thu R6W (BAO-CAO R6W, P47); lệch ⇒ không bless, ghi DỪNG riêng C1.
