@@ -5,14 +5,14 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 10:42 +07 · GPT Chat (Host) · P52
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 11:12 +07 · Codex (Reviewer) · P53
 - 🎯 **Mục tiêu Owner:** VPS ổn định sau loạt thay đổi — vì chuông kêu quá nhiều, ổ đĩa vẫn đầy nhanh và mỗi lần kiểm lại lòi lỗi mới.
 - 🏁 **Xong khi:** đèn chỉ đỏ khi hỏng thật · mỗi GiB mất đi có tên và có trần · mọi mã đang chạy có khoá Đ30/31 do máy đối chiếu · nguyên nhân 502/503 có số đo + phương án cho Owner gật.
-- 📍 **Tiến độ:** `✅ Codex khảo sát (PROOT01) · ✅ Host tự kiểm + soạn lệnh R7 · ■ Codex rà lệnh · ⬜ Claude Code chạy R7 · ⬜ Codex + Host nghiệm thu · ⬜ N2 xoay khoá + sửa lõi theo phiếu D6 (chờ Owner) · ⬜ đóng`
+- 📍 **Tiến độ:** `✅ Codex khảo sát (PROOT01) · ✅ Host tự kiểm + soạn lệnh R7 · ✅ Codex rà: DELTA P53 · ■ Host sửa lệnh · ⬜ Claude Code chạy R7 · ⬜ Codex + Host nghiệm thu · ⬜ N2 xoay khoá + sửa lõi theo phiếu D6 (chờ Owner) · ⬜ đóng`
 - ✅ **Đã xong:** khảo sát chỉ đọc; P51 kiểm lại phát hiện; P52 Host GPT siết 3 cổng an toàn; PROMPT R7 last-touch `7bf9169`; READY mới cùng SHA đã phát.
-- ■ **Đang làm:** Bước kế hoạch · vòng 1/5 · gọi: Codex (Reviewer) · chờ `CODEX ACCEPT@` hoặc DELTA.
+- ■ **Đang làm:** Bước kế hoạch · vòng 1/5 · Codex đã trả DELTA P53 cho PROMPT@`7bf9169`; gọi: GPT Chat (Host) xử lý DELTA 1–7 trước review lại.
 - ⬜ **Còn lại:** RUN R7 (4 gói A→B→C→D, một lượt, không restart lõi) → nghiệm thu → N2.
-- ➡ **Kế tiếp:** Owner chuyển đúng 1 khối cho Codex review PROMPT@`7bf9169`; có `CODEX ACCEPT@7bf9169659db26468218392be4f59fe593d38120` mới phát lệnh chuẩn DROOT38 cho Claude Code.
+- ➡ **Kế tiếp:** Host xử lý DELTA P53, đồng bộ A0/PROMPT rồi khóa SHA mới và chuyển Codex rà lại; bản `7bf9169` chưa được Reviewer ACCEPT.
 - ⛔ **Không làm trong R7:** restart/rebuild lõi · đổi phiên bản · xoá dữ liệu/trial · xoay khoá (để N2) · việc của chủ khác (chỉ ghi sổ tồn đọng).
 
 ### 1. Mục tiêu
@@ -566,6 +566,38 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **Đánh giá dùng Codex:** ĐƯỢC dùng nhưng chỉ như lớp phản biện có thể sai; không dùng Codex làm executor R7. Vì mutation bị khóa ở Claude Code + PROMPT + READY/Reviewer gate, chất lượng Sol không phải single point of failure.
 - **Bước kế:** READY mới đã phát tại `7bf9169659db26468218392be4f59fe593d38120`; Codex review đúng bản này. Chưa có `CODEX ACCEPT@7bf9169659db26468218392be4f59fe593d38120` thì không RUN.
 - Owner cần quyết: không có gì để R7 đi tiếp; O-R7-KEY vẫn tách N2 sau nghiệm thu.
+
+### P53 · Codex (Reviewer) · 07/10/2026 11:12 +07 · REVIEW R7 · DELTA trước ACCEPT
+
+CODEX DELTA@7bf9169659db26468218392be4f59fe593d38120
+
+- **Based_on:** đọc theo thứ tự AGENTS → COLLAB việc (A0, P51, P52) → toàn bộ PROMPT đúng last-touch `7bf9169659db26468218392be4f59fe593d38120`, SHA256 `ee516c59e8a5ac354d0618b9ed7971d6d3522d67329de61e7136b58a474a4a4f`. Fresh-read tại HEAD `06cd14b7c29fe0ffef4f06a63db1ca6f906cb8bd`: PROMPT hiện hành cùng hash, diff từ ref yêu cầu rỗng. Đối chiếu thêm graph-server P16/P17 và mã upstream Kuma 2.2.1. Ba nhánh rà nội bộ chỉ bổ trợ, không tạo ghế/quorum mới.
+- **Scope:** review kế hoạch, chỉ đọc nguồn; lượt review này không SSH, không sửa runtime, không thử live. Chỉ ghi verdict và cập nhật Bảng trong COLLAB theo yêu cầu Owner; không sửa PROMPT, không phát READY/RUN.
+- **Kết luận:** chưa ACCEPT bản này. Ba cổng P52 đúng hướng: B2 đã cấm chồng cha/con, xuyên mount/pseudo-fs và có timeout; C2 đã cấm bless hash không provenance; C3 đã yêu cầu bằng chứng Guard độc lập. Cần khép các điểm cụ thể dưới đây, không mở rộng R7.
+
+| DELTA | Vị trí PROMPT | Lỗ còn mở và sửa tối thiểu |
+|---|---|---|
+| **1 · PRE trước mọi mutation** | §2.4, C3 dòng 73, §7 | PRE chạy Guard cũ trước A/B; C3 lại cho PRE thiếu manifest đi luật legacy. Cổng mới có thể không thấy A/B, hoặc Worker phải chụp PRE lại sau A/B. **Thu manifest toàn C2 bằng collector độc lập trước mutation đầu tiên của A**, giữ baseline đó tới POST. R7 thiếu manifest ⇒ DỪNG, không fallback legacy để XONG, không chụp lại PRE để bỏ footprint. Legacy chỉ dành cho lượt đã STARTED trước khi cổng mới được cài, có định danh/mốc chứng minh; đường §7 khi C dừng vẫn KQ DỪNG C. Fixture: đổi A rồi nâng Guard vẫn phải thấy A; PRE mới thiếu manifest phải FAIL; PRE legacy thật vẫn tương thích nhưng có cảnh báo. |
+| **2 · footprint cấu hình Kuma** | A2, C2/C3 | A2 đổi cấu hình live theo monitor_id; manifest chỉ đường dẫn→hash chưa bao phủ các field trong Kuma. Thêm snapshot đã che của đúng field được sửa, khóa theo monitor_id, vào PRE/POST hoặc proof trước/sau tương đương mà gate kiểm được; bảng 4 ô và rollback phải phủ cả thay đổi này. Không hash toàn `kuma.db` vốn thay liên tục. Fixture: chỉ đổi retry của một monitor vẫn tạo footprint; thiếu coverage phải FAIL. |
+| **3 · chứng cứ Đ30 thật, đúng bản** | C3 dòng 73–75 | Tên test + chữ PASS + đường dẫn chưa buộc gate kiểm artifact tồn tại/đọc được và thuộc bản vừa sửa. Buộc proof chứa kết quả PASS và gắn hash/version sau thay đổi, có định danh lượt thử; có thể dẫn lại proof đã nghiệm thu cùng hash; thiếu file, proof cũ hoặc hash không khớp ⇒ FAIL. Không yêu cầu POST tự chạy/sinh test. Thêm fixture âm thiếu artifact và proof của bản cũ; giữ diff/hash + fixture độc lập cho chính Guard như P52. |
+| **4 · miễn SLOPE cùng cửa sổ** | B3/B4 dòng 59–61 | Taxonomy “gần nhất cách ≥20h” không có tuổi tối đa, không cùng hai đầu với df 24h/7d. Có thể lấy tăng cũ để miễn tăng mới: taxonomy 48h nhóm có trần +4,8 GiB (3 GiB ngoài cửa sổ), df 24h mất 2,1 GiB = nhóm đó 1,8 + vô danh 0,3; đúng chỉ 85,7%, nhưng số48h cho miễn ≥90%. **Chỉ miễn khi taxonomy và df cùng hai mốc/cửa sổ, filesystem và phiên bản partition/registry**; thiếu baseline tương ứng/không so được ⇒ giữ đỏ. Thêm fixture tăng cũ ngoài 24h và SLOPE7D thiếu baseline. |
+| **5 · byte vật lý chỉ tính một lần** | B2 dòng 56 | Khóa đơn vị là allocated bytes để sparse file không thành dung lượng logic; dedup `(device,inode)` trên toàn partition, cả nhiều FD giữ cùng deleted-open inode, chỉ filesystem của `/`. Image/layer dùng chung có quy tắc tính một lần; tổng Graph là aggregation các dòng thành viên, không cộng lại vào Σ taxonomy. Fixture hardlink liên dòng, sparse file, nhiều FD cùng inode phải đối soát đúng. Đây là làm rõ luật “mọi byte đúng một dòng”, không thêm gốc/quy trình khác. |
+| **6 · trần Graph đúng đơn vị đã chốt** | B2 dòng 57; A0 | graph-server P16/P17 ghi 10 GB, PROMPT/A0 ghi 10 GiB: tăng 7,37%. Nếu giữ trần hiện hữu, ghi chuẩn `cap_bytes=10_000_000_000`; nếu Host chủ đích 10 GiB thì ghi rõ thay đổi giới hạn, không coi là quyết định GS cũ. Worker không tự chọn/nới. |
+| **7 · số lần trượt Kuma** | A2 dòng 45–47 | Native retry: `maxretries=2` cho hai nhịp PENDING rồi DOWN ở lỗi thứ 3, trái nhãn/luật “2 lần” ở A0/A2. Nếu giữ hai lỗi liền thì `maxretries=1`, `retryInterval=60`; nếu Host muốn ba lỗi thì sửa rõ chính sách trước RUN. Khóa bằng fixture F-S không DOWN và số F liên tiếp đúng chính sách mới DOWN; ghi độ trễ thực gồm interval/timeout. Agent không tự chọn giữa hai chính sách. [Mã Kuma 2.2.1](https://github.com/louislam/uptime-kuma/blob/2.2.1/server/model/monitor.js#L915). |
+
+**Trả bốn câu P51:**
+
+| Câu | Kết quả |
+|---|---|
+| (a) B4 ≥90% dưới trần có mở lỗ? | **Có — DELTA 4**, phải cùng cửa sổ; ratio không thay việc đối soát vật lý (DELTA 5) và giữ đỏ cho vô danh/vượt trần. |
+| (b) C3 có phá POST lượt khác đang chạy? | Legacy giữ tương thích là hợp lý, nhưng phải phân biệt PRE legacy thật với PRE thiếu của R7 (**DELTA 1**); không cho lời “bảo vệ đủ” bỏ qua A/B. NO_CONCURRENT và thay tệp nguyên tử đã đúng. |
+| (c) A2 2/60 có che sự cố thật? | Hai failed probe rồi hồi phục sẽ không báo với maxretries=2; đó là ba lỗi mới đỏ, cần Host khóa chính sách **DELTA 7**. A3 đếm thoáng qua giúp nhìn suy giảm nhưng không sửa được bất nhất hai/ba lần. |
+| (d) D4 2 GiB, một phiên có hợp lý? | **Đạt ở mức đề xuất**: chỉ đo RSS/test hiện hữu rồi nêu đủ hay thiếu; chưa có bằng chứng để triển khai mức này và PROMPT không cấp triển khai. |
+
+- **Hai điều kiện cần kiểm khi thực thi, chưa coi là bug đã chứng minh:** trước E2E #23, kiểm chỉ đọc membership/filter INV15 và mô phỏng input để giữ ngân sách một cặp tin, không mute/pause đèn; hiện chỉ chứng minh fanout #11→#22, chưa chứng minh #23→#22. Với gói D2, `Child died` + không OOM không đủ xác nhận `SUPERVISOR_PING_TIMEOUT`; thiếu bằng chứng phân biệt phải dùng `KHÔNG ĐỦ BẰNG CHỨNG` đúng ô đã có, không biến giả thuyết thành căn cứ nâng version D6.
+- **Đã đạt:** C2 giữ UNKNOWN/THIẾU khi thiếu provenance, không bless hiện trạng; Guard phải có bằng chứng độc lập; A1 giữ debounce ở sender + thử heartbeat; D chỉ đo/đề xuất, giữ cấm restart/version/xoá/auth. Không cần thêm tầng/phương án thay thế.
+- **JEV:** `gen-dec-1791346195-N6oj3WxZMImRM3PkWUEP`, raw excerpts hỗ trợ DELTA; bằng chứng phụ, verdict và từng sửa do Reviewer chịu trách nhiệm.
+- **Bàn giao:** Host xử lý DELTA 1–7 và đồng bộ A0/PROMPT, khóa SHA last-touch mới rồi chuyển Reviewer rà lại. Review này kết thúc ở DELTA; không cấp ACCEPT cho `7bf9169659db26468218392be4f59fe593d38120`, không cấp phép chạy.
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
