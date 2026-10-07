@@ -104,7 +104,7 @@ Host: GPT Chat · Host_ID: GPT-VPSC-261007-R7B · vòng 4 tiếp quản theo ch�
 HTML chính: `view.html`
 
 ## Giấy phép vòng 4
-- **R7 HOLD — P53 DELTA + D19:** PROMPT đã đổi sau `7bf9169`; READY `7bf9169659db26468218392be4f59fe593d38120` **HẾT HIỆU LỰC**. Chưa có READY mới/CODEX ACCEPT mới ⇒ **không RUN**.
+- **R7:** PROMPT last-touch `62b55a3fd49aa3b457629020038c9f4a3f0589c0` · **READY@62b55a3fd49aa3b457629020038c9f4a3f0589c0 · Host GPT Chat**. READY `7bf9169659db26468218392be4f59fe593d38120` hết hiệu lực. **RUN chỉ hợp lệ khi có `CODEX ACCEPT@62b55a3fd49aa3b457629020038c9f4a3f0589c0`.**
 - Lệnh executor chuẩn theo DROOT38 (chỉ dùng sau khi có READY mới + CODEX ACCEPT cùng SHA): `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
 
 ## Lịch sử trạng thái vòng 1–2
@@ -605,7 +605,7 @@ CODEX DELTA@7bf9169659db26468218392be4f59fe593d38120
 - **Đánh giá 0,4–0,5 GiB/ngày:** nếu lặp là khoảng 12–15 GiB/tháng, **không chấp nhận**. Bằng chứng hiện chỉ cho thấy phần lớn 7,5 GiB đã có bậc gắn Graph/R6C; phần ~0,4–0,5 GiB/ngày là residual ước lượng **chưa chứng minh là leak liên tục**, nhưng cũng **chưa được phép kết luận đã bịt**.
 - **Nguyên tắc mới:** byte tăng phải rơi vào file/layer/log/DB/cache/deleted-open/fs metadata. Tăng do cài chương trình là hợp lệ **chỉ khi có CHANGE_EVENT + owner + cap + TTL/retention**; nếu không vẫn là unknown.
 - **Cổng đóng:** R7 chạy xong chưa đóng VPSC. Máy tự lấy T0 và chứng minh 24h mới `UNKNOWN_DELTA≤64 MiB`, không breach; không giữ terminal/Owner chờ. 7d watcher tiếp tục ≤128 MiB. Fail ⇒ đỏ, không close/hoặc mở lại.
-- **Trạng thái:** bản `7bf9169` bị thay; chưa READY mới cho tới khi Host fresh-read PROMPT hiện hành rồi phát SHA mới. Codex sẽ review lại đúng SHA mới; vẫn chỉ Reviewer, 0 production mutation.
+- **Trạng thái:** Host đã fresh-read PROMPT và phát `READY@62b55a3fd49aa3b457629020038c9f4a3f0589c0`. Codex review lại đúng SHA này; vẫn chỉ Reviewer, 0 production mutation.
 - Owner cần quyết: không có; D19 là chỉ đạo trực tiếp, Host áp luôn.
 
 ## Owner cần quyết
