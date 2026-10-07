@@ -1364,17 +1364,17 @@
  const tabs=document.createElement('div');tabs.className='cf-subtabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Các phần Công thức');
  tabs.innerHTML='<button type="button" role="tab" id="formula-subtab-definitions" aria-controls="formula-definitions" aria-selected="true">Công thức và định nghĩa</button><button type="button" role="tab" id="formula-subtab-review" aria-controls="formula-design-review" aria-selected="false" tabindex="-1">Master Duyệt thiết kế</button>';
  const review=document.createElement('section');review.id='formula-design-review';review.setAttribute('role','tabpanel');review.setAttribute('aria-labelledby','formula-subtab-review');review.hidden=true;
- review.innerHTML='<p class="cf-review-link"><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" target="_blank" rel="noopener">Mở Master Duyệt thiết kế riêng ↗</a></p><iframe title="Master Duyệt thiết kế" data-src="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" style="display:block;width:100%;height:85vh;min-height:650px;border:1px solid #dce4dc;border-radius:10px;background:white"></iframe>';
+ review.innerHTML='<p class="cf-review-link"><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" target="_blank" rel="noopener">Mở Master Duyệt thiết kế riêng ↗</a></p>';
  const note=document.createElement('p');note.className='cf-reference-note';note.textContent='Các phần khác giữ làm tham khảo. Thiết kế tiếp theo theo hướng dẫn từng bước của Owner.';
  owner.append(tabs,note,content,review);
- const style=document.createElement('style');style.textContent='#matrix-view-formula .cf-subtabs{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #dce4dc;margin:0 0 8px;padding-bottom:8px}#matrix-view-formula .cf-subtabs button{font:600 14px/1.4 inherit;font-family:inherit;font-size:14px;padding:10px 14px;border:1px solid #cfd8d2;border-radius:8px;background:#fff;color:#66736b;cursor:pointer}#matrix-view-formula .cf-subtabs button[aria-selected="true"]{background:#eef3ef;color:#243c2d;border-color:#8fa796}#matrix-view-formula .cf-subtabs button:focus-visible{outline:2px solid #516c5b;outline-offset:3px}#matrix-view-formula .cf-reference-note{font-size:11px;color:#849088;margin:0 0 14px}#matrix-view-formula .cf-review-link{font-size:12px;margin:8px 0}#matrix-view-formula [role="tabpanel"][hidden]{display:none!important}';
+ const style=document.createElement('style');style.textContent='#matrix-view-formula .cf-subtabs{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #dce4dc;margin:0 0 8px;padding-bottom:8px}#matrix-view-formula .cf-subtabs button{font-family:inherit;font-size:14px;font-weight:600;line-height:1.4;padding:10px 14px;border:1px solid #cfd8d2;border-radius:8px;background:#fff;color:#66736b;cursor:pointer}#matrix-view-formula .cf-subtabs button[aria-selected="true"]{background:#eef3ef;color:#243c2d;border-color:#8fa796}#matrix-view-formula .cf-subtabs button:focus-visible{outline:2px solid #516c5b;outline-offset:3px}#matrix-view-formula .cf-reference-note{font-size:11px;color:#849088;margin:0 0 14px}#matrix-view-formula .cf-review-link{font-size:12px;margin:8px 0}#matrix-view-formula [role="tabpanel"][hidden]{display:none!important}';
  root.prepend(style);
  const buttons=[...tabs.querySelectorAll('button')];
  function select(id,write=false){
   const isReview=id==='formula-design-review';
   content.hidden=isReview;review.hidden=!isReview;
   buttons.forEach((b,i)=>{const on=i===(isReview?1:0);b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;});
-  const frame=review.querySelector('iframe');if(isReview&&!frame.hasAttribute('src'))frame.src=frame.dataset.src;
+  // Master review opens directly via its link; this site disallows iframe embedding.
   if(write)location.hash=isReview?'formula-design-review':'formula-definitions';
  }
  function restore(){let id='';try{id=decodeURIComponent(location.hash.slice(1));}catch{}select(id==='formula-design-review'?'formula-design-review':'formula-definitions');}
