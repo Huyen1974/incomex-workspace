@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 17:34 +07 · GPT Host · **P207 PROMPT 2A ĐÃ SỬA ĐỦ R1–R11 · REVIEW SHA dcad0791 · NO READY/RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 17:48 +07 · GPT Host · **P208 TECH AUDIT ĐÃ ÁP 4 FIX · EXACT REVIEW SHA e2cc3efb · NO READY/RUN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
-- ■ **Đang làm:** **Bước N3 chặng 2a · exact review · vòng 1/3 sau KQ · gọi: claude-main**. PROMPT last-touch `dcad0791bb038345f5e5d9f339d5bbf926c11fad`; Host P207 tự dò đủ R1–R11. Chưa READY/RUN.
+- ■ **Đang làm:** **Bước N3 chặng 2a · exact review · vòng 1/3 sau KQ · gọi: claude-main**. Claude Code audit đã xong, 4 blocker đã sửa; PROMPT last-touch `e2cc3efb9315905e05c680c63cd87b276a18d090`. Chưa READY/RUN.
 - ⬜ **Còn lại:** Claude ACCEPT exact SHA → Host fresh-check Graph/VPSC → nếu shared VPS sạch thì READY → worker 2a → Host 2 live canary/Owner bấm 2 lần → tích lũy 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: chuyển khối exact-review P207 cho Claude Chat; **chưa mở Claude Code** · 🤖 Claude: soát đúng R1–R11 trên SHA `dcad0791...`, không mở câu hỏi mới · 🤖 Host: ACCEPT là phát READY ngay sau fresh concurrency gate.
+- ➡ **Kế tiếp:** 😊 Owner: đóng Claude Code audit (`/exit`) và chuyển khối P208 cho **Claude Chat** · 🤖 Claude Chat: chỉ soát 4 delta trên SHA `e2cc3efb...` · 🤖 Host: ACCEPT là fresh-check concurrency rồi READY ngay.
 - ⛔ **Không làm/để sau:** không RUN/READY trước exact Reviewer ACCEPT; không mở 2b/Routine; không hack vendor ticker; không cho HJW 2a mutation chạy song song một STARTED khác trên shared VPS.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -4435,6 +4435,19 @@ Ghế: openai-main · Bước/vòng: N3 post-KQ · 1/3 · gọi: claude-main
 - **Không sửa core Owner View:** queue truth xử trong 2a; `Chờ Owner` giả đã sửa cấu trúc COLLAB ở P202, chỉ regression check.
 - **Concurrency snapshot:** VPSC S1a đã KQ XONG 17:28; Graph R7 đã READY ở root P61 và có thể STARTED bất kỳ lúc nào. Exact-review HJW làm ngay; trước READY/RUN 2a Host phải fresh-read shared VPS, nếu Graph/VPSC STARTED thì chưa đưa Owner lệnh.
 - **RUN:** NO. Chưa READY. Worker không mở CLI.
+
+### P208 · GPT Host · 2026-10-07 17:48 +07 · **ACCEPT TECHNICAL AUDIT · 4 FIXES APPLIED · EXACT REVIEW SHA e2cc3efb · NO READY/RUN**
+Ghế: openai-main · Bước/vòng: N3 post-KQ · 1/3 · gọi: claude-main
+- **Vai:** Claude Code vừa hoàn thành **technical audit** của exact draft nhưng không phải ghế `claude-main`, nên **không tính Reviewer ACCEPT** và không được ghi phiếu thay Claude Chat.
+- **Audit disposition:** ACCEPT cả 4 chỉnh sửa đã nêu; PROMPT đã sửa đúng 4 dòng, last-touch `e2cc3efb9315905e05c680c63cd87b276a18d090`.
+- **R1 timing:** candidate Routine/token được khóa rõ **chỉ chặng 2b**, sau disposition 2a + final review 2b ACCEPT; không thể bị kích bởi exact ACCEPT của 2a.
+- **R10 canary gate:** hai canary 2a phải đạt **§1.G live SLA**, không còn tham chiếu nhầm R3–R7 worker steps.
+- **R10 Hermes PASS:** 3 success liên tiếp phải vừa tự báo latency **vừa đạt SLA §1.G**; không còn trường hợp “có số nhưng số đỏ” vẫn được PASS.
+- **Machine-safe sample:** mẫu PASS §9 dùng `KQ@<RUN_ID>`, không dùng RUN_ID thật trong prose.
+- **Self-check Host:** search exact 4 pattern sau sửa đều đúng; không còn mẫu `KQ@HJW-N3-COURIER-WAKE-20261007-01 XONG` trong PROMPT.
+- **Mục tiêu/roadmap:** không đổi. N1/N2 ✓; N3 chặng 1/R4 ✓; N3 chặng 2a đang exact-review; 2b/N4/N5/N6 chưa mở.
+- **Next duy nhất:** Claude Chat exact-review **chỉ 4 dòng delta** trên SHA `e2cc3efb...`. ACCEPT ⇒ Host fresh-check Graph/VPSC và phát READY ngay nếu shared VPS không có STARTED.
+- **CLI:** Claude Code audit đã xong ⇒ đóng `/exit`; chưa mở worker 2a.
 
 
 
