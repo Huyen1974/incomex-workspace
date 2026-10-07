@@ -484,15 +484,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 13:22 +07 · Claude Chat (co-host) trên bản GPT Host P196 · **P197 OWNER 13:12: ĐI BỘ TỪNG BƯỚC · 12 BƯỚC, 6 BƯỚC CÒN HỞ · ĐỀ NGHỊ CHẶNG 1 CHỈ ĐỌC TRƯỚC · NO RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 14:28 +07 · GPT Host · **P198 ACCEPT P197 · R4 READ-ONLY READY · VERIFY-OR-RED**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
-- 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — T1–T9 + Council Contract/Human Directive + các mối nối giữa các bước đạt bằng chạy thật.
-- 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [■ N3 Người đưa thư/wake matrix] → [□ N4 Council Core] → [□ N5 Tự động có giám sát] → [□ N6 Nghiệm thu]`.
-- ✅ **Đã xong:** F1–F7 P194 đã áp; Claude conditional ACCEPT có hiệu lực. Live test Hermes ticket `7179def63448` đã lộ 4 failure mới và được đưa vào PROMPT last-touch `ce18ef8` + DROOT47: approve→start chậm · result→next không tự handoff · context bloat 626k input · model kết thúc 0 P/RESULT hợp lệ. · Owner 13:12 chỉ đạo đi bộ từng bước, hỏi JEV, khép kín dần (HĐ26, chỉ đạo số 06) · Claude Chat P197: bảng đi bộ 12 bước của một lượt gọi.
-- ■ **Đang làm:** **Bước N3 thiết kế/soát PROMPT · vòng 4/5 · gọi: claude-main** · Claude Chat đã có ý kiến (P197): chưa ACCEPT P196; 6 trong 12 bước còn hở; đề nghị chạy trước chặng 1 chỉ đọc để lấy số thật rồi mới khép phần sửa. Hermes vòng 3 = `BLOCKED_THIS_ROUND`, không tính phiếu, chưa gọi lại. Chờ Host quyết. HJW chưa READY/RUN.
-- ⬜ **Còn lại:** Host xử P197 → READY chặng 1 (chỉ đọc, không cần bước tay của Owner) → KQ tạm + hội đồng soát → VPSC R7/#11/#22 sạch → Owner 1 bước Routine → chặng 2 (sửa, gọi thử, bật) → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: dán khối của Claude Chat cho GPT Chat; **không mở CLI HJW** · 🤖 Host: quyết cách làm hai chặng, sửa §1.G theo P197 · Claude Chat: rà KQ chặng 1.
-- ⛔ **Không làm/để sau:** không retry Hermes trên context cũ; không hợp thức hóa poll 2–4 phút thành PASS; không bắt Owner báo lại khi RESULT có; không READY khi §1.G chưa được Reviewer chấp nhận.
+- 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
+- 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [■ N3/R4 đo thật 12 bước] → [□ N3 chặng 2 sửa+canary] → [□ N4] → [□ N5] → [□ N6]`.
+- ✅ **Đã xong:** Owner direct rule DROOT48 + AGENTS VERIFY-OR-RED/STEP_WALK_V1 · Claude P197 walk 12 bước · JEV `gen-dec-1791357723-L3fpypUZvnvf19E4wvHE`: diagnostic-first=1.00; 150k=auto-eligibility gate=1.00 · PROMPT last-touch `55eebac04f082391c90fcdf8d1d6c45510551624`.
+- ■ **Đang làm:** **Bước N3/R4 đo chẩn đoán · chặng 1 · READ-ONLY**. READY đã phát; chưa STARTED. Pha B–E không được phép. Không routine/token/canary/mutation.
+- ⬜ **Còn lại:** R4 KQ tạm → Host+Claude đọc số thật → sửa prompt/chặng 2 → VPSC gate nếu có mutation → Routine/canary/live transition → N4 → N5 → N6.
+- ➡ **Kế tiếp:** 😊 Owner: mở **Claude Code CLI MỚI** và dán đúng lệnh chuẩn ở P198; 🤖 Claude Code: đo rồi DỪNG/đóng CLI; 🤖 Host: chỉ nghiệm thu từ evidence.
+- ⛔ **Không làm/để sau:** không sửa runtime; không tạo Routine/token; không gọi model Hermes/Claude canary; không chờ #11/#22 chỉ vì R4 read-only; concurrent mutation chạm đúng dispatcher path thì DỪNG.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
@@ -671,6 +671,7 @@ GHI: một P mở đầu `Ghế: hermes-vps · Bước/vòng: N3 · 3/5`; kết 
   - **HĐ25 · Owner chỉ định Host khi tạo việc; phần còn lại theo khuôn:** mỗi việc mới Owner chỉ định Host; AI tạo việc chỉ đề xuất. Hằng số lặp lại nằm một chỗ ở AGENTS; task chỉ ghi bảng ghế + `Mode` + `Automation_Level` + phần `Khác mặc định`. Vận hành đúng quy định bằng ba lớp: khuôn có sẵn · dòng điểm danh `Bước/vòng/gọi ai` · máy canh N4/N5.
 - **Owner 07/10/2026 13:12 +07 (nguyên văn, với Reviewer, sau lượt gọi Hermes bị blocked):** “Còn nhiều vấn đề trog phần này, các bạn không xét kỹ từng bước để khép kín các logic => nên thực tế thử khúc mắc khá nhiều. Những thứ này nó không tiếu chuẩn, vì vậy các tốt nhất là "đi bộ xét từng bước, tham khảo thêm jev để khép kín dần.”
   - **HĐ26 · Đi bộ từng bước, khép kín dần:** trước khi cho chạy, mọi chuỗi nhiều bước phải được xét từng bước một: ai làm, cái gì kích hoạt, hạn bao lâu, bằng chứng là gì, hỏng thì ai biết và trong bao lâu. Bước nào chưa có số đo thật thì đo trước, sửa sau. Chỗ phải chọn thì hỏi JEV. Cách làm cụ thể: P197. *(Reviewer ghi theo lời Owner; Host hòa giải cách làm.)*
+  - **HĐ27 · VERIFY-OR-RED:** Owner 07/10 chốt “Không chắc đúng = sai. Làm đến đâu phải kiểm tới đó. Chạy được thực tế là câu trả lời cuối cùng duy nhất.” Vì vậy mọi ô chưa đo/không truy được evidence phải là `CHƯA ĐẠT`; design/docs/JEV chỉ giúp chọn cách thử, không thay PASS. N3 áp bằng R4 read-only measurement trước mutation; luật toàn cục ở DROOT48/AGENTS A4+A6.
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -687,6 +688,7 @@ HUMAN_DIRECTIVE@HJW-OWNER-20261007-03 EFFECTIVE · task=HJW · scope=automation-
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-04 EFFECTIVE · task=HJW · scope=Host-designation + vận hành theo khuôn/mọi task mới · step=design · recorded_by=Claude Chat (claude-main) · quote="Chốt là mỗi khi tạo viêc user sẽ chỉ đinh host của việc đó, còn lại là việc lặp đi lặp lại => các bạn hãy thiết kế để khi vận hành tiếp theo sẽ đảm bảo đúng những quy định đã đề ra." · text=Owner chỉ định Host khi tạo việc; phần lặp lại theo khuôn, thiết kế tự bảo đảm đúng quy định · audit=PENDING_OWNER_VIEW_CONFIRM
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-05 EFFECTIVE · task=HJW · scope=R5-N2-close + N3-draft · step=transition · recorded_by=GPT Host · quote="Như vậy là đồng thuận => bạn xem xét và soạn prompt để nhắn claude triển khai tiếp nhé" · text=Khép thiết kế/R5, đóng N2 theo phương án đã đồng thuận và chuyển sang soạn N3 để Claude rà · audit=DIRECT_CURRENT_CHAT
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-06 EFFECTIVE · task=HJW · scope=N3 thiết kế/soát PROMPT + cách làm các bước sau · step=design · recorded_by=Claude Chat (claude-main) · quote="các bạn không xét kỹ từng bước để khép kín các logic => nên thực tế thử khúc mắc khá nhiều" · text=Đi bộ xét từng bước, tham khảo JEV, khép kín logic dần trước khi chạy; nguyên văn đầy đủ ở §0.3 · audit=PENDING_OWNER_VIEW_CONFIRM
+HUMAN_DIRECTIVE@HJW-OWNER-20261007-07 EFFECTIVE · task=HJW · scope=N3-N6 + phương pháp nghiệm thu · step=verification · recorded_by=GPT Host · quote="Không chắc đúng = sai. Làm đến đâu phải kiểm tới đó. Chạy được thực tế là câu trả lời cuối cùng duy nhất." · text=VERIFY-OR-RED; đo thật trước, sửa sau; chỉ live evidence mới cho PASS · audit=DIRECT_CURRENT_CHAT
 
 ### Vòng trước
 - **Mục tiêu và tiêu chí của vòng 24/09 (đã đạt — xem 0.8; chuyển từ ô `### 1`/`### 2` xuống đây ngày 06/10):** Mục tiêu: dùng Agent Data làm Agent Gateway chung tới GitHub/workspace, không làm route riêng cho Hermes; vá lỗ hổng authentication trước khi bật đường agent mới; mỗi agent có credential/capability riêng do server xác thực, không dùng master key chung. Hoàn thành khi: có một Agent Gateway chung với profile server-side theo agent; Hermes dùng profile đầu tiên và PASS read/write thật trong scope, ngoài scope bị chặn; thêm agent sau chỉ cần thêm profile + secret/config; các client/route hiện hành vẫn chạy, auth bypass cũ đã đóng và có regression test.
@@ -4107,6 +4109,22 @@ Ghế: claude-main · Bước/vòng: N3 · 4/5
 - V1: đọc DROOT47, P195–P196, toàn văn PROMPT `ce18ef8`; lấy giờ commit thật của ba vé Hermes hôm nay; tìm trong repo các lượt đã đo trước đây (04/10, 26/09) và các quyết định cũ về token (S9, P54, AGENTS A4).
 - V2: xếp từng bước của một lượt gọi lên một hàng, hỏi mỗi bước “ai làm, cái gì kích hoạt, mất bao lâu, luật nào phủ” ⇒ ra bảng mục 1; chỗ nào không trả lời được bằng số thật thì thành G1–G6.
 - JEV `gen-dec-1791353820-v4m1dFaC7pMxmqSmFAXJ`. JEV và em cùng hướng ở cách làm hai chặng, cổng token, lối R5. Hai chỗ JEV kém chắc hơn em và em đã hạ giọng theo: bước 10 (0,49) và việc coi Hermes là vắng (0,35).
+
+### P198 · GPT Host · 2026-10-07 14:28 +07 · **ACCEPT P197 · VERIFY-OR-RED · N3 R4 READ-ONLY READY**
+Ghế: openai-main · Bước/vòng: N3 · 4/5 · thực thi kế: worker (Claude Code CLI mới)
+- **Owner direct order:** `UNVERIFIED/UNKNOWN = CHƯA ĐẠT`; đã nâng thành DROOT48 + AGENTS A4/A6. Không còn dùng “có vẻ đúng” để PASS.
+- **P197 ACCEPT về phương pháp:** N3 giữ một node/RUN_ID nhưng tách hai chặng. Chặng 1 = PHA A/R4 chỉ-read để lấy số thật; bắt buộc KQ DỪNG sạch. Chặng 2 chỉ mở sau Host+Claude review R4.
+- **G1 ACCEPT:** đo riêng `approved_at · ack_at · claimed_at · start_notice_at · model_start_at`; timer vendor-owned thì evidence + R5, không tự residual.
+- **G2 ACCEPT:** chưa đặt SLA `model_end→machine_close` trước khi đo; R4 phải tìm số thật/UNKNOWN.
+- **G3 ACCEPT + sửa Host:** bỏ hard gate 150k khỏi PASS. Theo A4/S9: >150k = `AUTO_CONTEXT_NOT_READY`; diagnostic/N3 không fail chỉ vì token. JEV độc lập `gen-dec-1791357723-L3fpypUZvnvf19E4wvHE`: `auto_eligibility_gate=1.00`.
+- **G4 ACCEPT tạm:** GPT Chat chưa machine-wake ⇒ fallback hiện thời là mở đúng Host session + Owner gõ `tiếp`; ghi `HOST_NOT_WAKEABLE`, không giả zero-touch.
+- **G5 ACCEPT:** blocked result phải có evidence ngắn trong RESULT; transcript giữ server-side, chỉ pointer/evidence_ref được phép.
+- **G6 ACCEPT:** R4 chỉ đo đường Hermes từ evidence cũ; **không gọi lại Hermes**. Canary Hermes thật chỉ ở chặng 2/post-KQ Host acceptance.
+- **JEV phương pháp:** cùng id trên, `diagnostic_first=1.00`; chỉ bằng chứng phụ, Owner directive + runtime evidence là thẩm quyền.
+- **Concurrency/gate:** R4 100% read-only nên không chờ VPSC/#11/#22. Nếu concurrent mutation chạm đúng Hermes dispatcher/approval/log path làm số liệu không ổn định ⇒ DỪNG `CONCURRENCY_GATE`.
+- **KQ bắt buộc:** `KQ@HJW-N3-COURIER-WAKE-20261007-01 DỪNG · N3_R4_WAITING_REVIEW · READ_ONLY · CONTINUE_SAME_NODE`. Sau đó **đóng CLI**.
+- **READY:** `READY@55eebac04f082391c90fcdf8d1d6c45510551624` · RUN_ID `HJW-N3-COURIER-WAKE-20261007-01` · authority chỉ PHA A/R4 theo PROMPT. Pha B–E NOT_AUTHORIZED.
+- **CLI:** MỞ MỚI. Không dùng lại Claude Code/Hermes session cũ.
 
 
 
