@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 20:28 +07 · Claude Code CLI (worker) · **P211 N3 2A ĐANG CHẠY · CỜ BẬN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 21:58 +07 · Claude Code CLI (worker) · **P212 N3 2A CHƯA DEPLOY · DỪNG Ở CỔNG ĐÈN NGOÀI · KHÔNG CỜ BẬN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
-- ■ **Đang làm:** **Bước N3 chặng 2a · worker Claude Code CLI đang chạy từ 20:28 +07 (P211, cờ bận mới sau checkpoint P204)** · trình tự PRE → sửa → khuôn thử → áp + bảo vệ → khói → KQ DỪNG chờ canary · gọi: — (worker không gọi ghế nào). Graph R7 đã có kết quả 19:50 +07 nên cổng P210 đã mở.
+- ■ **Đang làm:** **Bước N3 chặng 2a · CHƯA DEPLOY · dừng sạch ở cổng đèn ngoài (P212)** · ứng viên sửa đường Hermes đã qua khuôn thử trong hộp cát (42/42 · 27/27 · quét khô PASS), runtime delta = 0; Guard PRE đỏ chỉ vì đèn #11 ổ đĩa (việc VPSC) nên chưa áp · gọi: — · không còn cờ bận.
 - ⬜ **Còn lại:** Graph R7 KQ → Owner mở Claude Code CLI MỚI cho HJW → worker 2a → Host 2 live canary/Owner bấm 2 lần → tích lũy 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: không thao tác trong lúc worker chạy · 🤖 worker 2a: xong ghi kết quả DỪNG `N3_2A_DEPLOYED_WAITING_LIVE_CANARY` + đóng CLI (cổng/khuôn thử/bảo vệ hỏng ⇒ hoàn về bản cũ, DỪNG sạch) · 🤖 Host: sau kết quả mới phát 2 canary · Reviewer: chưa có việc.
+- ➡ **Kế tiếp:** 🤖 Host: chờ đèn #11 xanh lại (dọn ổ là việc VPSC, HJW không làm) rồi báo Owner mở CLI HJW · 😊 Owner: khi đèn #11 xanh, mở **Claude Code CLI MỚI** cho HJW, dán lại câu lệnh chuẩn và chọn cho phép khi máy hỏi quyền áp production · 🤖 worker 2a: PRE lại → áp → bảo vệ → khói → kết quả chờ canary, đóng CLI · 🤖 Host: chỉ phát 2 canary sau khi áp thật · Reviewer: chưa có việc.
 - ⛔ **Không làm/để sau:** không mở CLI HJW khi Graph/VPSC/shared-VPS task khác còn STARTED; không mở 2b/Routine; không hack vendor ticker; READY không đồng nghĩa được phép mutation khi execution gate còn đỏ.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -4494,6 +4494,48 @@ Ghế: Claude Code CLI (worker, không tính phiếu hội đồng) · Bước/v
 - STARTED@HJW-N3-COURIER-WAKE-20261007-01 2026-10-07T13:28Z · executor=Claude Code CLI (phiên mới trên Mac) · phase=2a · cờ bận MỚI sau checkpoint P203→P204 (dòng kết quả DỪNG ở P204 thuộc chặng R4, không phải kết quả lượt này) · read-gate PASS: Write_Path gateway `workspace_*` (root workspace, HEAD `83f6d05`, fresh) đọc được bằng `workspace_stat`; PROMPT last-touch `e2cc3ef…` = READY P210 = bản Reviewer P209; dòng `STATUS: DRAFT_2A…` trong PROMPT là nhãn lúc soạn (P210 nói rõ); cổng P210 đã mở: Graph R7 có kết quả XONG `a5fb97c` 12:50Z, phiên Graph đã thoát; VPSC R7 mới READY chờ Codex, chưa bắt đầu; 0 STOP_REQUESTED/COUNCIL_ALERT mở; HJW `## Owner cần quyết` = `- —`; Owner chuyển câu lệnh chuẩn DROOT38 trong phiên này.
 - **Câu P210 về dùng lại RUN_ID — đo trước khi ghi:** trên VPS chỉ một tệp mã đọc dấu bắt đầu (`run06-shared-gate.sh` của chính HJW, bỏ qua HJW); `ws-run-watch` chỉ đọc kết quả (sẽ không báo lại kết quả DỪNG mới của lượt này — residual); bộ đồng bộ trang Owner chỉ đọc kết quả. Không cổng máy nào điều hành cờ bận HJW bị đọc nhầm; chỗ có thể đọc nhầm là người/AI việc khác dò bằng grep ⇒ theo P209/P210, dòng gốc root COLLAB ghi HJW bận ngay trong commit này. JEV `gen-dec-1791379548-9bY3Ob4fX4hFp2DtDNxk`: đi tiếp 0,76 (độ tin 0,52) ⇒ không dùng mã `RUN_ID_LIFECYCLE_AMBIGUOUS`.
 - Quyền: chỉ §3 chặng 2a (R1–R7); không Routine/token/hãng khác, không ghi ASSIGN, không mở 2b. Mốc từng bước ghi ở P kết quả.
+
+### P212 · Claude Code CLI · 2026-10-07 21:58 +07 · RUN `HJW-N3-COURIER-WAKE-20261007-01` · **KẾT QUẢ CHẶNG 2A · CHƯA DEPLOY · DỪNG Ở CỔNG ĐÈN NGOÀI** · Based_on `READY@e2cc3efb9315905e05c680c63cd87b276a18d090` (P210) · bắt đầu P211 `632aa03`
+Ghế: Claude Code CLI (worker, không tính phiếu hội đồng) · Bước/vòng: N3 chặng 2a · 1/3
+KQ@HJW-N3-COURIER-WAKE-20261007-01 DỪNG · EXTERNAL_GREEN_GATE · CONTINUE_SAME_NODE
+- **Chưa deploy · runtime delta = 0**: không áp, không hoàn tác, không restart, không đổi config/service/job; 0 lượt model thật; 0 tin thử tới Owner; không phát canary, không mở 2b. Kết thúc theo cho phép của Owner (chuyển trong phiên, 21:5x +07): chỉ ghi repo, không ghi thêm tệp nào trên VPS.
+
+**0 · Tóm tắt**
+- Ứng viên 2a (R1–R7) đã viết xong và qua khuôn thử trong hộp cát: hồi quy 42/42 (27 phép cũ, các phép 2a cố ý đổi nghĩa đã chỉnh có ghi chú, + 15 phép mới), Git thật 27/27, quét khô bản repo VPS thật PASS, probe INV19 mới 23/23 phép đúng + 14/14 mutant bị bắt.
+- Chưa áp vì hai cổng: (1) Guard PRE FAIL — chỉ INV15 do đèn #11 Disk Usage đỏ từ 13:00Z (ổ giảm 2,09–2,11 GiB/24h sau lượt dựng Graph bản thật; 18 phép còn lại PASS, gồm INV19); Guard quy định PRE FAIL ⇒ không mutation. (2) Bộ phân loại auto-mode của Claude Code chặn bước soạn/chạy script áp production — chỉ Owner cho phép được.
+- Không giữ terminal chờ đèn (DROOT43); dừng sạch ở mốc trước mutation đầu tiên. DROOT30 lúc ghi kết quả: PROMPT last-touch vẫn `e2cc3ef`, HJW COLLAB không ai sửa sau P211, AGENTS không đổi.
+
+**1 · PRE (13:28–13:30Z)**
+- Cờ dừng HJW OFF · 0 vé Hermes mở · 0 execution claimed/running · 0 STOP_REQUESTED/COUNCIL_ALERT · 0 việc khác có cờ bận chưa KQ (Graph R7 KQ XONG 12:50Z; VPSC R7 mới READY) · tín hiệu “Đang làm” của VPSC/Graph chỉ là hoạt động đọc/ghi repo.
+- Bản đang chạy (đã sao lưu + băm vào hồ sơ): gate `4eec51bb` · lifecycle `92627af7` · plugin init `57f2e6e4` · Guard `7127ab1b` · root `f2bcf395` · jobs (HJW) `dcb0809d`.
+- ĐÈN 20/22 (#11 + #22 kéo theo); TIN BÁO 13:25Z: 74 loại · 72 chạy · 0 hỏng · 2 chưa xác định.
+
+**2 · Ứng viên — chưa áp** (hồ sơ VPS `/opt/incomex/work/hermes-joint-workspace/HJW-N3-2A-20261007/`: `backup/` bản đang chạy + SHA256SUMS · `cand/` · `fixture/` · `results/` · `bin/n3-2a-fixture.sh`; tạo trong R2–R4, trước lệnh repo-only)
+- gate `3019730a` · lifecycle `d8c7df0a` · plugin init `ec8cfe4e` · Guard `578dec24`.
+- R2 máy ghi hộ: one-shot chỉ đọc; câu trả lời cuối `STATUS: DONE|BLOCKED <mã> <tóm tắt>` + thân bài; máy dựng tiêu đề P + dòng `Ghế:` + dòng kết quả (session, body_sha256, latency) trong 1 commit, chép thân nguyên văn; từ chối thiếu/sai STATUS, thân rỗng/>12.000 ký tự, dòng mở đầu `#` hoặc `Host:`, dấu dạng TÊN@, các từ khoá dòng lệnh máy, `<!--`, `Xác nhận User:`, khối mã không đóng; xung đột phiên bản thử lại ≤3 rồi `WRITE_CONFLICT`.
+- R3: plugin đánh thức dispatcher ngay khi Owner bấm (cùng trình thông dịch/cwd như job cron); một lượt đi hết duyệt → claimed → BẮT ĐẦU → one-shot; khoá tệp ⇒ bấm + tick cùng lúc vẫn 1 claim/1 lượt; hàng đợi theo giờ bấm; XẾP HÀNG chỉ khi có vé chặn (ghi mã vé chặn); quá 30 s chưa nhận việc ⇒ 1 tin «CHẬM NHẬN VIỆC» + thử lại ≤3.
+- R4: one-shot đến hạn ngay (bỏ trễ 20 s); còn ticker 60 s của Hermes (vendor).
+- R5: lượt chạy kết thúc ⇒ plugin đánh thức trong ≤5 s, máy ghi kết quả ngay (bỏ chờ 600 s); dòng kết quả dự phòng có failure_class · model_calls · tokens · last_tool · last_error ≤200 · evidence_ref (đọc executions.db/state.db/cron/output, chỉ đọc); mẫu vé 7179 ⇒ `HERMES_LOOP_HALT`.
+- R6: dòng kết quả + tin KẾT QUẢ in ba khoảng; khoảng model dừng→KẾT QUẢ đo lúc gửi.
+- R7: mỗi kết quả mở đúng 1 NEXT, tự đóng khi danh tính Host commit sau đó; tin KẾT QUẢ chỉ một việc cho Owner: mở Host, gõ `tiếp`.
+- Model tự commit trong lượt chỉ đọc ⇒ không bao giờ XONG (`MODEL_WROTE_REPO`; ngoài write[] vẫn NGOÀI PHẠM VI).
+- Guard: INV19 thêm 9 phép nghĩa cho 2a (23 phép), selftest thêm 6 mutant; sổ tin báo thêm C22.
+
+**3 · Khuôn thử (R4) — uid hermes, netns không mạng, HERMES_HOME tạm, 0 model thật, 0 Owner**
+- 27 phép cũ chạy nguyên văn: vỡ ở nhóm H vì nhóm đó mã hoá đúng hành vi 2a cố ý đổi (mỗi tick một bước, Hermes tự ghi RESULT, chờ 600 s). Bản 2a giữ ý từng phép, chỉnh kỳ vọng theo §1.G.
+- Mới: N1 thân 6 KB nguyên văn (tiếng Việt, nháy kép, nháy ngược, gạch chéo ngược, tab) · N2 từ chối 15 dạng; vé chỉ trả `CANARY_NO_STATUS` ⇒ blocked, không chép bài; dấu sẵn-sàng trong thân ⇒ blocked · N3 xung đột ×2 ⇒ ghi ở lần 3, ×3 ⇒ `WRITE_CONFLICT` · N4 kick + tick đồng thời ⇒ 1 claim/1 one-shot · N5 >30 s ⇒ đúng 1 tin chậm + ≤3 lần thử · N6 hàng rỗng không XẾP HÀNG · N8 1 NEXT/kết quả · N9 model tự ghi ⇒ MODEL GHI REPO · N10 ba khoảng + đúng 1 việc Owner · N11 một lượt sau bấm tới RUNNING, bấm→claimed và →BẮT ĐẦU ≤30 s · N model dừng không có kết quả ⇒ đóng trong cùng lượt (<60 s) đủ trường chẩn đoán.
+- Git thật 27/27: chốt RUN-06 (chỉ Host giao, quét việc mở, đối chiếu phạm vi) giữ nguyên; thêm NEXT đóng đúng khi danh tính Host commit (người khác commit thì không), model tự ghi trong write[] ⇒ MODEL GHI REPO.
+- Quét khô bản repo VPS thật: 6 COLLAB, 0 lệnh mở, 0 gửi.
+
+**4 · Chưa làm (bước sau, cùng RUN)**: R5 áp qua apply-v0 (lifecycle → init → gate → Guard) + khởi động lại hermes-gateway có cổng sức khoẻ + baseline + POST-PROTECT; R6 khói 2 nhịp; R7 kết quả chờ canary (chỉ sau khi áp thật). Script áp/hoàn tác chưa đặt lên VPS: auto-mode chặn bước soạn script áp production.
+
+**5 · Residual**
+- `HERMES_NO_PER_JOB_TOOL_FILTER`: Hermes v0.21.5 chỉ lọc công cụ theo cả máy chủ MCP trong config.yaml chung, không theo job ⇒ không đổi config.yaml (JEV 0,93); đề bài cấm ghi + máy bắt mọi commit của model (JEV 0,99).
+- `R5_CANDIDATE:HERMES_TICKER_60S` còn nguyên, đo sau khi áp.
+- ws-run-watch chỉ báo kết quả DỪNG một lần cho mỗi RUN_ID ⇒ lần DỪNG này không có tin tự động.
+- JEV: `gen-dec-1791379548-9bY3Ob4fX4hFp2DtDNxk` (dùng lại RUN_ID) · `gen-dec-1791379830-hzECjQP5Nv6QQ4gdxaAl` (cổng đèn) · `gen-dec-1791380568-sSLrrTzh9m5jxLubt3WZ` (thiết kế).
+
+**6 · Ai làm tiếp**: đèn #11 xanh lại (việc ổ đĩa thuộc VPSC, không phải HJW) ⇒ Owner mở Claude Code CLI MỚI cho HJW, dán lại câu lệnh chuẩn và chọn cho phép khi máy hỏi quyền áp production. READY P210 còn hiệu lực nếu PROMPT không đổi.
 
 
 
