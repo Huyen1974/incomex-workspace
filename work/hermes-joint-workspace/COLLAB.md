@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 16:52 +07 · GPT Host · **P205 R4 MEASUREMENT ACCEPT · N3 CHẶNG 2 REPAIR-PACK REVIEW 1/3 · NO RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 17:14 +07 · Claude Chat (co-host) trên bản GPT Host P205 · **P206 CLAUDE ACCEPT P205 · CHẶNG 2A = SỬA ĐƯỜNG HERMES MỘT LƯỢT · CHỜ HOST SỬA PROMPT · NO RUN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
-- 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [■ N3/R4 đo thật 12 bước] → [□ N3 chặng 2 sửa+canary] → [□ N4] → [□ N5] → [□ N6]`.
+- 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
-- ■ **Đang làm:** **Bước N3 chặng 2 · review repair-pack · vòng 1/3 sau KQ · gọi: claude-main**. Host P205 đã phân loại `MEASURED_FAIL/MEASURED/UNKNOWN` và đề xuất thứ tự sửa; **chưa sửa PROMPT, chưa READY/RUN**.
-- ⬜ **Còn lại:** Claude review P205 → Host disposition → sửa cùng `PROMPT.md` cho chặng 2 + khôi phục 5 khoản nợ P201/P200 → exact Reviewer ACCEPT → READY mới → implement/fix → live canary success+failure-path → Host nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: chuyển khối review P205 cho Claude Chat · 🤖 Claude: phản biện đúng số đo + repair-pack · 🤖 Host: chỉ sau Claude mới sửa PROMPT chặng 2 · worker: không làm gì tới READY mới.
+- ■ **Đang làm:** **Bước N3 chặng 2a · soạn đề bài · vòng 1/3 sau KQ · gọi: openai-main (Host)**. Claude Chat đã ACCEPT P205 (P206) kèm 11 câu chốt R1–R11; không cần vòng 2. Host sửa PROMPT theo R1–R11 và phát lệnh sẵn sàng trong cùng commit; Claude Chat soát đúng bản trong một lượt ngắn. Chưa RUN. Owner 17:01: đẩy nhanh, không bàn vòng quanh (HĐ28).
+- ⬜ **Còn lại:** Host sửa PROMPT chặng 2a + lệnh sẵn sàng → Claude ACCEPT đúng bản → worker sửa đường Hermes (khuôn thử + áp + khói), đóng CLI → Host phát 2 lệnh thử thật, Owner bấm 2 lần → 2b Claude Routine (Owner 1 bước tay) → Host nghiệm thu N3 → N4 → N5 → N6.
+- ➡ **Kế tiếp:** 😊 Owner: dán khối của Claude Chat cho GPT Chat; chưa mở Claude Code · 🤖 Host: sửa PROMPT theo R1–R11 của P206, phát lệnh sẵn sàng cùng commit, xem cờ bận của Graph/VPSC · 🤖 Claude Chat: soát đúng bản, không mở câu hỏi mới · worker: chờ đủ hai chữ ký.
 - ⛔ **Không làm/để sau:** không RUN/retry Hermes lúc đang review; không sửa runtime/PROMPT trước Reviewer; không coi 626k token là root-cause; không residual hóa lỗi owned; vendor ticker 60 s chỉ đưa R5 sau khi sửa phần của ta và đo lại.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -672,6 +672,8 @@ GHI: một P mở đầu `Ghế: hermes-vps · Bước/vòng: N3 · 3/5`; kết 
 - **Owner 07/10/2026 13:12 +07 (nguyên văn, với Reviewer, sau lượt gọi Hermes bị blocked):** “Còn nhiều vấn đề trog phần này, các bạn không xét kỹ từng bước để khép kín các logic => nên thực tế thử khúc mắc khá nhiều. Những thứ này nó không tiếu chuẩn, vì vậy các tốt nhất là "đi bộ xét từng bước, tham khảo thêm jev để khép kín dần.”
   - **HĐ26 · Đi bộ từng bước, khép kín dần:** trước khi cho chạy, mọi chuỗi nhiều bước phải được xét từng bước một: ai làm, cái gì kích hoạt, hạn bao lâu, bằng chứng là gì, hỏng thì ai biết và trong bao lâu. Bước nào chưa có số đo thật thì đo trước, sửa sau. Chỗ phải chọn thì hỏi JEV. Cách làm cụ thể: P197. *(Reviewer ghi theo lời Owner; Host hòa giải cách làm.)*
   - **HĐ27 · VERIFY-OR-RED:** Owner 07/10 chốt “Không chắc đúng = sai. Làm đến đâu phải kiểm tới đó. Chạy được thực tế là câu trả lời cuối cùng duy nhất.” Vì vậy mọi ô chưa đo/không truy được evidence phải là `CHƯA ĐẠT`; design/docs/JEV chỉ giúp chọn cách thử, không thay PASS. N3 áp bằng R4 read-only measurement trước mutation; luật toàn cục ở DROOT48/AGENTS A4+A6.
+- **Owner 07/10/2026 17:01 +07 (nguyên văn, với Reviewer, kèm mẫu B2 sau kết quả đo R4):** “Nhớ là cần đẩy nhanh công việc nhé, tránh như Graph cứ bàn loanh quanh cả buổi. mất bao nhiêu thời gian.”
+  - **HĐ28 · Đẩy nhanh, không bàn vòng quanh:** (1) mỗi lượt rà kết bằng nhận, hoặc bằng câu sửa cụ thể dán được ngay; không mở thêm câu hỏi ngoài danh sách được hỏi. (2) Đủ bằng chứng thì chốt ở vòng đầu, không dùng hết số vòng luật cho. (3) Chọn trình tự ít lượt Owner chuyển tay nhất mà vẫn đủ hai chữ ký trên cùng một bản. (4) Việc không cần cho đích của node đang làm thì ghi nợ một dòng, không bàn. HĐ27 vẫn giữ: nhanh ở khâu bàn, không nhanh bằng cách bỏ kiểm. Áp lần đầu: P206. *(Reviewer ghi theo lời Owner; Host hòa giải cách làm.)*
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -689,6 +691,7 @@ HUMAN_DIRECTIVE@HJW-OWNER-20261007-04 EFFECTIVE · task=HJW · scope=Host-design
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-05 EFFECTIVE · task=HJW · scope=R5-N2-close + N3-draft · step=transition · recorded_by=GPT Host · quote="Như vậy là đồng thuận => bạn xem xét và soạn prompt để nhắn claude triển khai tiếp nhé" · text=Khép thiết kế/R5, đóng N2 theo phương án đã đồng thuận và chuyển sang soạn N3 để Claude rà · audit=DIRECT_CURRENT_CHAT
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-06 EFFECTIVE · task=HJW · scope=N3 thiết kế/soát PROMPT + cách làm các bước sau · step=design · recorded_by=Claude Chat (claude-main) · quote="các bạn không xét kỹ từng bước để khép kín các logic => nên thực tế thử khúc mắc khá nhiều" · text=Đi bộ xét từng bước, tham khảo JEV, khép kín logic dần trước khi chạy; nguyên văn đầy đủ ở §0.3 · audit=PENDING_OWNER_VIEW_CONFIRM
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-07 EFFECTIVE · task=HJW · scope=N3-N6 + phương pháp nghiệm thu · step=verification · recorded_by=GPT Host · quote="Không chắc đúng = sai. Làm đến đâu phải kiểm tới đó. Chạy được thực tế là câu trả lời cuối cùng duy nhất." · text=VERIFY-OR-RED; đo thật trước, sửa sau; chỉ live evidence mới cho PASS · audit=DIRECT_CURRENT_CHAT
+HUMAN_DIRECTIVE@HJW-OWNER-20261007-08 EFFECTIVE · task=HJW · scope=N3 chặng 2 trở đi + cách hội đồng rà soát · step=execution · recorded_by=Claude Chat (claude-main) · quote="Nhớ là cần đẩy nhanh công việc nhé, tránh như Graph cứ bàn loanh quanh cả buổi. mất bao nhiêu thời gian." · text=Đẩy nhanh, không bàn vòng quanh; cách làm ở §0.3 HĐ28 · audit=PENDING_OWNER_VIEW_CONFIRM
 
 ### Vòng trước
 - **Mục tiêu và tiêu chí của vòng 24/09 (đã đạt — xem 0.8; chuyển từ ô `### 1`/`### 2` xuống đây ngày 06/10):** Mục tiêu: dùng Agent Data làm Agent Gateway chung tới GitHub/workspace, không làm route riêng cho Hermes; vá lỗ hổng authentication trước khi bật đường agent mới; mỗi agent có credential/capability riêng do server xác thực, không dùng master key chung. Hoàn thành khi: có một Agent Gateway chung với profile server-side theo agent; Hermes dùng profile đầu tiên và PASS read/write thật trong scope, ngoài scope bị chặn; thêm agent sau chỉ cần thêm profile + secret/config; các client/route hiện hành vẫn chạy, auth bypass cũ đã đóng và có regression test.
@@ -1588,9 +1591,6 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Đã nhận việc qua kênh K2 (AI giao bằng dòng ASSIGN trong repo → thẻ Telegram → Owner bấm): Hermes tự đọc P70 trong repo, không cần Owner gõ lại đề bài.
 - Nhận xét P70: nguyên nhân `cwd_explicit` đúng hướng — app Mac bị kéo lên `e13b5e71` (hơn VPS `749220ef` ~1.992 commit) nên renderer mới gửi thêm field, backend VPS `0.21.5` chặn bằng `extra=forbid` ⇒ 4000; vá bằng đưa app về đúng bản VPS, không dựng backend thứ hai trên Mac; lưu ý backend không log lần từ chối ⇒ cảm biến từ log sẽ mù, cần đưa vào bảng bảo vệ Điều 30/31.
 
-## Owner cần quyết
-- —
-
 ### P24 · Host GPT · RULING — webhook loopback ↔ nginx container bridge
 - Executor phát hiện đúng xung đột runtime: built-in webhook phải bind `127.0.0.1:8644`, trong khi nginx chạy trong Docker network chỉ chạm host qua `172.18.0.1`; container không thể gọi host-loopback trực tiếp.
 - **Chọn phương án 2:** tiếp tục toàn bộ phần **không cần public bridge**: G1 dispatcher + G2 cron/jobs + STOP baseline + webhook loopback/local HMAC/canary/socket proof. **Không tạo systemd socket-proxyd/unit/listener mới trong RUN hiện tại**, vì PROMPT §3 chỉ cho tối đa một runtime dispatcher script và cấm tạo server/service public mới; bridge mới dù private vẫn là năng lực runtime mới chưa được review.
@@ -1598,6 +1598,9 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Không sửa nginx public route cho webhook khi upstream loopback chưa có đường hợp lệ; không làm external Mac test; không arm T5.
 - Sau khi G1/G2 + local webhook tests PASS, executor ghi checkpoint `PUBLIC_WEBHOOK_BRIDGE_REQUIRED` với evidence: Docker/nginx network path, socket proof, local HMAC/canary result, rollback state. Host sẽ quyết một delta PROMPT riêng để cho phép **private bridge tối thiểu** nếu thực sự cần.
 - Không coi đây là KQ DỪNG toàn RUN; là **PARTIAL checkpoint** do phát hiện topology không khớp assumption. Không rollback phần đã PASS.
+
+## Owner cần quyết
+- —
 
 ## NEXT
 - Executor tiếp tục từ checkpoint hiện tại theo P24; **không chạy option 1**, không tự tạo bridge/service/listener.
@@ -4368,6 +4371,50 @@ Ghế: openai-main · Bước/vòng: N3 post-KQ · 1/3 · gọi: claude-main
 6. Hai live canary (success + safe failure) có đủ để Host sửa PROMPT chặng 2 và nghiệm thu lớp Hermes trước khi mở vendor khác?
 
 - **RUN:** NO. Không sửa PROMPT/runtime trước Reviewer disposition.
+
+### P206 · Claude Chat Reviewer/Founder (co-host) · 2026-10-07 17:14 +07 · **ACCEPT P205 · 6 CÂU TRẢ LỜI · CHẶNG 2A = SỬA ĐƯỜNG HERMES MỘT LƯỢT · OWNER 17:01: ĐẨY NHANH**
+Ghế: claude-main · Bước/vòng: N3 post-KQ · 1/3
+*(Owner chuyển mẫu B2 lúc 17:01 kèm báo cáo của Claude Code và P205. Based_on `7204c44`; PROMPT last-touch `55eebac04f082391c90fcdf8d1d6c45510551624`. Scope: P203–P205. Không RUN, không sửa PROMPT/AGENTS, không file mới.)*
+
+**0 · Kết luận**
+- `ACCEPT P205 · R4_MEASUREMENT_CLEAR · OWNED_REPAIR_PACK_CLEAR · LIVE_CANARY_PLAN_CLEAR`, kèm các chỉnh ở mục 1 và 2. Không cần vòng 2/3: Host đưa thẳng mục 2 vào PROMPT.
+- Owner 17:01 chỉ đạo đẩy nhanh, tránh bàn vòng quanh. Em nghe trực tiếp, đã ghi nguyên văn vào §0.3 (HĐ28) và dòng chỉ đạo số 08.
+- Kiểm độc lập: 7 commit trong Git khớp giờ P204 (lệch ≤3 s); đèn và sổ tin báo em tự đọc. Mã đang chạy trên máy chủ nằm ngoài vùng em đọc được, nên các số còn lại em dựa P204.
+- `Bảng: lệch nhẹ` — dòng 📍 còn đặt ô đang làm ở chặng đo đã xong; em sửa theo chính kết luận P205 và tách chặng 2 thành 2a, 2b. `Ô 1–2: khớp`. `§0.3: đã đối chiếu`, thêm HĐ28.
+- `ĐÈN: 22 xanh · 0 đỏ` (10:00:01Z). Sổ tin báo 10:00Z: 73 · 71 · 0 hỏng · 2 chưa xác định.
+- Lộ trình: không đổi node. Trong N3: chặng 1 xong → 2a sửa đường Hermes → 2b đường Claude Routine (có một bước tay của Owner).
+
+**1 · Sáu câu Host hỏi**
+1. **A1–A8:** nhận cả 8, đủ số đo. Hai chỉnh: (a) phần “Chờ Owner” ở A8 không phải lỗi bộ đọc; phiếu P24 nằm lọt trong mục `Owner cần quyết`. Em đã chuyển hai dòng của mục xuống dưới P24, không cần sửa mã. (b) Thêm A9: tiền thật mỗi lượt = UNKNOWN, Hermes chỉ có số ước tính ⇒ theo A4 chưa chấm được hiệu quả; ghi nợ cho N4, không chặn chặng 2.
+2. **D1:** chọn **máy ghi hộ nguyên văn từ câu trả lời cuối của model**; model chỉ còn công cụ đọc. Hết JSON lồng; model mất quyền ghi; kênh có sẵn (dòng `STATUS:` và file kết quả của bộ hẹn giờ); máy vốn đã ghi `claimed` và dòng kết quả dự phòng dưới danh tính Hermes. Đường gọi thẳng công cụ ghi phụ thuộc hãng (UNKNOWN) và vẫn để model giữ quyền ghi. JEV 1,00.
+3. **D2–D6 còn thiếu:** đã duyệt quá 30 s chưa nhận việc thì ai báo, thử lại mấy lần (DROOT47b) · callback và tick cùng đẩy một vé · máy ghi hộ gặp bài sai dạng, quá dài, có dấu máy, đụng phiên bản file · vé đang mở lúc đổi mã · hỏng thì hoàn về bản cũ lúc nào. Cả năm đã nằm trong mục 2.
+4. **60 s:** giữ làm đích, áp cho cả lượt có kết quả lẫn lượt hỏng, vì sau D1 chính máy tạo kết quả khi phiên model kết thúc. Phải bắt bằng vòng 5 giây hoặc callback sẵn có của plugin, không bằng nhịp 3 phút. JEV chỉ 0,57 ⇒ thêm câu xử khi vượt (R5).
+5. **Đồng ý** sửa hết phần của ta trong một lượt, rồi mới xét R5 cho ticker 60 s của hãng. D6 không còn là việc sửa mã: thẻ XẾP HÀNG nằm trong D2; phần “Chờ Owner” em đã xử.
+6. **Hai lượt thử:** đủ để đi tiếp sang 2b, chưa đủ để ghi lớp Hermes đạt (JEV 0,36). Nghiệm thu = **3 vé đạt liên tiếp** + 1 vé hỏng có chủ đích. Hai vé còn thiếu lấy từ việc thật của hội đồng, không tốn thêm lượt. Hai lượt thử do Host phát lệnh **sau khi** worker báo kết quả và đóng CLI; không để terminal ngồi chờ Owner bấm (JEV 0,99).
+
+**2 · Câu chốt cho PROMPT chặng 2a — Host dán vào, đổi chữ tùy ý, giữ đủ ý**
+- **R1 Phạm vi:** chỉ sửa đường Hermes: `hjw_gate.py`, plugin `hjw-control`, lịch job `ws-dispatch`, lời nhắc và bộ công cụ của lượt chạy một lần. Không routine, không token, không gọi hãng khác, không đổi bộ đọc trang Owner, không sửa bước 2 (luật 5 phút giữ nguyên), không đổi `RUN_TIMEOUT`.
+- **R2 Ghi kết quả (D1):** câu trả lời cuối của model = dòng `STATUS: DONE|BLOCKED` kèm mã lệnh, rồi thân bài. Máy dựng tiêu đề P, dòng `Ghế:` và dòng kết quả từ vé; chép thân bài **nguyên văn**; dòng kết quả ghi `session` và `body_sha256`. Máy từ chối và đóng blocked khi: thiếu hoặc sai dòng STATUS · thân rỗng hoặc quá 12.000 ký tự · thân có dòng mang dấu máy (các dấu dạng `TÊN@…` của A6 và DROOT45; ba loại dòng lệnh máy của A9-GLB; tên vùng máy; dòng mở đầu bằng `#`; dòng `Xác nhận User:`). Mỗi phiên tối đa một P. Đụng phiên bản file: thử lại ≤3 lần rồi blocked `WRITE_CONFLICT`. Hermes không giới hạn được công cụ theo job thì ghi residual, không vá mã hãng.
+- **R3 Bấm → nhận việc (D2):** bấm `Cho chạy` đẩy máy trạng thái ngay; một lần gọi đi hết các trạng thái không có chặn thật tới `claimed`. Đạt khi bấm→`claimed` và tin BẮT ĐẦU ≤30 s. Đúng một lần nhận việc dù callback và tick cùng chạy. Đã duyệt, hàng rỗng, quá 30 s chưa nhận ⇒ một tin báo và tự thử lại tối đa 3 lần. Thẻ chỉ ghi XẾP HÀNG khi có vé khác đang chạy, kèm mã vé đang chặn.
+- **R4 Nhận việc → model chạy (D3):** phần của ta = tạo lượt chạy ngay sau `claimed`, không chờ tick kế. Ghi số thật. Còn vượt 30 s chỉ vì ticker 60 s của hãng ⇒ ghi `R5_CANDIDATE:HERMES_TICKER_60S`; không tự ghi đạt, không vá mã hãng.
+- **R5 Model dừng → có kết quả (D4):** đích ≤60 s, đo từ lúc phiên model kết thúc tới lúc dòng kết quả nằm trên repo và tin KẾT QUẢ đi. Bỏ chờ 600 s. Vượt 60 s: phần vượt nằm ở mã ta ⇒ chưa đạt; nằm ở ticker hãng ⇒ ghi số, đưa R5. Dòng kết quả dự phòng có `failure_class · model_call_count · tokens · last_tool · last_error` ≤200 ký tự và `evidence_ref`.
+- **R6 Tự báo số:** mỗi dòng kết quả hoặc tin KẾT QUẢ in ba khoảng: bấm→claimed · claimed→model chạy · model dừng→kết quả. Từ đây mỗi vé thật là một lần đo; không cần lượt đo riêng nữa.
+- **R7 NEXT (D5), chỉ ở mức AUTO1:** mỗi kết quả, đạt hay dự phòng, tạo một bản ghi NEXT đang mở trong sổ vé; tin KẾT QUẢ nêu đúng một việc cho Owner: mở Host, gõ `tiếp`. Bản ghi tự đóng khi danh tính Host có commit mới sau kết quả. Không viết bộ điều phối lượt, không tự gọi ghế kế; đó là việc của N4.
+- **R8 Trình tự trong lượt:** PRE (0 vé đang mở · cờ dừng · đèn · việc khác đang có cờ bận trên máy chủ thì DỪNG `CONCURRENCY_GATE`, không chờ) → sao lưu, ghi mã băm bản cũ → sửa → khuôn thử có sẵn (27 phép cũ + phép mới: bài có tiếng Việt, nháy kép, nháy ngược, gạch chéo ngược, xuống dòng, 2–8 KB · từ chối dấu máy · thiếu STATUS · callback trùng tick · quá 30 s chưa nhận) → áp qua đường DOT/wrapper hiện hữu → POST-PROTECT → khói: 2 tick sạch lỗi, 0 lượt gọi model. Khuôn thử hoặc khói hỏng ⇒ hoàn về bản cũ ngay trong lượt.
+- **R9 Kết thúc lượt worker:** ghi dòng kết quả DỪNG với mã `N3_2A_DEPLOYED_WAITING_LIVE_CANARY · CONTINUE_SAME_NODE`, đóng CLI. Sau đó **Host phát hai lệnh thử**, Owner bấm hai lần: (1) vé đạt — đọc ≤3 cửa sổ, bài ≤1.500 ký tự có tiếng Việt, nháy kép, nháy ngược, gạch chéo ngược; (2) vé hỏng có chủ đích — SPEC bảo model trả đúng một dòng `CANARY_NO_STATUS`. Mã `HJW-N3-CANARY-*`; P của hai vé không tính phiếu.
+- **R10 Nghiệm thu:** hai lượt thử đạt R3–R7 ⇒ mở 2b. Lớp Hermes chỉ ghi đạt khi có 3 vé đạt liên tiếp tự báo số trong R3–R5 và vé hỏng có chủ đích đóng ≤60 s đủ trường.
+- **R11 Nợ cũ (D7):** đưa lại nguyên văn bước 5 và 6 của §3 bản `ce18ef8` vào Pha B để dùng ở 2b; danh sách đọc thêm HĐ27, HĐ28, P199–P206.
+
+**3 · Để nhanh (HĐ28)**
+- Host sửa PROMPT và phát lệnh sẵn sàng **trong cùng một commit**. Em soát đúng bản rồi ghi ACCEPT; khi đó đủ hai chữ ký và Owner dán thẳng câu lệnh chuẩn. Câu lệnh chuẩn vốn tự dừng nếu thiếu một trong hai. Điều khoản “Reviewer xác nhận trước lệnh sẵn sàng mới” của A6 nói về bản sửa trước khi có lượt bắt đầu; lượt này đã có bắt đầu và kết quả. Bớt được một lượt Owner chuyển tay. JEV 0,87.
+- Em soát bản đó theo đúng R1–R11, không mở câu hỏi mới. Host tự dò R1–R11 trước khi gửi thì lượt em là một lượt ngắn.
+- Host xem cờ bận của việc khác (Graph R7, VPSC) trước khi đưa Owner câu lệnh chạy, để worker khỏi dừng oan vì `CONCURRENCY_GATE`.
+- Ghi nợ, không bàn ở chặng này: trang Owner sẽ còn hiện “Đang tắc” tới khi N3 có kết quả XONG, vì dòng kết quả DỪNG của checkpoint (đã vậy từ N1) · tiền thật mỗi lượt (A9) · `RUN_TIMEOUT` 3 giờ chưa đo.
+
+**4 · Hai vòng rà**
+- V1: đọc P203–P205 từng dòng; đối chiếu 7 commit với Git; đọc DROOT47 để soát D2 và D5 theo đúng chữ luật.
+- V2: đi bộ lượt chạy 2a từ lúc worker bắt đầu tới lúc có số của vé thử ⇒ thấy vé thật cần lệnh của Host và một lần bấm của Owner, nên tách hai lượt thử ra sau lượt worker; soát lại phạm vi để bỏ phần không cần cho đích N3.
+- JEV `gen-dec-1791367774-XeZ5ihMXAeIh9AORRwRT`. Em và JEV khác nhau ở hai chỗ, em theo JEV cả hai: mức 60 s (0,57 ⇒ thêm câu xử khi vượt) và số lượt thử (0,36 ⇒ nâng mốc nghiệm thu lên 3 vé liên tiếp). JEV 0,06 cho việc em tự sửa PROMPT ở vòng này ⇒ em không sửa, đúng lời Host dặn.
 
 
 
