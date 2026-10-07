@@ -2,10 +2,48 @@
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 
+### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
+Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 10:25 +07 · Claude Chat (Host) · P51
+- 🎯 **Mục tiêu Owner:** VPS ổn định sau loạt thay đổi — vì chuông kêu quá nhiều, ổ đĩa vẫn đầy nhanh và mỗi lần kiểm lại lòi lỗi mới.
+- 🏁 **Xong khi:** đèn chỉ đỏ khi hỏng thật · mỗi GiB mất đi có tên và có trần · mọi mã đang chạy có khoá Đ30/31 do máy đối chiếu · nguyên nhân 502/503 có số đo + phương án cho Owner gật.
+- 📍 **Tiến độ:** `✅ Codex khảo sát (PROOT01) · ✅ Host tự kiểm + soạn lệnh R7 · ■ Codex rà lệnh · ⬜ Claude Code chạy R7 · ⬜ Codex + Host nghiệm thu · ⬜ N2 xoay khoá + sửa lõi theo phiếu D6 (chờ Owner) · ⬜ đóng`
+- ✅ **Đã xong:** khảo sát chỉ đọc; Host kiểm lại 6 điểm chính bằng mã/log thật và thêm 4 phát hiện (P51); PROMPT R7 `7425784`.
+- ■ **Đang làm:** Bước kế hoạch · vòng 1/5 · gọi: Codex (Reviewer) · chờ `CODEX ACCEPT@` hoặc DELTA.
+- ⬜ **Còn lại:** RUN R7 (4 gói A→B→C→D, một lượt, không restart lõi) → nghiệm thu → N2.
+- ➡ **Kế tiếp:** 😊 Owner dán 1 khối cho Codex; Codex ACCEPT thì dán dòng RUN cho Claude Code · Reviewer Codex rà PROMPT · 🤖 Claude Code chờ.
+- ⛔ **Không làm trong R7:** restart/rebuild lõi · đổi phiên bản · xoá dữ liệu/trial · xoay khoá (để N2) · việc của chủ khác (chỉ ghi sổ tồn đọng).
+
+### 1. Mục tiêu
+Owner 07/10/2026: “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.” Lời Owner giao Codex ngay trước đó: “1 số dịch vụ tôi thấy dow/up quá nhiều và ngoài ra chúng ta đã bịt dò ổ cứng, kiểm tra lại nhiều lần, nhưng mỗi lần kiểm tra xong vẫn phát hiện ra 1 vài lỗi => ổ cứng vẫn đầy nhanh hơn mong đợi.” và “Chúng ta đã có điều 30/31 trong hiến pháp để bảo vệ các mã đã viết, việc này đã được bảo vệ đầy đủ chưa? có gì đang bug cần xử lý không?”
+
+### 2. Thế nào là hoàn thành
+(đề xuất — chờ Owner gật) Telegram chỉ đỏ khi có sự cố thật: một lần trượt lẻ không báo, tin đỏ nêu đúng lý do. Mỗi GiB ổ đĩa mất đi đều có tên và có trần: chuông nói rõ chỗ nào tăng, không đo được thì đỏ. Mọi mã đang chạy đều có khoá Điều 30/31, và câu “bảo vệ đủ” chỉ xuất hiện khi máy đã đối chiếu từng tệp vừa đổi. Lỗi 502/503 có nguyên nhân được chứng minh bằng số đo và có phương án sửa để Owner gật.
+
+### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+#### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
+| Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
+|---|---|---|---|---|
+| claude-chat | Anthropic | Claude Chat | Host | Owner chuyển tay |
+| codex | OpenAI | Codex (Mac) | Reviewer | Owner chuyển tay |
+| claude-code | Anthropic | Claude Code CLI (Mac) | Worker | Owner chuyển dòng RUN (DROOT38) |
+Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
+- **D17 · Owner 07/10 (trực tiếp):** Claude Chat xem báo cáo Codex và điều hành sửa; Claude Code CLI sửa; Codex tiếp tục giám sát.
+- Một lệnh duy nhất cho Claude Code (R7), bốn gói A→B→C→D; mỗi gói tự bảo vệ xong mới sang gói sau (Owner 05/10: bảo vệ đến đâu chắc đến đó).
+- Không restart/rebuild 6 container lõi, không đổi phiên bản, không xoá, không xoay khoá trong R7; việc cần các thứ đó đi vào phiếu D6 → Owner gật → N2.
+- Đèn: luật 2 lần trượt phải đúng trên cả 22 đèn; không tắt/tạm dừng đèn, không hạ ngưỡng để lấy xanh (Owner 02/10: mọi thay đổi phải báo về Telegram và phải xanh thật).
+- Ổ đĩa: sổ phủ cả filesystem; phần chưa có tên > 1 GiB = đỏ; nhóm Graph trial trần 10 GiB (quyết định graph-server); chuông nêu tên chỗ tăng; không tự xanh khi chưa có tên.
+- Đ30/31: POST-PROTECT phải tính footprint thật và đòi đủ 4 ô cho từng tệp đã đổi (AGENTS A10-R4); sổ mã đang chạy N/M/K.
+- Không giữ terminal chờ (D16); canh dài hạn do máy; Codex nghiệm thu một lượt sau KQ, không lập lịch AI.
+- Bài học PROOT01: không in tệp có khoá ra đầu ra công cụ.
+- §0.3: đã đối chiếu D15/D16 + AGENTS MT3/MT3-C/MT4/A6/A10-R1–R5 khi soạn PROMPT R7 (P51).
+
+### Vòng trước
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 · GPT Host · P50 — FINAL ACCEPT · CLOSED
+**(Lịch sử) Bảng vòng 3 · cập nhật 2026-10-06 · GPT Host · P50 — FINAL ACCEPT · CLOSED**
 - 🎯 **Mục tiêu Owner:** VPS khỏe, không tăng dung lượng bất thường, dữ liệu/artifact không cần thì bỏ/đưa offsite an toàn; không đóng trên tín hiệu xanh giả.
 - 🏁 **Xong khi:** cleanup/storage protection đạt · residual có tên/chủ · máy tự canh sau đóng. **ĐÃ ĐẠT.**
 - 📍 **Tiến độ:** `✅ audit · ✅ dọn 29 mục · ✅ free >45 GiB · ✅ chặn tăng lại · ✅ checker/APR · ✅ POST/Guard/Kuma · ✅ worker thử tới điểm dừng · ✅ final review · ✅ CLOSED`.
@@ -60,8 +98,12 @@ Xác nhận User: **ĐÃ XÁC NHẬN** (nguyên văn lời User 23/09 tại D11;
 - Bổ sung phạm vi 2026-09-23 (lời Owner trong phiên Host): "đổi giờ VPS từ giờ Đức sang GMT+7 (Asia/Ho_Chi_Minh), GIỮ NGUYÊN thời điểm chạy thật của mọi lịch" (D09) — thuộc lượt khép việc R4b.
 - Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 (D01) và bổ sung chính sách storage 2026-09-21 (D02); Host đã đưa D02 vào `PROMPT.md` và `view.html` (T1–T6); phạm vi múi giờ do chính Owner nêu 2026-09-23 (D09).
 
-Host: GPT Chat · Host_ID: GPT-VPSC-261005-R6 · vòng 3 theo lệnh Owner 05/10; Host lịch sử vòng 1–2: Claude Chat · CLAUDE-VPSC-260920-A
+Host: Claude Chat · Host_ID: CLAUDE-VPSC-261007-R7 · vòng 4 theo chỉ đạo trực tiếp Owner 07/10 (D17); Host lịch sử: vòng 3 GPT Chat · GPT-VPSC-261005-R6 · vòng 1–2 Claude Chat · CLAUDE-VPSC-260920-A
 HTML chính: `view.html`
+
+## Giấy phép vòng 4
+- **R7:** PROMPT last-touch `7425784874b3ec14f2cfe1b42c7030eab1895bd9` · Host READY@7425784874b3ec14f2cfe1b42c7030eab1895bd9 · **RUN chỉ hợp lệ khi có thêm một dòng `CODEX ACCEPT@` mang cùng SHA** (tiền lệ R5b). Sửa PROMPT ⇒ READY này hết hiệu lực, Host READY lại.
+- Dòng RUN cho Claude Code (phiên mới sạch, chỉ dán sau khi Codex ACCEPT): `WS work/vps-clean-20-9-26 · Agent · RUN VPSC-R7-TRUTH-20261007-01 · đọc AGENTS.md → work/vps-clean-20-9-26/COLLAB.md → work/vps-clean-20-9-26/PROMPT.md · READY@7425784874b3ec14f2cfe1b42c7030eab1895bd9`
 
 ## Lịch sử trạng thái vòng 1–2
 - Vòng 2 đã đóng 23/09 với KQ R5b; trạng thái hiện hành nằm duy nhất ở BẢNG ĐIỀU KHIỂN vòng 3 phía trên.
@@ -115,6 +157,7 @@ HTML chính: `view.html`
 - Nguồn: `vps_status` resources/containers · `fs_list` gốc code · `query_pg`. Nghi phạm: `view.html` §2.
 
 ## Quyết định Owner
+- D17 · 2026-10-07 10:01 +07 · **Owner (nguyên văn, nói trực tiếp với Claude Chat khi chuyển báo cáo Codex PROOT01):** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.” **Ghi nhận:** `HUMAN_DIRECTIVE@VPSC-D17 EFFECTIVE · task=vps-clean-20-9-26 · scope=vòng 4 (ổn định VPS theo PROOT01) · step=mở vòng + kế hoạch + RUN R7 · recorded_by=claude-chat · quote=như trên · text=Claude Chat điều hành (Host vòng 4), Claude Code CLI sửa, Codex giám sát (Reviewer) · audit=phiên chat Owner↔Claude Chat 07/10`. Mở lại theo D16 (“đỏ thì mở vòng mới”; #11 đỏ 02:00 và 09:00 07/10). Nếu Owner không định giao Host cho Claude Chat: nói một câu, Host trả lại GPT Chat, PROMPT giữ nguyên.
 - D16 · 2026-10-06 02:34 +07 · **Owner (nguyên văn, khi nhận P48 “chờ watcher-day rồi đóng”):** “Kiểu agent để cả ngày 1 terminnal thê này không khả thi đâu. macbook không thể chờ cho cách làm kiểu này! bỏ mấy kiểu này đi. cần thì chúng ta cho kiểm tra VPS định kỳ, không nên đeo đẳng các việc kiểu này vì có cả đống việc”. **Ghi nhận (Claude Reviewer ghi; Host kiểm và chỉnh nếu lệch):** (a) VPSC **không giữ mở để chờ đủ một ngày** — Host ghi kết luận là đóng; chuông máy canh tiếp, đỏ thì mở vòng mới; (b) không RUN nào nữa trong VPSC; (c) không cách làm nào được giữ terminal/Mac/phiên AI đứng chờ theo giờ hay theo ngày — kể cả chờ duyệt giữa RUN (R6 đã giữ một terminal 09:40Z→18:30Z, ~4,5 giờ đứng chờ duyệt); (d) “kiểm tra VPS định kỳ” = cơ chế máy đã có (storage-watch mỗi giờ → đèn #11 → Telegram; bản tin 08:00), không tốn lượt AI; lịch AI riêng chỉ lập khi Owner yêu cầu.
 - D15 · 2026-10-05 15:31 +07 · **Owner (nguyên văn, trả lời câu hỏi của Reviewer ở P31·C1):** “có không cần dùng thì bỏ đi.” · “Chúng ta coi việc này là nhiệm vụ nối dài của nâng cấp VPS hoặc task nào mà bạn đang edit => để thống nhất làm tiếp cho xong”. **Ghi nhận (Claude Reviewer ghi; Host kiểm và đưa vào §0.3 vòng 3):** (a) Owner cho phép xoá **nhóm D** của P31·C1 — thư mục dữ liệu PG16 cũ, hai thư mục PG18 hỏng, database `directus_gov_test_20260602` — kèm đúng điều kiện đã nêu khi hỏi: máy chứng minh bản sao lưu PG18 sau cutover khôi phục được, Host duyệt đúng danh sách theo mã băm, agent không tự quyết; không cần hỏi lại Owner cho nhóm này. (b) Làm tiếp **ngay trong `work/vps-clean-20-9-26`**: việc này được dọn hàng tồn do việc nâng cấp để lại; không mở lại `vps1-up-grade`, không mở việc mới. (c) Không suy rộng: hồ sơ dưới `/opt/incomex/work/` và mọi thứ ngoài danh sách Host đã duyệt vẫn giữ. (d) Bổ sung Owner 05/10 15:34: nếu artifact/data không còn cần trên VPS nhưng chưa đủ tự tin xoá thẳng, tải/archive một bản lên Google Drive trước, verify checksum/size/readback rồi mới xoá local; Drive dùng làm offsite cold archive, không vì lo xa mà giữ rác trên VPS. JEV `gen-dec-1791189140-c3WSgLk6fCdBBCuFAnhx` (bằng chứng phụ): làm tiếp trong việc này 0,99 · lời Owner là cho phép xoá 0,90.
 - D01 · 2026-09-20 · Mở việc tại `work/vps-clean-20-9-26/`: đánh giá vì sao đĩa VPS đầy nhanh, đề xuất dọn phần không dùng để có chỗ cài Graph DB.
@@ -499,8 +542,23 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **Residual ngoài VPSC:** giữ nguyên chủ đã ghi P48/P49/root; không mở task mới tại closeout.
 - Owner cần quyết: —.
 
+### P51 · Claude Chat (Host vòng 4) · 07/10/2026 10:25 +07 · NHẬN PROOT01 · TỰ KIỂM · SOẠN R7 · mời Codex rà vòng 1/5
+- Ghế: claude-chat (Host) · Bước/vòng: kế hoạch · 1/5 · **Based_on** root `ae6a73b` (PROOT01) + đo chỉ đọc 10:02–10:20 +07 · **Scope** PROOT01 toàn bộ + `scripts/storage-watch.py`, `scripts/storage-registry.tsv`, `dot/bin/dot-directus-license-watch`, `scripts/mcpw-protection-guard:2760–2879`, `logs/disk-monitor.log`, log `incomex-agent-data` 2 ngày, `docker/agent-data-repo/{Dockerfile,requirements.txt}`, graph-server COLLAB (footprint) · chưa đọc: kuma.db, nginx log, kernel log (dựa Codex — R7 gói D kiểm lại). **ĐÈN: 20 xanh · 2 đỏ** (#11, #22 — theo PROOT01 09:40; Host không đọc được Kuma trực tiếp). **§0.3: đã đối chiếu.**
+- **Disposition PROOT01: ACCEPTED** (riêng xoay khoá → OWNER). Host tự kiểm, khớp: (1) DOT license đẩy `down` ngay lần trượt đầu, dựa `MAXRETRIES=1` (dòng 25–26, 40, 66) ✓ · (2) watcher bỏ qua OSError/`du` None mà vẫn green, rc 0 (72–73, 137–138, 172) ✓ · (3) `mode_pre_post` chỉ so `snapshot()` cố định, `--receipt` tuỳ chọn ✓ · (4) worker + unit không có trong Config Guard (tìm toàn `/opt/incomex`: chỉ thấy ở test, tệp unit, script deploy cũ) ✓ · (5) trống 40,95 GiB (`vps_status` 10:02 = 43.964.252.160 B) ✓ · (6) `Child process [pid] died` 7 dòng trong log container ✓.
+- **Host bổ sung 4 điểm:**
+  - **B+1 · ổ đĩa không “rò lớn” — chuỗi giờ là bậc thang.** `disk-monitor.log` 33 mẫu giờ: 48,44 → 43,33 trong MỘT giờ (03–04h 06/10; khớp graph-server RUN-1 “image 4,55 GB… đĩa trống sau 44 GB”, footprint đã duyệt ≤ 10 GB) · ba bậc −0,61 / −0,65 / −0,52 (15h, 18h 06/10; 09h 07/10) · trôi nền giữa các bậc ≈ −0,02 GiB/giờ (≈ −0,4…0,5 GiB/ngày) chưa có tên.
+  - **B+2 · sổ không nhìn thấy nơi tăng.** `#ROOT` chỉ có `/opt/incomex`, `/opt/workflow` và ba thư mục con; docker/containerd/`/var` nằm ngoài mọi gốc ⇒ chuông biết “mất bao nhiêu”, không bao giờ biết “mất ở đâu”. Đây là gốc của “mỗi lần kiểm lại lòi lỗi mới”.
+  - **B+3 · chuông tự lành.** SLOPE24 đỏ 02:00 (−6,92) → xanh 04:00 (d24 = 1,84) chỉ vì mốc 24h trượt qua bậc 5 GiB; chưa ai gọi tên hay duyệt. Cần điều kiện theo MỨC (có tên + dưới trần), không chỉ theo cửa sổ.
+  - **D+1 · 502 có một giả thuyết cụ thể, kiểm được.** `uvicorn --workers 2`, ghim 0.35.0; supervisor đa tiến trình ping tiến trình con, quá 5 s không trả lời thì kill + thay (khớp mẫu: restart=0, không OOM, 18–44 s mới có tiến trình mới); cờ `--timeout-worker-healthcheck` chỉ có từ **0.37.0** (release notes uvicorn). Swap đầy từ Graph RUN-1 (“phần bị đẩy ra là uvicorn/hermes production”) + Chrome OOM trong cgroup 6 GiB ⇒ tiến trình con bị treo vì thiếu RAM là ứng viên số 1. CHƯA chứng minh — R7 gói D đo, không sửa lõi.
+- **Quyết định điều hành:** một RUN `VPSC-R7-TRUTH-20261007-01`, bốn gói A (chuông giả) → B (ổ đĩa) → C (khoá Đ30/31) → D (chứng minh 502/503 + phiếu đề xuất); không restart lõi, không đổi phiên bản, không xoá, không xoay khoá. `Bậc: 2 cấu hình/ghép + 3 code mỏng` trên script hiện hữu — bậc 1 không đạt vì luật riêng của sổ dung lượng/Guard không có sản phẩm thay; phần đo dùng thứ có sẵn của kernel (PSI/cgroup).
+- **Xoay khoá lộ (PROOT01 mục cuối): OWNER.** Đề xuất Host: ĐỒNG Ý xoay, thành lượt riêng N2 sau khi R7 được nghiệm thu, qua DOT/wrapper có kiểm kê bên dùng → dry-run → đổi đồng bộ → khoá cũ bị từ chối → đường lùi. Không gộp vào R7 vì đổi xác thực có thể cắt chính các đầu nối đang dùng để giám sát.
+- **Mời Codex rà (một lượt nếu được):** (a) luật B4 “SLOPE không đỏ khi ≥ 90% phần giảm quy về dòng có trần còn dưới trần” có mở lỗ nào không; (b) C3 manifest PRE/POST + bảng 4 ô có phá lượt POST của việc khác đang chạy không; (c) A2 `maxretries=2 / 60 s` cho đèn chủ động có che sự cố thật nào không; (d) D4 hạ trần trình duyệt 2 GiB đã đủ điều kiện an toàn chưa. Trả một dòng `CODEX ACCEPT@<sha last-touch PROMPT>` (đầu dòng) hoặc DELTA; delta nhỏ không đổi phạm vi được sửa thẳng PROMPT khi còn chưa STARTED (Host READY lại).
+- **JEV** `gen-dec-1791342523-GGIwEfB4D0gZBdQrQnUw` (bằng chứng phụ): đặt việc ở vòng 4 VPSC 0,74 (mở task mới 0,23) · mẫu ổ đĩa “bậc + trôi chậm” 0,93 · luật 2 lần trượt đặt trong DOT 0,99 · con chết do supervisor coi tiến trình bận là chết 0,82 · gói D đo trước, đề xuất sau 1,00 · xoay khoá lượt riêng sau R7 có Owner duyệt 1,00 · dữ liệu Graph: ghi sổ + giao chủ việc 0,97 · câu “bảo vệ đủ” của lượt sửa worker là hợp lệ 0,07 · Owner giao Claude Chat điều hành 0,65 (⇒ ghi rõ ở D17 để Owner lắc nếu sai).
+- Owner cần quyết: O-R7-KEY, O-R7-DONE (dưới; không chặn R7).
+
 ## Owner cần quyết
-- —
+- O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
+- O-R7-DONE · 07/10 · Gật câu “Thế nào là hoàn thành” ở ô 2 (đang ghi là đề xuất). **Đề xuất Host: ĐỒNG Ý.** Không chặn R7.
 
 ## Handoff từ HVU · AFTER R3 ONLY · không đổi PROMPT/READY hiện hành
 - Mục này **không thuộc RUN R3 hiện hành** và không được mutation song song. Chỉ xử lý sau khi R3/V3 gate cho phép VPS mutation tiếp theo.
