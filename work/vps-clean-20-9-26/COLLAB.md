@@ -5,9 +5,9 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 11:12 +07 · Codex (Reviewer) · P53
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 · GPT Chat (Host) · P54
 - 🎯 **Mục tiêu Owner:** VPS ổn định sau loạt thay đổi — vì chuông kêu quá nhiều, ổ đĩa vẫn đầy nhanh và mỗi lần kiểm lại lòi lỗi mới.
-- 🏁 **Xong khi:** đèn chỉ đỏ khi hỏng thật · mỗi GiB mất đi có tên và có trần · mọi mã đang chạy có khoá Đ30/31 do máy đối chiếu · nguyên nhân 502/503 có số đo + phương án cho Owner gật.
+- 🏁 **Xong khi:** đèn nói thật · mọi tăng dung lượng có tên/chủ/cap/TTL · unknown không vượt ngưỡng nhiễu và có receipt 24h mới sau R7 · mọi mã chạy có khoá Đ30/31 · 502/503 có số đo + phương án.
 - 📍 **Tiến độ:** `✅ Codex khảo sát (PROOT01) · ✅ Host tự kiểm + soạn lệnh R7 · ✅ Codex rà: DELTA P53 · ■ Host sửa lệnh · ⬜ Claude Code chạy R7 · ⬜ Codex + Host nghiệm thu · ⬜ N2 xoay khoá + sửa lõi theo phiếu D6 (chờ Owner) · ⬜ đóng`
 - ✅ **Đã xong:** khảo sát chỉ đọc; P51 kiểm lại phát hiện; P52 Host GPT siết 3 cổng an toàn; PROMPT R7 last-touch `7bf9169`; READY mới cùng SHA đã phát.
 - ■ **Đang làm:** Bước kế hoạch · vòng 1/5 · Codex đã trả DELTA P53 cho PROMPT@`7bf9169`; gọi: GPT Chat (Host) xử lý DELTA 1–7 trước review lại.
