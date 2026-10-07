@@ -65,10 +65,12 @@ Install root:
 - wrapper: /opt/incomex/graph-server/mcp-readonly-v1/bin/graph-v1
 - manifest: /opt/incomex/graph-server/mcp-readonly-v1/MANIFEST.json
 
-Download đúng version; verify SHA trước install.
+Download đúng version; verify SHA wheel trước install.
 Install local venv; không package global.
-neo4j-mcp -v phải = 1.6.0.
-Không dùng neo4j-contrib/mcp-neo4j hay canary.
+Lệnh thật phải là `<venv>/bin/neo4j-mcp-server` (fallback identity check: `python -m neo4j_mcp_server`), không dùng tên đời cũ `neo4j-mcp`.
+Trước wrapper, chạy exact binary với cờ help/version mà chính binary hỗ trợ; ghi nguyên văn output và output phải chứa `1.6.0`. Danh tính package quyết định bởi BOTH: wheel SHA256 `f6aeac50e04ed93b7e22c634426aca27f5e91f371ea67caad028afe424704cb0` + installed binary SHA256 `00d4882f412427db064df39492b882781ba1040db82f94ea8cdeedd16db0`.
+Không dùng neo4j-contrib/mcp-neo4j, canary hay `latest`.
+Ghi provenance đúng mức: PyPI không có build attestation; “official” ở đây dựa trên package/docs Neo4j + release date + source path `github.com/neo4j/mcp`, không nói quá thành supply-chain attested.
 
 ## 4. E2 · STDIO-ONLY WRAPPER / SECRET BOUNDARY
 Không service thường trực, không HTTP, không nginx, không host port mới.
@@ -79,15 +81,20 @@ graph-v1 có đúng:
 - graph-v1 doctor
 
 graph-v1 mcp:
-- lấy secret graph-server-neo4j-password từ GSM vào bộ nhớ;
+- lấy secret graph-server-neo4j-password từ GSM vào bộ nhớ; mỗi phiên agent có thể fetch GSM một lần, ghi residual/cost không đáng kể;
 - không file secret, không argv secret, không stdout/stderr/log secret;
-- export nội bộ:
-  NEO4J_URI=bolt://127.0.0.1:17687
-  NEO4J_USERNAME=neo4j
-  NEO4J_DATABASE=neo4j
-  NEO4J_READ_ONLY=true
-  NEO4J_TELEMETRY=false
-- exec official neo4j-mcp 1.6.0.
+- TRƯỚC khi viết wrapper: chạy `<venv>/bin/neo4j-mcp-server --help`/config help và đối chiếu đúng tên biến của 1.6.0; lệch bất kỳ tên dưới đây => DỪNG, không dùng alias deprecated;
+- export nội bộ chỉ cho child process:
+  NEO4J_MCP_URI=bolt://127.0.0.1:17687
+  NEO4J_MCP_USERNAME=neo4j
+  NEO4J_MCP_PASSWORD=<GSM value in process memory>
+  NEO4J_MCP_DATABASE=neo4j
+  NEO4J_MCP_READ_ONLY=true
+  NEO4J_MCP_TELEMETRY=false
+  NEO4J_MCP_TRANSPORT_MODE=stdio
+- exec `<venv>/bin/neo4j-mcp-server`.
+
+“Read-only” ở R8 là rào chống ghi nhầm qua MCP tool, KHÔNG phải security boundary chống lại Claude Code/Codex vốn đã có SSH vào VPS.
 
 Tool catalogue production phải có:
 - get-schema
@@ -100,8 +107,10 @@ Không in secret ở --help/doctor.
 
 ## 5. E3 · PROVE READ-ONLY ON TEMP COPY FIRST
 Trước khi MCP chạm production:
-- dùng dump R7 restore một Neo4j TEMP riêng trong build network;
+- dùng dump R7 restore một Neo4j TEMP riêng trong build network bằng **compose file riêng của R8**; tuyệt đối không sửa `/opt/incomex/graph-server/prod-v1/compose.yaml` đang được Guard băm;
+- dùng local Neo4j image đã có, **không pull image mới**;
 - 0 host port;
+- temp Neo4j mem_limit <= 1 GiB và memswap_limit = mem_limit;
 - temp password riêng, không production secret;
 - temporary MCP process/harness cùng isolated build network;
 - remove toàn bộ temp containers/network/volume sau test.
@@ -117,8 +126,11 @@ Qua read-cypher, thử tối thiểu:
 6. LOAD CSV kèm mutation
 7. admin/password-changing query
 8. APOC write procedure có sẵn
+9. APOC chạy Cypher gián tiếp có ghi: `apoc.cypher.doIt` hoặc `apoc.periodic.iterate` — dùng cái thực sự có trong APOC production
+10. `apoc.load.*` gọi mạng và `apoc.export.*` ghi file — phải bị từ chối hoặc bị cấu hình hiện hữu chặn
+11. Sau password-change attempt: đăng nhập lại bằng **mật khẩu temp cũ** phải vẫn PASS; kiểm trạng thái thật, không chỉ dựa message lỗi
 
-Tất cả phải bị từ chối.
+Tất cả phải bị từ chối/chặn đúng nghĩa và temp DB state không đổi.
 Trước/sau: node count, edge count, schema fingerprint, sample invariant = exact same.
 Một mutation lọt => E3 FAIL; không trỏ production.
 
@@ -143,14 +155,14 @@ Pinned official 1.6.0:
 - Host precheck chưa thấy timeout/token-limit native trong official 1.6.0 => nếu runtime cũng không thấy, ghi NATIVE_QUERY_LIMIT=UNKNOWN/NOT_EXPOSED.
 - không sửa Neo4j server config trong R8.
 - không tự dựng Cypher parser/filter.
-- README khuyên query có LIMIT và tránh Cartesian/unbounded traversal.
+- `graph-v1 --help` + mục `## Cổng đọc Graph cho agent` trong COLLAB khuyên query có LIMIT và tránh Cartesian/unbounded traversal.
 
 E5 UNKNOWN không chặn R8 nếu E3/E4 PASS; phải ghi residual.
 
 ## 8. E6 · AGENT SIGNPOST / TRUST CONTRACT
-Nếu work/graph-server/README.md chưa có, tạo đúng file này.
+KHÔNG tạo README/file repo mới.
 
-graph-v1 --help và README phải nói:
+graph-v1 --help và một mục ngắn `## Cổng đọc Graph cho agent` trong `work/graph-server/COLLAB.md` (đặt trước `## Con trỏ`) phải nói:
 - cách gọi;
 - tools get-schema + read-cypher only;
 - ví dụ Cypher có LIMIT;
@@ -169,6 +181,7 @@ Một server wrapper dùng chung; không gateway riêng từng agent.
 
 ### Claude Code trên Mac
 Dùng current claude mcp CLI syntax từ --help, không đoán.
+Cấu hình ở **user scope**; KHÔNG tạo `.mcp.json` hay file MCP mới trong repo.
 Server name: graph-v1.
 Stdio command tương đương:
 ssh contabo /opt/incomex/graph-server/mcp-readonly-v1/bin/graph-v1 mcp
@@ -214,7 +227,7 @@ Fresh Hermes invocation:
 - get-schema;
 - một read query không PII.
 
-Nếu Hermes current version không hỗ trợ stdio MCP theo schema thật => E7 PARTIAL, không invent config; ghi exact blocker cho HJW. Claude/Codex PASS vẫn giữ.
+Nếu Hermes current version không hỗ trợ stdio MCP theo schema thật => ghi `HERMES_ENTRY=NOT_INSTALLED` + exact blocker và chuyển residual sang HJW; không invent config. **Hermes không chặn R8 XONG** nếu Claude Code + Codex + E1–E6/E8 PASS và production graph không đổi.
 
 ## 10. E8 · POST-PROTECT / ROLLBACK
 Trước KQ XONG/PARTIAL:
@@ -222,14 +235,14 @@ Trước KQ XONG/PARTIAL:
 Footprint:
 - mcp-readonly-v1 install tree;
 - graph-v1 wrapper;
-- work/graph-server/README.md;
-- Claude MCP entry graph-v1;
+- mục `## Cổng đọc Graph cho agent` trong COLLAB.md;
+- Claude MCP user-scope entry graph-v1;
 - Codex MCP entry graph-v1;
 - Hermes graph-v1 entry nếu active;
 - exact narrow privilege entry nếu cần.
 
 AUTO-PROTECT:
-- Config Guard/hash cho wrapper + MANIFEST + README + config snippets;
+- Config Guard/hash cho wrapper + MANIFEST + COLLAB signpost + config snippets;
 - production INV22 vẫn xanh;
 - graph counts unchanged;
 - no public listener;
@@ -245,16 +258,19 @@ Telegram receipt <=3 dòng + delivery proof.
 Không broad-clean trial data.
 
 ## 11. STEP_WALK
-S0 shared-VPS gate
--> E1 pin/install
--> E2 wrapper
--> E3 temp-copy negative-write suite
--> E4 production 13/13 reads
--> E5 limit capability record
--> E6 help/README
--> E7 client integration Claude/Codex/Hermes
--> E8 POST-PROTECT
--> KQ.
+PRE resource gate trước mutation: MemAvailable >= 3 GiB; disk free >= 20 GiB. Không đạt => DỪNG sạch. Temp Neo4j E3 <=1 GiB, memswap=mem; không pull image mới.
+
+| Bước | Ai | Trigger | Bằng chứng | Hỏng thì ai biết | Kế |
+|---|---|---|---|---|---|
+| S0 shared-VPS + resource gate | Agent | STARTED/read-gate | HJW/VPSC terminal + RAM/disk | Host qua KQ DỪNG | E1 |
+| E1 pin/install | Agent | S0 PASS | wheel/binary hash + version output | Host | E2 |
+| E2 wrapper | Agent | E1 PASS | help/env/tool catalogue + secret scan | Host | E3 |
+| E3 temp write-negative | Agent | E2 PASS | 11-case matrix + state PRE=POST | Host | E4 |
+| E4 production reads | Agent | E3 PASS | 13/13 + INV22/count/hash PRE=POST | Host | E5 |
+| E5 cost boundary | Agent | E4 PASS | native capability status | Host | E6 |
+| E6 signpost | Agent | E5 | graph-v1 --help + COLLAB section | Host | E7 |
+| E7 clients | Agent | E6 | Claude/Codex/Hermes receipts | Host/HJW | E8 |
+| E8 POST-PROTECT | Agent | E7 | Guard/rollback/Telegram | Owner+Host | KQ |
 
 No polling/waiting. Gate đỏ => DỪNG sạch.
 
@@ -263,11 +279,10 @@ R8 XONG chỉ khi:
 - E1-E4 PASS;
 - E6 PASS;
 - Claude Code + Codex PASS;
-- Hermes PASS để E7 full;
 - E8 PASS;
 - production graph unchanged.
 
-Nếu Hermes capability thật block => KQ PARTIAL; không nói R8 hoàn tất.
+Hermes PASS là mục tiêu phụ của E7. Nếu capability/version thật của Hermes block, ghi `HERMES_ENTRY=NOT_INSTALLED` + residual sang HJW; R8 vẫn XONG nếu các gate bắt buộc trên PASS.
 E5 UNKNOWN/NOT_EXPOSED được phép là residual.
 
 KQ ghi:
@@ -288,8 +303,8 @@ Evidence:
 
 Repo:
 - Agent cập nhật Bảng/KQ/COLLAB theo A4;
-- README được tạo/sửa theo E6;
+- E6 chỉ thêm/cập nhật mục `## Cổng đọc Graph cho agent` trong COLLAB.md; không tạo file mới;
 - không sửa PROMPT/view khi RUN active.
 
-Final:
-KQ@GS-R8-AGENT-READONLY-MCP-20261007-11 XONG|PARTIAL|DỪNG
+Final chỉ dùng trạng thái A9:
+KQ@GS-R8-AGENT-READONLY-MCP-20261007-11 XONG|DỪNG
