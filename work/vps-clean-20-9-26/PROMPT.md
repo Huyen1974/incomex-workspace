@@ -23,6 +23,7 @@ Owner 07/10: chuông Telegram DOWN/UP quá nhiều; ổ đĩa vẫn đầy nhanh
 - **Bí mật:** không `cat`/in tệp `.env`, compose, nginx conf hay bất kỳ tệp nào có khoá; cần xem cấu hình thì chỉ in TÊN biến hoặc giá trị đã che. (PROOT01: một khoá dùng chung đã lọt ra đầu ra công cụ vì đọc nguyên tệp.)
 - **Telegram tới Owner:** tối đa 1 cặp tin thử gắn nhãn 🧪 + 1 biên nhận cuối.
 - **Không điểm chờ duyệt, không giữ terminal chờ** (DROOT43, D16). Hết phạm vi ⇒ KQ DỪNG sạch.
+- **Agent không tự quyết thay đổi production ngoài những gì tệp này đã ghi rõ việc + số:** gặp lựa chọn chưa có số/chưa có luật ⇒ ghi đề xuất (D6), không làm. Tệp đang được cron gọi (Guard 5′, DOT 5′, disk-monitor) phải thay theo kiểu ghi nguyên tử.
 - **Bảo vệ đến đâu chắc đến đó:** mỗi gói kết thúc bằng test PASS + đăng ký Config Guard (hash cũ→mới + lý do, DROOT29) + commit git cục bộ + ghi BAO-CAO. Gói sau hỏng không kéo lùi gói trước.
 
 ## 2 · PRE
@@ -43,7 +44,7 @@ E2E đúng kênh, một lần trên chính #23: ép 2 lượt trượt có nhãn
 
 **A2 · luật 2-lần-trượt trên cả 22 đèn.** Kiểm kê chỉ đọc `kuma.db`: id · tên · type · interval · retryInterval · maxretries · resend. Áp:
 - đèn chủ động (http/keyword/port…): `maxretries=2`, `retryInterval=60` ⇒ chỉ đỏ khi hỏng liên tục ~2–3 phút;
-- đèn push: Kuma `maxretries=0`; bộ đẩy nào đẩy `down` ngay lần trượt đầu vì một phép thử mạng/HTTP thoáng qua ⇒ sửa như A1; bộ đẩy báo trạng thái tất định (lệch hash, sổ dung lượng, invariant đã tự “fail x2”) giữ nguyên.
+- đèn push: Kuma `maxretries=0` (để tin đỏ mang lý do thật của bộ đẩy, không bị Kuma đổi thành “No heartbeat”). Trong lượt này CHỈ sửa bộ đẩy của #23 (A1). Bộ đẩy khác đang đẩy `down` ngay lần trượt đầu vì một phép thử mạng/HTTP thoáng qua ⇒ chỉ liệt kê (tên đèn · tệp · dòng) vào phiếu D6, không sửa; bộ đẩy báo trạng thái tất định (lệch hash, sổ dung lượng, invariant đã tự “fail x2”) giữ nguyên.
 
 Nộp bảng trước/sau cho đủ 22 đèn.
 
@@ -80,14 +81,14 @@ Selftest Guard PASS trước/sau; hai nhịp periodic liền sau khi sửa phả
 
 **D3 · Directus 503:** lấy body/headers thật (log A1 mới, hoặc `upstream_status` của nginx) ⇒ xác nhận hay bác “pressure limiter”; đọc tên + giá trị không bí mật của `PRESSURE_LIMITER_*` đang hiệu lực.
 
-**D4 · trình duyệt headless:** tiến trình/unit nào sở hữu cgroup 6 GiB bị OOM 06/10 14:24, 14:26, 15:48 (+07); ai gọi; trần đặt ở đâu. Được hạ trần xuống **2 GiB** + tối đa **1 phiên đồng thời** CHỈ KHI đó là giá trị trong unit/cấu hình do Incomex quản, đổi không cần restart 6 container lõi, và bộ test UI/chụp màn hình hiện hữu chạy lại PASS; không đủ điều kiện ⇒ chỉ đề xuất.
+**D4 · trình duyệt headless (chỉ đo + đề xuất, không đổi):** tiến trình/unit nào sở hữu cgroup 6 GiB bị OOM 06/10 14:24, 14:26, 15:48 (+07); ai gọi; trần đặt ở đâu; đổi trần có cần restart container lõi không; RSS đỉnh của một phiên chụp/test UI bình thường. Đưa vào phiếu D6 với số Host đề nghị: trần **2 GiB**, tối đa **1 phiên đồng thời** — nêu rõ số này có đủ cho test hiện hữu không.
 
 **D5 · dồn cron:** liệt kê mọi job nổ cùng phút chia hết cho 5 (kèm thời lượng chạy); chỉ đề xuất phương án dàn lệch, không đổi lịch trong lượt này.
 
 **D6 · phiếu đề xuất N2 cho Owner** (≤ 12 dòng; mỗi dòng: việc · số cụ thể · gián đoạn · đường lùi · bằng chứng). Số Host đã chốt sẵn để điền nếu bằng chứng khớp — agent không tự chọn số khác, thấy cần khác thì nêu lý do: nếu D2 = `SUPERVISOR_PING_TIMEOUT` ⇒ uvicorn 0.35.0 → **0.37.0** + cờ `--timeout-worker-healthcheck 30` (rebuild + recreate agent-data, gián đoạn MCP ~1 phút), kèm việc gỡ tận gốc chỗ chặn/thiếu RAM đã đo được; trần RAM cho tải thử (trình duyệt, Graph trial) để production không bị đẩy ra swap; xả swap có kiểm soát; ngưỡng pressure limiter của Directus.
 
 ## 7 · POST-PROTECT
-Chạy Guard `post` bằng **cổng mới C3** với `--coverage` phủ footprint thật của chính R7 (A+B+C+D) + `--receipt` (≤ 3 dòng tiếng Việt, có màu; lưu message_id). Config Guard CLEAN. Còn một ô `THIẾU` ⇒ KQ không được là XONG.
+Chạy Guard `post` bằng **cổng mới C3** với `--coverage` phủ footprint thật của chính R7 (A+B+C+D) + `--receipt` (≤ 3 dòng tiếng Việt, có màu; lưu message_id). Config Guard CLEAN. Còn một ô `THIẾU` ⇒ KQ không được là XONG. Nếu gói C dừng trước khi có cổng mới: chạy `post` bằng cổng cũ, nộp bảng 4 ô làm tay trong BAO-CAO cho footprint của A/B, KQ = `DỪNG · C`.
 
 ## 8 · KQ và báo cáo
 - `## R7` trong BAO-CAO: bảng A/B/C/D (đạt · chưa đạt · bằng chứng), bảng 22 đèn trước/sau, bảng đối soát ổ đĩa, `N/M/K` sổ mã, bảng 7 lần chết + phân loại, phiếu D6.
