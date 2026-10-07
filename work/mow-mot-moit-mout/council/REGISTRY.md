@@ -1,5 +1,12 @@
 # MMIM · Council / Surface Registry
 
+## Codex · CE-20261007-MOW001-THREE-SCREENS · PARTIAL
+- NOW: Owner giao trực tiếp 18:03; 3 màn riêng đã dựng từ UI-029 biến thể, ban đầu trống, ví dụ tách riêng. Tools đã hiệu chỉnh kiểm đích và vòng sửa câu thiếu.
+- VERIFY: 17 model tests + parse đạt; browser từ chối vì admin policy không xác minh được. Gate receipt BLOCKED, không live PASS.
+- NEXT: kiểm trực tiếp khi policy hợp lệ; chốt nơi nhận/tác động xác nhận với Owner; xem OPEN-01…10 tại Sổ (OPEN-07 đã đóng).
+- BLOCKED_BY: browser policy; dữ liệu/quyền/JEV/ngữ cảnh/nơi nhận production chưa đủ.
+- RESERVED_TARGETS: none. LAST_SYNC: 2026-10-07. Phiếu: ../UI-REVIEW-MOW001.json; nguồn/kết quả: README + Sổ Tools.
+
 ## Codex · CE-20261007-RULES-RECOVERY · KQ
 - NOW: đã tập hợp Rules8 nhóm/38 mục, đổi tab UIs; giữ nguồn cũ và phục hồi14 Help NHAP2 bị khuất. README/Help dẫn về Rules.
 - VERIFY: 8 nhóm mở/đóng,38 ID, Master MOW/Nháp2/MOT Help; bằng chứng UI-AUDIT-20261007.md.
