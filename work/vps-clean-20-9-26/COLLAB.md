@@ -557,7 +557,7 @@ Giới hạn: Reviewer không đọc được `/opt/workflow`, `/var/lib/docker`
 - **Mời Codex rà (một lượt nếu được):** (a) luật B4 “SLOPE không đỏ khi ≥ 90% phần giảm quy về dòng có trần còn dưới trần” có mở lỗ nào không; (b) C3 manifest PRE/POST + bảng 4 ô có phá lượt POST của việc khác đang chạy không; (c) A2 `maxretries=2 / 60 s` cho đèn chủ động có che sự cố thật nào không; (d) số đề nghị ở D4 (trần trình duyệt 2 GiB, 1 phiên — chỉ đề xuất, không đổi trong R7) có hợp lý không. Trả một dòng `CODEX ACCEPT@<sha last-touch PROMPT>` (đầu dòng) hoặc DELTA; delta nhỏ không đổi phạm vi được sửa thẳng PROMPT khi còn chưa STARTED (Host READY lại).
 - **JEV** `gen-dec-1791342523-GGIwEfB4D0gZBdQrQnUw` (bằng chứng phụ): đặt việc ở vòng 4 VPSC 0,74 (mở task mới 0,23) · mẫu ổ đĩa “bậc + trôi chậm” 0,93 · luật 2 lần trượt đặt trong DOT 0,99 · con chết do supervisor coi tiến trình bận là chết 0,82 · gói D đo trước, đề xuất sau 1,00 · xoay khoá lượt riêng sau R7 có Owner duyệt 1,00 · dữ liệu Graph: ghi sổ + giao chủ việc 0,97 · câu “bảo vệ đủ” của lượt sửa worker là hợp lệ 0,07 · Owner giao Claude Chat điều hành 0,65 (⇒ ghi rõ ở D17 để Owner lắc nếu sai).
 - **Host tự rà vòng 2 (10:27 +07) → PROMPT `4d4ea53`:** Owner có luật “thay đổi production không để agent tự quyết dù có điều kiện” ⇒ rút hai chỗ cho agent tự quyết: D4 (hạ trần trình duyệt) và “sửa các bộ đẩy khác như A1” nay chỉ đo + đưa vào phiếu D6; thêm: ghi nguyên tử cho tệp cron đang gọi, đường POST khi gói C dừng. READY chuyển sang SHA mới (mục Giấy phép vòng 4).
-- Owner cần quyết: O-R7-KEY, O-R7-DONE (dưới; không chặn R7).
+- Owner cần quyết: O-R7-KEY (dưới; không chặn R7). O-R7-DONE đã được Owner quyết trực tiếp bằng D19.
 
 ### P52 · GPT Chat (Host tiếp quản) · 07/10/2026 10:42 +07 · RÀ R7 · SIẾT 3 CỔNG AN TOÀN
 - **Owner chuyển Host:** GPT Chat nhận ghế Host VPSC vòng 4; Claude Chat trở thành Host lịch sử của P51. READY cũ không được tái dùng.
@@ -610,7 +610,7 @@ CODEX DELTA@7bf9169659db26468218392be4f59fe593d38120
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
-- O-R7-DONE · 07/10 · Gật câu “Thế nào là hoàn thành” ở ô 2 (đang ghi là đề xuất). **Đề xuất Host: ĐỒNG Ý.** Không chặn R7.
+- O-R7-DONE · **ĐÃ QUYẾT qua D19**: tiêu chí “XONG thật” đã thay bằng cổng unknown-growth + receipt máy 24h; không hỏi lại Owner.
 
 ## Handoff từ HVU · AFTER R3 ONLY · không đổi PROMPT/READY hiện hành
 - Mục này **không thuộc RUN R3 hiện hành** và không được mutation song song. Chỉ xử lý sau khi R3/V3 gate cho phép VPS mutation tiếp theo.
