@@ -1,17 +1,5 @@
 # COLLAB — mow-mot-moit-mout
 
-## KQ · CE-20261007-NAV · Điều hướng UI cha / Master · Owner 07/10/2026
-- STATE: APPROVED về yêu cầu triển khai UI theo chỉ đạo trực tiếp Owner; không đổi trạng thái canonical của các bản thiết kế.
-- Mục tiêu: đi sâu từ 29 Master hiện tại và các tầng tương lai, quay lại dễ thấy, Home luôn về master-design-review-v1.html.
-- SSOT: ui/design-navigation-v1.js. UPDATE: UI.MASTER (mot-master/master-list), eco-nav dùng chung UI.CANVAS/CONFIG/STUDIO/REVIEW/WORKSPACE, trang review, chi tiết công thức; ui-child-content bỏ nhãn số 28 cũ ở liên kết quay về.
-- Hành vi: thanh cố định trên cùng, nút >=42px; Quay lại đóng drawer trước và giữ bộ lọc, dùng lịch sử nội bộ khi có hoặc đường cha dự phòng; Home/Danh sách Master mở top window; link khác màn trong iframe thoát ra top. Lịch sử đóng drawer không tạo vòng lặp.
-- VERIFY PASS: Master Nhóm cha 35 và title đúng; Config mở/đóng chi tiết với từ khóa full_name vẫn giữ; Home đúng URL; từ iframe 29 Master mở Nhóm cha ở top window. CT-007 ở 390px có đủ ba nút, console 0. CSP Google Fonts cũ vẫn có trên Master, không phát sinh lỗi JS điều hướng.
-- Kế thừa: 28 definition masters + Config cùng UI.MASTER; các UI cha khác qua eco-nav. Trang tương lai dùng cha tự nhận; trang độc lập phải nạp module và khai DESIGN_NAV_CONFIG.parentUrl nếu cha không phải index.
-- N/A: không đổi công thức, schema, bản ghi, số đếm, DNS/PG/Directus. Không cấp UI ID mới.
-- UI transactions: be10ccbfb9bc46518f0800a1ea992ad0; 293d4f45255f49c8a76f379c97db5851; 22dceae40601405d8f0aad8aa363c976.
-- NOW: đã triển khai, tiếp tục rà trực tiếp cùng Owner. NEXT: dùng cùng quy chuẩn khi thêm tầng mới; không nhân bản nút điều hướng riêng.
-
-
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
@@ -2098,3 +2086,17 @@ KQ@OWNER-BANDUYET-20260924-02 XONG
 - Direct source snapshot HTTP200 + screenshot; đúng URL Owner đã hiện fresh và #hvu-task-document trỏ revision 3249075fce2f1972d2c0d5a5f9d1e9271bfa737a chứa source đã kiểm. Nguồn vẫn cùng SHA khi HEAD tiến tới e53020fc421ea23e8e9b019304789679926232be do việc khác. Cảnh báo Google Fonts/CSP hiện hữu không thuộc thay đổi này.
 - PROCESS=CHUNG.APQUYTRINH; PROCESS_GATE=PASS job cd071317ca3b4c6eac7b30061dff638d, exit0. Đã đọc lại/diff source; giao qua publisher hiện hữu README §12, không có runtime deploy/đường phụ.
 - COORD: trả reservation ban-duyet.html#formula-ct-001; Registry surface D154 về IDLE. D155/Master Total và các RUN/council khác giữ scope riêng; audit Change Propagation PENDING/FC-002 OPEN không thay đổi.
+
+
+## KQ · CE-20261007-NAV · Điều hướng UI cha / Master · Owner 07/10/2026
+- STATE: APPROVED về yêu cầu triển khai UI theo chỉ đạo trực tiếp Owner; không đổi trạng thái canonical của các bản thiết kế.
+- Mục tiêu: đi sâu từ 29 Master hiện tại và các tầng tương lai, quay lại dễ thấy, Home luôn về master-design-review-v1.html.
+- SSOT: ui/design-navigation-v1.js. UPDATE: UI.MASTER (mot-master/master-list), eco-nav dùng chung UI.CANVAS/CONFIG/STUDIO/REVIEW/WORKSPACE, trang review, chi tiết công thức; ui-child-content bỏ nhãn số 28 cũ ở liên kết quay về.
+- Hành vi: thanh cố định trên cùng, nút >=42px; Quay lại đóng drawer trước và giữ bộ lọc, dùng lịch sử nội bộ khi có hoặc đường cha dự phòng; Home/Danh sách Master mở top window; link khác màn trong iframe thoát ra top. Lịch sử đóng drawer không tạo vòng lặp.
+- VERIFY PASS: Master Nhóm cha 35 và title đúng; Config mở/đóng chi tiết với từ khóa full_name vẫn giữ; Home đúng URL; từ iframe 29 Master mở Nhóm cha ở top window. CT-007 ở 390px có đủ ba nút, console 0. CSP Google Fonts cũ vẫn có trên Master, không phát sinh lỗi JS điều hướng.
+- Kế thừa: 28 definition masters + Config cùng UI.MASTER; các UI cha khác qua eco-nav. Trang tương lai dùng cha tự nhận; trang độc lập phải nạp module và khai DESIGN_NAV_CONFIG.parentUrl nếu cha không phải index.
+- N/A: không đổi công thức, schema, bản ghi, số đếm, DNS/PG/Directus. Không cấp UI ID mới.
+- UI transactions: be10ccbfb9bc46518f0800a1ea992ad0; 293d4f45255f49c8a76f379c97db5851; 22dceae40601405d8f0aad8aa363c976.
+- NOW: đã triển khai, tiếp tục rà trực tiếp cùng Owner. NEXT: dùng cùng quy chuẩn khi thêm tầng mới; không nhân bản nút điều hướng riêng.
+
+
