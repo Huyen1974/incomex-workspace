@@ -1,6 +1,6 @@
 # FORMULA-AI-README · MMIM
 
-> **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R45). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
+> **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R48). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
 
 > **Toàn bộ UI cha/con:** đọc [UI-DESIGN-STANDARD.md](UI-DESIGN-STANDARD.md) và áp dụng cổng kiểm bàn giao tại đó. Mục Master dưới đây chỉ quy định riêng cho bảng danh sách, không thay quy chuẩn Canvas/Config/Studio/Review/Workspace.
 

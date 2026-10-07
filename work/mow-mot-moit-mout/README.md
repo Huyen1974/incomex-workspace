@@ -1,11 +1,17 @@
 # README · MMIM · START HERE
 
-> **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R45). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
+> **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R48). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
 
 > **Mọi thay đổi UI:** đọc [Quy chuẩn UI cha](UI-DESIGN-STANDARD.md) trước; bàn giao phải có phiếu theo [UI-REVIEW-CONTRACT.json](UI-REVIEW-CONTRACT.json) và chạy `check-ui-review.py`. AI chịu trách nhiệm kiểm, không đẩy Owner thành tester. Kết quả rà: [UI-AUDIT-20261007.md](UI-AUDIT-20261007.md).
 
 > **Cửa vào bắt buộc của việc `work/mow-mot-moit-mout`.**
 > Nếu một file/quy trình/tool mới không được nối từ README / Bảng điều khiển / Master tương ứng thì coi như **chưa được đăng ký vận hành**.
+
+## Tools · CTCM · Quy trình thiết kế và kiểm UI
+[Master Tool](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=23) → [8 Tool và áp thử MOW-NHC-001](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/tools-playbook-v1.html). Quy tắc R46–R48.
+SSOT nội dung: VPS `definition-master-data-v1.js`, `ML-DEF-023`, TOOL-CTCM-001…008; trang Tools đọc từ SSOT. Hai công thức thao tác CT-TOOLS-UI/CT-TOOLS-CFG ở ML-DEF-021 là đề xuất, không thay công thức sinh đối tượng.
+Bộ rà ban đầu: 8 câu/MOT × 3 MOT = 24 ô; 16 nhánh nền và 6 việc còn thiếu. Chưa đạt hành trình đầu–cuối; chưa triển khai DOT mới. Ba màn là hợp đồng thiết kế, chưa phải ba UI hoàn chỉnh. Nhánh đúng: 1→3 hoặc 1→2→3. Không gán 95% là tỷ lệ đã đo.
+Phiếu kiểm trang hướng dẫn: `UI-REVIEW-TOOLS.json`; không dùng kết quả trang hướng dẫn thay kết quả hành trình tìm Field.
 
 ## Thử thiết kế theo MOW · Owner 07/10/2026
 [MOW-NHC-001 · UI theo thứ tự MOT](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001), mở từ số MOT trong Master MOW. Quy tắc R39–R42. Mapping UI dùng lại tại ML-DEF-018.UI-029.motBindings; tên/thứ tự theo Nhóm con. 3 MOT, 2 bước có UI dùng lại; bước1.3 chờ thiết kế. [Phiếu kiểm](UI-REVIEW-MOW001.json): PARTIAL, desktop đã kiểm; mobile/in A4 chưa kiểm.

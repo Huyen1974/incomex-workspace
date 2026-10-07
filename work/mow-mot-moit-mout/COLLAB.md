@@ -3,6 +3,11 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
+### Owner 07/10/2026 · Tools CTCM và kiểm như người mới
+Yêu cầu: chuẩn hóa việc lặp lại, ba MOT Tìm Field / Tìm nâng cao khi cần / Xác nhận phù hợp; xây quy trình và dần viết DOT.
+Đã đăng ký 8 quy trình đề xuất trong Master Tool có sẵn (ML-DEF-023), không tạo master hay task mới. Trang `/ui-preview/mcp-writes/tools-playbook-v1.html` đọc nội dung từ SSOT; gồm 8 câu/MOT, 24 ô áp thử, 16 nhánh nền, sổ 6 việc thiếu và lộ trình Tool→DOT. Hai công thức thao tác đề xuất tại ML-DEF-021; Rules R46–R48.
+Kết luận: MOW-NHC-001 CHƯA ĐẠT đầu–cuối. Còn thiếu chọn/chuyển Field, màn xác nhận và hợp đồng output, ngữ cảnh chuyên môn, nối Vector/JEV, khớp renderer cha, các nhánh lỗi. Không báo đã có ba UI hoàn chỉnh; chưa có DOT mới chạy. Hành trình 1→3 hoặc 1→2→3. Bước tiếp theo: dùng bộ ca để thiết kế màn chọn và xác nhận; dữ liệu/tác động chưa chốt phải giữ mở, không tự tạo/sửa Field.
+
 ### Owner 07/10/2026 15:50 +07 · Danh tính tại chỗ và tìm theo mô tả
 Đã sửa bản thử MOW-NHC-001: bỏ scale toàn UI, sheet tối đa1120px; iframe width100%, tự tăng chiều cao, chữ tự nhiên. Chuỗi/mã/tên MOW ở đầu; mã/tên MOT tại từng bước; mã/tên UI con + UI cha ngay trên khung. Tra từ MMIM_CHAINS và các Master theo khóa; không hardcode CTCM. Chuyên môn chưa khai báo giữ rõ thiếu, không dùng Nhóm cha thay Chuyên môn.
 Đối chiếu: UI-029 đăng ký UI.MASTER · Master list nhưng renderer tìm kiếm riêng; ghi rõ chưa kiểm khớp cha, chưa tự cấp cha mới. UI1.3 vẫn thiếu.
