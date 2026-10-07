@@ -121,29 +121,53 @@ Ghi vào **sổ tin báo hiện hữu** và bảng trong P KQ; không mở file 
 - Chính sách hãng là gate sống: docs cũ trong P182/P185 chỉ là đầu vào; executor phải re-check official docs hiện hành trước live test.
 - Policy wording mơ hồ cho subscription automation ⇒ `POLICY_UNCERTAIN`, **không enable** và không lách bằng web UI.
 
-## 3. PHA A — INVENTORY / POLICY / BINDING · READ-ONLY
+## 3. CHẶNG 2A — SỬA ĐƯỜNG HERMES · WORKER RUN
 
-1. Fresh-read Bảng + PROMPT + READY; chỉ bắt đầu RUN khi READY đúng last-touch.
-2. Kiểm STOP/concurrency/protection hiện hành.
-3. Inventory **không cài gì**:
-   - Hermes VPS dispatcher/courier/runtime hiện hữu;
-   - command/client/routine/Work/Codex/Claude paths đang có trên VPS/Mac;
-   - auth: linked account / API key / subscription login / none;
-   - server-side author labels đã thấy;
-   - current schedules/events/self-pull mechanisms;
-   - Mac fallback readiness, nhưng không mở browser automation.
-4. Đọc official docs hiện hành của Anthropic/OpenAI cho đúng path sẽ thử; ghi URL/title/date vào P, không chép dài.
-5. Lập wake matrix PRE, **bao gồm `hermes-vps · ASSIGN_V1 hiện hành`** cùng các candidate tương lai. Ở R4 chỉ inventory/đo từ evidence đã có, **không phát canary mới**. Danh sách canary thật cho chặng 2 do Host khóa ở READY sau R4; executor chỉ được bớt, không thêm/đổi path.
-6. Với đường Hermes hiện hành, đọc-only evidence/log/state để lập **STEP_WALK_V1 12 bước**: `bước · actor · trigger · timestamp/SLA · evidence source · fail detector · next`; điền số thật cho ba vé đại diện (ít nhất vé hỏng `7179def63448` + một vé đạt gần nhất + lượt 04/10 nếu là nguồn tốt nhất).
-7. Chẩn đoán vé `7179def63448` từ **transcript/log/evidence trên máy chủ** bằng read-only path: `failure_class · model_call_count · model_start/end nếu có · last_tool · last_error · kích thước từng read chính · evidence_ref`. Không chép transcript/secret lên repo. Không truy được trường nào ⇒ ghi `UNKNOWN`, không đoán.
-8. Xác định từng timer/poller ở bước 2/4/5/7/10/11: nằm trong code/config/runtime nào, cadence thật, ai sở hữu, có sửa được bằng code/config của ta không. Nếu vendor-owned ⇒ evidence + R5 candidate; chưa biết ⇒ UNKNOWN.
+**R1 · Phạm vi**
+Chỉ sửa đường Hermes hiện hữu: `hjw_gate.py`, plugin `hjw-control`, lịch `ws-dispatch`, prompt/toolset của Hermes one-shot và Config/Protection Guard liên quan. Không Routine/token/vendor khác; không đổi `RUN_TIMEOUT`; không sửa core Owner View parser; không mở AUTO2/N4.
 
-Không live-call model mới trong R4.
+**R2 · PRE / concurrency / snapshot**
+1. Fresh-read AGENTS → Bảng/P204–P206 → PROMPT → READY exact SHA; kiểm STOP/alert/ticket open.
+2. Kiểm shared VPS: nếu **bất kỳ task khác có STARTED chưa KQ** trên máy chủ ⇒ `CONCURRENCY_GATE`, ghi KQ DỪNG và đóng CLI; không chờ.
+3. Chụp PRE + backup/hash đúng file/config/job sẽ sửa; xác định rollback command/path trước first mutation.
 
-### Checkpoint R4 — BẮT BUỘC DỪNG SAU PHA A
-Executor ghi một P/KQ tạm gồm: (1) STEP_WALK_V1 12 bước có số thật/UNKNOWN; (2) chẩn đoán ticket `7179def63448`; (3) timer ownership map; (4) wake matrix PRE; (5) danh sách G1–G6: `MEASURED|UNKNOWN` + evidence. Sau đó ghi:
-`KQ@HJW-N3-COURIER-WAKE-20261007-01 DỪNG · N3_R4_WAITING_REVIEW · READ_ONLY · CONTINUE_SAME_NODE`
-và **đóng CLI**. Không Pha B–E, không routine/token/canary/mutation. Host + Claude review KQ R4; chỉ sau prompt edit + READY mới được sang chặng 2.
+**R3 · Implement deterministic result sink + state transitions**
+Triển khai §1.G đúng giới hạn R1: result writer deterministic; approve→claim event-driven/idempotent; immediate one-shot after claim; end→result ≤60 s; fallback observability; NEXT record; queue truth. Hermes model không có quyền ghi repo trong 2a nếu toolset per-job giới hạn được; nếu Hermes không giới hạn được toolset theo job ⇒ ghi residual exact, **không vá vendor code**.
+
+**R4 · Fixture trước apply — 0 model/0 Owner**
+Chạy toàn bộ khuôn thử hiện hữu **27 phép cũ** + phép mới tối thiểu:
+- result body: tiếng Việt, dấu `"`, backtick, backslash, newline, payload 2–8 KB;
+- reject: thiếu/sai STATUS, body rỗng, >12 KB, machine marker/authority line bị cấm;
+- version conflict/retry≤3→`WRITE_CONFLICT`;
+- callback + tick đồng thời ⇒ 1 claim/1 run;
+- approved idle >30 s ⇒ alert + retry bounded≤3;
+- queue empty ⇒ không `XẾP HÀNG`;
+- model-end no valid result ⇒ fallback đủ evidence ≤60 s;
+- NEXT đúng 1 record + close khi Host commit sau result.
+Fixture fail ⇒ không apply.
+
+**R5 · Apply + protection**
+Apply chỉ qua DOT/wrapper hiện hữu. Sau apply: POST-PROTECT/Config Guard + diff/hash; nếu bất kỳ guard/test fail ⇒ rollback bản PRE **ngay trong lượt**, verify rollback rồi KQ DỪNG.
+
+**R6 · Smoke không model**
+Chạy 2 tick/cycle sạch lỗi, 0 model call; xác minh dispatcher/job/plugin sống, no duplicate claim, no unexpected queue/NEXT, Telegram/outbox không phát rác. Smoke fail ⇒ rollback ngay.
+
+**R7 · KQ worker — bắt buộc DỪNG**
+Ghi P báo cáo PRE→POST, files/hashes, test matrix, rollback receipt, protection, residual; rồi ghi mẫu:
+`KQ@<RUN_ID> DỪNG · N3_2A_DEPLOYED_WAITING_LIVE_CANARY · CONTINUE_SAME_NODE`
+và **đóng CLI**. Không giữ terminal chờ Owner/canary; không tự phát ASSIGN.
+
+### Chặng 2A · LIVE CANARY SAU KQ — Host làm, worker không chờ
+Sau KQ worker + CLI đóng, Host mới phát hai ASSIGN canary riêng, Owner bấm 2 lần:
+1. **success canary:** model đọc ≤3 cửa sổ, body ≤1.500 ký tự có tiếng Việt + quote/backtick/backslash, STATUS đúng;
+2. **failure canary:** SPEC yêu cầu model trả đúng `CANARY_NO_STATUS` để máy tự blocked an toàn.
+ID dùng `HJW-N3-CANARY-*`; P canary không tính phiếu hội đồng. Mỗi vé phải tự ghi ba latency §1.G.
+
+### Chặng 2A · NGHIỆM THU LỚP HERMES
+- Hai canary trên phải đạt toàn bộ R3–R7; failure canary phải closed/result-notice ≤60 s đủ evidence.
+- Lớp Hermes chỉ ghi **PASS** khi có **3 success tickets liên tiếp** sau sửa, tự báo ba latency, **và** 1 failure canary đạt. Hai success còn thiếu ưu tiên lấy từ việc hội đồng thật kế tiếp; không tạo model call chỉ để đủ số.
+- Nếu owned path đạt mà residual còn duy nhất vendor ticker 60 s làm SLA chưa đạt ⇒ `R5_CANDIDATE:HERMES_TICKER_60S`, đưa Owner quyết; không hack vendor.
+- Chỉ sau disposition 2a mới mở 2b.
 
 ## 4. PHA B — PRIMARY DIRECT INVOCATION CANARY — NOT AUTHORIZED IN R4
 
