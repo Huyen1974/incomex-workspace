@@ -3,6 +3,13 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
+### Chỉ đạo Owner 07/10/2026 13:11 +07 · tập hợp Rules
+HUMAN_DIRECTIVE@RULES-RECOVERY EFFECTIVE · Owner yêu cầu rà Help/ghi chú MOW/MOT và thư mục Mac “quy trình”, lọc nội dung tốt, đổi tab UIs thành Rules ngắn gọn để chuẩn hóa thiết kế; không mở task mới.
+CE-20261007-RULES-RECOVERY · APPROVED về việc tập hợp/đổi tab; không tự phê duyệt lại các đề xuất cũ.
+SSOT tuyến Owner: knowledge/modules → ban-duyet.html → matrix-view-uis. UPDATE tab nhãn Rules, bản quy định tập trung; giữ nguyên nội dung UIs cũ trong mục tham khảo. VERIFY Help/BOOK/MOT, README và các đường vào. Nguồn cũ giữ nguyên; luật mâu thuẫn chỉ đạo mới phải ghi superseded/chờ chốt, không xóa lý do lịch sử.
+Phát hiện ban đầu: SHA của BOOK, mow-help-doc và mot-help trên VPS khớp bản backup Mac tháng9; chưa có bằng chứng ba file nguồn này bị mất. Rủi ro nằm ở đường nạp/hiển thị và nhiều bản nội dung chồng nhau.
+■ Đang rà và hợp nhất; tiêu chí: Rules gọn, truy nguồn từng nhóm, không mất Help gốc, kiểm tab thật trước báo xong.
+
 ### Cập nhật 07/10/2026 11:37 +07 · rà chi tiết UI cha
 HUMAN_DIRECTIVE@UI-PARENT-PARITY EFFECTIVE · task=mow-mot-moit-mout · scope=UI đã duyệt, quy chuẩn và áp dụng ngược · recorded_by=Codex · quote="Sau khi quy định rồi => áp dụng ngược lại đúng quy định đó xem đã ổn chưa, tự bạn có thể so sánh được sự khác nhau mà?"
 CE-20261007-UI-PARENT-PARITY · APPROVED. Owner yêu cầu chuẩn hóa khoảng 2/3 phần dùng chung, tránh học lại thao tác; rà từng chi tiết, không chỉ có class CSS.
