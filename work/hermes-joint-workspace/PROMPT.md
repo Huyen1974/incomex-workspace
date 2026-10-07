@@ -94,16 +94,20 @@ Sổ gọi tối thiểu:
 `ai gọi ai · lúc nào · path class · provider session/receipt · server identity · commit/result`.
 Ghi vào **sổ tin báo hiện hữu** và bảng trong P KQ; không mở file mới. Không tạo Owner View/DB/service mới.
 
-### G. State-transition + context/output reliability — DROOT47/DROOT48 + live failure 07/10
-- **Approve→Start phải tách mốc:** đo `approved_at · ack_at · claimed_at · start_notice_at · model_start_at`. Boundary của ta: dispatcher idle + không hard gate ⇒ `approved_at→claimed_at` và tin `BẮT ĐẦU` ≤30 s; poll/timer 2–4 phút chỉ backstop. `claimed_at→model_start_at` phải được đo riêng; nếu timer nằm trong sản phẩm Hermes/vendor và không sửa được bằng config/mã của ta ⇒ ghi số thật + bằng chứng + phương án rồi hỏi Owner theo R5, **không tự PASS/residual**.
-- **Result→Next:** đo `model_end_at · result_valid_at · machine_close_at · result_notice_at · next_event_at · next_dispatch_at`. `RESULT_V1 done|blocked` hợp lệ phải tạo durable NEXT event ≤30 s. Với GPT Chat hiện chưa machine-wake được: fallback tạm = Telegram mở đúng Host session; Owner chỉ gõ một chữ `tiếp`, Host tự đọc RESULT mới nhất trong repo; ghi residual `HOST_NOT_WAKEABLE`. Không bắt Owner copy-paste/kể lại kết quả.
-- **Context/hiệu quả:** mỗi lượt ghi `model_call_count · max_single_call_context nếu provider có · total_input · total_output · tiền thật/UNKNOWN · kích thước từng read chính`. **Cấm đọc toàn HJW COLLAB lớn** nếu không có exception được review. `total_input >150k` = loại việc **CHƯA ĐỦ ĐIỀU KIỆN XÉT AUTO** theo S9, không tự làm fail diagnostic/N3; hiệu quả chấm theo A4: tiền thật + tỷ lệ lượt có giá trị là chính, token/thời lượng phụ.
-- **Output/observability:** assignment phải có P + `RESULT_V1` hợp lệ. Model thoát mà chưa có result ⇒ R4 phải đo `model_end→machine_close`; chưa đặt SLA trước khi có số. Machine fallback phải ghi ngay trong RESULT tối thiểu `failure_class · model_call_count · token usage · last_tool · last_error` đã che bí mật, tổng ≤200 ký tự; transcript giữ trên máy chủ, không chép repo; `evidence_ref` phải trỏ tới nơi executor/Host-authorized diagnostic đọc được. Không truy được nguyên nhân ⇒ `OBSERVABILITY_FAIL`.
-- **Live evidence hiện chỉ được gọi đúng lớp đã đo:** ticket `7179def63448`: approve→claim ~5m42s = FAIL DROOT47; Hermes 111 s, total input 626131 = **AUTO/context warning + cần chẩn đoán**, không tự suy là root cause; commit `a458fe6` = 0 semantic P/RESULT do Hermes = output-contract FAIL; Owner phải tự nhắn Host = next-handoff FAIL. Các khoảng `ack/model_start/model_end→close` còn `CHƯA ĐO` ⇒ CHƯA ĐẠT theo DROOT48.
+### G. State-transition + output reliability — ĐÍCH CHẶNG 2A
+- **Click→claim/start:** đo `clicked_at · ack_at · claimed_at · start_notice_at · model_start_at`. Khi dispatcher idle/không blocker: `clicked_at→claimed_at` **và** tin `BẮT ĐẦU` ≤30 s. Callback approve phải kick state machine ngay; một invocation advance qua mọi state không có blocker thật. Poll chỉ recovery. Callback + tick đồng thời vẫn đúng **1 claim/1 model run**.
+- **Queue truth:** chỉ hiện `XẾP HÀNG` khi có ticket/job thật đang chặn và phải hiện mã blocker; approved >30 s chưa claim khi hàng rỗng ⇒ đúng 1 alert + bounded retry tối đa 3 lần.
+- **Claim→model:** phần do ta sở hữu phải tạo one-shot ngay sau claim, không đợi ws-dispatch tick kế. Đo số thật; residual chỉ do Hermes vendor ticker 60 s ⇒ `R5_CANDIDATE:HERMES_TICKER_60S`, không hack vendor, không tự PASS.
+- **Result sink:** model không ghi repo ở 2a. Model chỉ được công cụ đọc và kết thúc bằng đúng `STATUS: DONE|BLOCKED <assignment-id>` rồi thân bài semantic. Máy/runner deterministic dựng tiêu đề P + `Ghế:` + `RESULT_V1`, chép thân bài nguyên văn và ghi atomically bằng transaction/server-side escaping. RESULT ghi `session` + `body_sha256`. Mỗi session tối đa 1 P.
+- **Result validation:** máy từ chối/blocked khi STATUS thiếu/sai, body rỗng hoặc >12.000 ký tự, body có machine-marker/authority line bị cấm (`TÊN@…` theo A6/DROOT45, các dòng lệnh máy A9-GLB, marker vùng máy, dòng mở đầu `#`, `Xác nhận User:`). Version conflict: retry transaction ≤3 rồi `WRITE_CONFLICT`.
+- **Model-end→repo+notice:** cả success/failure ≤60 s từ `model_end_at` tới result nằm trên repo và tin KẾT QUẢ gửi. Bỏ `RESULT_GRACE=600`; bắt bằng callback/loop ≤5 s của phần ta. Vượt 60 s: owned ⇒ FAIL; vendor-only ⇒ số thật + R5 candidate. Fallback RESULT có `failure_class · model_call_count · tokens · last_tool · last_error` ≤200 ký tự + `evidence_ref`.
+- **Tự báo số:** mọi RESULT/tin KẾT QUẢ in ba khoảng: `click→claimed · claimed→model_start · model_end→result_notice`.
+- **NEXT ở mức AUTO1:** mỗi valid/fallback RESULT tạo đúng 1 NEXT record OPEN trong sổ vé. Tin KẾT QUẢ chỉ yêu cầu Owner: **mở Host, gõ `tiếp`**. NEXT tự đóng khi server identity của Host có commit mới sau result. Không tự gọi ghế kế/không dựng council dispatcher — đó là N4.
+- **Context/hiệu quả:** giữ metric P204: total input/token không phải root cause; >150k chỉ `AUTO_CONTEXT_NOT_READY`. Tiền thật Hermes vẫn `UNKNOWN` ⇒ ghi nợ hiệu quả cho N4, không gate 2a.
 
 ## 2. Luật khóa
 
-- Đọc: `AGENTS.md` → root COLLAB DROOT40–48 → HJW Bảng → §0.3 HĐ19–HĐ26 → P195–P198 → file này.
+- Đọc: `AGENTS.md` → root COLLAB DROOT40–48 → HJW Bảng → §0.3 HĐ19–HĐ28 → P199–P206 → P204 số đo → file này.
 - §0.3: đã đối chiếu. F1–F4 P186 là bắt buộc.
 - Owner luôn chỉ định Host. N3 **không** được viết logic tự chọn Host.
 - Task bootstrap chỉ ghi phần riêng; defaults lấy từ AGENTS, không copy lại.
