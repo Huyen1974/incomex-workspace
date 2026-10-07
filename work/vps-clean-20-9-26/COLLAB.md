@@ -8,11 +8,11 @@ Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 · GPT Chat (Host) · P54
 - 🎯 **Mục tiêu Owner:** VPS ổn định sau loạt thay đổi — vì chuông kêu quá nhiều, ổ đĩa vẫn đầy nhanh và mỗi lần kiểm lại lòi lỗi mới.
 - 🏁 **Xong khi:** đèn nói thật · mọi tăng dung lượng có tên/chủ/cap/TTL · unknown không vượt ngưỡng nhiễu và có receipt 24h mới sau R7 · mọi mã chạy có khoá Đ30/31 · 502/503 có số đo + phương án.
-- 📍 **Tiến độ:** `✅ Codex khảo sát (PROOT01) · ✅ Host tự kiểm + soạn lệnh R7 · ✅ Codex rà: DELTA P53 · ■ Host sửa lệnh · ⬜ Claude Code chạy R7 · ⬜ Codex + Host nghiệm thu · ⬜ N2 xoay khoá + sửa lõi theo phiếu D6 (chờ Owner) · ⬜ đóng`
-- ✅ **Đã xong:** khảo sát chỉ đọc; P51 kiểm lại phát hiện; P52 Host GPT siết 3 cổng an toàn; PROMPT R7 last-touch `7bf9169`; READY mới cùng SHA đã phát.
-- ■ **Đang làm:** Bước kế hoạch · vòng 1/5 · Codex đã trả DELTA P53 cho PROMPT@`7bf9169`; gọi: GPT Chat (Host) xử lý DELTA 1–7 trước review lại.
-- ⬜ **Còn lại:** RUN R7 (4 gói A→B→C→D, một lượt, không restart lõi) → nghiệm thu → N2.
-- ➡ **Kế tiếp:** Host xử lý DELTA P53, đồng bộ A0/PROMPT rồi khóa SHA mới và chuyển Codex rà lại; bản `7bf9169` chưa được Reviewer ACCEPT.
+- 📍 **Tiến độ:** `✅ Codex khảo sát · ✅ P53 DELTA · ✅ Host P54 sửa 7 DELTA + cổng storage thật · ■ Codex review lại · ⬜ Claude Code chạy R7 · ⬜ Codex + Host nghiệm thu R7 · ⬜ máy chứng minh 24h · ⬜ FINAL CLOSE`
+- ✅ **Đã xong:** P53 đã xử lý đủ; PROMPT last-touch `62b55a3`; D19 đã thay tiêu chí đóng.
+- ■ **Đang làm:** Bước kế hoạch · vòng 2/5 · gọi Codex Reviewer rà đúng PROMPT@`62b55a3`.
+- ⬜ **Còn lại:** Codex ACCEPT → Claude Code R7 → nghiệm thu → máy tự chứng minh FINAL_CLOSE_GATE 24h; N2 auth/lõi là lượt riêng theo bằng chứng D6.
+- ➡ **Kế tiếp:** Codex chỉ đọc, review SHA mới; chưa ACCEPT thì không RUN.
 - ⛔ **Không làm trong R7:** restart/rebuild lõi · đổi phiên bản · xoá dữ liệu/trial · xoay khoá (để N2) · việc của chủ khác (chỉ ghi sổ tồn đọng).
 
 ### 1. Mục tiêu
