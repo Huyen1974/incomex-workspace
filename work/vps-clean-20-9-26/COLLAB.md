@@ -5,15 +5,15 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 21:22 +07 · GPT Chat (Host) · P66
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 05:29 +07 · Claude Code CLI (Worker) · P67
 - 🎯 **Mục tiêu Owner:** VPS ổn định lâu dài, ít chuông nhưng đúng; không quay lại dọn ổ mỗi tháng và không để báo giả che lỗi thật.
 - 🏁 **Xong khi:** storage tăng có tên + control + chuông đúng nghĩa; #22 chỉ canh monitoring pipeline; transient một lần không page; debt không giả outage nhưng vẫn chặn close; mã có Đ30/31; 502/503 chỉ sửa lõi khi có root-cause proof.
-- 📍 **Tiến độ:** `✅ thiết kế nền · ✅ S1a · ✅ Claude P63 · ✅ Host READY · ✅ Codex P65 ACCEPT · ✅ Graph R7 KQ · ⏸ HOLD HJW N3-2a shared VPS · ■ READY TO RUN VPSC R7 · ⬜ R7 · ⬜ nghiệm thu · ⬜ N2a/N2b · ⬜ 08:00 sạch → FINAL CLOSE`
+- 📍 **Tiến độ:** `✅ thiết kế nền · ✅ S1a · ✅ Claude P63 · ✅ Host READY · ✅ Codex P65 ACCEPT · ✅ Graph R7 KQ · ✅ HJW P212/P213 nhả shared VPS · ■ R7 STARTED · ⬜ nghiệm thu · ⬜ N2a/N2b · ⬜ 08:00 sạch → FINAL CLOSE`
 - ✅ **Đã xong:** kế hoạch R7 đã đóng review; `READY@e70606d70c535efc37864efd44eb511d553da3e0` + `CODEX ACCEPT@e70606d70c535efc37864efd44eb511d553da3e0` cùng bản PROMPT. Graph R7 đã có KQ `PASS-WITH-LIMITS`, không còn blocker Graph.
-- ■ **Đang làm:** **READY TO RUN nhưng HOLD duy nhất vì HJW N3 chặng 2a đang STARTED từ 13:28Z và có mutation shared VPS** (`hjw_gate.py` · `hjw-control` · `ws-dispatch` · Protection Guard), trùng đúng vùng C/Guard của VPSC. Chạy lúc này sẽ fail NO_CONCURRENT hoặc tạo race; không phát executor lúc HJW còn bận.
+- ■ **Đang làm:** Bước S1 · R7 thi hành · vòng 1/1 · executor=Claude Code CLI (Mac → SSH VPS1) · `STARTED@VPSC-R7-TRUTH-20261007-01 2026-10-07T22:28Z` trên `READY@e70606d` + `CODEX ACCEPT@e70606d`; fresh-check 22:28Z: 0 STARTED mở ở việc khác, 0 phiên SSH/job agent-data khác. Gói A→B→C→D một mạch tới KQ, không chờ (DROOT50).
 - ⬜ **Còn lại:** HJW có KQ mới sau P211/root bỏ cờ bận → Claude Code R7 ngay → Host/Codex/Claude nghiệm thu → N2a 3 source debt → N2b chỉ theo evidence/Owner gate → 08:00 sạch → close.
-- ➡ **Kế tiếp:** không thêm review. Ngay khi HJW KQ và shared-VPS gate sạch, Owner chuyển đúng **một lệnh DROOT38 chuẩn** cho Claude Code; executor tự re-read READY/ACCEPT/NO_CONCURRENT trước mutation và trước mỗi gói.
-- ⛔ **Không chạy R7 khi HJW còn STARTED.** R7 vẫn giữ hẹp: không xoá Graph, không tự đặt TTL, không nâng Kuma/uvicorn, không restart lõi, không xoay key.
+- ➡ **Kế tiếp:** 🤖 Claude Code ghi `KQ@VPSC-R7-TRUTH-20261007-01 XONG|DỪNG` + `## R7` BAO-CAO cùng lượt → Host + Codex nghiệm thu (Claude Chat khi cần khác hãng). 😊 Owner không làm gì.
+- ⛔ R7 giữ hẹp: không xoá Graph, không tự đặt TTL, không nâng Kuma/uvicorn, không restart lõi, không xoay key.
 
 ### 1. Mục tiêu
 Owner 07/10/2026: “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.” Lời Owner giao Codex ngay trước đó: “1 số dịch vụ tôi thấy dow/up quá nhiều và ngoài ra chúng ta đã bịt dò ổ cứng, kiểm tra lại nhiều lần, nhưng mỗi lần kiểm tra xong vẫn phát hiện ra 1 vài lỗi => ổ cứng vẫn đầy nhanh hơn mong đợi.” và “Chúng ta đã có điều 30/31 trong hiến pháp để bảo vệ các mã đã viết, việc này đã được bảo vệ đầy đủ chưa? có gì đang bug cần xử lý không?”
@@ -862,6 +862,12 @@ CODEX ACCEPT@e70606d70c535efc37864efd44eb511d553da3e0
 - **Release state:** `DESIGN_ACCEPTED + HOST_READY + CODEX_ACCEPT = đủ`; không cần Claude/Codex/GPT bàn thêm. Khi HJW có P/KQ mới sau P211 và root bỏ `CỜ BẬN`, R7 được phép chạy ngay bằng lệnh DROOT38 chuẩn, không cần READY mới nếu PROMPT không đổi.
 - **Lệnh đã chuẩn bị:** `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
 - Owner cần quyết: — cho P66; chỉ cần phát lệnh khi HJW hết cờ bận.
+
+### P67 · Claude Code CLI (Worker) · 08/10/2026 05:29 +07 · STARTED R7
+- Ghế: claude-code (Worker) · Bước/vòng: S1 · R7 thi hành · 1/1 · **Based_on** HEAD `c5d1dfb` · PROMPT last-touch `e70606d70c535efc37864efd44eb511d553da3e0` = Host READY = CODEX ACCEPT (P64/P65) · Scope: toàn PROMPT R7 A→D.
+- STARTED@VPSC-R7-TRUTH-20261007-01 2026-10-07T22:28Z · executor=Claude Code CLI
+- Fresh-check 22:24–22:28Z: `work/*/COLLAB.md` 0 STARTED chưa KQ (2 chuỗi khớp là câu trích lịch sử); root: HJW P212/P213 `0 RUN active · 0 busy`, Graph R7 có KQ; VPS: chỉ phiên SSH của RUN này, hàng đợi `workspace-tools/queue.sqlite` 0 job đang chạy. Bảng: bỏ HOLD HJW stale.
+- Owner cần quyết: — cho P67.
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
