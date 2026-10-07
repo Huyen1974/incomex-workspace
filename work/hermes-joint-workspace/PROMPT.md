@@ -1,7 +1,7 @@
 # PROMPT — HJW · N3 COURIER / WAKE MATRIX · AUTO1 ASSISTED
 
 RUN_ID: HJW-N3-COURIER-WAKE-20261007-01
-STATUS: DRAFT · Host P195 áp đủ F1–F7 P194 · Claude conditional ACCEPT đã thỏa · Hermes final-check vòng 3/5 · CHƯA READY · CHƯA RUN. Quyền chạy do READY/RUN hiện hành trong HJW COLLAB quyết, không do dòng STATUS này.
+STATUS: DRAFT · Host P196 hấp thụ live failures Hermes + DROOT47 · review vòng 4/5 với claude-main · CHƯA READY · CHƯA RUN. Quyền chạy do READY/RUN hiện hành trong HJW COLLAB quyết, không do dòng STATUS này.
 Host: GPT Chat · GPT-HJW-260922-A · Owner đã chỉ định cho HJW hiện tại
 Reviewer: Claude Chat
 Executor_Surface: Claude Code CLI phiên MỚI trên Mac cho inventory/orchestration + SSH/trusted-runner checks; các phiên canary được N3 gọi phải là phiên MỚI tách vai theo §5
@@ -87,9 +87,16 @@ Sổ gọi tối thiểu:
 `ai gọi ai · lúc nào · path class · provider session/receipt · server identity · commit/result`.
 Ghi vào **sổ tin báo hiện hữu** và bảng trong P KQ; không mở file mới. Không tạo Owner View/DB/service mới.
 
+### G. State-transition + context/output reliability — DROOT47 + live failure 07/10
+- **Approve→Start:** khi manual approval hợp lệ, dispatcher rảnh và không hard gate: `approved_at → claimed_at → BẮT ĐẦU/model_start ≤30 s`. Callback approval phải kick dispatcher ngay; poll/timer 2–4 phút chỉ backstop recovery. `ĐÃ DUYỆT · XẾP HÀNG` chỉ được hiện khi có blocker/job thật, kèm `queue_position + blocking_job/reason`.
+- **Result→Next:** `RESULT_V1 done|blocked` phải tạo durable NEXT event trong ≤30 s. Nếu next seat/Host có official wake path thì tự dispatch; nếu chưa wake được thì lưu pending và gửi Owner **đúng một nút/1 hành động** để đánh thức Host, không bắt Owner copy-paste/kể lại kết quả. Semantic luôn ở repo.
+- **Context budget:** bounded Reviewer/Courier assignment phải dùng `workspace_search/read` đúng anchor/window; **cấm đọc toàn HJW COLLAB lớn** nếu không có lý do explicit. Provider input target/hard acceptance cho bounded review = `≤150k tokens` theo S9 hiện hữu. Vượt ⇒ `CONTEXT_BLOAT`, không PASS/AUTO; task phải thu gọn context hoặc tách scope trước retry.
+- **Output contract:** assignment kết thúc phải có đúng P + `RESULT_V1` hợp lệ theo SPEC. Nếu model kết thúc mà không ghi được, machine fallback được phép ghi `blocked` nhưng bắt buộc lưu/đưa ra evidence chẩn đoán tối thiểu: `failure_class · provider/session id · token usage · last_tool/last_error nếu có · transcript_ref/evidence_ref có thể đọc`. Chỉ summary chung chung mà Host không truy được nguyên nhân ⇒ `OBSERVABILITY_FAIL`.
+- **Live evidence phải hấp thụ:** ticket `7179def63448`: approve 11:44:38 → claim ~11:50:20 (~5m42s) = latency FAIL; Hermes model 111 s · provider tokens `626131 input / 30036 output / 656167 total` = context FAIL (>4× ngưỡng 150k); commit `a458fe6` chỉ machine fallback `blocked`, **0 P/RESULT do Hermes ghi** = output-contract FAIL. Owner phải tự nhắn Host sau RESULT = next-handoff FAIL. Không được bỏ qua các FAIL này khi nghiệm thu N3.
+
 ## 2. Luật khóa
 
-- Đọc: `AGENTS.md` → root COLLAB DROOT40–46 → HJW Bảng → §0.3 HĐ19–HĐ25 → P186 → P187 → file này.
+- Đọc: `AGENTS.md` → root COLLAB DROOT40–47 → HJW Bảng → §0.3 HĐ19–HĐ25 → P195–P196 → file này.
 - §0.3: đã đối chiếu. F1–F4 P186 là bắt buộc.
 - Owner luôn chỉ định Host. N3 **không** được viết logic tự chọn Host.
 - Task bootstrap chỉ ghi phần riêng; defaults lấy từ AGENTS, không copy lại.
@@ -219,6 +226,10 @@ Cần một việc cấm ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED · CONTINUE_SAM
 13. Vượt daily call cap ⇒ 0 lượt gọi + một tin báo.
 14. Routine tool inventory có connector ngoài Incomex ⇒ FAIL trước canary. Sau mỗi Routine call: `main` có commit ngoài cổng, có nhánh mới hoặc PR mới ⇒ FAIL + pause Routine + residual `ROUTINE_GIT_PUSH_PATH`.
 15. Routine token bị lộ cho model/ghế Hermes thay vì chỉ caller process/secret loader ⇒ FAIL.
+16. Owner approve khi dispatcher idle mà `claimed/BẮT ĐẦU` >30 s, hoặc UI nói `XẾP HÀNG` nhưng không nêu blocker/job thật ⇒ FAIL.
+17. `RESULT_V1 done|blocked` mà sau 30 s không có durable NEXT event; Host wake được nhưng không auto-dispatch, hoặc Host chưa wake được mà Owner phải copy-paste/kể lại kết quả ⇒ FAIL.
+18. Bounded Reviewer/Courier call dùng >150k provider input tokens hoặc đọc toàn HJW COLLAB không có exception được review ⇒ `CONTEXT_BLOAT` FAIL.
+19. Model kết thúc không có P/RESULT hợp lệ và machine fallback không cung cấp `failure_class + provider/session + usage + last_tool/error/evidence_ref` đủ để Host chẩn đoán ⇒ `OBSERVABILITY_FAIL`.
 
 ## 9. Disposition
 
@@ -232,12 +243,14 @@ PASS yêu cầu:
 - negative tests §8 đều PASS; **chỉ T9 được phép gửi đúng một tin `THỬ T9` tới kênh Owner/Hermes hiện hữu**, các negative khác 0 tin thử tới Owner;
 - receipt + server identity + dedup/STOP proof;
 - **T9 phần courier đạt lần đầu tại N3**;
+- §1.G đạt: approve→start ≤30 s bằng event-driven kick; result→next ≤30 s; bounded context ≤150k; output/blocked observability đủ;
+- live incident ticket `7179def63448` được reproduce/fix hoặc có direct evidence chứng minh path mới không còn lỗi;
 - executor **không tự chấm** bước nghiệm thu Host; xem mục “Nghiệm thu của Host sau KQ” bên dưới.
 
 Đường chỉ chạy từ Hermes-Mac = residual `PRIMARY_MAC_ONLY`, **không tính PASS**. Không bắt mọi seat PRIMARY_DIRECT; residual/class phải rõ.
 
 ### PASS_WITH_RESIDUAL
-Chỉ được dùng khi **≥1 official automated path chạy thật với 0 thao tác Owner trong live canary**, toàn bộ negative §8 PASS và **T9 phần courier đạt tại N3**; vendor family còn lại phải có `VENDOR_LIMIT|POLICY_UNCERTAIN|AUTH_OWNER_ACTION_REQUIRED|INSTALL_REQUIRED:<vendor>` kèm evidence.
+Chỉ được dùng khi **≥1 official automated path chạy thật với 0 thao tác Owner trong live canary**, toàn bộ negative §8 PASS, **T9 phần courier đạt**, và **§1.G đạt đầy đủ**. Không được residual hóa approve→start, result→next, context budget hoặc output observability. Vendor family còn lại mới được `VENDOR_LIMIT|POLICY_UNCERTAIN|AUTH_OWNER_ACTION_REQUIRED|INSTALL_REQUIRED:<vendor>` kèm evidence.
 `KQ@... XONG · N3_PASS_WITH_RESIDUAL · <residuals> · MOVE_TO:N4`
 **0 đường automated live-pass ⇒ DỪNG**, không MOVE_TO N4. Host/Reviewer quyết residual trước N4.
 
@@ -253,8 +266,8 @@ DỪNG = checkpoint sạch, 0 waiter, đóng CLI.
 Một P ngắn:
 1. `Ghế · Bước/vòng`;
 2. wake matrix PRE→POST;
-3. receipts/latency/identity;
-4. Claude dual-role result;
+3. receipts/identity + `approval_at→claimed_at→model_start` + `result_at→next_dispatch_at`;
+4. provider input/output/total tokens + context class + Claude dual-role result;
 5. self-pull result;
 6. runtime delta + rollback nếu có;
 7. negative tests;
