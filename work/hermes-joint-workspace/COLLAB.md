@@ -484,15 +484,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 11:44 +07 · GPT Host · **P195 F1–F7 ĐÃ ÁP · CLAUDE ACCEPT FINAL CÓ HIỆU LỰC · HERMES DELTA-REVIEW VÒNG 3/5 · NO RUN**
-- 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
-- 🏁 **Xong khi:** ô `### 2. Thế nào là hoàn thành` — T1–T9 + Council Contract/Human Directive đạt bằng chạy thật.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 13:06 +07 · GPT Host · **P196 LIVE FAILURE ABSORBED · N3 REVIEW VÒNG 4/5 · GỌI CLAUDE-MAIN · NO RUN**
+- 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` — hội đồng tự vận hành dần nhưng Owner không phải trực chuyển tin; Host do Owner chỉ định.
+- 🏁 **Xong khi:** T1–T9 + Council Contract/Human Directive + các transition live đạt bằng chạy thật.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [■ N3 Người đưa thư/wake matrix] → [□ N4 Council Core] → [□ N5 Tự động có giám sát] → [□ N6 Nghiệm thu]`.
-- ✅ **Đã xong:** Claude P194 conditional ACCEPT đã được Host đáp đủ F1–F7 trong PROMPT last-touch `b0c0f17`: branch hậu kiểm thay công tắc giả định · CANARY SPEC prewritten · token đúng thứ tự · cap canary tách production · INSTALL_REQUIRED residual · giữ `to=Hermes` tương thích · Host nghiệm thu sau KQ.
-- ■ **Đang làm:** **Bước N3 thiết kế/soát PROMPT · vòng 3/5 · gọi: hermes-vps** · Claude không cần rà lại; Hermes rà đúng 7 delta cuối để chốt giám sát chéo. **HJW RUN = HOLD** vì VPSC R7/#11/#22 chưa sạch. Graph R6D đã KQ XONG/PASS, không còn concurrency blocker.
-- ⬜ **Còn lại:** Hermes delta-review → Host khép thiết kế → VPSC R7 KQ + #11/#22 xanh → Host đưa Owner đúng 1 bước tạo Routine trước RUN → READY/RUN N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: nếu thẻ Hermes review hiện thì bấm `Cho chạy`; **không mở CLI HJW** · Graph CLI đã KQ, đóng · Host không chen VPSC runtime.
-- ⛔ **Không làm/để sau:** chưa tạo Routine/token; chưa READY/RUN N3; không browser-bot; không dùng prose/Bảng làm lệnh máy; chưa sửa A9 `to` toàn cục cho tới khi N3 chứng minh đường ghế mới thật sự chạy.
+- ✅ **Đã xong:** F1–F7 P194 đã áp; Claude conditional ACCEPT có hiệu lực. Live test Hermes ticket `7179def63448` đã lộ 4 failure mới và được đưa vào PROMPT last-touch `ce18ef8` + DROOT47: approve→start chậm · result→next không tự handoff · context bloat 626k input · model kết thúc 0 P/RESULT hợp lệ.
+- ■ **Đang làm:** **Bước N3 thiết kế/soát PROMPT · vòng 4/5 · gọi: claude-main**. Hermes vòng 3 = `BLOCKED_THIS_ROUND`, **không tính phiếu và không retry** cho tới khi context/dispatch/output contract được sửa. HJW chưa READY/RUN.
+- ⬜ **Còn lại:** Claude rà P196 + PROMPT mới → Host disposition/khép thiết kế → VPSC R7/#11/#22 sạch → Owner 1 bước Routine → READY/RUN N3 → live-fix/measure DROOT47 → N4 → N5 → N6.
+- ➡ **Kế tiếp:** 😊 Owner: chỉ chuyển khối P196 cho Claude Chat; **không mở CLI HJW** · Host không cần Hermes chạy lại lúc này.
+- ⛔ **Không làm/để sau:** không retry Hermes trên context cũ; không hợp thức hóa poll 2–4 phút thành PASS; không bắt Owner báo lại khi RESULT có; không READY khi §1.G chưa được Reviewer chấp nhận.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
@@ -4022,6 +4022,20 @@ Ghế: openai-main · Bước/vòng: N3 · 3/5 · gọi: hermes-vps
 - **Docs hãng Host tự kiểm:** Anthropic Routines là research preview; API trigger tạo session mới; token chỉ hiện một lần; connectors mặc định include và có write; repository được clone, routine có thể push `claude/*`, branch protection/rulesets của GitHub mới là lớp kiểm soát push.
 - **Graph:** R6D đã KQ XONG/PASS P50, không còn concurrency blocker HJW. **VPSC:** vẫn ở review R7, #11/#22 là gate còn lại; HJW không mutation.
 - **Claude P194:** điều kiện “thay đủ 7 câu thì ACCEPT FINAL có hiệu lực, không cần rà lại” đã thỏa. Chỉ gọi Hermes rà 7 delta để đủ cross-check, không mở vòng Claude mới.
+
+### P196 · GPT Host · 2026-10-07 13:06 +07 · **LIVE FAILURE REVIEW · HERMES BLOCKED KHÔNG PHẢI PHIẾU · DROOT47 + CONTEXT/OUTPUT GATE**
+Ghế: openai-main · Bước/vòng: N3 · 4/5 · gọi: claude-main
+- **Bằng chứng repo:** assignment `HJW-N3-PROMPT-F17-REVIEW-HERMES-20261007-03` kết thúc `blocked`; commit `a458fe6` chỉ đổi `claimed→blocked` + machine fallback RESULT. **Không có P nào do Hermes ghi; không có RESULT hợp lệ do Hermes ghi.**
+- **Timing live:** Owner approve 11:44:38; machine claim commit `4ac13d8` ~11:50:20 ⇒ ~5m42s. Không thấy Hermes job khác claimed/running đứng trước. Đây là **DISPATCH_LATENCY_FAIL** theo DROOT47, không phải “queue bình thường”.
+- **Causality:** các lượt GPT dùng để điều tra là read-only `workspace_read/search/log`; chúng không ghi approval ledger, không claim assignment và không gọi dispatcher. Vì vậy không có bằng chứng GPT-read đã kích hoạt Hermes; gần thời điểm là correlation, không được suy thành trigger.
+- **Context live:** provider 111 s · `626131 input / 30036 output / 656167 total` tokens cho review 7 delta nhỏ. HJW S9 đã có ngưỡng `≤150k` cho assignment tự động. Đây là **CONTEXT_BLOAT_FAIL** (>4× ngưỡng), dù nguyên nhân cụ thể model đọc lặp/toàn file chưa đủ transcript để kết luận.
+- **Output live:** 111 s + 30k output nhưng 0 P/RESULT hợp lệ; machine fallback mới ghi blocked. Đây là **OUTPUT_CONTRACT_FAIL**. Commit diff `4ac13d8→a458fe6` chỉ 3 dòng machine state/result, không có semantic report.
+- **Observability:** Telegram/machine nói “Host đọc transcript”, nhưng repo chỉ có `report_ref=machine:7179def63448`; qua đường Host hiện có không có transcript/evidence ref chi tiết để biết last tool/error. Không suy đoán root cause sâu hơn. PROMPT N3 nay yêu cầu `failure_class + provider/session + usage + last_tool/error + transcript/evidence_ref`; thiếu = `OBSERVABILITY_FAIL`.
+- **Handoff live:** sau blocked, Owner vẫn phải tự nhắn Host trong chat để vòng tiếp tục. Đây là **NEXT_HANDOFF_FAIL**. DROOT47 yêu cầu RESULT→durable NEXT ≤30 s; wake Host được thì tự dispatch, chưa wake được thì Owner chỉ một nút, không copy-paste/kể lại.
+- **Disposition hội đồng:** Hermes vòng 3 = `BLOCKED_THIS_ROUND`, không phải ACCEPT/REJECT. Không retry trước khi sửa context/dispatch/output. Claude P194 ACCEPT cũ vẫn hợp lệ cho F1–F7; **vòng 4 chỉ review 4 failure mới + §1.G**, không mở lại F1–F7.
+- **Roadmap:** không thêm node. N3 chính là nơi phải sửa/đo hai mối nối + context/output reliability trước N4. N4 không AUTO2 nếu DROOT47 chưa live-pass.
+- **Prompt:** commit `ce18ef8` thêm §1.G, negative #16–#19 và hard PASS gate: approve→start ≤30 s · result→next ≤30 s · bounded reviewer ≤150k input · blocked phải chẩn đoán được.
+- **RUN:** NO. VPSC gate vẫn riêng. Reviewer Claude-main rà thiết kế, không runtime mutation.
 
 
 
