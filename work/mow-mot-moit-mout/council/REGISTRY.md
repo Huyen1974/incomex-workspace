@@ -1,5 +1,14 @@
 # MMIM · Council / Surface Registry
 
+## Codex · CE-20261007-NAV · KQ
+- Owner trực tiếp giao chuẩn hóa Quay lại/Home cho 29 Master và các tầng tương lai.
+- NOW: shared navigation đã triển khai ở UI cha và review/detail; không thêm Master/UI ID.
+- VERIFY: drawer Config giữ filter khi đóng; Home đúng đích; link từ iframe Master thoát top; Master Nhóm cha title/count; CT-007 mobile390px PASS.
+- SSOT: ui/design-navigation-v1.js. Kế thừa qua master-list/eco-nav/mot-master; trang độc lập khai parentUrl nếu cần.
+- NEXT: mọi tầng mới dùng chung module; Owner tiếp tục góp ý thiết kế.
+- BLOCKED_BY: none trong phạm vi điều hướng. Reserved_Targets: none.
+
+
 Nguồn điều hành: parent `../COLLAB.md` D72–D73. Registry này là **bảng phối hợp**, không phải canonical nghiệp vụ và không thay PROMPT/KQ.
 
 ## Luật đọc nhanh

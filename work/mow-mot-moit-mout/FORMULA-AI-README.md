@@ -1,4 +1,12 @@
 # FORMULA-AI-README · MMIM
+
+## Điều hướng chung · Owner 07/10/2026
+SSOT UI: `ui/design-navigation-v1.js`; được nạp từ khuôn `mot-master-v1.html`, renderer `master-list.js` và shell `eco-nav.js`. Trang review và chi tiết CT nạp trực tiếp, mount idempotent. 28 Master định nghĩa + Config cùng kế thừa UI.MASTER; không hardcode danh sách 29 vào bộ điều hướng.
+
+Chuẩn cho mọi tầng mới: **Quay lại · Trang chủ thiết kế · Danh sách Master** luôn nhìn thấy ở đầu màn hình. Home cố định `master-design-review-v1.html`; index cố định `definition-master-index-v1.html`. Đóng chi tiết trong bảng phải giữ bộ lọc/danh sách. Mở trang khác từ iframe ra top window. Không lấy URL ngoài hệ làm đích quay lại.
+
+Trang dùng UI cha tự kế thừa; trang độc lập phải nạp `/ui-preview/mcp-writes/design-navigation-v1.js`. Với tầng riêng, khai `window.DESIGN_NAV_CONFIG={parentUrl:'<đường cha cùng origin>'}` trước khi nạp. Công thức có fallback về Master Công thức; các Master fallback về index. Cơ chế này không tự suy cây nghiệp vụ cho trang chưa thiết kế.
+
 ## SSOT cho AI khi làm Công thức / Định nghĩa / Master / UI / Coverage
 
 **Project:** `work/mow-mot-moit-mout`  
