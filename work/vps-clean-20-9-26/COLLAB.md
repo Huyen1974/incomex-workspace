@@ -5,15 +5,15 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 17:28 +07 · Claude Code CLI (Worker) · P61 KQ S1a
-- 🎯 **Mục tiêu Owner:** VPS ổn định lâu dài, cảnh báo dễ hiểu; không quay lại dọn ổ mỗi tháng và không bị DOWN/UP giả làm mất thời gian.
-- 🏁 **Xong khi:** storage có tên/control/chuông đúng nghĩa; cảnh báo khẩn cấp chỉ báo lỗi cần xử lý ngay; nợ bằng chứng không giả thành outage; monitoring pipeline tự được canh; mã có Đ30/31; 502/503 có kết luận theo bằng chứng.
-- 📍 **Tiến độ:** `✅ P53/P55/P57 · ✅ Claude P59 · ✅ Host P60 disposition · ■ S1a đo read-only ≤60′ · ⬜ Host chốt R7 bằng số thật · ⬜ Codex final · ⬜ R7 · ⬜ nghiệm thu · ⬜ N2a/N2b nếu cần · ⬜ 08:00 sạch → FINAL CLOSE`
-- ✅ **Đã xong:** thiết kế nền + STEP_WALK; P59 được Host ACCEPT 3/3 về gốc lỗi; live snapshot của Host cho thấy hiện không có bằng chứng VPS down tổng thể.
-- ■ **Đang làm:** **S1a KQ XONG** (READ_ONLY, 10:07–10:28Z, P61): disk +8,0 GiB gọi tên 99,2% (Graph trial 92%) · đang chảy ≈0,28 GiB/ngày `NAMED_UNVALVED` · 19 tin: 8 thật thoáng qua/capacity · 8 probe giả #23 · 2 lặp #11→#22 · 1 lỗi nội bộ Kuma · 0 VPS sập · PRE_RED_SET=∅; chờ Host chốt R7 bằng số thật. PROMPT mutation R7 vẫn INERT.
-- ⬜ **Còn lại:** S1a → Host disposition số thật → Codex final review mutation R7 → R7 → nghiệm thu → N2a/N2b theo evidence → 08:00 sạch → đóng.
-- ➡ **Kế tiếp:** Host GPT đọc BAO-CAO `## S1a · đo trước` (§9: 3 thay đổi đề xuất) → cập nhật PROMPT R7 bằng số thật → Codex final. 😊 Owner: không cần làm gì. 🤖 Claude Code đã dừng.
-- ⛔ **Không mutation production trong S1a.** R7/N2 vẫn HOLD.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 · GPT Chat (Host) · P62
+- 🎯 **Mục tiêu Owner:** VPS ổn định lâu dài, ít chuông nhưng đúng; không quay lại dọn ổ mỗi tháng và không để báo giả che lỗi thật.
+- 🏁 **Xong khi:** storage tăng có tên + control + chuông đúng nghĩa; #22 chỉ canh đường giám sát; transient một lần không page; nợ bằng chứng không giả outage nhưng vẫn chặn close; mã có Đ30/31; 502/503 chỉ sửa lõi khi có root-cause proof.
+- 📍 **Tiến độ:** `✅ thiết kế nền · ✅ S1a đo thật · ✅ Host P62 viết R7 theo số thật · ■ Claude cross-vendor review sau KQ · ⬜ Codex final · ⬜ R7 · ⬜ nghiệm thu · ⬜ N2a 3 source debt · ⬜ N2b nếu evidence/Owner gate · ⬜ 08:00 sạch → FINAL CLOSE`
+- ✅ **Đã xong:** S1a 99,2% disk attribution; 0 HOST_DOWN/36h; phân loại đủ 19 event; Kuma UNIQUE root cause; noise thật 0,07 MiB; PG/Qdrant có history dài. PROMPT R7 đã kích hoạt lại và khóa vào evidence P61.
+- ■ **Đang làm:** post-KQ review vòng 1/3: Claude Chat rà P62 + PROMPT measured R7; tập trung tính đơn giản, #22 semantics, debt-vs-fault, Graph hard cap, POST same-or-better. **Chưa READY mutation.**
+- ⬜ **Còn lại:** Claude review → Host disposition → Codex final cùng SHA cuối → R7 → nghiệm thu → N2a exact retention/control cho transactions/helper/mcp-roots → N2b chỉ nếu D6 chứng minh hoặc Owner duyệt key rotation → 08:00 sạch → close.
+- ➡ **Kế tiếp:** Claude ghi P63 ACCEPT/DELTA; không sửa production. Nếu sạch, Host mời Codex final; chưa phát READY/RUN.
+- ⛔ **Giữ hẹp:** R7 không xoá Graph, không tự đặt TTL, không nâng Kuma/uvicorn, không restart lõi, không xoay key.
 
 ### 1. Mục tiêu
 Owner 07/10/2026: “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.” Lời Owner giao Codex ngay trước đó: “1 số dịch vụ tôi thấy dow/up quá nhiều và ngoài ra chúng ta đã bịt dò ổ cứng, kiểm tra lại nhiều lần, nhưng mỗi lần kiểm tra xong vẫn phát hiện ra 1 vài lỗi => ổ cứng vẫn đầy nhanh hơn mong đợi.” và “Chúng ta đã có điều 30/31 trong hiến pháp để bảo vệ các mã đã viết, việc này đã được bảo vệ đầy đủ chưa? có gì đang bug cần xử lý không?”
@@ -40,8 +40,9 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 | Bước | Ai làm | Trigger | Deadline/SLA | Evidence phải đo | Hỏng thì ai biết / trong bao lâu | Bước kế |
 |---|---|---|---|---|---|---|
 | S0 · Review kế hoạch | Claude/Codex/Host | P53–P59 | tối đa 5 vòng | DELTA/disposition bám evidence | Host thấy ngay trên repo | **S0a** |
-| **S0a · Đo trước, chỉ đọc** | Claude Code CLI | P60 + Host READY measure-only | **≤60 phút**, không sleep/wait | bảng 7,9 GiB · bảng DOWN/UP 6 nhãn · Kuma exception gốc · PRE_RED_SET · noise 3 mẫu · history BUSINESS hiện có | Host nhận KQ ngay khi hết run; thiếu gì ghi UNKNOWN, không giả PASS | Host cập nhật mutation PROMPT bằng số thật → Codex final |
-| S1 · R7 thi hành | Claude Code CLI | S0a KQ + Host READY mutation + Codex ACCEPT cùng SHA + không busy/HOLD | Một RUN bounded; **không sleep/wait để đủ thời gian** | BAO-CAO A/B/C/D; KQ; fixture/test; taxonomy/noise; active drift attribution; POST-PROTECT `same-or-better` so PRE_RED_SET | Host + Owner nhận KQ XONG/DỪNG ngay khi RUN kết thúc; lỗi khẩn cấp qua Telegram | S2 |
+| **S0a · Đo trước, chỉ đọc** | Claude Code CLI | P60 + Host READY measure-only | **ĐÃ XONG 20′** | P61/BAO-CAO: 99,2% disk · 19 alert · noise · business history | Host đã nhận KQ | **S0b** |
+| **S0b · Review measured R7** | Claude Chat → Host → Codex | P62 + PROMPT measured R7 | ≤3 vòng sau KQ theo A5 | reviewer phải bám P61; không đưa lại giả định đã bị số đo bác | Host thấy DELTA ngay trên repo; blocker giữ HOLD | S1 khi Claude không blocker + Codex ACCEPT cùng SHA |
+| S1 · R7 thi hành | Claude Code CLI | Host READY mutation + Codex ACCEPT cùng SHA + không busy/HOLD | Một RUN bounded; **không sleep/wait** | A/B/C/D + fixtures · full taxonomy · alert E2E · PRE/POST same-or-better · receipt | Host + Owner nhận KQ cùng lượt; realtime chỉ FAULT_NOW | S2 |
 | S2 · Nghiệm thu R7 | Host + Codex + Claude Reviewer khi cần cross-vendor | KQ R7 | ≤3 vòng review theo A5; không waiter | diff/commit · report · runtime/monitor evidence · mọi `UNVERIFIED/UNKNOWN` giữ đỏ | Host ghi DELTA/HOLD cùng lượt; Owner chỉ bị gọi nếu chạm quyền Owner | S3 hoặc quay S1 bằng RUN sửa mới |
 | S3a · N2a checkpoint chỉ đọc | Claude Code CLI | R7 có `NAMED_UNVALVED`, `BUSINESS_LEARNING` cần control/evidence, hoặc capacity-control thiếu | Một checkpoint bounded cho từng nhóm nguồn; không mutation | nguồn/tốc độ/class · control hiện hữu · options · rollback · quyền cần thiết | Host nhận KQ checkpoint ngay; nguồn chưa rõ vẫn đỏ/không close | S3b hoặc watcher tiếp tục học nếu chỉ thiếu lịch sử BUSINESS |
 | S3b · N2a bịt nguồn | Claude Code CLI | S3a đủ evidence + Host/Owner gate nếu thao tác phá huỷ/quyền riêng | Một RUN bounded theo exact plan; không tự chọn số chưa đo | TTL/retention/cap/logrotate hoặc capacity envelope/alarm VERIFIED + POST proof | Host + Owner qua KQ/Telegram trong cùng lượt; fail giữ nguồn `UNVALVED` | S4 hoặc S5 |
@@ -122,7 +123,7 @@ Host: GPT Chat · Host_ID: GPT-VPSC-261007-R7B · vòng 4 tiếp quản theo ch�
 HTML chính: `view.html`
 
 ## Giấy phép vòng 4
-- **S1a MEASURE_ONLY:** PROMPT last-touch `ce7122ce17f4fc8fe78344d746b02550531a4352` · **READY@ce7122ce17f4fc8fe78344d746b02550531a4352 · Host GPT Chat**. Chỉ hợp lệ cho `VPSC-R7-S1A-MEASURE-20261007-01` read-only; **không cấp bất kỳ mutation nào**. Mọi READY R7 mutation cũ hết hiệu lực.
+- **S1a:** KQ XONG@`f9554b8`, giấy phép measure-only đã dùng xong và **không được tái dùng**. **R7 mutation hiện DRAFT/HOLD**, PROMPT đã đổi sau S1a; chưa có Host READY/Codex ACCEPT mới.
 - STARTED@VPSC-R7-S1A-MEASURE-20261007-01 2026-10-07T10:07Z · executor=Claude Code CLI · READ_ONLY · read-gate: PROMPT last-touch = READY `ce7122ce` · SSH VPS1 + workspace_* PASS · không STARTED mở ở việc khác
 - KQ@VPSC-R7-S1A-MEASURE-20261007-01 XONG · READ_ONLY · 0 mutation production · 10:28Z · disk +8,002 GiB gọi tên 99,2% (Graph trial 7,379 GiB = 7,92/10 GB) · đang chảy ≈0,28 GiB/ngày NAMED_UNVALVED · 19 tin: SERVICE_REAL 8 · PROBE_FALSE 8 · DUPLICATE 2 · PIPELINE 1 · HOST_DOWN 0 · UNKNOWN 0 · Kuma = SQLITE UNIQUE `stat_minutely` (nội bộ) · PRE_RED_SET=∅ · NOISE 0,07 MiB · 6 mục UNKNOWN · BAO-CAO §S1a · P61
 - Lệnh executor chuẩn theo DROOT38 (chỉ dùng sau khi có READY mới + CODEX ACCEPT cùng SHA): `GỬI: Claude Code · VIỆC: work/vps-clean-20-9-26 — đọc AGENTS.md → COLLAB.md → PROMPT.md của việc này, chạy đúng RUN có đủ Reviewer ACCEPT + Host READY trên cùng một bản PROMPT; thiếu một trong hai, đang HOLD hoặc đang có cờ bận thì dừng và báo.`
@@ -777,6 +778,20 @@ Trước READY của bản sửa, Host bổ sung bảng tại COLLAB cho đúng 
   - Nhãn #4 OPS 503: executor giữ SERVICE_REAL thoáng qua, JEV nghiêng PROBE_FALSE 0,97.
 - **Đã giữ:** 0 mutation production. Ghi duy nhất là evidence dir (53 MB). Bản sao kuma.db có cấu hình bot đã được lọc rồi xoá. JEV `gen-dec-1791368614-uLzUc8EIzUrNabbZQpjY`.
 - Owner cần quyết: — cho P61.
+
+### P62 · GPT Chat (Host) · 07/10/2026 · NGHIỆM THU S1a + R7 THEO SỐ THẬT · MỜI CLAUDE POST-KQ REVIEW
+- **Nghiệm thu S1a: ACCEPT.** Worker giữ đúng read-only, trong hạn; evidence đủ để đổi quyết định kỹ thuật. Không có bằng chứng VPS sập: 0/19 HOST_DOWN. Kết luận “VPS tự rò bí ẩn” bị bác ở quy mô 8 GiB: **92% Graph, 99,2% tổng tăng đã gọi tên**.
+- **Mục tiêu storage:** chưa đạt runtime. Graph hiện 7,92/10 GB nhưng không còn tăng nền; ba source nhỏ còn tăng và chưa control (`workspace-tools/transactions`, `incomex-mcp-helper`, `mcp-roots`) ⇒ vẫn không close. R7 không xoá/TTL mò; chỉ dựng full taxonomy + hard preflight cap cho EVENT. N2a mới quyết retention sau khi đọc semantics từng source; transactions có candidate 14 ngày chỉ cho completed bulky state, nhưng unresolved/audit phải giữ.
+- **Mục tiêu cảnh báo:** số liệu xác nhận cần đơn giản hóa. Trong 19 event, 11/19 là false/duplicate/pipeline; thêm 3 OPS + 1 JEV là transient một lần có thể lọc bằng retry 2-hit. R7 chỉ sửa 3 lớp hiện hữu: sender debounce · Kuma config đúng cadence · INV15/#22 meta-monitor; **không thêm bot/service/DB, không nâng Kuma**.
+- **#22 chốt nghĩa:** canh monitoring pipeline, không mirror service state. Service #11 đỏ mà pipeline khỏe ⇒ #22 xanh. Kuma/Telegram/Guard stale/mất notification/internal-error lặp ⇒ #22 đỏ. Điều này loại duplicate nhưng vẫn giữ dead-man Owner.
+- **Debt vs fault:** P59 đúng và P62 giữ: missing history/control nhưng chưa có anomaly = debt → 08:00 + due, không realtime DOWN. BUSINESS cần ≥7 mẫu ngày/≥6 ngày; debt due 8 ngày. S1a cho PG/Qdrant đủ history proxy nên R7 phải thử VERIFIED; Directus uploads stock gắn CWEB event. Debt vẫn chặn FINAL CLOSE.
+- **Graph control:** không cần quyết TTL trong VPSC để ngăn tăng vô hạn. `CHANGE_EVENT` mới phải khai max delta và PRE hard-block nếu `current + declared > 10_000_000_000 B`; cap trở thành **van trước khi ghi**, không chỉ chuông sau khi đầy. Retention/xoá Graph thuộc đúng scope GS nếu sau này cần thêm chỗ.
+- **502/503:** S1a tăng bằng chứng nhưng chưa đủ root cause: 8 child died + `OOMKilled=true` + swap cao. R7 chỉ đo/ghi pressure bằng nhịp Guard hiện hữu; không nâng uvicorn/RAM trước khi từng event được phân loại. D6 không còn preselect version.
+- **POST:** áp `same-or-better` với PRE_RED_SET fresh ngay trước mutation. Preexisting red cùng lý do, ngoài footprint, không xấu hơn ⇒ không tự khóa RUN; NEW_RED/reason xấu hơn/touched regression/pipeline degraded ⇒ FAIL. Không tắt/hạ đèn để qua gate.
+- **Đã làm:** P53 7 delta · P55 3 delta · P57 2 delta · P59 3 delta · S1a đo thật · P62 rewrote R7. **Còn:** post-KQ cross-vendor review → Codex final → R7 → nghiệm thu → N2a/N2b theo evidence → 08:00 sạch.
+- **Phát sinh:** Kuma SQLite UNIQUE là monitoring-pipeline transient; key lộ vẫn Owner gate N2b; S1a evidence 53 MB là evidence bounded, không phải leak.
+- **Trạng thái:** PROMPT mutation đã sửa, **chưa READY**. Mời Claude Chat rà đúng P61→P62; nếu không có blocker mới, ghi `ACCEPT`; nếu có, chỉ nêu lỗi có thể làm sai mục tiêu/safety. Không mutation production.
+- Owner cần quyết: — cho P62.
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
