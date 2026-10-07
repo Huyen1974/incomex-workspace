@@ -3,8 +3,12 @@
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: **ĐÃ XÁC NHẬN** — Owner giao trực tiếp 2026-09-20 và yêu cầu đưa kho tham khảo lên GitHub ngày 2026-09-23; D01–D05, D12–D16 của việc này. D16 là yêu cầu trực tiếp tạo tab/vỏ bảng của Owner, cho phép sửa HTML chính trong phạm vi này. Owner viết lại mục 2 ngày 2026-09-25. Owner 27/09/2026 giao trực tiếp thêm tab ★ Ý kiến HĐ sau Công thức, gom ý kiến để thảo luận trước khi chuyển vào thiết kế chính và ưu tiên trình bày nhìn là hiểu (D41). Owner 27/09/2026 chốt nơi lưu bản thiết kế UI thật theo mô hình 4 UI mẹ: VPS `ui` là nơi giữ bản HTML/CSS/JS/wireframe tương tác; GitHub/workspace chỉ giữ sơ đồ, danh mục, metadata, quyết định và con trỏ tới bản VPS (D44).
 
-### Cập nhật 07/10/2026 · Quy chuẩn UI cha
-Owner yêu cầu rà tất cả UI cha và chuẩn hóa trách nhiệm AI kiểm. Đã viết UI-DESIGN-STANDARD.md, gắn README và bản đọc nhanh UI Master; tạo UI-REVIEW-CONTRACT.json + check-ui-review.py. Đã kiểm hiển thị đủ 29 Master, đối chiếu sáu họ UI; gate từ chối phiếu thiếu/chưa kiểm. **Audit PARTIAL**, giới hạn và bằng chứng tại UI-AUDIT-20261007.md. Không giao Owner làm tester; AI phải hoàn tất kiểm phạm vi mỗi lần sửa trước khi báo PASS. Chưa có CI chặn deploy. Các quyết định/dữ liệu trước giữ nguyên.
+### Cập nhật 07/10/2026 11:37 +07 · rà chi tiết UI cha
+HUMAN_DIRECTIVE@UI-PARENT-PARITY EFFECTIVE · task=mow-mot-moit-mout · scope=UI đã duyệt, quy chuẩn và áp dụng ngược · recorded_by=Codex · quote="Sau khi quy định rồi => áp dụng ngược lại đúng quy định đó xem đã ổn chưa, tự bạn có thể so sánh được sự khác nhau mà?"
+CE-20261007-UI-PARENT-PARITY · APPROVED. Owner yêu cầu chuẩn hóa khoảng 2/3 phần dùng chung, tránh học lại thao tác; rà từng chi tiết, không chỉ có class CSS.
+Đã phát hiện: mẫu cha MOW legacy đo chữ tên 400/#2c2c2e; bản định nghĩa đang 700 do quy tắc Codex viết sai. Mẫu cha còn có theme và Help nằm trong mow-process-drawer-draft.js nên Master con không kế thừa đủ.
+SSOT tuyến Owner: master-design-review → definition-master → mot-master + master-list.js + ui-child-content adapter. Mẫu đối chiếu: mow-master-nhap2-v1.html?legacy=1. UPDATE: gom theme/Help vào nguồn cha dùng chung, sửa token tài liệu, chuẩn hóa tìm kiếm; VERIFY: tất cả catalogue, biến thể legacy, search, Help, tooltip, drawer, hẹp, console, số dòng. Không đổi nghiệp vụ/dữ liệu hoặc tự gán cha UI-008/011/012.
+■ Đang thực hiện; phiếu lượt trước PARTIAL không chứng minh đạt đối chiếu. AI tự kiểm và sửa, không yêu cầu Owner làm tester.
 
 ### BẢNG ĐIỀU KHIỂN · mốc trước 2026-10-06 17:42 +07 · Codex · D158 KQ
 🎯 Mục tiêu: **dùng CT-003→007 để quét dần và làm các Master List đủ nghĩa; thứ gì phát sinh phải có Master để ghi trước**.
