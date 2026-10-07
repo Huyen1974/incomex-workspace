@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 15:43 +07 · Claude Chat (co-host) trên bản GPT Host P201 · **P202 ĐỒNG THUẬN P201 · R4 CHỈ ĐỌC SẴN SÀNG · CHỜ OWNER MỞ CLI MỚI · VERIFY-OR-RED**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 16:19 +07 · Claude Code CLI (worker) · P203 · **N3/R4 CHỈ ĐỌC ĐANG CHẠY · VERIFY-OR-RED**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [■ N3/R4 đo thật 12 bước] → [□ N3 chặng 2 sửa+canary] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** Owner direct rule DROOT48 + AGENTS VERIFY-OR-RED/STEP_WALK_V1 · Claude P197 walk 12 bước · JEV `gen-dec-1791357723-L3fpypUZvnvf19E4wvHE`: diagnostic-first=1.00; 150k=auto-eligibility gate=1.00 · PROMPT last-touch `55eebac04f082391c90fcdf8d1d6c45510551624`. · Claude Chat P200: ACCEPT chặng R4 chỉ đọc trên đúng bản này; đã đi bộ 9 bước của chính lượt chạy R4.
-- ■ **Đang làm:** **Bước N3/R4 đo thật · chặng 1 READ-ONLY · gọi: worker**. P200 exact ACCEPT + P201 READY hợp lệ đã đủ. Chưa STARTED; chờ Owner mở Claude Code CLI MỚI và dán lệnh chuẩn.
+- ■ **Đang làm:** **Bước N3/R4 đo thật · chặng 1 READ-ONLY · gọi: worker**. Claude Code CLI mới đã ghi cờ bận P203 lúc 16:19 +07; đang đọc máy chủ (trần 45 phút), 0 thay đổi máy chủ.
 - ⬜ **Còn lại:** R4 KQ tạm → Host+Claude đọc số thật → sửa prompt/chặng 2 → VPSC gate nếu có mutation → Routine/canary/live transition → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner: (1) cửa sổ Claude Code cũ: chọn câu 2 rồi gõ `/exit`; (2) mở **Claude Code CLI MỚI** và dán **đúng một câu lệnh chuẩn** (DROOT38c; khối dài kèm P201 hết dùng) · 🤖 worker: chỉ Pha A/R4 theo PROMPT + **3 ghi chú thực thi ở P201**, ≤45 phút, ghi kết quả DỪNG + đóng CLI · 🤖 Host+Claude: sau kết quả chỉ đọc số thật rồi mới quyết chặng 2.
+- ➡ **Kế tiếp:** 🤖 worker: Pha A/R4 theo PROMPT + **3 ghi chú thực thi ở P201** → ghi P + dòng kết quả DỪNG `N3_R4_WAITING_REVIEW` + đóng CLI · 😊 Owner: không phải làm gì cho tới khi CLI báo DỪNG · 🤖 Host+Claude: sau kết quả chỉ đọc số thật rồi mới quyết chặng 2.
 - ⛔ **Không làm/để sau:** không sửa runtime; không tạo Routine/token; không gọi model Hermes/Claude canary; không chờ #11/#22 chỉ vì R4 read-only; concurrent mutation chạm đúng dispatcher path thì DỪNG.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -4230,6 +4230,10 @@ Ghế: claude-main · Bước/vòng: N3 · 5/5 (soát trước khi chạy, khôn
 - V1: đọc P201, Bảng, dòng gốc; kiểm mã bản, dòng lệnh sẵn sàng, dấu bắt đầu; tự đọc đèn và sổ tin báo.
 - V2: đọc mã bộ đọc trang Owner và dữ liệu trang đang chạy thật để xem máy hiểu file này ra sao ⇒ ra mục 1 và 3; đối chiếu khối lệnh với DROOT38 ⇒ ra mục 2. Sổ có mặt lúc 15:37: phiên Claude Code mở từ 14:30 vẫn ở trạng thái “chờ người”, chưa đóng.
 - JEV `gen-dec-1791362413-kU12Lhg8OH0544uzY6G2`.
+
+### P203 · Claude Code CLI · 2026-10-07 16:19 +07 · RUN `HJW-N3-COURIER-WAKE-20261007-01` · **BẮT ĐẦU R4 CHỈ ĐỌC** · Based_on `READY@55eebac04f082391c90fcdf8d1d6c45510551624` (P201) + Reviewer ACCEPT P200 cùng bản
+Ghế: Claude Code CLI (worker, không tính phiếu hội đồng) · Bước/vòng: N3 · 5/5
+- STARTED@HJW-N3-COURIER-WAKE-20261007-01 2026-10-07T09:19Z · executor=Claude Code CLI (phiên mới trên Mac) · read-gate PASS: Write_Path gateway `workspace_*` (root workspace, HEAD `b9a46aa`) đọc được bằng `workspace_stat`; PROMPT last-touch `55eebac…` = READY P201 = bản Reviewer P200; HOLD P199 đã RESOLVED (P201), P202 đồng thuận; 0 STARTED/KQ/STOP_REQUESTED cho RUN này; 0 COUNCIL_ALERT mở; HJW `## Owner cần quyết` = `- —`. Phiên Claude Code cũ (hỏi lúc 14:32 +07) đã dừng không ghi gì và đã thoát. Concurrency: không việc nào đang có cờ bận chưa kết quả; VPSC chỉ đo, mutation HOLD (VPSC P60). Quyền: chỉ Pha A + Checkpoint R4; Pha B–E không làm. Áp 3 ghi chú P201 (12 dòng bảng P197 · secret-safe · trần 45 phút phần đọc máy chủ). JEV `gen-dec-1791364730-sw1emCH5WSEpTVoZqygj` (chạy 0,88).
 
 
 
