@@ -1,13 +1,34 @@
-# PROMPT — HJW · N3 COURIER / WAKE MATRIX · AUTO1 ASSISTED
+# PROMPT — HJW · N3 2A FIX CẢNH BÁO CHẬM SAI · AUTO1 ASSISTED
 
-RUN_ID: HJW-N3-COURIER-WAKE-20261007-01
-STATUS: DRAFT_2A_HERMES_REPAIR · Host áp P206 sau R4/P204 · CHẶNG 2A CHỈ SỬA ĐƯỜNG HERMES · CHƯA REVIEW EXACT SHA · CHƯA READY/RUN. READY/RUN hiện hành trong HJW COLLAB mới là quyền chạy.
+RUN_ID: HJW-N3-2A-FALSE-SLOW-ALERT-FIX-20261008-01
+STATUS: DRAFT_DELTA_P233 · chỉ sửa cảnh báo hàng đợi sai theo P232; CHƯA REVIEW EXACT SHA, CHƯA READY/RUN. READY mới chỉ ở HJW COLLAB sau Claude Chat ACCEPT exact.
 Host: GPT Chat · GPT-HJW-260922-A · Owner đã chỉ định cho HJW hiện tại
 Reviewer: Claude Chat
 Executor_Surface: Claude Code CLI phiên MỚI trên Mac cho inventory/orchestration + SSH/trusted-runner checks; các phiên canary được N3 gọi phải là phiên MỚI tách vai theo §5
 Write_Path: repo qua workspace_*; runtime/config chỉ qua DOT/wrapper/apply path hiện hữu; không ad-hoc
 Node: N3 / 6 · Automation target = AUTO1 ASSISTED
-Owner_steps: **Chặng 2a deploy = đúng 1 thao tác human-only trong lúc worker chạy:** Owner dán câu lệnh chuẩn; khi Claude Code hỏi quyền chạy script áp production, Owner bấm cho phép đúng 1 lần. Nếu không có người bấm ⇒ worker ghi KQ DỪNG và đóng CLI, không giữ terminal chờ. Sau KQ worker và CLI đã đóng, Host mới phát đúng 2 vé thử Hermes; Owner bấm `Cho chạy` 2 lần. **Chặng 2b** mới có tối đa 1 bước tay tạo Routine/token; 2b chưa được phép ở 2a.
+Owner_steps: Owner chuyển đúng một lệnh DROOT38(c) sang Claude Code CLI mới; PRE/fixture tự chạy không cần hỏi. Nếu cần apply production, bấm quyền chạy gói đã đóng băng đúng MỘT lần, bao gồm POST và auto rollback. Không xin click thứ hai, không giữ terminal chờ Owner. Lượt này không phát vé Hermes, không gọi model, không mở 2b.
+
+## 0F. PHẠM VI RUN ĐƯỢC PHÉP: SỬA HẸP CẢNH BÁO SAI (P233)
+
+**OVERRIDE CURRENT RUN:** Mọi mô tả R1–R7, `Chặng 2A deploy` và canary trong các mục phía dưới là lịch sử/mục tiêu dài hạn N3, **không phải lệnh thi hành của RUN_ID mới**. Production N3 2a đã áp bốn tệp và POST/smoke PASS ở P225; hai canary đã chạy P226/P227 và P232. Chỉ được sửa đúng BUG dưới đây, không chạy lại P225, không tạo vé/model/tin để thử.
+
+### Bằng chứng/chốt nguyên nhân
+- P232: SAFEFAIL bấm 08:52:38.171Z, SUCCESS bấm 08:52:41.957Z; SAFEFAIL chiếm làn tới 08:53:46.6Z; SUCCESS được claimed sau **9,3 giây** và tin BẮT ĐẦU đã gửi. Queue card hiện `XẾP HÀNG`, blocker `c43a08300a08`; tin KẾT QUẢ sau model 17s/26s, mỗi vé đúng một NEXT. Không sửa callback/claim/FIFO/vendor.
+- BUG thực: `plugins/hjw-control/__init__.py`, hàm `watch_once` khoảng dòng 417–427 của bản P232, phát tin #159 `CHẬM NHẬN VIỆC, đã duyệt 70s, không có vé chặn` lúc 08:53:52.6Z. Bộ điều phối xoá `queue_block` lúc chuyển sang claimed nên plugin tính tuổi từ `clicked_at` thay vì từ lúc **làn rảnh**, nhầm queue duration thành idle. Lỗi owned code, không phải lỗi vendor.
+
+### Mục tiêu fix bắt buộc
+1. **Giới hạn code:** ưu tiên chỉ sửa điều kiện/tuổi cảnh báo tại `watch_once` dùng evidence bền của queue blocker terminal/done_at. Nếu current persisted ticket không còn blocker provenance, chỉ thêm/cập nhật **metadata tối thiểu trong cùng notepad/ticket có sẵn** tại đúng điểm xóa `queue_block`, và đọc lại trong plugin; không DB/schema migration/service/job/file root mới. Chứng minh vì sao không thể plugin-only trước khi chạm producer. Không sửa các phần ngoài N3 owned hjw-control/ws-dispatch nếu chưa có reviewer delta.
+2. **Semantics giữ chặt:** khi blocker còn active, ticket phải là `XẾP HÀNG` kèm blocker_id, không được báo “không có vé chặn”. Khi blocker đã terminal, lấy `free_since` theo nguồn xác thực (terminal/done_at) và chỉ báo chậm nếu unclaimed liên tục **>30s sau làn rảnh**. Nếu ticket đã claimed/done thì 0 alert slow. Khi hàng rỗng ngay từ click, `free_since=clicked_at/approved_at` và chậm thật >30s phải có **đúng một alert**, dedup/recovery tối đa ba lượt đúng PROMPT §1.G. Nếu không chứng minh được `free_since`, ghi UNKNOWN/diagnostic, không phát cảnh báo khẳng định sai; không im lặng che true stalled task.
+3. **Offline fixtures trước mutation** dùng clock/state snapshot an toàn: tái tạo chuỗi 08:52:41.957 approved → 08:53:02 queue_block → 08:53:46.6 blocker terminal → 08:53:47 xóa queue_block → 08:53:52.6 watch → 08:53:55.866 claimed: 0 alert sai #159; `XẾP HÀNG` đúng khi blocked. Fixture true empty-lane >30s => đúng 1 alert; empty <30 =>0; blocker active =>0; claimed/done=>0; concurrent callback+tick/restart=> no duplicate. Dùng regression hiện hữu, no live model/Telegram/scheduled calls.
+4. **PRE/POST an toàn:** fresh-read AGENTS/root+HJW/P232/P233, PROMPT last-touch, Reviewer ACCEPT+Host READY, STOP/no concurrent/Guard PRE; backup/hash/chmod owner đúng baseline. Áp qua `incomex-config-apply-v0`/DOT wrapper hiện hữu, đúng 1 package gồm mutation tối thiểu → selftest/negative/regression → Config/Protection Guard POST/coverage → idle smoke nếu cần → **auto rollback/verify trong cùng command nếu bất kỳ bước FAIL**. Đóng băng package trước một lần Owner cho phép, sau click không sửa/không xin click lần 2. Không tắt Guard, không sửa production Graph/VPSC, không rollback P225 trừ khi scoped fix làm phát sinh lỗi.
+5. **KQ terminal:** một mục P nêu diff/hash, fixture, negative, Guard PRE/POST, rollback/receipt, thời gian, model/tin live=0, residual; cùng commit giải phóng root busy nếu đã đặt. `KQ@HJW-N3-2A-FALSE-SLOW-ALERT-FIX-20261008-01 DỪNG · N3_2A_SLOW_ALERT_FIXED · NEXT_TRIGGER=HOST_ACCEPT_AND_REAL_SAMPLES` nếu PASS; bất kỳ blocker thì DỪNG + nguyên nhân rõ, không waiter, đóng CLI. Không tuyên bố N3 2a full PASS từ fixture.
+
+**Điều kiện nghiệm thu sau fix:** 1 success trước đây có nội dung/FIFO/notice/NEXT PASS nhưng dính một false alert, nên **không tự tính là success đạt toàn bộ §1.G**. Sau fix, cần bằng chứng ba success liên tiếp đầy đủ §1.G từ **việc thật** (không tạo thêm model chỉ để lấy số) và 1 safe failure đã được ghi; Host/Claude disposition rồi mới mở 2b. Hermes vẫn TEST-ONLY ngoài hội đồng theo HĐ31.
+
+**NO-WAIT:** PRE chỉ đọc phải bounded, gate đỏ/nguồn UNKNOWN/delay để chờ người/sự kiện ⇒ KQ DỪNG sạch; bounded smoke nội bộ được làm trong package. Không lịch AI, không terminal sau KQ.
+
+---
 
 ## 0. Mục tiêu duy nhất
 
