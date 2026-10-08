@@ -123,12 +123,13 @@ main{max-width:1240px} [hidden]{display:none!important}
 <div class="piece-section" id="tqt-steps"><div class="titleline"><h2>Bước</h2><small>CT-001 · Vòng đời tổng</small><a class="quiet" href="#q-STEP">Câu hỏi chung</a></div><div class="formula">Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }</div><div id="tqt-step-map"></div><div id="tqt-step-detail"></div></div>
 <div class="piece-section" id="tqt-layers"><div class="titleline"><h2>Tầng</h2><small>CT-002 · Ghép tầng</small><a class="quiet" href="#q-LAYER">Câu hỏi chung</a></div><div class="formula">Field ⇒ { MOIT | MOUT } ⇒ MOT ⇒ MOW</div><div id="tqt-layer-map"></div><div id="tqt-layer-detail"></div><p class="mut"><small>Đọc từ tầng thấp lên tầng cao. MOIT và MOUT cùng T0.5, có câu hỏi riêng.</small></p></div>
 <div class="piece-section" id="tqt-chains"><div class="titleline"><h2>Chuỗi</h2><small>CT-002.1</small><a class="quiet" href="#q-CHAIN">Câu hỏi chung</a></div><div class="tq-chains" id="tqt-chain-map"></div><div id="tqt-chain-detail"></div></div>
+<details><summary>Cách dùng · kế thừa và tách bước</summary><div id="tqt-basic-rules"></div></details>
 <p class="mut"><small>Một câu hỏi, một mã, một chỗ sửa trong ma trận. Các miếng trên chỉ là cách xem. Thêm bước con → thêm câu hỏi riêng, vẫn kế thừa câu hỏi của bước lớn.</small></p>
 </div>
 <div id="cau-hoi-nghiep-vu" role="tabpanel" aria-labelledby="tqt-tab-business" hidden>
 <div class="hint"><b>Làm việc gì → ghép bộ câu hỏi của việc đó.</b> Các nhóm khởi đầu bên dưới đang được hiệu chỉnh; chưa có bộ nào được ghi nhận là nghiệm thu toàn bộ.</div>
 <div class="tq-chains" id="tqt-business-map"></div><div id="tqt-business-detail"></div>
-<div class="piece-section"><h2>Ghép để làm một việc</h2><p class="mut">Chọn đúng phần đang làm. Câu hỏi được lấy từ cùng ma trận, không tạo thêm bản sao.</p><div class="compose" id="tqt-compose"></div><div id="tqt-composed" aria-live="polite"></div></div>
+<div class="piece-section"><h2>Ghép để làm một việc</h2><p class="mut">Chọn đúng phần đang làm. Câu hỏi được lấy từ cùng ma trận, không tạo thêm bản sao.</p><details><summary>Cách kiểm sau khi ghép</summary><div id="tqt-compose-rules"></div></details><div class="compose" id="tqt-compose"></div><div id="tqt-composed" aria-live="polite"></div></div>
 <p class="mut"><small>Nhóm mới chỉ được thêm sau khi Host tiếp nhận. Ý kiến khác ghi riêng theo README của task; không sửa thẳng nguồn chính.</small></p>
 </div>
 <div id="ma-tran-cau-hoi" role="tabpanel" aria-labelledby="tqt-tab-matrix" hidden>
@@ -1227,7 +1228,7 @@ main{max-width:1240px} [hidden]{display:none!important}
     {
       "id": "Q-STEP-01",
       "owner": "STEP",
-      "text": "Bước này cần đạt kết quả gì?",
+      "text": "Bước này phải bàn giao kết quả gì, cho ai?",
       "status": "draft"
     },
     {
@@ -1243,6 +1244,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       "status": "draft"
     },
     {
+      "id": "Q-STEP-04",
+      "owner": "STEP",
+      "text": "Có những nhánh nào và điều kiện đi từng nhánh là gì?",
+      "status": "draft"
+    },
+    {
       "id": "Q-CHILD-01",
       "owner": "CHILD",
       "text": "Bước con này nhận gì từ đâu và giao gì cho bước tiếp theo?",
@@ -1252,6 +1259,18 @@ main{max-width:1240px} [hidden]{display:none!important}
       "id": "Q-CHILD-02",
       "owner": "CHILD",
       "text": "Nếu thiếu hoặc sai, quay lại đâu và ai xử lý?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CHILD-03",
+      "owner": "CHILD",
+      "text": "Bước con làm việc cụ thể gì; người hay máy nào thực hiện?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CHILD-04",
+      "owner": "CHILD",
+      "text": "Khi nào được bắt đầu; bằng chứng nào xác nhận riêng bước con đã xong?",
       "status": "draft"
     },
     {
@@ -1269,13 +1288,25 @@ main{max-width:1240px} [hidden]{display:none!important}
     {
       "id": "Q-LAYER-03",
       "owner": "LAYER",
-      "text": "Nó nhận gì từ tầng dưới và cung cấp gì cho tầng trên?",
+      "text": "Đối tượng này liên kết với đối tượng nào và trao đổi gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-LAYER-04",
+      "owner": "LAYER",
+      "text": "Đối tượng có những thuộc tính bắt buộc nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-LAYER-05",
+      "owner": "LAYER",
+      "text": "Điều kiện nào để đối tượng tồn tại hợp lệ và được dùng?",
       "status": "draft"
     },
     {
       "id": "Q-CHAIN-01",
       "owner": "CHAIN",
-      "text": "Chuỗi này phục vụ ai và cần tạo ra kết quả gì?",
+      "text": "Chuỗi này phục vụ ai, trong phạm vi nào và cần tạo ra kết quả gì?",
       "status": "draft"
     },
     {
@@ -2034,6 +2065,44 @@ main{max-width:1240px} [hidden]{display:none!important}
       "text": "Nếu không nhận, quá hạn hoặc không làm được thì chuyển cho ai?",
       "status": "draft"
     }
+  ],
+  "rules": [
+    {
+      "id": "R-ROOT",
+      "scope": "basic",
+      "title": "Ba thành phần gốc",
+      "text": "Bước, Tầng, Chuỗi là ba thành phần gốc. Bước con là phần phân rã của Bước; UI, Test, Config… là nghiệp vụ ghép thêm."
+    },
+    {
+      "id": "R-SPLIT",
+      "scope": "basic",
+      "title": "Khi nào tách bước con?",
+      "text": "Chỉ đề xuất tách khi cần kiểm riêng một trách nhiệm, đầu vào, đầu ra hoặc điều kiện hoàn thành. Tình huống bên trong cùng việc thì thêm câu hỏi hoặc nhánh. Host xem xét trước khi sửa nguồn Công thức."
+    },
+    {
+      "id": "R-INHERIT",
+      "scope": "basic",
+      "title": "Kế thừa thế nào?",
+      "text": "Bước con dùng câu chung, câu của bước lớn và câu riêng; mỗi mã câu chỉ xuất hiện một lần. Câu trả lời kế thừa phải còn đúng phạm vi. Nếu mâu thuẫn, chỉ rõ nguồn cần sửa để Host quyết; không tự ghi đè."
+    },
+    {
+      "id": "R-JOIN",
+      "scope": "compose",
+      "title": "Ghép xong phải kiểm chỗ bàn giao",
+      "text": "Đối chiếu Nhóm cha/Nhóm con và MOW/MOT với Công thức hiện hành. Đầu ra trước phải đáp ứng đầu vào sau về ý nghĩa, kiểu dữ liệu, điều kiện và người chịu trách nhiệm. Chọn đủ bốn ô mới chỉ tạo danh sách câu hỏi, chưa chứng minh ghép đúng."
+    },
+    {
+      "id": "R-ANSWER",
+      "scope": "compose",
+      "title": "Mỗi câu trả lời phải truy được nguồn",
+      "text": "Lưu tại task sản phẩm: mã câu + đối tượng/phạm vi + câu trả lời + nguồn/phiên bản + bằng chứng hoặc chỗ còn thiếu. Không áp dụng phải có lý do. Thiếu thì ghi đúng câu, nguồn cần bổ sung và người xử lý; không đoán."
+    },
+    {
+      "id": "R-PROVE",
+      "scope": "compose",
+      "title": "Từ câu trả lời đến sản phẩm",
+      "text": "Mỗi trường, nút, trạng thái trên UI phải chỉ được câu trả lời làm căn cứ; Config cũng phải truy được quy tắc của nó. Phần còn thiếu căn cứ chưa được chốt. Đọc đủ câu hỏi chưa có nghĩa đã trả lời đủ hoặc sản phẩm đã đạt."
+    }
   ]
 }</script>
 <script id="tqt-question-renderer">
@@ -2044,6 +2113,9 @@ const G=Object.fromEntries(D.groups.map(g=>[g.id,g]));
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const own=id=>D.questions.filter(q=>q.owner===id);
+[['basic','tqt-basic-rules'],['compose','tqt-compose-rules']].forEach(([scope,id])=>{
+ $(id).innerHTML=D.rules.filter(r=>r.scope===scope).map(r=>'<p><b>'+esc(r.title)+'</b><br>'+esc(r.text)+'</p>').join('');
+});
 const anchor=id=>'q-'+id.replace(/\./g,'-');
 const common=id=>(D.inheritance[G[id].kind]||[]).flatMap(own);
 const list=qs=>'<ol class="question-list">'+qs.map(q=>'<li>'+esc(q.text)+'<small class="qid">'+esc(q.id)+'</small></li>').join('')+'</ol>';

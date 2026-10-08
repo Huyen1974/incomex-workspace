@@ -13,7 +13,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ■ Đang làm: bộ câu hỏi ở giai đoạn áp dụng và hiệu chỉnh; giao diện bản đầu đã dựng và kiểm. Host tiếp nhận góp ý riêng. P15/D16 READ-ONLY được thay thế bởi chỉ đạo Owner giao trực tiếp Astra Codex.
 - ✅ Đã chuẩn bị: 9 bước lớn, 23 bước con, Field/MOIT/MOUT/MOT/MOW, tầng bối cảnh T3–T7 và 3 chuỗi; câu hỏi mới mang trạng thái đang hiệu chỉnh.
 - Kiểm tra giao diện: đã kiểm trên trang thật bản nội dung 7a4c0717eebd0c074635a2a5e8dab63e9fa56d18: B1→1.2 và mở lại URL, B8/B9 chưa tách, MOIT, CMSXQT, lọc không dấu, Config→mục cũ, bộ ghép 27 câu không trùng; màn hẹp 390px không tràn ngang. Đây là kiểm giao diện, chưa nghiệm thu tính đầy đủ của bộ câu hỏi.
-- ➡ Kế tiếp: dùng bộ câu hỏi trên một việc cụ thể → ghi đúng câu còn thiếu → Host xem ý kiến riêng và sửa nguồn. Chưa nghiệm thu bộ câu hỏi; chưa chuyển sang UI thứ 2.
+- ➡ Kế tiếp: thử ghép và trả lời cho MOW-NHC-001 → ghi câu thiếu, nguồn cần sửa và căn cứ từng phần UI → Host xem ý kiến riêng và sửa nguồn. Chưa nghiệm thu bộ câu hỏi; chưa chuyển sang UI thứ 2.
 - Nội dung cũ: giữ nguyên trong tab Quy trình hiện có. TQT-ISS-004 (chuyển nguồn legacy) và TQT-ISS-006 (chốt quyền bằng máy) vẫn mở; không nhận là đã hoàn tất.
 - 🏁 Xong khi: theo ô 2; nghiệm thu bộ câu hỏi cần việc áp dụng thật, không suy từ UI chạy được.
 - 📍 Tiến độ: ■ Dựng bản đầu → ■ Kiểm giao diện → □ Áp dụng, hiệu chỉnh bộ câu hỏi.
@@ -73,6 +73,15 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 (Owner duyệt 08/10/2026.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+#### TQT-HOST-REVIEW-GPTPRO-20261008 · đã tiếp nhận có chọn lọc
+- Nguồn góp ý: Owner chuyển nguyên văn ý kiến GPT Pro trong phiên Host; yêu cầu “Chỉ có bạn là xem xét cuối cùng và xem cần bổ sung những gì giúp tôi.” Host quyết định tiếp nhận vào bản đang hiệu chỉnh, không coi đây là Owner nghiệm thu bộ câu hỏi.
+- Đã có: ba thành phần Bước/Tầng/Chuỗi, 9 bước lớn/23 bước con, 5 loại đối tượng chính + T3–T7, 3 chuỗi; JSON SSOT, kế thừa, UI/Test/Config/NTGV. Không dựng lại hoặc nhân bản.
+- Tiếp nhận: bổ sung Q-STEP-04 (nhánh), Q-CHILD-03/04 (việc/người hoặc máy/điều kiện/bằng chứng), Q-LAYER-04/05 (thuộc tính/điều kiện hợp lệ); làm rõ Q-STEP-01, Q-LAYER-03, Q-CHAIN-01. Tổng 140 câu, giữ 53 nhóm và toàn bộ mã cũ; tất cả vẫn draft.
+- Quy tắc chuẩn nằm duy nhất trong JSON `rules`, UI đọc cùng nguồn: Bước con thuộc Bước; chỉ tách khi cần kiểm riêng; kế thừa không tự ghi đè; kiểm chỗ bàn giao sau ghép; đáp án có nguồn/phạm vi; sản phẩm truy về đáp án. Không thêm thành phần gốc hoặc Master.
+- Không tiếp nhận như lệnh hiện hành: phần GPT Pro giao Codex READ-ONLY rồi trả GPT Chat xét, dựa commit b7139d4. Chủ sở hữu đã giao Astra Codex làm Host. Giữ cách gọi hiện hành: chuyên môn = Bước/Tầng/Chuỗi; nghiệp vụ = UI/Test/Config…
+- JEV Reference đã được dùng kiểm chéo nội dung chung còn thiếu; quyết định trên do Host. Đây không phải một vòng hội đồng hoặc bằng chứng bộ câu hỏi đã đủ.
+- Còn mở: thử toàn bộ bộ câu hỏi áp dụng cho MOW-NHC-001; chỉ ra câu chưa trả lời được, nguồn cần sửa, chỗ nối không khớp và căn cứ cho từng phần UI. Đề xuất bước con chỉ khi qua quy tắc tách. Chưa có kết quả thử mới ở lượt xét ý kiến này; không phát DOER_CONFIRM=YES, không làm MOW 002.
 
 #### TQT-ROOT-QUESTIONS-20261008 · triển khai theo chỉ đạo bổ sung ô 1
 - Một JSON trong view.html sinh sơ đồ, bảng câu hỏi và bộ ghép; câu mới = draft. Bốn tab: Câu hỏi cơ bản, Câu hỏi nghiệp vụ, Ma trận câu hỏi, Quy trình hiện có.

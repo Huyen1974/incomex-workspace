@@ -4,6 +4,7 @@
 Host: **Astra Codex**, phiên Owner chỉ định. Làm UI Câu hỏi cơ bản theo Công thức, ma trận câu hỏi là SSOT và bộ ghép nghiệp vụ UI/Test/Config. Giữ nội dung cũ; không thay định nghĩa Công thức hay dựng UI thứ 2. Mục tiêu nguyên văn: COLLAB.md §0 ô 1 bổ sung 08/10. Cách sửa nguồn và nộp góp ý: README.md.
 Nguồn mới: `view.html#tqt-question-matrix`; bảng cho người và AI: `view.html#ma-tran-cau-hoi`. Bộ câu hỏi đang hiệu chỉnh, chưa nghiệm thu. Chỉ Host nhập ý kiến đã xem xét; thành viên khác chỉ đề xuất riêng.
 Kiểm giao diện và liên kết thật sau đồng bộ; không lấy UI chạy được để tuyên bố bộ câu hỏi đã đủ.
+Tiếp theo: thử MOW-NHC-001 với bộ câu hỏi áp dụng và quy tắc `rules` trong cùng JSON. Bàn giao câu trả lời theo mã/phạm vi, nguồn/phiên bản, bằng chứng hoặc chỗ thiếu; đối chiếu Nhóm cha/con, MOW/MOT và chỗ bàn giao. Chỉ ra căn cứ suy ra trường/nút/trạng thái UI, nguồn cần sửa, đề xuất tách bước nếu thật sự cần. Kết quả thử phải có DOER_CONFIRM đúng phạm vi; chưa có kết quả thì không nhận đã đủ. Không làm MOW 002.
 
 ## Hồ sơ yêu cầu trước — đã được chỉ đạo trên thay thế, giữ để truy nguồn
 Các giới hạn READ-ONLY/Host GPT Chat trong phần lưu vết dưới đây không phải lệnh hiện hành cho Host mới.
