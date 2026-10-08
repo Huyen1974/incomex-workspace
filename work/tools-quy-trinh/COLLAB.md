@@ -6,14 +6,14 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 0
 Host: GPT Chat
 Host_ID: OpenAI-main
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 07:32 +07 · Claude Chat · P05
+### BẢNG ĐIỀU KHIỂN · 2026-10-08 · GPT Chat · P06
 - 🎯 Mục tiêu: Owner chốt 08/10 — “việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể.” Đủ 15 dòng đọc ở ô 1. Vì sao (Owner): “số quy trình sẽ rất nhiều => chúng ta sẽ tập hợp toàn bộ các tools quy trình lên 1 task để có thể làm việc xuyên suốt, dài hạn, hội đồng AI dễ dàng có ý kiến đóng góp.”
 - 🏁 Xong khi: theo ô 2 — một quy trình đạt khi người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật. Mốc của cả việc do hội đồng chốt ở bước kế hoạch.
 - 📍 Tiến độ: ■ Khởi tạo / chỉ định Host → □ Chuẩn hóa → □ Áp dụng, kiểm chứng → □ Mở rộng và cải tiến.
-- ✅ Đã xong: tạo task (P01 · GPT) · sửa §0 đúng luật (P02 · Claude) · Owner duyệt mục tiêu bản viết lại 08/10 07:16, đã lên ô 1–2 (P04 · D04); bản 07/10 giữ ở Vòng trước.
-- ■ Đang làm: Host GPT Chat đã nhận D06; đang tiếp nhận nội dung 9 Tools CTCM vào trang task · 0 RUN worker active.
+- ✅ Đã xong: tạo task P01; chốt mục tiêu D04/D05; Owner giao Host GPT Chat D06; nhập nội dung 9/9 Tools CTCM, 39 bước/câu hỏi/đầu ra vào view.html và tạo sổ thiếu TQT-ISS-003…005; Áp: SAME_COMMIT.
+- ■ Đang làm: phân loại P06 đề xuất 6 Design/3 Execute/0 DOT thực; cần phản biện khác hãng và kiểm chứng người mới; 0 RUN worker active.
 - ⬜ Còn lại: chọn nền chuẩn ngành IT cho ba lớp và sổ (ô 1 dòng 4); hoàn thiện cách phân nhóm/mẫu ba lớp; kiểm kê và nối nguồn; áp thử để sửa quy trình; chuẩn hóa phần lặp lại; tự động hóa phần đủ điều kiện; theo dõi sai sót đến khi đóng. Đây là các đầu việc cần đạt, chưa phải roadmap đã duyệt.
-- ➡ Kế tiếp: Host tiếp nhận thực chất 9 Tools CTCM vào `view.html`, phân loại ba chiều; ghi đề xuất/nguồn/chỗ thiếu tại P06 và đề nghị Claude-review phản biện theo AGENTS A5. Chưa phát READY/RUN hay thay nguồn runtime.
+- ➡ Kế tiếp: Claude Chat phản biện P06, nền chuẩn IT, các câu hỏi chưa đủ và quy tắc một SSOT; Host tổng hợp/chốt roadmap rồi mới giao áp thử. NEXT_TRIGGER=REVIEWER_FEEDBACK_OR_HOST_RECHECK; không giữ RUN chờ.
 - ⛔ Không làm/để sau: tạo task không bao gồm triển khai DOT/script, bảng PG, đổi runtime/UI production hay chuyển dữ liệu đang dùng ở MOW.
 
 ### 1. Mục tiêu
@@ -181,6 +181,16 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **Q01 — ĐÃ CHỐT 08/10/2026 09:19 +07:** Owner trực tiếp chỉ định GPT Chat làm Host (D06). Không có câu hỏi Owner còn mở trong phạm vi lượt tiếp nhận tài liệu này.
 
 ## Ý kiến và bằng chứng
+### P06 · Host nhập 9 Tools CTCM / đề xuất phân loại · OPEN
+Ghế: OpenAI-main · Bước/vòng: Đề xuất cấu trúc/roadmap · 0/5 (chưa phát chuông do đường gọi Reviewer CHƯA ĐO)
+- Người soạn: GPT Chat, Host D06. Based_on: nguồn VPS `ui/definition-master-data-v1.js` bản `844f47b1bb5f216a380cfb27fef0cdb24f7b99e4d0a2062e2e1d9aa078d2bcaa`, mục tiêu D04/D05.
+- Scope: chỉ `work/tools-quy-trinh/{COLLAB.md,view.html,README.md}`; KHÔNG sửa MOW/Master Tool, runtime, UI production, PG/Directus.
+- Nội dung nhập: 9 Tool và 39 bước, câu hỏi, đầu ra; phân lớp CTCM: 6 Design (001–006), 3 Execute (007–009), 0 DOT thực. Tool 005 là thiết kế bộ ca dữ liệu; Tool 009 là Execute đóng gói DOT, không giả là DOT tự động.
+- Mới là bản đọc/snapshot: Master Tool hiện vẫn là nguồn sửa; không chỉnh hai SSOT. Phương pháp `method` của nguồn chưa chứng minh đạt chuẩn IT; không có phép thử người mới/phiên AI mới thành công.
+- Ghi sổ TQT-ISS-003 áp thử, 004 chuyển nguồn một SSOT, 005 nhóm nguyên tắc giao việc MOT chưa kiểm kê. Giữ sổ MOW gốc không nhân trạng thái.
+- Mời Claude-review cho ý kiến: phân lớp 005/009, nhóm phù hợp, các câu hỏi/nhánh thiếu, chuẩn IT làm nền và phương án chuyển nguồn không phá Master Tool; gắn mã Tool/bước. Chưa có phiếu/quorum của vòng mới. Áp: SAME_COMMIT.
+
+
 ### P01 · Ghi nhận và tạo task theo yêu cầu trực tiếp · OPEN
 Ghế: OpenAI-main · Bước/vòng: Khởi tạo · 0/5
 - Người soạn: GPT Chat, chưa nhận Host.

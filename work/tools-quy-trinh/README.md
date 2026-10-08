@@ -8,6 +8,7 @@
 |---|---|
 | Owner xem task | [Tools quy trình](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh) |
 | Nhận diện phạm vi, lớp và nhóm chuyên môn | [Trang nội dung — tra cứu](view.html#phan-loai) |
+| Đọc đủ 9 Tools, từng bước/câu hỏi | [Nội dung đã tập hợp](view.html#chi-tiet-tools) — chưa chuyển SSOT nguồn |
 | Xem 9 Tools CTCM nguồn | [Danh mục nguồn](view.html#nguon-quy-trinh) → mở bản chuẩn tại VPS |
 | Ghi/kiểm vấn đề của tools-quy-trinh | [Sổ tổng hợp](view.html#so-van-de) — sửa đúng hồ sơ trong HTML chính |
 | Đọc vấn đề và kết quả MOW đã có | [Sổ MOW / Tools](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/tools-playbook-v1.html#issue-register) · [Kết quả từng lượt](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/tools-playbook-v1.html#tools-run-register) |
