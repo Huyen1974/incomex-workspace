@@ -304,6 +304,161 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 </div></details>
 </section>
 
+<section id="dung-chung">
+<h2><span class="no">③</span>Dùng chung cho mọi quy trình</h2>
+<div class="two" id="cong-thuc">
+<div class="box"><h4>🧮 CT-TOOLS-UI · Thiết kế và kiểm UI theo người mới</h4>
+<p><b>Ngữ cảnh → Hành động → Phản hồi → Nhánh tiếp → Bằng chứng</b></p>
+<p>Áp dụng từng MOT và mọi nhánh cần kiểm; 8 câu/MOT; UI dùng nguồn cha.</p>
+<p class="mut"><small>Công thức thao tác nội bộ đề xuất; giữ riêng công thức sinh đối tượng. Nguồn chi tiết TOOL-CTCM-001…008. 95% là mục tiêu tái sử dụng, không phải tỷ lệ đã đo. · ĐỀ XUẤT · ÁP THỬ MOW-NHC-001</small></p></div>
+<div class="box"><h4>🧮 CT-TOOLS-CFG · Rà soát Config</h4>
+<p><b>Nếu [điều kiện + trigger] ⇒ [ai làm + tác động + nơi nhận]; nếu lỗi ⇒ [phục hồi + ghi sổ]</b></p>
+<p>Thành phần: Bản ghi · Điều kiện · Trigger · Vai trò · Đích · Ngoại lệ. Trả lời 7 câu Config + nguyên tắc bản ghi; kiểm thiếu/xung đột/default/quyền/lặp.</p>
+<p class="mut"><small>Kiểm luật có đầu vào, điều kiện, tác động, đích và đường lỗi rõ. Chi tiết TOOL-CTCM-004. Chưa quyết config thì ghi OPEN, không tự điền giả. · ĐỀ XUẤT · CHƯA TỰ ĐỘNG HÓA</small></p></div>
+</div>
+<div class="box" id="cach-ai-lam"><h4>🤖 Thứ tự AI làm trước khi báo cáo</h4>
+<div class="flow"><span>Đọc mục tiêu</span>→<span>Trả lời 8 câu/MOT</span>→<span>Lập nhánh</span>→<span>Viết ca</span>→<span>Dựng từ UI cha</span>→<span>Bấm theo vai người mới</span>→<span>Ghi bằng chứng và phần thiếu</span>→<span>Kiểm lại phần đã sửa</span></div>
+<p>Mẫu ca: <b>Cho trước</b> [ngữ cảnh] · <b>Khi</b> [hành động] · <b>Thì</b> [kết quả nhìn thấy]</p></div>
+<div class="good" id="xong-chung"><b>✅ Xong khi (chung):</b> Tất cả câu áp dụng có câu trả lời; mỗi nhánh bắt buộc có ca chạy đạt + bằng chứng; nhánh không áp dụng có lý do. Không lấy 95% làm ngưỡng bỏ qua nhánh còn thiếu.</div>
+<div class="stop"><b>⛔ Không được:</b><ul>
+<li>AI không được dùng kiến thức code để đoán thay phần UI thiếu.</li>
+<li>Kiểm tự động không thay hoàn toàn thử với người thật; không lấy model tests làm UI E2E.</li>
+<li>Viết tài liệu không đồng nghĩa DOT đã chạy. BLOCKED không phải PASS.</li>
+</ul></div>
+
+<details id="di-toi-dich"><summary><span class="t">🎯 Đi tới đích · 8 câu cho mọi bước</span><small>nguồn: TOOL-CTCM-008</small></summary><div class="in">
+<p><b>Đầu vào → Thao tác → Đích đến → Đọc lại/kiểm → Người nhận → Điều kiện xong</b></p>
+<div class="wrap"><table><thead><tr><th>Câu</th><th>Phải có</th></tr></thead><tbody>
+<tr><td>Làm gì?</td><td>Nêu hành động và đầu vào cụ thể; không dùng chỉ dẫn chung như xử lý tiếp.</td></tr>
+<tr><td>Đến đâu?</td><td>Phải có URL/mã bản ghi/đường dẫn đích tồn tại và mở được; khi thực thi phải thay hết placeholder.</td></tr>
+<tr><td>Làm bằng gì?</td><td>Chỉ rõ nút, Tool/API được cấp quyền hoặc thao tác MCP; kiểm có quyền dùng.</td></tr>
+<tr><td>Lưu/nhận được chưa?</td><td>Đọc lại sau ghi, kiểm ID/giá trị/phiên bản hoặc receipt người nhận; lệnh gửi thành công chưa đủ.</td></tr>
+<tr><td>Ai giữ việc?</td><td>Người nhận hoặc người theo dõi có danh tính cụ thể; Chưa giao không được coi là đã giao.</td></tr>
+<tr><td>Sai hoặc đích chưa có?</td><td>Tạo phần còn thiếu trong quyền đã giao hoặc ghi hồ sơ có người/bước tiếp/mốc rà; bước phụ thuộc chưa đạt.</td></tr>
+<tr><td>Xong khi nào?</td><td>Điều kiện đo được và bằng chứng tại đúng đích; các bước độc lập được tiếp tục.</td></tr>
+<tr><td>Bàn giao thế nào?</td><td>Nơi tiếp nhận, dữ liệu chuyển, trạng thái cuối và cách quay lại phải rõ.</td></tr>
+</tbody></table></div></div></details>
+
+<details id="vong-cai-tien"><summary><span class="t">🔁 Quy trình có giúp đạt mục tiêu? · 6 câu</span><small>nguồn: TOOL-CTCM-002</small></summary><div class="in">
+<p><b>Mục tiêu → Câu hỏi → Thực hiện → So với đích → Sửa câu thiếu → Chạy lại</b></p>
+<div class="wrap"><table><thead><tr><th>Câu</th><th>Cách trả lời</th></tr></thead><tbody>
+<tr><td>Đích là gì?</td><td>Chỉ rõ kết quả người dùng nhận được và bằng chứng tại nơi nhận; không lấy số bước đã làm làm đích.</td></tr>
+<tr><td>Có đủ câu hỏi chưa?</td><td>8 câu/MOT là khung có thể sửa; mỗi câu phải có câu trả lời, nhánh và vị trí trên UI hoặc mã hồ sơ còn thiếu.</td></tr>
+<tr><td>Điểm đầu có thật không?</td><td>Mở mới chưa nhập/chưa chọn; màn làm việc không tự nạp kết quả mẫu. Ví dụ ở phần phụ, dùng cùng renderer.</td></tr>
+<tr><td>Đi hết được không?</td><td>Thử 1→3, 1→2→3 và các nhánh lỗi/quay lại/hủy; kiểm đầu ra tới đúng nơi nhận.</td></tr>
+<tr><td>Nếu chưa đạt thì sửa gì?</td><td>Phân biệt lỗi thực thi, thiếu tài nguyên/quyền/dữ kiện và thiếu câu hỏi/quy tắc. Bổ sung câu phát hiện và nhánh xử lý vào Tool gốc; không hạ mục tiêu.</td></tr>
+<tr><td>Lần sau tránh lặp thế nào?</td><td>Ghi phiên bản Tool, câu được sửa, ca hồi quy, người giữ việc và mốc kiểm. Chỉ khép vòng khi chạy lại đạt đích; BLOCKED không phải PASS.</td></tr>
+</tbody></table></div>
+<p class="mut"><small>Ghi kết quả: <a href="#so-luot-chay">Sổ lượt chạy ④</a>.</small></p></div></details>
+
+<details id="sua-hay-ghi"><summary><span class="t">🛠 Sai hoặc thiếu → sửa ngay hay ghi sổ?</span><small>nguồn: TOOL-CTCM-008</small></summary><div class="in">
+<p><b>Mỗi câu hỏi → Đạt / Không đạt / Chưa rõ. Sai hoặc thiếu → sửa và kiểm ngay, hoặc ghi cùng một sổ để theo dõi đến khi đóng.</b></p>
+<dl class="kv">
+<dt>✅ Sửa ngay khi</dt><dd>Làm ngay khi yêu cầu đã rõ, thuộc phạm vi và quyền đã giao, thay đổi có thể quay lui và có cách kiểm kết quả. Không dựa riêng vào việc nhìn có vẻ nhỏ. Sửa → kiểm lại → lưu dấu vết và bằng chứng; không phải hỏi lại Owner cho sửa lỗi thông thường đã được giao.</dd>
+<dt>📝 Ghi sổ khi</dt><dd>Chưa sửa được, ngoài phạm vi/quyền, thiếu dữ kiện hoặc phụ thuộc nơi khác → ghi Sổ việc còn thiếu của MOW trước khi kết thúc lượt. Dùng lại ID nếu đã có; gồm vấn đề, tác động, người chịu trách nhiệm, trạng thái, bước tiếp theo, hạn/mốc rà và điều kiện đóng. Sửa ngay cũng phải có dấu vết, có thể gộp lỗi nhỏ cùng nguyên nhân. <i>(Sau cắt chuyển: ghi <a href="#so-van-de">Sổ ⑤</a>.)</i></dd>
+<dt>👀 Theo dõi</dt><dd>Host phụ trách kiểm sổ đầu và cuối mỗi lượt, lúc bàn giao và khi tới mốc rà. Người được giao cập nhật khi nhận/làm/bị chặn/xong; người kiểm chạy lại. Quá mốc hoặc chưa có người nhận thì Host phải giao lại/chọn bước tiếp; không mặc nhiên để Owner nhớ và nhắc. Chưa có máy canh nền thì không hứa tự nhắc ngoài lượt.</dd>
+<dt>🚦 Cổng</dt><dd>Câu Đạt có bằng chứng; Không đạt/Chưa rõ phải dẫn mã hồ sơ. Lỗi chặn mục tiêu giữ bước liên quan chưa đạt; các bước độc lập vẫn làm tiếp. Chờ kiểm khác Đóng. Đóng cần kết quả kiểm và phiên bản; lỗi tái diễn mở lại. Ngoại lệ để sau có người quyết, lý do và mốc xem lại.</dd>
+<dt>⬜ Còn thiếu</dt><dd>Sổ đã có hồ sơ theo dõi và cách ghi qua MCP, có URL mở từng mã; chưa có form sửa trực tiếp hoặc nhắc việc nền. Chưa giao người xử lý phải hiển thị Chưa giao, không coi là Đang xử lý.</dd>
+</dl></div></details>
+
+<details id="tool-sang-dot"><summary><span class="t">🤖 Từ Tool sang DOT</span></summary><div class="in">
+<div class="flow"><span>Quy trình đã rõ</span>→<span>Hợp đồng input/output/quyền</span>→<span>Đặc tả ca kiểm</span>→<span>Viết DOT</span>→<span>Chạy trong môi trường thử</span>→<span>Ghi bằng chứng</span>→<span>Cho phép dùng</span></div>
+<p>Chưa đạt thì ghi phần thiếu. Mục tiêu tái sử dụng 95% là định hướng của Owner, chưa phải tỷ lệ đo đạt. Các Tool hiện là quy trình có hướng dẫn; chưa có DOT mới được triển khai.</p>
+<p>Lớp DOT/script hiện 0 bản chạy được xác minh. Cần mã thực thi, mục tiêu, điều kiện/trigger, tiêu chí xong, bằng chứng chạy và xử lý lỗi. Tool 009 chỉ là quy trình phát hành. Các việc thiết kế sáng tạo có thể dừng ở Design, không ép lên DOT.</p></div></details>
+
+<details id="phan-loai"><summary><span class="t">🗂 Cách phân loại · 3 Chuỗi × nhóm chuyên môn × 3 lớp</span><small>tham khảo</small></summary><div class="in">
+<p>Mỗi quy trình có một Chuỗi chính, có thể liên kết dùng lại ở Chuỗi khác; mỗi quy trình nằm ở lớp phù hợp với mục đích, không mặc định phải có đủ Design → Execute → DOT/script. Mỗi quy trình một mã ổn định để dùng lại và liên kết giữa các lớp.</p>
+<div class="wrap"><table><thead><tr><th>Lớp</th><th>Trọng tâm cần đọc</th></tr></thead><tbody>
+<tr><td><span class="chip d">Design</span></td><td>Các câu hỏi cần trả lời, đầu vào và ràng buộc, lựa chọn/nhánh, quyết định thiết kế, cách kiểm thiết kế đã thành công.</td></tr>
+<tr><td><span class="chip e">Execute</span></td><td>Điều kiện bắt đầu, câu hỏi cần xác minh, thứ tự bước, cách xử lý khi mắc, sản phẩm bàn giao, định nghĩa hoàn thành.</td></tr>
+<tr><td><span class="chip">DOT/script</span></td><td>Mục tiêu, điều kiện/trigger, đầu vào/đầu ra, DOT/script thực thi, bằng chứng hoàn thành và cách xử lý khi lỗi.</td></tr>
+</tbody></table></div>
+<p class="mut"><small>Phân lớp theo đích của từng Tool, không theo việc người hay AI sử dụng. Tool 005: thiết kế bộ dữ liệu/ca biên → Design. Tool 009: thực hiện đóng gói và phát hành DOT → Execute; không coi là DOT/script đã có. Tên nhóm là khung ban đầu để hội đồng hoàn thiện.</small></p></div></details>
+
+<details id="luat-r46"><summary><span class="t">📜 Luật liên quan · Rules MMIM R46–R48</span><small>chép để đọc liền mạch · nơi sửa vẫn ở Rules MMIM</small></summary><div class="in">
+<dl class="kv">
+<dt>R46</dt><dd>Trước khi dựng/đổi UI, dùng Tools · CTCM: trả lời 8 câu theo vai người mới tại mỗi MOT, lập đường đi và điều kiện rẽ nhánh. Số MOT không có nghĩa mọi lần đều chạy đủ MOT; MOW-NHC-001 đi 1→3 hoặc 1→2→3.</dd>
+<dt>R47</dt><dd>Mỗi nhánh bắt buộc có ca Cho trước/Khi/Thì, kết quả nhìn thấy và bằng chứng chạy. AI kiểm cả thành công, rỗng, sai dữ liệu, lỗi, quay lại và hủy; không đoán thay thông tin UI thiếu. Chưa kiểm ghi Chưa kiểm, thiếu ghi sổ có nơi xử lý; không báo PASS toàn hành trình khi chỉ kiểm từng thành phần. Mỗi MOT có màn riêng; lần đầu mở chưa nhập/chưa chọn phải có trạng thái đúng, không tự hiện kết quả. Minh hoạ tách khỏi màn làm việc và dùng cùng nguồn dựng. Nếu làm theo Tools vẫn không đạt mục tiêu: chỉ ra câu hỏi/nhánh thiếu, sửa Tool gốc, bổ sung ca kiểm rồi chạy lại; chưa đạt thì không đóng.</dd>
+<dt>R48</dt><dd>Quy trình Tool rõ → hợp đồng input/output/quyền và tác động → ca kiểm → DOT → chạy thử có bằng chứng. Phân biệt quy trình đã viết với tự động hóa đã chạy. Mục tiêu dùng lại 95% không cho phép bỏ kiểm 5% còn lại. Tools là nhóm công cụ thuộc CTCM, không tự sinh thêm Nhóm cha/MOW ngoài công thức.</dd>
+</dl><p class="mut"><small>Owner 07/10/2026 · thử MOW-NHC-001.</small></p></div></details>
+</section>
+
+<section id="ap-thu">
+<h2><span class="no">④</span>Áp thử MOW-NHC-001 · ví dụ thật</h2>
+<p><span class="chip wa">3 MÀN ĐÃ DỰNG · LOGIC ĐÃ KIỂM · CHƯA ĐẠT PRODUCTION</span> · <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001" target="_blank" rel="noopener">Bản UI đang rà ↗</a></p>
+<div class="flow"><span>1 Tìm thường</span>→<span>(chưa phù hợp: 2 Nâng cao)</span>→<span>3 Xác nhận phù hợp</span></div>
+<div class="three">
+<div class="box"><h4>MOT 1.1</h4><b>1. Tìm Field</b><ul><li>Nhập tên/mã hoặc mô tả nhu cầu.</li><li>Thấy phù hợp → Chọn để xác nhận.</li><li>Chưa phù hợp → Tìm nâng cao.</li></ul></div>
+<div class="box"><h4>MOT 1.2 · Khi cần</h4><b>2. Tìm nâng cao</b><ul><li>Giữ nhu cầu cũ; thêm hoặc bỏ điều kiện lọc.</li><li>Thấy phù hợp → Chọn để xác nhận.</li><li>Chưa có → chỉnh tìm kiếm hoặc ghi yêu cầu còn thiếu.</li></ul></div>
+<div class="box"><h4>MOT 1.3</h4><b>3. Xác nhận phù hợp</b><ul><li>Đối chiếu đúng Field đã chọn với nhu cầu.</li><li>Đủ điều kiện → Xác nhận phù hợp.</li><li>Chọn nhầm → quay lại kết quả.</li></ul></div>
+</div>
+<p class="mut"><small>Đây là hợp đồng 3 màn để dựng/kiểm UI. Xác nhận không đồng nghĩa ban hành hoặc sửa Field; tác động và nơi nhận còn phải chốt trong Config.</small></p>
+<div class="warn"><b>Độ phủ:</b> 8 câu × 3 MOT = 24 ô; 16 nhánh nền. 17 kiểm tra model của lượt trước; 08/10 thêm 18 quan sát live màn 2/minh hoạ và 3 ca kiểm lại. Browser đã truy cập được; còn nhánh/phạm vi UI, responsive/parity và đích thật chưa phủ. Xem <a href="#run-TQT-UI-20261008-MOW001-STEP2">TQT-UI-20261008-MOW001-STEP2</a>; không lấy model hay minh hoạ làm UI E2E thật.</div>
+
+<details id="bang-24-o"><summary><span class="t">📋 24 ô · 8 câu × 3 MOT</span><small>đầu ra Tool 002</small></summary><div class="in"><div class="wrap"><table>
+<thead><tr><th>Câu</th><th>1 Tìm Field</th><th>2 Tìm nâng cao</th><th>3 Xác nhận phù hợp</th><th>Tình trạng</th></tr></thead><tbody>
+<tr><td><b>Q1</b> Làm gì, thế nào là xong?</td><td>Tìm Field có sẵn phù hợp nhu cầu.</td><td>Thu hẹp tìm kiếm khi tìm thường chưa đủ.</td><td>Xác nhận đúng Field đã chọn và nhu cầu.</td><td>3 màn đã dựng; <a href="#issue-OPEN-03">OPEN-03</a> còn thiếu đích thật. 08/10 kiểm live chọn lọc màn 2/minh hoạ; phạm vi còn mở ở <a href="#issue-OPEN-09">OPEN-09</a>.</td></tr>
+<tr><td><b>Q2</b> Bắt đầu ở đâu, nhận gì?</td><td>Nhận nhu cầu + chuyên môn/ngữ cảnh.</td><td>Nhận nguyên nhu cầu, từ khóa và ngữ cảnh từ bước 1.</td><td>Nhận đúng field_id + phiên bản + yêu cầu + kết quả kiểm.</td><td>Model giữ input/Field hai đường đi; chuyên môn chưa có <a href="#issue-OPEN-01">OPEN-01</a>; dữ liệu thật chưa nối <a href="#issue-OPEN-08">OPEN-08</a>.</td></tr>
+<tr><td><b>Q3</b> Nhập/chọn gì?</td><td>Tên/mã hoặc mô tả tự do.</td><td>Giữ input cũ, thêm điều kiện lọc.</td><td>Đọc/so sánh Field đã chọn với yêu cầu; không nhập lại danh tính.</td><td>UI-029 biến thể 3 màn; mô tả giữ để đối chiếu; Vector/JEV chưa nối <a href="#issue-OPEN-04">OPEN-04</a>.</td></tr>
+<tr><td><b>Q4</b> Bấm gì?</td><td>Tìm kiếm; Nâng cao nếu cần; Chọn nếu có ứng viên.</td><td>Tìm; Bỏ lọc; Quay lại; Chọn ứng viên.</td><td>Xác nhận phù hợp hoặc Quay lại kết quả.</td><td>Có điều hướng 1→3 và 1→2→3 trong cùng renderer; logic đã kiểm. 08/10 có thao tác live màn 2/back và xác nhận minh hoạ; <a href="#issue-OPEN-09">OPEN-09</a> còn phần chưa phủ.</td></tr>
+<tr><td><b>Q5</b> Biết trạng thái bằng gì?</td><td>Báo đang tìm/kết quả/rỗng/lỗi.</td><td>Báo bộ lọc đang áp dụng và kết quả/rỗng/lỗi.</td><td>Báo điều kiện đạt/không đạt/chưa đủ và kết quả xác nhận.</td><td>Tách chưa tìm/rỗng/lỗi; xác nhận minh hoạ có kết quả riêng, không lưu thật.</td></tr>
+<tr><td><b>Q6</b> Đạt thì đi đâu?</td><td>Ứng viên phù hợp → bước 3, không bắt qua bước 2.</td><td>Ứng viên phù hợp → bước 3.</td><td>Trả kết quả lựa chọn cho nơi gọi; hợp đồng lưu/chuyển tiếp chờ chốt.</td><td>Đích minh hoạ là receipt trên màn 3; đích production chưa chốt <a href="#issue-OPEN-03">OPEN-03</a>.</td></tr>
+<tr><td><b>Q7</b> Không đạt thì sao?</td><td>Không phù hợp → bước 2; nhiều kết quả → so sánh; lỗi → giữ input/thử lại.</td><td>Không tìm được → sửa lọc hoặc ghi yêu cầu còn thiếu; quay lại giữ input.</td><td>Không đủ điều kiện → chỉ rõ thiếu; không hợp → quay lại; dữ liệu đổi → kiểm lại.</td><td>Model kiểm chọn lại/đổi input/phản hồi cũ; quyền/phiên bản/timeout thật còn <a href="#issue-OPEN-06">OPEN-06</a>, yêu cầu Field thiếu <a href="#issue-OPEN-10">OPEN-10</a>.</td></tr>
+<tr><td><b>Q8</b> Xác nhận đổi gì, ai nhận?</td><td>Không sửa Field khi tìm; dừng được.</td><td>Không sửa Field khi lọc; ghi thiếu qua sổ nếu cần.</td><td>Không đồng nghĩa ban hành/cho dùng Field; tác động xác nhận cần config.</td><td>Tìm không sửa Field; production xác nhận chưa bật; hợp đồng còn <a href="#issue-OPEN-03">OPEN-03</a>.</td></tr>
+</tbody></table></div></div></details>
+
+<details id="nhanh-16"><summary><span class="t">🔀 16 nhánh nền · B01–B16</span><small>đầu ra Tool 003</small></summary><div class="in"><div class="wrap"><table>
+<thead><tr><th>Mã</th><th>Khi</th><th>Màn</th><th>Xử lý</th></tr></thead><tbody>
+<tr><td>B01</td><td>Biết tên/mã</td><td>Màn1</td><td>Tìm → xem kết quả, giữ từ khóa.</td></tr>
+<tr><td>B02</td><td>Không biết tên/mã</td><td>Màn1</td><td>Nhập mô tả → tìm ngữ nghĩa khi dịch vụ sẵn sàng; hiện chưa nối phải báo rõ.</td></tr>
+<tr><td>B03</td><td>Chưa nhập nhu cầu</td><td>Màn1</td><td>Mở mới không kết quả; chưa nhập/chọn điều kiện thì nhắc nhập. Đây là thiết kế mới chờ duyệt, không tự nạp tất cả.</td></tr>
+<tr><td>B04</td><td>Thấy ứng viên phù hợp ngay</td><td>Màn1 → Màn3</td><td>Chọn → chuyển đúng field_id và nhu cầu; bỏ qua màn2.</td></tr>
+<tr><td>B05</td><td>Nhiều ứng viên gần giống</td><td>Màn1/2</td><td>So sánh mã/mô tả/ngữ cảnh; JEV tùy chọn; không tự chọn thay người.</td></tr>
+<tr><td>B06</td><td>Không có hoặc chưa phù hợp</td><td>Màn1 → Màn2</td><td>Nâng cao → giữ nguyên nhu cầu, thêm bộ lọc.</td></tr>
+<tr><td>B07</td><td>Nâng cao tìm được</td><td>Màn2 → Màn3</td><td>Chọn ứng viên → đối chiếu/xác nhận.</td></tr>
+<tr><td>B08</td><td>Nâng cao vẫn không có</td><td>Màn2</td><td>Sửa/bỏ lọc hoặc ghi yêu cầu chưa có; không tự tạo Field trong quy trình Tìm.</td></tr>
+<tr><td>B09</td><td>Muốn xem JEV</td><td>Màn1/2</td><td>Mở tại kết quả; có điểm thật mới hiển thị %, thiếu dịch vụ báo rõ.</td></tr>
+<tr><td>B10</td><td>Đổi ý / chọn nhầm</td><td>Màn3 → Màn1/2</td><td>Quay lại đúng nơi chọn, giữ nhu cầu và bộ lọc.</td></tr>
+<tr><td>B11</td><td>Đủ điều kiện xác nhận</td><td>Màn3</td><td>Xác nhận → báo kết quả; nơi nhận/tác động theo hợp đồng cần chốt.</td></tr>
+<tr><td>B12</td><td>Thiếu điều kiện hoặc dữ liệu</td><td>Màn3</td><td>Chặn xác nhận, nêu thiếu gì và cách xử lý; không gán xanh giả.</td></tr>
+<tr><td>B13</td><td>Không đủ quyền</td><td>Mọi màn</td><td>Báo quyền thiếu, không rò dữ liệu; ghi nơi xin quyền theo config.</td></tr>
+<tr><td>B14</td><td>Dịch vụ lỗi hoặc timeout</td><td>Mọi màn</td><td>Báo lỗi, giữ input, cho thử lại; không báo Không tìm thấy thay lỗi.</td></tr>
+<tr><td>B15</td><td>Field đã đổi/ngừng dùng khi xác nhận</td><td>Màn3</td><td>Kiểm lại phiên bản/trạng thái, dừng hoặc yêu cầu chọn lại.</td></tr>
+<tr><td>B16</td><td>Bấm xác nhận hai lần / gửi lại</td><td>Màn3</td><td>Không tạo hai kết quả nghiệp vụ; khóa chờ + idempotency theo config.</td></tr>
+</tbody></table></div></div></details>
+
+<h3 id="so-luot-chay">🗂 Sổ lượt chạy · 3 lượt</h3>
+<p class="mut"><small>Kết quả mỗi lần áp Tool, mới nhất trên cùng. Bản chép từ <code>pilot.runs</code> (bản <code>93eae888106544e7</code>); chi tiết từng ca nằm ở phiếu kiểm của UI. Lượt mới: ghi ở nơi sửa hiện hành (<a href="#chuyen-nguon">⑥</a>).</small></p>
+<details id="run-TQT-UI-20261008-MOW001-STEP2"><summary><code>TQT-UI-20261008-MOW001-STEP2</code><span class="t">MOW-NHC-001 · MOT2/step2; chọn lọc màn làm việc và minh hoạ</span><span class="chip wa">PARTIAL · CÓ KIỂM LIVE · ĐÍCH THẬT CHƯA ĐẠT</span></summary><div class="in">
+<dl class="kv"><dt>Người chạy · lúc</dt><dd>Codex theo yêu cầu Owner 08/10 · 08/10/2026</dd><dt>Hồ sơ liên quan</dt><dd><a href="#issue-OPEN-03">OPEN-03</a> · <a href="#issue-OPEN-04">04</a> · <a href="#issue-OPEN-08">08</a> · <a href="#issue-OPEN-09">09</a> · <a href="#issue-OPEN-10">10</a></dd><dt>Bước tiếp</dt><dd>Phiên đọc độc lập đã lập được ca; thiếu bước tìm README từ URL đã bổ sung. Tiếp tục phủ UI cha/responsive và nhánh còn thiếu; chốt nguồn thật, JEV và nơi nhận ở hồ sơ cũ trước nghiệm thu hành trình.</dd><dt>Mốc rà</dt><dd>Trước công nhận quy trình áp được toàn phạm vi / nghiệm thu MOW</dd></dl>
+<div class="wrap"><table><thead><tr><th>Tool</th><th>Kết quả</th><th>Kèm</th></tr></thead><tbody>
+<tr><td>001</td><td>Đích thật: tìm/chọn/xác nhận Field về nơi nhận. Lượt này rà màn 2 và chuyển bước có liên quan; chưa hoàn tất đích.</td><td>Đường: 2→1→2 · 2→3 khi chưa chọn · minh hoạ 2→3</td></tr>
+<tr><td>002</td><td>8 câu/MOT cùng ca/bằng chứng lưu tại phiếu hiện có; Q3/6/8 bị chặn theo nguồn thật/đích nhận.</td><td>Nơi lưu: <code>work/mow-mot-moit-mout/UI-REVIEW-MOW001.json → tools_application_review</code></td></tr>
+<tr><td>003</td><td>18 quan sát gắn câu/ca; còn nhánh timeout/quyền/dữ liệu đổi/hủy/bấm lặp và phạm vi 3 màn chưa phủ.</td><td>—</td></tr>
+<tr><td>004</td><td>Đọc đúng 7 câu Config; nguyên tắc bản ghi là phần thêm. Không tự chốt nơi nhận/luật nghiệp vụ còn thiếu.</td><td><a href="#issue-OPEN-03">OPEN-03</a> · <a href="#issue-OPEN-10">OPEN-10</a></td></tr>
+<tr><td>005</td><td>Đầu vào trống, keyword, mô tả, filter, mất dịch vụ, guard chưa chọn được thử. 2 số lượng rỗng minh hoạ chỉ quan sát, chưa có mong đợi fixture.</td><td>—</td></tr>
+<tr><td>006</td><td>MOT2 TSK-NHCN-002 / UI-029 / UI.MASTER theo metadata; MOT3 chưa duyệt UI cha. Parity/responsive chưa nghiệm thu.</td><td><a href="#issue-OPEN-05">OPEN-05</a> · <a href="#issue-OPEN-09">OPEN-09</a></td></tr>
+<tr><td>007</td><td>11 quan sát UI làm việc + 7 minh hoạ; 16 khớp quy tắc điều khiển hiện tại, 2 chỉ OBSERVED. Sau bổ sung repo chạy lại R01 trống/R02 yêu cầu input/R03 khóa xác nhận thiếu Field; thêm ca phiên đọc độc lập CR-02 xóa hai ô và CR-03 chưa bấm Tìm thì chưa tìm. 5 ca đạt phạm vi kiểm, không báo PASS hành trình.</td><td>OPEN-03 · 04 · 08 · 09 · 10 · Live browser DOM 08/10; console captured empty · <code>UI-REVIEW-MOW001.json</code> · hướng dẫn repo commit 427c1704f9122b35352e2e3afe283821d1f54636</td></tr>
+<tr><td>008</td><td>Cập nhật OPEN-09, giữ lịch sử và hồ sơ khác. Vướng quy trình ghi TQT-ISS-003; hướng dẫn 8/7 câu, ca/nơi lưu/kiểm lại bổ sung đúng repo.</td><td>Đích: sổ MOW (bản chép ở <a href="#so-van-de">⑤</a>)</td></tr>
+<tr><td>009</td><td>Không áp dụng phát hành DOT trong lượt rà thiết kế UI này; chưa đủ hợp đồng production.</td><td>N-A</td></tr>
+</tbody></table></div></div></details>
+<details id="run-TOOLS-20261007-THREE-SCREENS"><summary><code>TOOLS-20261007-THREE-SCREENS</code><span class="t">MOW-NHC-001 · 3 màn dùng thật</span><span class="chip st">PARTIAL · LIVE BLOCKED</span></summary><div class="in">
+<dl class="kv"><dt>Người chạy</dt><dd>Codex · phiên thiết kế MOW này</dd><dt>Hồ sơ liên quan</dt><dd>OPEN-01 · 02 · 03 · 04 · 05 · 06 · 08 · 09 · 10</dd><dt>Bước tiếp</dt><dd>Kiểm live sau khi policy hợp lệ; chốt đích Xác nhận phù hợp rồi nối nguồn thật.</dd><dt>Mốc rà</dt><dd>Trước báo PASS UI/production</dd></dl>
+<div class="wrap"><table><thead><tr><th>Tool</th><th>Kết quả</th><th>Kèm</th></tr></thead><tbody>
+<tr><td>001</td><td>3 màn riêng, metadata SSOT; chưa có đích production.</td><td>Đích: Mở mới → tìm → chọn → xác nhận → kết quả về nơi nhận. Đường: 1→3 · 1→2→3</td></tr>
+<tr><td>002</td><td>Chưa gõ: trống; chưa chọn: xác nhận bị khóa; minh hoạ thu riêng.</td><td>pilot.questions: 24 ô; sửa Q2,Q5,Q8 và bước rà điểm đầu/hiệu lực. Nơi xem: <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001" target="_blank" rel="noopener">mow-ui-walkthrough ↗</a></td></tr>
+<tr><td>003</td><td>16 nhánh giữ nguyên mã; B03 nay mô tả thiết kế đầu vào trống.</td><td>Còn: B08 nơi nhận thiếu · B13 quyền thật · B15 phiên bản thật · B16 idempotency backend</td></tr>
+<tr><td>004</td><td>Config chưa đủ chuyên môn/nơi nhận/tác động; không bật mutation.</td><td><a href="#issue-OPEN-01">OPEN-01</a> · <a href="#issue-OPEN-03">OPEN-03</a> · <a href="#issue-OPEN-10">OPEN-10</a></td></tr>
+<tr><td>005</td><td>Không nạp fixture vào màn live. Mô tả/JEV chưa nối; khi không có dịch vụ trả lỗi, không giả kết quả.</td><td><a href="#issue-OPEN-04">OPEN-04</a> · <a href="#issue-OPEN-08">OPEN-08</a></td></tr>
+<tr><td>006</td><td>MOW/MOT/chuỗi lấy SSOT; dùng nguồn UI-029 cho hai màn tìm; xác nhận chưa cấp UI canonical/cha; không bịa danh tính.</td><td><a href="#issue-OPEN-05">OPEN-05</a></td></tr>
+<tr><td>007</td><td>17/17 kiểm model + parse JS đạt; browser từ chối truy cập vì không xác minh được admin policy. UI/render/responsive chưa kiểm.</td><td><a href="#issue-OPEN-06">OPEN-06</a> · <a href="#issue-OPEN-09">OPEN-09</a> · UI transaction fc8b16d840dd47c7b4d0d28ce7c47eb7 · Model SHA 03197b1fa31c7dbe8b1c43043425f395359d0797c6b22fb88d7db6a54a50a430</td></tr>
+<tr><td>008</td><td>Cập nhật hồ sơ hiện có, thêm OPEN-08…10; giữ người/bước tiếp/mốc rà.</td><td>Đích: sổ MOW (bản chép ở <a href="#so-van-de">⑤</a>)</td></tr>
+<tr><td>009</td><td>Chưa đóng gói/chạy DOT: chưa đủ hợp đồng và bằng chứng end-to-end.</td><td>BLOCKED</td></tr>
+</tbody></table></div></div></details>
+<details id="run-TOOLS-20261007-CLOSE-LOOP"><summary><code>TOOLS-20261007-CLOSE-LOOP</code><span class="t">Tools · CTCM</span><span class="chip ok">Đã kiểm</span></summary><div class="in">
+<dl class="kv"><dt>Người chạy</dt><dd>Codex · phiên thiết kế MOW này</dd><dt>Hồ sơ liên quan</dt><dd><a href="#issue-OPEN-07">OPEN-07</a></dd><dt>Tool 008</dt><dd>Đã kiểm lưu, đọc lại, mở đúng hồ sơ và 9 liên kết đầu ra; OPEN-07 đóng. Hồ sơ ghi: OPEN-01…07; đích: sổ MOW (bản chép ở <a href="#so-van-de">⑤</a>).</dd><dt>Bằng chứng</dt><dd>MCP ghi thành công: 89e7777f69ac4bcf9aa78442d6592c0a; đọc lại nguồn 5c31349a2a983be1316555a314b4354feda78cf298dd9abc429489963a8bd6ae.<br>Trình duyệt: 7 hồ sơ; #issue-OPEN-07 mở đúng hồ sơ và sổ cha; 9/9 Tool có liên kết Sổ kết quả thực hiện.<br>Giữ nguyên 6 việc MOW gốc; không đánh dấu đã xử lý, chưa chạy lại hành trình MOW/DOT.</dd><dt>Bước tiếp</dt><dd>Tiếp tục OPEN-01…06 khi quay lại thiết kế MOW-NHC-001.</dd><dt>Mốc rà · kiểm lúc</dt><dd>Trước báo cáo lượt này · 07/10/2026 17:45 +07</dd></dl></div></details>
+</section>
+
 <!--TQT-P10-NEXT-->
 </main>
 </body>
