@@ -1,5 +1,5 @@
 {
-  "source_version": "6a7a7a892ca1de4c67f991b9ad6f12df8028057d / e02299dfdd8a15769ece7104a930f09451dd22a16d60a208b2a0bafe80e02069",
+  "source_version": "6a7a7a892ca1de4c67f991b9ad6f12df8028057d / e02299dfdd8a15769ece7104a930f09451dd22a16d60a208b2a0bafe80e02069; viewer runtime b47545bc1edbfb0f3551af2041441480d6859f8f",
   "scope": [
     "MOW-PARENT-UI-GALLERY"
   ],
@@ -21,8 +21,8 @@
           "evidence": "Names/IDs sourced from existing UI registry export; rules moved into matching family, including Master tokens/search/Help/navigation; no new approval states asserted."
         },
         "interaction": {
-          "status": "BLOCKED",
-          "evidence": "Standalone document click opened actual Master MOW/MOT/MOIT/MOUT pages (browser tabs10–13). Portal clicks MOW/MOT opened no tab: outer iframe sandbox only allow-scripts allow-same-origin, while inner permits popups. Owner confirmation requested before changing navigation permissions. Details expand/collapse and old Master anchor work."
+          "status": "PASS",
+          "evidence": "2026-10-08 live nested portal: clicked exact Master 'Mở mẫu cha để đối chiếu' and tab14 opened mow-master-nhap2-v1.html?legacy=1 with heading 'MOW — Danh sách quy trình đã đúc'. MOT/MOIT/MOUT links opened tabs16/17/15 with expected Master pages. Original portal retained UI cha and expanded Master. Unit test: upgrade once/no reload loop; standalone/foreign embedding unchanged. Inner document keeps no allow-same-origin. Screenshot outputs/mo-mau-cha-thanh-cong.jpg."
         },
         "responsive": {
           "status": "PASS",
@@ -30,11 +30,11 @@
         },
         "console": {
           "status": "PASS",
-          "evidence": "No new directory error after reuse of already-loaded ML-DEF-018. Existing Directus Auth/Sentry warnings remain. Remote screenshot service blocks Google Fonts; local browser screenshot has correct Vietnamese glyphs."
+          "evidence": "No new directory error after reuse of already-loaded ML-DEF-018. Existing Directus Auth/Sentry warnings remain. Remote screenshot service blocks Google Fonts; local browser screenshot has correct Vietnamese glyphs. After popup fix, only preexisting Directus Auth init error observed; no new viewer errors."
         },
         "data_scope": {
           "status": "PASS",
-          "evidence": "Only MOW HTML/rule pointer docs/README/receipt edited. Registry, shared eco-nav.js, UI design source pages, tools-quy-trinh and production data unchanged."
+          "evidence": "Only MOW HTML/rule pointer docs/README/receipt edited. Registry, shared eco-nav.js, UI design source pages, tools-quy-trinh and production data unchanged. Owner-authorized popup fix changes VPS viewer pack/bootstrap, future Nuxt page source and runtime README only; protected Nuxt4 bundles remain byte-identical. No source UI or business data writes."
         }
       },
       "parity": {
@@ -55,11 +55,9 @@
             "actual": "13px"
           }
         ],
-        "differences": [
-          "Directory replaces frozen image gallery, as Owner requested; rule bodies moved here and old docs point here."
-        ]
+        "differences": []
       }
     }
   ],
-  "notes": "PARTIAL: rule SSOT and directory presentation complete; portal direct navigation blocked pending Owner approval to change outer iframe navigation permissions. Do not mark task complete."
+  "notes": "Verified requested changes: directory replaces frozen image gallery; rule bodies are canonical here and old docs point here. Portal navigation blocker resolved by Owner-authorized runtime b47545bc. Evidence/rollback: /opt/incomex/work/mow-mot-moit-mout/UI-PARENT-LINKS-20261008/. No claim of re-auditing business behavior of all child UIs."
 }
