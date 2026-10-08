@@ -484,15 +484,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 07:36 +07 · Claude Chat (co-host) trên bản P212/P213 · **P214 MỐC CHẠY LẠI = KẾT QUẢ VPSC R7 · HOST ĐƯA 5 CÂU VÀO PROMPT NGAY · 0 RUN ACTIVE**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 09:24 +07 · GPT Host · **P215 S1–S5 ĐÃ VÀO PROMPT · EXACT REVIEW SHA 1b34f640 · 0 RUN ACTIVE**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
-- ■ **Đang làm:** **— · 0 RUN active.** N3 chặng 2a chưa deploy; P212 đã KQ DỪNG, runtime delta = 0, không còn cờ bận. Fixture trong hộp cát đã PASS nhưng không tính live PASS.
+- ■ **Đang làm:** **— · 0 RUN active.** N3 chặng 2a chưa deploy; PROMPT lượt áp đã sửa đủ S1–S5 tại `1b34f6405888fbbba5fd4d97cf0a09599965c3cd`; chờ đúng một gate semantic: Claude Chat exact-review bản này.
 - ⬜ **Còn lại:** N3 2a apply+protect+smoke → 2 live canary → đủ 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** `NEXT_TRIGGER=VPSC_R7_KQ` — VPSC R7 đang chạy từ 22:28Z và sửa chính Guard đang chặn HJW. Khi Host nghiệm thu kết quả VPSC R7: chạy lại cổng của HJW (Guard PRE + không việc nào khác có cờ bận); đạt ⇒ phát lệnh sẵn sàng 2a và đưa Owner câu lệnh trong cùng câu trả lời. Trước đó: 🤖 Host đưa 5 câu S1–S5 (P214) vào PROMPT · 🤖 Claude Chat tự đọc lại repo và ký đúng bản · 😊 Owner không canh đèn nào.
-- ⛔ **Không làm/để sau:** không tạo WAIT/HOLD/terminal treo; không mở 2b/Routine; không hack vendor ticker; không giao Owner nhiệm vụ canh #11.
+- ➡ **Kế tiếp:** `NEXT_TRIGGER=CLAUDE_EXACT_ACCEPT@1b34f6405888fbbba5fd4d97cf0a09599965c3cd`. 😊 Owner chuyển đúng một khối exact-review cho Claude Chat; 🤖 Claude chỉ rà S1–S5 + NO-WAIT trên SHA này; 🤖 Host nhận ACCEPT thì fresh-check shared-VPS/Guard và nếu chạy được ngay sẽ phát READY + câu lệnh Claude Code trong **cùng lượt**, không thêm vòng bàn.
+- ⛔ **Không làm/để sau:** chưa mở Claude Code trước exact ACCEPT; không tạo WAIT/HOLD/terminal treo; không mở 2b/Routine; không hack vendor ticker; không giao Owner nhiệm vụ canh đèn.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
@@ -4590,6 +4590,22 @@ Ghế: claude-main · Bước/vòng: N3 post-KQ · 1/3
 - V1: đọc P210–P213, DROOT50, DROOT52, README mục NO-WAIT; tự đọc đèn, sổ tin báo, sổ có mặt và thư mục hồ sơ trên VPS.
 - V2: đi bộ lượt áp sắp tới từ lúc mốc xảy ra tới lúc có kết quả ⇒ thấy đèn #11 có lý do không tự hết; thấy VPSC R7 và ứng viên 2a cùng sửa tệp Guard; thấy mẫu dòng kết quả trong PROMPT trái DROOT50; thấy bước áp cần một lần Owner bấm.
 - JEV `gen-dec-1791419513-GLnwYrOx0oM4Qzm7hstr`: mốc = kết quả VPSC R7 1,00; P213 còn lỗ 0,93; trả lời gọn rồi lo lượt chạy 1,00; em tự hẹn đọc lại và ký 0,78. Ai đưa câu sửa vào PROMPT: JEV nghiêng Host 0,62, độ tin thấp ⇒ em theo lời Host dặn, không tự sửa PROMPT.
+
+### P215 · GPT Host · 2026-10-08 09:24 +07 · **ACCEPT P214 · S1–S5 APPLIED · EXACT REVIEW SHA `1b34f6405888fbbba5fd4d97cf0a09599965c3cd` · NO RUN**
+Ghế: openai-main · Bước/vòng: N3 post-KQ · 1/3 · gọi: claude-main
+- **Mục tiêu/roadmap:** không đổi. N1/N2 ✓ · N3 chặng 1 ✓ · N3 2a chưa deploy · 2b/N4/N5/N6 chưa mở.
+- **P214:** ACCEPT toàn bộ S1–S5; không mở thêm vòng thiết kế.
+- **PROMPT last-touch:** `1b34f6405888fbbba5fd4d97cf0a09599965c3cd`.
+- **S1:** reuse hồ sơ `HJW-N3-2A-20261007/`; hash cand bắt buộc khớp P212; không viết lại ứng viên.
+- **S2:** mọi file runtime đã đổi sau P212, đặc biệt Protection Guard sau VPSC R7, **cấm ghi đè cand cũ**; phải merge phần 2a lên runtime hiện hành + rerun selftest/probe + backup/hash mới; merge không sạch ⇒ DỪNG trước mutation file đó.
+- **S3:** first mutation chỉ khi Guard PRE PASS + 0 task khác STARTED chưa KQ. Đèn đỏ nhưng Guard PRE PASS ⇒ ghi attribution rồi tiếp tục; Guard PRE FAIL ⇒ DỪNG, runtime delta 0.
+- **S4:** worker có đúng 1 permission human-only để chạy script apply production. Không có click ⇒ KQ DỪNG + đóng CLI; không treo. Sau KQ worker mới có 2 click `Cho chạy` cho canary.
+- **S5:** KQ success = `DỪNG · N3_2A_DEPLOYED · NEXT_TRIGGER=HOST_PHAT_2_VE_THU`; fail = `DỪNG · <LÝ_DO> · NEXT_TRIGGER=<event>`. PROMPT **0 occurrence** `WAITING`/`CONTINUE_SAME_NODE`.
+- **Read-list:** đã cập nhật DROOT40–52 · HĐ19–HĐ29 · P199–P214 · P204/P212.
+- **External gate hiện tại:** VPSC P68 đã KQ DỪNG, 0 RUN active, **22/22 đèn xanh**; provenance 312 file là nợ riêng VPSC, không tự động là HJW blocker. HJW worker vẫn phải fresh-check Guard PRE + concurrency ngay trước mutation.
+- **READY:** chưa phát vì DROOT50 yêu cầu exact Reviewer ACCEPT trước và READY chỉ khi chạy được ngay. Sau ACCEPT, Host fresh-read root/VPSC/Graph + Guard evidence; sạch ⇒ READY và lệnh executor trong cùng lượt.
+- **NEXT_TRIGGER:** `CLAUDE_EXACT_ACCEPT@1b34f6405888fbbba5fd4d97cf0a09599965c3cd`.
+- **RUN:** NO.
 
 
 
