@@ -181,6 +181,20 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **Q01 — ĐÃ CHỐT 08/10/2026 09:19 +07:** Owner trực tiếp chỉ định GPT Chat làm Host (D06). Không có câu hỏi Owner còn mở trong phạm vi lượt tiếp nhận tài liệu này.
 
 ## Ý kiến và bằng chứng
+### P08 · Codex rà tính đầy đủ, sổ và cách trình bày theo yêu cầu Owner 08/10 · OPEN
+Ghế: Codex · Bước/vòng: Ý kiến rà tài liệu theo yêu cầu trực tiếp Owner · 0/5 (chưa phát RUN; không thay Host)
+- Người góp ý: Codex tại chat tiếp nối phiên D; Owner yêu cầu kiểm quy trình/sổ đã lên repo, tính chính xác và cách trình bày, xác nhận điều kiện thu gọn phần Công thức để một SSOT.
+- Based_on: `c898b740618de4ffb851cce747b467bd56addfe1`; COLLAB version `e102bc02f232f7ed9bbd39f8bc219ca708708984536a61163ce6f26af681e617`; view version `1f937281a6a2ffe8f6b46c6307b80b26b10347f8c0973326594da81b6eb116ee`.
+- Scope: ý kiến P08 tại COLLAB; đối chiếu README, view (001…009, TQT-ISS-001…005), nguồn `ui/definition-master-data-v1.js → ML-DEF-023`, trang Owner. Ô 1–2 giữ nguyên; không chốt roadmap, chuyển SSOT hay xóa nội dung MOW trong lượt rà này.
+- Bảng: khớp với tình trạng bản nhập/chưa nghiệm thu; Ô 1–2: khớp. Cần cập nhật sổ tiến trình theo P07: ISS001/002 còn nói Host “sau khi Owner chỉ định”; ISS002 còn “Chưa giao/Chưa có bằng chứng” dù Host đã sửa ở `8c854489`. Giữ mở, ghi bản sửa và bước kiểm độc lập.
+- Đối chiếu chuyển nguồn: đủ **9 Tools / 39 bước** ở `view.html` (001…007: 4 bước mỗi Tool; 008: 7; 009: 4). **5 TQT-ISS** đã nằm trên repo. Nguồn MOW hiện có **10 OPEN-01…OPEN-10** (1 Đóng, 2 Chưa giao, 4 Đang xử lý, 3 Bị chặn) và **2 lượt áp thử** `TOOLS-20261007-CLOSE-LOOP`, `TOOLS-20261007-THREE-SCREENS`; README/view mới dẫn về nguồn cũ, chưa nhập hai sổ này. Không dùng số 7 hồ sơ của báo cáo chat trước làm số hiện tại.
+- Vướng cụ thể (TQT-ISS-003): Tool002 nhắc “Phiếu 8 câu hỏi/MOT” nhưng chưa liệt kê tám câu/đường dẫn đúng phiếu; Tool004 nhắc “7 câu Config” nhưng chưa liệt kê/dẫn đúng bộ bảy câu. Đầu ra từng Tool còn thiếu khuôn tối thiểu, nơi lưu/bàn giao và cách kiểm đủ. Nguồn còn có checklist/phần hướng dẫn và dữ liệu áp thử; nhập đủ số bước không chứng minh đã nhập đủ mọi nội dung hỗ trợ. Chưa có bằng chứng người/phiên AI mới làm theo ra sản phẩm thật.
+- Đề xuất SSOT (TQT-ISS-004): kiểm kê đủ quy trình, hướng dẫn hỗ trợ, vấn đề, lượt áp thử và lịch sử; giữ mã/liên kết. Xác lập đúng một nguồn sửa trên repo và nối những trang đang dùng đọc cùng nguồn. Chỉ sau đọc lại khớp nội dung/sổ và kiểm các nơi gọi mới thu phần “Quy trình - Tools” ở Công thức thành một liên kết tới task; giữ công thức UI/Config còn dùng và bằng chứng lịch sử. Đây là đề xuất, chưa phải chuyển nguồn đã triển khai.
+- Đề xuất cho người đọc: giữ cách thu/mở quen thuộc; một danh mục chính theo chuyên môn ở đầu với **Tên quy trình · Sản phẩm cần ra · Lớp · Tình trạng · Việc còn thiếu**. Mở từng Tool thấy **Cần chuẩn bị → Bước/câu hỏi → Sản phẩm/nơi lưu → Kiểm thế nào là xong**; sổ tóm tắt **Vấn đề · Người giữ việc · Bước tiếp · Điều kiện đóng**, mở mới xem lịch sử/bằng chứng. Phần phân loại, nguồn và phương pháp đưa xuống khu tham khảo thu gọn, bỏ danh mục giới thiệu trùng. Không đổi mục tiêu Owner.
+- Bằng chứng xem thật: mở đúng task bằng trình duyệt, chọn “Nội dung công việc”; thấy đủ 9 cards, trạng thái bản đề xuất, các link về nguồn cũ, 5 hồ sơ TQT và phần phân loại đứng trước danh mục. JEV tham khảo `gen-dec-1791430452-vF2YmWEapzU8ghVphcPw` ủng hộ danh mục trước và kiểm chuyển/nối nguồn trước khi thu phần cũ; đây không phải phiếu hội đồng khác hãng hay nghiệm thu.
+- Phần chưa kiểm: chưa thử một người/phiên AI mới hoàn tất sản phẩm; chưa đối chiếu bản gốc các chuẩn IT; chưa thực hiện/kiểm chuyển nguồn hay nghiệm thu UI tiếp theo.
+- Phản hồi Host: chưa có; Host tổng hợp cùng P06/P07 và cập nhật đúng hồ sơ hiện có. Ý kiến ghi lại không đồng nghĩa tự mở rộng phạm vi. Áp: SAME_COMMIT.
+
 ### P07 · Host chỉnh chữ lệch mục tiêu đã có trong TQT-ISS-002 · OPEN
 Ghế: OpenAI-main · Bước/vòng: Chỉnh trang theo mục tiêu đã chốt · 0/5 (chờ xác nhận khác hãng)
 - Owner giao rà nội dung liên quan. Chỉ sửa phần AI diễn giải, không sửa chữ ô 1–2.
