@@ -79,6 +79,7 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 - Sửa tại Q-B1-03, Q-B1.3-02 và Q-CTCM-01 để bộ ghép Tìm không bắt thực hiện Dùng/Tạo/Sửa/Vô hiệu. Lỗi nguồn hoặc chưa đủ dữ kiện không được suy thành đối tượng không tồn tại. Không đổi Công thức hay sơ đồ vòng đời tổng.
 - Config: thêm required_reference trên nhóm CONFIG, chỉ tham chiếu 7 câu gốc theo vị trí và đáp án có thể đối chiếu; không sao chép câu vào ma trận. Bộ ghép hiển thị yêu cầu 4 câu bổ sung + 7 câu gốc và đường đọc; danh sách đối chiếu lấy chữ từ #tqt-7-cau đã có. Nguồn sửa legacy vẫn CONFIG_PRINCIPLES; chưa cắt chuyển. Cặp reuse_candidates chỉ là ứng viên kiểm, không tự nhận tương đương/đã trả lời.
 - R-PROVE kiểm hai chiều yêu cầu ↔ UI/Config ↔ ca kiểm; R-ANSWER phân biệt giá trị lúc chạy với thiếu nguồn/tiêu chí; R-INHERIT giữ phạm vi đáp án từng MOT. Vẫn 140 câu/53 nhóm; không thêm Bước con.
+- Kiểm trang thật fe7ed5c: CTCM+B1.3+FIELD+CONFIG hiện 31 câu trong ma trận và đủ 7 tham chiếu nguồn; đường “Mở 7 câu Config gốc” mở đúng tab cũ/mục tqt-7-cau. Đổi sang UI còn 32 câu, không mang khối Config; ba câu sửa hiện đúng trong bộ ghép. Đây là kiểm cấu trúc/giao diện, chưa phải ca sản phẩm MOW001.
 - Tiếp nhận cách thử tiếp theo: một phiếu ở task sản phẩm cho 3 MOT MOW001, mã câu → đáp án hoặc nguồn cấp lúc chạy → căn cứ → phần UI/Config → ca kiểm → kết quả/chỗ thiếu. DOER_CONFIRM theo kết quả thật. Lượt này xét/sửa góp ý và kiểm bộ ghép; chưa phải hoàn thành phiếu MOW001. MOW002 chưa làm.
 
 #### TQT-HOST-REVIEW-GPTPRO-20261008 · đã tiếp nhận có chọn lọc
