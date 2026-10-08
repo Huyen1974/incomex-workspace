@@ -10,14 +10,14 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 · Astra Codex
 - 🎯 Mục tiêu và tiêu chí gốc: ô 1–2; chỉ đạo bổ sung trực tiếp của Owner ngày 08/10 ở cuối ô 1.
-- ■ Đang làm: Host dựng Câu hỏi cơ bản theo Công thức, ma trận SSOT và cách ghép câu hỏi nghiệp vụ. Triển khai trực tiếp theo chỉ đạo Owner; P15/D16 READ-ONLY trước đây được thay thế trong phạm vi này.
+- ■ Đang làm: bộ câu hỏi ở giai đoạn áp dụng và hiệu chỉnh; giao diện bản đầu đã dựng và kiểm. Host tiếp nhận góp ý riêng. P15/D16 READ-ONLY được thay thế bởi chỉ đạo Owner giao trực tiếp Astra Codex.
 - ✅ Đã chuẩn bị: 9 bước lớn, 23 bước con, Field/MOIT/MOUT/MOT/MOW, tầng bối cảnh T3–T7 và 3 chuỗi; câu hỏi mới mang trạng thái đang hiệu chỉnh.
-- Kiểm tra giao diện: đang chờ kiểm chứng bản đã đồng bộ lên trang thật.
+- Kiểm tra giao diện: đã kiểm trên trang thật bản nội dung 7a4c0717eebd0c074635a2a5e8dab63e9fa56d18: B1→1.2 và mở lại URL, B8/B9 chưa tách, MOIT, CMSXQT, lọc không dấu, Config→mục cũ, bộ ghép 27 câu không trùng; màn hẹp 390px không tràn ngang. Đây là kiểm giao diện, chưa nghiệm thu tính đầy đủ của bộ câu hỏi.
 - ➡ Kế tiếp: dùng bộ câu hỏi trên một việc cụ thể → ghi đúng câu còn thiếu → Host xem ý kiến riêng và sửa nguồn. Chưa nghiệm thu bộ câu hỏi; chưa chuyển sang UI thứ 2.
 - Nội dung cũ: giữ nguyên trong tab Quy trình hiện có. TQT-ISS-004 (chuyển nguồn legacy) và TQT-ISS-006 (chốt quyền bằng máy) vẫn mở; không nhận là đã hoàn tất.
-- ⛔ Không làm/để sau: không đổi định nghĩa Công thức, Master, runtime MOW hay PG/Directus. Phạm vi lượt này chỉ bốn file của tools-quy-trinh.
-- 🏁 Xong khi: theo ô 2; UI của ma trận phải mở đúng câu, giữ nguồn duy nhất và giữ đường vào nội dung cũ. Nghiệm thu bộ câu hỏi cần việc áp dụng thật sau đó.
-- 📍 Tiến độ: ■ Dựng bản đầu → □ Kiểm giao diện → □ Áp dụng, hiệu chỉnh bộ câu hỏi.
+- 🏁 Xong khi: theo ô 2; nghiệm thu bộ câu hỏi cần việc áp dụng thật, không suy từ UI chạy được.
+- 📍 Tiến độ: ■ Dựng bản đầu → ■ Kiểm giao diện → □ Áp dụng, hiệu chỉnh bộ câu hỏi.
+- ⛔ Không làm/để sau: không đổi định nghĩa Công thức, Master, runtime MOW hay PG/Directus. Ngoài bốn file task, đã sửa đúng cơ chế liên kết của trang chứa để URL tools-quy-trinh mở đúng tab/mục; không mở rộng chức năng khác.
 
 ### 1. Mục tiêu
 **Đích:** việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể.
@@ -76,7 +76,9 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 
 #### TQT-ROOT-QUESTIONS-20261008 · triển khai theo chỉ đạo bổ sung ô 1
 - Một JSON trong view.html sinh sơ đồ, bảng câu hỏi và bộ ghép; câu mới = draft. Bốn tab: Câu hỏi cơ bản, Câu hỏi nghiệp vụ, Ma trận câu hỏi, Quy trình hiện có.
-- Kiểm cần làm trên trang thật: bấm B1→1.2 và các gốc khác; Field/MOIT/MOUT/MOT/MOW; ba chuỗi; ghép UI; lọc ma trận; liên kết cũ; bàn phím/màn hẹp. Chưa ghi PASS trước khi kiểm.
+- Bằng chứng 08/10: ma trận thật 135/135 câu, 53 nhóm; chọn CTCM + B1.2 + Field + UI → 27 câu/27 mã duy nhất. B1→1.2 hiện câu riêng + kế thừa, URL q-B1-2 tải lại đúng; B8/B9 không tự sinh con; MOIT và CMSXQT mở đúng câu; tìm 'nang cao' → 2 câu, 'de xuat' → 11 câu, 'giao viec' + Nghiệp vụ → 4 câu NTGV; Config→#tqt-7-cau mở tab cũ. Bàn phím đổi tab; 390px: body clientWidth=scrollWidth=375. Các câu đều còn draft.
+- Source nội dung: commit 7a4c0717eebd0c074635a2a5e8dab63e9fa56d18. Renderer VPS: a03174bffe3e65f6b9f2729257427a5808c16717. Phát hiện: trang chứa trước đây chỉ nhận section cho MOW; nay TQT dùng cùng cơ chế, vẫn kiểm nguồn iframe và mã mục. Source/kiểm/hoàn tác: /opt/incomex/work/tools-quy-trinh/TQT-QUESTIONS-20261008/; rollback --check PASS, chưa chạy rollback.
+- Nguồn runtime tại scripts/hvu-b2/README.md trên VPS; báo cáo dẫn nguồn: knowledge/current-state/reports/tqt-question-matrix-20261008.md. Ảnh kiểm chứng nằm trong output của phiên Host; không phải bản chuẩn mới.
 - Còn mở: áp dụng thật để hiệu chỉnh câu hỏi; ý kiến hội đồng gửi riêng để Host quyết; không tự sinh bước con B8/B9 hoặc công nhận nghiệm thu.
 
 #### TQT-REQ — bảng kiểm từng mục tiêu ở ô 1 · 07/10/2026
