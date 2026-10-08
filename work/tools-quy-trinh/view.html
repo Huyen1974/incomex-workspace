@@ -1174,7 +1174,57 @@ main{max-width:1240px} [hidden]{display:none!important}
       "label": "Config",
       "parent": null,
       "source": "Khởi tạo từ #tqt-7-cau; bộ câu hỏi ngắn đang hiệu chỉnh",
-      "legacy": "#tqt-7-cau"
+      "legacy": "#tqt-7-cau",
+      "required_reference": {
+        "href": "#tqt-7-cau",
+        "source": "CONFIG_PRINCIPLES · config-master-data-v1.js",
+        "count": 7,
+        "note": "4 câu bổ sung + phải đối chiếu 7 câu Config gốc. Câu trả lời tương đương chỉ được dẫn lại khi cùng phạm vi; người phụ trách Config không mặc nhiên là người thực hiện. Điều kiện khác trigger.",
+        "items": [
+          {
+            "source_index": 1,
+            "reuse_candidates": [
+              "Q-STEP-02",
+              "Q-CHILD-04"
+            ]
+          },
+          {
+            "source_index": 2,
+            "reuse_candidates": [
+              "Q-STEP-03",
+              "Q-CHILD-04"
+            ]
+          },
+          {
+            "source_index": 3,
+            "reuse_candidates": [
+              "Q-CONFIG-01",
+              "Q-LAYER-05"
+            ]
+          },
+          {
+            "source_index": 4,
+            "reuse_candidates": []
+          },
+          {
+            "source_index": 5,
+            "reuse_candidates": [
+              "Q-CHILD-03",
+              "Q-NTGV-01"
+            ]
+          },
+          {
+            "source_index": 6,
+            "reuse_candidates": []
+          },
+          {
+            "source_index": 7,
+            "reuse_candidates": [
+              "Q-CHILD-01"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "T3",
@@ -1336,7 +1386,7 @@ main{max-width:1240px} [hidden]{display:none!important}
     {
       "id": "Q-B1-03",
       "owner": "B1",
-      "text": "Kết quả dẫn đến Dùng, Tạo mới, Sửa hay Vô hiệu?",
+      "text": "Khi nào kết luận tìm được hoặc chưa tìm được; kết quả và căn cứ của kết luận là gì?",
       "status": "draft"
     },
     {
@@ -1516,7 +1566,7 @@ main{max-width:1240px} [hidden]{display:none!important}
     {
       "id": "Q-B1.3-02",
       "owner": "B1.3",
-      "text": "Xanh, vàng, đỏ dựa vào bằng chứng nào và cho phép đi tiếp ra sao?",
+      "text": "Xanh/Vàng/Đỏ thể hiện mức phù hợp với yêu cầu tìm dựa trên dữ kiện nào; chưa rõ thì bổ sung thông tin và tìm lại thế nào?",
       "status": "draft"
     },
     {
@@ -1852,7 +1902,7 @@ main{max-width:1240px} [hidden]{display:none!important}
     {
       "id": "Q-CTCM-01",
       "owner": "CTCM",
-      "text": "Thành phần máy nào cần tạo hoặc sửa, cho nhu cầu gì?",
+      "text": "Đang xét thành phần hoặc năng lực nào của cỗ máy, nhằm đáp ứng nhu cầu gì?",
       "status": "draft"
     },
     {
@@ -2083,7 +2133,7 @@ main{max-width:1240px} [hidden]{display:none!important}
       "id": "R-INHERIT",
       "scope": "basic",
       "title": "Kế thừa thế nào?",
-      "text": "Bước con dùng câu chung, câu của bước lớn và câu riêng; mỗi mã câu chỉ xuất hiện một lần. Câu trả lời kế thừa phải còn đúng phạm vi. Nếu mâu thuẫn, chỉ rõ nguồn cần sửa để Host quyết; không tự ghi đè."
+      "text": "Bước con dùng câu chung, câu của bước lớn và câu riêng; mỗi mã câu chỉ xuất hiện một lần. Câu trả lời kế thừa phải còn đúng phạm vi. Nếu mâu thuẫn, chỉ rõ nguồn cần sửa để Host quyết; không tự ghi đè. Dùng chung mã câu không có nghĩa dùng nguyên đáp án cho mọi MOT. Điều kiện hợp lệ của đối tượng là thông tin đối chiếu; không phải lệnh thực hiện Dùng trong bước Tìm."
     },
     {
       "id": "R-JOIN",
@@ -2095,13 +2145,13 @@ main{max-width:1240px} [hidden]{display:none!important}
       "id": "R-ANSWER",
       "scope": "compose",
       "title": "Mỗi câu trả lời phải truy được nguồn",
-      "text": "Lưu tại task sản phẩm: mã câu + đối tượng/phạm vi + câu trả lời + nguồn/phiên bản + bằng chứng hoặc chỗ còn thiếu. Không áp dụng phải có lý do. Thiếu thì ghi đúng câu, nguồn cần bổ sung và người xử lý; không đoán."
+      "text": "Lưu tại task sản phẩm: mã câu + đối tượng/phạm vi + câu trả lời + nguồn/phiên bản + bằng chứng hoặc chỗ còn thiếu. Không áp dụng phải có lý do. Thiếu thì ghi đúng câu, nguồn cần bổ sung và người xử lý; không đoán. Giá trị sẽ có lúc chạy không phải lỗ hổng nếu đã rõ nguồn cấp và cách kiểm; chưa rõ nguồn hoặc tiêu chí mới là chỗ thiếu thiết kế."
     },
     {
       "id": "R-PROVE",
       "scope": "compose",
       "title": "Từ câu trả lời đến sản phẩm",
-      "text": "Mỗi trường, nút, trạng thái trên UI phải chỉ được câu trả lời làm căn cứ; Config cũng phải truy được quy tắc của nó. Phần còn thiếu căn cứ chưa được chốt. Đọc đủ câu hỏi chưa có nghĩa đã trả lời đủ hoặc sản phẩm đã đạt."
+      "text": "Mỗi trường, nút, trạng thái UI và quy tắc Config phải truy được về câu trả lời có căn cứ. Chiều ngược lại: mỗi yêu cầu bắt buộc rút từ câu trả lời đã được thể hiện ở đâu và kiểm bằng ca nào? Nhiều yêu cầu có thể dùng chung một phần; không bắt mỗi câu bối cảnh có một nút riêng. Phân biệt có căn cứ, đã triển khai và đã kiểm chạy; phần thiếu vẫn ghi thiếu."
     }
   ]
 }</script>
@@ -2166,6 +2216,15 @@ $('tqt-search').addEventListener('input',matrix);$('tqt-filter').addEventListene
 $('tqt-json').value=JSON.stringify(D,null,2);
 const selections=[['chain','Chuỗi',['Chuỗi']],['step','Bước',['Bước lớn','Bước con']],['layer','Tầng',['Tầng']],['business','Nghiệp vụ',['Nghiệp vụ']]];
 $('tqt-compose').innerHTML=selections.map(([id,label,kinds])=>'<label>'+label+'<select id="tqt-select-'+id+'"><option value="">Chọn '+label.toLowerCase()+'…</option>'+D.groups.filter(g=>kinds.includes(g.kind)).map(g=>'<option value="'+g.id+'">'+esc(g.label)+'</option>').join('')+'</select></label>').join('');
+function requiredReference(id){
+ const ref=G[id].required_reference;if(!ref)return '';
+ const rows=[...document.querySelectorAll(ref.href+' tbody tr')];
+ const lines=ref.items.map(item=>{
+  const row=rows[item.source_index-1],label=row?.querySelector('td')?.textContent||('Câu nguồn '+item.source_index+' · chưa đọc được, mở nguồn để kiểm');
+  return '<li><a href="'+esc(ref.href)+'">'+esc(label)+'</a><small class="qid">'+esc(ref.source)+' · câu '+item.source_index+(item.reuse_candidates.length?' · Có thể đối chiếu đáp án: '+item.reuse_candidates.map(esc).join(', '):' · Trả lời theo câu nguồn')+'</small></li>';
+ }).join('');
+ return '<div class="hint"><b>'+esc(ref.note)+'</b><p><a href="'+esc(ref.href)+'">Mở 7 câu Config gốc →</a></p><details><summary>Đối chiếu từng câu nguồn · dùng lại đáp án đúng phạm vi</summary><ol class="question-list">'+lines+'</ol></details></div>';
+}
 function compose(){
  const ids=selections.map(([id])=>$('tqt-select-'+id).value).filter(Boolean);
  if(!ids.length){$('tqt-composed').innerHTML='<p class="mut">Chọn các thành phần để xem bộ câu hỏi cần trả lời.</p>';return}
@@ -2174,7 +2233,7 @@ function compose(){
  ids.forEach(inherit);
  const qs=D.questions.filter(q=>owners.has(q.owner));
  $('tqt-composed').innerHTML='<p><small>Đã chọn '+ids.length+'/4 thành phần</small><br><b>'+qs.length+' câu</b> · '+ids.map(id=>esc(G[id].label)).join(' + ')+'</p><p class="mut"><small>Đây là bộ câu hỏi để xem trước, chưa phải quy trình đã nghiệm thu. Khi làm thật, ghi câu trả lời và bằng chứng; câu không áp dụng phải có lý do.</small></p>'+
- [...owners].map(id=>'<details><summary>'+esc(G[id].label)+' · '+own(id).length+' câu</summary>'+list(own(id))+'</details>').join('');
+ ids.map(requiredReference).join('')+[...owners].map(id=>'<details><summary>'+esc(G[id].label)+' · '+own(id).length+' câu</summary>'+list(own(id))+'</details>').join('');
 }
 selections.forEach(([id])=>$('tqt-select-'+id).addEventListener('change',compose));compose();
 document.querySelector('.tq-tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)location.hash=b.dataset.tab});

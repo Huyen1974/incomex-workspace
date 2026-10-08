@@ -74,6 +74,13 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
+#### TQT-HOST-REVIEW-GPTPRO-R2-20261008
+- Tiếp nhận góp ý [vòng 2](proposals/TQT-PR-20261008-gptchat-review-questions-02.md), nguồn 7984be5; Host quyết định, không tính là nghiệm thu hoặc phiếu khác hãng.
+- Sửa tại Q-B1-03, Q-B1.3-02 và Q-CTCM-01 để bộ ghép Tìm không bắt thực hiện Dùng/Tạo/Sửa/Vô hiệu. Lỗi nguồn hoặc chưa đủ dữ kiện không được suy thành đối tượng không tồn tại. Không đổi Công thức hay sơ đồ vòng đời tổng.
+- Config: thêm required_reference trên nhóm CONFIG, chỉ tham chiếu 7 câu gốc theo vị trí và đáp án có thể đối chiếu; không sao chép câu vào ma trận. Bộ ghép hiển thị yêu cầu 4 câu bổ sung + 7 câu gốc và đường đọc; danh sách đối chiếu lấy chữ từ #tqt-7-cau đã có. Nguồn sửa legacy vẫn CONFIG_PRINCIPLES; chưa cắt chuyển. Cặp reuse_candidates chỉ là ứng viên kiểm, không tự nhận tương đương/đã trả lời.
+- R-PROVE kiểm hai chiều yêu cầu ↔ UI/Config ↔ ca kiểm; R-ANSWER phân biệt giá trị lúc chạy với thiếu nguồn/tiêu chí; R-INHERIT giữ phạm vi đáp án từng MOT. Vẫn 140 câu/53 nhóm; không thêm Bước con.
+- Tiếp nhận cách thử tiếp theo: một phiếu ở task sản phẩm cho 3 MOT MOW001, mã câu → đáp án hoặc nguồn cấp lúc chạy → căn cứ → phần UI/Config → ca kiểm → kết quả/chỗ thiếu. DOER_CONFIRM theo kết quả thật. Lượt này xét/sửa góp ý và kiểm bộ ghép; chưa phải hoàn thành phiếu MOW001. MOW002 chưa làm.
+
 #### TQT-HOST-REVIEW-GPTPRO-20261008 · đã tiếp nhận có chọn lọc
 - Nguồn góp ý: Owner chuyển nguyên văn ý kiến GPT Pro trong phiên Host; yêu cầu “Chỉ có bạn là xem xét cuối cùng và xem cần bổ sung những gì giúp tôi.” Host quyết định tiếp nhận vào bản đang hiệu chỉnh, không coi đây là Owner nghiệm thu bộ câu hỏi.
 - Đã có: ba thành phần Bước/Tầng/Chuỗi, 9 bước lớn/23 bước con, 5 loại đối tượng chính + T3–T7, 3 chuỗi; JSON SSOT, kế thừa, UI/Test/Config/NTGV. Không dựng lại hoặc nhân bản.
