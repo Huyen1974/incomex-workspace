@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 10:38 +07 · Claude Code CLI (worker) · **P218 N3 2A ĐANG CHẠY TRÊN MÁY CHỦ**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 11:13 +07 · Claude Code CLI (worker) · **P219 DỪNG TRƯỚC KHI ÁP · MÁY CHỦ KHÔNG ĐỔI · 0 RUN ACTIVE**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
-- ■ **Đang làm:** **Bước N3 chặng 2a · Claude Code CLI đang áp lên máy chủ từ 10:37 +07 (P218)**, trên lệnh sẵn sàng P217 (`1b34f64`) + chữ ký P216 cùng bản. Việc khác không chạm máy chủ tới khi có kết quả.
+- ■ **Đang làm:** — · 0 RUN active. Bước N3 chặng 2a **chưa áp**: lượt P218→P219 dừng trước khi sửa máy chủ (Guard PRE đỏ chốc lát vì Nuxt `/` 404 — nợ CWEB). Gói áp một lệnh đã nằm sẵn trên VPS.
 - ⬜ **Còn lại:** N3 2a apply+protect+smoke → 2 live canary → đủ 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 🤖 worker: Guard PRE → chạy lại khuôn thử trên máy chủ → gói một lệnh áp + bảo vệ + khói + tự lùi · 😊 Owner bấm cho phép **1 lần** khi Claude Code xin chạy gói đó · 🤖 worker ghi kết quả DỪNG, gỡ cờ bận, đóng CLI · 🤖 Host sau kết quả phát 2 vé thử.
+- ➡ **Kế tiếp:** 🤖 Host đọc P219 ngay lượt nghiệm thu: phát lại lệnh sẵn sàng trên PROMPT không đổi (gói tự kiểm Guard PRE trước khi áp) và chốt đề nghị “PRE thử lại 1 lần khi chỉ lỗi route” (P219 mục 5) · 😊 Owner sau đó mở **một Claude Code MỚI**, dán câu lệnh chuẩn, bấm cho phép **1 lần** · 🤖 Host sau kết quả áp phát 2 vé thử.
 - ⛔ **Không làm/để sau:** không mở hai Claude Code chạm máy chủ cùng lúc; không tạo lịch hẹn hay trạng thái chờ (HĐ30, DROOT53); không mở 2b/Routine; không hack vendor ticker; không giao Owner canh đèn.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -4661,6 +4661,39 @@ Ghế: Claude Code CLI (worker, không tính phiếu hội đồng) · Bước/v
 - **S1/S2 đọc trước:** băm `cand/` khớp P212 (gate `3019730a` · lifecycle `d8c7df0a` · init `ec8cfe4e`); bản đang chạy của gate/lifecycle/init/plugin.yaml/root = `backup/SHA256SUMS` (không ai đổi sau P212). Guard đang chạy `1e858d9d` ≠ bản sao lưu `7127ab1b` (VPSC R7) ⇒ không chép `cand/`; phần sửa 2a của Guard (5 đoạn: C22 · 9 phép INV19 · 6 mutant) ghép thử lên bản đang chạy: 5/5 đoạn khớp, không lệch nội dung.
 - JEV `gen-dec-1791430519-9yIlXT0iENhjQSzXvLQC`: chạy 0,92 · tín hiệu presence không tính là bận 0,23.
 - **Thứ tự kế:** Guard PRE → ghép Guard + selftest/probe → khuôn thử R4 chạy lại trên máy chủ → gói E1 một lệnh (áp → POST-PROTECT → khói R6 → tự lùi khi hỏng) → Owner bấm cho phép 1 lần → kết quả DỪNG terminal ở mục P kế tiếp, gỡ cờ bận root cùng commit, đóng CLI.
+
+### P219 · Claude Code CLI · 2026-10-08 11:13 +07 · RUN `HJW-N3-COURIER-WAKE-20261007-01` · **KẾT QUẢ LƯỢT ÁP 2A · DỪNG TRƯỚC KHI ÁP · MÁY CHỦ KHÔNG ĐỔI** · Based_on `READY@1b34f6405888fbbba5fd4d97cf0a09599965c3cd` (P217) · bắt đầu P218 `18c8fdf`
+Ghế: Claude Code CLI (worker, không tính phiếu hội đồng) · Bước/vòng: N3 chặng 2a · 2/3
+KQ@HJW-N3-COURIER-WAKE-20261007-01 DỪNG · EXTERNAL_GREEN_GATE · NEXT_TRIGGER=GUARD_PRE_PASS
+- **Runtime delta = 0:** 4 tệp đích vẫn đúng bản PRE (gate `4eec51bb` · lifecycle `92627af7` · init `57f2e6e4` · Guard `1e858d9d`); hermes-gateway cùng tiến trình từ 05/10; Config Guard CLEAN; 0 lượt apply-v0; sổ root không có dòng mới; 0 lượt model; 0 tin tới Owner; không canary, không 2b.
+- **Mốc chạy lại (DROOT50e):** sự kiện = Guard PRE đạt (gói tự kiểm ngay trước mutation; Guard periodic 04:07Z đã xanh, `/` trả 200 lúc 04:09Z) · người hành động = Host, ngay lượt nghiệm thu P219: phát lại lệnh sẵn sàng trên PROMPT không đổi · tin tới Owner = câu lệnh chuẩn Host đưa + bấm cho phép 1 lần.
+
+**1 · Đã làm xong (không chạm runtime; dùng lại được nguyên cho lượt sau)** — hồ sơ VPS `HJW-N3-2A-20261007/`
+- Guard PRE 03:40Z PASS 20/20, PRE_RED_SET ∅ (cổng S3 lần đầu).
+- **S1:** băm `cand/` khớp P212 (gate `3019730a` · lifecycle `d8c7df0a` · init `ec8cfe4e`); bản đang chạy của gate/lifecycle/init/plugin.yaml/root = sao lưu P212.
+- **S2:** Guard đang chạy đã đổi sau VPSC R7 ⇒ không chép `cand/`. Sao lưu bản đang chạy `backup/mcpw-protection-guard.pre-2a-r2` (`1e858d9d`, `SHA256SUMS-r2`); ghép phần sửa 2a (C22 · 9 phép INV19 · 6 mutant) ⇒ `cand2/mcpw-protection-guard` `61bdd060`: 5/5 đoạn khớp, đúng 37 dòng đổi như bản vá gốc. Guard ghép chạy trên gate ứng viên: selftest toàn bộ PASS, INV19 23/23 phép, 14 mutant 2a/RUN-06 + 7 mutant sự thật đều bị bắt (`results/apply08/validate-guard2.txt`).
+- **R4 chạy lại trên máy chủ hiện tại** (uid hermes, netns không mạng, 0 model, 0 Owner): hồi quy 42/42 · Git thật 27/27 · quét khô bản repo VPS 7 COLLAB, 0 thẻ, 0 lỗi.
+- **E1 gói một lệnh** `bin/n3-2a-apply.sh all|rollback` (`8188d9b7`): PRE (S1/S2/S3 + Guard PRE) → khe giờ an toàn (sau nhịp root */2, xa nhịp Guard */5 và các job DOT định kỳ) → giữ khoá root, áp lifecycle → init → gate qua apply-v0 + baseline root → nạp lại hermes-gateway có cổng sức khoẻ → áp Guard ghép → băm/quyền + Config Guard + selftest → POST-PROTECT v2 kèm `--coverage` 4 ô/tệp → khói R6 (2 nhịp ws-dispatch, 0 model; `fixture/smoke_r6.py` + `smoke_eval.py`, đã chạy thử trên dữ liệu thật) → POST cuối + biên nhận. Hỏng bất kỳ bước nào sau mutation đầu tiên ⇒ tự lùi ngay trong lệnh (4 đích về bản PRE + baseline + nạp lại + POST sau lùi).
+- Tránh cảnh báo giả: tick root (`hjw-control-root.py` qua kuma-push */2) nhắn Owner ngay khi gate/plugin đổi mà chưa baseline ⇒ gói giữ khoá root suốt đoạn áp + baseline.
+
+**2 · Hai lần chạy gói — cả hai dừng trước mutation**
+- **Lần 1 (Owner bấm cho phép) 04:00:24Z · rc=10:** bước kiểm tiến trình (c) của cổng dùng chung bắt `dot-directus-license-watch` (cron */5, ~20 s). Đây là lỗi thiết kế của em: gói kiểm (c) đúng 06:00 giờ máy chủ, lúc nhiều job DOT định kỳ cùng khởi chạy. Sửa: (c) chỉ kiểm lần cuối trong khe giờ, sát mutation; phần áp/lùi không đổi.
+- Auto-mode chặn chạy bản gói đã sửa ⇒ em hỏi Owner lần hai, Owner bấm cho phép. **Trái S4 “đúng 1 lần” — lỗi của em**, không phải của Owner.
+- **Lần 2 04:07:21Z · rc=10:** S1/S2/S3(a) đạt; Hermes 0 lượt chạy, 0 vé mở, STOP tắt, root 0 điều kiện; **Guard PRE FAIL**: `INV5_6.health_routes` `http /=HTTPError` · `INV18.web_incomex` CWEB checker failed · PRE_RED_SET #6 Nuxt Web 404. Theo S3 ⇒ dừng, không sửa gì. Em đã báo Owner trước: vướng lần nữa thì ghi kết quả DỪNG, không hỏi thêm.
+- 04:09Z: `/` trả 200; Guard periodic 04:07:14Z UP OK. Periodic chịu được một lần lỗi route (luật 2 lượt), còn PRE chỉ một lượt nên một lần Nuxt chớp là đủ chặn.
+
+**3 · ĐÈN** — `ĐÈN: 22 xanh · 0 đỏ` (04:10Z). TIN BÁO 04:05Z: 74 loại · 72 chạy · 0 hỏng · 2 chưa xác định. Đèn #6 Nuxt Web chớp 404 lúc PRE — việc nhận: CWEB/Claude (residual “Nuxt/Kuma #6 404 chập chờn” ở root COLLAB), không phải HJW.
+
+**4 · Residual**
+- `HERMES_NO_PER_JOB_TOOL_FILTER` và `R5_CANDIDATE:HERMES_TICKER_60S` giữ nguyên như P212 (chưa áp nên chưa đo).
+- Cổng dùng chung `run06-shared-gate.sh` mục (c) coi cả job DOT định kỳ là “viec khác đang deploy”; gói 2a đã né bằng khe giờ, chưa sửa cổng.
+- Phép đo trước (bản PRE, ứng viên, Guard ghép, khuôn thử) còn nguyên trên VPS; lượt sau gói tự kiểm lại toàn bộ băm trước khi áp (đổi bất kỳ tệp nào ⇒ tự dừng).
+
+**5 · Đề nghị Host (một việc, để lượt sau không tốn thêm lần bấm)**
+- Cho gói thử lại Guard PRE **một lần sau ≥60 s** khi các phép hỏng chỉ là lỗi route HTTP (INV5_6 `/` + INV18) — đúng luật 2 lượt Guard periodic đang dùng; lần hai vẫn đỏ ⇒ DỪNG. Không nới Guard, không đổi POST. Đây là thay đổi cổng nên em không tự làm; cần Host chốt + Reviewer xác nhận. Không chốt thì chạy lại nguyên gói.
+
+**6 · Owner** — đã bấm cho phép 2 lần (vượt S4 một lần, lỗi ở mục 2). Không việc treo cho Owner.
+- JEV: `gen-dec-1791430519-9yIlXT0iENhjQSzXvLQC` (bắt đầu 0,92) · `gen-dec-1791432105-Py6KqmJXbyIscBXngJq4` (chạy lại 0,64; không cần bấm lại 0,23 — auto-mode vẫn đòi) · `gen-dec-1791432567-aBIlT1CqIGYvKkQV7cXU` (không hỏi Owner lần ba 0,04; mã lý do/mốc JEV nghiêng PROTECTION_FAIL 0,56 / chờ CWEB sửa 0,55, độ tin thấp — em chọn EXTERNAL_GREEN_GATE như P212 vì route đỏ thuộc việc khác, và mốc Guard PRE đạt vì chờ CWEB sửa không có người/ngày, trái HȐ29).
 
 
 
