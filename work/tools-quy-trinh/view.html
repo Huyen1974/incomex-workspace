@@ -84,17 +84,17 @@ main{max-width:1240px} [hidden]{display:none!important}
 .tq .titleline{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:7px}
 .tq .titleline small{flex:1}.tq .quiet{background:#f7f9f4;border:1px solid var(--line);border-radius:16px;padding:4px 11px;font-size:12px;color:#506b57}
 .tq .formula{font:700 18px/1.5 ui-monospace,monospace;background:#f1f4ee;padding:3px 7px;border-radius:5px;display:inline-block;margin:4px 0 14px}
-.tq .flow{display:grid;grid-template-columns:98px minmax(0,1fr);gap:16px;align-items:center}
+.tq .tq-flow{display:grid;grid-template-columns:98px minmax(0,1fr);gap:16px;align-items:center}
 .tq .branches,.tq .branches>div{min-width:0}.tq .arrow{font-size:16px;margin:0}.tq-tabs{position:sticky;top:0;z-index:5}.tq .branches{border-left:2px solid #d6dfd3;padding-left:18px;display:grid;gap:13px}.tq .condition{display:block;font-size:12px;color:#6d766d;margin-bottom:5px}
-.tq .chain{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.tq .create-chain{flex-wrap:nowrap;overflow:auto;padding:3px 3px 8px}
+.tq .tq-chain{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.tq .create-chain{flex-wrap:nowrap;overflow:auto;padding:3px 3px 8px}
 .tq .piece{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid #cfd9ca;border-radius:10px;background:#fbfcf8;padding:10px 11px;color:#294332;font-size:14px;font-weight:650;line-height:1.3;min-height:48px}
 .tq .create-chain .piece{flex:0 0 auto;max-width:160px}.tq .piece:hover{background:#eef4e8;border-color:#799675}.tq .piece[aria-current=true]{border:2px solid #426a47;background:#eaf3e3}
 .tq .badge{flex:none;display:inline-grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#2d503b;color:white;font-size:13px;font-weight:750}
 .tq .child .badge{border-radius:4px;width:32px;height:25px;font-size:11px}.tq .edit .badge{background:#a57a13}.tq .retire .badge{background:#a55049}
 .tq .arrow{color:#80907d;flex:none}.tq .return{font-size:12px;color:#62765d;white-space:nowrap}
 .tq .layers{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.tq .pair{padding:10px;border:1px dashed #cbd6c5;border-radius:12px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}.tq .layers .piece{min-width:105px}
-.tq .chains{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.tq .chains .piece{padding:16px;display:flex;flex-direction:column;align-items:flex-start}.tq .count{font-size:12px;color:#6e7d6c;font-weight:400}
-.tq .detail{border:1px solid #cbdac3;background:#f7faf3;border-radius:12px;padding:18px;margin-top:16px;scroll-margin-top:16px}
+.tq .tq-chains{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.tq .tq-chains .piece{padding:16px;display:flex;flex-direction:column;align-items:flex-start}.tq .count{font-size:12px;color:#6e7d6c;font-weight:400}
+.tq .detail{border:1px solid #cbdac3;background:#f7faf3;border-radius:12px;padding:18px;margin-top:16px;scroll-margin-top:80px}
 .tq .detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.tq .detail-head button{border:0;background:transparent;color:#54684d;font-size:13px}
 .tq .question-list{margin:8px 0;padding-left:25px}.tq .question-list li{padding:7px 3px;border-bottom:1px solid #e3eadc}.tq .question-list li:last-child{border:0}
 .tq .qid{font:11px ui-monospace,monospace;color:#859080;margin-left:8px;white-space:nowrap}.tq .children{margin-top:14px;padding-top:12px;border-top:1px dashed #cbdac3}
@@ -103,7 +103,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 .tq input{flex:1;min-width:150px}.tq .matrix-wrap{overflow:auto;border:1px solid #dce4dc;border-radius:10px}.tq table{margin:0;font-size:14px;width:100%;border-collapse:collapse}.tq th{background:#eff4ea;color:#3d543c;position:sticky;top:0}.tq td,.tq th{padding:10px 12px;text-align:left;border-bottom:1px solid #e3e9df;vertical-align:top}.tq td:first-child{white-space:nowrap;font-size:11px}
 .tq textarea{width:100%;height:220px;border:1px solid #cbd6c5;border-radius:6px;padding:10px;font:12px/1.4 monospace}.tq .compose{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.tq label{display:grid;gap:5px;font-size:13px}.tq .status{background:#fbf5df;border-radius:20px;padding:3px 9px;font-size:12px;color:#866d1c}
 #tqt-legacy{border-top:1px solid #dce4dc;padding-top:10px}
-@media(max-width:750px){.tq .flow{grid-template-columns:75px minmax(0,1fr);gap:8px}.tq .branches{padding-left:10px}.tq .piece-section{padding:13px}.tq .piece{padding:8px;font-size:13px}.tq .chains{grid-template-columns:1fr}.tq .compose{grid-template-columns:1fr 1fr}.tq h1{font-size:25px}.tq h2{font-size:23px}.tq-tabs button{padding:8px 10px;font-size:13px}.tq .formula{font-size:15px}}
+@media(max-width:750px){.tq .tq-flow{grid-template-columns:75px minmax(0,1fr);gap:8px}.tq .branches{padding-left:10px}.tq .piece-section{padding:13px}.tq .piece{padding:8px;font-size:13px}.tq .tq-chains{grid-template-columns:1fr}.tq .compose{grid-template-columns:1fr 1fr}.tq h1{font-size:25px}.tq h2{font-size:23px}.tq-tabs button{padding:8px 10px;font-size:13px}.tq .formula{font-size:15px}}
 @media(prefers-reduced-motion:no-preference){.tq .piece{transition:background .12s,border-color .12s}}
 </style>
 </head>
@@ -122,12 +122,12 @@ main{max-width:1240px} [hidden]{display:none!important}
 <p class="hint"><b>Bấm một miếng để xem câu hỏi.</b> Bước, Tầng và Chuỗi là câu hỏi <b>chuyên môn</b>. Cùng cách nhìn như <a href="https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&amp;view=content&amp;section=matrix-view-formula" target="_blank" rel="noopener">Công thức ↗</a>. <span class="status">Bộ câu hỏi đang hiệu chỉnh</span></p>
 <div class="piece-section" id="tqt-steps"><div class="titleline"><h2>Bước</h2><small>CT-001 · Vòng đời tổng</small><a class="quiet" href="#q-STEP">Câu hỏi chung</a></div><div class="formula">Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }</div><div id="tqt-step-map"></div><div id="tqt-step-detail"></div></div>
 <div class="piece-section" id="tqt-layers"><div class="titleline"><h2>Tầng</h2><small>CT-002 · Ghép tầng</small><a class="quiet" href="#q-LAYER">Câu hỏi chung</a></div><div class="formula">Field ⇒ { MOIT | MOUT } ⇒ MOT ⇒ MOW</div><div id="tqt-layer-map"></div><div id="tqt-layer-detail"></div><p class="mut"><small>Đọc từ tầng thấp lên tầng cao. MOIT và MOUT cùng T0.5, có câu hỏi riêng.</small></p></div>
-<div class="piece-section" id="tqt-chains"><div class="titleline"><h2>Chuỗi</h2><small>CT-002.1</small><a class="quiet" href="#q-CHAIN">Câu hỏi chung</a></div><div class="chains" id="tqt-chain-map"></div><div id="tqt-chain-detail"></div></div>
+<div class="piece-section" id="tqt-chains"><div class="titleline"><h2>Chuỗi</h2><small>CT-002.1</small><a class="quiet" href="#q-CHAIN">Câu hỏi chung</a></div><div class="tq-chains" id="tqt-chain-map"></div><div id="tqt-chain-detail"></div></div>
 <p class="mut"><small>Một câu hỏi, một mã, một chỗ sửa trong ma trận. Các miếng trên chỉ là cách xem. Thêm bước con → thêm câu hỏi riêng, vẫn kế thừa câu hỏi của bước lớn.</small></p>
 </div>
 <div id="cau-hoi-nghiep-vu" role="tabpanel" aria-labelledby="tqt-tab-business" hidden>
 <div class="hint"><b>Làm việc gì → ghép bộ câu hỏi của việc đó.</b> Ba nhóm khởi đầu bên dưới đang được hiệu chỉnh; chưa có bộ nào được ghi nhận là nghiệm thu toàn bộ.</div>
-<div class="chains" id="tqt-business-map"></div><div id="tqt-business-detail"></div>
+<div class="tq-chains" id="tqt-business-map"></div><div id="tqt-business-detail"></div>
 <div class="piece-section"><h2>Ghép để làm một việc</h2><p class="mut">Chọn đúng phần đang làm. Câu hỏi được lấy từ cùng ma trận, không tạo thêm bản sao.</p><div class="compose" id="tqt-compose"></div><div id="tqt-composed" aria-live="polite"></div></div>
 <p class="mut"><small>Nhóm mới chỉ được thêm sau khi Host tiếp nhận. Ý kiến khác ghi riêng theo README của task; không sửa thẳng nguồn chính.</small></p>
 </div>
@@ -2021,11 +2021,11 @@ function piece(id,cls=''){
  const label=no?g.label.split(' · ').slice(1).join(' · '):g.label;
  return '<a class="piece '+cls+'" href="#'+anchor(id)+'" data-piece="'+id+'">'+(no?'<span class="badge">'+no+'</span>':'')+'<span>'+esc(label)+'</span></a>';
 }
-function route(cond,html){return '<div><span class="condition">'+cond+'</span><div class="chain">'+html+'</div></div>'}
+function route(cond,html){return '<div><span class="condition">'+cond+'</span><div class="tq-chain">'+html+'</div></div>'}
 const arrow='<span class="arrow" aria-hidden="true">→</span>';
-$('tqt-step-map').innerHTML='<div class="flow">'+piece('B1')+'<div class="branches">'+
+$('tqt-step-map').innerHTML='<div class="tq-flow">'+piece('B1')+'<div class="branches">'+
  route('Nếu đã có + dùng được',arrow+piece('B2'))+
- '<div><span class="condition">Nếu chưa có / không dùng được · TẠO MỚI</span><div class="chain create-chain" tabindex="0" aria-label="Tạo mới: bước 3 đến 7; cuộn ngang khi cần">'+arrow+[3,4,5,6,7].map(n=>piece('B'+n)).join(arrow)+arrow+'<span class="return">↩ Dùng</span></div></div>'+
+ '<div><span class="condition">Nếu chưa có / không dùng được · TẠO MỚI</span><div class="tq-chain create-chain" tabindex="0" aria-label="Tạo mới: bước 3 đến 7; cuộn ngang khi cần">'+arrow+[3,4,5,6,7].map(n=>piece('B'+n)).join(arrow)+arrow+'<span class="return">↩ Dùng</span></div></div>'+
  route('Nếu đã có + cần thay đổi',arrow+piece('B8','edit')+arrow+'<span class="return">↩ Dùng</span>')+
  route('Nếu không còn dùng',arrow+piece('B9','retire'))+'</div></div><p class="mut"><small>Bấm bước lớn để mở câu hỏi và các bước con. B8, B9 chưa tách bước con.</small></p>';
 $('tqt-layer-map').innerHTML='<div class="layers">'+piece('FIELD')+arrow+'<div class="pair" aria-label="Hai đối tượng T0.5">'+piece('MOIT')+piece('MOUT')+'</div>'+arrow+piece('MOT')+arrow+piece('MOW')+'</div><details><summary>Tầng bối cảnh · T3 ⇒ T4 ⇒ T5 ⇒ T6 ⇒ T7</summary><div class="layers">'+['T3','T4','T5','T6','T7'].map(id=>piece(id)).join(arrow)+'</div></details>';
@@ -2047,7 +2047,7 @@ function detail(id){
  const inherited=common(id);
  if(inherited.length)body+='<details><summary>'+inherited.length+' câu chung · áp dụng cùng câu riêng</summary>'+list(inherited)+'</details>';
  if(g.parent)body+='<p><a href="#q-'+g.parent+'">← Về bước lớn '+esc(G[g.parent].label)+'</a></p><details><summary>Kế thừa bước lớn: '+esc(G[g.parent].label)+'</summary>'+list([...common(g.parent),...own(g.parent)])+'</details>';
- if(g.kind==='Bước lớn')body+='<div class="children"><h3>Bước con</h3>'+(children.length?'<div class="chain">'+children.map(c=>piece(c.id,'child')).join('')+'</div><p><small>Mỗi bước con có câu hỏi riêng và kế thừa câu hỏi bước lớn. <a href="#q-CHILD">Xem câu hỏi chung cho bước con →</a></small></p>':'<p class="mut">Chưa tách bước con trong Công thức. Khi cần tách sẽ bổ sung câu hỏi cho từng bước con.</p>')+'</div>';
+ if(g.kind==='Bước lớn')body+='<div class="children"><h3>Bước con</h3>'+(children.length?'<div class="tq-chain">'+children.map(c=>piece(c.id,'child')).join('')+'</div><p><small>Mỗi bước con có câu hỏi riêng và kế thừa câu hỏi bước lớn. <a href="#q-CHILD">Xem câu hỏi chung cho bước con →</a></small></p>':'<p class="mut">Chưa tách bước con trong Công thức. Khi cần tách sẽ bổ sung câu hỏi cho từng bước con.</p>')+'</div>';
  if(g.legacy)body+='<p><small><a href="'+g.legacy+'">Đối chiếu quy trình đã có →</a></small></p>';
  body+='</div>';$('tqt-'+slot+'-detail').innerHTML=body;
  document.querySelectorAll('[data-piece]').forEach(a=>a.setAttribute('aria-current',String(a.dataset.piece===id)));
@@ -2084,7 +2084,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-close]');i
 function routeHash(){
  const id=decodeURIComponent(location.hash.slice(1));
  const group=D.groups.find(g=>anchor(g.id)===id||'q-'+g.id===id);
- if(group){detail(group.id);requestAnimationFrame(()=>$(anchor(group.id)).scrollIntoView({block:'nearest'}));return}
+ if(group){detail(group.id);requestAnimationFrame(()=>$(anchor(group.id)).scrollIntoView({block:'nearest',behavior:'instant'}));return}
  if(panels.includes(id)){tab(id);return}
  const target=id&&$(id);
  if(target&&$('tqt-legacy').contains(target)){tab('tqt-legacy');let p=target.parentElement;while(p&&p!==$('tqt-legacy')){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement}requestAnimationFrame(()=>target.scrollIntoView());return}
