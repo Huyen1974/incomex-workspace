@@ -2,16 +2,18 @@
 Tên việc: Tools quy trình — làm theo quy trình ra được sản phẩm
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: CHƯA XÁC NHẬN — chỉ còn thiếu Owner chỉ định Host (AGENTS MT3-C/A2, Q01). **Mục tiêu ĐÃ CHỐT:** Owner 08/10/2026 07:16 duyệt bản ở ô 1–2 và nói “Đây là Mục tiêu user chốt => cần làm theo và đạt mục tiêu.” (D04). AI không sửa chữ ô 1–2; cách làm do hội đồng AI tự bàn.
+Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 08/10/2026 07:16 (D04/D05); chỉ định trực tiếp GPT Chat làm Host và giao bắt đầu tiếp nhận các quy trình Tools CTCM vào nội dung task ngày 08/10/2026 09:19 +07 (D06). AI không sửa chữ ô 1–2.
+Host: GPT Chat
+Host_ID: OpenAI-main
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 07:32 +07 · Claude Chat · P05
 - 🎯 Mục tiêu: Owner chốt 08/10 — “việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể.” Đủ 15 dòng đọc ở ô 1. Vì sao (Owner): “số quy trình sẽ rất nhiều => chúng ta sẽ tập hợp toàn bộ các tools quy trình lên 1 task để có thể làm việc xuyên suốt, dài hạn, hội đồng AI dễ dàng có ý kiến đóng góp.”
 - 🏁 Xong khi: theo ô 2 — một quy trình đạt khi người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật. Mốc của cả việc do hội đồng chốt ở bước kế hoạch.
 - 📍 Tiến độ: ■ Khởi tạo / chỉ định Host → □ Chuẩn hóa → □ Áp dụng, kiểm chứng → □ Mở rộng và cải tiến.
 - ✅ Đã xong: tạo task (P01 · GPT) · sửa §0 đúng luật (P02 · Claude) · Owner duyệt mục tiêu bản viết lại 08/10 07:16, đã lên ô 1–2 (P04 · D04); bản 07/10 giữ ở Vòng trước.
-- ■ Đang làm: — · 0 RUN active
+- ■ Đang làm: Host GPT Chat đã nhận D06; đang tiếp nhận nội dung 9 Tools CTCM vào trang task · 0 RUN worker active.
 - ⬜ Còn lại: chọn nền chuẩn ngành IT cho ba lớp và sổ (ô 1 dòng 4); hoàn thiện cách phân nhóm/mẫu ba lớp; kiểm kê và nối nguồn; áp thử để sửa quy trình; chuẩn hóa phần lặp lại; tự động hóa phần đủ điều kiện; theo dõi sai sót đến khi đóng. Đây là các đầu việc cần đạt, chưa phải roadmap đã duyệt.
-- ➡ Kế tiếp: 😊 Owner gật Q01 (chỉ định Host) · NEXT_TRIGGER=OWNER_HOST_DESIGNATED · Host nhận việc, ghi dòng Host, mở vòng 1/5 chốt mốc + nền chuẩn + roadmap · Reviewer đối chiếu 15 dòng ô 1 · 🤖 agent chưa có lượt thực thi.
+- ➡ Kế tiếp: Host tiếp nhận thực chất 9 Tools CTCM vào `view.html`, phân loại ba chiều; ghi đề xuất/nguồn/chỗ thiếu tại P06 và đề nghị Claude-review phản biện theo AGENTS A5. Chưa phát READY/RUN hay thay nguồn runtime.
 - ⛔ Không làm/để sau: tạo task không bao gồm triển khai DOT/script, bảng PG, đổi runtime/UI production hay chuyển dữ liệu đang dùng ở MOW.
 
 ### 1. Mục tiêu
@@ -115,11 +117,11 @@ Ba chiều độc lập theo ô 1 dòng 2: **Chuỗi × nhóm chuyên môn × l�
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
 |---|---|---|---|---|
-| OpenAI-main | OpenAI | GPT Chat — phiên tạo task này | Host | CHƯA ĐO |
+| OpenAI-main | OpenAI | GPT Chat — phiên Owner chỉ định 08/10 | Host | Phiên Chat trực tiếp · đường gọi hội đồng CHƯA ĐO |
 | Claude-review | Anthropic | Claude Chat | Reviewer | CHƯA ĐO |
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 
-**Roster đề xuất, chưa kích hoạt.** Đề xuất Host: GPT Chat tại phiên này, vì đang nhận trực tiếp mục tiêu và lập đầu mối task. Claude-review (P02) đồng ý, kèm một đề nghị: Claude Chat được giao sửa §0/Bảng và phần trình bày cho người đọc của `view.html`, như cách đang làm ở HJW — Owner quyết cùng lúc ở Q01. Owner chưa chỉ định Host; chưa ghi dấu máy `Host:`, chưa gọi hội đồng, chưa có phiếu/quorum, PROMPT, READY, RUN hay assignment. Sau chỉ định, Host nhận vai và hoàn thiện đường gọi/roster theo AGENTS. Subagent hỗ trợ kiểm nội dung trong phiên soạn không phải một ghế hội đồng độc lập.
+**Roster hiệu lực từ D06:** GPT Chat là Host do Owner chỉ định trực tiếp; Claude Chat giữ ghế Reviewer khác hãng. Đường gọi Reviewer còn `CHƯA ĐO`; chưa có phiếu/quorum hay lệnh READY/RUN cho worker. Host được giao trực tiếp cập nhật nội dung tài liệu task, không mở rộng sang runtime, PG/Directus, hoặc dữ liệu nguồn UI hiện hành. Reviewer góp ý theo vòng AGENTS A5 sau khi có bản nháp/đề xuất.
 
 ### Vòng trước
 Bản 08/10 07:16 của ô 1: câu Đích kết thúc ở “ra đúng sản phẩm.”; Owner thêm vế “hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể” lúc 07:30 (D05). Các dòng khác không đổi.
@@ -172,8 +174,11 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **D05 · 2026-10-08 07:30 · EFFECTIVE:** Owner bổ sung câu Đích ở ô 1: thêm vế “hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể”. Về Host: “Việc host tôi chỉ đinh sau” — AI không nhắc lại Q01, Owner sẽ chủ động. Nguyên văn ở TQT-DIR. Áp: SAME_COMMIT.
 - HUMAN_DIRECTIVE@TQT-DICH-20261008 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/ §0 ô 1 câu Đích · step=chốt mục tiêu · recorded_by=Claude-review · quote="Đích: việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tơi muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể." · text=Thêm vế cuối vào câu Đích của ô 1. · audit=Tin nhắn trực tiếp Owner tại phiên Claude Chat, 2026-10-08 07:30 +07; commit P05.
 
+- **D06 · 2026-10-08 09:19 +07 · EFFECTIVE:** Owner chỉ định GPT Chat (OpenAI-main) là Host của `tools-quy-trinh`, đồng thời giao rà nội dung liên quan và đưa bộ quy trình từ Tools CTCM tại `mow-mot-moit-mout` vào trang nội dung task, phân loại đúng/dễ nhìn. Chỉ tiếp nhận và biên tập tài liệu task; không tự thay đổi SSOT runtime/MOW, chưa công nhận các quy trình đã nghiệm thu.
+- HUMAN_DIRECTIVE@TQT-HOST-IMPORT-20261008 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{COLLAB.md,view.html,README.md} · step=tiếp nhận quy trình CTCM · recorded_by=OpenAI-main · quote="Tôi chỉ đỉnh bạn làm host" · text=Host GPT Chat; đối chiếu mục tiêu mới và đưa quy trình CTCM lên nội dung task, phân loại dễ nhìn · audit=Tin nhắn trực tiếp Owner tại phiên GPT Chat 08/10/2026 09:19 +07; commit D06.
+
 ## Owner cần quyết
-- **Q01 — Chỉ định Host của tools-quy-trinh (việc duy nhất còn cần Owner).** Đề xuất: Host = GPT Chat; Claude Chat = Reviewer, được giao sửa §0/Bảng và phần trình bày cho người đọc. Lý do: GPT ghi repo không tốn quota và đang giữ nguồn Tools CTCM; Claude khác hãng giữ mục tiêu để lỗi P01 không lặp lại. Owner gật, hoặc nêu tên khác. Theo AGENTS MT3-C/A2 và DROOT46 quyền chỉ định Host thuộc Owner; không cần xác nhận lại tên task hay mục tiêu ở ô 1. **Owner 08/10 07:30: “Việc host tôi chỉ đinh sau” — AI không nhắc lại, Owner sẽ chủ động.**
+- **Q01 — ĐÃ CHỐT 08/10/2026 09:19 +07:** Owner trực tiếp chỉ định GPT Chat làm Host (D06). Không có câu hỏi Owner còn mở trong phạm vi lượt tiếp nhận tài liệu này.
 
 ## Ý kiến và bằng chứng
 ### P01 · Ghi nhận và tạo task theo yêu cầu trực tiếp · OPEN
