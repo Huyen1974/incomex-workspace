@@ -158,8 +158,153 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 <dt>Phân biệt</dt><dd>Điều kiện xác định khi nào được phép áp dụng; trigger xác định sự kiện kích hoạt việc đánh giá/thực hiện.</dd>
 <dt>Bản ghi · cần định nghĩa</dt><dd>Cần mô tả nguyên tắc bản ghi: hệ thống dựa vào đâu để xác định bản ghi áp dụng cho Config. Nội dung chi tiết chưa chốt; không mặc định tạo bản ghi mới hay dùng bản ghi có sẵn.</dd>
 </dl><p class="mut"><small>Công thức đi kèm: <a href="#cong-thuc">CT-TOOLS-CFG ③</a>. Nguồn cũ: <code>CONFIG_PRINCIPLES</code> (config-master-data-v1.js), cùng nguồn với Master Config và CT-007.</small></p></div>
-<!--TQT-P10-NEXT-->
+<h3 id="tool-9" style="font-size:18px">9 Tool · một khuôn</h3>
+<p>Bấm để mở. Thẻ nào cũng cùng thứ tự: 🎯 câu hỏi trọng tâm → 📥 cần gì / 📦 ra gì → 🔢 bước → 📦 để đâu / ✅ xong khi.</p>
+<div class="warn">🟡 Cả 9 là <b>BẢN ĐỀ XUẤT · CHƯA TỰ ĐỘNG HÓA</b>: chưa có người mới hoặc phiên AI mới làm theo ra sản phẩm thật. 📦 Kết quả ghi vào phiếu kiểm của UI đang rà (<a href="#tqt-noi-luu">lưu ở đâu</a>); mỗi lượt có mã ở <a href="#so-luot-chay">Sổ lượt chạy ④</a>; sai/thiếu chưa sửa ngay ghi <a href="#so-van-de">Sổ ⑤</a>.</div>
+
+<h3>Thiết kế UI <small>· 3</small></h3>
+<details id="tqt-ctcm-1"><summary><code>001</code><span class="t">Lập hành trình</span><span class="chip d">Design</span><span>🟡</span></summary><div class="in">
+<p>🎯 <b>Câu hỏi trọng tâm:</b> Người mới cần đạt gì? Bắt đầu ở đâu? Có những đường nào tới đích?</p>
+<div class="two"><div class="box"><h4>📥 Cần gì</h4>Người dùng + mục tiêu + điểm vào</div><div class="box"><h4>📦 Ra gì</h4>Sơ đồ đường đi và điều kiện kết thúc</div></div>
+<p><b>🧭 Cách làm:</b> Chốt mục tiêu; xác định điểm vào/ra; liệt kê đường thành công, đường thay thế và đường dừng.</p>
+<div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
+<tr><td>1. Xác định đích</td><td>Ai dùng, cần đạt gì, đầu vào từ đâu?</td><td>Mục tiêu và tiêu chí xong; thiếu thì ghi sổ.</td></tr>
+<tr><td>2. Vẽ đường đi</td><td>Mỗi MOT làm gì; điều kiện nào bỏ qua hoặc quay lại?</td><td>Luồng chính + nhánh có điều kiện.</td></tr>
+<tr><td>3. Đối chiếu nguồn</td><td>MOW/MOT/UI/Config nào có sẵn?</td><td>Tham chiếu SSOT; chuyển Tool6 khi thiếu.</td></tr>
+<tr><td>4. Chốt phạm vi thử</td><td>Đích người dùng cần nhận là gì; bắt đầu trống thế nào; những ca nào chứng minh đạt đích?</td><td>Phạm vi rõ để chạy Tool2–7.</td></tr>
+</tbody></table></div>
+<div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi đích/đường đi (<a href="#tqt-noi-luu">lưu ở đâu</a>). Lượt: <a href="#so-luot-chay">④</a>. Ví dụ: đường 1→3 / 1→2→3 ở <a href="#ap-thu">④</a>.</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
+<p class="foot">Nền IT: <a href="https://www.nngroup.com/articles/cognitive-walkthroughs/" target="_blank" rel="noopener">Task analysis / User flow ↗</a> · mã gốc TOOL-CTCM-001</p>
+</div></details>
+
+<details id="tqt-ctcm-2"><summary><code>002</code><span class="t">Rà như người mới</span><span class="chip d">Design</span><span>🟡</span></summary><div class="in">
+<p>🎯 <b>Câu hỏi trọng tâm:</b> Có biết cần làm gì, thấy nút, hiểu nút và biết kết quả không?</p>
+<div class="two"><div class="box"><h4>📥 Cần gì</h4>Hành trình + UI từng bước</div><div class="box"><h4>📦 Ra gì</h4>Phiếu 8 câu hỏi/MOT có bằng chứng</div></div>
+<p><b>🧭 Cách làm:</b> Tại mỗi hành động, giả định chưa biết hệ thống. Không dùng kiến thức code để bù cho thông tin UI thiếu.</p>
+<div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
+<tr><td>1. Mở như người mới</td><td>Chưa gõ/chưa chọn gì thấy gì? Mỗi MOT có màn riêng và minh hoạ tách riêng chưa?</td><td>Chụp trạng thái ban đầu; không dùng kết quả có sẵn làm bằng chứng.</td></tr>
+<tr><td>2. Thử từng hành động</td><td>Có thấy nút và hiểu kết quả trước khi bấm không?</td><td>Ghi nút, nhãn và điều hướng cần sửa.</td></tr>
+<tr><td>3. Đọc phản hồi</td><td>Có biết đang chạy, đã xong hoặc bị lỗi không?</td><td>Bằng chứng kết quả nhìn thấy.</td></tr>
+<tr><td>4. Kiểm hiệu lực quy trình</td><td>Đã trả lời đủ mà vẫn kẹt hoặc chưa tới đích thì thiếu câu nào/nhánh nào?</td><td>Sửa Tool gốc → thêm ca → chạy lại; liên kết hồ sơ, không chỉ ghi lỗi UI.</td></tr>
+</tbody></table></div>
+<p>📋 Phiếu: <a href="#tqt-8-cau">8 câu hỏi phải trả lời tại mỗi MOT</a> (bộ câu dùng chung, ngay dưới “Rà một UI”).</p>
+<div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi 8 câu/MOT (<a href="#tqt-noi-luu">lưu ở đâu</a>); MOW-NHC-001: <code>UI-REVIEW-MOW001.json</code>. Bản UI đang rà: <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001" target="_blank" rel="noopener">MOW-NHC-001 ↗</a></div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
+<p class="foot">Nền IT: <a href="https://www.nngroup.com/articles/cognitive-walkthroughs/" target="_blank" rel="noopener">Cognitive walkthrough ↗</a> · mã gốc TOOL-CTCM-002</p>
+</div></details>
+
+<details id="tqt-ctcm-3"><summary><code>003</code><span class="t">Phủ các nhánh</span><span class="chip d">Design</span><span>🟡</span></summary><div class="in">
+<p>🎯 <b>Câu hỏi trọng tâm:</b> Nếu rỗng, nhiều kết quả, lỗi, quay lại hoặc hủy thì đi đâu?</p>
+<div class="two"><div class="box"><h4>📥 Cần gì</h4>Trạng thái + sự kiện + điều kiện</div><div class="box"><h4>📦 Ra gì</h4>Bảng nếu/thì và ca kiểm cho từng nhánh</div></div>
+<p><b>🧭 Cách làm:</b> Mô hình trạng thái và chuyển hợp lệ/không hợp lệ; mỗi nhánh có hành động, phản hồi, đích; ghi lý do nhánh không áp dụng.</p>
+<div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
+<tr><td>1. Liệt kê trạng thái</td><td>Chưa nhập/chưa chọn, đang chạy, có kết quả, không kết quả, lỗi, hết quyền hay hủy?</td><td>Tách trạng thái đầu khỏi trạng thái rỗng sau tìm; khai điều kiện vào/ra từng màn.</td></tr>
+<tr><td>2. Lập nếu/thì</td><td>Điều kiện nào dẫn tới hành động/kết quả nào?</td><td>Bảng quyết định; chỉ rõ tổ hợp không áp dụng.</td></tr>
+<tr><td>3. Kiểm đường quay lại</td><td>Sai lựa chọn, thử lại, mất mạng, bấm hai lần thì sao?</td><td>Nhánh phục hồi và dữ liệu phải giữ.</td></tr>
+<tr><td>4. Sinh ca kiểm</td><td>Mỗi nhánh bắt buộc đã có ca và kết quả mong đợi chưa?</td><td>Mã nhánh ↔ mã ca; thiếu sang Tool8.</td></tr>
+</tbody></table></div>
+<div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi nhánh ↔ ca (<a href="#tqt-noi-luu">lưu ở đâu</a>). Ví dụ: <a href="#nhanh-16">16 nhánh B01–B16 ④</a>.</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
+<p class="foot">Nền IT: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener">State transition + Decision table ↗</a> · mã gốc TOOL-CTCM-003</p>
+</div></details>
+
+<h3>Config / kết nối <small>· 1</small></h3>
+<details id="tqt-ctcm-4"><summary><code>004</code><span class="t">Rà config</span><span class="chip d">Design</span><span>🔴</span></summary><div class="in">
+<p>🎯 <b>Câu hỏi trọng tâm:</b> Bắt đầu/kết thúc? Điều kiện/trigger? Ai làm/báo cáo/chuyển tiếp? Bản ghi nào?</p>
+<div class="two"><div class="box"><h4>📥 Cần gì</h4>7 câu Config + nguyên tắc bản ghi</div><div class="box"><h4>📦 Ra gì</h4>Luật nếu/thì, ưu tiên và hồ sơ thiếu</div></div>
+<p><b>🧭 Cách làm:</b> Với từng luật ghi nguồn, phạm vi, giá trị mặc định, trường bắt buộc, ưu tiên khi xung đột, hiệu lực và đường thất bại; chưa chốt không tự chọn.</p>
+<div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
+<tr><td>1. Đọc 7 câu Config</td><td>Bắt đầu/kết thúc? Điều kiện? Trigger? Ai làm? Báo cáo/chuyển ai?</td><td>Tham chiếu nguyên tắc có sẵn; chỉ khai ngoại lệ.</td></tr>
+<tr><td>2. Rà luật</td><td>Không khớp luật, nhiều luật khớp hoặc xung đột thì sao?</td><td>Luật ưu tiên, mặc định và nhánh dừng rõ ràng.</td></tr>
+<tr><td>3. Rà bản ghi</td><td>Tạo/sửa/trả gì; ai có quyền; phiên bản và chống lặp ra sao?</td><td>Hợp đồng đầu vào/đầu ra, quyền, lịch sử, phục hồi.</td></tr>
+<tr><td>4. Thử quyết định</td><td>Với mỗi điều kiện, kết quả có đúng và giải thích được không?</td><td>Ca kiểm luật; thiếu nghiệp vụ ghi sổ, không tự đoán.</td></tr>
+</tbody></table></div>
+<p>⚙️ Đối chiếu: <a href="#tqt-7-cau">7 câu Config</a> (bộ câu dùng chung, ngay dưới “Rà một UI”).</p>
+<div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi Config đã có/còn thiếu (<a href="#tqt-noi-luu">lưu ở đâu</a>); điểm chưa chốt ghi <a href="#so-van-de">Sổ ⑤</a>, không tự điền giả.</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
+<p class="foot">Nền IT: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener">Decision table + Contract review ↗</a> · mã gốc TOOL-CTCM-004</p>
+</div></details>
+
+<h3>Danh mục / dữ liệu <small>· 2</small></h3>
+<details id="tqt-ctcm-5"><summary><code>005</code><span class="t">Rà dữ liệu và lỗi</span><span class="chip d">Design</span><span>🔴</span></summary><div class="in">
+<p>🎯 <b>Câu hỏi trọng tâm:</b> Thiếu, sai, trùng, quá dài, không quyền, dữ liệu đã đổi thì sao?</p>
+<div class="two"><div class="box"><h4>📥 Cần gì</h4>Hợp đồng input và miền giá trị</div><div class="box"><h4>📦 Ra gì</h4>Dữ liệu thử hợp lệ, không hợp lệ, tại biên</div></div>
+<p><b>🧭 Cách làm:</b> Chia lớp dữ liệu; chọn đại diện và biên; kiểm thông báo rõ lỗi/cách sửa, không mất input và không tạo tác động ngoài ý muốn.</p>
+<div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
+<tr><td>1. Chia nhóm dữ liệu</td><td>Hợp lệ, không hợp lệ, rỗng và trùng gồm gì?</td><td>Một bộ đại diện cho từng nhóm.</td></tr>
+<tr><td>2. Thử sát giới hạn</td><td>Min/max, trước/sau biên, ký tự và độ dài nào được phép?</td><td>Ca tại biên theo hợp đồng thực tế.</td></tr>
+<tr><td>3. Thử lỗi phụ thuộc</td><td>Không quyền, timeout, dữ liệu cũ, dịch vụ lỗi thì sao?</td><td>Phản hồi đúng, không mất input, không báo rỗng thay lỗi.</td></tr>
+<tr><td>4. Lưu bộ thử</td><td>Dữ liệu nào dùng lại, có cần làm sạch sau ca không?</td><td>Fixture có nguồn và điều kiện dọn; không dùng secret.</td></tr>
+</tbody></table></div>
+<div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi dữ liệu thử (<a href="#tqt-noi-luu">lưu ở đâu</a>).</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
+<p class="foot">Nền IT: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener">Equivalence partitioning / Boundary values ↗</a> · mã gốc TOOL-CTCM-005 · thiết kế bộ dữ liệu/ca biên nên xếp Design</p>
+</div></details>
+
+<details id="tqt-ctcm-6"><summary><code>006</code><span class="t">Khớp danh tính và nguồn</span><span class="chip d">Design</span><span>🟡</span></summary><div class="in">
+<p>🎯 <b>Câu hỏi trọng tâm:</b> Mỗi mã có nguồn thật? UI có kế thừa cha? Sửa nguồn lan tới đâu?</p>
+<div class="two"><div class="box"><h4>📥 Cần gì</h4>MOW → MOT → UI con → UI cha → Config</div><div class="box"><h4>📦 Ra gì</h4>Bảng đủ/thiếu liên kết theo ID và phiên bản</div></div>
+<p><b>🧭 Cách làm:</b> Tra tên từ ID; kiểm tồn tại/quan hệ/phiên bản; không xem gán parent_id là bằng chứng kế thừa; ưu tiên nguồn thực thi chung.</p>
+<div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
+<tr><td>1. Tra trước khi tạo</td><td>Đã có mã, UI cha hoặc component phù hợp chưa?</td><td>Kết quả tra và bản dùng lại.</td></tr>
+<tr><td>2. Khớp chuỗi liên kết</td><td>Chuỗi/MOW/MOT/UI con/UI cha/Config có khớp ID không?</td><td>Bảng liên kết; thiếu giữ rõ Chưa có.</td></tr>
+<tr><td>3. So với UI cha</td><td>Cột, chữ, màu, ?, Help, điều hướng, lỗi có giống mẫu không?</td><td>So style và hành vi tại phiên bản cụ thể.</td></tr>
+<tr><td>4. Xử lý khác biệt</td><td>Khác là lỗi hay ngoại lệ cần duyệt?</td><td>Sửa nguồn chung hoặc hồ sơ Tool8; không copy thành SSOT khác.</td></tr>
+</tbody></table></div>
+<div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi ID/nguồn/parity (<a href="#tqt-noi-luu">lưu ở đâu</a>).</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
+<p class="foot">Nền IT: <a href="https://istqb.org/certifications/certified-tester-model-based-tester-ct-mbt/" target="_blank" rel="noopener">Traceability / Component reuse ↗</a> · mã gốc TOOL-CTCM-006</p>
+</div></details>
+
+<h3>Xét nguyên tắc giao việc của MOT <small>· 0</small></h3>
+<div class="box">⬜ Chưa có quy trình. Owner đã đặt nhóm này trong mục tiêu, nhưng 9 Tools CTCM chưa có. Cần đọc nguồn MOT thật; luật nền AGENTS (hội đồng AI) không thay được quy trình chuyên môn này · <a href="#TQT-ISS-005">TQT-ISS-005</a></div>
+
+<h3>Kiểm thử / nghiệm thu <small>· 1</small></h3>
+<details id="tqt-ctcm-7"><summary><code>007</code><span class="t">Chạy ca kiểm UI</span><span class="chip e">Execute</span><span>🟡</span></summary><div class="in">
+<p>🎯 <b>Câu hỏi trọng tâm:</b> Bấm có ra đúng kết quả? Bàn phím, nhãn, lỗi, quay lại và UI cha còn đúng?</p>
+<div class="two"><div class="box"><h4>📥 Cần gì</h4>Ca Given–When–Then + UI + dữ liệu thử</div><div class="box"><h4>📦 Ra gì</h4>Kết quả thực tế, ảnh/DOM, PASS/FAIL/BLOCKED</div></div>
+<p><b>🧭 Cách làm:</b> Chạy từng ca từ điều kiện đầu; so kết quả quan sát được; kiểm giao diện riêng với hành trình. AI đóng vai người mới không thay hoàn toàn thử với người thật.</p>
+<div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
+<tr><td>1. Viết ca</td><td>Cho trước gì; khi làm gì; thì thấy kết quả nào?</td><td>Ca Given–When–Then gắn yêu cầu và nhánh.</td></tr>
+<tr><td>2. Chạy như người dùng</td><td>Chuột, bàn phím, focus, tooltip, quay lại có dùng được không?</td><td>Kết quả thực tế + ảnh/DOM + phiên bản.</td></tr>
+<tr><td>3. Kiểm ảnh hưởng</td><td>Sửa phần chung có làm hỏng UI con nào không?</td><td>Chạy lại ca lỗi và ca liên quan; kiểm kích thước màn hình.</td></tr>
+<tr><td>4. Đối chiếu mục tiêu</td><td>Làm đúng các bước đã tới đích người dùng chưa, hay mới xong checklist?</td><td>Chưa tới đích → xác định câu/nhánh thiếu, sửa Tool gốc và chạy lại; blocker có mã sổ, không báo đạt.</td></tr>
+</tbody></table></div>
+<div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi kết quả ca, kèm ảnh/DOM và phiên bản (<a href="#tqt-noi-luu">lưu ở đâu</a>).</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
+<p class="foot">Nền IT: <a href="https://cucumber.io/docs/gherkin/reference/" target="_blank" rel="noopener">BDD / UI regression / Accessibility ↗</a> · mã gốc TOOL-CTCM-007 · mẫu ca ở <a href="#cach-ai-lam">③</a></p>
+</div></details>
+
+<h3>Vận hành / xử lý sai sót <small>· 1</small></h3>
+<details id="tqt-ctcm-8"><summary><code>008</code><span class="t">Ghi sổ và xử lý UI thiếu / lỗi</span><span class="chip e">Execute</span><span>🟢</span></summary><div class="in">
+<p>🎯 <b>Câu hỏi trọng tâm:</b> Ghi vào đâu? Ai xử lý, ai kiểm, ai theo dõi? Bước tiếp theo là gì? Khi nào được đóng?</p>
+<div class="two"><div class="box"><h4>📥 Cần gì</h4>UI thiếu/lỗi + kết quả cần có + bằng chứng</div><div class="box"><h4>📦 Ra gì</h4>Hồ sơ có người xử lý, bước tiếp theo và bằng chứng đóng</div></div>
+<p><b>🧭 Cách làm:</b> Ghi nhận → Phân loại → Giao xử lý → Sửa → Kiểm lại → Đóng; kiểm chưa đạt quay lại Sửa. Một hồ sơ, một ID, một người chịu trách nhiệm hiện tại; mọi chuyển trạng thái có lịch sử.</p>
+<div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
+<tr><td>1. Ghi nhận</td><td>UI thiếu, lỗi hay chưa rõ yêu cầu? Có hồ sơ cùng lỗi chưa?</td><td>Tra Sổ việc còn thiếu của MOW; ghi hoặc cập nhật cùng ID, gắn MOW/MOT/UI, mong đợi/thực tế, ảnh và bước tái hiện.</td></tr>
+<tr><td>2. Phân loại</td><td>Vi phạm yêu cầu đã chốt hay yêu cầu mới? Mức ảnh hưởng và ưu tiên nào?</td><td>Host phân loại Thiếu/Lỗi/Thay đổi; lỗi chặn bước không được ghi hoàn thành. Trùng liên kết hồ sơ gốc.</td></tr>
+<tr><td>3. Giao xử lý</td><td>Ai nhận sửa, ai kiểm lại, ai chịu trách nhiệm theo dõi?</td><td>Host ghi danh tính cụ thể, bước tiếp theo và hạn/mốc rà. Chưa giao thì hiện Chưa giao; không giả định có người đang làm.</td></tr>
+<tr><td>4. Sửa</td><td>Nguồn gốc nào phải sửa; những UI nào bị ảnh hưởng?</td><td>Người được giao sửa SSOT, cập nhật bản sửa và bằng chứng, chuyển Chờ kiểm.</td></tr>
+<tr><td>5. Kiểm lại</td><td>Ca lỗi đã đạt chưa? Ca liên quan có hỏng không?</td><td>Người kiểm được chỉ định chạy lại; chưa đạt → Đang xử lý; đủ bằng chứng → đề nghị đóng.</td></tr>
+<tr><td>6. Đóng hoặc mở lại</td><td>Điều kiện đóng đủ chưa? Lỗi tái diễn không?</td><td>Host theo quy tắc đóng: ghi kết quả, người xác minh, phiên bản và lịch sử. Tái diễn mở lại cùng hồ sơ khi cùng nguyên nhân.</td></tr>
+<tr><td>7. Theo dõi ngoại lệ</td><td>Bị chặn, để sau hoặc không sửa thì ai quyết và lúc nào xem lại?</td><td>Host theo dõi hồ sơ chưa đóng mỗi vòng làm việc; ghi lý do/phụ thuộc/mốc rà. Owner chỉ quyết nghiệp vụ hoặc ngoại lệ vượt quyền.</td></tr>
+</tbody></table></div>
+<div class="note">📎 Đi kèm Tool này: <a href="#di-toi-dich">Đi tới đích · 8 câu ③</a> · <a href="#sua-hay-ghi">Sửa ngay hay ghi sổ ③</a> · <a href="#vong-doi">Vòng đời sổ ⑤</a>. Bước 1 ghi “Sổ việc còn thiếu của MOW”: sau cắt chuyển là <a href="#so-van-de">Sổ ⑤</a> trang này.</div>
+<div class="two"><div class="box"><h4>📦 Để đâu</h4><a href="#so-van-de">Sổ vấn đề ⑤</a> (hồ sơ) · <a href="#so-luot-chay">Sổ lượt chạy ④</a> (kết quả lượt).</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>; hồ sơ chỉ Đóng khi qua <a href="#sua-hay-ghi">cổng ③</a> (có kết quả kiểm và phiên bản).</div></div>
+<p class="foot">Nền IT: <a href="https://tbok.istqb.org/search?q=defect+report" target="_blank" rel="noopener">Defect management / Issue lifecycle ↗</a> · mã gốc TOOL-CTCM-008 · tên cũ: Ghi sổ và đóng gói DOT</p>
+</div></details>
+
+<h3>Đóng gói / phát hành <small>· 1</small></h3>
+<details id="tqt-ctcm-9"><summary><code>009</code><span class="t">Đóng gói và phát hành DOT</span><span class="chip e">Execute</span><span>🔴</span></summary><div class="in">
+<p>🎯 <b>Câu hỏi trọng tâm:</b> Phần nào tự động được? Có quyền gì? Lỗi, chạy lại và quay lui thế nào?</p>
+<div class="two"><div class="box"><h4>📥 Cần gì</h4>Quy trình đã rõ + ca kiểm + phạm vi được giao</div><div class="box"><h4>📦 Ra gì</h4>DOT có phiên bản, bằng chứng chạy và phương án quay lui</div></div>
+<p><b>🧭 Cách làm:</b> Chốt hợp đồng → viết DOT → chạy thử → rà bằng chứng → phát hành theo quyền → theo dõi. Viết tài liệu không đồng nghĩa DOT đã chạy.</p>
+<div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
+<tr><td>1. Chốt hợp đồng</td><td>Input/output/quyền/điều kiện/trigger và chống lặp đã đủ chưa?</td><td>Hợp đồng máy đọc được; điểm chưa rõ ghi Tool8.</td></tr>
+<tr><td>2. Viết và chạy thử</td><td>Mọi nhánh bắt buộc có ca chạy và lỗi có phục hồi không?</td><td>DOT + kết quả thử trong phạm vi được giao.</td></tr>
+<tr><td>3. Rà và phát hành</td><td>Ai cho phép? Phiên bản nào? Có quay lui được không?</td><td>Bằng chứng kiểm, phiên bản và phương án quay lui; chưa đủ giữ thử nghiệm.</td></tr>
+<tr><td>4. Theo dõi và cải tiến</td><td>Ai nhận lỗi? Khi nào dừng hoặc quay lui?</td><td>Log, chỉ số/nhắc việc theo config; sự cố quay về Tool8, cập nhật cùng SSOT.</td></tr>
+</tbody></table></div>
+<div class="two"><div class="box"><h4>📦 Để đâu</h4><a href="#so-luot-chay">Sổ lượt chạy ④</a>, mục TOOL-CTCM-009. Chuỗi bước: <a href="#tool-sang-dot">Từ Tool sang DOT ③</a>.</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
+<p class="foot">Nền IT: <a href="https://cucumber.io/docs/gherkin/reference/" target="_blank" rel="noopener">BDD / Controlled release ↗</a> · mã gốc TOOL-CTCM-009 · đây là quy trình người/agent làm để đóng gói (Execute), chưa phải DOT/script đã có</p>
+</div></details>
 </section>
+
+<!--TQT-P10-NEXT-->
 </main>
 </body>
 </html>
