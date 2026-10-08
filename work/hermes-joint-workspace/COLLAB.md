@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 10:18 +07 · GPT Host · **P217 READY N3 2A · CHẠY NGAY · 0 RUN ACTIVE TRƯỚC START**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 10:38 +07 · Claude Code CLI (worker) · **P218 N3 2A ĐANG CHẠY TRÊN MÁY CHỦ**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
-- ■ **Đang làm:** **Bước N3 chặng 2a · READY, Owner mở Claude Code MỚI ngay**. `READY@1b34f6405888fbbba5fd4d97cf0a09599965c3cd` + P216 exact ACCEPT đã đủ. Gate tươi: HJW/VPSC/Graph 0 RUN active; VPSC 22/22 xanh; Guard đạt. HJW 2a là lượt shared-VPS kế tiếp.
+- ■ **Đang làm:** **Bước N3 chặng 2a · Claude Code CLI đang áp lên máy chủ từ 10:37 +07 (P218)**, trên lệnh sẵn sàng P217 (`1b34f64`) + chữ ký P216 cùng bản. Việc khác không chạm máy chủ tới khi có kết quả.
 - ⬜ **Còn lại:** N3 2a apply+protect+smoke → 2 live canary → đủ 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner mở **một Claude Code MỚI** cho HJW và dán câu lệnh chuẩn; khi nó xin quyền chạy gói apply production, bấm cho phép **1 lần** · 🤖 worker tự ghi STARTED + root busy, chạy E1/S1–S5, KQ DỪNG terminal rồi đóng CLI · 🤖 Host sau KQ phát 2 vé thử.
+- ➡ **Kế tiếp:** 🤖 worker: Guard PRE → chạy lại khuôn thử trên máy chủ → gói một lệnh áp + bảo vệ + khói + tự lùi · 😊 Owner bấm cho phép **1 lần** khi Claude Code xin chạy gói đó · 🤖 worker ghi kết quả DỪNG, gỡ cờ bận, đóng CLI · 🤖 Host sau kết quả phát 2 vé thử.
 - ⛔ **Không làm/để sau:** không mở hai Claude Code chạm máy chủ cùng lúc; không tạo lịch hẹn hay trạng thái chờ (HĐ30, DROOT53); không mở 2b/Routine; không hack vendor ticker; không giao Owner canh đèn.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -4651,6 +4651,16 @@ Ghế: openai-main · Bước/vòng: N3 post-KQ · 2/3 · thực thi kế: Claud
 - **S1–S5 giữ nguyên:** reuse candidate P212 + verify hash/fixture; merge Guard mới, không ghi đè; Guard PRE PASS + 0 busy; đúng 1 permission human-only cho gói production; KQ NO-WAIT terminal.
 - **Owner action:** mở đúng **một Claude Code MỚI**, dán lệnh DROOT38; khi nó hỏi quyền chạy gói production, bấm cho phép **một lần**. Không mở Graph/VPSC Claude Code song song.
 - **CLI:** MỞ MỚI NGAY.
+
+### P218 · Claude Code CLI · 2026-10-08 10:38 +07 · RUN `HJW-N3-COURIER-WAKE-20261007-01` · **BẮT ĐẦU LƯỢT ÁP N3 2A LÊN MÁY CHỦ** · Based_on `READY@1b34f6405888fbbba5fd4d97cf0a09599965c3cd` (P217) + Reviewer exact ACCEPT P216 cùng bản
+Ghế: Claude Code CLI (worker, không tính phiếu hội đồng) · Bước/vòng: N3 chặng 2a · 2/3
+- STARTED@HJW-N3-COURIER-WAKE-20261007-01 2026-10-08T03:37Z · executor=Claude Code CLI (phiên mới trên Mac) · phase=2a-apply · cờ bận MỚI (hai dòng kết quả DỪNG ở P204, P212 thuộc lượt trước) · cờ bận root E2 ghi cùng commit này.
+- **Read-gate PASS:** PROMPT last-touch `1b34f64…` = READY P217 = bản Reviewer P216; 0 STOP_REQUESTED; 0 COUNCIL_ALERT mở; HEAD `750a451` (commit sau P217 chỉ chạm VPSC P70 — chốt HJW 2a đi trước — và `tools-quy-trinh`). Dòng `STATUS: DRAFT…` trong PROMPT là nhãn lúc soạn (P209/P216). Owner chuyển câu lệnh chuẩn DROOT38 + E1/E2 trong phiên này.
+- **Concurrency PASS (03:34Z):** cổng dùng chung trên bản repo VPS `c898b74`: (a) 0 việc khác có cờ bận chưa kết quả · (b) tín hiệu “Đang làm” của VPSC/MMIM/TQT/Graph đều là một bề mặt GPT web đọc/ghi repo, không chạm máy chủ · (c) 0 tiến trình deploy/apply. Hermes: 0 lượt claimed/running. Mac: chỉ phiên Claude Code này.
+- **ĐÈN: 22 xanh · 0 đỏ** (03:30Z) · TIN BÁO 03:30Z: 74 loại · 72 chạy · 0 hỏng · 2 chưa xác định.
+- **S1/S2 đọc trước:** băm `cand/` khớp P212 (gate `3019730a` · lifecycle `d8c7df0a` · init `ec8cfe4e`); bản đang chạy của gate/lifecycle/init/plugin.yaml/root = `backup/SHA256SUMS` (không ai đổi sau P212). Guard đang chạy `1e858d9d` ≠ bản sao lưu `7127ab1b` (VPSC R7) ⇒ không chép `cand/`; phần sửa 2a của Guard (5 đoạn: C22 · 9 phép INV19 · 6 mutant) ghép thử lên bản đang chạy: 5/5 đoạn khớp, không lệch nội dung.
+- JEV `gen-dec-1791430519-9yIlXT0iENhjQSzXvLQC`: chạy 0,92 · tín hiệu presence không tính là bận 0,23.
+- **Thứ tự kế:** Guard PRE → ghép Guard + selftest/probe → khuôn thử R4 chạy lại trên máy chủ → gói E1 một lệnh (áp → POST-PROTECT → khói R6 → tự lùi khi hỏng) → Owner bấm cho phép 1 lần → kết quả DỪNG terminal ở mục P kế tiếp, gỡ cờ bận root cùng commit, đóng CLI.
 
 
 
