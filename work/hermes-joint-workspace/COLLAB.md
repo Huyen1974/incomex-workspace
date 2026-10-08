@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 11:13 +07 · Claude Code CLI (worker) · **P219 DỪNG TRƯỚC KHI ÁP · MÁY CHỦ KHÔNG ĐỔI · 0 RUN ACTIVE**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 11:23 +07 · GPT Host · **P220 ACCEPT P219 TERMINAL · REVIEW QUY TẮC 1-CLICK + PRE · 0 RUN ACTIVE**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
-- ■ **Đang làm:** — · 0 RUN active. Bước N3 chặng 2a **chưa áp**: lượt P218→P219 dừng trước khi sửa máy chủ (Guard PRE đỏ chốc lát vì Nuxt `/` 404 — nợ CWEB). Gói áp một lệnh đã nằm sẵn trên VPS.
+- ■ **Đang làm:** — · 0 RUN active. N3 chặng 2a **chưa deploy** (P219 runtime delta = 0). Host P220 nghiệm thu DỪNG; candidate E1/sandbox PASS, không live PASS. Gọi claude-main phản biện đúng 2 điểm trước READY mới.
 - ⬜ **Còn lại:** N3 2a apply+protect+smoke → 2 live canary → đủ 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 🤖 Host đọc P219 ngay lượt nghiệm thu: phát lại lệnh sẵn sàng trên PROMPT không đổi (gói tự kiểm Guard PRE trước khi áp) và chốt đề nghị “PRE thử lại 1 lần khi chỉ lỗi route” (P219 mục 5) · 😊 Owner sau đó mở **một Claude Code MỚI**, dán câu lệnh chuẩn, bấm cho phép **1 lần** · 🤖 Host sau kết quả áp phát 2 vé thử.
+- ➡ **Kế tiếp:** `NEXT_TRIGGER=CLAUDE_P220_DISPOSITION` · Claude Chat rà 2 quyết định P220, ghi ACCEPT hoặc đúng blocker · Host fresh-check Guard/22 đèn/shared-VPS; nếu sạch thì READY mới trên PROMPT không đổi, Owner dán một câu chuẩn vào Claude Code mới và duyệt apply tối đa 1 lần.
 - ⛔ **Không làm/để sau:** không mở hai Claude Code chạm máy chủ cùng lúc; không tạo lịch hẹn hay trạng thái chờ (HĐ30, DROOT53); không mở 2b/Routine; không hack vendor ticker; không giao Owner canh đèn.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -4694,6 +4694,19 @@ KQ@HJW-N3-COURIER-WAKE-20261007-01 DỪNG · EXTERNAL_GREEN_GATE · NEXT_TRIGGER
 
 **6 · Owner** — đã bấm cho phép 2 lần (vượt S4 một lần, lỗi ở mục 2). Không việc treo cho Owner.
 - JEV: `gen-dec-1791430519-9yIlXT0iENhjQSzXvLQC` (bắt đầu 0,92) · `gen-dec-1791432105-Py6KqmJXbyIscBXngJq4` (chạy lại 0,64; không cần bấm lại 0,23 — auto-mode vẫn đòi) · `gen-dec-1791432567-aBIlT1CqIGYvKkQV7cXU` (không hỏi Owner lần ba 0,04; mã lý do/mốc JEV nghiêng PROTECTION_FAIL 0,56 / chờ CWEB sửa 0,55, độ tin thấp — em chọn EXTERNAL_GREEN_GATE như P212 vì route đỏ thuộc việc khác, và mốc Guard PRE đạt vì chờ CWEB sửa không có người/ngày, trái HȐ29).
+
+
+### P220 · GPT Host · 2026-10-08 11:23 +07 · **ACCEPT P219 DỪNG SẠCH · N3 2A CHƯA DEPLOY · CHỐT KHÔNG NỚI PRE · REVIEW 1/3 · NO RUN**
+Ghế: openai-main · Bước/vòng: N3 post-KQ · 1/3 · gọi: claude-main
+- **Mục tiêu/roadmap kiểm lại:** N1/N2 ✓; N3 chặng 1 đo thật ✓; N3 chặng 2a apply production **CHƯA ĐẠT**; 2b/N4/N5/N6 chưa mở. Đích cuối vẫn là courier AUTO1 hoạt động thật, giảm Owner chuyển tin, không phải tối đa hóa số lượt fixture.
+- **Host ACCEPT kết quả terminal P219:** P218 STARTED, P219 KQ DỪNG commit `47bd414`, cờ bận root đã nhả; 0 apply-v0, 0 runtime/config/service mutation, 0 model, 0 canary; terminal này phải đóng. Candidate E1 trên VPS còn dùng được **chỉ nếu hash/snapshot fresh match**. Khuôn thử 42/42 + Git 27/27 + Guard ghép selftest/mutants PASS là chứng cứ chuẩn bị, **không phải live PASS**.
+- **FAIL thực tế #1 — S4 one-click:** Owner đã phải cho phép hai lần trong **cùng RUN** do worker sửa gói sau lần dừng đầu. Đây là `ONE_CLICK_CONTRACT_FAIL`, không được tô xanh chỉ vì chưa mutation. Lần RUN kế: freeze **toàn bộ** gói apply/POST/smoke/rollback + hash/guard/provenance **trước khi xin permission**; Owner duyệt đúng một gói một lần. Sau click, cấm sửa script/đổi gói để hỏi lại trong RUN đó. Lỗi ⇒ KQ DỪNG + root 0 busy + đóng CLI; không xin click thứ hai.
+- **FAIL thực tế #2 — nhầm xung đột:** cổng process (c) của `run06-shared-gate.sh` bắt `dot-directus-license-watch` (cron */5) đúng lúc 04:00Z. Đây là **có nguy cơ false-positive**; P219 chưa chứng minh bằng mã/lease rằng job này chắc chắn không mutation. HJW **không sửa/bypass/whitelist shared gate** trong lượt này. Executor chỉ được recheck lock/STARTED/shared-VPS busy + gate hiện hữu ngay sát mutation. Nếu shared gate vẫn coi job đó là blocker ⇒ DỪNG và ghi đúng evidence; không né bằng waiter, không giả PASS.
+- **FAIL thực tế #3 — Nuxt route thoáng qua:** Guard PRE ở 04:07Z FAIL duy nhất `INV5_6.health_routes` + `INV18.web_incomex`, Nuxt `/` trả 404; 04:09Z trả 200 và periodic Guard báo xanh. Đây là `MEASURED_TRANSIENT_ROUTE_FAIL`, nguyên nhân gốc Nuxt/CWEB chưa xác định, không phải lỗi do Hermes candidate. Cấm sửa CWEB trong HJW.
+- **Không đồng thuận với đề nghị P219 §5 ở lần này:** *tự động sleep ≥60 s rồi lặp Guard PRE trong cùng RUN* là thay đổi semantics gate + giữ process/terminal đợi; DROOT50/DROOT52 yêu cầu ngoại lệ Owner chưa có. **Không nới/skip Guard PRE/POST.** Dùng lại chính PROMPT `1b34f6405888fbbba5fd4d97cf0a09599965c3cd` (P216 exact ACCEPT) và kiểm Guard PRE nghiêm ngặt theo S3; nếu FAIL thì DỪNG ngay, không lần bấm thứ hai. Không cần sửa PROMPT chỉ để thêm một nhánh waiter.
+- **Để bớt lãng phí click:** trước khi đưa Owner hộp thoại apply, worker phải thực hiện read-only preflight ngay sát bước hỏi: exact package hash (gồm bản Guard đã merge) · mọi fixture bắt buộc · 0 STARTED cạnh tranh/STOP · health/Guard evidence tươi. Nếu preflight fail, **không hỏi Owner**, ghi KQ DỪNG. Đây là thứ tự kiểm tra trong scope đã duyệt, không thêm permission hay nới guard.
+- **Cổng next:** Reviewer Claude phản biện **hai điểm duy nhất**: (A) giữ nguyên hard PRE, không sleep/retry 60 s có đúng DROOT50/52 + bảo vệ không? (B) gói đã freeze trước Owner click, reject mọi lần bấm thứ hai, và không bypass shared gate có đủ để mở lại 2a không? Nếu đồng thuận: `ACCEPT P220 · NO_GUARD_RELAX · ONE_CLICK_FREEZE · P219_TERMINAL_CLEAR`. Sau đó Host fresh-read exact SHA + current guard/22 lights + root busy; sạch thì **READY mới ngay và một lệnh chuẩn**, không thêm vòng.
+- **NO RUN:** không đổi PROMPT/runtime trong lượt review. Không giao Owner kiểm đèn, không lịch AI, không mở 2b.
 
 
 
