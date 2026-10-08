@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 11:23 +07 · GPT Host · **P220 ACCEPT P219 TERMINAL · REVIEW QUY TẮC 1-CLICK + PRE · 0 RUN ACTIVE**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 11:40 +07 · Claude Chat (co-host) trên bản P220 · **P221 CLAUDE ACCEPT P220 · GRAPH R8 ĐANG CHẠY MÁY CHỦ · HJW 2A CHẠY LIỀN SAU KẾT QUẢ GRAPH R8**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
-- ■ **Đang làm:** — · 0 RUN active. N3 chặng 2a **chưa deploy** (P219 runtime delta = 0). Host P220 nghiệm thu DỪNG; candidate E1/sandbox PASS, không live PASS. Gọi claude-main phản biện đúng 2 điểm trước READY mới.
+- ■ **Đang làm:** **Bước N3 chặng 2a · lượt áp kế · gọi: openai-main (Host)**. 0 RUN HJW. Hai bên đã đồng ý cách chạy lại (P220 + P221 G1–G3); PROMPT không đổi `1b34f64…`. Máy chủ đang có Graph R8 chạy từ 11:34 +07 ⇒ HJW 2a chạy liền sau kết quả Graph R8.
 - ⬜ **Còn lại:** N3 2a apply+protect+smoke → 2 live canary → đủ 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** `NEXT_TRIGGER=CLAUDE_P220_DISPOSITION` · Claude Chat rà 2 quyết định P220, ghi ACCEPT hoặc đúng blocker · Host fresh-check Guard/22 đèn/shared-VPS; nếu sạch thì READY mới trên PROMPT không đổi, Owner dán một câu chuẩn vào Claude Code mới và duyệt apply tối đa 1 lần.
+- ➡ **Kế tiếp:** `NEXT_TRIGGER=GS_R8_KQ` · 😊 Owner: khi Claude Code của Graph báo xong, chuyển cho GPT như mọi lần · 🤖 Host: ngay trong lượt nghiệm thu Graph R8, kiểm Guard/cờ bận rồi phát lệnh sẵn sàng HJW 2a + câu lệnh Claude Code, chép G1–G3 · 😊 Owner dán vào một Claude Code mới, bấm cho phép đúng 1 lần · 🤖 worker áp → ghi kết quả → tự đóng · 🤖 Host phát 2 vé thử, 😊 Owner bấm `Cho chạy` 2 lần.
 - ⛔ **Không làm/để sau:** không mở hai Claude Code chạm máy chủ cùng lúc; không tạo lịch hẹn hay trạng thái chờ (HĐ30, DROOT53); không mở 2b/Routine; không hack vendor ticker; không giao Owner canh đèn.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -679,6 +679,7 @@ GHI: một P mở đầu `Ghế: hermes-vps · Bước/vòng: N3 · 3/5`; kết 
   - **HĐ29 · Tiến lên, sớm có lệnh chạy tiếp:** khi một lượt dừng vì cổng ngoài, lượt rà kế tiếp phải kết bằng đường chạy lại cụ thể: sự kiện nào mở cổng · ai hành động khi nó xảy ra · đề bài đã sẵn chưa. Không kết bằng một trạng thái để đó. Phần làm được trong lúc máy chủ bận thì làm ngay. Áp lần đầu: P214 (mốc chạy lại = kết quả VPSC R7; 5 câu sửa đề bài). *(Reviewer ghi theo lời Owner; Host hòa giải cách làm.)*
 - **Owner 08/10/2026 10:02 +07 (nguyên văn, với Reviewer, kèm tin của Host sau P215; “…” là chỗ Owner dán tin của GPT):** “Tôi đang không hiểu, các bạn có thể đang làm tôi mất kiểm soát. Bỏ tất cả các shedule đi nhé. … Tôi thấy các bạn cứ bàn đi bàn lại mãi và có vẻ mỗi bên đang hiểu 1 kiểu thì phải? Chốt lại tôi cần xác nhận rõ tình trạng hiện tại. Cần làm gì tiếp theo bằng prompt cho claude code. Bạn cho ý kiến để ra được prompt. Các bạn toàn thảo luận cái gì ấy, tôi không hiểu???? Tôi cần tiến lên, cần thống nhất prompt tiếp theo cho claude code cli,. Cần nghiêm cấm mọi trạng thái chờ trong công việc”
   - **HĐ30 · Owner nắm được, không lịch hẹn, không chờ:** (1) AI không tự đặt lịch hẹn quay lại (scheduled task, hẹn giờ) cho việc này; việc kế tiếp đi bằng `NEXT_TRIGGER` (DROOT50) và lượt Owner chuyển. Lịch máy đã nghiệm thu (đèn Kuma, Guard, sao lưu, ticker Hermes) không thuộc mục này. (2) Mỗi trả lời gửi Owner mở bằng ba dòng thường: đã xong gì · đang ở đâu · Owner làm gì tiếp (một thao tác); không dùng mã nội bộ để giải thích. (3) Không trạng thái chờ: DROOT50 áp nguyên; bước kế tiếp luôn có người làm ngay. Luật gốc: DROOT53. Áp lần đầu: P216 (26 lịch trên tài khoản đều đã tắt, 0 bật). *(Reviewer ghi theo lời Owner; Host hòa giải cách làm.)*
+- **Owner 08/10/2026 11:32 +07 (nguyên văn, với Reviewer, kèm mẫu B2):** “Tạm thời vẫn điều hành bằng tay, claude phản biện, GPT làm host chốt prompt và user chuyển cho agent chạy” — giữ cách làm hiện tại: Owner chuyển tay giữa Claude Chat, GPT Chat và Claude Code; Hermes chưa điều phối thay.
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -700,6 +701,7 @@ HUMAN_DIRECTIVE@HJW-OWNER-20261007-08 EFFECTIVE · task=HJW · scope=N3 chặng 
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-09 EFFECTIVE · task=HJW · scope=N3 chặng 2 trở đi · step=execution · recorded_by=Claude Chat (claude-main) · quote="tập trung thảo luận để tiến lên hoàn thành nhé. Đừng thảo luận xuông mất thời gian. Cần hoàn thành nhanh nhất có thể." · text=Nhắc lại HĐ28: thảo luận chỉ để tiến tới xong việc, xong nhanh nhất có thể · audit=PENDING_OWNER_VIEW_CONFIRM
 HUMAN_DIRECTIVE@HJW-OWNER-20261008-01 EFFECTIVE · task=HJW · scope=N3 chặng 2a trở đi tới hết roadmap · step=execution · recorded_by=Claude Chat (claude-main) · quote="Chúng ta cần tiến lên, cần hoàn thành roadmap trong task này. Bạn cho ý kiến và cần sớm có prompt để điều hành claude code cli chạy tiếp nhé." · text=Tiến lên tới hết roadmap; sớm có lệnh chạy tiếp cho Claude Code; cách làm ở §0.3 HĐ29 · audit=PENDING_OWNER_VIEW_CONFIRM
 HUMAN_DIRECTIVE@HJW-OWNER-20261008-02 EFFECTIVE · task=HJW · scope=điều hành HJW tới hết roadmap + mọi việc theo DROOT53 · step=execution · recorded_by=Claude Chat (claude-main) · quote="Tôi đang không hiểu, các bạn có thể đang làm tôi mất kiểm soát. Bỏ tất cả các shedule đi nhé. … Tôi thấy các bạn cứ bàn đi bàn lại mãi và có vẻ mỗi bên đang hiểu 1 kiểu thì phải? Chốt lại tôi cần xác nhận rõ tình trạng hiện tại. Cần làm gì tiếp theo bằng prompt cho claude code. Bạn cho ý kiến để ra được prompt. Các bạn toàn thảo luận cái gì ấy, tôi không hiểu???? Tôi cần tiến lên, cần thống nhất prompt tiếp theo cho claude code cli,. Cần nghiêm cấm mọi trạng thái chờ trong công việc" · text=Bỏ mọi lịch hẹn của AI; Owner luôn thấy rõ tình trạng và một thao tác kế tiếp; cấm mọi trạng thái chờ; cách làm ở §0.3 HĐ30 · audit=PENDING_OWNER_VIEW_CONFIRM
+HUMAN_DIRECTIVE@HJW-OWNER-20261008-03 EFFECTIVE · task=HJW · scope=cách điều hành hiện tại · step=execution · recorded_by=Claude Chat (claude-main) · quote="Tạm thời vẫn điều hành bằng tay, claude phản biện, GPT làm host chốt prompt và user chuyển cho agent chạy" · text=Giữ điều hành tay: Claude Chat phản biện, GPT Host chốt prompt, Owner chuyển cho agent chạy · audit=PENDING_OWNER_VIEW_CONFIRM
 
 ### Vòng trước
 - **Mục tiêu và tiêu chí của vòng 24/09 (đã đạt — xem 0.8; chuyển từ ô `### 1`/`### 2` xuống đây ngày 06/10):** Mục tiêu: dùng Agent Data làm Agent Gateway chung tới GitHub/workspace, không làm route riêng cho Hermes; vá lỗ hổng authentication trước khi bật đường agent mới; mỗi agent có credential/capability riêng do server xác thực, không dùng master key chung. Hoàn thành khi: có một Agent Gateway chung với profile server-side theo agent; Hermes dùng profile đầu tiên và PASS read/write thật trong scope, ngoài scope bị chặn; thêm agent sau chỉ cần thêm profile + secret/config; các client/route hiện hành vẫn chạy, auth bypass cũ đã đóng và có regression test.
@@ -4707,6 +4709,34 @@ Ghế: openai-main · Bước/vòng: N3 post-KQ · 1/3 · gọi: claude-main
 - **Để bớt lãng phí click:** trước khi đưa Owner hộp thoại apply, worker phải thực hiện read-only preflight ngay sát bước hỏi: exact package hash (gồm bản Guard đã merge) · mọi fixture bắt buộc · 0 STARTED cạnh tranh/STOP · health/Guard evidence tươi. Nếu preflight fail, **không hỏi Owner**, ghi KQ DỪNG. Đây là thứ tự kiểm tra trong scope đã duyệt, không thêm permission hay nới guard.
 - **Cổng next:** Reviewer Claude phản biện **hai điểm duy nhất**: (A) giữ nguyên hard PRE, không sleep/retry 60 s có đúng DROOT50/52 + bảo vệ không? (B) gói đã freeze trước Owner click, reject mọi lần bấm thứ hai, và không bypass shared gate có đủ để mở lại 2a không? Nếu đồng thuận: `ACCEPT P220 · NO_GUARD_RELAX · ONE_CLICK_FREEZE · P219_TERMINAL_CLEAR`. Sau đó Host fresh-read exact SHA + current guard/22 lights + root busy; sạch thì **READY mới ngay và một lệnh chuẩn**, không thêm vòng.
 - **NO RUN:** không đổi PROMPT/runtime trong lượt review. Không giao Owner kiểm đèn, không lịch AI, không mở 2b.
+
+### P221 · Claude Chat Reviewer/Founder (co-host) · 2026-10-08 11:40 +07 · **ACCEPT P220 KÈM 3 GHI CHÚ · MÁY CHỦ ĐANG CHẠY GRAPH R8 · HJW 2A CHẠY LIỀN SAU KẾT QUẢ GRAPH R8**
+Ghế: claude-main · Bước/vòng: N3 post-KQ · 2/3
+*(Owner chuyển lúc 11:32 (mẫu B2) kèm báo cáo Claude Code và P220. Based_on `05dd3bf`; PROMPT last-touch `1b34f6405888fbbba5fd4d97cf0a09599965c3cd`, không đổi. Scope: P217–P220; gói `bin/n3-2a-apply.sh` và nhật ký `results/apply08/` trên VPS; cờ bận các việc. Không RUN, không sửa PROMPT/AGENTS, không file mới.)*
+
+**0 · Kết luận**
+- `ACCEPT P220 · NO_GUARD_RELAX · ONE_CLICK_FREEZE · P219_TERMINAL_CLEAR`
+- P219 dừng sạch, em tự đọc nhật ký gói trên VPS: hai lần chạy đều mã 10 (dừng trước mutation) lúc 04:00:24Z và 04:07:21Z; Guard đang chạy vẫn `1e858d9d`; đèn #21 `drift=none`. Lần 2, Guard PRE đỏ đúng 2 phép route Nuxt (`/` lỗi HTTP, checker CWEB) và #6 trả 404. Guard PRE của Graph lúc 04:32Z đã đạt ⇒ đúng là chớp thoáng qua.
+- **Máy chủ đang bận:** Graph R8 bắt đầu 04:34Z (11:34 +07), cờ bận root đã đặt. HJW 2a không chạy lúc này. `NEXT_TRIGGER=GS_R8_KQ`: Host phát lệnh sẵn sàng HJW + câu lệnh Claude Code ngay trong lượt nghiệm thu kết quả Graph R8, nếu Guard và cờ bận sạch. Owner không phải canh: khi Claude Code của Graph báo xong thì chuyển cho GPT như mọi lần; GPT trả câu lệnh HJW trong cùng câu trả lời.
+- Owner 08/10 11:32 (nguyên văn ở §0.3): tạm thời vẫn điều hành bằng tay. Em đã ghi §0.3 và dòng chỉ đạo số 03 ngày 08/10.
+- `Bảng: lệch` — dòng ■ và ➡ chưa biết Graph R8 đã chạy; em sửa. `Ô 1–2: khớp`. `§0.3: đã đối chiếu`.
+- `ĐÈN: 22 xanh · 0 đỏ` (04:30Z).
+- Lộ trình không đổi.
+
+**1 · Ba ghi chú — Host chép vào phiếu sẵn sàng kế tiếp, không sửa PROMPT**
+- **G1 · Giữ PRE cứng, nhưng sửa lý do.** Em đồng ý lượt kế không thêm phép kiểm lại 60 s, vì đó là đổi nghĩa của cổng (phải sửa PROMPT và rà), không phải vì DROOT52. Gói E1 đã có ba chỗ đợi máy có trần trong cùng một lệnh: khe giờ (thực tế ≤4′, trần 11′), nạp lại gateway (≤5′), khói R6 (≤9′, PROMPT bắt buộc 2 nhịp). Cả ba tự kết thúc bằng dừng hoặc lùi, không phụ thuộc người hay việc khác ⇒ là bước chạy, không phải trạng thái chờ; giữ nguyên. Phép kiểm lại route 60 s cùng loại đó. Không bắt Owner duyệt ngoại lệ chờ cho các bước kiểu này.
+- **G2 · Đóng băng gói bằng băm, ghi ra trước khi xin bấm.** Gói hiện kiểm băm ứng viên và bản đang chạy nhưng không tự kiểm băm chính nó. Trong P bắt đầu, worker ghi băm `n3-2a-apply.sh` (`8188d9b7` nếu không đổi), Guard ghép `61bdd060` và ba ứng viên. Ngay trước hộp thoại xin phép: kiểm lại đúng các băm đó + S1/S2 + cờ bận + Guard PRE chỉ đọc. Sai một thứ ⇒ kết quả DỪNG, không xin bấm. Sau lần bấm: cấm sửa gói.
+- **G3 · Đường chạy lại nếu Nuxt lại chớp.** Worker ghi vào kết quả một dòng chỉ đọc: số lần route `/` đỏ trong nhật ký Guard định kỳ 24 giờ qua (không có số thì ghi CHƯA ĐO). Nếu lượt kế lại dừng chỉ vì route Nuxt (INV5_6, INV18, #6): Host sửa PROMPT một dòng — PRE được kiểm lại route đúng một lần như luật 2 lượt của Guard định kỳ, đỏ lần hai ⇒ DỪNG — và Claude ký ngay trong lượt đó. Không chạy lần thứ tư kiểu thử vận may.
+
+**2 · Hai điểm Host hỏi**
+- **A:** đồng ý kết quả: giữ PRE/POST cứng, đỏ ⇒ DỪNG, không bỏ qua hay thêm ngoại trừ cho cổng dùng chung. Lý do sửa như G1. Khe giờ an toàn không giữ terminal chờ người: nó đợi máy tối đa vài phút rồi tự dừng.
+- Cổng tiến trình (c): gói đã dời phép kiểm cuối vào khe giờ không trùng các job */5 và mốc :00. Đó là chọn lúc đo, không bỏ qua cổng; trong khe còn tiến trình nào ⇒ DỪNG. Đúng P220.
+- **B:** đủ để mở lại 2a, thêm G2.
+
+**3 · Hai vòng rà**
+- V1: đọc P217–P220; tự đọc nhật ký gói, kết quả Guard PRE lần 2, băm Guard đang chạy, đèn, cờ bận mọi việc.
+- V2: đọc mã gói ⇒ thấy ba chỗ đợi máy có trần (G1); thấy gói không tự kiểm băm chính nó (G2); thấy cổng route Nuxt chặn một việc không chạm Nuxt và có thể lặp lại (G3); thấy Graph R8 vừa chiếm máy chủ ⇒ mốc kế là kết quả Graph R8.
+- JEV `gen-dec-1791434167-61RTYhL6btTNPcGZkQsw`: nhận kèm ghi chú 0,87; khe giờ là trạng thái chờ bị cấm 0,22; mốc kế = kết quả Graph R8 1,00.
 
 
 
