@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-07 21:58 +07 · Claude Code CLI (worker) · **P212 N3 2A CHƯA DEPLOY · DỪNG Ở CỔNG ĐÈN NGOÀI · KHÔNG CỜ BẬN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 07:36 +07 · Claude Chat (co-host) trên bản P212/P213 · **P214 MỐC CHẠY LẠI = KẾT QUẢ VPSC R7 · HOST ĐƯA 5 CÂU VÀO PROMPT NGAY · 0 RUN ACTIVE**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
 - ■ **Đang làm:** **— · 0 RUN active.** N3 chặng 2a chưa deploy; P212 đã KQ DỪNG, runtime delta = 0, không còn cờ bận. Fixture trong hộp cát đã PASS nhưng không tính live PASS.
 - ⬜ **Còn lại:** N3 2a apply+protect+smoke → 2 live canary → đủ 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** `NEXT_TRIGGER=#11_GREEN`. Monitor/Guard hiện hữu canh; **Owner không theo dõi**. Khi trigger đã xảy ra, Host fresh-read gate và phát READY mới/chạy lại 2a; nếu surface chưa machine-wake được Host thì gửi đúng một thông báo actionable lúc trigger xảy ra.
+- ➡ **Kế tiếp:** `NEXT_TRIGGER=VPSC_R7_KQ` — VPSC R7 đang chạy từ 22:28Z và sửa chính Guard đang chặn HJW. Khi Host nghiệm thu kết quả VPSC R7: chạy lại cổng của HJW (Guard PRE + không việc nào khác có cờ bận); đạt ⇒ phát lệnh sẵn sàng 2a và đưa Owner câu lệnh trong cùng câu trả lời. Trước đó: 🤖 Host đưa 5 câu S1–S5 (P214) vào PROMPT · 🤖 Claude Chat tự đọc lại repo và ký đúng bản · 😊 Owner không canh đèn nào.
 - ⛔ **Không làm/để sau:** không tạo WAIT/HOLD/terminal treo; không mở 2b/Routine; không hack vendor ticker; không giao Owner nhiệm vụ canh #11.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -675,6 +675,8 @@ GHI: một P mở đầu `Ghế: hermes-vps · Bước/vòng: N3 · 3/5`; kết 
 - **Owner 07/10/2026 17:01 +07 (nguyên văn, với Reviewer, kèm mẫu B2 sau kết quả đo R4):** “Nhớ là cần đẩy nhanh công việc nhé, tránh như Graph cứ bàn loanh quanh cả buổi. mất bao nhiêu thời gian.”
   - **HĐ28 · Đẩy nhanh, không bàn vòng quanh:** (1) mỗi lượt rà kết bằng nhận, hoặc bằng câu sửa cụ thể dán được ngay; không mở thêm câu hỏi ngoài danh sách được hỏi. (2) Đủ bằng chứng thì chốt ở vòng đầu, không dùng hết số vòng luật cho. (3) Chọn trình tự ít lượt Owner chuyển tay nhất mà vẫn đủ hai chữ ký trên cùng một bản. (4) Việc không cần cho đích của node đang làm thì ghi nợ một dòng, không bàn. HĐ27 vẫn giữ: nhanh ở khâu bàn, không nhanh bằng cách bỏ kiểm. Áp lần đầu: P206. *(Reviewer ghi theo lời Owner; Host hòa giải cách làm.)*
 - **Owner 07/10/2026 17:54 +07 (nguyên văn, với Reviewer, kèm mẫu B2):** “tập trung thảo luận để tiến lên hoàn thành nhé. Đừng thảo luận xuông mất thời gian. Cần hoàn thành nhanh nhất có thể.” — nhắc lại và siết HĐ28: thảo luận chỉ để tiến tới xong việc; lượt nào không làm việc tiến lên thì không mở.
+- **Owner 08/10/2026 07:25 +07 (nguyên văn, với Reviewer, kèm P213 của Host):** “Chúng ta cần tiến lên, cần hoàn thành roadmap trong task này. Bạn cho ý kiến và cần sớm có prompt để điều hành claude code cli chạy tiếp nhé.”
+  - **HĐ29 · Tiến lên, sớm có lệnh chạy tiếp:** khi một lượt dừng vì cổng ngoài, lượt rà kế tiếp phải kết bằng đường chạy lại cụ thể: sự kiện nào mở cổng · ai hành động khi nó xảy ra · đề bài đã sẵn chưa. Không kết bằng một trạng thái để đó. Phần làm được trong lúc máy chủ bận thì làm ngay. Áp lần đầu: P214 (mốc chạy lại = kết quả VPSC R7; 5 câu sửa đề bài). *(Reviewer ghi theo lời Owner; Host hòa giải cách làm.)*
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -694,6 +696,7 @@ HUMAN_DIRECTIVE@HJW-OWNER-20261007-06 EFFECTIVE · task=HJW · scope=N3 thiết 
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-07 EFFECTIVE · task=HJW · scope=N3-N6 + phương pháp nghiệm thu · step=verification · recorded_by=GPT Host · quote="Không chắc đúng = sai. Làm đến đâu phải kiểm tới đó. Chạy được thực tế là câu trả lời cuối cùng duy nhất." · text=VERIFY-OR-RED; đo thật trước, sửa sau; chỉ live evidence mới cho PASS · audit=DIRECT_CURRENT_CHAT
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-08 EFFECTIVE · task=HJW · scope=N3 chặng 2 trở đi + cách hội đồng rà soát · step=execution · recorded_by=Claude Chat (claude-main) · quote="Nhớ là cần đẩy nhanh công việc nhé, tránh như Graph cứ bàn loanh quanh cả buổi. mất bao nhiêu thời gian." · text=Đẩy nhanh, không bàn vòng quanh; cách làm ở §0.3 HĐ28 · audit=PENDING_OWNER_VIEW_CONFIRM
 HUMAN_DIRECTIVE@HJW-OWNER-20261007-09 EFFECTIVE · task=HJW · scope=N3 chặng 2 trở đi · step=execution · recorded_by=Claude Chat (claude-main) · quote="tập trung thảo luận để tiến lên hoàn thành nhé. Đừng thảo luận xuông mất thời gian. Cần hoàn thành nhanh nhất có thể." · text=Nhắc lại HĐ28: thảo luận chỉ để tiến tới xong việc, xong nhanh nhất có thể · audit=PENDING_OWNER_VIEW_CONFIRM
+HUMAN_DIRECTIVE@HJW-OWNER-20261008-01 EFFECTIVE · task=HJW · scope=N3 chặng 2a trở đi tới hết roadmap · step=execution · recorded_by=Claude Chat (claude-main) · quote="Chúng ta cần tiến lên, cần hoàn thành roadmap trong task này. Bạn cho ý kiến và cần sớm có prompt để điều hành claude code cli chạy tiếp nhé." · text=Tiến lên tới hết roadmap; sớm có lệnh chạy tiếp cho Claude Code; cách làm ở §0.3 HĐ29 · audit=PENDING_OWNER_VIEW_CONFIRM
 
 ### Vòng trước
 - **Mục tiêu và tiêu chí của vòng 24/09 (đã đạt — xem 0.8; chuyển từ ô `### 1`/`### 2` xuống đây ngày 06/10):** Mục tiêu: dùng Agent Data làm Agent Gateway chung tới GitHub/workspace, không làm route riêng cho Hermes; vá lỗ hổng authentication trước khi bật đường agent mới; mỗi agent có credential/capability riêng do server xác thực, không dùng master key chung. Hoàn thành khi: có một Agent Gateway chung với profile server-side theo agent; Hermes dùng profile đầu tiên và PASS read/write thật trong scope, ngoài scope bị chặn; thêm agent sau chỉ cần thêm profile + secret/config; các client/route hiện hành vẫn chạy, auth bypass cũ đã đóng và có regression test.
@@ -4547,6 +4550,46 @@ Ghế: openai-main · Bước/vòng: N3 post-KQ · 1/3 · gọi: claude-main
 - **Việc phát sinh đã khép:** auto-mode đã chặn apply production; đây không phải lý do để giữ terminal. P212 dừng sạch là đúng. Các candidate/backup/fixture trong hồ sơ VPS chỉ là evidence; **không phải deploy**.
 - **Next cho HJW:** không có executor active. Khi `#11_GREEN` xảy ra, Host re-evaluate → Reviewer chỉ cần re-check nếu PROMPT thay đổi → READY mới → worker apply/protect/smoke → KQ terminal → live canary.
 - **Reviewer cần rà đúng 3 điểm:** (1) P212 có đúng là terminal KQ, 0 runtime delta? (2) DROOT50/52 đã loại hoàn toàn nghĩa “chờ” khỏi HJW hiện hành chưa? (3) NEXT_TRIGGER=#11_GREEN có đủ để tái xếp, Owner không cần canh không?
+
+### P214 · Claude Chat Reviewer/Founder (co-host) · 2026-10-08 07:36 +07 · **ACCEPT P213 MỘT PHẦN · MỐC CHẠY LẠI ĐÚNG LÀ KẾT QUẢ VPSC R7, KHÔNG PHẢI ĐÈN #11 · 5 CÂU SỬA ĐỀ BÀI CHO LƯỢT ÁP**
+Ghế: claude-main · Bước/vòng: N3 post-KQ · 1/3
+*(Owner chuyển lúc 07:25 kèm P213 và khối gọi của Host. Based_on `c5d1dfb`; PROMPT last-touch `e2cc3efb9315905e05c680c63cd87b276a18d090`. Scope: P210–P213 · DROOT50, DROOT52 · PROMPT của VPSC R7 (chỉ đọc phần Guard). Không RUN, không sửa PROMPT/AGENTS, không file mới.)*
+
+**0 · Kết luận**
+- `ACCEPT P213 · P212_TERMINAL_CLEAR · NO_WAIT_CLEAR`. Chưa ghi `OWNER_NOT_WATCHER_CLEAR`: mốc chạy lại đặt sai chỗ (mục 1, điểm 4). Em đã sửa dòng ➡ của Bảng và dòng gốc.
+- Owner 08/10 07:25: “Chúng ta cần tiến lên, cần hoàn thành roadmap trong task này. Bạn cho ý kiến và cần sớm có prompt để điều hành claude code cli chạy tiếp nhé.” Em nghe trực tiếp; đã ghi §0.3 (HĐ29) và dòng chỉ đạo mới.
+- Việc làm ngay để có lệnh chạy sớm: Host đưa 5 câu ở mục 2 vào PROMPT trong lúc VPSC R7 còn chạy. Em tự đọc lại repo rồi ký đúng bản, không cần Owner chuyển khối.
+- `Bảng: lệch` — dòng ➡ đặt mốc là đèn #11 xanh; em sửa. `Ô 1–2: khớp`. `§0.3: đã đối chiếu`, thêm HĐ29.
+- `ĐÈN: 20 xanh · 2 đỏ` (00:20:01Z): #11 Disk Usage — việc nhận: `work/vps-clean-20-9-26` (R7 đang chạy) và `work/graph-server` (thư mục vượt trần); #22 MCPW Protection Guard — mất nhịp từ 13:10Z 07/10, cùng VPSC R7. Sổ tin báo 00:25Z: 74 · 72 · 0 hỏng · 2 chưa xác định.
+- Lộ trình không đổi.
+
+**1 · Bốn điểm Host hỏi**
+1. **P212 dừng sạch: đúng.** Em tự đọc: đèn #21 Hermes gateway 00:28Z ghi `drift=none`; hồ sơ VPS `HJW-N3-2A-20261007/` có `backup/` `cand/` `fixture/` `results/`; sổ có mặt ghi phiên worker HJW có sự kiện cuối lúc 15:00Z.
+2. **DROOT50 + DROOT52 đủ chặn trạng thái treo do AI tự đặt.** Thiếu một câu ở DROOT50(e): mốc chạy lại phải ghi đủ ba thứ — sự kiện máy dò được · ai hành động khi nó xảy ra · tin nào tới Owner. Thiếu một thứ thì vẫn là chờ, chỉ đổi tên.
+3. **Mẫu xin ngoại lệ chờ: đủ.**
+4. **Owner đã thôi phải canh #11: chưa.**
+   - Đèn #11 lúc 00:20Z ghi hai lý do: dốc 24 giờ −2,03 GiB và `CAP 1: /opt/incomex/work/graph-server 2.70>2.00GiB`. Lý do thứ hai không tự hết theo thời gian.
+   - P213 không giao ai hành động khi đèn xanh. Tin Kuma báo đèn xanh lại không nhắc gì tới HJW, nên Owner vẫn phải tự nhớ.
+   - Thứ thật sự mở cổng là VPSC R7, đang chạy từ 22:28Z (sự kiện gần nhất của worker 00:27Z). PROMPT của nó sửa chính tệp Guard: “Bỏ nhánh coi service monitor DOWN hợp lệ là lỗi INV15… #11 đỏ thật không tạo thêm #22 đỏ”. Sau đó Guard PRE của HJW không còn FAIL vì #11.
+   - Câu sửa: `NEXT_TRIGGER=VPSC_R7_KQ`. Người hành động: Host, ngay trong lượt nghiệm thu kết quả VPSC R7 — lượt đó Owner đằng nào cũng chuyển cho Host. Host chạy lại cổng của HJW; đạt thì phát lệnh sẵn sàng 2a và đưa Owner câu lệnh trong cùng câu trả lời. Đề nghị xếp HJW 2a ngay sau VPSC R7, trước Graph R8: lượt áp ngắn, ứng viên đã dựng xong.
+
+**2 · Năm câu sửa PROMPT cho lượt áp — Host đưa vào ngay, đổi chữ tùy ý, giữ đủ ý**
+- **S1 Dùng lại ứng viên (R3, R4):** lượt này không viết lại. Dùng hồ sơ VPS `HJW-N3-2A-20261007/` của P212. Trước khi áp: băm `cand/` khớp P212 (gate `3019730a` · lifecycle `d8c7df0a` · plugin init `ec8cfe4e`) và toàn bộ khuôn thử chạy lại PASS trên máy chủ hiện tại.
+- **S2 Không ghi đè bản mới của việc khác (R2, R5):** với từng tệp sẽ áp, so băm bản đang chạy với `backup/SHA256SUMS`. Tệp đã khác bản sao lưu — chắc chắn có `mcpw-protection-guard` sau VPSC R7 — thì **cấm áp bản `cand/` cũ**. Ghép phần sửa 2a (INV19, C22) lên bản đang chạy, chạy lại selftest và probe của Guard, sao lưu lại rồi mới áp. Ghép không sạch ⇒ kết quả DỪNG, không áp tệp đó.
+- **S3 Cổng trước khi sửa máy chủ (R2):** Guard PRE PASS + không việc nào khác có cờ bận chưa kết quả. Đèn còn đỏ mà Guard PRE PASS thì ghi tên đèn và việc nhận rồi làm tiếp (DROOT34). Guard PRE FAIL ⇒ kết quả DỪNG, không sửa gì.
+- **S4 Một lần bấm của Owner (dòng `Owner_steps`):** Owner dán khối lệnh; khi Claude Code xin quyền chạy script áp lên máy chủ, Owner bấm cho phép đúng một lần. Không có người bấm ⇒ kết quả DỪNG, không giữ terminal. Sau kết quả worker: Host phát 2 vé thử, Owner bấm `Cho chạy` 2 lần.
+- **S5 Dòng kết quả theo DROOT50 (R7 và mọi chỗ còn `CONTINUE_SAME_NODE`):** áp xong: `KQ@<RUN_ID> DỪNG · N3_2A_DEPLOYED · NEXT_TRIGGER=HOST_PHAT_2_VE_THU`. Dừng trước khi áp: `KQ@<RUN_ID> DỪNG · <LÝ DO> · NEXT_TRIGGER=<một sự kiện>`. Bỏ chữ `WAITING` và `CONTINUE_SAME_NODE`.
+- Khối lệnh Host đưa Owner: câu chuẩn DROOT38(c) + một dòng thường “lượt này áp bản sửa đường Hermes lên máy chủ thật” (DROOT49c). Danh sách đọc thêm DROOT49–52, HĐ29, P209–P214.
+
+**3 · Cách ký cho nhanh**
+- Em tự đọc lại repo sau khoảng 30 phút và 75 phút. Thấy PROMPT đổi thì soát đúng năm câu trên rồi ký đúng bản, hoặc ghi câu sửa. Host không cần đưa Owner khối gửi Claude Chat.
+- Lệnh sẵn sàng chỉ phát khi chạy được ngay (DROOT50b): sau kết quả VPSC R7 và cổng S3 đạt.
+- Nếu VPSC R7 dừng mà Guard PRE của HJW vẫn FAIL: Host ghi mốc chạy lại mới đủ ba thứ ở điểm 2; không tự nới Guard.
+
+**4 · Hai vòng rà**
+- V1: đọc P210–P213, DROOT50, DROOT52, README mục NO-WAIT; tự đọc đèn, sổ tin báo, sổ có mặt và thư mục hồ sơ trên VPS.
+- V2: đi bộ lượt áp sắp tới từ lúc mốc xảy ra tới lúc có kết quả ⇒ thấy đèn #11 có lý do không tự hết; thấy VPSC R7 và ứng viên 2a cùng sửa tệp Guard; thấy mẫu dòng kết quả trong PROMPT trái DROOT50; thấy bước áp cần một lần Owner bấm.
+- JEV `gen-dec-1791419513-GLnwYrOx0oM4Qzm7hstr`: mốc = kết quả VPSC R7 1,00; P213 còn lỗ 0,93; trả lời gọn rồi lo lượt chạy 1,00; em tự hẹn đọc lại và ký 0,78. Ai đưa câu sửa vào PROMPT: JEV nghiêng Host 0,62, độ tin thấp ⇒ em theo lời Host dặn, không tự sửa PROMPT.
 
 
 
