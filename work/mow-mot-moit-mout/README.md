@@ -1,6 +1,8 @@
 # README · MMIM · START HERE
 
-> **★ UI cha:** [xem các mẫu UI](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-process). Owner 08/10/2026: thay nội dung tab Quy trình cũ, đổi tên UI cha, thêm star và bỏ mờ. Gồm 6 họ UI + Tìm kiếm chung và MOUT Builder; ảnh bố cục có ngày, liên kết UI gốc là nguồn hiện hành. Portal chặn iframe nên dùng ảnh xem trước; chữ đầy đủ/thao tác đọc tại UI gốc. Phiếu kiểm: [UI-REVIEW-PARENT-GALLERY.json](UI-REVIEW-PARENT-GALLERY.json). Khi mẫu gốc đổi, cập nhật ảnh tại cùng mục; không sao chép quy chuẩn.
+> **★ UI cha:** [mở mẫu và quy chuẩn](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-process). Khối **4 Mẹ** đọc `ui/child-ui-registry.json` và bấm tên mở thẳng UI gốc. Quy chuẩn từng UI nằm ngay bên dưới, gồm giữ nguyên/được thay và thông số; UI-DESIGN-STANDARD và FORMULA-AI-README chỉ dẫn về đây. Không giữ ảnh chụp hay bản sao quy chuẩn. Phiếu kiểm: [UI-REVIEW-PARENT-GALLERY.json](UI-REVIEW-PARENT-GALLERY.json).
+>
+> **CE-20261008-PARENT-SSOT · APPROVED:** Owner yêu cầu trực tiếp gom đường mở UI và quy chuẩn theo từng UI cha. Đã chuyển nội dung từ UI Master, UI-DESIGN-STANDARD và phần token Master của FORMULA-AI-README; giữ các mã neo cũ. Thư mục Desktop/quy trình được đối chiếu, không sửa bản lịch sử. Menu 4 Mẹ/VPS giữ nguyên; chưa có thay đổi thiết kế, trạng thái duyệt hoặc dữ liệu nghiệp vụ.
 
 > **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R48). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
 
