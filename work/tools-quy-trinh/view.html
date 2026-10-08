@@ -2013,12 +2013,13 @@ const G=Object.fromEntries(D.groups.map(g=>[g.id,g]));
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const own=id=>D.questions.filter(q=>q.owner===id);
+const anchor=id=>'q-'+id.replace(/\./g,'-');
 const common=id=>(D.inheritance[G[id].kind]||[]).flatMap(own);
 const list=qs=>'<ol class="question-list">'+qs.map(q=>'<li>'+esc(q.text)+'<small class="qid">'+esc(q.id)+'</small></li>').join('')+'</ol>';
 function piece(id,cls=''){
  const g=G[id],no=id.startsWith('B')?id.slice(1):'';
  const label=no?g.label.split(' · ').slice(1).join(' · '):g.label;
- return '<a class="piece '+cls+'" href="#q-'+id+'" data-piece="'+id+'">'+(no?'<span class="badge">'+no+'</span>':'')+'<span>'+esc(label)+'</span></a>';
+ return '<a class="piece '+cls+'" href="#'+anchor(id)+'" data-piece="'+id+'">'+(no?'<span class="badge">'+no+'</span>':'')+'<span>'+esc(label)+'</span></a>';
 }
 function route(cond,html){return '<div><span class="condition">'+cond+'</span><div class="chain">'+html+'</div></div>'}
 const arrow='<span class="arrow" aria-hidden="true">→</span>';
@@ -2042,7 +2043,7 @@ function detail(id){
  ['step','layer','chain','business'].forEach(k=>$('tqt-'+k+'-detail').innerHTML='');
  const slot=business?'business':(g.kind==='Tầng'||id==='LAYER')?'layer':(g.kind==='Chuỗi'||id==='CHAIN')?'chain':'step';
  const children=D.groups.filter(c=>c.parent===id);
- let body='<div class="detail" id="q-'+id+'"><div class="detail-head"><div><small>'+esc(g.kind)+' · '+own(id).length+' câu riêng</small><h3>'+esc(g.label)+'</h3></div><button type="button" data-close="'+(business?'cau-hoi-nghiep-vu':'cau-hoi-co-ban')+'">Thu gọn ↑</button></div>'+list(own(id));
+ let body='<div class="detail" id="'+anchor(id)+'"><div class="detail-head"><div><small>'+esc(g.kind)+' · '+own(id).length+' câu riêng</small><h3>'+esc(g.label)+'</h3></div><button type="button" data-close="'+(business?'cau-hoi-nghiep-vu':'cau-hoi-co-ban')+'">Thu gọn ↑</button></div>'+list(own(id));
  const inherited=common(id);
  if(inherited.length)body+='<details><summary>'+inherited.length+' câu chung · áp dụng cùng câu riêng</summary>'+list(inherited)+'</details>';
  if(g.parent)body+='<p><a href="#q-'+g.parent+'">← Về bước lớn '+esc(G[g.parent].label)+'</a></p><details><summary>Kế thừa bước lớn: '+esc(G[g.parent].label)+'</summary>'+list([...common(g.parent),...own(g.parent)])+'</details>';
@@ -2056,7 +2057,7 @@ function matrix(){
  const kind=$('tqt-filter').value;
  const rows=D.questions.filter(q=>(!kind||G[q.owner].kind===kind)&&[q.id,q.text,G[q.owner].label].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(key));
  $('tqt-total').textContent=rows.length+' / '+D.questions.length+' câu · đang hiệu chỉnh';
- $('tqt-matrix-body').innerHTML=rows.length?rows.map(q=>'<tr><td>'+esc(q.id)+'</td><td><a href="#q-'+q.owner+'">'+esc(G[q.owner].label)+'</a><br><small>'+esc(G[q.owner].kind)+'</small></td><td>'+esc(q.text)+'</td></tr>').join(''):'<tr><td colspan="3">Không có câu hỏi phù hợp. Thử bỏ lọc hoặc đổi từ tìm.</td></tr>';
+ $('tqt-matrix-body').innerHTML=rows.length?rows.map(q=>'<tr><td>'+esc(q.id)+'</td><td><a href="#'+anchor(q.owner)+'">'+esc(G[q.owner].label)+'</a><br><small>'+esc(G[q.owner].kind)+'</small></td><td>'+esc(q.text)+'</td></tr>').join(''):'<tr><td colspan="3">Không có câu hỏi phù hợp. Thử bỏ lọc hoặc đổi từ tìm.</td></tr>';
 }
 $('tqt-search').addEventListener('input',matrix);$('tqt-filter').addEventListener('change',matrix);matrix();
 $('tqt-json').value=JSON.stringify(D,null,2);
@@ -2082,13 +2083,19 @@ document.querySelector('.tq-tabs').addEventListener('keydown',e=>{
 document.addEventListener('click',e=>{const b=e.target.closest('[data-close]');if(b)location.hash=b.dataset.close});
 function routeHash(){
  const id=decodeURIComponent(location.hash.slice(1));
- if(id.startsWith('q-')&&G[id.slice(2)]){detail(id.slice(2));requestAnimationFrame(()=>$(id).scrollIntoView({block:'nearest'}));return}
+ const group=D.groups.find(g=>anchor(g.id)===id||'q-'+g.id===id);
+ if(group){detail(group.id);requestAnimationFrame(()=>$(anchor(group.id)).scrollIntoView({block:'nearest'}));return}
  if(panels.includes(id)){tab(id);return}
  const target=id&&$(id);
  if(target&&$('tqt-legacy').contains(target)){tab('tqt-legacy');let p=target.parentElement;while(p&&p!==$('tqt-legacy')){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement}requestAnimationFrame(()=>target.scrollIntoView());return}
  tab('cau-hoi-co-ban');
 }
-window.addEventListener('hashchange',routeHash);routeHash();
+function syncSection(){
+ const section=decodeURIComponent(location.hash.slice(1));
+ if(section&&/^[A-Za-z0-9][A-Za-z0-9_-]{0,100}$/.test(section))parent.postMessage({type:'incomex-hvu-document-section',section},'*');
+}
+window.addEventListener('hashchange',()=>{routeHash();syncSection()});routeHash();
+window.addEventListener('load',syncSection);
 })();
 </script>
 
