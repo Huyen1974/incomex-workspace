@@ -158,7 +158,7 @@ Chạy 2 tick/cycle sạch lỗi, 0 model call; xác minh dispatcher/job/plugin 
 Ghi P báo cáo PRE→POST, files/hashes, test matrix, rollback receipt, protection, residual; rồi ghi đúng một trong hai dạng NO-WAIT:
 - áp thật + POST/smoke đạt: `KQ@<RUN_ID> DỪNG · N3_2A_DEPLOYED · NEXT_TRIGGER=HOST_PHAT_2_VE_THU`;
 - dừng trước apply hoặc apply không đạt: `KQ@<RUN_ID> DỪNG · <LÝ_DO> · NEXT_TRIGGER=<một sự kiện máy-dò được>`.
-**Cấm** `WAITING`, `CONTINUE_SAME_NODE`, HOLD/PENDING. Ghi KQ xong **đóng CLI**; không giữ terminal chờ Owner/canary; không tự phát ASSIGN.
+**Cấm** mọi trạng thái treo kiểu WAIT/HOLD/PENDING và mọi nhãn “tiếp tục cùng node” dùng thay cho KQ terminal. Ghi KQ xong **đóng CLI**; không giữ terminal chờ Owner/canary; không tự phát ASSIGN.
 
 ### Chặng 2A · LIVE CANARY SAU KQ — Host làm, worker không chờ
 Sau KQ worker + CLI đóng, Host mới phát hai ASSIGN canary riêng, Owner bấm 2 lần:
@@ -253,7 +253,7 @@ Không được:
 - copy credential;
 - bật AUTO2/AUTO3.
 
-Cần một việc cấm ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED · CONTINUE_SAME_NODE`.
+Cần một việc cấm ⇒ `KQ DỪNG · DELTA_REVIEW_REQUIRED · NEXT_TRIGGER=DELTA_REVIEW_APPROVED`.
 
 ## 8. Negative tests
 
