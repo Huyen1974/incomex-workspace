@@ -2,22 +2,11 @@
 
 > **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R48). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
 
-> **Toàn bộ UI cha/con:** đọc [UI-DESIGN-STANDARD.md](UI-DESIGN-STANDARD.md) và áp dụng cổng kiểm bàn giao tại đó. Mục Master dưới đây chỉ quy định riêng cho bảng danh sách, không thay quy chuẩn Canvas/Config/Studio/Review/Workspace.
+> **Toàn bộ UI cha/con:** [UI-DESIGN-STANDARD.md](UI-DESIGN-STANDARD.md) dẫn tới quy chuẩn của từng UI tại tab ★ UI cha; áp dụng cổng kiểm bàn giao tại đó.
 
 ## Quy chuẩn thị giác UI.MASTER — bắt buộc · Owner 07/10/2026
 
-CE-20261007-UI-PARENT-PARITY · APPROVED theo chỉ đạo Owner. Thay thế hướng dẫn weight 700 sai ở vòng trước.
-**Mục tiêu: dùng lại khuôn đã duyệt; chỉ khai phần nghiệp vụ riêng. “Rõ” không đồng nghĩa “bold”.**
-
-- SSOT thực thi: `ui/master-list.js`; khuôn `ui/mot-master-v1.html`. Theme và Help trước nằm riêng trong MOW đã chuyển về renderer chung. Adapter chỉ cung cấp dữ liệu, nhãn, schema cột/bộ lọc, liên kết và nội dung chi tiết; không tự đổi font, màu, khoảng cách, vị trí hay hành vi.
-- Mẫu đối chiếu: `mow-master-nhap2-v1.html?legacy=1`. Chữ tên trong dòng **weight 400, #2c2c2e**; metadata **400, #b0b0b5**; mã **400, #bcbcc1**. Header bảng **600, #bcbcc1, 10px**, padding 9px 12px; body 12.5px/18.75px. Heading 600. Không thêm viền đen/text-shadow cho chữ. Trạng thái giữ semantic của mẫu; không tự đậm toàn cột.
-- Nhấn bằng tương phản chính/phụ; không dùng opacity trên cả bảng khiến nút/tooltip cũng mờ. Cột mới mặc định là phụ. Bảng cây giữ quan hệ/ngữ cảnh T3/T2/T1 của cha; không áp bảng định nghĩa lên mọi biến thể.
-- **Tìm trong danh sách:** một component trong toolbar, tìm mã/tên/giá trị schema đang quản lý. Bộ lọc cùng mẫu, chỉ hiện chiều có dữ liệu; không bày bộ lọc tầng không áp dụng. Xóa tìm kiếm phải trả danh sách ban đầu.
-- **Tìm kiếm chung:** một thiết kế UI-029 (`tim-kiem-chung-v1.html`), cùng điểm vào toolbar và return về nơi mở; không nhân bản trung tâm tìm kiếm trong mỗi Master. Dữ liệu hiện là demo, không được gọi là đã nối toàn hệ thống.
-- **Help:** một nút và panel cùng mẫu; nguồn nội dung `incomex-book-v1.js` (BOOK). Dùng phần chung + ngữ cảnh, không tạo một trung tâm hỗ trợ riêng cho từng danh sách. Tooltip ? chỉ giải thích tại chỗ; không thay Help. `mow-help-doc.js` đã retired.
-- Điều hướng dùng `design-navigation-v1.js`; chi tiết dùng drawer chung, đóng/Escape giữ tìm kiếm và bộ lọc. Các ngoại lệ do cấu trúc dữ liệu phải khai schema, không viết CSS riêng.
-- **Cổng kiểm bắt buộc:** chốt URL mẫu + phiên bản trước sửa; lập danh sách ảnh hưởng; so computed style từng thành phần (font/weight/size/line-height/spacing/màu/nền/viền/padding/radius), thứ tự vùng/cột, trạng thái rỗng và nội dung dài; bấm tìm/lọc/Help/?/mở/đóng/Home; xem console; kiểm số bản ghi; kiểm rộng/hẹp khi công cụ xác nhận đúng kích thước. Khác biệt chưa giải thích = FAIL, chưa kiểm = NOT_TESTED; không tự PASS.
-- Không suy 29 Master danh mục là toàn bộ 29 UI con. Kết quả và giới hạn từng phạm vi ở `UI-AUDIT-20261007.md`. Số đo là hợp đồng để phát hiện hồi quy, không phải lý do sửa mẫu đã duyệt cho khớp UI con.
+Nội dung đã chuyển nguyên tắc và thông số vào [UI cha → Master list → Quy chuẩn Master](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=master-visual-standard), nguồn `ban-duyet.html#master-visual-standard`. Đây là nơi cập nhật duy nhất; không duy trì bản sao tại Công thức. Cổng bàn giao và các UI khác: [cửa vào UI cha](UI-DESIGN-STANDARD.md).
 
 ## Điều hướng chung · Owner 07/10/2026
 SSOT UI: `ui/design-navigation-v1.js`; được nạp từ khuôn `mot-master-v1.html`, renderer `master-list.js` và shell `eco-nav.js`. Trang review và chi tiết CT nạp trực tiếp, mount idempotent. 28 Master định nghĩa + Config cùng kế thừa UI.MASTER; không hardcode danh sách 29 vào bộ điều hướng.
