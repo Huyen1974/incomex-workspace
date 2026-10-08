@@ -66,7 +66,7 @@ Nếu **thiếu chức năng sản phẩm** (ví dụ chưa có nguồn Field th
 | Owner xem task | [Tools quy trình](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh) |
 | Nhìn nhanh có gì, thiếu gì, tắc ở đâu | [Bảng 30 giây](view.html#bang) |
 | Nhận diện phạm vi, lớp và nhóm chuyên môn | [Cách phân loại](view.html#phan-loai) |
-| Lượt vẽ UI để hiệu chỉnh quy trình | [PROMPT Codex DRAFT — MOW001 → MOW002](PROMPT.md) · Node A hoàn thiện 001/3 MOT, Node B một phiên mới thử 002/2 MOT; **không RUN từ DRAFT** |
+| Codex tổ chức bộ câu hỏi gốc trước khi vẽ UI | [Đề bài Codex: Chuỗi/Tầng/Bước lớn/Bước con → ghép → UI/Config](PROMPT.md) · chỉ đọc và đề xuất; MOW001 thử ghép, MOW002 chưa làm |
 | Owner cùng xây dựng quy trình hiệu chỉnh | [Quy trình hiệu chỉnh hướng dẫn và quy trình · TQT-QT-001](view.html#quy-trinh-hieu-chinh) — bản thử v0.1 chưa đạt |
 | Rà UI đang có, viết ca và lưu kết quả | [Hướng dẫn thực hành](view.html#ra-ui) → 8 câu/MOT, 7 câu Config, khuôn ca, nơi ghi và kiểm lại |
 | Đọc đủ 9 Tools, từng bước/câu hỏi | [9 Tool · một khuôn](view.html#tool-9) — bản chép, chưa cắt chuyển nơi sửa |
