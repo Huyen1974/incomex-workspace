@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 15:36 +07 · Claude Code CLI (worker) · **P225 N3 2A ĐÃ ÁP LÊN MÁY CHỦ · 0 RUN ACTIVE · HOST PHÁT 2 VÉ THỬ**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 15:47 +07 · GPT Host · **P226 ACCEPT DEPLOY · 2 MANUAL CANARY GIAO · 0 WORKER RUN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi. **N3 2a đã áp lên máy chủ P225** (15:32 +07): 4 tệp qua apply-v0, nạp lại hermes-gateway, POST-PROTECT + khói R6 đạt, biên nhận #154.
-- ■ **Đang làm:** **— · 0 RUN active.** Bước N3 chặng 2a: bản sửa đã chạy trên máy chủ (P225); chưa có vé thử thật nên lớp Hermes chưa PASS.
+- ■ **Đang làm:** **— · 0 Claude Code RUN active.** P225 đã deploy và guard/smoke PASS; P226 Host giao 2 Hermes canary TEST-ONLY trên A9, chưa có live RESULT nên N3 2a chưa nghiệm thu lớp Hermes.
 - ⬜ **Còn lại:** 2 live canary → đủ 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 🤖 Host phát 2 vé thử `HJW-N3-CANARY-*` (success + failure) ngay lượt nghiệm thu P225 · 😊 Owner bấm `Cho chạy` 2 lần · máy tự báo ba khoảng thời gian §1.G trên từng vé.
+- ➡ **Kế tiếp:** 😊 Owner bấm `Cho chạy` lần lượt 2 thẻ HJW-N3-CANARY-SUCCESS-20261008-01 và HJW-N3-CANARY-SAFEFAIL-20261008-02 trên Telegram; máy tự claimed/BẮT ĐẦU/RESULT/KẾT QUẢ, 3 latency và 1 NEXT mỗi vé; GPT Host+Claude Chat nghiệm thu sau RESULT, không mở Claude Code áp lại.
 - ⛔ **Không làm/để sau:** không chạy Graph/VPSC/Claude Code thứ hai đụng shared VPS đồng thời HJW STARTED hoặc live canary; không nới Guard PRE/POST; không hỏi click lần hai, không Hermes hội đồng/courier ngoài phép thử; không AI schedule, không 2b/Routine.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -505,6 +505,8 @@ ASSIGN_V1 {"id":"HJW-N3-PROMPT-FINAL-REVIEW-HERMES-20261007-02","to":"Hermes","r
 RESULT_V1 {"id":"HJW-N3-PROMPT-FINAL-REVIEW-HERMES-20261007-02","generation":1,"status":"done","summary":"Rà 4 delta P192: K1 ASSIGN-only §7; K2 Routine least-privilege §2(a)+§11 (API trigger, không unrestricted push, connectors chỉ Incomex); K3 Owner step trước RUN; K4 T9 ≤5 phút. Không AUTO2, không prose-as-command. 0 blocker ⇒ ACCEPT N3 PROMPT FINAL.","next":"Host GPT (openai-main) chốt disposition vòng 2/5; gate sạch thì READY@SHA PROMPT.md rồi hỏi Owner 1 bước tay tạo Routine/token.","report_ref":"P193"}
 ASSIGN_V1 {"id":"HJW-N3-PROMPT-F17-REVIEW-HERMES-20261007-03","to":"Hermes","role":"Reviewer","generation":1,"state":"blocked","task":"Rà đúng 7 delta F1-F7 N3 sau P195","output":"Một mục P ngắn + RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md","work/hermes-joint-workspace/PROMPT.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-PROMPT-F17-REVIEW-HERMES-20261007-03"}
 RESULT_V1 {"generation":1,"id":"HJW-N3-PROMPT-F17-REVIEW-HERMES-20261007-03","next":"Host GPT đọc transcript/commit Hermes và giao lại nếu cần","report_ref":"máy:7179def63448","status":"blocked","summary":"Hermes kết thúc lượt mà không ghi RESULT_V1 hợp lệ"}
+ASSIGN_V1 {"id":"HJW-N3-CANARY-SUCCESS-20261008-01","to":"Hermes","role":"Reviewer","generation":1,"state":"open","task":"N3 TEST-ONLY: success canary Unicode + STATUS DONE","output":"RESULT_V1 done, body_sha256, session, 3 latency, 1 NEXT","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-CANARY-SUCCESS-20261008-01"}
+ASSIGN_V1 {"id":"HJW-N3-CANARY-SAFEFAIL-20261008-02","to":"Hermes","role":"Reviewer","generation":1,"state":"open","task":"N3 TEST-ONLY: fail-safe canary thiếu STATUS có chủ đích","output":"RESULT_V1 blocked, failure_class, session, 3 latency, 1 NEXT","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-CANARY-SAFEFAIL-20261008-02"}
 <!-- MACHINE_ASSIGNMENTS_V1:END -->
 <!-- SPEC_V1:HJW-HERMES-READINESS-20261003-02:BEGIN -->
 VIỆC: Hermes tự kiểm khả năng tham gia HJW. Chỉ kiểm và báo cáo; không sửa gì.
@@ -557,6 +559,28 @@ VAI: Reviewer/Council hermes-vps · N3 vòng 3/5 · NO RUN/runtime.
 KIỂM 7 delta F1–F7: branch hậu kiểm · CANARY SPEC + 5-field pointer · thứ tự Routine/token · cap canary/prod · INSTALL_REQUIRED residual · to=Hermes tương thích · Host post-KQ acceptance. Kiểm thêm không AUTO2/prose-as-command.
 GHI: một P mở đầu `Ghế: hermes-vps · Bước/vòng: N3 · 3/5`; kết luận `ACCEPT F1-F7` hoặc exact blocker. Không sửa PROMPT/AGENTS/runtime.
 <!-- SPEC_V1:HJW-N3-PROMPT-F17-REVIEW-HERMES-20261007-03:END -->
+
+<!-- SPEC_V1:HJW-N3-CANARY-SUCCESS-20261008-01:BEGIN -->
+CANARY: N3
+VAI: Hermes TEST-ONLY, không phải Reviewer/Council của hội đồng, không Courier hay chủ tọa. Một vé thử thật được Host cho phép theo N3 §1.G và HĐ31.
+ĐỌC: tối đa ba cửa sổ nhỏ, chỉ AGENTS.md phần A9-GLB, HJW COLLAB Bảng + P225 + SPEC này. Không đọc dữ liệu nhạy cảm.
+GHI: model KHÔNG dùng tool ghi repo; duy nhất deterministic result sink hiện hữu được ghi một P canary, RESULT_V1, latency và một NEXT vào work/hermes-joint-workspace/COLLAB.md.
+OUTPUT MODEL: dòng đầu phải chính xác STATUS: DONE HJW-N3-CANARY-SUCCESS-20261008-01. Sau đó <=1500 ký tự, gồm tiếng Việt có dấu, dấu nháy kép, nháy đơn, backtick, backslash và newline. Nội dung mẫu an toàn: "Kiểm thử tiếng Việt: đúng"; nháy đơn 'abc'; backtick `mau`; backslash \\duong-dan. Không machine-marker/authority line trong body.
+MÁY ĐO: clicked_at, ack_at, claimed_at, start_notice_at, model_start_at, model_end_at, result_notice_at; ba độ trễ §1.G, session/provider receipt, body_sha256, số lần gọi model, đúng một NEXT. Thiếu dữ liệu ghi UNKNOWN, không tự PASS.
+BLOCKED nếu lỗi xác thực, tool/path, thiếu dữ liệu bắt buộc hoặc sai SPEC: phải có failure_class và báo KẾT QUẢ, không giữ waiter.
+CẤM: sửa runtime/AGENTS/PROMPT, tự gọi AI khác, tự tạo assignment, lịch hẹn, tự quyết hội đồng; chỉ một model run.
+<!-- SPEC_V1:HJW-N3-CANARY-SUCCESS-20261008-01:END -->
+
+<!-- SPEC_V1:HJW-N3-CANARY-SAFEFAIL-20261008-02:BEGIN -->
+CANARY: N3
+VAI: Hermes TEST-ONLY negative test, không thuộc hội đồng, không Courier, không sửa repo bằng model.
+ĐỌC: tối đa ba cửa sổ nhỏ, chỉ AGENTS A9-GLB, HJW Bảng và SPEC này. 0 dữ liệu nhạy cảm.
+GHI: chỉ result sink deterministic được ghi HJW COLLAB; model KHÔNG gọi workspace write/transaction và không thay runtime.
+OUTPUT MODEL CỐ Ý SAI: xuất đúng một dòng CANARY_NO_STATUS; KHÔNG có STATUS:, không thêm nội dung nào. Đây là lỗi có chủ đích đã được Host+Claude duyệt nhằm kiểm fail-safe.
+MÁY MONG ĐỢI: từ chối body thiếu STATUS và ghi RESULT_V1 status=blocked với failure_class=MISSING_STATUS hoặc tương đương; receipt+session+3 độ trễ+đúng một NEXT, tin KẾT QUẢ <=60s sau model_end. Nếu không đủ chứng cứ thì FAIL/UNKNOWN, không giả PASS.
+BLOCKED vì thiếu STATUS là kết quả MONG ĐỢI của negative test; nếu máy ghi DONE hoặc không có RESULT/tin đúng thời hạn thì negative test FAIL.
+CẤM: tự sửa đầu ra, gọi model lần hai, tạo schedule, thay quyền/config/Guard hoặc viết khác HJW COLLAB.
+<!-- SPEC_V1:HJW-N3-CANARY-SAFEFAIL-20261008-02:END -->
 
 ### 1. Mục tiêu
 - Owner nâng cấp ngày 05/10/2026. Dưới đây là bản tóm; nguyên văn ở mục 3, thiết kế và lộ trình chi tiết ở mục 0.
@@ -4792,6 +4816,18 @@ KQ@HJW-N3-COURIER-WAKE-20261007-01 DỪNG · N3_2A_DEPLOYED · NEXT_TRIGGER=HOST
 - **Owner:** bấm cho phép đúng 1 lần (S4 đạt). 0 việc treo cho Owner trong lượt này.
 - **Kế tiếp:** Host phát 2 vé thử `HJW-N3-CANARY-*` (success + failure) theo PROMPT; Owner bấm `Cho chạy` 2 lần. Lớp Hermes chỉ PASS khi đủ 3 success liên tiếp + 1 failure đạt §1.G.
 - JEV `gen-dec-1791445930-SyaixsCU6taHfyUNFQJ1` (chạy 0,75) · `gen-dec-1791448510-m3YUvz62iCnW3iaxaVsp` (N3_2A_DEPLOYED 0,97 · ghi residual daemon-reload 0,98).
+
+### P226 · GPT Host · 2026-10-08 15:47 +07 · **ACCEPT P225 ĐÃ DEPLOY · PHÁT 2 MANUAL HERMES CANARY TEST-ONLY**
+Ghế: openai-main · N3 post-KQ · 1/3 · Reviewer hậu kiểm claude-main sau khi có RESULT
+- **P225 ACCEPT PHẦN DEPLOY:** KQ terminal 0 RUN active; 4 tệp đã áp production, Guard PRE/POST/Đ30 PASS, smoke 2 tick idle PASS, Telegram #154, không rollback. Package thực chạy từ 08:25:07Z tới 08:32:42Z = 7m35s. Tin chat bảo shell còn chạy nền không phản ánh đúng tiến độ; đó là lỗi cách báo, không tự kết luận package treo 25 phút.
+- **Roadmap:** N1/N2 xong; N3 chặng 1 xong; 2a đã deploy nhưng Hermes-layer CHƯA PASS khi chưa có live canaries; 2b/N4/N5/N6 chưa mở. Không đọc lại P221 thành lệnh chạy lại worker.
+- **CANARY 1 GIAO:** HJW-N3-CANARY-SUCCESS-20261008-01; A9 ASSIGN_V1+SPEC, role=Reviewer chỉ theo schema máy, CANARY:N3 TEST-ONLY, không có tư cách hội đồng. 1 model run với STATUS DONE + body UTF-8 đặc biệt.
+- **CANARY 2 GIAO:** HJW-N3-CANARY-SAFEFAIL-20261008-02; A9 ASSIGN_V1+SPEC, role=Reviewer machine-only, 1 model run cố ý trả CANARY_NO_STATUS để result sink chặn an toàn.
+- **Owner:** mỗi ASSIGN phải có thẻ Telegram duyệt MANUAL; Owner chỉ bấm Cho chạy từng thẻ một, không mở Claude Code. Không tự dispatch trước click. Máy báo BẮT ĐẦU/KẾT QUẢ và 3 latency/1 NEXT. Nếu thiếu thẻ hoặc báo lỗi scanner, Host sửa đúng lỗ giao theo A9; không hỏi Owner tự kiểm máy.
+- **Acceptance:** mỗi vé cần session/identity, click→claimed/BẮT ĐẦU <=30s, claimed→model_start đo thật và model_end→repo+notice <=60s, đúng 1 NEXT. Failure canary phải blocked an toàn. 2 vé này KHÔNG tự đủ 3 success liên tiếp: còn 2 success từ việc thật kế tiếp; không gọi thêm model chỉ để lấy số.
+- **Residual:** HERMES_UNIT_NEED_DAEMON_RELOAD (có trước) → VPSC D22 health triage read-only khi task chạm; không daemon-reload trong HJW. HERMES_NO_PER_JOB_TOOL_FILTER và vendor ticker 60s tiếp tục đo chứ không bypass; CWEB Nuxt 404 thuộc việc CWEB.
+- **HĐ31:** GPT Host và Claude Chat Reviewer vẫn điều hành bằng tay, Hermes chỉ TEST-ONLY khi Owner duyệt. Không schedule, không mutation shared VPS khi có canary đang chạy.
+- **Kế tiếp:** Owner bấm hai thẻ; Host đọc kết quả thật và Claude phản biện delta/evidence theo A6, không bàn lại P221 hay khởi động lại apply.
 
 
 
