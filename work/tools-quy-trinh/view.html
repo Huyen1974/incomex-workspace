@@ -459,6 +459,211 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 <dl class="kv"><dt>Người chạy</dt><dd>Codex · phiên thiết kế MOW này</dd><dt>Hồ sơ liên quan</dt><dd><a href="#issue-OPEN-07">OPEN-07</a></dd><dt>Tool 008</dt><dd>Đã kiểm lưu, đọc lại, mở đúng hồ sơ và 9 liên kết đầu ra; OPEN-07 đóng. Hồ sơ ghi: OPEN-01…07; đích: sổ MOW (bản chép ở <a href="#so-van-de">⑤</a>).</dd><dt>Bằng chứng</dt><dd>MCP ghi thành công: 89e7777f69ac4bcf9aa78442d6592c0a; đọc lại nguồn 5c31349a2a983be1316555a314b4354feda78cf298dd9abc429489963a8bd6ae.<br>Trình duyệt: 7 hồ sơ; #issue-OPEN-07 mở đúng hồ sơ và sổ cha; 9/9 Tool có liên kết Sổ kết quả thực hiện.<br>Giữ nguyên 6 việc MOW gốc; không đánh dấu đã xử lý, chưa chạy lại hành trình MOW/DOT.</dd><dt>Bước tiếp</dt><dd>Tiếp tục OPEN-01…06 khi quay lại thiết kế MOW-NHC-001.</dd><dt>Mốc rà · kiểm lúc</dt><dd>Trước báo cáo lượt này · 07/10/2026 17:45 +07</dd></dl></div></details>
 </section>
 
+<section id="so-van-de">
+<h2><span class="no">⑤</span>Sổ vấn đề · một sổ</h2>
+<p><span class="chip st">🔴 2 bị chặn</span> <span class="chip wa">🟡 12 mở</span> <span class="chip ok">🟢 1 đóng</span> · 5 hồ sơ TQT của task này + 10 hồ sơ OPEN chép nguyên mã từ sổ MOW / Tools.</p>
+<div class="flow"><span>Ghi nhận</span>→<span>Phân loại</span>→<span>Giao xử lý</span>→<span>Đang xử lý</span>→<span>Chờ kiểm</span>→<span>Đóng</span></div>
+<p class="mut"><small>Kiểm chưa đạt → Đang xử lý · Tái diễn → Mở lại · Bị chặn/Để sau giữ người chịu trách nhiệm và mốc rà · Trùng dẫn về hồ sơ gốc · Không sửa phải có lý do và người có thẩm quyền quyết.</small></p>
+<div class="warn">⏳ <b>Chưa cắt chuyển:</b> 10 hồ sơ OPEN là bản chép lúc 08/10/2026 11:10 từ Master Tool bản <code>93eae888106544e7</code>. Cho tới khi Host ghi quyết định cắt chuyển (<a href="#chuyen-nguon">⑥</a>), trạng thái hiện hành đọc/sửa ở <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/tools-playbook-v1.html#issue-register" target="_blank" rel="noopener">sổ MOW ↗</a>; sau đó chỉ sửa ở đây.</div>
+<div class="wrap"><table>
+<thead><tr><th>Mã</th><th>Vấn đề</th><th>Trạng thái</th><th>👤 Người giữ việc</th><th>➡ Bước tiếp</th></tr></thead><tbody>
+<tr><td><a href="#TQT-ISS-001">TQT-ISS-001</a></td><td>Bộ phác thảo chưa sẵn sàng dùng trên diện rộng</td><td>🟡 Ghi nhận</td><td>Host GPT Chat theo dõi · chưa giao</td><td>Rà khung, chọn quy trình đại diện để áp thử</td></tr>
+<tr><td><a href="#TQT-ISS-002">TQT-ISS-002</a></td><td>Trang nội dung còn chữ lệch mục tiêu Owner chốt 08/10</td><td>🟡 Ghi nhận</td><td>Host GPT Chat theo dõi · chưa giao</td><td>Ghế chưa viết trang đối chiếu ô 1 với trang mới</td></tr>
+<tr><td><a href="#TQT-ISS-003">TQT-ISS-003</a></td><td>9 quy trình chưa chứng minh người mới làm theo ra sản phẩm thật</td><td>🟡 Đang xử lý</td><td>Host theo dõi · Codex xử lý · chờ kiểm độc lập</td><td>Kiểm độc lập “Rà một UI”; phủ phần còn thiếu</td></tr>
+<tr><td><a href="#TQT-ISS-004">TQT-ISS-004</a></td><td>Bản tập hợp chưa phải nơi sửa duy nhất (SSOT)</td><td>🟡 Ghi nhận</td><td>Host GPT Chat theo dõi · chưa giao</td><td>Host so nguồn, chốt cắt chuyển <a href="#chuyen-nguon">⑥</a></td></tr>
+<tr><td><a href="#TQT-ISS-005">TQT-ISS-005</a></td><td>Nhóm xét nguyên tắc giao việc MOT chưa kiểm kê</td><td>🟡 Ghi nhận</td><td>Host GPT Chat theo dõi · chưa giao</td><td>Đọc nguồn MOT, thêm đúng nhóm/lớp</td></tr>
+<tr><td><a href="#issue-OPEN-01">OPEN-01</a></td><td>Thiếu Chuyên môn/điểm gọi</td><td>🟡 Chưa giao</td><td>Codex theo dõi · chưa giao</td><td>Xác định chuyên môn và điểm gọi</td></tr>
+<tr><td><a href="#issue-OPEN-02">OPEN-02</a></td><td>Chưa có chọn và truyền dữ liệu xuyên bước</td><td>🟡 Đang xử lý</td><td>Codex</td><td>Hoàn tất kiểm live 1→3, 1→2→3; chọn lại, đổi input</td></tr>
+<tr><td><a href="#issue-OPEN-03">OPEN-03</a></td><td>Chưa có màn xác nhận và hợp đồng kết quả</td><td>🟡 Đang xử lý</td><td>Codex</td><td>Owner chốt nơi nhận và tác động của Xác nhận</td></tr>
+<tr><td><a href="#issue-OPEN-04">OPEN-04</a></td><td>Vector/JEV chưa kết nối</td><td>🟡 Chưa giao</td><td>Codex theo dõi · chưa giao</td><td>Xác minh hợp đồng Vector/JEV</td></tr>
+<tr><td><a href="#issue-OPEN-05">OPEN-05</a></td><td>UI cha tìm kiếm chưa khớp nguồn dựng</td><td>🟡 Đang xử lý</td><td>Codex</td><td>Kiểm style thực tế, khớp UI cha</td></tr>
+<tr><td><a href="#issue-OPEN-06">OPEN-06</a></td><td>Các nhánh lỗi/biên chưa đầy đủ</td><td>🟡 Đang xử lý</td><td>Codex</td><td>Ca UI/live; quyền/phiên bản/idempotency thật</td></tr>
+<tr><td><a href="#issue-OPEN-07">OPEN-07</a></td><td>Tools chưa chỉ rõ đích đến và cách ghi/kiểm đầu ra</td><td>🟢 Đóng</td><td>Codex · kiểm: Codex</td><td>—</td></tr>
+<tr><td><a href="#issue-OPEN-08">OPEN-08</a></td><td>Chưa có nguồn tìm Field thật theo quyền</td><td>🔴 Bị chặn</td><td>Codex</td><td>Xác minh nguồn Field, quyền, hợp đồng</td></tr>
+<tr><td><a href="#issue-OPEN-09">OPEN-09</a></td><td>UI live đã truy cập; còn thiếu phạm vi kiểm và parity</td><td>🟡 Đang xử lý</td><td>Codex</td><td>Hoàn tất ca live 3 màn, so UI cha/responsive</td></tr>
+<tr><td><a href="#issue-OPEN-10">OPEN-10</a></td><td>Không tìm được Field: chưa có nơi nhận yêu cầu bổ sung</td><td>🔴 Bị chặn</td><td>Codex</td><td>Chốt nơi nhận yêu cầu Field thiếu</td></tr>
+</tbody></table></div>
+<p class="mut"><small>“Codex” = Codex · phiên thiết kế MOW này. Bấm mã để mở hồ sơ đủ trường bên dưới.</small></p>
+
+<h3>Hồ sơ của task này · TQT</h3>
+<details id="TQT-ISS-001"><summary><code>TQT-ISS-001</code><span class="t">Bộ phác thảo chưa sẵn sàng dùng trên diện rộng</span><span class="chip wa">Ghi nhận</span></summary><div class="in"><dl class="kv">
+<dt>Nguồn phát hiện</dt><dd>Owner, 07/10/2026: phần Tools hiện có mới là bước đầu, cần chuẩn mực hơn và dễ nhìn hơn khi số quy trình tăng.</dd>
+<dt>Phạm vi</dt><dd>Bộ quy trình Tools; nguồn khởi đầu TOOL-CTCM-001…009. Câu/bước cụ thể cần sửa sẽ được chỉ ra khi rà từng quy trình.</dd>
+<dt>Ảnh hưởng</dt><dd>Chưa đủ căn cứ công nhận bộ phác thảo là chuẩn dùng rộng cho ba phạm vi và ba lớp.</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Host GPT Chat (OpenAI-main, Owner chỉ định 08/10 · D06) · Chưa giao · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>Rà khung phân loại, mẫu của ba lớp và tập câu hỏi; xác định các quy trình đại diện để áp thử, rồi hiệu chỉnh từ kết quả thực tế.</dd>
+<dt>Mốc rà</dt><dd>Lượt khởi động sau khi Host nhận việc; sau đó đầu/cuối mỗi lượt xử lý và khi bàn giao.</dd>
+<dt>Lý do chưa đóng</dt><dd>Chưa có kết quả rà và áp thử theo khung chung.</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Khung trình bày và mẫu đã được rà; các quy trình được chọn thử có đủ câu hỏi, bước, định nghĩa hoàn thành và bằng chứng áp dụng đạt; phần chưa phủ được thể hiện rõ.</dd>
+<dt>Bằng chứng</dt><dd>Chưa có. Tạo hồ sơ task không phải bằng chứng bộ quy trình đã đạt.</dd>
+<dt>Lịch sử</dt><dd>07/10/2026 · GPT Chat ghi nhận từ yêu cầu trực tiếp Owner · Ghi nhận.<br>08/10/2026 · Claude Chat: ghi người theo dõi theo D06; trang trình bày lại theo yêu cầu Owner 10:41 (P10). Trạng thái không đổi.</dd>
+</dl></div></details>
+<details id="TQT-ISS-002"><summary><code>TQT-ISS-002</code><span class="t">Trang nội dung và phần chi tiết còn chữ lệch mục tiêu Owner chốt 08/10</span><span class="chip wa">Ghi nhận</span></summary><div class="in"><dl class="kv">
+<dt>Nguồn phát hiện</dt><dd>Claude Chat, 08/10/2026, khi đưa mục tiêu Owner duyệt lên ô 1 (COLLAB P04).</dd>
+<dt>Phạm vi</dt><dd>Trang này: thẻ “01 · Phạm vi phục vụ” (ô 1 dòng 5 gọi là 3 Chuỗi) và nhóm “Giao việc / hội đồng” (ô 1 dòng 6: xét nguyên tắc giao việc là của MOT). COLLAB: cột tóm tắt TQT-REQ-01…07 và một câu ở TQT-SOURCES về luật giao việc.</dd>
+<dt>Ảnh hưởng</dt><dd>Người và AI đọc trang có thể hiểu nhóm “giao việc” là luật hội đồng AI, khác ý Owner.</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Host GPT Chat (OpenAI-main · D06) · Chưa giao · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>Một ghế chưa viết trang này (không phải Claude Chat) đối chiếu ô 1 với trang bản P10; không thấy mâu thuẫn → Host đóng.</dd>
+<dt>Mốc rà</dt><dd>Lượt Host rà P10.</dd>
+<dt>Lý do chưa đóng</dt><dd>Host đã chỉnh các nhãn Chuỗi/MOT và chỉ mục TQT-REQ theo mục tiêu ngày 08/10; trang lại được viết lại ở P10 nên cần người đọc độc lập xác nhận.</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Trang và COLLAB không còn chữ lệch ô 1; một người đọc mới đối chiếu ô 1 với trang không thấy mâu thuẫn.</dd>
+<dt>Bằng chứng</dt><dd>Host sửa nhãn tại commit 8c854489 (P07). Trang viết lại ở P10. Chưa có phép đối chiếu độc lập.</dd>
+<dt>Lịch sử</dt><dd>08/10/2026 · Claude Chat ghi nhận · Ghi nhận.<br>08/10/2026 · GPT Chat (Host): sửa nhãn Chuỗi/MOT và chỉ mục TQT-REQ (P07).<br>08/10/2026 · Claude Chat: viết lại trang (P10); không tự kiểm vì là người viết.</dd>
+</dl></div></details>
+<details id="TQT-ISS-003"><summary><code>TQT-ISS-003</code><span class="t">9 quy trình chưa chứng minh người mới làm theo ra sản phẩm thật</span><span class="chip wa">Đang xử lý</span></summary><div class="in"><dl class="kv">
+<dt>Nguồn phát hiện</dt><dd>Rà 9 Tools ngày 08/10/2026 theo mục tiêu mới của Owner.</dd>
+<dt>Phạm vi</dt><dd>TOOL-CTCM-001…009 và hướng dẫn <a href="#ra-ui">Rà một UI</a>.</dd>
+<dt>Ảnh hưởng</dt><dd>Chưa được ghi “đạt” cho quy trình nào.</dd>
+<dt>Trạng thái</dt><dd>Đang xử lý · Đã bổ sung và áp thử một UI; chưa nghiệm thu đủ 9 quy trình.</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Host GPT Chat (OpenAI-main) · Codex theo yêu cầu trực tiếp Owner 08/10 · Chờ kiểm độc lập</dd>
+<dt>➡ Bước tiếp</dt><dd>Kiểm độc lập hướng dẫn Rà một UI; tiếp tục phạm vi còn thiếu trong phiếu MOW. Các quy trình khác chưa áp thử.</dd>
+<dt>Mốc rà</dt><dd>Sau bổ sung P09 và trước công nhận quy trình đạt.</dd>
+<dt>Lý do chưa đóng</dt><dd>Mới áp thử một UI (màn 2 MOW-NHC-001), chưa kiểm độc lập; 8 Tool còn lại chưa thử người mới; mỗi Tool chưa có “xong khi” riêng.</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Có bằng chứng kết quả/sản phẩm thật hoặc giữ rõ phạm vi còn mở.</dd>
+<dt>Bằng chứng</dt><dd>P09: thêm hướng dẫn thực hành, 8 câu/MOT, 7 câu Config, khuôn ca, nơi lưu và vòng kiểm lại ngay trang này. Phiếu UI-REVIEW-MOW001.json và lượt TQT-UI-20261008-MOW001-STEP2 ghi 18 quan sát; kết quả toàn hành trình còn PARTIAL.</dd>
+<dt>Lịch sử</dt><dd>08/10/2026 · Ghi nhận; Codex bổ sung theo yêu cầu Owner và áp thử màn 2 MOW-NHC-001 · Đang xử lý, chưa đóng.<br>08/10/2026 · Claude Chat: trình bày lại trang (P10), giữ nguyên nội dung Codex P09; thêm bản chép áp thử MOW-NHC-001 (24 ô, 16 nhánh, 3 lượt). Trạng thái không đổi.</dd>
+</dl></div></details>
+<details id="TQT-ISS-004"><summary><code>TQT-ISS-004</code><span class="t">Bản tập hợp chưa phải nơi sửa duy nhất (SSOT) của Master Tool</span><span class="chip wa">Ghi nhận</span></summary><div class="in"><dl class="kv">
+<dt>Nguồn phát hiện</dt><dd>Rà 9 Tools ngày 08/10/2026 theo mục tiêu mới của Owner.</dd>
+<dt>Phạm vi</dt><dd>Master Tool ML-DEF-023, CONFIG_PRINCIPLES, trang Tools · CTCM, thanh “Quy trình - Tools” ở Công thức MMIM và các nơi gọi (<a href="#chuyen-nguon">⑥</a>).</dd>
+<dt>Ảnh hưởng</dt><dd>Hai nơi cùng giữ nội dung → dễ sửa lệch, người đọc không biết bản nào đúng.</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Host GPT Chat (OpenAI-main) · Chưa giao · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>Phản biện kế hoạch chuyển nguồn, một nơi sửa mỗi ID; giữ lịch sử và trang MOW đang dùng. Các bước cắt chuyển: <a href="#chuyen-nguon">⑥</a>.</dd>
+<dt>Mốc rà</dt><dd>Vòng phản biện P06 và lượt áp thử tiếp theo.</dd>
+<dt>Lý do chưa đóng</dt><dd>Đã chép đủ nhưng nơi sửa chưa đổi.</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Chuyển nguồn và kiểm đúng phiên bản/link, không còn hai nơi sửa.</dd>
+<dt>Bằng chứng</dt><dd>Bảng đối chiếu nguồn cũ → trang này ở <a href="#chuyen-nguon">⑥</a> (P10).</dd>
+<dt>Lịch sử</dt><dd>08/10/2026 · Ghi nhận.<br>08/10/2026 · Claude Chat: chép đủ khu Công thức cũ vào trang này theo yêu cầu Owner 10:41 (P10); nơi sửa chưa đổi, chờ Host cắt chuyển. Trạng thái không đổi.</dd>
+</dl></div></details>
+<details id="TQT-ISS-005"><summary><code>TQT-ISS-005</code><span class="t">Nhóm chuyên môn xét nguyên tắc giao việc MOT chưa kiểm kê</span><span class="chip wa">Ghi nhận</span></summary><div class="in"><dl class="kv">
+<dt>Nguồn phát hiện</dt><dd>Rà 9 Tools ngày 08/10/2026 theo mục tiêu mới của Owner.</dd>
+<dt>Phạm vi</dt><dd>Nhóm “Xét nguyên tắc giao việc của MOT” (ô 1 dòng 6).</dd>
+<dt>Ảnh hưởng</dt><dd>Một nhóm Owner nêu tên chưa có quy trình nào.</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Host GPT Chat (OpenAI-main) · Chưa giao · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>Đọc nguồn MOT hiện hành, tách quy trình chuyên môn khỏi luật nền AGENTS rồi thêm đúng nhóm/lớp.</dd>
+<dt>Mốc rà</dt><dd>Vòng phản biện P06 và lượt áp thử tiếp theo.</dd>
+<dt>Lý do chưa đóng</dt><dd>Chưa đọc nguồn MOT.</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Có mã/nguồn/xếp nhóm đã xác minh hoặc chứng minh không áp dụng.</dd>
+<dt>Bằng chứng</dt><dd>Chưa có.</dd>
+<dt>Lịch sử</dt><dd>08/10/2026 · Ghi nhận.</dd>
+</dl></div></details>
+
+<h3>Hồ sơ chép từ sổ MOW / Tools · OPEN</h3>
+<p class="mut"><small>Giữ nguyên mã, trường và lịch sử. Giờ đổi về +07. Nguồn: Master Tool → TOOL-CTCM-001 → pilot.issues, bản 93eae888106544e7 (08/10 11:10).</small></p>
+<details id="issue-OPEN-01"><summary><code>OPEN-01</code><span class="t">Thiếu Chuyên môn/điểm gọi</span><span class="chip wa">Chưa giao</span></summary><div class="in"><dl class="kv">
+<dt>Phạm vi</dt><dd>MOW-NHC-001 · Config MOW</dd>
+<dt>Ưu tiên</dt><dd>Chưa phân loại</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Codex · phiên thiết kế MOW này · Chưa giao · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>Xác định chuyên môn và điểm gọi trước khi cấu hình MOW-NHC-001.</dd>
+<dt>Mốc rà</dt><dd>Đầu lượt tiếp tục MOW-NHC-001; trước khi duyệt bước liên quan</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Gắn khóa chuyên môn và nguồn ngữ cảnh thật.</dd>
+<dt>Bằng chứng</dt><dd>Chưa có.</dd>
+<dt>Lịch sử</dt><dd>07/10/2026 17:36 · Codex: Chuyển nguyên nội dung từ sổ 4 cột sang hồ sơ theo dõi; chưa có bằng chứng đã xử lý.<br>08/10/2026 · Claude Chat: chép nguyên hồ sơ sang sổ tools-quy-trinh; không đổi trạng thái.</dd>
+</dl></div></details>
+<details id="issue-OPEN-02"><summary><code>OPEN-02</code><span class="t">Chưa có chọn và truyền dữ liệu xuyên bước</span><span class="chip wa">Đang xử lý</span></summary><div class="in"><dl class="kv">
+<dt>Phạm vi</dt><dd>MOW-NHC-001 · UI tìm kiếm + điều hướng</dd>
+<dt>Ưu tiên</dt><dd>Chưa phân loại</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Codex · phiên thiết kế MOW này · Codex · phiên thiết kế MOW này · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>Hoàn tất kiểm live 1→3 và 1→2→3, chọn lại và đổi input; browser đã truy cập được 08/10, ca chọn lọc có ở TQT-UI-20261008-MOW001-STEP2. OPEN-09 còn phạm vi chưa phủ; model đã kiểm.</dd>
+<dt>Mốc rà</dt><dd>Đầu lượt tiếp tục MOW-NHC-001; trước khi duyệt bước liên quan</dd>
+<dt>✅ Điều kiện đóng</dt><dd>1→3 và 1→2→3 giữ đúng nhu cầu/field_id/bộ lọc.</dd>
+<dt>Bằng chứng</dt><dd>Chưa có.</dd>
+<dt>Lịch sử</dt><dd>07/10/2026 17:36 · Codex: Chuyển nguyên nội dung từ sổ 4 cột sang hồ sơ theo dõi; chưa có bằng chứng đã xử lý.<br>07/10/2026 18:16 · Codex: Dựng 3 màn trạng thái đầu và model chuyển bước; chưa đóng vì kiểm live và hợp đồng production còn thiếu.<br>08/10/2026 · Claude Chat: chép nguyên hồ sơ sang sổ tools-quy-trinh; không đổi trạng thái.</dd>
+</dl></div></details>
+<details id="issue-OPEN-03"><summary><code>OPEN-03</code><span class="t">Chưa có màn xác nhận và hợp đồng kết quả</span><span class="chip wa">Đang xử lý</span></summary><div class="in"><dl class="kv">
+<dt>Phạm vi</dt><dd>MOW-NHC-001 · UI1.3 + Config</dd>
+<dt>Ưu tiên</dt><dd>Chưa phân loại</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Codex · phiên thiết kế MOW này · Codex · phiên thiết kế MOW này · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>Owner chốt nơi nhận và tác động của Xác nhận phù hợp; đề xuất trả Field về nơi gọi, không tạo/sửa Field. UI đã dựng, chưa bật lưu thật.</dd>
+<dt>Mốc rà</dt><dd>Đầu lượt tiếp tục MOW-NHC-001; trước khi duyệt bước liên quan</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Chốt điều kiện đủ, nơi nhận, tác động lưu; rồi dựng UI.</dd>
+<dt>Bằng chứng</dt><dd>Chưa có.</dd>
+<dt>Lịch sử</dt><dd>07/10/2026 17:36 · Codex: Chuyển nguyên nội dung từ sổ 4 cột sang hồ sơ theo dõi; chưa có bằng chứng đã xử lý.<br>07/10/2026 18:16 · Codex: Dựng 3 màn trạng thái đầu và model chuyển bước; chưa đóng vì kiểm live và hợp đồng production còn thiếu.<br>08/10/2026 · Claude Chat: chép nguyên hồ sơ sang sổ tools-quy-trinh; không đổi trạng thái.</dd>
+</dl><p class="mut"><small>Ví dụ vòng đời có thật (nguồn TOOL-CTCM-008): thiếu màn Xác nhận của MOW-NHC-001. Bước tiếp theo: chốt đầu ra/tác động xác nhận → khớp UI cha → dựng UI → kiểm hai đường 1→3 và 1→2→3. Chưa đủ bằng chứng thì giữ mở; chưa giao agent cụ thể không ghi Đang xử lý.</small></p></div></details>
+<details id="issue-OPEN-04"><summary><code>OPEN-04</code><span class="t">Vector/JEV chưa kết nối</span><span class="chip wa">Chưa giao</span></summary><div class="in"><dl class="kv">
+<dt>Phạm vi</dt><dd>MOW-NHC-001 · Hợp đồng tìm kiếm</dd>
+<dt>Ưu tiên</dt><dd>Chưa phân loại</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Codex · phiên thiết kế MOW này · Chưa giao · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>Xác minh hợp đồng Vector/JEV trước khi nối tìm ngữ nghĩa.</dd>
+<dt>Mốc rà</dt><dd>Đầu lượt tiếp tục MOW-NHC-001; trước khi duyệt bước liên quan</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Có nguồn, quyền, input/output và ý nghĩa điểm; không tự bật tích hợp.</dd>
+<dt>Bằng chứng</dt><dd>Chưa có.</dd>
+<dt>Lịch sử</dt><dd>07/10/2026 17:36 · Codex: Chuyển nguyên nội dung từ sổ 4 cột sang hồ sơ theo dõi; chưa có bằng chứng đã xử lý.<br>08/10/2026 · Claude Chat: chép nguyên hồ sơ sang sổ tools-quy-trinh; không đổi trạng thái.</dd>
+</dl></div></details>
+<details id="issue-OPEN-05"><summary><code>OPEN-05</code><span class="t">UI cha tìm kiếm chưa khớp nguồn dựng</span><span class="chip wa">Đang xử lý</span></summary><div class="in"><dl class="kv">
+<dt>Phạm vi</dt><dd>MOW-NHC-001 · Master UI cha/con</dd>
+<dt>Ưu tiên</dt><dd>Chưa phân loại</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Codex · phiên thiết kế MOW này · Codex · phiên thiết kế MOW này · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>Biến thể dùng lại DOM/CSS UI-029. Cần kiểm style thực tế và khớp UI cha khi trình duyệt được phép truy cập.</dd>
+<dt>Mốc rà</dt><dd>Đầu lượt tiếp tục MOW-NHC-001; trước khi duyệt bước liên quan</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Rà UI.MASTER hay cần khuôn chuyên biệt; có bằng chứng kế thừa.</dd>
+<dt>Bằng chứng</dt><dd>Chưa có.</dd>
+<dt>Lịch sử</dt><dd>07/10/2026 17:36 · Codex: Chuyển nguyên nội dung từ sổ 4 cột sang hồ sơ theo dõi; chưa có bằng chứng đã xử lý.<br>07/10/2026 18:16 · Codex: Dựng 3 màn trạng thái đầu và model chuyển bước; chưa đóng vì kiểm live và hợp đồng production còn thiếu.<br>08/10/2026 · Claude Chat: chép nguyên hồ sơ sang sổ tools-quy-trinh; không đổi trạng thái.</dd>
+</dl></div></details>
+<details id="issue-OPEN-06"><summary><code>OPEN-06</code><span class="t">Các nhánh lỗi/biên chưa đầy đủ</span><span class="chip wa">Đang xử lý</span></summary><div class="in"><dl class="kv">
+<dt>Phạm vi</dt><dd>MOW-NHC-001 · Tools kiểm thử + Config</dd>
+<dt>Ưu tiên</dt><dd>Chưa phân loại</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Codex · phiên thiết kế MOW này · Codex · phiên thiết kế MOW này · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>17 model tests đạt; tiếp tục ca UI/live và quyền/phiên bản/idempotency dịch vụ thật, không thay thế bằng mock.</dd>
+<dt>Mốc rà</dt><dd>Đầu lượt tiếp tục MOW-NHC-001; trước khi duyệt bước liên quan</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Mỗi nhánh có ca và bằng chứng; chưa thực thi giữ NOT_TESTED.</dd>
+<dt>Bằng chứng</dt><dd>Chưa có.</dd>
+<dt>Lịch sử</dt><dd>07/10/2026 17:36 · Codex: Chuyển nguyên nội dung từ sổ 4 cột sang hồ sơ theo dõi; chưa có bằng chứng đã xử lý.<br>07/10/2026 18:16 · Codex: Dựng 3 màn trạng thái đầu và model chuyển bước; chưa đóng vì kiểm live và hợp đồng production còn thiếu.<br>08/10/2026 · Claude Chat: chép nguyên hồ sơ sang sổ tools-quy-trinh; không đổi trạng thái.</dd>
+</dl></div></details>
+<details id="issue-OPEN-07"><summary><code>OPEN-07</code><span class="t">Tools chưa chỉ rõ đích đến và cách ghi/kiểm đầu ra</span><span class="chip ok">Đóng</span></summary><div class="in"><dl class="kv">
+<dt>Phạm vi</dt><dd>Tools · CTCM · Quy trình - Tools và Sổ theo dõi</dd>
+<dt>Ưu tiên</dt><dd>Chặn tính dùng được của Tools</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Codex · phiên thiết kế MOW này · Codex · phiên thiết kế MOW này · Codex · kiểm tại trình duyệt</dd>
+<dt>➡ Bước tiếp</dt><dd>Đã kiểm phạm vi OPEN-07. Các việc OPEN-01…06 tiếp tục theo mốc riêng.</dd>
+<dt>Mốc rà</dt><dd>Ngay lượt 07/10/2026 này, trước báo cáo</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Sổ có địa chỉ mở trực tiếp, hồ sơ có người/trạng thái/bước tiếp/mốc rà, cách ghi MCP và kiểm đọc lại; mọi Tool có hợp đồng đích đến; có bằng chứng thử lưu/đọc và mở đúng hồ sơ.</dd>
+<dt>Bằng chứng</dt><dd>MCP ghi thành công: 89e7777f69ac4bcf9aa78442d6592c0a; đọc lại nguồn 5c31349a2a983be1316555a314b4354feda78cf298dd9abc429489963a8bd6ae.<br>Trình duyệt: 7 hồ sơ; #issue-OPEN-07 mở đúng hồ sơ và sổ cha; 9/9 Tool có liên kết Sổ kết quả thực hiện.<br>Giữ nguyên 6 việc MOW gốc; không đánh dấu đã xử lý, chưa chạy lại hành trình MOW/DOT.</dd>
+<dt>Lịch sử</dt><dd>07/10/2026 17:36 · Owner: Yêu cầu mọi bước đi đến đích cụ thể; không chỉ nói ghi sổ.<br>07/10/2026 17:36 · Codex: Nhận xử lý OPEN-07 trong lượt này; nâng sổ hiện có, không mở task khác.<br>07/10/2026 17:45 · Codex: Kiểm ghi → đọc lại → mở liên kết hồ sơ và 9 đích Tool đạt; đóng OPEN-07, giữ 6 việc gốc mở.<br>08/10/2026 · Claude Chat: chép nguyên hồ sơ sang sổ tools-quy-trinh; không đổi trạng thái.</dd>
+</dl></div></details>
+<details id="issue-OPEN-08"><summary><code>OPEN-08</code><span class="t">Chưa có nguồn tìm Field thật theo quyền</span><span class="chip st">Bị chặn</span></summary><div class="in"><dl class="kv">
+<dt>Phạm vi</dt><dd>MOW-NHC-001 · Tìm Field / adapter</dd>
+<dt>Ưu tiên</dt><dd>Chặn nghiệm thu phần liên quan</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Codex · phiên thiết kế MOW này · Codex · phiên thiết kế MOW này · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>Xác minh nguồn danh mục Field, quyền tài khoản, hợp đồng tìm và lỗi trước khi nối. Màn live hiện không dùng fixture.</dd>
+<dt>Mốc rà</dt><dd>Trước nghiệm thu UI/production MOW-NHC-001</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Tìm theo nguồn thật, đúng quyền; lỗi khác không kết quả; có kiểm đầu–cuối.</dd>
+<dt>Bằng chứng</dt><dd>Chưa có.</dd>
+<dt>Lịch sử</dt><dd>07/10/2026 18:16 · Codex: Phát hiện khi áp Tools theo chỉ đạo Owner 18:03; ghi cùng sổ, không tạo task khác.<br>08/10/2026 · Claude Chat: chép nguyên hồ sơ sang sổ tools-quy-trinh; không đổi trạng thái.</dd>
+</dl></div></details>
+<details id="issue-OPEN-09"><summary><code>OPEN-09</code><span class="t">UI live đã truy cập; còn thiếu phạm vi kiểm và parity</span><span class="chip wa">Đang xử lý</span></summary><div class="in"><dl class="kv">
+<dt>Phạm vi</dt><dd>MOW-NHC-001 · Kiểm UI / môi trường</dd>
+<dt>Ưu tiên</dt><dd>Chặn nghiệm thu phần liên quan</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Codex · phiên thiết kế MOW này · Codex · phiên thiết kế MOW này · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>Hoàn tất ca live trên 3 màn và so UI cha/responsive; giữ 18 quan sát màn 2/minh hoạ cùng 3 ca kiểm lại ở UI-REVIEW-MOW001.json. Browser truy cập được 08/10, chưa đạt nghiệm thu toàn UI.</dd>
+<dt>Mốc rà</dt><dd>Trước nghiệm thu UI/production MOW-NHC-001</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Trình duyệt truy cập hợp lệ; ca live và parity có bằng chứng; không lấy model tests thay.</dd>
+<dt>Bằng chứng</dt><dd>TQT-UI-20261008-MOW001-STEP2; work/mow-mot-moit-mout/UI-REVIEW-MOW001.json; repo hướng dẫn 427c1704f9122b35352e2e3afe283821d1f54636</dd>
+<dt>Lịch sử</dt><dd>07/10/2026 18:16 · Codex: Phát hiện khi áp Tools theo chỉ đạo Owner 18:03; ghi cùng sổ, không tạo task khác. (Tên lúc đó: Không kiểm được UI live do browser policy · Bị chặn.)<br>08/10/2026 · Codex: Truy cập browser hợp lệ và chạy 18 quan sát chọn lọc màn 2/minh hoạ; chạy lại 3 ca sau bổ sung quy trình. Hết blocker truy cập của lượt cũ, còn kiểm toàn phạm vi/parity; giữ mở.<br>08/10/2026 · Claude Chat: chép nguyên hồ sơ sang sổ tools-quy-trinh; không đổi trạng thái.</dd>
+</dl></div></details>
+<details id="issue-OPEN-10"><summary><code>OPEN-10</code><span class="t">Không tìm được Field: chưa có nơi nhận yêu cầu bổ sung</span><span class="chip st">Bị chặn</span></summary><div class="in"><dl class="kv">
+<dt>Phạm vi</dt><dd>MOW-NHC-001 · Nhánh B08 / Config</dd>
+<dt>Ưu tiên</dt><dd>Chặn nghiệm thu phần liên quan</dd>
+<dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Codex · phiên thiết kế MOW này · Codex · phiên thiết kế MOW này · Chưa giao</dd>
+<dt>➡ Bước tiếp</dt><dd>Chốt nơi nhận yêu cầu Field thiếu và cách theo dõi; chưa thêm nút gửi giả hoặc tự tạo Field trong MOW tìm kiếm.</dd>
+<dt>Mốc rà</dt><dd>Trước nghiệm thu UI/production MOW-NHC-001</dd>
+<dt>✅ Điều kiện đóng</dt><dd>Có nơi nhận, mã yêu cầu, người giữ việc và cách quay lại; kiểm gửi/đọc lại được.</dd>
+<dt>Bằng chứng</dt><dd>Chưa có.</dd>
+<dt>Lịch sử</dt><dd>07/10/2026 18:16 · Codex: Phát hiện khi áp Tools theo chỉ đạo Owner 18:03; ghi cùng sổ, không tạo task khác.<br>08/10/2026 · Claude Chat: chép nguyên hồ sơ sang sổ tools-quy-trinh; không đổi trạng thái.</dd>
+</dl></div></details>
+
+<details id="vong-doi"><summary><span class="t">⚙️ Cách sổ chạy · vòng đời, trường tối thiểu, ai làm gì</span><small>nguồn: TOOL-CTCM-008 + TQT-REGISTER</small></summary><div class="in"><dl class="kv">
+<dt>Trường tối thiểu</dt><dd>Mã; loại; MOW/MOT/UI và phiên bản; mong đợi/thực tế + bằng chứng; mức ảnh hưởng/ưu tiên; trạng thái; người xử lý/người kiểm; bước tiếp theo + hạn hoặc mốc rà; điều kiện đóng; lịch sử. Metadata máy biết phải tự điền.</dd>
+<dt>Ai làm gì</dt><dd>AI phát hiện lập hồ sơ. Host đang phụ trách MOW phân loại, giao người và theo dõi. Agent được giao xử lý cập nhật tiến độ. Người kiểm xác minh kết quả; Host chỉ đóng khi đủ bằng chứng theo quyền đã giao. Vai trò phải gắn danh tính cụ thể trước khi giao chạy.</dd>
+<dt>Tự động hóa</dt><dd>Chưa có máy tự giao việc, nhắc hạn hoặc theo dõi nền trong bản này. Khi viết DOT sẽ tự điền metadata, kiểm hồ sơ thiếu người/mốc rà, nhắc việc và lưu lịch sử theo cấu hình đã chốt.</dd>
+<dt>Ghi ở đâu (nguồn cũ)</dt><dd>Ghi tại Sổ việc còn thiếu của MOW trên trang áp thử. Hiện MOW-NHC-001 dùng pilot.issues trong Master Tool (TOOL-CTCM-001) làm SSOT; các nơi khác dẫn cùng mã hồ sơ. Đây đang là sổ thiết kế, chưa phải hệ thống giao việc tự động. <i>(Sau cắt chuyển: chỉ ghi ở sổ này.)</i></dd>
+<dt>Mã mới</dt><dd>Hồ sơ mới của task: <code>TQT-ISS-nnn</code>. Hồ sơ chép từ nơi khác giữ mã gốc (OPEN-xx).</dd>
+<dt>AI ghi thế nào</dt><dd>Đọc bản mới của <code>work/tools-quy-trinh/view.html</code>; tra mã để không trùng; sửa đúng hồ sơ bằng công cụ ghi repo có <code>expected_version</code>; đọc lại mã/giá trị vừa lưu và mở trang Owner. Không sửa bằng SQL, không chỉ ghi vào chat hoặc bộ nhớ trình duyệt.</dd>
+<dt>Người xem</dt><dd>Owner xem sổ bằng link; có thể yêu cầu AI cập nhật theo mã. Trang này hiện chỉ đọc; không có nút Lưu giả. Chưa có cơ chế nhắc nền.</dd>
+<dt>Ghi lỗi</dt><dd>Nếu ghi thất bại: không nói đã ghi; giữ trạng thái BLOCKED và báo đúng lỗi/đích. Nếu đích chưa tồn tại: tạo trong phạm vi đã giao rồi chứng minh đọc lại được; không để chỉ dẫn treo.</dd>
+<dt>Quy tắc ghi/đóng</dt><dd>Ghi ngay tình huống mắc, quy trình/phiên bản/câu/bước liên quan, ảnh hưởng và bằng chứng. Chỉ ghi “Đang xử lý” khi đã có người nhận. Kiểm lại bản sửa trước khi đóng; tái diễn thì mở lại cùng mã. Khi chuyển sang bảng PG riêng, giữ nguyên mã và lịch sử, xác định rõ điểm chuyển nguồn.</dd>
+</dl></div></details>
+</section>
+
 <!--TQT-P10-NEXT-->
 </main>
 </body>
