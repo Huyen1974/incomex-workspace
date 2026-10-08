@@ -181,7 +181,7 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - HUMAN_DIRECTIVE@TQT-VIEW-20261008 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,README.md,COLLAB.md} · step=chuẩn hóa trình bày + chuyển nguồn · recorded_by=Claude-review · quote="Ngoài ra tôi thấy việc trình bày quy trình đang hơi khó hiểu, phức tạp với con người, bạn xem xét trình bày lại và đảm bảo đẩy đủ từ phàn công thức của repo cũ để có thể tiếp tục việc này 1 cách liền mạch nhé." · text=Trình bày lại view.html một khuôn dễ nhìn; chép đủ khu Công thức cũ kèm phiên bản; không sửa nguồn cũ. · audit=Tin nhắn trực tiếp Owner tại phiên Claude Chat, 2026-10-08 10:41 +07; commits P10.
 
 ## Owner cần quyết
-- **Q01 — ĐÃ CHỐT 08/10/2026 09:19 +07:** Owner trực tiếp chỉ định GPT Chat làm Host (D06). Không có câu hỏi Owner còn mở trong phạm vi lượt tiếp nhận tài liệu này.
+- — Q01 ĐÃ CHỐT 08/10/2026 09:19 +07: Owner trực tiếp chỉ định GPT Chat làm Host (D06). Không có câu hỏi Owner còn mở trong phạm vi lượt tiếp nhận tài liệu này.
 
 ## Ý kiến và bằng chứng
 ### P10 · Trình bày lại trang quy trình + chép đủ khu Công thức cũ theo chỉ đạo Owner 10:41 · OPEN
