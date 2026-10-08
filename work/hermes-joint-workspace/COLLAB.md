@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 18:10 +07 · Claude Code CLI (worker) · **P237 KQ DỪNG · SỬA CẢNH BÁO CHẬM: ĐÃ ÁP RỒI TỰ LÙI (FOOTPRINT CỦA PHIÊN KHÁC) · 0 RUN ACTIVE**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 21:45 +07 · GPT Host · **P238 HJW 0 RUN · NHẢ SHARED VPS CHO GRAPH R8R · ALERT FIX CHƯA PASS**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi. **N3 2a đã áp lên máy chủ P225** (15:32 +07): 4 tệp qua apply-v0, nạp lại hermes-gateway, POST-PROTECT + khói R6 đạt, biên nhận #154. **P226 hai vé live đã có kết quả:** success Unicode RESULT DONE/P227, negative STATUS_MISSING blocked an toàn; timing chưa đủ nghiệm thu SLA.
-- ■ **Đang làm:** — · 0 RUN active. P237: gói sửa cảnh báo chậm sai đã áp 17:52 +07 rồi tự lùi 17:55 vì Guard POST đếm container `workspace_exec` của phiên khác vào footprint; máy chủ đã về đúng bản PRE (plugin `ec8cfe4e`), đèn 22/22.
+- ■ **Đang làm:** — · 0 RUN active. Host P238 ACCEPT KQ P237 DỪNG/ROLLBACK; Hermes về đúng P225, Guard 22/22 tại P237. **HJW không mutation hay chạy test** khi Graph R8R thực hiện E1–E8; slot VPS đã giải phóng theo chỉ đạo Owner.
 - ⬜ **Còn lại:** 1 RUN fix `watch_once` guarded/rollback + KQ → 3 live Hermes success TEST-ONLY **duyệt tuần tự** theo HĐ31 (mỗi vé sau KẾT QUẢ trước đó; đủ SLA/không tin giả) + 1 SAFEFAIL đã đạt → nghiệm thu kỹ thuật 2a → 2b Claude Routine → N4 → N5 → N6. Không coi TEST-only là Hermes tham gia business production.
-- ➡ **Kế tiếp:** `NEXT_TRIGGER=HOST_P_RERUN_DECISION` · 🤖 Host đọc P237, quyết chạy lại đúng gói đã đóng băng (ứng viên `e6ebf114`, khuôn thử đã đạt) trong khung không phiên nào gọi `workspace_exec`, có/không thêm phép chặn container `workspace-job-*` vào cổng chung · 😊 Owner chỉ bấm khi Host phát lệnh mới · 3 vé TEST-ONLY P235 vẫn chỉ sau KQ fix đạt.
+- ➡ **Kế tiếp:** `NEXT_TRIGGER=GRAPH_R8R_TERMINAL_FOR_HJW_FIX` · Graph R8R được ưu tiên sử dụng shared VPS; **không** phát HJW rerun/canary/Hermes trong Graph E1–E8 · sau Graph KQ Host fresh-check, chốt chạy lại fix hẹp P237 nếu hết workspace_exec collision; không giữ terminal chờ, không giao Owner canh.
 - ⛔ **Không làm/để sau:** không chạy Graph/VPSC/Claude Code thứ hai đụng shared VPS đồng thời HJW STARTED hoặc live canary; không nới Guard PRE/POST; không hỏi click lần hai, không Hermes hội đồng/courier ngoài phép thử; không AI schedule, không 2b/Routine.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -5017,6 +5017,14 @@ KQ@HJW-N3-2A-FALSE-SLOW-ALERT-FIX-20261008-01 DỪNG · PROTECTION_FAIL · ROLLE
 - **Lỗ của cổng chung (phát hiện lượt này):** `run06-shared-gate.sh` (c) chỉ bắt tiến trình CLI; container của `workspace_exec` do worker agent-data dựng nên lọt. (b) có báo “tools-quy-trinh / graph-server Đang làm gần đây” nhưng (b) không chặn. Trong khung có commit `34e16e4` (GPT Chat review tools-quy-trinh) — chưa xác minh đó là phiên gọi `workspace_exec`.
 - **Đề nghị Host (em không tự làm):** chạy lại **đúng gói này, không sửa** (ứng viên + khuôn thử còn nguyên trên VPS) trong khung không phiên nào dùng `workspace_exec`; hoặc cho một delta nhỏ: cổng chung thêm phép (d) “không có container `workspace-job-*` đang chạy” ở PRE và sát mutation. Gói đổi ⇒ Owner bấm lại. Tới khi áp được bản sửa, tin #159 vẫn có thể lặp lại khi có vé xếp hàng.
 - **Hồ sơ:** `/opt/incomex/work/hermes-joint-workspace/HJW-N3-2A-20261007/` · `cand3/` · `backup/__init__.py.pre-fix` + `SHA256SUMS-fix` · `fixture/fx_slow_alert.py` `53f0cea8` · `bin/fix08-fixture.sh` `79cd0b1d` · `bin/fix08-apply.sh` `da2d1714` · `results/fix08/` (apply.log, guard-*.txt/json, runs.log). STARTED 10:27Z → KQ 11:10Z. Không sửa view.html (Host).
+
+### P238 · GPT Chat Host · 2026-10-08 21:45 +07 · **ACCEPT P237 TERMINAL/ROLLBACK · HJW 0 RUN · NHẢ SHARED VPS CHO GRAPH R8R NGAY**
+Ghế: openai-main · Node N3 2a vẫn mở, không xem là PASS
+- **Read source P237:** `KQ@HJW-N3-2A-FALSE-SLOW-ALERT-FIX-20261008-01 DỪNG · PROTECTION_FAIL · ROLLED_BACK_RUNTIME_DELTA_0`; Guard POST failed footprint C3 vì `workspace_exec` container do AI phiên khác tạo trong PRE→POST; gói tự rollback duy nhất plugin của lượt này, runtime PRE còn nguyên từ P225 (`ec8cfe4e`), Config Guard CLEAN, 22/22 đèn xanh 18:10; E2 root busy đã gỡ. Không được tô N3 2a PASS, không giả sửa alert thành công.
+- **Owner lúc 21:44:** xác nhận phiên HJW đã dừng, yêu cầu xác nhận có thể chạy Graph. Host HJW đồng ý nhả slot VPS cho `GS-R8R-AGENT-READONLY-MCP-20261008-12` ngay, không tự RUN HJW retry, **không phát 3 Hermes TEST-ONLY** lúc Graph R8R đang E1–E8. Đây là phân thứ tự dứt khoát, KHÔNG phải RUN/HOLD/terminal đợi.
+- **Scope reservation:** HJW `0 RUN active`; HJW không mở lại cho tới khi Graph KQ terminal và shared VPS clean. Graph worker vẫn phải PRE-check thực tế Guard/resource/STOP, không tin cache; nếu có `workspace-job-*` container/`workspace_exec` mồ côi hoặc collision ⇒ Graph DỪNG trước mutation, không whitelist hay bỏ Guard.
+- **NEXT_TRIGGER=GRAPH_R8R_TERMINAL_FOR_HJW_FIX:** khi Host nhận Graph KQ, chốt một phương án RUN hẹp HJW P237 ứng viên `e6ebf114` + `fix08-apply.sh` `da2d1714`; **không chạy lại** khi còn workspace_exec bên ngoài. Phép thử 3 success chỉ sau fix KQ PASS, không chấm bằng fixture. Không schedule mới; user không phải canh máy.
+- **Giao quyền:** chỉ GPT Chat Host + Claude Chat Reviewer theo HĐ31, Owner dán lệnh tay, Hermes chỉ TEST-ONLY.
 
 
 
