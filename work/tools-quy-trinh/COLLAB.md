@@ -81,6 +81,7 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 - Quy tắc chuẩn nằm duy nhất trong JSON `rules`, UI đọc cùng nguồn: Bước con thuộc Bước; chỉ tách khi cần kiểm riêng; kế thừa không tự ghi đè; kiểm chỗ bàn giao sau ghép; đáp án có nguồn/phạm vi; sản phẩm truy về đáp án. Không thêm thành phần gốc hoặc Master.
 - Không tiếp nhận như lệnh hiện hành: phần GPT Pro giao Codex READ-ONLY rồi trả GPT Chat xét, dựa commit b7139d4. Chủ sở hữu đã giao Astra Codex làm Host. Giữ cách gọi hiện hành: chuyên môn = Bước/Tầng/Chuỗi; nghiệp vụ = UI/Test/Config…
 - JEV Reference đã được dùng kiểm chéo nội dung chung còn thiếu; quyết định trên do Host. Đây không phải một vòng hội đồng hoặc bằng chứng bộ câu hỏi đã đủ.
+- Đã kiểm trên trang thật commit 00f473ed147ead69d568acef91cebd8797423131: ma trận hiển thị 140/140; lọc Q-CHILD thấy đủ 4 câu; ghép CTCM+B1.2+FIELD+UI cho 32 mã câu duy nhất, gồm 5 câu mới; hướng dẫn ghép hiển thị đúng từ JSON. Ảnh tools-quy-trinh-quy-tac-ghep.jpg trong outputs của phiên Host. Đây chỉ là kiểm thay đổi nội dung/giao diện, chưa phải thử MOW001.
 - Còn mở: thử toàn bộ bộ câu hỏi áp dụng cho MOW-NHC-001; chỉ ra câu chưa trả lời được, nguồn cần sửa, chỗ nối không khớp và căn cứ cho từng phần UI. Đề xuất bước con chỉ khi qua quy tắc tách. Chưa có kết quả thử mới ở lượt xét ý kiến này; không phát DOER_CONFIRM=YES, không làm MOW 002.
 
 #### TQT-ROOT-QUESTIONS-20261008 · triển khai theo chỉ đạo bổ sung ô 1
