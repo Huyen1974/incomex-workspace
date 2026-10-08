@@ -85,7 +85,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 .tq .titleline small{flex:1}.tq .quiet{background:#f7f9f4;border:1px solid var(--line);border-radius:16px;padding:4px 11px;font-size:12px;color:#506b57}
 .tq .formula{font:700 18px/1.5 ui-monospace,monospace;background:#f1f4ee;padding:3px 7px;border-radius:5px;display:inline-block;margin:4px 0 14px}
 .tq .flow{display:grid;grid-template-columns:98px minmax(0,1fr);gap:16px;align-items:center}
-.tq .branches{border-left:2px solid #d6dfd3;padding-left:18px;display:grid;gap:13px}.tq .condition{display:block;font-size:12px;color:#6d766d;margin-bottom:5px}
+.tq .branches,.tq .branches>div{min-width:0}.tq .arrow{font-size:16px;margin:0}.tq-tabs{position:sticky;top:0;z-index:5}.tq .branches{border-left:2px solid #d6dfd3;padding-left:18px;display:grid;gap:13px}.tq .condition{display:block;font-size:12px;color:#6d766d;margin-bottom:5px}
 .tq .chain{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.tq .create-chain{flex-wrap:nowrap;overflow:auto;padding:3px 3px 8px}
 .tq .piece{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid #cfd9ca;border-radius:10px;background:#fbfcf8;padding:10px 11px;color:#294332;font-size:14px;font-weight:650;line-height:1.3;min-height:48px}
 .tq .create-chain .piece{flex:0 0 auto;max-width:160px}.tq .piece:hover{background:#eef4e8;border-color:#799675}.tq .piece[aria-current=true]{border:2px solid #426a47;background:#eaf3e3}
@@ -2045,7 +2045,7 @@ function detail(id){
  let body='<div class="detail" id="q-'+id+'"><div class="detail-head"><div><small>'+esc(g.kind)+' · '+own(id).length+' câu riêng</small><h3>'+esc(g.label)+'</h3></div><button type="button" data-close="'+(business?'cau-hoi-nghiep-vu':'cau-hoi-co-ban')+'">Thu gọn ↑</button></div>'+list(own(id));
  const inherited=common(id);
  if(inherited.length)body+='<details><summary>'+inherited.length+' câu chung · áp dụng cùng câu riêng</summary>'+list(inherited)+'</details>';
- if(g.parent)body+='<details><summary>Kế thừa bước lớn: '+esc(G[g.parent].label)+'</summary>'+list([...common(g.parent),...own(g.parent)])+'</details>';
+ if(g.parent)body+='<p><a href="#q-'+g.parent+'">← Về bước lớn '+esc(G[g.parent].label)+'</a></p><details><summary>Kế thừa bước lớn: '+esc(G[g.parent].label)+'</summary>'+list([...common(g.parent),...own(g.parent)])+'</details>';
  if(g.kind==='Bước lớn')body+='<div class="children"><h3>Bước con</h3>'+(children.length?'<div class="chain">'+children.map(c=>piece(c.id,'child')).join('')+'</div><p><small>Mỗi bước con có câu hỏi riêng và kế thừa câu hỏi bước lớn. <a href="#q-CHILD">Xem câu hỏi chung cho bước con →</a></small></p>':'<p class="mut">Chưa tách bước con trong Công thức. Khi cần tách sẽ bổ sung câu hỏi cho từng bước con.</p>')+'</div>';
  if(g.legacy)body+='<p><small><a href="'+g.legacy+'">Đối chiếu quy trình đã có →</a></small></p>';
  body+='</div>';$('tqt-'+slot+'-detail').innerHTML=body;
@@ -2069,7 +2069,7 @@ function compose(){
  function inherit(id){(D.inheritance[G[id].kind]||[]).forEach(x=>owners.add(x));if(G[id].parent)inherit(G[id].parent);owners.add(id)}
  ids.forEach(inherit);
  const qs=D.questions.filter(q=>owners.has(q.owner));
- $('tqt-composed').innerHTML='<p><b>'+qs.length+' câu</b> · '+ids.map(id=>esc(G[id].label)).join(' + ')+'</p><p class="mut"><small>Đây là bộ câu hỏi để xem trước, chưa phải quy trình đã nghiệm thu. Khi làm thật, ghi câu trả lời và bằng chứng; câu không áp dụng phải có lý do.</small></p>'+
+ $('tqt-composed').innerHTML='<p><small>Đã chọn '+ids.length+'/4 thành phần</small><br><b>'+qs.length+' câu</b> · '+ids.map(id=>esc(G[id].label)).join(' + ')+'</p><p class="mut"><small>Đây là bộ câu hỏi để xem trước, chưa phải quy trình đã nghiệm thu. Khi làm thật, ghi câu trả lời và bằng chứng; câu không áp dụng phải có lý do.</small></p>'+
  [...owners].map(id=>'<details><summary>'+esc(G[id].label)+' · '+own(id).length+' câu</summary>'+list(own(id))+'</details>').join('');
 }
 selections.forEach(([id])=>$('tqt-select-'+id).addEventListener('change',compose));compose();

@@ -9,13 +9,15 @@ Host_Surface: Codex desktop · task hiện tại của Owner
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 · Astra Codex
-- Mục tiêu và tiêu chí gốc: ô 1–2; chỉ đạo bổ sung trực tiếp của Owner ngày 08/10 ở cuối ô 1.
-- Đang làm: Host dựng Câu hỏi cơ bản theo Công thức, ma trận SSOT và cách ghép câu hỏi nghiệp vụ. Triển khai trực tiếp theo chỉ đạo Owner; P15/D16 READ-ONLY trước đây được thay thế trong phạm vi này.
-- Đã chuẩn bị: 9 bước lớn, 23 bước con, Field/MOIT/MOUT/MOT/MOW, tầng bối cảnh T3–T7 và 3 chuỗi; câu hỏi mới mang trạng thái đang hiệu chỉnh.
+- 🎯 Mục tiêu và tiêu chí gốc: ô 1–2; chỉ đạo bổ sung trực tiếp của Owner ngày 08/10 ở cuối ô 1.
+- ■ Đang làm: Host dựng Câu hỏi cơ bản theo Công thức, ma trận SSOT và cách ghép câu hỏi nghiệp vụ. Triển khai trực tiếp theo chỉ đạo Owner; P15/D16 READ-ONLY trước đây được thay thế trong phạm vi này.
+- ✅ Đã chuẩn bị: 9 bước lớn, 23 bước con, Field/MOIT/MOUT/MOT/MOW, tầng bối cảnh T3–T7 và 3 chuỗi; câu hỏi mới mang trạng thái đang hiệu chỉnh.
 - Kiểm tra giao diện: đang chờ kiểm chứng bản đã đồng bộ lên trang thật.
-- Tiếp theo: dùng bộ câu hỏi trên một việc cụ thể → ghi đúng câu còn thiếu → Host xem ý kiến riêng và sửa nguồn. Chưa nghiệm thu bộ câu hỏi; chưa chuyển sang UI thứ 2.
+- ➡ Kế tiếp: dùng bộ câu hỏi trên một việc cụ thể → ghi đúng câu còn thiếu → Host xem ý kiến riêng và sửa nguồn. Chưa nghiệm thu bộ câu hỏi; chưa chuyển sang UI thứ 2.
 - Nội dung cũ: giữ nguyên trong tab Quy trình hiện có. TQT-ISS-004 (chuyển nguồn legacy) và TQT-ISS-006 (chốt quyền bằng máy) vẫn mở; không nhận là đã hoàn tất.
-- Phạm vi lượt này: bốn file của tools-quy-trinh; không đổi định nghĩa Công thức, Master, runtime MOW hay PG/Directus.
+- ⛔ Không làm/để sau: không đổi định nghĩa Công thức, Master, runtime MOW hay PG/Directus. Phạm vi lượt này chỉ bốn file của tools-quy-trinh.
+- 🏁 Xong khi: theo ô 2; UI của ma trận phải mở đúng câu, giữ nguồn duy nhất và giữ đường vào nội dung cũ. Nghiệm thu bộ câu hỏi cần việc áp dụng thật sau đó.
+- 📍 Tiến độ: ■ Dựng bản đầu → □ Kiểm giao diện → □ Áp dụng, hiệu chỉnh bộ câu hỏi.
 
 ### 1. Mục tiêu
 **Đích:** việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể.
