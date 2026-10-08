@@ -7,7 +7,7 @@ Reviewer: Claude Chat
 Executor_Surface: Claude Code CLI phiên MỚI trên Mac cho inventory/orchestration + SSH/trusted-runner checks; các phiên canary được N3 gọi phải là phiên MỚI tách vai theo §5
 Write_Path: repo qua workspace_*; runtime/config chỉ qua DOT/wrapper/apply path hiện hữu; không ad-hoc
 Node: N3 / 6 · Automation target = AUTO1 ASSISTED
-Owner_steps: **Chặng 2a deploy = 0 bước tay trong lúc worker chạy.** Sau KQ worker và CLI đã đóng, Host mới phát đúng 2 vé thử Hermes; Owner bấm `Cho chạy` 2 lần. **Chặng 2b** mới có tối đa 1 bước tay tạo Routine/token; 2b chưa được phép ở 2a.
+Owner_steps: **Chặng 2a deploy = đúng 1 thao tác human-only trong lúc worker chạy:** Owner dán câu lệnh chuẩn; khi Claude Code hỏi quyền chạy script áp production, Owner bấm cho phép đúng 1 lần. Nếu không có người bấm ⇒ worker ghi KQ DỪNG và đóng CLI, không giữ terminal chờ. Sau KQ worker và CLI đã đóng, Host mới phát đúng 2 vé thử Hermes; Owner bấm `Cho chạy` 2 lần. **Chặng 2b** mới có tối đa 1 bước tay tạo Routine/token; 2b chưa được phép ở 2a.
 
 ## 0. Mục tiêu duy nhất
 
@@ -107,7 +107,7 @@ Ghi vào **sổ tin báo hiện hữu** và bảng trong P KQ; không mở file 
 
 ## 2. Luật khóa
 
-- Đọc: `AGENTS.md` → root COLLAB DROOT40–48 → HJW Bảng → §0.3 HĐ19–HĐ28 → P199–P206 → P204 số đo → file này.
+- Đọc: `AGENTS.md` → root COLLAB DROOT40–52 → HJW Bảng → §0.3 HĐ19–HĐ29 → P199–P214 → P204/P212 số đo + KQ → file này.
 - §0.3: đã đối chiếu. F1–F4 P186 là bắt buộc.
 - Owner luôn chỉ định Host. N3 **không** được viết logic tự chọn Host.
 - Task bootstrap chỉ ghi phần riêng; defaults lấy từ AGENTS, không copy lại.
@@ -127,15 +127,17 @@ Ghi vào **sổ tin báo hiện hữu** và bảng trong P KQ; không mở file 
 Chỉ sửa đường Hermes hiện hữu: `hjw_gate.py`, plugin `hjw-control`, lịch `ws-dispatch`, prompt/toolset của Hermes one-shot và Config/Protection Guard liên quan. Không Routine/token/vendor khác; không đổi `RUN_TIMEOUT`; không sửa core Owner View parser; không mở AUTO2/N4.
 
 **R2 · PRE / concurrency / snapshot**
-1. Fresh-read AGENTS → Bảng/P204–P206 → PROMPT → READY exact SHA; kiểm STOP/alert/ticket open.
+1. Fresh-read AGENTS → Bảng/P209–P214 → PROMPT → READY exact SHA; kiểm STOP/alert/ticket open.
 2. Kiểm shared VPS: nếu **bất kỳ task khác có STARTED chưa KQ** trên máy chủ ⇒ `CONCURRENCY_GATE`, ghi KQ DỪNG và đóng CLI; không chờ.
-3. Chụp PRE + backup/hash đúng file/config/job sẽ sửa; xác định rollback command/path trước first mutation.
+3. **Dùng lại ứng viên P212, không viết lại:** dùng hồ sơ VPS `HJW-N3-2A-20261007/`. Trước khi áp, băm `cand/` phải khớp P212: gate `3019730a` · lifecycle `d8c7df0a` · plugin init `ec8cfe4e`; lệch ⇒ `CANDIDATE_DRIFT`, KQ DỪNG, không mutation.
+4. Với từng tệp sẽ áp, so băm bản đang chạy với `backup/SHA256SUMS` của P212. Tệp hiện hành đã khác backup ⇒ **cấm ghi đè bằng `cand/` cũ**. Ghép đúng phần sửa 2a lên bản hiện hành, chạy lại selftest/probe liên quan, sao lưu+băm bản hiện hành mới rồi mới được áp. Merge không sạch ⇒ KQ DỪNG, không áp tệp đó.
+5. **Cổng mutation:** Guard PRE phải PASS + 0 task khác STARTED chưa KQ. Đèn còn đỏ nhưng Guard PRE PASS ⇒ ghi tên đèn + việc nhận theo DROOT34 rồi tiếp tục. Guard PRE FAIL ⇒ KQ DỪNG, runtime delta = 0.
 
 **R3 · Implement deterministic result sink + state transitions**
 Triển khai §1.G đúng giới hạn R1: result writer deterministic; approve→claim event-driven/idempotent; immediate one-shot after claim; end→result ≤60 s; fallback observability; NEXT record; queue truth. Hermes model không có quyền ghi repo trong 2a nếu toolset per-job giới hạn được; nếu Hermes không giới hạn được toolset theo job ⇒ ghi residual exact, **không vá vendor code**.
 
 **R4 · Fixture trước apply — 0 model/0 Owner**
-Chạy toàn bộ khuôn thử hiện hữu **27 phép cũ** + phép mới tối thiểu:
+**Không dùng kết quả P212 thay cho kiểm lại:** trước apply phải chạy lại toàn bộ fixture trên máy chủ hiện tại. Chạy toàn bộ khuôn thử hiện hữu **27 phép cũ** + phép mới tối thiểu:
 - result body: tiếng Việt, dấu `"`, backtick, backslash, newline, payload 2–8 KB;
 - reject: thiếu/sai STATUS, body rỗng, >12 KB, machine marker/authority line bị cấm;
 - version conflict/retry≤3→`WRITE_CONFLICT`;
@@ -147,15 +149,16 @@ Chạy toàn bộ khuôn thử hiện hữu **27 phép cũ** + phép mới tối
 Fixture fail ⇒ không apply.
 
 **R5 · Apply + protection**
-Apply chỉ qua DOT/wrapper hiện hữu. Sau apply: POST-PROTECT/Config Guard + diff/hash; nếu bất kỳ guard/test fail ⇒ rollback bản PRE **ngay trong lượt**, verify rollback rồi KQ DỪNG.
+Apply chỉ qua DOT/wrapper hiện hữu và chỉ sau R2/R4 PASS. Với file đã đổi sau P212 (đặc biệt Protection Guard sau VPSC R7), chỉ áp bản **đã merge sạch lên runtime hiện hành**, tuyệt đối không chép đè `cand/` cũ. Sau apply: POST-PROTECT/Config Guard + diff/hash; nếu bất kỳ guard/test fail ⇒ rollback bản PRE **ngay trong lượt**, verify rollback rồi KQ DỪNG.
 
 **R6 · Smoke không model**
 Chạy 2 tick/cycle sạch lỗi, 0 model call; xác minh dispatcher/job/plugin sống, no duplicate claim, no unexpected queue/NEXT, Telegram/outbox không phát rác. Smoke fail ⇒ rollback ngay.
 
 **R7 · KQ worker — bắt buộc DỪNG**
-Ghi P báo cáo PRE→POST, files/hashes, test matrix, rollback receipt, protection, residual; rồi ghi mẫu:
-`KQ@<RUN_ID> DỪNG · N3_2A_DEPLOYED_WAITING_LIVE_CANARY · CONTINUE_SAME_NODE`
-và **đóng CLI**. Không giữ terminal chờ Owner/canary; không tự phát ASSIGN.
+Ghi P báo cáo PRE→POST, files/hashes, test matrix, rollback receipt, protection, residual; rồi ghi đúng một trong hai dạng NO-WAIT:
+- áp thật + POST/smoke đạt: `KQ@<RUN_ID> DỪNG · N3_2A_DEPLOYED · NEXT_TRIGGER=HOST_PHAT_2_VE_THU`;
+- dừng trước apply hoặc apply không đạt: `KQ@<RUN_ID> DỪNG · <LÝ_DO> · NEXT_TRIGGER=<một sự kiện máy-dò được>`.
+**Cấm** `WAITING`, `CONTINUE_SAME_NODE`, HOLD/PENDING. Ghi KQ xong **đóng CLI**; không giữ terminal chờ Owner/canary; không tự phát ASSIGN.
 
 ### Chặng 2A · LIVE CANARY SAU KQ — Host làm, worker không chờ
 Sau KQ worker + CLI đóng, Host mới phát hai ASSIGN canary riêng, Owner bấm 2 lần:
