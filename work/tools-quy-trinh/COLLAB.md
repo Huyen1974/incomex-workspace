@@ -207,9 +207,10 @@ Ghế: OpenAI-main · Bước/vòng: Host xem kết quả tài liệu/áp thử 
 - **P08: ACCEPT phần phát hiện thiếu** 8/7 câu, khuôn ca và SSOT. **P09: PARTIAL** nghiệm thu 18 quan sát + 5 kiểm lại trong phạm vi; hành trình thật chưa đạt, chưa có test độc lập đầy đủ. **P10: ACCEPT bố cục/đối chiếu bản sao**, nhưng **PARTIAL chuyển nguồn** vì Master Tool OPEN vẫn là nơi cập nhật và các nơi gọi chưa chuyển.
 - D08/D09: áp ngay giao tiếp nội bộ `AI đề xuất bằng file riêng → Host duyệt → ghi một nguồn chuẩn → test → đóng hoặc cải tiến`. Test thực tế của cơ chế đề xuất và enforcement cổng kỹ thuật chưa chạy, ghi TQT-ISS-006; không gọi quy trình an toàn tuyệt đối.
 - Việc tiếp theo Host chịu trách nhiệm: nhận đề xuất đầu tiên từ Claude/Codex đúng mẫu, thử nhập và test; sau đó kiểm toàn bộ bản chuyển nguồn/đường dẫn, quyết cắt chuyển một SSOT mà không làm hỏng MOW; chỉ hỏi Owner khi chạm sửa task khác hoặc quyền toàn hệ.
+- Đã đồng bộ chỉ dẫn trực tiếp cho AI tại cả mục Sổ ⑤ và Góp ý: chỉ nộp proposal riêng, Host mới ghi nguồn chính; sửa nhãn P08–P10 thành PARTIAL và phản hồi tại P11.
 - Không phát RUN mới, không giữ phiên chờ, không đề xuất lịch tự chạy. Áp: SAME_COMMIT.
 
-### P10 · Trình bày lại trang quy trình + chép đủ khu Công thức cũ theo chỉ đạo Owner 10:41 · OPEN
+### P10 · Trình bày lại trang quy trình + chép đủ khu Công thức cũ theo chỉ đạo Owner 10:41 · PARTIAL
 Ghế: Claude-review · Bước/vòng: chuẩn hóa trình bày theo HUMAN_DIRECTIVE D07 · 0/5 (không thay Host; không nghiệm thu quy trình)
 - Bảng: lệch — dòng ■ ghi “chờ…” thay `— · 0 RUN active` (DROOT50), tiêu đề thiếu `cập nhật <giờ>` (MT4) → sửa cùng commit. Ô 1–2: khớp, không sửa. §0.3: đã đối chiếu (ô 1 dòng 15: một khuôn, nửa phút biết có gì, thiếu gì, tắc ở đâu).
 - Based_on: repo `47bd414`; view `2524713f` (sau Codex P09 `427c1704`/`7cafa6e2`/`bb61d6f9`); nguồn VPS `ui/definition-master-data-v1.js` bản `93eae888106544e7` (đầu lượt `844f47b1`, Codex sửa giữa lượt: OPEN-02/09, Q1/Q4, thêm lượt TQT-UI-20261008-MOW001-STEP2), `ui/config-master-data-v1.js` `8cdde9db9832bf15`, trang `tools-playbook-v1.html`, Rules R46–R48 ở `work/mow-mot-moit-mout/ban-duyet.html`. JEV `gen-dec-1791431412-V60L886Mn3ooOYYFBPC0`: bố cục 3 tầng 1,00; chép đủ + ghi rõ chưa cắt chuyển 1,00.
@@ -219,9 +220,9 @@ Ghế: Claude-review · Bước/vòng: chuẩn hóa trình bày theo HUMAN_DIREC
 - Lệch cần Host chốt: Codex P09 ghi “dẫn hồ sơ MOW, không chép trạng thái thành sổ thứ hai”; Owner 10:41 yêu cầu chép đủ để làm liền mạch rồi thu khu cũ. Trang ghi rõ bản chép có phiên bản/giờ và nơi sửa hiện hành; chính lượt này nguồn đã đổi 2 lần trong khoảng 20 phút ⇒ cần cắt chuyển sớm, không để hai bản sống song song.
 - Đề xuất Host (một phương án): (1) so nguồn với `93eae888`, chép phần đổi; (2) ghi D: từ giờ X nơi sửa duy nhất của Tools, bộ 8/7 câu, sổ OPEN và lượt chạy = `view.html`; phiếu kiểm sản phẩm (vd `UI-REVIEW-MOW001.json`) ở lại task UI; báo phiên MOW; (3) trình Owner duyệt riêng việc thu thanh “Quy trình - Tools” ở Công thức + trang Tools thành một liên kết, giữ lịch sử.
 - Chưa kiểm: người đọc mới 30 giây; TQT-ISS-002 cần ghế chưa viết trang đối chiếu; “xong khi” riêng từng Tool (TQT-ISS-003).
-- Phản hồi Host: chưa có. Áp: SAME_COMMIT.
+- Phản hồi Host P11: chấp nhận bản trình bày/đối chiếu nhưng không coi việc chuyển nguồn hay nghiệm thu đầu-cuối đã hoàn thành. Áp: SAME_COMMIT.
 
-### P09 · Áp Tools repo để rà MOW-NHC-001 màn 2; bổ sung hướng dẫn còn thiếu · OPEN
+### P09 · Áp Tools repo để rà MOW-NHC-001 màn 2; bổ sung hướng dẫn còn thiếu · PARTIAL
 Ghế: Codex · Bước/vòng: Áp thử theo yêu cầu trực tiếp Owner · 0/5 (không thay Host, không nghiệm thu toàn bộ)
 - Owner yêu cầu tại chat tiếp nối: đọc quy trình trên repo để rà UI màn 2; đọc là làm được, làm chưa được bổ sung quy trình.
 - Based_on: repo `3a4fb961f647a4a0bfea66ec3b16bed2e9091bca`; view `1f937281a6a2ffe8f6b46c6307b80b26b10347f8c0973326594da81b6eb116ee`; nguồn Master Tool `844f47b1bb5f216a380cfb27fef0cdb24f7b99e4d0a2062e2e1d9aa078d2bcaa`.
@@ -234,7 +235,7 @@ Ghế: Codex · Bước/vòng: Áp thử theo yêu cầu trực tiếp Owner · 
 - Kiểm ghi: commit hướng dẫn `427c1704` pushed, không warning; đọc lại repo đúng. Trình duyệt portal hiện revision `427c1704`, thấy hướng dẫn mới và TQT-ISS-003 Đang xử lý. Kiểm HTML không trùng ID/thiếu đích neo; JSON phiếu hợp lệ. Gate UI exit 1 đúng phần còn thiếu, không sửa gate cho qua. Nguồn sổ MOW ghi phiên bản `9250a3277b8340530e590de0a850891ba61c94853b7cf41cae96dc60b36e3018`; Node CLI chưa có trong môi trường kiểm UI, xác minh cấu trúc JSON/renderer đọc lại thay thế.
 - Phần chưa phủ: responsive, so UI cha, focus/tooltip, timeout/không quyền/dữ liệu đổi/bấm lặp và hành trình thật tới nơi nhận; cần nguồn/tiêu chí và lượt kiểm tiếp. Áp: SAME_COMMIT.
 
-### P08 · Codex rà tính đầy đủ, sổ và cách trình bày theo yêu cầu Owner 08/10 · OPEN
+### P08 · Codex rà tính đầy đủ, sổ và cách trình bày theo yêu cầu Owner 08/10 · PARTIAL
 Ghế: Codex · Bước/vòng: Ý kiến rà tài liệu theo yêu cầu trực tiếp Owner · 0/5 (chưa phát RUN; không thay Host)
 - Người góp ý: Codex tại chat tiếp nối phiên D; Owner yêu cầu kiểm quy trình/sổ đã lên repo, tính chính xác và cách trình bày, xác nhận điều kiện thu gọn phần Công thức để một SSOT.
 - Based_on: `c898b740618de4ffb851cce747b467bd56addfe1`; COLLAB version `e102bc02f232f7ed9bbd39f8bc219ca708708984536a61163ce6f26af681e617`; view version `1f937281a6a2ffe8f6b46c6307b80b26b10347f8c0973326594da81b6eb116ee`.
@@ -246,7 +247,7 @@ Ghế: Codex · Bước/vòng: Ý kiến rà tài liệu theo yêu cầu trực 
 - Đề xuất cho người đọc: giữ cách thu/mở quen thuộc; một danh mục chính theo chuyên môn ở đầu với **Tên quy trình · Sản phẩm cần ra · Lớp · Tình trạng · Việc còn thiếu**. Mở từng Tool thấy **Cần chuẩn bị → Bước/câu hỏi → Sản phẩm/nơi lưu → Kiểm thế nào là xong**; sổ tóm tắt **Vấn đề · Người giữ việc · Bước tiếp · Điều kiện đóng**, mở mới xem lịch sử/bằng chứng. Phần phân loại, nguồn và phương pháp đưa xuống khu tham khảo thu gọn, bỏ danh mục giới thiệu trùng. Không đổi mục tiêu Owner.
 - Bằng chứng xem thật: mở đúng task bằng trình duyệt, chọn “Nội dung công việc”; thấy đủ 9 cards, trạng thái bản đề xuất, các link về nguồn cũ, 5 hồ sơ TQT và phần phân loại đứng trước danh mục. JEV tham khảo `gen-dec-1791430452-vF2YmWEapzU8ghVphcPw` ủng hộ danh mục trước và kiểm chuyển/nối nguồn trước khi thu phần cũ; đây không phải phiếu hội đồng khác hãng hay nghiệm thu.
 - Phần chưa kiểm: chưa thử một người/phiên AI mới hoàn tất sản phẩm; chưa đối chiếu bản gốc các chuẩn IT; chưa thực hiện/kiểm chuyển nguồn hay nghiệm thu UI tiếp theo.
-- Phản hồi Host: chưa có; Host tổng hợp cùng P06/P07 và cập nhật đúng hồ sơ hiện có. Ý kiến ghi lại không đồng nghĩa tự mở rộng phạm vi. Áp: SAME_COMMIT.
+- Phản hồi Host P11: tiếp nhận các điểm thiếu; vẫn cần kiểm độc lập và khóa một SSOT trước khi chuyển nguồn. Áp: SAME_COMMIT.
 
 ### P07 · Host chỉnh chữ lệch mục tiêu đã có trong TQT-ISS-002 · OPEN
 Ghế: OpenAI-main · Bước/vòng: Chỉnh trang theo mục tiêu đã chốt · 0/5 (chờ xác nhận khác hãng)

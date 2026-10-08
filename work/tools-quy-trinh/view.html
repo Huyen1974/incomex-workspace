@@ -669,7 +669,7 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 <dt>Tự động hóa</dt><dd>Chưa có máy tự giao việc, nhắc hạn hoặc theo dõi nền trong bản này. Khi viết DOT sẽ tự điền metadata, kiểm hồ sơ thiếu người/mốc rà, nhắc việc và lưu lịch sử theo cấu hình đã chốt.</dd>
 <dt>Ghi ở đâu (nguồn cũ)</dt><dd>Ghi tại Sổ việc còn thiếu của MOW trên trang áp thử. Hiện MOW-NHC-001 dùng pilot.issues trong Master Tool (TOOL-CTCM-001) làm SSOT; các nơi khác dẫn cùng mã hồ sơ. Đây đang là sổ thiết kế, chưa phải hệ thống giao việc tự động. <i>(Sau cắt chuyển: chỉ ghi ở sổ này.)</i></dd>
 <dt>Mã mới</dt><dd>Hồ sơ mới của task: <code>TQT-ISS-nnn</code>. Hồ sơ chép từ nơi khác giữ mã gốc (OPEN-xx).</dd>
-<dt>AI ghi thế nào</dt><dd>Đọc bản mới của <code>work/tools-quy-trinh/view.html</code>; tra mã để không trùng; sửa đúng hồ sơ bằng công cụ ghi repo có <code>expected_version</code>; đọc lại mã/giá trị vừa lưu và mở trang Owner. Không sửa bằng SQL, không chỉ ghi vào chat hoặc bộ nhớ trình duyệt.</dd>
+<dt>AI ghi thế nào</dt><dd>AI ngoài Host: tra mã, ghi phát hiện và đề xuất vào file riêng <code>work/tools-quy-trinh/proposals/TQT-PR-...</code> kèm bằng chứng, <strong>không trực tiếp sửa sổ này</strong>. Host GPT Chat đối chiếu nguồn, duyệt, dùng <code>expected_version</code> cập nhật đúng hồ sơ tại đây và kiểm lại trang Owner. Sổ OPEN từ MOW còn là bản chép cho đến khi cắt chuyển. Không sửa bằng SQL.</dd>
 <dt>Người xem</dt><dd>Owner xem sổ bằng link; có thể yêu cầu AI cập nhật theo mã. Trang này hiện chỉ đọc; không có nút Lưu giả. Chưa có cơ chế nhắc nền.</dd>
 <dt>Ghi lỗi</dt><dd>Nếu ghi thất bại: không nói đã ghi; giữ trạng thái BLOCKED và báo đúng lỗi/đích. Nếu đích chưa tồn tại: tạo trong phạm vi đã giao rồi chứng minh đọc lại được; không để chỉ dẫn treo.</dd>
 <dt>Quy tắc ghi/đóng</dt><dd>Ghi ngay tình huống mắc, quy trình/phiên bản/câu/bước liên quan, ảnh hưởng và bằng chứng. Chỉ ghi “Đang xử lý” khi đã có người nhận. Kiểm lại bản sửa trước khi đóng; tái diễn thì mở lại cùng mã. Khi chuyển sang bảng PG riêng, giữ nguyên mã và lịch sử, xác định rõ điểm chuyển nguồn.</dd>
@@ -709,7 +709,7 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 
 <h3 id="gop-y">💬 Góp ý vào đúng chỗ</h3>
 <div class="flow"><span>Mã quy trình</span>→<span>Lớp</span>→<span>Câu hỏi hoặc bước</span>→<span>Tình huống thực tế</span>→<span>Đề nghị sửa</span>→<span>Cách kiểm lại</span></div>
-<p>AI ghi ý kiến trong mục P của task; Host ghi quyết định xử lý và liên kết tới bản sửa. Phát hiện chưa giải quyết phải có hồ sơ trong sổ.</p>
+<p>AI ngoài Host tạo một file đề xuất <code>work/tools-quy-trinh/proposals/TQT-PR-...</code> kèm bằng chứng và câu/bước cần sửa; <strong>không sửa trực tiếp quy trình/sổ</strong>. Host duyệt, ghi quyết định tại COLLAB và chỉ Host đưa sửa đổi vào bản chuẩn. Phát hiện chưa giải quyết sau duyệt phải có hồ sơ trong sổ.</p>
 </section>
 
 <p class="footer">Một đầu mối công việc · mỗi quy trình một nguồn chuẩn · mỗi vấn đề một vòng đời. Mục tiêu, tiêu chí và trạng thái điều hành chỉ ở COLLAB §0 (trang Owner rút tự động); trang này không chép lại.</p>
