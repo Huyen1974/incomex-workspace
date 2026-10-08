@@ -4,6 +4,112 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## R7 · sửa hẹp theo số đo S1a · chuông thật + ổ đĩa có van + mã có khoá
+`VPSC-R7-TRUTH-20261007-01` · STARTED 07/10 22:28Z (P67 `3a6ee68`) → KQ 08/10 02:2xZ · READY@`e70606d` + CODEX ACCEPT cùng SHA · executor=Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · Owner cho áp toàn bộ hộp xanh 00:20Z (auto-mode chặn "Production Deploy" ⇒ hỏi đúng 1 câu). Hồ sơ VPS `/opt/incomex/work/vps-clean-20-9-26/R7-20261007/` (`apply.log` = hash cũ→mới từng tệp · `rollback/*.orig` = known-good PRE · `pre/` `a/` `b/` `c/` `d/` `post/`).
+
+**Cho Owner (3 dòng):** 🟢 Chuông: đèn giấy phép #23 chỉ đỏ khi trượt 2 lần liền và nói lý do thật (đã thử đúng 1 cặp tin 🧪); #22 không còn nhắc lại #11; #4 cần 2 lần lỗi mới báo — sau lượt sửa 22/22 đèn xanh, biên nhận Telegram #152. 🟡 Ổ đĩa: máy đo cả ổ mỗi giờ, 99,9% byte có tên; Graph dùng 85,5% trần 10 GB và bị chặn trước khi ghi; 3 nguồn còn tăng (~0,17–0,28 GiB/ngày) đã ghi nợ hạn 11/10 — chưa có van (lượt N2a). 🔴 Mã: 244 tệp đang chạy đã khoá + cổng kiểm sau mỗi lần sửa; còn 312 tệp chạy thật chưa chứng minh được nguồn (chủ yếu 227 DOT có nhãn chưa commit) ⇒ RUN dừng ở C2 cho Host quyết.
+
+### 0 · Kết quả theo gói
+| Gói | Đạt | Chưa đạt | Bằng chứng |
+|---|---|---|---|
+| **A chuông** | A1 DOT `dot-directus-license-watch` 1.1.0 tự đếm 2 lượt trượt, lý do thật (`directus 503 SERVICE_UNAVAILABLE` / `license=…` / `licensing net …`), fail-closed `STATE_UNWRITABLE`; #23 `maxretries=0 · interval=retry=960`. Fixture c1–c5 + 4 ca lý do: 11/11 PASS. **E2E đúng kênh 00:21Z:** 2 lượt ép 🧪 ⇒ đúng **1 DOWN** (important, msg = lý do thử), bỏ ép ⇒ đúng **1 UP**; lượt trượt đơn không thành tin. A2 #4 OPS `maxretries 0→1 · retryInterval 20→60`; #11 một nguồn đẩy (cron 600 s; `disk-monitor.sh` thôi đẩy) + `interval 3600→1860` (retry 0→1860, Kuma từ chối 0); #22/INV15 chỉ canh **đường giám sát** (bỏ nhắc lại đèn dịch vụ + bỏ tự đếm #22; lỗi nội bộ Kuma "lặp" = ≥2 sự kiện riêng cách >5 s). **Sống 00:30Z: #11 vẫn đỏ thật mà #22 XANH.** A3: bản tin 08:00 vẫn 3 dòng, thêm `thoáng qua 24h · nợ bằng chứng (quá hạn) · agent-data child died` + dòng 💽. | **#19 JEV không đổi:** PROMPT ghi #19 là đèn HTTP chủ động nhưng thật là **push** (jev-gw-health.timer 5′, interval 660). Đặt `maxretries=1` cho push = tái tạo đúng lỗi A1 (PENDING bị Kuma đổi DOWN "No heartbeat" ở nhịp timer kế, đã đọc `monitor.js`) ⇒ chỉ ghi D6. message_id từng tin Kuma: Kuma không lưu ⇒ UNKNOWN (giao nhận: nhịp important + 0 dòng `Cannot send notification`). | `a/a1-fixture.txt` `a/a1-e2e.txt` `a/a2-kuma4.txt` `a/a2-kuma11.txt` `a/guard-selftest-candA.txt` `a/ban-tin-preview.txt`; dot git `9a64c3a`, /opt/incomex `4ced7ab` |
+| **B ổ đĩa** | `storage-watch.py` v2 + sổ 9 cột: **một lần đi toàn partition `/`** (1,28 triệu mục, byte cấp phát, dedup `(dev,inode)`, không xuyên mount, deleted-open 1 lần/inode, layer Graph riêng tách bằng metadata containerd chỉ-đọc; 1 chain dùng chung giữ ở containerd). 103 dòng: STATIC 60 · ROTATING 15 (van kiểm sống mỗi lượt) · BUSINESS 3 · EVENT 25 · UNKNOWN_CLASS 0. Σ dòng = 99,88% df_used; UNEXPLAINED 73,4 MB (nền FS_META 73,6 MB). Nhiễu đo lúc yên 3 lượt = **4 KiB ⇒ NOISE_GUARD 12 KiB** (≪ 64 MiB). Nhóm **GRAPH 8,55 GB = 85,5% trần 10 GB** (layer riêng neo4j/cognee/pgvector 4,73 GiB + `work/graph-server` 2,70 + volume `incomex_graph_v1_data` 0,51 + `/opt/incomex/graph-server`); preflight `event-preflight` chặn `current+declared > cap` TRƯỚC khi ghi. 3 nguồn S1a = **CONTROL_DEBT hạn 2026-10-11T01:00Z**, nhóm rate 0,28 GiB/ngày (>0,56 ⇒ FAULT). PG/Qdrant/Directus uploads = EVIDENCE_DEBT hạn 16/10 (xem B-ghi chú). Fixture t1–t16 + B3/B4 SLOPE + ca Codex (b) + 4 fixture walker: **31/31 PASS**. | **Close chưa đạt (đúng thiết kế):** 3 CONTROL_DEBT + 3 EVIDENCE_DEBT còn mở ⇒ chặn FINAL CLOSE. **BUSINESS chưa VERIFIED:** proxy dump PG 180 đêm / Qdrant 157 bản đã đo (MB/ngày) nhưng dòng vật lý (gồm pg_wal/segment) chưa có ≥7 mẫu ngày ⇒ envelope vật lý chưa chứng minh; watcher tự gom mẫu, tự VERIFIED khi đủ. NOISE_GUARD đo lúc yên; lượt 01:00Z chạy chồng fixture của chính RUN lệch −66 MB ⇒ cần Host xem lại nhiễu ở giờ bận. | `b/b-fixture.txt` `b/noise.txt` `b/daily-real.txt`; `/var/lib/incomex/disk-watch/state.json`; lịch sử R6 giữ `taxonomy.tsv.v1`; git `bad8a60` |
+| **C mã có khoá** | C1 worker `bec9ceb8` = bản R6W đã nghiệm thu; `workspace_runtime.py` `74922f6f` (R6W `8fe2ea8`); unit cài = nguồn `scripts/incomex-workspace-exec.service` (git sạch `0c86bf2`) ⇒ đăng ký đủ 4. C2 **sổ mã đang chạy** `scripts/code-ledger.tsv`: **N=558 · M=244 có khoá · K=314 hở** (113 khoá trước R7 + 131 đăng ký lần đầu R7 có provenance git sạch); Config Guard **473/473 MATCH · CLEAN**. INV23: tệp thực thi mới ngoài sổ ⇒ đỏ (2 lượt). C3 cổng POST v2: baseline độc lập · footprint thật (tệp + Kuma field + image) · bảng 4 ô máy kiểm · SAME-OR-BETTER · CHANGE_EVENT; fixture n1–n11 + n11b + e1–e3 + INV23 i1–i5: PASS; selftest Guard PASS trước/sau, nhịp periodic sau mỗi lần nạp: UP. | **K=314 hở, trong đó 312 UNKNOWN provenance ⇒ theo PROMPT C2 KQ không được XONG.** 227 DOT `dot/bin` khác HEAD vì nhãn DEL-1I (08/2026) chưa từng commit + 12 chưa track; 38 unit `/etc/systemd/system`, 10 `/usr/local/sbin`, 5 `/etc/cron.d`, 4 logrotate, … không thuộc repo nào. Không bless theo hash đang chạy. 2 mục có provenance nhưng loại: runtime `sr-mow-d30d31` (VPSC cam kết không đụng) + 1 tệp. 2 vùng không quét được (thư mục mount ro >200 tệp) ghi UNKNOWN. | `c/ledger-final.json` `c/reg/` `c/reg3/code-ledger.tsv` `c/guard-selftest-candE.txt`; git `ffabea5` `8556d91` |
+| **D 502/503** | D1 sổ áp lực trong nhịp Guard 5′ (`/var/lib/incomex-mcpw-guard/pressure.jsonl`, vòng 20 MiB/14 ngày, lỗi không làm Guard đỏ, dòng sổ dung lượng ROTATING). D2 bảng 8 lần (dưới). D3 **xác nhận pressure limiter**: `handlePressure` (`@directus/pressure`, reason "Under pressure") đăng ký ở `app.js:130`, **trước** logger (`:169`); `/server/ping` (`:217`) luôn "pong" ⇒ 503 ở ping chỉ có thể từ middleware này; 40/40 dòng 503 nginx đều 160 B; env không đặt `PRESSURE_LIMITER_*` ⇒ mặc định bật · trễ vòng lặp 500 ms · ELU 0,99 · lấy mẫu 250 ms. D4 (dưới). D5: mỗi mốc 5′ có **8 job** cùng phút (Guard 22–66 s, license-watch 11–32 s…), `:00` có 11 job hằng giờ (+25 job giờ cụ thể). | Gốc làm vòng lặp Directus trễ >500 ms: **chưa đủ bằng chứng** (RAM không chạm trần: peak 694 MB/1 GiB, 0 OOM, áp lực RAM ~0; CPU some ~1,3%). 8 child died: **0/8 chứng minh được nguyên nhân** ⇒ không đề xuất đổi lõi. | `d/d-raw-1..4.txt` `d/d2-context.txt` `d/d2-kernel-oom.txt` `d/d3-nginx-503.txt` `d/d3-directus-cgroup.txt` `d/d5-cron.txt` |
+
+### 1 · POST-PROTECT · SAME-OR-BETTER (cổng mới C3)
+Baseline = collector độc lập `pre/collector-pre.json` (22:3xZ 07/10, sha256 `b57d9188…`, 665 tệp + 22 đèn) — không chụp PRE mới sau A/B. Cổng mới chạy 2 lượt:
+- **Lượt 1 · 01:42Z · FAIL đúng 1 điểm:** `C3.same_or_better` — #11 bị R7 chạm (interval) mà chưa hồi (SLOPE24 −2,02 GiB, không có taxonomy cùng mốc ⇒ giữ đỏ). Footprint 15 mục **đủ 4 ô**; CHANGE_EVENT PASS. Không gửi biên nhận.
+- **Lượt 2 · 02:19Z · PASS** (sau nhịp đo 02:00Z: bậc 01–02Z hôm qua ra khỏi cửa sổ, d24 1,51 GiB; #11 UP 02:10:03Z): 20 invariant PASS (INV15 đường giám sát, INV23 sổ mã 558/558, INV5_6 Config Guard CLEAN…) · `C3.footprint_coverage` 15 mục đủ 4 ô · `C3.same_or_better` không đỏ mới (PRE đỏ {#11, #22} → POST ∅) · `C3.change_event` PASS (baseline trước cổng ⇒ xét trần + lỗi storage-watch hiện tại) · **biên nhận Telegram message_id=152** (khung Hermes VPS).
+- Footprint thật 15 mục = 8 tệp (2 DOT · disk-monitor.sh · Guard · storage-watch.py · storage-registry.tsv · code-ledger.tsv mới · Config Guard registry.tsv) + 7 trường Kuma (#4 ×2 · #11 ×2 · #23 ×3). **Đối chiếu độc lập** (`bin/r7-collect.py diff`, mã khác Guard): đúng 7 tệp mã + đúng 7 trường Kuma (registry.tsv ngoài bề mặt collector), image 0 đổi. Bảng 4 ô `post/coverage.tsv`; proof Đ30 chạy lại trên **tệp đang chạy** `post/proof/*.txt` (a1 11/11 · B 31/31 · Guard selftest PASS · drift CLEAN · INV23 PASS · Kuma VERIFY). Known-good mọi tệp `rollback/*.orig` (sha = PRE).
+
+### 2 · 22 đèn trước/sau
+| # | Đèn | Loại | Trước (22:20Z 07/10) | Sau (02:20Z 08/10) | Cấu hình đổi |
+|---|---|---|---|---|---|
+| 1–3, 5–10, 12, 14–21 | 18 đèn còn lại | — | up | up | — |
+| 4 | OPS Proxy | http | up | up | retry_interval 20→60, maxretries 0→1 |
+| 11 | Disk Usage | push | **down** | **up** | interval 3600→1860, retry_interval 0→1860 |
+| 22 | MCPW Protection Guard | push | **down** | **up** | — |
+| 23 | Directus License (OIG) | push | up | up | interval 660→960, retry_interval 300→960, maxretries 1→0 |
+
+Trước: `KUMA FLEET 2026-10-07T22:30:01Z: total=22 · up=20 · down=2 [#11 Disk Usage=down, #22 MCPW Protection Guard=down]`. Sau: `KUMA FLEET 2026-10-08T02:20:01Z: total=22 · up=22 · down=0 · paused=0 · unknown=0 · notification_missing=0`. Bảng đủ 22 dòng: `post/bang-den-post.json` + `bin/lights.py`.
+
+### 3 · Đối soát ổ đĩa (lượt hourly 02:00Z 08/10)
+Một lần đi toàn `/` lượt hourly 02:00:02Z: df_used 60.512.702.464 B · Σ 103 dòng 60.439.277.568 B (**99,88%**) · UNEXPLAINED 73.424.896 B ≈ nền FS_META 73.633.792 B (lệch −0,2 MB) · partition_version `b9debdaafd3d` · sổ `83cb57e5…` · **status green, fault 0, debt 6**. Kiểu: STATIC 60 · ROTATING 15 (van sống) · BUSINESS 3 · EVENT 25 · UNKNOWN_CLASS 0.
+
+| GiB | Dòng | Kiểu · trạng thái | Chủ · nhóm |
+|---|---|---|---|
+| 9,704 | `/var/lib/containerd` (image/snapshot trừ layer riêng Graph) | STATIC | VPS |
+| 5,341 | `/usr` | STATIC | VPS |
+| 4,729 | `@containerd-graph-images` (layer riêng neo4j/cognee/pgvector; 29 chain riêng, 1 chain chung để ở containerd) | EVENT | GS · GRAPH |
+| 4,552 | `/var/lib/hermes` | STATIC | Hermes |
+| 3,154 | `/root` | STATIC | VPS |
+| 2,895 | `/usr/local` | STATIC | VPS |
+| 2,698 | `/opt/incomex/work/graph-server` | EVENT | GS · GRAPH |
+| 2,565 | `/opt/workflow/postgres18` | BUSINESS · EVIDENCE_DEBT (hạn 16/10) | PG |
+| 2,354 | `/var/backups` (dpkg + snapshot Hermes G21) | STATIC | VPS/Hermes |
+| 2,000 | `/swapfile` | STATIC | VPS |
+
+- **Nhóm EVENT (CHANGE_EVENT trong sổ):** GRAPH `GS-GRAPH-TRIAL` 8,552 GB / trần 10 GB (85,5%) · DEPLOY `EV-DEPLOY-NUXT-CWEB` 0,703 GB / 2 GiB · EVIDENCE `EV-DROOT12-EVIDENCE` 1,226 GB / 5 GiB. Lượt mới phải `storage-watch.py event-preflight --event ID --group G --declared-max-delta B` (từ chối khi `hiện có + khai > trần`); POST của RUN đối chiếu nhóm với event khai sau PRE.
+- **Nợ (không page, chặn close):** CONTROL_DEBT ×3 hạn 2026-10-11T01:00Z (transactions · mcp-helper · mcp-roots; nhóm rate 0,28 GiB/ngày, >0,56 ⇒ FAULT_NOW) · EVIDENCE_DEBT ×3 hạn 2026-10-16 (PG18 · Qdrant data · Directus uploads: proxy dump/snapshot MB/ngày đã có, dòng vật lý chưa đủ 7 mẫu ngày).
+- Van ROTATING kiểm sống mỗi lượt: logrotate (status ≤26h) · journald `SystemMaxUse=1G` · docker log 50m×3 · buildkit gc 5 GB · pg `RETENTION_DAYS=7` + backup.log ≤26h · qdrant `-mtime +${RETENTION_DAYS}` + log ≤26h · backup-staging `LOCAL_KEEP=1` · lark/context-pack/audit/hermes-backups qua `vps-retention.sh` + cron · Kuma `keepDataPeriodDays` · sổ đo disk-watch ≤128 MiB · Guard state + sổ áp lực ≤20 MiB.
+
+### 4 · Tám lần agent-data `Child process died` (05/10 23:20Z → 07/10 03:03Z)
+Mọi lần đều là cặp `Waiting for child process [pid]` → `Child process [pid] died` cách 0,1–0,3 s = nhánh `kill()+join()` trong `keep_subprocess_alive` của **uvicorn 0.35.0** (đa worker); nhánh này chạy cả khi worker đã chết lẫn khi worker còn sống nhưng không trả ping trong `timeout_worker_healthcheck` ⇒ log không phân biệt được. Kernel 05/10 22:00Z→07/10 04:00Z: **0** segfault/traps; cgroup agent-data `memory.events oom_kill=3` = đúng 3 lần **chrome-headless** (không worker nào bị OOM).
+
+| # | Giờ (UTC) | pid | 5 s trước đó | Kernel ±60 s | Phân loại |
+|---|---|---|---|---|---|
+| 1 | 05/10 23:20:21 | 30 | `workspace_read` 724 ms xong 23:20:16 | — | KHÔNG ĐỦ BẰNG CHỨNG |
+| 2 | 06/10 04:50:44 | 23943 | `workspace_search` **8 825 ms** (04:50:37) rồi `tools/call` mới 04:50:39 | — | KHÔNG ĐỦ BẰNG CHỨNG (nghiêng ping timeout: lời gọi chặn dài) |
+| 3 | 06/10 07:24:48 | 29 | `ui_inspect` SCREENSHOT_TIMEOUT 60 s (07:24:26) | **OOM chrome-headless 07:24:14** cùng cgroup (34 s trước) | KHÔNG ĐỦ BẰNG CHỨNG (tương quan OOM trình duyệt) |
+| 4 | 06/10 08:10:22 | 31 | `workspace_read` 486 ms | — | KHÔNG ĐỦ BẰNG CHỨNG |
+| 5 | 06/10 18:29:54 | 22 | chỉ `/info` `/health` | — | KHÔNG ĐỦ BẰNG CHỨNG |
+| 6 | 07/10 02:10:10 | 40780 | `tools/list` | — | KHÔNG ĐỦ BẰNG CHỨNG (S1a: 502 thật ~30 s) |
+| 7 | 07/10 02:22:26 | 33 | chỉ `/health` | — | KHÔNG ĐỦ BẰNG CHỨNG |
+| 8 | 07/10 03:03:04 | 35307 | `tools/call` 03:02:59 đang chạy | — | KHÔNG ĐỦ BẰNG CHỨNG (nghiêng ping timeout) |
+
+OOM_KILL worker: 0/8 (bác) · CRASH: 0/8 có traceback/tín hiệu (bác) · SUPERVISOR_PING_TIMEOUT: chỉ suy loại trừ, chưa chứng minh trực tiếp. Từ R7 sổ áp lực ghi `memory.events`/PSI mỗi 5′ để lần sau phân loại được.
+
+### 5 · D4 · trình duyệt headless
+- **Chủ cgroup 6 GiB = chính container `incomex-agent-data`** (compose `mem_limit: 6g`, swap 6 GiB thêm); `chrome-headless` chạy TRONG agent-data (`/app/agent_data/workspace_screenshot.py`, tool `ui_inspect`/`ui_screenshot` do phiên AI gọi qua MCP). 3 OOM 06/10 07:24:14 · 07:26:11 · 08:48:25Z giết chrome anon-rss **4,77 · 4,58 · 4,51 GB**; hai lần trùng `ui_inspect` SCREENSHOT_TIMEOUT 60 s.
+- Trần đặt ở compose ⇒ đổi trần chung = **recreate container lõi** (cấm trong R7). Trần riêng cho trình duyệt cần sửa mã agent-data (giới hạn tiến trình chrome) + nạp image.
+- RSS đỉnh một phiên chụp/test bình thường: **CHƯA ĐO** (phiên thường 8–24 s, không có số RSS từng phiên; `memory.peak` cgroup = 6 GiB vì đã OOM). Đề nghị Host 2 GiB · 1 phiên: chặn đúng 3 phiên bệnh 4,5 GB, nhưng **chưa chứng minh đủ cho test hiện hữu** ⇒ đo trước (D6).
+
+### 6 · Phiếu D6 · N2b chỉ theo bằng chứng (≤12 dòng)
+| Việc | Bằng chứng | Thay đổi tối thiểu (đề xuất) | Gián đoạn | Rollback |
+|---|---|---|---|---|
+| Directus 503 | ĐÃ CHỨNG MINH pressure limiter (mã `app.js:130/169/217`, 40/40 503 = 160 B, mặc định 500 ms/0,99); gốc trễ vòng lặp CHƯA | **Không đổi ngưỡng** (nâng = che tải). Đo trước: đối chiếu sổ áp lực D1 (PSI/CPU/throttle directus) với giờ 503 ≥ 7 ngày | 0 | — |
+| agent-data child died ×8 | 0/8 chứng minh; OOM worker bác; crash bác; ping-timeout chỉ suy loại trừ | Đo trước (chủ agent-data): ghi exitcode worker + lời gọi chặn >5 s; chỉ khi chứng minh mới đưa `workspace_*` nặng ra threadpool. **Không** nâng `--timeout-worker-healthcheck`/RAM mò | recreate agent-data (khi sửa mã) | image trước |
+| Trình duyệt headless trong agent-data | 3 OOM chrome 4,5–4,8 GB trong cgroup 6 GiB; 2 lần `ui_inspect` SCREENSHOT_TIMEOUT | Trần riêng trình duyệt **2 GiB · 1 phiên** (số Host) qua sửa `workspace_screenshot.py`; **trước đó đo RSS phiên thường** (CHƯA ĐO) | recreate agent-data | image trước |
+| #19 JEV (push) | PROMPT ghi nhầm HTTP; `maxretries=1` cho push tái tạo lỗi A1 | Chủ JEV: debounce 2 lượt trong `jev-gw-health` (mẫu A1) + Kuma #19 `maxretries=0 · interval 960` | 0 | tệp + field cũ |
+| Dồn cron (D5) | 8 job mỗi mốc 5′, 11 job hằng giờ :00 | Dàn lệch job nhẹ (vd license-watch `2-57/5`, test-mcp `1-56/5`; job :00 sang :07/:13…) | 0 | cron cũ |
+| Provenance 312 tệp | 227 DOT nhãn DEL-1I chưa commit + 12 chưa track; 38 unit, 10 sbin, 5 cron.d, 4 logrotate ngoài repo | Chủ DOT duyệt + commit nhãn; đưa unit/cron/sbin vào git `/opt/incomex` rồi đăng ký Config Guard (đăng ký lần đầu) | 0 | registry.tsv.pre |
+| Swap đầy | sổ áp lực D1 01:40Z: swap dùng 2,00/2,00 GiB (S1a 1,61); agent-data swap.current 0,71 GB, cgroup cho phép thêm 6 GiB swap | Đo 7 ngày qua sổ áp lực (PSI memory, swap theo container) trước khi đổi; R7 cấm swapoff/sysctl | 0 | — |
+| Khoá dùng chung đã lộ | PROOT01 | O-R7-KEY (Owner gate), lượt riêng | theo kế hoạch xoay | khoá cũ trong cửa sổ chồng |
+
+### 7 · Bảng N2a (B7) · 3 nguồn CONTROL_DEBT — exact cho checkpoint semantics
+| Nguồn | Ngữ nghĩa (đo 08/10 01:3xZ) | Phải giữ | Ứng viên control (Host chốt số) | Rollback | Thu hồi ngay · ổn định |
+|---|---|---|---|---|---|
+| `/opt/incomex/data/workspace-tools/transactions` | 916 thư mục tên 32-hex = `backup_id` của `workspace_edit/transaction` (mỗi thư mục = bản sao tệp trước khi sửa; COLLAB ~270 KB/lần) · 358 MB · tuổi p50 7,8 / max 19,9 ngày · **+62 MB/24h** (163 thư mục, theo mtime) | backup còn được bản ghi pending tham chiếu (`prepared/push_unknown/rollback_conflict`) + metadata idempotency `operation_id` (queue.sqlite) | GC thư mục completed >14 ngày (ứng viên lịch sử) qua move→archive rồi xoá sau hạn | khôi phục từ archive | ~76 MB (198 thư mục >14 ngày) · ổn định ≈ 14×62 MB ≈ **0,85 GB** (cao hơn hiện nay vì tốc độ đang tăng theo cỡ COLLAB) |
+| `/var/lib/incomex-mcp-helper` | `queue/out` 6 761 tệp (+67 MB/24h) · `queue/done` 6 337 (+1,6 MB) · `queue/in` 7 · `p02` 7 299 tệp 206 MB (+36 MB/24h) | `queue/in` + việc đang chạy + trạng thái/alerts P02 hiện hành | TTL `out`/`done` >7 ngày; snapshot `p02` >7 ngày | move→archive | ~96 MB (out 33 + done 13 + p02 49) · ổn định ≈ 7×105 MB ≈ **0,73 GB** |
+| `/opt/incomex/mcp-roots/gh` | clone repo workspace cho root `gh` 179 MB: **4 256 object rời = 126 MiB**, pack 16,7 MiB; `gc.auto` mặc định 6 700 chưa kích | HEAD + `refs/recovery` + mọi ref P02 dùng | `git gc --prune=2.weeks.ago` định kỳ trong chính job P02 (dưới khoá của job) | gc không mất ref; không cần lùi | ước ~100 MB · tăng chậm lại (object nén) |
+
+Tổng ba nguồn nay ≈ 0,17 GiB/24h theo mtime (S1a tham chiếu 0,28 GiB/ngày cả nhóm). Hạn nợ **2026-10-11T01:00Z**; quá hạn ⇒ #11 đỏ (DEBT_OVERDUE).
+
+### 8 · Sổ tồn đọng — chỉ ghi, không sửa
+- AD1 p95 348 s > 300 + "lệch phụ p02" thường trực · Guard periodic vẫn in `lệch phụ (không tính vào đèn): p02` · chủ HJW.
+- #22 đỏ lặp theo #11 · **đã xử trong R7 A2** (sống 00:30Z: #11 đỏ, #22 xanh) · chủ HJW nhận lại nếu muốn đổi INV15.
+- 2 mục "chưa xác định" VPS2 + Directus Flows/PG trong bản tin 08:00 · vẫn U=2 · chủ GPT root.
+- Worker ghi rỗi 481/168 + transactions GC · transactions nay là CONTROL_DEBT hạn 11/10 · chủ agent-data.
+- Nuxt #6 404, presence 502 · chủ đã ghi ở root.
+- Giữ/xoá dữ liệu Graph trial · nhóm GRAPH 85,5% trần 10 GB, lượt GS mới phải `event-preflight` · chủ GS.
+- Khoá dùng chung đã lộ · O-R7-KEY · Owner.
+- **Mới (R7):** SLOPE7D dự kiến đỏ khoảng 12/10 18:19Z → 13/10 ~07Z (mốc 7 ngày rơi vào bậc Graph RUN-1 +5 GiB 05/10 20:18Z, chưa có taxonomy v2 cùng mốc ⇒ luật B3 giữ đỏ) · Host quyết có chấp nhận một lần đỏ này hay không · chủ VPSC.
+- **Mới (R7):** NOISE_GUARD 12 KiB đo lúc yên; lượt giờ bận có thể lệch MB ⇒ TĂNG_LẠ nhỏ hằng ngày (không page, chặn close) · Host xem lại sau 24h số liệu thật · chủ VPSC.
+- **Mới (R7):** `disk-monitor.sh` in `WARN: storage-watch loi rc=0` khi v2 trả rc=1 (đỏ có đo) — chỉ là chữ log, không ảnh hưởng #11 · chủ VPSC.
+
+---
+
 ## S1a · đo trước
 `VPSC-R7-S1A-MEASURE-20261007-01` · 07/10/2026 10:07–10:28Z · READ_ONLY · READY@`ce7122ce` (Host GPT Chat) · executor=Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · evidence VPS `/opt/incomex/work/vps-clean-20-9-26/S1A-20261007/` (`health-snapshot.txt` · `alerts/` · `disk/`) · JEV `gen-dec-1791368614-uLzUc8EIzUrNabbZQpjY` (bằng chứng phụ).
 

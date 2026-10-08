@@ -5,14 +5,14 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 05:29 +07 · Claude Code CLI (Worker) · P67
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 09:22 +07 · Claude Code CLI (Worker) · P68
 - 🎯 **Mục tiêu Owner:** VPS ổn định lâu dài, ít chuông nhưng đúng; không quay lại dọn ổ mỗi tháng và không để báo giả che lỗi thật.
 - 🏁 **Xong khi:** storage tăng có tên + control + chuông đúng nghĩa; #22 chỉ canh monitoring pipeline; transient một lần không page; debt không giả outage nhưng vẫn chặn close; mã có Đ30/31; 502/503 chỉ sửa lõi khi có root-cause proof.
-- 📍 **Tiến độ:** `✅ thiết kế nền · ✅ S1a · ✅ Claude P63 · ✅ Host READY · ✅ Codex P65 ACCEPT · ✅ Graph R7 KQ · ✅ HJW P212/P213 nhả shared VPS · ■ R7 STARTED · ⬜ nghiệm thu · ⬜ N2a/N2b · ⬜ 08:00 sạch → FINAL CLOSE`
+- 📍 **Tiến độ:** `✅ thiết kế nền · ✅ S1a · ✅ Claude P63 · ✅ Host READY · ✅ Codex P65 ACCEPT · ✅ Graph R7 KQ · ✅ HJW P212/P213 nhả shared VPS · ■ R7 KQ DỪNG (C2) → Host nghiệm thu · ⬜ provenance 312 tệp · ⬜ N2a/N2b · ⬜ 08:00 sạch → FINAL CLOSE`
 - ✅ **Đã xong:** kế hoạch R7 đã đóng review; `READY@e70606d70c535efc37864efd44eb511d553da3e0` + `CODEX ACCEPT@e70606d70c535efc37864efd44eb511d553da3e0` cùng bản PROMPT. Graph R7 đã có KQ `PASS-WITH-LIMITS`, không còn blocker Graph.
-- ■ **Đang làm:** Bước S1 · R7 thi hành · vòng 1/1 · executor=Claude Code CLI (Mac → SSH VPS1) · `STARTED@VPSC-R7-TRUTH-20261007-01 2026-10-07T22:28Z` trên `READY@e70606d` + `CODEX ACCEPT@e70606d`; fresh-check 22:28Z: 0 STARTED mở ở việc khác, 0 phiên SSH/job agent-data khác. Gói A→B→C→D một mạch tới KQ, không chờ (DROOT50).
-- ⬜ **Còn lại:** HJW có KQ mới sau P211/root bỏ cờ bận → Claude Code R7 ngay → Host/Codex/Claude nghiệm thu → N2a 3 source debt → N2b chỉ theo evidence/Owner gate → 08:00 sạch → close.
-- ➡ **Kế tiếp:** 🤖 Claude Code ghi `KQ@VPSC-R7-TRUTH-20261007-01 XONG|DỪNG` + `## R7` BAO-CAO cùng lượt → Host + Codex nghiệm thu (Claude Chat khi cần khác hãng). 😊 Owner không làm gì.
+- ■ **Đang làm:** — · 0 RUN active. R7 đã có KQ DỪNG 08/10 02:2xZ (P68): A/B/C1/C3/D đã giữ, POST v2 PASS, **22/22 đèn xanh**, biên nhận Telegram #152; dừng ở C2 vì 312/558 tệp mã đang chạy chưa chứng minh được provenance.
+- ⬜ **Còn lại:** Host/Codex/Claude nghiệm thu R7 (P68) → provenance 312 tệp mã (D6) → N2a 3 source debt theo bảng B7 (BAO-CAO R7 §7) → N2b chỉ theo evidence/Owner gate → 08:00 sạch → close.
+- ➡ **Kế tiếp:** 🤖 Host GPT + Codex nghiệm thu R7 theo P68 + BAO-CAO `## R7` (≤3 vòng; Claude Chat khi cần khác hãng) → Host chốt đường provenance cho 312 tệp (D6) và lượt N2a trước hạn nợ. `NEXT_TRIGGER=DEBT_DUE 2026-10-11T01:00Z` (#11 tự đỏ nếu 3 nguồn chưa có van) · `NEXT_TRIGGER=SLOPE7D ≈12/10 18:19Z` (dự báo, BAO-CAO R7 §8). 😊 Owner không làm gì.
 - ⛔ R7 giữ hẹp: không xoá Graph, không tự đặt TTL, không nâng Kuma/uvicorn, không restart lõi, không xoay key.
 
 ### 1. Mục tiêu
@@ -868,6 +868,19 @@ CODEX ACCEPT@e70606d70c535efc37864efd44eb511d553da3e0
 - STARTED@VPSC-R7-TRUTH-20261007-01 2026-10-07T22:28Z · executor=Claude Code CLI
 - Fresh-check 22:24–22:28Z: `work/*/COLLAB.md` 0 STARTED chưa KQ (2 chuỗi khớp là câu trích lịch sử); root: HJW P212/P213 `0 RUN active · 0 busy`, Graph R7 có KQ; VPS: chỉ phiên SSH của RUN này, hàng đợi `workspace-tools/queue.sqlite` 0 job đang chạy. Bảng: bỏ HOLD HJW stale.
 - Owner cần quyết: — cho P67.
+
+### P68 · Claude Code CLI (Worker) · 08/10/2026 09:22 +07 · KQ R7 · DỪNG ở C2 (provenance) · A/B/C1/C3/D đã giữ
+- Ghế: claude-code (Worker) · Bước/vòng: S1 · R7 thi hành · 1/1 · **Based_on** STARTED P67 `3a6ee68` · PROMPT `e70606d` (không đổi suốt RUN, kiểm lại trước mỗi gói) · Scope toàn PROMPT R7 A→D · báo cáo `BAO-CAO.md` → `## R7` (SAME_COMMIT) · hồ sơ VPS `/opt/incomex/work/vps-clean-20-9-26/R7-20261007/`. Owner cho áp toàn bộ hộp xanh qua 1 câu hỏi (auto-mode chặn "Production Deploy").
+- **A chuông — ĐẠT (trừ #19):** DOT license-watch 1.1.0 tự đếm 2 lượt + lý do thật, #23 `maxretries=0/interval 960`, E2E đúng kênh 1 DOWN 🧪 + 1 UP; #4 2-hit; #11 một nguồn đẩy + `interval 1860`; #22 chỉ canh đường giám sát (00:30Z: #11 đỏ thật, #22 xanh). **#19 không đổi**: thật là đèn push, `maxretries=1` sẽ tái tạo lỗi A1 ⇒ D6.
+- **B ổ đĩa — ĐẠT phần R7, close CHƯA ĐẠT (đúng thiết kế):** storage-watch v2 đi toàn `/`, 103 dòng, Σ = 99,88% df; NOISE_GUARD 12 KiB; Graph 85,5% trần 10 GB + preflight chặn trước khi ghi; 3 CONTROL_DEBT hạn 11/10 01:00Z; PG/Qdrant/uploads EVIDENCE_DEBT hạn 16/10 (dòng vật lý chưa đủ 7 mẫu ngày — proxy MB/ngày đã ghi). Fixture 31/31.
+- **C mã có khoá — C1/C3/INV23 ĐẠT · C2 CHƯA ĐẠT:** Config Guard 473/473 CLEAN (+131 tệp đăng ký lần đầu R7 có provenance git sạch); sổ mã **N=558 · M=244 · K=314**, trong đó **312 không chứng minh được provenance** (227 DOT khác HEAD vì nhãn DEL-1I 08/2026 chưa từng commit, 12 chưa track; 38 unit systemd, 10 `/usr/local/sbin`, 5 cron.d, 4 logrotate… ngoài repo). Không bless theo hash đang chạy ⇒ theo PROMPT C2 **KQ không được XONG**.
+- **D 502/503 — đo xong:** D1 sổ áp lực trong Guard 5′. D2 **0/8** chứng minh (OOM worker bác, crash bác; ping-timeout chỉ suy loại trừ). D3 **503 = pressure limiter Directus** (chứng minh bằng mã + log), gốc trễ vòng lặp chưa rõ. D4 cgroup 6 GiB = chính agent-data; chrome-headless 4,5–4,8 GB bị OOM 3 lần. D5 8 job/mốc 5′. D6: không đề xuất đổi lõi.
+- **POST v2 (cổng mới, baseline độc lập S1a §2.4):** lượt 1 (01:42Z) FAIL đúng #11 chưa hồi; lượt 2 (02:19Z, sau nhịp đo 02:00Z) **PASS**: footprint 15 mục đủ 4 ô (khớp collector độc lập), không đỏ mới (PRE {#11,#22} → POST ∅, **22/22 xanh**), CHANGE_EVENT PASS · biên nhận **message_id 152**.
+- **Đã giữ:** 0 restart/rebuild 6 container lõi · 0 đổi version · 0 xoá · 0 đổi khoá · 0 sửa kuma.db · 0 tắt/hạ đèn · Telegram: 1 cặp 🧪 #23 + 1 biên nhận (message_id 152). Mọi tệp qua `incomex-config-apply-v0` (hash cũ→mới trong `apply.log`), git cục bộ `4ced7ab` `bad8a60` `ffabea5` `8556d91` + dot `9a64c3a` `da8f56a`.
+- **Bẫy:** Guard v2 ban đầu tính cả tệp dữ liệu chạy (.json trạng thái) vào footprint/INV23 ⇒ đã sửa (chỉ mã + cấu hình đã ở Config Guard) trước POST · Kuma từ chối `retryInterval=0` cũ khi sửa #11 · lượt đo giờ chạy chồng fixture của chính RUN lệch −66 MB.
+
+KQ@VPSC-R7-TRUTH-20261007-01 DỪNG · C2 · 312/558 tệp mã đang chạy không chứng minh được provenance (227 DOT nhãn DEL-1I chưa commit, 38 unit systemd, 10 sbin…) ⇒ PROMPT C2 cấm XONG · đã giữ: A (trừ #19→D6) · B (nợ mở đúng thiết kế) · C1 · C3 · INV23 · D · POST v2 PASS 22/22 xanh · biên nhận 152
+- Owner cần quyết: — cho P68 (provenance 312 tệp là việc của Host/chủ DOT theo D6; khoá lộ vẫn O-R7-KEY).
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
