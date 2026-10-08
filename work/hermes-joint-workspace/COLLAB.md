@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 14:53 +07 · Claude Code CLI (worker) · **P224 N3 2A ĐANG CHẠY TRÊN MÁY CHỦ**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 15:36 +07 · Claude Code CLI (worker) · **P225 N3 2A ĐÃ ÁP LÊN MÁY CHỦ · 0 RUN ACTIVE · HOST PHÁT 2 VÉ THỬ**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
-- ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
-- ■ **Đang làm:** **Bước N3 chặng 2a · Claude Code CLI đang áp lên máy chủ từ 14:53 +07 (P224)**, trên lệnh sẵn sàng P223 (`1b34f64`) + chữ ký P216 cùng bản. Việc khác không chạm máy chủ tới khi có kết quả.
-- ⬜ **Còn lại:** N3 2a apply+protect+smoke → 2 live canary → đủ 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** 😊 Owner **mở một Claude Code MỚI ngay**, dán lệnh chuẩn DROOT38(c) + mô tả lượt áp, chỉ bấm cho phép một lần khi đã qua PRE · 🤖 worker P223 kiểm G1–G3/E1–E2, đóng băng gói và root busy, apply/POST/smoke/rollback một lệnh, ghi KQ terminal + gỡ busy · 🤖 Host sau **deploy thật** mới phát 2 canary Hermes.
+- ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi. **N3 2a đã áp lên máy chủ P225** (15:32 +07): 4 tệp qua apply-v0, nạp lại hermes-gateway, POST-PROTECT + khói R6 đạt, biên nhận #154.
+- ■ **Đang làm:** **— · 0 RUN active.** Bước N3 chặng 2a: bản sửa đã chạy trên máy chủ (P225); chưa có vé thử thật nên lớp Hermes chưa PASS.
+- ⬜ **Còn lại:** 2 live canary → đủ 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
+- ➡ **Kế tiếp:** 🤖 Host phát 2 vé thử `HJW-N3-CANARY-*` (success + failure) ngay lượt nghiệm thu P225 · 😊 Owner bấm `Cho chạy` 2 lần · máy tự báo ba khoảng thời gian §1.G trên từng vé.
 - ⛔ **Không làm/để sau:** không chạy Graph/VPSC/Claude Code thứ hai đụng shared VPS đồng thời HJW STARTED hoặc live canary; không nới Guard PRE/POST; không hỏi click lần hai, không Hermes hội đồng/courier ngoài phép thử; không AI schedule, không 2b/Routine.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -4773,6 +4773,25 @@ Ghế: Claude Code CLI (worker, không tính phiếu hội đồng) · Bước/v
 - **G2 · băm gói đóng băng (đo 07:50Z trên VPS, chưa sửa gì):** `bin/n3-2a-apply.sh` `8188d9b7` · Guard ghép `cand2/mcpw-protection-guard` `61bdd060` · ứng viên gate `3019730a` · lifecycle `d8c7df0a` · init `ec8cfe4e` · khói `fixture/smoke_r6.py` `896c1d60` · `smoke_eval.py` `d4466c77`. Tất cả khớp P219/P212. Gói dùng nguyên, không sửa.
 - JEV `gen-dec-1791445930-SyaixsCU6taHfyUNFQJ1`: chạy 0,75.
 - **Thứ tự kế:** PRE chỉ đọc (S1/S2 băm · cổng dùng chung · Hermes 0 lượt/0 vé · Guard PRE thật · G3 đếm route `/` đỏ 24 h) → kiểm lại băm gói ngay trước hộp xin phép → Owner bấm cho phép 1 lần → gói một lệnh (áp → POST-PROTECT → khói R6 → tự lùi khi hỏng) → kết quả DỪNG terminal ở mục P kế tiếp, gỡ cờ bận root cùng commit, đóng CLI. PRE đỏ ⇒ kết quả DỪNG, không hỏi Owner.
+
+### P225 · Claude Code CLI · 2026-10-08 15:36 +07 · RUN `HJW-N3-COURIER-WAKE-20261007-01` · **KẾT QUẢ LƯỢT ÁP 2A · ĐÃ ÁP LÊN MÁY CHỦ · BẢO VỆ + KHÓI ĐẠT** · Based_on `READY@1b34f6405888fbbba5fd4d97cf0a09599965c3cd` (P223) · bắt đầu P224 `a7c6744`
+Ghế: Claude Code CLI (worker, không tính phiếu hội đồng) · Bước/vòng: N3 chặng 2a · 3/3
+KQ@HJW-N3-COURIER-WAKE-20261007-01 DỪNG · N3_2A_DEPLOYED · NEXT_TRIGGER=HOST_PHAT_2_VE_THU
+- **Thay đổi máy chủ (4 tệp, qua `incomex-config-apply-v0`, agent `claude-code-cli`):** lifecycle `92627af7→d8c7df0a` · init `57f2e6e4→ec8cfe4e` · gate `4eec51bb→3019730a` (cả ba root:hermes 640) · Guard `1e858d9d→61bdd060` (root:root 755; bản ghép phần 2a lên Guard đang chạy, không chép `cand/` cũ). Baseline root đặt trong khoá (gate `3019730a`, one_shot, plugin hjw-control, toolsets `8ddecfc2`). hermes-gateway nạp lại pid 2926765→2974703, khoẻ sau 35 s (running + telegram connected). Không đổi config.yaml/jobs.json/RUN_TIMEOUT; không service/timer/route/token mới; 0 lượt gọi model; không vé thử, không 2b.
+- **Dòng thời gian (UTC):** Owner bấm cho phép 1 lần → gói bắt đầu 08:25:07 → Guard PRE trong gói PASS 08:26:37 → khe giờ 08:26:37, cổng dùng chung (a) 0 (c) 0 → mutation đầu tiên 08:26:38 → R5 08:27:28 → selftest 08:28:12 → POST 08:29:20 → khói R6 08:31:28 → POST cuối + biên nhận 08:32:42, rc=0. Không phải lùi; đường lùi `bin/n3-2a-apply.sh rollback` + bản PRE (`SHA256SUMS`, `SHA256SUMS-r2`) còn nguyên trong hồ sơ VPS `HJW-N3-2A-20261007/`, nhật ký `results/apply08/apply.log`.
+- **PRE (P224, chỉ đọc):** S1/S2 khớp (4 bản đang chạy = sao lưu = baseline Config Guard; plugin.yaml, hjw-control-root.py = sao lưu) · cổng dùng chung (a) 0 (c) 0 · Hermes 0 lượt/0 vé · STOP=OFF · drift=none · root 0 điều kiện · Config Guard CLEAN · đèn 22/22 · Guard PRE 07:56:23Z PASS, PRE_RED_SET ∅. G2: băm gói + 3 ứng viên + Guard ghép kiểm lại 07:56:45Z ngay trước hộp xin phép, khớp; repo kiểm lại 08:25Z sau lúc Owner bấm: PROMPT không đổi, 0 STOP, commit mới chỉ của TQT.
+- **Bảo vệ:** R5 4 đích = ứng viên, chủ/quyền đúng sổ, baseline Config Guard = băm mới, Config Guard CLEAN · Guard selftest bản mới PASS · bằng chứng Đ30 4/4 PASS · POST-PROTECT v2 `--coverage` 4 mục đủ 4 ô, không đỏ mới (hai lượt `n3-2a-apply-post`, `n3-2a-apply-final`) · biên nhận Owner Telegram message_id 154.
+- **Khói R6:** 2 nhịp ws-dispatch idle · 0 gửi · 0 model · 0 lỗi hjw trong errors.log · plugin nạp lại · root drift=none · 0 vé mở.
+- **Sau áp (08:33Z):** 4 băm đang chạy = ứng viên · gateway active pid 2974703 · Config Guard CLEAN · `ĐÈN: 22 xanh · 0 đỏ` · #21 `ticker 50s stop=OFF drift=none` · #22 UP OK · Guard periodic 08:30:27Z UP OK.
+- **Khuôn thử làm căn cứ áp** (chạy lại trên máy chủ 08/10, P219): hồi quy 42/42 · Git thật 27/27 · quét khô 0 thẻ/0 lỗi · Guard ghép INV19 23/23, 14 mutant 2a/RUN-06 + 7 mutant sự thật bị bắt. Đây là chứng cứ chuẩn bị, chưa phải live PASS lớp Hermes.
+- **G3:** 24 h Guard periodic (289 lượt, tới 07:54Z): Nuxt `/` đỏ ở lượt 1 hai lần (16:05Z 07/10, 05:55Z 08/10), cả hai qua ở lượt 2; INV18 CWEB FAIL hai lượt (04:11Z, 04:16Z 08/10); INV5_6 không lượt nào FAIL. Lượt này Guard PRE không vướng route.
+- **Residual:**
+  - `HERMES_UNIT_NEED_DAEMON_RELOAD` (có từ trước, không do 2a): lúc nạp lại, systemd báo `NeedDaemonReload=yes` cho hermes-gateway. Tệp unit + 2 drop-in mtime 02/10 11:25 CEST; daemon-reload cuối 01/10 13:31 CEST. Thuộc tính đã nạp (PATH, ReadOnlyPaths gồm `.git`, InaccessiblePaths, ProtectSystem) khớp tệp. Em không daemon-reload (ngoài R1). Host chọn việc nhận.
+  - `HERMES_NO_PER_JOB_TOOL_FILTER` · `R5_CANDIDATE:HERMES_TICKER_60S`: giữ như P212, đo ở 2 vé thử.
+  - Cổng dùng chung mục (c) vẫn coi job DOT định kỳ là tiến trình bận; gói né bằng khe giờ, chưa sửa cổng (như P219).
+- **Owner:** bấm cho phép đúng 1 lần (S4 đạt). 0 việc treo cho Owner trong lượt này.
+- **Kế tiếp:** Host phát 2 vé thử `HJW-N3-CANARY-*` (success + failure) theo PROMPT; Owner bấm `Cho chạy` 2 lần. Lớp Hermes chỉ PASS khi đủ 3 success liên tiếp + 1 failure đạt §1.G.
+- JEV `gen-dec-1791445930-SyaixsCU6taHfyUNFQJ1` (chạy 0,75) · `gen-dec-1791448510-m3YUvz62iCnW3iaxaVsp` (N3_2A_DEPLOYED 0,97 · ghi residual daemon-reload 0,98).
 
 
 
