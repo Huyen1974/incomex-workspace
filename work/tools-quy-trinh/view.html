@@ -17,11 +17,11 @@
 <header>
 <div class="eyebrow">Incomex · tools-quy-trinh</div>
 <h1>Tools quy trình</h1>
-<p class="muted">Danh mục nguồn, nhóm chuyên môn và sổ vấn đề để cùng đọc, đánh giá, góp ý.</p>
+<p class="muted">Một nơi tra cứu Tools theo <strong>3 Chuỗi × nhóm chuyên môn × 3 lớp</strong>: nhìn nhanh có gì, thiếu gì, tắc ở đâu; mở từng quy trình để đọc đủ câu hỏi và bước.</p>
 <nav aria-label="Nội dung task">
 <a href="#phan-loai">Cách phân loại</a>
 <a href="#nhom-chuyen-mon">Nhóm chuyên môn</a>
-<a href="#nguon-quy-trinh">Quy trình đã có</a>
+<a href="#nguon-quy-trinh">Danh mục nguồn (9)</a>
 <a href="#chi-tiet-tools">Đọc bước &amp; câu hỏi (9)</a>
 <a href="#so-van-de">Sổ vấn đề</a>
 <a href="#gop-y">Góp ý</a>
@@ -32,11 +32,11 @@
 <h2>Tra cứu theo ba chiều</h2>
 <p class="muted">Khung phân loại ban đầu. Mỗi quy trình có một mã để dùng lại và liên kết giữa các lớp.</p>
 <div class="grid">
-<article class="card"><div class="number">01 · PHẠM VI PHỤC VỤ</div><h3>Cỗ máy nào, việc gì?</h3><p>Chế tạo cỗ máy<br>Vận hành cỗ máy<br>Cỗ máy sản xuất quy trình</p></article>
+<article class="card"><div class="number">01 · CHUỖI</div><h3>Quy trình thuộc Chuỗi nào?</h3><p><b>CTCM</b> · Chế tạo cỗ máy<br><b>VHCM</b> · Vận hành cỗ máy<br><b>CMSXQT</b> · Cỗ máy sản xuất quy trình</p></article>
 <article class="card"><div class="number">02 · NHÓM CHUYÊN MÔN</div><h3>Tìm theo chuyên môn</h3><p>UI, config, dữ liệu, giao việc, kiểm thử, vận hành, phát hành…</p><a href="#nhom-chuyen-mon">Xem nhóm bên dưới</a></article>
 <article class="card"><div class="number">03 · LỚP QUY TRÌNH</div><h3>Dùng ở giai đoạn nào?</h3><p>Design · thiết kế ban đầu<br>Execute · thực hiện lặp lại<br>DOT/script · thực hiện tự động</p></article>
 </div>
-<div class="note">Một quy trình có thể phục vụ nhiều phạm vi. Các bản Design, Execute và DOT/script liên kết với nhau khi có; không mặc định đã có đủ cả ba lớp.</div>
+<div class="note">Mỗi quy trình có một Chuỗi chính, có thể liên kết dùng lại ở Chuỗi khác; mỗi quy trình nằm ở lớp phù hợp với mục đích, không mặc định phải có đủ Design → Execute → DOT/script.</div>
 <details><summary>Mỗi lớp cần thể hiện những gì?</summary>
 <div class="table-wrap"><table><thead><tr><th>Lớp</th><th>Trọng tâm cần đọc</th></tr></thead><tbody>
 <tr><td><strong>Design</strong></td><td>Các câu hỏi cần trả lời, đầu vào và ràng buộc, lựa chọn/nhánh, quyết định thiết kế, cách kiểm thiết kế đã thành công.</td></tr>
@@ -52,16 +52,16 @@
 <tr><td><strong>Thiết kế UI</strong></td><td>Hành trình, trạng thái ban đầu, câu hỏi người mới, các nhánh.</td><td>001 · 002 · 003</td></tr>
 <tr><td><strong>Config / kết nối</strong></td><td>Điều kiện, trigger, tác động, quyền và nơi nhận.</td><td>004</td></tr>
 <tr><td><strong>Danh mục / dữ liệu</strong></td><td>Định nghĩa, danh tính, nguồn chuẩn, dữ liệu và lỗi.</td><td>005 · 006</td></tr>
-<tr><td><strong>Giao việc / hội đồng</strong></td><td>Nguyên tắc giao, làm, báo; câu hỏi về quyền và trách nhiệm.</td><td>Chưa kiểm kê</td></tr>
+<tr><td><strong>Xét nguyên tắc giao việc của MOT</strong></td><td>Nhóm chuyên môn Owner chỉ: kiểm tra điều kiện và nguyên tắc giao việc của MOT; chỉ chốt câu hỏi/bước từ nguồn MOT thật, không đồng nghĩa luật hội đồng AI.</td><td>Chưa kiểm kê · TQT-ISS-005</td></tr>
 <tr><td><strong>Kiểm thử / nghiệm thu</strong></td><td>Ca kiểm, kết quả, bằng chứng và điều kiện hoàn thành.</td><td>007</td></tr>
 <tr><td><strong>Vận hành / xử lý sai sót</strong></td><td>Ghi nhận, phân loại, xử lý, kiểm lại và đóng vấn đề.</td><td>008</td></tr>
 <tr><td><strong>Đóng gói / phát hành</strong></td><td>Hợp đồng và phát hành phần đã đủ điều kiện tự động hóa.</td><td>009</td></tr>
 </tbody></table></div>
-<p class="muted"><small>Giao việc / hội đồng là nhóm Owner yêu cầu đưa vào phạm vi. Danh mục cụ thể sẽ được kiểm kê; quy trình của nhóm tham chiếu các nguyên tắc hiện hành.</small></p>
+<p class="muted"><small>Nhóm “Xét nguyên tắc giao việc” thuộc chuyên môn MOT theo ô 1 dòng 6. Luật phối hợp/hội đồng AI nằm riêng trong AGENTS; không lấy luật nền đó thay nội dung quy trình MOT. Nhóm nghiệp vụ CMSXQT (phái cử, tuyển dụng…) chưa làm lúc này.</small></p>
 </section>
 
 <section id="nguon-quy-trinh">
-<h2>Quy trình đã phác thảo</h2>
+<h2>Danh mục nguồn CTCM (9)</h2>
 <p>Nguồn xuất phát: <a href="https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&amp;view=content&amp;section=matrix-view-formula" target="_blank" rel="noopener">Quy trình – Tools CTCM tại trang Công thức ↗</a>.</p>
 <div class="note">Danh mục nguồn ghi nhận ngày 07/10/2026. Các mục này đang được dùng để áp thử và hoàn thiện; danh sách chưa đại diện cho toàn bộ quy trình của ba phạm vi.</div>
 <div class="table-wrap"><table><thead><tr><th>Mã nguồn</th><th>Quy trình</th><th>Nhóm tra cứu đề xuất</th></tr></thead><tbody>
@@ -132,7 +132,7 @@
 <dt>Người kiểm</dt><dd>Chưa giao.</dd>
 <dt>Bước tiếp theo</dt><dd>Khi vẽ lại trang ở vòng 1: đổi tên chiều thứ nhất thành Chuỗi, sửa nhóm theo ô 1 dòng 6, viết lại cột tóm tắt TQT-REQ theo số dòng ô 1.</dd>
 <dt>Mốc rà</dt><dd>Lượt đầu tiên sau khi Host nhận việc.</dd>
-<dt>Lý do chưa đóng</dt><dd>Chưa có Host; sửa trang thuộc bước kế hoạch, chưa được mở.</dd>
+<dt>Lý do chưa đóng</dt><dd>Host đã chỉnh các nhãn Chuỗi/MOT và chỉ mục TQT-REQ theo mục tiêu ngày 08/10; còn chờ Reviewer độc lập đối chiếu để xác nhận trước khi đóng.</dd>
 <dt>Điều kiện đóng</dt><dd>Trang và COLLAB không còn chữ lệch ô 1; một người đọc mới đối chiếu ô 1 với trang không thấy mâu thuẫn.</dd>
 <dt>Bản sửa / bằng chứng</dt><dd>Chưa có.</dd>
 <dt>Lịch sử</dt><dd>08/10/2026 · Claude Chat ghi nhận · Ghi nhận.</dd>

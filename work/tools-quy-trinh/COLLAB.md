@@ -56,18 +56,18 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
 #### TQT-REQ — bảng kiểm từng mục tiêu ở ô 1 · 07/10/2026
-Mục tiêu chỉ có một nguồn là ô 1 (bản Owner chốt 08/10 · D04). Bảng này không phải bản mục tiêu thứ hai: cột giữa là tóm tắt cũ của AI, lệch chữ thì ô 1 thắng. Trỏ về dòng của ô 1: REQ-01 → dòng 2, 5 · REQ-02 → dòng 3 · REQ-03 → dòng 1, 12 · REQ-04 → dòng 6 · REQ-05 → dòng 7–11 · REQ-06 → dòng 13–14 (sổ ghi cả sai sót lẫn chỗ thiếu) · REQ-07 → dòng 4 · REQ-08 → dòng 15 · REQ-09 → Đích và “Chưa làm lúc này”.
+Mục tiêu chỉ có một nguồn là ô 1 (bản Owner chốt 08/10 · D04). Bảng chỉ là chỉ mục từ mã kiểm đến dòng mục tiêu Owner; ô 1 luôn là nguồn chuẩn, không tạo mục tiêu thứ hai. Trỏ về dòng của ô 1: REQ-01 → dòng 2, 5 · REQ-02 → dòng 3 · REQ-03 → dòng 1, 12 · REQ-04 → dòng 6 · REQ-05 → dòng 7–11 · REQ-06 → dòng 13–14 (sổ ghi cả sai sót lẫn chỗ thiếu) · REQ-07 → dòng 4 · REQ-08 → dòng 15 · REQ-09 → Đích và “Chưa làm lúc này”.
 Nhiệm vụ/phạm vi lượt này: tạo đúng một task tên `tools-quy-trinh` trên incomex-workspace, tập hợp đầu mối để làm việc dài hạn. Việc tạo task hoàn tất không đồng nghĩa toàn bộ quy trình đã đạt tiêu chí tại ô 2.
 
-| Mã | Tóm tắt của AI — nguyên văn đọc ở ô 1 | Cách kiểm khi chuẩn hóa |
+| Mã | Căn cứ mục tiêu Owner trong ô 1 | Cách kiểm khi chuẩn hóa |
 |---|---|---|
-| TQT-REQ-01 | Quy trình hóa tools của Chế tạo cỗ máy, Vận hành cỗ máy, Cỗ máy sản xuất quy trình; chia nhóm nhỏ. | Danh mục thể hiện rõ phạm vi và nhóm chuyên môn, không chỉ có UI/CTCM. |
-| TQT-REQ-02 | Làm đúng quy trình phải đạt mục tiêu và ra sản phẩm; còn mắc thì hiệu chỉnh đến khi đạt. | Có đầu vào/điều kiện áp dụng, đích nhận sản phẩm, tiêu chí và bằng chứng. Ca mắc dẫn về đúng câu/bước cần sửa rồi kiểm lại. |
-| TQT-REQ-03 | Liệt kê tất cả câu hỏi cần thiết để hoàn thiện; hội đồng AI liên tục góp ý, hiệu chỉnh, bổ sung. | Mỗi câu có đáp án/bằng chứng hoặc được nêu rõ còn mở; câu không áp dụng có lý do. Chưa giải quyết câu chặn thì chưa được công nhận đạt. |
-| TQT-REQ-04 | Chia nhóm chuyên môn cho con người dễ nhận diện, đánh giá, góp ý; ví dụ Thiết kế UI, config, xét nguyên tắc giao việc. | Tên dễ hiểu, mã ổn định, danh sách ngắn theo nhóm; góp ý chỉ được chính quy trình/câu/bước. Nhóm được bổ sung khi cần. |
-| TQT-REQ-05 | Ba lớp: for design; for execute; for DOT/script. | Giữ đủ hợp đồng riêng của từng lớp tại TQT-LAYERS; có liên kết giữa các lớp, không tự coi bản thiết kế là bản tự động hóa. |
-| TQT-REQ-06 | Sai sót chưa sửa ngay phải vào một sổ tổng hợp, theo dõi tiến trình/vòng đời đến khi xong; trước mắt repo/VPS, khi ổn định chuyển bảng PG riêng. | Sổ có mã, nguồn, người theo dõi/xử lý/kiểm, trạng thái, bước tiếp, điều kiện đóng, bằng chứng và lịch sử; việc hoãn vẫn được theo dõi. Chuyển PG về sau giữ mã/lịch sử và chỉ một nguồn hiện hành. |
-| TQT-REQ-07 | Mục 7 (bổ sung): nền là chuẩn tốt nhất của ngành IT, sau đó mới thêm phần riêng Incomex. | Mỗi chuẩn/mẫu/khung của task ghi một dòng `Nền: <chuẩn ngành IT> · Riêng Incomex: <thêm gì, vì sao chuẩn ngành chưa đủ>`. Chọn nền theo thước AGENTS A10-R1: có sẵn · nhiều người dùng · còn được duy trì · vừa cỡ Incomex (lấy khung, không bê cả bộ). Chưa tìm được chuẩn ngành ⇒ ghi `Nền: CHƯA TÌM` và tính là chưa đạt; không tự dựng rồi gọi là chuẩn. Phần đã phác thảo trước mục 7 (TQT-LAYERS, TQT-REGISTER, 9 Tools nguồn, khung trang nội dung) phải được đối chiếu lại theo dòng này. |
+| TQT-REQ-01 | Ô 1 dòng 2, 5 — Ba Chuỗi CTCM / VHCM / CMSXQT, chia chuyên môn. | Danh mục thể hiện rõ phạm vi và nhóm chuyên môn, không chỉ có UI/CTCM. |
+| TQT-REQ-02 | Ô 1 dòng 3 — làm theo ra sản phẩm, còn mắc thì sửa và làm lại. | Có đầu vào/điều kiện áp dụng, đích nhận sản phẩm, tiêu chí và bằng chứng. Ca mắc dẫn về đúng câu/bước cần sửa rồi kiểm lại. |
+| TQT-REQ-03 | Ô 1 dòng 1, 12 — câu hỏi đủ và hội đồng cải tiến liên tục. | Mỗi câu có đáp án/bằng chứng hoặc được nêu rõ còn mở; câu không áp dụng có lý do. Chưa giải quyết câu chặn thì chưa được công nhận đạt. |
+| TQT-REQ-04 | Ô 1 dòng 6 — nhóm chuyên môn, ví dụ xét nguyên tắc giao việc của MOT. | Tên dễ hiểu, mã ổn định, danh sách ngắn theo nhóm; góp ý chỉ được chính quy trình/câu/bước. Nhóm được bổ sung khi cần. |
+| TQT-REQ-05 | Ô 1 dòng 7–11 — Design, Execute, DOT/script; có quy trình dừng ở Design/Execute. | Giữ đủ hợp đồng riêng của từng lớp tại TQT-LAYERS; có liên kết giữa các lớp, không tự coi bản thiết kế là bản tự động hóa. |
+| TQT-REQ-06 | Ô 1 dòng 13–14 — sai sót HOẶC thiếu chưa sửa ngay phải vào sổ; khi ổn định chuyển PG. | Sổ có mã, nguồn, người theo dõi/xử lý/kiểm, trạng thái, bước tiếp, điều kiện đóng, bằng chứng và lịch sử; việc hoãn vẫn được theo dõi. Chuyển PG về sau giữ mã/lịch sử và chỉ một nguồn hiện hành. |
+| TQT-REQ-07 | Ô 1 dòng 4 — nền chuẩn IT, sau đó phần riêng Incomex. | Mỗi chuẩn/mẫu/khung của task ghi một dòng `Nền: <chuẩn ngành IT> · Riêng Incomex: <thêm gì, vì sao chuẩn ngành chưa đủ>`. Chọn nền theo thước AGENTS A10-R1: có sẵn · nhiều người dùng · còn được duy trì · vừa cỡ Incomex (lấy khung, không bê cả bộ). Chưa tìm được chuẩn ngành ⇒ ghi `Nền: CHƯA TÌM` và tính là chưa đạt; không tự dựng rồi gọi là chuẩn. Phần đã phác thảo trước mục 7 (TQT-LAYERS, TQT-REGISTER, 9 Tools nguồn, khung trang nội dung) phải được đối chiếu lại theo dòng này. |
 | TQT-REQ-08 | Ô 1 dòng 15: cho người đọc — chuẩn mực, dễ nhìn, một khuôn. | Một khuôn trình bày chung cho mọi quy trình; lớp trên cùng trả lời được ba câu có gì · thiếu gì · tắc ở đâu; thử với một người đọc mới trong nửa phút. |
 | TQT-REQ-09 | Ô 1 Đích và “Chưa làm lúc này”. | Quy trình chỉ ghi đạt khi có một lượt người mới hoặc phiên AI mới làm theo ra sản phẩm thật (ô 2). Quy trình nghiệp vụ của Chuỗi 3 (phái cử, tuyển dụng…) chưa đưa vào cho tới khi Owner mở. Vế “làm sai cũng khó / không thể” của Đích: mỗi quy trình ghi rõ bước nào đã có chốt chặn làm sai, bước nào mới là lời dặn (nối AGENTS A10-R2). |
 
@@ -104,7 +104,7 @@ Ba chiều độc lập theo ô 1 dòng 2: **Chuỗi × nhóm chuyên môn × l�
 - Sổ MOW hiện hành: cùng dữ liệu trên, `TOOL-CTCM-001.pilot.issues`; kết quả từng lượt: `pilot.runs`. Trang mới liên kết tới sổ này, không chép trạng thái từng hồ sơ sang một sổ cạnh tranh.
 - Task mới là đầu mối tập hợp/chuẩn hóa quy trình tools cho cả ba phạm vi. Thiết kế sản phẩm MOW và lỗi của lượt MOW vẫn có nơi xử lý hiện hành; tiếp nhận/chuyển nguồn phải giữ mã, lịch sử, đường đọc và xác định một nguồn chuẩn trước khi chuyển.
 - Các nguồn khác sẽ được kiểm kê trong phạm vi mục tiêu; chưa được coi danh mục 9 Tools CTCM là toàn bộ tài nguyên Incomex.
-- Luật nền về giao việc chỉ tham chiếu AGENTS/root COLLAB. Quy trình chuyên môn “xét nguyên tắc giao việc” không tự thay các luật đó.
+- Nhóm chuyên môn “xét nguyên tắc giao việc” thuộc MOT theo ô 1 dòng 6, phải đối chiếu nguồn MOT thật trước khi đặt câu/bước. AGENTS/root COLLAB chỉ là luật nền phối hợp AI, không được dùng thay nội dung chuyên môn của MOT.
 
 #### TQT-REGISTER — sổ tổng hợp trước mắt
 - **Sổ của task: `view.html#so-van-de`.** Sổ nằm ngay trong HTML chính trên repo để con người đọc cùng nguồn AI cập nhật; không có bản nhập localStorage hay sổ Markdown song song.
@@ -181,6 +181,12 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **Q01 — ĐÃ CHỐT 08/10/2026 09:19 +07:** Owner trực tiếp chỉ định GPT Chat làm Host (D06). Không có câu hỏi Owner còn mở trong phạm vi lượt tiếp nhận tài liệu này.
 
 ## Ý kiến và bằng chứng
+### P07 · Host chỉnh chữ lệch mục tiêu đã có trong TQT-ISS-002 · OPEN
+Ghế: OpenAI-main · Bước/vòng: Chỉnh trang theo mục tiêu đã chốt · 0/5 (chờ xác nhận khác hãng)
+- Owner giao rà nội dung liên quan. Chỉ sửa phần AI diễn giải, không sửa chữ ô 1–2.
+- Đã chỉnh thẻ 01 thành ba Chuỗi CTCM/VHCM/CMSXQT; chuyên môn MOT thay “giao việc/hội đồng”; REQ-01…07 thành chỉ mục dòng ô 1; TQT-SOURCES phân định MOT/AGENTS; còn 9 Tools/39 bước và sổ MOW không đổi.
+- Issue TQT-ISS-002 vẫn MỞ cho tới khi Claude-review đối chiếu và có bằng chứng người đọc mới không hiểu sai; không tự ghi ĐÓNG. Áp: SAME_COMMIT.
+
 ### P06 · Host nhập 9 Tools CTCM / đề xuất phân loại · OPEN
 Ghế: OpenAI-main · Bước/vòng: Đề xuất cấu trúc/roadmap · 0/5 (chưa phát chuông do đường gọi Reviewer CHƯA ĐO)
 - Người soạn: GPT Chat, Host D06. Based_on: nguồn VPS `ui/definition-master-data-v1.js` bản `844f47b1bb5f216a380cfb27fef0cdb24f7b99e4d0a2062e2e1d9aa078d2bcaa`, mục tiêu D04/D05.
