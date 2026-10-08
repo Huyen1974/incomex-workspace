@@ -1,0 +1,63 @@
+{
+  "source_version": "71e7178d65a3a3baefd07339a980e0c31760b052 / a1c4c86428d1cd3c42a787160ce56c6696a7bf6f4c24fe17417b24bd45735b6a",
+  "scope": [
+    "MOW-PARENT-UI-GALLERY"
+  ],
+  "results": [
+    {
+      "id": "MOW-PARENT-UI-GALLERY",
+      "url": "https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-process",
+      "checks": {
+        "structure": {
+          "status": "PASS",
+          "evidence": "Portal revision71e7178 shows UI cha replacing old FIELD snippets; 6 UI families plus UI-029 and UI-008; all 8 images loaded after expanding."
+        },
+        "emphasis": {
+          "status": "PASS",
+          "evidence": "UI cha tab opacity1 and font13px, matching UI Master opacity1/font13px; existing gold star reused. Gallery text legible; image previews retain source styling."
+        },
+        "labels": {
+          "status": "PASS",
+          "evidence": "UI cha, Mở UI gốc, eight names/IDs checked against existing standards and registry. Images explicitly dated08/10/2026 and labeled layout previews."
+        },
+        "interaction": {
+          "status": "PASS",
+          "evidence": "Tab selection, native details click and Enter collapse tested. Source links preserve source URLs; Master/Review use legacy=1 to show approved Nhap2 baseline rather than current redirect."
+        },
+        "responsive": {
+          "status": "PASS",
+          "evidence": "Direct document at650px: gallery clientWidth617=scrollWidth617, image593px. Portal wrapper retains its preexisting fixed inner width; no claim of whole portal mobile redesign."
+        },
+        "console": {
+          "status": "PASS",
+          "evidence": "No new gallery errors observed; preexisting Directus Auth and Sentry warnings. Source screenshot renderer blocks Google Fonts and lacks some Vietnamese glyphs; previews are layout-only, full text available through source UI link."
+        },
+        "data_scope": {
+          "status": "PASS",
+          "evidence": "Only MOW document gallery changed. No source UI mutation or workflow execution. No tools-quy-trinh writes."
+        }
+      },
+      "parity": {
+        "baseline_url": "https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-master",
+        "baseline_version": "b260241ad8754c75fb39c1dfc1cff23131297bd4f59759678e9d43728b32eccd",
+        "observed_version": "a1c4c86428d1cd3c42a787160ce56c6696a7bf6f4c24fe17417b24bd45735b6a",
+        "measurements": [
+          {
+            "part": "tab",
+            "property": "opacity",
+            "expected": "1",
+            "actual": "1"
+          },
+          {
+            "part": "tab",
+            "property": "fontSize",
+            "expected": "13px",
+            "actual": "13px"
+          }
+        ],
+        "differences": []
+      }
+    }
+  ],
+  "notes": "Scope: gallery navigation/presentation only. Live iframe embedding is blocked by existing SAMEORIGIN in sandboxed portal; use dated layout snapshots and source links. Snapshot typography is not a font parity baseline; original UI remains source of truth."
+}

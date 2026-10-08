@@ -1,5 +1,7 @@
 # README · MMIM · START HERE
 
+> **★ UI cha:** [xem các mẫu UI](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-process). Owner 08/10/2026: thay nội dung tab Quy trình cũ, đổi tên UI cha, thêm star và bỏ mờ. Gồm 6 họ UI + Tìm kiếm chung và MOUT Builder; ảnh bố cục có ngày, liên kết UI gốc là nguồn hiện hành. Portal chặn iframe nên dùng ảnh xem trước; chữ đầy đủ/thao tác đọc tại UI gốc. Phiếu kiểm: [UI-REVIEW-PARENT-GALLERY.json](UI-REVIEW-PARENT-GALLERY.json). Khi mẫu gốc đổi, cập nhật ảnh tại cùng mục; không sao chép quy chuẩn.
+
 > **Rules — đầu mối quy định hiện hành:** [mở tab Rules](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-uis), nguồn `ban-duyet.html#rules-current` (R01–R48). Các mục dưới là hợp đồng triển khai/đối chiếu; khi đổi nguyên tắc sửa Rules trước, không ban hành một bản luật song song. Help và tài liệu cũ giữ làm nguồn, không tự ghi đè hoặc xóa.
 
 > **Mọi thay đổi UI:** đọc [Quy chuẩn UI cha](UI-DESIGN-STANDARD.md) trước; bàn giao phải có phiếu theo [UI-REVIEW-CONTRACT.json](UI-REVIEW-CONTRACT.json) và chạy `check-ui-review.py`. AI chịu trách nhiệm kiểm, không đẩy Owner thành tester. Kết quả rà: [UI-AUDIT-20261007.md](UI-AUDIT-20261007.md).
