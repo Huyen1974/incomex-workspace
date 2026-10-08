@@ -6,12 +6,12 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 0
 Host: GPT Chat
 Host_ID: OpenAI-main
 
-### BẢNG ĐIỀU KHIỂN · 2026-10-08 · GPT Chat · P06
+### BẢNG ĐIỀU KHIỂN · 2026-10-08 · GPT Chat · P07
 - 🎯 Mục tiêu: Owner chốt 08/10 — “việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể.” Đủ 15 dòng đọc ở ô 1. Vì sao (Owner): “số quy trình sẽ rất nhiều => chúng ta sẽ tập hợp toàn bộ các tools quy trình lên 1 task để có thể làm việc xuyên suốt, dài hạn, hội đồng AI dễ dàng có ý kiến đóng góp.”
 - 🏁 Xong khi: theo ô 2 — một quy trình đạt khi người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật. Mốc của cả việc do hội đồng chốt ở bước kế hoạch.
 - 📍 Tiến độ: ■ Khởi tạo / chỉ định Host → □ Chuẩn hóa → □ Áp dụng, kiểm chứng → □ Mở rộng và cải tiến.
-- ✅ Đã xong: tạo task P01; chốt mục tiêu D04/D05; Owner giao Host GPT Chat D06; nhập nội dung 9/9 Tools CTCM, 39 bước/câu hỏi/đầu ra vào view.html và tạo sổ thiếu TQT-ISS-003…005; Áp: SAME_COMMIT.
-- ■ Đang làm: phân loại P06 đề xuất 6 Design/3 Execute/0 DOT thực; cần phản biện khác hãng và kiểm chứng người mới; 0 RUN worker active.
+- ✅ Đã xong: Owner chốt mục tiêu D04/D05, chỉ định GPT Chat Host D06; nhập 9/9 Tools CTCM (39 bước) P06; sửa nhãn 3 Chuỗi, MOT và chỉ mục mục tiêu P07 tại commit 8c854489; bản hiển thị VPS đã publish đúng revision, nội dung/console trang kiểm PASS.
+- ■ Đang làm: chờ ý kiến khác hãng về phân loại/chuẩn IT/độ đầy đủ P06–P07; issues TQT-ISS-002…005 còn mở, chưa thử người mới/AI mới; 0 RUN worker active.
 - ⬜ Còn lại: chọn nền chuẩn ngành IT cho ba lớp và sổ (ô 1 dòng 4); hoàn thiện cách phân nhóm/mẫu ba lớp; kiểm kê và nối nguồn; áp thử để sửa quy trình; chuẩn hóa phần lặp lại; tự động hóa phần đủ điều kiện; theo dõi sai sót đến khi đóng. Đây là các đầu việc cần đạt, chưa phải roadmap đã duyệt.
 - ➡ Kế tiếp: Claude Chat phản biện P06, nền chuẩn IT, các câu hỏi chưa đủ và quy tắc một SSOT; Host tổng hợp/chốt roadmap rồi mới giao áp thử. NEXT_TRIGGER=REVIEWER_FEEDBACK_OR_HOST_RECHECK; không giữ RUN chờ.
 - ⛔ Không làm/để sau: tạo task không bao gồm triển khai DOT/script, bảng PG, đổi runtime/UI production hay chuyển dữ liệu đang dùng ở MOW.
@@ -186,6 +186,7 @@ Ghế: OpenAI-main · Bước/vòng: Chỉnh trang theo mục tiêu đã chốt 
 - Owner giao rà nội dung liên quan. Chỉ sửa phần AI diễn giải, không sửa chữ ô 1–2.
 - Đã chỉnh thẻ 01 thành ba Chuỗi CTCM/VHCM/CMSXQT; chuyên môn MOT thay “giao việc/hội đồng”; REQ-01…07 thành chỉ mục dòng ô 1; TQT-SOURCES phân định MOT/AGENTS; còn 9 Tools/39 bước và sổ MOW không đổi.
 - Issue TQT-ISS-002 vẫn MỞ cho tới khi Claude-review đối chiếu và có bằng chứng người đọc mới không hiểu sai; không tự ghi ĐÓNG. Áp: SAME_COMMIT.
+- Kiểm sau sửa: VPS sync-status `publishedRevision=8c854489133636cc75f5aafede6f2fcea19b0406`, `status=fresh`, lỗi đồng bộ=0. UI-inspect HTML tại `#phan-loai` HTTP 200, đủ CTCM/VHCM/CMSXQT, console_errors=0. Chưa kiểm người đọc mới hiểu đúng trong 30 giây.
 
 ### P06 · Host nhập 9 Tools CTCM / đề xuất phân loại · OPEN
 Ghế: OpenAI-main · Bước/vòng: Đề xuất cấu trúc/roadmap · 0/5 (chưa phát chuông do đường gọi Reviewer CHƯA ĐO)
