@@ -2053,9 +2053,9 @@ function detail(id){
  document.querySelectorAll('[data-piece]').forEach(a=>a.setAttribute('aria-current',String(a.dataset.piece===id)));
 }
 function matrix(){
- const key=$('tqt-search').value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const key=$('tqt-search').value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[đĐ]/g,'d').toLowerCase();
  const kind=$('tqt-filter').value;
- const rows=D.questions.filter(q=>(!kind||G[q.owner].kind===kind)&&[q.id,q.text,G[q.owner].label].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(key));
+ const rows=D.questions.filter(q=>(!kind||G[q.owner].kind===kind)&&[q.id,q.text,G[q.owner].label].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[đĐ]/g,'d').toLowerCase().includes(key));
  $('tqt-total').textContent=rows.length+' / '+D.questions.length+' câu · đang hiệu chỉnh';
  $('tqt-matrix-body').innerHTML=rows.length?rows.map(q=>'<tr><td>'+esc(q.id)+'</td><td><a href="#'+anchor(q.owner)+'">'+esc(G[q.owner].label)+'</a><br><small>'+esc(G[q.owner].kind)+'</small></td><td>'+esc(q.text)+'</td></tr>').join(''):'<tr><td colspan="3">Không có câu hỏi phù hợp. Thử bỏ lọc hoặc đổi từ tìm.</td></tr>';
 }
