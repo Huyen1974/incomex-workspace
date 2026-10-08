@@ -1,4 +1,13 @@
 # PROMPT — TQT GỐC CÂU HỎI · Chuỗi/Tầng/Bước (gồm Bước con)
+
+## Phạm vi hiện hành · Owner giao trực tiếp 08/10/2026
+Host: **Astra Codex**, phiên Owner chỉ định. Làm UI Câu hỏi cơ bản theo Công thức, ma trận câu hỏi là SSOT và bộ ghép nghiệp vụ UI/Test/Config. Giữ nội dung cũ; không thay định nghĩa Công thức hay dựng UI thứ 2. Mục tiêu nguyên văn: COLLAB.md §0 ô 1 bổ sung 08/10. Cách sửa nguồn và nộp góp ý: README.md.
+Nguồn mới: `view.html#tqt-question-matrix`; bảng cho người và AI: `view.html#ma-tran-cau-hoi`. Bộ câu hỏi đang hiệu chỉnh, chưa nghiệm thu. Chỉ Host nhập ý kiến đã xem xét; thành viên khác chỉ đề xuất riêng.
+Kiểm giao diện và liên kết thật sau đồng bộ; không lấy UI chạy được để tuyên bố bộ câu hỏi đã đủ.
+
+## Hồ sơ yêu cầu trước — đã được chỉ đạo trên thay thế, giữ để truy nguồn
+Các giới hạn READ-ONLY/Host GPT Chat trong phần lưu vết dưới đây không phải lệnh hiện hành cho Host mới.
+
 STATUS: **DRAFT · READ-ONLY REVIEW REQUEST · CHƯA READY/RUN SỬA NGUỒN**
 Host: GPT Chat (OpenAI-main) · Codex: người rà và đề xuất theo Owner 08/10.
 PROCESS: CHUNG.APQUYTRINH — chỉ đối chiếu, chưa là lệnh RUN.

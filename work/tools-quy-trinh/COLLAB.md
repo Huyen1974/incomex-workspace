@@ -3,18 +3,19 @@ Tên việc: Tools quy trình — làm theo quy trình ra được sản phẩm
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 08/10/2026 07:16 (D04/D05); chỉ định trực tiếp GPT Chat làm Host và giao bắt đầu tiếp nhận các quy trình Tools CTCM vào nội dung task ngày 08/10/2026 09:19 +07 (D06). AI không sửa chữ ô 1–2.
-Host: GPT Chat
+Host: Astra Codex — phiên Owner chỉ định trực tiếp ngày 08/10/2026
 Host_ID: OpenAI-main
+Host_Surface: Codex desktop · task hiện tại của Owner
+Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 · GPT Chat · P15
-- 🎯 Mục tiêu: Owner chốt 08/10 — “việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể.” Đủ 15 dòng đọc ở ô 1. Vì sao (Owner): “số quy trình sẽ rất nhiều => chúng ta sẽ tập hợp toàn bộ các tools quy trình lên 1 task để có thể làm việc xuyên suốt, dài hạn, hội đồng AI dễ dàng có ý kiến đóng góp.”
-- 🏁 Xong khi: theo ô 2 — một quy trình đạt khi người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật. Mốc của cả việc do hội đồng chốt ở bước kế hoạch.
-- 📍 Tiến độ: ■ Khởi tạo / chỉ định Host → □ Chuẩn hóa → □ Áp dụng, kiểm chứng → □ Mở rộng và cải tiến.
-- ✅ Đã xong: mục tiêu Owner D04/D05; Host D06; 9 Tools nguồn P06, Rà một UI P09, Claude trình bày 6 phần P10; Host tiếp nhận P11. Theo D11/P12: có bản thử TQT-QT-001, mẫu phản hồi 5 loại blocker và README đọc ngay khi muốn sửa/bị chặn. Đây là tài liệu chuẩn bị thử, chưa có KQ người mới cho quy trình meta.
-- ■ Đang làm: — · 0 RUN active. D15 ưu tiên kiểm kê bộ câu hỏi gốc Chuỗi/Tầng/Bước+Bước con; đã soạn đề bài Codex READ-ONLY P15, thử ghép MOW001 sau khi có đề xuất. DRAFT vẽ UI P14 đã SUPERSEDED; MOW002 chưa làm.
-- ⬜ Còn lại: kiểm độc lập agent đọc rồi làm ra sản phẩm thật; phản biện và bổ sung bước/câu hỏi còn thiếu; thử đề xuất mini-PR; kiểm khóa kỹ thuật Host-only (TQT-ISS-006); chuyển một SSOT từ MOW có bằng chứng; nền chuẩn IT và mở rộng Chuỗi khác theo mục tiêu.
-- ➡ Kế tiếp: Owner chuyển Codex đọc PROMPT.md DRAFT để đề xuất bộ câu hỏi gốc và ca ghép MOW001 READ-ONLY; Host tiếp nhận → Reviewer khác hãng phản biện → chốt chuẩn/Owner quyết nghĩa gốc nếu cần → mới cho vẽ UI MOW001. NEXT_TRIGGER=CODEX_ROOT_QUESTION_PROPOSAL; không giữ terminal chờ.
-- ⛔ Không làm/để sau: tạo task không bao gồm triển khai DOT/script, bảng PG, đổi runtime/UI production hay chuyển dữ liệu đang dùng ở MOW.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 · Astra Codex
+- Mục tiêu và tiêu chí gốc: ô 1–2; chỉ đạo bổ sung trực tiếp của Owner ngày 08/10 ở cuối ô 1.
+- Đang làm: Host dựng Câu hỏi cơ bản theo Công thức, ma trận SSOT và cách ghép câu hỏi nghiệp vụ. Triển khai trực tiếp theo chỉ đạo Owner; P15/D16 READ-ONLY trước đây được thay thế trong phạm vi này.
+- Đã chuẩn bị: 9 bước lớn, 23 bước con, Field/MOIT/MOUT/MOT/MOW, tầng bối cảnh T3–T7 và 3 chuỗi; câu hỏi mới mang trạng thái đang hiệu chỉnh.
+- Kiểm tra giao diện: đang chờ kiểm chứng bản đã đồng bộ lên trang thật.
+- Tiếp theo: dùng bộ câu hỏi trên một việc cụ thể → ghi đúng câu còn thiếu → Host xem ý kiến riêng và sửa nguồn. Chưa nghiệm thu bộ câu hỏi; chưa chuyển sang UI thứ 2.
+- Nội dung cũ: giữ nguyên trong tab Quy trình hiện có. TQT-ISS-004 (chuyển nguồn legacy) và TQT-ISS-006 (chốt quyền bằng máy) vẫn mở; không nhận là đã hoàn tất.
+- Phạm vi lượt này: bốn file của tools-quy-trinh; không đổi định nghĩa Công thức, Master, runtime MOW hay PG/Directus.
 
 ### 1. Mục tiêu
 **Đích:** việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể.
@@ -47,6 +48,22 @@ Host_ID: OpenAI-main
 
 (Owner chốt 08/10/2026. AI không sửa chữ ô này.)
 
+#### Bổ sung của Owner · 08/10/2026 · giao trực tiếp Astra Codex làm Host
+Nguyên văn yêu cầu triển khai mới; áp dụng từ lượt này. Nội dung mục tiêu cũ phía trên giữ nguyên.
+
+Giờ bạn Astra codex cần làm gì?
+
+1. trong tools-quy-trinh (tạm thời giữ nguyên cái đống rác AI đang tạo ra để đó) nhưng bạn làm cho tôi tab đầu tiên là các câu hỏi cơ bản: Bước lớn cần trả lời câu hỏi gì? từng bước con cần trả lời câu hỏi gì? Từng tầng cần trả lời những câu hỏi gì? từng chuỗi cần trả lời các câu hỏi gì?
+2. Hãy trình bày sao cho cùng 1 logic với bước tầng và chuỗi của công thức. Cái này giúp con người có hình dung rõ nhất. => Tôi đề nghị: Thiết kế UI đúng như bên công thức, bấm vào từng cái thì có danh sách câu hỏi cần trả lời (cái này rất tiện cho con người nhưng có thể hơi khó khăn cho AI ) bạn làm thế nào tiện cho con người tư duy nhưng vẫn tiện cho AI quét danh sách thì làm.
+3. Các câu hỏi này ngắn gọn, và làm đến đâu chúng ta tiếp tục hiệu chỉnh đến đó. Có thêm ý kiến hội đồng để điều chỉnh.
+4. Bạn là host của task này đi. Các ý kiến khác không được ghi thẳng, bạn xem xét có đồng ý bổ sung thêm không rồi mới bổ sung.
+5. Chúng ta gọi nhóm câu hỏi của Bướg, tầng, chuỗi là câu hỏi về chuyên môn. Còn ghép với nghiệp vụ như: thiết kế UI, test, UI, config... thì ghép với bộ câu hỏi chuyên môn là xong. Làm chuyên mô gì => có bộ câu hỏi của chuyên môn đó. và như vậy, ghép lại được ma trận rất phức tạp nhưng tư duy lại đơn giản.
+
+Ngắn gọn lại có mấy chuyện:
+
+1. Thiết kế giống hệt bên took quy trình và nhét câu hỏi chuyên môn vào. Và làm thê nào các câu hỏi chuyên mộn này từ bảng mà nó chạy vào thì tốt. Ý tôi là làm SSOT trên 1 ma trận câu hỏi chuyên (nó tiện cho nhìn số lượng lớn và tiện cho AI) nhưng có thể ghép để ma trận này là SSOT và chạy vào từng miếng trong thiết kế để con người dễ tư duy. Vì khi bàn đến 1 việc thì tôi cần nó rất đơn giản thì mới nghĩ được.
+2. Bổ sung 1 thiết kế về các câu hỏi chuyên môn, những chuyên môn mình đã chốt, và chờ thời gian chỗ chuyên môn đấy sẽ kéo dài dài ra.
+
 ### 2. Thế nào là hoàn thành
 Một quy trình đạt = người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lại.
@@ -54,6 +71,11 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 (Owner duyệt 08/10/2026.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+#### TQT-ROOT-QUESTIONS-20261008 · triển khai theo chỉ đạo bổ sung ô 1
+- Một JSON trong view.html sinh sơ đồ, bảng câu hỏi và bộ ghép; câu mới = draft. Bốn tab: Câu hỏi cơ bản, Câu hỏi nghiệp vụ, Ma trận câu hỏi, Quy trình hiện có.
+- Kiểm cần làm trên trang thật: bấm B1→1.2 và các gốc khác; Field/MOIT/MOUT/MOT/MOW; ba chuỗi; ghép UI; lọc ma trận; liên kết cũ; bàn phím/màn hẹp. Chưa ghi PASS trước khi kiểm.
+- Còn mở: áp dụng thật để hiệu chỉnh câu hỏi; ý kiến hội đồng gửi riêng để Host quyết; không tự sinh bước con B8/B9 hoặc công nhận nghiệm thu.
 
 #### TQT-REQ — bảng kiểm từng mục tiêu ở ô 1 · 07/10/2026
 Mục tiêu chỉ có một nguồn là ô 1 (bản Owner chốt 08/10 · D04). Bảng chỉ là chỉ mục từ mã kiểm đến dòng mục tiêu Owner; ô 1 luôn là nguồn chuẩn, không tạo mục tiêu thứ hai. Trỏ về dòng của ô 1: REQ-01 → dòng 2, 5 · REQ-02 → dòng 3 · REQ-03 → dòng 1, 12 · REQ-04 → dòng 6 · REQ-05 → dòng 7–11 · REQ-06 → dòng 13–14 (sổ ghi cả sai sót lẫn chỗ thiếu) · REQ-07 → dòng 4 · REQ-08 → dòng 15 · REQ-09 → Đích và “Chưa làm lúc này”.
@@ -117,8 +139,8 @@ Ba chiều độc lập theo ô 1 dòng 2: **Chuỗi × nhóm chuyên môn × l�
 
 #### TQT-HOST-GATE — nộp đề xuất riêng, Host mới nhập chuẩn (D08/D09 · 08/10/2026)
 - **Mục tiêu của Owner vẫn chỉ ở §0 ô 1–2**. Mục tiêu nghiệm thu của từng Tool: một phiên Codex/agent mới đọc, thực hiện thật, giao được sản phẩm đúng. Nếu không thể: báo rõ ca lỗi, câu hỏi/bước thiếu, bằng chứng, không tự báo ĐẠT. Một vài ca đạt không bằng cả hành trình đạt.
-- **Nguồn chuẩn trong task này:** `view.html` (nội dung quy trình và sổ TQT), `COLLAB.md` (quyết định Host và trạng thái), `README.md` (cửa vào); chỉ Host GPT Chat áp sửa chính. Không nhân thêm sổ thứ hai, không chỉnh ô mục tiêu Owner.
-- **Claude, Codex, Claude Code, các AI khác:** chỉ tạo một đề xuất **riêng** tại `work/tools-quy-trinh/proposals/TQT-PR-YYYYMMDD-<seat>-<so>.md` bằng gateway có expected-version/atomic transaction. Không sửa `view.html`, `COLLAB.md`, `README.md` và các hồ sơ TQT/OPEN được chép ở đó; không tự merge hoặc ghi “đã nhận”. Mỗi đề xuất khác mã/path, không cùng viết một file. Nếu worker thuộc task UI/MOW, bằng chứng thực hiện vẫn ghi ở task sản phẩm theo quyền task đó.
+- **Nguồn chuẩn trong task này:** `view.html` (nội dung quy trình và sổ TQT), `COLLAB.md` (quyết định Host và trạng thái), `README.md` (cửa vào); chỉ Host Astra Codex (phiên Owner chỉ định 08/10) áp sửa chính. Không nhân thêm sổ thứ hai, không chỉnh ô mục tiêu Owner.
+- **Các AI ngoài phiên Host (GPT Chat, Claude, Codex, Claude Code…):** chỉ tạo một đề xuất **riêng** tại `work/tools-quy-trinh/proposals/TQT-PR-YYYYMMDD-<seat>-<so>.md` bằng gateway có expected-version/atomic transaction. Không sửa `view.html`, `COLLAB.md`, `README.md` và các hồ sơ TQT/OPEN được chép ở đó; không tự merge hoặc ghi “đã nhận”. Mỗi đề xuất khác mã/path, không cùng viết một file. Nếu worker thuộc task UI/MOW, bằng chứng thực hiện vẫn ghi ở task sản phẩm theo quyền task đó.
 - **Khuôn đề xuất ngắn:** `Mã Tool hoặc issue · Đã thử và kết quả thật (PASS phạm vi nào / BLOCKED vì sao) · Câu/bước hiện thiếu hoặc sai · Đề xuất sửa cụ thể · Nguồn phiên bản + link bằng chứng`. Không được tự sửa mục tiêu, không mở task mới. Khi thấy vấn đề chưa sửa, AI nộp đề xuất; Host vào sổ chuẩn cùng mã sau duyệt.
 - **Host duyệt:** đối chiếu mục tiêu + nguồn hiện hành + tác động tới Tool/sổ + bằng chứng kiểm, lấy phản biện Reviewer nếu cần; `ACCEPT`/ `REQUEST_CHANGES`/ `REJECT` ghi mã đề xuất vào P/D của COLLAB. Chỉ Host ghi cập nhật chính bằng **một transaction** với expected version/head; kiểm mirror và bàn giao đường đọc cho agent. Không ghi xanh khi mới chỉ thử một phần.
 - **Chuyển nguồn cũ:** tới khi hoàn tất TQT-ISS-004, `ML-DEF-023`, 8/7 câu và `OPEN-01…10` tại MOW vẫn là nguồn sửa *legacy*; bản chép tại task chỉ để đọc có gắn phiên bản. Nội dung/sổ **mới của task** chỉ Host nhận qua proposals. Host phải hòa giải thay đổi legacy ngay trước khi tuyên bố chuyển một SSOT; không tự sửa mã/runtime VPS hay thu khu Công thức của task khác.
@@ -127,13 +149,26 @@ Ba chiều độc lập theo ô 1 dòng 2: **Chuỗi × nhóm chuyên môn × l�
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
 |---|---|---|---|---|
-| OpenAI-main | OpenAI | GPT Chat — phiên Owner chỉ định 08/10 | Host | Phiên Chat trực tiếp · đường gọi hội đồng CHƯA ĐO |
+| OpenAI-main | OpenAI | Astra Codex desktop — phiên Owner chỉ định trực tiếp 08/10 | Host | Phiên hiện tại của Owner · đường gọi hội đồng CHƯA ĐO |
 | Claude-review | Anthropic | Claude Chat | Reviewer | CHƯA ĐO |
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 
-**Roster hiệu lực từ D06:** GPT Chat là Host do Owner chỉ định trực tiếp; Claude Chat giữ ghế Reviewer khác hãng. Đường gọi Reviewer còn `CHƯA ĐO`; chưa có phiếu/quorum hay lệnh READY/RUN cho worker. Host được giao trực tiếp cập nhật nội dung tài liệu task, không mở rộng sang runtime, PG/Directus, hoặc dữ liệu nguồn UI hiện hành. Reviewer góp ý theo vòng AGENTS A5 sau khi có bản nháp/đề xuất.
+**Roster cập nhật theo chỉ đạo Owner 08/10:** Astra Codex là Host, thay GPT Chat của D06; Claude Chat giữ ghế Reviewer khác hãng. Đường gọi Reviewer còn `CHƯA ĐO`; chưa có phiếu/quorum hay lệnh READY/RUN cho worker. Host được giao trực tiếp cập nhật nội dung tài liệu task, không mở rộng sang runtime, PG/Directus, hoặc dữ liệu nguồn UI hiện hành. Reviewer góp ý theo vòng AGENTS A5 sau khi có bản nháp/đề xuất.
 
 ### Vòng trước
+Chỉ đạo READ-ONLY P15/D16 và Host GPT Chat dưới đây là lịch sử trước khi Owner giao lại Astra Codex. Không dùng lịch sử này để ghi đè vai trò/phạm vi hiện hành ở đầu §0.
+
+#### BẢNG ĐIỀU KHIỂN CŨ · cập nhật 2026-10-08 · GPT Chat · P15
+- 🎯 Mục tiêu: Owner chốt 08/10 — “việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể.” Đủ 15 dòng đọc ở ô 1. Vì sao (Owner): “số quy trình sẽ rất nhiều => chúng ta sẽ tập hợp toàn bộ các tools quy trình lên 1 task để có thể làm việc xuyên suốt, dài hạn, hội đồng AI dễ dàng có ý kiến đóng góp.”
+- 🏁 Xong khi: theo ô 2 — một quy trình đạt khi người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật. Mốc của cả việc do hội đồng chốt ở bước kế hoạch.
+- 📍 Tiến độ: ■ Khởi tạo / chỉ định Host → □ Chuẩn hóa → □ Áp dụng, kiểm chứng → □ Mở rộng và cải tiến.
+- ✅ Đã xong: mục tiêu Owner D04/D05; Host D06; 9 Tools nguồn P06, Rà một UI P09, Claude trình bày 6 phần P10; Host tiếp nhận P11. Theo D11/P12: có bản thử TQT-QT-001, mẫu phản hồi 5 loại blocker và README đọc ngay khi muốn sửa/bị chặn. Đây là tài liệu chuẩn bị thử, chưa có KQ người mới cho quy trình meta.
+- ■ Đang làm: — · 0 RUN active. D15 ưu tiên kiểm kê bộ câu hỏi gốc Chuỗi/Tầng/Bước+Bước con; đã soạn đề bài Codex READ-ONLY P15, thử ghép MOW001 sau khi có đề xuất. DRAFT vẽ UI P14 đã SUPERSEDED; MOW002 chưa làm.
+- ⬜ Còn lại: kiểm độc lập agent đọc rồi làm ra sản phẩm thật; phản biện và bổ sung bước/câu hỏi còn thiếu; thử đề xuất mini-PR; kiểm khóa kỹ thuật Host-only (TQT-ISS-006); chuyển một SSOT từ MOW có bằng chứng; nền chuẩn IT và mở rộng Chuỗi khác theo mục tiêu.
+- ➡ Kế tiếp: Owner chuyển Codex đọc PROMPT.md DRAFT để đề xuất bộ câu hỏi gốc và ca ghép MOW001 READ-ONLY; Host tiếp nhận → Reviewer khác hãng phản biện → chốt chuẩn/Owner quyết nghĩa gốc nếu cần → mới cho vẽ UI MOW001. NEXT_TRIGGER=CODEX_ROOT_QUESTION_PROPOSAL; không giữ terminal chờ.
+- ⛔ Không làm/để sau: tạo task không bao gồm triển khai DOT/script, bảng PG, đổi runtime/UI production hay chuyển dữ liệu đang dùng ở MOW.
+
+
 Bản 08/10 07:16 của ô 1: câu Đích kết thúc ở “ra đúng sản phẩm.”; Owner thêm vế “hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể” lúc 07:30 (D05). Các dòng khác không đổi.
 
 #### Bản mục tiêu 07/10/2026 — Owner gõ gốc; đã thay bằng bản Owner duyệt 08/10 (D04). Giữ nguyên văn, kể cả lỗi gõ.

@@ -71,9 +71,76 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 @media(max-width:760px){nav.toc{position:static}main{padding:16px 14px 44px}h1{font-size:26px}.stats{grid-template-columns:1fr 1fr}.chains,.two,.three{grid-template-columns:1fr}dl.kv{grid-template-columns:1fr}dl.kv dt{border-bottom:0;padding-bottom:0}.wrap table{min-width:640px}th,td{padding:7px 8px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
+
+<style id="tqt-question-style">
+main{max-width:1240px} [hidden]{display:none!important}
+.tq{--ink:#203b2d;--line:#dce4dc;--mut:#68756d;color:#263e31;font:15px/1.55 system-ui,sans-serif}
+.tq *{box-sizing:border-box}.tq h1{font-size:29px;margin:0 0 5px}.tq h2{font-size:26px;margin:0}.tq h3{font-size:18px;margin:0 0 10px}.tq p{margin:7px 0}.tq small,.tq .mut{color:var(--mut)}.tq button,.tq input,.tq select{font:inherit}.tq a{color:#365c45}.tq button,.tq .piece{cursor:pointer}.tq button:focus-visible,.tq a:focus-visible{outline:3px solid #d49b24;outline-offset:3px}
+.tq-tabs{display:flex;gap:6px;flex-wrap:wrap;background:#f0f4ee;padding:7px;border:1px solid #dce4dc;border-radius:12px;margin:16px 0}
+.tq-tabs button{background:transparent;border:0;border-radius:8px;padding:9px 14px;font-weight:700;color:#627065}
+.tq-tabs button[aria-selected=true]{background:white;color:#284a35;box-shadow:0 1px 4px #233b2315}
+.tq .hint{background:#f4f7f1;border-left:3px solid #8b9e7f;padding:10px 14px;font-size:14px;margin:12px 0 18px}
+.tq .piece-section{border:1px solid var(--line);border-radius:15px;padding:20px;margin:17px 0;background:#fff;scroll-margin-top:15px}
+.tq .titleline{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:7px}
+.tq .titleline small{flex:1}.tq .quiet{background:#f7f9f4;border:1px solid var(--line);border-radius:16px;padding:4px 11px;font-size:12px;color:#506b57}
+.tq .formula{font:700 18px/1.5 ui-monospace,monospace;background:#f1f4ee;padding:3px 7px;border-radius:5px;display:inline-block;margin:4px 0 14px}
+.tq .flow{display:grid;grid-template-columns:98px minmax(0,1fr);gap:16px;align-items:center}
+.tq .branches{border-left:2px solid #d6dfd3;padding-left:18px;display:grid;gap:13px}.tq .condition{display:block;font-size:12px;color:#6d766d;margin-bottom:5px}
+.tq .chain{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.tq .create-chain{flex-wrap:nowrap;overflow:auto;padding:3px 3px 8px}
+.tq .piece{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid #cfd9ca;border-radius:10px;background:#fbfcf8;padding:10px 11px;color:#294332;font-size:14px;font-weight:650;line-height:1.3;min-height:48px}
+.tq .create-chain .piece{flex:0 0 auto;max-width:160px}.tq .piece:hover{background:#eef4e8;border-color:#799675}.tq .piece[aria-current=true]{border:2px solid #426a47;background:#eaf3e3}
+.tq .badge{flex:none;display:inline-grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#2d503b;color:white;font-size:13px;font-weight:750}
+.tq .child .badge{border-radius:4px;width:32px;height:25px;font-size:11px}.tq .edit .badge{background:#a57a13}.tq .retire .badge{background:#a55049}
+.tq .arrow{color:#80907d;flex:none}.tq .return{font-size:12px;color:#62765d;white-space:nowrap}
+.tq .layers{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.tq .pair{padding:10px;border:1px dashed #cbd6c5;border-radius:12px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}.tq .layers .piece{min-width:105px}
+.tq .chains{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.tq .chains .piece{padding:16px;display:flex;flex-direction:column;align-items:flex-start}.tq .count{font-size:12px;color:#6e7d6c;font-weight:400}
+.tq .detail{border:1px solid #cbdac3;background:#f7faf3;border-radius:12px;padding:18px;margin-top:16px;scroll-margin-top:16px}
+.tq .detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.tq .detail-head button{border:0;background:transparent;color:#54684d;font-size:13px}
+.tq .question-list{margin:8px 0;padding-left:25px}.tq .question-list li{padding:7px 3px;border-bottom:1px solid #e3eadc}.tq .question-list li:last-child{border:0}
+.tq .qid{font:11px ui-monospace,monospace;color:#859080;margin-left:8px;white-space:nowrap}.tq .children{margin-top:14px;padding-top:12px;border-top:1px dashed #cbdac3}
+.tq details{margin:12px 0;border:1px solid #dce4dc;border-radius:8px;padding:10px 13px;background:white}.tq summary{cursor:pointer;font-weight:650}
+.tq .toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0}.tq input,.tq select{border:1px solid #cbd6c5;border-radius:8px;padding:8px 10px;background:#fff;max-width:100%}
+.tq input{flex:1;min-width:150px}.tq .matrix-wrap{overflow:auto;border:1px solid #dce4dc;border-radius:10px}.tq table{margin:0;font-size:14px;width:100%;border-collapse:collapse}.tq th{background:#eff4ea;color:#3d543c;position:sticky;top:0}.tq td,.tq th{padding:10px 12px;text-align:left;border-bottom:1px solid #e3e9df;vertical-align:top}.tq td:first-child{white-space:nowrap;font-size:11px}
+.tq textarea{width:100%;height:220px;border:1px solid #cbd6c5;border-radius:6px;padding:10px;font:12px/1.4 monospace}.tq .compose{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.tq label{display:grid;gap:5px;font-size:13px}.tq .status{background:#fbf5df;border-radius:20px;padding:3px 9px;font-size:12px;color:#866d1c}
+#tqt-legacy{border-top:1px solid #dce4dc;padding-top:10px}
+@media(max-width:750px){.tq .flow{grid-template-columns:75px minmax(0,1fr);gap:8px}.tq .branches{padding-left:10px}.tq .piece-section{padding:13px}.tq .piece{padding:8px;font-size:13px}.tq .chains{grid-template-columns:1fr}.tq .compose{grid-template-columns:1fr 1fr}.tq h1{font-size:25px}.tq h2{font-size:23px}.tq-tabs button{padding:8px 10px;font-size:13px}.tq .formula{font-size:15px}}
+@media(prefers-reduced-motion:no-preference){.tq .piece{transition:background .12s,border-color .12s}}
+</style>
 </head>
 <body>
 <main>
+
+<div class="tq" id="tqt-question-app">
+<header><small>TOOLS QUY TRÌNH · TƯ DUY TỪ GỐC</small><h1>Câu hỏi để làm ra sản phẩm</h1><p>Bước + Tầng + Chuỗi → ghép thêm câu hỏi của việc đang làm.</p></header>
+<nav class="tq-tabs" role="tablist" aria-label="Nội dung Tools quy trình">
+<button type="button" role="tab" id="tqt-tab-basic" aria-controls="cau-hoi-co-ban" aria-selected="true" data-tab="cau-hoi-co-ban">Câu hỏi cơ bản</button>
+<button type="button" role="tab" id="tqt-tab-business" aria-controls="cau-hoi-nghiep-vu" aria-selected="false" data-tab="cau-hoi-nghiep-vu" tabindex="-1">Câu hỏi nghiệp vụ</button>
+<button type="button" role="tab" id="tqt-tab-matrix" aria-controls="ma-tran-cau-hoi" aria-selected="false" data-tab="ma-tran-cau-hoi" tabindex="-1">Ma trận câu hỏi</button>
+<button type="button" role="tab" id="tqt-tab-old" aria-controls="tqt-legacy" aria-selected="false" data-tab="tqt-legacy" tabindex="-1">Quy trình hiện có</button>
+</nav>
+<div id="cau-hoi-co-ban" role="tabpanel" aria-labelledby="tqt-tab-basic">
+<p class="hint"><b>Bấm một miếng để xem câu hỏi.</b> Bước, Tầng và Chuỗi là câu hỏi <b>chuyên môn</b>. Cùng cách nhìn như <a href="https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&amp;view=content&amp;section=matrix-view-formula" target="_blank" rel="noopener">Công thức ↗</a>. <span class="status">Bộ câu hỏi đang hiệu chỉnh</span></p>
+<div class="piece-section" id="tqt-steps"><div class="titleline"><h2>Bước</h2><small>CT-001 · Vòng đời tổng</small><a class="quiet" href="#q-STEP">Câu hỏi chung</a></div><div class="formula">Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }</div><div id="tqt-step-map"></div><div id="tqt-step-detail"></div></div>
+<div class="piece-section" id="tqt-layers"><div class="titleline"><h2>Tầng</h2><small>CT-002 · Ghép tầng</small><a class="quiet" href="#q-LAYER">Câu hỏi chung</a></div><div class="formula">Field ⇒ { MOIT | MOUT } ⇒ MOT ⇒ MOW</div><div id="tqt-layer-map"></div><div id="tqt-layer-detail"></div><p class="mut"><small>Đọc từ tầng thấp lên tầng cao. MOIT và MOUT cùng T0.5, có câu hỏi riêng.</small></p></div>
+<div class="piece-section" id="tqt-chains"><div class="titleline"><h2>Chuỗi</h2><small>CT-002.1</small><a class="quiet" href="#q-CHAIN">Câu hỏi chung</a></div><div class="chains" id="tqt-chain-map"></div><div id="tqt-chain-detail"></div></div>
+<p class="mut"><small>Một câu hỏi, một mã, một chỗ sửa trong ma trận. Các miếng trên chỉ là cách xem. Thêm bước con → thêm câu hỏi riêng, vẫn kế thừa câu hỏi của bước lớn.</small></p>
+</div>
+<div id="cau-hoi-nghiep-vu" role="tabpanel" aria-labelledby="tqt-tab-business" hidden>
+<div class="hint"><b>Làm việc gì → ghép bộ câu hỏi của việc đó.</b> Ba nhóm khởi đầu bên dưới đang được hiệu chỉnh; chưa có bộ nào được ghi nhận là nghiệm thu toàn bộ.</div>
+<div class="chains" id="tqt-business-map"></div><div id="tqt-business-detail"></div>
+<div class="piece-section"><h2>Ghép để làm một việc</h2><p class="mut">Chọn đúng phần đang làm. Câu hỏi được lấy từ cùng ma trận, không tạo thêm bản sao.</p><div class="compose" id="tqt-compose"></div><div id="tqt-composed" aria-live="polite"></div></div>
+<p class="mut"><small>Nhóm mới chỉ được thêm sau khi Host tiếp nhận. Ý kiến khác ghi riêng theo README của task; không sửa thẳng nguồn chính.</small></p>
+</div>
+<div id="ma-tran-cau-hoi" role="tabpanel" aria-labelledby="tqt-tab-matrix" hidden>
+<h2>Ma trận câu hỏi</h2><p>Mỗi hàng là một câu hỏi gốc. Mã giữ nguyên khi sửa câu; sửa tại đây trong nguồn thì mọi cách xem cùng đổi.</p>
+<div class="toolbar"><input id="tqt-search" type="search" placeholder="Tìm câu hỏi, mã, tên bước…" aria-label="Tìm trong ma trận"><select id="tqt-filter" aria-label="Lọc loại câu hỏi"><option value="">Tất cả</option><option>Chung</option><option>Bước lớn</option><option>Bước con</option><option>Tầng</option><option>Chuỗi</option><option>Nghiệp vụ</option></select><span id="tqt-total" role="status"></span></div>
+<div class="matrix-wrap"><table><thead><tr><th>Mã câu</th><th>Thuộc phần</th><th>Câu hỏi</th></tr></thead><tbody id="tqt-matrix-body"></tbody></table></div>
+<details><summary>Dữ liệu cho AI · toàn bộ ma trận</summary><p><small>Nguồn duy nhất: khối JSON <code>tqt-question-matrix</code> trong <code>work/tools-quy-trinh/view.html</code>. Dữ liệu dưới đây đọc trực tiếp từ nguồn ấy; gồm câu hỏi, mã, nhóm, quan hệ kế thừa và trạng thái.</small></p><textarea id="tqt-json" readonly aria-label="Toàn bộ ma trận JSON"></textarea><p><small>Chọn nội dung để sao chép. Câu trả lời và bằng chứng của mỗi lần làm được lưu tại task sản phẩm, không ghi đè câu hỏi chuẩn.</small></p></details>
+</div>
+</div>
+<div id="tqt-legacy" role="tabpanel" aria-labelledby="tqt-tab-old" hidden>
+<div class="tq"><p class="hint">Nội dung trước đây được giữ nguyên để đối chiếu. Bộ câu hỏi gốc mới ở tab đầu; các quy trình cũ vẫn mang trạng thái và nguồn đã ghi trong từng phần.</p></div>
+
 <header>
 <div class="eyebrow">Incomex · tools-quy-trinh · trang nội dung</div>
 <h1>Tools quy trình</h1>
@@ -755,6 +822,1276 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 </section>
 
 <p class="footer">Một đầu mối công việc · mỗi quy trình một nguồn chuẩn · mỗi vấn đề một vòng đời. Mục tiêu, tiêu chí và trạng thái điều hành chỉ ở COLLAB §0 (trang Owner rút tự động); trang này không chép lại.</p>
+</div>
+
+<script id="tqt-question-matrix" type="application/json">{
+  "schema": "TQT-QUESTION-MATRIX-1",
+  "updated": "2026-10-08",
+  "host": "Astra Codex",
+  "status": "Bản đầu để dùng thử và hiệu chỉnh; chưa nghiệm thu bộ câu hỏi",
+  "source_definitions": "work/mow-mot-moit-mout/ban-duyet.html#matrix-view-formula",
+  "source_version": "e02299dfdd8a15769ece7104a930f09451dd22a16d60a208b2a0bafe80e02069",
+  "inheritance": {
+    "Bước lớn": [
+      "STEP"
+    ],
+    "Bước con": [
+      "CHILD"
+    ],
+    "Tầng": [
+      "LAYER"
+    ],
+    "Chuỗi": [
+      "CHAIN"
+    ],
+    "Nghiệp vụ": []
+  },
+  "groups": [
+    {
+      "id": "STEP",
+      "kind": "Chung",
+      "label": "Mọi bước lớn",
+      "parent": null
+    },
+    {
+      "id": "CHILD",
+      "kind": "Chung",
+      "label": "Mọi bước con",
+      "parent": null
+    },
+    {
+      "id": "LAYER",
+      "kind": "Chung",
+      "label": "Mọi tầng",
+      "parent": null
+    },
+    {
+      "id": "CHAIN",
+      "kind": "Chung",
+      "label": "Mọi chuỗi",
+      "parent": null
+    },
+    {
+      "id": "B1",
+      "kind": "Bước lớn",
+      "label": "1 · Tìm",
+      "parent": null,
+      "source": "CT-001"
+    },
+    {
+      "id": "B2",
+      "kind": "Bước lớn",
+      "label": "2 · Dùng",
+      "parent": null,
+      "source": "CT-001"
+    },
+    {
+      "id": "B3",
+      "kind": "Bước lớn",
+      "label": "3 · Đề xuất tạo mới",
+      "parent": null,
+      "source": "CT-001"
+    },
+    {
+      "id": "B4",
+      "kind": "Bước lớn",
+      "label": "4 · Duyệt đề xuất tạo",
+      "parent": null,
+      "source": "CT-001"
+    },
+    {
+      "id": "B5",
+      "kind": "Bước lớn",
+      "label": "5 · Khai báo",
+      "parent": null,
+      "source": "CT-001"
+    },
+    {
+      "id": "B6",
+      "kind": "Bước lớn",
+      "label": "6 · Test",
+      "parent": null,
+      "source": "CT-001"
+    },
+    {
+      "id": "B7",
+      "kind": "Bước lớn",
+      "label": "7 · Duyệt cho dùng",
+      "parent": null,
+      "source": "CT-001"
+    },
+    {
+      "id": "B8",
+      "kind": "Bước lớn",
+      "label": "8 · Sửa",
+      "parent": null,
+      "source": "CT-001"
+    },
+    {
+      "id": "B9",
+      "kind": "Bước lớn",
+      "label": "9 · Vô hiệu / Nghỉ hưu",
+      "parent": null,
+      "source": "CT-001"
+    },
+    {
+      "id": "B1.1",
+      "kind": "Bước con",
+      "label": "1.1 · Tìm thường",
+      "parent": "B1",
+      "source": "CT-001"
+    },
+    {
+      "id": "B1.2",
+      "kind": "Bước con",
+      "label": "1.2 · Tìm nâng cao",
+      "parent": "B1",
+      "source": "CT-001"
+    },
+    {
+      "id": "B1.3",
+      "kind": "Bước con",
+      "label": "1.3 · Xác nhận phù hợp",
+      "parent": "B1",
+      "source": "CT-001"
+    },
+    {
+      "id": "B2.1",
+      "kind": "Bước con",
+      "label": "2.1 · Người chọn Dùng",
+      "parent": "B2",
+      "source": "CT-001"
+    },
+    {
+      "id": "B2.2",
+      "kind": "Bước con",
+      "label": "2.2 · Máy áp dụng & xác nhận",
+      "parent": "B2",
+      "source": "CT-001"
+    },
+    {
+      "id": "B3.1",
+      "kind": "Bước con",
+      "label": "3.1 · Ghi nhận ý tưởng",
+      "parent": "B3",
+      "source": "CT-001"
+    },
+    {
+      "id": "B3.2",
+      "kind": "Bước con",
+      "label": "3.2 · Chuẩn hóa đề xuất",
+      "parent": "B3",
+      "source": "CT-001"
+    },
+    {
+      "id": "B3.3",
+      "kind": "Bước con",
+      "label": "3.3 · Cập nhật Master",
+      "parent": "B3",
+      "source": "CT-001"
+    },
+    {
+      "id": "B3.4",
+      "kind": "Bước con",
+      "label": "3.4 · Giao phụ trách",
+      "parent": "B3",
+      "source": "CT-001"
+    },
+    {
+      "id": "B4.1",
+      "kind": "Bước con",
+      "label": "4.1 · Ra quyết định",
+      "parent": "B4",
+      "source": "CT-001"
+    },
+    {
+      "id": "B4.2",
+      "kind": "Bước con",
+      "label": "4.2 · Cập nhật Master",
+      "parent": "B4",
+      "source": "CT-001"
+    },
+    {
+      "id": "B4.3",
+      "kind": "Bước con",
+      "label": "4.3 · Báo người đề xuất",
+      "parent": "B4",
+      "source": "CT-001"
+    },
+    {
+      "id": "B4.4",
+      "kind": "Bước con",
+      "label": "4.4 · Chuyển bước",
+      "parent": "B4",
+      "source": "CT-001"
+    },
+    {
+      "id": "B5.1",
+      "kind": "Bước con",
+      "label": "5.1 · Khai báo chung",
+      "parent": "B5",
+      "source": "CT-001"
+    },
+    {
+      "id": "B5.2",
+      "kind": "Bước con",
+      "label": "5.2 · Khai báo riêng",
+      "parent": "B5",
+      "source": "CT-001"
+    },
+    {
+      "id": "B5.3",
+      "kind": "Bước con",
+      "label": "5.3 · Rà phần còn thiếu",
+      "parent": "B5",
+      "source": "CT-001"
+    },
+    {
+      "id": "B6.1",
+      "kind": "Bước con",
+      "label": "6.1 · Test theo khai báo",
+      "parent": "B6",
+      "source": "CT-001"
+    },
+    {
+      "id": "B6.2",
+      "kind": "Bước con",
+      "label": "6.2 · PASS",
+      "parent": "B6",
+      "source": "CT-001"
+    },
+    {
+      "id": "B6.3",
+      "kind": "Bước con",
+      "label": "6.3 · FAIL",
+      "parent": "B6",
+      "source": "CT-001"
+    },
+    {
+      "id": "B7.1",
+      "kind": "Bước con",
+      "label": "7.1 · Đóng gói báo cáo",
+      "parent": "B7",
+      "source": "CT-001"
+    },
+    {
+      "id": "B7.2",
+      "kind": "Bước con",
+      "label": "7.2 · Giao người duyệt",
+      "parent": "B7",
+      "source": "CT-001"
+    },
+    {
+      "id": "B7.3",
+      "kind": "Bước con",
+      "label": "7.3 · Người phê duyệt",
+      "parent": "B7",
+      "source": "CT-001"
+    },
+    {
+      "id": "B7.4",
+      "kind": "Bước con",
+      "label": "7.4 · Cập nhật Master & hiệu lực",
+      "parent": "B7",
+      "source": "CT-001"
+    },
+    {
+      "id": "FIELD",
+      "kind": "Tầng",
+      "label": "Field · T0",
+      "parent": null,
+      "source": "CT-002"
+    },
+    {
+      "id": "MOIT",
+      "kind": "Tầng",
+      "label": "MOIT · T0.5",
+      "parent": null,
+      "source": "CT-002"
+    },
+    {
+      "id": "MOUT",
+      "kind": "Tầng",
+      "label": "MOUT · T0.5",
+      "parent": null,
+      "source": "CT-002"
+    },
+    {
+      "id": "MOT",
+      "kind": "Tầng",
+      "label": "MOT · T1",
+      "parent": null,
+      "source": "CT-002"
+    },
+    {
+      "id": "MOW",
+      "kind": "Tầng",
+      "label": "MOW · T2",
+      "parent": null,
+      "source": "CT-002"
+    },
+    {
+      "id": "CTCM",
+      "kind": "Chuỗi",
+      "label": "Chế tạo cỗ máy",
+      "parent": null,
+      "source": "CT-002.1"
+    },
+    {
+      "id": "VHCM",
+      "kind": "Chuỗi",
+      "label": "Vận hành cỗ máy",
+      "parent": null,
+      "source": "CT-002.1"
+    },
+    {
+      "id": "CMSXQT",
+      "kind": "Chuỗi",
+      "label": "Cỗ máy sản xuất quy trình",
+      "parent": null,
+      "source": "CT-002.1"
+    },
+    {
+      "id": "UI",
+      "kind": "Nghiệp vụ",
+      "label": "Thiết kế UI",
+      "parent": null,
+      "source": "Khởi tạo từ yêu cầu Owner; đối chiếu #tqt-8-cau",
+      "legacy": "#tqt-8-cau"
+    },
+    {
+      "id": "TEST",
+      "kind": "Nghiệp vụ",
+      "label": "Test / rà UI",
+      "parent": null,
+      "source": "Khởi tạo từ #ra-ui; bộ câu hỏi ngắn đang hiệu chỉnh",
+      "legacy": "#ra-ui"
+    },
+    {
+      "id": "CONFIG",
+      "kind": "Nghiệp vụ",
+      "label": "Config",
+      "parent": null,
+      "source": "Khởi tạo từ #tqt-7-cau; bộ câu hỏi ngắn đang hiệu chỉnh",
+      "legacy": "#tqt-7-cau"
+    },
+    {
+      "id": "T3",
+      "kind": "Tầng",
+      "label": "Chuyên môn · T3",
+      "parent": null,
+      "source": "CT-002 · nửa bối cảnh",
+      "context": true
+    },
+    {
+      "id": "T4",
+      "kind": "Tầng",
+      "label": "Phòng ban · T4",
+      "parent": null,
+      "source": "CT-002 · nửa bối cảnh",
+      "context": true
+    },
+    {
+      "id": "T5",
+      "kind": "Tầng",
+      "label": "Khối · T5",
+      "parent": null,
+      "source": "CT-002 · nửa bối cảnh",
+      "context": true
+    },
+    {
+      "id": "T6",
+      "kind": "Tầng",
+      "label": "Công ty · T6",
+      "parent": null,
+      "source": "CT-002 · nửa bối cảnh",
+      "context": true
+    },
+    {
+      "id": "T7",
+      "kind": "Tầng",
+      "label": "Lĩnh vực · T7",
+      "parent": null,
+      "source": "CT-002 · nửa bối cảnh",
+      "context": true
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-STEP-01",
+      "owner": "STEP",
+      "text": "Bước này cần đạt kết quả gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-STEP-02",
+      "owner": "STEP",
+      "text": "Cần có gì và ai chịu trách nhiệm trước khi bắt đầu?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-STEP-03",
+      "owner": "STEP",
+      "text": "Dựa vào bằng chứng nào để kết thúc hoặc chuyển bước?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CHILD-01",
+      "owner": "CHILD",
+      "text": "Bước con này nhận gì từ đâu và giao gì cho bước tiếp theo?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CHILD-02",
+      "owner": "CHILD",
+      "text": "Nếu thiếu hoặc sai, quay lại đâu và ai xử lý?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-LAYER-01",
+      "owner": "LAYER",
+      "text": "Đối tượng này quản lý điều gì, trong phạm vi nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-LAYER-02",
+      "owner": "LAYER",
+      "text": "Nguồn chuẩn, mã định danh và nơi dùng lại là gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-LAYER-03",
+      "owner": "LAYER",
+      "text": "Nó nhận gì từ tầng dưới và cung cấp gì cho tầng trên?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CHAIN-01",
+      "owner": "CHAIN",
+      "text": "Chuỗi này phục vụ ai và cần tạo ra kết quả gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CHAIN-02",
+      "owner": "CHAIN",
+      "text": "Điều gì bắt đầu, kết thúc hoặc chuyển sang chuỗi khác?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CHAIN-03",
+      "owner": "CHAIN",
+      "text": "Ai chịu trách nhiệm và dựa vào đâu để biết chuỗi chạy đúng?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B1-01",
+      "owner": "B1",
+      "text": "Cần tìm thứ gì, để đáp ứng yêu cầu nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B1-02",
+      "owner": "B1",
+      "text": "Tìm ở nguồn chuẩn nào, theo điều kiện gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B1-03",
+      "owner": "B1",
+      "text": "Kết quả dẫn đến Dùng, Tạo mới, Sửa hay Vô hiệu?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B2-01",
+      "owner": "B2",
+      "text": "Đúng đối tượng, phiên bản và phạm vi được phép dùng chưa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B2-02",
+      "owner": "B2",
+      "text": "Ai xác nhận dùng và dùng vào đâu?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B2-03",
+      "owner": "B2",
+      "text": "Bằng chứng nào cho thấy đã áp dụng thành công?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B3-01",
+      "owner": "B3",
+      "text": "Vì sao thứ đã có chưa đáp ứng?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B3-02",
+      "owner": "B3",
+      "text": "Cần tạo gì, phục vụ ai và giới hạn đến đâu?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B3-03",
+      "owner": "B3",
+      "text": "Đề xuất được ghi ở đâu và ai phụ trách?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B4-01",
+      "owner": "B4",
+      "text": "Dựa vào tiêu chí và bằng chứng nào để duyệt?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B4-02",
+      "owner": "B4",
+      "text": "Ai có thẩm quyền quyết định?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B4-03",
+      "owner": "B4",
+      "text": "Duyệt, cần làm rõ hay từ chối; tiếp theo đi đâu?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B5-01",
+      "owner": "B5",
+      "text": "Phải khai báo đủ những thành phần nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B5-02",
+      "owner": "B5",
+      "text": "Phần nào dùng chung, phần nào riêng và lấy từ đâu?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B5-03",
+      "owner": "B5",
+      "text": "Còn thiếu gì trước khi chuyển sang test?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B6-01",
+      "owner": "B6",
+      "text": "Test phiên bản nào, so với tiêu chí nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B6-02",
+      "owner": "B6",
+      "text": "Các nhánh cần thử đã có dữ liệu và kết quả mong đợi chưa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B6-03",
+      "owner": "B6",
+      "text": "Bằng chứng PASS/FAIL ở đâu và lỗi quay về chỗ nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B7-01",
+      "owner": "B7",
+      "text": "Hồ sơ đã đủ kết quả test và giới hạn sử dụng chưa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B7-02",
+      "owner": "B7",
+      "text": "Ai được quyết định cho dùng?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B7-03",
+      "owner": "B7",
+      "text": "Phiên bản nào có hiệu lực, từ khi nào và ở đâu?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B8-01",
+      "owner": "B8",
+      "text": "Sửa chỗ nào, vì sao và ảnh hưởng những nơi nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B8-02",
+      "owner": "B8",
+      "text": "Giữ được dữ liệu, liên kết và khả năng quay lại ra sao?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B8-03",
+      "owner": "B8",
+      "text": "Phải test và duyệt lại gì trước khi dùng?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B9-01",
+      "owner": "B9",
+      "text": "Vì sao ngừng dùng và còn nơi nào phụ thuộc?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B9-02",
+      "owner": "B9",
+      "text": "Việc đang chạy, dữ liệu cũ và đường thay thế xử lý thế nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B9-03",
+      "owner": "B9",
+      "text": "Ai duyệt ngừng, từ khi nào và kiểm chứng bằng gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B1.1-01",
+      "owner": "B1.1",
+      "text": "Người dùng mô tả nhu cầu bằng gì khi chưa biết mã?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B1.1-02",
+      "owner": "B1.1",
+      "text": "Kết quả được xếp và giải thích mức phù hợp thế nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B1.2-01",
+      "owner": "B1.2",
+      "text": "Tìm thường chưa đủ ở điểm nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B1.2-02",
+      "owner": "B1.2",
+      "text": "Điều kiện nào giúp thu hẹp và có thể bỏ lọc để tìm lại?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B1.3-01",
+      "owner": "B1.3",
+      "text": "Đối chiếu kết quả với những điều kiện bắt buộc nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B1.3-02",
+      "owner": "B1.3",
+      "text": "Xanh, vàng, đỏ dựa vào bằng chứng nào và cho phép đi tiếp ra sao?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B2.1-01",
+      "owner": "B2.1",
+      "text": "Người chọn đã thấy đúng đối tượng và điều kiện dùng chưa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B2.1-02",
+      "owner": "B2.1",
+      "text": "Xác nhận này áp dụng cho phiên bản và phạm vi nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B2.2-01",
+      "owner": "B2.2",
+      "text": "Máy áp dụng đúng lựa chọn vào đâu?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B2.2-02",
+      "owner": "B2.2",
+      "text": "Làm sao biết đã dùng được; nếu thất bại hoặc bấm lại thì sao?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B3.1-01",
+      "owner": "B3.1",
+      "text": "Ý tưởng giải quyết nhu cầu gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B3.1-02",
+      "owner": "B3.1",
+      "text": "Ghi vào bản nào để tìm lại và tránh ghi trùng?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B3.2-01",
+      "owner": "B3.2",
+      "text": "Đề xuất đã rõ mục tiêu, phạm vi và kết quả cần có chưa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B3.2-02",
+      "owner": "B3.2",
+      "text": "Còn điểm nào phải làm rõ trước khi chuyển tiếp?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B3.3-01",
+      "owner": "B3.3",
+      "text": "Cập nhật đúng bản ghi đề xuất nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B3.3-02",
+      "owner": "B3.3",
+      "text": "Dựa vào đâu để chuyển sang Đã chuẩn hóa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B3.4-01",
+      "owner": "B3.4",
+      "text": "Ai nhận trách nhiệm và cần nhận đủ thông tin gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B3.4-02",
+      "owner": "B3.4",
+      "text": "Làm sao biết người đó đã nhận việc?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B4.1-01",
+      "owner": "B4.1",
+      "text": "Ai quyết định và dựa trên tiêu chí nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B4.1-02",
+      "owner": "B4.1",
+      "text": "Chọn Duyệt, Làm rõ hay Từ chối; lý do là gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B4.2-01",
+      "owner": "B4.2",
+      "text": "Quyết định được ghi vào đúng bản nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B4.2-02",
+      "owner": "B4.2",
+      "text": "Có truy được người duyệt, thời điểm và lý do không?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B4.3-01",
+      "owner": "B4.3",
+      "text": "Kết quả được gửi về công việc nào của người đề xuất?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B4.3-02",
+      "owner": "B4.3",
+      "text": "Người nhận có biết phải làm gì tiếp không?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B4.4-01",
+      "owner": "B4.4",
+      "text": "Mỗi quyết định dẫn tới nhánh nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B4.4-02",
+      "owner": "B4.4",
+      "text": "Điều kiện nào ngăn chuyển sai hoặc chuyển hai lần?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B5.1-01",
+      "owner": "B5.1",
+      "text": "Kế thừa chuẩn chung nào, phiên bản nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B5.1-02",
+      "owner": "B5.1",
+      "text": "Dữ liệu đã có có được dùng lại thay vì nhập lại không?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B5.2-01",
+      "owner": "B5.2",
+      "text": "Ngữ cảnh này cần bổ sung gì ngoài chuẩn chung?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B5.2-02",
+      "owner": "B5.2",
+      "text": "Phần riêng có mâu thuẫn hoặc lặp lại phần chung không?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B5.3-01",
+      "owner": "B5.3",
+      "text": "So với toàn bộ yêu cầu, còn thiếu thành phần nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B5.3-02",
+      "owner": "B5.3",
+      "text": "Mỗi phần thiếu được bổ sung ở phần chung hay phần riêng?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B6.1-01",
+      "owner": "B6.1",
+      "text": "Mỗi điều đã khai báo được kiểm bằng ca nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B6.1-02",
+      "owner": "B6.1",
+      "text": "Kết quả thực tế và bằng chứng của từng ca nằm ở đâu?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B6.2-01",
+      "owner": "B6.2",
+      "text": "Tất cả ca bắt buộc đã đạt trên đúng phiên bản chưa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B6.2-02",
+      "owner": "B6.2",
+      "text": "Hồ sơ nào được chuyển sang Duyệt cho dùng?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B6.3-01",
+      "owner": "B6.3",
+      "text": "Ca nào sai, mong đợi gì và thực tế ra sao?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B6.3-02",
+      "owner": "B6.3",
+      "text": "Sửa tại 5.3, 5.1 hay 5.2; test lại những ca nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B7.1-01",
+      "owner": "B7.1",
+      "text": "Báo cáo có đúng phiên bản, kết quả test và bằng chứng chưa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B7.1-02",
+      "owner": "B7.1",
+      "text": "Người duyệt nhìn vào có biết phần đạt và phần còn hạn chế không?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B7.2-01",
+      "owner": "B7.2",
+      "text": "Đúng người có thẩm quyền và đúng công việc nhận chưa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B7.2-02",
+      "owner": "B7.2",
+      "text": "Người duyệt có mở được đầy đủ hồ sơ không?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B7.3-01",
+      "owner": "B7.3",
+      "text": "Quyết định cho dùng hay không, trong phạm vi nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B7.3-02",
+      "owner": "B7.3",
+      "text": "Lý do và điều kiện kèm theo được ghi ở đâu?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B7.4-01",
+      "owner": "B7.4",
+      "text": "Đã cập nhật đúng phiên bản được duyệt và thời điểm hiệu lực chưa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-B7.4-02",
+      "owner": "B7.4",
+      "text": "Nơi dùng đã nhận đúng phiên bản; bản cũ được xử lý thế nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-FIELD-01",
+      "owner": "FIELD",
+      "text": "Trường này có nghĩa gì, kiểu dữ liệu và đơn vị nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-FIELD-02",
+      "owner": "FIELD",
+      "text": "Giá trị lấy từ đâu: nhập, chọn, tính hay kế thừa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-FIELD-03",
+      "owner": "FIELD",
+      "text": "Khi nào bắt buộc và thế nào là giá trị hợp lệ?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-MOIT-01",
+      "owner": "MOIT",
+      "text": "Công việc cần nhận những Field nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-MOIT-02",
+      "owner": "MOIT",
+      "text": "Ai hoặc hệ thống nào cung cấp, vào thời điểm nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-MOIT-03",
+      "owner": "MOIT",
+      "text": "Thiếu hoặc sai đầu vào thì dừng và bổ sung thế nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-MOUT-01",
+      "owner": "MOUT",
+      "text": "Công việc phải tạo ra kết quả gồm những Field nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-MOUT-02",
+      "owner": "MOUT",
+      "text": "Kết quả lấy hoặc tính từ đâu, thế nào là đạt?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-MOUT-03",
+      "owner": "MOUT",
+      "text": "Ai hoặc bước nào nhận, tại đâu và khi nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-MOT-01",
+      "owner": "MOT",
+      "text": "Công việc này tạo ra kết quả gì, do ai hoặc máy nào làm?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-MOT-02",
+      "owner": "MOT",
+      "text": "Nhận MOIT nào và phải giao MOUT nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-MOT-03",
+      "owner": "MOT",
+      "text": "Khi nào được bắt đầu, hoàn thành hoặc xử lý lại?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-MOW-01",
+      "owner": "MOW",
+      "text": "Quy trình phối hợp những MOT nào để ra kết quả gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-MOW-02",
+      "owner": "MOW",
+      "text": "Thứ tự, nhánh rẽ và điều kiện chuyển giữa các MOT là gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-MOW-03",
+      "owner": "MOW",
+      "text": "Làm sao biết toàn quy trình xong; tắc thì giao ai xử lý?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CTCM-01",
+      "owner": "CTCM",
+      "text": "Thành phần máy nào cần tạo hoặc sửa, cho nhu cầu gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CTCM-02",
+      "owner": "CTCM",
+      "text": "Tái sử dụng phần nào; phải bổ sung phần nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CTCM-03",
+      "owner": "CTCM",
+      "text": "Bàn giao gì để chuỗi vận hành có thể dùng được?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-VHCM-01",
+      "owner": "VHCM",
+      "text": "Máy hoặc phiên bản nào đang vận hành, trong phạm vi nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-VHCM-02",
+      "owner": "VHCM",
+      "text": "Theo dõi kết quả và phát hiện sự cố bằng dấu hiệu gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-VHCM-03",
+      "owner": "VHCM",
+      "text": "Sự cố được khắc phục hoặc chuyển về chế tạo ra sao?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CMSXQT-01",
+      "owner": "CMSXQT",
+      "text": "Quy trình nào cần được sản xuất cho nhu cầu thực tế?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CMSXQT-02",
+      "owner": "CMSXQT",
+      "text": "Ghép các thành phần đã có theo điều kiện nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CMSXQT-03",
+      "owner": "CMSXQT",
+      "text": "Ai thử làm theo và bằng chứng nào cho thấy ra đúng sản phẩm?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-UI-01",
+      "owner": "UI",
+      "text": "Người dùng nhìn màn hình có biết đang làm gì và bước tiếp theo không?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-UI-02",
+      "owner": "UI",
+      "text": "Dùng UI cha nào; phần nào giữ chung, phần nào cần riêng?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-UI-03",
+      "owner": "UI",
+      "text": "Hệ thống có thể điền gì, người dùng thật sự còn phải nhập gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-UI-04",
+      "owner": "UI",
+      "text": "Đã thể hiện đủ trạng thái trống, đang xử lý, có kết quả và lỗi chưa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-UI-05",
+      "owner": "UI",
+      "text": "Bấm các nút có đến đúng trang hoặc tạo đúng kết quả không?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-TEST-01",
+      "owner": "TEST",
+      "text": "Ca thử có đầu vào, thao tác và kết quả mong đợi rõ ràng chưa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-TEST-02",
+      "owner": "TEST",
+      "text": "Đã thử nhánh đúng, sai, thiếu, lỗi, hủy và thao tác lặp chưa?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-TEST-03",
+      "owner": "TEST",
+      "text": "Người mới có tự làm được mà không cần giải thích ngoài UI không?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-TEST-04",
+      "owner": "TEST",
+      "text": "Kết quả có bằng chứng và lặp lại được trên đúng phiên bản không?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CONFIG-01",
+      "owner": "CONFIG",
+      "text": "Quy tắc này áp dụng cho đối tượng và phạm vi nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CONFIG-02",
+      "owner": "CONFIG",
+      "text": "Giá trị lấy từ nguồn nào; giá trị mặc định là gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CONFIG-03",
+      "owner": "CONFIG",
+      "text": "Khi nhiều quy tắc cùng áp dụng, quy tắc nào được ưu tiên?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-CONFIG-04",
+      "owner": "CONFIG",
+      "text": "Ai được đổi; làm sao kiểm tra hiệu lực và quay về bản trước?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-T3-01",
+      "owner": "T3",
+      "text": "Phạm vi chuyên môn này gồm những quy trình nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-T3-02",
+      "owner": "T3",
+      "text": "Chuẩn nào dùng chung và phần riêng nào cần bổ sung?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-T4-01",
+      "owner": "T4",
+      "text": "Phòng ban chịu trách nhiệm kết quả và phạm vi nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-T4-02",
+      "owner": "T4",
+      "text": "Việc giao nhận giữa các chuyên môn được nối ra sao?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-T5-01",
+      "owner": "T5",
+      "text": "Khối phối hợp những phòng ban nào để đạt mục tiêu gì?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-T5-02",
+      "owner": "T5",
+      "text": "Quy tắc nào dùng chung và ai xử lý chỗ giao nhau?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-T6-01",
+      "owner": "T6",
+      "text": "Công ty áp dụng những chuẩn chung nào cho các khối?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-T6-02",
+      "owner": "T6",
+      "text": "Phạm vi trách nhiệm và quyền quyết định được phân ra sao?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-T7-01",
+      "owner": "T7",
+      "text": "Lĩnh vực này bao gồm và không bao gồm những phạm vi nào?",
+      "status": "draft"
+    },
+    {
+      "id": "Q-T7-02",
+      "owner": "T7",
+      "text": "Những chuẩn nào có thể dùng chung giữa các công ty?",
+      "status": "draft"
+    }
+  ]
+}</script>
+<script id="tqt-question-renderer">
+(function(){
+'use strict';
+const D=JSON.parse(document.getElementById('tqt-question-matrix').textContent);
+const G=Object.fromEntries(D.groups.map(g=>[g.id,g]));
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const own=id=>D.questions.filter(q=>q.owner===id);
+const common=id=>(D.inheritance[G[id].kind]||[]).flatMap(own);
+const list=qs=>'<ol class="question-list">'+qs.map(q=>'<li>'+esc(q.text)+'<small class="qid">'+esc(q.id)+'</small></li>').join('')+'</ol>';
+function piece(id,cls=''){
+ const g=G[id],no=id.startsWith('B')?id.slice(1):'';
+ const label=no?g.label.split(' · ').slice(1).join(' · '):g.label;
+ return '<a class="piece '+cls+'" href="#q-'+id+'" data-piece="'+id+'">'+(no?'<span class="badge">'+no+'</span>':'')+'<span>'+esc(label)+'</span></a>';
+}
+function route(cond,html){return '<div><span class="condition">'+cond+'</span><div class="chain">'+html+'</div></div>'}
+const arrow='<span class="arrow" aria-hidden="true">→</span>';
+$('tqt-step-map').innerHTML='<div class="flow">'+piece('B1')+'<div class="branches">'+
+ route('Nếu đã có + dùng được',arrow+piece('B2'))+
+ '<div><span class="condition">Nếu chưa có / không dùng được · TẠO MỚI</span><div class="chain create-chain" tabindex="0" aria-label="Tạo mới: bước 3 đến 7; cuộn ngang khi cần">'+arrow+[3,4,5,6,7].map(n=>piece('B'+n)).join(arrow)+arrow+'<span class="return">↩ Dùng</span></div></div>'+
+ route('Nếu đã có + cần thay đổi',arrow+piece('B8','edit')+arrow+'<span class="return">↩ Dùng</span>')+
+ route('Nếu không còn dùng',arrow+piece('B9','retire'))+'</div></div><p class="mut"><small>Bấm bước lớn để mở câu hỏi và các bước con. B8, B9 chưa tách bước con.</small></p>';
+$('tqt-layer-map').innerHTML='<div class="layers">'+piece('FIELD')+arrow+'<div class="pair" aria-label="Hai đối tượng T0.5">'+piece('MOIT')+piece('MOUT')+'</div>'+arrow+piece('MOT')+arrow+piece('MOW')+'</div><details><summary>Tầng bối cảnh · T3 ⇒ T4 ⇒ T5 ⇒ T6 ⇒ T7</summary><div class="layers">'+['T3','T4','T5','T6','T7'].map(id=>piece(id)).join(arrow)+'</div></details>';
+$('tqt-chain-map').innerHTML=['CTCM','VHCM','CMSXQT'].map(id=>piece(id)).join('');
+$('tqt-business-map').innerHTML=D.groups.filter(g=>g.kind==='Nghiệp vụ').map(g=>'<a class="piece" href="#q-'+g.id+'" data-piece="'+g.id+'"><b>'+esc(g.label)+'</b><span class="count">'+own(g.id).length+' câu riêng · đang hiệu chỉnh</span></a>').join('');
+const panels=['cau-hoi-co-ban','cau-hoi-nghiep-vu','ma-tran-cau-hoi','tqt-legacy'];
+function tab(id){
+ panels.forEach(p=>$(p).hidden=p!==id);
+ document.querySelectorAll('[data-tab]').forEach(b=>{let yes=b.dataset.tab===id;b.setAttribute('aria-selected',String(yes));b.tabIndex=yes?0:-1});
+}
+function detail(id){
+ const g=G[id];if(!g)return;
+ const business=g.kind==='Nghiệp vụ';
+ tab(business?'cau-hoi-nghiep-vu':'cau-hoi-co-ban');
+ ['step','layer','chain','business'].forEach(k=>$('tqt-'+k+'-detail').innerHTML='');
+ const slot=business?'business':(g.kind==='Tầng'||id==='LAYER')?'layer':(g.kind==='Chuỗi'||id==='CHAIN')?'chain':'step';
+ const children=D.groups.filter(c=>c.parent===id);
+ let body='<div class="detail" id="q-'+id+'"><div class="detail-head"><div><small>'+esc(g.kind)+' · '+own(id).length+' câu riêng</small><h3>'+esc(g.label)+'</h3></div><button type="button" data-close="'+(business?'cau-hoi-nghiep-vu':'cau-hoi-co-ban')+'">Thu gọn ↑</button></div>'+list(own(id));
+ const inherited=common(id);
+ if(inherited.length)body+='<details><summary>'+inherited.length+' câu chung · áp dụng cùng câu riêng</summary>'+list(inherited)+'</details>';
+ if(g.parent)body+='<details><summary>Kế thừa bước lớn: '+esc(G[g.parent].label)+'</summary>'+list([...common(g.parent),...own(g.parent)])+'</details>';
+ if(g.kind==='Bước lớn')body+='<div class="children"><h3>Bước con</h3>'+(children.length?'<div class="chain">'+children.map(c=>piece(c.id,'child')).join('')+'</div><p><small>Mỗi bước con có câu hỏi riêng và kế thừa câu hỏi bước lớn. <a href="#q-CHILD">Xem câu hỏi chung cho bước con →</a></small></p>':'<p class="mut">Chưa tách bước con trong Công thức. Khi cần tách sẽ bổ sung câu hỏi cho từng bước con.</p>')+'</div>';
+ if(g.legacy)body+='<p><small><a href="'+g.legacy+'">Đối chiếu quy trình đã có →</a></small></p>';
+ body+='</div>';$('tqt-'+slot+'-detail').innerHTML=body;
+ document.querySelectorAll('[data-piece]').forEach(a=>a.setAttribute('aria-current',String(a.dataset.piece===id)));
+}
+function matrix(){
+ const key=$('tqt-search').value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const kind=$('tqt-filter').value;
+ const rows=D.questions.filter(q=>(!kind||G[q.owner].kind===kind)&&[q.id,q.text,G[q.owner].label].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(key));
+ $('tqt-total').textContent=rows.length+' / '+D.questions.length+' câu · đang hiệu chỉnh';
+ $('tqt-matrix-body').innerHTML=rows.length?rows.map(q=>'<tr><td>'+esc(q.id)+'</td><td><a href="#q-'+q.owner+'">'+esc(G[q.owner].label)+'</a><br><small>'+esc(G[q.owner].kind)+'</small></td><td>'+esc(q.text)+'</td></tr>').join(''):'<tr><td colspan="3">Không có câu hỏi phù hợp. Thử bỏ lọc hoặc đổi từ tìm.</td></tr>';
+}
+$('tqt-search').addEventListener('input',matrix);$('tqt-filter').addEventListener('change',matrix);matrix();
+$('tqt-json').value=JSON.stringify(D,null,2);
+const selections=[['chain','Chuỗi',['Chuỗi']],['step','Bước',['Bước lớn','Bước con']],['layer','Tầng',['Tầng']],['business','Nghiệp vụ',['Nghiệp vụ']]];
+$('tqt-compose').innerHTML=selections.map(([id,label,kinds])=>'<label>'+label+'<select id="tqt-select-'+id+'"><option value="">Chọn '+label.toLowerCase()+'…</option>'+D.groups.filter(g=>kinds.includes(g.kind)).map(g=>'<option value="'+g.id+'">'+esc(g.label)+'</option>').join('')+'</select></label>').join('');
+function compose(){
+ const ids=selections.map(([id])=>$('tqt-select-'+id).value).filter(Boolean);
+ if(!ids.length){$('tqt-composed').innerHTML='<p class="mut">Chọn các thành phần để xem bộ câu hỏi cần trả lời.</p>';return}
+ const owners=new Set();
+ function inherit(id){(D.inheritance[G[id].kind]||[]).forEach(x=>owners.add(x));if(G[id].parent)inherit(G[id].parent);owners.add(id)}
+ ids.forEach(inherit);
+ const qs=D.questions.filter(q=>owners.has(q.owner));
+ $('tqt-composed').innerHTML='<p><b>'+qs.length+' câu</b> · '+ids.map(id=>esc(G[id].label)).join(' + ')+'</p><p class="mut"><small>Đây là bộ câu hỏi để xem trước, chưa phải quy trình đã nghiệm thu. Khi làm thật, ghi câu trả lời và bằng chứng; câu không áp dụng phải có lý do.</small></p>'+
+ [...owners].map(id=>'<details><summary>'+esc(G[id].label)+' · '+own(id).length+' câu</summary>'+list(own(id))+'</details>').join('');
+}
+selections.forEach(([id])=>$('tqt-select-'+id).addEventListener('change',compose));compose();
+document.querySelector('.tq-tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)location.hash=b.dataset.tab});
+document.querySelector('.tq-tabs').addEventListener('keydown',e=>{
+ const btns=[...document.querySelectorAll('[data-tab]')],i=btns.indexOf(document.activeElement);if(i<0)return;
+ let n=e.key==='ArrowRight'?(i+1)%btns.length:e.key==='ArrowLeft'?(i+btns.length-1)%btns.length:e.key==='Home'?0:e.key==='End'?btns.length-1:-1;
+ if(n>=0){e.preventDefault();btns[n].focus();location.hash=btns[n].dataset.tab}
+});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-close]');if(b)location.hash=b.dataset.close});
+function routeHash(){
+ const id=decodeURIComponent(location.hash.slice(1));
+ if(id.startsWith('q-')&&G[id.slice(2)]){detail(id.slice(2));requestAnimationFrame(()=>$(id).scrollIntoView({block:'nearest'}));return}
+ if(panels.includes(id)){tab(id);return}
+ const target=id&&$(id);
+ if(target&&$('tqt-legacy').contains(target)){tab('tqt-legacy');let p=target.parentElement;while(p&&p!==$('tqt-legacy')){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement}requestAnimationFrame(()=>target.scrollIntoView());return}
+ tab('cau-hoi-co-ban');
+}
+window.addEventListener('hashchange',routeHash);routeHash();
+})();
+</script>
+
 </main>
 </body>
 </html>
