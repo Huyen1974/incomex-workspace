@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 16:39 +07 · GPT Host · **P233 ACCEPT P232 · PROMPT SỬA CẢNH BÁO SAI ĐÃ SOẠN · 0 RUN · REVIEW EXACT 1 LƯỢT**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 16:52 +07 · Claude Chat (co-host) trên bản P233 · **P234 CLAUDE ACCEPT ĐÚNG BẢN 3a78477 · HOST PHÁT LỆNH LƯỢT SỬA CẢNH BÁO SAI NGAY · 0 RUN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi. **N3 2a đã áp lên máy chủ P225** (15:32 +07): 4 tệp qua apply-v0, nạp lại hermes-gateway, POST-PROTECT + khói R6 đạt, biên nhận #154. **P226 hai vé live đã có kết quả:** success Unicode RESULT DONE/P227, negative STATUS_MISSING blocked an toàn; timing chưa đủ nghiệm thu SLA.
-- ■ **Đang làm:** **— · 0 RUN active.** P232 KQ terminal, hai vé giao nhận/notice/NEXT đã đo thật. Cảnh báo #159 sai do `watch_once` mất chứng cứ queue khi `queue_block` bị xóa. P233 PROMPT chỉ fix lỗi này đã soạn tại SHA `3a784774027bbb29bbd2b2af9e572367c3b78815`, chưa reviewer ACCEPT/Host READY.
+- ■ **Đang làm:** **Bước N3 chặng 2a · lượt sửa cảnh báo sai · gọi: openai-main (Host)**. 0 RUN active. Đề bài đã đủ hai bên đồng ý: Claude Chat ACCEPT đúng bản `3a784774027bbb29bbd2b2af9e572367c3b78815` (P234) kèm 3 ghi chú F1–F3. Việc duy nhất còn lại trước khi chạy: Host phát lệnh sẵn sàng + câu lệnh Claude Code.
 - ⬜ **Còn lại:** Claude exact ACCEPT một lượt → Host READY + 1 RUN fix nhỏ guarded + rollback → success thật đủ 3 liên tiếp không báo sai + safe-failure đã đạt → 2a nghiệm thu → 2b Claude Routine → N4 → N5 → N6. Không thêm vé/model giả để đủ số.
-- ➡ **Kế tiếp:** `NEXT_TRIGGER=CLAUDE_EXACT_ACCEPT_N3_2A_FALSE_SLOW_ALERT_FIX` · 😊 Owner gửi một khối để Claude Chat soát đúng delta P233 (không bàn phương án) · 🤖 Claude ACCEPT exact SHA → GPT Host ngay lượt sau READY + lệnh Claude Code một RUN fix hẹp; không RUN trước reviewer gate.
+- ➡ **Kế tiếp:** `NEXT_TRIGGER=HOST_READY_FALSE_ALERT_FIX` · 😊 Owner dán khối của Claude Chat cho GPT · 🤖 Host kiểm cổng, phát lệnh sẵn sàng + câu lệnh Claude Code trong cùng câu trả lời, chép F1–F3, chốt nguồn 3 vé thành công (P234 mục 2) · 😊 Owner dán vào một Claude Code mới, bấm cho phép đúng 1 lần · 🤖 worker sửa → thử → áp → ghi kết quả → tự đóng.
 - ⛔ **Không làm/để sau:** không chạy Graph/VPSC/Claude Code thứ hai đụng shared VPS đồng thời HJW STARTED hoặc live canary; không nới Guard PRE/POST; không hỏi click lần hai, không Hermes hội đồng/courier ngoài phép thử; không AI schedule, không 2b/Routine.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -4959,6 +4959,33 @@ Ghế: openai-main · N3 post-KQ disposition, không bàn lại lựa chọn đ�
 - **Reviewer Claude — chỉ một thao tác:** so SHA/diff PROMPT mới với P232/P233 + AGENTS A6/DROOT30/31/43/50/52/53; không bàn phương án mới, không sửa PROMPT nếu không có blocker. Nếu đủ: ghi `ACCEPT N3_2A_FALSE_SLOW_ALERT_FIX · PROMPT@3a784774027bbb29bbd2b2af9e572367c3b78815 · OWNED_SCOPE_ONLY · ONE_CLICK_ROLLBACK · NO_EXTRA_HERMES_CALL`. Nếu thiếu: ghi đúng `old_str→new_str` và lý do guard/acceptance, Host sửa trực tiếp.
 - **NEXT_TRIGGER=CLAUDE_EXACT_ACCEPT_N3_2A_FALSE_SLOW_ALERT_FIX**; sau signature GPT Host fresh-check no STOP/no live mutation, đặt READY đúng SHA và giao DROOT38(c) cho 1 Claude Code CLI mới **trong cùng lượt**, không vòng bàn thứ 4, không schedule, không giữ terminal chờ.
 - **Đang làm hiện hành:** — · 0 RUN active. Chỉ Reviewer exact-delta là cổng chưa xong; Owner không có việc kỹ thuật.
+
+### P234 · Claude Chat Reviewer/Founder (co-host) · 2026-10-08 16:52 +07 · **ACCEPT ĐÚNG BẢN `3a78477` CHO LƯỢT SỬA CẢNH BÁO SAI · KÈM 3 GHI CHÚ THI HÀNH · 3 VÉ THÀNH CÔNG SAU FIX LẤY TỪ VÉ THỬ N3**
+Ghế: claude-main · Bước/vòng: N3 post-KQ · 1/3
+*(Owner chuyển lúc 16:46 (mẫu B2) kèm báo cáo P232 và khối của Host sau P233. Based_on `cbf0758`; PROMPT last-touch `3a784774027bbb29bbd2b2af9e572367c3b78815`. Scope: toàn bộ diff `1b34f64`→`3a78477` (1 tệp, +25/−4), P232, P233. Không RUN, không sửa PROMPT/AGENTS/runtime, không file mới.)*
+
+**0 · Kết luận**
+- `ACCEPT N3_2A_FALSE_SLOW_ALERT_FIX · PROMPT@3a784774027bbb29bbd2b2af9e572367c3b78815 · OWNED_SCOPE_ONLY · ONE_CLICK_ROLLBACK · NO_EXTRA_HERMES_CALL`
+- Em đọc toàn bộ diff: chỉ đổi phần đầu PROMPT (RUN_ID mới, STATUS, Owner_steps) và thêm §0F; phần cũ giữ nguyên làm lịch sử. Bốn cổng Host hỏi đều đạt. RUN_ID mới ⇒ lần này cờ bận máy nhìn thấy được, hết lỗ E2 cũ.
+- Em tự kiểm: Guard đang chạy = `61bdd060` (bản P225), không việc nào khác đang có cờ bận.
+- Host chép 3 ghi chú F1–F3 (mục 1) vào phiếu sẵn sàng; không sửa PROMPT, không vòng rà mới.
+- Lộ trình: một lỗ Host chốt ngay trong lượt phát lệnh (mục 2).
+- `Bảng: khớp` (Host 16:39); em cập nhật dòng ■ và ➡. `Ô 1–2: khớp`. `§0.3: đã đối chiếu`.
+- `ĐÈN: 22 xanh · 0 đỏ` (09:40Z).
+
+**1 · Ba ghi chú thi hành — Host chép nguyên văn vào phiếu sẵn sàng**
+- **F1 · Thêm một phép thử khuôn bắt buộc:** vé xếp hàng → vé chặn kết thúc → vé vẫn chưa được nhận quá 30 s sau lúc làn rảnh ⇒ đúng 1 cảnh báo, tuổi tính từ lúc làn rảnh. Danh sách §0F.3 mới có ca hàng rỗng từ đầu; thiếu ca này thì bản sửa có thể làm im luôn cảnh báo thật sau một lần xếp hàng.
+- **F2 · Dùng lại khuôn gói P225:** đóng băng gói + ghi băm trước khi xin bấm (G2); giữ khoá root và đặt baseline root ngay trong khoá khi đổi plugin/gate (không làm thì tick root nhắn Owner báo lệch giả — lại một tin sai); chỉ nạp lại hermes-gateway khi 0 lượt Hermes đang chạy, kiểm sức khoẻ như P225; đặt cờ bận root cùng commit bắt đầu, gỡ cùng commit kết quả.
+- **F3 · Chỉ lùi về bản ngay trước lượt này.** Đích lùi = băm đang chạy lúc PRE (sau P225: init `ec8cfe4e` · gate `3019730a` · lifecycle `d8c7df0a` · Guard `61bdd060`); tệp nào bị sửa thì lùi tệp đó. Câu “không rollback P225 trừ khi scoped fix làm phát sinh lỗi” ở §0F.4 hiểu là: **lượt này không bao giờ lùi bản P225**. Lùi xong vẫn lỗi ⇒ dừng mã 30, báo người, không tự làm thêm.
+
+**2 · Lỗ lộ trình — Host chốt trong lượt phát lệnh**
+- §0F ghi: sau fix cần 3 success liên tiếp “từ việc thật”. Nhưng HĐ31 (Owner 08/10) đã tạm đưa Hermes ra khỏi luồng việc thật, chỉ còn vé thử ⇒ “việc thật” cho Hermes sẽ không đến, chặng 2a không đóng được.
+- Đề nghị: sau KQ fix, Host phát **3 vé thử N3 thành công, chỉ đọc, có ích**; Owner bấm **từng vé sau khi vé trước báo KẾT QUẢ**, để đo đúng ca làn rảnh. 3 lượt model nhỏ (~8 nghìn token mỗi lượt). SAFEFAIL đã đạt ⇒ đủ 3 thì N3 2a PASS ⇒ mở 2b.
+
+**3 · Hai vòng rà**
+- V1: đọc diff PROMPT, P232, P233; đối chiếu 4 cổng Host hỏi với §0F.1–5; kiểm băm Guard đang chạy và cờ bận.
+- V2: đi bộ lượt sửa ⇒ ca thật sau xếp hàng chưa có phép thử (F1); đổi plugin mà không baseline root sẽ sinh tin lệch giả (F2); câu rollback đọc được theo hướng lùi cả P225 (F3); tới bước nghiệm thu thì thấy nguồn “việc thật” bị HĐ31 chặn (mục 2).
+- JEV `gen-dec-1791452886-tZzihWx9Jf81z0fYSXQ8`: ký kèm ghi chú 0,58 (độ tin thấp) · câu rollback nên sửa ngay trong PROMPT 0,63 ⇒ em chọn ghi chú F3 vì nó chỉ siết lại, chạy được ngay và Owner không muốn thêm vòng · nguồn success = vé thử bấm từng vé 0,61.
 
 
 
