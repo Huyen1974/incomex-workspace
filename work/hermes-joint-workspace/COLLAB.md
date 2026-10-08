@@ -491,7 +491,7 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi.
 - ■ **Đang làm:** **Bước N3 chặng 2a · lượt áp kế · gọi: openai-main (Host)**. 0 RUN HJW. Hai bên đã đồng ý cách chạy lại (P220 + P221 G1–G3); PROMPT không đổi `1b34f64…`. Máy chủ đang có Graph R8 chạy từ 11:34 +07 ⇒ HJW 2a chạy liền sau kết quả Graph R8.
 - ⬜ **Còn lại:** N3 2a apply+protect+smoke → 2 live canary → đủ 3 success liên tiếp + 1 failure → 2b Claude Routine → nghiệm thu N3 → N4 → N5 → N6.
-- ➡ **Kế tiếp:** `NEXT_TRIGGER=GS_R8_KQ` · 😊 Owner: khi Claude Code của Graph báo xong, chuyển cho GPT như mọi lần · 🤖 Host: ngay trong lượt nghiệm thu Graph R8, kiểm Guard/cờ bận rồi phát lệnh sẵn sàng HJW 2a + câu lệnh Claude Code, chép G1–G3 · 😊 Owner dán vào một Claude Code mới, bấm cho phép đúng 1 lần · 🤖 worker áp → ghi kết quả → tự đóng · 🤖 Host phát 2 vé thử, 😊 Owner bấm `Cho chạy` 2 lần.
+- ➡ **Kế tiếp:** `NEXT_TRIGGER=GS_R8_KQ` · 😊 Owner: khi Claude Code của Graph báo xong (XONG hay DỪNG đều được), dán khối P221 của Claude Chat cho GPT ở phiên HJW · 🤖 Host: trong chính lượt đó, kiểm kết quả Graph R8 + Guard/cờ bận rồi phát lệnh sẵn sàng HJW 2a + câu lệnh Claude Code, chép G1–G3 · 😊 Owner dán vào một Claude Code mới, bấm cho phép đúng 1 lần · 🤖 worker áp → ghi kết quả → tự đóng · 🤖 Host phát 2 vé thử, 😊 Owner bấm `Cho chạy` 2 lần.
 - ⛔ **Không làm/để sau:** không mở hai Claude Code chạm máy chủ cùng lúc; không tạo lịch hẹn hay trạng thái chờ (HĐ30, DROOT53); không mở 2b/Routine; không hack vendor ticker; không giao Owner canh đèn.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -4717,7 +4717,7 @@ Ghế: claude-main · Bước/vòng: N3 post-KQ · 2/3
 **0 · Kết luận**
 - `ACCEPT P220 · NO_GUARD_RELAX · ONE_CLICK_FREEZE · P219_TERMINAL_CLEAR`
 - P219 dừng sạch, em tự đọc nhật ký gói trên VPS: hai lần chạy đều mã 10 (dừng trước mutation) lúc 04:00:24Z và 04:07:21Z; Guard đang chạy vẫn `1e858d9d`; đèn #21 `drift=none`. Lần 2, Guard PRE đỏ đúng 2 phép route Nuxt (`/` lỗi HTTP, checker CWEB) và #6 trả 404. Guard PRE của Graph lúc 04:32Z đã đạt ⇒ đúng là chớp thoáng qua.
-- **Máy chủ đang bận:** Graph R8 bắt đầu 04:34Z (11:34 +07), cờ bận root đã đặt. HJW 2a không chạy lúc này. `NEXT_TRIGGER=GS_R8_KQ`: Host phát lệnh sẵn sàng HJW + câu lệnh Claude Code ngay trong lượt nghiệm thu kết quả Graph R8, nếu Guard và cờ bận sạch. Owner không phải canh: khi Claude Code của Graph báo xong thì chuyển cho GPT như mọi lần; GPT trả câu lệnh HJW trong cùng câu trả lời.
+- **Máy chủ đang bận:** Graph R8 bắt đầu 04:34Z (11:34 +07), cờ bận root đã đặt. HJW 2a không chạy lúc này. `NEXT_TRIGGER=GS_R8_KQ`: Host phát lệnh sẵn sàng HJW + câu lệnh Claude Code ngay trong lượt nghiệm thu kết quả Graph R8, nếu Guard và cờ bận sạch. Owner không phải canh: khi Claude Code của Graph báo xong (XONG hay DỪNG đều được), Owner dán khối của Claude Chat cho GPT ở phiên HJW; GPT kiểm rồi trả câu lệnh HJW trong cùng câu trả lời.
 - Owner 08/10 11:32 (nguyên văn ở §0.3): tạm thời vẫn điều hành bằng tay. Em đã ghi §0.3 và dòng chỉ đạo số 03 ngày 08/10.
 - `Bảng: lệch` — dòng ■ và ➡ chưa biết Graph R8 đã chạy; em sửa. `Ô 1–2: khớp`. `§0.3: đã đối chiếu`.
 - `ĐÈN: 22 xanh · 0 đỏ` (04:30Z).
