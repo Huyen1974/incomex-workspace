@@ -6,14 +6,14 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 0
 Host: GPT Chat
 Host_ID: OpenAI-main
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 11:45 +07 · GPT Chat · P11
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 · GPT Chat · P12
 - 🎯 Mục tiêu: Owner chốt 08/10 — “việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể.” Đủ 15 dòng đọc ở ô 1. Vì sao (Owner): “số quy trình sẽ rất nhiều => chúng ta sẽ tập hợp toàn bộ các tools quy trình lên 1 task để có thể làm việc xuyên suốt, dài hạn, hội đồng AI dễ dàng có ý kiến đóng góp.”
 - 🏁 Xong khi: theo ô 2 — một quy trình đạt khi người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật. Mốc của cả việc do hội đồng chốt ở bước kế hoạch.
 - 📍 Tiến độ: ■ Khởi tạo / chỉ định Host → □ Chuẩn hóa → □ Áp dụng, kiểm chứng → □ Mở rộng và cải tiến.
-- ✅ Đã xong: Owner chốt mục tiêu D04/D05, chỉ định GPT Chat Host D06; nhập 9/9 Tools CTCM (39 bước) P06; sửa nhãn 3 Chuỗi, MOT và chỉ mục mục tiêu P07 tại commit 8c854489; bản hiển thị VPS đã publish đúng revision, nội dung/console trang kiểm PASS. Codex P09 (Owner giao trực tiếp): thêm “Rà một UI · 6 bước”, bộ 8/7 câu, áp thử màn 2 MOW-NHC-001. Claude P10 (Owner 10:41): trình bày lại trang thành 6 phần một khuôn và chép đủ khu Công thức cũ (đối chiếu ở `view.html#chuyen-nguon`).
-- ■ Đang làm: — · 0 RUN active. Host đã nhận P08–P10 theo D10; quy trình/sổ mới ở TQT dùng cổng đề xuất D08/D09. Bản chép OPEN-01…10 vẫn phải so với nguồn MOW trước khi cắt chuyển.
+- ✅ Đã xong: mục tiêu Owner D04/D05; Host D06; 9 Tools nguồn P06, Rà một UI P09, Claude trình bày 6 phần P10; Host tiếp nhận P11. Theo D11/P12: có bản thử TQT-QT-001, mẫu phản hồi 5 loại blocker và README đọc ngay khi muốn sửa/bị chặn. Đây là tài liệu chuẩn bị thử, chưa có KQ người mới cho quy trình meta.
+- ■ Đang làm: — · 0 RUN active. TQT-QT-001 bản thử v0.1 đã trình đầu trang để Owner cùng xây dựng; Host xử lý feedback Codex P09, chờ lượt thử độc lập và ý kiến đề xuất của AI. Cổng README đã rõ nhưng guard máy Host-only vẫn CHƯA XÁC MINH (TQT-ISS-006).
 - ⬜ Còn lại: kiểm độc lập agent đọc rồi làm ra sản phẩm thật; phản biện và bổ sung bước/câu hỏi còn thiếu; thử đề xuất mini-PR; kiểm khóa kỹ thuật Host-only (TQT-ISS-006); chuyển một SSOT từ MOW có bằng chứng; nền chuẩn IT và mở rộng Chuỗi khác theo mục tiêu.
-- ➡ Kế tiếp: AI ngoài Host nộp đề xuất theo `proposals/TQT-PR-...` (TQT-HOST-GATE); Host duyệt, nhập bằng một transaction và kiểm thật. NEXT_TRIGGER=FIRST_PROPOSAL_OR_NEW_TEST_EVIDENCE. Không cần Owner theo dõi danh sách nội bộ.
+- ➡ Kế tiếp: lấy phản hồi Codex theo P09 vào vòng 1, Reviewer góp ý vào proposal; Host sửa bản v0.2 khi đủ nguồn rồi phiên agent mới làm lại độc lập. NEXT_TRIGGER=CODEX_FEEDBACK_OR_OWNER_COMMENT_OR_REVIEWER_PROPOSAL; guard kỹ thuật TQT-ISS-006 phải kiểm riêng trước khi báo chặn thật.
 - ⛔ Không làm/để sau: tạo task không bao gồm triển khai DOT/script, bảng PG, đổi runtime/UI production hay chuyển dữ liệu đang dùng ở MOW.
 
 ### 1. Mục tiêu
@@ -192,14 +192,29 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **D08 · 2026-10-08 11:45 +07 · EFFECTIVE · chỉ đạo Owner:** Owner giữ đúng hai thứ: (1) mục tiêu đã duyệt, (2) agent đọc và làm ra kết quả thật/đặt câu hỏi khi không làm được. Owner giao GPT Chat làm Host điều hành dài hạn, **mọi AI khác chỉ được đề xuất, Host duyệt rồi mới đưa vào nguồn chuẩn**, đặc biệt đối với sổ theo dõi; không yêu cầu Owner đọc nghiệp vụ nội bộ. Áp riêng `tools-quy-trinh`; ghi quy trình tại TQT-HOST-GATE, không sửa chữ §0 ô 1–2.
 - HUMAN_DIRECTIVE@TQT-PROPOSAL-ONLY-20261008 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/ · step=quản trị thay đổi và chạy thực tế · recorded_by=OpenAI-main · quote="Nghĩa là các AI khác ngoài host chỉ được đề xuất, Host duyệt rồi mới cho vào." · text=Host duy nhất quyết nhận vào tài liệu/sổ chính; agent khác gửi đề xuất có bằng chứng · audit=Tin nhắn Owner trực tiếp ở GPT Chat 08/10/2026 11:45 +07.
 
+- **D11 · 2026-10-08 · EFFECTIVE · Owner tham gia trực tiếp:** Owner đặt tên quy trình tiêu biểu `TQT-QT-001 · Quy trình hiệu chỉnh hướng dẫn và quy trình`, yêu cầu nổi bật đầu trang Nội dung công việc; mục đích: lấy phản hồi người làm (Codex) → bổ sung hướng dẫn → agent mới thử lại, lặp đến khi đọc và làm được. Owner tham gia trực tiếp phát triển **quy trình này**, Host điều hành và ghi giúp; không chuyển nhiệm vụ đọc/trông sổ kỹ thuật cho Owner.
+- HUMAN_DIRECTIVE@TQT-FEEDBACK-LOOP-20261008 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{README.md,view.html,COLLAB.md} · step=hiệu chỉnh có thử lại · recorded_by=OpenAI-main · quote="Quy trình hiệu chỉnh hướng dẫn và quy trình" · text=Ưu tiên quy trình mẫu tự hiệu chỉnh, Owner trực tiếp tham gia; AI bị chặn phải được dẫn về README; trở lại vòng Codex phản hồi và thử lại · audit=Tin nhắn Owner trong GPT Chat, 08/10/2026 (sau P11).
+
 ## Quyết định Host
 - **D09 · 2026-10-08 · EFFECTIVE · không đụng luật toàn repo:** thực hiện mini-PR trong task bằng `proposals/TQT-PR-...` độc lập. Host là người duy nhất nhập vào `view.html`/sổ/`COLLAB.md`/`README.md` sau duyệt và kiểm đầu ra, với một transaction; lời đề xuất hoặc commit proposals không thay SSOT. Chưa sử dụng GitHub branch/PR chuẩn vì ruleset `gateway-only-writes` active với mọi branch và chỉ DeployKey bypass; chưa có host-only gateway guard đã kiểm. Giữ TQT-ISS-006 mở, không tuyên bố enforcement đã đạt.
 - **D10 · 2026-10-08 · EFFECTIVE · nghiệm thu có phạm vi:** P08 chỉ ra nội dung nguồn còn thiếu; P09 có 18 quan sát, 3 ca viết độc lập và 5 ca kiểm lại trong phạm vi nhưng chưa đạt hành trình thật; P10 bố cục 6 phần và chép đủ theo phiên nguồn, chưa kiểm độc lập toàn quy trình. Host nhận phần đã có chứng cứ; **không** chứng nhận 10/10 đạt hoặc cắt nguồn OPEN/MOW khi chưa kiểm đầu cuối. Sổ legacy OPEN giữ nơi sửa MOW; kết quả sản phẩm UI nằm task UI; task TQT nhận đề xuất và quản quy trình.
+
+- **D12 · 2026-10-08 · ACTIVE DRAFT, chưa nghiệm thu:** đặt `TQT-QT-001` ở vị trí nổi bật đầu `view.html` với năm bước: xác định đầu ra → agent mới làm → lấy feedback có bằng chứng/phân loại → Host duyệt và sửa một nguồn → agent mới thử lại từ đầu. Kết quả đạt khi có sản phẩm thật độc lập; thiếu sản phẩm/quyền/quyết định thì ghi BLOCKED đúng loại, không tô PASS; quy trình này cũng phải tự qua chu kỳ thử. Chủ ý không tăng số 10 Tools nguồn vì đây là quy trình mẫu đang xây dựng.
+- **D13 · 2026-10-08 · ROUTING READ-ME-FIRST:** hướng dẫn fail-closed đặt ở **đầu README**. Khi AI không phải Host muốn sửa hoặc ghi bị từ chối → đọc README, không retry main, tạo proposal `TQT-PR-...` theo đúng nguồn. `HOST_APPROVAL_REQUIRED + readme_path` chỉ là **contract phản hồi gateway cần triển khai/kiểm chứng**, chưa có thực thi; TQT-ISS-006 mở. Không được nói các AI đã bị khóa kỹ thuật.
 
 ## Owner cần quyết
 - — Q01 ĐÃ CHỐT 08/10/2026 09:19 +07: Owner trực tiếp chỉ định GPT Chat làm Host (D06). Không có câu hỏi Owner còn mở trong phạm vi lượt tiếp nhận tài liệu này.
 
 ## Ý kiến và bằng chứng
+### P12 · Host đưa quy trình hiệu chỉnh lên đầu trang và làm rõ đường bị chặn · OPEN
+Ghế: OpenAI-main · Bước/vòng: Phương án tài liệu + lượt thử đầu · 0/5 (chưa gọi worker RUN mới)
+- Based_on: yêu cầu Owner mới; P08/P09 Codex (thiếu 8/7 câu, đường tìm nguồn, khuôn ca/nơi lưu; 18 quan sát và 5 ca kiểm lại phạm vi); P10 Claude (trang 6 phần); ruleset GitHub gateway-only-writes và TQT-ISS-006. Scope: chỉ ba file trong `work/tools-quy-trinh/`; không sửa MOW/PG/Directus/VPS runtime hay AGENTS.
+- Nội dung mới: `TQT-QT-001` v0.1 ở `view.html#quy-trinh-hieu-chinh`, Owner tham gia trực tiếp; mỗi vòng phải có câu/bước thiếu, bằng chứng worker, phân loại blocker, quyết Host và test độc lập không cần giải thích miệng. Không công nhận hoàn thành khi chỉ có vài ca đạt.
+- README mới ưu tiên câu lệnh cho mọi AI, nhất là tình huống bị chặn: dừng ghi đích chính → đọc README → nộp proposal riêng → Host nhận và thử. Error `HOST_APPROVAL_REQUIRED` mới là yêu cầu kỹ thuật tương lai, **không giả rằng máy đã chặn**; TQT-ISS-006 là blocker.
+- Vòng 1: dùng phản hồi Codex P09 đã có, không bắt Owner lặp lại; phần thiếu hướng dẫn trước đó đã bổ sung nhưng chưa kiểm chứng quy trình trọn đầu ra; thiếu sản phẩm thật phải tách task sản phẩm. Chờ mẫu phản hồi mới từ Codex hoặc worker được giao hợp lệ; sau đó Host viết v0.2 rồi agent mới thử lại. Reviewer Claude xem v0.1 và góp ý theo mã bước, **chỉ đề xuất**.
+- Tiêu chí nghiệm thu chính TQT-QT-001: một phiên AI mới làm đủ 5 bước trên ít nhất một hướng dẫn bị thiếu thực tế, có proposal, Host duyệt, có bản sửa và lượt agent độc lập làm ra sản phẩm đúng; phiên bị blocker không gắn ĐẠT. Điều kiện guard kỹ thuật TQT-ISS-006 cần test riêng.
+- Chưa có phiếu độc lập về quy trình meta và chưa có enforcement/rejection proof; trạng thái **CHƯA ĐẠT**. Áp: SAME_COMMIT.
+
 ### P11 · Host tiếp nhận P08–P10 và mở cổng đề xuất · PARTIAL
 Ghế: OpenAI-main · Bước/vòng: Host xem kết quả tài liệu/áp thử hiện có, chưa phát RUN worker · 0/5
 - Based_on: P08/P09 Codex, P10 Claude tại repo `e1273358df5c419eca041b6b7600e12df1925bc8`; Master Tool VPS phiên `93eae888106544e7905751a15cc72b360971f3d8bda437887bfbf3f5c07b044c` còn đúng lúc đọc 11:45; GitHub active ruleset `23976991`.

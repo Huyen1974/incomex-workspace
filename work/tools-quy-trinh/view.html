@@ -55,6 +55,19 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 .foot{font-size:13px;color:var(--mut);border-top:1px solid var(--line);padding-top:8px;margin-top:10px}
 .footer{font-size:13px;color:var(--mut);margin-top:26px;border-top:1px solid var(--line);padding-top:12px}
 #ra-ui td:first-child{min-width:132px;font-weight:650}
+.focus-process{border:2px solid #25384d;border-radius:12px;padding:22px 24px;margin:18px 0 30px;scroll-margin-top:60px;background:#fff}
+.focus-process h2{font-size:25px;line-height:1.28;letter-spacing:-.015em;margin-bottom:8px}
+.focus-process .focus-label{font-size:13px;letter-spacing:.03em;color:#4b5c6e;font-weight:700}
+.focus-process .focus-intro{font-size:16px;margin:6px 0 14px}
+.focus-process .focus-rule{border-top:1px solid var(--line);padding-top:10px;margin-top:16px}
+.focus-process .cycle-step{border-left:3px solid #a0aebb;padding:3px 0 4px 12px;margin:8px 0}
+.focus-process .cycle-step b{font-size:14px}.focus-process .cycle-step p{margin:2px 0 4px;font-size:14px}
+.focus-process .focus-outcome{border:1px solid var(--line);border-radius:8px;padding:12px 15px;margin:16px 0}
+.focus-process .focus-outcome strong{display:block;margin-bottom:4px}
+.focus-process .focus-outcome p{margin:5px 0}
+.focus-process .owner-participation{border-top:1px solid var(--line);padding-top:12px}
+.focus-process .focus-footnote{font-size:13px;color:var(--mut);margin-bottom:0}
+@media(max-width:760px){.focus-process{padding:16px 15px;margin:12px 0 22px}.focus-process h2{font-size:22px}}
 @media(max-width:760px){nav.toc{position:static}main{padding:16px 14px 44px}h1{font-size:26px}.stats{grid-template-columns:1fr 1fr}.chains,.two,.three{grid-template-columns:1fr}dl.kv{grid-template-columns:1fr}dl.kv dt{border-bottom:0;padding-bottom:0}.wrap table{min-width:640px}th,td{padding:7px 8px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -64,6 +77,7 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 <header>
 <div class="eyebrow">Incomex · tools-quy-trinh · trang nội dung</div>
 <h1>Tools quy trình</h1>
+<p><a href="#quy-trinh-hieu-chinh"><strong>Đọc quy trình trọng tâm: Quy trình hiệu chỉnh hướng dẫn và quy trình ↓</strong></a></p>
 <p class="lead">Mỗi quy trình một khuôn: <b>📥 Cần gì</b> → <b>🔢 Làm</b> (bước + câu hỏi) → <b>📦 Ra gì, để đâu</b> → <b>✅ Xong khi</b>.</p>
 <div class="stats">
 <a class="stat" href="#bang"><b>10</b>quy trình · CTCM<small>9 Tool + Rà một UI · VHCM 0 · CMSXQT để sau</small></a>
@@ -72,6 +86,7 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 <a class="stat" href="#chuyen-nguon"><b>✓ · ⏳</b>khu Công thức cũ<small>đã chép đủ · chưa cắt chuyển nơi sửa</small></a>
 </div>
 <nav class="toc" aria-label="Nội dung trang">
+<a href="#quy-trinh-hieu-chinh">Quy trình hiệu chỉnh · Owner cùng xây dựng</a>
 <a href="#bang">① Bảng 30 giây</a>
 <a href="#chi-tiet-tools">② Rà UI · 9 Tool</a>
 <a href="#dung-chung">③ Dùng chung</a>
@@ -80,6 +95,28 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 <a href="#chuyen-nguon">⑥ Chuyển nguồn</a>
 </nav>
 </header>
+
+<section id="quy-trinh-hieu-chinh" class="focus-process" aria-label="Quy trình hiệu chỉnh hướng dẫn và quy trình — nội dung Owner cùng xây dựng">
+<p class="focus-label">QUY TRÌNH TRỌNG TÂM · TQT-QT-001 · bản thử v0.1 · CHƯA ĐẠT</p>
+<h2>Quy trình hiệu chỉnh hướng dẫn và quy trình</h2>
+<p class="focus-intro"><strong>Đích:</strong> một agent mới chỉ cần đọc hướng dẫn là làm ra đúng sản phẩm thật; chưa làm được thì báo chính xác chỗ vướng, sửa và thử lại. <strong>Quy trình này cũng phải được thử và sửa theo chính nó.</strong></p>
+<p><strong>Owner tham gia trực tiếp xây dựng quy trình này.</strong> Anh có thể góp ý ngay trong chat; Host ghi nhận và đưa nội dung vào vòng hiệu chỉnh. Anh không cần đọc các tài liệu kỹ thuật phía dưới.</p>
+<div class="focus-rule"><h3>Vòng làm việc — đọc một lần là làm được</h3>
+<div class="cycle-step"><b>1 · Chọn ca và kết quả phải ra (Host + Owner khi cần)</b><p>Chọn đúng một quy trình/phiên bản, đầu vào, quyền được dùng, sản phẩm bàn giao, nơi nhận và phép kiểm thế nào là xong. Thiếu quyết định phải ghi rõ, không tự đoán.</p></div>
+<div class="cycle-step"><b>2 · Agent mới đọc và làm thật (Codex/worker)</b><p>Chỉ đọc README + quy trình và nguồn được chỉ; đi từ trạng thái đầu, làm đúng bước, lưu sản phẩm và bằng chứng. Không hướng dẫn miệng bổ sung trong lúc thử; nếu mắc, dừng đúng điểm mắc.</p></div>
+<div class="cycle-step"><b>3 · Người làm trả lại thông tin thiếu</b><p>Nêu mã quy trình/bước, đã đọc gì, đã làm gì, hiện thấy gì, đúng ra cần gì và bằng chứng. Phân biệt <b>THIẾU HƯỚNG DẪN</b> / <b>THIẾU SẢN PHẨM</b> / <b>THIẾU QUYẾT ĐỊNH</b> / <b>THIẾU QUYỀN</b> / <b>LỖI QUY TRÌNH</b>. Nộp đề xuất riêng, không sửa nguồn chuẩn.</p></div>
+<div class="cycle-step"><b>4 · Host hiệu chỉnh đúng phần cần sửa</b><p>Đối chiếu mục tiêu Owner và bằng chứng; lấy phản biện độc lập khi cần. Nếu thiếu bước/câu hỏi/nhánh, viết rõ đầu vào, hành động, đầu ra, cách xử lý lỗi và xong khi; Host duyệt rồi nhập nguồn duy nhất. Nếu thiếu sản phẩm/quyền/quyết định, chuyển đúng nơi xử lý và cho quy trình biết cách dừng, không bịa kết quả.</p></div>
+<div class="cycle-step"><b>5 · Agent khác đọc bản mới, thử lại từ đầu</b><p>Không dùng trí nhớ vòng trước; xuất đúng sản phẩm và phiếu kiểm tại nơi quy định. PASS chỉ khi đạt mục tiêu thực trong phạm vi đã chốt, có bằng chứng độc lập. Không đạt → quay lại bước 3; mọi lỗi chưa xử lý phải có mã sổ, người theo dõi, bước tiếp.</p></div>
+</div>
+<div class="focus-outcome">
+<strong>Lượt 01 · đang hiệu chỉnh từ phản hồi Codex · chưa công nhận đạt</strong>
+<p><b>Người làm báo:</b> ban đầu thiếu 8 câu hỏi/MOT, 7 câu Config, đường tìm nguồn, mẫu ca và nơi ghi kết quả. Codex đã bổ sung hướng dẫn; sau đó có 18 quan sát và 5 ca kiểm lại đạt trong phần được thử.</p>
+<p><b>Vẫn chưa xong:</b> chưa chứng minh agent mới độc lập tạo được sản phẩm của cả quy trình. UI MOW-NHC-001 còn thiếu nguồn Field thật, tìm theo mô tả/JEV và nơi nhận kết quả xác nhận; đó là thiếu chức năng/điều kiện nghiệp vụ, không phải bằng chứng hướng dẫn đạt.</p>
+<p><b>Lượt kế tiếp của AI:</b> Host lấy phản hồi cuối của Codex theo mẫu ở <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/tools-quy-trinh/README.md">README</a>, bổ sung từng chỗ thiếu vào bản v0.2 qua cổng đề xuất; giao một phiên AI mới thử “Rà một UI” trọn từ đầu tới sản phẩm/phiếu kiểm, ghi rõ PASS phạm vi nào và blocker nào. <strong>Chưa có kết quả thử lại v0.2.</strong></p>
+</div>
+<p class="owner-participation"><strong>Phần Owner cùng xây dựng:</strong> góp ý trực tiếp về 5 bước, điều kiện “làm theo là xong”, hoặc cách nhận phản hồi từ Codex. Host sẽ chỉnh theo góp ý và để chính Codex/agent mới kiểm lại; chưa coi bản v0.1 là mục tiêu đã chốt.</p>
+<p class="focus-footnote">Đây là quy trình mẫu dùng chung cho nhiều Chuỗi; <strong>không tính vào 10 quy trình CTCM</strong> trong bảng thống kê bên dưới cho tới khi được kiểm chứng và đưa vào danh mục. AI đọc hướng dẫn chi tiết và sổ ở các phần bên dưới.</p>
+</section>
 
 <section id="bang">
 <h2><span class="no">①</span>Bảng 30 giây</h2>
@@ -552,7 +589,7 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 <dt>Phạm vi</dt><dd>Quy trình/sổ dài hạn tại <code>work/tools-quy-trinh</code>; không đổi luật chung repo.</dd>
 <dt>Ảnh hưởng</dt><dd>Đề xuất chưa duyệt có thể đi thẳng vào bản đọc; hai AI sửa chồng; sổ sai nguồn/hồ sơ.</dd>
 <dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Host GPT Chat · Chưa giao agent kỹ thuật · Chưa giao verifier độc lập.</dd>
-<dt>➡ Bước tiếp</dt><dd>Áp dụng đề xuất tách file → Host nhập chuẩn (D08/D09); kiểm một đề xuất thật từ AI khác. Sau đó thiết kế/kiểm rule ở gateway từ chối viết trực tiếp vào <code>view.html</code>, <code>COLLAB.md</code> và sổ theo Host_ID, không ảnh hưởng task khác.</dd>
+<dt>➡ Bước tiếp</dt><dd>AI khác nộp file đề xuất tách biệt; Host duyệt và kiểm. Gate máy cần từ chối viết main theo Host_ID, trả mã <code>HOST_APPROVAL_REQUIRED</code> kèm <code>readme_path=work/tools-quy-trinh/README.md</code>, chỉ dẫn đường <code>proposals/TQT-PR-...</code>. Thử ba ca: non-Host ghi main bị từ chối; non-Host nộp proposal thành công; Host duyệt/ghi/đọc lại. Không đổi guard toàn repo.</dd>
 <dt>Mốc rà</dt><dd>Khi có đề xuất AI khác đầu tiên hoặc phép đo gateway path guard.</dd>
 <dt>Lý do chưa đóng</dt><dd>Mới chốt quy ước; chưa đo được chặn kỹ thuật bằng quyền, chưa thử proposal của AI khác.</dd>
 <dt>✅ Điều kiện đóng</dt><dd>AI không phải Host gửi đề xuất được nhưng ghi thẳng nguồn chính bị từ chối trong phép thử có kiểm soát; Host duyệt/ghi và kiểm lại bản xuất bản, không mất lịch sử.</dd>
