@@ -9,9 +9,10 @@ Report: same task BAO-CAO.md, one new section ## N2a-C2; COLLAB.md only for life
 STATUS: DRAFT · NO READY · NO RUN. Reviewer ACCEPT exact last-touch SHA, Host READY same SHA, read-gate then RUN. Do not reuse R7 READY/RUN.
 
 ## 0. OWNER GOAL AND LIMIT
-Owner: stable VPS, truthful alerts, every disk growth source identified and bounded, provenance protection for running code, no endless waiting. P68 R7 already terminal DỪNG at C2; A/B/C1/C3/D and POST 22/22 PASS are retained. Do not rerun or undo proven PASS work.
+Owner D22 (08/10): **VPSC là đầu mối sức khỏe VPS1** — xử lý lỗi cũ và lỗi mới (tăng/rò dung lượng, lỗi chương trình, tài nguyên/chuông/Guard); có thể sửa **lỗi nhỏ** của task đã đóng; lỗi lớn phải được định tuyến về task cũ hoặc đề xuất task riêng, không tự mở hay làm hộ task đang chạy. Đây là **mục tiêu dài hạn của VPSC**, không phải giấy phép mở rộng mutation của một RUN.
+P68 R7 đã terminal DỪNG tại C2; A/B/C1/C3/D và POST 22/22 PASS được giữ nguyên. Không rerun/undo phần đã chứng minh PASS.
 
-One RUN with two lanes that do not block each other: **C2 evidence reconciliation** and **N2a three existing-source controls**. No unrelated #19, production core restarts, swap changes, Directus pressure knob, agent-data image changes, Graph trial cleanup, key rotation, new task/architecture/file, package upgrades, network/auth changes. R8 is scoped to proven additive maintenance and provenance, NOT broad cleanup.
+**RUN hiện tại vẫn chỉ có hai mutation lanes độc lập:** C2 evidence reconciliation + N2a three-source controls. Bổ sung **một inventory/triage CHỈ ĐỌC** cho các lỗi sức khỏe tồn đọng/phát sinh; inventory không cấp quyền sửa lỗi khác trong RUN này. No unrelated #19 mutation, core restart/rebuild, swap changes, Directus pressure knob, agent-data image changes, Graph trial cleanup, key rotation, destructive cleanup, new task/architecture/file, package upgrades, network/auth changes. R8 chỉ làm additive maintenance/provenance trong 2 lanes đã duyệt.
 
 Security/owner gate: Owner-only deletion/irreversible history pruning remains prohibited without a separate explicit Owner decision. Existing copies, references, and rollback must remain recoverable; no mass Git add/commit of unknown DOT code, no trust upgrade solely from live hashes.
 
@@ -62,6 +63,11 @@ For each lane report before/after bytes, actual daily growth, live control state
 - Swap full 2GiB, Chrome-headless OOM and Directus 503: record current pressure + provenance, no speculative core changes or restart.
 - O-R7-KEY remains Owner-only separate security decision, not a blocker for this read-only/safe maintenance scope.
 
+## 4b. VPS1 HEALTH TRIAGE (D22) — READ-ONLY, NO THIRD MUTATION LANE
+Reuse existing R7 S1a/BAO-CAO evidence, current Guard/disk-watch outputs and available local health logs; **do not launch a second broad forensic crawl**. Bound to the known pending categories plus newly visible active faults (max 10 items). Produce in same `## N2a-C2` report an `ISSUE_LEDGER` table: `id · observed symptom/time · source/task provenance · evidence/status · impact/velocity · small/major/unknown · safe next action/owner · rollback/gate`.
+Required seed candidates: three CONTROL_DEBT (transactions/helper/mcp-roots); three EVIDENCE_DEBT (PG/Qdrant/uploads); #19 push false-alarm residual; agent-data worker/Chrome OOM/502 + Directus 503; logrotate `reconcile-*` permissions and CWEB #6 transient Nuxt 404 **only if still reproducible**. Recheck Graph/storage event group cap without calling planned Graph bytes a background leak; do not modify Graph data.
+**Decision gate:** local bounded reversible monitor/script/logrotate fix on VPS1, with independent tests/rollback and no core restart/auth/schema/destructive deletion ⇒ `CLOSED_TASK_MINOR_CANDIDATE`, eligible for a **later** scoped SMALLFIX RUN under this VPSC task. Multi-component/core rebuild/schema/auth/history destruction/uncertain blast radius ⇒ `MAJOR_OR_UNKNOWN`, evidence + return pointer to original closed task or Owner proposal for separate task, **no VPSC mutation**. Active task issue ⇒ `OTHER_ACTIVE_TASK`, pointer only. Do not fabricate closure, do not automatically reopen/create any task. If no minor evidence, report `SMALLFIX_NOT_NEEDED` and do not add a RUN. Preserve NO_CONCURRENT.
+
 ## 5. STEP_WALK (DROOT48)
 | Phase | Who | Trigger | Evidence | Fail response | Next |
 |---|---|---|---|---|---|
@@ -69,7 +75,8 @@ For each lane report before/after bytes, actual daily growth, live control state
 | C2 source reconciliation | Claude Code | S0 PASS | per-row 558 ledger, group proof | keep UNKNOWN, continue independent N2a | N2a |
 | N2a transaction retention | Claude Code | C2 evidence frozen | referential proof, dry-run/rollback | isolate this source, continue | helper |
 | N2a helper retention | Claude Code | transaction checked | in/out/done/p02 proof | isolate this source, continue | gh |
-| N2a gh object retention | Claude Code | helper checked | fsck/refs/prune dry-run | isolate source, continue | POST |
+| N2a gh object retention | Claude Code | helper checked | fsck/refs/prune dry-run | isolate source, continue | Triage |
+| **Health triage D22 (read-only)** | Claude Code | N2a/C2 evidence collected; no extra mutation | ISSUE_LEDGER ≤10 items, minor/major/active split, proposed smallfix guard/rollback | evidence missing ⇒ UNKNOWN/CHƯA ĐẠT, do not mutate | POST |
 | POST-PROTECT | Claude Code | lanes finished | PRE/POST, exact changes, Guard, Kuma, Telegram | rollback only changed footprint, KQ DỪNG | KQ |
 
 No WAIT/HOLD, no sleeping for future samples or deadlines, no terminal reuse. After scoped work record KQ XONG only when promised evidence/authorized controls within this bounded RUN are satisfied; otherwise KQ DỪNG with individually preserved PASS work and one actionable next action. Final VPSC task cannot close until control debt and C2 evidence gaps resolved + independent 24h clean machine proof.
