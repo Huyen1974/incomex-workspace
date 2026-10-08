@@ -221,6 +221,7 @@ Ghế: OpenAI-main · Vòng: 1/5, READ-ONLY REVIEW, chưa Reviewer/READY/RUN s�
 - Bằng chứng tồn tại: CT-001 có 9 Bước lớn, 23 Bước con B1–B7; CT-002 có Field/MOIT/MOUT/MOT/MOW; CT-002.1 có 3 Chuỗi. Nội dung đã có mô tả, nhánh và điều kiện nhưng chưa có bằng chứng đầy đủ bộ câu hỏi gốc theo cấp và quy tắc kế thừa qua phép ghép. 8 câu/MOT hiện nay chỉ là câu chuyên môn rà UI, 7 câu Config chỉ chuyên môn Config; không thay thế câu hỏi của ba nguyên liệu.
 - Hướng Host: mỗi Q_ID có owner nguồn, câu hỏi, nơi có câu trả lời, yêu cầu/NA, cách kiểm, xong khi, issue. Khi ghép CT003/004/005/005.1 chỉ tham chiếu ID, không sao chép 3×5×23 thành hàng nghìn phiên bản. Nếu Bước con chỉ là nhánh lặp → thêm câu hỏi/nhánh, không thêm bước mới. B1 Tìm phải dừng ở tìm được/chưa tìm được/chưa chắc, không kéo B2 Dùng vào.
 - `PROMPT.md` P14 (thiết kế UI001→002) thay bằng đề bài READ-ONLY, lịch sử còn trong Git. MOW001 là ca thử ghép, MOW002 vẫn đóng. Codex được giao **đề xuất** không ghi canonical; Host nhận rồi phản biện độc lập trước khi thay nguồn SSOT.
+- Bản prompt chỉ đọc được kiểm lại; định dạng link/code đã sửa, không thay nghĩa/quyền; mọi phiên Codex lấy bản current sau format, không dùng cache.
 - Chưa có nhận xét Codex cho bộ câu hỏi mới; chưa có câu hỏi canonical được duyệt; chưa có phép thử AI mới làm theo, không công nhận ĐẠT. NEXT_TRIGGER=CODEX_ROOT_QUESTION_PROPOSAL. Áp: SAME_COMMIT.
 
 ### P14 · Host chốt mô hình CT-005/005.1 và plan MOW001 → MOW002 · SUPERSEDED DRAFT (D15, chưa RUN)
