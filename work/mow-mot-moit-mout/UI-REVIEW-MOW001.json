@@ -202,7 +202,7 @@
       "gate_result": "BLOCKED: unmeasured live UI and unresolved parent parity; python check-ui-review.py exit 1."
     }
   ],
-  "gate_result": "BLOCKED: scoped trial does not cover full UI contract; responsive/emphasis/parent parity and true search/receipt remain incomplete. Run check-ui-review.py after saving.",
+  "gate_result": "BLOCKED: receipt checker exit 1 at 427c1704; unresolved parent differences and incomplete structure/emphasis/labels/interaction/responsive. Current scoped retries passed; gate is not whole UI acceptance.",
   "tools_application_review": {
     "run_id": "TQT-UI-20261008-MOW001-STEP2",
     "reviewed_at": "2026-10-08",
@@ -332,7 +332,9 @@
         "actual": "Chưa nhập/chưa chọn; hiện Chưa tìm kiếm; minh hoạ thu riêng.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "URL mới step2; đầu vào mặc định",
+        "expected": "Màn làm việc trống, Chưa tìm kiếm, minh hoạ thu riêng."
       },
       {
         "id": "UI02",
@@ -342,7 +344,9 @@
         "actual": "Yêu cầu nhập tên, mã, mô tả hoặc một điều kiện; không chạy tìm.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "UI01; chưa nhập/chọn gì",
+        "expected": "Báo cần input, không trả kết quả."
       },
       {
         "id": "UI03",
@@ -352,7 +356,9 @@
         "actual": "Tìm mô tả chưa sẵn sàng; tìm thật chưa thể chạy, giữ input và cho thử lại.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "Step2; live mode; chưa nối dịch vụ thật",
+        "expected": "Báo chưa sẵn sàng/unavailable, giữ input; không báo rỗng thay lỗi."
       },
       {
         "id": "UI04",
@@ -362,7 +368,9 @@
         "actual": "Vẫn báo chưa thể tìm; giữ từ khóa/mô tả.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "UI03 unavailable; input còn giữ",
+        "expected": "Thử lại giữ input và phản hồi unavailable khi chưa có dịch vụ."
       },
       {
         "id": "UI05",
@@ -372,7 +380,9 @@
         "actual": "Sang bước 1, giữ từ khóa/mô tả.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "UI03; từ khóa/mô tả đã nhập",
+        "expected": "Đi tới bước1 và giữ input."
       },
       {
         "id": "UI06",
@@ -382,7 +392,9 @@
         "actual": "Sang bước 2; giữ từ khóa/mô tả/trạng thái active.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "UI05; state active đã chọn ở step2",
+        "expected": "Quay bước2 và giữ ngữ cảnh/filter."
       },
       {
         "id": "UI07",
@@ -392,7 +404,9 @@
         "actual": "Từ khóa/mô tả trống, trạng thái mặc định; Chưa tìm kiếm.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "Step2 có input/filter",
+        "expected": "Trở về trạng thái đầu trống và bộ lọc mặc định."
       },
       {
         "id": "UI08",
@@ -402,7 +416,9 @@
         "actual": "Mô tả được giữ; tính năng mô tả chưa sẵn sàng; tìm thật unavailable.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "Step2 live; đã xóa các input khác",
+        "expected": "Mô tả được giữ; chưa hỗ trợ thì báo rõ, không giả kết quả tìm."
       },
       {
         "id": "UI09",
@@ -412,7 +428,9 @@
         "actual": "Hướng dẫn quay lại chọn Field; nút xác nhận bị khóa.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "Chưa chọn Field ở live",
+        "expected": "Chặn xác nhận và hướng dẫn chọn Field."
       },
       {
         "id": "UI10",
@@ -422,7 +440,9 @@
         "actual": "Màn 2 và mô tả đã nhập còn giữ.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "UI09; có mô tả trong ngữ cảnh",
+        "expected": "Trở lại bước tìm và giữ mô tả."
       },
       {
         "id": "UI11",
@@ -432,7 +452,9 @@
         "actual": "Cùng phản hồi chưa thể tìm như bấm Tìm.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "Live step2; keyword Họ tên",
+        "expected": "Enter thực hiện cùng hành động tìm, dùng cùng guard unavailable."
       },
       {
         "id": "DEMO01",
@@ -442,7 +464,9 @@
         "actual": "Không có kết quả, hướng dẫn đổi từ khóa/bỏ lọc; chưa đối chiếu tập fixture để chốt số lượng mong đợi.",
         "status": "OBSERVED",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Not established for fixture result count"
+        "expected_source": "No fixture count criterion approved in this trial; observation only",
+        "given": "Example; keyword Họ tên + state active",
+        "expected": null
       },
       {
         "id": "DEMO02",
@@ -452,7 +476,9 @@
         "actual": "Không có kết quả; số lượng mong đợi chưa định nghĩa.",
         "status": "OBSERVED",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Not established for fixture result count"
+        "expected_source": "No fixture count criterion approved in this trial; observation only",
+        "given": "Example; keyword trống + state active",
+        "expected": null
       },
       {
         "id": "DEMO03",
@@ -462,7 +488,9 @@
         "actual": "Các bộ lọc mặc định, trạng thái chưa tìm.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "Example có filter",
+        "expected": "Bỏ bộ lọc đưa các bộ lọc về mặc định; chưa tìm lại."
       },
       {
         "id": "DEMO04",
@@ -472,7 +500,9 @@
         "actual": "3 Field: MOIT.full_name, MOIT.phone_number, MOIT.submitted_at.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "Example; chỉ filter nhánh MOIT",
+        "expected": "Dùng fixture của nhánh MOIT; có Field tên/số điện thoại/thời điểm gửi theo nguồn dữ liệu mẫu."
       },
       {
         "id": "DEMO05",
@@ -482,7 +512,9 @@
         "actual": "Chưa có đánh giá JEV; xác suất —; không đổi điểm từ khóa thành xác suất.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "Example có MOIT.full_name; chưa tích hợp JEV",
+        "expected": "Ghi chưa có đánh giá; không biến điểm keyword thành xác suất."
       },
       {
         "id": "DEMO06",
@@ -492,7 +524,9 @@
         "actual": "Sang xác nhận, đúng Field và ngữ cảnh bộ lọc; chưa đồng ý thì nút khóa.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "Example có kết quả MOIT.full_name",
+        "expected": "Chọn Field mở màn xác nhận đúng Field/ngữ cảnh; khóa nút trước đồng ý."
       },
       {
         "id": "DEMO07",
@@ -502,7 +536,9 @@
         "actual": "Biên nhận đúng MOIT.full_name; kết quả chỉ hiển thị tại đây, chưa lưu/gửi.",
         "status": "PASS",
         "evidence": "Live browser DOM after action 2026-10-08",
-        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough",
+        "given": "DEMO06; đồng ý đã chọn",
+        "expected": "Biên nhận minh hoạ đúng Field; không persisted/send."
       }
     ],
     "remaining": [
@@ -527,9 +563,67 @@
       "Classify missing procedure/UI/decision; amend and retry"
     ],
     "retry_after_amendment": {
-      "status": "PENDING",
-      "cases": [],
-      "evidence": "Run fresh entry/blank search/back guard after repo amendment; independent reader checks guide."
+      "status": "PASS_SCOPED",
+      "procedure_commit": "427c1704f9122b35352e2e3afe283821d1f54636",
+      "cases": [
+        {
+          "id": "R01/CR-01",
+          "questions": "Q2/Q5",
+          "given": "New URL step2, all input empty",
+          "action": "Open and read initial UI",
+          "expected": "Blank input; Chưa tìm kiếm; no prefilled results",
+          "actual": "Both input empty; all filters default; Chưa tìm kiếm; example collapsed",
+          "status": "PASS",
+          "evidence": "Fresh browser DOM 2026-10-08"
+        },
+        {
+          "id": "R02",
+          "questions": "Q3/Q5",
+          "given": "R01 blank state",
+          "action": "Click Tìm kiếm",
+          "expected": "Request an input instead of search",
+          "actual": "Nhập tên, mã, mô tả hoặc một điều kiện tìm kiếm.",
+          "status": "PASS",
+          "evidence": "DOM message after click"
+        },
+        {
+          "id": "R03",
+          "questions": "Q6/Q8",
+          "given": "No Field selected",
+          "action": "Open step3",
+          "expected": "No selection guard and disabled confirmation",
+          "actual": "Chưa chọn Field; Quay lại tìm kiếm, chọn một Field rồi xem màn hình xác nhận; confirmEnabled=false",
+          "status": "PASS",
+          "evidence": "DOM and button isEnabled=false"
+        },
+        {
+          "id": "CR-02",
+          "questions": "Q4/Q7",
+          "given": "Step2 default; enter FIELD-UI-REVIEW-001 and Lưu ngày giao hàng dự kiến",
+          "action": "Click Xóa nội dung",
+          "expected": "Both entered strings cleared; only these fields in scope",
+          "actual": "input.value=''; textarea.value=''; Chưa tìm kiếm",
+          "status": "PASS",
+          "evidence": "DOM value read after action; case independently authored"
+        },
+        {
+          "id": "CR-03",
+          "questions": "Config Q4/Q5",
+          "given": "Step2 idle; enter ngày giao hàng; select Nháp",
+          "action": "Do not click Tìm kiếm; observe state",
+          "expected": "Still Chưa tìm kiếm and no results; UI says filters applied on search button",
+          "actual": "Nháp selected; Chưa tìm kiếm; result region empty",
+          "status": "PASS",
+          "evidence": "Live DOM after fill/select; case independently authored"
+        }
+      ],
+      "independent_reader": {
+        "agent": "cold_review",
+        "inputs": "Repo README/#ra-ui/Tools002/004/007/008 at 427c1704 + current UI; no old chat context",
+        "result": "Able to author 3 safe cases and identify storage/status/blockers; limited design review executable, full acceptance not established.",
+        "gap": "Step1 did not explain finding task README from only a URL; added source lookup. Missing business rules/fixture/Host must remain explicitly unassigned/blocked."
+      },
+      "evidence": "Three retry controls and two additional independently authored cases executed. No backend writes."
     }
   }
 }

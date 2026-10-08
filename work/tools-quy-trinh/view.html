@@ -34,7 +34,7 @@
 <h2>Rà một UI đang có</h2>
 <p><b>Sản phẩm cần ra:</b> phiếu kiểm có thể chạy lại: câu hỏi đã trả lời, ca kiểm và bằng chứng; mỗi điểm chưa đạt có hồ sơ, người giữ việc và bước tiếp. Dùng Tools 001–008 bên dưới; Tool 008 dùng suốt lượt.</p>
 <div class="table-wrap"><table><thead><tr><th>Bước</th><th>Làm gì?</th><th>Ghi kết quả gì?</th></tr></thead><tbody>
-<tr><td>1 · Chuẩn bị<br>001, 006</td><td>Đọc README của UI; lấy URL, phiên bản nguồn, MOW/MOT/UI cha, mục tiêu và tiêu chí xong đã chốt. Tách màn làm việc và minh hoạ. Thiếu thông tin thì tra nguồn hiện có; chưa có thì ghi sổ, tiếp tục phần độc lập.</td><td>Phạm vi màn/luồng sẽ rà, nguồn tiêu chí, dữ liệu thử và phần chưa phủ. Không lấy bản minh hoạ thay hành trình thật.</td></tr>
+<tr><td>1 · Chuẩn bị<br>001, 006</td><td>Tìm đúng task và README: nếu chỉ có URL, tra đường dẫn/tên file trong repo hoặc liên kết Master UI/MOW để tìm task; đọc <code>work/&lt;task&gt;/README.md</code>. Với mẫu này: <code>work/mow-mot-moit-mout/README.md</code>. Không tìm được liên kết thì ghi thiếu đầu mối nguồn, không đoán. Lấy URL, phiên bản nguồn, MOW/MOT/UI cha, mục tiêu và tiêu chí xong đã chốt. Tách màn làm việc và minh hoạ. Thiếu thông tin thì tra nguồn hiện có; chưa có thì ghi sổ, tiếp tục phần độc lập.</td><td>Phạm vi màn/luồng sẽ rà, nguồn tiêu chí, dữ liệu thử và phần chưa phủ. Không lấy bản minh hoạ thay hành trình thật.</td></tr>
 <tr><td>2 · Đi như người mới<br>002</td><td>Mở URL mới từ trạng thái trống. Với mỗi MOT, trả lời <a href="#tqt-8-cau">8 câu hỏi</a> bằng thông tin nhìn thấy trên UI. Sau đó mới đọc nguồn để tìm nguyên nhân của chỗ thiếu.</td><td>Mỗi câu: trả lời + bằng chứng + mã vấn đề nếu còn vướng. Không dùng kiến thức code bù cho hướng dẫn UI thiếu.</td></tr>
 <tr><td>3 · Viết ca trước khi thử<br>003–005</td><td>Liệt kê nhánh: bắt đầu, nhập/chọn hợp lệ, thiếu/sai, rỗng, nhiều kết quả, lỗi/timeout/không quyền, thử lại, hủy/quay lại, bấm lặp, dữ liệu đổi và xác nhận/nơi nhận. Đối chiếu <a href="#tqt-7-cau">7 câu Config</a>. Mỗi nhánh bắt buộc có ca; không áp dụng phải có lý do.</td><td><b>Ca:</b> mã · câu/nhánh · màn/chế độ · điều kiện đầu và dữ liệu · thao tác · kết quả mong đợi và nguồn tiêu chí. Chưa có tiêu chí thì ghi thiếu quyết định, không tự đặt rồi báo PASS.</td></tr>
 <tr><td>4 · Chạy và so<br>006, 007</td><td>Chạy từng ca từ điều kiện đầu, quan sát thông báo, dữ liệu giữ/mất, điều hướng và nơi nhận. Rà UI cha, bàn phím/focus, nhãn, lỗi, console và kích thước màn theo hợp đồng UI hiện hành.</td><td>Thực tế · ảnh/DOM · phiên bản/thời điểm · PASS/FAIL/BLOCKED/NOT_TESTED/N-A. PASS chỉ khi khớp mong đợi; bị chặn ghi phụ thuộc; chưa chạy ghi NOT_TESTED; N-A có lý do.</td></tr>
@@ -177,5 +177,17 @@
 </section>
 <p class="footer">Một đầu mối công việc · mỗi quy trình một nguồn chuẩn · mỗi vấn đề một vòng đời.</p>
 </main>
+<script>
+(function(){
+  function revealHash(){
+    var target=document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if(!target)return;
+    for(var node=target;node;node=node.parentElement){if(node.tagName==="DETAILS")node.open=true;}
+    target.scrollIntoView({block:"start"});
+  }
+  window.addEventListener("hashchange",revealHash);
+  revealHash();
+})();
+</script>
 </body>
 </html>
