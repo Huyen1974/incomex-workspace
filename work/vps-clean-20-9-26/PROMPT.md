@@ -1,129 +1,81 @@
-# PROMPT — VPSC R7 · SỬA HẸP THEO SỐ ĐO S1a · CHUÔNG THẬT + Ổ ĐĨA CÓ VAN + MÃ CÓ KHOÁ · 07/10/2026
+# PROMPT — VPSC N2a + C2 PROVENANCE · 08/10/2026
 
-STATUS: chỉ được chạy khi `COLLAB.md` có **Host READY@<sha> + CODEX ACCEPT@<sha> cùng SHA last-touch PROMPT** và không HOLD/STARTED khác. Thiếu một ⇒ DỪNG trước mutation.
-RUN_ID: VPSC-R7-TRUTH-20261007-01
-Executor_Surface: Claude Code CLI trên Mac → VPS1 (`vmi3080463`) qua đường SSH/DOT hiện hữu
-Write_Path: tài liệu = repo qua `workspace_*`/`fs_*` · runtime = DOT/script-wrapper + Config Guard (`incomex-config-apply-v0`) + git cục bộ `/opt/incomex`
-Evidence_Dir: `/opt/incomex/work/vps-clean-20-9-26/R7-20261007/`
-Báo cáo: thêm `## R7` vào `work/vps-clean-20-9-26/BAO-CAO.md`; không tạo file tiến độ khác.
+RUN_ID: VPSC-N2A-C2-CONTROLS-20261008-01
+Task: work/vps-clean-20-9-26
+Executor_Surface: Claude Code CLI, Mac Owner → VPS1 SSH, only via existing reviewed gateways
+Repo_Write_Path: workspace_* root=workspace
+Evidence_Dir: /opt/incomex/work/vps-clean-20-9-26/N2A-20261008/
+Report: same task BAO-CAO.md, one new section ## N2a-C2; COLLAB.md only for lifecycle/KQ.
+STATUS: DRAFT · NO READY · NO RUN. Reviewer ACCEPT exact last-touch SHA, Host READY same SHA, read-gate then RUN. Do not reuse R7 READY/RUN.
 
-## S1a · INPUT ĐÃ ĐO — KHÔNG CHẠY LẠI
-Dùng `BAO-CAO.md ## S1a` + P61 làm evidence đầu vào. Số khóa cho R7:
-- **Disk:** used +8,002 GiB sau cleanup; gọi tên 99,2%. Graph trial +7,379 GiB = 92%, hiện **7,92 GB / cap 10 GB**; không còn pull nhưng mỗi GS run từng thêm ~0,5 GiB. Phần nhỏ đang tăng ≈0,28 GiB/ngày nằm ở `workspace-tools/transactions`, `incomex-mcp-helper` queue, `mcp-roots` + log bounded; UNKNOWN stock +0,066 GiB.
-- **Đo:** noise 0,07 MiB; NOISE_GUARD thực tế ≤0,6 MiB; `FS_METADATA/OVERHEAD` stock ≈150 MiB. `storage-watch.py` cũ chỉ nhìn `/opt`, bỏ sót 4,684 GiB image Graph ở `/var/lib/containerd`.
-- **Cảnh báo 36h:** 19 sự kiện; `HOST_DOWN=0`; 8 SERVICE_REAL thoáng qua/capacity · 8 PROBE_FALSE (#23) · 2 DUPLICATE (#11→#22) · 1 PIPELINE Kuma. VPS không reboot; dịch vụ lõi không sập.
-- **Kuma:** lỗi 08:10:05Z = `SQLITE_CONSTRAINT UNIQUE stat_minutely` khi safeBeat/push cùng phút; **không phải Telegram send failure**.
-- **BUSINESS:** PG dump có 180 đêm/181 ngày; Qdrant 157 mẫu/156 ngày ⇒ đủ dữ liệu proxy để lập envelope; Directus uploads hiện là một đợt CWEB nhỏ, không giải thích GiB.
-- **502/OOM:** agent-data có 8 lần child died/36h; `State.OOMKilled=true`; swap dùng ~1,61/2 GiB. Ít nhất một OOM trong lifetime là thật, nhưng từng lần child chết vẫn UNKNOWN.
-- **PRE_RED_SET của S1a = ∅** chỉ là lịch sử; R7 phải snapshot PRE mới ngay trước mutation và dùng same-or-better ở POST.
+## 0. OWNER GOAL AND LIMIT
+Owner: stable VPS, truthful alerts, every disk growth source identified and bounded, provenance protection for running code, no endless waiting. P68 R7 already terminal DỪNG at C2; A/B/C1/C3/D and POST 22/22 PASS are retained. Do not rerun or undo proven PASS work.
 
-## 0 · Vì sao có lượt này (đọc trước — bạn không có ký ức phiên trước)
-Owner 07/10: chuông Telegram DOWN/UP quá nhiều; ổ đĩa vẫn đầy nhanh, mỗi lần kiểm lại lòi lỗi mới; hỏi Điều 30/31 đã bảo vệ đủ chưa. Codex khảo sát chỉ đọc (root `COLLAB.md`, dòng **PROOT01**); Host tự kiểm lại và bổ sung (`COLLAB.md` việc này, **P51**). Bốn gốc, mỗi gốc một gói:
+One RUN with two lanes that do not block each other: **C2 evidence reconciliation** and **N2a three existing-source controls**. No unrelated #19, production core restarts, swap changes, Directus pressure knob, agent-data image changes, Graph trial cleanup, key rotation, new task/architecture/file, package upgrades, network/auth changes. R8 is scoped to proven additive maintenance and provenance, NOT broad cleanup.
 
-| Gói | Gốc đã đo (07/10) |
-|---|---|
-| **A · chuông giả** | `dot/bin/dot-directus-license-watch` 1.0.0 đẩy `status=down` ngay lần trượt đầu, trông vào Kuma `maxretries=1`. Đèn push của Kuma không giữ được luật đó: nhịp PENDING bị chính Kuma đổi thành DOWN “No heartbeat in the time window” sau ~62 s (`/app/server/model/monitor.js` ~739–746; `routers/api-router.js` ~582–587) ⇒ 5 cặp DOWN/UP ngày 06/10, lý do thật (Directus trả 503) bị che. OPS Proxy: hai lần 503 đơn lẻ ⇒ hai cặp DOWN/UP. |
-| **B · ổ đĩa** | **S1a đã đo:** used +8,002 GiB sau cleanup; **99,2% đã gọi tên**, trong đó Graph trial +7,379 GiB = 92% và hiện 7,92/10 GB. Phần còn đang tăng ước ≈0,28 GiB/ngày nằm ở ba nguồn **đã có tên** `workspace-tools/transactions` · `incomex-mcp-helper` queue · `mcp-roots`, hiện thiếu control. Bug watcher cũ là chỉ nhìn `/opt/*`, bỏ sót 4,684 GiB Graph image ở `/var/lib/containerd`, và SLOPE tự xanh khi cửa sổ trượt. |
-| **C · bảo vệ** | `scripts/mcpw-protection-guard`, `mode_pre_post` (~2817–2855) chỉ so một `snapshot()` cố định PRE↔POST. Tệp ngoài tập đó đổi thì POST vẫn PASS và biên nhận vẫn ghi “bảo vệ đủ”. Ví dụ thật: `docker/agent-data-repo/scripts/workspace-exec-worker.py` (R6W vừa sửa) và unit `incomex-workspace-exec.service` không nằm trong Config Guard. Trái AGENTS A10-R4. |
-| **D · 502/503** | **S1a đã đo:** agent-data có **8** lần `Child process died`/36h, thay sau 13–41 s; `State.OOMKilled=true` chứng minh ít nhất một OOM trong lifetime, swap dùng ~1,61/2 GiB. **Chưa biết nguyên nhân từng lần** và chưa chứng minh Directus 503 là pressure limiter. R7 chỉ phân loại bằng evidence; không preselect nâng uvicorn/RAM/version. |
+Security/owner gate: Owner-only deletion/irreversible history pruning remains prohibited without a separate explicit Owner decision. Existing copies, references, and rollback must remain recoverable; no mass Git add/commit of unknown DOT code, no trust upgrade solely from live hashes.
 
-## 1 · Hộp xanh / hộp đỏ (ngân sách cứng của cả lượt)
-- **ĐƯỢC:** sửa script/DOT/cron/registry/Guard do Incomex viết · đổi cấu hình đèn Kuma qua đường ensure/DOT hiện hữu (socket chính thức) · đăng ký Config Guard · ghi sổ đo.
-- **CẤM (gặp nhu cầu ⇒ ghi đề xuất ở D6, không làm):** restart/recreate/rebuild `postgres`, `incomex-directus`, `incomex-nuxt`, `incomex-qdrant`, `incomex-agent-data`, `incomex-nginx` · đổi phiên bản bất kỳ thành phần nào · docker prune/build · xoá dữ liệu/volume/image/hồ sơ/trial · đổi khoá hay xác thực · swapoff/sysctl · Directus/PG ngoài DOT · tắt, tạm dừng đèn hoặc hạ ngưỡng để lấy xanh · sửa trực tiếp `kuma.db`.
-- **Bí mật:** không `cat`/in tệp `.env`, compose, nginx conf hay bất kỳ tệp nào có khoá; cần xem cấu hình thì chỉ in TÊN biến hoặc giá trị đã che. (PROOT01: một khoá dùng chung đã lọt ra đầu ra công cụ vì đọc nguyên tệp.)
-- **Telegram tới Owner:** tối đa 1 cặp tin thử gắn nhãn 🧪 + 1 biên nhận cuối.
-- **Không điểm chờ duyệt, không giữ terminal chờ** (DROOT43, D16). Hết phạm vi ⇒ KQ DỪNG sạch.
-- **Agent không tự quyết thay đổi production ngoài những gì tệp này đã ghi rõ việc + số:** gặp lựa chọn chưa có số/chưa có luật ⇒ ghi đề xuất (D6), không làm. Tệp đang được cron gọi (Guard 5′, DOT 5′, disk-monitor) phải thay theo kiểu ghi nguyên tử.
-- **Bảo vệ đến đâu chắc đến đó:** mỗi gói kết thúc bằng test PASS + đăng ký Config Guard (hash cũ→mới + lý do, DROOT29) + commit git cục bộ + ghi BAO-CAO. Gói sau hỏng không kéo lùi gói trước.
+## 1. S0 READ AND PRE GATE
+Read AGENTS.md (DROOT30/31/48/50/52/A2/A9), root COLLAB, task COLLAB P67–P69 and §0.3, BAO-CAO ## R7 §§0/6/7/8, this PROMPT. Assert Reviewer ACCEPT + READY same full SHA, no other shared-VPS STARTED/mutation. If not green, report KQ DỪNG before mutation; no terminal HOLD.
 
-## 2 · PRE
-1. Read-gate Write_Path; đọc `AGENTS.md` → root `COLLAB.md` (PROOT01) → `work/vps-clean-20-9-26/COLLAB.md` (Bảng + §0.3 vòng 4 + STEP_WALK_V1 + P59–P64) → `BAO-CAO.md ## S1a · đo trước` → tệp này. Kiểm `READY@` và `CODEX ACCEPT@` cùng SHA.
-2. Ghi `STARTED@VPSC-R7-TRUTH-20261007-01 <UTC> · executor=Claude Code CLI` + sửa dòng ■/➡ của Bảng (cùng commit).
-3. NO_CONCURRENT: `COLLAB.md` việc khác có `STARTED@` chưa `KQ@` kèm server mutation, hoặc hàng đợi agent-data có job đang chạy của phiên khác ⇒ chờ tối đa 10 phút; còn ⇒ `DỪNG · CONCURRENCY`, 0 mutation. Kiểm lại trước mỗi gói.
-4. **Trước mutation đầu tiên của A**, chạy collector độc lập với Guard để thu baseline toàn bề mặt C2: manifest path→sha256 + snapshot cấu hình Kuma đã che của đúng field có thể sửa, khóa theo `monitor_id` (`type,interval,retryInterval,maxretries,resend`); lưu hash collector + manifest vào Evidence_Dir. Thiếu/không đọc được ⇒ `DỪNG · PRE_BASELINE`, 0 mutation. Sau đó mới chạy Guard `pre` + selftest và chụp: bảng 22 đèn, `storage-watch.py check`, `df -B1 /`, trạng thái Config Guard. Baseline này giữ nguyên tới POST; cấm chụp PRE mới sau A/B để làm mất footprint.
+Capture independent PRE: 22 Kuma monitor states/reasons, Config Guard and INV23, original registry hashes, code-ledger (N=558, M=244, K=314 as historical baseline), disk-watch inventory/rates/debt flags, df, source service health, MemAvailable, memory PSI, vmstat swap in/out and recent OOM/cgroup counters. Swap was 2/2 GiB used in R7; **swap usage alone does not prove active pressure**. If current memory/PSI/OOM shows danger for a proposed operation, skip mutation and report resource gate; no swapoff, sysctl, reboot/restart, memory-limit guess, or forcing green.
 
-## 3 · Gói A — đèn chỉ đỏ khi hỏng thật
-**A1 · `dot-directus-license-watch` 1.0.0 → 1.1.0.** Luật “2 lượt trượt liên tiếp mới DOWN” do **chính DOT** giữ (đếm trượt liên tiếp trong tệp trạng thái của DOT dưới `/var/lib/incomex/`); Kuma #23 đặt `maxretries=0` qua `install --execute` của chính DOT. Lý do đẩy đi là lý do thật, phân loại: `license=<status>` · `directus <http> <≤60 ký tự body>` (503 = Directus bận, không phải mất giấy phép) · `licensing net <mã>`. Hợp đồng — thử bằng fixture (ép kết quả phép thử qua biến môi trường, hứng lệnh đẩy bằng endpoint giả; không đụng #23 thật):
-- c1 trượt 1 lượt rồi đạt ⇒ không có lệnh đẩy `down`; log DOT có lý do thật.
-- c2 trượt 2 lượt liền ⇒ đúng một lệnh đẩy `down`, msg = lý do thật.
-- c3 đạt lại ⇒ đẩy `up`, bộ đếm về 0.
-- c4 tệp trạng thái hỏng/không ghi được ⇒ fail-closed: coi là trượt, lý do `STATE_UNWRITABLE`, không im.
-- c5 nhịp tim: giữa hai lượt đạt cách nhau một lượt trượt, Kuma không tự báo “No heartbeat” (chọn cách đẩy/khoảng `interval` cho khớp, ghi rõ số); cron/DOT chết hẳn ⇒ #23 DOWN trong ≤ 20 phút.
+After PRE, STARTED@VPSC-N2A-C2-CONTROLS-20261008-01 <UTC> · executor=Claude Code CLI only while actually running.
 
-E2E đúng kênh, một lần trên chính #23: ép 2 lượt trượt có nhãn `🧪 THỬ R7` ⇒ Telegram nhận đúng 1 DOWN mang lý do thử, không phải “No heartbeat”; bỏ ép ⇒ đúng 1 UP. Lưu message_id.
+## 2. LANE C2 — 312 UNKNOWN PROVENANCE; READ + PROVE, NOT BLESS
+Read the frozen R7 `c/ledger-final.json`, `c/reg3/code-ledger.tsv`, and current `scripts/code-ledger.tsv`. Precisely distinguish 314 uncovered = 312 lacking proof + 2 with provenance but explicitly excluded; preserve exclusion. Reconcile per file ID/path/hash with:
+(A) authoritative repository commit at a known path + same bytes;
+(B) accepted build/deployment manifest + verifiable hash and prior acceptance receipt;
+(C) labels/comments/mtime/current runtime hashes only = NOT proof.
 
-**A2 · một lỗi không tạo chuông; #22 không lặp lỗi của đèn khác.** Kiểm kê 22 đèn trước mutation; chỉ sửa đúng semantics đã có bằng chứng S1a:
-- **#4 OPS Proxy + #19 JEV** (active HTTP/tool transient): `maxretries=1`, `retryInterval=60`; `F→S` không DOWN, `F→F` mới DOWN. Không bulk-edit monitor tất định khác nếu chưa chứng minh cùng semantics.
-- **#23 License (push):** debounce nằm ở `dot-directus-license-watch`: fail 1 chỉ ghi transient/giữ heartbeat sống, fail 2 liên tiếp mới push DOWN với lý do thật; recovery push UP. Sender cadence đã biết = **300 s**; Kuma `maxretries=0`; no-heartbeat interval = **960 s = 3×cadence + 60 s** để tránh timer rơi đúng phút push. Sender chết thật ⇒ DOWN ≤16 phút; một 503 đơn không còn tạo DOWN/UP.
-- **#11 Disk (push):** P63 đã xác định sender: `/etc/cron.d/kuma-push` gọi `kuma-push.sh` mỗi **600 s** cho #11, đồng thời `disk-monitor.sh` hourly cũng gọi push. R7 phải giữ **một owner push duy nhất** cho #11: cron `kuma-push` 600 s là sender; `disk-monitor.sh` chỉ tính/ghi state, không push lần hai. Kuma no-heartbeat interval = **1860 s = 3×600 + 60 s**, tránh timer trùng đúng phút push. Logic DOWN/UP do storage-watch quyết, không nhờ Kuma retry.
-- **#22 Protection Guard / INV15:** chỉ canh **đường giám sát**: Kuma sống · monitor tồn tại/không pause · heartbeat/bảng đèn fresh · notification gắn đúng · Telegram/delivery path sống · Guard tự sống · lỗi nội bộ Kuma lặp đủ fail-x2. **Bỏ nhánh coi service monitor DOWN hợp lệ là lỗi INV15; bỏ self-count #22.** “Lỗi Kuma lặp” = ≥2 **event lỗi riêng biệt có timestamp/identity khác nhau**, không phải một dòng cũ còn nằm trong cửa sổ log 15′. #11 đỏ thật không tạo thêm #22 đỏ chỉ vì fleet có red.
-- Lỗi Kuma `SQLITE_CONSTRAINT stat_minutely` đơn lẻ đã tự restart monitor: ghi telemetry/debt; chỉ page #22 nếu còn hiện diện qua 2 nhịp Guard hoặc làm stale/mất delivery. Không nâng Kuma trong R7.
+Batch by actual evidence families, not 312 Owner/Reviewer manual approvals:
+- 227 `dot/bin` DEL-1I whose current contents differ from HEAD; find label provenance, historical review/deploy manifests and matching authoritative source. A DEL-1I label alone NEVER certifies current bytes.
+- 12 untracked and other DOT outliers;
+- 38 systemd units, 10 /usr/local/sbin, 5 cron.d, 4 logrotate, remaining paths grouped by owning system/source.
+- inaccessible mount-ro trees remain UNKNOWN; no bypass.
 
-Nộp bảng trước/sau đủ 22 đèn + fixture: #11 đỏ thật/#22 vẫn xanh nếu pipeline khỏe; mất Telegram/Kuma stale ⇒ #22 đỏ; #23 F→S không DOWN, F→F DOWN.
+Deliver a machine-filterable per-row classification in existing runtime evidence: PROVEN_REPO / PROVEN_ACCEPTED_ARTIFACT / DECLARED_ONLY / UNKNOWN / EXPLICITLY_EXCLUDED, with source ref, hash, evidence ID, change risk, owner. Sum MUST reconcile to 558/244/314 and 312+2; gaps report mismatch, never silently drop. For PROVEN rows only: register in Config Guard if owner policy and exact verified manifest allow, through reviewed config gate with rollback + post-tests; otherwise report as eligible without mutation.
 
-**A3 · hai kênh ý nghĩa, không trộn.** Realtime DOWN/UP chỉ cho `FAULT_NOW`. `EVIDENCE_DEBT`/LEARNING không page realtime; nằm trong bản tin 08:00 với tuổi/hạn. Bản tin 08:00 vẫn ≤3 dòng và thêm gọn: `thoáng qua 24h: N · nợ bằng chứng: E · agent-data child died: N`.
+For unproven DOT/unit/scripts: DO NOT copy from runtime into Git as if it were historical original; do not bulk `git add` 227 files; do not overwrite live code. If adoption of a new baseline rather than restoration is required, record one bounded Owner-only decision with counts and exact scope, not one request per file. Do not mark C2 complete while any in-scope provenance UNKNOWN remains.
 
-## 4 · Gói B — mỗi GiB có tên, có trần; không đo được = đỏ
-**B1 · fail-closed** trong `storage-watch.py`: gốc không liệt kê được · `du` lỗi/hết giờ · registry hỏng · chuỗi mẫu thủng làm mất mốc 24h dù chuỗi đã dài > 27 h ⇒ `status=red`, lý do `MEASURE_FAIL <đường dẫn/nguyên nhân>`, rc ≠ 0; `taxonomy_ts` không được tiến khi phép đo thiếu.
+## 3. LANE N2a — THREE NAMED CONTROL_DEBT SOURCES
+Deadline from P68/B7: 2026-10-11T01:00Z. Freeze sources and queue states before applying anything. Reuse existing retention/cron/gateway tools only; use `incomex-config-apply-v0` + Config Guard for approved edits. No new service/parallel pipeline. Install only SAFE, reversible controls with tests; require explicit Owner gate for actual irreversible deletion/pruning.
 
-**B2 · sổ phủ cả filesystem `/`.** Taxonomy phải là **partition không chồng lấn trên đúng filesystem của `/`**: không cộng trùng cha/con, không đi xuyên mount khác, không quét `/proc` `/sys` `/dev` `/run`; từng phép đo có timeout và lỗi/timeout phải đi theo B1, không được dùng một `du /` không giới hạn. **Đơn vị vật lý = allocated bytes**; collector đi toàn partition một lần, dedup toàn cục theo `(device,inode)` để hardlink không bị tính hai lần; sparse file dùng block đã cấp, không dùng logical size; nhiều FD giữ cùng deleted-open inode chỉ tính một lần; image/layer dùng chung chỉ thuộc một dòng vật lý. Tổng nhóm chỉ là aggregation để kiểm cap, **không cộng lần hai vào Σ taxonomy**. Fixture bắt buộc: hardlink khác nhóm, sparse file, nhiều FD cùng inode, shared layer.
-Thêm gốc/dòng vào `storage-registry.tsv` để mọi byte thuộc đúng một dòng: tối thiểu `/var/lib/docker` (tách volume theo tên · image/overlay · log container), `/var/lib/containerd`, `/var/lib/incomex*`, `/var/log`, phần còn lại của `/var`, `/home`, `/root`, `/tmp`, `/usr`, phần còn lại của `/opt`, swapfile, và dòng `DELETED_OPEN`. Mỗi lượt taxonomy tính `UNEXPLAINED = df_used − Σ dòng`; phần chênh cố định do metadata filesystem phải có dòng riêng `FS_METADATA/OVERHEAD` với baseline, không được dùng nó che tăng trưởng mới.
-Không dùng một công thức `đo × 1,25` chung để gọi là an toàn. Mỗi dòng dùng `class` hiện hữu và phải rơi vào đúng một **kiểu hành vi**: `STATIC` (mã/cấu hình/image cố định/catch-all; kỳ vọng không tăng), `ROTATING` (log/backup/cache/TTL; bắt buộc chỉ ra **van** đang chạy = cap/TTL/retention/logrotate + tệp cấu hình + lần chạy gần nhất), `BUSINESS` (PG18/Qdrant/Directus data; tăng hợp lệ theo nghiệp vụ nhưng bắt buộc owner + đường đo tốc độ thực + forecast/capacity alarm; **không áp ngưỡng 128 MiB/ngày chung**), hoặc `EVENT` (cài/build/trial theo CHANGE_EVENT). Dòng không phân loại được ⇒ `UNKNOWN_CLASS`, đỏ. Dòng `ROTATING` không chứng minh van đang hiệu lực ⇒ `UNVALVED`, đỏ. **Luật chung cho mọi EVENT group có cap:** CHANGE_EVENT phải khai `declared_max_delta`; PRE tính `current_group_bytes + declared_max_delta ≤ cap_bytes`, vượt/không khai ⇒ từ chối **trước khi ghi byte**. Graph trial là dòng đầu tiên: `cap_bytes=10_000_000_000`, owner `GS`, S1a hiện **7,92 GB (79%)**. R7 không xoá/đặt retention Graph; nếu cần thêm chỗ thì scope GS tự quyết.
+A. `/opt/incomex/data/workspace-tools/transactions`
+- Baseline 916 backup_id directories/358 MB/+62 MB per 24h, candidate complete >14d (~198 dirs, 76 MB).
+- Keep every backup referenced by prepared/push_unknown/rollback_conflict/unknown, queued/running work, operation_id/idempotency/recovery state.
+- Prove state via canonical queue DB and recovery records; do not infer completion from directory age. Implement existing-route retention candidate selection + dry-run list/reason + reversible move-to-archive only where native consumer guarantees no references and original restoration is tested. Do not delete any contents until Owner permission.
 
-Ba nguồn S1a đã gọi tên nhưng chưa có van: `workspace-tools/transactions` (~0,32 GiB stock), `/var/lib/incomex-mcp-helper` queue (~0,09 GiB), `/opt/incomex/mcp-roots` (~0,05 GiB). R7 đăng ký thành **CONTROL_DEBT có hạn**: `first_seen=KQ_R7`, `due=KQ_R7+3d`, reference aggregate rate từ S1a = **0,28 GiB/day**; nếu R7 tính được rate từng source từ history hiện hữu thì lưu thêm rate đó. Trong hạn debt **không page realtime**; thành `FAULT_NOW` nếu aggregate 24h của ba nguồn > **0,56 GiB/day (=2× reference)** hoặc source có rate riêng vượt **2× registered_rate**, hoặc debt quá hạn. `UNVALVED_GROWING` chỉ dành cho nguồn tăng chưa được đăng ký debt. Debt vẫn chặn FINAL CLOSE. **Không tự đặt/xoá TTL trong R7**; N2a chỉ mutation sau checkpoint semantics. Candidate lịch sử cho completed workspace transactions là 14 ngày nhưng phải bảo vệ `prepared/push_unknown/rollback_conflict` + audit/idempotency metadata.
+B. `/var/lib/incomex-mcp-helper`
+- Baseline queue/out+done+p02 (~+105 MB/24h), candidate >7d (~96 MB).
+- Preserve queue/in, running/pending/error, current P02 statuses/alerts and latest known-good.
+- Implement existing-route 7d classification+dry-run, with reversible/archive-only operations if consumer references and rollback are independently verified. No hard delete.
 
-**B3 · chuông tự gọi tên.** Khi SLOPE24/SLOPE7D/UNEXPLAINED/CAP kích hoạt: dùng **hai snapshot taxonomy + df cùng cặp mốc của chính cửa sổ** (24h hoặc 7d), cùng filesystem device và cùng `registry_version/partition_version`; không được lấy taxonomy 48h để miễn SLOPE24. Cho phép lệch mốc tối đa ±1 giờ; thiếu baseline tương ứng/khác version/không so được ⇒ giữ đỏ. Đưa 3 dòng tăng nhiều nhất (tên ngắn +GiB) vào lý do gửi #11 (≤ 180 ký tự). Fixture bắt buộc: tăng cũ ngoài 24h không được dùng để miễn; SLOPE7D thiếu baseline phải đỏ.
+C. `/opt/incomex/mcp-roots/gh`
+- Baseline 179 MB, 4256 loose objects 126 MiB, refs/recovery and P02 refs must survive.
+- Run `git fsck`, refs/reflog/recovery inventory and `git gc --dry-run`/equivalent provenance checks without mutating history. Do not run destructive `git gc --prune` absent explicit Owner approval. Existing GC schedule candidate = 2-week prune, not yet authority to apply.
 
-**B4 · realtime lỗi thật, debt không giả thành outage.** SLOPE chỉ được miễn khi cùng cửa sổ B3 và ≥90% phần giảm quy về nguồn VERIFIED còn trong envelope/event cap. BUSINESS `LEARNING` **không được dùng để miễn SLOPE**, nhưng bản thân `LEARNING` khi chưa có tăng bất thường là `EVIDENCE_DEBT`, không làm #11 realtime đỏ. Tương tự nguồn có tên nhưng chưa control mà chưa chứng minh đang tăng = `CONTROL_DEBT`.
-`FAULT_NOW` của #11 gồm: SLOPE thật chưa giải thích bằng nguồn VERIFIED · MEASURE_FAIL · OVER_CAP · EVENT_UNDECLARED · UNKNOWN_CLASS tăng · `UNVALVED_GROWING` chưa đăng ký · **registered CONTROL_DEBT vượt 2× rate hoặc quá hạn**. FAULT_NOW giữ đỏ tới khi điều kiện hết/sửa thật; không tự xanh chỉ vì cửa sổ trượt qua bậc cũ. Debt trong hạn chặn FINAL CLOSE và được 08:00 nhắc nhưng không page.
+For each lane report before/after bytes, actual daily growth, live control state vs DRY_RUN_ONLY, expected steady-state *as estimate*, rollback proof. Moving data within same filesystem does NOT count as reclaiming disk; refuse false "sealed leak" PASS. A source remains CONTROL_DEBT until a live bounded control is both authorized and observed; do not hide overdue flags.
 
-**B5 · bản tin 08:00** (vẫn ≤3 dòng): `💽 trống X GiB · 24h −Y · fault F · debt E · lớn nhất <tên> +Z` và phần bảo vệ ghi `debt quá hạn O`. Realtime Telegram không spam debt.
+## 4. ALERT TRUTH / RESIDUALS
+- SLOPE7D possible false-looking red 12–13 Oct from Graph one-off event and missing comparable 7-day taxonomy baseline: **NO blanket waiver or threshold lowering**. Preserve RED/UNKNOWN according to current B3; annotate baseline gap and identify historical one-off if source proof exists. No repetitive duplicate pager changes in this RUN.
+- NOISE_GUARD measured idle 12 KiB vs busy-time -66 MB: remeasure independent live samples without overlapping own fixtures, do not silently relax threshold; report anomaly.
+- #19 is push monitor, not HTTP; do not apply unsafe R7 recipe. Keep exact D6.
+- Swap full 2GiB, Chrome-headless OOM and Directus 503: record current pressure + provenance, no speculative core changes or restart.
+- O-R7-KEY remains Owner-only separate security decision, not a blocker for this read-only/safe maintenance scope.
 
-**B6 · “tăng lạ” = vượt hành vi cho phép của TỪNG dòng, không phải chỉ byte vô danh.** Trước khi chốt ngưỡng, đo **nhiễu phép đo** bằng 3 taxonomy snapshot liên tiếp trong lúc không có mutation chủ động; `MEASURE_NOISE = max(UNEXPLAINED) − min(UNEXPLAINED)`, `NOISE_GUARD = 3 × MEASURE_NOISE`. `NOISE_GUARD > 64 MiB` ⇒ phép đo quá nhiễu, B chưa đạt và Host phải xem lại; **64 MiB là trần chất lượng phép đo, không phải quota cho phép rò**. Envelope theo kiểu: `STATIC` = Δ kỳ vọng 0 (chỉ miễn phần nằm trong NOISE_GUARD toàn filesystem); `ROTATING` = current size + dao động phải nằm trong van cấu hình thật và chu kỳ giữ; `EVENT` = đúng CHANGE_EVENT + cap + hạn.
+## 5. STEP_WALK (DROOT48)
+| Phase | Who | Trigger | Evidence | Fail response | Next |
+|---|---|---|---|---|---|
+| S0 read/PRE/concurrency/resources | Claude Code | exact READY+RUN | gate, PRE snapshots | KQ DỪNG clean | C2 |
+| C2 source reconciliation | Claude Code | S0 PASS | per-row 558 ledger, group proof | keep UNKNOWN, continue independent N2a | N2a |
+| N2a transaction retention | Claude Code | C2 evidence frozen | referential proof, dry-run/rollback | isolate this source, continue | helper |
+| N2a helper retention | Claude Code | transaction checked | in/out/done/p02 proof | isolate this source, continue | gh |
+| N2a gh object retention | Claude Code | helper checked | fsck/refs/prune dry-run | isolate source, continue | POST |
+| POST-PROTECT | Claude Code | lanes finished | PRE/POST, exact changes, Guard, Kuma, Telegram | rollback only changed footprint, KQ DỪNG | KQ |
 
-`BUSINESS` có state machine riêng: `VERIFIED` cần proof artifact có owner · measurement source · driver/model · **≥7 mẫu ngày hợp lệ trải ≥6 ngày** · cách tính growth/forecast · forecast horizon · capacity alarm/control · evidence version/hash. Dùng lịch sử sẵn có trước khi tạo debt: S1a đã có PG dump 180 đêm/181 ngày và Qdrant 157 mẫu/156 ngày ⇒ R7 phải thử lập envelope từ các proxy này; không được gọi LEARNING nếu proof đủ. Directus uploads stock hiện tại (73 file, ~17 MiB) gắn sự kiện CWEB đã biết; phần tăng mới về sau mới đi BUSINESS.
-Thiếu proof/mẫu ⇒ `EVIDENCE_DEBT(first_seen, due=first_seen+8d)`: VERIFY-OR-RED nghĩa là **không được dùng debt làm bằng chứng PASS/CLOSE hoặc miễn SLOPE**, không phải biến debt ngay thành outage. Watcher tự gom mẫu; debt quá 8 ngày ⇒ `DEBT_OVERDUE` realtime đỏ. BUSINESS VERIFIED vượt envelope/acceleration ⇒ FAULT_NOW.
+No WAIT/HOLD, no sleeping for future samples or deadlines, no terminal reuse. After scoped work record KQ XONG only when promised evidence/authorized controls within this bounded RUN are satisfied; otherwise KQ DỪNG with individually preserved PASS work and one actionable next action. Final VPSC task cannot close until control debt and C2 evidence gaps resolved + independent 24h clean machine proof.
 
-`TĂNG_LẠ = Σ phần vượt envelope VERIFIED + ΔUNEXPLAINED dương ngoài NOISE_GUARD`. `UNKNOWN_CLASS` tăng/OVER_CAP/MEASURE_FAIL ⇒ FAULT_NOW; `EVIDENCE_DEBT/CONTROL_DEBT` ⇒ không page nhưng FINAL CLOSE chưa đạt.
-
-Tăng do cài/build/trial **phải khai trước** bằng `CHANGE_EVENT` trong sổ hiện hữu: `run_id · owner · start_ts · declared categories/paths · cap_bytes · retention/TTL hoặc lý do giữ`; POST ghi actual delta và PASS/OVER_CAP. Artifact mới >128 MiB không có CHANGE_EVENT/registry trước khi ghi ⇒ `EVENT_UNDECLARED`, đỏ; không được hợp thức hoá sau bằng cách tăng trần.
-
-**B7 · dùng S1a, không điều tra lại rộng.** Baseline đã gọi tên 99,2%; R7 chỉ xác nhận taxonomy mới vẫn reconcile ≥99% stock/delta hiện thấy và ba source debt đúng tên. Nếu sau collector mới còn `ACTIVE_UNATTRIBUTED` > NOISE_GUARD ⇒ B DỪNG. Nếu đúng S1a: Graph = EVENT có hard-cap preflight; transactions/helper/mcp-roots = `CONTROL_DEBT` và tạo bảng exact cho N2a `source · semantics · item states cần giữ · candidate retention/control · rollback · expected reclaimed/steady-state`. Không xoá trong R7.
-
-Thử (fixture qua `SW_*`, không đụng dữ liệu thật): t1 `STATIC` tăng 0,5 GiB/ngày ⇒ FAULT_NOW · t2 `ROTATING` dưới retention/cap + van live ⇒ không fault · **t3a** nguồn chưa van nhưng đã đăng ký CONTROL_DEBT, trong hạn và không tăng >2× rate ⇒ không page, chặn close · **t3b** CONTROL_DEBT vượt 2× rate hoặc quá hạn ⇒ FAULT_NOW · t4 BUSINESS VERIFIED theo envelope ⇒ growth hợp lệ · t5 BUSINESS VERIFIED vượt envelope ⇒ FAULT_NOW · **t6** BUSINESS thiếu envelope đủ mẫu ⇒ EVIDENCE_DEBT, không page/không miễn SLOPE/chặn close · **t6b** debt quá 8 ngày ⇒ DEBT_OVERDUE, page đỏ · **t7** BUSINESS thiếu proof ⇒ không VERIFIED/PASS/close, là debt trong hạn chứ không page · t8 EVENT trong cap + CHANGE_EVENT ⇒ không fault · t9 EVENT vượt cap ⇒ FAULT_NOW · t10 UNEXPLAINED 1,5 GiB ⇒ FAULT_NOW · t11–t14 bốn ca B1 ⇒ FAULT_NOW, rc≠0 · t15 artifact >128 MiB không event ⇒ FAULT_NOW · t16 NOISE_GUARD >64 MiB ⇒ B CHƯA ĐẠT.
-Chạy thật một lượt `daily`: nộp đối soát `df` ↔ Σ dòng + 10 dòng lớn nhất + CHANGE_EVENT + `class/envelope/control/debt/owner`. Sau B, **#11 chỉ phản ánh FAULT_NOW; debt chỉ hiện trong bản tin 08:00 và chặn close**.
-
-## 5 · Gói C — mã có khoá thật (Điều 30/31)
-**C1 · đăng ký ngay** `docker/agent-data-repo/scripts/workspace-exec-worker.py` + unit `incomex-workspace-exec.service` (tệp nguồn và bản cài trong systemd) vào Config Guard. Trước khi đăng ký, đối chiếu hash với bản v2 đã nghiệm thu R6W (BAO-CAO R6W, P47); lệch ⇒ không bless, ghi DỪNG riêng C1.
-
-**C2 · “sổ mã đang chạy”.** Liệt kê tất định mọi tệp mã/cấu hình do Incomex viết mà production thực thi: ExecStart/EnvironmentFile của unit systemd ngoài distro · mọi lệnh trong crontab root và `/etc/cron.d/*` · compose + tệp mount vào container + image ID đang chạy của từng dịch vụ · `dot/bin/*` · `scripts/*` được gọi · cấu hình nginx/logrotate của Incomex. Không gồm thư viện bên thứ ba. Đối chiếu Config Guard ⇒ nộp `N đang chạy · M có khoá · K hở` + danh sách K. **Không được bless chỉ vì đó là hash đang chạy.** Với từng K, chỉ đăng ký khi chứng minh provenance: hash khớp nguồn trong repo/commit hoặc artifact/deploy manifest đã được nghiệm thu; không chứng minh được ⇒ `UNKNOWN/THIẾU`, không đăng ký và KQ không được XONG. K hợp lệ mới đăng ký với lý do “đăng ký lần đầu R7” (được khoá theo cây cho thư mục mã). Thêm một invariant vào Guard theo khung INV sẵn có: tệp thực thi mới ngoài sổ ⇒ đỏ (fail x2) kèm tên; vùng không quét được ⇒ `UNKNOWN`, không tuyên bố đủ.
-
-**C3 · cổng POST-PROTECT trên footprint thật + SAME-OR-BETTER cho mọi RUN mới.** Sửa `mode_pre_post`: với R7, PRE bắt buộc nhận baseline độc lập §2.4; POST lấy footprint thật = mọi đường dẫn thêm/đổi/xoá + mọi thay đổi Kuma field snapshot theo monitor_id. **Từ khi cổng mới được cài, PRE của mọi RUN mới phải tự lưu `PRE_RED_SET = monitor_id · status · reason · since` + pipeline-health snapshot; POST tự so same-or-better:** `NEW_RED` ⇒ FAIL · reason xấu hơn/thêm invariant ở preexisting red ⇒ FAIL · monitor bị pause/tắt/hạ threshold/retry trái baseline ⇒ FAIL · monitoring/Telegram stale/xấu hơn ⇒ FAIL · `PREEXISTING_SAME` ngoài footprint, cùng reason, không xấu hơn ⇒ liệt kê nhưng không fail. RUN đã `STARTED@` trước khi cổng mới tồn tại được legacy-compat theo mốc/ID; READY cũ nhưng chưa STARTED **không được miễn**. R7 không có baseline mới ⇒ FAIL; không fallback legacy để R7 XONG.
-Với TỪNG footprint item, bảng coverage do RUN nộp (`--coverage <tệp>`) phải đủ 4 ô: **Đ31** (đã ở Config Guard với hash mới / config field có snapshot mới) · **Đ30** (proof artifact tồn tại, đọc được, chứa PASS, gắn đúng `run_id` và **hash/version sau thay đổi**; proof cũ khác hash/version ⇒ FAIL) · **watchdog** (đèn/invariant nào canh) · **rollback** (known-good tồn tại + hash hoặc snapshot field cũ). Thiếu một ô ⇒ POST FAIL, in `THIẾU <item>:<ô>`; footprint ≠ rỗng thì `--receipt` bắt buộc; chữ “bảo vệ đủ” chỉ sinh khi bảng đủ. Máy chỉ kiểm ĐỦ LỚP, không tự sinh test.
-**Guard không được tự chứng minh an toàn cho chính bản sửa Guard:** thay đổi vào `mcpw-protection-guard` phải có bằng chứng độc lập ngoài code-path vừa sửa (diff/hash + fixture độc lập), và Reviewer Codex kiểm lại sau RUN; selftest Guard chỉ là một lớp. **CHANGE_EVENT là gate thật, không chỉ ghi sổ:** POST phải đối chiếu footprint/storage delta với event đã tồn tại từ PRE; phát sinh storage thuộc EVENT mà không có khai báo trước, hoặc actual > cap/hạn ⇒ POST FAIL.
-Thử âm: n1 đổi một tệp ngoài bảng ⇒ FAIL · n2 thiếu rollback ⇒ FAIL · n3 bảng đủ + proof đúng hash ⇒ PASS + biên nhận thử · n4 footprint ≠ rỗng không coverage ⇒ FAIL · n5 chỉ đổi Kuma retry ⇒ footprint config xuất hiện · n6 proof artifact mất ⇒ FAIL · n7 proof PASS của hash cũ ⇒ FAIL · n8 đổi A rồi nâng Guard vẫn thấy A ở POST · **n9 PRE xanh → POST có NEW_RED ⇒ FAIL** · **n10 PRE có red X cùng reason, ngoài footprint, POST vẫn X không xấu hơn ⇒ PASS + liệt kê PREEXISTING_SAME** · **n11 monitor bị pause/hạ retry/threshold để lấy xanh ⇒ FAIL**.
-Selftest Guard PASS trước/sau; hai nhịp periodic liền sau khi sửa phản ánh đúng thực tế.
-
-## 6 · Gói D — 502/503: chứng minh nguyên nhân, không đụng lõi
-**D1 · sổ áp lực** (không thêm cron/timer): ghép vào nhịp periodic 5′ của Guard, bọc lỗi riêng để không bao giờ làm Guard đỏ; mỗi nhịp một dòng: PSI cpu/memory/io (`/proc/pressure/*`, gồm `total`) · MemAvailable · swap dùng · với từng container và 5 cgroup ngoài container có RSS lớn nhất: `memory.current`, `memory.swap.current`, `memory.events`, `memory.pressure`, `cpu.stat` (throttled). Tệp vòng ≤ 20 MiB, giữ 14 ngày, có dòng ở storage-registry + Config Guard. Không có PSI ⇒ ghi loadavg + top RSS và nêu rõ.
-
-**D2 · tám lần `Child process died` theo S1a.** Theo cửa sổ 05/10 22:00Z→07/10 10:16Z và thứ tự log, mốc đầu được sửa nhất quán thành **05/10 23:20Z**; tám mốc: 05/10 23:20; 06/10 04:50, 07:24, 08:10, 18:29; 07/10 02:10, 02:22, 03:03 UTC. Lập bảng pid · thời gian thay 13–41 s · request cuối · kernel ±60 s · cgroup `memory.events`/swap. `State.OOMKilled=true` chứng minh ít nhất một OOM trong lifetime, **không được gán cả 8 là OOM**. Phân loại từng lần: `SUPERVISOR_PING_TIMEOUT | CRASH | OOM_KILL | KHÔNG ĐỦ BẰNG CHỨNG`. Không tải thử.
-
-**D3 · Directus 503:** lấy body/headers thật (log A1 mới, hoặc `upstream_status` của nginx) ⇒ xác nhận hay bác “pressure limiter”; đọc tên + giá trị không bí mật của `PRESSURE_LIMITER_*` đang hiệu lực.
-
-**D4 · trình duyệt headless (chỉ đo + đề xuất, không đổi):** tiến trình/unit nào sở hữu cgroup 6 GiB bị OOM 06/10 14:24, 14:26, 15:48 (+07); ai gọi; trần đặt ở đâu; đổi trần có cần restart container lõi không; RSS đỉnh của một phiên chụp/test UI bình thường. Đưa vào phiếu D6 với số Host đề nghị: trần **2 GiB**, tối đa **1 phiên đồng thời** — nêu rõ số này có đủ cho test hiện hữu không.
-
-**D5 · dồn cron:** liệt kê mọi job nổ cùng phút chia hết cho 5 (kèm thời lượng chạy); chỉ đề xuất phương án dàn lệch, không đổi lịch trong lượt này.
-
-**D6 · phiếu N2b chỉ theo evidence** (≤12 dòng: việc · bằng chứng · thay đổi tối thiểu · gián đoạn · rollback). **Không chốt sẵn nâng uvicorn hay tăng RAM.** Chỉ đề xuất version/timeout/resource change nếu D2/D3 chứng minh root cause và giải pháp đó trực tiếp xử lý root cause; `KHÔNG ĐỦ BẰNG CHỨNG` ⇒ không mutation lõi. Key rotation vẫn tách Owner gate O-R7-KEY.
-
-## 7 · POST-PROTECT · SAME-OR-BETTER, KHÔNG ÉP FLEET XANH GIẢ
-PRE ngay trước first mutation phải chụp `PRE_RED_SET = monitor_id · reason · since` + pipeline health. POST chạy cổng mới C3 + `--coverage` footprint thật + receipt Telegram. Bắt buộc: Config Guard CLEAN; protection của mọi item R7 đủ 4 ô; touched monitor/test PASS; Telegram delivery proof có message_id.
-**Kuma fleet gate = same-or-better:** `NEW_RED` ⇒ FAIL; monitor đã đỏ ở PRE nhưng reason xấu hơn/thêm invariant/touched bởi R7 mà chưa hồi ⇒ FAIL; monitoring pipeline/#22/Telegram stale hơn ⇒ FAIL. Một monitor **đã đỏ từ PRE vì cùng lý do thật, ngoài footprint R7, không xấu hơn** được liệt kê `PREEXISTING_SAME` và không tự khóa POST. Không được hạ/tắt monitor để đạt rule này. Nếu C dừng trước cổng mới ⇒ KQ DỪNG C; không dùng cổng cũ hợp thức hóa.
-
-## 8 · KQ và báo cáo
-- `## R7` trong BAO-CAO: bảng A/B/C/D (đạt · chưa đạt · bằng chứng), bảng 22 đèn trước/sau, bảng đối soát ổ đĩa, `N/M/K` sổ mã, bảng **8** lần child died + phân loại, phiếu D6.
-- **Sổ tồn đọng — chỉ ghi, không sửa; mỗi dòng: gì · bằng chứng · chủ:** AD1 p95 348 s > 300 và “lệch phụ p02” thường trực (HJW) · đèn #22 đỏ lặp theo #11 làm một nguyên nhân thành hai cặp tin (HJW) · hai mục “chưa xác định” VPS2 + Directus Flows/PG trong bản tin 08:00 (GPT root) · worker ghi rỗi 481/168 + transactions GC (chủ agent-data) · Nuxt #6 404, presence 502 (chủ đã ghi ở root) · giữ/xoá dữ liệu Graph trial (GS) · khoá dùng chung đã lộ (N2, chờ Owner).
-- Ghi một dòng, cùng lượt cập nhật Bảng: `KQ@VPSC-R7-TRUTH-20261007-01 XONG · A=… · B=… · C=… · D=…` hoặc `KQ@VPSC-R7-TRUTH-20261007-01 DỪNG · <gói> · <lý do chính xác> · đã giữ: <gói PASS>`. **KQ XONG của RUN chỉ nghĩa là R7 thi hành đạt, KHÔNG đồng nghĩa VPSC đã đóng.**
-- **FINAL_CLOSE_GATE:** dùng bản tin 08:00 hiện hữu, không dựng receipt mới. `stable_since` = mutation storage cuối. Cửa sổ 24h sạch khi `FAULT_NOW storage = 0` · `CONTROL_DEBT=0` · `EVIDENCE_DEBT=0` · không cap/TTL/CHANGE_EVENT breach · #11 đo được/fail-closed · #22 pipeline healthy. Debt không gây spam realtime nhưng **vẫn chặn close**. Sau close watcher 7d tiếp tục; đỏ ⇒ mở vòng mới.
-- Trả Owner đúng một dòng XONG/DỪNG cho RUN. Nghiệm thu R7 là việc của Codex + Host; **đóng VPSC còn phải qua FINAL_CLOSE_GATE** — agent không tự nghiệm thu/đóng.
+## 6. POST / REPORT
+Use same-or-better independent PRE→POST: no new RED, no secret disclosure, no source mutation unless approved and tracked, Guard coverage rows per changed config, rollback actual, keep #11/#22 semantics. Telegram via existing sender <=3 lines + message_id if runtime mutation occurred. No new watcher/timer. BAO-CAO ## N2a-C2 and task COLLAB must name C2 PROVEN/UNKNOWN/EXCLUDED counts, live controls vs dry-run, remaining debt, swap/PSI/SLOPE status, exact Owner gate (only if genuinely required), and owners.
+KQ@VPSC-N2A-C2-CONTROLS-20261008-01 XONG|DỪNG

@@ -5,15 +5,15 @@
 ### Vòng 4 · mở lại 07/10/2026 — VPS ổn định: chuông nói thật · ổ đĩa có tên có trần · mã có khoá
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07, nói trực tiếp với Claude Chat:** “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.”
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 09:22 +07 · Claude Code CLI (Worker) · P68
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 09:58 +07 · GPT Chat (Host) · P69 — R7 ACCEPT các gói đạt, C2 chưa đạt; mở N2a+C2 bounded review, 0 RUN active
 - 🎯 **Mục tiêu Owner:** VPS ổn định lâu dài, ít chuông nhưng đúng; không quay lại dọn ổ mỗi tháng và không để báo giả che lỗi thật.
 - 🏁 **Xong khi:** storage tăng có tên + control + chuông đúng nghĩa; #22 chỉ canh monitoring pipeline; transient một lần không page; debt không giả outage nhưng vẫn chặn close; mã có Đ30/31; 502/503 chỉ sửa lõi khi có root-cause proof.
-- 📍 **Tiến độ:** `✅ thiết kế nền · ✅ S1a · ✅ Claude P63 · ✅ Host READY · ✅ Codex P65 ACCEPT · ✅ Graph R7 KQ · ✅ HJW P212/P213 nhả shared VPS · ■ R7 KQ DỪNG (C2) → Host nghiệm thu · ⬜ provenance 312 tệp · ⬜ N2a/N2b · ⬜ 08:00 sạch → FINAL CLOSE`
-- ✅ **Đã xong:** kế hoạch R7 đã đóng review; `READY@e70606d70c535efc37864efd44eb511d553da3e0` + `CODEX ACCEPT@e70606d70c535efc37864efd44eb511d553da3e0` cùng bản PROMPT. Graph R7 đã có KQ `PASS-WITH-LIMITS`, không còn blocker Graph.
-- ■ **Đang làm:** — · 0 RUN active. R7 đã có KQ DỪNG 08/10 02:2xZ (P68): A/B/C1/C3/D đã giữ, POST v2 PASS, **22/22 đèn xanh**, biên nhận Telegram #152; dừng ở C2 vì 312/558 tệp mã đang chạy chưa chứng minh được provenance.
-- ⬜ **Còn lại:** Host/Codex/Claude nghiệm thu R7 (P68) → provenance 312 tệp mã (D6) → N2a 3 source debt theo bảng B7 (BAO-CAO R7 §7) → N2b chỉ theo evidence/Owner gate → 08:00 sạch → close.
-- ➡ **Kế tiếp:** 🤖 Host GPT + Codex nghiệm thu R7 theo P68 + BAO-CAO `## R7` (≤3 vòng; Claude Chat khi cần khác hãng) → Host chốt đường provenance cho 312 tệp (D6) và lượt N2a trước hạn nợ. `NEXT_TRIGGER=DEBT_DUE 2026-10-11T01:00Z` (#11 tự đỏ nếu 3 nguồn chưa có van) · `NEXT_TRIGGER=SLOPE7D ≈12/10 18:19Z` (dự báo, BAO-CAO R7 §8). 😊 Owner không làm gì.
-- ⛔ R7 giữ hẹp: không xoá Graph, không tự đặt TTL, không nâng Kuma/uvicorn, không restart lõi, không xoay key.
+- 📍 **Tiến độ:** `✅ S1a · ✅ R7 A/B/C1/C3/D + POST/22 đèn · ⛔ R7 C2 chưa đạt · ■ N2a+C2 PROMPT DRAFT/REVIEW · ⬜ N2a kiểm soát 3 nguồn · ⬜ C2 nguồn 312 tệp · ⬜ N2b nếu có chứng cứ · ⬜ máy 24h sạch → FINAL CLOSE`
+- ✅ **Đã xong:** Host chấp nhận bằng chứng P68 của gói A (trừ #19), B classifier 99,88% + cap Graph, C1/C3/INV23, D diagnostic và POST v2: 22/22 đèn xanh, Telegram #152, Config Guard 473/473. Không rerun những gói đã PASS. R7 KQ DỪNG tại C2 vẫn giữ nguyên lịch sử.
+- ■ **Đang làm:** — · 0 RUN active. PROMPT mới `VPSC-N2A-C2-CONTROLS-20261008-01` đang DRAFT; không READY/RUN trước reviewer ACCEPT + shared-VPS PRE. C2 baseline K=314 hở = 312 thiếu provenance + 2 excluded; tuyệt đối không bless live hash.
+- ⬜ **Còn lại:** Reviewer Codex + Claude đọc đúng delta P69/PROMPT trong một lượt → Host READY khi gate xanh → một RUN C2 chứng cứ theo nhóm + N2a 3 control debt trước 11/10 01:00Z → N2b chỉ xử có proof/Owner-only key gate → 24h clean bằng watcher hiện hữu, không giữ terminal, rồi close.
+- ➡ **Kế tiếp:** `NEXT_TRIGGER=REVIEWER_ACCEPT_N2A_C2`. Reviewer chỉ nêu blocker mới thật, không bàn lại A/B/C1/C3/D. Host sau ACCEPT kiểm shared-VPS; nếu xanh READY/RUN một mạch. Owner không bị hỏi kỹ thuật/vận hành.
+- ⛔ Không rerun/rollback R7 đã đạt, không thêm đèn/worker, không restart/rebuild dịch vụ lõi, không mass bless/commit 227 DOT, không xóa/prune ngoài phép Owner, không đổi swap/threshold để lấy xanh. D6 #19 và O-R7-KEY đứng ngoài N2a+C2.
 
 ### 1. Mục tiêu
 Owner 07/10/2026: “Chúng ta vừa làm 1 loạt vấn đề về VPS, Nhưng vấn đề chưa ổn định lắm. Tôi đã giao codex điều tra, và đây là báo cáo của codex. Bạn xem xét báo cáo và hướng dẫn codex hoặc claude code fix giúp tôi. Tốt nhất là xác định để claude code cli sửa và codex tiếp tục giám sát.” Lời Owner giao Codex ngay trước đó: “1 số dịch vụ tôi thấy dow/up quá nhiều và ngoài ra chúng ta đã bịt dò ổ cứng, kiểm tra lại nhiều lần, nhưng mỗi lần kiểm tra xong vẫn phát hiện ra 1 vài lỗi => ổ cứng vẫn đầy nhanh hơn mong đợi.” và “Chúng ta đã có điều 30/31 trong hiến pháp để bảo vệ các mã đã viết, việc này đã được bảo vệ đầy đủ chưa? có gì đang bug cần xử lý không?”
@@ -881,6 +881,13 @@ CODEX ACCEPT@e70606d70c535efc37864efd44eb511d553da3e0
 
 KQ@VPSC-R7-TRUTH-20261007-01 DỪNG · C2 · 312/558 tệp mã đang chạy không chứng minh được provenance (227 DOT nhãn DEL-1I chưa commit, 38 unit systemd, 10 sbin…) ⇒ PROMPT C2 cấm XONG · đã giữ: A (trừ #19→D6) · B (nợ mở đúng thiết kế) · C1 · C3 · INV23 · D · POST v2 PASS 22/22 xanh · biên nhận 152
 - Owner cần quyết: — cho P68 (provenance 312 tệp là việc của Host/chủ DOT theo D6; khoá lộ vẫn O-R7-KEY).
+
+### P69 · GPT Chat · Host · R7 PARTIAL ACCEPT + mở N2a/C2 một lượt có biên
+- **Mục tiêu Owner/D19:** VPS khỏe dài hạn, 0 tăng không có tên/van, chuông đúng, mã có provenance và Đ30/31. R7 KQ DỪNG C2 giữ bất biến; ACCEPT gói A/B/C1/C3/D + POST 22/22, Telegram #152, không rerun. Chưa được ghi FINAL CLOSE.
+- **C2:** 558 code items; 244 có khoá/proof; 314 uncovered = 312 UNKNOWN provenance + 2 excluded có lý do. 227 DOT DEL-1I ≠ HEAD; 12 untracked; 38 systemd, 10 sbin, 5 cron.d, 4 logrotate và nhóm còn lại. Host CHỌN kiểm theo family với per-row proof dựa Git commit/accepted deploy manifest; nhãn/mtime/hash đang chạy không đủ. Chứng minh được mới đăng ký, không mass bless. Không giả định 312 đều thiếu hoặc đều hợp pháp. Owner-only adoption nếu phải tạo baseline mới; báo một quyết định nhóm, không 312 lần.
+- **N2a ưu tiên ngay:** 3 CONTROL_DEBT trước `2026-10-11T01:00Z` = transactions (+62MB/d, completed >14d candidate), helper queue+p02 (+~105MB/d, >7d candidate), mcp-roots/gh loose objects (gc 2-week candidate). Host chọn proof current references + dry-run + reversible changes trên đường hiện hữu; mọi hard-delete/prune không có Owner approval thì tuyệt đối không thực hiện, không tuyên bố đã ngừng tăng khi chỉ move trong cùng partition. Giữ 3 nợ cho tới khi van active có proof.
+- **SLOPE7D:** không chấp nhận waive/hạ ngưỡng vì dự báo đỏ 12–13/10; missing same-window taxonomy baseline vẫn đỏ theo B3, kèm giải thích one-off Graph event nếu có proof. **Swap 2/2GiB:** đo PSI, MemAvailable, si/so, OOM ngay PRE; không swapoff/restart/mở rộng mò. #19 push không đổi do R7 PROMPT nhầm HTTP; O-R7-KEY owner-only tách riêng.
+- **Lệnh mới:** PROMPT `VPSC-N2A-C2-CONTROLS-20261008-01` soạn trong cùng commit P69; 0 RUN active; Reviewer Codex (đúng role) + Claude Chat (khác hãng) đọc duy nhất delta và phản biện các destructive/provenance gates trong **một lượt**, ACCEPT nếu không có blocker thật. Chưa READY/RUN. Khi ACCEPT + NO_CONCURRENT xanh → Host phát READY + một RUN, không treo. 24h sạch do watcher sẵn có, không giữ terminal.
 
 ## Owner cần quyết
 - O-R7-KEY · 07/10 · Cho xoay đồng bộ khoá API dùng chung đã lọt ra đầu ra công cụ của Codex (PROOT01)? **Đề xuất Host: ĐỒNG Ý — làm thành lượt riêng N2 sau khi R7 nghiệm thu.** Không chặn R7.
