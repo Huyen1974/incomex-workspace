@@ -79,7 +79,6 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 <a href="#so-van-de">⑤ Sổ vấn đề</a>
 <a href="#chuyen-nguon">⑥ Chuyển nguồn</a>
 </nav>
-<p class="warn" id="tqt-p10-dang-ghi">⏳ Trang đang được ghi lại theo từng phần (P10) — vài phút nữa đủ ③–⑥.</p>
 </header>
 
 <section id="bang">
@@ -664,7 +663,43 @@ ol,ul{padding-left:22px;margin:6px 0}li{margin:3px 0}
 </dl></div></details>
 </section>
 
-<!--TQT-P10-NEXT-->
+<section id="chuyen-nguon">
+<span id="nguon-quy-trinh"></span><span id="so-nguon"></span>
+<h2><span class="no">⑥</span>Chuyển nguồn · một nơi sửa</h2>
+<p><span class="chip ok">✓ Đã chép đủ · 08/10/2026 11:10</span> <span class="chip wa">⏳ Chưa cắt chuyển</span> · Chép nguyên nội dung; chỉ thêm dấu cách còn thiếu giữa chữ và số, đổi giờ về +07.</p>
+<div class="wrap"><table>
+<thead><tr><th>Nguồn cũ</th><th>Nội dung</th><th>Ở đây</th></tr></thead><tbody>
+<tr><td>Master Tool <code>ML-DEF-023</code> · VPS <code>definition-master-data-v1.js</code> bản <code>93eae888106544e7</code></td><td>9 Tool · 39 bước: câu hỏi, đầu vào/ra, cách làm, phương pháp nền</td><td>✓ <a href="#chi-tiet-tools">②</a></td></tr>
+<tr><td>TOOL-CTCM-001 · pilot</td><td>3 MOT, đường đi, 24 ô, 16 nhánh, độ phủ, xong khi</td><td>✓ <a href="#ap-thu">④</a> · <a href="#xong-chung">③</a></td></tr>
+<tr><td>pilot.issues</td><td>OPEN-01…10 đủ trường + lịch sử</td><td>✓ <a href="#so-van-de">⑤</a></td></tr>
+<tr><td>pilot.runs</td><td>3 lượt chạy, kết quả theo Tool</td><td>✓ <a href="#so-luot-chay">④</a></td></tr>
+<tr><td>TOOL-CTCM-002 · checklist, improvementLoop</td><td>Phiếu 8 câu/MOT · vòng 6 câu</td><td>✓ <a href="#tqt-8-cau">②</a> · <a href="#vong-cai-tien">③</a></td></tr>
+<tr><td>TOOL-CTCM-008 · completionContract, resolutionPolicy, lifecycle</td><td>8 câu đi tới đích · sửa hay ghi sổ · vòng đời</td><td>✓ <a href="#di-toi-dich">③</a> · <a href="#vong-doi">⑤</a></td></tr>
+<tr><td><code>CONFIG_PRINCIPLES</code> · <code>config-master-data-v1.js</code> bản <code>8cdde9db</code></td><td>7 câu Config, bản ghi, phân biệt</td><td>✓ <a href="#tqt-7-cau">② Tool 004</a></td></tr>
+<tr><td>Master Công thức <code>ML-DEF-021</code></td><td>CT-TOOLS-UI · CT-TOOLS-CFG</td><td>✓ <a href="#cong-thuc">③</a></td></tr>
+<tr><td>Trang Tools · CTCM (<code>tools-playbook-v1.html</code>)</td><td>3 MOT, thứ tự AI làm, Tool → DOT</td><td>✓ <a href="#cach-ai-lam">③</a> · <a href="#ap-thu">④</a></td></tr>
+<tr><td>Rules MMIM R46–R48</td><td>Luật dùng Tools khi dựng UI</td><td>✓ chép đọc <a href="#luat-r46">③</a> · nơi sửa vẫn ở Rules</td></tr>
+</tbody></table></div>
+<h3>Nơi đang gọi nguồn cũ · đổi link khi cắt chuyển</h3>
+<ul>
+<li>Thanh “Quy trình - Tools” ở Công thức MMIM: <code>work/mow-mot-moit-mout/ban-duyet.html#formula-process-tools</code> (nạp <code>tools-catalog-v1.js</code>)</li>
+<li>README MMIM, mục “Tools · CTCM”; Rules R46 (liên kết Tools · CTCM)</li>
+<li>VPS: <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/tools-playbook-v1.html" target="_blank" rel="noopener">tools-playbook-v1.html ↗</a> (#issue-register, #tools-run-register) · <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=23" target="_blank" rel="noopener">Master Tool ↗</a></li>
+<li>Phiếu kiểm trang: <code>UI-REVIEW-TOOLS.json</code>, <code>UI-REVIEW-FORMULA-TOOLS.json</code> (phiếu kiểm sản phẩm như <code>UI-REVIEW-MOW001.json</code> ở lại task của UI)</li>
+</ul>
+<h3>Cắt chuyển · 3 bước</h3>
+<ol>
+<li>🤖 <b>Host</b> so nguồn cũ với bản đã chép (<code>93eae888106544e7</code> · <code>8cdde9db</code>); có thay đổi sau 11:10 08/10 thì chép phần đổi trước.</li>
+<li>🤖 <b>Host</b> ghi quyết định: từ giờ X, nơi sửa duy nhất là trang này; báo phiên MOW ghi hồ sơ mới vào <a href="#so-van-de">Sổ ⑤</a>.</li>
+<li>😊 <b>Owner</b> duyệt riêng việc thu khu cũ thành một liên kết về đây (sửa file task khác/VPS, không xóa lịch sử).</li>
+</ol>
+
+<h3 id="gop-y">💬 Góp ý vào đúng chỗ</h3>
+<div class="flow"><span>Mã quy trình</span>→<span>Lớp</span>→<span>Câu hỏi hoặc bước</span>→<span>Tình huống thực tế</span>→<span>Đề nghị sửa</span>→<span>Cách kiểm lại</span></div>
+<p>AI ghi ý kiến trong mục P của task; Host ghi quyết định xử lý và liên kết tới bản sửa. Phát hiện chưa giải quyết phải có hồ sơ trong sổ.</p>
+</section>
+
+<p class="footer">Một đầu mối công việc · mỗi quy trình một nguồn chuẩn · mỗi vấn đề một vòng đời. Mục tiêu, tiêu chí và trạng thái điều hành chỉ ở COLLAB §0 (trang Owner rút tự động); trang này không chép lại.</p>
 </main>
 </body>
 </html>
