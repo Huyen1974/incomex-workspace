@@ -1,46 +1,32 @@
-# PROMPT — GS-R8-AGENT-READONLY-MCP-20261007-11
+# PROMPT — GS-R8R-AGENT-READONLY-MCP-20261008-12
 
 ## 0. STATUS / AUTHORITY
-RUN_ID: GS-R8-AGENT-READONLY-MCP-20261007-11
-Executor_Surface: Claude Code CLI
-Repo_Write_Path: Incomex workspace gateway workspace_* · root workspace
-Runtime surfaces: Owner Mac + VPS1 production
-Status: DRAFT · NO READY · NO RUN
+RUN_ID: GS-R8R-AGENT-READONLY-MCP-20261008-12
+Task: work/graph-server · recovery của R8, KHÔNG mở roadmap/task mới
+Executor_Surface: Claude Code CLI · Owner dán thủ công vào terminal MỚI
+Repo_Write_Path: Incomex MCP full all 2 workspace_* root workspace
+Runtime: Owner Mac + VPS1 production
+Status: DRAFT · CHƯA CÓ REVIEWER ACCEPT SHA MỚI · NO READY · NO RUN
 
-Owner D14 + D16/DROOT49:
-- R8 là trial nhỏ/additive sau production R7; Host + Reviewer tự quyết, không hỏi Owner kỹ thuật.
-- Không đổi mục tiêu, không gửi field mới, không ghi graph.
-- Trước RUN vẫn cần Reviewer ACCEPT đúng SHA + Host READY theo A9.
-- Nếu shared-VPS worker khác đang STARTED thì DỪNG sạch, không poll/chờ.
+Căn cứ: Owner D10/D14/D16/DROOT49; A0/A4/A6/A9; Graph P72 (R8 DỪNG ở E3 vì APOC URL), GPT P73, Claude Reviewer P74 đồng thuận Δ1–Δ7. P74 là ACCEPT HƯỚNG, chưa phải ACCEPT PROMPT hiện tại. Phải có REVIEWER ACCEPT full last-touch commit SHA PROMPT mới rồi Host READY same SHA trước khi Owner dán RUN. PROMPT cũ `GS-R8-AGENT-READONLY-MCP-20261007-11` đã KQ DỪNG, không hồi tố đổi thành PASS.
+Bốn mục tiêu Owner giữ nguyên: Business Graph; Graph×JEV; official JEV skills; Code Graph. R7 production v1 = 3.596 node/6.823 edge, R8 agent read path chưa đạt; sau R8 mới R9 business refresh → R10 JEV SHADOW → R11 code. Không sửa nhiệm vụ HJW/VPSC, không Hermes ASSIGN/schedule.
 
-## 1. MỤC TIÊU DUY NHẤT
-Làm cho agent thật sự ĐỌC được Graph v1 qua Neo4j MCP chính hãng, read-only, không mở HTTP/port mới và không trao secret cho agent.
+## 1. MỤC TIÊU / THAY ĐỔI ĐƯỢC PHÉP — Δ1
+Khắc phục APOC/Cypher gọi URL và write-bypass, sau đó kết nối official Neo4j MCP 1.6.0 cho Claude Code/Codex ĐỌC Graph v1 thật. Vẫn chỉ dùng stdio, không mở HTTP/port mới, không phát secret.
 
-XONG khi:
-- official Neo4j MCP được pin + hash;
-- write path bị chặn thật trên bản sao tạm;
-- 13/13 câu B8 đọc đúng qua MCP trên production;
-- Claude Code + Codex + Hermes có entry path read-only đã thử;
-- có help/README trust rules;
-- POST-PROTECT + Telegram PASS.
+**Một thay đổi cấu hình Neo4j production duy nhất sau khi test TEMP PASS:** Thêm tại environment của đúng service Neo4j trong `/opt/incomex/graph-server/prod-v1/compose.yaml` đúng một dòng:
+`NEO4J_internal_dbms_cypher__ip__blocklist: "0.0.0.0/0,::/0"`
+(tương ứng `internal.dbms.cypher_ip_blocklist=0.0.0.0/0,::/0`), cộng TỐI ĐA một comment “R8R block Cypher/APOC URL; Neo4j upgrade phải kiểm lại URL”. Recreate chỉ service Neo4j một lần có rollback, không đổi image/digest, graph data/schema/roles, network, ports, volume, các service khác. Config Guard cập nhật baseline đúng mục tiêu `graph-v1-compose` theo E8. Không apply allowlist lên production.
 
-Không thuộc R8:
-- refresh dữ liệu;
-- thêm agent-data/Nuxt;
-- JEV runtime;
-- KB/care-chat;
-- broad trial cleanup;
-- sửa Neo4j data/config để cứu test.
+Không thuộc R8R: JEV runtime, R9 data refresh, agent-data/Nuxt, KB/care-chat, broad cleanup, nâng version Neo4j/APOC, đổi quyền database, tự viết Cypher parser/bridge/extra gateway, thay hạ tầng/việc HJW-VPSC. Nếu E3 không chứng minh an toàn thì DỪNG trước production.
 
-## 2. S0 · SHARED-VPS EXECUTION GATE
-Trước mutation:
-- fresh-read root COLLAB + work/hermes-joint-workspace/COLLAB.md + task Graph.
-- Graph R7 phải KQ XONG/P63 accepted.
-- HJW/VPSC/shared-VPS task khác phải không có STARTED mutation hiện hành.
-
-Hiện tại lúc Host soạn PROMPT: HJW N3-2a đang STARTED.
-=> Reviewer được review PROMPT bình thường; executor chỉ RUN khi Host fresh-check gate xanh và đặt READY.
-=> Không giữ terminal chờ; gate đỏ thì KQ DỪNG/HOLD trước mutation.
+## 2. S0 · READ-GATE / SHARED-VPS / CONFIG BASELINE — Δ2
+1. Đọc AGENTS.md → root COLLAB.md → Graph COLLAB (Bảng, P72–P76) → PROMPT hiện hành; đối chiếu Reviewer ACCEPT + Host READY cùng commit last-touch PROMPT và đúng RUN_ID. Ghi STARTED theo A6 trước PRE nếu read-gate PASS, không giả READY, không chờ permission kỹ thuật tự động.
+2. Kiểm tra *tươi* các task HJW/VPSC/Graph + root busy, CLI, lệnh SSH/compose/Guard: **không chạy song song hai mutation shared-VPS**. Nếu phiên HJW P230 chỉ đọc log, không đụng Neo4j/Guard và VPS còn đủ tài nguyên thì có thể làm song song theo phép đo; nếu không chứng minh được hoặc xuất hiện mutation/đèn đỏ liên quan ⇒ DỪNG, không poll/chờ. Cờ P230 là snapshot, không phải giấy miễn kiểm. RAM MemAvailable >=3GiB, disk free >=20GiB, Guard PRE PASS, đo bảng đèn thực tế.
+3. S0(a): đọc đúng Neo4j prod 5.26.31 `neo4j.conf`, `apoc.conf`, compose và effective config; baseline: `unrestricted=apoc.*`, allowlist chưa bị thu hẹp, blocklist chưa có/rỗng. Không khớp ⇒ DỪNG, không tự merge.
+4. S0(b): bounded grep `LOAD CSV|apoc\.load|apoc\.import` trên code chạy của Graph `graph-v1`, INV22, 13 câu B8 và script ingest R7/Cognee; nếu thành phần hiện hành cần URL ⇒ DỪNG trước production (ghi exact file/line). Không tự giả định từ repo không cùng runtime.
+5. S0(c): xác minh dump R7 SHA so manifest, khả năng restore và prod counts/hash/schema/INV22. Giữ nguyên R7 dump (không tạo dump mới nếu đúng), snapshot compose production nguyên byte/SHA và đường rollback.
+6. Đối chiếu cấu hình chính xác Neo4j 5.26.31 trên bản TEMP: setting internal + Docker env mapping đôi underscore, strict validation, không dùng docs/current-image thay bằng chứng runtime. Trước first production mutation re-read A6/READY/STOP/root busy/resource/Guard/config SHA. Bất kỳ chênh lệch hard gate ⇒ KQ DỪNG/đóng CLI, 0 WAIT/HOLD.
 
 ## 3. E1 · OFFICIAL SERVER PIN
 Dùng đúng:
@@ -65,15 +51,18 @@ Install root:
 - wrapper: /opt/incomex/graph-server/mcp-readonly-v1/bin/graph-v1
 - manifest: /opt/incomex/graph-server/mcp-readonly-v1/MANIFEST.json
 
+P72 đã verify wheel/binary SHA, được reuse evidence, nhưng phải verify lại artifact/install thực tế vì P72 đã dọn footprint.
 Download đúng version; verify SHA wheel trước install.
 Install local venv; không package global.
 Lệnh thật phải là `<venv>/bin/neo4j-mcp-server` (fallback identity check: `python -m neo4j_mcp_server`), không dùng tên đời cũ `neo4j-mcp`.
-Trước wrapper, chạy exact binary với cờ help/version mà chính binary hỗ trợ; ghi nguyên văn output và output phải chứa `1.6.0`. Danh tính package quyết định bởi BOTH: wheel SHA256 `f6aeac50e04ed93b7e22c634426aca27f5e91f371ea67caad028afe424704cb0` + installed binary SHA256 `00d4882f412427db064df39492b882781ba1040db82f94ea8cdeedd16db0`.
+Trước wrapper, chạy exact binary với cờ help/version mà chính binary hỗ trợ; ghi nguyên văn output và output phải chứa `1.6.0`. Danh tính package quyết định bởi BOTH: wheel SHA256 `f6aeac50e04ed93b7e22c634426aca27f5e91f371ea67caad028afe424704cb0` + installed binary SHA256 `00d4882f412427db064df39492b882781ba1040db82f94ea8cdeedd16db0dfff`.
 Không dùng neo4j-contrib/mcp-neo4j, canary hay `latest`.
 Ghi provenance đúng mức: PyPI không có build attestation; “official” ở đây dựa trên package/docs Neo4j + release date + source path `github.com/neo4j/mcp`, không nói quá thành supply-chain attested.
 
 ## 4. E2 · STDIO-ONLY WRAPPER / SECRET BOUNDARY
 Không service thường trực, không HTTP, không nginx, không host port mới.
+
+E3 dùng MCP stdio process/harness TEMP trước; không tạo wrapper production cho tới khi E3 PASS.
 
 graph-v1 có đúng:
 - graph-v1 --help
@@ -105,62 +94,46 @@ Nếu list-gds-procedures xuất hiện dù production không có GDS => ghi PAR
 Wrapper root-owned, non-writable by agent users.
 Không in secret ở --help/doctor.
 
-## 5. E3 · PROVE READ-ONLY ON TEMP COPY FIRST
-Trước khi MCP chạm production:
-- dùng dump R7 restore một Neo4j TEMP riêng trong build network bằng **compose file riêng của R8**; tuyệt đối không sửa `/opt/incomex/graph-server/prod-v1/compose.yaml` đang được Guard băm;
-- dùng local Neo4j image đã có, **không pull image mới**;
-- 0 host port;
-- temp Neo4j mem_limit <= 1 GiB và memswap_limit = mem_limit;
-- temp password riêng, không production secret;
-- temporary MCP process/harness cùng isolated build network;
-- remove toàn bộ temp containers/network/volume sau test.
+## 5. E3 · TEMP WRITE/SSRF BLOCKLIST — N1–N4+P, Y TEMP-ONLY (Δ3/Δ4)
+Dùng dump R7 đã verify khôi phục Neo4j TEMP local image/digest/APOC đúng production. Compose TEMP riêng trong build network `internal:true`, DNS/plugin/env tương đương, 0 host port, password TEMP riêng không dùng production, mem_limit <=1GiB, memswap_limit=mem_limit, không pull mới. TEMP compose có chính dòng `NEO4J_internal_dbms_cypher__ip__blocklist: "0.0.0.0/0,::/0"`; effective neo4j.conf đúng `internal.dbms.cypher_ip_blocklist`. Sai setting/server không start ⇒ DỪNG; không dùng allowlist ở nhánh chính.
 
-Qua MCP tool catalogue:
-- write-cypher phải absent.
-Qua read-cypher, thử tối thiểu:
-1. CREATE node
-2. SET property
-3. DELETE node
-4. MERGE
-5. CREATE INDEX/CONSTRAINT
-6. LOAD CSV kèm mutation
-7. admin/password-changing query
-8. APOC write procedure có sẵn
-9. APOC chạy Cypher gián tiếp có ghi: `apoc.cypher.doIt` hoặc `apoc.periodic.iterate` — dùng cái thực sự có trong APOC production
-10. `apoc.load.*` gọi mạng và `apoc.export.*` ghi file — phải bị từ chối hoặc bị cấu hình hiện hữu chặn
-11. Sau password-change attempt: đăng nhập lại bằng **mật khẩu temp cũ** phải vẫn PASS; kiểm trạng thái thật, không chỉ dựa message lỗi
+Test **qua official Neo4j MCP read-cypher** đúng pin; write-cypher phải vắng. Independent state oracle dùng Cypher-shell chỉ PRE/POST. Mọi phép URL negative PASS khi lỗi chỉ rõ `internal.dbms.cypher_ip_blocklist` và không phát GET/POST/egress; lỗi “Network unreachable”, DNS, timeout, HTTP 401/404 **không tính PASS**. Fixture chỉ trong TEMP/local hoặc dải tài liệu, tuyệt đối không gọi IP Internet thật.
 
-Tất cả phải bị từ chối/chặn đúng nghĩa và temp DB state không đổi.
-Trước/sau: node count, edge count, schema fingerprint, sample invariant = exact same.
-Một mutation lọt => E3 FAIL; không trỏ production.
+N1: chạy lại đúng **20 phép P72** (không đổi tiêu chí): 16 phép đã chặn theo cơ chế cũ giữ nguyên, T7b = N/A (Neo4j 5 không còn đổi password kiểu đó, T7a+T11 xác minh); ba phép **T10a GET loopback, T10c URL dạng IP, T10f POST loopback có mật khẩu TEMP** phải chuyển từ mở sang blocklist rejection; 19/19 applicable BLOCKED, 1 N/A, 0 node/user/schema mutation, T11 temp password cũ còn đăng nhập.
 
-Không đổi APOC/Neo4j để làm test PASS.
+N2: Với từng loại URL, thử **cả ba đường** `apoc.load.json` GET, `apoc.load.jsonParams` POST, native `LOAD CSV FROM ... RETURN`:
+- `http://127.0.0.1:7474/`, `http://localhost:7474/`, `http://[::1]:7474/`, `http://[::ffff:127.0.0.1]:7474/`, `http://2130706433:7474/`;
+- `https://127.0.0.1:7473/`, IP riêng thật TEMP, `http://192.0.2.1/`, `http://[2001:db8::1]/`.
+- Kiểm redirect/DNS-variation bằng fixture cô lập khi test được đúng mã hiện hành; route unknown ⇒ DỪNG thay vì bỏ lặng. Network TEMP internal nhưng không coi “unreachable” là bằng chứng blocklist.
 
-## 6. E4 · PRODUCTION READ ACCEPTANCE
-Chỉ sau E3 PASS.
+N3: `apoc.load.json('file:///etc/passwd')` bị file-import guard từ chối; native `LOAD CSV` file traversal không trả nội dung ngoài import directory. Không bật apoc.import.file.enabled/apoc.export.file.enabled.
 
-- freeze production counts + INV22 + source hashes trước MCP query.
-- chạy 13 câu B8 đã đóng băng của R7 qua MCP path mới.
-- 13/13 phải đúng.
-- mỗi câu UNKNOWN vẫn phải UNKNOWN.
-- production counts/hash/invariants trước=sau.
-- INV22 xanh trước/sau.
-- packet capture quanh query phase: 0 outbound ngoài local Neo4j; GSM secret fetch đo tách trước query và ghi expected secret-control traffic.
+N4: Lấy danh mục thật `SHOW PROCEDURES YIELD name, mode WHERE name STARTS WITH 'apoc.'`; nhóm READ/DEFAULT có khả năng tạo giao dịch/tiến trình/url (`cypher.*`, `periodic.*`, `trigger.*`, `systemdb.*`, `bolt.*`, `load.*`, `import.*`, `log.*`) phải được thử bằng negative fixture một procedure một case trong TEMP (ít nhất `apoc.cypher.runTimeboxed` ghi R8Probe nếu hiện diện). Không cài: N/A có receipt; không thử an toàn được: UNKNOWN/DỪNG; không được suy cả nhóm an toàn từ một ca.
 
-Không dùng direct cypher-shell để chấm thay MCP; direct query chỉ independent before/after invariant.
+P — positive trên TEMP: `get-schema`, B8 13/13 qua **MCP**, 1 read query, HTTP 7474 inbound 200, Bolt login, APOC meta dùng cho schema. Counts/edge hash/gs_key/schema/user list trước=sau, R8Probe=0, egress 0. Lưu toàn bộ matrix N1–N4+P + lỗi đúng tên setting; không được ghi PASS từ docs/JEV.
+
+**Nhánh Y chỉ trên TEMP:** nếu phát hiện đường ghi không qua URL sau N1–N4, được thử allowlist `dbms.security.procedures.allowlist` thu hẹp từ catalogue + APOC/Cognee actual usage, replay N/P; dù PASS vẫn **KQ DỪNG cùng exact Y** để Host/Claude duyệt prompt khác. Không bao giờ apply Y production trong RUN này. Nếu A còn URL mở, không dùng allowlist để che native LOAD CSV. Sau FAIL/UNKNOWN/Y: teardown TEMP, production không đổi.
+
+## 6. E4 · NARROW PRODUCTION CONFIG / READ ACCEPTANCE — Δ5
+Chỉ sau E3 A-only N1–N4+P PASS, fresh A6/no-concurrent/Guard/resources xanh.
+1. Backup nguyên byte+SHA compose production vào evidence; diff thật **chỉ** một env line `NEO4J_internal_dbms_cypher__ip__blocklist: "0.0.0.0/0,::/0"` (+ tối đa một comment) dưới đúng Neo4j service. Một thay đổi bất ngờ về image/ports/volume/env khác/network ⇒ DỪNG trước mutation.
+2. Recreate **riêng** Neo4j service đúng compose hiện hành, không down stack, không pull, đo outage và health timeout **180s**; vượt/failed ⇒ tự rollback.
+3. Kiểm effective config đúng `internal.dbms.cypher_ip_blocklist=0.0.0.0/0,::/0`; HTTP 17474 inbound/Bolt/INV22/Guard/Graph 3.596/6.823, SHA/invariants/users/dump restore path giữ nguyên. Ba harmless probes production KHÔNG POST, KHÔNG gửi secret/traffic: `apoc.load.json` URL loopback, native LOAD CSV URL `192.0.2.1`, `apoc.load.json` URL private gateway thật; tất cả báo **tên blocklist** trước kết nối. Bất kỳ fail ⇒ rollback.
+4. Sau probes mới materialize wrapper production §4; chạy B8 **13/13 qua MCP thật production**, UNKNOWN vẫn UNKNOWN. Không chấm bằng direct shell thay MCP. Packet capture quanh query phase 0 outbound ngoài Neo4j local; GSM fetch đo riêng trước phase, không log secret. Prod counts/edges/schema/user/source SHA/INV22 trước=sau.
+5. Rollback nếu bất kỳ critical stage production fail: phục hồi **nguyên byte compose/SHA cũ**, recreate chỉ Neo4j, chứng minh effective config cũ+counts/hash/INV22/Guard/HTTP/Bolt, gỡ chính entries/client MCP run này tạo, KQ DỪNG. Không vá để “cứu”, không giữ Graph ở trạng thái nửa thay đổi. Rollback cũng fail ⇒ đèn đỏ/Telegram và KQ DỪNG, không nói XONG.
 
 ## 7. E5 · QUERY COST BOUNDARY
 Pinned official 1.6.0:
 - chỉ dùng timeout/row/token controls nếu exact runtime --help/config/docs xác nhận.
 - Host precheck chưa thấy timeout/token-limit native trong official 1.6.0 => nếu runtime cũng không thấy, ghi NATIVE_QUERY_LIMIT=UNKNOWN/NOT_EXPOSED.
-- không sửa Neo4j server config trong R8.
+- Không đổi Neo4j query timeout/token/row; **ngoại lệ duy nhất** server config ở E4 là one-line Cypher URL blocklist đã qua TEMP.
 - không tự dựng Cypher parser/filter.
 - `graph-v1 --help` + mục `## Cổng đọc Graph cho agent` trong COLLAB khuyên query có LIMIT và tránh Cartesian/unbounded traversal.
 
 E5 UNKNOWN không chặn R8 nếu E3/E4 PASS; phải ghi residual.
 
 ## 8. E6 · AGENT SIGNPOST / TRUST CONTRACT
-KHÔNG tạo README/file repo mới.
+KHÔNG tạo README/file repo mới. Signpost mô tả mức chứng minh URL blocklist chỉ trong phạm vi N1–N4/P, không quảng cáo an toàn tuyệt đối.
 
 graph-v1 --help và một mục ngắn `## Cổng đọc Graph cho agent` trong `work/graph-server/COLLAB.md` (đặt trước `## Con trỏ`) phải nói:
 - cách gọi;
@@ -210,7 +183,7 @@ Fresh Codex process:
 Không đổi plugin/JEV config khác.
 
 ### Hermes trên VPS
-Chỉ thực hiện khi HJW không còn STARTED và config hiện hành xác nhận hỗ trợ mcp_servers stdio.
+Chỉ best-effort nếu HJW không mutation xung đột và Hermes hỗ trợ mcp_servers stdio thật; không phát Hermes ASSIGN, không đổi công tắc MANUAL.
 Đọc local Hermes version/help/config schema trước edit.
 Server id graph-v1, command local:
   /opt/incomex/graph-server/mcp-readonly-v1/bin/graph-v1 mcp
@@ -229,82 +202,40 @@ Fresh Hermes invocation:
 
 Nếu Hermes current version không hỗ trợ stdio MCP theo schema thật => ghi `HERMES_ENTRY=NOT_INSTALLED` + exact blocker và chuyển residual sang HJW; không invent config. **Hermes không chặn R8 XONG** nếu Claude Code + Codex + E1–E6/E8 PASS và production graph không đổi.
 
-## 10. E8 · POST-PROTECT / ROLLBACK
-Trước KQ XONG/PARTIAL:
+## 10. E8 · POST-PROTECT / ROLLBACK / TELEGRAM — Δ6
+Ghi expected deltas TRƯỚC production: (1) `graph-v1-compose` SHA thay vì đúng env line + optional comment, Config Guard rebaseline **chỉ** target này theo DROOT29; (2) container identity `ctr.incomex-graph-neo4j` thay do recreate nhưng image digest, volume, graph data, ports không đổi. Không tắt/bypass Guard để đạt.
+Bảo vệ wrapper/MANIFEST/binary/secret boundary và exact client entries Claude/Codex (Hermes optional), Mac config backup/diff/SHA trong evidence; **KHÔNG đưa COLLAB.md hoặc bản sao vào Config Guard** (Git đã giữ provenance).
+Sau E4–E7: Config Guard + INV22 + production graph counts/hash + bảng đèn live/Telegram xanh. Nếu cảnh báo đỏ, ghi nguồn/chủ và hard gate Graph không PASS. Không public port, không in/ghi secret. Rollback proof trên TEMP và script rollback production nếu cần; bất kỳ E7/E8 critical FAIL sau prod change ⇒ E4 rollback compose/Neo4j ngay + gỡ scoped graph-v1 client entries/privilege/install tree có marker, KQ DỪNG. Không cleanup rộng trial.
+Telegram receipt <=3 dòng, delivery proof, downtime thực tế, expected Guard delta, rebaseline đúng `graph-v1-compose` và container identity; comment nhắc test URL lại mỗi lần nâng Neo4j/APOC.
 
-Footprint:
-- mcp-readonly-v1 install tree;
-- graph-v1 wrapper;
-- mục `## Cổng đọc Graph cho agent` trong COLLAB.md;
-- Claude MCP user-scope entry graph-v1;
-- Codex MCP entry graph-v1;
-- Hermes graph-v1 entry nếu active;
-- exact narrow privilege entry nếu cần.
+## 11. STEP_WALK_V1 · CHECKPOINTS / NO-WAIT
+PRE MemAvailable>=3GiB, disk>=20GiB; TEMP mem/swap cap<=1GiB, image local. Các checkpoint đo rồi chuyển ngay; không terminal/schedule chờ gate chuyển xanh.
 
-AUTO-PROTECT:
-- Config Guard/hash cho wrapper + MANIFEST + COLLAB signpost + config snippets;
-- production INV22 vẫn xanh;
-- graph counts unchanged;
-- no public listener;
-- rollback proof.
+| Bước | Ai | Trigger/SLA | Evidence | Failure detection & next |
+|---|---|---|---|---|
+| S0 | Claude Code | RUN Host, read-gate trước STARTED/first mutation | SHA ACCEPT+READY, root active, Guard, RAM/disk, config, dump SHA, code URL usage | fail ghi KQ DỪNG ngay; nếu PASS→E1 |
+| E1 | Claude Code | S0 PASS, verify trước install | full wheel/binary SHA/version/pin | mismatched→DỪNG; PASS→E2 |
+| E2 | Claude Code | E1 PASS, trước E3 | TEMP MCP catalogue/read-only + GSM boundary | mismatch→DỪNG; PASS→E3 |
+| E3 | Claude Code | E2 PASS, mỗi test bounded | N1 20, N2/N3/N4/P, correct blocklist errors, packet/DB PRE=POST | fail/Y→DỪNG trước prod; PASS→E4 |
+| E4A | Claude Code | E3 PASS, Guard fresh; Neo4j health <=180s | exact compose diff+SHA, status, effective setting, rollback | mismatch/fail tự rollback→DỪNG; PASS→E4B |
+| E4B | Claude Code | E4A PASS, probes trước MCP | 3 prod harmless URL denials, 13/13 B8 via MCP, counts/invariants | fail rollback→DỪNG; PASS→E5 |
+| E5/E6 | Claude Code | E4B PASS | cost-bound residual + trust signpost COLLAB | fail Graph hard gate→rollback; else→E7 |
+| E7 | Claude Code | E6 PASS | Claude+Codex real schema/read; Hermes optional | critical FAIL→rollback; PASS→E8 |
+| E8 | Claude Code | E7 PASS | Guard expected deltas, rollback, Telegram, alarms | KQ XONG|DỪNG+gỡ busy, đóng CLI |
 
-Rollback:
-- remove MCP client entries graph-v1 only;
-- remove narrow Hermes privilege/config entry only;
-- remove /opt/incomex/graph-server/mcp-readonly-v1 only if RUN marker matches;
-- production Neo4j untouched.
+Host+Reviewer nghiệm thu bằng evidence thực, không thay runtime proof bằng JEV. Nếu KQ DỪNG: một NEXT_TRIGGER, không WAIT/HOLD, không sleep/poll, không giữ terminal.
 
-Telegram receipt <=3 dòng + delivery proof.
-Không broad-clean trial data.
+## 12. ACCEPTANCE / CLAIM BOUNDARY — Δ7
+R8R XONG chỉ khi E1–E8 hoàn tất: official 1.6.0 pin/hash PASS; TEMP **19/19 applicable original P72 tests** blocked + T7b N/A; N2 URL tất cả bị chặn bởi named blocklist, N3 file guard, N4 catalogue negative, P temp B8 13/13 + HTTP/Bolt + invariants; production đúng one-line config, healthy restart <=180s, 3 harmless URL probes denied, B8 13/13 **MCP production** and UNKNOWN preserved, prod data/users/hash/INV22 unchanged; Claude Code+Codex real read, Guard expected deltas/rebaseline, rollback evidence, 22/22 live alerts if green, Telegram proof. E5 native query limit UNKNOWN documented residual allowed; Hermes version blocked best-effort `HERMES_ENTRY=NOT_INSTALLED` allowed with evidence, not an R8 FAIL.
 
-## 11. STEP_WALK
-PRE resource gate trước mutation: MemAvailable >= 3 GiB; disk free >= 20 GiB. Không đạt => DỪNG sạch. Temp Neo4j E3 <=1 GiB, memswap=mem; không pull image mới.
-
-| Bước | Ai | Trigger | Bằng chứng | Hỏng thì ai biết | Kế |
-|---|---|---|---|---|---|
-| S0 shared-VPS + resource gate | Agent | STARTED/read-gate | HJW/VPSC terminal + RAM/disk | Host qua KQ DỪNG | E1 |
-| E1 pin/install | Agent | S0 PASS | wheel/binary hash + version output | Host | E2 |
-| E2 wrapper | Agent | E1 PASS | help/env/tool catalogue + secret scan | Host | E3 |
-| E3 temp write-negative | Agent | E2 PASS | 11-case matrix + state PRE=POST | Host | E4 |
-| E4 production reads | Agent | E3 PASS | 13/13 + INV22/count/hash PRE=POST | Host | E5 |
-| E5 cost boundary | Agent | E4 PASS | native capability status | Host | E6 |
-| E6 signpost | Agent | E5 | graph-v1 --help + COLLAB section | Host | E7 |
-| E7 clients | Agent | E6 | Claude/Codex/Hermes receipts | Host/HJW | E8 |
-| E8 POST-PROTECT | Agent | E7 | Guard/rollback/Telegram | Owner+Host | KQ |
-
-No polling/waiting. Gate đỏ => DỪNG sạch.
-
-## 12. ACCEPTANCE
-R8 XONG chỉ khi:
-- E1-E4 PASS;
-- E6 PASS;
-- Claude Code + Codex PASS;
-- E8 PASS;
-- production graph unchanged.
-
-Hermes PASS là mục tiêu phụ của E7. Nếu capability/version thật của Hermes block, ghi `HERMES_ENTRY=NOT_INSTALLED` + residual sang HJW; R8 vẫn XONG nếu các gate bắt buộc trên PASS.
-E5 UNKNOWN/NOT_EXPOSED được phép là residual.
-
-KQ ghi:
-- official version/artifact/SHA;
-- tools list;
-- write-negative matrix;
-- 13/13 answers;
-- before/after invariants;
-- client config hashes/diffs;
-- secret non-disclosure scan;
-- POST-PROTECT + Telegram;
-- NATIVE_QUERY_LIMIT status;
-- remaining limitations.
+Hard security N1–N4/P unknown/fail, unexpected config diff, production/Guard/client critical fail ⇒ rollback/DỪNG. Do not claim PASS from code/doc/JEV alone. Sau XONG chỉ nói “đã chặn các đường ghi và gọi URL đã biết trong phạm vi thử bản TEMP + production; Agent Claude/Codex đã đọc đúng 13/13 B8 qua MCP”. KHÔNG nói “an toàn tuyệt đối”, “agent đã có toàn bộ KB/customer chat”, “JEV active runtime”, “đã phủ agent-data/Nuxt” hay “Hermes PASS” nếu chưa đo.
 
 ## 13. KQ
-Evidence:
-/opt/incomex/work/graph-server/evidence/GS-R8-AGENT-READONLY-MCP-20261007-11/
+Evidence runtime:
+/opt/incomex/work/graph-server/evidence/GS-R8R-AGENT-READONLY-MCP-20261008-12/
+Giữ nguyên evidence và KQ lịch sử của RUN cũ P72.
+Repo: Agent cập nhật Bảng/KQ/COLLAB đúng việc theo A4; E6 chỉ cập nhật mục `## Cổng đọc Graph cho agent` trước `## Con trỏ`, không tạo file repo khác. Ghi STARTED và KQ cùng cờ root theo A6; không sửa PROMPT/view khi RUN active. Không ghi secret/PII.
+KQ phải gồm: S0 source snapshot, pin hashes, N1–N4/P matrix + URL errors, TEMP/prod B8 13/13, config diff/restore proof, production counts/hash/INV22, agent tool/read receipts, Guard/đèn/Telegram, residual/next trigger. DỪNG thì gỡ busy/đóng CLI, không schedule.
+Final A9:
+KQ@GS-R8R-AGENT-READONLY-MCP-20261008-12 XONG|DỪNG
 
-Repo:
-- Agent cập nhật Bảng/KQ/COLLAB theo A4;
-- E6 chỉ thêm/cập nhật mục `## Cổng đọc Graph cho agent` trong COLLAB.md; không tạo file mới;
-- không sửa PROMPT/view khi RUN active.
-
-Final chỉ dùng trạng thái A9:
-KQ@GS-R8-AGENT-READONLY-MCP-20261007-11 XONG|DỪNG
