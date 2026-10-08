@@ -181,6 +181,18 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **Q01 — ĐÃ CHỐT 08/10/2026 09:19 +07:** Owner trực tiếp chỉ định GPT Chat làm Host (D06). Không có câu hỏi Owner còn mở trong phạm vi lượt tiếp nhận tài liệu này.
 
 ## Ý kiến và bằng chứng
+### P09 · Áp Tools repo để rà MOW-NHC-001 màn 2; bổ sung hướng dẫn còn thiếu · OPEN
+Ghế: Codex · Bước/vòng: Áp thử theo yêu cầu trực tiếp Owner · 0/5 (không thay Host, không nghiệm thu toàn bộ)
+- Owner yêu cầu tại chat tiếp nối: đọc quy trình trên repo để rà UI màn 2; đọc là làm được, làm chưa được bổ sung quy trình.
+- Based_on: repo `3a4fb961f647a4a0bfea66ec3b16bed2e9091bca`; view `1f937281a6a2ffe8f6b46c6307b80b26b10347f8c0973326594da81b6eb116ee`; nguồn Master Tool `844f47b1bb5f216a380cfb27fef0cdb24f7b99e4d0a2062e2e1d9aa078d2bcaa`.
+- Scope: hướng dẫn thực hành trong view chính, README, TQT-ISS-003; phiếu UI/README MOW và cập nhật lượt/sổ gốc. Giữ ô 1–2; không sửa runtime UI, nối backend, thêm canonical UI, chuyển SSOT hay thu/xóa Công thức.
+- Vướng từ repo: Tool002 thiếu bộ 8 câu cụ thể; Tool004 thiếu bộ 7 câu Config; Tool007/008 thiếu khuôn ca, đường ghi kết quả và cách xử lý chưa có nơi lưu. Bổ sung tại `view.html#ra-ui`, câu gốc đọc nhập có nguồn riêng, không tự chốt nghiệp vụ.
+- Đã thực hiện: mở UI từ trạng thái trống; 11 quan sát màn làm việc (rỗng, tìm, thử lại, Enter, giữ dữ liệu/quay lại/xóa, mô tả, xác nhận thiếu Field) và 7 quan sát minh hoạ (lọc/rỗng, bỏ lọc, 3 Field MOIT, JEV trống, chọn/xác nhận). Phiếu hiện có giữ từng ca, 8 câu trả lời, khoảng trống Config và phạm vi còn mở.
+- Kết quả: các điều khiển được thử cho phản hồi/giữ dữ liệu; tìm thật và tìm mô tả chưa sẵn sàng, JEV chưa có; xác nhận minh hoạ chỉ hiển thị, không lưu/gửi. OPEN-03/04/08/10 còn mở. OPEN-09 hết blocker truy cập browser trong lượt này nhưng còn parity/phạm vi UI chưa phủ; giữ lịch sử cũ.
+- Kiểm lại sau bổ sung: bằng chứng bổ sung vào phiếu/lượt khi chạy lại và kiểm độc lập; chưa lấy 18 quan sát làm PASS toàn hành trình hoặc nghiệm thu 9 Tools. TQT-ISS-003 giữ Đang xử lý, TQT-ISS-004 chuyển SSOT vẫn mở.
+- JEV bằng chứng phụ `gen-dec-1791431808-HXTlQrzQs8Ow7r1jToaJ`: repo cần bổ sung 0,99; lượt đạt một phần 0,90. Không thay kiểm thực tế/quyết định hội đồng.
+- Phần chưa phủ: responsive, so UI cha, focus/tooltip, timeout/không quyền/dữ liệu đổi/bấm lặp và hành trình thật tới nơi nhận; cần nguồn/tiêu chí và lượt kiểm tiếp. Áp: SAME_COMMIT.
+
 ### P08 · Codex rà tính đầy đủ, sổ và cách trình bày theo yêu cầu Owner 08/10 · OPEN
 Ghế: Codex · Bước/vòng: Ý kiến rà tài liệu theo yêu cầu trực tiếp Owner · 0/5 (chưa phát RUN; không thay Host)
 - Người góp ý: Codex tại chat tiếp nối phiên D; Owner yêu cầu kiểm quy trình/sổ đã lên repo, tính chính xác và cách trình bày, xác nhận điều kiện thu gọn phần Công thức để một SSOT.

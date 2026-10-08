@@ -8,6 +8,7 @@
 |---|---|
 | Owner xem task | [Tools quy trình](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh) |
 | Nhận diện phạm vi, lớp và nhóm chuyên môn | [Trang nội dung — tra cứu](view.html#phan-loai) |
+| Rà UI đang có, viết ca và lưu kết quả | [Hướng dẫn thực hành](view.html#ra-ui) → 8 câu/MOT, 7 câu Config, khuôn ca, nơi ghi và kiểm lại |
 | Đọc đủ 9 Tools, từng bước/câu hỏi | [Nội dung đã tập hợp](view.html#chi-tiet-tools) — chưa chuyển SSOT nguồn |
 | Xem 9 Tools CTCM nguồn | [Danh mục nguồn](view.html#nguon-quy-trinh) → mở bản chuẩn tại VPS |
 | Ghi/kiểm vấn đề của tools-quy-trinh | [Sổ tổng hợp](view.html#so-van-de) — sửa đúng hồ sơ trong HTML chính |

@@ -1,5 +1,5 @@
 {
-  "source_version": "fc8b16d840dd47c7b4d0d28ce7c47eb7; Tools 0958d3d461e44b089be90d2c9153c4fd",
+  "source_version": "fc8b16d840dd47c7b4d0d28ce7c47eb7; Tools 0958d3d461e44b089be90d2c9153c4fd; review 2026-10-08 source Master Tool 844f47b1bb5f216a380cfb27fef0cdb24f7b99e4d0a2062e2e1d9aa078d2bcaa",
   "scope": [
     "MOW-NHC-001"
   ],
@@ -10,28 +10,28 @@
       "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001",
       "checks": {
         "structure": {
-          "status": "BLOCKED",
-          "evidence": "Browser denied access: admin policy unavailable. Source/model verification only, no live PASS."
+          "status": "PARTIAL",
+          "evidence": "2026-10-08 live DOM: step2 blank entry, example collapsed; step1/3 transitions observed in 18 scoped cases. Full 3-screen structure/parent acceptance not measured."
         },
         "emphasis": {
-          "status": "BLOCKED",
-          "evidence": "Browser denied access: admin policy unavailable. Source/model verification only, no live PASS."
+          "status": "NOT_TESTED",
+          "evidence": "No current screenshot/token comparison for visual emphasis. Historical review retained separately."
         },
         "labels": {
-          "status": "BLOCKED",
-          "evidence": "Browser denied access: admin policy unavailable. Source/model verification only, no live PASS."
+          "status": "PARTIAL",
+          "evidence": "Live labels and messages for selected step2/back/confirmation cases read; semantic search and receipt limits stated. Full labels/help audit not done."
         },
         "interaction": {
-          "status": "BLOCKED",
-          "evidence": "Browser denied access: admin policy unavailable. Source/model verification only, no live PASS."
+          "status": "PARTIAL",
+          "evidence": "18 scoped observations: 16 match selected current control rules; 2 demo empty-result counts observation only. Real search/handoff and remaining required branches blocked/uncovered (OPEN-03/04/08/09/10)."
         },
         "responsive": {
-          "status": "BLOCKED",
-          "evidence": "Browser denied access: admin policy unavailable. Source/model verification only, no live PASS."
+          "status": "NOT_TESTED",
+          "evidence": "Current scoped trial used default browser viewport; narrow/mobile and parent parity not measured."
         },
         "console": {
-          "status": "BLOCKED",
-          "evidence": "Browser denied access: admin policy unavailable. Source/model verification only, no live PASS."
+          "status": "PASS",
+          "evidence": "Captured browser console logs empty after scoped live search/back/example confirmation actions; not a backend or all-branch check."
         },
         "data_scope": {
           "status": "PASS",
@@ -80,7 +80,7 @@
       "Unconfigured production cannot confirm"
     ]
   },
-  "notes": "3 screens rendered by shared UI-029 variant. Receipt gate expected BLOCKED until live checks and production contract are complete. No production readiness claim.",
+  "notes": "2026-10-08 scoped Tools application at step2: browser access available; earlier policy blocker is historical. Partial UI review, no production readiness. Shared renderer, no runtime/backend changes.",
   "previous_reviews": [
     {
       "source_version": "UI transaction 1282bc9cb3524794b8d495963b85fd42 + c1a4fbd6692c4d7ab10d959bb176bf7c",
@@ -139,7 +139,397 @@
       ],
       "status": "PARTIAL",
       "notes": "Pilot ready for design discussion; coverage2/3, no UI confirmed for 1.3; not full UI acceptance."
+    },
+    {
+      "source_version": "fc8b16d840dd47c7b4d0d28ce7c47eb7; Tools 0958d3d461e44b089be90d2c9153c4fd",
+      "scope": [
+        "MOW-NHC-001"
+      ],
+      "status": "PARTIAL",
+      "results": [
+        {
+          "id": "MOW-NHC-001",
+          "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001",
+          "checks": {
+            "structure": {
+              "status": "PARTIAL",
+              "evidence": "2026-10-08 live DOM: step2 blank entry, example collapsed; step1/3 transitions observed in 18 scoped cases. Full 3-screen structure/parent acceptance not measured."
+            },
+            "emphasis": {
+              "status": "NOT_TESTED",
+              "evidence": "No current screenshot/token comparison for visual emphasis. Historical review retained separately."
+            },
+            "labels": {
+              "status": "PARTIAL",
+              "evidence": "Live labels and messages for selected step2/back/confirmation cases read; semantic search and receipt limits stated. Full labels/help audit not done."
+            },
+            "interaction": {
+              "status": "PARTIAL",
+              "evidence": "18 scoped observations: 16 match selected current control rules; 2 demo empty-result counts observation only. Real search/handoff and remaining required branches blocked/uncovered (OPEN-03/04/08/09/10)."
+            },
+            "responsive": {
+              "status": "NOT_TESTED",
+              "evidence": "Current scoped trial used default browser viewport; narrow/mobile and parent parity not measured."
+            },
+            "console": {
+              "status": "PASS",
+              "evidence": "Captured browser console logs empty after scoped live search/back/example confirmation actions; not a backend or all-branch check."
+            },
+            "data_scope": {
+              "status": "PASS",
+              "evidence": "Static source: fixture fetch only mode=example; no production write; identifiers read SSOT; no new canonical UI IDs."
+            }
+          },
+          "parity": {
+            "baseline_url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/tim-kiem-chung-v1.html",
+            "baseline_version": "1307e947f29a4987b9da21ecbe979abdd1d900b00e302fb6cc797c293c3cf5e8",
+            "observed_version": "1cfd595aecb7b2bc5080609406ee07c4554d781cdd803fcba8ecf0415137b983",
+            "measurements": [
+              {
+                "part": "model-tests",
+                "property": "passed",
+                "expected": 17,
+                "actual": 17
+              }
+            ],
+            "differences": [
+              "UI parent parity not measured live (OPEN-05/09); confirmation child/parent not approved."
+            ]
+          }
+        }
+      ],
+      "notes": "3 screens rendered by shared UI-029 variant. Receipt gate expected BLOCKED until live checks and production contract are complete. No production readiness claim.",
+      "gate_result": "BLOCKED: unmeasured live UI and unresolved parent parity; python check-ui-review.py exit 1."
     }
   ],
-  "gate_result": "BLOCKED: unmeasured live UI and unresolved parent parity; python check-ui-review.py exit 1."
+  "gate_result": "BLOCKED: scoped trial does not cover full UI contract; responsive/emphasis/parent parity and true search/receipt remain incomplete. Run check-ui-review.py after saving.",
+  "tools_application_review": {
+    "run_id": "TQT-UI-20261008-MOW001-STEP2",
+    "reviewed_at": "2026-10-08",
+    "actor": "Codex",
+    "status": "PARTIAL",
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001&step=2",
+    "procedure": "work/tools-quy-trinh/view.html#ra-ui",
+    "scope": "11 observations working UI, 7 example observations; only selected controls, not full MOW/production acceptance",
+    "initial_source": "Master Tool 844f47b1bb5f216a380cfb27fef0cdb24f7b99e4d0a2062e2e1d9aa078d2bcaa; same reviewed UI source as current receipt",
+    "case_rule": "PASS here means the observed control matches its scoped current rule, including explicit unavailable/demo guards; it does not mean the user goal completed. OBSERVED: no expected fixture count established.",
+    "question_answers": [
+      {
+        "id": "Q1",
+        "answer": "MOT 2 tìm Field nâng cao; đích toàn MOW là Field phù hợp được xác nhận và có nơi nhận. Đích thật còn thiếu.",
+        "status": "PARTIAL",
+        "issues": [
+          "OPEN-03",
+          "OPEN-08"
+        ]
+      },
+      {
+        "id": "Q2",
+        "answer": "URL trực tiếp bắt đầu trống; input/filter giữ khi từ bước 1 qua 2 hoặc quay lại.",
+        "cases": [
+          "UI01",
+          "UI05",
+          "UI06",
+          "UI10"
+        ],
+        "status": "PASS"
+      },
+      {
+        "id": "Q3",
+        "answer": "Tên/mã, mô tả và bộ lọc có UI; tìm mô tả và nguồn thật chưa sẵn sàng.",
+        "cases": [
+          "UI03",
+          "UI08",
+          "DEMO04"
+        ],
+        "status": "BLOCKED",
+        "issues": [
+          "OPEN-08"
+        ]
+      },
+      {
+        "id": "Q4",
+        "answer": "Nút Tìm/Enter, Xóa, Quay lại và chuyển bước thao tác được trong các ca đã chạy.",
+        "cases": [
+          "UI02",
+          "UI05",
+          "UI06",
+          "UI07",
+          "UI09",
+          "UI11"
+        ],
+        "status": "PARTIAL"
+      },
+      {
+        "id": "Q5",
+        "answer": "Chưa tìm, lỗi chưa thể tìm và rỗng minh hoạ được phân biệt; minh hoạ ghi dữ liệu mẫu. JEV chưa có; đang tìm/timeout còn chưa phủ.",
+        "cases": [
+          "UI01",
+          "UI03",
+          "DEMO01",
+          "DEMO05"
+        ],
+        "status": "PARTIAL",
+        "issues": [
+          "OPEN-04",
+          "OPEN-09"
+        ]
+      },
+      {
+        "id": "Q6",
+        "answer": "Ví dụ chọn đúng Field tới xác nhận; tìm thật chưa trả Field, đích chuyển tiếp thật chưa có.",
+        "cases": [
+          "DEMO06"
+        ],
+        "status": "BLOCKED",
+        "issues": [
+          "OPEN-03",
+          "OPEN-08"
+        ]
+      },
+      {
+        "id": "Q7",
+        "answer": "Thử lại/quay lại/xóa/bỏ lọc giữ hoặc xóa đúng dữ liệu trong ca đã thử; hủy, timeout, quyền, dữ liệu đổi, nhiều kết quả thật còn chưa phủ.",
+        "cases": [
+          "UI04",
+          "UI05",
+          "UI07",
+          "UI10",
+          "DEMO03"
+        ],
+        "status": "PARTIAL",
+        "issues": [
+          "OPEN-09",
+          "OPEN-10"
+        ]
+      },
+      {
+        "id": "Q8",
+        "answer": "Thiếu Field khóa xác nhận; minh hoạ yêu cầu đồng ý rồi chỉ hiển thị biên nhận, chưa lưu/gửi. Nơi nhận thật vẫn chưa chốt.",
+        "cases": [
+          "UI09",
+          "DEMO06",
+          "DEMO07"
+        ],
+        "status": "BLOCKED",
+        "issues": [
+          "OPEN-03"
+        ]
+      }
+    ],
+    "config_review": {
+      "question_source": "ui/config-master-data-v1.js → CONFIG_PRINCIPLES.questions",
+      "status": "PARTIAL",
+      "known": "Start/end screens and current demo guards observed. Source current live mode returns unavailable; example receipt persisted=false.",
+      "missing": "Permission/trigger/performer/report/forward rules and true destination are not approved by this review; preserve OPEN-01/03/04/08/10. Record create/reuse principles are additional and not auto-decided."
+    },
+    "observations": [
+      {
+        "id": "UI01",
+        "questions": "Q2",
+        "mode": "live",
+        "action": "Mở URL step=2 mới",
+        "actual": "Chưa nhập/chưa chọn; hiện Chưa tìm kiếm; minh hoạ thu riêng.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "UI02",
+        "questions": "Q3/Q5",
+        "mode": "live",
+        "action": "Bấm Tìm khi tất cả đầu vào trống",
+        "actual": "Yêu cầu nhập tên, mã, mô tả hoặc một điều kiện; không chạy tìm.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "UI03",
+        "questions": "Q3/Q5/Q7",
+        "mode": "live",
+        "action": "Họ tên; mô tả Tìm Field lưu tên người liên hệ; trạng thái Đang áp dụng; bấm Tìm",
+        "actual": "Tìm mô tả chưa sẵn sàng; tìm thật chưa thể chạy, giữ input và cho thử lại.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "UI04",
+        "questions": "Q7",
+        "mode": "live",
+        "action": "Bấm thử lại sau UI03",
+        "actual": "Vẫn báo chưa thể tìm; giữ từ khóa/mô tả.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "UI05",
+        "questions": "Q2/Q7",
+        "mode": "live",
+        "action": "Quay lại Tìm thường",
+        "actual": "Sang bước 1, giữ từ khóa/mô tả.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "UI06",
+        "questions": "Q2/Q7",
+        "mode": "live",
+        "action": "Mở Tìm kiếm nâng cao",
+        "actual": "Sang bước 2; giữ từ khóa/mô tả/trạng thái active.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "UI07",
+        "questions": "Q2/Q7",
+        "mode": "live",
+        "action": "Xóa nội dung",
+        "actual": "Từ khóa/mô tả trống, trạng thái mặc định; Chưa tìm kiếm.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "UI08",
+        "questions": "Q3/Q5",
+        "mode": "live",
+        "action": "Chỉ nhập Cần Field lưu tên người liên hệ, không nhớ tên hoặc mã rồi Tìm",
+        "actual": "Mô tả được giữ; tính năng mô tả chưa sẵn sàng; tìm thật unavailable.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "UI09",
+        "questions": "Q6/Q8",
+        "mode": "live",
+        "action": "Mở Xác nhận phù hợp khi chưa chọn Field",
+        "actual": "Hướng dẫn quay lại chọn Field; nút xác nhận bị khóa.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "UI10",
+        "questions": "Q2/Q7",
+        "mode": "live",
+        "action": "Quay lại tìm kiếm sau UI09",
+        "actual": "Màn 2 và mô tả đã nhập còn giữ.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "UI11",
+        "questions": "Q4/Q5",
+        "mode": "live",
+        "action": "Xóa rồi nhập Họ tên, nhấn Enter",
+        "actual": "Cùng phản hồi chưa thể tìm như bấm Tìm.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "DEMO01",
+        "questions": "Q5/Q7",
+        "mode": "example",
+        "action": "Minh hoạ: Họ tên + Đang áp dụng; Tìm",
+        "actual": "Không có kết quả, hướng dẫn đổi từ khóa/bỏ lọc; chưa đối chiếu tập fixture để chốt số lượng mong đợi.",
+        "status": "OBSERVED",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Not established for fixture result count"
+      },
+      {
+        "id": "DEMO02",
+        "questions": "Q5/Q7",
+        "mode": "example",
+        "action": "Minh hoạ: xóa từ khóa, giữ Đang áp dụng; Tìm",
+        "actual": "Không có kết quả; số lượng mong đợi chưa định nghĩa.",
+        "status": "OBSERVED",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Not established for fixture result count"
+      },
+      {
+        "id": "DEMO03",
+        "questions": "Q2/Q7",
+        "mode": "example",
+        "action": "Minh hoạ: Bỏ bộ lọc",
+        "actual": "Các bộ lọc mặc định, trạng thái chưa tìm.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "DEMO04",
+        "questions": "Q3/Q5",
+        "mode": "example",
+        "action": "Minh hoạ: nhánh Nhận đơn › MOIT, các đầu vào khác mặc định; Tìm",
+        "actual": "3 Field: MOIT.full_name, MOIT.phone_number, MOIT.submitted_at.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "DEMO05",
+        "questions": "Q5",
+        "mode": "example",
+        "action": "Mở JEV của MOIT.full_name",
+        "actual": "Chưa có đánh giá JEV; xác suất —; không đổi điểm từ khóa thành xác suất.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "DEMO06",
+        "questions": "Q6/Q8",
+        "mode": "example",
+        "action": "Chọn MOIT.full_name",
+        "actual": "Sang xác nhận, đúng Field và ngữ cảnh bộ lọc; chưa đồng ý thì nút khóa.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      },
+      {
+        "id": "DEMO07",
+        "questions": "Q8",
+        "mode": "example",
+        "action": "Đồng ý rồi Xác nhận trong minh hoạ",
+        "actual": "Biên nhận đúng MOIT.full_name; kết quả chỉ hiển thị tại đây, chưa lưu/gửi.",
+        "status": "PASS",
+        "evidence": "Live browser DOM after action 2026-10-08",
+        "expected_source": "Current flow guards/state rules; reviewed source + walkthrough"
+      }
+    ],
+    "remaining": [
+      "Real search and semantic search source",
+      "JEV integration",
+      "True receipt destination/config",
+      "Parent parity and current visual emphasis",
+      "Responsive and focus/tooltip",
+      "Timeout/permissions/changed data/duplicate action/cancel branches"
+    ],
+    "issue_ids": [
+      "OPEN-03",
+      "OPEN-04",
+      "OPEN-08",
+      "OPEN-09",
+      "OPEN-10"
+    ],
+    "procedure_gaps_fixed": [
+      "8 questions and 7 Config questions readable in repo",
+      "Case fields and expected criterion source",
+      "Current report/issue/run destination and readback",
+      "Classify missing procedure/UI/decision; amend and retry"
+    ],
+    "retry_after_amendment": {
+      "status": "PENDING",
+      "cases": [],
+      "evidence": "Run fresh entry/blank search/back guard after repo amendment; independent reader checks guide."
+    }
+  }
 }
