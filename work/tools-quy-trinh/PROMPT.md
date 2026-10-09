@@ -8,7 +8,7 @@
 Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](COLLAB.md); trạng thái hiện tại ở Bảng điều khiển cùng file. Giữ nguyên 15 ý Owner, đọc cả phần “Làm rõ mục tiêu” ngày 09/10: phải có quy trình khép kín, đủ câu hỏi/đáp án và bằng chứng làm theo ra đúng sản phẩm. Ma trận, UI và mô hình dữ liệu là các phần phục vụ mục tiêu này. Chi tiết dưới đây là cách thực hiện và lịch sử; không thay tiêu chí nghiệm thu.
 
 ## Hiện hành · Master tổng hợp · 09/10/2026
-Đọc danh mục `tqt-composite-processes.catalog`: 4 MOW-TH-001…004 đã có mã trong Master thiết kế ML-MOW-TH-001; 9 Tool + 3 quy trình bổ sung. Đọc review_07 và checkpoint_policy. Tham chiếu quy trình bằng code/version, nguồn đọc tách resource; không quay lại danh mục kiểm kê vòng6 để kết luận chưa có mã. Giữ nguyên mục tiêu đang chờ Owner/Claude chốt. Phần tiếp tục về 5 chốt thực thi bên dưới vẫn còn hiệu lực.
+Đọc danh mục `tqt-composite-processes.catalog`: 4 Quy trình tổng hợp đang thiết kế (`MOW-TH-001…004`) + 1 đề xuất chưa duyệt (`MOW-TH-005`) trong Master `ML-MOW-TH-001`; 9 Tool + 3 quy trình bổ sung (12 thành phần). Bản đề xuất chưa được Owner duyệt không được READY/RUN. Đọc review_07 và checkpoint_policy. Tham chiếu quy trình bằng code/version, nguồn đọc tách resource; không quay lại danh mục kiểm kê vòng6 để kết luận chưa có mã. Giữ nguyên mục tiêu đang chờ Owner/Claude chốt. Phần tiếp tục về 5 chốt thực thi bên dưới vẫn còn hiệu lực.
 
 ## Tiếp tục rà 5 chốt vòng 6 · 09/10/2026
 Đi theo đường vào đầu README. Đọc danh mục quy trình, `host_review_06` và TQT-ISS-007. 87 ca đạt vẫn còn 5 chốt sai được tái hiện; gói NOT_FROZEN.

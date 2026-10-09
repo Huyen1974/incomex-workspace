@@ -70,5 +70,33 @@
     "Danh mục thiết kế; 5 guard thực thi vẫn mở; chưa PG.",
     "Portal /knowledge/modules displayed no snapshot; Master discussion/name links resolve current exported source directly.",
     "87 model checks remain passing; five execution guards OPEN. 20 checkpoint cases and two broken-reference cases pass locally; isolated workspace has no Node runtime."
-  ]
+  ],
+  "latest_live_audit": {
+    "checked_on": "2026-10-09",
+    "source_revision_at_start": "a9e240e3556c69a27e5c36dabd2f4338ab9dd008",
+    "sync_status": "fresh; sourceRevision == publishedRevision at last check",
+    "master_index": {
+      "definition_records": 29,
+      "master_config_extra": 1,
+      "total_master_lists": 30,
+      "composite_master_id": "ML-MOW-TH-001",
+      "definition_stt": 29
+    },
+    "composite_master": {
+      "design_records": 4,
+      "unapproved_draft_records": 1,
+      "displayed_rows": 5,
+      "component_processes": 12,
+      "draft_code": "MOW-TH-005",
+      "draft_status": "ĐỀ XUẤT · chưa phê duyệt"
+    },
+    "checks": {
+      "ui_list": "PASS_SCOPED · real desktop five rows",
+      "short_guide": "PASS_SCOPED · 4 fields derived from catalog",
+      "host": "Single-source: GPT Chat from exported data, no hardcode in adapter",
+      "full_ui_parity": "NOT_RETESTED",
+      "pg": "NOT_FROZEN"
+    },
+    "note": "The earlier four-row PASS evidence in results[] is historical; ⑤ remains unapproved and cannot RUN."
+  }
 }

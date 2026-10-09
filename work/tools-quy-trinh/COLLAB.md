@@ -8,11 +8,11 @@ Host_ID: OpenAI-main
 Host_Surface: GPT Chat · cuộc trò chuyện hiện tại của Owner
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · GPT Chat · P19
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · GPT Chat · P20
 - 🎯 Mục tiêu: việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể. Vì sao: người nhìn rõ mới cùng phát hiện và sửa được vấn đề.
 - 🏁 Xong khi: đạt tiêu chí ô 2; quy trình được làm theo ra đúng sản phẩm, có bằng chứng và đường xử lý sai/thiếu tới cuối.
 - 📍 Tiến độ: [■ Thiết kế và khả thi] → [□ Triển khai] → [□ Vận hành]
-- ✅ Đã xong: ma trận 159 câu/53 nhóm; đăng ký danh mục thiết kế ML-MOW-TH-001 với 4 mã MOW-TH-001…004; 9 Tool + 3 quy trình bổ sung; liên kết quy trình có mã/phiên. Mô hình có 87 ca mô phỏng đạt, còn 5 chốt chưa kín. Theo D19/P17: tạo Over view là tab đầu, bố trí 4 Quy trình tổng hợp và ma trận 12 Quy trình thành phần từ cùng catalog, mã nhỏ/mờ. Phần này là trình bày, không nghiệm thu nghiệp vụ. Theo D20/P18: tăng vòng số Over view, thêm STT 1–12 và dựng 2 ảnh Owner cung cấp thành HTML ở cuối tab, giữ một catalog gốc. P19: thêm trường guide ngắn ở cùng catalog cho 4 Quy trình tổng hợp cũ + 12 Quy trình thành phần, và dự thảo MOW-TH-005 (chưa phê duyệt) sở hữu đường áp dụng quy trình đến bàn giao. Không chạy tự động.
+- ✅ Đã xong (thiết kế): 29 Master theo định nghĩa + 1 Master Config = **30 danh sách**; `ML-MOW-TH-001` STT 29 có **4 quy trình đang thiết kế + 1 đề xuất chưa duyệt**; 12 Quy trình thành phần, 17 chú giải chung nguồn, 159 câu/53 nhóm, 87 ca mô phỏng đã qua. Bằng chứng P16–P20; **chưa nghiệm thu vận hành**.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: kiểm/hoàn thiện 5 chốt thực thi → áp một vòng sai/thiếu → PG staging đúng quyền → kiểm UI/Config/Test và bàn giao. TQT-ISS-007 giữ mở.
 - ➡ Kế tiếp: Owner xem chú giải và bản đề xuất MOW-TH-005 tại Over view để chốt phạm vi; chỉ sau đó mới đổi trạng thái đề xuất thành được duyệt. Phần kỹ thuật TQT-ISS-007 giữ mở; NEXT_TRIGGER=OWNER_REVIEW_GUIDE_AND_DRAFT005.
@@ -403,6 +403,13 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - Q01 đã chốt theo D19: GPT Chat là Host hiện hành (09/10); D17 giao Astra Codex và D06 giao GPT Chat trước đó giữ làm lịch sử. Mục tiêu ngắn trong PR-07 vẫn do Owner/Claude bàn, Host chưa áp.
 
 ## Ý kiến và bằng chứng
+### P20 · Rà đồng bộ nguồn và danh sách Master · ĐÃ XÁC NHẬN PHẠM VI THIẾT KẾ
+Ghế: GPT Chat · phạm vi chỉ tài liệu/nhãn/UI đọc; không sửa Công thức, quyền RUN, backend hoặc PG.
+- Nguồn: `view.html#tqt-composite-processes.catalog` gồm 4 thiết kế + 1 dự thảo 005, 12 Quy trình thành phần, 17 chú giải. `ui/tqt-catalog-source-v1.js` đọc bản đã xuất theo publishedRevision, không có kho dữ liệu mới.
+- Danh sách Master: `ui/definition-master-registry-v1.js` có 29 Master theo định nghĩa STT 1–29; `ui-child-content-v1.js` thêm 1 Master Config nên tổng danh sách **30**. `ML-MOW-TH-001` ở STT29; màn Master Quy trình tổng hợp đã hiện 5 hàng, ⑤ vẫn **ĐỀ XUẤT · chưa phê duyệt**.
+- Đã chỉnh tiêu đề/nhãn xưởng Master từ tổng cũ sang 30, README xưởng bỏ số bốn đóng đinh; adapter đọc Host GPT Chat + bốn trường guide từ cùng catalog, giữ chi tiết kỹ thuật ở phần mở. README/PROMPT task và phiếu UI review được cập nhật; bằng chứng cũ bốn bản ghi giữ làm lịch sử, không báo lại như hiện hành.
+- Giới hạn: kiểm nguồn/sync/list theo thiết kế, chưa nghiệm thu PG/production, chưa đầy đủ parity mobile và tương tác của tất cả 30 Master. TQT-ISS-007 giữ OPEN, Owner chưa chấp thuận MOW-TH-005, không READY/RUN.
+
 ### P19 · Một nguồn chú giải; dự thảo Quy trình tổng hợp ⑤ sở hữu sáu bước · ĐÃ KIỂM THIẾT KẾ, CHỜ OWNER
 Ghế: GPT Chat (OpenAI-main). Việc hôm nay chỉ thiết kế và trình bày, không RUN, không mutation ở Công thức/MOW nguồn, UI runtime hoặc PostgreSQL.
 - Based_on: mục tiêu §0 đã xác nhận, chỉ đạo trực tiếp D21, 4 Quy trình tổng hợp/12 thành phần trong `tqt-composite-processes.catalog`, quy trình cổng `CHUNG.APQUYTRINH` ở `work/mow-mot-moit-mout/ban-duyet.html`, và `QT-CTCM-012` vốn lo câu hỏi.

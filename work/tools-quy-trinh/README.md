@@ -6,7 +6,7 @@
 **4 Quy trình tổng hợp đang thiết kế + 1 đề xuất ⑤ chưa duyệt, 12 Quy trình thành phần.** Kho 159 câu/53 nhóm là tài nguyên, không phải quy trình. Tên/mã/quan hệ/chú giải `purpose/when/avoid/done` cùng đọc từ một nguồn `view.html#tqt-composite-processes.catalog`. Sáu thao tác từ chọn đến bàn giao thuộc dự thảo `MOW-TH-005`; chưa được READY/RUN hoặc PG.
 
 ## Master quy trình tổng hợp · hiện hành
-[Mở Master theo UI cha](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Bàn cùng 4 quy trình tại repo](view.html#tqt-process-inventory).
+[Mở Master theo UI cha](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Mở danh sách hiện hành tại repo](view.html#tqt-process-inventory).
 **4 quy trình tổng hợp trước + 1 đề xuất chưa duyệt** trong `ML-MOW-TH-001`: MOW-TH-001 Chế tạo chức năng; 002 Xử lý sai/thiếu; 003 Hiệu chỉnh quy trình; 004 Rà UI; 005 Áp dụng một quy trình từ chọn đến bàn giao (DRAFT). Danh mục con gồm **9 Tool + 3 quy trình bổ sung**, không tính lẫn với tổng hợp.
 SSOT tên/mã/quan hệ: `tqt-composite-processes.catalog`. Master trên VPS đọc bản repo đã xuất; không có danh sách dữ liệu sửa tay thứ hai. Khi dưới10, giữ cả cách xem/thảo luận trong task theo Owner. Mã đã đăng ký thiết kế; nghiệm thu và quyền chạy là việc riêng. Chưa quyết T2.5, không đổi CT-005.
 Quy trình trả lời/kiểm bộ câu hỏi: QT-CTCM-012; dùng câu hỏi theo mã/phiên, không sao chép. Quan hệ gọi có code/version/kind; nguồn đọc là resource. Trạng thái mốc theo `checkpoint_policy` / `tqt-checkpoint-rule`; không chấm xanh từ số mức đơn thuần.
@@ -54,7 +54,7 @@ Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](CO
 - Phân biệt mức bằng chứng với hiệu lực kết quả, vòng đời định nghĩa với lần áp dụng. Cơ chế chọn phần cần kiểm lại/PG/DOT/JEV mới là thiết kế; chưa có lưu tự động hay chạy nền.
 - Hồ sơ theo dõi duy nhất: [TQT-ISS-007](view.html#TQT-ISS-007). Nội dung hồ sơ đọc từ cùng JSON; không đóng chỉ vì hoàn thiện tài liệu. OPEN-10 vẫn thuộc sổ sản phẩm hiện hành.
 
-## List quy trình tổng hợp · cửa vào đầu tiên
+## List quy trình tổng hợp · xem chi tiết
 - [Mở trên hệ thống](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=list-quy-trinh-tong-hop). Thu/xổ theo quy trình → giai đoạn → bước.
 - Quy trình đầu: **TQT-TH-001 · Thiết kế - xây dựng một chi tiết/chức năng trong chế tạo cỗ máy**. Nguồn duy nhất là JSON `tqt-composite-processes` trong `view.html`; giao diện và vùng AI đọc cùng dữ liệu.
 - Bắt đầu ở quy trình tổng hợp để biết thứ tự, checkpoint và đường quay lại; sau đó mở quy trình con/câu hỏi/ghi chú theo liên kết. Không nhầm 9 bước phối hợp ở đây với B1–B9 của Công thức.
