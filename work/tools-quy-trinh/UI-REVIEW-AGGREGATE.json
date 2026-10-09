@@ -1,4 +1,5 @@
 {
+  "host_review_P21": {"source": "5990615b32c1ee9d641a88dc0fb92f50f50a2397", "scope": "Overview + Master labels + procedure consistency", "host": "Astra Codex", "observed": ["Master: 4 design + 1 proposal; reference column excludes inference of actual call count", "Master discussion link opens Overview at published revision", "005 separate from 001 children; 002/003/004 relations visible", "14 instruction sections have MOW owners; six proposed MOTs belong to 005"], "checks": {"catalog_refs": 55, "consistency_valid": 1, "consistency_invalid_rejected": 8, "model_simulation_pass": 87, "checkpoint_local_pass": 20}, "limits": ["Design only; not PG", "12 component MOT/runtime mappings not complete", "Source cutover ISS004 and five ISS007 guards remain open", "Old receipts below are historical, not current counts"]},
   "source_version": "997b5b058a38681c1b62bfd612d707a051282341; live export 7fdf400",
   "scope": [
     "UI.MASTER.MOW.TH"
