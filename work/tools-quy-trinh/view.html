@@ -11129,6 +11129,7 @@ for(const r of R.records){
  const card=document.createElement('details');card.className='tqt-composite';card.id=r.code;
  card.innerHTML='<summary><span><b>'+e(r.name)+'</b><small>'+e(r.code)+' · '+e(r.state)+'</small></span></summary><div class="tqt-composite-body"><p>'+e(r.goal)+'</p>'+compactGuide(r)+routeMarkup(r)+'<p><b>Quy trình con:</b> '+r.child_refs.map(ref=>{const n=[...R.records,...R.normal_processes].find(x=>x.code===ref.code);return (ref.relation==='candidate'?'[Ứng viên để chọn] ':'')+'<a href="'+e(n.href)+'">'+e(n.name)+' <small>('+e(n.code)+')</small></a>';}).join(' · ')+'</p><details><summary>Kiểm 5 ý khép kín</summary>'+Object.values(r.gates).map((v,i)=>'<p>'+e(C.closure_review.formula[i])+': '+e(v)+'</p>').join('')+'</details></div>';
  const body=card.lastElementChild;
+ if(r.issue_ownership){const note=document.createElement('p');note.textContent=r.issue_ownership;body.appendChild(note);}
  if(r.workflow){const d=document.createElement('details');d.innerHTML='<summary>Khai báo 6 MOT · bản đề xuất</summary><p>'+e(r.host_review)+'</p>'+r.workflow.steps.map(st=>'<p><b>'+e(st.code)+' · '+e(st.label)+'</b><br>'+e(st.result)+'<br><small>'+e(JSON.stringify(st.binding))+'</small></p>').join('');body.appendChild(d);}
  if(moved[r.code])body.appendChild(moved[r.code]);
  if(r.code==='MOW-TH-002'){
