@@ -1,12 +1,16 @@
 # TQT-PR-20261009-claude-goal-and-review-07
 ## Mục tiêu ngắn cho ô 1–2 + rà hiện trạng "một bên sửa"
 
+> **Host đọc trước · theo chỉ đạo Owner 09/10 15:24**
+> - **Host xét ngay:** mục 4 (rà hiện trạng, trong đó 4.7 là góp ý chuyên môn), mục 5 (Bảng điều khiển), mục 6 (tab đầu).
+> - **Chưa áp:** mục 2–3 (ô 1–2 Mục tiêu). Owner và Claude đang rà phần này. Host chỉ áp khi mục 8 có lời Owner chốt.
+
 TQT-PROPOSAL: TQT-PR-20261009-claude-goal-and-review-07
-TARGET: COLLAB §0 (dòng Xác nhận User · Bảng điều khiển · ô 1 · ô 2 · ô 3 TQT-DIR/TQT-REQ · Owner cần quyết); README (chỉ mục ý kiến); view.html tab "List quy trình tổng hợp".
+TARGET: COLLAB §0 (dòng Xác nhận User · Bảng điều khiển · ô 1 · ô 2 · ô 3 TQT-DIR/TQT-REQ · Owner cần quyết); README (chỉ mục ý kiến); view.html tab "List quy trình tổng hợp"; JSON `tqt-composite-processes` (lời gọi quy trình con) và `tqt-process-model` / `closure_review.tracking` (thang mức kiểm).
 TESTED: Claude-review đọc COLLAB/README/view.html tại commit 86f0e24; render 5 tab view.html bằng Chromium cục bộ; xem trang Owner thật (Kiểm soát + Nội dung) và trang Công thức MMIM; đối chiếu git log 08–09/10 của work/tools-quy-trinh. Dùng JEV kiểm độ phủ 24 ý chỉ đạo trên bản mục tiêu mới. Không sửa view.html/COLLAB.md/README.md.
 BLOCKER_TYPE: THIEU_QUYET_DINH (ô 1–2 mới cần Owner gật) · LOI_QUY_TRINH (Bảng điều khiển sai khuôn MT4)
 OBSERVED: Ô 1 từ 15 dòng (bản Owner duyệt 08/10) phình thành khoảng 105 dòng vì chép nguyên văn 7 khối chỉ đạo 08–09/10 và 7 ý Host diễn giải. Owner đọc không ra đích. Bảng điều khiển thiếu dòng theo MT4 nên trang Owner báo "⚠ Bảng điều khiển thiếu dòng ⛔".
-PROPOSED_CHANGE: Thay ô 1–2 bằng bản ngắn ở mục 2 (sau khi Owner gật). Chuyển nguyên văn mọi khối cũ xuống ô 3 hoặc Vòng trước theo bảng ở mục 3, không xoá chữ nào. Sửa Bảng theo mục 5. Thêm chỉ mục ý kiến theo mục 4.2.
+PROPOSED_CHANGE: Host xét ngay mục 4–6: chỉ mục ý kiến (4.2), sửa chữ cũ về Host (4.4), góp ý chuyên môn C1–C4 (4.7), Bảng đúng MT4 (5), tab đầu kiểu Công thức (6). Mục 2–3 (ô 1–2 bản ngắn và chuyển khối) chỉ áp sau khi Owner chốt ở mục 8. Khi áp thì chuyển nguyên văn mọi khối cũ xuống ô 3 hoặc Vòng trước, không xoá chữ nào.
 
 ---
 
@@ -19,11 +23,13 @@ PROPOSED_CHANGE: Thay ô 1–2 bằng bản ngắn ở mục 2 (sau khi Owner g�
 > […] Những việc bổ sung là do con người nhìn ra. Để con người nhìn ra vấn đề thì tôi phải hiểu. Và đó là tại sao tôi cần cái gì đó ít chữ, nhìn cái là hiểu để có thể tư duy cùng các bạn.
 > Rà soát vòng này đã nhé
 
+**Owner · 09/10/2026 15:24 +07 (nguyên văn):** “Trước tiên bạn cứ ghi các ý kiến góp ý của claude vào đẻ host codex rà soát phần chuyên môn. Sau đó tôi và bạn sẽ rà soát phần mục tiêu.”
+
 Host ghi thành D17 + HUMAN_DIRECTIVE@TQT-GOAL-SHORT-20261009 khi áp.
 
 ---
 
-## 2. Bản ô 1–2 mới · ĐỀ XUẤT, Owner chưa gật
+## 2. Bản ô 1–2 mới · NHÁP, Owner và Claude đang rà · Host chưa áp
 
 Cách làm giống D03/D04: Claude soạn trong chat, Owner gật hoặc sửa, khi đó bản này là lời Owner. Host chép nguyên văn, giữ đúng tiêu đề khoá máy. Theo MT4, ô 1–2 dùng câu thường, không bảng.
 
@@ -119,6 +125,15 @@ Quy tắc đề xuất từ nay cho task này: **chỉ đạo mới của Owner 
 - 🟡 **Quy trình hiện có** (bản P10 của Claude): Owner thấy rối. Đề xuất đổi tên thành "Lưu trữ · bản 08/10", không làm thêm vào đó, không xoá. Phần còn dùng (9 Tool, sổ) khi cần thì kéo dần sang khuôn thẻ.
 - Gợi ý khuôn cho tab đầu: mục 6.
 
+### 4.7 Góp ý chuyên môn · quy trình tổng hợp TQT-TH-001 và mô hình (kiểm trên view.html @86f0e24)
+
+| # | Thấy gì | Đề xuất |
+|---|---|---|
+| C1 🔴 | **Hai đường xử lý sai/thiếu chạy song song.** TQT-TH-001 gọi "Sổ vấn đề · Tool 008" ở bước 1.4 và 2.3. Trong khi đó mô hình TQT-MODEL-001 dựng riêng quy trình 6 ô `DRAFT-MOW-GAP-001` (Phát hiện → Xác minh → Xử lý → Đấu lại → Kiểm nơi phát hiện → Kết thúc). TQT-TH-001 không gọi GAP-001 ở bước nào, và Tool 008 cũng không nhắc tới GAP-001. Đây đúng là loại "chồng lấn" Owner yêu cầu rà. | Chốt một đường: GAP-001 là quy trình con chuẩn cho sai/thiếu. Tool 008 hoặc nhập vào GAP-001, hoặc ghi rõ là bản cũ và trỏ sang. Các bước 1.4, 2.3, 3.2 gọi GAP-001 bằng mã. |
+| C2 🟡 | **Gọi quy trình con bằng link, không bằng mã.** TQT-TH-001 có 21 lời gọi, lời nào cũng chỉ có `{label, href}` và không có mã. 13 trong 21 lời gọi trỏ vào tab "Quy trình hiện có", tab Owner nói chỉ để tạm. Đổi hoặc thu tab đó là gãy cả quy trình tổng hợp. Máy cũng không rà được chỗ "gọi tới quy trình không tồn tại". Như vậy là trái nguyên tắc "không gì là không có mã". | Mỗi lời gọi thêm `code` + `version` của quy trình con (TOOL-CTCM-00x, DRAFT-MOW-GAP-001…), href sinh từ mã. Checker thêm phép kiểm: mã nào được gọi thì phải có định nghĩa còn hiệu lực. Quy trình con còn dùng thì đưa thành thẻ có mã ở tab đầu, không neo vào tab tạm. |
+| C3 🟡 | **Ba thang trạng thái chưa nối với nhau.** (a) Mức kiểm 0–4: Chưa khai báo → Có đáp án → Đã đối chiếu nguồn → Đã kiểm thiết kế → Đã kiểm chạy thật, kèm hiệu lực Còn hiệu lực / Cần kiểm lại (`closure_review.tracking`, CHECK `level BETWEEN 0 AND 4`). (b) Kết quả NOT_TESTED / PASS / FAIL / BLOCKED / NA. (c) Checkpoint giai đoạn: đạt / có điều kiện / chưa. Chưa có luật "mốc nào cần mức nào". Mức 4 "chạy thật" lại dùng chung cho cả mốc Triển khai lẫn Vận hành nên không phân biệt được hai mốc. | Luật cộng dồn từ dưới lên. Mốc 1 đạt ⇔ mọi câu áp dụng ≥ mức 3, còn hiệu lực, không BLOCKED. Mốc 2 đạt ⇔ ca kỹ thuật bắt buộc đạt mức 4 trên môi trường thật. Mốc 3 đạt ⇔ thêm mức 5 "Đã vận hành ổn" (đủ log và phản hồi trong khoảng quan sát đã chốt). Khi đó máy tự tính màu mốc từ dữ liệu, người không phải tự chấm. |
+| C4 🟢 | **Đã có sẵn công thức khép kín 5 ý** trong `closure_review.formula`: Có tên/mã & nguồn → Có việc con & thứ tự → Nối đầu ra → đầu vào → Ghi kết quả & sai/thiếu → Có người nhận đến khi xong. Công thức này đang nằm khuất trong mục xổ "Rà vòng trước". | Đưa lên làm dòng công thức thứ hai của tab đầu, cạnh dòng TQT-TH-001 ở mục 6. Mỗi ý thành một cột màu cho từng quy trình, nhìn là biết quy trình nào hở ở ý nào. |
+
 ---
 
 ## 5. Bảng điều khiển đúng khuôn MT4 · nháp cho Host (số liệu lấy từ Bảng hiện tại)
@@ -155,9 +170,10 @@ Sai/thiếu  = Phát hiện → Xác minh → Xử lý → Đấu lại → Ki�
 - **Độ ngắn:** ô 1 từ khoảng 105 dòng xuống 1 Đích + 8 dòng + Phạm vi + Chưa làm.
 - **Không mất chữ:** mọi khối cũ đều có nơi đến ở mục 3. Bản 08/10 xuống Vòng trước nguyên văn.
 - **Đúng luật:** giữ tiêu đề khoá máy MT3; ô 1–2 dùng câu thường; Owner gật mới thành lời Owner (như D03/D04); Claude không ghi main, chỉ ghi file này.
+- **Góp ý chuyên môn 4.7:** số liệu đếm bằng script trên JSON `tqt-composite-processes`: 21 lời gọi, 0 có mã. Trong đó 13 trỏ vào tab tạm; 5 trỏ vào phần bổ sung của TQT-TH-001 (đã render trong Chromium, tồn tại); 2 ra ngoài; 1 vào tab nghiệp vụ. Tìm "GAP" trong TQT-TH-001: 0 lần. Thang 0–4 lấy từ `closure_review.tracking` và CHECK của bảng `assessment`.
 - **Rủi ro còn lại:** số dòng TQT-REQ phải đánh lại. Nếu Host chỉ dán ô 1 mà không chuyển các khối kia xuống ô 3 thì nguyên văn sẽ mất. Vì vậy cả hai việc phải làm trong cùng một transaction.
 
 ---
 
-## 8. Owner duyệt
-Chưa có. Khi Owner gật hoặc sửa trong phiên Claude, Claude ghi nguyên văn lời Owner vào mục này. Host áp mục 2 + 3 + 4.4 trong một transaction, rồi ghi kết luận cho PR-07.
+## 8. Owner duyệt mục tiêu
+Chưa chốt. Owner 09/10 15:24 giao thứ tự: Host rà phần chuyên môn (mục 4–6) trước; phần mục tiêu Owner và Claude rà tiếp. Khi Owner chốt, Claude ghi nguyên văn lời Owner vào mục này. Sau đó Host áp mục 2 + 3 trong một transaction và ghi kết luận cho PR-07.
