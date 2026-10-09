@@ -151,6 +151,7 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 - Mô hình v2 gồm 18 bảng (thêm phiếu/quyền/outbox), khóa ghép/typed reference, hợp đồng trường và nguồn cấp, luật–cơ chế chặn, ghi nguyên tử, bất biến bằng chứng, tách schema và dữ liệu SIM. Giữ sáu ô.
 - Bằng chứng: 83 ca mô phỏng đạt; phiếu 70 lượt đọc lại đầy đủ và dump/nạp lại; đường sáu ô có sáu call SENT/ACK/RETURN, hai nơi kiểm lại rồi đóng; từ chối giữ UNMET, trả muộn không hồi sinh việc. SQL/PLpgSQL đã kiểm cú pháp; không chạy PG. Hash mô hình: `f2e5b358eedac180c4f17aa0594f27d687fe145ba4843e82fbba6ee8ec32f471`.
 - DOER_CONFIRM: làm được sửa hợp đồng/kiểm ca sai/lưu–đọc lại và vòng mô phỏng; chưa xác nhận PostgreSQL, concurrency, scale hoặc gọi B3–B7 thật. Gói NOT_FROZEN và TQT-ISS-007 mở: chốt Master, quyền DOT/actor, triển khai adapter, kiểm staging/restore; thay guard quét toàn mô hình bằng kiểm theo phạm vi trước production.
+- Kiểm sau lưu: snapshot repo `871115917f97810e84ebcf591eaa884bf581ec6e`, job `cfc46e5004004a129fdbba040a598271`, exit 0, 83 ca đạt, hash khớp; production_ready=false/NOT_FROZEN. Browser bản xuất cùng commit hiển thị đủ sáu ô và mục “83 phép kiểm…”, mở chi tiết bằng chứng/giới hạn được. Kiểm bản xuất trực tiếp, không suy ra cổng modules hay PG đã đạt.
 - Trạng thái/giới hạn hiện hành đọc mục v2 trong README và `package` của mô hình. Các kết quả v1 bên dưới là lịch sử, không là tiêu chí áp dụng v2.
 
 #### Mô hình có mã hướng PG · 09/10/2026 · Host tiếp nhận proposal04
