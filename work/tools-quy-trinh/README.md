@@ -1,5 +1,8 @@
 # tools-quy-trinh · Cửa vào
 
+## Over view · bức tranh chung cho Owner
+[Mở Over view — 4 Quy trình tổng hợp ↔ 12 Quy trình thành phần](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view). Các tên/mã và dấu gọi trực tiếp đều đọc từ `view.html#tqt-composite-processes.catalog`; **không có danh mục/sổ mới**. Kho 159 câu/53 nhóm là tài nguyên; `QT-CTCM-012` chỉ là **1 trong 12 Quy trình thành phần**. Trang hiện có mã thiết kế, chưa đồng nghĩa đã chạy production.
+
 ## Master quy trình tổng hợp · hiện hành
 [Mở Master theo UI cha](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Bàn cùng 4 quy trình tại repo](view.html#tqt-process-inventory).
 **4 quy trình tổng hợp** trong `ML-MOW-TH-001`: MOW-TH-001 Chế tạo chức năng; 002 Xử lý sai/thiếu; 003 Hiệu chỉnh quy trình; 004 Rà UI. Danh mục con gồm **9 Tool + 3 quy trình bổ sung**, không tính lẫn với tổng hợp.
@@ -57,7 +60,7 @@ Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](CO
 - Host sửa nguồn sau khi tiếp nhận; người góp ý chỉ nộp riêng. Thêm quy trình tổng hợp sau này vào cùng danh sách, không tạo các bản chuẩn rải rác.
 
 ## Ma trận câu hỏi · hiệu lực 08/10/2026
-- Owner đã giao **Astra Codex trong phiên này làm Host**, thay GPT Chat. Các thành viên khác, kể cả Codex ở phiên khác, chỉ gửi đề xuất riêng. Đây là đổi vai theo chỉ đạo trực tiếp, không phải tuyên bố cổng máy đã khóa được.
+- Owner đã giao **Astra Codex làm Host trước đây (D17)**; **D19 ngày 09/10 Owner chỉ định GPT Chat làm Host hiện hành**, thay Astra Codex. Các thành viên khác, kể cả Codex ở phiên khác, chỉ gửi đề xuất riêng. Đây là đổi vai theo chỉ đạo trực tiếp, không phải tuyên bố cổng máy đã khóa được.
 - Mở trực tiếp [Câu hỏi cơ bản trên hệ thống](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=cau-hoi-co-ban). URL ghi nhớ tab/mục; bước 1.2 dùng section=q-B1-2, mã câu vẫn Q-B1.2-01. Renderer chỉ nhận từ đúng iframe; xem bằng chứng ở COLLAB §0 ô 3.
 - Đọc [Câu hỏi cơ bản](view.html#cau-hoi-co-ban) → [Câu hỏi nghiệp vụ](view.html#cau-hoi-nghiep-vu); đọc hàng loạt tại [Ma trận câu hỏi](view.html#ma-tran-cau-hoi).
 - **SSOT của bộ câu hỏi mới:** JSON trong `view.html`, script `id="tqt-question-matrix"`. `groups` chứa mã/loại/cha/nguồn; `questions` chứa mã câu, nhóm sở hữu, câu hỏi, trạng thái; `groups[].required_reference` nối câu nguồn bắt buộc ngoài ma trận (Config); ứng viên dùng lại đáp án phải kiểm đúng phạm vi, không tự đánh dấu đủ. `inheritance` quy định câu chung; `rules` giữ quy tắc dùng, tách, kế thừa, ghép và kiểm chứng (hiển thị tại “Cách dùng”/“Cách kiểm sau khi ghép”). AI đọc trực tiếp JSON này; bảng, sơ đồ, bộ ghép và vùng JSON để sao chép đều đọc cùng dữ liệu.
@@ -77,7 +80,7 @@ Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](CO
 
 ## 0. ĐỌC NGAY — DÀNH CHO MỌI AI (kể cả khi vừa bị từ chối ghi)
 
-**Host duy nhất của task:** `Astra Codex · phiên Owner chỉ định 08/10/2026` (`Host_ID=OpenAI-main`). Mục tiêu và tiêu chí xong chỉ ở [COLLAB.md §0](COLLAB.md); phải đọc `../../AGENTS.md` và §0 trước khi thực thi.
+**Host duy nhất của task hiện hành:** `GPT Chat · phiên Owner chỉ định 09/10/2026` (`Host_ID=OpenAI-main`); Astra Codex từng làm Host theo D17, nay chỉ góp ý riêng. Mục tiêu và tiêu chí xong chỉ ở [COLLAB.md §0](COLLAB.md); phải đọc `../../AGENTS.md` và §0 trước khi thực thi.
 
 **Chọn đúng tình huống:**
 
@@ -121,8 +124,8 @@ Nếu **thiếu chức năng sản phẩm** (ví dụ chưa có nguồn Field th
 
 | Vai trò | Được ghi | Không được ghi |
 |---|---|---|
-| Astra Codex — Host, phiên Owner chỉ định | Nội dung chuẩn/sổ/README trong task sau khi duyệt và kiểm bằng version | Không tự sửa runtime MOW/VPS ngoài phạm vi |
-| Mọi AI ngoài phiên Host (GPT Chat/Claude/Codex/Claude Code…) | File đề xuất **riêng** trong `proposals/`; bằng chứng sản phẩm ở task được giao | 3 file chuẩn và sổ TQT trên trang |
+| GPT Chat — Host, phiên Owner chỉ định 09/10 | Nội dung chuẩn/sổ/README trong task sau khi duyệt và kiểm bằng version | Không tự sửa runtime MOW/VPS ngoài phạm vi |
+| Mọi AI ngoài phiên Host (Astra Codex/Claude/Codex khác/Claude Code…) | File đề xuất **riêng** trong `proposals/`; bằng chứng sản phẩm ở task được giao | 3 file chuẩn và sổ TQT trên trang |
 | Owner | Góp ý/đề xuất trực tiếp bằng chat; Host ghi lên repo | Không bị yêu cầu thao tác Git/Markdown |
 
 **Hiệu lực:** quy định vai trò và đường nộp đề xuất **đã áp dụng**; cổng từ chối ghi theo danh tính kỹ thuật **CHƯA ĐƯỢC XÁC MINH** (TQT-ISS-006). Github đang khóa push thường theo ruleset `gateway-only-writes`, nhưng gateway có DeployKey chung: **không có nghĩa** mọi AI khác đã bị chặn path.
@@ -138,7 +141,7 @@ Nếu **thiếu chức năng sản phẩm** (ví dụ chưa có nguồn Field th
 
 | Cần làm gì | Nguồn phải đọc |
 |---|---|
-| Owner xem task | [Tools quy trình](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh) |
+| Owner xem task | [Over view — bức tranh chung](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view) |
 | Nhìn nhanh có gì, thiếu gì, tắc ở đâu | [Bảng 30 giây](view.html#bang) |
 | Nhận diện phạm vi, lớp và nhóm chuyên môn | [Cách phân loại](view.html#phan-loai) |
 | Tổ chức câu hỏi từ gốc, ghép với nghiệp vụ | [Ma trận câu hỏi](view.html#ma-tran-cau-hoi) · [Phạm vi Host hiện hành](PROMPT.md); ý kiến ngoài Host gửi riêng |

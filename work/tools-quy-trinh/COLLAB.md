@@ -2,20 +2,20 @@
 Tên việc: Tools quy trình — làm theo quy trình ra được sản phẩm
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 08/10/2026 07:16 (D04/D05); D06 trước đây giao GPT Chat; sau đó Owner trực tiếp giao Astra Codex làm Host ngày 08/10/2026 (D17, thay phân công cũ). Giữ nguyên lời Owner trong ô 1–2; ngày 09/10/2026 Owner yêu cầu Host bổ sung làm rõ mục tiêu và rà lại Kiểm soát, không viết lại mục tiêu gốc.
-Host: Astra Codex — phiên Owner chỉ định trực tiếp ngày 08/10/2026
+Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 08/10/2026 07:16 (D04/D05); D06 trước đây giao GPT Chat; sau đó Owner trực tiếp giao Astra Codex làm Host ngày 08/10/2026 (D17, thay phân công cũ). Giữ nguyên lời Owner trong ô 1–2; ngày 09/10/2026 Owner yêu cầu Host bổ sung làm rõ mục tiêu và rà lại Kiểm soát, không viết lại mục tiêu gốc. Quyết định Owner mới ngày 09/10/2026 giao GPT Chat làm Host lại để tổ chức tab Over view (D19), supersede D17 đối với Host hiện hành; mục tiêu ô 1–2 giữ nguyên.
+Host: GPT Chat — phiên Owner chỉ định trực tiếp ngày 09/10/2026 (D19)
 Host_ID: OpenAI-main
-Host_Surface: Codex desktop · task hiện tại của Owner
+Host_Surface: GPT Chat · cuộc trò chuyện hiện tại của Owner
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 15:51 +07 · Astra Codex · P16
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · GPT Chat · P17
 - 🎯 Mục tiêu: việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể. Vì sao: người nhìn rõ mới cùng phát hiện và sửa được vấn đề.
 - 🏁 Xong khi: đạt tiêu chí ô 2; quy trình được làm theo ra đúng sản phẩm, có bằng chứng và đường xử lý sai/thiếu tới cuối.
 - 📍 Tiến độ: [■ Thiết kế và khả thi] → [□ Triển khai] → [□ Vận hành]
-- ✅ Đã xong: ma trận 159 câu/53 nhóm; đăng ký danh mục thiết kế ML-MOW-TH-001 với 4 mã MOW-TH-001…004; 9 Tool + 3 quy trình bổ sung; liên kết quy trình có mã/phiên. Mô hình có 87 ca mô phỏng đạt, còn 5 chốt chưa kín.
+- ✅ Đã xong: ma trận 159 câu/53 nhóm; đăng ký danh mục thiết kế ML-MOW-TH-001 với 4 mã MOW-TH-001…004; 9 Tool + 3 quy trình bổ sung; liên kết quy trình có mã/phiên. Mô hình có 87 ca mô phỏng đạt, còn 5 chốt chưa kín. Theo D19/P17: tạo Over view là tab đầu, bố trí 4 Quy trình tổng hợp và ma trận 12 Quy trình thành phần từ cùng catalog, mã nhỏ/mờ. Phần này là trình bày, không nghiệm thu nghiệp vụ.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: kiểm/hoàn thiện 5 chốt thực thi → áp một vòng sai/thiếu → PG staging đúng quyền → kiểm UI/Config/Test và bàn giao. TQT-ISS-007 giữ mở.
-- ➡ Kế tiếp: Host hoàn thiện theo TQT-ISS-007; Reviewer rà danh mục và C1–C4; NEXT_TRIGGER=HOST_CONTRACT_FIX. Owner và Claude tiếp tục chốt mục tiêu ngắn riêng.
+- ➡ Kế tiếp: Owner xem tab Over view và góp ý cách hiểu; phần kỹ thuật còn 5 chốt TQT-ISS-007 và trạng thái DRAFT cũ giữ nguyên, không tự phát RUN. NEXT_TRIGGER=OWNER_OVERVIEW_FEEDBACK_OR_HOST_CONTRACT_FIX.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế · tự áp mục tiêu PR-07 chưa duyệt.
 
 ### 1. Mục tiêu
@@ -278,10 +278,10 @@ Ba chiều độc lập theo ô 1 dòng 2: **Chuỗi × nhóm chuyên môn × l�
 - Host được chỉ định có trách nhiệm rà sổ đầu/cuối lượt và khi bàn giao; assignee sửa, verifier kiểm. Chưa có người nhận thì ghi “Chưa giao”, không bịa phân công.
 - Khi ổn định mới thiết kế chuyển sang bảng PG riêng qua DOT; phải kiểm migration/mapping và chuyển nguồn một lần, giữ nguyên mã/lịch sử. Chưa tạo bảng hay tự bật nhắc việc nền trong lượt khởi tạo.
 
-#### TQT-HOST-GATE — nộp đề xuất riêng, Host mới nhập chuẩn (D08/D09 · 08/10/2026)
+#### TQT-HOST-GATE — nộp đề xuất riêng, Host mới nhập chuẩn (D08/D09 · 08/10/2026; Host chuyển theo D19)
 - **Mục tiêu của Owner vẫn chỉ ở §0 ô 1–2**. Mục tiêu nghiệm thu của từng Tool: một phiên Codex/agent mới đọc, thực hiện thật, giao được sản phẩm đúng. Nếu không thể: báo rõ ca lỗi, câu hỏi/bước thiếu, bằng chứng, không tự báo ĐẠT. Một vài ca đạt không bằng cả hành trình đạt.
-- **Nguồn chuẩn trong task này:** `view.html` (nội dung quy trình và sổ TQT), `COLLAB.md` (quyết định Host và trạng thái), `README.md` (cửa vào); chỉ Host Astra Codex (phiên Owner chỉ định 08/10) áp sửa chính. Không nhân thêm sổ thứ hai, không chỉnh ô mục tiêu Owner.
-- **Các AI ngoài phiên Host (GPT Chat, Claude, Codex, Claude Code…):** chỉ tạo một đề xuất **riêng** tại `work/tools-quy-trinh/proposals/TQT-PR-YYYYMMDD-<seat>-<so>.md` bằng gateway có expected-version/atomic transaction. Không sửa `view.html`, `COLLAB.md`, `README.md` và các hồ sơ TQT/OPEN được chép ở đó; không tự merge hoặc ghi “đã nhận”. Mỗi đề xuất khác mã/path, không cùng viết một file. Nếu worker thuộc task UI/MOW, bằng chứng thực hiện vẫn ghi ở task sản phẩm theo quyền task đó.
+- **Nguồn chuẩn trong task này:** `view.html` (nội dung quy trình và sổ TQT), `COLLAB.md` (quyết định Host và trạng thái), `README.md` (cửa vào); chỉ Host GPT Chat (phiên Owner chỉ định 09/10, D19) áp sửa chính. Không nhân thêm sổ thứ hai, không chỉnh ô mục tiêu Owner.
+- **Các AI ngoài phiên Host (Astra Codex, Claude, Codex khác, Claude Code…):** chỉ tạo một đề xuất **riêng** tại `work/tools-quy-trinh/proposals/TQT-PR-YYYYMMDD-<seat>-<so>.md` bằng gateway có expected-version/atomic transaction. Không sửa `view.html`, `COLLAB.md`, `README.md` và các hồ sơ TQT/OPEN được chép ở đó; không tự merge hoặc ghi “đã nhận”. Mỗi đề xuất khác mã/path, không cùng viết một file. Nếu worker thuộc task UI/MOW, bằng chứng thực hiện vẫn ghi ở task sản phẩm theo quyền task đó.
 - **Khuôn đề xuất ngắn:** `Mã Tool hoặc issue · Đã thử và kết quả thật (PASS phạm vi nào / BLOCKED vì sao) · Câu/bước hiện thiếu hoặc sai · Đề xuất sửa cụ thể · Nguồn phiên bản + link bằng chứng`. Không được tự sửa mục tiêu, không mở task mới. Khi thấy vấn đề chưa sửa, AI nộp đề xuất; Host vào sổ chuẩn cùng mã sau duyệt.
 - **Host duyệt:** đối chiếu mục tiêu + nguồn hiện hành + tác động tới Tool/sổ + bằng chứng kiểm, lấy phản biện Reviewer nếu cần; `ACCEPT`/ `REQUEST_CHANGES`/ `REJECT` ghi mã đề xuất vào P/D của COLLAB. Chỉ Host ghi cập nhật chính bằng **một transaction** với expected version/head; kiểm mirror và bàn giao đường đọc cho agent. Không ghi xanh khi mới chỉ thử một phần.
 - **Chuyển nguồn cũ:** tới khi hoàn tất TQT-ISS-004, `ML-DEF-023`, 8/7 câu và `OPEN-01…10` tại MOW vẫn là nguồn sửa *legacy*; bản chép tại task chỉ để đọc có gắn phiên bản. Nội dung/sổ **mới của task** chỉ Host nhận qua proposals. Host phải hòa giải thay đổi legacy ngay trước khi tuyên bố chuyển một SSOT; không tự sửa mã/runtime VPS hay thu khu Công thức của task khác.
@@ -290,11 +290,11 @@ Ba chiều độc lập theo ô 1 dòng 2: **Chuỗi × nhóm chuyên môn × l�
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
 |---|---|---|---|---|
-| OpenAI-main | OpenAI | Astra Codex desktop — phiên Owner chỉ định trực tiếp 08/10 | Host | Phiên hiện tại của Owner · đường gọi hội đồng CHƯA ĐO |
+| OpenAI-main | OpenAI | GPT Chat — phiên Owner chỉ định trực tiếp 09/10 | Host | Cuộc trò chuyện hiện tại của Owner · đường gọi hội đồng CHƯA ĐO |
 | Claude-review | Anthropic | Claude Chat | Reviewer | CHƯA ĐO |
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 
-**Roster cập nhật theo chỉ đạo Owner 08/10:** Astra Codex là Host, thay GPT Chat của D06; Claude Chat giữ ghế Reviewer khác hãng. Đường gọi Reviewer còn `CHƯA ĐO`; chưa có phiếu/quorum hay lệnh READY/RUN cho worker. Host được giao trực tiếp cập nhật nội dung tài liệu task, không mở rộng sang runtime, PG/Directus, hoặc dữ liệu nguồn UI hiện hành. Reviewer góp ý theo vòng AGENTS A5 sau khi có bản nháp/đề xuất.
+**Roster cập nhật theo D19, 09/10:** GPT Chat là Host hiện hành; Astra Codex từng làm Host theo D17 và nay không được tự sửa nguồn chính. Claude Chat giữ ghế Reviewer khác hãng. Đường gọi Reviewer còn `CHƯA ĐO`; chưa có phiếu/quorum hay lệnh READY/RUN cho worker. Host được giao trực tiếp cập nhật nội dung tài liệu task, không mở rộng sang runtime, PG/Directus, hoặc dữ liệu nguồn UI hiện hành. Reviewer góp ý theo vòng AGENTS A5 sau khi có bản nháp/đề xuất.
 
 ### Vòng trước
 Chỉ đạo READ-ONLY P15/D16 và Host GPT Chat dưới đây là lịch sử trước khi Owner giao lại Astra Codex. Không dùng lịch sử này để ghi đè vai trò/phạm vi hiện hành ở đầu §0.
@@ -389,11 +389,19 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 
 - **D17 · 08/10/2026 · HUMAN_DIRECTIVE:** Owner: “Bạn là host của task này đi. Các ý kiến khác không được ghi thẳng, bạn xem xét có đồng ý bổ sung thêm không rồi mới bổ sung.” Astra Codex là Host hiện hành; giữ D06/D16 làm lịch sử.
 - **D18 · 09/10/2026 · HUMAN_DIRECTIVE:** Owner yêu cầu Master riêng có tên/mã cho quy trình tổng hợp, theo UI cha và đồng thời có trong tools-quy-trinh khi dưới10; định nghĩa tổng hợp nhỏ hơn chuyên môn, T2.5 bàn sau. Thực hiện trong P16; không tự áp mục tiêu ngắn PR-07.
+- **D19 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner chỉ định lại GPT Chat làm Host của `tools-quy-trinh`, yêu cầu tab đầu tiên tên chính xác `Over view`, đứng trước `List quy trình tổng hợp`. Tab trình bày quan hệ **4 Quy trình tổng hợp** ↔ **12 Quy trình thành phần**, mã nhỏ và mờ cạnh tên, từ ngữ nhất quán để Owner nhìn là hiểu. Không đổi mã, công thức, danh mục, workflow hoặc runtime; Host Codex theo D17 là lịch sử, không còn quyền Host hiện hành.
+- HUMAN_DIRECTIVE@TQT-OVERVIEW-HOST-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,COLLAB.md,README.md,PROMPT.md} · step=Host và trình bày Over view · recorded_by=OpenAI-main/GPT Chat · quote="bạn lập giúp tôi 1 tab đầu tiên. (bạn được làm host) trước cả List quy trình tổng hợp tên tab là: Over view" · text=Giao GPT Chat làm Host, dựng sơ đồ quan hệ 4 Quy trình tổng hợp / 12 Quy trình thành phần nhất quán, giữ nguồn chuẩn · audit=Tin nhắn trực tiếp Owner trong GPT Chat 09/10/2026.
 
 ## Owner cần quyết
-- Q01 đã chốt: Astra Codex là Host hiện hành (D17); D06 là lịch sử. Mục tiêu ngắn trong PR-07 vẫn do Owner/Claude bàn, Host chưa áp.
+- Q01 đã chốt theo D19: GPT Chat là Host hiện hành (09/10); D17 giao Astra Codex và D06 giao GPT Chat trước đó giữ làm lịch sử. Mục tiêu ngắn trong PR-07 vẫn do Owner/Claude bàn, Host chưa áp.
 
 ## Ý kiến và bằng chứng
+### P17 · Host dựng tab Over view từ một catalog · ĐANG KIỂM
+Ghế: GPT Chat (OpenAI-main) · Phạm vi: riêng màn tổng quan + đồng bộ vai Host, không sửa quy trình gốc.
+- Based_on: Owner giao trực tiếp D19, dữ liệu `view.html#tqt-composite-processes.catalog`, Master `ML-MOW-TH-001` có 4 mã MOW-TH, danh mục `normal_processes` có 12 mã (9 Tool + 3 quy trình bổ sung), ma trận câu hỏi 159/53 trong JSON hiện hữu; bản kiểm UI-REVIEW-AGGREGATE.json.
+- Trình bày `Over view` ở đầu dải tab: sơ đồ gọi giữa 4 Quy trình tổng hợp và bảng tick gọi trực tiếp 12 Quy trình thành phần. Mã nhỏ/mờ ngay cạnh tên. Liên kết tên trỏ tới chi tiết đã có; không sao chép SSOT; không đụng CT-005, Master nguồn, PG, UI runtime, sổ.
+- Host ghi theo D19 và giữ các cổng/chốt kỹ thuật chưa nghiệm thu. Chờ kiểm live desktop/mobile và link deep-link; chưa có phép thử AI mới hoặc RUN.
+
 ### P15 · Host giao đề bài Codex rà câu hỏi gốc trước khi vẽ UI · OPEN
 Ghế: OpenAI-main · Vòng: 1/5, READ-ONLY REVIEW, chưa Reviewer/READY/RUN sửa nguồn.
 - Based_on: Owner trao đổi 08/10 về nền ba nguyên liệu và bộ câu hỏi ghép; nguồn `ui/definition-master-data-v1.js` CT-001/002/002.1/003–005.1, `ui/chuoi-data-v1.js`, `work/mow-mot-moit-mout/FORMULA-AI-README.md` D153/D158; `work/tools-quy-trinh/view.html#ra-ui`.

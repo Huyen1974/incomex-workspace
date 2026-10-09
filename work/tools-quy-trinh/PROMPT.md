@@ -1,5 +1,7 @@
 # PROMPT — Tools quy trình · Làm theo quy trình ra đúng sản phẩm
 
+**Host hiện hành (D19, 09/10/2026): GPT Chat; Astra Codex chỉ còn là Host lịch sử D17.** Lượt này chỉ trình bày Over view, không READY/RUN sửa kỹ thuật; các phần prompt cũ bên dưới là hồ sơ việc có sẵn, không tự động được phép chạy.
+
 ## Đọc đích trước khi làm
 Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](COLLAB.md); trạng thái hiện tại ở Bảng điều khiển cùng file. Giữ nguyên 15 ý Owner, đọc cả phần “Làm rõ mục tiêu” ngày 09/10: phải có quy trình khép kín, đủ câu hỏi/đáp án và bằng chứng làm theo ra đúng sản phẩm. Ma trận, UI và mô hình dữ liệu là các phần phục vụ mục tiêu này. Chi tiết dưới đây là cách thực hiện và lịch sử; không thay tiêu chí nghiệm thu.
 

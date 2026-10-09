@@ -134,6 +134,53 @@ main{max-width:1240px} [hidden]{display:none!important}
 .tq #tqt-composite-json{width:100%;min-height:220px;font:12px monospace;box-sizing:border-box}
 @media(max-width:700px){.tq .tq-tabs{position:static;flex-wrap:nowrap;overflow-x:auto}.tq .tq-tabs button{flex:0 0 auto;white-space:nowrap}.tq .tqt-stage-overview,.tq .tqt-owner-brief{grid-template-columns:1fr}.tq .tqt-composite-body{padding:0 10px 10px}.tq .tqt-composite>summary{font-size:16px;padding:14px}}
 </style>
+
+<style id="tqt-overview-style">
+#over-view{padding:2px 0 18px;color:var(--ink)}
+#over-view h2{font-size:21px;margin:8px 0 6px}
+#over-view .ov-intro{color:var(--mut);margin:0 0 15px;font-size:14px}
+#over-view .ov-section{margin:12px 0 20px}
+#over-view .ov-lead{border:1px solid #849e8b;border-radius:13px;padding:16px 18px;background:#fbfdf9;max-width:580px;margin:auto}
+#over-view .ov-lead .ov-title{font-size:17px;font-weight:700}
+#over-view .ov-code{font:11px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;color:#78877e;font-weight:400;margin-left:7px;overflow-wrap:anywhere}
+#over-view .ov-subtext{font-size:13px;color:var(--mut);margin:5px 0 0}
+#over-view .ov-flow-arrow{font-size:13px;color:var(--mut);text-align:center;padding:10px 0}
+#over-view .ov-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#over-view .ov-card{padding:13px 14px;border:1px solid var(--line);border-radius:12px;min-width:0;background:#fff}
+#over-view .ov-card .ov-card-title{font-weight:700;line-height:1.42;display:block}
+#over-view .ov-goal{font-size:12px;color:var(--mut);margin-top:6px}
+#over-view .ov-calls{margin:9px 0 0;padding-top:8px;border-top:1px solid var(--line);font-size:12px;color:var(--mut)}
+#over-view .ov-calls a{font-weight:600;white-space:nowrap}
+#over-view a{text-decoration:underline;text-underline-offset:3px}
+#over-view .ov-matrix-guide{font-size:13px;color:var(--mut);margin:0 0 9px}
+#over-view .ov-matrix-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}
+#over-view .ov-matrix{width:100%;min-width:620px;border-collapse:collapse}
+#over-view .ov-matrix th,#over-view .ov-matrix td{border-bottom:1px solid #e6ece7;padding:9px 10px}
+#over-view .ov-matrix thead th{background:#f5f7f4;text-align:center;font-size:13px;font-weight:700}
+#over-view .ov-matrix thead th:first-child{text-align:left;width:52%}
+#over-view .ov-matrix thead small{display:block;font-size:11px;color:var(--mut);font-weight:400}
+#over-view .ov-matrix tbody th{background:#fff;text-align:left;font-size:13px;font-weight:500}
+#over-view .ov-matrix tbody th .ov-code{display:inline-block}
+#over-view .ov-matrix tbody td{text-align:center;font-size:18px;color:#718076}
+#over-view .ov-matrix tbody td.ov-yes{font-weight:800;color:#24643b}
+#over-view .ov-matrix tr:last-child>*{border-bottom:0}
+#over-view .ov-mobile{display:none}
+#over-view .ov-mobile-item{padding:9px 0;border-bottom:1px solid var(--line)}
+#over-view .ov-mobile-item:last-child{border-bottom:0}
+#over-view .ov-mobile-item>a{font-weight:600}
+#over-view .ov-mobile-item .ov-owners{font-size:12px;color:var(--mut);margin-top:3px}
+#over-view .ov-foot{border-top:1px solid var(--line);margin-top:16px;padding-top:11px;color:var(--mut);font-size:13px}
+#over-view .ov-foot p{margin:4px 0 7px}
+#over-view .ov-status{font-size:12px;color:var(--mut)}
+@media(max-width:700px){
+ #over-view .ov-cards{grid-template-columns:1fr}
+ #over-view .ov-card{padding:11px 12px}
+ #over-view .ov-matrix-wrap{display:none}
+ #over-view .ov-mobile{display:block;border-top:1px solid var(--line);padding:2px 0}
+ #over-view .ov-lead{padding:12px 14px}
+ #over-view .ov-matrix-guide{margin-bottom:4px}
+}
+</style>
 </head>
 <body>
 <main>
@@ -141,13 +188,15 @@ main{max-width:1240px} [hidden]{display:none!important}
 <div class="tq" id="tqt-question-app">
 <header><small>TOOLS QUY TRÌNH · TƯ DUY TỪ GỐC</small><h1>Quy trình để làm ra sản phẩm</h1><p>Nhìn toàn hành trình · mở đúng phần đang làm · kiểm đến khi chạy được.</p></header>
 <nav class="tq-tabs" role="tablist" aria-label="Nội dung Tools quy trình">
-<button type="button" role="tab" id="tqt-tab-composite" aria-controls="list-quy-trinh-tong-hop" aria-selected="true" data-tab="list-quy-trinh-tong-hop">List quy trình tổng hợp</button>
+<button type="button" role="tab" id="tqt-tab-overview" aria-controls="over-view" aria-selected="true" data-tab="over-view">Over view</button>
+<button type="button" role="tab" id="tqt-tab-composite" aria-controls="list-quy-trinh-tong-hop" aria-selected="false" data-tab="list-quy-trinh-tong-hop" tabindex="-1">List quy trình tổng hợp</button>
 <button type="button" role="tab" id="tqt-tab-basic" aria-controls="cau-hoi-co-ban" aria-selected="false" data-tab="cau-hoi-co-ban" tabindex="-1">Câu hỏi cơ bản</button>
 <button type="button" role="tab" id="tqt-tab-business" aria-controls="cau-hoi-nghiep-vu" aria-selected="false" data-tab="cau-hoi-nghiep-vu" tabindex="-1">Câu hỏi nghiệp vụ</button>
 <button type="button" role="tab" id="tqt-tab-matrix" aria-controls="ma-tran-cau-hoi" aria-selected="false" data-tab="ma-tran-cau-hoi" tabindex="-1">Ma trận câu hỏi</button>
 <button type="button" role="tab" id="tqt-tab-old" aria-controls="tqt-legacy" aria-selected="false" data-tab="tqt-legacy" tabindex="-1">Quy trình hiện có</button>
 </nav>
-<div id="list-quy-trinh-tong-hop" role="tabpanel" aria-labelledby="tqt-tab-composite">
+<div id="over-view" role="tabpanel" aria-labelledby="tqt-tab-overview"><div id="tqt-overview-root" aria-live="polite"><p>Đang đọc danh mục Quy trình tổng hợp và Quy trình thành phần…</p></div></div>
+<div id="list-quy-trinh-tong-hop" role="tabpanel" hidden aria-labelledby="tqt-tab-composite">
 <p class="hint"><b>Một việc đi từ đầu đến khi chạy được.</b> Chọn quy trình để xem ba giai đoạn; mở từng phần khi cần làm hoặc cần quyết định.</p>
 <div id="tqt-process-model-view" aria-label="Mô hình quy trình có mã"></div><details><summary>Rà vòng trước · bốn chỗ hở và câu hỏi khép kín</summary><div id="tqt-closure-review" aria-label="Rà khép kín quy trình"></div></details><div id="tqt-composite-list"></div>
 <details><summary>Dữ liệu quy trình tổng hợp · cho AI đọc</summary><p class="mut">Một nguồn trong trang này: tqt-composite-processes. Quy trình con và sổ vẫn được dẫn về nguồn hiện có.</p><textarea id="tqt-composite-json" readonly aria-label="Dữ liệu quy trình tổng hợp JSON"></textarea></details>
@@ -865,7 +914,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 <script id="tqt-question-matrix" type="application/json">{
   "schema": "TQT-QUESTION-MATRIX-1",
   "updated": "2026-10-09",
-  "host": "Astra Codex",
+  "host": "GPT Chat",
   "status": "Bản đầu để dùng thử và hiệu chỉnh; chưa nghiệm thu bộ câu hỏi",
   "source_definitions": "work/mow-mot-moit-mout/ban-duyet.html#matrix-view-formula",
   "source_version": "e02299dfdd8a15769ece7104a930f09451dd22a16d60a208b2a0bafe80e02069",
@@ -9039,7 +9088,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 <script id="tqt-composite-processes" type="application/json">{
   "schema": "TQT-COMPOSITE-PROCESSES-1",
   "updated": "2026-10-09",
-  "host": "Astra Codex",
+  "host": "GPT Chat",
   "processes": [
     {
       "id": "TQT-TH-001",
@@ -9610,7 +9659,7 @@ main{max-width:1240px} [hidden]{display:none!important}
       "id": "TQT-ISS-007",
       "title": "Quy trình tổng hợp chưa nối vào Master và vòng xử lý khép kín",
       "state": "Mở · đã có Master thiết kế 4 quy trình; còn 5 chốt thực thi",
-      "owner": "Astra Codex · Host",
+      "owner": "GPT Chat · Host",
       "next": "Kiểm các quan hệ có mã/phiên; hoàn thiện 5 chốt review06; áp thử một vòng trước PG. Đăng ký danh mục không đóng hồ sơ.",
       "review": "Lượt tiếp tục tools-quy-trinh; trước mọi tuyên bố quy trình này đã đăng ký hoặc vận hành.",
       "done": "Có mã Master/quan hệ hợp lệ; mỗi nhánh có nơi nhận, chủ trách nhiệm, chỗ ghi và tiêu chí xong; một ca đi hết có bằng chứng. Giao diện/bộ câu hỏi mới không đủ để đóng.",
@@ -10510,6 +10559,57 @@ const legacy=document.getElementById('tqt-tab-old');if(legacy)legacy.textContent
 })();
 
 </script>
+<script id="tqt-overview-renderer">
+(function(){
+'use strict';
+const source=document.getElementById('tqt-composite-processes');
+const matrix=document.getElementById('tqt-question-matrix');
+const slot=document.getElementById('tqt-overview-root');
+if(!source||!slot)return;
+const C=JSON.parse(source.textContent),R=C.catalog;
+const Q=matrix?JSON.parse(matrix.textContent):null;
+const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const records=R.records||[],normals=R.normal_processes||[];
+const byCode=new Map(records.map((r,i)=>[r.code,{...r,ordinal:i+1}]));
+const nums=['①','②','③','④','⑤','⑥','⑦','⑧','⑨'];
+const no=r=>nums[r.ordinal-1]||String(r.ordinal);
+const pLink=r=>'<a href="#'+e(r.code)+'">'+e(r.name)+'</a><small class="ov-code">'+e(r.code)+'</small>';
+const nLink=n=>'<a href="'+e(n.href)+'">'+e(n.name)+'</a><small class="ov-code">'+e(n.code)+'</small>';
+const directAggregates=r=>(r.child_refs||[]).map(x=>byCode.get(x.code)).filter(Boolean);
+const directNormals=r=>new Set((r.child_refs||[]).map(x=>x.code).filter(x=>normals.some(n=>n.code===x)));
+const pMain=records.find(r=>r.code==='MOW-TH-001')||records[0];
+const rest=records.filter(r=>r!==pMain);
+if(!pMain){slot.textContent='Chưa có Quy trình tổng hợp trong nguồn thiết kế.';return;}
+const bigCalls=directAggregates(pMain);
+const main='<div class="ov-lead"><div class="ov-title">'+no(pMain)+' '+pLink(pMain)+'</div><p class="ov-subtext">'+e(pMain.goal)+'</p><p class="ov-subtext"><b>Các giai đoạn:</b> '+e((pMain.route||[]).join(' → '))+'</p></div>';
+const cards=rest.map(r=>{
+ const called=directAggregates(r);
+ return '<div class="ov-card"><div class="ov-card-title">'+no(r)+' '+pLink(r)+'</div><div class="ov-goal">'+e(r.goal)+'</div><div class="ov-calls">Gọi Quy trình tổng hợp khác: '+(called.length?called.map(x=>'<a href="#'+e(x.code)+'">'+no(x)+'</a>').join(' · '):'không')+'</div></div>';
+}).join('');
+const recColumns=records.map(r=>{
+ const count=normals.filter(n=>directNormals(r).has(n.code)).length;
+ return '<th scope="col" title="'+e(r.code+' · '+r.name)+'">'+no(r)+'<small>'+count+' gọi trực tiếp</small></th>';
+}).join('');
+const rows=normals.map(n=>'<tr><th scope="row">'+nLink(n)+'</th>'+records.map(r=>{
+const yes=directNormals(r).has(n.code);
+return '<td class="'+(yes?'ov-yes':'')+'" aria-label="'+(yes?'Có gọi trực tiếp':'Không gọi trực tiếp')+'">'+(yes?'✓':'—')+'</td>';
+}).join('')+'</tr>').join('');
+const mobile=normals.map(n=>{
+ const used=records.filter(r=>directNormals(r).has(n.code));
+ return '<div class="ov-mobile-item">'+nLink(n)+'<div class="ov-owners">Được gọi trực tiếp bởi: '+(used.length?used.map(no).join(' · '):'chưa có')+'</div></div>';
+}).join('');
+slot.innerHTML=
+'<div class="ov-section"><h2>'+records.length+' Quy trình tổng hợp</h2><p class="ov-intro">Bốn quy trình cùng một loại. Mũi tên nghĩa là <b>có thể gọi khi cần</b>, không phải luôn chạy hết và không phải quan hệ cấp bậc cố định.</p>'+main+
+'<div class="ov-flow-arrow">↓ &nbsp;'+no(pMain)+' có thể gọi '+bigCalls.map(no).join(' · ')+'</div>'+
+'<div class="ov-cards">'+cards+'</div></div>'+
+'<div class="ov-section"><h2>'+normals.length+' Quy trình thành phần <small class="ov-code">dùng chung</small></h2><p class="ov-matrix-guide">✓ = Quy trình tổng hợp gọi <b>trực tiếp</b> Quy trình thành phần. — = không gọi trực tiếp; vẫn có thể gọi gián tiếp qua quy trình khác.</p>'+
+'<div class="ov-matrix-wrap"><table class="ov-matrix"><thead><tr><th scope="col">Quy trình thành phần</th>'+recColumns+'</tr></thead><tbody>'+rows+'</tbody></table></div>'+
+'<div class="ov-mobile">'+mobile+'</div>'+
+'<div class="ov-foot"><p><b>Nguyên tắc:</b> đây là '+normals.length+' Quy trình thành phần dùng lại, <b>không</b> phải mỗi Quy trình tổng hợp có một bộ riêng.</p>'+
+'<p>Kho '+(Q?Q.questions.length:'…')+' câu hỏi / '+(Q?Q.groups.length:'…')+' nhóm là <b>tài nguyên</b>, không phải Quy trình. <a href="#QT-CTCM-012">Khai báo và kiểm bộ câu hỏi</a> <small class="ov-code">QT-CTCM-012</small> là <b>một trong '+normals.length+' Quy trình thành phần</b>.</p>'+
+'<p class="ov-status">Tên, mã, mối gọi lấy từ danh mục thiết kế '+e(R.id)+'; các Quy trình chưa được coi là đã vận hành production.</p></div></div>';
+})();
+</script>
 <script id="tqt-question-renderer">
 (function(){
 'use strict';
@@ -10544,7 +10644,7 @@ $('tqt-step-map').innerHTML='<div class="tq-flow">'+piece('B1')+'<div class="bra
 $('tqt-layer-map').innerHTML='<div class="layers">'+piece('FIELD')+arrow+'<div class="pair" aria-label="Hai đối tượng T0.5">'+piece('MOIT')+piece('MOUT')+'</div>'+arrow+piece('MOT')+arrow+piece('MOW')+'</div><details><summary>Tầng bối cảnh · T3 ⇒ T4 ⇒ T5 ⇒ T6 ⇒ T7</summary><div class="layers">'+['T3','T4','T5','T6','T7'].map(id=>piece(id)).join(arrow)+'</div></details>';
 $('tqt-chain-map').innerHTML=['CTCM','VHCM','CMSXQT'].map(id=>piece(id)).join('');
 $('tqt-business-map').innerHTML=D.groups.filter(g=>g.kind==='Nghiệp vụ').map(g=>'<a class="piece" href="#q-'+g.id+'" data-piece="'+g.id+'"><b>'+esc(g.label)+'</b><span class="count">'+own(g.id).length+' câu riêng · đang hiệu chỉnh</span></a>').join('');
-const panels=['list-quy-trinh-tong-hop','cau-hoi-co-ban','cau-hoi-nghiep-vu','ma-tran-cau-hoi','tqt-legacy'];
+const panels=['over-view','list-quy-trinh-tong-hop','cau-hoi-co-ban','cau-hoi-nghiep-vu','ma-tran-cau-hoi','tqt-legacy'];
 function tab(id){
  panels.forEach(p=>$(p).hidden=p!==id);
  document.querySelectorAll('[data-tab]').forEach(b=>{let yes=b.dataset.tab===id;b.setAttribute('aria-selected',String(yes));b.tabIndex=yes?0:-1});
@@ -10625,7 +10725,7 @@ function routeHash(){
  const target=id&&$(id);
  if(target&&$('list-quy-trinh-tong-hop').contains(target)){tab('list-quy-trinh-tong-hop');let p=target;while(p&&p!==$('list-quy-trinh-tong-hop')){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement}requestAnimationFrame(()=>target.scrollIntoView({block:'start'}));return}
  if(target&&$('tqt-legacy').contains(target)){tab('tqt-legacy');let p=target;while(p&&p!==$('tqt-legacy')){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement}requestAnimationFrame(()=>target.scrollIntoView());return}
- tab('list-quy-trinh-tong-hop');
+ tab('over-view');
 }
 function syncSection(){
  const section=decodeURIComponent(location.hash.slice(1));
