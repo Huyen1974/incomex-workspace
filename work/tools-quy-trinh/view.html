@@ -107,6 +107,8 @@ main{max-width:1240px} [hidden]{display:none!important}
 @media(prefers-reduced-motion:no-preference){.tq .piece{transition:background .12s,border-color .12s}}
 </style>
 <style id="tqt-composite-style">
+.tq .tqt-closure-formula{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0}.tq .tqt-closure-formula span{padding:10px 12px;background:#eef3e8;border:1px solid #d5dfcc;border-radius:8px}.tq .tqt-closure-formula i{color:#718565;font-style:normal}.tq .tqt-gap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tq .tqt-gap-grid>div{padding:14px;border:1px solid #dfcfa9;border-left:3px solid #ac8439;border-radius:9px;background:#fffdf7}.tq .tqt-gap-grid p{margin:8px 0}.tq .tqt-gap-grid small{color:#716653}.tq .tqt-review-body{padding:0 14px 14px}.tq #tqt-closure-review{margin-bottom:24px}.tq #tqt-closure-review>details{margin-top:12px}@media(max-width:700px){.tq .tqt-gap-grid{grid-template-columns:1fr}}
+
 .tq .tqt-composite{border:1px solid #d6ddcf;border-radius:14px;background:#fff}
 .tq .tqt-composite>summary{padding:18px;font-size:18px}
 .tq .tqt-composite>summary small{display:block;font-size:12px;font-weight:400;color:#687362;margin-top:6px}
@@ -140,7 +142,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 </nav>
 <div id="list-quy-trinh-tong-hop" role="tabpanel" aria-labelledby="tqt-tab-composite">
 <p class="hint"><b>Một việc đi từ đầu đến khi chạy được.</b> Chọn quy trình để xem ba giai đoạn; mở từng phần khi cần làm hoặc cần quyết định.</p>
-<div id="tqt-composite-list"></div>
+<div id="tqt-closure-review" aria-label="Rà khép kín quy trình"></div><div id="tqt-composite-list"></div>
 <details><summary>Dữ liệu quy trình tổng hợp · cho AI đọc</summary><p class="mut">Một nguồn trong trang này: tqt-composite-processes. Quy trình con và sổ vẫn được dẫn về nguồn hiện có.</p><textarea id="tqt-composite-json" readonly aria-label="Dữ liệu quy trình tổng hợp JSON"></textarea></details>
 </div>
 <div id="cau-hoi-co-ban" role="tabpanel" aria-labelledby="tqt-tab-basic" hidden>
@@ -176,7 +178,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 <div class="stats">
 <a class="stat" href="#bang"><b>10</b>quy trình · CTCM<small>9 Tool + Rà một UI · VHCM 0 · CMSXQT để sau</small></a>
 <a class="stat" href="#chi-tiet-tools"><b>0/10</b>đã đạt<small>chưa có người mới làm theo ra sản phẩm thật</small></a>
-<a class="stat" href="#so-van-de"><b>16</b>hồ sơ trong sổ<small>🔴 2 bị chặn · 🟡 13 mở · 🟢 1 đóng</small></a>
+<a class="stat" href="#so-van-de"><b>17</b>hồ sơ trong sổ<small>🔴 2 bị chặn · 🟡 14 mở · 🟢 1 đóng</small></a>
 <a class="stat" href="#chuyen-nguon"><b>✓ · ⏳</b>khu Công thức cũ<small>đã chép đủ · chưa cắt chuyển nơi sửa</small></a>
 </div>
 <nav class="toc" aria-label="Nội dung trang">
@@ -596,12 +598,13 @@ main{max-width:1240px} [hidden]{display:none!important}
 
 <section id="so-van-de">
 <h2><span class="no">⑤</span>Sổ vấn đề · một sổ</h2>
-<p><span class="chip st">🔴 2 bị chặn</span> <span class="chip wa">🟡 13 mở</span> <span class="chip ok">🟢 1 đóng</span> · 6 hồ sơ TQT của task này + 10 hồ sơ OPEN chép nguyên mã từ sổ MOW / Tools.</p>
+<p><span class="chip st">🔴 2 bị chặn</span> <span class="chip wa">🟡 14 mở</span> <span class="chip ok">🟢 1 đóng</span> · 7 hồ sơ TQT của task này + 10 hồ sơ OPEN chép nguyên mã từ sổ MOW / Tools.</p>
 <div class="flow"><span>Ghi nhận</span>→<span>Phân loại</span>→<span>Giao xử lý</span>→<span>Đang xử lý</span>→<span>Chờ kiểm</span>→<span>Đóng</span></div>
 <p class="mut"><small>Kiểm chưa đạt → Đang xử lý · Tái diễn → Mở lại · Bị chặn/Để sau giữ người chịu trách nhiệm và mốc rà · Trùng dẫn về hồ sơ gốc · Không sửa phải có lý do và người có thẩm quyền quyết.</small></p>
 <div class="warn">⏳ <b>Chưa cắt chuyển:</b> 10 hồ sơ OPEN là bản chép lúc 08/10/2026 11:10 từ Master Tool bản <code>93eae888106544e7</code>. Cho tới khi Host ghi quyết định cắt chuyển (<a href="#chuyen-nguon">⑥</a>), trạng thái hiện hành đọc/sửa ở <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/tools-playbook-v1.html#issue-register" target="_blank" rel="noopener">sổ MOW ↗</a>; sau đó chỉ sửa ở đây.</div>
 <div class="wrap"><table>
 <thead><tr><th>Mã</th><th>Vấn đề</th><th>Trạng thái</th><th>👤 Người giữ việc</th><th>➡ Bước tiếp</th></tr></thead><tbody>
+<tr><td><a href="#TQT-ISS-007">TQT-ISS-007</a></td><td>Quy trình tổng hợp: đăng ký và khép kín đường xử lý</td><td colspan="3"><a href="#TQT-ISS-007">Mở hồ sơ hiện hành · người giữ việc, bước tiếp và điều kiện đóng</a></td></tr>
 <tr><td><a href="#TQT-ISS-001">TQT-ISS-001</a></td><td>Bộ phác thảo chưa sẵn sàng dùng trên diện rộng</td><td>🟡 Ghi nhận</td><td>Host GPT Chat theo dõi · chưa giao</td><td>Rà khung, chọn quy trình đại diện để áp thử</td></tr>
 <tr><td><a href="#TQT-ISS-002">TQT-ISS-002</a></td><td>Trang nội dung còn chữ lệch mục tiêu Owner chốt 08/10</td><td>🟡 Ghi nhận</td><td>Host GPT Chat theo dõi · chưa giao</td><td>Ghế chưa viết trang đối chiếu ô 1 với trang mới</td></tr>
 <tr><td><a href="#TQT-ISS-003">TQT-ISS-003</a></td><td>9 quy trình chưa chứng minh người mới làm theo ra sản phẩm thật</td><td>🟡 Đang xử lý</td><td>Host theo dõi · Codex xử lý · chờ kiểm độc lập</td><td>Kiểm độc lập “Rà một UI”; phủ phần còn thiếu</td></tr>
@@ -621,6 +624,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 <p class="mut"><small>“Codex” = Codex · phiên thiết kế MOW này. Bấm mã để mở hồ sơ đủ trường bên dưới.</small></p>
 
 <h3>Hồ sơ của task này · TQT</h3>
+<div id="tqt-closure-issue"></div>
 <details id="TQT-ISS-001"><summary><code>TQT-ISS-001</code><span class="t">Bộ phác thảo chưa sẵn sàng dùng trên diện rộng</span><span class="chip wa">Ghi nhận</span></summary><div class="in"><dl class="kv">
 <dt>Nguồn phát hiện</dt><dd>Owner, 07/10/2026: phần Tools hiện có mới là bước đầu, cần chuẩn mực hơn và dễ nhìn hơn khi số quy trình tăng.</dd>
 <dt>Phạm vi</dt><dd>Bộ quy trình Tools; nguồn khởi đầu TOOL-CTCM-001…009. Câu/bước cụ thể cần sửa sẽ được chỉ ra khi rà từng quy trình.</dd>
@@ -2140,6 +2144,139 @@ main{max-width:1240px} [hidden]{display:none!important}
       "owner": "NTGV",
       "text": "Nếu không nhận, quá hạn hoặc không làm được thì chuyển cho ai?",
       "status": "draft"
+    },
+    {
+      "id": "Q-LAYER-06",
+      "owner": "LAYER",
+      "text": "Tên/mã đã có trong Master nào; đã tìm trùng và có thể dùng lại bản nào?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-LAYER-07",
+      "owner": "LAYER",
+      "text": "Vòng đời định nghĩa và từng lần áp dụng ghi ở đâu; ai được chuyển trạng thái?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-LAYER-08",
+      "owner": "LAYER",
+      "text": "Đổi đối tượng này làm mất hiệu lực những nơi dùng nào; kiểm lại và báo cho ai?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-MOW-04",
+      "owner": "MOW",
+      "text": "Bắt đầu từ đầu vào nào, kết thúc tại kết quả nào; ai nhận và xác nhận kết quả?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-MOW-05",
+      "owner": "MOW",
+      "text": "Có bao nhiêu việc con, mã nào; việc nào trước/sau, song song hoặc phải hội đủ?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-MOW-06",
+      "owner": "MOW",
+      "text": "Mỗi nhánh đạt, lỗi, thiếu, hủy, quá hạn đi đâu; nơi nhận nào đã xác nhận nhận?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-MOW-07",
+      "owner": "MOW",
+      "text": "Ai quản lý toàn quy trình; báo cáo ai, khi nào và theo nguyên tắc nào?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-MOW-08",
+      "owner": "MOW",
+      "text": "Mỗi chỗ nối truyền dữ liệu/trạng thái gì; nguồn ra có đủ và đúng đầu vào nơi nhận không?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-MOW-09",
+      "owner": "MOW",
+      "text": "Có đoạn nào hở, lặp vô hạn hoặc nhiều quy trình cùng xử lý; dùng chung hay phân quyền thế nào?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-MOT-04",
+      "owner": "MOT",
+      "text": "Đọc bản ghi nào, ghi kết quả vào đâu và đọc lại bằng chứng nào?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-MOT-05",
+      "owner": "MOT",
+      "text": "Điều kiện cho phép là gì; sự kiện nào kích hoạt công việc?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-MOT-06",
+      "owner": "MOT",
+      "text": "Áp dụng NTGV nào; ai nhận trách nhiệm, quyền, hạn và xử lý khi không nhận?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-MOT-07",
+      "owner": "MOT",
+      "text": "Báo cáo ai khi nào; ai nhận việc tiếp theo và xác nhận bàn giao ở đâu?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-MOT-08",
+      "owner": "MOT",
+      "text": "Sai/thiếu tạo hoặc nối hồ sơ nào; quy trình xử lý nào nhận và ai kiểm đến khi đóng?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-MOT-09",
+      "owner": "MOT",
+      "text": "Chạy lại có tạo trùng hoặc ghi đè không; hủy, lỗi hay quá hạn thì khôi phục thế nào?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-TEST-05",
+      "owner": "TEST",
+      "text": "Kết quả từng câu/ca được lưu theo đối tượng, phạm vi và phiên bản nào; lần nào phải kiểm lại?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-TEST-06",
+      "owner": "TEST",
+      "text": "Đã kiểm mọi điểm bắt đầu, chỗ nối và điểm kết thúc; nhánh nào còn không có nơi nhận?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-UI-06",
+      "owner": "UI",
+      "text": "Người xem có thấy mã, nơi lưu, trạng thái, người giữ việc và đường xử lý tiếp của từng chỗ hở không?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
+    },
+    {
+      "id": "Q-NTGV-05",
+      "owner": "NTGV",
+      "text": "Ai có quyền xác nhận đạt/đóng; người làm và người kiểm được phân công thế nào?",
+      "status": "draft",
+      "source": "Owner 09/10/2026 · rà khép kín MOW/MOT"
     }
   ],
   "rules": [
@@ -2178,6 +2315,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       "scope": "compose",
       "title": "Từ câu trả lời đến sản phẩm",
       "text": "Mỗi trường, nút, trạng thái UI và quy tắc Config phải truy được về câu trả lời có căn cứ. Chiều ngược lại: mỗi yêu cầu bắt buộc rút từ câu trả lời đã được thể hiện ở đâu và kiểm bằng ca nào? Nhiều yêu cầu có thể dùng chung một phần; không bắt mỗi câu bối cảnh có một nút riêng. Phân biệt có căn cứ, đã triển khai và đã kiểm chạy; phần thiếu vẫn ghi thiếu."
+    },
+    {
+      "id": "R-CLOSURE",
+      "scope": "compose",
+      "title": "Khép kín việc trả lời · chưa đồng nghĩa đã chạy",
+      "text": "Mỗi câu áp dụng phải có đáp án, nơi ghi, bằng chứng, người kiểm và phiên bản. Câu còn hở phải nối một hồ sơ có người giữ việc và bước xử lý tiếp. Một danh sách câu hỏi chưa phải MOW/MOT đã đăng ký; cần xác định Nhóm cha/con, mã Master, thứ tự, chỗ nối và tiêu chí xong. Xem bản thiết kế khép kín tại tab List quy trình tổng hợp."
     }
   ],
   "note_policy": {
@@ -2559,9 +2702,280 @@ main{max-width:1240px} [hidden]{display:none!important}
         ],
         "next": "Sửa theo đáp án đã chốt, hòa giải rule liên quan rồi kiểm lại; ghi rõ phần còn bị chặn bởi nguồn thật.",
         "href": "https://github.com/Huyen1974/incomex-workspace/blob/5ada3e0d2639ac7411842a85bfe16571c805feeb/work/mow-mot-moit-mout/UI-REVIEW-MOW001.json"
+      },
+      "registration": {
+        "document_id": "TQT-TH-001",
+        "object_type": "MOW",
+        "chain": "CH-001 · CTCM",
+        "master": "ML-DEF-004 · Master Quy trình",
+        "master_href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=4",
+        "master_record_id": null,
+        "state": "CHƯA ĐĂNG KÝ MOW",
+        "reason": "Mã TQT-TH-001 hiện là mã tài liệu. Master hiện sinh MOW từ một Nhóm cha theo Chuỗi + Bước + Tầng; bản tổng hợp xuyên nhiều Bước chưa có cách ghép được chốt. Không lấy một Nhóm cha bất kỳ để lấp chỗ trống.",
+        "next": "Chốt quan hệ MOW gọi MOW/MOT và cách khai báo Nhóm cha; sau đó cấp mã tại Master hiện hữu, liên kết tài liệu về mã đó. Có thể xem MOW tổng hợp bằng bộ lọc riêng, chưa cần tạo Master thứ hai.",
+        "tier": "T2.5 là ý tưởng đang xem xét. MOW ở T2 là loại của quy trình; Tầng trong công thức còn chỉ đối tượng mà quy trình xử lý (ví dụ MOW tìm Field xử lý T0). Không đổi hai ý nghĩa này cho nhau."
       }
     }
-  ]
+  ],
+  "closure_review": {
+    "id": "tqt-khep-kin",
+    "title": "Từ hiểu đúng → nối kín → chạy được",
+    "status": "Bản thiết kế để bàn · chưa đổi Công thức, Master hay trạng thái chạy",
+    "intro": "MOW tổng hợp vẫn là MOW. Chỗ cần bổ sung là cách khai báo các quy trình con và chỗ nối, không phải thêm một loại đối tượng.",
+    "formula": [
+      "Có tên/mã & nguồn",
+      "Có việc con & thứ tự",
+      "Nối đầu ra → đầu vào",
+      "Ghi kết quả & sai/thiếu",
+      "Có người nhận đến khi xong"
+    ],
+    "registration": {
+      "document_id": "TQT-TH-001",
+      "object_type": "MOW",
+      "chain": "CH-001 · CTCM",
+      "master": "ML-DEF-004 · Master Quy trình",
+      "master_href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=4",
+      "master_record_id": null,
+      "state": "CHƯA ĐĂNG KÝ MOW",
+      "reason": "Mã TQT-TH-001 hiện là mã tài liệu. Master hiện sinh MOW từ một Nhóm cha theo Chuỗi + Bước + Tầng; bản tổng hợp xuyên nhiều Bước chưa có cách ghép được chốt. Không lấy một Nhóm cha bất kỳ để lấp chỗ trống.",
+      "next": "Chốt quan hệ MOW gọi MOW/MOT và cách khai báo Nhóm cha; sau đó cấp mã tại Master hiện hữu, liên kết tài liệu về mã đó. Có thể xem MOW tổng hợp bằng bộ lọc riêng, chưa cần tạo Master thứ hai.",
+      "tier": "T2.5 là ý tưởng đang xem xét. MOW ở T2 là loại của quy trình; Tầng trong công thức còn chỉ đối tượng mà quy trình xử lý (ví dụ MOW tìm Field xử lý T0). Không đổi hai ý nghĩa này cho nhau."
+    },
+    "ownership": [
+      [
+        "MOW",
+        "Quản lý đích toàn hành trình, thứ tự/nhánh, chỗ nối, người chịu trách nhiệm và điều kiện kết thúc.",
+        "Hiện hành: CT-005 + OBJ-MOW. Khai báo con là MOW cần bổ sung quan hệ; chưa được coi đã có runtime."
+      ],
+      [
+        "MOT / Task",
+        "Quản lý một việc: người/máy làm, MOIT nhận, MOUT trả, điều kiện, trigger và bằng chứng xong.",
+        "Hiện hành: CT-005.1 + OBJ-MOT. Không tự đồng nhất một tiêu đề Bước với một MOT đã đăng ký."
+      ],
+      [
+        "MOIT / MOUT / Field",
+        "Mang thông tin cần đọc, cần nhập, cần ghi và cần kiểm.",
+        "Câu hỏi là tiêu chí khai báo; câu trả lời của một lần làm là bản ghi theo định nghĩa. Chưa ép mọi ghi chú thành một Field mới."
+      ]
+    ],
+    "question_sets": [
+      {
+        "label": "1 · Định danh và dùng lại",
+        "refs": [
+          "Q-LAYER-01",
+          "Q-LAYER-02",
+          "Q-LAYER-06"
+        ]
+      },
+      {
+        "label": "2 · Đích, phạm vi và ranh giới",
+        "refs": [
+          "Q-MOW-01",
+          "Q-MOW-04",
+          "Q-MOT-01"
+        ]
+      },
+      {
+        "label": "3 · Việc con và thứ tự",
+        "refs": [
+          "Q-MOW-02",
+          "Q-MOW-05"
+        ]
+      },
+      {
+        "label": "4 · Nguồn đọc, nơi ghi và chỗ nối",
+        "refs": [
+          "Q-LAYER-03",
+          "Q-MOW-08",
+          "Q-MOT-02",
+          "Q-MOT-04"
+        ]
+      },
+      {
+        "label": "5 · Người làm, điều kiện và trigger",
+        "refs": [
+          "Q-MOT-05",
+          "Q-MOT-06",
+          "Q-NTGV-03",
+          "Q-NTGV-04"
+        ]
+      },
+      {
+        "label": "6 · Báo cáo, bàn giao và sai/thiếu",
+        "refs": [
+          "Q-MOW-06",
+          "Q-MOW-07",
+          "Q-MOT-07",
+          "Q-MOT-08"
+        ]
+      },
+      {
+        "label": "7 · Đạt đến đâu và khi nào kiểm lại",
+        "refs": [
+          "Q-MOW-03",
+          "Q-MOT-03",
+          "Q-LAYER-07",
+          "Q-LAYER-08",
+          "Q-TEST-05",
+          "Q-NTGV-05"
+        ]
+      },
+      {
+        "label": "8 · Rà hở, chồng lấn và chạy lại",
+        "refs": [
+          "Q-MOW-09",
+          "Q-MOT-09",
+          "Q-TEST-06",
+          "Q-UI-06"
+        ]
+      }
+    ],
+    "assembly": [
+      "Không tạo một quy trình cho mỗi câu. Ghép các câu cùng một mục đích, đầu vào, đầu ra và trách nhiệm thành việc con; đối chiếu Nhóm con để xác định MOT.",
+      "Ghép các MOT có thứ tự và đích chung thành MOW theo Nhóm cha. MOW tổng hợp gọi lại các MOW phù hợp; chưa nhân bản nội dung của MOW con.",
+      "Chỉ tách một quy trình khi có ranh giới nhận–giao, người chịu trách nhiệm hoặc khả năng dùng lại độc lập. Chồng lấn có chủ ý được phép nếu có nguồn chuẩn và ranh giới rõ.",
+      "Khai báo lần lượt: định danh → đích → việc con → chỗ nối → điều kiện/người làm → tiêu chí/bằng chứng → đường sai thiếu. Có thể quay lại khi phát hiện nguồn sai; không coi thứ tự này là B1–B9 mới."
+    ],
+    "missing_flow": [
+      {
+        "label": "Rà UI thấy thiếu Field",
+        "state": "Phát hiện",
+        "text": "Ghi nhu cầu và phạm vi vào hồ sơ vấn đề hiện có; chưa khẳng định một Field mới phải được tạo. Gắn mã nơi đang bị chặn."
+      },
+      {
+        "label": "Kiểm tra thiếu thật?",
+        "state": "Chỗ nối cần đặc tả",
+        "text": "Giao người/NTGV; gọi B1 tìm theo nhu cầu và quyền. Trả về: đã có phù hợp / thiếu thật / chưa đủ căn cứ. Lỗi nguồn tìm không phải thiếu thật."
+      },
+      {
+        "label": "Chọn đường xử lý",
+        "state": "Quyết định có căn cứ",
+        "text": "Đã có phù hợp → quy trình Dùng B2. Có nhưng cần sửa → B8 theo thẩm quyền. Thiếu thật → B3. Chưa rõ → bổ sung/kiểm lại có người giữ việc và mốc rà; không tự chuyển B3."
+      },
+      {
+        "label": "B3 → B4 → B5 → B6 → B7",
+        "state": "Đã có danh mục, chưa chứng minh chạy",
+        "text": "Đề xuất tạo mới → duyệt đề xuất → khai báo → test → duyệt cho dùng. Phải gọi mã MOW/MOT, khai đầu vào/ra và nhánh từ chối/quay lại; tên Bước không thay được quy trình thực thi."
+      },
+      {
+        "label": "Đấu lại và kiểm nơi phát hiện",
+        "state": "Chỗ nối cần đặc tả",
+        "text": "Có Field được phép dùng → B2 nối vào nơi cần → kiểm lại UI/Config và các nơi bị ảnh hưởng. Chỉ đóng hồ sơ khi đạt tiêu chí và có người kiểm; bị từ chối tạo mới cũng phải trả kết luận về nơi gọi."
+      }
+    ],
+    "tracking": {
+      "note": "Đề xuất cơ chế lưu kết quả; hiện chưa có bảng PG/DOT tự lưu hay tự chuyển trạng thái. Không dùng số câu trả lời làm bằng chứng đã chạy.",
+      "levels": [
+        "Chưa khai báo",
+        "Có đáp án",
+        "Đã đối chiếu nguồn",
+        "Đã kiểm thiết kế",
+        "Đã kiểm chạy thật"
+      ],
+      "health": [
+        "Còn hiệu lực",
+        "Cần kiểm lại",
+        "Không đạt",
+        "Bị chặn",
+        "Không áp dụng · có lý do/người xác nhận"
+      ],
+      "fields": [
+        "Mã đối tượng + mã lần áp dụng",
+        "Mã câu/ca + phạm vi",
+        "Đáp án hoặc liên kết nguồn",
+        "Mức bằng chứng + tình trạng hiệu lực",
+        "Phiên bản câu/đáp án/nguồn/rule",
+        "Người kiểm + lúc kiểm + bằng chứng",
+        "Mã vấn đề + người giữ việc + việc tiếp + mốc rà",
+        "Điều kiện đạt, kết thúc hoặc mở lại"
+      ],
+      "rules": [
+        "Mức bằng chứng và hiệu lực là hai cột: từng chạy đạt vẫn có thể cần kiểm lại. Đây không phải vòng đời phê duyệt Master hoặc trạng thái chạy việc.",
+        "Lần sau chỉ kiểm phần chưa đủ mức yêu cầu, không đạt, bị chặn hoặc đã mất hiệu lực; giữ kết quả còn hiệu lực. Quét phụ thuộc tự động vẫn phải chạy để biết cái gì cần kiểm lại.",
+        "Câu/đáp án/nguồn/rule/quyền/môi trường đổi, hết hạn hoặc sự cố mới → đánh dấu các kết quả phụ thuộc cần kiểm lại. Giữ lịch sử cũ, không ghi đè bằng chứng.",
+        "Không áp dụng cần lý do và người xác nhận; thay phạm vi phải xét lại. Không cộng các mức thành phần trăm nghiệm thu."
+      ]
+    },
+    "connection": {
+      "label": "Mỗi mũi tên cũng phải được khai báo",
+      "fields": [
+        "Từ mã/phiên bản nào",
+        "Nhánh/kết quả nào",
+        "Truyền Field/trạng thái nào",
+        "Đến mã/phiên bản nào",
+        "Điều kiện + trigger",
+        "Người nhận + xác nhận nhận",
+        "Hạn/lỗi/từ chối đi đâu",
+        "Bằng chứng bàn giao ở đâu"
+      ],
+      "rules": [
+        "Mỗi kết quả bắt buộc phải có nơi nhận hoặc kết thúc hợp lệ; mỗi đầu vào bắt buộc phải có nguồn.",
+        "Nối được khi khớp nghĩa, kiểu, quyền, phiên bản và điều kiện; cần đổi dữ liệu thì khai thao tác đổi rõ ràng.",
+        "Hai quy trình giống tên chưa chắc trùng. So mục đích + đối tượng + phạm vi + trigger + nơi ghi; cùng ghi một trạng thái cần kiểm xung đột/quyền ưu tiên.",
+        "Vòng lặp cần điều kiện thoát, giới hạn/thời hạn và người nhận khi không thoát; không coi cứ có mũi tên là kín."
+      ]
+    },
+    "automation": [
+      [
+        "PG",
+        "Lưu định nghĩa, bản ghi, quan hệ, phiên bản, bằng chứng và lịch sử; chưa dựng schema mới trong lượt này."
+      ],
+      [
+        "DOT / kiểm tất định",
+        "Kiểm thiếu mã, link gãy, không có nơi nhận, đầu vào không có nguồn, trạng thái không có đường ra; so phiên bản và chọn phần cần kiểm lại."
+      ],
+      [
+        "JEV",
+        "Gợi ý khớp nghĩa, dùng lại hay chồng lấn trên tiêu chí đã chốt; không thay quyền duyệt hoặc biến xác suất thành đã chạy đạt."
+      ],
+      [
+        "Agent / người",
+        "Giải quyết chỗ chưa có luật, phản biện trường hợp mới, chốt ngoại lệ và cải tiến công thức; đề xuất trước khi cập nhật nguồn."
+      ]
+    ],
+    "gaps": [
+      {
+        "label": "Định danh",
+        "finding": "Có mã tài liệu, chưa có dòng MOW CTCM và quan hệ gọi con.",
+        "next": "Chốt cách khai báo rồi đăng ký Master; không cấp mã ngoài Master."
+      },
+      {
+        "label": "Từ ghi thiếu đến xử lý",
+        "finding": "Có sổ, B1 và B3–B7; thiếu một hợp đồng bàn giao có mã và xác nhận nhận.",
+        "next": "Áp thử đường thiếu Field; ghi rõ ai nhận, input/output, từ chối và quay lại."
+      },
+      {
+        "label": "Từ câu hỏi đến việc chạy",
+        "finding": "Có câu hỏi và danh mục, chưa đủ cấu hình để gọi quy trình trả lời.",
+        "next": "Ghép theo Nhóm cha/con, khai MOT/MOIT/MOUT và NTGV; không nhân mỗi câu thành một Task."
+      },
+      {
+        "label": "Từ đạt đến giữ được đạt",
+        "finding": "Có phiếu kiểm, chưa có trạng thái hiệu lực và lan truyền kiểm lại tự động.",
+        "next": "Thiết kế lưu kết quả theo phiên bản/phụ thuộc, áp thử trước khi dựng PG/DOT."
+      }
+    ],
+    "decisions": [
+      [
+        "MOW tổng hợp ở đâu?",
+        "Đề xuất giữ MOW/T2 và Master Quy trình; thêm cách nhìn tổng hợp + quan hệ gọi con. Chưa dựng T2.5 hoặc Master riêng."
+      ],
+      [
+        "Thiếu được ghi thế nào?",
+        "Giữ hồ sơ phát hiện riêng với định nghĩa Master; sau xác minh mới quyết định dùng lại/sửa/tạo mới. Nếu đưa ứng viên lên Master, cần trạng thái chưa được dùng và liên kết hồ sơ, không coi phát hiện là định nghĩa đã duyệt."
+      ]
+    ],
+    "issue": {
+      "id": "TQT-ISS-007",
+      "title": "Quy trình tổng hợp chưa nối vào Master và vòng xử lý khép kín",
+      "state": "Mở · đang thiết kế",
+      "owner": "Astra Codex · Host",
+      "next": "Đối chiếu/chốt quan hệ gọi MOW; hoàn tất một ca thiếu Field qua nơi nhận, B3–B7 và kiểm lại nơi phát hiện.",
+      "review": "Lượt tiếp tục tools-quy-trinh; trước mọi tuyên bố quy trình này đã đăng ký hoặc vận hành.",
+      "done": "Có mã Master/quan hệ hợp lệ; mỗi nhánh có nơi nhận, chủ trách nhiệm, chỗ ghi và tiêu chí xong; một ca đi hết có bằng chứng. Giao diện/bộ câu hỏi mới không đủ để đóng.",
+      "evidence": "FORMULA-AI-README §D158/§6; CT-005/005.1; view.html tqt-composite-processes; rà nguồn Host 09/10/2026. OPEN-10 là ca sản phẩm liên quan, không đổi trạng thái của nó ở đây."
+    }
+  }
 }</script>
 <script id="tqt-composite-renderer">
 (function(){
@@ -2571,7 +2985,7 @@ const e=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','
 const ul=items=>'<ul>'+items.map(t=>'<li>'+e(t)+'</li>').join('')+'</ul>';
 const links=items=>items.map(l=>'<a href="'+e(l.href)+'"'+(l.href.startsWith('http')?' target="_blank" rel="noopener"':'')+'>'+e(l.label)+'</a>').join(' · ');
 const p=D.processes[0];
-document.getElementById('tqt-composite-list').innerHTML=D.processes.map(p=>'<details class="tqt-composite" id="'+p.id+'" open><summary><span><b>'+e(p.title)+'</b><small>'+e(p.status)+'</small></span></summary><div class="tqt-composite-body"><p class="lead">'+e(p.purpose)+'</p><p class="mut">'+e(p.use)+'</p><div class="tqt-stage-overview">'+p.stages.map(s=>'<a href="#'+s.id+'"><span>Giai đoạn '+s.number+'</span><b>'+e(s.title)+'</b><small>'+e(s.outcome)+'</small></a>').join('')+'</div><details><summary>Bắt đầu bằng gì · kết thúc khi nào?</summary><p><b>Đầu vào:</b> '+e(p.start)+'</p><p><b>Đích:</b> '+e(p.finish)+'</p></details>'+
+document.getElementById('tqt-composite-list').innerHTML=D.processes.map(p=>'<details class="tqt-composite" id="'+p.id+'"><summary><span><b>'+e(p.id)+' · '+e(p.title)+'</b><small>Chưa đăng ký MOW trong Master · '+e(p.status)+'</small></span></summary><div class="tqt-composite-body"><p class="lead">'+e(p.purpose)+'</p><p class="mut">'+e(p.use)+'</p><div class="tqt-stage-overview">'+p.stages.map(s=>'<a href="#'+s.id+'"><span>Giai đoạn '+s.number+'</span><b>'+e(s.title)+'</b><small>'+e(s.outcome)+'</small></a>').join('')+'</div><details><summary>Bắt đầu bằng gì · kết thúc khi nào?</summary><p><b>Đầu vào:</b> '+e(p.start)+'</p><p><b>Đích:</b> '+e(p.finish)+'</p></details>'+
 p.stages.map(s=>'<details class="tqt-stage" id="'+s.id+'"><summary><b>'+s.number+'. '+e(s.title)+'</b><small>'+e(s.outcome)+'</small></summary><div class="tqt-stage-body">'+s.steps.map(t=>'<details class="tqt-taskstep"><summary>'+e(t.title)+'</summary><p>'+e(t.work)+'</p><p class="mut"><small>Gọi quy trình: '+links(t.uses)+'</small></p><p><b>Cần ra:</b> '+e(t.output)+'</p><p><b>Đi tiếp / quay lại:</b> '+e(t.next)+'</p></details>').join('')+'<div class="tqt-checkpoint"><h3>'+e(s.checkpoint.title)+'</h3><p><b>Đạt:</b> '+e(s.checkpoint.pass)+'</p><p><b>Có điều kiện:</b> '+e(s.checkpoint.conditional)+'</p><p><b>Chưa đạt:</b> '+e(s.checkpoint.hold)+'</p><p><b>Sau checkpoint:</b> '+e(s.checkpoint.next)+'</p></div></div></details>').join('')+
 '<details id="'+p.id+'-ISSUES"><summary>Gặp sai/thiếu · gom về vấn đề gốc</summary>'+ul(p.issue_rules)+'<p>'+links([{label:'Mở sổ vấn đề hiện có',href:'#so-van-de'},{label:'Quy trình hiệu chỉnh',href:'#quy-trinh-hieu-chinh'}])+'</p></details>'+
 '<details id="'+p.id+'-OWNER"><summary>'+e(p.owner_brief.title)+'</summary><div class="tqt-owner-brief">'+p.owner_brief.fields.map(([a,b])=>'<p><b>'+e(a)+'</b><br>'+e(b)+'</p>').join('')+'</div><p>'+e(p.owner_brief.note)+'</p></details>'+
@@ -2579,6 +2993,45 @@ p.stages.map(s=>'<details class="tqt-stage" id="'+s.id+'"><summary><b>'+s.number
 '<details><summary>Quy trình con vừa bổ sung · mở khi cần dùng</summary>'+p.supplements.map(x=>'<details id="'+x.id+'"><summary>'+e(x.title)+'</summary><p class="mut">'+e(x.status)+'</p>'+ul(x.steps)+'</details>').join('')+'</details>'+
 '<details><summary>'+e(p.example.title)+'</summary><p class="mut">'+e(p.example.as_of)+'</p><p><b>Đang ở đâu:</b> '+e(p.example.stage)+'</p><b>Ba chỗ vướng:</b>'+ul(p.example.roots)+'<p><b>Tiếp theo:</b> '+e(p.example.next)+'</p><p>'+links([{label:'Phiếu gốc và bằng chứng MOW 001 ↗',href:p.example.href}])+'</p></details>'+
 '</div></details>').join('');
+
+const R=D.closure_review;
+const Q=JSON.parse(document.getElementById('tqt-question-matrix').textContent);
+const byQ=Object.fromEntries(Q.questions.map(q=>[q.id,q]));
+const details=(title,body,id='')=>'<details'+(id?' id="'+e(id)+'"':'')+'><summary>'+e(title)+'</summary><div class="tqt-review-body">'+body+'</div></details>';
+const para=t=>'<p>'+e(t)+'</p>';
+const pairs=items=>items.map(([a,b,c])=>'<p><b>'+e(a)+'</b> — '+e(b)+(c?'<br><small class="mut">'+e(c)+'</small>':'')+'</p>').join('');
+const refs=ids=>'<ol class="question-list">'+ids.map(id=>'<li>'+e(byQ[id].text)+'<small class="qid">'+e(id)+'</small></li>').join('')+'</ol>';
+const reg=R.registration;
+document.getElementById('tqt-closure-review').innerHTML=
+'<h2 id="'+e(R.id)+'">'+e(R.title)+'</h2><p class="mut">'+e(R.status)+'</p>'+para(R.intro)+
+'<div class="tqt-closure-formula">'+R.formula.map((x,i)=>'<span><b>'+String(i+1)+'</b> '+e(x)+'</span>').join('<i>→</i>')+'</div>'+
+'<h3>Bốn chỗ còn hở</h3><div class="tqt-gap-grid">'+R.gaps.map(x=>'<div><b>'+e(x.label)+'</b>'+para(x.finding)+'<small>'+e(x.next)+'</small></div>').join('')+'</div>'+
+details('1 · Mã nào, Master nào, MOW/MOT quản lý gì?',
+'<p><b>'+e(reg.document_id)+' · '+e(reg.state)+'</b></p>'+
+'<p>'+e(reg.object_type)+' · '+e(reg.chain)+' · <a href="'+e(reg.master_href)+'" target="_blank" rel="noopener">'+e(reg.master)+'</a></p>'+
+para(reg.reason)+para(reg.next)+para(reg.tier)+pairs(R.ownership),'tqt-khep-kin-dinh-danh')+
+details('2 · Ghép câu hỏi thành MOW/MOT · trả lời theo thứ tự',ul(R.assembly)+
+'<p class="mut">Câu dưới đây đọc từ cùng ma trận; không tạo bộ câu hỏi thứ hai. Đây là câu khai báo định nghĩa, chưa phải đáp án của một lần chạy.</p>'+
+R.question_sets.map(x=>details(x.label,refs(x.refs))).join(''),'tqt-khep-kin-cau-hoi')+
+details('3 · Thử đường thiếu Field · từ phát hiện đến đóng',
+'<p class="mut">Đề xuất để bàn, chưa là vòng đời Master được duyệt. Không đổi B1–B9.</p>'+
+R.missing_flow.map((x,i)=>details(String(i+1)+' · '+x.label, '<p><b>'+e(x.state)+'</b></p>'+para(x.text))).join('')+
+'<p><b>Điểm phải chứng minh:</b> tạo xong đối tượng chưa đồng nghĩa nơi phát hiện đã dùng được. Mọi kết luận đều phải quay về nơi gọi.</p>','tqt-khep-kin-thieu-field')+
+details('4 · Vẽ chỗ nối để nhìn thấy hở/chồng lấn',
+'<div class="tqt-closure-formula"><span>MOW/MOT trước</span><i>→</i><span>Kết quả + điều kiện + người nhận</span><i>→</i><span>MOW/MOT sau hoặc kết thúc</span></div>'+
+para(R.connection.label)+ul(R.connection.fields)+ul(R.connection.rules),'tqt-khep-kin-noi')+
+details('5 · Đã đạt đến đâu? Khi nào phải kiểm lại?',
+para(R.tracking.note)+'<p><b>Mức bằng chứng:</b> '+R.tracking.levels.map(e).join(' → ')+'</p>'+
+'<p><b>Hiệu lực hiện tại:</b> '+R.tracking.health.map(e).join(' · ')+'</p>'+
+ul(R.tracking.rules)+details('Mỗi câu/ca lưu những gì?',ul(R.tracking.fields)),'tqt-khep-kin-trang-thai')+
+details('6 · Phần nào giao PG / DOT / JEV / Agent?',pairs(R.automation),'tqt-khep-kin-tu-dong')+
+details('7 · Hai lựa chọn cần tiếp tục bàn',pairs(R.decisions),'tqt-khep-kin-quyet')+
+'<p><b>Theo dõi đến cùng:</b> <a href="#'+e(R.issue.id)+'">'+e(R.issue.id)+'</a> · '+e(R.issue.owner)+' · '+e(R.issue.state)+'</p>';
+const issue=R.issue;
+document.getElementById('tqt-closure-issue').innerHTML=details(issue.id+' · '+issue.title,
+pairs([['Trạng thái',issue.state],['Người giữ việc',issue.owner],['Việc tiếp',issue.next],['Mốc rà',issue.review],['Đóng khi',issue.done],['Căn cứ',issue.evidence]])+
+'<p><a href="#tqt-khep-kin">Mở sơ đồ và bốn chỗ hở</a></p>',issue.id);
+
 document.getElementById('tqt-composite-json').value=JSON.stringify(D,null,2);
 })();
 </script>

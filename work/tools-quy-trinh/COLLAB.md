@@ -96,6 +96,15 @@ Quy trình này sẽ lắp ráp hoá lại các bước rời rạc mà chúng t
 5. Quy trình này về bản chất là sắp xếp các thứ tự của các quy trình khác, bổ sung các quy trình còn thiếu để nhất quán hoá 1 quy trình chuẩn làm ra 1 việc đơn giản như thiết kế 1 cái UI. Vì rõ ràng là chỉ thiết kế 1 cái UI thì chẳng có nghĩa gì bởi vì nó không chạy. Còn muốn nó chạy tới cuối cùng => thì tất cả các câu hỏi, quy trình phía sau phải được trả lời đầy đủ.
 6. Vị trí của quy trình này nằm ngay trên đầu các quy trình khác (rõ ràng nó quản lý các quy trình khác) => Bạn đặt tên 1 thư mục ngay trến đầu của https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh thành tab đầu tiên (thu gọn/xổ ra được) và đặt tên tab là: List quy trình tổng hợp. Đây chỉ là quy trình tổng hợp đầu tiên. Cố gắng giữ style trình bày dễ hiểu cho con người nhé. Tôi chỉ cần nhìn nhanh để nhận ra vấn đề thì tôi sẽ giúp các bạn sáng tạo và đi về đích. Nếu chỉ để cho AI làm không thì sẽ tạo ra 1 mớ rác giống như chúng ta đã từng làm.
 
+#### Bổ sung Owner · 09/10/2026 · Khép kín quy trình (tiếp tục cùng mục tiêu)
+> Rất ngắn gọn lại thì nó chỉ quanh quẩn ở:
+> 1. Trả lời đủ các câu hỏi, từ đủ các góc độ
+> 2. Có trình tự trả lời câu hỏi, cái gì trước cái gì sau?
+> 3. Câu nào đạt phải có chỗ ghi đạt (gồm nhiều trạng thái tăng dần, chứ không chỉ yes or no) => Lần kiểm tiếp theo chỉ xét những cái chưa đạt, tránh việc lần nào cũng làm lại từ đầu mất thời gian. rồi đang đạt => thành chưa đạt => chưa đạt thành đạt..... làm sao để tự động hoá bớt các quá trình này (Dự vào PG/ DOT/Jev..... cuối cùng mới là agent. Vì Agent làm rất mất thời gian, xác suất sai vẫn có, và tốn kém nữa.
+> 4. Có quy trình rà soát để biết quãng nào đang gãy (thiếu quy trình kết nối) quãng nào đang chồng lấn (nhiều hơn 1 quy trình đang giải quyết 1 việc), rà soát trạng thái nào, thông tin nào chưa có chỗ ghi, trạng thái nào chưa đấu vào vòng đời theo dõi đến tận cùng? Trạng thái nào chưa có câu trả lời là thế nào là đạt, khi nào kết thúc hay vẫn open? chưa có chỗ gho chép? chưa đấu vào quy trình hiện hữu để giải quyêt đến cùng? chưa có quy trình giải quyêt tiếp theo?
+
+Các ý tưởng T2.5/Master riêng và vòng đời thấy thiếu→xác minh→đề xuất được Owner nêu để xem xét, không phải lệnh tự đổi khái niệm. Giữ MOW tổng hợp là MOW; phần đăng ký Master còn hở phải hiện rõ.
+
 ### 2. Thế nào là hoàn thành
 Một quy trình đạt = người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lại.
@@ -103,6 +112,12 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 (Owner duyệt 08/10/2026.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+#### Rà khép kín · 09/10/2026
+- Đã xác định TQT-TH-001 chỉ là mã tài liệu, chưa là dòng Master CTCM. CT-005/ML-DEF-004 đang một-một Nhóm cha; quan hệ MOW tổng hợp gọi con cần chốt, không tự tạo T2.5/nhóm giả.
+- Tab đầu có bốn chỗ hở, thứ tự khai báo, bộ câu hỏi dẫn nguồn, đường thiếu Field, hợp đồng chỗ nối và thiết kế kiểm lại theo phiên bản. Thêm 19 câu (159/53), không nhân bản câu ở bộ tổng hợp.
+- Mở TQT-ISS-007 cùng sổ hiện có; hồ sơ SSOT ở closure_review.issue, UI sổ dẫn cùng dữ liệu. PG/DOT/JEV tự động chỉ ở mức thiết kế; chưa đăng ký MOW, chưa hoàn tất ca xuyên B3–B7.
+- Kiểm trước ghi: mã câu duy nhất/owner tồn tại/30 tham chiếu câu hợp lệ; cú pháp renderer đạt. Bằng chứng giao diện được cập nhật sau đồng bộ.
 
 #### TQT-TH-001 · quy trình tổng hợp đầu tiên · 09/10/2026
 - Theo chỉ đạo bổ sung của Owner: tab đầu tiên “List quy trình tổng hợp”, mặc định khi vào nội dung không có section. Có thu/xổ quy trình, giai đoạn và từng bước; đường cũ tới câu hỏi/legacy giữ nguyên.

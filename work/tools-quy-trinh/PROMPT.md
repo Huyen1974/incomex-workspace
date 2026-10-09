@@ -1,5 +1,8 @@
 # PROMPT — TQT GỐC CÂU HỎI · Chuỗi/Tầng/Bước (gồm Bước con)
 
+## Rà khép kín · Owner tiếp tục 09/10/2026
+Đọc README mục Khép kín và view.html#tqt-khep-kin. TQT-TH-001 chưa đăng ký Master MOW; không coi mã tài liệu là mã đối tượng. Kế tiếp: chốt quan hệ MOW gọi con, ánh xạ Nhóm cha/con rồi đăng ký đúng Master; áp thử đường thiếu Field tới khi xử lý và kiểm lại nơi gọi. Câu hỏi tại ma trận, hồ sơ mở TQT-ISS-007 tại cùng nguồn, không tạo nguồn song song. T2.5/Master riêng/vòng đời ứng viên mới chỉ đề xuất. Không tự chạy PG, thay công thức hoặc phát RUN từ bản thiết kế này.
+
 ## Quy trình tổng hợp · Owner giao trực tiếp 09/10/2026
 Bắt đầu từ `view.html#list-quy-trinh-tong-hop`, TQT-TH-001. Nguồn điều phối: JSON `tqt-composite-processes`, gồm giai đoạn, bước, quy trình con, đầu ra, checkpoint và đường quay lại. Chọn phần đang làm, đọc nguồn con và bộ câu hỏi/ghi chú; lưu kết quả ở phiếu sản phẩm/sổ đã có. Không tự coi khung mới đã qua áp thử, không phát PG hoặc vận hành chỉ vì đã có hướng dẫn. Trình Owner bản tóm tắt nguyên nhân và quyết định cần chốt, không chuyển toàn bộ log.
 
