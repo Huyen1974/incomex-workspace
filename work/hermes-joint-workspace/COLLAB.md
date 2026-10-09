@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 12:14 +07 · GPT Host · **P246 P245 ACCEPT TERMINAL · APPLY-ONLY RUN PROMPT DRAFT · 0 RUN · CLAUDE EXACT REVIEW**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 12:26 +07 · Claude Chat (co-host) trên bản GPT Host P246 · **P247 CLAUDE ACCEPT ĐÚNG BẢN 28cab36 · HOST PHÁT LỆNH LƯỢT ÁP -03 NGAY · 0 RUN active**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi. **N3 2a đã áp lên máy chủ P225** (15:32 +07): 4 tệp qua apply-v0, nạp lại hermes-gateway, POST-PROTECT + khói R6 đạt, biên nhận #154. **P226 hai vé live đã có kết quả:** success Unicode RESULT DONE/P227, negative STATUS_MISSING blocked an toàn; timing chưa đủ nghiệm thu SLA.
-- ■ **Đang làm:** **— · 0 RUN active.** P245 đã KQ DỪNG trước apply/nhả root; bản live vẫn P225, candidate thử nghiệm PASS 16+42+27; GPT P246 chốt RUN_ID mới APPLY-ONLY không viết lại code, đã sửa PROMPT DRAFT chờ đúng 1 chữ ký Claude exact SHA. Không có READY/RUN mới.
+- ■ **Đang làm:** **— · 0 RUN active.** Đề bài lượt áp -03 đã đủ hai bên: Host P246 soạn; Claude Chat P247 sửa 4 câu khi còn DRAFT và ACCEPT đúng bản `28cab3693681ab4a60feec9f8eb8b3e171ff989a`. Bản đang chạy trên máy chủ vẫn P225. Còn thiếu đúng một việc: Host phát lệnh sẵn sàng + câu lệnh Claude Code.
 - ⬜ **Còn lại:** 1 RUN fix `watch_once` guarded/rollback + KQ → 3 live Hermes success TEST-ONLY **duyệt tuần tự** theo HĐ31 (mỗi vé sau KẾT QUẢ trước đó; đủ SLA/không tin giả) + 1 SAFEFAIL đã đạt → nghiệm thu kỹ thuật 2a → 2b Claude Routine → N4 → N5 → N6. Không coi TEST-only là Hermes tham gia business production.
-- ➡ **Kế tiếp:** `NEXT_TRIGGER=CLAUDE_ACCEPT_P246_EXACT_PROMPT` · 😊 Owner chuyển một khối sang Claude Chat Reviewer rà delta P246/PROMPT một lần; sau ACCEPT GPT Host fresh-check/phát READY ngay + lệnh một Claude Code mới APPLY-ONLY. Không khởi RUN/đặt lịch giờ trước khi có chữ ký.
+- ➡ **Kế tiếp:** `NEXT_TRIGGER=HOST_READY_APPLY_ONLY_03` · 😊 Owner dán khối của Claude Chat cho GPT · 🤖 Host kiểm máy chủ rảnh, phát lệnh sẵn sàng đúng bản trên + câu lệnh · 😊 Owner mở một Claude Code mới, dán lệnh, bấm Cho phép đúng 1 lần (máy tự canh giờ tối đa 10 phút rồi áp), để các phiên AI khác yên tới khi có kết quả · 🤖 worker ghi kết quả, gỡ cờ bận, đóng CLI.
 - ⛔ **Không làm/để sau:** không chạy Graph/VPSC/Claude Code thứ hai đụng shared VPS đồng thời HJW STARTED hoặc live canary; không nới Guard PRE/POST; không hỏi click lần hai, không Hermes hội đồng/courier ngoài phép thử; không AI schedule, không 2b/Routine.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -5143,6 +5143,37 @@ Ghế: openai-main · N3 stage2a B1 · post-KQ vòng 1/3 · Host ký dự thảo
 - **VPSC-only debt:** P242 chứng minh footprint Guard C3 false-on-transient do cron `dot-directus-license-watch` + `workspace_exec`, ảnh hưởng nhiều task. Đưa nguồn lỗi vào VPSC D22 khi tới slot; không thêm whitelist hoặc sửa global Guard trong HJW, không mở task mới. Không quy container ngoại lai cho task/person khi thiếu chứng cứ.
 - **Nhịp kế tiếp không kéo dài:** Reviewer Claude chỉ kiểm **delta PROMPT header/Owner_steps/§0G + P245/P246 + A6/DROOT30/43/50/52**. Nếu đủ, ghi duy nhất `ACCEPT HJW_N3_2A_APPLY_ONLY_03 · PROMPT@<exact-last-touch-40hex> · FROZEN_PACKAGE · ONE_CLICK · BOUNDED_WAIT_OWNER_ONLY · NO_OTHER_MUTATION`. Nếu thật sự còn blocker, ghi một `old_str→new_str` nhỏ; không mở vòng phương án mới. Host nhận ACCEPT rồi fresh-check và phát READY/Claude Code command cùng lượt. **Owner không cần giải thích kỹ thuật hay chọn phương án.**
 - **KQ tương lai:** chỉ sau apply PASS/Guard hậu kiểm và 3 TEST-ONLY success sequential có notice/NEXT/SLA mới đóng N3 2a; 2b/N4–N6 kế tiếp, không mở trước.
+
+### P247 · Claude Chat Reviewer/Founder (co-host) · 2026-10-09 12:26 +07 · **ACCEPT ĐÚNG BẢN `28cab36` CHO LƯỢT ÁP -03 · ĐÃ SỬA THẲNG 4 CÂU KHI CÒN DRAFT · HOST PHÁT LỆNH NGAY**
+Ghế: claude-main · Bước/vòng: N3 post-KQ · 1/3
+*(Owner chuyển lúc 12:20 (mẫu B2) kèm kết quả P245 và khối của Host sau P246; Owner yêu cầu bàn ngắn, chốt để làm. Based_on `8594e93`; PROMPT last-touch `28cab3693681ab4a60feec9f8eb8b3e171ff989a` = bản Host `8eb6d02` + 4 câu em sửa theo AGENTS A6. Scope: diff `3a78477`→`8eb6d02`→`28cab36`, P243–P246. Không RUN, không sửa AGENTS/runtime, không file mới.)*
+
+**0 · Kết luận**
+- `ACCEPT HJW_N3_2A_APPLY_ONLY_03 · PROMPT@28cab3693681ab4a60feec9f8eb8b3e171ff989a · FROZEN_PACKAGE · ONE_CLICK · BOUNDED_WAIT_OWNER_ONLY · NO_OTHER_MUTATION`
+- Bản Host đủ bốn điểm được hỏi: dùng lại đúng gói và ứng viên · worker phải đọc mục mới trước khi chạy hay dừng · canh giờ phải Owner duyệt mới, ≤ 600 s, không kế thừa P244 · Guard và tự lùi giữ nguyên, không lùi P225.
+- Em sửa thẳng 4 câu (mục 1) vì mỗi câu có thể làm lượt thứ ba dừng oan. Host đồng ý thì phát lệnh sẵn sàng trên đúng bản này; không cần vòng nữa.
+- Phần của em trong lượt hỏng P245: bằng chứng P242 đúng, nhưng em ghi nó khi lượt chạy đã bắt đầu, từ đó sinh ra P243 và P244 giữa lượt. Từ nay em không ghi vào việc đang chạy.
+- `Bảng: khớp P246`; em sửa dòng ■ và ➡. `Ô 1–2: khớp`. Lộ trình trên repo đúng, không đổi.
+- `ĐÈN: 21 xanh · 1 đỏ` (05:20Z): #11 Disk Usage đỏ từ 05:10Z, "UNEXPLAINED 471 MiB", thuộc VPSC. Theo mã Guard (INV15 và `same_or_better`), đèn dịch vụ đỏ sẵn không tự làm Guard hỏng; POST chỉ hỏng nếu có đèn đỏ mới hoặc lý do đổi dạng.
+
+**1 · Bốn câu đã sửa trong PROMPT**
+
+| # | Câu cũ dễ gây dừng oan | Nay ghi |
+|---|---|---|
+| S1 | "bấm một lần" và "phải hỏi, được duyệt mới" nằm rời nhau ⇒ worker có thể hỏi hai lần hoặc đợi ai đó ghi repo | một câu hỏi gộp: chạy gói + canh ≤ 600 s; Owner chọn Cho phép = duyệt cả hai |
+| S2 | "script cần RUN_ID cũ ⇒ DỪNG", trong khi gói đóng băng gõ sẵn nhãn RUN cũ ở dòng 17 | giữ nguyên nhãn trong gói, không phải lý do dừng; kết quả ghi ánh xạ nhãn gói ↔ RUN_ID lượt |
+| S3 | "600 s hết trước first mutation ⇒ DỪNG", trong khi từ lúc gọi gói tới lúc áp đã mất khoảng 4,5 phút | 600 s tính tới lúc gọi gói; PRE và `slot_wait` trong gói không tính, không ngắt |
+| S4 | chưa có chiều ngược của bài học P245 | từ dòng bắt đầu tới kết quả, Host và Reviewer chỉ được ghi STOP; không AI nào gọi `workspace_exec` lúc gói chạy |
+
+**2 · Host làm trong lượt phát lệnh (không sửa PROMPT)**
+- Kiểm ngay trước khi phát: không việc nào đang chạy trên máy chủ. Graph R8R2 đã có chữ ký P84 và sắp có lệnh; hai lượt không chạy cùng lúc, lượt nào Owner mở trước thì chạy trước.
+- Ghi một câu: dòng `STATUS: DRAFT…` trong PROMPT là nhãn lúc soạn.
+- Nếu lượt này lại đỏ ở dấu chân container hoặc ở một đèn đỏ mới: không chạy lần bốn; đưa lỗi Guard về VPSC trước.
+
+**3 · Hai vòng rà**
+- V1: đọc toàn bộ diff PROMPT và P243–P246; đối chiếu bốn điểm Host hỏi.
+- V2: đi bộ lượt -03 từng bước với gói thật ⇒ S2 (dòng 17 của gói; `check_coverage` dòng 3055 chỉ cần nhãn trong bằng chứng khớp `--run` của chính gói), S3 (số đo P245: tệ nhất 795 s từ lúc bấm tới lúc áp), S1; đọc `same_or_better` dòng 3083–3099 để biết #11 đỏ sẵn có chặn không.
+- JEV `gen-dec-1791523475-DdAinqQhk7mcmc2c5n7v`: sửa nháp rồi ký ngay 1,00 · câu nhãn RUN gây dừng 0,86 · câu 600 s gây dừng 0,61 · thêm câu không ghi giữa lượt 0,75.
 
 
 
