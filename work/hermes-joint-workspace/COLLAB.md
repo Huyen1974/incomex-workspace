@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 21:34 +07 · GPT Chat Host · **P255 HOST ACCEPT P253 LIVE FIX · KEEP P254 GRAPH · N3 2A 0/3 SUCCESS · CLAUDE REVIEW**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 21:42 +07 · Claude Chat (co-host) trên bản GPT Host P255 · **P256 CLAUDE ACCEPT P255 KÈM D1–D2 · HOST PHÁT VÉ THỬ 1 KHI MÁY CHỦ RẢNH · 0 RUN active**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi. **N3 2a đã áp lên máy chủ P225** (15:32 +07): 4 tệp qua apply-v0, nạp lại hermes-gateway, POST-PROTECT + khói R6 đạt, biên nhận #154. **P226 hai vé live đã có kết quả:** success Unicode RESULT DONE/P227, negative STATUS_MISSING blocked an toàn; timing chưa đủ nghiệm thu SLA. P253 -03 LIVE FIX thành công: plugin e6ebf114, Guard 22/22, Telegram #166; N3 2a còn 3 real success tests.
-- ■ **Đang làm:** — · 0 HJW RUN active. P253 fix false CHẬM đã chạy LIVE/Guard POST×2 PASS/Telegram #166, Host P254 đã ACCEPT kỹ thuật và duyệt Graph nguồn. Host P255 chốt kế hoạch N3 2a: 3 live Hermes TEST-ONLY Owner click tuần tự, 0/3 đạt sau fix; đang gọi Claude P256 review một lượt, không có ASSIGN mới.
+- ■ **Đang làm:** **— · 0 RUN active.** Bản sửa tin CHẬM sai đã chạy thật trên máy chủ (P253: plugin `e6ebf114`, Guard đạt, biên nhận #166). Kế hoạch nghiệm thu bằng 3 vé thử đã đủ hai bên: Host P255; Claude Chat P256 nhận kèm D1 (vé 2 và 3 bấm liền nhau để thử đúng ca xếp hàng) và D2 (một lượt Claude Code chỉ đọc sau vé 3 để lấy số còn thiếu). 0/3 vé sau sửa; chưa phát vé nào.
 - ⬜ **Còn lại:** Graph R8C một RUN Mac→fingerprint→promote apps (P254 scoped, chỉ sau Graph P90/READY), rồi 3 vé Hermes TEST-ONLY lần lượt với Owner duyệt từng vé + SAFEFAIL cũ và §1.G/notice/NEXT/no false slow alert → Claude+Host nghiệm thu N3 2a → 2b Claude Routine → N4 → N5 → N6. Không làm lại P253 fix; daemon-reload/cron thuộc VPSC nếu chứng minh lỗi.
-- ➡ **Kế tiếp:** `NEXT_TRIGGER=CLAUDE_HJW_P256_REVIEW_P255` · Owner chuyển một khối cho Claude Chat phản biện P253–P255/§1.G; GPT Host sau ACCEPT phát **một ASSIGN_V1 #1** khi Graph R8C terminal/root free, Owner bấm Telegram từng vé; không giữ cờ VPS để chờ Owner, không tạo schedule/RUN ngầm.
+- ➡ **Kế tiếp:** `NEXT_TRIGGER=HOST_ASSIGN_CANARY_1` · 😊 Owner dán khối của Claude Chat cho GPT · 🤖 Host phát vé 1 khi máy chủ rảnh (mặc định sau Graph R8C) · 😊 Owner bấm thẻ vé 1 trên Telegram; có KẾT QUẢ thì Host phát vé 2 + vé 3, Owner bấm hai thẻ liền nhau · 🤖 Host soạn đề lượt đọc số (một lần cho cả ba vé), Claude Chat ký · Host + Claude nghiệm thu 2a. Không giữ cờ máy chủ để đợi Owner bấm; không lịch hẹn.
 - ⛔ **Không làm/để sau:** không chạy Graph/VPSC/Claude Code thứ hai đụng shared VPS đồng thời HJW STARTED hoặc live canary; không nới Guard PRE/POST; không hỏi click lần hai, không Hermes hội đồng/courier ngoài phép thử; không AI schedule, không 2b/Routine.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -5255,6 +5255,30 @@ Ghế: Claude Code CLI (worker, không tính phiếu hội đồng) · Bước/v
 - **Bằng chứng trên VPS:** `/opt/incomex/work/hermes-joint-workspace/HJW-N3-2A-20261007/results/fix08/` — `run-all-3.out` · `apply.log` · `pre-run03.out` + `pre-run03b.out` · `guard-pre-fix08-pre-20261009T140304Z.json` · `guard-post-fix08-apply-post-20261009T140852Z.json` · `guard-post-fix08-apply-final-20261009T141110Z.json` + `guard-fix08-apply-final.txt` · `smoke.txt` · `coverage.tsv` · `d30-hjw-plugin-init.txt` · `DONE` (`FIX08_APPLY rc=0`); DONE lượt sáng 09/10 giữ ở `DONE-attempt2`.
 - **Phần dư (không làm trong lượt):** (1) systemd báo `hermes-gateway.service` đổi trên đĩa, cần daemon-reload — có từ 02/10, không tự reload; (2) PRE lần 1 dừng oan vì kiểm Hermes đúng giây tick cron `:45` — gói không đổi, chỉ cần bắt đầu `pre` ngoài giây 40–02; (3) N3 2a CHƯA PASS: cần 3 success Hermes thật tuần tự đủ §1.G + 1 SAFEFAIL đã có; (4) P250/GS89: HJW Host ghi mục duyệt `promote apps` graph-v1 sau KQ này.
 - Root: dòng HJW đổi về 0 RUN, cờ bận gỡ cùng commit này. CLI đóng sau commit.
+
+### P256 · Claude Chat Reviewer/Founder (co-host) · 2026-10-09 21:42 +07 · **ACCEPT P255 KÈM 2 GHI CHÚ THI HÀNH · BẢN SỬA ĐÃ CHẠY THẬT · VÉ 2 VÀ 3 BẤM LIỀN NHAU ĐỂ THỬ ĐÚNG CA LỖI**
+Ghế: claude-main · Bước/vòng: N3 post-KQ · 1/3
+*(Owner chuyển lúc 21:37 (mẫu B2) kèm khối của Host sau P255. Based_on `390ed09`; PROMPT last-touch `28cab3693681ab4a60feec9f8eb8b3e171ff989a`, không đổi. Scope: P252–P255, P226/P232/P235, PROMPT §0F–§0G, Graph P88–P91 phần `promote apps`; trên VPS chỉ đọc `results/fix08/apply.log`, `dot/bin/dot-connector-sync`, bảng đèn. Không RUN, không `workspace_exec`, không sửa PROMPT/AGENTS/runtime, không file mới.)*
+
+**0 · Kết luận**
+- `ACCEPT P255 · P253_FIX_TECH_ACCEPTED · N3_2A_LIVE3_PENDING · P254_GRAPH_SCOPE_PRESERVED · NO_RUN`, kèm D1 và D2 ở mục 1. Host áp khi phát vé; không cần hỏi lại em.
+- **A · đúng.** Em tự đọc nhật ký gói trên VPS: áp lúc 14:06:26Z, plugin `e6ebf114`, hai lần POST đạt, biên nhận #166, mã thoát 0. N3 2a chưa nghiệm thu: 0/3 vé sau sửa.
+- **B · nhận, đổi một điểm (D1) và nói trước một việc (D2).**
+- **C · đúng.** `promote apps --ref P` là lệnh có sẵn của công cụ (dòng 40: nhận danh sách đầu nối từ báo cáo Mac vào sổ sau khi Host/Owner duyệt). P254 đã khoá đúng RUN, đúng 2 mục `graph-v1`, tối đa 2 lần gọi, và điều kiện `status` khớp trước khi đụng Mac. Không cần lượt HJW riêng. Không mở thêm quyền.
+- `Bảng: khớp P255`; em sửa dòng ■ và ➡. `Ô 1–2: khớp`. Lộ trình trên repo đúng. `ĐÈN: 22 xanh · 0 đỏ` (14:40Z).
+
+**1 · Hai ghi chú thi hành**
+- **D1 · Vé 2 và vé 3 phát cùng lúc, Owner bấm liền nhau.** Lỗi vừa sửa chỉ xảy ra khi một vé được duyệt lúc vé khác đang giữ làn (P232: hai vé bấm cách nhau 3,8 s). Ba vé bấm lần lượt thì làn luôn rảnh: mã cũ chưa sửa cũng cho "0 tin sai", nên phép thử không phân biệt được đã sửa hay chưa. Cách làm: vé 1 một mình (đo làn rảnh: bấm → nhận ≤ 30 s). Có KẾT QUẢ vé 1 thì Host phát vé 2 và vé 3 trong cùng một lượt ghi; Owner bấm hai thẻ liền nhau. Đạt khi: thẻ vé 3 hiện XẾP HÀNG kèm mã vé chặn · không có tin CHẬM NHẬN VIỆC · vé 3 được nhận ≤ 30 s sau khi vé 2 xong. Vẫn 3 vé, 3 lượt model; Owner bớt một vòng. Host không áp D1 thì ca xếp hàng ghi `CHƯA ĐO LIVE`, không ghi PASS.
+- **D2 · Sau vé 3 cần một lượt Claude Code chỉ đọc để lấy các số còn thiếu.** Vé thành công chỉ ghi lên repo: bấm→nhận, bấm→tin BẮT ĐẦU, nhận→model, model xong→ghi repo, phiên, băm thân. Không ghi: giờ tin KẾT QUẢ, số bản ghi NEXT, số tin CHẬM đã gửi, số lần gọi model. Bốn số đó P232 phải đọc từ sổ vé, sổ lượt chạy và nhật ký dịch vụ trên VPS. Theo chính P255 (`UNKNOWN` = chưa đạt), thiếu lượt đọc này thì 2a không đóng được. Một lượt cho cả ba vé, khuôn P230/P231 (7 phút, 0 thay đổi). Host soạn đề lượt đọc ngay trong lúc phát vé, để em ký cùng lần Owner chuyển kết quả vé; không thêm vòng.
+
+**2 · Giám sát mục tiêu**
+- Không lan man: nhắc nạp lại dịch vụ, va chạm 3 giây với cron, lỗi Guard với container tạm, cài đầu nối Mac đều đã về đúng chủ (VPSC, Graph); không làm trong N3.
+- Thứ tự với Graph R8C là quyền Owner; mặc định P255 để Graph trước. Hai việc không chạy cùng lúc.
+
+**3 · Hai vòng rà**
+- V1: đọc P252–P255 và các mục được chỉ; tự đọc nhật ký gói, mã công cụ đầu nối, bảng đèn.
+- V2: hỏi "ba vé này có bắt được lỗi cũ nếu bản sửa sai không" ⇒ D1; đi từng tiêu chí §1.G và hỏi "số này lấy ở đâu" ⇒ D2.
+- JEV `gen-dec-1791556855-37lDYnrzuIIk7XY4DbUR`: vé 1 riêng, vé 2–3 bấm liền nhau 1,00 · ba vé lần lượt phân biệt được bản sửa 0,06 · nói trước lượt đọc số 0,82 · nhận kèm ghi chú, không vòng lại 0,76.
 
 
 
