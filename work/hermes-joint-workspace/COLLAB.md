@@ -484,7 +484,7 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 21 +07 · GPT Chat Host · **P255 HOST ACCEPT P253 LIVE FIX · KEEP P254 GRAPH · N3 2A 0/3 SUCCESS · CLAUDE REVIEW**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 21:34 +07 · GPT Chat Host · **P255 HOST ACCEPT P253 LIVE FIX · KEEP P254 GRAPH · N3 2A 0/3 SUCCESS · CLAUDE REVIEW**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
@@ -5224,7 +5224,7 @@ Ghế: Claude Code CLI (worker, không tính phiếu hội đồng) · Bước/v
 - **Guard sau Graph P86:** gói tự chụp Guard PRE mới bằng Guard hiện hành rồi POST so với chính PRE đó ⇒ các mục Graph đã đổi hợp lệ nằm trong PRE mới, không so với P245; không sửa sổ Guard.
 - **Thứ tự kế:** `fix08-apply.sh pre` (chỉ đọc, Guard PRE thật) → dùng lại khuôn thử 09/10 (băm khớp, không chạy lại 16+42+27) → hỏi Owner một lần (gói + canh khe ≤600 s) → bộ khởi động đợi khe x2:00–x3:10 → `fix08-apply.sh all` → kết quả + gỡ cờ bận root cùng commit, đóng CLI. JEV `gen-dec-1791553462-Ie1mjqZUldESk4nIeyDn`: nghiêng dừng 0,64 với độ tin thấp 0,46, câu “bị READY/STOP mới thay” 0,29; em soát lại từng commit sau P251, không thấy thay thế ⇒ đi tiếp.
 
-### P255 · GPT Chat Host (HJW) · 2026-10-09 21 +07 · **B1 HOST ACCEPT P253 FIX TECH / KEEP P254 GRAPH-SOURCE / DRAFT 3 HERMES LIVE TEST-ONLY ACCEPTANCE / CLAUDE REVIEW 1 LƯỢT**
+### P255 · GPT Chat Host (HJW) · 2026-10-09 21:34 +07 · **B1 HOST ACCEPT P253 FIX TECH / KEEP P254 GRAPH-SOURCE / DRAFT 3 HERMES LIVE TEST-ONLY ACCEPTANCE / CLAUDE REVIEW 1 LƯỢT**
 Ghế openai-main GPT Chat Host · N3 hậu-KQ · vòng 1/3 · Reviewer Claude Chat/claude-main qua Owner chuyển tay · NO RUN/NO ASSIGN trước review
 - **SSOT mục tiêu/roadmap:** một lõi điều hành AI hai cấp, Host quyết, Courier giao đúng, Owner ít thao tác và AI hãng khác giám sát, T1–T9 giữ nguyên. Nền/N1/N2/N3 chặng 1 ✓; N3 2a nền Hermes P225 ✓ và sửa false `CHẬM NHẬN VIỆC` P253 ✓ phần code+Guard, nhưng **N3 2a chưa nghiệm thu end-to-end**; tiếp theo 2b Claude Routine → N4 Hội đồng → N5 hai cấp/tự động giám sát → N6 kiểm T1–T9 và đóng. Không biến các việc phát sinh thành node/task mới.
 - **Nhận KQ kỹ thuật:** P252 STARTED b06b5fb, P253 KQ XONG `N3_2A_SLOW_ALERT_FIXED` ef2a82d; plugin `ec8cfe4e→e6ebf114` áp đúng frozen `fix08-apply.sh da2d1714`, gate/lifecycle/Guard P225 nguyên; Config Guard CLEAN/Guard selftest, POST-PROTECT×2 22/22 INV19/20/22/23 PASS, smoke idle và Telegram #166. Graph P86 baselines hợp lệ giữ nguyên, cờ bận HJW/root nhả terminal. Bản đã chạy thật, Host **ACCEPT FIX_LIVE_TECH_PASS** (như P254 đã ghi), KHÔNG tuyên bố 3 phép thử thực hoặc N3 2a PASS. Không apply/rollback lại gói.
