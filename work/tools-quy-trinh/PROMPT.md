@@ -1,4 +1,7 @@
-# PROMPT — TQT GỐC CÂU HỎI · Chuỗi/Tầng/Bước (gồm Bước con)
+# PROMPT — Tools quy trình · Làm theo quy trình ra đúng sản phẩm
+
+## Đọc đích trước khi làm
+Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](COLLAB.md); trạng thái hiện tại ở Bảng điều khiển cùng file. Giữ nguyên 15 ý Owner, đọc cả phần “Làm rõ mục tiêu” ngày 09/10: phải có quy trình khép kín, đủ câu hỏi/đáp án và bằng chứng làm theo ra đúng sản phẩm. Ma trận, UI và mô hình dữ liệu là các phần phục vụ mục tiêu này. Chi tiết dưới đây là cách thực hiện và lịch sử; không thay tiêu chí nghiệm thu.
 
 ## Mô hình có mã · Owner bổ sung hướng PG 09/10/2026
 Đọc README mục Mô hình và JSON view.html#tqt-process-model; dùng check-process-model.py để kiểm/xuất gói SQL nháp. Dữ liệu MOW/MOT có phiên, lần/vòng/việc chạy, call và event riêng. Phiếu bắt buộc có cả MOW/MOT đang làm lẫn đối tượng/ nghiệp vụ; không đổi Field thành MOW. Chưa tăng số câu. Bản DRAFT/SIM không là đăng ký Master, không có quyền gọi/ghi PG. Tiếp theo chốt mapping Master và nơi nhận thật, rồi thử staging/concurrency/ca thật đúng quyền; đóng TQT-ISS-007 khi có bằng chứng, không đóng vì mô hình chạy qua kiểm.

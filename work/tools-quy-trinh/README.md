@@ -1,5 +1,8 @@
 # tools-quy-trinh · Cửa vào
 
+## Đọc đích trước khi làm
+Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](COLLAB.md); trạng thái hiện tại ở Bảng điều khiển cùng file. Giữ nguyên 15 ý Owner, đọc cả phần “Làm rõ mục tiêu” ngày 09/10: phải có quy trình khép kín, đủ câu hỏi/đáp án và bằng chứng làm theo ra đúng sản phẩm. Ma trận, UI và mô hình dữ liệu là các phần phục vụ mục tiêu này. Chi tiết dưới đây là cách thực hiện và lịch sử; không thay tiêu chí nghiệm thu.
+
 ## Mô hình có mã, sẵn đường chuyển PG · phác thảo 09/10/2026
 - [Mặt người: sáu ô xử lý sai/thiếu](view.html#tqt-mo-hinh-pg). SSOT mô hình là JSON `view.html#tqt-process-model` (`TQT-MODEL-001`); chứa bảng/cột/PK/FK/UNIQUE/CHECK, định nghĩa/phiên/việc con/chỗ nối và bản ghi mô phỏng. Không thêm tầng T2.5 hay loại đối tượng nghiệp vụ mới.
 - `DRAFT-*` là mã phác thảo; `SIM-*` là mã lần thử. Chúng cho phép kiểm quan hệ ngay nhưng **không phải mã Master đã đăng ký và không được dùng để gọi production**. Mã định nghĩa, phiên, lần chạy, vòng, việc chạy, call và event tách riêng; sửa nội dung tạo phiên mới, không tái sử dụng ID cho thứ khác.

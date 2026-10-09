@@ -2,23 +2,21 @@
 Tên việc: Tools quy trình — làm theo quy trình ra được sản phẩm
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 08/10/2026 07:16 (D04/D05); chỉ định trực tiếp GPT Chat làm Host và giao bắt đầu tiếp nhận các quy trình Tools CTCM vào nội dung task ngày 08/10/2026 09:19 +07 (D06). AI không sửa chữ ô 1–2.
+Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 08/10/2026 07:16 (D04/D05); chỉ định trực tiếp GPT Chat làm Host và giao bắt đầu tiếp nhận các quy trình Tools CTCM vào nội dung task ngày 08/10/2026 09:19 +07 (D06). Giữ nguyên lời Owner trong ô 1–2; ngày 09/10/2026 Owner yêu cầu Host bổ sung làm rõ mục tiêu và rà lại Kiểm soát, không viết lại mục tiêu gốc.
 Host: Astra Codex — phiên Owner chỉ định trực tiếp ngày 08/10/2026
 Host_ID: OpenAI-main
 Host_Surface: Codex desktop · task hiện tại của Owner
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · Astra Codex
-- 🎯 Mục tiêu và tiêu chí gốc: ô 1–2; chỉ đạo bổ sung trực tiếp của Owner ngày 08/10 ở cuối ô 1.
-- ■ Hiện hành: bản phác thảo có mã TQT-MODEL-001 tại tab đầu, sáu ô xử lý sai/thiếu và phiếu khai báo MOW/MOT + đối tượng/nghiệp vụ. Có đường xuất SQL nháp, 27 phép kiểm mô hình; chưa đăng ký Master hoặc chạy PG/B3–B7 thật. TQT-TH-001 và nội dung trước giữ để đối chiếu.
-- Kiểm TQT-TH-001 ngày 09/10: bản nội dung `87212f520d3251b5f13738222094278046a92512` đã hiện trên trang thật. Đã kiểm tab đầu trong Nội dung công việc; thu/xổ quy trình; mở giai đoạn 1 và bước 1.2; liên kết Config sang nguồn cũ; URL mở thẳng giai đoạn 2; URL câu hỏi B1→1.2 cũ; màn 390px không tràn ngang trong tài liệu (295/295px). Đã thu gọn thanh tab màn nhỏ để không che nội dung. URL chỉ có task vẫn vào Kiểm soát theo cơ chế chung; link bàn giao có view=content&section=list-quy-trinh-tong-hop. Console trang chứa có thông báo Directus Auth/Sentry; không dùng kết quả kiểm hiển thị này để khẳng định backend hoặc toàn quy trình đã chạy đạt. Chưa triển khai PG hay nghiệm thu ba giai đoạn.
-- ✅ Đã chuẩn bị: 9 bước lớn, 23 bước con, Field/MOIT/MOUT/MOT/MOW, tầng bối cảnh T3–T7 và 3 chuỗi; câu hỏi mới mang trạng thái đang hiệu chỉnh.
-- Kiểm tra giao diện: đã kiểm trên trang thật bản nội dung 7a4c0717eebd0c074635a2a5e8dab63e9fa56d18: B1→1.2 và mở lại URL, B8/B9 chưa tách, MOIT, CMSXQT, lọc không dấu, Config→mục cũ, bộ ghép 27 câu không trùng; màn hẹp 390px không tràn ngang. Đây là kiểm giao diện, chưa nghiệm thu tính đầy đủ của bộ câu hỏi.
-- ➡ Đã rà lại MOW001 ngày09/10: phiếu44 mã/120 lần áp dụng và14 ca browser; còn vướng evaluator/kết luận/nguồn thật. Kế tiếp sửa UI001/Config theo hợp đồng đã chốt rồi kiểm lại; chưa UI thứ2.
-- Nội dung cũ: giữ nguyên trong tab Quy trình hiện có. TQT-ISS-004 (chuyển nguồn legacy) và TQT-ISS-006 (chốt quyền bằng máy) vẫn mở; không nhận là đã hoàn tất.
-- 🏁 Xong khi: theo ô 2; nghiệm thu bộ câu hỏi cần việc áp dụng thật, không suy từ UI chạy được.
-- 📍 Tiến độ: ■ Dựng bản đầu → ■ Kiểm giao diện → □ Áp dụng, hiệu chỉnh bộ câu hỏi.
-- ⛔ Không làm/để sau: không đổi định nghĩa Công thức, Master, runtime MOW hay PG/Directus. Ngoài bốn file task, đã sửa đúng cơ chế liên kết của trang chứa để URL tools-quy-trinh mở đúng tab/mục; không mở rộng chức năng khác.
+- 🎯 **Đích:** có quy trình khép kín và bộ câu hỏi đúng để người/AI mới làm theo ra đúng sản phẩm. Mục tiêu chuẩn ở ô 1, tiêu chí nghiệm thu ở ô 2; gồm các bổ sung Owner ngày 08–09/10.
+- **Đã có:** ma trận 159 câu/53 nhóm, bộ ghép bốn phạm vi, quy trình tổng hợp TQT-TH-001 và mô hình có mã TQT-MODEL-001. Đây là bản đang hiệu chỉnh.
+- **Đã kiểm đến đâu:** 27 phép kiểm mô hình/mô phỏng đạt; đã rà MOW001 và phát hiện thiếu nguồn tìm, đánh giá, kết luận. Chưa chứng minh một quy trình chạy khép kín trên hệ thống thật.
+- **Còn hở:** TQT-TH-001 chưa có mã Master; chưa chốt đủ nơi nhận/trả thực tế và ca thiếu Field tới B3–B7, đấu lại, kiểm nơi phát hiện. TQT-ISS-007 còn mở; TQT-ISS-004/006 và các vướng mắc sản phẩm vẫn theo sổ hiện có.
+- **Việc kế tiếp:** chốt khai báo MOW/MOT và chỗ nối → hoàn tất đáp án cho một ca thiếu Field/MOW001 → đi thử các quy trình UI, Config, Test → sửa đúng nguồn còn thiếu → kiểm lại. Chưa làm MOW002.
+- **Ba mốc nghiệm thu:** thiết kế/khả thi — đang hoàn thiện; triển khai/kiểm kỹ thuật — chưa nghiệm thu; vận hành/bàn giao — chưa nghiệm thu. Đạt mô phỏng không thay cho đạt chạy thật.
+- **Quyền và phạm vi:** Astra Codex là Host tiếp nhận/sửa nguồn; AI khác góp ý riêng. Chuẩn bị mô hình để chuyển PG là trong mục tiêu; thay công thức, cấp mã Master và chạy PG thực hiện theo cơ chế duyệt/quy trình tương ứng, không lấy bản nháp làm lệnh chạy.
+- **Cách báo cáo:** đạt đến đâu, bằng chứng nào, còn thiếu gì, ai giữ, quy trình nào nhận và bước tiếp theo. Lịch sử kiểm chi tiết ở ô 3; không dùng số câu hoặc UI mở được làm tiêu chí hoàn thành.
 
 ### 1. Mục tiêu
 **Đích:** việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể.
@@ -50,6 +48,17 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 **Chưa làm lúc này:** quy trình nghiệp vụ (phái cử, tuyển dụng…). Chúng thuộc Chuỗi 3 CMSXQT; để sau cho đỡ lan man.
 
 (Owner chốt 08/10/2026. AI không sửa chữ ô này.)
+
+#### Làm rõ mục tiêu theo yêu cầu Owner · 09/10/2026
+Giữ nguyên 15 ý trên. Host bổ sung để AI hiểu đủ đích phải làm:
+
+1. **Có quy trình để làm được việc:** quy trình con giải quyết từng việc; quy trình tổng hợp nối chúng tới mục tiêu. Quy về MOW/MOT theo công thức hiện hữu, có tên, mã và nơi đăng ký; phân biệt mã tài liệu, bản nháp và quy trình đã được phép gọi.
+2. **Đủ câu hỏi đúng, theo đúng thứ tự:** ghép câu hỏi Chuỗi/Tầng/Bước, khai báo MOW/MOT đang làm, đối tượng xử lý và nghiệp vụ UI/Config/Test; thêm ghi chú riêng đúng phạm vi. Mỗi câu có chỗ ghi đáp án, căn cứ và tiêu chí đạt; thiếu ở đâu sửa nguồn đó.
+3. **Biết cách thực hiện và bàn giao:** làm gì trước/sau, ai làm, bắt đầu khi nào, đọc đâu, ghi đâu, báo cáo ai/khi nào, gọi quy trình nào, đưa gì và nhận gì; khi nào đi tiếp, quay lại, dừng hoặc kết thúc.
+4. **Khép kín cả sai/thiếu:** phát hiện → xác minh → xử lý → đấu lại → kiểm tại nơi phát hiện → kết thúc. Mọi nhánh có người giữ, nơi nhận/trả và tiêu chí đóng; gửi chưa đồng nghĩa đã nhận, bị từ chối không đồng nghĩa mục tiêu đã đạt. Rà cả chỗ hở và chồng lấn.
+5. **Tính đến khi chạy:** thiết kế và đánh giá khả thi → config/triển khai và kiểm kỹ thuật, AI thao tác UI → vận hành thực tế, log/phản hồi và hiệu chỉnh. Mỗi giai đoạn có nghiệm thu; bàn giao theo dõi dài hạn để lần chế tạo có điểm kết thúc.
+6. **Chuẩn bị dữ liệu ngay từ ngoài PG:** mọi đối tượng/bản ghi cần quản lý đều có mã, quan hệ và nơi lưu chuẩn; tách định nghĩa, phiên bản, lần chạy, vòng chạy và kết quả kiểm. Giữ mã/quan hệ khi chuyển PG; tách mức kiểm, kết quả và hiệu lực để chỉ kiểm lại phần bị ảnh hưởng.
+7. **Chứng minh bằng việc làm theo:** người/AI mới đọc, trả lời và đi hết ca áp dụng để ra đúng sản phẩm. Còn mắc phải ghi rõ câu, bước, nguồn hoặc chỗ nối cần sửa rồi thử lại. Trình bày một nguồn chuẩn, nhìn nhanh biết có gì, thiếu gì, ai xử lý và bước tiếp theo.
 
 #### Bổ sung của Owner · 08/10/2026 · giao trực tiếp Astra Codex làm Host
 Nguyên văn yêu cầu triển khai mới; áp dụng từ lượt này. Nội dung mục tiêu cũ phía trên giữ nguyên.
@@ -118,7 +127,21 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 
 (Owner duyệt 08/10/2026.)
 
+#### Tiêu chí kiểm soát bổ sung · Host theo yêu cầu Owner 09/10/2026
+Áp dụng cho từng quy trình và phạm vi sản phẩm đã khai báo:
+
+- **Khai báo đủ:** mã/phiên bản, mục tiêu, đầu vào/ra, việc con có thứ tự, người làm/giữ, nguồn đọc/nơi ghi, trigger/điều kiện, báo cáo, nơi nhận/trả và điều kiện kết thúc.
+- **Trả lời đủ:** câu hỏi áp dụng có đáp án và căn cứ; ghi chú riêng có phạm vi. Đối chiếu hai chiều yêu cầu ↔ UI/Config ↔ ca kiểm; không có chỗ thừa vô căn cứ hoặc yêu cầu bắt buộc bị bỏ sót.
+- **Nối kín:** các nhánh thành công, thiếu, lỗi, từ chối, chưa nhận/quá hạn đều có cách xử lý và người chịu trách nhiệm. Hồ sơ sửa xong phải trả về đúng nơi phát hiện và kiểm lại; kết thúc không thực hiện phải ghi rõ mục tiêu chưa đạt.
+- **Kiểm được và dùng lại được:** lưu mã ca/lần chạy, nguồn/phiên bản, bằng chứng, mức kiểm, kết quả, hiệu lực. Nguồn đổi thì xét lại phần ảnh hưởng; dữ liệu có mã/quan hệ để chuyển PG và quản lý vòng đời.
+- **Nghiệm thu đúng mức:** người/AI thực hiện xác nhận làm được/một phần/chưa làm được bằng ca áp dụng. Tách nghiệm thu thiết kế, triển khai và vận hành; mục không áp dụng phải có lý do. Việc bắt buộc còn hở thì giữ mở, không nhận toàn quy trình đã thành công.
+
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+#### Lưu vết kiểm giao diện trước khi cập nhật mục tiêu
+- Kiểm TQT-TH-001 ngày 09/10: bản nội dung `87212f520d3251b5f13738222094278046a92512` đã hiện trên trang thật. Đã kiểm tab đầu trong Nội dung công việc; thu/xổ quy trình; mở giai đoạn 1 và bước 1.2; liên kết Config sang nguồn cũ; URL mở thẳng giai đoạn 2; URL câu hỏi B1→1.2 cũ; màn 390px không tràn ngang trong tài liệu (295/295px). Đã thu gọn thanh tab màn nhỏ để không che nội dung. URL chỉ có task vẫn vào Kiểm soát theo cơ chế chung; link bàn giao có view=content&section=list-quy-trinh-tong-hop. Console trang chứa có thông báo Directus Auth/Sentry; không dùng kết quả kiểm hiển thị này để khẳng định backend hoặc toàn quy trình đã chạy đạt. Chưa triển khai PG hay nghiệm thu ba giai đoạn.
+- Kiểm tra giao diện: đã kiểm trên trang thật bản nội dung 7a4c0717eebd0c074635a2a5e8dab63e9fa56d18: B1→1.2 và mở lại URL, B8/B9 chưa tách, MOIT, CMSXQT, lọc không dấu, Config→mục cũ, bộ ghép 27 câu không trùng; màn hẹp 390px không tràn ngang. Đây là kiểm giao diện, chưa nghiệm thu tính đầy đủ của bộ câu hỏi.
+
 
 #### Mô hình có mã hướng PG · 09/10/2026 · Host tiếp nhận proposal04
 - JSON tqt-process-model là SSOT bản phác thảo TQT-MODEL-001: 15 bảng hỗ trợ định nghĩa/phiên/lần/vòng/việc chạy/call/vấn đề/nơi ảnh hưởng/đáp án/kết quả/phụ thuộc/event; PK/FK/UNIQUE/CHECK có thể xuất SQL nguyên mã. DRAFT/SIM không phải Master được phép gọi.
