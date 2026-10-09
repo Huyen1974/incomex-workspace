@@ -8,11 +8,11 @@ Host_ID: OpenAI-main
 Host_Surface: GPT Chat · cuộc trò chuyện hiện tại của Owner
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · GPT Chat · P17
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · GPT Chat · P18
 - 🎯 Mục tiêu: việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể. Vì sao: người nhìn rõ mới cùng phát hiện và sửa được vấn đề.
 - 🏁 Xong khi: đạt tiêu chí ô 2; quy trình được làm theo ra đúng sản phẩm, có bằng chứng và đường xử lý sai/thiếu tới cuối.
 - 📍 Tiến độ: [■ Thiết kế và khả thi] → [□ Triển khai] → [□ Vận hành]
-- ✅ Đã xong: ma trận 159 câu/53 nhóm; đăng ký danh mục thiết kế ML-MOW-TH-001 với 4 mã MOW-TH-001…004; 9 Tool + 3 quy trình bổ sung; liên kết quy trình có mã/phiên. Mô hình có 87 ca mô phỏng đạt, còn 5 chốt chưa kín. Theo D19/P17: tạo Over view là tab đầu, bố trí 4 Quy trình tổng hợp và ma trận 12 Quy trình thành phần từ cùng catalog, mã nhỏ/mờ. Phần này là trình bày, không nghiệm thu nghiệp vụ.
+- ✅ Đã xong: ma trận 159 câu/53 nhóm; đăng ký danh mục thiết kế ML-MOW-TH-001 với 4 mã MOW-TH-001…004; 9 Tool + 3 quy trình bổ sung; liên kết quy trình có mã/phiên. Mô hình có 87 ca mô phỏng đạt, còn 5 chốt chưa kín. Theo D19/P17: tạo Over view là tab đầu, bố trí 4 Quy trình tổng hợp và ma trận 12 Quy trình thành phần từ cùng catalog, mã nhỏ/mờ. Phần này là trình bày, không nghiệm thu nghiệp vụ. Theo D20/P18: tăng vòng số Over view, thêm STT 1–12 và dựng 2 ảnh Owner cung cấp thành HTML ở cuối tab, giữ một catalog gốc.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: kiểm/hoàn thiện 5 chốt thực thi → áp một vòng sai/thiếu → PG staging đúng quyền → kiểm UI/Config/Test và bàn giao. TQT-ISS-007 giữ mở.
 - ➡ Kế tiếp: Owner xem tab Over view và góp ý cách hiểu; phần kỹ thuật còn 5 chốt TQT-ISS-007 và trạng thái DRAFT cũ giữ nguyên, không tự phát RUN. NEXT_TRIGGER=OWNER_OVERVIEW_FEEDBACK_OR_HOST_CONTRACT_FIX.
@@ -392,10 +392,20 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **D19 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner chỉ định lại GPT Chat làm Host của `tools-quy-trinh`, yêu cầu tab đầu tiên tên chính xác `Over view`, đứng trước `List quy trình tổng hợp`. Tab trình bày quan hệ **4 Quy trình tổng hợp** ↔ **12 Quy trình thành phần**, mã nhỏ và mờ cạnh tên, từ ngữ nhất quán để Owner nhìn là hiểu. Không đổi mã, công thức, danh mục, workflow hoặc runtime; Host Codex theo D17 là lịch sử, không còn quyền Host hiện hành.
 - HUMAN_DIRECTIVE@TQT-OVERVIEW-HOST-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,COLLAB.md,README.md,PROMPT.md} · step=Host và trình bày Over view · recorded_by=OpenAI-main/GPT Chat · quote="bạn lập giúp tôi 1 tab đầu tiên. (bạn được làm host) trước cả List quy trình tổng hợp tên tab là: Over view" · text=Giao GPT Chat làm Host, dựng sơ đồ quan hệ 4 Quy trình tổng hợp / 12 Quy trình thành phần nhất quán, giữ nguồn chuẩn · audit=Tin nhắn trực tiếp Owner trong GPT Chat 09/10/2026.
 
+- **D20 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner yêu cầu số vòng của 4 Quy trình tổng hợp lớn hơn, Quy trình thành phần hiển thị **STT đầu tiên**, và chuyển nội dung của **hai ảnh tổng quan Owner gửi** thành **hai bố cục HTML đặt phía dưới Over view**, chủ yếu mô tả những gì đã có, không tạo ảnh. Host chỉ chỉnh phần trình bày; mã/danh mục/luật không đổi.
+- HUMAN_DIRECTIVE@TQT-OVERVIEW-HTML-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,README.md,COLLAB.md} · step=Over view · recorded_by=OpenAI-main/GPT Chat · quote="Các vòng số hơi nhỏ , cho to ra 1 chút (của quy trình tổng hợp) / Quy trình thành phần chốt đầu tiên cho tôi STT / Cho tôi cả các hình này xuống bên dưới ... bạn tạo ra dạng HTML cho nhẹ." · text=Tăng vòng số; STT 1–12; 2 sơ đồ HTML bên dưới, không làm ảnh; chỉ mô tả nguồn hiện có · audit=Owner trực tiếp tại GPT Chat ngày 09/10/2026.
+
 ## Owner cần quyết
 - Q01 đã chốt theo D19: GPT Chat là Host hiện hành (09/10); D17 giao Astra Codex và D06 giao GPT Chat trước đó giữ làm lịch sử. Mục tiêu ngắn trong PR-07 vẫn do Owner/Claude bàn, Host chưa áp.
 
 ## Ý kiến và bằng chứng
+### P18 · Over view: vòng số rõ, STT thành phần và 2 sơ đồ HTML · ĐÃ KIỂM HIỂN THỊ
+Ghế: GPT Chat (OpenAI-main) · Phạm vi: chỉ trình bày, đọc cùng một catalog, không sửa nghiệp vụ.
+- Based_on: Owner D20, hai ảnh đính kèm chat; `view.html#tqt-composite-processes.catalog`, nhóm `normal_processes`, `tqt-question-matrix`, README/COLLAB nguồn ngày 09/10.
+- Thực hiện: CSS `ov-bigbadge` 46px desktop / 42px mobile cho Quy trình tổng hợp; cột **STT** đứng trước tên và mã 12 Quy trình thành phần (trên mobile số ở đầu mỗi hàng); hai khối HTML thật, thu/mở được, `ov-html-reference-1` và `ov-html-reference-2` nằm **dưới** sơ đồ/bảng gốc. Poster 1 hiện trạng đầy đủ, poster 2 bản rút gọn; cùng đọc `R.records`, `R.normal_processes` và `Q.questions/groups` gốc; MOW001/002 là ví dụ dẫn link, không cộng thành quy trình tổng hợp mới.
+- Commit tạo source `174d337baef5f0b8bb6802c4bd704f2e46b0c63b`; browser desktop 1280 và mobile 390 HTTP 200, 0 console errors, khung mobile x14/w362. Browser kiểm bảng STT đúng 1…12, cả 2 khối sơ đồ HTML và số 1…4 hiển thị; không có PNG/img được nhúng.
+- Snapshot read-only: HTML 111 ID không trùng; catalog checker `--references-only` exit0, 4 aggregate / 12 normal / 49 tham chiếu, full checkpoint NOT_RUN (snapshot không có Node); model checker 87/87 SIMULATION_ONLY, production_ready=false. Không đổi JSON câu hỏi/công thức/PG hay tuyên bố sản phẩm đã nghiệm thu. Nếu Owner còn muốn đơn giản hơn, chỉnh trình bày từ đúng HTML, không mở luồng mới.
+
 ### P17 · Host dựng tab Over view từ một catalog · ĐÃ KIỂM GIAO DIỆN / CHƯA NGHIỆM THU NGHIỆP VỤ
 Ghế: GPT Chat (OpenAI-main) · Phạm vi: riêng màn tổng quan + đồng bộ vai Host, không sửa quy trình gốc.
 - Based_on: Owner giao trực tiếp D19, dữ liệu `view.html#tqt-composite-processes.catalog`, Master `ML-MOW-TH-001` có 4 mã MOW-TH, danh mục `normal_processes` có 12 mã (9 Tool + 3 quy trình bổ sung), ma trận câu hỏi 159/53 trong JSON hiện hữu; bản kiểm UI-REVIEW-AGGREGATE.json.
