@@ -181,6 +181,74 @@ main{max-width:1240px} [hidden]{display:none!important}
  #over-view .ov-matrix-guide{margin-bottom:4px}
 }
 </style>
+
+<style id="tqt-overview-expanded-style">
+/* HTML reference panels share the catalog with the main Over view; no copied business data. */
+#over-view .ov-bigbadge{display:inline-grid;place-items:center;flex:0 0 auto;vertical-align:middle;width:46px;height:46px;margin-right:10px;border-radius:50%;background:#2367b6;color:#fff;font:750 25px/1 system-ui,sans-serif;box-shadow:inset 0 0 0 1px #ffffff3d}
+#over-view .ov-lead .ov-title,#over-view .ov-card .ov-card-title{display:flex;align-items:center;flex-wrap:wrap;gap:2px}
+#over-view .ov-card:nth-child(1) .ov-bigbadge{background:#217e50}
+#over-view .ov-card:nth-child(2) .ov-bigbadge{background:#7545ae}
+#over-view .ov-card:nth-child(3) .ov-bigbadge{background:#bf771c}
+#over-view .ov-matrix thead .ov-bigbadge{width:39px;height:39px;margin:0 auto 5px;font-size:22px;display:grid}
+#over-view .ov-matrix thead th:first-child{width:54px;text-align:center}
+#over-view .ov-matrix thead th:nth-child(2){text-align:left;width:48%}
+#over-view .ov-matrix td.ov-stt{font-size:13px;font-weight:750;color:#455970;background:#f8fafc;width:54px}
+#over-view .ov-stt-chip{display:inline-grid;place-items:center;min-width:30px;height:30px;border-radius:7px;background:#edf2f7;color:#28517e;font-weight:750;margin-right:8px}
+#over-view .ov-ref-title{margin:32px 0 10px;font-size:20px;font-weight:750}
+#over-view .ov-ref-hint{margin:0 0 11px;font-size:13px;color:var(--mut)}
+#over-view .ov-poster{margin:12px 0 22px;border:1px solid #c8d7e8;border-radius:12px;background:#fff;overflow:hidden}
+#over-view .ov-poster>summary{list-style:none;display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center;gap:8px;background:#183e66;color:#fff;padding:13px 17px;font-size:17px;font-weight:750;cursor:pointer}
+#over-view .ov-poster>summary:before{content:none}
+#over-view .ov-poster>summary::-webkit-details-marker{display:none}
+#over-view .ov-poster>summary span{font-size:12px;font-weight:400;color:#e8eef5}
+#over-view .ov-poster-body{padding:14px}
+#over-view .ov-pane{border:1px solid #d8e2ed;border-radius:10px;padding:12px 14px;background:#fff;min-width:0}
+#over-view .ov-pane h3{font-size:15px;font-weight:750;color:#194873;margin:0 0 9px}
+#over-view .ov-pane p{font-size:13px;margin:5px 0;line-height:1.55}
+#over-view .ov-pane ul{margin:5px 0 0;padding-left:20px;font-size:13px;line-height:1.58}
+#over-view .ov-pane li{margin:3px 0}
+#over-view .ov-pane.blue{background:#f4f8fd;border-color:#c6d8ef}
+#over-view .ov-pane.green{background:#f2faf4;border-color:#c3dfcd}
+#over-view .ov-pane.purple{background:#f8f5fc;border-color:#dacfe9}
+#over-view .ov-pane.gold{background:#fffaf0;border-color:#eee0ba}
+#over-view .ov-post-row{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:12px 0}
+#over-view .ov-post-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}
+#over-view .ov-layer{border-radius:9px;padding:12px;background:#f5f7fb;border:1px solid #dbe2eb;min-width:0}
+#over-view .ov-layer strong{font-size:13px;display:block}
+#over-view .ov-layer small{font-size:11px;color:#5e6a78}
+#over-view .ov-layer p{margin:6px 0 0;font-size:12px}
+#over-view .ov-layer.design{background:#fdf3f4;border-color:#efcdd0}
+#over-view .ov-layer.execute{background:#eaf6ff;border-color:#c3dbea}
+#over-view .ov-layer.dot{background:#fff7e8;border-color:#e7d5a8}
+#over-view .ov-paper-row{border-bottom:1px solid #e0e7ee;padding:7px 0;font-size:12.5px;display:flex;gap:6px;align-items:baseline;flex-wrap:wrap}
+#over-view .ov-paper-row:last-child{border-bottom:0}
+#over-view .ov-paper-row .ov-code{margin-left:3px}
+#over-view .ov-paper-row .ov-mark{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#2c66ac;color:#fff;font-size:14px;font-weight:700;flex-shrink:0}
+#over-view .ov-steps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin:0}
+#over-view .ov-steps li{font-size:12px;border:1px solid #cbdcf2;border-radius:8px;padding:9px 8px;background:#f6f9fe;text-align:center;min-width:0}
+#over-view .ov-steps b{display:block;font-size:12px}
+#over-view .ov-steps small{color:var(--mut);font-size:11px;display:block;margin-top:4px}
+#over-view .ov-link-list{display:flex;flex-wrap:wrap;gap:7px 16px;font-size:13px}
+#over-view .ov-guide{font-size:12px;color:#596979;margin-top:9px}
+#over-view .ov-underline-note{font-size:13px;line-height:1.6;padding:11px 13px;background:#fff7e0;border:1px solid #f0daa0;border-radius:9px;margin-top:10px}
+#over-view .ov-short-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#over-view .ov-short-flow>div{border:1px solid #cbdcf0;background:#eef4fc;padding:11px 8px;text-align:center;border-radius:8px;font-size:12px;font-weight:650;min-width:0}
+#over-view .ov-poster .ov-statusline{font-size:12px;color:#596779;line-height:1.5;margin-top:9px}
+@media(max-width:780px){
+ #over-view .ov-post-columns{grid-template-columns:1fr}
+ #over-view .ov-steps{grid-template-columns:repeat(3,minmax(0,1fr))}
+ #over-view .ov-layer{padding:10px}
+ #over-view .ov-pane{padding:10px 12px}
+}
+@media(max-width:530px){
+ #over-view .ov-bigbadge{width:42px;height:42px;font-size:23px}
+ #over-view .ov-post-row{grid-template-columns:1fr}
+ #over-view .ov-short-flow{grid-template-columns:1fr 1fr}
+ #over-view .ov-steps{grid-template-columns:1fr 1fr}
+ #over-view .ov-poster>summary{padding:12px;font-size:15px}
+ #over-view .ov-poster-body{padding:10px}
+}
+</style>
 </head>
 <body>
 <main>
@@ -10573,6 +10641,7 @@ const records=R.records||[],normals=R.normal_processes||[];
 const byCode=new Map(records.map((r,i)=>[r.code,{...r,ordinal:i+1}]));
 const nums=['①','②','③','④','⑤','⑥','⑦','⑧','⑨'];
 const no=r=>{const index=records.findIndex(x=>x.code===r.code);return nums[index]||String(index+1);};
+const bigBadge=r=>'<span class="ov-bigbadge" aria-hidden="true">'+(records.findIndex(x=>x.code===r.code)+1)+'</span>';
 const pLink=r=>'<a href="#'+e(r.code)+'">'+e(r.name)+'</a><small class="ov-code">'+e(r.code)+'</small>';
 const nLink=n=>'<a href="'+e(n.href)+'">'+e(n.name)+'</a><small class="ov-code">'+e(n.code)+'</small>';
 const directAggregates=r=>(r.child_refs||[]).map(x=>byCode.get(x.code)).filter(Boolean);
@@ -10581,33 +10650,92 @@ const pMain=records.find(r=>r.code==='MOW-TH-001')||records[0];
 const rest=records.filter(r=>r!==pMain);
 if(!pMain){slot.textContent='Chưa có Quy trình tổng hợp trong nguồn thiết kế.';return;}
 const bigCalls=directAggregates(pMain);
-const main='<div class="ov-lead"><div class="ov-title">'+no(pMain)+' '+pLink(pMain)+'</div><p class="ov-subtext">'+e(pMain.goal)+'</p><p class="ov-subtext"><b>Các giai đoạn:</b> '+e((pMain.route||[]).join(' → '))+'</p></div>';
+const main='<div class="ov-lead"><div class="ov-title">'+bigBadge(pMain)+' '+pLink(pMain)+'</div><p class="ov-subtext">'+e(pMain.goal)+'</p><p class="ov-subtext"><b>Các giai đoạn:</b> '+e((pMain.route||[]).join(' → '))+'</p></div>';
 const cards=rest.map(r=>{
  const called=directAggregates(r);
- return '<div class="ov-card"><div class="ov-card-title">'+no(r)+' '+pLink(r)+'</div><div class="ov-goal">'+e(r.goal)+'</div><div class="ov-calls">Gọi Quy trình tổng hợp khác: '+(called.length?called.map(x=>'<a href="#'+e(x.code)+'">'+no(x)+'</a>').join(' · '):'không')+'</div></div>';
+ return '<div class="ov-card"><div class="ov-card-title">'+bigBadge(r)+' '+pLink(r)+'</div><div class="ov-goal">'+e(r.goal)+'</div><div class="ov-calls">Gọi Quy trình tổng hợp khác: '+(called.length?called.map(x=>'<a href="#'+e(x.code)+'">'+no(x)+'</a>').join(' · '):'không')+'</div></div>';
 }).join('');
 const recColumns=records.map(r=>{
  const count=normals.filter(n=>directNormals(r).has(n.code)).length;
- return '<th scope="col" title="'+e(r.code+' · '+r.name)+'">'+no(r)+'<small>'+count+' gọi trực tiếp</small></th>';
+ return '<th scope="col" title="'+e(r.code+' · '+r.name)+'">'+bigBadge(r)+'<small>'+count+' gọi trực tiếp</small></th>';
 }).join('');
-const rows=normals.map(n=>'<tr><th scope="row">'+nLink(n)+'</th>'+records.map(r=>{
+const rows=normals.map((n,index)=>'<tr><td class="ov-stt">'+(index+1)+'</td><th scope="row">'+nLink(n)+'</th>'+records.map(r=>{
 const yes=directNormals(r).has(n.code);
 return '<td class="'+(yes?'ov-yes':'')+'" aria-label="'+(yes?'Có gọi trực tiếp':'Không gọi trực tiếp')+'">'+(yes?'✓':'—')+'</td>';
 }).join('')+'</tr>').join('');
-const mobile=normals.map(n=>{
+const mobile=normals.map((n,index)=>{
  const used=records.filter(r=>directNormals(r).has(n.code));
- return '<div class="ov-mobile-item">'+nLink(n)+'<div class="ov-owners">Được gọi trực tiếp bởi: '+(used.length?used.map(no).join(' · '):'chưa có')+'</div></div>';
+ return '<div class="ov-mobile-item"><span class="ov-stt-chip">'+(index+1)+'</span>'+nLink(n)+'<div class="ov-owners">Được gọi trực tiếp bởi: '+(used.length?used.map(no).join(' · '):'chưa có')+'</div></div>';
 }).join('');
+
+const layerCards=[
+ {id:'design',title:'FOR DESIGN',vi:'Thiết kế',description:'Vẽ UI, lập danh sách, Config; trả lời câu hỏi để làm ra bản thiết kế.'},
+ {id:'execute',title:'FOR EXECUTE',vi:'Thực hiện',description:'Đi đúng thứ tự bước, kiểm đầu ra, ghi bằng chứng và bàn giao.'},
+ {id:'dot',title:'FOR DOT/SCRIPT',vi:'Tự động hóa',description:'Khai mục tiêu, trigger, điều kiện và kết quả; DOT/script chỉ khi cần.'}
+];
+const layerHtml=()=>layerCards.map(x=>'<div class="ov-layer '+x.id+'"><strong>'+e(x.title)+'</strong><small>'+e(x.vi)+'</small><p>'+e(x.description)+'</p></div>').join('');
+const posterAggRows=records.map((r,i)=>'<div class="ov-paper-row"><span class="ov-mark">'+(i+1)+'</span><span><a href="#'+e(r.code)+'">'+e(r.name)+'</a><small class="ov-code">'+e(r.code)+'</small></span></div>').join('');
+const posterQuickCodes=['TOOL-CTCM-001','QT-CTCM-012','TOOL-CTCM-007','TOOL-CTCM-009'];
+const posterQuick=posterQuickCodes.map(code=>normals.find(n=>n.code===code)).filter(Boolean).map(n=>'<li>'+nLink(n)+'</li>').join('');
+const refLinks=[
+ ['Công thức','https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-formula'],
+ ['Master Quy trình tổng hợp',R.url],
+ ['Master MOW','https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=4'],
+ ['UI thử MOW 001','https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001']
+];
+const posterLinks=refLinks.map(x=>'<a href="'+e(x[1])+'" target="_blank" rel="noopener">'+e(x[0])+' ↗</a>').join('');
+const steps=[
+ ['Đọc Quy trình tổng hợp','Biết mục tiêu và phạm vi'],
+ ['Trả lời câu hỏi','Lấy câu phù hợp'],
+ ['Làm từng bước','Đúng thứ tự'],
+ ['Kiểm kết quả','Đối chiếu bằng chứng'],
+ ['Chưa đạt: sửa','Ghi sổ, hiệu chỉnh'],
+ ['Đạt: bàn giao','Có nơi nhận']
+];
+const stepHtml='<ol class="ov-steps">'+steps.map((x,i)=>'<li><b>'+(i+1)+'. '+e(x[0])+'</b><small>'+e(x[1])+'</small></li>').join('')+'</ol>';
+const sampleMaster='https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=4';
+const sampleMow1='https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001';
+const sampleMow2='https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-002';
+const sampleMows='<div class="ov-paper-row"><a href="'+sampleMow1+'" target="_blank" rel="noopener">MOW 001 · Tìm Field</a><small class="ov-code">MOW-NHC-001</small><small>UI đang thử · 3 MOT</small></div>'+
+ '<div class="ov-paper-row"><a href="'+sampleMow2+'" target="_blank" rel="noopener">MOW 002 · Dùng Field</a><small class="ov-code">MOW-NHC-002</small><small>2 MOT · chưa vẽ UI</small></div>'+
+ '<p class="ov-guide"><a href="'+sampleMaster+'" target="_blank" rel="noopener">Xem danh sách MOW theo công thức ↗</a>. MOW này là ví dụ việc cụ thể, không phải các Quy trình tổng hợp thứ năm/sáu.</p>';
+const posterDetailed=
+ '<details class="ov-poster" id="ov-html-reference-1" open><summary><strong>HTML tham khảo 1 · Tổng quan hiện trạng</strong><span>Diễn giải ảnh thứ nhất · dùng số liệu hiện hành</span></summary><div class="ov-poster-body">'+
+ '<div class="ov-post-row"><div class="ov-pane blue"><h3>1. Mục tiêu chung</h3><ul><li>Quy trình hóa công việc thuộc ba Chuỗi: CTCM, VHCM, CMSXQT.</li><li>AI mới đọc hiểu, làm theo đúng quy trình và tạo ra sản phẩm.</li><li>Thiếu/sai thì ghi sổ, sửa hướng dẫn, thử lại đến khi đạt.</li></ul></div>'+
+ '<div class="ov-pane green"><h3>2. Ba lớp của Tools quy trình</h3><div class="ov-post-columns">'+layerHtml()+'</div></div></div>'+
+ '<div class="ov-pane blue"><h3>3. Các quy trình và ví dụ hiện có</h3><div class="ov-post-columns"><div><strong>'+records.length+' Quy trình tổng hợp</strong>'+posterAggRows+'</div><div><strong>'+normals.length+' Quy trình thành phần</strong><p>9 Tool CTCM + 3 quy trình bổ sung, dùng chung giữa các quy trình tổng hợp.</p><ul>'+posterQuick+'</ul><p class="ov-guide">Đủ 12 mã và STT nằm trong bảng ở phía trên.</p></div>'+
+ '<div><strong>Ví dụ MOW đang thiết kế</strong>'+sampleMows+'</div></div></div>'+
+ '<div class="ov-pane blue" style="margin-top:12px"><h3>4. Luồng làm việc chung</h3>'+stepHtml+'</div>'+
+ '<div class="ov-post-row"><div class="ov-pane"><h3>5. Nguồn tham chiếu chính</h3><div class="ov-link-list">'+posterLinks+'</div><p class="ov-guide">Danh mục và công thức đã có; các liên kết dùng lại nguồn hiện hành.</p></div>'+
+ '<div class="ov-pane"><h3>6. Sổ vấn đề và trạng thái</h3><p><a href="#so-van-de">Sổ vấn đề của tools-quy-trinh</a> theo dõi lỗi/thiếu cho tới khi xử lý xong.</p><p>Hiện đã có danh mục thiết kế, ma trận câu hỏi và mô hình mô phỏng. <b>Chưa nghiệm thu vận hành production.</b></p></div></div>'+
+ '<div class="ov-underline-note"><strong>Nguyên tắc:</strong> AI đọc quy trình → làm ra sản phẩm. Chưa đạt → ghi sổ, hiệu chỉnh và làm lại.</div></div></details>';
+const aggregateShort=records.map((r,i)=>'<div class="ov-paper-row"><span class="ov-mark">'+(i+1)+'</span><span><a href="#'+e(r.code)+'">'+e(r.name)+'</a><small class="ov-code">'+e(r.code)+'</small></span></div>').join('');
+const posterShort=
+ '<details class="ov-poster" id="ov-html-reference-2" open><summary><strong>HTML tham khảo 2 · Sơ đồ rút gọn</strong><span>Diễn giải ảnh thứ hai · cùng một dữ liệu</span></summary><div class="ov-poster-body">'+
+ '<div class="ov-pane blue"><h3>Mục tiêu</h3><p>① Có quy trình làm đúng việc. &nbsp; ② Làm theo phải ra kết quả đúng. &nbsp; ③ Sai/thiếu được ghi nhận và cải tiến.</p></div>'+
+ '<div class="ov-post-row"><div class="ov-pane green"><h3>1. Cấu trúc: 3 lớp</h3><div class="ov-post-columns">'+layerHtml()+'</div></div>'+
+ '<div class="ov-pane blue"><h3>2. Các Quy trình tổng hợp ('+records.length+')</h3>'+aggregateShort+
+ '<p class="ov-guide">Mỗi Quy trình tổng hợp dùng lại Quy trình thành phần, không có bốn kho riêng.</p></div></div>'+
+ '<div class="ov-post-row"><div class="ov-pane purple"><h3>3. Một Quy trình thành phần được thực hiện thế nào?</h3>'+
+ '<div class="ov-short-flow"><div>Bộ câu hỏi<br><small>Đúng phạm vi</small></div><div>Các bước<br><small>Đúng thứ tự</small></div><div>Điều kiện xong<br><small>Có bằng chứng</small></div><div>Kết quả<br><small>Sản phẩm thật</small></div></div>'+
+ '<p class="ov-guide">Kho '+(Q?Q.questions.length:'…')+' câu / '+(Q?Q.groups.length:'…')+' nhóm là nội dung dùng lại. <a href="#QT-CTCM-012">Quy trình thành phần lấy và kiểm câu hỏi</a> <small class="ov-code">QT-CTCM-012</small>.</p></div>'+
+ '<div class="ov-pane gold"><h3>4. Hỗ trợ và quản lý</h3><p><b>Sổ vấn đề:</b> <a href="#so-van-de">ghi thiếu/sai và theo dõi tới khi xong</a>.</p>'+
+ '<p><b>Quy tắc sửa:</b> Host GPT Chat tiếp nhận, kiểm và cập nhật nguồn; AI khác nộp đề xuất riêng.</p>'+
+ '<p><b>Nguồn chuẩn:</b> <a href="'+e(R.url)+'" target="_blank" rel="noopener">Master Quy trình tổng hợp</a> và danh mục Quy trình thành phần trong cùng nguồn.</p></div></div>'+
+ '<div class="ov-underline-note" style="text-align:center"><strong>LÀM THEO QUY TRÌNH → RA SẢN PHẨM → LIÊN TỤC CẢI TIẾN</strong></div>'+
+ '<p class="ov-statusline">Hai bản HTML chỉ mô tả những gì đã đăng ký/thiết kế; không sinh ảnh, không đăng ký thêm Quy trình và không công nhận sản phẩm đã chạy.</p></div></details>';
+
 slot.innerHTML=
 '<div class="ov-section"><h2>'+records.length+' Quy trình tổng hợp</h2><p class="ov-intro">Bốn quy trình cùng một loại. Mũi tên nghĩa là <b>có thể gọi khi cần</b>, không phải luôn chạy hết và không phải quan hệ cấp bậc cố định.</p>'+main+
 '<div class="ov-flow-arrow">↓ &nbsp;'+no(pMain)+' có thể gọi '+bigCalls.map(no).join(' · ')+'</div>'+
 '<div class="ov-cards">'+cards+'</div></div>'+
 '<div class="ov-section"><h2>'+normals.length+' Quy trình thành phần <small class="ov-code">dùng chung</small></h2><p class="ov-matrix-guide">✓ = Quy trình tổng hợp gọi <b>trực tiếp</b> Quy trình thành phần. — = không gọi trực tiếp; vẫn có thể gọi gián tiếp qua quy trình khác.</p>'+
-'<div class="ov-matrix-wrap"><table class="ov-matrix"><thead><tr><th scope="col">Quy trình thành phần</th>'+recColumns+'</tr></thead><tbody>'+rows+'</tbody></table></div>'+
+'<div class="ov-matrix-wrap"><table class="ov-matrix"><thead><tr><th scope="col" class="ov-stt-heading">STT</th><th scope="col">Quy trình thành phần</th>'+recColumns+'</tr></thead><tbody>'+rows+'</tbody></table></div>'+
 '<div class="ov-mobile">'+mobile+'</div>'+
 '<div class="ov-foot"><p><b>Nguyên tắc:</b> đây là '+normals.length+' Quy trình thành phần dùng lại, <b>không</b> phải mỗi Quy trình tổng hợp có một bộ riêng.</p>'+
 '<p>Kho '+(Q?Q.questions.length:'…')+' câu hỏi / '+(Q?Q.groups.length:'…')+' nhóm là <b>tài nguyên</b>, không phải Quy trình. <a href="#QT-CTCM-012">Khai báo và kiểm bộ câu hỏi</a> <small class="ov-code">QT-CTCM-012</small> là <b>một trong '+normals.length+' Quy trình thành phần</b>.</p>'+
-'<p class="ov-status">Tên, mã, mối gọi lấy từ danh mục thiết kế '+e(R.id)+'; các Quy trình chưa được coi là đã vận hành production.</p></div></div>';
+'<p class="ov-status">Tên, mã, mối gọi lấy từ danh mục thiết kế '+e(R.id)+'; các Quy trình chưa được coi là đã vận hành production.</p></div></div>'+
+'<h2 class="ov-ref-title">Hai sơ đồ HTML tham khảo</h2><p class="ov-ref-hint">Diễn giải lại hai ảnh mẫu, ở bên dưới sơ đồ chính. Không thêm nguồn quy trình hoặc thay số liệu đã chốt.</p>'+posterDetailed+posterShort;
 })();
 </script>
 <script id="tqt-question-renderer">

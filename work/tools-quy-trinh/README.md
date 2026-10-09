@@ -3,6 +3,8 @@
 ## Over view · bức tranh chung cho Owner
 [Mở Over view — 4 Quy trình tổng hợp ↔ 12 Quy trình thành phần](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view). Các tên/mã và dấu gọi trực tiếp đều đọc từ `view.html#tqt-composite-processes.catalog`; **không có danh mục/sổ mới**. Kho 159 câu/53 nhóm là tài nguyên; `QT-CTCM-012` chỉ là **1 trong 12 Quy trình thành phần**. Trang hiện có mã thiết kế, chưa đồng nghĩa đã chạy production.
 
+**Bổ sung 09/10 — nhìn rõ hơn:** số tròn của 4 Quy trình tổng hợp lớn hơn; bảng 12 Quy trình thành phần có **STT 1–12** bên trái (mã vẫn nhỏ/mờ cạnh tên). Cuối Over view có **hai bản sơ đồ HTML tham khảo** dựng lại từ ảnh Owner cung cấp: bản hiện trạng chi tiết và bản rút gọn; cùng đọc danh mục hiện có, không tạo ảnh hay quy trình mới.
+
 ## Master quy trình tổng hợp · hiện hành
 [Mở Master theo UI cha](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Bàn cùng 4 quy trình tại repo](view.html#tqt-process-inventory).
 **4 quy trình tổng hợp** trong `ML-MOW-TH-001`: MOW-TH-001 Chế tạo chức năng; 002 Xử lý sai/thiếu; 003 Hiệu chỉnh quy trình; 004 Rà UI. Danh mục con gồm **9 Tool + 3 quy trình bổ sung**, không tính lẫn với tổng hợp.
