@@ -1,13 +1,17 @@
 # tools-quy-trinh · Cửa vào
 
 ## Over view · bức tranh chung cho Owner
-[Mở Over view — 4 Quy trình tổng hợp ↔ 12 Quy trình thành phần](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view). Các tên/mã và dấu gọi trực tiếp đều đọc từ `view.html#tqt-composite-processes.catalog`; **không có danh mục/sổ mới**. Kho 159 câu/53 nhóm là tài nguyên; `QT-CTCM-012` chỉ là **1 trong 12 Quy trình thành phần**. Trang hiện có mã thiết kế, chưa đồng nghĩa đã chạy production.
+[Mở Over view — 4 quy trình tổng hợp trước + 1 đề xuất, 12 quy trình thành phần](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view). Các tên/mã và dấu gọi trực tiếp đều đọc từ `view.html#tqt-composite-processes.catalog`; **không có danh mục/sổ mới**. Kho 159 câu/53 nhóm là tài nguyên; `QT-CTCM-012` chỉ là **1 trong 12 Quy trình thành phần**. Trang hiện có mã thiết kế, chưa đồng nghĩa đã chạy production.
 
 **Bổ sung 09/10 — nhìn rõ hơn:** số tròn của 4 Quy trình tổng hợp lớn hơn; bảng 12 Quy trình thành phần có **STT 1–12** bên trái (mã vẫn nhỏ/mờ cạnh tên). Cuối Over view có **hai bản sơ đồ HTML tham khảo** dựng lại từ ảnh Owner cung cấp: bản hiện trạng chi tiết và bản rút gọn; cùng đọc danh mục hiện có, không tạo ảnh hay quy trình mới.
 
+**Chú giải duy nhất:** mỗi record trong `view.html#tqt-composite-processes.catalog` có `guide={purpose,when,avoid,done}` (Mục đích/Dùng khi/Không dùng khi/Xong khi). Người xem nhấn **Chú giải** cạnh tên; AI đọc trực tiếp cùng trường, không có trang/bộ chú giải phụ. 16 record trước + 1 đề xuất được khai ngắn, không chép lặp.
+
+**Sơ đồ sáu bước không đứng riêng:** thuộc bản **đề xuất Quy trình tổng hợp `MOW-TH-005` — Áp dụng một quy trình từ chọn đến bàn giao**. Trước đây 4 quy trình tổng hợp thiết kế; hiện catalog hiển thị 5 gồm 4 trước + 1 DRAFT chưa được Owner phê duyệt, **12 Quy trình thành phần không đổi**. Bước chọn dùng `CHUNG.APQUYTRINH` (cổng trước RUN), bước câu hỏi gọi `QT-CTCM-012`, bước làm gọi quy trình chuyên môn được chọn, nhánh chưa đạt gọi `MOW-TH-002/003`, nhánh đạt cần ACK bàn giao. Không tự gọi lồng trong quy trình con. Không cấp READY/RUN/PG chỉ vì xuất hiện trong catalog.
+
 ## Master quy trình tổng hợp · hiện hành
 [Mở Master theo UI cha](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Bàn cùng 4 quy trình tại repo](view.html#tqt-process-inventory).
-**4 quy trình tổng hợp** trong `ML-MOW-TH-001`: MOW-TH-001 Chế tạo chức năng; 002 Xử lý sai/thiếu; 003 Hiệu chỉnh quy trình; 004 Rà UI. Danh mục con gồm **9 Tool + 3 quy trình bổ sung**, không tính lẫn với tổng hợp.
+**4 quy trình tổng hợp trước + 1 đề xuất chưa duyệt** trong `ML-MOW-TH-001`: MOW-TH-001 Chế tạo chức năng; 002 Xử lý sai/thiếu; 003 Hiệu chỉnh quy trình; 004 Rà UI; 005 Áp dụng một quy trình từ chọn đến bàn giao (DRAFT). Danh mục con gồm **9 Tool + 3 quy trình bổ sung**, không tính lẫn với tổng hợp.
 SSOT tên/mã/quan hệ: `tqt-composite-processes.catalog`. Master trên VPS đọc bản repo đã xuất; không có danh sách dữ liệu sửa tay thứ hai. Khi dưới10, giữ cả cách xem/thảo luận trong task theo Owner. Mã đã đăng ký thiết kế; nghiệm thu và quyền chạy là việc riêng. Chưa quyết T2.5, không đổi CT-005.
 Quy trình trả lời/kiểm bộ câu hỏi: QT-CTCM-012; dùng câu hỏi theo mã/phiên, không sao chép. Quan hệ gọi có code/version/kind; nguồn đọc là resource. Trạng thái mốc theo `checkpoint_policy` / `tqt-checkpoint-rule`; không chấm xanh từ số mức đơn thuần.
 - Cách kiểm: `python3 check-process-model.py view.html`; kiểm danh mục/cổng ở `check-process-catalog.py`; phiếu UI: `UI-REVIEW-AGGREGATE.json`.

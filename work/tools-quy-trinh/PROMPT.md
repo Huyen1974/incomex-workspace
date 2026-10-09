@@ -1,5 +1,7 @@
 # PROMPT — Tools quy trình · Làm theo quy trình ra đúng sản phẩm
 
+**D21/P19 — HIỆN HÀNH:** chú giải duy nhất `catalog.records[].guide` / `catalog.normal_processes[].guide`, 4 trường ngắn. `MOW-TH-005` mới là **ĐỀ XUẤT 0.1-draft** để sở hữu 6 bước; **CẤM coi READY/RUN, chưa quyết Chuỗi/PG**. Không sửa lại công thức/Master ngoài scope từ bản nháp, không tự nhảy sang MOW002. `CHUNG.APQUYTRINH` vẫn chỉ cổng trước khi chạy; `QT-CTCM-012` chỉ xử lý câu hỏi.
+
 **Host hiện hành (D19, 09/10/2026): GPT Chat; Astra Codex chỉ còn là Host lịch sử D17.** Lượt này chỉ trình bày Over view, không READY/RUN sửa kỹ thuật; các phần prompt cũ bên dưới là hồ sơ việc có sẵn, không tự động được phép chạy.
 
 ## Đọc đích trước khi làm

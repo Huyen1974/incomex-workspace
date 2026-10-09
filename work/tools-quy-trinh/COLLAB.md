@@ -8,14 +8,14 @@ Host_ID: OpenAI-main
 Host_Surface: GPT Chat · cuộc trò chuyện hiện tại của Owner
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · GPT Chat · P18
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · GPT Chat · P19
 - 🎯 Mục tiêu: việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể. Vì sao: người nhìn rõ mới cùng phát hiện và sửa được vấn đề.
 - 🏁 Xong khi: đạt tiêu chí ô 2; quy trình được làm theo ra đúng sản phẩm, có bằng chứng và đường xử lý sai/thiếu tới cuối.
 - 📍 Tiến độ: [■ Thiết kế và khả thi] → [□ Triển khai] → [□ Vận hành]
-- ✅ Đã xong: ma trận 159 câu/53 nhóm; đăng ký danh mục thiết kế ML-MOW-TH-001 với 4 mã MOW-TH-001…004; 9 Tool + 3 quy trình bổ sung; liên kết quy trình có mã/phiên. Mô hình có 87 ca mô phỏng đạt, còn 5 chốt chưa kín. Theo D19/P17: tạo Over view là tab đầu, bố trí 4 Quy trình tổng hợp và ma trận 12 Quy trình thành phần từ cùng catalog, mã nhỏ/mờ. Phần này là trình bày, không nghiệm thu nghiệp vụ. Theo D20/P18: tăng vòng số Over view, thêm STT 1–12 và dựng 2 ảnh Owner cung cấp thành HTML ở cuối tab, giữ một catalog gốc.
+- ✅ Đã xong: ma trận 159 câu/53 nhóm; đăng ký danh mục thiết kế ML-MOW-TH-001 với 4 mã MOW-TH-001…004; 9 Tool + 3 quy trình bổ sung; liên kết quy trình có mã/phiên. Mô hình có 87 ca mô phỏng đạt, còn 5 chốt chưa kín. Theo D19/P17: tạo Over view là tab đầu, bố trí 4 Quy trình tổng hợp và ma trận 12 Quy trình thành phần từ cùng catalog, mã nhỏ/mờ. Phần này là trình bày, không nghiệm thu nghiệp vụ. Theo D20/P18: tăng vòng số Over view, thêm STT 1–12 và dựng 2 ảnh Owner cung cấp thành HTML ở cuối tab, giữ một catalog gốc. P19: thêm trường guide ngắn ở cùng catalog cho 4 Quy trình tổng hợp cũ + 12 Quy trình thành phần, và dự thảo MOW-TH-005 (chưa phê duyệt) sở hữu đường áp dụng quy trình đến bàn giao. Không chạy tự động.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: kiểm/hoàn thiện 5 chốt thực thi → áp một vòng sai/thiếu → PG staging đúng quyền → kiểm UI/Config/Test và bàn giao. TQT-ISS-007 giữ mở.
-- ➡ Kế tiếp: Owner xem tab Over view và góp ý cách hiểu; phần kỹ thuật còn 5 chốt TQT-ISS-007 và trạng thái DRAFT cũ giữ nguyên, không tự phát RUN. NEXT_TRIGGER=OWNER_OVERVIEW_FEEDBACK_OR_HOST_CONTRACT_FIX.
+- ➡ Kế tiếp: Owner xem chú giải và bản đề xuất MOW-TH-005 tại Over view để chốt phạm vi; chỉ sau đó mới đổi trạng thái đề xuất thành được duyệt. Phần kỹ thuật TQT-ISS-007 giữ mở; NEXT_TRIGGER=OWNER_REVIEW_GUIDE_AND_DRAFT005.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế · tự áp mục tiêu PR-07 chưa duyệt.
 
 ### 1. Mục tiêu
@@ -395,10 +395,20 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **D20 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner yêu cầu số vòng của 4 Quy trình tổng hợp lớn hơn, Quy trình thành phần hiển thị **STT đầu tiên**, và chuyển nội dung của **hai ảnh tổng quan Owner gửi** thành **hai bố cục HTML đặt phía dưới Over view**, chủ yếu mô tả những gì đã có, không tạo ảnh. Host chỉ chỉnh phần trình bày; mã/danh mục/luật không đổi.
 - HUMAN_DIRECTIVE@TQT-OVERVIEW-HTML-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,README.md,COLLAB.md} · step=Over view · recorded_by=OpenAI-main/GPT Chat · quote="Các vòng số hơi nhỏ , cho to ra 1 chút (của quy trình tổng hợp) / Quy trình thành phần chốt đầu tiên cho tôi STT / Cho tôi cả các hình này xuống bên dưới ... bạn tạo ra dạng HTML cho nhẹ." · text=Tăng vòng số; STT 1–12; 2 sơ đồ HTML bên dưới, không làm ảnh; chỉ mô tả nguồn hiện có · audit=Owner trực tiếp tại GPT Chat ngày 09/10/2026.
 
+- **D21 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner yêu cầu **một nơi duy nhất viết chú giải ngắn cho mọi quy trình** để người/AI cùng đọc mà không tạo rác tài liệu. Đồng thời Owner yêu cầu chấm dứt "Luồng làm việc chung" trôi nổi, một hướng dẫn thực hiện bắt buộc phải có quy trình sở hữu. Host chốt đưa 6 thao tác vào **dự thảo Quy trình tổng hợp MOW-TH-005 · Áp dụng một quy trình từ chọn đến bàn giao**, với nhánh ĐẠT/CHƯA ĐẠT và điều kiện xong, giữ quy trình hiện có CHUNG.APQUYTRINH là cổng đầu vào, không coi đó là toàn hành trình. Đây là **bản thiết kế đề xuất**, chưa phải Owner phê duyệt phạm vi/quy trình ⑤; 4 mã trước và 12 thành phần không thay.
+- HUMAN_DIRECTIVE@TQT-GUIDE-AND-FLOW-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,README.md,COLLAB.md} · step=hiệu chỉnh Over view và phân loại quy trình · recorded_by=OpenAI-main/GPT Chat · quote="thiết kế 1 nơi để viết chú giải và đưa luôn vào đó ... luồng làm việc đó cuối cùng đưa vào đâu?" · text=Chú giải ngắn một nguồn, luồng có quy trình sở hữu, không chạy khi chưa phê duyệt · audit=Owner trực tiếp GPT Chat ngày 09/10/2026.
+ 
 ## Owner cần quyết
 - Q01 đã chốt theo D19: GPT Chat là Host hiện hành (09/10); D17 giao Astra Codex và D06 giao GPT Chat trước đó giữ làm lịch sử. Mục tiêu ngắn trong PR-07 vẫn do Owner/Claude bàn, Host chưa áp.
 
 ## Ý kiến và bằng chứng
+### P19 · Một nguồn chú giải; dự thảo Quy trình tổng hợp ⑤ sở hữu sáu bước · ĐANG KIỂM
+Ghế: GPT Chat (OpenAI-main). Việc hôm nay chỉ thiết kế và trình bày, không RUN, không mutation ở Công thức/MOW nguồn, UI runtime hoặc PostgreSQL.
+- Based_on: mục tiêu §0 đã xác nhận, chỉ đạo trực tiếp D21, 4 Quy trình tổng hợp/12 thành phần trong `tqt-composite-processes.catalog`, quy trình cổng `CHUNG.APQUYTRINH` ở `work/mow-mot-moit-mout/ban-duyet.html`, và `QT-CTCM-012` vốn lo câu hỏi.
+- Mỗi record có **một trường guide** 4 giá trị ngắn: `purpose/when/avoid/done`; UI chỉ mở khi nhấn "Chú giải", không tạo file/table/hướng dẫn thứ hai. Đổi mỗi lời giải thích tại nguồn này.
+- `MOW-TH-005` trạng thái **ĐỀ XUẤT · chưa phê duyệt**, `version=0.1-draft`, `chainId=null` (chưa chốt thuộc Chuỗi nào), 6 bước có ref, nhánh PASS→bàn giao, FAIL→sửa và kiểm lại, BLOCKED→DỪNG; một lượt điều phối, không tự gọi lại ở quy trình con. Mã đăng trong catalog để đọc/đối chiếu thiết kế; **chưa là quyền chạy, chưa có Master/PG lifecycle approval**.
+- Giữ 12 Quy trình thành phần; không mở thêm thứ 13, không thay nội hàm `CHUNG.APQUYTRINH` hoặc `QT-CTCM-012`. Chờ kiểm visual desktop/mobile, cổng refs và mirror.
+ 
 ### P18 · Over view: vòng số rõ, STT thành phần và 2 sơ đồ HTML · ĐÃ KIỂM HIỂN THỊ
 Ghế: GPT Chat (OpenAI-main) · Phạm vi: chỉ trình bày, đọc cùng một catalog, không sửa nghiệp vụ.
 - Based_on: Owner D20, hai ảnh đính kèm chat; `view.html#tqt-composite-processes.catalog`, nhóm `normal_processes`, `tqt-question-matrix`, README/COLLAB nguồn ngày 09/10.

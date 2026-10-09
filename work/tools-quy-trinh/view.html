@@ -172,6 +172,17 @@ main{max-width:1240px} [hidden]{display:none!important}
 #over-view .ov-foot{border-top:1px solid var(--line);margin-top:16px;padding-top:11px;color:var(--mut);font-size:13px}
 #over-view .ov-foot p{margin:4px 0 7px}
 #over-view .ov-status{font-size:12px;color:var(--mut)}
+#over-view .ov-guidance{padding:0;margin:6px 0 2px;border:0;border-top:1px solid #e8ede7;background:transparent}
+#over-view .ov-guidance>summary{list-style:none;padding:6px 2px;font-size:12px;font-weight:650;color:#3f6156;display:inline-flex;gap:5px;cursor:pointer}
+#over-view .ov-guidance>summary:before{content:"▸";display:inline-block;margin-right:4px;color:#658174}
+#over-view .ov-guidance[open]>summary:before{content:"▾"}
+#over-view .ov-guidance dl{display:grid;grid-template-columns:95px minmax(0,1fr);gap:3px 9px;margin:4px 0 8px;font-size:12px;line-height:1.55}
+#over-view .ov-guidance dt{font-weight:700;color:#52655b}
+#over-view .ov-guidance dd{margin:0;min-width:0;color:#314a3c}
+#over-view .ov-card:has(.ov-draft-tag){border-style:dashed}
+#over-view .ov-draft-tag{font-size:11px;font-weight:700;color:#7c5d29}
+#over-view .ov-matrix{min-width:760px}
+@media(max-width:480px){#over-view .ov-guidance dl{grid-template-columns:85px 1fr}}
 @media(max-width:700px){
  #over-view .ov-cards{grid-template-columns:1fr}
  #over-view .ov-card{padding:11px 12px}
@@ -10843,28 +10854,33 @@ const no=r=>{const index=records.findIndex(x=>x.code===r.code);return nums[index
 const bigBadge=r=>'<span class="ov-bigbadge" aria-hidden="true">'+(records.findIndex(x=>x.code===r.code)+1)+'</span>';
 const pLink=r=>'<a href="#'+e(r.code)+'">'+e(r.name)+'</a><small class="ov-code">'+e(r.code)+'</small>';
 const nLink=n=>'<a href="'+e(n.href)+'">'+e(n.name)+'</a><small class="ov-code">'+e(n.code)+'</small>';
+const guideHtml=p=>{
+ const g=p.guide;if(!g)return '';
+ const fields=[['Mục đích',g.purpose],['Dùng khi',g.when],['Không dùng khi',g.avoid],['Xong khi',g.done]];
+ return '<details class="ov-guidance"><summary>Chú giải</summary><dl>'+fields.map(x=>'<dt>'+e(x[0])+'</dt><dd>'+e(x[1])+'</dd>').join('')+'</dl></details>';
+};
 const directAggregates=r=>(r.child_refs||[]).map(x=>byCode.get(x.code)).filter(Boolean);
 const directNormals=r=>new Set((r.child_refs||[]).map(x=>x.code).filter(x=>normals.some(n=>n.code===x)));
 const pMain=records.find(r=>r.code==='MOW-TH-001')||records[0];
 const rest=records.filter(r=>r!==pMain);
 if(!pMain){slot.textContent='Chưa có Quy trình tổng hợp trong nguồn thiết kế.';return;}
 const bigCalls=directAggregates(pMain);
-const main='<div class="ov-lead"><div class="ov-title">'+bigBadge(pMain)+' '+pLink(pMain)+'</div><p class="ov-subtext">'+e(pMain.goal)+'</p><p class="ov-subtext"><b>Các giai đoạn:</b> '+e((pMain.route||[]).join(' → '))+'</p></div>';
+const main='<div class="ov-lead"><div class="ov-title">'+bigBadge(pMain)+' '+pLink(pMain)+'</div><p class="ov-subtext">'+e(pMain.guide?.purpose||pMain.goal)+'</p><p class="ov-subtext"><b>Các giai đoạn:</b> '+e((pMain.route||[]).join(' → '))+'</p>'+guideHtml(pMain)+'</div>';
 const cards=rest.map(r=>{
  const called=directAggregates(r);
- return '<div class="ov-card"><div class="ov-card-title">'+bigBadge(r)+' '+pLink(r)+'</div><div class="ov-goal">'+e(r.goal)+'</div><div class="ov-calls">Gọi Quy trình tổng hợp khác: '+(called.length?called.map(x=>'<a href="#'+e(x.code)+'">'+no(x)+'</a>').join(' · '):'không')+'</div></div>';
+ return '<div class="ov-card"><div class="ov-card-title">'+bigBadge(r)+' '+pLink(r)+'</div><div class="ov-goal">'+e(r.guide?.purpose||r.goal)+'</div>'+(r.state.includes('ĐỀ XUẤT')?'<small class="ov-draft-tag">ĐỀ XUẤT · CHƯA DUYỆT</small>':'')+guideHtml(r)+'<div class="ov-calls">Gọi Quy trình tổng hợp khác: '+(called.length?called.map(x=>'<a href="#'+e(x.code)+'">'+no(x)+'</a>').join(' · '):'không')+'</div></div>';
 }).join('');
 const recColumns=records.map(r=>{
  const count=normals.filter(n=>directNormals(r).has(n.code)).length;
  return '<th scope="col" title="'+e(r.code+' · '+r.name)+'">'+bigBadge(r)+'<small>'+count+' gọi trực tiếp</small></th>';
 }).join('');
-const rows=normals.map((n,index)=>'<tr><td class="ov-stt">'+(index+1)+'</td><th scope="row">'+nLink(n)+'</th>'+records.map(r=>{
+const rows=normals.map((n,index)=>'<tr><td class="ov-stt">'+(index+1)+'</td><th scope="row">'+nLink(n)+guideHtml(n)+'</th>'+records.map(r=>{
 const yes=directNormals(r).has(n.code);
 return '<td class="'+(yes?'ov-yes':'')+'" aria-label="'+(yes?'Có gọi trực tiếp':'Không gọi trực tiếp')+'">'+(yes?'✓':'—')+'</td>';
 }).join('')+'</tr>').join('');
 const mobile=normals.map((n,index)=>{
  const used=records.filter(r=>directNormals(r).has(n.code));
- return '<div class="ov-mobile-item"><span class="ov-stt-chip">'+(index+1)+'</span>'+nLink(n)+'<div class="ov-owners">Được gọi trực tiếp bởi: '+(used.length?used.map(no).join(' · '):'chưa có')+'</div></div>';
+ return '<div class="ov-mobile-item"><span class="ov-stt-chip">'+(index+1)+'</span>'+nLink(n)+guideHtml(n)+'<div class="ov-owners">Được gọi trực tiếp bởi: '+(used.length?used.map(no).join(' · '):'chưa có')+'</div></div>';
 }).join('');
 
 const layerCards=[
@@ -10883,28 +10899,22 @@ const refLinks=[
  ['UI thử MOW 001','https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001']
 ];
 const posterLinks=refLinks.map(x=>'<a href="'+e(x[1])+'" target="_blank" rel="noopener">'+e(x[0])+' ↗</a>').join('');
-const steps=[
- ['Đọc Quy trình tổng hợp','Biết mục tiêu và phạm vi'],
- ['Trả lời câu hỏi','Lấy câu phù hợp'],
- ['Làm từng bước','Đúng thứ tự'],
- ['Kiểm kết quả','Đối chiếu bằng chứng'],
- ['Chưa đạt: sửa','Ghi sổ, hiệu chỉnh'],
- ['Đạt: bàn giao','Có nơi nhận']
-];
+const owner005=records.find(r=>r.code==='MOW-TH-005');
+const steps=(owner005?.workflow?.steps||[]).map(s=>[s.label,s.result]);
 const stepHtml='<ol class="ov-steps">'+steps.map((x,i)=>'<li><b>'+(i+1)+'. '+e(x[0])+'</b><small>'+e(x[1])+'</small></li>').join('')+'</ol>';
 const sampleMaster='https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=4';
 const sampleMow1='https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001';
 const sampleMow2='https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-002';
 const sampleMows='<div class="ov-paper-row"><a href="'+sampleMow1+'" target="_blank" rel="noopener">MOW 001 · Tìm Field</a><small class="ov-code">MOW-NHC-001</small><small>UI đang thử · 3 MOT</small></div>'+
  '<div class="ov-paper-row"><a href="'+sampleMow2+'" target="_blank" rel="noopener">MOW 002 · Dùng Field</a><small class="ov-code">MOW-NHC-002</small><small>2 MOT · chưa vẽ UI</small></div>'+
- '<p class="ov-guide"><a href="'+sampleMaster+'" target="_blank" rel="noopener">Xem danh sách MOW theo công thức ↗</a>. MOW này là ví dụ việc cụ thể, không phải các Quy trình tổng hợp thứ năm/sáu.</p>';
+ '<p class="ov-guide"><a href="'+sampleMaster+'" target="_blank" rel="noopener">Xem danh sách MOW theo công thức ↗</a>. MOW này là ví dụ công việc cụ thể, không phải Quy trình tổng hợp khác.</p>';
 const posterDetailed=
  '<details class="ov-poster" id="ov-html-reference-1" open><summary><strong>HTML tham khảo 1 · Tổng quan hiện trạng</strong><span>Diễn giải ảnh thứ nhất · dùng số liệu hiện hành</span></summary><div class="ov-poster-body">'+
  '<div class="ov-post-row"><div class="ov-pane blue"><h3>1. Mục tiêu chung</h3><ul><li>Quy trình hóa công việc thuộc ba Chuỗi: CTCM, VHCM, CMSXQT.</li><li>AI mới đọc hiểu, làm theo đúng quy trình và tạo ra sản phẩm.</li><li>Thiếu/sai thì ghi sổ, sửa hướng dẫn, thử lại đến khi đạt.</li></ul></div>'+
  '<div class="ov-pane green"><h3>2. Ba lớp của Tools quy trình</h3><div class="ov-post-columns">'+layerHtml()+'</div></div></div>'+
  '<div class="ov-pane blue"><h3>3. Các quy trình và ví dụ hiện có</h3><div class="ov-post-columns"><div><strong>'+records.length+' Quy trình tổng hợp</strong>'+posterAggRows+'</div><div><strong>'+normals.length+' Quy trình thành phần</strong><p>9 Tool CTCM + 3 quy trình bổ sung, dùng chung giữa các quy trình tổng hợp.</p><ul>'+posterQuick+'</ul><p class="ov-guide">Đủ 12 mã và STT nằm trong bảng ở phía trên.</p></div>'+
  '<div><strong>Ví dụ MOW đang thiết kế</strong>'+sampleMows+'</div></div></div>'+
- '<div class="ov-pane blue" style="margin-top:12px"><h3>4. Luồng làm việc chung</h3>'+stepHtml+'</div>'+
+ '<div class="ov-pane blue" style="margin-top:12px"><h3>4. Quy trình tổng hợp ⑤ · Áp dụng một quy trình <small class="ov-code">MOW-TH-005</small></h3><p class="ov-guide">ĐỀ XUẤT CHƯA DUYỆT · <a href="#MOW-TH-005">Mở quy trình để đọc chú giải</a>. Bước 5 và 6 là hai nhánh CHƯA ĐẠT/ĐẠT, không chạy nối tiếp.</p>'+stepHtml+'</div>'+
  '<div class="ov-post-row"><div class="ov-pane"><h3>5. Nguồn tham chiếu chính</h3><div class="ov-link-list">'+posterLinks+'</div><p class="ov-guide">Danh mục và công thức đã có; các liên kết dùng lại nguồn hiện hành.</p></div>'+
  '<div class="ov-pane"><h3>6. Sổ vấn đề và trạng thái</h3><p><a href="#so-van-de">Sổ vấn đề của tools-quy-trinh</a> theo dõi lỗi/thiếu cho tới khi xử lý xong.</p><p>Hiện đã có danh mục thiết kế, ma trận câu hỏi và mô hình mô phỏng. <b>Chưa nghiệm thu vận hành production.</b></p></div></div>'+
  '<div class="ov-underline-note"><strong>Nguyên tắc:</strong> AI đọc quy trình → làm ra sản phẩm. Chưa đạt → ghi sổ, hiệu chỉnh và làm lại.</div></div></details>';
@@ -10925,7 +10935,7 @@ const posterShort=
  '<p class="ov-statusline">Hai bản HTML chỉ mô tả những gì đã đăng ký/thiết kế; không sinh ảnh, không đăng ký thêm Quy trình và không công nhận sản phẩm đã chạy.</p></div></details>';
 
 slot.innerHTML=
-'<div class="ov-section"><h2>'+records.length+' Quy trình tổng hợp</h2><p class="ov-intro">Bốn quy trình cùng một loại. Mũi tên nghĩa là <b>có thể gọi khi cần</b>, không phải luôn chạy hết và không phải quan hệ cấp bậc cố định.</p>'+main+
+'<div class="ov-section"><h2>'+records.length+' Quy trình tổng hợp <small class="ov-code">4 trước · 1 đề xuất</small></h2><p class="ov-intro">Cùng một loại: phối hợp các quy trình con để đạt mục tiêu trong một lượt chuyên môn. <b>⑤ chỉ là bản đề xuất thiết kế.</b> Mũi tên nghĩa là có thể gọi khi cần, không phải luôn chạy hết.</p>'+main+
 '<div class="ov-flow-arrow">↓ &nbsp;'+no(pMain)+' có thể gọi '+bigCalls.map(no).join(' · ')+'</div>'+
 '<div class="ov-cards">'+cards+'</div></div>'+
 '<div class="ov-section"><h2>'+normals.length+' Quy trình thành phần <small class="ov-code">dùng chung</small></h2><p class="ov-matrix-guide">✓ = Quy trình tổng hợp gọi <b>trực tiếp</b> Quy trình thành phần. — = không gọi trực tiếp; vẫn có thể gọi gián tiếp qua quy trình khác.</p>'+
