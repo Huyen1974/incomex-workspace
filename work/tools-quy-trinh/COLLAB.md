@@ -117,7 +117,7 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 - Đã xác định TQT-TH-001 chỉ là mã tài liệu, chưa là dòng Master CTCM. CT-005/ML-DEF-004 đang một-một Nhóm cha; quan hệ MOW tổng hợp gọi con cần chốt, không tự tạo T2.5/nhóm giả.
 - Tab đầu có bốn chỗ hở, thứ tự khai báo, bộ câu hỏi dẫn nguồn, đường thiếu Field, hợp đồng chỗ nối và thiết kế kiểm lại theo phiên bản. Thêm 19 câu (159/53), không nhân bản câu ở bộ tổng hợp.
 - Mở TQT-ISS-007 cùng sổ hiện có; hồ sơ SSOT ở closure_review.issue, UI sổ dẫn cùng dữ liệu. PG/DOT/JEV tự động chỉ ở mức thiết kế; chưa đăng ký MOW, chưa hoàn tất ca xuyên B3–B7.
-- Kiểm trước ghi: mã câu duy nhất/owner tồn tại/30 tham chiếu câu hợp lệ; cú pháp renderer đạt. Bằng chứng giao diện được cập nhật sau đồng bộ.
+- Kiểm trước ghi: mã câu duy nhất/owner tồn tại/30 tham chiếu câu hợp lệ; cú pháp renderer đạt. Kiểm browser bản xuất `d60306d2871ecacc082e9e92a1e4955f0ad0501d`: mở bộ câu dùng chung; lọc Q-MOW-08 đúng 1/159; mở TQT-ISS-007 và quay về sơ đồ; đường thiếu Field có nhánh dùng/sửa/tạo mới/chưa rõ; màn390px không tràn (375/375). Đã sửa liên kết tới hồ sơ để tự xổ đúng mục. Cổng /knowledge/modules đang báo chưa có snapshot khi kiểm; bản xuất trực tiếp vẫn mở và hoạt động. Đây là giới hạn kiểm cổng, không phải mất tài liệu; chưa xác nhận khắc phục. DOER_CONFIRM: làm được phần thiết kế/rà nguồn/trình bày; chưa đăng ký MOW, chưa vận hành một ca xuyên B3–B7 hay PG/DOT tự động.
 
 #### TQT-TH-001 · quy trình tổng hợp đầu tiên · 09/10/2026
 - Theo chỉ đạo bổ sung của Owner: tab đầu tiên “List quy trình tổng hợp”, mặc định khi vào nội dung không có section. Có thu/xổ quy trình, giai đoạn và từng bước; đường cũ tới câu hỏi/legacy giữ nguyên.
