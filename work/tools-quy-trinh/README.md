@@ -1,5 +1,12 @@
 # tools-quy-trinh · Cửa vào
 
+## List quy trình tổng hợp · cửa vào đầu tiên
+- [Mở trên hệ thống](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=list-quy-trinh-tong-hop). Thu/xổ theo quy trình → giai đoạn → bước.
+- Quy trình đầu: **TQT-TH-001 · Thiết kế - xây dựng một chi tiết/chức năng trong chế tạo cỗ máy**. Nguồn duy nhất là JSON `tqt-composite-processes` trong `view.html`; giao diện và vùng AI đọc cùng dữ liệu.
+- Bắt đầu ở quy trình tổng hợp để biết thứ tự, checkpoint và đường quay lại; sau đó mở quy trình con/câu hỏi/ghi chú theo liên kết. Không nhầm 9 bước phối hợp ở đây với B1–B9 của Công thức.
+- Mỗi lượt áp dụng lưu bằng chứng/checkpoint trong phiếu sản phẩm hiện có; vấn đề ở sổ của nguồn cần sửa. Phần tổng hợp chỉ dẫn nguồn, không mở sổ mới. Hướng dẫn con mới còn trạng thái cần áp thử.
+- Host sửa nguồn sau khi tiếp nhận; người góp ý chỉ nộp riêng. Thêm quy trình tổng hợp sau này vào cùng danh sách, không tạo các bản chuẩn rải rác.
+
 ## Ma trận câu hỏi · hiệu lực 08/10/2026
 - Owner đã giao **Astra Codex trong phiên này làm Host**, thay GPT Chat. Các thành viên khác, kể cả Codex ở phiên khác, chỉ gửi đề xuất riêng. Đây là đổi vai theo chỉ đạo trực tiếp, không phải tuyên bố cổng máy đã khóa được.
 - Mở trực tiếp [Câu hỏi cơ bản trên hệ thống](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=cau-hoi-co-ban). URL ghi nhớ tab/mục; bước 1.2 dùng section=q-B1-2, mã câu vẫn Q-B1.2-01. Renderer chỉ nhận từ đúng iframe; xem bằng chứng ở COLLAB §0 ô 3.

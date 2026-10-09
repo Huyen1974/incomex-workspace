@@ -1,6 +1,9 @@
 # PROMPT — TQT GỐC CÂU HỎI · Chuỗi/Tầng/Bước (gồm Bước con)
 
-## Phạm vi hiện hành · Owner giao trực tiếp 08/10/2026
+## Quy trình tổng hợp · Owner giao trực tiếp 09/10/2026
+Bắt đầu từ `view.html#list-quy-trinh-tong-hop`, TQT-TH-001. Nguồn điều phối: JSON `tqt-composite-processes`, gồm giai đoạn, bước, quy trình con, đầu ra, checkpoint và đường quay lại. Chọn phần đang làm, đọc nguồn con và bộ câu hỏi/ghi chú; lưu kết quả ở phiếu sản phẩm/sổ đã có. Không tự coi khung mới đã qua áp thử, không phát PG hoặc vận hành chỉ vì đã có hướng dẫn. Trình Owner bản tóm tắt nguyên nhân và quyết định cần chốt, không chuyển toàn bộ log.
+
+## Phạm vi bộ câu hỏi · Owner giao trực tiếp 08/10/2026
 Host: **Astra Codex**, phiên Owner chỉ định. Làm UI Câu hỏi cơ bản theo Công thức, ma trận câu hỏi là SSOT và bộ ghép nghiệp vụ UI/Test/Config. Giữ nội dung cũ; không thay định nghĩa Công thức hay dựng UI thứ 2. Mục tiêu nguyên văn: COLLAB.md §0 ô 1 bổ sung 08/10. Cách sửa nguồn và nộp góp ý: README.md.
 Nguồn mới: `view.html#tqt-question-matrix`; bảng cho người và AI: `view.html#ma-tran-cau-hoi`. Bộ câu hỏi đang hiệu chỉnh, chưa nghiệm thu. Chỉ Host nhập ý kiến đã xem xét; thành viên khác chỉ đề xuất riêng.
 Kiểm giao diện và liên kết thật sau đồng bộ; không lấy UI chạy được để tuyên bố bộ câu hỏi đã đủ.

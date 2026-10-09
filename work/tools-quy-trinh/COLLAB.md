@@ -10,7 +10,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · Astra Codex
 - 🎯 Mục tiêu và tiêu chí gốc: ô 1–2; chỉ đạo bổ sung trực tiếp của Owner ngày 08/10 ở cuối ô 1.
-- ■ Đang làm: bộ câu hỏi ở giai đoạn áp dụng và hiệu chỉnh; giao diện bản đầu đã dựng và kiểm. Host tiếp nhận góp ý riêng. P15/D16 READ-ONLY được thay thế bởi chỉ đạo Owner giao trực tiếp Astra Codex.
+- ■ Hiện hành: đã bổ sung TQT-TH-001 tại tab đầu “List quy trình tổng hợp”: ba giai đoạn/chín bước phối hợp/ba checkpoint. Bản đầu để áp thử; bộ câu hỏi và ghi chú bên dưới giữ nguyên, Host tiếp nhận góp ý riêng.
 - ✅ Đã chuẩn bị: 9 bước lớn, 23 bước con, Field/MOIT/MOUT/MOT/MOW, tầng bối cảnh T3–T7 và 3 chuỗi; câu hỏi mới mang trạng thái đang hiệu chỉnh.
 - Kiểm tra giao diện: đã kiểm trên trang thật bản nội dung 7a4c0717eebd0c074635a2a5e8dab63e9fa56d18: B1→1.2 và mở lại URL, B8/B9 chưa tách, MOIT, CMSXQT, lọc không dấu, Config→mục cũ, bộ ghép 27 câu không trùng; màn hẹp 390px không tràn ngang. Đây là kiểm giao diện, chưa nghiệm thu tính đầy đủ của bộ câu hỏi.
 - ➡ Đã rà lại MOW001 ngày09/10: phiếu44 mã/120 lần áp dụng và14 ca browser; còn vướng evaluator/kết luận/nguồn thật. Kế tiếp sửa UI001/Config theo hợp đồng đã chốt rồi kiểm lại; chưa UI thứ2.
@@ -74,6 +74,27 @@ Tôi có 1 lưu ý riêng: Bạn nên quy định thêm trong readme hoặc đâ
 
 Ở mỗi bước con, mỗi tầng ngoài các câu hỏi chính nên có có ghi chú riêng. Ví dụ, bước con 1.1 khi ghép vpwis T0 có thể cần ghi chú riêng, T0,5 cần ghi chú riêng, T1, T2 có những gi chú riêng. Các ghi chú này không thể đưa vào câu hỏi chung, quy định chung và chỉ mang tính chất đặc thù ở mỗi T1. => nói cách khác, cái chúng ta làm vừa rồi là quy định chung để ghép chung, và giờ cần thiết kế ở dưới đó là quy định riêng. Những quy định nào phổ quát được thì đưa luôn vào tầng (T) nhưng không thể đưa được vào bước con/bước ra, không thể đưa được vào (T0-T2) => thì sẽ đưa vào ghi chú của bước cha/bước con.
 
+#### Bổ sung Owner · 09/10/2026 · Quy trình tổng hợp
+
+Nếu, thông tin trình bày nó đủ đơn giản, tôi-con người có thể giúp sáng tạo đưa ra những phương pháp hiệu quả và đơn giản. Nhưng điều quan trọng nhất là thông tin đến chỗ tôi nó phải đơn giản, bạn phải giúp tôi để tổng hợp được vấn đề nó đơn giản thì tôi mới xử lý được.
+
+Bước tiếp theo:
+
+Rõ ràng chúng ta cần 1 quy trình để vận hành các quy trình chế tạo cỗ máy: "Quy trình thiết kế - xây dựng một chi tiết/ chức năng trong chế tạo cỗ máy" - Tên hơi lạ và hơi dài nhưng trước hết cùng nhau hiểu đúng vấn đề cái đã.
+
+Quy trình này sẽ lắp ráp hoá lại các bước rời rạc mà chúng ta đang làm: Bắt đầu từ việc:
+
+1. đặt tên nó trong master list (đã làm)
+2. Thiết kế ra UI (đang làm) - Bản chất là vận hành các bước / trả lời các câu hỏi của thiêt kế UI.
+3. Giả định chạy thử các quy trình tiếp theo theo thứ tự => Cái chúng ta đang lần mò xem làm việc gì trước việc gì sau. => Và giờ cần làm bao nhiêu việc (vận hành bao nhiêu quy trình con) => quy trình nào trước, quy trình nào sau, khi nào thì đến quy trình tiếp theo, khi nào phải quay lại đâu?...===>>> Đích đến cuối của nó là được thông qua và yên tâm nó chạy, hoặc phải ghi những sai thiếu vào sổ và khi giải quyết các vấn đề sai thiếu đó => hệ thống sẽ chạy và khả thi như ý muốn.
+4. Nên chia ra làm các giai đoạn chính:
+   1. Giai đoạn thiêt kế và đánh giá khả thi (đang làm), bao gồm cả dự kiến config, đủ trường hoặc ghi đủ danh sách
+   2. Giai đoạn config thực tế, đưa vào PG và test kỹ thuật, bao gồm cả AI/Agent test thực tế trên UI, làm thử giả lập như người.
+   3. Giai đoạn vận hành thực tế, đọc log + nhận phản hồi từ người dùng => hiệu chỉnh.
+   4. ===>>> Cả 3 giai đoạn đều có checkpoint nghiêm thu.
+5. Quy trình này về bản chất là sắp xếp các thứ tự của các quy trình khác, bổ sung các quy trình còn thiếu để nhất quán hoá 1 quy trình chuẩn làm ra 1 việc đơn giản như thiết kế 1 cái UI. Vì rõ ràng là chỉ thiết kế 1 cái UI thì chẳng có nghĩa gì bởi vì nó không chạy. Còn muốn nó chạy tới cuối cùng => thì tất cả các câu hỏi, quy trình phía sau phải được trả lời đầy đủ.
+6. Vị trí của quy trình này nằm ngay trên đầu các quy trình khác (rõ ràng nó quản lý các quy trình khác) => Bạn đặt tên 1 thư mục ngay trến đầu của https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh thành tab đầu tiên (thu gọn/xổ ra được) và đặt tên tab là: List quy trình tổng hợp. Đây chỉ là quy trình tổng hợp đầu tiên. Cố gắng giữ style trình bày dễ hiểu cho con người nhé. Tôi chỉ cần nhìn nhanh để nhận ra vấn đề thì tôi sẽ giúp các bạn sáng tạo và đi về đích. Nếu chỉ để cho AI làm không thì sẽ tạo ra 1 mớ rác giống như chúng ta đã từng làm.
+
 ### 2. Thế nào là hoàn thành
 Một quy trình đạt = người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lại.
@@ -81,6 +102,14 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 (Owner duyệt 08/10/2026.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+#### TQT-TH-001 · quy trình tổng hợp đầu tiên · 09/10/2026
+- Theo chỉ đạo bổ sung của Owner: tab đầu tiên “List quy trình tổng hợp”, mặc định khi vào nội dung không có section. Có thu/xổ quy trình, giai đoạn và từng bước; đường cũ tới câu hỏi/legacy giữ nguyên.
+- Nguồn duy nhất: JSON `tqt-composite-processes` trong view.html. Một quy trình, 3 giai đoạn, 9 bước phối hợp và 3 checkpoint; gọi quy trình con bằng tham chiếu, không nhân bộ câu hỏi/sổ.
+- Thiết kế/khả thi → Config/PG/test kỹ thuật + Agent UI → vận hành/log/phản hồi. Mỗi bước có đầu ra, điều kiện đi tiếp và đường quay lại; checkpoint phân biệt đạt/có điều kiện/chưa đạt, không coi ghi sổ là chạy đạt.
+- Hai hướng dẫn con còn thiếu (triển khai/khôi phục, log/phản hồi) được bổ sung ngay trong quy trình tổng hợp, ghi rõ khung mới cần áp thử, không cấp quyền PG hay nhận đã tự động hóa.
+- Gom việc lặp theo nguyên nhân, dùng mã sổ gốc; đề xuất công thức chung phải được duyệt/kiểm trên ca đại diện và phần ảnh hưởng. Bản trình Owner gói trong ba câu: đang ở đâu, vướng gốc nào, cần quyết định gì.
+- Đây là soạn quy trình và giao diện; chưa phát chạy PG, chưa mở vận hành/automation, chưa nghiệm thu quy trình tổng hợp bằng một lượt đầu–cuối. MOW001 chỉ làm ví dụ đọc theo phiếu09/10, trạng thái chuẩn vẫn ở phiếu sản phẩm.
 
 #### TQT-HOST-APPLY-MOW001-20261009
 - Tiếp nhận có kiểm chứng [phiếu GPT vòng3](proposals/TQT-PR-20261009-gptchat-mow001-walkthrough-03.md) @229c74a. Host tự đọc nguồn và bấm lại trình duyệt; không dùng kết quả GPT như bằng chứng thao tác của Host.

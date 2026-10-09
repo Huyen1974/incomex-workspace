@@ -106,19 +106,44 @@ main{max-width:1240px} [hidden]{display:none!important}
 @media(max-width:750px){.tq .tq-flow{grid-template-columns:75px minmax(0,1fr);gap:8px}.tq .branches{padding-left:10px}.tq .piece-section{padding:13px}.tq .piece{padding:8px;font-size:13px}.tq .tq-chains{grid-template-columns:1fr}.tq .compose{grid-template-columns:1fr 1fr}.tq h1{font-size:25px}.tq h2{font-size:23px}.tq-tabs button{padding:8px 10px;font-size:13px}.tq .formula{font-size:15px}}
 @media(prefers-reduced-motion:no-preference){.tq .piece{transition:background .12s,border-color .12s}}
 </style>
+<style id="tqt-composite-style">
+.tq .tqt-composite{border:1px solid #d6ddcf;border-radius:14px;background:#fff}
+.tq .tqt-composite>summary{padding:18px;font-size:18px}
+.tq .tqt-composite>summary small{display:block;font-size:12px;font-weight:400;color:#687362;margin-top:6px}
+.tq .tqt-composite-body{padding:0 18px 18px}
+.tq .tqt-stage-overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}
+.tq .tqt-stage-overview a{display:flex;flex-direction:column;gap:7px;padding:15px;border:1px solid #d9e1d1;background:#f5f7f0;border-radius:10px;color:#31492d;text-decoration:none}
+.tq .tqt-stage-overview span,.tq .tqt-stage-overview small{font-size:12px;font-weight:400;color:#64735f}
+.tq .tqt-stage>summary{padding:15px;background:#f7f8f4}
+.tq .tqt-stage>summary small{display:block;font-size:13px;font-weight:400;color:#657160;margin-top:5px}
+.tq .tqt-stage-body{padding:0 14px 14px}
+.tq .tqt-checkpoint{border-left:3px solid #7c906a;background:#f4f7ee;padding:12px 16px;margin-top:16px}
+.tq .tqt-checkpoint h3{font-size:17px;margin:0 0 10px}
+.tq .tqt-checkpoint p{font-size:14px}
+.tq .tqt-owner-brief{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tq .tqt-owner-brief p{background:#f5f7f0;padding:14px;border-radius:8px}
+.tq #tqt-composite-json{width:100%;min-height:220px;font:12px monospace;box-sizing:border-box}
+@media(max-width:700px){.tq .tqt-stage-overview,.tq .tqt-owner-brief{grid-template-columns:1fr}.tq .tqt-composite-body{padding:0 10px 10px}.tq .tqt-composite>summary{font-size:16px;padding:14px}}
+</style>
 </head>
 <body>
 <main>
 
 <div class="tq" id="tqt-question-app">
-<header><small>TOOLS QUY TRÌNH · TƯ DUY TỪ GỐC</small><h1>Câu hỏi để làm ra sản phẩm</h1><p>Bước + Tầng + Chuỗi → ghép thêm câu hỏi của việc đang làm.</p></header>
+<header><small>TOOLS QUY TRÌNH · TƯ DUY TỪ GỐC</small><h1>Quy trình để làm ra sản phẩm</h1><p>Nhìn toàn hành trình · mở đúng phần đang làm · kiểm đến khi chạy được.</p></header>
 <nav class="tq-tabs" role="tablist" aria-label="Nội dung Tools quy trình">
-<button type="button" role="tab" id="tqt-tab-basic" aria-controls="cau-hoi-co-ban" aria-selected="true" data-tab="cau-hoi-co-ban">Câu hỏi cơ bản</button>
+<button type="button" role="tab" id="tqt-tab-composite" aria-controls="list-quy-trinh-tong-hop" aria-selected="true" data-tab="list-quy-trinh-tong-hop">List quy trình tổng hợp</button>
+<button type="button" role="tab" id="tqt-tab-basic" aria-controls="cau-hoi-co-ban" aria-selected="false" data-tab="cau-hoi-co-ban" tabindex="-1">Câu hỏi cơ bản</button>
 <button type="button" role="tab" id="tqt-tab-business" aria-controls="cau-hoi-nghiep-vu" aria-selected="false" data-tab="cau-hoi-nghiep-vu" tabindex="-1">Câu hỏi nghiệp vụ</button>
 <button type="button" role="tab" id="tqt-tab-matrix" aria-controls="ma-tran-cau-hoi" aria-selected="false" data-tab="ma-tran-cau-hoi" tabindex="-1">Ma trận câu hỏi</button>
 <button type="button" role="tab" id="tqt-tab-old" aria-controls="tqt-legacy" aria-selected="false" data-tab="tqt-legacy" tabindex="-1">Quy trình hiện có</button>
 </nav>
-<div id="cau-hoi-co-ban" role="tabpanel" aria-labelledby="tqt-tab-basic">
+<div id="list-quy-trinh-tong-hop" role="tabpanel" aria-labelledby="tqt-tab-composite">
+<p class="hint"><b>Một việc đi từ đầu đến khi chạy được.</b> Chọn quy trình để xem ba giai đoạn; mở từng phần khi cần làm hoặc cần quyết định.</p>
+<div id="tqt-composite-list"></div>
+<details><summary>Dữ liệu quy trình tổng hợp · cho AI đọc</summary><p class="mut">Một nguồn trong trang này: tqt-composite-processes. Quy trình con và sổ vẫn được dẫn về nguồn hiện có.</p><textarea id="tqt-composite-json" readonly aria-label="Dữ liệu quy trình tổng hợp JSON"></textarea></details>
+</div>
+<div id="cau-hoi-co-ban" role="tabpanel" aria-labelledby="tqt-tab-basic" hidden>
 <p class="hint"><b>Bấm một miếng để xem câu hỏi.</b> Bước, Tầng và Chuỗi là câu hỏi <b>chuyên môn</b>. Cùng cách nhìn như <a href="https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&amp;view=content&amp;section=matrix-view-formula" target="_blank" rel="noopener">Công thức ↗</a>. <span class="status">Bộ câu hỏi đang hiệu chỉnh</span></p>
 <div class="piece-section" id="tqt-steps"><div class="titleline"><h2>Bước</h2><small>CT-001 · Vòng đời tổng</small><a class="quiet" href="#q-STEP">Câu hỏi chung</a></div><div class="formula">Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }</div><div id="tqt-step-map"></div><div id="tqt-step-detail"></div></div>
 <div class="piece-section" id="tqt-layers"><div class="titleline"><h2>Tầng</h2><small>CT-002 · Ghép tầng</small><a class="quiet" href="#q-LAYER">Câu hỏi chung</a></div><div class="formula">Field ⇒ { MOIT | MOUT } ⇒ MOT ⇒ MOW</div><div id="tqt-layer-map"></div><div id="tqt-layer-detail"></div><p class="mut"><small>Đọc từ tầng thấp lên tầng cao. MOIT và MOUT cùng T0.5, có câu hỏi riêng.</small></p></div>
@@ -2248,6 +2273,316 @@ main{max-width:1240px} [hidden]{display:none!important}
     }
   ]
 }</script>
+<script id="tqt-composite-processes" type="application/json">{
+  "schema": "TQT-COMPOSITE-PROCESSES-1",
+  "updated": "2026-10-09",
+  "host": "Astra Codex",
+  "processes": [
+    {
+      "id": "TQT-TH-001",
+      "title": "Quy trình thiết kế - xây dựng một chi tiết/chức năng trong chế tạo cỗ máy",
+      "status": "Bản đầu để áp thử · chưa nghiệm thu quy trình",
+      "purpose": "Từ một mục trong Master List đến một chức năng chạy được, có người theo dõi và có cách sửa khi phát sinh vấn đề.",
+      "start": "Có tên/mã trong Master List, người phụ trách, phạm vi và kết quả cần đạt. Đã có thì dùng lại; chưa có thì đăng ký trước.",
+      "finish": "Ba checkpoint có quyết định và bằng chứng đúng phiên bản. Việc còn mở có người xử lý, điều kiện đóng và nơi theo dõi; không nhận đã chạy khi chỉ mới có bản vẽ.",
+      "use": "Quy trình này gọi các quy trình con theo thứ tự. Câu hỏi, ghi chú và bằng chứng vẫn ở nguồn hiện có; không viết lại chúng vào đây.",
+      "stages": [
+        {
+          "id": "TQT-TH-001-G1",
+          "number": 1,
+          "title": "Thiết kế & đánh giá khả thi",
+          "outcome": "Biết phải làm gì, cần những gì và còn thiếu ở đâu.",
+          "steps": [
+            {
+              "id": "1.1",
+              "title": "1.1. Gọi đúng việc cần chế tạo",
+              "work": "Tìm mục Master đã có; chốt người dùng, nhu cầu, phạm vi và thế nào là xong.",
+              "uses": [
+                {
+                  "label": "Master / danh mục",
+                  "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html"
+                },
+                {
+                  "label": "Lập hành trình · Tool 001",
+                  "href": "#tqt-ctcm-1"
+                }
+              ],
+              "output": "Mã việc + người phụ trách + đầu vào/đầu ra + tiêu chí xong.",
+              "next": "Rõ phạm vi → bước 1.2. Chưa rõ đích → ở lại bước 1.1, hỏi đúng phần cần quyết."
+            },
+            {
+              "id": "1.2",
+              "title": "1.2. Ghép câu hỏi, trả lời rồi thiết kế",
+              "work": "Chọn Chuỗi/Bước/Tầng và UI/Config/Test; đọc ghi chú đúng phạm vi. Điền phiếu đáp án trước, chọn UI cha rồi thiết kế trường, nhãn, nút, trạng thái. Khai Config dự kiến, nguồn dữ liệu và nơi nhận.",
+              "uses": [
+                {
+                  "label": "Bộ ghép + ghi chú",
+                  "href": "#cau-hoi-nghiep-vu"
+                },
+                {
+                  "label": "UI · Tool 002",
+                  "href": "#tqt-ctcm-2"
+                },
+                {
+                  "label": "Config · Tool 004",
+                  "href": "#tqt-ctcm-4"
+                },
+                {
+                  "label": "UI cha",
+                  "href": "https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-process"
+                }
+              ],
+              "output": "Đáp án có căn cứ ↔ UI/Config/dữ liệu dự kiến ↔ ca kiểm. Giá trị lúc chạy chỉ cần rõ nguồn cấp và cách kiểm.",
+              "next": "Có bản thiết kế để đi thử → bước 1.3. Thiếu đích → bước 1.1; thiếu đáp án/rule → ghi sổ và làm rõ tại bước 1.2."
+            },
+            {
+              "id": "1.3",
+              "title": "1.3. Đi giả lập đến tận kết quả cuối",
+              "work": "Lấy một ca cụ thể, đi lần lượt qua mọi quy trình con phía sau UI: nhận dữ liệu → điều kiện/trigger → xử lý → lưu/trả → báo cáo/chuyển tiếp. Tại mỗi chỗ nối hỏi: ai làm, nhận gì, trả gì, khi nào xong; thử cả rỗng, lỗi, hủy và làm lại.",
+              "uses": [
+                {
+                  "label": "Rà Config · Tool 004",
+                  "href": "#tqt-ctcm-4"
+                },
+                {
+                  "label": "Dữ liệu · Tool 005",
+                  "href": "#tqt-ctcm-5"
+                },
+                {
+                  "label": "Luồng thao tác · Tool 006",
+                  "href": "#tqt-ctcm-6"
+                }
+              ],
+              "output": "Danh sách quy trình con theo thứ tự, chỗ đi tiếp/quay lại; thiếu bước/UI/nhãn/nút/trường/rule/nguồn đều có vị trí và mã vấn đề.",
+              "next": "Đi hết hoặc đã khoanh rõ mọi điểm dừng → bước 1.4. Thiết kế không đi được → bước 1.2. Phát hiện sai nguồn khác → ghi ở nguồn đó, không tự lao sang sửa."
+            },
+            {
+              "id": "1.4",
+              "title": "1.4. Gom vấn đề và nghiệm thu thiết kế",
+              "work": "Kiểm hai chiều yêu cầu ↔ thiết kế ↔ ca kiểm. Gom lỗi cùng gốc, tách đề xuất khỏi quyết định. Trình người có quyền duyệt bản tóm tắt ngắn, kèm danh sách việc cần hoàn tất.",
+              "uses": [
+                {
+                  "label": "Sổ vấn đề / Tool 008",
+                  "href": "#tqt-ctcm-8"
+                },
+                {
+                  "label": "Cách gom vấn đề",
+                  "href": "#TQT-TH-001-ISSUES"
+                }
+              ],
+              "output": "Phiếu checkpoint 1: bản thiết kế, bằng chứng giả lập, chỗ thiếu, người xử lý và quyết định.",
+              "next": "Checkpoint 1 cho phép → Giai đoạn 2. Chưa rõ khả thi của phần bắt buộc → quay bước 1.2/bước 1.3."
+            }
+          ],
+          "checkpoint": {
+            "title": "Checkpoint 1 · Thiết kế có khả thi?",
+            "pass": "Đích và các chỗ nối đã rõ; giả lập được hành trình; yêu cầu bắt buộc có thiết kế/ca kiểm; phụ thuộc đã có căn cứ đáp ứng.",
+            "conditional": "Có thể thông qua thiết kế có điều kiện khi phần chưa làm đã được khoanh rõ: phương án có căn cứ, người xử lý, điều kiện đóng và phần bị chặn. Chỉ làm phần không bị chặn; chưa gọi là chạy đạt.",
+            "hold": "Thiếu định nghĩa/rule cốt lõi hoặc chưa có căn cứ khả thi → chưa thông qua. Ghi vào sổ không tự chứng minh vấn đề sẽ giải quyết được.",
+            "next": "Được duyệt phạm vi nào thì cấu hình/triển khai phạm vi đó."
+          }
+        },
+        {
+          "id": "TQT-TH-001-G2",
+          "number": 2,
+          "title": "Config thực tế, PG & kiểm kỹ thuật",
+          "outcome": "Cấu hình thật, dữ liệu thật và UI thực hiện đúng việc đã thiết kế.",
+          "steps": [
+            {
+              "id": "2.1",
+              "title": "2.1. Chốt cấu hình và cách triển khai",
+              "work": "Đối chiếu đáp án đã duyệt với bản ghi/config/rule/nguồn thật. Chốt schema, quan hệ, quyền, phiên hiệu lực, thứ tự phụ thuộc, cách quay lui và ca kiểm. Quy trình con nào còn thiếu phải có hướng dẫn và người nhận trước khi chạy.",
+              "uses": [
+                {
+                  "label": "Config · Tool 004",
+                  "href": "#tqt-ctcm-4"
+                },
+                {
+                  "label": "Đóng gói DOT · Tool 009",
+                  "href": "#tqt-ctcm-9"
+                },
+                {
+                  "label": "Hướng dẫn triển khai còn thiếu",
+                  "href": "#TQT-TH-001-PG"
+                }
+              ],
+              "output": "Gói thực thi có phiên bản, đích/môi trường cụ thể, quyền thực hiện và cách khôi phục; không dùng giá trị demo thay quyết định.",
+              "next": "Đủ quyền/công cụ/đáp án → bước 2.2. Thiếu hoặc mâu thuẫn thiết kế → bước 1.2, rồi xét lại checkpoint 1."
+            },
+            {
+              "id": "2.2",
+              "title": "2.2. Đưa vào PG và nối các phần",
+              "work": "Thực hiện bằng quy trình/công cụ đã được phép; ghi bằng chứng trước/sau, đọc lại dữ liệu/quan hệ, nối UI với dịch vụ thật. Thử phần có thể hoàn tác trước khi mở phạm vi lớn.",
+              "uses": [
+                {
+                  "label": "Hướng dẫn triển khai & khôi phục",
+                  "href": "#TQT-TH-001-PG"
+                }
+              ],
+              "output": "Phiên bản đã triển khai + dữ liệu đọc lại + log/lỗi + kết quả kiểm khôi phục.",
+              "next": "Đúng bản và dữ liệu → bước 2.3. Lỗi thực thi → sửa/khôi phục tại bước 2.2; sai đáp án/schema → bước 1.2."
+            },
+            {
+              "id": "2.3",
+              "title": "2.3. Kiểm kỹ thuật và cho AI thao tác UI",
+              "work": "Chạy ca kỹ thuật; AI/Agent bấm như người từ đầu đến cuối trên đúng nguồn thật. Kiểm đầu ra/nơi nhận, nhánh lỗi/quyền/timeout, làm lại, dữ liệu đổi và các phần bị ảnh hưởng. Ca chưa chạy giữ NOT_TESTED; minh họa không thay ca thật.",
+              "uses": [
+                {
+                  "label": "Rà UI · 6 bước",
+                  "href": "#ra-ui"
+                },
+                {
+                  "label": "Test kỹ thuật · Tool 007",
+                  "href": "#tqt-ctcm-7"
+                },
+                {
+                  "label": "Ghi lỗi và kiểm lại · Tool 008",
+                  "href": "#tqt-ctcm-8"
+                }
+              ],
+              "output": "Phiếu kiểm theo ca có mong đợi/thực tế/bằng chứng; người thực hiện tự xác nhận phạm vi làm được.",
+              "next": "Ca bắt buộc đạt → checkpoint 2. Lỗi mã/nối → bước 2.2; lỗi rule/config → bước 2.1; thiếu thiết kế → bước 1.2 rồi kiểm lại phần ảnh hưởng."
+            }
+          ],
+          "checkpoint": {
+            "title": "Checkpoint 2 · Đã chạy đúng trên hệ thống?",
+            "pass": "Đúng phiên bản/môi trường; dữ liệu và đích nhận đã đọc lại; ca kỹ thuật + AI thao tác UI bắt buộc đều đạt; quyền và khôi phục đã kiểm; có người nhận vận hành.",
+            "conditional": "Việc không chặn có thể để mở nếu người có quyền duyệt chấp nhận rõ phạm vi và người xử lý. Không gọi một ca bắt buộc FAIL/BLOCKED/NOT_TESTED là đạt.",
+            "hold": "Nguồn thật chưa nối, đầu ra chưa kiểm hoặc còn lỗi chặn → chưa cho phần đó vận hành.",
+            "next": "Cho vận hành trong phạm vi đã nghiệm thu; chuyển kèm phiên bản, log cần theo dõi và hướng dẫn xử lý."
+          }
+        },
+        {
+          "id": "TQT-TH-001-G3",
+          "number": 3,
+          "title": "Vận hành, nhận phản hồi & hiệu chỉnh",
+          "outcome": "Biết chạy thực tế có ổn không và sửa đúng chỗ khi có vấn đề.",
+          "steps": [
+            {
+              "id": "3.1",
+              "title": "3.1. Theo dõi việc chạy thật",
+              "work": "Trước khi mở: chốt người theo dõi, dấu hiệu đúng/sai, log cần đọc, kênh phản hồi và khoảng thời gian/số ca quan sát. Đối chiếu hành vi thực với mục tiêu, không chỉ việc hệ thống không báo lỗi.",
+              "uses": [
+                {
+                  "label": "Hướng dẫn vận hành còn thiếu",
+                  "href": "#TQT-TH-001-OPS"
+                }
+              ],
+              "output": "Kết quả vận hành theo phiên bản + phản hồi người dùng + sự cố/ảnh hưởng có mã.",
+              "next": "Không có vấn đề chặn, đủ thời gian/ca đã hẹn → bước 3.2. Có sự cố → ghi sổ, giới hạn/dừng phần ảnh hưởng theo quyền và chuyển về đúng bước sửa."
+            },
+            {
+              "id": "3.2",
+              "title": "3.2. Hiệu chỉnh và nghiệm thu vận hành",
+              "work": "Gom phản hồi theo nguyên nhân. Sửa nội dung thiết kế → bước 1.2; rule/config → bước 2.1; mã/nối → bước 2.2. Thay đổi phải quay qua kiểm kỹ thuật và kiểm phần ảnh hưởng, rồi theo dõi lại; không sửa âm thầm trên bản đang dùng.",
+              "uses": [
+                {
+                  "label": "Gom vấn đề, tìm quy tắc chung",
+                  "href": "#TQT-TH-001-ISSUES"
+                },
+                {
+                  "label": "Hiệu chỉnh quy trình",
+                  "href": "#quy-trinh-hieu-chinh"
+                }
+              ],
+              "output": "Phiếu checkpoint 3, phiên bản hiệu chỉnh, kết quả kiểm lại và danh sách việc còn mở.",
+              "next": "Đạt checkpoint 3 → duy trì theo dõi theo nhịp đã chốt. Tái diễn → mở lại vấn đề gốc và vòng sửa tương ứng."
+            }
+          ],
+          "checkpoint": {
+            "title": "Checkpoint 3 · Vận hành có đạt mục tiêu?",
+            "pass": "Đủ khoảng quan sát/ca đã chốt; kết quả thực đạt tiêu chí; phản hồi đã xử lý hoặc có quyết định rõ; không còn sự cố chặn trong phạm vi nghiệm thu.",
+            "conditional": "Ghi rõ phần đã ổn và việc không chặn còn mở, người giữ và mốc rà. Không tự suy từ vài ca đẹp thành toàn hệ thống ổn định.",
+            "hold": "Chưa đủ log/phản hồi/ca quan sát hoặc còn sự cố chặn → tiếp tục theo dõi/sửa, chưa đóng checkpoint.",
+            "next": "Duy trì vận hành; thay đổi mới quay đúng checkpoint bị ảnh hưởng."
+          }
+        }
+      ],
+      "checkpoint_record": "Mỗi checkpoint ghi: mã việc + phạm vi/phiên bản + tiêu chí + bằng chứng + việc mở/điều kiện chặn + người duyệt + quyết định/ngày + bước tiếp. Chưa có người duyệt thì chưa qua checkpoint.",
+      "issue_rules": [
+        "Ghi vào sổ hiện có của nguồn bị thiếu/sai; phiếu công việc chỉ dẫn mã và ảnh hưởng. Không tạo sổ thứ hai.",
+        "Một vấn đề ghi ngắn: đang muốn gì → thực tế vướng gì → chặn chỗ nào → nguồn cần sửa → người xử lý → ca kiểm để đóng.",
+        "Gặp lại cùng nguyên nhân: nối vào vấn đề gốc, bổ sung các nơi bị ảnh hưởng. Host tổng hợp thành một mẫu vấn đề để tìm quy tắc/công thức chung, thay vì xử lý từng biểu hiện riêng lẻ.",
+        "Quy tắc dùng lại là đề xuất cho tới khi được duyệt. Thử trên ca đại diện và phần bị ảnh hưởng rồi cập nhật đúng nguồn chung; trường hợp riêng giữ ghi chú đúng bước × tầng.",
+        "Sau sửa: chạy lại ca đã vướng và ca liên quan, đọc kết quả thật rồi mới đóng. Còn phụ thuộc thì giữ mở; ghi đủ lỗi không đồng nghĩa hệ thống đã chạy."
+      ],
+      "owner_brief": {
+        "title": "Trình Owner · nhìn nhanh để quyết",
+        "fields": [
+          [
+            "Đang ở đâu?",
+            "Mục tiêu một câu · giai đoạn/checkpoint · phần đã có bằng chứng."
+          ],
+          [
+            "Vướng gốc nào?",
+            "Gom theo nguyên nhân, nêu ảnh hưởng và mã sổ; chi tiết mở khi cần."
+          ],
+          [
+            "Cần quyết định gì?",
+            "Một câu hỏi rõ + các phương án/đề xuất + đánh đổi + việc sẽ làm sau quyết định."
+          ]
+        ],
+        "note": "Chỉ đưa vấn đề cần Owner quyết. Việc đã đủ căn cứ trong quyền Host thì Host xử lý và ghi kết quả; không dồn toàn bộ log/checklist lên Owner."
+      },
+      "supplements": [
+        {
+          "id": "TQT-TH-001-PG",
+          "title": "Bổ sung quy trình con · triển khai và khôi phục",
+          "status": "Khung hướng dẫn mới · cần áp thử trước khi nhận sẵn dùng",
+          "steps": [
+            "Nhận gói đã duyệt ở bước 2.1: schema/rule, phụ thuộc, phiên bản, quyền, môi trường, tiêu chí và người quyết khi có lỗi.",
+            "Kiểm công cụ/DOT theo quy định hiện hành; chuẩn bị mốc dữ liệu/bản cấu hình trước thay đổi và cách khôi phục đã kiểm. Thiếu quyền hoặc chưa rõ đích thì dừng tại bước 2.1.",
+            "Triển khai theo thứ tự phụ thuộc trong phạm vi được phép; ghi kết quả từng bước và đọc lại bản ghi/quan hệ/phiên hiệu lực.",
+            "Nếu sai: dừng phần ảnh hưởng và thực hiện cách khôi phục đã duyệt; đọc lại để xác nhận. Nếu đúng: bàn giao bước 2.3 kiểm kỹ thuật và UI. Chỉ hướng dẫn này không cấp quyền ghi PG."
+          ]
+        },
+        {
+          "id": "TQT-TH-001-OPS",
+          "title": "Bổ sung quy trình con · log và phản hồi vận hành",
+          "status": "Khung hướng dẫn mới · cần áp thử trước khi nhận sẵn dùng",
+          "steps": [
+            "Nhận bản đã qua checkpoint2, người vận hành và người xử lý; chốt tiêu chí, khoảng quan sát, nguồn log và kênh phản hồi.",
+            "Theo dõi các lần chạy theo mã/phiên bản: đầu vào/phạm vi, hành động, kết quả, lỗi và đích nhận. Đối chiếu mong đợi và phản hồi người dùng.",
+            "Sai/thiếu: nối mã sổ gốc, ghi mức ảnh hưởng và bằng chứng; bảo vệ phần vận hành theo phương án đã duyệt, chuyển về bước 1.2/bước 2.1/bước 2.2 đúng nguyên nhân.",
+            "Sau sửa qua kiểm kỹ thuật, quan sát lại đủ phạm vi rồi trình checkpoint3. Theo dõi thủ công nếu chưa có công cụ; không nhận đã tự động hóa."
+          ]
+        }
+      ],
+      "example": {
+        "title": "Ví dụ cách nhìn · MOW 001",
+        "as_of": "Theo phiếu Host ngày 09/10/2026; đây là ví dụ đọc, trạng thái cập nhật ở phiếu gốc.",
+        "stage": "Giai đoạn 1: đã có đáp án A/B/C và đã đi thử; chưa nghiệm thu toàn thiết kế/UI.",
+        "roots": [
+          "Nguồn tìm/đánh giá thật chưa nối.",
+          "Màn 1.3 dùng xác nhận người thay cho kết luận máy.",
+          "Gói kết luận B1 chưa được triển khai."
+        ],
+        "next": "Sửa theo đáp án đã chốt, hòa giải rule liên quan rồi kiểm lại; ghi rõ phần còn bị chặn bởi nguồn thật.",
+        "href": "https://github.com/Huyen1974/incomex-workspace/blob/5ada3e0d2639ac7411842a85bfe16571c805feeb/work/mow-mot-moit-mout/UI-REVIEW-MOW001.json"
+      }
+    }
+  ]
+}</script>
+<script id="tqt-composite-renderer">
+(function(){
+'use strict';
+const D=JSON.parse(document.getElementById('tqt-composite-processes').textContent);
+const e=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ul=items=>'<ul>'+items.map(t=>'<li>'+e(t)+'</li>').join('')+'</ul>';
+const links=items=>items.map(l=>'<a href="'+e(l.href)+'"'+(l.href.startsWith('http')?' target="_blank" rel="noopener"':'')+'>'+e(l.label)+'</a>').join(' · ');
+const p=D.processes[0];
+document.getElementById('tqt-composite-list').innerHTML=D.processes.map(p=>'<details class="tqt-composite" id="'+p.id+'" open><summary><span><b>'+e(p.title)+'</b><small>'+e(p.status)+'</small></span></summary><div class="tqt-composite-body"><p class="lead">'+e(p.purpose)+'</p><p class="mut">'+e(p.use)+'</p><div class="tqt-stage-overview">'+p.stages.map(s=>'<a href="#'+s.id+'"><span>Giai đoạn '+s.number+'</span><b>'+e(s.title)+'</b><small>'+e(s.outcome)+'</small></a>').join('')+'</div><details><summary>Bắt đầu bằng gì · kết thúc khi nào?</summary><p><b>Đầu vào:</b> '+e(p.start)+'</p><p><b>Đích:</b> '+e(p.finish)+'</p></details>'+
+p.stages.map(s=>'<details class="tqt-stage" id="'+s.id+'"><summary><b>'+s.number+'. '+e(s.title)+'</b><small>'+e(s.outcome)+'</small></summary><div class="tqt-stage-body">'+s.steps.map(t=>'<details class="tqt-taskstep"><summary>'+e(t.title)+'</summary><p>'+e(t.work)+'</p><p class="mut"><small>Gọi quy trình: '+links(t.uses)+'</small></p><p><b>Cần ra:</b> '+e(t.output)+'</p><p><b>Đi tiếp / quay lại:</b> '+e(t.next)+'</p></details>').join('')+'<div class="tqt-checkpoint"><h3>'+e(s.checkpoint.title)+'</h3><p><b>Đạt:</b> '+e(s.checkpoint.pass)+'</p><p><b>Có điều kiện:</b> '+e(s.checkpoint.conditional)+'</p><p><b>Chưa đạt:</b> '+e(s.checkpoint.hold)+'</p><p><b>Sau checkpoint:</b> '+e(s.checkpoint.next)+'</p></div></div></details>').join('')+
+'<details id="'+p.id+'-ISSUES"><summary>Gặp sai/thiếu · gom về vấn đề gốc</summary>'+ul(p.issue_rules)+'<p>'+links([{label:'Mở sổ vấn đề hiện có',href:'#so-van-de'},{label:'Quy trình hiệu chỉnh',href:'#quy-trinh-hieu-chinh'}])+'</p></details>'+
+'<details id="'+p.id+'-OWNER"><summary>'+e(p.owner_brief.title)+'</summary><div class="tqt-owner-brief">'+p.owner_brief.fields.map(([a,b])=>'<p><b>'+e(a)+'</b><br>'+e(b)+'</p>').join('')+'</div><p>'+e(p.owner_brief.note)+'</p></details>'+
+'<details><summary>Ai nghiệm thu · ghi quyết định ở đâu?</summary><p>'+e(p.checkpoint_record)+'</p><p>Người thực hiện ghi vào phiếu của công việc; người có quyền nghiệm thu theo phân công xác nhận. Host điều phối và nhận góp ý riêng. Lưu quyết định ở nguồn hiện có, không mở sổ checkpoint thứ hai.</p></details>'+
+'<details><summary>Quy trình con vừa bổ sung · mở khi cần dùng</summary>'+p.supplements.map(x=>'<details id="'+x.id+'"><summary>'+e(x.title)+'</summary><p class="mut">'+e(x.status)+'</p>'+ul(x.steps)+'</details>').join('')+'</details>'+
+'<details><summary>'+e(p.example.title)+'</summary><p class="mut">'+e(p.example.as_of)+'</p><p><b>Đang ở đâu:</b> '+e(p.example.stage)+'</p><b>Ba chỗ vướng:</b>'+ul(p.example.roots)+'<p><b>Tiếp theo:</b> '+e(p.example.next)+'</p><p>'+links([{label:'Phiếu gốc và bằng chứng MOW 001 ↗',href:p.example.href}])+'</p></details>'+
+'</div></details>').join('');
+document.getElementById('tqt-composite-json').value=JSON.stringify(D,null,2);
+})();
+</script>
+
 <script id="tqt-question-renderer">
 (function(){
 'use strict';
@@ -2282,7 +2617,7 @@ $('tqt-step-map').innerHTML='<div class="tq-flow">'+piece('B1')+'<div class="bra
 $('tqt-layer-map').innerHTML='<div class="layers">'+piece('FIELD')+arrow+'<div class="pair" aria-label="Hai đối tượng T0.5">'+piece('MOIT')+piece('MOUT')+'</div>'+arrow+piece('MOT')+arrow+piece('MOW')+'</div><details><summary>Tầng bối cảnh · T3 ⇒ T4 ⇒ T5 ⇒ T6 ⇒ T7</summary><div class="layers">'+['T3','T4','T5','T6','T7'].map(id=>piece(id)).join(arrow)+'</div></details>';
 $('tqt-chain-map').innerHTML=['CTCM','VHCM','CMSXQT'].map(id=>piece(id)).join('');
 $('tqt-business-map').innerHTML=D.groups.filter(g=>g.kind==='Nghiệp vụ').map(g=>'<a class="piece" href="#q-'+g.id+'" data-piece="'+g.id+'"><b>'+esc(g.label)+'</b><span class="count">'+own(g.id).length+' câu riêng · đang hiệu chỉnh</span></a>').join('');
-const panels=['cau-hoi-co-ban','cau-hoi-nghiep-vu','ma-tran-cau-hoi','tqt-legacy'];
+const panels=['list-quy-trinh-tong-hop','cau-hoi-co-ban','cau-hoi-nghiep-vu','ma-tran-cau-hoi','tqt-legacy'];
 function tab(id){
  panels.forEach(p=>$(p).hidden=p!==id);
  document.querySelectorAll('[data-tab]').forEach(b=>{let yes=b.dataset.tab===id;b.setAttribute('aria-selected',String(yes));b.tabIndex=yes?0:-1});
@@ -2349,8 +2684,9 @@ function routeHash(){
  if(group){detail(group.id);requestAnimationFrame(()=>$(anchor(group.id)).scrollIntoView({block:'nearest',behavior:'instant'}));return}
  if(panels.includes(id)){tab(id);return}
  const target=id&&$(id);
+ if(target&&$('list-quy-trinh-tong-hop').contains(target)){tab('list-quy-trinh-tong-hop');let p=target;while(p&&p!==$('list-quy-trinh-tong-hop')){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement}requestAnimationFrame(()=>target.scrollIntoView({block:'start'}));return}
  if(target&&$('tqt-legacy').contains(target)){tab('tqt-legacy');let p=target.parentElement;while(p&&p!==$('tqt-legacy')){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement}requestAnimationFrame(()=>target.scrollIntoView());return}
- tab('cau-hoi-co-ban');
+ tab('list-quy-trinh-tong-hop');
 }
 function syncSection(){
  const section=decodeURIComponent(location.hash.slice(1));
