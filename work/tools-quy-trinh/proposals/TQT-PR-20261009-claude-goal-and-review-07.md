@@ -25,11 +25,15 @@ PROPOSED_CHANGE: Host xét ngay mục 4–6: chỉ mục ý kiến (4.2), sửa 
 
 **Owner · 09/10/2026 15:24 +07 (nguyên văn):** “Trước tiên bạn cứ ghi các ý kiến góp ý của claude vào đẻ host codex rà soát phần chuyên môn. Sau đó tôi và bạn sẽ rà soát phần mục tiêu.”
 
+**Owner · 09/10/2026 15:58 +07 (nguyên văn):** “Giờ quay lại phần mục tiêu. Được hiểu là từ đầu đến nôi dung: "Chưa làm lúc này: quy trình nghiệp vụ (phái cử, tuyển dụng…). Chúng thuộc Chuỗi 3 CMSXQT; để sau cho đỡ lan man." là chúng ta chốt rồi. Thực tế thì tôi có bổ sung 1 số yêu cầu, nhưng phần dưới viết dài quá. Bạn tách từ dưới nội dung vừa rồi (đã chốt) xem lại những nội dung nào có nội dung quan trọng để viết nó ngắn lại. 1. Trước tiên lọc những nội dung bổ sung ở phần dưới đó từ ngày 8 tháng 10 => viết ngắn gọn lại những yêu cầu. (cái này cần việc riêng) 2. Sau đó lấy nội dung đã chốt ở bên trên cộng với nội dung mục 1 đã được duyệt để hoàn thiện thanh toán toàn bộ mục tiêu. 3. Tôi duyệt xong rồi mới đưa đến repo”
+
+Áp dụng: 15 dòng ô 1 bản 08/10 (từ Đích đến “Chưa làm lúc này”) **giữ nguyên, đã chốt**. Chỉ rút gọn phần bổ sung từ 08/10 trở đi, làm theo 3 bước. Bản nháp ở mục 2 bên dưới **không dùng nữa**. Bản rút gọn chỉ ghi lên repo sau khi Owner duyệt.
+
 Host ghi thành D17 + HUMAN_DIRECTIVE@TQT-GOAL-SHORT-20261009 khi áp.
 
 ---
 
-## 2. Bản ô 1–2 mới · NHÁP, Owner và Claude đang rà · Host chưa áp
+## 2. Bản ô 1–2 mới · NHÁP CŨ, KHÔNG DÙNG (Owner 15:58 giữ 15 dòng đã chốt) · Host không áp
 
 Cách làm giống D03/D04: Claude soạn trong chat, Owner gật hoặc sửa, khi đó bản này là lời Owner. Host chép nguyên văn, giữ đúng tiêu đề khoá máy. Theo MT4, ô 1–2 dùng câu thường, không bảng.
 
