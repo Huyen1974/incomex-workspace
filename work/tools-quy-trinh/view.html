@@ -107,6 +107,13 @@ main{max-width:1240px} [hidden]{display:none!important}
 @media(prefers-reduced-motion:no-preference){.tq .piece{transition:background .12s,border-color .12s}}
 </style>
 <style id="tqt-composite-style">
+.tq .tqt-model-flow{display:grid;grid-template-columns:1fr;gap:8px;margin:18px 0}
+.tq .tqt-model-piece{padding:10px 14px;border:1px solid #d6dfd0;border-radius:10px;background:#fbfcf9}
+.tq .tqt-model-piece details{margin:0;border:0;background:transparent}.tq .tqt-model-piece summary{padding:7px 0;font-size:16px}.tq .tqt-model-piece small{display:block;color:#6b745f;font-size:12px;line-height:1.5}
+.tq .tqt-model-arrow{color:#827447;font-size:12px;padding-left:16px}
+.tq #tqt-process-model-view>details{margin:12px 0}
+@media(min-width:1000px){.tq .tqt-model-flow{grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.tq .tqt-model-arrow{display:none}.tq .tqt-model-piece:not(:last-child)::after{content:'→ Chưa gửi';display:block;font-size:11px;color:#827447;margin-top:9px}.tq .tqt-model-piece:first-child::after{content:'→ Chờ nhận · mô phỏng'}.tq .tqt-model-piece{padding:9px}}
+
 .tq .tqt-closure-formula{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0}.tq .tqt-closure-formula span{padding:10px 12px;background:#eef3e8;border:1px solid #d5dfcc;border-radius:8px}.tq .tqt-closure-formula i{color:#718565;font-style:normal}.tq .tqt-gap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tq .tqt-gap-grid>div{padding:14px;border:1px solid #dfcfa9;border-left:3px solid #ac8439;border-radius:9px;background:#fffdf7}.tq .tqt-gap-grid p{margin:8px 0}.tq .tqt-gap-grid small{color:#716653}.tq .tqt-review-body{padding:0 14px 14px}.tq #tqt-closure-review{margin-bottom:24px}.tq #tqt-closure-review>details{margin-top:12px}@media(max-width:700px){.tq .tqt-gap-grid{grid-template-columns:1fr}}
 
 .tq .tqt-composite{border:1px solid #d6ddcf;border-radius:14px;background:#fff}
@@ -142,7 +149,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 </nav>
 <div id="list-quy-trinh-tong-hop" role="tabpanel" aria-labelledby="tqt-tab-composite">
 <p class="hint"><b>Một việc đi từ đầu đến khi chạy được.</b> Chọn quy trình để xem ba giai đoạn; mở từng phần khi cần làm hoặc cần quyết định.</p>
-<div id="tqt-closure-review" aria-label="Rà khép kín quy trình"></div><div id="tqt-composite-list"></div>
+<div id="tqt-process-model-view" aria-label="Mô hình quy trình có mã"></div><details><summary>Rà vòng trước · bốn chỗ hở và câu hỏi khép kín</summary><div id="tqt-closure-review" aria-label="Rà khép kín quy trình"></div></details><div id="tqt-composite-list"></div>
 <details><summary>Dữ liệu quy trình tổng hợp · cho AI đọc</summary><p class="mut">Một nguồn trong trang này: tqt-composite-processes. Quy trình con và sổ vẫn được dẫn về nguồn hiện có.</p><textarea id="tqt-composite-json" readonly aria-label="Dữ liệu quy trình tổng hợp JSON"></textarea></details>
 </div>
 <div id="cau-hoi-co-ban" role="tabpanel" aria-labelledby="tqt-tab-basic" hidden>
@@ -2416,6 +2423,2810 @@ main{max-width:1240px} [hidden]{display:none!important}
     }
   ]
 }</script>
+<script id="tqt-process-model" type="application/json">{
+  "id": "TQT-MODEL-001",
+  "version": 1,
+  "status": "DRAFT · PHÁC THẢO DỮ LIỆU · CHƯA ĐƯA PG",
+  "title": "Một quy trình · nhiều lần chạy · không lẫn kết quả",
+  "code_policy": "Mã bất biến, duy nhất trong loại bảng; FK nối bằng mã, không nối bằng tên/URL. Mã DRAFT-/SIM- là mã phác thảo/ca thử, không phải mã Master chính thức. Chuyển chuẩn giữ id hoặc có bảng ánh xạ được kiểm một-một; không cấp lại tùy tiện.",
+  "scope": "Mô hình dữ liệu hỗ trợ MOW/MOT hiện có; các bảng phiên/lần/vòng/gọi/bằng chứng là bản ghi quản lý, không phải tầng mới. Chưa chốt quan hệ Gộp/Tách hoặc đăng ký composite trong Master.",
+  "pg": {
+    "schema": "tqt_model_draft",
+    "types": [
+      "text",
+      "integer",
+      "boolean",
+      "jsonb",
+      "timestamptz"
+    ],
+    "constraints": "PK/FK/UNIQUE/CHECK; FK có index; các quan hệ chạy phải cùng run/phiên, kiểm cả ứng dụng. Không nhập production khi còn DRAFT/SIM hoặc ref chưa xác minh.",
+    "import": "Chốt mapping Master/rule/quyền → đóng băng gói+hash → kiểm mã/FK → nhập toàn gói trong transaction ở staging → đọc lại counts/hash/quan hệ → kiểm ca → mới duyệt áp dụng bằng DOT.",
+    "scaling": "Tách định nghĩa bất biến và bản ghi chạy; index theo FK, trạng thái/hạn, nguồn phụ thuộc; phân trang theo id, chọn phần bị ảnh hưởng. Khóa nhận việc theo transaction/idempotency khi chạy thật. Chưa benchmark tải lớn; retention/partition/scope cách ly phải đo trước production.",
+    "open": [
+      "Đăng ký MOW tổng hợp và MOT điều phối vào Master theo CT-005/005.1",
+      "Ánh xạ người/rule/nguồn vào ID thật và quyền theo scope",
+      "Kiểm PostgreSQL thật, khóa đồng thời, transaction outbox và chính sách lưu log/partition",
+      "Mức kiểm và vòng đời nháp phải ánh xạ hệ hiện hữu trước khi áp chuẩn"
+    ]
+  },
+  "tables": [
+    {
+      "name": "object_def",
+      "label": "Định nghĩa MOW/MOT/MOIT/MOUT/Field",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "code": {
+          "type": "text",
+          "nullable": false
+        },
+        "name": {
+          "type": "text",
+          "nullable": false
+        },
+        "chain_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "master_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "master_record_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "registration": {
+          "type": "text",
+          "nullable": false
+        }
+      },
+      "unique": [
+        [
+          "code"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "chain_id"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "master_id"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "master_record_id"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "kind IN ('MOW','MOT','MOIT','MOUT','FIELD')",
+        "registration IN ('DRAFT','REGISTERED')",
+        "registration <> 'REGISTERED' OR (master_id IS NOT NULL AND master_record_id IS NOT NULL)"
+      ]
+    },
+    {
+      "name": "object_version",
+      "label": "Phiên bản định nghĩa",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "object_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "version_no": {
+          "type": "integer",
+          "nullable": false
+        },
+        "lifecycle": {
+          "type": "text",
+          "nullable": false
+        },
+        "content_hash": {
+          "type": "text",
+          "nullable": false
+        },
+        "body": {
+          "type": "jsonb",
+          "nullable": false
+        }
+      },
+      "unique": [
+        [
+          "object_id",
+          "version_no"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "object_id"
+          ],
+          "table": "object_def",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "version_no > 0",
+        "lifecycle IN ('DRAFT','APPROVED','RETIRED')"
+      ],
+      "fks": [
+        {
+          "columns": [
+            "object_id"
+          ],
+          "table": "object_def",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "reference",
+      "label": "Nguồn ngoài / câu hỏi / actor / rule",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "code": {
+          "type": "text",
+          "nullable": false
+        },
+        "version": {
+          "type": "text",
+          "nullable": false
+        },
+        "uri": {
+          "type": "text",
+          "nullable": false
+        },
+        "verified": {
+          "type": "boolean",
+          "nullable": false
+        }
+      },
+      "unique": [
+        [
+          "kind",
+          "code",
+          "version"
+        ]
+      ],
+      "foreign_keys": [],
+      "checks": [
+        "kind IN ('QUESTION','ACTOR','SOURCE','RULE','DOCUMENT','MASTER_OBJECT','CHAIN','MASTER')"
+      ]
+    },
+    {
+      "name": "step_def",
+      "label": "Việc con đã khai trong phiên MOW",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "process_version_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "mot_version_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "order_no": {
+          "type": "integer",
+          "nullable": false
+        },
+        "label": {
+          "type": "text",
+          "nullable": false
+        },
+        "owner_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "input_contract": {
+          "type": "jsonb",
+          "nullable": false
+        },
+        "output_contract": {
+          "type": "jsonb",
+          "nullable": false
+        }
+      },
+      "unique": [
+        [
+          "process_version_id",
+          "order_no"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "process_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "mot_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "owner_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [],
+      "fks": [
+        {
+          "columns": [
+            "process_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "mot_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "owner_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "edge_def",
+      "label": "Chỗ nối có mã",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "process_version_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "from_step_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "to_step_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "outcome": {
+          "type": "text",
+          "nullable": false
+        },
+        "condition_rule_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "trigger_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "mapping": {
+          "type": "jsonb",
+          "nullable": false
+        },
+        "terminal_result": {
+          "type": "text",
+          "nullable": true
+        },
+        "return_step_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "timeout_owner_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "max_visits": {
+          "type": "integer",
+          "nullable": true
+        }
+      },
+      "unique": [
+        [
+          "from_step_id",
+          "outcome"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "process_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "from_step_id"
+          ],
+          "table": "step_def",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "to_step_id"
+          ],
+          "table": "step_def",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "return_step_id"
+          ],
+          "table": "step_def",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "condition_rule_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "trigger_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "timeout_owner_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "(to_step_id IS NULL AND terminal_result IS NOT NULL) OR (to_step_id IS NOT NULL AND terminal_result IS NULL)",
+        "max_visits IS NULL OR max_visits > 0"
+      ],
+      "fks": [
+        {
+          "columns": [
+            "process_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "from_step_id"
+          ],
+          "table": "step_def",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "to_step_id"
+          ],
+          "table": "step_def",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "return_step_id"
+          ],
+          "table": "step_def",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "condition_rule_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "trigger_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "timeout_owner_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "run",
+      "label": "Một lần thực hiện",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "process_version_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "run_key": {
+          "type": "text",
+          "nullable": false
+        },
+        "state": {
+          "type": "text",
+          "nullable": false
+        },
+        "outcome": {
+          "type": "text",
+          "nullable": true
+        },
+        "owner_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "scope": {
+          "type": "jsonb",
+          "nullable": false
+        }
+      },
+      "unique": [
+        [
+          "process_version_id",
+          "run_key"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "process_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "owner_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "state IN ('READY','STARTED','XONG','DUNG')"
+      ],
+      "fks": [
+        {
+          "columns": [
+            "process_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "owner_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "round",
+      "label": "Một vòng trong lần thực hiện",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "run_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "round_no": {
+          "type": "integer",
+          "nullable": false
+        },
+        "reason": {
+          "type": "text",
+          "nullable": false
+        }
+      },
+      "unique": [
+        [
+          "run_id",
+          "round_no"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "round_no > 0"
+      ],
+      "fks": [
+        {
+          "columns": [
+            "run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "step_run",
+      "label": "Một lần thực hiện việc con",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "round_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "step_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "attempt_no": {
+          "type": "integer",
+          "nullable": false
+        },
+        "state": {
+          "type": "text",
+          "nullable": false
+        },
+        "outcome": {
+          "type": "text",
+          "nullable": true
+        }
+      },
+      "unique": [
+        [
+          "round_id",
+          "step_id",
+          "attempt_no"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "round_id"
+          ],
+          "table": "round",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "step_id"
+          ],
+          "table": "step_def",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "attempt_no > 0",
+        "state IN ('READY','STARTED','XONG','DUNG')"
+      ],
+      "fks": [
+        {
+          "columns": [
+            "round_id"
+          ],
+          "table": "round",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "step_id"
+          ],
+          "table": "step_def",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "call",
+      "label": "Một lần gọi / nhận / trả",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "step_run_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "callee_version_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "child_run_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "request_key": {
+          "type": "text",
+          "nullable": false
+        },
+        "correlation_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "return_step_run_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "receiver_ref": {
+          "type": "text",
+          "nullable": true
+        },
+        "sender_owner_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "delivery_state": {
+          "type": "text",
+          "nullable": false
+        },
+        "input_data": {
+          "type": "jsonb",
+          "nullable": false
+        },
+        "output_data": {
+          "type": "jsonb",
+          "nullable": true
+        },
+        "deadline_at": {
+          "type": "timestamptz",
+          "nullable": false
+        },
+        "ack_event_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "return_event_id": {
+          "type": "text",
+          "nullable": true
+        }
+      },
+      "unique": [
+        [
+          "step_run_id",
+          "request_key"
+        ],
+        [
+          "correlation_id"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "step_run_id"
+          ],
+          "table": "step_run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "callee_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "child_run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "return_step_run_id"
+          ],
+          "table": "step_run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "receiver_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "sender_owner_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "ack_event_id"
+          ],
+          "table": "event",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "return_event_id"
+          ],
+          "table": "event",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "delivery_state IN ('UNSENT','SENT','ACKNOWLEDGED','RETURNED','REJECTED','EXPIRED')",
+        "delivery_state NOT IN ('ACKNOWLEDGED','RETURNED') OR ack_event_id IS NOT NULL",
+        "delivery_state <> 'RETURNED' OR return_event_id IS NOT NULL"
+      ],
+      "fks": [
+        {
+          "columns": [
+            "step_run_id"
+          ],
+          "table": "step_run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "callee_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "child_run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "return_step_run_id"
+          ],
+          "table": "step_run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "receiver_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "sender_owner_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "ack_event_id"
+          ],
+          "table": "event",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "return_event_id"
+          ],
+          "table": "event",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "issue",
+      "label": "Hồ sơ xử lý sai/thiếu",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "problem_key": {
+          "type": "text",
+          "nullable": false
+        },
+        "owner_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "process_run_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "state": {
+          "type": "text",
+          "nullable": false
+        },
+        "resolution": {
+          "type": "text",
+          "nullable": true
+        },
+        "review_at": {
+          "type": "timestamptz",
+          "nullable": false
+        },
+        "close_rule_ref": {
+          "type": "text",
+          "nullable": false
+        }
+      },
+      "unique": [
+        [
+          "problem_key"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "owner_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "process_run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "close_rule_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "state IN ('OPEN','CLOSED')",
+        "state <> 'CLOSED' OR resolution IS NOT NULL"
+      ],
+      "fks": [
+        {
+          "columns": [
+            "owner_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "process_run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "close_rule_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "impact",
+      "label": "Mỗi nơi phát hiện / cần kiểm lại",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "issue_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "occurrence_key": {
+          "type": "text",
+          "nullable": false
+        },
+        "origin_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "origin_version": {
+          "type": "text",
+          "nullable": false
+        },
+        "case_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "goal_result": {
+          "type": "text",
+          "nullable": false
+        },
+        "decision_ref": {
+          "type": "text",
+          "nullable": true
+        }
+      },
+      "unique": [
+        [
+          "occurrence_key"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "issue_id"
+          ],
+          "table": "issue",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "origin_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "case_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "decision_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "goal_result IN ('UNMET','MET','NOT_PURSUED')"
+      ],
+      "fks": [
+        {
+          "columns": [
+            "issue_id"
+          ],
+          "table": "issue",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "origin_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "case_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "decision_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "answer",
+      "label": "Đáp án theo đúng phạm vi",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "question_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "subject_version_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "scope_role": {
+          "type": "text",
+          "nullable": false
+        },
+        "run_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "answer_key": {
+          "type": "text",
+          "nullable": false
+        },
+        "answer_revision": {
+          "type": "integer",
+          "nullable": false
+        },
+        "value": {
+          "type": "jsonb",
+          "nullable": false
+        },
+        "source_ref": {
+          "type": "text",
+          "nullable": false
+        }
+      },
+      "unique": [
+        [
+          "answer_key",
+          "answer_revision"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "question_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "subject_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "source_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "scope_role IN ('PROCESS','TASK','TARGET','BUSINESS')",
+        "answer_revision > 0"
+      ],
+      "fks": [
+        {
+          "columns": [
+            "question_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "subject_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "source_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "assessment",
+      "label": "Kết quả kiểm bất biến",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "answer_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "run_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "step_run_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "level": {
+          "type": "integer",
+          "nullable": false
+        },
+        "result": {
+          "type": "text",
+          "nullable": false
+        },
+        "validity": {
+          "type": "text",
+          "nullable": false
+        },
+        "evidence_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "checker_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "checked_at": {
+          "type": "timestamptz",
+          "nullable": false
+        },
+        "dependency_complete": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "blocker_ref": {
+          "type": "text",
+          "nullable": true
+        },
+        "blocker_version": {
+          "type": "text",
+          "nullable": true
+        },
+        "supersedes_id": {
+          "type": "text",
+          "nullable": true
+        }
+      },
+      "unique": [],
+      "foreign_keys": [
+        {
+          "columns": [
+            "answer_id"
+          ],
+          "table": "answer",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "step_run_id"
+          ],
+          "table": "step_run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "evidence_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "checker_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "blocker_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "supersedes_id"
+          ],
+          "table": "assessment",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "level BETWEEN 0 AND 4",
+        "result IN ('NOT_TESTED','PASS','FAIL','BLOCKED','NA')",
+        "validity IN ('CURRENT','RECHECK')",
+        "result <> 'BLOCKED' OR blocker_ref IS NOT NULL"
+      ],
+      "fks": [
+        {
+          "columns": [
+            "answer_id"
+          ],
+          "table": "answer",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "step_run_id"
+          ],
+          "table": "step_run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "evidence_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "checker_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "blocker_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "supersedes_id"
+          ],
+          "table": "assessment",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dependency",
+      "label": "Phụ thuộc để chọn phần kiểm lại",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "assessment_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "source_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "source_version": {
+          "type": "text",
+          "nullable": false
+        },
+        "required_level": {
+          "type": "integer",
+          "nullable": false
+        }
+      },
+      "unique": [
+        [
+          "assessment_id",
+          "source_ref"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "assessment_id"
+          ],
+          "table": "assessment",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "source_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "required_level BETWEEN 0 AND 4"
+      ],
+      "fks": [
+        {
+          "columns": [
+            "assessment_id"
+          ],
+          "table": "assessment",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "source_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "label": "Bằng chứng nhận/trả/chuyển trạng thái",
+      "pk": [
+        "id"
+      ],
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "run_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "call_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "sequence_no": {
+          "type": "integer",
+          "nullable": false
+        },
+        "event_type": {
+          "type": "text",
+          "nullable": false
+        },
+        "actor_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "at": {
+          "type": "timestamptz",
+          "nullable": false
+        },
+        "payload": {
+          "type": "jsonb",
+          "nullable": false
+        }
+      },
+      "unique": [
+        [
+          "run_id",
+          "sequence_no"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "call_id"
+          ],
+          "table": "call",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "actor_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "sequence_no > 0"
+      ],
+      "fks": [
+        {
+          "columns": [
+            "run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "call_id"
+          ],
+          "table": "call",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "actor_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        }
+      ]
+    }
+  ],
+  "call_contract": [
+    "call.id riêng cho từng lần gọi; retry cùng request_key của cùng step_run lấy lại call cũ",
+    "correlation_id trả đúng call + step_run + phiên; cha đã hủy/đổi phiên thì ghi kết quả muộn, không áp vào lần khác",
+    "Người gửi giữ trách nhiệm cho tới ACK; quá hạn chuyển EXPIRED và báo đầu mối, không âm thầm mất việc",
+    "ACK và RETURN phải trỏ event cùng call/run; mã tự có không thay bằng chứng",
+    "Nhiều impact được gắn một issue sau xác minh cùng nhu cầu; mỗi impact vẫn có ca kiểm và kết quả riêng"
+  ],
+  "execution_notes": [
+    "Quan hệ đề xuất: MOW có MOT điều phối; MOT gọi một phiên MOW con qua MOIT/MOUT. Chưa thay công thức.",
+    "Một lần chế tạo kết thúc khi kiểm ban đầu hữu hạn đạt và lần/quy trình VHCM đã ACK nhận bàn giao. Theo dõi dài hạn thuộc VHCM.",
+    "PG không áp dụng cho sản phẩm không cần PG thì lưu lý do/người xác nhận. Chạm PG vẫn theo DOT được duyệt."
+  ],
+  "review_status": "27 phép kiểm mô hình đạt · chưa PostgreSQL/B3–B7 thật",
+  "fixtures": {
+    "success": {
+      "id": "SIM-CASE-CREATE",
+      "outcomes": [
+        "recorded",
+        "create",
+        "ready",
+        "bound",
+        "pass",
+        "resolved"
+      ],
+      "expect": "RESOLVED"
+    },
+    "reuse": {
+      "id": "SIM-CASE-REUSE",
+      "outcomes": [
+        "recorded",
+        "reuse",
+        "bound",
+        "pass",
+        "resolved"
+      ],
+      "expect": "RESOLVED"
+    },
+    "decline": {
+      "id": "SIM-CASE-DECLINE",
+      "outcomes": [
+        "recorded",
+        "create",
+        "rejected",
+        "declined"
+      ],
+      "expect": "NOT_PURSUED"
+    },
+    "unknown": {
+      "id": "SIM-CASE-UNKNOWN",
+      "outcomes": [
+        "recorded",
+        "blocked"
+      ],
+      "expect": "BLOCKED"
+    }
+  },
+  "rows": {
+    "object_def": [
+      {
+        "id": "DRAFT-MOW-GAP-001",
+        "kind": "MOW",
+        "code": "DRAFT-MOW-GAP-001",
+        "name": "Xử lý sai/thiếu đến nơi phát hiện",
+        "chain_id": "CH-001",
+        "master_id": null,
+        "master_record_id": null,
+        "registration": "DRAFT"
+      },
+      {
+        "id": "DRAFT-MOT-GAP-1",
+        "kind": "MOT",
+        "code": "DRAFT-MOT-GAP-1",
+        "name": "Phát hiện",
+        "chain_id": "CH-001",
+        "master_id": null,
+        "master_record_id": null,
+        "registration": "DRAFT"
+      },
+      {
+        "id": "DRAFT-MOT-GAP-2",
+        "kind": "MOT",
+        "code": "DRAFT-MOT-GAP-2",
+        "name": "Xác minh",
+        "chain_id": "CH-001",
+        "master_id": null,
+        "master_record_id": null,
+        "registration": "DRAFT"
+      },
+      {
+        "id": "DRAFT-MOT-GAP-3",
+        "kind": "MOT",
+        "code": "DRAFT-MOT-GAP-3",
+        "name": "Xử lý",
+        "chain_id": "CH-001",
+        "master_id": null,
+        "master_record_id": null,
+        "registration": "DRAFT"
+      },
+      {
+        "id": "DRAFT-MOT-GAP-4",
+        "kind": "MOT",
+        "code": "DRAFT-MOT-GAP-4",
+        "name": "Đấu lại",
+        "chain_id": "CH-001",
+        "master_id": null,
+        "master_record_id": null,
+        "registration": "DRAFT"
+      },
+      {
+        "id": "DRAFT-MOT-GAP-5",
+        "kind": "MOT",
+        "code": "DRAFT-MOT-GAP-5",
+        "name": "Kiểm nơi phát hiện",
+        "chain_id": "CH-001",
+        "master_id": null,
+        "master_record_id": null,
+        "registration": "DRAFT"
+      },
+      {
+        "id": "DRAFT-MOT-GAP-6",
+        "kind": "MOT",
+        "code": "DRAFT-MOT-GAP-6",
+        "name": "Kết thúc",
+        "chain_id": "CH-001",
+        "master_id": null,
+        "master_record_id": null,
+        "registration": "DRAFT"
+      }
+    ],
+    "object_version": [
+      {
+        "id": "DRAFT-MOW-GAP-001-V1",
+        "object_id": "DRAFT-MOW-GAP-001",
+        "version_no": 1,
+        "lifecycle": "DRAFT",
+        "content_hash": "b31d4366a554db28afeb3f06062ce0d04872ee0aa923fdc8b27f05aed7903092",
+        "body": {
+          "purpose": "Xử lý sai/thiếu đến nơi phát hiện",
+          "simulation_only": true,
+          "finish": "Mọi nơi phát hiện đã được trả kết quả và kiểm đạt; hoặc đã nhận quyết định không thực hiện đúng thẩm quyền. NOT_PURSUED không đồng nghĩa mục tiêu đạt."
+        }
+      },
+      {
+        "id": "DRAFT-MOT-GAP-1-V1",
+        "object_id": "DRAFT-MOT-GAP-1",
+        "version_no": 1,
+        "lifecycle": "DRAFT",
+        "content_hash": "5d0b1911c7983a05968455f9998187cbe0e00e801ccb79b4763f7f71423ab7ad",
+        "body": {
+          "purpose": "Phát hiện",
+          "simulation_only": true,
+          "work": "Ghi một hồ sơ nhu cầu, nối từng nơi bị ảnh hưởng; chưa coi là Field mới.",
+          "expected_output": "Mã hồ sơ + mã nơi phát hiện"
+        }
+      },
+      {
+        "id": "DRAFT-MOT-GAP-2-V1",
+        "object_id": "DRAFT-MOT-GAP-2",
+        "version_no": 1,
+        "lifecycle": "DRAFT",
+        "content_hash": "6bcc2b114c12420a0975b72c29307d34bcf190619dc1c42df2c012ba10789ca8",
+        "body": {
+          "purpose": "Xác minh",
+          "simulation_only": true,
+          "work": "Gọi B1 tìm theo phạm vi/quyền; lỗi tìm không được coi là thiếu thật.",
+          "expected_output": "Kết luận: dùng lại / sửa / cần tạo / chưa rõ"
+        }
+      },
+      {
+        "id": "DRAFT-MOT-GAP-3-V1",
+        "object_id": "DRAFT-MOT-GAP-3",
+        "version_no": 1,
+        "lifecycle": "DRAFT",
+        "content_hash": "ad0b76d2270ce8b186d810b28e49e67cfa3056c912dacae1d92064c3771ea80f",
+        "body": {
+          "purpose": "Xử lý",
+          "simulation_only": true,
+          "work": "Nếu tạo mới: B3→B4→B5→B6→B7. Danh mục có mã nhưng chưa nối thực thi trong mô hình này.",
+          "expected_output": "Phiên Field được phép dùng hoặc quyết định từ chối"
+        }
+      },
+      {
+        "id": "DRAFT-MOT-GAP-4-V1",
+        "object_id": "DRAFT-MOT-GAP-4",
+        "version_no": 1,
+        "lifecycle": "DRAFT",
+        "content_hash": "df61a872b7bb2abb459f1959ee2d34c9efbfc863fb1d784107cc0c2ac5366110",
+        "body": {
+          "purpose": "Đấu lại",
+          "simulation_only": true,
+          "work": "B2 dùng kết quả, nối vào từng vị trí gốc đúng phiên.",
+          "expected_output": "Mã binding + nơi nhận + bằng chứng"
+        }
+      },
+      {
+        "id": "DRAFT-MOT-GAP-5-V1",
+        "object_id": "DRAFT-MOT-GAP-5",
+        "version_no": 1,
+        "lifecycle": "DRAFT",
+        "content_hash": "0031ec502b1ba013e776c7b146a648462c5f813b503cee2302e7763d53323284",
+        "body": {
+          "purpose": "Kiểm nơi phát hiện",
+          "simulation_only": true,
+          "work": "Chạy lại ca tại từng nơi phát hiện; một nơi đạt không đóng thay nơi khác.",
+          "expected_output": "Kết quả kiểm từng nơi và phụ thuộc"
+        }
+      },
+      {
+        "id": "DRAFT-MOT-GAP-6-V1",
+        "object_id": "DRAFT-MOT-GAP-6",
+        "version_no": 1,
+        "lifecycle": "DRAFT",
+        "content_hash": "3d930987b4e2ca68b0ac842b6eb38a5f8a1b7878f3ea0d92bcf948e3c12520c5",
+        "body": {
+          "purpose": "Kết thúc",
+          "simulation_only": true,
+          "work": "Đóng đã giải quyết nếu mọi nơi đạt; hoặc trả quyết định không thực hiện mà không đánh dấu mục tiêu đạt.",
+          "expected_output": "Kết quả cuối + nơi nhận + bằng chứng nhận"
+        }
+      }
+    ],
+    "reference": [
+      {
+        "id": "REF-HOST",
+        "kind": "ACTOR",
+        "code": "OpenAI-main",
+        "version": "COLLAB-20261009",
+        "uri": "work/tools-quy-trinh/COLLAB.md",
+        "verified": true
+      },
+      {
+        "id": "REF-MODEL",
+        "kind": "SOURCE",
+        "code": "TQT-MODEL-001",
+        "version": "1",
+        "uri": "#tqt-process-model",
+        "verified": false
+      },
+      {
+        "id": "REF-CLOSE",
+        "kind": "RULE",
+        "code": "DRAFT-CLOSE-ALL-IMPACTS",
+        "version": "draft-1",
+        "uri": "#tqt-process-model",
+        "verified": false
+      },
+      {
+        "id": "REF-TRANSITION",
+        "kind": "RULE",
+        "code": "DRAFT-TRANSITION-OUTCOME",
+        "version": "draft-1",
+        "uri": "#tqt-process-model",
+        "verified": false
+      },
+      {
+        "id": "REF-TRIGGER",
+        "kind": "RULE",
+        "code": "DRAFT-ON-RESULT",
+        "version": "draft-1",
+        "uri": "#tqt-process-model",
+        "verified": false
+      },
+      {
+        "id": "REF-UI-A",
+        "kind": "SOURCE",
+        "code": "SIM-UI-A",
+        "version": "draft-1",
+        "uri": "#tqt-process-model",
+        "verified": false
+      },
+      {
+        "id": "REF-UI-B",
+        "kind": "SOURCE",
+        "code": "SIM-UI-B",
+        "version": "draft-1",
+        "uri": "#tqt-process-model",
+        "verified": false
+      },
+      {
+        "id": "REF-CASE-A",
+        "kind": "RULE",
+        "code": "SIM-CASE-A",
+        "version": "draft-1",
+        "uri": "#tqt-process-model",
+        "verified": false
+      },
+      {
+        "id": "REF-CASE-B",
+        "kind": "RULE",
+        "code": "SIM-CASE-B",
+        "version": "draft-1",
+        "uri": "#tqt-process-model",
+        "verified": false
+      },
+      {
+        "id": "REF-EVIDENCE",
+        "kind": "SOURCE",
+        "code": "SIM-EVIDENCE",
+        "version": "draft-1",
+        "uri": "#tqt-process-model",
+        "verified": false
+      },
+      {
+        "id": "REF-QUESTION",
+        "kind": "QUESTION",
+        "code": "Q-MOT-08",
+        "version": "matrix-159",
+        "uri": "#tqt-process-model",
+        "verified": false
+      },
+      {
+        "id": "REF-DEPENDENCY",
+        "kind": "SOURCE",
+        "code": "SIM-FIELD-SCHEMA",
+        "version": "1",
+        "uri": "#tqt-process-model",
+        "verified": false
+      },
+      {
+        "id": "REF-BLOCKER",
+        "kind": "SOURCE",
+        "code": "SIM-SERVICE",
+        "version": "offline",
+        "uri": "#tqt-process-model",
+        "verified": false
+      },
+      {
+        "id": "CH-001",
+        "kind": "CHAIN",
+        "code": "CH-001",
+        "version": "D158",
+        "uri": "work/mow-mot-moit-mout/FORMULA-AI-README.md",
+        "verified": true
+      }
+    ],
+    "step_def": [
+      {
+        "id": "DRAFT-STEP-1",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "mot_version_id": "DRAFT-MOT-GAP-1-V1",
+        "order_no": 1,
+        "label": "Phát hiện",
+        "owner_ref": "REF-HOST",
+        "input_contract": {
+          "required": [
+            "issue_id",
+            "impact_ids",
+            "request_key",
+            "origin_version"
+          ]
+        },
+        "output_contract": {
+          "required": [
+            "issue_id",
+            "impact_results",
+            "outcome",
+            "evidence_id"
+          ]
+        }
+      },
+      {
+        "id": "DRAFT-STEP-2",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "mot_version_id": "DRAFT-MOT-GAP-2-V1",
+        "order_no": 2,
+        "label": "Xác minh",
+        "owner_ref": "REF-HOST",
+        "input_contract": {
+          "required": [
+            "issue_id",
+            "impact_ids",
+            "request_key",
+            "origin_version"
+          ]
+        },
+        "output_contract": {
+          "required": [
+            "issue_id",
+            "impact_results",
+            "outcome",
+            "evidence_id"
+          ]
+        }
+      },
+      {
+        "id": "DRAFT-STEP-3",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "mot_version_id": "DRAFT-MOT-GAP-3-V1",
+        "order_no": 3,
+        "label": "Xử lý",
+        "owner_ref": "REF-HOST",
+        "input_contract": {
+          "required": [
+            "issue_id",
+            "impact_ids",
+            "request_key",
+            "origin_version"
+          ]
+        },
+        "output_contract": {
+          "required": [
+            "issue_id",
+            "impact_results",
+            "outcome",
+            "evidence_id"
+          ]
+        }
+      },
+      {
+        "id": "DRAFT-STEP-4",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "mot_version_id": "DRAFT-MOT-GAP-4-V1",
+        "order_no": 4,
+        "label": "Đấu lại",
+        "owner_ref": "REF-HOST",
+        "input_contract": {
+          "required": [
+            "issue_id",
+            "impact_ids",
+            "request_key",
+            "origin_version"
+          ]
+        },
+        "output_contract": {
+          "required": [
+            "issue_id",
+            "impact_results",
+            "outcome",
+            "evidence_id"
+          ]
+        }
+      },
+      {
+        "id": "DRAFT-STEP-5",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "mot_version_id": "DRAFT-MOT-GAP-5-V1",
+        "order_no": 5,
+        "label": "Kiểm nơi phát hiện",
+        "owner_ref": "REF-HOST",
+        "input_contract": {
+          "required": [
+            "issue_id",
+            "impact_ids",
+            "request_key",
+            "origin_version"
+          ]
+        },
+        "output_contract": {
+          "required": [
+            "issue_id",
+            "impact_results",
+            "outcome",
+            "evidence_id"
+          ]
+        }
+      },
+      {
+        "id": "DRAFT-STEP-6",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "mot_version_id": "DRAFT-MOT-GAP-6-V1",
+        "order_no": 6,
+        "label": "Kết thúc",
+        "owner_ref": "REF-HOST",
+        "input_contract": {
+          "required": [
+            "issue_id",
+            "impact_ids",
+            "request_key",
+            "origin_version"
+          ]
+        },
+        "output_contract": {
+          "required": [
+            "issue_id",
+            "impact_results",
+            "outcome",
+            "evidence_id"
+          ]
+        }
+      }
+    ],
+    "edge_def": [
+      {
+        "id": "DRAFT-EDGE-1",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-1",
+        "to_step_id": "DRAFT-STEP-2",
+        "outcome": "recorded",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": null,
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-2",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-2",
+        "to_step_id": "DRAFT-STEP-4",
+        "outcome": "reuse",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": null,
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-3",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-2",
+        "to_step_id": "DRAFT-STEP-3",
+        "outcome": "create",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": null,
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-4",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-2",
+        "to_step_id": "DRAFT-STEP-3",
+        "outcome": "repair",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": null,
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-5",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-3",
+        "to_step_id": "DRAFT-STEP-4",
+        "outcome": "ready",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": null,
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-6",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-3",
+        "to_step_id": "DRAFT-STEP-6",
+        "outcome": "rejected",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": null,
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-7",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-4",
+        "to_step_id": "DRAFT-STEP-5",
+        "outcome": "bound",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": null,
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-8",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-5",
+        "to_step_id": "DRAFT-STEP-6",
+        "outcome": "pass",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": null,
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-9",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-5",
+        "to_step_id": "DRAFT-STEP-4",
+        "outcome": "fail",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": null,
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": 3
+      },
+      {
+        "id": "DRAFT-EDGE-10",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-6",
+        "to_step_id": null,
+        "outcome": "resolved",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": "RESOLVED",
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-11",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-6",
+        "to_step_id": null,
+        "outcome": "declined",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": "NOT_PURSUED",
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-12",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-1",
+        "to_step_id": null,
+        "outcome": "blocked",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": "BLOCKED",
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-13",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-2",
+        "to_step_id": null,
+        "outcome": "blocked",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": "BLOCKED",
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-14",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-3",
+        "to_step_id": null,
+        "outcome": "blocked",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": "BLOCKED",
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-15",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-4",
+        "to_step_id": null,
+        "outcome": "blocked",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": "BLOCKED",
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-16",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-5",
+        "to_step_id": null,
+        "outcome": "blocked",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": "BLOCKED",
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      },
+      {
+        "id": "DRAFT-EDGE-17",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "from_step_id": "DRAFT-STEP-6",
+        "to_step_id": null,
+        "outcome": "blocked",
+        "condition_rule_ref": "REF-TRANSITION",
+        "trigger_ref": "REF-TRIGGER",
+        "mapping": {
+          "issue_id": "issue_id",
+          "impact_ids": "impact_ids",
+          "origin_version": "origin_version"
+        },
+        "terminal_result": "BLOCKED",
+        "return_step_id": "DRAFT-STEP-1",
+        "timeout_owner_ref": "REF-HOST",
+        "max_visits": null
+      }
+    ],
+    "run": [
+      {
+        "id": "SIM-RUN-001",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "run_key": "SIM-MISSING-PHONE-A",
+        "state": "STARTED",
+        "outcome": null,
+        "owner_ref": "REF-HOST",
+        "scope": {
+          "simulation": true,
+          "problem": "missing_phone_field"
+        }
+      }
+    ],
+    "round": [
+      {
+        "id": "SIM-ROUND-001",
+        "run_id": "SIM-RUN-001",
+        "round_no": 1,
+        "reason": "Áp thử mô hình, không tạo Field thật"
+      }
+    ],
+    "step_run": [
+      {
+        "id": "SIM-STEP-RUN-1",
+        "round_id": "SIM-ROUND-001",
+        "step_id": "DRAFT-STEP-1",
+        "attempt_no": 1,
+        "state": "STARTED",
+        "outcome": null
+      },
+      {
+        "id": "SIM-STEP-RUN-2",
+        "round_id": "SIM-ROUND-001",
+        "step_id": "DRAFT-STEP-2",
+        "attempt_no": 1,
+        "state": "READY",
+        "outcome": null
+      },
+      {
+        "id": "SIM-STEP-RUN-3",
+        "round_id": "SIM-ROUND-001",
+        "step_id": "DRAFT-STEP-3",
+        "attempt_no": 1,
+        "state": "READY",
+        "outcome": null
+      },
+      {
+        "id": "SIM-STEP-RUN-4",
+        "round_id": "SIM-ROUND-001",
+        "step_id": "DRAFT-STEP-4",
+        "attempt_no": 1,
+        "state": "READY",
+        "outcome": null
+      },
+      {
+        "id": "SIM-STEP-RUN-5",
+        "round_id": "SIM-ROUND-001",
+        "step_id": "DRAFT-STEP-5",
+        "attempt_no": 1,
+        "state": "READY",
+        "outcome": null
+      },
+      {
+        "id": "SIM-STEP-RUN-6",
+        "round_id": "SIM-ROUND-001",
+        "step_id": "DRAFT-STEP-6",
+        "attempt_no": 1,
+        "state": "READY",
+        "outcome": null
+      }
+    ],
+    "call": [
+      {
+        "id": "SIM-CALL-001",
+        "step_run_id": "SIM-STEP-RUN-1",
+        "callee_version_id": "DRAFT-MOT-GAP-2-V1",
+        "child_run_id": null,
+        "request_key": "verify:SIM-ISSUE-001",
+        "correlation_id": "SIM-CORRELATION-001",
+        "return_step_run_id": "SIM-STEP-RUN-1",
+        "receiver_ref": "REF-HOST",
+        "sender_owner_ref": "REF-HOST",
+        "delivery_state": "SENT",
+        "input_data": {
+          "issue_id": "SIM-ISSUE-001",
+          "impact_ids": [
+            "SIM-IMPACT-A",
+            "SIM-IMPACT-B"
+          ],
+          "origin_version": "1"
+        },
+        "output_data": null,
+        "deadline_at": "2026-10-09T12:00:00Z",
+        "ack_event_id": null,
+        "return_event_id": null
+      }
+    ],
+    "issue": [
+      {
+        "id": "SIM-ISSUE-001",
+        "problem_key": "SIM:phone:input:scope-A",
+        "owner_ref": "REF-HOST",
+        "process_run_id": "SIM-RUN-001",
+        "state": "OPEN",
+        "resolution": null,
+        "review_at": "2026-10-09T12:00:00Z",
+        "close_rule_ref": "REF-CLOSE"
+      }
+    ],
+    "impact": [
+      {
+        "id": "SIM-IMPACT-A",
+        "issue_id": "SIM-ISSUE-001",
+        "occurrence_key": "SIM:origin-A:event-1",
+        "origin_ref": "REF-UI-A",
+        "origin_version": "1",
+        "case_ref": "REF-CASE-A",
+        "goal_result": "UNMET",
+        "decision_ref": null
+      },
+      {
+        "id": "SIM-IMPACT-B",
+        "issue_id": "SIM-ISSUE-001",
+        "occurrence_key": "SIM:origin-B:event-1",
+        "origin_ref": "REF-UI-B",
+        "origin_version": "1",
+        "case_ref": "REF-CASE-B",
+        "goal_result": "UNMET",
+        "decision_ref": null
+      }
+    ],
+    "answer": [
+      {
+        "id": "SIM-ANSWER-001",
+        "question_ref": "REF-QUESTION",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "answer_key": "SIM-RUN-001:TASK:Q-MOT-08",
+        "answer_revision": 1,
+        "value": {
+          "issue_id": "SIM-ISSUE-001",
+          "next_call_id": "SIM-CALL-001",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL"
+      }
+    ],
+    "assessment": [
+      {
+        "id": "SIM-ASSESS-001",
+        "answer_id": "SIM-ANSWER-001",
+        "run_id": "SIM-RUN-001",
+        "step_run_id": "SIM-STEP-RUN-1",
+        "level": 3,
+        "result": "PASS",
+        "validity": "CURRENT",
+        "evidence_ref": "REF-EVIDENCE",
+        "checker_ref": "REF-HOST",
+        "checked_at": "2026-10-09T04:00:00Z",
+        "dependency_complete": true,
+        "blocker_ref": null,
+        "blocker_version": null,
+        "supersedes_id": null
+      }
+    ],
+    "dependency": [
+      {
+        "id": "SIM-DEP-001",
+        "assessment_id": "SIM-ASSESS-001",
+        "source_ref": "REF-DEPENDENCY",
+        "source_version": "1",
+        "required_level": 3
+      }
+    ],
+    "event": []
+  },
+  "stages": [
+    {
+      "id": "DRAFT-STEP-1",
+      "name": "Phát hiện",
+      "mot_id": "DRAFT-MOT-GAP-1",
+      "owner_ref": "REF-HOST",
+      "state": "Đã ghi trong mô hình",
+      "work": "Ghi một hồ sơ nhu cầu, nối từng nơi bị ảnh hưởng; chưa coi là Field mới.",
+      "output": "Mã hồ sơ + mã nơi phát hiện"
+    },
+    {
+      "id": "DRAFT-STEP-2",
+      "name": "Xác minh",
+      "mot_id": "DRAFT-MOT-GAP-2",
+      "owner_ref": "REF-HOST",
+      "state": "Có đường nhận trong mô hình",
+      "work": "Gọi B1 tìm theo phạm vi/quyền; lỗi tìm không được coi là thiếu thật.",
+      "output": "Kết luận: dùng lại / sửa / cần tạo / chưa rõ"
+    },
+    {
+      "id": "DRAFT-STEP-3",
+      "name": "Xử lý",
+      "mot_id": "DRAFT-MOT-GAP-3",
+      "owner_ref": "REF-HOST",
+      "state": "Chưa gọi B3–B7 thật",
+      "work": "Nếu tạo mới: B3→B4→B5→B6→B7. Danh mục có mã nhưng chưa nối thực thi trong mô hình này.",
+      "output": "Phiên Field được phép dùng hoặc quyết định từ chối"
+    },
+    {
+      "id": "DRAFT-STEP-4",
+      "name": "Đấu lại",
+      "mot_id": "DRAFT-MOT-GAP-4",
+      "owner_ref": "REF-HOST",
+      "state": "Chưa sửa UI thật",
+      "work": "B2 dùng kết quả, nối vào từng vị trí gốc đúng phiên.",
+      "output": "Mã binding + nơi nhận + bằng chứng"
+    },
+    {
+      "id": "DRAFT-STEP-5",
+      "name": "Kiểm nơi phát hiện",
+      "mot_id": "DRAFT-MOT-GAP-5",
+      "owner_ref": "REF-HOST",
+      "state": "Chỉ có ca mô phỏng",
+      "work": "Chạy lại ca tại từng nơi phát hiện; một nơi đạt không đóng thay nơi khác.",
+      "output": "Kết quả kiểm từng nơi và phụ thuộc"
+    },
+    {
+      "id": "DRAFT-STEP-6",
+      "name": "Kết thúc",
+      "mot_id": "DRAFT-MOT-GAP-6",
+      "owner_ref": "REF-HOST",
+      "state": "Chỉ kết thúc mô phỏng",
+      "work": "Đóng đã giải quyết nếu mọi nơi đạt; hoặc trả quyết định không thực hiện mà không đánh dấu mục tiêu đạt.",
+      "output": "Kết quả cuối + nơi nhận + bằng chứng nhận"
+    }
+  ],
+  "declaration": {
+    "id": "TQT-DECLARATION-001",
+    "rule": "Bắt buộc khai MOW đang làm + MOT đang làm + đối tượng được xử lý + nghiệp vụ. Cùng Q_ID nhưng khác đối tượng/phạm vi là hai đáp án, không gộp nhầm.",
+    "required_fields": [
+      "declaration_id",
+      "process_version_id",
+      "task_version_id",
+      "target_type",
+      "target_context_id",
+      "chain_id",
+      "step_id",
+      "business_ids",
+      "answer_ids",
+      "owner_ref",
+      "source_versions",
+      "open_issue_ids"
+    ],
+    "ready_rule": "Đủ mã Master/phiên và mọi đáp án bắt buộc có căn cứ còn hiệu lực theo mức yêu cầu mới được chuyển sang chuẩn bị gọi. UI hiện chỉ xuất phiếu nháp, không tự lưu PG.",
+    "execution_gate": [
+      "Định nghĩa đã đăng ký Master và phiên được phép dùng",
+      "Người nhận/NTGV, điều kiện, trigger và quyền đã xác minh",
+      "MOIT/MOUT khớp và có nơi nhận/trả, khóa chống trùng",
+      "Có timeout/hủy/kết quả muộn và bằng chứng nhận/trả",
+      "Quy tắc/ràng buộc đã được thử trên PostgreSQL và môi trường thực tế"
+    ]
+  },
+  "source_audit": [
+    {
+      "id": "DOC-TQT-TH-001",
+      "title": "TQT-TH-001",
+      "kind": "Tài liệu mô tả MOW",
+      "callable": false,
+      "reason": "Chưa đăng ký Master/quan hệ tổng hợp"
+    },
+    {
+      "id": "DOC-TQT-PG",
+      "title": "TQT-TH-001-PG",
+      "kind": "Hướng dẫn hỗ trợ",
+      "callable": false,
+      "reason": "Chưa phải MOW có endpoint/nhận/trả"
+    },
+    {
+      "id": "DOC-TQT-OPS",
+      "title": "TQT-TH-001-OPS",
+      "kind": "Hướng dẫn hỗ trợ",
+      "callable": false,
+      "reason": "Chưa có lần VHCM nhận bàn giao"
+    },
+    {
+      "id": "DOC-TOOLS",
+      "title": "Tool001…009",
+      "kind": "Danh mục Tool / tài liệu",
+      "callable": false,
+      "reason": "Link mở tài liệu không thay mã MOW/MOT và hợp đồng gọi"
+    }
+  ],
+  "review": {
+    "tests_passed": 27,
+    "mode": "SIMULATION_ONLY",
+    "source": "check-process-model.py",
+    "limitations": [
+      "Chưa gọi Master thật hoặc tạo Field",
+      "Chưa kiểm đồng thời/khóa trên PostgreSQL",
+      "Không dùng mô hình nháp làm quyền thực thi"
+    ]
+  }
+}</script>
 <script id="tqt-composite-processes" type="application/json">{
   "schema": "TQT-COMPOSITE-PROCESSES-1",
   "updated": "2026-10-09",
@@ -2427,7 +5238,7 @@ main{max-width:1240px} [hidden]{display:none!important}
       "status": "Bản đầu để áp thử · chưa nghiệm thu quy trình",
       "purpose": "Từ một mục trong Master List đến một chức năng chạy được, có người theo dõi và có cách sửa khi phát sinh vấn đề.",
       "start": "Có tên/mã trong Master List, người phụ trách, phạm vi và kết quả cần đạt. Đã có thì dùng lại; chưa có thì đăng ký trước.",
-      "finish": "Ba checkpoint có quyết định và bằng chứng đúng phiên bản. Việc còn mở có người xử lý, điều kiện đóng và nơi theo dõi; không nhận đã chạy khi chỉ mới có bản vẽ.",
+      "finish": "Phạm vi bàn giao đã đạt checkpoint kỹ thuật, kiểm vận hành ban đầu hữu hạn đã đạt, và quy trình vận hành dài hạn đã xác nhận nhận đúng phiên bản. Theo dõi tiếp thuộc lần chạy VHCM riêng; có mã nhận bàn giao. Chưa có người/quy trình nhận thì chưa kết thúc lần chế tạo.",
       "use": "Quy trình này gọi các quy trình con theo thứ tự. Câu hỏi, ghi chú và bằng chứng vẫn ở nguồn hiện có; không viết lại chúng vào đây.",
       "stages": [
         {
@@ -2555,7 +5366,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             {
               "id": "2.2",
               "title": "2.2. Đưa vào PG và nối các phần",
-              "work": "Thực hiện bằng quy trình/công cụ đã được phép; ghi bằng chứng trước/sau, đọc lại dữ liệu/quan hệ, nối UI với dịch vụ thật. Thử phần có thể hoàn tác trước khi mở phạm vi lớn.",
+              "work": "Thực hiện bằng quy trình/công cụ đã được phép; ghi bằng chứng trước/sau, đọc lại dữ liệu/quan hệ, nối UI với dịch vụ thật. Thử phần có thể hoàn tác trước khi mở phạm vi lớn. Trường hợp sản phẩm chỉ là tài liệu/thiết kế và không ghi PG: khai không áp dụng kèm căn cứ/người xác nhận; vẫn kiểm nơi lưu và kết quả. Không miễn PG khi chức năng thực sự cần PG.",
               "uses": [
                 {
                   "label": "Hướng dẫn triển khai & khôi phục",
@@ -2637,7 +5448,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "pass": "Đủ khoảng quan sát/ca đã chốt; kết quả thực đạt tiêu chí; phản hồi đã xử lý hoặc có quyết định rõ; không còn sự cố chặn trong phạm vi nghiệm thu.",
             "conditional": "Ghi rõ phần đã ổn và việc không chặn còn mở, người giữ và mốc rà. Không tự suy từ vài ca đẹp thành toàn hệ thống ổn định.",
             "hold": "Chưa đủ log/phản hồi/ca quan sát hoặc còn sự cố chặn → tiếp tục theo dõi/sửa, chưa đóng checkpoint.",
-            "next": "Duy trì vận hành; thay đổi mới quay đúng checkpoint bị ảnh hưởng."
+            "next": "Kết thúc lần chế tạo khi phạm vi và thời gian/số ca quan sát đã khai đều đạt, quy trình VHCM đã xác nhận nhận. Sự cố mới mở lần xử lý liên kết về phiên bàn giao, không kéo dài vô hạn lần chế tạo cũ."
           }
         }
       ],
@@ -2864,7 +5675,7 @@ main{max-width:1240px} [hidden]{display:none!important}
       }
     ],
     "tracking": {
-      "note": "Đề xuất cơ chế lưu kết quả; hiện chưa có bảng PG/DOT tự lưu hay tự chuyển trạng thái. Không dùng số câu trả lời làm bằng chứng đã chạy.",
+      "note": "Đề xuất cơ chế lưu kết quả; dữ liệu gồm mức kiểm, kết quả và hiệu lực. Mặt người giữ hai cột bằng cách ghép mức/kết quả. Chưa có PG/DOT tự lưu hay tự chuyển trạng thái.",
       "levels": [
         "Chưa khai báo",
         "Có đáp án",
@@ -2874,26 +5685,30 @@ main{max-width:1240px} [hidden]{display:none!important}
       ],
       "health": [
         "Còn hiệu lực",
-        "Cần kiểm lại",
-        "Không đạt",
-        "Bị chặn",
-        "Không áp dụng · có lý do/người xác nhận"
+        "Cần kiểm lại"
       ],
       "fields": [
         "Mã đối tượng + mã lần áp dụng",
         "Mã câu/ca + phạm vi",
         "Đáp án hoặc liên kết nguồn",
-        "Mức bằng chứng + tình trạng hiệu lực",
+        "Mức bằng chứng + kết quả + hiệu lực (ba trường)",
         "Phiên bản câu/đáp án/nguồn/rule",
         "Người kiểm + lúc kiểm + bằng chứng",
         "Mã vấn đề + người giữ việc + việc tiếp + mốc rà",
         "Điều kiện đạt, kết thúc hoặc mở lại"
       ],
       "rules": [
-        "Mức bằng chứng và hiệu lực là hai cột: từng chạy đạt vẫn có thể cần kiểm lại. Đây không phải vòng đời phê duyệt Master hoặc trạng thái chạy việc.",
-        "Lần sau chỉ kiểm phần chưa đủ mức yêu cầu, không đạt, bị chặn hoặc đã mất hiệu lực; giữ kết quả còn hiệu lực. Quét phụ thuộc tự động vẫn phải chạy để biết cái gì cần kiểm lại.",
+        "Dữ liệu tách ba trường: mức đã kiểm, kết quả kiểm và hiệu lực. Mặt người ghép mức/kết quả thành một cột, hiệu lực là cột thứ hai. Không đạt vẫn có thể là kết quả mới nhất còn hiệu lực.",
+        "Lần sau chọn phần chưa đủ mức, không đạt hoặc mất hiệu lực. Phần bị chặn chỉ chạy lại khi điều kiện mở chặn đổi; vẫn theo dõi hạn và người giữ việc. Kết quả thiếu khai báo phụ thuộc không tự coi còn hiệu lực.",
         "Câu/đáp án/nguồn/rule/quyền/môi trường đổi, hết hạn hoặc sự cố mới → đánh dấu các kết quả phụ thuộc cần kiểm lại. Giữ lịch sử cũ, không ghi đè bằng chứng.",
         "Không áp dụng cần lý do và người xác nhận; thay phạm vi phải xét lại. Không cộng các mức thành phần trăm nghiệm thu."
+      ],
+      "results": [
+        "Chưa kiểm",
+        "Đạt",
+        "Không đạt",
+        "Bị chặn",
+        "Không áp dụng · có lý do/người xác nhận"
       ]
     },
     "connection": {
@@ -2977,6 +5792,58 @@ main{max-width:1240px} [hidden]{display:none!important}
     }
   }
 }</script>
+<script id="tqt-process-model-renderer">
+(function(){
+'use strict';
+const M=JSON.parse(document.getElementById('tqt-process-model').textContent);
+const e=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ul=xs=>'<ul>'+xs.map(x=>'<li>'+e(x)+'</li>').join('')+'</ul>';
+const fold=(title,body,id='')=>'<details'+(id?' id="'+e(id)+'"':'')+'><summary>'+e(title)+'</summary><div class="tqt-review-body">'+body+'</div></details>';
+const byId=(table,id)=>M.rows[table].find(x=>x.id===id);
+const first=M.rows.object_def.find(x=>x.kind==='MOW');
+const line=M.stages.map((s,i)=>{
+ const step=byId('step_def',s.id),v=byId('object_version',step.mot_version_id),owner=byId('reference',step.owner_ref);
+ return '<div class="tqt-model-piece">'+fold(String(i+1)+' · '+step.label,
+ '<p><b>Việc:</b> '+e(v.body.work)+'</p><p><b>Cần trả:</b> '+e(v.body.expected_output)+'</p><p><b>Mã việc:</b> '+e(s.mot_id)+' · <b>Phiên:</b> '+e(v.id)+'</p><p><b>Nơi ghi:</b> step_run → event / assessment; phát hiện → issue / impact.</p><p class="mut">'+e(s.state)+'</p>')+
+ '<small>'+e(s.mot_id)+'<br>Người giữ: '+e(owner.code)+' · mô phỏng<br>Chưa đăng ký / chưa chạy thật</small></div>'+
+ (i<5?'<div class="tqt-model-arrow">'+(i===0?'→ Chờ nhận · SIM-CALL-001':'→ Chưa gửi')+'</div>':'');
+}).join('');
+const examples=[
+ ['Đã kiểm thiết kế — Đạt','Còn hiệu lực'],
+ ['Đã chạy thật — Không đạt','Còn hiệu lực'],
+ ['Đã chạy thật — Đạt','Cần kiểm lại: nguồn đổi']
+];
+document.getElementById('tqt-process-model-view').innerHTML=
+ '<h2 id="tqt-mo-hinh-pg">'+e(M.title)+'</h2><p class="mut">'+e(M.status)+'</p>'+
+ '<p><b>Đang phác thảo:</b> '+e(first.name)+' · <code>'+e(first.id)+'</code><br>Mã nháp có thể nối dữ liệu; chưa phải mã Master được phép gọi.</p>'+
+ '<div class="tqt-model-flow">'+line+'</div>'+
+ '<p class="hint">Sáu ô và các mũi tên đọc từ cùng khai báo có mã. Chưa có nơi nhận thật ở B3–B7/VHCM; không dùng trạng thái mô phỏng làm bằng chứng đã vận hành.</p>'+
+ fold('1 · Phiếu bắt buộc: quy trình + đối tượng + nghiệp vụ',
+ '<p>'+e(M.declaration.rule)+'</p><p><a href="#ma-tran-cau-hoi">Mở bộ ghép và phiếu khai báo →</a></p>'+
+ '<p>Bộ chọn Field vẫn giữ Field. Phiếu tự kèm câu khai báo MOW/MOT và tách đáp án theo phạm vi. Các mã và đáp án chưa có để trống, không tự đánh dấu đủ.</p>'+
+ ul(M.declaration.execution_gate),'tqt-model-declare')+
+ fold('2 · Mã nào thuộc định nghĩa, mã nào thuộc lần làm?',
+ '<div class="tqt-closure-formula"><span>Định nghĩa</span>→<span>Phiên bản</span>→<span>Lần chạy</span>→<span>Vòng chạy</span>→<span>Việc chạy</span>→<span>Lần gọi / bằng chứng</span></div>'+
+ '<p>'+e(M.code_policy)+'</p><p>'+e(M.scope)+'</p>'+ul(M.call_contract),'tqt-model-ids')+
+ fold('3 · Góp ý đã tiếp nhận và các phần chưa gọi được',
+ M.source_audit.map(x=>'<p><b>'+e(x.title)+'</b> · '+e(x.kind)+'<br>'+e(x.reason)+'</p>').join('')+
+ '<p><b>Ranh giới kết thúc:</b> '+e(M.execution_notes[1])+'</p><p>'+e(M.execution_notes[2])+'</p>','tqt-model-sources')+
+ fold('4 · Hai cột dễ nhìn, ba trường riêng trong dữ liệu',
+ '<div class="wrap"><table><thead><tr><th>Bằng chứng / kết quả</th><th>Hiệu lực</th></tr></thead><tbody>'+
+ examples.map(x=>'<tr><td>'+e(x[0])+'</td><td>'+e(x[1])+'</td></tr>').join('')+
+ '</tbody></table></div><p>Ví dụ cách hiển thị, không phải kết quả chạy thật của quy trình này. Không đạt vẫn có thể còn hiệu lực; bị chặn chỉ chạy lại khi điều kiện mở chặn đổi.</p>','tqt-model-result')+
+ fold('5 · Đã kiểm mô hình đến đâu?',
+ '<p><b>'+e(M.review_status)+'</b></p><p>Đã kiểm mã/khóa, nhập–đọc lại quan hệ trong SQLite, bốn đường đi, gửi trùng, trả nhầm/hủy, nhiều nơi phát hiện, hiệu lực nguồn và vòng lặp có giới hạn.</p>'+
+ ul(M.review.limitations)+'<p>Không coi số phép kiểm đạt là nghiệm thu nghiệp vụ hay chứng minh tải lớn. Còn phải kiểm PostgreSQL và một ca thực tế có quyền.</p>','tqt-model-check')+
+ fold('6 · Đưa nguyên gói sang PG · chi tiết cho AI',
+ '<p>'+e(M.pg.import)+'</p><p>'+e(M.pg.scaling)+'</p>'+ul(M.pg.open)+
+ '<p>SQL sinh từ chính khai báo dưới đây, giữ nguyên mã/FK; không duy trì bản SQL sửa tay song song. Bộ kiểm: <code>check-process-model.py view.html --emit-pg /tmp/tqt-draft.sql</code>. Chưa tự chạy SQL lên PG.</p>'+
+ '<div class="wrap"><table><thead><tr><th>Bảng bản ghi</th><th>Quản lý</th><th>Khóa ngoại</th></tr></thead><tbody>'+
+ M.tables.map(t=>'<tr><td>'+e(t.name)+'</td><td>'+e(t.label)+'</td><td>'+e(t.foreign_keys.map(f=>f.columns.join('+')+' → '+f.table).join('; ')||'—')+'</td></tr>').join('')+
+ '</tbody></table></div><textarea id="tqt-model-json" aria-label="Gói mô hình có mã và khóa" readonly style="width:100%;min-height:260px;box-sizing:border-box"></textarea>','tqt-model-pg');
+document.getElementById('tqt-model-json').value=JSON.stringify(M,null,2);
+})();
+</script>
 <script id="tqt-composite-renderer">
 (function(){
 'use strict';
@@ -3022,7 +5889,7 @@ details('4 · Vẽ chỗ nối để nhìn thấy hở/chồng lấn',
 para(R.connection.label)+ul(R.connection.fields)+ul(R.connection.rules),'tqt-khep-kin-noi')+
 details('5 · Đã đạt đến đâu? Khi nào phải kiểm lại?',
 para(R.tracking.note)+'<p><b>Mức bằng chứng:</b> '+R.tracking.levels.map(e).join(' → ')+'</p>'+
-'<p><b>Hiệu lực hiện tại:</b> '+R.tracking.health.map(e).join(' · ')+'</p>'+
+'<p><b>Kết quả:</b> '+R.tracking.results.map(e).join(' · ')+'</p><p><b>Hiệu lực:</b> '+R.tracking.health.map(e).join(' · ')+'</p>'+
 ul(R.tracking.rules)+details('Mỗi câu/ca lưu những gì?',ul(R.tracking.fields)),'tqt-khep-kin-trang-thai')+
 details('6 · Phần nào giao PG / DOT / JEV / Agent?',pairs(R.automation),'tqt-khep-kin-tu-dong')+
 details('7 · Hai lựa chọn cần tiếp tục bàn',pairs(R.decisions),'tqt-khep-kin-quyet')+
@@ -3114,14 +5981,26 @@ function requiredReference(id){
  return '<div class="hint"><b>'+esc(ref.note)+'</b><p><a href="'+esc(ref.href)+'">Mở 7 câu Config gốc →</a></p><details><summary>Đối chiếu từng câu nguồn · dùng lại đáp án đúng phạm vi</summary><ol class="question-list">'+lines+'</ol></details></div>';
 }
 function compose(){
- const ids=selections.map(([id])=>$('tqt-select-'+id).value).filter(Boolean);
- if(!ids.length){$('tqt-composed').innerHTML='<p class="mut">Chọn các thành phần để xem bộ câu hỏi cần trả lời.</p>';return}
- const owners=new Set();
- function inherit(id){(D.inheritance[G[id].kind]||[]).forEach(x=>owners.add(x));if(G[id].parent)inherit(G[id].parent);owners.add(id)}
- ids.forEach(inherit);
- const qs=D.questions.filter(q=>owners.has(q.owner));
- $('tqt-composed').innerHTML='<p><small>Đã chọn '+ids.length+'/4 thành phần</small><br><b>'+qs.length+' câu</b> · '+ids.map(id=>esc(G[id].label)).join(' + ')+'</p><p class="mut"><small>Đây là bộ câu hỏi để xem trước, chưa phải quy trình đã nghiệm thu. Khi làm thật, ghi câu trả lời và bằng chứng; câu không áp dụng phải có lý do.</small></p>'+
- ids.map(requiredReference).join('')+'<details><summary>Ghi chú riêng áp dụng cho bộ ghép này</summary>'+noteList(applicableNotes(Object.fromEntries(selections.map(([key])=>[key,$('tqt-select-'+key).value]))))+'</details>'+[...owners].map(id=>'<details><summary>'+esc(G[id].label)+' · '+own(id).length+' câu</summary>'+list(own(id))+'</details>').join('');
+ const chosen=Object.fromEntries(selections.map(([key])=>[key,$('tqt-select-'+key).value]));
+ const ids=Object.values(chosen).filter(Boolean);
+ if(!ids.length){$('tqt-composed').innerHTML='<p class="mut">Chọn các thành phần để mở phiếu khai báo: MOW/MOT đang làm + đối tượng được xử lý + nghiệp vụ.</p>';return}
+ function ownersFor(ids){const owners=new Set();function inherit(id){(D.inheritance[G[id].kind]||[]).forEach(x=>owners.add(x));if(G[id].parent)inherit(G[id].parent);owners.add(id)}ids.filter(Boolean).forEach(inherit);return owners}
+ const scopes=[
+ {role:'PROCESS',title:'1 · MOW đang thực hiện',subject:null,owners:ownersFor(['MOW'])},
+ {role:'TASK',title:'2 · MOT đang thực hiện',subject:null,owners:ownersFor(['MOT'])},
+ {role:'TARGET',title:'3 · Đối tượng được xử lý · '+(G[chosen.layer]?.label||'chưa chọn'),subject:null,owners:ownersFor([chosen.chain,chosen.step,chosen.layer])},
+ {role:'BUSINESS',title:'4 · Nghiệp vụ · '+(G[chosen.business]?.label||'chưa chọn'),subject:null,owners:ownersFor([chosen.business])}
+ ].map(s=>({...s,questions:D.questions.filter(q=>s.owners.has(q.owner))}));
+ const applications=scopes.reduce((n,s)=>n+s.questions.length,0),unique=new Set(scopes.flatMap(s=>s.questions.map(q=>q.id))).size;
+ const template={declaration_id:null,status:'DRAFT_NOT_SAVED',process_version_id:null,task_version_id:null,target_context_id:null,selection:chosen,owner_ref:null,source_versions:[],open_issue_ids:[],
+ answers:scopes.flatMap(s=>s.questions.map(q=>({answer_id:null,scope_role:s.role,subject_version_id:null,question_id:q.id,answer_revision:1,value:null,source_ref:null,assessment_id:null})))};
+ $('tqt-composed').innerHTML='<p><b>Phiếu khai báo bắt buộc · '+applications+' lượt trả lời / '+unique+' mã câu</b><br>Đã chọn '+ids.length+'/4 thành phần. Cùng mã câu nhưng khác đối tượng phải có đáp án riêng.</p>'+
+ '<p class="hint">Chưa đủ để gọi: chưa khai mã phiếu, phiên MOW/MOT, ngữ cảnh đối tượng, người giữ việc và các đáp án có căn cứ. Đây là mẫu đọc/xuất, chưa lưu và chưa nối PG. Tầng đang xử lý vẫn là '+esc(G[chosen.layer]?.label||'chưa chọn')+'.</p>'+
+ scopes.map(s=>'<details><summary>'+esc(s.title)+' · '+s.questions.length+' câu</summary>'+list(s.questions)+'</details>').join('')+
+ ids.map(requiredReference).join('')+
+ '<details><summary>Ghi chú riêng áp dụng</summary>'+noteList(applicableNotes(chosen))+'</details>'+
+ '<details><summary>Phiếu cùng dữ liệu · cho AI điền và kiểm</summary><p>Mỗi dòng cần mã đáp án và phiên đối tượng đúng phạm vi. Không coi giá trị null là đã trả lời. Mã phiếu/lần chạy cấp khi tạo bản ghi, không dùng mã mẫu chung.</p><textarea id="tqt-declaration-json" readonly aria-label="Phiếu khai báo MOW MOT theo phạm vi" style="width:100%;min-height:240px;box-sizing:border-box"></textarea></details>';
+ $('tqt-declaration-json').value=JSON.stringify(template,null,2);
 }
 selections.forEach(([id])=>$('tqt-select-'+id).addEventListener('change',compose));compose();
 document.querySelector('.tq-tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)location.hash=b.dataset.tab});

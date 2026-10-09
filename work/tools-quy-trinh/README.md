@@ -1,5 +1,16 @@
 # tools-quy-trinh · Cửa vào
 
+## Mô hình có mã, sẵn đường chuyển PG · phác thảo 09/10/2026
+- [Mặt người: sáu ô xử lý sai/thiếu](view.html#tqt-mo-hinh-pg). SSOT mô hình là JSON `view.html#tqt-process-model` (`TQT-MODEL-001`); chứa bảng/cột/PK/FK/UNIQUE/CHECK, định nghĩa/phiên/việc con/chỗ nối và bản ghi mô phỏng. Không thêm tầng T2.5 hay loại đối tượng nghiệp vụ mới.
+- `DRAFT-*` là mã phác thảo; `SIM-*` là mã lần thử. Chúng cho phép kiểm quan hệ ngay nhưng **không phải mã Master đã đăng ký và không được dùng để gọi production**. Mã định nghĩa, phiên, lần chạy, vòng, việc chạy, call và event tách riêng; sửa nội dung tạo phiên mới, không tái sử dụng ID cho thứ khác.
+- Bộ ghép xuất **phiếu khai báo bốn phạm vi**: MOW đang làm / MOT đang làm / đối tượng xử lý / nghiệp vụ. CTCM+B1.3+FIELD+UI = 70 lượt trả lời theo phạm vi, 54 mã câu; vẫn 159 câu/53 nhóm. Cùng Q_ID khác phạm vi có đáp án riêng. Phiếu có trường mã/phiên/nguồn/người giữ/đáp án; null là chưa khai, không tự lưu hay PASS.
+- Dữ liệu kiểm tách `level / result / validity`; UI gộp hai mục đầu thành một cột. FAIL vẫn có thể CURRENT; BLOCKED không chạy lại khi điều kiện chưa đổi. Định nghĩa/lần chạy/kết quả kiểm không dùng chung vòng đời.
+- [Bộ kiểm và xuất gói](check-process-model.py): `python3 check-process-model.py view.html --emit-pg /tmp/tqt-model-draft.sql --report /tmp/tqt-model-review.json`. Chỉ ghi file được chỉ định; không kết nối PG. SQL sinh từ SSOT, giữ mã/quan hệ, schema riêng `tqt_model_draft`; không sửa SQL sinh ra như nguồn thứ hai.
+- Đã kiểm 27 phép bằng mô phỏng + ràng buộc SQLite. Chưa thử PostgreSQL, khóa đồng thời, tải lớn, B3–B7 hoặc Field thật. Quan hệ liên run/call/phiên và điều kiện đóng được bộ kiểm xét; chưa có trigger/runtime PG cưỡng chế toàn bộ. Trước chuẩn hóa phải chốt mapping Master/quyền/rule, kiểm staging và áp qua DOT.
+- Cần đọc cả `pg.open`, `call_contract`, `declaration.execution_gate` trong mô hình. Hướng dẫn PG/OPS và link Tool là tài liệu hỗ trợ, chưa là quy trình gọi được. Việc còn mở vẫn theo TQT-ISS-007, không mở sổ mới.
+- Một lần chế tạo kết thúc sau kiểm vận hành ban đầu hữu hạn và ACK bàn giao cho VHCM; theo dõi dài hạn thuộc lần VHCM riêng. Không cần PG cho sản phẩm thuần tài liệu thì khai N/A có căn cứ, không chặn giả.
+- Tiếp nhận proposal04: sửa ghép phạm vi, nhận/trả theo lần gọi, chống trùng, theo dõi từng nơi, tách kết quả/hiệu lực, ranh giới chế tạo–vận hành. Đăng ký composite/MOT điều phối theo CT-005 vẫn là phần cần chốt; không tự gán Nhóm cha.
+
 ## Khép kín MOW/MOT · bản thiết kế 09/10/2026
 - Đọc [bốn chỗ hở và đường thiếu Field](view.html#tqt-khep-kin). Nguồn: `tqt-composite-processes.closure_review`; renderer đọc câu hỏi từ `tqt-question-matrix`, không chép bộ thứ hai.
 - **TQT-TH-001 là mã tài liệu, chưa phải mã MOW đăng ký trong ML-DEF-004.** Master hiện dẫn xuất từ Nhóm cha theo CT-005. MOW tổng hợp vẫn là MOW; quan hệ gọi MOW con/cách ghép nhóm cần chốt trước khi cấp mã chính thức. T2.5, Master riêng và vòng đời ứng viên thiếu là đề xuất, chưa tự áp dụng.

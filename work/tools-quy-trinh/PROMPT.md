@@ -1,5 +1,8 @@
 # PROMPT — TQT GỐC CÂU HỎI · Chuỗi/Tầng/Bước (gồm Bước con)
 
+## Mô hình có mã · Owner bổ sung hướng PG 09/10/2026
+Đọc README mục Mô hình và JSON view.html#tqt-process-model; dùng check-process-model.py để kiểm/xuất gói SQL nháp. Dữ liệu MOW/MOT có phiên, lần/vòng/việc chạy, call và event riêng. Phiếu bắt buộc có cả MOW/MOT đang làm lẫn đối tượng/ nghiệp vụ; không đổi Field thành MOW. Chưa tăng số câu. Bản DRAFT/SIM không là đăng ký Master, không có quyền gọi/ghi PG. Tiếp theo chốt mapping Master và nơi nhận thật, rồi thử staging/concurrency/ca thật đúng quyền; đóng TQT-ISS-007 khi có bằng chứng, không đóng vì mô hình chạy qua kiểm.
+
 ## Rà khép kín · Owner tiếp tục 09/10/2026
 Đọc README mục Khép kín và view.html#tqt-khep-kin. TQT-TH-001 chưa đăng ký Master MOW; không coi mã tài liệu là mã đối tượng. Kế tiếp: chốt quan hệ MOW gọi con, ánh xạ Nhóm cha/con rồi đăng ký đúng Master; áp thử đường thiếu Field tới khi xử lý và kiểm lại nơi gọi. Câu hỏi tại ma trận, hồ sơ mở TQT-ISS-007 tại cùng nguồn, không tạo nguồn song song. T2.5/Master riêng/vòng đời ứng viên mới chỉ đề xuất. Không tự chạy PG, thay công thức hoặc phát RUN từ bản thiết kế này.
 

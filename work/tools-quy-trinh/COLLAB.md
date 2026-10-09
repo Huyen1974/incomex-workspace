@@ -10,7 +10,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · Astra Codex
 - 🎯 Mục tiêu và tiêu chí gốc: ô 1–2; chỉ đạo bổ sung trực tiếp của Owner ngày 08/10 ở cuối ô 1.
-- ■ Hiện hành: đã bổ sung TQT-TH-001 tại tab đầu “List quy trình tổng hợp”: ba giai đoạn/chín bước phối hợp/ba checkpoint. Bản đầu để áp thử; bộ câu hỏi và ghi chú bên dưới giữ nguyên, Host tiếp nhận góp ý riêng.
+- ■ Hiện hành: bản phác thảo có mã TQT-MODEL-001 tại tab đầu, sáu ô xử lý sai/thiếu và phiếu khai báo MOW/MOT + đối tượng/nghiệp vụ. Có đường xuất SQL nháp, 27 phép kiểm mô hình; chưa đăng ký Master hoặc chạy PG/B3–B7 thật. TQT-TH-001 và nội dung trước giữ để đối chiếu.
 - Kiểm TQT-TH-001 ngày 09/10: bản nội dung `87212f520d3251b5f13738222094278046a92512` đã hiện trên trang thật. Đã kiểm tab đầu trong Nội dung công việc; thu/xổ quy trình; mở giai đoạn 1 và bước 1.2; liên kết Config sang nguồn cũ; URL mở thẳng giai đoạn 2; URL câu hỏi B1→1.2 cũ; màn 390px không tràn ngang trong tài liệu (295/295px). Đã thu gọn thanh tab màn nhỏ để không che nội dung. URL chỉ có task vẫn vào Kiểm soát theo cơ chế chung; link bàn giao có view=content&section=list-quy-trinh-tong-hop. Console trang chứa có thông báo Directus Auth/Sentry; không dùng kết quả kiểm hiển thị này để khẳng định backend hoặc toàn quy trình đã chạy đạt. Chưa triển khai PG hay nghiệm thu ba giai đoạn.
 - ✅ Đã chuẩn bị: 9 bước lớn, 23 bước con, Field/MOIT/MOUT/MOT/MOW, tầng bối cảnh T3–T7 và 3 chuỗi; câu hỏi mới mang trạng thái đang hiệu chỉnh.
 - Kiểm tra giao diện: đã kiểm trên trang thật bản nội dung 7a4c0717eebd0c074635a2a5e8dab63e9fa56d18: B1→1.2 và mở lại URL, B8/B9 chưa tách, MOIT, CMSXQT, lọc không dấu, Config→mục cũ, bộ ghép 27 câu không trùng; màn hẹp 390px không tràn ngang. Đây là kiểm giao diện, chưa nghiệm thu tính đầy đủ của bộ câu hỏi.
@@ -105,6 +105,13 @@ Quy trình này sẽ lắp ráp hoá lại các bước rời rạc mà chúng t
 
 Các ý tưởng T2.5/Master riêng và vòng đời thấy thiếu→xác minh→đề xuất được Owner nêu để xem xét, không phải lệnh tự đổi khái niệm. Giữ MOW tổng hợp là MOW; phần đăng ký Master còn hở phải hiện rõ.
 
+#### Bổ sung Owner · 09/10/2026 · Chuẩn dữ liệu ngoài PG
+Đây là chúng ta mới phác thảo về mô hình => sau này khi chuẩn hóa mọi thứ sẽ đưa vào PG, nó còn những mô hình như phiên bản, bước chạy, vòng chạy...... cho nên việc thiết kế bây giờ phải tính đến phù hợp khi chuẩn là bê nguyên vào PG vì xử lý trong PG mất thời gian hơn rất nhiều => cách nhanh là xử lý chuẩn thông tin bên ngoài rồi bê nguyên cả khối vào. Mọi thiết kế phải hướng đến việc đó, phải có mã để giải quyết vấn đề khoá chính / khoá phụ trong DB.
+
+Nắm cách nôm na ngắn gọn là hãy gói hết vào; Quy trình, để gọi và quản lý, Không gì là không có mã. Như vậy tổng cả bức tranh chúng ta giải quyết vấn đề mới nhanh và chính xác được. Chúng ta mới chỉ giải quyết vấn đề công thức, vấn đề nó chưa phức tạp. Khi ghép và dữ liệu thực, quy mô nó sẽ nhân lên hàng chục nghìn lần, thậm chí hàng triệu lần => nếu kiến trúc không rõ ràng và tường minh từ đầu để sẵn sàng cho scale thì khi đổ dữ liệu vào sẽ thất bại.
+
+Bạn rà soát tiếp. Cố gắng giữ cho vấn đề thật đơn giản để user nhìn cái hiểu ngay thì mới phát hiện ra vấn đề nó nằm ở đâu.
+
 ### 2. Thế nào là hoàn thành
 Một quy trình đạt = người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lại.
@@ -112,6 +119,12 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 (Owner duyệt 08/10/2026.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+#### Mô hình có mã hướng PG · 09/10/2026 · Host tiếp nhận proposal04
+- JSON tqt-process-model là SSOT bản phác thảo TQT-MODEL-001: 15 bảng hỗ trợ định nghĩa/phiên/lần/vòng/việc chạy/call/vấn đề/nơi ảnh hưởng/đáp án/kết quả/phụ thuộc/event; PK/FK/UNIQUE/CHECK có thể xuất SQL nguyên mã. DRAFT/SIM không phải Master được phép gọi.
+- Đã ghép phiếu MOW/MOT + đối tượng + nghiệp vụ; CTCM+B1.3+FIELD+UI có 70 lượt theo phạm vi/54 mã câu, không thêm câu (159/53). Tách level/result/validity; các mức kiểm/vòng đời vẫn là thiết kế.
+- Kiểm local: 27 phép mô phỏng/SQLite đạt, renderer kiểm cú pháp đạt. Chưa PostgreSQL/concurrency/tải lớn; chưa tạo Field, chưa B3–B7 thực tế. Kiểm lại snapshot repo và browser sau ghi.
+- Trình sáu ô có mã/người giữ/chỗ ghi/kết quả; nguồn riêng của gói chỉ trong view.html. check-process-model.py là bộ kiểm/đường xuất, không là runtime production. TQT-ISS-007 còn mở; kết thúc chế tạo cần ACK VHCM, chưa có người/quy trình nhận thật trong ca này.
 
 #### Rà khép kín · 09/10/2026
 - Đã xác định TQT-TH-001 chỉ là mã tài liệu, chưa là dòng Master CTCM. CT-005/ML-DEF-004 đang một-một Nhóm cha; quan hệ MOW tổng hợp gọi con cần chốt, không tự tạo T2.5/nhóm giả.
