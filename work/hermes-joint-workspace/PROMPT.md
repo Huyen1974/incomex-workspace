@@ -1,14 +1,34 @@
-# PROMPT — HJW · N3 2A FIX CẢNH BÁO CHẬM SAI · AUTO1 ASSISTED
+# PROMPT — HJW · N3 2A ÁP ỨNG VIÊN CẢNH BÁO ĐÃ THỬ ĐẠT · AUTO1 ASSISTED
 
-RUN_ID: HJW-N3-2A-FALSE-SLOW-ALERT-FIX-20261008-01
-STATUS: DRAFT_DELTA_P233 · chỉ sửa cảnh báo hàng đợi sai theo P232; CHƯA REVIEW EXACT SHA, CHƯA READY/RUN. READY mới chỉ ở HJW COLLAB sau Claude Chat ACCEPT exact.
+RUN_ID: HJW-N3-2A-SLOW-ALERT-APPLY-20261009-03
+STATUS: DRAFT_P246_APPLY_ONLY · chưa Reviewer ACCEPT exact SHA, chưa Host READY/RUN. Hai RUN cũ đã KQ DỪNG P237/P245; không dùng READY lịch sử.
 Host: GPT Chat · GPT-HJW-260922-A · Owner đã chỉ định cho HJW hiện tại
 Reviewer: Claude Chat
 Executor_Surface: Claude Code CLI phiên MỚI trên Mac cho inventory/orchestration + SSH/trusted-runner checks; các phiên canary được N3 gọi phải là phiên MỚI tách vai theo §5
 Write_Path: repo qua workspace_*; runtime/config chỉ qua DOT/wrapper/apply path hiện hữu; không ad-hoc
 Node: N3 / 6 · Automation target = AUTO1 ASSISTED
-Owner_steps: Owner chuyển đúng một lệnh DROOT38(c) sang Claude Code CLI mới; PRE/fixture tự chạy không cần hỏi. Nếu cần apply production, bấm quyền chạy gói đã đóng băng đúng MỘT lần, bao gồm POST và auto rollback. Không xin click thứ hai, không giữ terminal chờ Owner. Lượt này không phát vé Hermes, không gọi model, không mở 2b.
+Owner_steps: Owner chỉ dán một lệnh DROOT38(c) trong Claude Code CLI MỚI và bấm quyền chạy gói production đúng MỘT lần sau PRE xanh. Nếu runner cần canh khe an toàn tối đa 600 s, phải hỏi và được Owner phê duyệt MỚI tại chính lượt RUN này theo DROOT52; P244 KHÔNG được tái sử dụng. Hết hạn/chưa đủ gate: KQ DỪNG, gỡ cờ và đóng CLI. Không thêm vé Hermes/model/2b.
 
+## 0G. LƯỢT HIỆN HÀNH — APPLY-ONLY SAU P245 (AUTHORITATIVE)
+
+**Hợp đồng phạm vi:** Các đoạn §0F, §1–§8 phía dưới chứa lịch sử thiết kế, fixture và acceptance N3; **không phải lệnh dựng lại thuật toán, chạy lại deploy P225, làm lại toàn bộ 16+42+27 fixtures hoặc dùng RUN_ID P237/P245**. Lượt hiện hành duy nhất là RUN_ID trên đầu file. Nếu không thể tái dùng ứng viên exact, DỪNG để Host ra delta; không tự chỉnh/rebuild trong lượt này.
+
+### 0G.1 · Trạng thái thật và đồ còn thiếu
+- **P245:** `KQ DỪNG · EXECUTOR_STOPPED_APPROVED_WAIT_BEFORE_APPLY · RUNTIME_DELTA_0`, cờ HJW/root đã nhả, 0 runtime mutation, lỗi cảnh báo còn live ở bản P225. Worker cũ dừng nhầm launcher đã được Owner duyệt trong P244 vì đọc P243 mà không đọc các mục COLLAB mới cùng lúc; sau đó lỡ cửa sổ x2:00–x3:10. Nguyên nhân là **lỗi kỷ luật đọc freshness**, không phải code hoặc Guard failure trong P245. Không quy lỗi cho Owner.
+- **P237/P245 là proof:** Candidate `cand3/plugin/hjw-control/__init__.py` SHA prefix `e6ebf114` đã qua fixture `fx_slow_alert.py` SHA `53f0cea8` 16/16, regressions 42/42 + 27/27, dryrun; P245 đã lặp chính các phép thử và Guard PRE PASS. Gói bất biến `bin/fix08-apply.sh` SHA `da2d1714`, fixture runner `bin/fix08-fixture.sh` SHA `79cd0b1d`. Runtime phải là baseline P225: plugin `ec8cfe4e` · gate `3019730a` · lifecycle `d8c7df0a` · Config Guard `61bdd060`. Tất cả được rehash đầy đủ lúc bắt đầu lần thi hành mới; một hash lệch ⇒ STOP, không tự xây lại.
+- **Lỗi Guard riêng cần kiểm thật:** P242 chứng minh cron `dot-directus-license-watch` mỗi 5 phút tạo container tạm, và một `workspace_exec` ngoại lai tạo `workspace-job-*`. Bản P237 POST FAIL do cả hai nguồn. P245 phát hiện cửa sổ **bắt đầu launcher UTC phút có đuôi 2 từ giây 00 đến phút có đuôi 3 giây 10, mỗi 10 phút** giúp các lần chụp Guard thường tránh cron. Đây là bằng chứng lịch sử, **không bảo đảm tương lai**, nên S0/Guard PRE/POST/footprint vẫn fail-closed; không whitelist container, sửa Guard/cron/license hoặc chạy Graph/VPSC trong lượt này. Một đèn #6 Nuxt 404 chập chờn đã có từ trước; không coi red mới do HJW, nhưng cũng không bypass Guard PRE khi Guard FAIL.
+
+### 0G.2 · Bước thi hành tối thiểu
+1. **A6 + fresh DROOT30:** đọc AGENTS/root COLLAB/HJW Bảng/P234–P246/PROMPT; xác minh Reviewer **ACCEPT exact SHA của PROMPT mới** + Host READY same SHA, 0 STOP/alarm/busy, Graph/VPSC 0 RUN, backup baseline. Dùng `RUN_ID` mới (không lặp mã cũ đang có KQ) để Owner View không nhìn KQ DỪNG lịch sử như KQ hiện hành. Nếu script cần tên RUN_ID cũ mới dùng được ⇒ DỪNG, không sửa script tùy tiện.
+2. **Tận dụng chứng cứ:** với **toàn bộ băm fixture/script/candidate khớp P245 và runtime PRE còn nguyên**, không bắt buộc chạy lại vòng 16+42+27 mất nhiều phút; chỉ kiểm tươi hashes/needed fast smoke và guard DROOT30. Test lại toàn bộ chỉ khi bằng chứng chưa đủ nhưng nếu artifact đã lệch thì fail-closed/delta review; không tự biến lần APPLY thành lần thiết kế.
+3. **Gói áp một cú bấm:** chỉ `fix08-apply.sh all` đúng băm `da2d1714`, candidate `e6ebf114`; bấm một lần cho toàn áp plugin `watch_once` + baseline root trong khóa + restart gateway lúc Hermes không có vé đang chạy + selftest/Guard POST + tự rollback đúng plugin về hash PRE nếu FAIL. Cấm rollback P225, không đổi dispatcher, cron, Config Guard, script, service mới. Mọi POST lệch/21/22 chưa được Guard chấp thuận ⇒ rollback đúng scope, KQ DỪNG; không override/cập nhật baseline giả để qua đèn.
+4. **Cửa sổ thời gian và NO-WAIT:** chỉ khởi động gói khi an toàn, ưu tiên kiểm x2:00–x3:10 UTC đã đo. Không buộc Owner canh đồng hồ. Nếu muốn runner tự canh tới cửa sổ kế trong cùng STARTED, phải hiển thị **WAIT_EXCEPTION_REQUEST riêng RUN_ID hiện tại** nêu `resource_kept_open=HJW/root busy+1 CLI`, `max_duration=600s from actual Owner approval` (không reset/không cộng dồn), `exit_trigger=safe window|600s|Guard/blocker`, `monitor_owner=executor auto`, `cost/risk=chặn các phiên khác tối đa 10 phút trước apply`, `why_not_stop_rerun/next_trigger/watcher/split/release=Owner quyết một ngoại lệ hữu hạn để tránh mất một lượt approval; các cách kia đều khả thi nhưng tốn thêm thao tác`; **phải có Owner phê duyệt rõ ở chính lượt này**. Không phê duyệt ⇒ DỪNG, gỡ cờ ngay, không tự chờ/schedule. Nếu 600s hết trước first mutation ⇒ DỪNG/nhả busy/đóng CLI; không xin phép lần 2. Sau first mutation hoàn tất POST/rollback an toàn rồi nhả.
+5. **Tránh lặp lỗi P245:** trước khi STARTED, trước khi chạy/cancel launcher và ngay trước first mutation **fresh-read các mục COLLAB mới kể từ checkpoint trước**, không chỉ grep PROMPT hash/STOP. Chỉ đạo thời điểm sau có hiệu lực theo luật nhưng phải đọc đủ mốc; nếu xung đột STOP/READY mới thì DỪNG sạch, **không tự chọn theo mục cũ**. Không can thiệp vào launcher đang được duyệt nếu không thấy STOP thực tế.
+6. **KQ và giao máy:** STARTED HJW+root busy cùng commit như A6, PRE nhanh, chỉ giữ server khi RUN thực thi/ngoại lệ Owner phê duyệt; KQ terminal `XONG` nếu actual live apply + Guard POST PASS hoặc `DỪNG` nếu chưa apply/rollback; ghi hashes, Guard snapshot/footprint, mã package, tin/cron external nếu có, 0 model/vé live; gỡ busy đúng commit KQ và đóng CLI, không giữ terminal nghiên cứu. Chỉ sau PASS Host mới phát 3 Hermes TEST-ONLY success tuần tự theo HĐ31/P235, không lẫn việc thật.
+
+**Bất biến roadmap:** Nền/N1/N2/N3 stage1 PASS; N3 stage2a nền P225 PASS, sửa cảnh báo live CHƯA PASS, 3 success chưa chạy; stage2b/N4–N6 chưa phép. Sửa cron/Guard global để VPSC D22 triage, KHÔNG làm trong HJW.
+
+---
 ## 0F. PHẠM VI RUN ĐƯỢC PHÉP: SỬA HẸP CẢNH BÁO SAI (P233)
 
 **OVERRIDE CURRENT RUN:** Mọi mô tả R1–R7, `Chặng 2A deploy` và canary trong các mục phía dưới là lịch sử/mục tiêu dài hạn N3, **không phải lệnh thi hành của RUN_ID mới**. Production N3 2a đã áp bốn tệp và POST/smoke PASS ở P225; hai canary đã chạy P226/P227 và P232. Chỉ được sửa đúng BUG dưới đây, không chạy lại P225, không tạo vé/model/tin để thử.
