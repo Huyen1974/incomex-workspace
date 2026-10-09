@@ -1,5 +1,5 @@
 {
-  "source_version": "P16 candidate",
+  "source_version": "997b5b058a38681c1b62bfd612d707a051282341; live export 7fdf400",
   "scope": [
     "UI.MASTER.MOW.TH"
   ],
@@ -9,44 +9,66 @@
       "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html",
       "checks": {
         "structure": {
-          "status": "NOT_TESTED",
-          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+          "status": "PASS",
+          "evidence": "4 records visible; registered in Master index as ML-MOW-TH-001, count 4. Parent DOM/renderer/theme reused."
         },
         "emphasis": {
-          "status": "NOT_TESTED",
-          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+          "status": "PASS",
+          "evidence": "Computed name/code typography matches approved parent: name 12.5px/400 rgb(44,44,46), code 11px/400 rgb(188,188,193)."
         },
         "labels": {
-          "status": "NOT_TESTED",
-          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+          "status": "PASS",
+          "evidence": "Names, codes, goals and design status visible; four aggregates distinct from nine Tool plus three supplemental procedures."
         },
         "interaction": {
-          "status": "NOT_TESTED",
-          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+          "status": "PASS",
+          "evidence": "Search 002 returns one record; empty search, clear, status filter, shared detail/Escape and Help verified. Discussion link opens canonical repo export and first tab with 4 fold cards. QT-CTCM-012 anchor expands ancestors."
         },
         "responsive": {
           "status": "NOT_TESTED",
-          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+          "evidence": "Desktop visually verified. Viewport override did not establish a verified narrow measurement on this tab; no mobile acceptance claimed."
         },
         "console": {
-          "status": "NOT_TESTED",
-          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+          "status": "PASS",
+          "evidence": "No errors/warnings on standalone Master during tests. Portal shell separately logged Directus initialization error; not counted as Master success."
         },
         "data_scope": {
-          "status": "NOT_TESTED",
-          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+          "status": "PASS",
+          "evidence": "Master reads catalog from current published repo revision; no duplicate record store. Codes registered for design only; no PG execution."
         }
       },
       "parity": {
         "baseline_url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html?legacy=1",
         "baseline_version": "master-list.js d80832503d99679ae7b4e5f4ad8fb44cbd9b4d0274b547ac67f66a19b7be9a4a",
         "observed_version": "same renderer",
-        "measurements": [],
-        "differences": []
+        "measurements": [
+          {
+            "target": "name",
+            "fontSize": "12.5px",
+            "fontWeight": "400",
+            "color": "rgb(44, 44, 46)",
+            "matches_parent": true
+          },
+          {
+            "target": "code",
+            "fontSize": "11px",
+            "fontWeight": "400",
+            "color": "rgb(188, 188, 193)",
+            "matches_parent": true
+          }
+        ],
+        "differences": [
+          {
+            "scope": "definition schema",
+            "detail": "Columns: goal, child count, design status; data-specific configuration through same parent."
+          }
+        ]
       }
     }
   ],
   "limitations": [
-    "Danh mục thiết kế; 5 guard thực thi vẫn mở; chưa PG."
+    "Danh mục thiết kế; 5 guard thực thi vẫn mở; chưa PG.",
+    "Portal /knowledge/modules displayed no snapshot; Master discussion/name links resolve current exported source directly.",
+    "87 model checks remain passing; five execution guards OPEN. 20 checkpoint cases and two broken-reference cases pass locally; isolated workspace has no Node runtime."
   ]
 }

@@ -1,7 +1,8 @@
 """Check coded procedure references and the design checkpoint gate; no PG access."""
-import copy,json,re,subprocess,sys
+import copy,json,re,subprocess,sys,shutil
 from pathlib import Path
-s=Path(sys.argv[1] if len(sys.argv)>1 else Path(__file__).with_name('view.html')).read_text()
+args=[x for x in sys.argv[1:] if x!='--references-only']
+s=Path(args[0] if args else Path(__file__).with_name('view.html')).read_text()
 def block(i):return re.search(r'<script id="'+i+r'"[^>]*>([\s\S]*?)</script>',s)[1]
 c=json.loads(block('tqt-composite-processes'));r=c['catalog']
 def validate(c):
@@ -18,6 +19,9 @@ for field,value in [('code','MISSING'),('version','wrong')]:
  try:validate(bad)
  except AssertionError:pass
  else:raise AssertionError('accepted broken reference')
+if '--references-only' in sys.argv:
+ print(json.dumps({'aggregate':len(r['records']),'normal':len(r['normal_processes']),'coded_references':n,'bad_reference_cases':2,'checkpoint_cases':'NOT_RUN: references-only','scope':'DESIGN_ONLY'}));sys.exit(0)
+if not shutil.which('node'):sys.exit('Node.js required for checkpoint tests; use --references-only for reference validation only.')
 js=block('tqt-checkpoint-rule')+'\nconst f=module.exports.tqtCheckpoint,p='+json.dumps(c['checkpoint_policy'])+''';
 const assert=require('assert');let n=0;const plan={scope:'A',version:'1',required:['Q1']},e={id:'Q1',scope:'A',version:'1',context:'DESIGN',current:true,result:'PASS',level:3,validity:'CURRENT',evidence:'EV1'};
 const t=(st,pl,ev,fa,w)=>{assert.equal(f(p,st,pl,ev,fa).status,w);n++};
