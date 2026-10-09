@@ -10185,6 +10185,7 @@ main{max-width:1240px} [hidden]{display:none!important}
         ],
         "href": "#MOW-TH-002",
         "source_ref": "DRAFT-MOW-GAP-001",
+        "issue_ownership": "002 giữ vòng đời hồ sơ. Khi gọi 003 sửa hướng dẫn, truyền issue_id; 003/004 báo kết quả vào cùng hồ sơ, không gọi lại 002 để tạo một lần xử lý lồng nhau.",
         "route": [
           "Phát hiện",
           "Xác minh",
@@ -10194,6 +10195,12 @@ main{max-width:1240px} [hidden]{display:none!important}
           "Kết thúc"
         ],
         "child_refs": [
+          {
+            "code": "MOW-TH-003",
+            "version": "1.0-design",
+            "relation": "conditional_call",
+            "condition": "Đã xác minh thiếu/sai ở hướng dẫn. Truyền cùng issue_id; kết quả trở về 002, không mở vòng 002 mới."
+          },
           {
             "code": "TOOL-CTCM-008",
             "version": "1.0-design",
