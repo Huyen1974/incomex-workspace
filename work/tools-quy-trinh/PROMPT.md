@@ -1,3 +1,5 @@
+**D22/P21 — HIỆN HÀNH:** Owner giao lại Astra Codex làm Host; rà và sửa tính nhất quán Overview, 005 và MOW/MOT. Chỉ đạo Host GPT Chat/D19 phía dưới đã hết hiệu lực. 005 vẫn là đề xuất, không READY/RUN; mọi bước chọn/thực hiện/kiểm/bàn giao phải thuộc MOW/MOT, dùng cùng phiếu/hồ sơ đúng phạm vi và phiên. Đọc `catalog.consistency_review` và README; chưa áp thử quy trình trước khi chỉ rõ MOT/hợp đồng/nơi nhận còn thiếu. TQT-ISS-004/007 tiếp tục mở.
+
 # PROMPT — Tools quy trình · Làm theo quy trình ra đúng sản phẩm
 
 **D21/P19 — HIỆN HÀNH:** chú giải duy nhất `catalog.records[].guide` / `catalog.normal_processes[].guide`, 4 trường ngắn. `MOW-TH-005` mới là **ĐỀ XUẤT 0.1-draft** để sở hữu 6 bước; **CẤM coi READY/RUN, chưa quyết Chuỗi/PG**. Không sửa lại công thức/Master ngoài scope từ bản nháp, không tự nhảy sang MOW002. `CHUNG.APQUYTRINH` vẫn chỉ cổng trước khi chạy; `QT-CTCM-012` chỉ xử lý câu hỏi.

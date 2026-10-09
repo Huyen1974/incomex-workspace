@@ -1,9 +1,14 @@
 # tools-quy-trinh · Cửa vào
 
+## Hiện hành · Host Astra Codex (D22)
+Mọi trình tự/hướng dẫn có MOW sở hữu; việc cụ thể có MOT. Tổng hợp/thành phần là vai trò của MOW, không là loại đối tượng mới. Câu hỏi/tiêu chí/sổ vẫn là nội dung dùng lại. Danh mục đã khớp tên/mã chưa đồng nghĩa đủ MOT, hợp đồng gọi hay đã cắt chuyển nguồn cũ.
+
 ## Over view · cửa vào
 [Mở Over view](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view) · [Master Quy trình tổng hợp](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Danh sách Master tổng (30)](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html).
 
 **4 Quy trình tổng hợp đang thiết kế + 1 đề xuất ⑤ chưa duyệt, 12 Quy trình thành phần.** Kho 159 câu/53 nhóm là tài nguyên, không phải quy trình. Tên/mã/quan hệ/chú giải `purpose/when/avoid/done` cùng đọc từ một nguồn `view.html#tqt-composite-processes.catalog`. Sáu thao tác từ chọn đến bàn giao thuộc dự thảo `MOW-TH-005`; chưa được READY/RUN hoặc PG.
+
+005 điều phối **một** quy trình được chọn, không chạy hết 001–004; chỉ gọi ở cửa nhận việc. 14 phần hướng dẫn đã có chủ tại `catalog.instruction_owners`; nguồn và phần còn thiếu tại `catalog.consistency_review` → TQT-ISS-007/004. Các mã MOT của 005 là bản đề xuất chưa duyệt. Kiểm bằng `python3 check-overview-consistency.py view.html`.
 
 ## Master quy trình tổng hợp · hiện hành
 [Mở Master theo UI cha](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Mở danh sách hiện hành tại repo](view.html#tqt-process-inventory).

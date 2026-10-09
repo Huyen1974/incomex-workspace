@@ -2,20 +2,20 @@
 Tên việc: Tools quy trình — làm theo quy trình ra được sản phẩm
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 08/10/2026 07:16 (D04/D05); D06 trước đây giao GPT Chat; sau đó Owner trực tiếp giao Astra Codex làm Host ngày 08/10/2026 (D17, thay phân công cũ). Giữ nguyên lời Owner trong ô 1–2; ngày 09/10/2026 Owner yêu cầu Host bổ sung làm rõ mục tiêu và rà lại Kiểm soát, không viết lại mục tiêu gốc. Quyết định Owner mới ngày 09/10/2026 giao GPT Chat làm Host lại để tổ chức tab Over view (D19), supersede D17 đối với Host hiện hành; mục tiêu ô 1–2 giữ nguyên.
-Host: GPT Chat — phiên Owner chỉ định trực tiếp ngày 09/10/2026 (D19)
-Host_ID: OpenAI-main
-Host_Surface: GPT Chat · cuộc trò chuyện hiện tại của Owner
+Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 08/10/2026 07:16 (D04/D05); D06 trước đây giao GPT Chat; sau đó Owner trực tiếp giao Astra Codex làm Host ngày 08/10/2026 (D17, thay phân công cũ). Giữ nguyên lời Owner trong ô 1–2; ngày 09/10/2026 Owner yêu cầu Host bổ sung làm rõ mục tiêu và rà lại Kiểm soát, không viết lại mục tiêu gốc. Quyết định Owner mới ngày 09/10/2026 giao GPT Chat làm Host lại để tổ chức tab Over view (D19), đã thay D17 trong vòng Overview; nay D22 giao lại Astra Codex, mục tiêu ô 1–2 giữ nguyên.
+Host: Astra Codex — Owner giao lại trực tiếp ngày 09/10/2026 (D22)
+Host_ID: Astra-Codex
+Host_Surface: Codex · cuộc trò chuyện hiện tại của Owner
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · GPT Chat · P20
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · Astra Codex · P21
 - 🎯 Mục tiêu: việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể. Vì sao: người nhìn rõ mới cùng phát hiện và sửa được vấn đề.
 - 🏁 Xong khi: đạt tiêu chí ô 2; quy trình được làm theo ra đúng sản phẩm, có bằng chứng và đường xử lý sai/thiếu tới cuối.
 - 📍 Tiến độ: [■ Thiết kế và khả thi] → [□ Triển khai] → [□ Vận hành]
 - ✅ Đã xong (thiết kế): 29 Master theo định nghĩa + 1 Master Config = **30 danh sách**; `ML-MOW-TH-001` STT 29 có **4 quy trình đang thiết kế + 1 đề xuất chưa duyệt**; 12 Quy trình thành phần, 17 chú giải chung nguồn, 159 câu/53 nhóm, 87 ca mô phỏng đã qua. Bằng chứng P16–P20; **chưa nghiệm thu vận hành**.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: kiểm/hoàn thiện 5 chốt thực thi → áp một vòng sai/thiếu → PG staging đúng quyền → kiểm UI/Config/Test và bàn giao. TQT-ISS-007 giữ mở.
-- ➡ Kế tiếp: Owner xem chú giải và bản đề xuất MOW-TH-005 tại Over view để chốt phạm vi; chỉ sau đó mới đổi trạng thái đề xuất thành được duyệt. Phần kỹ thuật TQT-ISS-007 giữ mở; NEXT_TRIGGER=OWNER_REVIEW_GUIDE_AND_DRAFT005.
+- ➡ Kế tiếp: hoàn tất ánh xạ MOT/hợp đồng và cắt chuyển nguồn Tool còn mở trước áp thử; Owner chốt phạm vi/Chuỗi 005. Không tăng trạng thái vì đồng bộ dữ liệu. NEXT_TRIGGER=COMPLETE_DECLARATIONS_AND_OWNER_SCOPE005.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế · tự áp mục tiêu PR-07 chưa duyệt.
 
 ### 1. Mục tiêu
@@ -123,6 +123,8 @@ Các ý tưởng T2.5/Master riêng và vòng đời thấy thiếu→xác minh�
 Nắm cách nôm na ngắn gọn là hãy gói hết vào; Quy trình, để gọi và quản lý, Không gì là không có mã. Như vậy tổng cả bức tranh chúng ta giải quyết vấn đề mới nhanh và chính xác được. Chúng ta mới chỉ giải quyết vấn đề công thức, vấn đề nó chưa phức tạp. Khi ghép và dữ liệu thực, quy mô nó sẽ nhân lên hàng chục nghìn lần, thậm chí hàng triệu lần => nếu kiến trúc không rõ ràng và tường minh từ đầu để sẵn sàng cho scale thì khi đổ dữ liệu vào sẽ thất bại.
 
 Bạn rà soát tiếp. Cố gắng giữ cho vấn đề thật đơn giản để user nhìn cái hiểu ngay thì mới phát hiện ra vấn đề nó nằm ở đâu.
+
+Một nguyên tắc Owner bổ sung 09/10/2026 (D22): “tất cả các trình tự thực ra là quy trình, nên đưa hết vào quy trình để giữ quản lý. Các luồng, các hướng dẫn... => về bản chất là thành quy trình. Chúng ta chỉ quản lý 1 đối tượng đã quy trình (MOW và MOT thôi). Hạn chế sinh ra khái niệm mới.”
 
 ### 2. Thế nào là hoàn thành
 Một quy trình đạt = người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
@@ -290,11 +292,11 @@ Ba chiều độc lập theo ô 1 dòng 2: **Chuỗi × nhóm chuyên môn × l�
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
 |---|---|---|---|---|
-| OpenAI-main | OpenAI | GPT Chat — phiên Owner chỉ định trực tiếp 09/10 | Host | Cuộc trò chuyện hiện tại của Owner · đường gọi hội đồng CHƯA ĐO |
+| Astra-Codex | OpenAI | Astra Codex — Owner giao lại trực tiếp D22 | Host | Cuộc trò chuyện hiện tại của Owner · đường gọi hội đồng CHƯA ĐO |
 | Claude-review | Anthropic | Claude Chat | Reviewer | CHƯA ĐO |
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 
-**Roster cập nhật theo D19, 09/10:** GPT Chat là Host hiện hành; Astra Codex từng làm Host theo D17 và nay không được tự sửa nguồn chính. Claude Chat giữ ghế Reviewer khác hãng. Đường gọi Reviewer còn `CHƯA ĐO`; chưa có phiếu/quorum hay lệnh READY/RUN cho worker. Host được giao trực tiếp cập nhật nội dung tài liệu task, không mở rộng sang runtime, PG/Directus, hoặc dữ liệu nguồn UI hiện hành. Reviewer góp ý theo vòng AGENTS A5 sau khi có bản nháp/đề xuất.
+**Roster hiện hành D22:** Astra Codex giữ Host theo yêu cầu trực tiếp Owner; GPT Chat/Claude góp ý riêng, không ghi nguồn chính. Đường gọi Reviewer vẫn CHƯA ĐO; không giả định quorum hay cấp RUN. Lượt này rà và hiệu chỉnh nguồn thiết kế/Overview, chưa PG, chưa đổi công thức hoặc triển khai quy trình nghiệp vụ.
 
 ### Vòng trước
 Chỉ đạo READ-ONLY P15/D16 và Host GPT Chat dưới đây là lịch sử trước khi Owner giao lại Astra Codex. Không dùng lịch sử này để ghi đè vai trò/phạm vi hiện hành ở đầu §0.
@@ -395,14 +397,25 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **D20 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner yêu cầu số vòng của 4 Quy trình tổng hợp lớn hơn, Quy trình thành phần hiển thị **STT đầu tiên**, và chuyển nội dung của **hai ảnh tổng quan Owner gửi** thành **hai bố cục HTML đặt phía dưới Over view**, chủ yếu mô tả những gì đã có, không tạo ảnh. Host chỉ chỉnh phần trình bày; mã/danh mục/luật không đổi.
 - HUMAN_DIRECTIVE@TQT-OVERVIEW-HTML-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,README.md,COLLAB.md} · step=Over view · recorded_by=OpenAI-main/GPT Chat · quote="Các vòng số hơi nhỏ , cho to ra 1 chút (của quy trình tổng hợp) / Quy trình thành phần chốt đầu tiên cho tôi STT / Cho tôi cả các hình này xuống bên dưới ... bạn tạo ra dạng HTML cho nhẹ." · text=Tăng vòng số; STT 1–12; 2 sơ đồ HTML bên dưới, không làm ảnh; chỉ mô tả nguồn hiện có · audit=Owner trực tiếp tại GPT Chat ngày 09/10/2026.
 
+- **D22 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner giao: “Bạn cầm lại cờ host và tiếp tục nhé.” Rà Overview, 005, quan hệ chéo và quản lý mọi trình tự/hướng dẫn bằng MOW/MOT trước áp thử. Astra Codex nhận lại Host, thay D19; không tự coi Owner đã duyệt 005 hoặc quyền PG.
+
 - **D21 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner yêu cầu **một nơi duy nhất viết chú giải ngắn cho mọi quy trình** để người/AI cùng đọc mà không tạo rác tài liệu. Đồng thời Owner yêu cầu chấm dứt "Luồng làm việc chung" trôi nổi, một hướng dẫn thực hiện bắt buộc phải có quy trình sở hữu. Host chốt đưa 6 thao tác vào **dự thảo Quy trình tổng hợp MOW-TH-005 · Áp dụng một quy trình từ chọn đến bàn giao**, với nhánh ĐẠT/CHƯA ĐẠT và điều kiện xong, giữ quy trình hiện có CHUNG.APQUYTRINH là cổng đầu vào, không coi đó là toàn hành trình. Đây là **bản thiết kế đề xuất**, chưa phải Owner phê duyệt phạm vi/quy trình ⑤; 4 mã trước và 12 thành phần không thay.
 - HUMAN_DIRECTIVE@TQT-GUIDE-AND-FLOW-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,README.md,COLLAB.md} · step=hiệu chỉnh Over view và phân loại quy trình · recorded_by=OpenAI-main/GPT Chat · quote="thiết kế 1 nơi để viết chú giải và đưa luôn vào đó ... luồng làm việc đó cuối cùng đưa vào đâu?" · text=Chú giải ngắn một nguồn, luồng có quy trình sở hữu, không chạy khi chưa phê duyệt · audit=Owner trực tiếp GPT Chat ngày 09/10/2026.
  
 ## Owner cần quyết
 - **Q02 · ĐỀ NGHỊ:** Owner xem bản đề xuất `MOW-TH-005 · Áp dụng một quy trình từ chọn đến bàn giao` và chốt phạm vi/ý nghĩa; chưa phê duyệt thì vẫn DRAFT, không READY/RUN. Không tạo thêm khái niệm “luồng” ngoài quy trình.
-- Q01 đã chốt theo D19: GPT Chat là Host hiện hành (09/10); D17 giao Astra Codex và D06 giao GPT Chat trước đó giữ làm lịch sử. Mục tiêu ngắn trong PR-07 vẫn do Owner/Claude bàn, Host chưa áp.
+- Q01 hiện hành D22: Astra Codex nhận lại Host (09/10); D19/D17/D06 giữ lịch sử. Mục tiêu ngắn trong PR-07 vẫn do Owner/Claude bàn, Host chưa áp.
 
 ## Ý kiến và bằng chứng
+### P21 · Host rà Overview và ranh giới quy trình · THIẾT KẾ ĐÃ HIỆU CHỈNH
+- Based_on: 44a960a; D22 trực tiếp. Giữ 5 dòng tổng hợp (4 thiết kế + 1 đề xuất), 12 thành phần và 159 câu/53 nhóm. Không đổi mục tiêu gốc, Công thức hay T2.5.
+- Tiếp thu 005 về nội hàm một lượt áp dụng: chọn một quy trình; khai 6 MOT đề xuất và đường PASS/FAIL/BLOCKED/REJECTED/CANCELLED; tách ứng viên khỏi lời gọi có điều kiện. Giữ 005 chưa duyệt, chưa chốt Chuỗi, chưa quyền chạy.
+- Sửa chú giải 004 cho phép 001 gọi rà UI; 003 chỉ gọi 004 khi ca là UI; câu hỏi dùng lại phiếu cùng phạm vi/phiên. Sửa phần Tool008 từng còn trùng sửa–kiểm–đóng: bản cũ nằm lịch sử, phần hiện hành chỉ ghi/đọc/bàn giao vào 002.
+- Gắn 14 phần hướng dẫn/tiêu chí/câu hỏi vào MOW sở hữu; 12 thành phần khai object_type=MOW ở danh mục thiết kế, không tạo loại Tool/luồng riêng. Mapping MOT/runtime của các phần này chưa được chứng minh đầy đủ.
+- Overview đưa 005 ra cửa áp dụng riêng, không nằm dưới mũi tên của 001; trạng thái và đếm đọc từ catalog. Hai HTML tham khảo giữ nguyên vai trò trình bày, không là nguồn thứ hai.
+- Kiểm: 54 tham chiếu; 17 chú giải; 20 ca checkpoint; 87 ca mô phỏng nền. Kiểm mới check-overview-consistency.py: một mẫu hợp lệ và 8 tình huống sai bị từ chối. Tất cả là kiểm thiết kế, chưa PG.
+- Chưa khép kín: TQT-ISS-004 cắt chuyển nguồn Tool/sổ; TQT-ISS-007 gồm 5 chốt thực thi + MOT/hợp đồng gọi. Đồng bộ danh mục không phải đồng bộ đầy đủ nội dung/hợp đồng. JEV tham khảo gen-dec-1791559006-Ne77oJBdFexGl7Hooi5P; Host giữ quyết định cuối.
+
 ### P20 · Rà đồng bộ nguồn và danh sách Master · ĐÃ XÁC NHẬN PHẠM VI THIẾT KẾ
 Ghế: GPT Chat · phạm vi chỉ tài liệu/nhãn/UI đọc; không sửa Công thức, quyền RUN, backend hoặc PG.
 - Nguồn: `view.html#tqt-composite-processes.catalog` gồm 4 thiết kế + 1 dự thảo 005, 12 Quy trình thành phần, 17 chú giải. `ui/tqt-catalog-source-v1.js` đọc bản đã xuất theo publishedRevision, không có kho dữ liệu mới.
