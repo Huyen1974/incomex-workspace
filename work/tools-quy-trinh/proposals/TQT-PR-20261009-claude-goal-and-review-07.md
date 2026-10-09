@@ -114,7 +114,8 @@ Quy tắc đề xuất từ nay cho task này: **chỉ đạo mới của Owner 
 - Dòng `Xác nhận User:` vẫn viết "chỉ định trực tiếp GPT Chat làm Host" ngay trên dòng `Host: Astra Codex`.
 - `## Owner cần quyết` vẫn là Q01 "GPT Chat làm Host (D06)".
 - Danh sách Quyết định Owner chưa có dòng D cho việc Owner giao Astra Codex làm Host ngày 08/10. Việc này chỉ thấy ở dòng Xác nhận bổ sung, ở ô 1 và ở HỘI ĐỒNG.
-- **Đề xuất:** thêm một D kèm HUMAN_DIRECTIVE cho lần đổi Host. Sửa dòng `Xác nhận User:` thành: `ĐÃ XÁC NHẬN — Owner chốt ô 1–2 bản ngắn ngày 09/10/2026 <giờ> (D17); Host Astra Codex do Owner chỉ định trực tiếp 08/10/2026. Bản 08/10 ở Vòng trước.`
+- **Đề xuất làm ngay:** thêm một D kèm HUMAN_DIRECTIVE cho lần đổi Host. Trong dòng `Xác nhận User:`, thay "GPT Chat làm Host" bằng "Astra Codex làm Host, Owner chỉ định trực tiếp 08/10/2026". Sửa Q01 ở `## Owner cần quyết` cho khớp.
+- **Chỉ thêm khi mục 8 có lời Owner:** thêm vào dòng `Xác nhận User:` cụm "Owner chốt ô 1–2 bản ngắn ngày 09/10/2026 <giờ> (D17); bản 08/10 ở Vòng trước".
 
 ### 4.5 🟡 Khoá kỹ thuật vẫn chưa có (TQT-ISS-006)
 - "Một bên sửa" hiện chỉ dựa vào việc các AI tự giữ đúng README. Gateway chưa chặn AI khác ghi vào main. Giữ ISS-006 mở và không ghi là đã khoá.
