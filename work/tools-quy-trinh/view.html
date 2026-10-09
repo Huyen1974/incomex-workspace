@@ -10039,6 +10039,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "MOW-TH-001",
         "name": "Chế tạo một chi tiết/chức năng",
+        "guide": {
+          "purpose": "Chế tạo hoặc nâng cấp một chức năng đến lúc bàn giao.",
+          "when": "Có yêu cầu xây dựng/nâng cấp chức năng.",
+          "avoid": "Chỉ xử lý lỗi riêng lẻ hoặc kiểm một UI.",
+          "done": "Chức năng được nghiệm thu và có nơi nhận."
+        },
         "goal": "Từ mục Master tới chức năng được nghiệm thu và bàn giao vận hành.",
         "version": "1.0-design",
         "object_type": "MOW",
@@ -10120,6 +10126,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "MOW-TH-002",
         "name": "Xử lý sai/thiếu đến khi kết thúc",
+        "guide": {
+          "purpose": "Khép kín một phát hiện sai/thiếu ở đúng nơi bị ảnh hưởng.",
+          "when": "Đã phát hiện sai hoặc thiếu và cần xử lý.",
+          "avoid": "Không có vấn đề cụ thể cần khắc phục.",
+          "done": "Từng nơi được kiểm lại; kết quả trả đúng nơi phát hiện."
+        },
         "goal": "Mọi phát hiện có nơi nhận, được xử lý và trả kết quả về đúng nơi phát hiện.",
         "version": "1.0-design",
         "object_type": "MOW",
@@ -10168,6 +10180,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "MOW-TH-003",
         "name": "Hiệu chỉnh hướng dẫn và quy trình",
+        "guide": {
+          "purpose": "Sửa hướng dẫn để AI mới đọc và tự làm được.",
+          "when": "Hướng dẫn thiếu, sai hoặc làm theo không ra sản phẩm.",
+          "avoid": "Hướng dẫn đã đúng, chỉ sản phẩm bị lỗi.",
+          "done": "Hướng dẫn đã sửa và AI mới thử lại có bằng chứng."
+        },
         "goal": "Người/AI mới làm theo được; vướng đâu sửa đúng nguồn và thử lại.",
         "version": "1.0-design",
         "object_type": "MOW",
@@ -10211,6 +10229,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "MOW-TH-004",
         "name": "Rà soát một UI đến kết luận",
+        "guide": {
+          "purpose": "Kiểm tra UI theo yêu cầu và kết luận có căn cứ.",
+          "when": "Cần rà thiết kế, thao tác, nhánh hoặc nghiệm thu UI.",
+          "avoid": "Đang chế tạo cả chức năng, không chỉ rà UI.",
+          "done": "Có phiếu kiểm, kết luận và nơi xử lý mọi điểm chưa đạt."
+        },
         "goal": "Đủ câu trả lời, ca kiểm và kết luận; mọi chỗ thiếu có nơi xử lý.",
         "version": "1.0-design",
         "object_type": "MOW",
@@ -10275,12 +10299,121 @@ main{max-width:1240px} [hidden]{display:none!important}
           "records": "Đã chỉ nguồn · chưa nối máy",
           "closure": "Chưa chứng minh"
         }
+      },
+      {
+        "code": "MOW-TH-005",
+        "name": "Áp dụng một quy trình từ chọn đến bàn giao",
+        "goal": "Điều phối một lượt dùng quy trình chuẩn đến khi kết quả được kiểm và giao đúng nơi.",
+        "guide": {
+          "purpose": "Điều phối một lượt áp dụng quy trình, từ chọn đến bàn giao.",
+          "when": "Một công việc đã có quy trình phù hợp và phải nộp kết quả.",
+          "avoid": "Chỉ hỏi thông tin, chưa có quy trình hợp lệ; không gọi lồng lại trong quy trình con.",
+          "done": "Kết quả đạt và nơi nhận xác nhận; chưa đạt phải DỪNG có lý do."
+        },
+        "version": "0.1-draft",
+        "object_type": "MOW",
+        "process_kind": "aggregate",
+        "chainId": null,
+        "state": "ĐỀ XUẤT · chưa phê duyệt",
+        "aliases": [],
+        "href": "#MOW-TH-005",
+        "source_ref": "TQT-D21",
+        "route": [
+          "Chọn quy trình",
+          "Lấy và trả lời câu hỏi",
+          "Gọi quy trình làm việc",
+          "Kiểm kết quả",
+          "CHƯA ĐẠT → xử lý/kiểm lại; ĐẠT → bàn giao"
+        ],
+        "child_refs": [
+          {
+            "code": "QT-CTCM-012",
+            "version": "1.0-design"
+          },
+          {
+            "code": "MOW-TH-001",
+            "version": "1.0-design"
+          },
+          {
+            "code": "MOW-TH-002",
+            "version": "1.0-design"
+          },
+          {
+            "code": "MOW-TH-003",
+            "version": "1.0-design"
+          },
+          {
+            "code": "MOW-TH-004",
+            "version": "1.0-design"
+          }
+        ],
+        "workflow": {
+          "scope": "Một lượt áp dụng của một công việc, thuộc một chuyên môn xác định; chỉ gọi ở cửa nhận việc, không gọi lại bên trong quy trình con.",
+          "prerequisite": "CHUNG.APQUYTRINH kiểm mã và điều kiện trước RUN; không thay thế toàn bộ quy trình này.",
+          "steps": [
+            {
+              "id": "S1",
+              "label": "Chọn quy trình",
+              "result": "Mã/phiên, phạm vi và quyền",
+              "ref": "CHUNG.APQUYTRINH"
+            },
+            {
+              "id": "S2",
+              "label": "Trả lời câu hỏi",
+              "result": "Phiếu câu hỏi đủ căn cứ",
+              "ref": "QT-CTCM-012"
+            },
+            {
+              "id": "S3",
+              "label": "Làm theo quy trình đã chọn",
+              "result": "Sản phẩm và bằng chứng",
+              "ref": "selected_process_version"
+            },
+            {
+              "id": "S4",
+              "label": "Kiểm kết quả",
+              "result": "ĐẠT / CHƯA ĐẠT / BỊ CHẶN",
+              "ref": "selected_process.acceptance"
+            },
+            {
+              "id": "S5",
+              "label": "CHƯA ĐẠT → xử lý",
+              "result": "Gọi ② hoặc ③, sau sửa kiểm lại",
+              "ref": "MOW-TH-002|MOW-TH-003"
+            },
+            {
+              "id": "S6",
+              "label": "ĐẠT → bàn giao",
+              "result": "Người nhận xác nhận đúng kết quả",
+              "ref": "selected_process.recipient"
+            }
+          ],
+          "branches": {
+            "PASS": "S6",
+            "FAIL": "S5 → S3/S4",
+            "BLOCKED": "DỪNG; ghi rõ lý do và NEXT_TRIGGER"
+          },
+          "closure": "Chỉ XONG nếu kiểm đạt và có xác nhận nhận; không đạt không được báo XONG."
+        },
+        "gates": {
+          "identity": "Mã thiết kế đề xuất, chưa chốt",
+          "children": "Có nguồn tham chiếu; chưa thử đầu-cuối",
+          "connections": "Thiết kế đường gọi và rẽ nhánh",
+          "records": "Chưa nối máy",
+          "closure": "Chưa nghiệm thu"
+        }
       }
     ],
     "normal_processes": [
       {
         "code": "TOOL-CTCM-001",
         "name": "Lập hành trình",
+        "guide": {
+          "purpose": "Xác định các bước, nhánh và nơi giao nhận.",
+          "when": "Cần tách mục tiêu thành trình tự làm việc.",
+          "avoid": "Chỉ kiểm một kết quả đã có.",
+          "done": "Có trình tự, đầu vào/ra và điều kiện đi tiếp."
+        },
         "version": "1.0-design",
         "kind": "normal",
         "href": "#tqt-ctcm-1",
@@ -10290,6 +10423,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "TOOL-CTCM-002",
         "name": "Rà như người mới",
+        "guide": {
+          "purpose": "Thử đọc hướng dẫn không dựa vào trí nhớ phiên cũ.",
+          "when": "Cần kiểm AI mới có tự bắt đầu và làm được không.",
+          "avoid": "Chỉ kiểm cú pháp hoặc dữ liệu.",
+          "done": "Có kết quả thử độc lập và chỗ vướng cụ thể."
+        },
         "version": "1.0-design",
         "kind": "normal",
         "href": "#tqt-ctcm-2",
@@ -10299,6 +10438,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "TOOL-CTCM-003",
         "name": "Phủ các nhánh",
+        "guide": {
+          "purpose": "Kiểm các đường đúng, sai và ngoại lệ.",
+          "when": "Một quy trình/UI có nhiều điều kiện rẽ nhánh.",
+          "avoid": "Chưa có nhánh hoặc yêu cầu để đối chiếu.",
+          "done": "Mỗi nhánh bắt buộc có ca và kết quả mong đợi."
+        },
         "version": "1.0-design",
         "kind": "normal",
         "href": "#tqt-ctcm-3",
@@ -10308,6 +10453,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "TOOL-CTCM-004",
         "name": "Rà config",
+        "guide": {
+          "purpose": "Đối chiếu thiết lập, nguồn và quyền áp dụng.",
+          "when": "Công việc có cấu hình hay quy tắc kích hoạt.",
+          "avoid": "Chỉ viết nội dung, không có Config liên quan.",
+          "done": "Cấu hình đúng phạm vi hoặc có ghi chỗ thiếu."
+        },
         "version": "1.0-design",
         "kind": "normal",
         "href": "#tqt-ctcm-4",
@@ -10317,6 +10468,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "TOOL-CTCM-005",
         "name": "Rà dữ liệu và lỗi",
+        "guide": {
+          "purpose": "Kiểm dữ liệu nhận/trả và đường xử lý lỗi.",
+          "when": "Có Field, dữ liệu, validation hoặc thông báo lỗi.",
+          "avoid": "Chỉ rà hình thức giao diện.",
+          "done": "Dữ liệu/nhánh lỗi có ca kiểm và kết luận."
+        },
         "version": "1.0-design",
         "kind": "normal",
         "href": "#tqt-ctcm-5",
@@ -10326,6 +10483,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "TOOL-CTCM-006",
         "name": "Khớp danh tính và nguồn",
+        "guide": {
+          "purpose": "Kiểm đúng mã, phiên bản, đối tượng và nguồn.",
+          "when": "Có liên kết giữa nhiều danh mục, phiên hoặc nơi ghi.",
+          "avoid": "Không có đối tượng hay liên kết cần đối chiếu.",
+          "done": "Các tham chiếu đúng hoặc chỉ rõ mã/nguồn sai."
+        },
         "version": "1.0-design",
         "kind": "normal",
         "href": "#tqt-ctcm-6",
@@ -10335,6 +10498,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "TOOL-CTCM-007",
         "name": "Chạy ca kiểm UI",
+        "guide": {
+          "purpose": "Thực hiện ca thử thao tác UI và ghi bằng chứng.",
+          "when": "UI đã có phần để kiểm trên màn hình.",
+          "avoid": "UI chưa dựng hoặc chỉ đang thiết kế câu hỏi.",
+          "done": "Ca kiểm có kết quả thật, phạm vi và bằng chứng."
+        },
         "version": "1.0-design",
         "kind": "normal",
         "href": "#tqt-ctcm-7",
@@ -10344,6 +10513,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "TOOL-CTCM-008",
         "name": "Ghi sổ và xử lý UI thiếu/lỗi",
+        "guide": {
+          "purpose": "Ghi đúng hồ sơ lỗi UI và nơi bị ảnh hưởng.",
+          "when": "Rà UI thấy lỗi/thiếu chưa giải quyết.",
+          "avoid": "Không thay việc khép kín của MOW-TH-002.",
+          "done": "Có mã hồ sơ, người giữ và bước xử lý tiếp."
+        },
         "version": "1.0-design",
         "kind": "normal",
         "href": "#tqt-ctcm-8",
@@ -10354,6 +10529,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "TOOL-CTCM-009",
         "name": "Đóng gói và phát hành DOT",
+        "guide": {
+          "purpose": "Chuẩn bị và kiểm gói DOT để bàn giao phát hành.",
+          "when": "Phần việc đã được chọn tự động hóa bằng DOT.",
+          "avoid": "Thiết kế thủ công chưa cần DOT.",
+          "done": "Có gói, điều kiện phát hành và bằng chứng kiểm."
+        },
         "version": "1.0-design",
         "kind": "normal",
         "href": "#tqt-ctcm-9",
@@ -10363,6 +10544,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "TQT-TH-001-PG",
         "name": "Triển khai và khôi phục",
+        "guide": {
+          "purpose": "Kiểm triển khai và khả năng khôi phục.",
+          "when": "Cần đưa gói đã duyệt sang môi trường thực.",
+          "avoid": "Chưa có quyền/gói được duyệt để triển khai.",
+          "done": "Triển khai được kiểm và khôi phục có bằng chứng."
+        },
         "version": "1.0-design",
         "kind": "normal",
         "href": "#TQT-TH-001-PG",
@@ -10372,6 +10559,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "TQT-TH-001-OPS",
         "name": "Log, phản hồi và bàn giao vận hành",
+        "guide": {
+          "purpose": "Giao người vận hành và theo dõi phản hồi.",
+          "when": "Sản phẩm cần người nhận vận hành lâu dài.",
+          "avoid": "Chỉ duyệt bản thiết kế, chưa có sản phẩm chạy.",
+          "done": "Có log, phản hồi và xác nhận người nhận."
+        },
         "version": "1.0-design",
         "kind": "normal",
         "href": "#TQT-TH-001-OPS",
@@ -10381,6 +10574,12 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "QT-CTCM-012",
         "name": "Khai báo và kiểm bộ câu hỏi",
+        "guide": {
+          "purpose": "Lấy đúng câu hỏi, trả lời và kiểm đủ căn cứ.",
+          "when": "Cần ghép câu hỏi cho một lần làm việc.",
+          "avoid": "Không thay quy trình thực hiện hay kết luận sản phẩm.",
+          "done": "Phiếu đúng đối tượng, câu bắt buộc và bằng chứng."
+        },
         "version": "1.0-design",
         "kind": "normal",
         "href": "#QT-CTCM-012",
