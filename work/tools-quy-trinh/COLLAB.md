@@ -89,6 +89,7 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 - **Phiếu đáp án và kết quả duy nhất:** [UI-REVIEW-MOW001.json](../mow-mot-moit-mout/UI-REVIEW-MOW001.json), mục process_trial_20261009. 44 mã câu/120 lần áp dụng +7 Config×3 +24 ô UI cũ. Hợp đồng A/B/C đã chốt cho thiết kế; không gọi là backend thật đã có.
 - Host bấm 14 ca: nguồn live chưa nối; demo SĐT→2, lọc MOIT→1; mô tả chưa semantic; 1.3 không có JEV nhưng checkbox tạo receipt → FAIL theo hợp đồng. Back/input/clear/Enter và 390px đã kiểm; console không có lỗi trong phiên đo.
 - **DOER_CONFIRM=PARTIAL** cho toàn lượt rà UI: đọc/ghép/trả lời và chẩn đoán làm được; UI001 và runtime chưa nghiệm thu. Check-ui-review vẫn BLOCKED; không hạ gate. Ghi đúng OPEN-03/04/08/05/09; OPEN-10 ngoài B1, không ép tạo mới.
+- Kiểm sau đồng bộ 5ada3e0: trang thật giữ140/140 câu, 8 ghi chú; B1.1+FIELD+UI nhận5 mục; đổi MOIT chỉ còn B1 và UI, không nhận ghi chú Field; B2+FIELD+UI chỉ còn Field/UI; B1.2+FIELD+CONFIG nhận đúng ghi chú riêng1.2 vàConfig. Catalog hiển thị8 mục. Phiếu và toàn bộ9 bộ ghép đã kiểm khớp44 Q_ID/120 lần áp dụng. Gate repo job c6f58d35b17749019bcd1084444a623a vẫn BLOCKED đúng với trạng thái sản phẩm.
 - Còn làm: sửa UI001/Config theo đáp án A/B/C, hòa giải nghĩa màu cũ tại NHCN-003 rồi kiểm lại; nối nguồn/rule thật trước khi báo live đạt. Lượt này rà, không sửa runtime hoặc Master; MOW002 chưa làm.
 
 #### TQT-HOST-REVIEW-GPTPRO-R2-20261008
