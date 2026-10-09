@@ -399,15 +399,16 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - HUMAN_DIRECTIVE@TQT-GUIDE-AND-FLOW-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,README.md,COLLAB.md} · step=hiệu chỉnh Over view và phân loại quy trình · recorded_by=OpenAI-main/GPT Chat · quote="thiết kế 1 nơi để viết chú giải và đưa luôn vào đó ... luồng làm việc đó cuối cùng đưa vào đâu?" · text=Chú giải ngắn một nguồn, luồng có quy trình sở hữu, không chạy khi chưa phê duyệt · audit=Owner trực tiếp GPT Chat ngày 09/10/2026.
  
 ## Owner cần quyết
+- **Q02 · ĐỀ NGHỊ:** Owner xem bản đề xuất `MOW-TH-005 · Áp dụng một quy trình từ chọn đến bàn giao` và chốt phạm vi/ý nghĩa; chưa phê duyệt thì vẫn DRAFT, không READY/RUN. Không tạo thêm khái niệm “luồng” ngoài quy trình.
 - Q01 đã chốt theo D19: GPT Chat là Host hiện hành (09/10); D17 giao Astra Codex và D06 giao GPT Chat trước đó giữ làm lịch sử. Mục tiêu ngắn trong PR-07 vẫn do Owner/Claude bàn, Host chưa áp.
 
 ## Ý kiến và bằng chứng
-### P19 · Một nguồn chú giải; dự thảo Quy trình tổng hợp ⑤ sở hữu sáu bước · ĐANG KIỂM
+### P19 · Một nguồn chú giải; dự thảo Quy trình tổng hợp ⑤ sở hữu sáu bước · ĐÃ KIỂM THIẾT KẾ, CHỜ OWNER
 Ghế: GPT Chat (OpenAI-main). Việc hôm nay chỉ thiết kế và trình bày, không RUN, không mutation ở Công thức/MOW nguồn, UI runtime hoặc PostgreSQL.
 - Based_on: mục tiêu §0 đã xác nhận, chỉ đạo trực tiếp D21, 4 Quy trình tổng hợp/12 thành phần trong `tqt-composite-processes.catalog`, quy trình cổng `CHUNG.APQUYTRINH` ở `work/mow-mot-moit-mout/ban-duyet.html`, và `QT-CTCM-012` vốn lo câu hỏi.
 - Mỗi record có **một trường guide** 4 giá trị ngắn: `purpose/when/avoid/done`; UI chỉ mở khi nhấn "Chú giải", không tạo file/table/hướng dẫn thứ hai. Đổi mỗi lời giải thích tại nguồn này.
 - `MOW-TH-005` trạng thái **ĐỀ XUẤT · chưa phê duyệt**, `version=0.1-draft`, `chainId=null` (chưa chốt thuộc Chuỗi nào), 6 bước có ref, nhánh PASS→bàn giao, FAIL→sửa và kiểm lại, BLOCKED→DỪNG; một lượt điều phối, không tự gọi lại ở quy trình con. Mã đăng trong catalog để đọc/đối chiếu thiết kế; **chưa là quyền chạy, chưa có Master/PG lifecycle approval**.
-- Giữ 12 Quy trình thành phần; không mở thêm thứ 13, không thay nội hàm `CHUNG.APQUYTRINH` hoặc `QT-CTCM-012`. Chờ kiểm visual desktop/mobile, cổng refs và mirror.
+- Giữ 12 Quy trình thành phần; không mở thêm thứ 13, không thay nội hàm `CHUNG.APQUYTRINH` hoặc `QT-CTCM-012`. **Đã kiểm:** trực tiếp #over-view desktop 1280 và mobile 390 HTTP 200/console 0; xem #MOW-TH-005 revision 8b1a96e HTTP 200/console 0, đã phân nhánh ĐẠT/CHƯA ĐẠT (sau đó rút gọn nhãn lặp). Master độc lập hiển thị mã 001…005, 005 ghi ĐỀ XUẤT. Checker catalog 5/12, 54 tham chiếu, exit0; checker model 87/87 SIMULATION_ONLY, gói NOT_FROZEN. Bản cập nhật cuối `759e1b10609ba07bab893e2401d9058022804176`; giai đoạn này chỉ đạt thiết kế, chưa chứng minh agent mới làm theo, chưa PG hay duyệt 005.
  
 ### P18 · Over view: vòng số rõ, STT thành phần và 2 sơ đồ HTML · ĐÃ KIỂM HIỂN THỊ
 Ghế: GPT Chat (OpenAI-main) · Phạm vi: chỉ trình bày, đọc cùng một catalog, không sửa nghiệp vụ.
