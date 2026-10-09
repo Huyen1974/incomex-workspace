@@ -29,6 +29,10 @@ PROPOSED_CHANGE: Host xét ngay mục 4–6: chỉ mục ý kiến (4.2), sửa 
 
 Áp dụng: 15 dòng ô 1 bản 08/10 (từ Đích đến “Chưa làm lúc này”) **giữ nguyên, đã chốt**. Chỉ rút gọn phần bổ sung từ 08/10 trở đi, làm theo 3 bước. Bản nháp ở mục 2 bên dưới **không dùng nữa**. Bản rút gọn chỉ ghi lên repo sau khi Owner duyệt.
 
+**Owner · 09/10/2026 22:58 +07 (nguyên văn):** “Có thêm 1 vấn đề. Nguyên tắc là tạo ra các quy trình tổng hợp là liên kết lại: Chỉ đạo là mọi tiến trình cần được "Quy trình hoá". các việc phức tạp thì tạo thêm các quy trình tổng hợp. Không có tiến trình thực hiện nào đứng lẻ (không nằm trong quy trình, không có quy trình nào không có ID, không nằm trong master list. Bô sung phần này rồi bạn sửa lại luôn mục tiêu giúp tôi nhé.”
+
+Áp dụng: nguyên tắc này vào bản mục tiêu rút gọn đang trình Owner (chưa lên repo). Với Host, nguyên tắc này biến C1/C2 ở mục 4.7 thành bắt buộc. Hiện có ba chỗ đang trái nguyên tắc: TQT-TH-001 chưa có ID Master (`master_record_id = null`, vướng cách đăng ký MOW tổng hợp · TQT-ISS-007); 21 lời gọi quy trình con không có mã; quy trình `DRAFT-MOW-GAP-001` đứng lẻ (mã nháp, không quy trình tổng hợp nào gọi).
+
 Host ghi thành D17 + HUMAN_DIRECTIVE@TQT-GOAL-SHORT-20261009 khi áp.
 
 ---
