@@ -484,7 +484,7 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 22:4x +07 · GPT Chat Host · **P261 APPROVED_NO_CLAIM ROOT CAUSE · PROMPT CLAIMGATE DRAFT · CLAUDE REVIEW · NO RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 22:48 +07 · GPT Chat Host · **P261 APPROVED_NO_CLAIM ROOT CAUSE · PROMPT CLAIMGATE DRAFT · CLAUDE REVIEW · NO RUN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
@@ -5352,7 +5352,7 @@ SAU ĐỌC: một P báo cáo có receipt tệp/giờ, KQ terminal + đóng CLI;
 - **D2 readiness:** chỉ sau 3 KẾT QUẢ mới dùng D2 prompt này để Host+Claude review/READY theo DROOT30/31, Owner paste 1 CLI; không giữ shared lease khi không mutation. Kết thúc mới xét N3 2a/N3 2b. Nợ systemd/cron/disk thuộc VPSC; P254 INV20 graph-v1 belongs Graph R8C, không gộp.
 - **NEXT_TRIGGER=GRAPH_R8C_TERMINAL_AND_SHARED_VPS_RELEASED_THEN_HOST_ASSIGN_CANARY_1**; không có auto scheduling, không hứa background action.
 
-### P261 · GPT Chat Host · 2026-10-09 22:4x +07 · **ACCEPT DIAG APPROVED_NO_CLAIM · DRAFT CLAIMGATE FIX S0–S4 · CLAUDE REVIEW EXACT SHA · NO RUN**
+### P261 · GPT Chat Host · 2026-10-09 22:48 +07 · **ACCEPT DIAG APPROVED_NO_CLAIM · DRAFT CLAIMGATE FIX S0–S4 · CLAUDE REVIEW EXACT SHA · NO RUN**
 Ghế: openai-main GPT Chat Host HJW · post-KQ N3 2a vòng 1/3 · Claude Chat Reviewer/claude-main Owner chuyển tay; Host chưa phát READY/CLI RUN.
 - **Mục tiêu/roadmap (điểm danh):** Nền Hermes/thiết kế/lộ trình/N1/N2/N3 đo thật chặng 1 đã PASS; 2a P225 dispatcher/queue/result sink deployed, P253 false slow-warning plugin e6ebf114 LIVE Guard 22/22 đạt; test success sau fix đang **0/3** (negative SAFEFAIL P232 có). Hôm nay P259 vé #1 Owner bấm, không claimed ⇒ BLOCKER của chính N3 2a, không được đẩy qua N6 hay VPSC. Xong repair+3 vé thật+đọc D2+Claude/GPT ACCEPT mới mở 2b Claude Routine → N4 Council → N5 hai cấp/giám sát → N6 T1–T9. Không thay tiêu chí hay phân vai MANUAL/Owner.
 - **ACCEPT Claude Code chẩn đoán, không claim patch đã xong:** `APPROVED_NO_CLAIM` từ `cron/notepad.db`, journal/hjw_gate.py: click 15:22:30.915 UTC, APPROVED/QUEUED trong <1s, first claim 15:22:35.9, 3 kick retry :42.7/:47.1/:51.3 cùng `EXACT_MATCH_REQUIRED`, CHẬM thật #169 15:23:05.6 khi 0 blocker, ticks :25/:28/:31 cùng lỗi, tick 15:34 `OPERATION_ID_REUSED`, snapshot 15:33:59Z 8 tries/0 claimed/0 model, repo ASSIGN still open. Gate `3019730a` đếm dup **trong vùng máy** 1 nhưng gửi old_str full line tới MCP editor đếm **toàn file** 3 (machine + bản nháp P258 + quote P259). API từ chối là hợp lệ, không phải lỗi Owner/click/Guard/permission. Worker chỉ đọc, không mutation; lượt đọc vượt trần 8 phút ~1 phút là lệch nhỏ kỷ luật, không thay kỹ thuật.
