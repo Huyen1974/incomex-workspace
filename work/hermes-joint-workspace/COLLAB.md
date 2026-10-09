@@ -584,6 +584,41 @@ BLOCKED vì thiếu STATUS là kết quả MONG ĐỢI của negative test; nế
 CẤM: tự sửa đầu ra, gọi model lần hai, tạo schedule, thay quyền/config/Guard hoặc viết khác HJW COLLAB.
 <!-- SPEC_V1:HJW-N3-CANARY-SAFEFAIL-20261008-02:END -->
 
+<!-- PREPARED_FOR_P258 · SPEC_V1 ONLY / NO ASSIGN => NO TRIGGER -->
+<!-- SPEC_V1:HJW-N3-CANARY-SUCCESS-20261009-01:BEGIN -->
+CANARY: N3 2a · LIVE TEST-ONLY SUCCESS 1/3 · generation=1 · không thuộc ghế Council/Reviewer thực.
+VIỆC: N3 TEST-ONLY 1/3: báo cáo ngắn tình trạng đã làm và chưa làm ở N3 sau P253. Owner phải bấm Cho chạy cho chính thẻ này; riêng 02+03 Host phát đồng thời chỉ sau KẾT QUẢ 01, Owner bấm hai thẻ sát nhau (02 trước, 03 sau) để thử FIFO/queue; không claim nếu thiếu quyền.
+ĐỌC: AGENTS.md A9-GLB, HJW COLLAB Bảng điều khiển hiện hành, P253 và SPEC này. Mỗi nguồn chỉ lấy cửa sổ nhỏ cần thiết, tối đa ba vùng đọc.
+GHI: Model chỉ READ-ONLY qua công cụ đã duyệt; tuyệt đối không dùng workspace write. Chỉ deterministic result sink của Hermes được ghi đúng một mục P, RESULT_V1 và NEXT vào work/hermes-joint-workspace/COLLAB.md. Không thay AGENTS/PROMPT/runtime/Graph/VPSC.
+OUTPUT MODEL: dòng đầu CHÍNH XÁC là STATUS: DONE HJW-N3-CANARY-SUCCESS-20261009-01; nội dung: Trong 3–5 câu tiếng Việt chính xác, nói N1/N2/N3 chặng 1 đã xong; P253 sửa CHẬM sai đã chạy; N3 2a chưa nghiệm thu vì còn ba vé live; 2b/N4–N6 chưa mở. Dựa trên Bảng/P253, không khẳng định điều chưa thấy. Tối đa 1500 ký tự Unicode, không machine-marker/authority line, không dòng bắt đầu #, không secret/PII.
+MÁY ĐO: clicked_at, ack_at, claimed_at, start_notice_at, model_start_at, model_end_at, repo_write_at, result_notice_at; provider/session, body_sha256, model_calls=1, notice KẾT QUẢ và NEXT thật trong ledger. Không tự khai PASS khi có UNKNOWN.
+BLOCKED: thiếu nguồn, không đọc được đúng đường, sai quyền/STATUS/schema, phần vượt scope hay sinh lời khẳng định không chứng minh được => output STATUS: BLOCKED HJW-N3-CANARY-SUCCESS-20261009-01 kèm lý do ngắn; deterministic sink ghi failure_class, 1 KẾT QUẢ, không tự retry/model lần hai.
+CẤM: model gọi AI khác, lập lịch, tạo assignment, sửa repo/Guard, tự chốt hội đồng, đưa ra quyết định thay Host; Hermes TEST-ONLY một model call.
+<!-- SPEC_V1:HJW-N3-CANARY-SUCCESS-20261009-01:END -->
+
+<!-- SPEC_V1:HJW-N3-CANARY-SUCCESS-20261009-02:BEGIN -->
+CANARY: N3 2a · LIVE TEST-ONLY SUCCESS 2/3 · generation=1 · không thuộc ghế Council/Reviewer thực.
+VIỆC: N3 TEST-ONLY 2/3: phân loại đúng chủ các phần dư HJW, Graph và VPSC từ bảng hiện hành. Owner phải bấm Cho chạy cho chính thẻ này; riêng 02+03 Host phát đồng thời chỉ sau KẾT QUẢ 01, Owner bấm hai thẻ sát nhau (02 trước, 03 sau) để thử FIFO/queue; không claim nếu thiếu quyền.
+ĐỌC: AGENTS.md A9-GLB; root COLLAB vùng Đang làm chỉ ba mục HJW/Graph/VPSC; HJW Bảng và SPEC này. Tối đa ba cửa sổ nhỏ, không mở file nhạy cảm.
+GHI: Model chỉ READ-ONLY qua công cụ đã duyệt; tuyệt đối không dùng workspace write. Chỉ deterministic result sink của Hermes được ghi đúng một mục P, RESULT_V1 và NEXT vào work/hermes-joint-workspace/COLLAB.md. Không thay AGENTS/PROMPT/runtime/Graph/VPSC.
+OUTPUT MODEL: dòng đầu CHÍNH XÁC là STATUS: DONE HJW-N3-CANARY-SUCCESS-20261009-02; nội dung: Tóm tắt 3 trách nhiệm: HJW nghiệm thu 2a; Graph kiểm đầu nối Mac/cổng đọc riêng; VPSC xử lý sự cố sức khỏe VPS khi có chứng cứ. Ghi đúng trạng thái đang có, không tự báo XONG cho Graph/N3 hoặc giao việc cho ai. Tối đa 1500 ký tự Unicode, không machine-marker/authority line, không dòng bắt đầu #, không secret/PII.
+MÁY ĐO: clicked_at, ack_at, claimed_at, start_notice_at, model_start_at, model_end_at, repo_write_at, result_notice_at; provider/session, body_sha256, model_calls=1, notice KẾT QUẢ và NEXT thật trong ledger. Không tự khai PASS khi có UNKNOWN.
+BLOCKED: thiếu nguồn, không đọc được đúng đường, sai quyền/STATUS/schema, phần vượt scope hay sinh lời khẳng định không chứng minh được => output STATUS: BLOCKED HJW-N3-CANARY-SUCCESS-20261009-02 kèm lý do ngắn; deterministic sink ghi failure_class, 1 KẾT QUẢ, không tự retry/model lần hai.
+CẤM: model gọi AI khác, lập lịch, tạo assignment, sửa repo/Guard, tự chốt hội đồng, đưa ra quyết định thay Host; Hermes TEST-ONLY một model call.
+<!-- SPEC_V1:HJW-N3-CANARY-SUCCESS-20261009-02:END -->
+
+<!-- SPEC_V1:HJW-N3-CANARY-SUCCESS-20261009-03:BEGIN -->
+CANARY: N3 2a · LIVE TEST-ONLY SUCCESS 3/3 · generation=1 · không thuộc ghế Council/Reviewer thực.
+VIỆC: N3 TEST-ONLY 3/3: nêu ranh giới Claude Routine chặng 2b và quyền tự động sau 2a. Owner phải bấm Cho chạy cho chính thẻ này; riêng 02+03 Host phát đồng thời chỉ sau KẾT QUẢ 01, Owner bấm hai thẻ sát nhau (02 trước, 03 sau) để thử FIFO/queue; không claim nếu thiếu quyền.
+ĐỌC: AGENTS.md A9-GLB; HJW COLLAB Bảng + §0.1–§0.7, chỉ các đoạn về cấp điều hành và chặng 2b; SPEC này. Tối đa ba cửa sổ ngắn.
+GHI: Model chỉ READ-ONLY qua công cụ đã duyệt; tuyệt đối không dùng workspace write. Chỉ deterministic result sink của Hermes được ghi đúng một mục P, RESULT_V1 và NEXT vào work/hermes-joint-workspace/COLLAB.md. Không thay AGENTS/PROMPT/runtime/Graph/VPSC.
+OUTPUT MODEL: dòng đầu CHÍNH XÁC là STATUS: DONE HJW-N3-CANARY-SUCCESS-20261009-03; nội dung: Nêu trong 3–5 câu: chặng 2b mới đo Claude Routine; Host vẫn quyết định; Hermes chỉ TEST-ONLY và Owner bấm duyệt; chưa tự bật AUTO2/AUTO3, chưa mở N4/N5, không tự nâng quyền. Không đề xuất sửa chính sách. Tối đa 1500 ký tự Unicode, không machine-marker/authority line, không dòng bắt đầu #, không secret/PII.
+MÁY ĐO: clicked_at, ack_at, claimed_at, start_notice_at, model_start_at, model_end_at, repo_write_at, result_notice_at; provider/session, body_sha256, model_calls=1, notice KẾT QUẢ và NEXT thật trong ledger. Không tự khai PASS khi có UNKNOWN.
+BLOCKED: thiếu nguồn, không đọc được đúng đường, sai quyền/STATUS/schema, phần vượt scope hay sinh lời khẳng định không chứng minh được => output STATUS: BLOCKED HJW-N3-CANARY-SUCCESS-20261009-03 kèm lý do ngắn; deterministic sink ghi failure_class, 1 KẾT QUẢ, không tự retry/model lần hai.
+CẤM: model gọi AI khác, lập lịch, tạo assignment, sửa repo/Guard, tự chốt hội đồng, đưa ra quyết định thay Host; Hermes TEST-ONLY một model call.
+<!-- SPEC_V1:HJW-N3-CANARY-SUCCESS-20261009-03:END -->
+<!-- END_PREPARED_FOR_P258 -->
+
 ### 1. Mục tiêu
 - Owner nâng cấp ngày 05/10/2026. Dưới đây là bản tóm; nguyên văn ở mục 3, thiết kế và lộ trình chi tiết ở mục 0.
 - Xây một hệ thống giao việc tự động, đáng tin cậy, lớn lên từ những gì đang chạy thật.
@@ -5291,6 +5326,30 @@ Ghế: openai-main GPT Chat Host · HJW N3 chặng 2a post-KQ · vòng 2/3, revi
 - **SSOT giao việc:** lúc này `0/3`, **chưa thêm ASSIGN vào machine block** để tránh thẻ xuất hiện khi Graph R8C còn có thể STARTED. Chuẩn ID P255 dự kiến `HJW-N3-CANARY-SUCCESS-20261009-01/-02/-03`, generation=1; khi phát thực Host recheck uniqueness/latest AGENTS A9 & vùng máy, gắn SPEC chính ID, machine host identity đúng; không gắn RUN_ID dùng cho server mutation. Trước thẻ phải có Graph R8C terminal KQ & shared lease free, không hard gate theo đồng hồ hoặc schedule. Nếu Graph chưa STARTED thì mặc định Owner vẫn ưu tiên P92 Graph một RUN Mac-only trước để kết thúc R8; chỉ Owner đổi thứ tự. Không ghi STARTED/HOLD cho HJW khi chưa có ticket.
 - **Graph/P254:** giữ đúng Host P254 `APPROVE_PROMOTE_APPS@P254` duy nhất cho Graph R8C user-scope Claude Code và ChatGPT.app Codex, no standalone HJW registrar RUN, không sửa Mac/Graph trong Hermes canary. Graph P92 đã READY@19cb6e8365b62f58f3f298d226129204844ecb3a (0 RUN tại lúc Host đọc); tôn trọng giao trước Graph theo P255/P256. Guard/daemon-reload cron `ws-run-watch`/Directus license transient/disk thuộc đúng VPSC nếu lỗi thật; không reload/whitelist/sửa giờ trong N3.
 - **NEXT_TRIGGER=GRAPH_R8C_TERMINAL_AND_SHARED_VPS_RELEASED_THEN_HOST_ASSIGN_CANARY_1.** Owner tiếp tục Graph R8C nếu đã nhận prompt Graph; sau Graph KQ báo Host HJW, Host fresh-check/fill exactly one A9 ASSIGN+SPEC #1 and Owner bấm Telegram. #2/#3 chỉ sau #1 kết quả và Host xác nhận; cuối D2 read-only evidence + Claude Reviewer & Host chốt 2a. Không thêm Claude review vòng nữa cho D1/D2, không tự khởi RUN/chờ nền.
+
+### P258 · GPT Chat Host · 2026-10-09 22:00 +07 · **DỰNG SẴN BA SPEC + BA ASSIGN JSON + D2 READ-ONLY; INERT WHILE GRAPH P93 STARTED**
+Ghế: openai-main GPT Chat Host · N3 chặng 2a tiếp theo P257 · chuẩn bị chứ chưa GIAO, 0 RUN, 0 vé, 0 lịch AI.
+- **Mục tiêu và chữ ký:** P253 fix live đã đạt Guard 22/22, N3 2a 0/3 canary; Claude P256 ACCEPT D1/D2 và Host P257 đã đóng SOP. Không đổi mục tiêu/roadmap. Bản này chỉ chuẩn bị nguyên văn cho lúc Graph R8C `GS-R8C-MAC-CLIENT-FINAL-20261009-14` có KQ XONG|DỪNG + gỡ root/lease. KHÔNG đăng ký ASSIGN khi Graph P93 STARTED; ba SPEC ở trên *không kích hoạt* nếu chưa có ASSIGN_V1 state=open trong machine zone.
+- **Cổng nhanh sau Graph (chỉ phải kiểm, không soạn lại):** fresh-read Graph KQ + root/Graph/HJW Bảng và latest AGENTS A9; xác minh root lease clear/0 other shared STARTED/0 Hermes job hoặc pending approval, Guard INV19–23/Config CLEAN/no new red; HJW Host-stamp `Host: GPT Chat · Host_ID: GPT-HJW-260922-A` hợp lệ (ở HJW line ~744, riêng commit P119) và current issuer server-side phù hợp; không có STOP/bell/changed SPEC; 3 ID unique, 0 ASSIGN/RESULT trùng. Nếu FAIL ⇒ không phát thẻ, báo blocker một câu; không sửa Guard/cron, không giữ cờ để chờ.
+- **GIAO #1 khi mở cổng:** Host tạo đúng một dòng `ASSIGN_V1` của ID `...-01` từ mẫu sau vào MACHINE_ASSIGNMENTS_V1 vùng HJW, `state=open`, commit riêng. SPEC #1 đã lưu sẵn dưới đây ở khuôn SPEC thật, không sửa sau Owner click. Machine scanner phát thẻ MANUAL; Host kiểm thẻ/tin báo lỗi trong khung A9, nếu 5 phút không có thẻ coi lỗi đường giao, báo Owner, không để Owner canh vô hạn. Owner bấm duy nhất thẻ 01, không mở Claude Code; khi RESULT DONE + KẾT QUẢ có receipt Host kiểm nhanh rồi mới phát 02+03 cùng commit và Owner bấm sát nhau.
+- **GIAO #2+#3 sau KẾT QUẢ #1:** Host dán chính xác hai JSON mẫu 02+03 cùng một transaction vào vùng máy; cả hai có SPEC đã nằm ngoài vùng máy, Host-stamp không đổi, guard/lease clear. Owner click 02 trước rồi 03 sát nhau; chỉ đánh giá queue chính xác với evidence, không giả test PASS khi blocker không hình thành. 1 SAFEFAIL cũ P232 đủ, không tạo vé failure mới.
+- **Các dòng lệnh DỰ THẢO dưới đây là code block văn xuôi NGOÀI MACHINE_ASSIGNMENTS; không phải giao cho máy. Không được đặt cả ba ASSIGN vào machine-zone từ trước.**
+```text
+ASSIGN_V1 {"id":"HJW-N3-CANARY-SUCCESS-20261009-01","to":"Hermes","role":"Reviewer","generation":1,"state":"open","task":"N3 TEST-ONLY 1/3: báo cáo ngắn tình trạng đã làm và chưa làm ở N3 sau P253","output":"Một RESULT_V1 done + P, session/body_sha256/latency, đúng một NEXT","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-CANARY-SUCCESS-20261009-01"}
+ASSIGN_V1 {"id":"HJW-N3-CANARY-SUCCESS-20261009-02","to":"Hermes","role":"Reviewer","generation":1,"state":"open","task":"N3 TEST-ONLY 2/3: phân loại đúng chủ các phần dư HJW, Graph và VPSC từ bảng hiện hành","output":"Một RESULT_V1 done + P, session/body_sha256/latency, đúng một NEXT","read":["AGENTS.md","COLLAB.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-CANARY-SUCCESS-20261009-02"}
+ASSIGN_V1 {"id":"HJW-N3-CANARY-SUCCESS-20261009-03","to":"Hermes","role":"Reviewer","generation":1,"state":"open","task":"N3 TEST-ONLY 3/3: nêu ranh giới Claude Routine chặng 2b và quyền tự động sau 2a","output":"Một RESULT_V1 done + P, session/body_sha256/latency, đúng một NEXT","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-CANARY-SUCCESS-20261009-03"}
+```
+
+#### D2 · DỰ THẢO CHỈ ĐỌC SAU 3 VÉ — CHƯA READY/RUN
+RUN_ID_DRAFT: HJW-N3-2A-LIVE3-METRICS-20261009-04
+Executor_Surface: Claude Code CLI mới do Owner dán tay · Write_Path: workspace_* root workspace; SSH read-only các sổ hiện hữu. Không gọi workspace_exec (tránh sinh container), không thay production/config/cron/Graph/Guard/secret; không tạo file kết quả mới, chỉ ghi một P đọc số trong HJW COLLAB nếu được Host READY đúng chữ ký Reviewer.
+ĐẦU VÀO BẮT BUỘC: ba ASSIGN ID ở trên đã có RESULT_V1 terminal+tin KẾT QUẢ, không có shared RUN mutation đang STARTED. AGENTS → root COLLAB → HJW Bảng/P230–P232/P253/P257–P258 → trạng thái máy → câu lệnh lấy số đã từng PASS ở P230/P231. Một read-gate và một lượt đọc <=7 phút; hết trần hay thiếu quyền thì KQ DỪNG có evidence, không waiter.
+NGUỒN: đọc `cron/notepad.db` và `cron/executions.db` ở SQLite mode=ro, journal hermes-gateway/ws-dispatch/plugin, event Telegram delivery receipt/message_id và Git/P+RESULT_V1. Chỉ dùng khoá ticket/receipt của đúng 3 ASSIGN; không dump toàn DB/secret/token/chat_id/user_id; số thực đi từ timestamp nguồn, không suy model body là log.
+KẾT QUẢ: bảng mỗi vé clicked_at, ack_at, claimed_at, start_notice_at, model_start_at, model_end_at, repo_write_at, result_notice_at; click→claimed/start_notice; claimed→model_start; model_end→repo_write/notice; session/provider, sha body, số call model chính xác, một P+RESULT, đúng một NEXT OPEN và lúc Host đóng NEXT, một delivery KẾT QUẢ, tổng số tin CHẬM sai. Cho ca 03 kiểm blocker_id=vé 02, QUEUED card/queue provenance, blocker terminal/done_at→claim <=30s, 0 fake “no blocker” slow alert. Chỉ ghi PASS khi có bằng chứng; không có thì UNKNOWN/CHƯA ĐO. Phân biệt lỗi owned/vs vendor; không tạo thêm ticket/model để bù số.
+SAU ĐỌC: một P báo cáo có receipt tệp/giờ, KQ terminal + đóng CLI; reviewer Claude đối chiếu rồi Host quyết ACCEPT N3 2a hoặc delta hẹp. Không dùng report thay nghiệm thu, không cho Hermes hội đồng/courier production.
+
+- **D2 readiness:** chỉ sau 3 KẾT QUẢ mới dùng D2 prompt này để Host+Claude review/READY theo DROOT30/31, Owner paste 1 CLI; không giữ shared lease khi không mutation. Kết thúc mới xét N3 2a/N3 2b. Nợ systemd/cron/disk thuộc VPSC; P254 INV20 graph-v1 belongs Graph R8C, không gộp.
+- **NEXT_TRIGGER=GRAPH_R8C_TERMINAL_AND_SHARED_VPS_RELEASED_THEN_HOST_ASSIGN_CANARY_1**; không có auto scheduling, không hứa background action.
 
 
 
