@@ -10806,6 +10806,12 @@ g.tqtCheckpoint=function(policy,stageId,plan,evidence,facts){
 'use strict';
 const C=JSON.parse(document.getElementById('tqt-composite-processes').textContent),R=C.catalog;
 const e=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const routeMarkup=r=>{
+ const w=r.workflow?.steps;
+ if(!w)return '<div class="tqt-closure-formula">'+r.route.map(t=>'<span>'+e(t)+'</span>').join('<i>→</i>')+'</div>';
+ return '<div class="tqt-closure-formula">'+w.slice(0,4).map((x,i)=>'<span>'+(i+1)+'. '+e(x.label)+'</span>').join('<i>→</i>')+'</div>'+
+ '<p class="mut"><b>CHƯA ĐẠT:</b> '+e(w[4].label)+' → sửa và kiểm lại. &nbsp; <b>ĐẠT:</b> '+e(w[5].label)+'. Hai nhánh, không thực hiện nối tiếp.</p>';
+};
 const root=document.getElementById('list-quy-trinh-tong-hop');
 const first=root.firstElementChild;if(first)first.remove();
 const host=document.createElement('section');host.id='tqt-process-inventory';
@@ -10818,7 +10824,7 @@ const moved={
 };
 for(const r of R.records){
  const card=document.createElement('details');card.className='tqt-composite';card.id=r.code;
- card.innerHTML='<summary><span><b>'+e(r.name)+'</b><small>'+e(r.code)+' · '+e(r.state)+'</small></span></summary><div class="tqt-composite-body"><p>'+e(r.goal)+'</p><div class="tqt-closure-formula">'+r.route.map(t=>'<span>'+e(t)+'</span>').join('<i>→</i>')+'</div><p><b>Quy trình con:</b> '+r.child_refs.map(ref=>{const n=[...R.records,...R.normal_processes].find(x=>x.code===ref.code);return '<a href="'+e(n.href)+'">'+e(n.name)+' <small>('+e(n.code)+')</small></a>';}).join(' · ')+'</p><details><summary>Kiểm 5 ý khép kín</summary>'+Object.values(r.gates).map((v,i)=>'<p>'+e(C.closure_review.formula[i])+': '+e(v)+'</p>').join('')+'</details></div>';
+ card.innerHTML='<summary><span><b>'+e(r.name)+'</b><small>'+e(r.code)+' · '+e(r.state)+'</small></span></summary><div class="tqt-composite-body"><p>'+e(r.goal)+'</p>'+routeMarkup(r)+'<p><b>Quy trình con:</b> '+r.child_refs.map(ref=>{const n=[...R.records,...R.normal_processes].find(x=>x.code===ref.code);return '<a href="'+e(n.href)+'">'+e(n.name)+' <small>('+e(n.code)+')</small></a>';}).join(' · ')+'</p><details><summary>Kiểm 5 ý khép kín</summary>'+Object.values(r.gates).map((v,i)=>'<p>'+e(C.closure_review.formula[i])+': '+e(v)+'</p>').join('')+'</details></div>';
  const body=card.lastElementChild;
  if(moved[r.code])body.appendChild(moved[r.code]);
  if(r.code==='MOW-TH-002'){
@@ -10901,7 +10907,8 @@ const refLinks=[
 const posterLinks=refLinks.map(x=>'<a href="'+e(x[1])+'" target="_blank" rel="noopener">'+e(x[0])+' ↗</a>').join('');
 const owner005=records.find(r=>r.code==='MOW-TH-005');
 const steps=(owner005?.workflow?.steps||[]).map(s=>[s.label,s.result]);
-const stepHtml='<ol class="ov-steps">'+steps.map((x,i)=>'<li><b>'+(i+1)+'. '+e(x[0])+'</b><small>'+e(x[1])+'</small></li>').join('')+'</ol>';
+const stepHtml='<ol class="ov-steps">'+steps.slice(0,4).map((x,i)=>'<li><b>'+(i+1)+'. '+e(x[0])+'</b><small>'+e(x[1])+'</small></li>').join('')+'</ol>'+
+ '<div class="ov-post-row"><div class="ov-pane gold"><b>CHƯA ĐẠT</b><p><b>5. '+e(steps[4]?.[0]||'Xử lý')+'</b><br>'+e(steps[4]?.[1]||'')+'</p><small>↩ Quay lại bước làm/kiểm</small></div><div class="ov-pane green"><b>ĐẠT</b><p><b>6. '+e(steps[5]?.[0]||'Bàn giao')+'</b><br>'+e(steps[5]?.[1]||'')+'</p><small>Nhận đúng → XONG</small></div></div>';
 const sampleMaster='https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=4';
 const sampleMow1='https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001';
 const sampleMow2='https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-002';
