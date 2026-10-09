@@ -10572,7 +10572,7 @@ const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt
 const records=R.records||[],normals=R.normal_processes||[];
 const byCode=new Map(records.map((r,i)=>[r.code,{...r,ordinal:i+1}]));
 const nums=['①','②','③','④','⑤','⑥','⑦','⑧','⑨'];
-const no=r=>nums[r.ordinal-1]||String(r.ordinal);
+const no=r=>{const index=records.findIndex(x=>x.code===r.code);return nums[index]||String(index+1);};
 const pLink=r=>'<a href="#'+e(r.code)+'">'+e(r.name)+'</a><small class="ov-code">'+e(r.code)+'</small>';
 const nLink=n=>'<a href="'+e(n.href)+'">'+e(n.name)+'</a><small class="ov-code">'+e(n.code)+'</small>';
 const directAggregates=r=>(r.child_refs||[]).map(x=>byCode.get(x.code)).filter(Boolean);
