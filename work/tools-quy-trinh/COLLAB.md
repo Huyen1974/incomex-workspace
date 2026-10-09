@@ -396,11 +396,11 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - Q01 đã chốt theo D19: GPT Chat là Host hiện hành (09/10); D17 giao Astra Codex và D06 giao GPT Chat trước đó giữ làm lịch sử. Mục tiêu ngắn trong PR-07 vẫn do Owner/Claude bàn, Host chưa áp.
 
 ## Ý kiến và bằng chứng
-### P17 · Host dựng tab Over view từ một catalog · ĐANG KIỂM
+### P17 · Host dựng tab Over view từ một catalog · ĐÃ KIỂM GIAO DIỆN / CHƯA NGHIỆM THU NGHIỆP VỤ
 Ghế: GPT Chat (OpenAI-main) · Phạm vi: riêng màn tổng quan + đồng bộ vai Host, không sửa quy trình gốc.
 - Based_on: Owner giao trực tiếp D19, dữ liệu `view.html#tqt-composite-processes.catalog`, Master `ML-MOW-TH-001` có 4 mã MOW-TH, danh mục `normal_processes` có 12 mã (9 Tool + 3 quy trình bổ sung), ma trận câu hỏi 159/53 trong JSON hiện hữu; bản kiểm UI-REVIEW-AGGREGATE.json.
 - Trình bày `Over view` ở đầu dải tab: sơ đồ gọi giữa 4 Quy trình tổng hợp và bảng tick gọi trực tiếp 12 Quy trình thành phần. Mã nhỏ/mờ ngay cạnh tên. Liên kết tên trỏ tới chi tiết đã có; không sao chép SSOT; không đụng CT-005, Master nguồn, PG, UI runtime, sổ.
-- Host ghi theo D19 và giữ các cổng/chốt kỹ thuật chưa nghiệm thu. Chờ kiểm live desktop/mobile và link deep-link; chưa có phép thử AI mới hoặc RUN.
+- Host ghi theo D19, đồng bộ COLLAB/README/PROMPT và metadata Host trong 2 JSON, giữ các cổng/chốt kỹ thuật chưa nghiệm thu. UI source commits `d4a060469b1ad56018f394b07e9275b3dfda753a` + sửa số thứ tự `680be06860b254c5f4994033aa6c5187e322d672`; mirror `fresh`, source=published, lỗi liên tiếp 0. Browser trực tiếp desktop 1280/mobile 390 HTTP 200, 0 console errors; mobile `#over-view` bounds x14/w362 không tràn, desktop card/matrix đầy đủ; direct `#MOW-TH-001` mở chi tiết thật. Snapshot HTML có 110 ID không trùng, tab Over view đầu tiên; model checker 87/87 SIMULATION_ONLY, `production_ready=false`; kiểm catalog `--references-only` PASS 4 tổng hợp/12 thành phần/49 tham chiếu; test checkpoint đầy đủ KHÔNG chạy vì snapshot thiếu Node.js, không báo PASS cho phần đó. Không có phép thử AI mới hoặc RUN; TQT-ISS-007 giữ mở.
 
 ### P15 · Host giao đề bài Codex rà câu hỏi gốc trước khi vẽ UI · OPEN
 Ghế: OpenAI-main · Vòng: 1/5, READ-ONLY REVIEW, chưa Reviewer/READY/RUN sửa nguồn.
