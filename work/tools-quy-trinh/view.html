@@ -172,6 +172,11 @@ main{max-width:1240px} [hidden]{display:none!important}
 #over-view .ov-foot{border-top:1px solid var(--line);margin-top:16px;padding-top:11px;color:var(--mut);font-size:13px}
 #over-view .ov-foot p{margin:4px 0 7px}
 #over-view .ov-status{font-size:12px;color:var(--mut)}
+
+.tqt-catalog-guide{border:0;border-top:1px solid #dfe7e0;border-radius:0;background:transparent;margin:7px 0 10px}
+.tqt-catalog-guide summary{font-size:12px;color:#3e6052;padding:6px 0;font-weight:650}
+.tqt-catalog-guide dl{display:grid;grid-template-columns:100px minmax(0,1fr);gap:4px 8px;margin:4px 0 7px;font-size:12px}
+.tqt-catalog-guide dt{font-weight:700}.tqt-catalog-guide dd{margin:0}
 #over-view .ov-guidance{padding:0;margin:6px 0 2px;border:0;border-top:1px solid #e8ede7;background:transparent}
 #over-view .ov-guidance>summary{list-style:none;padding:6px 2px;font-size:12px;font-weight:650;color:#3f6156;display:inline-flex;gap:5px;cursor:pointer}
 #over-view .ov-guidance>summary:before{content:"▸";display:inline-block;margin-right:4px;color:#658174}
@@ -10812,6 +10817,12 @@ const routeMarkup=r=>{
  return '<div class="tqt-closure-formula">'+w.slice(0,4).map((x,i)=>'<span>'+(i+1)+'. '+e(x.label)+'</span>').join('<i>→</i>')+'</div>'+
  '<p class="mut"><b>CHƯA ĐẠT:</b> '+e(w[4].label)+' → sửa và kiểm lại. &nbsp; <b>ĐẠT:</b> '+e(w[5].label)+'. Hai nhánh, không thực hiện nối tiếp.</p>';
 };
+const compactGuide=p=>{
+ const g=p.guide;if(!g)return '';
+ const fields=[['Mục đích',g.purpose],['Dùng khi',g.when],['Không dùng khi',g.avoid],['Xong khi',g.done]];
+ return '<details class="tqt-catalog-guide" data-tqt-guide="'+e(p.code)+'"><summary>Chú giải</summary><dl>'+
+ fields.map(x=>'<dt>'+e(x[0])+'</dt><dd>'+e(x[1])+'</dd>').join('')+'</dl></details>';
+};
 const root=document.getElementById('list-quy-trinh-tong-hop');
 const first=root.firstElementChild;if(first)first.remove();
 const host=document.createElement('section');host.id='tqt-process-inventory';
@@ -10824,7 +10835,7 @@ const moved={
 };
 for(const r of R.records){
  const card=document.createElement('details');card.className='tqt-composite';card.id=r.code;
- card.innerHTML='<summary><span><b>'+e(r.name)+'</b><small>'+e(r.code)+' · '+e(r.state)+'</small></span></summary><div class="tqt-composite-body"><p>'+e(r.goal)+'</p>'+routeMarkup(r)+'<p><b>Quy trình con:</b> '+r.child_refs.map(ref=>{const n=[...R.records,...R.normal_processes].find(x=>x.code===ref.code);return '<a href="'+e(n.href)+'">'+e(n.name)+' <small>('+e(n.code)+')</small></a>';}).join(' · ')+'</p><details><summary>Kiểm 5 ý khép kín</summary>'+Object.values(r.gates).map((v,i)=>'<p>'+e(C.closure_review.formula[i])+': '+e(v)+'</p>').join('')+'</details></div>';
+ card.innerHTML='<summary><span><b>'+e(r.name)+'</b><small>'+e(r.code)+' · '+e(r.state)+'</small></span></summary><div class="tqt-composite-body"><p>'+e(r.goal)+'</p>'+compactGuide(r)+routeMarkup(r)+'<p><b>Quy trình con:</b> '+r.child_refs.map(ref=>{const n=[...R.records,...R.normal_processes].find(x=>x.code===ref.code);return '<a href="'+e(n.href)+'">'+e(n.name)+' <small>('+e(n.code)+')</small></a>';}).join(' · ')+'</p><details><summary>Kiểm 5 ý khép kín</summary>'+Object.values(r.gates).map((v,i)=>'<p>'+e(C.closure_review.formula[i])+': '+e(v)+'</p>').join('')+'</details></div>';
  const body=card.lastElementChild;
  if(moved[r.code])body.appendChild(moved[r.code]);
  if(r.code==='MOW-TH-002'){
@@ -10837,6 +10848,14 @@ for(const r of R.records){
 const normals=document.createElement('details');normals.id='tqt-normal-processes';normals.innerHTML='<summary>Quy trình con · 9 Tool + 3 quy trình bổ sung</summary><p>Đây là các quy trình giải quyết nhiệm vụ nhỏ hơn. Một quy trình con có thể được nhiều quy trình tổng hợp dùng lại.</p>';
 for(const n of R.normal_processes){let el=document.getElementById(n.href.slice(1));if(el){normals.appendChild(el);if(n.boundary){const p=document.createElement('p');p.textContent=n.boundary;el.appendChild(p);}}else{el=document.createElement('details');el.id=n.code;el.innerHTML='<summary>'+e(n.code)+' · '+e(n.name)+'</summary><ol>'+(n.steps||[]).map(x=>'<li>'+e(x)+'</li>').join('')+'</ol><p><b>Đầu ra:</b> '+e(n.output)+'</p><p><b>Xong khi:</b> '+e(n.gate)+'</p>';normals.appendChild(el);}}
 host.appendChild(normals);
+for(const n of R.normal_processes){
+ const el=document.getElementById(n.href?.startsWith('#')?n.href.slice(1):n.code);
+ if(!el||el.querySelector('[data-tqt-guide]'))continue;
+ const html=compactGuide(n);if(!html)continue;
+ const first=el.querySelector(':scope > summary');
+ if(first)first.insertAdjacentHTML('afterend',html);
+ else el.insertAdjacentHTML('afterbegin',html);
+}
 const gates=document.createElement('details');gates.id='TQT-GATE-001';gates.innerHTML='<summary>Mốc nào đủ điều kiện nghiệm thu?</summary><p>'+e(C.checkpoint_policy.common)+'</p>'+C.checkpoint_policy.stages.map(x=>'<p><b>'+e(x.name)+'</b>: mức ≥ '+x.min_level+' · '+e(x.context)+' · '+e(x.requires.join(', ')||'đủ yêu cầu thiết kế')+'</p>').join('')+'<p>'+e(C.checkpoint_policy.levels)+'</p><p>'+e(C.checkpoint_policy.scope)+'</p>';host.appendChild(gates);
 const technical=document.createElement('details');technical.id='tqt-technical';technical.innerHTML='<summary>Cho AI · dữ liệu, mô hình PG và phần còn hở</summary>';technical.appendChild(document.getElementById('tqt-process-model-view'));host.appendChild(technical);
 const legacy=document.getElementById('tqt-tab-old');if(legacy)legacy.textContent='Tham chiếu cũ';
