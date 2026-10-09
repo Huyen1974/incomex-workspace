@@ -445,10 +445,10 @@ main{max-width:1240px} [hidden]{display:none!important}
 <div class="two"><div class="box"><h4>📥 Cần gì</h4>Người dùng + mục tiêu + điểm vào</div><div class="box"><h4>📦 Ra gì</h4>Sơ đồ đường đi và điều kiện kết thúc</div></div>
 <p><b>🧭 Cách làm:</b> Chốt mục tiêu; xác định điểm vào/ra; liệt kê đường thành công, đường thay thế và đường dừng.</p>
 <div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
-<tr><td>1. Xác định đích</td><td>Ai dùng, cần đạt gì, đầu vào từ đâu?</td><td>Mục tiêu và tiêu chí xong; thiếu thì ghi sổ.</td></tr>
-<tr><td>2. Vẽ đường đi</td><td>Mỗi MOT làm gì; điều kiện nào bỏ qua hoặc quay lại?</td><td>Luồng chính + nhánh có điều kiện.</td></tr>
-<tr><td>3. Đối chiếu nguồn</td><td>MOW/MOT/UI/Config nào có sẵn?</td><td>Tham chiếu SSOT; chuyển Tool6 khi thiếu.</td></tr>
-<tr><td>4. Chốt phạm vi thử</td><td>Đích người dùng cần nhận là gì; bắt đầu trống thế nào; những ca nào chứng minh đạt đích?</td><td>Phạm vi rõ để chạy Tool2–7.</td></tr>
+<tr id="MOT-TOOL-CTCM-001-01"><td>1. Xác định đích</td><td>Ai dùng, cần đạt gì, đầu vào từ đâu?</td><td>Mục tiêu và tiêu chí xong; thiếu thì ghi sổ.</td></tr>
+<tr id="MOT-TOOL-CTCM-001-02"><td>2. Vẽ đường đi</td><td>Mỗi MOT làm gì; điều kiện nào bỏ qua hoặc quay lại?</td><td>Luồng chính + nhánh có điều kiện.</td></tr>
+<tr id="MOT-TOOL-CTCM-001-03"><td>3. Đối chiếu nguồn</td><td>MOW/MOT/UI/Config nào có sẵn?</td><td>Tham chiếu SSOT; chuyển Tool6 khi thiếu.</td></tr>
+<tr id="MOT-TOOL-CTCM-001-04"><td>4. Chốt phạm vi thử</td><td>Đích người dùng cần nhận là gì; bắt đầu trống thế nào; những ca nào chứng minh đạt đích?</td><td>Phạm vi rõ để chạy Tool2–7.</td></tr>
 </tbody></table></div>
 <div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi đích/đường đi (<a href="#tqt-noi-luu">lưu ở đâu</a>). Lượt: <a href="#so-luot-chay">④</a>. Ví dụ: đường 1→3 / 1→2→3 ở <a href="#ap-thu">④</a>.</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
 <p class="foot">Nền IT: <a href="https://www.nngroup.com/articles/cognitive-walkthroughs/" target="_blank" rel="noopener">Task analysis / User flow ↗</a> · mã gốc TOOL-CTCM-001</p>
@@ -459,10 +459,10 @@ main{max-width:1240px} [hidden]{display:none!important}
 <div class="two"><div class="box"><h4>📥 Cần gì</h4>Hành trình + UI từng bước</div><div class="box"><h4>📦 Ra gì</h4>Phiếu 8 câu hỏi/MOT có bằng chứng</div></div>
 <p><b>🧭 Cách làm:</b> Tại mỗi hành động, giả định chưa biết hệ thống. Không dùng kiến thức code để bù cho thông tin UI thiếu.</p>
 <div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
-<tr><td>1. Mở như người mới</td><td>Chưa gõ/chưa chọn gì thấy gì? Mỗi MOT có màn riêng và minh hoạ tách riêng chưa?</td><td>Chụp trạng thái ban đầu; không dùng kết quả có sẵn làm bằng chứng.</td></tr>
-<tr><td>2. Thử từng hành động</td><td>Có thấy nút và hiểu kết quả trước khi bấm không?</td><td>Ghi nút, nhãn và điều hướng cần sửa.</td></tr>
-<tr><td>3. Đọc phản hồi</td><td>Có biết đang chạy, đã xong hoặc bị lỗi không?</td><td>Bằng chứng kết quả nhìn thấy.</td></tr>
-<tr><td>4. Kiểm hiệu lực quy trình</td><td>Đã trả lời đủ mà vẫn kẹt hoặc chưa tới đích thì thiếu câu nào/nhánh nào?</td><td>Sửa Tool gốc → thêm ca → chạy lại; liên kết hồ sơ, không chỉ ghi lỗi UI.</td></tr>
+<tr id="MOT-TOOL-CTCM-002-01"><td>1. Mở như người mới</td><td>Chưa gõ/chưa chọn gì thấy gì? Mỗi MOT có màn riêng và minh hoạ tách riêng chưa?</td><td>Chụp trạng thái ban đầu; không dùng kết quả có sẵn làm bằng chứng.</td></tr>
+<tr id="MOT-TOOL-CTCM-002-02"><td>2. Thử từng hành động</td><td>Có thấy nút và hiểu kết quả trước khi bấm không?</td><td>Ghi nút, nhãn và điều hướng cần sửa.</td></tr>
+<tr id="MOT-TOOL-CTCM-002-03"><td>3. Đọc phản hồi</td><td>Có biết đang chạy, đã xong hoặc bị lỗi không?</td><td>Bằng chứng kết quả nhìn thấy.</td></tr>
+<tr id="MOT-TOOL-CTCM-002-04"><td>4. Kiểm hiệu lực quy trình</td><td>Đã trả lời đủ mà vẫn kẹt hoặc chưa tới đích thì thiếu câu nào/nhánh nào?</td><td>Sửa Tool gốc → thêm ca → chạy lại; liên kết hồ sơ, không chỉ ghi lỗi UI.</td></tr>
 </tbody></table></div>
 <p>📋 Phiếu: <a href="#tqt-8-cau">8 câu hỏi phải trả lời tại mỗi MOT</a> (bộ câu dùng chung, ngay dưới “Rà một UI”).</p>
 <div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi 8 câu/MOT (<a href="#tqt-noi-luu">lưu ở đâu</a>); MOW-NHC-001: <code>UI-REVIEW-MOW001.json</code>. Bản UI đang rà: <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-ui-walkthrough-v1.html?mow=MOW-NHC-001" target="_blank" rel="noopener">MOW-NHC-001 ↗</a></div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
@@ -474,10 +474,10 @@ main{max-width:1240px} [hidden]{display:none!important}
 <div class="two"><div class="box"><h4>📥 Cần gì</h4>Trạng thái + sự kiện + điều kiện</div><div class="box"><h4>📦 Ra gì</h4>Bảng nếu/thì và ca kiểm cho từng nhánh</div></div>
 <p><b>🧭 Cách làm:</b> Mô hình trạng thái và chuyển hợp lệ/không hợp lệ; mỗi nhánh có hành động, phản hồi, đích; ghi lý do nhánh không áp dụng.</p>
 <div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
-<tr><td>1. Liệt kê trạng thái</td><td>Chưa nhập/chưa chọn, đang chạy, có kết quả, không kết quả, lỗi, hết quyền hay hủy?</td><td>Tách trạng thái đầu khỏi trạng thái rỗng sau tìm; khai điều kiện vào/ra từng màn.</td></tr>
-<tr><td>2. Lập nếu/thì</td><td>Điều kiện nào dẫn tới hành động/kết quả nào?</td><td>Bảng quyết định; chỉ rõ tổ hợp không áp dụng.</td></tr>
-<tr><td>3. Kiểm đường quay lại</td><td>Sai lựa chọn, thử lại, mất mạng, bấm hai lần thì sao?</td><td>Nhánh phục hồi và dữ liệu phải giữ.</td></tr>
-<tr><td>4. Sinh ca kiểm</td><td>Mỗi nhánh bắt buộc đã có ca và kết quả mong đợi chưa?</td><td>Mã nhánh ↔ mã ca; thiếu sang Tool8.</td></tr>
+<tr id="MOT-TOOL-CTCM-003-01"><td>1. Liệt kê trạng thái</td><td>Chưa nhập/chưa chọn, đang chạy, có kết quả, không kết quả, lỗi, hết quyền hay hủy?</td><td>Tách trạng thái đầu khỏi trạng thái rỗng sau tìm; khai điều kiện vào/ra từng màn.</td></tr>
+<tr id="MOT-TOOL-CTCM-003-02"><td>2. Lập nếu/thì</td><td>Điều kiện nào dẫn tới hành động/kết quả nào?</td><td>Bảng quyết định; chỉ rõ tổ hợp không áp dụng.</td></tr>
+<tr id="MOT-TOOL-CTCM-003-03"><td>3. Kiểm đường quay lại</td><td>Sai lựa chọn, thử lại, mất mạng, bấm hai lần thì sao?</td><td>Nhánh phục hồi và dữ liệu phải giữ.</td></tr>
+<tr id="MOT-TOOL-CTCM-003-04"><td>4. Sinh ca kiểm</td><td>Mỗi nhánh bắt buộc đã có ca và kết quả mong đợi chưa?</td><td>Mã nhánh ↔ mã ca; thiếu sang Tool8.</td></tr>
 </tbody></table></div>
 <div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi nhánh ↔ ca (<a href="#tqt-noi-luu">lưu ở đâu</a>). Ví dụ: <a href="#nhanh-16">16 nhánh B01–B16 ④</a>.</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
 <p class="foot">Nền IT: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener">State transition + Decision table ↗</a> · mã gốc TOOL-CTCM-003</p>
@@ -489,10 +489,10 @@ main{max-width:1240px} [hidden]{display:none!important}
 <div class="two"><div class="box"><h4>📥 Cần gì</h4>7 câu Config + nguyên tắc bản ghi</div><div class="box"><h4>📦 Ra gì</h4>Luật nếu/thì, ưu tiên và hồ sơ thiếu</div></div>
 <p><b>🧭 Cách làm:</b> Với từng luật ghi nguồn, phạm vi, giá trị mặc định, trường bắt buộc, ưu tiên khi xung đột, hiệu lực và đường thất bại; chưa chốt không tự chọn.</p>
 <div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
-<tr><td>1. Đọc 7 câu Config</td><td>Bắt đầu/kết thúc? Điều kiện? Trigger? Ai làm? Báo cáo/chuyển ai?</td><td>Tham chiếu nguyên tắc có sẵn; chỉ khai ngoại lệ.</td></tr>
-<tr><td>2. Rà luật</td><td>Không khớp luật, nhiều luật khớp hoặc xung đột thì sao?</td><td>Luật ưu tiên, mặc định và nhánh dừng rõ ràng.</td></tr>
-<tr><td>3. Rà bản ghi</td><td>Tạo/sửa/trả gì; ai có quyền; phiên bản và chống lặp ra sao?</td><td>Hợp đồng đầu vào/đầu ra, quyền, lịch sử, phục hồi.</td></tr>
-<tr><td>4. Thử quyết định</td><td>Với mỗi điều kiện, kết quả có đúng và giải thích được không?</td><td>Ca kiểm luật; thiếu nghiệp vụ ghi sổ, không tự đoán.</td></tr>
+<tr id="MOT-TOOL-CTCM-004-01"><td>1. Đọc 7 câu Config</td><td>Bắt đầu/kết thúc? Điều kiện? Trigger? Ai làm? Báo cáo/chuyển ai?</td><td>Tham chiếu nguyên tắc có sẵn; chỉ khai ngoại lệ.</td></tr>
+<tr id="MOT-TOOL-CTCM-004-02"><td>2. Rà luật</td><td>Không khớp luật, nhiều luật khớp hoặc xung đột thì sao?</td><td>Luật ưu tiên, mặc định và nhánh dừng rõ ràng.</td></tr>
+<tr id="MOT-TOOL-CTCM-004-03"><td>3. Rà bản ghi</td><td>Tạo/sửa/trả gì; ai có quyền; phiên bản và chống lặp ra sao?</td><td>Hợp đồng đầu vào/đầu ra, quyền, lịch sử, phục hồi.</td></tr>
+<tr id="MOT-TOOL-CTCM-004-04"><td>4. Thử quyết định</td><td>Với mỗi điều kiện, kết quả có đúng và giải thích được không?</td><td>Ca kiểm luật; thiếu nghiệp vụ ghi sổ, không tự đoán.</td></tr>
 </tbody></table></div>
 <p>⚙️ Đối chiếu: <a href="#tqt-7-cau">7 câu Config</a> (bộ câu dùng chung, ngay dưới “Rà một UI”).</p>
 <div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi Config đã có/còn thiếu (<a href="#tqt-noi-luu">lưu ở đâu</a>); điểm chưa chốt ghi <a href="#so-van-de">Sổ ⑤</a>, không tự điền giả.</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
@@ -505,10 +505,10 @@ main{max-width:1240px} [hidden]{display:none!important}
 <div class="two"><div class="box"><h4>📥 Cần gì</h4>Hợp đồng input và miền giá trị</div><div class="box"><h4>📦 Ra gì</h4>Dữ liệu thử hợp lệ, không hợp lệ, tại biên</div></div>
 <p><b>🧭 Cách làm:</b> Chia lớp dữ liệu; chọn đại diện và biên; kiểm thông báo rõ lỗi/cách sửa, không mất input và không tạo tác động ngoài ý muốn.</p>
 <div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
-<tr><td>1. Chia nhóm dữ liệu</td><td>Hợp lệ, không hợp lệ, rỗng và trùng gồm gì?</td><td>Một bộ đại diện cho từng nhóm.</td></tr>
-<tr><td>2. Thử sát giới hạn</td><td>Min/max, trước/sau biên, ký tự và độ dài nào được phép?</td><td>Ca tại biên theo hợp đồng thực tế.</td></tr>
-<tr><td>3. Thử lỗi phụ thuộc</td><td>Không quyền, timeout, dữ liệu cũ, dịch vụ lỗi thì sao?</td><td>Phản hồi đúng, không mất input, không báo rỗng thay lỗi.</td></tr>
-<tr><td>4. Lưu bộ thử</td><td>Dữ liệu nào dùng lại, có cần làm sạch sau ca không?</td><td>Fixture có nguồn và điều kiện dọn; không dùng secret.</td></tr>
+<tr id="MOT-TOOL-CTCM-005-01"><td>1. Chia nhóm dữ liệu</td><td>Hợp lệ, không hợp lệ, rỗng và trùng gồm gì?</td><td>Một bộ đại diện cho từng nhóm.</td></tr>
+<tr id="MOT-TOOL-CTCM-005-02"><td>2. Thử sát giới hạn</td><td>Min/max, trước/sau biên, ký tự và độ dài nào được phép?</td><td>Ca tại biên theo hợp đồng thực tế.</td></tr>
+<tr id="MOT-TOOL-CTCM-005-03"><td>3. Thử lỗi phụ thuộc</td><td>Không quyền, timeout, dữ liệu cũ, dịch vụ lỗi thì sao?</td><td>Phản hồi đúng, không mất input, không báo rỗng thay lỗi.</td></tr>
+<tr id="MOT-TOOL-CTCM-005-04"><td>4. Lưu bộ thử</td><td>Dữ liệu nào dùng lại, có cần làm sạch sau ca không?</td><td>Fixture có nguồn và điều kiện dọn; không dùng secret.</td></tr>
 </tbody></table></div>
 <div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi dữ liệu thử (<a href="#tqt-noi-luu">lưu ở đâu</a>).</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
 <p class="foot">Nền IT: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener">Equivalence partitioning / Boundary values ↗</a> · mã gốc TOOL-CTCM-005 · thiết kế bộ dữ liệu/ca biên nên xếp Design</p>
@@ -519,10 +519,10 @@ main{max-width:1240px} [hidden]{display:none!important}
 <div class="two"><div class="box"><h4>📥 Cần gì</h4>MOW → MOT → UI con → UI cha → Config</div><div class="box"><h4>📦 Ra gì</h4>Bảng đủ/thiếu liên kết theo ID và phiên bản</div></div>
 <p><b>🧭 Cách làm:</b> Tra tên từ ID; kiểm tồn tại/quan hệ/phiên bản; không xem gán parent_id là bằng chứng kế thừa; ưu tiên nguồn thực thi chung.</p>
 <div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
-<tr><td>1. Tra trước khi tạo</td><td>Đã có mã, UI cha hoặc component phù hợp chưa?</td><td>Kết quả tra và bản dùng lại.</td></tr>
-<tr><td>2. Khớp chuỗi liên kết</td><td>Chuỗi/MOW/MOT/UI con/UI cha/Config có khớp ID không?</td><td>Bảng liên kết; thiếu giữ rõ Chưa có.</td></tr>
-<tr><td>3. So với UI cha</td><td>Cột, chữ, màu, ?, Help, điều hướng, lỗi có giống mẫu không?</td><td>So style và hành vi tại phiên bản cụ thể.</td></tr>
-<tr><td>4. Xử lý khác biệt</td><td>Khác là lỗi hay ngoại lệ cần duyệt?</td><td>Sửa nguồn chung hoặc hồ sơ Tool8; không copy thành SSOT khác.</td></tr>
+<tr id="MOT-TOOL-CTCM-006-01"><td>1. Tra trước khi tạo</td><td>Đã có mã, UI cha hoặc component phù hợp chưa?</td><td>Kết quả tra và bản dùng lại.</td></tr>
+<tr id="MOT-TOOL-CTCM-006-02"><td>2. Khớp chuỗi liên kết</td><td>Chuỗi/MOW/MOT/UI con/UI cha/Config có khớp ID không?</td><td>Bảng liên kết; thiếu giữ rõ Chưa có.</td></tr>
+<tr id="MOT-TOOL-CTCM-006-03"><td>3. So với UI cha</td><td>Cột, chữ, màu, ?, Help, điều hướng, lỗi có giống mẫu không?</td><td>So style và hành vi tại phiên bản cụ thể.</td></tr>
+<tr id="MOT-TOOL-CTCM-006-04"><td>4. Xử lý khác biệt</td><td>Khác là lỗi hay ngoại lệ cần duyệt?</td><td>Sửa nguồn chung hoặc hồ sơ Tool8; không copy thành SSOT khác.</td></tr>
 </tbody></table></div>
 <div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi ID/nguồn/parity (<a href="#tqt-noi-luu">lưu ở đâu</a>).</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
 <p class="foot">Nền IT: <a href="https://istqb.org/certifications/certified-tester-model-based-tester-ct-mbt/" target="_blank" rel="noopener">Traceability / Component reuse ↗</a> · mã gốc TOOL-CTCM-006</p>
@@ -537,10 +537,10 @@ main{max-width:1240px} [hidden]{display:none!important}
 <div class="two"><div class="box"><h4>📥 Cần gì</h4>Ca Given–When–Then + UI + dữ liệu thử</div><div class="box"><h4>📦 Ra gì</h4>Kết quả thực tế, ảnh/DOM, PASS/FAIL/BLOCKED</div></div>
 <p><b>🧭 Cách làm:</b> Chạy từng ca từ điều kiện đầu; so kết quả quan sát được; kiểm giao diện riêng với hành trình. AI đóng vai người mới không thay hoàn toàn thử với người thật.</p>
 <div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
-<tr><td>1. Viết ca</td><td>Cho trước gì; khi làm gì; thì thấy kết quả nào?</td><td>Ca Given–When–Then gắn yêu cầu và nhánh.</td></tr>
-<tr><td>2. Chạy như người dùng</td><td>Chuột, bàn phím, focus, tooltip, quay lại có dùng được không?</td><td>Kết quả thực tế + ảnh/DOM + phiên bản.</td></tr>
-<tr><td>3. Kiểm ảnh hưởng</td><td>Sửa phần chung có làm hỏng UI con nào không?</td><td>Chạy lại ca lỗi và ca liên quan; kiểm kích thước màn hình.</td></tr>
-<tr><td>4. Đối chiếu mục tiêu</td><td>Làm đúng các bước đã tới đích người dùng chưa, hay mới xong checklist?</td><td>Chưa tới đích → xác định câu/nhánh thiếu, sửa Tool gốc và chạy lại; blocker có mã sổ, không báo đạt.</td></tr>
+<tr id="MOT-TOOL-CTCM-007-01"><td>1. Viết ca</td><td>Cho trước gì; khi làm gì; thì thấy kết quả nào?</td><td>Ca Given–When–Then gắn yêu cầu và nhánh.</td></tr>
+<tr id="MOT-TOOL-CTCM-007-02"><td>2. Chạy như người dùng</td><td>Chuột, bàn phím, focus, tooltip, quay lại có dùng được không?</td><td>Kết quả thực tế + ảnh/DOM + phiên bản.</td></tr>
+<tr id="MOT-TOOL-CTCM-007-03"><td>3. Kiểm ảnh hưởng</td><td>Sửa phần chung có làm hỏng UI con nào không?</td><td>Chạy lại ca lỗi và ca liên quan; kiểm kích thước màn hình.</td></tr>
+<tr id="MOT-TOOL-CTCM-007-04"><td>4. Đối chiếu mục tiêu</td><td>Làm đúng các bước đã tới đích người dùng chưa, hay mới xong checklist?</td><td>Chưa tới đích → xác định câu/nhánh thiếu, sửa Tool gốc và chạy lại; blocker có mã sổ, không báo đạt.</td></tr>
 </tbody></table></div>
 <div class="two"><div class="box"><h4>📦 Để đâu</h4>Phiếu kiểm của UI: ghi kết quả ca, kèm ảnh/DOM và phiên bản (<a href="#tqt-noi-luu">lưu ở đâu</a>).</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
 <p class="foot">Nền IT: <a href="https://cucumber.io/docs/gherkin/reference/" target="_blank" rel="noopener">BDD / UI regression / Accessibility ↗</a> · mã gốc TOOL-CTCM-007 · mẫu ca ở <a href="#cach-ai-lam">③</a></p>
@@ -550,7 +550,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 <details id="tqt-ctcm-8"><summary><code>008</code><span class="t">Ghi sổ và xử lý UI thiếu / lỗi</span><span class="chip e">Execute</span><span>🟢</span></summary><div class="in">
 <p>🎯 <b>Câu hỏi trọng tâm:</b> Ghi vào đâu? Ai xử lý, ai kiểm, ai theo dõi? Bước tiếp theo là gì? Khi nào được đóng?</p>
 <div class="two"><div class="box"><h4>📥 Cần gì</h4>UI thiếu/lỗi + kết quả cần có + bằng chứng</div><div class="box"><h4>📦 Ra gì</h4>Hồ sơ có mã, nơi phát hiện, người giữ và bằng chứng nhận bàn giao</div></div>
-<details><summary>Lịch sử trước phân vai · không dùng để điều phối hiện hành</summary><p><b>🧭 Cách làm cũ:</b> Ghi nhận → Phân loại → Giao xử lý → Sửa → Kiểm lại → Đóng; kiểm chưa đạt quay lại Sửa. Một hồ sơ, một ID, một người chịu trách nhiệm hiện tại; mọi chuyển trạng thái có lịch sử.</p>
+<div class="wrap"><table><thead><tr><th>Bước</th><th>Câu hỏi</th><th>Làm / ra gì</th></tr></thead><tbody><tr id="MOT-TOOL-CTCM-008-01"><td>Tra hồ sơ</td><td>Đã có hồ sơ cùng sai/thiếu chưa?</td><td>Tra sổ của đúng MOW và liên kết hồ sơ gốc nếu có.</td></tr><tr id="MOT-TOOL-CTCM-008-02"><td>Ghi hoặc bổ sung</td><td>Ghi ở đâu và cùng mã nào?</td><td>Ghi/cập nhật một mã hồ sơ, mong đợi và thực tế; không kết luận cần tạo mới khi chưa xác minh.</td></tr><tr id="MOT-TOOL-CTCM-008-03"><td>Gắn nơi phát hiện</td><td>Những nơi nào cần kiểm lại?</td><td>Gắn MOW/MOT/UI, đối tượng/phiên, bằng chứng và từng nơi bị ảnh hưởng.</td></tr><tr id="MOT-TOOL-CTCM-008-04"><td>Bàn giao xác minh</td><td>Ai nhận và đã nhận chưa?</td><td>Giao MOW-TH-002 cùng mã hồ sơ và đích trả. Chưa ACK thì người giao vẫn giữ; ghi mốc nhắc.</td></tr><tr id="MOT-TOOL-CTCM-008-05"><td>Đọc lại</td><td>Hồ sơ và xác nhận nhận đã lưu đúng chưa?</td><td>Đọc lại mã, nơi phát hiện, người giữ, ACK và bước tiếp; bàn giao kết quả. Vòng sửa/kiểm/đóng thuộc 002.</td></tr></tbody></table></div><details><summary>Lịch sử trước phân vai · không dùng để điều phối hiện hành</summary><p><b>🧭 Cách làm cũ:</b> Ghi nhận → Phân loại → Giao xử lý → Sửa → Kiểm lại → Đóng; kiểm chưa đạt quay lại Sửa. Một hồ sơ, một ID, một người chịu trách nhiệm hiện tại; mọi chuyển trạng thái có lịch sử.</p>
 <div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
 <tr><td>1. Ghi nhận</td><td>UI thiếu, lỗi hay chưa rõ yêu cầu? Có hồ sơ cùng lỗi chưa?</td><td>Tra Sổ việc còn thiếu của MOW; ghi hoặc cập nhật cùng ID, gắn MOW/MOT/UI, mong đợi/thực tế, ảnh và bước tái hiện.</td></tr>
 <tr><td>2. Phân loại</td><td>Vi phạm yêu cầu đã chốt hay yêu cầu mới? Mức ảnh hưởng và ưu tiên nào?</td><td>Host phân loại Thiếu/Lỗi/Thay đổi; lỗi chặn bước không được ghi hoàn thành. Trùng liên kết hồ sơ gốc.</td></tr>
@@ -571,10 +571,10 @@ main{max-width:1240px} [hidden]{display:none!important}
 <div class="two"><div class="box"><h4>📥 Cần gì</h4>Quy trình đã rõ + ca kiểm + phạm vi được giao</div><div class="box"><h4>📦 Ra gì</h4>DOT có phiên bản, bằng chứng chạy và phương án quay lui</div></div>
 <p><b>🧭 Cách làm:</b> Chốt hợp đồng → viết DOT → chạy thử → rà bằng chứng → phát hành theo quyền → theo dõi. Viết tài liệu không đồng nghĩa DOT đã chạy.</p>
 <div class="wrap"><table><thead><tr><th>🔢 Bước</th><th>❓ Câu hỏi phải trả lời</th><th>✍️ Làm / ra gì</th></tr></thead><tbody>
-<tr><td>1. Chốt hợp đồng</td><td>Input/output/quyền/điều kiện/trigger và chống lặp đã đủ chưa?</td><td>Hợp đồng máy đọc được; điểm chưa rõ ghi Tool8.</td></tr>
-<tr><td>2. Viết và chạy thử</td><td>Mọi nhánh bắt buộc có ca chạy và lỗi có phục hồi không?</td><td>DOT + kết quả thử trong phạm vi được giao.</td></tr>
-<tr><td>3. Rà và phát hành</td><td>Ai cho phép? Phiên bản nào? Có quay lui được không?</td><td>Bằng chứng kiểm, phiên bản và phương án quay lui; chưa đủ giữ thử nghiệm.</td></tr>
-<tr><td>4. Theo dõi và cải tiến</td><td>Ai nhận lỗi? Khi nào dừng hoặc quay lui?</td><td>Log, chỉ số/nhắc việc theo config; sự cố quay về Tool8, cập nhật cùng SSOT.</td></tr>
+<tr id="MOT-TOOL-CTCM-009-01"><td>1. Chốt hợp đồng</td><td>Input/output/quyền/điều kiện/trigger và chống lặp đã đủ chưa?</td><td>Hợp đồng máy đọc được; điểm chưa rõ ghi Tool8.</td></tr>
+<tr id="MOT-TOOL-CTCM-009-02"><td>2. Viết và chạy thử</td><td>Mọi nhánh bắt buộc có ca chạy và lỗi có phục hồi không?</td><td>DOT + kết quả thử trong phạm vi được giao.</td></tr>
+<tr id="MOT-TOOL-CTCM-009-03"><td>3. Rà và phát hành</td><td>Ai cho phép? Phiên bản nào? Có quay lui được không?</td><td>Bằng chứng kiểm, phiên bản và phương án quay lui; chưa đủ giữ thử nghiệm.</td></tr>
+<tr id="MOT-TOOL-CTCM-009-04"><td>4. Theo dõi và cải tiến</td><td>Ai nhận lỗi? Khi nào dừng hoặc quay lui?</td><td>Log, chỉ số/nhắc việc theo config; sự cố quay về Tool8, cập nhật cùng SSOT.</td></tr>
 </tbody></table></div>
 <div class="two"><div class="box"><h4>📦 Để đâu</h4><a href="#so-luot-chay">Sổ lượt chạy ④</a>, mục TOOL-CTCM-009. Chuỗi bước: <a href="#tool-sang-dot">Từ Tool sang DOT ③</a>.</div><div class="box"><h4>✅ Xong khi</h4>Theo <a href="#xong-chung">khuôn chung ③</a>. Riêng Tool này: chưa ghi · <a href="#TQT-ISS-003">TQT-ISS-003</a></div></div>
 <p class="foot">Nền IT: <a href="https://cucumber.io/docs/gherkin/reference/" target="_blank" rel="noopener">BDD / Controlled release ↗</a> · mã gốc TOOL-CTCM-009 · đây là quy trình người/agent làm để đóng gói (Execute), chưa phải DOT/script đã có</p>
@@ -802,17 +802,17 @@ main{max-width:1240px} [hidden]{display:none!important}
 <dt>Bằng chứng</dt><dd>P09: thêm hướng dẫn thực hành, 8 câu/MOT, 7 câu Config, khuôn ca, nơi lưu và vòng kiểm lại ngay trang này. Phiếu UI-REVIEW-MOW001.json và lượt TQT-UI-20261008-MOW001-STEP2 ghi 18 quan sát; kết quả toàn hành trình còn PARTIAL.</dd>
 <dt>Lịch sử</dt><dd>08/10/2026 · Ghi nhận; Codex bổ sung theo yêu cầu Owner và áp thử màn 2 MOW-NHC-001 · Đang xử lý, chưa đóng.<br>08/10/2026 · Claude Chat: trình bày lại trang (P10), giữ nguyên nội dung Codex P09; thêm bản chép áp thử MOW-NHC-001 (24 ô, 16 nhánh, 3 lượt). Trạng thái không đổi.</dd>
 </dl></div></details>
-<details id="TQT-ISS-004"><summary><code>TQT-ISS-004</code><span class="t">Bản tập hợp chưa phải nơi sửa duy nhất (SSOT) của Master Tool</span><span class="chip wa">Ghi nhận</span></summary><div class="in"><dl class="kv">
+<details id="TQT-ISS-004"><summary><code>TQT-ISS-004</code><span class="t">Nguồn hướng dẫn đã chốt · còn kiểm chuyển dữ liệu sản phẩm</span><span class="chip wa">Ghi nhận</span></summary><div class="in"><dl class="kv">
 <dt>Nguồn phát hiện</dt><dd>Rà 9 Tools ngày 08/10/2026 theo mục tiêu mới của Owner.</dd>
 <dt>Phạm vi</dt><dd>Master Tool ML-DEF-023, CONFIG_PRINCIPLES, trang Tools · CTCM, thanh “Quy trình - Tools” ở Công thức MMIM và các nơi gọi (<a href="#chuyen-nguon">⑥</a>).</dd>
 <dt>Ảnh hưởng</dt><dd>Hai nơi cùng giữ nội dung → dễ sửa lệch, người đọc không biết bản nào đúng.</dd>
 <dt>👤 Theo dõi · xử lý · kiểm</dt><dd>Host Astra Codex (D22) · Chưa giao · Chưa giao</dd>
-<dt>➡ Bước tiếp</dt><dd>Phản biện kế hoạch chuyển nguồn, một nơi sửa mỗi ID; giữ lịch sử và trang MOW đang dùng. Các bước cắt chuyển: <a href="#chuyen-nguon">⑥</a>.</dd>
-<dt>Mốc rà</dt><dd>Vòng phản biện P06 và lượt áp thử tiếp theo.</dd>
-<dt>Lý do chưa đóng</dt><dd>Đã chép đủ nhưng nơi sửa chưa đổi.</dd>
+<dt>➡ Bước tiếp</dt><dd>D23: hướng dẫn sửa duy nhất ở tools-quy-trinh; Tool cũ đánh dấu lịch sử. Giữ sổ MOW sản phẩm gốc, kiểm các nơi gọi và việc chuyển dữ liệu khi áp thử. Các bước cắt chuyển: <a href="#chuyen-nguon">⑥</a>.</dd>
+<dt>Mốc rà</dt><dd>Lượt áp thử MOW001 tiếp theo.</dd>
+<dt>Lý do chưa đóng</dt><dd>Hướng dẫn đã chốt nơi sửa; chưa nghiệm thu toàn bộ đường gọi và chuyển dữ liệu sản phẩm.</dd>
 <dt>✅ Điều kiện đóng</dt><dd>Chuyển nguồn và kiểm đúng phiên bản/link, không còn hai nơi sửa.</dd>
 <dt>Bằng chứng</dt><dd>Bảng đối chiếu nguồn cũ → trang này ở <a href="#chuyen-nguon">⑥</a> (P10).</dd>
-<dt>Lịch sử</dt><dd>08/10/2026 · Ghi nhận.<br>08/10/2026 · Claude Chat: chép đủ khu Công thức cũ vào trang này theo yêu cầu Owner 10:41 (P10); nơi sửa chưa đổi, chờ Host cắt chuyển. Trạng thái không đổi.</dd>
+<dt>Lịch sử</dt><dd>08/10/2026 · Ghi nhận.<br>08/10/2026 · Claude Chat: chép đủ khu Công thức cũ vào trang này theo yêu cầu Owner 10:41 (P10); nơi sửa chưa đổi, chờ Host cắt chuyển. Trạng thái không đổi.<br>09/10/2026 · D23: chốt nguồn hướng dẫn; không dời sổ sản phẩm, giữ mở phần kiểm/cắt chuyển còn lại.</dd>
 </dl></div></details>
 <details id="TQT-ISS-005"><summary><code>TQT-ISS-005</code><span class="t">Nhóm chuyên môn xét nguyên tắc giao việc MOT chưa kiểm kê</span><span class="chip wa">Ghi nhận</span></summary><div class="in"><dl class="kv">
 <dt>Nguồn phát hiện</dt><dd>Rà 9 Tools ngày 08/10/2026 theo mục tiêu mới của Owner.</dd>
@@ -9169,7 +9169,8 @@ main{max-width:1240px} [hidden]{display:none!important}
     "note": "Mã mô phỏng cũ giữ nguyên để không đổi lịch sử; trỏ một quy trình chuẩn, không phải quy trình thứ hai."
   }
 }</script>
-<script id="tqt-composite-processes" type="application/json">{
+<script id="tqt-composite-processes" type="application/json">
+{
   "schema": "TQT-COMPOSITE-PROCESSES-1",
   "updated": "2026-10-09",
   "host": "Astra Codex",
@@ -9742,9 +9743,9 @@ main{max-width:1240px} [hidden]{display:none!important}
     "issue": {
       "id": "TQT-ISS-007",
       "title": "Quy trình tổng hợp chưa nối vào Master và vòng xử lý khép kín",
-      "state": "Mở · 4 thiết kế + 1 đề xuất; còn MOT/hợp đồng và 5 chốt thực thi",
+      "state": "Mở · đã chốt 5 quy trình thiết kế; còn áp thử và 5 chốt thực thi",
       "owner": "Astra Codex · Host",
-      "next": "P21: khai đủ MOT/hợp đồng gọi của 12 thành phần; chốt phạm vi/Chuỗi 005; đối chiếu cắt chuyển nguồn Tool với TQT-ISS-004; hoàn thiện 5 chốt review06 rồi áp thử một vòng trước PG. 55 tham chiếu và dữ liệu đồng bộ không đủ để đóng hồ sơ.",
+      "next": "P22: Owner rà cuối công cụ → áp thử thiết kế MOW001; ghi sai/thiếu đúng sổ và điều phối 002/003. PG là mốc riêng; không dùng 87 ca mô phỏng để đóng TQT-ISS-007.",
       "review": "Lượt tiếp tục tools-quy-trinh; trước mọi tuyên bố quy trình này đã đăng ký hoặc vận hành.",
       "done": "Có mã Master/quan hệ hợp lệ; mỗi nhánh có nơi nhận, chủ trách nhiệm, chỗ ghi và tiêu chí xong; một ca đi hết có bằng chứng. Giao diện/bộ câu hỏi mới không đủ để đóng.",
       "evidence": "FORMULA-AI-README §D158/§6; CT-005/005.1; view.html tqt-composite-processes; rà nguồn Host 09/10/2026. OPEN-10 là ca sản phẩm liên quan, không đổi trạng thái của nó ở đây. Host tiếp nhận proposal05: model v2, 83 ca mô phỏng; phiếu 70 lượt roundtrip; sáu ô có bản ghi SENT/ACK/RETURN/kiểm/đóng; SQL và PL/pgSQL kiểm cú pháp. Chưa PG/B3–B7 thật; guard quét toàn mô hình chỉ cho staging nhỏ. Vòng 6 Host tái hiện 7 nhóm nhận xét (9 phép kiểm tập trung); đã sửa retry và search_path, còn R06-01/02/03/05/06. 87 ca hiện có không thay nghiệm thu các chốt này."
@@ -10384,21 +10385,21 @@ main{max-width:1240px} [hidden]{display:none!important}
       {
         "code": "MOW-TH-005",
         "name": "Áp dụng một quy trình từ chọn đến bàn giao",
-        "goal": "Điều phối một lượt dùng quy trình chuẩn đến khi kết quả được kiểm và giao đúng nơi.",
+        "goal": "Một việc nhận vào phải chọn đúng quy trình, làm đủ câu hỏi và bước, rồi trả kết quả có người nhận; mọi chỗ vướng đều có người xử lý.",
         "guide": {
-          "purpose": "Điều phối một lượt áp dụng quy trình, từ chọn đến bàn giao.",
+          "purpose": "Một việc nhận vào phải chọn đúng quy trình, làm đủ câu hỏi và bước, rồi trả kết quả có người nhận; mọi chỗ vướng đều có người xử lý.",
           "when": "Nhận một việc cần chọn quy trình phù hợp, kiểm điều kiện, thực hiện và bàn giao.",
           "avoid": "Không gom mọi quy trình để chạy hết; không gọi lồng lại 005 trong quy trình con; chưa chọn được quy trình thì dừng và ghi thiếu.",
           "done": "Lượt áp dụng đạt và bên nhận xác nhận → XONG. Bị chặn/từ chối/hủy → DỪNG, trả lý do đúng nơi; không coi là đạt."
         },
-        "version": "0.1-draft",
+        "version": "1.0-design",
         "object_type": "MOW",
         "process_kind": "aggregate",
-        "chainId": null,
-        "state": "ĐỀ XUẤT · chưa phê duyệt",
+        "chainId": "CH-001",
+        "state": "Đã chốt · áp thử thiết kế",
         "aliases": [],
         "href": "#MOW-TH-005",
-        "source_ref": "TQT-D21",
+        "source_ref": "TQT-D23",
         "route": [
           "Chọn quy trình",
           "Lấy và trả lời câu hỏi",
@@ -10440,7 +10441,7 @@ main{max-width:1240px} [hidden]{display:none!important}
         ],
         "workflow": {
           "scope": "Một lượt áp dụng của một công việc, thuộc một chuyên môn xác định; chỉ gọi ở cửa nhận việc, không gọi lại bên trong quy trình con.",
-          "prerequisite": "S1 tham chiếu CHUNG.APQUYTRINH tại nguồn bên ngoài; cổng mới được thử một phần, không coi PASS mã là đủ quyền/điều kiện chạy.",
+          "prerequisite": "Áp thử thiết kế: S1 kiểm mã/phiên, phạm vi, đầu vào, người làm, tiêu chí, nơi ghi và người nhận theo hợp đồng dưới đây. CHUNG.APQUYTRINH là nguồn quy tắc dùng lại; cổng tự động chưa nghiệm thu không chặn thử thiết kế thủ công. Gọi công cụ/ghi PG vẫn phải qua quyền và cổng thực thi riêng.",
           "steps": [
             {
               "id": "S1",
@@ -10449,8 +10450,8 @@ main{max-width:1240px} [hidden]{display:none!important}
               "code": "MOT-TH-005-01",
               "object_type": "MOT",
               "owner": "MOW-TH-005",
-              "version": "0.1-draft",
-              "state": "ĐỀ XUẤT · chưa phê duyệt",
+              "version": "1.0-design",
+              "state": "Đã chốt · áp thử thiết kế",
               "binding": {
                 "kind": "external_process",
                 "code": "CHUNG.APQUYTRINH",
@@ -10467,8 +10468,8 @@ main{max-width:1240px} [hidden]{display:none!important}
               "code": "MOT-TH-005-02",
               "object_type": "MOT",
               "owner": "MOW-TH-005",
-              "version": "0.1-draft",
-              "state": "ĐỀ XUẤT · chưa phê duyệt",
+              "version": "1.0-design",
+              "state": "Đã chốt · áp thử thiết kế",
               "binding": {
                 "kind": "process",
                 "code": "QT-CTCM-012",
@@ -10482,8 +10483,8 @@ main{max-width:1240px} [hidden]{display:none!important}
               "code": "MOT-TH-005-03",
               "object_type": "MOT",
               "owner": "MOW-TH-005",
-              "version": "0.1-draft",
-              "state": "ĐỀ XUẤT · chưa phê duyệt",
+              "version": "1.0-design",
+              "state": "Đã chốt · áp thử thiết kế",
               "binding": {
                 "kind": "selected_process",
                 "field": "selected_process",
@@ -10499,8 +10500,8 @@ main{max-width:1240px} [hidden]{display:none!important}
               "code": "MOT-TH-005-04",
               "object_type": "MOT",
               "owner": "MOW-TH-005",
-              "version": "0.1-draft",
-              "state": "ĐỀ XUẤT · chưa phê duyệt",
+              "version": "1.0-design",
+              "state": "Đã chốt · áp thử thiết kế",
               "binding": {
                 "kind": "selected_contract",
                 "field": "selected_process.acceptance"
@@ -10513,8 +10514,8 @@ main{max-width:1240px} [hidden]{display:none!important}
               "code": "MOT-TH-005-05",
               "object_type": "MOT",
               "owner": "MOW-TH-005",
-              "version": "0.1-draft",
-              "state": "ĐỀ XUẤT · chưa phê duyệt",
+              "version": "1.0-design",
+              "state": "Đã chốt · áp thử thiết kế",
               "binding": {
                 "kind": "issue_handler",
                 "code": "MOW-TH-002",
@@ -10534,8 +10535,8 @@ main{max-width:1240px} [hidden]{display:none!important}
               "code": "MOT-TH-005-06",
               "object_type": "MOT",
               "owner": "MOW-TH-005",
-              "version": "0.1-draft",
-              "state": "ĐỀ XUẤT · chưa phê duyệt",
+              "version": "1.0-design",
+              "state": "Đã chốt · áp thử thiết kế",
               "binding": {
                 "kind": "selected_contract",
                 "field": "selected_process.recipient"
@@ -10574,13 +10575,13 @@ main{max-width:1240px} [hidden]{display:none!important}
           }
         },
         "gates": {
-          "identity": "Mã thiết kế đề xuất, chưa chốt",
-          "children": "Có nguồn tham chiếu; chưa thử đầu-cuối",
-          "connections": "Thiết kế đường gọi và rẽ nhánh",
-          "records": "Chưa nối máy",
-          "closure": "Chưa nghiệm thu"
+          "identity": "Host chốt mã/phiên thiết kế; CH-001 CTCM",
+          "children": "6 MOT có mã và nơi gọi; thử theo từng việc",
+          "connections": "Chọn một quy trình; nhận–trả theo cùng lần làm",
+          "records": "Ghi phiếu/kết quả/sai thiếu vào sổ hiện hữu",
+          "closure": "Chỉ xong khi kiểm đạt và bên nhận xác nhận; chưa nghiệm thu chạy máy"
         },
-        "host_review": "Host tiếp thu nội hàm một lượt áp dụng quy trình. Giữ đề xuất chờ Owner chốt phạm vi/Chuỗi; chưa nghiệm thu hoặc cấp quyền chạy."
+        "host_review": "D23 · Owner giao Host quyết. Astra Codex chốt phạm vi CTCM (CH-001), cho áp thử thiết kế bằng người/AI. Không cấp quyền chạy PG hay công nhận tự động hóa."
       }
     ],
     "normal_processes": [
@@ -10600,7 +10601,53 @@ main{max-width:1240px} [hidden]{display:none!important}
         "source": "TOOL-CTCM-001",
         "object_type": "MOW",
         "process_kind": "component",
-        "task_mapping": "Cần khai đủ MOT và hợp đồng gọi trước RUN; mã hiện tại là mã danh mục thiết kế, chưa chứng minh đăng ký runtime."
+        "task_mapping": "Các việc con đã có mã MOT và trỏ về hướng dẫn gốc; kế thừa hợp đồng áp thử. Đăng ký runtime/PG là mốc riêng.",
+        "tasks": [
+          {
+            "code": "MOT-TOOL-CTCM-001-01",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-001",
+            "version": "1.0-design",
+            "order": 1,
+            "name": "1. Xác định đích",
+            "instruction_ref": "#MOT-TOOL-CTCM-001-01",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-001-02"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-001-02",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-001",
+            "version": "1.0-design",
+            "order": 2,
+            "name": "2. Vẽ đường đi",
+            "instruction_ref": "#MOT-TOOL-CTCM-001-02",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-001-03"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-001-03",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-001",
+            "version": "1.0-design",
+            "order": 3,
+            "name": "3. Đối chiếu nguồn",
+            "instruction_ref": "#MOT-TOOL-CTCM-001-03",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-001-04"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-001-04",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-001",
+            "version": "1.0-design",
+            "order": 4,
+            "name": "4. Chốt phạm vi thử",
+            "instruction_ref": "#MOT-TOOL-CTCM-001-04",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "RETURN_TO_CALLER"
+          }
+        ]
       },
       {
         "code": "TOOL-CTCM-002",
@@ -10618,7 +10665,53 @@ main{max-width:1240px} [hidden]{display:none!important}
         "source": "TOOL-CTCM-002",
         "object_type": "MOW",
         "process_kind": "component",
-        "task_mapping": "Cần khai đủ MOT và hợp đồng gọi trước RUN; mã hiện tại là mã danh mục thiết kế, chưa chứng minh đăng ký runtime."
+        "task_mapping": "Các việc con đã có mã MOT và trỏ về hướng dẫn gốc; kế thừa hợp đồng áp thử. Đăng ký runtime/PG là mốc riêng.",
+        "tasks": [
+          {
+            "code": "MOT-TOOL-CTCM-002-01",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-002",
+            "version": "1.0-design",
+            "order": 1,
+            "name": "1. Mở như người mới",
+            "instruction_ref": "#MOT-TOOL-CTCM-002-01",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-002-02"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-002-02",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-002",
+            "version": "1.0-design",
+            "order": 2,
+            "name": "2. Thử từng hành động",
+            "instruction_ref": "#MOT-TOOL-CTCM-002-02",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-002-03"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-002-03",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-002",
+            "version": "1.0-design",
+            "order": 3,
+            "name": "3. Đọc phản hồi",
+            "instruction_ref": "#MOT-TOOL-CTCM-002-03",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-002-04"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-002-04",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-002",
+            "version": "1.0-design",
+            "order": 4,
+            "name": "4. Kiểm hiệu lực quy trình",
+            "instruction_ref": "#MOT-TOOL-CTCM-002-04",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "RETURN_TO_CALLER"
+          }
+        ]
       },
       {
         "code": "TOOL-CTCM-003",
@@ -10636,7 +10729,53 @@ main{max-width:1240px} [hidden]{display:none!important}
         "source": "TOOL-CTCM-003",
         "object_type": "MOW",
         "process_kind": "component",
-        "task_mapping": "Cần khai đủ MOT và hợp đồng gọi trước RUN; mã hiện tại là mã danh mục thiết kế, chưa chứng minh đăng ký runtime."
+        "task_mapping": "Các việc con đã có mã MOT và trỏ về hướng dẫn gốc; kế thừa hợp đồng áp thử. Đăng ký runtime/PG là mốc riêng.",
+        "tasks": [
+          {
+            "code": "MOT-TOOL-CTCM-003-01",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-003",
+            "version": "1.0-design",
+            "order": 1,
+            "name": "1. Liệt kê trạng thái",
+            "instruction_ref": "#MOT-TOOL-CTCM-003-01",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-003-02"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-003-02",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-003",
+            "version": "1.0-design",
+            "order": 2,
+            "name": "2. Lập nếu/thì",
+            "instruction_ref": "#MOT-TOOL-CTCM-003-02",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-003-03"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-003-03",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-003",
+            "version": "1.0-design",
+            "order": 3,
+            "name": "3. Kiểm đường quay lại",
+            "instruction_ref": "#MOT-TOOL-CTCM-003-03",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-003-04"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-003-04",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-003",
+            "version": "1.0-design",
+            "order": 4,
+            "name": "4. Sinh ca kiểm",
+            "instruction_ref": "#MOT-TOOL-CTCM-003-04",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "RETURN_TO_CALLER"
+          }
+        ]
       },
       {
         "code": "TOOL-CTCM-004",
@@ -10654,7 +10793,53 @@ main{max-width:1240px} [hidden]{display:none!important}
         "source": "TOOL-CTCM-004",
         "object_type": "MOW",
         "process_kind": "component",
-        "task_mapping": "Cần khai đủ MOT và hợp đồng gọi trước RUN; mã hiện tại là mã danh mục thiết kế, chưa chứng minh đăng ký runtime."
+        "task_mapping": "Các việc con đã có mã MOT và trỏ về hướng dẫn gốc; kế thừa hợp đồng áp thử. Đăng ký runtime/PG là mốc riêng.",
+        "tasks": [
+          {
+            "code": "MOT-TOOL-CTCM-004-01",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-004",
+            "version": "1.0-design",
+            "order": 1,
+            "name": "1. Đọc 7 câu Config",
+            "instruction_ref": "#MOT-TOOL-CTCM-004-01",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-004-02"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-004-02",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-004",
+            "version": "1.0-design",
+            "order": 2,
+            "name": "2. Rà luật",
+            "instruction_ref": "#MOT-TOOL-CTCM-004-02",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-004-03"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-004-03",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-004",
+            "version": "1.0-design",
+            "order": 3,
+            "name": "3. Rà bản ghi",
+            "instruction_ref": "#MOT-TOOL-CTCM-004-03",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-004-04"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-004-04",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-004",
+            "version": "1.0-design",
+            "order": 4,
+            "name": "4. Thử quyết định",
+            "instruction_ref": "#MOT-TOOL-CTCM-004-04",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "RETURN_TO_CALLER"
+          }
+        ]
       },
       {
         "code": "TOOL-CTCM-005",
@@ -10672,7 +10857,53 @@ main{max-width:1240px} [hidden]{display:none!important}
         "source": "TOOL-CTCM-005",
         "object_type": "MOW",
         "process_kind": "component",
-        "task_mapping": "Cần khai đủ MOT và hợp đồng gọi trước RUN; mã hiện tại là mã danh mục thiết kế, chưa chứng minh đăng ký runtime."
+        "task_mapping": "Các việc con đã có mã MOT và trỏ về hướng dẫn gốc; kế thừa hợp đồng áp thử. Đăng ký runtime/PG là mốc riêng.",
+        "tasks": [
+          {
+            "code": "MOT-TOOL-CTCM-005-01",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-005",
+            "version": "1.0-design",
+            "order": 1,
+            "name": "1. Chia nhóm dữ liệu",
+            "instruction_ref": "#MOT-TOOL-CTCM-005-01",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-005-02"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-005-02",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-005",
+            "version": "1.0-design",
+            "order": 2,
+            "name": "2. Thử sát giới hạn",
+            "instruction_ref": "#MOT-TOOL-CTCM-005-02",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-005-03"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-005-03",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-005",
+            "version": "1.0-design",
+            "order": 3,
+            "name": "3. Thử lỗi phụ thuộc",
+            "instruction_ref": "#MOT-TOOL-CTCM-005-03",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-005-04"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-005-04",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-005",
+            "version": "1.0-design",
+            "order": 4,
+            "name": "4. Lưu bộ thử",
+            "instruction_ref": "#MOT-TOOL-CTCM-005-04",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "RETURN_TO_CALLER"
+          }
+        ]
       },
       {
         "code": "TOOL-CTCM-006",
@@ -10690,7 +10921,53 @@ main{max-width:1240px} [hidden]{display:none!important}
         "source": "TOOL-CTCM-006",
         "object_type": "MOW",
         "process_kind": "component",
-        "task_mapping": "Cần khai đủ MOT và hợp đồng gọi trước RUN; mã hiện tại là mã danh mục thiết kế, chưa chứng minh đăng ký runtime."
+        "task_mapping": "Các việc con đã có mã MOT và trỏ về hướng dẫn gốc; kế thừa hợp đồng áp thử. Đăng ký runtime/PG là mốc riêng.",
+        "tasks": [
+          {
+            "code": "MOT-TOOL-CTCM-006-01",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-006",
+            "version": "1.0-design",
+            "order": 1,
+            "name": "1. Tra trước khi tạo",
+            "instruction_ref": "#MOT-TOOL-CTCM-006-01",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-006-02"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-006-02",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-006",
+            "version": "1.0-design",
+            "order": 2,
+            "name": "2. Khớp chuỗi liên kết",
+            "instruction_ref": "#MOT-TOOL-CTCM-006-02",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-006-03"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-006-03",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-006",
+            "version": "1.0-design",
+            "order": 3,
+            "name": "3. So với UI cha",
+            "instruction_ref": "#MOT-TOOL-CTCM-006-03",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-006-04"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-006-04",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-006",
+            "version": "1.0-design",
+            "order": 4,
+            "name": "4. Xử lý khác biệt",
+            "instruction_ref": "#MOT-TOOL-CTCM-006-04",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "RETURN_TO_CALLER"
+          }
+        ]
       },
       {
         "code": "TOOL-CTCM-007",
@@ -10708,7 +10985,53 @@ main{max-width:1240px} [hidden]{display:none!important}
         "source": "TOOL-CTCM-007",
         "object_type": "MOW",
         "process_kind": "component",
-        "task_mapping": "Cần khai đủ MOT và hợp đồng gọi trước RUN; mã hiện tại là mã danh mục thiết kế, chưa chứng minh đăng ký runtime."
+        "task_mapping": "Các việc con đã có mã MOT và trỏ về hướng dẫn gốc; kế thừa hợp đồng áp thử. Đăng ký runtime/PG là mốc riêng.",
+        "tasks": [
+          {
+            "code": "MOT-TOOL-CTCM-007-01",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-007",
+            "version": "1.0-design",
+            "order": 1,
+            "name": "1. Viết ca",
+            "instruction_ref": "#MOT-TOOL-CTCM-007-01",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-007-02"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-007-02",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-007",
+            "version": "1.0-design",
+            "order": 2,
+            "name": "2. Chạy như người dùng",
+            "instruction_ref": "#MOT-TOOL-CTCM-007-02",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-007-03"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-007-03",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-007",
+            "version": "1.0-design",
+            "order": 3,
+            "name": "3. Kiểm ảnh hưởng",
+            "instruction_ref": "#MOT-TOOL-CTCM-007-03",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-007-04"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-007-04",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-007",
+            "version": "1.0-design",
+            "order": 4,
+            "name": "4. Đối chiếu mục tiêu",
+            "instruction_ref": "#MOT-TOOL-CTCM-007-04",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "RETURN_TO_CALLER"
+          }
+        ]
       },
       {
         "code": "TOOL-CTCM-008",
@@ -10727,7 +11050,64 @@ main{max-width:1240px} [hidden]{display:none!important}
         "boundary": "Chỉ ghi/đọc lại hồ sơ và các nơi ảnh hưởng; là bước đầu của MOW-TH-002. Không tự đóng toàn vòng. MOW-TH-002 điều phối xác minh, xử lý, đấu lại và kiểm để đóng.",
         "object_type": "MOW",
         "process_kind": "component",
-        "task_mapping": "Cần khai đủ MOT và hợp đồng gọi trước RUN; mã hiện tại là mã danh mục thiết kế, chưa chứng minh đăng ký runtime."
+        "task_mapping": "Các việc con đã có mã MOT và trỏ về hướng dẫn gốc; kế thừa hợp đồng áp thử. Đăng ký runtime/PG là mốc riêng.",
+        "tasks": [
+          {
+            "code": "MOT-TOOL-CTCM-008-01",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-008",
+            "version": "1.0-design",
+            "order": 1,
+            "name": "Tra hồ sơ",
+            "instruction_ref": "#MOT-TOOL-CTCM-008-01",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-008-02"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-008-02",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-008",
+            "version": "1.0-design",
+            "order": 2,
+            "name": "Ghi hoặc bổ sung",
+            "instruction_ref": "#MOT-TOOL-CTCM-008-02",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-008-03"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-008-03",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-008",
+            "version": "1.0-design",
+            "order": 3,
+            "name": "Gắn nơi phát hiện",
+            "instruction_ref": "#MOT-TOOL-CTCM-008-03",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-008-04"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-008-04",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-008",
+            "version": "1.0-design",
+            "order": 4,
+            "name": "Bàn giao xác minh",
+            "instruction_ref": "#MOT-TOOL-CTCM-008-04",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-008-05"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-008-05",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-008",
+            "version": "1.0-design",
+            "order": 5,
+            "name": "Đọc lại",
+            "instruction_ref": "#MOT-TOOL-CTCM-008-05",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "RETURN_TO_CALLER"
+          }
+        ]
       },
       {
         "code": "TOOL-CTCM-009",
@@ -10745,7 +11125,53 @@ main{max-width:1240px} [hidden]{display:none!important}
         "source": "TOOL-CTCM-009",
         "object_type": "MOW",
         "process_kind": "component",
-        "task_mapping": "Cần khai đủ MOT và hợp đồng gọi trước RUN; mã hiện tại là mã danh mục thiết kế, chưa chứng minh đăng ký runtime."
+        "task_mapping": "Các việc con đã có mã MOT và trỏ về hướng dẫn gốc; kế thừa hợp đồng áp thử. Đăng ký runtime/PG là mốc riêng.",
+        "tasks": [
+          {
+            "code": "MOT-TOOL-CTCM-009-01",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-009",
+            "version": "1.0-design",
+            "order": 1,
+            "name": "1. Chốt hợp đồng",
+            "instruction_ref": "#MOT-TOOL-CTCM-009-01",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-009-02"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-009-02",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-009",
+            "version": "1.0-design",
+            "order": 2,
+            "name": "2. Viết và chạy thử",
+            "instruction_ref": "#MOT-TOOL-CTCM-009-02",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-009-03"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-009-03",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-009",
+            "version": "1.0-design",
+            "order": 3,
+            "name": "3. Rà và phát hành",
+            "instruction_ref": "#MOT-TOOL-CTCM-009-03",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TOOL-CTCM-009-04"
+          },
+          {
+            "code": "MOT-TOOL-CTCM-009-04",
+            "object_type": "MOT",
+            "owner": "TOOL-CTCM-009",
+            "version": "1.0-design",
+            "order": 4,
+            "name": "4. Theo dõi và cải tiến",
+            "instruction_ref": "#MOT-TOOL-CTCM-009-04",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "RETURN_TO_CALLER"
+          }
+        ]
       },
       {
         "code": "TQT-TH-001-PG",
@@ -10763,7 +11189,53 @@ main{max-width:1240px} [hidden]{display:none!important}
         "source": "TQT-TH-001-PG",
         "object_type": "MOW",
         "process_kind": "component",
-        "task_mapping": "Cần khai đủ MOT và hợp đồng gọi trước RUN; mã hiện tại là mã danh mục thiết kế, chưa chứng minh đăng ký runtime."
+        "task_mapping": "Các việc con đã có mã MOT và trỏ về hướng dẫn gốc; kế thừa hợp đồng áp thử. Đăng ký runtime/PG là mốc riêng.",
+        "tasks": [
+          {
+            "code": "MOT-TQT-TH-001-PG-01",
+            "object_type": "MOT",
+            "owner": "TQT-TH-001-PG",
+            "version": "1.0-design",
+            "order": 1,
+            "name": "Bước 1",
+            "instruction_ref": "processes[0].supplements[code=TQT-TH-001-PG].steps[0]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TQT-TH-001-PG-02"
+          },
+          {
+            "code": "MOT-TQT-TH-001-PG-02",
+            "object_type": "MOT",
+            "owner": "TQT-TH-001-PG",
+            "version": "1.0-design",
+            "order": 2,
+            "name": "Bước 2",
+            "instruction_ref": "processes[0].supplements[code=TQT-TH-001-PG].steps[1]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TQT-TH-001-PG-03"
+          },
+          {
+            "code": "MOT-TQT-TH-001-PG-03",
+            "object_type": "MOT",
+            "owner": "TQT-TH-001-PG",
+            "version": "1.0-design",
+            "order": 3,
+            "name": "Bước 3",
+            "instruction_ref": "processes[0].supplements[code=TQT-TH-001-PG].steps[2]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TQT-TH-001-PG-04"
+          },
+          {
+            "code": "MOT-TQT-TH-001-PG-04",
+            "object_type": "MOT",
+            "owner": "TQT-TH-001-PG",
+            "version": "1.0-design",
+            "order": 4,
+            "name": "Bước 4",
+            "instruction_ref": "processes[0].supplements[code=TQT-TH-001-PG].steps[3]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "RETURN_TO_CALLER"
+          }
+        ]
       },
       {
         "code": "TQT-TH-001-OPS",
@@ -10781,7 +11253,53 @@ main{max-width:1240px} [hidden]{display:none!important}
         "source": "TQT-TH-001-OPS",
         "object_type": "MOW",
         "process_kind": "component",
-        "task_mapping": "Cần khai đủ MOT và hợp đồng gọi trước RUN; mã hiện tại là mã danh mục thiết kế, chưa chứng minh đăng ký runtime."
+        "task_mapping": "Các việc con đã có mã MOT và trỏ về hướng dẫn gốc; kế thừa hợp đồng áp thử. Đăng ký runtime/PG là mốc riêng.",
+        "tasks": [
+          {
+            "code": "MOT-TQT-TH-001-OPS-01",
+            "object_type": "MOT",
+            "owner": "TQT-TH-001-OPS",
+            "version": "1.0-design",
+            "order": 1,
+            "name": "Bước 1",
+            "instruction_ref": "processes[0].supplements[code=TQT-TH-001-OPS].steps[0]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TQT-TH-001-OPS-02"
+          },
+          {
+            "code": "MOT-TQT-TH-001-OPS-02",
+            "object_type": "MOT",
+            "owner": "TQT-TH-001-OPS",
+            "version": "1.0-design",
+            "order": 2,
+            "name": "Bước 2",
+            "instruction_ref": "processes[0].supplements[code=TQT-TH-001-OPS].steps[1]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TQT-TH-001-OPS-03"
+          },
+          {
+            "code": "MOT-TQT-TH-001-OPS-03",
+            "object_type": "MOT",
+            "owner": "TQT-TH-001-OPS",
+            "version": "1.0-design",
+            "order": 3,
+            "name": "Bước 3",
+            "instruction_ref": "processes[0].supplements[code=TQT-TH-001-OPS].steps[2]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-TQT-TH-001-OPS-04"
+          },
+          {
+            "code": "MOT-TQT-TH-001-OPS-04",
+            "object_type": "MOT",
+            "owner": "TQT-TH-001-OPS",
+            "version": "1.0-design",
+            "order": 4,
+            "name": "Bước 4",
+            "instruction_ref": "processes[0].supplements[code=TQT-TH-001-OPS].steps[3]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "RETURN_TO_CALLER"
+          }
+        ]
       },
       {
         "code": "QT-CTCM-012",
@@ -10807,7 +11325,64 @@ main{max-width:1240px} [hidden]{display:none!important}
         "gate": "Mỗi câu áp dụng truy được tới bước trả lời/kiểm, người giữ và bước tiếp. Chốt máy R06-03 còn mở.",
         "object_type": "MOW",
         "process_kind": "component",
-        "task_mapping": "Cần khai đủ MOT và hợp đồng gọi trước RUN; mã hiện tại là mã danh mục thiết kế, chưa chứng minh đăng ký runtime."
+        "task_mapping": "Các việc con đã có mã MOT và trỏ về hướng dẫn gốc; kế thừa hợp đồng áp thử. Đăng ký runtime/PG là mốc riêng.",
+        "tasks": [
+          {
+            "code": "MOT-QT-CTCM-012-01",
+            "object_type": "MOT",
+            "owner": "QT-CTCM-012",
+            "version": "1.0-design",
+            "order": 1,
+            "name": "Bước 1",
+            "instruction_ref": "catalog.normal_processes[code=QT-CTCM-012].steps[0]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-QT-CTCM-012-02"
+          },
+          {
+            "code": "MOT-QT-CTCM-012-02",
+            "object_type": "MOT",
+            "owner": "QT-CTCM-012",
+            "version": "1.0-design",
+            "order": 2,
+            "name": "Bước 2",
+            "instruction_ref": "catalog.normal_processes[code=QT-CTCM-012].steps[1]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-QT-CTCM-012-03"
+          },
+          {
+            "code": "MOT-QT-CTCM-012-03",
+            "object_type": "MOT",
+            "owner": "QT-CTCM-012",
+            "version": "1.0-design",
+            "order": 3,
+            "name": "Bước 3",
+            "instruction_ref": "catalog.normal_processes[code=QT-CTCM-012].steps[2]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-QT-CTCM-012-04"
+          },
+          {
+            "code": "MOT-QT-CTCM-012-04",
+            "object_type": "MOT",
+            "owner": "QT-CTCM-012",
+            "version": "1.0-design",
+            "order": 4,
+            "name": "Bước 4",
+            "instruction_ref": "catalog.normal_processes[code=QT-CTCM-012].steps[3]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "MOT-QT-CTCM-012-05"
+          },
+          {
+            "code": "MOT-QT-CTCM-012-05",
+            "object_type": "MOT",
+            "owner": "QT-CTCM-012",
+            "version": "1.0-design",
+            "order": 5,
+            "name": "Bước 5",
+            "instruction_ref": "catalog.normal_processes[code=QT-CTCM-012].steps[4]",
+            "contract_ref": "#tqt-trial-contract",
+            "next": "RETURN_TO_CALLER"
+          }
+        ]
       }
     ],
     "code_policy": "Mã MOW-TH-* là mã chính thức của danh mục thiết kế này, không đổi khi sửa tên. Đăng ký mã không đồng nghĩa quy trình đã được nghiệm thu hay được phép chạy PG. Không gán Nhóm cha giả hoặc đổi CT-005.",
@@ -10904,7 +11479,7 @@ main{max-width:1240px} [hidden]{display:none!important}
     "consistency_review": {
       "id": "TQT-ISS-007-OV",
       "host": "Astra Codex",
-      "status": "DESIGN_REVIEW",
+      "status": "READY_FOR_DESIGN_TRIAL",
       "findings": [
         "005: chọn một ứng viên, không gọi hết 001–004; không đệ quy cửa vào.",
         "004 có thể được 001 gọi; sửa chú giải loại trừ.",
@@ -10913,11 +11488,46 @@ main{max-width:1240px} [hidden]{display:none!important}
         "Mã tham chiếu hợp lệ không chứng minh đầy đủ MOT, hợp đồng hoặc đường chạy."
       ],
       "open": [
-        "005 chờ Owner chốt phạm vi/Chuỗi; 6 mã MOT là dự thảo thiết kế.",
-        "12 quy trình thành phần chưa được chứng minh ánh xạ đầy đủ MOT/hợp đồng runtime.",
-        "Nguồn Tool cũ/sổ MOW còn chờ quyết định cắt chuyển tại TQT-ISS-004; không coi hai bản là SSOT cùng lúc.",
-        "5 chốt TQT-ISS-007, PG/DOT/quyền/đồng thời/khôi phục vẫn chưa nghiệm thu."
+        "Áp thử MOW-NHC-001 theo ⑤ → 001/004 và QT-CTCM-012; ghi điểm vướng theo cùng phiếu, chưa nghiệm thu sản phẩm.",
+        "TQT-ISS-004: hướng dẫn hiện hành đã chốt nguồn; hồ sơ sản phẩm giữ sổ gốc, việc chuyển dữ liệu còn theo dõi riêng.",
+        "TQT-ISS-007: 5 chốt cưỡng chế, PG/DOT/quyền/đồng thời/khôi phục còn mở; không chặn thử thiết kế thủ công."
       ]
+    },
+    "trial_contract": {
+      "owner": "MOW-TH-005",
+      "version": "1.0-design",
+      "mode": "DESIGN_TRIAL",
+      "purpose": "Áp thử thủ công trên repo/UI; khai trong phiếu hiện hữu, không tạo loại đối tượng hay sổ mới.",
+      "required": [
+        "application_id",
+        "process_code",
+        "process_version",
+        "target_code",
+        "target_version",
+        "scope",
+        "input_refs",
+        "actor",
+        "reviewer",
+        "recipient",
+        "output_ref",
+        "issue_ref",
+        "acceptance",
+        "return_to"
+      ],
+      "inherit": "Mỗi MOT kế thừa ngữ cảnh MOW gọi nó; ghi mã MOT, thứ tự/lần thử và nguồn đầu vào. Người làm, người kiểm, người nhận phải là danh tính cụ thể. Chỉ hỏi người dùng điều chưa có và không suy ra chắc chắn.",
+      "input": "Đầu vào lấy từ nguồn đã khai hoặc kết quả bước trước; phải đọc được đúng đối tượng/phiên. Thiếu → BỊ CHẶN, ghi lý do, người giữ và điều kiện tiếp tục.",
+      "output": "Mỗi việc ghi kết quả, bằng chứng/phiên nguồn, nơi nhận và bước tiếp theo vào output_ref. Không đủ câu bắt buộc thì không tự nhận đạt; N/A phải có lý do được người kiểm chấp nhận.",
+      "return": "Mỗi lần gọi ghi caller/MOT, callee/mã phiên, application_id, số lần gọi, bên nhận, đầu vào, đích trả. Bên nhận xác nhận nhận; bên gọi xác nhận kết quả trả đúng lần gọi. Chưa nhận hoặc quá hạn: người giao vẫn giữ trách nhiệm và mốc nhắc; không tự đóng.",
+      "retry": "Gửi lại cùng mã lần gọi và cùng nội dung/đích → dùng lại; đổi nội dung/đích → ghi xung đột để Host xử lý. Không trả vào lần làm đã dừng hoặc vòng khác.",
+      "failure": "Tool 008 ghi/đọc lại hồ sơ; MOW-TH-002 giữ vòng xử lý. Cần sửa hướng dẫn thì 002 gọi 003 trên cùng mã hồ sơ. Mỗi nơi bị ảnh hưởng phải kiểm lại; từ chối/hủy trả lý do, không báo mục tiêu đạt.",
+      "finish": "MOT đạt mới sang việc tiếp; nhánh không áp dụng phải ghi căn cứ. MOW xong khi đủ việc áp dụng, kiểm đạt và người nhận xác nhận. Điều kiện chưa đổi thì không lặp kiểm phần bị chặn; nguồn đổi thì kiểm lại phần phụ thuộc.",
+      "runtime": "Đây là quy định thực hành, chưa phải chốt cưỡng chế PG. Triển khai/khôi phục và vận hành thực chỉ chạy khi đủ gói, quyền và checkpoint tương ứng."
+    },
+    "source_policy": {
+      "decision": "TQT-D23",
+      "manual_ssot": "work/tools-quy-trinh/view.html",
+      "legacy": "Hướng dẫn Tool trên tools-playbook-v1.html chỉ còn tham chiếu lịch sử. Không sửa song song; đường hiện hành qua Master → Overview.",
+      "records": "Sổ vấn đề và sổ kết quả của MOW sản phẩm vẫn ở nguồn hiện hữu; không sao chép hay dời hồ sơ. TQT-ISS-004 chỉ còn kiểm cắt chuyển phần dữ liệu sản phẩm chưa hoàn tất."
     }
   },
   "checkpoint_policy": {
@@ -10968,7 +11578,8 @@ main{max-width:1240px} [hidden]{display:none!important}
     "C4": "Tiếp nhận: năm ý khép kín đưa ngay đầu tab.",
     "goals": "Chưa áp mục2–3 proposal07; Owner chưa chốt bản mục tiêu ngắn."
   }
-}</script>
+}
+</script>
 <script id="tqt-process-model-renderer">
 (function(){
 'use strict';
@@ -11118,7 +11729,7 @@ const compactGuide=p=>{
 const root=document.getElementById('list-quy-trinh-tong-hop');
 const first=root.firstElementChild;if(first)first.remove();
 const host=document.createElement('section');host.id='tqt-process-inventory';
-host.innerHTML='<h2>'+R.records.length+' quy trình tổng hợp</h2><p>'+e(R.definition)+'</p><p><a href="'+e(R.url)+'" target="_blank" rel="noopener">Mở Master Quy trình tổng hợp ↗</a> · <small>'+e(R.id)+' · Danh mục thiết kế</small></p><div class="tqt-closure-formula">'+C.closure_review.formula.map((x,i)=>'<span>'+String(i+1)+'. '+e(x)+'</span>').join('<i>→</i>')+'</div><p class="mut">'+R.records.filter(x=>!x.state.includes('ĐỀ XUẤT')).length+' đang thiết kế + '+R.records.filter(x=>x.state.includes('ĐỀ XUẤT')).length+' đề xuất chưa duyệt · '+R.normal_processes.length+' quy trình thành phần. Có mã không đồng nghĩa đã nghiệm thu. Bấm tên để xem chi tiết.</p>';
+host.innerHTML='<h2>'+R.records.length+' quy trình tổng hợp</h2><p>'+e(R.definition)+'</p><p><a href="'+e(R.url)+'" target="_blank" rel="noopener">Mở Master Quy trình tổng hợp ↗</a> · <small>'+e(R.id)+' · Danh mục thiết kế</small></p><div class="tqt-closure-formula">'+C.closure_review.formula.map((x,i)=>'<span>'+String(i+1)+'. '+e(x)+'</span>').join('<i>→</i>')+'</div><p class="mut">'+R.records.length+' bản thiết kế · ⑤ đã chốt áp thử · '+R.normal_processes.length+' quy trình thành phần. Có mã không đồng nghĩa đã nghiệm thu. Bấm tên để xem chi tiết.</p>';
 root.prepend(host);
 const moved={
  'MOW-TH-001':document.getElementById('TQT-TH-001'),
@@ -11130,7 +11741,7 @@ for(const r of R.records){
  card.innerHTML='<summary><span><b>'+e(r.name)+'</b><small>'+e(r.code)+' · '+e(r.state)+'</small></span></summary><div class="tqt-composite-body"><p>'+e(r.goal)+'</p>'+compactGuide(r)+routeMarkup(r)+'<p><b>Quy trình con:</b> '+r.child_refs.map(ref=>{const n=[...R.records,...R.normal_processes].find(x=>x.code===ref.code);return (ref.relation==='candidate'?'[Ứng viên để chọn] ':'')+'<a href="'+e(n.href)+'">'+e(n.name)+' <small>('+e(n.code)+')</small></a>';}).join(' · ')+'</p><details><summary>Kiểm 5 ý khép kín</summary>'+Object.values(r.gates).map((v,i)=>'<p>'+e(C.closure_review.formula[i])+': '+e(v)+'</p>').join('')+'</details></div>';
  const body=card.lastElementChild;
  if(r.issue_ownership){const note=document.createElement('p');note.textContent=r.issue_ownership;body.appendChild(note);}
- if(r.workflow){const d=document.createElement('details');d.innerHTML='<summary>Khai báo 6 MOT · bản đề xuất</summary><p>'+e(r.host_review)+'</p>'+r.workflow.steps.map(st=>'<p><b>'+e(st.code)+' · '+e(st.label)+'</b><br>'+e(st.result)+'<br><small>'+e(JSON.stringify(st.binding))+'</small></p>').join('');body.appendChild(d);}
+ if(r.workflow){const d=document.createElement('details');d.innerHTML='<summary>Khai báo 6 MOT · áp thử thiết kế</summary><p>'+e(r.host_review)+'</p>'+r.workflow.steps.map(st=>'<p><b>'+e(st.code)+' · '+e(st.label)+'</b><br>'+e(st.result)+'<br><small>'+e(JSON.stringify(st.binding))+'</small></p>').join('');body.appendChild(d);}
  if(moved[r.code])body.appendChild(moved[r.code]);
  if(r.code==='MOW-TH-002'){
   const model=document.getElementById('tqt-process-model-view');
@@ -11142,6 +11753,9 @@ for(const r of R.records){
 const normals=document.createElement('details');normals.id='tqt-normal-processes';normals.innerHTML='<summary>Quy trình con · 9 Tool + 3 quy trình bổ sung</summary><p>Đây là các quy trình giải quyết nhiệm vụ nhỏ hơn. Một quy trình con có thể được nhiều quy trình tổng hợp dùng lại.</p>';
 for(const n of R.normal_processes){let el=document.getElementById(n.href.slice(1));if(el){normals.appendChild(el);if(n.boundary){const p=document.createElement('p');p.textContent=n.boundary;el.appendChild(p);}}else{el=document.createElement('details');el.id=n.code;el.innerHTML='<summary>'+e(n.code)+' · '+e(n.name)+'</summary><ol>'+(n.steps||[]).map(x=>'<li>'+e(x)+'</li>').join('')+'</ol><p><b>Đầu ra:</b> '+e(n.output)+'</p><p><b>Xong khi:</b> '+e(n.gate)+'</p>';normals.appendChild(el);}}
 host.appendChild(normals);
+const contract=document.createElement('details');contract.id='tqt-trial-contract';contract.innerHTML='<summary>Áp thử: ai làm · đọc/ghi đâu · ai nhận · khi nào xong?</summary><p>'+e(R.trial_contract.purpose)+'</p><p><b>Trước khi làm:</b> '+e(R.trial_contract.required.join(' · '))+'</p>'+['inherit','input','output','return','retry','failure','finish','runtime'].map(k=>'<p>'+e(R.trial_contract[k])+'</p>').join('');host.appendChild(contract);
+for(const n of R.normal_processes){const el=document.getElementById(n.href.slice(1));if(!el)continue;const d=document.createElement('details');d.innerHTML='<summary>Các MOT và nơi nhận–trả</summary><p>'+e(n.task_mapping)+' <a href="#tqt-trial-contract">Hợp đồng áp thử</a></p>'+n.tasks.map(t=>'<p><b>'+e(t.code)+'</b> · '+e(t.name)+'<br><small>'+e(t.instruction_ref)+' → '+e(t.next)+'</small></p>').join('');el.appendChild(d);}
+
 for(const n of R.normal_processes){
  const el=document.getElementById(n.href?.startsWith('#')?n.href.slice(1):n.code);
  if(!el||el.querySelector('[data-tqt-guide]'))continue;
@@ -11183,7 +11797,7 @@ const directAggregates=r=>(r.child_refs||[]).filter(x=>x.relation!=='candidate')
 const directNormals=r=>new Set((r.child_refs||[]).map(x=>x.code).filter(x=>normals.some(n=>n.code===x)));
 const pMain=records.find(r=>r.code==='MOW-TH-001')||records[0];
 const rest=records.filter(r=>r!==pMain && r.code!=='MOW-TH-005');
-const countLine=records.filter(r=>!r.state.includes('ĐỀ XUẤT')).length+' đang thiết kế + '+records.filter(r=>r.state.includes('ĐỀ XUẤT')).length+' đề xuất chưa duyệt';
+const countLine=records.length+' bản thiết kế · ⑤ đã chốt áp thử';
 if(!pMain){slot.textContent='Chưa có Quy trình tổng hợp trong nguồn thiết kế.';return;}
 const bigCalls=directAggregates(pMain);
 const main='<div class="ov-lead"><div class="ov-title">'+bigBadge(pMain)+' '+pLink(pMain)+'</div><p class="ov-subtext">'+e(pMain.guide?.purpose||pMain.goal)+'</p><p class="ov-subtext"><b>Các giai đoạn:</b> '+e((pMain.route||[]).join(' → '))+'</p>'+guideHtml(pMain)+'</div>';
@@ -11236,7 +11850,7 @@ const posterDetailed=
  '<div class="ov-pane green"><h3>2. Ba lớp của Tools quy trình</h3><div class="ov-post-columns">'+layerHtml()+'</div></div></div>'+
  '<div class="ov-pane blue"><h3>3. Các quy trình và ví dụ hiện có</h3><div class="ov-post-columns"><div><strong>'+records.length+' Quy trình tổng hợp</strong>'+posterAggRows+'</div><div><strong>'+normals.length+' Quy trình thành phần</strong><p>9 Tool CTCM + 3 quy trình bổ sung, dùng chung giữa các quy trình tổng hợp.</p><ul>'+posterQuick+'</ul><p class="ov-guide">Mã và STT đầy đủ nằm trong bảng ở phía trên.</p></div>'+
  '<div><strong>Ví dụ MOW đang thiết kế</strong>'+sampleMows+'</div></div></div>'+
- '<div class="ov-pane blue" style="margin-top:12px"><h3>4. Quy trình tổng hợp ⑤ · Áp dụng một quy trình <small class="ov-code">MOW-TH-005</small></h3><p class="ov-guide">ĐỀ XUẤT CHƯA DUYỆT · <a href="#MOW-TH-005">Mở quy trình để đọc chú giải</a>. Bước 5 và 6 là hai nhánh CHƯA ĐẠT/ĐẠT, không chạy nối tiếp.</p>'+stepHtml+'</div>'+
+ '<div class="ov-pane blue" style="margin-top:12px"><h3>4. Quy trình tổng hợp ⑤ · Áp dụng một quy trình <small class="ov-code">MOW-TH-005</small></h3><p class="ov-guide">ĐÃ CHỐT ÁP THỬ THIẾT KẾ · <a href="#MOW-TH-005">Mở quy trình để đọc chú giải</a>. Bước 5 và 6 là hai nhánh CHƯA ĐẠT/ĐẠT, không chạy nối tiếp.</p>'+stepHtml+'</div>'+
  '<div class="ov-post-row"><div class="ov-pane"><h3>5. Nguồn tham chiếu chính</h3><div class="ov-link-list">'+posterLinks+'</div><p class="ov-guide">Danh mục và công thức đã có; các liên kết dùng lại nguồn hiện hành.</p></div>'+
  '<div class="ov-pane"><h3>6. Sổ vấn đề và trạng thái</h3><p><a href="#so-van-de">Sổ vấn đề của tools-quy-trinh</a> theo dõi lỗi/thiếu cho tới khi xử lý xong.</p><p>Hiện đã có danh mục thiết kế, ma trận câu hỏi và mô hình mô phỏng. <b>Chưa nghiệm thu vận hành production.</b></p></div></div>'+
  '<div class="ov-underline-note"><strong>Nguyên tắc:</strong> AI đọc quy trình → làm ra sản phẩm. Chưa đạt → ghi sổ, hiệu chỉnh và làm lại.</div></div></details>';
@@ -11257,7 +11871,7 @@ const posterShort=
  '<p class="ov-statusline">Hai bản HTML chỉ mô tả những gì đã đăng ký/thiết kế; không sinh ảnh, không đăng ký thêm Quy trình và không công nhận sản phẩm đã chạy.</p></div></details>';
 
 slot.innerHTML=
-'<div class="ov-section"><h2>'+records.length+' Quy trình tổng hợp <small class="ov-code">'+e(countLine)+'</small></h2><p class="ov-intro"><b>MOW quản lý trình tự · MOT thực hiện từng việc.</b> Tổng hợp và thành phần đều là quy trình MOW.</p><details class="ov-guidance"><summary>Quy tắc quản lý và gọi lại</summary><p>'+e(R.management_rule)+'</p><p>'+e(R.relationship_rule)+'</p></details>'+ '<div class="ov-pane gold"><b>⑤ · Một lượt áp dụng quy trình</b><p>Chọn <b>một</b> quy trình phù hợp → trả lời câu hỏi → thực hiện → kiểm → bàn giao. Có sai/thiếu thì xử lý và kiểm lại.</p><p><a href="#MOW-TH-005">MOW-TH-005 · đề xuất chưa duyệt</a>. ⑤ dùng ①/②/③/④ tùy việc; ① không gọi ⑤.</p></div>'+main+
+'<div class="ov-section"><h2>'+records.length+' Quy trình tổng hợp <small class="ov-code">'+e(countLine)+'</small></h2><p class="ov-intro"><b>MOW quản lý trình tự · MOT thực hiện từng việc.</b> Tổng hợp và thành phần đều là quy trình MOW.</p><details class="ov-guidance"><summary>Quy tắc quản lý và gọi lại</summary><p>'+e(R.management_rule)+'</p><p>'+e(R.relationship_rule)+'</p></details>'+ '<div class="ov-pane gold"><b>⑤ · Một lượt áp dụng quy trình</b><p>Chọn <b>một</b> quy trình phù hợp → trả lời câu hỏi → thực hiện → kiểm → bàn giao. Có sai/thiếu thì xử lý và kiểm lại.</p><p><a href="#MOW-TH-005">MOW-TH-005 · đã chốt để áp thử</a>. ⑤ dùng ①/②/③/④ tùy việc; ① không gọi ⑤.</p></div>'+main+
 '<div class="ov-flow-arrow">↓ &nbsp;'+no(pMain)+' có thể gọi '+bigCalls.map(no).join(' · ')+'</div>'+
 '<div class="ov-cards">'+cards+'</div></div>'+
 '<div class="ov-section"><h2>'+normals.length+' Quy trình thành phần <small class="ov-code">dùng chung</small></h2><p class="ov-matrix-guide">✓ = Quy trình tổng hợp gọi <b>trực tiếp</b> Quy trình thành phần. — = không gọi trực tiếp; vẫn có thể gọi gián tiếp qua quy trình khác.</p>'+
@@ -11266,7 +11880,7 @@ slot.innerHTML=
 '<div class="ov-foot"><p><b>Nguyên tắc:</b> đây là '+normals.length+' Quy trình thành phần dùng lại, <b>không</b> phải mỗi Quy trình tổng hợp có một bộ riêng.</p>'+
 '<p>Kho '+(Q?Q.questions.length:'…')+' câu hỏi / '+(Q?Q.groups.length:'…')+' nhóm là <b>tài nguyên</b>, không phải Quy trình. <a href="#QT-CTCM-012">Khai báo và kiểm bộ câu hỏi</a> <small class="ov-code">QT-CTCM-012</small> là <b>một trong '+normals.length+' Quy trình thành phần</b>.</p>'+
 '<p class="ov-status">Tên, mã, mối gọi lấy từ danh mục thiết kế '+e(R.id)+'; các Quy trình chưa được coi là đã vận hành production.</p></div></div>'+
-'<div class="ov-section"><h2>Còn thiếu để gọi và chạy được</h2><ul>'+R.consistency_review.open.map(v=>'<li>'+e(v)+'</li>').join('')+'</ul><p><a href="#TQT-ISS-007">Theo dõi trong TQT-ISS-007</a> · đồng bộ danh mục chưa phải nghiệm thu quy trình.</p></div>'+
+'<div class="ov-section"><p><b>Đã sẵn sàng áp thử thiết kế.</b> ⑤ → chọn quy trình → làm và kiểm → bàn giao. <a href="#tqt-trial-contract">Mở cách ghi nhận–trả</a>.</p><h2>Bước tiếp theo và phần còn mở</h2><ul>'+R.consistency_review.open.map(v=>'<li>'+e(v)+'</li>').join('')+'</ul><p><a href="#TQT-ISS-007">Theo dõi trong TQT-ISS-007</a> · đồng bộ danh mục chưa phải nghiệm thu quy trình.</p></div>'+
 '<h2 class="ov-ref-title">Hai sơ đồ HTML tham khảo</h2><p class="ov-ref-hint">Diễn giải lại hai ảnh mẫu, ở bên dưới sơ đồ chính. Không thêm nguồn quy trình hoặc thay số liệu đã chốt.</p>'+posterDetailed+posterShort;
 })();
 </script>

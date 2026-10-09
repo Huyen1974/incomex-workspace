@@ -1,22 +1,23 @@
 # tools-quy-trinh · Cửa vào
 
-## Hiện hành · Host Astra Codex (D22)
-Mọi trình tự/hướng dẫn có MOW sở hữu; việc cụ thể có MOT. Tổng hợp/thành phần là vai trò của MOW, không là loại đối tượng mới. Câu hỏi/tiêu chí/sổ vẫn là nội dung dùng lại. Danh mục đã khớp tên/mã chưa đồng nghĩa đủ MOT, hợp đồng gọi hay đã cắt chuyển nguồn cũ.
+## Hiện hành · D23/P22 · Host Astra Codex
+**5 quy trình tổng hợp + 12 quy trình thành phần.** Host đã chốt **MOW-TH-005 · Áp dụng một quy trình từ chọn đến bàn giao**, phiên `1.0-design`, Chuỗi CTCM `CH-001`, để áp thử thiết kế. Owner giao Host tự quyết; không còn chờ phê duyệt riêng ⑤. Chưa nghiệm thu PG hay tự động hóa.
 
-## Over view · cửa vào
+**Một đường làm:** đọc mục tiêu → ⑤ chọn đúng quy trình → QT-CTCM-012 lấy/trả lời câu hỏi → làm từng MOT → kiểm → bàn giao có xác nhận. Sai/thiếu: Tool 008 ghi cùng hồ sơ → ② nhận xử lý → cần sửa hướng dẫn thì ③ → kiểm lại đúng nơi phát hiện. Chưa có người nhận thì người giao vẫn giữ.
+
 [Mở Over view](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view) · [Master Quy trình tổng hợp](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Danh sách Master tổng (30)](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html).
 
-**4 Quy trình tổng hợp đang thiết kế + 1 đề xuất ⑤ chưa duyệt, 12 Quy trình thành phần.** Kho 159 câu/53 nhóm là tài nguyên, không phải quy trình. Tên/mã/quan hệ/chú giải `purpose/when/avoid/done` cùng đọc từ một nguồn `view.html#tqt-composite-processes.catalog`. Sáu thao tác từ chọn đến bàn giao thuộc dự thảo `MOW-TH-005`; chưa được READY/RUN hoặc PG.
+**Nguồn duy nhất:** `view.html#tqt-composite-processes.catalog`. 17 MOW có chú giải; 12 thành phần có 50 MOT trỏ về từng hướng dẫn gốc; ⑤ có 6 MOT. Các bước này dùng chung `catalog.trial_contract` (hiển thị tại `#tqt-trial-contract`), không nhân bản câu hỏi hay sổ. Mỗi MOT kế thừa đúng lần làm, đối tượng/phiên, người làm/kiểm/nhận, nơi đọc/ghi, tiêu chí và đích trả. Đây là mã thiết kế, chưa là đăng ký runtime.
 
-005 điều phối **một** quy trình được chọn, không chạy hết 001–004; chỉ gọi ở cửa nhận việc. 14 phần hướng dẫn đã có chủ tại `catalog.instruction_owners`; nguồn và phần còn thiếu tại `catalog.consistency_review` → TQT-ISS-007/004. Các mã MOT của 005 là bản đề xuất chưa duyệt. Kiểm bằng `python3 check-overview-consistency.py view.html`.
+⑤ chọn **một** quy trình phù hợp, không chạy tất cả; chỉ dùng tại cửa nhận việc, không gọi đệ quy trong quy trình con. Hướng dẫn từng phần có MOW sở hữu tại `instruction_owners`. Kho câu hỏi, tiêu chí và bằng chứng là nội dung dùng trong quy trình; không tạo loại đối tượng quản lý mới. Không thêm T2.5 hay đổi công thức.
 
-## Master quy trình tổng hợp · hiện hành
-[Mở Master theo UI cha](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Mở danh sách hiện hành tại repo](view.html#tqt-process-inventory).
-**4 quy trình tổng hợp trước + 1 đề xuất chưa duyệt** trong `ML-MOW-TH-001`: MOW-TH-001 Chế tạo chức năng; 002 Xử lý sai/thiếu; 003 Hiệu chỉnh quy trình; 004 Rà UI; 005 Áp dụng một quy trình từ chọn đến bàn giao (DRAFT). Danh mục con gồm **9 Tool + 3 quy trình bổ sung**, không tính lẫn với tổng hợp.
-SSOT tên/mã/quan hệ: `tqt-composite-processes.catalog`. Master trên VPS đọc bản repo đã xuất; không có danh sách dữ liệu sửa tay thứ hai. Khi dưới10, giữ cả cách xem/thảo luận trong task theo Owner. Mã đã đăng ký thiết kế; nghiệm thu và quyền chạy là việc riêng. Chưa quyết T2.5, không đổi CT-005.
-Quy trình trả lời/kiểm bộ câu hỏi: QT-CTCM-012; dùng câu hỏi theo mã/phiên, không sao chép. Quan hệ gọi có code/version/kind; nguồn đọc là resource. Trạng thái mốc theo `checkpoint_policy` / `tqt-checkpoint-rule`; không chấm xanh từ số mức đơn thuần.
-- Cách kiểm: `python3 check-process-model.py view.html`; kiểm danh mục/cổng ở `check-process-catalog.py`; phiếu UI: `UI-REVIEW-AGGREGATE.json`.
-- Lịch sử kiểm kê vòng6 trong `inventory` giữ truy nguồn; không dùng làm danh mục hiện hành.
+**Nguồn Tool cũ:** hướng dẫn trên `tools-playbook-v1.html` chuyển thành tham chiếu lịch sử; đọc hướng dẫn hiện hành từ Master → Overview. Sổ vấn đề/kết quả sản phẩm vẫn ở nguồn gốc; chưa dời dữ liệu. TQT-ISS-004 theo dõi phần dữ liệu còn lại.
+
+**Bước tiếp:** Owner rà cuối → áp thử MOW-NHC-001 theo quy trình mới, điền phiếu sản phẩm hiện hữu trước khi sửa UI. Ghi vướng đúng sổ, Host hiệu chỉnh đúng nguồn. Không đợi hoàn thành backend mới thử thiết kế; chưa làm MOW002.
+
+**Giới hạn:** 5 chốt cưỡng chế TQT-ISS-007 và nghiệm thu PG/DOT/quyền/đồng thời/khôi phục vẫn mở. Kết quả kiểm danh mục và mô phỏng không thay nghiệm thu chạy thật.
+
+Kiểm nguồn: `python3 check-overview-consistency.py view.html` → `python3 check-process-catalog.py view.html`; mô hình: `python3 check-process-model.py view.html`. Giữ phiếu/sổ hiện hữu; không mở sổ song song.
 
 ## Ý kiến hội đồng · Host kết luận
 | Ý kiến | Kết luận hiện hành | Nguồn |
@@ -53,7 +54,7 @@ Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](CO
 
 ## Khép kín MOW/MOT · bản thiết kế 09/10/2026
 - Đọc [bốn chỗ hở và đường thiếu Field](view.html#tqt-khep-kin). Nguồn: `tqt-composite-processes.closure_review`; renderer đọc câu hỏi từ `tqt-question-matrix`, không chép bộ thứ hai.
-- **TQT-TH-001 là mã tài liệu, chưa phải mã MOW đăng ký trong ML-DEF-004.** Master hiện dẫn xuất từ Nhóm cha theo CT-005. MOW tổng hợp vẫn là MOW; quan hệ gọi MOW con/cách ghép nhóm cần chốt trước khi cấp mã chính thức. T2.5, Master riêng và vòng đời ứng viên thiếu là đề xuất, chưa tự áp dụng.
+- **Lịch sử trước Master tổng hợp:** TQT-TH-001 là mã tài liệu. Hiện dùng MOW-TH-001 trong ML-MOW-TH-001; không dùng đoạn lịch sử này để phủ nhận mã thiết kế. Quyền runtime/PG vẫn chưa nghiệm thu; chưa thêm T2.5.
 - Ma trận có 159 câu/53 nhóm; thêm 19 câu tại đúng Tầng/MOW/MOT/UI/Test/NTGV. Đây là câu hỏi đang hiệu chỉnh, không phải 159 câu đều áp dụng cho mọi việc hay đã được trả lời.
 - Khai báo theo thứ tự, xem quan hệ ra→vào, nguồn đọc/nơi ghi, người nhận và điều kiện đóng. Ghép câu hỏi thành việc con theo đầu vào/ra/trách nhiệm; không sinh một Task cho mỗi câu.
 - Phân biệt mức bằng chứng với hiệu lực kết quả, vòng đời định nghĩa với lần áp dụng. Cơ chế chọn phần cần kiểm lại/PG/DOT/JEV mới là thiết kế; chưa có lưu tự động hay chạy nền.

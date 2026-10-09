@@ -1,3 +1,18 @@
+# PROMPT hiện hành · D23/P22 · Chuẩn bị xong để áp thử thiết kế
+
+Owner giao Astra Codex làm Host và quyết ⑤. `MOW-TH-005@1.0-design` đã chốt, thuộc CTCM/CH-001. Mục tiêu: một việc vào → chọn đúng quy trình → trả lời đủ câu hỏi → thực hiện → kiểm → bàn giao có người nhận. Mọi trình tự thuộc MOW/MOT.
+
+1. Đọc AGENTS → COLLAB mục tiêu/kiểm soát → README hiện hành → Overview.
+2. Khai đúng quy trình/mã phiên, đối tượng/phiên, người làm/kiểm/nhận, nguồn vào, nơi ghi, tiêu chí, đích trả trong phiếu hiện hữu theo `catalog.trial_contract`.
+3. Dùng QT-CTCM-012 ghép câu hỏi, ghi căn cứ và ghi chú riêng đúng phạm vi. Không lấy số câu cố định thay kiểm đủ câu áp dụng.
+4. Sau Owner rà cuối, áp thử **MOW-NHC-001**: ⑤ chọn 001 khi chế tạo, 001 gọi 004 khi cần rà UI. Dùng các thành phần theo điều kiện; không chạy tất cả hoặc gọi lồng ⑤. Điền/chốt phiếu đáp án trước sửa UI; kiểm như người dùng và ghi bằng chứng.
+5. Sai/thiếu sản phẩm ghi sổ MOW gốc; sai quy trình ghi sổ tools hiện hữu. Tool 008 ghi/đọc lại → 002 nhận xử lý cùng mã → 003 sửa hướng dẫn nếu cần → trở về đúng nơi kiểm. Không đủ điều kiện thì BỊ CHẶN, ghi người giữ và điều kiện tiếp tục; từ chối không biến thành đạt.
+6. Xong khi các việc áp dụng đã được kiểm đạt và người nhận xác nhận. Báo DOER_CONFIRM làm được/một phần/chưa làm được, trỏ đúng kết quả và chỗ thiếu.
+
+Lượt chuẩn bị chỉ cập nhật công cụ, chờ Owner rà cuối trước áp thử sản phẩm. Chưa MOW002, chưa đổi công thức/T2.5, chưa ghi PG. Năm chốt TQT-ISS-007 theo dõi riêng; không chặn thiết kế thủ công. Hướng dẫn Tool cũ là lịch sử, hồ sơ sản phẩm vẫn giữ nguồn gốc.
+
+<details><summary>Lịch sử giao việc trước D23 · không dùng để cấp/chặn quyền hiện hành</summary>
+
 **D22/P21 — HIỆN HÀNH:** Owner giao lại Astra Codex làm Host; rà và sửa tính nhất quán Overview, 005 và MOW/MOT. Chỉ đạo Host GPT Chat/D19 phía dưới đã hết hiệu lực. 005 vẫn là đề xuất, không READY/RUN; mọi bước chọn/thực hiện/kiểm/bàn giao phải thuộc MOW/MOT, dùng cùng phiếu/hồ sơ đúng phạm vi và phiên. Đọc `catalog.consistency_review` và README; chưa áp thử quy trình trước khi chỉ rõ MOT/hợp đồng/nơi nhận còn thiếu. TQT-ISS-004/007 tiếp tục mở.
 
 # PROMPT — Tools quy trình · Làm theo quy trình ra đúng sản phẩm
@@ -90,3 +105,5 @@ Nhóm câu khởi đầu để Codex rà, **chưa được Owner chốt**:
 - Chính Codex ghi `DOER_CONFIRM=YES/NO/PARTIAL`: đọc nguồn có tổ chức được bộ câu hỏi và thử ghép không? Thiếu đầu vào nào vẫn BLOCKED?
 - KQ đưa Host: `A. TÓM TẮT | B. BỘ CÂU HỎI GỐC | C. QUY TẮC GHÉP | D. THỬ MOW001 | E. DELTA + DOER_CONFIRM + FILE PROPOSAL`.
 - Khi đủ, Host rà bằng chứng, trao đổi Reviewer khác hãng và Owner quyết các thay đổi nghĩa gốc; **chỉ sau đó** cập nhật root/propagation rồi mới phát RUN vẽ MOW001. Không tự xem đề xuất này đã có hiệu lực.
+
+</details>
