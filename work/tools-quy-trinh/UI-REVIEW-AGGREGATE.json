@@ -1,0 +1,52 @@
+{
+  "source_version": "P16 candidate",
+  "scope": [
+    "UI.MASTER.MOW.TH"
+  ],
+  "results": [
+    {
+      "id": "UI.MASTER.MOW.TH",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html",
+      "checks": {
+        "structure": {
+          "status": "NOT_TESTED",
+          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+        },
+        "emphasis": {
+          "status": "NOT_TESTED",
+          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+        },
+        "labels": {
+          "status": "NOT_TESTED",
+          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+        },
+        "interaction": {
+          "status": "NOT_TESTED",
+          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+        },
+        "responsive": {
+          "status": "NOT_TESTED",
+          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+        },
+        "console": {
+          "status": "NOT_TESTED",
+          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+        },
+        "data_scope": {
+          "status": "NOT_TESTED",
+          "evidence": "Chuẩn bị kiểm live sau xuất nguồn."
+        }
+      },
+      "parity": {
+        "baseline_url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html?legacy=1",
+        "baseline_version": "master-list.js d80832503d99679ae7b4e5f4ad8fb44cbd9b4d0274b547ac67f66a19b7be9a4a",
+        "observed_version": "same renderer",
+        "measurements": [],
+        "differences": []
+      }
+    }
+  ],
+  "limitations": [
+    "Danh mục thiết kế; 5 guard thực thi vẫn mở; chưa PG."
+  ]
+}

@@ -2,21 +2,21 @@
 Tên việc: Tools quy trình — làm theo quy trình ra được sản phẩm
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 08/10/2026 07:16 (D04/D05); chỉ định trực tiếp GPT Chat làm Host và giao bắt đầu tiếp nhận các quy trình Tools CTCM vào nội dung task ngày 08/10/2026 09:19 +07 (D06). Giữ nguyên lời Owner trong ô 1–2; ngày 09/10/2026 Owner yêu cầu Host bổ sung làm rõ mục tiêu và rà lại Kiểm soát, không viết lại mục tiêu gốc.
+Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 08/10/2026 07:16 (D04/D05); D06 trước đây giao GPT Chat; sau đó Owner trực tiếp giao Astra Codex làm Host ngày 08/10/2026 (D17, thay phân công cũ). Giữ nguyên lời Owner trong ô 1–2; ngày 09/10/2026 Owner yêu cầu Host bổ sung làm rõ mục tiêu và rà lại Kiểm soát, không viết lại mục tiêu gốc.
 Host: Astra Codex — phiên Owner chỉ định trực tiếp ngày 08/10/2026
 Host_ID: OpenAI-main
 Host_Surface: Codex desktop · task hiện tại của Owner
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · Astra Codex
-- 🎯 **Đích:** có quy trình khép kín và bộ câu hỏi đúng để người/AI mới làm theo ra đúng sản phẩm. Mục tiêu chuẩn ở ô 1, tiêu chí nghiệm thu ở ô 2; gồm các bổ sung Owner ngày 08–09/10.
-- **Đã có:** ma trận 159 câu/53 nhóm, bộ ghép bốn phạm vi, quy trình tổng hợp TQT-TH-001 và mô hình có mã TQT-MODEL-001. Đây là bản đang hiệu chỉnh.
-- **Đã kiểm đến đâu:** 87 ca mô phỏng đạt, nhưng thăm dò vòng 6 tái hiện 5 chốt còn hở. Đã sửa retry khác nội dung/đích và search_path hàm sinh SQL; chưa nghiệm thu đường đóng, đủ phiếu, quyền lịch sử hoặc PostgreSQL. Gói NOT_FROZEN.
-- **Còn hở:** kết thúc đúng đường đi; ACK bàn giao cuối; đúng đối tượng/tập câu bắt buộc; quyền theo thời điểm; đường nhận kết quả. TQT-ISS-007 giữ mở. Kiểm kê 2 bản phác thảo tổng hợp + 2 hướng dẫn điều phối, 9 Tool và 2 khung con chưa có bằng chứng ánh xạ Master đầy đủ trong nguồn đã rà. TQT-ISS-004/006 và vướng mắc sản phẩm giữ sổ cũ.
-- **Việc kế tiếp:** sửa 5 chốt theo thứ tự trong PROMPT, đối chiếu đăng ký Master và nối nhận/trả; sau đó kiểm PG đúng quyền và thử một ca từ đầu. Câu hỏi dẫn theo bước dùng chung SSOT là đề xuất đang xem xét, chưa tạo loại đối tượng mới. Chưa MOW002.
-- **Ba mốc nghiệm thu:** thiết kế/khả thi — đang hoàn thiện; triển khai/kiểm kỹ thuật — chưa nghiệm thu; vận hành/bàn giao — chưa nghiệm thu. Đạt mô phỏng không thay cho đạt chạy thật.
-- **Quyền và phạm vi:** Astra Codex là Host tiếp nhận/sửa nguồn; AI khác góp ý riêng. Chuẩn bị mô hình để chuyển PG là trong mục tiêu; thay công thức, cấp mã Master và chạy PG thực hiện theo cơ chế duyệt/quy trình tương ứng, không lấy bản nháp làm lệnh chạy.
-- **Cách báo cáo:** đạt đến đâu, bằng chứng nào, còn thiếu gì, ai giữ, quy trình nào nhận và bước tiếp theo. Lịch sử kiểm chi tiết ở ô 3; không dùng số câu hoặc UI mở được làm tiêu chí hoàn thành.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 15:51 +07 · Astra Codex · P16
+- 🎯 Mục tiêu: việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể. Vì sao: người nhìn rõ mới cùng phát hiện và sửa được vấn đề.
+- 🏁 Xong khi: đạt tiêu chí ô 2; quy trình được làm theo ra đúng sản phẩm, có bằng chứng và đường xử lý sai/thiếu tới cuối.
+- 📍 Tiến độ: [■ Thiết kế và khả thi] → [□ Triển khai] → [□ Vận hành]
+- ✅ Đã xong: ma trận 159 câu/53 nhóm; đăng ký danh mục thiết kế ML-MOW-TH-001 với 4 mã MOW-TH-001…004; 9 Tool + 3 quy trình bổ sung; liên kết quy trình có mã/phiên. Mô hình có 87 ca mô phỏng đạt, còn 5 chốt chưa kín.
+- ■ Đang làm: — · 0 RUN active
+- ⬜ Còn lại: kiểm/hoàn thiện 5 chốt thực thi → áp một vòng sai/thiếu → PG staging đúng quyền → kiểm UI/Config/Test và bàn giao. TQT-ISS-007 giữ mở.
+- ➡ Kế tiếp: Host hoàn thiện theo TQT-ISS-007; Reviewer rà danh mục và C1–C4; NEXT_TRIGGER=HOST_CONTRACT_FIX. Owner và Claude tiếp tục chốt mục tiêu ngắn riêng.
+- ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế · tự áp mục tiêu PR-07 chưa duyệt.
 
 ### 1. Mục tiêu
 **Đích:** việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể.
@@ -140,6 +140,15 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 - **Nghiệm thu đúng mức:** người/AI thực hiện xác nhận làm được/một phần/chưa làm được bằng ca áp dụng. Tách nghiệm thu thiết kế, triển khai và vận hành; mục không áp dụng phải có lý do. Việc bắt buộc còn hở thì giữ mở, không nhận toàn quy trình đã thành công.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+#### P16 · Master quy trình tổng hợp và tiếp nhận PR-07 · 09/10/2026
+§0.3: đã đối chiếu. Owner trực tiếp yêu cầu Master list riêng theo UI cha, có tên/mã, đồng thời giữ trong tools-quy-trinh để bàn khi dưới 10 quy trình.
+Định nghĩa Owner: “quy trình tổng hợp là để giải quyết các mục tiêu lớn, khép kín. Trong khi, quy trình bình thường là để giải quyết các nhiệm vu nhỏ hơn. Một Quy trình tổng hơp gồm nhiều quy trình thường nhưng vẫn nhỏ hơn chuyên môn. Còn chuyện có đưa ra tầng 2.5 hay không thì bàn sau.”
+Nguồn duy nhất: `view.html#tqt-composite-processes.catalog`. ML-MOW-TH-001; 4 MOW-TH-001…004. UI.MASTER.MOW.TH dùng nguyên master-list.js và khuôn UI cha; trang bàn luận là cách xem cùng nguồn. 9 quy trình Tool hiện có + triển khai/khôi phục + quan sát/bàn giao + khai/kiểm câu hỏi; không cộng thành 16 quy trình tổng hợp.
+C1: TH001 gọi MOW-TH-002 ở 1.4/2.3/3.2; Tool008 là bước ghi nhận của cùng vòng, không tự đóng vòng riêng. C2: 20 tham chiếu typed code/version (đã gộp trùng), tách nguồn đọc khỏi lời gọi; href suy từ catalog; chuyển phần đang dùng khỏi tab tạm bằng cùng DOM, giữ neo cũ.
+C3: giữ mức0–4, thêm điều kiện theo giai đoạn/context; mốc Vận hành cần đủ quan sát/log/phản hồi/nhận bàn giao. Hàm kiểm thiết kế có ca âm; chưa thay các PG guard đang mở. C4: đưa 5 ý khép kín lên đầu tab. PR-07 mục2–3 chưa áp, giữ lời Owner ô1–2.
+Kết luận/nguồn kiểm ở README và UI-REVIEW-AGGREGATE.json. Chưa nhận quy trình đã chạy thật, chưa đóng TQT-ISS-007.
+
 
 #### Lưu vết kiểm giao diện trước khi cập nhật mục tiêu
 - Kiểm TQT-TH-001 ngày 09/10: bản nội dung `87212f520d3251b5f13738222094278046a92512` đã hiện trên trang thật. Đã kiểm tab đầu trong Nội dung công việc; thu/xổ quy trình; mở giai đoạn 1 và bước 1.2; liên kết Config sang nguồn cũ; URL mở thẳng giai đoạn 2; URL câu hỏi B1→1.2 cũ; màn 390px không tràn ngang trong tài liệu (295/295px). Đã thu gọn thanh tab màn nhỏ để không che nội dung. URL chỉ có task vẫn vào Kiểm soát theo cơ chế chung; link bàn giao có view=content&section=list-quy-trinh-tong-hop. Console trang chứa có thông báo Directus Auth/Sentry; không dùng kết quả kiểm hiển thị này để khẳng định backend hoặc toàn quy trình đã chạy đạt. Chưa triển khai PG hay nghiệm thu ba giai đoạn.
@@ -378,8 +387,11 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **D16 · 2026-10-08 · HOST DRAFT / REORDER:** P14 và `PROMPT.md` vẽ UI001→002 cũ bị **SUPERSEDED TRƯỚC READY/RUN**, giữ nguyên trong Git history. `PROMPT.md` hiện hành dành cho Codex **READ-ONLY REVIEW**, không cấp READY/RUN sửa công thức, Master hay UI. Khuôn Q_ID, OWNER_LEVEL, SOURCE, ANSWER, CHECK và GAP chỉ là đề xuất chờ Codex/Reviewer kiểm. 3 nguyên liệu/4 cấp đọc; ghép theo CT003/004/005/005.1; overlay chuyên môn UI/Config, không nhân câu ở mọi MOW/MOT.
 - Cổng tiếp: Codex nộp proposal riêng hoặc toàn văn trong chat → Host so nguồn và mời Reviewer → quyết tiếp nhận theo đúng thẩm quyền; thay nghĩa gốc/công thức phải qua Owner và Host MOW trước mutation. Chưa sửa 1.4 hay đổi CT; MOW002 không mở.
 
+- **D17 · 08/10/2026 · HUMAN_DIRECTIVE:** Owner: “Bạn là host của task này đi. Các ý kiến khác không được ghi thẳng, bạn xem xét có đồng ý bổ sung thêm không rồi mới bổ sung.” Astra Codex là Host hiện hành; giữ D06/D16 làm lịch sử.
+- **D18 · 09/10/2026 · HUMAN_DIRECTIVE:** Owner yêu cầu Master riêng có tên/mã cho quy trình tổng hợp, theo UI cha và đồng thời có trong tools-quy-trinh khi dưới10; định nghĩa tổng hợp nhỏ hơn chuyên môn, T2.5 bàn sau. Thực hiện trong P16; không tự áp mục tiêu ngắn PR-07.
+
 ## Owner cần quyết
-- — Q01 ĐÃ CHỐT 08/10/2026 09:19 +07: Owner trực tiếp chỉ định GPT Chat làm Host (D06). Không có câu hỏi Owner còn mở trong phạm vi lượt tiếp nhận tài liệu này.
+- Q01 đã chốt: Astra Codex là Host hiện hành (D17); D06 là lịch sử. Mục tiêu ngắn trong PR-07 vẫn do Owner/Claude bàn, Host chưa áp.
 
 ## Ý kiến và bằng chứng
 ### P15 · Host giao đề bài Codex rà câu hỏi gốc trước khi vẽ UI · OPEN

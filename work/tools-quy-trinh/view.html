@@ -175,7 +175,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 </div>
 </div>
 <div id="tqt-legacy" role="tabpanel" aria-labelledby="tqt-tab-old" hidden>
-<div class="tq"><p class="hint">Nội dung trước đây được giữ nguyên để đối chiếu. Bộ câu hỏi gốc mới ở tab đầu; các quy trình cũ vẫn mang trạng thái và nguồn đã ghi trong từng phần.</p></div>
+<div class="tq"><p class="hint">Nguồn lịch sử và sổ giữ để đối chiếu. Các quy trình còn dùng đã đưa vào List quy trình tổng hợp; bộ câu hỏi ở các tab riêng.</p></div>
 
 <header>
 <div class="eyebrow">Incomex · tools-quy-trinh · trang nội dung</div>
@@ -9027,6 +9027,13 @@ main{max-width:1240px} [hidden]{display:none!important}
       "PG staging + người/AI mới làm một ca"
     ],
     "not_claimed": "87 ca không chứng minh AI không sai, không nghiệm thu đường đóng hiện còn hở."
+  },
+  "catalog_binding": {
+    "master_id": "ML-MOW-TH-001",
+    "process_code": "MOW-TH-002",
+    "version": "1.0-design",
+    "simulation_definition_id": "DRAFT-MOW-GAP-001",
+    "note": "Mã mô phỏng cũ giữ nguyên để không đổi lịch sử; trỏ một quy trình chuẩn, không phải quy trình thứ hai."
   }
 }</script>
 <script id="tqt-composite-processes" type="application/json">{
@@ -9055,12 +9062,14 @@ main{max-width:1240px} [hidden]{display:none!important}
               "work": "Tìm mục Master đã có; chốt người dùng, nhu cầu, phạm vi và thế nào là xong.",
               "uses": [
                 {
-                  "label": "Master / danh mục",
-                  "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html"
+                  "code": "ML-DEFINITION-INDEX",
+                  "version": "live-reference",
+                  "kind": "resource"
                 },
                 {
-                  "label": "Lập hành trình · Tool 001",
-                  "href": "#tqt-ctcm-1"
+                  "code": "TOOL-CTCM-001",
+                  "version": "1.0-design",
+                  "kind": "process"
                 }
               ],
               "output": "Mã việc + người phụ trách + đầu vào/đầu ra + tiêu chí xong.",
@@ -9072,20 +9081,24 @@ main{max-width:1240px} [hidden]{display:none!important}
               "work": "Chọn Chuỗi/Bước/Tầng và UI/Config/Test; đọc ghi chú đúng phạm vi. Điền phiếu đáp án trước, chọn UI cha rồi thiết kế trường, nhãn, nút, trạng thái. Khai Config dự kiến, nguồn dữ liệu và nơi nhận.",
               "uses": [
                 {
-                  "label": "Bộ ghép + ghi chú",
-                  "href": "#cau-hoi-nghiep-vu"
+                  "code": "QT-CTCM-012",
+                  "version": "1.0-design",
+                  "kind": "process"
                 },
                 {
-                  "label": "UI · Tool 002",
-                  "href": "#tqt-ctcm-2"
+                  "code": "TOOL-CTCM-002",
+                  "version": "1.0-design",
+                  "kind": "process"
                 },
                 {
-                  "label": "Config · Tool 004",
-                  "href": "#tqt-ctcm-4"
+                  "code": "TOOL-CTCM-004",
+                  "version": "1.0-design",
+                  "kind": "process"
                 },
                 {
-                  "label": "UI cha",
-                  "href": "https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-process"
+                  "code": "UI.MASTER",
+                  "version": "20261008",
+                  "kind": "resource"
                 }
               ],
               "output": "Đáp án có căn cứ ↔ UI/Config/dữ liệu dự kiến ↔ ca kiểm. Giá trị lúc chạy chỉ cần rõ nguồn cấp và cách kiểm.",
@@ -9097,16 +9110,19 @@ main{max-width:1240px} [hidden]{display:none!important}
               "work": "Lấy một ca cụ thể, đi lần lượt qua mọi quy trình con phía sau UI: nhận dữ liệu → điều kiện/trigger → xử lý → lưu/trả → báo cáo/chuyển tiếp. Tại mỗi chỗ nối hỏi: ai làm, nhận gì, trả gì, khi nào xong; thử cả rỗng, lỗi, hủy và làm lại.",
               "uses": [
                 {
-                  "label": "Rà Config · Tool 004",
-                  "href": "#tqt-ctcm-4"
+                  "code": "TOOL-CTCM-004",
+                  "version": "1.0-design",
+                  "kind": "process"
                 },
                 {
-                  "label": "Dữ liệu · Tool 005",
-                  "href": "#tqt-ctcm-5"
+                  "code": "TOOL-CTCM-005",
+                  "version": "1.0-design",
+                  "kind": "process"
                 },
                 {
-                  "label": "Luồng thao tác · Tool 006",
-                  "href": "#tqt-ctcm-6"
+                  "code": "TOOL-CTCM-006",
+                  "version": "1.0-design",
+                  "kind": "process"
                 }
               ],
               "output": "Danh sách quy trình con theo thứ tự, chỗ đi tiếp/quay lại; thiếu bước/UI/nhãn/nút/trường/rule/nguồn đều có vị trí và mã vấn đề.",
@@ -9118,12 +9134,9 @@ main{max-width:1240px} [hidden]{display:none!important}
               "work": "Kiểm hai chiều yêu cầu ↔ thiết kế ↔ ca kiểm. Gom lỗi cùng gốc, tách đề xuất khỏi quyết định. Trình người có quyền duyệt bản tóm tắt ngắn, kèm danh sách việc cần hoàn tất.",
               "uses": [
                 {
-                  "label": "Sổ vấn đề / Tool 008",
-                  "href": "#tqt-ctcm-8"
-                },
-                {
-                  "label": "Cách gom vấn đề",
-                  "href": "#TQT-TH-001-ISSUES"
+                  "code": "MOW-TH-002",
+                  "version": "1.0-design",
+                  "kind": "process"
                 }
               ],
               "output": "Phiếu checkpoint 1: bản thiết kế, bằng chứng giả lập, chỗ thiếu, người xử lý và quyết định.",
@@ -9150,16 +9163,19 @@ main{max-width:1240px} [hidden]{display:none!important}
               "work": "Đối chiếu đáp án đã duyệt với bản ghi/config/rule/nguồn thật. Chốt schema, quan hệ, quyền, phiên hiệu lực, thứ tự phụ thuộc, cách quay lui và ca kiểm. Quy trình con nào còn thiếu phải có hướng dẫn và người nhận trước khi chạy.",
               "uses": [
                 {
-                  "label": "Config · Tool 004",
-                  "href": "#tqt-ctcm-4"
+                  "code": "TOOL-CTCM-004",
+                  "version": "1.0-design",
+                  "kind": "process"
                 },
                 {
-                  "label": "Đóng gói DOT · Tool 009",
-                  "href": "#tqt-ctcm-9"
+                  "code": "TOOL-CTCM-009",
+                  "version": "1.0-design",
+                  "kind": "process"
                 },
                 {
-                  "label": "Hướng dẫn triển khai còn thiếu",
-                  "href": "#TQT-TH-001-PG"
+                  "code": "TQT-TH-001-PG",
+                  "version": "1.0-design",
+                  "kind": "process"
                 }
               ],
               "output": "Gói thực thi có phiên bản, đích/môi trường cụ thể, quyền thực hiện và cách khôi phục; không dùng giá trị demo thay quyết định.",
@@ -9171,8 +9187,9 @@ main{max-width:1240px} [hidden]{display:none!important}
               "work": "Thực hiện bằng quy trình/công cụ đã được phép; ghi bằng chứng trước/sau, đọc lại dữ liệu/quan hệ, nối UI với dịch vụ thật. Thử phần có thể hoàn tác trước khi mở phạm vi lớn. Trường hợp sản phẩm chỉ là tài liệu/thiết kế và không ghi PG: khai không áp dụng kèm căn cứ/người xác nhận; vẫn kiểm nơi lưu và kết quả. Không miễn PG khi chức năng thực sự cần PG.",
               "uses": [
                 {
-                  "label": "Hướng dẫn triển khai & khôi phục",
-                  "href": "#TQT-TH-001-PG"
+                  "code": "TQT-TH-001-PG",
+                  "version": "1.0-design",
+                  "kind": "process"
                 }
               ],
               "output": "Phiên bản đã triển khai + dữ liệu đọc lại + log/lỗi + kết quả kiểm khôi phục.",
@@ -9184,16 +9201,19 @@ main{max-width:1240px} [hidden]{display:none!important}
               "work": "Chạy ca kỹ thuật; AI/Agent bấm như người từ đầu đến cuối trên đúng nguồn thật. Kiểm đầu ra/nơi nhận, nhánh lỗi/quyền/timeout, làm lại, dữ liệu đổi và các phần bị ảnh hưởng. Ca chưa chạy giữ NOT_TESTED; minh họa không thay ca thật.",
               "uses": [
                 {
-                  "label": "Rà UI · 6 bước",
-                  "href": "#ra-ui"
+                  "code": "MOW-TH-004",
+                  "version": "1.0-design",
+                  "kind": "process"
                 },
                 {
-                  "label": "Test kỹ thuật · Tool 007",
-                  "href": "#tqt-ctcm-7"
+                  "code": "TOOL-CTCM-007",
+                  "version": "1.0-design",
+                  "kind": "process"
                 },
                 {
-                  "label": "Ghi lỗi và kiểm lại · Tool 008",
-                  "href": "#tqt-ctcm-8"
+                  "code": "MOW-TH-002",
+                  "version": "1.0-design",
+                  "kind": "process"
                 }
               ],
               "output": "Phiếu kiểm theo ca có mong đợi/thực tế/bằng chứng; người thực hiện tự xác nhận phạm vi làm được.",
@@ -9220,8 +9240,9 @@ main{max-width:1240px} [hidden]{display:none!important}
               "work": "Trước khi mở: chốt người theo dõi, dấu hiệu đúng/sai, log cần đọc, kênh phản hồi và khoảng thời gian/số ca quan sát. Đối chiếu hành vi thực với mục tiêu, không chỉ việc hệ thống không báo lỗi.",
               "uses": [
                 {
-                  "label": "Hướng dẫn vận hành còn thiếu",
-                  "href": "#TQT-TH-001-OPS"
+                  "code": "TQT-TH-001-OPS",
+                  "version": "1.0-design",
+                  "kind": "process"
                 }
               ],
               "output": "Kết quả vận hành theo phiên bản + phản hồi người dùng + sự cố/ảnh hưởng có mã.",
@@ -9233,16 +9254,18 @@ main{max-width:1240px} [hidden]{display:none!important}
               "work": "Gom phản hồi theo nguyên nhân. Sửa nội dung thiết kế → bước 1.2; rule/config → bước 2.1; mã/nối → bước 2.2. Thay đổi phải quay qua kiểm kỹ thuật và kiểm phần ảnh hưởng, rồi theo dõi lại; không sửa âm thầm trên bản đang dùng.",
               "uses": [
                 {
-                  "label": "Gom vấn đề, tìm quy tắc chung",
-                  "href": "#TQT-TH-001-ISSUES"
+                  "code": "MOW-TH-002",
+                  "version": "1.0-design",
+                  "kind": "process"
                 },
                 {
-                  "label": "Hiệu chỉnh quy trình",
-                  "href": "#quy-trinh-hieu-chinh"
+                  "code": "MOW-TH-003",
+                  "version": "1.0-design",
+                  "kind": "process"
                 }
               ],
               "output": "Phiếu checkpoint 3, phiên bản hiệu chỉnh, kết quả kiểm lại và danh sách việc còn mở.",
-              "next": "Đạt checkpoint 3 → duy trì theo dõi theo nhịp đã chốt. Tái diễn → mở lại vấn đề gốc và vòng sửa tương ứng."
+              "next": "Đạt checkpoint 3 và có xác nhận nhận bàn giao → kết thúc lần chế tạo. Theo dõi dài hạn thuộc quy trình VHCM nhận việc; tái diễn mở hồ sơ liên kết."
             }
           ],
           "checkpoint": {
@@ -9320,13 +9343,13 @@ main{max-width:1240px} [hidden]{display:none!important}
         "document_id": "TQT-TH-001",
         "object_type": "MOW",
         "chain": "CH-001 · CTCM",
-        "master": "ML-DEF-004 · Master Quy trình",
-        "master_href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=4",
-        "master_record_id": null,
-        "state": "CHƯA ĐĂNG KÝ MOW",
-        "reason": "Mã TQT-TH-001 hiện là mã tài liệu. Master hiện sinh MOW từ một Nhóm cha theo Chuỗi + Bước + Tầng; bản tổng hợp xuyên nhiều Bước chưa có cách ghép được chốt. Không lấy một Nhóm cha bất kỳ để lấp chỗ trống.",
-        "next": "Chốt quan hệ MOW gọi MOW/MOT và cách khai báo Nhóm cha; sau đó cấp mã tại Master hiện hữu, liên kết tài liệu về mã đó. Có thể xem MOW tổng hợp bằng bộ lọc riêng, chưa cần tạo Master thứ hai.",
-        "tier": "T2.5 là ý tưởng đang xem xét. MOW ở T2 là loại của quy trình; Tầng trong công thức còn chỉ đối tượng mà quy trình xử lý (ví dụ MOW tìm Field xử lý T0). Không đổi hai ý nghĩa này cho nhau."
+        "master": "ML-MOW-TH-001 · Master Quy trình tổng hợp",
+        "master_href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html",
+        "master_record_id": "MOW-TH-001",
+        "state": "ĐÃ CẤP MÃ DANH MỤC THIẾT KẾ · CHƯA NGHIỆM THU",
+        "reason": "Owner chỉ đạo trực tiếp 09/10/2026: lập Master riêng có tên/mã, giữ trên repo để bàn khi dưới 10 quy trình.",
+        "next": "Hoàn thiện chỗ nối/điều kiện và kiểm từng quy trình. Không lấy mã đã có làm bằng chứng đã chạy.",
+        "tier": "Quy trình tổng hợp vẫn là quy trình MOW; nhỏ hơn chuyên môn. T2.5 bàn sau, chưa sửa công thức sinh đối tượng."
       }
     }
   ],
@@ -9346,13 +9369,13 @@ main{max-width:1240px} [hidden]{display:none!important}
       "document_id": "TQT-TH-001",
       "object_type": "MOW",
       "chain": "CH-001 · CTCM",
-      "master": "ML-DEF-004 · Master Quy trình",
-      "master_href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=4",
-      "master_record_id": null,
-      "state": "CHƯA ĐĂNG KÝ MOW",
-      "reason": "Mã TQT-TH-001 hiện là mã tài liệu. Master hiện sinh MOW từ một Nhóm cha theo Chuỗi + Bước + Tầng; bản tổng hợp xuyên nhiều Bước chưa có cách ghép được chốt. Không lấy một Nhóm cha bất kỳ để lấp chỗ trống.",
-      "next": "Chốt quan hệ MOW gọi MOW/MOT và cách khai báo Nhóm cha; sau đó cấp mã tại Master hiện hữu, liên kết tài liệu về mã đó. Có thể xem MOW tổng hợp bằng bộ lọc riêng, chưa cần tạo Master thứ hai.",
-      "tier": "T2.5 là ý tưởng đang xem xét. MOW ở T2 là loại của quy trình; Tầng trong công thức còn chỉ đối tượng mà quy trình xử lý (ví dụ MOW tìm Field xử lý T0). Không đổi hai ý nghĩa này cho nhau."
+      "master": "ML-MOW-TH-001 · Master Quy trình tổng hợp",
+      "master_href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html",
+      "master_record_id": "MOW-TH-001",
+      "state": "ĐÃ CẤP MÃ DANH MỤC THIẾT KẾ · CHƯA NGHIỆM THU",
+      "reason": "Owner chỉ đạo trực tiếp 09/10/2026: lập Master riêng có tên/mã, giữ trên repo để bàn khi dưới 10 quy trình.",
+      "next": "Hoàn thiện chỗ nối/điều kiện và kiểm từng quy trình. Không lấy mã đã có làm bằng chứng đã chạy.",
+      "tier": "Quy trình tổng hợp vẫn là quy trình MOW; nhỏ hơn chuyên môn. T2.5 bàn sau, chưa sửa công thức sinh đối tượng."
     },
     "ownership": [
       [
@@ -9511,7 +9534,8 @@ main{max-width:1240px} [hidden]{display:none!important}
         "Không đạt",
         "Bị chặn",
         "Không áp dụng · có lý do/người xác nhận"
-      ]
+      ],
+      "checkpoint_rule_ref": "TQT-GATE-001"
     },
     "connection": {
       "label": "Mỗi mũi tên cũng phải được khai báo",
@@ -9585,9 +9609,9 @@ main{max-width:1240px} [hidden]{display:none!important}
     "issue": {
       "id": "TQT-ISS-007",
       "title": "Quy trình tổng hợp chưa nối vào Master và vòng xử lý khép kín",
-      "state": "Mở · rà vòng 6 còn 5 chốt thực thi",
+      "state": "Mở · đã có Master thiết kế 4 quy trình; còn 5 chốt thực thi",
       "owner": "Astra Codex · Host",
-      "next": "Khóa đúng target/tập câu; chốt contract kết quả con–cha; tách giải quyết/hoàn tất/bàn giao; quyền theo thời điểm. Sau đó mới PG staging và thử người mới.",
+      "next": "Kiểm các quan hệ có mã/phiên; hoàn thiện 5 chốt review06; áp thử một vòng trước PG. Đăng ký danh mục không đóng hồ sơ.",
       "review": "Lượt tiếp tục tools-quy-trinh; trước mọi tuyên bố quy trình này đã đăng ký hoặc vận hành.",
       "done": "Có mã Master/quan hệ hợp lệ; mỗi nhánh có nơi nhận, chủ trách nhiệm, chỗ ghi và tiêu chí xong; một ca đi hết có bằng chứng. Giao diện/bộ câu hỏi mới không đủ để đóng.",
       "evidence": "FORMULA-AI-README §D158/§6; CT-005/005.1; view.html tqt-composite-processes; rà nguồn Host 09/10/2026. OPEN-10 là ca sản phẩm liên quan, không đổi trạng thái của nó ở đây. Host tiếp nhận proposal05: model v2, 83 ca mô phỏng; phiếu 70 lượt roundtrip; sáu ô có bản ghi SENT/ACK/RETURN/kiểm/đóng; SQL và PL/pgSQL kiểm cú pháp. Chưa PG/B3–B7 thật; guard quét toàn mô hình chỉ cho staging nhỏ. Vòng 6 Host tái hiện 7 nhóm nhận xét (9 phép kiểm tập trung); đã sửa retry và search_path, còn R06-01/02/03/05/06. 87 ca hiện có không thay nghiệm thu các chốt này."
@@ -9595,7 +9619,7 @@ main{max-width:1240px} [hidden]{display:none!important}
   },
   "inventory": {
     "id": "TQT-INVENTORY-01",
-    "status": "Kiểm kê và đề xuất ánh xạ · không cấp mã Master",
+    "status": "Lịch sử rà vòng6; danh mục hiện hành ở catalog",
     "source_scope": "view.html, README, PROMPT, mô hình TQT-MODEL-001 và các liên kết nội bộ tools-quy-trinh",
     "summary": "Hai bản phác thảo tổng hợp đang làm; hai hướng dẫn điều phối cần chốt cách xếp. Mã tài liệu/Tool/nháp không thay mã Master.",
     "policy": "Chỉ dẫn nguồn, không sao chép quy trình/câu hỏi. source_id là mã/neo có sẵn để truy nguồn, không là mã quy trình mới.",
@@ -9881,7 +9905,444 @@ main{max-width:1240px} [hidden]{display:none!important}
         ],
         "resolution": "Đóng gói/phát hành DOT và triển khai/khôi phục cần chốt điểm bàn giao; chưa coi hai mô tả là hai lời gọi độc lập đã sẵn sàng."
       }
+    ],
+    "superseded_by": "ML-MOW-TH-001"
+  },
+  "catalog": {
+    "id": "ML-MOW-TH-001",
+    "name": "Master Quy trình tổng hợp",
+    "version": "1.0-design",
+    "ui_id": "UI.MASTER.MOW.TH",
+    "parent_ui": "UI.MASTER",
+    "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html",
+    "definition": "Quy trình tổng hợp giải quyết một mục tiêu lớn, khép kín; gồm nhiều quy trình thường và vẫn nhỏ hơn chuyên môn. Quy trình thường giải quyết nhiệm vụ nhỏ hơn. Chưa quyết định tầng T2.5.",
+    "authority": "Owner chỉ đạo trực tiếp 09/10/2026: lập Master riêng có tên/mã, giữ trên repo để bàn khi dưới 10 quy trình.",
+    "source": "work/tools-quy-trinh/view.html#tqt-composite-processes.catalog",
+    "records": [
+      {
+        "code": "MOW-TH-001",
+        "name": "Chế tạo một chi tiết/chức năng",
+        "goal": "Từ mục Master tới chức năng được nghiệm thu và bàn giao vận hành.",
+        "version": "1.0-design",
+        "object_type": "MOW",
+        "process_kind": "aggregate",
+        "chainId": "CH-001",
+        "state": "Đang thiết kế",
+        "aliases": [
+          "TQT-TH-001"
+        ],
+        "href": "#MOW-TH-001",
+        "source_ref": "TQT-TH-001",
+        "route": [
+          "Thiết kế",
+          "Triển khai",
+          "Vận hành"
+        ],
+        "child_refs": [
+          {
+            "code": "TOOL-CTCM-001",
+            "version": "1.0-design"
+          },
+          {
+            "code": "QT-CTCM-012",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-002",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-004",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-005",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-006",
+            "version": "1.0-design"
+          },
+          {
+            "code": "MOW-TH-002",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-009",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TQT-TH-001-PG",
+            "version": "1.0-design"
+          },
+          {
+            "code": "MOW-TH-004",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-007",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TQT-TH-001-OPS",
+            "version": "1.0-design"
+          },
+          {
+            "code": "MOW-TH-003",
+            "version": "1.0-design"
+          }
+        ],
+        "gates": {
+          "identity": "Đã có",
+          "children": "Đã khai · cần áp thử",
+          "connections": "Chưa kín",
+          "records": "Đã chỉ nguồn · chưa nối máy",
+          "closure": "Chưa chứng minh"
+        }
+      },
+      {
+        "code": "MOW-TH-002",
+        "name": "Xử lý sai/thiếu đến khi kết thúc",
+        "goal": "Mọi phát hiện có nơi nhận, được xử lý và trả kết quả về đúng nơi phát hiện.",
+        "version": "1.0-design",
+        "object_type": "MOW",
+        "process_kind": "aggregate",
+        "chainId": "CH-001",
+        "state": "Đang thiết kế",
+        "aliases": [
+          "DRAFT-MOW-GAP-001"
+        ],
+        "href": "#MOW-TH-002",
+        "source_ref": "DRAFT-MOW-GAP-001",
+        "route": [
+          "Phát hiện",
+          "Xác minh",
+          "Xử lý",
+          "Đấu lại",
+          "Kiểm tại nơi phát hiện",
+          "Kết thúc"
+        ],
+        "child_refs": [
+          {
+            "code": "TOOL-CTCM-008",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-006",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-004",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-007",
+            "version": "1.0-design"
+          }
+        ],
+        "gates": {
+          "identity": "Đã có",
+          "children": "Đã khai · cần áp thử",
+          "connections": "Chưa kín",
+          "records": "Đã chỉ nguồn · chưa nối máy",
+          "closure": "Chưa chứng minh"
+        }
+      },
+      {
+        "code": "MOW-TH-003",
+        "name": "Hiệu chỉnh hướng dẫn và quy trình",
+        "goal": "Người/AI mới làm theo được; vướng đâu sửa đúng nguồn và thử lại.",
+        "version": "1.0-design",
+        "object_type": "MOW",
+        "process_kind": "aggregate",
+        "chainId": "CH-001",
+        "state": "Đang thiết kế",
+        "aliases": [
+          "TQT-QT-001"
+        ],
+        "href": "#MOW-TH-003",
+        "source_ref": "TQT-QT-001",
+        "route": [
+          "Chọn ca",
+          "Làm theo",
+          "Ghi chỗ vướng",
+          "Hiệu chỉnh",
+          "Thử lại"
+        ],
+        "child_refs": [
+          {
+            "code": "QT-CTCM-012",
+            "version": "1.0-design"
+          },
+          {
+            "code": "MOW-TH-004",
+            "version": "1.0-design"
+          },
+          {
+            "code": "MOW-TH-002",
+            "version": "1.0-design"
+          }
+        ],
+        "gates": {
+          "identity": "Đã có",
+          "children": "Đã khai · cần áp thử",
+          "connections": "Chưa kín",
+          "records": "Đã chỉ nguồn · chưa nối máy",
+          "closure": "Chưa chứng minh"
+        }
+      },
+      {
+        "code": "MOW-TH-004",
+        "name": "Rà soát một UI đến kết luận",
+        "goal": "Đủ câu trả lời, ca kiểm và kết luận; mọi chỗ thiếu có nơi xử lý.",
+        "version": "1.0-design",
+        "object_type": "MOW",
+        "process_kind": "aggregate",
+        "chainId": "CH-001",
+        "state": "Đang thiết kế",
+        "aliases": [
+          "ra-ui"
+        ],
+        "href": "#MOW-TH-004",
+        "source_ref": "ra-ui",
+        "route": [
+          "Chuẩn bị",
+          "Đi như người mới",
+          "Lập ca",
+          "Chạy kiểm",
+          "Sửa và kiểm lại",
+          "Bàn giao"
+        ],
+        "child_refs": [
+          {
+            "code": "TOOL-CTCM-001",
+            "version": "1.0-design"
+          },
+          {
+            "code": "QT-CTCM-012",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-002",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-003",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-004",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-005",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-006",
+            "version": "1.0-design"
+          },
+          {
+            "code": "TOOL-CTCM-007",
+            "version": "1.0-design"
+          },
+          {
+            "code": "MOW-TH-002",
+            "version": "1.0-design"
+          }
+        ],
+        "gates": {
+          "identity": "Đã có",
+          "children": "Đã khai · cần áp thử",
+          "connections": "Chưa kín",
+          "records": "Đã chỉ nguồn · chưa nối máy",
+          "closure": "Chưa chứng minh"
+        }
+      }
+    ],
+    "normal_processes": [
+      {
+        "code": "TOOL-CTCM-001",
+        "name": "Lập hành trình",
+        "version": "1.0-design",
+        "kind": "normal",
+        "href": "#tqt-ctcm-1",
+        "state": "DESIGN",
+        "source": "TOOL-CTCM-001"
+      },
+      {
+        "code": "TOOL-CTCM-002",
+        "name": "Rà như người mới",
+        "version": "1.0-design",
+        "kind": "normal",
+        "href": "#tqt-ctcm-2",
+        "state": "DESIGN",
+        "source": "TOOL-CTCM-002"
+      },
+      {
+        "code": "TOOL-CTCM-003",
+        "name": "Phủ các nhánh",
+        "version": "1.0-design",
+        "kind": "normal",
+        "href": "#tqt-ctcm-3",
+        "state": "DESIGN",
+        "source": "TOOL-CTCM-003"
+      },
+      {
+        "code": "TOOL-CTCM-004",
+        "name": "Rà config",
+        "version": "1.0-design",
+        "kind": "normal",
+        "href": "#tqt-ctcm-4",
+        "state": "DESIGN",
+        "source": "TOOL-CTCM-004"
+      },
+      {
+        "code": "TOOL-CTCM-005",
+        "name": "Rà dữ liệu và lỗi",
+        "version": "1.0-design",
+        "kind": "normal",
+        "href": "#tqt-ctcm-5",
+        "state": "DESIGN",
+        "source": "TOOL-CTCM-005"
+      },
+      {
+        "code": "TOOL-CTCM-006",
+        "name": "Khớp danh tính và nguồn",
+        "version": "1.0-design",
+        "kind": "normal",
+        "href": "#tqt-ctcm-6",
+        "state": "DESIGN",
+        "source": "TOOL-CTCM-006"
+      },
+      {
+        "code": "TOOL-CTCM-007",
+        "name": "Chạy ca kiểm UI",
+        "version": "1.0-design",
+        "kind": "normal",
+        "href": "#tqt-ctcm-7",
+        "state": "DESIGN",
+        "source": "TOOL-CTCM-007"
+      },
+      {
+        "code": "TOOL-CTCM-008",
+        "name": "Ghi sổ và xử lý UI thiếu/lỗi",
+        "version": "1.0-design",
+        "kind": "normal",
+        "href": "#tqt-ctcm-8",
+        "state": "DESIGN",
+        "source": "TOOL-CTCM-008",
+        "boundary": "Chỉ ghi/đọc lại hồ sơ và các nơi ảnh hưởng; là bước đầu của MOW-TH-002. Không tự đóng toàn vòng. MOW-TH-002 điều phối xác minh, xử lý, đấu lại và kiểm để đóng."
+      },
+      {
+        "code": "TOOL-CTCM-009",
+        "name": "Đóng gói và phát hành DOT",
+        "version": "1.0-design",
+        "kind": "normal",
+        "href": "#tqt-ctcm-9",
+        "state": "DESIGN",
+        "source": "TOOL-CTCM-009"
+      },
+      {
+        "code": "TQT-TH-001-PG",
+        "name": "Triển khai và khôi phục",
+        "version": "1.0-design",
+        "kind": "normal",
+        "href": "#TQT-TH-001-PG",
+        "state": "DESIGN",
+        "source": "TQT-TH-001-PG"
+      },
+      {
+        "code": "TQT-TH-001-OPS",
+        "name": "Log, phản hồi và bàn giao vận hành",
+        "version": "1.0-design",
+        "kind": "normal",
+        "href": "#TQT-TH-001-OPS",
+        "state": "DESIGN",
+        "source": "TQT-TH-001-OPS"
+      },
+      {
+        "code": "QT-CTCM-012",
+        "name": "Khai báo và kiểm bộ câu hỏi",
+        "version": "1.0-design",
+        "kind": "normal",
+        "href": "#QT-CTCM-012",
+        "state": "DESIGN",
+        "steps": [
+          "Khai mã/phiên quy trình đang làm, đối tượng/phiên xử lý và nghiệp vụ.",
+          "Ghép tập câu áp dụng từ ma trận và ghi chú riêng; lưu phiên nguồn, không cố định số câu.",
+          "Trả lời từng câu; ghi căn cứ hoặc giá trị lúc chạy và nguồn cấp.",
+          "Kiểm đúng đối tượng, đủ câu bắt buộc, căn cứ/ngoại lệ được duyệt. Chưa đủ thì ghi mã hồ sơ và nơi nhận.",
+          "Chỉ bàn giao phạm vi đủ điều kiện. Phiếu nháp thiếu được lưu, không được tự công nhận đủ hay cho chạy."
+        ],
+        "output": "Phiếu có phạm vi, bộ câu, đáp án, bằng chứng và chỗ thiếu.",
+        "gate": "Mỗi câu áp dụng truy được tới bước trả lời/kiểm, người giữ và bước tiếp. Chốt máy R06-03 còn mở."
+      }
+    ],
+    "code_policy": "Mã MOW-TH-* là mã chính thức của danh mục thiết kế này, không đổi khi sửa tên. Đăng ký mã không đồng nghĩa quy trình đã được nghiệm thu hay được phép chạy PG. Không gán Nhóm cha giả hoặc đổi CT-005.",
+    "review_id": "TQT-ISS-007",
+    "resources": [
+      {
+        "code": "ML-DEFINITION-INDEX",
+        "version": "live-reference",
+        "name": "Master / danh mục",
+        "href": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html"
+      },
+      {
+        "code": "UI.MASTER",
+        "version": "20261008",
+        "name": "UI cha",
+        "href": "https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=matrix-view-process"
+      }
     ]
+  },
+  "checkpoint_policy": {
+    "id": "TQT-GATE-001",
+    "version": "1.0-design",
+    "owner_process": "MOW-TH-001",
+    "levels": "Giữ mức 0–4. Mức không thay kết quả/hiệu lực; không thêm mức 5 để tự coi vận hành ổn.",
+    "stages": [
+      {
+        "id": "G1",
+        "name": "Thiết kế",
+        "min_level": 3,
+        "context": "DESIGN",
+        "requires": []
+      },
+      {
+        "id": "G2",
+        "name": "Triển khai",
+        "min_level": 4,
+        "context": "TECHNICAL",
+        "requires": [
+          "real_environment",
+          "restore_pass",
+          "recipient_ready"
+        ]
+      },
+      {
+        "id": "G3",
+        "name": "Vận hành",
+        "min_level": 4,
+        "context": "OPERATIONS",
+        "requires": [
+          "observation_met",
+          "logs_reviewed",
+          "feedback_reviewed",
+          "handoff_ack"
+        ]
+      }
+    ],
+    "common": "Tập yêu cầu bắt buộc phải khai trước; không rỗng. Đạt khi mọi yêu cầu có bằng chứng đúng phạm vi/phiên, đủ mức, PASS và còn hiệu lực; N/A có lý do và người duyệt. Thiếu/FAIL/BLOCKED/NOT_TESTED không đạt. Có điều kiện chỉ cho phần không chặn đã được duyệt, không biến mốc thành Đạt.",
+    "scope": "Máy tính trạng thái tại bản thiết kế theo bộ quy tắc này; chưa cưỡng chế trong PG. Nguồn đổi thì xét lại phần phụ thuộc."
+  },
+  "review_07": {
+    "source": "proposals/TQT-PR-20261009-claude-goal-and-review-07.md",
+    "C1": "Tiếp nhận: MOW-TH-001 bước 1.4/2.3/3.2 gọi MOW-TH-002; Tool008 chỉ ghi nhận trong cùng vòng.",
+    "C2": "Tiếp nhận: lời gọi typed code/version, href suy từ catalog. Nguồn đọc tách resource. Quy trình còn dùng chuyển DOM khỏi tab tạm.",
+    "C3": "Tiếp nhận có điều chỉnh: giữ mức0–4, thêm context/tiêu chí từng mốc; không cần mức5. Luật tính chưa thay PG guard.",
+    "C4": "Tiếp nhận: năm ý khép kín đưa ngay đầu tab.",
+    "goals": "Chưa áp mục2–3 proposal07; Owner chưa chốt bản mục tiêu ngắn."
   }
 }</script>
 <script id="tqt-process-model-renderer">
@@ -9908,12 +10369,6 @@ const examples=[
  ['Đã chạy thật — Đạt','Cần kiểm lại: nguồn đổi']
 ];
 document.getElementById('tqt-process-model-view').innerHTML=
- '<h2 id="tqt-process-inventory">Các quy trình đang có</h2><p>'+e(I.summary)+'</p><p class="hint">Có mô tả / có mã tài liệu / có mã Master / gọi được là các mức khác nhau. Chưa xác minh đăng ký Master cho các mục dưới đây trong phạm vi nguồn đã rà.</p>'+
- inventoryRows(I.items.slice(0,4))+fold('Mở 9 Tool và 2 khung quy trình con',inventoryRows(I.items.slice(4)))+
- fold('Đề xuất: câu hỏi đi vào quy trình như thế nào?',
- '<p>'+e(I.question_usage.status)+'</p><p>'+e(I.question_usage.principle)+'</p><p><b>'+e(I.question_usage.formula)+'</b></p><p>'+e(I.question_usage.current)+'</p>'+
- I.gaps.map(x=>'<p><b>'+e(x.source)+'</b><br>'+e(x.missing)+'<br>Đề xuất gắn: '+e(x.attach_to)+'</p>').join('')+
- '<p><b>Chỗ giao nhau:</b></p>'+ul(I.overlaps.map(x=>x.sources.join(' / ')+': '+x.resolution)))+
  '<h2 id="tqt-mo-hinh-pg">'+e(M.title)+'</h2><p class="mut">'+e(M.status)+'</p>'+
  '<p><b>Đang rà quy trình sai/thiếu · còn 5 chốt chưa kín · Host xử lý tiếp.</b> Đây là trạng thái thiết kế, chưa phải một lần vận hành.</p>'+
  '<div class="tqt-model-flow">'+line+'</div>'+
@@ -9950,10 +10405,11 @@ document.getElementById('tqt-model-json').value=JSON.stringify(M,null,2);
 const D=JSON.parse(document.getElementById('tqt-composite-processes').textContent);
 const e=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ul=items=>'<ul>'+items.map(t=>'<li>'+e(t)+'</li>').join('')+'</ul>';
-const links=items=>items.map(l=>'<a href="'+e(l.href)+'"'+(l.href.startsWith('http')?' target="_blank" rel="noopener"':'')+'>'+e(l.label)+'</a>').join(' · ');
+const catalogItems=[...D.catalog.records,...D.catalog.normal_processes,...D.catalog.resources];
+const links=items=>items.map(ref=>{const found=ref.code&&catalogItems.find(x=>x.code===ref.code&&x.version===ref.version);return found?{label:found.code+' · '+found.name,href:found.href}:ref;}).map(l=>'<a href="'+e(l.href)+'"'+(l.href.startsWith('http')?' target="_blank" rel="noopener"':'')+'>'+e(l.label)+'</a>').join(' · ');
 const p=D.processes[0];
-document.getElementById('tqt-composite-list').innerHTML=D.processes.map(p=>'<details class="tqt-composite" id="'+p.id+'"><summary><span><b>'+e(p.id)+' · '+e(p.title)+'</b><small>Chưa đăng ký MOW trong Master · '+e(p.status)+'</small></span></summary><div class="tqt-composite-body"><p class="lead">'+e(p.purpose)+'</p><p class="mut">'+e(p.use)+'</p><div class="tqt-stage-overview">'+p.stages.map(s=>'<a href="#'+s.id+'"><span>Giai đoạn '+s.number+'</span><b>'+e(s.title)+'</b><small>'+e(s.outcome)+'</small></a>').join('')+'</div><details><summary>Bắt đầu bằng gì · kết thúc khi nào?</summary><p><b>Đầu vào:</b> '+e(p.start)+'</p><p><b>Đích:</b> '+e(p.finish)+'</p></details>'+
-p.stages.map(s=>'<details class="tqt-stage" id="'+s.id+'"><summary><b>'+s.number+'. '+e(s.title)+'</b><small>'+e(s.outcome)+'</small></summary><div class="tqt-stage-body">'+s.steps.map(t=>'<details class="tqt-taskstep"><summary>'+e(t.title)+'</summary><p>'+e(t.work)+'</p><p class="mut"><small>Gọi quy trình: '+links(t.uses)+'</small></p><p><b>Cần ra:</b> '+e(t.output)+'</p><p><b>Đi tiếp / quay lại:</b> '+e(t.next)+'</p></details>').join('')+'<div class="tqt-checkpoint"><h3>'+e(s.checkpoint.title)+'</h3><p><b>Đạt:</b> '+e(s.checkpoint.pass)+'</p><p><b>Có điều kiện:</b> '+e(s.checkpoint.conditional)+'</p><p><b>Chưa đạt:</b> '+e(s.checkpoint.hold)+'</p><p><b>Sau checkpoint:</b> '+e(s.checkpoint.next)+'</p></div></div></details>').join('')+
+document.getElementById('tqt-composite-list').innerHTML=D.processes.map(p=>'<details class="tqt-composite" id="'+p.id+'"><summary><span><b>'+e(p.id)+' · '+e(p.title)+'</b><small>MOW-TH-001 · Đã có mã danh mục thiết kế · '+e(p.status)+'</small></span></summary><div class="tqt-composite-body"><p class="lead">'+e(p.purpose)+'</p><p class="mut">'+e(p.use)+'</p><div class="tqt-stage-overview">'+p.stages.map(s=>'<a href="#'+s.id+'"><span>Giai đoạn '+s.number+'</span><b>'+e(s.title)+'</b><small>'+e(s.outcome)+'</small></a>').join('')+'</div><details><summary>Bắt đầu bằng gì · kết thúc khi nào?</summary><p><b>Đầu vào:</b> '+e(p.start)+'</p><p><b>Đích:</b> '+e(p.finish)+'</p></details>'+
+p.stages.map(s=>'<details class="tqt-stage" id="'+s.id+'"><summary><b>'+s.number+'. '+e(s.title)+'</b><small>'+e(s.outcome)+'</small></summary><div class="tqt-stage-body">'+s.steps.map(t=>'<details class="tqt-taskstep"><summary>'+e(t.title)+'</summary><p>'+e(t.work)+'</p><p class="mut"><small>Quy trình / nguồn đọc: '+links(t.uses)+'</small></p><p><b>Cần ra:</b> '+e(t.output)+'</p><p><b>Đi tiếp / quay lại:</b> '+e(t.next)+'</p></details>').join('')+'<div class="tqt-checkpoint"><h3>'+e(s.checkpoint.title)+'</h3><p><b>Đạt:</b> '+e(s.checkpoint.pass)+'</p><p><b>Có điều kiện:</b> '+e(s.checkpoint.conditional)+'</p><p><b>Chưa đạt:</b> '+e(s.checkpoint.hold)+'</p><p><b>Sau checkpoint:</b> '+e(s.checkpoint.next)+'</p></div></div></details>').join('')+
 '<details id="'+p.id+'-ISSUES"><summary>Gặp sai/thiếu · gom về vấn đề gốc</summary>'+ul(p.issue_rules)+'<p>'+links([{label:'Mở sổ vấn đề hiện có',href:'#so-van-de'},{label:'Quy trình hiệu chỉnh',href:'#quy-trinh-hieu-chinh'}])+'</p></details>'+
 '<details id="'+p.id+'-OWNER"><summary>'+e(p.owner_brief.title)+'</summary><div class="tqt-owner-brief">'+p.owner_brief.fields.map(([a,b])=>'<p><b>'+e(a)+'</b><br>'+e(b)+'</p>').join('')+'</div><p>'+e(p.owner_brief.note)+'</p></details>'+
 '<details><summary>Ai nghiệm thu · ghi quyết định ở đâu?</summary><p>'+e(p.checkpoint_record)+'</p><p>Người thực hiện ghi vào phiếu của công việc; người có quyền nghiệm thu theo phân công xác nhận. Host điều phối và nhận góp ý riêng. Lưu quyết định ở nguồn hiện có, không mở sổ checkpoint thứ hai.</p></details>'+
@@ -10003,6 +10459,57 @@ document.getElementById('tqt-composite-json').value=JSON.stringify(D,null,2);
 })();
 </script>
 
+<script id="tqt-checkpoint-rule">
+/* Pure design-stage gate; no PG mutation. Required IDs come from the scoped plan. */
+(function(g){'use strict';
+g.tqtCheckpoint=function(policy,stageId,plan,evidence,facts){
+ const stage=policy.stages.find(s=>s.id===stageId);if(!stage||!plan?.scope||!plan?.version||!Array.isArray(plan.required)||!plan.required.length)return {status:'CHUA',missing:['Chưa khai phạm vi/phiên/tập yêu cầu bắt buộc']};
+ const missing=[];if(new Set(plan.required).size!==plan.required.length)missing.push('Trùng mã yêu cầu');
+ for(const id of plan.required){const found=evidence.filter(x=>x.id===id&&x.scope===plan.scope&&x.version===plan.version&&x.context===stage.context&&x.current===true);if(found.length!==1){missing.push(id+': thiếu hoặc nhiều kết quả hiện hành');continue;}const x=found[0];if(x.result==='NA'){if(!x.reason||!x.approved_by||!x.evidence||x.validity!=='CURRENT')missing.push(id+': N/A chưa có căn cứ/duyệt/hiệu lực');continue;}if(x.result!=='PASS'||x.level<stage.min_level||x.validity!=='CURRENT'||!x.evidence)missing.push(id+': chưa đạt/thiếu mức/bằng chứng/hết hiệu lực');}
+ for(const key of stage.requires)if(facts?.[key]!==true)missing.push(key);
+ if(missing.length)return {status:'CHUA',missing};
+ return {status:'DAT',missing:[]};
+};
+})(typeof module==='object'?module.exports:window);
+
+</script>
+<script id="tqt-catalog-renderer">
+/* TQT: same catalog as UI.MASTER; this view is for discussion, not execution. */
+(function(){
+'use strict';
+const C=JSON.parse(document.getElementById('tqt-composite-processes').textContent),R=C.catalog;
+const e=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const root=document.getElementById('list-quy-trinh-tong-hop');
+const first=root.firstElementChild;if(first)first.remove();
+const host=document.createElement('section');host.id='tqt-process-inventory';
+host.innerHTML='<h2>'+R.records.length+' quy trình tổng hợp</h2><p>'+e(R.definition)+'</p><p><a href="'+e(R.url)+'" target="_blank" rel="noopener">Mở Master Quy trình tổng hợp ↗</a> · <small>'+e(R.id)+' · Danh mục thiết kế</small></p><div class="tqt-closure-formula">'+C.closure_review.formula.map((x,i)=>'<span>'+String(i+1)+'. '+e(x)+'</span>').join('<i>→</i>')+'</div><p class="mut">4 quy trình tổng hợp · 9 quy trình Tool + 3 quy trình bổ sung. Có mã không đồng nghĩa đã nghiệm thu. Bấm tên để xem chi tiết.</p>';
+root.prepend(host);
+const moved={
+ 'MOW-TH-001':document.getElementById('TQT-TH-001'),
+ 'MOW-TH-003':document.getElementById('quy-trinh-hieu-chinh'),
+ 'MOW-TH-004':document.getElementById('ra-ui')
+};
+for(const r of R.records){
+ const card=document.createElement('details');card.className='tqt-composite';card.id=r.code;
+ card.innerHTML='<summary><span><b>'+e(r.name)+'</b><small>'+e(r.code)+' · '+e(r.state)+'</small></span></summary><div class="tqt-composite-body"><p>'+e(r.goal)+'</p><div class="tqt-closure-formula">'+r.route.map(t=>'<span>'+e(t)+'</span>').join('<i>→</i>')+'</div><p><b>Quy trình con:</b> '+r.child_refs.map(ref=>{const n=[...R.records,...R.normal_processes].find(x=>x.code===ref.code);return '<a href="'+e(n.href)+'">'+e(n.name)+' <small>('+e(n.code)+')</small></a>';}).join(' · ')+'</p><details><summary>Kiểm 5 ý khép kín</summary>'+Object.values(r.gates).map((v,i)=>'<p>'+e(C.closure_review.formula[i])+': '+e(v)+'</p>').join('')+'</details></div>';
+ const body=card.lastElementChild;
+ if(moved[r.code])body.appendChild(moved[r.code]);
+ if(r.code==='MOW-TH-002'){
+  const model=document.getElementById('tqt-process-model-view');
+  const flow=model.querySelector('.tqt-model-flow');if(flow)body.appendChild(flow);
+  const p=document.createElement('p');p.textContent='Tool 008 ghi nhận vào sổ hiện có; toàn vòng do quy trình này điều phối. B3–B7 và nơi nhận thật còn phải nối. Chưa đạt quay lại đúng bước; từ chối cũng phải trả quyết định về nơi phát hiện.';body.appendChild(p);
+ }
+ host.appendChild(card);
+}
+const normals=document.createElement('details');normals.id='tqt-normal-processes';normals.innerHTML='<summary>Quy trình con · 9 Tool + 3 quy trình bổ sung</summary><p>Đây là các quy trình giải quyết nhiệm vụ nhỏ hơn. Một quy trình con có thể được nhiều quy trình tổng hợp dùng lại.</p>';
+for(const n of R.normal_processes){let el=document.getElementById(n.href.slice(1));if(el){normals.appendChild(el);if(n.boundary){const p=document.createElement('p');p.textContent=n.boundary;el.appendChild(p);}}else{el=document.createElement('details');el.id=n.code;el.innerHTML='<summary>'+e(n.code)+' · '+e(n.name)+'</summary><ol>'+(n.steps||[]).map(x=>'<li>'+e(x)+'</li>').join('')+'</ol><p><b>Đầu ra:</b> '+e(n.output)+'</p><p><b>Xong khi:</b> '+e(n.gate)+'</p>';normals.appendChild(el);}}
+host.appendChild(normals);
+const gates=document.createElement('details');gates.id='TQT-GATE-001';gates.innerHTML='<summary>Mốc nào đủ điều kiện nghiệm thu?</summary><p>'+e(C.checkpoint_policy.common)+'</p>'+C.checkpoint_policy.stages.map(x=>'<p><b>'+e(x.name)+'</b>: mức ≥ '+x.min_level+' · '+e(x.context)+' · '+e(x.requires.join(', ')||'đủ yêu cầu thiết kế')+'</p>').join('')+'<p>'+e(C.checkpoint_policy.levels)+'</p><p>'+e(C.checkpoint_policy.scope)+'</p>';host.appendChild(gates);
+const technical=document.createElement('details');technical.id='tqt-technical';technical.innerHTML='<summary>Cho AI · dữ liệu, mô hình PG và phần còn hở</summary>';technical.appendChild(document.getElementById('tqt-process-model-view'));host.appendChild(technical);
+const legacy=document.getElementById('tqt-tab-old');if(legacy)legacy.textContent='Tham chiếu cũ';
+})();
+
+</script>
 <script id="tqt-question-renderer">
 (function(){
 'use strict';
@@ -10132,3 +10639,4 @@ window.addEventListener('load',syncSection);
 </main>
 </body>
 </html>
+

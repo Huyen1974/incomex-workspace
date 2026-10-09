@@ -1,10 +1,27 @@
 # tools-quy-trinh · Cửa vào
 
+## Master quy trình tổng hợp · hiện hành
+[Mở Master theo UI cha](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Bàn cùng 4 quy trình tại repo](view.html#tqt-process-inventory).
+**4 quy trình tổng hợp** trong `ML-MOW-TH-001`: MOW-TH-001 Chế tạo chức năng; 002 Xử lý sai/thiếu; 003 Hiệu chỉnh quy trình; 004 Rà UI. Danh mục con gồm **9 Tool + 3 quy trình bổ sung**, không tính lẫn với tổng hợp.
+SSOT tên/mã/quan hệ: `tqt-composite-processes.catalog`. Master trên VPS đọc bản repo đã xuất; không có danh sách dữ liệu sửa tay thứ hai. Khi dưới10, giữ cả cách xem/thảo luận trong task theo Owner. Mã đã đăng ký thiết kế; nghiệm thu và quyền chạy là việc riêng. Chưa quyết T2.5, không đổi CT-005.
+Quy trình trả lời/kiểm bộ câu hỏi: QT-CTCM-012; dùng câu hỏi theo mã/phiên, không sao chép. Quan hệ gọi có code/version/kind; nguồn đọc là resource. Trạng thái mốc theo `checkpoint_policy` / `tqt-checkpoint-rule`; không chấm xanh từ số mức đơn thuần.
+- Cách kiểm: `python3 check-process-model.py view.html`; kiểm danh mục/cổng ở `check-process-catalog.py`; phiếu UI: `UI-REVIEW-AGGREGATE.json`.
+- Lịch sử kiểm kê vòng6 trong `inventory` giữ truy nguồn; không dùng làm danh mục hiện hành.
+
+## Ý kiến hội đồng · Host kết luận
+| Ý kiến | Kết luận hiện hành | Nguồn |
+|---|---|---|
+| PR-01/02 | Đã tiếp nhận phần câu hỏi/ghép, nguồn hiện có ở ma trận và rules | proposals/ · lịch sử ô3 |
+| PR-03 | Đã áp phiếu thử MOW001, chưa nghiệm thu sản phẩm | UI-REVIEW-MOW001.json của task sản phẩm |
+| PR-04/05 | Đã tiếp nhận mô hình/khép kín; các chốt còn thiếu giữ TQT-ISS-007 | closure_review / tqt-process-model |
+| PR-06 | Sửa retry/schema, còn5 chốt mở | host_review_06 · commit3bc305d |
+| PR-07 | C1/C2/C4 tiếp nhận; C3 giữ mức0–4 và thêm điều kiện từng mốc. Mục tiêu2–3 chưa áp | review_07 / checkpoint_policy · P16 |
+
 ## Một đường vào cho người/AI mới
 Đọc AGENTS.md → COLLAB.md mục tiêu và kiểm soát → [chọn quy trình hiện có](view.html#tqt-process-inventory) → khai MOW/MOT đang làm, đúng đối tượng/phiên và nghiệp vụ → lấy bộ câu hỏi/ghi chú tương ứng → làm từng bước → nộp kết quả, bằng chứng hoặc chỗ thiếu.
 Host ghi vào phiếu/sổ hiện hữu của công việc; AI góp ý chỉ tạo proposal theo hướng dẫn bên dưới. Chưa đủ câu/căn cứ hoặc chưa có nơi nhận thì ghi rõ điểm dừng; không tự xác nhận đủ.
 
-## Rà vòng 6 · hiện hành
+## Rà vòng 6 · lịch sử trước khi lập Master riêng
 Nguồn quyết định: `tqt-process-model.host_review_06`; theo dõi cùng TQT-ISS-007. **87 ca hiện có đạt nhưng còn 5 chốt chưa kín**: kết thúc đúng đường thực thi; nhận bàn giao cuối; đúng đối tượng và tập câu bắt buộc; quyền tại thời điểm hành động; đường nhận kết quả hợp lệ. Đã sửa retry khác nội dung/đích trong mô phỏng và cố định search_path cho 8 hàm SQL sinh ra; chưa nghiệm thu PG.
 Kiểm kê tại `tqt-composite-processes.inventory`: hai bản phác thảo tổng hợp, hai hướng dẫn điều phối cần chốt cách xếp, 9 Tool và 2 khung con. Mã tài liệu/nháp/Tool chưa thay mã Master. Đây là danh mục nguồn, không phải đăng ký mới.
 **Ý mục 3 của Owner vẫn là đề xuất:** quy trình/bước tham chiếu câu hỏi dùng chung và chịu trách nhiệm trả lời/kiểm/ghi/đi tiếp; chưa áp quy tắc mỗi nhóm câu phải thành MOW riêng. Sáu vùng chưa nối và ba vùng giao nhau đã ghi tại danh mục; không mở sổ khác.
