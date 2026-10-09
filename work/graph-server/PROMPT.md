@@ -5,7 +5,7 @@ RUN_ID: GS-R8C-MAC-CLIENT-FINAL-20261009-14
 Task: `work/graph-server/` · **chỉ hoàn tất client Mac của R8**, không mở R9/task mới.
 Executor: Claude Code CLI mới trên Mac; Owner dán thủ công khi Host READY đúng commit SHA.
 Write_Path: Incomex MCP full all 2 `workspace_*` root `workspace` chỉ cho trạng thái Graph/root; sổ nguồn HJW `connectors.json` chỉ đổi bằng đúng lệnh `dot-connector-sync promote apps --ref <số P duyệt của HJW Host>` ở S1 của RUN này — không sửa tay, không lượt HJW riêng (lý do đo ở §1).
-Status: DRAFT · Reviewer P88 đã sửa thẳng thứ tự (cài Mac → nhận vào sổ, trong một lượt) và ACCEPT đúng SHA bản này → HJW Host ghi một mục P duyệt trong HJW COLLAB (dùng làm `--ref`) + shared VPS free → GPT Host READY → Owner dán RUN. PROMPT này không tự kích hoạt.
+Status: DRAFT · Claude P88 ACCEPT bản trước @c95f0d1c45cea370e8d5d7ba66ed45aaf11fd05a · Host P89 chỉ sửa S1 bỏ chờ căn giờ theo DROOT50/DROOT52 · **CHỜ Reviewer P90 xác nhận exact PROMPT last-touch SHA mới, chưa HOST READY, chưa RUN**.
 
 Nguồn authority: Owner 09/10 chọn **GIỮ phần Graph VPS đạt**, P86 `KQ@GS-R8R2-PINS-GUARDED-MCP-20261009-13 DỪNG` tại đúng E7/E8. E1–E6/E4 phần VPS đã chứng minh: Graph 3.596 nút/6.823 cạnh giữ nguyên, Neo4j URL-blocklist, MCP 1.6.0 read-only, Guard đủ 5 tệp, B8 production 13/13, Telegram #165, 22/22 lúc P86. Claude Code và Codex đã đọc thử Graph; Mac user-scope entries được trả **nguyên byte PRE** vì INV20 `MAC_AHEAD` (#22 đỏ 09:05–09:20Z) khi thiếu sổ nguồn HJW. **Không dùng KQ DỪNG cũ làm KQ XONG, không đánh dấu R8 DONE trước client thật và Guard.**
 
