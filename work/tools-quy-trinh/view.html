@@ -136,6 +136,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 <h2>Ma trận câu hỏi</h2><p>Mỗi hàng là một câu hỏi gốc. Mã giữ nguyên khi sửa câu; sửa tại đây trong nguồn thì mọi cách xem cùng đổi.</p>
 <div class="toolbar"><input id="tqt-search" type="search" placeholder="Tìm câu hỏi, mã, tên bước…" aria-label="Tìm trong ma trận"><select id="tqt-filter" aria-label="Lọc loại câu hỏi"><option value="">Tất cả</option><option>Chung</option><option>Bước lớn</option><option>Bước con</option><option>Tầng</option><option>Chuỗi</option><option>Nghiệp vụ</option></select><span id="tqt-total" role="status"></span></div>
 <div class="matrix-wrap"><table><thead><tr><th>Mã câu</th><th>Thuộc phần</th><th>Câu hỏi</th></tr></thead><tbody id="tqt-matrix-body"></tbody></table></div>
+<details><summary>Ghi chú riêng · theo bước và tầng</summary><div id="tqt-note-catalog"></div></details>
 <details><summary>Dữ liệu cho AI · toàn bộ ma trận</summary><p><small>Nguồn duy nhất: khối JSON <code>tqt-question-matrix</code> trong <code>work/tools-quy-trinh/view.html</code>. Dữ liệu dưới đây đọc trực tiếp từ nguồn ấy; gồm câu hỏi, mã, nhóm, quan hệ kế thừa và trạng thái.</small></p><textarea id="tqt-json" readonly aria-label="Toàn bộ ma trận JSON"></textarea><p><small>Chọn nội dung để sao chép. Câu trả lời và bằng chứng của mỗi lần làm được lưu tại task sản phẩm, không ghi đè câu hỏi chuẩn.</small></p></details>
 </div>
 </div>
@@ -827,7 +828,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 
 <script id="tqt-question-matrix" type="application/json">{
   "schema": "TQT-QUESTION-MATRIX-1",
-  "updated": "2026-10-08",
+  "updated": "2026-10-09",
   "host": "Astra Codex",
   "status": "Bản đầu để dùng thử và hiệu chỉnh; chưa nghiệm thu bộ câu hỏi",
   "source_definitions": "work/mow-mot-moit-mout/ban-duyet.html#matrix-view-formula",
@@ -2153,6 +2154,98 @@ main{max-width:1240px} [hidden]{display:none!important}
       "title": "Từ câu trả lời đến sản phẩm",
       "text": "Mỗi trường, nút, trạng thái UI và quy tắc Config phải truy được về câu trả lời có căn cứ. Chiều ngược lại: mỗi yêu cầu bắt buộc rút từ câu trả lời đã được thể hiện ở đâu và kiểm bằng ca nào? Nhiều yêu cầu có thể dùng chung một phần; không bắt mỗi câu bối cảnh có một nút riêng. Phân biệt có căn cứ, đã triển khai và đã kiểm chạy; phần thiếu vẫn ghi thiếu."
     }
+  ],
+  "note_policy": {
+    "placement": "Đúng cho mọi bước tại một tầng → owner là tầng. Đúng cho mọi tầng tại một bước → owner là bước. Chỉ đúng khi ghép bước và tầng → owner là bước, applies.layer là tầng. Đáp án chỉ của một MOW/MOT → phiếu sản phẩm, không đưa vào ghi chú chung.",
+    "matching": "Trong bộ ghép, mọi điều kiện applies phải khớp; bước con nhận ghi chú của bước cha. Thiếu lựa chọn thì chưa áp dụng ghi chú có điều kiện ấy. Một mã ghi chú xuất hiện một lần. Không có ghi chú không có nghĩa đã rà đủ.",
+    "conflicts": "Ghi chú bổ sung cho câu hỏi, không tự ghi đè quy định chung. Nếu mâu thuẫn: chỉ ra nguồn và đưa Host chốt. Đề xuất chưa duyệt phải ghi draft và không dùng như quy định đã chốt.",
+    "fields": "id, owner, applies, text, source, status. MOIT và MOUT cùng T0.5 nhưng là hai loại riêng; không gộp phạm vi khi chưa có căn cứ."
+  },
+  "notes": [
+    {
+      "id": "N-FIELD-01",
+      "owner": "FIELD",
+      "applies": {
+        "layer": "FIELD"
+      },
+      "text": "Field T0 là định nghĩa độc lập. Form cha và Bắt buộc thuộc quan hệ/config theo nơi dùng, không gán mặc định vào định nghĩa Field.",
+      "source": "ui/definition-master-registry-v1.js · ML-DEF-008 · D148",
+      "status": "host_accepted"
+    },
+    {
+      "id": "N-B1-01",
+      "owner": "B1",
+      "applies": {
+        "step": "B1"
+      },
+      "text": "B1 kết thúc ở kết luận tìm trong phạm vi đã tra; không cần thực hiện Dùng, Tạo, Sửa hoặc Vô hiệu. Lỗi nguồn hoặc thiếu căn cứ không chứng minh đối tượng không tồn tại.",
+      "source": "Q-B1-03 · Host tiếp nhận góp ý vòng 2 và 3",
+      "status": "host_accepted"
+    },
+    {
+      "id": "N-B1-FIELD-01",
+      "owner": "B1",
+      "applies": {
+        "step": "B1",
+        "layer": "FIELD"
+      },
+      "text": "Tìm định nghĩa Field, không nhập giá trị điện thoại của cá nhân. Địa chỉ danh mục là ML-DEF-008; bản minh họa không thay nguồn tìm thật theo quyền.",
+      "source": "ML-DEF-008; UI-REVIEW-MOW001.json · process_trial_20261009.contract",
+      "status": "host_accepted"
+    },
+    {
+      "id": "N-B11-FIELD-01",
+      "owner": "B1.1",
+      "applies": {
+        "step": "B1.1",
+        "layer": "FIELD"
+      },
+      "text": "Khi chưa biết mã, tìm từ nhu cầu/tên Field. Hai dòng minh họa MOIT.phone_number và MOUT.phone_number là ngữ cảnh dùng, chưa chứng minh có hai định nghĩa T0 canonical khác nhau.",
+      "source": "UI-REVIEW-MOW001.json · process_trial_20261009 · nguồn search-demo-data.json",
+      "status": "host_accepted"
+    },
+    {
+      "id": "N-B12-FIELD-01",
+      "owner": "B1.2",
+      "applies": {
+        "step": "B1.2",
+        "layer": "FIELD"
+      },
+      "text": "Ngữ cảnh đầu vào MOIT/đầu ra MOUT là điều kiện đối chiếu nhu cầu. Lọc còn một dòng không tự chứng minh phù hợp; đổi nhu cầu phải bỏ hiệu lực đánh giá cũ và tìm/đánh giá lại.",
+      "source": "UI-REVIEW-MOW001.json · process_trial_20261009.contract",
+      "status": "host_accepted"
+    },
+    {
+      "id": "N-B13-FIELD-01",
+      "owner": "B1.3",
+      "applies": {
+        "step": "B1.3",
+        "layer": "FIELD"
+      },
+      "text": "Chọn Field chỉ để xem chi tiết. Máy đánh giá theo yêu cầu hiện tại; người không tích ô thay kết luận máy. Chưa đánh giá/lỗi phải nói rõ; không tự đổi thành Xanh hoặc Đỏ.",
+      "source": "UI-REVIEW-MOW001.json · process_trial_20261009.contract",
+      "status": "host_accepted"
+    },
+    {
+      "id": "N-UI-01",
+      "owner": "UI",
+      "applies": {
+        "business": "UI"
+      },
+      "text": "Trước khi vẽ: hoàn tất phiếu đáp án áp dụng → chọn UI cha và phần được thay → nối mỗi yêu cầu bắt buộc với vùng/trường/nút/trạng thái và ca kiểm. Sau khi vẽ kiểm hai chiều. Có thể thử fixture có nhãn; chưa nối thật phải giữ trạng thái riêng.",
+      "source": "Host rà MOW001 · 09/10/2026 · R-ANSWER/R-PROVE",
+      "status": "host_accepted"
+    },
+    {
+      "id": "N-CONFIG-01",
+      "owner": "CONFIG",
+      "applies": {
+        "business": "CONFIG"
+      },
+      "text": "Trước khi cấu hình: trả lời đủ 7 câu nguồn → chỉ bản ghi/phạm vi/nguồn rule và phiên hiệu lực → ghi giá trị hoặc nguồn cấp lúc chạy → kiểm điều kiện khác trigger, người quản lý khác người thực hiện, xung đột/thiếu rule và kết quả bên nhận. Thiếu binding thì ghi thiếu; không lấy default/demo thay quyết định.",
+      "source": "CONFIG_PRINCIPLES; Host rà MOW001 · 09/10/2026",
+      "status": "host_accepted"
+    }
   ]
 }</script>
 <script id="tqt-question-renderer">
@@ -2169,6 +2262,11 @@ const own=id=>D.questions.filter(q=>q.owner===id);
 const anchor=id=>'q-'+id.replace(/\./g,'-');
 const common=id=>(D.inheritance[G[id].kind]||[]).flatMap(own);
 const list=qs=>'<ol class="question-list">'+qs.map(q=>'<li>'+esc(q.text)+'<small class="qid">'+esc(q.id)+'</small></li>').join('')+'</ol>';
+function noteScope(n){return Object.entries(n.applies).map(([k,id])=>G[id]?.label||id).join(' + ')}
+function noteList(ns){return ns.length?'<ul class="question-list">'+ns.map(n=>'<li><b>'+esc(noteScope(n))+'</b><br>'+esc(n.text)+'<small class="qid">'+esc(n.id)+' · '+(n.status==='draft'?'Đề xuất — chưa áp dụng':'Host đã tiếp nhận')+' · '+esc(n.source)+'</small></li>').join('')+'</ul>':'<p class="mut">Chưa có ghi chú riêng được ghi nhận cho phần này; không đồng nghĩa đã rà đủ.</p>'}
+function stepMatches(actual,required){return !!actual&&(actual===required||(G[actual]?.parent&&stepMatches(G[actual].parent,required)))}
+function applicableNotes(selection){return (D.notes||[]).filter(n=>n.status!=='draft'&&Object.entries(n.applies).every(([k,v])=>k==='step'?stepMatches(selection.step,v):selection[k]===v))}
+$('tqt-note-catalog').innerHTML='<p>'+esc(D.note_policy.placement)+'</p><p>'+esc(D.note_policy.matching)+'</p><p>'+esc(D.note_policy.conflicts)+'</p>'+noteList(D.notes||[]);
 function piece(id,cls=''){
  const g=G[id],no=id.startsWith('B')?id.slice(1):'';
  const label=no?g.label.split(' · ').slice(1).join(' · '):g.label;
@@ -2197,6 +2295,8 @@ function detail(id){
  const slot=business?'business':(g.kind==='Tầng'||id==='LAYER')?'layer':(g.kind==='Chuỗi'||id==='CHAIN')?'chain':'step';
  const children=D.groups.filter(c=>c.parent===id);
  let body='<div class="detail" id="'+anchor(id)+'"><div class="detail-head"><div><small>'+esc(g.kind)+' · '+own(id).length+' câu riêng</small><h3>'+esc(g.label)+'</h3></div><button type="button" data-close="'+(business?'cau-hoi-nghiep-vu':'cau-hoi-co-ban')+'">Thu gọn ↑</button></div>'+list(own(id));
+ const related=(D.notes||[]).filter(n=>n.owner===id||(g.parent&&n.owner===g.parent));
+ body+='<details><summary>Ghi chú riêng · '+related.length+' mục theo phạm vi</summary>'+noteList(related)+'</details>';
  const inherited=common(id);
  if(inherited.length)body+='<details><summary>'+inherited.length+' câu chung · áp dụng cùng câu riêng</summary>'+list(inherited)+'</details>';
  if(g.parent)body+='<p><a href="#q-'+g.parent+'">← Về bước lớn '+esc(G[g.parent].label)+'</a></p><details><summary>Kế thừa bước lớn: '+esc(G[g.parent].label)+'</summary>'+list([...common(g.parent),...own(g.parent)])+'</details>';
@@ -2233,7 +2333,7 @@ function compose(){
  ids.forEach(inherit);
  const qs=D.questions.filter(q=>owners.has(q.owner));
  $('tqt-composed').innerHTML='<p><small>Đã chọn '+ids.length+'/4 thành phần</small><br><b>'+qs.length+' câu</b> · '+ids.map(id=>esc(G[id].label)).join(' + ')+'</p><p class="mut"><small>Đây là bộ câu hỏi để xem trước, chưa phải quy trình đã nghiệm thu. Khi làm thật, ghi câu trả lời và bằng chứng; câu không áp dụng phải có lý do.</small></p>'+
- ids.map(requiredReference).join('')+[...owners].map(id=>'<details><summary>'+esc(G[id].label)+' · '+own(id).length+' câu</summary>'+list(own(id))+'</details>').join('');
+ ids.map(requiredReference).join('')+'<details><summary>Ghi chú riêng áp dụng cho bộ ghép này</summary>'+noteList(applicableNotes(Object.fromEntries(selections.map(([key])=>[key,$('tqt-select-'+key).value]))))+'</details>'+[...owners].map(id=>'<details><summary>'+esc(G[id].label)+' · '+own(id).length+' câu</summary>'+list(own(id))+'</details>').join('');
 }
 selections.forEach(([id])=>$('tqt-select-'+id).addEventListener('change',compose));compose();
 document.querySelector('.tq-tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)location.hash=b.dataset.tab});

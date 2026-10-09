@@ -8,12 +8,12 @@ Host_ID: OpenAI-main
 Host_Surface: Codex desktop · task hiện tại của Owner
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-08 · Astra Codex
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · Astra Codex
 - 🎯 Mục tiêu và tiêu chí gốc: ô 1–2; chỉ đạo bổ sung trực tiếp của Owner ngày 08/10 ở cuối ô 1.
 - ■ Đang làm: bộ câu hỏi ở giai đoạn áp dụng và hiệu chỉnh; giao diện bản đầu đã dựng và kiểm. Host tiếp nhận góp ý riêng. P15/D16 READ-ONLY được thay thế bởi chỉ đạo Owner giao trực tiếp Astra Codex.
 - ✅ Đã chuẩn bị: 9 bước lớn, 23 bước con, Field/MOIT/MOUT/MOT/MOW, tầng bối cảnh T3–T7 và 3 chuỗi; câu hỏi mới mang trạng thái đang hiệu chỉnh.
 - Kiểm tra giao diện: đã kiểm trên trang thật bản nội dung 7a4c0717eebd0c074635a2a5e8dab63e9fa56d18: B1→1.2 và mở lại URL, B8/B9 chưa tách, MOIT, CMSXQT, lọc không dấu, Config→mục cũ, bộ ghép 27 câu không trùng; màn hẹp 390px không tràn ngang. Đây là kiểm giao diện, chưa nghiệm thu tính đầy đủ của bộ câu hỏi.
-- ➡ Kế tiếp: thử ghép và trả lời cho MOW-NHC-001 → ghi câu thiếu, nguồn cần sửa và căn cứ từng phần UI → Host xem ý kiến riêng và sửa nguồn. Chưa nghiệm thu bộ câu hỏi; chưa chuyển sang UI thứ 2.
+- ➡ Đã rà lại MOW001 ngày09/10: phiếu44 mã/120 lần áp dụng và14 ca browser; còn vướng evaluator/kết luận/nguồn thật. Kế tiếp sửa UI001/Config theo hợp đồng đã chốt rồi kiểm lại; chưa UI thứ2.
 - Nội dung cũ: giữ nguyên trong tab Quy trình hiện có. TQT-ISS-004 (chuyển nguồn legacy) và TQT-ISS-006 (chốt quyền bằng máy) vẫn mở; không nhận là đã hoàn tất.
 - 🏁 Xong khi: theo ô 2; nghiệm thu bộ câu hỏi cần việc áp dụng thật, không suy từ UI chạy được.
 - 📍 Tiến độ: ■ Dựng bản đầu → ■ Kiểm giao diện → □ Áp dụng, hiệu chỉnh bộ câu hỏi.
@@ -66,6 +66,14 @@ Ngắn gọn lại có mấy chuyện:
 1. Thiết kế giống hệt bên took quy trình và nhét câu hỏi chuyên môn vào. Và làm thê nào các câu hỏi chuyên mộn này từ bảng mà nó chạy vào thì tốt. Ý tôi là làm SSOT trên 1 ma trận câu hỏi chuyên (nó tiện cho nhìn số lượng lớn và tiện cho AI) nhưng có thể ghép để ma trận này là SSOT và chạy vào từng miếng trong thiết kế để con người dễ tư duy. Vì khi bàn đến 1 việc thì tôi cần nó rất đơn giản thì mới nghĩ được.
 2. Bổ sung 1 thiết kế về các câu hỏi chuyên môn, những chuyên môn mình đã chốt, và chờ thời gian chỗ chuyên môn đấy sẽ kéo dài dài ra.
 
+#### Bổ sung Owner · 09/10/2026
+1. Ý kiến cuối của gpt. Bạn kiểm tra lại lần nữa và hoàn thiện quy trình
+2. Sau đó bạn rà lại thử với QT 001 (làm lại) xem với bộ câu hỏi ghép như vậy còn vướng gì không? Chúng ta tiếp tục rà soát các quy trình nghiệp vụ như vẽ UI, config
+
+Tôi có 1 lưu ý riêng: Bạn nên quy định thêm trong readme hoặc đâu đó để các AI dế đọc.
+
+Ở mỗi bước con, mỗi tầng ngoài các câu hỏi chính nên có có ghi chú riêng. Ví dụ, bước con 1.1 khi ghép vpwis T0 có thể cần ghi chú riêng, T0,5 cần ghi chú riêng, T1, T2 có những gi chú riêng. Các ghi chú này không thể đưa vào câu hỏi chung, quy định chung và chỉ mang tính chất đặc thù ở mỗi T1. => nói cách khác, cái chúng ta làm vừa rồi là quy định chung để ghép chung, và giờ cần thiết kế ở dưới đó là quy định riêng. Những quy định nào phổ quát được thì đưa luôn vào tầng (T) nhưng không thể đưa được vào bước con/bước ra, không thể đưa được vào (T0-T2) => thì sẽ đưa vào ghi chú của bước cha/bước con.
+
 ### 2. Thế nào là hoàn thành
 Một quy trình đạt = người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lại.
@@ -73,6 +81,15 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 (Owner duyệt 08/10/2026.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+#### TQT-HOST-APPLY-MOW001-20261009
+- Tiếp nhận có kiểm chứng [phiếu GPT vòng3](proposals/TQT-PR-20261009-gptchat-mow001-walkthrough-03.md) @229c74a. Host tự đọc nguồn và bấm lại trình duyệt; không dùng kết quả GPT như bằng chứng thao tác của Host.
+- Đã bổ sung note_policy/notes vào cùng JSON câu hỏi: tầng, bước và giao bước×tầng; phạm vi AND, bước con kế thừa cha, không tự ghi đè. Có 8 ghi chú được tiếp nhận từ nguồn đã đọc/lượt áp dụng; không tự tạo ghi chú giả cho T0.5/T1/T2. Ma trận vẫn 140 câu/53 nhóm.
+- Bổ sung hướng dẫn thực hành UI/Config bằng ghi chú nghiệp vụ, cùng nguồn; README dẫn quy tắc và phiếu áp dụng. Ý kiến khác vẫn ghi riêng qua Host.
+- **Phiếu đáp án và kết quả duy nhất:** [UI-REVIEW-MOW001.json](../mow-mot-moit-mout/UI-REVIEW-MOW001.json), mục process_trial_20261009. 44 mã câu/120 lần áp dụng +7 Config×3 +24 ô UI cũ. Hợp đồng A/B/C đã chốt cho thiết kế; không gọi là backend thật đã có.
+- Host bấm 14 ca: nguồn live chưa nối; demo SĐT→2, lọc MOIT→1; mô tả chưa semantic; 1.3 không có JEV nhưng checkbox tạo receipt → FAIL theo hợp đồng. Back/input/clear/Enter và 390px đã kiểm; console không có lỗi trong phiên đo.
+- **DOER_CONFIRM=PARTIAL** cho toàn lượt rà UI: đọc/ghép/trả lời và chẩn đoán làm được; UI001 và runtime chưa nghiệm thu. Check-ui-review vẫn BLOCKED; không hạ gate. Ghi đúng OPEN-03/04/08/05/09; OPEN-10 ngoài B1, không ép tạo mới.
+- Còn làm: sửa UI001/Config theo đáp án A/B/C, hòa giải nghĩa màu cũ tại NHCN-003 rồi kiểm lại; nối nguồn/rule thật trước khi báo live đạt. Lượt này rà, không sửa runtime hoặc Master; MOW002 chưa làm.
 
 #### TQT-HOST-REVIEW-GPTPRO-R2-20261008
 - Tiếp nhận góp ý [vòng 2](proposals/TQT-PR-20261008-gptchat-review-questions-02.md), nguồn 7984be5; Host quyết định, không tính là nghiệm thu hoặc phiếu khác hãng.

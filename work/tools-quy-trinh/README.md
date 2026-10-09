@@ -13,6 +13,12 @@
 - Góp ý: file riêng theo mẫu bên dưới, trỏ mã Q/nhóm, nêu chỗ vướng khi làm và câu đề nghị sửa. Chỉ Host quyết định tiếp nhận rồi cập nhật nguồn; không sửa thẳng bốn file chính. Chưa gọi hội đồng trong lượt dựng bản đầu này.
 
 
+## Ghi chú riêng · đọc trước khi ghép
+- Cùng JSON `view.html#tqt-question-matrix` có `note_policy` và `notes`; đây là nguồn duy nhất của quy tắc đặt/ghép ghi chú. Mỗi ghi chú có mã, nơi sở hữu, phạm vi áp dụng, nội dung, nguồn và trạng thái. Host tiếp nhận trước khi dùng như quy định.
+- Bấm Bước/Tầng để xem “Ghi chú riêng”; bộ ghép tự lấy mục khớp đúng lựa chọn. Xem toàn bộ dưới Ma trận câu hỏi. MOIT/MOUT cùng T0.5 nhưng không tự dùng chung ghi chú.
+- Nội dung chỉ đúng với một MOW/MOT ghi ở phiếu sản phẩm, không biến thành luật chung. Lượt áp dụng hiện hành: [MOW001 · phiếu đáp án, hợp đồng A/B/C và bằng chứng](../mow-mot-moit-mout/UI-REVIEW-MOW001.json), mục `process_trial_20261009`. Thứ tự thực hành UI/Config nằm ở notes của nhóm nghiệp vụ.
+- Khi thêm ghi chú: kiểm mã/owner/phạm vi tồn tại; kiểm cả ca khớp và ca không khớp; không có ghi chú không đồng nghĩa đã rà đủ. Thay nguồn vẫn phải cập nhật bằng chứng tại phiếu áp dụng.
+
 ## 0. ĐỌC NGAY — DÀNH CHO MỌI AI (kể cả khi vừa bị từ chối ghi)
 
 **Host duy nhất của task:** `Astra Codex · phiên Owner chỉ định 08/10/2026` (`Host_ID=OpenAI-main`). Mục tiêu và tiêu chí xong chỉ ở [COLLAB.md §0](COLLAB.md); phải đọc `../../AGENTS.md` và §0 trước khi thực thi.

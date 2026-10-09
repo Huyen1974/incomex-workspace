@@ -6,6 +6,9 @@ Nguồn mới: `view.html#tqt-question-matrix`; bảng cho người và AI: `vie
 Kiểm giao diện và liên kết thật sau đồng bộ; không lấy UI chạy được để tuyên bố bộ câu hỏi đã đủ.
 Tiếp theo: thử MOW-NHC-001 với bộ câu hỏi áp dụng và quy tắc `rules` trong cùng JSON. Bàn giao câu trả lời theo mã/phạm vi, nguồn/phiên bản, bằng chứng hoặc chỗ thiếu; đối chiếu Nhóm cha/con, MOW/MOT và chỗ bàn giao. Chỉ ra căn cứ suy ra trường/nút/trạng thái UI, nguồn cần sửa, đề xuất tách bước nếu thật sự cần. Kết quả thử phải có DOER_CONFIRM đúng phạm vi; chưa có kết quả thì không nhận đã đủ. Không làm MOW 002.
 
+## Kết quả áp dụng 09/10/2026
+Đã rà lại MOW001: đọc `UI-REVIEW-MOW001.json` của task sản phẩm, mục `process_trial_20261009` trước khi vẽ/sửa tiếp. Hợp đồng A/B/C và đáp án tại đó là căn cứ thiết kế; phụ thuộc runtime giữ mở. Khi ghép phải đọc cả `notes`/`note_policy` và tham chiếu Config trong cùng JSON câu hỏi. Không tự tăng câu hỏi chung hoặc thêm Bước con để lấp lỗi triển khai.
+
 ## Hồ sơ yêu cầu trước — đã được chỉ đạo trên thay thế, giữ để truy nguồn
 Các giới hạn READ-ONLY/Host GPT Chat trong phần lưu vết dưới đây không phải lệnh hiện hành cho Host mới.
 

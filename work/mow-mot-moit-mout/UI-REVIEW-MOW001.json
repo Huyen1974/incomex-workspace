@@ -1,5 +1,5 @@
 {
-  "source_version": "fc8b16d840dd47c7b4d0d28ce7c47eb7; Tools 0958d3d461e44b089be90d2c9153c4fd; review 2026-10-08 source Master Tool 844f47b1bb5f216a380cfb27fef0cdb24f7b99e4d0a2062e2e1d9aa078d2bcaa",
+  "source_version": "fc8b16d840dd47c7b4d0d28ce7c47eb7; Tools 0958d3d461e44b089be90d2c9153c4fd; review 2026-10-08 source Master Tool 844f47b1bb5f216a380cfb27fef0cdb24f7b99e4d0a2062e2e1d9aa078d2bcaa; Host redo 2026-10-09 question base 707390ffbdbd2398bba9ff9ead402496e74ef0d091b6493912b4b46c1e50ab10",
   "scope": [
     "MOW-NHC-001"
   ],
@@ -11,7 +11,7 @@
       "checks": {
         "structure": {
           "status": "PARTIAL",
-          "evidence": "2026-10-08 live DOM: step2 blank entry, example collapsed; step1/3 transitions observed in 18 scoped cases. Full 3-screen structure/parent acceptance not measured."
+          "evidence": "Host 09/10: three screens opened; 1→3 and1→2→3/back exercised. 1.3 semantics fail contract B/C; no full acceptance."
         },
         "emphasis": {
           "status": "NOT_TESTED",
@@ -19,23 +19,23 @@
         },
         "labels": {
           "status": "PARTIAL",
-          "evidence": "Live labels and messages for selected step2/back/confirmation cases read; semantic search and receipt limits stated. Full labels/help audit not done."
+          "evidence": "Input/errors/example labels observed H01–H13; checkbox confirmation incorrectly substitutes for machine verdict H07."
         },
         "interaction": {
-          "status": "PARTIAL",
-          "evidence": "18 scoped observations: 16 match selected current control rules; 2 demo empty-result counts observation only. Real search/handoff and remaining required branches blocked/uncovered (OPEN-03/04/08/09/10)."
+          "status": "FAIL",
+          "evidence": "H07: no JEV evaluation but checkbox produces demo receipt; contract B/C not implemented. H03/H09/H11 live/semantic BLOCKED; other scoped paths observed."
         },
         "responsive": {
-          "status": "NOT_TESTED",
-          "evidence": "Current scoped trial used default browser viewport; narrow/mobile and parent parity not measured."
+          "status": "PARTIAL",
+          "evidence": "H14 at390: outer375/375, frame330/330 no overflow. Not full breakpoint/parent parity."
         },
         "console": {
           "status": "PASS",
-          "evidence": "Captured browser console logs empty after scoped live search/back/example confirmation actions; not a backend or all-branch check."
+          "evidence": "Host browser logs after H01–H13 error/warn list empty, scoped session09/10."
         },
         "data_scope": {
           "status": "PASS",
-          "evidence": "Static source: fixture fetch only mode=example; no production write; identifiers read SSOT; no new canonical UI IDs."
+          "evidence": "Source S4 live unavailable; S5 confirmation only example with persisted=false. H07 receipt read; no production mutation."
         }
       },
       "parity": {
@@ -80,7 +80,7 @@
       "Unconfigured production cannot confirm"
     ]
   },
-  "notes": "2026-10-08 scoped Tools application at step2: browser access available; earlier policy blocker is historical. Partial UI review, no production readiness. Shared renderer, no runtime/backend changes.",
+  "notes": "2026-10-09 Host redo: 44 question IDs/120 applications + 7 Config ×3 + 24 legacy UI cells; 14 browser cases. Process diagnosis complete within scope; UI machine evaluation/receipt FAIL, live source BLOCKED. No runtime edit, no MOW002. Historical reviews below retained.",
   "previous_reviews": [
     {
       "source_version": "UI transaction 1282bc9cb3524794b8d495963b85fd42 + c1a4fbd6692c4d7ab10d959bb176bf7c",
@@ -202,7 +202,7 @@
       "gate_result": "BLOCKED: unmeasured live UI and unresolved parent parity; python check-ui-review.py exit 1."
     }
   ],
-  "gate_result": "BLOCKED: receipt checker exit 1 at 427c1704; unresolved parent differences and incomplete structure/emphasis/labels/interaction/responsive. Current scoped retries passed; gate is not whole UI acceptance.",
+  "gate_result": "BLOCKED — incomplete parity, live source and machine evaluation/receipt; checker must not report complete.",
   "tools_application_review": {
     "run_id": "TQT-UI-20261008-MOW001-STEP2",
     "reviewed_at": "2026-10-08",
@@ -624,6 +624,1464 @@
         "gap": "Step1 did not explain finding task README from only a URL; added source lookup. Missing business rules/fixture/Host must remain explicitly unassigned/blocked."
       },
       "evidence": "Three retry controls and two additional independently authored cases executed. No backend writes."
+    }
+  },
+  "process_trial_20261009": {
+    "id": "TQT-UI-20261009-MOW001-REDO",
+    "actor": "Astra Codex · Host",
+    "date": "2026-10-09",
+    "scope": "Rà lại quy trình ghép câu hỏi và đặc tả/UI hiện hành của 3 MOT MOW001 với UI/Config/Test; không sửa runtime, không production search/JEV, không MOW002.",
+    "proposal": "../tools-quy-trinh/proposals/TQT-PR-20261009-gptchat-mow001-walkthrough-03.md @229c74af00d0b70606730dd0bb99968d49204d70",
+    "question_source": "../tools-quy-trinh/view.html#tqt-question-matrix",
+    "question_base_version": "707390ffbdbd2398bba9ff9ead402496e74ef0d091b6493912b4b46c1e50ab10",
+    "source_versions": {
+      "S1": "707390ffbdbd2398bba9ff9ead402496e74ef0d091b6493912b4b46c1e50ab10",
+      "S2": "229c74af00d0b70606730dd0bb99968d49204d70",
+      "S3": "93eae888106544e7905751a15cc72b360971f3d8bda437887bfbf3f5c07b044c",
+      "S4": "f4010c721b2690d9909216d62f93fcf2fb031ca7e746ed9135236f112d08140f",
+      "S5": "03197b1fa31c7dbe8b1c43043425f395359d0797c6b22fb88d7db6a54a50a430",
+      "S6": "9e5f69e50bba9596825b3b493cf88ab0a81421a7c617826bc42f4d7262ff922c",
+      "S7": "8cdde9db9832bf15c88ae4fb2fa939760d5cca2bdb8f322201dec23e2e96474e",
+      "S8": "e02299dfdd8a15769ece7104a930f09451dd22a16d60a208b2a0bafe80e02069",
+      "S9": "e5d2f0b26d6762b5fd64842e083ab8889e930ea3b09d18fcef5c854b8562302f",
+      "S10": "e658ec26a41689341d1ee46b4fb62353b5adb81a304c59b1dc3cfa78ddcf3c8d"
+    },
+    "source_paths": {
+      "S1": "work/tools-quy-trinh/view.html",
+      "S2": "work/tools-quy-trinh/README.md + COLLAB.md",
+      "S3": "ui/definition-master-data-v1.js",
+      "S4": "ui/field-flow-v1.js",
+      "S5": "ui/field-flow-model-v1.js",
+      "S6": "ui/search-demo-data.json",
+      "S7": "ui/config-master-data-v1.js",
+      "S8": "work/mow-mot-moit-mout/ban-duyet.html#standard-UI-029",
+      "S9": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json",
+      "S10": "ui/definition-master-registry-v1.js"
+    },
+    "contract": {
+      "status": "HOST_ACCEPTED_DESIGN_ONLY",
+      "decided_at": "2026-10-09",
+      "authority": "Owner giao Host tiếp nhận, hoàn thiện quy trình và rà lại MOW001; không phải nghiệm thu production",
+      "A_input_output": {
+        "input": [
+          "requestId/revision",
+          "query/description",
+          "objectType=FIELD",
+          "filters",
+          "scope/permission context"
+        ],
+        "candidate": [
+          "id",
+          "name",
+          "metadata dùng đối chiếu",
+          "sourceRef/sourceVersion",
+          "evaluation.status",
+          "evaluation.reasons",
+          "evaluation.missingInformation",
+          "evaluation.requestRevision",
+          "evaluation.ruleVersion"
+        ],
+        "response": [
+          "requestId/revision",
+          "mode=live|example",
+          "source/scope đã tra",
+          "retrievalStatus",
+          "candidates",
+          "retrievedAt"
+        ],
+        "requirements": "UI chỉ nhận phản hồi đúng phiên yêu cầu. Mã/tên/nguồn/phạm vi là dữ liệu máy cấp; không dùng mã fixture làm danh tính canonical. Thiếu metadata cần đánh giá phải hiện thiếu, không tự điền.",
+        "production": "BLOCKED: chưa có adapter/query theo quyền, schema runtime và rule binding xác minh; fixture chỉ là minh họa có nhãn."
+      },
+      "B_evaluation": {
+        "states": {
+          "pending": "Đang đánh giá",
+          "not_evaluated": "Chưa đánh giá được",
+          "error": "Lỗi đánh giá — thử lại",
+          "green": "Phù hợp với yêu cầu hiện tại và các kiểm bắt buộc đã đạt",
+          "yellow": "Cần bổ sung dữ kiện để kết luận",
+          "red": "Có bằng chứng không đáp ứng ít nhất một yêu cầu bắt buộc"
+        },
+        "display": "Chữ + mức phù hợp + lý do ngay trên mỗi kết quả; chi tiết/nguồn mở khi cần. Không chỉ dùng màu.",
+        "rules": "Evaluator theo rule có phiên bản; không UI tự đặt ngưỡng phần trăm hoặc suy điểm từ khóa thành xác suất. Thiếu rule/xung đột → chưa đánh giá được. JEV là tham khảo theo rule; kiểm bắt buộc không bị điểm tương tự ghi đè.",
+        "invalidation": "Đổi query, description, filter hoặc scope → tăng revision, xóa hiệu lực kết quả/đánh giá/biên nhận cũ; chỉ dùng response khớp revision mới.",
+        "selection": "Chọn ứng viên chỉ mở chi tiết, không cấp quyền Dùng và không xác nhận hộ máy.",
+        "production": "Chưa triển khai đánh giá thật; nghĩa màu thiết kế đã chốt trong phạm vi B1, chưa sửa nghĩa Master chung."
+      },
+      "C_completion": {
+        "found": "Sau một phiên truy thành công và đánh giá hiện hành: có ít nhất một ứng viên green thì trả TÌM ĐƯỢC cùng tập phù hợp; không bắt người chọn một để chứng minh phù hợp.",
+        "not_found": "Phiên truy thành công, phạm vi rõ, không có ứng viên hoặc mọi ứng viên đã đánh giá red → CHƯA TÌM ĐƯỢC TRONG PHẠM VI ĐÃ TÌM.",
+        "incomplete": "Không có green nhưng còn yellow/pending/not_evaluated/error → CHƯA THỂ KẾT LUẬN, nêu thiếu gì. Lỗi nguồn, bị từ chối quyền, dừng/hủy không biến thành không tồn tại.",
+        "envelope": [
+          "requestId/revision",
+          "mode",
+          "conclusion=found|not_found|incomplete|cancelled",
+          "source/scope và phiên bản",
+          "candidateIds/evidence",
+          "reasons/missingInformation",
+          "ruleVersion",
+          "generatedAt"
+        ],
+        "destination": "Trả cho người hoặc nơi gọi tìm qua kết quả trên UI; hợp đồng nhận từ ứng dụng gọi vẫn BLOCKED tới khi có integration. Không tự lưu PG, áp dụng, tạo hay sửa Field.",
+        "example": "Có thể thiết kế/kiểm trạng thái bằng fixture có nhãn; không gọi đó là kết luận JEV thật hoặc kết quả production."
+      }
+    },
+    "answers": [
+      {
+        "question_id": "Q-CHAIN-01",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "CTCM: tìm định nghĩa Field đã có cho người/AI; phạm vi lượt này là B1 × T0.",
+        "source": "S1,S3,S10",
+        "contract_ref": "A_input_output",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-CHAIN-02",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Bắt đầu bằng nhu cầu tìm; B1 dừng theo C_completion, không cần chuỗi khác chạy.",
+        "source": "S1",
+        "contract_ref": "C_completion",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-CHAIN-03",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Host tiếp nhận đáp án và phiếu kiểm; người thực hiện kiểm theo ca. Không nghiệm thu toàn CTCM.",
+        "source": "S2,S9",
+        "contract_ref": "C_completion",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-CTCM-01",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Đối tượng cần tìm trong ca thử là định nghĩa Field số điện thoại cho đầu vào MOIT; giá trị nhu cầu là dữ liệu thử lúc chạy.",
+        "source": "S6,ca H05/H06",
+        "contract_ref": "A_input_output",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-CTCM-02",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Dùng lại ML-DEF-008, UI-029, ma trận; phần phải bổ sung là nguồn tìm thật và evaluator.",
+        "source": "S3,S4,S10",
+        "contract_ref": "A_input_output",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-CTCM-03",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Trong B1 bàn giao kết luận có nguồn/phạm vi cho nơi gọi; không buộc vận hành toàn chuỗi hay B2.",
+        "source": "S1",
+        "contract_ref": "C_completion",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-LAYER-01",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "T0 là định nghĩa Field, không phải giá trị điện thoại một cá nhân.",
+        "source": "S10",
+        "contract_ref": "A_input_output",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-LAYER-02",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Nguồn danh mục: ML-DEF-008 tại definition-master-v1.html?stt=8. API/permission binding chưa nối; không thay bằng demo.",
+        "source": "S4,S10",
+        "contract_ref": "A_input_output",
+        "design_status": "ANSWERED",
+        "runtime_status": "BLOCKED"
+      },
+      {
+        "question_id": "Q-LAYER-03",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "MOIT/MOUT tham chiếu Field; đọc ngữ cảnh để đối chiếu, không gắn vào form trong B1.",
+        "source": "S10",
+        "contract_ref": "A_input_output",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-LAYER-04",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Hợp đồng A nêu metadata và nguồn cần trả. Không có dữ kiện cần đối chiếu thì ghi missingInformation.",
+        "source": "S10,Host contract A",
+        "contract_ref": "A_input_output",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-LAYER-05",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Kiểm định nghĩa hợp lệ để tìm; scope truy phải đúng quyền. Không diễn giải kết quả phù hợp thành quyền Dùng.",
+        "source": "S1,S10",
+        "contract_ref": "B_evaluation",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-FIELD-01",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Ca demo: SĐT, Văn bản, không đơn vị. Field thực lấy kiểu/ý nghĩa từ định nghĩa trả về; chưa có ánh xạ canonical cho hai mã demo.",
+        "source": "S6,S10",
+        "contract_ref": "A_input_output",
+        "design_status": "ANSWERED",
+        "runtime_status": "BLOCKED"
+      },
+      {
+        "question_id": "Q-FIELD-02",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Đọc metadata danh mục; không nhập số điện thoại người thật. Nguồn giá trị lúc sử dụng chỉ đọc nếu là tiêu chí tìm.",
+        "source": "S10",
+        "contract_ref": "A_input_output",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-FIELD-03",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Validation chung thuộc định nghĩa; bắt buộc theo form/nơi dùng không mặc định vào T0. Giá trị tiêu chí lấy từ yêu cầu+nguồn, thiếu thì chưa đánh giá.",
+        "source": "S10",
+        "contract_ref": "B_evaluation",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-STEP-01",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Bàn giao gói kết luận C cho người/nơi gọi tìm, kèm source/scope/căn cứ; không bàn giao 'đã dùng Field'.",
+        "source": "S1,Host contract C",
+        "contract_ref": "C_completion",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-STEP-02",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Có nhu cầu hợp lệ, FIELD scope và nguồn được phép đọc; người nêu nhu cầu, máy tìm/đánh giá. Adapter thật còn thiếu.",
+        "source": "S3,S4",
+        "contract_ref": "A_input_output",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-STEP-03",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Xong lượt tìm khi có phản hồi và kết luận đúng revision theo C; thiếu/lỗi là incomplete, không giả không tồn tại.",
+        "source": "Host contract C",
+        "contract_ref": "C_completion",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-STEP-04",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Trống, hợp lệ, đang tìm, ứng viên, rỗng, lỗi/thiếu quyền, thiếu căn cứ, tìm lại, dừng. Nâng cao tùy nhu cầu.",
+        "source": "S4,S5,Host contract B/C",
+        "contract_ref": "C_completion",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-B1-01",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Vòng 1 SĐT; vòng 2 mô tả Field đầu vào MOIT. Đây là runtime input thử, không biến thành mặc định.",
+        "source": "H05,H06",
+        "contract_ref": "A_input_output",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-B1-02",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "ML-DEF-008 là địa chỉ danh mục; kết quả chỉ được nói trong scope đã tra. Live source hiện unavailable.",
+        "source": "S4,S10,H03",
+        "contract_ref": "A_input_output",
+        "design_status": "ANSWERED",
+        "runtime_status": "BLOCKED"
+      },
+      {
+        "question_id": "Q-B1-03",
+        "scope": "B1; áp dụng bối cảnh cho 1.1–1.3",
+        "answer": "Theo C: found khi có green; not_found khi truy thành công không có/đều red; incomplete khi thiếu đánh giá/căn cứ hoặc lỗi. Không B2.",
+        "source": "Host contract C",
+        "contract_ref": "C_completion",
+        "design_status": "ANSWERED",
+        "runtime_status": "NOT_CLAIMED_PASS"
+      },
+      {
+        "question_id": "Q-CHILD-01",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Nhận nhu cầu/scope/revision, trả ứng viên thuộc phiên truy.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Nhận và giữ nhu cầu; thêm filter/ngữ cảnh, trả ứng viên theo revision mới.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Nhận yêu cầu+ứng viên+đánh giá, trả kết luận C hoặc phần cần làm rõ.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-CHILD-02",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Trống/sai hướng nhập lại; lỗi nguồn giữ input và báo lỗi.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Lọc quá chặt thì bỏ bớt; lỗi dịch vụ khác rỗng.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Thiếu căn cứ nêu thông tin cần thêm; lỗi đánh giá không tô Đỏ.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-CHILD-03",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Người nhập; adapter tìm; evaluator đánh giá.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Người bổ sung; máy tìm và đánh giá lại.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Máy đánh giá; người xem/làm rõ/dừng, không tích hộ máy.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-CHILD-04",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Bắt đầu khi input hợp lệ; xong khi phản hồi đúng revision hoặc báo lỗi.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Bắt đầu khi cần thu hẹp; xong với phản hồi theo input mới.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Có nguồn/rule mới được đánh giá; xong bằng kết luận C hoặc incomplete rõ lý do.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-B1.1-01",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Người mô tả tên/nội dung/mục đích nếu không biết mã; dịch vụ semantic chưa có.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "BLOCKED"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-B1.1-02",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Xếp theo kết quả evaluator/rule có phiên bản, kèm lý do; chưa có ranking rule thì báo chưa cấu hình, không tự chế điểm.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "BLOCKED"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-B1.2-01",
+        "answers": [
+          {
+            "step": "B1.2",
+            "answer": "Ca này vòng đầu có ngữ cảnh MOIT/MOUT; bổ sung nhu cầu đầu vào MOIT để đối chiếu.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "PARTIAL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-B1.2-02",
+        "answers": [
+          {
+            "step": "B1.2",
+            "answer": "Filter trạng thái/nhánh/kiểu theo nguồn; có bỏ lọc. Operator/nguồn thật còn thiếu, demo equals không thành default toàn hệ thống.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "BLOCKED"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-B1.3-01",
+        "answers": [
+          {
+            "step": "B1.3",
+            "answer": "Kiểm yêu cầu bắt buộc từ nhu cầu+metadata theo rule có phiên bản; thiếu mandatory_checks cụ thể thì not_evaluated, không tự cho xanh.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "BLOCKED"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-B1.3-02",
+        "answers": [
+          {
+            "step": "B1.3",
+            "answer": "Hiển thị B_evaluation: mức phù hợp+lý do từng kết quả, thiếu ngữ cảnh tìm lại, revision cũ vô hiệu.",
+            "source": "S1,S3,S4,S5; Host contract A/B/C; H01–H13",
+            "design_status": "ANSWERED",
+            "runtime_status": "BLOCKED"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-UI-01",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Màn1 nói Tìm Field, hướng nhập nhu cầu; H01/H05.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Màn2 nói thu hẹp và giữ nhu cầu; H04/H06.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Màn3 cần hiển thị kết luận máy; hiện checkbox nên FAIL H07.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "FAIL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-UI-02",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Dùng UI-029, giữ bố cục/nhãn/điều hướng theo chuẩn; không mẫu mới.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Dùng cùng renderer UI-029 và vùng nâng cao.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Dùng biến thể đánh giá trong renderer chung; chưa duyệt parity toàn bộ, không tự cấp ID.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-UI-03",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Máy có scope=FIELD/MOW; người nhập query/description.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Máy giữ input; người bổ sung filter/ngữ cảnh.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Máy trả đánh giá/lý do; người chỉ xem/làm rõ. UI hiện chưa đạt H07.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-UI-04",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Có idle/invalid/unavailable/demo results/empty; cần đánh giá theo B.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Có các trạng thái tìm và hiệu lực query; H06/H08/H10.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Cần pending/not_evaluated/error và green/yellow/red có nguồn, rồi conclusion C; UI chưa có.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-UI-05",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Search/Enter/nâng cao/xóa hoạt động trong phạm vi đã thử; live BLOCKED H03.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Back/bỏ lọc/search giữ đúng input H06/H08/H10.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Chọn lại hoạt động; xác nhận bằng checkbox không đạt contract H07.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-CONFIG-01",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Áp cho TSK-NHCN-001 / CTCM+B1.1+FIELD; bản config/runtime binding chưa có.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Áp cho TSK-NHCN-002 / B1.2+FIELD, cùng phiên tìm.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Áp cho TSK-NHCN-003 / B1.3+FIELD; đánh giá tìm, không quyền Dùng.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-CONFIG-02",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Tên/mô tả/scope từ input; source/ranking/aliases cần rule binding thật, chưa được thay bằng fixture.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Filter theo nguồn và operator cấu hình; equals trong demo không chuẩn chung.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.3",
+            "answer": "mandatory_checks/evaluation rule/evidence theo contract B; thiếu rule thì chưa đánh giá, không tự đặt ngưỡng.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-CONFIG-03",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Không có ưu tiên đã chốt: xung đột/thiếu → chưa cấu hình, không chọn rule đầu.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Cùng quy tắc; đổi filter tạo revision mới, không dùng kết quả cũ.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Kiểm bắt buộc không bị score ghi đè; xung đột rule không tự Xanh/Đỏ.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-CONFIG-04",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Host chốt đặc tả; người quản lý config và quyền sửa thật còn cần binding; không lấy người tìm làm quản trị.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Bỏ lọc chỉ đổi input, không rollback config; phiên config phải được trace.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Phiên rule áp vào kết luận; rollback/config quyền thật còn BLOCKED; không đổi Master chung trong lượt rà.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-TEST-01",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "H01/H02 trống; H03 lỗi live; H05 SĐT 2fixture; H11 mô tả; H12 Enter.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.2",
+            "answer": "H06 MOIT còn1; H08 invalidate; H09 ngữ cảnh; H10 rỗng/bỏlọc/clear.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.3",
+            "answer": "H07 máy đánh giá khác checkbox; H13 direct chưa chọn. Kết quả evaluator theo contract B/C còn chưa chạy.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-TEST-02",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Đã bấm tìm/rỗng/thửlại/Enter; live quyền/timeout/cancel-request chưa có backend để đo.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Đã back/lọc/đổi/clear và 390px; async response lỗi/đổi nguồn chưa E2E.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Đã tick demo và đọc receipt để chứng minh FAIL; chưa có GREEN/YELLOW/RED thật, không giả PASS.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "FAIL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-TEST-03",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Tôi đọc và làm theo, tìm được nguồn/đầu vào/chỗ thiếu. Không thực hiện được tìm live.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Tôi tự chạy vòng lọc minh họa; chưa thực hiện semantic production.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Tôi chỉ ra lỗi checkbox và gói kết luận thiếu; chưa chứng minh UI001 hoàn thành.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "PARTIAL"
+          }
+        ]
+      },
+      {
+        "question_id": "Q-TEST-04",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Nguồn S1–S10 ghim; H01–H14 do Host bấm ngày09/10; lưu phiếu hiện hành.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.2",
+            "answer": "Cùng phiên, ảnh390 và phép đo không tràn; phạm vi chứng cứ ghi rõ.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          },
+          {
+            "step": "B1.3",
+            "answer": "Cùng phiên; tách lời đề xuất GPT với quan sát Host và trạng thái sản phẩm.",
+            "source": "S1/S4/S5/S7/S8; Host contract; browser H01–H14",
+            "design_status": "ANSWERED_WITH_OPEN_RUNTIME_DEPENDENCIES",
+            "runtime_status": "OBSERVED_SCOPED"
+          }
+        ]
+      }
+    ],
+    "config_answers": [
+      {
+        "source_index": 1,
+        "source": "ui/config-master-data-v1.js#CONFIG_PRINCIPLES.questions[0]",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Input nhu cầu hợp lệ trong scope FIELD."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Yêu cầu đã có hoặc mở thẳng rồi nhập; cần làm rõ."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Phản hồi truy cùng revision có metadata để đánh giá."
+          }
+        ]
+      },
+      {
+        "source_index": 2,
+        "source": "ui/config-master-data-v1.js#CONFIG_PRINCIPLES.questions[1]",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Phản hồi truy đúng phiên hoặc báo lỗi, chưa đồng nghĩa B1 found."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Phản hồi theo nhu cầu/filter mới hoặc lỗi."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Gói C với found/not_found/incomplete/cancelled, không B2."
+          }
+        ]
+      },
+      {
+        "source_index": 3,
+        "source": "ui/config-master-data-v1.js#CONFIG_PRINCIPLES.questions[2]",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Input hợp lệ; nguồn được phép đọc. Live binding thiếu."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Filter/operator trong scope; nguồn operator thật thiếu."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Có rule/metadata/phiên; thiếu thì not_evaluated."
+          }
+        ]
+      },
+      {
+        "source_index": 4,
+        "source": "ui/config-master-data-v1.js#CONFIG_PRINCIPLES.questions[3]",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Submit Tìm/Enter; không mọi lần gõ."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Submit sau thay đổi/bỏ điều kiện; đổi input làm cũ vô hiệu."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Phản hồi truy mới kích hoạt đánh giá; UI hiện chưa nối."
+          }
+        ]
+      },
+      {
+        "source_index": 5,
+        "source": "ui/config-master-data-v1.js#CONFIG_PRINCIPLES.questions[4]",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Người nhập; adapter tìm, evaluator đánh giá."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Người bổ sung; máy tìm/đánh giá lại."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Máy kết luận, người xem/làm rõ/dừng."
+          }
+        ]
+      },
+      {
+        "source_index": 6,
+        "source": "ui/config-master-data-v1.js#CONFIG_PRINCIPLES.questions[5]",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Người/nơi gọi nhận kết quả hoặc lỗi tại UI; nơi xử lý sự cố production chưa gắn."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Cùng người/nơi gọi, không tự nhắn task khác."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Gói C cho người/nơi gọi; không báo đã Dùng."
+          }
+        ]
+      },
+      {
+        "source_index": 7,
+        "source": "ui/config-master-data-v1.js#CONFIG_PRINCIPLES.questions[6]",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Có thể sang nâng cao hoặc xem đánh giá trong B1."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Sang đánh giá hoặc lặp tìm; giữ input."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Trả kết luận B1; consumer bước khác không phải điều kiện xong."
+          }
+        ]
+      }
+    ],
+    "coverage": {
+      "unique_question_ids": 44,
+      "question_applications": 120,
+      "config_references": 7,
+      "config_applications": 21,
+      "legacy_ui_cells": 24,
+      "notes": "Question count is structural coverage, not pass rate; common parent answers are referenced with scope rather than duplicated."
+    },
+    "legacy_ui_answers": [
+      {
+        "source_index": 1,
+        "source": "tools-quy-trinh/view.html#ra-ui · 8 câu/MOT",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Tìm Field, live chưa nối H03."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Thu hẹp theo nhu cầu H06."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Kết luận máy còn thiếu H07."
+          }
+        ]
+      },
+      {
+        "source_index": 2,
+        "source": "tools-quy-trinh/view.html#ra-ui · 8 câu/MOT",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Trống H01; input+revision A."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Giữ input H04/H06; direct cũng cho nhập."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Không có ứng viên thì guard H13; evaluation contract B còn thiếu."
+          }
+        ]
+      },
+      {
+        "source_index": 3,
+        "source": "tools-quy-trinh/view.html#ra-ui · 8 câu/MOT",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Tên/mô tả H05/H11."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Filter/ngữ cảnh H06."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Chọn xem chi tiết được; checkbox thay máy sai H07."
+          }
+        ]
+      },
+      {
+        "source_index": 4,
+        "source": "tools-quy-trinh/view.html#ra-ui · 8 câu/MOT",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Tìm/Enter/nâng cao/xóa H02/H05/H12."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Tìm/back/bỏ lọc H06/H08/H10."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Chọn lại có; confirm đang sai ý nghĩa H07."
+          }
+        ]
+      },
+      {
+        "source_index": 5,
+        "source": "tools-quy-trinh/view.html#ra-ui · 8 câu/MOT",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Idle/invalid/unavailable/results/empty H01-H05/H10."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Giữ query, invalidation H08; semantic chưa sẵn H09."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Thiếu evaluator và kết luận theo B/C H07."
+          }
+        ]
+      },
+      {
+        "source_index": 6,
+        "source": "tools-quy-trinh/view.html#ra-ui · 8 câu/MOT",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Trong B1, 1→3 hoặc1→2→3 đã bấm."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Trong B1, giữ nhu cầu khi quay lại."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Gói C cần triển khai, không buộc B2."
+          }
+        ]
+      },
+      {
+        "source_index": 7,
+        "source": "tools-quy-trinh/view.html#ra-ui · 8 câu/MOT",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Retry giữinput H04; cancel in-flight chưa đo."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Bỏ lọc/clear H10; response timeout/rights chưa đo."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Back giữinput H08; evaluator error còn chưa chạy."
+          }
+        ]
+      },
+      {
+        "source_index": 8,
+        "source": "tools-quy-trinh/view.html#ra-ui · 8 câu/MOT",
+        "answers": [
+          {
+            "step": "B1.1",
+            "answer": "Chỉ trạng thái truy; production chưa nối S4/H03."
+          },
+          {
+            "step": "B1.2",
+            "answer": "Chỉinput/filter; không sửaField S4."
+          },
+          {
+            "step": "B1.3",
+            "answer": "Demo receipt persisted=false H07; chưa có gói C thật."
+          }
+        ]
+      }
+    ],
+    "requirement_trace": [
+      {
+        "requirement": "Đúng nguồn định nghĩa Field và phạm vi",
+        "questions": [
+          "Q-LAYER-02",
+          "Q-B1-02"
+        ],
+        "target": "search adapter / source config",
+        "tests": [
+          "H03"
+        ],
+        "status": "BLOCKED",
+        "issue": "OPEN-08"
+      },
+      {
+        "requirement": "Nhập nhu cầu và giữ ngữ cảnh",
+        "questions": [
+          "Q-B1.1-01",
+          "Q-UI-03"
+        ],
+        "target": "query/description, state model",
+        "tests": [
+          "H01",
+          "H04",
+          "H05",
+          "H08",
+          "H12"
+        ],
+        "status": "PASS_SCOPED"
+      },
+      {
+        "requirement": "Tìm mô tả và tìm lại theo ngữ cảnh",
+        "questions": [
+          "Q-B1.1-02",
+          "Q-B1.2-01",
+          "Q-B1.2-02"
+        ],
+        "target": "semantic source + evaluator",
+        "tests": [
+          "H06",
+          "H09",
+          "H11"
+        ],
+        "status": "BLOCKED",
+        "issue": "OPEN-04/OPEN-08"
+      },
+      {
+        "requirement": "Đánh giá máy ngay mỗi ứng viên",
+        "questions": [
+          "Q-B1.3-01",
+          "Q-B1.3-02",
+          "Q-CHILD-03",
+          "Q-UI-04"
+        ],
+        "target": "result badge/reason/detail",
+        "tests": [
+          "H07"
+        ],
+        "status": "FAIL",
+        "issue": "OPEN-04"
+      },
+      {
+        "requirement": "Đổi nhu cầu vô hiệu kết quả cũ",
+        "questions": [
+          "Q-CHILD-04",
+          "Q-TEST-02"
+        ],
+        "target": "revision/change handler",
+        "tests": [
+          "H08"
+        ],
+        "status": "PASS_SCOPED",
+        "limit": "Đã bấm đổi input; guard phản hồi cũ chỉ đọc S5 trong lượt này, chưa chạy late-response production."
+      },
+      {
+        "requirement": "Kết luận B1 có scope/căn cứ",
+        "questions": [
+          "Q-B1-03",
+          "Q-STEP-01",
+          "Q-STEP-03"
+        ],
+        "target": "result envelope / completion view",
+        "tests": [
+          "H07",
+          "H13"
+        ],
+        "status": "FAIL",
+        "issue": "OPEN-03"
+      },
+      {
+        "requirement": "Không đánh đồng lỗi với rỗng",
+        "questions": [
+          "Q-UI-04",
+          "Q-CHILD-02"
+        ],
+        "target": "status/retry/empty controls",
+        "tests": [
+          "H03",
+          "H10",
+          "H11"
+        ],
+        "status": "PASS_SCOPED",
+        "limit": "Not evaluated live permission/timeout variants"
+      },
+      {
+        "requirement": "Đọc/ghép đủ Config, không tự default",
+        "questions": [
+          "Q-CONFIG-01",
+          "Q-CONFIG-02",
+          "Q-CONFIG-03",
+          "Q-CONFIG-04"
+        ],
+        "target": "CONFIG_PRINCIPLES + rule binding",
+        "tests": [
+          "SOURCE-CONFIG-7"
+        ],
+        "status": "PARTIAL",
+        "issue": "OPEN-03/OPEN-04"
+      },
+      {
+        "requirement": "UI cha và màn hẹp",
+        "questions": [
+          "Q-UI-02",
+          "Q-TEST-02"
+        ],
+        "target": "UI-029 shared renderer, 390px",
+        "tests": [
+          "H14"
+        ],
+        "status": "PARTIAL",
+        "issue": "OPEN-05/OPEN-09",
+        "limit": "390 no overflow; full visual/token parity not measured"
+      },
+      {
+        "requirement": "Không thực thi B2 hay ghi production",
+        "questions": [
+          "Q-B1-03",
+          "Q-UI-05"
+        ],
+        "target": "search/confirm handlers",
+        "tests": [
+          "H07",
+          "H13"
+        ],
+        "status": "PASS_SCOPED",
+        "evidence": "S4 live unavailable; S5 receipt demo,persisted=false"
+      }
+    ],
+    "open_items": [
+      {
+        "issue": "OPEN-08",
+        "type": "MISSING_IMPLEMENTATION",
+        "gap": "Nguồn truy Field theo quyền và semantic adapter chưa nối",
+        "source": "ui/field-flow-v1.js search()",
+        "design": "A_input_output đã chốt UI boundary; endpoint/schema production cần implementation xác minh",
+        "next": "Nối adapter/rule có version rồi chạy live cases; không gọi demo là thật"
+      },
+      {
+        "issue": "OPEN-04",
+        "type": "UI_AND_CONFIG_MISMATCH",
+        "gap": "Evaluator/mức phù hợp thiếu; checkbox thay máy",
+        "source": "ui/field-flow-v1.js jev()/render(); field-flow-model-v1.js canConfirm/confirm; definition-master-data-v1.js NHCN-003 green_rule/red_rule",
+        "design": "B_evaluation chốt nghĩa trong B1; Master còn 'được dùng' phải hòa giải ở nguồn thuộc task MOW",
+        "next": "Sửa evaluator/render/config semantics đồng bộ; không sửa badge đơn lẻ"
+      },
+      {
+        "issue": "OPEN-03",
+        "type": "MISSING_IMPLEMENTATION",
+        "gap": "Gói kết luận C chưa có",
+        "source": "field-flow-model-v1.js confirm/receipt",
+        "design": "C_completion đã chốt thời điểm/ý nghĩa và envelope cho thiết kế",
+        "next": "Thay receipt checkbox bằng kết luận đúng revision/scope; thêm ca found/not_found/incomplete"
+      },
+      {
+        "issue": "OPEN-05/OPEN-09",
+        "type": "UNFINISHED_VERIFICATION",
+        "gap": "Toàn bộ parity, timeout/quyền/dữ liệu đổi/hủy khi đang tìm, màu thật chưa nghiệm thu",
+        "source": "UI-REVIEW-MOW001.json",
+        "next": "Kiểm trên bản đã sửa và kết nối đúng; giữ NOT_TESTED/BLOCKED"
+      },
+      {
+        "issue": "OPEN-10",
+        "type": "OUT_OF_SCOPE_FOR_B1",
+        "gap": "Tạo bổ sung không được làm điều kiện xong B1",
+        "source": "sổ cũ",
+        "next": "Giữ hồ sơ cũ, tách phạm vi bước khác; không đóng bằng lượt này"
+      }
+    ],
+    "confirmation": {
+      "DOER_CONFIRM": "PARTIAL",
+      "SCOPE": "Đã đọc/ghép/trả lời và tự bấm rà lại 3 MOT; hoàn thành chẩn đoán, chưa nghiệm thu toàn UI/Config production",
+      "QUESTION_COVERAGE": "44 mã/120 lần áp dụng, 7 Config/21, 8 UI legacy/24; đáp án thiết kế có quyết định Host, phụ thuộc thật giữ mở",
+      "UI_PRODUCT_STATUS": "FAIL/ BLOCKED — machine evaluation and conclusion missing; no production readiness",
+      "MISSING_FROM_PROCEDURE": "Đã bổ sung notes theo tầng/bước/giao phạm vi và hướng dẫn nghiệp vụ trước khi vẽ/config. Không phát hiện cần thêm Q hoặc bước1.4 trong ca này.",
+      "NEXT": "Sửa UI001/Config theo contract trong phiếu, nối runtime rồi kiểm lại. Không MOW002."
+    },
+    "browser_cases": [
+      {
+        "id": "H01",
+        "observation": "1. Tìm Field\n\nNhập tên, mã hoặc mô tả Field bạn cần.\n\nTên hoặc mã Field\nTìm kiếm\nMô tả nhu cầu\n?\n\nTìm kiếm nâng cao\nXóa nội dung\n\nChưa tìm kiếm.",
+        "status": "PASS",
+        "scope": "initial empty live",
+        "given": "Live, mới mở step1",
+        "action": "Mở URL",
+        "expected": "Input trống, chưa tìm, không tự chọn kết quả",
+        "expected_source": "A_input_output",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H02",
+        "status": "PASS",
+        "observation": "Empty submit asks for input. Focus behavior separately supported by source S4; not read independently in this case.",
+        "given": "Live, input trống",
+        "action": "Bấm Tìm",
+        "expected": "Yêu cầu nhập trước khi truy",
+        "expected_source": "A_input_output",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H03",
+        "status": "BLOCKED",
+        "observation": "1. Tìm Field\n\nNhập tên, mã hoặc mô tả Field bạn cần.\n\nTên hoặc mã Field\nTìm kiếm\nMô tả nhu cầu\n?\n\nTìm kiếm nâng cao\nXóa nội dung\n\nChưa thể tìm kiếm lúc này. Nội dung đã nhập được giữ lại; bạn có thể thử lại.\nThử lại",
+        "given": "Live, query SĐT",
+        "action": "Bấm Tìm",
+        "expected": "Nguồn khả dụng trả phản hồi; nếu chưa nối phải báo unavailable và giữ input",
+        "expected_source": "A_input_output",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H04",
+        "status": "PASS",
+        "observation": "Live retry retains SĐT; advanced opens step2 and heading receives focus.",
+        "given": "Live đang báo lỗi",
+        "action": "Thử lại rồi mở nâng cao",
+        "expected": "Giữ SĐT; tiêu đề bước2 có focus",
+        "expected_source": "A_input_output",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H05",
+        "status": "PASS",
+        "observation": "Demo SĐT returns MOIT.phone_number and MOUT.phone_number; demo explicitly labeled.",
+        "given": "Demo, step1 SĐT",
+        "action": "Bấm Tìm",
+        "expected": "Đúng hai fixture SĐT, nhãn minh họa; không tự kết luận phù hợp",
+        "expected_source": "A_input_output",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H06",
+        "status": "PASS",
+        "observation": "Demo advanced input+MOIT branch retains query and returns one candidate; semantic search explicitly unavailable.",
+        "given": "Demo, step2 SĐT",
+        "action": "Thêm ngữ cảnh đầu vào và nhánh MOIT rồi tìm",
+        "expected": "Lọc còn1; không suy đã đánh giá",
+        "expected_source": "B_evaluation",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H07",
+        "status": "FAIL",
+        "observation": "Step3 says no JEV evaluation; user checkbox alone enables confirmation and produces demo receipt with no machine verdict. Violates proposed machine-evaluation contract.",
+        "given": "Demo, đã chọn MOIT.phone_number",
+        "action": "Mở JEV, tích ô và xác nhận, đọc receipt",
+        "expected": "Không cho thao tác người thay đánh giá; cần gói C đúng revision",
+        "expected_source": "B_evaluation/C_completion",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H08",
+        "status": "PASS",
+        "observation": "Back retains SĐT, MOIT input description and MOIT filter; description edit clears old results immediately.",
+        "given": "Demo đã có receipt",
+        "action": "Quay lại, sửa mô tả",
+        "expected": "Giữ query/filter khi back; thay input xóa hiệu lực cũ",
+        "expected_source": "B_evaluation",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H09",
+        "status": "BLOCKED",
+        "observation": "Changing description to MOUT then removing branch returns both fixtures; semantic evaluation not connected.",
+        "given": "Demo mô tả đầu ra MOUT",
+        "action": "Bỏ nhánh và tìm lại",
+        "expected": "Đánh giá lại theo nhu cầu; chưa nối thì nói rõ",
+        "expected_source": "B_evaluation",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H10",
+        "status": "PASS",
+        "observation": "Unknown keyword yields empty with recovery; remove filters preserves query; clear resets input and results, stays advanced.",
+        "given": "Demo nâng cao",
+        "action": "Tìm zz-khong-co-001, bỏ lọc, xóa",
+        "expected": "Rỗng có hướng khôi phục; bỏ lọc giữ nhu cầu; xóa về trống",
+        "expected_source": "A_input_output",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H11",
+        "status": "BLOCKED",
+        "observation": "Description-only search explicitly unavailable, no fabricated results.",
+        "given": "Demo thường, chỉ có mô tả",
+        "action": "Bấm Tìm",
+        "expected": "Không tự tạo kết quả nếu semantic chưa sẵn sàng",
+        "expected_source": "A_input_output",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H12",
+        "status": "PASS",
+        "observation": "Enter submits demo search; 1→3 opens selected candidate and back returns to 1 with context.",
+        "given": "Demo thường, query SĐT",
+        "action": "Enter, chọn kết quả rồi chọn lại",
+        "expected": "Có đường1→3; quay về1 giữ ngữ cảnh",
+        "expected_source": "A_input_output",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H13",
+        "status": "PASS",
+        "observation": "Live direct step3 with no candidate shows no selection and disabled confirmation; no production write.",
+        "given": "Live chưa có candidate",
+        "action": "Mở3 trực tiếp",
+        "expected": "Không kết luận phù hợp khi thiếu dữ kiện",
+        "expected_source": "B_evaluation",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      },
+      {
+        "id": "H14",
+        "status": "PASS",
+        "observation": "390px viewport: outer and field frame measured no horizontal overflow; advanced controls visible; screenshot saved. Full UI parent token parity not measured.",
+        "given": "390×844",
+        "action": "Mở2, đo outer/frame",
+        "expected": "Không tràn ngang; phần chưa đo parity ghi riêng",
+        "expected_source": "S8",
+        "evidence": "Host thao tác CUA browser 2026-10-09; DOM sau thao tác, nguồn S4/S5"
+      }
+    ],
+    "evidence": {
+      "screenshots": [
+        "mow001-ra-lai-mobile.jpg",
+        "mow001-ra-lai-xac-nhan.jpg"
+      ],
+      "location": "outputs phiên Host 2026-10-08/n-c-ccccc",
+      "console_errors": 0,
+      "mobile": {
+        "viewport": 390,
+        "outer": {
+          "client": 375,
+          "scroll": 375
+        },
+        "frame": {
+          "client": 330,
+          "scroll": 330
+        }
+      },
+      "not_tested": [
+        "Production search/JEV",
+        "True permission/timeout and changed-data responses",
+        "Full UI parent token parity",
+        "All green/yellow/red result combinations",
+        "Cancellation while request in flight"
+      ],
+      "source_check": "S4/S5/S7/S10 hashes reread match reviewer baseline; proposed contract accepted for design only"
+    },
+    "verification": {
+      "composition": "PASS: 9 bộ UI/Config/Test ×3 MOT =32/31/31 mỗi MOT; hợp44 Q_ID, phiếu120 ứng dụng, Config21, legacy24",
+      "receipt_gate": "BLOCKED (expected): unresolved parity; structure/emphasis/labels/interaction/responsive incomplete. Không đổi gate để được PASS.",
+      "checker_source": "b08ce39d2b98b4f66c6ee000d3f340676546e39a718074eaf28263fe56ede8c5"
     }
   }
 }
