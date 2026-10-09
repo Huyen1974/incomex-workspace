@@ -334,7 +334,7 @@ def production_ready(model):
         rows=model['rows']
         if not rows['object_def'] or not rows['object_version'] or not rows['reference']:return False
         structural(model)
-        return (model['package']['state']=='FROZEN_APPROVED' and bool(model['package']['target_pg_major'])
+        return (not any(r['status']=='OPEN' for r in model.get('host_review_06',{}).get('findings',[])) and model['package']['state']=='FROZEN_APPROVED' and bool(model['package']['target_pg_major'])
                 and all(d['registration']=='REGISTERED' for d in rows['object_def'])
                 and all(v['lifecycle']=='APPROVED' for v in rows['object_version'])
                 and all(r['verified'] for r in rows['reference'])
@@ -366,7 +366,10 @@ class Simulation:
     def reply(self,outcome='verified'):
         def op(m):
             c=m['rows']['call'][-1]
-            if c['delivery_state']=='RETURNED':return c['return_event_id']
+            if c['delivery_state']=='RETURNED':
+                expected={'issue_id':c['input_data']['issue_id'],'impact_results':{i:'UNMET' for i in c['input_data']['impact_ids']},'outcome':outcome,'evidence_id':'REF-EVIDENCE'}
+                require(c['output_data']==expected,'TQT-R-REPLY-CONFLICT')
+                return c['return_event_id']
             if c['delivery_state']=='EXPIRED':return self.event(m,'LATE_RETURN',c,{'outcome':outcome})['id']
             require(c['delivery_state']=='ACKNOWLEDGED','TQT-R-RETURN-NO-ACK')
             data={'issue_id':c['input_data']['issue_id'],'impact_results':{i:'UNMET' for i in c['input_data']['impact_ids']},'outcome':outcome,'evidence_id':'REF-EVIDENCE'}
@@ -508,11 +511,14 @@ REVOKE ALL ON ALL TABLES IN SCHEMA tqt_model_draft FROM PUBLIC;
 REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA tqt_model_draft FROM PUBLIC;
 -- No worker grants: DOT role/actor binding remains a required staging gate.
 '''
+    # Trusted function-local path survives installation COMMIT.
+    sql=sql.replace('LANGUAGE plpgsql IMMUTABLE AS $$','LANGUAGE plpgsql IMMUTABLE SET search_path TO pg_catalog, tqt_model_draft, pg_temp AS $$')
+    sql=sql.replace('LANGUAGE plpgsql AS $$','LANGUAGE plpgsql SET search_path TO pg_catalog, tqt_model_draft, pg_temp AS $$')
     return sql
 def idempotent_lookup(model,candidate):
     for c in model['rows']['call']:
         if all(c[k]==candidate[k] for k in ['run_id','callee_version_id','request_key']):
-            require(c['input_fingerprint']==candidate['input_fingerprint'],'TQT-R-IDEMPOTENCY-CONFLICT')
+            require(c['input_fingerprint']==candidate['input_fingerprint'] and c['input_data']==candidate['input_data'] and all(c[k]==candidate[k] for k in ['schema_version','receiver_ref','sender_owner_ref','return_step_run_id']),'TQT-R-IDEMPOTENCY-CONFLICT')
             return c['id']
     return None
 
@@ -655,6 +661,14 @@ def run_contract_tests(model):
     test('New impact after close requires explicit reopen',lambda:reject(lambda:flow.transact(late_impact),'TQT-R-CLOSED-IMPACT'))
     def no_outbox(z):z['rows']['outbox']=[o for o in z['rows']['outbox'] if o['event_id']!=z['rows']['issue'][0]['close_event_id']]
     test('Removing closure delivery is rejected',lambda:reject(lambda:flow.transact(no_outbox),'TQT-R-CLOSE'))
+    response=Simulation(model);response.ack();response.reply('verified')
+    test('Changed reply content cannot silently reuse old response',lambda:reject(lambda:response.reply('rejected'),'TQT-R-REPLY-CONFLICT'))
+    redirected=copy.deepcopy(model['rows']['call'][0]);redirected['receiver_ref']='OTHER'
+    test('Changed business receiver conflicts on same operation',lambda:reject(lambda:idempotent_lookup(model,redirected),'TQT-R-IDEMPOTENCY-CONFLICT'))
+    redirected=copy.deepcopy(model['rows']['call'][0]);redirected['return_step_run_id']='OTHER'
+    test('Changed return destination conflicts on same operation',lambda:reject(lambda:idempotent_lookup(model,redirected),'TQT-R-IDEMPOTENCY-CONFLICT'))
+    generated=pg_guards(model)
+    test('Every PG function pins trusted search path',lambda:eq(generated.count('CREATE FUNCTION'),generated.count('SET search_path TO pg_catalog, tqt_model_draft, pg_temp')))
     return out,{'success_six_stages':flow.model['rows'],'decline':decline.model['rows'],'cancelled':cancelled.model['rows']}
 
 def main():
@@ -665,6 +679,7 @@ def main():
         require(v['content_hash']==digest(payload),'VERSION_HASH:'+v['id'])
     report=run_tests(model);extra,traces=run_contract_tests(model);report['tests']+=extra
     report['model_sha256']=digest(model);report['package_state']=model['package']['state']
+    report['known_open']=[r['id'] for r in model.get('host_review_06',{}).get('findings',[]) if r['status']=='OPEN']
     report['limitations']+=['PG guards generated but not executed on PostgreSQL; SERIALIZABLE/concurrency/privileges and DOT role binding remain OPEN','70 responses are sample persistence data, not approved business answers']
     if args.emit_pg:
         schema=model['pg']['schema'];require(schema=='tqt_model_draft','SCHEMA')

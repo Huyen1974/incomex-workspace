@@ -11,9 +11,9 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · Astra Codex
 - 🎯 **Đích:** có quy trình khép kín và bộ câu hỏi đúng để người/AI mới làm theo ra đúng sản phẩm. Mục tiêu chuẩn ở ô 1, tiêu chí nghiệm thu ở ô 2; gồm các bổ sung Owner ngày 08–09/10.
 - **Đã có:** ma trận 159 câu/53 nhóm, bộ ghép bốn phạm vi, quy trình tổng hợp TQT-TH-001 và mô hình có mã TQT-MODEL-001. Đây là bản đang hiệu chỉnh.
-- **Đã kiểm đến đâu:** 83 ca mô phỏng v2 đạt; phiếu 70 lượt lưu–đọc lại đủ; đường sáu ô có nhận/trả/kiểm/đóng bằng bản ghi. SQL đã kiểm cú pháp. Chưa PostgreSQL, đồng thời, tải lớn hoặc B3–B7 thật; gói chưa đóng băng.
-- **Còn hở:** TQT-TH-001 chưa có mã Master; chưa chốt đủ nơi nhận/trả thực tế và ca thiếu Field tới B3–B7, đấu lại, kiểm nơi phát hiện. TQT-ISS-007 còn mở; TQT-ISS-004/006 và các vướng mắc sản phẩm vẫn theo sổ hiện có.
-- **Việc kế tiếp:** chốt khai báo MOW/MOT và chỗ nối → hoàn tất đáp án cho một ca thiếu Field/MOW001 → đi thử các quy trình UI, Config, Test → sửa đúng nguồn còn thiếu → kiểm lại. Chưa làm MOW002.
+- **Đã kiểm đến đâu:** 87 ca mô phỏng đạt, nhưng thăm dò vòng 6 tái hiện 5 chốt còn hở. Đã sửa retry khác nội dung/đích và search_path hàm sinh SQL; chưa nghiệm thu đường đóng, đủ phiếu, quyền lịch sử hoặc PostgreSQL. Gói NOT_FROZEN.
+- **Còn hở:** kết thúc đúng đường đi; ACK bàn giao cuối; đúng đối tượng/tập câu bắt buộc; quyền theo thời điểm; đường nhận kết quả. TQT-ISS-007 giữ mở. Kiểm kê 2 bản phác thảo tổng hợp + 2 hướng dẫn điều phối, 9 Tool và 2 khung con chưa có bằng chứng ánh xạ Master đầy đủ trong nguồn đã rà. TQT-ISS-004/006 và vướng mắc sản phẩm giữ sổ cũ.
+- **Việc kế tiếp:** sửa 5 chốt theo thứ tự trong PROMPT, đối chiếu đăng ký Master và nối nhận/trả; sau đó kiểm PG đúng quyền và thử một ca từ đầu. Câu hỏi dẫn theo bước dùng chung SSOT là đề xuất đang xem xét, chưa tạo loại đối tượng mới. Chưa MOW002.
 - **Ba mốc nghiệm thu:** thiết kế/khả thi — đang hoàn thiện; triển khai/kiểm kỹ thuật — chưa nghiệm thu; vận hành/bàn giao — chưa nghiệm thu. Đạt mô phỏng không thay cho đạt chạy thật.
 - **Quyền và phạm vi:** Astra Codex là Host tiếp nhận/sửa nguồn; AI khác góp ý riêng. Chuẩn bị mô hình để chuyển PG là trong mục tiêu; thay công thức, cấp mã Master và chạy PG thực hiện theo cơ chế duyệt/quy trình tương ứng, không lấy bản nháp làm lệnh chạy.
 - **Cách báo cáo:** đạt đến đâu, bằng chứng nào, còn thiếu gì, ai giữ, quy trình nào nhận và bước tiếp theo. Lịch sử kiểm chi tiết ở ô 3; không dùng số câu hoặc UI mở được làm tiêu chí hoàn thành.

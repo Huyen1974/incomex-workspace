@@ -1,5 +1,14 @@
 # tools-quy-trinh · Cửa vào
 
+## Một đường vào cho người/AI mới
+Đọc AGENTS.md → COLLAB.md mục tiêu và kiểm soát → [chọn quy trình hiện có](view.html#tqt-process-inventory) → khai MOW/MOT đang làm, đúng đối tượng/phiên và nghiệp vụ → lấy bộ câu hỏi/ghi chú tương ứng → làm từng bước → nộp kết quả, bằng chứng hoặc chỗ thiếu.
+Host ghi vào phiếu/sổ hiện hữu của công việc; AI góp ý chỉ tạo proposal theo hướng dẫn bên dưới. Chưa đủ câu/căn cứ hoặc chưa có nơi nhận thì ghi rõ điểm dừng; không tự xác nhận đủ.
+
+## Rà vòng 6 · hiện hành
+Nguồn quyết định: `tqt-process-model.host_review_06`; theo dõi cùng TQT-ISS-007. **87 ca hiện có đạt nhưng còn 5 chốt chưa kín**: kết thúc đúng đường thực thi; nhận bàn giao cuối; đúng đối tượng và tập câu bắt buộc; quyền tại thời điểm hành động; đường nhận kết quả hợp lệ. Đã sửa retry khác nội dung/đích trong mô phỏng và cố định search_path cho 8 hàm SQL sinh ra; chưa nghiệm thu PG.
+Kiểm kê tại `tqt-composite-processes.inventory`: hai bản phác thảo tổng hợp, hai hướng dẫn điều phối cần chốt cách xếp, 9 Tool và 2 khung con. Mã tài liệu/nháp/Tool chưa thay mã Master. Đây là danh mục nguồn, không phải đăng ký mới.
+**Ý mục 3 của Owner vẫn là đề xuất:** quy trình/bước tham chiếu câu hỏi dùng chung và chịu trách nhiệm trả lời/kiểm/ghi/đi tiếp; chưa áp quy tắc mỗi nhóm câu phải thành MOW riêng. Sáu vùng chưa nối và ba vùng giao nhau đã ghi tại danh mục; không mở sổ khác.
+
 ## Đọc đích trước khi làm
 Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](COLLAB.md); trạng thái hiện tại ở Bảng điều khiển cùng file. Giữ nguyên 15 ý Owner, đọc cả phần “Làm rõ mục tiêu” ngày 09/10: phải có quy trình khép kín, đủ câu hỏi/đáp án và bằng chứng làm theo ra đúng sản phẩm. Ma trận, UI và mô hình dữ liệu là các phần phục vụ mục tiêu này. Chi tiết dưới đây là cách thực hiện và lịch sử; không thay tiêu chí nghiệm thu.
 
@@ -8,7 +17,7 @@ Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](CO
 
 - **Tiếp nhận proposal05:** sửa hợp đồng đầu vào/ra và nguồn cấp từng trường; khóa ghép/đúng loại tham chiếu; kiểm sự kiện nhận/trả, quyền đóng, bằng chứng từng nơi; giữ lịch sử. Luật ở `enforcement` / `contract_enforcement`, cách ghi nguyên tử ở `transaction_protocol`.
 - **Lưu và đọc lại:** thêm ba bảng hỗ trợ `declaration`, `grant_scope`, `outbox` vào nền 15 bảng. Phiếu đủ bốn phạm vi, 70 lượt đáp án mẫu; TARGET trỏ Field, PROCESS/TASK trỏ MOW/MOT. Khóa đáp án theo phiếu/câu/đối tượng/phạm vi/phiên trả lời; không dùng mã tự đặt để né trùng. UI xuất phiếu vẫn là nháp, chưa nối thao tác lưu thật.
-- **83 ca mô phỏng đạt:** gồm 27 ca nền được cập nhật đúng hợp đồng và 56 ca bổ sung. Lưu–đọc lại nguyên phiếu; dump/nạp lại; hai lần áp dụng không lẫn; sáu ô có sáu call nhận/trả, hai nơi được kiểm lại rồi đóng; nhánh từ chối, hủy/trả muộn, rollback, chống trùng và giữ lịch sử. 70 đáp án là dữ liệu thử lưu, không phải đáp án nghiệp vụ đã duyệt.
+- **Bằng chứng v2 trước rà vòng 6:** 83 ca nền đạt, gồm lưu–đọc lại 70 đáp án và trace sáu ô. Vòng này thêm 4 ca chặn retry/schema, tổng 87. Những ca này không kiểm đủ 5 chốt đang mở; 70 chỉ là dữ liệu thử lưu, không phải số câu bắt buộc hay đáp án nghiệp vụ đã duyệt.
 - **Xuất gói:** `python3 check-process-model.py view.html --emit-pg /tmp/tqt-schema.sql --report /tmp/tqt-report.json --trace /tmp/tqt-trace.json`. Mặc định SQL chỉ có schema, FK/CHECK/UNIQUE, hàm/trigger và view; thêm `--include-simulation` mới có DRAFT/SIM. Report chứa mã ca/hash mô hình/hash SQL; trace chứa các bản ghi vòng thử. SQL sinh ra không là SSOT thứ hai.
 - **Cơ chế cưỡng chế dự kiến:** FK ghép cho cùng phiên/lần/vòng và đúng loại; deferred trigger cho luật nhiều hàng; immutable trigger giữ bằng chứng; transaction SERIALIZABLE + state/event/outbox; retry cùng khóa và fingerprint. SQL/8 hàm PL/pgSQL đã kiểm cú pháp bằng pglast 8.5. Chưa chạy SQL này trên PostgreSQL.
 - **Gói vẫn NOT_FROZEN:** chưa chốt mã Master/nhóm, phiên PG, vai DOT và ánh xạ actor tin cậy; chưa có adapter DOT/dispatcher/inbox được kiểm. Không cấp quyền worker ghi bảng trực tiếp. DRAFT/SIM không phải mã Master, không được gọi production.

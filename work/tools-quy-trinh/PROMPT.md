@@ -3,9 +3,10 @@
 ## Đọc đích trước khi làm
 Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](COLLAB.md); trạng thái hiện tại ở Bảng điều khiển cùng file. Giữ nguyên 15 ý Owner, đọc cả phần “Làm rõ mục tiêu” ngày 09/10: phải có quy trình khép kín, đủ câu hỏi/đáp án và bằng chứng làm theo ra đúng sản phẩm. Ma trận, UI và mô hình dữ liệu là các phần phục vụ mục tiêu này. Chi tiết dưới đây là cách thực hiện và lịch sử; không thay tiêu chí nghiệm thu.
 
-## Hiện hành · tiếp nhận rà PG vòng 5 · 09/10/2026
-Đọc README mục “Mô hình hướng PG · v2”, JSON `tqt-process-model` và TQT-ISS-007 trước phần lịch sử. Gói NOT_FROZEN. Chạy checker, đọc cả ca sai và trace; SQL mặc định không có mẫu, `--include-simulation` phải chọn rõ. Không coi 83 ca SQLite/mô phỏng hoặc parser SQL là nghiệm thu PostgreSQL.
-Lượt kế tiếp: chốt Master/actor/quyền DOT và adapter nhận/trả → chuẩn bị cùng ca cho PG staging → kiểm đồng thời, hash parity, restore và tải. Cơ chế guard toàn mô hình chỉ là prototype nhỏ; phải chuyển kiểm/khóa theo phạm vi trước production. Chưa MOW002, chưa cấp quyền hay RUN PG từ bản nháp. Mọi sửa nguồn do Host, AI khác chỉ góp ý.
+## Hiện hành · tiếp nhận rà vòng 6 · 09/10/2026
+Đi theo đường vào đầu README. Đọc danh mục quy trình, `host_review_06` và TQT-ISS-007. 87 ca đạt vẫn còn 5 chốt sai được tái hiện; gói NOT_FROZEN.
+Thứ tự tiếp tục: đúng đối tượng/tập câu bắt buộc → hợp đồng kết quả con–cha → kết thúc đúng đường đi và ACK cuối → quyền theo thời điểm → kiểm PG qua DOT đúng quyền. Mỗi chốt phải có ca đúng và ca sai; không sửa bằng số câu cố định hoặc buộc mọi nhánh đi cả sáu bước.
+Kiểm kê mã hiện có không tự cấp mã Master. Ý ghép câu hỏi vào quy trình là đề xuất của Owner đang rà, chưa đổi công thức, tầng hay tạo MOW cho từng nhóm. Mọi sửa nguồn do Host, AI khác chỉ proposal. Chưa MOW002, chưa RUN PG. Các mục dưới là lịch sử và phạm vi nguồn.
 
 ## Mô hình có mã · lượt trước · Owner bổ sung hướng PG 09/10/2026
 Đọc README mục Mô hình và JSON view.html#tqt-process-model; dùng check-process-model.py để kiểm/xuất gói SQL nháp. Dữ liệu MOW/MOT có phiên, lần/vòng/việc chạy, call và event riêng. Phiếu bắt buộc có cả MOW/MOT đang làm lẫn đối tượng/ nghiệp vụ; không đổi Field thành MOW. Chưa tăng số câu. Bản DRAFT/SIM không là đăng ký Master, không có quyền gọi/ghi PG. Tiếp theo chốt mapping Master và nơi nhận thật, rồi thử staging/concurrency/ca thật đúng quyền; đóng TQT-ISS-007 khi có bằng chứng, không đóng vì mô hình chạy qua kiểm.

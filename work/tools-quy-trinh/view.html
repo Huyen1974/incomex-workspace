@@ -4942,7 +4942,7 @@ main{max-width:1240px} [hidden]{display:none!important}
     "Một lần chế tạo kết thúc khi kiểm ban đầu hữu hạn đạt và lần/quy trình VHCM đã ACK nhận bàn giao. Theo dõi dài hạn thuộc VHCM.",
     "PG không áp dụng cho sản phẩm không cần PG thì lưu lý do/người xác nhận. Chạm PG vẫn theo DOT được duyệt."
   ],
-  "review_status": "83 phép kiểm mô phỏng đạt · phiếu 70 lượt đọc lại nguyên vẹn · chưa kiểm PG thật",
+  "review_status": "87 ca kiểm mô phỏng đạt · còn 5 chốt thực thi chưa kín · chưa nghiệm thu PG",
   "fixtures": {
     "success": {
       "id": "SIM-CASE-CREATE",
@@ -8617,10 +8617,11 @@ main{max-width:1240px} [hidden]{display:none!important}
     }
   ],
   "review": {
-    "tests_passed": 83,
+    "tests_passed": 87,
     "mode": "SIMULATION_ONLY",
     "source": "check-process-model.py",
     "limitations": [
+      "Rà vòng 6: còn đóng sớm, thiếu ACK cuối, chưa khóa đúng target/tập câu bắt buộc, quyền lịch sử và outcome chưa có nhánh.",
       "Chưa đăng ký Master, chưa gọi B3–B7 hoặc tạo Field thật",
       "SQL/PLpgSQL đã kiểm cú pháp; chưa chạy trên PostgreSQL, chưa kiểm khóa đồng thời/quyền/restore",
       "70 đáp án là mẫu kiểm lưu trữ, không phải đáp án nghiệp vụ được duyệt",
@@ -8856,6 +8857,7 @@ main{max-width:1240px} [hidden]{display:none!important}
     "schema_only_default": true,
     "sample_flag": "--include-simulation",
     "freeze_requires": [
+      "Resolve OPEN findings in host_review_06 with both positive and negative cases; no completion claim from happy path alone",
       "approved Master mapping",
       "trusted DOT role and actor mapping",
       "contract and negative tests pass",
@@ -8925,7 +8927,107 @@ main{max-width:1240px} [hidden]{display:none!important}
       "reject": "23514; 40001/40P01 whole transaction retry",
       "test": "rollback no partial event; late result; close/new-impact order simulation; real concurrent sessions OPEN"
     }
-  ]
+  ],
+  "host_review_06": {
+    "id": "TQT-REVIEW-06",
+    "source": "proposals/TQT-PR-20261009-gptchat-v2-technical-ux-06.md",
+    "status": "ACCEPTED_WITH_OPEN_GATES",
+    "issue_id": "TQT-ISS-007",
+    "findings": [
+      {
+        "id": "R06-01",
+        "status": "OPEN",
+        "title": "Đóng hồ sơ chưa chứng minh kết thúc lần chạy",
+        "evidence": "Run XONG khi 1 step STARTED, 5 step READY.",
+        "fix": "Tách resolve issue và finish run; chứng minh đường đi bằng edge/version, xử lý nhánh bỏ qua hợp lệ, không còn việc bắt buộc đang chạy; cập nhật bước cuối và run trong cùng transaction.",
+        "acceptance": [
+          "Đóng tại bước 1 bị từ chối",
+          "Reuse/từ chối bỏ qua bước theo edge hợp lệ vẫn kết thúc được",
+          "Không có trạng thái XONG trước khi bước cuối hoàn tất"
+        ]
+      },
+      {
+        "id": "R06-02",
+        "status": "OPEN",
+        "title": "Hàng đợi gửi chưa là bàn giao có nhận",
+        "evidence": "Outbox của CLOSE còn PENDING; chưa có ACK bàn giao cuối.",
+        "fix": "Khai handoff_required, recipient, result version, correlation; tách đã giải quyết khỏi finish khi chưa có bằng chứng nhận đúng.",
+        "acceptance": [
+          "PENDING không đủ để finish khi cần ACK",
+          "ACK sai người/phiên/kết quả bị từ chối",
+          "ACK đúng mới hoàn tất; N/A có căn cứ"
+        ]
+      },
+      {
+        "id": "R06-03",
+        "status": "OPEN",
+        "title": "Đúng Field và đủ câu bắt buộc",
+        "evidence": "Đổi sang Field khác cùng loại vẫn nhận; giảm còn 5 đáp án vẫn STARTED.",
+        "fix": "Phiếu chốt target version hoặc target set; sinh tập câu bắt buộc từ ma trận theo phạm vi và phiên nguồn. Cho lưu DRAFT thiếu, chặn READY/STARTED/công nhận đủ khi thiếu đáp án/căn cứ hoặc sai target.",
+        "acceptance": [
+          "Thiếu một câu hoặc thay bằng câu khác cùng số lượng bị chặn",
+          "Đúng loại nhưng sai Field/phiên bị chặn",
+          "Ca khác lấy đúng tập câu riêng; không hardcode 70/159",
+          "N/A cần lý do/quyền; thay nguồn làm xét lại"
+        ]
+      },
+      {
+        "id": "R06-04",
+        "status": "FIXED_SIMULATION",
+        "title": "Retry khác nội dung/đích báo xung đột",
+        "evidence": "Đã thêm so response payload và request input/receiver/sender/return target/schema; 3 ca âm mới đạt.",
+        "fix": "Giữ cùng operation key + cùng nội dung/đích thì dùng lại; khác thì conflict. Adapter DOT/inbox thực tế vẫn phải kiểm.",
+        "acceptance": [
+          "Cùng payload dùng lại event",
+          "Khác outcome từ chối",
+          "Đổi receiver/return target từ chối"
+        ]
+      },
+      {
+        "id": "R06-05",
+        "status": "OPEN",
+        "title": "Quyền lúc hành động khác quyền hiện tại",
+        "evidence": "Thu hồi ACK sau ACK cũ bị TQT-R-ACK chặn.",
+        "fix": "Lưu quyết định/quyền phiên tại event và thời điểm/phạm vi từ actor tin cậy; kiểm quyền hiện tại khi tạo hành động mới. Không dùng grant.enabled hiện tại để xét lại toàn lịch sử.",
+        "acceptance": [
+          "Thu hồi giữ nguyên ACK quá khứ",
+          "ACK mới sau thu hồi bị chặn",
+          "RETURN sau thu hồi theo chính sách chốt; không khóa toàn mô hình"
+        ]
+      },
+      {
+        "id": "R06-06",
+        "status": "OPEN",
+        "title": "Kết quả phải có đường nhận hợp lệ",
+        "evidence": "NOT_A_DEFINED_ROUTE vẫn được ghi RETURN.",
+        "fix": "Chốt contract kết quả của callee và ánh xạ về edge của bên gọi; không lẫn outcome của MOT được gọi với bước điều phối. Kiểm đúng phiên và một đường nhận trước apply.",
+        "acceptance": [
+          "Outcome lạ/sai bước bị từ chối",
+          "Nhánh nhiều nghĩa bị chặn",
+          "Nhánh đúng và mapping đủ mới nhận"
+        ]
+      },
+      {
+        "id": "R06-07",
+        "status": "FIXED_STATIC",
+        "title": "Schema của hàm PG",
+        "evidence": "8 hàm đã pin search_path pg_catalog, tqt_model_draft, pg_temp; parser SQL/PLpgSQL đạt. Chưa PG runtime.",
+        "fix": "Giữ SECURITY INVOKER; schema draft không mở quyền ghi cho actor ngoài; kiểm lại ở connection mới/default search_path qua DOT.",
+        "acceptance": [
+          "Mỗi function có SET search_path riêng",
+          "PG connection mới và caller path khác phải chạy đúng schema"
+        ]
+      }
+    ],
+    "next_order": [
+      "R06-03: đúng đối tượng/tập câu và cổng bắt đầu",
+      "R06-06: contract con–cha và đường kết quả",
+      "R06-01/R06-02: terminal hợp lệ và ACK cuối",
+      "R06-05: quyền theo thời điểm",
+      "PG staging + người/AI mới làm một ca"
+    ],
+    "not_claimed": "87 ca không chứng minh AI không sai, không nghiệm thu đường đóng hiện còn hở."
+  }
 }</script>
 <script id="tqt-composite-processes" type="application/json">{
   "schema": "TQT-COMPOSITE-PROCESSES-1",
@@ -9483,13 +9585,303 @@ main{max-width:1240px} [hidden]{display:none!important}
     "issue": {
       "id": "TQT-ISS-007",
       "title": "Quy trình tổng hợp chưa nối vào Master và vòng xử lý khép kín",
-      "state": "Mở · mô phỏng v2; gói PG chưa đóng băng",
+      "state": "Mở · rà vòng 6 còn 5 chốt thực thi",
       "owner": "Astra Codex · Host",
-      "next": "Chốt mapping Master/quyền DOT và phiên PG; nối adapter nhận/trả; kiểm đồng thời, hash parity, restore và tải trên staging qua DOT trước ca thật.",
+      "next": "Khóa đúng target/tập câu; chốt contract kết quả con–cha; tách giải quyết/hoàn tất/bàn giao; quyền theo thời điểm. Sau đó mới PG staging và thử người mới.",
       "review": "Lượt tiếp tục tools-quy-trinh; trước mọi tuyên bố quy trình này đã đăng ký hoặc vận hành.",
       "done": "Có mã Master/quan hệ hợp lệ; mỗi nhánh có nơi nhận, chủ trách nhiệm, chỗ ghi và tiêu chí xong; một ca đi hết có bằng chứng. Giao diện/bộ câu hỏi mới không đủ để đóng.",
-      "evidence": "FORMULA-AI-README §D158/§6; CT-005/005.1; view.html tqt-composite-processes; rà nguồn Host 09/10/2026. OPEN-10 là ca sản phẩm liên quan, không đổi trạng thái của nó ở đây. Host tiếp nhận proposal05: model v2, 83 ca mô phỏng; phiếu 70 lượt roundtrip; sáu ô có bản ghi SENT/ACK/RETURN/kiểm/đóng; SQL và PL/pgSQL kiểm cú pháp. Chưa PG/B3–B7 thật; guard quét toàn mô hình chỉ cho staging nhỏ."
+      "evidence": "FORMULA-AI-README §D158/§6; CT-005/005.1; view.html tqt-composite-processes; rà nguồn Host 09/10/2026. OPEN-10 là ca sản phẩm liên quan, không đổi trạng thái của nó ở đây. Host tiếp nhận proposal05: model v2, 83 ca mô phỏng; phiếu 70 lượt roundtrip; sáu ô có bản ghi SENT/ACK/RETURN/kiểm/đóng; SQL và PL/pgSQL kiểm cú pháp. Chưa PG/B3–B7 thật; guard quét toàn mô hình chỉ cho staging nhỏ. Vòng 6 Host tái hiện 7 nhóm nhận xét (9 phép kiểm tập trung); đã sửa retry và search_path, còn R06-01/02/03/05/06. 87 ca hiện có không thay nghiệm thu các chốt này."
     }
+  },
+  "inventory": {
+    "id": "TQT-INVENTORY-01",
+    "status": "Kiểm kê và đề xuất ánh xạ · không cấp mã Master",
+    "source_scope": "view.html, README, PROMPT, mô hình TQT-MODEL-001 và các liên kết nội bộ tools-quy-trinh",
+    "summary": "Hai bản phác thảo tổng hợp đang làm; hai hướng dẫn điều phối cần chốt cách xếp. Mã tài liệu/Tool/nháp không thay mã Master.",
+    "policy": "Chỉ dẫn nguồn, không sao chép quy trình/câu hỏi. source_id là mã/neo có sẵn để truy nguồn, không là mã quy trình mới.",
+    "items": [
+      {
+        "source_id": "TQT-TH-001",
+        "title": "Chế tạo một chi tiết/chức năng",
+        "kind": "Bản phác thảo tổng hợp",
+        "href": "#TQT-TH-001",
+        "code_kind": "Mã tài liệu",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Chưa đăng ký Master, chưa nối đủ quy trình con/nhận–trả/checkpoint.",
+        "parent_refs": []
+      },
+      {
+        "source_id": "DRAFT-MOW-GAP-001",
+        "title": "Xử lý sai/thiếu tới nơi phát hiện",
+        "kind": "Bản phác thảo tổng hợp",
+        "href": "#tqt-mo-hinh-pg",
+        "code_kind": "Mã MOW nháp",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Còn 5 chốt vòng 6; chưa B3–B7 và bàn giao thật.",
+        "parent_refs": [
+          "TQT-TH-001"
+        ]
+      },
+      {
+        "source_id": "TQT-QT-001",
+        "title": "Hiệu chỉnh hướng dẫn và quy trình",
+        "kind": "Hướng dẫn điều phối · đề xuất xếp tổng hợp",
+        "href": "#quy-trinh-hieu-chinh",
+        "code_kind": "Mã tài liệu bản thử",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Có vòng chọn ca/làm/sửa/thử lại; chưa ánh xạ việc con và mã Master.",
+        "parent_refs": []
+      },
+      {
+        "source_id": "ra-ui",
+        "title": "Rà một UI đang có",
+        "kind": "Hướng dẫn điều phối · đề xuất xếp tổng hợp",
+        "href": "#ra-ui",
+        "code_kind": "Neo tài liệu",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Gọi Tool001–008 bằng liên kết; chưa có mã MOW/contract lời gọi.",
+        "parent_refs": [
+          "TQT-TH-001",
+          "TQT-QT-001"
+        ]
+      },
+      {
+        "source_id": "TOOL-CTCM-001",
+        "title": "Lập hành trình",
+        "kind": "Hướng dẫn/Tool hiện có",
+        "href": "#tqt-ctcm-1",
+        "code_kind": "Mã Tool",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Cần đối chiếu MOW/MOT sở hữu, đầu vào/ra và điều kiện xong riêng; không lấy mã Tool làm mã Master.",
+        "parent_refs": [
+          "TQT-TH-001",
+          "ra-ui"
+        ]
+      },
+      {
+        "source_id": "TOOL-CTCM-002",
+        "title": "Rà như người mới",
+        "kind": "Hướng dẫn/Tool hiện có",
+        "href": "#tqt-ctcm-2",
+        "code_kind": "Mã Tool",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Cần đối chiếu MOW/MOT sở hữu, đầu vào/ra và điều kiện xong riêng; không lấy mã Tool làm mã Master.",
+        "parent_refs": [
+          "TQT-TH-001",
+          "ra-ui"
+        ]
+      },
+      {
+        "source_id": "TOOL-CTCM-003",
+        "title": "Phủ các nhánh",
+        "kind": "Hướng dẫn/Tool hiện có",
+        "href": "#tqt-ctcm-3",
+        "code_kind": "Mã Tool",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Cần đối chiếu MOW/MOT sở hữu, đầu vào/ra và điều kiện xong riêng; không lấy mã Tool làm mã Master.",
+        "parent_refs": [
+          "TQT-TH-001",
+          "ra-ui"
+        ]
+      },
+      {
+        "source_id": "TOOL-CTCM-004",
+        "title": "Rà config",
+        "kind": "Hướng dẫn/Tool hiện có",
+        "href": "#tqt-ctcm-4",
+        "code_kind": "Mã Tool",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Cần đối chiếu MOW/MOT sở hữu, đầu vào/ra và điều kiện xong riêng; không lấy mã Tool làm mã Master.",
+        "parent_refs": [
+          "TQT-TH-001",
+          "ra-ui"
+        ]
+      },
+      {
+        "source_id": "TOOL-CTCM-005",
+        "title": "Rà dữ liệu và lỗi",
+        "kind": "Hướng dẫn/Tool hiện có",
+        "href": "#tqt-ctcm-5",
+        "code_kind": "Mã Tool",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Cần đối chiếu MOW/MOT sở hữu, đầu vào/ra và điều kiện xong riêng; không lấy mã Tool làm mã Master.",
+        "parent_refs": [
+          "TQT-TH-001",
+          "ra-ui"
+        ]
+      },
+      {
+        "source_id": "TOOL-CTCM-006",
+        "title": "Khớp danh tính và nguồn",
+        "kind": "Hướng dẫn/Tool hiện có",
+        "href": "#tqt-ctcm-6",
+        "code_kind": "Mã Tool",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Cần đối chiếu MOW/MOT sở hữu, đầu vào/ra và điều kiện xong riêng; không lấy mã Tool làm mã Master.",
+        "parent_refs": [
+          "TQT-TH-001",
+          "ra-ui"
+        ]
+      },
+      {
+        "source_id": "TOOL-CTCM-007",
+        "title": "Chạy ca kiểm UI",
+        "kind": "Hướng dẫn/Tool hiện có",
+        "href": "#tqt-ctcm-7",
+        "code_kind": "Mã Tool",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Cần đối chiếu MOW/MOT sở hữu, đầu vào/ra và điều kiện xong riêng; không lấy mã Tool làm mã Master.",
+        "parent_refs": [
+          "TQT-TH-001",
+          "ra-ui"
+        ]
+      },
+      {
+        "source_id": "TOOL-CTCM-008",
+        "title": "Ghi sổ và xử lý UI thiếu/lỗi",
+        "kind": "Hướng dẫn/Tool hiện có",
+        "href": "#tqt-ctcm-8",
+        "code_kind": "Mã Tool",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Cần đối chiếu MOW/MOT sở hữu, đầu vào/ra và điều kiện xong riêng; không lấy mã Tool làm mã Master.",
+        "parent_refs": [
+          "TQT-TH-001",
+          "ra-ui"
+        ]
+      },
+      {
+        "source_id": "TOOL-CTCM-009",
+        "title": "Đóng gói và phát hành DOT",
+        "kind": "Hướng dẫn/Tool hiện có",
+        "href": "#tqt-ctcm-9",
+        "code_kind": "Mã Tool",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Cần đối chiếu MOW/MOT sở hữu, đầu vào/ra và điều kiện xong riêng; không lấy mã Tool làm mã Master.",
+        "parent_refs": [
+          "TQT-TH-001"
+        ]
+      },
+      {
+        "source_id": "TQT-TH-001-PG",
+        "title": "Triển khai và khôi phục",
+        "kind": "Khung quy trình con",
+        "href": "#TQT-TH-001-PG",
+        "code_kind": "Mã mục tài liệu",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Chưa có quy trình/DOT được phép gọi, quyền/môi trường và nghiệm thu khôi phục.",
+        "parent_refs": [
+          "TQT-TH-001"
+        ]
+      },
+      {
+        "source_id": "TQT-TH-001-OPS",
+        "title": "Log, phản hồi và bàn giao vận hành",
+        "kind": "Khung quy trình con",
+        "href": "#TQT-TH-001-OPS",
+        "code_kind": "Mã mục tài liệu",
+        "master_record_id": null,
+        "registration": "Chưa có bằng chứng MOW/MOT đã đăng ký trong các nguồn được rà",
+        "gap": "Chưa có mã quy trình VHCM nhận, yêu cầu ACK và điểm kết thúc rõ bằng dữ liệu.",
+        "parent_refs": [
+          "TQT-TH-001"
+        ]
+      }
+    ],
+    "question_usage": {
+      "status": "Đề xuất theo ý riêng mục 3 của Owner; chưa áp quy tắc mọi nhóm phải thành MOW riêng",
+      "principle": "Câu hỏi là nội dung dùng chung; quy trình/bước dẫn mã câu và chịu trách nhiệm lấy đáp án, kiểm, ghi kết quả. Một câu có thể dùng ở nhiều quy trình, đáp án tách theo lần áp dụng/đối tượng.",
+      "formula": "Quy trình/bước → chọn bộ câu theo phạm vi → đáp án + căn cứ → đạt/chưa đạt → bước tiếp hoặc hồ sơ thiếu",
+      "current": "159/159 câu có nhóm sở hữu; nhóm sở hữu không thay liên kết tới bước MOW/MOT thực thi. Chưa có ánh xạ đầy đủ từ từng câu áp dụng tới bước trả lời/kiểm và điều kiện cho đi tiếp.",
+      "proposed_fields": [
+        "process_version_id",
+        "step_id",
+        "question_ref/version",
+        "subject_version/set",
+        "scope_role",
+        "required_when",
+        "answer_location",
+        "reviewer/authority",
+        "pass_rule",
+        "failure_route"
+      ],
+      "not_processes": "Định nghĩa Chuỗi/Tầng/Bước, tiêu chí, trạng thái, mã và câu hỏi giữ tại SSOT; quy trình sử dụng bằng tham chiếu. Không tạo một MOW cho mỗi câu hoặc chép cùng luật vào nhiều nơi."
+    },
+    "gaps": [
+      {
+        "source": "tqt-question-matrix + phiếu ghép",
+        "missing": "Ghép → trả lời → kiểm đủ → cho đi tiếp chưa là một chuỗi thao tác được cưỡng chế.",
+        "attach_to": "TQT-TH-001 bước 1.2; tái dùng ở TQT-QT-001 và rà UI",
+        "status": "Đề xuất ánh xạ; R06-03 mở"
+      },
+      {
+        "source": "NTGV + nhóm chuyên môn cũ ghi 0 Tool",
+        "missing": "Có câu hỏi giao việc, chưa có quy trình nhận việc/kiểm quyền/thu hồi theo thời điểm đầy đủ.",
+        "attach_to": "Khai báo/nhận việc MOW/MOT; contract gọi dùng chung",
+        "status": "Chưa chốt MOW/MOT sở hữu; R06-05 mở"
+      },
+      {
+        "source": "Tool008 + sáu ô xử lý sai/thiếu",
+        "missing": "Ghi thiếu không tự kích hoạt xác minh; resolve, finish và ACK cuối chưa tách đúng.",
+        "attach_to": "DRAFT-MOW-GAP-001; Tool008 dẫn vào cùng hồ sơ",
+        "status": "R06-01/02/06 mở"
+      },
+      {
+        "source": "TQT-TH-001-PG + Tool009 + package",
+        "missing": "Gói chuẩn → kiểm staging → duyệt → áp/đọc lại → khôi phục còn là khung và quy tắc rời.",
+        "attach_to": "Quy trình triển khai/khôi phục thuộc TQT-TH-001 G2",
+        "status": "Chưa có nơi gọi/quyền thật"
+      },
+      {
+        "source": "TQT-TH-001-OPS + điều kiện kết thúc chế tạo",
+        "missing": "Ai tiếp nhận theo dõi dài hạn, ACK gì, khi nào bên chế tạo được kết thúc?",
+        "attach_to": "Bàn giao CTCM → VHCM; không giữ chế tạo mở mãi",
+        "status": "Chưa chốt quy trình nhận"
+      },
+      {
+        "source": "#chuyen-nguon + TQT-ISS-004",
+        "missing": "Chuyển SSOT → đổi nơi đọc → kiểm nơi dùng → loại bản cũ còn kế hoạch, chưa thành lời gọi theo dõi tới cuối.",
+        "attach_to": "Bước quản lý thay đổi/phát hành, dùng lại Tool006/009",
+        "status": "Đề xuất ánh xạ, không tự mở quy trình mới"
+      }
+    ],
+    "overlaps": [
+      {
+        "sources": [
+          "TOOL-CTCM-002",
+          "ra-ui"
+        ],
+        "resolution": "Tool002 phụ trách đi như người mới; rà UI điều phối cả lượt, dẫn Tool002."
+      },
+      {
+        "sources": [
+          "TOOL-CTCM-008",
+          "DRAFT-MOW-GAP-001",
+          "TQT-QT-001"
+        ],
+        "resolution": "Tool008 ghi/điều phối lỗi trong lượt UI; GAP theo hồ sơ tới nơi phát hiện; QT001 hiệu chỉnh chính quy trình. Cùng sổ/mã, không ba bản lỗi."
+      },
+      {
+        "sources": [
+          "TOOL-CTCM-009",
+          "TQT-TH-001-PG"
+        ],
+        "resolution": "Đóng gói/phát hành DOT và triển khai/khôi phục cần chốt điểm bàn giao; chưa coi hai mô tả là hai lời gọi độc lập đã sẵn sàng."
+      }
+    ]
   }
 }</script>
 <script id="tqt-process-model-renderer">
@@ -9499,15 +9891,16 @@ const M=JSON.parse(document.getElementById('tqt-process-model').textContent);
 const e=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ul=xs=>'<ul>'+xs.map(x=>'<li>'+e(x)+'</li>').join('')+'</ul>';
 const fold=(title,body,id='')=>'<details'+(id?' id="'+e(id)+'"':'')+'><summary>'+e(title)+'</summary><div class="tqt-review-body">'+body+'</div></details>';
+const C=JSON.parse(document.getElementById('tqt-composite-processes').textContent), I=C.inventory;
+const inventoryRows=xs=>'<div class="wrap"><table><thead><tr><th>Việc</th><th>Mã hiện có</th><th>Còn thiếu</th></tr></thead><tbody>'+xs.map(x=>'<tr><td><a href="'+e(x.href)+'">'+e(x.title)+'</a><br><small>'+e(x.kind)+'</small></td><td>'+e(x.source_id)+'<br><small>'+e(x.code_kind)+'</small></td><td>'+e(x.gap)+'</td></tr>').join('')+'</tbody></table></div>';
 const byId=(table,id)=>M.rows[table].find(x=>x.id===id);
 const first=M.rows.object_def.find(x=>x.kind==='MOW');
 const line=M.stages.map((s,i)=>{
  const step=byId('step_def',s.id),v=byId('object_version',step.mot_version_id),owner=byId('reference',step.owner_ref);
- const sr=M.rows.step_run.find(x=>x.step_id===s.id),call=sr&&M.rows.call.find(x=>x.step_run_id===sr.id);
- const arrow=!call?'Chưa khai lần gọi':!call.receiver_ref?'Chưa có nơi nhận':({UNSENT:'Chưa gửi',SENT:'Chờ nhận',ACKNOWLEDGED:'Đã nhận',RETURNED:'Đã trả',REJECTED:'Từ chối',EXPIRED:'Quá hạn'}[call.delivery_state]||call.delivery_state);
+
  return '<div class="tqt-model-piece">'+fold(String(i+1)+' · '+step.label,
- '<p><b>Việc:</b> '+e(v.body.work)+'</p><p><b>Cần trả:</b> '+e(v.body.expected_output)+'</p><p><b>Mã việc:</b> '+e(s.mot_id)+' · <b>Phiên:</b> '+e(v.id)+'</p><p><b>Nơi ghi:</b> step_run → event / assessment; phát hiện → issue / impact.</p><p class="mut">'+e(s.state)+'</p>')+
- '<small>'+e(s.mot_id)+'<br>Người giữ: '+e(owner.code)+' · mô phỏng<br>Chưa đăng ký / chưa chạy thật</small>'+(i<5?'<small class="tqt-model-arrow">→ '+e(arrow)+(call?' · '+e(call.id):'')+'</small>':'')+'</div>';
+ '<p><b>Việc:</b> '+e(v.body.work)+'</p><p><b>Cần trả:</b> '+e(v.body.expected_output)+'</p><p><b>Mã việc / phiên:</b> '+e(s.mot_id)+' / '+e(v.id)+'</p><p><b>Người giữ mẫu:</b> '+e(owner.code)+'</p><p><b>Nơi ghi:</b> step_run → event / assessment; issue / impact. Bản mô phỏng chưa đăng ký Master.</p><p>'+e(s.state)+'</p>')+
+ '<p>'+e(v.body.expected_output)+'</p></div>';
 }).join('');
 const examples=[
  ['Đã kiểm thiết kế — Đạt','Còn hiệu lực'],
@@ -9515,10 +9908,16 @@ const examples=[
  ['Đã chạy thật — Đạt','Cần kiểm lại: nguồn đổi']
 ];
 document.getElementById('tqt-process-model-view').innerHTML=
+ '<h2 id="tqt-process-inventory">Các quy trình đang có</h2><p>'+e(I.summary)+'</p><p class="hint">Có mô tả / có mã tài liệu / có mã Master / gọi được là các mức khác nhau. Chưa xác minh đăng ký Master cho các mục dưới đây trong phạm vi nguồn đã rà.</p>'+
+ inventoryRows(I.items.slice(0,4))+fold('Mở 9 Tool và 2 khung quy trình con',inventoryRows(I.items.slice(4)))+
+ fold('Đề xuất: câu hỏi đi vào quy trình như thế nào?',
+ '<p>'+e(I.question_usage.status)+'</p><p>'+e(I.question_usage.principle)+'</p><p><b>'+e(I.question_usage.formula)+'</b></p><p>'+e(I.question_usage.current)+'</p>'+
+ I.gaps.map(x=>'<p><b>'+e(x.source)+'</b><br>'+e(x.missing)+'<br>Đề xuất gắn: '+e(x.attach_to)+'</p>').join('')+
+ '<p><b>Chỗ giao nhau:</b></p>'+ul(I.overlaps.map(x=>x.sources.join(' / ')+': '+x.resolution)))+
  '<h2 id="tqt-mo-hinh-pg">'+e(M.title)+'</h2><p class="mut">'+e(M.status)+'</p>'+
- '<p><b>Đang phác thảo:</b> '+e(first.name)+' · <code>'+e(first.id)+'</code><br>Mã nháp có thể nối dữ liệu; chưa phải mã Master được phép gọi.</p>'+
+ '<p><b>Đang rà quy trình sai/thiếu · còn 5 chốt chưa kín · Host xử lý tiếp.</b> Đây là trạng thái thiết kế, chưa phải một lần vận hành.</p>'+
  '<div class="tqt-model-flow">'+line+'</div>'+
- '<p class="hint">Sáu ô và các mũi tên đọc từ cùng khai báo có mã. Chưa có nơi nhận thật ở B3–B7/VHCM; không dùng trạng thái mô phỏng làm bằng chứng đã vận hành.</p>'+
+ '<p class="hint">Chưa đạt → quay lại đúng chỗ cần sửa. Bấm từng ô để đọc chi tiết. Chưa có nơi nhận thật ở B3–B7/VHCM.</p>'+
  fold('1 · Phiếu bắt buộc: quy trình + đối tượng + nghiệp vụ',
  '<p>'+e(M.declaration.rule)+'</p><p><a href="#ma-tran-cau-hoi">Mở bộ ghép và phiếu khai báo →</a></p>'+
  '<p>Bộ chọn Field vẫn giữ Field. Phiếu tự kèm câu khai báo MOW/MOT và tách đáp án theo phạm vi. Các mã và đáp án chưa có để trống, không tự đánh dấu đủ.</p>'+
@@ -9534,7 +9933,7 @@ document.getElementById('tqt-process-model-view').innerHTML=
  examples.map(x=>'<tr><td>'+e(x[0])+'</td><td>'+e(x[1])+'</td></tr>').join('')+
  '</tbody></table></div><p>Ví dụ cách hiển thị, không phải kết quả chạy thật của quy trình này. Không đạt vẫn có thể còn hiệu lực; bị chặn chỉ chạy lại khi điều kiện mở chặn đổi.</p>','tqt-model-result')+
  fold('5 · Đã kiểm mô hình đến đâu?',
- '<p><b>'+e(M.review_status)+'</b></p><p>Đã kiểm ca sai, đọc lại đủ 70 lượt trả lời, và lưu đường đi sáu ô với sáu lần nhận/trả, hai nơi kiểm lại rồi đóng. Nhánh từ chối và hủy/trả muộn có bản ghi riêng. Đây là mô phỏng, chưa gọi hệ thật.</p>'+
+ '<p><b>'+e(M.review_status)+'</b></p><p>87 ca hiện có đạt, nhưng thăm dò bổ sung vẫn tìm ra 5 chốt chưa kín. Lưu được 70 đáp án và một trace sáu bước chưa chứng minh đúng đối tượng, đủ câu hay kết thúc hợp lệ.</p>'+M.host_review_06.findings.map(x=>'<p><b>'+e(x.id+' · '+x.title)+'</b> — '+e(x.status)+'<br>'+e(x.fix)+'</p>').join('')+''+
  ul(M.review.limitations)+'<p>Không coi số phép kiểm đạt là nghiệm thu nghiệp vụ hay chứng minh tải lớn. Còn phải kiểm PostgreSQL và một ca thực tế có quyền.</p>','tqt-model-check')+
  fold('6 · Đưa nguyên gói sang PG · chi tiết cho AI',
  '<p><b>Chưa đóng băng gói PG.</b> Cần chốt Master, quyền DOT và kiểm PostgreSQL thật.</p><p>'+e(M.pg.import)+'</p><p>'+e(M.pg.scaling)+'</p>'+ul(M.pg.open)+ '<p><b>Luật → nơi chặn → ca kiểm:</b></p>'+ul(M.enforcement.map(r=>r.id+' · '+r.label+' · '+r.mechanism).concat(M.contract_enforcement.map(r=>r.id+' · '+r.enforce)))+
