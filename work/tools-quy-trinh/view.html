@@ -107,12 +107,12 @@ main{max-width:1240px} [hidden]{display:none!important}
 @media(prefers-reduced-motion:no-preference){.tq .piece{transition:background .12s,border-color .12s}}
 </style>
 <style id="tqt-composite-style">
-.tq .tqt-model-flow{display:grid;grid-template-columns:1fr;gap:8px;margin:18px 0}
+.tq .tqt-model-flow{align-items:start;display:grid;grid-template-columns:1fr;gap:8px;margin:18px 0}
 .tq .tqt-model-piece{padding:10px 14px;border:1px solid #d6dfd0;border-radius:10px;background:#fbfcf9}
 .tq .tqt-model-piece details{margin:0;border:0;background:transparent}.tq .tqt-model-piece summary{padding:7px 0;font-size:16px}.tq .tqt-model-piece small{display:block;color:#6b745f;font-size:12px;line-height:1.5}
 .tq .tqt-model-arrow{color:#827447;font-size:12px;padding-left:16px}
 .tq #tqt-process-model-view>details{margin:12px 0}
-@media(min-width:1000px){.tq .tqt-model-flow{grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.tq .tqt-model-arrow{display:none}.tq .tqt-model-piece:not(:last-child)::after{content:'→ Chưa gửi';display:block;font-size:11px;color:#827447;margin-top:9px}.tq .tqt-model-piece:first-child::after{content:'→ Chờ nhận · mô phỏng'}.tq .tqt-model-piece{padding:9px}}
+@media(min-width:1000px){.tq .tqt-model-flow{grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.tq .tqt-model-piece:has(details[open]){grid-column:1/-1}.tq .tqt-model-piece{padding:9px}}
 
 .tq .tqt-closure-formula{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0}.tq .tqt-closure-formula span{padding:10px 12px;background:#eef3e8;border:1px solid #d5dfcc;border-radius:8px}.tq .tqt-closure-formula i{color:#718565;font-style:normal}.tq .tqt-gap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tq .tqt-gap-grid>div{padding:14px;border:1px solid #dfcfa9;border-left:3px solid #ac8439;border-radius:9px;background:#fffdf7}.tq .tqt-gap-grid p{margin:8px 0}.tq .tqt-gap-grid small{color:#716653}.tq .tqt-review-body{padding:0 14px 14px}.tq #tqt-closure-review{margin-bottom:24px}.tq #tqt-closure-review>details{margin-top:12px}@media(max-width:700px){.tq .tqt-gap-grid{grid-template-columns:1fr}}
 
@@ -5803,10 +5803,11 @@ const byId=(table,id)=>M.rows[table].find(x=>x.id===id);
 const first=M.rows.object_def.find(x=>x.kind==='MOW');
 const line=M.stages.map((s,i)=>{
  const step=byId('step_def',s.id),v=byId('object_version',step.mot_version_id),owner=byId('reference',step.owner_ref);
+ const sr=M.rows.step_run.find(x=>x.step_id===s.id),call=sr&&M.rows.call.find(x=>x.step_run_id===sr.id);
+ const arrow=!call?'Chưa khai lần gọi':!call.receiver_ref?'Chưa có nơi nhận':({UNSENT:'Chưa gửi',SENT:'Chờ nhận',ACKNOWLEDGED:'Đã nhận',RETURNED:'Đã trả',REJECTED:'Từ chối',EXPIRED:'Quá hạn'}[call.delivery_state]||call.delivery_state);
  return '<div class="tqt-model-piece">'+fold(String(i+1)+' · '+step.label,
  '<p><b>Việc:</b> '+e(v.body.work)+'</p><p><b>Cần trả:</b> '+e(v.body.expected_output)+'</p><p><b>Mã việc:</b> '+e(s.mot_id)+' · <b>Phiên:</b> '+e(v.id)+'</p><p><b>Nơi ghi:</b> step_run → event / assessment; phát hiện → issue / impact.</p><p class="mut">'+e(s.state)+'</p>')+
- '<small>'+e(s.mot_id)+'<br>Người giữ: '+e(owner.code)+' · mô phỏng<br>Chưa đăng ký / chưa chạy thật</small></div>'+
- (i<5?'<div class="tqt-model-arrow">'+(i===0?'→ Chờ nhận · SIM-CALL-001':'→ Chưa gửi')+'</div>':'');
+ '<small>'+e(s.mot_id)+'<br>Người giữ: '+e(owner.code)+' · mô phỏng<br>Chưa đăng ký / chưa chạy thật</small>'+(i<5?'<small class="tqt-model-arrow">→ '+e(arrow)+(call?' · '+e(call.id):'')+'</small>':'')+'</div>';
 }).join('');
 const examples=[
  ['Đã kiểm thiết kế — Đạt','Còn hiệu lực'],
