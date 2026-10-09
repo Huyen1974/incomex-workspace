@@ -11,7 +11,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · Astra Codex
 - 🎯 **Đích:** có quy trình khép kín và bộ câu hỏi đúng để người/AI mới làm theo ra đúng sản phẩm. Mục tiêu chuẩn ở ô 1, tiêu chí nghiệm thu ở ô 2; gồm các bổ sung Owner ngày 08–09/10.
 - **Đã có:** ma trận 159 câu/53 nhóm, bộ ghép bốn phạm vi, quy trình tổng hợp TQT-TH-001 và mô hình có mã TQT-MODEL-001. Đây là bản đang hiệu chỉnh.
-- **Đã kiểm đến đâu:** 27 phép kiểm mô hình/mô phỏng đạt; đã rà MOW001 và phát hiện thiếu nguồn tìm, đánh giá, kết luận. Chưa chứng minh một quy trình chạy khép kín trên hệ thống thật.
+- **Đã kiểm đến đâu:** 83 ca mô phỏng v2 đạt; phiếu 70 lượt lưu–đọc lại đủ; đường sáu ô có nhận/trả/kiểm/đóng bằng bản ghi. SQL đã kiểm cú pháp. Chưa PostgreSQL, đồng thời, tải lớn hoặc B3–B7 thật; gói chưa đóng băng.
 - **Còn hở:** TQT-TH-001 chưa có mã Master; chưa chốt đủ nơi nhận/trả thực tế và ca thiếu Field tới B3–B7, đấu lại, kiểm nơi phát hiện. TQT-ISS-007 còn mở; TQT-ISS-004/006 và các vướng mắc sản phẩm vẫn theo sổ hiện có.
 - **Việc kế tiếp:** chốt khai báo MOW/MOT và chỗ nối → hoàn tất đáp án cho một ca thiếu Field/MOW001 → đi thử các quy trình UI, Config, Test → sửa đúng nguồn còn thiếu → kiểm lại. Chưa làm MOW002.
 - **Ba mốc nghiệm thu:** thiết kế/khả thi — đang hoàn thiện; triển khai/kiểm kỹ thuật — chưa nghiệm thu; vận hành/bàn giao — chưa nghiệm thu. Đạt mô phỏng không thay cho đạt chạy thật.
@@ -48,6 +48,9 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 **Chưa làm lúc này:** quy trình nghiệp vụ (phái cử, tuyển dụng…). Chúng thuộc Chuỗi 3 CMSXQT; để sau cho đỡ lan man.
 
 (Owner chốt 08/10/2026. AI không sửa chữ ô này.)
+
+#### Bổ sung trực tiếp Owner · 09/10/2026 · rà khả thi hướng PG
+“Chúng ta cần tư duy để thực sự lắp chuẩn vào PG. Và rà soát theo hướng đó (kiểu mô phỏng) thì mới phát hiện ra lỗi được. Bạn rà soát tiếp tục để hoàn thiện, đảm bảo khả thi.”
 
 #### Làm rõ mục tiêu theo yêu cầu Owner · 09/10/2026
 Giữ nguyên 15 ý trên. Host bổ sung để AI hiểu đủ đích phải làm:
@@ -142,6 +145,13 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 - Kiểm TQT-TH-001 ngày 09/10: bản nội dung `87212f520d3251b5f13738222094278046a92512` đã hiện trên trang thật. Đã kiểm tab đầu trong Nội dung công việc; thu/xổ quy trình; mở giai đoạn 1 và bước 1.2; liên kết Config sang nguồn cũ; URL mở thẳng giai đoạn 2; URL câu hỏi B1→1.2 cũ; màn 390px không tràn ngang trong tài liệu (295/295px). Đã thu gọn thanh tab màn nhỏ để không che nội dung. URL chỉ có task vẫn vào Kiểm soát theo cơ chế chung; link bàn giao có view=content&section=list-quy-trinh-tong-hop. Console trang chứa có thông báo Directus Auth/Sentry; không dùng kết quả kiểm hiển thị này để khẳng định backend hoặc toàn quy trình đã chạy đạt. Chưa triển khai PG hay nghiệm thu ba giai đoạn.
 - Kiểm tra giao diện: đã kiểm trên trang thật bản nội dung 7a4c0717eebd0c074635a2a5e8dab63e9fa56d18: B1→1.2 và mở lại URL, B8/B9 chưa tách, MOIT, CMSXQT, lọc không dấu, Config→mục cũ, bộ ghép 27 câu không trùng; màn hẹp 390px không tràn ngang. Đây là kiểm giao diện, chưa nghiệm thu tính đầy đủ của bộ câu hỏi.
 
+
+#### Rà chuẩn ngoài PG · tiếp nhận proposal05 · 09/10/2026
+- Đã tái hiện lỗi cũ: đóng danh sách rỗng/thiếu quyền, cổng sẵn sàng rỗng và payload rỗng đều lọt. Đã sửa tại SSOT và checker; không thay câu hỏi hay công thức.
+- Mô hình v2 gồm 18 bảng (thêm phiếu/quyền/outbox), khóa ghép/typed reference, hợp đồng trường và nguồn cấp, luật–cơ chế chặn, ghi nguyên tử, bất biến bằng chứng, tách schema và dữ liệu SIM. Giữ sáu ô.
+- Bằng chứng: 83 ca mô phỏng đạt; phiếu 70 lượt đọc lại đầy đủ và dump/nạp lại; đường sáu ô có sáu call SENT/ACK/RETURN, hai nơi kiểm lại rồi đóng; từ chối giữ UNMET, trả muộn không hồi sinh việc. SQL/PLpgSQL đã kiểm cú pháp; không chạy PG. Hash mô hình: `f2e5b358eedac180c4f17aa0594f27d687fe145ba4843e82fbba6ee8ec32f471`.
+- DOER_CONFIRM: làm được sửa hợp đồng/kiểm ca sai/lưu–đọc lại và vòng mô phỏng; chưa xác nhận PostgreSQL, concurrency, scale hoặc gọi B3–B7 thật. Gói NOT_FROZEN và TQT-ISS-007 mở: chốt Master, quyền DOT/actor, triển khai adapter, kiểm staging/restore; thay guard quét toàn mô hình bằng kiểm theo phạm vi trước production.
+- Trạng thái/giới hạn hiện hành đọc mục v2 trong README và `package` của mô hình. Các kết quả v1 bên dưới là lịch sử, không là tiêu chí áp dụng v2.
 
 #### Mô hình có mã hướng PG · 09/10/2026 · Host tiếp nhận proposal04
 - JSON tqt-process-model là SSOT bản phác thảo TQT-MODEL-001: 15 bảng hỗ trợ định nghĩa/phiên/lần/vòng/việc chạy/call/vấn đề/nơi ảnh hưởng/đáp án/kết quả/phụ thuộc/event; PK/FK/UNIQUE/CHECK có thể xuất SQL nguyên mã. DRAFT/SIM không phải Master được phép gọi.

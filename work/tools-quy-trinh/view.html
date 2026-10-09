@@ -2425,8 +2425,8 @@ main{max-width:1240px} [hidden]{display:none!important}
 }</script>
 <script id="tqt-process-model" type="application/json">{
   "id": "TQT-MODEL-001",
-  "version": 1,
-  "status": "DRAFT · PHÁC THẢO DỮ LIỆU · CHƯA ĐƯA PG",
+  "version": 2,
+  "status": "DRAFT v2 · HỢP ĐỒNG ĐANG KIỂM · CHƯA ĐÓNG BĂNG GÓI PG",
   "title": "Một quy trình · nhiều lần chạy · không lẫn kết quả",
   "code_policy": "Mã bất biến, duy nhất trong loại bảng; FK nối bằng mã, không nối bằng tên/URL. Mã DRAFT-/SIM- là mã phác thảo/ca thử, không phải mã Master chính thức. Chuyển chuẩn giữ id hoặc có bảng ánh xạ được kiểm một-một; không cấp lại tùy tiện.",
   "scope": "Mô hình dữ liệu hỗ trợ MOW/MOT hiện có; các bảng phiên/lần/vòng/gọi/bằng chứng là bản ghi quản lý, không phải tầng mới. Chưa chốt quan hệ Gộp/Tách hoặc đăng ký composite trong Master.",
@@ -2439,14 +2439,14 @@ main{max-width:1240px} [hidden]{display:none!important}
       "jsonb",
       "timestamptz"
     ],
-    "constraints": "PK/FK/UNIQUE/CHECK; FK có index; các quan hệ chạy phải cùng run/phiên, kiểm cả ứng dụng. Không nhập production khi còn DRAFT/SIM hoặc ref chưa xác minh.",
+    "constraints": "FK ghép và typed reference; luật nhiều bản ghi chạy bằng deferred constraint trigger, không dùng CHECK đọc bảng khác. Quyền worker phải qua DOT; bản xuất chỉ là draft.",
     "import": "Chốt mapping Master/rule/quyền → đóng băng gói+hash → kiểm mã/FK → nhập toàn gói trong transaction ở staging → đọc lại counts/hash/quan hệ → kiểm ca → mới duyệt áp dụng bằng DOT.",
     "scaling": "Tách định nghĩa bất biến và bản ghi chạy; index theo FK, trạng thái/hạn, nguồn phụ thuộc; phân trang theo id, chọn phần bị ảnh hưởng. Khóa nhận việc theo transaction/idempotency khi chạy thật. Chưa benchmark tải lớn; retention/partition/scope cách ly phải đo trước production.",
     "open": [
-      "Đăng ký MOW tổng hợp và MOT điều phối vào Master theo CT-005/005.1",
-      "Ánh xạ người/rule/nguồn vào ID thật và quyền theo scope",
-      "Kiểm PostgreSQL thật, khóa đồng thời, transaction outbox và chính sách lưu log/partition",
-      "Mức kiểm và vòng đời nháp phải ánh xạ hệ hiện hữu trước khi áp chuẩn"
+      "Master/nhóm và quyền actor/DOT thật chưa chốt",
+      "PostgreSQL version, deferred triggers, SERIALIZABLE/concurrency và restore chưa kiểm thật",
+      "Adapter DOT gọi transaction/dispatch/inbox phải triển khai và nghiệm thu; không cấp quyền ghi trực tiếp",
+      "Dữ liệu SIM tách khỏi SQL schema mặc định; production manifest chưa được duyệt"
     ]
   },
   "tables": [
@@ -2487,11 +2487,27 @@ main{max-width:1240px} [hidden]{display:none!important}
         "registration": {
           "type": "text",
           "nullable": false
+        },
+        "chain_id_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "master_id_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "master_record_id_kind": {
+          "type": "text",
+          "nullable": false
         }
       },
       "unique": [
         [
           "code"
+        ],
+        [
+          "id",
+          "kind"
         ]
       ],
       "foreign_keys": [
@@ -2521,12 +2537,61 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
+        },
+        {
+          "columns": [
+            "master_record_id",
+            "master_id",
+            "kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "master_id",
+            "object_kind"
+          ]
+        },
+        {
+          "columns": [
+            "chain_id",
+            "chain_id_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "master_id",
+            "master_id_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "master_record_id",
+            "master_record_id_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
         }
       ],
       "checks": [
         "kind IN ('MOW','MOT','MOIT','MOUT','FIELD')",
         "registration IN ('DRAFT','REGISTERED')",
-        "registration <> 'REGISTERED' OR (master_id IS NOT NULL AND master_record_id IS NOT NULL)"
+        "registration <> 'REGISTERED' OR (master_id IS NOT NULL AND master_record_id IS NOT NULL)",
+        "chain_id_kind='CHAIN'",
+        "master_id_kind='MASTER'",
+        "master_record_id_kind='MASTER_OBJECT'"
       ]
     },
     {
@@ -2558,12 +2623,20 @@ main{max-width:1240px} [hidden]{display:none!important}
         "body": {
           "type": "jsonb",
           "nullable": false
+        },
+        "kind": {
+          "type": "text",
+          "nullable": false
         }
       },
       "unique": [
         [
           "object_id",
           "version_no"
+        ],
+        [
+          "id",
+          "kind"
         ]
       ],
       "foreign_keys": [
@@ -2575,22 +2648,22 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
+        },
+        {
+          "columns": [
+            "object_id",
+            "kind"
+          ],
+          "table": "object_def",
+          "refs": [
+            "id",
+            "kind"
+          ]
         }
       ],
       "checks": [
         "version_no > 0",
         "lifecycle IN ('DRAFT','APPROVED','RETIRED')"
-      ],
-      "fks": [
-        {
-          "columns": [
-            "object_id"
-          ],
-          "table": "object_def",
-          "refs": [
-            "id"
-          ]
-        }
       ]
     },
     {
@@ -2622,6 +2695,14 @@ main{max-width:1240px} [hidden]{display:none!important}
         "verified": {
           "type": "boolean",
           "nullable": false
+        },
+        "master_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "object_kind": {
+          "type": "text",
+          "nullable": true
         }
       },
       "unique": [
@@ -2629,6 +2710,19 @@ main{max-width:1240px} [hidden]{display:none!important}
           "kind",
           "code",
           "version"
+        ],
+        [
+          "id",
+          "kind"
+        ],
+        [
+          "id",
+          "version"
+        ],
+        [
+          "id",
+          "master_id",
+          "object_kind"
         ]
       ],
       "foreign_keys": [],
@@ -2673,12 +2767,28 @@ main{max-width:1240px} [hidden]{display:none!important}
         "output_contract": {
           "type": "jsonb",
           "nullable": false
+        },
+        "process_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "task_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "owner_ref_kind": {
+          "type": "text",
+          "nullable": false
         }
       },
       "unique": [
         [
           "process_version_id",
           "order_no"
+        ],
+        [
+          "id",
+          "process_version_id"
         ]
       ],
       "foreign_keys": [
@@ -2708,37 +2818,45 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
-        }
-      ],
-      "checks": [],
-      "fks": [
+        },
         {
           "columns": [
-            "process_version_id"
+            "process_version_id",
+            "process_kind"
           ],
           "table": "object_version",
           "refs": [
-            "id"
+            "id",
+            "kind"
           ]
         },
         {
           "columns": [
-            "mot_version_id"
+            "mot_version_id",
+            "task_kind"
           ],
           "table": "object_version",
           "refs": [
-            "id"
+            "id",
+            "kind"
           ]
         },
         {
           "columns": [
-            "owner_ref"
+            "owner_ref",
+            "owner_ref_kind"
           ],
           "table": "reference",
           "refs": [
-            "id"
+            "id",
+            "kind"
           ]
         }
+      ],
+      "checks": [
+        "process_kind='MOW'",
+        "task_kind='MOT'",
+        "owner_ref_kind='ACTOR'"
       ]
     },
     {
@@ -2794,12 +2912,32 @@ main{max-width:1240px} [hidden]{display:none!important}
         "max_visits": {
           "type": "integer",
           "nullable": true
+        },
+        "order_no": {
+          "type": "integer",
+          "nullable": false
+        },
+        "condition_rule_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "trigger_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "timeout_owner_ref_kind": {
+          "type": "text",
+          "nullable": false
         }
       },
       "unique": [
         [
           "from_step_id",
           "outcome"
+        ],
+        [
+          "process_version_id",
+          "order_no"
         ]
       ],
       "foreign_keys": [
@@ -2865,76 +3003,80 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
+        },
+        {
+          "columns": [
+            "from_step_id",
+            "process_version_id"
+          ],
+          "table": "step_def",
+          "refs": [
+            "id",
+            "process_version_id"
+          ]
+        },
+        {
+          "columns": [
+            "to_step_id",
+            "process_version_id"
+          ],
+          "table": "step_def",
+          "refs": [
+            "id",
+            "process_version_id"
+          ]
+        },
+        {
+          "columns": [
+            "return_step_id",
+            "process_version_id"
+          ],
+          "table": "step_def",
+          "refs": [
+            "id",
+            "process_version_id"
+          ]
+        },
+        {
+          "columns": [
+            "condition_rule_ref",
+            "condition_rule_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "trigger_ref",
+            "trigger_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "timeout_owner_ref",
+            "timeout_owner_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
         }
       ],
       "checks": [
         "(to_step_id IS NULL AND terminal_result IS NOT NULL) OR (to_step_id IS NOT NULL AND terminal_result IS NULL)",
-        "max_visits IS NULL OR max_visits > 0"
-      ],
-      "fks": [
-        {
-          "columns": [
-            "process_version_id"
-          ],
-          "table": "object_version",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "from_step_id"
-          ],
-          "table": "step_def",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "to_step_id"
-          ],
-          "table": "step_def",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "return_step_id"
-          ],
-          "table": "step_def",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "condition_rule_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "trigger_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "timeout_owner_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        }
+        "max_visits IS NULL OR max_visits > 0",
+        "condition_rule_ref_kind='RULE'",
+        "trigger_ref_kind='RULE'",
+        "timeout_owner_ref_kind='ACTOR'"
       ]
     },
     {
@@ -2970,12 +3112,20 @@ main{max-width:1240px} [hidden]{display:none!important}
         "scope": {
           "type": "jsonb",
           "nullable": false
+        },
+        "owner_ref_kind": {
+          "type": "text",
+          "nullable": false
         }
       },
       "unique": [
         [
           "process_version_id",
           "run_key"
+        ],
+        [
+          "id",
+          "process_version_id"
         ]
       ],
       "foreign_keys": [
@@ -2996,30 +3146,22 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
-        }
-      ],
-      "checks": [
-        "state IN ('READY','STARTED','XONG','DUNG')"
-      ],
-      "fks": [
-        {
-          "columns": [
-            "process_version_id"
-          ],
-          "table": "object_version",
-          "refs": [
-            "id"
-          ]
         },
         {
           "columns": [
-            "owner_ref"
+            "owner_ref",
+            "owner_ref_kind"
           ],
           "table": "reference",
           "refs": [
-            "id"
+            "id",
+            "kind"
           ]
         }
+      ],
+      "checks": [
+        "state IN ('READY','STARTED','XONG','DUNG')",
+        "owner_ref_kind='ACTOR'"
       ]
     },
     {
@@ -3049,6 +3191,10 @@ main{max-width:1240px} [hidden]{display:none!important}
         [
           "run_id",
           "round_no"
+        ],
+        [
+          "id",
+          "run_id"
         ]
       ],
       "foreign_keys": [
@@ -3064,17 +3210,6 @@ main{max-width:1240px} [hidden]{display:none!important}
       ],
       "checks": [
         "round_no > 0"
-      ],
-      "fks": [
-        {
-          "columns": [
-            "run_id"
-          ],
-          "table": "run",
-          "refs": [
-            "id"
-          ]
-        }
       ]
     },
     {
@@ -3106,6 +3241,14 @@ main{max-width:1240px} [hidden]{display:none!important}
         "outcome": {
           "type": "text",
           "nullable": true
+        },
+        "run_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "process_version_id": {
+          "type": "text",
+          "nullable": false
         }
       },
       "unique": [
@@ -3113,6 +3256,15 @@ main{max-width:1240px} [hidden]{display:none!important}
           "round_id",
           "step_id",
           "attempt_no"
+        ],
+        [
+          "id",
+          "run_id",
+          "round_id"
+        ],
+        [
+          "id",
+          "run_id"
         ]
       ],
       "foreign_keys": [
@@ -3133,31 +3285,44 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
+        },
+        {
+          "columns": [
+            "round_id",
+            "run_id"
+          ],
+          "table": "round",
+          "refs": [
+            "id",
+            "run_id"
+          ]
+        },
+        {
+          "columns": [
+            "run_id",
+            "process_version_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id",
+            "process_version_id"
+          ]
+        },
+        {
+          "columns": [
+            "step_id",
+            "process_version_id"
+          ],
+          "table": "step_def",
+          "refs": [
+            "id",
+            "process_version_id"
+          ]
         }
       ],
       "checks": [
         "attempt_no > 0",
         "state IN ('READY','STARTED','XONG','DUNG')"
-      ],
-      "fks": [
-        {
-          "columns": [
-            "round_id"
-          ],
-          "table": "round",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "step_id"
-          ],
-          "table": "step_def",
-          "refs": [
-            "id"
-          ]
-        }
       ]
     },
     {
@@ -3225,6 +3390,34 @@ main{max-width:1240px} [hidden]{display:none!important}
         "return_event_id": {
           "type": "text",
           "nullable": true
+        },
+        "run_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "round_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "sent_event_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "schema_version": {
+          "type": "text",
+          "nullable": false
+        },
+        "input_fingerprint": {
+          "type": "text",
+          "nullable": false
+        },
+        "receiver_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "sender_owner_ref_kind": {
+          "type": "text",
+          "nullable": false
         }
       },
       "unique": [
@@ -3234,6 +3427,15 @@ main{max-width:1240px} [hidden]{display:none!important}
         ],
         [
           "correlation_id"
+        ],
+        [
+          "id",
+          "run_id"
+        ],
+        [
+          "run_id",
+          "callee_version_id",
+          "request_key"
         ]
       ],
       "foreign_keys": [
@@ -3308,86 +3510,74 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
+        },
+        {
+          "columns": [
+            "step_run_id",
+            "run_id",
+            "round_id"
+          ],
+          "table": "step_run",
+          "refs": [
+            "id",
+            "run_id",
+            "round_id"
+          ]
+        },
+        {
+          "columns": [
+            "return_step_run_id",
+            "run_id",
+            "round_id"
+          ],
+          "table": "step_run",
+          "refs": [
+            "id",
+            "run_id",
+            "round_id"
+          ]
+        },
+        {
+          "columns": [
+            "sent_event_id"
+          ],
+          "table": "event",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "receiver_ref",
+            "receiver_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "sender_owner_ref",
+            "sender_owner_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
         }
       ],
       "checks": [
         "delivery_state IN ('UNSENT','SENT','ACKNOWLEDGED','RETURNED','REJECTED','EXPIRED')",
         "delivery_state NOT IN ('ACKNOWLEDGED','RETURNED') OR ack_event_id IS NOT NULL",
-        "delivery_state <> 'RETURNED' OR return_event_id IS NOT NULL"
-      ],
-      "fks": [
-        {
-          "columns": [
-            "step_run_id"
-          ],
-          "table": "step_run",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "callee_version_id"
-          ],
-          "table": "object_version",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "child_run_id"
-          ],
-          "table": "run",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "return_step_run_id"
-          ],
-          "table": "step_run",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "receiver_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "sender_owner_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "ack_event_id"
-          ],
-          "table": "event",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "return_event_id"
-          ],
-          "table": "event",
-          "refs": [
-            "id"
-          ]
-        }
+        "delivery_state <> 'RETURNED' OR return_event_id IS NOT NULL",
+        "delivery_state='UNSENT' OR sent_event_id IS NOT NULL",
+        "delivery_state <> 'RETURNED' OR output_data IS NOT NULL",
+        "ack_event_id IS NULL OR return_event_id IS NULL OR ack_event_id <> return_event_id",
+        "receiver_ref_kind='ACTOR'",
+        "sender_owner_ref_kind='ACTOR'"
       ]
     },
     {
@@ -3427,6 +3617,22 @@ main{max-width:1240px} [hidden]{display:none!important}
         "close_rule_ref": {
           "type": "text",
           "nullable": false
+        },
+        "close_event_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "revision": {
+          "type": "integer",
+          "nullable": false
+        },
+        "owner_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "close_rule_ref_kind": {
+          "type": "text",
+          "nullable": false
         }
       },
       "unique": [
@@ -3461,40 +3667,45 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
+        },
+        {
+          "columns": [
+            "close_event_id"
+          ],
+          "table": "event",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "owner_ref",
+            "owner_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "close_rule_ref",
+            "close_rule_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
         }
       ],
       "checks": [
         "state IN ('OPEN','CLOSED')",
-        "state <> 'CLOSED' OR resolution IS NOT NULL"
-      ],
-      "fks": [
-        {
-          "columns": [
-            "owner_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "process_run_id"
-          ],
-          "table": "run",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "close_rule_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        }
+        "state <> 'CLOSED' OR resolution IS NOT NULL",
+        "(state='OPEN' AND resolution IS NULL AND close_event_id IS NULL) OR (state='CLOSED' AND resolution IN ('RESOLVED','NOT_PURSUED') AND close_event_id IS NOT NULL)",
+        "owner_ref_kind='ACTOR'",
+        "close_rule_ref_kind='RULE'"
       ]
     },
     {
@@ -3534,6 +3745,22 @@ main{max-width:1240px} [hidden]{display:none!important}
         "decision_ref": {
           "type": "text",
           "nullable": true
+        },
+        "assessment_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "origin_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "case_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "decision_ref_kind": {
+          "type": "text",
+          "nullable": false
         }
       },
       "unique": [
@@ -3577,48 +3804,55 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
+        },
+        {
+          "columns": [
+            "assessment_id"
+          ],
+          "table": "assessment",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "origin_ref",
+            "origin_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "case_ref",
+            "case_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "decision_ref",
+            "decision_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
         }
       ],
       "checks": [
-        "goal_result IN ('UNMET','MET','NOT_PURSUED')"
-      ],
-      "fks": [
-        {
-          "columns": [
-            "issue_id"
-          ],
-          "table": "issue",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "origin_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "case_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "decision_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        }
+        "goal_result IN ('UNMET','MET','NOT_PURSUED')",
+        "origin_ref_kind='SOURCE'",
+        "case_ref_kind='RULE'",
+        "decision_ref_kind='SOURCE'"
       ]
     },
     {
@@ -3645,7 +3879,7 @@ main{max-width:1240px} [hidden]{display:none!important}
         },
         "run_id": {
           "type": "text",
-          "nullable": true
+          "nullable": false
         },
         "answer_key": {
           "type": "text",
@@ -3662,12 +3896,35 @@ main{max-width:1240px} [hidden]{display:none!important}
         "source_ref": {
           "type": "text",
           "nullable": false
+        },
+        "declaration_id": {
+          "type": "text",
+          "nullable": false
+        },
+        "question_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "source_ref_kind": {
+          "type": "text",
+          "nullable": false
         }
       },
       "unique": [
         [
           "answer_key",
           "answer_revision"
+        ],
+        [
+          "declaration_id",
+          "question_ref",
+          "subject_version_id",
+          "scope_role",
+          "answer_revision"
+        ],
+        [
+          "id",
+          "run_id"
         ]
       ],
       "foreign_keys": [
@@ -3706,49 +3963,46 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
+        },
+        {
+          "columns": [
+            "declaration_id",
+            "run_id"
+          ],
+          "table": "declaration",
+          "refs": [
+            "id",
+            "run_id"
+          ]
+        },
+        {
+          "columns": [
+            "question_ref",
+            "question_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "source_ref",
+            "source_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
         }
       ],
       "checks": [
         "scope_role IN ('PROCESS','TASK','TARGET','BUSINESS')",
-        "answer_revision > 0"
-      ],
-      "fks": [
-        {
-          "columns": [
-            "question_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "subject_version_id"
-          ],
-          "table": "object_version",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "run_id"
-          ],
-          "table": "run",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "source_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        }
+        "answer_revision > 0",
+        "question_ref_kind='QUESTION'",
+        "source_ref_kind='SOURCE'"
       ]
     },
     {
@@ -3812,9 +4066,57 @@ main{max-width:1240px} [hidden]{display:none!important}
         "supersedes_id": {
           "type": "text",
           "nullable": true
+        },
+        "case_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "origin_ref": {
+          "type": "text",
+          "nullable": false
+        },
+        "origin_version": {
+          "type": "text",
+          "nullable": false
+        },
+        "na_reason": {
+          "type": "text",
+          "nullable": true
+        },
+        "na_approver_ref": {
+          "type": "text",
+          "nullable": true
+        },
+        "evidence_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "checker_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "blocker_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "case_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "origin_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "na_approver_ref_kind": {
+          "type": "text",
+          "nullable": false
         }
       },
-      "unique": [],
+      "unique": [
+        [
+          "supersedes_id"
+        ]
+      ],
       "foreign_keys": [
         {
           "columns": [
@@ -3878,78 +4180,135 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
+        },
+        {
+          "columns": [
+            "case_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "origin_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "na_approver_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "step_run_id",
+            "run_id"
+          ],
+          "table": "step_run",
+          "refs": [
+            "id",
+            "run_id"
+          ]
+        },
+        {
+          "columns": [
+            "answer_id",
+            "run_id"
+          ],
+          "table": "answer",
+          "refs": [
+            "id",
+            "run_id"
+          ]
+        },
+        {
+          "columns": [
+            "evidence_ref",
+            "evidence_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "checker_ref",
+            "checker_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "blocker_ref",
+            "blocker_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "case_ref",
+            "case_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "origin_ref",
+            "origin_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "na_approver_ref",
+            "na_approver_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
         }
       ],
       "checks": [
         "level BETWEEN 0 AND 4",
         "result IN ('NOT_TESTED','PASS','FAIL','BLOCKED','NA')",
         "validity IN ('CURRENT','RECHECK')",
-        "result <> 'BLOCKED' OR blocker_ref IS NOT NULL"
-      ],
-      "fks": [
-        {
-          "columns": [
-            "answer_id"
-          ],
-          "table": "answer",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "run_id"
-          ],
-          "table": "run",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "step_run_id"
-          ],
-          "table": "step_run",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "evidence_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "checker_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "blocker_ref"
-          ],
-          "table": "reference",
-          "refs": [
-            "id"
-          ]
-        },
-        {
-          "columns": [
-            "supersedes_id"
-          ],
-          "table": "assessment",
-          "refs": [
-            "id"
-          ]
-        }
+        "result <> 'BLOCKED' OR blocker_ref IS NOT NULL",
+        "result <> 'NA' OR (na_reason IS NOT NULL AND length(na_reason)>0 AND na_approver_ref IS NOT NULL)",
+        "evidence_ref_kind='SOURCE'",
+        "checker_ref_kind='ACTOR'",
+        "blocker_ref_kind='SOURCE'",
+        "case_ref_kind='RULE'",
+        "origin_ref_kind='SOURCE'",
+        "na_approver_ref_kind='ACTOR'"
       ]
     },
     {
@@ -3977,6 +4336,10 @@ main{max-width:1240px} [hidden]{display:none!important}
         "required_level": {
           "type": "integer",
           "nullable": false
+        },
+        "source_ref_kind": {
+          "type": "text",
+          "nullable": false
         }
       },
       "unique": [
@@ -4003,30 +4366,33 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
-        }
-      ],
-      "checks": [
-        "required_level BETWEEN 0 AND 4"
-      ],
-      "fks": [
+        },
         {
           "columns": [
-            "assessment_id"
+            "source_ref",
+            "source_version"
           ],
-          "table": "assessment",
+          "table": "reference",
           "refs": [
-            "id"
+            "id",
+            "version"
           ]
         },
         {
           "columns": [
-            "source_ref"
+            "source_ref",
+            "source_ref_kind"
           ],
           "table": "reference",
           "refs": [
-            "id"
+            "id",
+            "kind"
           ]
         }
+      ],
+      "checks": [
+        "required_level BETWEEN 0 AND 4",
+        "source_ref_kind='SOURCE'"
       ]
     },
     {
@@ -4066,6 +4432,34 @@ main{max-width:1240px} [hidden]{display:none!important}
         "payload": {
           "type": "jsonb",
           "nullable": false
+        },
+        "assessment_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "target_step_run_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "callee_version_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "issue_id": {
+          "type": "text",
+          "nullable": true
+        },
+        "evidence_ref": {
+          "type": "text",
+          "nullable": true
+        },
+        "actor_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "evidence_ref_kind": {
+          "type": "text",
+          "nullable": false
         }
       },
       "unique": [
@@ -4101,12 +4495,209 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
+        },
+        {
+          "columns": [
+            "assessment_id"
+          ],
+          "table": "assessment",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "call_id",
+            "run_id"
+          ],
+          "table": "call",
+          "refs": [
+            "id",
+            "run_id"
+          ]
+        },
+        {
+          "columns": [
+            "target_step_run_id",
+            "run_id"
+          ],
+          "table": "step_run",
+          "refs": [
+            "id",
+            "run_id"
+          ]
+        },
+        {
+          "columns": [
+            "callee_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "issue_id"
+          ],
+          "table": "issue",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "evidence_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "actor_ref",
+            "actor_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "evidence_ref",
+            "evidence_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
         }
       ],
       "checks": [
-        "sequence_no > 0"
+        "sequence_no > 0",
+        "event_type IN ('SENT','ACK','RETURN','LATE_RETURN','CLOSE','CHECK','INVALIDATE','CANCEL','IMPACT_ADDED')",
+        "actor_ref_kind='ACTOR'",
+        "evidence_ref_kind='SOURCE'",
+        "event_type NOT IN ('SENT','ACK','RETURN','LATE_RETURN') OR (call_id IS NOT NULL AND target_step_run_id IS NOT NULL AND callee_version_id IS NOT NULL)"
+      ]
+    },
+    {
+      "name": "declaration",
+      "label": "Phiếu bốn phạm vi có thể dựng lại",
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "process_version_id": {
+          "type": "text"
+        },
+        "task_version_id": {
+          "type": "text"
+        },
+        "target_type": {
+          "type": "text"
+        },
+        "target_context_id": {
+          "type": "text"
+        },
+        "chain_id": {
+          "type": "text"
+        },
+        "step_id": {
+          "type": "text"
+        },
+        "business_ids": {
+          "type": "jsonb"
+        },
+        "answer_ids": {
+          "type": "jsonb"
+        },
+        "owner_ref": {
+          "type": "text"
+        },
+        "source_versions": {
+          "type": "jsonb"
+        },
+        "open_issue_ids": {
+          "type": "jsonb"
+        },
+        "run_id": {
+          "type": "text"
+        },
+        "step_run_id": {
+          "type": "text"
+        },
+        "application_key": {
+          "type": "text"
+        },
+        "owner_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "chain_id_kind": {
+          "type": "text",
+          "nullable": false
+        }
+      },
+      "pk": [
+        "id"
       ],
-      "fks": [
+      "unique": [
+        [
+          "run_id",
+          "step_run_id",
+          "application_key"
+        ],
+        [
+          "id",
+          "run_id"
+        ]
+      ],
+      "checks": [
+        "owner_ref_kind='ACTOR'",
+        "chain_id_kind='CHAIN'"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "process_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "task_version_id"
+          ],
+          "table": "object_version",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "owner_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "chain_id"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
         {
           "columns": [
             "run_id"
@@ -4118,13 +4709,96 @@ main{max-width:1240px} [hidden]{display:none!important}
         },
         {
           "columns": [
-            "call_id"
+            "step_run_id"
           ],
-          "table": "call",
+          "table": "step_run",
           "refs": [
             "id"
           ]
         },
+        {
+          "columns": [
+            "step_run_id",
+            "run_id"
+          ],
+          "table": "step_run",
+          "refs": [
+            "id",
+            "run_id"
+          ]
+        },
+        {
+          "columns": [
+            "owner_ref",
+            "owner_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "chain_id",
+            "chain_id_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "grant_scope",
+      "label": "Quyền theo lần chạy và luật",
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "actor_ref": {
+          "type": "text"
+        },
+        "run_id": {
+          "type": "text"
+        },
+        "permission": {
+          "type": "text"
+        },
+        "rule_ref": {
+          "type": "text"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "actor_ref_kind": {
+          "type": "text",
+          "nullable": false
+        },
+        "rule_ref_kind": {
+          "type": "text",
+          "nullable": false
+        }
+      },
+      "pk": [
+        "id"
+      ],
+      "unique": [
+        [
+          "actor_ref",
+          "run_id",
+          "permission",
+          "rule_ref"
+        ]
+      ],
+      "checks": [
+        "permission IN ('ACK','RETURN','CLOSE','CHECK','NA')",
+        "actor_ref_kind='ACTOR'",
+        "rule_ref_kind='RULE'"
+      ],
+      "foreign_keys": [
         {
           "columns": [
             "actor_ref"
@@ -4133,23 +4807,142 @@ main{max-width:1240px} [hidden]{display:none!important}
           "refs": [
             "id"
           ]
+        },
+        {
+          "columns": [
+            "rule_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "run_id"
+          ],
+          "table": "run",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "actor_ref",
+            "actor_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [
+            "rule_ref",
+            "rule_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "outbox",
+      "label": "Gửi/nhận lại không mất việc",
+      "columns": {
+        "id": {
+          "type": "text"
+        },
+        "event_id": {
+          "type": "text"
+        },
+        "destination_ref": {
+          "type": "text"
+        },
+        "delivery_key": {
+          "type": "text"
+        },
+        "payload": {
+          "type": "jsonb"
+        },
+        "state": {
+          "type": "text"
+        },
+        "attempts": {
+          "type": "integer"
+        },
+        "destination_ref_kind": {
+          "type": "text",
+          "nullable": false
+        }
+      },
+      "pk": [
+        "id"
+      ],
+      "unique": [
+        [
+          "event_id",
+          "destination_ref"
+        ],
+        [
+          "delivery_key"
+        ]
+      ],
+      "checks": [
+        "state IN ('PENDING','DELIVERED')",
+        "attempts>=0",
+        "destination_ref_kind='ACTOR'"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "event_id"
+          ],
+          "table": "event",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "destination_ref"
+          ],
+          "table": "reference",
+          "refs": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "destination_ref",
+            "destination_ref_kind"
+          ],
+          "table": "reference",
+          "refs": [
+            "id",
+            "kind"
+          ]
         }
       ]
     }
   ],
   "call_contract": [
-    "call.id riêng cho từng lần gọi; retry cùng request_key của cùng step_run lấy lại call cũ",
-    "correlation_id trả đúng call + step_run + phiên; cha đã hủy/đổi phiên thì ghi kết quả muộn, không áp vào lần khác",
-    "Người gửi giữ trách nhiệm cho tới ACK; quá hạn chuyển EXPIRED và báo đầu mối, không âm thầm mất việc",
-    "ACK và RETURN phải trỏ event cùng call/run; mã tự có không thay bằng chứng",
-    "Nhiều impact được gắn một issue sau xác minh cùng nhu cầu; mỗi impact vẫn có ca kiểm và kết quả riêng"
+    "Khóa tác vụ = run + callee_version + request_key; đổi attempt vẫn tái dùng call cũ, cùng khóa khác fingerprint bị từ chối.",
+    "SENT/ACK/RETURN có loại, actor, call, run, đích, phiên, thứ tự và hạn; một event không làm hai vai.",
+    "Mặc định trả đúng step_run/round đã khai; đổi vòng phải gọi mới hoặc thủ tục chuyển đích được duyệt, không tự suy diễn.",
+    "State + event + outbox cùng transaction; mất kết nối gửi lại cùng mã, receiver phải chống lặp tác động.",
+    "Đóng chỉ khi đủ nơi có bằng chứng đúng ca/phiên, đủ quyền và đã ghi nơi trả; từ chối không đổi mục tiêu sang đạt."
   ],
   "execution_notes": [
     "Quan hệ đề xuất: MOW có MOT điều phối; MOT gọi một phiên MOW con qua MOIT/MOUT. Chưa thay công thức.",
     "Một lần chế tạo kết thúc khi kiểm ban đầu hữu hạn đạt và lần/quy trình VHCM đã ACK nhận bàn giao. Theo dõi dài hạn thuộc VHCM.",
     "PG không áp dụng cho sản phẩm không cần PG thì lưu lý do/người xác nhận. Chạm PG vẫn theo DOT được duyệt."
   ],
-  "review_status": "27 phép kiểm mô hình đạt · chưa PostgreSQL/B3–B7 thật",
+  "review_status": "83 phép kiểm mô phỏng đạt · phiếu 70 lượt đọc lại nguyên vẹn · chưa kiểm PG thật",
   "fixtures": {
     "success": {
       "id": "SIM-CASE-CREATE",
@@ -4203,7 +4996,10 @@ main{max-width:1240px} [hidden]{display:none!important}
         "chain_id": "CH-001",
         "master_id": null,
         "master_record_id": null,
-        "registration": "DRAFT"
+        "registration": "DRAFT",
+        "chain_id_kind": "CHAIN",
+        "master_id_kind": "MASTER",
+        "master_record_id_kind": "MASTER_OBJECT"
       },
       {
         "id": "DRAFT-MOT-GAP-1",
@@ -4213,7 +5009,10 @@ main{max-width:1240px} [hidden]{display:none!important}
         "chain_id": "CH-001",
         "master_id": null,
         "master_record_id": null,
-        "registration": "DRAFT"
+        "registration": "DRAFT",
+        "chain_id_kind": "CHAIN",
+        "master_id_kind": "MASTER",
+        "master_record_id_kind": "MASTER_OBJECT"
       },
       {
         "id": "DRAFT-MOT-GAP-2",
@@ -4223,7 +5022,10 @@ main{max-width:1240px} [hidden]{display:none!important}
         "chain_id": "CH-001",
         "master_id": null,
         "master_record_id": null,
-        "registration": "DRAFT"
+        "registration": "DRAFT",
+        "chain_id_kind": "CHAIN",
+        "master_id_kind": "MASTER",
+        "master_record_id_kind": "MASTER_OBJECT"
       },
       {
         "id": "DRAFT-MOT-GAP-3",
@@ -4233,7 +5035,10 @@ main{max-width:1240px} [hidden]{display:none!important}
         "chain_id": "CH-001",
         "master_id": null,
         "master_record_id": null,
-        "registration": "DRAFT"
+        "registration": "DRAFT",
+        "chain_id_kind": "CHAIN",
+        "master_id_kind": "MASTER",
+        "master_record_id_kind": "MASTER_OBJECT"
       },
       {
         "id": "DRAFT-MOT-GAP-4",
@@ -4243,7 +5048,10 @@ main{max-width:1240px} [hidden]{display:none!important}
         "chain_id": "CH-001",
         "master_id": null,
         "master_record_id": null,
-        "registration": "DRAFT"
+        "registration": "DRAFT",
+        "chain_id_kind": "CHAIN",
+        "master_id_kind": "MASTER",
+        "master_record_id_kind": "MASTER_OBJECT"
       },
       {
         "id": "DRAFT-MOT-GAP-5",
@@ -4253,7 +5061,10 @@ main{max-width:1240px} [hidden]{display:none!important}
         "chain_id": "CH-001",
         "master_id": null,
         "master_record_id": null,
-        "registration": "DRAFT"
+        "registration": "DRAFT",
+        "chain_id_kind": "CHAIN",
+        "master_id_kind": "MASTER",
+        "master_record_id_kind": "MASTER_OBJECT"
       },
       {
         "id": "DRAFT-MOT-GAP-6",
@@ -4263,7 +5074,23 @@ main{max-width:1240px} [hidden]{display:none!important}
         "chain_id": "CH-001",
         "master_id": null,
         "master_record_id": null,
-        "registration": "DRAFT"
+        "registration": "DRAFT",
+        "chain_id_kind": "CHAIN",
+        "master_id_kind": "MASTER",
+        "master_record_id_kind": "MASTER_OBJECT"
+      },
+      {
+        "id": "DRAFT-FIELD-PHONE",
+        "kind": "FIELD",
+        "code": "DRAFT-FIELD-PHONE",
+        "name": "Field số điện thoại · chỉ mô phỏng",
+        "chain_id": "CH-001",
+        "master_id": null,
+        "master_record_id": null,
+        "registration": "DRAFT",
+        "chain_id_kind": "CHAIN",
+        "master_id_kind": "MASTER",
+        "master_record_id_kind": "MASTER_OBJECT"
       }
     ],
     "object_version": [
@@ -4272,12 +5099,13 @@ main{max-width:1240px} [hidden]{display:none!important}
         "object_id": "DRAFT-MOW-GAP-001",
         "version_no": 1,
         "lifecycle": "DRAFT",
-        "content_hash": "b31d4366a554db28afeb3f06062ce0d04872ee0aa923fdc8b27f05aed7903092",
+        "content_hash": "a9ddeb949ffa026849c1df8fe60076a60f31c81233b679b6639c7fa53c437114",
         "body": {
           "purpose": "Xử lý sai/thiếu đến nơi phát hiện",
           "simulation_only": true,
           "finish": "Mọi nơi phát hiện đã được trả kết quả và kiểm đạt; hoặc đã nhận quyết định không thực hiện đúng thẩm quyền. NOT_PURSUED không đồng nghĩa mục tiêu đạt."
-        }
+        },
+        "kind": "MOW"
       },
       {
         "id": "DRAFT-MOT-GAP-1-V1",
@@ -4290,7 +5118,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           "simulation_only": true,
           "work": "Ghi một hồ sơ nhu cầu, nối từng nơi bị ảnh hưởng; chưa coi là Field mới.",
           "expected_output": "Mã hồ sơ + mã nơi phát hiện"
-        }
+        },
+        "kind": "MOT"
       },
       {
         "id": "DRAFT-MOT-GAP-2-V1",
@@ -4303,7 +5132,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           "simulation_only": true,
           "work": "Gọi B1 tìm theo phạm vi/quyền; lỗi tìm không được coi là thiếu thật.",
           "expected_output": "Kết luận: dùng lại / sửa / cần tạo / chưa rõ"
-        }
+        },
+        "kind": "MOT"
       },
       {
         "id": "DRAFT-MOT-GAP-3-V1",
@@ -4316,7 +5146,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           "simulation_only": true,
           "work": "Nếu tạo mới: B3→B4→B5→B6→B7. Danh mục có mã nhưng chưa nối thực thi trong mô hình này.",
           "expected_output": "Phiên Field được phép dùng hoặc quyết định từ chối"
-        }
+        },
+        "kind": "MOT"
       },
       {
         "id": "DRAFT-MOT-GAP-4-V1",
@@ -4329,7 +5160,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           "simulation_only": true,
           "work": "B2 dùng kết quả, nối vào từng vị trí gốc đúng phiên.",
           "expected_output": "Mã binding + nơi nhận + bằng chứng"
-        }
+        },
+        "kind": "MOT"
       },
       {
         "id": "DRAFT-MOT-GAP-5-V1",
@@ -4342,7 +5174,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           "simulation_only": true,
           "work": "Chạy lại ca tại từng nơi phát hiện; một nơi đạt không đóng thay nơi khác.",
           "expected_output": "Kết quả kiểm từng nơi và phụ thuộc"
-        }
+        },
+        "kind": "MOT"
       },
       {
         "id": "DRAFT-MOT-GAP-6-V1",
@@ -4355,7 +5188,21 @@ main{max-width:1240px} [hidden]{display:none!important}
           "simulation_only": true,
           "work": "Đóng đã giải quyết nếu mọi nơi đạt; hoặc trả quyết định không thực hiện mà không đánh dấu mục tiêu đạt.",
           "expected_output": "Kết quả cuối + nơi nhận + bằng chứng nhận"
-        }
+        },
+        "kind": "MOT"
+      },
+      {
+        "id": "DRAFT-FIELD-PHONE-V1",
+        "object_id": "DRAFT-FIELD-PHONE",
+        "version_no": 1,
+        "lifecycle": "DRAFT",
+        "content_hash": "c7d76d92835fb85d006d2539cf2b0fc26937868558f47a7a2f2a57e7f274a0d9",
+        "body": {
+          "simulation": true,
+          "work": "Tìm Field số điện thoại",
+          "expected_output": "Định nghĩa ứng viên"
+        },
+        "kind": "FIELD"
       }
     ],
     "reference": [
@@ -4365,7 +5212,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "code": "OpenAI-main",
         "version": "COLLAB-20261009",
         "uri": "work/tools-quy-trinh/COLLAB.md",
-        "verified": true
+        "verified": true,
+        "master_id": null,
+        "object_kind": null
       },
       {
         "id": "REF-MODEL",
@@ -4373,7 +5222,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "code": "TQT-MODEL-001",
         "version": "1",
         "uri": "#tqt-process-model",
-        "verified": false
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
       },
       {
         "id": "REF-CLOSE",
@@ -4381,7 +5232,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "code": "DRAFT-CLOSE-ALL-IMPACTS",
         "version": "draft-1",
         "uri": "#tqt-process-model",
-        "verified": false
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
       },
       {
         "id": "REF-TRANSITION",
@@ -4389,7 +5242,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "code": "DRAFT-TRANSITION-OUTCOME",
         "version": "draft-1",
         "uri": "#tqt-process-model",
-        "verified": false
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
       },
       {
         "id": "REF-TRIGGER",
@@ -4397,23 +5252,29 @@ main{max-width:1240px} [hidden]{display:none!important}
         "code": "DRAFT-ON-RESULT",
         "version": "draft-1",
         "uri": "#tqt-process-model",
-        "verified": false
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
       },
       {
         "id": "REF-UI-A",
         "kind": "SOURCE",
         "code": "SIM-UI-A",
-        "version": "draft-1",
+        "version": "1",
         "uri": "#tqt-process-model",
-        "verified": false
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
       },
       {
         "id": "REF-UI-B",
         "kind": "SOURCE",
         "code": "SIM-UI-B",
-        "version": "draft-1",
+        "version": "1",
         "uri": "#tqt-process-model",
-        "verified": false
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
       },
       {
         "id": "REF-CASE-A",
@@ -4421,7 +5282,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "code": "SIM-CASE-A",
         "version": "draft-1",
         "uri": "#tqt-process-model",
-        "verified": false
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
       },
       {
         "id": "REF-CASE-B",
@@ -4429,7 +5292,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "code": "SIM-CASE-B",
         "version": "draft-1",
         "uri": "#tqt-process-model",
-        "verified": false
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
       },
       {
         "id": "REF-EVIDENCE",
@@ -4437,15 +5302,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "code": "SIM-EVIDENCE",
         "version": "draft-1",
         "uri": "#tqt-process-model",
-        "verified": false
-      },
-      {
-        "id": "REF-QUESTION",
-        "kind": "QUESTION",
-        "code": "Q-MOT-08",
-        "version": "matrix-159",
-        "uri": "#tqt-process-model",
-        "verified": false
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
       },
       {
         "id": "REF-DEPENDENCY",
@@ -4453,7 +5312,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "code": "SIM-FIELD-SCHEMA",
         "version": "1",
         "uri": "#tqt-process-model",
-        "verified": false
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
       },
       {
         "id": "REF-BLOCKER",
@@ -4461,7 +5322,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "code": "SIM-SERVICE",
         "version": "offline",
         "uri": "#tqt-process-model",
-        "verified": false
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
       },
       {
         "id": "CH-001",
@@ -4469,7 +5332,549 @@ main{max-width:1240px} [hidden]{display:none!important}
         "code": "CH-001",
         "version": "D158",
         "uri": "work/mow-mot-moit-mout/FORMULA-AI-README.md",
-        "verified": true
+        "verified": true,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-LAYER-01",
+        "kind": "QUESTION",
+        "code": "Q-LAYER-01",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-LAYER-02",
+        "kind": "QUESTION",
+        "code": "Q-LAYER-02",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-LAYER-03",
+        "kind": "QUESTION",
+        "code": "Q-LAYER-03",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-LAYER-04",
+        "kind": "QUESTION",
+        "code": "Q-LAYER-04",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-LAYER-05",
+        "kind": "QUESTION",
+        "code": "Q-LAYER-05",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOW-01",
+        "kind": "QUESTION",
+        "code": "Q-MOW-01",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOW-02",
+        "kind": "QUESTION",
+        "code": "Q-MOW-02",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOW-03",
+        "kind": "QUESTION",
+        "code": "Q-MOW-03",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-LAYER-06",
+        "kind": "QUESTION",
+        "code": "Q-LAYER-06",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-LAYER-07",
+        "kind": "QUESTION",
+        "code": "Q-LAYER-07",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-LAYER-08",
+        "kind": "QUESTION",
+        "code": "Q-LAYER-08",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOW-04",
+        "kind": "QUESTION",
+        "code": "Q-MOW-04",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOW-05",
+        "kind": "QUESTION",
+        "code": "Q-MOW-05",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOW-06",
+        "kind": "QUESTION",
+        "code": "Q-MOW-06",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOW-07",
+        "kind": "QUESTION",
+        "code": "Q-MOW-07",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOW-08",
+        "kind": "QUESTION",
+        "code": "Q-MOW-08",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOW-09",
+        "kind": "QUESTION",
+        "code": "Q-MOW-09",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOT-01",
+        "kind": "QUESTION",
+        "code": "Q-MOT-01",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOT-02",
+        "kind": "QUESTION",
+        "code": "Q-MOT-02",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOT-03",
+        "kind": "QUESTION",
+        "code": "Q-MOT-03",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOT-04",
+        "kind": "QUESTION",
+        "code": "Q-MOT-04",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOT-05",
+        "kind": "QUESTION",
+        "code": "Q-MOT-05",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOT-06",
+        "kind": "QUESTION",
+        "code": "Q-MOT-06",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOT-07",
+        "kind": "QUESTION",
+        "code": "Q-MOT-07",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOT-08",
+        "kind": "QUESTION",
+        "code": "Q-MOT-08",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-MOT-09",
+        "kind": "QUESTION",
+        "code": "Q-MOT-09",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-STEP-01",
+        "kind": "QUESTION",
+        "code": "Q-STEP-01",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-STEP-02",
+        "kind": "QUESTION",
+        "code": "Q-STEP-02",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-STEP-03",
+        "kind": "QUESTION",
+        "code": "Q-STEP-03",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-STEP-04",
+        "kind": "QUESTION",
+        "code": "Q-STEP-04",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-CHILD-01",
+        "kind": "QUESTION",
+        "code": "Q-CHILD-01",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-CHILD-02",
+        "kind": "QUESTION",
+        "code": "Q-CHILD-02",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-CHILD-03",
+        "kind": "QUESTION",
+        "code": "Q-CHILD-03",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-CHILD-04",
+        "kind": "QUESTION",
+        "code": "Q-CHILD-04",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-CHAIN-01",
+        "kind": "QUESTION",
+        "code": "Q-CHAIN-01",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-CHAIN-02",
+        "kind": "QUESTION",
+        "code": "Q-CHAIN-02",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-CHAIN-03",
+        "kind": "QUESTION",
+        "code": "Q-CHAIN-03",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-B1-01",
+        "kind": "QUESTION",
+        "code": "Q-B1-01",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-B1-02",
+        "kind": "QUESTION",
+        "code": "Q-B1-02",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-B1-03",
+        "kind": "QUESTION",
+        "code": "Q-B1-03",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-B1.3-01",
+        "kind": "QUESTION",
+        "code": "Q-B1.3-01",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-B1.3-02",
+        "kind": "QUESTION",
+        "code": "Q-B1.3-02",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-FIELD-01",
+        "kind": "QUESTION",
+        "code": "Q-FIELD-01",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-FIELD-02",
+        "kind": "QUESTION",
+        "code": "Q-FIELD-02",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-FIELD-03",
+        "kind": "QUESTION",
+        "code": "Q-FIELD-03",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-CTCM-01",
+        "kind": "QUESTION",
+        "code": "Q-CTCM-01",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-CTCM-02",
+        "kind": "QUESTION",
+        "code": "Q-CTCM-02",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-CTCM-03",
+        "kind": "QUESTION",
+        "code": "Q-CTCM-03",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-UI-01",
+        "kind": "QUESTION",
+        "code": "Q-UI-01",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-UI-02",
+        "kind": "QUESTION",
+        "code": "Q-UI-02",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-UI-03",
+        "kind": "QUESTION",
+        "code": "Q-UI-03",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-UI-04",
+        "kind": "QUESTION",
+        "code": "Q-UI-04",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-UI-05",
+        "kind": "QUESTION",
+        "code": "Q-UI-05",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
+      },
+      {
+        "id": "REF-Q-Q-UI-06",
+        "kind": "QUESTION",
+        "code": "Q-UI-06",
+        "version": "matrix-159",
+        "uri": "#ma-tran-cau-hoi",
+        "verified": false,
+        "master_id": null,
+        "object_kind": null
       }
     ],
     "step_def": [
@@ -4481,21 +5886,74 @@ main{max-width:1240px} [hidden]{display:none!important}
         "label": "Phát hiện",
         "owner_ref": "REF-HOST",
         "input_contract": {
+          "id": "TQT-IO-2-IN",
+          "type": "object",
+          "additionalProperties": false,
           "required": [
             "issue_id",
             "impact_ids",
-            "request_key",
             "origin_version"
-          ]
+          ],
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "impact_ids": {
+              "type": "array",
+              "items": "string",
+              "nullable": false,
+              "minItems": 1
+            },
+            "origin_version": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            }
+          }
         },
         "output_contract": {
+          "id": "TQT-IO-2-OUT",
+          "type": "object",
+          "additionalProperties": false,
           "required": [
             "issue_id",
             "impact_results",
             "outcome",
             "evidence_id"
-          ]
-        }
+          ],
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "impact_results": {
+              "type": "object",
+              "nullable": false,
+              "additionalValueEnum": [
+                "UNMET",
+                "MET",
+                "NOT_PURSUED"
+              ],
+              "minProperties": 1
+            },
+            "outcome": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            }
+          }
+        },
+        "process_kind": "MOW",
+        "task_kind": "MOT",
+        "owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-STEP-2",
@@ -4505,21 +5963,74 @@ main{max-width:1240px} [hidden]{display:none!important}
         "label": "Xác minh",
         "owner_ref": "REF-HOST",
         "input_contract": {
+          "id": "TQT-IO-2-IN",
+          "type": "object",
+          "additionalProperties": false,
           "required": [
             "issue_id",
             "impact_ids",
-            "request_key",
             "origin_version"
-          ]
+          ],
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "impact_ids": {
+              "type": "array",
+              "items": "string",
+              "nullable": false,
+              "minItems": 1
+            },
+            "origin_version": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            }
+          }
         },
         "output_contract": {
+          "id": "TQT-IO-2-OUT",
+          "type": "object",
+          "additionalProperties": false,
           "required": [
             "issue_id",
             "impact_results",
             "outcome",
             "evidence_id"
-          ]
-        }
+          ],
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "impact_results": {
+              "type": "object",
+              "nullable": false,
+              "additionalValueEnum": [
+                "UNMET",
+                "MET",
+                "NOT_PURSUED"
+              ],
+              "minProperties": 1
+            },
+            "outcome": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            }
+          }
+        },
+        "process_kind": "MOW",
+        "task_kind": "MOT",
+        "owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-STEP-3",
@@ -4529,21 +6040,74 @@ main{max-width:1240px} [hidden]{display:none!important}
         "label": "Xử lý",
         "owner_ref": "REF-HOST",
         "input_contract": {
+          "id": "TQT-IO-2-IN",
+          "type": "object",
+          "additionalProperties": false,
           "required": [
             "issue_id",
             "impact_ids",
-            "request_key",
             "origin_version"
-          ]
+          ],
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "impact_ids": {
+              "type": "array",
+              "items": "string",
+              "nullable": false,
+              "minItems": 1
+            },
+            "origin_version": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            }
+          }
         },
         "output_contract": {
+          "id": "TQT-IO-2-OUT",
+          "type": "object",
+          "additionalProperties": false,
           "required": [
             "issue_id",
             "impact_results",
             "outcome",
             "evidence_id"
-          ]
-        }
+          ],
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "impact_results": {
+              "type": "object",
+              "nullable": false,
+              "additionalValueEnum": [
+                "UNMET",
+                "MET",
+                "NOT_PURSUED"
+              ],
+              "minProperties": 1
+            },
+            "outcome": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            }
+          }
+        },
+        "process_kind": "MOW",
+        "task_kind": "MOT",
+        "owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-STEP-4",
@@ -4553,21 +6117,74 @@ main{max-width:1240px} [hidden]{display:none!important}
         "label": "Đấu lại",
         "owner_ref": "REF-HOST",
         "input_contract": {
+          "id": "TQT-IO-2-IN",
+          "type": "object",
+          "additionalProperties": false,
           "required": [
             "issue_id",
             "impact_ids",
-            "request_key",
             "origin_version"
-          ]
+          ],
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "impact_ids": {
+              "type": "array",
+              "items": "string",
+              "nullable": false,
+              "minItems": 1
+            },
+            "origin_version": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            }
+          }
         },
         "output_contract": {
+          "id": "TQT-IO-2-OUT",
+          "type": "object",
+          "additionalProperties": false,
           "required": [
             "issue_id",
             "impact_results",
             "outcome",
             "evidence_id"
-          ]
-        }
+          ],
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "impact_results": {
+              "type": "object",
+              "nullable": false,
+              "additionalValueEnum": [
+                "UNMET",
+                "MET",
+                "NOT_PURSUED"
+              ],
+              "minProperties": 1
+            },
+            "outcome": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            }
+          }
+        },
+        "process_kind": "MOW",
+        "task_kind": "MOT",
+        "owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-STEP-5",
@@ -4577,21 +6194,74 @@ main{max-width:1240px} [hidden]{display:none!important}
         "label": "Kiểm nơi phát hiện",
         "owner_ref": "REF-HOST",
         "input_contract": {
+          "id": "TQT-IO-2-IN",
+          "type": "object",
+          "additionalProperties": false,
           "required": [
             "issue_id",
             "impact_ids",
-            "request_key",
             "origin_version"
-          ]
+          ],
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "impact_ids": {
+              "type": "array",
+              "items": "string",
+              "nullable": false,
+              "minItems": 1
+            },
+            "origin_version": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            }
+          }
         },
         "output_contract": {
+          "id": "TQT-IO-2-OUT",
+          "type": "object",
+          "additionalProperties": false,
           "required": [
             "issue_id",
             "impact_results",
             "outcome",
             "evidence_id"
-          ]
-        }
+          ],
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "impact_results": {
+              "type": "object",
+              "nullable": false,
+              "additionalValueEnum": [
+                "UNMET",
+                "MET",
+                "NOT_PURSUED"
+              ],
+              "minProperties": 1
+            },
+            "outcome": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            }
+          }
+        },
+        "process_kind": "MOW",
+        "task_kind": "MOT",
+        "owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-STEP-6",
@@ -4601,21 +6271,74 @@ main{max-width:1240px} [hidden]{display:none!important}
         "label": "Kết thúc",
         "owner_ref": "REF-HOST",
         "input_contract": {
+          "id": "TQT-IO-2-IN",
+          "type": "object",
+          "additionalProperties": false,
           "required": [
             "issue_id",
             "impact_ids",
-            "request_key",
             "origin_version"
-          ]
+          ],
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "impact_ids": {
+              "type": "array",
+              "items": "string",
+              "nullable": false,
+              "minItems": 1
+            },
+            "origin_version": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            }
+          }
         },
         "output_contract": {
+          "id": "TQT-IO-2-OUT",
+          "type": "object",
+          "additionalProperties": false,
           "required": [
             "issue_id",
             "impact_results",
             "outcome",
             "evidence_id"
-          ]
-        }
+          ],
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "impact_results": {
+              "type": "object",
+              "nullable": false,
+              "additionalValueEnum": [
+                "UNMET",
+                "MET",
+                "NOT_PURSUED"
+              ],
+              "minProperties": 1
+            },
+            "outcome": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            },
+            "evidence_id": {
+              "type": "string",
+              "nullable": false,
+              "minLength": 1
+            }
+          }
+        },
+        "process_kind": "MOW",
+        "task_kind": "MOT",
+        "owner_ref_kind": "ACTOR"
       }
     ],
     "edge_def": [
@@ -4628,14 +6351,33 @@ main{max-width:1240px} [hidden]{display:none!important}
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
         "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
+          "issue_id": {
+            "source": "output.issue_id",
+            "target": "input.issue_id",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "impact_ids": {
+            "source": "input.impact_ids",
+            "target": "input.impact_ids",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "origin_version": {
+            "source": "input.origin_version",
+            "target": "input.origin_version",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          }
         },
         "terminal_result": null,
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 1,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-2",
@@ -4646,14 +6388,33 @@ main{max-width:1240px} [hidden]{display:none!important}
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
         "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
+          "issue_id": {
+            "source": "output.issue_id",
+            "target": "input.issue_id",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "impact_ids": {
+            "source": "input.impact_ids",
+            "target": "input.impact_ids",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "origin_version": {
+            "source": "input.origin_version",
+            "target": "input.origin_version",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          }
         },
         "terminal_result": null,
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 2,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-3",
@@ -4664,14 +6425,33 @@ main{max-width:1240px} [hidden]{display:none!important}
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
         "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
+          "issue_id": {
+            "source": "output.issue_id",
+            "target": "input.issue_id",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "impact_ids": {
+            "source": "input.impact_ids",
+            "target": "input.impact_ids",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "origin_version": {
+            "source": "input.origin_version",
+            "target": "input.origin_version",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          }
         },
         "terminal_result": null,
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 3,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-4",
@@ -4682,14 +6462,33 @@ main{max-width:1240px} [hidden]{display:none!important}
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
         "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
+          "issue_id": {
+            "source": "output.issue_id",
+            "target": "input.issue_id",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "impact_ids": {
+            "source": "input.impact_ids",
+            "target": "input.impact_ids",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "origin_version": {
+            "source": "input.origin_version",
+            "target": "input.origin_version",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          }
         },
         "terminal_result": null,
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 4,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-5",
@@ -4700,14 +6499,33 @@ main{max-width:1240px} [hidden]{display:none!important}
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
         "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
+          "issue_id": {
+            "source": "output.issue_id",
+            "target": "input.issue_id",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "impact_ids": {
+            "source": "input.impact_ids",
+            "target": "input.impact_ids",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "origin_version": {
+            "source": "input.origin_version",
+            "target": "input.origin_version",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          }
         },
         "terminal_result": null,
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 5,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-6",
@@ -4718,14 +6536,33 @@ main{max-width:1240px} [hidden]{display:none!important}
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
         "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
+          "issue_id": {
+            "source": "output.issue_id",
+            "target": "input.issue_id",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "impact_ids": {
+            "source": "input.impact_ids",
+            "target": "input.impact_ids",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "origin_version": {
+            "source": "input.origin_version",
+            "target": "input.origin_version",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          }
         },
         "terminal_result": null,
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 6,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-7",
@@ -4736,14 +6573,33 @@ main{max-width:1240px} [hidden]{display:none!important}
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
         "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
+          "issue_id": {
+            "source": "output.issue_id",
+            "target": "input.issue_id",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "impact_ids": {
+            "source": "input.impact_ids",
+            "target": "input.impact_ids",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "origin_version": {
+            "source": "input.origin_version",
+            "target": "input.origin_version",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          }
         },
         "terminal_result": null,
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 7,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-8",
@@ -4754,14 +6610,33 @@ main{max-width:1240px} [hidden]{display:none!important}
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
         "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
+          "issue_id": {
+            "source": "output.issue_id",
+            "target": "input.issue_id",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "impact_ids": {
+            "source": "input.impact_ids",
+            "target": "input.impact_ids",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "origin_version": {
+            "source": "input.origin_version",
+            "target": "input.origin_version",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          }
         },
         "terminal_result": null,
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 8,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-9",
@@ -4772,14 +6647,33 @@ main{max-width:1240px} [hidden]{display:none!important}
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
         "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
+          "issue_id": {
+            "source": "output.issue_id",
+            "target": "input.issue_id",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "impact_ids": {
+            "source": "input.impact_ids",
+            "target": "input.impact_ids",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          },
+          "origin_version": {
+            "source": "input.origin_version",
+            "target": "input.origin_version",
+            "transform": "identity",
+            "on_error": "REJECT_CONTRACT"
+          }
         },
         "terminal_result": null,
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": 3
+        "max_visits": 3,
+        "order_no": 9,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-10",
@@ -4789,15 +6683,15 @@ main{max-width:1240px} [hidden]{display:none!important}
         "outcome": "resolved",
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
-        "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
-        },
+        "mapping": {},
         "terminal_result": "RESOLVED",
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 10,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-11",
@@ -4807,15 +6701,15 @@ main{max-width:1240px} [hidden]{display:none!important}
         "outcome": "declined",
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
-        "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
-        },
+        "mapping": {},
         "terminal_result": "NOT_PURSUED",
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 11,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-12",
@@ -4825,15 +6719,15 @@ main{max-width:1240px} [hidden]{display:none!important}
         "outcome": "blocked",
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
-        "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
-        },
+        "mapping": {},
         "terminal_result": "BLOCKED",
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 12,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-13",
@@ -4843,15 +6737,15 @@ main{max-width:1240px} [hidden]{display:none!important}
         "outcome": "blocked",
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
-        "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
-        },
+        "mapping": {},
         "terminal_result": "BLOCKED",
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 13,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-14",
@@ -4861,15 +6755,15 @@ main{max-width:1240px} [hidden]{display:none!important}
         "outcome": "blocked",
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
-        "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
-        },
+        "mapping": {},
         "terminal_result": "BLOCKED",
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 14,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-15",
@@ -4879,15 +6773,15 @@ main{max-width:1240px} [hidden]{display:none!important}
         "outcome": "blocked",
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
-        "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
-        },
+        "mapping": {},
         "terminal_result": "BLOCKED",
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 15,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-16",
@@ -4897,15 +6791,15 @@ main{max-width:1240px} [hidden]{display:none!important}
         "outcome": "blocked",
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
-        "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
-        },
+        "mapping": {},
         "terminal_result": "BLOCKED",
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 16,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       },
       {
         "id": "DRAFT-EDGE-17",
@@ -4915,15 +6809,15 @@ main{max-width:1240px} [hidden]{display:none!important}
         "outcome": "blocked",
         "condition_rule_ref": "REF-TRANSITION",
         "trigger_ref": "REF-TRIGGER",
-        "mapping": {
-          "issue_id": "issue_id",
-          "impact_ids": "impact_ids",
-          "origin_version": "origin_version"
-        },
+        "mapping": {},
         "terminal_result": "BLOCKED",
         "return_step_id": "DRAFT-STEP-1",
         "timeout_owner_ref": "REF-HOST",
-        "max_visits": null
+        "max_visits": null,
+        "order_no": 17,
+        "condition_rule_ref_kind": "RULE",
+        "trigger_ref_kind": "RULE",
+        "timeout_owner_ref_kind": "ACTOR"
       }
     ],
     "run": [
@@ -4937,7 +6831,8 @@ main{max-width:1240px} [hidden]{display:none!important}
         "scope": {
           "simulation": true,
           "problem": "missing_phone_field"
-        }
+        },
+        "owner_ref_kind": "ACTOR"
       }
     ],
     "round": [
@@ -4955,7 +6850,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "step_id": "DRAFT-STEP-1",
         "attempt_no": 1,
         "state": "STARTED",
-        "outcome": null
+        "outcome": null,
+        "run_id": "SIM-RUN-001",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1"
       },
       {
         "id": "SIM-STEP-RUN-2",
@@ -4963,7 +6860,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "step_id": "DRAFT-STEP-2",
         "attempt_no": 1,
         "state": "READY",
-        "outcome": null
+        "outcome": null,
+        "run_id": "SIM-RUN-001",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1"
       },
       {
         "id": "SIM-STEP-RUN-3",
@@ -4971,7 +6870,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "step_id": "DRAFT-STEP-3",
         "attempt_no": 1,
         "state": "READY",
-        "outcome": null
+        "outcome": null,
+        "run_id": "SIM-RUN-001",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1"
       },
       {
         "id": "SIM-STEP-RUN-4",
@@ -4979,7 +6880,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "step_id": "DRAFT-STEP-4",
         "attempt_no": 1,
         "state": "READY",
-        "outcome": null
+        "outcome": null,
+        "run_id": "SIM-RUN-001",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1"
       },
       {
         "id": "SIM-STEP-RUN-5",
@@ -4987,7 +6890,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "step_id": "DRAFT-STEP-5",
         "attempt_no": 1,
         "state": "READY",
-        "outcome": null
+        "outcome": null,
+        "run_id": "SIM-RUN-001",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1"
       },
       {
         "id": "SIM-STEP-RUN-6",
@@ -4995,7 +6900,9 @@ main{max-width:1240px} [hidden]{display:none!important}
         "step_id": "DRAFT-STEP-6",
         "attempt_no": 1,
         "state": "READY",
-        "outcome": null
+        "outcome": null,
+        "run_id": "SIM-RUN-001",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1"
       }
     ],
     "call": [
@@ -5021,7 +6928,14 @@ main{max-width:1240px} [hidden]{display:none!important}
         "output_data": null,
         "deadline_at": "2026-10-09T12:00:00Z",
         "ack_event_id": null,
-        "return_event_id": null
+        "return_event_id": null,
+        "run_id": "SIM-RUN-001",
+        "round_id": "SIM-ROUND-001",
+        "sent_event_id": "SIM-SENT-001",
+        "schema_version": "TQT-IO-2",
+        "input_fingerprint": "39894e4f595ec378779d242c4d03cca21bfef6683dec6dc6904873adb27b921c",
+        "receiver_ref_kind": "ACTOR",
+        "sender_owner_ref_kind": "ACTOR"
       }
     ],
     "issue": [
@@ -5033,7 +6947,11 @@ main{max-width:1240px} [hidden]{display:none!important}
         "state": "OPEN",
         "resolution": null,
         "review_at": "2026-10-09T12:00:00Z",
-        "close_rule_ref": "REF-CLOSE"
+        "close_rule_ref": "REF-CLOSE",
+        "close_event_id": null,
+        "revision": 1,
+        "owner_ref_kind": "ACTOR",
+        "close_rule_ref_kind": "RULE"
       }
     ],
     "impact": [
@@ -5045,7 +6963,11 @@ main{max-width:1240px} [hidden]{display:none!important}
         "origin_version": "1",
         "case_ref": "REF-CASE-A",
         "goal_result": "UNMET",
-        "decision_ref": null
+        "decision_ref": null,
+        "assessment_id": null,
+        "origin_ref_kind": "SOURCE",
+        "case_ref_kind": "RULE",
+        "decision_ref_kind": "SOURCE"
       },
       {
         "id": "SIM-IMPACT-B",
@@ -5055,24 +6977,1273 @@ main{max-width:1240px} [hidden]{display:none!important}
         "origin_version": "1",
         "case_ref": "REF-CASE-B",
         "goal_result": "UNMET",
-        "decision_ref": null
+        "decision_ref": null,
+        "assessment_id": null,
+        "origin_ref_kind": "SOURCE",
+        "case_ref_kind": "RULE",
+        "decision_ref_kind": "SOURCE"
       }
     ],
     "answer": [
       {
-        "id": "SIM-ANSWER-001",
-        "question_ref": "REF-QUESTION",
+        "id": "SIM-A-PROCESS-Q-LAYER-01",
+        "question_ref": "REF-Q-Q-LAYER-01",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "20ec6bb471a04c66d51c94942a3a47db6131e74fca4d01c33942a03163ff6b10",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-LAYER-02",
+        "question_ref": "REF-Q-Q-LAYER-02",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "5a2042b1504e90dafdd96366a6830d90611570acb110fb6706ec745bfc7cac0e",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-LAYER-03",
+        "question_ref": "REF-Q-Q-LAYER-03",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "bab61757c91a48e7c4192c150c735f82aef50c3cae20b385ab8a80e3ddc9a1fe",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-LAYER-04",
+        "question_ref": "REF-Q-Q-LAYER-04",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "65e6469b6c382725bf1458b4260febd31516bd79cc5bf3d3ce4175a5f655437b",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-LAYER-05",
+        "question_ref": "REF-Q-Q-LAYER-05",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "63f78aff2b04ee49e469549bc105e324bb7ea9ca5640dd454e092ba21aae6d2a",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-MOW-01",
+        "question_ref": "REF-Q-Q-MOW-01",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "417dbac4c899cae985b8335eec7589b5cda1b509077626e87e89f5eb96c4d27e",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-MOW-02",
+        "question_ref": "REF-Q-Q-MOW-02",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "e148ff0252394aef4b82798979a4bf05b64f3201ed0a3d756a474de13bcfd61d",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-MOW-03",
+        "question_ref": "REF-Q-Q-MOW-03",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "f7147979b6ed8c457585d2eefc3065258a715eac7f9189034028dc217bf82877",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-LAYER-06",
+        "question_ref": "REF-Q-Q-LAYER-06",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "1a6a1759fc3dd2683701fe5a4f5fd9ed445b40070ff5bb70b96a5e5901ae899f",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-LAYER-07",
+        "question_ref": "REF-Q-Q-LAYER-07",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "62cfafcaad72cd2251bfbccb3bc9e94dea38a6d29b5532459b4b823055356c76",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-LAYER-08",
+        "question_ref": "REF-Q-Q-LAYER-08",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "9174be3b91d1856279e97beb5e363aacb76d6caa09ae083a4a6e09f378faff09",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-MOW-04",
+        "question_ref": "REF-Q-Q-MOW-04",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "a04411e2ab177c763a8695b81092f93a836fb17938747d9ece6a069da79ebaef",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-MOW-05",
+        "question_ref": "REF-Q-Q-MOW-05",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "5b60d480345b38bdb563eaaed95ed3f07e556e9e54a29c5e2abd7832183566f7",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-MOW-06",
+        "question_ref": "REF-Q-Q-MOW-06",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "45d9a7894b6ebc0ea2efba2ffa25ef6524c3059fea0b832d5c1203fa8078052b",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-MOW-07",
+        "question_ref": "REF-Q-Q-MOW-07",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "41b4d1247dd9a7b6a8209e24877c2e72a497c39fea2ec544bd56e3a400380e8a",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-MOW-08",
+        "question_ref": "REF-Q-Q-MOW-08",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "d7b172efaa8a69a51fb31dbe131aca0c5ecd5b3146dc88d4b200db6bece92dea",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-PROCESS-Q-MOW-09",
+        "question_ref": "REF-Q-Q-MOW-09",
+        "subject_version_id": "DRAFT-MOW-GAP-001-V1",
+        "scope_role": "PROCESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "8235d5accb731ab65cd455b290c20d65f857f32b2910bfef91f89c400926e52a",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-LAYER-01",
+        "question_ref": "REF-Q-Q-LAYER-01",
         "subject_version_id": "DRAFT-MOT-GAP-1-V1",
         "scope_role": "TASK",
         "run_id": "SIM-RUN-001",
-        "answer_key": "SIM-RUN-001:TASK:Q-MOT-08",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "9005ca949718a025ac13cc1efd143d3cd775df6d02cc6133e69dacf91c0a9593",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-LAYER-02",
+        "question_ref": "REF-Q-Q-LAYER-02",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "923ab03f149634dd0fefed5380cc112da4e1118ab456ab7374c1d491080824fc",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-LAYER-03",
+        "question_ref": "REF-Q-Q-LAYER-03",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "ef64d1ac396651da85360f9c600435d52567bcf1180f813ed79347c99b2af965",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-LAYER-04",
+        "question_ref": "REF-Q-Q-LAYER-04",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "dfd557e857ebdbdaae90e9521cc7632706c8be8723d686f59e8bbd5679ec5635",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-LAYER-05",
+        "question_ref": "REF-Q-Q-LAYER-05",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "ca09f927074ab38c75b227f1574c6d6fb41d6c37f4914c48592991df74c18a6a",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-MOT-01",
+        "question_ref": "REF-Q-Q-MOT-01",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "7f55a87d0d79590a80000bbc7f4692ad0fee49a693d78b372808553f678b0e89",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-MOT-02",
+        "question_ref": "REF-Q-Q-MOT-02",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "c9461c1dfc45d07b882b7bbd9e650677d7a3cd5622e6c799801ca98bce153559",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-MOT-03",
+        "question_ref": "REF-Q-Q-MOT-03",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "1d6d46a8823417e88786b9c310298d6aeb89be5cc87e2f8d71d868980e4fcf40",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-LAYER-06",
+        "question_ref": "REF-Q-Q-LAYER-06",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "2d64facb3711ffbcdceba84c8ec44f8dcc019008b81c45f58b8f88bb78dda178",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-LAYER-07",
+        "question_ref": "REF-Q-Q-LAYER-07",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "ac66536b183d52553aebda934e15c182e3d9bb2bcd0eaaaf0ecf18d1914af9ea",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-LAYER-08",
+        "question_ref": "REF-Q-Q-LAYER-08",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "9d6a18bcfa090c9d5eaba3a960238fe547e19806a11a7ad588d0e9dea17f5a55",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-MOT-04",
+        "question_ref": "REF-Q-Q-MOT-04",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "a32e81aef7d1f2dfdcedd1efef1a7b291a2e5877ceed31b2978f3ecba68f81b4",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-MOT-05",
+        "question_ref": "REF-Q-Q-MOT-05",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "43153ef589175986a25a806d1d19cd648d3b2092441826a7cabf42cd803f93fe",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-MOT-06",
+        "question_ref": "REF-Q-Q-MOT-06",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "592214f9862d3f30b1b87c46b3dc454513ff46c25a999698d1936f6c8022b400",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-MOT-07",
+        "question_ref": "REF-Q-Q-MOT-07",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "d4cdfe6fee2e4c2dcac6cc4d6d64f88f23429e81d423df456ac5ed0724ea3a07",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-ANSWER-001",
+        "question_ref": "REF-Q-Q-MOT-08",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "909609c5e996254736a7d293c92a5ad7825d736678e1817ddf3c19d7dd07f169",
         "answer_revision": 1,
         "value": {
           "issue_id": "SIM-ISSUE-001",
           "next_call_id": "SIM-CALL-001",
           "simulation": true
         },
-        "source_ref": "REF-MODEL"
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TASK-Q-MOT-09",
+        "question_ref": "REF-Q-Q-MOT-09",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "TASK",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "6a2bb828f8e25ab4b229c278dedef4021ae17e40d55e4c4067e785fb1e8349c5",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-STEP-01",
+        "question_ref": "REF-Q-Q-STEP-01",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "8ad11f46319f9de337c18488a97f3824211002e3f9ba1abc1d98b2250f93a64f",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-STEP-02",
+        "question_ref": "REF-Q-Q-STEP-02",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "148a9acd76f09e4017274658f349a0af73f469cbc1355c68aab45097f32a4064",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-STEP-03",
+        "question_ref": "REF-Q-Q-STEP-03",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "a884cd999c18597e4cf2b599cd9e6783e45143199ef357360cee5c7810a7623f",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-STEP-04",
+        "question_ref": "REF-Q-Q-STEP-04",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "b196834ef2ef7e8cdb037c2aa2b3c321b7407e1c620f4e989405fd71962d7608",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-CHILD-01",
+        "question_ref": "REF-Q-Q-CHILD-01",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "0e4cb1a54cf60291a26c9b8e7ae2b800ed77f78987e54c176b5e6f17a721241d",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-CHILD-02",
+        "question_ref": "REF-Q-Q-CHILD-02",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "bac1388a34f4e874c38938ad308ea8ef9d708ecc14d5cf7a9d7cc1e643681d76",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-CHILD-03",
+        "question_ref": "REF-Q-Q-CHILD-03",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "50de2190ad573cae4373be7a01bcf8773a49210bba9897b25439c0601281c72d",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-CHILD-04",
+        "question_ref": "REF-Q-Q-CHILD-04",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "c6b93bbacd37a50cd76ec7bd12fc3d130aaccfec8746aa502e700ca789674787",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-LAYER-01",
+        "question_ref": "REF-Q-Q-LAYER-01",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "5934431b8ea996fcf890fb7c588b24d9a8882e1118ccd0a0c8bad4a8ae1ad807",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-LAYER-02",
+        "question_ref": "REF-Q-Q-LAYER-02",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "f8c50c69a6ba533a8a510d7345761fae2bdaf31c35223037b033104bd9a2e210",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-LAYER-03",
+        "question_ref": "REF-Q-Q-LAYER-03",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "ea8bf10968103eabf1adbd29bdc1d024fddb0f5b97454bbeb0b2a6cc5ad182b8",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-LAYER-04",
+        "question_ref": "REF-Q-Q-LAYER-04",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "ddca479b46cd4ad9ae1476eba1db30149e8b3df3310c3442e086fc906cc1f91d",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-LAYER-05",
+        "question_ref": "REF-Q-Q-LAYER-05",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "f45a9fe222e4309b614fa65148a1b443bacb53f331d35103aad1c12d3b5603da",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-CHAIN-01",
+        "question_ref": "REF-Q-Q-CHAIN-01",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "baa026c8b037d027b3f7cc39c5db08cb17aa3df2df13b526b1de59fb111d804e",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-CHAIN-02",
+        "question_ref": "REF-Q-Q-CHAIN-02",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "d9b5c20820a702e34d281fbce922bf02a67a3b5ccc6b77238dac85f2647d35f9",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-CHAIN-03",
+        "question_ref": "REF-Q-Q-CHAIN-03",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "ea11433ed530b53aa7872526b5bea226cf332983360049126a2e45803c787f2f",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-B1-01",
+        "question_ref": "REF-Q-Q-B1-01",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "303ad4ded60fd19d2eda8ad80cb270b73ef97841bb70f6de708d7aeafb427925",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-B1-02",
+        "question_ref": "REF-Q-Q-B1-02",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "4070d3fdf6c24ac98de6d71d5fb747ffe491a81ecd77179d580c062e9383cd2b",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-B1-03",
+        "question_ref": "REF-Q-Q-B1-03",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "9ddfadf283be4aa3acc2b8212d9cbf22529fdae4c73c25c950c937c23210e65b",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-B1.3-01",
+        "question_ref": "REF-Q-Q-B1.3-01",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "d313f3dd494741fdc0e7d44d0756f0dd3ecebd29c392f161c1f5f7431f951d47",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-B1.3-02",
+        "question_ref": "REF-Q-Q-B1.3-02",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "60607759749df8547a071316e83f78c81fa2fc75310562da79375f227b1f7612",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-FIELD-01",
+        "question_ref": "REF-Q-Q-FIELD-01",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "d76fcd79fb67989604700e39872601fa61b8b6d2d90ea58295aeeacf56e9b8c0",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-FIELD-02",
+        "question_ref": "REF-Q-Q-FIELD-02",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "d78ef82ef489483e74438b4bb241cdf10dee0ea4a3cd3fdc50c710d948999fdb",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-FIELD-03",
+        "question_ref": "REF-Q-Q-FIELD-03",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "28dcaee1010692a27fd2fbe03688631eb1e002e0deb624ea8d947e3dd13ee7a0",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-CTCM-01",
+        "question_ref": "REF-Q-Q-CTCM-01",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "b6c837633df399803ed7a6897d35dd5b790f1a91e0da75c89d6fed98ca00384c",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-CTCM-02",
+        "question_ref": "REF-Q-Q-CTCM-02",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "b9d7586c628fadb4a0648706a0b7369c7d219b29217aee12f7b7d18705c1f908",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-CTCM-03",
+        "question_ref": "REF-Q-Q-CTCM-03",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "0007a6022ef9fc378523fe7994c700ea6e798182a1b458cccba47896a0cc711c",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-LAYER-06",
+        "question_ref": "REF-Q-Q-LAYER-06",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "f5ca3df2d26b028b6932f024353433745fdd56e4e59f9e5b22bc1e31973ad0a8",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-LAYER-07",
+        "question_ref": "REF-Q-Q-LAYER-07",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "1fb91f76336d45f151a561113317741b7300ed887062a1b47c1d29776b780a99",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-TARGET-Q-LAYER-08",
+        "question_ref": "REF-Q-Q-LAYER-08",
+        "subject_version_id": "DRAFT-FIELD-PHONE-V1",
+        "scope_role": "TARGET",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "3f05b8161ff0afdb614e4d4788ae90bd62da8d26a0f699c55b38c7bb9f624c8a",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-BUSINESS-Q-UI-01",
+        "question_ref": "REF-Q-Q-UI-01",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "BUSINESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "abf57c2fef72aaa0e000a7cb8b02f1da6c027ca8a71d3cd679e24de2e14522ec",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-BUSINESS-Q-UI-02",
+        "question_ref": "REF-Q-Q-UI-02",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "BUSINESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "3c182af30d5082ee1e9c08621199e495124d7c4c9ee8ed07b2b434d61fb526eb",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-BUSINESS-Q-UI-03",
+        "question_ref": "REF-Q-Q-UI-03",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "BUSINESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "5cf0b2f101b9ab61c308ab7d6e51374125ed4706548713d044545de0b2a935e4",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-BUSINESS-Q-UI-04",
+        "question_ref": "REF-Q-Q-UI-04",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "BUSINESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "ed6b09131339a2a102f33e97b4a83997e25b39333058ae432945ed296f848005",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-BUSINESS-Q-UI-05",
+        "question_ref": "REF-Q-Q-UI-05",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "BUSINESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "13c90dcb67af6325a3d10d04b85ddc47364dba15d1e97af47f978a176d1a556b",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
+      },
+      {
+        "id": "SIM-A-BUSINESS-Q-UI-06",
+        "question_ref": "REF-Q-Q-UI-06",
+        "subject_version_id": "DRAFT-MOT-GAP-1-V1",
+        "scope_role": "BUSINESS",
+        "run_id": "SIM-RUN-001",
+        "declaration_id": "SIM-DECL-001",
+        "answer_key": "a6739d04e46eb714559ef542dfda37485a112871d56ab77e9e1a9b7a7c3f90e3",
+        "answer_revision": 1,
+        "value": {
+          "status": "SIMULATED",
+          "text": "Mẫu kiểm lưu/đọc; chưa là đáp án được duyệt",
+          "simulation": true
+        },
+        "source_ref": "REF-MODEL",
+        "question_ref_kind": "QUESTION",
+        "source_ref_kind": "SOURCE"
       }
     ],
     "assessment": [
@@ -5090,7 +8261,18 @@ main{max-width:1240px} [hidden]{display:none!important}
         "dependency_complete": true,
         "blocker_ref": null,
         "blocker_version": null,
-        "supersedes_id": null
+        "supersedes_id": null,
+        "case_ref": "REF-CASE-A",
+        "origin_ref": "REF-UI-A",
+        "origin_version": "1",
+        "na_reason": null,
+        "na_approver_ref": null,
+        "evidence_ref_kind": "SOURCE",
+        "checker_ref_kind": "ACTOR",
+        "blocker_ref_kind": "SOURCE",
+        "case_ref_kind": "RULE",
+        "origin_ref_kind": "SOURCE",
+        "na_approver_ref_kind": "ACTOR"
       }
     ],
     "dependency": [
@@ -5099,10 +8281,205 @@ main{max-width:1240px} [hidden]{display:none!important}
         "assessment_id": "SIM-ASSESS-001",
         "source_ref": "REF-DEPENDENCY",
         "source_version": "1",
-        "required_level": 3
+        "required_level": 3,
+        "source_ref_kind": "SOURCE"
       }
     ],
-    "event": []
+    "event": [
+      {
+        "id": "SIM-SENT-001",
+        "run_id": "SIM-RUN-001",
+        "call_id": "SIM-CALL-001",
+        "sequence_no": 1,
+        "event_type": "SENT",
+        "actor_ref": "REF-HOST",
+        "at": "2026-10-09T04:00:00Z",
+        "payload": {
+          "issue_id": "SIM-ISSUE-001",
+          "impact_ids": [
+            "SIM-IMPACT-A",
+            "SIM-IMPACT-B"
+          ],
+          "origin_version": "1"
+        },
+        "target_step_run_id": "SIM-STEP-RUN-1",
+        "callee_version_id": "DRAFT-MOT-GAP-2-V1",
+        "assessment_id": null,
+        "issue_id": null,
+        "evidence_ref": null,
+        "actor_ref_kind": "ACTOR",
+        "evidence_ref_kind": "SOURCE"
+      }
+    ],
+    "declaration": [
+      {
+        "id": "SIM-DECL-001",
+        "process_version_id": "DRAFT-MOW-GAP-001-V1",
+        "task_version_id": "DRAFT-MOT-GAP-1-V1",
+        "target_type": "FIELD",
+        "target_context_id": "SIM-FIELD-SEARCH-PHONE",
+        "chain_id": "CH-001",
+        "step_id": "B1.3",
+        "business_ids": [
+          "UI"
+        ],
+        "answer_ids": [
+          "SIM-A-PROCESS-Q-LAYER-01",
+          "SIM-A-PROCESS-Q-LAYER-02",
+          "SIM-A-PROCESS-Q-LAYER-03",
+          "SIM-A-PROCESS-Q-LAYER-04",
+          "SIM-A-PROCESS-Q-LAYER-05",
+          "SIM-A-PROCESS-Q-MOW-01",
+          "SIM-A-PROCESS-Q-MOW-02",
+          "SIM-A-PROCESS-Q-MOW-03",
+          "SIM-A-PROCESS-Q-LAYER-06",
+          "SIM-A-PROCESS-Q-LAYER-07",
+          "SIM-A-PROCESS-Q-LAYER-08",
+          "SIM-A-PROCESS-Q-MOW-04",
+          "SIM-A-PROCESS-Q-MOW-05",
+          "SIM-A-PROCESS-Q-MOW-06",
+          "SIM-A-PROCESS-Q-MOW-07",
+          "SIM-A-PROCESS-Q-MOW-08",
+          "SIM-A-PROCESS-Q-MOW-09",
+          "SIM-A-TASK-Q-LAYER-01",
+          "SIM-A-TASK-Q-LAYER-02",
+          "SIM-A-TASK-Q-LAYER-03",
+          "SIM-A-TASK-Q-LAYER-04",
+          "SIM-A-TASK-Q-LAYER-05",
+          "SIM-A-TASK-Q-MOT-01",
+          "SIM-A-TASK-Q-MOT-02",
+          "SIM-A-TASK-Q-MOT-03",
+          "SIM-A-TASK-Q-LAYER-06",
+          "SIM-A-TASK-Q-LAYER-07",
+          "SIM-A-TASK-Q-LAYER-08",
+          "SIM-A-TASK-Q-MOT-04",
+          "SIM-A-TASK-Q-MOT-05",
+          "SIM-A-TASK-Q-MOT-06",
+          "SIM-A-TASK-Q-MOT-07",
+          "SIM-ANSWER-001",
+          "SIM-A-TASK-Q-MOT-09",
+          "SIM-A-TARGET-Q-STEP-01",
+          "SIM-A-TARGET-Q-STEP-02",
+          "SIM-A-TARGET-Q-STEP-03",
+          "SIM-A-TARGET-Q-STEP-04",
+          "SIM-A-TARGET-Q-CHILD-01",
+          "SIM-A-TARGET-Q-CHILD-02",
+          "SIM-A-TARGET-Q-CHILD-03",
+          "SIM-A-TARGET-Q-CHILD-04",
+          "SIM-A-TARGET-Q-LAYER-01",
+          "SIM-A-TARGET-Q-LAYER-02",
+          "SIM-A-TARGET-Q-LAYER-03",
+          "SIM-A-TARGET-Q-LAYER-04",
+          "SIM-A-TARGET-Q-LAYER-05",
+          "SIM-A-TARGET-Q-CHAIN-01",
+          "SIM-A-TARGET-Q-CHAIN-02",
+          "SIM-A-TARGET-Q-CHAIN-03",
+          "SIM-A-TARGET-Q-B1-01",
+          "SIM-A-TARGET-Q-B1-02",
+          "SIM-A-TARGET-Q-B1-03",
+          "SIM-A-TARGET-Q-B1.3-01",
+          "SIM-A-TARGET-Q-B1.3-02",
+          "SIM-A-TARGET-Q-FIELD-01",
+          "SIM-A-TARGET-Q-FIELD-02",
+          "SIM-A-TARGET-Q-FIELD-03",
+          "SIM-A-TARGET-Q-CTCM-01",
+          "SIM-A-TARGET-Q-CTCM-02",
+          "SIM-A-TARGET-Q-CTCM-03",
+          "SIM-A-TARGET-Q-LAYER-06",
+          "SIM-A-TARGET-Q-LAYER-07",
+          "SIM-A-TARGET-Q-LAYER-08",
+          "SIM-A-BUSINESS-Q-UI-01",
+          "SIM-A-BUSINESS-Q-UI-02",
+          "SIM-A-BUSINESS-Q-UI-03",
+          "SIM-A-BUSINESS-Q-UI-04",
+          "SIM-A-BUSINESS-Q-UI-05",
+          "SIM-A-BUSINESS-Q-UI-06"
+        ],
+        "owner_ref": "REF-HOST",
+        "source_versions": {
+          "REF-MODEL": "1"
+        },
+        "open_issue_ids": [
+          "SIM-ISSUE-001"
+        ],
+        "run_id": "SIM-RUN-001",
+        "step_run_id": "SIM-STEP-RUN-1",
+        "application_key": "CTCM:B1.3:FIELD:PHONE:UI",
+        "owner_ref_kind": "ACTOR",
+        "chain_id_kind": "CHAIN"
+      }
+    ],
+    "grant_scope": [
+      {
+        "id": "SIM-GRANT-ACK",
+        "actor_ref": "REF-HOST",
+        "run_id": "SIM-RUN-001",
+        "permission": "ACK",
+        "rule_ref": "REF-TRANSITION",
+        "enabled": true,
+        "actor_ref_kind": "ACTOR",
+        "rule_ref_kind": "RULE"
+      },
+      {
+        "id": "SIM-GRANT-RETURN",
+        "actor_ref": "REF-HOST",
+        "run_id": "SIM-RUN-001",
+        "permission": "RETURN",
+        "rule_ref": "REF-TRANSITION",
+        "enabled": true,
+        "actor_ref_kind": "ACTOR",
+        "rule_ref_kind": "RULE"
+      },
+      {
+        "id": "SIM-GRANT-CLOSE",
+        "actor_ref": "REF-HOST",
+        "run_id": "SIM-RUN-001",
+        "permission": "CLOSE",
+        "rule_ref": "REF-CLOSE",
+        "enabled": true,
+        "actor_ref_kind": "ACTOR",
+        "rule_ref_kind": "RULE"
+      },
+      {
+        "id": "SIM-GRANT-CHECK",
+        "actor_ref": "REF-HOST",
+        "run_id": "SIM-RUN-001",
+        "permission": "CHECK",
+        "rule_ref": "REF-CLOSE",
+        "enabled": true,
+        "actor_ref_kind": "ACTOR",
+        "rule_ref_kind": "RULE"
+      },
+      {
+        "id": "SIM-GRANT-NA",
+        "actor_ref": "REF-HOST",
+        "run_id": "SIM-RUN-001",
+        "permission": "NA",
+        "rule_ref": "REF-CLOSE",
+        "enabled": true,
+        "actor_ref_kind": "ACTOR",
+        "rule_ref_kind": "RULE"
+      }
+    ],
+    "outbox": [
+      {
+        "id": "SIM-OUTBOX-SENT",
+        "event_id": "SIM-SENT-001",
+        "destination_ref": "REF-HOST",
+        "delivery_key": "SIM-SENT-001:REF-HOST",
+        "payload": {
+          "issue_id": "SIM-ISSUE-001",
+          "impact_ids": [
+            "SIM-IMPACT-A",
+            "SIM-IMPACT-B"
+          ],
+          "origin_version": "1"
+        },
+        "state": "PENDING",
+        "attempts": 0,
+        "destination_ref_kind": "ACTOR"
+      }
+    ]
   },
   "stages": [
     {
@@ -5184,7 +8561,30 @@ main{max-width:1240px} [hidden]{display:none!important}
       "MOIT/MOUT khớp và có nơi nhận/trả, khóa chống trùng",
       "Có timeout/hủy/kết quả muộn và bằng chứng nhận/trả",
       "Quy tắc/ràng buộc đã được thử trên PostgreSQL và môi trường thực tế"
-    ]
+    ],
+    "storage_map": {
+      "declaration_id": "declaration.id",
+      "process_version_id": "declaration.process_version_id",
+      "task_version_id": "declaration.task_version_id",
+      "target_type": "declaration.target_type",
+      "target_context_id": "declaration.target_context_id",
+      "chain_id": "declaration.chain_id",
+      "step_id": "declaration.step_id",
+      "business_ids": "declaration.business_ids",
+      "answer_ids": "declaration.answer_ids",
+      "owner_ref": "declaration.owner_ref",
+      "source_versions": "declaration.source_versions",
+      "open_issue_ids": "declaration.open_issue_ids"
+    },
+    "answer_identity": [
+      "declaration_id",
+      "question_ref",
+      "subject_version_id",
+      "scope_role",
+      "answer_revision"
+    ],
+    "roundtrip": "70 scoped sample answers; SQL export/load/read/render-equality. Values marked SIMULATED, not approved answers. Execution context required; definition-only form uses explicit design run, never NULL run uniqueness.",
+    "target_subject": "TARGET answer.subject_version_id references FIELD definition version; PROCESS/TASK/BUSINESS refer the acting MOW/MOT. Context ID identifies the application, not a substitute for subject version."
   },
   "source_audit": [
     {
@@ -5217,15 +8617,315 @@ main{max-width:1240px} [hidden]{display:none!important}
     }
   ],
   "review": {
-    "tests_passed": 27,
+    "tests_passed": 83,
     "mode": "SIMULATION_ONLY",
     "source": "check-process-model.py",
     "limitations": [
-      "Chưa gọi Master thật hoặc tạo Field",
-      "Chưa kiểm đồng thời/khóa trên PostgreSQL",
-      "Không dùng mô hình nháp làm quyền thực thi"
+      "Chưa đăng ký Master, chưa gọi B3–B7 hoặc tạo Field thật",
+      "SQL/PLpgSQL đã kiểm cú pháp; chưa chạy trên PostgreSQL, chưa kiểm khóa đồng thời/quyền/restore",
+      "70 đáp án là mẫu kiểm lưu trữ, không phải đáp án nghiệp vụ được duyệt",
+      "Guard quét toàn mô hình và khóa thô chỉ phục vụ staging nhỏ; cần truy vấn/khóa theo phạm vi và đo tải trước production",
+      "Gói NOT_FROZEN: chưa có vai DOT/actor tin cậy và dữ liệu được duyệt"
+    ],
+    "reproduction": {
+      "proposal": "TQT-PR-20261009-gptchat-pg-contract-review-05.md",
+      "before": [
+        "close empty accepted",
+        "close unauthorized accepted",
+        "readiness empty accepted",
+        "empty payload accepted"
+      ],
+      "after": "Covered by CONTRACT tests; each negative test asserts its rejection code, not an unrelated failure."
+    }
+  },
+  "io_contract": {
+    "id": "TQT-IO-2",
+    "input": {
+      "id": "TQT-IO-2-IN",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "issue_id",
+        "impact_ids",
+        "origin_version"
+      ],
+      "properties": {
+        "issue_id": {
+          "type": "string",
+          "nullable": false,
+          "minLength": 1
+        },
+        "impact_ids": {
+          "type": "array",
+          "items": "string",
+          "nullable": false,
+          "minItems": 1
+        },
+        "origin_version": {
+          "type": "string",
+          "nullable": false,
+          "minLength": 1
+        }
+      }
+    },
+    "output": {
+      "id": "TQT-IO-2-OUT",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "issue_id",
+        "impact_results",
+        "outcome",
+        "evidence_id"
+      ],
+      "properties": {
+        "issue_id": {
+          "type": "string",
+          "nullable": false,
+          "minLength": 1
+        },
+        "impact_results": {
+          "type": "object",
+          "nullable": false,
+          "additionalValueEnum": [
+            "UNMET",
+            "MET",
+            "NOT_PURSUED"
+          ],
+          "minProperties": 1
+        },
+        "outcome": {
+          "type": "string",
+          "nullable": false,
+          "minLength": 1
+        },
+        "evidence_id": {
+          "type": "string",
+          "nullable": false,
+          "minLength": 1
+        }
+      }
+    },
+    "entry": "Caller creates issue + impacts + run/round/step_run + SENT + outbox in one transaction before calling step 1. Retry reuses logical operation key; input never creates a new Field.",
+    "envelope": {
+      "request_key": "call.request_key",
+      "correlation_id": "call.correlation_id",
+      "schema_version": "call.schema_version",
+      "return_step_run_id": "call.return_step_run_id"
+    },
+    "missing_policy": "REJECT_CONTRACT: no state change and no outgoing event",
+    "late_policy": "Store LATE_RETURN with evidence; no output application to cancelled/expired/completed destination; explicit new call required for another round."
+  },
+  "canonicalization": {
+    "id": "TQT-CANON-1",
+    "algorithm": "SHA-256",
+    "encoding": "UTF-8",
+    "json": "Python json.dumps(sort_keys=True,separators=(comma,colon),ensure_ascii=False,allow_nan=False); integer/string/bool/null only; reject floats; no Unicode normalization",
+    "content": "object_version body + ordered step_def and edge_def arrays; run pins exact version",
+    "input_fingerprint": "canonical {schema_version,callee_version_id,input_data}; same logical key with different hash -> IDEMPOTENCY_CONFLICT"
+  },
+  "enforcement": [
+    {
+      "id": "TQT-R-ACK",
+      "label": "ACK/RETURN đúng loại, người, đích, phiên và thứ tự",
+      "mechanism": "PG deferred constraint trigger + DOT transaction; SQLite snapshot guard for simulation",
+      "error": "TQT-R-ACK",
+      "violation_sql": "SELECT c.id FROM call c LEFT JOIN event s ON s.id=c.sent_event_id LEFT JOIN event a ON a.id=c.ack_event_id LEFT JOIN event r ON r.id=c.return_event_id WHERE\n(c.delivery_state<>'UNSENT' AND (s.id IS NULL OR s.event_type<>'SENT' OR s.call_id<>c.id OR s.run_id<>c.run_id OR s.actor_ref<>c.sender_owner_ref OR s.target_step_run_id<>c.return_step_run_id OR s.callee_version_id<>c.callee_version_id)) OR\n(c.ack_event_id IS NOT NULL AND (a.event_type<>'ACK' OR a.call_id<>c.id OR a.run_id<>c.run_id OR a.actor_ref<>c.receiver_ref OR a.target_step_run_id<>c.return_step_run_id OR a.callee_version_id<>c.callee_version_id OR a.sequence_no<=s.sequence_no OR a.at<s.at OR NOT EXISTS(SELECT 1 FROM grant_scope g WHERE g.actor_ref=a.actor_ref AND g.run_id=c.run_id AND g.permission='ACK' AND g.enabled AND g.rule_ref='REF-TRANSITION'))) OR\n(c.return_event_id IS NOT NULL AND (a.id IS NULL OR r.event_type<>'RETURN' OR r.call_id<>c.id OR r.run_id<>c.run_id OR r.actor_ref<>c.receiver_ref OR r.target_step_run_id<>c.return_step_run_id OR r.callee_version_id<>c.callee_version_id OR r.sequence_no<=a.sequence_no OR r.at<a.at OR r.at>c.deadline_at OR NOT EXISTS(SELECT 1 FROM grant_scope g WHERE g.actor_ref=r.actor_ref AND g.run_id=c.run_id AND g.permission='RETURN' AND g.enabled AND g.rule_ref='REF-TRANSITION')))",
+      "tests": [
+        "wrong_event",
+        "wrong_actor",
+        "wrong_sequence",
+        "return_expired"
+      ],
+      "status": "IMPLEMENTED_DRAFT_NOT_PG_VERIFIED"
+    },
+    {
+      "id": "TQT-R-DEST",
+      "label": "Nhận đúng việc còn hoạt động",
+      "mechanism": "PG deferred constraint trigger + DOT transaction; SQLite snapshot guard for simulation",
+      "error": "TQT-R-DEST",
+      "violation_sql": "SELECT c.id FROM call c JOIN step_run d ON d.id=c.return_step_run_id JOIN run r ON r.id=c.run_id WHERE c.delivery_state IN ('SENT','ACKNOWLEDGED','RETURNED') AND (d.state='DUNG' OR r.state='DUNG' OR (c.delivery_state IN ('SENT','ACKNOWLEDGED') AND (d.state<>'STARTED' OR r.state<>'STARTED')))",
+      "tests": [
+        "cancelled_destination",
+        "wrong_round"
+      ],
+      "status": "IMPLEMENTED_DRAFT_NOT_PG_VERIFIED"
+    },
+    {
+      "id": "TQT-R-DEPS",
+      "label": "Bằng chứng và phụ thuộc đúng phạm vi",
+      "mechanism": "PG deferred constraint trigger + DOT transaction; SQLite snapshot guard for simulation",
+      "error": "TQT-R-DEPS",
+      "violation_sql": "SELECT a.id FROM assessment a WHERE (a.result IN ('PASS','NA') AND (NOT a.dependency_complete OR NOT EXISTS(SELECT 1 FROM dependency d WHERE d.assessment_id=a.id))) OR NOT EXISTS(SELECT 1 FROM grant_scope g WHERE g.actor_ref=a.checker_ref AND g.run_id=a.run_id AND g.permission='CHECK' AND g.enabled) OR (a.result='NA' AND NOT EXISTS(SELECT 1 FROM grant_scope g WHERE g.actor_ref=a.na_approver_ref AND g.run_id=a.run_id AND g.permission='NA' AND g.enabled))",
+      "tests": [
+        "missing_dependency",
+        "na_without_authority"
+      ],
+      "status": "IMPLEMENTED_DRAFT_NOT_PG_VERIFIED"
+    },
+    {
+      "id": "TQT-R-SUPERSEDE",
+      "label": "Một kết luận cuối trên cùng phạm vi; giữ lịch sử",
+      "mechanism": "PG deferred constraint trigger + DOT transaction; SQLite snapshot guard for simulation",
+      "error": "TQT-R-SUPERSEDE",
+      "violation_sql": "SELECT a.id FROM assessment a JOIN assessment b ON b.id=a.supersedes_id WHERE a.id=b.id OR a.answer_id<>b.answer_id OR a.run_id<>b.run_id OR COALESCE(a.step_run_id,'')<>COALESCE(b.step_run_id,'') OR a.case_ref<>b.case_ref OR a.origin_ref<>b.origin_ref OR a.level<>b.level OR a.checked_at<=b.checked_at\nUNION ALL SELECT a.id FROM assessment a JOIN assessment b ON a.id<b.id AND a.answer_id=b.answer_id AND a.run_id=b.run_id AND COALESCE(a.step_run_id,'')=COALESCE(b.step_run_id,'') AND a.case_ref=b.case_ref AND a.origin_ref=b.origin_ref AND a.level=b.level WHERE NOT EXISTS(SELECT 1 FROM assessment x WHERE x.supersedes_id=a.id) AND NOT EXISTS(SELECT 1 FROM assessment x WHERE x.supersedes_id=b.id)",
+      "tests": [
+        "competing_assessment",
+        "wrong_supersession"
+      ],
+      "status": "IMPLEMENTED_DRAFT_NOT_PG_VERIFIED"
+    },
+    {
+      "id": "TQT-R-IMPACT",
+      "label": "Đạt phải có ca kiểm tại đúng nơi/phiên",
+      "mechanism": "PG deferred constraint trigger + DOT transaction; SQLite snapshot guard for simulation",
+      "error": "TQT-R-IMPACT",
+      "violation_sql": "SELECT i.id FROM impact i LEFT JOIN assessment a ON a.id=i.assessment_id JOIN issue x ON x.id=i.issue_id WHERE i.goal_result='MET' AND (a.id IS NULL OR a.result<>'PASS' OR a.validity<>'CURRENT' OR a.run_id<>x.process_run_id OR a.origin_ref<>i.origin_ref OR a.origin_version<>i.origin_version OR a.case_ref<>i.case_ref OR a.level<3 OR EXISTS(SELECT 1 FROM dependency d WHERE d.assessment_id=a.id AND d.required_level>a.level) OR EXISTS(SELECT 1 FROM assessment n WHERE n.supersedes_id=a.id) OR EXISTS(SELECT 1 FROM event e WHERE e.event_type='INVALIDATE' AND e.assessment_id=a.id))",
+      "tests": [
+        "met_without_proof",
+        "wrong_origin",
+        "old_result"
+      ],
+      "status": "IMPLEMENTED_DRAFT_NOT_PG_VERIFIED"
+    },
+    {
+      "id": "TQT-R-CLOSE",
+      "label": "Đóng có quyền, đủ nơi, bằng chứng và bàn giao",
+      "mechanism": "PG deferred constraint trigger + DOT transaction; SQLite snapshot guard for simulation",
+      "error": "TQT-R-CLOSE",
+      "violation_sql": "SELECT i.id FROM issue i LEFT JOIN event e ON e.id=i.close_event_id LEFT JOIN run r ON r.id=i.process_run_id WHERE i.state='CLOSED' AND (e.id IS NULL OR e.event_type<>'CLOSE' OR e.issue_id<>i.id OR e.run_id<>i.process_run_id OR e.evidence_ref IS NULL OR NOT EXISTS(SELECT 1 FROM grant_scope g WHERE g.actor_ref=e.actor_ref AND g.run_id=i.process_run_id AND g.permission='CLOSE' AND g.rule_ref=i.close_rule_ref AND g.enabled) OR NOT EXISTS(SELECT 1 FROM impact p WHERE p.issue_id=i.id) OR (i.resolution='RESOLVED' AND EXISTS(SELECT 1 FROM impact p WHERE p.issue_id=i.id AND p.goal_result<>'MET')) OR r.state<>'XONG' OR r.outcome IS NULL OR r.outcome<>i.resolution OR EXISTS(SELECT 1 FROM call c WHERE c.run_id=i.process_run_id AND c.delivery_state IN ('UNSENT','SENT','ACKNOWLEDGED')) OR NOT EXISTS(SELECT 1 FROM outbox o WHERE o.event_id=e.id))",
+      "tests": [
+        "empty_close",
+        "unauthorized_close",
+        "close_unmet",
+        "close_without_outbox"
+      ],
+      "status": "IMPLEMENTED_DRAFT_NOT_PG_VERIFIED"
+    },
+    {
+      "id": "TQT-R-MASTER",
+      "label": "Đăng ký Master đúng loại/bản ghi đã xác minh",
+      "mechanism": "PG deferred constraint trigger + DOT transaction; SQLite snapshot guard for simulation",
+      "error": "TQT-R-MASTER",
+      "violation_sql": "SELECT d.id FROM object_def d JOIN reference m ON m.id=d.master_id JOIN reference r ON r.id=d.master_record_id WHERE d.registration='REGISTERED' AND (NOT m.verified OR NOT r.verified OR r.master_id<>m.id OR r.object_kind<>d.kind OR r.code<>d.code)",
+      "tests": [
+        "fake_master"
+      ],
+      "status": "IMPLEMENTED_DRAFT_NOT_PG_VERIFIED"
+    },
+    {
+      "id": "TQT-R-CHILD",
+      "label": "Phiên con đúng lời gọi",
+      "mechanism": "PG deferred constraint trigger + DOT transaction; SQLite snapshot guard for simulation",
+      "error": "TQT-R-CHILD",
+      "violation_sql": "SELECT c.id FROM call c JOIN run r ON r.id=c.child_run_id WHERE r.process_version_id<>c.callee_version_id",
+      "tests": [
+        "wrong_child_version"
+      ],
+      "status": "IMPLEMENTED_DRAFT_NOT_PG_VERIFIED"
+    }
+  ],
+  "transaction_protocol": {
+    "id": "TQT-TX-2",
+    "isolation": "SERIALIZABLE; whole transaction retry on SQLSTATE 40001/40P01 with same operation key and payload hash; bounded retry -> owner alert",
+    "lock_order": [
+      "issue row FOR UPDATE",
+      "run row FOR UPDATE",
+      "call row FOR UPDATE"
+    ],
+    "issue_race": "add-impact and close both lock issue; after close reject new impact and require explicit reopen transaction; no silent insertion",
+    "outbox": "event + state change + outbox in same transaction; dispatcher retries same event/delivery_key; downstream inbox keyed by call logical key + input hash; external side effects require receiver idempotency",
+    "claim": "conditional SENT -> ACKNOWLEDGED under call row lock; loser reads same claim, cannot change receiver",
+    "late": "cancel changes active calls to EXPIRED in same transaction; late return persists LATE_RETURN only",
+    "permissions": "No direct worker DML. Draft package revokes PUBLIC writes/execute. Staging must bind least-privilege DOT role and trusted actor identity; never trust actor_ref supplied by agent. Role binding remains OPEN.",
+    "simulation_boundary": "Global invariant queries and a coarse advisory lock are a correctness prototype for small staging; NOT a scale design accepted for production. Before production replace with affected-row queries and per-issue/run locks, preserve rule tests and benchmark representative volume.",
+    "history": "object_version, step_def, edge_def, reference, answer, assessment, dependency and event append-only; current assessment excludes superseded rows; invalidation stored as event; no run migration by editing version FK",
+    "staging_cases": [
+      "two simultaneous claims",
+      "close vs add impact",
+      "retry after commit before send",
+      "same operation key changed payload",
+      "cancel vs late return",
+      "serialization retry and restore"
     ]
-  }
+  },
+  "package": {
+    "id": "TQT-PG-PACK-2",
+    "state": "NOT_FROZEN",
+    "target_pg_major": null,
+    "schema_only_default": true,
+    "sample_flag": "--include-simulation",
+    "freeze_requires": [
+      "approved Master mapping",
+      "trusted DOT role and actor mapping",
+      "contract and negative tests pass",
+      "PostgreSQL staging concurrency/restore",
+      "reviewed data manifest without DRAFT/SIM for production"
+    ],
+    "rollback": "Uncommitted import rolls back. Committed staging package restored into a fresh isolated schema from manifest; compare logical dump/hash before switching. No DROP production or overwrite approved versions.",
+    "runtime_status": "Guards emitted; DOT endpoints/role binding and PG verification still OPEN",
+    "accepted_proposal": "05: accept contract/enforcement/persistence/concurrency/history gaps; keep six UI boxes and question SSOT. No PG execution or Master registration claimed.",
+    "files": {
+      "source": "view.html#tqt-process-model",
+      "generator": "check-process-model.py",
+      "schema": "--emit-pg <path> (no sample rows)",
+      "simulation": "--include-simulation (explicit DRAFT/SIM)",
+      "manifest": "--report <path> includes model/sql hash and test cases",
+      "trace": "--trace <path> persisted six-stage/refusal/cancel scenarios",
+      "restore": "SQLite logical dump roundtrip tested; PostgreSQL fresh-schema restore remains staging gate"
+    }
+  },
+  "contract_enforcement": [
+    {
+      "id": "TQT-R-TYPED-FK",
+      "data": "reference.kind; object_version.kind; edge/step/run/round anchors",
+      "enforce": "Generated constant discriminator CHECK + composite FK",
+      "reject": "23503 / 23514",
+      "test": "wrong actor kind; MOW as MOT; wrong round; fake Master"
+    },
+    {
+      "id": "TQT-R-CONTRACT",
+      "data": "io_contract; call.input_data/output_data; edge.mapping",
+      "enforce": "Python validate_contracts + PG tqt_payload_ok/tqt_assert_graph; mapping checked before export",
+      "reject": "TQT-R-CONTRACT-* / TQT-R-MAPPING-*",
+      "test": "missing/null/type/empty/wrong source/version/scope"
+    },
+    {
+      "id": "TQT-R-CANON",
+      "data": "version hash; call fingerprint; answer canonical key",
+      "enforce": "Python canonical + generated PG tqt_canon; roundtrip hash parity still needs PG staging",
+      "reject": "TQT-R-FINGERPRINT / TQT-R-VERSION-HASH / TQT-R-ANSWER-KEY",
+      "test": "changed payload; arbitrary answer key; reject float"
+    },
+    {
+      "id": "TQT-R-DECL",
+      "data": "declaration fields + answer identities",
+      "enforce": "FK/UNIQUE + Python/PG scope and membership guard",
+      "reject": "TQT-R-DECL-* / TQT-R-ANSWER-SCOPE",
+      "test": "70 application roundtrip; SQL dump reload; two applications separate"
+    },
+    {
+      "id": "TQT-R-IMMUTABLE",
+      "data": "version/steps/edges/reference/declaration/answer/assessment/dependency/event; run pinned version",
+      "enforce": "PG BEFORE UPDATE/DELETE triggers + simulator check_history",
+      "reject": "TQT-R-IMMUTABLE / TQT-R-PINNED-VERSION",
+      "test": "overwrite evidence/version fails atomically"
+    },
+    {
+      "id": "TQT-R-IDEMPOTENCY",
+      "data": "call.run_id/callee_version_id/request_key/input_fingerprint; event/outbox IDs",
+      "enforce": "UNIQUE plus DOT request lookup/conflict; transaction protocol defined, live DOT adapter OPEN",
+      "reject": "TQT-R-IDEMPOTENCY-CONFLICT",
+      "test": "retry same/different payload; repeat ACK/RETURN"
+    },
+    {
+      "id": "TQT-R-ATOMIC",
+      "data": "issue/impact/run/call/event/outbox",
+      "enforce": "SERIALIZABLE+locks+deferred guards; no public DML grants; trusted DOT role and inbox/outbox dispatcher OPEN",
+      "reject": "23514; 40001/40P01 whole transaction retry",
+      "test": "rollback no partial event; late result; close/new-impact order simulation; real concurrent sessions OPEN"
+    }
+  ]
 }</script>
 <script id="tqt-composite-processes" type="application/json">{
   "schema": "TQT-COMPOSITE-PROCESSES-1",
@@ -5783,12 +9483,12 @@ main{max-width:1240px} [hidden]{display:none!important}
     "issue": {
       "id": "TQT-ISS-007",
       "title": "Quy trình tổng hợp chưa nối vào Master và vòng xử lý khép kín",
-      "state": "Mở · đang thiết kế",
+      "state": "Mở · mô phỏng v2; gói PG chưa đóng băng",
       "owner": "Astra Codex · Host",
-      "next": "Đối chiếu/chốt quan hệ gọi MOW; hoàn tất một ca thiếu Field qua nơi nhận, B3–B7 và kiểm lại nơi phát hiện.",
+      "next": "Chốt mapping Master/quyền DOT và phiên PG; nối adapter nhận/trả; kiểm đồng thời, hash parity, restore và tải trên staging qua DOT trước ca thật.",
       "review": "Lượt tiếp tục tools-quy-trinh; trước mọi tuyên bố quy trình này đã đăng ký hoặc vận hành.",
       "done": "Có mã Master/quan hệ hợp lệ; mỗi nhánh có nơi nhận, chủ trách nhiệm, chỗ ghi và tiêu chí xong; một ca đi hết có bằng chứng. Giao diện/bộ câu hỏi mới không đủ để đóng.",
-      "evidence": "FORMULA-AI-README §D158/§6; CT-005/005.1; view.html tqt-composite-processes; rà nguồn Host 09/10/2026. OPEN-10 là ca sản phẩm liên quan, không đổi trạng thái của nó ở đây."
+      "evidence": "FORMULA-AI-README §D158/§6; CT-005/005.1; view.html tqt-composite-processes; rà nguồn Host 09/10/2026. OPEN-10 là ca sản phẩm liên quan, không đổi trạng thái của nó ở đây. Host tiếp nhận proposal05: model v2, 83 ca mô phỏng; phiếu 70 lượt roundtrip; sáu ô có bản ghi SENT/ACK/RETURN/kiểm/đóng; SQL và PL/pgSQL kiểm cú pháp. Chưa PG/B3–B7 thật; guard quét toàn mô hình chỉ cho staging nhỏ."
     }
   }
 }</script>
@@ -5834,11 +9534,11 @@ document.getElementById('tqt-process-model-view').innerHTML=
  examples.map(x=>'<tr><td>'+e(x[0])+'</td><td>'+e(x[1])+'</td></tr>').join('')+
  '</tbody></table></div><p>Ví dụ cách hiển thị, không phải kết quả chạy thật của quy trình này. Không đạt vẫn có thể còn hiệu lực; bị chặn chỉ chạy lại khi điều kiện mở chặn đổi.</p>','tqt-model-result')+
  fold('5 · Đã kiểm mô hình đến đâu?',
- '<p><b>'+e(M.review_status)+'</b></p><p>Đã kiểm mã/khóa, nhập–đọc lại quan hệ trong SQLite, bốn đường đi, gửi trùng, trả nhầm/hủy, nhiều nơi phát hiện, hiệu lực nguồn và vòng lặp có giới hạn.</p>'+
+ '<p><b>'+e(M.review_status)+'</b></p><p>Đã kiểm ca sai, đọc lại đủ 70 lượt trả lời, và lưu đường đi sáu ô với sáu lần nhận/trả, hai nơi kiểm lại rồi đóng. Nhánh từ chối và hủy/trả muộn có bản ghi riêng. Đây là mô phỏng, chưa gọi hệ thật.</p>'+
  ul(M.review.limitations)+'<p>Không coi số phép kiểm đạt là nghiệm thu nghiệp vụ hay chứng minh tải lớn. Còn phải kiểm PostgreSQL và một ca thực tế có quyền.</p>','tqt-model-check')+
  fold('6 · Đưa nguyên gói sang PG · chi tiết cho AI',
- '<p>'+e(M.pg.import)+'</p><p>'+e(M.pg.scaling)+'</p>'+ul(M.pg.open)+
- '<p>SQL sinh từ chính khai báo dưới đây, giữ nguyên mã/FK; không duy trì bản SQL sửa tay song song. Bộ kiểm: <code>check-process-model.py view.html --emit-pg /tmp/tqt-draft.sql</code>. Chưa tự chạy SQL lên PG.</p>'+
+ '<p><b>Chưa đóng băng gói PG.</b> Cần chốt Master, quyền DOT và kiểm PostgreSQL thật.</p><p>'+e(M.pg.import)+'</p><p>'+e(M.pg.scaling)+'</p>'+ul(M.pg.open)+ '<p><b>Luật → nơi chặn → ca kiểm:</b></p>'+ul(M.enforcement.map(r=>r.id+' · '+r.label+' · '+r.mechanism).concat(M.contract_enforcement.map(r=>r.id+' · '+r.enforce)))+
+ '<p>SQL sinh từ chính khai báo dưới đây, có khóa ghép và luật từ chối. Mặc định chỉ xuất schema/guard; muốn xuất dữ liệu mẫu phải dùng --include-simulation. Không duy trì bản SQL sửa tay song song. Bộ kiểm: <code>check-process-model.py view.html --emit-pg /tmp/tqt-draft.sql</code>. Chưa tự chạy SQL lên PG.</p>'+
  '<div class="wrap"><table><thead><tr><th>Bảng bản ghi</th><th>Quản lý</th><th>Khóa ngoại</th></tr></thead><tbody>'+
  M.tables.map(t=>'<tr><td>'+e(t.name)+'</td><td>'+e(t.label)+'</td><td>'+e(t.foreign_keys.map(f=>f.columns.join('+')+' → '+f.table).join('; ')||'—')+'</td></tr>').join('')+
  '</tbody></table></div><textarea id="tqt-model-json" aria-label="Gói mô hình có mã và khóa" readonly style="width:100%;min-height:260px;box-sizing:border-box"></textarea>','tqt-model-pg');
