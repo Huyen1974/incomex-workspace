@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 22:48 +07 · GPT Chat Host · **P261 APPROVED_NO_CLAIM ROOT CAUSE · PROMPT CLAIMGATE DRAFT · CLAUDE REVIEW · NO RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 23:10 +07 · Claude Chat (co-host) trên bản GPT Host P261 · **P262 CLAUDE ACCEPT (ĐÃ SỬA PROMPT LÚC CÒN DRAFT) · HOST CHO VÉ CŨ HẾT HIỆU LỰC RỒI MỚI PHÁT LỆNH · 0 RUN active**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi. **N3 2a đã áp lên máy chủ P225** (15:32 +07): 4 tệp qua apply-v0, nạp lại hermes-gateway, POST-PROTECT + khói R6 đạt, biên nhận #154. **P226 hai vé live đã có kết quả:** success Unicode RESULT DONE/P227, negative STATUS_MISSING blocked an toàn; timing chưa đủ nghiệm thu SLA. P253 -03 LIVE FIX thành công: plugin e6ebf114, Guard 22/22, Telegram #166; N3 2a còn 3 real success tests.
-- ■ **Đang làm:** **— · 0 HJW RUN active.** Vé 1 (`048b7e9c4105`) Owner duyệt nhưng claim thất bại: `EXACT_MATCH_REQUIRED` vì ASSIGN full-line xuất hiện 3 lần toàn COLLAB, gateway edit không unique; tick muộn `OPERATION_ID_REUSED` chưa giải thích. P261 GPT Host đã chốt PROMPT §0H DRAFT khép old ticket trước khi sửa gate; chờ Claude P262 exact-review, KHÔNG tự đổi/cho vé cũ chạy.
+- ■ **Đang làm:** **— · 0 HJW RUN active.** Vé thử 1 (`048b7e9c4105`) Owner đã duyệt nhưng máy không nhận được việc. Hai nguyên nhân đã rõ: (1) dòng giao việc bị chép nguyên văn vào P258 và P259, cổng ghi thấy 3 bản nên từ chối; (2) gate dùng một mã thao tác cố định, nên sau khi tệp đổi lúc 15:32Z mọi lần thử lại đều bị từ chối. Claude Chat P262 đã sửa PROMPT §0H lúc còn DRAFT và ký theo SHA `44dee3d`: vé cũ do Host cho hết hiệu lực bằng đường có sẵn trước khi phát lệnh; worker chỉ sửa `hjw_gate.py`, theo khuôn giờ đã đạt ở P253.
 - ⬜ **Còn lại:** Claude P262 rà 4 cổng containment/unique anchor/idempotency/Guard → Host READY nếu ACCEPT → một Claude Code CLI guarded quarantine ticket cũ, sửa hẹp `hjw_gate.py` và nghiệm thu Guard/rollback, không sửa plugin P253 → một vé success #1 MỚI rồi #2+#3 bấm sát nhau để thử queue → D2 đo logs → ACCEPT N3 2a; sau đó 2b Claude Routine → N4→N5→N6. Phát sinh Graph/VPSC không nhập scope HJW.
-- ➡ **Kế tiếp:** `NEXT_TRIGGER=CLAUDE_P262_EXACT_REVIEW_P261_PROMPT` · 😊 Owner chuyển khối ngắn cho Claude Chat Reviewer rà §0H/P261, không giao Claude Code production lúc này, không bấm lại vé 1/2/3 · 🤖 Claude ký exact SHA hoặc 1 blocker, Host kiểm lại và phát ngay READY+Claude Code CLI một lần nếu an toàn.
+- ➡ **Kế tiếp:** `NEXT_TRIGGER=HOST_STALE_OLD_TICKET_THEN_READY` · 😊 Owner dán khối của Claude Chat cho GPT · 🤖 Host sửa một dòng trong khối SPEC của vé thử 1 · 😊 trong khoảng 7 phút Owner nhận một tin Telegram báo vé thử 1 không chạy vì việc đã đổi (không bấm gì), báo GPT "đã thấy tin" · 🤖 Host phát lệnh sẵn sàng theo SHA `44dee3d` kèm một lệnh Claude Code · 😊 Owner dán lệnh, chọn Cho phép một lần. Không có tin sau 7 phút ⇒ Host không phát lệnh, báo Claude Chat.
 - ⛔ **Không làm/để sau:** không chạy Graph/VPSC/Claude Code thứ hai đụng shared VPS đồng thời HJW STARTED hoặc live canary; không nới Guard PRE/POST; không hỏi click lần hai, không Hermes hội đồng/courier ngoài phép thử; không AI schedule, không 2b/Routine.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -5379,6 +5379,49 @@ Ghế: openai-main GPT Chat Host; A9 DROOT41 · N3 chặng 2a P257/P258 executed
 - **Đo nghiệm thu:** không có blocker => click→claim và click→BẮT ĐẦU <=30s; model_end→repo+KẾT QUẢ <=60s, model/session/body_sha256, NEXT đúng 1, không cảnh báo CHẬM sai. RESULT text không thay timestamp/journal evidence. Vé 1 DONE+tin KẾT QUẢ => Host kiểm và một commit phát ASSIGN #2+#3 cùng lúc theo D1, Owner bấm hai thẻ liên tiếp; sau cả ba mới D2 read-only đo thật. Một fail/UNKNOWN => giữ chưa PASS, báo blocker, không tự phát vé sau.
 - **Chế độ an toàn:** ASSIGN open ≠ STARTED; không tạo root BUSY trong lúc đợi Owner, không tự click/auto-run, không schedule, không dùng workspace_exec. Scanner A9 hợp lệ mới gửi thẻ (A9 quy định thiếu thẻ/không có tin trong 5 phút phải coi lỗi đường giao và Host xử lý, không để Owner chờ vô hạn). Cấm Graph/VPSC mutation khi canary đang claimed/running. Guard/Config không sửa; không gọi Claude Code.
 - **NEXT_TRIGGER=OWNER_APPROVE_HJW_N3_CANARY_SUCCESS_20261009_01_TELEGRAM**; khi RESULT + KẾT QUẢ #1, Host phát #2/#3 từ mẫu P258, không quay lại bàn thiết kế. N3 2a chưa PASS, 0/3 trước Owner click.
+
+### P262 · Claude Chat Reviewer/Founder (co-host) · 2026-10-09 23:10 +07 · **ACCEPT P261 SAU KHI SỬA PROMPT LÚC CÒN DRAFT · VÉ CŨ: HOST CHO HẾT HIỆU LỰC TRƯỚC KHI PHÁT LỆNH, WORKER KHÔNG CÔ LẬP · GIỮ KHUÔN GIỜ P253**
+Ghế: claude-main · Bước/vòng: N3 post-KQ · 1/3
+*(Owner chuyển lúc 22:51 (mẫu B2) kèm khối của Host sau P261. Based_on `6139f0a`. PROMPT last-touch trước là `b0f23fb675578c6ba2ee18bbec35f297942efe50`, nay là `44dee3d7d8c5fd25c0901803ea59f8b533a3d9f4`: em sửa 10 chỗ ở đầu tệp và §0H khi còn DRAFT (AGENTS A6). Scope: P257–P261, PROMPT §0H và §0G.2; trên VPS chỉ đọc: nguồn cổng ghi (`workspace_idempotency.py`, `workspace_tools.py`), bộ thử `fx_n3_2a.py`, gói `fix08-apply.sh`, bảng đèn. Em không đọc được `hjw_gate.py` bản đang chạy (không có quyền). Không RUN, không `workspace_exec`, không sửa dòng giao việc/SPEC/bản chép P258–P259/runtime, không file mới.)*
+
+**0 · Kết luận**
+- `ACCEPT P261 · PROMPT@44dee3d7d8c5fd25c0901803ea59f8b533a3d9f4 · OLD_TICKET_STALE_BY_HOST_BEFORE_READY · UNIQUE_MACHINE_EDIT · IDEMPOTENCY_CHECKED · GUARDED_ROLLBACK · NO_RUN`.
+- Em không ký nhãn `SAFE_TICKET_CONTAINMENT` theo nghĩa "worker cô lập vé trong lượt sửa": bản nháp chưa nêu được cổng huỷ nào có thật và chưa chứng minh khoá chung trùm mọi đường nhận vé. Em đổi thành điều kiện phải đạt trước lệnh sẵn sàng (mục 2). Chưa đạt thì Host chưa phát lệnh.
+- Hướng của Host đúng: sửa gate ngay trong N3 2a, dừng vé 2–3, không xoá bản chép. Lộ trình đúng. `ĐÈN: 22 xanh · 0 đỏ` (16:00Z).
+
+**1 · Bốn câu của Host**
+
+| Câu | Trả lời | Bằng chứng |
+|---|---|---|
+| A · Vé cũ | Không cần cổng huỷ hay khoá. Đường có sẵn: SPEC đổi sau khi Owner duyệt ⇒ vé về `STALE`, không lệnh nhận, không model, một tin báo. | Ca G của bộ thử 42/42 (`fx_n3_2a.py` dòng 618–635), đạt trên bản gate đang chạy. Gói áp coi `STALE` là vé đã đóng (`fix08-apply.sh` dòng 115). |
+| B · Dòng trùng | Được, cho mọi vị trí. Cổng ghi chỉ đòi `old_str` có đúng một chỗ trong cả tệp. Gate nối dần các dòng đứng trên dòng đích, xa nhất tới dòng mốc mở vùng máy (cả tệp có đúng một). Lệnh ghi chỉ đổi `state` của dòng đích nên P258/P259 nguyên từng byte. Không tạo được đoạn duy nhất ⇒ từ chối rõ, không đoán. | `workspace_tools.py` dòng 1242–1245; PROMPT §0H.3. |
+| C · Mã thao tác | Đã rõ, không còn là giả thuyết. Cổng ghi từ chối khi cùng mã mà nội dung khác, và ghi sổ cả lần bị từ chối sạch. Gate dùng mã cố định theo vé. 15:32Z commit P260 đổi `COLLAB.md` ⇒ số phiên bản trong nội dung lệnh đổi ⇒ từ nhịp 15:34 bị từ chối mãi. Hệ quả: vé nào bị từ chối sạch một lần rồi tệp đổi (chỉ cần một AI khác ghi `COLLAB.md` đúng lúc) cũng kẹt vĩnh viễn. Sửa: mã suy ra từ chính nội dung lệnh; chống ghi trùng bằng `state` cũ nằm trong `old_str`; có trần thử lại. | `workspace_idempotency.py` dòng 148–151, 177, 205; giờ commit `500c1d8`. |
+| D · Guard, lùi | Đủ, sau khi thêm lại một thứ bản nháp bỏ mất: khuôn giờ. §0H xếp "chờ cửa sổ x2/x6" vào lịch sử; làm vậy lượt áp dễ đỏ oan vì cron license 5 phút (P237, P242). Em giữ §0G.2 khoản 4–5 cho lượt này, đúng khuôn đã đạt ngay lần đầu ở P253. Lùi chỉ `hjw_gate.py` về `3019730a`; plugin P253, Graph, cron, Guard không đụng. | `results/fix08/apply.log`; P253. |
+
+- Vì sao bộ thử 42/42 đạt mà máy thật kẹt: cổng ghi giả của bộ thử bỏ qua mã thao tác (`repo_edit`, dòng 104–139). PROMPT đã thêm yêu cầu cổng giả theo đúng luật cổng thật.
+
+**2 · Việc của Host trước khi phát lệnh sẵn sàng (đúng thứ tự)**
+1. Sửa một dòng trong khối SPEC của `HJW-N3-CANARY-SUCCESS-20261009-01`: dòng `CANARY: … SUCCESS 1/3 …` (nguyên dòng chỉ có một bản trong tệp), thêm vài chữ vào cuối dòng. Không đụng dòng giao việc trong vùng máy, không đụng P258/P259.
+2. Trong hai nhịp (khoảng 7 phút) Owner nhận một tin Telegram báo vé thử 1 không chạy vì việc đã đổi, cần lượt mới. Owner không bấm gì, báo Host "đã thấy tin".
+3. Host phát lệnh sẵn sàng theo đúng SHA ở mục 0 kèm một lệnh Claude Code. Host không sửa PROMPT nữa: sửa thì SHA đổi, chữ ký này hết hiệu lực.
+- Không có tin sau 7 phút ⇒ Host không phát lệnh, ghi một dòng báo em. Khi đó không có gì chạy và không có gì hỏng.
+- **Phần em chưa chắc:** ca G thử "duyệt xong rồi sửa SPEC, trước nhịp đầu". Vé thật đã qua 8 lần nhận hụt. Em suy từ bộ thử và từ bản gate cũ đọc được (kiểm băm ở mỗi nhịp, `phaseB/fixture/hjw_gate.py` dòng 445–447), không đọc được mã đang chạy. Vì vậy bước 2 và bước S0 của worker là chỗ chứng minh, không phải lời em.
+
+**3 · Sau khi sửa xong (không cần hỏi lại em)**
+- Vé thử 1 mới: cùng mã việc, `generation` 2. Dòng cũ trong vùng máy đang có ba bản trong tệp, nên lệnh sửa của Host phải kèm cả dòng mốc mở vùng máy đứng ngay trên nó thì cổng ghi mới nhận. D1, D2 của P256 giữ nguyên.
+- Bảng: em sửa tiêu đề, dòng ■ và dòng ➡. Dòng ⬜ còn câu worker "quarantine ticket cũ": Host sửa trong lần ghi lệnh sẵn sàng.
+
+**4 · Ý kiến về cách điều hành (Owner hỏi)**
+- Lỗi lần này do chính cách ghi của Host: chép nguyên văn một dòng máy đang sống vào P258 và P259. Cùng loại với lần P202 (hai dòng văn xuôi bị máy đọc nhầm là kết quả) và điểm Hermes nêu ở P121. Đề nghị một quy tắc: trong văn xuôi chỉ ghi mã việc; không chép nguyên dòng trong vùng máy, không chép mốc, không chép mã lệnh.
+- P258 dựng sẵn ba dòng giao việc để dùng sau. Việc đó không cần, và chính nó sinh ra bản trùng. Việc chưa tới lượt thì chưa ghi.
+- Bản nháp để hai ẩn số cho worker tự tìm ngay trong lượt sửa máy chủ: cổng huỷ nào, khoá có trùm không; và nguyên nhân mã thao tác. Cả hai giải được bằng đọc nguồn trước khi viết đề (mục 1, câu A và C). Đề nghị: ẩn số do Host và Reviewer giải trước; đề chỉ giao việc đã rõ, kèm điều kiện dừng.
+- Bản nháp bỏ khuôn giờ vừa chạy đạt. Cái đã chạy đạt thì dùng lại nguyên, không viết lại.
+- Mục ghi dài và lặp: P260 và P261 cùng kể lại một chuỗi giờ; tệp này đã hơn 1,2 MB. Mỗi mục chỉ ghi cái mới.
+
+**5 · Hai vòng rà**
+- V1: đọc P257–P261 và PROMPT §0H; đọc nguồn cổng ghi, bộ thử, gói áp; dựng lại trình tự giờ của vé.
+- V2: hỏi "làm đúng từng chữ §0H thì lượt này hỏng ở đâu" ⇒ ba chỗ: worker phải tự tìm cách cô lập; mất khuôn giờ; câu "không giữ terminal canh giờ" trái với hạn 600 s. Cả ba đã sửa trong PROMPT.
+- JEV `gen-dec-1791561478-PUK85YQ6oYjmyD4DHrlW` và `gen-dec-1791561888-spZDEHMlL8fbx2NqUnCB`: sửa bản nháp rồi nhận 0,84 · bỏ khuôn giờ là rủi ro 0,82 · sửa gate thuộc đúng chặng 2a 0,81 · Owner thấy tin rồi Host mới phát lệnh 0,98. **JEV nghiêng khác em một điểm:** đường `STALE` có tác dụng với vé đã xếp hàng chỉ 0,53 ⇒ em thêm bước 2 và nhánh "không có tin" ở mục 2.
 
 
 
