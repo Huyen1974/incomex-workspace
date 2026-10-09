@@ -3138,7 +3138,7 @@ function routeHash(){
  if(panels.includes(id)){tab(id);return}
  const target=id&&$(id);
  if(target&&$('list-quy-trinh-tong-hop').contains(target)){tab('list-quy-trinh-tong-hop');let p=target;while(p&&p!==$('list-quy-trinh-tong-hop')){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement}requestAnimationFrame(()=>target.scrollIntoView({block:'start'}));return}
- if(target&&$('tqt-legacy').contains(target)){tab('tqt-legacy');let p=target.parentElement;while(p&&p!==$('tqt-legacy')){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement}requestAnimationFrame(()=>target.scrollIntoView());return}
+ if(target&&$('tqt-legacy').contains(target)){tab('tqt-legacy');let p=target;while(p&&p!==$('tqt-legacy')){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement}requestAnimationFrame(()=>target.scrollIntoView());return}
  tab('list-quy-trinh-tong-hop');
 }
 function syncSection(){
