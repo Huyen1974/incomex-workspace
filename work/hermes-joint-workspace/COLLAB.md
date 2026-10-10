@@ -587,7 +587,7 @@ CẤM: tự sửa đầu ra, gọi model lần hai, tạo schedule, thay quyền
 
 <!-- PREPARED_FOR_P258 · SPEC_V1 ONLY / NO ASSIGN => NO TRIGGER -->
 <!-- SPEC_V1:HJW-N3-CANARY-SUCCESS-20261009-01:BEGIN -->
-CANARY: N3 2a · LIVE TEST-ONLY SUCCESS 1/3 · generation=1 · không thuộc ghế Council/Reviewer thực.
+CANARY: N3 2a · LIVE TEST-ONLY SUCCESS 1/3 · generation=1 · không thuộc ghế Council/Reviewer thực. · SPEC đổi sau khi duyệt vé cũ 048b7e9c4105, phải duyệt lại cho lượt mới.
 VIỆC: N3 TEST-ONLY 1/3: báo cáo ngắn tình trạng đã làm và chưa làm ở N3 sau P253. Owner phải bấm Cho chạy cho chính thẻ này; riêng 02+03 Host phát đồng thời chỉ sau KẾT QUẢ 01, Owner bấm hai thẻ sát nhau (02 trước, 03 sau) để thử FIFO/queue; không claim nếu thiếu quyền.
 ĐỌC: AGENTS.md A9-GLB, HJW COLLAB Bảng điều khiển hiện hành, P253 và SPEC này. Mỗi nguồn chỉ lấy cửa sổ nhỏ cần thiết, tối đa ba vùng đọc.
 GHI: Model chỉ READ-ONLY qua công cụ đã duyệt; tuyệt đối không dùng workspace write. Chỉ deterministic result sink của Hermes được ghi đúng một mục P, RESULT_V1 và NEXT vào work/hermes-joint-workspace/COLLAB.md. Không thay AGENTS/PROMPT/runtime/Graph/VPSC.
