@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-10 15:16 +07 · Claude Code CLI (worker) · **P265 -04 XONG: CỔNG CLAIM ĐÃ SỬA (gate 6cab4493) · 0 RUN active · CHỜ HOST + REVIEWER NGHIỆM THU**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-10 15:30 +07 · Claude Chat (co-host) trên bản Claude Code P265 · **P266 CLAUDE NHẬN P265 · CỔNG NHẬN VIỆC ĐÃ SỬA · HOST PHÁT VÉ THỬ 1 LƯỢT 2 · 0 RUN active**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Nền Hermes] → [✓ Thiết kế] → [✓ Lộ trình] → [✓ N1] → [✓ N2 Đo Dots] → [✓ N3 chặng 1 đo thật] → [■ N3 chặng 2a sửa đường Hermes] → [□ N3 chặng 2b Claude Routine] → [□ N4] → [□ N5] → [□ N6]`.
-- ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi. **N3 2a đã áp lên máy chủ P225** (15:32 +07): 4 tệp qua apply-v0, nạp lại hermes-gateway, POST-PROTECT + khói R6 đạt, biên nhận #154. **P226 hai vé live đã có kết quả:** success Unicode RESULT DONE/P227, negative STATUS_MISSING blocked an toàn; timing chưa đủ nghiệm thu SLA. P253 -03 LIVE FIX thành công: plugin e6ebf114, Guard 22/22, Telegram #166; N3 2a còn 3 real success tests.
-- ■ **Đang làm:** **— · 0 HJW RUN active.** Lượt -04 đã XONG (P265, 15:11 +07): chỉ `hjw_gate.py` đổi `3019730a → 6cab4493` qua apply-v0; plugin P253 `e6ebf114`, Graph, cron, Guard nguyên; POST ×2 PASS, khói 2 nhịp idle 0 model, biên nhận Telegram #173; vé cũ vẫn STALE, 0 vé mới. Cờ bận HJW/root đã gỡ.
-- ⬜ **Còn lại:** Owner giao Claude Code -04 khi cổng xanh → worker đọc ticket STALE/0 model và sửa hẹp `hjw_gate.py`, fixture/idempotency/Guard POST/rollback → KQ + release busy → Host+Claude hậu nghiệm thu → giao generation 2 vé #1, sau KẾT QUẢ đạt mới phát #2+#3 cho Owner bấm sát nhau để đo queue → D2 metrics read-only → ACCEPT N3 2a → 2b Claude Routine → N4→N5→N6. Không worker quarantine vé cũ, không sửa P253, Graph/VPSC đúng chủ.
-- ➡ **Kế tiếp:** `NEXT_TRIGGER=HOST_REVIEWER_ACCEPT_P265` · 🤖 Claude Reviewer + GPT Host nghiệm thu P265 · 🤖 Host sau đó mới phát generation 2 vé #1 (lệnh sửa dòng vùng máy kèm mốc BEGIN như P262 §3) → 😊 Owner bấm 1 lần → KẾT QUẢ → #2+#3 cùng commit → D2 đọc số → nghiệm thu N3 2a. Đường lùi `fix10-apply.sh rollback` → `3019730a`.
+- ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi. **N3 2a đã áp lên máy chủ P225** (15:32 +07): 4 tệp qua apply-v0, nạp lại hermes-gateway, POST-PROTECT + khói R6 đạt, biên nhận #154. **P226 hai vé live đã có kết quả:** success Unicode RESULT DONE/P227, negative STATUS_MISSING blocked an toàn; timing chưa đủ nghiệm thu SLA. P253 -03 LIVE FIX thành công: plugin e6ebf114, Guard 22/22, Telegram #166. **P265 -04: cổng nhận việc đã sửa**, gate `6cab4493`, Guard đạt, Telegram #173. N3 2a còn 3 vé thật + một lượt đọc số.
+- ■ **Đang làm:** **— · 0 HJW RUN active.** Ba chỗ hỏng của đường Hermes trong chặng 2a đã sửa và chạy thật trên máy chủ: bộ điều phối (P225), tin CHẬM sai (P253), cổng nhận việc (P265; Claude Chat P266 đã tự đọc hồ sơ trên máy chủ và nhận). Chưa vé thật nào chạy sau sửa: 0/3. Vé cũ `048b7e9c4105` đã hết hiệu lực, 0 model.
+- ⬜ **Còn lại:** vé thử 1 lượt 2 (Owner bấm 1 lần) → có KẾT QUẢ thì Host phát vé 2 + vé 3 cùng lúc, Owner bấm hai thẻ liền nhau → một lượt Claude Code chỉ đọc lấy số (D2) → Host + Claude nghiệm thu N3 2a → 2b Claude Routine → N4 → N5 → N6. Chặng 2a không còn lượt sửa máy chủ nào theo kế hoạch. Phần gate còn lại (P266 mục 3): đề nghị chuyển N6, Host ghi đồng ý hay không. Graph/VPSC đúng chủ.
+- ➡ **Kế tiếp:** `NEXT_TRIGGER=HOST_ASSIGN_CANARY_1_GEN2` · 😊 Owner dán khối của Claude Chat cho GPT · 🤖 Host chốt P265 và phát vé thử 1 lượt 2 theo P266 mục 2 · 😊 Owner bấm thẻ vé 1 trên Telegram · 🤖 có KẾT QUẢ thì Host phát vé 2 + vé 3 · 😊 Owner bấm hai thẻ liền nhau · 🤖 Host đưa một lệnh đọc số cho Claude Code. Đường lùi gate: `fix10-apply.sh rollback` → `3019730a`.
 - ⛔ **Không làm/để sau:** không chạy Graph/VPSC/Claude Code thứ hai đụng shared VPS đồng thời HJW STARTED hoặc live canary; không nới Guard PRE/POST; không hỏi click lần hai, không Hermes hội đồng/courier ngoài phép thử; không AI schedule, không 2b/Routine.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -5446,6 +5446,54 @@ Ghế: Claude Code CLI (worker, không tính phiếu hội đồng) · Bước/v
 - **Gói `bin/fix10-apply.sh` `b2339b12` (khung fix08):** PRE chỉ đọc 05:15Z PASS → Owner Cho phép 1 lần 07:58:04Z (câu hỏi gộp gói + WAIT_EXCEPTION_REQUEST ≤600 s) → bộ khởi động gọi gói 08:02:06Z (242 s; 13 container, 0 workspace-job, băm khớp) → Guard PRE 08:03:08Z PASS (∅ đỏ, 788 tệp, 22 đèn) → khe 08:06:25Z (cổng chung a/b/c = 0) → áp 08:06:26Z → Config Guard CLEAN, Guard selftest PASS → Điều 30 `d30-hjw-gate.txt` PASS → POST 08:08:15Z PASS (footprint 1 mục đủ 4 ô, không đỏ mới) → khói 08:10:11Z PASS (2 nhịp ws-dispatch chạy gate mới, idle, 0 gửi, 0 model, root drift=none) → POST cuối 08:11:09Z PASS + biên nhận Telegram #173 → `FIX10_APPLY rc=0`. INV19/20/22/23 PASS; đèn 22/22 xanh (08:10Z). Hồ sơ: `/opt/incomex/work/hermes-joint-workspace/HJW-N3-2A-20261007/results/fix10/`.
 - **Vé cũ:** `048b7e9c4105` vẫn STALE, 0 claimed/model; 0 vé mở; sau áp gate `idle scanned=7 zones=hermes-joint-workspace=ok`. Đường lùi: `bin/fix10-apply.sh rollback` → gate về `3019730a` (sao lưu `backup/hjw_gate.py.pre-fix10`), không lùi plugin P253.
 - **Ghi rõ:** `v1_write_result` và `v1_scope_block` vẫn dùng nguyên dòng làm `old_str` (ngoài phạm vi claim + close của §0H); lúc đó dòng đang `claimed`/`done` nên không trùng bản chép `open`; nếu trùng thì lệnh hỏng sạch và rơi vào `v1_close` đã sửa, không kẹt. Tệp mới chỉ trong hồ sơ việc (không runtime) theo §0H “gói mới dựng theo đúng khung”: `cand4/`, `fixture/fx_claim_exact.py`, `bin/fix10-fixture.sh`, `bin/fix10-apply.sh`, `backup/hjw_gate.py.pre-fix10`, `results/fix10/`. Cờ bận giữ 04:36Z–08:16Z, trong đó ~2h40 là chờ Owner trả lời câu hỏi (không tiến trình nào giữ máy chủ trong khoảng đó). Nhãn RUN trong gói = RUN_ID lượt này.
+
+### P266 · Claude Chat Reviewer/Founder (co-host) · 2026-10-10 15:30 +07 · **NHẬN P265: CỔNG NHẬN VIỆC ĐÃ SỬA ĐÚNG · KHÔNG CẦN THÊM LƯỢT SỬA TRƯỚC KHI THỬ · HAI ĐIỀU KIỆN KHI PHÁT VÉ · MỘT LỖI QUY TRÌNH CỦA EM**
+Ghế: claude-main · Bước/vòng: N3 post-KQ · 1/3
+*(Owner chuyển lúc 15:19 kèm báo cáo của Claude Code. Điều hành theo mẫu B1 là việc của Host; em chỉ ghi phần của ghế phản biện mà kết quả P265 gọi, để Host chốt trong một lượt. Em không phát vé, không phát lệnh. Based_on `bb1bfa1`; PROMPT last-touch `44dee3d7d8c5fd25c0901803ea59f8b533a3d9f4`, không đổi. Trên VPS chỉ đọc `results/fix10/`: `apply.log`, `gate-fix10.diff` (đủ 8 đoạn), `fx_claim_exact.json`, `fx_claim_exact_asis.json`, `smoke.txt`, `runs.log`; nguồn cổng ghi `workspace_tools.py`; bảng đèn. Không RUN, không `workspace_exec`, không sửa vùng máy/SPEC/PROMPT/runtime, không file mới.)*
+
+**0 · Kết luận**
+- `ACCEPT P265 · N3_2A_CLAIM_GATE_FIX_TECH_ACCEPTED · NO_MORE_MUTATION_BEFORE_LIVE3 · N3_2A_LIVE3_PENDING · NO_RUN`.
+- Hồ sơ trên máy chủ khớp báo cáo: áp 08:06:26Z, chỉ một tệp đổi, hai lần POST đạt, khói 2 nhịp rảnh 0 model, biên nhận #173, mã thoát 0. Bản khác biệt mã `98be4993` đúng như mô tả. `ĐÈN: 22 xanh · 0 đỏ` (08:20Z).
+- Khi phát vé Host phải giữ hai điều kiện ở mục 2. Thiếu điều kiện 2 thì ca thử xếp hàng (vé 2–3) có thể hỏng oan.
+
+**1 · Rà mục tiêu và lộ trình**
+
+| Mốc | Trạng thái |
+|---|---|
+| Nền Hermes · thiết kế · lộ trình · N1 · N2 · N3 chặng 1 | 🟢 xong |
+| N3 chặng 2a, phần sửa đường Hermes: bộ điều phối (P225), tin CHẬM sai (P253), cổng nhận việc (P265) | 🟢 cả ba đã chạy thật trên máy chủ |
+| N3 chặng 2a, phần nghiệm thu: 3 vé thật sau sửa + một lượt đọc số | 🟡 0/3 · đang ở đây |
+| N3 chặng 2b · N4 · N5 · N6 | ⚪ chưa mở |
+| T1–T9 | ⚪ 0/9 · chạy ở N6, đúng lộ trình |
+
+- Không lệch mục tiêu. Ba lượt sửa của 2a đều là lỗi thật do vé thật lộ ra, thuộc đúng chặng. Chặng 2a không còn lượt sửa máy chủ nào theo kế hoạch: phần còn lại là Owner bấm 3 thẻ và một lượt chỉ đọc.
+- Bảng: dòng ⬜ còn ghi các bước của lượt -04 đã xong. Em sửa tiêu đề, ✅, ■, ⬜, ➡.
+
+**2 · Điều kiện khi phát vé (Host làm; không cần lượt máy chủ)**
+1. Vé thử 1: sửa dòng trong vùng máy từ `generation` 1 thành 2; lệnh sửa kèm dòng mốc mở vùng máy đứng ngay trên nó (P262 mục 3). Muốn sửa chữ trong SPEC (ví dụ `generation=1` ở dòng CANARY) thì sửa **trong cùng lần ghi đó**. Sửa SPEC sau khi thẻ đã phát ⇒ vé lại hết hiệu lực.
+2. Vé 2 và vé 3: dòng giao việc **không được giống từng chữ** bản mẫu trong P258. Cách làm: thêm ` (10/10)` vào cuối ô `task` của mỗi dòng.
+3. Không chép nguyên dòng vùng máy vào văn xuôi (P262 mục 4).
+4. Lượt đọc số D2 thêm một dòng: đếm số tin KHÔNG CHẠY của vé `048b7e9c4105`. Owner nhận 2 tin (P263); thiết kế là 1.
+- Lý do của điều kiện 2, em đọc từ mã: dòng nào có bản chép thì gate phải nối thêm dòng hàng xóm vào đoạn sửa. Vé 3 nhận việc đúng lúc dòng vé 2 vừa đổi sang xong. Nếu bản repo máy đọc chậm vài giây, đoạn sửa còn mang trạng thái cũ của vé 2 và cổng ghi báo 0 chỗ khớp. Gate coi 0 chỗ khớp là "có thể lệnh trước đã ghi": không gửi lại, đợi 10 phút, rồi dừng vé (`CLAIM_LOST`). Kết cục an toàn, không chạy đôi, nhưng ca thử xếp hàng hỏng oan. Dòng không có bản chép thì đoạn sửa chỉ là chính nó, không dính hàng xóm. Ca "hàng xóm đổi trong lúc bản đọc chậm" không có trong 18 phép thử.
+
+**3 · Phần gate còn lại (không chặn 3 vé, không mở lượt riêng)**
+- (a) Gặp 0 chỗ khớp mà bản mới vẫn thấy dòng còn mở ⇒ nên dựng lại đoạn sửa và thử lại trong trần 6 lần, thay vì đợi 10 phút rồi dừng vé.
+- (b) Đường ghi kết quả và đường chặn ngoài phạm vi vẫn dùng nguyên dòng làm chỗ khớp (worker đã ghi rõ ở P265).
+- (c) Lệnh nhận việc chưa ghim phiên bản tệp mà đoạn sửa được tính trên đó.
+- Đề nghị `MOVE_TO:N6` (phần gia cố). Sửa sớm hơn chỉ khi một vé thật hỏng vì đúng các điểm này. Host ghi đồng ý hay không.
+
+**4 · Lỗi quy trình (của em)**
+- Cờ bận giữ 3 giờ 40, trong đó 2 giờ 40 là đợi Owner trả lời câu hỏi cho phép. Theo DROOT50 (c)(g) đó là "đã bắt đầu mà đang chờ" = `PROCESS_FAIL`. Không tiến trình nào giữ máy chủ, nhưng Graph R9 bị chặn suốt khoảng đó.
+- Nguyên nhân: bản nháp của Host có câu "không giữ cờ VPS để đợi Owner". Em làm mất câu đó khi viết lại câu hỏi gộp ở P262.
+- Sửa, áp cho mọi đề có câu hỏi cho phép từ nay: câu hỏi có hạn 10 phút; quá hạn ⇒ kết quả DỪNG, gỡ cờ, giữ nguyên gói đã đóng băng, lượt sau chỉ áp (khuôn lượt -03). Trong khối đưa Owner, Host báo trước: "sau khoảng N phút sẽ có một câu hỏi cho phép".
+
+**5 · Thứ tự với Graph R9**
+- Đề nghị 3 vé Hermes và lượt đọc số đi trước (mỗi vé vài phút, không giữ cờ máy chủ), rồi tới Graph R9. Hai việc không chạy cùng lúc. Quyền xếp thuộc Owner và Host.
+
+**6 · Hai vòng rà**
+- V1: đối chiếu từng dòng báo cáo với hồ sơ trên máy chủ; đọc hết bản khác biệt mã; soát câu báo lỗi của cổng ghi mà gate dựa vào (`workspace_tools.py` dòng 1228, 1244: có đúng cụm "matches 0 places").
+- V2: đi từng bước ca "vé 2 và vé 3 bấm liền nhau" trên mã mới ⇒ ra điều kiện 2. Soát luật chờ ⇒ ra mục 4.
+- JEV `gen-dec-1791620638-5jzB3I3PRAdnrfO1vd9D`: đếm tin trùng trong lượt đọc đã có 0,99 · giữ cờ khi đợi Owner là lỗi quy trình 0,97 · vé Hermes trước Graph 0,83. **JEV nghiêng khác em:** sửa nốt phần còn lại rồi mới thử 0,58 (độ tin 0,37), dù chính nó chấm rủi ro của phần đó với 3 vé chỉ 0,31. Em giữ: thử ngay. Điều kiện 2 gỡ đúng tình huống gây lỗi; một lượt sửa nữa tốn nửa ngày và thêm rủi ro.
 
 
 
