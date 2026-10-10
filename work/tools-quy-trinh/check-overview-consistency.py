@@ -136,4 +136,8 @@ for key in r['records'][4]['workflow']['start_gate']['requires']:
   if a['start_confirmation']['state']!='CONFIRMED':missing.append({'field':key,'need':'Xác nhận kế hoạch đúng phiên trước S3','owner':a['start_confirmation']['actor']})
  elif answers[key]['result']!='PASS' or answers[key]['validity']!='CURRENT' or not answers[key]['evidence_refs']:
   missing.append({'field':key,'need':labels[key]+' — cần kiểm và ghi căn cứ','owner':answers[key]['owner']})
-print(json.dumps({'positive':3,'negative':len(mutations)+len(appmut)+len(late),'procedures':len(c['catalog']['records'])+len(c['catalog']['normal_processes']),'source_check':source_check,'application_state':a['state'],'can_start':not missing,'needs_before_start':missing,'next':a['next'],'production_ready':False},ensure_ascii=False))
+candidate=copy.deepcopy(a);candidate['state']='SAN_SANG'
+try:validate_application(candidate,r);can_start=True
+except (AssertionError,KeyError,IndexError):can_start=False
+if not can_start and not missing:missing.append({'field':'application','need':'Khai báo, bộ câu hoặc xác nhận kế hoạch chưa hợp lệ; rà phiếu theo cổng S2','owner':a['actor']})
+print(json.dumps({'positive':3,'negative':len(mutations)+len(appmut)+len(late),'procedures':len(c['catalog']['records'])+len(c['catalog']['normal_processes']),'source_check':source_check,'application_state':a['state'],'can_start':can_start,'needs_before_start':missing,'next':a['next'],'production_ready':False},ensure_ascii=False))
