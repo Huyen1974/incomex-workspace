@@ -8,14 +8,14 @@ Host_ID: Astra-Codex
 Host_Surface: Codex · cuộc trò chuyện hiện tại của Owner
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-09 · Astra Codex · P22
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-10 · Astra Codex · P23
 - 🎯 Mục tiêu: việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể. Vì sao: người nhìn rõ mới cùng phát hiện và sửa được vấn đề.
 - 🏁 Xong khi: đạt tiêu chí ô 2; quy trình được làm theo ra đúng sản phẩm, có bằng chứng và đường xử lý sai/thiếu tới cuối.
 - 📍 Tiến độ: [■ Thiết kế và khả thi] → [□ Triển khai] → [□ Vận hành]
 - ✅ Đã xong (thiết kế): 29 Master theo định nghĩa + 1 Master Config = **30 danh sách**; `ML-MOW-TH-001` STT 29 có **5 quy trình thiết kế; ⑤ đã chốt áp thử**; 12 Quy trình thành phần, 17 chú giải chung nguồn, 159 câu/53 nhóm, 87 ca mô phỏng đã qua. Bằng chứng P16–P20; **chưa nghiệm thu vận hành**.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: áp thử thiết kế MOW001, kiểm UI/Config/Test và hiệu chỉnh khi vướng. Riêng triển khai: 5 chốt thực thi → một vòng sai/thiếu → PG staging đúng quyền. TQT-ISS-007 giữ mở; không chặn thử thiết kế thủ công.
-- ➡ Kế tiếp: Owner rà cuối công cụ → áp thử thiết kế UI MOW-NHC-001 theo ⑤; điền phiếu và ghi vướng đúng sổ. Host đã quyết ⑤/CH-001; 50 MOT thành phần + 6 MOT của ⑤ có mã và hợp đồng áp thử. NEXT_TRIGGER=OWNER_FINAL_REVIEW_THEN_DESIGN_TRIAL.
+- ➡ Kế tiếp: dùng application_D24 trong phiếu MOW001, kiểm lại đáp án/điều kiện G1 rồi xác nhận kế hoạch trước S3. ⑤@1.1-design bao quát toàn việc; ③ có bước công bố phiên. Bảng Overview chỉ rõ CHUẨN BỊ, thiếu gì và ai làm tiếp. NEXT_TRIGGER=VERIFY_G1_INPUTS_AND_CONFIRM_PLAN_BEFORE_S3.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế · tự áp mục tiêu PR-07 chưa duyệt.
 
 ### 1. Mục tiêu
@@ -48,6 +48,12 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 **Chưa làm lúc này:** quy trình nghiệp vụ (phái cử, tuyển dụng…). Chúng thuộc Chuỗi 3 CMSXQT; để sau cho đỡ lan man.
 
 (Owner chốt 08/10/2026. AI không sửa chữ ô này.)
+
+#### Owner bổ sung trực tiếp · 10/10/2026 · D24
+“Bắt đầu vào bất cứ 1 việc gì? nhỏ hay lớn => chúng ta nên có 1 quy trình tổng hợp toàn diện chung nhất. Quy trình TH này vừa là khuôn thức cho cách làm, vừa là khuôn thước cho kiểm tra, vừa là khuôn thước để lập kế hoạch, tự động hoá, giám sát, theo dõi để biết sai ở đâu.”
+“User chỉ cần mục tiêu => phần còn lại, tự chạy ra kết quả.” “Sáng tạo là cách sửa đổi quy trình chứ không phải AI tự sáng tạo trong những công việc lặp đi gặp lại hàng ngàn lần như vậy.”
+Phạm vi cụ thể Owner nêu: việc/mã/Master; bắt đầu và kết thúc có kiểm kết nối; điều kiện đầu vào và thực hiện; kế hoạch/kết quả/sai thiếu/test ghi đâu; người làm/kiểm/duyệt/nhận; xác nhận trước triển khai; phiếu đủ/thiếu và vòng đời. Owner giao Host nâng cấp quy trình hiện có hoặc thêm TH06 nếu cần; ưu tiên nhìn là hiểu.
+
 
 #### Bổ sung trực tiếp Owner · 09/10/2026 · rà khả thi hướng PG
 “Chúng ta cần tư duy để thực sự lắp chuẩn vào PG. Và rà soát theo hướng đó (kiểu mô phỏng) thì mới phát hiện ra lỗi được. Bạn rà soát tiếp tục để hoàn thiện, đảm bảo khả thi.”
@@ -397,6 +403,7 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **D20 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner yêu cầu số vòng của 4 Quy trình tổng hợp lớn hơn, Quy trình thành phần hiển thị **STT đầu tiên**, và chuyển nội dung của **hai ảnh tổng quan Owner gửi** thành **hai bố cục HTML đặt phía dưới Over view**, chủ yếu mô tả những gì đã có, không tạo ảnh. Host chỉ chỉnh phần trình bày; mã/danh mục/luật không đổi.
 - HUMAN_DIRECTIVE@TQT-OVERVIEW-HTML-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,README.md,COLLAB.md} · step=Over view · recorded_by=OpenAI-main/GPT Chat · quote="Các vòng số hơi nhỏ , cho to ra 1 chút (của quy trình tổng hợp) / Quy trình thành phần chốt đầu tiên cho tôi STT / Cho tôi cả các hình này xuống bên dưới ... bạn tạo ra dạng HTML cho nhẹ." · text=Tăng vòng số; STT 1–12; 2 sơ đồ HTML bên dưới, không làm ảnh; chỉ mô tả nguồn hiện có · audit=Owner trực tiếp tại GPT Chat ngày 09/10/2026.
 
+- **D24 · 10/10/2026 · HUMAN_DIRECTIVE + HOST_DECISION:** Owner yêu cầu khuôn chung cho bất cứ việc lớn/nhỏ. Host nâng cấp MOW-TH-005@1.1-design (không thêm 006 trùng vai), 13 mục khai báo cùng phiếu hiện hữu; xác nhận đủ trước S3, kiểm hai đầu nối, duyệt đúng phạm vi và ACK mới đóng. Tiếp nhận PR08: sửa chỉ dẫn Host, mẫu MOW001/G1, trường issue không ép lỗi giả, kiểm nhánh/trường bắt buộc/nguồn, 003 có bước công bố. Mục tiêu tự chạy là đích kiến trúc, chưa là năng lực đã nghiệm thu. Nguồn Host duy nhất ở §0; nguồn hướng dẫn ở tools-quy-trinh, hồ sơ sản phẩm tại nguồn gốc.
 - **D23 · 09/10/2026 · HUMAN_DIRECTIVE + HOST_DECISION · HIỆU LỰC:** Owner yêu cầu Host sửa nốt, tự quyết ⑤ để quay lại thử quy trình/UI. Host chốt MOW-TH-005@1.0-design, CH-001 CTCM, dùng cho một lượt chọn–thực hiện–kiểm–bàn giao; mọi sai/thiếu có người nhận hoặc kết thúc hợp lệ. Cho áp thử thiết kế, không duyệt runtime/PG. Thay phần chờ Owner duyệt ⑤ của D21/D22/P21. Chốt hướng dẫn ở tools-quy-trinh; bản Tool cũ là lịch sử, hồ sơ sản phẩm chưa di chuyển. Mục tiêu 15 ý Owner giữ nguyên.
 - **D22 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner giao: “Bạn cầm lại cờ host và tiếp tục nhé.” Rà Overview, 005, quan hệ chéo và quản lý mọi trình tự/hướng dẫn bằng MOW/MOT trước áp thử. Astra Codex nhận lại Host, thay D19; không tự coi Owner đã duyệt 005 hoặc quyền PG.
 
@@ -408,6 +415,12 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - Q01 hiện hành D22: Astra Codex nhận lại Host (09/10); D19/D17/D06 giữ lịch sử. Mục tiêu ngắn trong PR-07 vẫn do Owner/Claude bàn, Host chưa áp.
 
 ## Ý kiến và bằng chứng
+### P23 · Khuôn chung ⑤ và phiếu MOW001/G1 · CHUẨN BỊ ÁP THỬ
+- Tiếp nhận PR08 + Owner D24: ⑤ 1.1-design với 6 MOT giữ mã; 13 mục đủ/thiếu; kế hoạch, nơi ghi và vòng đời rõ. Mẫu thật thêm trong UI-REVIEW-MOW001.json/application_D24, bảng Overview dẫn xuất và kiểm khớp nguồn, không tạo sổ mới.
+- MOW001/G1: Astra Codex làm/tự kiểm kỹ thuật; Owner nhận/duyệt thiết kế. Chưa có kiểm độc lập, chưa xác nhận điều kiện bắt đầu, chưa sửa UI lượt mới. 5 việc gồm chuẩn bị → đầu nối vào → thiết kế → UI/đầu nối ra → duyệt/bàn giao. Không G2/G3 hoặc PG.
+- Sửa nguồn theo id ở PG/OPS, kiểm toàn đường dẫn thay vì chỉ đuôi; kiểm nhánh và bộ trường bắt buộc; issue_register bắt buộc, issue_ref có thể null. 003 thêm MOT công bố đúng phiên/kiểm nơi dùng/ngừng bản cũ.
+- DOER_CONFIRM: hoàn tất khuôn khai báo và chuẩn bị mẫu; chưa xác nhận AI mới thực hiện toàn ca MOW001. Bộ kiểm khai báo không thay chốt PG hoặc bằng chứng sản phẩm. Tiếp tục cùng TQT-ISS-007/003, không tăng câu hỏi theo chỉ tiêu.
+
 ### P22 · Host chốt ⑤ và hoàn tất công cụ áp thử · DESIGN_TRIAL
 - D23 trực tiếp: 5 MOW tổng hợp, 12 MOW thành phần; 50 việc thành phần được định danh MOT và trỏ nguồn gốc, 6 MOT của ⑤ chốt cùng phiên. Không thêm quy trình thứ 18 hoặc loại đối tượng mới.
 - Hợp đồng áp thử thuộc ⑤: mã lần làm/đối tượng/phiên, người làm/kiểm/nhận, nguồn đọc/ghi, bằng chứng, đích trả, chống gửi trùng, điều kiện xong/dừng; mỗi MOT kế thừa. Đây là quy định thủ công, không tuyên bố chốt máy đã cưỡng chế.

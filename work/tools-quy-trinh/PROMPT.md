@@ -1,15 +1,16 @@
-# PROMPT hiện hành · D23/P22 · Chuẩn bị xong để áp thử thiết kế
+# PROMPT hiện hành · D24/P23 · Từ mục tiêu tới kết quả
 
-Owner giao Astra Codex làm Host và quyết ⑤. `MOW-TH-005@1.0-design` đã chốt, thuộc CTCM/CH-001. Mục tiêu: một việc vào → chọn đúng quy trình → trả lời đủ câu hỏi → thực hiện → kiểm → bàn giao có người nhận. Mọi trình tự thuộc MOW/MOT.
+Host/roster chỉ đọc tại COLLAB §0. Mục tiêu Owner giữ nguyên; bổ sung D24: bất cứ việc lớn/nhỏ đều bắt đầu bằng ⑤ khai đủ việc, hai đầu nối, điều kiện, kế hoạch, nơi ghi, người làm/kiểm/duyệt/nhận và vòng đời.
 
-1. Đọc AGENTS → COLLAB mục tiêu/kiểm soát → README hiện hành → Overview.
-2. Khai đúng quy trình/mã phiên, đối tượng/phiên, người làm/kiểm/nhận, nguồn vào, nơi ghi, tiêu chí, đích trả trong phiếu hiện hữu theo `catalog.trial_contract`.
-3. Dùng QT-CTCM-012 ghép câu hỏi, ghi căn cứ và ghi chú riêng đúng phạm vi. Không lấy số câu cố định thay kiểm đủ câu áp dụng.
-4. Sau Owner rà cuối, áp thử **MOW-NHC-001**: ⑤ chọn 001 khi chế tạo, 001 gọi 004 khi cần rà UI. Dùng các thành phần theo điều kiện; không chạy tất cả hoặc gọi lồng ⑤. Điền/chốt phiếu đáp án trước sửa UI; kiểm như người dùng và ghi bằng chứng.
-5. Sai/thiếu sản phẩm ghi sổ MOW gốc; sai quy trình ghi sổ tools hiện hữu. Tool 008 ghi/đọc lại → 002 nhận xử lý cùng mã → 003 sửa hướng dẫn nếu cần → trở về đúng nơi kiểm. Không đủ điều kiện thì BỊ CHẶN, ghi người giữ và điều kiện tiếp tục; từ chối không biến thành đạt.
-6. Xong khi các việc áp dụng đã được kiểm đạt và người nhận xác nhận. Báo DOER_CONFIRM làm được/một phần/chưa làm được, trỏ đúng kết quả và chỗ thiếu.
+1. Đọc AGENTS → COLLAB §0 → README → MOW-TH-005@1.1-design. Không sinh luồng quản lý ngoài MOW/MOT.
+2. Dùng `catalog.work_form` và `trial_contract`; ghi vào phiếu hiện hữu. Đọc phiếu thật `work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24`, không tự tạo phiếu/sổ thứ hai. Overview là bản xem được sinh lại từ phiếu nguồn.
+3. MOW001 chỉ **G1 thiết kế 3 MOT**; không G2/G3. Phiếu đang CHUAN_BI, chưa cho S3. QT-CTCM-012 rà bộ câu/đáp án đúng đối tượng và phiên; xác minh nguồn vào, đích ra/nơi ghi, quyền và kế hoạch; người có quyền ghi start_confirmation đúng phiên mới bắt đầu.
+4. ⑤ gọi ①/G1; ① gọi ④ kiểm UI. Kế hoạch phải có ca kết nối nhận đầu vào và trả đầu ra, không chỉ kiểm từng màn riêng. Người làm/kiểm ghi kết quả, căn cứ, hiệu lực và việc tiếp trong phiếu. Tự kiểm không nhận thành kiểm độc lập.
+5. Thiếu quy trình/đầu vào/nơi ghi/quyền → ② giữ hồ sơ, ③ sửa quy trình khi cần. Không có lỗi thì issue_ref=null; luôn có issue_register_ref chỉ nơi ghi. Không tự tạo lỗi giả, tự nghĩ bước thay quy trình hay coi hướng dẫn thiếu là quyền làm tiếp.
+6. ③ sửa xong phải thử → duyệt → công bố phiên → kiểm nơi dùng → ngừng hướng dẫn cũ. Mỗi nơi bị ảnh hưởng có kiểm lại. Giữ lịch sử kết quả cũ, chỉ phần mất hiệu lực cần kiểm lại.
+7. G1 xong khi thiết kế/phiếu/ca/bằng chứng đạt, Owner duyệt đúng phạm vi và xác nhận nhận. Chưa PG không chặn thiết kế, nhưng không báo production đã chạy. Kết thúc báo DOER_CONFIRM cùng phiếu thật.
 
-Lượt chuẩn bị chỉ cập nhật công cụ, chờ Owner rà cuối trước áp thử sản phẩm. Chưa MOW002, chưa đổi công thức/T2.5, chưa ghi PG. Năm chốt TQT-ISS-007 theo dõi riêng; không chặn thiết kế thủ công. Hướng dẫn Tool cũ là lịch sử, hồ sơ sản phẩm vẫn giữ nguồn gốc.
+Lượt D24 hoàn thiện khuôn/phiếu/kiểm khai báo; chưa sửa UI sản phẩm hoặc thực hiện ca người/AI mới. Chưa MOW002, chưa T2.5, chưa thay công thức, chưa PG. Năm chốt máy TQT-ISS-007 vẫn mở.
 
 <details><summary>Lịch sử giao việc trước D23 · không dùng để cấp/chặn quyền hiện hành</summary>
 

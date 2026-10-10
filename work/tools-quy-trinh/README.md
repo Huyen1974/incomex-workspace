@@ -1,9 +1,9 @@
 # tools-quy-trinh · Cửa vào
 
-## Hiện hành · D23/P22 · Host Astra Codex
-**5 quy trình tổng hợp + 12 quy trình thành phần.** Host đã chốt **MOW-TH-005 · Áp dụng một quy trình từ chọn đến bàn giao**, phiên `1.0-design`, Chuỗi CTCM `CH-001`, để áp thử thiết kế. Owner giao Host tự quyết; không còn chờ phê duyệt riêng ⑤. Chưa nghiệm thu PG hay tự động hóa.
+## Hiện hành · D24/P23 · Host đọc tại COLLAB §0
+**5 quy trình tổng hợp + 12 quy trình thành phần.** Host đã chốt **MOW-TH-005 · Từ mục tiêu đến kết quả được nghiệm thu**, phiên `1.1-design`, Chuỗi CTCM `CH-001`, để áp thử thiết kế. Owner giao Host tự quyết; không còn chờ phê duyệt riêng ⑤. Chưa nghiệm thu PG hay tự động hóa.
 
-**Một đường làm:** đọc mục tiêu → ⑤ chọn đúng quy trình → QT-CTCM-012 lấy/trả lời câu hỏi → làm từng MOT → kiểm → bàn giao có xác nhận. Sai/thiếu: Tool 008 ghi cùng hồ sơ → ② nhận xử lý → cần sửa hướng dẫn thì ③ → kiểm lại đúng nơi phát hiện. Chưa có người nhận thì người giao vẫn giữ.
+**Một đường làm:** ⑤ khai việc và hai đầu nối → chuẩn bị/khai nơi ghi/lập kế hoạch → xác nhận đủ điều kiện → làm từng MOT → kiểm sản phẩm và kết nối → duyệt, bàn giao có xác nhận. QT-CTCM-012 lấy/kiểm bộ câu hỏi trong phần chuẩn bị. Sai/thiếu: Tool 008 ghi cùng hồ sơ → ② nhận xử lý → cần sửa hướng dẫn thì ③ → kiểm lại đúng nơi phát hiện. Chưa có người nhận thì người giao vẫn giữ.
 
 [Mở Over view](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view) · [Master Quy trình tổng hợp](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Danh sách Master tổng (30)](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html).
 
@@ -13,7 +13,7 @@
 
 **Nguồn Tool cũ:** hướng dẫn trên `tools-playbook-v1.html` chuyển thành tham chiếu lịch sử; đọc hướng dẫn hiện hành từ Master → Overview. Sổ vấn đề/kết quả sản phẩm vẫn ở nguồn gốc; chưa dời dữ liệu. TQT-ISS-004 theo dõi phần dữ liệu còn lại.
 
-**Bước tiếp:** Owner rà cuối → áp thử MOW-NHC-001 theo quy trình mới, điền phiếu sản phẩm hiện hữu trước khi sửa UI. Ghi vướng đúng sổ, Host hiệu chỉnh đúng nguồn. Không đợi hoàn thành backend mới thử thiết kế; chưa làm MOW002.
+**Phiếu áp dụng:** `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24` đã khai 13 mục và kế hoạch cho MOW001/G1. Overview chỉ là bản xem sinh lại từ phiếu, kiểm hash và đối chiếu nội dung; không sửa hai nơi. Mẫu/luật chung thuộc `catalog.work_form` của ⑤. **Bước tiếp:** kiểm điều kiện và đáp án G1, ghi `start_confirmation` trước sửa UI. Chỉ G1 tới nghiệm thu thiết kế, không G2/G3. `issue_register_ref` là nơi ghi bắt buộc; `issue_ref` có thể null nếu không có lỗi mới. Ghi vướng đúng sổ, Host hiệu chỉnh đúng nguồn. Không đợi hoàn thành backend mới thử thiết kế; chưa làm MOW002.
 
 **Giới hạn:** 5 chốt cưỡng chế TQT-ISS-007 và nghiệm thu PG/DOT/quyền/đồng thời/khôi phục vẫn mở. Kết quả kiểm danh mục và mô phỏng không thay nghiệm thu chạy thật.
 
@@ -68,7 +68,7 @@ Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](CO
 - Host sửa nguồn sau khi tiếp nhận; người góp ý chỉ nộp riêng. Thêm quy trình tổng hợp sau này vào cùng danh sách, không tạo các bản chuẩn rải rác.
 
 ## Ma trận câu hỏi · hiệu lực 08/10/2026
-- Owner đã giao **Astra Codex làm Host trước đây (D17)**; **D19 ngày 09/10 Owner chỉ định GPT Chat làm Host hiện hành**, thay Astra Codex. Các thành viên khác, kể cả Codex ở phiên khác, chỉ gửi đề xuất riêng. Đây là đổi vai theo chỉ đạo trực tiếp, không phải tuyên bố cổng máy đã khóa được.
+- Host/roster hiện hành chỉ xác định tại [COLLAB.md §0](COLLAB.md); thành viên ngoài Host nộp đề xuất riêng. Không suy ra quyền hiện hành từ quyết định lịch sử.
 - Mở trực tiếp [Câu hỏi cơ bản trên hệ thống](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=cau-hoi-co-ban). URL ghi nhớ tab/mục; bước 1.2 dùng section=q-B1-2, mã câu vẫn Q-B1.2-01. Renderer chỉ nhận từ đúng iframe; xem bằng chứng ở COLLAB §0 ô 3.
 - Đọc [Câu hỏi cơ bản](view.html#cau-hoi-co-ban) → [Câu hỏi nghiệp vụ](view.html#cau-hoi-nghiep-vu); đọc hàng loạt tại [Ma trận câu hỏi](view.html#ma-tran-cau-hoi).
 - **SSOT của bộ câu hỏi mới:** JSON trong `view.html`, script `id="tqt-question-matrix"`. `groups` chứa mã/loại/cha/nguồn; `questions` chứa mã câu, nhóm sở hữu, câu hỏi, trạng thái; `groups[].required_reference` nối câu nguồn bắt buộc ngoài ma trận (Config); ứng viên dùng lại đáp án phải kiểm đúng phạm vi, không tự đánh dấu đủ. `inheritance` quy định câu chung; `rules` giữ quy tắc dùng, tách, kế thừa, ghép và kiểm chứng (hiển thị tại “Cách dùng”/“Cách kiểm sau khi ghép”). AI đọc trực tiếp JSON này; bảng, sơ đồ, bộ ghép và vùng JSON để sao chép đều đọc cùng dữ liệu.
@@ -76,19 +76,19 @@ Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](CO
 - Thuật ngữ theo chỉ đạo mới: **chuyên môn = Bước/Tầng/Chuỗi**; **nghiệp vụ = UI/Test/Config…**. Các cách gọi khác ở hồ sơ cũ được giữ để truy nguồn.
 - Các nhóm nghiệp vụ khởi đầu: UI, Test/rà UI, Config, Nguyên tắc giao việc (đã được nêu trong mục tiêu Owner); thêm nhóm trong ma trận thì thẻ và bộ ghép tự nhận. Câu hỏi của các nhóm này vẫn là bản khởi tạo.
 - Bộ câu hỏi mới là **bản đầu đang hiệu chỉnh**, không phải kết luận đã đủ hoặc đã qua hội đồng. Thành phần Công thức được đối chiếu nguồn; không đồng nghĩa các câu hỏi mới đã được Owner duyệt. Tầng bối cảnh T3–T7 thu gọn; B8/B9 chưa có bước con.
-- Nội dung cũ giữ nguyên trong [Quy trình hiện có](view.html#tqt-legacy), liên kết cũ vẫn mở đúng mục. Bộ 8/7 câu và Master Tool legacy chưa cắt chuyển; không lấy việc thêm ma trận mới làm bằng chứng hoàn thành TQT-ISS-004.
+- Nội dung cũ giữ nguyên trong [Quy trình hiện có](view.html#tqt-legacy), liên kết cũ vẫn mở đúng mục. Hướng dẫn hiện hành ở tools-quy-trinh; hồ sơ sản phẩm vẫn giữ tại nguồn gốc. TQT-ISS-004 còn phần kiểm/cắt chuyển dữ liệu sản phẩm.
 - Góp ý: file riêng theo mẫu bên dưới, trỏ mã Q/nhóm, nêu chỗ vướng khi làm và câu đề nghị sửa. Chỉ Host quyết định tiếp nhận rồi cập nhật nguồn; không sửa thẳng bốn file chính. Chưa gọi hội đồng trong lượt dựng bản đầu này.
 
 
 ## Ghi chú riêng · đọc trước khi ghép
 - Cùng JSON `view.html#tqt-question-matrix` có `note_policy` và `notes`; đây là nguồn duy nhất của quy tắc đặt/ghép ghi chú. Mỗi ghi chú có mã, nơi sở hữu, phạm vi áp dụng, nội dung, nguồn và trạng thái. Host tiếp nhận trước khi dùng như quy định.
 - Bấm Bước/Tầng để xem “Ghi chú riêng”; bộ ghép tự lấy mục khớp đúng lựa chọn. Xem toàn bộ dưới Ma trận câu hỏi. MOIT/MOUT cùng T0.5 nhưng không tự dùng chung ghi chú.
-- Nội dung chỉ đúng với một MOW/MOT ghi ở phiếu sản phẩm, không biến thành luật chung. Lượt áp dụng hiện hành: [MOW001 · phiếu đáp án, hợp đồng A/B/C và bằng chứng](../mow-mot-moit-mout/UI-REVIEW-MOW001.json), mục `process_trial_20261009`. Thứ tự thực hành UI/Config nằm ở notes của nhóm nghiệp vụ.
+- Nội dung chỉ đúng với một MOW/MOT ghi ở phiếu sản phẩm, không biến thành luật chung. Lượt áp dụng hiện hành: [MOW001 · phiếu đáp án, hợp đồng A/B/C và bằng chứng](../mow-mot-moit-mout/UI-REVIEW-MOW001.json), mục hiện hành `application_D24`; `process_trial_20261009` là căn cứ lượt cũ, cần kiểm hiệu lực trước dùng lại. Thứ tự thực hành UI/Config nằm ở notes của nhóm nghiệp vụ.
 - Khi thêm ghi chú: kiểm mã/owner/phạm vi tồn tại; kiểm cả ca khớp và ca không khớp; không có ghi chú không đồng nghĩa đã rà đủ. Thay nguồn vẫn phải cập nhật bằng chứng tại phiếu áp dụng.
 
 ## 0. ĐỌC NGAY — DÀNH CHO MỌI AI (kể cả khi vừa bị từ chối ghi)
 
-**Host duy nhất của task hiện hành:** `GPT Chat · phiên Owner chỉ định 09/10/2026` (`Host_ID=OpenAI-main`); Astra Codex từng làm Host theo D17, nay chỉ góp ý riêng. Mục tiêu và tiêu chí xong chỉ ở [COLLAB.md §0](COLLAB.md); phải đọc `../../AGENTS.md` và §0 trước khi thực thi.
+**Host duy nhất của task hiện hành:** đọc `Host/Host_ID/Host_Surface` tại [COLLAB.md §0](COLLAB.md). README chỉ dẫn nguồn quyền, không duy trì danh tính Host thứ hai. Mục tiêu và tiêu chí xong chỉ ở [COLLAB.md §0](COLLAB.md); phải đọc `../../AGENTS.md` và §0 trước khi thực thi.
 
 **Chọn đúng tình huống:**
 
@@ -100,7 +100,7 @@ Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](CO
 
 Bộ 8 câu/MOT và 7 câu Config **đã nằm ở** [“Rà một UI”](view.html#ra-ui); không viết lại bộ câu ở đây. Mỗi lần rà một UI, Codex/agent phải có câu trả lời + bằng chứng hoặc ghi rõ BLOCKED/NOT_TESTED/N-A kèm lý do cho **mọi câu áp dụng**, mọi nhánh bắt buộc và việc bàn giao.
 
-Cuối lượt, **chính AI đã làm** gửi nguyên khối xác nhận này (trong file đề xuất riêng theo cổng trên, tuyệt đối không sửa ba file chuẩn):
+Cuối lượt, **chính AI đã làm** ghi xác nhận tại phiếu được giao; thành viên ngoài Host nộp góp ý quy trình qua proposal, không sửa nguồn chuẩn. Host theo quyền tại COLLAB §0.
 
 ```text
 DOER_CONFIRM: YES | NO | PARTIAL     # Tôi đọc từ đầu, không được giải thích thêm, có hoàn tất quy trình RÀ SOÁT trong phạm vi giao không?
@@ -132,13 +132,13 @@ Nếu **thiếu chức năng sản phẩm** (ví dụ chưa có nguồn Field th
 
 | Vai trò | Được ghi | Không được ghi |
 |---|---|---|
-| GPT Chat — Host, phiên Owner chỉ định 09/10 | Nội dung chuẩn/sổ/README trong task sau khi duyệt và kiểm bằng version | Không tự sửa runtime MOW/VPS ngoài phạm vi |
-| Mọi AI ngoài phiên Host (Astra Codex/Claude/Codex khác/Claude Code…) | File đề xuất **riêng** trong `proposals/`; bằng chứng sản phẩm ở task được giao | 3 file chuẩn và sổ TQT trên trang |
+| Host đúng phiên/bề mặt được ghi tại COLLAB §0 | Nội dung chuẩn/sổ/README trong task sau khi duyệt và kiểm bằng version | Không tự sửa runtime MOW/VPS ngoài phạm vi |
+| Mọi AI ngoài phiên Host đã chỉ định | File đề xuất **riêng** trong `proposals/`; bằng chứng sản phẩm ở task được giao | 3 file chuẩn và sổ TQT trên trang |
 | Owner | Góp ý/đề xuất trực tiếp bằng chat; Host ghi lên repo | Không bị yêu cầu thao tác Git/Markdown |
 
 **Hiệu lực:** quy định vai trò và đường nộp đề xuất **đã áp dụng**; cổng từ chối ghi theo danh tính kỹ thuật **CHƯA ĐƯỢC XÁC MINH** (TQT-ISS-006). Github đang khóa push thường theo ruleset `gateway-only-writes`, nhưng gateway có DeployKey chung: **không có nghĩa** mọi AI khác đã bị chặn path.
 
-**Yêu cầu kỹ thuật để hoàn thiện TQT-ISS-006, chưa giả là máy đã làm:** gateway phải xác thực **đúng phiên/bề mặt được Owner giao làm Host** bằng identity server-side, không tin chuỗi tự khai trong commit và không chỉ so `Host_ID=OpenAI-main` (có thể dùng chung nhiều bề mặt). Khi AI khác cố ghi các file chuẩn, trả `HOST_APPROVAL_REQUIRED`, kèm `readme_path=work/tools-quy-trinh/README.md` và `allowed_proposal_path=work/tools-quy-trinh/proposals/TQT-PR-...`; thử được ca từ chối main, cho phép proposal và Host duyệt nhập/kiểm. Nếu lỗi do nguồn bận/xung đột thì trả lỗi thật, không ngụy thành đã bị chặn quyền.
+**Yêu cầu kỹ thuật để hoàn thiện TQT-ISS-006, chưa giả là máy đã làm:** gateway phải xác thực **đúng phiên/bề mặt được Owner giao làm Host** bằng identity server-side, không tin chuỗi tự khai trong commit và không chỉ so chuỗi Host_ID tự khai (có thể dùng chung nhiều bề mặt). Khi AI khác cố ghi các file chuẩn, trả `HOST_APPROVAL_REQUIRED`, kèm `readme_path=work/tools-quy-trinh/README.md` và `allowed_proposal_path=work/tools-quy-trinh/proposals/TQT-PR-...`; thử được ca từ chối main, cho phép proposal và Host duyệt nhập/kiểm. Nếu lỗi do nguồn bận/xung đột thì trả lỗi thật, không ngụy thành đã bị chặn quyền.
 
 **Không thay luật toàn repo.** Quy ước này chỉ dành cho `work/tools-quy-trinh`. Sổ `OPEN-01…10` ở MOW vẫn sửa tại nguồn MOW tới khi hoàn tất chuyển nguồn TQT-ISS-004.
 
@@ -150,12 +150,12 @@ Nếu **thiếu chức năng sản phẩm** (ví dụ chưa có nguồn Field th
 | Cần làm gì | Nguồn phải đọc |
 |---|---|
 | Owner xem task | [Over view — bức tranh chung](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view) |
-| Nhìn nhanh có gì, thiếu gì, tắc ở đâu | [Bảng 30 giây](view.html#bang) |
+| Nhìn nhanh có gì, thiếu gì, tắc ở đâu | [Phiếu đủ/thiếu trên Overview](view.html#tqt-work-board) |
 | Nhận diện phạm vi, lớp và nhóm chuyên môn | [Cách phân loại](view.html#phan-loai) |
 | Tổ chức câu hỏi từ gốc, ghép với nghiệp vụ | [Ma trận câu hỏi](view.html#ma-tran-cau-hoi) · [Phạm vi Host hiện hành](PROMPT.md); ý kiến ngoài Host gửi riêng |
-| Owner cùng xây dựng quy trình hiệu chỉnh | [Quy trình hiệu chỉnh hướng dẫn và quy trình · TQT-QT-001](view.html#quy-trinh-hieu-chinh) — bản thử v0.1 chưa đạt |
+| Owner cùng xây dựng quy trình hiệu chỉnh | [Quy trình hiệu chỉnh hướng dẫn và quy trình · TQT-QT-001](view.html#quy-trinh-hieu-chinh) — MOW-TH-003, có bước duyệt/công bố/kiểm nơi dùng/ngừng bản cũ |
 | Rà UI đang có, viết ca và lưu kết quả | [Hướng dẫn thực hành](view.html#ra-ui) → 8 câu/MOT, 7 câu Config, khuôn ca, nơi ghi và kiểm lại |
-| Đọc đủ 9 Tools, từng bước/câu hỏi | [9 Tool · một khuôn](view.html#tool-9) — bản chép, chưa cắt chuyển nơi sửa |
+| Đọc đủ 9 Tools, từng bước/câu hỏi | [9 Tool · một khuôn](view.html#tool-9) — hướng dẫn hiện hành; bản cũ tại VPS giữ lịch sử |
 | Luật dùng chung: công thức, xong khi, đi tới đích, sửa hay ghi sổ, Tool→DOT | [Dùng chung](view.html#dung-chung) |
 | Xem áp thử MOW-NHC-001 và các lượt chạy | [Áp thử](view.html#ap-thu) · [Sổ lượt chạy](view.html#so-luot-chay) |
 | Nguồn cũ đã chép, nơi đang gọi, cách cắt chuyển | [Chuyển nguồn](view.html#chuyen-nguon) → mở bản cũ tại VPS |
