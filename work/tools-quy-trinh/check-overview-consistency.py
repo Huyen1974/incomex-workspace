@@ -129,4 +129,11 @@ source_check='LOCAL_PROJECTION_ONLY'
 source=Path(__file__).parent.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json'
 if source.exists():
  actual=json.loads(source.read_text())['application_D24'];assert actual==c['catalog']['application_preview']['record'];source_check='MATCH_EXISTING_PRODUCT_RECEIPT'
-print(json.dumps({'positive':3,'negative':len(mutations)+len(appmut)+len(late),'procedures':len(c['catalog']['records'])+len(c['catalog']['normal_processes']),'source_check':source_check,'application_state':c['catalog']['application_preview']['record']['state'],'production_ready':False},ensure_ascii=False))
+a=c['catalog']['application_preview']['record'];r=c['catalog'];answers={x['key']:x for x in a['declarations']};labels={f['key']:f['label'] for f in r['work_form']['fields']}
+missing=[]
+for key in r['records'][4]['workflow']['start_gate']['requires']:
+ if key=='start_confirmation':
+  if a['start_confirmation']['state']!='CONFIRMED':missing.append({'field':key,'need':'Xác nhận kế hoạch đúng phiên trước S3','owner':a['start_confirmation']['actor']})
+ elif answers[key]['result']!='PASS' or answers[key]['validity']!='CURRENT' or not answers[key]['evidence_refs']:
+  missing.append({'field':key,'need':labels[key]+' — cần kiểm và ghi căn cứ','owner':answers[key]['owner']})
+print(json.dumps({'positive':3,'negative':len(mutations)+len(appmut)+len(late),'procedures':len(c['catalog']['records'])+len(c['catalog']['normal_processes']),'source_check':source_check,'application_state':a['state'],'can_start':not missing,'needs_before_start':missing,'next':a['next'],'production_ready':False},ensure_ascii=False))
