@@ -185,4 +185,6 @@ Sai/thiếu  = Phát hiện → Xác minh → Xử lý → Đấu lại → Ki�
 ---
 
 ## 8. Owner duyệt mục tiêu
-Chưa chốt. Owner 09/10 15:24 giao thứ tự: Host rà phần chuyên môn (mục 4–6) trước; phần mục tiêu Owner và Claude rà tiếp. Khi Owner chốt, Claude ghi nguyên văn lời Owner vào mục này. Sau đó Host áp mục 2 + 3 trong một transaction và ghi kết luận cho PR-07.
+**ĐÓNG theo D25 (10/10/2026 07:38):** Owner tự viết ô 1 còn 3 ý và giao Claude làm Host Kiểm soát. Bản nháp mục 2–3 của file này không dùng; Claude đã áp trực tiếp §0 ở commit 9704bed (P24). Phần rà 4–6 đã được Host nội dung tiếp nhận ở P16.
+
+Lịch sử trước D25: Chưa chốt. Owner 09/10 15:24 giao thứ tự: Host rà phần chuyên môn (mục 4–6) trước; phần mục tiêu Owner và Claude rà tiếp. Khi Owner chốt, Claude ghi nguyên văn lời Owner vào mục này. Sau đó Host áp mục 2 + 3 trong một transaction và ghi kết luận cho PR-07.

@@ -548,12 +548,13 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 ### P24 · Host Kiểm soát dựng lại §0 theo D25 · XONG phần tài liệu
 Ghế: Claude-review · Host Kiểm soát (D25). Based_on: COLLAB @29f59d9; D22–D24; P16–P23; PR-07, PR-08; view.html catalog (MOW-TH-005@1.1: work_form 13 trường, 11 trạng thái, application_preview).
 - Ô 1 = 3 ý Owner viết 10/10, chỉ sửa lỗi gõ. Ô 2 = 2 dòng Owner 08/10 + câu Owner 10/10 về "User chỉ cần mục tiêu, AI làm đúng theo là ra kết quả, không tự sáng tạo".
-- Ô 3 dựng lại: 24 yêu cầu R01–R24 theo M1/M2/M3 và Cách làm, mỗi dòng có trạng thái; tiêu chí kiểm 5 mục; khung đang dùng rút gọn; nguyên văn chỉ đạo 10/10; đường tới bằng chứng.
+- Ô 3 dựng lại: 25 yêu cầu R00–R24 theo M1/M2/M3 và Cách làm, mỗi dòng có trạng thái; tiêu chí kiểm 5 mục; khung đang dùng rút gọn; nguyên văn chỉ đạo 10/10; đường tới bằng chứng.
 - Không xoá chữ nào: đầu §0 cũ, Bảng P23, ô 1 bản 08/10 + 8 khối bổ sung, ô 2 + tiêu chí Host, toàn bộ ô 3 cũ (nhật ký kiểm, TQT-REQ, TQT-DIR, các khung) chuyển nguyên văn xuống Vòng trước.
 - Khuôn chung mọi việc: xác nhận MOW-TH-005@1.1 thay cho TH-06 (13 câu khai khớp 13 ý Owner; có 11 trạng thái và bảng "đang tới đâu, ai làm tiếp"). Ba chỗ còn thiếu so với mục tiêu mới, giao Host nội dung: R04 chưa có ca thật "ý tưởng → quy trình chạy được"; R11 các danh sách trong quy trình chưa thành Master; R02 bảng mới có 1 phiếu.
 - Sửa cờ giả "Chờ Owner" trên trang Owner: 2 dòng ở "Owner cần quyết" đổi sang dạng "- —". Bảng đủ 8 dòng theo MT4, có dòng ⛔.
 - Ý kiến GPT Chat mà Owner định dán kèm không có trong tin nhắn; đã đối chiếu PR-08 (trước D24). Khi có, GPT nộp proposal riêng.
-- DOER_CONFIRM: làm xong phần tài liệu §0; chưa phải nghiệm thu nội dung. Kiểm sau ghi ở dòng dưới.
+- DOER_CONFIRM: làm xong phần tài liệu §0; chưa phải nghiệm thu nội dung.
+- Kiểm sau ghi: commit 9704bed trùng từng byte với bản dựng trước (sha256 538e19ae…). Bộ đọc §0 của trang Owner (chạy lại logic sync.py): mỗi tiêu đề ô 1–3 đúng 1 lần, Bảng 8 dòng có ⛔, "Owner cần quyết" không còn cờ chờ. Trang Kiểm soát thật lúc 08:0x: hết cảnh báo "thiếu dòng ⛔", ô 1 hiện 3 ý, ô 2 hiện 3 dòng, thanh Tiến độ không còn đỏ "Chờ Owner". Rà 2 vòng có JEV: phủ đủ các ý cũ (điểm 1,95/2), ô 1 giữ nguyên ý Owner.
 
 ### P23 · Khuôn chung ⑤ và phiếu MOW001/G1 · CHUẨN BỊ ÁP THỬ
 - Tiếp nhận PR08 + Owner D24: ⑤ 1.1-design với 6 MOT giữ mã; 13 mục đủ/thiếu; kế hoạch, nơi ghi và vòng đời rõ. Mẫu thật thêm trong UI-REVIEW-MOW001.json/application_D24, bảng Overview dẫn xuất và kiểm khớp nguồn, không tạo sổ mới.
