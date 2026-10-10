@@ -2,13 +2,141 @@
 Tên việc: Tools quy trình — làm theo quy trình ra được sản phẩm
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 08/10/2026 07:16 (D04/D05); D06 trước đây giao GPT Chat; sau đó Owner trực tiếp giao Astra Codex làm Host ngày 08/10/2026 (D17, thay phân công cũ). Giữ nguyên lời Owner trong ô 1–2; ngày 09/10/2026 Owner yêu cầu Host bổ sung làm rõ mục tiêu và rà lại Kiểm soát, không viết lại mục tiêu gốc. Quyết định Owner mới ngày 09/10/2026 giao GPT Chat làm Host lại để tổ chức tab Over view (D19), đã thay D17 trong vòng Overview; nay D22 giao lại Astra Codex, mục tiêu ô 1–2 giữ nguyên.
-Host: Astra Codex — Owner giao lại trực tiếp ngày 09/10/2026 (D22)
-Host_ID: Astra-Codex
-Host_Surface: Codex · cuộc trò chuyện hiện tại của Owner
+Xác nhận User: ĐÃ XÁC NHẬN — Owner viết lại ô 1 ngày 10/10/2026 07:38 (D25), thay 15 ý bản 08/10 (D04/D05). Bản cũ và các khối bổ sung 08–10/10 giữ nguyên văn ở Vòng trước; nội dung đã vào ô 3. Owner giao Claude làm Host phần Kiểm soát (Bảng, ô 1–3); Astra Codex vẫn là Host nội dung (D22).
+Host: Astra Codex — Host nội dung: view.html, README, catalog, tiếp nhận đề xuất nội dung (D22) · Claude — Host Kiểm soát: Bảng điều khiển, ô 1–3 của §0 (D25)
+Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
+Host_Surface: Astra Codex · cuộc trò chuyện Codex của Owner · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-10 · Astra Codex · P23
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-10 08:00 +07 · Claude · P24
+- 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
+- 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
+- 📍 Tiến độ: [■ Thiết kế và khả thi] → [□ Triển khai] → [□ Vận hành]
+- ✅ Đã xong (thiết kế, chưa nghiệm thu): 30 Master · 5 quy trình tổng hợp, trong đó ⑤ MOW-TH-005@1.1 là khuôn chung mọi việc (13 câu khai, 11 trạng thái) · 12 quy trình thành phần · 159 câu/53 nhóm · 87 ca mô phỏng · Over view.
+- ■ Đang làm: — · 0 RUN active
+- ⬜ Còn lại: 1) ca MOW001/G1 đi theo ⑤ tới nghiệm thu thiết kế → 2) ca đầu tiên "ý tưởng → quy trình chạy được" (ô 3 R04) → 3) AI mới làm lại không cần hỏi → 4) G2 triển khai, PG staging → 5) G3 vận hành.
+- ➡ Kế tiếp: 🤖 Astra Codex kiểm đầu vào G1, xác nhận kế hoạch trước S3 trong application_D24, đồng bộ README theo D25 · 🤖 Claude rà §0 mỗi lượt được gọi · 😊 Owner: không có việc chờ. NEXT_TRIGGER=VERIFY_G1_INPUTS_AND_CONFIRM_PLAN_BEFORE_S3
+- ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
+
+### 1. Mục tiêu
+1. Xây dựng 1 cỗ máy sản xuất quy trình, mà ở đó, con người đưa ra ý tưởng => AI + cỗ máy đó biến thành quy trình chạy được, tự động tối đa.
+2. Tất cả mọi thứ phải viết thành quy trình, kể cả quy trình thực hiện quy trình... không có thứ gì là không có quy trình. Cứ 2 danh mục trở lên là phải có Master List.
+3. Yêu cầu phải trình bày cực kỳ đơn giản: Con người nhìn cái hiểu ngay.
+
+(Owner viết 10/10/2026 07:38 · D25 · chỉ sửa lỗi gõ. AI không sửa chữ ô này. Mọi chi tiết ở ô 3.)
+
+### 2. Thế nào là hoàn thành
+Một quy trình đạt = người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
+Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lại.
+Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạy ra kết quả. AI hiểu phải làm gì theo quy trình, làm đúng theo là ra kết quả, không tự sáng tạo; sáng tạo là sửa quy trình.
+
+(Hai dòng đầu Owner duyệt 08/10/2026 · D04. Dòng cuối là lời Owner 10/10/2026 · D24/D25.)
+
+### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+Cách đọc cho mọi AI: đọc hết 3.1 → 3.5, đúng thứ tự. Mỗi yêu cầu có mã R, thuộc mục tiêu M1/M2/M3 của ô 1. Trạng thái: ⬜ chưa có · 🟡 có bản thiết kế, chưa nghiệm thu · 🟢 đã nghiệm thu bằng làm theo thật · 🔴 tắc. Nguyên văn lời Owner ở 3.4; bằng chứng ở các mục P. Thấy thiếu/sai → nộp proposal riêng (3.3); chỉ Host Kiểm soát sửa ô 3.
+
+#### 3.1 Yêu cầu theo mục tiêu
+- R00 ⬜ Đích nền (Owner 08/10 · D05, vẫn hiệu lực): việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể. Mỗi quy trình ghi rõ bước nào đã có chốt chặn làm sai, bước nào mới là lời dặn (AGENTS A10-R2).
+
+M1 · Cỗ máy: ý tưởng → quy trình chạy được, tự động tối đa
+- R01 🟡 Khuôn chung cho mọi việc lớn/nhỏ: một quy trình tổng hợp chung nhất, vừa là khuôn làm, khuôn kiểm, khuôn lập kế hoạch, tự động hoá, giám sát và biết sai ở đâu. Trả lời đủ 13 câu: việc gì (mã + Master) · bắt đầu từ đâu (kiểm nối vào) · kết thúc ở đâu (kiểm nối ra) · đầu vào đủ chưa · điều kiện thực hiện · kế hoạch ghi đâu · kết quả ghi đâu · sai/thiếu ghi đâu · ai làm, báo thế nào · ai test, đạt là gì, ghi đâu · duyệt đưa vào dùng · phiếu đủ/thiếu cho AI · vòng đời trạng thái. Chỉ bắt đầu khi đủ đầu vào, đủ nơi ghi và kế hoạch đã được xác nhận. → MOW-TH-005@1.1 (D24). Không thêm TH-06: 005 đã giữ đúng vai này, và Owner D22 hạn chế khái niệm mới.
+- R02 🟡 Mỗi việc có một bảng nhìn là hiểu: cần làm gì · đã làm gì · làm tiếp gì · ai làm tiếp · đến đâu · tắc ở đâu · lý do. → application_preview trên Over view (P23); mới có 1 phiếu (MOW001/G1).
+- R03 🟡 AI không tự sáng tạo trong việc lặp lại. Thiếu quy trình → 002 nhận → 003 xây/sửa và công bố → mới làm tiếp. Sáng tạo = sửa quy trình.
+- R04 ⬜ Đường chuẩn "ý tưởng → quy trình chạy được": Owner đưa ý tưởng → 005 khai việc → 003 dựng quy trình (design/execute) → 001 khi cần config/PG/DOT → chạy được. Chưa có ca thật nào đi hết đường này; đây là phép thử chính của M1.
+- R05 🟡 Quy trình tổng hợp nối các quy trình con: trước/sau, khi nào đi tiếp, khi nào quay lại; thiếu thì bổ sung. Không dừng ở thiết kế UI mà phải chạy được tới cùng. → MOW-TH-001…004.
+- R06 🟡 Ba giai đoạn, mỗi giai đoạn một mốc nghiệm thu: G1 thiết kế + đánh giá khả thi (gồm dự kiến config, đủ trường/danh sách) → G2 config thật, vào PG, test kỹ thuật, AI test trên UI như người → G3 vận hành thật, log + phản hồi người dùng, hiệu chỉnh, bàn giao VHCM theo dõi. Thiết kế được duyệt ≠ đã triển khai ≠ đã dùng thật. → G1 đang thử; G2, G3 ⬜.
+- R07 🟡 Quy trình tổng hợp đầu tiên MOW-TH-001 "chế tạo một chi tiết/chức năng": đặt tên trong Master → thiết kế UI → chạy thử giả định các quy trình sau. Đích: được thông qua, yên tâm chạy; hoặc ghi sai/thiếu vào sổ, giải xong là chạy.
+- R08 ⬜ Tự động tối đa: máy làm trước (PG · DOT · JEV), agent sau cùng vì chậm, tốn, vẫn có thể sai. Ba lớp: design (đủ câu hỏi để thiết kế) → execute (thứ tự bước + xong khi, agent làm lặp) → DOT/script (trigger, máy tự chạy). Phần nào viết thành DOT thì DOT là trạng thái cuối; chạm Directus/PG bắt buộc DOT; phần khác dừng ở design/execute là đủ (vd thiết kế UI).
+- R09 🟡 Sẵn sàng PG: làm chuẩn ngoài PG rồi bê nguyên khối vào; tính sẵn phiên bản, lần chạy, vòng chạy; có mã cho khoá chính/phụ; rà bằng mô phỏng lắp thật vào PG để bắt lỗi; kiến trúc chịu quy mô gấp nghìn, triệu lần. Giờ ghi tay trên repo/VPS cho nhanh. → mô hình TQT-MODEL-001 v2, 87 ca mô phỏng; chưa chạy PG.
+
+M2 · Mọi thứ là quy trình; từ 2 trở lên có Master List
+- R10 🟡 Mọi trình tự, luồng, hướng dẫn đều là quy trình, kể cả quy trình thực hiện quy trình (005) và quy trình làm/sửa quy trình (003). Không tiến trình nào đứng lẻ; quy trình nào cũng có ID và nằm trong Master List. Chỉ quản lý MOW/MOT, hạn chế khái niệm mới (D22). Tách rõ mã tài liệu · bản nháp · quy trình được phép gọi. → 5 tổng hợp + 12 thành phần đã có mã; TQT-ISS-007 (đăng ký MOW tổng hợp, quan hệ gọi con) còn mở.
+- R11 🟡 Cứ 2 trở lên là có Master List, bổ sung dần (D14). → 30 Master; các danh sách bên trong quy trình (13 câu khai, 11 trạng thái, loại kết quả, vai) còn nằm trong JSON, chưa là Master.
+- R12 🟡 Quy trình = các bước + đủ câu hỏi + thế nào là xong. Câu hỏi = chuyên môn (Bước lớn · Bước con · Tầng · Chuỗi) + nghiệp vụ (UI · Config · Test · giao việc…). Làm việc gì thì ghép bộ câu hỏi việc đó; đủ góc độ, đúng trình tự. Danh sách nghiệp vụ mở rộng dần. "Nhóm chuyên môn" ở bản 08/10 nay gọi là nghiệp vụ. → 159 câu/53 nhóm.
+- R13 🟡 Một ma trận câu hỏi gốc (SSOT, AI quét được) chạy ra từng miếng trên trang; bấm miếng nào ra câu hỏi miếng đó. Câu ngắn, làm đến đâu hiệu chỉnh đến đó, có ý kiến hội đồng.
+- R14 🟡 Quy định chung để ghép + ghi chú riêng từng bước con, từng tầng. Cái gì phổ quát được thì đưa lên tầng. Thêm Bước con → thêm bộ câu hỏi riêng, vẫn kế thừa bước lớn (D15).
+- R15 🟡 Khép kín sai/thiếu: chưa sửa ngay → ghi một sổ, theo vòng đời tới khi xong (phát hiện → xác minh → xử lý → đấu lại → kiểm tại nơi phát hiện → kết thúc). Gửi ≠ đã nhận; bị từ chối ≠ đạt. Đạt có nhiều mức tăng dần và có chỗ ghi; tách mức kiểm · kết quả · hiệu lực để lần sau chỉ kiểm phần chưa đạt hoặc bị ảnh hưởng. → MOW-TH-002.
+- R16 🟡 Có quy trình rà: chỗ gãy · chỗ chồng lấn (2 quy trình cùng 1 việc) · tiến trình đứng lẻ · trạng thái/thông tin chưa có chỗ ghi · chưa có điều kiện đạt/kết thúc · chưa có quy trình xử lý tiếp. → đang là bộ kiểm khai báo (PR-08 → D24); chưa là một quy trình có mã.
+- R17 🟡 Danh mục = 3 Chuỗi × nghiệp vụ × 3 lớp. 3 Chuỗi: CTCM Chế tạo cỗ máy · VHCM Vận hành cỗ máy · CMSXQT Cỗ máy sản xuất quy trình.
+- R18 ⬜ Nền = chuẩn tốt nhất ngành IT + phần riêng Incomex. Mỗi chuẩn ghi "Nền: … · Riêng Incomex: …"; chưa tìm được nền thì ghi CHƯA TÌM và tính chưa đạt.
+
+M3 · Nhìn là hiểu
+- R19 🟡 Ít chữ, kiểu Công thức, một khuôn; nửa phút biết có gì · thiếu gì · tắc ở đâu. Dùng màu (xanh ok · vàng cảnh báo · đỏ tắc · xám chưa làm) và biểu tượng (😊 người làm · 🤖 máy làm). Chi tiết máy để ở phần "cho AI". Mỗi quy trình có chú giải 4 ý (để làm gì · khi nào dùng · tránh gì · xong khi) ở một nguồn duy nhất (D21).
+- R20 🟡 Trang nội dung: Over view (quan hệ quy trình tổng hợp ↔ thành phần, mã nhỏ mờ cạnh tên) → List quy trình tổng hợp → Câu hỏi cơ bản (giống Công thức) → Câu hỏi nghiệp vụ → Ma trận câu hỏi → bản cũ để đối chiếu.
+- R21 🟡 Thông tin đến Owner phải đơn giản để Owner thấy vấn đề và cùng sáng tạo. Câu hỏi lên Owner luôn kèm sẵn đề xuất để gật/lắc.
+
+Cách làm
+- R22 Vai: Owner đưa mục tiêu/ý tưởng · Astra Codex là Host nội dung (D22) · Claude là Host Kiểm soát (D25) · AI khác góp ý một nơi, Host xét rồi mới nhận (D08/D17). Mỗi phần chỉ một bên sửa để nhất quán. Luật ghi trong README cho AI dễ đọc.
+- R23 Hội đồng AI hiệu chỉnh liên tục. Mục tiêu đã chốt thì AI tự điều hành tới khi xong, không chờ Owner.
+- R24 Chỉ đạo mới của Owner → ghi nguyên văn ở 3.4 ngay lượt đó + thêm/sửa dòng R ở 3.1. Ô 1–2 chỉ đổi theo lời Owner.
+Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), là sản phẩm của cỗ máy thuộc Chuỗi 3, để sau. Không làm lúc này: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế.
+
+#### 3.2 Tiêu chí kiểm một quy trình (Host nội dung soạn 09/10, dùng cho ô 2)
+- Khai báo đủ: mã/phiên bản, mục tiêu, đầu vào/ra, việc con có thứ tự, người làm/giữ, nguồn đọc/nơi ghi, trigger/điều kiện, báo cáo, nơi nhận/trả và điều kiện kết thúc.
+- Trả lời đủ: câu hỏi áp dụng có đáp án và căn cứ; ghi chú riêng có phạm vi. Đối chiếu hai chiều yêu cầu ↔ UI/Config ↔ ca kiểm; không có chỗ thừa vô căn cứ hoặc yêu cầu bắt buộc bị bỏ sót.
+- Nối kín: các nhánh thành công, thiếu, lỗi, từ chối, chưa nhận/quá hạn đều có cách xử lý và người chịu trách nhiệm. Hồ sơ sửa xong phải trả về đúng nơi phát hiện và kiểm lại; kết thúc không thực hiện phải ghi rõ mục tiêu chưa đạt.
+- Kiểm được và dùng lại được: lưu mã ca/lần chạy, nguồn/phiên bản, bằng chứng, mức kiểm, kết quả, hiệu lực. Nguồn đổi thì xét lại phần ảnh hưởng; dữ liệu có mã/quan hệ để chuyển PG và quản lý vòng đời.
+- Nghiệm thu đúng mức: người/AI thực hiện xác nhận làm được/một phần/chưa làm được bằng ca áp dụng. Tách nghiệm thu thiết kế, triển khai và vận hành; mục không áp dụng phải có lý do. Việc bắt buộc còn hở thì giữ mở, không nhận toàn quy trình đã thành công.
+
+#### 3.3 Khung đang dùng (rút gọn; nguyên văn đầy đủ ở Vòng trước › Ô 3 trước D25)
+- Ba lớp (TQT-LAYERS): design = thiết kế sáng tạo (vẽ UI, lên danh sách, config): đủ câu hỏi, lựa chọn, quyết định · execute = agent làm lặp: điều kiện bắt đầu, câu xác minh, thứ tự bước, nhánh khi mắc, đầu ra, nơi bàn giao, xong khi · DOT/script = máy tự chạy: mục tiêu, trigger, vào/ra, thành công/thất bại, xong khi; áp AGENTS A10-R3/R4. Không bắt buộc mọi quy trình đủ ba lớp.
+- Làm theo là phải xong (TQT-QUALITY): rõ ai làm, bắt đầu từ đâu, điều kiện, sản phẩm, nơi nhận, bằng chứng · câu hỏi → đáp án → bước → sản phẩm → bằng chứng truy được về nhau · có văn bản mới chỉ là đã soạn · làm đúng mà vẫn mắc: ghi tình huống, sửa bản chuẩn, thêm ca kiểm, chạy lại, kiểm lại phần bị ảnh hưởng · chưa sửa ngay thì ghi sổ trước khi hết lượt; chỉ đóng khi kiểm đạt; tái diễn thì mở lại cùng mã.
+- Sổ (TQT-REGISTER): sổ của task ở view.html#so-van-de, mã TQT-ISS-nnn; hồ sơ task khác giữ mã gốc. Vòng đời Ghi nhận → Phân loại → Giao → Đang xử lý → Chờ kiểm → Đóng, có nhánh Bị chặn · Để sau · Trùng · Mở lại. Chưa có người nhận ghi "Chưa giao". Ổn định mới chuyển PG qua DOT, giữ mã và lịch sử.
+- Nguồn (TQT-SOURCES): nguồn Owner chỉ là trang Công thức MMIM. Hướng dẫn chuẩn nằm ở tools-quy-trinh; Tools cũ (ML-DEF-023) là lịch sử hướng dẫn; hồ sơ sản phẩm vẫn ở nguồn gốc. "Xét nguyên tắc giao việc" thuộc MOT, phải đối chiếu nguồn MOT thật.
+- Quyền sửa (TQT-HOST-GATE): view.html (nội dung + sổ), README (cửa vào) và phần COLLAB dưới §0 do Host nội dung sửa; §0 (Bảng, ô 1–3) do Host Kiểm soát sửa. Host nội dung được cập nhật các dòng trạng thái của Bảng (📍 ✅ ■ ⬜ ➡) đúng sự thật, kèm mục P; Host Kiểm soát giữ 🎯 🏁 ⛔ và ô 1–3, rà lại Bảng mỗi lượt. AI khác chỉ tạo file riêng proposals/TQT-PR-YYYYMMDD-<ghế>-<số>.md: mã · đã thử và kết quả thật · câu/bước thiếu hoặc sai · đề xuất sửa · nguồn và bằng chứng. Host đúng phần ghi ACCEPT / REQUEST_CHANGES / REJECT ở mục P/D. Chưa có khoá kỹ thuật, TQT-ISS-006 mở.
+- Hội đồng: Astra-Codex (OpenAI) Host nội dung · Claude-review (Anthropic) Host Kiểm soát + phản biện · GPT Chat (OpenAI) góp ý/phản biện. Mode=COUNCIL · Automation_Level=AUTO0. Đường gọi hội đồng chưa đo.
+
+#### 3.4 Nguyên văn chỉ đạo Owner
+- 10/10/2026 07:38 · phiên Claude · D25 (nguyên văn, giữ cả lỗi gõ; phần "ý kiến của gpt chat" Owner định dán kèm không có trong tin nhắn):
+“Toi và codex / GPT vẫn tiếp tục sửa. Bạn thấy đã có nhiều thứ khác hơn so với lần trước. Nhưng mục tiêu ban đầu, ngắn gọn nhất là: User chỉ cần đưa ra ý tưởng, AI biến nó thành quy trình chạy được thì chưa khả thi. Tôi đang yêu cầu bổ sung thêm các thông tin dưới đây.
+Bạn rà soát lại và có lẽ nên chuyển phần lớn các chi tiết xuống những điều cần đạt.
+Trên mục tiêu: Chỉ cần đơn giản là:
+1. Xây dựng 1 cỗ máy sản xuất quy trình, mà ở đó, con người đưa ra ý tưởng => AI + cỗ máy đó biến thành quy trình chạy được, tự động tối đa.
+2. Tất cả mọi thứ phải viết thành quy trình, kể cả quy trình thực hiện quy trình... không có thứ gì là không có quy trình. Cứ 2 danh mục trở nên là phải có matser list.
+3. Yêu cầu phải trình bày và cực kỳ đơn giản: Con người nhìn cái hiểu ngay.
+4.
+=> còn lại tất cả nên đưa vào phần chi tiết. Mục tiêu dài lê thê không ai đọc được.
+Bạn được làm host phần kiểm soát/mục tiêu/ thế nào là hoàn thành/ chi tiết cần đạt.. => diễn đạt lai giúp tôi để mục tiêu ngắn gọn, và các chi tiết không thiếu nhưng có cấu trúc tốt nhé. AI đọc không xót.
+---------
+5. Đây là ý kiến bổ sung của GPT chat.
+Tôi thì suy nghĩ đơn giản hơn thế này. Bắt đầu vào bất cứ 1 việc gì? nhỏ hay lớn => chúng ta nên có 1 quy trình tổng hợp toàn diện chung nhất. Quy trình TH này vừa là khuôn thức cho cách làm, vừa là khuôn thước cho kiểm tra, vừa là khuôn thước để lập kế hoạch, tự động hoá, giám sát, theo dõi để biết sai ở đâu. Quy trình tổng hợp cần trả lời các câu hỏi đại loại như:
+   1. Việc gì?
+   2. Bắt đầu từ đâu? (=> xử lý và test phần kết nối hiện hữu vào việc mới)
+   3. Kết thúc ở đâu? (=> xử lý và test phần kết nối việc mới vào hệ thống hiện hữu) => danh sách công việc có viẹc 2 và 3.
+   4. Điều kiện đầu vào cần những gì? (= > kiểm đủ thiếu + chuẩn bị) => kế hoạch chuẩn bị => chỉ bắt đầu khi có đủ điều kiện đầu vào => cần 1 xác nhận trước triển khai
+   5. Điều kiện để thực hiện?
+   6. Kế hoạch thì ghi vào đâu?
+   7. Kết quả thì ghi vào đâu?
+   8. Sai thiếu, yêu cầu bổ sung về điều kiện đầu vào, kết nối => ghi vào những đâu?
+   9. Ai làm, làm xong báo cáo thế nào?
+   10. Ai test (theo tiêu chí thế nào là đạt) => test xong ghi vào đâu?
+   11. Thủ tục và tình trạng phê duyệt đưa vào sử dụng.
+   12. Bạn đầu AI chạy kiểm tra, cần có 1 form để ghi thiếu đủ, cập nhật trạng thái....
+   13. các trạng thái vòng đời của 1 việc (ví dụ thôi nhé):
+      1. Mã việc + tên việc trong master list tương ứng (phù hợp)
+      2. Điều kiện đầu vào?
+      3. Danh sách khai báo đủ/thiếu (các sổ) xem còn chỗ nào chưa đủ? Vi dụ sai thiếu chưa có chỗ khai, test xong chưa có chỗ báo cáo...
+      4. Đã triển khai chưa? test ok chưa? đưa vào sử dụng chưa? có cần sửa thêm không.
+Nhắc lại nguyên tắc: nhìn cái phải hiểu ngay => tôi vẫn nghĩ cần 1 quy trình tổng hợp hơn nữa, Vẫn là quy trình tổng hợp, nhưng rõ ràng cái này là tổng hợp của tổng hợp có thể là TH 6.
+AI chỉ cần chạy cái là hiểu ngay => có chỗ ghi lại, nhìn vào bảng đó ai cũng hiểu cần làm gì? Đã làm được gì? Cần phải làm tiếp cái gì? Tình trạng triển khai đến đâu? Tắc ở chỗ nào? Lý do là gì? ...... Mọi chuyện phải bắt đầu từ 1 quy trình như vậy, và khi có quy trình như vậy thì đảm bảo tất cả những chỗ ghi chép đều phải có, AI biết ngày làm thế nào và không tự sáng tạo => bằng cách đó thì mới xong được. Còn hiện tại chúng ta đã làm được nhiều việc tốt, nhưng tôi nghĩ chưa đủ để khả thi. Đúng theo mong muốn là User chỉ cần mục tiêu => phần còn lại, tự chạy ra kết quả.
+=> Bạn căn cứ và các ý kiến của GPT chat dưới đây và ý kiến của user bên trên, xem xét sửa lại thêm 1 quy trình nào đó để đạt được những yêu cầu như tôi đưa ra bên trên, hoặc thêm quy trình TH 06 để giải quyết vấn đề này. Mục tiêu cuối cùng phải đúng nghĩa nghĩa là, AI hiểu phải làm gì theo quy trình, và làm đúng theo thì phải ra kết quả. Không cần sáng tạo gì cả. Sáng tạo là cách sửa đổi quy trình chứ không phải AI tự sáng tạo trong những công việc lặp đi gặp lại hàng ngàn lần như vậy. Chuẩn hóa từng chi tiết là cách duy nhất.
+----- ý kiến của gpt chat”
+- Từ 07/10 đến 10/10 trước đó: nguyên văn ở Vòng trước (ô 1 bản 08/10 và các khối bổ sung; Ô 3 trước D25 › TQT-DIR) và Quyết định Owner D01–D24.
+
+#### 3.5 Bằng chứng và hồ sơ
+- Bằng chứng từng lượt: mục "Ý kiến và bằng chứng" (P01–P24). Ý kiến AI: proposals/ (PR-01…08); kết luận Host ở README › Ý kiến hội đồng. Nhật ký kiểm cũ của ô 3: Vòng trước › Ô 3 trước D25.
+
+### Vòng trước
+Các khối dưới đây là bản trước D25 (10/10/2026), giữ nguyên văn để đối chiếu. Hiện hành chỉ là đầu §0, Bảng và ô 1–3 phía trên.
+
+#### Đầu §0 và Bảng điều khiển trước D25 (nguyên văn)
+Xác nhận cũ: ĐÃ XÁC NHẬN — Owner chốt mục tiêu ô 1–2 ngày 08/10/2026 07:16 (D04/D05); D06 trước đây giao GPT Chat; sau đó Owner trực tiếp giao Astra Codex làm Host ngày 08/10/2026 (D17, thay phân công cũ). Giữ nguyên lời Owner trong ô 1–2; ngày 09/10/2026 Owner yêu cầu Host bổ sung làm rõ mục tiêu và rà lại Kiểm soát, không viết lại mục tiêu gốc. Quyết định Owner mới ngày 09/10/2026 giao GPT Chat làm Host lại để tổ chức tab Over view (D19), đã thay D17 trong vòng Overview; nay D22 giao lại Astra Codex, mục tiêu ô 1–2 giữ nguyên.
+Host cũ: Astra Codex — Owner giao lại trực tiếp ngày 09/10/2026 (D22)
+Host_ID cũ: Astra-Codex
+Host_Surface cũ: Codex · cuộc trò chuyện hiện tại của Owner
+Xác nhận bổ sung (vẫn hiệu lực, đã chép lên đầu §0): Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
+
+#### BẢNG ĐIỀU KHIỂN CŨ · cập nhật 2026-10-10 · Astra Codex · P23
 - 🎯 Mục tiêu: việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể. Vì sao: người nhìn rõ mới cùng phát hiện và sửa được vấn đề.
 - 🏁 Xong khi: đạt tiêu chí ô 2; quy trình được làm theo ra đúng sản phẩm, có bằng chứng và đường xử lý sai/thiếu tới cuối.
 - 📍 Tiến độ: [■ Thiết kế và khả thi] → [□ Triển khai] → [□ Vận hành]
@@ -18,7 +146,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ➡ Kế tiếp: dùng application_D24 trong phiếu MOW001, kiểm lại đáp án/điều kiện G1 rồi xác nhận kế hoạch trước S3. ⑤@1.1-design bao quát toàn việc; ③ có bước công bố phiên. Bảng Overview chỉ rõ CHUẨN BỊ, thiếu gì và ai làm tiếp. NEXT_TRIGGER=VERIFY_G1_INPUTS_AND_CONFIRM_PLAN_BEFORE_S3.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế · tự áp mục tiêu PR-07 chưa duyệt.
 
-### 1. Mục tiêu
+#### Ô 1 bản 08/10/2026 (D04/D05) và các khối bổ sung 08–10/10 — thay bằng ô 1 ngày 10/10/2026 (D25); giữ nguyên văn, nội dung đã vào ô 3 mới
 **Đích:** việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể.
 
 **Công thức**
@@ -132,7 +260,7 @@ Bạn rà soát tiếp. Cố gắng giữ cho vấn đề thật đơn giản đ
 
 Một nguyên tắc Owner bổ sung 09/10/2026 (D22): “tất cả các trình tự thực ra là quy trình, nên đưa hết vào quy trình để giữ quản lý. Các luồng, các hướng dẫn... => về bản chất là thành quy trình. Chúng ta chỉ quản lý 1 đối tượng đã quy trình (MOW và MOT thôi). Hạn chế sinh ra khái niệm mới.”
 
-### 2. Thế nào là hoàn thành
+#### Ô 2 bản 08/10/2026 (D04) và tiêu chí Host — nguyên văn
 Một quy trình đạt = người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lại.
 
@@ -147,7 +275,7 @@ Chưa đạt → sửa quy trình, thêm câu hỏi còn thiếu → chạy lạ
 - **Kiểm được và dùng lại được:** lưu mã ca/lần chạy, nguồn/phiên bản, bằng chứng, mức kiểm, kết quả, hiệu lực. Nguồn đổi thì xét lại phần ảnh hưởng; dữ liệu có mã/quan hệ để chuyển PG và quản lý vòng đời.
 - **Nghiệm thu đúng mức:** người/AI thực hiện xác nhận làm được/một phần/chưa làm được bằng ca áp dụng. Tách nghiệm thu thiết kế, triển khai và vận hành; mục không áp dụng phải có lý do. Việc bắt buộc còn hở thì giữ mở, không nhận toàn quy trình đã thành công.
 
-### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+#### Ô 3 trước D25 — nhật ký kiểm/tiếp nhận, TQT-REQ, TQT-DIR và các khung (nguyên văn; bản hiện hành ở ô 3 mới)
 
 #### P16 · Master quy trình tổng hợp và tiếp nhận PR-07 · 09/10/2026
 §0.3: đã đối chiếu. Owner trực tiếp yêu cầu Master list riêng theo UI cha, có tên/mã, đồng thời giữ trong tools-quy-trinh để bàn khi dưới 10 quy trình.
@@ -304,7 +432,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 
 **Roster hiện hành D22:** Astra Codex giữ Host theo yêu cầu trực tiếp Owner; GPT Chat/Claude góp ý riêng, không ghi nguồn chính. Đường gọi Reviewer vẫn CHƯA ĐO; không giả định quorum hay cấp RUN. Lượt này rà và hiệu chỉnh nguồn thiết kế/Overview, chưa PG, chưa đổi công thức hoặc triển khai quy trình nghiệp vụ.
 
-### Vòng trước
+#### Vòng trước cũ (trước D25)
 Chỉ đạo READ-ONLY P15/D16 và Host GPT Chat dưới đây là lịch sử trước khi Owner giao lại Astra Codex. Không dùng lịch sử này để ghi đè vai trò/phạm vi hiện hành ở đầu §0.
 
 #### BẢNG ĐIỀU KHIỂN CŨ · cập nhật 2026-10-08 · GPT Chat · P15
@@ -403,6 +531,8 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **D20 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner yêu cầu số vòng của 4 Quy trình tổng hợp lớn hơn, Quy trình thành phần hiển thị **STT đầu tiên**, và chuyển nội dung của **hai ảnh tổng quan Owner gửi** thành **hai bố cục HTML đặt phía dưới Over view**, chủ yếu mô tả những gì đã có, không tạo ảnh. Host chỉ chỉnh phần trình bày; mã/danh mục/luật không đổi.
 - HUMAN_DIRECTIVE@TQT-OVERVIEW-HTML-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,README.md,COLLAB.md} · step=Over view · recorded_by=OpenAI-main/GPT Chat · quote="Các vòng số hơi nhỏ , cho to ra 1 chút (của quy trình tổng hợp) / Quy trình thành phần chốt đầu tiên cho tôi STT / Cho tôi cả các hình này xuống bên dưới ... bạn tạo ra dạng HTML cho nhẹ." · text=Tăng vòng số; STT 1–12; 2 sơ đồ HTML bên dưới, không làm ảnh; chỉ mô tả nguồn hiện có · audit=Owner trực tiếp tại GPT Chat ngày 09/10/2026.
 
+- **D25 · 10/10/2026 07:38 +07 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner viết lại ô 1 còn 3 ý: cỗ máy sản xuất quy trình (ý tưởng → quy trình chạy được, tự động tối đa) · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu. Mọi chi tiết khác chuyển xuống ô 3, có cấu trúc để AI đọc không sót. Owner giao Claude làm Host phần Kiểm soát (Bảng điều khiển, ô 1 Mục tiêu, ô 2 Thế nào là hoàn thành, ô 3 Chi tiết cần đạt); Astra Codex giữ Host nội dung theo D22. Về khuôn chung cho mọi việc (cùng chỉ đạo, Host nội dung đã làm ở D24): Host Kiểm soát xác nhận dùng MOW-TH-005@1.1, không thêm TH-06; yêu cầu và chỗ còn thiếu ghi ở ô 3 R01–R04, R11. Ô 1–2 cũ, 8 khối bổ sung và ô 3 cũ giữ nguyên văn ở Vòng trước. Áp: SAME_COMMIT.
+- HUMAN_DIRECTIVE@TQT-GOAL-HOST-20261010 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/COLLAB.md §0 (Bảng, ô 1–3) · step=chốt mục tiêu + kiểm soát · recorded_by=Claude-review · quote="Bạn được làm host phần kiểm soát/mục tiêu/ thế nào là hoàn thành/ chi tiết cần đạt.. => diễn đạt lai giúp tôi để mục tiêu ngắn gọn, và các chi tiết không thiếu nhưng có cấu trúc tốt nhé. AI đọc không xót." · text=Ô 1 = 3 ý Owner viết; chi tiết vào ô 3; Claude giữ §0, Astra Codex giữ nội dung. · audit=Tin nhắn trực tiếp Owner tại phiên Claude Chat 10/10/2026 07:38 +07; nguyên văn đầy đủ ở ô 3 mục 3.4.
 - **D24 · 10/10/2026 · HUMAN_DIRECTIVE + HOST_DECISION:** Owner yêu cầu khuôn chung cho bất cứ việc lớn/nhỏ. Host nâng cấp MOW-TH-005@1.1-design (không thêm 006 trùng vai), 13 mục khai báo cùng phiếu hiện hữu; xác nhận đủ trước S3, kiểm hai đầu nối, duyệt đúng phạm vi và ACK mới đóng. Tiếp nhận PR08: sửa chỉ dẫn Host, mẫu MOW001/G1, trường issue không ép lỗi giả, kiểm nhánh/trường bắt buộc/nguồn, 003 có bước công bố. Mục tiêu tự chạy là đích kiến trúc, chưa là năng lực đã nghiệm thu. Nguồn Host duy nhất ở §0; nguồn hướng dẫn ở tools-quy-trinh, hồ sơ sản phẩm tại nguồn gốc.
 - **D23 · 09/10/2026 · HUMAN_DIRECTIVE + HOST_DECISION · HIỆU LỰC:** Owner yêu cầu Host sửa nốt, tự quyết ⑤ để quay lại thử quy trình/UI. Host chốt MOW-TH-005@1.0-design, CH-001 CTCM, dùng cho một lượt chọn–thực hiện–kiểm–bàn giao; mọi sai/thiếu có người nhận hoặc kết thúc hợp lệ. Cho áp thử thiết kế, không duyệt runtime/PG. Thay phần chờ Owner duyệt ⑤ của D21/D22/P21. Chốt hướng dẫn ở tools-quy-trinh; bản Tool cũ là lịch sử, hồ sơ sản phẩm chưa di chuyển. Mục tiêu 15 ý Owner giữ nguyên.
 - **D22 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner giao: “Bạn cầm lại cờ host và tiếp tục nhé.” Rà Overview, 005, quan hệ chéo và quản lý mọi trình tự/hướng dẫn bằng MOW/MOT trước áp thử. Astra Codex nhận lại Host, thay D19; không tự coi Owner đã duyệt 005 hoặc quyền PG.
@@ -411,10 +541,20 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - HUMAN_DIRECTIVE@TQT-GUIDE-AND-FLOW-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,README.md,COLLAB.md} · step=hiệu chỉnh Over view và phân loại quy trình · recorded_by=OpenAI-main/GPT Chat · quote="thiết kế 1 nơi để viết chú giải và đưa luôn vào đó ... luồng làm việc đó cuối cùng đưa vào đâu?" · text=Chú giải ngắn một nguồn, luồng có quy trình sở hữu, không chạy khi chưa phê duyệt · audit=Owner trực tiếp GPT Chat ngày 09/10/2026.
  
 ## Owner cần quyết
-- **Q02 · ĐÃ GIẢI QUYẾT D23:** Owner giao Host quyết ⑤; Astra Codex chốt 1.0-design/CH-001 cho áp thử thiết kế. Không chờ phê duyệt riêng; chưa quyền PG.
-- Q01 hiện hành D22: Astra Codex nhận lại Host (09/10); D19/D17/D06 giữ lịch sử. Mục tiêu ngắn trong PR-07 vẫn do Owner/Claude bàn, Host chưa áp.
+- — Q02 · ĐÃ GIẢI QUYẾT D23: Owner giao Host quyết ⑤; Astra Codex chốt 1.0-design/CH-001 cho áp thử thiết kế. Không chờ phê duyệt riêng; chưa quyền PG.
+- — Q01 · ĐÃ GIẢI QUYẾT D22/D25: Astra Codex là Host nội dung; Claude là Host Kiểm soát (Bảng, ô 1–3). Mục tiêu ngắn: Owner tự viết ô 1 ngày 10/10 (D25), đã áp; PR-07 đóng. Không có câu hỏi Owner đang mở.
 
 ## Ý kiến và bằng chứng
+### P24 · Host Kiểm soát dựng lại §0 theo D25 · XONG phần tài liệu
+Ghế: Claude-review · Host Kiểm soát (D25). Based_on: COLLAB @29f59d9; D22–D24; P16–P23; PR-07, PR-08; view.html catalog (MOW-TH-005@1.1: work_form 13 trường, 11 trạng thái, application_preview).
+- Ô 1 = 3 ý Owner viết 10/10, chỉ sửa lỗi gõ. Ô 2 = 2 dòng Owner 08/10 + câu Owner 10/10 về "User chỉ cần mục tiêu, AI làm đúng theo là ra kết quả, không tự sáng tạo".
+- Ô 3 dựng lại: 24 yêu cầu R01–R24 theo M1/M2/M3 và Cách làm, mỗi dòng có trạng thái; tiêu chí kiểm 5 mục; khung đang dùng rút gọn; nguyên văn chỉ đạo 10/10; đường tới bằng chứng.
+- Không xoá chữ nào: đầu §0 cũ, Bảng P23, ô 1 bản 08/10 + 8 khối bổ sung, ô 2 + tiêu chí Host, toàn bộ ô 3 cũ (nhật ký kiểm, TQT-REQ, TQT-DIR, các khung) chuyển nguyên văn xuống Vòng trước.
+- Khuôn chung mọi việc: xác nhận MOW-TH-005@1.1 thay cho TH-06 (13 câu khai khớp 13 ý Owner; có 11 trạng thái và bảng "đang tới đâu, ai làm tiếp"). Ba chỗ còn thiếu so với mục tiêu mới, giao Host nội dung: R04 chưa có ca thật "ý tưởng → quy trình chạy được"; R11 các danh sách trong quy trình chưa thành Master; R02 bảng mới có 1 phiếu.
+- Sửa cờ giả "Chờ Owner" trên trang Owner: 2 dòng ở "Owner cần quyết" đổi sang dạng "- —". Bảng đủ 8 dòng theo MT4, có dòng ⛔.
+- Ý kiến GPT Chat mà Owner định dán kèm không có trong tin nhắn; đã đối chiếu PR-08 (trước D24). Khi có, GPT nộp proposal riêng.
+- DOER_CONFIRM: làm xong phần tài liệu §0; chưa phải nghiệm thu nội dung. Kiểm sau ghi ở dòng dưới.
+
 ### P23 · Khuôn chung ⑤ và phiếu MOW001/G1 · CHUẨN BỊ ÁP THỬ
 - Tiếp nhận PR08 + Owner D24: ⑤ 1.1-design với 6 MOT giữ mã; 13 mục đủ/thiếu; kế hoạch, nơi ghi và vòng đời rõ. Mẫu thật thêm trong UI-REVIEW-MOW001.json/application_D24, bảng Overview dẫn xuất và kiểm khớp nguồn, không tạo sổ mới.
 - MOW001/G1: Astra Codex làm/tự kiểm kỹ thuật; Owner nhận/duyệt thiết kế. Chưa có kiểm độc lập, chưa xác nhận điều kiện bắt đầu, chưa sửa UI lượt mới. 5 việc gồm chuẩn bị → đầu nối vào → thiết kế → UI/đầu nối ra → duyệt/bàn giao. Không G2/G3 hoặc PG.
