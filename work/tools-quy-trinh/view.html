@@ -12443,7 +12443,7 @@ const q2Checks=[
  {item:'Quyết định nghiệm thu',ref:ptr('release/decision_ref'),place:'Phiếu · release/decision_ref',exists:'Có trường quyết định',written:approved?'Đã có quyết định, cần kiểm':'Chưa ghi quyết định',next:'Chỉ sau mốc kiểm đạt G1'},
  {item:'Bàn giao và biên nhận',ref:ptr('release/ack_ref'),place:'Phiếu · release/ack_ref',exists:'Có trường biên nhận',written:received?'Đã có ACK, cần kiểm':'Chưa ghi ACK',next:'Nhận đúng kết quả rồi mới XONG'}
 ];
-const q2Row=x=>'<tr><th scope="row">'+e(x.item)+'</th><td><b>'+e(x.place)+'</b><p>'+link(x.ref,'Mở nguồn ↗')+'</p></td><td>'+chip(x.exists,/chưa/i.test(x.exists)?'warn':'exists')+'</td><td>'+chip(x.written,/chưa|CHƯA|TODO/i.test(x.written)?'warn':'idle')+'<small class="oc-muted">'+e(x.next)+'</small></td></tr>';
+const q2Row=x=>'<tr><th scope="row">'+e(x.item)+'</th><td><b>'+e(x.place)+'</b><p>'+link(x.ref,'Mở nguồn ↗')+'</p><details class="oc-inline"><summary>Địa chỉ bản ghi</summary><code>'+e(x.ref)+'</code></details></td><td>'+chip(x.exists,/chưa/i.test(x.exists)?'warn':'exists')+'</td><td>'+chip(x.written,/chưa|CHƯA|TODO/i.test(x.written)?'warn':'idle')+'<small class="oc-muted">'+e(x.next)+'</small></td></tr>';
 
 const workBoard='<section class="oc-board" id="tqt-work-board" aria-label="Hai bảng điều hành theo Quy trình tổng hợp 05">'+
  '<header class="oc-head"><div><p class="oc-eyebrow">QUY TRÌNH TỔNG HỢP <span class="oc-five">5</span> <small>'+e(A.process_code)+' · '+e(A.process_version)+'</small></p><h2>'+e(W?.name||'Mốc kiểm công việc')+'</h2></div><nav class="oc-jump" aria-label="Xem hai bảng"><a href="#tqt-checkpoint-list">1. Các mốc kiểm</a><a href="#tqt-recording-list">2. Kiểm ghi sổ</a></nav></header>'+
