@@ -265,6 +265,56 @@ main{max-width:1240px} [hidden]{display:none!important}
  #over-view .ov-poster-body{padding:10px}
 }
 </style>
+<style id="tqt-owner-two-boards-style">
+#over-view .oc-board{margin:0 0 30px;color:var(--ink)}
+#over-view .oc-head{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin:4px 0 12px}
+#over-view .oc-head h2{margin:3px 0;font-size:23px;line-height:1.3}
+#over-view .oc-eyebrow{margin:0;font-size:12px;font-weight:700;color:#375b4b;letter-spacing:.025em}
+#over-view .oc-eyebrow small{font-weight:400;letter-spacing:0;color:#6e7e75;margin-left:8px}
+#over-view .oc-jump{display:flex;gap:8px;flex-wrap:wrap}
+#over-view .oc-jump a{border:1px solid #c6d7cc;border-radius:8px;padding:7px 12px;background:#f4f8f5;font-size:13px;font-weight:650;text-decoration:none}
+#over-view .oc-context{border:1px solid #bdd1c4;background:#f4f8f4;padding:12px 16px;border-radius:10px;font-size:14px}
+#over-view .oc-context p{margin:6px 0;line-height:1.5}
+#over-view .oc-code{display:block;color:#78867d;font:11px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:400;overflow-wrap:anywhere;margin-top:4px}
+#over-view .oc-board section{margin-top:22px;scroll-margin-top:65px}
+#over-view .oc-board h3{font-size:20px;font-weight:750;margin:0 0 6px}
+#over-view .oc-intro{font-size:13px;color:#52655a;margin:0 0 11px;line-height:1.6}
+#over-view .oc-table{width:100%;table-layout:fixed;border-collapse:collapse;border:1px solid #d5dfd8;font-size:13px;background:#fff}
+#over-view .oc-table th,#over-view .oc-table td{padding:11px 12px;border-bottom:1px solid #dfe7e1;vertical-align:top;line-height:1.5;overflow-wrap:anywhere}
+#over-view .oc-table thead th{text-align:left;background:#edf3ee;color:#2e4838;font-size:12px;letter-spacing:.01em}
+#over-view .oc-table thead th:nth-child(1){width:27%}
+#over-view .oc-table thead th:nth-child(2){width:43%}
+#over-view .oc-table thead th:nth-child(3){width:30%}
+#over-view .oc-table tbody th{text-align:left;font-size:14px;font-weight:650;background:#fbfcfb}
+#over-view .oc-table p{margin:0 0 5px}
+#over-view .oc-number{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:7px;background:#e5ede6;color:#385740;font-size:13px;font-weight:750;margin-right:7px}
+#over-view .oc-muted{font-size:12px;color:#66756b;line-height:1.5}
+#over-view th>.oc-muted{display:block;font-weight:400;margin-top:5px}
+#over-view .oc-chip{display:inline-block;border-radius:6px;border:1px solid #d4ddd7;background:#f0f3f0;padding:3px 7px;font-size:12px;font-weight:700;color:#526357;margin-bottom:5px;line-height:1.45}
+#over-view .oc-chip.ok{background:#e9f5eb;border-color:#acd0b3;color:#246339}
+#over-view .oc-chip.exists{background:#edf4fa;border-color:#bfd3e3;color:#355f7a}
+#over-view .oc-chip.warn{background:#fff7e5;border-color:#e4c989;color:#805c16}
+#over-view .oc-chip.stop{background:#fff0ed;border-color:#e7bcb1;color:#993e2e}
+#over-view .oc-inline{margin:5px 0 0;padding:0;border:0;background:none;font-size:12px}
+#over-view .oc-inline summary{padding:0;color:#607669;font-size:11px;font-weight:500}
+#over-view .oc-inline code{font-size:11px;white-space:normal;overflow-wrap:anywhere}
+#over-view .oc-rule{border-left:3px solid #b7cbbc;background:#f5f8f4;padding:8px 12px;margin:10px 0 5px;font-size:12px;line-height:1.6}
+#over-view .oc-detail{margin:18px 0 8px;border:1px solid #d8e2da;border-radius:9px;padding:9px 12px;background:#fafcf9}
+#over-view .oc-detail summary{font-size:12px;padding:3px 0}
+#over-view .oc-footer{font-size:12px;color:#6b786e;margin-top:9px;line-height:1.6}
+@media(max-width:760px){
+ #over-view .oc-head h2{font-size:21px}
+ #over-view .oc-context{padding:11px 12px}
+ #over-view .oc-table,#over-view .oc-table tbody,#over-view .oc-table tr,#over-view .oc-table th,#over-view .oc-table td{display:block;width:auto;min-width:0}
+ #over-view .oc-table{border:0;table-layout:auto}
+ #over-view .oc-table thead{display:none}
+ #over-view .oc-table tr{border:1px solid #d4dfd6;border-radius:9px;margin:0 0 9px;overflow:hidden}
+ #over-view .oc-table th{padding:10px 12px}
+ #over-view .oc-table td{padding:8px 12px;border:0}
+ #over-view .oc-table td:last-child{background:#f8faf7;border-top:1px dashed #e0e7df}
+ #over-view .oc-board h3{font-size:18px}
+}
+</style>
 </head>
 <body>
 <main>
@@ -12298,7 +12348,60 @@ const A=R.application_preview.record,F=R.work_form;
 const statusLabel={KHAI_VIEC:'Khai việc',CHUAN_BI:'Chuẩn bị',SAN_SANG:'Sẵn sàng',DANG_LAM:'Đang làm',DANG_KIEM:'Đang kiểm',CHO_DUYET:'Chờ duyệt',DA_BAN_GIAO:'Đã bàn giao',XONG:'Xong',BI_CHAN:'Bị chặn',TU_CHOI:'Từ chối',HUY:'Hủy'};
 const resultLabel={NOT_TESTED:'Chưa kiểm',PASS:'Đạt',FAIL:'Không đạt',BLOCKED:'Bị chặn',NA:'Không áp dụng',NOT_REQUESTED:'Chưa trình duyệt',APPROVED:'Đã duyệt',TODO:'Chưa làm',DONE:'Đã làm'};
 const formRows=F.fields.map(f=>{const a=A.declarations.find(x=>x.key===f.key);return '<tr><td>'+e(f.label)+'</td><td>'+e(a?.answer||'Chưa khai')+'</td><td>'+e(a?('Đã khai · '+(resultLabel[a.result]||a.result)):'Chưa khai')+'</td><td>'+e(a?.owner||A.next_owner)+'</td></tr>';}).join('');
-const workBoard='<section class="ov-section" id="tqt-work-board"><h2>Một việc · nhìn để biết làm tiếp</h2><div class="ov-pane blue"><b>MOW001 · Thiết kế UI ba MOT</b><p><b>'+e(statusLabel[A.state])+'</b> · '+e(A.scope)+'</p><p><b>Còn vướng:</b> '+e(A.reason)+'</p><p><b>Ai làm tiếp:</b> '+e(A.next_owner)+' · '+e(A.next)+'</p></div><p>Khai việc → Chuẩn bị → Xác nhận đủ → Làm → Kiểm → Duyệt → Bàn giao</p><p><b>Kiểm: '+e(resultLabel[A.test_result]||A.test_result)+' · Duyệt: '+e(resultLabel[A.release.state]||A.release.state)+' · Triển khai: '+(A.deployed?'đã triển khai':'chưa triển khai')+'</b></p><details id="tqt-work-form"><summary>Mở phiếu đủ/thiếu và nơi ghi · 13 mục</summary><p>'+e(F.storage)+'</p><div class="wrap tqt-work-fields"><table><thead><tr><th>Cần biết</th><th>Đã khai cho việc này</th><th>Tình trạng</th><th>Người giữ</th></tr></thead><tbody>'+formRows+'</tbody></table></div><h3>Kế hoạch đã ghi</h3><ol>'+A.plan.map(p=>'<li><b>'+e(p.name)+'</b> — '+e(p.output)+' · '+e(resultLabel[p.status]||p.status)+'</li>').join('')+'</ol><p><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/'+e(R.application_preview.source_ref.split('#')[0])+'">Mở phiếu nguồn</a> · '+e(R.application_preview.rule)+'</p><details><summary>Quy tắc trạng thái và tự động hóa</summary>'+F.state_rules.map(x=>'<p>'+e(x)+'</p>').join('')+'<p>'+e(F.automation)+'</p></details></details></section>';
+/* Owner view only: no writes, no new procedure, no independent status store. */
+const W=records.find(p=>p.code===A.process_code),WS=W?.workflow?.steps||[];
+const dm=Object.fromEntries((A.declarations||[]).map(d=>[d.key,d]));
+const plan=A.plan||[],history=A.history||[],gateKeys=W?.workflow?.start_gate?.requires||[];
+const has=v=>v!==null&&v!==undefined&&v!=='';
+const ev=d=>d&&d.result==='PASS'&&d.validity==='CURRENT'&&Array.isArray(d.evidence_refs)&&d.evidence_refs.length>0;
+const verifiedKeys=ks=>ks.length>0&&ks.every(k=>ev(dm[k]));
+const confirmed=A.start_confirmation?.state==='CONFIRMED'&&has(A.start_confirmation?.evidence_ref)&&has(A.start_confirmation?.actor)&&A.start_confirmation?.plan_version===A.plan_version;
+const canStart=A.process_version===W?.version&&gateKeys.length>0&&gateKeys.filter(k=>k!=='start_confirmation').every(k=>ev(dm[k]))&&confirmed&&A.questions_complete===true&&A.requirements_checked===true;
+const resultWork=plan.filter(p=>p.process!==A.process_code);
+const workDone=resultWork.length>0&&resultWork.every(p=>p.status==='DONE'||(p.status==='NA'&&p.reason));
+const testOK=A.test_result==='PASS'&&A.connection_tests?.in==='PASS'&&A.connection_tests?.out==='PASS';
+const approved=A.release?.state==='APPROVED'&&has(A.release?.decision_ref);
+const received=has(A.release?.ack_ref);
+const passed=(A.declarations||[]).filter(ev).length,declared=(A.declarations||[]).filter(d=>d.answer).length;
+const step=id=>WS.find(s=>s.id===id)||{id,code:'',label:'Chưa khai bước',result:''};
+const chip=(text,tone='idle')=>'<span class="oc-chip '+tone+'">'+e(text)+'</span>';
+const stateText=resultLabel[A.test_result]||A.test_result||'Chưa kiểm';
+const rawHref=ref=>{if(!ref)return null;if(/^https?:\/\//.test(ref)||ref.startsWith('#'))return ref;return 'https://github.com/Huyen1974/incomex-workspace/blob/main/'+ref.split('#')[0];};
+const link=(ref,label)=>ref?'<a href="'+e(rawHref(ref))+'"'+(ref.startsWith('#')?'':' target="_blank" rel="noopener"')+'>'+e(label)+'</a>':'<span>Chưa khai nơi ghi</span>';
+const appRef=R.application_preview.source_ref,appBase=appRef.split('#')[0];
+const ptr=part=>appRef+(part?'/'+part:'');
+const fieldsText=keys=>keys.map(k=>F.fields.find(f=>f.key===k)?.required_answer).filter(Boolean).join(' · ');
+const ck=[
+ {n:1,id:'S1',title:step('S1').label,need:'Mã/tên/Master, mục tiêu, phạm vi; nhận từ đâu và trả về đâu.',keys:['identity','connections_in','connections_out'],where:'Phiếu khai việc và hai đầu nối',status:verifiedKeys(['identity','connections_in','connections_out'])?'Đã kiểm có căn cứ':'Đã khai · chưa kiểm',tone:verifiedKeys(['identity','connections_in','connections_out'])?'ok':'warn',detail:'Khai được không đồng nghĩa đã kiểm đúng.',who:A.actor},
+ {n:2,id:'S2',title:'Chuẩn bị',need:'Đủ đầu vào, quyền/công cụ, câu hỏi, kế hoạch, người làm–kiểm–nhận và nơi ghi.',keys:['prerequisites','execution_conditions','plan','records','roles','questions'],where:'Phiếu đủ/thiếu + kế hoạch + danh sách sổ',status:canStart?'Đã đủ theo phiếu':'Còn phải kiểm',tone:canStart?'ok':'warn',detail:declared+'/'+F.fields.length+' mục đã khai; '+passed+' mục đã kiểm có căn cứ.',who:A.next_owner},
+ {n:3,id:'S2',title:'Xác nhận đủ trước khi làm',need:'Người có quyền xác nhận đúng phiên kế hoạch; thiếu thì chưa được sang bước Làm.',keys:['execution_conditions','plan'],where:'Xác nhận bắt đầu',status:canStart?'Được bắt đầu theo phiếu':'Chưa được bắt đầu',tone:canStart?'ok':'stop',detail:confirmed?'Đã có xác nhận; vẫn đối chiếu điều kiện.':'Chưa có xác nhận đủ và bằng chứng.',who:A.start_confirmation?.actor||A.actor},
+ {n:4,id:'S3',title:step('S3').label,need:'Làm đúng MOT và phụ thuộc; ghi kết quả từng việc, phiên nguồn và báo cáo.',keys:['plan','records','roles'],where:'Nhật ký + kết quả + kế hoạch',status:workDone?'Các việc đã ghi hoàn tất':plan.some(p=>p.status==='STARTED'||p.status==='DOING')?'Đang thực hiện':plan.every(p=>p.status==='TODO')?'Chưa làm':'Chưa hoàn tất',tone:workDone?'ok':'idle',detail:plan.filter(p=>p.status==='DONE').length+'/'+plan.length+' việc kế hoạch ghi đã xong.',who:A.actor},
+ {n:5,id:'S4',title:step('S4').label,need:'Kiểm sản phẩm và cả hai đầu nối. Sai/thiếu → sửa cùng hồ sơ, rồi kiểm lại.',keys:['acceptance','connections_in','connections_out','issues'],where:'Ca kiểm + bằng chứng + sổ sai/thiếu',status:testOK?'Phiếu ghi kiểm đạt':stateText,tone:testOK?'ok':A.test_result==='FAIL'?'stop':'idle',detail:'Nối vào: '+(resultLabel[A.connection_tests?.in]||'Chưa kiểm')+' · Nối ra: '+(resultLabel[A.connection_tests?.out]||'Chưa kiểm'),who:A.reviewer},
+ {n:6,id:'S6',title:'Duyệt kết quả',need:'Có quyết định đúng người, đúng phiên và phạm vi; duyệt G1 không phải cho dùng production.',keys:['approval'],where:'Quyết định nghiệm thu/cho sử dụng',status:approved?'Có quyết định duyệt':(resultLabel[A.release?.state]||'Chưa duyệt'),tone:approved?'ok':'idle',detail:A.release?.scope||'Chưa khai phạm vi duyệt',who:A.approver||A.release?.approver},
+ {n:7,id:'S6',title:'Bàn giao và kết thúc',need:'Đúng nơi nhận, đúng kết quả; có xác nhận nhận và lịch sử kết thúc.',keys:['approval','lifecycle'],where:'Biên nhận + lịch sử',status:received?'Có xác nhận nhận':'Chưa có xác nhận nhận',tone:received&&approved?'ok':'idle',detail:A.state==='XONG'&&received&&approved&&testOK?'Phiếu ghi XONG trong phạm vi đã khai.':'Chưa được công nhận toàn việc XONG.',who:A.recipient}
+];
+const rowCheckpoint=x=>'<tr data-checkpoint="'+x.n+'"><th scope="row"><span class="oc-number">'+x.n+'</span>'+e(x.title)+'<small class="oc-code">'+e(step(x.id).code)+'</small></th><td><p>'+e(x.need)+'</p><small class="oc-muted">Ghi tại: '+e(x.where)+'</small><details class="oc-inline"><summary>Câu phải kiểm theo bản Codex</summary><p>'+e(fieldsText(x.keys))+'</p><p>'+e(step(x.id).result)+'</p></details></td><td>'+chip(x.status,x.tone)+'<p class="oc-muted">'+e(x.detail)+'</p><small>'+e(x.who||'Chưa giao')+'</small></td></tr>';
+const hasHistory=Array.isArray(A.history),hasResults=has(A.results)||has(A.result_ref)||has(A.execution_log);
+const hasTests=has(A.tests)||has(A.test_ref)||has(A.test_records)||has(A.test_results_ref);
+const books=[
+ {n:1,name:'Mã việc và phiếu công việc',purpose:'Tên/mã/Master, mục tiêu và phạm vi.',has:!!A.application_id&&!!A.target_code,state:'Có phiếu',ref:appRef,part:'Phiếu khai việc',missing:'Cần kiểm đúng Master, mã và phiên của lượt này.'},
+ {n:2,name:'Điều kiện và bộ câu trả lời',purpose:'Đầu vào, quyền, hai đầu nối; đủ câu hỏi và căn cứ.',has:Array.isArray(A.declarations),state:'Có phiếu đủ/thiếu',ref:ptr('declarations'),part:'13 mục khai và bộ đáp án',missing:A.questions_complete?'Phiếu ghi đủ câu; đối chiếu nguồn/bằng chứng.':'Chưa xác nhận bộ đáp án đầy đủ; '+passed+' mục có bằng chứng kiểm.'},
+ {n:3,name:'Kế hoạch',purpose:'Làm gì trước/sau, ai làm, đầu ra và phụ thuộc.',has:!!A.plan_ref&&Array.isArray(A.plan),state:'Có kế hoạch',ref:A.plan_ref,part:'Kế hoạch của lượt việc',missing:confirmed?'Có xác nhận kế hoạch đúng phiên.':'Đã có '+plan.length+' việc; chưa xác nhận kế hoạch đúng phiên.'},
+ {n:4,name:'Nhật ký và kết quả thực hiện',purpose:'Từng MOT đã làm gì, kết quả, phiên nguồn và báo cáo.',has:hasHistory,partial:!hasResults,state:hasResults?'Có nơi ghi kết quả':'Có một phần',ref:ptr('history'),part:'Lịch sử lần làm',missing:hasResults?'Cần kiểm kết quả gắn đúng MOT/lần làm.':'Có lịch sử; chưa có mục kết quả chi tiết từng MOT trong phiếu lượt này.'},
+ {n:5,name:'Sai/thiếu và yêu cầu bổ sung',purpose:'Cùng hồ sơ: lỗi sản phẩm, lỗi hướng dẫn và người xử lý.',has:!!A.issue_register_ref,state:'Đã chỉ sổ gốc',ref:A.issue_register_ref,part:'Sổ lỗi sản phẩm',extra:'#so-van-de',missing:A.issue_ref?'Đã tham chiếu hồ sơ; cần kiểm nơi nhận/đọc lại.':'Chưa có lỗi mới không cần hồ sơ giả; còn kiểm quyền ghi/đọc lại sổ.'},
+ {n:6,name:'Ca kiểm và bằng chứng',purpose:'Tiêu chí, người kiểm, kết quả và hai đầu nối.',has:hasTests,partial:!hasTests,state:hasTests?'Đã chỉ nơi ghi ca kiểm':'Chưa chỉ mục ca kiểm mới',ref:hasTests?(A.test_ref||A.test_results_ref||ptr('tests')):appBase,part:hasTests?'Ca kiểm của lượt này':'Phiếu sản phẩm hiện hữu',missing:hasTests?'Cần kiểm bằng chứng đúng đối tượng/phiên.':'Có phiếu kiểm cũ; chưa chỉ mục ca kiểm/bằng chứng riêng cho lượt này.'},
+ {n:7,name:'Phê duyệt',purpose:'Xác nhận được bắt đầu và quyết định nghiệm thu/sử dụng.',has:!!A.start_confirmation&&!!A.release,state:'Có chỗ ghi quyết định',ref:ptr('release'),part:'Quyết định và xác nhận bắt đầu',missing:approved?'Có quyết định; phải kiểm đúng phạm vi.':'Các chỗ ghi đã khai; chưa có bằng chứng xác nhận/duyệt.'},
+ {n:8,name:'Bàn giao và vòng đời',purpose:'Người nhận, xác nhận nhận và lịch sử trạng thái.',has:!!A.release&&Object.prototype.hasOwnProperty.call(A.release,'ack_ref')&&hasHistory,state:'Có chỗ ghi biên nhận',ref:ptr('release/ack_ref'),part:'Biên nhận và lịch sử',missing:received?'Có mã biên nhận; kiểm đúng người/kết quả.':'Chỗ ghi biên nhận có sẵn; chưa có xác nhận nhận.'}
+];
+const rowBook=x=>'<tr data-book="'+x.n+'"><th scope="row"><span class="oc-number">'+x.n+'</span>'+e(x.name)+'<small class="oc-muted">'+e(x.purpose)+'</small></th><td>'+chip(!x.has&&!x.partial?'Chưa có chỗ ghi':x.state,x.partial?'warn':x.has?'exists':'stop')+'<p>'+link(x.ref,x.part)+(x.extra?' · '+link(x.extra,'Sổ lỗi quy trình'):'')+'</p><details class="oc-inline"><summary>Địa chỉ ghi</summary><code>'+e(x.ref||'Chưa khai')+'</code></details></td><td>'+e(x.missing)+'</td></tr>';
+const workBoard='<section class="oc-board" id="tqt-work-board" aria-label="Hai bảng điều hành theo Quy trình tổng hợp 05">'+
+ '<header class="oc-head"><div><p class="oc-eyebrow">QUY TRÌNH TỔNG HỢP ⑤ <small>'+e(A.process_code)+' · '+e(A.process_version)+'</small></p><h2>'+e(W?.name||'Mốc kiểm công việc')+'</h2></div><nav class="oc-jump" aria-label="Xem hai bảng"><a href="#tqt-checkpoint-list">1. Các mốc kiểm</a><a href="#tqt-recording-list">2. Các sổ / nơi ghi</a></nav></header>'+
+ '<div class="oc-context"><strong>'+e(A.target_code)+' · '+e(A.scope)+'</strong><small class="oc-code">Lần làm: '+e(A.application_id)+'</small><p><b>Đang ở:</b> '+e(statusLabel[A.state]||A.state)+' · '+e(step(A.current_step).code)+' &nbsp; '+chip(canStart?'Đủ điều kiện theo phiếu':'CHƯA ĐƯỢC BẮT ĐẦU BƯỚC LÀM',canStart?'ok':'stop')+'</p><p><b>Cần làm tiếp:</b> '+e(A.next_owner||'Chưa giao')+' — '+e(A.next||'Chưa khai')+'</p></div>'+
+ '<section id="tqt-checkpoint-list"><h3>1. Các mốc phải kiểm của ⑤</h3><p class="oc-intro">Đọc cột giữa để biết phải làm/kiểm gì. Cột bên phải là <b>tình trạng của việc đang xem</b>, không phải trạng thái của mọi công việc.</p><table class="oc-table"><thead><tr><th>Mốc của quy trình</th><th>Phải có để qua mốc</th><th>Việc đang xem</th></tr></thead><tbody>'+ck.map(rowCheckpoint).join('')+'</tbody></table>'+
+ '<p class="oc-rule"><b>Chưa đạt:</b> '+e(step('S5').label)+' <small class="oc-code">'+e(step('S5').code)+'</small> → kiểm lại đúng chỗ. <b>Chưa đủ điều kiện hoặc chưa có nơi ghi thì không qua mốc.</b></p><p class="oc-muted">7 mốc kiểm được chiếu từ 6 MOT hiện có: chuẩn bị/xác nhận cùng S2; duyệt/bàn giao cùng S6; S5 là nhánh sửa. Không thêm quy trình hoặc MOT.</p></section>'+
+ '<section id="tqt-recording-list"><h3>2. Danh sách các sổ / nơi ghi</h3><p class="oc-intro"><b>Có chỗ ghi chưa? Còn phải thiết kế hay kiểm gì?</b> Nhiều mục dưới đây cùng nằm trong một phiếu; không phải tạo thêm 8 file.</p><table class="oc-table"><thead><tr><th>Sổ / nơi ghi</th><th>Hiện đã có gì?</th><th>Còn thiếu để dùng được</th></tr></thead><tbody>'+books.map(rowBook).join('')+'</tbody></table><p class="oc-rule"><b>Có sổ ≠ đã sẵn sàng.</b> Cần kiểm ghi được, đọc lại đúng và có người nhận. Các nhãn ở đây mô tả chỗ ghi; không tự xác nhận quyền hoặc nghiệm thu.</p></section>'+
+ '<details id="tqt-work-form" class="oc-detail"><summary>Cho AI / đối chiếu: 13 mục, kế hoạch và phiếu nguồn</summary><p>'+e(F.storage)+'</p><div class="wrap"><table><thead><tr><th>Cần biết</th><th>Đã khai</th><th>Tình trạng</th><th>Người giữ</th></tr></thead><tbody>'+formRows+'</tbody></table></div><ol>'+plan.map(p=>'<li>'+e(p.name)+' — '+e(resultLabel[p.status]||p.status)+'</li>').join('')+'</ol><p>'+link(appRef,'Mở phiếu nguồn')+' · '+e(R.application_preview.rule||'Bản xem từ phiếu; không sửa trạng thái ở đây.')+'</p><p class="oc-code">'+e(appRef)+' · dấu kiểm nội dung '+e(R.application_preview.record_sha256||'chưa có')+'</p><p>'+e(F.automation)+'</p></details>'+
+ '<footer class="oc-footer">Hiện kết nối một phiếu mẫu. Danh mục, các mốc và tình trạng đều đọc từ bản Codex đang dùng; chưa có máy tự chạy mọi việc hoặc tự kiểm quyền sổ.</footer></section>';
 slot.innerHTML=
 workBoard+
 '<div class="ov-section"><h2>'+records.length+' Quy trình tổng hợp <small class="ov-code">'+e(countLine)+'</small></h2><p class="ov-intro"><b>MOW quản lý trình tự · MOT thực hiện từng việc.</b> Tổng hợp và thành phần đều là quy trình MOW.</p><details class="ov-guidance"><summary>Quy tắc quản lý và gọi lại</summary><p>'+e(R.management_rule)+'</p><p>'+e(R.relationship_rule)+'</p></details>'+ '<div class="ov-pane gold"><b>⑤ · Từ mục tiêu đến kết quả được nghiệm thu</b><p>Khai việc → chuẩn bị và xác nhận → làm theo kế hoạch → kiểm → duyệt và bàn giao. Chưa đủ thì biết thiếu gì, ai xử lý và quay lại đâu.</p><p><a href="#MOW-TH-005">MOW-TH-005 · đã chốt để áp thử</a>. ⑤ dùng ①/②/③/④ tùy việc; ① không gọi ⑤.</p></div>'+main+

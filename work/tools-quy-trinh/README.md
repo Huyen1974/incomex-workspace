@@ -1,5 +1,8 @@
 # tools-quy-trinh · Cửa vào
 
+## Hai bảng đầu Over view · Owner giao GPT Chat trình bày
+[1. Mốc kiểm của ⑤](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=tqt-checkpoint-list) · [2. Danh sách sổ/nơi ghi](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=tqt-recording-list). Bảy mốc chiếu từ sáu MOT hiện hữu; tám nơi ghi theo chức năng, không phải tám file mới. Phân biệt **có chỗ ghi / còn thiếu chỗ ghi** với **đã kiểm sẵn sàng / chưa kiểm**. Hai bảng chỉ đọc `catalog.work_form`, `workflow` của ⑤ và `application_preview.record` của Codex; không đổi quy trình, phiếu, trạng thái hoặc phân công Host. Chi tiết 13 mục/các đường dẫn giữ trong phần mở rộng cho AI.
+
 ## Hiện hành · D24/P23 · Host đọc tại COLLAB §0
 **5 quy trình tổng hợp + 12 quy trình thành phần.** Host đã chốt **MOW-TH-005 · Từ mục tiêu đến kết quả được nghiệm thu**, phiên `1.1-design`, Chuỗi CTCM `CH-001`, để áp thử thiết kế. Owner giao Host tự quyết; không còn chờ phê duyệt riêng ⑤. Chưa nghiệm thu PG hay tự động hóa.
 

@@ -545,6 +545,12 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - — Q01 · ĐÃ GIẢI QUYẾT D22/D25: Astra Codex là Host nội dung; Claude là Host Kiểm soát (Bảng, ô 1–3). Mục tiêu ngắn: Owner tự viết ô 1 ngày 10/10 (D25), đã áp; PR-07 đóng. Không có câu hỏi Owner đang mở.
 
 ## Ý kiến và bằng chứng
+### P25 · GPT Chat trình bày hai bảng đầu Over view theo Owner · KIỂM HIỂN THỊ
+HUMAN_DIRECTIVE@TQT-OWNER-TWO-BOARDS-20261010 EFFECTIVE · task=tools-quy-trinh · scope=view.html phần Over view + README đường vào + mục P25 này · step=chỉ trình bày · recorded_by=GPT Chat · quote="Tôi muốn nhìn thấy 2 việc này đơn giản trên overview. Bản đồ bổ sung cho tôi và nó phải khớp với những gì codex đang làm." · audit=Owner giao trực tiếp trong cuộc trò chuyện GPT Chat 10/10/2026.
+- Giữ Astra Codex làm Host nội dung/Claude kiểm soát theo D25. Không sửa §0, PROMPT, catalog, mô hình, phiếu MOW001, quyền, Master hoặc trạng thái thực thi. Thay khối tóm tắt cũ bằng hai bảng luôn hiện: 7 mốc của ⑤ (chiếu từ 6 MOT) và 8 chức năng nơi ghi từ phiếu nguồn.
+- Mỗi mốc có hành động/điều kiện qua, mã MOT, nơi ghi và trạng thái việc đang xem. Mỗi sổ có đã có gì, nguồn mở được, thiếu phần nào; có chỗ ghi không đồng nghĩa đã kiểm quyền ghi/đọc lại. Phiếu hiện có lịch sử nhưng chưa chỉ kết quả chi tiết từng MOT và mục ca kiểm cho lượt mới: hiển thị thiếu, không tạo sổ giả hoặc tô xanh.
+- Based_on: view SHA256 `79ab0ee1312601e03ea6f100016c1298e64eba2b8c2e64113f4030a423ec834d`; `catalog.application_preview` khớp `UI-REVIEW-MOW001.json#/application_D24`; 13 khai báo, 0 bằng chứng kiểm, trạng thái CHUAN_BI, start_confirmation chưa xác nhận. Phần kiểm JS trước ghi: 7 hàng/8 hàng, mất phiên/thiếu bằng chứng không cho xanh, escape dữ liệu. Cần kiểm lại source và giao diện sau commit. Áp: SAME_COMMIT.
+
 ### P24 · Host Kiểm soát dựng lại §0 theo D25 · XONG phần tài liệu
 Ghế: Claude-review · Host Kiểm soát (D25). Based_on: COLLAB @29f59d9; D22–D24; P16–P23; PR-07, PR-08; view.html catalog (MOW-TH-005@1.1: work_form 13 trường, 11 trạng thái, application_preview).
 - Ô 1 = 3 ý Owner viết 10/10, chỉ sửa lỗi gõ. Ô 2 = 2 dòng Owner 08/10 + câu Owner 10/10 về "User chỉ cần mục tiêu, AI làm đúng theo là ra kết quả, không tự sáng tạo".
