@@ -292,7 +292,7 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Ưu tiên Owner chốt 11/10 19:24:** Hệ thống đã gọi được Hermes-VPS. Làm trước đúng việc nhỏ trên MacBook: (1) Hermes Desktop vẫn là màn hình điều khiển backend VPS hiện hữu (Remote); (2) Hermes Local là agent/backend độc lập trên MacBook, dùng API model qua OpenRouter. Không nhầm hai kết nối với hai ghế hội đồng hay hai bản cài bắt buộc.
 - **Một lượt thực hiện gọn:** kiểm kê bản Hermes Desktop/CLI đang cài, gateway/profiles/runtime; tận dụng kết nối Remote và Local có sẵn; nếu thiếu thì cài/khôi phục Local tối thiểu theo đúng version và khoá đồng bộ hiện hữu; thiết lập credential/model OpenRouter riêng qua secret an toàn; kiểm thử hai chế độ, tách session/state/config, đo rollback. MacBook không cần IP cố định, không mở cổng mới, không sửa Hermes-VPS đang hoạt động.
 - **PASS phần MAC:** Remote UI điều khiển VPS như trước; Local agent gọi OpenRouter thành công và trả lời; chuyển hai chế độ vẫn làm việc, dữ liệu/khóa/identity không lẫn, VPS không phụ thuộc Mac bật/tắt; kiểm tra được đường lùi. Nếu cần Owner tạo key mới chỉ hỏi đúng một lần, không đọc/in khóa.
-- **Sau khi MAC PASS:** dùng công cụ hiện hữu của Hermes Mac để nghiên cứu/kiểm thử đúng bài toán courier/điều khiển AI mà Owner đã định, theo quy định từng vai. KHÔNG tạo đường tự động gọi API vào tài khoản GPT/Claude thuê bao; KHÔNG yêu cầu khóa Anthropic/OpenAI cho mục đích đó; KHÔNG tự dựng cầu nối/transport/cron/DB mới. Đường chưa chứng minh được thì ghi UNKNOWN, không giả PASS.
+- **Sau khi MAC PASS (lời Owner 11/10 19:47, nguyên văn ở mục 3):** Hermes Mac điều khiển GPT/Claude gói thuê bao qua trình duyệt, chỉ gõ một câu nhắc ngắn bảo vào repo đọc và làm tiếp; việc phải làm đã ghi sẵn trong repo. File Word 07/10 của Owner xếp thứ tự: ưu tiên gọi trực tiếp kiểu `claude -p`, rồi mới báo qua hermes-macbook; ghế phản biện đề nghị giữ thứ tự đó cho ghế Claude vì điều khoản hãng (P285 mục 3), chờ Owner gật khi tới bước. Theo quy định từng vai. KHÔNG tạo đường tự động gọi API vào tài khoản GPT/Claude thuê bao; KHÔNG yêu cầu khóa Anthropic/OpenAI cho mục đích đó; KHÔNG tự dựng cầu nối/transport/cron/DB mới. Đường chưa chứng minh được thì ghi UNKNOWN, không giả PASS.
 - **Phần đã có:** N3-2a Hermes VPS giao việc và ghi nhận kết quả giữ nguyên. Vé -05 WRITE_CONFLICT và thử bấm muộn là tồn đọng thật cần xử lý gọn sau, nhưng **không phải điều kiện để cấu hình Hermes Local trên Mac**; không tự sửa sổ máy. Lượt N3-2b official Claude/OpenAI API và phiếu S3 cũ **DỪNG theo thay đổi scope Owner**, không tiếp tục; PROMPT phải viết lại, Reviewer rà một lần trước READY.
 - **PASS N3 toàn node:** MAC PASS + đường courier/chuyển việc thật phù hợp quyền và T9 negative theo 0.17/R6; các thử nghiệm T1–T9 và N4–N6 không tự được nới. Không gộp bài toán toàn bộ hội đồng vào lượt cài Hermes Mac.
 
@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-11 19:24 +07 · GPT Chat Host · **OWNER CHỐT N3 HERMES MAC LOCAL+REMOTE · BỎ N3-2B API GHẾ THUÊ BAO · 0 RUN · CHỜ PROMPT MAC GỌN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-11 19:58 +07 · Claude Chat Reviewer · **P285 ACCEPT ĐỀ N3 HERMES MAC HAI CHẾ ĐỘ (ĐÃ SỬA BA CHỖ) · CHỜ HOST PHÁT LỆNH · 0 RUN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
-- 📍 **Tiến độ:** `[✓ Hermes-VPS] → [✓ N1 cloud twin] → [✓ N2 Dots] → [■ N3: Hermes Mac Local (OpenRouter) + Remote VPS] → [□ N3 courier/T9 đúng vai] → [□ N4] → [□ N5] → [□ N6]`. N3-2a Hermes VPS đã có test sống, còn residual; N3-2b direct API ghế thuê bao bị loại khỏi kế hoạch hiện hành.
+- 📍 **Tiến độ:** `[✓ Hermes-VPS] → [✓ N1 cloud twin] → [✓ N2 Dots] → [■ N3: Hermes Mac Local (OpenRouter) + Remote VPS] → [□ N3: Hermes Mac nhắc GPT/Claude vào repo + T9] → [□ N4] → [□ N5] → [□ N6]`. N3-2a Hermes VPS đã có test sống, còn residual; N3-2b direct API ghế thuê bao bị loại khỏi kế hoạch hiện hành.
 - ✅ **Đã xong:** N1–N2 · N3/R4 read-only đo xong P204 commit `e7c8c57`; STEP_WALK 12 bước có số thật cho 3 vé; chẩn đoán vé `7179def63448`; timer ownership + wake matrix PRE + G1–G6. Diff task-path P203→P204 chỉ đổi HJW `COLLAB.md`; `PROMPT.md` không đổi. **N3 2a đã áp lên máy chủ P225** (15:32 +07): 4 tệp qua apply-v0, nạp lại hermes-gateway, POST-PROTECT + khói R6 đạt, biên nhận #154. **P226 hai vé live đã có kết quả:** success Unicode RESULT DONE/P227, negative STATUS_MISSING blocked an toàn; timing chưa đủ nghiệm thu SLA. P253 -03 LIVE FIX thành công: plugin e6ebf114, Guard 22/22, Telegram #166. **P265 -04: cổng nhận việc đã sửa**, gate `6cab4493`, Guard đạt, Telegram #173. **P269 #1 gen2:** ASSIGN DONE + RESULT_V1/P269 + KẾT QUẢ Telegram, bấm→claim 9s/BẮT ĐẦU 11s, claim→model 33s, model→KẾT QUẢ 11s, model calls 1 theo tin Owner. N3 2a: P269/P271/P272 **3/3 RESULT DONE**, D2 từ Claude Code đọc thực tế 11/10 02:18–02:25Z có chứng cứ auth theo tài khoản Telegram Owner, API đã nhận gửi thẻ, FIFO đúng (sau #2 terminal #3 claim 7,6s), 0 cảnh báo CHẬM sai, đúng 1 model/P+RESULT/NEXT mỗi vé. **LIVE3_EVIDENCE_ACCEPTED**, không đồng nghĩa toàn N3 2a PASS. P275/P277 Claude ACCEPT: SAFEFAIL gate 6cab4493 đã chạy live, state blocked/STATUS_MISSING đúng (P277) và 3/3 success P269/P271/P272 vẫn đạt. SAFEFAIL chỉ 1 Hermes one-shot nhưng model_calls nội bộ=5 và tokens=73088: **không ghi model_calls=1**, giữ efficiency debt tới N4/N6. N3 2b lượt A hoàn tất khảo sát P281/P282, KQ DỪNG sạch 5677682, 0 runtime mutation; tìm thấy Routine official API ứng viên nhưng 0 live call, Codex VPS chưa auth, Claude VPS CLI cài nhưng OAuth hết hạn, 2 danh tính Claude Chat/Code khác nhau. Vé -05 Owner bấm sớm: ledger DONE/blocked WRITE_CONFLICT, Telegram #189, Git machine còn claimed, chưa hòa giải. Chặng 2a chưa PASS late click, 2b B chưa READY.
-- ■ **Đang làm:** 0 RUN. Owner đổi phạm vi N3 19:24. Host chốt kế hoạch tối giản; cần thay `PROMPT.md` N3 cũ bằng một đề bài Mac-dual theo A6 và Reviewer rà một lượt trước READY. Không giữ terminal, không cần thay đổi VPS.
-- ⬜ **Còn lại:** (1) kiểm tra phiên bản/app Hermes Mac và cấu hình Remote→VPS; (2) bật/cài Hermes Local độc lập và OpenRouter credential/model, test + rollback; (3) tiếp tục courier qua công cụ Hermes theo quyền vai trò, không qua API tài khoản thuê bao; (4) khắc phục tồn đọng N3-2a `WRITE_CONFLICT`/late-click gọn ở đúng lượt có quyền, không chặn cài Mac; (5) N4→N6 không đổi.
-- ➡ **Kế tiếp:** NEXT_TRIGGER=HJW_N3_MAC_DUAL_ONE_PROMPT_REVIEW_THEN_OWNER_CLAUDECODE · Không tiếp tục phiếu S3 hai API key; không mở N3-2b B theo PROMPT cũ.
+- ■ **Đang làm:** 0 RUN. Claude P285 đã nhận đề N3 Hermes Mac hai chế độ đúng SHA last-touch của PROMPT (đã sửa ba chỗ). Chờ Host phát lệnh sẵn sàng, rồi Owner dán một câu vào Claude Code trên MacBook. Lượt này không đụng máy chủ, không chờ đèn #11.
+- ⬜ **Còn lại:** (1) lượt Mac: kiểm phiên bản Hermes Desktop, giữ Remote→VPS, bật Hermes Local + OpenRouter, thử hai chế độ, có đường lùi, không bấm Update; (2) sau khi Mac đạt: Hermes Mac nhắc GPT/Claude vào repo bằng một câu ngắn (lời Owner 11/10 19:47), thiết kế có soát điều khoản hãng (P285 mục 3), rồi T9; (3) tồn đọng N3-2a, không chặn việc Mac: dòng vé -05 còn `claimed`, sửa lỗi ghi (P284 mục 3), thử bấm muộn, câu 09:07 của Owner; (4) N4 → N5 → N6 không đổi.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=HJW_HOST_READY_N3_MAC_DUAL_THEN_OWNER_PASTE_CLAUDE_CODE_ON_MAC · Owner dán khối của Claude cho GPT Host; Host phát lệnh; Owner dán một câu vào Claude Code trên MacBook và ở cạnh máy trong lượt chạy để bấm vài bước trên Hermes Desktop khi được hỏi. Không tiếp tục phiếu S3 hai API key; không mở N3-2b B theo PROMPT cũ.
 - ⛔ **Cấm:** không đụng bí mật/phiên đăng nhập GPT/Claude thuê bao, không tìm đường tự động gọi API vào tài khoản thuê bao, không tạo Routine hay API key Anthropic/OpenAI theo S3 cũ, không dựng gateway/DB/cron/transport mới, không xáo trộn Hermes VPS; không đổi T1–T9 hoặc sửa vùng máy để giả kết quả; không READY/RUN khi chưa có Reviewer ACCEPT đúng PROMPT mới.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -675,6 +675,7 @@ CẤM: model gọi AI khác, lập lịch, tạo assignment, sửa repo/Guard, t
 - Lộ trình sáu bước: N1 đầu nối lên mây, N2 đo OpenAI Dots, N3 người đưa thư/wake matrix — Hermes VPS gọi đường chính thức, Hermes-Mac dự phòng, N4 lõi hội đồng, N5 hai cấp/tự động có giám sát, N6 nghiệm thu và đóng. Bước đang làm xem Bảng điều khiển.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **Owner 11/10/2026 19:47 (nguyên văn, với Reviewer — GỌI API THẲNG LÀ SAI HƯỚNG · HERMES NHẮC GPT/CLAUDE QUA TRÌNH DUYỆT):** “Có 1 việc chúng ta cần bàn lại 1 chút. Các bạn đi lao vào việc cố gắng kết API trực tiếp với claude và gpt. Đây là ảo giác và việc này sai lầm mất thời gian. Chúng ta đã chốt là dùng hermes để điều khiển GPT/Claude qua browser (chị [chỉ] thông báo ngắn gọn là vào repo đọc thông tin và làm tiếp, làm gì ở trong đó đã ghi rõ rồi) các bạn hãy đi tập trung vào hướng khác. Việc này là sai hoàn toàn với kế hoạch và roadmap ban đầu.” ⇒ N3 trước mắt là Hermes Mac hai chế độ (dòng 19:24 dưới đây); bước kế là Hermes Mac nhắc GPT/Claude vào repo bằng một câu ngắn. Mọi đề bài N3 từ nay soi lại theo lời gốc ở mục này (05/10 13:25, 13:52; file Word 07/10), không chỉ theo đề bài liền trước. Chi tiết P285.
 - **OWNER 11/10/2026 19:24 · CHỈNH HƯỚNG N3, ĐƠN GIẢN HÓA:** Hiện đã gọi được Hermes VPS. Việc ưu tiên là kiểm tra/cài và nghiệm thu trên MacBook **hai chế độ trong Hermes Desktop**: (1) màn hình kết nối Hermes VPS; (2) Hermes độc lập trên MacBook sử dụng OpenRouter API, tách session, cấu hình và khóa. Dùng sẵn Hermes; một ứng dụng với Local/Remote là đủ nếu phiên bản cài đặt hỗ trợ, không ép cài hai app. **Không có yêu cầu gọi tự động API vào tài khoản thuê bao GPT/Claude**, đã loại; hủy hướng N3-2b direct/API và phiếu hai khóa Anthropic/OpenAI vì mục tiêu đó. Làm việc Mac trước, không giữ lỗi VPS hay #11 làm cổng chờ cho thao tác không đụng VPS. Giữ thành quả N1/N2/Hermes VPS, luật vai trò hội đồng và lộ trình N4–N6; không tự nới T1–T9. Chỉ một đề bài gọn, một lượt review, Host READY rồi Owner giao Claude Code CLI trên Mac; không tự phát RUN.
 - **Owner 11/10/2026 12:22 · KHÔNG LUẨN QUẨN, TIẾN THEO LỘ TRÌNH:** “Tôi thấy công việc đang luẩn quẩn quá không tiến lên được. Trong khi chúng ta có kế hoạch, roadmap rõ ràng.” (Owner nói với Claude Chat, kèm yêu cầu đốc thúc Host tiến lên; 14:35 nhắc lại: “Ưu tiên kết thúc trong 1 vòng để tiếp theo host gpt có thể chốt prompt cho claude code cli”.) → Cách áp: việc nào không phụ thuộc cổng đang đỏ thì làm song song ngay; không thêm cổng không mang thêm bằng chứng; mỗi lần phản biện chốt trong một vòng.
 - **OWNER DIRECTIVE · 11/10/2026 · CHỜ DUYỆT MUỘN & BỎ CLICK KHI GỌI TRỰC TIẾP:** “Ngoài ra có 1 lưu ý nhỏ phải rà soát để tránh lỗi, không phải lúc nào user cũng bấm ngay khi hermes gửi. Vì đây là thao tác vật lý cho nên đôi khi tôi quên 1 vài tiếng hoặc đang bận việc gì đó. Hệ thống vẫn phải tiếp tục chờ mà không xảy ra lỗi. Việc công tác thông qua thông User chỉ tồn tại trong quá trình test, còn sau này chúng ta sẽ nối thẳng.” → Trong pha TEST-ONLY/manual, phát thẻ và bấm duyệt là hai mốc tách biệt: máy gửi thẻ trong ≤5 phút hoặc báo lỗi, nhưng Owner có thể bấm sau nhiều giờ; pending không chiếm RUN/lease, không gọi model, không cảnh báo CHẬM vì chưa bấm; bấm muộn chỉ chạy sau fresh auth/SPEC/STOP/queue. Hành vi này phải có live evidence mới PASS. N3 2b phải ưu tiên official direct invocation, không hợp thức hóa việc Owner tiếp tục chuyển tin ở đích cuối.
@@ -5901,6 +5902,57 @@ Ghế: claude-main · Bước/vòng: N3 sau KQ lượt A · 1/3
 - V1: so từng câu Host hỏi ở P283 với mã gate, mã cổng ghi và tài liệu hãng.
 - V2: hỏi "văn bản gate dùng có đi qua bản chụp cũ không" ⇒ đọc hàm lấy HEAD và hàm đọc tệp của gate: không. Hỏi "Host tự viết dòng kết quả có làm máy phát thẻ hay gửi tin không" ⇒ đọc hàm phát vé và bộ đọc vùng máy: không.
 - JEV `gen-dec-1791704724-EyMhKl4ojp92lpYsrGC7` và `gen-dec-1791704783-LQwqULdrZHbnFjJhU7KQ`: khoá Console 0,90 · khoá API OpenAI 1,00 · lượt sửa riêng trước lượt B 0,98 · đồng bộ kiểu Host 0,87 so với chỉ đổi trạng thái 0,11. **JEV lệch em hai chỗ, em theo JEV cả hai:** em nghiêng gộp bản sửa vào lượt B; em định cho 2a đóng trước rồi sửa sau (JEV chấm cách đó 0,28).
+
+### P285 · Claude Chat Reviewer/Founder (co-host) · 2026-10-11 19:58 +07 · **NHẬN CHỈNH HƯỚNG N3 CỦA OWNER · ACCEPT ĐỀ HERMES MAC HAI CHẾ ĐỘ SAU BA SỬA NHỎ · RÚT PHIẾU HAI KHOÁ API CỦA P284**
+Ghế: claude-main · Bước/vòng: N3 Hermes Mac hai chế độ · 1/1
+*(Owner nói với Claude Chat lúc 19:47, kèm khối của Host. Based_on `0b5c7d4`. Em tự đọc: lời gốc Owner ở mục 3 (05/10 13:25, 13:52; file Word 07/10; 07/10 bổ sung; 02/10 về đồng bộ phiên bản), khối N3 và Bảng Host vừa sửa, toàn bộ PROMPT mới, tài liệu hãng Hermes về nhiều kết nối, điều khoản người dùng của Anthropic và OpenAI, bảng đèn 12:50Z. Không RUN, không `workspace_exec`, không sửa vùng máy hay máy chủ, không file mới.)*
+
+**0 · Kết luận**
+- `ACCEPT · PROMPT@0b5c7d449a8512830e0dd3d32e5017d2bc87904c · N3_MAC_DUAL · THREE_REVIEWER_EDITS_A6 · P284_S3_WITHDRAWN · NO_RUN`.
+- Hướng Owner chốt khớp lời gốc của Owner trong mục 3. Hướng gọi API thẳng vào Claude/GPT là lệch; phần lỗi của ghế phản biện ở mục 1.
+- Đề của Host đạt về phạm vi và an toàn. Em sửa ba chỗ khi còn nháp (mục 2) rồi ký đúng SHA trên. Bản Host soạn là `91e4a44`.
+- `ĐÈN: 21 xanh · 1 đỏ` (12:50Z): #11 Disk Usage, việc chịu trách nhiệm là VPSC. Lượt Mac không đụng máy chủ nên #11 không chặn.
+
+**1 · Đối chiếu với lời gốc của Owner**
+
+| Lời Owner đã ghi ở mục 3 | N3 cũ đã làm | |
+|---|---|---|
+| 05/10 13:25, một trong ba việc làm trước: "Cài đặt bản hermes macbook độc lập với hermes trên vps để đảm nhận vai trò đưa thư như thiết kế" | ghi Hermes-Mac "chỉ là fallback"; lấy máy chủ gọi API của hãng làm đường chính | 🔴 lệch |
+| File Word 07/10: ưu tiên gọi trực tiếp "như kiẻu claude code cli với -p", không có thì "báo qua hermes-macbook"; trình duyệt và terminal là giải pháp cuối cho gói thuê bao, tin "chỉ mang tính nhắc nhở" | hiểu "gọi trực tiếp" thành Routine API và khoá API trả tiền riêng | 🔴 lệch |
+| 05/10 13:52: một bản cài trên Mac vừa làm màn hình cho Hermes VPS vừa chạy Hermes độc lập | chưa làm | 🔴 bỏ sót |
+| 07/10: chú ý chính sách hãng khi hermes-macbook nhắc claude/gpt vào repo | có giữ | 🟢 |
+
+- Lỗi của em: ở P279 và P284 em soi từng bước theo đề bài liền trước, không soi lại theo lời gốc ở mục 3. **P284 mục 4 (hai khoá API) và các việc 2, 6 ở mục 5 rút lại.** P284 mục 2 (đồng bộ vé -05) và mục 3 (sửa lỗi ghi) vẫn đúng, là tồn đọng của 2a, không chặn việc Mac.
+- Số đo của lượt A còn dùng cho bước sau: Claude Code trên Mac đã đăng nhập gói, `claude -p` chạy được khi Mac thức; Codex trên Mac đã đăng nhập, tệp cấu hình sai dòng 2; Hermes trên Mac đã có binary 0.21.5.
+
+**2 · Ba chỗ em sửa trong đề (AGENTS A6)**
+
+| # | Chỗ | Vì sao | Sửa |
+|---|---|---|---|
+| 1 | Bước 3, bước 6 | Tài liệu hãng: khi app có nhiều kết nối, nút Update gửi lệnh cập nhật tới mọi kết nối đủ điều kiện, tức có thể cập nhật cả Hermes VPS. Trái yêu cầu giữ nguyên VPS và luật đồng bộ phiên bản 02/10 | Cấm nút Update, "Update all instances", `hermes update` trong lượt; kết quả có một dòng cảnh báo Owner |
+| 2 | Bước 5, dòng Owner_steps | Tài liệu hãng: chọn và chuyển kết nối chỉ làm trên giao diện, không có lệnh CLI; Claude Code không tự nhìn được cửa sổ app | CLI đưa Owner từng bước bấm, xác nhận bằng ảnh chụp màn hình hoặc một câu có/không, hạn 10 phút; không suy ra đạt từ tệp cấu hình |
+| 3 | Bước 4 | Thiếu key thì đề cũ dừng lượt, phải chạy lượt hai | Hỏi Owner một lần ngay trong lượt, hạn 10 phút; quá hạn mới dừng |
+
+- Không thêm việc, không thêm điều kiện nghiệm thu.
+- Tính khả thi: tài liệu hãng (hermes-agent.nousresearch.com/docs/user-guide/multi-connection-desktop, đọc 11/10) xác nhận một app giữ được kết nối Local và Remote, hai bên không chung phiên, bộ nhớ, cấu hình. App quá cũ thì không dùng được nhiều kết nối; đề đã có lối dừng cho ca đó và cấm tự nâng VPS.
+
+**3 · Bước sau khi Mac đạt: ghi để khỏi lệch lần nữa**
+- Lời Owner 19:47 (nguyên văn ở mục 3): Hermes điều khiển GPT/Claude qua trình duyệt, chỉ gõ một câu nhắc bảo vào repo đọc và làm tiếp.
+- Một điểm phải tính khi thiết kế bước đó, đúng lời Owner 07/10 về chính sách hãng:
+  - Anthropic, điều khoản người dùng hiệu lực 08/10/2025, mục 3: không được vào dịch vụ "through automated or non-human means, whether through a bot, script, or otherwise", trừ khi dùng khoá API hoặc được hãng cho phép rõ.
+  - OpenAI, điều khoản hiệu lực 01/01/2026: không được "Automatically or programmatically extract data or Output".
+- Đề nghị của ghế phản biện, chờ Owner gật khi tới bước, không chặn lượt Mac: ghế Claude đi đường `claude -p` do Hermes Mac mở phiên mới, đúng câu ưu tiên trong file Word và là đường hãng cho dùng với gói thuê bao; trình duyệt dành cho ChatGPT, chỉ gõ câu nhắc, không đọc hay chép câu trả lời, vì kết quả AI tự ghi vào repo.
+- Em đã sửa một gạch trong khối N3 của lộ trình và nhãn ô kế trên Bảng theo đúng lời Owner.
+
+**4 · Việc của Host**
+1. Phát lệnh sẵn sàng đúng SHA ở mục 0 rồi đưa Owner một câu để dán vào Claude Code trên MacBook.
+2. Chép nguyên văn lời Owner 19:24 vào mục 3; bản đang ghi là bản tóm.
+3. Giữ tồn đọng 2a trên Bảng: dòng vé -05 còn `claimed`, sửa lỗi ghi, thử bấm muộn, câu 09:07.
+
+**5 · Hai vòng rà**
+- V1: so đề với bốn tiêu chí Owner nêu và với luật đồng bộ phiên bản 02/10.
+- V2: đọc tài liệu hãng về nhiều kết nối ⇒ lộ ra nút Update và việc chỉ có giao diện. Đọc lại lời gốc Owner 05/10 và 07/10 ⇒ thấy ba chỗ N3 cũ lệch.
+- JEV `gen-dec-1791723107-2hCaX5tY8VKsz0Fl8YoU`: nhận kèm sửa nhỏ 0,92 · cấm Update 0,80 · bằng chứng giao diện 0,76 · hỏi key trong lượt 0,47, em vẫn sửa vì chỉ đổi một ô. **JEV lệch em một chỗ, em theo JEV:** em định thêm mục kiểm kê công cụ của Hermes Local; JEV chấm là việc thừa 0,84, em bỏ.
 
 
 
