@@ -754,19 +754,19 @@
     }
   },
   "host_review_P30": {
-    "state": "LOCAL_CHECKED_PENDING_VPS_READBACK",
+    "state": "MERGED_UI_VERIFIED_VPS_IDENTITY_PASS_FULL_SUITE_BLOCKED_NODE",
     "canonical_master": "ML-DEF-024",
     "alias": "CAT-006",
     "unique_designed_masters": 47,
     "registered_tools": 6,
     "local_report": {
-      "run_id": "TQT-5a64028eb4654229a4d9b21aa0961477",
-      "at": "2026-10-11T14:11:18.447464+00:00",
+      "run_id": "TQT-7f97e158106e4dada2206e22cb368984",
+      "at": "2026-10-11T14:14:25.063476+00:00",
       "scope": "work/tools-quy-trinh/**/*.py, **/*.js; không tuyên bố bao phủ toàn VPS",
       "registry_master": "CAT-006",
       "case_master": "CAT-012",
       "result_master": "CAT-015",
-      "source_sha256": "cefaa0ef9a3b0ad29942fa310999ead72ac647c46a64b017a38de1cf2a7147a4",
+      "source_sha256": "0ad728c22f20459c38d9d52d1985be4207f116e132837ef83d47cc6a6aa7a1d2",
       "inventory_errors": [],
       "source_readback": {
         "state": "PASS",
@@ -875,7 +875,7 @@
           "method": "indexed keys; no pairwise scan"
         }
       },
-      "ui_adapter_sha256": "b498b2e01e698c0f66223462443312b9620cb6e4531e3087508326331970ea39",
+      "ui_adapter_sha256": "d6dea33a394599e60f3f52932a59d4433991f890e18e30c19dcbc4b0c9302d65",
       "prerequisite_errors": [],
       "runner_self_test": {
         "cases": 15,
@@ -893,11 +893,175 @@
       "Full VPS runner requires Node; Python identity mode is separate"
     ],
     "ui_source_sha256": {
-      "adapter.js": "b498b2e01e698c0f66223462443312b9620cb6e4531e3087508326331970ea39",
+      "adapter.js": "d6dea33a394599e60f3f52932a59d4433991f890e18e30c19dcbc4b0c9302d65",
       "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
       "ui-child-content-v1.js": "422e8c6bf8fc07718452f044154b6a64d5ad6f4c38c54da082fab47e461616e1",
       "ui-child-from-parent-v1.js": "bb7f549dede1d6326ab156dd0e6def1f7b081fcc87f4ff4b0b86cee793b96f76",
       "master-design-review-v1.html": "42fb48818bef36b5556f3d0a6ab0ba66ced7f1160cb8b86daaa59de8eb7e616d"
+    },
+    "vps": {
+      "job_id": "be8596f7ba7243eeb82cf0e717e34c15",
+      "source_head": "d60ab25e373ac2e0ff4e23354ffd166e3b230f01",
+      "exit_code": 3,
+      "report": {
+        "run_id": "TQT-d632663552244002b2f6b19544a8ee68",
+        "at": "2026-10-11T14:15:09.613916+00:00",
+        "scope": "work/tools-quy-trinh/**/*.py, **/*.js; không tuyên bố bao phủ toàn VPS",
+        "registry_master": "CAT-006",
+        "case_master": "CAT-012",
+        "result_master": "CAT-015",
+        "source_sha256": "0ad728c22f20459c38d9d52d1985be4207f116e132837ef83d47cc6a6aa7a1d2",
+        "inventory_errors": [],
+        "source_readback": {
+          "state": "PASS",
+          "source_sha256": "d18e0191b5afd0208ae0aa374e43f3cd800ca9bbbcd167e17fb39f08167d546c",
+          "projection_equal": true,
+          "rule_source_checks": [
+            {
+              "ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/contract",
+              "matched": true
+            }
+          ],
+          "application_id": "MOW-NHC-001-G1-20261010-01",
+          "trial_declarations": 13,
+          "scope": "SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL"
+        },
+        "results": [],
+        "pg": "NOT_RUN",
+        "production_ready": false,
+        "master_identity_check": {
+          "state": "PASS",
+          "errors": [],
+          "input_rows": 47,
+          "unique_masters": 46,
+          "merged": [
+            {
+              "canonical_id": "ML-DEF-024",
+              "ids": [
+                "ML-DEF-024",
+                "CAT-006"
+              ]
+            }
+          ],
+          "scope": "Definition registry + QTTH work Masters; Config entry checked by live merged-index guard. Not a full PG/VPS inventory.",
+          "input_sha256": "a153d208c8470db1256be508e4f1f951d7b755d4cff61cde4b00cfd461af378a",
+          "self_test": {
+            "cases": 13,
+            "scale_rows": 10000,
+            "method": "indexed keys; no pairwise scan"
+          }
+        },
+        "prerequisite_errors": [
+          "MISSING_RUNTIME:node"
+        ],
+        "runner_self_test": {
+          "cases": 15,
+          "store": "temporary TEST file in execution snapshot",
+          "write_read_restore": "PASS",
+          "production": "NOT_TOUCHED"
+        },
+        "status": "BLOCKED"
+      }
+    },
+    "vps_identity_only": {
+      "job_id": "48788c446fff41e0b29d076a7daa20f3",
+      "source_head": "312c0b9ac0872a9fd7c44dce1eb00c2af521e004",
+      "exit_code": 0,
+      "report": {
+        "status": "PASS",
+        "master_identity_check": {
+          "state": "PASS",
+          "errors": [],
+          "input_rows": 47,
+          "unique_masters": 46,
+          "merged": [
+            {
+              "canonical_id": "ML-DEF-024",
+              "ids": [
+                "ML-DEF-024",
+                "CAT-006"
+              ]
+            }
+          ],
+          "scope": "Definition registry + QTTH work Masters; Config entry checked by live merged-index guard. Not a full PG/VPS inventory.",
+          "input_sha256": "a153d208c8470db1256be508e4f1f951d7b755d4cff61cde4b00cfd461af378a",
+          "self_test": {
+            "cases": 13,
+            "scale_rows": 10000,
+            "method": "indexed keys; no pairwise scan"
+          }
+        },
+        "pg": "NOT_RUN"
+      }
+    },
+    "readback": [
+      {
+        "type": "file",
+        "bytes": 20645,
+        "mtime": 1791728075.308339,
+        "head": null,
+        "sha256": "d6dea33a394599e60f3f52932a59d4433991f890e18e30c19dcbc4b0c9302d65",
+        "version": "d6dea33a394599e60f3f52932a59d4433991f890e18e30c19dcbc4b0c9302d65"
+      },
+      {
+        "type": "file",
+        "bytes": 15755,
+        "mtime": 1791727955.0354893,
+        "head": null,
+        "sha256": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
+        "version": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c"
+      },
+      {
+        "type": "file",
+        "bytes": 31400,
+        "mtime": 1791727955.0704885,
+        "head": null,
+        "sha256": "422e8c6bf8fc07718452f044154b6a64d5ad6f4c38c54da082fab47e461616e1",
+        "version": "422e8c6bf8fc07718452f044154b6a64d5ad6f4c38c54da082fab47e461616e1"
+      },
+      {
+        "type": "file",
+        "bytes": 5567,
+        "mtime": 1791727955.0834882,
+        "head": null,
+        "sha256": "bb7f549dede1d6326ab156dd0e6def1f7b081fcc87f4ff4b0b86cee793b96f76",
+        "version": "bb7f549dede1d6326ab156dd0e6def1f7b081fcc87f4ff4b0b86cee793b96f76"
+      },
+      {
+        "type": "file",
+        "bytes": 25629,
+        "mtime": 1791727955.097488,
+        "head": null,
+        "sha256": "42fb48818bef36b5556f3d0a6ab0ba66ced7f1160cb8b86daaa59de8eb7e616d",
+        "version": "42fb48818bef36b5556f3d0a6ab0ba66ced7f1160cb8b86daaa59de8eb7e616d"
+      },
+      {
+        "type": "file",
+        "bytes": 1074650,
+        "mtime": 1791728080,
+        "head": "d60ab25e373ac2e0ff4e23354ffd166e3b230f01",
+        "sha256": "0ad728c22f20459c38d9d52d1985be4207f116e132837ef83d47cc6a6aa7a1d2",
+        "version": "0ad728c22f20459c38d9d52d1985be4207f116e132837ef83d47cc6a6aa7a1d2",
+        "dirty": false,
+        "freshness": "fresh",
+        "recheck_required": false,
+        "source_head": "d60ab25e373ac2e0ff4e23354ffd166e3b230f01",
+        "refreshed_at": "2026-10-11T14:15:15Z",
+        "worktree_dirty": false,
+        "remote_head": "d60ab25e373ac2e0ff4e23354ffd166e3b230f01",
+        "previous_source_head": "312c0b9ac0872a9fd7c44dce1eb00c2af521e004"
+      }
+    ],
+    "ui_verification": {
+      "state": "PASS",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html",
+      "unique_masters": 47,
+      "dot_rows": 1,
+      "canonical_id": "ML-DEF-024",
+      "registered_tools": 6,
+      "old_url_redirect": "PASS",
+      "runner_required_input_visible": "PASS",
+      "screenshot": "outputs/dot-master-p30.png"
     }
   }
 }
