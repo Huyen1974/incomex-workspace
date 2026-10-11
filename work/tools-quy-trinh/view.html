@@ -11990,7 +11990,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "code": "CAT-003?",
             "name": "Danh mục MOW quy trình",
             "catalogued": true,
-            "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-home-v1.html?master=CAT-003%3F",
+            "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html",
             "source_state": "UNVERIFIED",
             "ui_state": "DESIGN",
             "source_hint": "workflows 3 · có phái cử",
@@ -12020,7 +12020,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "code": "CAT-009?",
             "name": "Danh mục MOT công việc",
             "catalogued": true,
-            "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-home-v1.html?master=CAT-009%3F",
+            "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html",
             "source_state": "UNVERIFIED",
             "ui_state": "DESIGN",
             "source_hint": "tasks = việc AI",
@@ -12063,7 +12063,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             "gap": "Nguồn lưu chưa xác minh. Đã có UI list + mẫu khai báo trong khu Master đang rà; chưa duyệt/chưa nối PG.",
             "owner": "Astra Codex",
             "issue_ref": "TQT-ISS-007",
-            "review_date": "2026-10-11"
+            "review_date": "2026-10-11",
+            "display_code": "DEF 00.1"
           },
           {
             "code": "CAT-228*",
@@ -12520,7 +12521,21 @@ main{max-width:1240px} [hidden]{display:none!important}
               "CAT-081"
             ]
           }
-        ]
+        ],
+        "display_labels": {
+          "source": {
+            "MISSING": "Chưa khai nguồn lưu",
+            "UNVERIFIED": "Nguồn lưu chưa xác minh",
+            "DECLARED": "Đã khai nguồn · chưa kiểm ghi/đọc",
+            "VERIFIED": "Đã kiểm ghi/đọc"
+          },
+          "ui": {
+            "MISSING": "Chưa có thiết kế UI",
+            "DESIGN": "Đã có thiết kế UI · chưa nghiệm thu"
+          },
+          "unconnected": "Chưa nối dữ liệu Master; chưa xác định số bản ghi thực tế.",
+          "empty_design": "Chưa nối dữ liệu Master. Mở “Xem mẫu khai báo” để rà thiết kế; chưa có thao tác lưu."
+        }
       }
     },
     "application_preview": {
@@ -18327,10 +18342,12 @@ const audit=globalThis.tqtRecordAudit(R),masters=new Map(P.masters.map(m=>[m.cod
 const href=ref=>ref?.startsWith('http')?ref:'https://github.com/Huyen1974/incomex-workspace/blob/main/'+String(ref||'').split('#')[0];
 const help=(label,text)=>'<span class="nr-help"><span>'+e(label)+'</span><button type="button" aria-label="Hướng dẫn: '+e(label)+'" title="'+e(text)+'">?</button><span class="nr-tip" role="tooltip">'+e(text)+'</span></span>';
 const th=(label,text)=>'<th scope="col">'+help(label,text)+'</th>';
-const masterCell=code=>{const m=masters.get(code);return m?'<a href="'+e(m.home)+'" target="_blank" rel="noopener">'+e(m.name)+'</a><small class="oc-code">'+e(m.code)+'</small>':'<strong class="nr-red">Chưa có Master · phải đăng ký mã</strong>';};
-const needCell=m=>!m?'<b class="nr-red">Chưa có</b>':'<b class="'+(m.source_state==='MISSING'?'nr-red':'')+'">'+e(m.source_state==='MISSING'?'Chưa có nơi lưu':m.source_state==='UNVERIFIED'?'Nơi lưu chưa xác minh':'Đã khai nguồn lưu')+'</b><small class="'+(m.ui_state==='MISSING'?'nr-red':'oc-muted')+'">'+e(m.ui_state==='MISSING'?'Chưa có UI Master':'Có UI thiết kế · cần rà')+'</small>';
+const masterCell=code=>{const m=masters.get(code);return m?'<a href="'+e(m.home)+'" target="_blank" rel="noopener">'+e(m.name)+'</a><small class="oc-code">'+e(m.display_code||m.code)+'</small>':'<strong class="nr-red">Chưa có Master · phải đăng ký mã</strong>';};
+const uiCell=m=>'<b>'+e(m?P.display_labels.ui[m.ui_state]||'Chưa xác minh UI':'Chưa có Master')+'</b>';
+const needCell=m=>'<span>'+e(m?P.display_labels.source[m.source_state]||'Chưa xác minh nguồn':'Chưa có Master')+'</span>';
+const relatedMasters=g=>{const codes=P.supplemental_master_bindings?.find(x=>x.guidance_id===g.id)?.masters||[];return codes.length?'<details><summary>Nơi ghi chi tiết liên quan</summary>'+codes.map(code=>'<p>'+masterCell(code)+'</p>').join('')+'</details>':'';};
 const option=(kind,value)=>'<select class="nr-option '+(kind==='check_state'?(value==='MATCHED'?'green':value==='NEEDS_FIX'?'red':'gray'):'gray')+'" aria-label="'+e(kind==='check_state'?'Đối chiếu':'Đã ghi chưa')+'" disabled title="Trạng thái đọc từ hồ sơ; chưa nối thao tác lưu PG">'+P.state_options[kind].map(x=>'<option value="'+e(x.value)+'"'+(value===x.value?' selected':'')+'>'+e(x.label)+'</option>').join('')+'</select>';
-const commonTable='<table class="nr-table"><thead><tr>'+th('Phải ghi gì?','Nội dung bắt buộc cho mọi việc theo quy trình. Đây là hướng dẫn chung, không ghi tiến độ của MOW001 ở đây.')+th('Master List nào?','Tên và mã từ Master of Master. Chưa có Master thì hiện Chưa có; có mã mà thiếu nơi lưu/UI vẫn phải hiện phần thiếu.')+th('Còn thiếu gì?','Tách có mã danh mục, có nơi lưu và có UI. Một file nháp có dữ liệu không chứng minh Master đã hoàn thiện.')+th('Cách ghi','Thông tin tối thiểu phải có. Khi áp dụng, tạo bản ghi gắn đúng mã hồ sơ, quy trình/phiên và việc con.')+'</tr></thead><tbody>'+P.guidance.map(g=>'<tr><th scope="row">'+e(g.content)+'<small class="oc-code">'+e(g.id)+'</small></th><td data-label="Master List">'+masterCell(g.master_code)+'</td><td data-label="Còn thiếu gì?">'+needCell(masters.get(g.master_code))+'</td><td data-label="Cách ghi">'+e(g.instruction)+'</td></tr>').join('')+'</tbody></table>';
+const commonTable='<table class="nr-table"><thead><tr>'+th('Phải ghi gì?','Nội dung bắt buộc cho mọi việc theo quy trình. Đây là hướng dẫn chung, không ghi tiến độ của MOW001 ở đây.')+th('Master List nào?','Tên và mã từ Master of Master. Chưa có Master thì hiện Chưa có; có mã mà thiếu nơi lưu/UI vẫn phải hiện phần thiếu.')+th('Thiết kế UI','Có danh sách và mẫu khai báo không có nghĩa đã ghi dữ liệu.')+th('Nguồn lưu','Nơi lưu và kiểm ghi/đọc được theo dõi riêng với thiết kế UI.')+th('Cách ghi','Thông tin tối thiểu phải có. Khi áp dụng, tạo bản ghi gắn đúng mã hồ sơ, quy trình/phiên và việc con.')+'</tr></thead><tbody>'+P.guidance.map(g=>'<tr><th scope="row">'+e(g.content)+'<small class="oc-code">'+e(g.id)+'</small></th><td data-label="Master List">'+masterCell(g.master_code)+relatedMasters(g)+'</td><td data-label="Thiết kế UI">'+uiCell(masters.get(g.master_code))+'</td><td data-label="Nguồn lưu">'+needCell(masters.get(g.master_code))+'</td><td data-label="Cách ghi">'+e(g.instruction)+'</td></tr>').join('')+'</tbody></table>';
 const progressRows=audit.rows.map(x=>'<tr><th scope="row">'+e(x.title)+'<small class="oc-muted">'+e(x.note)+'</small></th><td data-label="Master List">'+masterCell(x.master_code)+'</td><td data-label="Đã ghi chưa?">'+option('record_state',x.recordState)+'</td><td data-label="Đối chiếu">'+option('check_state',x.checkState)+'</td><td><details><summary>Chi tiết</summary><p>Người giữ: '+e(x.owner)+'</p><p>Mã bản ghi Master: '+e(x.recordId||'Chưa gắn')+'</p>'+(x.recordRef?'<a href="'+e(href(x.recordRef))+'" target="_blank" rel="noopener">Bản ghi đích</a>':'<p>Chưa có bằng chứng ghi vào Master đích.</p>')+'<p><a href="'+e(href(x.preparation_ref))+'" target="_blank" rel="noopener">Tài liệu chuẩn bị</a> · chưa tính là bản ghi Master.</p><small>'+e(x.code)+' · '+e(A.application_id)+'</small></details></td></tr>').join('');
 const checkpoints=W.workflow.checkpoints;
 const workBoard='<section class="oc-board" id="tqt-work-board" aria-label="Hướng dẫn chung và hồ sơ tiến độ">'+
@@ -18340,8 +18357,8 @@ const workBoard='<section class="oc-board" id="tqt-work-board" aria-label="Hư�
 '<div class="oc-three"><b>Kiểm đủ đầu vào <small>Mốc 1–3</small></b><b>Làm theo quy trình <small>Mốc 4</small></b><b>Kiểm đầu ra · bàn giao <small>Mốc 5–7</small></b></div>'+
 '<ol class="oc-seven">'+checkpoints.map(cp=>'<li><b>'+cp.order+'. '+e(cp.name)+'</b></li>').join('')+'</ol><p class="oc-muted">Bộ 7 mốc đang áp thử, chờ hội đồng thống nhất. Mọi sổ bên dưới đều là Master List.</p>'+
 '<details class="oc-detail" id="tqt-checkpoint-list"><summary>Điều kiện của 7 mốc</summary><ol>'+checkpoints.map(cp=>'<li><b>'+e(cp.name)+'</b> — '+e(W.workflow.steps.find(s=>s.id===cp.step)?.result)+'</li>').join('')+'</ol></details>'+
-'<p class="oc-rule"><b>'+P.masters.length+' Master đã có mã trong danh mục.</b> '+P.masters.filter(m=>m.source_state==='MISSING').length+' chưa có nơi lưu · '+P.masters.filter(m=>m.ui_state==='MISSING').length+' chưa có UI. Có mã chưa có nghĩa đã có Master dùng được.</p>'+commonTable+
-'<details class="oc-detail"><summary>UI Master đã bổ sung · phần còn thiếu</summary><p>Giữ mã hiện hữu, dùng UI.MASTER. Mỗi Master có danh sách bản ghi và chi tiết; không tạo sổ bằng đường dẫn file tạm.</p><table class="nr-table"><thead><tr><th>Master</th><th>Phải bổ sung</th><th>Nơi theo dõi</th></tr></thead><tbody>'+P.masters.filter(m=>m.source_state==='MISSING'||m.ui_state==='MISSING'||m.code==='CAT-227*').map(m=>'<tr><th>'+masterCell(m.code)+'</th><td>'+e(m.gap)+'<p>Trường chung: mã bản ghi, mã hồ sơ, MOW/MOT và phiên, nội dung, người/thời gian ghi, trạng thái đối chiếu, căn cứ.</p></td><td>Astra Codex · <a href="#TQT-ISS-007">TQT-ISS-007</a></td></tr>').join('')+'</tbody></table></details></section>'+
+'<p class="oc-rule"><b>'+P.guidance.length+' mục phải ghi · '+P.masters.length+' Master liên quan.</b> '+P.masters.filter(m=>m.ui_state==='DESIGN').length+' đã có thiết kế UI. Nguồn lưu và bản ghi từng việc được kiểm riêng.</p><p>Đây là <b>hướng dẫn chung</b>, không phải tình trạng dữ liệu của một việc. <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" target="_blank" rel="noopener">Mở danh sách Master Duyệt thiết kế ↗</a>. Xem Đã ghi / Đối chiếu trong hồ sơ từng việc bên dưới.</p>'+commonTable+
+'<details class="oc-detail"><summary>UI Master đã bổ sung · phần còn thiếu</summary><p>Giữ mã hiện hữu, dùng UI.MASTER. Mỗi Master có danh sách bản ghi và chi tiết; không tạo sổ bằng đường dẫn file tạm.</p><table class="nr-table"><thead><tr><th>Master</th><th>Phải bổ sung</th><th>Nơi theo dõi</th></tr></thead><tbody>'+P.masters.filter(m=>m.source_state!=='VERIFIED'||m.ui_state==='MISSING').map(m=>'<tr><th>'+masterCell(m.code)+'</th><td>'+needCell(m)+'<p>Trường chung: mã bản ghi, mã hồ sơ, MOW/MOT và phiên, nội dung, người/thời gian ghi, trạng thái đối chiếu, căn cứ.</p></td><td>Astra Codex · <a href="#TQT-ISS-007">TQT-ISS-007</a></td></tr>').join('')+'</tbody></table></details></section>'+
 '<details class="oc-fold" id="tqt-recording-list"><summary><span><b>2. Hồ sơ tiến độ · '+e(A.target_code)+' / '+e(A.scope_stage)+'</b><small>Đang chuẩn bị mốc '+Number(audit.current.slice(2))+'/7 · '+audit.counts.written+'/'+audit.counts.total+' đã ghi vào Master · '+audit.counts.verified+' đã đối chiếu</small></span><span class="oc-fold-action">Mở xem</span></summary><div class="oc-fold-body">'+
 '<div class="oc-context"><b>Mã hồ sơ: '+e(A.application_id)+'</b><p>Quy trình: '+e(A.process_code)+' · '+e(A.process_version)+' · Người giữ: '+e(A.next_owner)+'</p><p>Master hồ sơ: '+masterCell(A.progress_master_code)+'</p><p><b>Đang chuẩn bị mốc '+Number(audit.current.slice(2))+'/7; '+audit.verifiedCheckpoints.length+'/7 mốc đã kiểm đạt.</b></p><p>'+e(A.next)+'</p></div>'+
 '<p><b>Đã ghi</b> = có bản ghi được gắn vào đúng Master đích. <b>Đối chiếu</b> = kiểm bản ghi đó đúng hồ sơ/phiên/nội dung. Dữ liệu chuẩn bị trong file chưa được tính là đã ghi Master.</p><p class="oc-muted">Các ô option đang hiển thị trạng thái từ nguồn; chưa nối chức năng lưu PG. Chưa đến mốc vẫn là “Chưa ghi”, kèm chú thích để không coi là lỗi.</p>'+

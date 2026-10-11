@@ -12,6 +12,8 @@ DEF 00.1 dùng lại Master có khóa cũ CAT-227*, không tạo Master thứ ha
 
 **Mức hoàn thành:** đủ chỗ khai trong thiết kế cho 7 mốc và các nhánh được rà; chưa có bằng chứng ghi/đọc/quyền của các Master mới. Mô hình trường, khóa, liên kết là thiết kế logic, chưa sinh/nạp PG; TQT-ISS-007 tiếp tục mở. Mẫu rỗng không tính là bản ghi đã tạo, không tăng tiến độ MOW001. Kiểm cấu trúc, các ca sai cũ và mở mẫu qua trình duyệt trước bàn giao.
 
+**Thống nhất trạng thái 11/10:** Hướng dẫn chung tách “Thiết kế UI” và “Nguồn lưu”. 11 mục ghi dẫn tới 19 Master liên quan (11 chính + 8 chi tiết), nằm trong danh sách thiết kế 47 Master. Chưa nối nguồn thì số lượng hiển thị —, không suy là 0 bản ghi thực. Hai số 2 hồ sơ/việc và các dòng kế hoạch là dữ liệu chuẩn bị đã biết, không phải số bản ghi PG. “Đã ghi / Đối chiếu” chỉ thuộc hồ sơ từng việc; không đổi thành Đã ghi chỉ vì tạo UI. Nhãn hiển thị chung ở `record_control.display_labels`; trạng thái nguồn và kiểm mốc giữ nguyên căn cứ. Chưa khai nguồn lưu khác với chưa có thiết kế, và khác với hồ sơ chưa gắn bản ghi.
+
 ## Over view · đúng hai câu hỏi
 
 **[1. Việc phải qua mốc nào, đang ở đâu?](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=tqt-checkpoint-list)**
