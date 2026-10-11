@@ -31,6 +31,8 @@ Giữ ⑤, 7 mốc, 47 Master và 6 DOT. CAT-206* schema **1.3-design**, hợp �
 
 **Giới hạn:** quyền tệp đã kiểm không thay quyền nghiệp vụ của 34 endpoint; các access_check vẫn NOT_TESTED. Chưa khóa riêng từng phiên Host, chưa có reviewer thật, chưa nghiệm thu bản thiết kế MOW001. Quản trị SSH và phần trình bày công khai không thuộc ACL workspace. Owner xác nhận GitHub cũ, VPS đang dùng là SSOT; không đẩy mã gateway lên GitHub cũ.
 
+**Bằng chứng chốt:** lượt tổng VPS đạt cả 5 suite, 20 ca tự kiểm runner và kiểm Master trùng; khoảng 145 giây (CHECK004 107/180 giây). 10 ca quyền thật/gate đạt. Chi tiết phiên, hash và biên nhận tại `UI-REVIEW-AGGREGATE.json#host_review_P32`. Bộ CHECK004 tự kiểm logic không tự xác nhận cửa ghi đang bật; trạng thái triển khai lấy từ biên nhận VPS riêng.
+
 **Dùng lại:** TQT-CHECK-004 giữ ca PR15, các lệnh `--test-handoff`, `--test-design`, `--write-gate`; CHECK006 quản hash/thời hạn. Danh tính ứng viên kiểm giả lập không được nhập làm người kiểm thật. Kết luận từng điểm: `catalog.host_review_PR15`; bằng chứng lượt: `UI-REVIEW-AGGREGATE.json#host_review_P32`.
 
 ## P31 / PR14 · lịch sử kiểm hợp đồng và giao nhận

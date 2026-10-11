@@ -34588,7 +34588,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-record-control.js",
             "view.html"
           ],
-          "sha256": "dc835b7d8f8330fb720b05b3689c43d5d099b54b8cbc60c2ea328485c31fc16a",
+          "sha256": "32e3f58fc8d3e6f5b239e09264f18ccd91ae7eadbb0355fb0352b3529e1f0586",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -34626,7 +34626,15 @@ main{max-width:1240px} [hidden]{display:none!important}
               "probe.py": "987fadea66be4712ab2114f0c8591e4cd7b50919760277d83a8a5495b859b699"
             },
             "script_directory": "/opt/incomex/staging/tqt-p32",
-            "usage": "Deployment scripts are version-specific operator runbooks; inspect preconditions and backup receipt before reuse. probe.py runs explicit TEST gate probes and records a TEST receipt; not part of read-only suite."
+            "usage": "Deployment scripts are version-specific operator runbooks; inspect preconditions and backup receipt before reuse. probe.py runs explicit TEST gate probes and records a TEST receipt; not part of read-only suite.",
+            "vps_source_commit": "7cad52bbc29e863ee03e2128a2d3154539b49730",
+            "report_only_revision": "Canonical test output now says NOT_PROBED_BY_THIS_SUITE; deployed --write-gate algorithm is unchanged. Pinned executable remains dc835b7d8f8330fb720b05b3689c43d5d099b54b8cbc60c2ea328485c31fc16a.",
+            "last_full_vps_run": {
+              "job_id": "24cf5bd5084f4778b67a46ed9d206c5d",
+              "source_commit": "798b7c5f80d448e1790f3937d96563f6cf5e888a",
+              "state": "PASS",
+              "elapsed_seconds": 144.772
+            }
           }
         },
         {
@@ -35132,7 +35140,7 @@ main{max-width:1240px} [hidden]{display:none!important}
         "auth": "server-authenticated surface identity, pinned checker/view outside writable roots",
         "tested": "32 gateway regressions PASS; 7 focused guards PASS including added rename case; 10 live credential/gate probes PASS",
         "deployment": {
-          "state": "ACTIVATED_HEALTH_PASS",
+          "state": "VERIFIED_GATE_FILE_ACL_AND_FULL_VPS_SUITE",
           "backup": "/opt/incomex/backups/tqt-p32-20261011T210508Z",
           "image": "agent-data-hvu:tqt-p32-r2-20261012",
           "base_image": "sha256:94a7b14a1b592544b186fa724ab79fb0b4d8aa68efacef198d0e5a0534055170",
@@ -35144,9 +35152,17 @@ main{max-width:1240px} [hidden]{display:none!important}
             "docs/WORKSPACE_TOOLS.md": "5b16d8d2f9616537cc737a0a2e339243f58c1f39836f53b46be28971761ce3fd"
           },
           "pg": "NOT_TOUCHED",
-          "pending": "LIVE_ACL_AND_GATE_PROBES",
+          "pending": "REAL_ENDPOINTS_AND_INDEPENDENT_BUSINESS_REVIEW",
           "rename_regression": "source/destination both checked via --no-renames",
-          "recovery_commit": "1b818fa411c8b02cc9df3178bdcefcadcda52778"
+          "recovery_commit": "1b818fa411c8b02cc9df3178bdcefcadcda52778",
+          "live_probe_count": 10,
+          "vps_source_commit": "7cad52bbc29e863ee03e2128a2d3154539b49730",
+          "full_suite": {
+            "job_id": "24cf5bd5084f4778b67a46ed9d206c5d",
+            "source_commit": "798b7c5f80d448e1790f3937d96563f6cf5e888a",
+            "state": "PASS",
+            "elapsed_seconds": 144.772
+          }
         },
         "live_probe_count": 10
       },

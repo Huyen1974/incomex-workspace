@@ -889,6 +889,6 @@ Owner yêu cầu tiếp tục điểm mở, ưu tiên kiểm bắt buộc ở c�
 
 C13-03 **đã cưỡng chế trong phạm vi tệp kho thử**: CHECK004 gọi tại chốt commit; 10 ca thật kiểm đọc/ghi, sửa sai, mất lịch sử, upload và đổi tên. Lỗi đổi tên được phát hiện khi thử, tệp đã khôi phục đúng hash bằng commit 1b818fa4; sửa nhận diện cả nguồn–đích, kiểm lại đạt. C13-04 vẫn PARTIAL: không nâng 34 endpoint lên PASS từ quyền một tệp. Chưa ràng buộc phiên Host riêng.
 
-Owner xác nhận trực tiếp: “Đúng: GitHub cũ, VPS đang dùng là SSOT”. Host triển khai hẹp từ image VPS, không dùng main cũ, không đẩy agent-data-test; chặn xuất GitHub trước đó không còn là việc cần xin. Node 22.16.0 và bộ ghim đã vào image quản lý. 32 hồi quy gateway + 7 ca gate tập trung đạt (ca đổi tên bổ sung); bộ đầy đủ VPS đang chạy lại sau bổ sung đầu vào UI. NEXT_TRIGGER=REAL_ENDPOINT_CONTRACT_EVIDENCE_AND_INDEPENDENT_REVIEW.
+Owner xác nhận trực tiếp: “Đúng: GitHub cũ, VPS đang dùng là SSOT”. Host triển khai hẹp từ image VPS, không dùng main cũ, không đẩy agent-data-test; chặn xuất GitHub trước đó không còn là việc cần xin. Node 22.16.0 và bộ ghim đã vào image quản lý. 32 hồi quy gateway + 7 ca gate tập trung đạt (ca đổi tên bổ sung); bộ đầy đủ VPS đạt, job 24cf5bd5084f4778b67a46ed9d206c5d, khoảng 145 giây, CHECK004 107/180 giây. Nguồn gateway lưu tại VPS commit 7cad52b; không push GitHub cũ. NEXT_TRIGGER=REAL_ENDPOINT_CONTRACT_EVIDENCE_AND_INDEPENDENT_REVIEW.
 
 Bằng chứng: `UI-REVIEW-AGGREGATE.json#host_review_P32`; Host tự kiểm kỹ thuật, không thay kiểm độc lập.

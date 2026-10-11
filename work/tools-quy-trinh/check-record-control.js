@@ -254,7 +254,7 @@ const rewrite=clone(next);rewrite.declaration_history[0].answer='rewrite old';as
 const newContract=clone(previous),prior=clone(previous.information_contract);delete prior.history;newContract.information_contract.history.push(prior);newContract.information_contract.version=String(Number(previous.information_contract.version)+1);newContract.information_contract.rows.forEach(x=>x.contract_version=newContract.information_contract.version);
 assert.equal(validate(previous,newContract).state,'PASS');contractCases++;
 const changed=clone(complete);changed.application_preview.record.information_contract.rows[0].meaning+=' revised';assert.deepEqual(audit(changed).verifiedCheckpoints,['CP01']);contractCases++;
-console.log(JSON.stringify({information_contract_cases:contractCases,actual_contract_rows:R.application_preview.record.information_contract.rows.length,actual_criteria:R.application_preview.record.information_contract.criteria.length,synthetic_full_walk:audit(complete).verifiedCheckpoints.length,real_checkpoints:audit(R).verifiedCheckpoints.length,server_write_hook:'NOT_ENFORCED',pg:'NOT_RUN'}));
+console.log(JSON.stringify({information_contract_cases:contractCases,actual_contract_rows:R.application_preview.record.information_contract.rows.length,actual_criteria:R.application_preview.record.information_contract.criteria.length,synthetic_full_walk:audit(complete).verifiedCheckpoints.length,real_checkpoints:audit(R).verifiedCheckpoints.length,server_write_hook:'NOT_PROBED_BY_THIS_SUITE',pg:'NOT_RUN'}));
 
 // PR14: acceptance is measured at each boundary, not only by final checkpoint state.
 let pr14Cases=0;const cc=x=>globalThis.tqtCanonical(x);
