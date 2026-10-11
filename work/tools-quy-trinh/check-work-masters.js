@@ -25,3 +25,23 @@ if(adapter){const A=globalThis.TQT_WORK_MASTER;r.source_url='https://example.tes
  const cfg=A.configure({}, {tqt:r,masterCode:'DEF00.1',sample:false});assert.equal(cfg.filterFields.length,4);assert(cfg.statusOptions.includes('Đã cho nghỉ'));assert(cfg.items.every(x=>x.metadata.actual_start==='Chưa ghi'));
 }
 console.log(JSON.stringify({masters:r.work_master_designs.records.length,planned_jobs:r.work_schedule.records.length,negative_cases:rejected,scope:'DESIGN_ONLY',pg:'NOT_RUN'}));
+
+if(adapter){
+ vm.runInThisContext(html.match(/<script id="tqt-record-control"[^>]*>([\s\S]*?)<\/script>/)[1]);
+ const A=globalThis.TQT_WORK_MASTER,copy=x=>JSON.parse(JSON.stringify(x)),d=A.dossier(r,r.work_schedule.records[0]);
+ assert.equal(d.checkpoints.length,7);assert.equal(d.groups.length,11);assert.equal(d.groups.reduce((n,g)=>n+g.rows.length,0),34);
+ assert.equal(d.checkpoints.filter(x=>x.current)[0].id,'CP02');assert.equal(d.checkpoints.filter(x=>x.done).length,0);assert.equal(d.done,0);
+ const waiting=A.dossier(r,r.work_schedule.records[1]);assert.equal(waiting.a,null);assert(waiting.groups.every(g=>!g.done&&g.condition==='Chưa gắn hồ sơ'));assert(waiting.checkpoints.every(x=>!x.done&&!x.current));
+ const partial=copy(r),p=partial.application_preview.record.record_checks.find(x=>x.requirement_code==='PLAN');
+ Object.assign(p,{record_state:'RECORDED',master_record_id:'TEST',record_ref:'test:record',record_version:'1'});
+ const g=A.dossier(partial,partial.work_schedule.records[0]).groups.find(g=>g.id==='RG04');assert.equal(g.written,1);assert(!g.done);assert(g.active.length>1);
+ p.check_state='MATCHED';p.evidence_ref='test:evidence';p.checked_by='TEST';p.checked_at='2026-10-11T00:00:00Z';
+ assert.equal(A.dossier(partial,partial.work_schedule.records[0]).groups.find(g=>g.id==='RG04').verified,1);
+ p.application_id='WRONG';assert.equal(A.dossier(partial,partial.work_schedule.records[0]).groups.find(g=>g.id==='RG04').verified,0);
+ const foreign=copy(r);foreign.work_schedule.records[0].process_version='WRONG';assert.throws(()=>A.dossier(foreign,foreign.work_schedule.records[0]));
+ const unlinked=copy(r);unlinked.work_schedule.records[0].application_id='MISSING';assert.throws(()=>A.dossier(unlinked,unlinked.work_schedule.records[0]));
+ const second=copy(r),other=copy(second.application_preview.record);other.application_id='TEST-SECOND';other.target_code='TEST-TARGET';other.record_checks=[];second.work_schedule.applications=[other];Object.assign(second.work_schedule.records[1],{application_id:other.application_id,target_code:other.target_code,target_version:other.target_version});
+ const distinct=A.dossier(second,second.work_schedule.records[1]);assert.equal(distinct.a.application_id,'TEST-SECOND');assert.equal(distinct.written,0);assert.equal(distinct.done,0);assert(distinct.audit.errors.length);
+ const cfg=A.configure({}, {tqt:r,masterCode:'DEF00.1',sample:false});const view=cfg.detailRenderer(cfg,cfg.items[0]);assert(view.fullWidth&&view.interactive);assert.equal((view.html.match(/type="checkbox"/g)||[]).length,18);assert.equal((view.html.match(/type="checkbox" disabled/g)||[]).length,18);assert(!view.html.includes(' checked '));
+ console.log('dossier: 7 checkpoints, 11 groups, 34 obligations; partial/foreign/unlinked/second job cases passed');
+}

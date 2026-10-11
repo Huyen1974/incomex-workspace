@@ -4,6 +4,8 @@
 
 DEF 00.1 dùng lại Master có khóa cũ CAT-227*, không tạo Master thứ hai. Hồ sơ chi tiết, việc con, kết quả kiểm và bàn giao nối về mã việc; vòng nâng cấp giữ lịch sử và gắn hồ sơ mới. Tầng của việc, chuyên môn T3, mốc và vòng đời là các trường riêng. Ngày thực tế tách ngày kế hoạch; chưa có phải hiện Chưa ghi. Nguồn tổng hợp duy nhất: `catalog.work_schedule` trong `view.html`; UI đọc nguồn này, không nhập tiến độ hai nơi. Hiện chỉ có 2 việc ghi danh, chưa chứng minh bao phủ toàn hệ thống. Phép chiếu/khóa/quy tắc PG được thiết kế trong `work_schedule.pg_design`, chưa triển khai PG.
 
+**Hồ sơ ngay trong từng việc:** trang Master có thanh riêng “MASTER TIẾN TRÌNH CÔNG VIỆC” dưới “Master Duyệt thiết kế”. Mở tên việc hoặc Chi tiết để xem cùng khung 7 mốc và 11 mục phải ghi. Mốc hiện tại khác mốc đã kiểm đạt. Mỗi nhóm RG01–RG11 tổng hợp những nghĩa vụ thuộc đúng application_id + quy trình/phiên + đối tượng/phiên; số đã ghi, đã đối chiếu và ô Xong lấy từ `tqt-record-control`, cùng quy tắc với Overview. Không chép trạng thái vào hướng dẫn, không dùng hồ sơ MOW001 cho việc khác. Chưa gắn hồ sơ hiện rõ; ghi một phần không được tính là đủ; nhánh chưa phát sinh không tính là lỗi. Ô Xong chỉ đọc, tự tích khi đủ căn cứ, không ghi giả vào trình duyệt. PG chưa nối.
+
 ## Over view · đúng hai câu hỏi
 
 **[1. Việc phải qua mốc nào, đang ở đâu?](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=tqt-checkpoint-list)**
