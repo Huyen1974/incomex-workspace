@@ -15503,6 +15503,12 @@ main{max-width:1240px} [hidden]{display:none!important}
               "required": true
             },
             {
+              "key": "target_code",
+              "label": "Mã đối tượng",
+              "type": "text",
+              "required": true
+            },
+            {
               "key": "target_version",
               "label": "Phiên đối tượng",
               "type": "text",
@@ -15523,8 +15529,12 @@ main{max-width:1240px} [hidden]{display:none!important}
             {
               "key": "direction",
               "label": "Đầu vào / đầu ra",
-              "type": "text",
-              "required": true
+              "type": "select",
+              "required": true,
+              "options": [
+                "Đầu vào",
+                "Đầu ra"
+              ]
             },
             {
               "key": "field_code",
@@ -15541,8 +15551,12 @@ main{max-width:1240px} [hidden]{display:none!important}
             {
               "key": "nullable",
               "label": "Cho phép trống",
-              "type": "text",
-              "required": true
+              "type": "select",
+              "required": true,
+              "options": [
+                "Không",
+                "Có"
+              ]
             },
             {
               "key": "source_master",
@@ -15583,8 +15597,14 @@ main{max-width:1240px} [hidden]{display:none!important}
             {
               "key": "cardinality",
               "label": "Số lượng 0 / 1 / nhiều",
-              "type": "text",
-              "required": true
+              "type": "select",
+              "required": true,
+              "options": [
+                "0..1",
+                "1",
+                "0..n",
+                "1..n"
+              ]
             },
             {
               "key": "state",
@@ -15619,6 +15639,11 @@ main{max-width:1240px} [hidden]{display:none!important}
               },
               {
                 "key": "name",
+                "type": "text",
+                "required": true
+              },
+              {
+                "key": "target_code",
                 "type": "text",
                 "required": true
               },
@@ -15698,7 +15723,8 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "required": true
               }
             ],
-            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use."
+            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use.",
+            "state_guard": {}
           }
         },
         {
@@ -15751,6 +15777,12 @@ main{max-width:1240px} [hidden]{display:none!important}
             {
               "key": "name",
               "label": "Tên bản ghi",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "target_code",
+              "label": "Mã đối tượng",
               "type": "text",
               "required": true
             },
@@ -15857,6 +15889,11 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "required": true
               },
               {
+                "key": "target_code",
+                "type": "text",
+                "required": true
+              },
+              {
                 "key": "target_version",
                 "type": "text",
                 "required": true
@@ -15918,7 +15955,8 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "required": true
               }
             ],
-            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use."
+            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use.",
+            "state_guard": {}
           }
         },
         {
@@ -15971,6 +16009,12 @@ main{max-width:1240px} [hidden]{display:none!important}
             {
               "key": "name",
               "label": "Tên bản ghi",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "target_code",
+              "label": "Mã đối tượng",
               "type": "text",
               "required": true
             },
@@ -16044,13 +16088,23 @@ main{max-width:1240px} [hidden]{display:none!important}
               "key": "output_ref",
               "label": "Đầu ra",
               "type": "text",
-              "required": true
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Đã trả kết quả"
+                ]
+              }
             },
             {
               "key": "test_result_ref",
               "label": "Kết quả kiểm",
               "type": "text",
-              "required": true
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Đã trả kết quả"
+                ]
+              }
             },
             {
               "key": "state",
@@ -16086,6 +16140,11 @@ main{max-width:1240px} [hidden]{display:none!important}
               },
               {
                 "key": "name",
+                "type": "text",
+                "required": true
+              },
+              {
+                "key": "target_code",
                 "type": "text",
                 "required": true
               },
@@ -16151,14 +16210,24 @@ main{max-width:1240px} [hidden]{display:none!important}
               {
                 "key": "output_ref",
                 "type": "jsonb reference",
-                "required": true,
-                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write."
+                "required": false,
+                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write.",
+                "required_when": {
+                  "state_in": [
+                    "Đã trả kết quả"
+                  ]
+                }
               },
               {
                 "key": "test_result_ref",
                 "type": "jsonb reference",
-                "required": true,
-                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write."
+                "required": false,
+                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write.",
+                "required_when": {
+                  "state_in": [
+                    "Đã trả kết quả"
+                  ]
+                }
               },
               {
                 "key": "state",
@@ -16166,7 +16235,15 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "required": true
               }
             ],
-            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use."
+            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use.",
+            "state_guard": {
+              "output_ref": [
+                "Đã trả kết quả"
+              ],
+              "test_result_ref": [
+                "Đã trả kết quả"
+              ]
+            }
           }
         },
         {
@@ -16219,6 +16296,12 @@ main{max-width:1240px} [hidden]{display:none!important}
             {
               "key": "name",
               "label": "Tên bản ghi",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "target_code",
+              "label": "Mã đối tượng",
               "type": "text",
               "required": true
             },
@@ -16280,25 +16363,48 @@ main{max-width:1240px} [hidden]{display:none!important}
               "key": "sent_at",
               "label": "Đã gửi lúc",
               "type": "text",
-              "required": true
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Đã gửi",
+                  "Đã nhận",
+                  "Đã trả"
+                ]
+              }
             },
             {
               "key": "ack_ref",
               "label": "Bằng chứng nhận",
               "type": "text",
-              "required": true
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Đã nhận",
+                  "Đã trả"
+                ]
+              }
             },
             {
               "key": "result_ref",
               "label": "Kết quả trả",
               "type": "text",
-              "required": true
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Đã trả"
+                ]
+              }
             },
             {
               "key": "returned_at",
               "label": "Trả lúc",
               "type": "text",
-              "required": false
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Đã trả"
+                ]
+              }
             },
             {
               "key": "deadline",
@@ -16341,6 +16447,11 @@ main{max-width:1240px} [hidden]{display:none!important}
               },
               {
                 "key": "name",
+                "type": "text",
+                "required": true
+              },
+              {
+                "key": "target_code",
                 "type": "text",
                 "required": true
               },
@@ -16395,24 +16506,47 @@ main{max-width:1240px} [hidden]{display:none!important}
               {
                 "key": "sent_at",
                 "type": "timestamptz",
-                "required": true
+                "required": false,
+                "required_when": {
+                  "state_in": [
+                    "Đã gửi",
+                    "Đã nhận",
+                    "Đã trả"
+                  ]
+                }
               },
               {
                 "key": "ack_ref",
                 "type": "jsonb reference",
-                "required": true,
-                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write."
+                "required": false,
+                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write.",
+                "required_when": {
+                  "state_in": [
+                    "Đã nhận",
+                    "Đã trả"
+                  ]
+                }
               },
               {
                 "key": "result_ref",
                 "type": "jsonb reference",
-                "required": true,
-                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write."
+                "required": false,
+                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write.",
+                "required_when": {
+                  "state_in": [
+                    "Đã trả"
+                  ]
+                }
               },
               {
                 "key": "returned_at",
                 "type": "timestamptz",
-                "required": false
+                "required": false,
+                "required_when": {
+                  "state_in": [
+                    "Đã trả"
+                  ]
+                }
               },
               {
                 "key": "deadline",
@@ -16425,7 +16559,24 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "required": true
               }
             ],
-            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use."
+            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use.",
+            "state_guard": {
+              "ack_ref": [
+                "Đã nhận",
+                "Đã trả"
+              ],
+              "result_ref": [
+                "Đã trả"
+              ],
+              "sent_at": [
+                "Đã gửi",
+                "Đã nhận",
+                "Đã trả"
+              ],
+              "returned_at": [
+                "Đã trả"
+              ]
+            }
           }
         },
         {
@@ -16521,19 +16672,35 @@ main{max-width:1240px} [hidden]{display:none!important}
               "key": "effective_at",
               "label": "Bắt đầu hiệu lực",
               "type": "text",
-              "required": true
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Đang dùng"
+                ]
+              }
             },
             {
               "key": "approval_ref",
               "label": "Quyết định duyệt",
               "type": "text",
-              "required": true
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Đã duyệt",
+                  "Đang dùng"
+                ]
+              }
             },
             {
               "key": "handover_ref",
               "label": "Bàn giao đã nhận",
               "type": "text",
-              "required": true
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Đang dùng"
+                ]
+              }
             },
             {
               "key": "operator",
@@ -16625,19 +16792,35 @@ main{max-width:1240px} [hidden]{display:none!important}
               {
                 "key": "effective_at",
                 "type": "timestamptz",
-                "required": true
+                "required": false,
+                "required_when": {
+                  "state_in": [
+                    "Đang dùng"
+                  ]
+                }
               },
               {
                 "key": "approval_ref",
                 "type": "jsonb reference",
-                "required": true,
-                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write."
+                "required": false,
+                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write.",
+                "required_when": {
+                  "state_in": [
+                    "Đã duyệt",
+                    "Đang dùng"
+                  ]
+                }
               },
               {
                 "key": "handover_ref",
                 "type": "jsonb reference",
-                "required": true,
-                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write."
+                "required": false,
+                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write.",
+                "required_when": {
+                  "state_in": [
+                    "Đang dùng"
+                  ]
+                }
               },
               {
                 "key": "operator",
@@ -16661,7 +16844,19 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "required": true
               }
             ],
-            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use."
+            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use.",
+            "state_guard": {
+              "approval_ref": [
+                "Đã duyệt",
+                "Đang dùng"
+              ],
+              "handover_ref": [
+                "Đang dùng"
+              ],
+              "effective_at": [
+                "Đang dùng"
+              ]
+            }
           }
         },
         {
@@ -16714,6 +16909,12 @@ main{max-width:1240px} [hidden]{display:none!important}
             {
               "key": "name",
               "label": "Tên bản ghi",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "target_code",
+              "label": "Mã đối tượng",
               "type": "text",
               "required": true
             },
@@ -16775,13 +16976,23 @@ main{max-width:1240px} [hidden]{display:none!important}
               "key": "decision_ref",
               "label": "Quyết định",
               "type": "text",
-              "required": true
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Có hiệu lực"
+                ]
+              }
             },
             {
               "key": "evidence_ref",
               "label": "Bằng chứng",
               "type": "text",
-              "required": true
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Có hiệu lực"
+                ]
+              }
             },
             {
               "key": "next_application_id",
@@ -16821,6 +17032,11 @@ main{max-width:1240px} [hidden]{display:none!important}
               },
               {
                 "key": "name",
+                "type": "text",
+                "required": true
+              },
+              {
+                "key": "target_code",
                 "type": "text",
                 "required": true
               },
@@ -16875,14 +17091,24 @@ main{max-width:1240px} [hidden]{display:none!important}
               {
                 "key": "decision_ref",
                 "type": "jsonb reference",
-                "required": true,
-                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write."
+                "required": false,
+                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write.",
+                "required_when": {
+                  "state_in": [
+                    "Có hiệu lực"
+                  ]
+                }
               },
               {
                 "key": "evidence_ref",
                 "type": "jsonb reference",
-                "required": true,
-                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write."
+                "required": false,
+                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write.",
+                "required_when": {
+                  "state_in": [
+                    "Có hiệu lực"
+                  ]
+                }
               },
               {
                 "key": "next_application_id",
@@ -16896,7 +17122,15 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "required": true
               }
             ],
-            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use."
+            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use.",
+            "state_guard": {
+              "decision_ref": [
+                "Có hiệu lực"
+              ],
+              "evidence_ref": [
+                "Có hiệu lực"
+              ]
+            }
           }
         },
         {
@@ -16949,6 +17183,12 @@ main{max-width:1240px} [hidden]{display:none!important}
             {
               "key": "name",
               "label": "Tên bản ghi",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "target_code",
+              "label": "Mã đối tượng",
               "type": "text",
               "required": true
             },
@@ -17061,6 +17301,11 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "required": true
               },
               {
+                "key": "target_code",
+                "type": "text",
+                "required": true
+              },
+              {
                 "key": "target_version",
                 "type": "text",
                 "required": true
@@ -17127,7 +17372,8 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "required": true
               }
             ],
-            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use."
+            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use.",
+            "state_guard": {}
           }
         },
         {
@@ -17184,6 +17430,12 @@ main{max-width:1240px} [hidden]{display:none!important}
               "required": true
             },
             {
+              "key": "target_code",
+              "label": "Mã đối tượng",
+              "type": "text",
+              "required": true
+            },
+            {
               "key": "target_version",
               "label": "Phiên đối tượng",
               "type": "text",
@@ -17235,7 +17487,13 @@ main{max-width:1240px} [hidden]{display:none!important}
               "key": "remedy_ref",
               "label": "Việc khắc phục",
               "type": "text",
-              "required": true
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Chờ kiểm lại",
+                  "Đã đóng"
+                ]
+              }
             },
             {
               "key": "need_ref",
@@ -17247,13 +17505,23 @@ main{max-width:1240px} [hidden]{display:none!important}
               "key": "retest_ref",
               "label": "Kiểm lại",
               "type": "text",
-              "required": true
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Đã đóng"
+                ]
+              }
             },
             {
               "key": "closed_at",
               "label": "Kết thúc lúc",
               "type": "text",
-              "required": false
+              "required": false,
+              "required_when": {
+                "state_in": [
+                  "Đã đóng"
+                ]
+              }
             },
             {
               "key": "state",
@@ -17289,6 +17557,11 @@ main{max-width:1240px} [hidden]{display:none!important}
               },
               {
                 "key": "name",
+                "type": "text",
+                "required": true
+              },
+              {
+                "key": "target_code",
                 "type": "text",
                 "required": true
               },
@@ -17337,8 +17610,14 @@ main{max-width:1240px} [hidden]{display:none!important}
               {
                 "key": "remedy_ref",
                 "type": "jsonb reference",
-                "required": true,
-                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write."
+                "required": false,
+                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write.",
+                "required_when": {
+                  "state_in": [
+                    "Chờ kiểm lại",
+                    "Đã đóng"
+                  ]
+                }
               },
               {
                 "key": "need_ref",
@@ -17349,13 +17628,23 @@ main{max-width:1240px} [hidden]{display:none!important}
               {
                 "key": "retest_ref",
                 "type": "jsonb reference",
-                "required": true,
-                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write."
+                "required": false,
+                "contract": "{master_code, record_id, record_version}; FK/type/scope must be checked before write.",
+                "required_when": {
+                  "state_in": [
+                    "Đã đóng"
+                  ]
+                }
               },
               {
                 "key": "closed_at",
                 "type": "timestamptz",
-                "required": false
+                "required": false,
+                "required_when": {
+                  "state_in": [
+                    "Đã đóng"
+                  ]
+                }
               },
               {
                 "key": "state",
@@ -17363,7 +17652,19 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "required": true
               }
             ],
-            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use."
+            "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use.",
+            "state_guard": {
+              "remedy_ref": [
+                "Chờ kiểm lại",
+                "Đã đóng"
+              ],
+              "retest_ref": [
+                "Đã đóng"
+              ],
+              "closed_at": [
+                "Đã đóng"
+              ]
+            }
           }
         }
       ],
