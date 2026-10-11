@@ -124,3 +124,7 @@ Nhóm câu khởi đầu để Codex rà, **chưa được Owner chốt**:
 - Khi đủ, Host rà bằng chứng, trao đổi Reviewer khác hãng và Owner quyết các thay đổi nghĩa gốc; **chỉ sau đó** cập nhật root/propagation rồi mới phát RUN vẽ MOW001. Không tự xem đề xuất này đã có hiệu lực.
 
 </details>
+
+
+### Tiếp tục sau P32 · 12/10
+Đọc README P32 + catalog.host_review_PR15. Không mở DOT/Master mới. Các lỗi giá trị trả cuối/đánh giá cũ và lát TEST thiết kế/phục hồi đã có ca hồi quy ở CHECK004. Cửa ghi chỉ PREPARED_LOCAL, chưa ENFORCED. Kích hoạt phải dùng đúng phiên dịch vụ, pin CHECK004/view ngoài vùng AI ghi, quyền từ danh tính xác thực và kiểm deny/allow thật; chưa có các bằng chứng đó không đổi access_check. Giữ MOW001 0/7; không đưa PG. Chờ chấp thuận đẩy patch gateway bị auto-review chặn, không lách bằng công cụ khác.

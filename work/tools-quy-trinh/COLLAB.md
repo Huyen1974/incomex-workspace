@@ -8,12 +8,13 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-11 21:38 +07 · Astra Codex · P31
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P32
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② Thử ngoài PG: kho 13 câu khai đã có, 0/7 mốc] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã làm P29: dùng lại CAT-206*, khai hợp đồng áp dụng 3 MOT/5 giao bước và ca nghiệm thu; siết ghim phiên/nội dung xuyên kiểm–duyệt–ACK, sửa lỗi thiếu dòng kiểm, thêm kiểm trước–sau vào DOT hiện hữu. P30 sửa trùng DOT còn 47 Master, giữ ⑤/7 mốc; ca thật chưa qua mốc nào.
 - ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
+- ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi mới có bản sửa đã kiểm, chưa triển khai; quyền thật chưa xác minh.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: kiểm độc lập hợp đồng áp dụng → hoàn thiện schema và thử ghi/đọc toàn đường MOW001 ngoài PG → đủ CP03 mới làm/kiểm/duyệt/nhận → ba ca khác loại → staging/rollback rồi cắt chuyển PG. Cưỡng chế kiểm trước–sau ở máy chủ còn mở; 34 địa chỉ đề xuất không có nghĩa 34 nơi ghi đã sẵn sàng.
 - ➡ Kế tiếp: Host hoàn thiện schema/bằng chứng nơi ghi; Reviewer được Owner gọi rà P29/hợp đồng G1, không tự lấy tự kiểm Host thay kiểm độc lập. Claude cập nhật các yêu cầu ô 3 theo kết luận P29 ở lượt được gọi. NEXT_TRIGGER=INDEPENDENT_CONTRACT_REVIEW_AND_SCHEMA_ALIGNED_TRIAL_ENDPOINTS
@@ -878,3 +879,14 @@ Ghế: Claude-review · Bước/vòng: Chốt mục tiêu · 0/5
 - Bảng: lệch · Ô 1–2: lệch — sửa trong chính commit này theo D05: câu Đích ở ô 1 và dòng 🎯 của Bảng thêm vế “hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể”; một dòng lịch sử ở Vòng trước; TQT-REQ-09 thêm cách kiểm; Q01 ghi lời Owner “chỉ định sau”.
 - Based_on: `720cfebad7bd50f77aed8fc7c7fbe97d648ff746`. Scope: chỉ `work/tools-quy-trinh/COLLAB.md`.
 - Phản hồi Host: chưa có Host được Owner chỉ định.
+
+
+## P32 · 12/10/2026 · Host tiếp nhận PR15 và ưu tiên cửa ghi
+
+Owner yêu cầu tiếp tục điểm mở, ưu tiên kiểm bắt buộc ở cửa ghi và quyền ghi–đọc kho thử; dùng DOT hiện có, chưa PG, không tính TEST là MOW001 đạt. Phản biện: PR15 @26d6fa3. Quyết định ACCEPT các bốn điểm hở và vấn đề ngân sách chạy; không làm lại PR14 đã đạt.
+
+Đã sửa tại nguồn theo README P32 và `catalog.host_review_PR15`: hợp đồng v3/schema1.3, lưu lịch sử v2; CHECK004 kiểm cuối + đánh giá hiện hành + mở bản thiết kế + phục hồi sau chết/lỗi nhật ký; CHECK006 dùng ngân sách trong registry. Các phiên TEST/đọc thiết kế tổng hợp không có giá trị nghiệm thu MOW001. Giữ nguyên 34 access_check NOT_TESTED, người kiểm thật chưa chỉ định, 0/7.
+
+C13-03/C13-04 **chưa đóng**: bản nối gateway gọi DOT đã kiểm local; chưa kích hoạt dịch vụ/quyền endpoint thật. Nguồn dịch vụ VPS 8fe2ea8 và main lệch 71/112, pipeline cũ sửa PG env. Không triển khai đè; cần đường triển khai hẹp đã rà. Đẩy nhánh agent-data-test bị auto-review chặn vì chưa có chấp thuận xuất mã/tài liệu sang repo đó; đã hỏi Owner, không lách đường chặn. Giữ patch local để duyệt. NEXT_TRIGGER=APPROVED_SCOPED_GATEWAY_DEPLOYMENT_AND_LIVE_ACL_TEST.
+
+Bằng chứng: `UI-REVIEW-AGGREGATE.json#host_review_P32`; Host tự kiểm kỹ thuật, không thay kiểm độc lập.

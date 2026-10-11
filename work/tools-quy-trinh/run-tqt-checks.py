@@ -2,7 +2,7 @@
 No credentials, network, PG, service changes or production mutation. Exit 0 PASS,
 1 failed test/inventory, 2 invalid invocation, 3 blocked by missing prerequisites. Default dry-run; --verify executes.
 """
-import argparse, hashlib, json, re, subprocess, sys, shutil, tempfile, uuid, unicodedata
+import argparse, hashlib, json, re, subprocess, sys, shutil, tempfile, uuid, unicodedata, time, math
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -87,6 +87,7 @@ def inventory(base, registry):
     actual = {str(p.relative_to(base)) for p in base.rglob('*') if p.is_file() and p.suffix in {'.py', '.js'}}
     for p in sorted(actual - set(paths)): errors.append('UNREGISTERED:'+p)
     for x in records:
+        if not isinstance(x.get('timeout_seconds'),(int,float)) or isinstance(x.get('timeout_seconds'),bool) or not math.isfinite(x['timeout_seconds']) or x['timeout_seconds'] <= 0: errors.append('INVALID_TIME_BUDGET:'+x['id'])
         p = base / x['path']
         if not p.resolve().is_relative_to(base.resolve()): errors.append('OUTSIDE_SCOPE:'+x['id']); continue
         if not p.is_file(): errors.append('MISSING:'+x['id'])
@@ -119,8 +120,10 @@ def self_test():
     with tempfile.TemporaryDirectory(prefix='tqt-check-') as tmp:
         b=Path(tmp);p=b/'check.py';p.write_text('pass\n')
         row={k:'test' for k in ['owner','purpose','preconditions','input','output','verify','rollback','secret_handling','exit_codes','case_set','master_code']}
-        row.update(id='TEST',path='check.py',sha256=sha(p),operation_key='test');reg={'records':[row]}
+        row.update(id='TEST',path='check.py',sha256=sha(p),operation_key='test',timeout_seconds=60);reg={'records':[row]}
         assert inventory(b,reg)==[]
+        for bad in [None,0,-1,True,float('inf')]:
+            broken={**row,'timeout_seconds':bad};assert 'INVALID_TIME_BUDGET:TEST' in inventory(b,{'records':[broken]})
         duplicate=dict(row,id='SECOND');reg['records'].append(duplicate)
         assert any(x.startswith('POSSIBLE_DUPLICATE_TOOL:operation_key') for x in inventory(b,reg))
         assert any(x.startswith('POSSIBLE_DUPLICATE_TOOL:sha256') for x in inventory(b,reg))
@@ -142,7 +145,7 @@ def self_test():
         assert source_readback(f,{'application_id':'TEST'})['state']=='PASS'
         assert source_readback(f,{'application_id':'OTHER'})['state']=='FAIL'
         assert source_readback(f.with_name('missing.json'),{})['state']=='FAIL'
-    return {'cases':15,'store':'temporary TEST file in execution snapshot','write_read_restore':'PASS','production':'NOT_TOUCHED'}
+    return {'cases':20,'store':'temporary TEST file in execution snapshot','write_read_restore':'PASS','production':'NOT_TOUCHED'}
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
@@ -195,10 +198,12 @@ def main():
             if x['id']=='TQT-CHECK-005' and args.ui_adapter:
                 argv.append(str(args.ui_adapter.resolve()))
                 if args.master_registry:argv.append(str(args.master_registry.resolve()))
+            started=time.monotonic()
             try:
-                proc=subprocess.run(argv,cwd=BASE,text=True,capture_output=True,timeout=60)
+                proc=subprocess.run(argv,cwd=BASE,text=True,capture_output=True,timeout=x['timeout_seconds'])
                 result={'id':x['id'],'case_set':x['case_set'],'source_sha256':x['sha256'],'argv':argv,'exit_code':proc.returncode,'stdout':proc.stdout,'stderr':proc.stderr}
             except (OSError,subprocess.TimeoutExpired) as exc: result={'id':x['id'],'exit_code':1,'error':str(exc)}
+            result.update(elapsed_seconds=round(time.monotonic()-started,3),timeout_seconds=x['timeout_seconds'])
             report['results'].append(result)
     report['status']='FAIL' if errors or any(x['exit_code'] for x in report['results']) else 'BLOCKED' if report['prerequisite_errors'] else 'PASS' if args.verify and not args.dry_run else 'DRY_RUN'
     if report['status']=='DRY_RUN':report['commands']=[x['argv'] for x in reg['records'] if x['kind']!='RUNNER']

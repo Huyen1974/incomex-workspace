@@ -1311,5 +1311,177 @@
       "MOW001_state": "Chuẩn bị · Mốc 2",
       "screenshot": "outputs/p31-contract-cancellation.png"
     }
+  },
+  "host_review_P32": {
+    "state": "LOCAL_FULL_PASS_PENDING_VPS_READBACK",
+    "proposal": "TQT-PR-20261012-gptchat-p31-final-boundaries-15.md@26d6fa3",
+    "local_report": {
+      "run_id": "TQT-024b37e1c1614af0aa3b3ce4c57500be",
+      "at": "2026-10-11T20:51:33.362691+00:00",
+      "scope": "work/tools-quy-trinh/**/*.py, **/*.js; không tuyên bố bao phủ toàn VPS",
+      "registry_master": "CAT-006",
+      "case_master": "CAT-012",
+      "result_master": "CAT-015",
+      "source_sha256": "166bbaa4ee75e347ea6b968dff7662adea84f6c20d98b01bbaa195f796077de7",
+      "inventory_errors": [],
+      "source_readback": {
+        "state": "PASS",
+        "source_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+        "projection_equal": true,
+        "rule_source_checks": [
+          {
+            "ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/contract",
+            "matched": true
+          }
+        ],
+        "application_id": "MOW-NHC-001-G1-20261010-01",
+        "trial_declarations": 13,
+        "scope": "SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL"
+      },
+      "results": [
+        {
+          "id": "TQT-CHECK-001",
+          "case_set": "TQT-CASE-MODEL",
+          "source_sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
+          "argv": [
+            "python3",
+            "check-process-model.py",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"status\": \"SIMULATION_ONLY\", \"passed\": 87, \"model_sha256\": \"f55fcf4fa78b22005604b62d025487f4a3977b5cc106bb9f3b0a6c0a8713ce5a\", \"package_state\": \"NOT_FROZEN\", \"production_ready\": false}\n",
+          "stderr": "",
+          "elapsed_seconds": 0.614,
+          "timeout_seconds": 60
+        },
+        {
+          "id": "TQT-CHECK-002",
+          "case_set": "TQT-CASE-CATALOG",
+          "source_sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
+          "argv": [
+            "python3",
+            "check-process-catalog.py",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "checkpoint cases 20\n{\"aggregate\": 5, \"normal\": 12, \"coded_references\": 55, \"bad_reference_cases\": 2, \"scope\": \"DESIGN_ONLY\"}\n",
+          "stderr": "",
+          "elapsed_seconds": 0.077,
+          "timeout_seconds": 60
+        },
+        {
+          "id": "TQT-CHECK-003",
+          "case_set": "TQT-CASE-DECLARATION",
+          "source_sha256": "93487966d9a32bafcb400bba5ac47f09c9a8b312d0c2dc89a7eacf27305c7b27",
+          "argv": [
+            "python3",
+            "check-overview-consistency.py",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"positive\": 1, \"negative\": 35, \"procedures\": 17, \"source_check\": \"MATCH_EXISTING_PRODUCT_RECEIPT\", \"application_state\": \"CHUAN_BI\", \"can_start\": false, \"needs_before_start\": [{\"field\": \"identity\", \"need\": \"Việc gì? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"connections_in\", \"need\": \"Bắt đầu từ đâu? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"connections_out\", \"need\": \"Kết thúc ở đâu? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"prerequisites\", \"need\": \"Đầu vào đã đủ chưa? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"execution_conditions\", \"need\": \"Được thực hiện khi nào? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"plan\", \"need\": \"Kế hoạch ghi đâu? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"records\", \"need\": \"Kết quả và bằng chứng ghi đâu? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"roles\", \"need\": \"Ai làm, báo ai, khi nào? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"acceptance\", \"need\": \"Ai kiểm, đạt là gì? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"questions\", \"need\": \"Phiếu đủ/thiếu ở đâu? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"start_confirmation\", \"need\": \"Xác nhận kế hoạch đúng phiên trước S3\", \"owner\": \"Astra Codex · Host\"}], \"next\": \"Rà độc lập hợp đồng áp dụng từng MOT/giao bước; hoàn thiện và thử nơi ghi ngoài PG theo đúng schema. Chưa đủ điều kiện mốc 3.\", \"production_ready\": false}\n",
+          "stderr": "",
+          "elapsed_seconds": 1.394,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "TQT-CHECK-004",
+          "case_set": "TQT-CASE-RECORD",
+          "source_sha256": "dc835b7d8f8330fb720b05b3689c43d5d099b54b8cbc60c2ea328485c31fc16a",
+          "argv": [
+            "node",
+            "check-record-control.js",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"tests\":26,\"scope\":\"DESIGN_PROJECTION_ONLY\",\"counts\":{\"total\":34,\"written\":13,\"verified\":0,\"needsFix\":0,\"notRecorded\":21,\"dueMissing\":7,\"due\":20,\"deferred\":14},\"pg\":\"NOT_RUN\"}\n{\"tests\":59,\"regression\":\"QTTH05_WALK\",\"synthetic_full_walk\":7,\"live_application\":0,\"pg\":\"NOT_RUN\"}\n{\"trial_cases\":15,\"persisted_declarations\":13,\"checkpoints\":0,\"scope\":\"TRIAL_NOT_PG\"}\n{\"information_contract_cases\":44,\"actual_contract_rows\":66,\"actual_criteria\":11,\"synthetic_full_walk\":7,\"real_checkpoints\":0,\"server_write_hook\":\"NOT_ENFORCED\",\"pg\":\"NOT_RUN\"}\n{\"pr14_boundary_cases\":48,\"synthetic_trusted_context_only\":true,\"untrusted_self_attestation_blocked\":true,\"real_checkpoints\":0}\n{\"pr14_product_input_cases\":9,\"sha256_crosscheck_vectors\":4}\n{\"pr14_product_mapping_cases\":8,\"scope\":\"LOGICAL_PACKETS_NOT_BACKEND_EXECUTION\"}\n{\"pr15_product_boundaries\":{\"cases\":26,\"state\":\"PASS\"}}\n{\"pr15_persisted_design_and_recovery\":{\"cases\":15,\"state\":\"PASS\",\"read_plans\":[\"P02\",\"P03\"],\"effects\":1,\"real_endpoint_permissions\":\"NOT_PROVED\",\"mow001_progress\":\"UNCHANGED_0_OF_7\"}}\n{\"pr14_file_handoff\":{\"cases\":17,\"state\":\"PASS\",\"producer\":\"separate process; creates packet from declarations\",\"consumer\":\"separate process; opens persisted packet and uses scope/answers\",\"producer_sha256\":\"4007b03f920d55a7ffec6dd3d852f3671a16e766d072bd187cbd2aa1e8f1c18e\",\"readback_sha256\":\"4007b03f920d55a7ffec6dd3d852f3671a16e766d072bd187cbd2aa1e8f1c18e\",\"concurrent_effect_count\":1,\"environment\":\"ISOLATED_TEST_NOT_MOW001_COMPLETION\",\"real_endpoint_permissions\":\"NOT_PROVED\",\"pg\":\"NOT_RUN\"}}\n",
+          "stderr": "",
+          "elapsed_seconds": 17.599,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "TQT-CHECK-005",
+          "case_set": "TQT-CASE-MASTER",
+          "source_sha256": "3ed26cd28324ee9f1f288e87cfbf57081b14e869f854b5b4c3e28ff82426eb38",
+          "argv": [
+            "node",
+            "check-work-masters.js",
+            "view.html",
+            "/Users/nmhuyen/Documents/Codex/2026-10-11/y-l-r-so-t-kh/work/source/adapter.js",
+            "/Users/nmhuyen/Documents/Codex/2026-10-11/y-l-r-so-t-kh/work/source/definition-master-registry-v1.js"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"masters\":18,\"planned_jobs\":2,\"negative_cases\":14,\"scope\":\"DESIGN_ONLY\",\"pg\":\"NOT_RUN\"}\ndossier: 7 checkpoints, 11 groups, 34 obligations; partial/foreign/unlinked/second job cases passed\ncoverage: 7 checkpoints + exception/operations; 8 new UI references resolved; 11 groups preserved\nCAT206 applied contracts visible; field meaning/version/case links preserved\nP30 merged-index guard: 48 inputs -> 47 Masters, one DOT/6 tools, duplicate cases rejected, real UI fails closed, old URL preserved\n",
+          "stderr": "",
+          "elapsed_seconds": 0.216,
+          "timeout_seconds": 60
+        }
+      ],
+      "pg": "NOT_RUN",
+      "production_ready": false,
+      "master_identity_check": {
+        "state": "PASS",
+        "errors": [],
+        "input_rows": 47,
+        "unique_masters": 46,
+        "merged": [
+          {
+            "canonical_id": "ML-DEF-024",
+            "ids": [
+              "ML-DEF-024",
+              "CAT-006"
+            ]
+          }
+        ],
+        "scope": "Definition registry + QTTH work Masters; Config entry checked by live merged-index guard. Not a full PG/VPS inventory.",
+        "input_sha256": "a153d208c8470db1256be508e4f1f951d7b755d4cff61cde4b00cfd461af378a",
+        "self_test": {
+          "cases": 13,
+          "scale_rows": 10000,
+          "method": "indexed keys; no pairwise scan"
+        }
+      },
+      "ui_adapter_sha256": "d6dea33a394599e60f3f52932a59d4433991f890e18e30c19dcbc4b0c9302d65",
+      "prerequisite_errors": [],
+      "transition_check": {
+        "state": "PASS",
+        "errors": [],
+        "scope": "BEFORE_AFTER_TRIAL_NOT_SERVER_ENFORCEMENT",
+        "before_sha256": "f0ce1c4a2269b6d51f2e318a4b114705562e290f3c9f9dc91bb8a4dd6f60b0d4",
+        "after_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706"
+      },
+      "runner_self_test": {
+        "cases": 20,
+        "store": "temporary TEST file in execution snapshot",
+        "write_read_restore": "PASS",
+        "production": "NOT_TOUCHED"
+      },
+      "status": "PASS"
+    },
+    "gateway_test_report": "......                                                                   [100%]\n6 passed, 26 deselected in 0.96s\n",
+    "gateway_source_base": "8fe2ea8fdf4ab03ef9cac4b38fc3c8e97d741f82",
+    "gateway_status": "LOCAL_PREPARED_NOT_PUSHED_NOT_DEPLOYED",
+    "gateway_push_block": "Auto-review denied source/document export to Huyen1974/agent-data-test; Owner approval requested; no bypass.",
+    "gateway_files": {
+      "agent_data/workspace_tools.py": "f877323fb0d21fcbeb8d6217b628fa63a58ec0b49d67edb14d82bd7dfadd85a3",
+      "agent_data/hvu_signals.py": "afb9d330a892c61cf614633189394bd09ccc5e9eeef07665ca584ed08e2e926f",
+      "tests/continuation/test_workspace.py": "831bc834e2017abbf49b009269395ec5ba7213110669b2ff61216bb562abe87f",
+      "docs/WORKSPACE_TOOLS.md": "f6dc2b5bbce4093f1b3e5de022d4001152d4813720a21e17ffff90598fbfb022"
+    },
+    "jev_reference": "gen-dec-1791751348-Glo5JUatHLB1hBtqs1XG",
+    "real_application": {
+      "checkpoints": 0,
+      "written_declarations": 13,
+      "independent_review": "NOT_REVIEWED",
+      "reviewer_assignment": "UNASSIGNED",
+      "access_checks": "NOT_TESTED",
+      "pg": "NOT_RUN"
+    },
+    "limits": [
+      "No production runtime/PG changes",
+      "TEST design and packet checks are not MOW001 acceptance",
+      "Server enforcement and live endpoint ACL remain open",
+      "Gateway checks prove isolated authenticated-context behavior, not actual credentials or unique Host conversation"
+    ]
   }
 }

@@ -6,6 +6,7 @@ const R=JSON.parse(script('tqt-composite-processes')).catalog;
 vm.runInThisContext(script('tqt-record-control'));
 const testTrust={endpoint_receipts:[],principals:[]};
 const audit=r=>globalThis.tqtRecordAudit(r,testTrust),clone=x=>JSON.parse(JSON.stringify(x));let tests=0;
+function designFixture(r,result){const a=r.application_preview.record,p=r.work_master_designs.records.find(x=>x.code==='CAT-206*').validation.profiles[0];return {application_id:a.application_id,target_version:a.target_version,scope:a.scope,plan_id:result.plan_id,output_version:result.output_version,contract_binding:globalThis.tqtContractPin(a),mots:Object.entries(p.mots).map(([code,x])=>({code,fields:clone(x.fields.filter(f=>f.contract_role==='PRODUCT_SPEC')),controls:x.design_requirements.controls,states:x.design_requirements.states,branches:x.design_requirements.branches,rule_refs:[p.rule_source.ref+'@'+p.rule_source.version],open_items:[]}))};}
 // Isolated TEST protocol only. The receiver is a separate process and opens the persisted packet itself.
 function sliceCommand(){
  const path=require('path'),crypto=require('crypto'),dir=process.argv[process.argv.indexOf('--test-handoff')+2],mode=process.argv[process.argv.indexOf('--test-handoff')+1],a=R.application_preview.record;
@@ -15,8 +16,11 @@ function sliceCommand(){
   const result={id:'TEST-P01',application_id:a.application_id,target_version:a.target_version,plan_id:'P01',contract_binding:globalThis.tqtContractPin(a),output_ref:'test-only:prepared-answers',output_version:'1',evidence_ref:'test-only:file-readback',actor:a.actor,at:new Date().toISOString(),scope:a.scope,data:{answers:a.declarations.map(d=>({key:d.key,answer:d.answer})),source_refs:a.input_refs}};
   const validation=globalThis.tqtPayloadAudit(R,'P01',result);if(validation.state!=='PASS')throw Error(validation.errors.join(','));const packet=JSON.stringify({environment:'TEST',recipient_plan_id:'P02',payload:result});fs.writeFileSync(file('packet.json'),packet,{flag:'wx'});return {state:'WRITTEN',sha256:digest(packet)};
  }
- let lock;try{lock=fs.openSync(file('receive.lock'),'wx');}catch(e){if(e.code==='EEXIST')return {state:'BLOCKED',error:'CONCURRENT_WRITE',issue_master:'CAT-069?',owner:a.actor,return_to:'P01'};throw e;}
- try{
+ if(!process.argv.includes('--held-lock'))throw Error('OS_LOCK_REQUIRED');
+ if(process.env.TQT_TEST_KILL_AFTER_LOCK==='1')process.kill(process.pid,'SIGKILL');
+ {
+  const persist=next=>{const fd=fs.openSync(file('state.next.json'),'w',0o600);try{fs.writeFileSync(fd,JSON.stringify(next));fs.fsyncSync(fd);}finally{fs.closeSync(fd);}fs.renameSync(file('state.next.json'),file('state.json'));const dd=fs.openSync(dir,'r');try{fs.fsyncSync(dd);}finally{fs.closeSync(dd);}};
+  const repair=state=>{const old=fs.existsSync(file('events.jsonl'))?fs.readFileSync(file('events.jsonl'),'utf8').trim().split('\n').filter(Boolean).map(JSON.parse):[];for(const event of state.events||[])if(!old.some(x=>x.event_id===event.event_id)){fs.appendFileSync(file('events.jsonl'),JSON.stringify(event)+'\n');}const fd=fs.openSync(file('events.jsonl'),'a');try{fs.fsyncSync(fd);}finally{fs.closeSync(fd);}};
   const policy=json('policy.json'),state=json('state.json'),bytes=fs.readFileSync(file('packet.json'),'utf8'),packet=JSON.parse(bytes),p=packet.payload,hash=digest(bytes);
   const reject=error=>{const result={state:'BLOCKED',error,issue_master:'CAT-069?',owner:a.actor,return_to:'P01'};fs.appendFileSync(file('events.jsonl'),JSON.stringify(result)+'\n');return result;};
   if(policy.receiver!=='P02'||packet.recipient_plan_id!=='P02'||packet.environment!=='TEST')return reject('WRONG_RECIPIENT');
@@ -25,18 +29,61 @@ function sliceCommand(){
   if(state.cancelled)return reject('CANCELLED');
   if(p.output_version!==policy.expected_output_version)return reject('STALE_OUTPUT');
   const result=globalThis.tqtPayloadAudit(R,'P01',p);if(result.state!=='PASS')return reject(result.errors.join(','));
-  if(state.received){if(state.received.sha256!==hash)return reject('DUPLICATE_KEY_DIFFERENT_CONTENT');return {state:'ACK',replayed:true,receipt_id:state.received.id,effect_count:state.effects.length};}
+  if(state.received){if(state.received.sha256!==hash)return reject('DUPLICATE_KEY_DIFFERENT_CONTENT');repair(state);return {state:'ACK',replayed:true,receipt_id:state.received.id,effect_count:state.effects.length};}
   if(state.revision!==policy.expected_state_revision)return reject('CONCURRENT_REVISION');
   const h=a.information_contract.handoffs.find(h=>h.plan_id==='P02'),received=Object.fromEntries(h.input_fields.map(k=>[k,p[h.mapping[k]]]));
   if(received.data.answers.length!==a.declarations.length||received.data.answers.some((x,i)=>x.key!==a.declarations[i].key||x.answer!==a.declarations[i].answer)||JSON.stringify(received.data.source_refs)!==JSON.stringify(a.input_refs))return reject('PREPARED_DATA_MISMATCH');
   const receipt={id:'TEST-RECEIPT-P01-P02',sha256:hash,plan_id:'P02',used_scope:received.scope,answer_keys:received.data.answers.map(x=>x.key)};
-  const next={...state,revision:state.revision+1,received:receipt,effects:[...state.effects,{id:'TEST-EFFECT-P02',input_sha256:hash}]};fs.writeFileSync(file('state.next.json'),JSON.stringify(next));fs.renameSync(file('state.next.json'),file('state.json'));
-  fs.appendFileSync(file('events.jsonl'),JSON.stringify({state:'RECEIVED',receipt_id:receipt.id})+'\n');
+  const next={...state,revision:state.revision+1,received:receipt,effects:[...state.effects,{id:'TEST-EFFECT-P02',input_sha256:hash}],events:[...(state.events||[]),{event_id:receipt.id+':'+hash,state:'RECEIVED',receipt_id:receipt.id}]};persist(next);
+  if(process.env.TQT_TEST_LOG_FAILURE==='1')throw Error('INJECTED_EVENT_LOG_FAILURE');
+  repair(next);
   if(policy.drop_ack_once)return {state:'ACK_LOST',effect_count:next.effects.length};
   return {state:'ACK',replayed:false,receipt_id:receipt.id,effect_count:next.effects.length,sha256:hash,used_scope:received.scope,answer_count:received.data.answers.length};
- }finally{fs.closeSync(lock);fs.unlinkSync(file('receive.lock'));}
+ }
+}
+// Kernel flock survives filename persistence and is released on process death. Never unlink it.
+if(process.argv.includes('--test-handoff')&&process.argv[process.argv.indexOf('--test-handoff')+1]==='consume'&&!process.argv.includes('--held-lock')){
+ const code=`import os,sys,fcntl,json
+f=open(sys.argv[1],'a+')
+try: fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB)
+except BlockingIOError:
+ print(json.dumps({'state':'BLOCKED','error':'CONCURRENT_WRITE','issue_master':'CAT-069?','owner':'TEST','return_to':'P01'}));sys.exit(0)
+os.set_inheritable(f.fileno(),True)
+os.execv(sys.argv[2],sys.argv[2:])`;
+ const dir=process.argv[process.argv.indexOf('--test-handoff')+2],x=require('child_process').spawnSync('python3',['-c',code,require('path').join(dir,'receive.lock'),process.execPath,__filename,...process.argv.slice(2),'--held-lock'],{encoding:'utf8',maxBuffer:2e6});
+ if(x.stdout)process.stdout.write(x.stdout);if(x.stderr)process.stderr.write(x.stderr);process.exit(x.status===null?1:x.status);
 }
 if(process.argv.includes('--test-handoff')){try{console.log(JSON.stringify(sliceCommand()));}catch(e){console.log(JSON.stringify({state:'BLOCKED',error:e.message}));process.exitCode=1;}return;}
+
+// Same CAT-206 validator: producer stores designs, receiver opens their bound bytes.
+function designCommand(){
+ const path=require('path'),dir=fs.realpathSync(process.argv[process.argv.indexOf('--test-design')+2]),mode=process.argv[process.argv.indexOf('--test-design')+1],a=R.application_preview.record;
+ const read=n=>JSON.parse(fs.readFileSync(path.join(dir,n),'utf8')),write=(n,x)=>fs.writeFileSync(path.join(dir,n),JSON.stringify(x)),policy=read('policy.json');
+ if(policy.environment!=='TEST')throw Error('TEST_DIRECTORY_REQUIRED');
+ if(mode==='produce'){
+  if(!read('state.json').received)throw Error('P01_NOT_RECEIVED');
+  const outputs=['P02','P03'].map(plan_id=>{const result={id:'TEST-'+plan_id,application_id:a.application_id,target_version:a.target_version,plan_id,contract_binding:globalThis.tqtContractPin(a),output_ref:'test-only:design-'+plan_id,output_version:'1',evidence_ref:'test-only:design-readback',actor:a.plan.find(x=>x.id===plan_id).actor,at:new Date().toISOString(),scope:a.scope};const artifact=designFixture(R,result),name=plan_id+'.json';write(name,artifact);result.artifact={path:name,sha256:globalThis.tqtSHA256(globalThis.tqtCanonical(artifact))};return result;});
+  write('design-packet.json',{environment:'TEST',recipient:'P04',outputs});return {state:'WRITTEN',count:outputs.length};
+ }
+ const packet=read('design-packet.json');if(packet.environment!=='TEST'||packet.recipient!=='P04'||packet.outputs.length!==2)throw Error('DESIGN_WRONG_RECIPIENT');
+ const reads=[];
+ for(const plan of ['P02','P03']){const xs=packet.outputs.filter(x=>x.plan_id===plan);if(xs.length!==1)throw Error('DESIGN_OUTPUT_COVERAGE');const result=xs[0],check=globalThis.tqtPayloadAudit(R,plan,result);if(check.state!=='PASS')throw Error(check.errors.join(','));
+  const target=path.resolve(dir,result.artifact.path);if(!target.startsWith(dir+path.sep)||fs.realpathSync(target)!==target)throw Error('ARTIFACT_OUTSIDE_STORE');
+  const artifact=JSON.parse(fs.readFileSync(target,'utf8')),audit=globalThis.tqtDesignAudit(R,result,artifact);if(audit.state!=='PASS')throw Error(audit.errors.join(','));reads.push({plan_id:plan,sha256:audit.sha256,output_version:result.output_version});}
+ write('P04-receipt.json',{environment:'TEST',state:'READ_AND_CHECKED',reads});return {state:'ACK',reads};
+}
+if(process.argv.includes('--test-design')){try{console.log(JSON.stringify(designCommand()));}catch(e){console.log(JSON.stringify({state:'BLOCKED',error:e.message}));}return;}
+
+// Called by the authenticated gateway before committing. stdin is captured under its root lock.
+if(process.argv.includes('--write-gate')){
+ try{const {before,after}=JSON.parse(fs.readFileSync(0,'utf8')),a=after.application_D24,transition=globalThis.tqtValidateTransition(before.application_D24,a),r=clone(R);r.application_preview.record=a;const audit=globalThis.tqtRecordAudit(r),errors=[...transition.errors,...audit.errors];
+  const schemas=R.work_master_designs.records.find(x=>x.code==='CAT-206*').validation.schemas;
+  for(const d of a.declarations||[])errors.push(...globalThis.tqtSchemaErrors(schemas,'declaration',d));
+  for(const result of a.plan_results||[])errors.push(...globalThis.tqtPayloadAudit(r,result.plan_id,result).errors);
+  for(const c of a.checkpoint_checks||[])if(c.result==='PASS'&&c.validity==='CURRENT'&&!audit.verifiedCheckpoints.includes(c.checkpoint))errors.push('UNPROVED_CHECKPOINT:'+c.checkpoint);
+  const out={state:errors.length?'FAIL':'PASS',errors,verified_checkpoints:audit.verifiedCheckpoints};console.log(JSON.stringify(out));process.exit(errors.length?1:0);
+ }catch(e){console.log(JSON.stringify({state:'FAIL',errors:[e.message]}));process.exit(1);}
+}
 
 if(process.argv.includes('--complete-fixture')){fs.writeFileSync(1,JSON.stringify(fixture()));process.exit(0);}
 if(process.argv.includes('--audit')){const r=JSON.parse(fs.readFileSync(0,'utf8'));const a=globalThis.tqtRecordAudit(r);fs.writeFileSync(1,JSON.stringify({errors:a.errors,counts:a.counts,verifiedCheckpoints:a.verifiedCheckpoints,canStart:a.canStart,canFinish:a.canFinish}));process.exit(0);}
@@ -86,12 +133,13 @@ function fixture(){
  for(const x of a.declarations)Object.assign(x,{result:'PASS',validity:'CURRENT',evidence_refs:['test-only:declaration']});
  Object.assign(a.preparation_review,{output_contracts_reviewed:true,branches_reviewed:true,evidence_ref:'test-only:coverage'});
  Object.assign(a.start_confirmation,{state:'CONFIRMED',evidence_ref:'test-only:start'});
- const payload={application_id:a.application_id,target_version:a.target_version,evidence_ref:'test-only:payload',actor:'TEST',at:'2026-10-11T00:00:00Z'};
- a.plan_results=a.plan.map(p=>{p.status='DONE';return {...payload,id:'SIM-'+p.id,plan_id:p.id,scope:a.scope,output_ref:'test-only:output',output_version:'1'};});
+ const payload={application_id:a.application_id,target_version:a.target_version,evidence_ref:'test-only:payload',actor:a.actor,at:'2026-10-11T00:00:00Z'};
+ a.plan_results=a.plan.map(p=>{p.status='DONE';return {...payload,id:'SIM-'+p.id,plan_id:p.id,actor:p.actor,scope:a.scope,output_ref:'test-only:output',output_version:'1'};});
  a.contract_binding=globalThis.tqtContractPin(a);
  a.information_contract.review={state:'PASS',reviewer_id:'TEST-INDEPENDENT',evidence_ref:'test-only:independent',at:'2026-10-11T00:00:00Z',contract_binding:a.contract_binding};
  a.start_confirmation.contract_binding=a.contract_binding;
- for(const x of a.plan_results){x.contract_binding=a.contract_binding;if(x.plan_id==='P01')x.data={answers:a.declarations.map(d=>({key:d.key,answer:d.answer})),source_refs:a.input_refs};const h=a.information_contract.handoffs.find(h=>h.plan_id===x.plan_id),ch=a.record_checks.find(ch=>ch.requirement_code==='RESULT-'+x.plan_id);Object.assign(ch,{master_record_id:x.id,record_ref:h.output_ref,record_version:x.output_version,checked_payload_token:globalThis.tqtCanonical(x)});}
+ testTrust.design_reads=[];
+ for(const x of a.plan_results){x.contract_binding=a.contract_binding;if(['P02','P03'].includes(x.plan_id)){const artifact=designFixture(r,x);x.artifact={path:'test-only:design-'+x.plan_id,sha256:globalThis.tqtSHA256(globalThis.tqtCanonical(artifact))};testTrust.design_reads.push({payload_token:globalThis.tqtCanonical(x),artifact});}if(x.plan_id==='P01')x.data={answers:a.declarations.map(d=>({key:d.key,answer:d.answer})),source_refs:a.input_refs};const h=a.information_contract.handoffs.find(h=>h.plan_id===x.plan_id),ch=a.record_checks.find(ch=>ch.requirement_code==='RESULT-'+x.plan_id);Object.assign(ch,{master_record_id:x.id,record_ref:h.output_ref,record_version:x.output_version,checked_payload_token:globalThis.tqtCanonical(x)});}
  const canonical=v=>JSON.stringify(v,(_,x)=>x&&typeof x==='object'&&!Array.isArray(x)?Object.fromEntries(Object.keys(x).sort().map(k=>[k,x[k]])):x);
  testTrust.endpoint_receipts=[];
  for(const ep of a.trial_endpoints){const {access_check,...spec}=ep;ep.access_check={state:'PASS',read:'PASS',write:'PASS',evidence_ref:'test-only:endpoint',spec_token:canonical(spec)};testTrust.endpoint_receipts.push({...ep.access_check,application_id:a.application_id,target_version:a.target_version,requirement_code:ep.requirement_code});}
@@ -276,9 +324,41 @@ fileHandoffSlice().catch(e=>{console.error(e);process.exitCode=1;});
  const request={requestId:'TEST',revision:1,caller:{id:'CALLER',return_to:'INBOX',target_version:'TEST'},query:'Find',description:null,scope:{sources:['TEST'],permission_context:{}},filters:{}};
  const response={requestId:'TEST',revision:1,retrievalStatus:'success',candidates:[],evaluation:{status:'red',reasons:[],missingInformation:[],requestRevision:1,ruleVersion:'TEST'},source:{ref:'TEST-SOURCE',version:'1'},scope:clone(request.scope),version:'1',mode:'example',retrievedAt:'2026-10-11T00:00:00Z'};
  const cancellation={requestId:'TEST',revision:1,caller:clone(request.caller),scope:clone(request.scope),target_version:'TEST',state:'cancelled',reason:'User cancelled TEST',cancelledAt:'2026-10-11T00:00:00Z'};
- for(const [from,to,parts] of [['CALLER','1.1',{request}],['1.1','1.2',{request,response}],['1.1','1.3',{request,response}],['1.2','1.3',{request,response}],['1.2','1.3',{request,cancellation}]])assert.equal(globalThis.tqtMapProductHandoff(R,from,to,parts).state,'PASS');
+ const context={requestId:request.requestId,revision:request.revision,scope:clone(request.scope),ruleVersion:'TEST',sources:{'TEST-SOURCE':'1'}};
+ for(const [from,to,parts] of [['CALLER','1.1',{request}],['1.1','1.2',{request,response}],['1.1','1.3',{request,response}],['1.2','1.3',{request,response}],['1.2','1.3',{request,cancellation}]])assert.equal(globalThis.tqtMapProductHandoff(R,from,to,parts,context).state,'PASS');
  assert.equal(globalThis.tqtMapProductHandoff(R,'1.1','1.3',{request}).state,'FAIL');
  assert.equal(globalThis.tqtMapProductHandoff(R,'1.2','1.3',{request,response,cancellation}).state,'FAIL');
  assert.equal(globalThis.tqtMapProductHandoff(R,'1.1','1.3',{request,response:{...response,revision:2}}).state,'FAIL');
  console.log(JSON.stringify({pr14_product_mapping_cases:8,scope:'LOGICAL_PACKETS_NOT_BACKEND_EXECUTION'}));
+}
+// PR15: real values, nested evaluation freshness, persisted design and crash recovery.
+{
+ const request={requestId:'TEST-PR15',revision:2,caller:{id:'CALLER',return_to:'INBOX',target_version:'TEST'},query:'Field',description:null,scope:{sources:['TEST-SOURCE'],permission_context:{}},filters:{}};
+ const context={requestId:request.requestId,revision:2,scope:clone(request.scope),ruleVersion:'RULE-2',sources:{'TEST-SOURCE':'2'}};
+ const evaluation={status:'green',reasons:['current'],missingInformation:[],requestRevision:2,ruleVersion:'RULE-2'};
+ const response={requestId:request.requestId,revision:2,retrievalStatus:'success',candidates:[{id:'FIELD',name:'Field',metadata:{},sourceRef:'TEST-SOURCE',sourceVersion:'2',evaluation:clone(evaluation)}],evaluation,source:{ref:'TEST-SOURCE',version:'2'},scope:clone(request.scope),version:'2',mode:'example',retrievedAt:'2026-10-12T00:00:00Z'};
+ const result={...clone(response),return_to:{caller:clone(request.caller),requestId:request.requestId,revision:2},conclusion:'found',reasons:[],missingInformation:[],ruleVersion:'RULE-2',generatedAt:'2026-10-12T00:00:01Z'};
+ let cases=0;const map=x=>globalThis.tqtMapProductHandoff(R,'1.3','CALLER',{request,result:x},context);assert.equal(map(result).state,'PASS');assert.equal(map(result).payload.retrievalStatus,'success');cases++;
+ for(const change of [x=>Object.keys(x).forEach(k=>x[k]=null),x=>x.conclusion='UNDEFINED',x=>x.generatedAt='yesterday',x=>x.generatedAt='2026-02-30T00:00:00Z',x=>x.candidates=[null],x=>x.revision='2',x=>x.requestId='OTHER',x=>x.revision=1,x=>x.return_to.caller.id='OTHER',x=>x.return_to.revision=1,x=>x.scope.sources=['OTHER'],x=>delete x.retrievedAt,x=>x.evaluation.requestRevision=1,x=>x.candidates[0].evaluation.requestRevision=1,x=>x.evaluation.ruleVersion='OLD',x=>x.candidates[0].evaluation.ruleVersion='OLD',x=>x.source.version='1',x=>x.candidates[0].sourceVersion='1',x=>x.conclusion='not_found']){const x=clone(result);change(x);assert.equal(map(x).state,'FAIL');cases++;}
+ for(const change of [x=>x.evaluation.requestRevision=1,x=>x.candidates[0].evaluation.requestRevision=1,x=>x.evaluation.ruleVersion='OLD',x=>x.candidates[0].sourceVersion='1']){const x=clone(response);change(x);assert.equal(globalThis.tqtProductInputAudit(R,'1.3',{...request,incoming_response:x},context).state,'FAIL');cases++;}
+ assert.equal(globalThis.tqtProductInputAudit(R,'1.3',{...request,incoming_response:response}).state,'FAIL');cases++;
+ const cancelled={...clone(result),retrievalStatus:'cancelled',conclusion:'cancelled',candidates:[],evaluation:{...evaluation,status:'not_evaluated'}};assert.equal(map(cancelled).state,'PASS');cases++;
+ console.log(JSON.stringify({pr15_product_boundaries:{cases,state:'PASS'}}));
+}
+{
+ const os=require('os'),path=require('path'),cp=require('child_process'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'tqt-pr15-TEST-')),p=n=>path.join(tmp,n),write=(n,x)=>fs.writeFileSync(p(n),JSON.stringify(x)),read=n=>JSON.parse(fs.readFileSync(p(n),'utf8'));
+ const call=(kind,mode,env={})=>{const x=cp.spawnSync(process.execPath,[__filename,process.argv[2]||__dirname+'/view.html',kind,mode,tmp],{encoding:'utf8',maxBuffer:4e6,env:{...process.env,...env}});return {status:x.status,result:x.stdout?JSON.parse(x.stdout):null};};
+ let cases=0;try{
+  write('policy.json',{environment:'TEST',receiver:'P02',expected_output_version:'1',expected_state_revision:0,read_allowed:true,write_allowed:true});write('state.json',{revision:0,cancelled:false,received:null,effects:[]});assert.equal(call('--test-handoff','produce').result.state,'WRITTEN');
+  assert.notEqual(call('--test-handoff','consume',{TQT_TEST_KILL_AFTER_LOCK:'1'}).status,0);assert.equal(read('state.json').effects.length,0);assert.equal(call('--test-handoff','consume').result.state,'ACK');cases++;
+  write('state.json',{revision:0,cancelled:false,received:null,effects:[]});fs.unlinkSync(p('events.jsonl'));
+  assert.equal(call('--test-handoff','consume',{TQT_TEST_LOG_FAILURE:'1'}).result.state,'BLOCKED');assert.equal(read('state.json').effects.length,1);assert(!fs.existsSync(p('events.jsonl')));assert.equal(call('--test-handoff','consume').result.replayed,true);assert.equal(read('state.json').effects.length,1);assert.equal(fs.readFileSync(p('events.jsonl'),'utf8').trim().split('\n').length,1);cases++;
+  assert.equal(call('--test-design','produce').result.state,'WRITTEN');assert.equal(call('--test-design','consume').result.state,'ACK');const packet=read('design-packet.json'),original=read('P03.json');cases++;
+  fs.renameSync(p('P03.json'),p('P03.saved'));assert.equal(call('--test-design','consume').result.state,'BLOCKED');fs.renameSync(p('P03.saved'),p('P03.json'));cases++;
+  for(const change of [x=>x.mots=[],x=>x.output_version='OLD',x=>x.contract_binding.version='OLD',x=>x.mots[0].fields.pop(),x=>x.mots[1].states=[],x=>x.mots[2].branches=[],x=>x.mots[0].controls=[],x=>x.mots[0].fields[0].data_type='fake',x=>x.mots[0].open_items=['UNRESOLVED']]){
+   const x=clone(original);change(x);write('P03.json',x);const forged=clone(packet);forged.outputs[1].artifact.sha256=globalThis.tqtSHA256(globalThis.tqtCanonical(x));write('design-packet.json',forged);assert.equal(call('--test-design','consume').result.state,'BLOCKED');cases++;}
+  write('P03.json',original);write('design-packet.json',packet);const bad=clone(packet);bad.outputs[0].actor='NOT_ASSIGNED';write('design-packet.json',bad);assert.equal(call('--test-design','consume').result.state,'BLOCKED');cases++;
+  write('design-packet.json',packet);assert.equal(call('--test-design','consume').result.state,'ACK');cases++;
+  console.log(JSON.stringify({pr15_persisted_design_and_recovery:{cases,state:'PASS',read_plans:read('P04-receipt.json').reads.map(x=>x.plan_id),effects:read('state.json').effects.length,real_endpoint_permissions:'NOT_PROVED',mow001_progress:'UNCHANGED_0_OF_7'}}));
+ }finally{fs.rmSync(tmp,{recursive:true,force:true});}
 }

@@ -15,7 +15,21 @@ DEF 00.1 dùng lại Master có khóa cũ CAT-227*, không tạo Master thứ ha
 **Lịch sử trạng thái trước P26 · 11/10:** Hướng dẫn chung tách “Thiết kế UI” và “Nguồn lưu”. 11 mục ghi dẫn tới 19 Master liên quan (11 chính + 8 chi tiết), nằm trong danh sách thiết kế 47 Master. Chưa nối nguồn thì số lượng hiển thị —, không suy là 0 bản ghi thực. Hai số 2 hồ sơ/việc và các dòng kế hoạch là dữ liệu chuẩn bị đã biết, không phải số bản ghi PG. “Đã ghi / Đối chiếu” chỉ thuộc hồ sơ từng việc; không đổi thành Đã ghi chỉ vì tạo UI. Nhãn hiển thị chung ở `record_control.display_labels`; trạng thái nguồn và kiểm mốc giữ nguyên căn cứ. Chưa khai nguồn lưu khác với chưa có thiết kế, và khác với hồ sơ chưa gắn bản ghi.
 
 
-## P31 / PR14 · kiểm hợp đồng và giao nhận
+## P32 / PR15 · hiện hành 12/10/2026
+
+Giữ ⑤, 7 mốc, 47 Master và 6 DOT. CAT-206* schema **1.3-design**, hợp đồng áp dụng **phiên 3**; giữ nguyên các phiên trước. **MOW001 vẫn 0/7**, 13 câu khai chưa đối chiếu; chưa có quyền endpoint hay người kiểm độc lập thật.
+
+- **Trả đúng nơi:** đầu nối MOT1.3 → CALLER kiểm giá trị/kiểu, thời điểm hợp lệ, mã lần gọi, phiên, phạm vi và người nhận; chuyển đủ retrievalStatus/retrievedAt. Kết luận phải khớp bằng chứng hiện hành.
+- **Không dùng đánh giá cũ:** bên nhận cung cấp ngữ cảnh hiện hành từ adapter (request/revision/scope, phiên luật, phiên từng nguồn), nằm ngoài gói phản hồi. Kiểm cả đánh giá tổng và từng ứng viên. Thiếu adapter/ngữ cảnh → từ chối, không dùng giá trị tự khai để làm xanh.
+- **Mở bản thiết kế:** P02/P03 giao `artifact.path/sha256` trong `design_result`; P04 tự mở, đối chiếu phiên/hash/hợp đồng và trường, kiểu, nút, trạng thái, nhánh, nguồn luật. Các ca TEST dùng bản thiết kế tổng hợp để kiểm cơ chế; chưa nghiệm thu nội dung thiết kế MOW001 thật. Lịch sử endpoint/schema được giữ khi tăng phiên.
+- **Phục hồi tệp TEST:** dùng khóa do hệ điều hành giữ, tự nhả khi tiến trình chết. Kết quả/ACK/sự kiện nằm cùng bản ghi trạng thái; nhật ký phụ lỗi thì chạy lại ghi bù trước ACK, không nhân tác động.
+- **Thời gian DOT:** ngân sách chạy tại `tool_registry.records[].timeout_seconds`; CHECK003/004 180 giây, các bộ còn lại 60 giây. Báo cáo có thời gian thực tế; hết hạn là lỗi, thiếu runtime là BLOCKED. Không chờ vô hạn.
+
+**Cửa ghi — chưa bật trên VPS:** CHECK004 có `--write-gate` để kiểm trước–sau, cấu trúc/nội dung gói và chống khai PASS mốc không có căn cứ. Bản nối vào `workspace_tools.staged_check` được chuẩn bị từ đúng nguồn VPS: máy chủ cấp danh tính, quyền đọc/ghi do cấu hình máy chủ, bộ kiểm và view ghim hash ngoài thư mục cho AI ghi. Tất cả đường ghi Git đi qua cùng chốt trước commit và dùng lại rollback. Sáu ca kiểm gateway đã chạy với Git thật và DOT thật; đây **không phải quyền thật của 34 địa chỉ**. Bản sửa gateway chưa đẩy/triển khai: cần duyệt đường triển khai hẹp do main lệch VPS và luồng cũ sửa môi trường PG. Không chạy luồng đó trong việc này.
+
+**Dùng lại:** TQT-CHECK-004 giữ ca PR15, các lệnh `--test-handoff`, `--test-design`, `--write-gate`; CHECK006 quản hash/thời hạn. Danh tính ứng viên kiểm giả lập không được nhập làm người kiểm thật. Kết luận từng điểm: `catalog.host_review_PR15`; bằng chứng lượt: `UI-REVIEW-AGGREGATE.json#host_review_P32`.
+
+## P31 / PR14 · lịch sử kiểm hợp đồng và giao nhận
 
 **Hiện hành:** CAT-206* schema **1.2-design**, hợp đồng áp dụng **phiên 2**, 66 dòng sau tách trường gộp và khai nhánh hủy. Số dòng chỉ để quan sát, **không là điều kiện đạt**. Nguồn schema logic nằm ngay `catalog.work_master_designs.records[code=CAT-206*].validation`; bản áp dụng ở phiếu MOW001. Profile gắn nguồn luật/phiên, đối tượng/phiên và phạm vi MOT. SHA256 của schema nằm trong hợp đồng: đổi schema làm mất hiệu lực ghim cũ. Giữ 47 Master, 6 DOT và ⑤/7 mốc.
 
