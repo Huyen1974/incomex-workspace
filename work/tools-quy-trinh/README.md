@@ -1,6 +1,6 @@
 # tools-quy-trinh · Cửa vào
 
-**Điểm vào duy nhất cho người điều hành: [MASTER TIẾN TRÌNH CÔNG VIỆC · DEF 00.1](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html).** Đứng đầu danh sách ở vị trí 0.1. Một dòng một việc: chưa xong/đã xong, mốc hiện tại, mắc ở đâu, ai làm tiếp. Các Master phục vụ mở ở bên dưới.
+**Điểm vào: [Danh sách 39 Master đã đưa vào thiết kế](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html).** Đây là danh sách các Master, giữ nguyên bức tranh toàn cảnh. DEF 00.1 · MASTER TIẾN TRÌNH CÔNG VIỆC là dòng đầu, vị trí 0.1; bấm dòng này mới mở trang tiến trình riêng. Không nhúng bảng công việc lên thay danh sách Master. Danh mục toàn hệ thống gồm cả Master chưa thiết kế được quản lý riêng; làm UI đến đâu thì đưa vào danh sách thiết kế đến đó.
 
 DEF 00.1 dùng lại Master có khóa cũ CAT-227*, không tạo Master thứ hai. Hồ sơ chi tiết, việc con, kết quả kiểm và bàn giao nối về mã việc; vòng nâng cấp giữ lịch sử và gắn hồ sơ mới. Tầng của việc, chuyên môn T3, mốc và vòng đời là các trường riêng. Ngày thực tế tách ngày kế hoạch; chưa có phải hiện Chưa ghi. Nguồn tổng hợp duy nhất: `catalog.work_schedule` trong `view.html`; UI đọc nguồn này, không nhập tiến độ hai nơi. Hiện chỉ có 2 việc ghi danh, chưa chứng minh bao phủ toàn hệ thống. Phép chiếu/khóa/quy tắc PG được thiết kế trong `work_schedule.pg_design`, chưa triển khai PG.
 
@@ -32,7 +32,7 @@ Tách hai bảng, cùng dùng quy trình ⑤:
 
 ## MASTER TIẾN TRÌNH CÔNG VIỆC · DEF 00.1
 
-**[Mở tiến trình các việc theo QTTH 05](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html?master=DEF00.1#work-progress)**: mỗi dòng là một việc dự kiến, có thứ tự, việc phải xong trước, hồ sơ, mốc hiện tại, chỗ mắc và người tiếp. Dùng lại CAT-227*, không mở Master trùng với sổ hồ sơ. CAT-228* giữ các việc con; CAT-230* là hàng đợi kỹ thuật, không thay lịch trình người dùng.
+**[Mở tiến trình các việc theo QTTH 05](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1)**: mỗi dòng là một việc dự kiến, có thứ tự, việc phải xong trước, hồ sơ, mốc hiện tại, chỗ mắc và người tiếp. Dùng lại CAT-227*, không mở Master trùng với sổ hồ sơ. CAT-228* giữ các việc con; CAT-230* là hàng đợi kỹ thuật, không thay lịch trình người dùng.
 
 - MOW001: đã gắn hồ sơ chuẩn bị; mốc/tình trạng lấy từ hồ sơ hiện hữu, không nhập lại.
 - MOW002: đứng sau MOW001; chưa triển khai, chưa gắn hồ sơ. Chỉ mở khi MOW001 đạt nghiệm thu thiết kế và có bàn giao, Host xác nhận tiếp tục. Đóng bằng hủy/từ chối không tự mở việc sau.
