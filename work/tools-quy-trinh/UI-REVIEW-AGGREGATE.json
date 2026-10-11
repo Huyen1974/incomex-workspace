@@ -1065,7 +1065,7 @@
     }
   },
   "host_review_P31": {
-    "state": "LOCAL_CHECKED_PENDING_VPS_READBACK",
+    "state": "SOURCE_PERSISTED_LOCAL_FULL_PASS_VPS_READBACK_PASS_FULL_VPS_BLOCKED_NODE",
     "proposal": "TQT-PR-20261011-gptchat-p29-contract-chain-review-14.md",
     "reproduced_before": {
       "original": 7,
@@ -1235,6 +1235,81 @@
       "Product packet mappings tested logically, not backend execution",
       "Trusted context must come from authenticated host adapter, not worker JSON",
       "Server transaction hook and independent reviewer still pending"
-    ]
+    ],
+    "vps_report": {
+      "job_id": "9b905110474a46ad9929d8b7ac6f059c",
+      "source_head": "effd8d18b6b9fda5a3b9711512d8747f390145f1",
+      "exit_code": 3,
+      "report": {
+        "run_id": "TQT-8ead6086426447efab15c20075fac45a",
+        "at": "2026-10-11T19:32:29.792666+00:00",
+        "scope": "work/tools-quy-trinh/**/*.py, **/*.js; không tuyên bố bao phủ toàn VPS",
+        "registry_master": "CAT-006",
+        "case_master": "CAT-012",
+        "result_master": "CAT-015",
+        "source_sha256": "aac3f7f788ed33a239d03ab37af037f42e53d23886660cf897a8bbaa9890607b",
+        "inventory_errors": [],
+        "source_readback": {
+          "state": "PASS",
+          "source_sha256": "f0ce1c4a2269b6d51f2e318a4b114705562e290f3c9f9dc91bb8a4dd6f60b0d4",
+          "projection_equal": true,
+          "rule_source_checks": [
+            {
+              "ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/contract",
+              "matched": true
+            }
+          ],
+          "application_id": "MOW-NHC-001-G1-20261010-01",
+          "trial_declarations": 13,
+          "scope": "SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL"
+        },
+        "results": [],
+        "pg": "NOT_RUN",
+        "production_ready": false,
+        "master_identity_check": {
+          "state": "PASS",
+          "errors": [],
+          "input_rows": 47,
+          "unique_masters": 46,
+          "merged": [
+            {
+              "canonical_id": "ML-DEF-024",
+              "ids": [
+                "ML-DEF-024",
+                "CAT-006"
+              ]
+            }
+          ],
+          "scope": "Definition registry + QTTH work Masters; Config entry checked by live merged-index guard. Not a full PG/VPS inventory.",
+          "input_sha256": "a153d208c8470db1256be508e4f1f951d7b755d4cff61cde4b00cfd461af378a",
+          "self_test": {
+            "cases": 13,
+            "scale_rows": 10000,
+            "method": "indexed keys; no pairwise scan"
+          }
+        },
+        "prerequisite_errors": [
+          "MISSING_RUNTIME:node"
+        ],
+        "runner_self_test": {
+          "cases": 15,
+          "store": "temporary TEST file in execution snapshot",
+          "write_read_restore": "PASS",
+          "production": "NOT_TOUCHED"
+        },
+        "status": "BLOCKED"
+      }
+    },
+    "source_commit": "effd8d18b6b9fda5a3b9711512d8747f390145f1",
+    "ui_verification": {
+      "state": "PASS",
+      "master": "CAT-206*",
+      "applied_rows": 66,
+      "contract_version": "2",
+      "cancellation_field": "VISIBLE",
+      "review_status": "Chưa kiểm độc lập",
+      "MOW001_state": "Chuẩn bị · Mốc 2",
+      "screenshot": "outputs/p31-contract-cancellation.png"
+    }
   }
 }
