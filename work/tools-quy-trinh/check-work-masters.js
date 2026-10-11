@@ -15,7 +15,7 @@ function validate(r){
 }
 validate(r);let rejected=0;
 for(const change of [x=>x.work_schedule.records.push(x.work_schedule.records[0]),x=>x.work_schedule.records[1].order=1,x=>x.work_schedule.records[0].depends_on=['TQT-VIEC-002'],x=>x.work_schedule.records[1].depends_on=['UNKNOWN'],x=>x.work_schedule.records[0].application_id='OTHER',x=>x.work_schedule.records[0].target_version='OLD',x=>x.work_schedule.records[0].application_ref='OTHER',x=>x.work_master_designs.records[0].code='MISSING',x=>x.work_master_designs.records[0].columns.push({key:'unknown'}),x=>x.work_schedule.records[1].completion_evidence='FAKE',x=>x.work_schedule.records[0].target_tier='CTCM',x=>x.work_schedule.records[0].lifecycle_state='UNKNOWN',x=>x.work_schedule.records[0].actual_finish='2026-01-01',x=>x.work_schedule.display_code='DEF001']){const c=JSON.parse(JSON.stringify(r));change(c);assert.throws(()=>validate(c));rejected++;}
-if(adapter){const A=globalThis.TQT_WORK_MASTER;r.source_url='https://example.test/view.html';const list=A.scheduleRows(r);assert.equal(list.length,2);assert(list[0].dossier_url.endsWith('#tqt-recording-list'));assert.equal(list[1].dossier_url,null);assert.equal(list[1].state,'Ghi danh');for(const d of r.work_master_designs.records){const cfg=A.configure({}, {tqt:r,masterCode:d.code,sample:false});assert.equal(cfg.mother,'DEF');assert(cfg.definitionColumns.length);const sample=A.configure({}, {tqt:r,masterCode:d.code,sample:true});assert.equal(sample.items.length,1);assert(sample.items[0].form_schema.fields.length);assert(sample.items[0].code.startsWith('MAU-'));}assert.equal(A.indexRows(r).length,9);
+if(adapter){const A=globalThis.TQT_WORK_MASTER;r.source_url='https://example.test/view.html';const list=A.scheduleRows(r);assert.equal(list.length,2);assert(list[0].dossier_url.endsWith('#tqt-recording-list'));assert.equal(list[1].dossier_url,null);assert.equal(list[1].state,'Ghi danh');for(const d of r.work_master_designs.records){const cfg=A.configure({}, {tqt:r,masterCode:d.code,sample:false});assert.equal(cfg.mother,'DEF');assert(cfg.definitionColumns.length);const sample=A.configure({}, {tqt:r,masterCode:d.code,sample:true});assert.equal(sample.items.length,1);assert(sample.items[0].form_schema.fields.length);assert(sample.items[0].code.startsWith('MAU-'));}assert.equal(A.indexRows(r).length,r.work_master_designs.records.length);
  assert.equal(A.indexRows(r)[0].code,'DEF 00.1');assert.equal(A.indexRows(r)[0].humanNo,'0.1');
  assert.deepEqual(A.summary(list),{total:2,unfinished:2,done:0,blocked:1,closed:0});
  assert.deepEqual(A.summary([]),{total:0,unfinished:0,done:0,blocked:0,closed:0});
@@ -45,3 +45,10 @@ if(adapter){
  const cfg=A.configure({}, {tqt:r,masterCode:'DEF00.1',sample:false});const view=cfg.detailRenderer(cfg,cfg.items[0]);assert(view.fullWidth&&view.interactive);assert.equal((view.html.match(/type="checkbox"/g)||[]).length,18);assert.equal((view.html.match(/type="checkbox" disabled/g)||[]).length,18);assert(!view.html.includes(' checked '));
  console.log('dossier: 7 checkpoints, 11 groups, 34 obligations; partial/foreign/unlinked/second job cases passed');
 }
+
+const coverage=r.work_master_designs.coverage, all=new Set([...r.work_master_designs.records.map(x=>x.code),'ML-DEF-004','ML-DEF-005','ML-DEF-013']);
+assert.equal(coverage.rows.length,9);assert.equal(coverage.new_ui_codes.length,8);
+for(const row of coverage.rows)for(const code of row.masters)assert(all.has(code),'Unresolved Master '+code);
+for(const code of coverage.new_ui_codes){const d=r.work_master_designs.records.find(x=>x.code===code);assert(d);assert(d.fields.length>=12);assert(d.pg_design.primary_key);assert(d.pg_design.natural_key);assert.equal(d.pg_design.status,'LOGICAL_DESIGN_ONLY');}
+assert.equal(r.work_form.record_control.guidance.length,11);
+console.log('coverage: 7 checkpoints + exception/operations; 8 new UI references resolved; 11 groups preserved');
