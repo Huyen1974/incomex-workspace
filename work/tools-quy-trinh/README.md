@@ -15,7 +15,21 @@ DEF 00.1 dùng lại Master có khóa cũ CAT-227*, không tạo Master thứ ha
 **Lịch sử trạng thái trước P26 · 11/10:** Hướng dẫn chung tách “Thiết kế UI” và “Nguồn lưu”. 11 mục ghi dẫn tới 19 Master liên quan (11 chính + 8 chi tiết), nằm trong danh sách thiết kế 47 Master. Chưa nối nguồn thì số lượng hiển thị —, không suy là 0 bản ghi thực. Hai số 2 hồ sơ/việc và các dòng kế hoạch là dữ liệu chuẩn bị đã biết, không phải số bản ghi PG. “Đã ghi / Đối chiếu” chỉ thuộc hồ sơ từng việc; không đổi thành Đã ghi chỉ vì tạo UI. Nhãn hiển thị chung ở `record_control.display_labels`; trạng thái nguồn và kiểm mốc giữ nguyên căn cứ. Chưa khai nguồn lưu khác với chưa có thiết kế, và khác với hồ sơ chưa gắn bản ghi.
 
 
-## Hợp đồng thông tin từng bước · P29 / PR-13
+## P31 / PR14 · kiểm hợp đồng và giao nhận
+
+**Hiện hành:** CAT-206* schema **1.2-design**, hợp đồng áp dụng **phiên 2**, 66 dòng sau tách trường gộp và khai nhánh hủy. Số dòng chỉ để quan sát, **không là điều kiện đạt**. Nguồn schema logic nằm ngay `catalog.work_master_designs.records[code=CAT-206*].validation`; bản áp dụng ở phiếu MOW001. Profile gắn nguồn luật/phiên, đối tượng/phiên và phạm vi MOT. SHA256 của schema nằm trong hợp đồng: đổi schema làm mất hiệu lực ghim cũ. Giữ 47 Master, 6 DOT và ⑤/7 mốc.
+
+**Bộ kiểm kiểm hai lần:** (1) tập trường/đầu nối bắt buộc theo schema nguồn, đúng kiểu, nguồn–đích và phiên; (2) gói đã ghi–đọc đúng schema bên giao và đủ dữ liệu bên nhận. P01 phải có `scope`, đáp án chuẩn bị và nguồn dẫn; sổ ghi phải trỏ đúng ID/phiên/địa chỉ và nội dung đã đọc. Thiếu P01 chặn từ CP02, không đợi CP04. Tên `requestId/revision`, `source/scope/version`, `reasons/missingInformation` đã tách riêng. Đầu nối ghi rõ trường lấy từ request, response hoặc cancellation; hủy cần mã/phiên/người nhận/phạm vi/lý do/thời điểm, không suy từ một chữ “hủy”.
+
+**Lịch sử:** ngoài phiên câu trả lời/hợp đồng, thay bằng chứng hoặc trạng thái hồ sơ phải tăng `evidence_revision` và nối sự kiện EVIDENCE_REVISION vào `history`, giữ nguyên `previous_evidence` trước sửa. Checkpoint là lịch sử chỉ thêm, không sửa/xóa kết luận cũ; không xóa dòng kết quả/kiểm/duyệt/nhận đã có. Đổi kết quả phải tăng `output_version`; kiểm và nhận cũ mất hiệu lực. Vẫn chạy so trước–sau trước transaction và đọc lại sau ghi; chưa có hook máy chủ cưỡng chế.
+
+**Thử bằng công cụ đang có:** TQT-CHECK-004 đã chứa lát P01→P02: bên giao tạo gói từ các đáp án nguồn, ghi tệp TEST; một tiến trình khác đọc tệp, kiểm và dùng phạm vi/đáp án. Có ca thiếu/sai dữ liệu, gửi trùng, sai phiên/nơi nhận, hủy, mất ACK và hai tiến trình cùng ghi. Cùng khóa/cùng gói trả lại biên nhận cũ, không thêm tác động; cùng khóa/khác nội dung bị chặn. Lỗi TEST ghi sự kiện có nơi xử lý CAT-069?, người giữ và quay P01. Gói PRODUCT_SPEC được thử ghép qua 1.1→1.2→1.3 và nhánh trực tiếp/hủy theo mapping; đây là kiểm cấu trúc gói, chưa chạy backend nghiệp vụ. Tệp thử tự dọn; nguồn bộ kiểm vẫn trong Master DOT hiện hữu.
+
+**Ranh giới tin cậy:** `tqtRecordAudit(R, trust)` chỉ nhận danh tính/quyền/biên nhận do adapter thực thi cấp ngoài hồ sơ. Không đọc trust từ JSON worker nộp; chữ PASS và tên người tự khai không cấp quyền. Bộ mẫu 7/7 chỉ chạy trong ngữ cảnh TEST do bộ kiểm cung cấp; đưa nguyên mẫu sang tiến trình khác không làm nó thành hồ sơ đã nghiệm thu. Schema endpoint/khóa đã phân giải được ở lớp logic; quyền ghi–đọc của các địa chỉ thật, adapter cấp trust và rào ghi máy chủ **chưa hoàn tất**. Người kiểm độc lập vẫn **chưa chỉ định**, các access_check thật giữ NOT_TESTED. MOW001 vẫn **0/7, chưa qua CP03**. TQT-ISS-007 còn mở.
+
+**Bằng chứng:** `UI-REVIEW-AGGREGATE.json#host_review_P31`; phản hồi từng R14-01…07 tại COLLAB/P31. Kết quả local/VPS và phép thử tệp TEST được ghi riêng; không lấy ca TEST hay policy mô phỏng làm quyền endpoint thật.
+
+## Hợp đồng thông tin từng bước · lịch sử P29 / PR-13
 
 **Nguồn chuẩn:** giữ Master **CAT-206\*** (Hợp đồng đầu vào/đầu ra), nâng cấu trúc thiết kế từ 1.0 lên **1.1-design**. Bản áp dụng G1 nằm trong phiếu sản phẩm hiện hữu `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/information_contract`; Overview và UI Master đọc cùng bản chiếu, runner đối chiếu file nguồn. Không tạo Master hoặc quy trình mới.
 

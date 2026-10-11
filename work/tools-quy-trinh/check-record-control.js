@@ -4,9 +4,42 @@ const html=fs.readFileSync(process.argv[2]||__dirname+'/view.html','utf8');
 const script=id=>{const m=html.match(new RegExp('<script id="'+id+'"[^>]*>([\\s\\S]*?)</script>'));assert(m,id);return m[1];};
 const R=JSON.parse(script('tqt-composite-processes')).catalog;
 vm.runInThisContext(script('tqt-record-control'));
-const audit=globalThis.tqtRecordAudit,clone=x=>JSON.parse(JSON.stringify(x));let tests=0;
+const testTrust={endpoint_receipts:[],principals:[]};
+const audit=r=>globalThis.tqtRecordAudit(r,testTrust),clone=x=>JSON.parse(JSON.stringify(x));let tests=0;
+// Isolated TEST protocol only. The receiver is a separate process and opens the persisted packet itself.
+function sliceCommand(){
+ const path=require('path'),crypto=require('crypto'),dir=process.argv[process.argv.indexOf('--test-handoff')+2],mode=process.argv[process.argv.indexOf('--test-handoff')+1],a=R.application_preview.record;
+ const file=n=>path.join(dir,n),digest=x=>crypto.createHash('sha256').update(x).digest('hex'),json=n=>JSON.parse(fs.readFileSync(file(n),'utf8'));
+ if(!fs.statSync(dir).isDirectory()||json('policy.json').environment!=='TEST')throw Error('TEST_DIRECTORY_REQUIRED');
+ if(mode==='produce'){
+  const result={id:'TEST-P01',application_id:a.application_id,target_version:a.target_version,plan_id:'P01',contract_binding:globalThis.tqtContractPin(a),output_ref:'test-only:prepared-answers',output_version:'1',evidence_ref:'test-only:file-readback',actor:a.actor,at:new Date().toISOString(),scope:a.scope,data:{answers:a.declarations.map(d=>({key:d.key,answer:d.answer})),source_refs:a.input_refs}};
+  const validation=globalThis.tqtPayloadAudit(R,'P01',result);if(validation.state!=='PASS')throw Error(validation.errors.join(','));const packet=JSON.stringify({environment:'TEST',recipient_plan_id:'P02',payload:result});fs.writeFileSync(file('packet.json'),packet,{flag:'wx'});return {state:'WRITTEN',sha256:digest(packet)};
+ }
+ let lock;try{lock=fs.openSync(file('receive.lock'),'wx');}catch(e){if(e.code==='EEXIST')return {state:'BLOCKED',error:'CONCURRENT_WRITE',issue_master:'CAT-069?',owner:a.actor,return_to:'P01'};throw e;}
+ try{
+  const policy=json('policy.json'),state=json('state.json'),bytes=fs.readFileSync(file('packet.json'),'utf8'),packet=JSON.parse(bytes),p=packet.payload,hash=digest(bytes);
+  const reject=error=>{const result={state:'BLOCKED',error,issue_master:'CAT-069?',owner:a.actor,return_to:'P01'};fs.appendFileSync(file('events.jsonl'),JSON.stringify(result)+'\n');return result;};
+  if(policy.receiver!=='P02'||packet.recipient_plan_id!=='P02'||packet.environment!=='TEST')return reject('WRONG_RECIPIENT');
+  if(!policy.read_allowed)return reject('READ_FORBIDDEN');
+  if(!policy.write_allowed)return reject('WRITE_FORBIDDEN');
+  if(state.cancelled)return reject('CANCELLED');
+  if(p.output_version!==policy.expected_output_version)return reject('STALE_OUTPUT');
+  const result=globalThis.tqtPayloadAudit(R,'P01',p);if(result.state!=='PASS')return reject(result.errors.join(','));
+  if(state.received){if(state.received.sha256!==hash)return reject('DUPLICATE_KEY_DIFFERENT_CONTENT');return {state:'ACK',replayed:true,receipt_id:state.received.id,effect_count:state.effects.length};}
+  if(state.revision!==policy.expected_state_revision)return reject('CONCURRENT_REVISION');
+  const h=a.information_contract.handoffs.find(h=>h.plan_id==='P02'),received=Object.fromEntries(h.input_fields.map(k=>[k,p[h.mapping[k]]]));
+  if(received.data.answers.length!==a.declarations.length||received.data.answers.some((x,i)=>x.key!==a.declarations[i].key||x.answer!==a.declarations[i].answer)||JSON.stringify(received.data.source_refs)!==JSON.stringify(a.input_refs))return reject('PREPARED_DATA_MISMATCH');
+  const receipt={id:'TEST-RECEIPT-P01-P02',sha256:hash,plan_id:'P02',used_scope:received.scope,answer_keys:received.data.answers.map(x=>x.key)};
+  const next={...state,revision:state.revision+1,received:receipt,effects:[...state.effects,{id:'TEST-EFFECT-P02',input_sha256:hash}]};fs.writeFileSync(file('state.next.json'),JSON.stringify(next));fs.renameSync(file('state.next.json'),file('state.json'));
+  fs.appendFileSync(file('events.jsonl'),JSON.stringify({state:'RECEIVED',receipt_id:receipt.id})+'\n');
+  if(policy.drop_ack_once)return {state:'ACK_LOST',effect_count:next.effects.length};
+  return {state:'ACK',replayed:false,receipt_id:receipt.id,effect_count:next.effects.length,sha256:hash,used_scope:received.scope,answer_count:received.data.answers.length};
+ }finally{fs.closeSync(lock);fs.unlinkSync(file('receive.lock'));}
+}
+if(process.argv.includes('--test-handoff')){try{console.log(JSON.stringify(sliceCommand()));}catch(e){console.log(JSON.stringify({state:'BLOCKED',error:e.message}));process.exitCode=1;}return;}
+
 if(process.argv.includes('--complete-fixture')){fs.writeFileSync(1,JSON.stringify(fixture()));process.exit(0);}
-if(process.argv.includes('--audit')){const r=JSON.parse(fs.readFileSync(0,'utf8'));const a=audit(r);fs.writeFileSync(1,JSON.stringify({errors:a.errors,counts:a.counts,verifiedCheckpoints:a.verifiedCheckpoints,canStart:a.canStart,canFinish:a.canFinish}));process.exit(0);}
+if(process.argv.includes('--audit')){const r=JSON.parse(fs.readFileSync(0,'utf8'));const a=globalThis.tqtRecordAudit(r);fs.writeFileSync(1,JSON.stringify({errors:a.errors,counts:a.counts,verifiedCheckpoints:a.verifiedCheckpoints,canStart:a.canStart,canFinish:a.canFinish}));process.exit(0);}
 
 if(process.argv.includes('--validate-transition')){
  const i=process.argv.indexOf('--validate-transition');
@@ -45,6 +78,8 @@ console.log(JSON.stringify({tests,scope:'DESIGN_PROJECTION_ONLY',counts:audit(R)
 // Regression walk: complete synthetic evidence, then break one boundary at a time.
 function fixture(){
  const r=unrecorded(clone(R)),a=r.application_preview.record;a.current_checkpoint='CP07';
+ a.assignments={state:'ASSIGNED',reviewer_id:'TEST-INDEPENDENT',authority_ref:'test-only:authority'};a.plan.find(p=>p.id==='P04').actor='TEST-INDEPENDENT';a.information_contract.handoffs.find(h=>h.plan_id==='P03').recipient='TEST-INDEPENDENT';
+ testTrust.principals=[{id:'TEST-INDEPENDENT',application_id:a.application_id,target_version:a.target_version,roles:['REVIEWER']}];
  for(const m of r.work_form.record_control.masters)m.source_state='VERIFIED';
  for(const x of a.record_checks)Object.assign(x,{record_state:'RECORDED',check_state:'MATCHED',master_record_id:'SIM-'+x.requirement_code,record_ref:'test-only:'+x.requirement_code,record_version:'1',checked_record_version:'1',readback_state:'PASS',access_state:'PASS',process_code:a.process_code,process_version:a.process_version,target_code:a.target_code,evidence_ref:'test-only:readback',checked_by:'TEST',checked_at:'2026-10-11T00:00:00Z'});
  a.questions_complete=true;a.requirements_checked=true;
@@ -52,13 +87,14 @@ function fixture(){
  Object.assign(a.preparation_review,{output_contracts_reviewed:true,branches_reviewed:true,evidence_ref:'test-only:coverage'});
  Object.assign(a.start_confirmation,{state:'CONFIRMED',evidence_ref:'test-only:start'});
  const payload={application_id:a.application_id,target_version:a.target_version,evidence_ref:'test-only:payload',actor:'TEST',at:'2026-10-11T00:00:00Z'};
- a.plan_results=a.plan.map(p=>{p.status='DONE';return {...payload,id:'SIM-'+p.id,plan_id:p.id,output_ref:'test-only:output',output_version:'1'};});
+ a.plan_results=a.plan.map(p=>{p.status='DONE';return {...payload,id:'SIM-'+p.id,plan_id:p.id,scope:a.scope,output_ref:'test-only:output',output_version:'1'};});
  a.contract_binding=globalThis.tqtContractPin(a);
  a.information_contract.review={state:'PASS',reviewer_id:'TEST-INDEPENDENT',evidence_ref:'test-only:independent',at:'2026-10-11T00:00:00Z',contract_binding:a.contract_binding};
  a.start_confirmation.contract_binding=a.contract_binding;
- for(const x of a.plan_results)x.contract_binding=a.contract_binding;
+ for(const x of a.plan_results){x.contract_binding=a.contract_binding;if(x.plan_id==='P01')x.data={answers:a.declarations.map(d=>({key:d.key,answer:d.answer})),source_refs:a.input_refs};const h=a.information_contract.handoffs.find(h=>h.plan_id===x.plan_id),ch=a.record_checks.find(ch=>ch.requirement_code==='RESULT-'+x.plan_id);Object.assign(ch,{master_record_id:x.id,record_ref:h.output_ref,record_version:x.output_version,checked_payload_token:globalThis.tqtCanonical(x)});}
  const canonical=v=>JSON.stringify(v,(_,x)=>x&&typeof x==='object'&&!Array.isArray(x)?Object.fromEntries(Object.keys(x).sort().map(k=>[k,x[k]])):x);
- for(const ep of a.trial_endpoints){const {access_check,...spec}=ep;ep.access_check={state:'PASS',read:'PASS',write:'PASS',evidence_ref:'test-only:endpoint',spec_token:canonical(spec)};}
+ testTrust.endpoint_receipts=[];
+ for(const ep of a.trial_endpoints){const {access_check,...spec}=ep;ep.access_check={state:'PASS',read:'PASS',write:'PASS',evidence_ref:'test-only:endpoint',spec_token:canonical(spec)};testTrust.endpoint_receipts.push({...ep.access_check,application_id:a.application_id,target_version:a.target_version,requirement_code:ep.requirement_code});}
  payload.contract_binding=a.contract_binding;
  payload.product_binding=a.plan_results.filter(x=>['P02','P03'].includes(x.plan_id)).map(x=>({plan_id:x.plan_id,output_ref:x.output_ref,output_version:x.output_version}));
  a.test_result='PASS';a.connection_tests={in:'PASS',out:'PASS'};a.test_cases=a.information_contract.criteria.map(c=>({...payload,id:'SIM-'+c.id,criterion_id:c.id,expected:c.expected,actual:'TEST fixture conforms',reviewer_id:'TEST-INDEPENDENT',result:'PASS'}));
@@ -124,7 +160,7 @@ for(const [name,change] of [
  ['changed meaning same version',r=>r.application_preview.record.information_contract.rows[0].meaning+=' changed'],
  ['changed cardinality',r=>r.application_preview.record.information_contract.rows[0].cardinality='0..n'],
  ['wrong destination',r=>r.application_preview.record.information_contract.rows[0].destination_master='CAT-025'],
- ['new contract version',r=>r.application_preview.record.information_contract.version='2'],
+ ['new contract version',r=>r.application_preview.record.information_contract.version='999'],
  ['missing plan interface',r=>r.application_preview.record.information_contract.handoffs.pop()],
  ['missing predefined cases',r=>r.application_preview.record.information_contract.criteria=[]],
  ['self review',r=>r.application_preview.record.information_contract.review.reviewer_id=r.application_preview.record.actor],
@@ -167,7 +203,82 @@ for(const change of [
 const next=clone(previous);next.declaration_history.push(clone(previous.declarations[0]));next.declarations[0].answer+=' changed';next.declarations[0].record_version='2';
 assert.equal(validate(previous,next).state,'PASS');contractCases++;
 const rewrite=clone(next);rewrite.declaration_history[0].answer='rewrite old';assert.equal(validate(next,rewrite).state,'FAIL');contractCases++;
-const newContract=clone(previous),prior=clone(previous.information_contract);delete prior.history;newContract.information_contract.history.push(prior);newContract.information_contract.version='2';newContract.information_contract.rows.forEach(x=>x.contract_version='2');
+const newContract=clone(previous),prior=clone(previous.information_contract);delete prior.history;newContract.information_contract.history.push(prior);newContract.information_contract.version=String(Number(previous.information_contract.version)+1);newContract.information_contract.rows.forEach(x=>x.contract_version=newContract.information_contract.version);
 assert.equal(validate(previous,newContract).state,'PASS');contractCases++;
 const changed=clone(complete);changed.application_preview.record.information_contract.rows[0].meaning+=' revised';assert.deepEqual(audit(changed).verifiedCheckpoints,['CP01']);contractCases++;
 console.log(JSON.stringify({information_contract_cases:contractCases,actual_contract_rows:R.application_preview.record.information_contract.rows.length,actual_criteria:R.application_preview.record.information_contract.criteria.length,synthetic_full_walk:audit(complete).verifiedCheckpoints.length,real_checkpoints:audit(R).verifiedCheckpoints.length,server_write_hook:'NOT_ENFORCED',pg:'NOT_RUN'}));
+
+// PR14: acceptance is measured at each boundary, not only by final checkpoint state.
+let pr14Cases=0;const cc=x=>globalThis.tqtCanonical(x);
+for(const [name,change] of [
+ ['all product fields removed',a=>a.information_contract.rows=a.information_contract.rows.filter(x=>x.contract_role!=='PRODUCT_SPEC')],
+ ['request identity removed',a=>a.information_contract.rows=a.information_contract.rows.filter(x=>x.field_code!=='requestId')],
+ ['interface graph removed',a=>a.information_contract.product_interfaces=[]],
+ ...['application_id','target_code','target_version','process_code','process_version','mot_version','rule_version','data_type','source_path','destination_field','nullable','cardinality','unit'].map(k=>[k,a=>a.information_contract.rows[2][k]='UNKNOWN']),
+ ...['input_ref','output_ref','recipient','input_schema','output_schema'].map(k=>['handoff '+k,a=>a.information_contract.handoffs[1][k]='OTHER']),
+ ['unknown output field',a=>a.information_contract.handoffs[0].output_fields=['FAKE']],
+ ['missing mapping',a=>delete a.information_contract.handoffs[1].mapping.scope]
+]){const r=clone(R);change(r.application_preview.record);assert(!audit(r).contract.ready,name);pr14Cases++;}
+for(const planId of ['P01','P02','P03','P04','P05']){
+ const r=clone(complete),a=r.application_preview.record,x=a.plan_results.find(x=>x.plan_id===planId);delete x.scope;
+ assert.equal(globalThis.tqtPayloadAudit(r,planId,x).state,'FAIL');assert(!audit(r).canFinish);pr14Cases++;
+}
+for(const [name,change] of [
+ ['missing preparation',a=>a.plan_results=a.plan_results.filter(x=>x.plan_id!=='P01')],
+ ['wrong preparation record ID',a=>a.plan_results[0].id='OTHER'],
+ ['wrong preparation payload',a=>a.plan_results[0].scope='OTHER'],
+ ['no execution history',a=>a.history=[]],
+ ['unassigned independent reviewer',a=>a.assignments.reviewer_id=null],
+ ['self assigned reviewer',a=>a.assignments.reviewer_id=a.actor]
+]){const r=clone(complete);change(r.application_preview.record);assert(!audit(r).canStart,name);pr14Cases++;}
+// Access statements inside a submitted document confer no trust by themselves.
+assert(!globalThis.tqtRecordAudit(complete).canStart);pr14Cases++;
+for(const field of ['schema_ref','key_fields']){const r=clone(complete),ep=r.application_preview.record.trial_endpoints[0];ep[field]=field==='schema_ref'?'catalog.NO_SUCH_SCHEMA':['NO_SUCH_KEY'];const {access_check,...spec}=ep;ep.access_check.spec_token=cc(spec);const trusted=clone(testTrust);trusted.endpoint_receipts[0].spec_token=cc(spec);assert(!globalThis.tqtRecordAudit(r,trusted).canStart);pr14Cases++;}
+const beforeEvidence=clone(complete.application_preview.record);
+for(const change of [a=>a.history=[],a=>a.checkpoint_checks=[],a=>a.checkpoint_checks[0].result='FAIL',a=>a.record_checks=[],a=>a.plan_results[0].output_ref='other',a=>a.decisions=[],a=>a.receipts=[],a=>a.test_cases=[],a=>a.trial_records.push({id:'NEW'})]){const after=clone(beforeEvidence);change(after);assert.equal(validate(beforeEvidence,after).state,'FAIL');pr14Cases++;}
+const revised=clone(beforeEvidence);revised.plan_results[0].output_version='2';revised.plan_results[0].output_ref='test-only:new-product';revised.evidence_revision=Number(beforeEvidence.evidence_revision||1)+1;revised.history.push({event:'EVIDENCE_REVISION',revision:revised.evidence_revision,actor:'TEST',reason:'Retain exact earlier evidence',at:'2026-10-11T00:00:00Z',previous_evidence:globalThis.tqtEvidenceMaterial(beforeEvidence)});assert.equal(validate(beforeEvidence,revised).state,'PASS');assert(!audit({...complete,application_preview:{...complete.application_preview,record:revised}}).canStart);pr14Cases++;
+assert.equal(validate(R.application_preview.record,clone(R.application_preview.record)).state,'PASS');pr14Cases++;
+console.log(JSON.stringify({pr14_boundary_cases:pr14Cases,synthetic_trusted_context_only:true,untrusted_self_attestation_blocked:true,real_checkpoints:audit(R).verifiedCheckpoints.length}));
+async function fileHandoffSlice(){
+ const os=require('os'),path=require('path'),cp=require('child_process'),crypto=require('crypto'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'tqt-handoff-TEST-'));
+ const write=(n,x)=>fs.writeFileSync(path.join(tmp,n),JSON.stringify(x)),read=n=>JSON.parse(fs.readFileSync(path.join(tmp,n),'utf8'));
+ const policy={environment:'TEST',receiver:'P02',expected_output_version:'1',expected_state_revision:0,read_allowed:true,write_allowed:true};
+ const call=mode=>{const p=cp.spawnSync(process.execPath,[__filename,process.argv[2]||__dirname+'/view.html','--test-handoff',mode,tmp],{encoding:'utf8',maxBuffer:2e6});assert.equal(p.status,0,p.stderr);return JSON.parse(p.stdout);};
+ let cases=0;try{
+  write('policy.json',policy);write('state.json',{revision:0,cancelled:false,received:null,effects:[]});const produced=call('produce'),packet=read('packet.json');
+  const accepted=call('consume');assert.equal(accepted.state,'ACK');assert.equal(accepted.sha256,produced.sha256);assert.equal(accepted.answer_count,R.application_preview.record.declarations.length);cases++;
+  assert.equal(call('consume').replayed,true);assert.equal(read('state.json').effects.length,1);cases++;
+  const reset=()=>{write('state.json',{revision:0,cancelled:false,received:null,effects:[]});write('policy.json',policy);write('packet.json',packet);};
+  for(const mutate of [p=>delete p.payload.scope,p=>p.payload.scope=12,p=>p.payload.target_version='OLD',p=>p.payload.application_id='OTHER',p=>p.payload.output_version='2',p=>p.recipient_plan_id='OTHER',p=>p.payload.data.answers[0].answer='Invented',p=>delete p.payload.data]){reset();const p=clone(packet);mutate(p);write('packet.json',p);const x=call('consume');assert.equal(x.state,'BLOCKED');assert.equal(x.return_to,'P01');assert.equal(read('state.json').effects.length,0);cases++;}
+  for(const change of [{read_allowed:false},{write_allowed:false}]){reset();write('policy.json',{...policy,...change});assert.equal(call('consume').state,'BLOCKED');cases++;}
+  reset();write('state.json',{revision:0,cancelled:true,received:null,effects:[]});assert.equal(call('consume').error,'CANCELLED');cases++;
+  reset();write('state.json',{revision:1,cancelled:false,received:null,effects:[]});assert.equal(call('consume').error,'CONCURRENT_REVISION');cases++;
+  reset();write('policy.json',{...policy,drop_ack_once:true});assert.equal(call('consume').state,'ACK_LOST');assert.equal(call('consume').replayed,true);assert.equal(read('state.json').effects.length,1);cases++;
+  reset();const parallel=()=>new Promise((resolve,reject)=>{const p=cp.spawn(process.execPath,[__filename,process.argv[2]||__dirname+'/view.html','--test-handoff','consume',tmp]);let out='';p.stdout.on('data',d=>out+=d);p.on('error',reject);p.on('close',code=>code?reject(Error(out)):resolve(JSON.parse(out)));});
+  const both=await Promise.all([parallel(),parallel()]);assert(both.some(x=>x.state==='ACK'));assert(both.every(x=>x.state==='ACK'||x.error==='CONCURRENT_WRITE'));assert.equal(read('state.json').effects.length,1);cases++;
+  const changed=clone(packet);changed.payload.at='2026-10-11T00:00:00Z';write('packet.json',changed);assert.equal(call('consume').error,'DUPLICATE_KEY_DIFFERENT_CONTENT');cases++;
+  const events=fs.readFileSync(path.join(tmp,'events.jsonl'),'utf8').trim().split('\n').map(JSON.parse);assert(events.some(x=>x.state==='BLOCKED'&&x.issue_master==='CAT-069?'&&x.owner&&x.return_to==='P01'));
+  console.log(JSON.stringify({pr14_file_handoff:{cases,state:'PASS',producer:'separate process; creates packet from declarations',consumer:'separate process; opens persisted packet and uses scope/answers',producer_sha256:produced.sha256,readback_sha256:accepted.sha256,concurrent_effect_count:read('state.json').effects.length,environment:'ISOLATED_TEST_NOT_MOW001_COMPLETION',real_endpoint_permissions:'NOT_PROVED',pg:'NOT_RUN'}}));
+ }finally{fs.rmSync(tmp,{recursive:true,force:true});}
+}
+fileHandoffSlice().catch(e=>{console.error(e);process.exitCode=1;});
+// Logical product-input schemas and cancellation identity; no backend or PG execution.
+{
+ const input={requestId:'TEST-REQ',revision:1,caller:{id:'TEST-CALLER',return_to:'TEST-INBOX',target_version:'TEST-V1'},query:'Find field',description:null,scope:{sources:['TEST'],permission_context:{}},filters:{}};
+ input.cancellation={requestId:input.requestId,revision:1,caller:clone(input.caller),scope:clone(input.scope),target_version:'TEST-V1',state:'cancelled',reason:'TEST cancel',cancelledAt:'2026-10-11T00:00:00Z'};
+ assert.equal(globalThis.tqtProductInputAudit(R,'1.3',input).state,'PASS');let cases=1;
+ for(const change of [x=>delete x.cancellation,x=>delete x.cancellation.reason,x=>x.cancellation.revision=2,x=>x.cancellation.caller.id='OTHER',x=>x.cancellation.scope.sources=['OTHER'],x=>x.cancellation.target_version='OLD',x=>x.cancellation.cancelledAt='not a date']){const x=clone(input);change(x);assert.equal(globalThis.tqtProductInputAudit(R,'1.3',x).state,'FAIL');cases++;}
+ const changed=clone(R);changed.work_master_designs.records.find(x=>x.code==='CAT-206*').validation.schemas.positive_integer.minimum=0;assert(!audit(changed).contract.ready);cases++;
+ for(const text of ['', 'abc', 'Hợp đồng thông tin', 'x'.repeat(10000)])assert.equal(globalThis.tqtSHA256(text),require('crypto').createHash('sha256').update(text).digest('hex'));
+ console.log(JSON.stringify({pr14_product_input_cases:cases,sha256_crosscheck_vectors:4}));
+}
+{
+ const request={requestId:'TEST',revision:1,caller:{id:'CALLER',return_to:'INBOX',target_version:'TEST'},query:'Find',description:null,scope:{sources:['TEST'],permission_context:{}},filters:{}};
+ const response={requestId:'TEST',revision:1,retrievalStatus:'success',candidates:[],evaluation:{status:'red',reasons:[],missingInformation:[],requestRevision:1,ruleVersion:'TEST'},source:{ref:'TEST-SOURCE',version:'1'},scope:clone(request.scope),version:'1',mode:'example',retrievedAt:'2026-10-11T00:00:00Z'};
+ const cancellation={requestId:'TEST',revision:1,caller:clone(request.caller),scope:clone(request.scope),target_version:'TEST',state:'cancelled',reason:'User cancelled TEST',cancelledAt:'2026-10-11T00:00:00Z'};
+ for(const [from,to,parts] of [['CALLER','1.1',{request}],['1.1','1.2',{request,response}],['1.1','1.3',{request,response}],['1.2','1.3',{request,response}],['1.2','1.3',{request,cancellation}]])assert.equal(globalThis.tqtMapProductHandoff(R,from,to,parts).state,'PASS');
+ assert.equal(globalThis.tqtMapProductHandoff(R,'1.1','1.3',{request}).state,'FAIL');
+ assert.equal(globalThis.tqtMapProductHandoff(R,'1.2','1.3',{request,response,cancellation}).state,'FAIL');
+ assert.equal(globalThis.tqtMapProductHandoff(R,'1.1','1.3',{request,response:{...response,revision:2}}).state,'FAIL');
+ console.log(JSON.stringify({pr14_product_mapping_cases:8,scope:'LOGICAL_PACKETS_NOT_BACKEND_EXECUTION'}));
+}

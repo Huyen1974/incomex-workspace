@@ -1,5 +1,7 @@
 # Hiện hành · Owner giao Host rà QTTH 05 và DOT · 11/10/2026
 
+P31/PR14 hiện hành: đọc README mục P31. CAT-206 schema 1.2, IC phiên 2; kiểm dữ liệu đã ghi/đọc từ P01, tập trường từ schema nguồn, lịch sử toàn bằng chứng. Gọi runner với registry mới đọc và --before-product bản trước. Chỉ trust do adapter thực thi cấp ngoài hồ sơ mới được dùng; PASS tự khai không đủ. Tệp TEST hai tiến trình không phải ca MOW001; reviewer thật UNASSIGNED, endpoint quyền thật/hook máy chủ còn mở. MOW001 0/7, không qua CP03.
+
 P30: trước khi thêm Master/DOT, đối chiếu danh sách sau ghép bằng runner hiện hữu với registry UI vừa đọc; thiếu đầu vào không được báo PASS. Dùng lại Master DOT ML-DEF-024, CAT-006 chỉ là alias có căn cứ. Không tạo Master/script thứ hai cho cùng nguồn/chức năng. Xem README mục DOT và bằng chứng host_review_P30. UI chặn danh sách có xung đột; rào ghi máy chủ còn mở.
 
 Owner giao trực tiếp phiên Codex này tiếp tục tools-quy-trinh, đi bộ từng bước theo phản biện GPT Pro, sửa điểm hở và quản lý tái sử dụng DOT/script/bộ kiểm. Giữ ⑤ và 7 mốc. Nguồn: COLLAB §0, README và catalog trong view.html. Phạm vi: nguồn thiết kế, bộ kiểm, danh mục và UI Master liên quan; không triển khai PG/production nghiệp vụ.

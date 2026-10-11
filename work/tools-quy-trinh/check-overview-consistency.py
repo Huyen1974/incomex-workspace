@@ -136,10 +136,12 @@ for fn in late:
  try:validate_application(a,c['catalog'])
  except AssertionError:pass
  else:raise AssertionError('premature completion accepted')
-# The positive path must also pass Python using exactly the JS regression evidence.
+# A serialized synthetic fixture cannot carry trusted runtime identity/access into another process.
 full=json.loads(subprocess.run(['node',str(Path(__file__).with_name('check-record-control.js')),str(path),'--complete-fixture'],text=True,capture_output=True,check=True).stdout)
 full['application_preview']['record']['state']='XONG'
-validate_application(full['application_preview']['record'],full)
+try:validate_application(full['application_preview']['record'],full)
+except AssertionError:pass
+else:raise AssertionError('self-contained fixture supplied its own trusted authority')
 source_check='LOCAL_PROJECTION_ONLY'
 source=Path(__file__).parent.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json'
 if source.exists():
@@ -155,4 +157,4 @@ candidate=copy.deepcopy(a);candidate['state']='SAN_SANG'
 try:validate_application(candidate,r);can_start=True
 except (AssertionError,KeyError,IndexError):can_start=False
 if not can_start and not missing:missing.append({'field':'application','need':'Khai báo, bộ câu hoặc xác nhận kế hoạch chưa hợp lệ; rà phiếu theo cổng S2','owner':a['actor']})
-print(json.dumps({'positive':2,'negative':len(mutations)+len(appmut)+len(late),'procedures':len(c['catalog']['records'])+len(c['catalog']['normal_processes']),'source_check':source_check,'application_state':a['state'],'can_start':can_start,'needs_before_start':missing,'next':a['next'],'production_ready':False},ensure_ascii=False))
+print(json.dumps({'positive':1,'negative':len(mutations)+len(appmut)+len(late)+1,'procedures':len(c['catalog']['records'])+len(c['catalog']['normal_processes']),'source_check':source_check,'application_state':a['state'],'can_start':can_start,'needs_before_start':missing,'next':a['next'],'production_ready':False},ensure_ascii=False))

@@ -8,11 +8,12 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-11 21:10 +07 · Astra Codex · P30
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-11 21:38 +07 · Astra Codex · P31
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② Thử ngoài PG: kho 13 câu khai đã có, 0/7 mốc] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã làm P29: dùng lại CAT-206*, khai hợp đồng áp dụng 3 MOT/5 giao bước và ca nghiệm thu; siết ghim phiên/nội dung xuyên kiểm–duyệt–ACK, sửa lỗi thiếu dòng kiểm, thêm kiểm trước–sau vào DOT hiện hữu. P30 sửa trùng DOT còn 47 Master, giữ ⑤/7 mốc; ca thật chưa qua mốc nào.
+- ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: kiểm độc lập hợp đồng áp dụng → hoàn thiện schema và thử ghi/đọc toàn đường MOW001 ngoài PG → đủ CP03 mới làm/kiểm/duyệt/nhận → ba ca khác loại → staging/rollback rồi cắt chuyển PG. Cưỡng chế kiểm trước–sau ở máy chủ còn mở; 34 địa chỉ đề xuất không có nghĩa 34 nơi ghi đã sẵn sàng.
 - ➡ Kế tiếp: Host hoàn thiện schema/bằng chứng nơi ghi; Reviewer được Owner gọi rà P29/hợp đồng G1, không tự lấy tự kiểm Host thay kiểm độc lập. Claude cập nhật các yêu cầu ô 3 theo kết luận P29 ở lượt được gọi. NEXT_TRIGGER=INDEPENDENT_CONTRACT_REVIEW_AND_SCHEMA_ALIGNED_TRIAL_ENDPOINTS
@@ -553,6 +554,17 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - — Q01 · ĐÃ GIẢI QUYẾT D22/D25: Astra Codex là Host nội dung; Claude là Host Kiểm soát (Bảng, ô 1–3). Mục tiêu ngắn: Owner tự viết ô 1 ngày 10/10 (D25), đã áp; PR-07 đóng. Không có câu hỏi Owner đang mở.
 
 ## Ý kiến và bằng chứng
+### P31 · Host xét PR14 · ACCEPT CÓ GIỚI HẠN, MOW001 VẪN 0/7
+- Nguồn PR14: proposals/TQT-PR-20261011-gptchat-p29-contract-chain-review-14.md (17096db); Host tái hiện mẫu 7/7 thiếu scope cả 5 kết quả, bỏ P01 vẫn canStart, bỏ PRODUCT_SPEC vẫn contract.ready. Đây là lỗi kiểm thực, không phải chỉ thiếu runtime.
+- R14-01 ACCEPT: kiểm payload giao và trường bước nhận trên chính bản đọc lại; scope và dữ liệu chuẩn bị P01 bắt buộc, sổ đối chiếu khớp ID/phiên/địa chỉ/token nội dung. Lát hai tiến trình ghi–đọc TEST đã thêm vào CHECK-004; chưa nhận là ca MOW001 thật.
+- R14-02 ACCEPT: tập bắt buộc từ schema logic CAT-206 theo nguồn luật/phiên/phạm vi MOT, không dựa số 51 hoặc 66. Xóa PRODUCT_SPEC/requestId/đầu nối bị chặn.
+- R14-03 ACCEPT: kiểu, cardinality/null/đơn vị, trường nguồn–đích, application/process/MOT/rule version so với schema có cấu trúc; schema được ghim SHA256. Trường gộp tách riêng, mapping request/response/cancellation và sự kiện hủy rõ. Đây là bản thiết kế 1.2, cần kiểm độc lập, chưa khẳng định đã nối schema PG.
+- R14-04 ACCEPT: kết quả PREPARE phải được đọc/đối chiếu từ CP02; mất P01 không thể vào CP03.
+- R14-05 ACCEPT: giữ lịch sử append-only và snapshot toàn bằng chứng trước đổi, tăng revision; không xóa record/checkpoint/decision/receipt, không đổi output_ref cùng phiên. Đường so trước–sau đã sửa; máy chủ chưa bắt buộc mọi lần ghi đi qua nó.
+- R14-06 ACCEPT / CÒN MỞ TÍCH HỢP: phân giải schema/khóa và không tin PASS tự khai. Phép ghi–đọc tệp TEST có bằng chứng độc lập hai tiến trình; ACL endpoint thật, adapter sinh trust và server write hook chưa triển khai. Không dùng TEST để cấp access_check thật.
+- R14-07 ACCEPT / CÒN CHỜ CHỈ ĐỊNH: reviewer độc lập phải khớp assignment và principal được bên thực thi xác minh; người TEST/P04 phải đúng danh tính. Không tự chỉ định người khác hoặc thay tự kiểm Host thành kiểm độc lập. Giữ assignment thật UNASSIGNED và chặn CP03.
+- Giữ ⑤/7 mốc, 47 Master và 6 DOT; sửa CHECK-003/004 hiện hữu, không nhân bộ. Bằng chứng ở UI-REVIEW-AGGREGATE.json#host_review_P31. JEV tham khảo gen-dec-1791728386-qeMLRHnijlndRhYJd6d1; không thay nghiệm thu độc lập.
+
 ### P30 · Owner chỉ ra trùng Master DOT / Danh mục DOT · HOST SỬA VÀ THÊM KIỂM TỰ ĐỘNG
 - Host nhận lỗi: kiểm riêng từng nguồn bỏ sót trùng khi ghép. ML-DEF-024/KNI-020 đã tồn tại; CAT-006 không được làm thành Master thứ hai.
 - Dùng lại ML-DEF-024, ghi alias CAT-006 có căn cứ tại catalog.master_identity; 6 công cụ cùng nguồn catalog.tool_registry. Giữ liên kết chi tiết cũ; sửa record_source sai từ work_schedule về tool_registry. Danh sách 48 dòng trước thành 47 Master, không mất bản ghi.
