@@ -1,14 +1,14 @@
 {
   "host_review_P26": {
-    "state": "LOCAL_CHECKED_VPS_PENDING",
+    "state": "DESIGN_CHECKED_VPS_RUNTIME_BLOCKED",
     "report": {
-      "run_id": "TQT-350ece6466e14e029aadccd0643d7baa",
-      "at": "2026-10-11T08:03:12.094275+00:00",
+      "run_id": "TQT-4c1d2dd042c74fd99c248eaffe4401a9",
+      "at": "2026-10-11T08:10:39.443840+00:00",
       "scope": "work/tools-quy-trinh/**/*.py, **/*.js; không tuyên bố bao phủ toàn VPS",
       "registry_master": "CAT-006",
       "case_master": "CAT-012",
       "result_master": "CAT-015",
-      "source_sha256": "a568b329d819d306145743bbaad769d05d3501351d7830ab322cc5fd55bce6c6",
+      "source_sha256": "85a7b5ffcbf825aea65d953dc77c2f47516024ec2fe868df74283d7d32fb8380",
       "inventory_errors": [],
       "results": [
         {
@@ -81,8 +81,9 @@
       "pg": "NOT_RUN",
       "production_ready": false,
       "ui_adapter_sha256": "0ba4537716da3b98aa568e1023a4e258c167427d42402bc6b2441771a71830cf",
+      "prerequisite_errors": [],
       "runner_self_test": {
-        "cases": 7,
+        "cases": 10,
         "store": "temporary TEST file in execution snapshot",
         "write_read_restore": "PASS",
         "production": "NOT_TOUCHED"
@@ -95,7 +96,126 @@
       "PG concurrency and runtime enforcement",
       "Full VPS DOT inventory",
       "Fresh AI product end-to-end"
-    ]
+    ],
+    "vps_preflight": {
+      "job_id": "4f778602ecbe48088f649a68fb77352c",
+      "status": "completed",
+      "position": 0,
+      "created_at": 1791706185.349906,
+      "started_at": 1791706185.4141638,
+      "heartbeat": 1791706193.1743143,
+      "elapsed": 7.76,
+      "cancel_requested": false,
+      "critical_phase": false,
+      "attempts": 1,
+      "result": {
+        "streams": {
+          "stdout": {
+            "bytes": 653,
+            "sha256": "a3f34af6587a7eb505f0c0d7f99ffb59bb38f88e45de41423754a8a9cc250e4f",
+            "protected": false
+          },
+          "stderr": {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "protected": false
+          }
+        },
+        "exit_code": 3,
+        "timed_out": false,
+        "snapshot_excluded": [],
+        "source_head": "fbcac6b43d48e466a8f5026bfa295a5e75469b05",
+        "source_head_at_queue": "fbcac6b43d48e466a8f5026bfa295a5e75469b05",
+        "source_head_moved": false,
+        "stdout": "{\"run_id\": \"TQT-6784d3ae08924319b849aed4b307284d\", \"at\": \"2026-10-11T08:09:52.131502+00:00\", \"scope\": \"work/tools-quy-trinh/**/*.py, **/*.js; không tuyên bố bao phủ toàn VPS\", \"registry_master\": \"CAT-006\", \"case_master\": \"CAT-012\", \"result_master\": \"CAT-015\", \"source_sha256\": \"cffe3901455e760461cc535bfd96eb96bbe1527c92d40575759180d039d00408\", \"inventory_errors\": [], \"results\": [], \"pg\": \"NOT_RUN\", \"production_ready\": false, \"prerequisite_errors\": [\"MISSING_RUNTIME:node\"], \"runner_self_test\": {\"cases\": 10, \"store\": \"temporary TEST file in execution snapshot\", \"write_read_restore\": \"PASS\", \"production\": \"NOT_TOUCHED\"}, \"status\": \"BLOCKED\"}\n",
+        "stdout_next_offset": null,
+        "stderr": "",
+        "stderr_next_offset": null
+      }
+    },
+    "vps_initial": {
+      "run_id": "TQT-39b3f7d68f684732b218d0273e7ec08b",
+      "at": "2026-10-11T08:04:25.282731+00:00",
+      "scope": "work/tools-quy-trinh/**/*.py, **/*.js; không tuyên bố bao phủ toàn VPS",
+      "registry_master": "CAT-006",
+      "case_master": "CAT-012",
+      "result_master": "CAT-015",
+      "source_sha256": "a568b329d819d306145743bbaad769d05d3501351d7830ab322cc5fd55bce6c6",
+      "inventory_errors": [],
+      "results": [
+        {
+          "id": "TQT-CHECK-001",
+          "case_set": "TQT-CASE-MODEL",
+          "source_sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
+          "argv": [
+            "python3",
+            "check-process-model.py",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"status\": \"SIMULATION_ONLY\", \"passed\": 87, \"model_sha256\": \"f55fcf4fa78b22005604b62d025487f4a3977b5cc106bb9f3b0a6c0a8713ce5a\", \"package_state\": \"NOT_FROZEN\", \"production_ready\": false}\n",
+          "stderr": ""
+        },
+        {
+          "id": "TQT-CHECK-002",
+          "case_set": "TQT-CASE-CATALOG",
+          "source_sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
+          "argv": [
+            "python3",
+            "check-process-catalog.py",
+            "view.html"
+          ],
+          "exit_code": 1,
+          "stdout": "",
+          "stderr": "Node.js required for checkpoint tests; use --references-only for reference validation only.\n"
+        },
+        {
+          "id": "TQT-CHECK-003",
+          "case_set": "TQT-CASE-DECLARATION",
+          "source_sha256": "955657ecfba4b5c948eb08cffc665ed5e2c4c97f106d673e291687df7bf066ed",
+          "argv": [
+            "python3",
+            "check-overview-consistency.py",
+            "view.html"
+          ],
+          "exit_code": 1,
+          "stdout": "",
+          "stderr": "Traceback (most recent call last):\n  File \"/project/work/tools-quy-trinh/check-overview-consistency.py\", line 123, in <module>\n    try:validate_application(ready,c['catalog'])\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/project/work/tools-quy-trinh/check-overview-consistency.py\", line 45, in validate_application\n    if a['state'] in ['SAN_SANG','DANG_LAM','DANG_KIEM','CHO_DUYET','DA_BAN_GIAO','XONG']:assert gate(a,r)['canStart'], 'RECORD_GATE_CP03'\n                                                                                                 ^^^^^^^^^\n  File \"/project/work/tools-quy-trinh/check-overview-consistency.py\", line 20, in gate\n    proc=subprocess.run(['node',str(Path(__file__).with_name('check-record-control.js')),str(path),'--audit'],input=json.dumps(d),text=True,capture_output=True,check=True)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.11/subprocess.py\", line 548, in run\n    with Popen(*popenargs, **kwargs) as process:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.11/subprocess.py\", line 1026, in __init__\n    self._execute_child(args, executable, preexec_fn, close_fds,\n  File \"/usr/local/lib/python3.11/subprocess.py\", line 1955, in _execute_child\n    raise child_exception_type(errno_num, err_msg, err_filename)\nFileNotFoundError: [Errno 2] No such file or directory: 'node'\n"
+        },
+        {
+          "id": "TQT-CHECK-004",
+          "exit_code": 1,
+          "error": "[Errno 2] No such file or directory: 'node'"
+        },
+        {
+          "id": "TQT-CHECK-005",
+          "exit_code": 1,
+          "error": "[Errno 2] No such file or directory: 'node'"
+        }
+      ],
+      "pg": "NOT_RUN",
+      "production_ready": false,
+      "runner_self_test": {
+        "cases": 7,
+        "store": "temporary TEST file in execution snapshot",
+        "write_read_restore": "PASS",
+        "production": "NOT_TOUCHED"
+      },
+      "status": "FAIL"
+    },
+    "ui": {
+      "overview": "live due 20, deferred 14, verified 0/7; 0/20 due written",
+      "master_index": 48,
+      "CAT-006": 6,
+      "adapter_sha256": "0ba4537716da3b98aa568e1023a4e258c167427d42402bc6b2441771a71830cf",
+      "observed_source_commit": "fbcac6b43d48e466a8f5026bfa295a5e75469b05",
+      "parent_console_error": "Existing Directus Auth Init Error on parent; content and Master loaded. No claim of working PG auth."
+    },
+    "next_action": {
+      "owner": "Host tools-quy-trinh / đường quản lý hạ tầng hiện hữu",
+      "action": "Bổ sung Node.js vào image workspace_exec qua DOT/đường hạ tầng được quản lý, rồi chạy lại runner. Khép mapping/quyền và phép thử Master thật trước CP03.",
+      "state": "OPEN in TQT-ISS-007 / P26"
+    }
   },
   "host_review_P23": {
     "source": "29f59d9b613d0e69670ae3240f2dc0838753a1b5",
