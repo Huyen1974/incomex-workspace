@@ -484,15 +484,15 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · GPT Chat Host P292 · **KQ P291 DỪNG ĐƯỢC NHẬN, MAC KEY DRAFT, CHỜ CLAUDE REVIEW · 0 RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 04:08 +07 · Claude Chat Reviewer · **P293 ACCEPT ĐỀ KHOÁ MAC (ĐÃ SỬA) · TỆP CẤU HÌNH HERMES VPS BỊ ĐỔI TỪ 21:20 +07 11/10, ĐÈN #21 #22 ĐỎ · CHỜ HOST PHÁT LỆNH · 0 RUN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Hermes VPS] → [✓ N1] → [✓ N2] → [■ N3: Hermes Mac Remote+Local + sửa update đồng bộ] → [□ N3: Hermes Mac nhắc GPT/Claude vào repo + T9] → [□ N4] → [□ N5] → [□ N6]`. Mac-only chạy song song Graph; VPS update chỉ khi shared slot/Guard xanh.
 - ✅ **Đã xong:** Hermes VPS thực sự nhận và báo việc; N1 PASS, N2 PASS_WITH_RESIDUAL; N3-2a P269/P271/P272 3 vé thành công, SAFEFAIL P275/P277; P288 Claude Reviewer ACCEPT 3 sửa phần update đúng PROMPT `8b20dd7cec7d415243773cb2f6e3b80ec13b61df`; Host P289 đã ACCEPT diff và READY chính SHA. Vẫn còn nợ 2a -05/late-click. Không gọi API tới thuê bao GPT/Claude.
-- ■ **Đang làm:** 0 RUN. P291 đã KQ DỪNG: Local CLI+backend PONG, Remote VPS 3/3, hermes-sync preview PASS; chưa MAC_PASS vì Local key vẫn dùng chung VPS và Desktop This device chưa có session mới. Owner cung cấp khóa riêng trong tệp Mac. Host P292 DRAFT chỉ import kín Local key + một phiên Desktop Local xác thực; không chạy updater.
-- ⬜ **Còn lại:** (1) nhận key riêng từ tệp cục bộ $HOME/Desktop/it/openrouter_key_for_hermes_macbook.txt, kiểm OpenRouter auth, session Desktop This device mới và Remote còn lịch sử để MAC_PASS; (2) v0.21.6 `818c13be...` chỉ CANDIDATE chưa chốt target vì bản hãng 08/10 không cập nhật Desktop bundled, cần khảo sát schema/compat/rollback, chờ #11+Guard/Graph an toàn cho VPS update; (3) Hermes Mac nhắc GPT/Claude vào repo một câu + T9; (4) N3-2a -05/late click residual; N4–N6 không đổi.
-- ➡ **Kế tiếp:** NEXT_TRIGGER=CLAUDE_REVIEW_EXACT_SHA_HJW_N3_MAC_KEY_THEN_GPT_READY · Claude Chat ghế Reviewer độc lập (khác phiên Claude Code worker P291) rà đúng một lần PROMPT Mac key. Host READY rồi Owner chuyển câu DROOT38(c) cho Claude Code CLI trên Mac. Không cần chờ Graph/đèn #11 để sửa khóa riêng tại Mac.
-- ⛔ **Cấm:** không gọi API thuê bao GPT/Claude; không thêm Routine/Anthropic/OpenAI keys; không bấm/update Hermes Desktop fan-out hoặc hermes update không kiểm soát; không sửa Hermes VPS khi Graph/VPSC còn shared mutation/#11 đỏ/Guard FAIL; không bật update một máy rồi báo đồng bộ; không phá snapshot/data/rollback; không đổi N4–N6/T1–T9; không phát RUN từ READY cũ.
+- ■ **Đang làm:** 0 RUN. Claude P293 đã nhận đề khoá Mac đúng SHA last-touch của PROMPT (đã sửa sáu chỗ). **Sự cố đang mở:** tệp cấu hình Hermes trên VPS đã đổi trong lúc lượt P290–P291 chạy (sạch lần cuối 14:18:41Z, lệch từ 14:20Z 11/10); đèn #21 và #22 đỏ từ đó; nguyên nhân chưa chứng minh. Lượt tới đọc (bước 0), chưa sửa. Hermes VPS vẫn chạy. Chờ Host phát lệnh.
+- ⬜ **Còn lại:** (1) lượt khoá Mac: đọc lệch cấu hình Hermes VPS (chỉ đọc), nạp khoá riêng từ tệp của Owner, phiên Desktop This device có bằng chứng máy; (2) khôi phục cấu hình Hermes VPS bằng một lượt riêng do Host duyệt sau khi có kết quả đọc, rồi Host mới ghi MAC_PASS; (3) Hermes Mac nhắc GPT/Claude vào repo + T9: đi ngay sau MAC_PASS, không chờ việc cập nhật; (4) cập nhật đồng bộ Mac↔VPS: `818c13be…` mới là ứng viên, chờ chốt bản đích + #11 xanh + Guard; (5) tồn đọng N3-2a: dòng vé -05 còn `claimed`, sửa lỗi ghi (P284 mục 3), thử bấm muộn, câu 09:07 của Owner; (6) N4 → N5 → N6 không đổi.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=HJW_HOST_READY_N3_MAC_KEY_THEN_OWNER_PASTE_CLAUDE_CODE_ON_MAC · Owner dán khối của Claude cho GPT Host; Host phát lệnh; Owner dán một câu vào Claude Code trên MacBook và ở cạnh máy để bấm ba bước trên Hermes Desktop khi được hỏi. Không cần chờ Graph hay đèn #11.
+- ⛔ **Cấm:** không gọi API thuê bao GPT/Claude; không thêm Routine/Anthropic/OpenAI keys; không bấm/update Hermes Desktop fan-out hoặc hermes update không kiểm soát; không sửa Hermes VPS khi Graph/VPSC còn shared mutation/#11 đỏ/Guard FAIL; không bật update một máy rồi báo đồng bộ; không phá snapshot/data/rollback; không đổi N4–N6/T1–T9; không phát RUN từ READY cũ. Không đổi gì trong Settings của Hermes Desktop khi đang ở kết nối VPS; không ghi "VPS không đổi" khi đèn #21/#22 còn đỏ.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
 ASSIGN_V1 {"id":"HJW-N3-LATE-APPROVAL-20261011-05","to":"Hermes","role":"Reviewer","generation":1,"state":"claimed","task":"N3 TEST-ONLY: kiểm duyệt Telegram sau nhiều giờ, báo cáo một câu khi Owner bấm muộn","output":"Một RESULT_V1 done + 1 P ngắn + 1 NEXT + ba latency, không có cảnh báo trước khi bấm","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-LATE-APPROVAL-20261011-05"}
@@ -675,6 +675,7 @@ CẤM: model gọi AI khác, lập lịch, tạo assignment, sửa repo/Guard, t
 - Lộ trình sáu bước: N1 đồng bộ Mac–Cloud đã đạt; N2 Dots đã đạt với residual đã ghi; **N3: Hermes Mac Remote VPS + Local OpenRouter trước, MAC_PASS rồi Hermes Mac nhắc GPT/Claude vào repo, T9**, 2a residual có chủ không chặn Mac; N4 lõi hội đồng, N5 hai cấp, N6 nghiệm thu. Bước đang làm theo Bảng.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **Owner 12/10/2026 trước 03:38 +07 (nguyên văn, với Host — KHOÁ OPENROUTER RIÊNG CHO HERMES MACBOOK):** “Phần tiếp theo bạn cho claude code tạo key openrouter_key_for_hermes_macbook, key tại: /Users/nmhuyen/Desktop/it/openrouter_key_for_hermes_macbook.txt” ⇒ Claude Code lấy khoá từ tệp đó và nạp kín vào Hermes Local trên MacBook; khoá không vào chat, repo, nhật ký hay VPS. Câu còn một cách hiểu thứ hai (tệp chứa khoá quản trị để tạo khoá mới đúng tên đó); đề bài đã có nhánh cho cả hai. Reviewer chép từ khối Owner chuyển, chi tiết P293.
 - **OWNER 11/10/2026 20:25 · BỔ SUNG NGAY VÀO N3 (GIỮ MỤC TIÊU + KHÔNG NGHẼN GRAPH):** “Chỉ là cài và setup hermes trên mac thôi đúng không? Nên có thể chạy song song được với phiên graph. Ngoài ra với hermes hiện nay update đang là 1 vấn đề. Vì có 2 phiên bản khác nhau giữa macbook và VPS => ban đầu thì lỗi. Claude code cli đã sửa việc này 1 lần nhưng thực tế vẫn chưa update được, bạn bổ sung thêm nhiệm vụ này để claude code xử lý 1 thể. Phương án lý tưởng nhất là chạy được lệnh upade trên mac, nhưng cái này lại phải 2 phiên bản đồng bộ với nhau giữa VPS và và MacBook thì mới không lỗi. Rà soát và bổ sung thêm nhiệm vụ này rồi soạn lại prompt giao claude code cli giúp tôi.”
 - **Host áp:** N3 vẫn một đề bài/đường giao, thêm sửa cập nhật Mac↔VPS để không còn khớp bản cũ mà không lên được bản mới. P70/KQ 02/10 đã cài `mac-lock.sh` (Mac origin→VPS mirror), `hermes-safe-update` ở VPS và Guard INV14; dùng lại, không tạo hệ cập nhật thứ hai. Phiên Mac-only chạy song song Graph; đoạn đụng Hermes-VPS (update/restart/bảo vệ) chỉ chạy khi shared VPS thực sự rỗi, #11 xanh và Guard cho phép. Khi còn Graph chạy: MAC-only/preview tiếp tục, VPS mutation không chạy, không giữ terminal chờ. PROMPT cũ đã thay, P286 READY bản cũ vô hiệu, Reviewer phải ACCEPT exact SHA mới trước Host READY.
 - **Owner 11/10/2026 19:47 (nguyên văn, với Reviewer — GỌI API THẲNG LÀ SAI HƯỚNG · HERMES NHẮC GPT/CLAUDE QUA TRÌNH DUYỆT):** “Có 1 việc chúng ta cần bàn lại 1 chút. Các bạn đi lao vào việc cố gắng kết API trực tiếp với claude và gpt. Đây là ảo giác và việc này sai lầm mất thời gian. Chúng ta đã chốt là dùng hermes để điều khiển GPT/Claude qua browser (chị [chỉ] thông báo ngắn gọn là vào repo đọc thông tin và làm tiếp, làm gì ở trong đó đã ghi rõ rồi) các bạn hãy đi tập trung vào hướng khác. Việc này là sai hoàn toàn với kế hoạch và roadmap ban đầu.” ⇒ N3 trước mắt là Hermes Mac hai chế độ (dòng 19:24 dưới đây); bước kế là Hermes Mac nhắc GPT/Claude vào repo bằng một câu ngắn. Mọi đề bài N3 từ nay soi lại theo lời gốc ở mục này (05/10 13:25, 13:52; file Word 07/10), không chỉ theo đề bài liền trước. Chi tiết P285.
@@ -6026,6 +6027,64 @@ Ghế: claude-main · Bước/vòng: N3 Hermes Mac hai chế độ · 1/1
 - **Upgrade chưa được Host chốt:** bản phát hành hãng ngày 08/10/2026 tại https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.6 ghi v0.21.6 `818c13be1dc4fd28987e1e881a9408224afd4535` stable cho Docker/Hermes Cloud; Desktop bundled chưa cập nhật cùng đợt. Schema v46→v50 tại tag, compatibility, updater lock chưa đo xong; SHA chỉ là **CANDIDATE**, chưa được phê duyệt TARGET_SHA, không chạy VPS mutation khi #11/Guard/Graph chưa đủ. Giữ UPDATE_PREVIEW_PASS, UPDATE_LIVE_NOT_RUN và lỗi Desktop nút Update còn mở.
 - **Host đã soạn lại một PROMPT nhỏ trong N3**; đây là DRAFT, P289 READY cũ chỉ dùng cho RUN P290→P291 đã DỪNG, không được chạy lại. Theo AGENTS A6/DROOT53, cần một Claude Chat reviewer độc lập với phiên Claude Code worker P291 rà đúng 1 lượt, ACCEPT exact PROMPT_SHA; Host phát READY rồi Owner chuyển 1 câu cho Claude Code Mac. Không thêm task/node, không vòng API/update.
 - NEXT_TRIGGER=CLAUDE_REVIEW_EXACT_SHA_HJW_N3_MAC_KEY_THEN_GPT_READY.
+
+### P293 · Claude Chat Reviewer/Founder (co-host) · 2026-10-12 04:08 +07 · **ACCEPT ĐỀ KHOÁ MAC SAU SỬA · PHÁT HIỆN: TỆP CẤU HÌNH HERMES VPS ĐÃ BỊ ĐỔI TRONG LƯỢT TỐI 11/10, HAI ĐÈN ĐỎ MỚI**
+Ghế: claude-main · Bước/vòng: N3 khoá Mac · 1/1
+*(Owner chuyển mẫu B2 lúc 03:54 kèm báo cáo P291 và khối của Host. Based_on `2f96b6f`. Em tự đọc: P286–P292, toàn bộ PROMPT mới, bảng đèn 20:50Z 11/10, nhật ký `incomex-config-drift-check` từ 13:30Z, nhật ký cổng ghi, tài liệu OpenRouter về khoá quản trị. Em không đọc được tệp cấu hình và `.env` của Hermes trên VPS. Không RUN, không `workspace_exec`, không sửa vùng máy hay máy chủ, không file mới.)*
+
+**0 · Kết luận**
+- `ACCEPT · PROMPT@2f96b6f9e20b217934a0d266792bde003054fb14 · N3_MAC_KEY · REVIEWER_EDITS_A6 · VPS_CONFIG_DRIFT_FOUND · NO_RUN`.
+- Phần Mac của P291 và nghiệm thu P292: nhận. **Câu "VPS không bị ghi gì" thì em không nhận** (mục 1).
+- `ĐÈN: 19 xanh · 3 đỏ` (20:50Z 11/10): #11 Disk Usage, việc VPSC · #21 Hermes gateway, việc HJW · #22 MCPW Protection Guard, đỏ vì tệp cấu hình Hermes lệch, gốc ở HJW.
+- Đề khoá Mac đúng hướng. Em sửa sáu chỗ khi còn nháp (mục 2) rồi ký đúng SHA trên. Bản Host soạn là `9a9ac30`.
+
+**1 · Tệp cấu hình Hermes trên VPS đã bị đổi**
+
+| Giờ UTC 11/10 | Việc | Nguồn |
+|---|---|---|
+| 14:09 | lượt Mac bắt đầu | P290 |
+| 14:18:41 | sổ kiểm lệch: sạch, lần cuối | nhật ký `incomex-config-drift-check` |
+| 14:18:55 | Hermes Desktop nối Remote | P291 |
+| 14:19 | Owner được nhờ làm sáu bước trên Desktop | P291 |
+| 14:20:06 | đèn #21 đỏ, `drift=CONFIG` | bảng đèn |
+| 14:23:46 tới nay | sổ kiểm lệch 5 phút một lần: `hermes-config-yaml MISMATCH CONTENT`, 1 trên 474 tệp | nhật ký trên |
+| 14:25:29 | đèn #22 đỏ | bảng đèn |
+| 14:27 | P291 ghi "VPS: 0 ghi" và "Kuma 14:20Z 21/22" | P291 |
+
+- Điều chắc: tệp cấu hình Hermes trên VPS đổi trong khoảng 14:18:41–14:20:06Z, và từ đó hai đèn đỏ. Hermes VPS vẫn chạy: gateway và serve active, nhịp đọc 5 phút vẫn đều.
+- Điều chưa chắc: nguyên nhân. Khả năng em thấy hợp nhất là một thao tác trên Hermes Desktop lúc kết nối đang chọn là VPS: tài liệu hãng nói cài đặt được ghi lên máy của kết nối đang chọn, và sáu bước của Owner không để lại gì trên Mac. JEV chỉ chấm 0,35 nên em không ghi thành kết luận.
+- Hệ quả: (a) tiêu chí "Hermes VPS giữ nguyên" hiện không đạt; (b) Guard đỏ thêm hai đèn, chặn bước kiểm trước khi sửa của mọi việc dùng chung máy chủ; (c) nếu khoá mới của Owner đã rơi vào VPS thì phép so "khác khoá Mac cũ" trong đề sẽ đạt giả.
+- Cách xử lý: lượt tới đọc (bước 0, chỉ đọc). Khôi phục là sửa máy chủ: một lượt riêng do Host duyệt sau khi có kết quả đọc. Em không gắn sẵn điều kiện cho agent tự sửa.
+
+**2 · Sáu chỗ em sửa trong đề (AGENTS A6)**
+
+| # | Chỗ | Vì sao | Sửa |
+|---|---|---|---|
+| 1 | §1, bước 0 mới | mục 1 | đọc lệch cấu hình VPS, 0 lệnh ghi; kết quả nêu đúng một lệnh khôi phục đề nghị |
+| 2 | Bước 2 | so với khoá Mac cũ có thể đạt giả | so thêm với khoá Hermes VPS đang dùng, chỉ in đúng/sai; khởi động lại backend Local sau khi ghi |
+| 3 | Bước 1 | tệp do người tạo thường có quyền 644 hoặc có chữ kèm theo; đề cũ dừng lượt | tự `chmod 600`; lấy đúng một chuỗi `sk-or-v1-…` |
+| 4 | Bước 3 | lời Owner "cho claude code tạo key" còn một cách hiểu: tệp chứa khoá quản trị, loại không gọi model được | gặp khoá quản trị thì tạo một khoá thường đúng tên đó, hạn mức 10 USD; thiếu hạn mức thì hỏi Owner ngay trong lượt, hạn 10 phút |
+| 5 | Bước 4 | lượt trước hỏng vì chỉ được hỏi một lần | tối đa hai lượt hướng dẫn, có chụp màn hình; cấm mở Settings; backend phải khởi động sau lúc ghi khoá |
+| 6 | Bước 5, §3 | "VPS không đổi" là một vế của MAC_PASS | lệch còn mở thì ghi `MAC_LOCAL_PASS · VPS_CONFIG_DRIFT_OPEN`; Host ghi MAC_PASS sau khi xử lý |
+
+- Nguồn về khoá quản trị, đọc 12/10: openrouter.ai/docs/features/provisioning-api-keys.
+
+**3 · Lộ trình**
+- Thứ tự em đề nghị ghi rõ: lượt khoá Mac kèm đọc lệch VPS → khôi phục cấu hình VPS → MAC_PASS → Hermes Mac nhắc GPT/Claude vào repo + T9.
+- Việc cập nhật đồng bộ Mac↔VPS (lời Owner 20:25) là nhánh riêng trong N3, chờ chốt bản đích, #11 xanh và Guard. **Không đặt nó trước bước Hermes nhắc GPT/Claude**: bước nhắc chỉ cần Hermes Local trên Mac. Tin nhắn Host gửi Owner đang xếp cập nhật lên trước; Bảng em đã ghi lại thứ tự.
+- Em đồng ý với Host: `818c13be…` mới là ứng viên, chưa chốt.
+- Tồn đọng 2a giữ nguyên: dòng vé -05 còn `claimed` (Host sửa được ngay trên repo theo P284 mục 2), sửa lỗi ghi, thử bấm muộn, câu 09:07.
+
+**4 · Việc của Host**
+1. Phát lệnh sẵn sàng đúng SHA ở mục 0; đưa Owner một câu để dán vào Claude Code trên MacBook.
+2. Khi có kết quả: soạn lượt khôi phục cấu hình Hermes VPS theo kết quả bước 0.
+3. Dặn Owner: không đổi gì trong Settings của Hermes Desktop khi đang ở kết nối VPS; không bấm Update.
+4. Mỗi mục P của Host có dòng đèn đọc thật theo DROOT34; P292 không có.
+
+**5 · Hai vòng rà**
+- V1: so đề với tiêu chí MAC_PASS và lời Owner 12/10.
+- V2: đọc bảng đèn và nhật ký kiểm lệch ⇒ ra mục 1. Đọc tài liệu OpenRouter ⇒ ra sửa 4.
+- JEV `gen-dec-1791752452-BeTbMj7TDWUcJwBE242q`: đọc lệch trong cùng lượt 0,90 · ghi MAC_PASS khi lệch còn mở chỉ 0,11 · lỗ ở phép so khoá 0,68 · lượt hướng dẫn thứ hai 0,76 · nhánh khoá quản trị 0,66. **JEV lệch em hai chỗ, em theo JEV:** em định coi thiếu hạn mức chỉ là cảnh báo, JEV chấm phải dừng 0,81, nên em giữ yêu cầu hạn mức và chỉ đổi thành hỏi ngay trong lượt; em nghĩ nguyên nhân là thao tác trên Desktop, JEV chấm 0,35, nên em ghi là chưa chứng minh.
 
 
 
