@@ -9278,7 +9278,8 @@ main{max-width:1240px} [hidden]{display:none!important}
     "note": "Mã mô phỏng cũ giữ nguyên để không đổi lịch sử; trỏ một quy trình chuẩn, không phải quy trình thứ hai."
   }
 }</script>
-<script id="tqt-composite-processes" type="application/json">{
+<script id="tqt-composite-processes" type="application/json">
+{
   "schema": "TQT-COMPOSITE-PROCESSES-1",
   "updated": "2026-10-09",
   "host": "Astra Codex",
@@ -12048,16 +12049,16 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "code": "CAT-227*",
-            "name": "Sổ lượt chạy MOW · hồ sơ chính",
+            "name": "MASTER TIẾN TRÌNH CÔNG VIỆC",
             "catalogued": true,
-            "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-227%2A",
+            "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html?master=DEF00.1#work-progress",
             "source_state": "UNVERIFIED",
             "ui_state": "DESIGN",
             "source_hint": "process_run_observation?",
             "ui_links": [
               {
                 "label": "UI.MASTER.TQT.227 · thiết kế",
-                "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-227%2A"
+                "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html?master=DEF00.1#work-progress"
               }
             ],
             "gap": "Nguồn lưu chưa xác minh. Đã có UI list + mẫu khai báo trong khu Master đang rà; chưa duyệt/chưa nối PG.",
@@ -13777,27 +13778,52 @@ main{max-width:1240px} [hidden]{display:none!important}
       "records": [
         {
           "code": "CAT-227*",
-          "name": "Sổ lượt chạy MOW · hồ sơ chính",
-          "view_name": "Tiến trình các việc · QTTH 05",
+          "name": "MASTER TIẾN TRÌNH CÔNG VIỆC",
+          "view_name": "MASTER TIẾN TRÌNH CÔNG VIỆC",
           "parent": "UI.MASTER",
           "ui_code": "UI.MASTER.TQT.227",
-          "url": "./process-work-master-v1.html?master=CAT-227%2A",
+          "url": "./master-design-review-v1.html?master=DEF00.1#work-progress",
           "state": "DESIGN_ONLY",
           "columns": [
             {
               "key": "state",
-              "label": "Tiến độ",
-              "help": "Mốc và tình trạng lấy từ hồ sơ đúng việc/phiên. Chưa đến lượt không có nghĩa đã bắt đầu."
+              "label": "Trạng thái",
+              "help": "Vòng đời của việc; mốc được theo dõi riêng."
+            },
+            {
+              "key": "checkpoint",
+              "label": "Mốc đang làm",
+              "help": "Mốc đang chuẩn bị không có nghĩa đã kiểm đạt."
             },
             {
               "key": "blocker",
-              "label": "Còn vướng / điều kiện tiếp",
-              "help": "Việc chưa đủ, hoặc việc trước phải đạt. Chỉ kết thúc khi có đủ bằng chứng nghiệm thu và bàn giao."
+              "label": "Đang mắc ở đâu?",
+              "help": "Ghi thiếu gì và cần làm gì tiếp; chờ phụ thuộc không tự coi là sai."
             },
             {
               "key": "next_owner",
               "label": "Ai làm tiếp",
-              "help": "Người chịu trách nhiệm cho hành động tiếp theo; chưa có phải hiện Chưa khai."
+              "help": "Người nhận hành động tiếp theo."
+            },
+            {
+              "key": "tier",
+              "label": "Tầng",
+              "help": "Tầng đối tượng của việc: T3 chuyên môn, T2 MOW, T1 MOT, T0.5 MOIT/MOUT, T0 Field. Không nhầm tầng đối tượng đang xử lý."
+            },
+            {
+              "key": "specialty",
+              "label": "Chuyên môn",
+              "help": "Liên kết chuyên môn T3 đã xác minh; chưa có ghi Chưa khai."
+            },
+            {
+              "key": "actual_start",
+              "label": "Bắt đầu",
+              "help": "Ngày bắt đầu thực tế; không dùng ngày kế hoạch thay thế."
+            },
+            {
+              "key": "actual_finish",
+              "label": "Kết thúc",
+              "help": "Ngày hoàn tất vòng công việc hiện tại; không thay ngày cho nghỉ."
             }
           ],
           "fields": [
@@ -13864,13 +13890,17 @@ main{max-width:1240px} [hidden]{display:none!important}
               "type": "select",
               "required": false,
               "options": [
-                "Chưa đến lượt",
+                "Ghi danh",
                 "Chuẩn bị",
-                "Đang làm",
+                "Đang thực hiện",
                 "Đang kiểm",
-                "Đang mắc",
-                "Đã bàn giao",
-                "Kết thúc không thực hiện"
+                "Chờ duyệt",
+                "Đã hoàn tất bàn giao",
+                "Đang sử dụng",
+                "Đang nâng cấp",
+                "Tạm dừng",
+                "Đã cho nghỉ",
+                "Đã hủy"
               ]
             },
             {
@@ -13932,6 +13962,55 @@ main{max-width:1240px} [hidden]{display:none!important}
               "label": "Bằng chứng hoàn thành",
               "type": "text",
               "required": false
+            },
+            {
+              "key": "tier",
+              "label": "Tầng",
+              "type": "select",
+              "required": false,
+              "options": [
+                "T3",
+                "T2",
+                "T1",
+                "T0.5",
+                "T0"
+              ]
+            },
+            {
+              "key": "specialty",
+              "label": "Chuyên môn T3",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "actual_start",
+              "label": "Bắt đầu thực tế",
+              "type": "date",
+              "required": false
+            },
+            {
+              "key": "actual_finish",
+              "label": "Kết thúc thực tế",
+              "type": "date",
+              "required": false
+            },
+            {
+              "key": "lifecycle_event_ref",
+              "label": "Bằng chứng chuyển vòng đời",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "operational_since",
+              "label": "Ngày đưa vào sử dụng",
+              "type": "date",
+              "required": false
+            },
+            {
+              "key": "retired_at",
+              "label": "Ngày cho nghỉ",
+              "type": "date",
+              "required": false
             }
           ],
           "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
@@ -13941,21 +14020,33 @@ main{max-width:1240px} [hidden]{display:none!important}
               "index",
               "name",
               "state",
+              "checkpoint",
               "blocker",
               "next_owner",
+              "tier",
+              "specialty",
+              "actual_start",
+              "actual_finish",
               "code",
               "open"
             ],
             "widths": {
               "index": 40,
-              "name": 200,
-              "state": 140,
-              "blocker": 250,
-              "next_owner": 100,
+              "name": 225,
+              "state": 135,
+              "checkpoint": 180,
+              "blocker": 290,
+              "next_owner": 120,
+              "tier": 75,
+              "specialty": 130,
+              "actual_start": 110,
+              "actual_finish": 110,
               "code": 130,
               "open": 80
             }
-          }
+          },
+          "display_code": "DEF 00.1",
+          "display_order": 0.1
         },
         {
           "code": "CAT-228*",
@@ -14988,10 +15079,10 @@ main{max-width:1240px} [hidden]{display:none!important}
     },
     "work_schedule": {
       "master_code": "CAT-227*",
-      "version": "1-design",
+      "version": "2-design",
       "state": "DESIGN_ONLY",
-      "title": "Tiến trình các việc theo QTTH 05",
-      "scope": "Thiết kế UI MOW: áp thử MOW001 rồi mới xét MOW002. Không triển khai MOW002 trong lượt này.",
+      "title": "MASTER TIẾN TRÌNH CÔNG VIỆC",
+      "scope": "Toàn bộ vòng đời các việc được ghi danh. Hiện mới có 2 việc thiết kế UI MOW001/002; chưa tổng hợp toàn hệ thống.",
       "rules": [
         "Một dòng là một việc/lần áp dụng MOW được dự kiến. Có mã trước khi có hồ sơ; gắn hồ sơ khi khai việc. Không dùng danh mục định nghĩa MOW để lưu tiến độ.",
         "Thứ tự để nhìn; depends_on + tiêu chí nghiệm thu mới là điều kiện đi tiếp. Không tự coi mã 001/002 là lịch trình. Không cho vòng phụ thuộc hoặc phụ thuộc vào chính mình.",
@@ -15014,7 +15105,24 @@ main{max-width:1240px} [hidden]{display:none!important}
         ],
         "ordering": "order_index trong phạm vi kế hoạch; tách khỏi id và điều kiện phụ thuộc",
         "closure": "Đủ kiểm đạt + quyết định đúng phạm vi + xác nhận bàn giao theo QTTH 05; không lấy trạng thái file làm bằng chứng",
-        "state": "Chưa sinh SQL/nạp PG; dùng lại mô hình run/declaration/assessment, chốt ánh xạ trước migration"
+        "state": "Chưa sinh SQL/nạp PG; dùng lại mô hình run/declaration/assessment, chốt ánh xạ trước migration",
+        "identity": "DEF 00.1 là mã công bố; CAT-227* là khóa tương thích của cùng Master.",
+        "lifecycle_storage": "Một mã việc ổn định trong process_application; application_refs trỏ các hồ sơ theo phiên/vòng. lifecycle_state + lifecycle_event_ref; latest_application_id xác định đúng hồ sơ hiện tại.",
+        "dimensions": "target_tier (T0,T0.5,T1,T2,T3) là tầng đối tượng của việc; specialty_ref FK tới chuyên môn T3, không suy từ Chuỗi CTCM; subject_tier giữ tầng đối tượng được xử lý khi khác.",
+        "dates": "planned_start/finish tách actual_start/finish (timestamptz); operational_since/retired_at riêng. NULL = chưa ghi, không suy từ ngày tạo file.",
+        "projection": "View theo work_id, join đúng latest_application_id + version; không COUNT hàng đáp án/việc con. Đếm DISTINCT work_id. Sự kiện ghi cùng giao dịch với trạng thái; bảng tiến trình chỉ đọc phép chiếu.",
+        "indexes": [
+          "(lifecycle_state, target_tier, specialty_ref, actual_start, work_id)",
+          "(application_id, process_version, target_version)",
+          "UNIQUE event_id; UNIQUE(work_id, cycle_id, idempotency_key)"
+        ],
+        "guards": [
+          "FK đúng việc/phiên/vòng và Master đích; current_application_id thuộc tập hồ sơ của việc.",
+          "Chỉ chuyển trạng thái từ sự kiện có quyền; sự kiện muộn của vòng cũ không thay trạng thái vòng mới.",
+          "Đạt đầu ra + phê duyệt + nhận bàn giao đúng phạm vi mới cho completed; nâng cấp mở vòng mới và tính lại trạng thái.",
+          "Ngày kết thúc không trước bắt đầu; bản nháp chưa có ngày không được tự điền ngày hôm nay."
+        ],
+        "open": "Chưa có nguồn đầy đủ mọi việc/chuyên môn và sự kiện vòng đời thật. Chưa sinh SQL hoặc kiểm PG cho phép chiếu này; quản lý tại TQT-ISS-007."
       },
       "records": [
         {
@@ -15035,7 +15143,16 @@ main{max-width:1240px} [hidden]{display:none!important}
           "state_source": "catalog.application_preview.record",
           "planned_start": null,
           "planned_finish": null,
-          "completion_evidence": null
+          "completion_evidence": null,
+          "target_tier": "T2",
+          "subject_tier": "T0",
+          "specialty_ref": null,
+          "lifecycle_state": "PREPARING",
+          "lifecycle_event_ref": null,
+          "actual_start": null,
+          "actual_finish": null,
+          "operational_since": null,
+          "retired_at": null
         },
         {
           "record_id": "TQT-VIEC-002",
@@ -15058,9 +15175,51 @@ main{max-width:1240px} [hidden]{display:none!important}
           "planned_finish": null,
           "completion_evidence": null,
           "owner": "Astra Codex",
-          "note": "Chưa đến lượt; chưa triển khai, chưa lập hồ sơ. Mã đối tượng/phiên sẽ đối chiếu Master trước khi mở."
+          "note": "Chưa đến lượt; chưa triển khai, chưa lập hồ sơ. Mã đối tượng/phiên sẽ đối chiếu Master trước khi mở.",
+          "target_tier": "T2",
+          "subject_tier": "T0",
+          "specialty_ref": null,
+          "lifecycle_state": "REGISTERED",
+          "lifecycle_event_ref": null,
+          "actual_start": null,
+          "actual_finish": null,
+          "operational_since": null,
+          "retired_at": null
         }
-      ]
+      ],
+      "display_code": "DEF 00.1",
+      "display_order": 0.1,
+      "master_identity": {
+        "key": "CAT-227*",
+        "code": "DEF 00.1",
+        "aliases": [
+          "CAT-227*",
+          "DEF00.1"
+        ],
+        "rule": "Cùng một Master. DEF 00.1 là mã công bố theo Owner; CAT-227* giữ làm khóa tham chiếu cũ, không tạo bản sao."
+      },
+      "lifecycle": {
+        "states": {
+          "REGISTERED": "Ghi danh",
+          "PREPARING": "Chuẩn bị",
+          "BUILDING": "Đang thực hiện",
+          "TESTING": "Đang kiểm",
+          "AWAITING_APPROVAL": "Chờ duyệt",
+          "DELIVERED": "Đã hoàn tất bàn giao",
+          "IN_USE": "Đang sử dụng",
+          "UPGRADING": "Đang nâng cấp",
+          "SUSPENDED": "Tạm dừng",
+          "RETIRED": "Đã cho nghỉ",
+          "CANCELLED": "Đã hủy"
+        },
+        "rules": [
+          "Mốc CP01–CP07 và trạng thái vòng đời là hai trường riêng. Đạt G1 không có nghĩa đã sử dụng thật.",
+          "Nâng cấp vẫn cùng mã việc, gắn hồ sơ/vòng/phiên mới; giữ mọi bằng chứng cũ. Mục tiêu khác tạo việc khác và liên kết nguồn.",
+          "Dùng/cho nghỉ/hủy phải có quyết định và xác nhận bàn giao phù hợp. Hủy/cho nghỉ không phải đã đạt mục tiêu.",
+          "Chuyển vòng đời và mở vòng nâng cấp qua cùng QTTH05; cập nhật từ sự kiện hợp lệ, không sửa đè lịch sử."
+        ],
+        "summary_rule": "Tổng = số mã việc duy nhất; Đã xong = mục tiêu của vòng hiện tại có bằng chứng hoàn thành; Chưa xong = phần còn lại, trừ hủy/cho nghỉ. Đang mắc là tập con chưa xong: thiếu đầu vào bắt buộc hoặc hồ sơ báo bị chặn. Chờ việc trước hiện riêng, không tự coi là lỗi."
+      }
     }
   },
   "checkpoint_policy": {
@@ -15450,7 +15609,7 @@ const progressRows=audit.rows.map(x=>'<tr><th scope="row">'+e(x.title)+'<small c
 const checkpoints=W.workflow.checkpoints;
 const workBoard='<section class="oc-board" id="tqt-work-board" aria-label="Hướng dẫn chung và hồ sơ tiến độ">'+
 '<header class="oc-head"><div><p class="oc-eyebrow">QUY TRÌNH TỔNG HỢP ⑤ · HƯỚNG DẪN CHUNG</p><h2>Làm theo quy trình · theo dõi từng việc</h2></div></header>'+
-'<p class="oc-rule"><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-227%2A" target="_blank" rel="noopener"><b>Danh sách thứ tự các việc · mở hồ sơ từng việc ↗</b></a></p><nav class="oc-jump"><a href="#tqt-recording-guide">1. Hướng dẫn chung</a><a href="#tqt-recording-list">2. Hồ sơ tiến độ</a></nav>'+
+'<p class="oc-rule"><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html?master=DEF00.1#work-progress" target="_blank" rel="noopener"><b>Danh sách thứ tự các việc · mở hồ sơ từng việc ↗</b></a></p><nav class="oc-jump"><a href="#tqt-recording-guide">1. Hướng dẫn chung</a><a href="#tqt-recording-list">2. Hồ sơ tiến độ</a></nav>'+
 '<section id="tqt-recording-guide"><h3>1. Hướng dẫn chung</h3><p>Quy định dùng cho mọi việc: <b>đi qua mốc nào, phải ghi gì và vào Master nào.</b></p>'+
 '<div class="oc-three"><b>Kiểm đủ đầu vào <small>Mốc 1–3</small></b><b>Làm theo quy trình <small>Mốc 4</small></b><b>Kiểm đầu ra · bàn giao <small>Mốc 5–7</small></b></div>'+
 '<ol class="oc-seven">'+checkpoints.map(cp=>'<li><b>'+cp.order+'. '+e(cp.name)+'</b></li>').join('')+'</ol><p class="oc-muted">Bộ 7 mốc đang áp thử, chờ hội đồng thống nhất. Mọi sổ bên dưới đều là Master List.</p>'+
