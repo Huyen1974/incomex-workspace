@@ -31,6 +31,12 @@ def prerequisites(which=shutil.which, version=sys.version_info):
     if not which('node'): errors.append('MISSING_RUNTIME:node')
     return errors
 
+def source_readback(path, projection):
+    if not path.is_file(): return {'state':'FAIL','reason':'MISSING_PRODUCT_SOURCE'}
+    try: actual=json.loads(path.read_text())['application_D24']
+    except (ValueError, KeyError, OSError): return {'state':'FAIL','reason':'INVALID_PRODUCT_SOURCE'}
+    return {'state':'PASS' if actual==projection else 'FAIL','source_sha256':sha(path),'projection_equal':actual==projection,'application_id':actual.get('application_id'),'trial_declarations':len(actual.get('declarations',[])) if actual.get('trial_store',{}).get('state')=='TRIAL' else 0,'scope':'SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL'}
+
 def self_test():
     with tempfile.TemporaryDirectory(prefix='tqt-check-') as tmp:
         b=Path(tmp);p=b/'check.py';p.write_text('pass\n')
@@ -49,7 +55,12 @@ def self_test():
     assert prerequisites(lambda _: None, (3,11))==['MISSING_RUNTIME:node']
     assert prerequisites(lambda _: '/test/node', (3,10))==['PYTHON_3_11_REQUIRED']
     assert prerequisites(lambda _: '/test/node', (3,11))==[]
-    return {'cases':10,'store':'temporary TEST file in execution snapshot','write_read_restore':'PASS','production':'NOT_TOUCHED'}
+    with tempfile.TemporaryDirectory(prefix='tqt-source-') as tmp:
+        f=Path(tmp)/'source.json'; f.write_text(json.dumps({'application_D24':{'application_id':'TEST'}}))
+        assert source_readback(f,{'application_id':'TEST'})['state']=='PASS'
+        assert source_readback(f,{'application_id':'OTHER'})['state']=='FAIL'
+        assert source_readback(f.with_name('missing.json'),{})['state']=='FAIL'
+    return {'cases':13,'store':'temporary TEST file in execution snapshot','write_read_restore':'PASS','production':'NOT_TOUCHED'}
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
@@ -60,8 +71,9 @@ def main():
     args=ap.parse_args()
     source=BASE/'view.html';data=json.loads(re.search(r'<script id="tqt-composite-processes"[^>]*>(.*?)</script>',source.read_text(),re.S)[1])['catalog'];reg=data['tool_registry']
     errors=inventory(BASE,reg)
-    if not (BASE.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json').is_file(): errors.append('MISSING_PRODUCT_SOURCE')
-    report={'run_id':'TQT-'+uuid.uuid4().hex,'at':datetime.now(timezone.utc).isoformat(),'scope':reg['scope'],'registry_master':'CAT-006','case_master':'CAT-012','result_master':'CAT-015','source_sha256':sha(source),'inventory_errors':errors,'results':[],'pg':'NOT_RUN','production_ready':False}
+    readback=source_readback(BASE.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json',data['application_preview']['record'])
+    if readback['state']!='PASS': errors.append('SOURCE_READBACK_FAILED')
+    report={'run_id':'TQT-'+uuid.uuid4().hex,'at':datetime.now(timezone.utc).isoformat(),'scope':reg['scope'],'registry_master':'CAT-006','case_master':'CAT-012','result_master':'CAT-015','source_sha256':sha(source),'inventory_errors':errors,'source_readback':readback,'results':[],'pg':'NOT_RUN','production_ready':False}
     if args.ui_adapter: report['ui_adapter_sha256']=sha(args.ui_adapter)
     report['prerequisite_errors']=prerequisites()
     if not errors and args.verify and not args.dry_run:
