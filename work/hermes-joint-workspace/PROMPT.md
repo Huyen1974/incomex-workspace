@@ -1,14 +1,38 @@
-# PROMPT — HJW · N3 2A SỬA CỔNG CLAIM TRÙNG DÒNG · AUTO1 ASSISTED
+# PROMPT — HJW · N3 2B OFFICIAL DIRECT COURIER / CLAUDE ROUTINE · DRAFT FOR REVIEW, NO RUN
 
-RUN_ID: HJW-N3-2A-CLAIM-EXACT-FIX-20261009-04
-STATUS: DRAFT_P262_REVIEWER_EDITED · Claude Reviewer đã sửa khi còn DRAFT (AGENTS A6) và ký ở P262 theo SHA last-touch của tệp này. Chỉ thi hành khi HJW COLLAB có Host READY trỏ đúng SHA đó. Lượt P253 sửa cảnh báo CHẬM đã XONG; không chạy lại P253/P259.
-Host: GPT Chat · GPT-HJW-260922-A · Owner đã chỉ định cho HJW hiện tại
-Reviewer: Claude Chat
-Executor_Surface: Claude Code CLI phiên MỚI trên Mac cho inventory/orchestration + SSH/trusted-runner checks; các phiên canary được N3 gọi phải là phiên MỚI tách vai theo §5
-Write_Path: repo qua workspace_*; runtime/config chỉ qua DOT/wrapper/apply path hiện hữu; không ad-hoc
-Node: N3 / 6 · Automation target = AUTO1 ASSISTED
-Owner_steps: CHƯA CHẠY ở DRAFT. Sau Claude ACCEPT exact SHA và GPT Host READY, Owner dán một lệnh DROOT38(c) vào Claude Code CLI mới; PRE/fixture không xin phép. Nếu có thay đổi production, chỉ hỏi **một câu duy nhất**, gộp hai việc: áp bản sửa hẹp hjw_gate.py (kèm Guard POST và tự lùi) + cho máy tự canh khe an toàn tối đa 600 s trước khi gọi gói, đúng khuôn đã chạy đạt ở P253 (600 s tính tới lúc gọi gói; PRE và khe trong gói không tính). Owner chọn Cho phép = duyệt cả hai cho đúng RUN này; không hỏi lần hai. Quyền chờ P244 không được kế thừa, vì vậy mới hỏi lại trong câu gộp này. Vé `048b7e9c4105` KHÔNG thuộc việc của worker: Host đưa nó về `STALE` bằng đường có sẵn trước READY (P262). Không gọi model/vé/nhịp lịch mới. Trường hợp không chứng minh an toàn => KQ DỪNG, trả root busy, không tự áp.
+RUN_ID: HJW-N3-2B-OFFICIAL-COURIER-20261011-05
+STATUS: DRAFT_P278_HOST · CHƯA REVIEW/READY · N3 2A LATEPRESS PENDING · KHÔNG ĐƯỢC CHẠY
+Host: GPT Chat · GPT-HJW-260922-A · Owner đã chỉ định
+Reviewer: Claude Chat · claude-main (một lượt exact-SHA review sau P278)
+Executor_Surface: Claude Code CLI MỚI do Owner tự dán; official Claude Routine/Codex direct path chỉ tạo và gọi nếu đủ authority/policy và Owner checkpoint, không nhầm là CLI giao lệnh
+Write_Path: Git task qua Incomex workspace_* với expected_head/version; runtime/config/secret chỉ qua DOT/wrapper/secret loader hiện hữu; official vendor API/client, không chạy browser bot
+Node: N3 chặng 2b tiếp nối 2a · AUTO1-assisted target · NO AUTO2/AUTO3 · no direct RUN while #11 VPSC red
+Owner_steps: chưa có. Trước READY cần Host nghiệm thu 2a LATEPRESS, Claude Reviewer ACCEPT đúng SHA, live Guard sạch và chỉ định Owner checkpoint riêng cho trường hợp tạo Routine/credential. Owner chưa cho phép API secret/schedule mới bằng việc duyệt DRAFT này.
 
+## 0I. PHẠM VI HIỆN HÀNH — N3 2B OFFICIAL PATH (DRAFT P278, AUTHORITATIVE SAU KHI READY)
+**Đọc đầu tiên:** AGENTS A5/A6/A9/A10, root COLLAB, HJW Bảng + §0.17 + P274–P278, bản PROMPT mục 0I, rồi lấy cửa sổ cần thiết tại §1 A–F, §4–§11. Phần 0H/0G/0F và §3 dưới đây là lịch sử đã terminal, tuyệt đối KHÔNG áp lại P225/P253/P265/fix10. 0I thay thế toàn bộ câu READY/RUN/Owner_steps cũ; 2b DRAFT chưa được quyền thực thi.
+
+**Mục tiêu đúng node N3:** Courier/dispatcher Incomex giao pointer đúng ghế qua official direct invocation của hãng, ghi provenance và phản hồi mà Owner KHÔNG copy-paste. 2a Hermes TEST-ONLY manual click không phải đích cuối. Host vẫn quyết giao, courier không sửa semantic/chốt thay Host; N4/N5 mới tự động hội đồng/dual mode. Một canonical ASSIGN_V1/RESULT_V1, không tạo transport schema thứ hai.
+
+**INPUT & GATE TRƯỚC READY:** N3 2a phải có Host disposition sau live LATEPRESS (không lấy DRAFT làm READY); hoàn thành DROOT44 quorum/không COUNCIL_ALERT mở; Graph/VPSC/HJW no active RUN/lease; #11 VPSC GREEN và Guard PRE thật 22/22/Config clean; official docs & available app/permissions xác minh lại; 0 unauthorized secret/connector/push. Không đủ ⇒ DỪNG tại node, KHÔNG READY/không mở terminal chờ.
+
+**STEP_WALK (chỉ 1 RUN/1 KQ cho N3 2b; checkpoint nội bộ không phải node mới)**
+| Bước | Ai/trigger | Evidence phải đo | Hỏng thì ai biết & lối ra |
+|---|---|---|---|
+| S0 preflight | Claude Code sau Owner manual paste/READY | HEAD+SHA exact, cờ busy/STOP, official capabilities, Guard, 0 #11, freeze files/rollback | Fail-closed, KQ DỪNG, báo Owner/Host ngay, nhả cờ |
+| S1 inventory+official policy | Claude Code | ma trận seat official call, auth boundary, identity, claim SLA, Mac-off, cost/quota/provider source/date | VENDOR_LIMIT/POLICY_UNCERTAIN có evidence, tiếp seat còn lại |
+| S2 reuse-only dry-run | Claude Code | xác minh Hermes VPS/trusted runner & vendor official direct path không cần browser UI/copy session; fingerprint+negative fixture | không có path thì classify, không lách vendor, 0 mutation |
+| S3 Owner-only checkpoint nếu thật sự cần | Host/Owner qua giao thủ công, worker terminal phải đóng nếu phải chờ | một danh sách exact Routine/secret ≤1 mỗi loại, scopes tối thiểu, backup/rollback, consent | không có approval ⇒ KQ DỪNG, 0 credential/worker, giữ bằng chứng trên repo |
+| S4 official live canary (tối đa 2/seat) | Claude Code dùng runner đã duyệt | ít nhất 1 Anthropic + 1 OpenAI-family, pointer 5 field, nhận đúng identity, 0 Owner paste sau trigger, same session+P+result/notice | fail/unknown ⇒ ghi vendor residual, không giả PASS; không canary thừa |
+| S5 Claude dual-role + self-pull | Claude Code | Reviewer và Worker phiên MỚI, identity tách hay chung; self-pull official là safety net, idle cost/claim measured | ghi SAME_IDENTITY/VENDOR_LIMIT, không tự coi 2 phiếu; không tạo scheduler AI mới |
+| S6 negative+guarded minimal enablement | Claude Code, chỉ nếu gate S4 đủ | duplicate/replay, courier tamper/forged-host/non-Host bell/T9, STOP thắng, payload pointer-only, Config/Protection Guard PRE/POST, rollback + receipt | lỗi thì rollback scoped, KQ DỪNG, báo Host, không nới Guard |
+| S7 terminal report | Claude Code | đúng 1 KQ XONG hoặc DỪNG, wake matrix, provider/cost thật, context, residual/owner actions, host identity attribution, root release | không đủ evidence => UNKNOWN/DỪNG; không bàn bằng timeout |
+
+**Scope khóa:** Ưu tiên official direct từ VPS/trusted runner có sẵn; nếu vendor chỉ có Claude Cowork/Cowork Scheduled dạng on-demand UI mà không có official trigger API tiếp cận được, không giả DIRECT_PASS, ghi VENDOR_LIMIT hoặc SELF_PULL_SAFETY theo bằng chứng. Local `claude -p`/`codex exec` là fallback nếu đã có binary/account; Mac là fallback, không đòi Owner mở máy 24/7. Cấm web scraping/browser bot, copy Mac cookie/key, GitHub push trực tiếp, cài service/DB/route mới, tạo scheduled task tùy tiện. `--dangerously-skip-permissions` cấm.
+**Owner-only trước mỗi create:** Chỉ khi thật sự cần tạo ≤1 Routine/≤1 secret mới, Host trình một phiếu consent scoped kèm chính thức URI và hồi lùi; Owner thao tác qua hãng, không yêu cầu paste secret vào chat/repo. Có thể thử path chính thức đã tồn tại mà không tạo mới. Nếu hỏi Owner phải dừng phiên/nhả busy, không để RUN STARTED chờ giờ.
+**Đầu ra và hiệu quả:** Mọi provider call phải ghi session và server-side identity (một session ≠ một API/model turn); đếm riêng `one-shot executions`, `provider model_calls`, `tokens`, chi phí thật nếu có. Vé SAFEFAIL 11/10 có 1 one-shot nhưng 5 model calls/73.088 tokens; >150k trên hai vé success, cần scoped reads (≤3 đoạn) và cap trước AUTO; 0 skip safety; không tự đổi requirement của Owner. Dự kiến T9 courier tamper/non-Host bell đo thật lần đầu ở N3 như §0.17 R6, không đẩy sang N6.
+**Đích nghiệm thu N3 theo §9 hiện hữu không được nới:** Một đường Anthropic official và một đường OpenAI-family official live-pass hoặc R5 Owner quyết VENDOR_LIMIT, 0 Owner copy-paste trong canary, identity+receipt+dedup/STOP, T9 courier, 2b negative + rollback/Guard sạch, one-shot cost và output reliability rõ. Không có official path live-pass thì N3 không PASS, chỉ KQ DỪNG. Owner chỉ bật AUTO theo loại việc sau proof, không nâng AUTO2/3 trong 2b.
+**GIAO–LÀM–BÁO:** Cấu hình đã nghiệm thu giữ nguyên; không đổi ticket LATEPRESS đang open sau phát thẻ, không sửa P276/P277/machine/SPEC để khớp DRAFT. Không mở RUN 2b cho tới Host READY exact SHA sau late press & #11 GREEN.
 ## 0H. LƯỢT HIỆN HÀNH — CLAIM EXACT MATCH + VÉ APPROVED ĐANG KẸT (AUTHORITATIVE P261)
 
 **Ưu tiên tuyệt đối:** §0H áp riêng RUN_ID `HJW-N3-2A-CLAIM-EXACT-FIX-20261009-04`. Mọi câu trong §0G, §0F, §1–§8 về áp `fix08-apply.sh` hoặc P245/P247 READY đều là **lịch sử đã terminal**; không được làm theo. **Ngoại lệ duy nhất (Reviewer P262): §0G.2 khoản 4 và khoản 5 còn hiệu lực cho RUN_ID này** — bộ khởi động chỉ gọi gói trong cửa sổ UTC x2:00–x3:10, hạn 600 s, không ngắt gói đã chạy, đọc tươi trước từng mốc, từ dòng bắt đầu tới KQ Host/Reviewer không ghi gì ngoài STOP, không AI nào gọi `workspace_exec` khi gói chạy. Chỗ nào hai khoản đó ghi `fix08-apply.sh all` thì đọc là gói áp của lượt này. Gói mới dựng theo đúng khung `fix08-apply.sh` (giữ `pre_checks`, `slot_wait`, thứ tự PRE → khe → áp → POST → tự lùi), chỉ đổi tệp đích sang `hjw_gate.py`. Lý do: cron license 5 phút dựng container tạm làm Guard đỏ oan (P242); lượt P253 dùng khuôn này và đạt ngay lần đầu. Không tạo file/task/route/cron mới, không làm Graph/VPSC và không tự phát Hermes/model.
