@@ -16,7 +16,7 @@ Tách hai bảng, cùng dùng quy trình ⑤:
 
 **Ca MOW001/G1:** đang chuẩn bị mốc 2, **0/7 mốc đã kiểm đạt**. Có 34 nghĩa vụ, chưa gắn bằng chứng bản ghi Master nên hiển thị Chưa ghi / Chưa đối chiếu; không kết luận dữ liệu ngoài hồ sơ không tồn tại. Dữ liệu chuẩn bị vẫn giữ nguyên. Số dòng theo phạm vi từng việc, không cố định 34. Chưa đến mốc/nhánh được chú thích riêng, không coi là lỗi. P01 chuẩn bị được làm ngay; chưa sửa sản phẩm trước xác nhận mốc 3.
 
-**Rà Master ngày 11/10:** dùng lại 11 mã trong **[Master of Master — 86 mục](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html)**. Trong phạm vi này: 3 Master chưa khai nơi lưu, 4 chưa có UI, 4 nguồn khác chưa xác minh. Các nhóm có thể trùng nhau. Đã ghi thiếu và yêu cầu thiết kế vào từng Master cùng `TQT-ISS-007`; ánh xạ đang ở mức thiết kế, chưa chứng minh các Master vận hành được. Danh mục 30 Master định nghĩa là một phạm vi khác, không dùng để đếm toàn hệ thống.
+**Rà Master ngày 11/10:** dùng lại 11 mã trong **[Master of Master — 86 mục](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html)**. Trong phạm vi này: 3 Master chưa khai nơi lưu, 4 nguồn khác chưa xác minh. UI thiếu đã có bản thiết kế list + mẫu khai báo, chưa nghiệm thu. Các nhóm có thể trùng nhau. Đã ghi thiếu và yêu cầu thiết kế vào từng Master cùng `TQT-ISS-007`; ánh xạ đang ở mức thiết kế, chưa chứng minh các Master vận hành được. Danh mục 30 Master định nghĩa là một phạm vi khác, không dùng để đếm toàn hệ thống.
 
 **Cách làm:** đọc mục tiêu → khai đúng việc/phạm vi → lấy quy trình/câu hỏi → liệt kê mọi nơi phải ghi từ đầu vào, đầu ra, kế hoạch và nhánh → kiểm Master và quyền → xác nhận đủ → làm → kiểm → duyệt/bàn giao. Rà từ danh sách phải ghi, không chỉ từ những bản ghi đang có. Thiếu nơi ghi thì giữ người xử lý, quay S5 của ⑤, dùng ②/③; không mở sổ không mã.
 
@@ -25,6 +25,18 @@ Tách hai bảng, cùng dùng quy trình ⑤:
 **Hướng PG:** tách quy định theo phiên quy trình; hồ sơ theo lần làm; dòng ghi/đối chiếu theo mã nghĩa vụ; đích bằng mã Master + mã bản ghi + phiên. Đối chiếu đạt cần căn cứ/người/thời điểm; đổi nguồn thì kiểm lại, giữ lịch sử. Các option hiện chỉ đọc từ nguồn, **chưa có API lưu PG**. Bảng/khóa, ánh xạ toàn phiếu, quyền và kiểm đồng thời còn mở tại `TQT-ISS-007`.
 
 **Kiểm Host:** `node check-record-control.js view.html` kiểm 26 ca về tách hướng dẫn/hồ sơ, sai lần/phiên/Master, thiếu dòng, bằng chứng và trạng thái; `python3 check-overview-consistency.py view.html` đối chiếu phiếu nguồn. Các kiểm thiết kế không thay kiểm PG thực tế hay nghiệm thu sản phẩm. PR11 giữ các điểm chưa đủ ở `TQT-ISS-007`.
+
+## Danh sách thứ tự công việc · CAT-227*
+
+**[Mở tiến trình các việc theo QTTH 05](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-227%2A)**: mỗi dòng là một việc dự kiến, có thứ tự, việc phải xong trước, hồ sơ, mốc hiện tại, chỗ mắc và người tiếp. Dùng lại CAT-227*, không mở Master trùng với sổ hồ sơ. CAT-228* giữ các việc con; CAT-230* là hàng đợi kỹ thuật, không thay lịch trình người dùng.
+
+- MOW001: đã gắn hồ sơ chuẩn bị; mốc/tình trạng lấy từ hồ sơ hiện hữu, không nhập lại.
+- MOW002: đứng sau MOW001; chưa triển khai, chưa gắn hồ sơ. Chỉ mở khi MOW001 đạt nghiệm thu thiết kế và có bàn giao, Host xác nhận tiếp tục. Đóng bằng hủy/từ chối không tự mở việc sau.
+- Ngày chưa chốt hiện Chưa khai. Làm lại giữ lịch sử hồ sơ; không lấy mã MOW làm thứ tự, không tạo dòng trùng cho mỗi lần thử kỹ thuật.
+
+Nguồn thiết kế: `catalog.work_schedule` (CAT-227*); luật/mẫu UI: `catalog.work_master_designs`. Khóa và phụ thuộc theo mã, không theo tên; kiểm thiếu hồ sơ, sai phiên, trùng mã/thứ tự và vòng phụ thuộc. Dữ liệu này chưa ghi vào PG; ánh xạ bảng/khóa/quyền vẫn thuộc TQT-ISS-007.
+
+**[Khu Master đang rà](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html)** bổ sung 9 Master đã có mã, thành 39 mục chọn thiết kế (30 cũ + 9). Master of Master vẫn 86 mục. Mỗi UI mới dùng nguyên UI.MASTER cha, có list và nút Xem mẫu khai báo; mẫu không phải bản ghi đã thực hiện. Không nhập các UI nháp vào danh mục UI con đã duyệt.
 
 ## Hiện hành · D24/P23 · Host đọc tại COLLAB §0
 **5 quy trình tổng hợp + 12 quy trình thành phần.** Host đã chốt **MOW-TH-005 · Từ mục tiêu đến kết quả được nghiệm thu**, phiên `1.1-design`, Chuỗi CTCM `CH-001`, để áp thử thiết kế. Owner giao Host tự quyết; không còn chờ phê duyệt riêng ⑤. Chưa nghiệm thu PG hay tự động hóa.
