@@ -1,36 +1,52 @@
-# PROMPT — HJW / N3 · HERMES MAC: LOCAL OPENROUTER + REMOTE VPS
+# PROMPT — HJW / N3 · HERMES MAC LOCAL+REMOTE VÀ CẬP NHẬT ĐỒNG BỘ
 RUN_ID: HJW-N3-MAC-DUAL-20261011-01
-STATUS: DRAFT_P285_REVIEWER_EDITED · OWNER_SCOPE_11_10_19H24 · Claude Reviewer sửa ba chỗ khi còn DRAFT (AGENTS A6: nút Update, bằng chứng giao diện, hỏi key trong lượt) và ký ở P285 theo SHA last-touch của tệp này · CHƯA READY/RUN
+STATUS: DRAFT_OWNER_DELTA_20261011_2025 · CHƯA REVIEW/READY/RUN CHO BẢN NÀY
 Host: GPT Chat · GPT-HJW-260922-A
-Reviewer: Claude Chat · claude-main (một lượt review theo A6, đúng SHA)
-Executor_Surface: Claude Code CLI chạy TRÊN MACBOOK CỦA OWNER, Owner tự dán khi Host đã READY
-Write_Path: Mac local qua CLI trong scope được Owner cho phép; sổ Git chỉ qua Incomex workspace_* và version/CAS
-Node: N3 · K3, PHA MAC LOCAL+REMOTE. Không phải hoàn thành toàn bộ N3.
-Owner_steps: Sau Reviewer ACCEPT và Host READY, Owner dán đúng một lệnh cho Claude Code CLI trên MacBook. Nếu cần OpenRouter key mới, chỉ một yêu cầu Owner thao tác kín qua trang nhà cung cấp; không dán key vào chat/repo/log. Trong lượt chạy Owner ở cạnh máy để bấm vài bước trên Hermes Desktop khi CLI hỏi; mỗi câu hỏi có hạn 10 phút.
+Reviewer: Claude Chat · claude-main (rà một lượt exact last-touch SHA theo A6)
+Executor_Surface: Claude Code CLI CHẠY TRÊN MACBOOK OWNER; Owner tự dán sau Host READY mới
+Write_Path: Mac local theo scope được phép; HJW Git qua Incomex workspace_* CAS; VPS chỉ qua cơ chế `hermes-safe-update`/DOT/Guard ĐÃ CÓ và khi hết xung đột
+Node: N3/K3 · Một đề bài bổ sung công việc update vào đúng lượt cài Mac, KHÔNG mở task/node mới
+Owner_steps: Owner dán câu DROOT38(c) vào Claude Code trên Mac sau khi REVIEWER ACCEPT + HOST READY bản này. Owner hỗ trợ các bước Desktop và key OpenRouter nếu cần; hỏi gọn một lần, tối đa 10 phút, không dán secret vào chat/CLI/repo.
 
-## 0. MỤC TIÊU (CHỈ VIỆC NÀY)
-Hermes VPS đã hoạt động và đã gọi được. Giữ nguyên hoàn toàn Hermes-VPS. Trên MacBook, đảm bảo hai chế độ:
-1. Hermes Desktop vẫn kết nối **Remote** để làm màn hình cho Hermes VPS đang chạy.
-2. **Hermes Local** chạy backend/agent riêng trên MacBook, dùng **API model OpenRouter**, có session, config, credential, data và nhận diện riêng, không lẫn với Hermes VPS.
-Một ứng dụng Desktop có Local + Remote và registry đa kết nối là ưu tiên. KHÔNG giả định phải cài hai ứng dụng; phải kiểm chứng khả năng của phiên bản đang cài. Kết quả hiện hữu không phá hỏng.
-**Ngoài phạm vi:** Không nghiên cứu hay gọi API vào tài khoản thuê bao ChatGPT/Claude, không xin API key Anthropic/OpenAI, không tạo Claude Routine, không thử chuyển tin tự động tới AI web trong lượt này, không xây gateway/DB/cron/transport mới, không sửa máy chủ VPS. Không sửa N1/N2/N4–N6/T1–T9.
+## 0. MỤC TIÊU ĐÚNG LỜI OWNER 11/10
+Hermes trên VPS đã giao việc được, **không làm lại**. MacBook cần:
+1. Một Hermes Desktop giữ kết nối **Remote** để làm màn hình cho Hermes VPS.
+2. Hermes **Local** thực sự chạy agent/backend độc lập trên MacBook, dùng model API **OpenRouter**, session/profile/secret riêng.
+3. **Sửa dứt điểm update đã làm 02/10 nhưng không nâng được phiên bản**: từ MacBook có cách cập nhật đơn giản, ưu tiên dùng `hermes update`/khả năng hãng cung cấp nếu thật sự đáp ứng; Mac Desktop/Local và Hermes VPS luôn về **phiên bản tương thích, cùng SHA mục tiêu**, có kiểm tra trước/sau, rollback và ngăn một máy tự nhảy bản. Không biến cập nhật một phía thành thành công giả.
 
-## 1. STEP_WALK (MỘT LƯỢT, KHÔNG MỞ PRE-CHECK THÀNH RUN KHÁC)
-| Bước | Người làm / kích hoạt | Chứng cứ cần đạt | Nếu vướng |
+**Điều không làm:** không gọi API vào tài khoản GPT/Claude thuê bao; không Anthropic/OpenAI keys/Routine cho mục đích đó; không thử nhắc GPT/Claude qua trình duyệt trong lượt này; không làm hộ Graph/VPSC; không dựng gateway, lịch, DB, pipeline thứ hai; không làm lại N1/N2 hay đổi N4–N6/T1–T9.
+
+## 1. ĐIỂM GỐC PHẢI TÁI SỬ DỤNG (KHÔNG LÀM LẠI)
+- HJW P70, P71, P72, P285–P286 + RUN `HJW-MAINT-COMPAT-20261002-01`: ngày 02/10 Mac renderer bản `e13b5e71` đã đi trước VPS `749220ef`, gây lỗi `cwd_explicit`; Claude đã lùi/rebuild Mac cho khớp VPS. Các SHA chỉ là **số lịch sử**, không tự coi là trạng thái 11/10.
+- `mac-lock.sh` và hồ sơ rollback `/opt/incomex/work/hermes-joint-workspace/HJW-MAINT-COMPAT-20261002/`: Mac `origin` trỏ `contabo:/var/lib/hermes/hermes-agent` chỉ đọc, chặn push, hook báo phiên bản. Vì `hermes update --check` nhìn vào VPS mirror, nó từng báo `Already up to date` dù upstream có bản mới. Không nhầm `origin` mirror với upstream nhà sản xuất.
+- Trên VPS đã có `hermes-safe-update` (có reviewed gate), Protection Guard INV14 `hermes_client_backend_compat`, Config Guard, rollback, Telegram. **Giữ/tận dụng** thay vì thay bằng updater riêng không bảo vệ.
+- Tài liệu hãng phải đối chiếu với install/version THẬT: `https://hermes-agent.nousresearch.com/docs/user-guide/multi-connection-desktop` và `https://hermes-agent.nousresearch.com/docs/getting-started/updating`. Hermes Desktop nhiều gateway có nút Update/Update all instances **fan-out cả VPS**, không phải two-phase atomic/cùng SHA; `hermes update` CLI trên Mac mặc định chỉ cập nhật install của chính máy từ nguồn đang cấu hình. Phải kiểm tra install kind: source-built, bundled app, Docker... trước khi chọn lệnh.
+
+## 2. HAI PHẠM VI — CHỈ PHẠM VI A ĐƯỢC CHẠY SONG SONG GRAPH
+**A · Mac-only, chạy được ngay song song Graph:** đọc thông tin phiên bản/VPS qua SSH READ-ONLY, xem `hermes update --plan` và `--check` nếu bản đang cài hỗ trợ; sao lưu config Mac; setup Hermes Desktop Remote+Local, OpenRouter; sửa cơ chế update phía Mac ở chế độ plan/dry-run. Chỉ sửa dữ liệu/config/build local Mac nếu không ảnh hưởng phiên VPS. Git task HJW dùng CAS, không sửa các file Graph/VPSC. Không đòi #11 VPS xanh cho các việc Mac-only.
+
+**B · VPS mutation/update/restart (chỉ khi thật sự cần):** trước khi chạy phải fresh-read root+HJW+Graph+VPSC, chứng minh **Graph/VPSC/HJW không có mutation/shared lease đang thực thi**, #11 đã xanh và Guard PRE/Config Guard hợp lệ, owner review cho exact target SHA và rollback/backup đã kiểm, có lối dừng. Có bất kỳ xung đột ⇒ **KHÔNG sửa VPS, KHÔNG giữ terminal chờ**; hoàn thành hết phần A, ghi kết quả phần A + `UPDATE_VPS_DEFERRED` và NEXT_TRIGGER cụ thể rồi KQ DỪNG theo DROOT50. Không tự dừng Graph, không đổi #11, không ép rebaseline Guard. Khi điều kiện B đủ, tiếp tục **cùng N3** bằng một lượt có READY hợp lệ, không tạo task mới.
+
+**Bất biến update:** Không được bấm Update, Update now, Update all instances, ⌘K Update Hermes hoặc chạy `hermes update` **không kiểm soát** khi Mac có Remote VPS. Chỉ sử dụng cách cập nhật Mac có biên nhận, trình tự, chốt target và ngăn fan-out tự phát; không bỏ cơ chế Mac-lock/INV14 để đổi lấy cảm giác "đã update".
+
+## 3. STEP_WALK — MỘT ĐỀ BÀI, KHÔNG TÁCH VIỆC LẶT VẶT
+| # | Người làm / trigger | Chứng cứ phải đo, hành động tối thiểu | Lối ra khi hỏng |
 |---|---|---|---|
-| 1. Gate + kiểm kê | Claude Code trên Mac, sau READY/Owner paste | Đọc AGENTS A0/A6/A9/A10, root COLLAB, HJW A0/0.17/Bảng/P284+chỉ đạo mới, PROMPT hiện tại; kiểm 0 STARTED/STOP; xem binary/app version, Local/Remote, profile/gateway, khoá đồng bộ phiên bản Mac↔VPS; không đọc/in secret | Thiếu quyền/không khớp READY: DỪNG sạch, một lý do |
-| 2. Giữ cái đang chạy | Claude Code | Thử Remote UI→VPS hoạt động trước sửa; sao lưu có thể khôi phục phần config Mac sắp đụng; không lấy credential VPS sang Local | Remote lỗi: ghi lỗi, không đụng VPS |
-| 3. Bật Local | Claude Code | Theo docs đúng version đang cài, tận dụng Hermes Local runtime/profile đã có; nếu chưa có mới cài tối thiểu tương thích, không auto-update phá cơ chế ghim version; Local state/config riêng. Tài liệu hãng đọc 11/10: hermes-agent.nousresearch.com/docs/user-guide/multi-connection-desktop. **Cấm bấm nút Update, "Update all instances" và cấm chạy `hermes update` trong lượt này:** theo tài liệu đó, khi app có nhiều kết nối thì nút Update gửi lệnh cập nhật tới mọi kết nối đủ điều kiện, tức có thể cập nhật cả Hermes VPS | Không hỗ trợ/khác version: DỪNG, nêu một phương án nhỏ nhất; không tự nâng cả VPS |
-| 4. OpenRouter | Claude Code/Owner nếu thiếu key | Dùng credential Mac riêng đã được phép, model OpenRouter được hỗ trợ; khóa không vào chat, repo, process args hay log; chi phí có giới hạn | Thiếu key: hỏi Owner đúng một lần ngay trong lượt, kèm hướng dẫn từng bước bấm; Owner tự tạo key có hạn mức ở trang OpenRouter và dán vào ô nhập khoá của Hermes Desktop khi đang chọn kết nối Local (hoặc cách nhập kín khác do CLI chỉ), không dán vào CLI/chat. Hạn 10 phút; quá hạn thì KQ DỪNG, nhả terminal |
-| 5. Thử thật cả hai | Claude Code | (a) Local gửi một yêu cầu đơn giản → provider OpenRouter trả lời thật; (b) Remote kết nối lại Hermes VPS và đọc được phiên đang có; (c) chuyển đi/về không trộn lịch sử, profile, model, credential; (d) Local ngắt thì VPS vẫn chạy và Remote vẫn dùng. Chọn và chuyển kết nối chỉ làm được trên giao diện Hermes Desktop (tài liệu hãng không có lệnh CLI): CLI đưa Owner từng bước bấm ngắn và xác nhận bằng ảnh chụp màn hình hoặc một câu có/không của Owner, mỗi câu hạn 10 phút; không suy ra PASS chỉ từ tệp cấu hình | Fail thì rollback đúng phần Mac mới đổi, giữ VPS nguyên |
-| 6. Ghi KQ | Claude Code | Một KQ XONG hoặc DỪNG ở HJW COLLAB + Bảng, có bản Hermes/version, đường Local/Remote, PASS/FAIL từng thử, Mac files đã đổi (không secret), điểm lùi, một dòng cảnh báo Owner không bấm Update trong Hermes Desktop khi chưa có lệnh của Host; không mở việc mới | Chưa chứng minh thì KHÔNG tuyên bố MAC_PASS |
+| 1. Read gate | Claude Code sau Owner paste/READY | Đọc AGENTS A0/A6/A9/A10, root/HJW A0/0.17/Bảng/P70/P285/P286/chỉ đạo 20:25, PROMPT này; không STOP, không STARTED trùng; xác định thật install Mac CLI/Desktop/local, VPS serve/gateway, SHA mã đang chạy, `origin`, nguồn upstream, version-lock, updater, profile và rollback cũ | Không hợp lệ: KQ DỪNG, 0 mutation |
+| 2. Baseline | Claude Code trên Mac | Xác nhận Remote→VPS hoạt động; backup cấu hình Mac có kiểm khả năng restore; kiểm `hermes update --plan/--check` khi có trên bản đang cài; đọc `hermes-safe-update`/Guard read-only qua SSH nếu được phép; lập bảng Mac Desktop/CLI/Local vs VPS code/serve/gateway **SHA + nguồn thật** | Không suy từ tên version hoặc banner |
+| 3. Dual Hermes | Claude Code/Owner GUI | Dùng app + tính năng có sẵn; giữ Remote, bật Local backend/profile riêng, OpenRouter credential/mac-only; owner bấm chọn kết nối và xác nhận bằng GUI theo lời hướng dẫn ngắn (10 phút); không tự đoán GUI PASS từ config | Cần key thì hỏi đúng một lần, nhập kín; không có quyền thì DỪNG |
+| 4. Update repair/preview | Claude Code Mac-only | Từ lock cũ tạo lại cách nhận biết bản mới upstream mà không mở cửa tự nâng 1 phía. Đối chiếu cơ chế chính hãng, đề xuất **một cách cập nhật từ Mac điều phối có bảo vệ**: ưu tiên khả năng update sẵn có nếu buộc chung target SHA và có kiểm soát; không được thì tận dụng `hermes-safe-update` VPS + Mac-lock/rebuild có sẵn, thêm tối thiểu một lệnh gọi từ Mac (không tạo service/timer/DB); mô phỏng lỗi/rút mạng/mirror-stale/Graph busy/rollback; chứng minh lần no-op và bản update cần áp được phân biệt | Không có phương án thực sự an toàn thì `UPDATE_UNRESOLVED`, không phá khoá cũ |
+| 5. Actual sync update (B) | Claude Code CHỈ sau gate B | Nếu bản cũ không hỗ trợ dual mode hoặc Owner cần nâng bản thật và gate B xanh: chọn bản **ổn định tương thích** với bằng chứng nhà sản xuất và reviewed target SHA, snapshot/rollback Mac+VPS, dùng đúng updater chủ VPS với reviewed gate; cập nhật VPS có kiểm/quay lui, rồi đưa Mac Desktop+Local về **đúng SHA** và thử Remote E2E ngay. Nếu VPS fail thì rollback VPS, Mac giữ bản trước; nếu Mac fail, khôi phục Mac và phục hồi cặp tương thích trước khi báo thành công. Không cho cập nhật đồng thời/fan-out không kiểm soát. | Shared VPS bận/#11 đỏ ⇒ bỏ qua toàn bộ mutation B, không giữ RUN chờ; KQ DỪNG có NEXT_TRIGGER |
+| 6. Real proof | Claude Code + Owner GUI | (a) Hermes Local gọi OpenRouter một câu và nhận reply; (b) Remote→VPS điều khiển được; (c) chuyển qua lại không trộn session/secret/config; (d) tắt Local không ảnh hưởng VPS; (e) update: chứng minh check phát hiện bản mới upstream, no-op sau cập nhật, bản Desktop/Local/serve/gateway cùng target SHA khi chạy thật, INV14/Guard báo thật; (f) thử một đường lùi mà không mất phiên/data | Fail => rollback phần vừa sửa, không ghi PASS |
+| 7. KQ | Claude Code | Một KQ XONG/DỪNG tại đúng HJW COLLAB/Bảng: MAC_PASS riêng, UPDATE_PREVIEW_PASS riêng, UPDATE_LIVE_PASS **chỉ nếu đã áp thật cả cặp**; model/provider + SHA chạy thật + source update/rollback; việc còn thiếu chỉ một NEXT_TRIGGER, không mở task khác, không log key. Nhả busy/đóng CLI | Không chứng minh được => UNKNOWN/DỪNG |
 
-## 2. ĐIỀU KIỆN XONG
-- **MAC_PASS** khi Remote→Hermes VPS và Local→OpenRouter đều chạy thật và độc lập; khi đổi chế độ không mất/chồng dữ liệu; không thay đổi VPS; rollback có thể làm được.
-- **N3 chưa PASS chỉ vì MAC_PASS.** Sau phần này mới làm tiếp courier/điều khiển AI bằng công cụ Hermes theo khả năng và chính sách cho phép, T9 và các residual thực tế. Không lấy kết quả Hermes gọi model OpenRouter làm phiếu của GPT/Claude trong hội đồng.
-- Lỗi vé -05/WRITE_CONFLICT N3-2a và thử bấm muộn vẫn là residual của N3; xử lý gọn riêng đúng chủ, không biến thành gate chặn cài Hermes Local trên Mac.
-- MacBook có thể ngủ/tắt; điều đó không được ảnh hưởng Hermes-VPS. Không mở cổng inbound mới, không đặt Mac luôn trực 24/7.
-- Không đưa bất kỳ key/token/cookie vào báo cáo; không tắt Guard/bảo vệ; thay đổi chỉ trong phạm vi Mac đã được Owner giao; không nâng phiên bản chỉ để đạt một tính năng chưa kiểm chứng.
+## 4. TIÊU CHÍ NGHIỆM THU
+- **MAC_PASS:** có hai Hermes Remote/Local chạy thật trên MacBook như Owner yêu cầu, OpenRouter trả lời và không ảnh hưởng VPS.
+- **UPDATE_PREVIEW_PASS:** thao tác gọi từ Mac và preview xác định đúng nguồn upstream, target dự kiến, baseline của cả Mac+VPS, chặn update một phía, biết thứ tự/rollback và phân biệt no-op thật với mirror-stale. Chưa thực thi update thật thì KHÔNG ghi UPDATE_LIVE_PASS.
+- **UPDATE_LIVE_PASS:** chỉ khi có thay đổi phiên bản thực tế hai đầu về cùng **target commit/compatible build** đã review; Mac update được bằng **một thao tác an toàn từ Mac** hoặc một lệnh Mac do hệ thống hiện hữu cung cấp; backend VPS, Desktop và Local chạy thật/Guard sạch. Không áp nếu B chưa đủ điều kiện; không che lỗi bằng chữ `Already up to date`.
+- Nếu phiên bản hiện tại đã hỗ trợ cả hai và update preview ổn, không bắt update lên bản mới chỉ để tô xanh. Nhưng Owner nói hiện còn chưa cập nhật được, nên phải nộp bằng chứng **đã sửa đúng điểm nghẽn** hoặc `UPDATE_UNRESOLVED` với nguyên nhân cụ thể; không đóng hạng mục này bằng nghiên cứu chung.
+- Việc sau MAC_PASS là Hermes Mac nhắc GPT/Claude vào repo bằng câu ngắn theo chính sách hãng và đúng quyền (P285); chưa làm trong đề này. N3 còn T9 và N3-2a residual -05/late-click; N4–N6/T1–T9 giữ nguyên.
+- Bảo vệ VPS/Graph và dữ liệu là điều kiện bắt buộc. Không rollback/hạ phiên bản rộng trên VPS theo suy đoán. Mọi tình huống không còn đường lùi chứng minh được ⇒ dừng trước mutation.
 
-## 3. QUYỀN VÀ TRẠNG THÁI
-Đây là DRAFT thay thế hoàn toàn PROMPT N3-2B official API/Routine đã bị Owner bác về phạm vi. Git giữ lịch sử bản cũ. Reviewer Claude Chat rà 1 lượt đúng SHA, Host mới READY; Owner mới tự giao Claude Code. Không có STARTED/automatic RUN khi chưa đạt A6. Nếu điều kiện kỹ thuật khó thật mới hỏi một lần đúng blocker, không tạo thêm roadmap hay test riêng.
+## 5. HIỆU LỰC
+P286 READY của PROMPT cũ `0b5c7d449a8512830e0dd3d32e5017d2bc87904c` **hết hiệu lực vì Owner đã bổ sung phạm vi update**. PROMPT này là DRAFT; phải có Claude Reviewer ACCEPT đúng SHA last-touch mới Host READY lại. Không giao lệnh Claude Code theo READY cũ. Không tự phát RUN/khởi chạy agent; Owner dán một lần sau READY mới.
