@@ -553,6 +553,7 @@ Ghế: Codex · Host nội dung · Bước/vòng: rà/sửa theo chỉ đạo tr
 - A–D/F/G: nối bộ kiểm Python + Overview + Master vào một bộ tính; chống xóa nghĩa vụ/đổi phiên/FAIL đọc lại; mốc có dependency + revision, lỗi sau không xóa bằng chứng trước; quyết định đúng người/phạm vi/phiên, ACK đúng quyết định/người nhận.
 - E: nơi ghi nhánh chỉ bắt buộc khi phát sinh. Thử file TEST có mã Master bằng runner (ghi–đọc–restore); chưa nhận đã có mapping/ghi–đọc Master thật của MOW001. Giữ TQT-ISS-007 mở, không đổi tiến độ MOW001.
 - CAT-006 dùng lại mã; catalog.tool_registry quản lý 5 bộ kiểm + 1 runner, hash/lệnh/chủ quản/đầu vào-ra/giới hạn. CAT-012 bộ ca; CAT-015 kết quả. Quét hai chiều source↔danh mục. CAT-006 thêm vào danh sách thiết kế, giữ các Master trước đó; chưa nạp PG.
+- Kết quả P26: cục bộ đạt các suite, 59 ca kiểm hồ sơ/mốc; UI live đúng 20 mục đến hạn/14 mục tương lai, CAT-006 hiển thị 6 công cụ. Snapshot VPS chạy mô hình 87 ca + thử file TEST đạt, nhưng thiếu Node.js nên toàn bộ suite chưa đạt trên VPS. Runner đã thêm preflight BLOCKED (exit 3); bước tiếp hạ tầng là bổ sung Node trong image thực thi được quản lý và chạy lại, không tự sửa runtime sản xuất.
 - Bằng chứng: UI-REVIEW-AGGREGATE.json#host_review_P26. Nền dùng lại Node assert/Python/subprocess/JSON và workspace snapshot; code mỏng chỉ ghép kiểm hiện có và kiểm đăng ký, không service mới.
 - Còn mở: MOW001 Master mapping/quyền/PG; toàn bộ DOT VPS; Reviewer độc lập và người/AI mới đi trọn sản phẩm. Áp: SAME_COMMIT.
 

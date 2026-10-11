@@ -1,8 +1,8 @@
 """Managed read-only test runner. Registry: view.html catalog.tool_registry (CAT-006).
 No credentials, network, PG, service changes or production mutation. Exit 0 PASS,
-1 failed test/inventory, 2 invalid invocation. Default dry-run; --verify executes.
+1 failed test/inventory, 2 invalid invocation, 3 blocked by missing prerequisites. Default dry-run; --verify executes.
 """
-import argparse, hashlib, json, re, subprocess, sys, tempfile, uuid
+import argparse, hashlib, json, re, subprocess, sys, shutil, tempfile, uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -25,6 +25,12 @@ def inventory(base, registry):
             if not x.get(k): errors.append('MISSING_METADATA:'+x['id']+':'+k)
     return errors
 
+def prerequisites(which=shutil.which, version=sys.version_info):
+    errors=[]
+    if tuple(version[:2]) < (3,11): errors.append('PYTHON_3_11_REQUIRED')
+    if not which('node'): errors.append('MISSING_RUNTIME:node')
+    return errors
+
 def self_test():
     with tempfile.TemporaryDirectory(prefix='tqt-check-') as tmp:
         b=Path(tmp);p=b/'check.py';p.write_text('pass\n')
@@ -40,7 +46,10 @@ def self_test():
         p.write_text(json.dumps({**before,'records':[record]}));loaded=json.loads(p.read_text());assert loaded['records'][0]==record
         assert loaded['records'][0]['master_code']=='CAT-015'
         p.write_text(json.dumps(before));assert json.loads(p.read_text())==before
-    return {'cases':7,'store':'temporary TEST file in execution snapshot','write_read_restore':'PASS','production':'NOT_TOUCHED'}
+    assert prerequisites(lambda _: None, (3,11))==['MISSING_RUNTIME:node']
+    assert prerequisites(lambda _: '/test/node', (3,10))==['PYTHON_3_11_REQUIRED']
+    assert prerequisites(lambda _: '/test/node', (3,11))==[]
+    return {'cases':10,'store':'temporary TEST file in execution snapshot','write_read_restore':'PASS','production':'NOT_TOUCHED'}
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
@@ -54,8 +63,10 @@ def main():
     if not (BASE.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json').is_file(): errors.append('MISSING_PRODUCT_SOURCE')
     report={'run_id':'TQT-'+uuid.uuid4().hex,'at':datetime.now(timezone.utc).isoformat(),'scope':reg['scope'],'registry_master':'CAT-006','case_master':'CAT-012','result_master':'CAT-015','source_sha256':sha(source),'inventory_errors':errors,'results':[],'pg':'NOT_RUN','production_ready':False}
     if args.ui_adapter: report['ui_adapter_sha256']=sha(args.ui_adapter)
+    report['prerequisite_errors']=prerequisites()
     if not errors and args.verify and not args.dry_run:
         report['runner_self_test']=self_test()
+    if not errors and not report['prerequisite_errors'] and args.verify and not args.dry_run:
         for x in reg['records']:
             if x['kind']=='RUNNER':continue
             argv=list(x['argv'])
@@ -65,10 +76,10 @@ def main():
                 result={'id':x['id'],'case_set':x['case_set'],'source_sha256':x['sha256'],'argv':argv,'exit_code':proc.returncode,'stdout':proc.stdout,'stderr':proc.stderr}
             except (OSError,subprocess.TimeoutExpired) as exc: result={'id':x['id'],'exit_code':1,'error':str(exc)}
             report['results'].append(result)
-    report['status']='FAIL' if errors or any(x['exit_code'] for x in report['results']) else 'PASS' if args.verify and not args.dry_run else 'DRY_RUN'
+    report['status']='FAIL' if errors or any(x['exit_code'] for x in report['results']) else 'BLOCKED' if report['prerequisite_errors'] else 'PASS' if args.verify and not args.dry_run else 'DRY_RUN'
     if report['status']=='DRY_RUN':report['commands']=[x['argv'] for x in reg['records'] if x['kind']!='RUNNER']
     if args.report:
         args.report.parent.mkdir(parents=True,exist_ok=True);args.report.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(report,ensure_ascii=False))
-    return 1 if report['status']=='FAIL' else 0
+    return 1 if report['status']=='FAIL' else 3 if report['status']=='BLOCKED' else 0
 if __name__=='__main__':sys.exit(main())
