@@ -5,32 +5,33 @@
 **[1. Việc phải qua mốc nào, đang ở đâu?](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=tqt-checkpoint-list)**
 **Kiểm đầu vào (1–3) → làm theo quy trình (4) → kiểm đầu ra, duyệt và bàn giao (5–7).** Bảy mốc thuộc quy trình ⑤, chiếu từ 6 MOT; chưa thêm quy trình/tầng. Mốc đang chuẩn bị khác mốc đã kiểm đạt. Bộ 7 mốc đang áp thử, còn chờ hội đồng thống nhất.
 
-**[2. Phải ghi gì, sổ nào, có sổ chưa, đã ghi chưa?](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=tqt-recording-list)**
-Mỗi thông tin cần ghi có một dòng: **nội dung → sổ → tình trạng sổ → tình trạng bản ghi → việc tiếp/người giữ**. Master List, phiếu và nhật ký đều là sổ. Có địa chỉ chưa chứng minh có sổ; có sổ chưa chứng minh quyền ghi; đã ghi chưa có nghĩa nội dung đạt.
+**[2. Phải ghi gì, vào Master nào, từng việc đã ghi và đối chiếu chưa?](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=tqt-recording-guide)**
 
-- **Chưa xác định sổ / chưa kiểm sổ / xác nhận thiếu sổ:** xác minh hoặc bổ sung nơi ghi, không đoán.
-- **Có sổ, đến hạn chưa ghi:** thiếu bản ghi cần làm. **Đã ghi, chưa kiểm:** đối chiếu đúng việc/phiên và căn cứ.
-- **Chưa đến mốc hoặc chưa phát sinh nhánh:** chưa cần có kết quả, nhưng nơi ghi và quyền ghi/đọc vẫn phải chuẩn bị trước mốc 3.
-- **Đã ghi và kiểm đúng:** giữ bằng chứng; nguồn đổi thì kiểm lại phần ảnh hưởng. Không áp dụng phải có lý do và quyết định.
+Tách hai bảng, cùng dùng quy trình ⑤:
 
-**Cách làm duy nhất:** đọc mục tiêu → khai đúng việc/phạm vi → lấy quy trình và bộ câu hỏi → liệt kê mọi thông tin phải ghi từ đầu vào/đầu ra/kế hoạch/các nhánh → kiểm sổ và quyền → xác nhận đủ → làm → kiểm → duyệt/bàn giao. So danh sách **phải ghi** với **đã ghi**, không dùng các bản ghi đang có để kết luận không bỏ sót. Thiếu nơi ghi hoặc thiếu khai báo thì giữ người xử lý, quay S5 của ⑤ và dùng ②/③ hiện hữu; không tự mở sổ khác.
+- **Hướng dẫn chung:** phải ghi gì → tên/mã Master → còn thiếu nơi lưu/UI gì → cách ghi. Dấu **?** giải thích từng cột. Không ghi tiến độ của một việc vào đây.
+- **Hồ sơ tiến độ từng việc:** một mã hồ sơ cho mỗi lần làm; từng dòng nối về Master đích và bản ghi cụ thể. **Đã ghi chưa:** Chưa ghi / Đã ghi. **Đối chiếu:** Chưa đối chiếu (xám) / Đã đối chiếu (xanh) / Cần sửa lại (đỏ). Hai cột độc lập; đã ghi vẫn có thể cần sửa.
 
-**Ca hiện tại MOW001/G1:** chuẩn bị mốc 2; **0/7 mốc được xác nhận đạt**. 34 dòng nghĩa vụ đã khai: 13 mục khai + kế hoạch có nội dung nhưng chưa kiểm đúng; 4 bản ghi Master chưa đối chiếu; P01 và bằng chứng rà đủ còn thiếu; các đầu ra còn lại chờ mốc/nhánh. 5 dòng chưa xác minh sổ, quyền ghi/đọc chưa kiểm. **P01 là chuẩn bị, được làm ngay; chưa được sửa sản phẩm trước xác nhận mốc 3.** Số dòng sẽ theo phạm vi từng việc, không cố định 34 cho mọi việc.
+**Mọi sổ đều là Master List có mã.** Chưa có Master → ghi “Chưa có”, bổ sung Master of Master và thiết kế UI theo UI.MASTER. Có mã nhưng thiếu nơi lưu hoặc UI → hiện đúng phần thiếu. Tài liệu chuẩn bị, phiếu JSON hay liên kết mở được không tự chứng minh đã có bản ghi trong Master.
 
-**Nguồn duy nhất:** mốc và quy tắc tại `view.html → tqt-composite-processes → catalog.records[MOW-TH-005].workflow.checkpoints / catalog.work_form.record_control`; phiếu tại `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24`. Overview sinh từ phiếu, kiểm dấu nội dung và đối chiếu nguồn. Không sửa trạng thái ngay trên bảng.
+**Ca MOW001/G1:** đang chuẩn bị mốc 2, **0/7 mốc đã kiểm đạt**. Có 34 nghĩa vụ, chưa gắn bằng chứng bản ghi Master nên hiển thị Chưa ghi / Chưa đối chiếu; không kết luận dữ liệu ngoài hồ sơ không tồn tại. Dữ liệu chuẩn bị vẫn giữ nguyên. Số dòng theo phạm vi từng việc, không cố định 34. Chưa đến mốc/nhánh được chú thích riêng, không coi là lỗi. P01 chuẩn bị được làm ngay; chưa sửa sản phẩm trước xác nhận mốc 3.
 
-**Thiết kế cho PG:** phần thu gọn “Cho AI / PG” có bảng dự kiến, khóa, phiên/lần làm và quan hệ; dùng lại run/reference/event/assessment/issue. Đây là thiết kế lưu trữ, **chưa vào SQL gói PG, chưa nạp PG**, còn ánh xạ toàn phiếu, quyền và kiểm đồng thời ở `TQT-ISS-007`.
+**Rà Master ngày 11/10:** dùng lại 11 mã trong **[Master of Master — 86 mục](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html)**. Trong phạm vi này: 3 Master chưa khai nơi lưu, 4 chưa có UI, 4 nguồn khác chưa xác minh. Các nhóm có thể trùng nhau. Đã ghi thiếu và yêu cầu thiết kế vào từng Master cùng `TQT-ISS-007`; ánh xạ đang ở mức thiết kế, chưa chứng minh các Master vận hành được. Danh mục 30 Master định nghĩa là một phạm vi khác, không dùng để đếm toàn hệ thống.
 
-**Kiểm của Host 11/10:** `node check-record-control.js view.html` kiểm cùng bộ đối chiếu dùng trên màn hình (22 ca: bỏ dòng, sai lần/phiên, thiếu sổ/bản ghi, chưa đến hạn, bằng chứng giả thiếu, nhảy mốc). Chỉ chứng minh trong tập nghĩa vụ đã khai; rà đầy đủ hợp đồng/nhánh vẫn PENDING. Kèm `python3 check-overview-consistency.py view.html` để đối chiếu phiếu nguồn. Không dùng các ca mô phỏng để nhận PG hay UI đã chạy.
+**Cách làm:** đọc mục tiêu → khai đúng việc/phạm vi → lấy quy trình/câu hỏi → liệt kê mọi nơi phải ghi từ đầu vào, đầu ra, kế hoạch và nhánh → kiểm Master và quyền → xác nhận đủ → làm → kiểm → duyệt/bàn giao. Rà từ danh sách phải ghi, không chỉ từ những bản ghi đang có. Thiếu nơi ghi thì giữ người xử lý, quay S5 của ⑤, dùng ②/③; không mở sổ không mã.
 
-**Tiếp nhận [PR11](proposals/TQT-PR-20261010-gptchat-two-questions-record-review-11.md):** giữ hai bảng. H1/H2 **REQUEST_CHANGES** đến khi rà đủ hợp đồng, Master, quyền và đọc lại; H3 **ACCEPT** tách tình trạng; H4 **ACCEPT phần thiết kế**, chưa nghiệm thu thực thi; H5 **chưa xác nhận** AI mới đi hết. Giữ hồ sơ `TQT-ISS-007`. Kiểm kê 19/30 Master nằm ở phần tham khảo, không phải bằng chứng đã ghi đủ cho một việc.
+**Nguồn:** luật/mốc và hướng dẫn chung ở `view.html → catalog.work_form.record_control`; nghĩa vụ và tiến độ từng việc ở `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24` (`record_requirements`, `record_checks`). Đây là dữ liệu chuẩn bị cho hồ sơ CAT-227*, chưa ghi vào Master vận hành. Overview đọc bản chiếu có kiểm hash; tên/mã Master là snapshot từ Master of Master, phải sinh lại khi nguồn đổi. Không sửa hai nơi hay đổi trạng thái giả trên trình duyệt.
+
+**Hướng PG:** tách quy định theo phiên quy trình; hồ sơ theo lần làm; dòng ghi/đối chiếu theo mã nghĩa vụ; đích bằng mã Master + mã bản ghi + phiên. Đối chiếu đạt cần căn cứ/người/thời điểm; đổi nguồn thì kiểm lại, giữ lịch sử. Các option hiện chỉ đọc từ nguồn, **chưa có API lưu PG**. Bảng/khóa, ánh xạ toàn phiếu, quyền và kiểm đồng thời còn mở tại `TQT-ISS-007`.
+
+**Kiểm Host:** `node check-record-control.js view.html` kiểm 26 ca về tách hướng dẫn/hồ sơ, sai lần/phiên/Master, thiếu dòng, bằng chứng và trạng thái; `python3 check-overview-consistency.py view.html` đối chiếu phiếu nguồn. Các kiểm thiết kế không thay kiểm PG thực tế hay nghiệm thu sản phẩm. PR11 giữ các điểm chưa đủ ở `TQT-ISS-007`.
 
 ## Hiện hành · D24/P23 · Host đọc tại COLLAB §0
 **5 quy trình tổng hợp + 12 quy trình thành phần.** Host đã chốt **MOW-TH-005 · Từ mục tiêu đến kết quả được nghiệm thu**, phiên `1.1-design`, Chuỗi CTCM `CH-001`, để áp thử thiết kế. Owner giao Host tự quyết; không còn chờ phê duyệt riêng ⑤. Chưa nghiệm thu PG hay tự động hóa.
 
 **Một đường làm:** ⑤ khai việc và hai đầu nối → chuẩn bị/khai nơi ghi/lập kế hoạch → xác nhận đủ điều kiện → làm từng MOT → kiểm sản phẩm và kết nối → duyệt, bàn giao có xác nhận. QT-CTCM-012 lấy/kiểm bộ câu hỏi trong phần chuẩn bị. Sai/thiếu: Tool 008 ghi cùng hồ sơ → ② nhận xử lý → cần sửa hướng dẫn thì ③ → kiểm lại đúng nơi phát hiện. Chưa có người nhận thì người giao vẫn giữ.
 
-[Mở Over view](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view) · [Master Quy trình tổng hợp](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Danh sách Master tổng (30)](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html).
+[Mở Over view](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view) · [Master Quy trình tổng hợp](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/quy-trinh-tong-hop-master-v1.html) · [Master of Master (86 mục)](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html).
 
 **Nguồn duy nhất:** `view.html#tqt-composite-processes.catalog`. 17 MOW có chú giải; 12 thành phần có 50 MOT trỏ về từng hướng dẫn gốc; ⑤ có 6 MOT. Các bước này dùng chung `catalog.trial_contract` (hiển thị tại `#tqt-trial-contract`), không nhân bản câu hỏi hay sổ. Mỗi MOT kế thừa đúng lần làm, đối tượng/phiên, người làm/kiểm/nhận, nơi đọc/ghi, tiêu chí và đích trả. Đây là mã thiết kế, chưa là đăng ký runtime.
 
