@@ -1,3 +1,11 @@
+# Hiện hành · Owner giao Host rà QTTH 05 và DOT · 11/10/2026
+
+Owner giao trực tiếp phiên Codex này tiếp tục tools-quy-trinh, đi bộ từng bước theo phản biện GPT Pro, sửa điểm hở và quản lý tái sử dụng DOT/script/bộ kiểm. Giữ ⑤ và 7 mốc. Nguồn: COLLAB §0, README và catalog trong view.html. Phạm vi: nguồn thiết kế, bộ kiểm, danh mục và UI Master liên quan; không triển khai PG/production nghiệp vụ.
+
+Bộ tính mốc duy nhất: view.html#tqt-record-control. Chạy lại từ danh mục CAT-006 bằng run-tqt-checks.py; CAT-012 định nghĩa bộ ca, CAT-015 kết quả. Kết quả/giới hạn mới ở UI-REVIEW-AGGREGATE.json#host_review_P26. MOW001 chưa đạt CP03; không tự sửa trạng thái thành sẵn sàng/xong từ các cờ khai báo.
+
+## Lịch sử các đề bài trước — không dùng làm chỉ đạo hiện hành
+
 # PROMPT hiện hành · D24/P23 · Từ mục tiêu tới kết quả
 
 Host/roster chỉ đọc tại COLLAB §0. Mục tiêu Owner giữ nguyên; bổ sung D24: bất cứ việc lớn/nhỏ đều bắt đầu bằng ⑤ khai đủ việc, hai đầu nối, điều kiện, kế hoạch, nơi ghi, người làm/kiểm/duyệt/nhận và vòng đời.

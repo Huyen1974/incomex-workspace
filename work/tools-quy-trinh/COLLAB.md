@@ -5,7 +5,7 @@ Tên việc: Tools quy trình — làm theo quy trình ra được sản phẩm
 Xác nhận User: ĐÃ XÁC NHẬN — Owner viết lại ô 1 ngày 10/10/2026 07:38 (D25), thay 15 ý bản 08/10 (D04/D05). Bản cũ và các khối bổ sung 08–10/10 giữ nguyên văn ở Vòng trước; nội dung đã vào ô 3. Owner giao Claude làm Host phần Kiểm soát (Bảng, ô 1–3); Astra Codex vẫn là Host nội dung (D22).
 Host: Astra Codex — Host nội dung: view.html, README, catalog, tiếp nhận đề xuất nội dung (D22) · Claude — Host Kiểm soát: Bảng điều khiển, ô 1–3 của §0 (D25)
 Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
-Host_Surface: Astra Codex · cuộc trò chuyện Codex của Owner · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
+Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-10 08:00 +07 · Claude · P24
@@ -17,6 +17,8 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ⬜ Còn lại: 1) ca MOW001/G1 đi theo ⑤ tới nghiệm thu thiết kế → 2) ca đầu tiên "ý tưởng → quy trình chạy được" (ô 3 R04) → 3) AI mới làm lại không cần hỏi → 4) G2 triển khai, PG staging → 5) G3 vận hành.
 - ➡ Kế tiếp: 🤖 Astra Codex kiểm đầu vào G1, xác nhận kế hoạch trước S3 trong application_D24, đồng bộ README theo D25 · 🤖 Claude rà §0 mỗi lượt được gọi · 😊 Owner: không có việc chờ. NEXT_TRIGGER=VERIFY_G1_INPUTS_AND_CONFIRM_PLAN_BEFORE_S3
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
+
+**Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
 
 ### 1. Mục tiêu
 1. Xây dựng 1 cỗ máy sản xuất quy trình, mà ở đó, con người đưa ra ý tưởng => AI + cỗ máy đó biến thành quy trình chạy được, tự động tối đa.
@@ -545,6 +547,16 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - — Q01 · ĐÃ GIẢI QUYẾT D22/D25: Astra Codex là Host nội dung; Claude là Host Kiểm soát (Bảng, ô 1–3). Mục tiêu ngắn: Owner tự viết ô 1 ngày 10/10 (D25), đã áp; PR-07 đóng. Không có câu hỏi Owner đang mở.
 
 ## Ý kiến và bằng chứng
+### P26 · Host đi bộ 7 mốc và đăng ký công cụ dùng lại · KIỂM THIẾT KẾ
+Ghế: Codex · Host nội dung · Bước/vòng: rà/sửa theo chỉ đạo trực tiếp Owner 11/10 · 1/5. Based_on: 7d4cedfad44832288b57eff9524b742361d8971e + bản phản biện GPT Pro Owner dán. Không giả là đã có Reviewer khác hãng nghiệm thu.
+- Đường vào Owner: `/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view`; nguồn `work/tools-quy-trinh/view.html`. Master nạp catalog và hàm kiểm từ cùng bản xuất qua tqt-catalog-source-v1.js; adapter `ui/process-work-master-v1.js`.
+- A–D/F/G: nối bộ kiểm Python + Overview + Master vào một bộ tính; chống xóa nghĩa vụ/đổi phiên/FAIL đọc lại; mốc có dependency + revision, lỗi sau không xóa bằng chứng trước; quyết định đúng người/phạm vi/phiên, ACK đúng quyết định/người nhận.
+- E: nơi ghi nhánh chỉ bắt buộc khi phát sinh. Thử file TEST có mã Master bằng runner (ghi–đọc–restore); chưa nhận đã có mapping/ghi–đọc Master thật của MOW001. Giữ TQT-ISS-007 mở, không đổi tiến độ MOW001.
+- CAT-006 dùng lại mã; catalog.tool_registry quản lý 5 bộ kiểm + 1 runner, hash/lệnh/chủ quản/đầu vào-ra/giới hạn. CAT-012 bộ ca; CAT-015 kết quả. Quét hai chiều source↔danh mục. CAT-006 thêm vào danh sách thiết kế, giữ các Master trước đó; chưa nạp PG.
+- Bằng chứng: UI-REVIEW-AGGREGATE.json#host_review_P26. Nền dùng lại Node assert/Python/subprocess/JSON và workspace snapshot; code mỏng chỉ ghép kiểm hiện có và kiểm đăng ký, không service mới.
+- Còn mở: MOW001 Master mapping/quyền/PG; toàn bộ DOT VPS; Reviewer độc lập và người/AI mới đi trọn sản phẩm. Áp: SAME_COMMIT.
+
+
 ### P25 · GPT Chat trình bày hai bảng đầu Over view theo Owner · ĐÃ KIỂM HIỂN THỊ
 HUMAN_DIRECTIVE@TQT-OWNER-TWO-BOARDS-20261010 EFFECTIVE · task=tools-quy-trinh · scope=view.html phần Over view + README đường vào + mục P25 này · step=chỉ trình bày · recorded_by=GPT Chat · quote="Tôi muốn nhìn thấy 2 việc này đơn giản trên overview. Bản đồ bổ sung cho tôi và nó phải khớp với những gì codex đang làm." · audit=Owner giao trực tiếp trong cuộc trò chuyện GPT Chat 10/10/2026.
 - Giữ Astra Codex làm Host nội dung/Claude kiểm soát theo D25. Không sửa §0, PROMPT, catalog, mô hình, phiếu MOW001, quyền, Master hoặc trạng thái thực thi. Thay khối tóm tắt cũ bằng hai bảng luôn hiện: 7 mốc của ⑤ (chiếu từ 6 MOT) và 8 chức năng nơi ghi từ phiếu nguồn.

@@ -1,5 +1,5 @@
 """Validate design declarations and stored application; does not enforce production execution."""
-import copy,hashlib,json,re,sys
+import copy,hashlib,json,re,sys,subprocess
 from pathlib import Path
 path=Path(sys.argv[1] if len(sys.argv)>1 else Path(__file__).with_name('view.html'))
 s=path.read_text();c=json.loads(re.search(r'<script id="tqt-composite-processes"[^>]*>(.*?)</script>',s,re.S)[1])
@@ -15,6 +15,11 @@ def resolve(d,ref):
   m=re.fullmatch(r'processes\[0\]\.supplements\[id=([^\]]+)\]\.steps\[(\d+)\]',ref);assert m,ref
   rows=[p for p in d['processes'][0]['supplements'] if p['id']==m[1]]
  assert len(rows)==1 and int(m[2])<len(rows[0]['steps']) and rows[0]['steps'][int(m[2])]
+def gate(a,r):
+ d=copy.deepcopy(r);d['application_preview']['record']=a
+ proc=subprocess.run(['node',str(Path(__file__).with_name('check-record-control.js')),str(path),'--audit'],input=json.dumps(d),text=True,capture_output=True,check=True)
+ return json.loads(proc.stdout)
+
 def validate_application(a,r):
  assert REQUIRED<=set(a) and all(a[k] for k in REQUIRED)
  assert a['process_code']=='MOW-TH-005' and a['process_version']==r['records'][4]['version']
@@ -37,6 +42,8 @@ def validate_application(a,r):
   assert all(p['status']=='DONE' or (p['status']=='NA' and p.get('reason')) for p in a['plan'] if p['process']!='MOW-TH-005')
  if a['state'] in ['DA_BAN_GIAO','XONG']:
   assert a['release']['state']=='APPROVED' and a['release']['decision_ref'] and a['release']['ack_ref']
+ if a['state'] in ['SAN_SANG','DANG_LAM','DANG_KIEM','CHO_DUYET','DA_BAN_GIAO','XONG']:assert gate(a,r)['canStart'], 'RECORD_GATE_CP03'
+ if a['state'] in ['DA_BAN_GIAO','XONG']:assert gate(a,r)['canFinish'], 'RECORD_GATE_CP07'
  if a['scope_stage']=='G1':assert not a['deployed'] and a['excluded_stages']==['G2','G3'] and a['release']['scope']=='G1_DESIGN_ONLY'
  if a['state']=='BI_CHAN':assert a['reason'] and a['next_owner'] and a['next_trigger']
 def validate(d):
@@ -113,18 +120,26 @@ ready=copy.deepcopy(c['catalog']['application_preview']['record'])
 ready.update(state='SAN_SANG',questions_complete=True,requirements_checked=True)
 ready['start_confirmation'].update(state='CONFIRMED',evidence_ref='SIM:confirmation')
 for row in ready['declarations']:row.update(result='PASS',evidence_refs=['SIM:verified'])
-validate_application(ready,c['catalog'])
+try:validate_application(ready,c['catalog'])
+except AssertionError:pass
+else:raise AssertionError('readiness flags bypass record gate')
 closed=copy.deepcopy(ready);closed.update(state='XONG',test_result='PASS')
 closed['connection_tests']={'in':'PASS','out':'PASS'}
 for p in closed['plan']:p.update(status='DONE',result='PASS')
 closed['release'].update(state='APPROVED',decision_ref='SIM:decision',ack_ref='SIM:ack')
-validate_application(closed,c['catalog'])
+try:validate_application(closed,c['catalog'])
+except AssertionError:pass
+else:raise AssertionError('completion flags bypass record gate')
 late=[lambda a:a['release'].update(ack_ref=None),lambda a:a['connection_tests'].update(out='FAIL'),lambda a:a['start_confirmation'].update(plan_version='OLD'),lambda a:a['plan'][1].update(status='TODO'),lambda a:a['declarations'][0].update(validity='RECHECK')]
 for fn in late:
  a=copy.deepcopy(closed);fn(a)
  try:validate_application(a,c['catalog'])
  except AssertionError:pass
  else:raise AssertionError('premature completion accepted')
+# The positive path must also pass Python using exactly the JS regression evidence.
+full=json.loads(subprocess.run(['node',str(Path(__file__).with_name('check-record-control.js')),str(path),'--complete-fixture'],text=True,capture_output=True,check=True).stdout)
+full['application_preview']['record']['state']='XONG'
+validate_application(full['application_preview']['record'],full)
 source_check='LOCAL_PROJECTION_ONLY'
 source=Path(__file__).parent.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json'
 if source.exists():
@@ -140,4 +155,4 @@ candidate=copy.deepcopy(a);candidate['state']='SAN_SANG'
 try:validate_application(candidate,r);can_start=True
 except (AssertionError,KeyError,IndexError):can_start=False
 if not can_start and not missing:missing.append({'field':'application','need':'Khai báo, bộ câu hoặc xác nhận kế hoạch chưa hợp lệ; rà phiếu theo cổng S2','owner':a['actor']})
-print(json.dumps({'positive':3,'negative':len(mutations)+len(appmut)+len(late),'procedures':len(c['catalog']['records'])+len(c['catalog']['normal_processes']),'source_check':source_check,'application_state':a['state'],'can_start':can_start,'needs_before_start':missing,'next':a['next'],'production_ready':False},ensure_ascii=False))
+print(json.dumps({'positive':2,'negative':len(mutations)+len(appmut)+len(late),'procedures':len(c['catalog']['records'])+len(c['catalog']['normal_processes']),'source_check':source_check,'application_state':a['state'],'can_start':can_start,'needs_before_start':missing,'next':a['next'],'production_ready':False},ensure_ascii=False))

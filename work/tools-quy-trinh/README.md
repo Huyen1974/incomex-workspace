@@ -1,6 +1,6 @@
 # tools-quy-trinh · Cửa vào
 
-**Điểm vào: [Danh sách 47 Master đã đưa vào thiết kế](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html).** Đây là danh sách các Master, giữ nguyên bức tranh toàn cảnh. DEF 00.1 · MASTER TIẾN TRÌNH CÔNG VIỆC là dòng đầu, vị trí 0.1; bấm dòng này mới mở trang tiến trình riêng. Không nhúng bảng công việc lên thay danh sách Master. Danh mục toàn hệ thống gồm cả Master chưa thiết kế được quản lý riêng; làm UI đến đâu thì đưa vào danh sách thiết kế đến đó.
+**Điểm vào: [Danh sách 48 Master đã đưa vào thiết kế](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html).** Đây là danh sách các Master, giữ nguyên bức tranh toàn cảnh. DEF 00.1 · MASTER TIẾN TRÌNH CÔNG VIỆC là dòng đầu, vị trí 0.1; bấm dòng này mới mở trang tiến trình riêng. Không nhúng bảng công việc lên thay danh sách Master. Danh mục toàn hệ thống gồm cả Master chưa thiết kế được quản lý riêng; làm UI đến đâu thì đưa vào danh sách thiết kế đến đó.
 
 DEF 00.1 dùng lại Master có khóa cũ CAT-227*, không tạo Master thứ hai. Hồ sơ chi tiết, việc con, kết quả kiểm và bàn giao nối về mã việc; vòng nâng cấp giữ lịch sử và gắn hồ sơ mới. Tầng của việc, chuyên môn T3, mốc và vòng đời là các trường riêng. Ngày thực tế tách ngày kế hoạch; chưa có phải hiện Chưa ghi. Nguồn tổng hợp duy nhất: `catalog.work_schedule` trong `view.html`; UI đọc nguồn này, không nhập tiến độ hai nơi. Hiện chỉ có 2 việc ghi danh, chưa chứng minh bao phủ toàn hệ thống. Phép chiếu/khóa/quy tắc PG được thiết kế trong `work_schedule.pg_design`, chưa triển khai PG.
 
@@ -13,6 +13,21 @@ DEF 00.1 dùng lại Master có khóa cũ CAT-227*, không tạo Master thứ ha
 **Mức hoàn thành:** đủ chỗ khai trong thiết kế cho 7 mốc và các nhánh được rà; chưa có bằng chứng ghi/đọc/quyền của các Master mới. Mô hình trường, khóa, liên kết là thiết kế logic, chưa sinh/nạp PG; TQT-ISS-007 tiếp tục mở. Mẫu rỗng không tính là bản ghi đã tạo, không tăng tiến độ MOW001. Kiểm cấu trúc, các ca sai cũ và mở mẫu qua trình duyệt trước bàn giao.
 
 **Thống nhất trạng thái 11/10:** Hướng dẫn chung tách “Thiết kế UI” và “Nguồn lưu”. 11 mục ghi dẫn tới 19 Master liên quan (11 chính + 8 chi tiết), nằm trong danh sách thiết kế 47 Master. Chưa nối nguồn thì số lượng hiển thị —, không suy là 0 bản ghi thực. Hai số 2 hồ sơ/việc và các dòng kế hoạch là dữ liệu chuẩn bị đã biết, không phải số bản ghi PG. “Đã ghi / Đối chiếu” chỉ thuộc hồ sơ từng việc; không đổi thành Đã ghi chỉ vì tạo UI. Nhãn hiển thị chung ở `record_control.display_labels`; trạng thái nguồn và kiểm mốc giữ nguyên căn cứ. Chưa khai nguồn lưu khác với chưa có thiết kế, và khác với hồ sơ chưa gắn bản ghi.
+
+
+## DOT / Script / Bộ kiểm · dùng lại trước khi viết mới
+
+[Danh mục DOT / Script / Bộ kiểm (CAT-006)](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-006) dùng nguồn duy nhất `view.html → catalog.tool_registry`. Đã đăng ký 5 bộ kiểm có sẵn và 1 lệnh chạy chung; danh sách Master thiết kế hiện có **48**, giữ 47 dòng trước. CAT-012 giữ định nghĩa bộ ca, CAT-015 giữ kết quả từng lần. Chưa nhập vào `dot_tools` trên PG; con số 314 trong Master of Master là số khai trước đây, chưa phải kiểm kê live.
+
+**AI làm:** đọc danh mục → tìm và dùng lại → sửa/đăng ký nếu thiếu → chạy `python3 run-tqt-checks.py --verify --report <đường-bằng-chứng.json>` → đọc kết quả và ghi vào hồ sơ. Mặc định không tham số hoặc `--dry-run` chỉ kiểm danh mục; `--help` giải thích cách gọi. Chạy từ bất kỳ thư mục nào. Khi rà cả UI, thêm `--ui-adapter <bản-nguồn-process-work-master-v1.js>`; báo cáo giữ hash adapter. Thiếu adapter chỉ kiểm cấu trúc, không được nhận đã kiểm giao diện.
+
+**Máy chặn:** file Python/JS của task chưa đăng ký, mất file, trùng mã/đường, lệch SHA256 hoặc thiếu hợp đồng chạy ⇒ FAIL trước chạy. Sau khi sửa script, cập nhật SHA trong danh mục cùng commit. Báo cáo giữ run_id, thời điểm, hash đầu vào/công cụ, lệnh và kết quả; không chép số PASS bằng tay. Kiểm chỉ đọc nguồn; không credential, PG, dịch vụ hay gửi tin. Phạm vi quét `tools-quy-trinh/**/*.py, **/*.js`; chưa bao phủ các script/dịch vụ khác trên VPS. Bốn file tìm thấy tại `agent-data/dot/bin` chỉ ghi con trỏ trong `external_inventory`, chưa tự chạy.
+
+**7 mốc dùng một bộ tính:** `tqt-record-control` trong view.html. Overview, Master và bộ kiểm Python đều gọi nguồn này. Nghĩa vụ bắt buộc lấy từ hợp đồng quy trình + trường khai + phạm vi MOT + kế hoạch; xóa dòng không làm đủ. Đối chiếu cần đúng quy trình/phiên, đối tượng/phiên, đọc lại PASS và phiên bản ghi. Quyết định/biên nhận phải khớp người, phạm vi, phiên và nhau. Mỗi kết quả mốc có revision + căn cứ phụ thuộc; giữ lịch sử khi kiểm lại. Lỗi mốc sau không xóa mốc trước. Nguồn của nhánh chưa phát sinh chỉ trở thành điều kiện khi nhánh phát sinh; đầu ra ALWAYS vẫn phải khai nơi ghi trước CP03.
+
+**Đường ghi–đọc thử:** runner tạo file JSON tại thư mục TEST tạm trong snapshot thực thi của VPS, ghi bản ghi có mã CAT-015 + application_id TEST + revision, đọc đối chiếu rồi khôi phục. Đây là kiểm ghi/đọc/restore thật trên file TEST, không phải bản ghi Master vận hành của MOW001. Bằng chứng nhận lại qua `workspace_exec_status`, lưu ở `UI-REVIEW-AGGREGATE.json#host_review_P26`. Không giữ file tạm thành nguồn chuẩn. MOW001 còn phải khai mapping từng Master và xác minh quyền/ghi–đọc bằng adapter được quản lý trước CP03; không giả đủ vì kiểm TEST đạt.
+
+**Phần còn mở — TQT-ISS-007:** mapping Master thật của MOW001, PG/quyền/đồng thời, danh mục DOT toàn VPS và kiểm AI mới đi hết sản phẩm. Giữ ⑤ và 7 mốc, chưa mở ⑥. Kết quả rà kỹ thuật không thay Reviewer độc lập hay nghiệm thu sản phẩm.
 
 ## Over view · đúng hai câu hỏi
 
@@ -38,7 +53,7 @@ Tách hai bảng, cùng dùng quy trình ⑤:
 
 **Hướng PG:** tách quy định theo phiên quy trình; hồ sơ theo lần làm; dòng ghi/đối chiếu theo mã nghĩa vụ; đích bằng mã Master + mã bản ghi + phiên. Đối chiếu đạt cần căn cứ/người/thời điểm; đổi nguồn thì kiểm lại, giữ lịch sử. Các option hiện chỉ đọc từ nguồn, **chưa có API lưu PG**. Bảng/khóa, ánh xạ toàn phiếu, quyền và kiểm đồng thời còn mở tại `TQT-ISS-007`.
 
-**Kiểm Host:** `node check-record-control.js view.html` kiểm 26 ca về tách hướng dẫn/hồ sơ, sai lần/phiên/Master, thiếu dòng, bằng chứng và trạng thái; `python3 check-overview-consistency.py view.html` đối chiếu phiếu nguồn. Các kiểm thiết kế không thay kiểm PG thực tế hay nghiệm thu sản phẩm. PR11 giữ các điểm chưa đủ ở `TQT-ISS-007`.
+**Kiểm Host:** `node check-record-control.js view.html` kiểm 59 ca về tách hướng dẫn/hồ sơ, sai lần/phiên/Master, thiếu dòng, bằng chứng và trạng thái; `python3 check-overview-consistency.py view.html` đối chiếu phiếu nguồn. Các kiểm thiết kế không thay kiểm PG thực tế hay nghiệm thu sản phẩm. PR11 giữ các điểm chưa đủ ở `TQT-ISS-007`.
 
 ## MASTER TIẾN TRÌNH CÔNG VIỆC · DEF 00.1
 
@@ -50,7 +65,7 @@ Tách hai bảng, cùng dùng quy trình ⑤:
 
 Nguồn thiết kế: `catalog.work_schedule` (CAT-227*); luật/mẫu UI: `catalog.work_master_designs`. Khóa và phụ thuộc theo mã, không theo tên; kiểm thiếu hồ sơ, sai phiên, trùng mã/thứ tự và vòng phụ thuộc. Dữ liệu này chưa ghi vào PG; ánh xạ bảng/khóa/quyền vẫn thuộc TQT-ISS-007.
 
-**[Khu Master đang rà](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html)** bổ sung 9 Master đã có mã, thành 39 mục chọn thiết kế (30 cũ + 9). Master of Master vẫn 86 mục. Mỗi UI mới dùng nguyên UI.MASTER cha, có list và nút Xem mẫu khai báo; mẫu không phải bản ghi đã thực hiện. Không nhập các UI nháp vào danh mục UI con đã duyệt. Kiểm cấu trúc: `node check-work-masters.js view.html` (mã/phiên/hồ sơ/phụ thuộc; 10 ca sai bị chặn). Khi rà UI, chạy thêm với đường dẫn nguồn `process-work-master-v1.js` để kiểm cả 9 cấu hình list/mẫu khai báo.
+**Lịch sử trước lượt bổ sung 11/10 — [Khu Master đang rà](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html)** bổ sung 9 Master đã có mã, khi đó có 39 mục chọn thiết kế (30 cũ + 9); hiện hành 48 (47 trước + CAT-006). Master of Master vẫn 86 mục. Mỗi UI mới dùng nguyên UI.MASTER cha, có list và nút Xem mẫu khai báo; mẫu không phải bản ghi đã thực hiện. Không nhập các UI nháp vào danh mục UI con đã duyệt. Kiểm cấu trúc: `node check-work-masters.js view.html` (mã/phiên/hồ sơ/phụ thuộc; 10 ca sai bị chặn). Khi rà UI, chạy thêm với đường dẫn nguồn `process-work-master-v1.js` để kiểm toàn bộ cấu hình list/mẫu khai báo hiện hành.
 
 ## Hiện hành · D24/P23 · Host đọc tại COLLAB §0
 **5 quy trình tổng hợp + 12 quy trình thành phần.** Host đã chốt **MOW-TH-005 · Từ mục tiêu đến kết quả được nghiệm thu**, phiên `1.1-design`, Chuỗi CTCM `CH-001`, để áp thử thiết kế. Owner giao Host tự quyết; không còn chờ phê duyệt riêng ⑤. Chưa nghiệm thu PG hay tự động hóa.

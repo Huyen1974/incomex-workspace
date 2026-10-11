@@ -9851,12 +9851,12 @@ main{max-width:1240px} [hidden]{display:none!important}
     "issue": {
       "id": "TQT-ISS-007",
       "title": "Quy trình tổng hợp chưa nối vào Master và vòng xử lý khép kín",
-      "state": "Mở · đã chốt 5 quy trình thiết kế; còn áp thử và 5 chốt thực thi",
+      "state": "Mở · đã sửa kiểm 7 mốc và đăng ký công cụ; còn Master thật, PG và áp thử sản phẩm",
       "owner": "Astra Codex · Host",
       "next": "Chuẩn bị: hoàn thiện nơi ghi/UI của các Master còn thiếu, đối chiếu bản ghi MOW/MOT; đưa dữ liệu chuẩn bị vào đúng Master rồi kiểm trước mốc 3.",
       "review": "Lượt tiếp tục tools-quy-trinh; trước mọi tuyên bố quy trình này đã đăng ký hoặc vận hành.",
       "done": "Có mã Master/quan hệ hợp lệ; mỗi nhánh có nơi nhận, chủ trách nhiệm, chỗ ghi và tiêu chí xong; một ca đi hết có bằng chứng. Giao diện/bộ câu hỏi mới không đủ để đóng.",
-      "evidence": "FORMULA-AI-README §D158/§6; CT-005/005.1; view.html tqt-composite-processes; rà nguồn Host 09/10/2026. OPEN-10 là ca sản phẩm liên quan, không đổi trạng thái của nó ở đây. Host tiếp nhận proposal05: model v2, 83 ca mô phỏng; phiếu 70 lượt roundtrip; sáu ô có bản ghi SENT/ACK/RETURN/kiểm/đóng; SQL và PL/pgSQL kiểm cú pháp. Chưa PG/B3–B7 thật; guard quét toàn mô hình chỉ cho staging nhỏ. Vòng 6 Host tái hiện 7 nhóm nhận xét (9 phép kiểm tập trung); đã sửa retry và search_path, còn R06-01/02/03/05/06. 87 ca hiện có không thay nghiệm thu các chốt này. Rà PR11 ngày 11/10: H1/H2 chưa nghiệm thu đủ (hợp đồng, Master, quyền và đọc lại còn chờ); H3 tiếp nhận tách tình trạng; H4 đã khai người giữ/chặn CP03/quay S5; H5 chưa kiểm AI mới độc lập. 7 mốc đặt trong quy trình 005; nghĩa vụ ghi và bảng khóa/quan hệ ở work_form.record_control. Chưa chuyển PG. Owner 11/10: tách hướng dẫn chung / hồ sơ tiến độ; mọi sổ là Master. Đối chiếu Master of Master 86 mục, dùng lại 11 mã: 3 chưa có nơi lưu, 4 chưa có UI; 4 nguồn khác chưa xác minh. Nội dung file chuẩn bị không tính là đã ghi Master. Hai trạng thái ghi và đối chiếu độc lập. Owner 11/10 tiếp: bổ sung 9 Master theo dõi vào khu Master đang rà, dựng UI cha list/mẫu khai báo. CAT-227* quản lý thứ tự MOW001→MOW002 và gắn hồ sơ; mới dữ liệu chuẩn bị, chưa PG. Rà nơi ghi 11/10: bổ sung UI cho 8 Master có mã sẵn, giữ 39 Master đã có; 47 Master trong danh sách thiết kế. Khai nguồn/đích chi tiết và hồ sơ/vòng; nơi lưu và quyền vẫn chưa nghiệm thu PG."
+      "evidence": "FORMULA-AI-README §D158/§6; CT-005/005.1; view.html tqt-composite-processes; rà nguồn Host 09/10/2026. OPEN-10 là ca sản phẩm liên quan, không đổi trạng thái của nó ở đây. Host tiếp nhận proposal05: model v2, 83 ca mô phỏng; phiếu 70 lượt roundtrip; sáu ô có bản ghi SENT/ACK/RETURN/kiểm/đóng; SQL và PL/pgSQL kiểm cú pháp. Chưa PG/B3–B7 thật; guard quét toàn mô hình chỉ cho staging nhỏ. Vòng 6 Host tái hiện 7 nhóm nhận xét (9 phép kiểm tập trung); đã sửa retry và search_path, còn R06-01/02/03/05/06. 87 ca hiện có không thay nghiệm thu các chốt này. Rà PR11 ngày 11/10: H1/H2 chưa nghiệm thu đủ (hợp đồng, Master, quyền và đọc lại còn chờ); H3 tiếp nhận tách tình trạng; H4 đã khai người giữ/chặn CP03/quay S5; H5 chưa kiểm AI mới độc lập. 7 mốc đặt trong quy trình 005; nghĩa vụ ghi và bảng khóa/quan hệ ở work_form.record_control. Chưa chuyển PG. Owner 11/10: tách hướng dẫn chung / hồ sơ tiến độ; mọi sổ là Master. Đối chiếu Master of Master 86 mục, dùng lại 11 mã: 3 chưa có nơi lưu, 4 chưa có UI; 4 nguồn khác chưa xác minh. Nội dung file chuẩn bị không tính là đã ghi Master. Hai trạng thái ghi và đối chiếu độc lập. Owner 11/10 tiếp: bổ sung 9 Master theo dõi vào khu Master đang rà, dựng UI cha list/mẫu khai báo. CAT-227* quản lý thứ tự MOW001→MOW002 và gắn hồ sơ; mới dữ liệu chuẩn bị, chưa PG. Rà nơi ghi 11/10: bổ sung UI cho 8 Master có mã sẵn, giữ 39 Master đã có; 47 Master trong lượt thiết kế trước. Lượt P26: bổ sung CAT-006 dùng lại mã, 48 Master; sáu công cụ đăng ký, bộ tính mốc chung, chặn thiếu nghĩa vụ và đối chiếu sai. Chi tiết/bằng chứng tại UI-REVIEW-AGGREGATE.json#host_review_P26. Mapping và quyền Master thật của MOW001, PG và kiểm AI mới còn mở."
     }
   },
   "inventory": {
@@ -11850,7 +11850,7 @@ main{max-width:1240px} [hidden]{display:none!important}
       "automation": "Bộ kiểm đọc phiếu, tính phần thiếu và chặn trạng thái khai báo sai; người/AI thực hiện và cập nhật bằng chứng. DOT/PG sau này dùng chính mã/phiên/quan hệ này; chưa có bộ máy tự chạy mục tiêu tới kết quả.",
       "record_control": {
         "id": "TQT-RECORD-CONTROL-001",
-        "version": "2-design",
+        "version": "3-design",
         "owner": "MOW-TH-005",
         "status": "DESIGN_TRIAL_NOT_PG",
         "purpose": "Mỗi thông tin bắt buộc có nơi ghi; phát hiện cả thiếu sổ và thiếu bản ghi trong từng lần làm.",
@@ -11860,9 +11860,12 @@ main{max-width:1240px} [hidden]{display:none!important}
           "Mọi sổ đều là Master có mã trong Master of Master. Chưa có mã → ghi CHƯA CÓ và bổ sung danh mục; có mã nhưng thiếu nơi lưu/UI → hiện rõ từng phần thiếu, không gọi đường dẫn file tạm là Master.",
           "Đã ghi chỉ khi có master_code + mã bản ghi + phiên + địa chỉ thật của bản ghi trong Master đích. Nội dung chuẩn bị trong tài liệu không tự chuyển thành Đã ghi.",
           "Đối chiếu độc lập: Chưa đối chiếu (xám), Đã đối chiếu (xanh), Cần sửa lại (đỏ). Đã đối chiếu đòi hỏi Đã ghi, bằng chứng, người và thời điểm kiểm đúng hồ sơ/đối tượng/phiên. Thay nguồn/phiên làm mất hiệu lực đối chiếu.",
-          "Trạng thái ghi không kiêm hạn ghi: chưa đến mốc vẫn Chưa ghi, kèm chú thích Chưa đến mốc; không tính là lỗi. Tất cả nơi ghi phải chuẩn bị trước xác nhận bắt đầu.",
+          "Trước CP03 kiểm nơi lưu/quyền của mọi nghĩa vụ ALWAYS, kể cả đầu ra chưa đến hạn. Nhánh chỉ kiểm khi phát sinh, trước mốc xử lý nhánh; không kéo lỗi mốc sau về mốc trước.",
           "Theo dõi thiếu trong TQT-ISS-007 và từng Master nguồn; người giữ gọi quy trình 002/003 khi cần, không tạo loại đối tượng nghiệp vụ mới.",
-          "Các option hiện là trạng thái từ nguồn, chưa có API lưu PG. Không cho sửa giả trên trình duyệt hoặc lưu localStorage để tưởng đã đồng bộ."
+          "Các option hiện là trạng thái từ nguồn, chưa có API lưu PG. Không cho sửa giả trên trình duyệt hoặc lưu localStorage để tưởng đã đồng bộ.",
+          "Xóa nghĩa vụ không làm đủ: so với required_records + fields + scope_bindings.target_mots + plan.execution_phase. Đổi phạm vi phải cập nhật nguồn phạm vi trước.",
+          "Mỗi đối chiếu MATCHED phải đúng quy trình/phiên, đối tượng/phiên, readback PASS và checked_record_version. Mỗi checkpoint có revision, người/thời điểm và dependency_key đúng nguồn; giữ các revision cũ, chỉ kiểm lại mốc phụ thuộc bị đổi.",
+          "CAT-006 quản lý file chạy; CAT-012 quản lý bộ ca; CAT-015 giữ kết quả theo phiên nguồn/lần chạy. Script mới phải đăng ký trước khi bàn giao; kiểm hai chiều danh mục và file."
         ],
         "expected_from": [
           "work_form.fields",
@@ -12377,6 +12380,24 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": "TQT-ISS-007",
             "review_date": "2026-10-11"
+          },
+          {
+            "code": "CAT-006",
+            "name": "Danh mục DOT",
+            "catalogued": true,
+            "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-006",
+            "source_state": "UNVERIFIED",
+            "ui_state": "DESIGN",
+            "source_hint": "dot_tools 314 · số từ bản thiết kế, chưa kiểm PG",
+            "ui_links": [
+              {
+                "label": "DOT / Script / Bộ kiểm",
+                "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-006"
+              }
+            ],
+            "gap": "Sáu file tools-quy-trinh đã đăng ký trong catalog.tool_registry; chưa đối chiếu toàn VPS và dot_tools trên PG.",
+            "owner": "Codex",
+            "issue_ref": "TQT-ISS-007"
           }
         ],
         "guidance": [
@@ -12535,7 +12556,100 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           "unconnected": "Chưa nối dữ liệu Master; chưa xác định số bản ghi thực tế.",
           "empty_design": "Chưa nối dữ liệu Master. Mở “Xem mẫu khai báo” để rà thiết kế; chưa có thao tác lưu."
-        }
+        },
+        "required_records": [
+          {
+            "code": "MOW",
+            "checkpoint": "CP01",
+            "guidance_id": "RG01",
+            "when": "ALWAYS"
+          },
+          {
+            "code": "PLAN",
+            "checkpoint": "CP02",
+            "guidance_id": "RG04",
+            "when": "ALWAYS"
+          },
+          {
+            "code": "COVERAGE",
+            "checkpoint": "CP02",
+            "guidance_id": "RG05",
+            "when": "ALWAYS"
+          },
+          {
+            "code": "START",
+            "checkpoint": "CP03",
+            "guidance_id": "RG06",
+            "when": "ALWAYS"
+          },
+          {
+            "code": "HISTORY",
+            "checkpoint": "CP04",
+            "guidance_id": "RG07",
+            "when": "ALWAYS"
+          },
+          {
+            "code": "ISSUE",
+            "checkpoint": "CP04",
+            "guidance_id": "RG08",
+            "when": "ISSUE"
+          },
+          {
+            "code": "TEST",
+            "checkpoint": "CP05",
+            "guidance_id": "RG05",
+            "when": "ALWAYS"
+          },
+          {
+            "code": "DECISION",
+            "checkpoint": "CP06",
+            "guidance_id": "RG06",
+            "when": "ALWAYS"
+          },
+          {
+            "code": "ACK",
+            "checkpoint": "CP07",
+            "guidance_id": "RG09",
+            "when": "ALWAYS"
+          },
+          {
+            "code": "BLOCKED",
+            "checkpoint": "CP04",
+            "guidance_id": "RG04",
+            "when": "BLOCKED"
+          },
+          {
+            "code": "CANCELLED",
+            "checkpoint": "CP04",
+            "guidance_id": "RG10",
+            "when": "CANCELLED"
+          },
+          {
+            "code": "NA",
+            "checkpoint": "CP04",
+            "guidance_id": "RG06",
+            "when": "NA"
+          },
+          {
+            "code": "CHANGE",
+            "checkpoint": "CP04",
+            "guidance_id": "RG11",
+            "when": "CHANGE"
+          }
+        ],
+        "scope_bindings": [
+          {
+            "target_code": "MOW-NHC-001",
+            "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
+            "scope_stage": "G1",
+            "target_mots": [
+              "1.1",
+              "1.2",
+              "1.3"
+            ],
+            "source_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24 → scope (G1, MOT 1.1/1.2/1.3)"
+          }
+        ]
       }
     },
     "application_preview": {
@@ -17681,6 +17795,126 @@ main{max-width:1240px} [hidden]{display:none!important}
               ]
             }
           }
+        },
+        {
+          "code": "CAT-006",
+          "name": "Danh mục DOT",
+          "view_name": "DOT / Script / Bộ kiểm",
+          "parent": "UI.MASTER",
+          "ui_code": "UI.MASTER.TQT.006",
+          "url": "./process-work-master-v1.html?master=CAT-006",
+          "state": "DESIGN_ONLY",
+          "columns": [
+            {
+              "key": "state",
+              "label": "Trạng thái",
+              "help": "Trạng thái"
+            },
+            {
+              "key": "path",
+              "label": "Nguồn dùng lại",
+              "help": "Nguồn dùng lại"
+            },
+            {
+              "key": "verify",
+              "label": "Cách kiểm",
+              "help": "Cách kiểm"
+            },
+            {
+              "key": "case_set",
+              "label": "Bộ ca",
+              "help": "Bộ ca"
+            },
+            {
+              "key": "owner",
+              "label": "Người giữ",
+              "help": "Người giữ"
+            }
+          ],
+          "fields": [
+            {
+              "key": "record_id",
+              "label": "Mã công cụ",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "name",
+              "label": "Tên",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "state",
+              "label": "Trạng thái",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "path",
+              "label": "Nguồn dùng lại",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "verify",
+              "label": "Cách kiểm",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "case_set",
+              "label": "Bộ ca",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "owner",
+              "label": "Người giữ",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "target_version",
+              "label": "Phiên nguồn SHA256",
+              "type": "text",
+              "required": true
+            }
+          ],
+          "storage": "catalog.tool_registry · nguồn tệp thực đã đăng ký; chưa PG",
+          "record_source": "catalog.work_schedule",
+          "layout": {
+            "order": [
+              "index",
+              "name",
+              "state",
+              "checkpoint",
+              "blocker",
+              "next_owner",
+              "tier",
+              "specialty",
+              "actual_start",
+              "actual_finish",
+              "code",
+              "open"
+            ],
+            "widths": {
+              "index": 40,
+              "name": 225,
+              "state": 135,
+              "checkpoint": 180,
+              "blocker": 290,
+              "next_owner": 120,
+              "tier": 75,
+              "specialty": 130,
+              "actual_start": 110,
+              "actual_finish": 110,
+              "code": 130,
+              "open": 80
+            }
+          },
+          "display_code": "CAT-006",
+          "display_order": 0.1
         }
       ],
       "coverage": {
@@ -17961,6 +18195,195 @@ main{max-width:1240px} [hidden]{display:none!important}
         ],
         "summary_rule": "Tổng = số mã việc duy nhất; Đã xong = mục tiêu của vòng hiện tại có bằng chứng hoàn thành; Chưa xong = phần còn lại, trừ hủy/cho nghỉ. Đang mắc là tập con chưa xong: thiếu đầu vào bắt buộc hoặc hồ sơ báo bị chặn. Chờ việc trước hiện riêng, không tự coi là lỗi."
       }
+    },
+    "tool_registry": {
+      "master_code": "CAT-006",
+      "version": "1",
+      "scope": "work/tools-quy-trinh/**/*.py, **/*.js; không tuyên bố bao phủ toàn VPS",
+      "records": [
+        {
+          "id": "TQT-CHECK-001",
+          "name": "Mô hình, hợp đồng và đường chạy mô phỏng",
+          "path": "check-process-model.py",
+          "kind": "PYTHON",
+          "master_code": "CAT-006",
+          "case_master": "CAT-012",
+          "result_master": "CAT-015",
+          "case_set": "TQT-CASE-MODEL",
+          "owner": "Codex · Host tools-quy-trinh",
+          "purpose": "Mô hình, hợp đồng và đường chạy mô phỏng",
+          "argv": [
+            "python3",
+            "check-process-model.py",
+            "view.html"
+          ],
+          "sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
+          "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
+          "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
+          "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
+          "verify": "python3 run-tqt-checks.py --verify --report <evidence.json>",
+          "rollback": "Chỉ đọc nguồn; thử file trong thư mục tạm rồi xóa. Khôi phục source bằng Git forward restore qua workspace_transaction.",
+          "secret_handling": "Không dùng credential, không network, không SQL/PG",
+          "exit_codes": "0 đạt; khác 0 không đạt; runner 2 sai tham số",
+          "state": "REGISTERED_READ_ONLY",
+          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật."
+        },
+        {
+          "id": "TQT-CHECK-002",
+          "name": "Mã quy trình, tham chiếu và mốc G1–G3",
+          "path": "check-process-catalog.py",
+          "kind": "PYTHON",
+          "master_code": "CAT-006",
+          "case_master": "CAT-012",
+          "result_master": "CAT-015",
+          "case_set": "TQT-CASE-CATALOG",
+          "owner": "Codex · Host tools-quy-trinh",
+          "purpose": "Mã quy trình, tham chiếu và mốc G1–G3",
+          "argv": [
+            "python3",
+            "check-process-catalog.py",
+            "view.html"
+          ],
+          "sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
+          "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
+          "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
+          "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
+          "verify": "python3 run-tqt-checks.py --verify --report <evidence.json>",
+          "rollback": "Chỉ đọc nguồn; thử file trong thư mục tạm rồi xóa. Khôi phục source bằng Git forward restore qua workspace_transaction.",
+          "secret_handling": "Không dùng credential, không network, không SQL/PG",
+          "exit_codes": "0 đạt; khác 0 không đạt; runner 2 sai tham số",
+          "state": "REGISTERED_READ_ONLY",
+          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật."
+        },
+        {
+          "id": "TQT-CHECK-003",
+          "name": "Phiếu nguồn và điều kiện sẵn sàng/kết thúc",
+          "path": "check-overview-consistency.py",
+          "kind": "PYTHON",
+          "master_code": "CAT-006",
+          "case_master": "CAT-012",
+          "result_master": "CAT-015",
+          "case_set": "TQT-CASE-DECLARATION",
+          "owner": "Codex · Host tools-quy-trinh",
+          "purpose": "Phiếu nguồn và điều kiện sẵn sàng/kết thúc",
+          "argv": [
+            "python3",
+            "check-overview-consistency.py",
+            "view.html"
+          ],
+          "sha256": "955657ecfba4b5c948eb08cffc665ed5e2c4c97f106d673e291687df7bf066ed",
+          "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
+          "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
+          "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
+          "verify": "python3 run-tqt-checks.py --verify --report <evidence.json>",
+          "rollback": "Chỉ đọc nguồn; thử file trong thư mục tạm rồi xóa. Khôi phục source bằng Git forward restore qua workspace_transaction.",
+          "secret_handling": "Không dùng credential, không network, không SQL/PG",
+          "exit_codes": "0 đạt; khác 0 không đạt; runner 2 sai tham số",
+          "state": "REGISTERED_READ_ONLY",
+          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật."
+        },
+        {
+          "id": "TQT-CHECK-004",
+          "name": "7 mốc, nghĩa vụ bắt buộc, đối chiếu và lịch sử",
+          "path": "check-record-control.js",
+          "kind": "NODE",
+          "master_code": "CAT-006",
+          "case_master": "CAT-012",
+          "result_master": "CAT-015",
+          "case_set": "TQT-CASE-RECORD",
+          "owner": "Codex · Host tools-quy-trinh",
+          "purpose": "7 mốc, nghĩa vụ bắt buộc, đối chiếu và lịch sử",
+          "argv": [
+            "node",
+            "check-record-control.js",
+            "view.html"
+          ],
+          "sha256": "14445a9a8a5c5dcdb2226d3324959e477466711b1e9eb8c1d260d982963de926",
+          "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
+          "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
+          "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
+          "verify": "python3 run-tqt-checks.py --verify --report <evidence.json>",
+          "rollback": "Chỉ đọc nguồn; thử file trong thư mục tạm rồi xóa. Khôi phục source bằng Git forward restore qua workspace_transaction.",
+          "secret_handling": "Không dùng credential, không network, không SQL/PG",
+          "exit_codes": "0 đạt; khác 0 không đạt; runner 2 sai tham số",
+          "state": "REGISTERED_READ_ONLY",
+          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật."
+        },
+        {
+          "id": "TQT-CHECK-005",
+          "name": "Danh sách Master, hồ sơ và UI adapter",
+          "path": "check-work-masters.js",
+          "kind": "NODE",
+          "master_code": "CAT-006",
+          "case_master": "CAT-012",
+          "result_master": "CAT-015",
+          "case_set": "TQT-CASE-MASTER",
+          "owner": "Codex · Host tools-quy-trinh",
+          "purpose": "Danh sách Master, hồ sơ và UI adapter",
+          "argv": [
+            "node",
+            "check-work-masters.js",
+            "view.html"
+          ],
+          "sha256": "6a977c61734915cb61b0b20a4f876453c3e8bdafd9bd7c847e2c03a1320ddf76",
+          "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
+          "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
+          "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
+          "verify": "python3 run-tqt-checks.py --verify --report <evidence.json>",
+          "rollback": "Chỉ đọc nguồn; thử file trong thư mục tạm rồi xóa. Khôi phục source bằng Git forward restore qua workspace_transaction.",
+          "secret_handling": "Không dùng credential, không network, không SQL/PG",
+          "exit_codes": "0 đạt; khác 0 không đạt; runner 2 sai tham số",
+          "state": "REGISTERED_READ_ONLY",
+          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật."
+        },
+        {
+          "id": "TQT-CHECK-006",
+          "name": "Chạy lại toàn bộ bộ kiểm và kiểm hai chiều danh mục",
+          "path": "run-tqt-checks.py",
+          "kind": "RUNNER",
+          "master_code": "CAT-006",
+          "case_master": "CAT-012",
+          "result_master": "CAT-015",
+          "case_set": "TQT-CASE-RUNNER",
+          "owner": "Codex · Host tools-quy-trinh",
+          "purpose": "Chạy lại toàn bộ bộ kiểm và kiểm hai chiều danh mục",
+          "argv": [
+            "python3",
+            "run-tqt-checks.py",
+            "--verify"
+          ],
+          "sha256": "b7194c3248da495e4d3e07a402a12ebd9392d942c67abf7672bc1d2c20f5c7e4",
+          "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
+          "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
+          "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
+          "verify": "python3 run-tqt-checks.py --verify --report <evidence.json>",
+          "rollback": "Chỉ đọc nguồn; thử file trong thư mục tạm rồi xóa. Khôi phục source bằng Git forward restore qua workspace_transaction.",
+          "secret_handling": "Không dùng credential, không network, không SQL/PG",
+          "exit_codes": "0 đạt; khác 0 không đạt; runner 2 sai tham số",
+          "state": "REGISTERED_READ_ONLY",
+          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật."
+        }
+      ],
+      "external_inventory": [
+        {
+          "source": "Master of Master CAT-006",
+          "claim": "dot_tools 314",
+          "state": "UNVERIFIED",
+          "note": "Con số trong nguồn thiết kế, chưa đếm PG qua DOT. Không dùng làm tổng đã kiểm."
+        },
+        {
+          "source": "agent-data/dot/bin",
+          "paths": [
+            "dot-ai-start",
+            "dot-ai-stop",
+            "dot-ai-test-all",
+            "dot-arch-check"
+          ],
+          "state": "DISCOVERED_NOT_RUN",
+          "note": "Đã liệt kê qua MCP; chưa kiểm quyền/runtime. Không thêm vào runner đọc nguồn của task."
+        }
+      ],
+      "policy": "Tìm trong CAT-006 trước khi viết mới. Bộ kiểm phải có CAT-012 + lệnh chạy + hash + chủ quản + giới hạn; kết quả mỗi lần lưu CAT-015 và gắn phiên nguồn. Xóa/nghỉ công cụ phải có lý do và kiểm nơi dùng. Chưa nhập dot_tools trên PG."
     }
   },
   "checkpoint_policy": {
@@ -18203,36 +18626,83 @@ const legacy=document.getElementById('tqt-tab-old');if(legacy)legacy.textContent
 })();
 
 </script>
-<script id="tqt-record-control">/* Guidance is process-scoped; progress is application-scoped. Never infer Master writes from staging. */
+<script id="tqt-record-control">
+/* One gate evaluator for Overview, Master and command-line checks. Design evidence, not PG enforcement. */
 (function(root){'use strict';
 const has=v=>v!==null&&v!==undefined&&v!=='';
+const canonical=v=>JSON.stringify(v,(_,x)=>x&&typeof x==='object'&&!Array.isArray(x)?Object.fromEntries(Object.keys(x).sort().map(k=>[k,x[k]])):x);
 function inspect(R){
  const a=R.application_preview.record,P=R.work_form.record_control,defs=a.record_requirements||[],checks=a.record_checks||[],masters=new Map(P.masters.map(x=>[x.code,x])),guides=new Map(P.guidance.map(x=>[x.id,x]));
- const errors=[],current=a.current_checkpoint||'CP01';
- if(new Set(defs.map(x=>x.code)).size!==defs.length)errors.push('Trùng mã nghĩa vụ');
- for(const f of R.work_form.fields)if(!defs.some(x=>x.code==='FIELD-'+f.key))errors.push('Thiếu nghĩa vụ '+f.key);
- for(const p of a.plan)if(!defs.some(x=>x.code==='RESULT-'+p.id))errors.push('Thiếu đầu ra '+p.id);
+ const problems=[],current=a.current_checkpoint||'CP01',add=(checkpoint,message)=>problems.push({checkpoint,message});
+ const w=R.records.find(x=>x.code===a.process_code&&x.version===a.process_version)?.workflow;
+ const cps=w?.checkpoints||[],known=new Set(cps.map(x=>x.id));
+ if(!w||!known.has(current))add('CP01','Sai quy trình/phiên hoặc mốc hiện tại');
+ const scope=(P.scope_bindings||[]).find(x=>x.target_code===a.target_code&&x.target_version===a.target_version&&x.scope_stage===a.scope_stage);
+ if(!scope||!scope.source_ref||!Array.isArray(scope.target_mots))add('CP01','Chưa có phạm vi MOT đã khai từ nguồn');
+ const expected=(P.required_records||[]).map(x=>({...x}));
+ if(!expected.length)add('CP01','Thiếu hợp đồng nghĩa vụ của quy trình');
+ for(const mot of scope?.target_mots||[])expected.push({code:'MOT-'+mot,checkpoint:'CP01',guidance_id:'RG02',when:'ALWAYS'});
+ for(const f of R.work_form.fields)expected.push({code:'FIELD-'+f.key,checkpoint:'CP02',guidance_id:'RG03',when:'ALWAYS'});
+ for(const p of a.plan||[]){const cp={PREPARE:'CP02',WORK:'CP04',TEST:'CP05',HANDOFF:'CP07'}[p.execution_phase];if(!cp)add('CP02','Sai giai đoạn kế hoạch '+p.id);expected.push({code:'RESULT-'+p.id,checkpoint:cp||'CP02',guidance_id:'RG04',when:'ALWAYS'});}
+ for(const d of expected){const found=defs.filter(x=>x.code===d.code);if(found.length!==1)add(d.checkpoint,'Thiếu/trùng nghĩa vụ '+d.code);else if(['checkpoint','guidance_id','when'].some(k=>found[0][k]!==d[k]))add(d.checkpoint,'Sai hợp đồng nghĩa vụ '+d.code);}
+ const branch=(kind)=>(a.branch_records||[]).filter(b=>b.kind===kind);
  const rows=defs.map(d=>{
+  const local=[];const fail=s=>{local.push(s);add(known.has(d.checkpoint)?d.checkpoint:'CP01',s+' '+d.code);};
   const found=checks.filter(x=>x.requirement_code===d.code),x=found[0],m=masters.get(d.master_code),g=guides.get(d.guidance_id);
   const valid=found.length===1&&x.application_id===a.application_id&&x.target_version===a.target_version&&x.master_code===d.master_code&&g?.master_code===d.master_code;
-  if(!valid||!m)errors.push('Sai/thiếu dòng kiểm '+d.code);
+  if(!valid||!m||!known.has(d.checkpoint))fail('Sai/thiếu dòng kiểm');
+  if(defs.filter(z=>z.code===d.code).length!==1)fail('Trùng mã nghĩa vụ');
   const written=valid&&x.record_state==='RECORDED'&&has(x.master_record_id)&&has(x.record_ref)&&has(x.record_version);
-  if(x?.record_state==='RECORDED'&&!written)errors.push('Đã ghi thiếu mã bản ghi '+d.code);
-  const evidence=written&&has(x.evidence_ref)&&has(x.checked_by)&&has(x.checked_at);
-  const verified=valid&&x.check_state==='MATCHED'&&evidence;
-  if(x?.check_state==='MATCHED'&&!verified)errors.push('Đối chiếu thiếu căn cứ '+d.code);
-  if(x&&!['NOT_RECORDED','RECORDED'].includes(x.record_state))errors.push('Sai option ghi '+d.code);
-  if(x&&!['NOT_CHECKED','MATCHED','NEEDS_FIX'].includes(x.check_state))errors.push('Sai option đối chiếu '+d.code);
-  const triggered=d.when==='ISSUE'?has(a.issue_ref):(a.branch_records||[]).some(b=>b.kind===d.when);
-  const due=d.when==='ALWAYS'?d.checkpoint<=current:triggered;
-  return {...d,master:m,written,verified,due,recordState:written?'RECORDED':'NOT_RECORDED',checkState:!valid||!m||(x?.check_state==='MATCHED'&&!verified)||x?.check_state==='NEEDS_FIX'?'NEEDS_FIX':verified?'MATCHED':'NOT_CHECKED',owner:x?.owner||a.actor,recordRef:written?x.record_ref:null,recordId:written?x.master_record_id:null,note:due?'Cần có trước khi qua mốc '+Number(d.checkpoint.slice(2)):d.when==='ALWAYS'?'Chưa đến mốc ghi':'Chưa phát sinh nhánh'};
+  if(x?.record_state==='RECORDED'&&!written)fail('Đã ghi thiếu mã bản ghi');
+  if(x&&!['NOT_RECORDED','RECORDED'].includes(x.record_state))fail('Sai option ghi');
+  if(x&&!['NOT_CHECKED','MATCHED','NEEDS_FIX'].includes(x.check_state))fail('Sai option đối chiếu');
+  const evidence=written&&x.process_code===a.process_code&&x.process_version===a.process_version&&x.target_code===a.target_code&&x.readback_state==='PASS'&&x.checked_record_version===x.record_version&&has(x.evidence_ref)&&has(x.checked_by)&&Number.isFinite(Date.parse(x.checked_at));
+  if(x?.check_state==='MATCHED'&&!evidence)fail('Đối chiếu sai phiên/đọc lại/thiếu căn cứ');
+  if(x?.readback_state==='FAIL'||x?.check_state==='NEEDS_FIX')fail('Cần sửa đối chiếu');
+  const verified=valid&&x.check_state==='MATCHED'&&evidence&&local.length===0;
+  const triggered=d.when==='ISSUE'?has(a.issue_ref):branch(d.when).length>0;
+  const due=d.checkpoint<=current&&(d.when==='ALWAYS'||triggered);
+  return {...d,master:m,written,verified,due,active:d.when==='ALWAYS'||triggered,recordState:written?'RECORDED':'NOT_RECORDED',checkState:local.length?'NEEDS_FIX':verified?'MATCHED':'NOT_CHECKED',owner:x?.owner||a.actor,recordRef:written?x.record_ref:null,recordId:written?x.master_record_id:null,note:due?'Cần có trước khi qua mốc '+Number(d.checkpoint.slice(2)):d.when==='ALWAYS'?'Chưa đến mốc ghi':'Chưa phát sinh nhánh'};
  });
- if(checks.some(x=>!defs.some(d=>d.code===x.requirement_code)))errors.push('Có dòng kiểm ngoài nghĩa vụ');
- const destinationReady=rows.length>0&&rows.every(d=>d.master?.source_state==='VERIFIED'&&checks.find(x=>x.requirement_code===d.code)?.access_state==='PASS');
- const verifiedCheckpoints=[];
- const w=R.records.find(x=>x.code===a.process_code).workflow;
- for(const cp of w.checkpoints){const x=(a.checkpoint_checks||[]).find(x=>x.checkpoint===cp.id&&x.application_id===a.application_id&&x.process_version===a.process_version&&x.target_version===a.target_version);if((!cp.predecessor||verifiedCheckpoints.includes(cp.predecessor))&&x?.result==='PASS'&&x.validity==='CURRENT'&&has(x.evidence_ref)&&rows.filter(x=>x.when==='ALWAYS'&&x.checkpoint<=cp.id||x.when!=='ALWAYS'&&x.due).every(x=>x.verified)&&errors.length===0&&(cp.id<'CP03'||destinationReady))verifiedCheckpoints.push(cp.id);}
- return {rows,errors,current,verifiedCheckpoints,destinationReady,counts:{total:rows.length,written:rows.filter(x=>x.written).length,verified:rows.filter(x=>x.verified).length,needsFix:rows.filter(x=>x.checkState==='NEEDS_FIX').length,notRecorded:rows.filter(x=>!x.written).length,dueMissing:rows.filter(x=>x.due&&!x.written).length}};
+ if(checks.some(x=>!defs.some(d=>d.code===x.requirement_code)))add('CP01','Có dòng kiểm ngoài nghĩa vụ');
+ const sourceReady=d=>d.master?.source_state==='VERIFIED'&&checks.find(x=>x.requirement_code===d.code)?.access_state==='PASS';
+ const destinationReady=rows.some(x=>x.active)&&rows.filter(x=>x.active).every(sourceReady);
+ const scoped=x=>x&&x.application_id===a.application_id&&x.target_version===a.target_version&&has(x.evidence_ref||x.evidence_refs?.[0]);
+ const semantics=cp=>{
+  if(cp>='CP02'){
+   const answers=new Map((a.declarations||[]).map(x=>[x.key,x]));
+   if(!a.questions_complete||!a.requirements_checked||!a.preparation_review?.output_contracts_reviewed||!a.preparation_review?.branches_reviewed||!has(a.preparation_review.evidence_ref))return false;
+   if((w.start_gate?.requires||[]).filter(k=>k!=='start_confirmation').some(k=>{const x=answers.get(k);return !x||x.result!=='PASS'||x.validity!=='CURRENT'||!x.evidence_refs?.length;}))return false;
+  }
+  if(cp>='CP03'){const x=a.start_confirmation;if(x?.state!=='CONFIRMED'||!has(x.actor)||!has(x.evidence_ref)||x.plan_version!==a.plan_version)return false;}
+  if(cp>='CP04')for(const p of a.plan||[]){const due=expected.find(x=>x.code==='RESULT-'+p.id)?.checkpoint;if(due>cp)continue;const rs=(a.plan_results||[]).filter(x=>x.plan_id===p.id);if(p.status!=='DONE'||rs.length!==1||!scoped(rs[0])||!has(rs[0].output_ref)||!has(rs[0].output_version))return false;}
+  if(cp>='CP05'&&(a.test_result!=='PASS'||a.connection_tests?.in!=='PASS'||a.connection_tests?.out!=='PASS'||!a.test_cases?.length||a.test_cases.some(x=>!scoped(x)||x.result!=='PASS')))return false;
+  if(cp>='CP06'){const ds=(a.decisions||[]).filter(x=>x.id===a.release?.decision_ref);if(a.release?.state!=='APPROVED'||ds.length!==1||!scoped(ds[0])||ds[0].outcome!=='APPROVED'||ds[0].actor!==a.approver||ds[0].scope!==a.release.scope||!has(ds[0].authority_ref))return false;}
+  if(cp>='CP07'){const rs=(a.receipts||[]).filter(x=>x.id===a.release?.ack_ref);if(rs.length!==1||!scoped(rs[0])||rs[0].decision_id!==a.release.decision_ref||rs[0].recipient!==a.recipient)return false;}
+  return true;
+ };
+ const verifiedCheckpoints=[],checkpointStates=[];
+ for(const cp of cps){
+  const relevant=rows.filter(x=>x.checkpoint<=cp.id&&x.active);
+  // Explicit dependency material is stored with the checkpoint, preserving past revisions.
+  const material={application_id:a.application_id,process_code:a.process_code,process_version:a.process_version,target_code:a.target_code,target_version:a.target_version,scope:a.scope,scope_binding:scope,requirements:relevant.map(x=>defs.find(d=>d.code===x.code)),checks:relevant.map(x=>checks.find(d=>d.requirement_code===x.code))};
+  if(cp.id>='CP02')Object.assign(material,{plan:a.plan.map(({status,result,...p})=>p),declarations:a.declarations,preparation_review:a.preparation_review});
+  if(cp.id>='CP03')material.start_confirmation=a.start_confirmation;
+  if(cp.id>='CP04')material.plan_results=(a.plan_results||[]).filter(p=>expected.find(x=>x.code==='RESULT-'+p.plan_id)?.checkpoint<=cp.id);
+  if(cp.id>='CP05')material.test_cases=a.test_cases;
+  if(cp.id>='CP06')material.decisions=a.decisions;
+  if(cp.id>='CP07')material.receipts=a.receipts;
+  const dependency_key=canonical(material),history=(a.checkpoint_checks||[]).filter(x=>x.checkpoint===cp.id),latest=[...history].sort((x,y)=>(y.revision||0)-(x.revision||0))[0];
+  const unique=history.every(x=>Number.isInteger(x.revision)&&x.revision>0)&&new Set(history.map(x=>x.revision)).size===history.length;
+  const bound=latest&&latest.application_id===a.application_id&&latest.process_code===a.process_code&&latest.process_version===a.process_version&&latest.target_code===a.target_code&&latest.target_version===a.target_version;
+  // Conditional records affect their own checkpoint onward, never earlier checkpoints.
+  const dest=cp.id<'CP03'||rows.filter(x=>x.when==='ALWAYS'||(x.active&&x.checkpoint<=cp.id)).every(sourceReady);
+  const eligible=(!cp.predecessor||verifiedCheckpoints.includes(cp.predecessor))&&relevant.every(x=>x.verified)&&!problems.some(x=>x.checkpoint<=cp.id)&&dest&&semantics(cp.id);
+  const done=eligible&&unique&&bound&&latest.result==='PASS'&&latest.validity==='CURRENT'&&has(latest.evidence_ref)&&has(latest.checked_by)&&Number.isFinite(Date.parse(latest.checked_at))&&latest.dependency_key===dependency_key;
+  if(done)verifiedCheckpoints.push(cp.id);
+  checkpointStates.push({id:cp.id,done,eligible,dependency_key,history,needsRecheck:!!history.length&&!done});
+ }
+ return {rows,errors:problems.map(x=>x.message),current,verifiedCheckpoints,checkpointStates,destinationReady,canStart:verifiedCheckpoints.includes('CP03'),canFinish:verifiedCheckpoints.includes('CP07'),counts:{total:rows.length,written:rows.filter(x=>x.written).length,verified:rows.filter(x=>x.verified).length,needsFix:rows.filter(x=>x.checkState==='NEEDS_FIX').length,notRecorded:rows.filter(x=>!x.written).length,dueMissing:rows.filter(x=>x.due&&!x.written).length,due:rows.filter(x=>x.due).length,deferred:rows.filter(x=>!x.due).length}};
 }
 root.tqtRecordAudit=inspect;
 })(typeof globalThis!=='undefined'?globalThis:this);
@@ -18348,7 +18818,8 @@ const needCell=m=>'<span>'+e(m?P.display_labels.source[m.source_state]||'Chưa x
 const relatedMasters=g=>{const codes=P.supplemental_master_bindings?.find(x=>x.guidance_id===g.id)?.masters||[];return codes.length?'<details><summary>Nơi ghi chi tiết liên quan</summary>'+codes.map(code=>'<p>'+masterCell(code)+'</p>').join('')+'</details>':'';};
 const option=(kind,value)=>'<select class="nr-option '+(kind==='check_state'?(value==='MATCHED'?'green':value==='NEEDS_FIX'?'red':'gray'):'gray')+'" aria-label="'+e(kind==='check_state'?'Đối chiếu':'Đã ghi chưa')+'" disabled title="Trạng thái đọc từ hồ sơ; chưa nối thao tác lưu PG">'+P.state_options[kind].map(x=>'<option value="'+e(x.value)+'"'+(value===x.value?' selected':'')+'>'+e(x.label)+'</option>').join('')+'</select>';
 const commonTable='<table class="nr-table"><thead><tr>'+th('Phải ghi gì?','Nội dung bắt buộc cho mọi việc theo quy trình. Đây là hướng dẫn chung, không ghi tiến độ của MOW001 ở đây.')+th('Master List nào?','Tên và mã từ Master of Master. Chưa có Master thì hiện Chưa có; có mã mà thiếu nơi lưu/UI vẫn phải hiện phần thiếu.')+th('Thiết kế UI','Có danh sách và mẫu khai báo không có nghĩa đã ghi dữ liệu.')+th('Nguồn lưu','Nơi lưu và kiểm ghi/đọc được theo dõi riêng với thiết kế UI.')+th('Cách ghi','Thông tin tối thiểu phải có. Khi áp dụng, tạo bản ghi gắn đúng mã hồ sơ, quy trình/phiên và việc con.')+'</tr></thead><tbody>'+P.guidance.map(g=>'<tr><th scope="row">'+e(g.content)+'<small class="oc-code">'+e(g.id)+'</small></th><td data-label="Master List">'+masterCell(g.master_code)+relatedMasters(g)+'</td><td data-label="Thiết kế UI">'+uiCell(masters.get(g.master_code))+'</td><td data-label="Nguồn lưu">'+needCell(masters.get(g.master_code))+'</td><td data-label="Cách ghi">'+e(g.instruction)+'</td></tr>').join('')+'</tbody></table>';
-const progressRows=audit.rows.map(x=>'<tr><th scope="row">'+e(x.title)+'<small class="oc-muted">'+e(x.note)+'</small></th><td data-label="Master List">'+masterCell(x.master_code)+'</td><td data-label="Đã ghi chưa?">'+option('record_state',x.recordState)+'</td><td data-label="Đối chiếu">'+option('check_state',x.checkState)+'</td><td><details><summary>Chi tiết</summary><p>Người giữ: '+e(x.owner)+'</p><p>Mã bản ghi Master: '+e(x.recordId||'Chưa gắn')+'</p>'+(x.recordRef?'<a href="'+e(href(x.recordRef))+'" target="_blank" rel="noopener">Bản ghi đích</a>':'<p>Chưa có bằng chứng ghi vào Master đích.</p>')+'<p><a href="'+e(href(x.preparation_ref))+'" target="_blank" rel="noopener">Tài liệu chuẩn bị</a> · chưa tính là bản ghi Master.</p><small>'+e(x.code)+' · '+e(A.application_id)+'</small></details></td></tr>').join('');
+const progressRows=audit.rows.filter(x=>x.due).map(x=>'<tr><th scope="row">'+e(x.title)+'<small class="oc-muted">'+e(x.note)+'</small></th><td data-label="Master List">'+masterCell(x.master_code)+'</td><td data-label="Đã ghi chưa?">'+option('record_state',x.recordState)+'</td><td data-label="Đối chiếu">'+option('check_state',x.checkState)+'</td><td><details><summary>Chi tiết</summary><p>Người giữ: '+e(x.owner)+'</p><p>Mã bản ghi Master: '+e(x.recordId||'Chưa gắn')+'</p>'+(x.recordRef?'<a href="'+e(href(x.recordRef))+'" target="_blank" rel="noopener">Bản ghi đích</a>':'<p>Chưa có bằng chứng ghi vào Master đích.</p>')+'<p><a href="'+e(href(x.preparation_ref))+'" target="_blank" rel="noopener">Tài liệu chuẩn bị</a> · chưa tính là bản ghi Master.</p><small>'+e(x.code)+' · '+e(A.application_id)+'</small></details></td></tr>').join('');
+const toolRegistry='<details class="oc-detail" id="tqt-tool-registry"><summary>DOT / Script / Bộ kiểm · '+R.tool_registry.records.length+' công cụ đã đăng ký</summary><p><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-006" target="_blank" rel="noopener">Mở Danh mục DOT ↗</a></p><p>'+e(R.tool_registry.policy)+'</p><table class="nr-table"><thead><tr><th>Công cụ</th><th>Dùng khi nào</th><th>Chạy lại</th></tr></thead><tbody>'+R.tool_registry.records.map(x=>'<tr><th>'+e(x.id)+'</th><td>'+e(x.name)+'</td><td><code>'+e(x.argv.join(' '))+'</code></td></tr>').join('')+'</tbody></table><p>Phạm vi đã kiểm: '+e(R.tool_registry.scope)+'. Nguồn, hash, chủ quản và giới hạn nằm trong chi tiết Master; kết quả kiểm không thay nghiệm thu PG.</p></details>';
 const checkpoints=W.workflow.checkpoints;
 const workBoard='<section class="oc-board" id="tqt-work-board" aria-label="Hướng dẫn chung và hồ sơ tiến độ">'+
 '<header class="oc-head"><div><p class="oc-eyebrow">QUY TRÌNH TỔNG HỢP ⑤ · HƯỚNG DẪN CHUNG</p><h2>Làm theo quy trình · theo dõi từng việc</h2></div></header>'+
@@ -18357,13 +18828,13 @@ const workBoard='<section class="oc-board" id="tqt-work-board" aria-label="Hư�
 '<div class="oc-three"><b>Kiểm đủ đầu vào <small>Mốc 1–3</small></b><b>Làm theo quy trình <small>Mốc 4</small></b><b>Kiểm đầu ra · bàn giao <small>Mốc 5–7</small></b></div>'+
 '<ol class="oc-seven">'+checkpoints.map(cp=>'<li><b>'+cp.order+'. '+e(cp.name)+'</b></li>').join('')+'</ol><p class="oc-muted">Bộ 7 mốc đang áp thử, chờ hội đồng thống nhất. Mọi sổ bên dưới đều là Master List.</p>'+
 '<details class="oc-detail" id="tqt-checkpoint-list"><summary>Điều kiện của 7 mốc</summary><ol>'+checkpoints.map(cp=>'<li><b>'+e(cp.name)+'</b> — '+e(W.workflow.steps.find(s=>s.id===cp.step)?.result)+'</li>').join('')+'</ol></details>'+
-'<p class="oc-rule"><b>'+P.guidance.length+' mục phải ghi · '+P.masters.length+' Master liên quan.</b> '+P.masters.filter(m=>m.ui_state==='DESIGN').length+' đã có thiết kế UI. Nguồn lưu và bản ghi từng việc được kiểm riêng.</p><p>Đây là <b>hướng dẫn chung</b>, không phải tình trạng dữ liệu của một việc. <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" target="_blank" rel="noopener">Mở danh sách Master Duyệt thiết kế ↗</a>. Xem Đã ghi / Đối chiếu trong hồ sơ từng việc bên dưới.</p>'+commonTable+
+'<p class="oc-rule"><b>'+P.guidance.length+' mục phải ghi · '+P.masters.length+' Master liên quan.</b> '+P.masters.filter(m=>m.ui_state==='DESIGN').length+' đã có thiết kế UI. Nguồn lưu và bản ghi từng việc được kiểm riêng.</p><p>Đây là <b>hướng dẫn chung</b>, không phải tình trạng dữ liệu của một việc. <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" target="_blank" rel="noopener">Mở danh sách Master Duyệt thiết kế ↗</a>. Xem Đã ghi / Đối chiếu trong hồ sơ từng việc bên dưới.</p>'+commonTable+toolRegistry+
 '<details class="oc-detail"><summary>UI Master đã bổ sung · phần còn thiếu</summary><p>Giữ mã hiện hữu, dùng UI.MASTER. Mỗi Master có danh sách bản ghi và chi tiết; không tạo sổ bằng đường dẫn file tạm.</p><table class="nr-table"><thead><tr><th>Master</th><th>Phải bổ sung</th><th>Nơi theo dõi</th></tr></thead><tbody>'+P.masters.filter(m=>m.source_state!=='VERIFIED'||m.ui_state==='MISSING').map(m=>'<tr><th>'+masterCell(m.code)+'</th><td>'+needCell(m)+'<p>Trường chung: mã bản ghi, mã hồ sơ, MOW/MOT và phiên, nội dung, người/thời gian ghi, trạng thái đối chiếu, căn cứ.</p></td><td>Astra Codex · <a href="#TQT-ISS-007">TQT-ISS-007</a></td></tr>').join('')+'</tbody></table></details></section>'+
 '<details class="oc-fold" id="tqt-recording-list"><summary><span><b>2. Hồ sơ tiến độ · '+e(A.target_code)+' / '+e(A.scope_stage)+'</b><small>Đang chuẩn bị mốc '+Number(audit.current.slice(2))+'/7 · '+audit.counts.written+'/'+audit.counts.total+' đã ghi vào Master · '+audit.counts.verified+' đã đối chiếu</small></span><span class="oc-fold-action">Mở xem</span></summary><div class="oc-fold-body">'+
 '<div class="oc-context"><b>Mã hồ sơ: '+e(A.application_id)+'</b><p>Quy trình: '+e(A.process_code)+' · '+e(A.process_version)+' · Người giữ: '+e(A.next_owner)+'</p><p>Master hồ sơ: '+masterCell(A.progress_master_code)+'</p><p><b>Đang chuẩn bị mốc '+Number(audit.current.slice(2))+'/7; '+audit.verifiedCheckpoints.length+'/7 mốc đã kiểm đạt.</b></p><p>'+e(A.next)+'</p></div>'+
-'<p><b>Đã ghi</b> = có bản ghi được gắn vào đúng Master đích. <b>Đối chiếu</b> = kiểm bản ghi đó đúng hồ sơ/phiên/nội dung. Dữ liệu chuẩn bị trong file chưa được tính là đã ghi Master.</p><p class="oc-muted">Các ô option đang hiển thị trạng thái từ nguồn; chưa nối chức năng lưu PG. Chưa đến mốc vẫn là “Chưa ghi”, kèm chú thích để không coi là lỗi.</p>'+
+'<p><b>'+audit.counts.due+' mục đến hạn · '+audit.counts.deferred+' mục chưa đến hạn hoặc nhánh chưa phát sinh.</b> '+(audit.canStart?'Đã đủ căn cứ mốc 3.':'Chưa được sang bước Làm.')+'</p><p><b>Đã ghi</b> = có bản ghi được gắn vào đúng Master đích. <b>Đối chiếu</b> = kiểm bản ghi đó đúng hồ sơ/phiên/nội dung. Dữ liệu chuẩn bị trong file chưa được tính là đã ghi Master.</p><p class="oc-muted">Các ô option đang hiển thị trạng thái từ nguồn; chưa nối chức năng lưu PG. Chưa đến mốc vẫn là “Chưa ghi”, kèm chú thích để không coi là lỗi.</p>'+
 '<table class="nr-table nr-progress"><thead><tr>'+th('Phải ghi gì?','Một dòng nghĩa vụ của đúng hồ sơ đang xem; lấy từ quy định chung và kế hoạch của việc.')+th('Master List nào?','Master đích có mã; mã bản ghi cụ thể nằm trong Chi tiết.')+th('Đã ghi chưa?','Chưa ghi: hồ sơ chưa gắn bản ghi trong Master đích. Đã ghi: có mã, phiên và địa chỉ bản ghi đích. Không suy từ file nháp.')+th('Đối chiếu','Chưa đối chiếu: xám. Đã đối chiếu: xanh, có người/thời điểm/bằng chứng. Cần sửa lại: đỏ. Thay nguồn hoặc sai phiên phải kiểm lại.')+th('Chi tiết','Mã bản ghi, căn cứ, người giữ và tài liệu chuẩn bị; chi tiết không làm phát sinh Master khác.')+'</tr></thead><tbody>'+progressRows+'</tbody></table>'+
-'<details class="oc-detail"><summary>Cho AI / PG: cấu trúc và luật ghi</summary><ul>'+P.rules.map(x=>'<li>'+e(x)+'</li>').join('')+'</ul><p><b>Khóa:</b> '+e(P.pg_design.state_columns.keys)+'</p><p>'+e(P.pg_design.state_columns.guards)+'</p><p>'+e(P.pg_design.scope)+'</p><p>'+e(P.pg_design.open)+'</p><p>Quy định chung: record_control.guidance; nghĩa vụ từng việc: application.record_requirements; tiến độ: application.record_checks. Không sửa trạng thái trên quy định chung.</p></details></div></details></section>';
+'<details class="oc-detail"><summary>Các mục chưa đến hạn / nhánh chưa phát sinh</summary><ul>'+audit.rows.filter(x=>!x.due).map(x=>'<li>'+e(x.title)+' · '+e(x.note)+'</li>').join('')+'</ul></details><details class="oc-detail"><summary>Cho AI / PG: cấu trúc và luật ghi</summary><ul>'+P.rules.map(x=>'<li>'+e(x)+'</li>').join('')+'</ul><p><b>Khóa:</b> '+e(P.pg_design.state_columns.keys)+'</p><p>'+e(P.pg_design.state_columns.guards)+'</p><p>'+e(P.pg_design.scope)+'</p><p>'+e(P.pg_design.open)+'</p><p>Quy định chung: record_control.guidance; nghĩa vụ từng việc: application.record_requirements; tiến độ: application.record_checks. Không sửa trạng thái trên quy định chung.</p></details></div></details></section>';
 
 slot.innerHTML=
 workBoard+

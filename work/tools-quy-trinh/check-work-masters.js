@@ -35,7 +35,7 @@ if(adapter){
  const partial=copy(r),p=partial.application_preview.record.record_checks.find(x=>x.requirement_code==='PLAN');
  Object.assign(p,{record_state:'RECORDED',master_record_id:'TEST',record_ref:'test:record',record_version:'1'});
  const g=A.dossier(partial,partial.work_schedule.records[0]).groups.find(g=>g.id==='RG04');assert.equal(g.written,1);assert(!g.done);assert(g.active.length>1);
- p.check_state='MATCHED';p.evidence_ref='test:evidence';p.checked_by='TEST';p.checked_at='2026-10-11T00:00:00Z';
+ Object.assign(p,{process_code:partial.application_preview.record.process_code,process_version:partial.application_preview.record.process_version,target_code:partial.application_preview.record.target_code,readback_state:'PASS',checked_record_version:'1'});p.check_state='MATCHED';p.evidence_ref='test:evidence';p.checked_by='TEST';p.checked_at='2026-10-11T00:00:00Z';
  assert.equal(A.dossier(partial,partial.work_schedule.records[0]).groups.find(g=>g.id==='RG04').verified,1);
  p.application_id='WRONG';assert.equal(A.dossier(partial,partial.work_schedule.records[0]).groups.find(g=>g.id==='RG04').verified,0);
  const foreign=copy(r);foreign.work_schedule.records[0].process_version='WRONG';assert.throws(()=>A.dossier(foreign,foreign.work_schedule.records[0]));
