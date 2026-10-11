@@ -6,6 +6,8 @@ Bộ tính mốc duy nhất: view.html#tqt-record-control. Chạy lại từ dan
 
 **P28 / PR-12 v2:** chạy thử ngoài PG theo D27. Dùng kho thử khai báo trong phiếu sản phẩm hiện hữu theo `catalog.trial_storage_contract`; không tạo bản sao, không chạm PG. 13 câu khai được lưu có mã/phiên cấu trúc/phiên bản ghi; nội dung chưa kiểm vẫn NOT_TESTED, không tự qua CP03. Mapping toàn phiếu, nguồn các Master khác và kiểm độc lập còn mở. Đọc README mục Kho thử ngoài PG và `catalog.host_review_PR12` trước bước tiếp.
 
+**P29 / PR-13 — đọc trước bước kế:** hợp đồng thông tin áp dụng là đầu bài bắt buộc trước rà Config. Đọc README mục P29, `catalog.host_review_PR13` và bản áp dụng CAT-206* trong phiếu MOW001. Không dùng cờ đã rà thay bản hợp đồng; không tự nghiệm thu 51 dòng nháp hoặc 34 địa chỉ chưa thử. Mọi sửa kho thử phải chạy TQT-CHECK-006 `--before-product` trên nguồn vừa đọc, rồi transaction có expected_version và readback; server hook còn mở. Người kiểm độc lập và nơi ghi đúng schema phải đủ trước CP03.
+
 ## Lịch sử các đề bài trước — không dùng làm chỉ đạo hiện hành
 
 # PROMPT hiện hành · D24/P23 · Từ mục tiêu tới kết quả

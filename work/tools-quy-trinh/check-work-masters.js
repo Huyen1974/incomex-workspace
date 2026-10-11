@@ -52,3 +52,5 @@ for(const row of coverage.rows)for(const code of row.masters)assert(all.has(code
 for(const code of coverage.new_ui_codes){const d=r.work_master_designs.records.find(x=>x.code===code);assert(d);assert(d.fields.length>=12);assert(d.pg_design.primary_key);assert(d.pg_design.natural_key);assert.equal(d.pg_design.status,'LOGICAL_DESIGN_ONLY');}
 assert.equal(r.work_form.record_control.guidance.length,11);
 console.log('coverage: 7 checkpoints + exception/operations; 8 new UI references resolved; 11 groups preserved');
+
+if(adapter){const rows=globalThis.TQT_WORK_MASTER.sourceRows(r,'CAT-206*');assert.equal(rows.length,r.application_preview.record.information_contract.rows.length);assert(rows.every(x=>x.meaning&&x.contract_version&&x.acceptance_refs.length));const cfg=globalThis.TQT_WORK_MASTER.configure({}, {tqt:r,masterCode:'CAT-206*',sample:false});assert.equal(cfg.items.length,rows.length);assert(cfg.items[0].form_schema.fields.some(x=>x.key==='meaning'));console.log('CAT206 applied contracts visible; field meaning/version/case links preserved');}

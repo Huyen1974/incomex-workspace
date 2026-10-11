@@ -8,14 +8,14 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-11 18:15 +07 · Claude · P27
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-11 20:28 +07 · Astra Codex · P29
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
-- 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh] → [■ ② Thử ngoài PG: đã đăng ký lát 13 câu khai MOW001, chưa qua mốc 3] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
-- ✅ Đã làm P28: giữ 48 Master, ⑤/7 mốc; dùng lại phiếu nguồn làm kho thử 13 câu khai có mã/phiên, không thêm file/Master. Đã có chỉ mục nối 20 Master với mô hình và hợp đồng; ánh xạ từng cột/PG còn mở. Nội dung câu trả lời chưa kiểm, 0/7 mốc đạt.
+- 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② Thử ngoài PG: kho 13 câu khai đã có, 0/7 mốc] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
+- ✅ Đã làm P29: dùng lại CAT-206*, khai hợp đồng áp dụng 3 MOT/5 giao bước và ca nghiệm thu; siết ghim phiên/nội dung xuyên kiểm–duyệt–ACK, sửa lỗi thiếu dòng kiểm, thêm kiểm trước–sau vào DOT hiện hữu. Giữ 48 Master, ⑤/7 mốc; ca thật chưa qua mốc nào.
 - ■ Đang làm: — · 0 RUN active
-- ⬜ Còn lại: hoàn thiện kho thử/mapping các Master còn lại của MOW001 → đối chiếu đầu vào → kiểm độc lập mốc 3/5/6 → ba ca khác loại và các nhánh lỗi → staging/rollback rồi mới cắt chuyển PG. Kết luận từng mục PR-12 tại P28/catalog.host_review_PR12; không mặc định đã đạt T1/T2/C1 toàn phạm vi.
-- ➡ Kế tiếp: 🤖 Host nối các nghĩa vụ ngoài 13 câu khai của MOW001 vào kho thử đúng hợp đồng, kiểm nội dung đầu vào; chỉ giao kiểm độc lập CP03 khi đủ. Claude rà lại diễn đạt R04a/R09/R11/R18 theo kết luận P28 ở lần được gọi. Owner chưa có việc phải thao tác. NEXT_TRIGGER=COMPLETE_MOW001_TRIAL_BINDINGS_AND_INPUT_REVIEW
+- ⬜ Còn lại: kiểm độc lập hợp đồng áp dụng → hoàn thiện schema và thử ghi/đọc toàn đường MOW001 ngoài PG → đủ CP03 mới làm/kiểm/duyệt/nhận → ba ca khác loại → staging/rollback rồi cắt chuyển PG. Cưỡng chế kiểm trước–sau ở máy chủ còn mở; 34 địa chỉ đề xuất không có nghĩa 34 nơi ghi đã sẵn sàng.
+- ➡ Kế tiếp: Host hoàn thiện schema/bằng chứng nơi ghi; Reviewer được Owner gọi rà P29/hợp đồng G1, không tự lấy tự kiểm Host thay kiểm độc lập. Claude cập nhật các yêu cầu ô 3 theo kết luận P29 ở lượt được gọi. NEXT_TRIGGER=INDEPENDENT_CONTRACT_REVIEW_AND_SCHEMA_ALIGNED_TRIAL_ENDPOINTS
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -553,6 +553,15 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - — Q01 · ĐÃ GIẢI QUYẾT D22/D25: Astra Codex là Host nội dung; Claude là Host Kiểm soát (Bảng, ô 1–3). Mục tiêu ngắn: Owner tự viết ô 1 ngày 10/10 (D25), đã áp; PR-07 đóng. Không có câu hỏi Owner đang mở.
 
 ## Ý kiến và bằng chứng
+### P29 · Host đi bộ hợp đồng thông tin theo PR-13 · ĐÃ SỬA CHỐT THIẾT KẾ, CHƯA NGHIỆM THU G1
+- Bảng: cập nhật trạng thái theo §0.3.3; Ô 1–2 và chi tiết Claude giữ: không sửa. §0.3: đã đối chiếu. Owner yêu cầu lượt này: “hợp đồng thông tin thì ghi từng cái việc theo từng cái nốt sẽ ghi những cái thông tin gì, như thế nào. Master list của nó là bản nào và có những trường, cột và thông tin gì. Cách tổ chức ghi hợp đồng thông tin để xác nhận. Thế nào là hoàn thành, sẽ được ghi như thế nào.” Đề nghị Host Kiểm soát ghi bổ sung chỉ đạo vào ô 3 ở lượt được gọi, không cần Owner nhắc lại.
+- Bằng chứng gốc PR-13 a7b2fbd4b84a64208492c8af7c179c05acf036f2ca04e51d95f765d2f2363839. Tái hiện C13-01: xóa CAT-206*, fixture vẫn7/7; C13-02: xóa FIELD-identity, TypeError. Phán quyết từng C13 và giới hạn tại catalog.host_review_PR13.
+- Dùng lại CAT-206* schema1.1-design, nguồn phiếu sản phẩm hiện hữu; 51 dòng/3MOT, 5 giao bước P01–P05, 11 ca khai trước. Phân biệt đầu bài DESIGN_TASK và PRODUCT_SPEC; thêm đầu vào phản hồi thật/cancelled của MOT1.3, không lấy checkbox hoặc câu hỏi thay kết quả. Khóa gồm MOT/giao điểm/phiên hợp đồng. Giữ mã có dấu theo nguồn hiện tại, không tự đổi danh tính toàn hệ thống.
+- Máy chặn thiếu hợp đồng/Master/MOT/giao bước; đổi nghĩa/số lượng/đích cùng phiên làm mất hiệu lực binding; kiểm/duyệt/ACK phải cùng hợp đồng và sản phẩm/phiên. Bản ghi null/thiếu/sai cấu trúc trả lỗi và không qua mốc, không làm hỏng toàn UI. Quy trình QT-CTCM-012 và Tool001/004/006 cập nhật ngay tại nguồn bước.
+- DOT dùng lại TQT-CHECK-004/005/006, không thêm script chuẩn. Kiểm trước–sau đòi phiên tăng và giữ chính xác bản trước, không cho sửa lịch sử. Đã dùng trước transaction lượt này, hash trước/sau trong evidence. Chưa gắn server hook: trực tiếp gọi transaction vẫn có thể bỏ qua; không nhận đã cưỡng chế toàn hệ thống.
+- C13-04 mới lập danh sách 34 endpoint cho đường đã chọn, schema/access chưa đủ; giữ NOT_TESTED và CP03 chặn. 7 nghĩa vụ đến hạn thiếu bản ghi ≠ 7 Master. Không tạo kết quả/duyệt/ACK giả; 13 câu khai chưa kiểm, 51 dòng hợp đồng nháp chưa kiểm độc lập; 0/7 mốc thật. Plan v2 ghi người kiểm P04 chưa chỉ định.
+- Đường vào/SSOT giữ nguyên: knowledge/modules?task=tools-quy-trinh&view=content&section=over-view → view.html; Master CAT-206* lấy cùng catalog qua process-work-master-v1.js. Bằng chứng: UI-REVIEW-AGGREGATE.json#host_review_P29. JEV gen-dec-1791724462-JAI7JcIAg6GrH1tF4Dv2 chỉ tham khảo lựa chọn dùng lại Master, không thay duyệt độc lập. Không ghi PG.
+
 ### P28 · Host xét PR-12 v2 · TIẾP NHẬN CÓ HIỆU CHỈNH / TRIỂN KHAI LÁT C1
 - Bảng: đã cập nhật dòng trạng thái theo quyền §0.3.3; Ô 1–2: giữ nguyên. §0.3: đã đối chiếu D27; đề nghị Host Kiểm soát cập nhật R04a/R09/R11/R18 theo kết luận này, không tự đổi chữ phần Claude giữ.
 - Nhận D27: thiết kế → thử ngoài PG → ổn mới cắt chuyển. Không nhận suy luận “nơi lưu thật chỉ có PG”: repo bền vững cũng là kho thử nếu có hợp đồng, mã/phiên và máy đọc lại được. Thiếu kho có hợp đồng là một chỗ kẹt; 13 câu còn NOT_TESTED và kiểm độc lập vẫn là điều kiện riêng.

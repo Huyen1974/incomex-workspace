@@ -33,9 +33,17 @@ def prerequisites(which=shutil.which, version=sys.version_info):
 
 def source_readback(path, projection):
     if not path.is_file(): return {'state':'FAIL','reason':'MISSING_PRODUCT_SOURCE'}
-    try: actual=json.loads(path.read_text())['application_D24']
+    try:
+        document=json.loads(path.read_text());actual=document['application_D24']
+        rule_checks=[]
+        for source in actual.get('information_contract',{}).get('rule_sources',[]):
+            if 'content_sha256' not in source: continue
+            value=document
+            for segment in source['ref'].split('#',1)[1].strip('/').split('/'):value=value[segment]
+            digest=hashlib.sha256(json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+            rule_checks.append({'ref':source['ref'],'matched':digest==source['content_sha256']})
     except (ValueError, KeyError, OSError): return {'state':'FAIL','reason':'INVALID_PRODUCT_SOURCE'}
-    return {'state':'PASS' if actual==projection else 'FAIL','source_sha256':sha(path),'projection_equal':actual==projection,'application_id':actual.get('application_id'),'trial_declarations':len(actual.get('declarations',[])) if actual.get('trial_store',{}).get('state')=='TRIAL' else 0,'scope':'SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL'}
+    return {'state':'PASS' if actual==projection and all(x['matched'] for x in rule_checks) else 'FAIL','source_sha256':sha(path),'projection_equal':actual==projection,'rule_source_checks':rule_checks,'application_id':actual.get('application_id'),'trial_declarations':len(actual.get('declarations',[])) if actual.get('trial_store',{}).get('state')=='TRIAL' else 0,'scope':'SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL'}
 
 def self_test():
     with tempfile.TemporaryDirectory(prefix='tqt-check-') as tmp:
@@ -68,6 +76,7 @@ def main():
     ap.add_argument('--dry-run',action='store_true',help='validate inventory and print commands without running suites')
     ap.add_argument('--report',type=Path,help='save evidence JSON; use a test/evidence location')
     ap.add_argument('--ui-adapter',type=Path,help='optional local copy of VPS process-work-master-v1.js; hash recorded')
+    ap.add_argument('--before-product',type=Path,help='actual previous product snapshot; validate revisions/history before submitting any write')
     args=ap.parse_args()
     source=BASE/'view.html';data=json.loads(re.search(r'<script id="tqt-composite-processes"[^>]*>(.*?)</script>',source.read_text(),re.S)[1])['catalog'];reg=data['tool_registry']
     errors=inventory(BASE,reg)
@@ -76,6 +85,15 @@ def main():
     report={'run_id':'TQT-'+uuid.uuid4().hex,'at':datetime.now(timezone.utc).isoformat(),'scope':reg['scope'],'registry_master':'CAT-006','case_master':'CAT-012','result_master':'CAT-015','source_sha256':sha(source),'inventory_errors':errors,'source_readback':readback,'results':[],'pg':'NOT_RUN','production_ready':False}
     if args.ui_adapter: report['ui_adapter_sha256']=sha(args.ui_adapter)
     report['prerequisite_errors']=prerequisites()
+    if args.before_product and not report['prerequisite_errors']:
+        product=BASE.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json'
+        proc=subprocess.run(['node',str(BASE/'check-record-control.js'),str(source),'--validate-transition',str(args.before_product.resolve()),str(product)],text=True,capture_output=True,timeout=60)
+        try: report['transition_check']=json.loads(proc.stdout)
+        except ValueError: report['transition_check']={'state':'FAIL','errors':[proc.stderr or 'INVALID_VALIDATOR_OUTPUT']}
+        report['transition_check'].update(before_sha256=sha(args.before_product),after_sha256=sha(product))
+        if proc.returncode or report['transition_check']['state']!='PASS':errors.append('INVALID_TRANSITION')
+    elif args.before_product:
+        report['transition_check']={'state':'BLOCKED','reason':'MISSING_RUNTIME'}
     if not errors and args.verify and not args.dry_run:
         report['runner_self_test']=self_test()
     if not errors and not report['prerequisite_errors'] and args.verify and not args.dry_run:

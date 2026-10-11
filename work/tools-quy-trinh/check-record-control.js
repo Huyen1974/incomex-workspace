@@ -8,6 +8,10 @@ const audit=globalThis.tqtRecordAudit,clone=x=>JSON.parse(JSON.stringify(x));let
 if(process.argv.includes('--complete-fixture')){fs.writeFileSync(1,JSON.stringify(fixture()));process.exit(0);}
 if(process.argv.includes('--audit')){const r=JSON.parse(fs.readFileSync(0,'utf8'));const a=audit(r);fs.writeFileSync(1,JSON.stringify({errors:a.errors,counts:a.counts,verifiedCheckpoints:a.verifiedCheckpoints,canStart:a.canStart,canFinish:a.canFinish}));process.exit(0);}
 
+if(process.argv.includes('--validate-transition')){
+ const i=process.argv.indexOf('--validate-transition');
+ try{const before=JSON.parse(fs.readFileSync(process.argv[i+1],'utf8')).application_D24,after=JSON.parse(fs.readFileSync(process.argv[i+2],'utf8')).application_D24;const result=globalThis.tqtValidateTransition(before,after);fs.writeFileSync(1,JSON.stringify(result));process.exit(result.state==='PASS'?0:1);}catch(e){fs.writeFileSync(1,JSON.stringify({state:'FAIL',errors:[e.message]}));process.exit(1);}
+}
 const check=(r,id)=>r.application_preview.record.record_checks.find(x=>x.requirement_code===id),row=(a,id)=>a.rows.find(x=>x.code===id);
 function unrecorded(r){delete r.trial_storage_contract;delete r.application_preview.record.trial_store;for(const x of r.application_preview.record.record_checks)if(x.store_state==='TRIAL')Object.assign(x,{store_state:'UNVERIFIED',record_state:'NOT_RECORDED',check_state:'NOT_CHECKED',master_record_id:null,record_ref:null,record_version:null});return r;}
 function test(name,change,verify){const r=unrecorded(clone(R));change(r);try{verify(audit(r),r);}catch(e){throw Error(name+': '+e.message);}tests++;}
@@ -49,7 +53,15 @@ function fixture(){
  Object.assign(a.start_confirmation,{state:'CONFIRMED',evidence_ref:'test-only:start'});
  const payload={application_id:a.application_id,target_version:a.target_version,evidence_ref:'test-only:payload',actor:'TEST',at:'2026-10-11T00:00:00Z'};
  a.plan_results=a.plan.map(p=>{p.status='DONE';return {...payload,id:'SIM-'+p.id,plan_id:p.id,output_ref:'test-only:output',output_version:'1'};});
- a.test_result='PASS';a.connection_tests={in:'PASS',out:'PASS'};a.test_cases=[{...payload,id:'SIM-CASE',result:'PASS'}];
+ a.contract_binding=globalThis.tqtContractPin(a);
+ a.information_contract.review={state:'PASS',reviewer_id:'TEST-INDEPENDENT',evidence_ref:'test-only:independent',at:'2026-10-11T00:00:00Z',contract_binding:a.contract_binding};
+ a.start_confirmation.contract_binding=a.contract_binding;
+ for(const x of a.plan_results)x.contract_binding=a.contract_binding;
+ const canonical=v=>JSON.stringify(v,(_,x)=>x&&typeof x==='object'&&!Array.isArray(x)?Object.fromEntries(Object.keys(x).sort().map(k=>[k,x[k]])):x);
+ for(const ep of a.trial_endpoints){const {access_check,...spec}=ep;ep.access_check={state:'PASS',read:'PASS',write:'PASS',evidence_ref:'test-only:endpoint',spec_token:canonical(spec)};}
+ payload.contract_binding=a.contract_binding;
+ payload.product_binding=a.plan_results.filter(x=>['P02','P03'].includes(x.plan_id)).map(x=>({plan_id:x.plan_id,output_ref:x.output_ref,output_version:x.output_version}));
+ a.test_result='PASS';a.connection_tests={in:'PASS',out:'PASS'};a.test_cases=a.information_contract.criteria.map(c=>({...payload,id:'SIM-'+c.id,criterion_id:c.id,expected:c.expected,actual:'TEST fixture conforms',reviewer_id:'TEST-INDEPENDENT',result:'PASS'}));
  Object.assign(a.release,{state:'APPROVED',decision_ref:'SIM-DECISION',ack_ref:'SIM-ACK'});
  a.decisions=[{...payload,id:'SIM-DECISION',outcome:'APPROVED',scope:a.release.scope,actor:a.approver,authority_ref:'test-only:authority'}];
  a.receipts=[{...payload,id:'SIM-ACK',decision_id:'SIM-DECISION',recipient:a.recipient}];
@@ -102,3 +114,60 @@ Object.assign(xr,{check_state:'MATCHED',readback_state:'PASS',process_code:ar.pr
 assert(row(audit(readTrial),'FIELD-identity').verified);trialCases++;
 dr.answer+=' changed';assert(!row(audit(readTrial),'FIELD-identity').verified);trialCases++;
 console.log(JSON.stringify({trial_cases:trialCases,persisted_declarations:baseTrial.counts.written,checkpoints:baseTrial.verifiedCheckpoints.length,scope:'TRIAL_NOT_PG'}));
+
+// PR13: information must survive every handoff; a PASS flag never replaces the applied contract.
+let contractCases=0;
+for(const [name,change] of [
+ ['missing Master',r=>r.work_form.record_control.masters=r.work_form.record_control.masters.filter(x=>x.code!=='CAT-206*')],
+ ['missing contract',r=>delete r.application_preview.record.information_contract],
+ ['missing MOT outputs',r=>r.application_preview.record.information_contract.rows=r.application_preview.record.information_contract.rows.filter(x=>x.mot_code!=='1.2')],
+ ['changed meaning same version',r=>r.application_preview.record.information_contract.rows[0].meaning+=' changed'],
+ ['changed cardinality',r=>r.application_preview.record.information_contract.rows[0].cardinality='0..n'],
+ ['wrong destination',r=>r.application_preview.record.information_contract.rows[0].destination_master='CAT-025'],
+ ['new contract version',r=>r.application_preview.record.information_contract.version='2'],
+ ['missing plan interface',r=>r.application_preview.record.information_contract.handoffs.pop()],
+ ['missing predefined cases',r=>r.application_preview.record.information_contract.criteria=[]],
+ ['self review',r=>r.application_preview.record.information_contract.review.reviewer_id=r.application_preview.record.actor],
+ ['missing endpoint',r=>r.application_preview.record.trial_endpoints.pop()],
+ ['unproved write access',r=>r.application_preview.record.trial_endpoints[0].access_check.write='NOT_TESTED'],
+ ['changed endpoint spec',r=>r.application_preview.record.trial_endpoints[0].path='fake'],
+ ['wrong work binding',r=>r.application_preview.record.plan_results[2].contract_binding.version='old'],
+ ['wrong test binding',r=>r.application_preview.record.test_cases[0].contract_binding.version='old'],
+ ['uncovered criterion',r=>r.application_preview.record.test_cases.pop()],
+ ['invented expected value',r=>r.application_preview.record.test_cases[0].expected='Anything is fine'],
+ ['no actual observation',r=>delete r.application_preview.record.test_cases[0].actual],
+ ['worker self-tests',r=>r.application_preview.record.test_cases[0].reviewer_id=r.application_preview.record.actor],
+ ['wrong reviewed product',r=>r.application_preview.record.test_cases[0].product_binding[0].output_version='wrong'],
+ ['wrong approval contract',r=>r.application_preview.record.decisions[0].contract_binding.version='old'],
+ ['wrong approved product',r=>r.application_preview.record.decisions[0].product_binding[0].output_version='wrong'],
+ ['wrong receipt contract',r=>r.application_preview.record.receipts[0].contract_binding.version='old'],
+ ['wrong received product',r=>r.application_preview.record.receipts[0].product_binding[0].output_version='wrong']
+]){const r=clone(complete);change(r);assert(!audit(r).canFinish,name);contractCases++;}
+for(const mutate of [
+ r=>r.application_preview.record.record_checks=r.application_preview.record.record_checks.filter(x=>x.requirement_code!=='FIELD-identity'),
+ r=>r.application_preview.record.record_checks=null,
+ r=>r.application_preview.record.record_checks.push(null),
+ r=>r.application_preview.record.record_checks='bad',
+ r=>r.application_preview.record.declarations[0]=null,
+ r=>r.application_preview.record.record_requirements[0]=null,
+ r=>r.application_preview.record.information_contract.rows=[null],
+ r=>r.application_preview.record.information_contract.criteria='bad',
+ r=>r.application_preview.record.trial_endpoints=[null]
+]){const r=clone(R);mutate(r);const x=audit(r);assert(!x.canStart&&!x.canFinish);assert(x.errors.length||!x.contract.reviewed);contractCases++;}
+const previous=clone(R.application_preview.record),validate=globalThis.tqtValidateTransition;
+assert.equal(validate(previous,clone(previous)).state,'PASS');contractCases++;
+for(const change of [
+ a=>a.declarations[0].answer+=' changed without revision',
+ a=>a.declarations[0].record_version='2',
+ a=>a.declaration_history.push({...a.declarations[0],answer:'fabricated'}),
+ a=>a.declarations.pop(),
+ a=>a.information_contract.rows[0].meaning='changed',
+ a=>a.information_contract.history.push({fake:true})
+]){const after=clone(previous);change(after);assert.equal(validate(previous,after).state,'FAIL');contractCases++;}
+const next=clone(previous);next.declaration_history.push(clone(previous.declarations[0]));next.declarations[0].answer+=' changed';next.declarations[0].record_version='2';
+assert.equal(validate(previous,next).state,'PASS');contractCases++;
+const rewrite=clone(next);rewrite.declaration_history[0].answer='rewrite old';assert.equal(validate(next,rewrite).state,'FAIL');contractCases++;
+const newContract=clone(previous),prior=clone(previous.information_contract);delete prior.history;newContract.information_contract.history.push(prior);newContract.information_contract.version='2';newContract.information_contract.rows.forEach(x=>x.contract_version='2');
+assert.equal(validate(previous,newContract).state,'PASS');contractCases++;
+const changed=clone(complete);changed.application_preview.record.information_contract.rows[0].meaning+=' revised';assert.deepEqual(audit(changed).verifiedCheckpoints,['CP01']);contractCases++;
+console.log(JSON.stringify({information_contract_cases:contractCases,actual_contract_rows:R.application_preview.record.information_contract.rows.length,actual_criteria:R.application_preview.record.information_contract.criteria.length,synthetic_full_walk:audit(complete).verifiedCheckpoints.length,real_checkpoints:audit(R).verifiedCheckpoints.length,server_write_hook:'NOT_ENFORCED',pg:'NOT_RUN'}));

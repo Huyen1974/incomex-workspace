@@ -549,5 +549,146 @@
       "No independent CP03/CP05/CP06 review; no three-case end-to-end acceptance",
       "No PostgreSQL writes"
     ]
+  },
+  "host_review_P29": {
+    "status": "DESIGN_GUARDS_PASS_REAL_APPLICATION_NOT_READY",
+    "date": "2026-10-11",
+    "scope": "PR13 information contracts before config; outside PG only",
+    "baseline_reproduction": {
+      "C13-01": "Removing CAT206 left7/7 canFinish=true",
+      "C13-02": "Removing FIELD-identity caused TypeError"
+    },
+    "local_check_report": {
+      "run_id": "TQT-5a7f765acfef4b5eb25583a689992e1c",
+      "at": "2026-10-11T13:27:37.019756+00:00",
+      "scope": "work/tools-quy-trinh/**/*.py, **/*.js; không tuyên bố bao phủ toàn VPS",
+      "registry_master": "CAT-006",
+      "case_master": "CAT-012",
+      "result_master": "CAT-015",
+      "source_sha256": "863ae084a420dfd6e93b0f3edc3c1b6b2b83ac51353768522c2574bb79af6038",
+      "inventory_errors": [],
+      "source_readback": {
+        "state": "PASS",
+        "source_sha256": "d18e0191b5afd0208ae0aa374e43f3cd800ca9bbbcd167e17fb39f08167d546c",
+        "projection_equal": true,
+        "rule_source_checks": [
+          {
+            "ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/contract",
+            "matched": true
+          }
+        ],
+        "application_id": "MOW-NHC-001-G1-20261010-01",
+        "trial_declarations": 13,
+        "scope": "SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL"
+      },
+      "results": [
+        {
+          "id": "TQT-CHECK-001",
+          "case_set": "TQT-CASE-MODEL",
+          "source_sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
+          "argv": [
+            "python3",
+            "check-process-model.py",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"status\": \"SIMULATION_ONLY\", \"passed\": 87, \"model_sha256\": \"f55fcf4fa78b22005604b62d025487f4a3977b5cc106bb9f3b0a6c0a8713ce5a\", \"package_state\": \"NOT_FROZEN\", \"production_ready\": false}\n",
+          "stderr": ""
+        },
+        {
+          "id": "TQT-CHECK-002",
+          "case_set": "TQT-CASE-CATALOG",
+          "source_sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
+          "argv": [
+            "python3",
+            "check-process-catalog.py",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "checkpoint cases 20\n{\"aggregate\": 5, \"normal\": 12, \"coded_references\": 55, \"bad_reference_cases\": 2, \"scope\": \"DESIGN_ONLY\"}\n",
+          "stderr": ""
+        },
+        {
+          "id": "TQT-CHECK-003",
+          "case_set": "TQT-CASE-DECLARATION",
+          "source_sha256": "955657ecfba4b5c948eb08cffc665ed5e2c4c97f106d673e291687df7bf066ed",
+          "argv": [
+            "python3",
+            "check-overview-consistency.py",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"positive\": 2, \"negative\": 34, \"procedures\": 17, \"source_check\": \"MATCH_EXISTING_PRODUCT_RECEIPT\", \"application_state\": \"CHUAN_BI\", \"can_start\": false, \"needs_before_start\": [{\"field\": \"identity\", \"need\": \"Việc gì? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"connections_in\", \"need\": \"Bắt đầu từ đâu? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"connections_out\", \"need\": \"Kết thúc ở đâu? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"prerequisites\", \"need\": \"Đầu vào đã đủ chưa? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"execution_conditions\", \"need\": \"Được thực hiện khi nào? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"plan\", \"need\": \"Kế hoạch ghi đâu? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"records\", \"need\": \"Kết quả và bằng chứng ghi đâu? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"roles\", \"need\": \"Ai làm, báo ai, khi nào? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"acceptance\", \"need\": \"Ai kiểm, đạt là gì? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"questions\", \"need\": \"Phiếu đủ/thiếu ở đâu? — cần kiểm và ghi căn cứ\", \"owner\": \"Astra Codex\"}, {\"field\": \"start_confirmation\", \"need\": \"Xác nhận kế hoạch đúng phiên trước S3\", \"owner\": \"Astra Codex · Host\"}], \"next\": \"Rà độc lập hợp đồng áp dụng từng MOT/giao bước; hoàn thiện và thử nơi ghi ngoài PG theo đúng schema. Chưa đủ điều kiện mốc 3.\", \"production_ready\": false}\n",
+          "stderr": ""
+        },
+        {
+          "id": "TQT-CHECK-004",
+          "case_set": "TQT-CASE-RECORD",
+          "source_sha256": "fc097de590c0a4ab9a427916d7301f3645a513dce03f07c3e7d7a1e04b2f542b",
+          "argv": [
+            "node",
+            "check-record-control.js",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"tests\":26,\"scope\":\"DESIGN_PROJECTION_ONLY\",\"counts\":{\"total\":34,\"written\":13,\"verified\":0,\"needsFix\":0,\"notRecorded\":21,\"dueMissing\":7,\"due\":20,\"deferred\":14},\"pg\":\"NOT_RUN\"}\n{\"tests\":59,\"regression\":\"QTTH05_WALK\",\"synthetic_full_walk\":7,\"live_application\":0,\"pg\":\"NOT_RUN\"}\n{\"trial_cases\":15,\"persisted_declarations\":13,\"checkpoints\":0,\"scope\":\"TRIAL_NOT_PG\"}\n{\"information_contract_cases\":44,\"actual_contract_rows\":51,\"actual_criteria\":11,\"synthetic_full_walk\":7,\"real_checkpoints\":0,\"server_write_hook\":\"NOT_ENFORCED\",\"pg\":\"NOT_RUN\"}\n",
+          "stderr": ""
+        },
+        {
+          "id": "TQT-CHECK-005",
+          "case_set": "TQT-CASE-MASTER",
+          "source_sha256": "bf9363addd263d9da3b084b78defdc2b117769ddfe50293a9295bdb9227a3b84",
+          "argv": [
+            "node",
+            "check-work-masters.js",
+            "view.html",
+            "/Users/nmhuyen/Documents/Codex/2026-10-11/y-l-r-so-t-kh/work/source/adapter.js"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"masters\":18,\"planned_jobs\":2,\"negative_cases\":14,\"scope\":\"DESIGN_ONLY\",\"pg\":\"NOT_RUN\"}\ndossier: 7 checkpoints, 11 groups, 34 obligations; partial/foreign/unlinked/second job cases passed\ncoverage: 7 checkpoints + exception/operations; 8 new UI references resolved; 11 groups preserved\nCAT206 applied contracts visible; field meaning/version/case links preserved\n",
+          "stderr": ""
+        }
+      ],
+      "pg": "NOT_RUN",
+      "production_ready": false,
+      "ui_adapter_sha256": "02ec7721be1dcfd06e4b55dcc3a8032314b887fe0b536d2fc7620ac7b093d350",
+      "prerequisite_errors": [],
+      "transition_check": {
+        "state": "PASS",
+        "errors": [],
+        "scope": "BEFORE_AFTER_TRIAL_NOT_SERVER_ENFORCEMENT",
+        "before_sha256": "73d7dc92b2a5c7aedae80657cf177037f7665bce912eb36b46d23276adfe4d3a",
+        "after_sha256": "d18e0191b5afd0208ae0aa374e43f3cd800ca9bbbcd167e17fb39f08167d546c"
+      },
+      "runner_self_test": {
+        "cases": 13,
+        "store": "temporary TEST file in execution snapshot",
+        "write_read_restore": "PASS",
+        "production": "NOT_TOUCHED"
+      },
+      "status": "PASS"
+    },
+    "real_application": {
+      "checkpoints": 0,
+      "written_declarations": 13,
+      "unwritten_due_obligations": 7,
+      "draft_contract_rows": 51,
+      "predeclared_cases": 11,
+      "endpoint_declarations": 34,
+      "endpoint_access_verified": 0,
+      "independent_contract_review": "NOT_REVIEWED"
+    },
+    "remaining": [
+      "Schema-aligned endpoint write/read for selected path",
+      "Independent contract review",
+      "Server hook enforcing before/after mutation",
+      "VPS Node runtime; full remote suite NOT_RUN",
+      "Real walks then controlled PG migration"
+    ],
+    "ui_review": {
+      "state": "NOT_TESTED_AFTER_DEPLOY"
+    },
+    "server_write_enforcement": "NOT_IMPLEMENTED",
+    "pg": "NOT_RUN"
   }
 }
