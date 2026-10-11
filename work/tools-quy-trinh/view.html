@@ -12408,9 +12408,9 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "code": "CAT-006",
-            "name": "Danh mục DOT",
+            "name": "Master DOT",
             "catalogued": true,
-            "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-006",
+            "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=24",
             "source_state": "UNVERIFIED",
             "ui_state": "DESIGN",
             "source_hint": "dot_tools 314 · số từ bản thiết kế, chưa kiểm PG",
@@ -12422,7 +12422,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             ],
             "gap": "Sáu file tools-quy-trinh đã đăng ký trong catalog.tool_registry; chưa đối chiếu toàn VPS và dot_tools trên PG.",
             "owner": "Codex",
-            "issue_ref": "TQT-ISS-007"
+            "issue_ref": "TQT-ISS-007",
+            "canonical_id": "ML-DEF-024"
           }
         ],
         "guidance": [
@@ -20991,11 +20992,11 @@ main{max-width:1240px} [hidden]{display:none!important}
         },
         {
           "code": "CAT-006",
-          "name": "Danh mục DOT",
+          "name": "Master DOT",
           "view_name": "DOT / Script / Bộ kiểm",
           "parent": "UI.MASTER",
           "ui_code": "UI.MASTER.TQT.006",
-          "url": "./process-work-master-v1.html?master=CAT-006",
+          "url": "./definition-master-v1.html?stt=24",
           "state": "DESIGN_ONLY",
           "columns": [
             {
@@ -21123,7 +21124,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             }
           ],
           "storage": "catalog.tool_registry · nguồn tệp thực đã đăng ký; chưa PG",
-          "record_source": "catalog.work_schedule",
+          "record_source": "catalog.tool_registry",
           "layout": {
             "order": [
               "index",
@@ -21155,7 +21156,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             }
           },
           "display_code": "CAT-006",
-          "schema_version": "1.0-design"
+          "schema_version": "1.1-design",
+          "canonical_id": "ML-DEF-024",
+          "source_key": "catalog.tool_registry",
+          "entity_key": "DOT"
         }
       ],
       "coverage": {
@@ -21467,7 +21471,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           "secret_handling": "Không dùng credential, không network, không SQL/PG",
           "exit_codes": "0 đạt; 1 lỗi kiểm; 2 sai tham số; runner 3 thiếu điều kiện chạy",
           "state": "REGISTERED_READ_ONLY",
-          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật."
+          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật.",
+          "operation_key": "tqt.validate-processes"
         },
         {
           "id": "TQT-CHECK-002",
@@ -21494,7 +21499,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           "secret_handling": "Không dùng credential, không network, không SQL/PG",
           "exit_codes": "0 đạt; 1 lỗi kiểm; 2 sai tham số; runner 3 thiếu điều kiện chạy",
           "state": "REGISTERED_READ_ONLY",
-          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật."
+          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật.",
+          "operation_key": "tqt.validate-cross-references"
         },
         {
           "id": "TQT-CHECK-003",
@@ -21521,7 +21527,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           "secret_handling": "Không dùng credential, không network, không SQL/PG",
           "exit_codes": "0 đạt; 1 lỗi kiểm; 2 sai tham số; runner 3 thiếu điều kiện chạy",
           "state": "REGISTERED_READ_ONLY",
-          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật."
+          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật.",
+          "operation_key": "tqt.validate-overview-consistency"
         },
         {
           "id": "TQT-CHECK-004",
@@ -21549,7 +21556,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           "exit_codes": "0 đạt; 1 lỗi kiểm; 2 sai tham số; runner 3 thiếu điều kiện chạy",
           "state": "REGISTERED_READ_ONLY",
           "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật.",
-          "transition_command": "node check-record-control.js view.html --validate-transition BEFORE_PRODUCT.json AFTER_PRODUCT.json"
+          "transition_command": "node check-record-control.js view.html --validate-transition BEFORE_PRODUCT.json AFTER_PRODUCT.json",
+          "operation_key": "tqt.validate-record-control"
         },
         {
           "id": "TQT-CHECK-005",
@@ -21567,7 +21575,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "6cfd9fee3e451150a3df60529ae16250e8a7ce489ab676c2f109b87292598eeb",
+          "sha256": "3ed26cd28324ee9f1f288e87cfbf57081b14e869f854b5b4c3e28ff82426eb38",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -21576,7 +21584,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           "secret_handling": "Không dùng credential, không network, không SQL/PG",
           "exit_codes": "0 đạt; 1 lỗi kiểm; 2 sai tham số; runner 3 thiếu điều kiện chạy",
           "state": "REGISTERED_READ_ONLY",
-          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật."
+          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật.",
+          "operation_key": "tqt.validate-work-masters"
         },
         {
           "id": "TQT-CHECK-006",
@@ -21594,17 +21603,19 @@ main{max-width:1240px} [hidden]{display:none!important}
             "run-tqt-checks.py",
             "--verify"
           ],
-          "sha256": "ae08851166f0867699777b3fb979ccd597a380176b34b3ade38a0f292a26ccb7",
-          "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
-          "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
+          "sha256": "a4660640c50b1190470694b7d28b3fa657cfce28d9e56232653963e12f3d197b",
+          "preconditions": "Python 3.11+; registry UI vừa đọc; Node.js cho toàn bộ suite, --identity-only không cần Node; không cần quyền PG",
+          "input": "view.html; phiếu MOW001; registry định nghĩa UI vừa đọc qua --master-registry hoặc --master-registry-json; UI adapter tùy chọn",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
-          "verify": "python3 run-tqt-checks.py --verify --report <evidence.json>",
+          "verify": "python3 run-tqt-checks.py --verify --master-registry REGISTRY.js --report EVIDENCE.json",
           "rollback": "Chỉ đọc nguồn; thử file trong thư mục tạm rồi xóa. Khôi phục source bằng Git forward restore qua workspace_transaction.",
           "secret_handling": "Không dùng credential, không network, không SQL/PG",
           "exit_codes": "0 đạt; 1 lỗi kiểm; 2 sai tham số; runner 3 thiếu điều kiện chạy",
           "state": "REGISTERED_READ_ONLY",
           "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật. Kiểm trước khi ghi, chưa có server hook chống bỏ qua.",
-          "transition_command": "python3 run-tqt-checks.py --verify --before-product BEFORE_PRODUCT.json --report EVIDENCE.json"
+          "transition_command": "python3 run-tqt-checks.py --verify --master-registry REGISTRY.js --before-product BEFORE_PRODUCT.json --report EVIDENCE.json",
+          "operation_key": "tqt.run-checks-and-inventory",
+          "identity_command": "python3 run-tqt-checks.py --identity-only --master-registry-json REGISTRY_JSON"
         }
       ],
       "external_inventory": [
@@ -21631,7 +21642,8 @@ main{max-width:1240px} [hidden]{display:none!important}
         "state": "VPS_BLOCKED_MISSING_NODE",
         "evidence": "UI-REVIEW-AGGREGATE.json#host_review_P26",
         "note": "Máy cục bộ đã chạy đầy đủ. Snapshot workspace_exec trên VPS thiếu Node.js; chưa nhận đã kiểm đầy đủ trên VPS. Bổ sung runtime qua đường quản lý hạ tầng rồi chạy lại runner."
-      }
+      },
+      "canonical_master_id": "ML-DEF-024"
     },
     "trial_storage_contract": {
       "version": "1.0-trial",
@@ -21986,6 +21998,22 @@ main{max-width:1240px} [hidden]{display:none!important}
         "Three real diverse walks including idea to procedure; staging/rollback later, no PG now"
       ],
       "jev": "gen-dec-1791724462-JAI7JcIAg6GrH1tF4Dv2"
+    },
+    "master_identity": {
+      "version": "1.0",
+      "policy": "Đối chiếu các nguồn sau khi ghép trước khi thêm Master. Trùng mã/tên chuẩn hóa/URL/nguồn/đối tượng thì dừng; chỉ dùng lại theo binding có căn cứ. Không tự xóa. Khác nghĩa phải ghi phạm vi riêng và căn cứ.",
+      "bindings": [
+        {
+          "canonical_id": "ML-DEF-024",
+          "aliases": [
+            "CAT-006"
+          ],
+          "decision": "P30 · dùng lại Master DOT hiện hữu; CAT-006 là mã tham chiếu cũ, không là Master thứ hai",
+          "evidence": "definition-master-registry-v1.js STT 24 / KNI-020 và catalog.work_master_designs CAT-006 cùng quản lý DOT; Owner chỉ ra trùng 11/10/2026",
+          "source_key": "catalog.tool_registry",
+          "entity_key": "DOT"
+        }
+      ]
     }
   },
   "checkpoint_policy": {

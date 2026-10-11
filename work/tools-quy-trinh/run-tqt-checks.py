@@ -2,17 +2,87 @@
 No credentials, network, PG, service changes or production mutation. Exit 0 PASS,
 1 failed test/inventory, 2 invalid invocation, 3 blocked by missing prerequisites. Default dry-run; --verify executes.
 """
-import argparse, hashlib, json, re, subprocess, sys, shutil, tempfile, uuid
+import argparse, hashlib, json, re, subprocess, sys, shutil, tempfile, uuid, unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
 def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+def identity_name(value):
+    value=''.join(c for c in unicodedata.normalize('NFD',str(value).lower().replace('đ','d')) if not unicodedata.combining(c))
+    value=re.sub(r'^(master|danh muc)\s+','',value.strip())
+    return re.sub(r'[^a-z0-9]+',' ',value).strip()
+
+def master_identity_audit(catalog, registry):
+    """Indexed comparison across the joined registries, O(rows + keys), never all pairs.
+    Possible duplicates block publication for review; they are never auto-deleted.
+    Only an explicit alias binding authorizes merging two different IDs.
+    """
+    errors=[];aliases={};bindings=catalog.get('master_identity',{}).get('bindings',[])
+    for binding in bindings:
+        canonical=binding.get('canonical_id')
+        if not canonical or not binding.get('evidence') or not binding.get('decision'):errors.append('INVALID_ALIAS_DECISION');continue
+        for key in [canonical]+binding.get('aliases',[]):
+            if key in aliases:errors.append('AMBIGUOUS_ALIAS:'+key)
+            aliases[key]=canonical
+    rows=[dict(id=x['masterId'],name=x['masterName'],url=x.get('url'),source_key=x.get('source_key'),entity_key=x.get('entity_key'),scope=x.get('identity_scope','GLOBAL'),origin='definition') for x in registry]
+    rows += [dict(id=x['code'],name=x['name'],url=x.get('url'),source_key=x.get('source_key'),entity_key=x.get('entity_key'),scope=x.get('identity_scope','GLOBAL'),origin='work') for x in catalog['work_master_designs']['records']]
+    buckets={};groups={};ids=set();candidate_pairs=set()
+    for row in rows:
+        canonical=aliases.get(row['id'],row['id']);groups.setdefault(canonical,[]).append(row)
+        if row['id'] in ids:errors.append('DUPLICATE_MASTER_ID:'+row['id'])
+        ids.add(row['id'])
+        for kind,value in [('name',identity_name(row['name'])),('url',row['url']),('source',row['source_key']),('entity',row['entity_key'])]:
+            if not value:continue
+            key=(kind,row['scope'],value)
+            prior=buckets.get(key)
+            if prior and prior[0]!=canonical:
+                pair=tuple(sorted([prior[1],row['id']]))
+                if pair not in candidate_pairs:errors.append('POSSIBLE_DUPLICATE_MASTER:'+kind+':'+','.join(pair));candidate_pairs.add(pair)
+            else:buckets[key]=(canonical,row['id'])
+    for binding in bindings:
+        group=groups.get(binding['canonical_id'],[])
+        if len([x for x in group if x['id']==binding['canonical_id']])!=1:errors.append('CANONICAL_MASTER_MISSING:'+binding['canonical_id'])
+        for alias in binding.get('aliases',[]):
+            if alias not in ids:errors.append('ALIAS_TARGET_MISSING:'+alias)
+    return {'state':'FAIL' if errors else 'PASS','errors':errors,'input_rows':len(rows),'unique_masters':len(groups),'merged':[{'canonical_id':key,'ids':[r['id'] for r in group]} for key,group in groups.items() if len(group)>1],'scope':'Definition registry + QTTH work Masters; Config entry checked by live merged-index guard. Not a full PG/VPS inventory.'}
+
+def identity_self_test():
+    base={'work_master_designs':{'records':[{'code':'CAT-006','name':'Danh mục DOT','url':'dot-new'}]},'master_identity':{'bindings':[]}}
+    registry=[{'masterId':'ML-DEF-024','masterName':'Master DOT','url':'dot-old'}]
+    assert master_identity_audit(base,registry)['state']=='FAIL'
+    base['master_identity']['bindings']=[{'canonical_id':'ML-DEF-024','aliases':['CAT-006'],'evidence':'TEST observed same DOT entity','decision':'TEST reuse'}]
+    assert master_identity_audit(base,registry)['unique_masters']==1
+    assert master_identity_audit(base,registry)['state']=='PASS'
+    import copy
+    cases=3
+    for mutate in [
+        lambda c,r:c['work_master_designs']['records'].append({'code':'OTHER','name':'  DANH MỤC  dot '}),
+        lambda c,r:c['work_master_designs']['records'].append({'code':'OTHER','name':'Unrelated label','url':'dot-old'}),
+        lambda c,r:r.append(dict(r[0])),
+        lambda c,r:r.clear(),
+        lambda c,r:c['master_identity']['bindings'].append(dict(c['master_identity']['bindings'][0])),
+        lambda c,r:c['master_identity']['bindings'][0].update(evidence=''),
+        lambda c,r:(r[0].update(source_key='dot_tools'),c['work_master_designs']['records'].append({'code':'OTHER','name':'renamed','source_key':'dot_tools'})),
+        lambda c,r:(r[0].update(entity_key='dot'),c['work_master_designs']['records'].append({'code':'OTHER','name':'renamed','entity_key':'dot'}))
+    ]:
+        c,r=copy.deepcopy(base),copy.deepcopy(registry);mutate(c,r);assert master_identity_audit(c,r)['state']=='FAIL';cases+=1
+    assert identity_name('Master View')!=identity_name('Master List View');cases+=1
+    large=[{'masterId':str(i),'masterName':'Unique '+str(i)} for i in range(10000)]
+    empty={'work_master_designs':{'records':[]}};assert master_identity_audit(empty,large)['unique_masters']==10000;cases+=1
+    return {'cases':cases,'scale_rows':10000,'method':'indexed keys; no pairwise scan'}
 def inventory(base, registry):
     errors = []
     records = registry['records']
     paths = [x['path'] for x in records]
     if len(set(paths)) != len(paths) or len({x['id'] for x in records}) != len(records): errors.append('DUPLICATE')
+    for field in ['operation_key','sha256']:
+        seen={}
+        for row in records:
+            value=row.get(field)
+            if not value:errors.append('MISSING_METADATA:'+row['id']+':'+field)
+            elif value in seen:errors.append('POSSIBLE_DUPLICATE_TOOL:'+field+':'+seen[value]+','+row['id'])
+            else:seen[value]=row['id']
     # Scope is explicit: all executable Python/JS sources in this task, including future subfolders.
     actual = {str(p.relative_to(base)) for p in base.rglob('*') if p.is_file() and p.suffix in {'.py', '.js'}}
     for p in sorted(actual - set(paths)): errors.append('UNREGISTERED:'+p)
@@ -49,8 +119,12 @@ def self_test():
     with tempfile.TemporaryDirectory(prefix='tqt-check-') as tmp:
         b=Path(tmp);p=b/'check.py';p.write_text('pass\n')
         row={k:'test' for k in ['owner','purpose','preconditions','input','output','verify','rollback','secret_handling','exit_codes','case_set','master_code']}
-        row.update(id='TEST',path='check.py',sha256=sha(p));reg={'records':[row]}
+        row.update(id='TEST',path='check.py',sha256=sha(p),operation_key='test');reg={'records':[row]}
         assert inventory(b,reg)==[]
+        duplicate=dict(row,id='SECOND');reg['records'].append(duplicate)
+        assert any(x.startswith('POSSIBLE_DUPLICATE_TOOL:operation_key') for x in inventory(b,reg))
+        assert any(x.startswith('POSSIBLE_DUPLICATE_TOOL:sha256') for x in inventory(b,reg))
+        reg['records'].pop()
         p.write_text('changed\n');assert any(x.startswith('DRIFT:') for x in inventory(b,reg))
         p.unlink();assert any(x.startswith('MISSING:') for x in inventory(b,reg))
         p.write_text('pass\n');q=b/'new.py';q.write_text('pass\n');assert any(x.startswith('UNREGISTERED:') for x in inventory(b,reg));q.unlink()
@@ -68,7 +142,7 @@ def self_test():
         assert source_readback(f,{'application_id':'TEST'})['state']=='PASS'
         assert source_readback(f,{'application_id':'OTHER'})['state']=='FAIL'
         assert source_readback(f.with_name('missing.json'),{})['state']=='FAIL'
-    return {'cases':13,'store':'temporary TEST file in execution snapshot','write_read_restore':'PASS','production':'NOT_TOUCHED'}
+    return {'cases':15,'store':'temporary TEST file in execution snapshot','write_read_restore':'PASS','production':'NOT_TOUCHED'}
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
@@ -77,14 +151,32 @@ def main():
     ap.add_argument('--report',type=Path,help='save evidence JSON; use a test/evidence location')
     ap.add_argument('--ui-adapter',type=Path,help='optional local copy of VPS process-work-master-v1.js; hash recorded')
     ap.add_argument('--before-product',type=Path,help='actual previous product snapshot; validate revisions/history before submitting any write')
+    ap.add_argument('--master-registry',type=Path,help='fresh definition-master-registry-v1.js from the UI source')
+    ap.add_argument('--master-registry-json',help='equivalent observed registry rows, JSON; no canonical copy is created')
+    ap.add_argument('--identity-only',action='store_true',help='run cross-registry identity guard using Python only; no Node/PG needed')
     args=ap.parse_args()
     source=BASE/'view.html';data=json.loads(re.search(r'<script id="tqt-composite-processes"[^>]*>(.*?)</script>',source.read_text(),re.S)[1])['catalog'];reg=data['tool_registry']
+    identity={'state':'BLOCKED','errors':['MISSING_LIVE_MASTER_REGISTRY']}
+    if args.master_registry or args.master_registry_json:
+        try:
+            observed=json.loads(args.master_registry_json) if args.master_registry_json else json.loads(re.search(r'DEFINITION_MASTER_REGISTRY=(\[.*?\]);',args.master_registry.read_text(),re.S)[1])
+            identity=master_identity_audit(data,observed)
+            identity['input_sha256']=hashlib.sha256(json.dumps(observed,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+            identity['self_test']=identity_self_test()
+        except (ValueError, KeyError, TypeError, OSError) as exc:identity={'state':'FAIL','errors':['INVALID_MASTER_REGISTRY:'+str(exc)]}
+    if args.identity_only:
+        result={'status':identity['state'],'master_identity_check':identity,'pg':'NOT_RUN'}
+        if args.report:args.report.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+        print(json.dumps(result,ensure_ascii=False));return 0 if identity['state']=='PASS' else 3 if identity['state']=='BLOCKED' else 1
     errors=inventory(BASE,reg)
     readback=source_readback(BASE.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json',data['application_preview']['record'])
     if readback['state']!='PASS': errors.append('SOURCE_READBACK_FAILED')
     report={'run_id':'TQT-'+uuid.uuid4().hex,'at':datetime.now(timezone.utc).isoformat(),'scope':reg['scope'],'registry_master':'CAT-006','case_master':'CAT-012','result_master':'CAT-015','source_sha256':sha(source),'inventory_errors':errors,'source_readback':readback,'results':[],'pg':'NOT_RUN','production_ready':False}
+    report['master_identity_check']=identity
+    if identity['state']=='FAIL':errors.append('MASTER_IDENTITY_CONFLICT')
     if args.ui_adapter: report['ui_adapter_sha256']=sha(args.ui_adapter)
     report['prerequisite_errors']=prerequisites()
+    if identity['state']=='BLOCKED':report['prerequisite_errors'].append('MISSING_LIVE_MASTER_REGISTRY')
     if args.before_product and not report['prerequisite_errors']:
         product=BASE.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json'
         proc=subprocess.run(['node',str(BASE/'check-record-control.js'),str(source),'--validate-transition',str(args.before_product.resolve()),str(product)],text=True,capture_output=True,timeout=60)
@@ -100,7 +192,9 @@ def main():
         for x in reg['records']:
             if x['kind']=='RUNNER':continue
             argv=list(x['argv'])
-            if x['id']=='TQT-CHECK-005' and args.ui_adapter:argv.append(str(args.ui_adapter.resolve()))
+            if x['id']=='TQT-CHECK-005' and args.ui_adapter:
+                argv.append(str(args.ui_adapter.resolve()))
+                if args.master_registry:argv.append(str(args.master_registry.resolve()))
             try:
                 proc=subprocess.run(argv,cwd=BASE,text=True,capture_output=True,timeout=60)
                 result={'id':x['id'],'case_set':x['case_set'],'source_sha256':x['sha256'],'argv':argv,'exit_code':proc.returncode,'stdout':proc.stdout,'stderr':proc.stderr}

@@ -1,8 +1,10 @@
 # Hiện hành · Owner giao Host rà QTTH 05 và DOT · 11/10/2026
 
+P30: trước khi thêm Master/DOT, đối chiếu danh sách sau ghép bằng runner hiện hữu với registry UI vừa đọc; thiếu đầu vào không được báo PASS. Dùng lại Master DOT ML-DEF-024, CAT-006 chỉ là alias có căn cứ. Không tạo Master/script thứ hai cho cùng nguồn/chức năng. Xem README mục DOT và bằng chứng host_review_P30. UI chặn danh sách có xung đột; rào ghi máy chủ còn mở.
+
 Owner giao trực tiếp phiên Codex này tiếp tục tools-quy-trinh, đi bộ từng bước theo phản biện GPT Pro, sửa điểm hở và quản lý tái sử dụng DOT/script/bộ kiểm. Giữ ⑤ và 7 mốc. Nguồn: COLLAB §0, README và catalog trong view.html. Phạm vi: nguồn thiết kế, bộ kiểm, danh mục và UI Master liên quan; không triển khai PG/production nghiệp vụ.
 
-Bộ tính mốc duy nhất: view.html#tqt-record-control. Chạy lại từ danh mục CAT-006 bằng run-tqt-checks.py; CAT-012 định nghĩa bộ ca, CAT-015 kết quả. Kết quả/giới hạn mới ở UI-REVIEW-AGGREGATE.json#host_review_P26. MOW001 chưa đạt CP03; không tự sửa trạng thái thành sẵn sàng/xong từ các cờ khai báo.
+Bộ tính mốc duy nhất: view.html#tqt-record-control. Chạy lại từ Master DOT ML-DEF-024 (CAT-006 là alias) bằng run-tqt-checks.py; CAT-012 định nghĩa bộ ca, CAT-015 kết quả. Kết quả/giới hạn mới ở UI-REVIEW-AGGREGATE.json#host_review_P26. MOW001 chưa đạt CP03; không tự sửa trạng thái thành sẵn sàng/xong từ các cờ khai báo.
 
 **P28 / PR-12 v2:** chạy thử ngoài PG theo D27. Dùng kho thử khai báo trong phiếu sản phẩm hiện hữu theo `catalog.trial_storage_contract`; không tạo bản sao, không chạm PG. 13 câu khai được lưu có mã/phiên cấu trúc/phiên bản ghi; nội dung chưa kiểm vẫn NOT_TESTED, không tự qua CP03. Mapping toàn phiếu, nguồn các Master khác và kiểm độc lập còn mở. Đọc README mục Kho thử ngoài PG và `catalog.host_review_PR12` trước bước tiếp.
 

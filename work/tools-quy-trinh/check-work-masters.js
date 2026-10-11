@@ -54,3 +54,26 @@ assert.equal(r.work_form.record_control.guidance.length,11);
 console.log('coverage: 7 checkpoints + exception/operations; 8 new UI references resolved; 11 groups preserved');
 
 if(adapter){const rows=globalThis.TQT_WORK_MASTER.sourceRows(r,'CAT-206*');assert.equal(rows.length,r.application_preview.record.information_contract.rows.length);assert(rows.every(x=>x.meaning&&x.contract_version&&x.acceptance_refs.length));const cfg=globalThis.TQT_WORK_MASTER.configure({}, {tqt:r,masterCode:'CAT-206*',sample:false});assert.equal(cfg.items.length,rows.length);assert(cfg.items[0].form_schema.fields.some(x=>x.key==='meaning'));const detail=cfg.detailRenderer(cfg,cfg.items[0]);assert(detail.html.includes(rows[0].meaning));assert(detail.html.includes('Mã hợp đồng'));assert(detail.html.includes('Số lượng'));assert(detail.html.includes(rows[0].contract_id));console.log('CAT206 applied contracts visible; field meaning/version/case links preserved');}
+
+// P30: test the actual merged list, including the former DOT duplicate.
+if(adapter&&process.argv[4]){
+ const path=require('path'),registryText=fs.readFileSync(process.argv[4],'utf8'),registry=JSON.parse(registryText.match(/DEFINITION_MASTER_REGISTRY=(\[.*?\]);/s)[1]);
+ const A=globalThis.TQT_WORK_MASTER,copy=x=>JSON.parse(JSON.stringify(x));
+ const primary=registry.map(x=>({...x,code:x.masterId,name:x.masterName,definitionValues:['—','','','','','','']}));
+ const extra=[{code:'CAT-248*',name:'Master Config',url:'./config-master-v1.html',definitionValues:[]}].concat(A.indexRows(r));
+ const joined=A.reconcileIndex(r,primary,extra),dot=joined.filter(x=>x.code==='ML-DEF-024');
+ assert.equal(joined.length,47);assert.equal(dot.length,1);assert.equal(dot[0].name,'Master DOT');assert.equal(dot[0].definitionValues[0],6);assert.deepEqual(dot[0].aliases,['CAT-006']);assert.equal(dot[0].url,'./definition-master-v1.html?stt=24');
+ assert.deepEqual(A.sourceRows(r,'CAT-006'),A.sourceRows(r,'ML-DEF-024'));assert.equal(A.definition(r,'ML-DEF-024').code,'CAT-006');
+ const original=copy(r);original.master_identity.bindings=[];assert.throws(()=>A.reconcileIndex(original,primary,extra),/POSSIBLE_DUPLICATE_MASTER/);
+ for(const item of [{code:'NEW',name:'Danh mục DOT'},{code:'NEW',name:'Different name',source_key:'catalog.tool_registry'},{code:'NEW',name:'Different name',entity_key:'DOT'},{code:'NEW',name:'Different name',url:dot[0].url},primary[0]])assert.throws(()=>A.reconcileIndex(r,primary,[...extra,item]));
+ const amb=copy(r);amb.master_identity.bindings.push(copy(amb.master_identity.bindings[0]));assert.throws(()=>A.reconcileIndex(amb,primary,extra),/AMBIGUOUS_ALIAS/);
+ assert.throws(()=>A.reconcileIndex(r,primary.filter(x=>x.code!=='ML-DEF-024'),extra),/CANONICAL_MASTER_MISSING/);
+ assert.notEqual(A.identityName('Master View'),A.identityName('Master List View'));
+ // Exercise production list composition, not a test-only reconstruction.
+ const sandbox={window:{addEventListener(){},UI_CHILD_CONTEXT:{type:'DEFMASTER_INDEX',tqt:copy(r)},MASTER_CONFIG:{},DEFINITION_MASTER_REGISTRY:registry,DEFINITION_MASTER_DATA:{},TQT_WORK_MASTER:A,MMIM_CHAINS:{reviewDefaultId:'TEST'},CONFIG_MASTER_SCHEMA:{columns:[]},CONFIG_MASTER_DATA:[]},document:{addEventListener(){},querySelectorAll(){return []},getElementById(){return null}},console};
+ vm.runInNewContext(fs.readFileSync(path.join(path.dirname(adapter),'ui-child-content-v1.js'),'utf8'),sandbox);sandbox.window.configureChildMaster();assert.equal(sandbox.window.MASTER_CONFIG.items.length,47);
+ sandbox.window.UI_CHILD_CONTEXT.tqt.master_identity.bindings=[];sandbox.window.configureChildMaster();assert.equal(sandbox.window.MASTER_CONFIG.items.length,0);assert(sandbox.window.MASTER_CONFIG.sub.includes('POSSIBLE_DUPLICATE_MASTER'));
+ // Legacy URL keeps detail/sample parameters and redirects to the existing Master.
+ let redirected='';vm.runInNewContext(fs.readFileSync(path.join(path.dirname(adapter),'ui-child-from-parent-v1.js'),'utf8'),{URL,URLSearchParams,location:{pathname:'/ui/process-work-master-v1.html',search:'?master=CAT-006&mau=1&chi-tiet=TEST',href:'https://example.test/ui/process-work-master-v1.html?master=CAT-006&mau=1&chi-tiet=TEST',replace:u=>redirected=u}});const url=new URL(redirected);assert.equal(url.searchParams.get('stt'),'24');assert.equal(url.searchParams.get('chi-tiet'),'TEST');assert.equal(url.searchParams.get('mau'),'1');assert(!url.searchParams.has('master'));
+ console.log('P30 merged-index guard: 48 inputs -> 47 Masters, one DOT/6 tools, duplicate cases rejected, real UI fails closed, old URL preserved');
+}
