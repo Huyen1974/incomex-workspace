@@ -1,86 +1,54 @@
-# PROMPT — VPSC N2a + C2 PROVENANCE · 08/10/2026
+# PROMPT — VPSC-N2A-DISK11-CONTROLS-20261011-01 · THREE CONTROL_DEBT #11 HOTFIX (SCOPE N2a)
 
-RUN_ID: VPSC-N2A-C2-CONTROLS-20261008-01
-Task: work/vps-clean-20-9-26
-Executor_Surface: Claude Code CLI, Mac Owner → VPS1 SSH, only via existing reviewed gateways
-Repo_Write_Path: workspace_* root=workspace
-Evidence_Dir: /opt/incomex/work/vps-clean-20-9-26/N2A-20261008/
-Report: same task BAO-CAO.md, one new section ## N2a-C2; COLLAB.md only for lifecycle/KQ.
-STATUS: DRAFT · NO READY · NO RUN. Reviewer ACCEPT exact last-touch SHA, Host READY same SHA, read-gate then RUN. Do not reuse R7 READY/RUN.
+RUN_ID: VPSC-N2A-DISK11-CONTROLS-20261011-01
+Task: `work/vps-clean-20-9-26` (VPSC) · D22/roadmap N2a, **not a new task**.
+Executor: Claude Code CLI (new session), Owner manually pastes after **Claude Reviewer exact ACCEPT + GPT Host READY same SHA**.
+Repo_Write_Path: existing Incomex MCP `workspace_*`, root=`workspace`; VPS config/runtime via already accepted native paths and `incomex-config-apply-v0` only.
+Status: **DRAFT · REVIEW REQUESTED · NO READY · NO RUN**.
+Evidence: reuse `/opt/incomex/work/vps-clean-20-9-26/` under a run-scoped subdir; report one section under existing `BAO-CAO.md` and KQ in task `COLLAB.md`. Never create duplicate repo files as progress notes.
 
-## 0. OWNER GOAL AND LIMIT
-Owner D22 (08/10): **VPSC là đầu mối sức khỏe VPS1** — xử lý lỗi cũ và lỗi mới (tăng/rò dung lượng, lỗi chương trình, tài nguyên/chuông/Guard); có thể sửa **lỗi nhỏ** của task đã đóng; lỗi lớn phải được định tuyến về task cũ hoặc đề xuất task riêng, không tự mở hay làm hộ task đang chạy. Đây là **mục tiêu dài hạn của VPSC**, không phải giấy phép mở rộng mutation của một RUN.
-P68 R7 đã terminal DỪNG tại C2; A/B/C1/C3/D và POST 22/22 PASS được giữ nguyên. Không rerun/undo phần đã chứng minh PASS.
+## 0. GOAL — CLEAR THE *ACTUAL* BLOCKER, NO SCOPE CREEP
+Owner has directed priority to complete Graph R10 promptly; the sole known hard execution gate is **Kuma #11 Disk Usage RED** caused by three VPSC `CONTROL_DEBT` deadlines 2026-10-11T01:00:00Z (not disk fullness: 11/10 physical free ≈42 GB):
+1. `/opt/incomex/data/workspace-tools/transactions`: operation backups, baseline historical +62 MB/day.
+2. `/var/lib/incomex-mcp-helper`: queue/out, done and P02 backlog, historical +105 MB/day.
+3. `/opt/incomex/mcp-roots/gh` (under `/opt/incomex/mcp-roots`): loose Git objects/ref growth.
 
-**RUN hiện tại vẫn chỉ có hai mutation lanes độc lập:** C2 evidence reconciliation + N2a three-source controls. Bổ sung **một inventory/triage CHỈ ĐỌC** cho các lỗi sức khỏe tồn đọng/phát sinh; inventory không cấp quyền sửa lỗi khác trong RUN này. No unrelated #19 mutation, core restart/rebuild, swap changes, Directus pressure knob, agent-data image changes, Graph trial cleanup, key rotation, destructive cleanup, new task/architecture/file, package upgrades, network/auth changes. R8 chỉ làm additive maintenance/provenance trong 2 lanes đã duyệt.
+**Mục tiêu RUN N2a:** xác nhận nguyên nhân #11 từ live `scripts/storage-registry.tsv`, `storage-watch.py`, `disk-watch/state.json`, Kuma; áp dụng **các van tăng dung lượng an toàn có hiệu lực thật** cho đúng ba nguồn qua công cụ có sẵn, có bằng chứng và rollback, sao cho #11 chuyển GREEN thật, Guard/Kuma POST same-or-better, không phá dữ liệu. Không dùng "gia hạn cho hết đỏ", không nới ngưỡng/tắt đèn, không ghi FALSE PASS nếu còn nợ chưa đóng bằng control đã kiểm. Nếu một nguồn không thể khóa an toàn không cần quyền xoá, **KQ DỪNG**, giữ nguyên thứ đã PASS và đề xuất duy nhất một đường gỡ đúng nguồn.
 
-Security/owner gate: Owner-only deletion/irreversible history pruning remains prohibited without a separate explicit Owner decision. Existing copies, references, and rollback must remain recoverable; no mass Git add/commit of unknown DOT code, no trust upgrade solely from live hashes.
+**Ngoài RUN / bảo toàn:** C2 = 312 provenance UNKNOWN + 2 EXCLUDED vẫn mở ở VPSC (KHÔNG chạm/lấy danh nghĩa đã sửa), 3 EVIDENCE_DEBT PG/Qdrant/uploads vẫn mở, D22 health inventory & SMALLFIX việc khác để lượt sau. R7 A/B/C1/C3/D/POST đã PASS không rerun. Không chạm Graph R10, Hermes, Directus, PG nghiệp vụ, Nuxt, agent-data services, O-R7-KEY, #19, swap, Docker/image, network, cron mới, các task đã đóng. Không hard-delete/prune, git reflog expiration, queue truncation, broad wipe hoặc đổi production schema nếu chưa có Owner approval riêng.
 
-## 1. S0 READ AND PRE GATE
-Read AGENTS.md (DROOT30/31/48/50/52/A2/A9), root COLLAB, task COLLAB P67–P69 and §0.3, BAO-CAO ## R7 §§0/6/7/8, this PROMPT. Assert Reviewer ACCEPT + READY same full SHA, no other shared-VPS STARTED/mutation. If read-gate/NO_CONCURRENT is not green, report KQ DỪNG before mutation; no terminal HOLD. **After read-gate PASS and before PRE**, record `STARTED@VPSC-N2A-C2-CONTROLS-20261008-01 <UTC> · executor=Claude Code CLI` under A9/DROOT31 and update ■/➡ in same commit; no STARTED before authorization.
+## 1. S0 HARD AUTH + LIVE RESOURCE / GUARD
+1. Đọc `AGENTS.md` → root `COLLAB.md` → VPSC Bảng, §0, P68–P72/BAO-CAO R7, last-touch PROMPT và reviewer/Host exact SHA. Kiểm **không có STARTED active/STOP/COUNCIL_ALERT, no HJW/Graph concurrent mutation**. #11 RED là **đối tượng đang chữa**, không giả vờ PRE 22/22: freeze `PRE_RED_SET` và raw reason, yêu cầu các đèn khác cùng Guard Config CLEAN hoặc có reason và owner minh bạch. Active resource floor: MemAvailable ≥3GiB + disk free ≥20GiB, no active PSI/OOM hazard. Nếu khác mà không giải thích được ⇒ KQ DỪNG sạch. **Do not wait/poll/hold terminal.**
+2. Preflight full SHA and root gate before writing. If passed, record `STARTED@VPSC-N2A-DISK11-CONTROLS-20261011-01` + root shared busy atomically in one repo commit before first mutation. Preserve all actual scripts/registry/queue state/baseline hashes, support existing coverage Guard C3 and revocable rollback to PRE. No secret or raw customer data in Git/evidence.
+3. Read-only inspect each `CONTROL_DEBT` row in `scripts/storage-registry.tsv`: canonical owner, due, path, cap, source classifier, current bytes/rate and what evidence the detector requires before clearing. Inspect existing `storage-watch.py`, retention scripts/timers, `incomex-config-apply-v0 --help`, and Config Guard protected paths. Freeze **allowed exact footprint matrix**, candidate patches and inverse before mutation. If status RED is a real fault (not just deadline) fix it under the same three source boundaries, not by changing the monitor definition.
 
-Capture independent PRE: 22 Kuma monitor states/reasons, Config Guard and INV23, original registry hashes, code-ledger (N=558, M=244, K=314 as historical baseline), disk-watch inventory/rates/debt flags, df, source service health, MemAvailable, memory PSI, vmstat swap in/out and recent OOM/cgroup counters. Before any non-read-only changes require MemAvailable >=3 GiB and disk free >=20 GiB, no uninvestigated active memory/PSI/OOM pressure shown by the latest existing pressure samples. Swap was 2/2 GiB used in R7; **swap usage alone does not prove active pressure**. If current memory/PSI/OOM shows danger for a proposed operation, skip mutation and report resource gate; no swapoff, sysctl, reboot/restart, memory-limit guess, or forcing green. PRE gate fail after STARTED => same-run KQ DỪNG, release busy and close terminal.
+## 2. N2a — THREE SOURCE CONTROLS, REUSE EXISTING FIRST
+**A. transactions:** classify `workspace-tools/transactions` by canonical operation/queue/recovery status, not file age alone. Preserve all prepared/push_unknown/rollback_conflict/unknown, running/queued, operation_id/idempotency and rollback references. Use existing native retention path to enforce bounds/candidate selection with **dry-run + reversible archive only** if it has testable reference safety. Hard deletion or unverified consumer ownership: forbidden. If only dry-run can be proved, leave debt OPEN.
 
-## 2. LANE C2 — 312 UNKNOWN PROVENANCE; READ + PROVE, NOT BLESS
-Read the frozen R7 `c/ledger-final.json`, `c/reg3/code-ledger.tsv`, and current `scripts/code-ledger.tsv`. Precisely distinguish 314 uncovered = 312 lacking proof + 2 with provenance but explicitly excluded; preserve exclusion. Reconcile per file ID/path/hash with:
-(A) authoritative repository commit at a known path + same bytes;
-(B) accepted build/deployment manifest + verifiable hash and prior acceptance receipt;
-(C) labels/comments/mtime/current runtime hashes only = NOT proof.
+**B. helper:** inspect queue/in, out/done/p02, pending/running/error, latest stable/trace references and downstream consumer. Keep alert context/history required for rollback. Reuse existing 7d classification/TTL and native maintenance hooks; dry-run and reversible archive only if all active references preserved. Do not change HJW courier/gate/plugin; HJW may be watching same queues, so fresh-check shared busy before each mutation. A timer/TTL declared without proof of working bounding is NOT PASS.
 
-Batch by actual evidence families, not 312 Owner/Reviewer manual approvals:
-- 227 `dot/bin` DEL-1I whose current contents differ from HEAD; find label provenance, historical review/deploy manifests and matching authoritative source. A DEL-1I label alone NEVER certifies current bytes.
-- 12 untracked and other DOT outliers;
-- 38 systemd units, 10 /usr/local/sbin, 5 cron.d, 4 logrotate, remaining paths grouped by owning system/source.
-- inaccessible mount-ro trees remain UNKNOWN; no bypass.
+**C. gh:** check refs/reflogs/bundles/protected remote heads/recovery/loose objects, `git fsck`; use existing safe maintenance candidates only after provenance/ref preservation is proved, with dry-run/oracle proof. **No `git gc --prune`, no aggressive GC, no reflog expiry** without separately explicit Owner release. Can set up safe ongoing monitor/compact only if within approved native Git capabilities and under Guard/protected footprint; do not alter current GH history to chase disk #11. If cannot prove a live protective control without deletion, leave debt OPEN, not fake green.
 
-Deliver a machine-filterable per-row classification in existing runtime evidence: PROVEN_REPO / PROVEN_ACCEPTED_ARTIFACT / DECLARED_ONLY / UNKNOWN / EXPLICITLY_EXCLUDED, with source ref, hash, evidence ID, change risk, owner. Sum MUST reconcile to 558/244/314 and 312+2; gaps report mismatch, never silently drop. For PROVEN rows only: register in Config Guard if owner policy and exact verified manifest allow, through reviewed config gate with rollback + post-tests; otherwise report as eligible without mutation.
+For each: measured PRE/POST bytes; observed growth or forecast with source; control `INSTALLED_AND_PROVEN | DRY_RUN_ONLY | BLOCKED`, consumer protection/rollback test receipts, native script/config diff+hash and follow-up monitor reason. Moving within same disk is NOT disk reclaimed. Keep current source alive.
 
-For unproven DOT/unit/scripts: DO NOT copy from runtime into Git as if it were historical original; do not bulk `git add` 227 files; do not overwrite live code. If adoption of a new baseline rather than restoration is required, record one bounded Owner-only decision with counts and exact scope, not one request per file. Do not mark C2 complete while any in-scope provenance UNKNOWN remains.
+## 3. #11 REAL GREEN / POST GATE
+- Any protected mutation must apply by `incomex-config-apply-v0` with exact target and validated rollback. Do not change registry debt due/status directly to hide `DEBT_OVERDUE`. Registry can be updated **only after** each installed/verified control has evidence and native lifecycle contract permits it; then match Guard baseline using sanctioned apply. If missing control, keep explicit RED/DEBT and explain.
+- After each bounded candidate apply, validate source consumers/queue recovery/refs, Config Guard, existing retention paths. POST should be **same-or-better relative to legitimate PRE**: #11 GREEN, other 21 lamps no newly RED, Guard protected footprint exactly approved modifications with coverage, no secret leak. If #11 remains RED from these debts, KQ DỪNG, do NOT override it.
+- If RED arises from another independent VPSC defect, give one bounded root cause/owner, no scope widening without separate authorization. No nightly/24h terminal wait, no background experiment; existing watcher/Guard monitors steady state after run.
 
-## 3. LANE N2a — THREE NAMED CONTROL_DEBT SOURCES
-Deadline from P68/B7: 2026-10-11T01:00Z. Freeze sources and queue states before applying anything. Reuse existing retention/cron/gateway tools only; use `incomex-config-apply-v0` + Config Guard for approved edits. No new service/parallel pipeline. Install only SAFE, reversible controls with tests; require explicit Owner gate for actual irreversible deletion/pruning.
+## 4. KQ / SHARE SLOT WITH GRAPH
+Report `KQ@VPSC-N2A-DISK11-CONTROLS-20261011-01 XONG|DỪNG` with evidence for each of the 3 debt sources, Config Guard PRE/POST, Kuma #11 final reason, no regressions, actual vs forecast disk and slope, tests, rollback, any unresolved debt and NEXT_TRIGGER. Write VPSC COLLAB (same commit release root busy) and existing BAO-CAO; leave Graph PROMPT/SHA untouched.
+- If **XONG and #11 GREEN with Guard proof**, note `NEXT_TRIGGER=GRAPH_R10_HOST_FRESH_PRE_READY_EBF52956...`; host Graph independently does fresh Guard PRE and issues READY at its already signed SHA, then Owner manually pastes R10.
+- If **DỪNG**, return exact smallest fix/Owner-only decision, do not ask Owner to run Graph against RED and do not relabel as green.
 
-A. `/opt/incomex/data/workspace-tools/transactions`
-- Baseline 916 backup_id directories/358 MB/+62 MB per 24h, candidate complete >14d (~198 dirs, 76 MB).
-- Keep every backup referenced by prepared/push_unknown/rollback_conflict/unknown, queued/running work, operation_id/idempotency/recovery state.
-- Prove state via canonical queue DB and recovery records; do not infer completion from directory age. Implement existing-route retention candidate selection + dry-run list/reason + reversible move-to-archive only where native consumer guarantees no references and original restoration is tested. Do not delete any contents until Owner permission.
+## 5. STEP WALK
+| Phase | Who | Trigger | Proof | Fault |
+|---|---|---|---|---|
+| S0 | Claude Code | exact REVIEW+HOST READY+Owner pasted RUN | no concurrent + PRE snapshot/resource/protected footprint | KQ DỪNG before mutation |
+| A transactions | Claude Code | S0 pass | operation/recovery reference proofs, native control candidate/dry-run | preserve evidence, continue independent sources |
+| B helper | Claude Code | A measured | queue/P02 reference/TTL control tests | preserve evidence, continue |
+| C gh | Claude Code | B measured | fsck/refs/GC non-destructive validation | preserve refs, no prune |
+| POST | Claude Code | A-C accounted | actual control receipts, true #11 GREEN, all other lamps same-or-better | KQ DỪNG or rollback scoped delta |
+| KQ | Claude Code | terminal | exact KQ, release root busy, no unapproved writes | next trigger VPSC or Graph R10 |
 
-B. `/var/lib/incomex-mcp-helper`
-- Baseline queue/out+done+p02 (~+105 MB/24h), candidate >7d (~96 MB).
-- Preserve queue/in, running/pending/error, current P02 statuses/alerts and latest known-good.
-- Implement existing-route 7d classification+dry-run, with reversible/archive-only operations if consumer references and rollback are independently verified. No hard delete.
-
-C. `/opt/incomex/mcp-roots/gh`
-- Baseline 179 MB, 4256 loose objects 126 MiB, refs/recovery and P02 refs must survive.
-- Run `git fsck`, refs/reflog/recovery inventory and `git gc --dry-run`/equivalent provenance checks without mutating history. Do not run destructive `git gc --prune` absent explicit Owner approval. Existing GC schedule candidate = 2-week prune, not yet authority to apply.
-
-For each lane report before/after bytes, actual daily growth, live control state vs DRY_RUN_ONLY, expected steady-state *as estimate*, rollback proof. Moving data within same filesystem does NOT count as reclaiming disk; refuse false "sealed leak" PASS. A source remains CONTROL_DEBT until a live bounded control is both authorized and observed; do not hide overdue flags.
-
-## 4. ALERT TRUTH / RESIDUALS
-- SLOPE7D possible false-looking red 12–13 Oct from Graph one-off event and missing comparable 7-day taxonomy baseline: **NO blanket waiver or threshold lowering**. Preserve RED/UNKNOWN according to current B3; annotate baseline gap and identify historical one-off if source proof exists. No repetitive duplicate pager changes in this RUN.
-- NOISE_GUARD measured idle 12 KiB vs busy-time -66 MB: remeasure independent live samples without overlapping own fixtures, do not silently relax threshold; report anomaly.
-- #19 is push monitor, not HTTP; do not apply unsafe R7 recipe. Keep exact D6.
-- Swap full 2GiB, Chrome-headless OOM and Directus 503: record current pressure + provenance, no speculative core changes or restart.
-- O-R7-KEY remains Owner-only separate security decision, not a blocker for this read-only/safe maintenance scope.
-
-## 4b. VPS1 HEALTH TRIAGE (D22) — READ-ONLY, NO THIRD MUTATION LANE
-Reuse existing R7 S1a/BAO-CAO evidence, current Guard/disk-watch outputs and available local health logs; **do not launch a second broad forensic crawl**. Bound to the known pending categories plus newly visible active faults (max 12 issue families, group related symptoms). Produce in same `## N2a-C2` report an `ISSUE_LEDGER` table: `id · observed symptom/time · source/task provenance · evidence/status · impact/velocity · small/major/unknown · safe next action/owner · rollback/gate`.
-Required seed candidates: three CONTROL_DEBT (transactions/helper/mcp-roots); three EVIDENCE_DEBT (PG/Qdrant/uploads); #19 push false-alarm residual; agent-data worker/Chrome OOM/502 + Directus 503; logrotate `reconcile-*` permissions and CWEB #6 transient Nuxt 404 **only if still reproducible**. Recheck Graph/storage event group cap without calling planned Graph bytes a background leak; do not modify Graph data.
-**Decision gate:** local bounded reversible monitor/script/logrotate fix on VPS1, with independent tests/rollback and no core restart/auth/schema/destructive deletion ⇒ `CLOSED_TASK_MINOR_CANDIDATE`, eligible for a **later** scoped SMALLFIX RUN under this VPSC task. Multi-component/core rebuild/schema/auth/history destruction/uncertain blast radius ⇒ `MAJOR_OR_UNKNOWN`, evidence + return pointer to original closed task or Owner proposal for separate task, **no VPSC mutation**. Active task issue ⇒ `OTHER_ACTIVE_TASK`, pointer only. Do not fabricate closure, do not automatically reopen/create any task. If no minor evidence, report `SMALLFIX_NOT_NEEDED` and do not add a RUN. Preserve NO_CONCURRENT.
-
-## 5. STEP_WALK (DROOT48)
-| Phase | Who | Trigger | Evidence | Fail response | Next |
-|---|---|---|---|---|---|
-| S0 read/PRE/concurrency/resources | Claude Code | exact READY+RUN | gate, PRE snapshots | KQ DỪNG clean | C2 |
-| C2 source reconciliation | Claude Code | S0 PASS | per-row 558 ledger, group proof | keep UNKNOWN, continue independent N2a | N2a |
-| N2a transaction retention | Claude Code | C2 evidence frozen | referential proof, dry-run/rollback | isolate this source, continue | helper |
-| N2a helper retention | Claude Code | transaction checked | in/out/done/p02 proof | isolate this source, continue | gh |
-| N2a gh object retention | Claude Code | helper checked | fsck/refs/prune dry-run | isolate source, continue | Triage |
-| **Health triage D22 (read-only)** | Claude Code | N2a/C2 evidence collected; no extra mutation | ISSUE_LEDGER ≤12 issue families, minor/major/active split, proposed smallfix guard/rollback | evidence missing ⇒ UNKNOWN/CHƯA ĐẠT, do not mutate | POST |
-| POST-PROTECT | Claude Code | lanes finished | PRE/POST, exact changes, Guard, Kuma, Telegram | rollback only changed footprint, KQ DỪNG | KQ |
-
-No WAIT/HOLD, no sleeping for future samples or deadlines, no terminal reuse. After scoped work record KQ XONG only when promised evidence/authorized controls within this bounded RUN are satisfied; otherwise KQ DỪNG with individually preserved PASS work and one actionable next action. Final VPSC task cannot close until control debt and C2 evidence gaps resolved + independent 24h clean machine proof.
-
-## 6. POST / REPORT
-Use same-or-better independent PRE→POST: no new RED, no secret disclosure, no source mutation unless approved and tracked, Guard coverage rows per changed config, rollback actual, keep #11/#22 semantics. Telegram via existing sender <=3 lines + message_id if runtime mutation occurred. No new watcher/timer. BAO-CAO ## N2a-C2 and task COLLAB must name C2 PROVEN/UNKNOWN/EXCLUDED counts, live controls vs dry-run, remaining debt, swap/PSI/SLOPE status, exact Owner gate (only if genuinely required), and owners.
-KQ@VPSC-N2A-C2-CONTROLS-20261008-01 XONG|DỪNG
+**DO NOT do C2, do not rewrite Graph, do not open HJW mutation.** Reviewer should read this narrowly and sign exact SHA or state ONE material safety blocker; no second loop if accepted (DROOT53).
