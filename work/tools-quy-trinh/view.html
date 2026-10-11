@@ -13785,34 +13785,19 @@ main{max-width:1240px} [hidden]{display:none!important}
           "state": "DESIGN_ONLY",
           "columns": [
             {
-              "key": "order",
-              "label": "Thứ tự",
-              "help": "Thứ tự kế hoạch; điều kiện đi tiếp theo quan hệ phụ thuộc, không theo số MOW."
-            },
-            {
-              "key": "target_code",
-              "label": "Việc / đối tượng",
-              "help": "Đọc theo đúng hồ sơ/phiên; chưa có dữ liệu phải hiện Chưa khai."
-            },
-            {
-              "key": "checkpoint",
-              "label": "Đang ở mốc",
-              "help": "Đọc theo đúng hồ sơ/phiên; chưa có dữ liệu phải hiện Chưa khai."
-            },
-            {
               "key": "state",
-              "label": "Tình trạng",
-              "help": "Đọc theo đúng hồ sơ/phiên; chưa có dữ liệu phải hiện Chưa khai."
+              "label": "Tiến độ",
+              "help": "Mốc và tình trạng lấy từ hồ sơ đúng việc/phiên. Chưa đến lượt không có nghĩa đã bắt đầu."
             },
             {
               "key": "blocker",
-              "label": "Đang mắc / điều kiện tiếp",
-              "help": "Đọc theo đúng hồ sơ/phiên; chưa có dữ liệu phải hiện Chưa khai."
+              "label": "Còn vướng / điều kiện tiếp",
+              "help": "Việc chưa đủ, hoặc việc trước phải đạt. Chỉ kết thúc khi có đủ bằng chứng nghiệm thu và bàn giao."
             },
             {
               "key": "next_owner",
               "label": "Ai làm tiếp",
-              "help": "Đọc theo đúng hồ sơ/phiên; chưa có dữ liệu phải hiện Chưa khai."
+              "help": "Người chịu trách nhiệm cho hành động tiếp theo; chưa có phải hiện Chưa khai."
             }
           ],
           "fields": [
@@ -13950,7 +13935,27 @@ main{max-width:1240px} [hidden]{display:none!important}
             }
           ],
           "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": "catalog.work_schedule"
+          "record_source": "catalog.work_schedule",
+          "layout": {
+            "order": [
+              "index",
+              "name",
+              "state",
+              "blocker",
+              "next_owner",
+              "code",
+              "open"
+            ],
+            "widths": {
+              "index": 40,
+              "name": 200,
+              "state": 140,
+              "blocker": 250,
+              "next_owner": 100,
+              "code": 130,
+              "open": 80
+            }
+          }
         },
         {
           "code": "CAT-228*",
