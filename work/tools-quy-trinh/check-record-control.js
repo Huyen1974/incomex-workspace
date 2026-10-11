@@ -9,7 +9,8 @@ if(process.argv.includes('--complete-fixture')){fs.writeFileSync(1,JSON.stringif
 if(process.argv.includes('--audit')){const r=JSON.parse(fs.readFileSync(0,'utf8'));const a=audit(r);fs.writeFileSync(1,JSON.stringify({errors:a.errors,counts:a.counts,verifiedCheckpoints:a.verifiedCheckpoints,canStart:a.canStart,canFinish:a.canFinish}));process.exit(0);}
 
 const check=(r,id)=>r.application_preview.record.record_checks.find(x=>x.requirement_code===id),row=(a,id)=>a.rows.find(x=>x.code===id);
-function test(name,change,verify){const r=clone(R);change(r);try{verify(audit(r),r);}catch(e){throw Error(name+': '+e.message);}tests++;}
+function unrecorded(r){delete r.trial_storage_contract;delete r.application_preview.record.trial_store;for(const x of r.application_preview.record.record_checks)if(x.store_state==='TRIAL')Object.assign(x,{store_state:'UNVERIFIED',record_state:'NOT_RECORDED',check_state:'NOT_CHECKED',master_record_id:null,record_ref:null,record_version:null});return r;}
+function test(name,change,verify){const r=unrecorded(clone(R));change(r);try{verify(audit(r),r);}catch(e){throw Error(name+': '+e.message);}tests++;}
 const written=r=>Object.assign(check(r,'PLAN'),{record_state:'RECORDED',master_record_id:'TEST-RECORD',record_ref:'test-only:record',record_version:'1'});
 const matched=r=>{written(r);Object.assign(check(r,'PLAN'),{check_state:'MATCHED',process_code:r.application_preview.record.process_code,process_version:r.application_preview.record.process_version,target_code:r.application_preview.record.target_code,readback_state:'PASS',checked_record_version:'1',evidence_ref:'test-only:proof',checked_by:'test-actor',checked_at:'2026-10-11T00:00:00Z'});};
 test('guidance separate from work',r=>{},(a,r)=>{assert(!r.work_form.record_control.definitions);assert(!JSON.stringify(r.work_form.record_control.guidance).includes('MOW001'));assert(r.application_preview.record.record_requirements.length);});
@@ -39,7 +40,7 @@ for(const m of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g))if(!/applic
 console.log(JSON.stringify({tests,scope:'DESIGN_PROJECTION_ONLY',counts:audit(R).counts,pg:'NOT_RUN'}));
 // Regression walk: complete synthetic evidence, then break one boundary at a time.
 function fixture(){
- const r=clone(R),a=r.application_preview.record;a.current_checkpoint='CP07';
+ const r=unrecorded(clone(R)),a=r.application_preview.record;a.current_checkpoint='CP07';
  for(const m of r.work_form.record_control.masters)m.source_state='VERIFIED';
  for(const x of a.record_checks)Object.assign(x,{record_state:'RECORDED',check_state:'MATCHED',master_record_id:'SIM-'+x.requirement_code,record_ref:'test-only:'+x.requirement_code,record_version:'1',checked_record_version:'1',readback_state:'PASS',access_state:'PASS',process_code:a.process_code,process_version:a.process_version,target_code:a.target_code,evidence_ref:'test-only:readback',checked_by:'TEST',checked_at:'2026-10-11T00:00:00Z'});
  a.questions_complete=true;a.requirements_checked=true;
@@ -78,3 +79,26 @@ mutation('receipt deleted keeps first six',r=>r.application_preview.record.recei
 mutation('latest failed revision keeps history',r=>{const a=r.application_preview.record;a.checkpoint_checks.push({...a.checkpoint_checks[4],revision:2,result:'FAIL'});},a=>{assert.equal(a.verifiedCheckpoints.length,4);assert.equal(a.checkpointStates[4].history.length,2);});
 mutation('duplicate checkpoint revision rejected',r=>r.application_preview.record.checkpoint_checks.push(clone(r.application_preview.record.checkpoint_checks[0])),a=>assert.equal(a.verifiedCheckpoints.length,0));
 console.log(JSON.stringify({tests,regression:'QTTH05_WALK',synthetic_full_walk:7,live_application:audit(R).verifiedCheckpoints.length,pg:'NOT_RUN'}));
+
+// Real persisted trial declarations: existence/readback are separate from semantic approval.
+const baseTrial=audit(R);assert.equal(baseTrial.counts.written,13);assert.equal(baseTrial.verifiedCheckpoints.length,0);assert(!baseTrial.canStart);
+let trialCases=1;
+for(const mutate of [
+ r=>r.application_preview.record.declarations.shift(),
+ r=>r.application_preview.record.declarations.push(clone(r.application_preview.record.declarations[0])),
+ r=>r.application_preview.record.declarations[0].schema_version='2.0',
+ r=>r.application_preview.record.declarations[0].record_version='2',
+ r=>r.application_preview.record.declarations[0].surprise='unregistered column',
+ r=>r.application_preview.record.trial_store.source_ref='another file',
+ r=>delete r.application_preview.record.trial_store,
+ r=>check(r,'FIELD-identity').store_state='UNVERIFIED',
+ r=>r.application_preview.record.trial_store.production=true,
+ r=>r.application_preview.record.scope_stage='G2',
+ r=>check(r,'FIELD-identity').record_ref='fake:row',
+ r=>check(r,'FIELD-identity').master_record_id='another row'
+]){const r=clone(R);mutate(r);assert(!row(audit(r),'FIELD-identity').written);trialCases++;}
+const readTrial=clone(R),ar=readTrial.application_preview.record,dr=ar.declarations[0],xr=check(readTrial,'FIELD-identity');
+Object.assign(xr,{check_state:'MATCHED',readback_state:'PASS',process_code:ar.process_code,process_version:ar.process_version,target_code:ar.target_code,checked_record_version:dr.record_version,evidence_ref:'test-only:readback',checked_by:'TEST',checked_at:'2026-10-11T00:00:00Z',checked_payload_token:JSON.stringify(dr, Object.keys(dr).sort())});
+assert(row(audit(readTrial),'FIELD-identity').verified);trialCases++;
+dr.answer+=' changed';assert(!row(audit(readTrial),'FIELD-identity').verified);trialCases++;
+console.log(JSON.stringify({trial_cases:trialCases,persisted_declarations:baseTrial.counts.written,checkpoints:baseTrial.verifiedCheckpoints.length,scope:'TRIAL_NOT_PG'}));

@@ -11,11 +11,11 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-11 18:15 +07 · Claude · P27
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
-- 📍 Tiến độ (cách đi Owner 11/10): [■ ① Thiết kế đúng] → [□ ② Chạy thử ngoài PG, làm tay được — ca đầu 🔴 kẹt mốc 2] → [□ ③ Vào PG một lần] → [□ Vận hành]
-- ✅ Đã xong (thiết kế, chưa nghiệm thu): 48 Master thiết kế · 5 quy trình tổng hợp, ⑤ MOW-TH-005@1.1 là khuôn chung (7 mốc, 11 nhóm ghi) · 12 quy trình thành phần · 159 câu/53 nhóm · 5 bộ kiểm + runner PASS cục bộ (P26) · Over view 2 bảng. 🔴 Chạy thử: ca MOW001/G1 đứng ở mốc 2 hai ngày, 0/34 đã ghi — luật ghi đòi nơi lưu thật mà chưa có kho thử (PR-12 v2 C1). 🟡 3 bản thiết kế dữ liệu chưa gộp: TQT-MODEL-001 · record_control · 18 Master mới (T1).
+- 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh] → [■ ② Thử ngoài PG: đã đăng ký lát 13 câu khai MOW001, chưa qua mốc 3] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
+- ✅ Đã làm P28: giữ 48 Master, ⑤/7 mốc; dùng lại phiếu nguồn làm kho thử 13 câu khai có mã/phiên, không thêm file/Master. Đã có chỉ mục nối 20 Master với mô hình và hợp đồng; ánh xạ từng cột/PG còn mở. Nội dung câu trả lời chưa kiểm, 0/7 mốc đạt.
 - ■ Đang làm: — · 0 RUN active
-- ⬜ Còn lại: 1) ① C1 khai kho thử ngoài PG (một file trong repo, đúng cột/khoá PG dự kiến) · T2 chốt mã thật thay ?/* · T1 gộp 3 bản thiết kế dữ liệu thành 1 → 2) ② MOW001/G1 đi hết 7 mốc trên kho thử; mốc 3, 5, 6 do phiên AI khác (C3); thêm/sửa cột thì ghi sổ + tăng phiên (C4) → 3) ② thêm 1 ca sai/thiếu + 1 ca "ý tưởng → quy trình" (C2, T6, R04) tới khi đạt tiêu chí C5 → 4) ③ ánh xạ cuối, nạp bằng DOT thử trên staging, đường lui, rồi vào PG một lần (P1–P4) → 5) G3 vận hành.
-- ➡ Kế tiếp: 🤖 Astra Codex xét PR-12 v2 (ACCEPT/REQUEST_CHANGES từng mục; v1 A1 đã bỏ), làm C1 trước rồi T2, T1 · 🤖 Claude rà §0 mỗi lượt được gọi · 😊 Owner: không có việc chờ (ca "ý tưởng → quy trình" ở ② sẽ cần 1 ý tưởng của Owner). NEXT_TRIGGER=HOST_DECIDES_PR12V2_THEN_C1
+- ⬜ Còn lại: hoàn thiện kho thử/mapping các Master còn lại của MOW001 → đối chiếu đầu vào → kiểm độc lập mốc 3/5/6 → ba ca khác loại và các nhánh lỗi → staging/rollback rồi mới cắt chuyển PG. Kết luận từng mục PR-12 tại P28/catalog.host_review_PR12; không mặc định đã đạt T1/T2/C1 toàn phạm vi.
+- ➡ Kế tiếp: 🤖 Host nối các nghĩa vụ ngoài 13 câu khai của MOW001 vào kho thử đúng hợp đồng, kiểm nội dung đầu vào; chỉ giao kiểm độc lập CP03 khi đủ. Claude rà lại diễn đạt R04a/R09/R11/R18 theo kết luận P28 ở lần được gọi. Owner chưa có việc phải thao tác. NEXT_TRIGGER=COMPLETE_MOW001_TRIAL_BINDINGS_AND_INPUT_REVIEW
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -553,6 +553,15 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - — Q01 · ĐÃ GIẢI QUYẾT D22/D25: Astra Codex là Host nội dung; Claude là Host Kiểm soát (Bảng, ô 1–3). Mục tiêu ngắn: Owner tự viết ô 1 ngày 10/10 (D25), đã áp; PR-07 đóng. Không có câu hỏi Owner đang mở.
 
 ## Ý kiến và bằng chứng
+### P28 · Host xét PR-12 v2 · TIẾP NHẬN CÓ HIỆU CHỈNH / TRIỂN KHAI LÁT C1
+- Bảng: đã cập nhật dòng trạng thái theo quyền §0.3.3; Ô 1–2: giữ nguyên. §0.3: đã đối chiếu D27; đề nghị Host Kiểm soát cập nhật R04a/R09/R11/R18 theo kết luận này, không tự đổi chữ phần Claude giữ.
+- Nhận D27: thiết kế → thử ngoài PG → ổn mới cắt chuyển. Không nhận suy luận “nơi lưu thật chỉ có PG”: repo bền vững cũng là kho thử nếu có hợp đồng, mã/phiên và máy đọc lại được. Thiếu kho có hợp đồng là một chỗ kẹt; 13 câu còn NOT_TESTED và kiểm độc lập vẫn là điều kiện riêng.
+- Quyết định từng T/C/P tại catalog.host_review_PR12 (nguồn duy nhất). T1 gộp chỉ mục/ánh xạ, không ép cùng tên = cùng bảng; T2 giữ khóa nguồn CAT-227* và alias DEF 00.1, chưa tự đổi mã toàn hệ thống; T3 tách schema_version/record_version; C1 dùng lại file sản phẩm, không nhân bản; C5 ba ca là tối thiểu, không thay phủ nhánh và nghiệm thu staging; P2 kiểm file không bảo đảm quyền/đồng thời PG; P4 lưu kho thử chỉ đọc tới hết cửa rollback.
+- Đã làm: catalog.trial_storage_contract + data_contract_index; 13 dòng declarations ở application_D24 có mã/phiên và trở thành dữ liệu kho thử; cùng bộ tính đọc dòng thật, kiểm mã/phiên/cột/địa chỉ; Python kiểm bản chiếu bằng file nguồn. Không tự tăng mốc hoặc kết quả nghiệp vụ; không viết PG, không tạo Master/script/file nguồn mới.
+- C1 mới khép lát khai báo; MOW/MOT, kế hoạch, kết quả và nhánh khác còn cần binding, không nhận đã hoàn thiện kho thử toàn việc. CAT-006 cập nhật hash bộ kiểm, ca mới dùng lại checker hiện hữu. TQT-ISS-007 tiếp tục mở.
+- Bằng chứng: UI-REVIEW-AGGREGATE.json#host_review_P28; không nhận tự kiểm Host là kiểm độc lập. JEV gen-dec-1791720791-8MbAAgYxDMyi2zfOLpje là tham khảo cho cách nối thiết kế/dùng lại nguồn, không là phê duyệt.
+- Đường ghi: workspace_transaction expected_version; đọc lại file sản phẩm và Overview sau ghi. Áp: SAME_COMMIT.
+
 ### P27 · Claude phản biện khả thi QTTH 05 · bản v2 theo cách đi 3 bước của Owner (D27) · ĐỀ XUẤT, CHỜ HOST QUYẾT
 Ghế: Claude-review · Host Kiểm soát + phản biện. Based_on: @dfaa160; chỉ đạo Owner 11/10 18:02 (D27); PR-07; PR-12 v1; phiếu application_D24 (34/34 record_ref = null).
 - v2 (18:15) thay v1: Owner bác hướng "dùng bảng PG ngay làm nơi ghi" (A1) — trái cách đi ① thiết kế đúng → ② chạy thử ngoài PG, làm tay được → ③ ổn mới vào PG một lần. Gốc kẹt không đổi: luật ghi đòi nơi lưu thật + chưa có nơi lưu = ca thử không qua được mốc 3.

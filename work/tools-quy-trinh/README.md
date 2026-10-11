@@ -6,14 +6,28 @@ DEF 00.1 dùng lại Master có khóa cũ CAT-227*, không tạo Master thứ ha
 
 **Hồ sơ ngay trong từng việc:** trang Master có thanh riêng “MASTER TIẾN TRÌNH CÔNG VIỆC” dưới “Master Duyệt thiết kế”. Mở tên việc hoặc Chi tiết để xem cùng khung 7 mốc và 11 mục phải ghi. Mốc hiện tại khác mốc đã kiểm đạt. Mỗi nhóm RG01–RG11 tổng hợp những nghĩa vụ thuộc đúng application_id + quy trình/phiên + đối tượng/phiên; số đã ghi, đã đối chiếu và ô Xong lấy từ `tqt-record-control`, cùng quy tắc với Overview. Không chép trạng thái vào hướng dẫn, không dùng hồ sơ MOW001 cho việc khác. Chưa gắn hồ sơ hiện rõ; ghi một phần không được tính là đủ; nhánh chưa phát sinh không tính là lỗi. Ô Xong chỉ đọc, tự tích khi đủ căn cứ, không ghi giả vào trình duyệt. PG chưa nối.
 
-**Rà đủ nơi ghi · 11/10:** giữ 39 Master cũ, bổ sung UI cho 8 mã đã có: CAT-206* (hợp đồng vào/ra), CAT-012 (bộ kiểm/ca thử), CAT-229* (lần thử), CAT-238* (lệnh gửi–nhận–trả), CAT-226* (áp dụng vào dùng), CAT-081 (bật/ngừng/cho nghỉ), CAT-239* (tệp/bằng chứng), CAT-017 (sự cố vận hành). Danh sách thiết kế có 47 Master; Master of Master vẫn 86, không sinh mã trùng. Mỗi UI dùng UI.MASTER, có list + mẫu khai báo; nguồn hợp đồng trường tại `catalog.work_master_designs`. Bảng “Qua từng mốc, ghi vào đâu?” trên trang duyệt đọc `coverage` cùng nguồn này. Giữ 11 nhóm trong hồ sơ; các sổ chi tiết nối theo `supplemental_master_bindings`.
+**Lịch sử rà nơi ghi trước P26 · 11/10:** giữ 39 Master cũ, bổ sung UI cho 8 mã đã có: CAT-206* (hợp đồng vào/ra), CAT-012 (bộ kiểm/ca thử), CAT-229* (lần thử), CAT-238* (lệnh gửi–nhận–trả), CAT-226* (áp dụng vào dùng), CAT-081 (bật/ngừng/cho nghỉ), CAT-239* (tệp/bằng chứng), CAT-017 (sự cố vận hành). Danh sách thiết kế có 47 Master; Master of Master vẫn 86, không sinh mã trùng. Mỗi UI dùng UI.MASTER, có list + mẫu khai báo; nguồn hợp đồng trường tại `catalog.work_master_designs`. Bảng “Qua từng mốc, ghi vào đâu?” trên trang duyệt đọc `coverage` cùng nguồn này. Giữ 11 nhóm trong hồ sơ; các sổ chi tiết nối theo `supplemental_master_bindings`.
 
 **Ranh giới:** CAT-012 định nghĩa ca, CAT-015 ghi kết quả; CAT-229* giữ lần thử, CAT-238* giữ lệnh và chống gửi trùng; CAT-069? giữ sai/thiếu thiết kế, CAT-017 giữ sự cố vận hành và nối về nhu cầu sửa khi cần. Hồ sơ CAT-227* giữ khai báo/đáp án, nghĩa vụ và kiểm mốc theo từng phiên/lần; không đẻ Master cho từng trường. Master Phiên bản hiện có được dùng lại ở lớp thiết kế; chưa khẳng định ánh xạ khóa vật lý với CAT-225*. Đầu ra riêng của nghiệp vụ phải khai Master đích trước CP03, không suy rằng 47 Master đã bao phủ mọi nghiệp vụ.
 
 **Mức hoàn thành:** đủ chỗ khai trong thiết kế cho 7 mốc và các nhánh được rà; chưa có bằng chứng ghi/đọc/quyền của các Master mới. Mô hình trường, khóa, liên kết là thiết kế logic, chưa sinh/nạp PG; TQT-ISS-007 tiếp tục mở. Mẫu rỗng không tính là bản ghi đã tạo, không tăng tiến độ MOW001. Kiểm cấu trúc, các ca sai cũ và mở mẫu qua trình duyệt trước bàn giao.
 
-**Thống nhất trạng thái 11/10:** Hướng dẫn chung tách “Thiết kế UI” và “Nguồn lưu”. 11 mục ghi dẫn tới 19 Master liên quan (11 chính + 8 chi tiết), nằm trong danh sách thiết kế 47 Master. Chưa nối nguồn thì số lượng hiển thị —, không suy là 0 bản ghi thực. Hai số 2 hồ sơ/việc và các dòng kế hoạch là dữ liệu chuẩn bị đã biết, không phải số bản ghi PG. “Đã ghi / Đối chiếu” chỉ thuộc hồ sơ từng việc; không đổi thành Đã ghi chỉ vì tạo UI. Nhãn hiển thị chung ở `record_control.display_labels`; trạng thái nguồn và kiểm mốc giữ nguyên căn cứ. Chưa khai nguồn lưu khác với chưa có thiết kế, và khác với hồ sơ chưa gắn bản ghi.
+**Lịch sử trạng thái trước P26 · 11/10:** Hướng dẫn chung tách “Thiết kế UI” và “Nguồn lưu”. 11 mục ghi dẫn tới 19 Master liên quan (11 chính + 8 chi tiết), nằm trong danh sách thiết kế 47 Master. Chưa nối nguồn thì số lượng hiển thị —, không suy là 0 bản ghi thực. Hai số 2 hồ sơ/việc và các dòng kế hoạch là dữ liệu chuẩn bị đã biết, không phải số bản ghi PG. “Đã ghi / Đối chiếu” chỉ thuộc hồ sơ từng việc; không đổi thành Đã ghi chỉ vì tạo UI. Nhãn hiển thị chung ở `record_control.display_labels`; trạng thái nguồn và kiểm mốc giữ nguyên căn cứ. Chưa khai nguồn lưu khác với chưa có thiết kế, và khác với hồ sơ chưa gắn bản ghi.
 
+
+## Kho thử ngoài PG · P28 / PR-12 v2
+
+**Dùng lại một nguồn:** `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24`, được khai làm kho thử cho **13 câu trả lời của MOW001/G1 trong DEF 00.1**. Không tạo file sao chép. `catalog.trial_storage_contract` là hợp đồng; Overview chỉ chiếu dữ liệu nguồn và kiểm khớp file. File nháp khác không được tính Đã ghi. Phạm vi này chưa thay kho của MOW/MOT, kế hoạch, kết quả kiểm, quyết định hay bàn giao.
+
+**Làm tay theo đúng đường:** đọc hợp đồng → sửa dòng nguồn bằng giao dịch có `expected_version` → nội dung đổi tăng `record_version` và giữ bản cũ trong `declaration_history` → cấu trúc đổi tăng `schema_version` và ghi CAT-016 → sinh lại `application_preview` cùng SHA → chạy runner từ CAT-006 → đọc lại bản đã lưu qua MCP và đối chiếu. Giữ dấu NOT_TESTED cho nội dung chưa kiểm. Đọc được bản ghi ≠ câu trả lời đạt ≠ mốc được duyệt. Mốc 3 kiểm nguồn thử trong phạm vi đã khai, không bắt buộc PG; các đích còn lại vẫn phải có hợp đồng và quyền được xác minh.
+
+**Hai phiên riêng:** `schema_version` là phiên cấu trúc, `record_version` là phiên nội dung. Mã CAT-227* là khóa đang có trong Master of Master (mã hiển thị DEF 00.1); không tự xóa dấu để tạo khóa mới. Việc chuẩn hóa mã toàn hệ thống còn cần xác nhận nguồn và bảng chuyển mã.
+
+**Nối thiết kế:** `catalog.data_contract_index` là một chỉ mục 20 Master → nguồn trường UI → khái niệm mô hình → hợp đồng kho thử/đích PG. Chưa coi các Master, 18 bảng mô hình và 4 bảng checkpoint là ba mô hình thay thế nhau; quan hệ có thể 1:n. Đối chiếu từng cột và đích vật lý còn mở. Phiên cấu trúc 1.0-design không có nghĩa đã duyệt chuyển PG.
+
+**Qua bước:** được thử lát dữ liệu đã đủ hợp đồng, không phải chờ mọi Master toàn hệ thống. Trước PG cần tối thiểu ba ca khác loại, kiểm các nhánh lỗi, không còn lỗi chặn, kiểm độc lập và thử staging/rollback. Ca cuối không thêm cột chỉ là một tín hiệu ổn định; kiểm đạt trên file chưa chứng minh quyền, khóa ngoại, giao dịch và đồng thời của PG. “Vào PG một lần” là một đợt cắt chuyển được kiểm soát, không cam kết vĩnh viễn không cần migration.
+
+Kết luận từng mục T1–T8, C1–C6, P1–P4: `catalog.host_review_PR12`; bằng chứng tại `UI-REVIEW-AGGREGATE.json#host_review_P28`. Việc kế: nối các Master còn thiếu → kiểm nội dung đầu vào → người/phiên độc lập kiểm mốc 3. TQT-ISS-007 còn mở; không tự duyệt mốc bằng tên người kiểm khác.
 
 ## DOT / Script / Bộ kiểm · dùng lại trước khi viết mới
 
@@ -43,9 +57,9 @@ Tách hai bảng, cùng dùng quy trình ⑤:
 - **Hướng dẫn chung:** phải ghi gì → tên/mã Master → còn thiếu nơi lưu/UI gì → cách ghi. Dấu **?** giải thích từng cột. Không ghi tiến độ của một việc vào đây.
 - **Hồ sơ tiến độ từng việc:** một mã hồ sơ cho mỗi lần làm; từng dòng nối về Master đích và bản ghi cụ thể. **Đã ghi chưa:** Chưa ghi / Đã ghi. **Đối chiếu:** Chưa đối chiếu (xám) / Đã đối chiếu (xanh) / Cần sửa lại (đỏ). Hai cột độc lập; đã ghi vẫn có thể cần sửa.
 
-**Mọi sổ đều là Master List có mã.** Chưa có Master → ghi “Chưa có”, bổ sung Master of Master và thiết kế UI theo UI.MASTER. Có mã nhưng thiếu nơi lưu hoặc UI → hiện đúng phần thiếu. Tài liệu chuẩn bị, phiếu JSON hay liên kết mở được không tự chứng minh đã có bản ghi trong Master.
+**Mọi sổ đều là Master List có mã.** Chưa có Master → ghi “Chưa có”, bổ sung Master of Master và thiết kế UI theo UI.MASTER. Có mã nhưng thiếu nơi lưu hoặc UI → hiện đúng phần thiếu. Tài liệu chuẩn bị, phiếu JSON hay liên kết mở được không tự chứng minh đã có bản ghi trong Master. Ngoại lệ có hợp đồng: phần kho thử được khai tại P28 bên trên và máy tìm được đúng bản ghi; không suy rộng cho cả file.
 
-**Ca MOW001/G1:** đang chuẩn bị mốc 2, **0/7 mốc đã kiểm đạt**. Có 34 nghĩa vụ, chưa gắn bằng chứng bản ghi Master nên hiển thị Chưa ghi / Chưa đối chiếu; không kết luận dữ liệu ngoài hồ sơ không tồn tại. Dữ liệu chuẩn bị vẫn giữ nguyên. Số dòng theo phạm vi từng việc, không cố định 34. Chưa đến mốc/nhánh được chú thích riêng, không coi là lỗi. P01 chuẩn bị được làm ngay; chưa sửa sản phẩm trước xác nhận mốc 3.
+**Ca MOW001/G1:** đang chuẩn bị mốc 2, **0/7 mốc đã kiểm đạt**. Có 34 nghĩa vụ: 13 câu khai đã vào kho thử đúng hợp đồng, 21 mục còn lại chưa gắn bản ghi; không kết luận dữ liệu ngoài hồ sơ không tồn tại. Dữ liệu chuẩn bị vẫn giữ nguyên. Số dòng theo phạm vi từng việc, không cố định 34. Chưa đến mốc/nhánh được chú thích riêng, không coi là lỗi. P01 chuẩn bị được làm ngay; chưa sửa sản phẩm trước xác nhận mốc 3.
 
 **Rà Master ngày 11/10:** dùng lại 11 mã trong **[Master of Master — 86 mục](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html)**. Trong phạm vi này: 3 Master chưa khai nơi lưu, 4 nguồn khác chưa xác minh. UI thiếu đã có bản thiết kế list + mẫu khai báo, chưa nghiệm thu. Các nhóm có thể trùng nhau. Đã ghi thiếu và yêu cầu thiết kế vào từng Master cùng `TQT-ISS-007`; ánh xạ đang ở mức thiết kế, chưa chứng minh các Master vận hành được. Danh mục 30 Master định nghĩa là một phạm vi khác, không dùng để đếm toàn hệ thống.
 
@@ -95,6 +109,7 @@ Kiểm nguồn: `python3 check-overview-consistency.py view.html` → `python3 c
 | PR-03 | Đã áp phiếu thử MOW001, chưa nghiệm thu sản phẩm | UI-REVIEW-MOW001.json của task sản phẩm |
 | PR-04/05 | Đã tiếp nhận mô hình/khép kín; các chốt còn thiếu giữ TQT-ISS-007 | closure_review / tqt-process-model |
 | PR-06 | Sửa retry/schema, còn5 chốt mở | host_review_06 · commit3bc305d |
+| PR-12 v2 | Nhận hướng ngoài PG; hiệu chỉnh phiên, mã, ánh xạ và tiêu chí chuyển PG. C1 triển khai lát 13 câu khai trên nguồn hiện hữu; phần còn lại giữ mở | P28 · catalog.host_review_PR12 |
 | PR-07 | C1/C2/C4 tiếp nhận; C3 giữ mức0–4 và thêm điều kiện từng mốc. Mục tiêu2–3 chưa áp | review_07 / checkpoint_policy · P16 |
 
 ## Một đường vào cho người/AI mới

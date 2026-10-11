@@ -11865,7 +11865,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           "Các option hiện là trạng thái từ nguồn, chưa có API lưu PG. Không cho sửa giả trên trình duyệt hoặc lưu localStorage để tưởng đã đồng bộ.",
           "Xóa nghĩa vụ không làm đủ: so với required_records + fields + scope_bindings.target_mots + plan.execution_phase. Đổi phạm vi phải cập nhật nguồn phạm vi trước.",
           "Mỗi đối chiếu MATCHED phải đúng quy trình/phiên, đối tượng/phiên, readback PASS và checked_record_version. Mỗi checkpoint có revision, người/thời điểm và dependency_key đúng nguồn; giữ các revision cũ, chỉ kiểm lại mốc phụ thuộc bị đổi.",
-          "CAT-006 quản lý file chạy; CAT-012 quản lý bộ ca; CAT-015 giữ kết quả theo phiên nguồn/lần chạy. Script mới phải đăng ký trước khi bàn giao; kiểm hai chiều danh mục và file."
+          "CAT-006 quản lý file chạy; CAT-012 quản lý bộ ca; CAT-015 giữ kết quả theo phiên nguồn/lần chạy. Script mới phải đăng ký trước khi bàn giao; kiểm hai chiều danh mục và file.",
+          "Kho thử ngoài PG được phép tính Đã ghi nếu đúng hợp đồng kho đã khai và máy tìm được bản ghi theo mã/phiên. Phạm vi hiện tại: 13 câu khai MOW001 trong phiếu nguồn; file nháp khác không tính. Đã đối chiếu dữ liệu không đồng nghĩa nội dung đã đạt hay mốc được duyệt."
         ],
         "expected_from": [
           "work_form.fields",
@@ -12654,7 +12655,7 @@ main{max-width:1240px} [hidden]{display:none!important}
     },
     "application_preview": {
       "source_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24",
-      "record_sha256": "f18e76905efbb4258de3ca1d1d46ef2da77f23326842c94460d68534d69c1a89",
+      "record_sha256": "756cd99395f298c83d862ebb909b581278c756220bb127e5d79462653bf30070",
       "read_only": true,
       "record": {
         "application_id": "MOW-NHC-001-G1-20261010-01",
@@ -12813,7 +12814,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-identity",
+            "record_version": "1",
+            "schema_version": "1.0"
           },
           {
             "key": "connections_in",
@@ -12823,7 +12827,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-connections_in",
+            "record_version": "1",
+            "schema_version": "1.0"
           },
           {
             "key": "connections_out",
@@ -12833,7 +12840,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-connections_out",
+            "record_version": "1",
+            "schema_version": "1.0"
           },
           {
             "key": "prerequisites",
@@ -12843,7 +12853,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-prerequisites",
+            "record_version": "1",
+            "schema_version": "1.0"
           },
           {
             "key": "execution_conditions",
@@ -12853,7 +12866,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-execution_conditions",
+            "record_version": "1",
+            "schema_version": "1.0"
           },
           {
             "key": "plan",
@@ -12863,7 +12879,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-plan",
+            "record_version": "1",
+            "schema_version": "1.0"
           },
           {
             "key": "records",
@@ -12873,7 +12892,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-records",
+            "record_version": "1",
+            "schema_version": "1.0"
           },
           {
             "key": "issues",
@@ -12883,7 +12905,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-issues",
+            "record_version": "1",
+            "schema_version": "1.0"
           },
           {
             "key": "roles",
@@ -12893,7 +12918,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-roles",
+            "record_version": "1",
+            "schema_version": "1.0"
           },
           {
             "key": "acceptance",
@@ -12903,7 +12931,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-acceptance",
+            "record_version": "1",
+            "schema_version": "1.0"
           },
           {
             "key": "approval",
@@ -12913,7 +12944,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-approval",
+            "record_version": "1",
+            "schema_version": "1.0"
           },
           {
             "key": "questions",
@@ -12923,7 +12957,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-questions",
+            "record_version": "1",
+            "schema_version": "1.0"
           },
           {
             "key": "lifecycle",
@@ -12933,7 +12970,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "validity": "CURRENT",
             "evidence_refs": [],
             "owner": "Astra Codex",
-            "next": "P01 xác minh/chốt theo phạm vi G1"
+            "next": "P01 xác minh/chốt theo phạm vi G1",
+            "record_id": "MOW-NHC-001-G1-20261010-01/FIELD-lifecycle",
+            "record_version": "1",
+            "schema_version": "1.0"
           }
         ],
         "questions_complete": false,
@@ -13051,10 +13091,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/0",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13062,20 +13102,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-identity",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "FIELD-connections_in",
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/1",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13083,20 +13124,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-connections_in",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "FIELD-connections_out",
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/2",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13104,20 +13146,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-connections_out",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "FIELD-prerequisites",
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/3",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13125,20 +13168,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-prerequisites",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "FIELD-execution_conditions",
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/4",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13146,20 +13190,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-execution_conditions",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "FIELD-plan",
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/5",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13167,20 +13212,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-plan",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "FIELD-records",
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/6",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13188,20 +13234,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-records",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "FIELD-issues",
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/7",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13209,20 +13256,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-issues",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "FIELD-roles",
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/8",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13230,20 +13278,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-roles",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "FIELD-acceptance",
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/9",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13251,20 +13300,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-acceptance",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "FIELD-approval",
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/10",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13272,20 +13322,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-approval",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "FIELD-questions",
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/11",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13293,20 +13344,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-questions",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "FIELD-lifecycle",
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df",
             "revision": 1,
-            "store_state": "UNVERIFIED",
+            "store_state": "TRIAL",
             "access_state": "NOT_TESTED",
-            "record_ref": null,
-            "record_version": null,
+            "record_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/declarations/12",
+            "record_version": "1",
             "readback_state": "NOT_TESTED",
             "evidence_ref": null,
             "checked_by": null,
@@ -13314,10 +13366,11 @@ main{max-width:1240px} [hidden]{display:none!important}
             "owner": "Astra Codex",
             "issue_ref": null,
             "master_code": "CAT-227*",
-            "record_state": "NOT_RECORDED",
+            "record_state": "RECORDED",
             "check_state": "NOT_CHECKED",
-            "master_record_id": null,
-            "migration_note": "Dữ liệu chuẩn bị còn trong file; chưa chứng minh ghi vào Master đích."
+            "master_record_id": "MOW-NHC-001-G1-20261010-01/FIELD-lifecycle",
+            "migration_note": "Bản ghi trong kho thử đã khai tại phiếu sản phẩm; chưa kiểm nội dung nghiệp vụ hoặc duyệt mốc.",
+            "schema_version": "1.0"
           },
           {
             "requirement_code": "PLAN",
@@ -14089,7 +14142,19 @@ main{max-width:1240px} [hidden]{display:none!important}
           }
         ],
         "progress_master_code": "CAT-227*",
-        "progress_master_record_id": null
+        "progress_master_record_id": null,
+        "trial_store": {
+          "state": "TRIAL",
+          "contract_version": "1.0-trial",
+          "source_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24",
+          "master_code": "CAT-227*",
+          "schema_version": "1.0",
+          "collection": "declarations",
+          "write_protocol": "workspace_transaction_expected_version",
+          "scope_stage": "G1",
+          "production": false
+        },
+        "declaration_history": []
       },
       "rule": "Bản xem sinh từ application_D24 trong phiếu sản phẩm; chỉ sửa phiếu nguồn rồi sinh lại, không sửa bảng riêng."
     },
@@ -14429,7 +14494,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             }
           },
           "display_code": "DEF 00.1",
-          "display_order": 0.1
+          "display_order": 0.1,
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-228*",
@@ -14606,7 +14672,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             }
           ],
           "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": "application_preview.record.plan (kế hoạch)"
+          "record_source": "application_preview.record.plan (kế hoạch)",
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-015",
@@ -14757,7 +14824,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             }
           ],
           "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": null
+          "record_source": null,
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-025",
@@ -14890,7 +14958,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             }
           ],
           "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": null
+          "record_source": null,
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-233*",
@@ -15011,7 +15080,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             }
           ],
           "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": null
+          "record_source": null,
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-069?",
@@ -15159,7 +15229,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             }
           ],
           "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": null
+          "record_source": null,
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-232*",
@@ -15319,7 +15390,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             }
           ],
           "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": null
+          "record_source": null,
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-244*",
@@ -15455,7 +15527,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             }
           ],
           "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": null
+          "record_source": null,
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-016",
@@ -15576,7 +15649,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             }
           ],
           "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": null
+          "record_source": null,
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-206*",
@@ -15854,7 +15928,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             ],
             "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use.",
             "state_guard": {}
-          }
+          },
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-012",
@@ -16086,7 +16161,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             ],
             "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use.",
             "state_guard": {}
-          }
+          },
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-229*",
@@ -16373,7 +16449,8 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "Đã trả kết quả"
               ]
             }
-          }
+          },
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-238*",
@@ -16706,7 +16783,8 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "Đã trả"
               ]
             }
-          }
+          },
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-226*",
@@ -16986,7 +17064,8 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "Đang dùng"
               ]
             }
-          }
+          },
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-081",
@@ -17260,7 +17339,8 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "Có hiệu lực"
               ]
             }
-          }
+          },
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-239*",
@@ -17503,7 +17583,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             ],
             "enforcement": "Logical contract only. UUID identity separate from readable code. Keys/foreign references/options/authorization need DDL and transactional tests before PG use.",
             "state_guard": {}
-          }
+          },
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-017",
@@ -17794,7 +17875,8 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "Đã đóng"
               ]
             }
-          }
+          },
+          "schema_version": "1.0-design"
         },
         {
           "code": "CAT-006",
@@ -17961,7 +18043,8 @@ main{max-width:1240px} [hidden]{display:none!important}
               "open": 80
             }
           },
-          "display_code": "CAT-006"
+          "display_code": "CAT-006",
+          "schema_version": "1.0-design"
         }
       ],
       "coverage": {
@@ -18339,13 +18422,13 @@ main{max-width:1240px} [hidden]{display:none!important}
           "result_master": "CAT-015",
           "case_set": "TQT-CASE-RECORD",
           "owner": "Codex · Host tools-quy-trinh",
-          "purpose": "7 mốc, nghĩa vụ bắt buộc, đối chiếu và lịch sử",
+          "purpose": "7 mốc, nghĩa vụ bắt buộc, đối chiếu và lịch sử; kho thử khai báo, mã/phiên/cột/đọc lại",
           "argv": [
             "node",
             "check-record-control.js",
             "view.html"
           ],
-          "sha256": "14445a9a8a5c5dcdb2226d3324959e477466711b1e9eb8c1d260d982963de926",
+          "sha256": "7a29ba2cb17149306d098e45af2918f66f8795696067958210fe2cea830288db",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -18372,7 +18455,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "6a977c61734915cb61b0b20a4f876453c3e8bdafd9bd7c847e2c03a1320ddf76",
+          "sha256": "d879b49ca079f7c78a6dd77057dd329c3c5b3a1a0b4a8dd83e599b66295e8d4f",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -18436,6 +18519,329 @@ main{max-width:1240px} [hidden]{display:none!important}
         "evidence": "UI-REVIEW-AGGREGATE.json#host_review_P26",
         "note": "Máy cục bộ đã chạy đầy đủ. Snapshot workspace_exec trên VPS thiếu Node.js; chưa nhận đã kiểm đầy đủ trên VPS. Bổ sung runtime qua đường quản lý hạ tầng rồi chạy lại runner."
       }
+    },
+    "trial_storage_contract": {
+      "version": "1.0-trial",
+      "state": "TRIAL_NOT_PG",
+      "source_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24",
+      "scope": "MOW001/G1 · 13 câu khai thuộc hồ sơ DEF 00.1; các Master khác chưa được công nhận có kho thử.",
+      "master_code": "CAT-227*",
+      "display_code": "DEF 00.1",
+      "collection": "declarations",
+      "schema_version": "1.0",
+      "fields": {
+        "key": "string",
+        "answer": "string",
+        "level": "string",
+        "result": "string",
+        "validity": "string",
+        "evidence_refs": "array",
+        "owner": "string",
+        "next": "string",
+        "record_id": "string",
+        "record_version": "string",
+        "schema_version": "string"
+      },
+      "key": [
+        "application_id",
+        "key",
+        "record_version"
+      ],
+      "revision_rule": "schema_version là phiên cấu trúc; record_version là lần sửa nội dung. Đổi nội dung tăng record_version, đưa bản cũ vào declaration_history. Không ghi đè bản đã kiểm.",
+      "write_protocol": "workspace_transaction + expected_version; ghi nguồn sản phẩm trước rồi sinh lại application_preview; không duy trì bản sao tay.",
+      "verification": "Bộ tính đọc row thật theo key, đối chiếu mã/phiên/cột/địa chỉ và token nội dung. Python đối chiếu bản chiếu với file nguồn. Không tin cờ MATCHED đơn lẻ.",
+      "pg_target": {
+        "status": "CANDIDATE_NOT_APPROVED",
+        "concept": "application declaration under run; reference/assessment retain evidence",
+        "physical_table": null,
+        "note": "Chưa chốt bảng/cột vật lý. Kiểm file không chứng minh FK/quyền/transaction/đồng thời trên PG."
+      },
+      "application_id": "MOW-NHC-001-G1-20261010-01"
+    },
+    "data_contract_index": {
+      "version": "1.0-design",
+      "status": "MAPPING_IN_PROGRESS",
+      "rule": "Master là nơi quản lý/biểu mẫu; bảng mô hình là đối tượng lưu trữ. Quan hệ có thể 1:n hoặc n:1. Không gộp chỉ vì tên giống. Nguồn trường UI giữ tại work_master_designs; 4 bảng kiểm bổ sung mô hình thực thi, không là mô hình thay thế.",
+      "model_ref": "#tqt-process-model",
+      "checkpoint_schema_ref": "catalog.work_form.record_control.pg_design",
+      "records": [
+        {
+          "master_code": "CAT-003?",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "Master of Master / nguồn thiết kế MOW-MOT hiện hữu",
+          "model_concepts": [
+            "object_version"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-009?",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "Master of Master / nguồn thiết kế MOW-MOT hiện hữu",
+          "model_concepts": [
+            "object_version"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-227*",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-227*].fields",
+          "model_concepts": [
+            "run",
+            "reference"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": "catalog.trial_storage_contract"
+        },
+        {
+          "master_code": "CAT-228*",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-228*].fields",
+          "model_concepts": [
+            "run",
+            "round"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-015",
+          "identity_status": "EXISTING_KEY",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-015].fields",
+          "model_concepts": [
+            "assessment",
+            "dependency"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-025",
+          "identity_status": "EXISTING_KEY",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-025].fields",
+          "model_concepts": [
+            "assessment",
+            "reference"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-233*",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-233*].fields",
+          "model_concepts": [
+            "event"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-069?",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-069?].fields",
+          "model_concepts": [
+            "issue",
+            "impact"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-232*",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-232*].fields",
+          "model_concepts": [
+            "call",
+            "reference"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-244*",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-244*].fields",
+          "model_concepts": [
+            "event",
+            "issue"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-016",
+          "identity_status": "EXISTING_KEY",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-016].fields",
+          "model_concepts": [
+            "event",
+            "object_version"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-206*",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-206*].fields",
+          "model_concepts": [
+            "reference"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-012",
+          "identity_status": "EXISTING_KEY",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-012].fields",
+          "model_concepts": [
+            "reference"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-229*",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-229*].fields",
+          "model_concepts": [
+            "round"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-238*",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-238*].fields",
+          "model_concepts": [
+            "call",
+            "outbox"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-226*",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-226*].fields",
+          "model_concepts": [
+            "object_version",
+            "event"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-081",
+          "identity_status": "EXISTING_KEY",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-081].fields",
+          "model_concepts": [
+            "event"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-239*",
+          "identity_status": "EXISTING_KEY_PRESERVED_PENDING_GLOBAL_CONFIRMATION",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-239*].fields",
+          "model_concepts": [
+            "reference"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-017",
+          "identity_status": "EXISTING_KEY",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-017].fields",
+          "model_concepts": [
+            "issue",
+            "impact"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        },
+        {
+          "master_code": "CAT-006",
+          "identity_status": "EXISTING_KEY",
+          "schema_version": "1.0-design",
+          "ui_fields_ref": "catalog.work_master_designs.records[code=CAT-006].fields",
+          "model_concepts": [
+            "reference"
+          ],
+          "mapping_status": "CANDIDATE_NEEDS_FIELD_RECONCILIATION",
+          "pg_table": null,
+          "trial_contract_ref": null
+        }
+      ]
+    },
+    "host_review_PR12": {
+      "proposal": "proposals/TQT-PR-20261011-claude-feasibility-qtth05-12.md#v2",
+      "state": "PARTIALLY_IMPLEMENTED",
+      "decisions": {
+        "T1": "ACCEPT_WITH_CHANGES: một chỉ mục ánh xạ, không ép UI Master = bảng vật lý; còn đối chiếu từng cột",
+        "T2": "REQUEST_CHANGES: không tự bỏ ?/*; giữ khóa nguồn hiện hữu, mã hiển thị là alias. Chuẩn hóa toàn hệ thống phải có bảng chuyển mã và kiểm xung đột",
+        "T3": "ACCEPT: schema_version tách record_version; đã khai phiên thiết kế, không nhận là schema PG đã chốt",
+        "T4": "ACCEPT: đích PG là ứng viên; NULL nghĩa chưa chốt, không đoán từ tên bảng hay count",
+        "T5": "ACCEPT_WITH_CHANGES: bảng 7 mốc chiếu từ checkpoints/steps/requirements; 13 câu và nhánh có hợp đồng riêng, không rút hết thành 7 hàng",
+        "T6": "ACCEPT: ca ý tưởng → 005 → 003 → 001 khi cần; chưa nghiệm thu",
+        "T7": "ACCEPT_INCREMENTAL: giữ bố cục, hiển thị môi trường kho thử ngay hồ sơ; chưa đổi toàn trang",
+        "T8": "ACCEPT_WITH_CHANGES: đủ hợp đồng, khóa, nguồn/quyền và ca của lát thử thì được thử lát đó; chưa phải chốt mọi Master toàn hệ thống",
+        "C1": "ACCEPT_WITH_CHANGES: tái dùng file sản phẩm hiện hữu; 13 câu khai đã đăng ký kho thử; Master khác còn mở, không tạo bản sao 18 khối rỗng",
+        "C2": "ACCEPT: tối thiểu UI, sai/thiếu, ý tưởng; nhánh lỗi phải có ca riêng",
+        "C3": "ACCEPT: mốc 3/5/6 cần người/phiên độc lập và thẩm quyền đúng phạm vi; chưa có review độc lập trong lượt này",
+        "C4": "ACCEPT: thay cấu trúc có nhật ký+schema_version; thay dữ liệu tăng record_version, giữ bản cũ",
+        "C5": "ACCEPT_WITH_CHANGES: 3 ca là tối thiểu; không còn lỗi chặn, phủ nhánh và tương đương adapter trước PG. Ca từ chối/hủy đóng đúng nhánh, không ép 7/7 thành công",
+        "C6": "ACCEPT: Node VPS vẫn mở, không chặn tự kiểm cục bộ theo hash nguồn",
+        "P1": "ACCEPT: ánh xạ cuối sau thử ổn",
+        "P2": "ACCEPT_WITH_CHANGES: staging kiểm thêm FK, quyền, transaction, concurrent/retry; PASS file không bảo đảm PASS PG",
+        "P3": "ACCEPT: thử rollback trước cắt chuyển",
+        "P4": "ACCEPT_WITH_CHANGES: chỉ chuyển nguồn sau readback và nghiệm thu, kho thử chỉ đọc giữ truy nguồn, có cửa rollback"
+      },
+      "next": "Hoàn thiện mapping các Master còn thiếu cho MOW001; đối chiếu nội dung đầu vào; review độc lập trước CP03. Không triển khai PG."
     }
   },
   "checkpoint_policy": {
@@ -18683,6 +19089,18 @@ const legacy=document.getElementById('tqt-tab-old');if(legacy)legacy.textContent
 (function(root){'use strict';
 const has=v=>v!==null&&v!==undefined&&v!=='';
 const canonical=v=>JSON.stringify(v,(_,x)=>x&&typeof x==='object'&&!Array.isArray(x)?Object.fromEntries(Object.keys(x).sort().map(k=>[k,x[k]])):x);
+function trialRow(R,a,d,x){
+ const t=R.trial_storage_contract,b=a.trial_store;
+ if(!t||!b||x.store_state!=='TRIAL'||t.application_id!==a.application_id||b.state!=='TRIAL'||b.production!==false||a.scope_stage!=='G1'||b.scope_stage!=='G1'||b.contract_version!==t.version||b.source_ref!==t.source_ref||R.application_preview.source_ref!==t.source_ref||b.master_code!==t.master_code||d.master_code!==t.master_code||b.collection!==t.collection||b.schema_version!==t.schema_version||!d.code.startsWith('FIELD-'))return null;
+ const key=d.code.slice(6),rows=a.declarations.filter(y=>y.key===key);if(rows.length!==1)return null;
+ const row=rows[0],i=a.declarations.indexOf(row);
+ if(Object.keys(row).some(k=>!Object.hasOwn(t.fields,k))||Object.entries(t.fields).some(([k,type])=>type==='array'?!Array.isArray(row[k]):typeof row[k]!==type))return null;
+ if(!row.answer||!row.owner||!row.record_id||!/^\d+$/.test(row.record_version)||Number(row.record_version)<1||row.schema_version!==t.schema_version||x.schema_version!==row.schema_version||x.master_record_id!==row.record_id||x.record_version!==row.record_version||x.record_ref!==t.source_ref+'/declarations/'+i)return null;
+ if(a.declarations.filter(y=>y.record_id===row.record_id).length!==1||row.evidence_refs.some(y=>typeof y!=='string')||!['NOT_TESTED','PASS','FAIL','BLOCKED','NA'].includes(row.result)||!['CURRENT','RECHECK'].includes(row.validity))return null;
+ const history=(a.declaration_history||[]).filter(y=>y.record_id===row.record_id);
+ if(history.length!==Number(row.record_version)-1||history.some((y,i)=>y.key!==key||Number(y.record_version)!==i+1))return null;
+ return row;
+}
 function inspect(R){
  const a=R.application_preview.record,P=R.work_form.record_control,defs=a.record_requirements||[],checks=a.record_checks||[],masters=new Map(P.masters.map(x=>[x.code,x])),guides=new Map(P.guidance.map(x=>[x.id,x]));
  const problems=[],current=a.current_checkpoint||'CP01',add=(checkpoint,message)=>problems.push({checkpoint,message});
@@ -18704,11 +19122,13 @@ function inspect(R){
   const valid=found.length===1&&x.application_id===a.application_id&&x.target_version===a.target_version&&x.master_code===d.master_code&&g?.master_code===d.master_code;
   if(!valid||!m||!known.has(d.checkpoint))fail('Sai/thiếu dòng kiểm');
   if(defs.filter(z=>z.code===d.code).length!==1)fail('Trùng mã nghĩa vụ');
-  const written=valid&&x.record_state==='RECORDED'&&has(x.master_record_id)&&has(x.record_ref)&&has(x.record_version);
+  const trial=x?.store_state==='TRIAL'||(R.trial_storage_contract?.application_id===a.application_id&&d.master_code===R.trial_storage_contract.master_code&&d.code.startsWith('FIELD-')),stored=trial?trialRow(R,a,d,x):null;
+  if(trial&&!stored)fail('Kho thử sai hợp đồng/bản ghi');
+  const written=(!trial||!!stored)&&valid&&x.record_state==='RECORDED'&&has(x.master_record_id)&&has(x.record_ref)&&has(x.record_version);
   if(x?.record_state==='RECORDED'&&!written)fail('Đã ghi thiếu mã bản ghi');
   if(x&&!['NOT_RECORDED','RECORDED'].includes(x.record_state))fail('Sai option ghi');
   if(x&&!['NOT_CHECKED','MATCHED','NEEDS_FIX'].includes(x.check_state))fail('Sai option đối chiếu');
-  const evidence=written&&x.process_code===a.process_code&&x.process_version===a.process_version&&x.target_code===a.target_code&&x.readback_state==='PASS'&&x.checked_record_version===x.record_version&&has(x.evidence_ref)&&has(x.checked_by)&&Number.isFinite(Date.parse(x.checked_at));
+  const evidence=(!trial||x.checked_payload_token===canonical(stored))&&written&&x.process_code===a.process_code&&x.process_version===a.process_version&&x.target_code===a.target_code&&x.readback_state==='PASS'&&x.checked_record_version===x.record_version&&has(x.evidence_ref)&&has(x.checked_by)&&Number.isFinite(Date.parse(x.checked_at));
   if(x?.check_state==='MATCHED'&&!evidence)fail('Đối chiếu sai phiên/đọc lại/thiếu căn cứ');
   if(x?.readback_state==='FAIL'||x?.check_state==='NEEDS_FIX')fail('Cần sửa đối chiếu');
   const verified=valid&&x.check_state==='MATCHED'&&evidence&&local.length===0;
@@ -18717,7 +19137,7 @@ function inspect(R){
   return {...d,master:m,written,verified,due,active:d.when==='ALWAYS'||triggered,recordState:written?'RECORDED':'NOT_RECORDED',checkState:local.length?'NEEDS_FIX':verified?'MATCHED':'NOT_CHECKED',owner:x?.owner||a.actor,recordRef:written?x.record_ref:null,recordId:written?x.master_record_id:null,note:due?'Cần có trước khi qua mốc '+Number(d.checkpoint.slice(2)):d.when==='ALWAYS'?'Chưa đến mốc ghi':'Chưa phát sinh nhánh'};
  });
  if(checks.some(x=>!defs.some(d=>d.code===x.requirement_code)))add('CP01','Có dòng kiểm ngoài nghĩa vụ');
- const sourceReady=d=>d.master?.source_state==='VERIFIED'&&checks.find(x=>x.requirement_code===d.code)?.access_state==='PASS';
+ const sourceReady=d=>{const x=checks.find(x=>x.requirement_code===d.code);return x?.access_state==='PASS'&&(x.store_state==='TRIAL'?!!trialRow(R,a,d,x):d.master?.source_state==='VERIFIED');};
  const destinationReady=rows.some(x=>x.active)&&rows.filter(x=>x.active).every(sourceReady);
  const scoped=x=>x&&x.application_id===a.application_id&&x.target_version===a.target_version&&has(x.evidence_ref||x.evidence_refs?.[0]);
  const semantics=cp=>{
@@ -18883,8 +19303,8 @@ const workBoard='<section class="oc-board" id="tqt-work-board" aria-label="Hư�
 '<p class="oc-rule"><b>'+P.guidance.length+' mục phải ghi · '+P.masters.length+' Master liên quan.</b> '+P.masters.filter(m=>m.ui_state==='DESIGN').length+' đã có thiết kế UI. Nguồn lưu và bản ghi từng việc được kiểm riêng.</p><p>Đây là <b>hướng dẫn chung</b>, không phải tình trạng dữ liệu của một việc. <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" target="_blank" rel="noopener">Mở danh sách Master Duyệt thiết kế ↗</a>. Xem Đã ghi / Đối chiếu trong hồ sơ từng việc bên dưới.</p>'+commonTable+toolRegistry+
 '<details class="oc-detail"><summary>UI Master đã bổ sung · phần còn thiếu</summary><p>Giữ mã hiện hữu, dùng UI.MASTER. Mỗi Master có danh sách bản ghi và chi tiết; không tạo sổ bằng đường dẫn file tạm.</p><table class="nr-table"><thead><tr><th>Master</th><th>Phải bổ sung</th><th>Nơi theo dõi</th></tr></thead><tbody>'+P.masters.filter(m=>m.source_state!=='VERIFIED'||m.ui_state==='MISSING').map(m=>'<tr><th>'+masterCell(m.code)+'</th><td>'+needCell(m)+'<p>Trường chung: mã bản ghi, mã hồ sơ, MOW/MOT và phiên, nội dung, người/thời gian ghi, trạng thái đối chiếu, căn cứ.</p></td><td>Astra Codex · <a href="#TQT-ISS-007">TQT-ISS-007</a></td></tr>').join('')+'</tbody></table></details></section>'+
 '<details class="oc-fold" id="tqt-recording-list"><summary><span><b>2. Hồ sơ tiến độ · '+e(A.target_code)+' / '+e(A.scope_stage)+'</b><small>Đang chuẩn bị mốc '+Number(audit.current.slice(2))+'/7 · '+audit.rows.filter(x=>x.due&&x.written).length+'/'+audit.counts.due+' mục đến hạn đã ghi · '+audit.rows.filter(x=>x.due&&x.verified).length+' đã đối chiếu · '+audit.counts.deferred+' mục chưa đến hạn</small></span><span class="oc-fold-action">Mở xem</span></summary><div class="oc-fold-body">'+
-'<div class="oc-context"><b>Mã hồ sơ: '+e(A.application_id)+'</b><p>Quy trình: '+e(A.process_code)+' · '+e(A.process_version)+' · Người giữ: '+e(A.next_owner)+'</p><p>Master hồ sơ: '+masterCell(A.progress_master_code)+'</p><p><b>Đang chuẩn bị mốc '+Number(audit.current.slice(2))+'/7; '+audit.verifiedCheckpoints.length+'/7 mốc đã kiểm đạt.</b></p><p>'+e(A.next)+'</p></div>'+
-'<p><b>'+audit.counts.due+' mục đến hạn · '+audit.counts.deferred+' mục chưa đến hạn hoặc nhánh chưa phát sinh.</b> '+(audit.canStart?'Đã đủ căn cứ mốc 3.':'Chưa được sang bước Làm.')+'</p><p><b>Đã ghi</b> = có bản ghi được gắn vào đúng Master đích. <b>Đối chiếu</b> = kiểm bản ghi đó đúng hồ sơ/phiên/nội dung. Dữ liệu chuẩn bị trong file chưa được tính là đã ghi Master.</p><p class="oc-muted">Các ô option đang hiển thị trạng thái từ nguồn; chưa nối chức năng lưu PG. Chưa đến mốc vẫn là “Chưa ghi”, kèm chú thích để không coi là lỗi.</p>'+
+'<div class="oc-context"><p><b>Chạy thử ngoài PG</b> · 13 câu khai dùng lại phiếu nguồn làm kho thử có phiên. Những Master khác vẫn cần nối nơi ghi; chưa được qua mốc 3.</p><b>Mã hồ sơ: '+e(A.application_id)+'</b><p>Quy trình: '+e(A.process_code)+' · '+e(A.process_version)+' · Người giữ: '+e(A.next_owner)+'</p><p>Master hồ sơ: '+masterCell(A.progress_master_code)+'</p><p><b>Đang chuẩn bị mốc '+Number(audit.current.slice(2))+'/7; '+audit.verifiedCheckpoints.length+'/7 mốc đã kiểm đạt.</b></p><p>'+e(A.next)+'</p></div>'+
+'<p><b>'+audit.counts.due+' mục đến hạn · '+audit.counts.deferred+' mục chưa đến hạn hoặc nhánh chưa phát sinh.</b> '+(audit.canStart?'Đã đủ căn cứ mốc 3.':'Chưa được sang bước Làm.')+'</p><p><b>Đã ghi</b> = có bản ghi được gắn vào đúng Master đích. <b>Đối chiếu</b> = kiểm bản ghi đó đúng hồ sơ/phiên/nội dung. Kho thử đã khai được tính riêng khi máy đọc được bản ghi đúng mã/phiên; file nháp khác không tính. Đối chiếu dữ liệu không thay kiểm nội dung và duyệt mốc.</p><p class="oc-muted">Các ô option đang hiển thị trạng thái từ nguồn; chưa nối chức năng lưu PG. Chưa đến mốc vẫn là “Chưa ghi”, kèm chú thích để không coi là lỗi.</p>'+
 '<table class="nr-table nr-progress"><thead><tr>'+th('Phải ghi gì?','Một dòng nghĩa vụ của đúng hồ sơ đang xem; lấy từ quy định chung và kế hoạch của việc.')+th('Master List nào?','Master đích có mã; mã bản ghi cụ thể nằm trong Chi tiết.')+th('Đã ghi chưa?','Chưa ghi: hồ sơ chưa gắn bản ghi trong Master đích. Đã ghi: có mã, phiên và địa chỉ bản ghi đích. Không suy từ file nháp.')+th('Đối chiếu','Chưa đối chiếu: xám. Đã đối chiếu: xanh, có người/thời điểm/bằng chứng. Cần sửa lại: đỏ. Thay nguồn hoặc sai phiên phải kiểm lại.')+th('Chi tiết','Mã bản ghi, căn cứ, người giữ và tài liệu chuẩn bị; chi tiết không làm phát sinh Master khác.')+'</tr></thead><tbody>'+progressRows+'</tbody></table>'+
 '<details class="oc-detail"><summary>Các mục chưa đến hạn / nhánh chưa phát sinh</summary><ul>'+audit.rows.filter(x=>!x.due).map(x=>'<li>'+e(x.title)+' · '+e(x.note)+'</li>').join('')+'</ul></details><details class="oc-detail"><summary>Cho AI / PG: cấu trúc và luật ghi</summary><ul>'+P.rules.map(x=>'<li>'+e(x)+'</li>').join('')+'</ul><p><b>Khóa:</b> '+e(P.pg_design.state_columns.keys)+'</p><p>'+e(P.pg_design.state_columns.guards)+'</p><p>'+e(P.pg_design.scope)+'</p><p>'+e(P.pg_design.open)+'</p><p>Quy định chung: record_control.guidance; nghĩa vụ từng việc: application.record_requirements; tiến độ: application.record_checks. Không sửa trạng thái trên quy định chung.</p></details></div></details></section>';
 

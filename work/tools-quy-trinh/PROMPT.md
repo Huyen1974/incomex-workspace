@@ -4,6 +4,8 @@ Owner giao trực tiếp phiên Codex này tiếp tục tools-quy-trinh, đi b�
 
 Bộ tính mốc duy nhất: view.html#tqt-record-control. Chạy lại từ danh mục CAT-006 bằng run-tqt-checks.py; CAT-012 định nghĩa bộ ca, CAT-015 kết quả. Kết quả/giới hạn mới ở UI-REVIEW-AGGREGATE.json#host_review_P26. MOW001 chưa đạt CP03; không tự sửa trạng thái thành sẵn sàng/xong từ các cờ khai báo.
 
+**P28 / PR-12 v2:** chạy thử ngoài PG theo D27. Dùng kho thử khai báo trong phiếu sản phẩm hiện hữu theo `catalog.trial_storage_contract`; không tạo bản sao, không chạm PG. 13 câu khai được lưu có mã/phiên cấu trúc/phiên bản ghi; nội dung chưa kiểm vẫn NOT_TESTED, không tự qua CP03. Mapping toàn phiếu, nguồn các Master khác và kiểm độc lập còn mở. Đọc README mục Kho thử ngoài PG và `catalog.host_review_PR12` trước bước tiếp.
+
 ## Lịch sử các đề bài trước — không dùng làm chỉ đạo hiện hành
 
 # PROMPT hiện hành · D24/P23 · Từ mục tiêu tới kết quả
