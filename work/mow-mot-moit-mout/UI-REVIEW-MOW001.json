@@ -16996,5 +16996,13 @@
       "receipt_gate": "BLOCKED (expected): unresolved parity; structure/emphasis/labels/interaction/responsive incomplete. Không đổi gate để được PASS.",
       "checker_source": "b08ce39d2b98b4f66c6ee000d3f340676546e39a718074eaf28263fe56ede8c5"
     }
+  },
+  "host_gate_probe_P32": {
+    "scope": "TEST_GATE_ONLY_NOT_MOW001_ACCEPTANCE",
+    "checked_at": "2026-10-11T21:11:07Z",
+    "read_acl": "authenticated Codex + reviewer allowed; unattributed denied",
+    "write_acl": "reviewer denied; Codex valid write allowed; invalid contract denied",
+    "application_unchanged": true,
+    "pg": "NOT_RUN"
   }
 }
