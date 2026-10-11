@@ -495,7 +495,8 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - ⛔ **Không làm/để sau:** không chạy Graph/VPSC/Claude Code thứ hai đụng shared VPS đồng thời HJW STARTED hoặc live canary; không nới Guard PRE/POST; không hỏi click lần hai, không Hermes hội đồng/courier ngoài phép thử; không AI schedule, không 2b/Routine.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
-ASSIGN_V1 {"id":"HJW-N3-CANARY-SUCCESS-20261009-01","to":"Hermes","role":"Reviewer","generation":2,"state":"claimed","task":"N3 TEST-ONLY 1/3: báo cáo ngắn tình trạng đã làm và chưa làm ở N3 sau P253","output":"Một RESULT_V1 done + P, session/body_sha256/latency, đúng một NEXT","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-CANARY-SUCCESS-20261009-01"}
+ASSIGN_V1 {"id":"HJW-N3-CANARY-SUCCESS-20261009-01","to":"Hermes","role":"Reviewer","generation":2,"state":"done","task":"N3 TEST-ONLY 1/3: báo cáo ngắn tình trạng đã làm và chưa làm ở N3 sau P253","output":"Một RESULT_V1 done + P, session/body_sha256/latency, đúng một NEXT","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-CANARY-SUCCESS-20261009-01"}
+RESULT_V1 {"body_sha256":"755d6488a349b570662ace18b72dfca8135079a7cdac964584fc29fa6f280602","generation":2,"id":"HJW-N3-CANARY-SUCCESS-20261009-01","latency":{"claimed_model_s":33,"click_claimed_s":9,"click_start_notice_s":11,"model_end_write_s":2},"next":"Host GPT Chat/Work nghiệm thu P269 (Owner mở Host, gõ tiếp)","report_ref":"P269","session":"cron_97346fee6980_20261011_035905","status":"done","summary":"Báo cáo ngắn N3 sau P253: N1/N2/N3 chặng 1 đã xong, P253 sửa lỗi \"CHẬM NHẬN VIỆC\" đã chạy live đúng gói, N3 2a còn nợ ba vé live nên chưa nghiệm thu, 2b/N4–N6 chưa mở."}
 ASSIGN_V1 {"id":"HJW-HERMES-READINESS-20261003-02","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Hermes tự kiểm khả năng tham gia HJW và ghi một báo cáo","output":"Một mục P báo cáo trong HJW COLLAB và một dòng RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-READINESS-20261003-02"}
 RESULT_V1 {"id":"HJW-HERMES-READINESS-20261003-02","generation":1,"status":"done","summary":"Hermes tự kiểm 8 điểm: nhận đúng record+SPEC, đọc AGENTS A9-GLB và COLLAB OK, ghi mục P99 + RESULT_V1. Điểm 5 (chặn ghi ngoài phạm vi) chưa thử, điểm 7 (tin Telegram) máy kiểm. Kết luận READY.","next":"Host GPT kiểm nhãn tác giả commit; máy kiểm tin Telegram; Host tổng hợp lỗi readiness (điểm 5, 7).","report_ref":"P99"}
 ASSIGN_V1 {"id":"HJW-HOST-AUTH-ACCEPT-20261004-01","to":"Hermes","role":"Reviewer","generation":1,"state":"done","task":"Rà chuẩn GIAO–LÀM–BÁO từ góc nhìn một agent mới","output":"Một mục P ngắn + RESULT_V1","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HOST-AUTH-ACCEPT-20261004-01"}
@@ -5513,6 +5514,18 @@ Ghế: openai-main Host · Bước N3 chặng 2a · không mở lại phản bi�
 - **Bước của Owner:** chỉ bấm THẺ MỚI gen2 của #1 đúng một lần trên Telegram sau khi scanner phát. Có tin INVALID hoặc quá 5 phút không ra thẻ: báo Host, không bấm vé gen1; không giữ root busy chờ click. Mỗi ticket một model run, read-only, máy deterministic ghi P+RESULT_V1+NEXT/tin KẾT QUẢ đúng SPEC.
 - **Sau #1:** Host xác nhận RESULT DONE, 1 model, KẾT QUẢ receipt/NEXT/latency rồi mới phát #2 + #3 trong CÙNG commit; mỗi task thêm hậu tố (10/10) so bản chép P258 như Claude P266, Owner click #2 rồi #3 sát nhau. Sau cả ba giao một D2 read-only đo timestamp/queue alert và số tin KHÔNG CHẠY vé cũ (2 bản theo Owner), sau đó Claude + Host nghiệm thu. 3 nợ gate P266 §3 thuộc N6 CÓ ĐIỀU KIỆN; live failure thì xử lý trong N3.
 - **NEXT_TRIGGER=OWNER_APPROVE_HJW_CANARY_01_GENERATION_2_TELEGRAM** · 0/3 success trước Owner click, 2b/N4–N6 chưa mở, cấm ghi PASS 2a khi chưa đủ 3 live+D2/protection clean.
+
+### P269 · Hermes · 2026-10-11 08:59 +07 · HJW-N3-CANARY-SUCCESS-20261009-01 · DONE
+Ghế: hermes-vps · Bước/vòng: — (SPEC không ghi) · máy chép nguyên văn câu trả lời cuối của Hermes (lượt chỉ đọc) · phiên cron_97346fee6980_20261011_035905 · sha256 thân 755d6488a349 · HJW-N3-CANARY-SUCCESS-20261009-01 lượt 2 · vé e4b6a085a890
+Chặng 1 của ba node N1, N2 và N3 đã xong; nền giao việc Hermes (P225) chạy được và đã có bản chạy thật được ghi nhận, phần còn thiếu của N3 là khâu nghiệm thu, không phải khâu nền.
+
+Bản sửa lỗi chậm báo nhận việc là mục P253 đã chạy live: gói slow-alert áp đúng theo kịch bản đóng băng, ứng viên plugin chuyển từ ec8cfe4e sang e6ebf114, Guard POST đạt 22/22 và có tin Telegram #166; đây là KQ kỹ thuật XONG.
+
+N3 2a vẫn chưa nghiệm thu đầu–cuối vì còn ba vé live TEST-ONLY chạy lần lượt qua đường thật (mỗi vé một lượt, Owner duyệt từng thẻ sau kết quả vé trước), nên chưa được coi là đạt.
+
+Bước 2b (Claude Routine) và các node N4 (Hội đồng) → N5 (hai cấp/tự giám sát) → N6 (kiểm T1–T9 và đóng) chưa mở; mục P255 của Host mới ở vòng 1/3 và chưa có tuyên bố N3 2a đạt.
+
+Nguồn đối chiếu: Bảng điều khiển hiện hành cùng các mục P252/P253/P255 trong work/hermes-joint-workspace/COLLAB.md và luật A9-GLB trong AGENTS.md; tôi không khẳng định điều gì ngoài các cửa sổ đã đọc thấy.
 
 
 
