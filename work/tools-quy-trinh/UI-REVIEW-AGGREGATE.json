@@ -1313,7 +1313,7 @@
     }
   },
   "host_review_P32": {
-    "state": "LOCAL_FULL_PASS_PENDING_VPS_READBACK",
+    "state": "GATE_LIVE_PASS_FULL_VPS_RERUN_PENDING",
     "proposal": "TQT-PR-20261012-gptchat-p31-final-boundaries-15.md@26d6fa3",
     "local_report": {
       "run_id": "TQT-024b37e1c1614af0aa3b3ce4c57500be",
@@ -1458,15 +1458,15 @@
       },
       "status": "PASS"
     },
-    "gateway_test_report": "......                                                                   [100%]\n6 passed, 26 deselected in 0.96s\n",
+    "gateway_test_report": "................................                                         [100%]\n32 passed in 40.77s\n",
     "gateway_source_base": "8fe2ea8fdf4ab03ef9cac4b38fc3c8e97d741f82",
-    "gateway_status": "LOCAL_PREPARED_NOT_PUSHED_NOT_DEPLOYED",
-    "gateway_push_block": "Auto-review denied source/document export to Huyen1974/agent-data-test; Owner approval requested; no bypass.",
+    "gateway_status": "ENFORCED_FILE_SCOPE_ON_VPS",
+    "gateway_push_block": "Historical export rejection; resolved by Owner direction to use VPS SSOT without exporting gateway code to old GitHub.",
     "gateway_files": {
-      "agent_data/workspace_tools.py": "f877323fb0d21fcbeb8d6217b628fa63a58ec0b49d67edb14d82bd7dfadd85a3",
-      "agent_data/hvu_signals.py": "afb9d330a892c61cf614633189394bd09ccc5e9eeef07665ca584ed08e2e926f",
-      "tests/continuation/test_workspace.py": "831bc834e2017abbf49b009269395ec5ba7213110669b2ff61216bb562abe87f",
-      "docs/WORKSPACE_TOOLS.md": "f6dc2b5bbce4093f1b3e5de022d4001152d4813720a21e17ffff90598fbfb022"
+      "agent_data/workspace_tools.py": "956aecf024ca0528d073020f5262931e9c842e26a3b5ecc42b5684e6eae940a7",
+      "agent_data/hvu_signals.py": "f8192e118ed32c9df1db9e06d33fb0840b562252802afbec5dd99503a67afe4e",
+      "tests/continuation/test_workspace.py": "35723149516443c17719a5d84a20a33dcd3371343c80b15a69ee34bf6efd108c",
+      "docs/WORKSPACE_TOOLS.md": "5b16d8d2f9616537cc737a0a2e339243f58c1f39836f53b46be28971761ce3fd"
     },
     "jev_reference": "gen-dec-1791751348-Glo5JUatHLB1hBtqs1XG",
     "real_application": {
@@ -1478,10 +1478,133 @@
       "pg": "NOT_RUN"
     },
     "limits": [
-      "No production runtime/PG changes",
-      "TEST design and packet checks are not MOW001 acceptance",
-      "Server enforcement and live endpoint ACL remain open",
-      "Gateway checks prove isolated authenticated-context behavior, not actual credentials or unique Host conversation"
-    ]
+      "No PG",
+      "MOW001 0/7; no new actual plan results or endpoint PASS receipts",
+      "Independent reviewer remains unassigned",
+      "No new Master, DOT, process or checkpoint",
+      "Surface identity is not a unique Host session; session-bound grants remain open",
+      "Guard covers workspace MCP protected trial file, not operator SSH, public presentation or every future endpoint",
+      "Endpoint-level business contracts, reviewer assignment and real MOW001 walk remain open"
+    ],
+    "gateway_deployment": {
+      "state": "ACTIVATED_HEALTH_PASS",
+      "backup": "/opt/incomex/backups/tqt-p32-20261011T210508Z",
+      "image": "agent-data-hvu:tqt-p32-r2-20261012",
+      "base_image": "sha256:94a7b14a1b592544b186fa724ab79fb0b4d8aa68efacef198d0e5a0534055170",
+      "protected_path": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json",
+      "files": {
+        "agent_data/workspace_tools.py": "956aecf024ca0528d073020f5262931e9c842e26a3b5ecc42b5684e6eae940a7",
+        "agent_data/hvu_signals.py": "f8192e118ed32c9df1db9e06d33fb0840b562252802afbec5dd99503a67afe4e",
+        "tests/continuation/test_workspace.py": "35723149516443c17719a5d84a20a33dcd3371343c80b15a69ee34bf6efd108c",
+        "docs/WORKSPACE_TOOLS.md": "5b16d8d2f9616537cc737a0a2e339243f58c1f39836f53b46be28971761ce3fd"
+      },
+      "pg": "NOT_TOUCHED",
+      "pending": "LIVE_ACL_AND_GATE_PROBES",
+      "rename_regression": "source/destination both checked via --no-renames",
+      "recovery_commit": "1b818fa411c8b02cc9df3178bdcefcadcda52778"
+    },
+    "live_permission_probes": {
+      "scope": "TEST_GATE_AND_ACL_ONLY",
+      "pg": "NOT_RUN",
+      "mow001_checkpoints": 0,
+      "cases": [
+        {
+          "case": "authenticated_writer_read",
+          "profile": "codex",
+          "state": "PASS",
+          "expected_error": null,
+          "before_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "after_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "commit": null
+        },
+        {
+          "case": "authenticated_reviewer_read",
+          "profile": "reviewer",
+          "state": "PASS",
+          "expected_error": null,
+          "before_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "after_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "commit": null
+        },
+        {
+          "case": "unattributed_read_denied",
+          "profile": "legacy",
+          "state": "PASS",
+          "expected_error": "TRIAL_READ_FORBIDDEN",
+          "before_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "after_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "commit": null
+        },
+        {
+          "case": "reviewer_write_denied",
+          "profile": "reviewer",
+          "state": "PASS",
+          "expected_error": "TRIAL_WRITE_FORBIDDEN",
+          "before_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "after_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "commit": null
+        },
+        {
+          "case": "writer_invalid_contract_denied",
+          "profile": "codex",
+          "state": "PASS",
+          "expected_error": "TRIAL_CONTRACT_REJECTED",
+          "before_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "after_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "commit": null
+        },
+        {
+          "case": "upload_invalid_contract_denied",
+          "profile": "codex",
+          "state": "PASS",
+          "expected_error": "TRIAL_CONTRACT_REJECTED",
+          "before_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "after_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "commit": null
+        },
+        {
+          "case": "transaction_history_loss_denied",
+          "profile": "codex",
+          "state": "PASS",
+          "expected_error": "TRIAL_CONTRACT_REJECTED",
+          "before_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "after_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "commit": null
+        },
+        {
+          "case": "move_trial_store_denied",
+          "profile": "codex",
+          "state": "PASS",
+          "expected_error": "TRIAL_STORE_REMOVAL_OR_CREATION_DENIED",
+          "before_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "after_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "commit": null
+        },
+        {
+          "case": "writer_valid_receipt_allowed",
+          "profile": "codex",
+          "state": "PASS",
+          "expected_error": null,
+          "before_sha256": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706",
+          "after_sha256": "222ed3dfb3645dd90105e9a17daf79eec74894c8c75a39c3e11a7ec79f1a2f26",
+          "commit": "bd7a409e9f24c2c653d43f07f2af19df59fc8bf7"
+        },
+        {
+          "case": "reviewer_readback_after_commit",
+          "profile": "reviewer",
+          "state": "PASS",
+          "expected_error": null,
+          "before_sha256": "222ed3dfb3645dd90105e9a17daf79eec74894c8c75a39c3e11a7ec79f1a2f26",
+          "after_sha256": "222ed3dfb3645dd90105e9a17daf79eec74894c8c75a39c3e11a7ec79f1a2f26",
+          "commit": null
+        }
+      ]
+    },
+    "gateway_focused_tests": {
+      "cases": 7,
+      "state": "PASS",
+      "includes": "rename source hidden by Git detection"
+    },
+    "owner_source_decision": "GitHub cũ, VPS đang dùng là SSOT; Host chủ động quản lý."
   }
 }

@@ -27597,7 +27597,7 @@ main{max-width:1240px} [hidden]{display:none!important}
         "evidence_revision": 3
       },
       "rule": "Bản xem sinh từ application_D24 trong phiếu sản phẩm; chỉ sửa phiếu nguồn rồi sinh lại, không sửa bảng riêng.",
-      "source_version": "5f35701d1f5ee0af75d21540a03715371ba2ae756a8e09eacc4d97cbf1841706"
+      "source_version": "222ed3dfb3645dd90105e9a17daf79eec74894c8c75a39c3e11a7ec79f1a2f26"
     },
     "work_master_designs": {
       "version": "2-design",
@@ -34582,7 +34582,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "result_master": "CAT-015",
           "case_set": "TQT-CASE-RECORD",
           "owner": "Codex · Host tools-quy-trinh",
-          "purpose": "7 mốc, nghĩa vụ bắt buộc, đối chiếu và lịch sử; kho thử khai báo, mã/phiên/cột/đọc lại; hợp đồng áp dụng MOT/giao bước/ca kiểm/ghim nội dung; before-after giữ lịch sử; P31 kiểm schema bắt buộc, dữ liệu giao thật, lịch sử; lát ghi–đọc TEST bằng hai tiến trình, không phải chạy MOW001; PR15 kiểm trả cuối, hiệu lực đánh giá, đọc nội dung thiết kế P02/P03, khóa chết và nhật ký thiếu. Có --write-gate để cửa ghi gọi bắt buộc sau triển khai.",
+          "purpose": "7 mốc, nghĩa vụ bắt buộc, đối chiếu và lịch sử; kho thử khai báo, mã/phiên/cột/đọc lại; hợp đồng áp dụng MOT/giao bước/ca kiểm/ghim nội dung; before-after giữ lịch sử; P31 kiểm schema bắt buộc, dữ liệu giao thật, lịch sử; lát ghi–đọc TEST bằng hai tiến trình, không phải chạy MOW001; PR15 kiểm trả cuối, hiệu lực đánh giá, đọc nội dung thiết kế P02/P03, khóa chết và nhật ký thiếu. --write-gate được VPS gọi bắt buộc trước commit của tệp kho thử được bảo vệ.",
           "argv": [
             "node",
             "check-record-control.js",
@@ -34597,10 +34597,37 @@ main{max-width:1240px} [hidden]{display:none!important}
           "secret_handling": "Không dùng credential, không network, không SQL/PG",
           "exit_codes": "0 đạt; 1 lỗi kiểm; 2 sai tham số; runner 3 thiếu điều kiện chạy",
           "state": "REGISTERED_READ_ONLY",
-          "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật. Kiểm quyền trong lát TEST là mô phỏng policy, chưa xác minh ACL của endpoint thật; trust context phải do host adapter cấp, không đọc từ JSON do worker gửi.",
+          "limitations": "Cửa ghi đã kiểm bằng quyền thật cho một tệp kho thử; không chứng minh quyền của 34 endpoint, phiên Host riêng hay nghiệm thu MOW001. Không bao phủ SSH quản trị. Trust context không được tự khai từ gói worker.",
           "transition_command": "node check-record-control.js view.html --validate-transition BEFORE_PRODUCT.json AFTER_PRODUCT.json",
           "operation_key": "tqt.validate-record-control",
-          "timeout_seconds": 180
+          "timeout_seconds": 180,
+          "runtime_binding": {
+            "state": "ENFORCED_FILE_SCOPE",
+            "image": "agent-data-hvu:tqt-p32-r2-20261012",
+            "protected_path": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json",
+            "node": "22.16.0",
+            "validator_path": "/opt/tqt-p32/check-record-control.js",
+            "validator_sha256": "dc835b7d8f8330fb720b05b3689c43d5d099b54b8cbc60c2ea328485c31fc16a",
+            "view_path": "/opt/tqt-p32/view.html",
+            "view_sha256": "166bbaa4ee75e347ea6b968dff7662adea84f6c20d98b01bbaa195f796077de7",
+            "note": "Reviewed deployment snapshot, not a new business source; schema/engine changes require operator-reviewed pin upgrade.",
+            "gateway_sources": {
+              "agent_data/workspace_tools.py": "956aecf024ca0528d073020f5262931e9c842e26a3b5ecc42b5684e6eae940a7",
+              "agent_data/hvu_signals.py": "f8192e118ed32c9df1db9e06d33fb0840b562252802afbec5dd99503a67afe4e",
+              "tests/continuation/test_workspace.py": "35723149516443c17719a5d84a20a33dcd3371343c80b15a69ee34bf6efd108c",
+              "docs/WORKSPACE_TOOLS.md": "5b16d8d2f9616537cc737a0a2e339243f58c1f39836f53b46be28971761ce3fd"
+            },
+            "deployment_receipt": "/opt/incomex/staging/tqt-p32/deployment.json",
+            "live_probes": "/opt/incomex/staging/tqt-p32/live-probes.json",
+            "supporting_scripts": {
+              "prepare.py": "f498ea8a6857ec71e9bf070191cef15f0048d132d4932647cdcbabf89f3db20d",
+              "activate.py": "15580a3b34031e0e60729b4c67f145b5094216a41a2e90b038f0e059eac56663",
+              "activate-r2.py": "e8e80c15dab9534a40fef93d7e84a9fd59b0bbc39b61ad5fe3659609679f18d3",
+              "probe.py": "987fadea66be4712ab2114f0c8591e4cd7b50919760277d83a8a5495b859b699"
+            },
+            "script_directory": "/opt/incomex/staging/tqt-p32",
+            "usage": "Deployment scripts are version-specific operator runbooks; inspect preconditions and backup receipt before reuse. probe.py runs explicit TEST gate probes and records a TEST receipt; not part of read-only suite."
+          }
         },
         {
           "id": "TQT-CHECK-005",
@@ -34629,7 +34656,13 @@ main{max-width:1240px} [hidden]{display:none!important}
           "state": "REGISTERED_READ_ONLY",
           "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật.",
           "operation_key": "tqt.validate-work-masters",
-          "timeout_seconds": 60
+          "timeout_seconds": 60,
+          "ui_inputs": {
+            "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
+            "process-work-master-v1.js": "d6dea33a394599e60f3f52932a59d4433991f890e18e30c19dcbc4b0c9302d65",
+            "ui-child-content-v1.js": "422e8c6bf8fc07718452f044154b6a64d5ad6f4c38c54da082fab47e461616e1",
+            "ui-child-from-parent-v1.js": "bb7f549dede1d6326ab156dd0e6def1f7b081fcc87f4ff4b0b86cee793b96f76"
+          }
         },
         {
           "id": "TQT-CHECK-006",
@@ -34641,19 +34674,19 @@ main{max-width:1240px} [hidden]{display:none!important}
           "result_master": "CAT-015",
           "case_set": "TQT-CASE-RUNNER",
           "owner": "Codex · Host tools-quy-trinh",
-          "purpose": "Chạy lại toàn bộ bộ kiểm và kiểm hai chiều danh mục; kiểm và áp thời hạn riêng mỗi DOT, ghi thời gian thực tế.",
+          "purpose": "Chạy lại toàn bộ bộ kiểm và kiểm hai chiều danh mục; kiểm và áp thời hạn riêng mỗi DOT, ghi thời gian thực tế.; --vps-ui tự lấy đủ bốn đầu vào giao diện đã ghim hash, không cần AI dựng lại môi trường mỗi lần.",
           "argv": [
             "python3",
             "run-tqt-checks.py",
             "--verify"
           ],
-          "sha256": "70954193fe8810132f85f13305270aa80113d06cddf021df75d56653c95f2bcd",
+          "sha256": "4536bf612a9a44064138b738124e61a363af9eefc53a0198f74f3c076e2cab83",
           "preconditions": "Python 3.11+; registry UI vừa đọc; Node.js cho toàn bộ suite, --identity-only không cần Node; không cần quyền PG",
           "input": "view.html; phiếu MOW001; registry định nghĩa UI vừa đọc qua --master-registry hoặc --master-registry-json; UI adapter tùy chọn",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
-          "verify": "python3 run-tqt-checks.py --verify --master-registry REGISTRY.js --report EVIDENCE.json",
+          "verify": "python3 run-tqt-checks.py --verify --vps-ui --report /tmp/TQT-TEST-report.json",
           "rollback": "Chỉ đọc nguồn; thử file trong thư mục tạm rồi xóa. Khôi phục source bằng Git forward restore qua workspace_transaction.",
-          "secret_handling": "Không dùng credential, không network, không SQL/PG",
+          "secret_handling": "Không credential/SQL/PG; --vps-ui chỉ đọc bốn tệp UI công khai trên VPS, đối chiếu hash trong CHECK005. Không chạy nội dung tải về nếu hash lệch.",
           "exit_codes": "0 đạt; 1 lỗi kiểm; 2 sai tham số; runner 3 thiếu điều kiện chạy",
           "state": "REGISTERED_READ_ONLY",
           "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật. Kiểm trước khi ghi, chưa có server hook chống bỏ qua.",
@@ -35028,8 +35061,8 @@ main{max-width:1240px} [hidden]{display:none!important}
       "decisions": {
         "C13-01": "ACCEPT: actual CAT206 rows + per-MOT/plan links + predeclared cases; pin content and version; no blanket contract across unrelated scopes.",
         "C13-02": "ACCEPT: missing/null/malformed checks fail closed, no UI crash.",
-        "C13-03": "ACCEPT_WITH_BOUNDARY: reusable before/after checker validates revision and immutable exact history; used before this transaction. Server mutation hook remains OPEN, direct writes can bypass.",
-        "C13-04": "PARTIAL: all34 endpoint declarations are inventoried for selected path, access remains NOT_TESTED; schema-aligned write/read still required before CP03."
+        "C13-03": "ENFORCED_SCOPED_P32: existing CHECK004 mandatory at VPS staged_check for protected MOW001 trial file; edit/transaction/upload/rename live probes. Operator filesystem administration is outside this boundary.",
+        "C13-04": "PARTIAL_P32: real authenticated file read/write grants demonstrated; all34 logical endpoint access_check remain NOT_TESTED, no business readiness claim."
       },
       "source": {
         "ref": "work/tools-quy-trinh/proposals/TQT-PR-20261011-gptchat-p28-information-contract-13.md",
@@ -35039,7 +35072,6 @@ main{max-width:1240px} [hidden]{display:none!important}
       "remaining": [
         "Independent review of applied design-task contract",
         "Resolve endpoint payload schemas and demonstrate actual write/read for selected path",
-        "Enforce transition validation in the server write route; not satisfied by version locking alone",
         "Three real diverse walks including idea to procedure; staging/rollback later, no PG now"
       ],
       "jev": "gen-dec-1791724462-JAI7JcIAg6GrH1tF4Dv2"
@@ -35065,7 +35097,7 @@ main{max-width:1240px} [hidden]{display:none!important}
       "host": "Astra Codex",
       "date": "2026-10-12",
       "decision": "ACCEPT_SCOPED_CORRECTIONS",
-      "status": "LOGICAL_AND_FILE_TEST_FIXED_GATE_DEPLOYMENT_OPEN",
+      "status": "VPS_WRITE_GATE_ENFORCED_FILE_ACL_PROVED_REAL_MOW001_OPEN",
       "items": [
         {
           "id": "R15-01",
@@ -35094,20 +35126,38 @@ main{max-width:1240px} [hidden]{display:none!important}
         }
       ],
       "write_gate": {
-        "state": "PREPARED_LOCAL_NOT_DEPLOYED",
+        "state": "ENFORCED_ON_VPS_PROTECTED_TRIAL_FILE",
         "existing_dot": "TQT-CHECK-004 --write-gate",
         "boundary": "AgentData workspace_tools.staged_check before Git commit; existing rollback/root lock",
         "auth": "server-authenticated surface identity, pinned checker/view outside writable roots",
-        "tested": "6 gateway tests including real CHECK004; not live ACL receipts",
-        "blocked": "agent-data-test deployed branch/main diverged 71/112; old main deploy rewrites PG environment; narrow deployment and review required. Push approval pending after auto-review rejection."
+        "tested": "32 gateway regressions PASS; 7 focused guards PASS including added rename case; 10 live credential/gate probes PASS",
+        "deployment": {
+          "state": "ACTIVATED_HEALTH_PASS",
+          "backup": "/opt/incomex/backups/tqt-p32-20261011T210508Z",
+          "image": "agent-data-hvu:tqt-p32-r2-20261012",
+          "base_image": "sha256:94a7b14a1b592544b186fa724ab79fb0b4d8aa68efacef198d0e5a0534055170",
+          "protected_path": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json",
+          "files": {
+            "agent_data/workspace_tools.py": "956aecf024ca0528d073020f5262931e9c842e26a3b5ecc42b5684e6eae940a7",
+            "agent_data/hvu_signals.py": "f8192e118ed32c9df1db9e06d33fb0840b562252802afbec5dd99503a67afe4e",
+            "tests/continuation/test_workspace.py": "35723149516443c17719a5d84a20a33dcd3371343c80b15a69ee34bf6efd108c",
+            "docs/WORKSPACE_TOOLS.md": "5b16d8d2f9616537cc737a0a2e339243f58c1f39836f53b46be28971761ce3fd"
+          },
+          "pg": "NOT_TOUCHED",
+          "pending": "LIVE_ACL_AND_GATE_PROBES",
+          "rename_regression": "source/destination both checked via --no-renames",
+          "recovery_commit": "1b818fa411c8b02cc9df3178bdcefcadcda52778"
+        },
+        "live_probe_count": 10
       },
       "limits": [
         "No PG",
         "MOW001 0/7; no new actual plan results or endpoint PASS receipts",
         "Independent reviewer remains unassigned",
         "No new Master, DOT, process or checkpoint",
-        "Current source still allows direct writes until gateway activated",
-        "Surface identity is not a unique Host session; session-bound grants remain open"
+        "Surface identity is not a unique Host session; session-bound grants remain open",
+        "Guard covers workspace MCP protected trial file, not operator SSH, public presentation or every future endpoint",
+        "Endpoint-level business contracts, reviewer assignment and real MOW001 walk remain open"
       ]
     }
   },

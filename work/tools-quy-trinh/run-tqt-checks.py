@@ -1,8 +1,9 @@
 """Managed read-only test runner. Registry: view.html catalog.tool_registry (CAT-006).
-No credentials, network, PG, service changes or production mutation. Exit 0 PASS,
+No credentials, PG, service changes or production mutation. --vps-ui reads pinned public UI inputs. Exit 0 PASS,
 1 failed test/inventory, 2 invalid invocation, 3 blocked by missing prerequisites. Default dry-run; --verify executes.
 """
 import argparse, hashlib, json, re, subprocess, sys, shutil, tempfile, uuid, unicodedata, time, math
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -153,12 +154,28 @@ def main():
     ap.add_argument('--dry-run',action='store_true',help='validate inventory and print commands without running suites')
     ap.add_argument('--report',type=Path,help='save evidence JSON; use a test/evidence location')
     ap.add_argument('--ui-adapter',type=Path,help='optional local copy of VPS process-work-master-v1.js; hash recorded')
+    ap.add_argument('--vps-ui',action='store_true',help='fetch all four public UI inputs, verify registry pins, and run the complete UI checks')
     ap.add_argument('--before-product',type=Path,help='actual previous product snapshot; validate revisions/history before submitting any write')
     ap.add_argument('--master-registry',type=Path,help='fresh definition-master-registry-v1.js from the UI source')
     ap.add_argument('--master-registry-json',help='equivalent observed registry rows, JSON; no canonical copy is created')
     ap.add_argument('--identity-only',action='store_true',help='run cross-registry identity guard using Python only; no Node/PG needed')
     args=ap.parse_args()
     source=BASE/'view.html';data=json.loads(re.search(r'<script id="tqt-composite-processes"[^>]*>(.*?)</script>',source.read_text(),re.S)[1])['catalog'];reg=data['tool_registry']
+    fetch_errors=[];ui_temp=None
+    if args.vps_ui:
+        if args.ui_adapter or args.master_registry or args.master_registry_json:ap.error('--vps-ui supplies the UI adapter and registry; do not combine input modes')
+        ui_temp=tempfile.TemporaryDirectory(prefix='TQT-UI-TEST-');folder=Path(ui_temp.name)
+        pins=next(x for x in reg['records'] if x['id']=='TQT-CHECK-005').get('ui_inputs',{})
+        required={'definition-master-registry-v1.js','process-work-master-v1.js','ui-child-content-v1.js','ui-child-from-parent-v1.js'}
+        if set(pins)!=required:fetch_errors.append('INVALID_UI_INPUT_INVENTORY')
+        else:
+            for name,pin in pins.items():
+                try:
+                    raw=urllib.request.urlopen('https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/'+name,timeout=30).read()
+                    if hashlib.sha256(raw).hexdigest()!=pin:fetch_errors.append('UI_INPUT_CHANGED:'+name);continue
+                    (folder/name).write_bytes(raw)
+                except (OSError,ValueError) as exc:fetch_errors.append('UI_INPUT_UNAVAILABLE:'+name+':'+type(exc).__name__)
+        args.master_registry=folder/'definition-master-registry-v1.js';args.ui_adapter=folder/'process-work-master-v1.js'
     identity={'state':'BLOCKED','errors':['MISSING_LIVE_MASTER_REGISTRY']}
     if args.master_registry or args.master_registry_json:
         try:
@@ -177,8 +194,17 @@ def main():
     report={'run_id':'TQT-'+uuid.uuid4().hex,'at':datetime.now(timezone.utc).isoformat(),'scope':reg['scope'],'registry_master':'CAT-006','case_master':'CAT-012','result_master':'CAT-015','source_sha256':sha(source),'inventory_errors':errors,'source_readback':readback,'results':[],'pg':'NOT_RUN','production_ready':False}
     report['master_identity_check']=identity
     if identity['state']=='FAIL':errors.append('MASTER_IDENTITY_CONFLICT')
-    if args.ui_adapter: report['ui_adapter_sha256']=sha(args.ui_adapter)
     report['prerequisite_errors']=prerequisites()
+    report['prerequisite_errors'].extend(fetch_errors)
+    if args.ui_adapter:
+        inputs=[args.ui_adapter]
+        if args.master_registry:
+            inputs.extend(args.ui_adapter.parent/n for n in ('ui-child-content-v1.js','ui-child-from-parent-v1.js'))
+        report['ui_inputs']={}
+        for path in inputs:
+            if path.is_file():report['ui_inputs'][path.name]=sha(path)
+            else:report['prerequisite_errors'].append('MISSING_UI_INPUT:'+path.name)
+        if args.ui_adapter.is_file():report['ui_adapter_sha256']=sha(args.ui_adapter)
     if identity['state']=='BLOCKED':report['prerequisite_errors'].append('MISSING_LIVE_MASTER_REGISTRY')
     if args.before_product and not report['prerequisite_errors']:
         product=BASE.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json'
@@ -210,5 +236,6 @@ def main():
     if args.report:
         args.report.parent.mkdir(parents=True,exist_ok=True);args.report.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(report,ensure_ascii=False))
+    if ui_temp:ui_temp.cleanup()
     return 1 if report['status']=='FAIL' else 3 if report['status']=='BLOCKED' else 0
 if __name__=='__main__':sys.exit(main())

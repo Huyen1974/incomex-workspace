@@ -14,7 +14,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② Thử ngoài PG: kho 13 câu khai đã có, 0/7 mốc] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã làm P29: dùng lại CAT-206*, khai hợp đồng áp dụng 3 MOT/5 giao bước và ca nghiệm thu; siết ghim phiên/nội dung xuyên kiểm–duyệt–ACK, sửa lỗi thiếu dòng kiểm, thêm kiểm trước–sau vào DOT hiện hữu. P30 sửa trùng DOT còn 47 Master, giữ ⑤/7 mốc; ca thật chưa qua mốc nào.
 - ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
-- ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi mới có bản sửa đã kiểm, chưa triển khai; quyền thật chưa xác minh.
+- ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: kiểm độc lập hợp đồng áp dụng → hoàn thiện schema và thử ghi/đọc toàn đường MOW001 ngoài PG → đủ CP03 mới làm/kiểm/duyệt/nhận → ba ca khác loại → staging/rollback rồi cắt chuyển PG. Cưỡng chế kiểm trước–sau ở máy chủ còn mở; 34 địa chỉ đề xuất không có nghĩa 34 nơi ghi đã sẵn sàng.
 - ➡ Kế tiếp: Host hoàn thiện schema/bằng chứng nơi ghi; Reviewer được Owner gọi rà P29/hợp đồng G1, không tự lấy tự kiểm Host thay kiểm độc lập. Claude cập nhật các yêu cầu ô 3 theo kết luận P29 ở lượt được gọi. NEXT_TRIGGER=INDEPENDENT_CONTRACT_REVIEW_AND_SCHEMA_ALIGNED_TRIAL_ENDPOINTS
@@ -887,6 +887,8 @@ Owner yêu cầu tiếp tục điểm mở, ưu tiên kiểm bắt buộc ở c�
 
 Đã sửa tại nguồn theo README P32 và `catalog.host_review_PR15`: hợp đồng v3/schema1.3, lưu lịch sử v2; CHECK004 kiểm cuối + đánh giá hiện hành + mở bản thiết kế + phục hồi sau chết/lỗi nhật ký; CHECK006 dùng ngân sách trong registry. Các phiên TEST/đọc thiết kế tổng hợp không có giá trị nghiệm thu MOW001. Giữ nguyên 34 access_check NOT_TESTED, người kiểm thật chưa chỉ định, 0/7.
 
-C13-03/C13-04 **chưa đóng**: bản nối gateway gọi DOT đã kiểm local; chưa kích hoạt dịch vụ/quyền endpoint thật. Nguồn dịch vụ VPS 8fe2ea8 và main lệch 71/112, pipeline cũ sửa PG env. Không triển khai đè; cần đường triển khai hẹp đã rà. Đẩy nhánh agent-data-test bị auto-review chặn vì chưa có chấp thuận xuất mã/tài liệu sang repo đó; đã hỏi Owner, không lách đường chặn. Giữ patch local để duyệt. NEXT_TRIGGER=APPROVED_SCOPED_GATEWAY_DEPLOYMENT_AND_LIVE_ACL_TEST.
+C13-03 **đã cưỡng chế trong phạm vi tệp kho thử**: CHECK004 gọi tại chốt commit; 10 ca thật kiểm đọc/ghi, sửa sai, mất lịch sử, upload và đổi tên. Lỗi đổi tên được phát hiện khi thử, tệp đã khôi phục đúng hash bằng commit 1b818fa4; sửa nhận diện cả nguồn–đích, kiểm lại đạt. C13-04 vẫn PARTIAL: không nâng 34 endpoint lên PASS từ quyền một tệp. Chưa ràng buộc phiên Host riêng.
+
+Owner xác nhận trực tiếp: “Đúng: GitHub cũ, VPS đang dùng là SSOT”. Host triển khai hẹp từ image VPS, không dùng main cũ, không đẩy agent-data-test; chặn xuất GitHub trước đó không còn là việc cần xin. Node 22.16.0 và bộ ghim đã vào image quản lý. 32 hồi quy gateway + 7 ca gate tập trung đạt (ca đổi tên bổ sung); bộ đầy đủ VPS đang chạy lại sau bổ sung đầu vào UI. NEXT_TRIGGER=REAL_ENDPOINT_CONTRACT_EVIDENCE_AND_INDEPENDENT_REVIEW.
 
 Bằng chứng: `UI-REVIEW-AGGREGATE.json#host_review_P32`; Host tự kiểm kỹ thuật, không thay kiểm độc lập.
