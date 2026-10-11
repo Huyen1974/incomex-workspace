@@ -559,13 +559,13 @@
       "C13-02": "Removing FIELD-identity caused TypeError"
     },
     "local_check_report": {
-      "run_id": "TQT-5a7f765acfef4b5eb25583a689992e1c",
-      "at": "2026-10-11T13:27:37.019756+00:00",
+      "run_id": "TQT-0237c245e343451198e682c51d4fe268",
+      "at": "2026-10-11T13:32:49.517183+00:00",
       "scope": "work/tools-quy-trinh/**/*.py, **/*.js; không tuyên bố bao phủ toàn VPS",
       "registry_master": "CAT-006",
       "case_master": "CAT-012",
       "result_master": "CAT-015",
-      "source_sha256": "863ae084a420dfd6e93b0f3edc3c1b6b2b83ac51353768522c2574bb79af6038",
+      "source_sha256": "132b582a6c09a3349465b648906dd4fd10b0a3408640f3b32daf96099f367630",
       "inventory_errors": [],
       "source_readback": {
         "state": "PASS",
@@ -637,7 +637,7 @@
         {
           "id": "TQT-CHECK-005",
           "case_set": "TQT-CASE-MASTER",
-          "source_sha256": "bf9363addd263d9da3b084b78defdc2b117769ddfe50293a9295bdb9227a3b84",
+          "source_sha256": "6cfd9fee3e451150a3df60529ae16250e8a7ce489ab676c2f109b87292598eeb",
           "argv": [
             "node",
             "check-work-masters.js",
@@ -651,7 +651,7 @@
       ],
       "pg": "NOT_RUN",
       "production_ready": false,
-      "ui_adapter_sha256": "02ec7721be1dcfd06e4b55dcc3a8032314b887fe0b536d2fc7620ac7b093d350",
+      "ui_adapter_sha256": "ecddf56199e6cfee8afa2a56cecc7ed8c018708632e40d1cba3fdc58d5be63d1",
       "prerequisite_errors": [],
       "transition_check": {
         "state": "PASS",
@@ -686,9 +686,71 @@
       "Real walks then controlled PG migration"
     ],
     "ui_review": {
-      "state": "NOT_TESTED_AFTER_DEPLOY"
+      "state": "PASS_SCOPED_DISPLAY_NOT_BUSINESS_APPROVAL",
+      "owner_url": "https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view",
+      "observed_revision": "a2df07d6a53fb6a83328f96862768f66583075b8",
+      "source_sha256": "132b582a6c09a3349465b648906dd4fd10b0a3408640f3b32daf96099f367630",
+      "master_url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-206%2A",
+      "observed": [
+        "Owner view shows0/7 real checkpoints,13/20 due recorded",
+        "Contract fold shows51rows,11predeclared cases,5step handoffs",
+        "CAT206 list shows51draft records",
+        "Actual row detail exposes contract identity/version, meaning/unit, source/destination/cardinality/cases in visual and accessibility views"
+      ],
+      "master_console_errors": [],
+      "portal_console_notes": [
+        "Directus Auth init error from outer portal",
+        "Sentry DSN warning from outer portal; task content still loaded"
+      ],
+      "screenshot_local": "outputs/hop-dong-thong-tin-p29.png"
     },
     "server_write_enforcement": "NOT_IMPLEMENTED",
-    "pg": "NOT_RUN"
+    "pg": "NOT_RUN",
+    "vps_check": {
+      "job_id": "516ccba23885421982237018187eb17f",
+      "status": "completed",
+      "position": 0,
+      "created_at": 1791725654.2115242,
+      "started_at": 1791725654.2631567,
+      "heartbeat": 1791725662.689866,
+      "elapsed": 8.427,
+      "cancel_requested": false,
+      "critical_phase": false,
+      "attempts": 1,
+      "result": {
+        "streams": {
+          "stdout": {
+            "bytes": 1062,
+            "sha256": "af2decda380e8ee78b3a4931471aca175fbaa31a683e2906a2011ef72c60947f",
+            "protected": false
+          },
+          "stderr": {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "protected": false
+          }
+        },
+        "exit_code": 3,
+        "timed_out": false,
+        "snapshot_excluded": [],
+        "source_head": "a2df07d6a53fb6a83328f96862768f66583075b8",
+        "source_head_at_queue": "a2df07d6a53fb6a83328f96862768f66583075b8",
+        "source_head_moved": false,
+        "stdout": "{\"run_id\": \"TQT-bbbb3000840b4ea087e0708bab4179cc\", \"at\": \"2026-10-11T13:34:21.828233+00:00\", \"scope\": \"work/tools-quy-trinh/**/*.py, **/*.js; không tuyên bố bao phủ toàn VPS\", \"registry_master\": \"CAT-006\", \"case_master\": \"CAT-012\", \"result_master\": \"CAT-015\", \"source_sha256\": \"132b582a6c09a3349465b648906dd4fd10b0a3408640f3b32daf96099f367630\", \"inventory_errors\": [], \"source_readback\": {\"state\": \"PASS\", \"source_sha256\": \"d18e0191b5afd0208ae0aa374e43f3cd800ca9bbbcd167e17fb39f08167d546c\", \"projection_equal\": true, \"rule_source_checks\": [{\"ref\": \"work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/contract\", \"matched\": true}], \"application_id\": \"MOW-NHC-001-G1-20261010-01\", \"trial_declarations\": 13, \"scope\": \"SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL\"}, \"results\": [], \"pg\": \"NOT_RUN\", \"production_ready\": false, \"prerequisite_errors\": [\"MISSING_RUNTIME:node\"], \"runner_self_test\": {\"cases\": 13, \"store\": \"temporary TEST file in execution snapshot\", \"write_read_restore\": \"PASS\", \"production\": \"NOT_TOUCHED\"}, \"status\": \"BLOCKED\"}\n",
+        "stdout_next_offset": null,
+        "stderr": "",
+        "stderr_next_offset": null
+      }
+    },
+    "commits": [
+      "57b215669c91e5c2a9ac4004d85c80a77c8f5852",
+      "67b67d8b46b8bc5620d08bf73d26e56e9195019e"
+    ],
+    "ui_adapter_final_verification": {
+      "sha256": "dafa0411a17a54a1eaf4fb5f8ab25f446e944b728206ae316112784e0852fa7b",
+      "suite": "TQT-CHECK-005",
+      "state": "PASS",
+      "note": "Reran after enabling accessibility of read-only detail; no edits to business state."
+    }
   }
 }
