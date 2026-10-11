@@ -36,7 +36,7 @@ Tách hai bảng, cùng dùng quy trình ⑤:
 
 Nguồn thiết kế: `catalog.work_schedule` (CAT-227*); luật/mẫu UI: `catalog.work_master_designs`. Khóa và phụ thuộc theo mã, không theo tên; kiểm thiếu hồ sơ, sai phiên, trùng mã/thứ tự và vòng phụ thuộc. Dữ liệu này chưa ghi vào PG; ánh xạ bảng/khóa/quyền vẫn thuộc TQT-ISS-007.
 
-**[Khu Master đang rà](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html)** bổ sung 9 Master đã có mã, thành 39 mục chọn thiết kế (30 cũ + 9). Master of Master vẫn 86 mục. Mỗi UI mới dùng nguyên UI.MASTER cha, có list và nút Xem mẫu khai báo; mẫu không phải bản ghi đã thực hiện. Không nhập các UI nháp vào danh mục UI con đã duyệt.
+**[Khu Master đang rà](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html)** bổ sung 9 Master đã có mã, thành 39 mục chọn thiết kế (30 cũ + 9). Master of Master vẫn 86 mục. Mỗi UI mới dùng nguyên UI.MASTER cha, có list và nút Xem mẫu khai báo; mẫu không phải bản ghi đã thực hiện. Không nhập các UI nháp vào danh mục UI con đã duyệt. Kiểm cấu trúc: `node check-work-masters.js view.html` (mã/phiên/hồ sơ/phụ thuộc; 10 ca sai bị chặn). Khi rà UI, chạy thêm với đường dẫn nguồn `process-work-master-v1.js` để kiểm cả 9 cấu hình list/mẫu khai báo.
 
 ## Hiện hành · D24/P23 · Host đọc tại COLLAB §0
 **5 quy trình tổng hợp + 12 quy trình thành phần.** Host đã chốt **MOW-TH-005 · Từ mục tiêu đến kết quả được nghiệm thu**, phiên `1.1-design`, Chuỗi CTCM `CH-001`, để áp thử thiết kế. Owner giao Host tự quyết; không còn chờ phê duyệt riêng ⑤. Chưa nghiệm thu PG hay tự động hóa.
