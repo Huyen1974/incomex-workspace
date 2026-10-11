@@ -8,14 +8,14 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-10 08:00 +07 · Claude · P24
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-11 17:55 +07 · Claude · P27
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ: [■ Thiết kế và khả thi] → [□ Triển khai] → [□ Vận hành]
-- ✅ Đã xong (thiết kế, chưa nghiệm thu): 30 Master · 5 quy trình tổng hợp, trong đó ⑤ MOW-TH-005@1.1 là khuôn chung mọi việc (13 câu khai, 11 trạng thái) · 12 quy trình thành phần · 159 câu/53 nhóm · 87 ca mô phỏng · Over view.
+- ✅ Đã xong (thiết kế, chưa nghiệm thu): 48 Master thiết kế · 5 quy trình tổng hợp, ⑤ MOW-TH-005@1.1 là khuôn chung (7 mốc, 11 nhóm ghi) · 12 quy trình thành phần · 159 câu/53 nhóm · 5 bộ kiểm + runner PASS cục bộ (P26) · Over view 2 bảng. 🔴 Chạy thật: 0 nơi ghi kiểm được; ca MOW001/G1 0/34 đã ghi, 0/7 mốc, 2 ngày không đi bước nào (PR-12).
 - ■ Đang làm: — · 0 RUN active
-- ⬜ Còn lại: 1) ca MOW001/G1 đi theo ⑤ tới nghiệm thu thiết kế → 2) ca đầu tiên "ý tưởng → quy trình chạy được" (ô 3 R04) → 3) AI mới làm lại không cần hỏi → 4) G2 triển khai, PG staging → 5) G3 vận hành.
-- ➡ Kế tiếp: 🤖 Astra Codex kiểm đầu vào G1, xác nhận kế hoạch trước S3 trong application_D24, đồng bộ README theo D25 · 🤖 Claude rà §0 mỗi lượt được gọi · 😊 Owner: không có việc chờ. NEXT_TRIGGER=VERIFY_G1_INPUTS_AND_CONFIRM_PLAN_BEFORE_S3
+- ⬜ Còn lại: 1) B1 ánh xạ 11 nhóm ghi → bảng PG đang có (checkpoint_instances · approval_requests · lifecycle_log · dot_tools), chốt mã thật thay ?/* → 2) B2–B5 ca MOW001/G1 đi hết 7 mốc với bản ghi thật, mốc 3 và 5–6 do phiên AI khác → 3) B6 gom thiếu vào 002, sửa ⑤ → 4) B7 ca "ý tưởng → quy trình chạy được" (R04) → 5) G2 triển khai → 6) G3 vận hành.
+- ➡ Kế tiếp: 🤖 Astra Codex xét PR-12 (ACCEPT/REJECT A1–A5), nếu ACCEPT: đóng băng thiết kế, ghi D27, làm B1 rồi B2 · 🤖 Claude rà §0 mỗi lượt được gọi · 😊 Owner: không có việc chờ (B7 mới cần 1 ý tưởng của Owner). NEXT_TRIGGER=HOST_DECIDES_PR12_THEN_B1
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -44,7 +44,8 @@ M1 · Cỗ máy: ý tưởng → quy trình chạy được, tự động tối 
 - R01 🟡 Khuôn chung cho mọi việc lớn/nhỏ: một quy trình tổng hợp chung nhất, vừa là khuôn làm, khuôn kiểm, khuôn lập kế hoạch, tự động hoá, giám sát và biết sai ở đâu. Trả lời đủ 13 câu: việc gì (mã + Master) · bắt đầu từ đâu (kiểm nối vào) · kết thúc ở đâu (kiểm nối ra) · đầu vào đủ chưa · điều kiện thực hiện · kế hoạch ghi đâu · kết quả ghi đâu · sai/thiếu ghi đâu · ai làm, báo thế nào · ai test, đạt là gì, ghi đâu · duyệt đưa vào dùng · phiếu đủ/thiếu cho AI · vòng đời trạng thái. Chỉ bắt đầu khi đủ đầu vào, đủ nơi ghi và kế hoạch đã được xác nhận. → MOW-TH-005@1.1 (D24). Không thêm TH-06: 005 đã giữ đúng vai này, và Owner D22 hạn chế khái niệm mới.
 - R02 🟡 Mỗi việc có một bảng nhìn là hiểu: cần làm gì · đã làm gì · làm tiếp gì · ai làm tiếp · đến đâu · tắc ở đâu · lý do. → application_preview trên Over view (P23); mới có 1 phiếu (MOW001/G1).
 - R03 🟡 AI không tự sáng tạo trong việc lặp lại. Thiếu quy trình → 002 nhận → 003 xây/sửa và công bố → mới làm tiếp. Sáng tạo = sửa quy trình.
-- R04 ⬜ Đường chuẩn "ý tưởng → quy trình chạy được": Owner đưa ý tưởng → 005 khai việc → 003 dựng quy trình (design/execute) → 001 khi cần config/PG/DOT → chạy được. Chưa có ca thật nào đi hết đường này; đây là phép thử chính của M1.
+- R04 ⬜ Đường chuẩn "ý tưởng → quy trình chạy được": Owner đưa ý tưởng → 005 khai việc → 003 dựng quy trình (design/execute) → 001 khi cần config/PG/DOT → chạy được. Chưa có ca thật nào đi hết đường này; đây là phép thử chính của M1. → Lịch: B7 ngay sau ca MOW001 (PR-12 mục 4).
+- R04a 🔴 Nơi ghi thật: mọi nhóm ghi của ⑤ phải trỏ vào bảng đang chạy thật trước khi ca đầu tiên bắt đầu; "Đã ghi" chỉ tính khi có bản ghi trong bảng đó. Hiện 0/11 nhóm có nơi lưu kiểm được (11/10). Ưu tiên bảng PG có sẵn: checkpoint_instances · approval_requests · lifecycle_log · dot_tools (PR-12 A1).
 - R05 🟡 Quy trình tổng hợp nối các quy trình con: trước/sau, khi nào đi tiếp, khi nào quay lại; thiếu thì bổ sung. Không dừng ở thiết kế UI mà phải chạy được tới cùng. → MOW-TH-001…004.
 - R06 🟡 Ba giai đoạn, mỗi giai đoạn một mốc nghiệm thu: G1 thiết kế + đánh giá khả thi (gồm dự kiến config, đủ trường/danh sách) → G2 config thật, vào PG, test kỹ thuật, AI test trên UI như người → G3 vận hành thật, log + phản hồi người dùng, hiệu chỉnh, bàn giao VHCM theo dõi. Thiết kế được duyệt ≠ đã triển khai ≠ đã dùng thật. → G1 đang thử; G2, G3 ⬜.
 - R07 🟡 Quy trình tổng hợp đầu tiên MOW-TH-001 "chế tạo một chi tiết/chức năng": đặt tên trong Master → thiết kế UI → chạy thử giả định các quy trình sau. Đích: được thông qua, yên tâm chạy; hoặc ghi sai/thiếu vào sổ, giải xong là chạy.
@@ -60,7 +61,7 @@ M2 · Mọi thứ là quy trình; từ 2 trở lên có Master List
 - R15 🟡 Khép kín sai/thiếu: chưa sửa ngay → ghi một sổ, theo vòng đời tới khi xong (phát hiện → xác minh → xử lý → đấu lại → kiểm tại nơi phát hiện → kết thúc). Gửi ≠ đã nhận; bị từ chối ≠ đạt. Đạt có nhiều mức tăng dần và có chỗ ghi; tách mức kiểm · kết quả · hiệu lực để lần sau chỉ kiểm phần chưa đạt hoặc bị ảnh hưởng. → MOW-TH-002.
 - R16 🟡 Có quy trình rà: chỗ gãy · chỗ chồng lấn (2 quy trình cùng 1 việc) · tiến trình đứng lẻ · trạng thái/thông tin chưa có chỗ ghi · chưa có điều kiện đạt/kết thúc · chưa có quy trình xử lý tiếp. → đang là bộ kiểm khai báo (PR-08 → D24); chưa là một quy trình có mã.
 - R17 🟡 Danh mục = 3 Chuỗi × nghiệp vụ × 3 lớp. 3 Chuỗi: CTCM Chế tạo cỗ máy · VHCM Vận hành cỗ máy · CMSXQT Cỗ máy sản xuất quy trình.
-- R18 ⬜ Nền = chuẩn tốt nhất ngành IT + phần riêng Incomex. Mỗi chuẩn ghi "Nền: … · Riêng Incomex: …"; chưa tìm được nền thì ghi CHƯA TÌM và tính chưa đạt.
+- R18 🔴 Nền = chuẩn tốt nhất ngành IT + phần riêng Incomex; **nền trong nhà = bảng/DOT đang chạy trên PG trước khi vẽ Master mới**. Mỗi chuẩn ghi "Nền: … · Riêng Incomex: …"; chưa tìm được nền thì ghi CHƯA TÌM và tính chưa đạt. → 11/10: thiết kế 8 Master mới trong khi PG đã có checkpoint_instances (121 dòng), approval_requests (232), lifecycle_log (851), dot_tools (314); chưa dòng "Nền:" nào trong task (PR-12 F02).
 
 M3 · Nhìn là hiểu
 - R19 🟡 Ít chữ, kiểu Công thức, một khuôn; nửa phút biết có gì · thiếu gì · tắc ở đâu. Dùng màu (xanh ok · vàng cảnh báo · đỏ tắc · xám chưa làm) và biểu tượng (😊 người làm · 🤖 máy làm). Chi tiết máy để ở phần "cho AI". Mỗi quy trình có chú giải 4 ý (để làm gì · khi nào dùng · tránh gì · xong khi) ở một nguồn duy nhất (D21).
@@ -547,6 +548,13 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - — Q01 · ĐÃ GIẢI QUYẾT D22/D25: Astra Codex là Host nội dung; Claude là Host Kiểm soát (Bảng, ô 1–3). Mục tiêu ngắn: Owner tự viết ô 1 ngày 10/10 (D25), đã áp; PR-07 đóng. Không có câu hỏi Owner đang mở.
 
 ## Ý kiến và bằng chứng
+### P27 · Claude phản biện khả thi QTTH 05 trước triển khai · ĐỀ XUẤT, CHỜ HOST QUYẾT
+Ghế: Claude-review · Host Kiểm soát + phản biện. Based_on: @64bfc31; P25–P26; PR-09/10/11; phiếu application_D24; schema + đếm dòng PG thật (chỉ SELECT).
+- Tự chạy run-tqt-checks --verify: 5 suite + runner PASS cục bộ, pg NOT_RUN. Ca MOW001/G1: CHUAN_BI, mốc 2/7, 5/5 việc TODO, 0/34 đã ghi, start_confirmation PENDING từ 10/10; lịch sử 1 sự kiện.
+- Kết luận: kiến trúc ⑤ khả thi; triển khai chưa khả thi vì 0 nơi ghi thật và chưa ai đi hết một lượt; thiết kế nở ra (442→868 KB view, +8 Master, +2 checker) trong khi ca thật đứng yên. PG đang chạy đã có bảng tương đương 5/11 nhóm ghi.
+- Đề xuất đầy đủ: [PR-12](proposals/TQT-PR-20261011-claude-feasibility-qtth05-12.md): F01–F10, A1–A5 (dùng bảng PG có sẵn · đóng băng thiết kế · tách người làm/người kiểm · một bảng ánh xạ · Over view 1 dòng/ca), lộ trình B1–B7. JEV: gốc rễ no_store/scope, hướng B 0,72.
+- Host Kiểm soát đã cập nhật Bảng, R04a, R18 theo bằng chứng. Không sửa view/README/phiếu. Áp: SAME_COMMIT.
+
 ### P26 · Host đi bộ 7 mốc và đăng ký công cụ dùng lại · KIỂM THIẾT KẾ
 Ghế: Codex · Host nội dung · Bước/vòng: rà/sửa theo chỉ đạo trực tiếp Owner 11/10 · 1/5. Based_on: 7d4cedfad44832288b57eff9524b742361d8971e + bản phản biện GPT Pro Owner dán. Không giả là đã có Reviewer khác hãng nghiệm thu.
 - Đường vào Owner: `/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view`; nguồn `work/tools-quy-trinh/view.html`. Master nạp catalog và hàm kiểm từ cùng bản xuất qua tqt-catalog-source-v1.js; adapter `ui/process-work-master-v1.js`.
