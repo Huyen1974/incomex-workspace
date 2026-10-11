@@ -560,7 +560,7 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - Đã làm: catalog.trial_storage_contract + data_contract_index; 13 dòng declarations ở application_D24 có mã/phiên và trở thành dữ liệu kho thử; cùng bộ tính đọc dòng thật, kiểm mã/phiên/cột/địa chỉ; Python kiểm bản chiếu bằng file nguồn. Không tự tăng mốc hoặc kết quả nghiệp vụ; không viết PG, không tạo Master/script/file nguồn mới.
 - C1 mới khép lát khai báo; MOW/MOT, kế hoạch, kết quả và nhánh khác còn cần binding, không nhận đã hoàn thiện kho thử toàn việc. CAT-006 cập nhật hash bộ kiểm, ca mới dùng lại checker hiện hữu. TQT-ISS-007 tiếp tục mở.
 - Bằng chứng: UI-REVIEW-AGGREGATE.json#host_review_P28; không nhận tự kiểm Host là kiểm độc lập. JEV gen-dec-1791720791-8MbAAgYxDMyi2zfOLpje là tham khảo cho cách nối thiết kế/dùng lại nguồn, không là phê duyệt.
-- Đường ghi: workspace_transaction expected_version; đọc lại file sản phẩm và Overview sau ghi. Áp: SAME_COMMIT.
+- Kiểm sau ghi: commit ed8e0e72/f1e6a321; VPS runner job 2cf644186b274d0a8eaca12e2b1bda6b đọc lại đúng file sản phẩm, projection_equal=true, 13 câu khai. Cục bộ 5 suite PASS, 59 ca cũ + 15 ca kho thử, runner 13 ca. VPS full-suite vẫn BLOCKED thiếu Node; đọc nguồn PASS không đổi trạng thái nghiệp vụ. Browser: 13/20 đến hạn đã ghi, 14 chưa đến hạn, 0 đối chiếu, 0/7 mốc; không PG. Áp: SAME_COMMIT.
 
 ### P27 · Claude phản biện khả thi QTTH 05 · bản v2 theo cách đi 3 bước của Owner (D27) · ĐỀ XUẤT, CHỜ HOST QUYẾT
 Ghế: Claude-review · Host Kiểm soát + phản biện. Based_on: @dfaa160; chỉ đạo Owner 11/10 18:02 (D27); PR-07; PR-12 v1; phiếu application_D24 (34/34 record_ref = null).
