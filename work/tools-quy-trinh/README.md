@@ -1,13 +1,29 @@
 # tools-quy-trinh · Cửa vào
 
-## Over view · chỉ trả lời hai câu hỏi điều hành
-[1. Quy trình tổng hợp ⑤ phải qua 7 mốc nào, việc đang ở đâu?](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=tqt-checkpoint-list) · [2. Từng thông tin của việc ghi vào sổ nào, đã ghi chưa?](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=tqt-recording-list). Hai bảng **thu gọn mặc định**.
+## Over view · đúng hai câu hỏi
 
-**Câu 1**: 7 checkpoint là đường đi của ⑤, chiếu từ 6 MOT; phần tiến độ của mỗi việc theo application_id. Hội đồng chưa hoàn tất phản biện bộ 7 mốc, không tự coi đã nghiệm thu.
+**[1. Việc phải qua mốc nào, đang ở đâu?](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=tqt-checkpoint-list)**
+**Kiểm đầu vào (1–3) → làm theo quy trình (4) → kiểm đầu ra, duyệt và bàn giao (5–7).** Bảy mốc thuộc quy trình ⑤, chiếu từ 6 MOT; chưa thêm quy trình/tầng. Mốc đang chuẩn bị khác mốc đã kiểm đạt. Bộ 7 mốc đang áp thử, còn chờ hội đồng thống nhất.
 
-**Câu 2**: không đếm Master để kết luận. Bảng hiển thị **các nghĩa vụ ghi sổ của đúng lần MOW001/G1**, kiểm từng mục: việc cần ghi → sổ/Master/phiếu hiện hữu → có sổ và bản ghi đúng mã/phiên chưa → đã ghi và kiểm đọc lại chưa. Bao gồm mã MOW, 3 MOT, 13 mục khai, 5 kết quả kế hoạch P01–P05, lịch sử, sổ sai/thiếu, ca kiểm, quyết định và ACK. Dữ liệu thật hiện có: 13/13 khai, 0/13 có bằng chứng kiểm; 5 P đều TODO; 3 MOT chưa đối chiếu khớp Master; xác nhận đủ trước S3 còn PENDING. “Chưa xác định nơi ghi” không mặc nhiên là “chưa có sổ”; “chưa phát sinh” không phải “quên ghi”.
+**[2. Phải ghi gì, sổ nào, có sổ chưa, đã ghi chưa?](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=tqt-recording-list)**
+Mỗi thông tin cần ghi có một dòng: **nội dung → sổ → tình trạng sổ → tình trạng bản ghi → việc tiếp/người giữ**. Master List, phiếu và nhật ký đều là sổ. Có địa chỉ chưa chứng minh có sổ; có sổ chưa chứng minh quyền ghi; đã ghi chưa có nghĩa nội dung đạt.
 
-**19/30 Master chung** là bảng kiểm kê riêng **giữ dưới mục tham khảo** của Câu 2; ⑤ không sở hữu 19 Master. Dữ liệu Q2 hiện mới từ phiếu MOW001/G1, chưa có bộ dò tự động phát hiện mọi thông tin bị bỏ sót cho toàn hệ thống. Bộ câu hỏi hội đồng và yêu cầu kiểm chứng ở `proposals/TQT-PR-20261010-gptchat-two-questions-record-review-11.md`; Host nội dung Codex và Host Kiểm soát Claude phản biện/tiếp nhận, không dùng một lần render làm bằng chứng sản phẩm đã chạy.
+- **Chưa xác định sổ / chưa kiểm sổ / xác nhận thiếu sổ:** xác minh hoặc bổ sung nơi ghi, không đoán.
+- **Có sổ, đến hạn chưa ghi:** thiếu bản ghi cần làm. **Đã ghi, chưa kiểm:** đối chiếu đúng việc/phiên và căn cứ.
+- **Chưa đến mốc hoặc chưa phát sinh nhánh:** chưa cần có kết quả, nhưng nơi ghi và quyền ghi/đọc vẫn phải chuẩn bị trước mốc 3.
+- **Đã ghi và kiểm đúng:** giữ bằng chứng; nguồn đổi thì kiểm lại phần ảnh hưởng. Không áp dụng phải có lý do và quyết định.
+
+**Cách làm duy nhất:** đọc mục tiêu → khai đúng việc/phạm vi → lấy quy trình và bộ câu hỏi → liệt kê mọi thông tin phải ghi từ đầu vào/đầu ra/kế hoạch/các nhánh → kiểm sổ và quyền → xác nhận đủ → làm → kiểm → duyệt/bàn giao. So danh sách **phải ghi** với **đã ghi**, không dùng các bản ghi đang có để kết luận không bỏ sót. Thiếu nơi ghi hoặc thiếu khai báo thì giữ người xử lý, quay S5 của ⑤ và dùng ②/③ hiện hữu; không tự mở sổ khác.
+
+**Ca hiện tại MOW001/G1:** chuẩn bị mốc 2; **0/7 mốc được xác nhận đạt**. 34 dòng nghĩa vụ đã khai: 13 mục khai + kế hoạch có nội dung nhưng chưa kiểm đúng; 4 bản ghi Master chưa đối chiếu; P01 và bằng chứng rà đủ còn thiếu; các đầu ra còn lại chờ mốc/nhánh. 5 dòng chưa xác minh sổ, quyền ghi/đọc chưa kiểm. **P01 là chuẩn bị, được làm ngay; chưa được sửa sản phẩm trước xác nhận mốc 3.** Số dòng sẽ theo phạm vi từng việc, không cố định 34 cho mọi việc.
+
+**Nguồn duy nhất:** mốc và quy tắc tại `view.html → tqt-composite-processes → catalog.records[MOW-TH-005].workflow.checkpoints / catalog.work_form.record_control`; phiếu tại `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24`. Overview sinh từ phiếu, kiểm dấu nội dung và đối chiếu nguồn. Không sửa trạng thái ngay trên bảng.
+
+**Thiết kế cho PG:** phần thu gọn “Cho AI / PG” có bảng dự kiến, khóa, phiên/lần làm và quan hệ; dùng lại run/reference/event/assessment/issue. Đây là thiết kế lưu trữ, **chưa vào SQL gói PG, chưa nạp PG**, còn ánh xạ toàn phiếu, quyền và kiểm đồng thời ở `TQT-ISS-007`.
+
+**Kiểm của Host 11/10:** `node check-record-control.js view.html` kiểm cùng bộ đối chiếu dùng trên màn hình (22 ca: bỏ dòng, sai lần/phiên, thiếu sổ/bản ghi, chưa đến hạn, bằng chứng giả thiếu, nhảy mốc). Chỉ chứng minh trong tập nghĩa vụ đã khai; rà đầy đủ hợp đồng/nhánh vẫn PENDING. Kèm `python3 check-overview-consistency.py view.html` để đối chiếu phiếu nguồn. Không dùng các ca mô phỏng để nhận PG hay UI đã chạy.
+
+**Tiếp nhận [PR11](proposals/TQT-PR-20261010-gptchat-two-questions-record-review-11.md):** giữ hai bảng. H1/H2 **REQUEST_CHANGES** đến khi rà đủ hợp đồng, Master, quyền và đọc lại; H3 **ACCEPT** tách tình trạng; H4 **ACCEPT phần thiết kế**, chưa nghiệm thu thực thi; H5 **chưa xác nhận** AI mới đi hết. Giữ hồ sơ `TQT-ISS-007`. Kiểm kê 19/30 Master nằm ở phần tham khảo, không phải bằng chứng đã ghi đủ cho một việc.
 
 ## Hiện hành · D24/P23 · Host đọc tại COLLAB §0
 **5 quy trình tổng hợp + 12 quy trình thành phần.** Host đã chốt **MOW-TH-005 · Từ mục tiêu đến kết quả được nghiệm thu**, phiên `1.1-design`, Chuỗi CTCM `CH-001`, để áp thử thiết kế. Owner giao Host tự quyết; không còn chờ phê duyệt riêng ⑤. Chưa nghiệm thu PG hay tự động hóa.
@@ -47,7 +63,7 @@ Kiểm kê tại `tqt-composite-processes.inventory`: hai bản phác thảo t�
 **Ý mục 3 của Owner vẫn là đề xuất:** quy trình/bước tham chiếu câu hỏi dùng chung và chịu trách nhiệm trả lời/kiểm/ghi/đi tiếp; chưa áp quy tắc mỗi nhóm câu phải thành MOW riêng. Sáu vùng chưa nối và ba vùng giao nhau đã ghi tại danh mục; không mở sổ khác.
 
 ## Đọc đích trước khi làm
-Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](COLLAB.md); trạng thái hiện tại ở Bảng điều khiển cùng file. Giữ nguyên 15 ý Owner, đọc cả phần “Làm rõ mục tiêu” ngày 09/10: phải có quy trình khép kín, đủ câu hỏi/đáp án và bằng chứng làm theo ra đúng sản phẩm. Ma trận, UI và mô hình dữ liệu là các phần phục vụ mục tiêu này. Chi tiết dưới đây là cách thực hiện và lịch sử; không thay tiêu chí nghiệm thu.
+Mục tiêu chuẩn và tiêu chí hoàn thành ở [COLLAB.md §0, ô 1–2](COLLAB.md); trạng thái hiện tại ở Bảng điều khiển cùng file. Đọc mục tiêu Owner hiện hành D25 ngày 10/10 tại đó (thay bản 15 ý cũ): phải có quy trình khép kín, đủ câu hỏi/đáp án và bằng chứng làm theo ra đúng sản phẩm. Ma trận, UI và mô hình dữ liệu là các phần phục vụ mục tiêu này. Chi tiết dưới đây là cách thực hiện và lịch sử; không thay tiêu chí nghiệm thu.
 
 ## Mô hình hướng PG · v2 · đang kiểm ngoài PG
 [Mặt người vẫn sáu ô](view.html#tqt-mo-hinh-pg). SSOT: JSON `view.html#tqt-process-model` (`TQT-MODEL-001`). Giữ 159 câu/53 nhóm; không thêm tầng nghiệp vụ.
