@@ -312,7 +312,7 @@ def audit_vps(args, catalog):
                 if runner_receipt:rec['subtools'].append(runner_receipt)
                 for item in report.get('results',[]):
                     if item.get('id') in registry and re.fullmatch('[0-9a-f]{64}',item.get('source_sha256','')):
-                        rec['subtools'].append({'id':item['id'],'sha256':item['source_sha256'],'exit_code':item.get('exit_code'),'case_set':item.get('case_set'),'evidence_ref':rec['evidence_ref']+'#results/'+item['id']})
+                        rec['subtools'].append({'id':item['id'],'sha256':item['source_sha256'],'exit_code':item.get('exit_code'),'case_set':item.get('case_set'),'checked_at':report.get('at'),**({'ui_inputs':report.get('ui_inputs',{})} if item['id']=='TQT-CHECK-005' else {}),'evidence_ref':rec['evidence_ref']+'#results/'+item['id']})
             except (ValueError,AttributeError,TypeError):pass
         jobs.append(rec)
     con.close()
@@ -387,6 +387,7 @@ def main():
         inputs=[args.ui_adapter]
         if args.master_registry:
             inputs.extend(args.ui_adapter.parent/n for n in ('ui-child-content-v1.js','ui-child-from-parent-v1.js'))
+            inputs.append(args.master_registry)
         report['ui_inputs']={}
         for path in inputs:
             if path.is_file():report['ui_inputs'][path.name]=sha(path)

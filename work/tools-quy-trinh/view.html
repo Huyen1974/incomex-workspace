@@ -34742,7 +34742,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "3d4f08065fa476b20428818de817d3228a5b4eb07ada142b4a79c0897dc7b079",
+          "sha256": "da8677af2fcd8d42fe1ff1a702d82b0d3685f0db0704e28ad646e4b30fe5d6ab",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -34756,7 +34756,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 60,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "7a7bcbf9dc50f06b0372f2b8a3cc9193ecc0281c5c3cbdacf1fa6dbb1e2728b0",
+            "process-work-master-v1.js": "96a2da5a4954ad1c5b072f03aae6dbf00eb6705ceeefbe3d1c7d6f7eeb905493",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
           }
@@ -34777,7 +34777,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "run-tqt-checks.py",
             "--verify"
           ],
-          "sha256": "c000c5fe6321bcdb6719c2d08af0e58c93d85110ffa385d52c0f3ed5b88272d1",
+          "sha256": "a5b41f0a5dca8f10c9ee8c062319f235d4cdbf7cab05576de9ef605d1c203c2f",
           "preconditions": "Python 3.11+; registry UI vừa đọc; Node.js cho toàn bộ suite, --identity-only không cần Node; không cần quyền PG",
           "input": "view.html; phiếu MOW001; registry định nghĩa UI vừa đọc qua --master-registry hoặc --master-registry-json; UI adapter tùy chọn",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -39960,7 +39960,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "claude_review": 160
           }
         },
-        "approval_rule": "Hai vendor khác nhau, đúng binding SHA256:contract_revision và cùng acceptance_scope; chỉ xét phiếu cuối mỗi vendor. Đổi nguồn/hợp đồng/phạm vi hoặc thu hồi duyệt làm mất hiệu lực. Đây là kiểm biểu diễn; ACL/chữ ký nền tảng cần xác minh thật, không tin người tự khai.",
+        "approval_rule": "Hai vendor khác nhau, đúng binding SHA256:contract_revision và cùng acceptance_scope; chỉ xét phiếu cuối mỗi vendor. Đổi nguồn/hợp đồng/phạm vi hoặc thu hồi duyệt làm mất hiệu lực. Đây là kiểm biểu diễn; ACL/chữ ký nền tảng cần xác minh thật, không tin người tự khai. Bộ kiểm có ui_inputs: binding ghim cả bốn tệp phụ thuộc; TEST thiếu/sai hash phụ thuộc phải kiểm lại.",
         "record_rule": "memory giữ hợp đồng/người giữ/phạm vi; changes ghi phiên cũ→mới có lý do/actor/thời điểm; reviews giữ phiếu xác minh; audit_projection giữ nguồn và TEST. Không mở Master mới. Phiếu cũ chỉ thêm, không ghi đè.",
         "historical_scope": "Số lần nâng tính từ P34; không suy ngược lịch sử thiếu.",
         "test_rule": "Được kiểm kỹ thuật chỉ đọc trong quyền hiện có để tạo bằng chứng; chưa đủ hai duyệt không tự chạy mutation hay công bố đã được nghiệm thu."
@@ -40303,6 +40303,36 @@ main{max-width:1240px} [hidden]{display:none!important}
             "tools-quy-trinh/P34"
           ],
           "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
+        },
+        {
+          "change_id": "TQT-P34-UPGRADE-TQT-CHECK-005-2",
+          "kind": "UPGRADE",
+          "target_code": "TQT-CHECK-005",
+          "previous_version": "3d4f08065fa476b20428818de817d3228a5b4eb07ada142b4a79c0897dc7b079",
+          "next_version": "da8677af2fcd8d42fe1ff1a702d82b0d3685f0db0704e28ad646e4b30fe5d6ab",
+          "target_version": "da8677af2fcd8d42fe1ff1a702d82b0d3685f0db0704e28ad646e4b30fe5d6ab",
+          "reason": "Ghim cả nguồn UI phụ thuộc trong TEST và chữ ký; giữ thời điểm kiểm",
+          "actor": "Codex Host",
+          "changed_at": "2026-10-12T04:15:49.952618+00:00",
+          "affected_applications": [
+            "tools-quy-trinh/P34"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
+        },
+        {
+          "change_id": "TQT-P34-UPGRADE-TQT-CHECK-006-2",
+          "kind": "UPGRADE",
+          "target_code": "TQT-CHECK-006",
+          "previous_version": "c000c5fe6321bcdb6719c2d08af0e58c93d85110ffa385d52c0f3ed5b88272d1",
+          "next_version": "a5b41f0a5dca8f10c9ee8c062319f235d4cdbf7cab05576de9ef605d1c203c2f",
+          "target_version": "a5b41f0a5dca8f10c9ee8c062319f235d4cdbf7cab05576de9ef605d1c203c2f",
+          "reason": "Ghim cả nguồn UI phụ thuộc trong TEST và chữ ký; giữ thời điểm kiểm",
+          "actor": "Codex Host",
+          "changed_at": "2026-10-12T04:15:49.952618+00:00",
+          "affected_applications": [
+            "tools-quy-trinh/P34"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
         }
       ],
       "walkthrough": {
@@ -40334,7 +40364,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           {
             "step": 4,
             "state": "XONG",
-            "result": "Đã bổ sung bộ nhớ và hai cột duyệt, nối6Master; kiểm local CHECK005 đạt. Còn kiểm VPS/UI và rà độc lập."
+            "result": "Hiệu chỉnh cùng nguồn; local và lượt VPS v1 đạt; bản v2 bổ sung ghim hash phụ thuộc, kiểm lại trước khi ghi duyệt."
           },
           {
             "step": 5,
