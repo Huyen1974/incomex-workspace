@@ -65348,6 +65348,270 @@
       "source_sha256": "6b40846cf4b4f079d3537831fc162607df8d32ea8f9f365d0383bc04593f06c3",
       "contract_content_sha256": "5481979a5bce26c8d60bfcc28ef9c655b76bed6ba21dcfb97cd0e42c2960a04c",
       "scope": "Contract v4 only; not UI acceptance"
+    },
+    "ui_model_checks": {
+      "schema": "TQT-CHECK-004/G1-UI-1",
+      "state": "PASS",
+      "environment": "ISOLATED_MODEL_CHECK",
+      "application_id": "MOW-NHC-001-G1-20261010-01",
+      "contract_binding": {
+        "id": "MOW001-G1-IC",
+        "version": "5"
+      },
+      "target_version": "ui/mow-ui-walkthrough-v1.js@02230bf383141b41f5d09bb586cc34ab6981777a25ddd805a58bbdc451d132e4",
+      "target_hash_matches": true,
+      "build_version": "MOW001-G1-UI-P36.1",
+      "sources": [
+        {
+          "name": "field-flow-model-v1.js",
+          "sha256": "bc1596418b8d2295d418ca8ce36ed2e5b21964e04fbb6e511399b7c9c3906cb8",
+          "bytes": 9285
+        },
+        {
+          "name": "field-flow-v1.js",
+          "sha256": "4234de97a11a25cd26a3388de741ffc664ff58892a17c9899e7565e201ceb874",
+          "bytes": 13069
+        },
+        {
+          "name": "mow-ui-walkthrough-v1.js",
+          "sha256": "02230bf383141b41f5d09bb586cc34ab6981777a25ddd805a58bbdc451d132e4",
+          "bytes": 10416
+        }
+      ],
+      "cases": [
+        {
+          "id": "CONCLUSION_found",
+          "state": "PASS",
+          "expected": "found",
+          "actual": {
+            "conclusion": "found",
+            "candidates": 2,
+            "mode": "example"
+          }
+        },
+        {
+          "id": "CONCLUSION_not_found",
+          "state": "PASS",
+          "expected": "not_found",
+          "actual": {
+            "conclusion": "not_found",
+            "candidates": 2,
+            "mode": "example"
+          }
+        },
+        {
+          "id": "CONCLUSION_incomplete",
+          "state": "PASS",
+          "expected": "incomplete",
+          "actual": {
+            "conclusion": "incomplete",
+            "candidates": 2,
+            "mode": "example"
+          }
+        },
+        {
+          "id": "CONCLUSION_unconfigured",
+          "state": "PASS",
+          "expected": "incomplete",
+          "actual": {
+            "conclusion": "incomplete",
+            "candidates": 2,
+            "mode": "example"
+          }
+        },
+        {
+          "id": "CONCLUSION_empty",
+          "state": "PASS",
+          "expected": "not_found",
+          "actual": {
+            "conclusion": "not_found",
+            "candidates": 0,
+            "mode": "example"
+          }
+        },
+        {
+          "id": "CONCLUSION_error",
+          "state": "PASS",
+          "expected": "incomplete",
+          "actual": {
+            "conclusion": "incomplete",
+            "candidates": 0,
+            "mode": "example"
+          }
+        },
+        {
+          "id": "CONCLUSION_forbidden",
+          "state": "PASS",
+          "expected": "incomplete",
+          "actual": {
+            "conclusion": "incomplete",
+            "candidates": 0,
+            "mode": "example"
+          }
+        },
+        {
+          "id": "INVALID_FINAL_DATA",
+          "state": "PASS",
+          "expected": "Reject nulls/bad timestamp",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "WRONG_CALLER",
+          "state": "PASS",
+          "expected": "Reject other recipient",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "STALE_CANDIDATE",
+          "state": "PASS",
+          "expected": "Reject previous revision inside candidate",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "STALE_AGGREGATE",
+          "state": "PASS",
+          "expected": "Reject previous rule in total evaluation",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "CHANGED_INPUT",
+          "state": "PASS",
+          "expected": "Invalidate result/evaluation/receipt",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "CLEAR_MONOTONIC_REVISION",
+          "state": "PASS",
+          "expected": "Do not reset revision to an old value",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "NO_SELECTION_REQUIREMENT",
+          "state": "PASS",
+          "expected": "Return complete suitable set without checkbox",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "EXACT_ACK_AND_IDEMPOTENT_RETURN",
+          "state": "PASS",
+          "expected": "Same packet retained; forged ACK ignored",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "LIVE_CANCEL_AND_LATE_RESULT",
+          "state": "PASS",
+          "expected": "Cancellation preserves caller and rejects late response",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "NO_LIVE_EXAMPLE_PROOF",
+          "state": "PASS",
+          "expected": "Live cannot make example data or successful result without adapter",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "MALFORMED_CANDIDATES",
+          "state": "PASS",
+          "expected": "Invalid object rejected without crashing",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "DESCRIPTION_ONLY",
+          "state": "PASS",
+          "expected": "Description is valid intent; live remains unconnected",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "EMPTY_FILTERS",
+          "state": "PASS",
+          "expected": "Empty object/blank strings are not intent; meaningful filter is",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "CANCEL_BEFORE_INPUT",
+          "state": "PASS",
+          "expected": "No query needed for identified cancellation",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "CANCEL_CANNOT_BYPASS_INTENT_1.1",
+          "state": "PASS",
+          "expected": "Reject cancellation outside interface",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "CANCEL_CANNOT_BYPASS_INTENT_1.2",
+          "state": "PASS",
+          "expected": "Reject cancellation outside interface",
+          "actual": "Assertions matched"
+        },
+        {
+          "id": "SOURCE_READ_ONLY",
+          "state": "PASS",
+          "expected": "All three source hashes unchanged after checks",
+          "actual": [
+            {
+              "name": "field-flow-model-v1.js",
+              "sha256": "bc1596418b8d2295d418ca8ce36ed2e5b21964e04fbb6e511399b7c9c3906cb8"
+            },
+            {
+              "name": "field-flow-v1.js",
+              "sha256": "4234de97a11a25cd26a3388de741ffc664ff58892a17c9899e7565e201ceb874"
+            },
+            {
+              "name": "mow-ui-walkthrough-v1.js",
+              "sha256": "02230bf383141b41f5d09bb586cc34ab6981777a25ddd805a58bbdc451d132e4"
+            }
+          ]
+        }
+      ],
+      "total": 24,
+      "passed": 24,
+      "failed": 0,
+      "source_integrity": "UNCHANGED_DURING_CHECK",
+      "browser_verification": "NOT_PERFORMED",
+      "product_acceptance": false,
+      "mow001_checkpoint_change": false,
+      "pg": "NOT_RUN"
+    },
+    "design_review": {
+      "state": "ACCEPT_TECHNICAL_PENDING_LIVE",
+      "reviewer": "/root/review_mow001",
+      "execution": "21f10a",
+      "contract_version": "5",
+      "contract_content_sha256": "8b283164bc474db4610e05f64cab1d54f2e7abeed438c4dca7e33bf20d1a8bd9",
+      "product_sha256": "89d26131f98bea0176cd6d2d229cd5cb1ffb6519d4082dc7d8caf644831ea0c6",
+      "engine_sha256": "931e932a08a31fb4487f9c1a0b2f637445e8b65300703962a01802c72d6fd4d1",
+      "sources": [
+        {
+          "name": "field-flow-model-v1.js",
+          "sha256": "bc1596418b8d2295d418ca8ce36ed2e5b21964e04fbb6e511399b7c9c3906cb8",
+          "bytes": 9285
+        },
+        {
+          "name": "field-flow-v1.js",
+          "sha256": "4234de97a11a25cd26a3388de741ffc664ff58892a17c9899e7565e201ceb874",
+          "bytes": 13069
+        },
+        {
+          "name": "mow-ui-walkthrough-v1.js",
+          "sha256": "02230bf383141b41f5d09bb586cc34ab6981777a25ddd805a58bbdc451d132e4",
+          "bytes": 10416
+        }
+      ],
+      "findings": [
+        "query-required derived schema contradicted original intent alternatives",
+        "cancel before intent must work but never bypass MOT1.1/1.2",
+        "MOT1.3 must show description and meaningful filters"
+      ],
+      "scope": "Same OpenAI separate execution, not quorum/Owner acceptance"
+    },
+    "cp03_real_v4": {
+      "commit": "7e62d62b7dafbfe2ed6cccd4a6b55b834323f890",
+      "source_sha256": "70ff2dcae1ccfa71acc791360d2f906087ada9f60a45ddc89e2733212651fb94",
+      "verified_checkpoints": 3,
+      "records_verified": 21,
+      "note": "V5 new UI invalidates prior proofs and requires readback again"
     }
   }
 }
