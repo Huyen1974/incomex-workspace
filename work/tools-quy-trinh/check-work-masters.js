@@ -8,6 +8,8 @@ html=null;/release/.test('release'); // Release large HTML/RegExp input; all rea
 // checkpoint entries are read-only; replacing an array stays local to the fixture.
 // Fingerprints before each fixture and after the suite catch unintended source edits.
 function historyFingerprint(a){const h=require('crypto').createHash('sha256');for(const key of ['history','checkpoint_checks']){h.update(key);for(const row of a[key]||[])h.update(JSON.stringify(row)).update('\n');}return h.digest('hex');}
+vm.runInThisContext(engineCode);
+r.application_preview.record=tqtExpandApplication(r.application_preview.record);
 const sourceHistoryFingerprint=historyFingerprint(r.application_preview.record);
 function cloneFixture(x){
  assert.equal(historyFingerprint(r.application_preview.record),sourceHistoryFingerprint,'FIXTURE_MUTATED_SOURCE_HISTORY');
@@ -60,7 +62,7 @@ if(adapter){
  {const unlinked=copy(r);unlinked.work_schedule.records[0].application_id='MISSING';assert.throws(()=>A.dossier(unlinked,unlinked.work_schedule.records[0]));}
  {const second=copy(r),other=cloneFixture(second).application_preview.record;other.application_id='TEST-SECOND';other.target_code='TEST-TARGET';other.record_checks=[];second.work_schedule.applications=[other];Object.assign(second.work_schedule.records[1],{application_id:other.application_id,target_code:other.target_code,target_version:other.target_version});
  const distinct=A.dossier(second,second.work_schedule.records[1]);assert.equal(distinct.a.application_id,'TEST-SECOND');assert.equal(distinct.written,0);assert.equal(distinct.done,0);assert(distinct.audit.errors.length);}
- const cfg=A.configure({}, {tqt:r,masterCode:'DEF00.1',sample:false});const view=cfg.detailRenderer(cfg,cfg.items[0]);assert(view.fullWidth&&view.interactive);assert.equal((view.html.match(/type="checkbox"/g)||[]).length,18);assert.equal((view.html.match(/type="checkbox" disabled/g)||[]).length,18);assert.equal((view.html.match(/ checked /g)||[]).length,d.checkpoints.filter(x=>x.done).length+d.groups.filter(x=>x.done).length); // UI must follow actual evidence, not a frozen empty fixture.
+ const cfg=A.configure({}, {tqt:r,masterCode:'DEF00.1',sample:false});const view=cfg.detailRenderer(cfg,cfg.items[0]);assert(view.fullWidth&&view.interactive);assert(view.html.includes('.tqt-status-tick:checked{background:#16803c'));assert.equal((view.html.match(/type="checkbox"/g)||[]).length,18);assert.equal((view.html.match(/type="checkbox" disabled/g)||[]).length,18);assert.equal((view.html.match(/ checked /g)||[]).length,d.checkpoints.filter(x=>x.done).length+d.groups.filter(x=>x.done).length); // UI must follow actual evidence, not a frozen empty fixture.
  console.log('dossier: 7 checkpoints, 11 groups, 34 obligations; partial/foreign/unlinked/second job cases passed');
 }
 

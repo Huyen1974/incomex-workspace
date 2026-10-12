@@ -127,7 +127,7 @@ for f in mutations:
 del d
 # Application negatives are TEST-only and independent of the real execution stage.
 # Real audit/hash/source readback above/below retain every persisted history entry.
-seed=copy.deepcopy({k:v for k,v in real_application.items() if k not in ['history','checkpoint_checks','server_receipt']})
+seed=copy.deepcopy({k:v for k,v in real_application.items() if k not in ['history','checkpoint_checks','server_receipt','history_store']})
 seed.update(state='CHUAN_BI',history=[{'event':'TEST_SEED','environment':'ISOLATED_TEST'}],checkpoint_checks=[],questions_complete=False,requirements_checked=False)
 seed['start_confirmation'].update(state='NOT_CONFIRMED',evidence_ref=None)
 # Application tests bypass preview hash so they exercise gates, not merely hash mismatch.

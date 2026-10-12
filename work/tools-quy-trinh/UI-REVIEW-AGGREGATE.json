@@ -83945,5 +83945,45 @@
       "evidence_source": "workspace_task_status actual response",
       "operation_id": "tqt-p37-final-evidence-20261012-v1"
     }
+  },
+  "host_review_P38": {
+    "state": "COMPATIBLE_READER_PREPARED",
+    "owner_request": "Làm nhẹ không mất lịch sử; tích xong màu xanh",
+    "before_product_sha256": "908f9c7fbf3eb664ffd88249a1c9d277f90a7d3022e8c01c246af10f3fefd35b",
+    "candidate": {
+      "state": "CANDIDATE_WRITTEN",
+      "mode": "--compact-history",
+      "input_sha256": "908f9c7fbf3eb664ffd88249a1c9d277f90a7d3022e8c01c246af10f3fefd35b",
+      "output_sha256": "c68c20ecfdfaaa01cefc13f474331e36b395a3212c3cb540595abe7302608dae",
+      "input_bytes": 99965430,
+      "output_bytes": 12900932,
+      "logical_equality": "ALL_FIELDS_EXACT",
+      "roundtrip": "EXACT",
+      "history_events": 18,
+      "checkpoint_revisions": 20,
+      "nodes": 1971,
+      "pg": "NOT_RUN",
+      "note": "Candidate only. Submit via existing guarded transaction; rollback with --expand-history, same exact logical evidence."
+    },
+    "history_tests": {
+      "state": "PASS",
+      "cases": 17,
+      "history_events": 18,
+      "checkpoint_revisions": 20,
+      "logical_equality": "ALL_FIELDS_EXACT",
+      "verified_checkpoints": [
+        "CP01",
+        "CP02",
+        "CP03",
+        "CP04",
+        "CP05",
+        "CP06",
+        "CP07"
+      ],
+      "compact_bytes": 8875535,
+      "pg": "NOT_RUN"
+    },
+    "scope": "Physical history storage only, unchanged real G1; no PG; no new acceptance",
+    "deployment_evidence": "/opt/incomex/staging/tqt-p36/p38/prepared.json"
   }
 }

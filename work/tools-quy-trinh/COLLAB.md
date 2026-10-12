@@ -8,7 +8,7 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P37
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P38
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② MOW001 G1 thật: 7/7 mốc, 31/31 nghĩa vụ phát sinh; Owner đã duyệt/nhận] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
@@ -16,7 +16,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
-- ■ Đã khép P37: MOW001 G1 được Owner duyệt/nhận, 7/7 mốc; hồ sơ và Master đã hiện dữ liệu, bộ tổng VPS PASS. Không PG.
+- ■ Đang làm P38: lưu khối lịch sử dùng lại một lần, giữ nguyên mọi bằng chứng và7/7; tích xong hiển thị xanh. G1 không nghiệm thu lại, ngoài PG.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, giảm lịch sử lặp, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
 - ➡ Kế tiếp: G1 đã khép, cấu hình tạm đã trả đúng bản gốc. Trước nhân rộng xử lý các việc còn mở trong CAT069; khi có việc mới, tra Master/DOT trước và dùng lại CHECK004/005/006.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
@@ -38,6 +38,8 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 (Hai dòng đầu Owner duyệt 08/10/2026 · D04. Dòng cuối là lời Owner 10/10/2026 · D24/D25.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+**Owner 12/10/2026 · P38, nguyên văn:** “Bạn tiếp tục làm nhẹ hồ sơ mà không mất lịch sử,, các tich xong rồi nên dùng tich xanh để con người dễ nhận biết”. Phạm vi: định dạng lưu vật lý có khôi phục chính xác, nâng bộ đọc/cửa ghi hiện hữu; không đổi nội dung G1, lịch sử, quyết định/ACK hay PG. Nguồn UI: process-work-master-v1.html → process-work-master-v1.js; dữ liệu: tools-quy-trinh/view.html → application_preview từ MOW001. Bậc3: ghép JSON +SHA256 có sẵn trong engine, không thêm dịch vụ/kho ngoài; CHECK004 giữ pack/expand/verify dùng lại.
 
 **Owner 12/10/2026 · P36, nguyên văn:** “Bạn tiếp tục sửa điểm tắc ở mốc 3, nối bằng chứng quyền ghi–đọc từ máy chủ rồi đi tiếp MOW001 thật đến cuối nhé. Vẫn ngoài PG, không lấy TEST thay việc thật và cập nhật các Master liên quan.”
 

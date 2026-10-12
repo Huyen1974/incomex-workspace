@@ -121708,7 +121708,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-overview-consistency.py",
             "view.html"
           ],
-          "sha256": "3ba3ef6e4d0e5c220d16941f8a88ab0c395529c70b401ce2dd4befbcf2459e9d",
+          "sha256": "2bc217db008e110e519d57b37f48e2919aef4f4d21cabd5bf7c230375d06f256",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -121738,7 +121738,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-record-control.js",
             "view.html"
           ],
-          "sha256": "402750bd79b3185dab428330b49ca4a6b53adb910a5e6c3dd7ade5683bd9f618",
+          "sha256": "755097b9b265860f76a393268793262a5daa9e5719c1b1a917fdccab7b9511c6",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG; bộ tổng trên hồ sơ P37 cần môi trường cách ly ít nhất 2 GiB, chạy nối tiếp; CHECK006 báo BLOCKED sớm nếu thiếu.",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -121895,7 +121895,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "d4f722bddbd30091e54619e1fc5a718cf26f3db24b9171e8c66bf67bef070be7",
+          "sha256": "5723a0062405c152a0b68e26bf35f71839cc88c207033ecc57ab205809271100",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -121994,9 +121994,9 @@ main{max-width:1240px} [hidden]{display:none!important}
       ],
       "policy": "Tìm trong CAT-006 trước khi viết mới. Bộ kiểm phải có CAT-012 + lệnh chạy + hash + chủ quản + giới hạn; kết quả mỗi lần lưu CAT-015 và gắn phiên nguồn. Xóa/nghỉ công cụ phải có lý do và kiểm nơi dùng. Chưa nhập dot_tools trên PG.",
       "execution_status": {
-        "state": "PASS",
-        "note": "Bộ tổng native P37 đạt trên kho tệp G1 thật, đầy đủ lịch sử. Owner đã duyệt/nhận MOW001 G1: 7/7; TEST chỉ xác minh kỹ thuật; chưa PG/G2.",
-        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37/native_suite"
+        "state": "STARTED",
+        "note": "P38 nâng bộ đọc tương thích cả kho cũ và kho nhẹ; G1 giữ7/7. Chưa khẳng định đã chuyển cách lưu.",
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P38"
       },
       "canonical_master_id": "ML-DEF-024",
       "audit_sources": {
@@ -129454,6 +129454,46 @@ const legacy=document.getElementById('tqt-tab-old');if(legacy)legacy.textContent
 (function(root){'use strict';
 const has=v=>v!==null&&v!==undefined&&v!=='';
 const canonical=v=>JSON.stringify(v,(_,x)=>x&&typeof x==='object'&&!Array.isArray(x)?Object.fromEntries(Object.keys(x).sort().map(k=>[k,x[k]])):x);
+// P38: one inline, versioned store; domain evidence restores byte-for-byte logically.
+const HISTORY_FORMAT='TQT-HISTORY-POOL-1';
+function expandApplication(a){
+ if(!a||!Object.hasOwn(a,'history_store')){if(a&&[...(a.history||[]).map(x=>x.previous_evidence),...(a.checkpoint_checks||[]).map(x=>x.dependency_key)].some(x=>x&&typeof x==='object'&&Object.hasOwn(x,'$history')))throw Error('HISTORY_STORE_MISSING');return a;}
+ const store=a.history_store;if(store?.format!==HISTORY_FORMAT||!store.nodes||Array.isArray(store.nodes)||typeof store.nodes!=='object'||Object.keys(store).sort().join(',')!=='format,nodes')throw Error('HISTORY_STORE_FORMAT');
+ const nodes=store.nodes,ids=Object.keys(nodes),used=new Set(),busy=new Set(),memo=new Map();if(ids.length>100000)throw Error('HISTORY_STORE_LIMIT');
+ for(const id of ids)if(!/^[a-f0-9]{64}$/.test(id)||sha256(JSON.stringify(nodes[id]))!==id)throw Error('HISTORY_BLOCK_HASH');
+ function read(x,depth=0){
+  if(depth>180||!Array.isArray(x)||x.length!==2)throw Error('HISTORY_NODE_SHAPE');const [tag,v]=x;
+  if(tag==='r'){if(typeof v!=='string'||!Object.hasOwn(nodes,v))throw Error('HISTORY_BLOCK_MISSING');used.add(v);if(busy.has(v))throw Error('HISTORY_CYCLE');if(memo.has(v))return memo.get(v);busy.add(v);const out=read(nodes[v],depth+1);busy.delete(v);memo.set(v,out);return out;}
+  if(tag==='v'){if(v!==null&&!['string','number','boolean'].includes(typeof v))throw Error('HISTORY_VALUE');return v;}
+  if(tag==='j'){const out=canonical(read(v,depth+1));if(out.length>20000000)throw Error('HISTORY_TEXT_LIMIT');return out;}
+  if(tag==='a'){if(!Array.isArray(v))throw Error('HISTORY_ARRAY');return Object.freeze(v.map(y=>read(y,depth+1)));}
+  if(tag==='o'){if(!Array.isArray(v))throw Error('HISTORY_OBJECT');const keys=new Set(),out={};for(const pair of v){if(!Array.isArray(pair)||pair.length!==2||typeof pair[0]!=='string'||keys.has(pair[0]))throw Error('HISTORY_OBJECT_KEY');keys.add(pair[0]);Object.defineProperty(out,pair[0],{value:read(pair[1],depth+1),enumerable:true,writable:false,configurable:false});}return Object.freeze(out);}
+  throw Error('HISTORY_TAG');
+ }
+ const ref=v=>{if(!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).join(',')!=='$history')throw Error('HISTORY_REFERENCE');return read(['r',v.$history]);};
+ const history=(a.history||[]).map(x=>Object.hasOwn(x,'previous_evidence')?{...x,previous_evidence:ref(x.previous_evidence)}:x);
+ const checkpoint_checks=(a.checkpoint_checks||[]).map(x=>typeof x.dependency_key==='object'?{...x,dependency_key:ref(x.dependency_key)}:x);
+ if(used.size!==ids.length)throw Error('HISTORY_ORPHAN_BLOCK');
+ const {history_store,...out}=a;return {...out,history,checkpoint_checks};
+}
+function sameHistoryValue(a,b){if(a===b)return true;if(!a||!b||typeof a!=='object'||typeof b!=='object'||Array.isArray(a)!==Array.isArray(b))return false;const keys=Object.keys(a);return keys.length===Object.keys(b).length&&keys.every(k=>Object.hasOwn(b,k)&&sameHistoryValue(a[k],b[k]));}
+function packApplication(input){
+ const a=expandApplication(input),nodes=Object.create(null);const save=x=>{const text=JSON.stringify(x);if(text.length<256)return x;const id=sha256(text);nodes[id]=x;return ['r',id];};
+ function encode(v,depth=0){
+  if(depth>150)throw Error('HISTORY_DEPTH');
+  if(typeof v==='string'&&v.length>=256&&((v[0]==='{'&&v.endsWith('}'))||(v[0]==='['&&v.endsWith(']')))){
+   let parsed;try{parsed=JSON.parse(v);}catch{}if(parsed&&canonical(parsed)===v)return save(['j',encode(parsed,depth+1)]);
+  }
+  if(Array.isArray(v))return save(['a',v.map(x=>encode(x,depth+1))]);
+  if(v&&typeof v==='object')return save(['o',Object.entries(v).map(([k,x])=>[k,encode(x,depth+1)])]);
+  return save(['v',v]);
+ }
+ const ref=v=>{let x=encode(v);if(x[0]!=='r'){const id=sha256(JSON.stringify(x));nodes[id]=x;x=['r',id];}return {$history:x[1]};};
+ const out={...a,history:(a.history||[]).map(x=>Object.hasOwn(x,'previous_evidence')?{...x,previous_evidence:ref(x.previous_evidence)}:x),checkpoint_checks:(a.checkpoint_checks||[]).map(x=>typeof x.dependency_key==='string'&&x.dependency_key.length>=256?{...x,dependency_key:ref(x.dependency_key)}:x),history_store:{format:HISTORY_FORMAT,nodes}};
+ if(!sameHistoryValue(expandApplication(out),a))throw Error('HISTORY_ROUNDTRIP_MISMATCH');return out;
+}
+root.tqtExpandApplication=expandApplication;root.tqtPackApplication=packApplication;
+
 function contractMaterial(a){const c=a.information_contract;if(!c)return null;const {review,history,...body}=c;return body;}
 function contractPin(a){const c=a.information_contract;return c?{id:c.id,version:c.version,content_token:canonical(contractMaterial(a))}:null;}
 // P31: logical schema, actual payload and externally supplied trust context are separate.
@@ -129585,7 +129625,7 @@ function endpointShape(R,a,x){
  const expectedName=x.requirement_code==='RESULT-P01'?'prepared_result':['RESULT-P02','RESULT-P03'].includes(x.requirement_code)?'design_result':kind;return name===expectedName&&canonical(x.key_fields)===canonical(keys)&&x.selector===x.requirement_code&&x.path===R.application_preview.source_ref+'/'+collection;
 }
 function independentReady(a,trust){const id=a.assignments?.reviewer_id,principal=trust?.principals?.find(x=>x.id===id&&x.application_id===a.application_id&&x.target_version===a.target_version&&x.roles?.includes('REVIEWER'));return !!(id&&id!==a.actor&&a.assignments.state==='ASSIGNED'&&a.assignments.authority_ref&&principal&&a.plan.filter(x=>x.execution_phase==='TEST').every(x=>x.actor===id));}
-const evidenceMaterial=a=>Object.fromEntries(Object.entries(a).filter(([key])=>!['declarations','declaration_history','information_contract','history','evidence_revision'].includes(key)));
+const evidenceMaterial=a=>Object.fromEntries(Object.entries(expandApplication(a)).filter(([key])=>!['declarations','declaration_history','information_contract','history','evidence_revision'].includes(key)));
 
 function contractAudit(R,a,scope){
  const errors=[],c=a.information_contract,fail=s=>errors.push(s),required=scope?.information_contract_mode;
@@ -129638,13 +129678,13 @@ function registerServerTrust(R,context){if(!serverTrustValid(R,context))throw Er
 async function verifyServerReceipt(R){const a=R.application_preview.record,p=R.server_trust_policy,s=a.server_receipt;if(!s)return false;if(!p||s.algorithm!=='Ed25519'||s.key_id!==p.policy_id||typeof s.payload!=='string')throw Error('SERVER_RECEIPT_KEY');const raw=x=>Uint8Array.from(atob(x),c=>c.charCodeAt(0)),key=await crypto.subtle.importKey('raw',raw(p.public_key_base64),{name:'Ed25519'},false,['verify']);if(!await crypto.subtle.verify('Ed25519',key,raw(s.signature),new TextEncoder().encode(s.payload)))throw Error('SERVER_RECEIPT_SIGNATURE');registerServerTrust(R,JSON.parse(s.payload));return true;}
 function endpointProof(R,a,d,trust){const xs=(a.trial_endpoints||[]).filter(x=>x.requirement_code===d.code),x=xs[0];if(xs.length!==1||x.master_code!==d.master_code||!endpointShape(R,a,x))return false;const {access_check,...spec}=x,token=canonical(spec),proof=trust?.endpoint_receipts?.find(r=>r.application_id===a.application_id&&r.target_version===a.target_version&&r.requirement_code===d.code&&r.spec_token===token&&r.evidence_ref===access_check?.evidence_ref&&r.read==='PASS'&&r.write==='PASS');return !!proof&&access_check?.state==='PASS'&&access_check.read==='PASS'&&access_check.write==='PASS'&&access_check.spec_token===token;}
 function fileRecord(R,a,d,x){if(d.code.startsWith('FIELD-'))return trialRow(R,a,d,x);const result=d.code.startsWith('RESULT-'),rows=result?a.plan_results:a.trial_records;if(!Array.isArray(rows))return null;const matches=rows.filter(v=>result?v.plan_id===d.code.slice(7):v.requirement_code===d.code);if(matches.length!==1)return null;const row=matches[0],version=result?row.output_version:row.record_version,id=row.id||row.record_id;const ref=result?a.information_contract.handoffs.find(h=>h.plan_id===row.plan_id)?.output_ref:R.application_preview.source_ref+'/trial_records/'+rows.indexOf(row);if(row.application_id!==a.application_id||(row.target_version!==undefined&&row.target_version!==a.target_version)||x.master_record_id!==id||x.record_version!==version||x.record_ref!==ref)return null;const errors=result?payloadAudit(R,a,row.plan_id,row).errors:schemaErrors(validation(R).schemas,'trial_record',row);return errors.length?null:row;}
-function serverContext(R,input){const {document,previous,policy,principal,acl,source_sha256,previous_sha256}=input,a=document?.application_D24;if(!a||canonical(policy)!==canonical(R.server_trust_policy)||!policy||a.application_id!==policy.application_id||a.target_version!==policy.target_version||a.scope_stage!=='G1')throw Error('SERVER_POLICY_SCOPE');if(!principal||!acl?.readers?.includes(principal)||!acl?.writers?.includes(principal))throw Error('SERVER_WRITE_GRANT_REQUIRED');const r={...R,application_preview:{...R.application_preview,record:a}},contract=contractAudit(r,a,R.work_form.record_control.scope_bindings.find(x=>x.target_code===a.target_code&&x.target_version===a.target_version&&x.scope_stage===a.scope_stage));if(!contract.ready)throw Error('SERVER_CONTRACT:'+contract.errors.join(','));if(a.assignments?.reviewer_id&&a.assignments.reviewer_id!==policy.reviewer_id)throw Error('SERVER_REVIEWER_ASSIGNMENT');
+function serverContext(R,input){const {document,previous,policy,principal,acl,source_sha256,previous_sha256}=input,a=expandApplication(document?.application_D24);if(!a||canonical(policy)!==canonical(R.server_trust_policy)||!policy||a.application_id!==policy.application_id||a.target_version!==policy.target_version||a.scope_stage!=='G1')throw Error('SERVER_POLICY_SCOPE');if(!principal||!acl?.readers?.includes(principal)||!acl?.writers?.includes(principal))throw Error('SERVER_WRITE_GRANT_REQUIRED');const r={...R,application_preview:{...R.application_preview,record:a}},contract=contractAudit(r,a,R.work_form.record_control.scope_bindings.find(x=>x.target_code===a.target_code&&x.target_version===a.target_version&&x.scope_stage===a.scope_stage));if(!contract.ready)throw Error('SERVER_CONTRACT:'+contract.errors.join(','));if(a.assignments?.reviewer_id&&a.assignments.reviewer_id!==policy.reviewer_id)throw Error('SERVER_REVIEWER_ASSIGNMENT');
  const definitions=a.record_requirements||[],endpoints=a.trial_endpoints||[];if(endpoints.length!==definitions.length||new Set(endpoints.map(x=>x.requirement_code)).size!==definitions.length)throw Error('SERVER_ENDPOINT_SET');
  for(const d of definitions){const ep=endpoints.find(x=>x.requirement_code===d.code);if(!ep||ep.master_code!==d.master_code||!endpointShape(r,a,ep))throw Error('SERVER_ENDPOINT_SCHEMA:'+d.code);}
  for(const row of a.trial_records||[])if(schemaErrors(validation(r).schemas,'trial_record',row).length||row.application_id!==a.application_id||(row.target_version!==undefined&&row.target_version!==a.target_version))throw Error('SERVER_STORED_RECORD_SCHEMA');
  const binding=trustBinding(r),aclHash=sha256(canonical(acl)),receiptBase='server:'+policy.policy_id+'/'+aclHash+'/'+sha256(canonical(binding));
  const endpoint_receipts=endpoints.map(({access_check,...spec})=>({application_id:a.application_id,target_version:a.target_version,requirement_code:spec.requirement_code,spec_token:canonical(spec),read:'PASS',write:'PASS',state:'PASS',evidence_ref:receiptBase+'/'+spec.requirement_code,permission_scope:'Same protected file; checked logical schema/selector. Not global Master or PG rights.'}));
- const design_reads=[],stored=previous?.application_D24||a;
+ const design_reads=[],stored=expandApplication(previous?.application_D24)||a;
  for(const result of a.plan_results||[]){if(!['P02','P03'].includes(result.plan_id))continue;const prior=stored.plan_results?.find(x=>canonical(x)===canonical(result));if(!prior)continue;const prefix=R.application_preview.source_ref+'/design_artifacts/';if(!result.artifact?.path.startsWith(prefix))continue;const id=result.artifact.path.slice(prefix.length);if(!['P02','P03'].includes(id))continue;const artifact=stored.design_artifacts?.[id];if(canonical(artifact)===canonical(a.design_artifacts?.[id])&&designAudit(r,result,a.design_artifacts?.[id]).state==='PASS')design_reads.push({payload_token:canonical(result),artifact,source_sha256:previous?previous_sha256:source_sha256,read_from:'Persisted protected document; exact artifact pointer and hash verified'});}
  return {policy_id:policy.policy_id,scope:'MOW001_G1_FILE_COLLECTIONS_ONLY',binding,issuer_principal:principal,acl_sha256:aclHash,issued_at:new Date().toISOString(),read_source_sha256:source_sha256,endpoint_receipts,principals:[{id:policy.reviewer_id,application_id:a.application_id,target_version:a.target_version,roles:['REVIEWER'],evidence_ref:policy.reviewer_evidence_ref,identity_scope:'Delegated OpenAI execution; not a separate vendor or quorum seat'}],design_reads};
 }
@@ -129654,18 +129694,19 @@ root.tqtTrustBinding=trustBinding;root.tqtRegisterServerTrust=registerServerTrus
 function transition(before,after){
  const errors=[],fail=x=>errors.push(x);
  try{
+  const wasPacked=!!before.history_store,isPacked=!!after.history_store;before=expandApplication(before);after=expandApplication(after);if(wasPacked&&!isPacked&&!sameHistoryValue(before,after))fail('HISTORY_PACK_REQUIRED');
   if(before.application_id!==after.application_id)fail('APPLICATION_ID_CHANGED');
   const bhist=before.history||[],ahist=after.history||[];
-  if(!Array.isArray(bhist)||!Array.isArray(ahist)||canonical(ahist.slice(0,bhist.length))!==canonical(bhist))fail('EXECUTION_HISTORY_REWRITTEN');
+  if(!Array.isArray(bhist)||!Array.isArray(ahist)||!sameHistoryValue(ahist.slice(0,bhist.length),bhist))fail('EXECUTION_HISTORY_REWRITTEN');
   const bp=before.checkpoint_checks||[],ap=after.checkpoint_checks||[];
-  if(canonical(ap.slice(0,bp.length))!==canonical(bp))fail('CHECKPOINT_HISTORY_REWRITTEN');
+  if(!sameHistoryValue(ap.slice(0,bp.length),bp))fail('CHECKPOINT_HISTORY_REWRITTEN');
   for(const key of ['record_checks','plan_results','test_cases','decisions','receipts','branch_records','trial_records']){
    const oldRows=before[key]||[],newRows=after[key]||[],id=x=>key==='record_checks'?x.requirement_code:x.id||x.record_id||x.plan_id;
    for(const row of oldRows)if(!newRows.some(n=>id(n)===id(row)))fail('EVIDENCE_ROW_DELETED:'+key+':'+id(row));
   }
-  if(canonical(evidenceMaterial(before))!==canonical(evidenceMaterial(after))){
+  if(!sameHistoryValue(evidenceMaterial(before),evidenceMaterial(after))){
    const revision=Number(before.evidence_revision||1)+1,added=ahist.slice(bhist.length).filter(x=>x.event==='EVIDENCE_REVISION');
-   if(after.evidence_revision!==revision||added.length!==1||added[0].revision!==revision||!added[0].actor||!added[0].reason||!Number.isFinite(Date.parse(added[0].at))||canonical(added[0].previous_evidence)!==canonical(evidenceMaterial(before)))fail('EXACT_PREVIOUS_EVIDENCE_REQUIRED');
+   if(after.evidence_revision!==revision||added.length!==1||added[0].revision!==revision||!added[0].actor||!added[0].reason||!Number.isFinite(Date.parse(added[0].at))||!sameHistoryValue(added[0].previous_evidence,evidenceMaterial(before)))fail('EXACT_PREVIOUS_EVIDENCE_REQUIRED');
   }else if(after.evidence_revision!==before.evidence_revision||ahist.slice(bhist.length).some(x=>x.event==='EVIDENCE_REVISION'))fail('FABRICATED_EVIDENCE_REVISION');
   for(const prev of before.plan_results||[]){const next=(after.plan_results||[]).find(x=>x.plan_id===prev.plan_id);if(next&&canonical(prev)!==canonical(next)&&Number(next.output_version)!==Number(prev.output_version)+1)fail('OUTPUT_REVISION_REQUIRED:'+prev.plan_id);}
 
@@ -129808,7 +129849,7 @@ root.tqtEvidenceMaterial=evidenceMaterial;
 root.tqtCanonical=canonical;
 root.tqtValidateTransition=transition;
 root.tqtRecordAudit=function(R,trust){
- try{return inspect(R,trust||serverTrustCache.get(canonical(trustBinding(R))));}catch(e){return {rows:[],errors:['Hồ sơ sai cấu trúc; chưa được qua mốc: '+e.message],current:R?.application_preview?.record?.current_checkpoint||'CP01',verifiedCheckpoints:[],checkpointStates:[],destinationReady:false,canStart:false,canFinish:false,contract:{ready:false,reviewed:false,errors:['Dữ liệu sai cấu trúc']},counts:{total:0,written:0,verified:0,needsFix:1,notRecorded:0,dueMissing:0,due:0,deferred:0}};}
+ try{R={...R,application_preview:{...R.application_preview,record:expandApplication(R.application_preview.record)}};return inspect(R,trust||serverTrustCache.get(canonical(trustBinding(R))));}catch(e){return {rows:[],errors:['Hồ sơ sai cấu trúc; chưa được qua mốc: '+e.message],current:R?.application_preview?.record?.current_checkpoint||'CP01',verifiedCheckpoints:[],checkpointStates:[],destinationReady:false,canStart:false,canFinish:false,contract:{ready:false,reviewed:false,errors:['Dữ liệu sai cấu trúc']},counts:{total:0,written:0,verified:0,needsFix:1,notRecorded:0,dueMissing:0,due:0,deferred:0}};}
 };
 })(typeof globalThis!=='undefined'?globalThis:this);
 </script>
