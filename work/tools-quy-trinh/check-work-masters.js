@@ -106,3 +106,5 @@ if(adapter){
 }
 
 if(adapter&&r.application_preview.record.execution_walk){const A=globalThis.TQT_WORK_MASTER,a=r.application_preview.record;for(const code of ['CAT-012','CAT-015','CAT-069?','CAT-229*'])assert(A.relatedRows(r,code).some(x=>x.application_id===a.application_id));const n=JSON.parse(JSON.stringify(r));n.application_preview.record.checkpoint_checks=[];assert.equal(A.dossier(n,n.work_schedule.records[0]).checkpoints.filter(x=>x.done).length,0);console.log('P35: real work visible in existing Masters; removing checkpoint evidence clears progress');}
+
+if(adapter&&r.application_preview.record.execution_walk){const rows=globalThis.TQT_WORK_MASTER.relatedRows(r,'CAT-069?').filter(x=>x.application_id===r.application_preview.record.application_id);assert(rows.length);for(const row of rows)assert(row.next&&row.owner&&row.state&&!['OPEN','FIXED'].includes(row.state),'REAL_FINDING_NEXT_AND_STATUS');console.log('P35 UI readback: real findings expose next action, owner and human-readable state');}

@@ -43738,7 +43738,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "c16f97d53a8c0f03214f936cfe072afcb16fe41a44a9a22950299e714269bc17",
+          "sha256": "a762dfbc098d90fd08b1dcbd5cce9ed652a9dec6d934b192582f6a2faa8c0b07",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -43752,7 +43752,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 60,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "d129c6931a5bfe3508419c0c98107e714c3e8905337f5d234b72f99c0037b7ce",
+            "process-work-master-v1.js": "e02c2874c64b54c5c66bdd25ae6c0b2d8f670589600dc895aca3e352f7ff198a",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
           }
@@ -49056,7 +49056,7 @@ main{max-width:1240px} [hidden]{display:none!important}
         },
         {
           "tool_id": "TQT-CHECK-005",
-          "contract_revision": "P35.1",
+          "contract_revision": "P35.2",
           "owner": "Codex Host tools-quy-trinh",
           "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
@@ -49499,6 +49499,21 @@ main{max-width:1240px} [hidden]{display:none!important}
           "affected_applications": [
             "MOW-NHC-001-G1-20261010-01"
           ]
+        },
+        {
+          "change_id": "P35-TQT-CHECK-005-UI-READBACK",
+          "kind": "UPGRADE",
+          "target_code": "TQT-CHECK-005",
+          "previous_version": "c16f97d53a8c0f03214f936cfe072afcb16fe41a44a9a22950299e714269bc17",
+          "next_version": "a762dfbc098d90fd08b1dcbd5cce9ed652a9dec6d934b192582f6a2faa8c0b07",
+          "target_version": "a762dfbc098d90fd08b1dcbd5cce9ed652a9dec6d934b192582f6a2faa8c0b07",
+          "reason": "Mở Master thật phát hiện cột Việc tiếp chưa ánh xạ next_action→next; sửa nhãn trạng thái và phân biệt đọc bản ghi với quyền ghi Master",
+          "actor": "Codex Host",
+          "changed_at": "2026-10-12T05:10:44.698192+00:00",
+          "affected_applications": [
+            "MOW-NHC-001-G1-20261010-01"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P35/ui_readback"
         }
       ],
       "walkthrough": {
