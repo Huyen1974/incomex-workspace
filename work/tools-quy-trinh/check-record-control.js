@@ -184,7 +184,7 @@ for(const mutate of [
  r=>r.application_preview.record.declarations.shift(),
  r=>r.application_preview.record.declarations.push(clone(r.application_preview.record.declarations[0])),
  r=>r.application_preview.record.declarations[0].schema_version='2.0',
- r=>r.application_preview.record.declarations[0].record_version='2',
+ r=>r.application_preview.record.declarations[0].record_version=String(Number(r.application_preview.record.declarations[0].record_version)+1),
  r=>r.application_preview.record.declarations[0].surprise='unregistered column',
  r=>r.application_preview.record.trial_store.source_ref='another file',
  r=>delete r.application_preview.record.trial_store,
@@ -243,13 +243,13 @@ const previous=clone(R.application_preview.record),validate=globalThis.tqtValida
 assert.equal(validate(previous,clone(previous)).state,'PASS');contractCases++;
 for(const change of [
  a=>a.declarations[0].answer+=' changed without revision',
- a=>a.declarations[0].record_version='2',
+ a=>a.declarations[0].record_version=String(Number(a.declarations[0].record_version)+1),
  a=>a.declaration_history.push({...a.declarations[0],answer:'fabricated'}),
  a=>a.declarations.pop(),
  a=>a.information_contract.rows[0].meaning='changed',
  a=>a.information_contract.history.push({fake:true})
 ]){const after=clone(previous);change(after);assert.equal(validate(previous,after).state,'FAIL');contractCases++;}
-const next=clone(previous);next.declaration_history.push(clone(previous.declarations[0]));next.declarations[0].answer+=' changed';next.declarations[0].record_version='2';
+const next=clone(previous);next.declaration_history.push(clone(previous.declarations[0]));next.declarations[0].answer+=' changed';next.declarations[0].record_version=String(Number(previous.declarations[0].record_version)+1);
 assert.equal(validate(previous,next).state,'PASS');contractCases++;
 const rewrite=clone(next);rewrite.declaration_history[0].answer='rewrite old';assert.equal(validate(next,rewrite).state,'FAIL');contractCases++;
 const newContract=clone(previous),prior=clone(previous.information_contract);delete prior.history;newContract.information_contract.history.push(prior);newContract.information_contract.version=String(Number(previous.information_contract.version)+1);newContract.information_contract.rows.forEach(x=>x.contract_version=newContract.information_contract.version);

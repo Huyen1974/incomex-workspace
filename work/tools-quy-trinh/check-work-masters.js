@@ -32,7 +32,7 @@ if(adapter){
  assert.equal(d.checkpoints.length,7);assert.equal(d.groups.length,11);assert.equal(d.groups.reduce((n,g)=>n+g.rows.length,0),34);
  assert.equal(d.checkpoints.filter(x=>x.current)[0].id,d.a.current_checkpoint);assert.equal(d.checkpoints.filter(x=>x.done).length,d.audit.verifiedCheckpoints.length);assert.equal(d.done,d.groups.filter(x=>x.done).length);
  const waiting=A.dossier(r,r.work_schedule.records[1]);assert.equal(waiting.a,null);assert(waiting.groups.every(g=>!g.done&&g.condition==='Chưa gắn hồ sơ'));assert(waiting.checkpoints.every(x=>!x.done&&!x.current));
- const partial=copy(r),p=partial.application_preview.record.record_checks.find(x=>x.requirement_code==='PLAN');
+ const partial=copy(r);for(const x of partial.application_preview.record.record_checks.filter(x=>['PLAN','RESULT-P01','RESULT-P02','RESULT-P03','RESULT-P04','RESULT-P05','BLOCKED'].includes(x.requirement_code)))Object.assign(x,{record_state:'NOT_RECORDED',check_state:'NOT_CHECKED',readback_state:'NOT_TESTED'});const p=partial.application_preview.record.record_checks.find(x=>x.requirement_code==='PLAN');
  Object.assign(p,{record_state:'RECORDED',master_record_id:'TEST',record_ref:'test:record',record_version:'1'});
  const g=A.dossier(partial,partial.work_schedule.records[0]).groups.find(g=>g.id==='RG04');assert.equal(g.written,1);assert(!g.done);assert(g.active.length>1);
  Object.assign(p,{process_code:partial.application_preview.record.process_code,process_version:partial.application_preview.record.process_version,target_code:partial.application_preview.record.target_code,readback_state:'PASS',checked_record_version:'1'});p.check_state='MATCHED';p.evidence_ref='test:evidence';p.checked_by='TEST';p.checked_at='2026-10-11T00:00:00Z';
