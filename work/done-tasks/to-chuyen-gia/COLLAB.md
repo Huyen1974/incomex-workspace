@@ -149,3 +149,65 @@ Người thực hiện: Claude Chat · Based_on `b42ef6ef375794dd3d58673207f044e
 - Xử lý P01: ranh giới nhóm tham vấn; mốc chứng chỉ 2027; kiểm soát xung đột lợi ích; nguồn tra cứu.
 - Áp: SAME_COMMIT.
 - Trạng thái đóng: **TERMINAL XONG · OWNER XÁC NHẬN ĐÓNG 03/10/2026**; chuyển sang `work/done-tasks/to-chuyen-gia/` theo DROOT11/A9. Không mở lại nội dung pháp lý hoặc Word nếu Owner không yêu cầu mới.\n- Word dẫn xuất đã tạo từ SSOT tại commit `1a6fc3676692967c57fa7f3e4412ec41a6f7afe9`: `Huong_dan_lua_chon_To_chuyen_gia_To_tu_van_Lai_Chau.docx`; render QA đủ 07 trang, Phần I đúng 01 trang A4; DOCX không phải SSOT và không commit vào repo.
+
+## P05 · Claude Chat (Phản biện) — Thẩm quyền ký QĐ phê duyệt HSMQT, bước 02A · 12/10/2026
+Based_on `810b42a` · Đầu vào: PROMPT phản biện pháp lý của Host GPT (Owner dán vào chat 12/10/2026, giao Claude ghi thẳng lên repo) · Scope: chỉ ý kiến; **không sửa hồ sơ, không tạo văn bản, không move task, NO RUN**.
+- Ghi chú Host: việc đang ở `work/done-tasks/`. Nếu cần theo dõi như việc mở, Host làm `Mở lại to-chuyen-gia` + A0 mới (DROOT11) — Claude không tự move.
+- Tên gọi: để khỏi trùng **PA1/PA2 của HSMQT** (mẫu V / V.A), dưới đây gọi hai hướng của GPT là **K1** (ký ngay theo QĐ 1960) và **K2** (xin tỉnh bổ sung/sửa QĐ 1960 rồi mới ký).
+
+### 1. Kết luận (bảng GPT yêu cầu)
+| Nội dung | Kết luận của Claude |
+|---|---|
+| K1 có đủ căn cứ không? | **ĐỦ** — với điều kiện ký đúng tư cách (dòng cuối). |
+| Căn cứ quyết định | k2 Đ60, k3 Đ37, k2 Đ3, đoạn đầu Đ63 NĐ 274/2026 · k1 Đ2 + Đ3 QĐ 1960 · k1 Đ14, Đ13, k16–17 Đ23, Đ26, k2 Đ40 Luật 72/2025. |
+| Điểm mạnh | Mọi cách đọc QĐ 1960 đều trỏ về **cùng một người ký: Chủ tịch UBND phường**. Không cách đọc nào trả quyền về Chủ tịch tỉnh (tỉnh đã chủ ý giao xuống), cũng không cách đọc nào cho người khác ở phường ký. |
+| Điểm gãy (đã khoanh) | Chỉ còn câu chữ của QĐ 1960 ("UBND phường" thay vì "Chủ tịch UBND phường"). Gãy **thật** chỉ khi tự làm sai: ký **TM. UBND**, hoặc viện dẫn **k5 Đ60 / "phân cấp"**. |
+| K2 nếu cần | **Không cần trước khi ký.** Chỉ khi tỉnh tự yêu cầu: QĐ của Chủ tịch tỉnh sửa k1 Đ2 QĐ 1960 (k18 Đ17 Luật 72; k3 Đ18 NĐ 30/2020). Văn bản giao riêng cũng hợp lệ với k2 Đ60 (điều này không quy định hình thức "giao"), nhưng sinh 2 văn bản cho cùng một việc → kém hơn. |
+| Khuyến nghị cuối | **K1.** Chủ tịch UBND phường ký QĐ phê duyệt HSMQT **đứng tên Chủ tịch** (không TM. UBND); căn cứ k2 Đ60 NĐ 274 + k1 Đ2, Đ3 QĐ 1960; sau khi ký, báo cáo UBND phường tại phiên họp gần nhất (lớp an toàn thứ hai theo k16 Đ23 Luật 72, chi phí ≈ 0). Không xin tỉnh sửa QĐ 1960. |
+
+### 2. Chuỗi lập luận — 4 bước, mỗi bước có điều khoản
+1. **Tỉnh đã chủ ý giao quyền phê duyệt xuống phường.** k1 Đ2 QĐ 1960: “Giao Ủy ban nhân dân phường Đoàn Kết làm bên mời quan tâm, phê duyệt hồ sơ, kết quả mời quan tâm”; Đ3: Chủ tịch UBND phường chịu trách nhiệm thi hành. Bối cảnh ý chí: Mục II.2 điểm d Tờ trình 3445 — hồ sơ được sử dụng làm căn cứ ban hành QĐ 1960 — đề xuất đúng “Chủ tịch UBND phường phê duyệt HSMQT (k2 Đ60)”; QĐ 1960 không bác. (Giữ cách viện dẫn đã chốt, **không** viết “Tờ trình đã được phê duyệt”.)
+2. **Ở cấp phường, pháp luật chỉ cho đúng một người nhận quyền này.**
+   - k2 Đ60 NĐ 274: “Phê duyệt hoặc giao cho …; Chủ tịch Ủy ban nhân dân cấp xã phê duyệt hồ sơ mời quan tâm, kết quả mời quan tâm.”
+   - k1 Đ14 Luật 72: Chủ tịch UBND chỉ ủy quyền xuống “… hoặc Chủ tịch Ủy ban nhân dân cấp dưới” — không có UBND cấp dưới.
+   - Đ13 Luật 72: chuyển quyền xuống UBND cấp dưới (tập thể) chỉ bằng phân cấp, mà phân cấp là để “thực hiện liên tục, thường xuyên” và “phải được quy định trong văn bản quy phạm pháp luật” (k1, k2). QĐ 1960 là QĐ cá biệt cho một dự án → **không phải phân cấp**.
+   - ⇒ Cách đọc duy nhất làm QĐ 1960 có hiệu lực đúng luật: người được giao phê duyệt = **Chủ tịch UBND phường**.
+3. **Chính NĐ 274 viết theo cùng văn phong với QĐ 1960.** Đoạn đầu Đ63: “Bên mời quan tâm, bên mời thầu quyết định xử lý tình huống (trường hợp được giao phê duyệt hồ sơ mời quan tâm, kết quả mời quan tâm, …)”; k2 Đ3 + k3 Đ37: bên mời quan tâm cấp xã là UBND cấp xã. Tức nghị định gọi trường hợp k2 Đ60 là “bên mời quan tâm (UBND cấp xã) được giao phê duyệt”; người ký trong cơ quan đó là Chủ tịch. ⇒ QĐ 1960 là cách viết gọn, **không phải giao sai đối tượng**.
+4. **Kể cả đọc sát chữ (quyền của UBND phường), người quyết vẫn là Chủ tịch.** k16 Đ23 (áp dụng cho phường qua Đ26): Chủ tịch “Được thay mặt Ủy ban nhân dân cấp mình quyết định những vấn đề thuộc thẩm quyền của Ủy ban nhân dân, trừ những nội dung quy định tại khoản 2 Điều 40 … và báo cáo Ủy ban nhân dân tại phiên họp gần nhất.” k2 Đ40 (a–e) **không có** phê duyệt HSMQT.
+- ⇒ Hai cách đọc hội tụ về cùng một người; chỉ khác **nhãn ký**. Chọn nhãn khớp nghị định (đứng tên Chủ tịch) + báo cáo UBND ở phiên họp gần nhất ⇒ thoả cả hai cách đọc, không cần thủ tục ngoài phường.
+
+### 3. Trả lời 4 câu của GPT
+- **Câu 1 — K1 bảo vệ được không:** Được, theo mục 2. Sự kết hợp có cơ sở rõ: k2 Đ60 + Đ63 NĐ 274 (đối tượng được giao) + Đ13, k1 Đ14 Luật 72 (loại trừ cách đọc “giao cho tập thể”) + k16 Đ23 Luật 72 (lớp dự phòng).
+- **Câu 2 — điểm GPT đúng / cần sửa:**
+  - ĐÚNG: k5 Đ60 không dùng được (k5: Chủ tịch tỉnh “phân cấp … cho Ủy ban nhân dân cấp xã theo quy định của pháp luật tổ chức chính quyền địa phương” → vướng k1, k2 Đ13 Luật 72). Không tìm thấy VBQPPL nào của Lai Châu phân cấp lĩnh vực lựa chọn nhà đầu tư cho cấp xã. → **Bỏ k5 khỏi mọi căn cứ.**
+  - ĐÚNG: k16 Đ23 không phải căn cứ chính.
+  - SỬA (a) — sai trục: không cần chứng minh “k16 áp dụng cho thẩm quyền NĐ giao trực tiếp cho Chủ tịch”. Căn cứ chính là k2 Đ60 (người được giao) + Đ63 (nghị định dùng chính văn phong ấy) + Đ13/Đ14 Luật 72 (loại trừ cách đọc khác). k16 chỉ đỡ cho cách đọc sát chữ.
+  - SỬA (b) — GPT chưa dùng **đoạn đầu Đ63 NĐ 274**; đây là điều khoản then chốt nhất cho K1.
+  - SỬA (c) — căn cứ K2 ghi chung chung: chính xác là **k18 Đ17 Luật 72** (Chủ tịch tỉnh sửa đổi, bổ sung văn bản do mình ban hành) và **k3 Đ18 NĐ 30/2020** (sai nội dung → văn bản hình thức tương đương; sai thể thức/thủ tục → công văn đính chính). NĐ 30/2020 không phải “văn bản về sửa đổi văn bản hành chính” nói chung.
+  - SỬA (d) — K2 trái nguyên tắc Owner đã chốt (V3.11, 08/9/2026): QĐ của Chủ tịch tỉnh là dữ liệu đầu vào đã khóa, không đề nghị tỉnh sửa lỗi kỹ thuật của Quyết định; mọi vướng mắc gộp vào **một** công văn gửi tỉnh (09/9/2026).
+  - SỬA (e) — chi phí thời gian của K2: sửa QĐ tỉnh cần cơ quan tham mưu cấp tỉnh → thường vài tuần; mốc PA1 (kết quả trước 01/01/2027, HSMQT ≥ 20 ngày làm việc) đã sát → K2 có thể tự đẩy dự án sang PA2 (mẫu V.A qua mạng). Rủi ro tiến độ K2 tạo ra lớn hơn rủi ro pháp lý nó định chữa.
+- **Câu 3 — giải pháp bổ sung tối thiểu:** không cần văn bản nào thêm. Nếu Phường muốn thêm một lớp *và* Công văn 01 gửi Chủ tịch tỉnh **chưa phát hành**: thêm đúng 1 câu **báo cáo** (không xin, không chờ): “UBND phường tổ chức thực hiện khoản 1 Điều 2 Quyết định số 1960/QĐ-UBND theo khoản 2 Điều 60 Nghị định số 274/2026/NĐ-CP: Chủ tịch UBND phường phê duyệt hồ sơ mời quan tâm và kết quả mời quan tâm trong phạm vi Mục II.2 Tờ trình số 3445/TTr-UBND.” Nếu Công văn 01 đã gửi → **không** ra văn bản mới. Phường quyết, bên soạn thảo chỉ lưu ý. K2 chỉ khi tỉnh chủ động yêu cầu (hình thức ở bảng mục 1).
+- **Câu 4 — rủi ro nếu ký theo K1 không có văn bản bổ sung:**
+
+| Loại rủi ro | Mức | Vì sao |
+|---|---|---|
+| Thực chất: bị kết luận sai thẩm quyền, QĐ bị hủy | **Thấp** | Người ký là người duy nhất pháp luật cho nhận quyền; tỉnh đã chủ ý giao; Đ63 dùng cùng văn phong. Người có quyền “không công nhận kết quả”, giải quyết kiến nghị, kiểm tra (k4, k6, k7, k9 Đ77 Luật Đấu thầu) là chính người có thẩm quyền đã ban hành QĐ 1960. |
+| Câu chữ / thể thức | Nhỏ | Nếu bị nêu thì là nhận xét câu chữ QĐ 1960 của tỉnh, không phải QĐ của phường. |
+| Rủi ro **tự tạo** nếu làm sai | Trung bình–cao | (1) ký TM. UBND → lệch k2 Đ60; (2) viện dẫn k5 Đ60/“phân cấp” → tự thừa nhận cơ chế không đạt Đ13 Luật 72; (3) viết “Tờ trình 3445 đã được phê duyệt”. |
+
+### 4. Việc cho Host / Agent (không phải việc của Owner)
+1. QĐ 09 (PA1) và QĐ 12 (PA2): giữ dạng **QUYẾT ĐỊNH của CHỦ TỊCH UBND PHƯỜNG**, ký “CHỦ TỊCH”. Căn cứ tối thiểu: Luật 72 (Đ23, Đ26); Luật Đấu thầu; NĐ 274 (k3 Đ37, Đ39, k2 Đ60); QĐ 1960 (k1 Đ2, Đ3); xét Tờ trình của Phòng + Báo cáo Tổ chuyên gia. **Không** k5 Đ60, **không** TM. UBND. (Claude chưa mở được bản QĐ 09/12 hiện hành trên máy Owner — Host đối chiếu.)
+2. Tờ trình 08 của Phòng: thêm 2–3 câu “Thẩm quyền phê duyệt” theo chuỗi mục 2 (bước 1–3).
+3. Sau khi ký: Chủ tịch báo cáo tại phiên họp UBND phường gần nhất (1 dòng trong thông báo kết luận phiên họp).
+4. Phạm vi: cùng lập luận dùng được cho phê duyệt kết quả mời quan tâm nhánh 0/01 nhà đầu tư ở bước sau; nhánh ≥ 02 nhà đầu tư vẫn trình Chủ tịch tỉnh (k5 Đ12, k2 Đ43; Mục II.2 điểm e Tờ trình 3445) — không đổi, không mở rộng ở đây.
+
+### 5. Đề xuất đưa Owner (gật/lắc)
+- Chọn **K1**: Chủ tịch UBND phường ký QĐ phê duyệt HSMQT ngay theo QĐ 1960, đứng tên Chủ tịch; không xin tỉnh sửa QĐ 1960. **Đề xuất của Claude: GẬT.**
+
+### 6. Rà soát và nguồn
+- Vòng 1 (đối chiếu yêu cầu GPT + nguyên tắc Owner): đủ bảng + 4 câu + điều khoản quyết định; không sửa hồ sơ; không ra ngoài 02A.
+- Vòng 2 (gốc rễ): vướng mắc sinh ra do trộn **3 cơ chế** — “giao” theo k2 Đ60 NĐ 274, phân cấp (Đ13 Luật 72), ủy quyền (Đ14 Luật 72). Tách ra: phân cấp không đạt; ủy quyền chỉ tới Chủ tịch cấp dưới; “giao” theo nghị định trỏ thẳng Chủ tịch xã. Cả ba cùng loại trừ cách đọc “UBND phường tập thể phê duyệt” ⇒ chỉ còn Chủ tịch.
+- JEV `gen-dec-1791792100-NIDCOkD9gnl6gWbZddrR` (jev-1.13): K1 0,93 (tin cậy 0,86) · k5 áp dụng được 0,47 (không phân định) · tư cách ký 0,53/0,47 (tin cậy 0,06 — JEV không phân định; Claude quyết theo k2 Đ60 + Đ14 Luật 72) · mức rủi ro: JEV không hội tụ. Chỉ tham khảo.
+- Nguồn — chính thức: Luật 72/2025/QH15, Công báo số 807+808 ngày 24/6/2025 (bản có lớp chữ, Cổng Chính phủ): Đ4, 11, 13, 14, 17, 22, 23, 25, 26, 40. Không thấy văn bản sửa đổi các điều này tới 10/2026 (theo tìm kiếm, không phải xác nhận tuyệt đối).
+- Nguồn — thứ cấp, **cần GPT đối chiếu bản ký** (bản ký NĐ 274 trên datafiles.chinhphu.vn là ảnh scan; GPT đã đọc trang 63–64 ở TCG-P10): NĐ 274 k2–3 Đ3, k3–5 Đ37, Đ39, k1 Đ43, Đ60 k1–5, Đ61, đoạn đầu Đ63 — đọc trên bản chữ dauthau.gxd.vn; Luật Đấu thầu VBHN 74 k9 Đ77 — cùng nguồn; NĐ 30/2020 k3 Đ18 — LSVN, Tạp chí Quản lý nhà nước.
+- Chưa kiểm được: nguyên văn Đ3 QĐ 1960 (dùng theo trích của GPT); Mục II.2 điểm d trên bản ký Tờ trình 3445 (Owner trước đây xác nhận Phường dùng nguyên văn bản soạn) — Phòng đối chiếu bản lưu khi trình ký, không chặn.
