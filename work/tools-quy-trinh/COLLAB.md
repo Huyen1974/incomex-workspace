@@ -8,7 +8,7 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P35
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P36
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② MOW001 thật ngoài PG: CP01/CP02 đạt, 2/7; 20/34 mục đọc lại] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
@@ -16,7 +16,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
-- ■ Đang làm: — · 0 RUN active; P35 DỪNG tại CP03, chưa nghiệm thu sản phẩm
+- ■ Đang làm: P36 · nối biên nhận máy chủ tại CP03 rồi tiếp tục MOW001 G1; executor=Codex Host; Reviewer kỹ thuật=/root/review_mow001, không phải ghế/quorum riêng
 - ⬜ Còn lại: nối bằng chứng tin cậy CP03 → thiết kế P02/P03 thật → đọc/kiểm → duyệt/nhận đúng phiên. Không dùng TEST thay sản phẩm.
 - ➡ Kế tiếp: Host sửa đường adapter cung cấp trust cho cửa ghi; xem execution_walk trong phiếu MOW001. Thiếu Claude không tự là blocker; không giả danh người kiểm hoặc quyết định Owner.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
@@ -38,6 +38,10 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 (Hai dòng đầu Owner duyệt 08/10/2026 · D04. Dòng cuối là lời Owner 10/10/2026 · D24/D25.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+**Owner 12/10/2026 · P36, nguyên văn:** “Bạn tiếp tục sửa điểm tắc ở mốc 3, nối bằng chứng quyền ghi–đọc từ máy chủ rồi đi tiếp MOW001 thật đến cuối nhé. Vẫn ngoài PG, không lấy TEST thay việc thật và cập nhật các Master liên quan.”
+
+STARTED@MOW001-P36-REAL 2026-10-12T07:34:36.793236+00:00 · executor=Codex Host · phạm vi kho tệp MOW001/G1; không PG. Dùng lại CHECK004/005/006 và bộ prepare/activate/probe đã đăng ký. Reviewer kỹ thuật đọc mã/bằng chứng, không ký hộ Anthropic; quyết định/ACK Owner cuối vẫn cần nguồn thật.
 
 **Owner 12/10/2026 · P35, nguyên văn:** “Bạn tiếp tục áp dụng vào MOW001 thật, đi từng bước từ đầu đến cuối xem còn tắc ở đâu thì sửa và ghi vào các Master liên quan nhé. Vẫn làm ngoài PG, không lấy kết quả TEST thay cho việc thật đã đạt.”
 
