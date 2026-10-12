@@ -923,7 +923,7 @@ Chỉ đạo trực tiếp Owner: tổ chức trạng thái/phiên/nâng cấp �
 
 Nguồn chuẩn và đường vào vẫn hai Master dưới Master tiến trình ở trang chủ VPS. Hồ sơ máy/người cùng đọc tại `view.html → catalog.tool_registry.walkthrough`; bằng chứng `UI-REVIEW-AGGREGATE.json#host_review_P34`; hướng dẫn ở README P34. JEV gen-dec-1791777819-iewqP3YUVkHZLpuL1YOj chỉ tham khảo cách tổ chức.
 
-Đi bộ: QT001 là MOW-TH-003, sáu bước. Chọn ca bộ nhớDOT/Tool → đọc đúng cửa vào → thấy thiếu cấu trúc cùng khuôn và sổ chưa nối bằng chứng → hiệu chỉnh nguồn/kiểm. Các Master CAT012/015/016/025/229/069 chiếu nguồn hiện có. Chưa có agent khác làm bước5/phiếuClaude phiênP34 nên DOER_CONFIRM=PARTIAL, chưa công nhận quy trình đạt. Giữ47Master,6DOT; chưaPG/MOW0010/7.
+Đi bộ: QT001 là MOW-TH-003, sáu bước. Chọn ca bộ nhớDOT/Tool → đọc đúng cửa vào → thấy thiếu cấu trúc cùng khuôn và sổ chưa nối bằng chứng → hiệu chỉnh nguồn/kiểm. Các Master CAT012/015/016/025/229/069 chiếu nguồn hiện có. Lịch sử trước chỉ đạo bổ sung Owner: chưa có agent khác/phiếuClaude nên lượt đầu ghi PARTIAL. Trạng thái hiện hành lấy hồ sơ P34: Host đã đi hết đường áp thử trong phạm vi Owner cho phép; không tuyên bố AI mới độc lập nghiệm thu toàn bộ QT001. Giữ47Master,6DOT; chưaPG/MOW0010/7.
 
 Owner bổ sung trực tiếp trong lượt P34: “Bạn cứ già đi, coi như không có anthropic duyệt. Đó không phải blocker. Điều quan trọng là khi áp dụng vào quy trình thì chạy được từ đầu đến cuối. Không cần máy móc việc thủ tục hành chính đâu”. Hiệu lực: không gửi bộ nguồn sang Anthropic; tiếp tục đường áp thử, ghi Claude chưa duyệt riêng; không tuyên bố đã đồng thuận hoặc có agent mới độc lập.
 
