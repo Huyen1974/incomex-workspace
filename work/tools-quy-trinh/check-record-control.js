@@ -1,9 +1,38 @@
 /* Tests the same design projection as Overview. No PostgreSQL writes. */
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
-let html=fs.readFileSync(process.argv[2]||__dirname+'/view.html','utf8');
+// Heavy real-packet readers run before the parent loads its full catalog.
+let realTransitionPreflight=null;
+if(!process.argv.slice(2).some(x=>x.startsWith('--'))){runPreparationReaderCases();realTransitionPreflight=runRealTransitionPreflight();}
+// The lock launcher needs no application/catalog. Acquire the OS lock before
+// starting the TEST receiver so an idle launcher never duplicates the full source.
+// Kernel flock survives filename persistence and is released on process death. Never unlink it.
+if(process.argv.includes('--test-handoff')&&process.argv[process.argv.indexOf('--test-handoff')+1]==='consume'&&!process.argv.includes('--held-lock')){
+ const code=`import os,sys,fcntl,json
+f=open(sys.argv[1],'a+')
+try: fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB)
+except BlockingIOError:
+ print(json.dumps({'state':'BLOCKED','error':'CONCURRENT_WRITE','issue_master':'CAT-069?','owner':'TEST','return_to':'P01'}));sys.exit(0)
+os.set_inheritable(f.fileno(),True)
+os.execv(sys.argv[2],sys.argv[2:])`;
+ const dir=process.argv[process.argv.indexOf('--test-handoff')+2],x=require('child_process').spawnSync('python3',['-c',code,require('path').join(dir,'receive.lock'),process.execPath,...process.execArgv,__filename,...process.argv.slice(2),'--held-lock'],{encoding:'utf8',maxBuffer:2e6});
+ if(x.stdout)process.stdout.write(x.stdout);if(x.stderr)process.stderr.write(x.stderr);process.exit(x.status===null?1:x.status);
+}
+const testMode=['--test-handoff','--test-design'].find(flag=>process.argv.includes(flag));
+let testContext=null;
+if(testMode){
+ const allowed=new Set([testMode,'--held-lock']);assert(process.argv.slice(2).filter(x=>x.startsWith('--')).every(x=>allowed.has(x)),'TEST_MODE_FLAGS');
+ const path=require('path'),dir=process.argv[process.argv.indexOf(testMode)+2],file=path.join(dir,'test-context.json');
+ if(fs.existsSync(file)){
+  const context=JSON.parse(fs.readFileSync(file,'utf8')),policy=JSON.parse(fs.readFileSync(path.join(dir,'policy.json'),'utf8'));
+  assert.equal(context.environment,'ISOLATED_TEST');assert.equal(policy.environment,'TEST');assert.equal(context.schema,'TQT-HANDOFF-TEST-CONTEXT/1');
+  const engine=fs.readFileSync(path.join(dir,'test-engine.js'),'utf8');assert.equal(require('crypto').createHash('sha256').update(engine).digest('hex'),context.engine_sha256,'TEST_ENGINE_HASH');
+  testContext={catalog:context.catalog,engine};
+ }
+}
+let html=testContext?null:fs.readFileSync(process.argv[2]||__dirname+'/view.html','utf8');
 const script=id=>{const m=html.match(new RegExp('<script id="'+id+'"[^>]*>([\\s\\S]*?)</script>'));assert(m,id);return m[1];};
-const R=JSON.parse(script('tqt-composite-processes')).catalog;
-const engineSource=Buffer.from(script('tqt-record-control'),'utf8').toString('utf8');
+const R=testContext?testContext.catalog:JSON.parse(script('tqt-composite-processes')).catalog;
+const engineSource=testContext?testContext.engine:Buffer.from(script('tqt-record-control'),'utf8').toString('utf8');
 vm.runInThisContext(engineSource);
 // P36: CLI verifies the same server signature before caching public read evidence.
 function loadServerReceipt(r){const a=r.application_preview.record,p=r.server_trust_policy,s=a.server_receipt;if(!s)return false;const c=require('crypto');if(!p||s.algorithm!=='Ed25519'||s.key_id!==p.policy_id)throw Error('SERVER_RECEIPT_KEY');const key=c.createPublicKey({key:Buffer.concat([Buffer.from('302a300506032b6570032100','hex'),Buffer.from(p.public_key_base64,'base64')]),format:'der',type:'spki'});if(!c.verify(null,Buffer.from(s.payload),key,Buffer.from(s.signature,'base64')))throw Error('SERVER_RECEIPT_SIGNATURE');globalThis.tqtRegisterServerTrust(r,JSON.parse(s.payload));return true;}
@@ -45,18 +74,6 @@ function sliceCommand(){
   if(policy.drop_ack_once)return {state:'ACK_LOST',effect_count:next.effects.length};
   return {state:'ACK',replayed:false,receipt_id:receipt.id,effect_count:next.effects.length,sha256:hash,used_scope:received.scope,answer_count:received.data.answers.length};
  }
-}
-// Kernel flock survives filename persistence and is released on process death. Never unlink it.
-if(process.argv.includes('--test-handoff')&&process.argv[process.argv.indexOf('--test-handoff')+1]==='consume'&&!process.argv.includes('--held-lock')){
- const code=`import os,sys,fcntl,json
-f=open(sys.argv[1],'a+')
-try: fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB)
-except BlockingIOError:
- print(json.dumps({'state':'BLOCKED','error':'CONCURRENT_WRITE','issue_master':'CAT-069?','owner':'TEST','return_to':'P01'}));sys.exit(0)
-os.set_inheritable(f.fileno(),True)
-os.execv(sys.argv[2],sys.argv[2:])`;
- const dir=process.argv[process.argv.indexOf('--test-handoff')+2],x=require('child_process').spawnSync('python3',['-c',code,require('path').join(dir,'receive.lock'),process.execPath,__filename,...process.argv.slice(2),'--held-lock'],{encoding:'utf8',maxBuffer:2e6});
- if(x.stdout)process.stdout.write(x.stdout);if(x.stderr)process.stderr.write(x.stderr);process.exit(x.status===null?1:x.status);
 }
 if(process.argv.includes('--test-handoff')){try{console.log(JSON.stringify(sliceCommand()));}catch(e){console.log(JSON.stringify({state:'BLOCKED',error:e.message}));process.exitCode=1;}return;}
 
@@ -116,7 +133,7 @@ if(process.argv.includes('--check-g1-ui')){
 }
 
 // Read a persisted preparation packet using the same contracts; never manufactures answers or acceptance.
-if(process.argv.includes('--read-preparation')){const crypto=require('crypto'),s=html;const raw=fs.readFileSync(process.argv[process.argv.indexOf('--read-preparation')+1]),P=JSON.parse(raw),a=P.application_D24;R.application_preview.record=a;if(a.target_code!=='MOW-NHC-001'||a.scope_stage!=='G1')throw Error('UNSUPPORTED_PREPARATION_SCOPE');const q=JSON.parse(s.match(/<script id="tqt-question-matrix"[^>]*>([\s\S]*?)<\/script>/)[1]),groups=new Set(['STEP','CHILD','LAYER','CHAIN','B1','B1.1','B1.2','B1.3','FIELD','CTCM','UI','TEST','CONFIG']),needed=q.questions.filter(x=>groups.has(x.owner)).map(x=>x.id),answers=a.preparation_review.answers;const missing=needed.filter(id=>answers.filter(x=>x.question_id===id).length!==1);const refs=answers.map(x=>x.answer_ref?P.process_trial_20261009.answers[Number(x.answer_ref.split('/').pop())]:x);if(answers.length!==needed.length||missing.length||answers.some((x,i)=>x.answer_ref&&(x.answer_ref!=='work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/answers/'+Number(x.answer_ref.split('/').pop())||refs[i]?.question_id!==x.question_id))||refs.some(x=>!x||(!x.answer&&!x.answers?.every(y=>y.answer)))||tqtSHA256(tqtCanonical(q))!==a.preparation_review.question_matrix_sha256)throw Error('PREPARATION_ANSWERS_INCOMPLETE');const result=a.plan_results.find(x=>x.plan_id==='P01'),check=tqtPayloadAudit(R,'P01',result);if(check.state!=='PASS')throw Error(JSON.stringify(check));const records=a.trial_records.filter(x=>['PLAN','COVERAGE'].includes(x.requirement_code));if(records.length!==2||new Set(records.map(x=>x.requirement_code)).size!==2)throw Error('PREPARATION_RECORD_SET');for(const x of records){if(x.application_id!==a.application_id||x.payload.source_ref!==R.application_preview.source_ref+'/'+(x.requirement_code==='PLAN'?'plan':'preparation_review'))throw Error('PREPARATION_RECORD_SOURCE');const payload=x.requirement_code==='PLAN'?a.plan:a.preparation_review;if(tqtSHA256(tqtCanonical(payload))!==x.payload.sha256)throw Error('STORED_RECORD_HASH_MISMATCH');}console.log(JSON.stringify({environment:'PREPARATION_READBACK',state:'READ_AND_VALIDATED',application_id:a.application_id,target_version:a.target_version,source_sha256:crypto.createHash('sha256').update(raw).digest('hex'),P01_sha256:tqtSHA256(tqtCanonical(result)),declarations:a.declarations.length,required_questions:needed.length,answered:answers.length,inherited:answers.filter(x=>x.answer_ref).length,added:answers.filter(x=>x.answer).length,missing,record_refs:records.map(x=>x.id),handoff:check,reader:'read-only preparation input for P02; execution provenance comes from caller receipt',product_acceptance:false,pg:'NOT_RUN'}));process.exit(0);}
+if(process.argv.includes('--read-preparation')){const crypto=require('crypto'),q=JSON.parse(script('tqt-question-matrix'));html=null;const raw=fs.readFileSync(process.argv[process.argv.indexOf('--read-preparation')+1]),P=JSON.parse(raw),a=P.application_D24;R.application_preview.record=a;if(a.target_code!=='MOW-NHC-001'||a.scope_stage!=='G1')throw Error('UNSUPPORTED_PREPARATION_SCOPE');const groups=new Set(['STEP','CHILD','LAYER','CHAIN','B1','B1.1','B1.2','B1.3','FIELD','CTCM','UI','TEST','CONFIG']),needed=q.questions.filter(x=>groups.has(x.owner)).map(x=>x.id),answers=a.preparation_review.answers;const missing=needed.filter(id=>answers.filter(x=>x.question_id===id).length!==1);const refs=answers.map(x=>x.answer_ref?P.process_trial_20261009.answers[Number(x.answer_ref.split('/').pop())]:x);if(answers.length!==needed.length||missing.length||answers.some((x,i)=>x.answer_ref&&(x.answer_ref!=='work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/answers/'+Number(x.answer_ref.split('/').pop())||refs[i]?.question_id!==x.question_id))||refs.some(x=>!x||(!x.answer&&!x.answers?.every(y=>y.answer)))||tqtSHA256(tqtCanonical(q))!==a.preparation_review.question_matrix_sha256)throw Error('PREPARATION_ANSWERS_INCOMPLETE');const result=a.plan_results.find(x=>x.plan_id==='P01'),check=tqtPayloadAudit(R,'P01',result);if(check.state!=='PASS')throw Error(JSON.stringify(check));const records=a.trial_records.filter(x=>['PLAN','COVERAGE'].includes(x.requirement_code));if(records.length!==2||new Set(records.map(x=>x.requirement_code)).size!==2)throw Error('PREPARATION_RECORD_SET');for(const x of records){if(x.application_id!==a.application_id||x.payload.source_ref!==R.application_preview.source_ref+'/'+(x.requirement_code==='PLAN'?'plan':'preparation_review'))throw Error('PREPARATION_RECORD_SOURCE');const payload=x.requirement_code==='PLAN'?a.plan:a.preparation_review;if(tqtSHA256(tqtCanonical(payload))!==x.payload.sha256)throw Error('STORED_RECORD_HASH_MISMATCH');}console.log(JSON.stringify({environment:'PREPARATION_READBACK',state:'READ_AND_VALIDATED',application_id:a.application_id,target_version:a.target_version,source_sha256:crypto.createHash('sha256').update(raw).digest('hex'),P01_sha256:tqtSHA256(tqtCanonical(result)),declarations:a.declarations.length,required_questions:needed.length,answered:answers.length,inherited:answers.filter(x=>x.answer_ref).length,added:answers.filter(x=>x.answer).length,missing,record_refs:records.map(x=>x.id),handoff:check,reader:'read-only preparation input for P02; execution provenance comes from caller receipt',product_acceptance:false,pg:'NOT_RUN'}));process.exit(0);}
 // Called by the authenticated gateway before committing. stdin is captured under its root lock.
 if(process.argv.includes('--write-gate')){
  try{const {before,after,trusted_context}=JSON.parse(fs.readFileSync(0,'utf8')),a=after.application_D24,transition=globalThis.tqtValidateTransition(before.application_D24,a),r=clone(R);r.application_preview.record=a;const audit=globalThis.tqtRecordAudit(r,trusted_context),errors=[...transition.errors,...audit.errors];
@@ -321,12 +338,20 @@ assert.equal(validate(previous,newContract).state,'PASS');contractCases++;
 
  return {cases:contractCases,unchanged:'PASS',history:'FULL_SOURCE_NOT_TRIMMED'};
 }
-const realTransitionEvidence=(()=>{const os=require('os'),path=require('path'),cp=require('child_process'),crypto=require('crypto'),dir=fs.mkdtempSync(path.join(os.tmpdir(),'tqt-real-transition-TEST-'));
- try{const source=JSON.stringify(R.application_preview.record),sourceHash=crypto.createHash('sha256').update(source).digest('hex');fs.writeFileSync(path.join(dir,'application.json'),source);fs.writeFileSync(path.join(dir,'engine.js'),engineSource);
+function runRealTransitionPreflight(){const os=require('os'),path=require('path'),cp=require('child_process'),crypto=require('crypto'),dir=fs.mkdtempSync(path.join(os.tmpdir(),'tqt-real-transition-TEST-'));
+ try{
+ // A short-lived producer copies the full actual application and exact engine.
+ // It exits before the history receiver starts, while main has not loaded R yet.
+ const prepare=String.raw`const fs=require('fs'),path=require('path'),crypto=require('crypto');let html=fs.readFileSync(process.argv[1],'utf8');const script=id=>html.match(new RegExp('<script id="'+id+'"[^>]*>([\\s\\S]*?)</script>'))[1];const source=JSON.stringify(JSON.parse(script('tqt-composite-processes')).catalog.application_preview.record),engine=script('tqt-record-control');fs.writeFileSync(path.join(process.argv[2],'application.json'),source);fs.writeFileSync(path.join(process.argv[2],'engine.js'),engine);console.log(JSON.stringify({source_sha256:crypto.createHash('sha256').update(source).digest('hex'),engine_sha256:crypto.createHash('sha256').update(engine).digest('hex')}));`;
+ const made=cp.spawnSync(process.execPath,[...process.execArgv,'-e',prepare,process.argv[2]||__dirname+'/view.html',dir],{encoding:'utf8',maxBuffer:2e6});assert.equal(made.status,0,made.stderr);const copied=JSON.parse(made.stdout);
  const code=`const fs=require('fs'),vm=require('vm'),assert=require('assert'),crypto=require('crypto');${cloneFixtureData.toString()};${copyTransitionFixture.toString()};vm.runInThisContext(fs.readFileSync(process.argv[1],'utf8'));const raw=fs.readFileSync(process.argv[2]);const result=(${realTransitionCases.toString()})(JSON.parse(raw));console.log(JSON.stringify({...result,source_sha256:crypto.createHash('sha256').update(raw).digest('hex')}));`;
- const result=cp.spawnSync(process.execPath,['-e',code,path.join(dir,'engine.js'),path.join(dir,'application.json')],{encoding:'utf8',maxBuffer:2e6});assert.equal(result.status,0,result.stderr);const proof=JSON.parse(result.stdout);assert.equal(proof.source_sha256,sourceHash);return proof;
+ const result=cp.spawnSync(process.execPath,[...process.execArgv,'-e',code,path.join(dir,'engine.js'),path.join(dir,'application.json')],{encoding:'utf8',maxBuffer:2e6});assert.equal(result.status,0,result.stderr);const proof=JSON.parse(result.stdout);assert.equal(proof.source_sha256,copied.source_sha256);return {...proof,engine_sha256:copied.engine_sha256};
  }finally{fs.rmSync(dir,{recursive:true,force:true});}
-})();contractCases+=realTransitionEvidence.cases;
+}
+const realTransitionEvidence=realTransitionPreflight;
+assert.equal(realTransitionEvidence.source_sha256,require('crypto').createHash('sha256').update(JSON.stringify(R.application_preview.record)).digest('hex'),'FULL_REAL_TRANSITION_SOURCE');
+assert.equal(realTransitionEvidence.engine_sha256,require('crypto').createHash('sha256').update(engineSource).digest('hex'),'FULL_REAL_TRANSITION_ENGINE');
+contractCases+=realTransitionEvidence.cases;
 
 {const changed=cloneFixtureData(complete);changed.application_preview.record.information_contract.rows[0].meaning+=' revised';assert.deepEqual(audit(changed).verifiedCheckpoints,['CP01']);contractCases++;}
 console.log(JSON.stringify({information_contract_cases:contractCases,actual_contract_rows:R.application_preview.record.information_contract.rows.length,actual_criteria:R.application_preview.record.information_contract.criteria.length,synthetic_full_walk:audit(complete).verifiedCheckpoints.length,real_checkpoints:audit(R).verifiedCheckpoints.length,server_write_hook:'NOT_PROBED_BY_THIS_SUITE',pg:'NOT_RUN'}));
@@ -366,12 +391,22 @@ const revised=copyEvidenceFixture(beforeEvidence);revised.plan_results[0].output
 }
 assert.equal(realTransitionEvidence.unchanged,'PASS');assert.equal(realTransitionEvidence.history,'FULL_SOURCE_NOT_TRIMMED');pr14Cases++;
 console.log(JSON.stringify({pr14_boundary_cases:pr14Cases,synthetic_trusted_context_only:true,untrusted_self_attestation_blocked:true,real_checkpoints:audit(R).verifiedCheckpoints.length}));
+// Child packet/design tests use the exact schema, contract, plan and declaration
+// values they consume, not unrelated execution/checkpoint history. Real R stays full.
+function writeHandoffTestContext(dir){
+ const path=require('path'),a=R.application_preview.record,keys=['application_id','target_code','target_version','process_code','process_version','scope','scope_stage','actor','plan','declarations','input_refs','information_contract'];
+ const catalog={application_preview:{source_ref:R.application_preview.source_ref,record:Object.fromEntries(keys.map(key=>[key,a[key]]))},work_form:{fields:R.work_form.fields},work_master_designs:{records:[R.work_master_designs.records.find(x=>x.code==='CAT-206*')]}};
+ assert.deepEqual(tqtContractPin(catalog.application_preview.record),tqtContractPin(a));
+ const context={schema:'TQT-HANDOFF-TEST-CONTEXT/1',environment:'ISOLATED_TEST',engine_sha256:require('crypto').createHash('sha256').update(engineSource).digest('hex'),catalog};
+ fs.writeFileSync(path.join(dir,'test-context.json'),JSON.stringify(context));fs.writeFileSync(path.join(dir,'test-engine.js'),engineSource);
+}
 async function fileHandoffSlice(){
  const os=require('os'),path=require('path'),cp=require('child_process'),crypto=require('crypto'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'tqt-handoff-TEST-'));
  const write=(n,x)=>fs.writeFileSync(path.join(tmp,n),JSON.stringify(x)),read=n=>JSON.parse(fs.readFileSync(path.join(tmp,n),'utf8'));
  const policy={environment:'TEST',receiver:'P02',expected_output_version:'1',expected_state_revision:0,read_allowed:true,write_allowed:true};
- const call=mode=>{const p=cp.spawnSync(process.execPath,[__filename,process.argv[2]||__dirname+'/view.html','--test-handoff',mode,tmp],{encoding:'utf8',maxBuffer:2e6});assert.equal(p.status,0,p.stderr);return JSON.parse(p.stdout);};
+ const call=mode=>{const p=cp.spawnSync(process.execPath,[...process.execArgv,__filename,process.argv[2]||__dirname+'/view.html','--test-handoff',mode,tmp],{encoding:'utf8',maxBuffer:2e6});assert.equal(p.status,0,p.stderr);return JSON.parse(p.stdout);};
  let cases=0;try{
+  writeHandoffTestContext(tmp);
   write('policy.json',policy);write('state.json',{revision:0,cancelled:false,received:null,effects:[]});const produced=call('produce'),packet=read('packet.json');
   const accepted=call('consume');assert.equal(accepted.state,'ACK');assert.equal(accepted.sha256,produced.sha256);assert.equal(accepted.answer_count,R.application_preview.record.declarations.length);cases++;
   assert.equal(call('consume').replayed,true);assert.equal(read('state.json').effects.length,1);cases++;
@@ -381,7 +416,7 @@ async function fileHandoffSlice(){
   reset();write('state.json',{revision:0,cancelled:true,received:null,effects:[]});assert.equal(call('consume').error,'CANCELLED');cases++;
   reset();write('state.json',{revision:1,cancelled:false,received:null,effects:[]});assert.equal(call('consume').error,'CONCURRENT_REVISION');cases++;
   reset();write('policy.json',{...policy,drop_ack_once:true});assert.equal(call('consume').state,'ACK_LOST');assert.equal(call('consume').replayed,true);assert.equal(read('state.json').effects.length,1);cases++;
-  reset();const parallel=()=>new Promise((resolve,reject)=>{const p=cp.spawn(process.execPath,[__filename,process.argv[2]||__dirname+'/view.html','--test-handoff','consume',tmp]);let out='';p.stdout.on('data',d=>out+=d);p.on('error',reject);p.on('close',code=>code?reject(Error(out)):resolve(JSON.parse(out)));});
+  reset();const parallel=()=>new Promise((resolve,reject)=>{const p=cp.spawn(process.execPath,[...process.execArgv,__filename,process.argv[2]||__dirname+'/view.html','--test-handoff','consume',tmp]);let out='';p.stdout.on('data',d=>out+=d);p.on('error',reject);p.on('close',code=>code?reject(Error(out)):resolve(JSON.parse(out)));});
   const both=await Promise.all([parallel(),parallel()]);assert(both.some(x=>x.state==='ACK'));assert(both.every(x=>x.state==='ACK'||x.error==='CONCURRENT_WRITE'));assert.equal(read('state.json').effects.length,1);cases++;
   const changed=cloneFixtureData(packet);changed.payload.at='2026-10-11T00:00:00Z';write('packet.json',changed);assert.equal(call('consume').error,'DUPLICATE_KEY_DIFFERENT_CONTENT');cases++;
   const events=fs.readFileSync(path.join(tmp,'events.jsonl'),'utf8').trim().split('\n').map(JSON.parse);assert(events.some(x=>x.state==='BLOCKED'&&x.issue_master==='CAT-069?'&&x.owner&&x.return_to==='P01'));
@@ -426,8 +461,9 @@ fileHandoffSlice().catch(e=>{console.error(e);process.exitCode=1;});
 }
 {
  const os=require('os'),path=require('path'),cp=require('child_process'),tmp=fs.mkdtempSync(path.join(os.tmpdir(),'tqt-pr15-TEST-')),p=n=>path.join(tmp,n),write=(n,x)=>fs.writeFileSync(p(n),JSON.stringify(x)),read=n=>JSON.parse(fs.readFileSync(p(n),'utf8'));
- const call=(kind,mode,env={})=>{const x=cp.spawnSync(process.execPath,[__filename,process.argv[2]||__dirname+'/view.html',kind,mode,tmp],{encoding:'utf8',maxBuffer:4e6,env:{...process.env,...env}});return {status:x.status,result:x.stdout?JSON.parse(x.stdout):null};};
+ const call=(kind,mode,env={})=>{const x=cp.spawnSync(process.execPath,[...process.execArgv,__filename,process.argv[2]||__dirname+'/view.html',kind,mode,tmp],{encoding:'utf8',maxBuffer:4e6,env:{...process.env,...env}});return {status:x.status,result:x.stdout?JSON.parse(x.stdout):null};};
  let cases=0;try{
+  writeHandoffTestContext(tmp);
   write('policy.json',{environment:'TEST',receiver:'P02',expected_output_version:'1',expected_state_revision:0,read_allowed:true,write_allowed:true});write('state.json',{revision:0,cancelled:false,received:null,effects:[]});assert.equal(call('--test-handoff','produce').result.state,'WRITTEN');
   assert.notEqual(call('--test-handoff','consume',{TQT_TEST_KILL_AFTER_LOCK:'1'}).status,0);assert.equal(read('state.json').effects.length,0);assert.equal(call('--test-handoff','consume').result.state,'ACK');cases++;
   write('state.json',{revision:0,cancelled:false,received:null,effects:[]});fs.unlinkSync(p('events.jsonl'));
@@ -443,9 +479,14 @@ fileHandoffSlice().catch(e=>{console.error(e);process.exitCode=1;});
 }
 
 // P35 reusable real-packet reader, with invalid packets isolated in temporary TEST files.
-if(R.application_preview.record.preparation_review?.answers){
- const path=require('path'),os=require('os'),cp=require('child_process'),dir=fs.mkdtempSync(path.join(os.tmpdir(),'TQT-P01-TEST-')),product=JSON.parse(fs.readFileSync(path.join(__dirname,'../mow-mot-moit-mout/UI-REVIEW-MOW001.json'),'utf8'));let cases=0;
- try{for(const mutate of [null,p=>p.application_D24.preparation_review.answers.pop(),p=>p.application_D24.preparation_review.answers[0].answer_ref='fake:source/0',p=>p.application_D24.plan_results[0].data.answers[0].answer='wrong',p=>p.application_D24.trial_records=[],p=>p.application_D24.trial_records[0].payload.source_ref='fake:plan',p=>p.application_D24.preparation_review.question_matrix_sha256='0'.repeat(64)]){const x=cloneFixtureData(product);if(mutate)mutate(x);const f=path.join(dir,'packet.json');fs.writeFileSync(f,JSON.stringify(x));const res=cp.spawnSync(process.execPath,[__filename,process.argv[2]||__dirname+'/view.html','--read-preparation',f],{encoding:'utf8',timeout:15000,maxBuffer:2e6});assert.equal(res.status===0,!mutate,'P01_READER_BOUNDARY');cases++;}console.log(JSON.stringify({p35_preparation_reader:{cases,state:'PASS',scope:'TEST packets validate reader; real checkpoint requires authenticated persisted-source receipt'}}));}finally{fs.rmSync(dir,{recursive:true,force:true});}
+function runPreparationReaderCases(){
+ const path=require('path'),os=require('os'),cp=require('child_process'),dir=fs.mkdtempSync(path.join(os.tmpdir(),'TQT-P01-TEST-')),source=path.join(__dirname,'../mow-mot-moit-mout/UI-REVIEW-MOW001.json');let cases=0;
+ try{for(const mutate of [null,p=>p.application_D24.preparation_review.answers.pop(),p=>p.application_D24.preparation_review.answers[0].answer_ref='fake:source/0',p=>p.application_D24.plan_results[0].data.answers[0].answer='wrong',p=>p.application_D24.trial_records=[],p=>p.application_D24.trial_records[0].payload.source_ref='fake:plan',p=>p.application_D24.preparation_review.question_matrix_sha256='0'.repeat(64)]){const f=path.join(dir,'packet.json');if(!mutate)fs.copyFileSync(source,f);else{
+ // Create the complete mutated packet in a short-lived worker; release it before
+ // the real reader loads both full source and packet. Never trim stored history.
+ const code="const fs=require('fs'),p=JSON.parse(fs.readFileSync(process.argv[1],'utf8'));("+mutate.toString()+")(p);fs.writeFileSync(process.argv[2],JSON.stringify(p));";
+ const made=cp.spawnSync(process.execPath,[...process.execArgv,'-e',code,source,f],{encoding:'utf8',timeout:120000,maxBuffer:2e6});assert.equal(made.status,0,'P01_FIXTURE_CREATION: '+made.stderr);
+ }const res=cp.spawnSync(process.execPath,[...process.execArgv,__filename,process.argv[2]||__dirname+'/view.html','--read-preparation',f],{encoding:'utf8',timeout:120000,maxBuffer:2e6});assert.equal(res.status===0,!mutate,'P01_READER_BOUNDARY');cases++;}console.log(JSON.stringify({p35_preparation_reader:{cases,state:'PASS',scope:'TEST packets validate reader; real checkpoint requires authenticated persisted-source receipt'}}));}finally{fs.rmSync(dir,{recursive:true,force:true});}
 }
 // P36 TEST-only boundary cases. No fixture is persisted as MOW001 progress.
 {

@@ -100345,7 +100345,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-record-control.js",
             "view.html"
           ],
-          "sha256": "ffe585bdd9ad156cb0ba3355ecc0bacaa5ab92a298d6cfd739f6c83c61fef193",
+          "sha256": "d0082b51b9c73f23f5f42b87df3794f2f3b8c48a9773ceab781bdc01fb389767",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -100439,7 +100439,7 @@ main{max-width:1240px} [hidden]{display:none!important}
               }
             ],
             "policy_id": "MOW001-G1-P36-2",
-            "test_harness_delta": "P36.3: future-row readiness, TEST copy-on-write and shared immutable history, scoped test subprocesses, reuse already parsed catalog for persisted P01 reader. Gate engine/server-context unchanged; deployed immutable validator pin remains separate."
+            "test_harness_delta": "P36.4: TEST receiver minimal context bound to engine hash; full real P35/transition preflight executes before main catalog, source/engine hash crosschecked. Node child inherits explicit heap512 and bounded120s read timeout. All real history/gate engine/server-context preserved; runtime immutable validation pin remains separate."
           },
           "read_preparation": {
             "argv": [
@@ -100512,7 +100512,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "state": "REGISTERED_READ_ONLY",
           "limitations": "Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật.",
           "operation_key": "tqt.validate-work-masters",
-          "timeout_seconds": 60,
+          "timeout_seconds": 300,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
             "process-work-master-v1.js": "6a81a5ff686b5608ac1404208059c666fd99a7e8c0c1b9a2eb0bc22f45a22e64",
@@ -105954,21 +105954,21 @@ main{max-width:1240px} [hidden]{display:none!important}
         },
         {
           "tool_id": "TQT-CHECK-004",
-          "contract_revision": "P36.3",
+          "contract_revision": "P36.4",
           "owner": "Codex Host tools-quy-trinh",
           "acceptance_scope": "Kiểm hợp đồng và cưỡng chế kho tệp MOW001 G1 trên VPS; mô phỏng không thay nghiệm thu sản phẩm; ngoài PG.",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
           "baseline_source": "32e3f58fc8d3e6f5b239e09264f18ccd91ae7eadbb0355fb0352b3529e1f0586",
-          "next_action": "Chạy lại đúng nguồn trên VPS; không cắt lịch sử thật. Kết quả TEST không thay mốc thật. Xem host_review_P36/final_suite_followup."
+          "next_action": "Chạy nativefull1GiB sau sửa TEST process overlap vàtimeout005300s; giữ toàn bộ lịch sử vàassertion."
         },
         {
           "tool_id": "TQT-CHECK-005",
-          "contract_revision": "P36.3",
+          "contract_revision": "P36.4",
           "owner": "Codex Host tools-quy-trinh",
           "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
           "baseline_source": "9cc1eadfba38db846ef78d7b5d0829e044ddbb60bcaa3c0abeb8435d0d903df0",
-          "next_action": "Chạy lại đúng nguồn trên VPS; không cắt lịch sử thật. Kết quả TEST không thay mốc thật. Xem host_review_P36/final_suite_followup."
+          "next_action": "Chạy nativefull1GiB sau sửa TEST process overlap vàtimeout005300s; giữ toàn bộ lịch sử vàassertion."
         },
         {
           "tool_id": "TQT-CHECK-006",
@@ -106586,6 +106586,17 @@ main{max-width:1240px} [hidden]{display:none!important}
           "at": "2026-10-12T09:40:24.713587+00:00",
           "change": "Giảm bản sao dữ liệu kiểm; giữ toàn bộ lịch sử và assertion. Chờ lượt tổng VPS 1GiB.",
           "source_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/final_suite_followup",
+          "state": "RECHECK_PENDING"
+        },
+        {
+          "id": "TQT-CHANGE-P36-004-PROCESS-TREE",
+          "target_code": "TQT-CHECK-004",
+          "kind": "UPGRADE",
+          "at": "2026-10-12T10:06:55.362138+00:00",
+          "before_version": "ffe585bdd9ad156cb0ba3355ecc0bacaa5ab92a298d6cfd739f6c83c61fef193",
+          "after_version": "d0082b51b9c73f23f5f42b87df3794f2f3b8c48a9773ceab781bdc01fb389767",
+          "change": "Giảm tổng câytiếntrình; TESTpreflight trướcmainR, heap512 kếthừa, khôngđổi gate/engine; đủca fullPASSlocal, chờnative.",
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/final_suite_followup",
           "state": "RECHECK_PENDING"
         }
       ],

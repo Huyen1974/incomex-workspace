@@ -65756,6 +65756,156 @@
         "stderr_bytes": 0,
         "exec_memory_bytes": 1073741824,
         "cause": "Resource limit suspected; fixture duplicates growing real history. Recheck required; not PASS."
+      },
+      {
+        "job_id": "01b80c2632c2439aa4f1fc28fb99c4ba",
+        "report": {
+          "run_id": "TQT-2aabbcf2c7644517baab77a4d097755d",
+          "at": "2026-10-12T09:48:01.093970+00:00",
+          "scope": "Sáu bộ kiểm QTTH; bản quét chỉ đọc DOT/bin, Agent Data/dot/bin, scripts VPS; nhật ký việc tools-quy-trinh. Không quét PG hoặc toàn bộ nền tảng ngoài VPS.",
+          "registry_master": "CAT-006",
+          "case_master": "CAT-012",
+          "result_master": "CAT-015",
+          "source_sha256": "2ffc73bf7ac35f016ebba5fe5f3ae03325c88f40f463e437cf03002e9e772a28",
+          "runner_sha256": "853277b94ff834e5d2b516c5ee65111f73234f7c5c03721b5356da7a1f9247e6",
+          "inventory_errors": [],
+          "source_readback": {
+            "state": "PASS",
+            "source_sha256": "ec1620205a41c174f98a38b77225a2151811745a65e2c42f11c1d21fd774d6df",
+            "projection_equal": true,
+            "rule_source_checks": [
+              {
+                "ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/contract",
+                "matched": true
+              }
+            ],
+            "application_id": "MOW-NHC-001-G1-20261010-01",
+            "trial_declarations": 13,
+            "scope": "SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL"
+          },
+          "results": [
+            {
+              "id": "TQT-CHECK-001",
+              "case_set": "TQT-CASE-MODEL",
+              "source_sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
+              "argv": [
+                "python3",
+                "check-process-model.py",
+                "view.html"
+              ],
+              "exit_code": 0,
+              "stdout": "{\"status\": \"SIMULATION_ONLY\", \"passed\": 87, \"model_sha256\": \"f55fcf4fa78b22005604b62d025487f4a3977b5cc106bb9f3b0a6c0a8713ce5a\", \"package_state\": \"NOT_FROZEN\", \"production_ready\": false}\n",
+              "stderr": "",
+              "elapsed_seconds": 9.863,
+              "timeout_seconds": 60
+            },
+            {
+              "id": "TQT-CHECK-002",
+              "case_set": "TQT-CASE-CATALOG",
+              "source_sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
+              "argv": [
+                "python3",
+                "check-process-catalog.py",
+                "view.html"
+              ],
+              "exit_code": 0,
+              "stdout": "checkpoint cases 20\n{\"aggregate\": 5, \"normal\": 12, \"coded_references\": 55, \"bad_reference_cases\": 2, \"scope\": \"DESIGN_ONLY\"}\n",
+              "stderr": "",
+              "elapsed_seconds": 5.962,
+              "timeout_seconds": 60
+            },
+            {
+              "id": "TQT-CHECK-003",
+              "case_set": "TQT-CASE-DECLARATION",
+              "source_sha256": "3ba3ef6e4d0e5c220d16941f8a88ab0c395529c70b401ce2dd4befbcf2459e9d",
+              "argv": [
+                "python3",
+                "check-overview-consistency.py",
+                "view.html"
+              ],
+              "exit_code": 0,
+              "stdout": "{\"positive\": 1, \"negative\": 37, \"procedures\": 17, \"source_check\": \"MATCH_EXISTING_PRODUCT_RECEIPT\", \"source_integrity\": \"UNCHANGED_DURING_CHECK\", \"application_state\": \"CHO_DUYET\", \"can_start\": true, \"needs_before_start\": [], \"next\": \"Owner xem3mànG1 và phạmvi rồi quyếtđịnhduyệt/nhận; Host ghivàoCAT025/CAT232, chạyP05 vàkiểmCP06/07. Không coi yêu cầu tiếp tục là nghiệmthu.\", \"production_ready\": false}\n",
+              "stderr": "",
+              "elapsed_seconds": 34.087,
+              "timeout_seconds": 180
+            },
+            {
+              "id": "TQT-CHECK-004",
+              "case_set": "TQT-CASE-RECORD",
+              "source_sha256": "ffe585bdd9ad156cb0ba3355ecc0bacaa5ab92a298d6cfd739f6c83c61fef193",
+              "argv": [
+                "node",
+                "--max-old-space-size=512",
+                "check-record-control.js",
+                "view.html"
+              ],
+              "exit_code": -9,
+              "stdout": "{\"tests\":26,\"scope\":\"DESIGN_PROJECTION_ONLY\",\"counts\":{\"total\":34,\"written\":28,\"verified\":28,\"needsFix\":0,\"notRecorded\":6,\"dueMissing\":1,\"due\":29,\"deferred\":5},\"pg\":\"NOT_RUN\"}\n{\"tests\":59,\"regression\":\"QTTH05_WALK\",\"synthetic_full_walk\":7,\"live_application\":5,\"pg\":\"NOT_RUN\"}\n{\"trial_cases\":15,\"persisted_declarations\":28,\"checkpoints\":5,\"scope\":\"TRIAL_NOT_PG\"}\n{\"information_contract_cases\":44,\"actual_contract_rows\":66,\"actual_criteria\":11,\"synthetic_full_walk\":7,\"real_checkpoints\":5,\"server_write_hook\":\"NOT_PROBED_BY_THIS_SUITE\",\"pg\":\"NOT_RUN\"}\n{\"pr14_boundary_cases\":48,\"synthetic_trusted_context_only\":true,\"untrusted_self_attestation_blocked\":true,\"real_checkpoints\":5}\n{\"pr14_product_input_cases\":9,\"sha256_crosscheck_vectors\":4}\n{\"pr14_product_mapping_cases\":8,\"scope\":\"LOGICAL_PACKETS_NOT_BACKEND_EXECUTION\"}\n{\"pr15_product_boundaries\":{\"cases\":26,\"state\":\"PASS\"}}\n",
+              "stderr": "",
+              "elapsed_seconds": 181.19,
+              "timeout_seconds": 600
+            },
+            {
+              "id": "TQT-CHECK-005",
+              "exit_code": 1,
+              "error": "Command '['node', '--max-old-space-size=512', 'check-work-masters.js', 'view.html', '/tmp/TQT-UI-TEST-lw3_5ffc/process-work-master-v1.js', '/tmp/TQT-UI-TEST-lw3_5ffc/definition-master-registry-v1.js']' timed out after 60 seconds",
+              "elapsed_seconds": 60.451,
+              "timeout_seconds": 60
+            }
+          ],
+          "pg": "NOT_RUN",
+          "production_ready": false,
+          "master_identity_check": {
+            "state": "PASS",
+            "errors": [],
+            "input_rows": 47,
+            "unique_masters": 46,
+            "merged": [
+              {
+                "canonical_id": "ML-DEF-024",
+                "ids": [
+                  "ML-DEF-024",
+                  "CAT-006"
+                ]
+              }
+            ],
+            "scope": "Definition registry + QTTH work Masters; Config entry checked by live merged-index guard. Not a full PG/VPS inventory.",
+            "input_sha256": "a153d208c8470db1256be508e4f1f951d7b755d4cff61cde4b00cfd461af378a",
+            "self_test": {
+              "cases": 13,
+              "scale_rows": 10000,
+              "method": "indexed keys; no pairwise scan"
+            }
+          },
+          "prerequisite_errors": [],
+          "ui_inputs": {
+            "process-work-master-v1.js": "6a81a5ff686b5608ac1404208059c666fd99a7e8c0c1b9a2eb0bc22f45a22e64",
+            "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
+            "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357",
+            "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c"
+          },
+          "ui_adapter_sha256": "6a81a5ff686b5608ac1404208059c666fd99a7e8c0c1b9a2eb0bc22f45a22e64",
+          "runner_self_test": {
+            "cases": 20,
+            "store": "temporary TEST file in execution snapshot",
+            "write_read_restore": "PASS",
+            "production": "NOT_TOUCHED"
+          },
+          "usage_audit_self_test": {
+            "cases": 23,
+            "state": "PASS",
+            "scope": "TEST SQLite and prepared CAS patches; no production writes"
+          },
+          "status": "FAIL"
+        },
+        "resolution": "PENDING: lower concurrent handoff TEST process footprint; CHECK005 registered timeout60->300sec for1CPU environment",
+        "kernel_confirmation": {
+          "process_pid": 647959,
+          "process": "node",
+          "reason": "Memory cgroup out of memory",
+          "container_id": "6d847b8f364c39158c5cbf8ac4538abc5d102a4161490ff604392fec5ef5b360",
+          "correlation": "PID647959 equals observed nativeCHECK004 parent; do not infer from exitcode alone"
+        }
       }
     ],
     "master_publish": {
