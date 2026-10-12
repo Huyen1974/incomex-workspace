@@ -1,5 +1,14 @@
 # README · MMIM · START HERE
 
+## P36 · MOW001/G1 · 12/10/2026
+
+P02/P03 thật đã được ghi và P04 tự mở đúng hash; 11 tiêu chí G1 được Reviewer `/root/review_mow001` chấp nhận kỹ thuật (`e1e753`, `2026-10-12T08:59:31Z`). P04 commit `db0de657082d8f68cd5a03c207785fd4c8e02bbc`, nguồn `88460eee2688ebd8ce4f2c11d94f17887049322c7e44c20e0f2fd463b3b82422`; máy chủ R2 ký biên nhận đọc task `114c0cf2341341c2b7b764a7f737273b`. Có 16 quan sát giao diện đã triển khai, 24 ca model bổ trợ; minh hoạ không thay nguồn nghiệp vụ thật.
+
+**Đã lưu: CHO_DUYET, 5/7 mốc, 28/34 nghĩa vụ.** CP05 qua cửa ghi tại commit `0ea489a366eaa4a230a6a2346987281e8d9c9694`, transaction `0c68b2d7ed5d42a18a13482714235d66`, task `ea88409a8d19423d91b8977ebdce9e3c`; phiếu đúng SHA256 `ec1620205a41c174f98a38b77225a2151811745a65e2c42f11c1d21fd774d6df`. CP06 quyết định Owner và CP07 xác nhận nhận chưa có; không tự điền. Bộ tổng cuối PENDING_RECHECK: hai fixture CHECK004/005 phụ thuộc tiến độ thật đang sửa. Ca kiểm phải tự dựng dữ liệu độc lập; không sửa engine/gate hoặc hạ tiến độ sản phẩm để vừa TEST. Nguồn duy nhất vẫn `UI-REVIEW-MOW001.json#/application_D24`; xem `execution_walk`, `design_artifacts`, `plan_results`, `test_cases`. Hợp đồng v5/schema1.4/plan4; UI build P36.1. G2 nguồn Field/evaluator/consumer còn OPEN; chưa PG. Không dùng TEST, ACK iframe hoặc thiếu duyệt Anthropic thay quyết định Owner.
+
+Điều hành và hướng dẫn ghi–đọc/khôi phục ở [tools-quy-trinh README · P36](../tools-quy-trinh/README.md). Dùng lại CHECK004 đọc chuẩn bị, thiết kế và kiểm model; CHECK006 kiểm tổng. Với lượt ghi lâu dùng hàng đợi hiện có, kiểm hash và trạng thái trước khi thử lại; không bỏ cửa ghi. Master đọc cùng nguồn, không mở thêm sổ/DOT. Các mục P35 và các ngày trước bên dưới giữ lịch sử, không phải trạng thái hiện hành.
+
+
 > **P35 · MOW001/G1 hiện hành 12/10:** hồ sơ duy nhất `UI-REVIEW-MOW001.json#/application_D24`, phần `execution_walk` và `preparation_review`. CP01/CP02 đạt trên việc thật (2/7),20/34 mục đã đọc lại;50 câu gồm44 rà lại+6 bổ sung. CP03 thiếu đầu vào tin cậy từ adapter cửa ghi, chưa sửa/duyệt UI. Điều hành ở [tools-quy-trinh](../tools-quy-trinh/README.md); các lượt cũ bên dưới giữ nguyên lịch sử. Chưa PG; không dùng TEST thay nghiệm thu sản phẩm.
 
 

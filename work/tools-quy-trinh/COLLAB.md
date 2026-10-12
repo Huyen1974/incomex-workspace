@@ -11,14 +11,14 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P36
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
-- 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② MOW001 thật ngoài PG: CP01/CP02 đạt, 2/7; 20/34 mục đọc lại] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
+- 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② MOW001 G1 thật: 5/7 mốc, 28/34 nghĩa vụ đã lưu; CHO_DUYET] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã làm P29: dùng lại CAT-206*, khai hợp đồng áp dụng 3 MOT/5 giao bước và ca nghiệm thu; siết ghim phiên/nội dung xuyên kiểm–duyệt–ACK, sửa lỗi thiếu dòng kiểm, thêm kiểm trước–sau vào DOT hiện hữu. P30 sửa trùng DOT còn 47 Master, giữ ⑤/7 mốc; ca thật chưa qua mốc nào.
 - ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
-- ■ Đang làm: P36 · nối biên nhận máy chủ tại CP03 rồi tiếp tục MOW001 G1; executor=Codex Host; Reviewer kỹ thuật=/root/review_mow001, không phải ghế/quorum riêng
-- ⬜ Còn lại: nối bằng chứng tin cậy CP03 → thiết kế P02/P03 thật → đọc/kiểm → duyệt/nhận đúng phiên. Không dùng TEST thay sản phẩm.
-- ➡ Kế tiếp: Host sửa đường adapter cung cấp trust cho cửa ghi; xem execution_walk trong phiếu MOW001. Thiếu Claude không tự là blocker; không giả danh người kiểm hoặc quyết định Owner.
+- ■ Đang làm: P36 · gói CHO_DUYET đã lưu; sửa hai fixture độc lập tiến độ và chạy lại bộ tổng cuối (PENDING_RECHECK); executor=Codex Host; Reviewer kỹ thuật=/root/review_mow001 đã ACCEPT 11 tiêu chí G1, không phải ghế/quorum riêng
+- ⬜ Còn lại: bộ kiểm tổng cuối; CP06 quyết định Owner và CP07 xác nhận nhận đúng phiên. G2/G3 chưa thực hiện. Không dùng TEST, ACK iframe hoặc chữ ký kỹ thuật thay Owner.
+- ➡ Kế tiếp: kiểm tổng đúng phiên trước khi bàn giao Owner. Runtime R2 đã nối chữ ký máy chủ; P04 commit db0de657, đọc ký task114c0cf2; 16 quan sát UI thật + 24 ca model bổ trợ. Thiếu Claude không tự là blocker; không ký thay Owner.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -42,6 +42,8 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 **Owner 12/10/2026 · P36, nguyên văn:** “Bạn tiếp tục sửa điểm tắc ở mốc 3, nối bằng chứng quyền ghi–đọc từ máy chủ rồi đi tiếp MOW001 thật đến cuối nhé. Vẫn ngoài PG, không lấy TEST thay việc thật và cập nhật các Master liên quan.”
 
 STARTED@MOW001-P36-REAL 2026-10-12T07:34:36.793236+00:00 · executor=Codex Host · phạm vi kho tệp MOW001/G1; không PG. Dùng lại CHECK004/005/006 và bộ prepare/activate/probe đã đăng ký. Reviewer kỹ thuật đọc mã/bằng chứng, không ký hộ Anthropic; quyết định/ACK Owner cuối vẫn cần nguồn thật.
+
+**Cập nhật P36 cuối:** P04 đã lưu `db0de657082d8f68cd5a03c207785fd4c8e02bbc`; Reviewer `e1e753` lúc `2026-10-12T08:59:31Z` chấp nhận kỹ thuật 11 tiêu chí trên đúng phiếu `88460eee…`. Biên nhận R2 đọc task `114c0cf2341341c2b7b764a7f737273b`. Bản cuối `ec162020…` đã lưu qua cửa ghi tại commit `0ea489a366eaa4a230a6a2346987281e8d9c9694`, transaction `0c68b2d7ed5d42a18a13482714235d66`, task `ea88409a8d19423d91b8977ebdce9e3c`: CHO_DUYET, 5/7 mốc và 28/34 nghĩa vụ. Full suite cuối PENDING_RECHECK: sửa fixture CHECK004/005 tự dựng tiến độ, không đổi engine/gate hoặc hạ tiến độ thật để vừa ca TEST. CP06/07 chưa có quyết định/ACK Owner. Không PG. Hướng dẫn dùng lại và khôi phục lượt ghi lâu ở README P36; mọi đoạn P35/P34 bên dưới là lịch sử.
 
 **Owner 12/10/2026 · P35, nguyên văn:** “Bạn tiếp tục áp dụng vào MOW001 thật, đi từng bước từ đầu đến cuối xem còn tắc ở đâu thì sửa và ghi vào các Master liên quan nhé. Vẫn làm ngoài PG, không lấy kết quả TEST thay cho việc thật đã đạt.”
 
@@ -954,3 +956,7 @@ KQ@MOW001-P35-REAL-20261012 DỪNG · 2026-10-12T05:03:08.852814+00:00 · CP01/C
 P35 · Bổ sung biên nhận cuối: lượt tổng VPS d0383433093a41dbaecd3e40f5d78848 PASS172.684giây; sau sửa hiển thị việc tiếp, CHECK005 đúng phiên hiện hành PASS, job989847ed92cf40fb89319df8992af407. CHECK004 đọc P01 thật jobe02137945da649c88074d2ba4398d51f:50/50,thiếu0; không phải AI kiểm độc lập. Master DOT/Tool được làm mới bằng CHECK006 từ nhật ký giữ lại; không thêm DOT. MOW001 giữ2/7,20/34; CP03 còn mở, P02–P05 chưa làm, chưa PG.
 
 P36 · Cửa ghi triển khai1b7684368ef7c982cf8dbccfe5020f00774d863e;78PASS1skip và20caP36PASS; sáu probe quyền thậtPASS, sản phẩm nguyên byte. Hợp đồngv4 đã được /root/review_mow001 ACCEPT kỹ thuật (1a022f), P01v2/plan3; hủy hiệu lực CP02 cũ để đọc lại. Source/pin/runbook tiếp tục thuộc CHECK004, không DOT/Master mới. Chưa PG.
+
+
+## P36 · Kết quả thực G1 và bài học dùng lại
+Owner đã giao đi MOW001 đến cuối ngoài PG, không dùng TEST thay việc thật. Đã nối server receipts P36-2, CP03v5 commitdf12545; P02/P03 thật commitc54ec8c; Reviewer f742f5/89044e đọc đúnghash và ACCEPT kỹ thuật G1,16quan sátUI+24model. P04/11tiêuchí đang ghi–đọc đểchốtCP05; CP06/07 dành cho quyếtđịnh/nhậnOwner thật. Lỗi HTTP hồsơlớn được xửlý bằngworkspace_task_start hiệncó; outcome được đối chiếu hash/log trước retry. Master projection sửaP35cốđịnh và action bịchiếu thànhactual. Chi tiết/phiên cuối tại aggregate#host_review_P36 và phiếu MOW001; không PG, không gửiAnthropic, không thêmDOT/Master.

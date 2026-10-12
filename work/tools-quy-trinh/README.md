@@ -1,8 +1,18 @@
 # tools-quy-trinh · Cửa vào
 
-## P36 · Đang tiếp tục MOW001 thật
+## P36 · MOW001 G1 ngoài PG — kết quả kỹ thuật và việc còn lại
 
-Đọc trạng thái hiện hành tại phiếu MOW001/execution_walk; mục P35 dưới là lịch sử. Cửa ghi VPS P36 đã kiểm78ca và quyền thật writer/reader; biên nhận Ed25519 chỉ áp dụng một tệp và34collection logic, chưa PG. Hợp đồngv4/plan3/P01v2 phải đọc lại bản lưu trướcCP02/03. Reviewer là executionOpenAI được giao riêng, không ghế/quorum riêng; Claude chưa duyệt không chặn. Dùng CHECK004 đã có: --read-preparation, --read-designs; nguồn/quyền tại runtime_binding và aggregate#host_review_P36. Không lấy TEST thay việc thật.
+**Bằng chứng đã lưu:** P02/P03 thật đã được P04 tự mở đúng hash; 11/11 tiêu chí G1 được Reviewer kiểm lại và chấp nhận kỹ thuật. P04 commit `db0de657082d8f68cd5a03c207785fd4c8e02bbc`, phiếu SHA256 `88460eee2688ebd8ce4f2c11d94f17887049322c7e44c20e0f2fd463b3b82422`; biên nhận đọc có chữ ký R2, task `114c0cf2341341c2b7b764a7f737273b`. Reviewer `/root/review_mow001`, lượt `e1e753`, lúc `2026-10-12T08:59:31Z`: ACCEPT trong G1. Đây là lượt kiểm riêng cùng OpenAI, không phải hai hãng đồng thuận.
+
+**Trạng thái đã lưu: 5/7 mốc, 28/34 nghĩa vụ, CHO_DUYET.** CP05 đã qua cửa ghi tại commit `0ea489a366eaa4a230a6a2346987281e8d9c9694`, transaction `0c68b2d7ed5d42a18a13482714235d66`, task `ea88409a8d19423d91b8977ebdce9e3c`; đúng SHA256 phiếu `ec1620205a41c174f98a38b77225a2151811745a65e2c42f11c1d21fd774d6df`. CP06 quyết định Owner và CP07 xác nhận nhận còn thiếu. Bộ kiểm tổng cuối **PENDING_RECHECK**: hai fixture trong CHECK004/005 còn phụ thuộc tiến độ thật, đang sửa dữ liệu dựng ca kiểm; không sửa engine/gate hoặc hạ tiến độ sản phẩm để vừa fixture. Không dùng lượt PASS cũ thay lượt kiểm cuối.
+
+Nguồn chuẩn: `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24`; `execution_walk`, `design_artifacts`, `plan_results`, `test_cases` giữ bước làm, sản phẩm, kết quả và bằng chứng. Hợp đồng v5, schema 1.4, plan 4; UI build `MOW001-G1-UI-P36.1`. Đã quan sát 16 tình huống trên giao diện triển khai; 24 ca model bổ trợ dùng lại CHECK004. Kiểm G1 thiết kế không đồng nghĩa nguồn Field/evaluator/consumer nghiệp vụ đã nối. Minh hoạ giữ nhãn riêng; ACK iframe không thay quyết định/ACK Owner. Chưa PG; không lấy TEST thay việc thật; Anthropic chưa duyệt và không là blocker theo Owner.
+
+**Dùng lại trước:** CHECK004 `--read-preparation`, `--read-designs`, `--check-g1-ui`; CHECK006 `--verify --vps-ui`. Runtime hiện hành `agent-data-hvu:tqt-p36-r2-20261012`, policy `MOW001-G1-P36-2`. Máy chủ ghim schema/mã ngoài vùng ghi và ký biên nhận có nội dung thiết kế; quyền chỉ cho một tệp với 34 collection logic, không phải quyền toàn VPS/PG. CHECK004 có 600 giây cho hồ sơ lớn.
+
+**Ghi–đọc lâu:** dùng `workspace_task_start` → `workspace_task_status`/`workspace_result_read`, giữ expected_version/hash và operation_id. HTTP ngắt không đồng nghĩa đã ghi: kiểm sourcehash, log và trạng thái trước khi gửi lại; chỉ lập mã khôi phục mới sau khi chứng minh chưa ghi. P02/P03 đã phục hồi qua task `7cb813a3e87144fd84f897bf18e000c9`, không bỏ cửa ghi hay ghi trực tiếp bằng SSH. Không kết luận nguyên nhân tiến trình chết khi chưa có bằng chứng đủ.
+
+**Master dùng cùng nguồn:** CAT012 tiêu chí, CAT015 kết quả thực/người kiểm, CAT016 thay đổi, CAT025 quyết định, CAT069 điểm hở, CAT228 đầu ra, CAT229 lượt P36, CAT232 nhận, CAT233 lịch sử, CAT206 hợp đồng. Không nhập kết quả hai nơi, không thêm Master/DOT. CAT229 đọc vòng thật; CAT015 không biến hành động thành kết quả. Giữ hai cột GPT/Claude; thiếu chữ ký ghi chưa duyệt. Việc tiếp: chạy lại bộ tổng sau sửa fixture, trình Owner quyết định G1; G2/G3, tối ưu hồ sơ lớn và nhãn ACK lịch sử tiếp tục theo sổ hiện có.
 
 ## P35 · MOW001 thật — đọc trước lịch sử P34 trở về trước
 

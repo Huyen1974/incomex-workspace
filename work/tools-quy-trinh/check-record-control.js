@@ -154,7 +154,7 @@ test('written independent of comparison',written,a=>{assert(row(a,'PLAN').writte
 test('matched with evidence',matched,a=>assert(row(a,'PLAN').verified));
 for(const key of ['master_record_id','record_ref','record_version','evidence_ref','checked_by','checked_at'])test('missing '+key,r=>{matched(r);check(r,'PLAN')[key]=null;},a=>{assert(!row(a,'PLAN').verified);assert.equal(row(a,'PLAN').checkState,'NEEDS_FIX');});
 test('repair does not erase recording',r=>{matched(r);check(r,'PLAN').check_state='NEEDS_FIX';},a=>{assert(row(a,'PLAN').written);assert(!row(a,'PLAN').verified);});
-test('future output not due',r=>{},a=>assert(!row(a,'RESULT-P03').due));
+test('future output not due',r=>r.application_preview.record.current_checkpoint='CP01',a=>assert(!row(a,'RESULT-P03').due));
 test('output becomes due',r=>r.application_preview.record.current_checkpoint='CP04',a=>assert(row(a,'RESULT-P03').due));
 test('new output needs declaration',r=>r.application_preview.record.plan.push({id:'P06'}),a=>assert(a.errors.some(x=>x.includes('P06'))));
 test('field cannot be omitted',r=>r.application_preview.record.record_requirements=r.application_preview.record.record_requirements.filter(x=>x.code!=='FIELD-identity'),a=>assert(a.errors.some(x=>x.includes('identity'))));

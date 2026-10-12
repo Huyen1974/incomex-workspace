@@ -65234,7 +65234,7 @@
   "host_review_P36": {
     "owner_directive": "Bạn tiếp tục sửa điểm tắc ở mốc 3, nối bằng chứng quyền ghi–đọc từ máy chủ rồi đi tiếp MOW001 thật đến cuối nhé. Vẫn ngoài PG, không lấy TEST thay việc thật và cập nhật các Master liên quan.",
     "scope": "REAL_MOW001_G1_FILE_STORE_NO_PG",
-    "state": "STARTED",
+    "state": "CHO_DUYET",
     "reviewer_execution": {
       "provider": "OpenAI",
       "parent_thread": "01a129ed-a979-7d13-af46-d3b3ec3e2abf",
@@ -65612,6 +65612,92 @@
       "verified_checkpoints": 3,
       "records_verified": 21,
       "note": "V5 new UI invalidates prior proofs and requires readback again"
+    },
+    "runtime_current": {
+      "image": "agent-data-hvu:tqt-p36-r2-20261012",
+      "policy_id": "MOW001-G1-P36-2",
+      "scope": "ONE_PROTECTED_FILE_34_LOGICAL_COLLECTIONS",
+      "manifest_sha256": "2493f3216c0b9f32a8350ae5a47f30ecbff1decf65814e710fda9eed259e4d42",
+      "pins": {
+        "view.html": "d2b69e8fe47ae62a4a9e8ca1d05e4c58dff6546970622153a4337b1b522e77de",
+        "check-record-control.js": "e9f3ca11b94e244dc26df4efe84e5406333a51bdfbe365c1fe55987a530be53f"
+      },
+      "previous_deployment_ref": "host_review_P36.deployment",
+      "signed_read_task": "114c0cf2341341c2b7b764a7f737273b",
+      "signed_receipt_sha256": "dedbd9873931034c7cc4eb055e7b495d0e1fc878a578d51390193ad0f0c78f70",
+      "read_source_sha256": "88460eee2688ebd8ce4f2c11d94f17887049322c7e44c20e0f2fd463b3b82422"
+    },
+    "actual_p04": {
+      "state": "PERSISTED_REVIEWED_G1",
+      "commit": "db0de657082d8f68cd5a03c207785fd4c8e02bbc",
+      "source_sha256": "88460eee2688ebd8ce4f2c11d94f17887049322c7e44c20e0f2fd463b3b82422",
+      "criteria": 11,
+      "reviewer_execution": "e1e753",
+      "reviewer_at": "2026-10-12T08:59:31Z",
+      "reviewer": "/root/review_mow001",
+      "decision": "ACCEPT",
+      "identity_scope": "Separate OpenAI execution; not two-vendor consensus or Owner approval",
+      "browser_observations": 16,
+      "browser_evidence_ref": "application_D24/test_cases + P04 output",
+      "model_cases": 24,
+      "model_scope": "Supplemental TEST, not real product acceptance",
+      "pg": "NOT_RUN"
+    },
+    "final_candidate": {
+      "state": "PERSISTED",
+      "source_sha256": "ec1620205a41c174f98a38b77225a2151811745a65e2c42f11c1d21fd774d6df",
+      "verified_checkpoints": 5,
+      "total_checkpoints": 7,
+      "records_verified": 28,
+      "records_total": 34,
+      "pending": [
+        "CP06_OWNER_DECISION",
+        "CP07_OWNER_ACK"
+      ],
+      "final_full_suite": "PENDING_RECHECK",
+      "note": "CP05 persisted through mandatory gate with exact final source hash. CP06/07 await genuine Owner decision/ACK; final whole-suite recheck pending.",
+      "application_state": "CHO_DUYET",
+      "commit": "0ea489a366eaa4a230a6a2346987281e8d9c9694",
+      "transaction": "0c68b2d7ed5d42a18a13482714235d66",
+      "task": "ea88409a8d19423d91b8977ebdce9e3c"
+    },
+    "durable_recovery": {
+      "failed_operation": "mow001-p36-actual-designs",
+      "durable_attempt": "89bab8813e094fa0aea3c680b540e527",
+      "evidence": "VPS read-only sha256 + git log/status at 2026-10-12T08:47Z; actual product ee441f..., last product commitdf12545, clean; nativeworkspace_log same",
+      "outcome": "NO_PRODUCT_WRITE_OR_COMMIT",
+      "recovery": "new id only after outcome verified; same CAS beforehash; existing durable workspace_task_start; no guard bypass",
+      "runtime": "worker process27 died; container alive/restart0, cgroupOOM0; cause not conclusively proven",
+      "successful_recovery_task": "7cb813a3e87144fd84f897bf18e000c9",
+      "method": "Existing workspace_task_start/status/result_read; expected_version and mandatory write gate retained",
+      "tool_registration": "Part of CHECK004 runtime/orchestration; no new DOT"
+    },
+    "limits_current": [
+      "G1 design only; no PG/G2/G3 acceptance",
+      "Live Field source/evaluator/business consumer remain OPEN",
+      "Owner decision and acknowledgement absent; iframe ACK is not Owner ACK",
+      "Anthropic not reviewed; absence is not a blocker under Owner direction",
+      "Final whole-suite recheck pending after independent-fixture corrections; CP05 transaction persisted"
+    ],
+    "final_suite_followup": {
+      "state": "PENDING_RECHECK",
+      "findings": [
+        {
+          "tool": "TQT-CHECK-004",
+          "case": "future output",
+          "issue": "Fixture assumed current real progress; must initialize CP01 independently",
+          "resolution": "Host updating isolated fixture setup"
+        },
+        {
+          "tool": "TQT-CHECK-005",
+          "case": "PLAN fixture",
+          "issue": "Synthetic plan did not match isolated record ledger after real progress advanced",
+          "resolution": "Reviewer updating isolated fixture"
+        }
+      ],
+      "lesson": "Tests must construct their own phase and records. Never lower real product progress or loosen engine/gate to satisfy a fixture.",
+      "engine_or_gate_changed": false,
+      "final_pass_claimed": false
     }
   }
 }
