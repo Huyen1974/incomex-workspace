@@ -367,3 +367,46 @@ Ghế: openai-main · Bước/vòng: 02A/4–5 · Based_on: Owner chỉ đạo 1
 **RANH GIỚI KẾT LUẬN:** `Căn cứ được tỉnh xem xét` **khác** `mọi đề xuất tự động được tỉnh phê duyệt`. Đọc đúng là **QĐ1960 đã quyết giao *nhiệm vụ* xuống phường; TTr3445 làm rõ *chủ thể thực hiện* theo luật**. Chỉ riêng TTr không tạo thẩm quyền phê duyệt. Đề nghị Owner ưu tiên xác minh hồ sơ sẵn có theo các điểm trên và cân nhắc K1, không xin sửa QĐ nếu không thấy xung đột thật.
 
 Nguồn: [NĐ274 bản ký](https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/7/274-ndcp.signed.pdf) · [Luật72](https://xaydungchinhsach.chinhphu.vn/toan-van-luat-so-72-2025-qh15-to-chuc-chinh-quyen-dia-phuong-119250618161434371.htm) · [Mẫu NĐ30](https://datafiles.chinhphu.vn/cpp/files/vbpq/2020/03/30.signed.pdf) · QĐ1960/TTr dự thảo/02A do Owner cung cấp.
+
+## P12 · Claude Chat (Phản biện) — Đối chiếu 2 điều kiện của P11; đồng thuận K1; lỗ hổng căn cứ trong QĐ 09 · 12/10/2026
+Based_on `fa0da98` (P11) · Đầu vào Owner 12/10 16:46: **“Bản dự thảo chính là bản ký của phường, và QĐ 1960 dựa trên đó”** + bản ký BC 5743/BC-STC (6 trang, có chữ ký số), QĐ 1960 (3 trang), CV 6188/SNNMT-KHTC, tệp 01 và 02A. Scope: ý kiến; **NO RUN, không sửa 02A/02B, không move task**.
+
+### 1. Hai điều kiện P11 — đã đạt
+| Điều kiện P11 | Kết quả |
+|---|---|
+| (1) TTr 3445 bản ký = dự thảo ở II.2.d, đ, e | **Đạt theo xác nhận Owner** (bản dự thảo là bản phường ký). Phòng đối chiếu bản lưu khi điền số/ngày — không chặn. |
+| (2) BC 5743 không có ý kiến trái | **Đạt — Claude đã đọc toàn văn bản ký.** Không có câu nào về chủ thể phê duyệt HSMQT. Xem mục 2. |
+⇒ Theo chính tiêu chí Host đặt tại P11 mục C: **K1, giữ QĐ đứng tên CHỦ TỊCH, không tạo văn bản xin tỉnh mới.** Claude đồng thuận.
+
+### 2. BC 5743 còn cho bằng chứng tích cực, không chỉ “không phản đối”
+- **Hồ sơ được thẩm định là chính Tờ trình:** Phần thứ nhất mục I liệt kê (1) Tờ trình 3445, (2) Đề xuất 3443.
+- **Sở phản đối thì nói rõ, có lý do:** III.7 — “UBND phường Đoàn Kết đề xuất thời hạn hoạt động 70 năm. Tuy nhiên, Sở Tài chính đề nghị xác định … 50 năm, với các lý do sau”. Các ý kiến Sở phối hợp cũng theo lối này (CV 6188/SNNMT chỉ đích danh từng đoạn Đề xuất cần sửa: hình thức thuê đất, hai tầng miễn). Về phân tuyến phê duyệt II.2.d–e: **không một dòng phản đối nào**.
+- **Câu “giáp” sinh ra ở Sở, không phải quyết định thay đổi:** Mục IV BC 5743: “Đề nghị Chủ tịch UBND tỉnh giao UBND phường Đoàn Kết làm bên mời quan tâm, phê duyệt hồ sơ, kết quả mời quan tâm; đăng tải … và triển khai thực hiện dự án theo các quy định của pháp luật.” → k1 Đ2 QĐ 1960 **chép nguyên văn** câu này. Đây là câu tóm tắt của Sở, không kèm lý do hay đề xuất chủ thể khác.
+- **Đảo ngược phản chứng 70→50 năm của P11:** QĐ 1960 khác Tờ trình đúng ở chỗ Sở đã phản đối có lý do. Trường hợp 50 năm chứng minh **cách tỉnh thay đổi đề xuất: nói rõ, có lý do**. Thẩm quyền ký không nằm trong danh sách thay đổi đó.
+- ⇒ Chuỗi bằng chứng đầy đủ: **TTr 3445 II.2.d (đề nghị đích danh Chủ tịch, theo k2 Đ60) → BC 5743 (thẩm định chính Tờ trình, không phản đối, tóm tắt một câu) → QĐ 1960 (“Xét đề nghị … Tờ trình 3445 …; đề nghị … Báo cáo 5743”; chép câu tóm tắt; Đ3 giao Chủ tịch UBND phường thi hành) + k2 Đ60 NĐ 274 (kênh giao duy nhất tới cấp xã là Chủ tịch)**. Cách đọc “tỉnh cố ý giao tập thể UBND” không có chỗ dựa trong hồ sơ và cũng không có kênh luật.
+- Ghi chú phạm vi (không mở rộng 02A): III.1 BC 5743 “trường hợp kết quả mời quan tâm không đủ điều kiện tổ chức đấu thầu, UBND phường … phải báo cáo người có thẩm quyền xem xét, xử lý” — khớp với QĐ 22/23 hiện có (Điều 2 báo cáo tỉnh). Không có xung đột.
+
+### 3. Về nguyên tắc Owner nêu (“ưu đãi lấy từ Tờ trình được, sao thẩm quyền ký lại không”)
+- Đồng ý ranh giới của P11: không cần và không nên dựa vào “im lặng = đồng ý mọi đề xuất”. Phép thử dùng chung cho mọi nội dung lấy từ hồ sơ: **(a) QĐ có nội dung về việc đó không; (b) hồ sơ trình nói cụ thể gì; (c) thẩm định/QĐ có đổi khác không; (d) khớp luật không.**
+- Áp vào: **Ưu đãi tiền thuê đất** — (a) QĐ 1960 không nói gì; dùng được vì quyền ưu đãi đến từ NQ 52 + NĐ 103, hồ sơ chỉ mô tả (đã chỉnh theo CV 6188). **Thẩm quyền ký** — (a) có (k1 Đ2), (b) II.2.d đích danh Chủ tịch, (c) BC 5743 không đổi, (d) đúng k2 Đ60. **Đạt đủ 4/4 — vững hơn cả trường hợp ưu đãi.** Câu hỏi của Owner đúng: không có lý do dùng hồ sơ cho ưu đãi mà bỏ nó cho thẩm quyền.
+
+### 4. Phát hiện trong 02A — QĐ 09 đang là văn bản yếu căn cứ thẩm quyền nhất
+- **QĐ 09 (phê duyệt HSMQT)** hiện chỉ dẫn QĐ 1960 “(trong đó giao UBND phường Đoàn Kết làm bên mời quan tâm)” — **bỏ mất đoạn “phê duyệt hồ sơ, kết quả mời quan tâm”**; NĐ 274 dẫn chung, **không có k2 Đ60**; **không dẫn TTr 3445 II.2.d**. Tờ trình 08 cũng dẫn QĐ 1960 cùng cách thiếu, không có đoạn thẩm quyền.
+- Trong khi đó **QĐ 23 / Tờ trình 21 (kết quả nhánh 0/01) đã làm đúng mẫu**: dẫn k2 Đ60 + “Mục II.2 điểm đ Tờ trình 3445 (hồ sơ được sử dụng làm căn cứ ban hành QĐ 1960), theo đó: Chủ tịch UBND phường phê duyệt …”. ⇒ Bộ 02A tự mâu thuẫn: chỗ đang tranh luận lại là chỗ ít căn cứ nhất.
+- **Đề xuất câu chữ** (sửa khi Owner gật; Host giao Agent, bôi vàng theo quy tắc vòng cuối):
+  1. QĐ 09 — dòng NĐ 274: thêm “(khoản 3 Điều 37, Điều 39, khoản 2 Điều 60)”.
+  2. QĐ 09 — dòng QĐ 1960: thay ngoặc đơn thành “(khoản 1 Điều 2: giao Ủy ban nhân dân phường Đoàn Kết làm bên mời quan tâm, phê duyệt hồ sơ, kết quả mời quan tâm; Điều 3)”.
+  3. QĐ 09 — thêm ngay sau: “Căn cứ Mục II.2 điểm d Tờ trình số 3445/TTr-UBND ngày 23/8/2026 của Ủy ban nhân dân phường Đoàn Kết (hồ sơ được sử dụng làm căn cứ ban hành Quyết định số 1960/QĐ-UBND ngày 08/9/2026), theo đó: Chủ tịch Ủy ban nhân dân phường Đoàn Kết phê duyệt hồ sơ mời quan tâm theo khoản 2 Điều 60 Nghị định số 274/2026/NĐ-CP;” (cùng khuôn dòng đã có ở QĐ 23).
+  4. Tờ trình 08: sửa dòng căn cứ QĐ 1960 như điểm 2; thêm điểm I.1a “Thẩm quyền phê duyệt” (2 câu): “Quyết định số 1960/QĐ-UBND được ban hành trên cơ sở xét Tờ trình số 3445/TTr-UBND, trong đó Mục II.2 điểm d đề nghị Chủ tịch Ủy ban nhân dân phường phê duyệt hồ sơ mời quan tâm theo khoản 2 Điều 60 Nghị định số 274/2026/NĐ-CP. Theo đó, Ủy ban nhân dân phường thực hiện nhiệm vụ bên mời quan tâm (khoản 3 Điều 37); Chủ tịch Ủy ban nhân dân phường phê duyệt hồ sơ mời quan tâm (khoản 2 Điều 60).”
+- Không đưa câu “Sở Tài chính không có ý kiến khác” vào văn bản ký (giọng phòng thủ, không cần); bằng chứng đó để ở hồ sơ lưu. Không viết “Tờ trình đã được phê duyệt”.
+
+### 5. Đề xuất đưa Owner (gật/lắc)
+- **Chốt K1: Chủ tịch UBND phường ký QĐ 09 đứng tên CHỦ TỊCH, không xin tỉnh văn bản mới; bổ sung 4 chỗ căn cứ ở mục 4 vào QĐ 09 và Tờ trình 08.** Đề xuất của Claude: **GẬT.**
+- Đồng thuận: Host (P11 mục C) + Claude (P12) cùng kết luận. **Đề nghị Host chốt và soạn luôn prompt sửa 02A ngay vòng này**; không cần vòng phản biện thêm.
+- Rủi ro còn lại (nói thẳng): câu chữ gọn của k1 Đ2 QĐ 1960 vẫn còn đó. Khác trước: giờ có **bằng chứng văn bản trực tiếp trong chính bộ hồ sơ tỉnh đã dùng để ban hành**, và bằng chứng đó được ghi ngay vào căn cứ của QĐ 09.
+
+### 6. Rà soát, JEV, nguồn
+- Vòng 1: đối chiếu P11 mục A–C với BC 5743 và QĐ 1960 bản ký (đọc toàn văn, lớp chữ); đối chiếu toàn bộ dòng căn cứ trong 02A.
+- Vòng 2 (gốc rễ): khoảng trống không nằm ở luật mà ở cách ghi hồ sơ: bằng chứng đã có nhưng chưa được ghi vào đúng văn bản cần nó.
+- JEV `gen-dec-1791798649-FsJFxJWD1M0xju8qzgk9` (tham khảo): K1 + bổ sung căn cứ 0,95 (tin cậy 0,92); K2 0,04; đọc QĐ 1960 là tỉnh cố ý bác đề nghị 0,27. JEV chấm “điều kiện đã đạt” 0,31 — do điều kiện (1) dựa trên xác nhận của Owner, chưa phải đối chiếu bản ký; Phòng đối chiếu bản lưu khi điền.
+- Nguồn (Owner cung cấp, bản ký): QĐ 1960/QĐ-UBND 08/9/2026 (căn cứ, k1 Đ2, Đ3); BC 5743/BC-STC 03/9/2026 (Phần thứ nhất I; Phần thứ hai III.1, III.7, IV); CV 6188/SNNMT-KHTC 27/8/2026 (mục 6); 02A (QĐ 09, Tờ trình 08, Tờ trình 21, QĐ 22/23).
