@@ -34653,7 +34653,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "95bb2bce3d795cea868b2bbc055ce592cbcf156109d38495606d4d2dd10c6ca7",
+          "sha256": "9cc1eadfba38db846ef78d7b5d0829e044ddbb60bcaa3c0abeb8435d0d903df0",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -34667,7 +34667,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 60,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "ab61c728ed17bb0dafe1f917e8d21e0673e46625a7ba3c5434cccf7fa9f1e83d",
+            "process-work-master-v1.js": "dbb4c292cb7e989ca1e325e6dde4dabc9a359cea9a1bb74942feb5f509ae440a",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "f22f5291a288452c377f9aec2e5a27b5e3fe7f5d7abe1727221d8e4b64aabd49"
           }
@@ -34688,7 +34688,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "run-tqt-checks.py",
             "--verify"
           ],
-          "sha256": "81c5ebe75e45c8b5ff28316423f9b05c61df6d03cf3714425c5ddd0dde3f3203",
+          "sha256": "8a016c45d1027ae0ea4147d456fdbc3dbae986e9d220028d87c9364823483ab6",
           "preconditions": "Python 3.11+; registry UI vừa đọc; Node.js cho toàn bộ suite, --identity-only không cần Node; không cần quyền PG",
           "input": "view.html; phiếu MOW001; registry định nghĩa UI vừa đọc qua --master-registry hoặc --master-registry-json; UI adapter tùy chọn",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -35043,6 +35043,53 @@ main{max-width:1240px} [hidden]{display:none!important}
         }
       ],
       "audit_projection": {
+        "last_checks": [
+          {
+            "id": "TQT-CHECK-001",
+            "sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
+            "exit_code": 0,
+            "case_set": "TQT-CASE-MODEL",
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/24cf5bd5084f4778b67a46ed9d206c5d/stdout#results/TQT-CHECK-001",
+            "job_id": "24cf5bd5084f4778b67a46ed9d206c5d",
+            "source_head": "798b7c5f80d448e1790f3937d96563f6cf5e888a"
+          },
+          {
+            "id": "TQT-CHECK-002",
+            "sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
+            "exit_code": 0,
+            "case_set": "TQT-CASE-CATALOG",
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/24cf5bd5084f4778b67a46ed9d206c5d/stdout#results/TQT-CHECK-002",
+            "job_id": "24cf5bd5084f4778b67a46ed9d206c5d",
+            "source_head": "798b7c5f80d448e1790f3937d96563f6cf5e888a"
+          },
+          {
+            "id": "TQT-CHECK-003",
+            "sha256": "93487966d9a32bafcb400bba5ac47f09c9a8b312d0c2dc89a7eacf27305c7b27",
+            "exit_code": 0,
+            "case_set": "TQT-CASE-DECLARATION",
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/24cf5bd5084f4778b67a46ed9d206c5d/stdout#results/TQT-CHECK-003",
+            "job_id": "24cf5bd5084f4778b67a46ed9d206c5d",
+            "source_head": "798b7c5f80d448e1790f3937d96563f6cf5e888a"
+          },
+          {
+            "id": "TQT-CHECK-004",
+            "sha256": "dc835b7d8f8330fb720b05b3689c43d5d099b54b8cbc60c2ea328485c31fc16a",
+            "exit_code": 0,
+            "case_set": "TQT-CASE-RECORD",
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/24cf5bd5084f4778b67a46ed9d206c5d/stdout#results/TQT-CHECK-004",
+            "job_id": "24cf5bd5084f4778b67a46ed9d206c5d",
+            "source_head": "798b7c5f80d448e1790f3937d96563f6cf5e888a"
+          },
+          {
+            "id": "TQT-CHECK-005",
+            "sha256": "3ed26cd28324ee9f1f288e87cfbf57081b14e869f854b5b4c3e28ff82426eb38",
+            "exit_code": 0,
+            "case_set": "TQT-CASE-MASTER",
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/24cf5bd5084f4778b67a46ed9d206c5d/stdout#results/TQT-CHECK-005",
+            "job_id": "24cf5bd5084f4778b67a46ed9d206c5d",
+            "source_head": "798b7c5f80d448e1790f3937d96563f6cf5e888a"
+          }
+        ],
         "observed_at": "2026-10-12T02:46:13.406789+00:00",
         "audit_sha256": "55d19070313e721cf8843ba2422fcd8c7ae7e31d0fdfa949ab9fbe1f79e09a1d",
         "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P33/audit",

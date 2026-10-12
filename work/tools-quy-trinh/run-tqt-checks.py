@@ -181,7 +181,10 @@ def audit_self_test():
 
 def audit_projection(audit, external_receipts=()):
     digest=hashlib.sha256(json.dumps(audit,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-    return {'observed_at':audit['observed_at'],'audit_sha256':digest,'evidence_ref':'UI-REVIEW-AGGREGATE.json#host_review_P33/audit','dot_inventory':audit['dot_inventory'],'script_inventory':audit.get('script_inventory',[]),'dot_index_check':audit.get('dot_index_check'),'by_action':audit['usage']['by_action'],'execution_count':len(audit['executions']),'event_count':audit['usage']['event_count'],'complete_receipts':audit['usage']['complete_receipts'],'external_receipts':list(external_receipts),'gaps':audit['gaps']}
+    checks={}
+    for job in audit['executions']:
+        for item in job.get('subtools',[]):checks[item['id']]={**item,'job_id':job['run_id'],'source_head':job.get('source_head')}
+    return {'last_checks':list(checks.values()),'observed_at':audit['observed_at'],'audit_sha256':digest,'evidence_ref':'UI-REVIEW-AGGREGATE.json#host_review_P33/audit','dot_inventory':audit['dot_inventory'],'script_inventory':audit.get('script_inventory',[]),'dot_index_check':audit.get('dot_index_check'),'by_action':audit['usage']['by_action'],'execution_count':len(audit['executions']),'event_count':audit['usage']['event_count'],'complete_receipts':audit['usage']['complete_receipts'],'external_receipts':list(external_receipts),'gaps':audit['gaps']}
 
 def audit_patch(audit):
     """Prepare a CAS transaction for the existing two sources; caller uses workspace_transaction.
@@ -295,6 +298,7 @@ def audit_vps(args, catalog):
             # Parse structured runner receipts only. Never publish arbitrary stdout/argv.
             try:
                 report=json.loads(out.read_text())
+                if re.fullmatch('[0-9a-f]{64}',str(report.get('runner_sha256',''))):rec['subtools'].append({'id':'TQT-CHECK-006','sha256':report['runner_sha256'],'exit_code':0 if report.get('status')=='PASS' else 1,'case_set':'TQT-CASE-RUNNER','evidence_ref':rec['evidence_ref']+'#status'})
                 for item in report.get('results',[]):
                     if item.get('id') in registry and re.fullmatch('[0-9a-f]{64}',item.get('source_sha256','')):
                         rec['subtools'].append({'id':item['id'],'sha256':item['source_sha256'],'exit_code':item.get('exit_code'),'case_set':item.get('case_set'),'evidence_ref':rec['evidence_ref']+'#results/'+item['id']})
@@ -363,7 +367,7 @@ def main():
     errors=inventory(BASE,reg)
     readback=source_readback(BASE.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json',data['application_preview']['record'])
     if readback['state']!='PASS': errors.append('SOURCE_READBACK_FAILED')
-    report={'run_id':'TQT-'+uuid.uuid4().hex,'at':datetime.now(timezone.utc).isoformat(),'scope':reg['scope'],'registry_master':'CAT-006','case_master':'CAT-012','result_master':'CAT-015','source_sha256':sha(source),'inventory_errors':errors,'source_readback':readback,'results':[],'pg':'NOT_RUN','production_ready':False}
+    report={'run_id':'TQT-'+uuid.uuid4().hex,'at':datetime.now(timezone.utc).isoformat(),'scope':reg['scope'],'registry_master':'CAT-006','case_master':'CAT-012','result_master':'CAT-015','source_sha256':sha(source),'runner_sha256':sha(BASE/'run-tqt-checks.py'),'inventory_errors':errors,'source_readback':readback,'results':[],'pg':'NOT_RUN','production_ready':False}
     report['master_identity_check']=identity
     if identity['state']=='FAIL':errors.append('MASTER_IDENTITY_CONFLICT')
     report['prerequisite_errors']=prerequisites()
