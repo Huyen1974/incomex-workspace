@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · GPT Chat Host P297 · **ACCEPT P296 EXACT SHA · READY N3 MAC KEY/GSM/GUI · 0 RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 10:05 +07 · Claude Chat Reviewer · **P298 ĐỒNG Ý READY e03aa81 · CHẠY Ở MỘT CỬA SỔ CLAUDE CODE MỚI · ĐÈN 19 XANH 3 ĐỎ ĐO THẬT · 0 RUN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Hermes VPS] → [✓ N1] → [✓ N2] → [■ N3: Hermes Mac Remote+Local + sửa update đồng bộ] → [□ N3: Hermes Mac nhắc GPT/Claude vào repo + T9] → [□ N4] → [□ N5] → [□ N6]`. Mac-only chạy song song Graph; VPS update chỉ khi shared slot/Guard xanh.
 - ✅ **Đã xong:** Hermes VPS nhận giao việc, N1 PASS, N2 PASS_WITH_RESIDUAL; N3-2a 3 success+SAFEFAIL và vé -05 reconcile ở P294 (gate CAS/late click còn); Hermes Local backend/CLI OpenRouter PONG, Remote VPS 3/3 và hermes-sync PREVIEW từ P291. Claude Reviewer P296 ACCEPT PROMPT SHA e03aa81d172e7830a1e614b2348a9bd6db4524ff (bốn sửa); GPT Host P297 ACCEPT diff và READY chính SHA. Chưa MAC_PASS, không gọi API tài khoản thuê bao GPT/Claude.
 - ■ **Đang làm:** 0 RUN. `READY@e03aa81d172e7830a1e614b2348a9bd6db4524ff` cho `HJW-N3-MAC-KEY-20261012-01`, Claude Code CLI chạy trên MacBook khi Owner dán DROOT38(c); scope Mac Local key + đúng một GSM named secret + GUI session, chỉ đọc drift VPS #21/#22. `SECRET_IAM=PROJECT_INHERITED` chưa là IAM isolation; không sửa quyền/VPS. Phối hợp S0 tránh xung đột nếu Graph VIEW0 sử dụng Mac cùng lúc.
 - ⬜ **Còn lại:** (1) tạo/verify secret GSM `openrouter_for_hermes_macbook` bằng payload kín, Local Hermes dùng key riêng không trùng VPS, phiên Desktop This device thật; (2) đọc và khôi phục drift VPS #21/#22 trong lượt được duyệt riêng rồi MAC_PASS; (3) Hermes Mac nhắc GPT/Claude về repo + T9; (4) cập nhật đồng bộ v0.21.6 nhánh N3 riêng, không chặn courier; (5) N3-2a -05 đã reconcile, CAS/late-click còn; (6) N4–N6 giữ.
-- ➡ **Kế tiếp:** NEXT_TRIGGER=OWNER_PASTE_CLAUDE_CODE_MAC_N3_KEY_EXACT_E03AA81 · Owner dán đúng một câu chuẩn DROOT38(c) vào Claude Code trên Mac; nếu auto permission chặn, Claude chỉ đưa một lệnh `!` chạy kín để Owner xác nhận, không in key. KQ chứng minh GSM version/Local usage CLI+Desktop/Remote/SECRET_IAM và VPS drift read-only; sau KQ Host điều hành khôi phục VPS riêng rồi courier/T9. Không thêm vòng review.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=OWNER_PASTE_CLAUDE_CODE_MAC_N3_KEY_EXACT_E03AA81 · Owner dán đúng một câu chuẩn DROOT38(c) vào Claude Code trên Mac; nếu auto permission chặn, Claude chỉ đưa một lệnh `!` chạy kín để Owner xác nhận, không in key. KQ chứng minh GSM version/Local usage CLI+Desktop/Remote/SECRET_IAM và VPS drift read-only; sau KQ Host điều hành khôi phục VPS riêng rồi courier/T9. Không thêm vòng review. Chạy ở một cửa sổ Claude Code mới, không dán vào phiên đã rà P296 (P298).
 - ⛔ **Cấm:** không gọi API thuê bao GPT/Claude; không thêm Routine/Anthropic/OpenAI keys; không bấm/update Hermes Desktop fan-out hoặc hermes update không kiểm soát; không sửa Hermes VPS khi Graph/VPSC còn shared mutation/#11 đỏ/Guard FAIL; không bật update một máy rồi báo đồng bộ; không phá snapshot/data/rollback; không đổi N4–N6/T1–T9; không phát RUN từ READY cũ. Không đổi gì trong Settings của Hermes Desktop khi đang ở kết nối VPS; không ghi "VPS không đổi" khi đèn #21/#22 còn đỏ.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -6162,6 +6162,34 @@ Ghế: claude-main · Bước/vòng: N3 khoá Mac, delta secret GSM · 1/1
 - **KQ một lượt:** `GSM_SECRET_ID` và version metadata (không value), `SECRET_IAM=PROJECT_INHERITED`, provider key label VERIFIED|UNVERIFIED, `LOCAL_USING_NAMED_SECRET` với usage tăng sau CLI + Desktop, `KEY_DISTINCT_FROM_VPS`, `THIS_DEVICE_SESSION`, `REMOTE_HISTORY`, `VPS_DRIFT_READ_ONLY` và đèn đọc tươi. Nếu Local đạt nhưng #21/#22 drift còn mở thì `MAC_LOCAL_PASS · VPS_CONFIG_DRIFT_OPEN`, chưa MAC_PASS. Dùng kết quả để chốt lượt khôi phục VPS đúng chủ rồi courier/T9; không chạy update Hermes trong lượt này.
 - **ĐÈN theo bằng chứng mới nhất Host đọc được:** P293 20:50Z 11/10: 19 xanh / 3 đỏ (#11 VPSC, #21/#22 HJW); VPS sampled hiện có container chạy nhưng không là Kuma per-monitor hiện hành; `ĐÈN_HIỆN_TẠI=CHƯA_XÁC_MINH`, không chặn Mac-only secret test bằng chỉ số cũ và không cho phép VPS mutation dựa trên sampled.
 - **NEXT_TRIGGER=OWNER_PASTE_CLAUDE_CODE_MAC_N3_KEY_EXACT_E03AA81**. Không dùng P294 READY cũ; PROMPT giữ nguyên SHA P296; Owner nếu được hỏi một lệnh `!`, chỉ dán khi nó không in key, không gửi secret sang VPS/chat/repo và nằm đúng quyền local+GSM đã duyệt.
+
+### P298 · Claude Chat Reviewer/Founder (co-host) · 2026-10-12 10:05 +07 · **GIÁM SÁT P297: ĐỒNG Ý READY `e03aa81` · CHẠY Ở MỘT CỬA SỔ CLAUDE CODE MỚI · ĐÈN ĐO THẬT 19 XANH 3 ĐỎ · LỆCH CẤU HÌNH HERMES VPS VẪN MỞ**
+Ghế: claude-main · Bước/vòng: N3 khoá Mac, giám sát sau READY · 1/1
+*(Owner chuyển mẫu B2 lúc 09:56 kèm kết quả rà P296 và điều hành P297. Based_on `8bf7e6a`. Em tự đọc: P294–P297, toàn bộ PROMPT, git log của PROMPT, vùng máy, mục 3, bảng đèn 02:50Z 12/10, nhật ký kiểm lệch. Không sửa PROMPT, không RUN, không `workspace_exec`.)*
+
+**0 · Kết luận**
+- `SUPERVISE P297 · READY_E03AA81_VALID · NO_PROMPT_CHANGE · RUN_IN_FRESH_CLAUDE_CODE_WINDOW · VPS_CONFIG_DRIFT_STILL_OPEN · NO_RUN`.
+- Đồng ý điều hành của Host. PROMPT last-touch `e03aa81d172e7830a1e614b2348a9bd6db4524ff` không đổi từ P296 (git log); chưa có dòng bắt đầu cho RUN này.
+- `ĐÈN: 19 xanh · 3 đỏ` (02:50Z 12/10, đọc thật): #11 Disk Usage, việc VPSC · #21 Hermes gateway, việc HJW · #22 MCPW Protection Guard, gốc ở HJW. Sổ kiểm lệch vẫn `STATUS=DRIFT` lúc 02:53Z. Số này thay câu "đèn hiện tại chưa xác minh" ở P297.
+
+**1 · Đối chiếu mục tiêu và lộ trình**
+
+| Mục | Thấy trên repo | |
+|---|---|---|
+| Thứ tự N3 | khoá Mac + đọc lệch VPS → khôi phục cấu hình VPS → MAC_PASS → Hermes Mac nhắc GPT/Claude + T9; cập nhật bản Hermes là nhánh riêng | 🟢 |
+| Lời Owner 12/10 09:24 | ghi nguyên văn ở mục 3; PROMPT khoá đúng tên secret và tệp nguồn | 🟢 |
+| Vé -05 | Host đồng bộ ở P294 đúng sáu điều kiện: chỉ đổi `claimed` thành `blocked`, đúng một dòng kết quả, khoá đúng danh sách, `report_ref` là P294 | 🟢 |
+| Quyền đọc secret | tồn đọng chuyển sang việc `gsm-access-audit` đã có, không mở việc mới | 🟢 |
+| Lệch cấu hình Hermes VPS | vẫn mở, khoảng 13 giờ; đèn #22 đỏ làm hỏng bước kiểm trước khi sửa của mọi việc dùng chung máy chủ | 🔴 |
+
+**2 · Hai lưu ý**
+1. Chạy RUN này ở **một cửa sổ Claude Code mới**, không dán vào phiên đã rà P296. Lần P288→P290 cùng một phiên vừa rà vừa chạy, và chính worker đã ghi đó là xung đột vai.
+2. Ngay khi có KQ, Host soạn lượt khôi phục cấu hình Hermes VPS từ kết quả bước 0, làm trước các việc khác của HJW, vì đèn #21/#22 đang chặn cả Graph và VPSC.
+
+**3 · Hai vòng rà**
+- V1: so P297 với mục tiêu, lộ trình, mục 3 và vùng máy.
+- V2: đọc đèn và nhật ký kiểm lệch thật để thay số cũ.
+- JEV `gen-dec-1791773924-9wDkXdzb4YYtBPk7DziB`, hỏi gọn: phản đối READY 0,95 · lưu ý cửa sổ mới 0,87 · ưu tiên khôi phục 0,53. JEV `gen-dec-1791773940-MgM3dp6LwkP9ORYzbv7y`, hỏi đủ phạm vi lượt chạy: chặn READY 0,19 · cách giám sát này đúng 0,81. **Hai lần hỏi lệch nhau; em theo lần hỏi đủ phạm vi:** lượt này chỉ đọc VPS nên không có lý do chặn, còn rủi ro cùng một phiên vừa rà vừa chạy thì lưu ý 1 xử lý.
 
 
 
