@@ -121894,7 +121894,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "3f0cc3eb382d377f893fbf73ab7bff7d828be8a70d188b6e7c158fde9c658e37",
+          "sha256": "f50558ce5d21abce09f6b2d91a3fd5557e958d9aa403e2d4ee36d853272c8099",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -121908,7 +121908,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 300,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "eaa1d583ba111b7bbb7a94b682ce6cfb1bcb99e1b4751eb5443c598fa5a47ddc",
+            "process-work-master-v1.js": "e4d3fa73ba30205fa335a4ad99db588b9c88035f5eab4a41a5c3c1cb04233ead",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
           }
@@ -127469,7 +127469,7 @@ main{max-width:1240px} [hidden]{display:none!important}
         },
         {
           "tool_id": "TQT-CHECK-005",
-          "contract_revision": "P37.1",
+          "contract_revision": "P37.2",
           "owner": "Codex Host tools-quy-trinh",
           "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
@@ -128271,6 +128271,21 @@ main{max-width:1240px} [hidden]{display:none!important}
           "actor": "Codex Host",
           "changed_at": "2026-10-12T12:35:18.394261+00:00",
           "reason": "Kiểm tự động Master thật và50câu hỏi trong hồ sơ; phân biệt việc chưa mở",
+          "affected_applications": [
+            "MOW-NHC-001-G1-20261010-01"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37"
+        },
+        {
+          "change_id": "P37-TQT-CHECK-005-UNOPENED",
+          "kind": "UPGRADE",
+          "target_code": "TQT-CHECK-005",
+          "previous_version": "3f0cc3eb382d377f893fbf73ab7bff7d828be8a70d188b6e7c158fde9c658e37",
+          "next_version": "f50558ce5d21abce09f6b2d91a3fd5557e958d9aa403e2d4ee36d853272c8099",
+          "target_version": "f50558ce5d21abce09f6b2d91a3fd5557e958d9aa403e2d4ee36d853272c8099",
+          "actor": "Codex Host",
+          "changed_at": "2026-10-12T12:40:46.905466+00:00",
+          "reason": "Do not count unopened-work groups as untriggered branches; retain published P37 source upgrade history",
           "affected_applications": [
             "MOW-NHC-001-G1-20261010-01"
           ],
