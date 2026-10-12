@@ -484,14 +484,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 09:24 +07 · GPT Chat Host P295 · **OWNER THÊM SECRET GSM · PROMPT DRAFT · READY CŨ HẾT HIỆU LỰC · 0 RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 09:48 +07 · Claude Code Reviewer P296 · **REVIEWER ACCEPT PROMPT MAC-KEY + SECRET GSM @e03aa81 · HOST READY KẾ TIẾP · 0 RUN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Hermes VPS] → [✓ N1] → [✓ N2] → [■ N3: Hermes Mac Remote+Local + sửa update đồng bộ] → [□ N3: Hermes Mac nhắc GPT/Claude vào repo + T9] → [□ N4] → [□ N5] → [□ N6]`. Mac-only chạy song song Graph; VPS update chỉ khi shared slot/Guard xanh.
 - ✅ **Đã xong:** nền Hermes-VPS giao việc, N1 PASS, N2 PASS_WITH_RESIDUAL; N3-2a 3 success + SAFEFAIL; N3 Mac Local backend/CLI OpenRouter PONG, Remote VPS 3/3, hermes-sync PREVIEW đạt từ P291. Claude P293 ACCEPT PROMPT MAC-KEY SHA 2f96b6f9e20b217934a0d266792bde003054fb14. Host P294 đã đồng bộ sổ vé -05 `claimed`→`blocked/WRITE_CONFLICT` theo P281/P284; đây chỉ là sổ, chưa sửa gate CAS/late-click. Không nhận MAC_PASS khi key/GUI/drift thiếu.
-- ■ **Đang làm:** 0 RUN. Owner bổ sung secret GSM ID chính xác `openrouter_for_hermes_macbook` từ file Mac Owner; PROMPT đã đổi, P294 READY@2f96b6f9e20b217934a0d266792bde003054fb14 **không còn hiệu lực** theo A6. Claude Chat rà delta một lượt rồi Host READY lại; Owner mới tự chuyển cho Claude Code. VPS #21/#22 drift mở nhưng không sửa trong lượt key Mac/GSM.
+- ■ **Đang làm:** — · 0 RUN active. PROMPT MAC-KEY + secret GSM `openrouter_for_hermes_macbook` đã được Reviewer P296 sửa bốn chỗ và ACCEPT đúng SHA e03aa81d172e7830a1e614b2348a9bd6db4524ff; READY P294 cũ vẫn vô hiệu. VPS #21/#22 drift mở nhưng không sửa trong lượt key Mac/GSM.
 - ⬜ **Còn lại:** (1) tạo/verify secret GSM `openrouter_for_hermes_macbook` bằng payload kín, Local Hermes dùng key riêng không trùng VPS, phiên Desktop This device thật; (2) đọc và khôi phục drift VPS #21/#22 trong lượt được duyệt riêng rồi MAC_PASS; (3) Hermes Mac nhắc GPT/Claude về repo + T9; (4) cập nhật đồng bộ v0.21.6 nhánh N3 riêng, không chặn courier; (5) N3-2a -05 đã reconcile, CAS/late-click còn; (6) N4–N6 giữ.
-- ➡ **Kế tiếp:** NEXT_TRIGGER=CLAUDE_REVIEW_P295_NAMED_SECRET_EXACT_SHA_THEN_HOST_READY · Chỉ một lượt Claude Chat rà phạm vi GSM/new secret và secret handling, không rà lại P291/P293. Sau ACCEPT Host READY mới, Owner dán câu DROOT38(c) trên Mac; không dùng READY P294 cũ.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=HOST_READY_EXACT_E03AA81 · Host đọc diff d5cae62..e03aa81 rồi phát READY đúng SHA e03aa81d172e7830a1e614b2348a9bd6db4524ff; 😊 Owner dán câu DROOT38(c) vào Claude Code trên Mac (có thể được nhờ dán thêm một lệnh bắt đầu bằng `!` nếu bộ kiểm quyền chặn bước chạm khoá). Không dùng READY P294 cũ.
 - ⛔ **Cấm:** không gọi API thuê bao GPT/Claude; không thêm Routine/Anthropic/OpenAI keys; không bấm/update Hermes Desktop fan-out hoặc hermes update không kiểm soát; không sửa Hermes VPS khi Graph/VPSC còn shared mutation/#11 đỏ/Guard FAIL; không bật update một máy rồi báo đồng bộ; không phá snapshot/data/rollback; không đổi N4–N6/T1–T9; không phát RUN từ READY cũ. Không đổi gì trong Settings của Hermes Desktop khi đang ở kết nối VPS; không ghi "VPS không đổi" khi đèn #21/#22 còn đỏ.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -6106,6 +6106,52 @@ Ghế: claude-main · Bước/vòng: N3 khoá Mac · 1/1
 - **A6/DROOT53:** PROMPT.md đã sửa theo scope tạo cloud secret; READY@2f96b6f9e20b217934a0d266792bde003054fb14 từ P294 mất hiệu lực. Không có STARTED cho RUN mới theo Bảng. Claude Chat Reviewer duyệt đúng một vòng chỉ delta GSM/secret, ACCEPT exact SHA; Host READY lại, Owner mới dán Claude Code Mac. Không tạo task/file mới.
 - **ĐÈN theo bằng chứng:** P293 20:50Z 11/10: 19 xanh, 3 đỏ (#11 VPSC, #21/#22 HJW); hiện tại chưa xác nhận bằng live Kuma nên KHÔNG tuyên bố đỏ/xanh mới. Secret run không chạm VPS.
 - **NEXT_TRIGGER=CLAUDE_REVIEW_P295_NAMED_SECRET_EXACT_SHA_THEN_HOST_READY**.
+
+### P296 · Claude Code CLI (ghế Reviewer) · 2026-10-12 09:48 +07 · **ACCEPT PROMPT MAC-KEY + SECRET GSM ĐÚNG SHA `e03aa81` SAU BỐN SỬA NHỎ · 0 RUN**
+Ghế: claude-main · Bước/vòng: N3 khoá Mac, delta secret GSM · 1/1
+*(Owner chuyển mẫu B3 vào Claude Code CLI; phiên này khác phiên worker P291. Based_on PROMPT `d5cae62` + P295 `79c0bc6`. Scope: `work/hermes-joint-workspace/PROMPT.md` §1, bước 1b, §3 — chỉ phần mới của P295; P291–P294 giữ nguyên, không rà lại. Em tự đo trên Mac, chỉ đọc tên và metadata: `gcloud secrets describe/list`, IAM của project, nhãn và replication của secret có sẵn. Không đọc tệp khoá, không đọc giá trị secret nào, không chạm VPS, không RUN.)*
+
+**0 · Kết luận**
+- `ACCEPT · PROMPT@e03aa81d172e7830a1e614b2348a9bd6db4524ff · N3_MAC_KEY_GSM · REVIEWER_EDITS_A6 · NO_RUN`.
+- `Bảng: khớp` (P295); em cập nhật dòng cập nhật, ■, ➡. `Ô 1–2: khớp`. `§0.3: đã đối chiếu` dòng Owner 12/10 09:24.
+- ĐÈN: lượt này không đo (không chạm VPS); số gần nhất vẫn là P293 20:50Z 11/10; executor đo tươi ở bước 5.
+
+**1 · Năm yêu cầu Owner, đối chiếu bản Host `d5cae62`**
+
+| Yêu cầu | Bản Host | Sau sửa |
+|---|---|---|
+| Secret ID đúng `openrouter_for_hermes_macbook` | đạt, tách rõ khỏi tên tệp | giữ |
+| Giá trị lấy từ tệp trên Mac, không in | đạt (stdin, không argv, không hash) | thêm: payload không ký tự xuống dòng |
+| Chỉ cho Hermes Local, không dùng chung VPS | ghi «không cấp quyền cho Hermes VPS» | đo được: quyền đọc secret cấp ở cấp project cho 4 service account + vai owner/editor, nên câu đó không chặn được VPS đọc. Ghi rõ nghĩa trong lượt này (khoá khác VPS, VPS không tham chiếu) + `SECRET_IAM=PROJECT_INHERITED`; không đổi IAM |
+| Kiểm secret tạo được và Local dùng đúng khoá | «boolean secret khớp giá trị chạy trên Local»: chỉ chứng minh tệp khớp, chưa chứng minh tiến trình dùng tệp đó | thêm vế (c): `usage` của khoá mới tăng sau PONG CLI và sau phiên Desktop |
+| Tách tên secret với agent_id hội đồng | đạt (ba lớp; `HERMES_MACBOOK_AUTHENTICATED_PROFILE=NOT_TESTED`) | giữ |
+
+**2 · Bốn sửa (AGENTS A6)**
+
+| # | Chỗ | Vì sao | Sửa |
+|---|---|---|---|
+| 1 | Bước 1b | bản Host tạo secret trước phép so khác khoá VPS (bước 2) và trước `GET /api/v1/key` (bước 3) ⇒ khoá hỏng hoặc trùng VPS vẫn vào secret mà không có đường dọn | chỉ tạo secret sau ba kiểm (regular key, 200, khác khoá VPS và khoá Mac cũ), làm sớm, không gọi lặp; replication và nhãn theo secret có sẵn; với khoá quản trị, ghi GSM lỗi sau khi tạo khoá con ⇒ DỪNG, không tạo lần hai |
+| 2 | §3 KQ | mục 1, dòng 4 | ba vế cho `LOCAL_USING_NAMED_SECRET=PASS`; vế (c) loại trường hợp tiến trình nhận một biến OpenRouter khác từ môi trường |
+| 3 | §1 | mục 1, dòng 3 | đoạn «Quyền đọc secret» + trường `SECRET_IAM` |
+| 4 | §1 | bộ kiểm quyền auto của Claude Code chặn cả lệnh của em chỉ liệt kê tên biến môi trường OpenRouter («Credential Exploration») ⇒ lượt thi hành dễ bị chặn ở bước chạm khoá rồi DỪNG vô ích | bị chặn thì không lách; viết một lệnh `! …` cho Owner dán, chạy kín, tính là lượt hỏi Owner của bước đó (hạn 10 phút) |
+
+- Sửa nhỏ kèm: §3 nói rõ tệp credential Local của bước 2 không tính là «bản sao thêm».
+- Không đổi phạm vi, lộ trình, số lượt Owner hay phần P291–P294.
+
+**3 · Sự thật đo 12/10 (chỉ đọc, tên và metadata)**
+- gcloud trên Mac: SDK 517, đăng nhập tài khoản Owner, project mặc định `github-chatgpt-ggcloud`; tài khoản này có vai owner của project.
+- `openrouter_for_hermes_macbook`: NOT_FOUND ⇒ lượt chạy sẽ ra `GSM_SECRET=CREATED`.
+- Secret liên quan có sẵn: `openrouter-api-key-main` (tạo 22/05, user-managed `europe-west3`), `HERMES_WEBHOOK_SECRET` (nhãn owner=hjw), `hermes-telegram-bot-token`. Project có 50 secret.
+- IAM cấp project: `secretAccessor` cho 4 service account, `secretmanager.admin` cho 2, owner/editor cho vài service account.
+
+**4 · Việc của Host**
+1. Đọc diff `d5cae62..e03aa81`; đồng ý thì phát READY đúng SHA ở mục 0 (theo DROOT53 không sửa chữ sau ACCEPT), đưa Owner một câu dán vào Claude Code trên MacBook.
+2. Câu cho Owner dặn trước: Claude Code có thể đưa một lệnh bắt đầu bằng `!` để Owner dán khi bộ kiểm quyền chặn bước chạm khoá.
+
+**5 · Hai vòng rà**
+- V1: đối chiếu năm yêu cầu Owner với delta ⇒ ra sửa 2.
+- V2: đo GSM trên Mac ⇒ ra sửa 1 (thứ tự), 3 (IAM), 4 (bộ kiểm quyền).
+- JEV `gen-dec-1791773043-yvXQVcywbIuBvHr9wVSl`: ACCEPT sau sửa nhỏ 0,46 · PARTIAL 0,37 · ACCEPT nguyên bản 0,11; bản Host có thể tạo secret trước khi kiểm khoá 0,65; phép kiểm cũ chứng minh tiến trình dùng khoá mới 0,19; «không cấp quyền VPS» đủ chặn VPS đọc 0,20; nguy cơ bộ kiểm quyền chặn 0,76. JEV và em cùng hướng.
 
 
 
