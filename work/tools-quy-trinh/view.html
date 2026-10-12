@@ -121734,11 +121734,11 @@ main{max-width:1240px} [hidden]{display:none!important}
           "purpose": "7 mốc, nghĩa vụ bắt buộc, đối chiếu và lịch sử; kho thử khai báo, mã/phiên/cột/đọc lại; hợp đồng áp dụng MOT/giao bước/ca kiểm/ghim nội dung; before-after giữ lịch sử; P31 kiểm schema bắt buộc, dữ liệu giao thật, lịch sử; lát ghi–đọc TEST bằng hai tiến trình, không phải chạy MOW001; PR15 kiểm trả cuối, hiệu lực đánh giá, đọc nội dung thiết kế P02/P03, khóa chết và nhật ký thiếu. --write-gate được VPS gọi bắt buộc trước commit của tệp kho thử được bảo vệ.",
           "argv": [
             "node",
-            "--max-old-space-size=512",
+            "--max-old-space-size=640",
             "check-record-control.js",
             "view.html"
           ],
-          "sha256": "d0082b51b9c73f23f5f42b87df3794f2f3b8c48a9773ceab781bdc01fb389767",
+          "sha256": "402750bd79b3185dab428330b49ca4a6b53adb910a5e6c3dd7ade5683bd9f618",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -121894,7 +121894,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "3ae3f87f02ede2ffd05b093e14c3be66091122c161873532d17a2c81c9fd636f",
+          "sha256": "d4f722bddbd30091e54619e1fc5a718cf26f3db24b9171e8c66bf67bef070be7",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -121908,7 +121908,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 300,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "3704bceb3ffa3cdfad91d896e6727c067bd4a911de1d4017bbb336f37408e4a6",
+            "process-work-master-v1.js": "ad20d66b4af48ddc760f455a98f3baafb75a9b563db3348ad0c3b80de2155ab8",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
           }
@@ -127460,21 +127460,21 @@ main{max-width:1240px} [hidden]{display:none!important}
         },
         {
           "tool_id": "TQT-CHECK-004",
-          "contract_revision": "P36.4",
+          "contract_revision": "P37.1",
           "owner": "Codex Host tools-quy-trinh",
           "acceptance_scope": "Kiểm hợp đồng và cưỡng chế kho tệp MOW001 G1 trên VPS; mô phỏng không thay nghiệm thu sản phẩm; ngoài PG.",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
           "baseline_source": "32e3f58fc8d3e6f5b239e09264f18ccd91ae7eadbb0355fb0352b3529e1f0586",
-          "next_action": "Đã chạy tổng đạt trên VPS1GiB, job1912451206cb4dd28b30f4447cdfcfc3. Dùng lại đúng phiên/phạm vi; giữ đầy đủ lịch sử. Nguồn đổi thì kiểm lại. TEST không thay duyệt/nhận G1."
+          "next_action": "Đối chiếu biên nhận bộ tổng P37 trước khi dùng lại trên đúng phiên. Không lấy TEST thay nghiệm thu G1."
         },
         {
           "tool_id": "TQT-CHECK-005",
-          "contract_revision": "P37.3",
+          "contract_revision": "P37.4",
           "owner": "Codex Host tools-quy-trinh",
           "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
           "baseline_source": "9cc1eadfba38db846ef78d7b5d0829e044ddbb60bcaa3c0abeb8435d0d903df0",
-          "next_action": "Kiểm câu hỏi/đáp án, đúng việc, quyết định/nhận/lịch sử trong Master; dùng đúng hash. Chờ biên nhận bộ tổng P37."
+          "next_action": "Đối chiếu biên nhận bộ tổng P37 trước khi dùng lại trên đúng phiên. Không lấy TEST thay nghiệm thu G1."
         },
         {
           "tool_id": "TQT-CHECK-006",
@@ -128301,6 +128301,36 @@ main{max-width:1240px} [hidden]{display:none!important}
           "actor": "Codex Host",
           "changed_at": "2026-10-12T12:51:10.676309+00:00",
           "reason": "Sổ có bản ghi thật phải nói rõ nguồn kho tệp, không ghi chưa khai nguồn lưu; tách quyền toàn Master/PG.",
+          "affected_applications": [
+            "MOW-NHC-001-G1-20261010-01"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37"
+        },
+        {
+          "change_id": "P37-TQT-CHECK-004-FINAL-READER",
+          "kind": "UPGRADE",
+          "target_code": "TQT-CHECK-004",
+          "previous_version": "d0082b51b9c73f23f5f42b87df3794f2f3b8c48a9773ceab781bdc01fb389767",
+          "next_version": "402750bd79b3185dab428330b49ca4a6b53adb910a5e6c3dd7ade5683bd9f618",
+          "target_version": "402750bd79b3185dab428330b49ca4a6b53adb910a5e6c3dd7ade5683bd9f618",
+          "actor": "Codex Host",
+          "changed_at": "2026-10-12T12:56:34.371980+00:00",
+          "reason": "Giảm bản sao dữ liệu khi audit/đọc P01/P02/P03; PLAN snapshot được đối chiếu đủ nội dung và phiên, chỉ trạng thái/kết quả thực hiện có thể tiến lên.",
+          "affected_applications": [
+            "MOW-NHC-001-G1-20261010-01"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37"
+        },
+        {
+          "change_id": "P37-TQT-CHECK-005-FINAL-READER",
+          "kind": "UPGRADE",
+          "target_code": "TQT-CHECK-005",
+          "previous_version": "3ae3f87f02ede2ffd05b093e14c3be66091122c161873532d17a2c81c9fd636f",
+          "next_version": "d4f722bddbd30091e54619e1fc5a718cf26f3db24b9171e8c66bf67bef070be7",
+          "target_version": "d4f722bddbd30091e54619e1fc5a718cf26f3db24b9171e8c66bf67bef070be7",
+          "actor": "Codex Host",
+          "changed_at": "2026-10-12T12:56:34.371980+00:00",
+          "reason": "Lịch sử hiển thị ngày khai báo có sẵn; sổ nguồn kho tệp được phân biệt với quyền toàn Master/PG.",
           "affected_applications": [
             "MOW-NHC-001-G1-20261010-01"
           ],

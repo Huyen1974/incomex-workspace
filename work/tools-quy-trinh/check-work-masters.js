@@ -165,6 +165,7 @@ if(adapter&&r.application_preview.resolved_questions){
  const A=globalThis.TQT_WORK_MASTER,a=r.application_preview.record;
  for(const x of a.decisions||[])assert(A.relatedRows(r,'CAT-025').some(y=>y.record_id===x.id&&y.application_id===a.application_id),'OWNER_DECISION_MISSING_FROM_MASTER');
  for(const x of a.receipts||[])assert(A.relatedRows(r,'CAT-232*').some(y=>y.record_id===x.id&&y.recipient===x.recipient),'ACK_MISSING_FROM_MASTER');
+ for(const [i,x] of a.history.entries()){const row=A.relatedRows(r,'CAT-233*')[i];assert.equal(row.occurred_at,x.at||x.date||'Chưa ghi');assert.equal(row.event_type,x.event||x.type||x.action||'HISTORY');}
  assert.equal(A.relatedRows(r,'CAT-233*').filter(x=>x.application_id===a.application_id).length,a.history.length,'HISTORY_MISSING_FROM_MASTER');
  assert(A.relatedRows(r,'CAT-016').some(x=>x.application_id===a.application_id),'CHANGE_MISSING_FROM_MASTER');
  assert.equal(A.relatedRows(r,'CAT-244*').length,(a.branch_records||[]).filter(x=>x.kind==='CANCELLED').length,'CONDITIONAL_BRANCH_FABRICATED');
