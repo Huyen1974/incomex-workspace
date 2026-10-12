@@ -168,5 +168,6 @@ if(adapter&&r.application_preview.resolved_questions){
  assert.equal(A.relatedRows(r,'CAT-233*').filter(x=>x.application_id===a.application_id).length,a.history.length,'HISTORY_MISSING_FROM_MASTER');
  assert(A.relatedRows(r,'CAT-016').some(x=>x.application_id===a.application_id),'CHANGE_MISSING_FROM_MASTER');
  assert.equal(A.relatedRows(r,'CAT-244*').length,(a.branch_records||[]).filter(x=>x.kind==='CANCELLED').length,'CONDITIONAL_BRANCH_FABRICATED');
+ for(const code of ['CAT-025','CAT-232*','CAT-233*','CAT-016','CAT-244*']){const c=A.configure({}, {tqt:r,masterCode:code,sample:false});assert(c.principle.includes('Bản chiếu từ hồ sơ kho tệp hiện có'));assert(!c.principle.includes('Chưa khai nguồn lưu'));}
  console.log('P37: all actual Owner decisions, receipts, history and changes projected to existing Masters; no fabricated cancellation');
 }
