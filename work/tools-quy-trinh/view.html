@@ -12683,7 +12683,7 @@ main{max-width:1240px} [hidden]{display:none!important}
     },
     "application_preview": {
       "source_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24",
-      "record_sha256": "ec1620205a41c174f98a38b77225a2151811745a65e2c42f11c1d21fd774d6df",
+      "record_sha256": "a1d889793fe8f0d5687d570bab5ecd6556b63e9e58c64eaa9ee286919f1d02a6",
       "read_only": true,
       "record": {
         "application_id": "MOW-NHC-001-G1-20261010-01",
@@ -100315,7 +100315,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-overview-consistency.py",
             "view.html"
           ],
-          "sha256": "93487966d9a32bafcb400bba5ac47f09c9a8b312d0c2dc89a7eacf27305c7b27",
+          "sha256": "3ba3ef6e4d0e5c220d16941f8a88ab0c395529c70b401ce2dd4befbcf2459e9d",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -100341,10 +100341,11 @@ main{max-width:1240px} [hidden]{display:none!important}
           "purpose": "7 mốc, nghĩa vụ bắt buộc, đối chiếu và lịch sử; kho thử khai báo, mã/phiên/cột/đọc lại; hợp đồng áp dụng MOT/giao bước/ca kiểm/ghim nội dung; before-after giữ lịch sử; P31 kiểm schema bắt buộc, dữ liệu giao thật, lịch sử; lát ghi–đọc TEST bằng hai tiến trình, không phải chạy MOW001; PR15 kiểm trả cuối, hiệu lực đánh giá, đọc nội dung thiết kế P02/P03, khóa chết và nhật ký thiếu. --write-gate được VPS gọi bắt buộc trước commit của tệp kho thử được bảo vệ.",
           "argv": [
             "node",
+            "--max-old-space-size=512",
             "check-record-control.js",
             "view.html"
           ],
-          "sha256": "1f764f17c78cfa2ba40d5d5620032e964e9aa08c2c3226a449d60a5175f06092",
+          "sha256": "ffe585bdd9ad156cb0ba3355ecc0bacaa5ab92a298d6cfd739f6c83c61fef193",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -100438,7 +100439,7 @@ main{max-width:1240px} [hidden]{display:none!important}
               }
             ],
             "policy_id": "MOW001-G1-P36-2",
-            "test_harness_delta": "Canonical test harness sets future-output fixture to CP01. Runtime --write-gate/--server-context code unchanged; immutable R2 validator remains pinned."
+            "test_harness_delta": "P36.3: future-row readiness, TEST copy-on-write and shared immutable history, scoped test subprocesses, reuse already parsed catalog for persisted P01 reader. Gate engine/server-context unchanged; deployed immutable validator pin remains separate."
           },
           "read_preparation": {
             "argv": [
@@ -100496,10 +100497,11 @@ main{max-width:1240px} [hidden]{display:none!important}
           "purpose": "Danh sách Master, hồ sơ và UI adapter",
           "argv": [
             "node",
+            "--max-old-space-size=512",
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "b5ce3cc2e5320809f1e8189ea250b72eea110ae215eb0faf51ae1f980181313d",
+          "sha256": "e0f9de8892aa085408a34282582bf24706b328be81795fcc435483f7ea2b73ae",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -100513,7 +100515,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 60,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "deda58a37787cd4d536a3e1246ac53bc0a65a67ae028dcdef1f2c82b927b87c5",
+            "process-work-master-v1.js": "6a81a5ff686b5608ac1404208059c666fd99a7e8c0c1b9a2eb0bc22f45a22e64",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
           }
@@ -100534,7 +100536,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "run-tqt-checks.py",
             "--verify"
           ],
-          "sha256": "a5b41f0a5dca8f10c9ee8c062319f235d4cdbf7cab05576de9ef605d1c203c2f",
+          "sha256": "853277b94ff834e5d2b516c5ee65111f73234f7c5c03721b5356da7a1f9247e6",
           "preconditions": "Python 3.11+; registry UI vừa đọc; Node.js cho toàn bộ suite, --identity-only không cần Node; không cần quyền PG",
           "input": "view.html; phiếu MOW001; registry định nghĩa UI vừa đọc qua --master-registry hoặc --master-registry-json; UI adapter tùy chọn",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -100599,7 +100601,7 @@ main{max-width:1240px} [hidden]{display:none!important}
       "policy": "Tìm trong CAT-006 trước khi viết mới. Bộ kiểm phải có CAT-012 + lệnh chạy + hash + chủ quản + giới hạn; kết quả mỗi lần lưu CAT-015 và gắn phiên nguồn. Xóa/nghỉ công cụ phải có lý do và kiểm nơi dùng. Chưa nhập dot_tools trên PG.",
       "execution_status": {
         "state": "RECHECK_PENDING",
-        "note": "R2 CHECK004 và24UI PASS; CHECK005 projection PASS. Chờ lượt tổng trên phiếu G1 cuối. Không suy từ lần kiểm cũ."
+        "note": "Lượt b51e59 exit137 dưới1GiB; sửa bộ nhớ TEST, giữ nguyên gate/lịch sử sản phẩm. Chờ nativefull recheck."
       },
       "canonical_master_id": "ML-DEF-024",
       "audit_sources": {
@@ -100622,6 +100624,11 @@ main{max-width:1240px} [hidden]{display:none!important}
             "path": "/opt/incomex/scripts",
             "namespace": "VPS-SCRIPT",
             "label": "Script vận hành VPS"
+          },
+          {
+            "path": "/opt/incomex/docker/nuxt-repo/scripts/hvu-b2",
+            "namespace": "HVU-SCRIPT",
+            "label": "Thành phần công cụ xuất HVU hiện hữu; đối chiếu Config Guard/code-ledger"
           }
         ]
       },
@@ -105758,6 +105765,53 @@ main{max-width:1240px} [hidden]{display:none!important}
             ],
             "work_id": "tools-quy-trinh",
             "verification": "OBSERVED_PLATFORM_RESPONSE"
+          },
+          {
+            "action": "browser:cua",
+            "provider": "Codex CUA",
+            "version": "UNKNOWN_PLATFORM_BUILD",
+            "work_id": "tools-quy-trinh",
+            "run_id": "P36-CUA-G1-TAB10",
+            "run_id_origin": "Host correlation for actual tab10; not provider execution UUID",
+            "observed_at": "2026-10-12T08:51:18Z",
+            "time_basis": "Reviewer verification window; individual clicks not all timestamped",
+            "result": "16 observations of deployed MOW001 G1 UI, examples explicitly separate from live sources; G2 sources not connected",
+            "result_sha256": "def89d2033203f8a3db76f5c31f92f0e50b409c17a0b85ef3d959d20ab6e92d4",
+            "evidence_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24",
+            "verification": "OBSERVED_UI_AND_REVIEWED_EVIDENCE"
+          },
+          {
+            "action": "jev-reference:evaluate",
+            "provider": "TypeSafe",
+            "model": "typesafe/jev-1.13-20260917",
+            "work_id": "tools-quy-trinh",
+            "run_id": "gen-dec-1791790375-zl0Zz6algBm7fWnpANQf",
+            "result": "Advisory signed-server-evidence architecture choice; not product approval",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/jev",
+            "verification": "OBSERVED_PLATFORM_RESPONSE"
+          },
+          {
+            "action": "local:shell",
+            "provider": "Codex exec_command",
+            "version": "UNKNOWN_PLATFORM_BUILD",
+            "work_id": "tools-quy-trinh",
+            "run_id": "P36-REVIEW-P04-e1e753",
+            "run_id_origin": "Actual tool execution chunk, technical reviewer in same OpenAI task",
+            "result": "Read-only VPS verification of actual P04/PLAN/11criteria and two persisted design hashes ACCEPT for CP05",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/actual_p04",
+            "verification": "OBSERVED_REVIEWER_EXECUTION"
+          },
+          {
+            "action": "agent-data:workspace_transaction",
+            "provider": "Agent Data VPS",
+            "work_id": "tools-quy-trinh",
+            "related_work_id": "mow-mot-moit-mout",
+            "run_id": "0c68b2d7ed5d42a18a13482714235d66",
+            "source_version": "88460eee2688ebd8ce4f2c11d94f17887049322c7e44c20e0f2fd463b3b82422",
+            "result": "Actual CP05 committed 0ea489a366eaa4a230a6a2346987281e8d9c9694, 5/7; Owner decision/ACK absent",
+            "result_sha256": "ec1620205a41c174f98a38b77225a2151811745a65e2c42f11c1d21fd774d6df",
+            "evidence_ref": "workspace_task:ea88409a8d19423d91b8977ebdce9e3c",
+            "verification": "NATIVE_TRANSACTION_RECEIPT_CROSS_WORK_LINK"
           }
         ],
         "gaps": [
@@ -105891,37 +105945,39 @@ main{max-width:1240px} [hidden]{display:none!important}
         },
         {
           "tool_id": "TQT-CHECK-003",
-          "contract_revision": "P34.1",
+          "contract_revision": "P36.3",
           "owner": "Codex Host tools-quy-trinh",
           "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
-          "baseline_source": "93487966d9a32bafcb400bba5ac47f09c9a8b312d0c2dc89a7eacf27305c7b27"
+          "baseline_source": "93487966d9a32bafcb400bba5ac47f09c9a8b312d0c2dc89a7eacf27305c7b27",
+          "next_action": "Chạy lại đúng nguồn trên VPS; không cắt lịch sử thật. Kết quả TEST không thay mốc thật. Xem host_review_P36/final_suite_followup."
         },
         {
           "tool_id": "TQT-CHECK-004",
-          "contract_revision": "P36.2",
+          "contract_revision": "P36.3",
           "owner": "Codex Host tools-quy-trinh",
           "acceptance_scope": "Kiểm hợp đồng và cưỡng chế kho tệp MOW001 G1 trên VPS; mô phỏng không thay nghiệm thu sản phẩm; ngoài PG.",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
           "baseline_source": "32e3f58fc8d3e6f5b239e09264f18ccd91ae7eadbb0355fb0352b3529e1f0586",
-          "next_action": "Tra nguồn/hash và bằng chứng; ghi/đọc hồ sơ lớn bằng workspace_task_start rồi đọc status/result, đòi expected_version. Không retry mù sau mất kết nối; đối chiếu hash và lịch sử trước. MOW001 tiếp ở CP06/07 cần Owner thật."
+          "next_action": "Chạy lại đúng nguồn trên VPS; không cắt lịch sử thật. Kết quả TEST không thay mốc thật. Xem host_review_P36/final_suite_followup."
         },
         {
           "tool_id": "TQT-CHECK-005",
-          "contract_revision": "P36.2",
+          "contract_revision": "P36.3",
           "owner": "Codex Host tools-quy-trinh",
           "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
           "baseline_source": "9cc1eadfba38db846ef78d7b5d0829e044ddbb60bcaa3c0abeb8435d0d903df0",
-          "next_action": "Tra nguồn/hash và bằng chứng; ghi/đọc hồ sơ lớn bằng workspace_task_start rồi đọc status/result, đòi expected_version. Không retry mù sau mất kết nối; đối chiếu hash và lịch sử trước. MOW001 tiếp ở CP06/07 cần Owner thật."
+          "next_action": "Chạy lại đúng nguồn trên VPS; không cắt lịch sử thật. Kết quả TEST không thay mốc thật. Xem host_review_P36/final_suite_followup."
         },
         {
           "tool_id": "TQT-CHECK-006",
-          "contract_revision": "P34.1",
+          "contract_revision": "P36.3",
           "owner": "Codex Host tools-quy-trinh",
           "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
-          "baseline_source": "c000c5fe6321bcdb6719c2d08af0e58c93d85110ffa385d52c0f3ed5b88272d1"
+          "baseline_source": "c000c5fe6321bcdb6719c2d08af0e58c93d85110ffa385d52c0f3ed5b88272d1",
+          "next_action": "Chạy lại đúng nguồn trên VPS; không cắt lịch sử thật. Kết quả TEST không thay mốc thật. Xem host_review_P36/final_suite_followup."
         },
         {
           "tool_id": "agent-data:workspace_read",
@@ -106197,6 +106253,29 @@ main{max-width:1240px} [hidden]{display:none!important}
           "acceptance_scope": "Hướng dẫn phương pháp; chưa có ca áp dụng độc lập đủ phạm vi",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
           "blocker": "Chưa ghim phiên hướng dẫn và ca áp dụng đầy đủ"
+        },
+        {
+          "tool_id": "HVU-SCRIPT.sync.py",
+          "contract_revision": "P36.1",
+          "owner": "Codex Host + Config Guard hvu-sync-py",
+          "acceptance_scope": "TEST xuất tệp lớn/last-good và48ca hồi quy; chưa thay đọcUIthật",
+          "registry_aliases": [
+            "hvu-sync-py"
+          ],
+          "canonical_source": "/opt/incomex/docker/nuxt-repo/scripts/hvu-b2/sync.py",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/exporter",
+          "baseline_source": "b15b5189f7e7edeb856d33b53803cb9c789f6efd6e1efa6574c3740ca5a127b6",
+          "next_action": "Dùng lại qua service HVU/Config Guard hiện hữu; kiểm documentStatus và hash đúngrevision. 48kiểm VPS đãđạt; chờđọcMaster sauxuất. KhôngtạoDOTkhácchohvu-sync-py.",
+          "last_verified_check": {
+            "id": "HVU-SCRIPT.sync.py",
+            "sha256": "8336adca4e44a044f88a1812a08c7b1dfc70dccb5d0b6f3e3777e2535164a21e",
+            "exit_code": 0,
+            "job_id": "P36-HVU-EXPORT-20261012",
+            "checked_at": "2026-10-12T09:30:25.651811+00:00",
+            "case_set": "HVU-existing-48-tests",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/exporter/vps_regression",
+            "scope": "TEST xuất tệp lớn/last-good và48ca hồi quy; chưa thay đọcUIthật"
+          }
         }
       ],
       "reviews": [
@@ -106431,6 +106510,83 @@ main{max-width:1240px} [hidden]{display:none!important}
             "MOW-NHC-001-G1-20261010-01"
           ],
           "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/master_projection"
+        },
+        {
+          "change_id": "P36-TQT-CHECK-004-MEMORY",
+          "kind": "UPGRADE",
+          "target_code": "TQT-CHECK-004",
+          "previous_version": "1f764f17c78cfa2ba40d5d5620032e964e9aa08c2c3226a449d60a5175f06092",
+          "next_version": "c2bdf00210560da37c8f3e7d21953e3d51c6525a2dcc0a6959705c6ceaea5590",
+          "target_version": "c2bdf00210560da37c8f3e7d21953e3d51c6525a2dcc0a6959705c6ceaea5590",
+          "reason": "Giữ kiểm toàn nguồn thật; giảm bản sao lịch sử không cần thiết trong TEST và giải phóng bộ nhớ trước chạy bộ con",
+          "actor": "Codex Host + Reviewer",
+          "changed_at": "2026-10-12T09:20:32.871042+00:00",
+          "affected_applications": [
+            "MOW-NHC-001-G1-20261010-01"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/final_suite_followup"
+        },
+        {
+          "change_id": "P36-TQT-CHECK-006-MEMORY",
+          "kind": "UPGRADE",
+          "target_code": "TQT-CHECK-006",
+          "previous_version": "a5b41f0a5dca8f10c9ee8c062319f235d4cdbf7cab05576de9ef605d1c203c2f",
+          "next_version": "853277b94ff834e5d2b516c5ee65111f73234f7c5c03721b5356da7a1f9247e6",
+          "target_version": "853277b94ff834e5d2b516c5ee65111f73234f7c5c03721b5356da7a1f9247e6",
+          "reason": "Giữ kiểm toàn nguồn thật; giảm bản sao lịch sử không cần thiết trong TEST và giải phóng bộ nhớ trước chạy bộ con",
+          "actor": "Codex Host + Reviewer",
+          "changed_at": "2026-10-12T09:20:32.871042+00:00",
+          "affected_applications": [
+            "MOW-NHC-001-G1-20261010-01"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/final_suite_followup"
+        },
+        {
+          "change_id": "P36-HVU-EXPORT-STREAM",
+          "kind": "UPGRADE",
+          "target_code": "HVU-SCRIPT.sync.py",
+          "previous_version": "b15b5189f7e7edeb856d33b53803cb9c789f6efd6e1efa6574c3740ca5a127b6",
+          "next_version": "8336adca4e44a044f88a1812a08c7b1dfc70dccb5d0b6f3e3777e2535164a21e",
+          "target_version": "8336adca4e44a044f88a1812a08c7b1dfc70dccb5d0b6f3e3777e2535164a21e",
+          "actor": "Codex Host",
+          "changed_at": "2026-10-12T09:28:27Z",
+          "affected_applications": [
+            "tools-quy-trinh/P36"
+          ],
+          "reason": "Công cụ hiện hữu hvu-sync-py: bỏ giới hạn tài liệu50MiB bằngstreaming/hash; giữ atomic,last-good vàConfigGuard. Aliasnàytrỏvềcùngcôngcụ.",
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/exporter"
+        },
+        {
+          "id": "TQT-CHECK-003-P36-MEMORY-VERIFIED",
+          "tool_id": "TQT-CHECK-003",
+          "at": "2026-10-12T09:40:24.713587+00:00",
+          "change": "Giảm bản sao dữ liệu kiểm; giữ toàn bộ lịch sử và assertion. Chờ lượt tổng VPS 1GiB.",
+          "source_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/final_suite_followup",
+          "state": "RECHECK_PENDING"
+        },
+        {
+          "id": "TQT-CHECK-004-P36-MEMORY-VERIFIED",
+          "tool_id": "TQT-CHECK-004",
+          "at": "2026-10-12T09:40:24.713587+00:00",
+          "change": "Giảm bản sao dữ liệu kiểm; giữ toàn bộ lịch sử và assertion. Chờ lượt tổng VPS 1GiB.",
+          "source_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/final_suite_followup",
+          "state": "RECHECK_PENDING"
+        },
+        {
+          "id": "TQT-CHECK-005-P36-MEMORY-VERIFIED",
+          "tool_id": "TQT-CHECK-005",
+          "at": "2026-10-12T09:40:24.713587+00:00",
+          "change": "Giảm bản sao dữ liệu kiểm; giữ toàn bộ lịch sử và assertion. Chờ lượt tổng VPS 1GiB.",
+          "source_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/final_suite_followup",
+          "state": "RECHECK_PENDING"
+        },
+        {
+          "id": "TQT-CHECK-006-P36-MEMORY-VERIFIED",
+          "tool_id": "TQT-CHECK-006",
+          "at": "2026-10-12T09:40:24.713587+00:00",
+          "change": "Giảm bản sao dữ liệu kiểm; giữ toàn bộ lịch sử và assertion. Chờ lượt tổng VPS 1GiB.",
+          "source_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/final_suite_followup",
+          "state": "RECHECK_PENDING"
         }
       ],
       "walkthrough": {
@@ -106507,6 +106663,47 @@ main{max-width:1240px} [hidden]{display:none!important}
             "state": "Ghi nhận riêng · không chặn áp thử theo Owner",
             "next": "Phản biện Claude/AI mới có thể bổ sung sau; không chặn áp dụng phạm vi đã kiểm",
             "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
+          },
+          {
+            "id": "TQT-P36-FRAMEWORK-MEMORY",
+            "problem": "Bộ tổng bị dừng137 dưới1GiB khi TEST sao chép lặp toàn lịch sử thật đã lớn.",
+            "target_code": "TQT-CHECK-006",
+            "state": "OPEN",
+            "next_action": "Giảm bản sao bộ nhớ TEST, giữ đọc/kiểm đầy đủ nguồn thật; nativewhole1GiB phải đạt trước đóng.",
+            "evidence_ref": "workspace_exec:b51e59bbc32b4cd3a4f84c1023d41ecf",
+            "application_id": "tools-quy-trinh/P36",
+            "target_version": "P36.3",
+            "scope": "Công cụ kiểm và xuất Master; không thay nghiệm thu MOW001",
+            "found_at": "2026-10-12T09:22:24.380030+00:00",
+            "owner": "Codex Host",
+            "receiver": "tools-quy-trinh"
+          },
+          {
+            "id": "TQT-P36-FRAMEWORK-EXPORT",
+            "problem": "Bộ xuất hvu-sync-py giữ HTMLcũ khi tài liệu vượt50MiB; trạng thái đồng bộ tổng mới không chứng minh tài liệu đã mới.",
+            "target_code": "hvu-sync-py",
+            "state": "OPEN",
+            "next_action": "Sửa công cụ hiện hữu bằng truyền/kiểm hash theo luồng; giữ atomic/last-good/Guard, kiểm exactsource và mởMaster thật.",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/master_publish",
+            "application_id": "tools-quy-trinh/P36",
+            "target_version": "P36.3",
+            "scope": "Công cụ kiểm và xuất Master; không thay nghiệm thu MOW001",
+            "found_at": "2026-10-12T09:22:24.380030+00:00",
+            "owner": "Codex Host",
+            "receiver": "tools-quy-trinh"
+          },
+          {
+            "id": "TQT-P36-FRAMEWORK-SOURCE-HASH",
+            "application_id": "tools-quy-trinh/P36",
+            "target_code": "TQT-CHECK-003",
+            "target_version": "P36.3",
+            "scope": "Bản chiếu Master; không thay tiến độ sản phẩm",
+            "problem": "Host đã gán hash toàn tệp vào record_sha256 vốn dành cho nội dung application; bộ003 phát hiện đúng dù dữ liệu bản chiếu trùng nguồn.",
+            "state": "FIXED",
+            "next_action": "record_sha256=hash canonical application; source_version=hash byte toàn tệp. Giữ cảhai phép đối chiếu trongrunner/003.",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/final_suite_followup",
+            "owner": "Codex Host",
+            "found_at": "2026-10-12T09:26:13.502910+00:00"
           }
         ],
         "cases": [

@@ -1,14 +1,25 @@
 """Validate design declarations and stored application; does not enforce production execution."""
-import copy,hashlib,json,re,sys,subprocess
+import copy,hashlib,json,re,sys,subprocess,tempfile
 from pathlib import Path
 path=Path(sys.argv[1] if len(sys.argv)>1 else Path(__file__).with_name('view.html'))
-s=path.read_text();c=json.loads(re.search(r'<script id="tqt-composite-processes"[^>]*>(.*?)</script>',s,re.S)[1])
+# Decode in place; slicing the 56 MB script duplicates its entire Unicode buffer.
+s=path.read_text();start=re.search(r'<script id="tqt-composite-processes"[^>]*>\s*',s).end()
+c=json.JSONDecoder().raw_decode(s,start)[0]
+anchors=set(re.findall(r'\bid="([^"]+)"',s));del s
+# Hash incrementally: full persisted history remains covered without a second JSON string.
+def digest(value):
+ h=hashlib.sha256()
+ for chunk in json.JSONEncoder(ensure_ascii=False,sort_keys=True,separators=(',',':')).iterencode(value):h.update(chunk.encode())
+ return h.hexdigest()
+real_application=c['catalog']['application_preview']['record']
+real_digest=digest(real_application)
+node_command=['node','--max-old-space-size=512',str(Path(__file__).with_name('check-record-control.js')),str(path)]
 REQUIRED={'application_id','process_code','process_version','target_code','target_version','scope','scope_stage','input_refs','actor','reviewer','recipient','output_ref','issue_register_ref','acceptance','return_to','plan_ref','start_confirmation'}
 SELECT={'code','version','scope','inputs','actor','reviewer','recipient','acceptance','authority'}
 BRANCH={'S1_OK':'S2','S2_OK':'S3','S3_RETURN':'S4','S4_PASS':'S6','S4_FAIL':'S5','S6_ACK':'XONG','NO_PROCESS':'S5','MISSING_INPUT':'S5'}
 def resolve(d,ref):
  if ref.startswith('#'):
-  assert ('id="'+ref[1:]+'"') in s;return
+  assert ref[1:] in anchors;return
  m=re.fullmatch(r'catalog\.normal_processes\[code=([^\]]+)\]\.steps\[(\d+)\]',ref)
  if m:rows=[p for p in d['catalog']['normal_processes'] if p['code']==m[1]]
  else:
@@ -16,8 +27,12 @@ def resolve(d,ref):
   rows=[p for p in d['processes'][0]['supplements'] if p['id']==m[1]]
  assert len(rows)==1 and int(m[2])<len(rows[0]['steps']) and rows[0]['steps'][int(m[2])]
 def gate(a,r):
- d=copy.deepcopy(r);d['application_preview']['record']=a
- proc=subprocess.run(['node',str(Path(__file__).with_name('check-record-control.js')),str(path),'--audit'],input=json.dumps(d),text=True,capture_output=True,check=True)
+ # Only the record binding changes; the read-only audit receives the entire catalog.
+ d={**r,'application_preview':{**r['application_preview'],'record':a}}
+ # Stream the complete input to disk instead of retaining JSON plus encoded stdin.
+ with tempfile.TemporaryFile(mode='w+',encoding='utf-8') as payload:
+  json.dump(d,payload,ensure_ascii=False,separators=(',',':'));payload.seek(0)
+  proc=subprocess.run(node_command+['--audit'],stdin=payload,text=True,capture_output=True,check=True)
  return json.loads(proc.stdout)
 
 def validate_application(a,r):
@@ -49,7 +64,7 @@ def validate_application(a,r):
 def validate(d):
  r=d['catalog'];allp=r['records']+r['normal_processes'];by={x['code']:x for x in allp};assert len(by)==len(allp)
  for p in allp:assert p['object_type']=='MOW' and all(p['guide'].get(k) for k in ['purpose','when','avoid','done'])
- for b in r['instruction_owners']:assert b['process'] in by and ('id="'+b['anchor']+'"') in s
+ for b in r['instruction_owners']:assert b['process'] in by and b['anchor'] in anchors
  for p in r['records']:
   for ref in p['child_refs']:assert ref['code'] in by and ref['version']==by[ref['code']]['version'] and ref['relation'] in ['candidate','conditional_call']
  w=by['MOW-TH-005']['workflow'];assert w['selection']['cardinality']==1 and 'MOW-TH-005' in w['selection']['exclude'];assert SELECT<=set(w['selection']['required'])
@@ -78,7 +93,7 @@ def validate(d):
  f=r['work_form'];assert f['owner']=='MOW-TH-005' and f['version']==by['MOW-TH-005']['version'] and len({x['key'] for x in f['fields']})==len(f['fields'])
  assert all(x['mot'] in {st['code'] for st in steps} for x in f['fields'])
  a=r['application_preview']['record'];validate_application(a,r)
- assert hashlib.sha256(json.dumps(a,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()==r['application_preview']['record_sha256']
+ assert digest(a)==r['application_preview']['record_sha256']
  return True
 validate(c)
 mutations=[
@@ -104,19 +119,26 @@ mutations=[
  lambda d:d['catalog']['records'][4]['workflow']['branches'].update(S2_OK='S6'),
  lambda d:d['catalog']['trial_contract']['required'].append('issue_ref')]
 for f in mutations:
- d=copy.deepcopy(c);f(d)
+ # Declaration cases never edit the application; share its full immutable history.
+ d=copy.deepcopy(c,{id(real_application):real_application});f(d)
  try:validate(d)
  except (AssertionError,KeyError,IndexError,StopIteration):pass
  else:raise AssertionError('invalid declaration accepted')
+del d
+# Application negatives are TEST-only and independent of the real execution stage.
+# Real audit/hash/source readback above/below retain every persisted history entry.
+seed=copy.deepcopy({k:v for k,v in real_application.items() if k not in ['history','checkpoint_checks','server_receipt']})
+seed.update(state='CHUAN_BI',history=[{'event':'TEST_SEED','environment':'ISOLATED_TEST'}],checkpoint_checks=[],questions_complete=False,requirements_checked=False)
+seed['start_confirmation'].update(state='NOT_CONFIRMED',evidence_ref=None)
 # Application tests bypass preview hash so they exercise gates, not merely hash mismatch.
 appmut=[lambda a:a.update(state='DANG_LAM'),lambda a:a.update(state='XONG'),lambda a:a.update(deployed=True),lambda a:a.update(actor=''),lambda a:a.update(issue_register_ref=''),lambda a:a['selected_process'].update(code='MOW-TH-005'),lambda a:a['plan'][0].update(depends_on=['P05']),lambda a:a['release'].update(scope='PRODUCTION')]
 for fn in appmut:
- a=copy.deepcopy(c['catalog']['application_preview']['record']);fn(a)
+ a=copy.deepcopy(seed);fn(a)
  try:validate_application(a,c['catalog'])
  except (AssertionError,KeyError):pass
  else:raise AssertionError('invalid application accepted')
 # Synthetic positive path, then remove evidence at each boundary.
-ready=copy.deepcopy(c['catalog']['application_preview']['record'])
+ready=copy.deepcopy(seed)
 ready.update(state='SAN_SANG',questions_complete=True,requirements_checked=True)
 ready['start_confirmation'].update(state='CONFIRMED',evidence_ref='SIM:confirmation')
 for row in ready['declarations']:row.update(result='PASS',evidence_refs=['SIM:verified'])
@@ -137,15 +159,13 @@ for fn in late:
  except AssertionError:pass
  else:raise AssertionError('premature completion accepted')
 # A serialized synthetic fixture cannot carry trusted runtime identity/access into another process.
-full=json.loads(subprocess.run(['node',str(Path(__file__).with_name('check-record-control.js')),str(path),'--complete-fixture'],text=True,capture_output=True,check=True).stdout)
+del a,seed,ready,closed
+full=json.loads(subprocess.run(node_command+['--complete-fixture'],text=True,capture_output=True,check=True).stdout)
 full['application_preview']['record']['state']='XONG'
 try:validate_application(full['application_preview']['record'],full)
 except AssertionError:pass
 else:raise AssertionError('self-contained fixture supplied its own trusted authority')
-source_check='LOCAL_PROJECTION_ONLY'
-source=Path(__file__).parent.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json'
-if source.exists():
- actual=json.loads(source.read_text())['application_D24'];assert actual==c['catalog']['application_preview']['record'];source_check='MATCH_EXISTING_PRODUCT_RECEIPT'
+del full
 a=c['catalog']['application_preview']['record'];r=c['catalog'];answers={x['key']:x for x in a['declarations']};labels={f['key']:f['label'] for f in r['work_form']['fields']}
 missing=[]
 for key in r['records'][4]['workflow']['start_gate']['requires']:
@@ -153,8 +173,13 @@ for key in r['records'][4]['workflow']['start_gate']['requires']:
   if a['start_confirmation']['state']!='CONFIRMED':missing.append({'field':key,'need':'Xác nhận kế hoạch đúng phiên trước S3','owner':a['start_confirmation']['actor']})
  elif answers[key]['result']!='PASS' or answers[key]['validity']!='CURRENT' or not answers[key]['evidence_refs']:
   missing.append({'field':key,'need':labels[key]+' — cần kiểm và ghi căn cứ','owner':answers[key]['owner']})
-candidate=copy.deepcopy(a);candidate['state']='SAN_SANG'
+candidate={**a,'state':'SAN_SANG'}
 try:validate_application(candidate,r);can_start=True
 except (AssertionError,KeyError,IndexError):can_start=False
 if not can_start and not missing:missing.append({'field':'application','need':'Khai báo, bộ câu hoặc xác nhận kế hoạch chưa hợp lệ; rà phiếu theo cổng S2','owner':a['actor']})
-print(json.dumps({'positive':1,'negative':len(mutations)+len(appmut)+len(late)+1,'procedures':len(c['catalog']['records'])+len(c['catalog']['normal_processes']),'source_check':source_check,'application_state':a['state'],'can_start':can_start,'needs_before_start':missing,'next':a['next'],'production_ready':False},ensure_ascii=False))
+source_check='LOCAL_PROJECTION_ONLY'
+source=Path(__file__).parent.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json'
+if source.exists():
+ actual=json.loads(source.read_text())['application_D24'];assert actual==real_application;source_check='MATCH_EXISTING_PRODUCT_RECEIPT';del actual
+assert digest(real_application)==real_digest,'TEST_MUTATED_REAL_APPLICATION'
+print(json.dumps({'positive':1,'negative':len(mutations)+len(appmut)+len(late)+3,'procedures':len(c['catalog']['records'])+len(c['catalog']['normal_processes']),'source_check':source_check,'source_integrity':'UNCHANGED_DURING_CHECK','application_state':a['state'],'can_start':can_start,'needs_before_start':missing,'next':a['next'],'production_ready':False},ensure_ascii=False))

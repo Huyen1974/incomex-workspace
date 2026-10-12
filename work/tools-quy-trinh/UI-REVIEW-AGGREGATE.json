@@ -63771,6 +63771,53 @@
         ],
         "work_id": "tools-quy-trinh",
         "verification": "OBSERVED_PLATFORM_RESPONSE"
+      },
+      {
+        "action": "browser:cua",
+        "provider": "Codex CUA",
+        "version": "UNKNOWN_PLATFORM_BUILD",
+        "work_id": "tools-quy-trinh",
+        "run_id": "P36-CUA-G1-TAB10",
+        "run_id_origin": "Host correlation for actual tab10; not provider execution UUID",
+        "observed_at": "2026-10-12T08:51:18Z",
+        "time_basis": "Reviewer verification window; individual clicks not all timestamped",
+        "result": "16 observations of deployed MOW001 G1 UI, examples explicitly separate from live sources; G2 sources not connected",
+        "result_sha256": "def89d2033203f8a3db76f5c31f92f0e50b409c17a0b85ef3d959d20ab6e92d4",
+        "evidence_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24",
+        "verification": "OBSERVED_UI_AND_REVIEWED_EVIDENCE"
+      },
+      {
+        "action": "jev-reference:evaluate",
+        "provider": "TypeSafe",
+        "model": "typesafe/jev-1.13-20260917",
+        "work_id": "tools-quy-trinh",
+        "run_id": "gen-dec-1791790375-zl0Zz6algBm7fWnpANQf",
+        "result": "Advisory signed-server-evidence architecture choice; not product approval",
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/jev",
+        "verification": "OBSERVED_PLATFORM_RESPONSE"
+      },
+      {
+        "action": "local:shell",
+        "provider": "Codex exec_command",
+        "version": "UNKNOWN_PLATFORM_BUILD",
+        "work_id": "tools-quy-trinh",
+        "run_id": "P36-REVIEW-P04-e1e753",
+        "run_id_origin": "Actual tool execution chunk, technical reviewer in same OpenAI task",
+        "result": "Read-only VPS verification of actual P04/PLAN/11criteria and two persisted design hashes ACCEPT for CP05",
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/actual_p04",
+        "verification": "OBSERVED_REVIEWER_EXECUTION"
+      },
+      {
+        "action": "agent-data:workspace_transaction",
+        "provider": "Agent Data VPS",
+        "work_id": "tools-quy-trinh",
+        "related_work_id": "mow-mot-moit-mout",
+        "run_id": "0c68b2d7ed5d42a18a13482714235d66",
+        "source_version": "88460eee2688ebd8ce4f2c11d94f17887049322c7e44c20e0f2fd463b3b82422",
+        "result": "Actual CP05 committed 0ea489a366eaa4a230a6a2346987281e8d9c9694, 5/7; Owner decision/ACK absent",
+        "result_sha256": "ec1620205a41c174f98a38b77225a2151811745a65e2c42f11c1d21fd774d6df",
+        "evidence_ref": "workspace_task:ea88409a8d19423d91b8977ebdce9e3c",
+        "verification": "NATIVE_TRANSACTION_RECEIPT_CROSS_WORK_LINK"
       }
     ],
     "open": [
@@ -65698,6 +65745,115 @@
       "lesson": "Tests must construct their own phase and records. Never lower real product progress or loosen engine/gate to satisfy a fixture.",
       "engine_or_gate_changed": false,
       "final_pass_claimed": false
+    },
+    "failed_final_runs": [
+      {
+        "job_id": "b51e59bbc32b4cd3a4f84c1023d41ecf",
+        "source_head": "73e8643501a0e13274a57974b9549069a40d66ef",
+        "exit_code": 137,
+        "elapsed_seconds": 67.263,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "exec_memory_bytes": 1073741824,
+        "cause": "Resource limit suspected; fixture duplicates growing real history. Recheck required; not PASS."
+      }
+    ],
+    "master_publish": {
+      "commit": "73e8643501a0e13274a57974b9549069a40d66ef",
+      "task_id": "544cc969d8f84170871714f66a556db8",
+      "source_view_sha256": "459f000dda96c4970cea4552f3d3d8987140915ac467c0baebec594531d877a6",
+      "ui_readback": "STALE_LAST_GOOD_EXPORT_UNDER_REPAIR"
+    },
+    "exporter": {
+      "checked_at": "2026-10-12T09:30:25.651811+00:00",
+      "state": "APPLIED_EXPORT_PENDING_NEW_REVISION",
+      "files": {
+        "sync.py": {
+          "live_sha256": "8336adca4e44a044f88a1812a08c7b1dfc70dccb5d0b6f3e3777e2535164a21e",
+          "rollback_sha256": "b15b5189f7e7edeb856d33b53803cb9c789f6efd6e1efa6574c3740ca5a127b6"
+        },
+        "test_sync.py": {
+          "live_sha256": "3003b56775c82e9735db4f1006808cf9d7fadffdc65e9ca8f5b033e2601f74b3",
+          "rollback_sha256": "7eca12eaca70e479bfff9ab132aa832f9db141f44ac45277326ac7ff9dfbb919"
+        },
+        "README.md": {
+          "live_sha256": "6ea9348b418ecf225f2be2b0bc60c551df6476dca336e93395946f49ca5a1d8c",
+          "rollback_sha256": "89cb301fab2cca4066f383ca558ae5bd12a62f86c1915f2d5d870012b23da571"
+        },
+        "00-NHAN-THU-MUC.md": {
+          "live_sha256": "9280c5ae8eee34ad6a777b60410b569a5d2ce04e718ea658de0e839d23e57029",
+          "rollback_sha256": "a8e765f0e117a4e55d31f808986426bc73af465de60b2246704b209537d60fb3"
+        }
+      },
+      "guard": {
+        "target_id": "hvu-sync-py",
+        "registry_alias": "HVU-SCRIPT.sync.py",
+        "alias_note": "One existing runtime, not a new DOT; display alias must point to registered target hvu-sync-py",
+        "baseline_sha256": "8336adca4e44a044f88a1812a08c7b1dfc70dccb5d0b6f3e3777e2535164a21e",
+        "live_matches_guard_baseline": true,
+        "uid": 0,
+        "gid": 0,
+        "mode": "0o644",
+        "symlink": false,
+        "audit": {
+          "timestamp": "2026-10-12T09:28:27Z",
+          "mutation_id": "P36-HVU-EXPORT-20261012",
+          "agent_identity": "Astra-Codex",
+          "target_logical_id": "hvu-sync-py",
+          "baseline_result": "FRESH",
+          "lock_result": "ACQUIRED",
+          "validation_result": "LIVE_PASS",
+          "apply_result": "APPLIED",
+          "rollback_result": "NONE"
+        }
+      },
+      "rollback": {
+        "directory": "/opt/incomex/backups/tqt-p36-export-20261012",
+        "manifest": {
+          "at": "2026-10-12T09:28:26.655476+00:00",
+          "before": {
+            "sync.py": "b15b5189f7e7edeb856d33b53803cb9c789f6efd6e1efa6574c3740ca5a127b6",
+            "test_sync.py": "7eca12eaca70e479bfff9ab132aa832f9db141f44ac45277326ac7ff9dfbb919",
+            "README.md": "89cb301fab2cca4066f383ca558ae5bd12a62f86c1915f2d5d870012b23da571",
+            "00-NHAN-THU-MUC.md": "a8e765f0e117a4e55d31f808986426bc73af465de60b2246704b209537d60fb3"
+          },
+          "scope": "P36 existing HVU exporter; no PG; protected apply only"
+        },
+        "manifest_sha256": "7834ddb841e7060ca4486c87a55cc77bc43a9c3f8279858e6898173d2953831a",
+        "method": "Same Config Guard, fresh mutation ID, expected current hash; preserve public snapshots and source history"
+      },
+      "vps_regression": {
+        "tests": 48,
+        "seconds": 37.247,
+        "result": "PASS",
+        "evidence_ref": "/opt/incomex/staging/tqt-p36/export-regression.log",
+        "sha256": "e5506477be02bcafd7008b63a7f4261a3f910ae9caaad1cc7e867bb1d479a5e1",
+        "large_case_bytes": 53477533,
+        "large_case_python_heap_peak": 2127056
+      },
+      "export_snapshot": {
+        "published_revision": "73e8643501a0e13274a57974b9549069a40d66ef",
+        "document_status": "last-good",
+        "document_revision": "0ea489a366eaa4a230a6a2346987281e8d9c9694",
+        "source_revision": "73e8643501a0e13274a57974b9549069a40d66ef"
+      },
+      "trigger_performed": false,
+      "final_ui_ready": false,
+      "pg": "NOT_RUN",
+      "scoped_post_protect": {
+        "method": "Read-only compare live hash to exact hvu-sync-py guard baseline; verify root:root 0644 non-symlink and APPLIED audit",
+        "result": "PASS",
+        "existing_tool_limit": "incomex-config-drift-check/status-v0 have no target-only option; full scanner not invoked in this scoped read-only pass"
+      },
+      "vps_source_commit": "214e219"
+    },
+    "source_hash_correction": {
+      "state": "FIXED_PENDING_NATIVE_RECHECK",
+      "error": "Host publish helper assigned whole-file hash into record_sha256",
+      "record_sha256": "a1d889793fe8f0d5687d570bab5ecd6556b63e9e58c64eaa9ee286919f1d02a6",
+      "source_version": "ec1620205a41c174f98a38b77225a2151811745a65e2c42f11c1d21fd774d6df",
+      "product_changed": false,
+      "rule": "record_sha256 canonical application content; source_version exact full-file bytes"
     }
   }
 }

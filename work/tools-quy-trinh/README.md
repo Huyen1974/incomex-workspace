@@ -14,6 +14,10 @@ Nguồn chuẩn: `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24`; 
 
 **Master dùng cùng nguồn:** CAT012 tiêu chí, CAT015 kết quả thực/người kiểm, CAT016 thay đổi, CAT025 quyết định, CAT069 điểm hở, CAT228 đầu ra, CAT229 lượt P36, CAT232 nhận, CAT233 lịch sử, CAT206 hợp đồng. Không nhập kết quả hai nơi, không thêm Master/DOT. CAT229 đọc vòng thật; CAT015 không biến hành động thành kết quả. Giữ hai cột GPT/Claude; thiếu chữ ký ghi chưa duyệt. Việc tiếp: chạy lại bộ tổng sau sửa fixture, trình Owner quyết định G1; G2/G3, tối ưu hồ sơ lớn và nhãn ACK lịch sử tiếp tục theo sổ hiện có.
 
+**Bài học P36 khi hồ sơ tăng:** CHECK003/004/005 giữ kiểm toàn lịch sử thật, chỉ tránh bản sao thừa trong TEST; CHECK006 giải phóng dữ liệu đã đối chiếu trước khi chạy bộ con. Không giảm tiến độ thật cho vừa fixture. `record_sha256` là hash nội dung application theo dạng chuẩn; `source_version` là hash byte toàn tệp. Hai loại không thay nhau.
+
+**Giao diện phải đọc đúng phiên:** kiểm `documentStatus` và hash tài liệu trong revision xuất, không chỉ `sync-status` hoặc HTTP200. Công cụ hiện hữu `hvu-sync-py` (Master alias `HVU-SCRIPT.sync.py`) được sửa qua Config Guard để truyền tệp lớn theo luồng; test/README nằm cùng nguồn `scripts/hvu-b2`. Bằng chứng và hoàn tác ở aggregate P36/exporter. Không tạo DOT mới; mở rộng phạm vi kiểm kê hiện hữu để tìm lại thành phần này.
+
 ## P35 · MOW001 thật — đọc trước lịch sử P34 trở về trước
 
 Nguồn duy nhất: `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24`, mục `execution_walk` giữ bước đã làm, nguồn/hash, điểm tắc và người làm tiếp. CP01 đã đối chiếu Master MOW/3MOT thật; 20/34 mục đã đọc lại. Hai mốc CP01/CP02 có bằng chứng thật: P01 đủ50 câu (rà44, thêm6),13 khai báo và gói chuẩn bị đã được tiến trình khác tự mở/kiểm; đây là chuẩn bị G1, chưa phải sản phẩm đạt. Chưa qua CP03, chưa sửa/duyệt sản phẩm.

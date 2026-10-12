@@ -148,7 +148,8 @@ def self_test():
         assert source_readback(f.with_name('missing.json'),{})['state']=='FAIL'
     return {'cases':20,'store':'temporary TEST file in execution snapshot','write_read_restore':'PASS','production':'NOT_TOUCHED'}
 
-def audit_self_test():
+def audit_self_test(audit_sources):
+    global BASE
     import sqlite3
     with tempfile.TemporaryDirectory(prefix='TQT-TEST-usage-') as tmp:
         p=Path(tmp)/'ledger.sqlite';con=sqlite3.connect(p)
@@ -164,19 +165,28 @@ def audit_self_test():
         assert canonical_action('mcp__codex_apps__jev_reference_evaluate')=='jev-reference:evaluate'
         try:usage_audit(p,'../OTHER');assert False
         except ValueError:pass
+    # P36: patch behavior is tested on an isolated minimal catalog. Never clone the
+    # growing real product/history repeatedly just to test an audit metadata patch.
     evidence=BASE/'UI-REVIEW-AGGREGATE.json';audit=json.loads(evidence.read_text())['host_review_P33']['audit']
     import copy
     fake=copy.deepcopy(audit);fake['observed_at']='2099-01-01T00:00:00Z'
-    patch=audit_patch(fake);assert len(patch['operations'])==2
-    for op in patch['operations']:
-        old=(BASE/Path(op['path']).name).read_text();edit=op['edits'][0]
-        assert old.count(edit['old_str'])==1 and op['expected_version']==hashlib.sha256(old.encode()).hexdigest()
-        changed=old.replace(edit['old_str'],edit['new_str'],1)
-        if op['path'].endswith('.json'):assert json.loads(changed)['host_review_P33']['audit']['observed_at']==fake['observed_at']
-        else:assert json.loads(re.search(r'<script id="tqt-composite-processes"[^>]*>(.*?)</script>',changed,re.S)[1])['catalog']['tool_registry']['audit_projection']['observed_at']==fake['observed_at']
-    wrong=copy.deepcopy(fake);wrong['scope']['work_id']='OTHER'
-    try:audit_patch(wrong);assert False
-    except ValueError:pass
+    real_base=BASE
+    with tempfile.TemporaryDirectory(prefix='TQT-TEST-audit-patch-') as tmp:
+        try:
+            BASE=Path(tmp)
+            (BASE/'view.html').write_text('<script id="tqt-composite-processes" type="application/json">'+json.dumps({'catalog':{'tool_registry':{'audit_sources':audit_sources,'audit_projection':{}}}})+'</script>')
+            (BASE/'UI-REVIEW-AGGREGATE.json').write_text(json.dumps({'host_review_P33':{'audit':audit,'external_receipts':[]}}))
+            patch=audit_patch(fake);assert len(patch['operations'])==2
+            for op in patch['operations']:
+                old=(BASE/Path(op['path']).name).read_text();edit=op['edits'][0]
+                assert old.count(edit['old_str'])==1 and op['expected_version']==hashlib.sha256(old.encode()).hexdigest()
+                changed=old.replace(edit['old_str'],edit['new_str'],1)
+                if op['path'].endswith('.json'):assert json.loads(changed)['host_review_P33']['audit']['observed_at']==fake['observed_at']
+                else:assert json.loads(re.search(r'<script id="tqt-composite-processes"[^>]*>(.*?)</script>',changed,re.S)[1])['catalog']['tool_registry']['audit_projection']['observed_at']==fake['observed_at']
+            wrong=copy.deepcopy(fake);wrong['scope']['work_id']='OTHER'
+            try:audit_patch(wrong);assert False
+            except ValueError:pass
+        finally:BASE=real_base
     for state in ('DRY_RUN','BLOCKED','OBSERVED'):assert runner_test_receipt({'status':state,'runner_sha256':'a'*64},'TEST') is None
     assert runner_test_receipt({'status':'PASS','runner_sha256':'a'*64},'TEST')['exit_code']==0
     assert runner_test_receipt({'status':'FAIL','runner_sha256':'a'*64},'TEST')['exit_code']==1
@@ -405,11 +415,16 @@ def main():
         report['transition_check']={'state':'BLOCKED','reason':'MISSING_RUNTIME'}
     if not errors and args.verify and not args.dry_run:
         report['runner_self_test']=self_test()
-        report['usage_audit_self_test']=audit_self_test()
+        report['usage_audit_self_test']=audit_self_test(data['tool_registry']['audit_sources'])
         projection=data['tool_registry'].get('audit_projection')
         if projection:
             evidence=json.loads((BASE/'UI-REVIEW-AGGREGATE.json').read_text())['host_review_P33']
             if projection!=audit_projection(evidence['audit'],evidence.get('external_receipts',[])):report['inventory_errors'].append('AUDIT_PROJECTION_DRIFT')
+    # The complete real source has already been compared above; child suites reopen
+    # it themselves. Release the parent's duplicate before their memory is admitted.
+    del data
+    import gc
+    gc.collect()
     if not errors and not report['prerequisite_errors'] and args.verify and not args.dry_run:
         for x in reg['records']:
             if x['kind']=='RUNNER':continue

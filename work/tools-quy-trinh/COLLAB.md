@@ -960,3 +960,5 @@ P36 · Cửa ghi triển khai1b7684368ef7c982cf8dbccfe5020f00774d863e;78PASS1ski
 
 ## P36 · Kết quả thực G1 và bài học dùng lại
 Owner đã giao đi MOW001 đến cuối ngoài PG, không dùng TEST thay việc thật. Đã nối server receipts P36-2, CP03v5 commitdf12545; P02/P03 thật commitc54ec8c; Reviewer f742f5/89044e đọc đúnghash và ACCEPT kỹ thuật G1,16quan sátUI+24model. P04/11tiêuchí đang ghi–đọc đểchốtCP05; CP06/07 dành cho quyếtđịnh/nhậnOwner thật. Lỗi HTTP hồsơlớn được xửlý bằngworkspace_task_start hiệncó; outcome được đối chiếu hash/log trước retry. Master projection sửaP35cốđịnh và action bịchiếu thànhactual. Chi tiết/phiên cuối tại aggregate#host_review_P36 và phiếu MOW001; không PG, không gửiAnthropic, không thêmDOT/Master.
+
+P36 · Phát sinh khi chạy hồ sơ thật lớn: native tổng b51e59 exit137, không tính PASS; phát hiện exporter giới hạn50MiB giữ HTMLcũ dù revision tổng mới. Đã sửa qua Config Guard targethvu-sync-py,48kiểm VPSđạt; đang kiểm lại native/đọc UI. Host cũng sửa nhầm trường hash(application khác hash tệp), không sửa sản phẩm/tiến độ đểnékiểm. Theo dõi tại Master điểm hở và aggregateP36.
