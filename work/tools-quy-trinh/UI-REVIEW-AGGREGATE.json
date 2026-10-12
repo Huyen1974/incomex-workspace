@@ -1916,7 +1916,7 @@
   },
   "host_review_P33": {
     "scope": "DOT/Tool reuse inventory, home navigation, existing ledger receipts; no PG; MOW001 0/7",
-    "state": "VERIFIED_PENDING_PROVIDER_DISPLAY_READBACK",
+    "state": "SCOPED_IMPLEMENTATION_VERIFIED",
     "audit": {
       "schema_version": 1,
       "observed_at": "2026-10-12T03:27:33.080921+00:00",
@@ -61629,7 +61629,8 @@
       ],
       "provider_records": 25,
       "expected_tool_master_rows": 34,
-      "state": "SCHEMA_VERIFIED_UI_READBACK_PENDING"
+      "state": "SCHEMA_AND_UI_VERIFIED",
+      "ui_readback": {"surface": "Actual Codex browser DOM", "rows": 34, "legacy_methods": 9, "removed_names_absent": true, "added_actions_visible": 4}
     }
   }
 }
